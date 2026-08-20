@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dig.c` `digactualhole` `switch_terrain` (named from D-1129). Not dissolve_bars.
 - [ ] `hack.c` hero `test_move` `passes_bars` (named from D-1258). Not ALLOW_BARS.
 - [ ] `monmove.c` `meatmetal` (named from D-1247). Not switch_terrain.
 - [ ] `invent.c` `hold_another_object` `hitfloor(FALSE)` (named from D-1263). Not pickup highdrop.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dothrow.c` `toss_up` (named from D-1263). Not hold_another_object.
 - [ ] `display.c` `display_self` U_AP_TYPE glyphs (named from D-1260). Not seemimic.
 - [ ] `objnam.c` doname EGG (named from D-1255). Not MEAT_RING.
+- [ ] `dothrow.c` `hurtle_step` `switch_terrain` (named from D-1129). Not u_on_rndspot.
+- [ ] `dungeon.c` `u_on_rndspot` `switch_terrain` (named from D-1129). Not dothrow hurtle.
+- [ ] `objnam.c` wish `switch_terrain` (named from D-1129). Not doname EGG.
+- [ ] `trap.c` `maketrap` PIT/HOLE `set_levltyp` (named from D-1269). Not liquid_flow.
+- [ ] `hack.c` Blind unseen boulder feel (named from D-1262). Not next_boulder.
 
 ## Parked (do not pop)
 

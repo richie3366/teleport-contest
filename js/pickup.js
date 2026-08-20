@@ -960,9 +960,9 @@ export async function pooleffects(newspot) {
  * (D-0976); when !in_steed_dismounting — non-pit pickup then dotrap
  * then pit pickup.
  * Deferred: recursion guards, levitation timeout adjust, Warning ice,
- * hidden monster surprise. digactualhole / dothrow hurtle /
- * u_on_rndspot / objnam wish still call switch_terrain themselves.
- * set_uinwater is D-1267.
+ * hidden monster surprise. digactualhole PIT/HOLE is D-1269.
+ * dothrow hurtle / u_on_rndspot / objnam wish still call
+ * switch_terrain themselves. set_uinwater is D-1267.
  */
 export async function spoteffects(pick) {
     const u = game.u;

@@ -5,18 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1268 `hack.c` `spoteffects` dest-typ /
-  `MAX_TYPE` → `switch_terrain` (reviews **225–228** cadence **#1605**
-  `42d50a53`). Next: Open `dig.c` `digactualhole` `switch_terrain`
-  (named from D-1129). Not dissolve_bars. Do not skip D-1268…D-1229.
+- **Fortress 44/44** after D-1269 `dig.c` `digactualhole` PIT/HOLE
+  `switch_terrain` (reviews **225–228** cadence **#1605**
+  `42d50a53`). Next: Open `hack.c` hero `test_move` `passes_bars`
+  (named from D-1258). Not ALLOW_BARS. Do not skip D-1269…D-1229.
   Do not pull skipdrin / pit kick / missmu / mattacku AT_TENT /
-  explmu / AT_HUGS / hero `test_move` `passes_bars` / unported
-  `mhitm_ad_*` `pline_mon` / doname EGG / `display_self` U_AP_TYPE
-  glyphs / swap-with-pet `seemimic` / Blind unseen boulder feel /
-  invent hold_another_object hitfloor / pickup highdrop / toss_up /
-  dothrow hurtle / `u_on_rndspot` / objnam wish. Do not wrap
+  explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` / doname EGG /
+  `display_self` U_AP_TYPE glyphs / swap-with-pet `seemimic` / Blind
+  unseen boulder feel / invent hold_another_object hitfloor / pickup
+  highdrop / toss_up / dothrow hurtle / `u_on_rndspot` / objnam wish /
+  `maketrap` PIT/HOLE `set_levltyp`. Do not wrap
   `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1268. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1269. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -25,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1268.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1269.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -40,12 +40,11 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1268 (index). Named still: skipdrin /
+- Do not skip D-1071…D-1269 (index). Named still: skipdrin /
   pit kick; missmu/explmu; doname EGG; launch_obj
-  down_gate / boulder-chain; `meatobj` / meatbox; `digactualhole`
-  `switch_terrain`; dothrow hurtle / `u_on_rndspot` / objnam wish;
-  hero
-  `test_move` `passes_bars`; `display_self` U_AP_TYPE glyphs;
+  down_gate / boulder-chain; `meatobj` / meatbox; dothrow hurtle /
+  `u_on_rndspot` / objnam wish; `maketrap` PIT/HOLE `set_levltyp`;
+  hero `test_move` `passes_bars`; `display_self` U_AP_TYPE glyphs;
   Blind unseen boulder feel; invent hold_another_object hitfloor;
   pickup highdrop; toss_up.
   Do not “fix” seed0383 with ALIGN/FORCE.
@@ -60,10 +59,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1269: `dig.c` `digactualhole` PIT after `wake_nearby` and
+  HOLE `at_u` → `switch_terrain` then Lev/Fly re-read. C
+  `maketrap` PIT/HOLE `set_levltyp` STONE/SCORR→CORR still named
+  (STONE stay blocklev). dothrow hurtle / `u_on_rndspot` / objnam
+  wish named.
 - D-1268: `hack.c` `spoteffects` dest-typ ≠ origin or
   `iflags.terrain_typ == MAX_TYPE` → `switch_terrain` before
-  `pooleffects`. `digactualhole` / dothrow hurtle / `u_on_rndspot` /
-  objnam wish named.
+  `pooleffects`.
 - D-1267: `hack.c` `set_uinwater` — in_out ≠ (int)uinwater writes
   0/1 then `switch_terrain`. boulder_hits_pool dry-land, drown
   fail-crawl, goto_level leave+after-getlev. pooleffects leave /
@@ -95,7 +98,7 @@ Objective/score live in `CURRENT.md`.
   `seemimic`). `display_self` U_AP_TYPE glyphs named.
 - D-1259: `monmove.c` `dissolve_bars` `u_at` → `switch_terrain`
   after `newsym`. still_chewing / postmov / zap / hit_bars await.
-  `spoteffects` dest-typ D-1268; `digactualhole` named.
+  `spoteffects` dest-typ D-1268; `digactualhole` D-1269.
 - D-1258: `mondata.c` `passes_bars` + `mon.c` `mon_allowflags`
   ALLOW_BARS rust/corr/metallivore/slithy-small + ustuck subset;
   `mfndpos` W_NONDIGGABLE rust/corr skip. Hero `test_move` named.

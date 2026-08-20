@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1269 — `dig.c` `digactualhole` PIT/HOLE → `switch_terrain`
+
+- **Status:** fixed (map-driven Open; named omit from D-1129 /
+  D-1268; not a public FAIL)
+- **Symptom:** JS `digactualhole` never called `switch_terrain`
+  after creating a PIT or HOLE, so leftover Lev/Fly `FROMOUTSIDE`
+  stayed stale and the post-dig `Levitation || Flying` re-read
+  could not set `wont_fall` (hero fell while C would float).
+- **C locus:** `dig.c` `digactualhole` `:731–735` (PIT after
+  `wake_nearby`, unconditional) and `:754–759` (HOLE `at_u` only)
+  then `if (Levitation || Flying) wont_fall = TRUE`. Body live
+  D-1129 / D-1151 (`hack.c` `:3178–3217`). C `maketrap` PIT/HOLE
+  already `set_levltyp` STONE/SCORR→CORR before this call.
+- **JS was:** `// switch_terrain deferred` then sticky
+  `u.Levitation || u.Flying`.
+- **Fix:** await live `switch_terrain` at both C sites; re-read
+  local `Levitation()`/`Flying()` youprop helpers (H||E)&&!B.
+  Did not pull `maketrap` PIT/HOLE `set_levltyp`, dothrow
+  `hurtle_step`, `u_on_rndspot`, objnam wish,
+  `buried_ball_to_punishment`. Rule #2: no fs.
+- **JS:** `js/dig.js` `digactualhole`; `js/hack.js` comments.
+- **Not this iter:** `trap.c` `maketrap` PIT/HOLE `set_levltyp`
+  (STONE stay blocklev until that morph); dothrow hurtle dest-typ;
+  `dungeon.c` `u_on_rndspot`; objnam wish terrain.
+- **Verified:** private canary **16**/16 (C PIT after wake /
+  HOLE at_u only; JS await + youprop re-read; leftover BLev/BFly
+  clear; HLev float_up + no set_utrap; PIT adjacent still runs;
+  HOLE not-at_u skip; STONE stays blocklev; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session digs a pit/hole with leftover Lev/Fly `FROMOUTSIDE`.
+- **Follow-up:** Open `hack.c` hero `test_move` `passes_bars`.
+
 ## D-1268 — `hack.c` `spoteffects` dest-typ → `switch_terrain`
 
 - **Status:** fixed (map-driven Open; named omit from D-1129 /
