@@ -59,28 +59,30 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1272. Reviews **229–232** all
+**Map-driven fortress** after D-1273. Reviews **229–232** all
 **ACCEPT-WITH-DEBT** (no Must-fix; D-1254 closed review **212**).
 **Next cluster:**
-Open `pickup.c` highdrop `hitfloor` (named from D-1263). Not toss_up.
-Do not skip D-1272…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `dothrow.c` `toss_up` (named from D-1263). Not hold_another_object.
+Do not skip D-1273…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull skipdrin / pit kick / missmu/wildmiss/mswings `pline_mon`
 / mattacku AT_TENT / explmu / AT_HUGS / unported uhitm `mhitm_ad_*`
 `pline_mon` / doname EGG / `display_self` U_AP_TYPE glyphs /
 swap-with-pet `seemimic` / Blind unseen boulder feel / next_boulder /
-verysmall vain / pickup highdrop / toss_up / dothrow hurtle /
-`u_on_rndspot` / objnam wish `switch_terrain` / `maketrap` PIT/HOLE
-`set_levltyp` / Underwater bars / generic rock Passes_walls / `meatobj`
-/ meatcorpse.
+verysmall vain / toss_up / dothrow hurtle / `u_on_rndspot` / objnam
+wish `switch_terrain` / `maketrap` PIT/HOLE `set_levltyp` / Underwater
+bars / generic rock Passes_walls / `meatobj` / meatcorpse.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1272. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1273. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1272 (index). Recent: **D-1272** `invent.c`
+**Keep:** D-0845…D-1273 (index). Recent: **D-1273** `pickup.c`
+`tipcontainer` highdrop (`!can_reach_floor(TRUE)` then
+`how_lost`+`hitfloor(TRUE)`; swallow clears; altarizing / toss_up
+named); **D-1272** `invent.c`
 `hold_another_object` drop_it (`hitfloor(FALSE)` when
 `!can_reach_floor && !uswallow`; Fumbling / invlet / encumbrance;
-autoquiver stay; pickup highdrop / toss_up named);
+autoquiver stay; toss_up named);
 **D-1271** `mon.c`
 `meatmetal` (postmov OBJ_AT metallivorous; rustproof spit+stun;
 `obj_resists(5,95)`; leftover ROCK; meatobj / meatcorpse named);
@@ -105,7 +107,7 @@ rehumanize; pick-dig named); **D-1264** `uhitm.c`
 AT_ENGL `gulpum` (`hmonas` `rnd(20+i)` + swallow/digest/expel);
 **D-1263** `dothrow.c`
 `hitfloor` `dropz(TRUE)` (drop `!can_reach_floor` + hornoplenty;
-**hold_another_object D-1272**; pickup highdrop / toss_up named);
+**hold_another_object D-1272**; **pickup highdrop D-1273**; toss_up named);
 **D-1262** `hack.c`
 `moverock_core` nopick `m<dir>` over/against (before Levitation;
 glyph `door_opened`; Blind unseen / next_boulder / verysmall named);
@@ -134,7 +136,7 @@ no skip D-1240–D-1248 (`hitmsg` D-1261); no skip D-1269 (`maketrap` PIT/HOLE `
 hurtle / `u_on_rndspot` / objnam named); no skip D-1268; no skip D-1267
 (pooleffects leave / drown wade named); no skip D-1266 (skipdrin /
 pit kick named); no skip D-1265 (pick-dig named); no skip D-1264;
-no skip D-1263 (**hold_another_object D-1272**; pickup highdrop / toss_up named);
+no skip D-1263 (**hold_another_object D-1272**; **pickup highdrop D-1273**; toss_up named);
 no skip D-1262 (Blind unseen / next_boulder / verysmall named);
 no skip D-1261 (`missmu` / mattacku AT_TENT / explmu named); no skip
 D-1260 (`display_self` U_AP_TYPE / swap-with-pet `seemimic` named);
@@ -142,7 +144,7 @@ no skip D-1253; no skip D-1254 (`dmgval`
 silver named); no skip D-1255 (EGG / MEAT_RING named);
 no skip D-1256 (down_gate / boulder-chain named);
 no skip D-1257 (`meatobj` / meatbox named);
-no skip D-1258; no skip D-1272 (pickup highdrop / toss_up named);
+no skip D-1258; no skip D-1273 (toss_up named); no skip D-1272 (toss_up named);
 no skip D-1271 (`meatobj` / meatcorpse named);
 no skip D-1270 (Underwater bars / rock Passes_walls named);
 no skip D-1259 (`digactualhole` D-1269);

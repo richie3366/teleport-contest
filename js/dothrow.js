@@ -1002,9 +1002,10 @@ function hitfloor_surface(x, y) {
  * verbosely WAN_STRIKING "strike" else "hit" + tseen trap overlay;
  * hero_breaks BRK_FROM_INV; ship_object; dropz(TRUE) (D-1263).
  * Wired: do.c drop !can_reach_floor; mkobj hornoplenty tip;
- * invent hold_another_object drop_it hitfloor(FALSE) (D-1272).
- * Named omit: pickup highdrop; toss_up / throwit dz; ball litter;
- * artifact; finesse_ahriman float_down.
+ * invent hold_another_object drop_it hitfloor(FALSE) (D-1272);
+ * pickup tipcontainer highdrop hitfloor(TRUE) (D-1273).
+ * Named omit: toss_up / throwit dz; ball litter; artifact;
+ * finesse_ahriman float_down.
  */
 export async function hitfloor(obj, verbosely) {
     if (!obj) return;
@@ -1055,6 +1056,7 @@ export async function hitfloor(obj, verbosely) {
  * container_impact_dmg(obj, u.ux, u.uy) then impact_disturbs TRUE
  * (D-1249 / D-1229). hitfloor dropz(TRUE) is D-1263 (drop/horn);
  * invent hold_another_object hitfloor(FALSE) is D-1272;
+ * pickup highdrop hitfloor(TRUE) is D-1273;
  * toss_up / throwit dz still named.
  */
 async function throwit(obj) {

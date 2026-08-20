@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1273 pickup.c tipcontainer highdrop hitfloor(TRUE)
+
+**Objective:** Open `pickup.c` highdrop `hitfloor` (named from
+D-1263). Not toss_up.
+**C locus:** `pickup.c` `tipcontainer` `:3732–3810`.
+**Change:** `highdrop=!can_reach_floor(TRUE)`; swallow clears; then
+`how_lost`+`hitfloor(TRUE)`. Non-highdrop keeps colon+`place_object`.
+Named: altarizing; toss_up; invent getobj tip. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless #tip while unable to
+reach the floor. Next audit @**#1615**.
+**Verified:** private canary **10**/10; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dothrow.c` `toss_up` (named from D-1263). Not
+hold_another_object.
+**Blocked:** none.
 ## 2026-08-20 — D-1272 invent.c hold_another_object hitfloor(FALSE)
 
 **Objective:** Open `invent.c` `hold_another_object` `hitfloor(FALSE)`

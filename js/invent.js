@@ -3215,6 +3215,7 @@ function flags_pickup_burden_hold() {
  * hitfloor(FALSE) (D-1272).
  * Named omissions: fatal wished corpse; artifact fail dropy /
  * wasUpolyd / crysknife restore; perm_invent WIN_INVEN body.
+ * Pickup highdrop hitfloor is D-1273.
  */
 export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
     const { addinv } = await import('./u_init.js');

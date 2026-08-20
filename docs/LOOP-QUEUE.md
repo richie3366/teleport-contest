@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pickup.c` highdrop `hitfloor` (named from D-1263). Not toss_up.
 - [ ] `dothrow.c` `toss_up` (named from D-1263). Not hold_another_object.
 - [ ] `display.c` `display_self` U_AP_TYPE glyphs (named from D-1260). Not seemimic.
 - [ ] `objnam.c` doname EGG (named from D-1255). Not MEAT_RING.

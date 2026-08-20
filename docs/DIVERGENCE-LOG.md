@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1273 — pickup.c `tipcontainer` highdrop `hitfloor(TRUE)`
+
+- **Status:** fixed (map-driven Open from D-1263; not a public FAIL)
+- **Symptom:** `tipcontainer` always `place_object`+per-item `doname`
+  after a colon spill. C highdrop (`!can_reach_floor(TRUE)`, cleared
+  when swallowed) sets `how_lost=LOST_DROPPED` then `hitfloor(otmp,
+  TRUE)` so a levitating hero's tipped glass can shatter.
+- **C locus:** `pickup.c` `tipcontainer` `:3732–3810`. `highdrop =
+  !can_reach_floor(TRUE)`; `u.uswallow` clears highdrop (and
+  altarizing). `else if (highdrop)` `:3807–3810`. Callers: `dotip`
+  invent getobj (named) and floor ynq (able_to_loot usually blocks
+  highdrop). `hitfloor` already live (D-1263).
+- **JS was:** colon spill + `place_object` for every content;
+  altar/highdrop named omit.
+- **Fix:** live highdrop arm in `pickup.js`; non-highdrop keeps
+  fortress colon+`place_object`. Rule #2: no fs.
+- **JS:** `js/pickup.js` `tipcontainer`; comments `js/dothrow.js`
+  `hitfloor`, `js/invent.js` `hold_another_object`.
+- **Not this iter:** altarizing `doaltarobj`; dropy terse comma-list;
+  tipcontainer_gettarget; ice-box; cursed mbag; shop; BoH explode;
+  invent getobj tip; toss_up / throwit `dz`.
+- **Verified:** private canary **10**/10 (C order; JS hitfloor true;
+  reachable floor no verbose hit; Lev LOST_DROPPED+hits-floor;
+  swallow clear; two contents; WAN_STRIKING strike; glass
+  hero_breaks; Flying not highdrop; Lev+swallow); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a session tips a container
+  while `!can_reach_floor(TRUE)` and not swallowed.
+- **Follow-up:** Open `dothrow.c` `toss_up`.
+- **Files:** `js/pickup.js`, comments `js/dothrow.js` / `js/invent.js`.
+
 ## D-1272 — invent.c `hold_another_object` `hitfloor(FALSE)`
 
 - **Status:** fixed (map-driven Open from D-1263; not a public FAIL)
