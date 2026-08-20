@@ -37,7 +37,7 @@ import {
     TIMEOUT, WT_TO_DMG, POTHIT_HERO_THROW, Has_contents, NON_PM, LOW_PM,
     W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE, SLT_ENCUMBER, Is_airlevel,
     xdir, ydir, xytodir, N_DIRS, RIGHT_HANDED, IS_SINK, HI_WOOD, OBJ_MINVENT,
-    DISP_FLASH, DISP_CHANGE, DISP_END, ECMD_TIME,
+    DISP_FLASH, DISP_CHANGE, DISP_END, DISP_TETHER, BACKTRACK, ECMD_TIME,
 } from './const.js';
 import { NO_COLOR } from './terminal.js';
 import { obj_resists, dogfood } from './dogmove.js';
@@ -216,11 +216,27 @@ function AutoReturn(o, wmsk) {
 
 /**
  * C weapon.c autoreturn_weapon — AKLYS only (boomerang row commented out).
- * throwit uses arw->tethered && W_WEP; range/isqrt named with DISP_TETHER.
+ * throwit uses arw->tethered && W_WEP (D-1311 DISP_TETHER/BACKTRACK).
+ * range/isqrt cap still named (ACURRSTR urange Open).
  */
 function autoreturn_weapon(otmp) {
     if (!otmp || (otmp.otyp | 0) !== AKLYS) return null;
     return { otyp: AKLYS, tethered: 1 };
+}
+
+/** C dothrow.c throwit :1523 — arw->tethered && (wep_mask & W_WEP). */
+function throwit_tethered_weapon(obj, wep_mask) {
+    const arw = autoreturn_weapon(obj);
+    return !!(arw && arw.tethered && ((wep_mask | 0) & W_WEP) !== 0);
+}
+
+/**
+ * C dothrow.c throwit tmp_at(DISP_END, BACKTRACK|0) when tethered.
+ * BACKTRACK returns a Promise (display.c delays inside tmp_at).
+ */
+async function throwit_tether_end(tethered_weapon, backtrack) {
+    if (!tethered_weapon) return;
+    await tmp_at(DISP_END, backtrack ? BACKTRACK : 0);
 }
 
 /**
@@ -1621,7 +1637,7 @@ async function swallowit(obj) {
  * C dothrow.c sho_obj_return_to_u — flash the missile back along the
  * throw vector (not boomerangs). Display RNG via obj_to_glyph(...,
  * rn2_on_display_rng). Wielded aklys uses tmp_at(DISP_END, BACKTRACK)
- * instead (outbound DISP_TETHER named). Leader !next2u caller named
+ * (D-1311) instead of this FLASH walk. Leader !next2u caller named
  * (thitmonst catch / finish_quest).
  */
 export async function sho_obj_return_to_u(obj) {
@@ -1648,10 +1664,11 @@ export async function sho_obj_return_to_u(obj) {
 /**
  * C dothrow.c throwit returning_missile after bhit (Mjollnir or aklys).
  * Returns true if the object was handled (do not land).
- * Named omit: tethered tmp_at BACKTRACK / outbound DISP_TETHER.
+ * Tethered: tmp_at(DISP_END, BACKTRACK) on success, DISP_END 0 on fail
+ * (D-1311). Leader catch finish_quest named.
  */
 async function throwit_returning_missile(
-    obj, wep_mask, twoweap, oldslot, x, y, impaired,
+    obj, wep_mask, twoweap, oldslot, x, y, impaired, tethered_weapon,
 ) {
     if (!game.iflags?.returning_missile) return false;
     // C bhit left gb.bhitpos at the stop cell; JS fly uses locals.
@@ -1659,6 +1676,8 @@ async function throwit_returning_missile(
     game.bhitpos.x = x | 0;
     game.bhitpos.y = y | 0;
     if (!rn2(100)) {
+        // C :1760–1762 — fail-to-return closes tether without BACKTRACK
+        await throwit_tether_end(tethered_weapon, false);
         await pline(`${Tobjnam(obj, 'fail')} to return!`);
         // C :1772 — fail-to-return while swallowed → swallowit, do not land
         if (game.u?.uswallow) {
@@ -1668,10 +1687,8 @@ async function throwit_returning_missile(
         return false;
     }
     // C :1712–1715 — tethered BACKTRACK else sho_obj_return_to_u
-    const tethered_weapon = !!(autoreturn_weapon(obj)?.tethered
-        && ((wep_mask | 0) & W_WEP) !== 0);
     if (tethered_weapon) {
-        // tmp_at(DISP_END, BACKTRACK) needs outbound DISP_TETHER
+        await throwit_tether_end(true, true);
     } else {
         await sho_obj_return_to_u(obj);
     }
@@ -1883,13 +1900,16 @@ export async function boomhit(obj, dx, dy) {
  * low-HP encumbered stamina drop is D-1293.
  * throwit steed potionhit rn2(6) is D-1297.
  * boomhit curve (D-1301). throw_gold swallow (D-1302).
- * sho_obj_return_to_u (D-1303). Named omit: tethered tmp_at
- * DISP_TETHER/BACKTRACK; leader catch finish_quest; thitmonst vanish
- * pline; objsplit unsplit; killer_xname polish; m_respond.
+ * sho_obj_return_to_u (D-1303). tethered DISP_TETHER/BACKTRACK (D-1311).
+ * Named omit: leader catch finish_quest; thitmonst vanish
+ * pline; objsplit unsplit; killer_xname polish; m_respond;
+ * THROWN_TETHERED_WEAPON zap bhit / isqrt range (ACURRSTR urange Open).
  */
 export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null) {
     const u = game.u;
     let impaired = throw_impaired();
+    // C throwit :1523 — wielded AKLYS cord
+    const tethered_weapon = throwit_tethered_weapon(obj, wep_mask);
     // C throwit :1525 — reset stale gn.notonhead before slip / stamina / thrownobj
     game.notonhead = false;
     // C throwit :1526–1547 — cursed/greased && (dx||dy) && !rn2(7)
@@ -1954,7 +1974,8 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             x = hitmon.mx | 0;
             y = hitmon.my | 0;
         }
-        // tethered tmp_at named omit (display RNG)
+        // C throwit :1577–1578 — swallowed tether starts with no flight steps
+        if (tethered_weapon) tmp_at(DISP_TETHER, obj_glyph(obj));
     } else if (u.dz) {
         if ((u.dz | 0) < 0
             && game.iflags.returning_missile
@@ -2026,6 +2047,8 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             `You aren't wielding ${an(skillName)}, so you throw your ${descr} by hand.`,
         );
     }
+    // C zap.c bhit THROWN_TETHERED_WEAPON → tmp_at(DISP_TETHER, obj_to_glyph)
+    if (tethered_weapon) tmp_at(DISP_TETHER, obj_glyph(obj));
     let point_blank = true;
     while (range-- > 0) {
         const nx = x + dx;
@@ -2044,6 +2067,8 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
                 point_blank ? 0 : !rn2(5), 1,
             )) {
                 if (!pobj.obj) {
+                    // C throwit :1684–1689 — bhit left tether open
+                    await throwit_tether_end(tethered_weapon, false);
                     throwit_return(false);
                     return; // destroyed at bars
                 }
@@ -2057,19 +2082,24 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
         x = nx;
         y = ny;
         point_blank = false;
-        // C bhit THROWN_WEAPON: stop on monster
+        // C bhit THROWN_WEAPON: stop on monster before tmp_at of that cell
         const mon = m_at(x, y);
         if (mon) {
             hitmon = mon;
             break;
+        }
+        if (tethered_weapon) {
+            tmp_at(x, y);
+            await nh_delay_output();
         }
     }
     } // else bhit
     } // !uswallow: boomhit else bhit
     if (hitmon) {
         if (await thitmonst(hitmon, obj)) {
-            // C throwit_mon_hit: obj_gone clears gt.thrownobj
+            // C throwit_mon_hit: obj_gone clears gt.thrownobj; :1700–1703 END 0
             game.thrownobj = null;
+            await throwit_tether_end(tethered_weapon, false);
             throwit_return(false);
             return;
         }
@@ -2078,6 +2108,7 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
         y = hitmon.my | 0;
     }
     if (!game.thrownobj) {
+        await throwit_tether_end(tethered_weapon, false);
         throwit_return(false);
         return;
     }
@@ -2087,7 +2118,7 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
         return;
     }
     if (await throwit_returning_missile(
-        obj, wep_mask, twoweap, oldslot, x, y, impaired,
+        obj, wep_mask, twoweap, oldslot, x, y, impaired, tethered_weapon,
     )) {
         return;
     }

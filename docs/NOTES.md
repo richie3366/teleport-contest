@@ -5,15 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1310 `dokick.c` `kick_monster` poly
-  AT_KICK loop (cadence **#1660** `734449dc`; reviews **269–272**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c` throwit
-  tethered DISP_TETHER / BACKTRACK (named from D-1303). Not leader
-  catch. Do not skip D-1310…D-1229. Do not pull explmu / AT_HUGS /
-  mhitu AD_DRIN / candelabrum / thitmonst leader catch.
+- **Fortress 44/44** after D-1311 `dothrow.c` throwit tethered
+  DISP_TETHER / BACKTRACK (cadence **#1660** `734449dc`; reviews
+  **269–272** ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c`
+  thitmonst leader catch / finish_quest (named). Not vanish pline.
+  Do not skip D-1311…D-1229. Do not pull explmu / AT_HUGS /
+  mhitu AD_DRIN / candelabrum / ACURRSTR urange / zap bhit
+  `THROWN_TETHERED_WEAPON` isqrt.
   Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1310. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1311. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1310.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1311.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,10 +37,10 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1310 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1311 (index). Named still: mhitu+mhitm
   AD_DRIN / AD_WRAP `m_slips_free`; explmu / AT_HUGS; mattackm
   AT_TENT; candelabrum `(n of 7)` / leash / W_TOOL worn /
-  POT_OIL `(lit)`; tethered DISP_TETHER/BACKTRACK; AT_ENGL
+  POT_OIL `(lit)`; AT_ENGL
   gulps/lunges. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -51,6 +52,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1311: `dothrow.c` throwit tethered DISP_TETHER / BACKTRACK.
+  `arw->tethered && W_WEP`; swallow + fly `tmp_at(DISP_TETHER,
+  obj_glyph)`; empty cells step+delay; monster cell not painted;
+  success `DISP_END, BACKTRACK` (`sidx>1` delay sidx-1);
+  fail/consumed `DISP_END, 0`. `tether_glyph` zap type 2 toward @.
+  Leader `finish_quest` / zap bhit THROWN_TETHERED / isqrt named.
+  **poly AT_KICK D-1310**.
 - D-1310: `dokick.c` `kick_monster` poly AT_KICK. `Upolyd &&
   attacktype(AT_KICK)` then `find_roll_to_hit` once + unparalyze
   + NATTK continue-only-KICK `rnd(20)` / `special_dmgval(W_ARMF)`
@@ -90,8 +98,8 @@ Objective/score live in `CURRENT.md`.
 - D-1303: `dothrow.c` sho_obj_return_to_u — after `rn2(100)` success,
   non-tethered (Mjollnir) `tmp_at(DISP_FLASH, obj_to_glyph display rng)`
   then walk `bhitpos-dir` toward @ with `nh_delay_output`; dx=dy=0 or
-  already-on-@ no-op. Wielded aklys skips (C BACKTRACK). Leader
-  `!next2u` / outbound DISP_TETHER named. **throw_gold D-1302**.
+  already-on-@ no-op. Wielded aklys BACKTRACK is D-1311. Leader
+  `!next2u` still named. **throw_gold D-1302**.
 - D-1302: `dothrow.c` throw_gold swallow — after self-cancel, `freeinv`
   then `add_to_minv(ustuck)` (not `swallowit`/`mpickobj`);
   `digests` → `s_suffix(mon_nam)` + `" entrails"`; `pline_The`.
@@ -113,19 +121,4 @@ Objective/score live in `CURRENT.md`.
   mundisplaceable; occupy then swap; fail restores ux. `goodpos`
   / mintrap aftermath / bump_mon stumble named. **display_self
   D-1275**.
-- D-1298: hmonas skipdrin / pit kick — `gs.skipdrin=FALSE` then
-  AT_TENT+AD_DRIN continue; AT_KICK `mtrapped_in_pit(&youmonst)`.
-  `mhitm_ad_drin` uhitm `notonhead||!has_head` zeros dmg + slime
-  suck-in. Same continues in mattackm/mattacku. eat_brains D-1306.
-  helmet D-1307. **altwep D-1266**.
-- D-1297: throwit steed potionhit — `dz>0 && usteed &&
-  POTION_CLASS && rn2(6)` after toss_up before hitfloor;
-  `potionhit` crash/`which_armor(W_SADDLE)`/`H2Opotion_dip`/
-  POT_WATER body. Remaining otyp / shop unpaid named.
-  **stamina D-1293**. **boomhit D-1301**.
-- D-1296: `maketrap` DRAWBRIDGE_UP ice — keep mask, `&= ~DB_UNDER`
-  `|= DB_FLOOR`; `was_ice` → `obj_ice_effects` + stop
-  `MELT_ICE_AWAY`. `is_pool_or_lava` is `is_pool||is_lava` so
-  ice/floor spans accept a new pit; moat/lava still reject.
-  Shop `add_damage` D-1300. **PIT/HOLE morph D-1280**.
 

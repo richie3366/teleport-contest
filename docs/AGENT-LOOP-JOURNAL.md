@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1311 dothrow.c throwit tethered DISP_TETHER / BACKTRACK
+
+**Objective:** Open `dothrow.c` throwit tethered DISP_TETHER /
+BACKTRACK (named from D-1303). Not leader catch.
+**C locus:** `dothrow.c` throwit `:1523` / `:1577–1578` /
+`:1712–1713` / `:1761–1762`; `display.c` `tether_glyph` +
+tmp_at TETHER/BACKTRACK; `zap.c` bhit open (JS fly stands in).
+**Change:** live cord (`tether_glyph` zap type 2) + BACKTRACK
+delay walk; swallow/fly open DISP_TETHER; fail/consumed END 0.
+Leader `finish_quest` / zap bhit THROWN_TETHERED / isqrt named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1665**.
+**Verified:** canary **31**/31; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1310 archive hash `734449dc`.
+**Next:** Open `dothrow.c` thitmonst leader catch / finish_quest.
+Not vanish pline.
+**Blocked:** none.
 ## 2026-08-20 — #1660 review D-1307–D-1310 + cadence
 
 **Objective:** audit — C-fidelity reviews **269–272** of JS SHAs

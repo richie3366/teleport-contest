@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1311 — dothrow.c throwit tethered DISP_TETHER / BACKTRACK
+
+- **Status:** fixed (map-driven Open from D-1303; not a public FAIL)
+- **Symptom:** a wielded aklys snapped home with no outbound cord and no
+  BACKTRACK return. C opens `tmp_at(DISP_TETHER, obj_to_glyph(...,
+  rn2_on_display_rng))` (swallow, or bhit `THROWN_TETHERED_WEAPON`),
+  paints `tether_glyph` (zap type 2 toward @) on prior cells, and on
+  AutoReturn success `tmp_at(DISP_END, BACKTRACK)` walks the object
+  glyph home with `nh_delay_output`. Fail/consumed uses `DISP_END, 0`.
+  Non-tethered AutoReturn still FLASH-walks (`sho_obj_return_to_u`
+  D-1303).
+- **C locus:** `dothrow.c` throwit `:1523` `tethered_weapon`; swallow
+  `:1577–1578`; bhit arg `:1674–1675`; cleanup `:1688–1689` /
+  `:1702–1703` / `:1712–1713` / `:1761–1762`. `zap.c` bhit `:3863–3866`
+  open (JS fly loop stands in). `display.c` `tether_glyph` `:1127–1133`;
+  tmp_at TETHER step `:1264–1277`; BACKTRACK `:1225–1240`.
+  `weapon.c` `autoreturn_weapon` AKLYS `tethered`.
+- **JS was:** named omit after D-1303; `throwit_returning_missile`
+  empty BACKTRACK `if`; fly loop never opened DISP_TETHER; `tmp_at`
+  recorded cells but skipped cord + BACKTRACK delays.
+- **Fix:** live `tether_glyph` + BACKTRACK delay walk; throwit opens
+  TETHER on swallow/fly, steps+delays empty cells, BACKTRACK on
+  return, END 0 on fail/consumed. `obj_glyph` display stream only.
+  Rule #2: no fs.
+- **JS:** `js/dothrow.js` `throwit` / `throwit_returning_missile` /
+  `throwit_tether_end`; `js/display.js` `tmp_at` / `tether_glyph`.
+- **Not this iter:** leader catch `finish_quest`; zap.js bhit
+  `THROWN_TETHERED_WEAPON`; `isqrt` / ACURRSTR urange; mthrowu monster
+  tether; throwit_mon_hit `snuff_candle`/`hot_pursuit`.
+- **Verified:** private canary **31**/31 (C body+callers+tether_glyph;
+  JS swallow/fly/BACKTRACK/fail wiring; live 3-cell cord + delay
+  sidx-1; sidx==1 no delay; END 0 no delay; FLASH no cord; no
+  finish_quest/isqrt; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws a wielded aklys.
+- **Follow-up:** Open `dothrow.c` thitmonst leader catch / finish_quest.
+- **Files:** `js/dothrow.js`, `js/display.js`.
+
 ## D-1310 — `dokick.c` `kick_monster` poly AT_KICK loop
 
 - **Status:** fixed (map-driven Open from D-1309; not a public FAIL)
