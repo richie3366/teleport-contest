@@ -6,13 +6,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1290 `wizterrainwish` door/wall
-  (cadence **#1630** `9486280d`; reviews **245–248**
+  (cadence **#1635** `67c863ad`; reviews **249–252**
   ACCEPT-WITH-DEBT, no Must-fix). Next: Open `mhitu.c`
-  `wildmiss` `pline_mon` (named from D-1261). Not missmu. Do not
-  skip D-1290…D-1229. Do not pull skipdrin / pit kick / wildmiss
-  `set_msg_xy` / MEAT_RING / seemimic / next_boulder / slip /
-  stamina / steed potion / DRAWBRIDGE_UP ice / secret corridor.
-  Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
+  wildmiss `set_msg_xy` then `pline` (named from D-1286). Not
+  `pline_mon`. Not missmu. Do not skip D-1290…D-1229. Do not
+  pull skipdrin / pit kick / MEAT_RING / seemimic / next_boulder
+  / slip / stamina / steed potion / DRAWBRIDGE_UP ice / secret
+  corridor. Do not wrap `wildmiss` or `msg_mon_movement` as
+  `pline_mon`. No FORCE.
 - Do not revert D-1217–D-1290. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)

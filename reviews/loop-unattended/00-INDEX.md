@@ -258,3 +258,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [246-433ad843-meatobj.md](./246-433ad843-meatobj.md) | `433ad843` | D-1284 `meatobj` | **ACCEPT-WITH-DEBT** |
 | [247-965d2beb-meatcorpse.md](./247-965d2beb-meatcorpse.md) | `965d2beb` | D-1285 `meatcorpse` | **ACCEPT-WITH-DEBT** |
 | [248-9486280d-missmu-pline-mon.md](./248-9486280d-missmu-pline-mon.md) | `9486280d` | D-1286 `missmu` `pline_mon` | **ACCEPT-WITH-DEBT** |
+| [249-04b325fd-u-on-sstairs.md](./249-04b325fd-u-on-sstairs.md) | `04b325fd` | D-1287 `u_on_sstairs` → rndspot | **ACCEPT-WITH-DEBT** |
+| [250-b741fb93-makemap-prepost.md](./250-b741fb93-makemap-prepost.md) | `b741fb93` | D-1288 `makemap_prepost` rndspot | **ACCEPT-WITH-DEBT** |
+| [251-44b22432-wizterrainwish-traps.md](./251-44b22432-wizterrainwish-traps.md) | `44b22432` | D-1289 wizterrainwish trap loop | **ACCEPT-WITH-DEBT** |
+| [252-67c863ad-wizterrainwish-door-wall.md](./252-67c863ad-wizterrainwish-door-wall.md) | `67c863ad` | D-1290 wizterrainwish door/wall | **ACCEPT-WITH-DEBT** |
