@@ -189,15 +189,17 @@ export function mswings_verb(mwep, bash) {
 }
 
 /**
- * C ref: mhitu.c mswings — verbose visible weapon swing pline before hit/miss.
- * is_art(Snickersnee) bash exemption deferred (no pole+artifact here).
+ * C ref: mhitu.c mswings :128–141 — verbose visible weapon swing
+ * pline_mon before hit/miss (D-1305). is_art(Snickersnee) bash
+ * exemption deferred (caller still omits !is_art).
  */
-async function mswings(mtmp, otemp, bash) {
+export async function mswings(mtmp, otemp, bash) {
     const u = game.u || {};
     const Blind = !!(u.Blind || u.ublind);
     const verbose = game.flags?.verbose !== false;
     if (verbose && !Blind && mon_visible(mtmp)) {
-        await pline(
+        await pline_mon(
+            mtmp,
             `${Monnam(mtmp)} ${mswings_verb(otemp, bash)} `
             + `${(otemp.quan | 0) > 1 ? 'one of ' : ''}`
             + `${mhis(mtmp)} ${xname(otemp)}.`,
@@ -223,9 +225,10 @@ function s_suffix_hitmsg(s) {
  * else aatyp verb + consecutive-same-aatyp " again" + punct.
  * AT_TENT s_suffix(Monnam)+" tentacles suck your brain"; AT_EXPL/BOOM
  * "explodes"; AT_KICK thick_skinned(youmonst.data) punct ".".
- * Named omit: mswings still pline; mattacku AT_TENT melee case /
- * explmu / AT_HUGS; remaining unported mhitm_ad_*. missmu pline_mon
- * is D-1286. wildmiss set_msg_xy then pline is D-1291.
+ * Named omit: mattacku AT_TENT melee case / explmu / AT_HUGS;
+ * remaining unported mhitm_ad_*. missmu pline_mon is D-1286.
+ * wildmiss set_msg_xy then pline is D-1291. mswings pline_mon
+ * is D-1305.
  */
 export async function hitmsg(mtmp, mattk) {
     const youmonst = game.youmonst;
@@ -291,8 +294,9 @@ export async function hitmsg(mtmp, mattk) {
  * C ref: mhitu.c missmu :83–99 — clear hitmsg_mid/prev; map_invisible
  * when unseen; seduce pretend-friendly or "just " near-miss when
  * flags.verbose; both arms pline_mon (D-1286). stop_occupation after
- * the line like C. Named omit: mswings pline_mon; mattacku AT_ENGL
- * gulps/lunges pline_mon. wildmiss set_msg_xy then pline is D-1291.
+ * the line like C. Named omit: mattacku AT_ENGL gulps/lunges
+ * pline_mon. wildmiss set_msg_xy then pline is D-1291. mswings
+ * pline_mon is D-1305.
  */
 export async function missmu(mtmp, nearmiss, mattk) {
     game.hitmsg_mid = 0;
@@ -312,8 +316,8 @@ export async function missmu(mtmp, nearmiss, mattk) {
  * Displaced / Underwater). After verbose/cansee early returns:
  * Monnam, then set_msg_xy(mx,my), then pline (not pline_mon;
  * D-1291). nolimbs uses "lunges" like C :210–213.
- * Named omit: Some_Monnam impossible; mswings pline_mon; mattacku
- * AT_ENGL gulps/lunges pline_mon; AT_TENT / explmu / AT_HUGS.
+ * Named omit: Some_Monnam impossible; mattacku AT_ENGL gulps/lunges
+ * pline_mon; AT_TENT / explmu / AT_HUGS. mswings pline_mon is D-1305.
  */
 export async function wildmiss(mtmp, mattk) {
     const unotseen = !mtmp.mcansee || (Invis() && !perceives(mtmp.data));

@@ -59,25 +59,24 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1304. Reviews **261–264** all
+**Map-driven fortress** after D-1305. Reviews **261–264** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `mhitu.c` mswings `pline_mon` (named from D-1291). Not wildmiss.
-Do not skip D-1304…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `eat.c` eat_brains (named from D-1298). Not helmet.
+Do not skip D-1305…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not pull candle `partly used` / eat_brains / helmet /
+Do not pull candle `partly used` / helmet / m_slips_free /
 poly AT_KICK / tethered BACKTRACK.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1304.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1305.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1304 (index). Recent: **D-1304** `objnam.c`
-`wizterrainwish` secret corridor (CORR→SCORR). Prior: D-1303
-`sho_obj_return_to_u`; D-1302 throw_gold swallow; D-1301 boomhit;
-D-1300 shop `add_damage`.
+**Keep:** D-0845…D-1305 (index). Recent: **D-1305** `mhitu.c`
+mswings `pline_mon`. Prior: D-1304 secret corridor; D-1303
+`sho_obj_return_to_u`; D-1302 throw_gold swallow; D-1301 boomhit.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1304
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1305
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

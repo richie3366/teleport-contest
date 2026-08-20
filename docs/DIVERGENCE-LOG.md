@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1305 — `mhitu.c` `mswings` `pline_mon`
+
+- **Status:** fixed (map-driven Open from D-1291; not a public FAIL)
+- **Symptom:** JS `mswings` used bare `pline`, so `a11y.msg_loc`
+  stayed 0,0 on verbose visible weapon-swing lines. C uses
+  `pline_mon`.
+- **C locus:** `mhitu.c` `mswings` `:128–141`; `mswings_verb`
+  `:104–126`. Caller `mattacku` AT_WEAP foundyou `:900–911`
+  (`hitval` then `mswings` before hit/miss). Callee `pline.c`
+  `pline_mon` `:137–150`. Gate `flags.verbose && !Blind &&
+  mon_visible`. Format `Monnam` + verb + optional `"one of "` +
+  `mhis` + `xname`.
+- **JS was:** verb/quan/`mhis`/`xname` live (D-0286) but `pline`
+  so accessiblemsg could not prefix the attacker cell.
+- **Fix:** the one `pline` → `pline_mon`. Did not wrap `wildmiss`
+  (D-1291 `set_msg_xy` then `pline`) or `msg_mon_movement`. Did
+  not pull AT_ENGL gulps/lunges, AT_TENT, or Snickersnee bash.
+  Rule #2: no fs.
+- **JS:** `js/mhitu.js` `mswings`; comment `js/display.js`.
+- **Not this iter:** AT_ENGL gulps/lunges `pline_mon`; AT_TENT /
+  `explmu` / AT_HUGS; `is_art(Snickersnee)` bash exemption;
+  `mswingsm`; Some_Monnam `impossible`.
+- **Verified:** private canary **23**/23 (C `pline_mon`; JS same;
+  prefix On; Off no prefix; quiet/`Blind`/`minvis`/`mundetected`
+  silent; spear thrusts; club swings; bash; whip lashes; quan>1
+  `"one of"`; female `her`; wildmiss still `set_msg_xy`+`pline`;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless `accessiblemsg` On on a swing line.
+- **Follow-up:** Open `eat.c` eat_brains.
+- **Files:** `js/mhitu.js`, `js/display.js`.
+
 ## D-1304 — `objnam.c` `wizterrainwish` secret corridor
 
 - **Status:** fixed (map-driven Open from D-1290; not a public FAIL)
@@ -33,7 +65,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   green+strict seed8000/0900; cohort **7**/7 + strict
   1500/1800/0012/0004/0007/2200/0383.
   **Public-unhit** unless a wizard session wishes secret corridor.
-- **Follow-up:** Open `mhitu.c` mswings `pline_mon`.
+- **Follow-up:** Open `mhitu.c` mswings `pline_mon` (D-1305).
 - **Files:** `js/readobjnam.js`, `js/zap.js`.
 
 ## D-1303 — dothrow.c sho_obj_return_to_u

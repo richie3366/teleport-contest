@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1304 `objnam.c` wizterrainwish secret
-  corridor (cadence **#1650** `1a7839f7`; reviews **261–264**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `mhitu.c` mswings
-  `pline_mon` (named from D-1291). Not wildmiss. Do not skip
-  D-1304…D-1229. Do not pull candle `partly used` / eat_brains /
-  helmet. Do not wrap `wildmiss` or `msg_mon_movement` as
-  `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1304. Named omits stay map, not Must-fix.
+- **Fortress 44/44** after D-1305 `mhitu.c` mswings `pline_mon`
+  (cadence **#1650** `1a7839f7`; reviews **261–264**
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `eat.c` eat_brains
+  (named from D-1298). Not helmet. Do not skip D-1305…D-1229.
+  Do not pull candle `partly used` / helmet / m_slips_free.
+  Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
+  No FORCE.
+- Do not revert D-1217–D-1305. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1304.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1305.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,9 +35,10 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1304 (index). Named still: eat_brains /
+- Do not skip D-1071…D-1305 (index). Named still: eat_brains /
   helmet / m_slips_free; candle `partly used`;
-  tethered DISP_TETHER/BACKTRACK. No ALIGN/FORCE on seed0383.
+  tethered DISP_TETHER/BACKTRACK; AT_ENGL gulps/lunges. No
+  ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -48,10 +49,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1305: `mswings` `pline_mon` (verbose + `!Blind` +
+  `mon_visible`). Verb/quan/`mhis`/`xname` already live (D-0286).
+  Did not wrap `wildmiss` (D-1291 `set_msg_xy` then `pline`).
+  AT_ENGL gulps/lunges / AT_TENT / Snickersnee bash named.
 - D-1304: `wizterrainwish` secret corridor. Suffix after wall
   before room; CORR→SCORR `"Secret corridor."`; else requires
   corridor location. Leftover BLev FROMOUTSIDE (SCORR obstructed).
-  **drawbridge / lava pooleffects named**. **mswings D-1291 named**.
+  **drawbridge / lava pooleffects named**.
 - D-1303: `dothrow.c` sho_obj_return_to_u — after `rn2(100)` success,
   non-tethered (Mjollnir) `tmp_at(DISP_FLASH, obj_to_glyph display rng)`
   then walk `bhitpos-dir` toward @ with `nh_delay_output`; dx=dy=0 or
@@ -110,10 +115,5 @@ Objective/score live in `CURRENT.md`.
 - D-1292: throwit cursed/greased `!rn2(7)` slip/misfire before
   thrownobj; `rn2(3)-1` dx/dy, `dz=1` if both 0, impaired.
 - D-1291: `wildmiss` `set_msg_xy(mx,my)` then `pline` (not
-  `pline_mon`). nolimbs `"lunges"`. Some_Monnam impossible /
-  mswings / AT_ENGL gulps/lunges named.
-- D-1290: `wizterrainwish` door/wall. Location gate
-  DOOR/SDOOR/wall(!DBWALL)/bars; rogue doorless; doormask
-  locked/open/broken/doorless/secret; trapped closed/locked only;
-  isolated wall HWALL else VWALL + `fix_wall_spines`;
-  `set_wallprop_from_str`. **secret corridor D-1304**.
+  `pline_mon`). nolimbs `"lunges"`. **mswings D-1305**.
+  Some_Monnam impossible / AT_ENGL gulps/lunges named.

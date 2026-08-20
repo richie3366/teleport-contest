@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1305 | fixed | mhitu.c `mswings` `pline_mon` | map-driven Open from D-1291; C `mhitu.c:128–141` `pline_mon` after verbose/`!Blind`/`mon_visible`; JS was bare `pline` so `a11y.msg_loc` stayed 0,0; verb/quan/`mhis`/`xname` already D-0286; did not wrap `wildmiss`; AT_ENGL gulps/lunges / AT_TENT / Snickersnee bash still named |
 | D-1304 | fixed | objnam.c `wizterrainwish` secret corridor | map-driven Open from D-1290; C `objnam.c:3836–3845` after wall before room; JS CORR→SCORR + `"Secret corridor."` else `"requires corridor location"` + `hands_obj`; live D-1279 `switch_terrain` leftover BLev; drawbridge under / lava `pooleffects` / melting ice / `looted` preparse named |
 | D-1303 | fixed | dothrow.c `sho_obj_return_to_u` | map-driven Open from D-1282; C `dothrow.c:1440–1456` FLASH `obj_to_glyph(rn2_on_display_rng)` walk `bhitpos-dir` + `nh_delay_output`; caller throwit `:1712–1715` tethered BACKTRACK else sho_obj after `rn2(100)`; JS live; wielded aklys skips; leader `!next2u` / DISP_TETHER outbound still named |
 | D-1302 | fixed | dothrow.c throw_gold swallow | map-driven Open from D-1283; C `dothrow.c:2671–2679` after self `:2661`; caller `:112` `COIN_CLASS && obj!=uquiver`; `freeinv` then `add_to_minv(ustuck)` not `swallowit`/`mpickobj`; `digests` → `s_suffix(mon_nam)` + `" entrails"`; JS live; You() self / unsplit / dz / bhit / ghitm / quivered throwit / `sho_obj_return_to_u` still named |

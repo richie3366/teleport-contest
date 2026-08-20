@@ -3896,12 +3896,12 @@ export async function pline_xy(x, y, msg) {
  * monflee/itsstuck/maybe_spin_web/postmov door (D-1227) + mind_blast
  * concentrates (D-1238) + uhitm light_hits_gremlin cry/recoil, mhitm_ad_legs
  * nuzzle, mhitm_ad_sedu brag (D-1240) + mhitu hitmsg (D-1261) +
- * mhitu missmu (D-1286).
+ * mhitu missmu (D-1286) + mhitu mswings (D-1305).
  * mhitu wildmiss is set_msg_xy then pline (D-1291; not pline_mon).
  * flash_hits_mon awaken/blind stay pline.
  * Named omit: remaining unported uhitm mhitm_ad_* (rust/fire/hugs/heal/wrap/…) /
  * worn/trap/weapon drop·tether / muse drinks / iron bars /
- * mswings / mattacku AT_ENGL gulps/lunges. bee_eat_jelly eat +
+ * mattacku AT_ENGL gulps/lunges. bee_eat_jelly eat +
  * grow_up queen is D-1246.
  * mon_yells is D-1248.
  * Rolling-boulder TELEP is pline_xy (D-1237).
