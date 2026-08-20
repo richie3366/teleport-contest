@@ -36,7 +36,7 @@ import {
     HURTLING, FORCEBUNGLE, IRONBARS, Upolyd, FACE, HEAD, ARM, FOOT, STONING,
     TIMEOUT, WT_TO_DMG, POTHIT_HERO_THROW, Has_contents, NON_PM, LOW_PM,
     W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE, SLT_ENCUMBER, Is_airlevel,
-    BOLT_LIM, AKLYS_LIM, HAND,
+    BOLT_LIM, AKLYS_LIM, HAND, THROWN_TETHERED_WEAPON,
     xdir, ydir, xytodir, N_DIRS, RIGHT_HANDED, IS_SINK, HI_WOOD, OBJ_MINVENT,
     DISP_FLASH, DISP_CHANGE, DISP_END, DISP_TETHER, BACKTRACK, ECMD_TIME,
     DEAF, SHOPBASE,
@@ -222,12 +222,24 @@ function AutoReturn(o, wmsk) {
 /**
  * C weapon.c autoreturn_weapon — AKLYS only (boomerang row commented out).
  * throwit uses arw->tethered && W_WEP (D-1311 DISP_TETHER/BACKTRACK).
- * arw->range is AKLYS_LIM²; throwit min(range, isqrt(arw->range)) named
- * (zap bhit THROWN_TETHERED_WEAPON / isqrt Open).
+ * arw->range is AKLYS_LIM²; throwit min(range, isqrt(arw->range)) D-1323.
  */
 function autoreturn_weapon(otmp) {
     if (!otmp || (otmp.otyp | 0) !== AKLYS) return null;
     return { otyp: AKLYS, range: AKLYS_LIM * AKLYS_LIM, tethered: 1 };
+}
+
+/** C hacklib.c isqrt — integer square root (odd-subtraction). */
+function isqrt(val) {
+    let rt = 0;
+    let odd = 1;
+    let v = val | 0;
+    while (v >= odd) {
+        v -= odd;
+        odd += 2;
+        rt++;
+    }
+    return rt;
 }
 
 /** C dothrow.c throwit :1523 — arw->tethered && (wep_mask & W_WEP). */
@@ -1980,9 +1992,10 @@ export async function boomhit(obj, dx, dy) {
  * thitmonst leader catch / finish_quest (D-1312).
  * throwit_mon_hit snuff / hot_pursuit (D-1313); throwit caller (D-1315).
  * throwit ACURRSTR urange / post-bhit lev hurtle (D-1316).
+ * tethered THROWN_TETHERED_WEAPON bhit + isqrt(arw->range) (D-1323).
  * Named omit: thitmonst vanish
  * pline; objsplit unsplit; killer_xname polish;
- * THROWN_TETHERED_WEAPON zap bhit / isqrt(arw->range).
+ * THROWN_WEAPON still uses the JS fly stand-in (not zap.js bhit).
  */
 
 /**
@@ -2021,12 +2034,12 @@ function throwit_weapon_descr(obj) {
 /**
  * C dothrow.c throwit :1613–1672 — urange from ACURRSTR (crossbow 18),
  * then range from weight / uball / ammo / air-lev / boulder / Mjollnir
- * / underwater. Recoil leftover is `urange` after the air-lev shuffle
- * (`:1681–1682` hurtle). Named omit: `min(range, isqrt(arw->range))`
- * for tethered aklys (zap bhit THROWN_TETHERED_WEAPON / isqrt Open).
+ * / tethered isqrt / underwater. Recoil leftover is `urange` after the
+ * air-lev shuffle (`:1681–1682` hurtle). Tethered aklys
+ * `min(range, isqrt(arw->range))` is D-1323.
  * @returns {{ range: number, urange: number, hand_throw: boolean }}
  */
-export function throwit_calc_range(obj) {
+export function throwit_calc_range(obj, tethered_weapon = false) {
     const u = game.u || {};
     const uwep = u.uwep || null;
     const owt = obj.owt | 0;
@@ -2064,10 +2077,13 @@ export function throwit_calc_range(obj) {
         range = 20;
     } else if (is_art(obj, ART_MJOLLNIR)) {
         range = Math.trunc((range + 1) / 2);
+    } else if (tethered_weapon) {
+        // C :1664–1667 — cord length isqrt(arw->range); AKLYS_LIM² → 4
+        const arw = autoreturn_weapon(obj);
+        range = Math.min(range | 0, isqrt(arw ? (arw.range | 0) : 0));
     } else if (obj === u.uball && u.utrap && (u.utraptype | 0) === TT_INFLOOR) {
         range = 1;
     }
-    /* tethered_weapon isqrt cap named — do not min() here */
 
     if (u.uinwater) range = 1;
     return { range, urange, hand_throw };
@@ -2188,8 +2204,8 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
     } else {
     const dx = u.dx || 0;
     const dy = u.dy || 0;
-    // C throwit :1613–1672 — ACURRSTR urange then range (D-1316)
-    const calc = throwit_calc_range(obj);
+    // C throwit :1613–1672 — ACURRSTR urange then range (D-1316 / D-1323)
+    const calc = throwit_calc_range(obj, tethered_weapon);
     let range = calc.range | 0;
     const urange = calc.urange | 0;
     if (calc.hand_throw) {
@@ -2198,8 +2214,18 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             `You aren't wielding ${an(throwit_skill_name(weapon_type(obj)))}, so you throw your ${throwit_weapon_descr(obj)} by ${body_part(HAND)}.`,
         );
     }
-    // C zap.c bhit THROWN_TETHERED_WEAPON → tmp_at(DISP_TETHER, obj_to_glyph)
-    if (tethered_weapon) tmp_at(DISP_TETHER, obj_glyph(obj));
+    if (tethered_weapon) {
+        // C :1674–1677 — bhit(THROWN_TETHERED_WEAPON) opens DISP_TETHER
+        const pobj = { obj };
+        const { bhit } = await import('./zap.js');
+        hitmon = await bhit(
+            dx, dy, range, THROWN_TETHERED_WEAPON, null, null, pobj,
+        );
+        obj = pobj.obj;
+        game.thrownobj = obj;
+        x = game.bhitpos?.x | 0;
+        y = game.bhitpos?.y | 0;
+    } else {
     let point_blank = true;
     while (range-- > 0) {
         const nx = x + dx;
@@ -2218,8 +2244,6 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
                 point_blank ? 0 : !rn2(5), 1,
             )) {
                 if (!pobj.obj) {
-                    // C throwit :1684–1689 — bhit left tether open
-                    await throwit_tether_end(tethered_weapon, false);
                     throwit_return(false);
                     return; // destroyed at bars
                 }
@@ -2239,14 +2263,17 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             hitmon = mon;
             break;
         }
-        if (tethered_weapon) {
-            tmp_at(x, y);
-            await nh_delay_output();
-        }
+    }
     }
     // C throwit :1680–1682 — after bhit so ux,uy are correct
     if (Is_airlevel(u.uz) || Levitation_boom()) {
         await hurtle(-(u.dx || 0), -(u.dy || 0), urange, true);
+    }
+    // C :1684–1691 — bhit may have destroyed obj; tether still open
+    if (tethered_weapon && !obj) {
+        await throwit_tether_end(true, false);
+        throwit_return(false);
+        return;
     }
     } // else bhit
     } // !uswallow: boomhit else bhit

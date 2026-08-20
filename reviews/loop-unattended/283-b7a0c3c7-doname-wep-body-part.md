@@ -137,4 +137,4 @@ C: every `doname` of a wielded / swap / ring object; pickup merge `prinv`. JS: s
 - One sentence: `body_part(HAND)` is live, but the rewritten W_WEP `if` dropped a live `!mrg_to_wielded` guard and the AKLYS `"tethered to"` how-arm.
 - Must-fix prepended this review commit; archive **Addressed:** D-1321 filled `b7a0c3c7`.
 
-**Addressed:** D-1322
+**Addressed:** D-1322 `843343cc`

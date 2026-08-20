@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1323 zap.c bhit THROWN_TETHERED_WEAPON / isqrt
+
+**Objective:** Open `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt
+(named from D-1311). Not throwit tether.
+**C locus:** `zap.c` bhit `:3863–4127`; `dothrow.c` throwit
+`:1664–1677`; `hacklib.c` `isqrt`.
+**Change:** remap+DISP_TETHER, skip END for caller; throwit
+`min(range, isqrt(arw->range))` and calls `bhit`. THROWN_WEAPON
+fly stand-in still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1680**.
+**Verified:** canary **25**/25; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1322 archive/review **283** hash `843343cc`.
+**Next:** Open `dothrow.c` thitmonst vanish pline (named from
+D-1312). Not leader catch.
+**Blocked:** none.
 ## 2026-08-21 — D-1322 objnam.c doname W_WEP !mrg_to_wielded + AKLYS tethered
 
 **Objective:** Must-fix `objnam.c` doname W_WEP `!mrg_to_wielded`

@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1323 — zap.c bhit THROWN_TETHERED_WEAPON / isqrt
+
+- **Status:** fixed (map-driven Open from D-1311; not a public FAIL)
+- **Symptom:** a wielded aklys used throwit's fly stand-in with no
+  cord-length cap, so a strong hero could throw it farther than
+  `isqrt(AKLYS_LIM²)` (4). `zap.js` `bhit` always opened DISP_FLASH
+  and always `DISP_END, 0`, so a real `THROWN_TETHERED_WEAPON` call
+  would snap the cord before throwit's BACKTRACK.
+- **C locus:** `dothrow.c` throwit `:1664–1667` `min(range,
+  isqrt(arw->range))`; `:1674–1677` `bhit(..., tethered ?
+  THROWN_TETHERED_WEAPON : THROWN_WEAPON, ...)`. `zap.c` bhit
+  `:3863–3866` remap + `tmp_at(DISP_TETHER, obj_to_glyph display
+  rng)`; `:4023–4024` monster hit skips END if tethered;
+  `:4125–4127` after-loop skip END unless `returning_missile`
+  cleared. `hacklib.c` `isqrt` odd-subtraction. `weapon.c`
+  `arwep[]` `{ AKLYS, AKLYS_LIM*AKLYS_LIM, 1 }`.
+- **JS was:** named omit after D-1311 / D-1316; fly loop opened
+  TETHER itself; `throwit_calc_range` skipped the isqrt arm;
+  `bhit` FLASH+always END.
+- **Fix:** live isqrt cap; `bhit` TETHER remap + skip END;
+  throwit calls `bhit(THROWN_TETHERED_WEAPON)` (dynamic import,
+  zap↔dothrow cycle). Non-tethered throws keep the fly stand-in
+  (FLASH would add delays). Swallow still opens TETHER in throwit.
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `bhit`; `js/dothrow.js` `throwit_calc_range`
+  / `throwit` / local `isqrt`.
+- **Not this iter:** THROWN_WEAPON fly → bhit; WEB stick rn2;
+  shade_miss / M_AP_OBJECT; FLASHED_LIGHT DISP_BEAM; INVIS_BEAM;
+  thitmonst vanish pline; dokick snuff_candle.
+- **Verified:** private canary **25**/25 (C remap+isqrt+bhit arg;
+  JS same; STR18 owt15 9→4; STR3 stays 1; underwater 1; dart
+  uncapped; monster stop (12,8) leaves obj; empty range 3; kicked
+  still starts one ahead; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws a wielded aklys.
+- **Follow-up:** Open `dothrow.c` thitmonst vanish pline.
+- **Files:** `js/zap.js`, `js/dothrow.js`.
+
 ## D-1322 — `objnam.c` doname W_WEP `!mrg_to_wielded` + AKLYS `"tethered to"`
 
 - **Status:** fixed (Must-fix review **283**; not a public FAIL)
