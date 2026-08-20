@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` altwep / `uswapwep` (named from D-1252). Not AT_ENGL.
 - [ ] `hack.c` `set_uinwater` `switch_terrain` (named from D-1129). Not dissolve_bars.
 - [ ] `hack.c` `spoteffects` `switch_terrain` (named from D-1129). Not dissolve_bars.
 - [ ] `dig.c` `digactualhole` `switch_terrain` (named from D-1129). Not dissolve_bars.

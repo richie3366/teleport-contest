@@ -59,28 +59,29 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1265. Reviews **220–224** all
+**Map-driven fortress** after D-1266. Reviews **220–224** all
 **ACCEPT-WITH-DEBT** (no Must-fix; D-1254 closed review **212**).
 **Next cluster:**
-Open `uhitm.c` altwep / `uswapwep` (named from D-1252). Not
-AT_ENGL.
-Do not skip D-1265…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `hack.c` `set_uinwater` `switch_terrain` (named from D-1129).
+Not dissolve_bars.
+Do not skip D-1266…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
-Do not pull missmu/wildmiss/mswings `pline_mon` / mattacku AT_TENT /
-explmu / AT_HUGS
-/ hero `test_move` `passes_bars` / unported
-uhitm `mhitm_ad_*` `pline_mon` / doname EGG /
-`set_uinwater` / `spoteffects` / `digactualhole` `switch_terrain` /
+Do not pull skipdrin / pit kick / missmu/wildmiss/mswings `pline_mon`
+/ mattacku AT_TENT / explmu / AT_HUGS / hero `test_move` `passes_bars`
+/ unported uhitm `mhitm_ad_*` `pline_mon` / doname EGG /
+`spoteffects` / `digactualhole` `switch_terrain` /
 `display_self` U_AP_TYPE glyphs / swap-with-pet `seemimic` /
 Blind unseen boulder feel / next_boulder / verysmall vain /
 invent `hold_another_object` hitfloor / pickup highdrop / toss_up.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1265. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1266. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1265 (index). Recent: **D-1265** `hack.c`
+**Keep:** D-0845…D-1266 (index). Recent: **D-1266** `uhitm.c`
+`hmonas` altwep / `uswapwep` (toggle + orig-slot re-read +
+passivedone `drop_uswapwep`; skipdrin / pit kick named); **D-1265** `hack.c`
 fight_empty `explum(null)` (Upolyd AT_EXPL wake_nearto + mh=-1
-rehumanize; altwep named); **D-1264** `uhitm.c`
+rehumanize; pick-dig named); **D-1264** `uhitm.c`
 AT_ENGL `gulpum` (`hmonas` `rnd(20+i)` + swallow/digest/expel);
 **D-1263** `dothrow.c`
 `hitfloor` `dropz(TRUE)` (drop `!can_reach_floor` + hornoplenty;
@@ -102,15 +103,16 @@ ALLOW_BARS (hero `test_move` named); **D-1257** `gelcube_digests`
 named); D-1253 giant pickup (nopick D-1262); D-1249
 container_impact (hitfloor D-1263); D-1250–D-1252
 AT_HUGS / AT_EXPL / `demonpet` (AT_ENGL D-1264; fight_empty D-1265;
-altwep named).
+altwep D-1266).
 **Do not / recent rejects:** FORCE/RNG/appear; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting spaces;
 D-0983…D-1228 (index); no wrap `msg_mon_movement` as `pline_mon`;
 no skip D-1229 `impact_disturbs_zombies`; no skip D-1230 `#teleport`;
 no skip D-1231 gulpmm `m_at`; no skip D-1235/D-1236 a11y addr;
 no skip D-1237 TELEP `pline_xy`; no skip D-1238 `mind_blast`;
-no skip D-1240–D-1248 (`hitmsg` D-1261); no skip D-1265 (altwep
-named); no skip D-1264; no skip D-1263 (invent
+no skip D-1240–D-1248 (`hitmsg` D-1261); no skip D-1266 (skipdrin /
+pit kick named); no skip D-1265 (pick-dig named); no skip D-1264;
+no skip D-1263 (invent
 hold_another_object / pickup highdrop / toss_up named);
 no skip D-1262 (Blind unseen / next_boulder / verysmall named);
 no skip D-1261 (`missmu` / mattacku AT_TENT / explmu named); no skip

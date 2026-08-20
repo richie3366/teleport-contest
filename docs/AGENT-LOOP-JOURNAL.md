@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1266 uhitm.c hmonas altwep / uswapwep
+
+**Objective:** Open `uhitm.c` altwep / `uswapwep` (named from D-1252).
+Not AT_ENGL.
+**C locus:** `uhitm.c` `hmonas` `:5490–5543` / `:5838–5847`;
+`wield.c` `drop_uswapwep`; `youprop.h` `Hate_silver`.
+**Change:** poly multi-AT_WEAP now toggles onto `uswapwep` (one-handed
+wep/weptool, no shield, not launcher/ammo/missile/artifact/silver+Hate),
+re-reads the slot after `known_hitum`, and `drop_uswapwep`s a cursed
+secondary at `passivedone` before DEADMONSTER. Named: skipdrin / pit
+kick. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a poly'd hero dual-swings.
+Next audit @**#1605**.
+**Verified:** private canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `hack.c` `set_uinwater` `switch_terrain` (named from
+D-1129). Not dissolve_bars.
+**Blocked:** none.
 ## 2026-08-20 — D-1265 hack.c fight_empty explum(null)
 
 **Objective:** Open `uhitm.c` fight_empty `explum` (named from D-1251).

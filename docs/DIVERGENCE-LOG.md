@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1266 — uhitm.c `hmonas` altwep / `uswapwep`
+
+- **Status:** fixed (map-driven Open; named omit from D-1252; not a
+  public FAIL)
+- **Symptom:** a poly'd hero with two or more AT_WEAP slots always
+  swung `uwep` for every weapon attack, so `uswapwep` never
+  participated and a cursed secondary never `drop_uswapwep`'d at
+  `passivedone`.
+- **C locus:** `uhitm.c` `hmonas` `:5428` `altwep`, `:5490–5543`
+  (`originalweapon` + toggle + `*originalweapon` re-read + worm-cut
+  `goto passivedone`), `:5838–5847` cursed `drop_uswapwep` before
+  `DEADMONSTER`; `wield.c` `drop_uswapwep` `:809–831`; `youprop.h`
+  `Hate_silver`; `obj.h` `is_weptool`/`is_launcher`/`is_ammo`/
+  `is_missile`/`bimanual`.
+- **JS was:** `weapon = u.uwep`; no toggle; `DEADMONSTER` break
+  before a cursed-swap drop.
+- **Fix:** first qualifying AT_WEAP uses `uwep` then toggles
+  `altwep` so the next uses `uswapwep` (one-handed primary
+  weapon/weptool, no shield, secondary not artifact / launcher /
+  ammo / missile / bimanual / silver-while-`Hate_silver`); re-read
+  the slot after `known_hitum`; worm-cut skips remaining attacks
+  after `passivedone`; cursed `uswapwep` drops then breaks. Did not
+  pull skipdrin / pit kick / remaining `mhitm_ad_*`. C `damageum`
+  `troll_baned(..., uwep)` FIXME left as-is. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `hmonas` / `hmonas_toggle_altwep`;
+  `js/wield.js` export `is_weptool` / `drop_uswapwep`.
+- **Not this iter:** skipdrin; AT_KICK pit; remaining `mhitm_ad_*`;
+  `set_uinwater`.
+- **Verified:** private canary **21**/21 (C toggle/re-read/drop
+  order; JS origSlot; cursed drop; dart/shield/bimanual/silver+Hate/
+  artifact/single-AT_WEAP/worm-cut no drop; cream-pie splat proves
+  second swing used uswapwep); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a public session Upolyd-melees with a
+  secondary weapon.
+- **Follow-up:** Open `hack.c` `set_uinwater` `switch_terrain`.
+
 ## D-1265 — `hack.c` fight_empty `explum(null)`
 
 - **Status:** fixed (map-driven Open; named omit from D-1251; not a

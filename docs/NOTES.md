@@ -5,18 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1265 `hack.c` fight_empty `explum(null)`
-  (reviews **220–224** cadence **#1600** `e2aa4dbe`).
-  Next: Open `uhitm.c` altwep / `uswapwep` (named from D-1252).
-  Not AT_ENGL. Do not skip D-1265…D-1229. Do not pull
-  missmu / mattacku AT_TENT / explmu / AT_HUGS /
+- **Fortress 44/44** after D-1266 `uhitm.c` `hmonas` altwep /
+  `uswapwep` (reviews **220–224** cadence **#1600** `e2aa4dbe`).
+  Next: Open `hack.c` `set_uinwater` `switch_terrain` (named from
+  D-1129). Not dissolve_bars. Do not skip D-1266…D-1229. Do not pull
+  skipdrin / pit kick / missmu / mattacku AT_TENT / explmu / AT_HUGS /
   hero `test_move` `passes_bars` / unported `mhitm_ad_*`
-  `pline_mon` / doname EGG / `set_uinwater` / `spoteffects` /
+  `pline_mon` / doname EGG / `spoteffects` /
   `digactualhole` `switch_terrain` / `display_self` U_AP_TYPE
   glyphs / swap-with-pet `seemimic` / Blind unseen boulder feel /
   invent hold_another_object hitfloor / pickup highdrop /
   toss_up. Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1265. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1266. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -25,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1265.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1266.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -40,8 +40,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1265 (index). Named still: altwep;
-  missmu/explmu; doname EGG; launch_obj
+- Do not skip D-1071…D-1266 (index). Named still: skipdrin /
+  pit kick; missmu/explmu; doname EGG; launch_obj
   down_gate / boulder-chain; `meatobj` / meatbox; `set_uinwater` /
   `spoteffects` / `digactualhole` `switch_terrain`; hero
   `test_move` `passes_bars`; `display_self` U_AP_TYPE glyphs;
@@ -59,12 +59,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1266: `uhitm.c` `hmonas` altwep / `uswapwep` — first AT_WEAP
+  uses uwep then toggles to uswapwep when one-handed / no shield /
+  not launcher-ammo-missile / not silver+Hate_silver; re-read slot
+  after known_hitum; passivedone `drop_uswapwep` if cursed.
+  skipdrin / pit kick named.
 - D-1265: `hack.c` fight_empty Upolyd AT_EXPL `explum(null)` +
   wake_nearto(7*7) then mh=-1 `rehumanize`; You explode-at /
-  futilely. altwep named.
+  futilely. pick-dig named.
 - D-1264: `uhitm.c` AT_ENGL `gulpum` + `start_engulf`/`end_engulf`
   + `hmonas` `rnd(20+i)` (was `continue` with AT_NONE). altwep
-  named.
+  D-1266.
 - D-1263: `dothrow.c` `hitfloor` `dropz(TRUE)` after hero_breaks /
   ship_object; drop `!can_reach_floor` + hornoplenty wired.
   invent hold_another_object / pickup highdrop / toss_up named.
@@ -103,6 +108,4 @@ Objective/score live in `CURRENT.md`.
   nopick m-dir D-1262.
 - D-1252: `uhitm.c` `demonpet` 1/6 `ndemon` else `youmonst.data`;
   `makemon` NO_MM_FLAGS + `tamedog` FALSE. AT_ENGL D-1264;
-  fight_empty D-1265; altwep named.
-- Reviews **220–224** all ACCEPT-WITH-DEBT (no Must-fix).
-  Cadence **#1600** **44**/44. Next audit @**#1605**.
+  fight_empty D-1265; altwep D-1266.

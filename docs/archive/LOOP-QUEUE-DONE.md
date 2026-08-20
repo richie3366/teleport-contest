@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `uhitm.c` fight_empty `explum` (named from D-1251). Not AT_ENGL. **Addressed:** D-1265
+- [x] `uhitm.c` altwep / `uswapwep` (named from D-1252). Not AT_ENGL. **Addressed:** D-1266
+
+
+- [x] `uhitm.c` fight_empty `explum` (named from D-1251). Not AT_ENGL. **Addressed:** D-1265 `9859426c`
 
 
 - [x] `uhitm.c` AT_ENGL `gulpum` (named from D-1251). Not fight_empty. **Addressed:** D-1264 `d86fe2fe`
