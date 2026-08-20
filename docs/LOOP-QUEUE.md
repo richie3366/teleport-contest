@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dothrow.c` throwit slip (named from D-1283). Not stamina.
 - [ ] `dothrow.c` throwit stamina (named from D-1283). Not slip.
 - [ ] `hack.c` moverock next_boulder (named from D-1281). Not Blind feel.
 - [ ] `objnam.c` doname MEAT_RING (named from D-1276). Not candle.

@@ -1188,7 +1188,7 @@ function hitfloor_surface(x, y) {
  * pickup tipcontainer highdrop hitfloor(TRUE) (D-1273);
  * toss_up / throwit u.dz (D-1274).
  * Named omit: ball litter; artifact; finesse_ahriman float_down;
- * throwit slip / stamina / steed potion (swallowit is D-1283).
+ * throwit stamina / steed potion (slip is D-1292; swallowit is D-1283).
  */
 export async function hitfloor(obj, verbosely) {
     if (!obj) return;
@@ -1600,13 +1600,33 @@ async function throwit_returning_missile(
  * toss_up / throwit u.dz is D-1274.
  * returning_missile AutoReturn / throwit_return / ceiling + post-flight
  * return-to-hand is D-1282. swallowit / u.uswallow before u.dz is D-1283.
- * Named omit: slip; stamina drop; steed potionhit; boomhit;
+ * cursed/greased horizontal slip/misfire is D-1292.
+ * Named omit: stamina drop; steed potionhit; boomhit;
  * sho_obj_return_to_u / tethered tmp_at; throw_gold swallow;
  * thitmonst vanish pline; objsplit unsplit; killer_xname polish.
  */
 export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null) {
     const u = game.u;
-    const impaired = throw_impaired();
+    let impaired = throw_impaired();
+    // C throwit :1525 — reset stale gn.notonhead before slip / thrownobj
+    game.notonhead = false;
+    // C throwit :1526–1547 — cursed/greased && (dx||dy) && !rn2(7)
+    if ((obj.cursed || obj.greased) && (u.dx || u.dy) && !rn2(7)) {
+        let slipok = true;
+        if (ammo_and_launcher(obj, u.uwep)) {
+            await pline(`${Tobjnam(obj, 'misfire')}!`);
+        } else if (obj.greased || throwing_weapon(obj)) {
+            await pline(`${Tobjnam(obj, 'slip')} as you throw it!`);
+        } else {
+            slipok = false;
+        }
+        if (slipok) {
+            u.dx = rn2(3) - 1;
+            u.dy = rn2(3) - 1;
+            if (!u.dx && !u.dy) u.dz = 1;
+            impaired = true;
+        }
+    }
     game.thrownobj = obj;
     obj.how_lost = LOST_THROWN;
     if (!game.iflags) game.iflags = {};

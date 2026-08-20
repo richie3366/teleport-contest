@@ -59,27 +59,26 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1291. Reviews **249–252** all
+**Map-driven fortress** after D-1292. Reviews **249–252** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `dothrow.c` throwit slip (named from D-1283). Not stamina.
-Do not skip D-1291…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `dothrow.c` throwit stamina (named from D-1283). Not slip.
+Do not skip D-1292…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not pull next_boulder / skipdrin / pit kick / MEAT_RING /
 seemimic / secret corridor / DRAWBRIDGE_UP ice / shop add_damage /
-liquid_flow / throwit stamina / steed potion.
+liquid_flow / throwit slip / steed potion.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1291.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1292.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1291 (index). Recent: **D-1291** `mhitu.c`
-`wildmiss` `set_msg_xy` then `pline` (not `pline_mon`; nolimbs
-`lunges`). Prior: D-1290 door/wall; D-1289 trap loop `maketrap`;
-D-1288 `makemap_prepost`; D-1287 `u_on_sstairs`; D-1286 `missmu`
-`pline_mon`.
+**Keep:** D-0845…D-1292 (index). Recent: **D-1292** `dothrow.c`
+`throwit` cursed/greased `!rn2(7)` slip/misfire (not stamina).
+Prior: D-1291 `wildmiss` `set_msg_xy`; D-1290 door/wall; D-1289 trap
+loop; D-1288 `makemap_prepost`; D-1287 `u_on_sstairs`; D-1286 `missmu`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1291
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1292
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

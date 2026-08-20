@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1292 dothrow.c throwit slip
+
+**Objective:** Open `dothrow.c` throwit slip (named from D-1283).
+Not stamina.
+**C locus:** `dothrow.c` `throwit` `:1526–1547` (before thrownobj);
+`throwing_weapon` `:1430–1438`; `ammo_and_launcher`.
+**Change:** cursed/greased horizontal `!rn2(7)` misfire/slip;
+`rn2(3)-1` dx/dy, `dz=1` if both 0, `impaired=true`; `notonhead`
+reset. Stamina / steed / boomhit named. Rule #2: no fs.
+**Verified:** private canary **13**/13; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a session throws cursed/greased horizontally.
+**Next:** Open `dothrow.c` throwit stamina. Not slip.
+**Blocked:** none.
 ## 2026-08-20 — D-1291 mhitu.c wildmiss set_msg_xy then pline
 
 **Objective:** Open `mhitu.c` wildmiss `set_msg_xy` then `pline`

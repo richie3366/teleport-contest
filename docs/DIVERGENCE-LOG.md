@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1292 — dothrow.c throwit slip
+
+- **Status:** fixed (map-driven Open from D-1283; not a public FAIL)
+- **Symptom:** `throwit` skipped C's cursed/greased slip. A cursed dart
+  always flew the chosen `dx/dy`. C `:1526–1547` — if
+  `(cursed||greased) && (dx||dy) && !rn2(7)`: ammo+launcher misfire
+  else greased/`throwing_weapon` slip else `slipok=FALSE`; on slipok
+  `dx=rn2(3)-1`, `dy=rn2(3)-1`, both 0 → `dz=1`, `impaired=TRUE`.
+  Before `gt.thrownobj`. JS never consumed that `rn2(7)`.
+- **C locus:** `dothrow.c` `throwit` `:1525` `notonhead=FALSE`;
+  `:1526–1547` slip; stamina `:1549–1560` after slip (named omit);
+  `thrownobj` `:1562`. Callees `ammo_and_launcher`, `throwing_weapon`,
+  `Tobjnam`. Caller `throw_obj`.
+- **JS was:** named omit after D-1283; `throwit` set thrownobj then
+  swallow/dz/bhit with the getdir vector.
+- **Fix:** live slip before thrownobj; misfire vs slip vs `slipok`
+  false; reroll dx/dy; `dz=1` at 0,0; `impaired=true` so AutoReturn
+  does not return to hand. `notonhead` reset. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `throwit`.
+- **Not this iter:** stamina drop; steed potionhit `rn2(6)`; boomhit;
+  `sho_obj_return_to_u` / tethered `tmp_at`; throw_gold swallow;
+  thitmonst vanish pline; objsplit unsplit; `killer_xname` polish.
+- **Verified:** private canary **13**/13 (C slip before thrownobj;
+  JS live; uncursed east no slip; cursed dart slip + no-slip +
+  0,0→hitfloor; cursed sword `slipok` false; greased sword slips;
+  arrow+bow misfire; slipped aklys no return-to-hand; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws cursed/greased horizontally.
+- **Follow-up:** Open `dothrow.c` throwit stamina.
+- **Files:** `js/dothrow.js`.
+
 ## D-1291 — `mhitu.c` `wildmiss` `set_msg_xy` then `pline`
 
 - **Status:** fixed (map-driven Open from D-1286; not a public FAIL)
