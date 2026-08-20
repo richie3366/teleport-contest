@@ -278,3 +278,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [266-909ef3dc-wizterrainwish-secret-corridor.md](./266-909ef3dc-wizterrainwish-secret-corridor.md) | `909ef3dc` | D-1304 secret corridor | **ACCEPT-WITH-DEBT** |
 | [267-b82b15a8-mswings-pline-mon.md](./267-b82b15a8-mswings-pline-mon.md) | `b82b15a8` | D-1305 `mswings` `pline_mon` | **ACCEPT-WITH-DEBT** |
 | [268-49dab44b-eat-brains.md](./268-49dab44b-eat-brains.md) | `49dab44b` | D-1306 `eat_brains` | **ACCEPT-WITH-DEBT** |
+| [269-b97b1fc6-helmet-m-slips-free.md](./269-b97b1fc6-helmet-m-slips-free.md) | `b97b1fc6` | D-1307 helmet / `m_slips_free` | **ACCEPT-WITH-DEBT** |
+| [270-2b9c2c6a-doname-candle-lit.md](./270-2b9c2c6a-doname-candle-lit.md) | `2b9c2c6a` | D-1308 candle `partly used` / lamp `(lit)` | **ACCEPT-WITH-DEBT** |
+| [271-07ac10e0-mattacku-at-tent.md](./271-07ac10e0-mattacku-at-tent.md) | `07ac10e0` | D-1309 `mattacku` AT_TENT melee | **ACCEPT-WITH-DEBT** |
+| [272-734449dc-kick-monster-poly-at-kick.md](./272-734449dc-kick-monster-poly-at-kick.md) | `734449dc` | D-1310 `kick_monster` poly AT_KICK | **ACCEPT-WITH-DEBT** |

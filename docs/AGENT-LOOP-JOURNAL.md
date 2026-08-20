@@ -8,6 +8,29 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1660 review D-1307–D-1310 + cadence
+
+**Objective:** audit — C-fidelity reviews **269–272** of JS SHAs
+since `3ecd2824` / `49dab44b`, plus full `sessions` score. No `js/`
+port.
+**C locus:** `uhitm.c` helmet / `m_slips_free`; `objnam.c` doname
+candle / lamp `(lit)`; `mhitu.c` `mattacku` AT_TENT; `dokick.c`
+`kick_monster` poly AT_KICK.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: mhitu AD_DRIN / candelabrum / explmu / AT_HUGS
+/ `find_roll_to_hit` mlevel / tether BACKTRACK). Filled D-1310
+archive hash `734449dc`. Open first row still throwit tethered
+DISP_TETHER / BACKTRACK. Rule #2: no fs.
+**Score:** cadence **#1660** HEAD `734449dc` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.30/turn` (R² 0.85). seed0383 PASS. Next audit @**#1665**.
+**Verified:** `__RESULTS_JSON__` at HEAD `734449dc`; branch-by-branch
+vs pinned C (slip then `rn2(8)` then `eat_brains`; candle `<` +
+peek reconstruct; TENT `rnd(20+i)` not INT drain; NATTK KICK then
+return).
+**Next:** Open `dothrow.c` throwit tethered DISP_TETHER / BACKTRACK.
+Not leader catch.
+**Blocked:** none.
 ## 2026-08-20 — D-1310 dokick.c kick_monster poly AT_KICK
 
 **Objective:** Open `dokick.c` poly AT_KICK loop (named). Not

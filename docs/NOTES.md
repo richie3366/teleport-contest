@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1310 `dokick.c` `kick_monster` poly
-  AT_KICK loop (cadence **#1655** `49dab44b`; reviews **265–268**
+  AT_KICK loop (cadence **#1660** `734449dc`; reviews **269–272**
   ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c` throwit
   tethered DISP_TETHER / BACKTRACK (named from D-1303). Not leader
   catch. Do not skip D-1310…D-1229. Do not pull explmu / AT_HUGS /

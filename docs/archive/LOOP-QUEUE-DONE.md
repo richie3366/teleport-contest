@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dokick.c` poly AT_KICK loop (named). Not hmonas pit kick. **Addressed:** D-1310
+- [x] `dokick.c` poly AT_KICK loop (named). Not hmonas pit kick. **Addressed:** D-1310 `734449dc`
 
 
 - [x] `mhitu.c` AT_TENT melee (named from D-1261). Not mswings. **Addressed:** D-1309 `07ac10e0`
