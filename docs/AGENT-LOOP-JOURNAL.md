@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1287 stairs.c u_on_sstairs → u_on_rndspot
+
+**Objective:** Open `stairs.c` `u_on_sstairs` → `u_on_rndspot`
+(named from D-1278). Not cmd wiz.
+**C locus:** `stairs.c` `u_on_sstairs` `:111–120`;
+`u_on_upstairs` `:125–132`; `u_on_dnstairs` `:137–144`.
+Callers `do.c` `goto_level` newdungeon; `allmain.c` newgame.
+**Change:** missing special stairs call live `u_on_rndspot(upflag)`
+(updest/dndest + `switch_terrain`). upstairs/dnstairs wrappers;
+`goto_level` awaits; special-dir C boolean `!=`. Named: cmd wiz;
+`On_W_tower_level`; W-tower bit 2. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless arrival via missing
+sstairs with leftover Lev/Fly FROMOUTSIDE. Next audit @**#1635**.
+**Verified:** private canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `cmd.c` wiz-level `u_on_rndspot` (named from
+D-1278). Not sstairs.
+**Blocked:** none.
 ## 2026-08-20 — #1630 review D-1283–D-1286 + cadence
 
 **Objective:** audit — C-fidelity reviews **245–248** of JS SHAs

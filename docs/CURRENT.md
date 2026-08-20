@@ -59,27 +59,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1286. Reviews **245–248** all
+**Map-driven fortress** after D-1287. Reviews **245–248** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `stairs.c` `u_on_sstairs` → `u_on_rndspot` (named from D-1278).
-Not cmd wiz.
-Do not skip D-1286…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `cmd.c` wiz-level `u_on_rndspot` (named from D-1278). Not
+sstairs.
+Do not skip D-1287…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull next_boulder / skipdrin / pit kick /
 wildmiss `set_msg_xy` / MEAT_RING / seemimic / wizterrainwish traps /
 DRAWBRIDGE_UP ice / shop add_damage / liquid_flow / throwit slip.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1286.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1287.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1286 (index). Recent: **D-1286** `mhitu.c`
-`missmu` `pline_mon`. Prior: D-1285 `meatcorpse`; D-1284 `meatobj`;
-D-1283 throwit swallowit; D-1282 returning_missile; D-1281 Blind
-boulder feel.
+**Keep:** D-0845…D-1287 (index). Recent: **D-1287** `stairs.c`
+`u_on_sstairs` → `u_on_rndspot`. Prior: D-1286 `missmu` `pline_mon`;
+D-1285 `meatcorpse`; D-1284 `meatobj`; D-1283 throwit swallowit;
+D-1282 returning_missile; D-1281 Blind boulder feel.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `msg_mon_movement` as `pline_mon`; skip D-1229…D-1286
+spaces; wrap `msg_mon_movement` as `pline_mon`; skip D-1229…D-1287
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_prepost`
 / RANGE_LEVEL / `restore_artifacts`. No trailing `confdir` inside
 shared `getdir`. Throw keeps `getdir_cmdassist`.

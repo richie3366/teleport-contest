@@ -4,6 +4,51 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1287 — `stairs.c` `u_on_sstairs` → `u_on_rndspot`
+
+- **Status:** fixed (map-driven Open from D-1278; not a public FAIL)
+- **Symptom:** JS had no `u_on_sstairs`. `u_on_upstairs` inlined a
+  special-stair try then `place_lregion(..., LR_UPTELE)` without
+  `u_on_rndspot`, so missing-stair arrival skipped updest/dndest
+  and never ran `switch_terrain`. `goto_level` used `u_on_upstairs`
+  as a stand-in for both `u_on_sstairs` flags and `u_on_dnstairs`.
+- **C locus:** `stairs.c` `u_on_sstairs` `:111–120` (`stairway_find_special_dir(upflag)` else `u_on_rndspot(upflag)`);
+  `u_on_upstairs` `:125–132` else `u_on_sstairs(0)`;
+  `u_on_dnstairs` `:137–144` else `u_on_sstairs(1)`.
+  Callers: `do.c` `goto_level` newdungeon `:1753/:1771`;
+  `allmain.c` `newgame` `u_on_upstairs`. `cmd.c` wiz still
+  named.
+- **JS was:** `u_on_upstairs` special then raw `place_lregion`;
+  `goto_level` climb inlined dnstairs with upstairs fallback;
+  `stairway_find_special_dir` used `s.up !== up` (boolean !== int
+  always true).
+- **Fix:** port `u_on_sstairs` / `u_on_dnstairs`; upstairs
+  fallback is `u_on_sstairs(0)`; special-dir uses C boolean `!=`;
+  `goto_level` awaits `u_on_sstairs(1|0)` / `u_on_dnstairs`;
+  `newgame` awaits `u_on_upstairs`. Missing special stairs now
+  hit live D-1278 `u_on_rndspot` (updest/dndest + `switch_terrain`).
+  Did not pull cmd wiz, `On_W_tower_level`, W-tower bit 2
+  (D-1179), or `u_on_newpos` `map_location`/`MAX_TYPE`. Rule #2:
+  no fs.
+- **JS:** `js/mklev.js` `u_on_sstairs`/`u_on_upstairs`/`u_on_dnstairs`;
+  `js/do.js` `goto_level`; `js/allmain.js` `newgame`.
+- **Not this iter:** cmd.c wiz-level `u_on_rndspot`;
+  `On_W_tower_level`; `goto_level` W-tower bit 2; `u_on_newpos`
+  lastseentyp/`MAX_TYPE`.
+- **Verified:** private canary **16**/16 (C special else rndspot;
+  upstairs/dnstairs wrappers; JS await rndspot not LR_UPTELE;
+  `goto_level` awaits; cmd wiz still omit; sstairs(0) skips first
+  DOWN; sstairs(1) DOWN; no-stair dndest/updest + leftover BLev;
+  ordinary up preferred; upstairs no-up → rndspot; dnstairs
+  ordinary / special DOWN; D-1278 rndspot unchanged; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session arrives via missing special stairs with leftover Lev/Fly
+  FROMOUTSIDE.
+- **Follow-up:** Open `cmd.c` wiz-level `u_on_rndspot`.
+- **Files:** `js/mklev.js`, `js/do.js`, `js/allmain.js`, `js/hack.js`
+  (caller comments).
+
 ## D-1286 — `mhitu.c` `missmu` `pline_mon`
 
 - **Status:** fixed (map-driven Open from D-1261; not a public FAIL)

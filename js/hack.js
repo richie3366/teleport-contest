@@ -1958,6 +1958,7 @@ export function classify_terrain() {
  * digactualhole PIT/HOLE is D-1269.
  * dothrow hurtle_step dest-typ is D-1277.
  * dungeon.c u_on_rndspot after place is D-1278.
+ * stairs.c u_on_sstairs fallback is D-1287.
  * objnam.c wizterrainwish after madeterrain is D-1279.
  * **maketrap PIT/HOLE set_levltyp D-1280**.
  */

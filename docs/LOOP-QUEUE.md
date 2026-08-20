@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `stairs.c` `u_on_sstairs` → `u_on_rndspot` (named from D-1278). Not cmd wiz.
 - [ ] `cmd.c` wiz-level `u_on_rndspot` (named from D-1278). Not sstairs.
 - [ ] `objnam.c` wizterrainwish traps (named from D-1279). Not door/wall.
 - [ ] `objnam.c` wizterrainwish door/wall (named from D-1279). Not traps.

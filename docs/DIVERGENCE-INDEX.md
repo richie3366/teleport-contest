@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1287 | fixed | stairs.c `u_on_sstairs` → `u_on_rndspot` | map-driven Open from D-1278; C `stairs.c:111–145` special else `u_on_rndspot(upflag)` + upstairs/dnstairs wrappers; JS was `u_on_upstairs` `place_lregion(LR_UPTELE)` without switch_terrain; `goto_level` newdungeon awaits; special-dir C boolean `!=`; cmd wiz still named |
 | D-1286 | fixed | mhitu.c `missmu` `pline_mon` | map-driven Open from D-1261; C `mhitu.c:83–99` both arms `pline_mon` (seduce pretend + verbose `"just "` miss) + `pline.c:137–150`; JS was `pline` so `a11y.msg_loc` stayed 0,0; wildmiss C is `set_msg_xy` then `pline`; mswings / AT_ENGL gulps/lunges still named |
 | D-1285 | fixed | mon.c `meatcorpse` | map-driven Open from D-1271; C `mon.c:1653–1722` + `monmove.c` postmov `:1674–1678` `corpse_eater` + `mondata.h:243–247`; JS non-pet `sobj_at(CORPSE)` vegan/petrify skip / rider `revive_corpse` / `splitobj` quan>1 / `m_consume_obj` + masticating; mndx poly early-out; `mon_would_consume_item` / consume meatbox/poly still named |
 | D-1284 | fixed | mon.c `meatobj` | map-driven Open from D-1271; C `mon.c:1531–1648` + `monmove.c` postmov `:1669–1672` cube; JS non-pet prize skip / rider `revive_corpse` / ROCK_CLASS·uball·scare·petrify-corpse continue / engulf `mpickobj` vs devour `m_consume_obj` + YUM YUM; mndx poly early-out; **meatcorpse D-1285**; consume meatbox/poly still named |

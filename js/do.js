@@ -56,6 +56,8 @@ import {
     stairway_at,
     stairway_find_from,
     u_on_upstairs,
+    u_on_dnstairs,
+    u_on_sstairs,
     u_on_newpos,
     u_on_rndspot,
     mklev,
@@ -1287,7 +1289,8 @@ function getlev_catchup_monsters(elapsed) {
  * Deferred: binary NHFILE, Gehennom amulet mysteryforce, quest gate seal
  * RMPORTAL, endgame astral `final_level` / migrating-Wizard resurrect arm,
  * Punished `ballfall` on trap-door falling, W-tower `u_on_rndspot` bit 2
- * (rndspot itself awaits switch_terrain D-1278),
+ * (rndspot itself awaits switch_terrain D-1278; stairs u_on_sstairs
+ * fallback is D-1287; cmd wiz-level still named),
  * Lua NHCB_LVL_LEAVE, MICRO display_nhwindow after Valley odor;
  * ACH_ENDG/ASTR/BGRM; poly `locomotion()` climb verb / steed-flyer Flying;
  * u_collide_m full limbo. Ported: Punished climb
@@ -1578,15 +1581,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                 u_on_newpos(stway.sx, stway.sy);
                 stway.u_traversed = true;
             } else if (newdungeon) {
-                u_on_upstairs(); // u_on_sstairs(1) subset
+                // C: u_on_sstairs(1) — dest upstairs implies moving down
+                await u_on_sstairs(1);
             } else {
-                // u_on_dnstairs — destination downstairs when climbing
-                let dnst = null;
-                for (let s = game.stairs; s; s = s.next) {
-                    if (!s.up) { dnst = s; break; }
-                }
-                if (dnst) u_on_newpos(dnst.sx, dnst.sy);
-                else u_on_upstairs();
+                await u_on_dnstairs();
             }
             // C: do.c goto_level — great_effort = Punished && !Levitation;
             // pline when flags.verbose || great_effort; u_locomotion +
@@ -1609,9 +1607,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                 u_on_newpos(stway.sx, stway.sy);
                 stway.u_traversed = true;
             } else if (newdungeon) {
-                u_on_upstairs(); // u_on_sstairs(0) subset
+                // C: u_on_sstairs(0) — dest dnstairs implies moving up
+                await u_on_sstairs(0);
             } else {
-                u_on_upstairs();
+                await u_on_upstairs();
             }
             // C: do.c goto_level descend — Flying / encumber|Punished|Fumbling
             // fall (rnd(3) losehp) / ordinary verbose climb-down.

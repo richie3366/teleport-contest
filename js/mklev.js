@@ -309,9 +309,11 @@ export function stairway_at(x, y) {
     return null;
 }
 
+/** C ref: stairs.c stairway_find_dir — first stairway with matching up. */
 function stairway_find_dir(up) {
+    const want = !!up;
     for (let s = game.stairs; s; s = s.next)
-        if (s.up === up) return s;
+        if (!!s.up === want) return s;
     return null;
 }
 
@@ -330,9 +332,16 @@ export function stairway_find_from(fromdlev, isladder) {
     return null;
 }
 
+/**
+ * C ref: stairs.c stairway_find_special_dir — branch stair whose
+ * tolev.dnum != u.uz.dnum and up != want (C boolean !=).
+ */
 function stairway_find_special_dir(up) {
-    for (let s = game.stairs; s; s = s.next)
-        if (s.tolev.dnum !== (game.u?.uz?.dnum ?? 0) && s.up !== up) return s;
+    const want = !!up;
+    const dnum = game.u?.uz?.dnum ?? 0;
+    for (let s = game.stairs; s; s = s.next) {
+        if ((s.tolev?.dnum | 0) !== dnum && !!s.up !== want) return s;
+    }
     return null;
 }
 
@@ -480,8 +489,9 @@ function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
  * goto_level. After place_lregion, switch_terrain (D-1278; C :1636–1637)
  * so leftover Lev/Fly FROMOUTSIDE from solid rock unblocks. Unconditional
  * (not dest-typ gated like teleds / hurtle_step). Named: On_W_tower_level
- * gate; W-tower bit 2 at goto_level (D-1179); stairs.c u_on_sstairs
- * fallback; cmd.c wiz_level_tele. objnam wish is a separate caller.
+ * gate; W-tower bit 2 at goto_level (D-1179); cmd.c wiz_level_tele.
+ * stairs.c u_on_sstairs fallback is D-1287. objnam wish is a
+ * separate caller.
  */
 export async function u_on_rndspot(upflag) {
     const up = !!(upflag & 1);
@@ -907,15 +917,44 @@ function fixup_special() {
     }
 }
 
-// C ref: stairs.c u_on_upstairs — place hero on upstairs or fallback
-export function u_on_upstairs() {
+/**
+ * C ref: stairs.c u_on_sstairs — place on special/branch staircase,
+ * else u_on_rndspot(upflag) (D-1287; C :111–120). Named: cmd.c
+ * wiz-level still calls rndspot directly.
+ */
+export async function u_on_sstairs(upflag) {
+    const stway = stairway_find_special_dir(upflag);
+    if (stway) {
+        u_on_newpos(stway.sx, stway.sy);
+        return;
+    }
+    await u_on_rndspot(upflag);
+}
+
+/**
+ * C ref: stairs.c u_on_upstairs — ordinary upstairs, else
+ * u_on_sstairs(0) ("destination upstairs implies moving down").
+ */
+export async function u_on_upstairs() {
     const stway = stairway_find_dir(true);
-    if (stway) { u_on_newpos(stway.sx, stway.sy); return; }
-    // No upstair — try special stairs, then random
-    const special = stairway_find_special_dir(0);
-    if (special) { u_on_newpos(special.sx, special.sy); return; }
-    // Random placement via place_lregion
-    place_lregion(0, 0, 0, 0, 0, 0, 0, 0, LR_UPTELE, null);
+    if (stway) {
+        u_on_newpos(stway.sx, stway.sy);
+        return;
+    }
+    await u_on_sstairs(0);
+}
+
+/**
+ * C ref: stairs.c u_on_dnstairs — ordinary downstairs, else
+ * u_on_sstairs(1) ("destination dnstairs implies moving up").
+ */
+export async function u_on_dnstairs() {
+    const stway = stairway_find_dir(false);
+    if (stway) {
+        u_on_newpos(stway.sx, stway.sy);
+        return;
+    }
+    await u_on_sstairs(1);
 }
 
 // oinit — C ref: o_init.c oinit() → setgemprobs(&u.uz)
