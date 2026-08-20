@@ -2,16 +2,17 @@
 # agent-port-loop.sh — repeatedly continue the port until human stop,
 # token-budget exhaustion, short-run streak, or missing-usage streak.
 #
-# Green / full-suite regression is logged; the loop continues so the next
-# iteration can recover. Density, bans, protected files, empty ports, and
+# Crash / resource_exhausted before commit: keep the tree, arm
+# continue-unfinished (cite that iter's .raw/.log), rewind n, retry in
+# this run. Density, bans, protected files, empty committed ports, and
 # QUALITY-RISK without Must-fix still halt. Stop: write "1" into
 # STOP_AGENT_LOOP.md.
 # Design + usage: docs/AGENT-PORT-LOOP.md
 #
 # Token budget (optional, this run only — not persisted):
 #   ./scripts/agent-port-loop.sh --token-budget-m 50
-# Crash leftover: relaunch, or --continue-unfinished / NEXT_AGENT_PROMPT.md
-# (forces port even when n%5==0). Design: docs/AGENT-PORT-LOOP.md
+# Crash leftover: supervisor retries in-process (continue prompt + prior
+# .raw/.log). Or --continue-unfinished / NEXT_AGENT_PROMPT.md on relaunch.
 
 set -euo pipefail
 
@@ -37,7 +38,8 @@ Options:
                         finish leftover work (port unless --next-mode).
                         Ignores n%LOOP_CADENCE_EVERY (audit is skipped for
                         that one global #). Also armed automatically when
-                        an agent crashes before commit with a dirty tree.
+                        an agent crashes before commit; the supervisor
+                        retries in-process (does not exit).
   --next-prompt <file>  Extra prompt text for the next iteration only
                         (copied into the log dir). With --continue-unfinished
                         or a continue latch, appended to the continue
@@ -53,9 +55,11 @@ QUALITY-RISK-without-Must-fix halt and revert the iteration (or halt
 without reset if already pushed). Green / full-suite regression is
 logged; the loop continues so the next iteration can recover.
 Every LOOP_CADENCE_EVERY (5) is review + full-suite score (no port).
-Crash-before-commit with a dirty tree arms continue-unfinished so the
-next launch finishes leftover work even if that global # is n%5==0.
-Queue below LOOP_QUEUE_MIN (8) must be refilled from the map
+Crash-before-commit keeps the tree, arms continue-unfinished (with
+that iter's .raw/.log), rewinds n, and **retries in this supervisor
+run** even if that global # is n%5==0. Does not write STOP. 3× short
+runs still halt (out of tokens). Queue below LOOP_QUEUE_MIN (8) must
+be refilled from the map
 (target LOOP_QUEUE_TARGET 12); halt after a port that still has no
 open items. Agents commit and push; the script fail-closes and pushes
 if they forgot. STOP_AGENT_LOOP.md is gitignored; only this script
@@ -144,8 +148,8 @@ mkdir -p "$LOG_DIR"
 # Global monotonic iteration counter (survives loop restarts).
 ITER_COUNT_FILE="${ITER_COUNT_FILE:-$LOG_DIR/iteration-count}"
 # One-shot continue latch (gitignored via LOG_DIR). Crash-before-commit
-# with a dirty tree writes this so the next launch finishes leftover
-# work even if that global # would have been an audit (n%5==0).
+# writes this and retries the same global # in this supervisor run
+# (even if that # would have been an audit).
 CONTINUE_LATCH="${CONTINUE_LATCH:-$LOG_DIR/continue-unfinished}"
 NEXT_ITER_PROMPT="${NEXT_ITER_PROMPT:-$LOG_DIR/next-iter.prompt.md}"
 NEXT_ITER_CONTEXT="${NEXT_ITER_CONTEXT:-$LOG_DIR/next-iter.context.md}"
@@ -179,12 +183,29 @@ infer_continue_mode() {
 
 write_continue_context() {
   local reason="$1"
+  local raw="${2:-}"
+  local log="${3:-}"
   {
     echo "## Worktree at latch (this leftover is the cluster)"
     echo
     echo "Reason: $reason"
     echo "Time: $(date -Iseconds)"
     echo "HEAD: $(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
+    if [[ -n "$raw" || -n "$log" ]]; then
+      echo
+      echo "### Previous agent stream (resume from here; do not paste into js/)"
+      echo
+      echo "Read the human extract first, then the last assistant text / errors"
+      echo "in the raw stream-json if you need more. Pick up that work; do not"
+      echo "start a new cluster."
+      echo
+      if [[ -n "$log" ]]; then
+        echo "- extract: \`$log\`"
+      fi
+      if [[ -n "$raw" ]]; then
+        echo "- raw: \`$raw\`"
+      fi
+    fi
     echo
     echo '### git status --short'
     echo '```'
@@ -201,30 +222,35 @@ write_continue_context() {
 arm_continue_unfinished() {
   local mode="$1"
   local reason="$2"
+  local raw="${3:-}"
+  local log="${4:-}"
   if [[ "$mode" != "port" && "$mode" != "audit" ]]; then
     mode=port
   fi
   printf '%s\n' "$mode" >"$CONTINUE_LATCH"
-  write_continue_context "$reason"
+  write_continue_context "$reason" "$raw" "$log"
 }
 
-# Crash / uncommitted halt: keep the tree and arm a continue iter so the
-# next launch finishes leftover work even if that # is n%5==0 (audit).
-arm_continue_if_dirty() {
+# Crash / uncommitted leftover: keep the tree and arm a continue iter so
+# the next attempt (same supervisor run, or next launch) finishes leftover
+# work even if that # is n%5==0 (audit). Always arm — a clean tree still
+# needs the prior .raw/.log (typical audit resource_exhausted).
+arm_continue_retry() {
   local reason="$1"
   local ran_as="${2:-port}"
-  if [[ -z "$(git status --porcelain)" ]]; then
-    return 0
-  fi
+  local raw="${3:-}"
+  local log="${4:-}"
   local m
   if [[ -n "$(git status --porcelain -- js)" ]]; then
     m=port
+  elif [[ -n "$(git status --porcelain -- reviews)" ]]; then
+    m=audit
   elif [[ "$ran_as" == "audit" || "$ran_as" == "review" || "$ran_as" == "cadence" ]]; then
     m=audit
   else
     m=port
   fi
-  arm_continue_unfinished "$m" "$reason"
+  arm_continue_unfinished "$m" "$reason" "$raw" "$log"
 }
 
 if [[ -n "$NEXT_PROMPT_SRC" ]]; then
@@ -886,9 +912,12 @@ while true; do
   write_iter_count "$iter"
   apply_iteration_overlays
   mustfix_before="$(mustfix_open_count)"
-  iter_log="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.log"
-  iter_raw="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.raw"
-  snapshot="$(mktemp -d "$LOG_DIR/.snapshot-$STAMP-$iter.XXXXXX")"
+  # Per-attempt stamp so a retry of the same global # does not overwrite
+  # the previous .raw/.log the continue prompt must cite.
+  iter_stamp="$(date +%Y%m%d-%H%M%S)"
+  iter_log="$LOG_DIR/iter-$(printf '%04d' "$iter")-$iter_stamp.log"
+  iter_raw="$LOG_DIR/iter-$(printf '%04d' "$iter")-$iter_stamp.raw"
+  snapshot="$(mktemp -d "$LOG_DIR/.snapshot-$iter_stamp-$iter.XXXXXX")"
   cp -R "$ROOT/js" "$snapshot/js"
   before_head="$(git rev-parse HEAD)"
   origin_before=""
@@ -1114,9 +1143,10 @@ NODE
     | tee -a "$MASTER_LOG"
 
   record_iteration_tokens "$iter_raw"
-  if (( MISSING_USAGE_STREAK >= MISSING_USAGE_LIMIT )); then
-    halt_loop "${MISSING_USAGE_LIMIT} consecutive iterations with no usage in stream" 1
-  fi
+
+  after_head="$(git rev-parse HEAD)"
+  read -r js_c_ins js_c_files <<<"$(js_commit_stats "$before_head" "$after_head")"
+  read -r js_ins js_files <<<"$(js_worktree_stats "$before_head")"
 
   if (( iter_elapsed < SHORT_ITER_SEC )); then
     short_streak=$((short_streak + 1))
@@ -1125,23 +1155,45 @@ NODE
   else
     short_streak=0
   fi
-  if (( short_streak >= SHORT_STREAK_LIMIT )); then
-    halt_loop "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens" 1
-  fi
 
   if [[ "$status" -ne 0 ]]; then
     echo "warning: agent iteration exit $status; raw=$iter_raw" | tee -a "$MASTER_LOG"
   fi
 
-  after_head="$(git rev-parse HEAD)"
-  read -r js_c_ins js_c_files <<<"$(js_commit_stats "$before_head" "$after_head")"
-  read -r js_ins js_files <<<"$(js_worktree_stats "$before_head")"
-
+  # Crash / timeout / resource_exhausted before commit: keep the tree,
+  # arm continue-unfinished (cite this iter's extract + raw), rewind n,
+  # and retry in this supervisor run. Do not write STOP.
   if [[ "$status" -ne 0 && "$after_head" == "$before_head" ]]; then
     crashed_iter="$iter"
+    hint="$(agent_exit_hint "$iter_raw" "$iter_log" "$status")"
     write_iter_count $((crashed_iter - 1))
-    arm_continue_if_dirty "agent iteration #${crashed_iter} exit ${status}$(agent_exit_hint "$iter_raw" "$iter_log" "$status") before commit" "$mode"
-    halt_loop "agent iteration exit ${status}$(agent_exit_hint "$iter_raw" "$iter_log" "$status") before commit; not reverting; counter rewound to $((crashed_iter - 1)) (next launch retries #${crashed_iter}; continue-unfinished armed if dirty)" 0
+    arm_continue_retry "agent iteration #${crashed_iter} exit ${status}${hint} before commit" \
+      "$mode" "$iter_raw" "$iter_log"
+    rm -rf "$snapshot"
+    echo "$(date -Iseconds) warning: agent iteration exit ${status}${hint} before commit; not reverting; counter rewound to $((crashed_iter - 1)); retrying #${crashed_iter} as continue-unfinished (supervisor staying up; extract=$iter_log raw=$iter_raw)" \
+      | tee -a "$MASTER_LOG"
+    if (( short_streak >= SHORT_STREAK_LIMIT )); then
+      halt_loop "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens" 1
+    fi
+    if should_stop; then
+      echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting after failed iteration $crashed_iter" \
+        | tee -a "$MASTER_LOG"
+      exit 0
+    fi
+    if token_budget_exceeded; then
+      echo "$(date -Iseconds) TOKEN BUDGET: ${TOKENS_USED} >= ${TOKEN_BUDGET} (${TOKEN_BUDGET_M}M) — exiting after failed iteration $crashed_iter" \
+        | tee -a "$MASTER_LOG"
+      exit 0
+    fi
+    sleep "${LOOP_SLEEP_SEC:-2}"
+    continue
+  fi
+
+  if (( MISSING_USAGE_STREAK >= MISSING_USAGE_LIMIT )); then
+    halt_loop "${MISSING_USAGE_LIMIT} consecutive iterations with no usage in stream" 1
+  fi
+  if (( short_streak >= SHORT_STREAK_LIMIT )); then
+    halt_loop "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens" 1
   fi
 
   origin_after=""
@@ -1183,8 +1235,22 @@ NODE
       halt_loop "empty port iteration (no js/ changes) — queue item not shipped" 1
     fi
     if (( js_c_ins == 0 && js_c_files == 0 )); then
-      arm_continue_if_dirty "port iteration left uncommitted js/ changes (agent did not commit)" "$mode"
-      halt_loop "port iteration left uncommitted js/ changes (agent did not commit; not reverting)" 0
+      write_iter_count $((iter - 1))
+      arm_continue_retry "port iteration left uncommitted js/ changes (agent did not commit)" \
+        "$mode" "$iter_raw" "$iter_log"
+      rm -rf "$snapshot"
+      echo "$(date -Iseconds) warning: port iteration left uncommitted js/; retrying #$iter as continue-unfinished (supervisor staying up; extract=$iter_log raw=$iter_raw)" \
+        | tee -a "$MASTER_LOG"
+      if should_stop; then
+        echo "$(date -Iseconds) STOP after uncommitted port $iter" | tee -a "$MASTER_LOG"
+        exit 0
+      fi
+      if token_budget_exceeded; then
+        echo "$(date -Iseconds) TOKEN BUDGET after uncommitted port $iter" | tee -a "$MASTER_LOG"
+        exit 0
+      fi
+      sleep "${LOOP_SLEEP_SEC:-2}"
+      continue
     fi
     if (( js_ins > LOOP_MAX_JS_INSERTIONS || js_files > LOOP_MAX_JS_FILES )); then
       if (( agent_pushed )); then
@@ -1202,8 +1268,22 @@ NODE
       halt_loop "review iteration wrote no reviews/loop-unattended/ file" 1
     fi
     if [[ "$after_head" == "$before_head" ]]; then
-      arm_continue_if_dirty "review iteration left uncommitted reviews/loop-unattended (agent did not commit)" "$mode"
-      halt_loop "review iteration left uncommitted reviews/loop-unattended (agent did not commit; not reverting)" 0
+      write_iter_count $((iter - 1))
+      arm_continue_retry "review iteration left uncommitted reviews/loop-unattended (agent did not commit)" \
+        "$mode" "$iter_raw" "$iter_log"
+      rm -rf "$snapshot"
+      echo "$(date -Iseconds) warning: review left uncommitted reviews/; retrying #$iter as continue-unfinished (supervisor staying up; extract=$iter_log raw=$iter_raw)" \
+        | tee -a "$MASTER_LOG"
+      if should_stop; then
+        echo "$(date -Iseconds) STOP after uncommitted review $iter" | tee -a "$MASTER_LOG"
+        exit 0
+      fi
+      if token_budget_exceeded; then
+        echo "$(date -Iseconds) TOKEN BUDGET after uncommitted review $iter" | tee -a "$MASTER_LOG"
+        exit 0
+      fi
+      sleep "${LOOP_SLEEP_SEC:-2}"
+      continue
     fi
     if git diff "$before_head" "$after_head" -- 'reviews/loop-unattended' \
       | rg -q '^\+Verdict: \*\*REJECT\*\*'; then

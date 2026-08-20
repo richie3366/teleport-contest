@@ -36,8 +36,9 @@ AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50
 # Example: failed audit #1465 → treat last completed as 1464.
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50 --last-completed 1464
 
-# Finish leftover work after a crash that left js/ dirty (ignores n%5 audit).
-# Also armed automatically: relaunch after HALT … before commit is enough.
+# Finish leftover work after a crash (ignores n%5 audit). Usually
+# unnecessary: the supervisor retries in-process. Use this to relaunch
+# after a kill / STOP with a leftover latch.
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh --continue-unfinished --token-budget-m 50
 
 # Extra standing orders for the next iter only (gitignored file, consumed):
@@ -113,14 +114,14 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │             Open from the map (target 12) then ships one cluster   │
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
 │       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
-│         timeout, tool denials, protected edit, banned pattern,     │
-│         js/ on audit, empty port, density >400/8,                  │
-│         QUALITY-RISK/REJECT with no new Must-fix row               │
+│         3× short runs, tool denials, protected edit, banned        │
+│         pattern, js/ on audit, empty committed port, density       │
+│         >400/8, QUALITY-RISK/REJECT with no new Must-fix row       │
 │       WARN + CONTINUE (no STOP, no revert; still push if needed):  │
-│         green fail, audit/cadence full-suite fail                  │
-│       uncommitted js/ or review after a crash: halt, **no** reset  │
-│       crash/timeout before commit: halt, **no** reset, rewind n,   │
-│         arm continue-unfinished if the tree is dirty               │
+│         green fail, audit/cadence full-suite fail,                 │
+│         crash/timeout/resource_exhausted before commit: rewind n,  │
+│         arm continue-unfinished (cite that iter .log/.raw), retry  │
+│         the same # in this run (even if n%5==0)                    │
 │       else supervisor `git push origin HEAD` if the agent forgot   │
 │       halt after short-run streak / missing usage (budget)    │
 │       sleep LOOP_SLEEP_SEC                                    │
@@ -143,16 +144,23 @@ separate cadences). Must-fix does not skip that audit.
 ### Continue unfinished (ignore `n % 5`)
 
 A crash / timeout / `resource_exhausted` **before commit** still keeps
-the dirty tree and rewinds the counter. If the tree is dirty, the
-supervisor also arms a **one-shot continue latch**
+the dirty tree and rewinds the counter. The supervisor **does not
+exit**: it arms a **one-shot continue latch**
 (`.agent-port-loop-logs/continue-unfinished`: `port` or `audit`, plus a
-git-status snapshot). The **next launch** allows that dirty tree, feeds
-`scripts/agent-port-loop.continue.prompt.md` (finish leftover work; do
-**not** pop a new `LOOP-QUEUE` item), and **forces that mode even when
-the global `#` is divisible by 5**. That audit slot is skipped; the next
-audit is the following multiple of `LOOP_CADENCE_EVERY`.
+git-status snapshot and paths to that attempt’s `iter-NNNN-*.log` /
+`.raw`) and **retries the same global `#` in this run**. The next
+agent gets `scripts/agent-port-loop.continue.prompt.md` (finish that
+leftover; read the cited extract/raw; do **not** pop a new
+`LOOP-QUEUE` item) and **forces that mode even when the `#` is
+divisible by 5**. Uncommitted `js/` or `reviews/` after an agent
+returns without a commit is the same retry, not a halt.
 
-Relaunch after a halt is enough (latch already armed). Operators can also:
+3× consecutive **short** (<30s) runs still halt (quota / out of
+tokens). Token budget and `STOP_AGENT_LOOP.md=1` still stop the
+supervisor between attempts. A human relaunch also picks up a leftover
+latch if the process was killed.
+
+Operators can also:
 
 ```bash
 # Force the next iter to finish leftover work (dirty js/ or reviews/).
@@ -258,12 +266,14 @@ Under `.agent-port-loop-logs/` (gitignored):
   Bootstraps from the **count** of `iter-*.log` files if higher than the
   stored value (not max `NNNN`, because early runs reused 0001…).
   `--last-completed n` rewrites this so the next iter is `n+1` (must stay
-  ≥ that log-file floor). A crash/timeout **before commit** also rewinds
-  the counter so the same global `#` / mode is retried on the next launch.
+  ≥ that log-file floor). A crash/timeout **before commit** rewinds the
+  counter and retries the same global `#` **in this run** (continue
+  prompt + that attempt’s `.log`/`.raw`).
 - `continue-unfinished` — one-shot latch (`port` or `audit`). Armed on
-  crash-before-commit when the tree is dirty; consumed at the start of
-  the next iter. Paired `next-iter.prompt.md` / `next-iter.context.md`
-  hold extra operator text and a git-status snapshot.
+  crash-before-commit (in-process retry, or leftover for a relaunch).
+  Consumed at the start of the next attempt. Paired
+  `next-iter.prompt.md` / `next-iter.context.md` hold extra operator
+  text, git-status, and paths to the prior `iter-NNNN-*.log` / `.raw`.
 
 ### Environment knobs
 
@@ -274,7 +284,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `AGENT_TRUST` | `1` | Pass `--trust` (required for headless `-p`; set `0` only for interactive trust prompt) |
 | `AGENT_FORCE` | `0` | Set `1` to pass `--force` so Shell/scorers are not auto-denied under `-p` |
 | `AGENT_OUTPUT_FORMAT` | `stream-json` | `stream-json` keeps tool events in `iter-*.raw`; `text` is narrative-only |
-| `ITERATION_TIMEOUT_SEC` | `3600` | Kill an overlong agent run (**halt+revert**) |
+| `ITERATION_TIMEOUT_SEC` | `3600` | Kill an overlong agent run (then **retry** as continue-unfinished, same as crash-before-commit) |
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
 | `--token-budget-m` (CLI) | unset | Cap this run at *n* million tokens (all usage kinds); not persisted |
@@ -326,9 +336,10 @@ Halt reason is still `last-halt-reason.txt`.
 4. Watch the live tee, or `npm run observe-loop` (see **Loop observer**
    above). Halt reason: `last-halt-reason.txt`.
 5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
-6. After a crash-before-commit HALT: just relaunch (latch allows the dirty
-   tree and ignores `n%5`). After a clean stop, inspect `git log`, Notes,
-   `CURRENT.md`, queue, and journal.
+6. After a crash-before-commit the supervisor **retries in-process**
+   (continue latch + cited `.log`/`.raw`). Write `STOP_AGENT_LOOP.md=1`
+   to stop between attempts. After a clean stop, inspect `git log`,
+   Notes, `CURRENT.md`, queue, and journal.
 
 ## Failure modes
 
@@ -346,8 +357,8 @@ Halt reason is still `last-halt-reason.txt`.
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
 | Agent `git push` then density/authority fail | Halt without reset; human reverts origin |
 | Agent `git push` then green/suite FAIL | Continue; next iter recovers |
-| Port HALT empty + `reset --hard` after a long iter | Agent crashed before commit. Uncommitted `js/`/`reviews/` → halt, keep tree, **arm continue-unfinished**. Crash with **no** files → halt `exit N … before commit; not reverting` (not “empty review”); counter rewound so the next launch retries the same `#` |
-| Audit HALT no review file + revert after `resource_exhausted` | Same: agent died mid-read; do not call that an empty review. `--last-completed 1464` (or the auto-rewind) retries audit **#1465**. Dirty reviews/ also arm continue so a later `#` that is `n%5==0` still finishes the review instead of starting a fresh audit prompt |
+| Port / audit `resource_exhausted` before commit | Supervisor **retries** the same `#` as continue-unfinished (cites that iter `.log`/`.raw`); does **not** exit. 3× short runs still halt |
+| Uncommitted `js/` or `reviews/` after the agent returns | Same in-process retry, keep tree |
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
 | Queue empty after port | Agent failed to refill from the map — halt |
