@@ -33,7 +33,7 @@ import {
 import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 import {
     W_ARMOR, W_AMUL, W_RING, W_RINGL, W_RINGR, W_QUIVER, W_WEP, W_SWAPWEP,
-    W_BALL, W_CHAIN,
+    W_BALL, W_CHAIN, W_TOOL, W_SADDLE,
     Has_contents, Is_container, Is_box, P_NONE, P_BOW, P_CROSSBOW, P_SHURIKEN,
     P_DART, P_BOOMERANG,
     OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
@@ -1649,7 +1649,8 @@ export function doname(obj) {
     // pname adjectives sit after the possessive (D-1255). EGG →
     // pmnames[NEUTRAL] + optional "(laid by you)" (D-1276). MEAT_RING
     // goto ring worn/+spe (D-1295). TOOL candle partly used / lamp (lit)
-    // (D-1308). Candelabrum (n of 7) D-1317. Leash / W_TOOL worn named.
+    // (D-1308). Candelabrum (n of 7) D-1317. W_TOOL|W_SADDLE worn D-1318.
+    // Leash / POT_OIL (lit) named.
     const isMeatRing = oname === 'MEAT_RING';
     const isCandelabrum = donameClass === TOOL_CLASS
         && oname === 'CANDELABRUM_OF_INVOCATION';
@@ -1685,7 +1686,8 @@ export function doname(obj) {
     // (objnam.c:1455–1478): candle turns_left = age, lit → += peek_timer
     // (BURN_OBJECT) − moves; turns_left < 20*oc_cost → "partly used ".
     // Then (lit) on bp after prefix+base. Candelabrum is the prior if
-    // (objnam.c:1447–1454) and breaks before this arm. Leash / W_TOOL named.
+    // (objnam.c:1447–1454) and breaks before this arm. Worn W_TOOL|W_SADDLE
+    // breaks before all three (D-1318). Leash / POT_OIL (lit) named.
     if (Is_candle_obj(obj) && donameClass === TOOL_CLASS) {
         const full_burn_time = 20 * (game.objects?.[otyp]?.oc_cost | 0);
         let turns_left = obj.age | 0;
@@ -1720,17 +1722,24 @@ export function doname(obj) {
         for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) itemcount += 1;
         bp += ` containing ${itemcount} item${itemcount !== 1 ? 's' : ''}`;
     }
+    // C doname_base TOOL_CLASS W_TOOL|W_SADDLE (objnam.c:1427–1429):
+    // Concat " (being worn)" then break — skips leash, candelabrum,
+    // lamp/candle, and charges. ublindf (blindfold/towel/lenses) and
+    // monster saddle share this mask. Weptools remap to WEAPON_CLASS.
+    const toolWorn = donameClass === TOOL_CLASS
+        && ((obj.owornmask | 0) & (W_TOOL | W_SADDLE)) !== 0;
+    if (toolWorn) bp += ' (being worn)';
     // C doname_base TOOL CANDELABRUM_OF_INVOCATION (objnam.c:1447–1454):
     // suffix = plur(spe) + (!lamplit ? " attached" : ", lit"); then
     // Concat " (%d of 7 candle%s)" and break (no lamp (lit), no charges).
-    if (isCandelabrum) {
+    if (isCandelabrum && !toolWorn) {
         const spe = obj.spe | 0;
         const plurS = spe === 1 ? '' : 's';
         const litOrAtt = obj.lamplit ? ', lit' : ' attached';
         bp += ` (${spe} of 7 candle${plurS}${litOrAtt})`;
     }
     // C doname_base TOOL lamp/candle Concat " (lit)" (objnam.c:1476–1477).
-    if (isLampOrCandle && obj.lamplit) bp += ' (lit)';
+    if (isLampOrCandle && obj.lamplit && !toolWorn) bp += ' (lit)';
 
     if (oclass === ARMOR_CLASS && (obj.owornmask & W_ARMOR))
         bp += ' (being worn)';
@@ -1805,9 +1814,10 @@ export function doname(obj) {
     }
 
     // C TOOL_CLASS charges — weptools remapped to WEAPON so they get +spe.
-    // Lamp/candle / candelabrum arms break before charges (objnam.c:1454/1478).
+    // Worn / lamp/candle / candelabrum arms break before charges
+    // (objnam.c:1429/1454/1478).
     if (known && is_charged_otyp(otyp) && donameClass === TOOL_CLASS
-        && !isLampOrCandle && !isCandelabrum)
+        && !isLampOrCandle && !isCandelabrum && !toolWorn)
         bp += ` (${obj.recharged | 0}:${obj.spe | 0})`;
     // C ref: objnam.c WAND_CLASS → charges
     if (known && donameClass === WAND_CLASS)

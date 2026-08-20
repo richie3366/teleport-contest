@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1318 — `objnam.c` doname TOOL W_TOOL|W_SADDLE worn
+
+- **Status:** fixed (map-driven Open from D-1308; not a public FAIL)
+- **Symptom:** JS `doname` TOOL never appended `" (being worn)"` for
+  `owornmask & (W_TOOL | W_SADDLE)`, so a worn blindfold/towel/lenses
+  or a monster saddle looked like a bare tool name.
+- **C locus:** `objnam.c` `doname_base` TOOL_CLASS `:1427–1429` first
+  arm (comment `/* blindfold */`). Concat `" (being worn)"` then
+  `break` before leash / candelabrum / lamp/candle / charges.
+  Switch class is `is_weptool ? WEAPON_CLASS : oclass`. After the
+  switch, W_WEP/SWAPWEP/QUIVER still apply. Callers: invent `prinv`
+  / `xprname`.
+- **JS was:** candelabrum D-1317; lamp/candle D-1308; worn omit.
+- **Fix:** `doname` TOOL worn suffix; skip later TOOL arms when worn.
+  Did not pull LEASH `leashmon` or POTION POT_OIL `(lit)`. Rule #2:
+  no fs.
+- **JS:** `js/objnam.js` `doname`.
+- **Not this iter:** LEASH `leashmon`; POT_OIL `(lit)`; wet-towel
+  xname; full `mbodypart`.
+- **Verified:** private canary **27**/27 (C arm+break order; blindfold
+  / lenses / towel W_TOOL; saddle W_SADDLE; xname bare; worn marker
+  skips charges; candelabrum n-of-7 / wielded / worn-break; candle/
+  lamp/MEAT_RING/armor/amulet regression; leash/POT_OIL still omit;
+  Rule #2); green+strict seed8000/0900; cohort **8**/8 + strict
+  1500/1800/0012/0004/0007/2200/0383/0361. **Public-unhit** unless a
+  session shows a worn ublindf/saddle via `doname`.
+- **Follow-up:** Open `objnam.c` doname LEASH attached (named from
+  D-1308).
+- **Files:** `js/objnam.js`.
+
 ## D-1317 — `objnam.c` doname CANDELABRUM (n of 7)
 
 - **Status:** fixed (map-driven Open from D-1308; not a public FAIL)

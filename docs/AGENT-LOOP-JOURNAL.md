@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1318 objnam.c doname TOOL W_TOOL|W_SADDLE worn
+
+**Objective:** Open `objnam.c` doname TOOL W_TOOL|W_SADDLE worn (named
+from D-1308). Not candle.
+**C locus:** `objnam.c` `doname_base` TOOL `:1427–1429` first arm.
+**Change:** `" (being worn)"` then break before leash / candelabrum /
+lamp / charges. xname stays bare. Leash / POT_OIL `(lit)` named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1670**.
+**Verified:** canary **27**/27; green+strict seed8000/0900; cohort
+**8**/8 + strict 1500/1800/0012/0004/0007/2200/0383/0361.
+Filled D-1317 archive hash `9b1b4ba4`.
+**Next:** Open `objnam.c` doname LEASH attached (named from D-1308).
+Not candle.
+**Blocked:** none.
 ## 2026-08-20 — D-1317 objnam.c doname CANDELABRUM (n of 7)
 
 **Objective:** Open `objnam.c` doname CANDELABRUM (n of 7) (named from

@@ -5,17 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1317 `objnam.c` doname CANDELABRUM
-  `(n of 7)` (cadence **#1665** `a1d48196`; reviews **273/274/276**
-  ACCEPT-WITH-DEBT, **275** QUALITY-RISK caller wired). Next: Open
-  `objnam.c` doname TOOL W_TOOL|W_SADDLE worn. Not candle. Do not
-  skip D-1317…D-1229. Do not pull gazemu / explmu / AT_HUGS /
+- **Fortress 44/44** after D-1318 `objnam.c` doname TOOL
+  W_TOOL|W_SADDLE worn (cadence **#1665** `a1d48196`; reviews
+  **273/274/276** ACCEPT-WITH-DEBT, **275** QUALITY-RISK caller
+  wired). Next: Open `objnam.c` doname LEASH attached. Not candle.
+  Do not skip D-1318…D-1229. Do not pull gazemu / explmu / AT_HUGS /
   mhitu AD_DRIN / leash / POT_OIL `(lit)` / zap bhit
   `THROWN_TETHERED_WEAPON` isqrt / thitmonst vanish pline / dokick
   snuff_candle.
   Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1317. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1318. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1317.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1318.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -38,9 +38,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1317 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1318 (index). Named still: mhitu+mhitm
   AD_DRIN / AD_WRAP `m_slips_free`; explmu / AT_HUGS; mattackm
-  AT_TENT; leash / W_TOOL worn / POT_OIL `(lit)`; AT_ENGL
+  AT_TENT; leash / POT_OIL `(lit)`; AT_ENGL
   gulps/lunges. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -52,12 +52,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1318: `objnam.c` doname TOOL W_TOOL|W_SADDLE `:1427–1429`.
+  Concat `" (being worn)"` then break (skips leash / candelabrum /
+  lamp / charges). ublindf + monster saddle. xname stays bare.
+  Weptools remap to WEAPON. **leash / POT_OIL named**. Candelabrum
+  D-1317.
 - D-1317: `objnam.c` doname TOOL CANDELABRUM `:1447–1454`.
   `plur(spe)` + unlit `" attached"` / lit `", lit"` →
   `" (n of 7 candle%s)"`; break before lamp `(lit)` / charges.
   Unique `"the Candelabrum of Invocation"`; appearance
-  `"a candelabrum"`. xname stays bare. Leash / W_TOOL worn /
-  POT_OIL `(lit)` named. **urange D-1316**.
+  `"a candelabrum"`. xname stays bare. Leash / POT_OIL `(lit)`
+  named. **urange D-1316**.
 - D-1316: `dothrow.c` throwit `:1613–1682` ACURRSTR urange. Crossbow
   18/2 else `acurrstr()/2`; ball `/100` else `/40`; uball ustuck 1 /
   else cap 5; ammo launcher `BOLT_LIM`/`++` else non-gem half +
@@ -107,8 +112,8 @@ Objective/score live in `CURRENT.md`.
 - D-1308: `objnam.c` doname TOOL lamp/candle. `partly used ` when
   remaining burn (`age`, lit `peek_timer(BURN_OBJECT)-moves`)
   `< 20*oc_cost`; then `" (lit)"`. `mksobj` tallow 200 / wax 400.
-  Candelabrum `(n of 7)` D-1317. Leash / W_TOOL worn / POT_OIL
-  `(lit)` named. **helmet D-1307**.
+  Candelabrum `(n of 7)` D-1317. W_TOOL worn D-1318. Leash /
+  POT_OIL `(lit)` named. **helmet D-1307**.
 - D-1307: uhitm helmet / `m_slips_free`. After headless return,
   AD_DRIN W_ARMH grease/oilskin slip (no skipdrin); then
   `which_armor(W_ARMH) && rn2(8)` helm/hat block; then eat_brains
