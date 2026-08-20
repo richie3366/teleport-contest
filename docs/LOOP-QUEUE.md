@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitu.c` AT_TENT melee (named from D-1261). Not mswings.
 - [ ] `dokick.c` poly AT_KICK loop (named). Not hmonas pit kick.
 - [ ] `dothrow.c` throwit tethered DISP_TETHER / BACKTRACK (named from D-1303). Not leader catch.
 - [ ] `dothrow.c` thitmonst leader catch / finish_quest (named). Not vanish pline.

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `objnam.c` candle `partly used` (named from D-1295). Not MEAT_RING. **Addressed:** D-1308
+- [x] `mhitu.c` AT_TENT melee (named from D-1261). Not mswings. **Addressed:** D-1309
+
+
+- [x] `objnam.c` candle `partly used` (named from D-1295). Not MEAT_RING. **Addressed:** D-1308 `2b9c2c6a`
 
 
 - [x] `uhitm.c` mhitm_ad_drin helmet / m_slips_free (named from D-1298). Not eat_brains. **Addressed:** D-1307 `b97b1fc6`

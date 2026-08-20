@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1309 mhitu.c mattacku AT_TENT melee
+
+**Objective:** Open `mhitu.c` AT_TENT melee (named from D-1261).
+Not mswings.
+**C locus:** `mhitu.c` `mattacku` `:793–821` `case AT_TENT:` with
+claw/kick/bite; pit kick; weapon/petrify gate; `failed_grab`;
+thick-skinned kick skip `hitmu`.
+**Change:** add AT_TENT to HTH switch; port same-arm gates.
+Local `Conflict()`. explmu / AT_HUGS / mhitu AD_DRIN / mattackm
+AT_TENT named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1660**.
+**Verified:** canary **22**/22; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1308 archive hash `2b9c2c6a`.
+**Next:** Open `dokick.c` poly AT_KICK loop. Not hmonas pit kick.
+**Blocked:** none.
 ## 2026-08-20 — D-1308 objnam candle partly used / lamp (lit)
 
 **Objective:** Open `objnam.c` candle `partly used` (named from

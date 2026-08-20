@@ -59,25 +59,26 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1308. Reviews **265–268** all
+**Map-driven fortress** after D-1309. Reviews **265–268** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `mhitu.c` AT_TENT melee (named from D-1261). Not mswings.
-Do not skip D-1308…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `dokick.c` poly AT_KICK loop (named). Not hmonas pit kick.
+Do not skip D-1309…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not pull poly AT_KICK / tethered BACKTRACK / candelabrum n-of-7.
+Do not pull explmu / AT_HUGS / mhitu AD_DRIN / tethered BACKTRACK /
+candelabrum n-of-7.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1308.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1309.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1308 (index). Recent: **D-1308** `objnam.c`
-candle `partly used` / lamp `(lit)` + `mksobj` age. Prior: D-1307
-uhitm helmet / `m_slips_free`; D-1306 eat_brains; D-1305 mswings
-`pline_mon`; D-1304 secret corridor; D-1303 `sho_obj_return_to_u`;
-D-1302 throw_gold swallow.
+**Keep:** D-0845…D-1309 (index). Recent: **D-1309** `mhitu.c`
+`mattacku` AT_TENT melee. Prior: D-1308 candle `partly used` / lamp
+`(lit)`; D-1307 uhitm helmet / `m_slips_free`; D-1306 eat_brains;
+D-1305 mswings `pline_mon`; D-1304 secret corridor; D-1303
+`sho_obj_return_to_u`; D-1302 throw_gold swallow.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1308
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1309
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

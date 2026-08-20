@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1309 — `mhitu.c` `mattacku` AT_TENT melee
+
+- **Status:** fixed (map-driven Open from D-1261; not a public FAIL)
+- **Symptom:** JS `mattacku` HTH switch omitted `AT_TENT`, so a mind
+  flayer's tentacles never rolled `rnd(20+i)` / `hitmu` / `missmu`
+  against the hero.
+- **C locus:** `mhitu.c` `mattacku` `:793–821` `case AT_TENT:` with
+  claw/kick/bite/sting/touch/butt. Pit-kick `continue`; melee iff
+  `!range2 && (!MON_WEP || mconf || Conflict || !touch_petrifies)`;
+  hit: `unsolid && failed_grab` `continue`; thick-skinned kick skips
+  `hitmu`. skipdrin `AT_TENT+AD_DRIN` continue already live
+  (`:787–790`).
+- **JS was:** HTH cases without `AT_TENT`; `if (!range2)` only (no
+  weapon/petrify / `failed_grab` / thick-kick skip).
+- **Fix:** add `AT_TENT`; port same-arm gates. Local `Conflict()`
+  (`youprop.h` H||E). Did not pull `explmu` / AT_HUGS / AT_ENGL
+  gulps/lunges / mhitu `mhitm_ad_drin` / mattackm AT_TENT. Rule #2:
+  no fs.
+- **JS:** `js/mhitu.js` `mattacku`.
+- **Not this iter:** `explmu`; AT_HUGS; AT_ENGL gulps/lunges
+  `pline_mon`; mhitu+mhitm AD_DRIN; mattackm AT_TENT; Snickersnee
+  bash; Some_Monnam.
+- **Verified:** private canary **22**/22 (C arm+gates; JS same; miss
+  3×`rnd`+missmu; hit 3×`rnd`+3×`d`+knockback `rn2`; armed vs
+  cockatrice skip; conf/Conflict/unarmed still melee; unsolid wrap
+  continue; thick kick skip `hitmu`; range2 silent; skipdrin reset;
+  AT_CLAW regression; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a mind flayer (or other AT_TENT) melees
+  the hero.
+- **Follow-up:** Open `dokick.c` poly AT_KICK loop.
+- **Files:** `js/mhitu.js`, `js/uhitm.js` (comment).
+
 ## D-1308 — `objnam.c` doname candle `partly used` / lamp `(lit)`
 
 - **Status:** fixed (map-driven Open from D-1295; not a public FAIL)

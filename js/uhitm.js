@@ -2073,8 +2073,9 @@ export async function gulpum(mdef, mattk) {
  * originalweapon re-read + passivedone drop_uswapwep). skipdrin AT_TENT
  * AD_DRIN + pit AT_KICK D-1298 (`gs.skipdrin`; `mtrapped_in_pit`).
  * eat_brains D-1306 (uhitm headed). Helmet / m_slips_free / lifsav
- * skipdrin D-1307 (uhitm arm). Named: mhitu+mhitm AD_DRIN callers;
- * AD_WRAP m_slips_free; remaining mhitm_ad_*; mattacku AT_TENT melee.
+ * skipdrin D-1307 (uhitm arm). mattacku AT_TENT melee D-1309.
+ * Named: mhitu+mhitm AD_DRIN callers; AD_WRAP m_slips_free;
+ * remaining mhitm_ad_*.
  */
 export async function hmonas(mon) {
     const u = game.u || {};

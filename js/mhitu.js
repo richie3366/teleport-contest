@@ -9,7 +9,7 @@ import {
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
     M_ATTK_DEF_DIED,
     Upolyd, DIED, P_WHIP, NON_PM, XKILL_NOMSG, NEW_MOON,
-    DISPLACED, IS_WATERWALL, RLOC_MSG, RLOC_NOMSG, TIMEOUT, ARTICLE_A,
+    DISPLACED, CONFLICT, IS_WATERWALL, RLOC_MSG, RLOC_NOMSG, TIMEOUT, ARTICLE_A,
     LEFT_SIDE, RIGHT_SIDE, LEG,
 } from './const.js';
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
@@ -34,7 +34,7 @@ import { monflee } from './monmove.js';
 import {
     is_orc, is_demon, is_were, is_animal, is_whirly, amorphous, unsolid,
     MZ_HUGE, M1_SEE_INVIS, MALE, FEMALE, haseyes, resists_ston,
-    hides_under, is_flyer, thick_skinned, nolimbs,
+    hides_under, is_flyer, thick_skinned, nolimbs, touch_petrifies,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
 } from './monsters.js';
 import { done_in_by } from './end.js';
@@ -97,6 +97,17 @@ const PIERCE = 1;
 /** C ref: mondata.h perceives — M1_SEE_INVIS. */
 function perceives(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_SEE_INVIS);
+}
+
+/**
+ * C ref: youprop.h Conflict — HConflict || EConflict.
+ * Worn RIN_CONFLICT EConflict via setworn oc_oprop still named.
+ */
+function Conflict() {
+    const u = game.u || {};
+    if (u.HConflict || u.EConflict) return true;
+    const prop = u.uprops?.[CONFLICT];
+    return !!(prop?.intrinsic || prop?.extrinsic);
 }
 
 /**
@@ -225,7 +236,7 @@ function s_suffix_hitmsg(s) {
  * else aatyp verb + consecutive-same-aatyp " again" + punct.
  * AT_TENT s_suffix(Monnam)+" tentacles suck your brain"; AT_EXPL/BOOM
  * "explodes"; AT_KICK thick_skinned(youmonst.data) punct ".".
- * Named omit: mattacku AT_TENT melee case / explmu / AT_HUGS;
+ * mattacku AT_TENT melee is D-1309. Named omit: explmu / AT_HUGS;
  * remaining unported mhitm_ad_*. missmu pline_mon is D-1286.
  * wildmiss set_msg_xy then pline is D-1291. mswings pline_mon
  * is D-1305.
@@ -294,9 +305,9 @@ export async function hitmsg(mtmp, mattk) {
  * C ref: mhitu.c missmu :83–99 — clear hitmsg_mid/prev; map_invisible
  * when unseen; seduce pretend-friendly or "just " near-miss when
  * flags.verbose; both arms pline_mon (D-1286). stop_occupation after
- * the line like C. Named omit: mattacku AT_ENGL gulps/lunges
- * pline_mon. wildmiss set_msg_xy then pline is D-1291. mswings
- * pline_mon is D-1305.
+ * the line like C. mattacku AT_TENT melee is D-1309. Named omit:
+ * mattacku AT_ENGL gulps/lunges pline_mon. wildmiss set_msg_xy
+ * then pline is D-1291. mswings pline_mon is D-1305.
  */
 export async function missmu(mtmp, nearmiss, mattk) {
     game.hitmsg_mid = 0;
@@ -317,7 +328,8 @@ export async function missmu(mtmp, nearmiss, mattk) {
  * Monnam, then set_msg_xy(mx,my), then pline (not pline_mon;
  * D-1291). nolimbs uses "lunges" like C :210–213.
  * Named omit: Some_Monnam impossible; mattacku AT_ENGL gulps/lunges
- * pline_mon; AT_TENT / explmu / AT_HUGS. mswings pline_mon is D-1305.
+ * pline_mon; explmu / AT_HUGS. mattacku AT_TENT melee is D-1309.
+ * mswings pline_mon is D-1305.
  */
 export async function wildmiss(mtmp, mattk) {
     const unotseen = !mtmp.mcansee || (Invis() && !perceives(mtmp.data));
@@ -1480,11 +1492,6 @@ async function hitmu(mtmp, mattk) {
 }
 
 /**
- * C ref: mhitu.c mattacku — AT_WEAP ranged thrwmu + melee HTH / weapon hit;
- * AT_ENGL gulpmu. Breath/spit/gaze/expl/hugs/magic deferred.
- * Returns 1 if monster died, else 0.
- */
-/**
  * C ref: mhitu.c summonmu — demon help / were change+summon.
  * Caller verified !mcan, cham==NON_PM, !range2.
  * Named omissions: were new_were / were_summon / Protection_from_shape_changers /
@@ -1503,6 +1510,11 @@ async function summonmu(mtmp, youseeit) {
     void youseeit;
 }
 
+/**
+ * C ref: mhitu.c mattacku — AT_WEAP ranged thrwmu + melee HTH / weapon hit
+ * (AT_TENT with claw/kick/bite/sting/touch/butt, D-1309); AT_ENGL gulpmu;
+ * AT_BREA/SPIT/MAGC. Gaze/expl/hugs deferred. Returns 1 if monster died.
+ */
 export async function mattacku(mtmp) {
     if (!mtmp || (mtmp.mhp | 0) < 1) return 1;
 
@@ -1588,21 +1600,34 @@ export async function mattacku(mtmp) {
             && (mattk.adtyp | 0) === AD_DRIN) continue;
 
         switch (mattk.aatyp) {
-        case AT_CLAW:
+        case AT_CLAW: /* "hand to hand" attacks */
         case AT_KICK:
         case AT_BITE:
         case AT_STNG:
         case AT_TUCH:
         case AT_BUTT:
-            // C mhitu.c mattacku `:801` — pit-trapped kicker skips AT_KICK
+        case AT_TENT:
+            // C mhitu.c mattacku `:801–821` — pit kick; melee iff unarmed
+            // or confused or Conflict or hero !touch_petrifies.
             if ((mattk.aatyp | 0) === AT_KICK && mtrapped_in_pit(mtmp)) {
                 continue;
             }
-            if (!range2) {
+            if (!range2 && (!MON_WEP(mtmp) || mtmp.mconf || Conflict()
+                || !touch_petrifies(game.youmonst?.data))) {
                 if (foundyou) {
                     const j = rnd(20 + i);
-                    if (tmp > j) sum[i] = await hitmu(mtmp, mattk);
-                    else await missmu(mtmp, tmp === j, mattk);
+                    if (tmp > j) {
+                        if (unsolid(game.youmonst?.data)
+                            && failed_grab(mtmp, mattk)) {
+                            continue;
+                        }
+                        if ((mattk.aatyp | 0) !== AT_KICK
+                            || !thick_skinned(game.youmonst?.data)) {
+                            sum[i] = await hitmu(mtmp, mattk);
+                        }
+                    } else {
+                        await missmu(mtmp, tmp === j, mattk);
+                    }
                 } else {
                     await wildmiss(mtmp, mattk);
                     skipnonmagc = true;

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1309 | fixed | mhitu.c `mattacku` AT_TENT melee | map-driven Open from D-1261; C `mhitu.c:793–821` HTH `case AT_TENT:` with claw/kick/bite; pit kick; `!MON_WEP\|\|mconf\|\|Conflict\|\|!touch_petrifies`; unsolid `failed_grab`; thick-skinned kick skips `hitmu`; JS live; explmu / AT_HUGS / AT_ENGL gulps / mhitu AD_DRIN / mattackm AT_TENT still named |
 | D-1308 | fixed | objnam.c doname candle `partly used` / lamp `(lit)` | map-driven Open from D-1295; C `objnam.c:1455–1478` TOOL lamp/candle `turns_left=age` lit `peek_timer(BURN_OBJECT)-moves` then `< 20*oc_cost` `"partly used "` + `" (lit)"` break; `mkobj.c:989–993` `age=20*oc_cost`; JS live; candelabrum / leash / W_TOOL worn / POT_OIL `(lit)` still named |
 | D-1307 | fixed | uhitm.c mhitm_ad_drin helmet / m_slips_free | map-driven Open from D-1298/D-1306; C `uhitm.c:2053–2093` `m_slips_free` + `:3204–3220` helmet `which_armor(W_ARMH)&&rn2(8)` then eat_brains then lifsav skipdrin; JS live on uhitm arm; helm_simple_name hat/helm; slip/helmet do not skipdrin; mhitu `u_slip_free`/`uarmh` + mhitm + AD_WRAP caller still named |
 | D-1306 | fixed | eat.c eat_brains | map-driven Open from D-1298; C `eat.c:601–754` tentacle side-effects (`rnd(10)` before DEADMONSTER/noncorporeal; hero conducts/mindless/rider/`morehungry`+INT/`maybe_cannibal`; mhitu/mhitm branches in the function); JS `eat.js` + uhitm headed `mhitm_ad_drin` call; helmet / `m_slips_free` D-1307 |
