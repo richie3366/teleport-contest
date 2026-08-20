@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dothrow.c` throwit tethered DISP_TETHER / BACKTRACK (named from D-1303). Not leader catch. **Addressed:** D-1311
+- [x] `dothrow.c` thitmonst leader catch / finish_quest (named). Not vanish pline. **Addressed:** D-1312
+
+
+- [x] `dothrow.c` throwit tethered DISP_TETHER / BACKTRACK (named from D-1303). Not leader catch. **Addressed:** D-1311 `3633eb61`
 
 
 - [x] `dokick.c` poly AT_KICK loop (named). Not hmonas pit kick. **Addressed:** D-1310 `734449dc`

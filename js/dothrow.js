@@ -5,7 +5,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, newsym, mark_topline_seen,
-    canseemon, canspotmon, nh_delay_output, tmp_at, obj_glyph,
+    canseemon, canspotmon, nh_delay_output, tmp_at, obj_glyph, verbalize,
 } from './display.js';
 import { cansee, vision_recalc } from './vision.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -38,6 +38,7 @@ import {
     W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE, SLT_ENCUMBER, Is_airlevel,
     xdir, ydir, xytodir, N_DIRS, RIGHT_HANDED, IS_SINK, HI_WOOD, OBJ_MINVENT,
     DISP_FLASH, DISP_CHANGE, DISP_END, DISP_TETHER, BACKTRACK, ECMD_TIME,
+    DEAF,
 } from './const.js';
 import { NO_COLOR } from './terminal.js';
 import { obj_resists, dogfood } from './dogmove.js';
@@ -46,8 +47,10 @@ import {
     setuwep, setuswapwep, setuqwep, set_twoweap,
 } from './wield.js';
 import { acurr, A_CON, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
-import { calc_capacity } from './invent.js';
-import { add_to_minv } from './makemon.js';
+import { calc_capacity, fully_identify_obj, encumber_msg } from './invent.js';
+import { add_to_minv, mpickobj } from './makemon.js';
+import { finish_quest } from './quest.js';
+import { align_gname } from './roles.js';
 import { find_mac } from './mhitm.js';
 import { digests } from './mhitu.js';
 import { hitval, weapon_hit_bonus, should_mulch_missile, dmgval } from './weapon.js';
@@ -62,11 +65,11 @@ import {
 import {
     xname, singular, an, the, vtense, doname, thesimpleoname, makeplural,
 } from './objnam.js';
-import { m_at, wakeup, seemimic, wake_nearto, distmin } from './mon.js';
+import { m_at, wakeup, seemimic, wake_nearto, distmin, monnear } from './mon.js';
 import { mon_nam, Monnam, hliquid, Hallucination } from './do_name.js';
 import {
     is_domestic, nohands, M1_NOTAKE, MZ_HUGE, MZ_MEDIUM,
-    is_unicorn, is_orc, is_elf, your_race,
+    is_unicorn, is_orc, is_elf, your_race, is_animal,
     touch_petrifies, poly_when_stoned, hates_silver, mon_hates_blessings,
     haseyes, passes_walls, unsolid, mons,
 } from './monsters.js';
@@ -106,6 +109,7 @@ const GAUNTLETS_OF_FUMBLING = objectNames.indexOf('GAUNTLETS_OF_FUMBLING');
 const LEATHER_GLOVES = objectNames.indexOf('LEATHER_GLOVES');
 const GAUNTLETS_OF_DEXTERITY = objectNames.indexOf('GAUNTLETS_OF_DEXTERITY');
 const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
+const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const CORPSE = objectNames.indexOf('CORPSE');
 const SLING = objectNames.indexOf('SLING');
 const EUCALYPTUS_LEAF = objectNames.indexOf('EUCALYPTUS_LEAF');
@@ -541,7 +545,7 @@ function is_quest_artifact(obj) {
 
 /**
  * C ref: dothrow.c special_obj_hits_leader — quest artifact / unique /
- * unknown fake Amulet vs quest leader. Body (catch / finish_quest) deferred.
+ * unknown fake Amulet vs quest leader. Catch / finish_quest is D-1312.
  */
 export function special_obj_hits_leader(obj, mon) {
     const unique = !!(game.objects?.[obj.otyp]?.oc_unique);
@@ -551,14 +555,32 @@ export function special_obj_hits_leader(obj, mon) {
     return !!lid && (mon.m_id | 0) === lid;
 }
 
+/** C youprop.h Deaf — HDeaf || EDeaf || uroleplay.deaf. */
+function Deaf_youprop() {
+    const u = game.u || {};
+    const prop = u.uprops?.[DEAF];
+    return !!((prop?.intrinsic | 0) || (prop?.extrinsic | 0)
+        || u.uroleplay?.deaf);
+}
+
+/**
+ * C do_name.c Some_Monnam — highc(some_mon_nam). AUGMENT_IT in x_monnam
+ * is still named; visible → Monnam, else Someone/Something.
+ */
+function Some_Monnam(mtmp) {
+    if (canspotmon(mtmp)) return Monnam(mtmp);
+    return is_animal(mtmp?.data) ? 'Something' : 'Someone';
+}
+
 /**
  * C ref: dothrow.c thitmonst — mon-hit after bhit / use_pole / kick.
  * Ported: tmp (Luck/DEX/distmin/bow-gloves/omon_adj/elf-orc);
  * WEAPON/weptool/GEM hit-vs-miss (kicked/ammo/thrown/applied) → hmon /
- * tmiss; APPLIED miss wakeup; pie/egg/venom DEX; food tamedog.
- * Deferred: gem_accept luck/mpickobj; leader catch/return; iron ball /
- * boulder hit; potionhit; swallow vanish pline (swallowit D-1283);
- * cutworm; check_shop_obj on mulch; mshot_xname.
+ * tmiss; APPLIED miss wakeup; pie/egg/venom DEX; food tamedog;
+ * leader catch / finish_quest (D-1312).
+ * Deferred: gem_accept luck/mpickobj; iron ball / boulder hit;
+ * potionhit; swallow vanish pline (swallowit D-1283); cutworm;
+ * check_shop_obj on mulch; mshot_xname.
  * @returns {boolean} true if obj was consumed / taken care of
  */
 export async function thitmonst(mon, obj) {
@@ -625,10 +647,44 @@ export async function thitmonst(mon, obj) {
         }
     }
 
+    // C dothrow.c:2104–2149 — thrown/kicked quest artifact / unique / fake
+    // AoY at the leader: catch, then keep or finish_quest+hand back.
     if (hmode !== HMON_APPLIED && special_obj_hits_leader(obj, mon)) {
         mon.msleeping = 0;
         if (mon.mstrategy != null) mon.mstrategy &= ~STRAT_WAITMASK;
-        // catch / finish_quest / addinv deferred
+
+        if (mon.mcanmove) {
+            await pline(`${Some_Monnam(mon)} catches ${the(xname(obj))}.`);
+            const unique = !!(game.objects?.[obj.otyp]?.oc_unique);
+            if ((u.uevent?.invoked && unique
+                    && (obj.otyp | 0) !== AMULET_OF_YENDOR)
+                || !mon.mpeaceful) {
+                if (mon.mpeaceful && !Deaf_youprop()) {
+                    fully_identify_obj(obj);
+                    await verbalize(
+                        `${s_suffix_throw_gold(The(xname(obj)))} part in this is finished.`,
+                    );
+                    const aOrig = u.ualignbase?.original ?? u.ualign?.type ?? 0;
+                    await verbalize(
+                        `We will guard it in case it is ever needed again, ${align_gname(game.urole, aOrig)} forbid.`,
+                    );
+                }
+                if ((u.ushops && u.ushops[0]) || obj.unpaid) {
+                    const { check_shop_obj } = await import('./shk.js');
+                    await check_shop_obj(obj, mon.mx | 0, mon.my | 0, false);
+                }
+                mpickobj(mon, obj);
+            } else {
+                const next2u = monnear(mon, u.ux | 0, u.uy | 0);
+                await finish_quest(obj);
+                await pline(`${Some_Monnam(mon)} ${next2u ? 'hands' : 'tosses'} ${the(xname(obj))} back to you.`);
+                if (!next2u) await sho_obj_return_to_u(obj);
+                const { addinv } = await import('./u_init.js');
+                obj = await addinv(obj);
+                await encumber_msg();
+            }
+            return true;
+        }
         return false;
     }
 
@@ -1637,8 +1693,8 @@ async function swallowit(obj) {
  * C dothrow.c sho_obj_return_to_u — flash the missile back along the
  * throw vector (not boomerangs). Display RNG via obj_to_glyph(...,
  * rn2_on_display_rng). Wielded aklys uses tmp_at(DISP_END, BACKTRACK)
- * (D-1311) instead of this FLASH walk. Leader !next2u caller named
- * (thitmonst catch / finish_quest).
+ * (D-1311) instead of this FLASH walk. Leader !next2u is the
+ * thitmonst catch caller (D-1312).
  */
 export async function sho_obj_return_to_u(obj) {
     const u = game.u || {};
@@ -1665,7 +1721,7 @@ export async function sho_obj_return_to_u(obj) {
  * C dothrow.c throwit returning_missile after bhit (Mjollnir or aklys).
  * Returns true if the object was handled (do not land).
  * Tethered: tmp_at(DISP_END, BACKTRACK) on success, DISP_END 0 on fail
- * (D-1311). Leader catch finish_quest named.
+ * (D-1311). Leader catch finish_quest is D-1312.
  */
 async function throwit_returning_missile(
     obj, wep_mask, twoweap, oldslot, x, y, impaired, tethered_weapon,
@@ -1901,7 +1957,8 @@ export async function boomhit(obj, dx, dy) {
  * throwit steed potionhit rn2(6) is D-1297.
  * boomhit curve (D-1301). throw_gold swallow (D-1302).
  * sho_obj_return_to_u (D-1303). tethered DISP_TETHER/BACKTRACK (D-1311).
- * Named omit: leader catch finish_quest; thitmonst vanish
+ * thitmonst leader catch / finish_quest (D-1312).
+ * Named omit: thitmonst vanish
  * pline; objsplit unsplit; killer_xname polish; m_respond;
  * THROWN_TETHERED_WEAPON zap bhit / isqrt range (ACURRSTR urange Open).
  */

@@ -5,16 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1311 `dothrow.c` throwit tethered
-  DISP_TETHER / BACKTRACK (cadence **#1660** `734449dc`; reviews
+- **Fortress 44/44** after D-1312 `dothrow.c` thitmonst leader
+  catch / `finish_quest` (cadence **#1660** `734449dc`; reviews
   **269–272** ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c`
-  thitmonst leader catch / finish_quest (named). Not vanish pline.
-  Do not skip D-1311…D-1229. Do not pull explmu / AT_HUGS /
+  throwit_mon_hit snuff_candle / hot_pursuit (named from D-1301).
+  Not m_respond.
+  Do not skip D-1312…D-1229. Do not pull explmu / AT_HUGS /
   mhitu AD_DRIN / candelabrum / ACURRSTR urange / zap bhit
-  `THROWN_TETHERED_WEAPON` isqrt.
+  `THROWN_TETHERED_WEAPON` isqrt / thitmonst vanish pline.
   Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1311. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1312. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -23,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1311.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1312.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,7 +38,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1311 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1312 (index). Named still: mhitu+mhitm
   AD_DRIN / AD_WRAP `m_slips_free`; explmu / AT_HUGS; mattackm
   AT_TENT; candelabrum `(n of 7)` / leash / W_TOOL worn /
   POT_OIL `(lit)`; AT_ENGL
@@ -52,12 +53,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1312: `dothrow.c` thitmonst leader catch / `quest.c`
+  `finish_quest`. Thrown/kicked questarti/unique/fake AoY;
+  `!HMON_APPLIED`; `mcanmove` catch; keep if invoked unique
+  (not AoY) or `!mpeaceful` else `finish_quest` + hands/tosses
+  + `!next2u` `sho_obj_return_to_u` + addinv. offeredit bodies
+  named. **tether D-1311**.
 - D-1311: `dothrow.c` throwit tethered DISP_TETHER / BACKTRACK.
   `arw->tethered && W_WEP`; swallow + fly `tmp_at(DISP_TETHER,
   obj_glyph)`; empty cells step+delay; monster cell not painted;
   success `DISP_END, BACKTRACK` (`sidx>1` delay sidx-1);
   fail/consumed `DISP_END, 0`. `tether_glyph` zap type 2 toward @.
-  Leader `finish_quest` / zap bhit THROWN_TETHERED / isqrt named.
+  Leader catch D-1312. zap bhit THROWN_TETHERED / isqrt named.
   **poly AT_KICK D-1310**.
 - D-1310: `dokick.c` `kick_monster` poly AT_KICK. `Upolyd &&
   attacktype(AT_KICK)` then `find_roll_to_hit` once + unparalyze

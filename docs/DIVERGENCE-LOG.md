@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1312 — dothrow.c thitmonst leader catch / finish_quest
+
+- **Status:** fixed (map-driven Open from D-1311; not a public FAIL)
+- **Symptom:** throwing or kicking the quest artifact, a unique
+  invocation item, or an unknown fake Amulet at the quest leader
+  only cleared `STRAT_WAITMASK` and returned, so the missile still
+  landed. C catches when `mcanmove`, then either keeps (post-invoke
+  unique except AoY, or angry) via `mpickobj` or `finish_quest` and
+  hands/tosses it back (`!next2u` FLASH-walks `sho_obj_return_to_u`).
+- **C locus:** `dothrow.c` `thitmonst` `:2104–2149` after unicorn gems
+  before `rnd(20)`. `quest.c` `finish_quest` `:226–279`. Predicate
+  `special_obj_hits_leader` already D-1044.
+- **JS was:** sleep/WAITMASK then `return false`; catch / finish_quest
+  / addinv named omit.
+- **Fix:** port the catch arm and `finish_quest`. Keep vs return
+  matches C. `com_pager("quest_complete_no_bell")` live. offeredit /
+  hasamulet / offeredit2 qt_pager bodies still named (nhl shuffle
+  live). chat_with_leader got_thanks/questart still named. Vanish
+  pline not this iter. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `thitmonst`; `js/quest.js` `finish_quest`;
+  `js/questpgr.js` `QUEST_COMMON.quest_complete_no_bell`.
+- **Not this iter:** offeredit/hasamulet/offeredit2 texts;
+  chat_with_leader got_thanks/questart; thitmonst vanish pline;
+  throwit_mon_hit `snuff_candle`/`hot_pursuit`; zap bhit
+  `THROWN_TETHERED_WEAPON`; ACURRSTR urange / `isqrt`.
+- **Verified:** private canary **16**/16 (C catch+finish_quest; JS
+  same; peaceful hands/tosses+qcompleted; !mcanmove; angry
+  mpickobj; invoked Bell keep; fake AoY ID no qcompleted; Deaf
+  skip; APPLIED skip; ordinary dart; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a session throws at the leader.
+- **Follow-up:** Open `dothrow.c` throwit_mon_hit snuff_candle /
+  hot_pursuit.
+- **Files:** `js/dothrow.js`, `js/quest.js`, `js/questpgr.js`.
+
 ## D-1311 — dothrow.c throwit tethered DISP_TETHER / BACKTRACK
 
 - **Status:** fixed (map-driven Open from D-1303; not a public FAIL)

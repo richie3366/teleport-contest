@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dothrow.c` thitmonst leader catch / finish_quest (named). Not vanish pline.
 - [ ] `dothrow.c` throwit_mon_hit snuff_candle / hot_pursuit (named from D-1301). Not m_respond.
 - [ ] `mon.c` m_respond (named from D-1301). Not snuff_candle.
 - [ ] `dothrow.c` throwit ACURRSTR urange (named). Not tether.

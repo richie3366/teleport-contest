@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1312 dothrow.c thitmonst leader catch / finish_quest
+
+**Objective:** Open `dothrow.c` thitmonst leader catch /
+finish_quest (named). Not vanish pline.
+**C locus:** `dothrow.c` `thitmonst` `:2104–2149`; `quest.c`
+`finish_quest` `:226–279`.
+**Change:** catch when `mcanmove`; keep invoked unique≠AoY or
+angry; else `finish_quest` + hands/tosses + `!next2u` FLASH
+walk + addinv. `quest_complete_no_bell` live. offeredit bodies
+/ chat got_thanks named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1665**.
+**Verified:** canary **16**/16; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1311 archive hash `3633eb61`.
+**Next:** Open `dothrow.c` throwit_mon_hit snuff_candle / hot_pursuit.
+Not m_respond.
+**Blocked:** none.
 ## 2026-08-20 — D-1311 dothrow.c throwit tethered DISP_TETHER / BACKTRACK
 
 **Objective:** Open `dothrow.c` throwit tethered DISP_TETHER /
