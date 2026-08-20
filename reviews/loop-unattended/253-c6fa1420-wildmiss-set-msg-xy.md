@@ -100,7 +100,7 @@ Named omits (map, not Must-fix):
 
 1. `Some_Monnam` `impossible` when no reason bits
 2. `mswings` `pline_mon`
-   **Addressed:** D-1305
+   **Addressed:** D-1305 `b82b15a8`
 3. `mattacku` AT_ENGL gulps/lunges `pline_mon`
 4. `mattacku` AT_TENT melee `wildmiss` (JS switch still omits `AT_TENT`)
 

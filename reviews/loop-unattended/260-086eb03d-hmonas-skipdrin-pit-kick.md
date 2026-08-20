@@ -98,7 +98,9 @@ None for Must-fix. hmonas skipdrin/pit, uhitm headless setter, slime, and `mtrap
 
 Named omits (map, not Must-fix):
 
-1. `eat_brains`; helmet `rn2(8)`; `m_slips_free`; lifsav skipdrin
+1. `eat_brains`
+   **Addressed:** D-1306
+   helmet `rn2(8)`; `m_slips_free`; lifsav skipdrin
 2. mhitu / mhitm `mhitm_ad_drin` arms (so those loops’ skipdrin continues stay idle)
 3. `mattacku` AT_TENT melee (still omitted from the `switch`)
 4. remaining `mhitm_ad_*`; seemimic

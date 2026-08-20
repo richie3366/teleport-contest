@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1306 — `eat.c` eat_brains
+
+- **Status:** fixed (map-driven Open from D-1298; not a public FAIL)
+- **Symptom:** JS uhitm headed AD_DRIN never called C `eat_brains`, so a
+  poly'd mind flayer's tentacle used only `damageum` dice (no "You eat
+  … brain!", no `morehungry(-rnd(30))`, no INT recover, no
+  `maybe_cannibal`).
+- **C locus:** `eat.c` `eat_brains` `:601–754`. Caller
+  `uhitm.c` `mhitm_ad_drin` uhitm arm `:3216` after helmet
+  (`:3204–3212` named). `xtra_dmg = rnd(10)` before DEADMONSTER /
+  noncorporeal. Hero: `eating_conducts`; mindless miss; rider
+  `done(DIED)`; else `morehungry(-rnd(30))` + ABASE INT recover +
+  `exercise(A_WIS)` + `*dmg_p += xtra`; then `maybe_cannibal`.
+  mhitu / mhitm branches in the same function.
+- **JS was:** uhitm headless skipdrin live (D-1298); headed fallthrough
+  with dice only.
+- **Fix:** port `eat_brains` in `eat.js`; headed uhitm calls it;
+  headless `return` before (C `:3202`). Did not pull helmet `rn2(8)` /
+  `m_slips_free` / lifsav skipdrin / mhitu+mhitm `mhitm_ad_drin`
+  callers. Rule #2: no fs.
+- **JS:** `js/eat.js` `eat_brains`; `js/uhitm.js` `mhitm_ad_drin`.
+- **Not this iter:** helmet `which_armor(W_ARMH) && rn2(8)`;
+  `m_slips_free`; lifsav skipdrin; mhitu+mhitm AD_DRIN callers;
+  `mattacku` AT_TENT melee.
+- **Verified:** private canary **23**/23 (dead magr still `rnd(10)` then
+  AGR_DIED; ghost noncorporeal MISS no xtra; cube mindless MISS +
+  conduct no hunger; newt HIT + xtra 1..10 + `morehungry` negative +
+  INT recover; mhitm HIT + pet `hungrytime`/`mconf`; mhitm cube MISS;
+  mhitu HIT + pet nutrit; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a poly mind flayer lands a headed tentacle.
+- **Follow-up:** Open `uhitm.c` mhitm_ad_drin helmet / m_slips_free.
+- **Files:** `js/eat.js`, `js/uhitm.js`.
+
 ## D-1305 — `mhitu.c` `mswings` `pline_mon`
 
 - **Status:** fixed (map-driven Open from D-1291; not a public FAIL)

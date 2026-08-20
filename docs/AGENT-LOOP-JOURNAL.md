@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1306 eat.c eat_brains
+
+**Objective:** Open `eat.c` eat_brains (named from D-1298). Not helmet.
+**C locus:** `eat.c` `eat_brains` `:601–754`; caller
+`uhitm.c` `mhitm_ad_drin` `:3216` after helmet (named).
+**Change:** port `eat_brains`; headed uhitm calls it; headless
+`return` before (C `:3202`). `rnd(10)` before DEADMONSTER.
+Helmet / `m_slips_free` / lifsav skipdrin named. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1650**). Public-unhit
+unless a poly mind flayer lands a headed tentacle.
+**Verified:** private canary 23/23; green+strict 8000/0900;
+cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1305 archive hash `b82b15a8`.
+**Next:** Open `uhitm.c` mhitm_ad_drin helmet / m_slips_free.
+Not eat_brains.
+**Blocked:** none.
 ## 2026-08-20 — D-1305 mhitu.c mswings pline_mon
 
 **Objective:** Open `mhitu.c` mswings `pline_mon` (named from

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `mhitu.c` mswings `pline_mon` (named from D-1291). Not wildmiss. **Addressed:** D-1305
+- [x] `eat.c` eat_brains (named from D-1298). Not helmet. **Addressed:** D-1306
+
+
+- [x] `mhitu.c` mswings `pline_mon` (named from D-1291). Not wildmiss. **Addressed:** D-1305 `b82b15a8`
 
 
 - [x] `objnam.c` wizterrainwish secret corridor (named from D-1290). Not door/wall. **Addressed:** D-1304 `909ef3dc`

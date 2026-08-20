@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `eat.c` eat_brains (named from D-1298). Not helmet.
 - [ ] `uhitm.c` mhitm_ad_drin helmet / m_slips_free (named from D-1298). Not eat_brains.
 - [ ] `objnam.c` candle `partly used` (named from D-1295). Not MEAT_RING.
 - [ ] `mhitu.c` AT_TENT melee (named from D-1261). Not mswings.

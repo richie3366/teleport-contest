@@ -945,8 +945,8 @@ function damageum_ad_phys(mdef, mattk, mhm) {
  * C ref: uhitm.c mhitm_ad_drin `:3167–3303` — uhitm (hero→mon) skipdrin
  * setter. Headless / notonhead wastes the tentacle, zeros damage, and
  * sets gs.skipdrin so hmonas skips remaining AT_TENT+AD_DRIN. Green-slime
- * suck-in is in the same C if. Helmet rn2(8) / m_slips_free / eat_brains /
- * lifsav skipdrin / mhitu+mhitm arms named.
+ * suck-in is in the same C if. Headed: eat_brains (D-1306). Helmet rn2(8)
+ * / m_slips_free / lifsav skipdrin / mhitu+mhitm arms named.
  */
 async function mhitm_ad_drin(magr, _mattk, mdef, mhm) {
     const pd = mdef?.data;
@@ -964,8 +964,11 @@ async function mhitm_ad_drin(magr, _mattk, mdef, mhm) {
                 await (await import('./potion.js')).make_slimed(10, null);
             }
         }
+        return; // C `:3202` — helmet / eat_brains must not run headless
     }
-    // headed: m_slips_free / helmet / eat_brains / lifsav named — dice stay
+    // m_slips_free / helmet rn2(8) / lifsav skipdrin named
+    const { eat_brains } = await import('./eat.js');
+    await eat_brains(game.youmonst, mdef, true, mhm);
 }
 
 /**
@@ -1956,9 +1959,9 @@ export async function gulpum(mdef, mattk) {
  * AT_ENGL gulpum D-1264 (rnd(20+i); shade surround; zombie/mummy Sick).
  * fight_empty explum(null) D-1265. altwep / uswapwep D-1266 (toggle +
  * originalweapon re-read + passivedone drop_uswapwep). skipdrin AT_TENT
- * AD_DRIN + pit AT_KICK D-1298 (`gs.skipdrin`; `mtrapped_in_pit`). Named:
- * eat_brains / helmet / m_slips_free / lifsav skipdrin; remaining
- * mhitm_ad_*; mattacku AT_TENT melee.
+ * AD_DRIN + pit AT_KICK D-1298 (`gs.skipdrin`; `mtrapped_in_pit`).
+ * eat_brains D-1306 (uhitm headed). Named: helmet / m_slips_free /
+ * lifsav skipdrin; remaining mhitm_ad_*; mattacku AT_TENT melee.
  */
 export async function hmonas(mon) {
     const u = game.u || {};
