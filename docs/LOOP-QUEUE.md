@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` `spoteffects` `switch_terrain` (named from D-1129). Not dissolve_bars.
 - [ ] `dig.c` `digactualhole` `switch_terrain` (named from D-1129). Not dissolve_bars.
 - [ ] `hack.c` hero `test_move` `passes_bars` (named from D-1258). Not ALLOW_BARS.
 - [ ] `monmove.c` `meatmetal` (named from D-1247). Not switch_terrain.

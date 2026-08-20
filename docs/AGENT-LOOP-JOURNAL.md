@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1268 hack.c spoteffects switch_terrain
+
+**Objective:** Open `hack.c` `spoteffects` `switch_terrain` (named
+from D-1129). Not dissolve_bars.
+**C locus:** `hack.c` `spoteffects` `:3342–3347` (dest-typ ≠ origin
+or `iflags.terrain_typ == MAX_TYPE` then `switch_terrain` before
+`pooleffects`).
+**Change:** `pickup.js` `spoteffects` awaits live D-1129 body under
+that gate. Named: recursion / Warning ice / hidden monster;
+`digactualhole` / dothrow hurtle / `u_on_rndspot` / objnam wish.
+Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a session walks onto
+blocklev terrain while Lev/Fly. Next audit @**#1610**.
+**Verified:** private canary **13**/13; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dig.c` `digactualhole` `switch_terrain` (named from
+D-1129). Not dissolve_bars.
+**Blocked:** none.
 ## 2026-08-20 — D-1267 hack.c set_uinwater switch_terrain
 
 **Objective:** Open `hack.c` `set_uinwater` `switch_terrain` (named

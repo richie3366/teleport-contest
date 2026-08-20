@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `hack.c` `set_uinwater` `switch_terrain` (named from D-1129). Not dissolve_bars. **Addressed:** D-1267
+- [x] `hack.c` `spoteffects` `switch_terrain` (named from D-1129). Not dissolve_bars. **Addressed:** D-1268
+
+
+- [x] `hack.c` `set_uinwater` `switch_terrain` (named from D-1129). Not dissolve_bars. **Addressed:** D-1267 `f7676db6`
 
 
 - [x] `uhitm.c` altwep / `uswapwep` (named from D-1252). Not AT_ENGL. **Addressed:** D-1266 `42d50a53`

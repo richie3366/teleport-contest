@@ -12,7 +12,7 @@ import {
     let_to_name, DEF_INV_ORDER, prinv, near_capacity, calc_capacity,
     max_capacity,
 } from './invent.js';
-import { nomul, check_special_room, is_pool, is_lava, in_rooms, dosinkfall, SURFACE_AT } from './hack.js';
+import { nomul, check_special_room, is_pool, is_lava, in_rooms, dosinkfall, SURFACE_AT, switch_terrain } from './hack.js';
 import {
     flush_screen, pline, newsym, docrt, bot, flush_topl_more, canseemon,
     clear_nhwindow_message,
@@ -26,7 +26,7 @@ import { can_reach_floor } from './engrave.js';
 import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
     is_pit,
-    STONE, ICE,
+    STONE, ICE, MAX_TYPE,
     IS_POOL, IS_LAVA, IS_FURNITURE, IS_WATERWALL, IS_SINK,
     LOOKHERE_PICKED_SOME, LOOKHERE_SKIP_DFEATURE,
     Has_contents, Is_container,
@@ -955,19 +955,33 @@ export async function pooleffects(newspot) {
 
 /**
  * C ref: hack.c spoteffects(pick).
- * Ported envelope: pooleffects; check_special_room; IS_SINK+Levitation
- * dosinkfall (D-0976); when !in_steed_dismounting — non-pit pickup then
- * dotrap then pit pickup.
+ * Ported envelope: dest-typ / MAX_TYPE switch_terrain (D-1268) before
+ * pooleffects; check_special_room; IS_SINK+Levitation dosinkfall
+ * (D-0976); when !in_steed_dismounting — non-pit pickup then dotrap
+ * then pit pickup.
  * Deferred: recursion guards, levitation timeout adjust, Warning ice,
- * hidden monster surprise, switch_terrain (D-1129 body live; caller is
- * the next Open). set_uinwater is D-1267.
+ * hidden monster surprise. digactualhole / dothrow hurtle /
+ * u_on_rndspot / objnam wish still call switch_terrain themselves.
+ * set_uinwater is D-1267.
  */
 export async function spoteffects(pick) {
+    const u = game.u;
+    if (u) {
+        /* C hack.c:3342–3347 — moving onto different terrain may toggle
+         * Lev/Fly. Level change sets <ux0,uy0> to <ux,uy> so dest==origin
+         * then, but also sets iflags.terrain_typ = MAX_TYPE. */
+        const dest = game.level?.at(u.ux | 0, u.uy | 0);
+        const orig = game.level?.at(u.ux0 | 0, u.uy0 | 0);
+        if ((dest?.typ | 0) !== (orig?.typ | 0)
+            || (game.iflags?.terrain_typ | 0) === MAX_TYPE) {
+            await switch_terrain();
+        }
+    }
+
     if (await pooleffects(true)) return;
 
     await check_special_room(false);
 
-    const u = game.u;
     if (u) {
         const typ = game.level?.at(u.ux | 0, u.uy | 0)?.typ;
         if (IS_SINK(typ) && Levitation_pe()) {

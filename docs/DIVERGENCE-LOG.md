@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1268 — `hack.c` `spoteffects` dest-typ → `switch_terrain`
+
+- **Status:** fixed (map-driven Open; named omit from D-1129 /
+  D-1267; not a public FAIL)
+- **Symptom:** JS `spoteffects` never called `switch_terrain`, so
+  walking onto a different terrain type (or `iflags.terrain_typ ==
+  MAX_TYPE` after a level change) never toggled Lev/Fly
+  `FROMOUTSIDE` or `classify_terrain`.
+- **C locus:** `hack.c` `spoteffects` `:3342–3347` (`spotterrain !=
+  levl[u.ux0][u.uy0].typ || iflags.terrain_typ == MAX_TYPE` then
+  `switch_terrain()` before `pooleffects(TRUE)`). Body live D-1129
+  / D-1151 (`hack.c` `:3178–3217`).
+- **JS was:** `spoteffects` started at `pooleffects(true)`.
+- **Fix:** await live `switch_terrain` under that C gate. Did not
+  pull recursion/`inspoteffects`, levitation timeout, Warning ice,
+  hidden monster surprise, `digactualhole`, dothrow `hurtle_step`,
+  `u_on_rndspot`, objnam wish. Rule #2: no fs.
+- **JS:** `js/pickup.js` `spoteffects`; `js/hack.js` comments.
+- **Not this iter:** `digactualhole` PIT/HOLE; dothrow hurtle
+  dest-typ; `dungeon.c` `u_on_rndspot`; objnam wish terrain.
+- **Verified:** private canary **13**/13 (C dest-typ/MAX_TYPE before
+  pooleffects; JS await order; same-typ skip; ROOM→STONE You_cant
+  Lev/Fly; leftover BLev/BFly clear; closed door; MAX_TYPE same-typ
+  still runs; CORR→ROOM quiet; named omits; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session walks onto blocklev terrain while Lev/Fly
+  (`terrainstatus` default Off keeps classify quiet).
+- **Follow-up:** Open `dig.c` `digactualhole` `switch_terrain`.
+
 ## D-1267 — `hack.c` `set_uinwater` → `switch_terrain`
 
 - **Status:** fixed (map-driven Open; named omit from D-1129 /
