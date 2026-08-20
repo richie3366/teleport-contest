@@ -357,25 +357,36 @@ async function dopush(sx, sy, rx, ry, otmp) {
     if (dloc?.remembered_glyph?.invisible) {
         dloc.remembered_glyph = null; // unmap_object trap/engr arms deferred
     }
-    otmp.next_boulder = 0;
+    otmp.next_boulder = 0; /* C hack.c dopush :208 — reset before movobj. D-1294. */
     movobj(otmp, rx, ry);
     newsym(sx, sy);
 }
 
 /**
+ * C hack.c moverock_done :326–333 — leftover pile boulders resume
+ * ordinary xname after moverock_core returns. D-1294.
+ */
+function moverock_done(sx, sy) {
+    for (let otmp = objects_at(sx, sy); otmp; otmp = otmp.nexthere) {
+        if ((otmp.otyp | 0) === BOULDER) otmp.next_boulder = 0;
+    }
+}
+
+/**
  * C ref: hack.c moverock_core — push boulder(s) at (sx,sy) along u.dx/u.dy.
- * Branch envelope: Blind unseen start-of-loop feel (D-1281) + nopick
- * m-dir over/against (D-1262) + clear-dest dopush + monster-behind
- * You_hear/canspotmon + closed_door cannot_push_msg (D-0317) + rumbling
- * disturb_buried_zombies (D-1214). Named omissions: Sokoban diagonal,
- * shop costly, trap/teleport/pool arms, Levitation (after nopick),
- * verysmall vain-push, tunneling chew, revive_nasty, next_boulder
- * naming, y_monnam steed wording, dopush/cannot_push_msg Blind
+ * Branch envelope: Blind unseen start-of-loop feel (D-1281) + next_boulder
+ * naming (D-1294) + nopick m-dir over/against (D-1262) + clear-dest dopush
+ * + monster-behind You_hear/canspotmon + closed_door cannot_push_msg
+ * (D-0317) + rumbling disturb_buried_zombies (D-1214). Named omissions:
+ * Sokoban diagonal, shop costly, trap/teleport/pool arms, Levitation
+ * (after nopick), verysmall vain-push, tunneling chew, revive_nasty,
+ * y_monnam steed wording, dopush/cannot_push_msg/Levitation Blind
  * feel_location. Giant pickup/maneuver D-1253.
  * Returns 0 to advance onto vacated cell, -1 to abort the move.
  */
 async function moverock_core(sx, sy) {
     const u = game.u;
+    let firstboulder = true;
     while (sobj_at(BOULDER, sx, sy)) {
         const otmp = sobj_at(BOULDER, sx, sy);
 
@@ -387,6 +398,12 @@ async function moverock_core(sx, sy) {
             await nomul(0);
             return -1;
         }
+
+        /* C hack.c moverock_core :365–372 — xname "next boulder" on the
+           2nd+ of a pile. firstboulder stays false even if names differ
+           (C FIXME). D-1294. */
+        otmp.next_boulder = firstboulder ? 0 : 1;
+        firstboulder = false;
 
         // Ensure boulder is top of pile
         const head = objects_at(sx, sy);
@@ -500,7 +517,9 @@ export async function moverock() {
     const u = game.u;
     const sx = u.ux + u.dx;
     const sy = u.uy + u.dy;
-    return moverock_core(sx, sy);
+    const ret = await moverock_core(sx, sy);
+    moverock_done(sx, sy);
+    return ret;
 }
 
 /**

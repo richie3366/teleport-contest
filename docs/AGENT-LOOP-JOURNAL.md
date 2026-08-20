@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1294 hack.c moverock next_boulder
+
+**Objective:** Open `hack.c` moverock next_boulder (named from
+D-1281). Not Blind feel.
+**C locus:** `hack.c` `moverock_core` `:365–372`; `moverock_done`
+`:326–333`; `moverock`; `objnam.c` `xname` ROCK_CLASS `:814–823`.
+**Change:** 2nd+ pile boulder `next_boulder=1`; `xname` `"next
+boulder"` then clear (`==1`); `moverock_done` zeros leftovers.
+Dedicated field. Blind feel_location named. Rule #2: no fs.
+**Verified:** private canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Public-unhit** unless a session pushes a multi-boulder pile.
+**Next:** Open `objnam.c` doname MEAT_RING. Not candle.
+**Blocked:** none.
 ## 2026-08-20 — D-1293 dothrow.c throwit stamina
 
 **Objective:** Open `dothrow.c` throwit stamina (named from D-1283).

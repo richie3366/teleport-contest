@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1294 — hack.c moverock next_boulder naming
+
+- **Status:** fixed (map-driven Open from D-1281; not a public FAIL)
+- **Symptom:** stacked boulders after the first always formatted as
+  `"boulder"` in `xname`. C `hack.c:365–372` sets
+  `otmp->next_boulder = firstboulder ? 0 : 1` after Blind feel and
+  before top-of-pile / nopick. `objnam.c:814–823` formats
+  `"next boulder"` when `typ==BOULDER && next_boulder==1` then
+  clears to 0 (`==1` not `!=0` because the field overloads
+  `corpsenm`, default NON_PM). `moverock` always calls
+  `moverock_done` to zero leftovers at the origin cell.
+- **C locus:** `hack.c` `moverock_core` `:365–372`; `moverock_done`
+  `:326–333`; `moverock` `:336–345`; `dopush` `:208`; `objnam.c`
+  `xname` ROCK_CLASS `:814–823`. Callers of `xname` in this envelope:
+  `dopush` / `cannot_push_msg` / `boulder_hits_pool`.
+- **JS was:** named omit after D-1281; `dopush` already zeroed a
+  dedicated `next_boulder` that was never set to 1; `moverock`
+  skipped `moverock_done`.
+- **Fix:** set the flag in the loop; `xname` consumes `==1`;
+  `moverock` calls `moverock_done`. Dedicated field (do not smash
+  JS `corpsenm`). Rule #2: no fs.
+- **JS:** `js/hack.js` `moverock_core` / `moverock_done` / `moverock`
+  / `dopush`; `js/objnam.js` `xname`.
+- **Not this iter:** dopush dest+src Blind `feel_location`;
+  `cannot_push_msg` Blind feel; Levitation Blind feel; verysmall
+  vain-push after nopick; trap/teleport/pool arms.
+- **Verified:** private canary **16**/16 (C order; JS live; xname
+  consume; NON_PM default not next; non-boulder skip; single vain
+  `"the boulder"`; stacked push then `"the next boulder"`;
+  leftover xname ordinary; nopick `moverock_done`; D-1281 feel
+  intact; Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session pushes a pile of more than one boulder.
+- **Follow-up:** Open `objnam.c` doname MEAT_RING.
+- **Files:** `js/hack.js`, `js/objnam.js`.
+
 ## D-1293 — dothrow.c throwit stamina
 
 - **Status:** fixed (map-driven Open from D-1283; not a public FAIL)

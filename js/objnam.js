@@ -45,6 +45,7 @@ import {
 } from './const.js';
 
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
+const BOULDER = objectNames.indexOf('BOULDER');
 
 /** C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (D-0716: no sticky u.Blind). */
 function Blind() {
@@ -714,6 +715,13 @@ export function xname(obj) {
     // C: obj_is_pname → goto nameit (bare ONAME) — deferred; partial ID
     // artifacts fall through to actualn + " named ONAME" below.
     let base = pretty_base(obj);
+    /* C objnam.c xname ROCK_CLASS :814–823 — BOULDER && next_boulder==1
+       formats "next boulder" then clears to 0. Overloaded corpsenm
+       defaults to NON_PM (-1); check ==1 not !=0. D-1294. */
+    if ((obj.otyp | 0) === BOULDER && (obj.next_boulder | 0) === 1) {
+        base = `next ${base}`;
+        obj.next_boulder = 0;
+    }
     if ((obj.quan || 1) !== 1) base = makeplural(base);
     // C xname_flags: has_oname && dknown → " named " ONAME
     const onameStr = obj.oextra?.oname;

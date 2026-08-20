@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `hack.c` moverock next_boulder (named from D-1281). Not Blind feel.
 - [ ] `objnam.c` doname MEAT_RING (named from D-1276). Not candle.
 - [ ] `trap.c` maketrap DRAWBRIDGE_UP ice (named from D-1280). Not shop add_damage.
 - [ ] `dothrow.c` throwit steed potion (named from D-1283). Not slip.
