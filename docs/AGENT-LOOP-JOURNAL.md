@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — #1680 review D-1322–D-1325 + cadence
+
+**Objective:** audit — C-fidelity reviews **284–287** of JS SHAs
+since `758ab9b1`, plus full `sessions` score. No `js/` port.
+**C locus:** `objnam.c` doname W_WEP `!mrg_to_wielded` + AKLYS
+tethered; `zap.c` bhit THROWN_TETHERED / isqrt; `dothrow.c`
+thitmonst vanish; `dokick.c` `snuff_candle`.
+**Change:** **284–287** ACCEPT-WITH-DEBT. Review **283** closed by
+D-1322. No Must-fix. Filled D-1325 archive hash `2cdf2b1f`.
+Cadence **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `37+0.30/turn` (R² 0.84) at `2cdf2b1f`. Rule #2: no
+fs.
+**Score:** fortress held. Next audit @**#1685**.
+**Verified:** `node frozen/ps_test_runner.mjs sessions` (this iter).
+**Next:** Open `mhitu.c` explmu (named). Not AT_HUGS.
+**Blocked:** none.
 ## 2026-08-21 — D-1325 dokick.c really_kick_object snuff_candle
 
 **Objective:** Open `dokick.c` snuff_candle (named from D-1242).

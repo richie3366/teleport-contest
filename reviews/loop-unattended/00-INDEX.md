@@ -293,3 +293,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [281-cd867647-doname-leash-attached.md](./281-cd867647-doname-leash-attached.md) | `cd867647` | D-1319 doname LEASH attached | **ACCEPT-WITH-DEBT** |
 | [282-cf309315-doname-pot-oil-lit.md](./282-cf309315-doname-pot-oil-lit.md) | `cf309315` | D-1320 doname POTION POT_OIL `(lit)` | **ACCEPT-WITH-DEBT** |
 | [283-b7a0c3c7-doname-wep-body-part.md](./283-b7a0c3c7-doname-wep-body-part.md) | `b7a0c3c7` | D-1321 doname W_WEP `body_part(HAND)` | **QUALITY-RISK** |
+| [284-843343cc-doname-wep-mrg-tether.md](./284-843343cc-doname-wep-mrg-tether.md) | `843343cc` | D-1322 doname W_WEP `!mrg_to_wielded` + AKLYS tethered | **ACCEPT-WITH-DEBT** |
+| [285-b50daaea-bhit-tether-isqrt.md](./285-b50daaea-bhit-tether-isqrt.md) | `b50daaea` | D-1323 `bhit` THROWN_TETHERED / isqrt | **ACCEPT-WITH-DEBT** |
+| [286-1d5b0b66-thitmonst-swallow-vanish.md](./286-1d5b0b66-thitmonst-swallow-vanish.md) | `1d5b0b66` | D-1324 thitmonst swallow vanish pline | **ACCEPT-WITH-DEBT** |
+| [287-2cdf2b1f-dokick-snuff-candle.md](./287-2cdf2b1f-dokick-snuff-candle.md) | `2cdf2b1f` | D-1325 dokick `snuff_candle` | **ACCEPT-WITH-DEBT** |

@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-21** — full `sessions` at review **#1675**
-HEAD `b7a0c3c7` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `37+0.30/turn` (R² 0.85). Next audit (review + score) @**#1680**.
+Score last measured: **2026-08-21** — full `sessions` at review **#1680**
+HEAD `2cdf2b1f` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `37+0.30/turn` (R² 0.84). Next audit (review + score) @**#1685**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `37+0.30/turn` (R² 0.85). Next audit (review + score) @**#1680**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `37+0.30/turn` (R² 0.85) |
+| Speed label | `37+0.30/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,11 +59,12 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1325. Review **283** QUALITY-RISK
-closed. **Next cluster:** Open `mhitu.c` explmu (named). Not AT_HUGS.
-Not gazemu / mhitu AD_DRIN / kickdmg `special_dmgval`. Do not skip
-D-1325…D-1229 (index). Keep mention_map addr. Do not wrap `wildmiss`
-or `msg_mon_movement` as `pline_mon`.
+**Map-driven fortress** after D-1325. Reviews **284–287**
+ACCEPT-WITH-DEBT (review **283** closed by D-1322). **Next
+cluster:** Open `mhitu.c` explmu (named). Not AT_HUGS. Not gazemu /
+mhitu AD_DRIN / kickdmg `special_dmgval`. Do not skip D-1325…D-1229
+(index). Keep mention_map addr. Do not wrap `wildmiss` or
+`msg_mon_movement` as `pline_mon`.
 
 **Parked:** D-0006. **Do not re-break D-0660…D-1325.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).

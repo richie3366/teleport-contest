@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dokick.c` snuff_candle (named from D-1242). Not throwit_mon_hit. **Addressed:** D-1325
+- [x] `dokick.c` snuff_candle (named from D-1242). Not throwit_mon_hit. **Addressed:** D-1325 `2cdf2b1f`
 
 
 - [x] `dothrow.c` thitmonst vanish pline (named from D-1312). Not leader catch. **Addressed:** D-1324 `1d5b0b66`

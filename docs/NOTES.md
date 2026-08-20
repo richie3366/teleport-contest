@@ -5,11 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1325; cadence **#1675** `b7a0c3c7`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Review **283**
-  closed. Next: Open `mhitu.c` explmu (named). Not AT_HUGS. Not
-  gazemu / mhitu AD_DRIN / kickdmg `special_dmgval`. Do not skip
-  D-1325…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
+- **Fortress 44/44** after D-1325; cadence **#1680** `2cdf2b1f`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **284–287**
+  ACCEPT-WITH-DEBT (**283** closed). Next: Open `mhitu.c` explmu
+  (named). Not AT_HUGS. Not gazemu / mhitu AD_DRIN / kickdmg
+  `special_dmgval`. Do not skip D-1325…D-1229. Do not wrap
+  `wildmiss` as `pline_mon`. No FORCE.
 - Do not revert D-1217–D-1325. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
