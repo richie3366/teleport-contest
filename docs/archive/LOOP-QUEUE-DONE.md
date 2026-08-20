@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `trap.c` maketrap shop add_damage (named from D-1280). Not DRAWBRIDGE_UP ice. **Addressed:** D-1300
+- [x] `dothrow.c` boomhit (named from D-1282). Not steed. **Addressed:** D-1301
+
+
+- [x] `trap.c` maketrap shop add_damage (named from D-1280). Not DRAWBRIDGE_UP ice. **Addressed:** D-1300 `376a5a0d`
 
 
 - [x] `hack.c` swap-with-pet `seemimic` (named from D-1275). Not display_self. **Addressed:** D-1299 `eca3330c`

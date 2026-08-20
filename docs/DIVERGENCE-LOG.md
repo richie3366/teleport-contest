@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1301 — zap.c `boomhit`
+
+- **Status:** fixed (map-driven Open from D-1282; not a public FAIL)
+- **Symptom:** a thrown boomerang flew as a linear `bhit` dart. C uses a
+  10-step curve (`boomhit`) that can catch, self-hit, or klonk a sink.
+  JS cleared AutoReturn then reused the dart path.
+- **C locus:** `zap.c` `boomhit` `:4148–4233`; caller `dothrow.c`
+  throwit `:1601–1611` `obj->otyp == BOOMERANG && !Underwater`.
+  Air/lev `hurtle(-dx,-dy,1)` then boomhit; `returning_missile=0`;
+  `mon == &youmonst` → `exercise(A_DEX)` + `return_throw_to_inv`.
+  Curve: `nhits = max(1, spe+1)`; URIGHTY counterclockwise;
+  `DIR_CLAMP` / `DIR_LEFT`/`DIR_RIGHT` each step except `ct%5==0`;
+  `m_at` then `throwit_mon_hit`; `!ZAP_POS`/closed_door backup;
+  `u_at` catch `!(Fumbling || rn2(20)>=ACURR(A_DEX))` else
+  `thitu(10+spe, Maybe_Half_Phys(dmgval), &obj, "boomerang")` +
+  `endmultishot(TRUE)`; sink `Klonk!` + `wake_nearto(..., 20)`.
+- **JS was:** named omit after D-1282; flag-clear then linear bhit.
+- **Fix:** live `boomhit` in `dothrow.js` (C lives in zap.c; only
+  caller is throwit — avoid zap↔dothrow import cycle). `throw_obj`
+  `m_shot` + `endmultishot` so a self-hit stops the volley (also
+  hurtle `:1119`). m_respond / Soundeffect / snuff_candle /
+  hot_pursuit named. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `boomhit` / `throwit` / `endmultishot`.
+- **Not this iter:** `sho_obj_return_to_u`; throw_gold swallow;
+  m_respond shrieker/Medusa/Erinys; objsplit unsplit.
+- **Verified:** private canary **32**/32 (DIR/ordin/nhits/10-step
+  return-to-@; JS catch DEX25; Fumbling self-hit + endmultishot;
+  STONE backup; sink land; west OOB); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws a boomerang.
+- **Follow-up:** Open `dothrow.c` throw_gold swallow.
+- **Files:** `js/dothrow.js`.
+
 ## D-1300 — trap.c `maketrap` shop `add_damage`
 
 - **Status:** fixed (map-driven Open from D-1280; not a public FAIL)

@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1300 `trap.c` maketrap shop
-  `add_damage` (cadence **#1645** `086eb03d`; reviews **257–260**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c` boomhit
-  (named from D-1282). Not steed. Do not skip D-1300…D-1229.
-  Do not pull throw_gold / `sho_obj_return_to_u` / secret
-  corridor / candle `partly used` / eat_brains. Do not wrap
-  `wildmiss` or `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1300. Named omits stay map, not Must-fix.
+- **Fortress 44/44** after D-1301 `zap.c` boomhit (cadence
+  **#1645** `086eb03d`; reviews **257–260** ACCEPT-WITH-DEBT,
+  no Must-fix). Next: Open `dothrow.c` throw_gold swallow
+  (named from D-1283). Not boomhit. Do not skip D-1301…D-1229.
+  Do not pull `sho_obj_return_to_u` / secret corridor / candle
+  `partly used` / eat_brains. Do not wrap `wildmiss` or
+  `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1301. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1300.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1301.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,9 +35,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1300 (index). Named still: eat_brains /
+- Do not skip D-1071…D-1301 (index). Named still: eat_brains /
   helmet / m_slips_free; candle `partly used`; secret corridor;
-  boomhit. No ALIGN/FORCE on seed0383.
+  throw_gold swallow. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -48,6 +48,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1301: `zap.c` boomhit 10-step curve from throwit
+  `BOOMERANG && !Underwater`. `nhits=max(1,spe+1)`; URIGHTY
+  counterclockwise; catch `!Fumbling && rn2(20)<ACURR(DEX)`
+  → `return_throw_to_inv`; self-hit `thitu`+`endmultishot`;
+  sink Klonk; `!ZAP_POS` backup. m_respond / Soundeffect /
+  `sho_obj_return_to_u` named. **steed D-1297**.
 - D-1300: `maketrap` shop `add_damage` before DRAWBRIDGE_UP /
   `set_levltyp`. `*in_rooms(SHOPBASE)` && (`is_hole` || door ||
   wall); cost `SHOP_HOLE_COST` iff door/wall && `!mon_moving`
@@ -67,7 +73,7 @@ Objective/score live in `CURRENT.md`.
   POTION_CLASS && rn2(6)` after toss_up before hitfloor;
   `potionhit` crash/`which_armor(W_SADDLE)`/`H2Opotion_dip`/
   POT_WATER body. Remaining otyp / shop unpaid named.
-  **stamina D-1293**. boomhit named.
+  **stamina D-1293**. **boomhit D-1301**.
 - D-1296: `maketrap` DRAWBRIDGE_UP ice — keep mask, `&= ~DB_UNDER`
   `|= DB_FLOOR`; `was_ice` → `obj_ice_effects` + stop
   `MELT_ICE_AWAY`. `is_pool_or_lava` is `is_pool||is_lava` so
@@ -86,7 +92,7 @@ Objective/score live in `CURRENT.md`.
 - D-1293: throwit stamina — after slip, before thrownobj;
   `(dx||dy||dz<1)` + `calc_capacity(owt)>SLT` + low HP ≠ max +
   `owt>hp*2` + `!Is_airlevel` → You drop + `exercise(A_CON,FALSE)`
-  + `dx=dy=0` `dz=1`. **slip D-1292**. **steed D-1297**. boomhit named.
+  + `dx=dy=0` `dz=1`. **slip D-1292**. **steed D-1297**. **boomhit D-1301**.
 - D-1292: throwit cursed/greased `!rn2(7)` slip/misfire before
   thrownobj; `rn2(3)-1` dx/dy, `dz=1` if both 0, impaired.
 - D-1291: `wildmiss` `set_msg_xy(mx,my)` then `pline` (not
@@ -107,6 +113,3 @@ Objective/score live in `CURRENT.md`.
 - D-1287: `u_on_sstairs` else `u_on_rndspot(upflag)`; upstairs /
   dnstairs wrappers; `goto_level` newdungeon awaits. Special-dir
   C boolean `!=`. **cmd wiz D-1288**.
-- D-1286: `missmu` both arms `pline_mon` (seduce pretend +
-  verbose `"just "` miss). **wildmiss D-1291**. mswings /
-  AT_ENGL gulps/lunges named.

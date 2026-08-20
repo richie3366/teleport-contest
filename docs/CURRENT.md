@@ -59,26 +59,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1300. Reviews **257–260** all
+**Map-driven fortress** after D-1301. Reviews **257–260** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `dothrow.c` boomhit (named from D-1282). Not steed.
-Do not skip D-1300…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `dothrow.c` throw_gold swallow (named from D-1283). Not boomhit.
+Do not skip D-1301…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not pull throw_gold swallow / `sho_obj_return_to_u` /
-secret corridor / mswings / candle `partly used` / eat_brains /
-helmet / poly AT_KICK.
+Do not pull `sho_obj_return_to_u` / secret corridor / mswings /
+candle `partly used` / eat_brains / helmet / poly AT_KICK.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1300.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1301.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1300 (index). Recent: **D-1300** `trap.c`
-`maketrap` shop `add_damage` (not ice).
-Prior: D-1299 swap-with-pet seemimic; D-1298 hmonas skipdrin / pit
-kick; D-1297 throwit steed potionhit; D-1296 DRAWBRIDGE_UP ice.
+**Keep:** D-0845…D-1301 (index). Recent: **D-1301** `zap.c`
+`boomhit` (throwit BOOMERANG arm).
+Prior: D-1300 shop `add_damage`; D-1299 swap-with-pet seemimic;
+D-1298 hmonas skipdrin / pit kick; D-1297 throwit steed potionhit.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1300
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1301
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

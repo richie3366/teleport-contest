@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1301 zap.c boomhit
+
+**Objective:** Open `dothrow.c` boomhit (named from D-1282). Not
+steed.
+**C locus:** `zap.c` `boomhit` `:4148–4233` + `dothrow.c`
+throwit `:1601–1611` `BOOMERANG && !Underwater` (air/lev
+`hurtle` then boomhit; clear AutoReturn; catch
+`return_throw_to_inv`).
+**Change:** live 10-step curve in `dothrow.js` (zap.c callee;
+throwit-only). Catch DEX/`Fumbling`; self-hit `thitu`+
+`endmultishot`; sink Klonk; `!ZAP_POS` backup. m_shot in
+throw_obj. m_respond / Soundeffect / `sho_obj_return_to_u`
+named. Rule #2: no fs.
+**Score:** fortress unchanged (cadence **#1645**). Public-unhit
+unless a session throws a boomerang.
+**Verified:** private canary 32/32; green+strict 8000/0900;
+cohort 7/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dothrow.c` throw_gold swallow. Not boomhit.
+**Blocked:** none.
 ## 2026-08-20 — D-1300 trap.c maketrap shop add_damage
 
 **Objective:** Open `trap.c` maketrap shop `add_damage` (named
