@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1275 display.h display_self U_AP_TYPE glyphs
+
+**Objective:** Open `display.c` `display_self` U_AP_TYPE glyphs
+(named from D-1260). Not seemimic.
+**C locus:** `display.h` `display_self` `:251–260`;
+`maybe_display_usteed` `:246–249`.
+**Change:** `maybe_display_usteed` then NOTHING `hero_glyph` /
+FURNITURE `cmap_to_glyph` / OBJECT `objnum_to_glyph` (not Hallu) /
+MONSTER `monnum_to_glyph`. Wired `newsym` / `swallowed` / detect
+`monster_detect`. Named: find_trap cls; muse; gender; seemimic.
+Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless imitating. Next
+audit @**#1620**.
+**Verified:** private canary **19**/19; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `objnam.c` doname EGG (named from D-1255). Not
+MEAT_RING.
+**Blocked:** none.
 ## 2026-08-20 — #1615 review D-1271–D-1274 + cadence
 
 **Objective:** audit — C-fidelity reviews **233–236** of JS SHAs

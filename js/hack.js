@@ -596,8 +596,8 @@ export function hero_hideunder_after_move() {
  * Mimics (or whatever) become noticeable if they move while imitating
  * something that doesn't move. U_AP_TYPE is m_ap_type & M_AP_TYPMASK.
  * Assignment is M_AP_NOTHING (not seemimic; mappearance leftover).
- * Named: display_self U_AP_TYPE glyphs; swap-with-pet seemimic;
- * bump_mon stumble_onto_mimic.
+ * Named: swap-with-pet seemimic; bump_mon stumble_onto_mimic.
+ * display_self U_AP_TYPE glyphs: D-1275.
  */
 export function hero_mimic_unhide_after_move() {
     const u = game.u;

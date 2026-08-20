@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1275 — `display.h` `display_self` U_AP_TYPE glyphs
+
+- **Status:** fixed (map-driven Open from D-1260; not a public FAIL)
+- **Symptom:** `newsym`/`swallowed`/`monster_detect` always painted
+  `hero_glyph` / hardcoded `@`. C `display_self` shows furniture cmap,
+  object class, or monster letter from `U_AP_TYPE` / `mappearance`.
+- **C locus:** `display.h` `display_self` `:251–260` wrapping
+  `maybe_display_usteed` `:246–249`. `U_AP_TYPE` is
+  `youmonst.m_ap_type & M_AP_TYPMASK` (`monst.h`). NOTHING →
+  `hero_glyph`; FURNITURE → `cmap_to_glyph(mappearance)` (S_altar
+  uses `altar_to_glyph(AM_NEUTRAL)`); OBJECT → `objnum_to_glyph`
+  (not Hallu / not `statue_to_glyph`); else
+  `monnum_to_glyph(mappearance, Ugender)`. Callers `display.c`
+  `newsym` / `swallowed`; `detect.c` `monster_detect`.
+- **JS was:** `hero_display_glyph` steed-or-hero only; detect
+  hardcoded `'@'`.
+- **Fix:** live `display_self` + U_AP_TYPE arms; `objnum` skips
+  Hallu RNG; steed still first. Rule #2: no fs.
+- **JS:** `js/display.js` `display_self` / `hero_display_glyph` /
+  `cmap_idx_to_glyph` / `objnum_to_display_glyph` /
+  `monnum_to_display_glyph`; `js/detect.js` `monster_detect`.
+- **Not this iter:** find_trap cls+wait `display_self`; muse.c
+  `display_self`; gender glyph offsets; swap-with-pet `seemimic`;
+  `display_monster` M_AP_FURNITURE lastseentyp; trap/zap cmap.
+- **Verified:** private canary **19**/19 (C ternary+mask; JS arms;
+  gold `$` / orange `%` / strange `]`; fountain `{`; altar `_`;
+  closed door `+`; slime `P`; F_DKNOWN mask; objnum no Hallu burn;
+  steed wins; detect caller; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless the hero is imitating (eat-mimic gold /
+  `#monster` hide / Slimed t=1).
+- **Follow-up:** Open `objnam.c` doname EGG.
+- **Files:** `js/display.js`, `js/detect.js`.
+
 ## D-1274 — dothrow.c `toss_up` + throwit `u.dz`
 
 - **Status:** fixed (map-driven Open from D-1263; not a public FAIL)
