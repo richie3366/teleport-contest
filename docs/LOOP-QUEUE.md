@@ -26,6 +26,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `objnam.c` doname W_WEP `!mrg_to_wielded` + AKLYS `"tethered to"` (C `:1561–1595`; this SHA rewrote the if). Source: reviews/loop-unattended/283-b7a0c3c7-doname-wep-body-part.md. Not warn_obj.
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt (named from D-1311). Not throwit tether.

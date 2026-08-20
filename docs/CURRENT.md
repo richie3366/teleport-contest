@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-20** — full `sessions` at review **#1670**
-HEAD `ccdc8670` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `36+0.30/turn` (R² 0.85). Next audit (review + score) @**#1675**.
+Score last measured: **2026-08-21** — full `sessions` at review **#1675**
+HEAD `b7a0c3c7` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `37+0.30/turn` (R² 0.85). Next audit (review + score) @**#1680**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `36+0.30/turn` (R² 0.85). Next audit (review + score) @**#1675**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `36+0.30/turn` (R² 0.85) |
+| Speed label | `37+0.30/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,11 +59,12 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1321. Reviews **277–280**
-ACCEPT-WITH-DEBT (review **275** caller wired as D-1315).
-**Next cluster:**
-Open `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt (named from
-D-1311). Not throwit tether.
+**Map-driven fortress** after D-1321. Reviews **281–282**
+ACCEPT-WITH-DEBT; **283** QUALITY-RISK (W_WEP `!mrg_to_wielded`
++ AKLYS `"tethered to"`). **Next cluster:**
+Must-fix `objnam.c` doname W_WEP `!mrg_to_wielded` + AKLYS
+`"tethered to"` (review **283**). Not zap bhit tether. Not
+warn_obj.
 Do not skip D-1321…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not pull gazemu / explmu / AT_HUGS / mhitu AD_DRIN / thitmonst

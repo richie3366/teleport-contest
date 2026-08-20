@@ -290,3 +290,6 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [278-75c08164-throwit-acurrstr-urange.md](./278-75c08164-throwit-acurrstr-urange.md) | `75c08164` | D-1316 throwit ACURRSTR urange | **ACCEPT-WITH-DEBT** |
 | [279-9b1b4ba4-doname-candelabrum.md](./279-9b1b4ba4-doname-candelabrum.md) | `9b1b4ba4` | D-1317 doname CANDELABRUM `(n of 7)` | **ACCEPT-WITH-DEBT** |
 | [280-ccdc8670-doname-tool-worn.md](./280-ccdc8670-doname-tool-worn.md) | `ccdc8670` | D-1318 doname TOOL W_TOOL\|W_SADDLE worn | **ACCEPT-WITH-DEBT** |
+| [281-cd867647-doname-leash-attached.md](./281-cd867647-doname-leash-attached.md) | `cd867647` | D-1319 doname LEASH attached | **ACCEPT-WITH-DEBT** |
+| [282-cf309315-doname-pot-oil-lit.md](./282-cf309315-doname-pot-oil-lit.md) | `cf309315` | D-1320 doname POTION POT_OIL `(lit)` | **ACCEPT-WITH-DEBT** |
+| [283-b7a0c3c7-doname-wep-body-part.md](./283-b7a0c3c7-doname-wep-body-part.md) | `b7a0c3c7` | D-1321 doname W_WEP `body_part(HAND)` | **QUALITY-RISK** |

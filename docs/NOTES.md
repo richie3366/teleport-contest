@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1321 `objnam.c` doname W_WEP
-  `body_part(HAND)` poly (cadence **#1670** `ccdc8670`; reviews
-  **277–280** ACCEPT-WITH-DEBT; **275** caller is D-1315). Next:
-  Open `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt. Not throwit
-  tether. Do not skip D-1321…D-1229. Do not pull gazemu / explmu /
-  AT_HUGS / mhitu AD_DRIN / thitmonst vanish pline / dokick
-  snuff_candle. Do not wrap `wildmiss` or `msg_mon_movement` as
-  `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1321. Named omits stay map, not Must-fix.
+- **Fortress 44/44** after D-1321; cadence **#1675** `b7a0c3c7`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews
+  **281–282** ACCEPT-WITH-DEBT; **283** QUALITY-RISK. Next:
+  Must-fix W_WEP `!mrg_to_wielded` + AKLYS `"tethered to"`. Not
+  zap bhit. Do not skip D-1321…D-1229. Do not pull gazemu /
+  explmu / AT_HUGS / mhitu AD_DRIN / thitmonst vanish / dokick
+  snuff. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1321. Review **283** Must-fix is the
+  rewritten W_WEP if, not a named omit.
 
 ## Don't re-check (≤15)
 

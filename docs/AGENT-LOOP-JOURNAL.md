@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — #1675 review D-1319–D-1321 + cadence
+
+**Objective:** audit — C-fidelity reviews **281–283** of JS SHAs
+since `a40f5920`, plus full `sessions` score. No `js/` port.
+**C locus:** `objnam.c` doname LEASH attached; POT_OIL `(lit)`;
+W_WEP `body_part(HAND)`.
+**Change:** **281–282** ACCEPT-WITH-DEBT. **283** QUALITY-RISK —
+rewritten W_WEP `if` dropped live `!mrg_to_wielded` and AKLYS
+`"tethered to"`. Must-fix prepended. Filled D-1321 archive hash
+`b7a0c3c7`. Cadence **44**/44 Scr **11,405**/11,405 RNG
+**792,838**/792,838 (100%) speed `37+0.30/turn` (R² 0.85) at
+`b7a0c3c7`. Rule #2: no fs.
+**Score:** fortress held. Next audit @**#1680**.
+**Verified:** `node frozen/ps_test_runner.mjs sessions` (this iter).
+**Next:** Must-fix `objnam.c` doname W_WEP `!mrg_to_wielded` +
+AKLYS `"tethered to"` (review **283**). Not zap bhit.
+**Blocked:** none.
 ## 2026-08-21 — D-1321 objnam.c doname W_WEP body_part(HAND) poly
 
 **Objective:** Open `objnam.c` doname W_WEP `body_part(HAND)` poly
