@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1267 | fixed | hack.c `set_uinwater` `switch_terrain` | map-driven Open from D-1129; C `hack.c:3221–3227` in_out≠(int)uinwater then write 0/1 then `switch_terrain`; JS `hack.js` async; boulder_hits_pool dry-land / drown fail-crawl / goto_level leave+after-getlev await; pooleffects leave / drown wade / zap freeze / objnam / cmd still named; `spoteffects` / `digactualhole` / dothrow / `u_on_rndspot` still named |
 | D-1266 | fixed | uhitm.c hmonas altwep / uswapwep | map-driven Open from D-1252; C `uhitm.c:5490–5514` orig `&uswapwep`/`&uwep` + toggle (one-handed wep/weptool, !uarms, !oartifact, !launcher/ammo/missile, !bimanual, !SILVER+Hate_silver) then `*originalweapon` re-read; worm-cut `goto passivedone`; `:5838–5847` cursed `drop_uswapwep` before DEADMONSTER; JS was always `u.uwep`; skipdrin / pit kick still named |
 | D-1265 | fixed | hack.c fight_empty `explum(null)` | map-driven Open from D-1251; C `hack.c:2323–2334` Upolyd AT_EXPL `attacktype_fordmg` + wake_nearto(7*7) then `explum(0,attk)` then mh=-1 `rehumanize`; You futilely/explode-at; JS was pline-only; altwep D-1266 / pick-dig / Underwater / Hallu statue / ansimpleoname still named |
 

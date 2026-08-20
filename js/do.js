@@ -76,7 +76,7 @@ import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
     check_special_room, is_pool, is_lava, waterbody_name,
     notice_mon_off, notice_mon_on, notice_all_mons,
-    impact_disturbs_zombies,
+    impact_disturbs_zombies, set_uinwater,
 } from './hack.js';
 import { place_object, stackobj, weight, delobj, obj_extract_self,
     obj_nexto_xy, obj_meld, pudding_merge_message,
@@ -803,7 +803,8 @@ export async function flooreffects(obj, x, y, verb) {
  * Branch envelope: fills_up chance; ROOM morph / bury_objs; splash msgs;
  * wake_nearto; adjacent lava dmg; obfree (!pushing).
  * Named omit: DRAWBRIDGE_UP mask polish; pushing useupf; steed whobuf;
- * Fire_resistance lava dmg; burn_away_slime; set_uinwater dry-land.
+ * Fire_resistance lava dmg; burn_away_slime. Dry-land set_uinwater is
+ * D-1267.
  * @returns {Promise<boolean>}
  */
 export async function boulder_hits_pool(otmp, rx, ry, pushing) {
@@ -872,7 +873,7 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
             await wake_nearto(rx, ry, 40);
         }
         if (fills_up && u.uinwater && distu(rx, ry) === 0) {
-            u.uinwater = 0;
+            await set_uinwater(0); /* C do.c:128 — leave the water */
             docrt();
             game.vision_full_recalc = 1;
             await pline('You find yourself on dry land again!');
@@ -1278,6 +1279,7 @@ function getlev_catchup_monsters(elapsed) {
  * Fumbling fall `rnd(3)` losehp / ordinary) → losedogs →
  * kill_genocided_monsters (D-1190) → run_timers (D-1191) →
  * vision/docrt → pickup(1).
+ * Ported: `set_uinwater(0)` on leave and after getlev/mklev (D-1267).
  * Ported: portal MAGIC_PORTAL find / missing → u_on_rndspot (D-0594).
  * Ported: quest entrance `com_pager(quest_portal*)` (D-0650).
  * Ported: quest-home gate — on qstart && !newdungeon && !ok_to_quest()
@@ -1362,6 +1364,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // are not left on the departing floor (D-0915).
     // C: Punished ≡ (uball != 0)
     if (u.uball || u.Punished) unplacebc();
+    // C: reset_utrap / fill_pit / set_ustuck / u.uundetected still named.
+    // set_uinwater(0) (D-1267; C do.c:1621). Same-value is a no-op.
+    await set_uinwater(0);
     // Snapshot sight before vision_recalc(2) clears viz — getbones yn
     // needs prior IN_SIGHT to mon→memory newsym the leave-level gbuf.
     if (game.viz_array) {
@@ -1530,6 +1535,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         getlev_catchup_monsters(elapsed);
     }
 
+    await set_uinwater(0); /* C do.c:1716 — after getlev/mklev, before vision_reset */
     vision_reset();
     game.vision_full_recalc = 0;
     // C: flush_screen(-1) postpone map/botl until after arrival plines + docrt

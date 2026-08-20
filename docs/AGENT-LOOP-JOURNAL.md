@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1267 hack.c set_uinwater switch_terrain
+
+**Objective:** Open `hack.c` `set_uinwater` `switch_terrain` (named
+from D-1129). Not dissolve_bars.
+**C locus:** `hack.c` `set_uinwater` `:3221–3227`; callers
+`do.c` `boulder_hits_pool` `:128`, `trap.c` `drown` `:5170`,
+`do.c` `goto_level` `:1621` / `:1716`.
+**Change:** `set_uinwater` writes 0/1 only when `in_out` differs
+from `(int)u.uinwater`, then awaits live `switch_terrain`. Wired
+boulder dry-land, drown fail-crawl, goto_level leave+after-getlev.
+Named: pooleffects leave / drown wade / zap freeze. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a session enters or
+leaves water via those setters. Next audit @**#1610**.
+**Verified:** private canary **18**/18; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `hack.c` `spoteffects` `switch_terrain` (named from
+D-1129). Not dissolve_bars.
+**Blocked:** none.
 ## 2026-08-20 — #1605 review D-1263–D-1266 + cadence
 
 **Objective:** audit — C-fidelity reviews **225–228** of JS SHAs

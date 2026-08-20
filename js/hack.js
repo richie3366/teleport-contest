@@ -1830,8 +1830,8 @@ function Flying_st() {
  * flags.terrainstatus && !context.run. C youprop.h Underwater ≡
  * u.uinwater. Named omit: botl terrain_descr[] paint; options.c
  * toggle; end_running MAX_TYPE reset; dungeon.c u_on_newpos
- * MAX_TYPE; spoteffects / set_uinwater / digactualhole callers.
- * dissolve_bars u_at is D-1259.
+ * MAX_TYPE; spoteffects / digactualhole callers.
+ * dissolve_bars u_at is D-1259; set_uinwater is D-1267.
  */
 export function classify_terrain() {
     const u = game.u;
@@ -1894,6 +1894,7 @@ export function classify_terrain() {
  * or unblock levitation/flight via B* FROMOUTSIDE (solid rock, closed
  * door, waterwall, lavawall). Skip float_down when blocking.
  * flags.terrainstatus → classify_terrain (D-1151).
+ * set_uinwater change-gate is D-1267.
  */
 export async function switch_terrain() {
     const u = game.u;
@@ -1941,6 +1942,26 @@ export async function switch_terrain() {
         if (game.disp) game.disp.botl = true;
     }
     if (game.flags?.terrainstatus) classify_terrain();
+}
+
+/**
+ * C ref: hack.c set_uinwater — set or clear u.uinwater; when in_out
+ * differs from (int)u.uinwater, write 0/1 then switch_terrain
+ * (D-1267). Same-value is a no-op. Wired: boulder_hits_pool dry-land,
+ * drown fail-crawl, goto_level leave + after getlev. Named:
+ * pooleffects leave-water; drown Amphibious wade / post-rescue;
+ * zap freeze; objnam wish; cmd leave-level; detect/save bypass
+ * (C writes u.uinwater directly). spoteffects / digactualhole /
+ * dothrow / u_on_rndspot still call switch_terrain themselves.
+ */
+export async function set_uinwater(in_out) {
+    const u = game.u;
+    if (!u) return;
+    /* C: if (in_out != (int) u.uinwater) */
+    if (in_out !== (u.uinwater | 0)) {
+        u.uinwater = in_out ? 1 : 0;
+        await switch_terrain();
+    }
 }
 
 /**
@@ -2161,8 +2182,8 @@ export async function invocation_message() {
 
 /**
  * C ref: monmove.c dissolve_bars — replace IRONBARS with DOOR/ROOM/CORR.
- * After newsym, u_at → switch_terrain (D-1259). Named: set_uinwater /
- * spoteffects / digactualhole switch_terrain.
+ * After newsym, u_at → switch_terrain (D-1259). set_uinwater is
+ * D-1267. Named: spoteffects / digactualhole switch_terrain.
  */
 export async function dissolve_bars(x, y) {
     const lev = game.level?.at(x, y);

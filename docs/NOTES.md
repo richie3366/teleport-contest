@@ -5,18 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1266 `uhitm.c` `hmonas` altwep /
-  `uswapwep` (reviews **225–228** cadence **#1605** `42d50a53`).
-  Next: Open `hack.c` `set_uinwater` `switch_terrain` (named from
-  D-1129). Not dissolve_bars. Do not skip D-1266…D-1229. Do not pull
+- **Fortress 44/44** after D-1267 `hack.c` `set_uinwater` →
+  `switch_terrain` (reviews **225–228** cadence **#1605** `42d50a53`).
+  Next: Open `hack.c` `spoteffects` `switch_terrain` (named from
+  D-1129). Not dissolve_bars. Do not skip D-1267…D-1229. Do not pull
   skipdrin / pit kick / missmu / mattacku AT_TENT / explmu / AT_HUGS /
   hero `test_move` `passes_bars` / unported `mhitm_ad_*`
-  `pline_mon` / doname EGG / `spoteffects` /
-  `digactualhole` `switch_terrain` / `display_self` U_AP_TYPE
-  glyphs / swap-with-pet `seemimic` / Blind unseen boulder feel /
-  invent hold_another_object hitfloor / pickup highdrop /
-  toss_up. Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1266. Named omits stay map, not Must-fix.
+  `pline_mon` / doname EGG / `digactualhole` `switch_terrain` /
+  `display_self` U_AP_TYPE glyphs / swap-with-pet `seemimic` / Blind
+  unseen boulder feel / invent hold_another_object hitfloor / pickup
+  highdrop / toss_up. Do not wrap `msg_mon_movement` as `pline_mon`.
+  No FORCE.
+- Do not revert D-1217–D-1267. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -25,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1266.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1267.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -40,10 +40,10 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1266 (index). Named still: skipdrin /
+- Do not skip D-1071…D-1267 (index). Named still: skipdrin /
   pit kick; missmu/explmu; doname EGG; launch_obj
-  down_gate / boulder-chain; `meatobj` / meatbox; `set_uinwater` /
-  `spoteffects` / `digactualhole` `switch_terrain`; hero
+  down_gate / boulder-chain; `meatobj` / meatbox; `spoteffects` /
+  `digactualhole` `switch_terrain`; hero
   `test_move` `passes_bars`; `display_self` U_AP_TYPE glyphs;
   Blind unseen boulder feel; invent hold_another_object hitfloor;
   pickup highdrop; toss_up.
@@ -59,6 +59,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1267: `hack.c` `set_uinwater` — in_out ≠ (int)uinwater writes
+  0/1 then `switch_terrain`. boulder_hits_pool dry-land, drown
+  fail-crawl, goto_level leave+after-getlev. pooleffects leave /
+  drown Amphibious wade / zap freeze named.
 - D-1266: `uhitm.c` `hmonas` altwep / `uswapwep` — first AT_WEAP
   uses uwep then toggles to uswapwep when one-handed / no shield /
   not launcher-ammo-missile / not silver+Hate_silver; re-read slot
@@ -86,7 +90,7 @@ Objective/score live in `CURRENT.md`.
   `seemimic`). `display_self` U_AP_TYPE glyphs named.
 - D-1259: `monmove.c` `dissolve_bars` `u_at` → `switch_terrain`
   after `newsym`. still_chewing / postmov / zap / hit_bars await.
-  `set_uinwater` / `spoteffects` / `digactualhole` named.
+  `spoteffects` / `digactualhole` named.
 - D-1258: `mondata.c` `passes_bars` + `mon.c` `mon_allowflags`
   ALLOW_BARS rust/corr/metallivore/slithy-small + ustuck subset;
   `mfndpos` W_NONDIGGABLE rust/corr skip. Hero `test_move` named.
@@ -106,6 +110,3 @@ Objective/score live in `CURRENT.md`.
 - D-1253: `hack.c` `cannot_push` giant pickup/maneuver + `return 0`;
   Sokoban maneuver + `sokoban_guilt`; unskilled riding skips guilt.
   nopick m-dir D-1262.
-- D-1252: `uhitm.c` `demonpet` 1/6 `ndemon` else `youmonst.data`;
-  `makemon` NO_MM_FLAGS + `tamedog` FALSE. AT_ENGL D-1264;
-  fight_empty D-1265; altwep D-1266.

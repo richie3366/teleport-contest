@@ -927,7 +927,7 @@ export async function dopickup() {
 /**
  * C ref: hack.c pooleffects(newspot).
  * Branch envelope: enter pool/lava → drown/lava_effects; leave-water /
- * steed / ceiling_hider / Wwalking arms deferred.
+ * set_uinwater / steed / ceiling_hider / Wwalking arms deferred.
  * @returns {Promise<boolean>} true → skip rest of spoteffects
  */
 export async function pooleffects(newspot) {
@@ -959,7 +959,8 @@ export async function pooleffects(newspot) {
  * dosinkfall (D-0976); when !in_steed_dismounting — non-pit pickup then
  * dotrap then pit pickup.
  * Deferred: recursion guards, levitation timeout adjust, Warning ice,
- * hidden monster surprise, switch_terrain.
+ * hidden monster surprise, switch_terrain (D-1129 body live; caller is
+ * the next Open). set_uinwater is D-1267.
  */
 export async function spoteffects(pick) {
     if (await pooleffects(true)) return;

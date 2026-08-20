@@ -99,7 +99,7 @@ import {
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
     maybe_half_phys, nomul, losehp, finish_maybe_wail, stop_occupation,
-    in_rooms,
+    in_rooms, set_uinwater,
 } from './hack.js';
 import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level } from './teleport.js';
 import { get_level } from './dungeon.js';
@@ -4588,9 +4588,10 @@ async function teleds_drown(nux, nuy) {
  * C ref: trap.c drown — fall/plunge into pool/waterwall; crawl out.
  * Branch envelope: first-entry fall/plunge + sink; empty water_damage_chain;
  * rnd_nextto_goodpos + emergency_disrobe stub + crawl/Pheew + teleds.
- * Named omissions: uinwater wade; gremlin/iron golem; leash; Amphibious/
- * Breathless/Swimming; Teleportation escape; steed; sleep/faint; waterlevel
- * disrobe; drowning done() loop; Hallucination Titanic.
+ * Fail-crawl set_uinwater(1) is D-1267. Named omissions: Amphibious/
+ * Breathless/Swimming wade set_uinwater; post-rescue set_uinwater(0);
+ * gremlin/iron golem; leash; Teleportation escape; steed; sleep/faint;
+ * waterlevel disrobe; drowning done() loop; Hallucination Titanic.
  * @returns {Promise<boolean>} true if hero relocated
  */
 export async function drown() {
@@ -4625,7 +4626,7 @@ export async function drown() {
         await pline('But in vain.');
     }
 
-    u.uinwater = 1;
+    await set_uinwater(1); /* C trap.c:5170 — u.uinwater = 1 */
     await pline('You drown.');
     return true;
 }

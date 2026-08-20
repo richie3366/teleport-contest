@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1267 — `hack.c` `set_uinwater` → `switch_terrain`
+
+- **Status:** fixed (map-driven Open; named omit from D-1129 /
+  D-1259; not a public FAIL)
+- **Symptom:** JS wrote `u.uinwater` directly, so entering or
+  leaving water never ran `switch_terrain` (Lev/Fly `FROMOUTSIDE`
+  and `classify_terrain` `xSUBMERGED` stayed stale).
+- **C locus:** `hack.c` `set_uinwater` `:3221–3227` (`in_out !=
+  (int)u.uinwater` then write 0/1 then `switch_terrain()`).
+  Callers: `do.c` `boulder_hits_pool` `:128`; `trap.c` `drown`
+  `:5170`; `do.c` `goto_level` `:1621` leave + `:1716` after
+  getlev. `hack.c` `switch_terrain` `:3178–3217` already live
+  (D-1129 / D-1151).
+- **JS was:** `u.uinwater = 0` in `boulder_hits_pool`; `= 1` in
+  `drown`; `goto_level` never cleared it.
+- **Fix:** port `set_uinwater` in `hack.js`. Same-value is a
+  no-op. Wired the three live C sites. Did not pull pooleffects
+  leave-water, drown Amphibious wade / post-rescue, zap freeze,
+  objnam wish, cmd leave-level. detect/save stay C bypass.
+  `spoteffects` / `digactualhole` / dothrow / `u_on_rndspot`
+  still call `switch_terrain` themselves. Rule #2: no fs.
+- **JS:** `js/hack.js` `set_uinwater`; await in `js/do.js`
+  `boulder_hits_pool` / `goto_level`; `js/trap.js` `drown`.
+- **Not this iter:** pooleffects leave; drown wade/rescue; zap
+  freeze; objnam; cmd; `spoteffects` dest-typ `switch_terrain`;
+  `digactualhole`.
+- **Verified:** private canary **18**/18 (C body+callers; JS
+  inequality+await; same-value skip; POOL xSUBMERGED; WATERWALL
+  You_cant; leftover BLev/BFly clear; POOL+HLev not blocklev;
+  terrainstatus Off skip classify; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  public session actually enters or leaves water via those
+  setters (`goto_level` is a no-op when already dry).
+- **Follow-up:** Open `hack.c` `spoteffects` `switch_terrain`.
+
 ## D-1266 — uhitm.c `hmonas` altwep / `uswapwep`
 
 - **Status:** fixed (map-driven Open; named omit from D-1252; not a
