@@ -234,3 +234,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [222-8729fa24-mimic-unhide.md](./222-8729fa24-mimic-unhide.md) | `8729fa24` | D-1260 mimic unhide after hideunder | **ACCEPT-WITH-DEBT** |
 | [223-8e2808ad-hitmsg.md](./223-8e2808ad-hitmsg.md) | `8e2808ad` | D-1261 mhitu `hitmsg` | **ACCEPT-WITH-DEBT** |
 | [224-72757d4c-moverock-nopick.md](./224-72757d4c-moverock-nopick.md) | `72757d4c` | D-1262 nopick `m<dir>` over/against | **ACCEPT-WITH-DEBT** |
+| [225-6a950d81-hitfloor-dropz.md](./225-6a950d81-hitfloor-dropz.md) | `6a950d81` | D-1263 `hitfloor` `dropz(TRUE)` | **ACCEPT-WITH-DEBT** |
+| [226-d86fe2fe-gulpum.md](./226-d86fe2fe-gulpum.md) | `d86fe2fe` | D-1264 AT_ENGL `gulpum` | **ACCEPT-WITH-DEBT** |
+| [227-9859426c-fight-empty-explum.md](./227-9859426c-fight-empty-explum.md) | `9859426c` | D-1265 fight_empty `explum(null)` | **ACCEPT-WITH-DEBT** |
+| [228-42d50a53-hmonas-altwep.md](./228-42d50a53-hmonas-altwep.md) | `42d50a53` | D-1266 hmonas altwep / `uswapwep` | **ACCEPT-WITH-DEBT** |

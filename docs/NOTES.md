@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1266 `uhitm.c` `hmonas` altwep /
-  `uswapwep` (reviews **220–224** cadence **#1600** `e2aa4dbe`).
+  `uswapwep` (reviews **225–228** cadence **#1605** `42d50a53`).
   Next: Open `hack.c` `set_uinwater` `switch_terrain` (named from
   D-1129). Not dissolve_bars. Do not skip D-1266…D-1229. Do not pull
   skipdrin / pit kick / missmu / mattacku AT_TENT / explmu / AT_HUGS /
