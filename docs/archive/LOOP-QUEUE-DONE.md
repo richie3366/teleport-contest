@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `display.c` `display_self` U_AP_TYPE glyphs (named from D-1260). Not seemimic. **Addressed:** D-1275
+- [x] `objnam.c` doname EGG (named from D-1255). Not MEAT_RING. **Addressed:** D-1276
+
+
+- [x] `display.c` `display_self` U_AP_TYPE glyphs (named from D-1260). Not seemimic. **Addressed:** D-1275 `18bec04d`
 
 
 - [x] `dothrow.c` `toss_up` (named from D-1263). Not hold_another_object. **Addressed:** D-1274 `b166de10`

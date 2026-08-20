@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` doname EGG (named from D-1255). Not MEAT_RING.
 - [ ] `dothrow.c` `hurtle_step` `switch_terrain` (named from D-1129). Not u_on_rndspot.
 - [ ] `dungeon.c` `u_on_rndspot` `switch_terrain` (named from D-1129). Not dothrow hurtle.
 - [ ] `objnam.c` wish `switch_terrain` (named from D-1129). Not doname EGG.

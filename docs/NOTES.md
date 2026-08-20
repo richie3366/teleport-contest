@@ -5,19 +5,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1275 `display.h` `display_self`
-  U_AP_TYPE (reviews **233–236** cadence **#1615** `b166de10`). Next:
-  Open `objnam.c` doname EGG (named from D-1255). Not MEAT_RING. Do
-  not skip D-1275…D-1229. Do not pull skipdrin / pit kick / missmu
-  / mattacku AT_TENT / explmu / AT_HUGS / unported `mhitm_ad_*`
-  `pline_mon` / MEAT_RING / swap-with-pet `seemimic` / Blind unseen
-  boulder feel / throwit returning_missile / swallow / slip /
-  stamina / steed potion / dothrow hurtle / `u_on_rndspot` / objnam
-  wish / `maketrap` PIT/HOLE `set_levltyp` / Underwater bars / rock
-  Passes_walls / `meatobj` / meatcorpse / find_trap cls /
-  muse `display_self`. Do not wrap `msg_mon_movement` as `pline_mon`.
-  No FORCE.
-- Do not revert D-1217–D-1275. Named omits stay map, not Must-fix.
+- **Fortress 44/44** after D-1276 `objnam.c` doname EGG (reviews
+  **233–236** cadence **#1615** `b166de10`). Next: Open `dothrow.c`
+  `hurtle_step` `switch_terrain` (named from D-1129). Not
+  u_on_rndspot. Do not skip D-1276…D-1229. Do not pull skipdrin /
+  pit kick / missmu / mattacku AT_TENT / explmu / AT_HUGS / unported
+  `mhitm_ad_*` `pline_mon` / MEAT_RING / candle `partly used` /
+  swap-with-pet `seemimic` / Blind unseen boulder feel / throwit
+  returning_missile / swallow / slip / stamina / steed potion /
+  `u_on_rndspot` / objnam wish / `maketrap` PIT/HOLE `set_levltyp` /
+  Underwater bars / rock Passes_walls / `meatobj` / meatcorpse /
+  find_trap cls / muse `display_self`. Do not wrap
+  `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1276. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -26,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1275.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1276.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,13 +41,14 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1275 (index). Named still: skipdrin /
-  pit kick; missmu/explmu; doname EGG; launch_obj
-  down_gate / boulder-chain; `meatobj` / meatbox / meatcorpse; dothrow hurtle /
-  `u_on_rndspot` / objnam wish; `maketrap` PIT/HOLE `set_levltyp`;
-  Underwater bars / rock Passes_walls; Blind unseen boulder feel;
-  throwit returning_missile / swallow / steed potion; find_trap cls /
-  muse `display_self`; swap-with-pet `seemimic`.
+- Do not skip D-1071…D-1276 (index). Named still: skipdrin /
+  pit kick; missmu/explmu; doname MEAT_RING / candle `partly used`;
+  launch_obj down_gate / boulder-chain; `meatobj` / meatbox /
+  meatcorpse; dothrow hurtle / `u_on_rndspot` / objnam wish;
+  `maketrap` PIT/HOLE `set_levltyp`; Underwater bars / rock
+  Passes_walls; Blind unseen boulder feel; throwit returning_missile
+  / swallow / steed potion; find_trap cls / muse `display_self`;
+  swap-with-pet `seemimic`.
   Do not “fix” seed0383 with ALIGN/FORCE.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -60,6 +61,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1276: `objnam.c` `doname_base` FOOD EGG — `ismnum(corpsenm)` and
+  `(known || MV_KNOWS_EGG)` prepend `pmnames[NEUTRAL]`; `spe==1`
+  `(laid by you)` after named. Generic/`#if 0` stale stay "an egg".
+  MEAT_RING / candle `partly used` still named.
 - D-1275: `display.h` `display_self` U_AP_TYPE — `maybe_display_usteed`
   then NOTHING `hero_glyph` / FURNITURE `cmap_to_glyph(mappearance)` /
   OBJECT `objnum_to_glyph` (not Hallu) / MONSTER `monnum_to_glyph`.
@@ -118,8 +123,4 @@ Objective/score live in `CURRENT.md`.
   before Levitation; giant `u_locomotion` over; squeeze Flying
   over/against; else in-way + glyph `door_opened`. Blind unseen
   start-of-loop / next_boulder / verysmall vain named.
-- D-1261: `mhitu.c` `hitmsg` `pline_mon` + AT_TENT `s_suffix`
-  tentacles + AT_EXPL/BOOM explodes + thick_skinned kick punct
-  ".". missmu/wildmiss/mswings stay pline; mattacku AT_TENT /
-  explmu named.
 

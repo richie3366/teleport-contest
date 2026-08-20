@@ -59,25 +59,29 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1275. Reviews **233–236** all
+**Map-driven fortress** after D-1276. Reviews **233–236** all
 **ACCEPT-WITH-DEBT** (no Must-fix; D-1254 closed review **212**).
 **Next cluster:**
-Open `objnam.c` doname EGG (named from D-1255). Not MEAT_RING.
-Do not skip D-1275…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `dothrow.c` `hurtle_step` `switch_terrain` (named from D-1129). Not
+u_on_rndspot.
+Do not skip D-1276…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
 Do not pull skipdrin / pit kick / missmu/wildmiss/mswings `pline_mon`
 / mattacku AT_TENT / explmu / AT_HUGS / unported uhitm `mhitm_ad_*`
-`pline_mon` / MEAT_RING / swap-with-pet `seemimic` / Blind unseen
-boulder feel / next_boulder / verysmall vain / throwit returning_missile
-/ swallow / slip / stamina / steed potion / dothrow hurtle /
+`pline_mon` / MEAT_RING / candle `partly used` / swap-with-pet `seemimic`
+/ Blind unseen boulder feel / next_boulder / verysmall vain / throwit
+returning_missile / swallow / slip / stamina / steed potion /
 `u_on_rndspot` / objnam wish `switch_terrain` / `maketrap` PIT/HOLE
 `set_levltyp` / Underwater bars / generic rock Passes_walls / `meatobj`
 / meatcorpse / find_trap cls `display_self` / muse `display_self`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1275. Do not FORCE CLOSE/movement/umov /
+**Parked:** D-0006. **Do not re-break D-0660…D-1276. Do not FORCE CLOSE/movement/umov /
 peace_minded / ualign / pet malign / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1275 (index). Recent: **D-1275** `display.h`
+**Keep:** D-0845…D-1276 (index). Recent: **D-1276** `objnam.c`
+`doname_base` FOOD EGG (`ismnum` + `(known||MV_KNOWS_EGG)` then
+`pmnames[NEUTRAL]` + `spe==1` `(laid by you)`; stale_egg `#if 0`;
+MEAT_RING / candle `partly used` named); **D-1275** `display.h`
 `display_self` U_AP_TYPE (`maybe_display_usteed` then NOTHING
 `hero_glyph` / FURNITURE `cmap_to_glyph` / OBJECT `objnum_to_glyph`
 / MONSTER `monnum_to_glyph`; detect `monster_detect`; find_trap cls /
@@ -130,7 +134,7 @@ D-1269); **D-1258** `passes_bars`
 ALLOW_BARS (hero `test_move` named); **D-1257** `gelcube_digests`
 (`meatobj` / meatbox named); **D-1256** launch_obj landmine·pit
 (down_gate / boulder-chain named); **D-1255** glob / doname CXN
-(EGG / MEAT_RING named); **D-1254** `hates_silver` (`dmgval` silver
+(**EGG D-1276**; MEAT_RING named); **D-1254** `hates_silver` (`dmgval` silver
 named); D-1253 giant pickup (nopick D-1262); D-1249
 container_impact (hitfloor D-1263); D-1250–D-1252
 AT_HUGS / AT_EXPL / `demonpet` (AT_ENGL D-1264; fight_empty D-1265;
@@ -151,7 +155,8 @@ no skip D-1262 (Blind unseen / next_boulder / verysmall named);
 no skip D-1261 (`missmu` / mattacku AT_TENT / explmu named); no skip
 D-1260 (glyphs D-1275; swap-with-pet `seemimic` named);
 no skip D-1253; no skip D-1254 (`dmgval`
-silver named); no skip D-1255 (EGG / MEAT_RING named);
+silver named); no skip D-1255 (**EGG D-1276**; MEAT_RING named);
+no skip D-1276 (MEAT_RING / candle `partly used` named);
 no skip D-1256 (down_gate / boulder-chain named);
 no skip D-1257 (`meatobj` / meatbox named);
 no skip D-1258; no skip D-1275 (find_trap cls / muse / seemimic named);

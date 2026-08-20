@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1276 | fixed | objnam.c doname EGG | map-driven Open from D-1255; C `objnam.c:1524–1535` `doname_base` FOOD EGG `ismnum`+`(known\|\|MV_KNOWS_EGG)` `pmnames[NEUTRAL]` + `spe==1` `(laid by you)`; stale_egg `#if 0`; JS xname stays bare `"egg"`; MEAT_RING / candle `partly used` still named |
 | D-1275 | fixed | display.h `display_self` U_AP_TYPE glyphs | map-driven Open from D-1260; C `display.h:251–260` `maybe_display_usteed` then NOTHING `hero_glyph` / FURNITURE `cmap_to_glyph` / OBJECT `objnum_to_glyph` (not Hallu) / MONSTER `monnum_to_glyph`; JS `newsym`/`swallowed`/`monster_detect`; find_trap cls / muse / gender / swap-with-pet `seemimic` still named |
 | D-1274 | fixed | dothrow.c `toss_up` + throwit `u.dz` | map-driven Open from D-1263; C `dothrow.c:1256–1426` `toss_up` + `throwit` `:1579–1599` `u.dz`; JS `t`+`<` `rn2(5)&&!Underwater` ceiling/head (potionhit / breaktest / harmless / dmgval+helmet / petrify); getdir `<>` dz; downward `hitfloor(TRUE)`; returning_missile / swallowit / slip / stamina / steed potion still named |
 | D-1273 | fixed | pickup.c `tipcontainer` highdrop `hitfloor(TRUE)` | map-driven Open from D-1263; C `pickup.c:3732–3810` `highdrop=!can_reach_floor(TRUE)` swallow-clears then `how_lost=LOST_DROPPED`+`hitfloor(TRUE)`; JS non-highdrop keeps fortress colon+`place_object`; altarizing `doaltarobj` / dropy terse list / invent getobj tip still named; **toss_up D-1274** |

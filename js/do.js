@@ -2501,7 +2501,7 @@ function locomotion_revive(ptr, def) {
  * when oeaten (FLOOR + MINVENT); BURIED !is_zomb FALLTHROUGH
  * impossible (D-1220); unique/pname corpse_xname adjective
  * placement (D-1234); glob / doname CXN_ARTICLE|CXN_NOCORPSE (D-1255).
- * Named omit: doname EGG / MEAT_RING / candle partly used.
+ * Named omit: doname MEAT_RING / candle partly used.
  * @returns {Promise<boolean>}
  */
 export async function revive_corpse(corpse) {

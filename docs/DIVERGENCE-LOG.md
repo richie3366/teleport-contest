@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1276 — `objnam.c` doname EGG
+
+- **Status:** fixed (map-driven Open from D-1255; not a public FAIL)
+- **Symptom:** `doname` never prepended the monster type for eggs and
+  never appended `(laid by you)`, so identified / learned eggs stayed
+  `"an egg"` instead of `"a newt egg"` / `"an ochre jelly egg
+  (laid by you)"`.
+- **C locus:** `objnam.c` `doname_base` FOOD_CLASS EGG `:1524–1535`
+  (`ismnum(omndx)` and `(known || MV_KNOWS_EGG)` then
+  `mons[omndx].pmnames[NEUTRAL]` + `spe==1` Concat `" (laid by you)"`;
+  `stale_egg` is `#if 0`). `xname` FOOD stays bare `actualn` `"egg"`.
+- **JS was:** FOOD `oeaten` / CORPSE `corpse_xname` (D-1255) only;
+  EGG named omit.
+- **Fix:** prefix the NEUTRAL pmname when the type is known or learned;
+  append laid-by-you after ` named `. Did not wire MEAT_RING `goto
+  ring`, candle `partly used`, or invent `learn_egg_type`. Rule #2:
+  no fs.
+- **JS:** `js/objnam.js` `doname`.
+- **Not this iter:** MEAT_RING `goto ring`; candle `partly used`;
+  `partly_eaten_hack`; invent `fully_identify_obj` `learn_egg_type`;
+  `food_xname`.
+- **Verified:** private canary **25**/25 (C EGG/`#if 0`/MEAT_RING
+  still-goto; JS known newt/cockatrice/ochre-jelly; MV_KNOWS_EGG
+  without known; generic NON_PM; hidden laid-by-you; stack; partly
+  eaten; blessed; named-then-laid; xname bare; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a public session shows a typed
+  known/learned egg.
+- **Follow-up:** Open `dothrow.c` `hurtle_step` `switch_terrain`.
+- **Files:** `js/objnam.js`.
+
 ## D-1275 — `display.h` `display_self` U_AP_TYPE glyphs
 
 - **Status:** fixed (map-driven Open from D-1260; not a public FAIL)
