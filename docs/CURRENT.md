@@ -59,29 +59,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1281. Reviews **237–240** all
+**Map-driven fortress** after D-1282. Reviews **237–240** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `dothrow.c` throwit returning_missile (named from D-1274). Not swallowit.
-Do not skip D-1281…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `dothrow.c` throwit swallowit (named from D-1274). Not returning_missile.
+Do not skip D-1282…D-1229 (index). Keep mention_map addr. Do not wrap
 `msg_mon_movement` as `pline_mon`.
-Do not pull swallowit / next_boulder / skipdrin / pit kick /
+Do not pull next_boulder / skipdrin / pit kick /
 missmu `pline_mon` / MEAT_RING / seemimic / wizterrainwish traps /
 DRAWBRIDGE_UP ice / shop add_damage / liquid_flow.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1281.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1282.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1281 (index). Recent: **D-1281** `hack.c`
-`moverock_core` Blind unseen feel (`:358–363` `glyph_to_obj(glyph_at)
-!= BOULDER` then pline + `map_object` + `nomul(0)` + `-1` before
-next_boulder / nopick). Prior: D-1280 `maketrap` `set_levltyp`;
+**Keep:** D-0845…D-1282 (index). Recent: **D-1282** `dothrow.c`
+`throwit` returning_missile (`AutoReturn` / `throwit_return` /
+`u.dz<0` ceiling-return / post-bhit `rn2(100)` return-to-hand).
+Prior: D-1281 Blind boulder feel; D-1280 `maketrap` `set_levltyp`;
 D-1279 wish `switch_terrain`; D-1278 rndspot; D-1277 hurtle;
-D-1276 EGG; D-1275 `display_self`; D-1274 `toss_up`; D-1262 nopick
-`m<dir>`.
+D-1276 EGG; D-1275 `display_self`; D-1274 `toss_up`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `msg_mon_movement` as `pline_mon`; skip D-1229…D-1281
+spaces; wrap `msg_mon_movement` as `pline_mon`; skip D-1229…D-1282
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_prepost`
 / RANGE_LEVEL / `restore_artifacts`. No trailing `confdir` inside
 shared `getdir`. Throw keeps `getdir_cmdassist`.

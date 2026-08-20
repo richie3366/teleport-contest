@@ -33,27 +33,32 @@ import {
     M_AP_TYPE, M_AP_MONSTER, M_AP_NOTHING,
     BRK_FROM_INV, BRK_KNOWN2BREAK, BRK_KNOWN2NOTBREAK, BRK_KNOWN_OUTCOME,
     ismnum, isok, u_at, MM_IGNOREWATER, MM_IGNORELAVA,
-    HURTLING, FORCEBUNGLE, IRONBARS, Upolyd, FACE, HEAD, STONING, TIMEOUT,
-    WT_TO_DMG, POTHIT_HERO_THROW, Has_contents, NON_PM, LOW_PM,
+    HURTLING, FORCEBUNGLE, IRONBARS, Upolyd, FACE, HEAD, ARM, FOOT, STONING,
+    TIMEOUT, WT_TO_DMG, POTHIT_HERO_THROW, Has_contents, NON_PM, LOW_PM,
+    W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE,
 } from './const.js';
 import { NO_COLOR } from './terminal.js';
 import { obj_resists, dogfood } from './dogmove.js';
 import {
     ammo_and_launcher, is_ammo, is_missile, doswapweapon, doquiver_core, welded,
+    setuwep, setuswapwep, setuqwep, set_twoweap,
 } from './wield.js';
-import { acurr, A_DEX, change_luck, exercise } from './attrib.js';
+import { acurr, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
 import { find_mac } from './mhitm.js';
 import { hitval, weapon_hit_bonus, should_mulch_missile, dmgval } from './weapon.js';
-import { spec_abon, artifact_hit } from './artifact.js';
+import { spec_abon, artifact_hit, is_art } from './artifact.js';
+import { ART_MJOLLNIR } from './generated/artifacts_data.js';
 import {
     PM_CAVE_DWELLER, PM_MONK, PM_RANGER, PM_ROGUE, PM_SAMURAI,
-    PM_WIZARD, PM_HEALER, PM_TOURIST, PM_CLERIC,
+    PM_WIZARD, PM_HEALER, PM_TOURIST, PM_CLERIC, PM_VALKYRIE,
     PM_ELF, PM_ORC, PM_GNOME,
     monsterNames,
 } from './generated/monsters_data.js';
-import { xname, singular, an, the, vtense, doname, thesimpleoname } from './objnam.js';
+import {
+    xname, singular, an, the, vtense, doname, thesimpleoname, makeplural,
+} from './objnam.js';
 import { m_at, wakeup, seemimic, wake_nearto, distmin } from './mon.js';
-import { mon_nam, Monnam, hliquid } from './do_name.js';
+import { mon_nam, Monnam, hliquid, Hallucination } from './do_name.js';
 import {
     is_domestic, nohands, M1_NOTAKE, MZ_HUGE, MZ_MEDIUM,
     is_unicorn, is_orc, is_elf, your_race,
@@ -191,14 +196,33 @@ const THROW_SUGGEST = 1;
 const THROW_DOWNPLAY = 2;
 
 /**
+ * C dothrow.c AutoReturn — uwep aklys / Valkyrie Mjollnir, or any boomerang.
+ * wep_mask is captured before freeinv (throw_obj).
+ */
+function AutoReturn(o, wmsk) {
+    if (!o) return false;
+    const wep = ((wmsk | 0) & W_WEP) !== 0;
+    if (wep && ((o.otyp | 0) === AKLYS
+        || (is_art(o, ART_MJOLLNIR) && Role_if(PM_VALKYRIE)))) {
+        return true;
+    }
+    return (o.otyp | 0) === BOOMERANG;
+}
+
+/**
  * C ref: dothrow.c throw_ok — SUGGEST coins + weapons (!uslinging);
- * DOWNPLAY lone uwep / known-welded. AutoReturn / gem-sling deferred.
+ * AutoReturn (wielded aklys / Valk Mjollnir / boomerang) before lone-uwep
+ * DOWNPLAY (D-1282). Named omit: gem-sling uslinging.
  * @returns {0|1|2} 0 exclude, 1 suggest, 2 downplay
  */
 function throw_ok(obj) {
     if (!obj) return 0;
     const u = game.u || {};
     if (obj.bknown && welded(obj)) return THROW_DOWNPLAY;
+    if (AutoReturn(obj, obj.owornmask || 0)
+        && (!is_art(obj, ART_MJOLLNIR) || acurr(A_STR) >= STR19(25))) {
+        return THROW_SUGGEST;
+    }
     if ((obj.quan || 1) === 1
         && (obj === u.uwep || (obj === u.uswapwep && u.twoweap))) {
         return THROW_DOWNPLAY;
@@ -798,7 +822,12 @@ async function throw_obj(obj, shotlimit) {
         await pline(`You ${shot ? 'shoot' : 'throw'} ${multishot} ${name}.`);
     }
 
+    // C throw_obj: wep_mask = obj->owornmask before the volley; AutoReturn
+    // reads this after freeinv has cleared the slot (D-1282).
+    const wep_mask = obj.owornmask || 0;
+    let oldslot = null;
     for (let i = 1; i <= multishot; i++) {
+        const twoweap = !!game.u?.twoweap;
         let otmp;
         if ((obj.quan || 1) > 1) {
             otmp = splitobj(obj, 1);
@@ -806,11 +835,20 @@ async function throw_obj(obj, shotlimit) {
             if (otmp) freeinv(otmp);
         } else {
             otmp = obj;
+            const inv = game.invent || [];
+            const idx = inv.indexOf(otmp);
+            oldslot = (idx >= 0 && idx + 1 < inv.length) ? inv[idx + 1] : null;
+            if (otmp.owornmask) {
+                const { remove_worn_item } = await import('./steal.js');
+                await remove_worn_item(otmp, false);
+            }
             freeinv(otmp);
             obj = null;
         }
         if (!otmp) break;
-        await throwit(otmp);
+        await throwit(otmp, wep_mask, twoweap, oldslot);
+        const { encumber_msg } = await import('./invent.js');
+        await encumber_msg();
     }
     return 1;
 }
@@ -1150,7 +1188,7 @@ function hitfloor_surface(x, y) {
  * pickup tipcontainer highdrop hitfloor(TRUE) (D-1273);
  * toss_up / throwit u.dz (D-1274).
  * Named omit: ball litter; artifact; finesse_ahriman float_down;
- * throwit returning_missile / swallow / slip / stamina / steed potion.
+ * throwit swallow / slip / stamina / steed potion.
  */
 export async function hitfloor(obj, verbosely) {
     if (!obj) return;
@@ -1197,7 +1235,8 @@ export async function hitfloor(obj, verbosely) {
  * C ref: dothrow.c toss_up — hero tosses an object upward.
  * Returns false if the object is gone. Caller throwit u.dz<0
  * (D-1274): toss_up(obj, rn2(5) && !Underwater).
- * Named omit: returning_missile ceiling-return; crackable breakobj
+ * Ceiling-return for AutoReturn is throwit (D-1282), not toss_up.
+ * Named omit: crackable breakobj
  * erode (existing); potionhit youmonst-pointer (JS null=you);
  * ceiling vault/temple/shop/water/fire/quest/Underwater labels;
  * helm "hat" polish; Eyes vision_clears.
@@ -1375,6 +1414,155 @@ async function toss_up_petrify(obj) {
 }
 
 /**
+ * C dothrow.c throwit_return — drop iflags.returning_missile; optionally
+ * clear gt.thrownobj. Every throwit exit after AutoReturn must call this.
+ */
+function throwit_return(clear_thrownobj) {
+    if (!game.iflags) game.iflags = {};
+    game.iflags.returning_missile = null;
+    if (clear_thrownobj) game.thrownobj = null;
+}
+
+/** C objnam.c Tobjnam — The(xname) + optional otense verb. */
+function Tobjnam(obj, verb) {
+    let bp = The(xname(obj));
+    if (verb) bp += ` ${otense(obj, verb)}`;
+    return bp;
+}
+
+/** C youprop.h throwit impaired = Confusion||Stunned||Blind||Hallucination||Fumbling. */
+function throw_impaired() {
+    const u = game.u || {};
+    return !!((u.HConfusion | 0) || u.Confusion
+        || (u.HStun | 0) || u.Stunned
+        || Blind()
+        || Hallucination()
+        || Fumbling()
+        || game.Confusion || game.Stunned || game.Fumbling);
+}
+
+/** C youprop.h Levitation — message "beneath" vs "at" feet. */
+function Levitation_throw() {
+    const u = game.u || {};
+    return !!(u.Levitation || (u.HLevitation | 0) || (u.ELevitation | 0));
+}
+
+/**
+ * C invent.c addinv_before — nomerge addinv then insert before oldslot
+ * (!fixinv). JS invent is an array; letter reorder still happens in addinv.
+ */
+async function addinv_before_throw(obj, other_obj) {
+    if (!obj) return obj;
+    obj.how_lost = LOST_NONE;
+    obj.nomerge = 1;
+    const { addinv } = await import('./u_init.js');
+    obj = await addinv(obj);
+    if (obj) obj.nomerge = 0;
+    if (other_obj && obj) {
+        const inv = game.invent || [];
+        const i = inv.indexOf(obj);
+        const j = inv.indexOf(other_obj);
+        if (i >= 0 && j >= 0 && i !== j) {
+            inv.splice(i, 1);
+            const j2 = inv.indexOf(other_obj);
+            if (j2 >= 0) inv.splice(j2, 0, obj);
+            else inv.push(obj);
+        }
+    }
+    return obj;
+}
+
+/**
+ * C dothrow.c return_throw_to_inv — restore a throw-and-return missile.
+ * Named omit: objsplit unsplit (unique aklys/Mjollnir are not split).
+ */
+async function return_throw_to_inv(obj, wep_mask, twoweap, oldslot) {
+    obj = await addinv_before_throw(obj, oldslot);
+    if (!obj) return obj;
+    if (((obj.owornmask || 0) & W_QUIVER) !== 0
+        && (((obj.owornmask || 0) | wep_mask) & (W_WEP | W_SWAPWEP)) !== 0) {
+        setuqwep(null);
+    }
+    const u = game.u || {};
+    if ((wep_mask & W_WEP) && !u.uwep) setuwep(obj);
+    else if ((wep_mask & W_SWAPWEP) && !u.uswapwep) setuswapwep(obj);
+    else if ((wep_mask & W_QUIVER) && !u.uquiver) setuqwep(obj);
+    if (twoweap && !u.twoweap) set_twoweap(true);
+    const { encumber_msg } = await import('./invent.js');
+    await encumber_msg();
+    return obj;
+}
+
+/**
+ * C dothrow.c throwit returning_missile after bhit (Mjollnir or aklys).
+ * Returns true if the object was handled (do not land).
+ * Named omit: sho_obj_return_to_u / tmp_at tether; swallowit on fail.
+ */
+async function throwit_returning_missile(
+    obj, wep_mask, twoweap, oldslot, x, y, impaired,
+) {
+    if (!game.iflags?.returning_missile) return false;
+    if (!rn2(100)) {
+        await pline(`${Tobjnam(obj, 'fail')} to return!`);
+        // C swallowit named omit — continue to land at target
+        return false;
+    }
+    // sho_obj_return_to_u named omit (display RNG / tmp_at)
+    if (!impaired && rn2(100)) {
+        await pline(`${Tobjnam(obj, 'return')} to your hand!`);
+        obj = await addinv_before_throw(obj, oldslot);
+        const { encumber_msg } = await import('./invent.js');
+        await encumber_msg();
+        if ((obj.owornmask || 0) & W_QUIVER) setuqwep(null);
+        setuwep(obj);
+        set_twoweap(!!twoweap);
+        if (cansee(x, y)) newsym(x, y);
+        throwit_return(true);
+        return true;
+    }
+    let dmg = rn2(2);
+    const where = Levitation_throw() ? 'beneath' : 'at';
+    const feet = makeplural(body_part(FOOT));
+    if (!dmg) {
+        if (Blind()) {
+            await pline(`Something lands ${where} your ${feet}.`);
+        } else {
+            await pline(
+                `${Tobjnam(obj, 'return')} back to you, landing ${where} your ${feet}.`,
+            );
+        }
+    } else {
+        dmg += rnd(3);
+        if (Blind()) {
+            await pline(`${Tobjnam(obj, 'hit')} your ${body_part(ARM)}!`);
+        } else {
+            await pline(
+                `${Tobjnam(obj, 'fly')} back toward you, hitting your ${body_part(ARM)}!`,
+            );
+        }
+        if (obj.oartifact) {
+            const dmgBox = { dmg };
+            artifact_hit(null, game.youmonst, obj, dmgBox, 0);
+            dmg = dmgBox.dmg | 0;
+        }
+        losehp(maybe_half_phys(dmg), xname(obj), KILLED_BY);
+        const { finish_losehp_done } = await import('./end.js');
+        await finish_losehp_done();
+        await finish_maybe_wail();
+    }
+    // C swallowit named omit
+    {
+        const { ship_object } = await import('./dokick.js');
+        const { dropy } = await import('./do.js');
+        if (!(await ship_object(obj, game.u.ux | 0, game.u.uy | 0, false))) {
+            await dropy(obj);
+        }
+    }
+    throwit_return(true);
+    return true;
+}
+
+/**
  * C ref: zap.c bhit + dothrow.c throwit — fly along dx/dy; stop before
  * !ZAP_POS / closed door (bhit backs up one step), then place / breaktest.
  * Monster hit → thitmonst (D-0415 food; D-0693 pie/egg DEX;
@@ -1384,24 +1572,41 @@ async function toss_up_petrify(obj) {
  * invent hold_another_object hitfloor(FALSE) is D-1272;
  * pickup highdrop hitfloor(TRUE) is D-1273;
  * toss_up / throwit u.dz is D-1274.
- * Named omit: returning_missile; swallowit; slip; stamina drop;
- * steed potionhit; throwit_return returning_missile flag.
+ * returning_missile AutoReturn / throwit_return / ceiling + post-flight
+ * return-to-hand is D-1282. Named omit: swallowit; slip; stamina drop;
+ * steed potionhit; boomhit; sho_obj_return_to_u / tethered tmp_at;
+ * objsplit unsplit; killer_xname polish.
  */
-async function throwit(obj) {
+export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null) {
     const u = game.u;
+    const impaired = throw_impaired();
     game.thrownobj = obj;
     obj.how_lost = LOST_THROWN;
+    if (!game.iflags) game.iflags = {};
+    game.iflags.returning_missile = AutoReturn(obj, wep_mask) ? obj : null;
+    // NOTE: no early return without throwit_return after this point.
+
     // C throwit: swallow named; then if (u.dz)
     if (u.dz) {
-        if ((u.dz | 0) < 0) {
-            // returning_missile ceiling-return named
+        if ((u.dz | 0) < 0
+            && game.iflags.returning_missile
+            && !impaired) {
+            await pline(
+                `${Tobjnam(obj, 'hit')} the ${ceiling_at(u.ux | 0, u.uy | 0)} and returns to your hand!`,
+            );
+            await return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
+        } else if ((u.dz | 0) < 0) {
             await toss_up(obj, !!(rn2(5) && !(u.uinwater)));
         } else {
             // steed potionhit rn2(6) named
             await hitfloor(obj, true);
         }
-        game.thrownobj = null;
+        throwit_return(true);
         return;
+    }
+    // C boomhit named omit — after that path C clears returning_missile
+    if ((obj.otyp | 0) === BOOMERANG && !u.uinwater) {
+        game.iflags.returning_missile = null;
     }
     const dx = u.dx || 0;
     const dy = u.dy || 0;
@@ -1456,7 +1661,10 @@ async function throwit(obj) {
                 pobj, x, y, nx, ny,
                 point_blank ? 0 : !rn2(5), 1,
             )) {
-                if (!pobj.obj) return; // destroyed at bars
+                if (!pobj.obj) {
+                    throwit_return(false);
+                    return; // destroyed at bars
+                }
                 obj = pobj.obj;
                 break; // land at previous cell (x,y)
             }
@@ -1475,14 +1683,23 @@ async function throwit(obj) {
         }
     }
     if (hitmon) {
-        if (await thitmonst(hitmon, obj)) return;
+        if (await thitmonst(hitmon, obj)) {
+            throwit_return(false);
+            return;
+        }
         // miss / not consumed — fall through to place at mon cell
         x = hitmon.mx;
         y = hitmon.my;
     }
+    if (await throwit_returning_missile(
+        obj, wep_mask, twoweap, oldslot, x, y, impaired,
+    )) {
+        return;
+    }
     const loc = game.level?.at?.(x, y);
     if (loc && !IS_SOFT(loc.typ) && breaktest(obj)) {
         // Broken — darts usually survive via obj_resists
+        throwit_return(true);
         return;
     }
     // C: Splash/Plop before flooreffects when landing in pool/lava
@@ -1501,12 +1718,19 @@ async function throwit(obj) {
     // C: flooreffects then ship_object then place (D-0987)
     {
         const { flooreffects } = await import('./do.js');
-        if (await flooreffects(obj, x, y, 'fall')) return;
+        if (await flooreffects(obj, x, y, 'fall')) {
+            throwit_return(true);
+            return;
+        }
     }
     // C: !mon && ship_object(obj, bhitpos, FALSE) before place
     {
         const { ship_object, container_impact_dmg } = await import('./dokick.js');
-        if (await ship_object(obj, x, y, false)) return;
+        if (await ship_object(obj, x, y, false)) {
+            throwit_return(true);
+            return;
+        }
+        game.thrownobj = null;
         place_object(obj, x, y);
         // C dothrow.c:1828–1831 — !IS_SOFT → container at throw origin
         // (u.ux,u.uy, not bhitpos) then impact_disturbs TRUE
@@ -1528,6 +1752,7 @@ async function throwit(obj) {
     stackobj(obj);
     // C dothrow.c throwit: if (cansee(bhitpos)) newsym — land glyph
     if (cansee(x, y)) newsym(x, y);
+    throwit_return(false);
 }
 
 

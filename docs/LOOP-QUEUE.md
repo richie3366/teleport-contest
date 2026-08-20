@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dothrow.c` throwit returning_missile (named from D-1274). Not swallowit.
 - [ ] `dothrow.c` throwit swallowit (named from D-1274). Not returning_missile.
 - [ ] `mon.c` `meatobj` (named from D-1271). Not meatcorpse.
 - [ ] `mon.c` `meatcorpse` (named from D-1271). Not meatobj.

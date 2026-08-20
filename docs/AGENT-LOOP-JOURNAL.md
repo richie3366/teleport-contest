@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1282 dothrow.c throwit returning_missile
+
+**Objective:** Open `dothrow.c` throwit returning_missile (named from
+D-1274). Not swallowit.
+**C locus:** `dothrow.c` `AutoReturn` `:30–34`; `throwit_return`
+`:1460–1465`; `throwit` `:1564–1599` ceiling + `:1710–1777`
+post-bhit; `return_throw_to_inv` `:1855–1908`; caller `throw_obj`
+wep_mask.
+**Change:** `iflags.returning_missile` via AutoReturn; `u.dz<0 &&
+!impaired` hits ceiling and returns to hand; post-flight `rn2(100)`
+return-to-hand / fail-catch dropy / 1% fail-to-return land.
+throw_ok AutoReturn SUGGEST. Named: swallowit; slip; stamina;
+steed potion; boomhit; `sho_obj_return_to_u`. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a session throws
+wielded aklys / Valk Mjollnir. Next audit @**#1625**.
+**Verified:** private canary **14**/14; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dothrow.c` throwit swallowit (named from D-1274).
+Not returning_missile.
+**Blocked:** none.
 ## 2026-08-20 — D-1281 hack.c moverock_core Blind unseen feel
 
 **Objective:** Open `hack.c` Blind unseen boulder feel (named from

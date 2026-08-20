@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `hack.c` Blind unseen boulder feel (named from D-1262). Not next_boulder. **Addressed:** D-1281
+- [x] `dothrow.c` throwit returning_missile (named from D-1274). Not swallowit. **Addressed:** D-1282
+
+
+- [x] `hack.c` Blind unseen boulder feel (named from D-1262). Not next_boulder. **Addressed:** D-1281 `7a783c86`
 
 
 - [x] `trap.c` `maketrap` PIT/HOLE `set_levltyp` (named from D-1269). Not liquid_flow. **Addressed:** D-1280 `5f8a620a`

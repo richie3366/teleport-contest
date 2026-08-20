@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1282 — dothrow.c throwit returning_missile
+
+- **Status:** fixed (map-driven Open from D-1274; not a public FAIL)
+- **Symptom:** `throwit` never set `iflags.returning_missile`. C
+  `AutoReturn` (wielded aklys / Valkyrie Mjollnir / boomerang) then
+  `u.dz<0 && !impaired` returns the missile from the ceiling; after
+  `bhit`, `rn2(100)` then `!impaired && rn2(100)` returns it to
+  hand (`addinv_before` + `setuwep`). JS always `toss_up` / land.
+- **C locus:** `dothrow.c` `AutoReturn` `:30–34`; `throwit_return`
+  `:1460–1465`; `throwit` `:1564–1599` + `:1710–1777`;
+  `return_throw_to_inv` `:1855–1908`. Caller `throw_obj` captures
+  `wep_mask = obj->owornmask` before `freeinv`.
+- **JS was:** named omit after D-1274; `throwit(obj)` had no
+  wep_mask; `u.dz<0` always `toss_up`.
+- **Fix:** AutoReturn + throwit_return; throw_obj wep_mask /
+  remove_worn / oldslot; ceiling-return; post-flight return block.
+  Boomerang boomhit still named — clear the flag after that skip so
+  the Mjollnir path does not steal a boomerang. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `AutoReturn` / `throwit_return` /
+  `throwit` / `throw_obj` / `throw_ok`.
+- **Not this iter:** swallowit; slip; stamina drop; steed
+  potionhit `rn2(6)`; boomhit; `sho_obj_return_to_u` / tethered
+  `tmp_at`; objsplit unsplit; `killer_xname` polish; tethered
+  range `isqrt`.
+- **Verified:** private canary **14**/14 (C AutoReturn/ceiling/
+  post-bhit; JS live; wielded aklys `t`+`<` return; dart toss_up;
+  unwielded/impaired toss_up; horizontal return; boomerang no
+  steal; Valk Mjollnir; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws wielded aklys / Valk
+  Mjollnir.
+- **Follow-up:** Open `dothrow.c` throwit swallowit.
+- **Files:** `js/dothrow.js`.
+
 ## D-1281 — `hack.c` `moverock_core` Blind unseen boulder feel
 
 - **Status:** fixed (map-driven Open from D-1262; not a public FAIL)

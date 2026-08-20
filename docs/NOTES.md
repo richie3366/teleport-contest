@@ -5,20 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1281 `hack.c` `moverock_core` Blind
-  unseen boulder feel (reviews **237–240** cadence **#1620**
-  `851d3e08`). Next: Open `dothrow.c` throwit returning_missile
-  (named from D-1274). Not swallowit. Do not skip D-1281…D-1229.
-  Do not pull swallowit / skipdrin / pit kick / missmu / mattacku
-  AT_TENT / explmu / AT_HUGS / unported `mhitm_ad_*` `pline_mon` /
-  MEAT_RING / candle `partly used` / swap-with-pet `seemimic` /
-  next_boulder / swallow / slip / stamina / steed potion /
-  wizterrainwish traps / door/wall / Underwater bars / rock
-  Passes_walls / `meatobj` / meatcorpse / find_trap cls / muse
-  `display_self` / On_W_tower / sstairs / cmd wiz / DRAWBRIDGE_UP
-  ice / shop add_damage / liquid_flow. Do not wrap
-  `msg_mon_movement` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1281. Named omits stay map, not Must-fix.
+- **Fortress 44/44** after D-1282 throwit returning_missile
+  (cadence **#1620** `851d3e08`). Next: Open `dothrow.c` throwit
+  swallowit (named from D-1274). Not returning_missile. Do not skip
+  D-1282…D-1229. Do not pull skipdrin / pit kick / missmu /
+  MEAT_RING / seemimic / next_boulder / slip / stamina / steed
+  potion / wizterrainwish / meatobj / meatcorpse / DRAWBRIDGE_UP
+  ice. Do not wrap `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1282. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -27,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1281.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1282.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,88 +35,39 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1281 (index). Named still: skipdrin /
-  pit kick; missmu/explmu; doname MEAT_RING / candle `partly used`;
-  launch_obj down_gate / boulder-chain; `meatobj` / meatbox /
-  meatcorpse; wizterrainwish traps / door/wall; DRAWBRIDGE_UP ice /
-  shop add_damage; Underwater bars / rock Passes_walls;
-  throwit returning_missile / swallow / steed potion; find_trap
-  cls / muse `display_self`; swap-with-pet `seemimic`; next_boulder;
-  On_W_tower / sstairs / cmd wiz. Do not “fix” seed0383 with
-  ALIGN/FORCE.
+- Do not skip D-1071…D-1282 (index). Named still: skipdrin / pit
+  kick; missmu; MEAT_RING; meatobj / meatcorpse; throwit swallow /
+  slip / stamina / steed; next_boulder. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
-- Do not pull `reset_glyphmap` / vision.c `notice_all_mons` /
-  `makemap_prepost` / `wiz_makemap` / `restore_artifacts`.
-  Default `spot_monsters`/`glyph_updates`/`mon_movement` Off.
-  Do not treat `dothrow` `game.thrownobj` as wired (review **172**).
-  Do not Must-fix `DIR_UP`/`DIR_DOWN` const swap (review **178**).
+- Do not pull `reset_glyphmap` / `notice_all_mons` / `makemap_prepost`
+  / `restore_artifacts`. Default `spot_monsters` Off. Do not treat
+  `dothrow` `game.thrownobj` as wired (review **172**).
 
 ## Landmarks (≤15)
 
-- D-1281: `hack.c` `moverock_core` Blind unseen feel — C `:358–363`
-  `Blind && glyph_to_obj(glyph_at)!=BOULDER` then pline + `map_object`
-  + `nomul(0)` + `-1` before next_boulder / nopick. JS stamps
-  `remembered_glyph.boulder`. next_boulder / dopush Blind feel named.
-- D-1280: `trap.c` `maketrap` PIT/HOLE `set_levltyp` — IS_ROOM→ROOM /
-  STONE/SCORR→CORR / wall|SDOOR maze ROOM / cavern CORR / DOOR then
-  `flags=0` + unearth + `recalc_block_point`. STONE pit unblocks
-  leftover Lev/Fly. DRAWBRIDGE_UP ice / shop add_damage / liquid_flow
-  named. `do_pit` no longer inlines the morph.
-- D-1279: `objnam.c` `wizterrainwish` after madeterrain →
-  `switch_terrain` (C `:3907–3910`). Furniture/liquid/ice/tree/
-  bars/cloud/floor; leftover BLev/BFly FROMOUTSIDE. Traps /
-  door/wall/secret corridor / drawbridge / lava pooleffects named.
-- D-1278: `dungeon.c` `u_on_rndspot` after `place_lregion` →
-  `switch_terrain` (C `:1636–1637` unconditional). ROOM/AIR/CORR
-  landing clears leftover BLev/BFly FROMOUTSIDE. On_W_tower_level
-  / stairs `u_on_sstairs` / cmd wiz named. **objnam wish D-1279.**
-- D-1277: `dothrow.c` `hurtle_step` dest-typ ≠ origin after
-  `flush_screen` → `switch_terrain` (C `:916–917`). ROOM→ROOM skips;
-  STONE→ROOM clears leftover BLev/BFly FROMOUTSIDE; WATER/LAVAWALL
-  block. Drown / check_special_room / traps / Passes_walls named.
-- D-1276: `objnam.c` `doname_base` FOOD EGG — `ismnum(corpsenm)` and
-  `(known || MV_KNOWS_EGG)` prepend `pmnames[NEUTRAL]`; `spe==1`
-  `(laid by you)` after named. Generic/`#if 0` stale stay "an egg".
-  MEAT_RING / candle `partly used` still named.
-- D-1275: `display.h` `display_self` U_AP_TYPE — `maybe_display_usteed`
-  then NOTHING `hero_glyph` / FURNITURE `cmap_to_glyph(mappearance)` /
-  OBJECT `objnum_to_glyph` (not Hallu) / MONSTER `monnum_to_glyph`.
-  `newsym` / `swallowed` / detect `monster_detect`. find_trap cls /
-  muse / gender offsets / swap-with-pet `seemimic` still named.
-- D-1274: `dothrow.c` `toss_up` + throwit `u.dz` — `t`+`<` `rn2(5)&&!Underwater`
-  hits ceiling or the hero's head (potionhit / breaktest splat /
-  harmless / dmgval+helmet / petrify `elementary physics`). getdir
-  `<>` set dz. Downward `hitfloor(TRUE)`. returning_missile /
-  swallowit / slip / stamina / steed potion still named.
-- D-1273: `pickup.c` `tipcontainer` highdrop — `!can_reach_floor(TRUE)`
-  (swallowed clears) then `how_lost=LOST_DROPPED` + `hitfloor(TRUE)`.
-  Non-highdrop keeps fortress colon+`place_object`. Altarizing
-  `doaltarobj` / dropy terse list / invent getobj tip still named.
-  **toss_up D-1274**.
-- D-1272: `invent.c` `hold_another_object` drop_it — Fumbling /
-  invlet overflow / encumbrance>`pickup_burden` (cursed LOADSTONE
-  excepted) then `dropx` if `can_reach_floor||uswallow` else
-  `freeinv`+`hitfloor(FALSE)`. Autoquiver on stay. Fatal wished
-  corpse / artifact dropy still named. **toss_up D-1274**.
-- D-1271: `mon.c` `meatmetal` — non-pet metallivore eats top metallic
-  floor object (`obj_resists(5,95)` + `touch_artifact`); rust monster
-  skips !rustprone / rustproof spit+stun; leftover ROCK `rnd(25)<3`.
-  Caller `postmov` OBJ_AT. meatobj / meatcorpse still named.
-- D-1270: `hack.c` hero `test_move` IRONBARS — Passes_walls ||
-  `passes_bars(youmonst.data)` allow; DO_MOVE rust/corr/metallivore
-  `still_chewing` then occupy if done. Underwater obstacle /
-  generic rock Passes_walls / tunnels / autodig still named.
-- D-1269: `dig.c` `digactualhole` PIT after `wake_nearby` and
-  HOLE `at_u` → `switch_terrain` then Lev/Fly re-read.
-  **maketrap set_levltyp D-1280**. **hurtle D-1277**;
-  **u_on_rndspot D-1278**; **objnam D-1279**.
-- D-1268: `hack.c` `spoteffects` dest-typ ≠ origin or
-  `iflags.terrain_typ == MAX_TYPE` → `switch_terrain` before
-  `pooleffects`.
-- D-1267: `hack.c` `set_uinwater` — in_out ≠ (int)uinwater writes
-  0/1 then `switch_terrain`. boulder_hits_pool dry-land, drown
-  fail-crawl, goto_level leave+after-getlev. pooleffects leave /
-  drown Amphibious wade / zap freeze named.
-
+- D-1282: throwit returning_missile — AutoReturn / throwit_return /
+  ceiling-return / post-bhit `rn2(100)` addinv+setuwep. swallowit
+  / boomhit / `sho_obj_return_to_u` named.
+- D-1281: `moverock_core` Blind unseen feel before next_boulder /
+  nopick. JS `remembered_glyph.boulder`. next_boulder named.
+- D-1280: `maketrap` PIT/HOLE `set_levltyp`. DRAWBRIDGE_UP ice /
+  shop add_damage / liquid_flow named.
+- D-1279: `wizterrainwish` → `switch_terrain`. Traps / door/wall
+  named.
+- D-1278: `u_on_rndspot` → `switch_terrain`. On_W_tower / sstairs /
+  cmd wiz named.
+- D-1277: `hurtle_step` dest-typ `switch_terrain`. Drown /
+  Passes_walls named.
+- D-1276: doname EGG `ismnum`+laid. MEAT_RING / candle named.
+- D-1275: `display_self` U_AP_TYPE glyphs. find_trap / seemimic
+  named.
+- D-1274: `toss_up` + throwit `u.dz`. **returning_missile D-1282**.
+  swallowit / slip / stamina / steed named.
+- D-1273: `tipcontainer` highdrop `hitfloor(TRUE)`.
+- D-1272: `hold_another_object` `hitfloor(FALSE)`.
+- D-1271: `meatmetal`. meatobj / meatcorpse named.
+- D-1270: hero `test_move` IRONBARS `passes_bars`.
+- D-1269: `digactualhole` PIT/HOLE `switch_terrain`.
+- D-1268: `spoteffects` dest-typ `switch_terrain`.
