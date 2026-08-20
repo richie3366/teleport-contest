@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1650 review D-1299–D-1302 + cadence
+
+**Objective:** audit — C-fidelity reviews **261–264** of JS SHAs
+since `3a861d5a`, plus full `sessions` score. No `js/` port.
+**C locus:** `hack.c` swap-with-pet `seemimic`; `trap.c` maketrap
+shop `add_damage`; `zap.c` `boomhit` + throwit caller; `dothrow.c`
+`throw_gold` swallow.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: `goodpos`/mintrap; overwrite/`teledest`;
+`m_respond`/`sho_obj_return_to_u`; You() self / bhit / quivered
+gold). Filled D-1302 archive hash `1a7839f7`. Open first row
+still `dothrow.c` `sho_obj_return_to_u`. Rule #2: no fs.
+**Score:** cadence **#1650** HEAD `1a7839f7` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.30/turn` (R² 0.85). seed0383 PASS. Next audit @**#1655**.
+**Verified:** `__RESULTS_JSON__` at HEAD `1a7839f7`; branch-by-branch
+vs pinned C (park+live `seemimic`; shop bill before morph; 10-step
+`nhits--` curve+catch; swallow `add_to_minv` not `mpickobj`).
+**Next:** Open `dothrow.c` `sho_obj_return_to_u`. Not boomhit.
+**Blocked:** none.
 ## 2026-08-20 — D-1302 dothrow.c throw_gold swallow
 
 **Objective:** Open `dothrow.c` throw_gold swallow (named from

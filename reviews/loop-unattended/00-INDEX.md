@@ -270,3 +270,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [258-993e17ea-maketrap-drawbridge-ice.md](./258-993e17ea-maketrap-drawbridge-ice.md) | `993e17ea` | D-1296 maketrap DRAWBRIDGE_UP ice | **ACCEPT-WITH-DEBT** |
 | [259-6dfb7d2c-throwit-steed-potionhit.md](./259-6dfb7d2c-throwit-steed-potionhit.md) | `6dfb7d2c` | D-1297 throwit steed potionhit | **ACCEPT-WITH-DEBT** |
 | [260-086eb03d-hmonas-skipdrin-pit-kick.md](./260-086eb03d-hmonas-skipdrin-pit-kick.md) | `086eb03d` | D-1298 hmonas skipdrin / pit kick | **ACCEPT-WITH-DEBT** |
+| [261-eca3330c-swap-with-pet-seemimic.md](./261-eca3330c-swap-with-pet-seemimic.md) | `eca3330c` | D-1299 swap-with-pet `seemimic` | **ACCEPT-WITH-DEBT** |
+| [262-376a5a0d-maketrap-shop-add-damage.md](./262-376a5a0d-maketrap-shop-add-damage.md) | `376a5a0d` | D-1300 maketrap shop `add_damage` | **ACCEPT-WITH-DEBT** |
+| [263-18fa6c89-boomhit.md](./263-18fa6c89-boomhit.md) | `18fa6c89` | D-1301 `zap.c` boomhit | **ACCEPT-WITH-DEBT** |
+| [264-1a7839f7-throw-gold-swallow.md](./264-1a7839f7-throw-gold-swallow.md) | `1a7839f7` | D-1302 throw_gold swallow | **ACCEPT-WITH-DEBT** |

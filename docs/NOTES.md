@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1302 `dothrow.c` throw_gold swallow
-  (cadence **#1645** `086eb03d`; reviews **257–260** ACCEPT-WITH-DEBT,
+  (cadence **#1650** `1a7839f7`; reviews **261–264** ACCEPT-WITH-DEBT,
   no Must-fix). Next: Open `dothrow.c` sho_obj_return_to_u
   (named from D-1282). Not boomhit. Do not skip D-1302…D-1229.
   Do not pull secret corridor / candle `partly used` / eat_brains.

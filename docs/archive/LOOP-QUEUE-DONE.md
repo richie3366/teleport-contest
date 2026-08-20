@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `dothrow.c` throw_gold swallow (named from D-1283). Not boomhit. **Addressed:** D-1302
+- [x] `dothrow.c` throw_gold swallow (named from D-1283). Not boomhit. **Addressed:** D-1302 `1a7839f7`
 
 
 - [x] `dothrow.c` boomhit (named from D-1282). Not steed. **Addressed:** D-1301 `18fa6c89`
