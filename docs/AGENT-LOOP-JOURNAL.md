@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1307 uhitm helmet / m_slips_free
+
+**Objective:** Open `uhitm.c` mhitm_ad_drin helmet / m_slips_free
+(named from D-1298). Not eat_brains.
+**C locus:** `uhitm.c` `m_slips_free` `:2053–2093`; `mhitm_ad_drin`
+uhitm `:3204–3220` after headless `:3202`.
+**Change:** port `m_slips_free`; headed path slip → helmet `rn2(8)`
+→ eat_brains → lifsav skipdrin. Slip/helmet do not skipdrin.
+mhitu+mhitm / AD_WRAP caller named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1660**.
+**Verified:** canary **25**/25; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `objnam.c` candle `partly used`. Not MEAT_RING.
+**Blocked:** none.
 ## 2026-08-20 — #1655 review D-1303–D-1306 + cadence
 
 **Objective:** audit — C-fidelity reviews **265–268** of JS SHAs

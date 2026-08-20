@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1307 — uhitm.c mhitm_ad_drin helmet / m_slips_free
+
+- **Status:** fixed (map-driven Open from D-1298 / D-1306; not a public FAIL)
+- **Symptom:** JS headed AD_DRIN always reached `eat_brains`, so a poly'd
+  mind flayer ate brains through a helm (and skipped the `rn2(8)` bounce)
+  and ignored greased/oilskin clothing that C's `m_slips_free` would
+  slip off.
+- **C locus:** `uhitm.c` `m_slips_free` `:2053–2093` (AD_DRIN → W_ARMH;
+  else cloak/suit/shirt; greased or OILSKIN_CLOAK && (`!cursed` \|\|
+  `rn2(3)`); wear-off `!rn2(2)`). Caller `mhitm_ad_drin` uhitm
+  `:3204–3220` after headless return `:3202`: slip return, then
+  `which_armor(W_ARMH) && rn2(8)` helm/hat block (no skipdrin), then
+  `eat_brains`, then lifsav skipdrin if the amulet vanished.
+  `objnam.c` `helm_simple_name` `:5513–5528` hat vs helm via
+  `hard_helmet`.
+- **JS was:** D-1306 headed call jumped to `eat_brains`; slip/helmet
+  named.
+- **Fix:** port `m_slips_free`; uhitm arm slip → helmet `rn2(8)` →
+  `eat_brains` → lifsav skipdrin. Slip/helmet return without zeroing
+  dice and without skipdrin (leftover tentacles still try). Did not
+  pull mhitu `u_slip_free`/`uarmh` or mhitm AD_DRIN or AD_WRAP caller.
+  Rule #2: no fs.
+- **JS:** `js/uhitm.js` `m_slips_free` / `mhitm_ad_drin`.
+- **Not this iter:** mhitu+mhitm `mhitm_ad_drin` callers; AD_WRAP
+  `m_slips_free`; `u_slip_free`; `mattacku` AT_TENT melee.
+- **Verified:** private canary **25**/25 (C/JS order; greased slip no
+  `rnd(10)`; cursed `rn2(3)` fail-through; metal helm/hat block no
+  skipdrin; `rn2(8)==0` still eats; oilskin cloak ignored on AD_DRIN;
+  leftover tentacles after slip; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a poly mind flayer lands a headed tentacle
+  on a helmed or greased foe.
+- **Follow-up:** Open `objnam.c` candle `partly used`.
+- **Files:** `js/uhitm.js`, `js/eat.js`.
+
 ## D-1306 — `eat.c` eat_brains
 
 - **Status:** fixed (map-driven Open from D-1298; not a public FAIL)

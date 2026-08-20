@@ -2662,7 +2662,7 @@ function hero_Lifesaved_eat(u = game.u || {}) {
  * mindless miss (no xtra), rider done(DIED), else morehungry(-rnd(30)) +
  * INT recover + exercise WIS + *dmg_p += xtra; then maybe_cannibal.
  * mhitu / mhitm branches live here; mhitm_ad_drin mhitu+mhitm callers named.
- * Named omit: helmet rn2(8) / m_slips_free / lifsav skipdrin (uhitm.c).
+ * uhitm helmet / m_slips_free / lifsav skipdrin: D-1307.
  */
 export async function eat_brains(magr, mdef, visflag, dmg_p) {
     const pd = mdef?.data;

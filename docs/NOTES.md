@@ -5,15 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1306 `eat.c` eat_brains
-  (cadence **#1655** `49dab44b`; reviews **265–268**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `uhitm.c`
-  mhitm_ad_drin helmet / m_slips_free (named from D-1298).
-  Not eat_brains. Do not skip D-1306…D-1229.
-  Do not pull candle `partly used` / poly AT_KICK.
+- **Fortress 44/44** after D-1307 `uhitm.c` helmet /
+  `m_slips_free` (cadence **#1655** `49dab44b`; reviews **265–268**
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `objnam.c` candle
+  `partly used` (named from D-1295). Not MEAT_RING. Do not skip
+  D-1307…D-1229. Do not pull poly AT_KICK / tethered BACKTRACK.
   Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1306. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1307. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1306.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1307.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,8 +35,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1306 (index). Named still: helmet /
-  m_slips_free; candle `partly used`;
+- Do not skip D-1071…D-1307 (index). Named still: mhitu+mhitm
+  AD_DRIN / AD_WRAP `m_slips_free`; candle `partly used`;
   tethered DISP_TETHER/BACKTRACK; AT_ENGL gulps/lunges. No
   ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -50,13 +49,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1307: uhitm helmet / `m_slips_free`. After headless return,
+  AD_DRIN W_ARMH grease/oilskin slip (no skipdrin); then
+  `which_armor(W_ARMH) && rn2(8)` helm/hat block; then eat_brains
+  (D-1306); then lifsav skipdrin. mhitu `u_slip_free`/`uarmh` +
+  mhitm + AD_WRAP caller named. **eat_brains D-1306**.
 - D-1306: `eat.c` eat_brains. `rnd(10)` before DEADMONSTER /
   noncorporeal. Hero→mon: conducts, mindless miss, rider
   `done(DIED)`, else `morehungry(-rnd(30))` + INT recover +
   exercise WIS + `*dmg_p += xtra`; `maybe_cannibal`. uhitm
   headed caller live; headless still `return` before it.
-  Helmet `rn2(8)` / `m_slips_free` / lifsav skipdrin /
-  mhitu+mhitm `mhitm_ad_drin` callers named. **mswings D-1305**.
+  **mswings D-1305**.
 - D-1305: `mswings` `pline_mon` (verbose + `!Blind` +
   `mon_visible`). Verb/quan/`mhis`/`xname` already live (D-0286).
   Did not wrap `wildmiss` (D-1291 `set_msg_xy` then `pline`).
@@ -95,7 +98,7 @@ Objective/score live in `CURRENT.md`.
   AT_TENT+AD_DRIN continue; AT_KICK `mtrapped_in_pit(&youmonst)`.
   `mhitm_ad_drin` uhitm `notonhead||!has_head` zeros dmg + slime
   suck-in. Same continues in mattackm/mattacku. eat_brains D-1306.
-  helmet / m_slips_free / lifsav named. **altwep D-1266**.
+  helmet D-1307. **altwep D-1266**.
 - D-1297: throwit steed potionhit — `dz>0 && usteed &&
   POTION_CLASS && rn2(6)` after toss_up before hitfloor;
   `potionhit` crash/`which_armor(W_SADDLE)`/`H2Opotion_dip`/
@@ -120,5 +123,3 @@ Objective/score live in `CURRENT.md`.
   `(dx||dy||dz<1)` + `calc_capacity(owt)>SLT` + low HP ≠ max +
   `owt>hp*2` + `!Is_airlevel` → You drop + `exercise(A_CON,FALSE)`
   + `dx=dy=0` `dz=1`. **slip D-1292**. **steed D-1297**. **boomhit D-1301**.
-- D-1292: throwit cursed/greased `!rn2(7)` slip/misfire before
-  thrownobj; `rn2(3)-1` dx/dy, `dz=1` if both 0, impaired.
