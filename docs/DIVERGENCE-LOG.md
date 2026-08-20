@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1265 — `hack.c` fight_empty `explum(null)`
+
+- **Status:** fixed (map-driven Open; named omit from D-1251; not a
+  public FAIL)
+- **Symptom:** a poly'd hero with AT_EXPL who force-fought empty or
+  solid terrain only printed "You harmlessly attack …" and never
+  called `explum`, so lights/spheres never flashed at nothing and
+  the form never `rehumanize`d.
+- **C locus:** `hack.c` `domove_fight_empty` `:2323–2334` (You
+  `:2318–2321`; `explo` `:2247`; callers `:2590` / `:2810`);
+  `uhitm.c` `explum` `:4891–4928` (null mdef already D-1251).
+- **JS was:** `cmd.js` `domove_fight_empty` pline + return; named
+  omit "explode poly".
+- **Fix:** `Upolyd && attacktype AT_EXPL` then C You() prefix
+  (harmlessly/futilely) + explode-at vs attack; `nomul(0)`;
+  `wake_nearto(7*7)` then `explum(null, attk)` then `u.mh=-1;
+  rehumanize()`. Did not pull pick-dig / Underwater / Hallu
+  statue / ansimpleoname / altwep. Rule #2: no fs.
+- **JS:** `js/cmd.js` `domove_fight_empty`; `js/uhitm.js`
+  `attacktype_fordmg` export + existing `explum`.
+- **Not this iter:** two-weapon `uswapwep`; pick `use_pick_axe2`;
+  Underwater wording; Hallu monster-as-statue; remaining
+  `mhitm_ad_*`.
+- **Verified:** private canary **28**/28 (C You/nomul/wake/explum/
+  rehumanize order; human thin-air/wall/off-edge; yellow explode
+  at / futilely + rehumanize + d() + nearby wake; FIRE null-mdef
+  no hero HP); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a public session Upolyd-explodes at empty.
+- **Follow-up:** Open `uhitm.c` altwep / `uswapwep`.
+
 ## D-1264 — uhitm.c AT_ENGL `gulpum`
 
 - **Status:** fixed (map-driven Open; named omit from D-1251; not a

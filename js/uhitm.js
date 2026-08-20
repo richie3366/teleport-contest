@@ -373,9 +373,26 @@ function find_roll_to_hit(mtmp, aatyp, weapon, attk_count, role_roll_penalty) {
     return tmp;
 }
 
+/**
+ * C ref: mondata.c attacktype_fordmg — first mattk with aatyp and adtyp
+ * (AD_ANY==-1 wildcard). fight_empty explum caller (D-1265).
+ */
+export function attacktype_fordmg(ptr, atyp, dtyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return null;
+    for (let i = 0; i < slots.length; i++) {
+        const a = slots[i];
+        if ((a?.aatyp | 0) === (atyp | 0)
+            && (dtyp === -1 || (a?.adtyp | 0) === (dtyp | 0))) {
+            return a;
+        }
+    }
+    return null;
+}
+
 /** C ref: mondata.h attacktype — any mattk slot matches aatyp. */
 function attacktype_aatyp(ptr, aatyp) {
-    return !!(ptr?.mattk || []).some((a) => (a.aatyp | 0) === (aatyp | 0));
+    return !!attacktype_fordmg(ptr, aatyp, -1);
 }
 
 /**
@@ -1513,8 +1530,8 @@ async function hmonas_hugs(mon, mattk, i, sum) {
 /**
  * C ref: uhitm.c explum :4891–4928.
  * Hero exploding at mdef, or at nothing (forcefight) when mdef is null.
- * Always rolls d(damn,damd) then wake_nearto(7*7). Named omit: fight_empty
- * caller (hack.c); explmm.
+ * Always rolls d(damn,damd) then wake_nearto(7*7). fight_empty null-mdef
+ * caller is D-1265. Named omit: explmm.
  */
 export async function explum(mdef, mattk) {
     const tmp = d(mattk.damn | 0, mattk.damd | 0);
@@ -1673,7 +1690,7 @@ function end_engulf() {
 /**
  * C ref: uhitm.c gulpum :4958–5194 — poly'd hero engulfs a monster.
  * Instant (not multi-move). d() then engulf_target then stuffed/uswallow
- * gate. Named omit: fight_empty explum; altwep.
+ * gate. Named omit: altwep.
  */
 export async function gulpum(mdef, mattk) {
     const u = game.u || {};
@@ -1865,7 +1882,8 @@ export async function gulpum(mdef, mattk) {
  * (special_dmgval callee; mon_hates_silver = C hates_silver D-1254).
  * AT_EXPL explum + dhit==-1 rehumanize D-1251.
  * AT_ENGL gulpum D-1264 (rnd(20+i); shade surround; zombie/mummy Sick).
- * Named omit: two-weapon altwep; fight_empty explum; skipdrin; pit kick.
+ * fight_empty explum(null) D-1265. Named omit: two-weapon altwep; skipdrin;
+ * pit kick.
  */
 export async function hmonas(mon) {
     const u = game.u || {};

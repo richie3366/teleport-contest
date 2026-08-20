@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `uhitm.c` AT_ENGL `gulpum` (named from D-1251). Not fight_empty. **Addressed:** D-1264
+- [x] `uhitm.c` fight_empty `explum` (named from D-1251). Not AT_ENGL. **Addressed:** D-1265
+
+
+- [x] `uhitm.c` AT_ENGL `gulpum` (named from D-1251). Not fight_empty. **Addressed:** D-1264 `d86fe2fe`
 
 
 - [x] `do.c` hitfloor `dropz(TRUE)` (named from D-1249). Not container_impact. **Addressed:** D-1263 `6a950d81`

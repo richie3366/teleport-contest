@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1265 hack.c fight_empty explum(null)
+
+**Objective:** Open `uhitm.c` fight_empty `explum` (named from D-1251).
+Not AT_ENGL.
+**C locus:** `hack.c` `domove_fight_empty` `:2323–2334`; `uhitm.c`
+`explum` `:4891–4928` (null mdef).
+**Change:** Upolyd AT_EXPL force-fight empty/solid now uses C You()
+harmlessly/futilely + explode-at, `nomul(0)`, `wake_nearto(7*7)`,
+`explum(null)`, mh=-1 `rehumanize`. Named: altwep / pick-dig /
+Underwater / Hallu statue / ansimpleoname. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a poly'd hero
+force-fights empty. Next audit @**#1605**.
+**Verified:** private canary **28**/28; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` altwep / `uswapwep` (named from D-1252).
+Not AT_ENGL.
+**Blocked:** none.
 ## 2026-08-20 — D-1264 uhitm.c AT_ENGL gulpum
 
 **Objective:** Open `uhitm.c` AT_ENGL `gulpum` (named from D-1251).
