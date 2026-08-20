@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` doname CANDELABRUM (n of 7) (named from D-1308). Not candle.
 - [ ] `objnam.c` doname TOOL W_TOOL|W_SADDLE worn (named from D-1308). Not candle.
 - [ ] `objnam.c` doname LEASH attached (named from D-1308). Not candle.
 - [ ] `objnam.c` doname POTION POT_OIL (lit) (named from D-1308). Not candle.

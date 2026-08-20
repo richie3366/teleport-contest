@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1317 — `objnam.c` doname CANDELABRUM (n of 7)
+
+- **Status:** fixed (map-driven Open from D-1308; not a public FAIL)
+- **Symptom:** JS `doname` TOOL never appended `" (n of 7 candle[s]
+  attached|, lit)"`, so a carried Candelabrum of Invocation looked
+  like a bare unique/appearance name with no candle count or
+  candelabrum-lit state.
+- **C locus:** `objnam.c` `doname_base` TOOL_CLASS `:1447–1454`
+  after worn/leash, before lamp/candle else-if. `suffix =
+  plur(spe) + (!lamplit ? " attached" : ", lit")`; Concat
+  `" (%d of 7 candle%s)"`; `break` skips lamp `(lit)` and
+  charges. `plur` is `hack.h` `==1` empty else `"s"`. Unique
+  article via `the_unique_obj` (D-0568/D-0872).
+- **JS was:** lamp/candle D-1308; candelabrum named omit.
+- **Fix:** `doname` candelabrum suffix; skip charges on that arm.
+  Did not pull LEASH `leashmon`, W_TOOL|W_SADDLE `"(being worn)"`,
+  or POTION POT_OIL `(lit)`. Rule #2: no fs.
+- **JS:** `js/objnam.js` `doname`.
+- **Not this iter:** LEASH `leashmon`; W_TOOL|W_SADDLE worn;
+  POT_OIL `(lit)`; full `mbodypart`; `food_xname`.
+- **Verified:** private canary **32**/32 (C arm+plur+lit/attached;
+  unid 0/1/3/7; id unique `the`; blessed; xname bare; wielded
+  after; no charges; no separate `(lit)` / `partly used`; candle/
+  lamp/MEAT_RING/marker regression; leash/W_TOOL/POT_OIL still
+  omit; mksobj spe 0; Rule #2); green+strict seed8000/0900;
+  cohort **8**/8 + strict 1500/1800/0012/0004/0007/2200/0383/
+  seed0361. **Public-unhit** unless a session shows the
+  candelabrum in invent/look.
+- **Follow-up:** Open `objnam.c` doname TOOL W_TOOL|W_SADDLE worn
+  (named from D-1308).
+- **Files:** `js/objnam.js`.
+
 ## D-1316 — dothrow.c throwit ACURRSTR urange
 
 - **Status:** fixed (map-driven Open from D-1315; not a public FAIL)
