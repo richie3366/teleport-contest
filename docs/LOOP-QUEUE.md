@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dothrow.c` throwit_mon_hit snuff_candle / hot_pursuit (named from D-1301). Not m_respond.
 - [ ] `mon.c` m_respond (named from D-1301). Not snuff_candle.
 - [ ] `dothrow.c` throwit ACURRSTR urange (named). Not tether.
 - [ ] `objnam.c` doname CANDELABRUM (n of 7) (named from D-1308). Not candle.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `objnam.c` doname LEASH attached (named from D-1308). Not candle.
 - [ ] `objnam.c` doname POTION POT_OIL (lit) (named from D-1308). Not candle.
 - [ ] `objnam.c` doname W_WEP `body_part(HAND)` poly (named from D-1295). Not MEAT_RING.
+- [ ] `zap.c` bhit THROWN_TETHERED_WEAPON / isqrt (named from D-1311). Not throwit tether.
+- [ ] `dothrow.c` thitmonst vanish pline (named from D-1312). Not leader catch.
+- [ ] `dokick.c` snuff_candle (named from D-1242). Not throwit_mon_hit.
+- [ ] `mhitu.c` explmu (named). Not AT_HUGS.
+- [ ] `mhitu.c` AT_HUGS (named). Not explmu.
 
 ## Parked (do not pop)
 

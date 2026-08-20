@@ -14,7 +14,7 @@ import {
 } from './mkobj.js';
 import {
     losehp, maybe_half_phys, nomul, impact_disturbs_zombies, finish_maybe_wail,
-    switch_terrain,
+    switch_terrain, in_rooms,
 } from './hack.js';
 import {
     WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, GEM_CLASS, FOOD_CLASS, ARMOR_CLASS,
@@ -38,7 +38,7 @@ import {
     W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE, SLT_ENCUMBER, Is_airlevel,
     xdir, ydir, xytodir, N_DIRS, RIGHT_HANDED, IS_SINK, HI_WOOD, OBJ_MINVENT,
     DISP_FLASH, DISP_CHANGE, DISP_END, DISP_TETHER, BACKTRACK, ECMD_TIME,
-    DEAF,
+    DEAF, SHOPBASE,
 } from './const.js';
 import { NO_COLOR } from './terminal.js';
 import { obj_resists, dogfood } from './dogmove.js';
@@ -1850,17 +1850,35 @@ function closed_door_boom(x, y) {
 }
 
 /**
- * C dothrow.c throwit_mon_hit — thitmonst; clear thrownobj if consumed.
- * Named omit: snuff_candle; shk hot_pursuit.
+ * C dothrow.c throwit_mon_hit — snuff_candle, thitmonst, shk hot_pursuit.
+ * Callers: throwit, boomhit. Named omit: m_respond (boomhit).
+ * apply.js imports thitmonst — snuff_candle is a dynamic import.
  */
-async function throwit_mon_hit(obj, mon) {
+export async function throwit_mon_hit(obj, mon) {
     if (!mon) return false;
     if (mon.isshk && (obj.where | 0) === OBJ_MINVENT && obj.ocarry === mon) {
         return true;
     }
+    // C apply.c snuff_candle — candles / candelabrum only, not snuff_lit
+    const { snuff_candle } = await import('./apply.js');
+    await snuff_candle(obj);
     const bp = game.bhitpos || {};
     game.notonhead = ((bp.x | 0) !== (mon.mx | 0) || (bp.y | 0) !== (mon.my | 0));
     const obj_gone = await thitmonst(mon, obj);
+    // C: Monster may have been tamed; this frees old mon [obsolete]
+    const hitpos = game.bhitpos || bp;
+    mon = m_at(hitpos.x | 0, hitpos.y | 0);
+    if (mon && mon.isshk) {
+        const { hot_pursuit, inside_shop } = await import('./shk.js');
+        const u = game.u || {};
+        const ushop0 = (u.ushops || '')[0] || '';
+        const rooms = in_rooms(mon.mx | 0, mon.my | 0, SHOPBASE) || '';
+        // C strchr(in_rooms(...), *u.ushops): NUL matches the terminator
+        const strchrHit = ushop0 === '' || rooms.includes(ushop0);
+        if (!inside_shop(u.ux | 0, u.uy | 0) || !strchrHit) {
+            hot_pursuit(mon);
+        }
+    }
     if (obj_gone) game.thrownobj = null;
     return false;
 }

@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1313 dothrow.c throwit_mon_hit snuff_candle / hot_pursuit
+
+**Objective:** Open `dothrow.c` throwit_mon_hit snuff_candle /
+hot_pursuit (named from D-1301). Not m_respond.
+**C locus:** `dothrow.c` `throwit_mon_hit` `:1482–1506`;
+`apply.c` `snuff_candle`; `shk.c` `hot_pursuit` / `inside_shop`.
+**Change:** snuff candles/candelabrum before `thitmonst`; then
+`m_at` + shk `!inside_shop` / `!strchr` `hot_pursuit`. Lamps
+not snuffed. `inside_shop` exported. m_respond named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1665**.
+**Verified:** canary **16**/16; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1312 archive hash `77606a78`.
+**Next:** Open `mon.c` m_respond (named from D-1301). Not snuff_candle.
+**Blocked:** none.
 ## 2026-08-20 — D-1312 dothrow.c thitmonst leader catch / finish_quest
 
 **Objective:** Open `dothrow.c` thitmonst leader catch /

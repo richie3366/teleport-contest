@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1313 — dothrow.c throwit_mon_hit snuff_candle / hot_pursuit
+
+- **Status:** fixed (map-driven Open from D-1301; not a public FAIL)
+- **Symptom:** a thrown missile that hit a monster did not snuff a
+  lit candle/candelabrum first, and hitting a shopkeeper from
+  outside their shop (or from another shop) skipped `hot_pursuit`.
+- **C locus:** `dothrow.c` `throwit_mon_hit` `:1482–1506`. Callers
+  `throwit` `:1695` and `zap.c` `boomhit` `:4192`. Callees
+  `apply.c` `snuff_candle` `:1472–1491` (already live D-1242) and
+  `shk.c` `hot_pursuit` `:1449–1463` / `inside_shop` `:567–576`.
+- **JS was:** `thitmonst` + clear `thrownobj`; snuff / hot_pursuit
+  named omit. Early MINVENT shk-holds return already live.
+- **Fix:** `snuff_candle` (not `snuff_lit`) before `notonhead` /
+  `thitmonst`; re-`m_at(bhitpos)`; if surviving `isshk` and
+  (`!inside_shop(u)` or `!strchr(in_rooms(SHK, SHOPBASE), *ushops)`
+  with C NUL-terminator semantics) then `hot_pursuit`. Export
+  `inside_shop` from `shk.js`. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `throwit_mon_hit`; `js/shk.js`
+  `inside_shop`; `js/apply.js` `snuff_candle` caller comment.
+- **Not this iter:** boomhit `m_respond` / Soundeffect; dokick
+  `snuff_candle`; thitmonst vanish pline; zap bhit
+  `THROWN_TETHERED_WEAPON` / isqrt; ACURRSTR urange.
+- **Verified:** private canary **16**/16 (C/JS order; MINVENT
+  early-true; lit tallow snuff; magic lamp stays lit; outside-shop
+  pursuit; same-shop no following; other-shop strchr miss;
+  non-shk; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session throws a lit candle or hits a shk from outside.
+- **Follow-up:** Open `mon.c` m_respond (named from D-1301).
+- **Files:** `js/dothrow.js`, `js/shk.js`, `js/apply.js`.
+
 ## D-1312 — dothrow.c thitmonst leader catch / finish_quest
 
 - **Status:** fixed (map-driven Open from D-1311; not a public FAIL)

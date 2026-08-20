@@ -5,17 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1312 `dothrow.c` thitmonst leader
-  catch / `finish_quest` (cadence **#1660** `734449dc`; reviews
-  **269–272** ACCEPT-WITH-DEBT, no Must-fix). Next: Open `dothrow.c`
-  throwit_mon_hit snuff_candle / hot_pursuit (named from D-1301).
-  Not m_respond.
-  Do not skip D-1312…D-1229. Do not pull explmu / AT_HUGS /
+- **Fortress 44/44** after D-1313 `dothrow.c` throwit_mon_hit
+  `snuff_candle` / `hot_pursuit` (cadence **#1660** `734449dc`; reviews
+  **269–272** ACCEPT-WITH-DEBT, no Must-fix). Next: Open `mon.c`
+  m_respond (named from D-1301). Not snuff_candle.
+  Do not skip D-1313…D-1229. Do not pull explmu / AT_HUGS /
   mhitu AD_DRIN / candelabrum / ACURRSTR urange / zap bhit
   `THROWN_TETHERED_WEAPON` isqrt / thitmonst vanish pline.
   Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1312. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1313. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -24,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1312.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1313.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -38,7 +37,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1312 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1313 (index). Named still: mhitu+mhitm
   AD_DRIN / AD_WRAP `m_slips_free`; explmu / AT_HUGS; mattackm
   AT_TENT; candelabrum `(n of 7)` / leash / W_TOOL worn /
   POT_OIL `(lit)`; AT_ENGL
@@ -53,6 +52,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1313: `dothrow.c` throwit_mon_hit `snuff_candle` then
+  `thitmonst` then shk `hot_pursuit` when `!inside_shop(u)` or
+  `!strchr(in_rooms(SHK,SHOPBASE),*ushops)` (NUL = terminator).
+  Lamps not snuffed (`snuff_lit` is other callers). Early MINVENT
+  shk-holds TRUE. `inside_shop` exported. **m_respond named.**
 - D-1312: `dothrow.c` thitmonst leader catch / `quest.c`
   `finish_quest`. Thrown/kicked questarti/unique/fake AoY;
   `!HMON_APPLIED`; `mcanmove` catch; keep if invoked unique
@@ -93,39 +97,5 @@ Objective/score live in `CURRENT.md`.
   `done(DIED)`, else `morehungry(-rnd(30))` + INT recover +
   exercise WIS + `*dmg_p += xtra`; `maybe_cannibal`. uhitm
   headed caller live; headless still `return` before it.
-  **mswings D-1305**.
-- D-1305: `mswings` `pline_mon` (verbose + `!Blind` +
-  `mon_visible`). Verb/quan/`mhis`/`xname` already live (D-0286).
-  Did not wrap `wildmiss` (D-1291 `set_msg_xy` then `pline`).
-  AT_ENGL gulps/lunges / AT_TENT / Snickersnee bash named.
-- D-1304: `wizterrainwish` secret corridor. Suffix after wall
-  before room; CORR→SCORR `"Secret corridor."`; else requires
-  corridor location. Leftover BLev FROMOUTSIDE (SCORR obstructed).
-  **drawbridge / lava pooleffects named**.
-- D-1303: `dothrow.c` sho_obj_return_to_u — after `rn2(100)` success,
-  non-tethered (Mjollnir) `tmp_at(DISP_FLASH, obj_to_glyph display rng)`
-  then walk `bhitpos-dir` toward @ with `nh_delay_output`; dx=dy=0 or
-  already-on-@ no-op. Wielded aklys BACKTRACK is D-1311. Leader
-  `!next2u` still named. **throw_gold D-1302**.
-- D-1302: `dothrow.c` throw_gold swallow — after self-cancel, `freeinv`
-  then `add_to_minv(ustuck)` (not `swallowit`/`mpickobj`);
-  `digests` → `s_suffix(mon_nam)` + `" entrails"`; `pline_The`.
-  You() self / unsplit / dz / bhit / ghitm / quivered throwit named.
-  **boomhit D-1301**.
-- D-1301: `zap.c` boomhit 10-step curve from throwit
-  `BOOMERANG && !Underwater`. `nhits=max(1,spe+1)`; URIGHTY
-  counterclockwise; catch `!Fumbling && rn2(20)<ACURR(DEX)`
-  → `return_throw_to_inv`; self-hit `thitu`+`endmultishot`;
-  sink Klonk; `!ZAP_POS` backup. m_respond / Soundeffect /
-  `sho_obj_return_to_u` named. **steed D-1297**.
-- D-1300: `maketrap` shop `add_damage` before DRAWBRIDGE_UP /
-  `set_levltyp`. `*in_rooms(SHOPBASE)` && (`is_hole` || door ||
-  wall); cost `SHOP_HOLE_COST` iff door/wall && `!mon_moving`
-  else 0. Snapshots original typ. overwrite `reset_utrap` /
-  Knox / Sokoban finish named. **ice D-1296**.
-- D-1299: `domove_swap_with_pet` park ux0, `mundetected=0`,
-  `M_AP_TYPE`→`seemimic` before pit/NODIAG/boulder/mtrapped/
-  mundisplaceable; occupy then swap; fail restores ux. `goodpos`
-  / mintrap aftermath / bump_mon stumble named. **display_self
-  D-1275**.
+  Helmet / `m_slips_free` D-1307. mswings D-1305.
 
