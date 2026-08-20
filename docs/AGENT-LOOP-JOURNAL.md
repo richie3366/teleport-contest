@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1615 review D-1271–D-1274 + cadence
+
+**Objective:** audit — C-fidelity reviews **233–236** of JS SHAs
+since `a4aa34d3`, plus full `sessions` score. No `js/` port.
+**C locus:** `mon.c` `meatmetal`; `invent.c` `hold_another_object`;
+`pickup.c` `tipcontainer` highdrop; `dothrow.c` `toss_up`.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: meatobj / meatcorpse; fatal wished corpse;
+altarizing dropy; returning_missile / swallow / steed potion).
+Filled D-1274 archive hash `b166de10`. Open 12 (no refill). Rule
+#2: no fs.
+**Score:** cadence **#1615** HEAD `b166de10` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`35+0.29/turn` (R² 0.853). seed0383 PASS. Next audit @**#1620**.
+**Verified:** `__RESULTS_JSON__` at HEAD `b166de10`; branch-by-branch
+vs pinned C (meatmetal spit-then-loop; drop_it `hitfloor(FALSE)`;
+highdrop `hitfloor(TRUE)`; toss_up `rn2(5)&&!Underwater`).
+**Next:** Open `display.c` `display_self` U_AP_TYPE glyphs (named
+from D-1260). Not seemimic.
+**Blocked:** none.
 ## 2026-08-20 — D-1274 dothrow.c toss_up + throwit u.dz
 
 **Objective:** Open `dothrow.c` `toss_up` (named from D-1263). Not

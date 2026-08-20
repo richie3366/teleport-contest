@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1274 `dothrow.c` `toss_up` + throwit
-  `u.dz` (reviews **229–232** cadence **#1610** `a4aa34d3`). Next:
+  `u.dz` (reviews **233–236** cadence **#1615** `b166de10`). Next:
   Open `display.c` `display_self` U_AP_TYPE glyphs (named from
   D-1260). Not seemimic. Do not skip D-1274…D-1229. Do not pull
   skipdrin / pit kick / missmu / mattacku AT_TENT / explmu / AT_HUGS

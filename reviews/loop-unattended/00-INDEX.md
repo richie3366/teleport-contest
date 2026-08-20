@@ -242,3 +242,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [230-26fb4aa0-spoteffects-switch-terrain.md](./230-26fb4aa0-spoteffects-switch-terrain.md) | `26fb4aa0` | D-1268 `spoteffects` dest-typ `switch_terrain` | **ACCEPT-WITH-DEBT** |
 | [231-76f7018d-digactualhole-switch-terrain.md](./231-76f7018d-digactualhole-switch-terrain.md) | `76f7018d` | D-1269 `digactualhole` PIT/HOLE `switch_terrain` | **ACCEPT-WITH-DEBT** |
 | [232-a4aa34d3-test-move-passes-bars.md](./232-a4aa34d3-test-move-passes-bars.md) | `a4aa34d3` | D-1270 hero `test_move` IRONBARS `passes_bars` | **ACCEPT-WITH-DEBT** |
+| [233-3925f2b3-meatmetal.md](./233-3925f2b3-meatmetal.md) | `3925f2b3` | D-1271 `meatmetal` | **ACCEPT-WITH-DEBT** |
+| [234-175707ca-hold-another-object.md](./234-175707ca-hold-another-object.md) | `175707ca` | D-1272 `hold_another_object` `hitfloor(FALSE)` | **ACCEPT-WITH-DEBT** |
+| [235-2a6bf680-tipcontainer-highdrop.md](./235-2a6bf680-tipcontainer-highdrop.md) | `2a6bf680` | D-1273 `tipcontainer` highdrop `hitfloor(TRUE)` | **ACCEPT-WITH-DEBT** |
+| [236-b166de10-toss-up.md](./236-b166de10-toss-up.md) | `b166de10` | D-1274 `toss_up` + throwit `u.dz` | **ACCEPT-WITH-DEBT** |
