@@ -59,27 +59,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1294. Reviews **253–256** all
+**Map-driven fortress** after D-1295. Reviews **253–256** all
 **ACCEPT-WITH-DEBT** (no Must-fix).
 **Next cluster:**
-Open `objnam.c` doname MEAT_RING (named from D-1276). Not candle.
-Do not skip D-1294…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `trap.c` maketrap DRAWBRIDGE_UP ice (named from D-1280). Not
+shop add_damage.
+Do not skip D-1295…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not pull skipdrin / pit kick / seemimic / DRAWBRIDGE_UP ice /
-shop add_damage / liquid_flow / throwit steed potion / boomhit /
-secret corridor.
+Do not pull skipdrin / pit kick / seemimic / shop add_damage /
+liquid_flow / throwit steed potion / boomhit / secret corridor /
+candle `partly used`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1294.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1295.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1294 (index). Recent: **D-1294** `hack.c`
-`moverock` `next_boulder` naming (not Blind feel).
-Prior: D-1293 `throwit` stamina; D-1292 `throwit` slip; D-1291
-`wildmiss` `set_msg_xy`; D-1290 door/wall; D-1289 trap loop;
-D-1288 `makemap_prepost`; D-1287 `u_on_sstairs`.
+**Keep:** D-0845…D-1295 (index). Recent: **D-1295** `objnam.c`
+`doname` MEAT_RING `goto ring` (not candle).
+Prior: D-1294 `moverock` `next_boulder`; D-1293 `throwit` stamina;
+D-1292 `throwit` slip; D-1291 `wildmiss` `set_msg_xy`; D-1290
+door/wall; D-1289 trap loop; D-1288 `makemap_prepost`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1294
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1295
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

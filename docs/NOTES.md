@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1294 `moverock` `next_boulder`
+- **Fortress 44/44** after D-1295 `doname` MEAT_RING `goto ring`
   (cadence **#1640** `c37bd683`; reviews **253–256**
-  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `objnam.c` doname
-  MEAT_RING (named from D-1276). Not candle. Do not skip
-  D-1294…D-1229. Do not pull skipdrin / pit kick / seemimic /
-  DRAWBRIDGE_UP ice / shop add_damage / secret corridor / throwit
-  steed / boomhit. Do not wrap `wildmiss` or `msg_mon_movement` as
-  `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1294. Named omits stay map, not Must-fix.
+  ACCEPT-WITH-DEBT, no Must-fix). Next: Open `trap.c` maketrap
+  DRAWBRIDGE_UP ice (named from D-1280). Not shop add_damage.
+  Do not skip D-1295…D-1229. Do not pull skipdrin / pit kick /
+  seemimic / shop add_damage / secret corridor / throwit steed /
+  boomhit / candle `partly used`. Do not wrap `wildmiss` or
+  `msg_mon_movement` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1295. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1294.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1295.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,9 +36,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1294 (index). Named still: skipdrin / pit
-  kick; MEAT_RING; throwit steed; secret corridor. No ALIGN/FORCE
-  on seed0383.
+- Do not skip D-1071…D-1295 (index). Named still: skipdrin / pit
+  kick; candle `partly used`; throwit steed; secret corridor. No
+  ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -49,6 +49,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1295: `doname_base` FOOD MEAT_RING `goto ring` — worn
+  W_RINGR/L + `W_RING` `"hand)"` (humanoid `body_part(HAND)`);
+  known+`oc_charged` `+spe` after oeaten (`BITS` chrg=0 idle).
+  Candle `partly used` / full mbodypart named.
 - D-1294: `moverock_core` `next_boulder` after Blind feel;
   firstboulder 0 else 1; `xname` `==1` → `"next boulder"` then
   clear; `moverock_done` zeros leftovers; dopush already zeros
@@ -96,5 +100,3 @@ Objective/score live in `CURRENT.md`.
   D-1283**. boomhit / `sho_obj_return_to_u` named.
 - D-1281: `moverock_core` Blind unseen feel before next_boulder /
   nopick. JS `remembered_glyph.boulder`. **next_boulder D-1294**.
-- D-1280: `maketrap` PIT/HOLE `set_levltyp`. DRAWBRIDGE_UP ice /
-  shop add_damage / liquid_flow named.

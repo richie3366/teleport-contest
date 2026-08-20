@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1295 — `objnam.c` doname MEAT_RING `goto ring`
+
+- **Status:** fixed (map-driven Open from D-1276; not a public FAIL)
+- **Symptom:** `doname` FOOD MEAT_RING never took C’s RING_CLASS
+  worn/+spe arm. A worn meat ring is FOOD_CLASS but C
+  `goto ring` so invent shows `" (on right hand)"` /
+  `" (on left hand)"` like a ring.
+- **C locus:** `objnam.c` `doname_base` FOOD MEAT_RING
+  `:1536–1538` `goto ring`; RING_CLASS `ring:` `:1492–1503`
+  (W_RINGR/L Concat `" (on right "`/`" (on left "` then
+  `body_part(HAND)` + `")"`; `known && oc_charged` `+spe` on
+  prefix after oeaten). `objects.h` MEAT_RING `BITS` chrg=0.
+- **JS was:** FOOD `oeaten` / CORPSE / EGG (D-1276) only;
+  RING_CLASS worn was ungated `W_RINGR`/`W_RINGL` complete
+  strings; MEAT_RING named omit.
+- **Fix:** FOOD MEAT_RING takes the ring arm; worn gated to
+  RING_CLASS \|\| MEAT_RING with C’s three Concat; humanoid
+  `"hand"`. Rule #2: no fs.
+- **JS:** `js/objnam.js` `doname`.
+- **Not this iter:** candle `partly used` /
+  `iflags.partly_eaten_hack`; full `mbodypart` poly hands;
+  `food_xname`; invent `learn_egg_type`.
+- **Verified:** private canary **23**/23 (C `goto ring` /
+  chrg=0 / candle still TOOL; JS unworn/right/left/both-bit
+  Concat; oeaten then worn; blessed; named-then-worn; stack;
+  known spe idle; xname bare; EGG regression; RING_CLASS worn;
+  non-meat FOOD W_RINGR ungated skip; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383. **Public-unhit** unless a session wears a
+  meat ring.
+- **Follow-up:** Open `trap.c` maketrap DRAWBRIDGE_UP ice.
+- **Files:** `js/objnam.js`.
+
 ## D-1294 — hack.c moverock next_boulder naming
 
 - **Status:** fixed (map-driven Open from D-1281; not a public FAIL)
