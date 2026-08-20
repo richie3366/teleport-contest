@@ -5,17 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1314 `mon.c` `m_respond` (cadence
-  **#1665** `a1d48196`; reviews **273/274/276** ACCEPT-WITH-DEBT,
-  **275** QUALITY-RISK). Next: Must-fix throwit → `throwit_mon_hit`
-  (not `thitmonst`) so snuff/`hot_pursuit` fire. Not ACURRSTR
-  urange. Do not skip D-1314…D-1229. Do not pull gazemu /
-  explmu / AT_HUGS / mhitu AD_DRIN / candelabrum / zap bhit
-  `THROWN_TETHERED_WEAPON` isqrt / thitmonst vanish pline /
+- **Fortress 44/44** after D-1315 `dothrow.c` throwit →
+  `throwit_mon_hit` (cadence **#1665** `a1d48196`; reviews **273/274/276**
+  ACCEPT-WITH-DEBT, **275** QUALITY-RISK caller now wired). Next: Open
+  throwit ACURRSTR urange. Not tether. Do not skip D-1315…D-1229.
+  Do not pull gazemu / explmu / AT_HUGS / mhitu AD_DRIN / candelabrum /
+  zap bhit `THROWN_TETHERED_WEAPON` isqrt / thitmonst vanish pline /
   dokick snuff_candle.
   Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
   No FORCE.
-- Do not revert D-1217–D-1314. Named omits stay map, not Must-fix.
+- Do not revert D-1217–D-1315. Named omits stay map, not Must-fix.
 
 ## Don't re-check (≤15)
 
@@ -24,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1314.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1315.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -38,7 +37,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1314 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1315 (index). Named still: mhitu+mhitm
   AD_DRIN / AD_WRAP `m_slips_free`; explmu / AT_HUGS; mattackm
   AT_TENT; candelabrum `(n of 7)` / leash / W_TOOL worn /
   POT_OIL `(lit)`; AT_ENGL
@@ -53,6 +52,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1315: `dothrow.c` throwit `:1695` → `throwit_mon_hit` (not
+  `thitmonst`) after swallow/bhit/boomhit. TRUE MINVENT shk →
+  `throwit_return(TRUE)`. `bhitpos` from fly/swallow locals.
+  boomhit already-hit returns NULL (no double hit). Helper body
+  D-1313. ACURRSTR urange named.
 - D-1314: `mon.c` `m_respond`. Adjacent `MS_SHRIEK` `!um_dist(1)`:
   `!Deaf` pline+`stop_occupation`; `!rn2(10)` then `rn2(13)?NULL:purple/baby`
   `makemon(0,0)`; always `aggravate`. Medusa `couldsee` first AT_GAZE
@@ -63,7 +67,7 @@ Objective/score live in `CURRENT.md`.
   `thitmonst` then shk `hot_pursuit` when `!inside_shop(u)` or
   `!strchr(in_rooms(SHK,SHOPBASE),*ushops)` (NUL = terminator).
   Lamps not snuffed (`snuff_lit` is other callers). Early MINVENT
-  shk-holds TRUE. `inside_shop` exported. **m_respond D-1314**.
+  shk-holds TRUE. `inside_shop` exported. **throwit caller D-1315**.
 - D-1312: `dothrow.c` thitmonst leader catch / `quest.c`
   `finish_quest`. Thrown/kicked questarti/unique/fake AoY;
   `!HMON_APPLIED`; `mcanmove` catch; keep if invoked unique

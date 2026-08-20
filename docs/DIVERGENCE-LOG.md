@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1315 — dothrow.c throwit → throwit_mon_hit
+
+- **Status:** fixed (Must-fix review **275**; not a public FAIL)
+- **Symptom:** a thrown lit candle/candelabrum that hit a monster stayed
+  lit, and a dart that hit a shopkeeper from outside their shop skipped
+  `hot_pursuit`. D-1313 filled `throwit_mon_hit`, but `throwit` still
+  called `thitmonst` after swallow/bhit.
+- **C locus:** `dothrow.c` `throwit` `:1695–1698` after swallow /
+  `bhit` / `boomhit`. Callee `throwit_mon_hit` `:1482–1506` (D-1313).
+  TRUE only for MINVENT shk-already-holds → `throwit_return(TRUE)`.
+  `mon` may be NULL (no-op). boomhit already-hit `break`s and returns
+  NULL so throwit does not double-hit.
+- **JS was:** `if (hitmon) thitmonst` + clear `thrownobj` on gone.
+  Helper comment claimed throwit as a caller; only boomhit was true.
+- **Fix:** always `throwit_mon_hit(obj, hitmon)` after those paths;
+  sync `bhitpos` from fly/swallow locals (C `bhit`/swallow already
+  set it); swallow `:1575–1576` sets `bhitpos` to the engulfer; TRUE
+  → `throwit_return(true)`. `!thrownobj` still `DISP_END 0`. Rule #2:
+  no fs.
+- **JS:** `js/dothrow.js` `throwit`.
+- **Not this iter:** rewrite `snuff_candle`; dokick `snuff_candle`;
+  zap.js `bhit` `THROWN_TETHERED_WEAPON` / isqrt; thitmonst vanish
+  pline; ACURRSTR urange.
+- **Verified:** private canary **10**/10 (C/JS caller; throwit lit
+  tallow snuff; magic lamp stays lit; street shk `hot_pursuit`;
+  swallowed snuff; null-mon no-op; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** unless a session throws a lit candle
+  or hits a shk from outside via throwit (not boomhit).
+- **Follow-up:** Open `dothrow.c` throwit ACURRSTR urange (named).
+- **Files:** `js/dothrow.js`.
+
 ## D-1314 — mon.c m_respond
 
 - **Status:** fixed (map-driven Open from D-1301; not a public FAIL)

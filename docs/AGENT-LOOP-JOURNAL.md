@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1315 dothrow.c throwit → throwit_mon_hit
+
+**Objective:** Must-fix `dothrow.c` throwit → `throwit_mon_hit` (not
+`thitmonst`) so snuff/`hot_pursuit` fire. Source: review **275**.
+**C locus:** `dothrow.c` `throwit` `:1695`; callee `throwit_mon_hit`
+`:1482–1506` (D-1313).
+**Change:** after swallow/bhit/boomhit always `throwit_mon_hit`;
+TRUE → `throwit_return(true)`; sync `bhitpos` from fly/swallow
+locals. boomhit already-hit still NULL (no double hit). dokick
+snuff / vanish pline / ACURRSTR named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1670**.
+**Verified:** canary **10**/10; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dothrow.c` throwit ACURRSTR urange (named). Not tether.
+**Blocked:** none.
 ## 2026-08-20 — #1665 review D-1311–D-1314 + cadence
 
 **Objective:** audit — C-fidelity reviews **273–276** of JS SHAs

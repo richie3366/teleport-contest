@@ -1851,7 +1851,7 @@ function closed_door_boom(x, y) {
 
 /**
  * C dothrow.c throwit_mon_hit — snuff_candle, thitmonst, shk hot_pursuit.
- * Callers: throwit, boomhit. boomhit m_respond is D-1314.
+ * Callers: throwit (D-1315), boomhit (D-1301). boomhit m_respond is D-1314.
  * apply.js imports thitmonst — snuff_candle is a dynamic import.
  */
 export async function throwit_mon_hit(obj, mon) {
@@ -1961,8 +1961,8 @@ export async function boomhit(obj, dx, dy) {
 /**
  * C ref: zap.c bhit + dothrow.c throwit — fly along dx/dy; stop before
  * !ZAP_POS / closed door (bhit backs up one step), then place / breaktest.
- * Monster hit → thitmonst (D-0415 food; D-0693 pie/egg DEX;
- * D-1041 weapon/weptool/gem hit-vs-miss). After place, !IS_SOFT
+ * Monster hit → throwit_mon_hit (D-1315) → thitmonst (D-0415 food;
+ * D-0693 pie/egg DEX; D-1041 weapon/weptool/gem hit-vs-miss). After place, !IS_SOFT
  * container_impact_dmg(obj, u.ux, u.uy) then impact_disturbs TRUE
  * (D-1249 / D-1229). hitfloor dropz(TRUE) is D-1263 (drop/horn);
  * invent hold_another_object hitfloor(FALSE) is D-1272;
@@ -1976,6 +1976,7 @@ export async function boomhit(obj, dx, dy) {
  * boomhit curve (D-1301). throw_gold swallow (D-1302).
  * sho_obj_return_to_u (D-1303). tethered DISP_TETHER/BACKTRACK (D-1311).
  * thitmonst leader catch / finish_quest (D-1312).
+ * throwit_mon_hit snuff / hot_pursuit (D-1313); throwit caller (D-1315).
  * Named omit: thitmonst vanish
  * pline; objsplit unsplit; killer_xname polish;
  * THROWN_TETHERED_WEAPON zap bhit / isqrt range (ACURRSTR urange Open).
@@ -2048,6 +2049,10 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
         if (hitmon) {
             x = hitmon.mx | 0;
             y = hitmon.my | 0;
+            // C throwit :1575–1576 — bhitpos = engulfer before throwit_mon_hit
+            if (!game.bhitpos) game.bhitpos = { x: 0, y: 0 };
+            game.bhitpos.x = x;
+            game.bhitpos.y = y;
         }
         // C throwit :1577–1578 — swallowed tether starts with no flight steps
         if (tethered_weapon) tmp_at(DISP_TETHER, obj_glyph(obj));
@@ -2170,19 +2175,22 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
     }
     } // else bhit
     } // !uswallow: boomhit else bhit
+    // C throwit :1695 — swallow / bhit / boomhit all call throwit_mon_hit
+    // (mon may be NULL). JS fly uses locals; C bhit already left gb.bhitpos.
+    if (!game.bhitpos) game.bhitpos = { x: 0, y: 0 };
+    game.bhitpos.x = x | 0;
+    game.bhitpos.y = y | 0;
+    if (await throwit_mon_hit(obj, hitmon)) {
+        throwit_return(true); /* alert shk caught it */
+        return;
+    }
     if (hitmon) {
-        if (await thitmonst(hitmon, obj)) {
-            // C throwit_mon_hit: obj_gone clears gt.thrownobj; :1700–1703 END 0
-            game.thrownobj = null;
-            await throwit_tether_end(tethered_weapon, false);
-            throwit_return(false);
-            return;
-        }
         // miss / not consumed — fall through to place at mon cell
         x = hitmon.mx | 0;
         y = hitmon.my | 0;
     }
     if (!game.thrownobj) {
+        // C :1700–1703 — missile already handled; tether DISP_END 0
         await throwit_tether_end(tethered_weapon, false);
         throwit_return(false);
         return;

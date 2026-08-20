@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
+- [x] `dothrow.c` throwit must call `throwit_mon_hit` (not `thitmonst`) after bhit/swallow so `snuff_candle` and shk `hot_pursuit` fire. Source: reviews/loop-unattended/275-27751021-throwit-mon-hit-snuff.md **Addressed:** D-1315
+
+
 - [x] `mon.c` m_respond (named from D-1301). Not snuff_candle. **Addressed:** D-1314 `a1d48196`
 
 
