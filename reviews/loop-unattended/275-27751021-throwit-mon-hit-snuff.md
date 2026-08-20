@@ -104,7 +104,7 @@ Journal: private canary **16**/16 (order of the **helper**, not throwit); green+
 ## Actionable C-wrongs
 
 1. `dothrow.c` `throwit` after swallow/bhit must call `throwit_mon_hit(obj, mon)` (C `:1695`), not `thitmonst` (`js/dothrow.js` ~2174). On `TRUE` (MINVENT shk catch) `throwit_return(TRUE)`. That is the one-iter fix: snuff and outside-shop `hot_pursuit` then fire on thrown missiles. Do not rewrite `snuff_candle`. Do not pull dokick snuff. Do not pull zap.js bhit.
-   **Addressed:** D-1315
+   **Addressed:** D-1315 `44a786aa`
 
 Named omits (map, not Must-fix): dokick `snuff_candle`; thitmonst vanish pline.
 

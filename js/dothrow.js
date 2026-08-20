@@ -36,6 +36,7 @@ import {
     HURTLING, FORCEBUNGLE, IRONBARS, Upolyd, FACE, HEAD, ARM, FOOT, STONING,
     TIMEOUT, WT_TO_DMG, POTHIT_HERO_THROW, Has_contents, NON_PM, LOW_PM,
     W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE, SLT_ENCUMBER, Is_airlevel,
+    BOLT_LIM, AKLYS_LIM, HAND,
     xdir, ydir, xytodir, N_DIRS, RIGHT_HANDED, IS_SINK, HI_WOOD, OBJ_MINVENT,
     DISP_FLASH, DISP_CHANGE, DISP_END, DISP_TETHER, BACKTRACK, ECMD_TIME,
     DEAF, SHOPBASE,
@@ -46,7 +47,7 @@ import {
     ammo_and_launcher, is_ammo, is_missile, doswapweapon, doquiver_core, welded,
     setuwep, setuswapwep, setuqwep, set_twoweap,
 } from './wield.js';
-import { acurr, A_CON, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
+import { acurr, acurrstr, A_CON, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
 import { calc_capacity, fully_identify_obj, encumber_msg } from './invent.js';
 import { add_to_minv, mpickobj } from './makemon.js';
 import { finish_quest } from './quest.js';
@@ -221,11 +222,12 @@ function AutoReturn(o, wmsk) {
 /**
  * C weapon.c autoreturn_weapon — AKLYS only (boomerang row commented out).
  * throwit uses arw->tethered && W_WEP (D-1311 DISP_TETHER/BACKTRACK).
- * range/isqrt cap still named (ACURRSTR urange Open).
+ * arw->range is AKLYS_LIM²; throwit min(range, isqrt(arw->range)) named
+ * (zap bhit THROWN_TETHERED_WEAPON / isqrt Open).
  */
 function autoreturn_weapon(otmp) {
     if (!otmp || (otmp.otyp | 0) !== AKLYS) return null;
-    return { otyp: AKLYS, tethered: 1 };
+    return { otyp: AKLYS, range: AKLYS_LIM * AKLYS_LIM, tethered: 1 };
 }
 
 /** C dothrow.c throwit :1523 — arw->tethered && (wep_mask & W_WEP). */
@@ -1977,10 +1979,100 @@ export async function boomhit(obj, dx, dy) {
  * sho_obj_return_to_u (D-1303). tethered DISP_TETHER/BACKTRACK (D-1311).
  * thitmonst leader catch / finish_quest (D-1312).
  * throwit_mon_hit snuff / hot_pursuit (D-1313); throwit caller (D-1315).
+ * throwit ACURRSTR urange / post-bhit lev hurtle (D-1316).
  * Named omit: thitmonst vanish
  * pline; objsplit unsplit; killer_xname polish;
- * THROWN_TETHERED_WEAPON zap bhit / isqrt range (ACURRSTR urange Open).
+ * THROWN_TETHERED_WEAPON zap bhit / isqrt(arw->range).
  */
+
+/**
+ * C weapon.c skill_name / P_NAME — ammo category for throwit's hand-throw
+ * pline (`an(skill_name(weapon_type(obj)))`).
+ */
+function throwit_skill_name(skill) {
+    const map = {
+        [P_CROSSBOW]: 'CROSSBOW',
+        [P_DART]: 'DART',
+        [P_BOOMERANG]: 'BOOMERANG',
+        [P_BOW]: 'BOW',
+        [P_SLING]: 'SLING',
+        [P_SHURIKEN]: 'SHURIKEN',
+    };
+    const on = map[skill | 0];
+    if (on) {
+        const otyp = objectNames.indexOf(on);
+        if (otyp >= 0 && objectNameStrs[otyp]) return objectNameStrs[otyp];
+        return on.toLowerCase().replace(/_/g, ' ');
+    }
+    return 'weapon';
+}
+
+/**
+ * C weapon.c weapon_descr — P_BOW/P_CROSSBOW ammo → arrow/bolt; else
+ * P_NAME. throwit hand-throw only (gems skip that pline).
+ */
+function throwit_weapon_descr(obj) {
+    const skill = weapon_type(obj);
+    if (skill === P_BOW && is_ammo(obj)) return 'arrow';
+    if (skill === P_CROSSBOW && is_ammo(obj)) return 'bolt';
+    return throwit_skill_name(skill);
+}
+
+/**
+ * C dothrow.c throwit :1613–1672 — urange from ACURRSTR (crossbow 18),
+ * then range from weight / uball / ammo / air-lev / boulder / Mjollnir
+ * / underwater. Recoil leftover is `urange` after the air-lev shuffle
+ * (`:1681–1682` hurtle). Named omit: `min(range, isqrt(arw->range))`
+ * for tethered aklys (zap bhit THROWN_TETHERED_WEAPON / isqrt Open).
+ * @returns {{ range: number, urange: number, hand_throw: boolean }}
+ */
+export function throwit_calc_range(obj) {
+    const u = game.u || {};
+    const uwep = u.uwep || null;
+    const owt = obj.owt | 0;
+    const crossbowing = ammo_and_launcher(obj, uwep)
+        && weapon_type(uwep) === P_CROSSBOW;
+    let urange = Math.trunc((crossbowing ? 18 : (acurrstr() | 0)) / 2);
+    let range = ((obj.otyp | 0) === HEAVY_IRON_BALL)
+        ? urange - Math.trunc(owt / 100)
+        : urange - Math.trunc(owt / 40);
+    if (obj === u.uball) {
+        if (u.ustuck) range = 1;
+        else if (range >= 5) range = 5;
+    }
+    if (range < 1) range = 1;
+
+    let hand_throw = false;
+    if (is_ammo(obj)) {
+        if (ammo_and_launcher(obj, uwep)) {
+            if (crossbowing) range = BOLT_LIM;
+            else range++;
+        } else if ((obj.oclass | 0) !== GEM_CLASS) {
+            range = Math.trunc(range / 2);
+            hand_throw = true;
+        }
+    }
+
+    if (Is_airlevel(u.uz) || Levitation_boom()) {
+        urange -= range;
+        if (urange < 1) urange = 1;
+        range -= urange;
+        if (range < 1) range = 1;
+    }
+
+    if ((obj.otyp | 0) === BOULDER) {
+        range = 20;
+    } else if (is_art(obj, ART_MJOLLNIR)) {
+        range = Math.trunc((range + 1) / 2);
+    } else if (obj === u.uball && u.utrap && (u.utraptype | 0) === TT_INFLOOR) {
+        range = 1;
+    }
+    /* tethered_weapon isqrt cap named — do not min() here */
+
+    if (u.uinwater) range = 1;
+    return { range, urange, hand_throw };
+}
+
 export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null) {
     const u = game.u;
     let impaired = throw_impaired();
@@ -2096,35 +2188,14 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
     } else {
     const dx = u.dx || 0;
     const dy = u.dy || 0;
-    // C: urange = ACURRSTR/2, then range capped; adjacent wall needs ≥1
-    let range = 5;
-    // C: ammo without matching launcher → half range + hand-throw pline
-    if (is_ammo(obj) && !ammo_and_launcher(obj, u.uwep)
-        && obj.oclass !== GEM_CLASS) {
-        range = Math.max(1, Math.trunc(range / 2));
-        // C: an(skill_name(weapon_type)) + weapon_descr (P_BOW ammo → "arrow")
-        const skill = Math.abs(game.objects?.[obj.otyp]?.oc_skill ?? 0);
-        let skillName = 'bow';
-        let descr = 'arrow';
-        if (skill === P_CROSSBOW) {
-            skillName = 'crossbow';
-            descr = 'bolt';
-        } else if (skill === P_DART) {
-            skillName = 'dart';
-            descr = 'dart';
-        } else if (skill === P_BOOMERANG) {
-            skillName = 'boomerang';
-            descr = 'boomerang';
-        } else if (skill === P_BOW) {
-            skillName = 'bow';
-            descr = 'arrow';
-        } else {
-            const otyp = objectNames.indexOf('BOW');
-            if (otyp >= 0 && objectNameStrs[otyp]) skillName = objectNameStrs[otyp];
-            descr = skillName;
-        }
+    // C throwit :1613–1672 — ACURRSTR urange then range (D-1316)
+    const calc = throwit_calc_range(obj);
+    let range = calc.range | 0;
+    const urange = calc.urange | 0;
+    if (calc.hand_throw) {
+        // C :1643–1646 — an(skill_name) + weapon_descr + body_part(HAND)
         await pline(
-            `You aren't wielding ${an(skillName)}, so you throw your ${descr} by hand.`,
+            `You aren't wielding ${an(throwit_skill_name(weapon_type(obj)))}, so you throw your ${throwit_weapon_descr(obj)} by ${body_part(HAND)}.`,
         );
     }
     // C zap.c bhit THROWN_TETHERED_WEAPON → tmp_at(DISP_TETHER, obj_to_glyph)
@@ -2172,6 +2243,10 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             tmp_at(x, y);
             await nh_delay_output();
         }
+    }
+    // C throwit :1680–1682 — after bhit so ux,uy are correct
+    if (Is_airlevel(u.uz) || Levitation_boom()) {
+        await hurtle(-(u.dx || 0), -(u.dy || 0), urange, true);
     }
     } // else bhit
     } // !uswallow: boomhit else bhit

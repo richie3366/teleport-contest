@@ -59,31 +59,33 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1315. Reviews **273–276**:
+**Map-driven fortress** after D-1316. Reviews **273–276**:
 **273/274/276** ACCEPT-WITH-DEBT; **275** QUALITY-RISK (caller now
 wired).
 **Next cluster:**
-Open `dothrow.c` throwit ACURRSTR urange (named). Not tether.
-Do not skip D-1315…D-1229 (index). Keep mention_map addr. Do not wrap
+Open `objnam.c` doname CANDELABRUM (n of 7) (named from D-1308). Not
+candle.
+Do not skip D-1316…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not pull gazemu / explmu / AT_HUGS / mhitu AD_DRIN /
-candelabrum n-of-7 / zap bhit `THROWN_TETHERED_WEAPON` isqrt /
-thitmonst vanish pline / dokick snuff_candle.
+leash / W_TOOL worn / POT_OIL `(lit)` / zap bhit
+`THROWN_TETHERED_WEAPON` isqrt / thitmonst vanish pline / dokick
+snuff_candle.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1315.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1316.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1315 (index). Recent: **D-1315** `dothrow.c`
-throwit → `throwit_mon_hit`. Prior: **D-1314** `mon.c` `m_respond`.
-D-1313 `dothrow.c` throwit_mon_hit `snuff_candle` /
-`hot_pursuit`. D-1312 `dothrow.c` thitmonst leader catch /
-`finish_quest`. D-1311 `dothrow.c` throwit tethered
+**Keep:** D-0845…D-1316 (index). Recent: **D-1316** `dothrow.c`
+throwit ACURRSTR urange. Prior: **D-1315** throwit →
+`throwit_mon_hit`. D-1314 `mon.c` `m_respond`. D-1313
+throwit_mon_hit `snuff_candle` / `hot_pursuit`. D-1312 thitmonst
+leader catch / `finish_quest`. D-1311 throwit tethered
 DISP_TETHER/BACKTRACK. D-1310 `dokick.c` `kick_monster` poly AT_KICK.
 D-1309 `mhitu.c` `mattacku` AT_TENT melee; D-1308 candle `partly used`
 / lamp `(lit)`; D-1307 uhitm helmet / `m_slips_free`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1315
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1316
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

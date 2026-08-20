@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1316 dothrow.c throwit ACURRSTR urange
+
+**Objective:** Open `dothrow.c` throwit ACURRSTR urange (named). Not
+tether.
+**C locus:** `dothrow.c` `throwit` `:1613–1672` + `:1680–1682`
+hurtle leftover; `attrib.h` `ACURRSTR`; `youprop.h` Levitation /
+Underwater.
+**Change:** `throwit_calc_range` from strength/weight/ammo/air-lev
+/boulder/Mjollnir/uball/underwater; post-fly recoil `hurtle`;
+hand-throw pline uses `skill_name`/`weapon_descr`/`body_part(HAND)`.
+`isqrt` tether named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit @**#1670**.
+**Verified:** canary **24**/24; green+strict seed8000/0900; focused
+seed1800; cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+Filled D-1315 archive/review hash `44a786aa`.
+**Next:** Open `objnam.c` doname CANDELABRUM (n of 7) (named from
+D-1308). Not candle.
+**Blocked:** none.
 ## 2026-08-20 — D-1315 dothrow.c throwit → throwit_mon_hit
 
 **Objective:** Must-fix `dothrow.c` throwit → `throwit_mon_hit` (not

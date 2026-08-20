@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1316 — dothrow.c throwit ACURRSTR urange
+
+- **Status:** fixed (map-driven Open from D-1315; not a public FAIL)
+- **Symptom:** `throwit` flight used a stub `range = 5` (then half for
+  hand-thrown ammo), so a strong/weak throw, a crossbow bolt, a
+  boulder, or a levitation recoil did not use C `ACURRSTR` / weight.
+- **C locus:** `dothrow.c` `throwit` `:1613–1672` then `:1680–1682`
+  `hurtle(-dx,-dy, urange, TRUE)` after `bhit`. `ACURRSTR` is
+  `attrib.h` `acurrstr()`. `Levitation` is `(H\|\|E) && !B`.
+  `Underwater` is `u.uinwater`. Callers: `throw_obj` volley.
+- **JS was:** `let range = 5` then ammo-without-launcher
+  `trunc(range/2)` + hardcoded-`hand` pline. Tether `isqrt` named.
+- **Fix:** `urange = (crossbowing ? 18 : acurrstr()) / 2`; ball
+  `owt/100` else `/40`; `uball` ustuck 1 else cap 5; `range < 1`
+  → 1; ammo+launcher crossbow `BOLT_LIM` else `++`, else non-gem
+  half + `an(skill_name)` / `weapon_descr` / `body_part(HAND)`;
+  air/lev leftover recoil; boulder 20; Mjollnir `(range+1)/2`;
+  infloor uball 1; underwater 1. Did **not** `min(range,
+  isqrt(arw->range))`. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `throwit_calc_range` / `throwit`.
+- **Not this iter:** zap.js `bhit` `THROWN_TETHERED_WEAPON` /
+  `isqrt(arw->range)`; throw_obj ACURRSTR crossbow volley gate;
+  throw_gold range; thitmonst vanish pline; dokick `snuff_candle`.
+- **Verified:** private canary **24**/24 (STR18/7 dart; clamp;
+  arrow hand vs bow `++`; bolt `BOLT_LIM`; ball `/100` + uball
+  cap/ustuck; boulder; Mjollnir; aklys no isqrt; underwater;
+  lev leftover; BLev blocks; gem no half; Rule #2); green+strict
+  seed8000/0900; focused seed1800; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  throw's C range ≠ stub 5 (adjacent hits unchanged).
+- **Follow-up:** Open `objnam.c` doname CANDELABRUM (n of 7)
+  (named from D-1308).
+- **Files:** `js/dothrow.js`.
+
 ## D-1315 — dothrow.c throwit → throwit_mon_hit
 
 - **Status:** fixed (Must-fix review **275**; not a public FAIL)
