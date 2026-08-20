@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1279 objnam.c wizterrainwish switch_terrain
+
+**Objective:** Open `objnam.c` wish `switch_terrain` (named from
+D-1129). Not doname EGG.
+**C locus:** `objnam.c` `wizterrainwish` `:3907–3910` after
+madeterrain; dispatch `readobjnam` wiztrap `:4975–4979`.
+**Change:** `readobjnam_wish` furniture/liquid/ice/tree/bars/cloud/
+floor then await live D-1129 body. Sync `readobjnam` stays
+object-only. Named: traps; door/wall; drawbridge; lava
+`pooleffects`. Rule #2: no fs (dynamic import).
+**Score:** fortress 44/44; public-unhit unless a wizard furniture
+wish with leftover Lev/Fly FROMOUTSIDE. Next audit @**#1625**.
+**Verified:** private canary **25**/25; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `trap.c` `maketrap` PIT/HOLE `set_levltyp` (named
+from D-1269). Not liquid_flow.
+**Blocked:** none.
 ## 2026-08-20 — #1620 review D-1275–D-1278 + cadence
 
 **Objective:** audit — C-fidelity reviews **237–240** of JS SHAs

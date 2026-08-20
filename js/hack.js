@@ -1862,7 +1862,7 @@ function Flying_st() {
  * u.uinwater. Named omit: botl terrain_descr[] paint; options.c
  * toggle; end_running MAX_TYPE reset; dungeon.c u_on_newpos
  * MAX_TYPE; **dothrow hurtle_step D-1277**; **u_on_rndspot D-1278**;
- * objnam wish callers. digactualhole PIT/HOLE is D-1269.
+ * **objnam wish D-1279**. digactualhole PIT/HOLE is D-1269.
  * dissolve_bars u_at is D-1259; set_uinwater is D-1267;
  * spoteffects dest-typ is D-1268.
  */
@@ -1932,6 +1932,7 @@ export function classify_terrain() {
  * digactualhole PIT/HOLE is D-1269.
  * dothrow hurtle_step dest-typ is D-1277.
  * dungeon.c u_on_rndspot after place is D-1278.
+ * objnam.c wizterrainwish after madeterrain is D-1279.
  */
 export async function switch_terrain() {
     const u = game.u;
@@ -1987,11 +1988,10 @@ export async function switch_terrain() {
  * (D-1267). Same-value is a no-op. Wired: boulder_hits_pool dry-land,
  * drown fail-crawl, goto_level leave + after getlev. Named:
  * pooleffects leave-water; drown Amphibious wade / post-rescue;
- * zap freeze; objnam wish; cmd leave-level; detect/save bypass
+ * zap freeze; cmd leave-level; detect/save bypass
  * (C writes u.uinwater directly). spoteffects dest-typ is D-1268.
  * digactualhole PIT/HOLE is D-1269. **dothrow hurtle_step D-1277**.
- * **u_on_rndspot D-1278**. objnam wish still calls switch_terrain
- * itself.
+ * **u_on_rndspot D-1278**. **objnam wish D-1279**.
  */
 export async function set_uinwater(in_out) {
     const u = game.u;
@@ -2224,7 +2224,7 @@ export async function invocation_message() {
  * After newsym, u_at → switch_terrain (D-1259). set_uinwater is
  * D-1267. spoteffects dest-typ is D-1268. digactualhole PIT/HOLE
  * is D-1269. **dothrow hurtle_step D-1277**. **u_on_rndspot D-1278**.
- * Named: objnam wish.
+ * **objnam wish D-1279**.
  */
 export async function dissolve_bars(x, y) {
     const lev = game.level?.at(x, y);

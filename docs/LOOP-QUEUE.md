@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` wish `switch_terrain` (named from D-1129). Not doname EGG.
 - [ ] `trap.c` `maketrap` PIT/HOLE `set_levltyp` (named from D-1269). Not liquid_flow.
 - [ ] `hack.c` Blind unseen boulder feel (named from D-1262). Not next_boulder.
 - [ ] `dothrow.c` throwit returning_missile (named from D-1274). Not swallowit.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `mon.c` `meatobj` (named from D-1271). Not meatcorpse.
 - [ ] `mon.c` `meatcorpse` (named from D-1271). Not meatobj.
 - [ ] `mhitu.c` `missmu` `pline_mon` (named from D-1261). Not wildmiss.
+- [ ] `stairs.c` `u_on_sstairs` → `u_on_rndspot` (named from D-1278). Not cmd wiz.
+- [ ] `cmd.c` wiz-level `u_on_rndspot` (named from D-1278). Not sstairs.
+- [ ] `objnam.c` wizterrainwish traps (named from D-1279). Not door/wall.
+- [ ] `objnam.c` wizterrainwish door/wall (named from D-1279). Not traps.
+- [ ] `mhitu.c` `wildmiss` `pline_mon` (named from D-1261). Not missmu.
 
 ## Parked (do not pop)
 

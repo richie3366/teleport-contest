@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1279 — `objnam.c` `wizterrainwish` after madeterrain → `switch_terrain`
+
+- **Status:** fixed (map-driven Open from D-1129; not a public FAIL)
+- **Symptom:** JS `readobjnam`/`makewish` had no terrain-wish path, so
+  wizard furniture/liquid/floor wishes never called `switch_terrain`.
+  C `wizterrainwish` does after `madeterrain` (`objnam.c:3907–3910`),
+  so leftover Lev/Fly `FROMOUTSIDE` never unblocked when replacing
+  solid stone with furniture.
+- **C locus:** `objnam.c` `wizterrainwish` `:3552–3915` (`switch_terrain()`
+  in the madeterrain postamble). Dispatch: `readobjnam` wiztrap
+  `:4975–4979` (`wizard && !wizkit_wishing && !d.oclass`). Body live
+  D-1129 / D-1151 (`hack.c` `:3178–3217`). Caller: `zap.c` `makewish`
+  `:6360` / `:6374–6377` (`&hands_obj` return, no wishes conduct).
+- **JS was:** object-only `readobjnam`; named omit listed objnam wish
+  `switch_terrain`.
+- **Fix:** `wizterrainwish` furniture/liquid/ice/tree/bars/cloud/floor
+  then await live `switch_terrain`. `makewish` uses `readobjnam_wish`.
+  Sync `readobjnam` stays object-only (C skips terrain when
+  `wizkit_wishing`; mklev never wishes terrain). Did not pull trap
+  loop, door/wall/secret corridor, drawbridge under, lava
+  `pooleffects`, water/fire_damage_chain, melting ice, or
+  `set_wallprop_from_str`. Rule #2: no fs (dynamic import of hack/
+  display/vision/engrave).
+- **JS:** `js/readobjnam.js` `wizterrainwish` / `readobjnam_wish`;
+  `js/zap.js` `makewish`.
+- **Not this iter:** traps `maketrap`; door/wall/secret corridor;
+  drawbridge under; lava `pooleffects`; water/fire_damage_chain;
+  melting ice; `set_wallprop_from_str`; stairs `u_on_sstairs`;
+  cmd wiz-level.
+- **Verified:** private canary **25**/25 (C madeterrain `switch_terrain`;
+  JS await after madeterrain; wizard fountain/throne on STONE clear
+  leftover BLev/BFly; magic fountain `blessedftn`; non-wizard / wizkit
+  skip; pool/lava/ice/tree/iron bars/cloud/moat/wall of water; floor
+  STONE badterrain; floor POOL leave-water `set_uinwater(0)`; sync
+  `readobjnam` no mutate; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a wizard session wishes furniture/terrain
+  with leftover Lev/Fly FROMOUTSIDE.
+- **Follow-up:** Open `trap.c` `maketrap` PIT/HOLE `set_levltyp`.
+- **Files:** `js/readobjnam.js`, `js/zap.js`, `js/hack.js` (caller comments).
+
 ## D-1278 — `dungeon.c` `u_on_rndspot` after place → `switch_terrain`
 
 - **Status:** fixed (map-driven Open from D-1129; not a public FAIL)
