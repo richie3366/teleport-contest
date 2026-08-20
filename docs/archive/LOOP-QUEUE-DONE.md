@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-20
+
+- [x] `do.c` hitfloor `dropz(TRUE)` (named from D-1249). Not container_impact. **Addressed:** D-1263
+
 ## 2026-08-19
 
 - [x] `hack.c` nopick `m<dir>` over/against (named from D-1253). Not giant pickup. **Addressed:** D-1262 `72757d4c`

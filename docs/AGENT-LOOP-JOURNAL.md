@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1263 dothrow.c hitfloor dropz(TRUE)
+
+**Objective:** Open `do.c` hitfloor `dropz(TRUE)` (named from D-1249).
+Not container_impact.
+**C locus:** `dothrow.c` `hitfloor` `:603–647`; callers `do.c:758–772`
+`drop` `!can_reach_floor`; `mkobj.c:2920–2921` hornoplenty tip.
+**Change:** live `hitfloor` in `dothrow.js`: soft/water/swallow
+`dropy`; altar `doaltarobj` continues; verbosely WAN_STRIKING
+strike + tseen trap overlay; `hero_breaks` BRK_FROM_INV;
+`ship_object`; `dropz(TRUE)`. Wire drop levitation (no
+`how_lost`) + horn tip. Deleted `hitfloor_horn`. Named:
+invent hold_another_object / pickup highdrop / toss_up /
+throwit dz / litter / finesse_ahriman. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless levitation drop
+or unreachable-floor horn tip. Next audit @**#1605**.
+**Verified:** private canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` AT_ENGL `gulpum` (named from D-1251).
+Not fight_empty.
+**Blocked:** none.
 ## 2026-08-20 — #1600 review D-1258–D-1262 + cadence
 
 **Objective:** audit — C-fidelity reviews **220–224** of JS SHAs

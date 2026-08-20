@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1263 — dothrow.c `hitfloor` `dropz(TRUE)`
+
+- **Status:** fixed (map-driven Open; named omit from D-1249 /
+  review **211**; not a public FAIL)
+- **Symptom:** objects that hit the floor at the hero's feet used
+  gentle `dropy` (`dropz(FALSE)`), so glass/eggs in a container
+  never shattered and `hero_breaks` / `ship_object` never ran.
+  JS `drop()` when `!can_reach_floor` called `dropx`; horn tipping
+  used a local `hitfloor_horn` stub.
+- **C locus:** `dothrow.c` `hitfloor` `:603–647`. Callers this
+  iter: `do.c:758–772` `drop` `!can_reach_floor` (`freeinv` then
+  `hitfloor(obj, TRUE)`; no `how_lost`); `mkobj.c:2920–2921`
+  `hornoplenty` tip. Soft/water/swallow → `dropy` and return;
+  altar `doaltarobj` then continues; verbosely WAN_STRIKING
+  `"strike"` else `"hit"` + tseen TRAPDOOR/HOLE/PIT overlay;
+  `hero_breaks(..., BRK_FROM_INV)`; `ship_object`; `dropz(TRUE)`.
+- **JS was:** `mkobj.js` `hitfloor_horn` always `dropy`; `do.js`
+  `drop` levitation arm `dropx` + `LOST_DROPPED`.
+- **Fix:** live `hitfloor` in `dothrow.js`; wire those two
+  callers. `finesse_ahriman`/`float_down` named. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `hitfloor`; `js/do.js` `drop`;
+  `js/mkobj.js` hornoplenty (deleted `hitfloor_horn`).
+- **Not this iter:** invent `hold_another_object` `hitfloor(FALSE)`;
+  pickup highdrop; toss_up / throwit `dz`; ball litter; artifact;
+  Heart of Ahriman levhack.
+- **Verified:** private canary **16**/16 (C order; JS dropz TRUE;
+  dropy keep; IS_SOFT dropy; WAN_STRIKING strike; tseen trap door;
+  altar place; hero_breaks potion; drop levitation no how_lost;
+  verbosely false skip); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless the hero drops while unable to reach the
+  floor (Levitation) or tips a horn of plenty without floor reach.
+- **Follow-up:** Open `uhitm.c` AT_ENGL `gulpum`.
+- **Files:** `js/dothrow.js`, `js/do.js`, `js/mkobj.js`,
+  comments `js/hack.js` / `js/dokick.js`.
+
 ## D-1262 — `hack.c` `moverock_core` nopick `m<dir>` over/against
 
 - **Status:** fixed (map-driven Open; named omit from D-1253 /

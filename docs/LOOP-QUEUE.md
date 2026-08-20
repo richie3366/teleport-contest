@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do.c` hitfloor `dropz(TRUE)` (named from D-1249). Not container_impact.
 - [ ] `uhitm.c` AT_ENGL `gulpum` (named from D-1251). Not fight_empty.
 - [ ] `uhitm.c` fight_empty `explum` (named from D-1251). Not AT_ENGL.
 - [ ] `uhitm.c` altwep / `uswapwep` (named from D-1252). Not AT_ENGL.
