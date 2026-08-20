@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` AT_ENGL `gulpum` (named from D-1251). Not fight_empty.
 - [ ] `uhitm.c` fight_empty `explum` (named from D-1251). Not AT_ENGL.
 - [ ] `uhitm.c` altwep / `uswapwep` (named from D-1252). Not AT_ENGL.
 - [ ] `hack.c` `set_uinwater` `switch_terrain` (named from D-1129). Not dissolve_bars.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dig.c` `digactualhole` `switch_terrain` (named from D-1129). Not dissolve_bars.
 - [ ] `hack.c` hero `test_move` `passes_bars` (named from D-1258). Not ALLOW_BARS.
 - [ ] `monmove.c` `meatmetal` (named from D-1247). Not switch_terrain.
+- [ ] `invent.c` `hold_another_object` `hitfloor(FALSE)` (named from D-1263). Not pickup highdrop.
+- [ ] `pickup.c` highdrop `hitfloor` (named from D-1263). Not toss_up.
+- [ ] `dothrow.c` `toss_up` (named from D-1263). Not hold_another_object.
+- [ ] `display.c` `display_self` U_AP_TYPE glyphs (named from D-1260). Not seemimic.
+- [ ] `objnam.c` doname EGG (named from D-1255). Not MEAT_RING.
 
 ## Parked (do not pop)
 

@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1264 — uhitm.c AT_ENGL `gulpum`
+
+- **Status:** fixed (map-driven Open; named omit from D-1251; not a
+  public FAIL)
+- **Symptom:** poly'd hero AT_ENGL `continue`d with AT_NONE/BOOM/MAGC,
+  so `gulpum` never ran (no swallow/enfold/engulf, digest, or expel).
+- **C locus:** `uhitm.c` `gulpum` `:4958–5194`; `start_engulf`
+  `:4931–4946`; `end_engulf` `:4949–4955`; `hmonas` AT_ENGL
+  `:5769–5794` (`rnd(20+i)`, shade surround, zombie/mummy Sick).
+  `mhitm.c` `engulf_target` youmonst magr; `eat.c` `eating_conducts` /
+  `Finish_digestion`.
+- **JS was:** `hmonas` skipped AT_ENGL; helper named.
+- **Fix:** `d()` then `engulf_target` then stuffed-digest/`uswallow`
+  gate; `!flaming` `snuff_lit`; vampshifter `newcham`; petrify /
+  Rider `done`; AD_DGST `xkilled` NOCORPSE + nutrition/`nomul`/
+  `afternmv`; PHYS/ACID/BLND/ELEC/COLD/FIRE/DREN; expel. Rule #2:
+  no fs.
+- **JS:** `js/uhitm.js` `gulpum` + `hmonas` AT_ENGL; `js/eat.js`
+  `eating_conducts` / `Finish_digestion` export.
+- **Not this iter:** fight_empty `explum`; altwep / `uswapwep`;
+  gulpmu invent snuff; visor `can_blnd`; golem MSLOW.
+- **Verified:** private canary **16**/16 (C order; JS d-then-gate;
+  huge MISS; stuffed; uswallow; fog PHYS; shade); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  poly'd hero uses AT_ENGL.
+- **Follow-up:** Open `uhitm.c` fight_empty `explum`.
+- **Files:** `js/uhitm.js`, `js/eat.js`.
+
 ## D-1263 — dothrow.c `hitfloor` `dropz(TRUE)`
 
 - **Status:** fixed (map-driven Open; named omit from D-1249 /
@@ -36,7 +65,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   + strict 1500/1800/0012/0004/0007/2200/0383.
   **Public-unhit** unless the hero drops while unable to reach the
   floor (Levitation) or tips a horn of plenty without floor reach.
-- **Follow-up:** Open `uhitm.c` AT_ENGL `gulpum`.
+- **Follow-up:** Open `uhitm.c` AT_ENGL `gulpum` → **D-1264**.
 - **Files:** `js/dothrow.js`, `js/do.js`, `js/mkobj.js`,
   comments `js/hack.js` / `js/dokick.js`.
 

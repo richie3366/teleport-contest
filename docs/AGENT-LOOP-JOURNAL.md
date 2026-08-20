@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — D-1264 uhitm.c AT_ENGL gulpum
+
+**Objective:** Open `uhitm.c` AT_ENGL `gulpum` (named from D-1251).
+Not fight_empty.
+**C locus:** `uhitm.c` `gulpum` `:4958–5194`; `start_engulf`
+`:4931–4946`; `end_engulf` `:4949–4955`; `hmonas` AT_ENGL
+`:5769–5794` (`rnd(20+i)`, shade surround, zombie/mummy Sick).
+**Change:** `hmonas` no longer `continue`s AT_ENGL with AT_NONE.
+`d()` then `engulf_target` then stuffed-digest/`uswallow` gate;
+`!flaming` `snuff_lit`; vampshifter `newcham`; petrify / Rider
+`done`; AD_DGST `xkilled` NOCORPSE + nutrition/`nomul`/`afternmv`;
+PHYS/ACID/BLND/ELEC/COLD/FIRE/DREN; expel. Named: fight_empty
+`explum` / altwep. Rule #2: no fs.
+**Score:** fortress 44/44; public-unhit unless a poly'd hero uses
+AT_ENGL. Next audit @**#1605**.
+**Verified:** private canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` fight_empty `explum` (named from D-1251).
+Not AT_ENGL.
+**Blocked:** none.
 ## 2026-08-20 — D-1263 dothrow.c hitfloor dropz(TRUE)
 
 **Objective:** Open `do.c` hitfloor `dropz(TRUE)` (named from D-1249).
