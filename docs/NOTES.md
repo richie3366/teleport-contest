@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Fortress 44/44** after D-1306 `eat.c` eat_brains
-  (cadence **#1650** `1a7839f7`; reviews **261–264**
+  (cadence **#1655** `49dab44b`; reviews **265–268**
   ACCEPT-WITH-DEBT, no Must-fix). Next: Open `uhitm.c`
   mhitm_ad_drin helmet / m_slips_free (named from D-1298).
   Not eat_brains. Do not skip D-1306…D-1229.

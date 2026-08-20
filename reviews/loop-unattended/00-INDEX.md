@@ -274,3 +274,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [262-376a5a0d-maketrap-shop-add-damage.md](./262-376a5a0d-maketrap-shop-add-damage.md) | `376a5a0d` | D-1300 maketrap shop `add_damage` | **ACCEPT-WITH-DEBT** |
 | [263-18fa6c89-boomhit.md](./263-18fa6c89-boomhit.md) | `18fa6c89` | D-1301 `zap.c` boomhit | **ACCEPT-WITH-DEBT** |
 | [264-1a7839f7-throw-gold-swallow.md](./264-1a7839f7-throw-gold-swallow.md) | `1a7839f7` | D-1302 throw_gold swallow | **ACCEPT-WITH-DEBT** |
+| [265-2b1a575c-sho-obj-return-to-u.md](./265-2b1a575c-sho-obj-return-to-u.md) | `2b1a575c` | D-1303 `sho_obj_return_to_u` | **ACCEPT-WITH-DEBT** |
+| [266-909ef3dc-wizterrainwish-secret-corridor.md](./266-909ef3dc-wizterrainwish-secret-corridor.md) | `909ef3dc` | D-1304 secret corridor | **ACCEPT-WITH-DEBT** |
+| [267-b82b15a8-mswings-pline-mon.md](./267-b82b15a8-mswings-pline-mon.md) | `b82b15a8` | D-1305 `mswings` `pline_mon` | **ACCEPT-WITH-DEBT** |
+| [268-49dab44b-eat-brains.md](./268-49dab44b-eat-brains.md) | `49dab44b` | D-1306 `eat_brains` | **ACCEPT-WITH-DEBT** |

@@ -8,6 +8,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-20 — #1655 review D-1303–D-1306 + cadence
+
+**Objective:** audit — C-fidelity reviews **265–268** of JS SHAs
+since `ef16a473`, plus full `sessions` score. No `js/` port.
+**C locus:** `dothrow.c` `sho_obj_return_to_u`; `objnam.c`
+wizterrainwish secret corridor; `mhitu.c` `mswings` `pline_mon`;
+`eat.c` `eat_brains` + uhitm headed caller.
+**Change:** four reviews, all **ACCEPT-WITH-DEBT**. No Must-fix
+(named omits stay map: tether BACKTRACK / leader toss; drawbridge
+/ lava `pooleffects`; AT_ENGL gulps / Snickersnee; helmet /
+`m_slips_free` / mhitu+mhitm AD_DRIN). Filled D-1306 archive
+hash `49dab44b`. Open first row still helmet / `m_slips_free`.
+Rule #2: no fs.
+**Score:** cadence **#1655** HEAD `49dab44b` **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.30/turn` (R² 0.85). seed0383 PASS. Next audit @**#1660**.
+**Verified:** `__RESULTS_JSON__` at HEAD `49dab44b`; branch-by-branch
+vs pinned C (FLASH `bhitpos-dir` + display rng; CORR→SCORR;
+`pline_mon` not wildmiss wrap; `rnd(10)` before DEADMONSTER).
+**Next:** Open `uhitm.c` mhitm_ad_drin helmet / m_slips_free.
+Not eat_brains.
+**Blocked:** none.
 ## 2026-08-20 — D-1306 eat.c eat_brains
 
 **Objective:** Open `eat.c` eat_brains (named from D-1298). Not helmet.

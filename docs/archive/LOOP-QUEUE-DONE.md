@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-20
 
-- [x] `eat.c` eat_brains (named from D-1298). Not helmet. **Addressed:** D-1306
+- [x] `eat.c` eat_brains (named from D-1298). Not helmet. **Addressed:** D-1306 `49dab44b`
 
 
 - [x] `mhitu.c` mswings `pline_mon` (named from D-1291). Not wildmiss. **Addressed:** D-1305 `b82b15a8`
