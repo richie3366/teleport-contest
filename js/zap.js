@@ -26,7 +26,8 @@
 // / cancel / striking boulder+statue+hero_breaks / tele pile + bhitm
 // strike/cancel/poly/tele/undead(+unturn_dead); RAY WAN_DIGGING/SPE_DIG
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
-// → ubuzz BZ_U_SPELL (D-1386).
+// → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
+// + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
 // probing; zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
@@ -41,7 +42,7 @@
 // acid_damage/erode_armor; death-breath disintegrate_arm;
 // potionbreathe invis flash (D-0741); inventory_resistance_check;
 // ugolemeffects; burn_away_slime;
-// spell_damage_bonus / Knight questart double; Rider/Death specials;
+// spell_damage_bonus zhitm / Knight questart double; Rider/Death specials;
 // disintegrate_mon; fire completelyburns XKILL_NOCORPSE; mon_reflects;
 // flash_hits WAN_LIGHT bhitm (D-0979); openholding/openfalling +
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
@@ -49,7 +50,8 @@
 // trap_ice_effects; Underwater/utrap lava arms.
 // spell.c skilled SPE_FIREBALL scatter is D-1378 (this callee
 // spell_damage_bonus); unskilled FIREBALL/CONE FALLTHROUGH weffects
-// is D-1386 (this callee SPE ubuzz). zhitm spell_damage_bonus named.
+// is D-1386 (this callee SPE ubuzz). SPE_FORCE_BOLT IMMEDIATE bhit
+// + bhitm spell_damage_bonus is D-1388. zhitm spell_damage_bonus named.
 // muse MUSE_CAMERA is D-1376; Sunsword invoke_blinding_ray is D-1377.
 // bhitm / zap_updown / zap_steed WAN_MAKE_INVISIBLE; setworn w_blocks.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
@@ -3075,8 +3077,8 @@ async function miss_msg(str, mtmp) {
  * WAN_TELEPORTATION, WAN_LIGHT (flash_hits_mon), WAN_OPENING/SPE_KNOCK
  * (release_hold; openholding/openfalling; SPE_KNOCK mhurtle; saddle).
  * Named omit: slow/speed/locking/probing; long-worm mcorpsenm polish;
- * Knight questart double; spell_damage_bonus; mhurtle petrify/steed;
- * that_is_a_mimic box_or_door.
+ * Knight questart double; mhurtle petrify/steed;
+ * that_is_a_mimic box_or_door. SPE_FORCE_BOLT spell_damage_bonus is D-1388.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
 export async function bhitm(mtmp, otmp) {
@@ -3106,9 +3108,13 @@ export async function bhitm(mtmp, otmp) {
         } else if (game.u?.uswallow || rnd(20) < 10 + find_mac(mtmp)) {
             if (disguised_mimic) seemimic(mtmp);
             let dmg = d(2, 12);
-            // Knight questart / spell_damage_bonus deferred
+            // Knight questart dbldam named
             void Role_if;
             void PM_KNIGHT;
+            if (otyp === SPE_FORCE_BOLT) {
+                /* C zap.c bhitm :208–209 */
+                dmg = spell_damage_bonus(dmg);
+            }
             await hit_msg(zap_type_text, mtmp, exclam(dmg));
             await resist(mtmp, otmp.oclass, dmg, TELL);
         } else {
@@ -3376,7 +3382,7 @@ export async function flashburn(duration, via_lightning) {
  * C ref: zap.c spell_damage_bonus :3479–3502 — Int then level.
  * Punish Int<=9 before low level; never drop combined below 1
  * (leave 0). First caller: spell.c skilled fireball scatter (D-1378).
- * zhitm / buzz still named.
+ * bhitm SPE_FORCE_BOLT is D-1388. zhitm / buzz still named.
  */
 export function spell_damage_bonus(dmgIn) {
     let dmg = dmgIn | 0;
@@ -4174,9 +4180,10 @@ export { zapsetup, bhito, bhit };
 
 /**
  * C ref: zap.c weffects — exercise + effect dispatch.
- * NODIR + RAY wand ubuzz; IMMEDIATE bhit WAN_POLYMORPH;
- * WAN_DIGGING/SPE_DIG → zap_dig; RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH
- * ubuzz (D-1386). zap_updown / steed deferred.
+ * NODIR + RAY wand ubuzz; IMMEDIATE bhit WAN_POLYMORPH /
+ * SPE_FORCE_BOLT (D-1388); WAN_DIGGING/SPE_DIG → zap_dig;
+ * RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH ubuzz (D-1386).
+ * zap_updown / steed / doorlock deferred.
  */
 export async function weffects(obj) {
     const otyp = obj.otyp;

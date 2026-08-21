@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1388 — spell.c SPE_FORCE_BOLT IMMEDIATE weffects/bhit
+
+- **Status:** fixed (map-driven Open from D-1387; not a public FAIL)
+- **Symptom:** casting SPE_FORCE_BOLT printed `Nothing happens.`
+  C `physical_damage = TRUE` then FALLTHROUGH wand-duplicate
+  getdir + `zapyourself` / `weffects`. IMMEDIATE `weffects`
+  `bhit(u.dx, u.dy, rn1(8,6), ZAPPED_WAND, bhitm, bhito)`.
+  `bhitm` `d(2,12)` then `spell_damage_bonus`. Not RAY `ubuzz`
+  (otyp 376 is not in MAGIC_MISSILE..FINGER_OF_DEATH). Unskilled
+  FIREBALL FALLTHROUGH is D-1386; leftover-dir cancel is D-1387.
+- **C locus:** `spell.c` `spelleffects` `:1458–1514`; callee
+  `zap.c` `weffects` `:3440–3449`; `bhitm` `:193–217`.
+- **JS was:** named omit after D-1387. Other-otyp arm printed
+  `Nothing happens.`; callees `weffects` IMMEDIATE / `bhitm`
+  FORCE_BOLT already lived for wands.
+- **Fix:** SPE_FORCE_BOLT (and unskilled FIREBALL FALLTHROUGH)
+  share `wand_duplicate_weffects` getdir + self/`weffects` +
+  `update_inventory`; `bhitm` applies `spell_damage_bonus` for
+  SPE_FORCE_BOLT. Knight questart dbldam named. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/zap.js` `bhitm`.
+- **Not this iter:** SPE_CREATE_FAMILIAR / other `spelleffects`
+  otyps; directional IMMEDIATE heal/tele `weffects`; doorlock;
+  zap_updown/steed; `zhitm` `spell_damage_bonus`; shieldeff.
+- **Verified:** private canary **16**/16 (C/JS grep; IMMEDIATE
+  not RAY; `.`/atme `d(2,12)` bash not `d(12,6)`/`rn2(7)`;
+  east `rn2(8)` + `bhitm` `d(2,12)`+bonus; leftover ESC
+  weffects not bash; leftover `.` SELF-zero bash; FIREBALL
+  leftover still RAY; skilled scatter; HEALING; CREATE_FAMILIAR
+  still omit; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts force bolt.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_CREATE_FAMILIAR
+  (named). Not force bolt.
+- **Files:** `js/spell.js`, `js/zap.js`.
+
 ## D-1387 — spell.c unskilled FIREBALL getdir cancel leftover dirs
 
 - **Status:** fixed (Must-fix review **346**; not a public FAIL)

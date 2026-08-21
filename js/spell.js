@@ -14,7 +14,8 @@
 // zapyourself + check_capacity in spelleffects_check (D-1225);
 // skilled SPE_FIREBALL/SPE_CONE_OF_COLD throwspell scatter (D-1378);
 // unskilled FIREBALL/CONE FALLTHROUGH weffects (D-1386) + getdir
-// cancel leftover dirs (D-1387).
+// cancel leftover dirs (D-1387);
+// SPE_FORCE_BOLT IMMEDIATE weffects/bhit (D-1388).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps; directional weffects for
@@ -29,7 +30,7 @@ import {
     flush_screen, pline, You_feel, impossible, canspotmon, tmp_at,
     clear_nhwindow_message,
 } from './display.js';
-import { paint_corner_nhw_menu, dismiss_nhw_menu, discover_object, makeknown, near_capacity } from './invent.js';
+import { paint_corner_nhw_menu, dismiss_nhw_menu, discover_object, makeknown, near_capacity, update_inventory } from './invent.js';
 import { yn_function } from './getline.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import { weight, mksobj, delobj } from './mkobj.js';
@@ -132,6 +133,7 @@ const SPE_EXTRA_HEALING = objectNames.indexOf('SPE_EXTRA_HEALING');
 const SPE_DETECT_FOOD = objectNames.indexOf('SPE_DETECT_FOOD');
 const SPE_RESTORE_ABILITY = objectNames.indexOf('SPE_RESTORE_ABILITY');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
+const SPE_FORCE_BOLT = objectNames.indexOf('SPE_FORCE_BOLT');
 const SPE_MAGIC_MISSILE = objectNames.indexOf('SPE_MAGIC_MISSILE');
 const SPE_FIREBALL = objectNames.indexOf('SPE_FIREBALL');
 const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
@@ -1293,13 +1295,51 @@ async function throwspell() {
 }
 
 /**
+ * C ref: spell.c spelleffects :1479–1514 — wand-duplicate getdir +
+ * zapyourself / weffects. `physical_damage` is set by SPE_FORCE_BOLT
+ * FALLTHROUGH (also unskilled FIREBALL/CONE). update_inventory after
+ * the group (C :1513). doorlock / zap_updown / zap_steed named.
+ */
+async function wand_duplicate_weffects(pseudo, atme, physical_damage) {
+    const oc = game.objects?.[pseudo.otyp];
+    if (oc?.oc_dir !== NODIR) {
+        if (atme) {
+            game.u.dx = game.u.dy = game.u.dz = 0;
+        } else if (!(await getdir(null))) {
+            /* C cmd.c getdir quitchars return 0 without
+             * zeroing u.dx/dy/dz; spell.c then reuses them. */
+            await pline('The magical energy is released!');
+        }
+        if (!game.u.dx && !game.u.dy && !game.u.dz) {
+            let damage = await zapyourself(pseudo, true);
+            if (damage) {
+                if (physical_damage) {
+                    damage = maybe_half_phys(damage);
+                }
+                losehp(
+                    damage,
+                    `zapped ${uhim()}self with a spell`,
+                    NO_KILLER_PREFIX,
+                );
+            }
+        } else {
+            await weffects(pseudo);
+        }
+    } else {
+        await weffects(pseudo);
+    }
+    update_inventory();
+}
+
+/**
  * C ref: spell.c spelleffects
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / SPE_TELEPORT_AWAY
  * directional self-zap (D-1225 atme ^T); skilled SPE_FIREBALL /
  * SPE_CONE_OF_COLD throwspell scatter (D-1378). Unskilled
  * FIREBALL/CONE FALLTHROUGH weffects (D-1386) + live getdir
- * cancel leftover dirs (D-1387). Other otyps named
- * omission (return TIME after energy spent + exercise).
+ * cancel leftover dirs (D-1387). SPE_FORCE_BOLT IMMEDIATE
+ * weffects/bhit (D-1388). Other otyps named omission
+ * (return TIME after energy spent + exercise).
  */
 export async function spelleffects(spell_otyp, atme, force) {
     const spell = force ? spell_otyp : spell_idx(spell_otyp);
@@ -1372,36 +1412,12 @@ export async function spelleffects(spell_otyp, atme, force) {
         } else {
             /* C spell.c :1454 FALLTHROUGH through SPE_FORCE_BOLT
              * (physical_damage = TRUE) into wand-duplicate weffects. */
-            const physical_damage = true;
-            const oc = game.objects?.[otyp];
-            if (oc?.oc_dir !== NODIR) {
-                if (atme) {
-                    game.u.dx = game.u.dy = game.u.dz = 0;
-                } else if (!(await getdir(null))) {
-                    /* C cmd.c getdir quitchars return 0 without
-                     * zeroing u.dx/dy/dz; spell.c then reuses them. */
-                    await pline('The magical energy is released!');
-                }
-                if (!game.u.dx && !game.u.dy && !game.u.dz) {
-                    let damage = await zapyourself(pseudo, true);
-                    if (damage) {
-                        if (physical_damage) {
-                            damage = maybe_half_phys(damage);
-                        }
-                        losehp(
-                            damage,
-                            `zapped ${uhim()}self with a spell`,
-                            NO_KILLER_PREFIX,
-                        );
-                    }
-                } else {
-                    await weffects(pseudo);
-                }
-            } else {
-                await weffects(pseudo);
-            }
-            /* C update_inventory() named omit */
+            await wand_duplicate_weffects(pseudo, atme, true);
         }
+    } else if (otyp === SPE_FORCE_BOLT) {
+        /* C spell.c :1458–1459 physical_damage then FALLTHROUGH
+         * getdir + zapyourself / weffects IMMEDIATE bhit. */
+        await wand_duplicate_weffects(pseudo, atme, true);
     } else if (otyp === SPE_HEALING || otyp === SPE_EXTRA_HEALING
         || otyp === SPE_TELEPORT_AWAY) {
         if ((otyp === SPE_HEALING || otyp === SPE_EXTRA_HEALING)

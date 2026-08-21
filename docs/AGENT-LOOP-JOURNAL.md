@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1388 spell.c SPE_FORCE_BOLT IMMEDIATE bhit
+
+**Objective:** Open `spell.c` `spelleffects` SPE_FORCE_BOLT
+(named). Not fireball.
+**C locus:** `spell.c` `spelleffects` `:1458–1514`; callee
+`zap.c` `weffects` IMMEDIATE `bhit(rn1(8,6))` + `bhitm`
+`spell_damage_bonus`.
+**Change:** FORCE_BOLT getdir + self/`weffects` IMMEDIATE
+`bhit`; `bhitm` INT bonus. Not RAY `ubuzz`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts force bolt).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_CREATE_FAMILIAR
+(named). Not force bolt.
+**Blocked:** none.
 ## 2026-08-21 — audit cadence every 10; progressive review writes
 
 **Objective:** human process change (loop stopped). Audit when

@@ -81,7 +81,7 @@ Journal: private canary **17**/17 (C/JS grep; BZ arithmetic; unskilled dir `rn2(
 
 ## Actionable C-wrongs
 
-1. `spell.js` unskilled SPE_FIREBALL/CONE FALLTHROUGH must use C `getdir((char*)0)` cancel semantics: ESC/space/return return false **without** zeroing `u.dx/u.dy/u.dz`, then `weffects` if leftover dirs are nonzero (`cmd.c:4095–4111` + `spell.c:1488–1510`). `getdir_spell` currently zeros and always self-zaps. Call live `lock.js` `getdir` (already cancel-without-zero; `apply_dirsym` already has `.`/`<>`) or stop zeroing in the clone. Do **not** add trailing `confdir` to shared `getdir`. Source: this review. **Addressed:** D-1387
+1. `spell.js` unskilled SPE_FIREBALL/CONE FALLTHROUGH must use C `getdir((char*)0)` cancel semantics: ESC/space/return return false **without** zeroing `u.dx/u.dy/u.dz`, then `weffects` if leftover dirs are nonzero (`cmd.c:4095–4111` + `spell.c:1488–1510`). `getdir_spell` currently zeros and always self-zaps. Call live `lock.js` `getdir` (already cancel-without-zero; `apply_dirsym` already has `.`/`<>`) or stop zeroing in the clone. Do **not** add trailing `confdir` to shared `getdir`. Source: this review. **Addressed:** D-1387 `c3d768d1`
 
 Named omits (map / already-Open, not Must-fix):
 
