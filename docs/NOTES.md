@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1384; cadence **#1750** `12953730`
+- **Fortress 44/44** after D-1385; cadence **#1750** `12953730`
   (Scr **11,405** RNG 100% speed `38+0.31/turn`). Next: Open
-  `mhitm.c` `mdamagem` AD_CONF leftover (named from D-1352). Not STON.
+  `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects (named from
+  D-1378). Not skilled scatter.
   Reviews **335–338** ACCEPT-WITH-DEBT; Must-fix empty.
-  Do not skip D-1384…D-1229. No FORCE. Do not wrap `wildmiss`.
-- Do not revert D-1217–D-1384. `see_monsters` warn_obj_cnt /
+  Do not skip D-1385…D-1229. No FORCE. Do not wrap `wildmiss`.
+- Do not revert D-1217–D-1385. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -22,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1384.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1385.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,11 +34,11 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1384 (index).
-- Do not skip D-1071…D-1384 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1385 (index).
+- Do not skip D-1071…D-1385 (index). Named still: hitmm artifact
   wep; `mhitm_ad_phys` `shade_miss` (hmon is D-1384; zap bhit is
   D-1383; mthrowu is D-1382);
-  mdamagem CONF/STUN/FIRE leftover; mhitm wrap brush.
+  mdamagem STUN/FIRE leftover; mhitm wrap brush.
   Do not restore fountain `lesshungry` (D-1359). No ALIGN/FORCE
   on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -50,6 +51,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1385: `uhitm.c` `mhitm_ad_conf` mhitm `:3713–3724` via
+  `mhitm.c` `mdamagem` `:1059` — `!mcan && !mconf && !mspec_used`
+  vis `"looks confused."` + `mconf=1` + clear WAITFORU; leftover
+  `d()` kept (not HALU/BLND zero). uhitm/mhitu named. STUN/FIRE
+  leftover named. STON is D-1352.
 - D-1384: `uhitm.c` `hmon_hitmon` `:1812–1822` — melee/applied
   `shade_miss(&youmonst,mon,obj,FALSE,TRUE)` + barehands shade
   dmg 0. Thrown/kicked skip (D-1383). Callee D-1341; dmgval
@@ -92,6 +98,3 @@ Objective/score live in `CURRENT.md`.
   then `u_wipe_engr(rnd(3))`.
 - D-1371: zap.js `Shock_resistance()` uprops[SHOCK_RES]; did
   not rewrite confer. Explode/pray/sit clones named.
-- D-1370: `dokick.c` kick_dumb/ouch air/Lev `hurtle`.
-
-

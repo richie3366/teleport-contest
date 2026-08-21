@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `uhitm.c` `hmon` `shade_miss` caller (named from D-1354). Not zap. **Addressed:** D-1384
+- [x] `mhitm.c` `mdamagem` AD_CONF leftover (named from D-1352). Not STON. **Addressed:** D-1385
+
+
+- [x] `uhitm.c` `hmon` `shade_miss` caller (named from D-1354). Not zap. **Addressed:** D-1384 `ec703f48`
 
 
 - [x] `zap.c` `shade_miss` caller (named from D-1354). Not mthrowu. **Addressed:** D-1383 `970c6097`

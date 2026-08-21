@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1385 — mhitm.c mdamagem AD_CONF leftover
+
+- **Status:** fixed (map-driven Open from D-1352; not a public FAIL)
+- **Symptom:** a monster's AD_CONF hit (umber hulk gaze leftover,
+  Yeenoghu-style 2d8) dealt leftover `d()` HP and never set
+  `mconf`. C `mdamagem` → `mhitm_adtyping` → `mhitm_ad_conf`.
+- **C locus:** `uhitm.c` `mhitm_ad_conf` mhitm arm `:3713–3724`;
+  caller `mhitm.c` `mdamagem` `:1059`. gazemm returns `mdamagem`
+  after the gaze pline (cancelled gaze misses first).
+- **JS was:** named omit (D-1352). AD_CONF fell through
+  `mdamagem` generic HP.
+- **Fix:** `!mcan && !mconf && !mspec_used` vis
+  `"looks confused."` + `mconf=1` + `STRAT_WAITFORU` clear.
+  Does not set `mspec_used`. Leftover `d()` kept (unlike
+  HALU/BLND). Cancelled / already-conf / `mspec_used` skip
+  confuse and still apply leftover. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_conf` / `mdamagem` AD_CONF.
+- **Not this iter:** uhitm you-as-agr; mhitu you-as-def
+  (`hitmsg` + `rn2(4)` + `make_confused`); gazemu AD_CONF
+  already live; STUN/FIRE leftover; `mdamagem` touch_petrifies
+  aggressor prefix.
+- **Verified:** private canary **12**/12 (C/JS shape; umber
+  gaze leftover 0 confuses; cancelled gaze miss; already-conf
+  skip pline; bite leftover HP + confuse; cancelled/`mspec_used`
+  leftover HP no confuse; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session faces vis mon-vs-mon AD_CONF.
+- **Follow-up:** Open `spell.c` unskilled SPE_FIREBALL/CONE
+  FALLTHROUGH weffects (named from D-1378). Not skilled scatter.
+- **Files:** `js/mhitm.js`.
+
 ## D-1384 — uhitm.c hmon shade_miss
 
 - **Status:** fixed (map-driven Open from D-1354; not a public FAIL)

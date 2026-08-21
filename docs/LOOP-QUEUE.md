@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitm.c` `mdamagem` AD_CONF leftover (named from D-1352). Not STON.
 - [ ] `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects (named from D-1378). Not skilled scatter.
 - [ ] `spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball.
 - [ ] `spell.c` `spelleffects` SPE_CREATE_FAMILIAR (named). Not force bolt.

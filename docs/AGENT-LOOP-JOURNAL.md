@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — D-1385 mhitm.c mdamagem AD_CONF leftover
+
+**Objective:** Open `mhitm.c` `mdamagem` AD_CONF leftover
+(named from D-1352). Not STON.
+**C locus:** `uhitm.c` `mhitm_ad_conf` mhitm `:3713–3724`;
+caller `mhitm.c` `mdamagem` `:1059`.
+**Change:** `!mcan && !mconf && !mspec_used` vis
+`"looks confused."` + `mconf=1` + clear WAITFORU; leftover
+`d()` kept. uhitm/mhitu named. STUN/FIRE leftover named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session has vis mon-vs-mon AD_CONF).
+**Verified:** private canary **12**/12; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH
+weffects (named from D-1378). Not skilled scatter.
+**Blocked:** none.
+
 ## 2026-08-21 — D-1384 uhitm.c hmon shade_miss
 
 **Objective:** Open `uhitm.c` `hmon` `shade_miss` caller (named from
