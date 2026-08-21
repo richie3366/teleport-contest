@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` warn_obj glow (named from D-1322). Not killer_xname.
 - [ ] `uhitm.c` `m_slips_free` AD_WRAP (uhitm you-as-agr; named from D-1331). Not mhitu wrap.
 - [ ] `dokick.c` `abuse_dog` (named from D-1332). Not kickstr.
 - [ ] `dokick.c` martial knockback (named from D-1332). Not abuse_dog.

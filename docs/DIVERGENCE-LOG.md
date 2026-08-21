@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1347 — objnam.c doname W_WEP warn_obj / artifact_light paren
+
+- **Status:** fixed (map-driven Open from D-1322; not a public FAIL)
+- **Symptom:** a wielded Sting/Orcrist/Grimtooth that should glow kept
+  a bare `(weapon in right hand)` (or `(tethered to …)`), and a lit
+  Sunsword kept the same closing paren instead of `, brilliantly lit)`.
+  C `doname_base` overwrites the W_WEP ConcatF2 `)` at `:1599–1609`.
+- **C locus:** `objnam.c` `doname_base` `:1597–1610` (else of alt
+  `(wielded)`). Callees `glow_verb`/`glow_color` `artifact.c:2427–2462`;
+  `arti_light_description` `light.c:916–931`. Guard `!Blind &&
+  bpspaceleft && bp_eos[-1]==')'`. Glow if `gw.warn_obj_cnt &&
+  obj==uwep && (EWarn_of_mon & W_WEP)`; else lamplit `artifact_light`.
+- **JS was:** Concat how-string only (D-1322). Named omit.
+- **Fix:** overwrite last `)` with `, VERBing COLOR)` or `, ADVERB
+  lit)`. `glow_color` uses extracted `artilist.acolor` + first-match
+  `clr2colorname`. doname inlines glow helpers (cannot import
+  `artifact.js`: artifact→invent→shk TDZ on `set_doname_shop_suffix`).
+  Rule #2: no fs.
+- **JS:** `js/objnam.js` `doname`; `js/artifact.js` `glow_verb` /
+  `glow_color`; `js/generated/artifacts_data.js` `acolor`.
+- **Not this iter:** `see_monsters` `warn_obj_cnt` / `Sting_effects`;
+  `set_artifact_intrinsic` SPFX_WARN; ARMOR gloves `:1412`; Hallu
+  `hcolor` in `glow_color`; `the()` CapitalMon.
+- **Verified:** private canary **35**/35 (verb table; Sting/Orcrist
+  light blue / Grimtooth red / Excalibur no color; Blind / cnt0 /
+  !EWarn / !uwep / stack `(wielded)` / `mrg_to_wielded` skip; Sunsword
+  brilliantly/brightly/dimly; glow-beats-lit; aklys tethered+glow;
+  `xname` bare; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  a session `doname`s a glowing Sting or lit Sunsword.
+- **Follow-up:** Open `uhitm.c` `m_slips_free` AD_WRAP.
+- **Files:** `js/objnam.js`, `js/artifact.js`,
+  `js/generated/artifacts_data.js`, `scripts/extract-artifacts.py`.
+
 ## D-1346 — dothrow.c throwit returning-missile killer_xname
 
 - **Status:** fixed (map-driven Open from D-1345; not a public FAIL)

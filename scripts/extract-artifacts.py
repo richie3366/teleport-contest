@@ -68,6 +68,26 @@ ADTYP = {
     "STON": 18,  # AD_STON
 }
 
+# include/color.h — artilist A() acolor (glow, not item tint)
+CLR = {
+    "CLR_BLACK": 0,
+    "CLR_RED": 1,
+    "CLR_GREEN": 2,
+    "CLR_BROWN": 3,
+    "CLR_BLUE": 4,
+    "CLR_MAGENTA": 5,
+    "CLR_CYAN": 6,
+    "CLR_GRAY": 7,
+    "NO_COLOR": 8,
+    "CLR_ORANGE": 9,
+    "CLR_BRIGHT_GREEN": 10,
+    "CLR_YELLOW": 11,
+    "CLR_BRIGHT_BLUE": 12,
+    "CLR_BRIGHT_MAGENTA": 13,
+    "CLR_BRIGHT_CYAN": 14,
+    "CLR_WHITE": 15,
+}
+
 # monflag.h M2_* used as artilist mtype for SPFX_DFLAG2
 M2 = {
     "M2_NOPOLY": 0x00000001,
@@ -263,7 +283,11 @@ def main() -> int:
         align_tok = args[9].strip()
         role_tok = args[10].strip()
         race_tok = args[11].strip()
+        clr_tok = strip_c_comments(args[15]).strip()
         bn = args[16].strip()
+        if clr_tok not in CLR:
+            print("bad acolor", name, clr_tok, file=sys.stderr)
+            continue
         if align_tok not in ALIGN:
             print("bad align", name, align_tok, file=sys.stderr)
             continue
@@ -286,6 +310,7 @@ def main() -> int:
                 "alignment": ALIGN[align_tok],
                 "roleName": role_tok,
                 "raceName": race_tok,
+                "acolor": CLR[clr_tok],
                 "bn": bn if bn != "NONARTIFACT" else "NONARTIFACT",
             }
         )
@@ -328,6 +353,7 @@ def main() -> int:
             f' alignment: {e["alignment"]},'
             f' roleName: {e["roleName"]!r},'
             f' raceName: {e["raceName"]!r},'
+            f' acolor: {e["acolor"]},'
             f' bn: {e["bn"]!r}'
             " },"
         )

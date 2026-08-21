@@ -128,6 +128,8 @@ export function artifacts_globals_init() {
         alignment: raw.alignment | 0,
         role: resolvePm(raw.roleName),
         race: resolvePm(raw.raceName),
+        // C artilist.h A() acolor — glow, not the item's tint (D-1347)
+        acolor: raw.acolor | 0,
     }));
     // C: artiexist[NROFARTIFACTS+1]
     game.artiexist = Array.from({ length: NROFARTIFACTS + 1 }, () => ({
@@ -292,6 +294,56 @@ export function bare_artifactname(obj) {
         name = `the ${name.slice(4)}`;
     }
     return name;
+}
+
+// C coloratt.c colornames[] first match (aliases after the NULL sentinel
+// are skipped). Index == CLR_* / NO_COLOR from color.h.
+const CLR2COLORNAME = [
+    'black', 'red', 'green', 'brown', 'blue', 'magenta', 'cyan', 'gray',
+    'no color', 'orange', 'light green', 'yellow', 'light blue',
+    'light magenta', 'light cyan', 'white',
+];
+
+/** C ref: coloratt.c clr2colorname — first matching colornames[].color. */
+export function clr2colorname(clr) {
+    const i = clr | 0;
+    if (i < 0 || i >= CLR2COLORNAME.length) return '';
+    return CLR2COLORNAME[i];
+}
+
+/**
+ * C ref: artifact.c glow_color `:2427–2433` — artilist[arti].acolor then
+ * clr2colorname then hcolor. Hallu hcolor display-rng named omit (identity).
+ * doname inlines the same C functions (objnam cannot import this module:
+ * artifact→invent→shk calls set_doname_shop_suffix during objnam init).
+ */
+export function glow_color(arti_indx) {
+    const list = artilist();
+    const colornum = list[arti_indx | 0]?.acolor | 0;
+    return clr2colorname(colornum);
+}
+
+// C artifact.c glow_verbs[] — [0] is the blind / no-creatures verb.
+const GLOW_VERBS = ['quiver', 'flicker', 'glimmer', 'gleam'];
+
+/**
+ * C ref: artifact.c glow_strength `:2442–2448` — 0..3 from warn_obj_cnt.
+ */
+export function glow_strength(count) {
+    const n = count | 0;
+    return (n > 12) ? 3 : (n > 4) ? 2 : (n > 0 ? 1 : 0);
+}
+
+/**
+ * C ref: artifact.c glow_verb `:2451–2462` — verb then optional "ing".
+ * Bypasses ing_suffix (would double the last consonant).
+ * @param {number} count 0 means blind rather than no applicable creatures
+ * @param {boolean} ingsfx
+ */
+export function glow_verb(count, ingsfx) {
+    let resbuf = GLOW_VERBS[glow_strength(count)];
+    if (ingsfx) resbuf += 'ing';
+    return resbuf;
 }
 
 /**

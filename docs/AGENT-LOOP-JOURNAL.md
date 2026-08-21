@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1347 objnam.c doname warn_obj glow
+
+**Objective:** Open `objnam.c` warn_obj glow (named from D-1322).
+Not killer_xname.
+**C locus:** `objnam.c` `doname_base` `:1599–1609` (W_WEP else
+after ConcatF2). Callees `glow_verb`/`glow_color`;
+`arti_light_description`.
+**Change:** overwrite closing `)` with `, glimmering light blue)`
+or `, brilliantly lit)`. artilist `acolor` extracted. doname
+inlines glow helpers (no objnam→artifact import). `see_monsters`
+cnt / SPFX_WARN / ARMOR `:1412` named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless glowing
+Sting / lit Sunsword `doname`). Next audit @**#1710**.
+**Verified:** canary **35**/35; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` `m_slips_free` AD_WRAP (named from
+D-1331). Not mhitu wrap.
+**Blocked:** none.
 ## 2026-08-21 — D-1346 dothrow.c throwit killer_xname
 
 **Objective:** Open `dothrow.c` throwit `losehp` `killer_xname`
