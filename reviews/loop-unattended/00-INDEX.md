@@ -309,3 +309,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [297-31d32cad-killer-xname.md](./297-31d32cad-killer-xname.md) | `31d32cad` | D-1335 `killer_xname` kickobjnam | **ACCEPT-WITH-DEBT** |
 | [298-a7ac5e52-maybe-mnexto.md](./298-a7ac5e52-maybe-mnexto.md) | `a7ac5e52` | D-1336 `maybe_mnexto` kick evade | **ACCEPT-WITH-DEBT** |
 | [299-2bd70a77-splash-lit.md](./299-2bd70a77-splash-lit.md) | `2bd70a77` | D-1337 `splash_lit` | **ACCEPT-WITH-DEBT** |
+| [300-2368dc58-gazemm.md](./300-2368dc58-gazemm.md) | `2368dc58` | D-1338 `gazemm` | **ACCEPT-WITH-DEBT** |
+| [301-fdb30435-explmm.md](./301-fdb30435-explmm.md) | `fdb30435` | D-1339 `explmm` | **ACCEPT-WITH-DEBT** |
+| [302-85eee14d-mattackm-at-hugs.md](./302-85eee14d-mattackm-at-hugs.md) | `85eee14d` | D-1340 mattackm AT_HUGS | **ACCEPT-WITH-DEBT** |
+| [303-e3a30202-shade-miss.md](./303-e3a30202-shade-miss.md) | `e3a30202` | D-1341 hitmm `shade_miss` | **ACCEPT-WITH-DEBT** |

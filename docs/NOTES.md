@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1341; cadence **#1695** `2bd70a77`
-  (Scr **11,405** RNG 100% speed `36+0.30/turn`). Reviews **296–299**
+- **Fortress 44/44** after D-1341; cadence **#1700** `e3a30202`
+  (Scr **11,405** RNG 100% speed `36+0.29/turn`). Reviews **300–303**
   ACCEPT-WITH-DEBT (no Must-fix). Next: Open `artifact.c`
   `arti_reflects` W_WEP (named from D-1328). Not gazemu. Do not
   skip D-1341…D-1229. Do not wrap `wildmiss` as `pline_mon`. No

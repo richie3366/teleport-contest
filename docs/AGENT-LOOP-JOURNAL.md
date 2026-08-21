@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — review D-1338–D-1341 (audit #1700)
+
+**Objective:** audit — C-fidelity reviews **300–303** of JS SHAs
+since `38b3ff39`, plus full `sessions` score. No `js/` port.
+**C locus:** `mhitm.c` gazemm / explmm / AT_HUGS; `uhitm.c`
+`shade_miss` + `hitmm`.
+**Change:** **300–303** ACCEPT-WITH-DEBT. No Must-fix. Filled
+D-1341 archive hash `e3a30202`. Cadence **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.29/turn` (R² 0.85) at `e3a30202`. Rule #2: no fs.
+**Score:** fortress held. Next audit @**#1705**.
+**Verified:** `node frozen/ps_test_runner.mjs sessions` (this iter).
+**Next:** Open `artifact.c` `arti_reflects` W_WEP (named from
+D-1328). Not gazemu.
+**Blocked:** none.
 ## 2026-08-21 — D-1341 uhitm.c shade_miss + hitmm
 
 **Objective:** Open `mhitm.c` hitmm `shade_miss` (named from D-0887).
