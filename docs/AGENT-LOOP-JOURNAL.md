@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1364 zap.c zapyourself WAN/SPE_MAGIC_MISSILE
+
+**Objective:** Open `zap.c` `zapyourself` WAN_MAGIC_MISSILE
+(named). Not WAN_LIGHTNING.
+**C locus:** `zap.c` `zapyourself` `:2790–2802` (WAN + SPE
+same case). Caller `dozap` `:2658–2663`.
+**Change:** always learn; Antimagic `pline_The` bounce with
+no `d()`; else `d(4,6)` + Idiot (two spaces). Bounce is not
+zhitu `"bounce off"`. Filled D-1363 archive hash.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session self-zaps magic missile).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapyourself` SPE_FIREBALL (named).
+Not lightning.
+**Blocked:** none.
 ## 2026-08-21 — D-1363 mkobj.c mksobj_migr_to_species / stolen_booty
 
 **Objective:** Open `dokick.c` `obj_delivery` stolen_booty /

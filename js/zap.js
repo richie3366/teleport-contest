@@ -13,6 +13,7 @@
 // WAN_TELEPORTATION / WAN_UNDEAD_TURNING / WAN_LIGHT /
 // WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN (D-0974);
 // WAN_LIGHTNING + flashburn (D-1355);
+// WAN/SPE_MAGIC_MISSILE (D-1364);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
@@ -157,6 +158,7 @@ const MZ_HUMAN = MZ_MEDIUM;
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
 const SPE_EXTRA_HEALING = objectNames.indexOf('SPE_EXTRA_HEALING');
 const WAN_MAGIC_MISSILE = objectNames.indexOf('WAN_MAGIC_MISSILE');
+const SPE_MAGIC_MISSILE = objectNames.indexOf('SPE_MAGIC_MISSILE');
 const WAN_SLEEP = objectNames.indexOf('WAN_SLEEP');
 const WAN_LIGHT = objectNames.indexOf('WAN_LIGHT');
 const WAN_LIGHTNING = objectNames.indexOf('WAN_LIGHTNING');
@@ -3109,6 +3111,7 @@ export async function flashburn(duration, via_lightning) {
  * WAN_UNDEAD_TURNING / WAN_LIGHT / WAN_OPENING / SPE_KNOCK;
  * WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN;
  * WAN_LIGHTNING + flashburn (D-1355);
+ * WAN/SPE_MAGIC_MISSILE (D-1364);
  * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
@@ -3321,6 +3324,20 @@ export async function zapyourself(obj, ordinary) {
         await flashburn(rnd(100), true);
         break;
     }
+
+    case WAN_MAGIC_MISSILE:
+    case SPE_MAGIC_MISSILE:
+        // C zap.c zapyourself :2790–2802 — always learn;
+        // Antimagic → pline_The bounce (no d()); else d(4,6)+Idiot.
+        // shieldeff / monstseesu named.
+        learn_it = true;
+        if (Antimagic()) {
+            await pline('The missiles bounce!');
+        } else {
+            damage = d(4, 6);
+            await pline("Idiot!  You've shot yourself!");
+        }
+        break;
 
     default:
         // Other zapyourself cases deferred

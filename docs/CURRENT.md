@@ -59,23 +59,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1363. Reviews **321–322**
+**Map-driven fortress** after D-1364. Reviews **321–322**
 ACCEPT-WITH-DEBT (no Must-fix). **Next cluster:** Open
-`zap.c` `zapyourself` WAN_MAGIC_MISSILE (named). Not
-WAN_LIGHTNING.
-Do not skip D-1363…D-1229 (index). Keep mention_map addr. Do
+`zap.c` `zapyourself` SPE_FIREBALL (named). Not lightning.
+Do not skip D-1364…D-1229 (index). Keep mention_map addr. Do
 not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1363.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1364.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1363 (index). Recent: **D-1363** mkobj.c
-`mksobj_migr_to_species` + mkmaze.c `stolen_booty` (D-1177
-omit). Prior: **D-1362** no_kick; **D-1361** drawbridge remap;
-**D-1360** `u_wipe_engr(2)`.
+**Keep:** D-0845…D-1364 (index). Recent: **D-1364** zap.c
+`zapyourself` WAN/SPE_MAGIC_MISSILE. Prior: **D-1363**
+`mksobj_migr_to_species` / `stolen_booty`; **D-1362** no_kick;
+**D-1361** drawbridge remap; **D-1360** `u_wipe_engr(2)`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1363
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1364
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

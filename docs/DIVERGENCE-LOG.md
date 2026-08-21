@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1364 — zap.c zapyourself WAN/SPE_MAGIC_MISSILE
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** self-zapping a wand (or spell) of magic missile
+  was a no-op (default arm). C always learns, then either
+  Antimagic `pline_The("missiles bounce!")` with no `d()`,
+  or `d(4,6)` + `"Idiot!  You've shot yourself!"`.
+- **C locus:** `zap.c` `zapyourself` `:2790–2802` (same case
+  as `SPE_MAGIC_MISSILE`). Caller `dozap` `:2658–2663`
+  `losehp` via `killer_xname` (D-1345).
+- **JS was:** named omit (D-1355). WAN_LIGHTNING lived;
+  missile fell through default.
+- **Fix:** WAN/SPE_MAGIC_MISSILE arm. Antimagic short-circuits
+  `d(4,6)`. Bounce is `"The missiles bounce!"` (not zhitu
+  `"bounce off"`). Two spaces after `Idiot!`. `learnwand`
+  still skips `SPBOOK_CLASS`. shieldeff/monstseesu named.
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `zapyourself`.
+- **Not this iter:** SPE_FIREBALL; `lightdamage`; WAN_MAKE_INVISIBLE;
+  `maybe_destroy_item` AD_ELEC body; ugolemeffects / shieldeff /
+  monstseesu.
+- **Verified:** private canary **22**/22 (C/JS case grep; seeing
+  `d(4,6)` + Idiot; Antimagic 0 dmg no `d(4,6)` bounce; SPE
+  same envelope + SPBOOK skip; FIREBALL/MAKE_INVISIBLE still
+  default; lightning regression; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session self-zaps magic missile.
+- **Follow-up:** Open `zap.c` `zapyourself` SPE_FIREBALL
+  (named). Not lightning.
+- **Files:** `js/zap.js`.
+
 ## D-1363 — mkobj.c mksobj_migr_to_species / mkmaze.c stolen_booty
 
 - **Status:** fixed (map-driven Open from D-1177; not a public FAIL)
