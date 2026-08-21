@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `objnam.c` `the()` CapitalMon (named from D-1335). Not warn_obj. **Addressed:** D-1357
+- [x] `dokick.c` `wake_nearby` caller (C `:1383` after maybe_kick; callee live). Not knockback. **Addressed:** D-1358
+
+
+- [x] `objnam.c` `the()` CapitalMon (named from D-1335). Not warn_obj. **Addressed:** D-1357 `0be5135b`
 
 
 - [x] `eat.c` lesshungry/bite choke callers (named from D-1344). Not zap. **Addressed:** D-1356 `6fd45ec4`

@@ -3,6 +3,7 @@
 // kick_monster, kickdmg (partial; poly AT_KICK D-1310; special_dmgval D-1332;
 // maybe_mnexto evade D-1336; abuse_dog/monflee D-1349;
 // martial knockback D-1350);
+// dokick wake_nearby(FALSE) D-1358);
 // down_gate / drop_to / impact_drop (D-0961);
 // ship_object / otransit_msg (D-0984); obj_delivery (D-1177);
 // deliver_obj_to_mon (D-1193);
@@ -46,7 +47,8 @@ import {
     mintrap, Trap_Killed_Mon, NO_TRAP_FLAGS,
 } from './trap.js';
 import {
-    setmangry, seemimic, angry_guards, wakeup, wake_nearto, maybe_mnexto,
+    setmangry, seemimic, angry_guards, wakeup, wake_nearto, wake_nearby,
+    maybe_mnexto,
 } from './mon.js';
 import { abuse_dog } from './dog.js';
 import { monflee, set_apparxy } from './monmove.js';
@@ -879,6 +881,7 @@ async function kickdmg(mon, clumsy) {
  * Poly AT_KICK loop D-1310 (`Upolyd && attacktype(AT_KICK)` then return).
  * maybe_mnexto evade D-1336 (`:267–285` else of block).
  * kickdmg abuse_dog D-1349. martial knockback D-1350.
+ * dokick() wake_nearby(FALSE) D-1358 runs before this (clears msleeping).
  */
 export async function kick_monster(mon, x, y) {
     let clumsy = false;
@@ -1569,8 +1572,10 @@ export async function dokick() {
         }
     }
 
-    // wake_nearby(FALSE) / u_wipe_engr(2) — no RNG when no engraving;
-    // wake/engraving side effects deferred
+    /* C dokick.c `:1383` — wake_nearby(FALSE) after maybe_kick, before
+     * u_wipe_engr / isok / kick_monster. Callee live (mon.js D-1007). */
+    await wake_nearby(false);
+    // u_wipe_engr(2) — no RNG when no engraving; deferred (D-1051 body)
 
     if (!isok(x, y)) {
         // C dokick.c:1387 gm.maploc = &gn.nowhere then kick_ouch

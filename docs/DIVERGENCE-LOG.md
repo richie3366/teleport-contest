@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1358 — dokick.c dokick wake_nearby(FALSE)
+
+- **Status:** fixed (map-driven Open from D-1350; not a public FAIL)
+- **Symptom:** `#kick` never woke nearby sleepers/waiters. C
+  `dokick()` calls `wake_nearby(FALSE)` after `maybe_kick_monster`
+  (or when there is no monster) and **before** `u_wipe_engr` /
+  `kick_monster`, so a sleeper’s `msleeping` is already clear for
+  the evade `!msleeping` gate. JS had a stub comment.
+- **C locus:** `dokick.c` `dokick` `:1383` (`wake_nearby(FALSE)`);
+  callee `mon.c` `wake_nearby` `:4367–4370` →
+  `wake_nearto_core(u.ux, u.uy, u.ulevel * 20, petcall)` `:4374–4398`
+  (`dist2 < radius`; `wake_msg`; clear `msleeping`; `!G_UNIQ`
+  clear `STRAT_WAITMASK`; petcall whistletime only if not
+  `mon_moving`; `disturb_buried_zombies`). Early return
+  `:1378–1380` when maybe_kick declines skips the wake.
+- **JS was:** named omit after D-1350. `wake_nearby` already live
+  in `mon.js` (D-1007); `dokick()` never called it.
+- **Fix:** `await wake_nearby(false)` after the maybe_kick
+  keep-path, before `isok` / `kick_monster`. Import the live
+  callee. `u_wipe_engr(2)` stays named (next Open). Rule #2: no fs.
+- **JS:** `js/dokick.js` `dokick`; callee `js/mon.js` `wake_nearby`.
+- **Not this iter:** `u_wipe_engr(2)`; shop-town watchman;
+  swallow / pit / levitation brace; glyph / `map_invisible` /
+  air recoil; local `wake_nearby` clones in trap/lock/timeout/dig.
+- **Verified:** private canary **23**/23 (C/JS call order;
+  declined-kick returns first; no `u_wipe_engr` yet; radius
+  `dist2<ulevel*20`; G_UNIQ waitmask; DEADMONSTER skip; petcall
+  FALSE skips whistletime; Rule #2); green+strict seed8000/0900;
+  focused seed0060; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383. **Public-unhit** unless a session kicks near a
+  sleeper (`wake_msg` pline / evade `!msleeping`).
+- **Follow-up:** Open `dokick.c` `u_wipe_engr` caller.
+- **Files:** `js/dokick.js`.
+
 ## D-1357 — objnam.c the() CapitalMon
 
 - **Status:** fixed (map-driven Open from D-1335; not a public FAIL)

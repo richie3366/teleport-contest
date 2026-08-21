@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1357; cadence **#1720** `6570ddba`
+- **Fortress 44/44** after D-1358; cadence **#1720** `6570ddba`
   (Scr **11,405** RNG 100% speed `37+0.31/turn`). Reviews
   **313–316** ACCEPT-WITH-DEBT (no Must-fix). Next: Open
-  `dokick.c` `wake_nearby` caller (C `:1383`; callee live).
-  Not knockback. Do not skip D-1357…D-1229. Do not wrap
+  `dokick.c` `u_wipe_engr` caller (C `:1384`; body D-1051).
+  Not knockback. Do not skip D-1358…D-1229. Do not wrap
   `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1357. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1358. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1357.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1358.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,11 +36,11 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1357 (index). Named still: hitmm artifact
+- Do not skip D-1071…D-1358 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
-  mhitm wrap brush; `wake_nearby` / `u_wipe_engr` kick
-  callers. No ALIGN/FORCE on seed0383.
+  mhitm wrap brush; `u_wipe_engr` kick caller. No ALIGN/FORCE
+  on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -51,6 +51,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1358: `dokick.c` `dokick` `:1383` — after maybe_kick,
+  `wake_nearby(FALSE)` (`ulevel*20`, petcall FALSE) before
+  `u_wipe_engr` / `kick_monster`. Callee live. Declined
+  peaceful returns first. `u_wipe_engr(2)` named.
 - D-1357: `objnam.c` `the()` + `rumors.c` `CapitalMon`/
   `init_CapMons` — G_UNIQ titles/types (Oracle, Archon)
   get `"the "`; pname uniques (Medusa) do not; first-space
@@ -85,7 +89,7 @@ Objective/score live in `CURRENT.md`.
   `!bigmonst` `!rn2(3)` then `mcanmove`/`!ustuck`/`!mtrapped`.
   `goodpos(...,0)` then reels pline, `m_in_out_region`,
   remove/place, `set_apparxy`, `mintrap` Trap_Killed_Mon
-  skips `killed`. Not mhurtle. `wake_nearby` named.
+  skips `killed`. Not mhurtle. `wake_nearby` is D-1358.
 - D-1349: `dokick.c` `kickdmg` `:70–76` — tame `abuse_dog` then
   still-tame `monflee(dmg?rnd(dmg):1)` else `mflee=0`, after
   caitiff and before `rnd(dmg)`. Callees already D-0836.
@@ -106,6 +110,3 @@ Objective/score live in `CURRENT.md`.
 - D-1344: `eat.c` `choke` `:268–284` — non-coin `killer_xname` +
   `KILLED_BY`; coins `"very rich meal"`; null `"quick snack"`.
   eataccessory AoS live; lesshungry/bite is D-1356; throw_obj petrify named.
-- D-1343: `dokick.c` `kickstr` `:794–830` + `kick_ouch` `:903`
-  `"kicking "` + kickobjnam or terrain noun. `game.maploc` null =
-  nowhere. Drawbridge remap named.

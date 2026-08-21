@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1358 dokick.c wake_nearby caller
+
+**Objective:** Open `dokick.c` `wake_nearby` caller (C `:1383`
+after maybe_kick; callee live). Not knockback.
+**C locus:** `dokick.c` `dokick` `:1383`; callee `mon.c`
+`wake_nearby` `:4367–4370` / `wake_nearto_core`.
+**Change:** after maybe_kick succeeds (or no mtmp),
+`await wake_nearby(false)` before isok / kick_monster.
+Declined peaceful still returns first. `u_wipe_engr(2)` named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session kicks near a sleeper). Next audit @**#1725**.
+**Verified:** canary **23**/23; green+strict seed8000/0900;
+focused seed0060; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dokick.c` `u_wipe_engr` caller (C `:1384`;
+body D-1051). Not knockback.
+**Blocked:** none.
 ## 2026-08-21 — D-1357 objnam.c the() CapitalMon
 
 **Objective:** Open `objnam.c` `the()` CapitalMon (named from
