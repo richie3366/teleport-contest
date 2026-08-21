@@ -15,6 +15,7 @@
 // kick_object/instapetrify killer_xname (D-1335);
 // kickstr (D-1343);
 // kick_ouch drawbridge find_drawbridge remap (D-1361);
+// kick_ouch/kick_dumb airlevel/Levitation hurtle (D-1370);
 // Is_box container_impact/lock/lid/chest_trap + ghitm (D-0989).
 
 import { game } from './gstate.js';
@@ -117,7 +118,7 @@ import { scatter } from './explode.js';
 import { enexto, rloco, noteleport_level, goodpos } from './teleport.js';
 import { is_art } from './artifact.js';
 import { ART_MJOLLNIR } from './generated/artifacts_data.js';
-import { hero_breaks, thitmonst, breaks, breaktest } from './dothrow.js';
+import { hero_breaks, thitmonst, breaks, breaktest, hurtle } from './dothrow.js';
 import { finish_meating, obj_resists } from './dogmove.js';
 import { polymon } from './polyself.js';
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -194,6 +195,16 @@ function is_plural(obj) {
 
 function Blind() {
     return !!(game.u?.Blind || game.u?.ublind);
+}
+
+/**
+ * C youprop.h Levitation — (HLevitation || ELevitation) && !BLevitation.
+ * Sticky u.Levitation is not a C field (D-1070).
+ */
+function Levitation() {
+    const u = game.u || {};
+    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !(u.BLevitation | 0));
 }
 
 function Role_if(pm) {
@@ -274,6 +285,8 @@ function martial() {
  * C ref: dokick.c kick_dumb — empty space / open doorway.
  * RNG: exercise(A_DEX, FALSE) always; low-DEX strain path adds rn2(3),
  * exercise(A_STR, FALSE), and set_wounded_legs(RIGHT_SIDE, 5+rnd(5)).
+ * Air/Lev recoil: (Is_airlevel || Levitation) && rn2(2) then
+ * hurtle(-dx,-dy,1,TRUE) (D-1370).
  */
 async function kick_dumb(x, y) {
     exercise(A_DEX, false);
@@ -286,9 +299,12 @@ async function kick_dumb(x, y) {
         // C: set_wounded_legs(RIGHT_SIDE, 5 + rnd(5)) — ATEMP(DEX)-- (D-0785)
         await set_wounded_legs(RIGHT_SIDE, 5 + rnd(5));
     }
-    // Airlevel / Levitation hurtle deferred
-    void x;
-    void y;
+    /* C dokick.c:876–877 — short-circuit: airlevel first, then
+     * Levitation macro, then rn2(2); range 1 (light). */
+    if ((Is_airlevel(game.u?.uz) || Levitation()) && rn2(2)) {
+        const u = game.u || {};
+        await hurtle(-(u.dx || 0), -(u.dy || 0), 1, true);
+    }
 }
 
 /**
@@ -327,7 +343,7 @@ export function kickstr(kickobjnam) {
 
 /**
  * C ref: dokick.c kick_ouch — solid terrain / failed impact (partial).
- * wake_nearto wired; drawbridge wall remap D-1361; airlevel hurtle deferred.
+ * wake_nearto wired; drawbridge wall remap D-1361; air/Lev hurtle D-1370.
  * losehp applies the damage roll (regen_hp needs uhp < uhpmax).
  * set_wounded_legs on !rn2(3) → ATEMP(DEX)-- (D-0785).
  * killer string via kickstr (D-1343) after maploc remap.
@@ -358,7 +374,14 @@ export async function kick_ouch(x, y, kickobjnam = '') {
     //     losehp(Maybe_Half_Phys(dmg), kickstr(buf, kickobjnam), KILLED_BY);
     const dmg = rnd(acurr(A_CON) > 15 ? 3 : 5);
     await losehp(maybe_half_phys(dmg), kickstr(kickobjnam), KILLED_BY);
-    // Is_airlevel / Levitation hurtle deferred
+    /* C dokick.c:903–905 — losehp is noreturn on death. Else
+     * if (Is_airlevel || Levitation) hurtle(-dx,-dy,rn1(2,4),TRUE).
+     * rn1 is an argument so it burns only when the if is true. */
+    if (game._losehp_needs_done || game.program_state?.gameover) return;
+    if (Is_airlevel(game.u?.uz) || Levitation()) {
+        const u = game.u || {};
+        await hurtle(-(u.dx || 0), -(u.dy || 0), rn1(2, 4), true);
+    }
 }
 
 /**

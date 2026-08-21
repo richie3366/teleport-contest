@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1369; cadence **#1735** `9a144895`
+- **Fortress 44/44** after D-1370; cadence **#1735** `9a144895`
   (Scr **11,405** RNG 100% speed `36+0.29/turn`). Open
-  `zapyourself` WAN_MAKE_INVISIBLE shipped: msg snapshot,
-  mummy wrapping absorb, `incr_itimeout(&HInvis, rn1(15,31))`,
-  learn+newsym+`self_invis_message`. Next Open: dokick
-  air/Lev `hurtle`. Do not skip D-1369…D-1229. No FORCE.
-  Do not rewrite `confer_oc_oprop`. Do not wrap `wildmiss`.
-- Do not revert D-1217–D-1369. `see_monsters` warn_obj_cnt /
+  kick_ouch/kick_dumb air/Lev `hurtle` shipped: youprop
+  `(H||E)&&!B`; dumb `rn2(2)` range 1; ouch `rn1(2,4)` after
+  losehp noreturn skip. Next Open: allmain `u_wipe_engr`.
+  Do not skip D-1370…D-1229. No FORCE. Do not rewrite
+  `confer_oc_oprop`. Do not wrap `wildmiss`.
+- Do not revert D-1217–D-1370. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1369.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1370.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,8 +35,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1369 (index).
-- Do not skip D-1071…D-1369 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1370 (index).
+- Do not skip D-1071…D-1370 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush; allmain/uhitm/dothrow/dig `u_wipe_engr`.
@@ -52,6 +52,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1370: `dokick.c` `kick_dumb` `:876–877` + `kick_ouch`
+  `:904–905` — air/Lev `hurtle`. Dumb: `(Is_airlevel ||
+  Levitation) && rn2(2)` range 1. Ouch: after `losehp`
+  (noreturn skip) `rn1(2,4)`. Levitation is youprop
+  `(H||E)&&!B` (D-1070). Callee `dothrow.js` `hurtle`.
+  Monster recoil / `kick_object` air still named.
 - D-1369: `zap.c` `zapyourself` WAN_MAKE_INVISIBLE `:2825–2842`
   — snapshot `!Invis && !Blind && !BInvis`; wrapping
   `You_feel` itchy absorb; else `incr_itimeout(&HInvis,
@@ -99,7 +105,7 @@ Objective/score live in `CURRENT.md`.
   then `pline_The` unaffected, `find_drawbridge` remaps `gm.maploc`
   (and x,y for `wake_nearto 5*5`) to the span so `kickstr` is
   `"kicking a drawbridge"` not IS_STWALL `"a wall"`. Live
-  `dbridge.js` callees. Air/Lev `hurtle` named.
+  `dbridge.js` callees. Air/Lev `hurtle` is D-1370.
 - D-1360: `dokick.c` `dokick` `:1384` — after `wake_nearby(FALSE)`,
   `u_wipe_engr(2)` (hero cell; body D-1051). Declined peaceful
   returns first. No RNG when no engraving. allmain/uhitm/
@@ -124,7 +130,3 @@ Objective/score live in `CURRENT.md`.
   learn + `d(12,6)` + Shock shock/exercise vs unharmed;
   `destroy_items` AD_ELEC; `flashburn(rnd(100),TRUE)`.
   ugolemeffects / `lightdamage` named. AD_ELEC destroy is D-1368.
-- D-1354: `weapon.c` `dmgval` `:307–308` shade
-  `!shade_glare` tmp=0; `artifact.c` `shade_glare`
-  `:555–571` silver or SPFX_DFLAG2+M2_UNDEAD.
-  Dice still burn. Blessed/thick-skin/hmon ranged named.

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `zap.c` `zapyourself` WAN_MAKE_INVISIBLE (named). Not lightning. **Addressed:** D-1369
+- [x] `dokick.c` kick_ouch/kick_dumb airlevel/Levitation `hurtle` (named from D-1361). Not no_kick. **Addressed:** D-1370
+
+
+- [x] `zap.c` `zapyourself` WAN_MAKE_INVISIBLE (named). Not lightning. **Addressed:** D-1369 `46c4e1b0`
 
 
 - [x] `zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself lightning. **Addressed:** D-1368 `9df30ee3`

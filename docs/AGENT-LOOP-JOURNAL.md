@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1370 dokick.c kick_ouch/kick_dumb air/Lev hurtle
+
+**Objective:** Open `dokick.c` kick_ouch/kick_dumb airlevel/Levitation
+`hurtle` (named from D-1361). Not no_kick.
+**C locus:** `dokick.c` `kick_dumb` `:876–877`; `kick_ouch`
+`:904–905`; `youprop.h` Levitation; callee `dothrow.c` `hurtle`.
+**Change:** youprop `(H||E)&&!B`; dumb `rn2(2)` range 1; ouch
+`rn1(2,4)` after losehp noreturn skip. Live `hurtle`. Filled
+D-1369 archive hash `46c4e1b0`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session kicks while air/lev).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; focused seed0060; cohort **8**/8 + strict
+1500/1800/0012/0004/0007/2200/0383 + seed0060.
+**Next:** Open `allmain.c` `u_wipe_engr` DEX timeout caller
+(named from D-1360). Not dokick.
+**Blocked:** none.
 ## 2026-08-21 — D-1369 zap.c zapyourself WAN_MAKE_INVISIBLE
 
 **Objective:** Open `zap.c` `zapyourself` WAN_MAKE_INVISIBLE

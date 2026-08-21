@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1370 — dokick.c kick_ouch/kick_dumb airlevel/Levitation hurtle
+
+- **Status:** fixed (map-driven Open from D-1361; not a public FAIL)
+- **Symptom:** kicking empty space (`kick_dumb`) or a solid
+  (`kick_ouch`) while on the Plane of Air or levitating never
+  recoiled. C knocks the hero backward via `hurtle`.
+- **C locus:** `dokick.c` `kick_dumb` `:876–877` —
+  `(Is_airlevel(&u.uz) || Levitation) && rn2(2)` then
+  `hurtle(-u.dx, -u.dy, 1, TRUE)`. `kick_ouch` `:904–905` —
+  after `losehp` (noreturn on death), `Is_airlevel || Levitation`
+  then `hurtle(-u.dx, -u.dy, rn1(2, 4), TRUE)`. Macro
+  `youprop.h` Levitation `(H||E)&&!B`. Callee `dothrow.c`
+  `hurtle` (live D-1038 / D-1165 / D-1277).
+- **JS was:** named omit after D-1361 (`// Airlevel / Levitation
+  hurtle deferred`).
+- **Fix:** local youprop helper (not sticky `u.Levitation`);
+  dumb short-circuit then range-1 `hurtle`; ouch skip when
+  `_losehp_needs_done` / gameover, else `rn1(2,4)`. Import live
+  `hurtle` from `dothrow.js`. Rule #2: no fs.
+- **JS:** `js/dokick.js` `kick_dumb` / `kick_ouch` / `Levitation`;
+  callee `js/dothrow.js` `hurtle`.
+- **Not this iter:** dokick monster-kick recoil (`:1427–1439`);
+  `kick_object` air `hurtle` (`:1456–1458`); shop-town watchman;
+  swallow/pit-brace/Lev after getdir.
+- **Verified:** private canary **18**/18 (C/JS grep; grounded no
+  recoil; H/E hurtle range>1 + recede; BLev blocks; airlevel
+  despite B; fatal losehp noreturn; live dokick `kick_dumb`
+  float-or-skip never hurtle; grounded skips `rn2(2)`; Rule #2);
+  green+strict seed8000/0900; focused seed0060; cohort **8**/8
+  + strict 1500/1800/0012/0004/0007/2200/0383 + seed0060.
+  **Public-unhit** unless a session kicks while air/lev.
+- **Follow-up:** Open `allmain.c` `u_wipe_engr` DEX timeout
+  caller (named from D-1360). Not dokick.
+- **Files:** `js/dokick.js`.
+
 ## D-1369 — zap.c zapyourself WAN_MAKE_INVISIBLE
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

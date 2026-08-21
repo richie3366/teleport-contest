@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dokick.c` kick_ouch/kick_dumb airlevel/Levitation `hurtle` (named from D-1361). Not no_kick.
 - [ ] `allmain.c` `u_wipe_engr` DEX timeout caller (named from D-1360). Not dokick.
 - [ ] `uhitm.c` `u_wipe_engr` attacker caller (named from D-1360). Not allmain.
 - [ ] `dothrow.c` `u_wipe_engr` caller (named from D-1360). Not uhitm.
