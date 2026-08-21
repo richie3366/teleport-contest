@@ -2130,7 +2130,7 @@ function m_next2u_mm(mtmp) {
  * C ref: uhitm.c shade_miss :2016–2051 — hero/mon vs shade.
  * dmgval is zero/not-zero (weapon.c shade/`shade_glare` D-1354).
  * Caller mthrowu m_throw is D-1382; zap bhit is D-1383;
- * hmon / mhitm_ad_phys still named.
+ * hmon is D-1384; mhitm_ad_phys still named.
  */
 export async function shade_miss(magr, mdef, obj, thrown, verbose) {
     const youagr = magr === game.youmonst;
@@ -2477,7 +2477,8 @@ async function gulpmm(magr, mdef, mattk) {
  * mdamagem AD_STON leftover is D-1352.
  * arti_reflects(MON_WEP) is D-1342.
  * hitmm shade_miss is D-1341; hitmm silver sear is D-1351;
- * zap bhit shade_miss is D-1383; hmon / mhitm_ad_phys still named.
+ * zap bhit shade_miss is D-1383; hmon shade_miss is D-1384;
+ * mhitm_ad_phys still named.
  */
 export async function gazemm(magr, mdef, mattk) {
     if (!magr || !mdef || !mattk) return M_ATTK_MISS;

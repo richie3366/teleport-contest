@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1384 — uhitm.c hmon shade_miss
+
+- **Status:** fixed (map-driven Open from D-1354; not a public FAIL)
+- **Symptom:** melee or applied 0-dmg vs a shade printed "You hit"
+  (and unarmed still rolled `rnd(2/4)` HP). C `hmon_hitmon`
+  `if (hmd.dmg < 1)` zeros shade dmg then
+  `shade_miss(&gy.youmonst, mon, obj, FALSE, TRUE)` so
+  harmlessly-through + wake + `hittxt` (no hit pline). Thrown/kicked
+  skip this caller (`zap.c` `bhit` D-1383).
+- **C locus:** `uhitm.c` `hmon_hitmon` `:1812–1822`; barehands shade
+  zero `:842–844`; callee `shade_miss` `:2016–2051` (`dmgval`
+  zero/not-zero; melee `Your`). Helper already live (D-1341);
+  shade/`shade_glare` zero already live (D-1354); zap `bhit` is
+  D-1383; mthrowu is D-1382.
+- **JS was:** named omit. Weapon `dmgval` 0 still said You hit;
+  unarmed ignored the shade zero.
+- **Fix:** barehands shade `dmg=0` (special_dmgval gloves/rings
+  named). After recalc, `dmg<1` melee/applied
+  `await shade_miss(youmonst, mon, obj, false, true)`. Thrown/kicked
+  skip. Silver/`shade_glare` still hits. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `hmon`; callee `js/mhitm.js` `shade_miss`.
+- **Not this iter:** `mhitm_ad_phys` shade_miss; non-shade
+  `get_dmg_bonus` min-1; unarmed special_dmgval; cream pie/potion
+  vs shade; hmonas inline harmlessly; ranged bash `rnd(2)`.
+- **Verified:** private canary **17**/17 (C/JS grep; melee club
+  harmlessly + wake + no HP; punch no rnd; applied Your; thrown/
+  kicked skip in hmon; silver saber glare hits; gnome still hits;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session melees a shade with a non-glare weapon.
+- **Follow-up:** Open `mhitm.c` `mdamagem` AD_CONF leftover.
+- **Files:** `js/uhitm.js`, `js/mhitm.js` (caller comment).
+
 ## D-1383 — zap.c bhit shade_miss
 
 - **Status:** fixed (map-driven Open from D-1354; not a public FAIL)

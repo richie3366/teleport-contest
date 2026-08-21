@@ -1,13 +1,14 @@
 // uhitm.js — Hero hitting monsters (partial).
 // C ref: uhitm.c — do_attack / attack_checks mimic / stumble_onto_mimic / hitum / known_hitum / find_roll_to_hit / hmon / hmonas / explum / gulpum / damageum;
 //         do_attack u_wipe_engr(3) D-1373; do_attack leprechaun evade D-1381;
+//         hmon shade_miss D-1384;
 //         hack.c overexertion; mon.c killed / xkilled / corpse_chance.
 
 import { game } from './gstate.js';
 import { rn2, rnd, d, rn1 } from './rng.js';
 import {
     IS_OBSTRUCTED, IS_TREE, IS_DOOR, IRONBARS, D_CLOSED, D_LOCKED,
-    HMON_MELEE, HMON_THROWN, HMON_APPLIED, STRAT_WAITMASK,
+    HMON_MELEE, HMON_THROWN, HMON_KICKED, HMON_APPLIED, STRAT_WAITMASK,
     STRAT_WAITFORU, AD_SPEL,
     XKILL_GIVEMSG, XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
     LL_CONDUCT, Upolyd, P_BARE_HANDED_COMBAT, P_TWO_WEAPON_COMBAT, P_BASIC, P_WHIP,
@@ -41,7 +42,7 @@ import {
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled,
-    troll_baned, mhitm_ad_poly, could_seduce,
+    troll_baned, mhitm_ad_poly, could_seduce, shade_miss,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
     AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN,
@@ -751,7 +752,9 @@ function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skill,
  * C ref: uhitm.c hmon → hmon_hitmon.
  * Thrown cream pie / blinding venom misc_obj arm (D-0693); melee weapon path.
  * troll_baned around killed (D-1232): set TRUE only, always reset after.
+ * shade_miss melee/applied D-1384 (`:1812–1822`); thrown/kicked are D-1383.
  * Poison / joust / hurtle / pudding split / poiskilled skip still named.
+ * Unarmed special_dmgval gloves/rings + non-shade get_dmg_bonus min-1 named.
  */
 async function hmon(mon, obj, thrown, _dieroll) {
     // C hmon_hitmon_misc_obj CREAM_PIE / BLINDING_VENOM before weapon dmg
@@ -805,10 +808,15 @@ async function hmon(mon, obj, thrown, _dieroll) {
     let train_weapon_skill = false;
     let hittxt = false;
     if (!obj) {
-        // C hmon_hitmon_barehands: rnd(!martial_bonus() ? 2 : 4)
-        dmg = rnd(martial_bonus() ? 4 : 2);
-        use_weapon_skill = true;
-        train_weapon_skill = dmg > 1;
+        // C hmon_hitmon_barehands :842–850 — shade dmg 0 then special_dmgval
+        // (gloves/silver rings named). Else rnd(!martial_bonus() ? 2 : 4).
+        if ((mon.data?.mndx | 0) === PM_SHADE) {
+            dmg = 0;
+        } else {
+            dmg = rnd(martial_bonus() ? 4 : 2);
+            use_weapon_skill = true;
+            train_weapon_skill = dmg > 1;
+        }
     } else if (obj.oclass === WEAPON_CLASS
         || game.objects?.[obj.otyp]?.oc_skill != null) {
         dmg = dmgval(obj, mon);
@@ -830,6 +838,18 @@ async function hmon(mon, obj, thrown, _dieroll) {
     if (dmg > 0) {
         dmg = hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits,
             use_weapon_skill, train_weapon_skill);
+    }
+
+    // C uhitm.c hmon_hitmon :1812–1822 — dmg<1 shade melee/applied
+    // shade_miss(&youmonst,mon,obj,FALSE,TRUE). Thrown/kicked skip here
+    // (zap.c bhit D-1383). Non-shade get_dmg_bonus bump-to-1 named.
+    if (dmg < 1) {
+        const mon_is_shade = (mon.data?.mndx | 0) === PM_SHADE;
+        dmg = 0;
+        if (mon_is_shade && !hittxt
+            && thrown !== HMON_THROWN && thrown !== HMON_KICKED) {
+            hittxt = await shade_miss(game.youmonst, mon, obj, false, true);
+        }
     }
 
     // C: unarmed = !uwep && !uarm && !uarms; stagger before mhp -= dmg
