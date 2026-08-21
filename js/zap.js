@@ -44,7 +44,9 @@
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
-// spell.c skilled SPE_FIREBALL scatter;
+// spell.c skilled SPE_FIREBALL scatter is D-1378 (this callee
+// spell_damage_bonus); unskilled FIREBALL/CONE FALLTHROUGH weffects
+// + zhitm bonus still named.
 // muse MUSE_CAMERA is D-1376; Sunsword invoke_blinding_ray is D-1377.
 // bhitm / zap_updown / zap_steed WAN_MAKE_INVISIBLE; setworn w_blocks.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
@@ -75,7 +77,7 @@ import { doname, xname, yname, distant_name, vtense, The, an, An, killer_xname, 
 import { uhim } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
 import {
-    A_WIS, A_STR, A_CON, A_DEX, A_INT, A_CHA, exercise,
+    A_WIS, A_STR, A_CON, A_DEX, A_INT, A_CHA, exercise, acurr,
 } from './attrib.js';
 import { findit } from './detect.js';
 import {
@@ -1439,7 +1441,7 @@ async function resist(mtmp, oclass, damage, tell) {
  * C ref: zap.c zhitm — wand/spell/breath hit on monster.
  * Envelope: ZT_MAGIC_MISSILE..ZT_ACID dice + cold/fire/elec destroy_items
  * + resist halve. Named omissions: defended(); resists_magm body;
- * spell_damage_bonus; burnarmor/ignite; acid_damage/erode; death-breath
+ * zhitm spell_damage_bonus (helper lives D-1378); burnarmor/ignite; acid_damage/erode; death-breath
  * armor strip; Rider/Death; Knight questart double; shieldeff.
  * @returns {Promise<number>} damage applied (MAGIC_COOKIE = disintegrate)
  */
@@ -1458,7 +1460,7 @@ async function zhitm(mon, type, nd, ootmp) {
             break;
         }
         tmp = d(nd, 6);
-        // spell_damage_bonus deferred
+        // zhitm spell_damage_bonus still named (helper D-1378)
         void spellcaster;
         break;
     case ZT_FIRE:
@@ -3334,6 +3336,29 @@ export async function flashburn(duration, via_lightning) {
 }
 
 /**
+ * C ref: zap.c spell_damage_bonus :3479–3502 — Int then level.
+ * Punish Int<=9 before low level; never drop combined below 1
+ * (leave 0). First caller: spell.c skilled fireball scatter (D-1378).
+ * zhitm / buzz still named.
+ */
+export function spell_damage_bonus(dmgIn) {
+    let dmg = dmgIn | 0;
+    const intell = acurr(A_INT);
+    if (intell <= 9) {
+        if (dmg > 1) dmg = dmg <= 3 ? 1 : dmg - 3;
+    } else if (intell <= 13 || (game.u?.ulevel | 0) < 5) {
+        /* no bonus or penalty */
+    } else if (intell <= 18) {
+        dmg += 1;
+    } else if (intell <= 24 || (game.u?.ulevel | 0) < 14) {
+        dmg += 2;
+    } else {
+        dmg += 3; /* Int 25 */
+    }
+    return dmg;
+}
+
+/**
  * C ref: zap.c zapyourself — self-directed wand/spell effects.
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / WAN_SLEEP /
  * SPE_SLEEP / WAN_DEATH / SPE_FINGER_OF_DEATH / WAN_POLYMORPH /
@@ -3342,7 +3367,7 @@ export async function flashburn(duration, via_lightning) {
  * WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN;
  * WAN_LIGHTNING + flashburn (D-1355);
  * WAN/SPE_MAGIC_MISSILE (D-1364; Antimagic uprops D-1367);
- * SPE_FIREBALL self-explode (D-1365);
+ * SPE_FIREBALL self-explode (D-1365; skilled scatter is spell.c D-1378);
  * lightdamage WAN_LIGHT/CAMERA (D-1366);
  * WAN_MAKE_INVISIBLE (D-1369);
  * other otyps named in C-JS-MAP.
@@ -3515,7 +3540,7 @@ export async function zapyourself(obj, ordinary) {
         // explode(ux, uy, 11 /* ZT_SPELL(ZT_FIRE) */, d(6,6),
         // WAND_CLASS, EXPL_FIERY). No learn_it; damage stays 0
         // (explode handles HP). WAN_FIRE/FIRE_HORN is the next
-        // case (D-0974). spell.c skilled scatter named.
+        // case (D-0974). Skilled scatter is spell.c D-1378.
         await You('explode a fireball on top of yourself!');
         await explode(
             game.u.ux,

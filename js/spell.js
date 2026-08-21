@@ -2,7 +2,8 @@
 // C ref: spell.c initialspell, study_book, cursed_book, learn, dovspell,
 //        dospellmenu, percent_success, spellretention, spelltypemnemonic,
 //        spell_skilltype, skill_based_spellbook_id, docast, getspell,
-//        rejectcasting, spelleffects_check, spelleffects, tport_spell.
+//        rejectcasting, spelleffects_check, spelleffects, tport_spell,
+//        throwspell, can_center_spell_location, spell_aim_step.
 //
 // Branch envelope: spl_book init; initialspell from ini_inv_use_obj;
 // study_book blank + known-refresh yn + delay/too_hard + cursed_book
@@ -10,17 +11,22 @@
 // VIEW menu; Wizard skill_based_spellbook_id; Z/#cast → getspell CAST →
 // spelleffects_check + SPE_HEALING self-zap; tport_spell hide/add for
 // dotelecmd m-prefix (D-1209); known_spell + SPE_TELEPORT_AWAY atme
-// zapyourself + check_capacity in spelleffects_check (D-1225).
+// zapyourself + check_capacity in spelleffects_check (D-1225);
+// skilled SPE_FIREBALL/SPE_CONE_OF_COLD throwspell scatter (D-1378).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps; directional weffects;
-// spell_backfire; amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
+// swap/sort; other spelleffects otyps; unskilled FIREBALL/CONE
+// FALLTHROUGH weffects; directional weffects; spell_backfire;
+// amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
 // In_W_tower in aggravate. #teleport doextcmd D-1230.
 // Wizard turns column in dospellmenu ported (D-0586).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, You_feel, impossible } from './display.js';
+import {
+    flush_screen, pline, You_feel, impossible, canspotmon, tmp_at,
+    clear_nhwindow_message,
+} from './display.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, discover_object, makeknown, near_capacity } from './invent.js';
 import { yn_function } from './getline.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
@@ -29,7 +35,7 @@ import { acurr, A_WIS, A_STR, A_INT, exercise } from './attrib.js';
 import { SPBOOK_CLASS } from './objects.js';
 import { rnd, rn2, rn1, rnl } from './rng.js';
 import { morehungry, poison_strdmg } from './eat.js';
-import { zapyourself } from './zap.js';
+import { zapyourself, spell_damage_bonus } from './zap.js';
 import { tele } from './teleport.js';
 import { aggravate } from './wizard.js';
 import { make_confused } from './potion.js';
@@ -39,6 +45,12 @@ import { uhim } from './roles.js';
 import { erode_obj } from './trap.js';
 import { set_occupation } from './engrave.js';
 import { rndcurse, take_gold } from './sit.js';
+import { explode } from './explode.js';
+import { getpos, getpos_sethilite } from './getpos.js';
+import { cansee } from './vision.js';
+import { m_at } from './mon.js';
+import { walk_path } from './dothrow.js';
+import { distmin } from './hacklib.js';
 import {
     P_NONE,
     P_ATTACK_SPELL,
@@ -65,6 +77,19 @@ import {
     EF_GREASE,
     EF_VERBOSE,
     KILLED_BY_AN,
+    isok,
+    u_at,
+    IS_STWALL,
+    IS_DOOR,
+    ZAP_POS,
+    D_ISOPEN,
+    STONE,
+    Is_waterlevel,
+    EXPL_FIERY,
+    EXPL_FROSTY,
+    DISP_BEAM,
+    DISP_END,
+    HI_ZAP,
 } from './const.js';
 import { objectNames, objectNameStrs } from './generated/objects_data.js';
 import { PM_KNIGHT, PM_WIZARD } from './generated/monsters_data.js';
@@ -104,6 +129,9 @@ const SPE_EXTRA_HEALING = objectNames.indexOf('SPE_EXTRA_HEALING');
 const SPE_DETECT_FOOD = objectNames.indexOf('SPE_DETECT_FOOD');
 const SPE_RESTORE_ABILITY = objectNames.indexOf('SPE_RESTORE_ABILITY');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
+const SPE_MAGIC_MISSILE = objectNames.indexOf('SPE_MAGIC_MISSILE');
+const SPE_FIREBALL = objectNames.indexOf('SPE_FIREBALL');
+const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
 const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
@@ -1192,10 +1220,116 @@ async function spelleffects_check(spell) {
 }
 
 /**
+ * C ref: defsym.h PCHAR S_goodpos — '$' / HI_ZAP (cmap_to_glyph).
+ */
+function cmap_to_glyph_goodpos() {
+    return { ch: '$', color: HI_ZAP, dec: false };
+}
+
+/**
+ * C ref: spell.c spell_aim_step :1607–1615 — walk_path cell ok.
+ */
+function spell_aim_step(_arg, x, y) {
+    if (!isok(x, y)) return false;
+    const loc = game.level?.at?.(x, y);
+    const typ = loc?.typ ?? STONE;
+    if (!ZAP_POS(typ) && !(IS_DOOR(typ) && ((loc?.doormask | 0) & D_ISOPEN))) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * C ref: spell.c can_center_spell_location :1619–1624.
+ */
+function can_center_spell_location(x, y) {
+    const u = game.u || {};
+    if (distmin(u.ux | 0, u.uy | 0, x | 0, y | 0) > 10) return false;
+    const loc = game.level?.at?.(x, y);
+    return isok(x, y) && cansee(x, y) && !IS_STWALL(loc?.typ ?? STONE);
+}
+
+/**
+ * C ref: spell.c display_spell_target_positions :1627–1651.
+ * Hero cell is a valid center but is not highlighted.
+ */
+function display_spell_target_positions(on_off) {
+    if (on_off) {
+        tmp_at(DISP_BEAM, cmap_to_glyph_goodpos());
+        const dist = 10;
+        const u = game.u || {};
+        for (let dx = -dist; dx <= dist; dx++) {
+            for (let dy = -dist; dy <= dist; dy++) {
+                const x = (u.ux | 0) + dx;
+                const y = (u.uy | 0) + dy;
+                if (u_at(x, y)) continue;
+                if (can_center_spell_location(x, y)) tmp_at(x, y);
+            }
+        }
+    } else {
+        tmp_at(DISP_END, 0);
+    }
+}
+
+/**
+ * C ref: spell.c throwspell :1655–1701 — getpos center for skilled
+ * fireball/cone. Returns 1 and sets u.dx/u.dy, or 0 (energy already spent).
+ */
+async function throwspell() {
+    const u = game.u || (game.u = {});
+    if (u.uinwater) {
+        await pline("You're joking!  In this weather?");
+        return 0;
+    } else if (Is_waterlevel(u.uz)) {
+        await pline('You had better wait for the sun to come out.');
+        return 0;
+    }
+
+    await pline('Where do you want to cast the spell?');
+    const cc = { x: u.ux | 0, y: u.uy | 0 };
+    getpos_sethilite(display_spell_target_positions, can_center_spell_location);
+    if ((await getpos(cc, true, 'the desired position')) < 0) {
+        return 0; /* ESC */
+    }
+    clear_nhwindow_message(); /* discard autodescribe feedback */
+
+    if (distmin(u.ux | 0, u.uy | 0, cc.x | 0, cc.y | 0) > 10) {
+        await pline('The spell dissipates over the distance!');
+        return 0;
+    } else if (u.uswallow) {
+        await pline('The spell is cut short!');
+        exercise(A_WIS, false);
+        u.dx = 0;
+        u.dy = 0;
+        return 1;
+    } else {
+        /* C: ((cc != hero) && !cansee && (!m_at || !canspotmon)) || STWALL */
+        let unseen = false;
+        if ((cc.x !== u.ux || cc.y !== u.uy) && !cansee(cc.x, cc.y)) {
+            const mtmp = m_at(cc.x, cc.y);
+            unseen = !mtmp || !canspotmon(mtmp);
+        }
+        if (unseen
+            || IS_STWALL(game.level?.at?.(cc.x, cc.y)?.typ ?? STONE)) {
+            await pline('Your mind fails to lock onto that location!');
+            return 0;
+        }
+    }
+
+    const uc = { x: u.ux | 0, y: u.uy | 0 };
+    walk_path(uc, cc, spell_aim_step, null);
+    u.dx = cc.x;
+    u.dy = cc.y;
+    return 1;
+}
+
+/**
  * C ref: spell.c spelleffects
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / SPE_TELEPORT_AWAY
- * directional self-zap (D-1225 atme ^T). Other otyps named omission
- * (return TIME after energy spent + exercise). Directional weffects named.
+ * directional self-zap (D-1225 atme ^T); skilled SPE_FIREBALL /
+ * SPE_CONE_OF_COLD throwspell scatter (D-1378). Other otyps named
+ * omission (return TIME after energy spent + exercise). Unskilled
+ * FIREBALL/CONE FALLTHROUGH weffects named.
  */
 export async function spelleffects(spell_otyp, atme, force) {
     const spell = force ? spell_otyp : spell_idx(spell_otyp);
@@ -1221,7 +1355,55 @@ export async function spelleffects(spell_otyp, atme, force) {
     const skill = spell_skilltype(otyp);
     const role_skill = P_SKILL(skill);
 
-    if (otyp === SPE_HEALING || otyp === SPE_EXTRA_HEALING
+    if (otyp === SPE_FIREBALL || otyp === SPE_CONE_OF_COLD) {
+        if (role_skill >= P_SKILLED) {
+            if (await throwspell()) {
+                const ccx = game.u.dx | 0;
+                const ccy = game.u.dy | 0;
+                let n = rnd(8) + 1;
+                while (n--) {
+                    if (!game.u.dx && !game.u.dy && !game.u.dz) {
+                        const damage = await zapyourself(pseudo, true);
+                        if (damage) {
+                            losehp(
+                                damage,
+                                `zapped ${uhim()}self with a spell`,
+                                NO_KILLER_PREFIX,
+                            );
+                        }
+                    } else {
+                        await explode(
+                            game.u.dx,
+                            game.u.dy,
+                            otyp - SPE_MAGIC_MISSILE + 10,
+                            spell_damage_bonus(
+                                Math.trunc((game.u.ulevel | 0) / 2) + 1,
+                            ),
+                            0,
+                            otyp === SPE_CONE_OF_COLD
+                                ? EXPL_FROSTY
+                                : EXPL_FIERY,
+                        );
+                    }
+                    game.u.dx = ccx + rnd(3) - 2;
+                    game.u.dy = ccy + rnd(3) - 2;
+                    const loc = isok(game.u.dx, game.u.dy)
+                        ? game.level?.at?.(game.u.dx, game.u.dy)
+                        : null;
+                    if (!isok(game.u.dx, game.u.dy)
+                        || !cansee(game.u.dx, game.u.dy)
+                        || IS_STWALL(loc?.typ ?? STONE)
+                        || game.u.uswallow) {
+                        game.u.dx = ccx;
+                        game.u.dy = ccy;
+                    }
+                }
+            }
+        } else {
+            // Unskilled FALLTHROUGH weffects named
+            await pline('Nothing happens.');
+        }
+    } else if (otyp === SPE_HEALING || otyp === SPE_EXTRA_HEALING
         || otyp === SPE_TELEPORT_AWAY) {
         if ((otyp === SPE_HEALING || otyp === SPE_EXTRA_HEALING)
             && role_skill >= P_SKILLED) {

@@ -4,7 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1378 — spell.c skilled SPE_FIREBALL scatter
+
+- **Status:** fixed (map-driven Open from D-1365; not a public FAIL)
+- **Symptom:** skilled fireball/cone printed `Nothing happens.`
+  C `throwspell` then `rnd(8)+1` `explode` at the getpos cell
+  and `rnd(3)-2` scatter (bounce to center on !isok / !cansee /
+  STWALL / swallow). olet `0` (not WAND_CLASS Role_switch).
+  Self-coord (0,0) / swallow uses `zapyourself` (D-1365).
+- **C locus:** `spell.c` `spelleffects` `:1419–1454`;
+  `throwspell` `:1655–1701` (`spell_aim_step` /
+  `can_center_spell_location` / `display_spell_target_positions`);
+  `zap.c` `spell_damage_bonus` `:3479–3502`. Callee
+  `explode.c` `explode` (live).
+- **JS was:** named omit after D-1365. Healing/teleport arms
+  only; other otyps `Nothing happens.`
+- **Fix:** skilled `P_SKILLED` FIREBALL/CONE scatter +
+  `throwspell` (water/getpos/distmin/swallow/lock-on/`walk_path`).
+  `spell_damage_bonus` exported. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`/`throwspell`;
+  `js/zap.js` `spell_damage_bonus`.
+- **Not this iter:** unskilled FIREBALL/CONE FALLTHROUGH
+  `weffects`/`getdir`; other `spelleffects` otyps; zhitm
+  `spell_damage_bonus`; `display_spell_target_positions` `$`
+  hilite (getvalid live).
+- **Verified:** private canary **23**/23 (C/JS grep; bonus
+  Int/level; unskilled no rnd(8); water/ESC/dist/STWALL;
+  skilled olet 0 + mon HP; CONE; HEALING regression; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until
+  a session casts skilled fireball.
+- **Follow-up:** Open `zap.c` `zapnodir` WAN_CREATE_MONSTER
+  (named). Not light.
+- **Files:** `js/spell.js`, `js/zap.js`.
+
 ## D-1377 — artifact.c invoke_blinding_ray
+
 
 - **Status:** fixed (map-driven Open from D-1366; not a public FAIL)
 - **Symptom:** `#invoke` on Sunsword printed `nothing_happens`.

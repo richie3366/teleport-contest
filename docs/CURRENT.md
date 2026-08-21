@@ -59,22 +59,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1377. **Next cluster:** Open
-`spell.c` skilled SPE_FIREBALL scatter (named from D-1365). Not
-zapyourself explode.
+**Map-driven fortress** after D-1378. **Next cluster:** Open
+`zap.c` `zapnodir` WAN_CREATE_MONSTER (named). Not light.
 Must-fix empty after review **334**.
-Do not skip D-1377…D-1229 (index). Keep mention_map addr.
+Do not skip D-1378…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1377.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1378.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1377 (index). Recent: **D-1377** artifact.js
-`invoke_blinding_ray`. Prior: **D-1376** muse.js
-MUSE_CAMERA `lightdamage`. **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
+**Keep:** D-0845…D-1378 (index). Recent: **D-1378** spell.js
+skilled SPE_FIREBALL/CONE `throwspell` scatter. Prior: **D-1377**
+artifact.js `invoke_blinding_ray`. **Do not / rejects:** FORCE/RNG;
+HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1377
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1378
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` skilled SPE_FIREBALL scatter (named from D-1365). Not zapyourself explode.
 - [ ] `zap.c` `zapnodir` WAN_CREATE_MONSTER (named). Not light.
 - [ ] `zap.c` `zapnodir` WAN_WISHING (named). Not create.
 - [ ] `uhitm.c` `do_attack` leprechaun evade (named from D-1373). Not wipe.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `shade_miss` caller (named from D-1354). Not mthrowu.
 - [ ] `uhitm.c` `hmon` `shade_miss` caller (named from D-1354). Not zap.
 - [ ] `mhitm.c` `mdamagem` AD_CONF leftover (named from D-1352). Not STON.
+- [ ] `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects (named from D-1378). Not skilled scatter.
+- [ ] `spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball.
+- [ ] `spell.c` `spelleffects` SPE_CREATE_FAMILIAR (named). Not force bolt.
+- [ ] `spell.c` `cast_protection` SPE_PROTECTION (named). Not familiar.
+- [ ] `spell.c` `spelleffects` SPE_CLAIRVOYANCE (named). Not protection.
 
 ## Parked (do not pop)
 

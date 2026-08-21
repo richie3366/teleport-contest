@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1378 spell.c skilled SPE_FIREBALL scatter
+
+**Objective:** Open `spell.c` skilled SPE_FIREBALL scatter
+(named from D-1365). Not zapyourself explode.
+**C locus:** `spell.c` `spelleffects` `:1419–1454` +
+`throwspell` `:1655–1701`; `zap.c` `spell_damage_bonus`
+`:3479–3502`. Callee `explode`.
+**Change:** skilled FIREBALL/CONE `throwspell` then
+`rnd(8)+1` explode scatter olet 0 + Int/level bonus.
+Unskilled FALLTHROUGH weffects named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts skilled fireball).
+**Verified:** private canary **23**/23; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapnodir` WAN_CREATE_MONSTER (named).
+Not light.
+**Blocked:** none.
 ## 2026-08-21 — D-1377 artifact.c invoke_blinding_ray
 
 **Objective:** Open `artifact.c` `invoke_blinding_ray`
