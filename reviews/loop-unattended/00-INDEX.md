@@ -340,3 +340,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [328-9df30ee3-maybe-destroy-item-elec.md](./328-9df30ee3-maybe-destroy-item-elec.md) | `9df30ee3` | D-1368 `maybe_destroy_item` AD_ELEC | **QUALITY-RISK** |
 | [329-46c4e1b0-zapyourself-make-invisible.md](./329-46c4e1b0-zapyourself-make-invisible.md) | `46c4e1b0` | D-1369 zapyourself WAN_MAKE_INVISIBLE | **ACCEPT-WITH-DEBT** |
 | [330-90eca343-kick-air-hurtle.md](./330-90eca343-kick-air-hurtle.md) | `90eca343` | D-1370 kick_ouch/kick_dumb air/Lev hurtle | **ACCEPT-WITH-DEBT** |
+| [331-211485a0-shock-resistance-uprops.md](./331-211485a0-shock-resistance-uprops.md) | `211485a0` | D-1371 `Shock_resistance()` uprops[SHOCK_RES] | **ACCEPT-WITH-DEBT** |
+| [332-b3fe3015-allmain-dex-wipe.md](./332-b3fe3015-allmain-dex-wipe.md) | `b3fe3015` | D-1372 allmain DEX `u_wipe_engr(rnd(3))` | **ACCEPT-WITH-DEBT** |
+| [333-d5614c8a-do-attack-wipe.md](./333-d5614c8a-do-attack-wipe.md) | `d5614c8a` | D-1373 `do_attack` `u_wipe_engr(3)` | **ACCEPT-WITH-DEBT** |
+| [334-08007958-throw-obj-wipe.md](./334-08007958-throw-obj-wipe.md) | `08007958` | D-1374 `throw_obj` `u_wipe_engr(2)` | **ACCEPT-WITH-DEBT** |

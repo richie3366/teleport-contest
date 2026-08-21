@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — review D-1371–D-1374 (audit #1745)
+
+**Objective:** audit — C-fidelity reviews **331–334** of JS SHAs
+`211485a0` / `b3fe3015` / `d5614c8a` / `08007958` plus full
+`sessions` score.
+**C locus:** `youprop.h:42–44` Shock_resistance; `allmain.c`
+`:360–361`; `uhitm.c` `:551–553`; `dothrow.c` `:138`.
+**Change:** no `js/` edits. All four **ACCEPT-WITH-DEBT**.
+Filled archive D-1374 `08007958`. Must-fix empty. Next Open
+`dig.c` wipe. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `40+0.33/turn` (R² 0.86).
+**Verified:** full `sessions` at HEAD `08007958`; public-unhit
+on conferral shock / EOT wipe / melee wipe / throw wipe.
+**Next:** Open `dig.c` `u_wipe_engr` caller (named from
+D-1360). Not dothrow.
+**Blocked:** none.
 ## 2026-08-21 — D-1374 dothrow.c throw_obj u_wipe_engr(2)
 
 **Objective:** Open `dothrow.c` `u_wipe_engr` caller

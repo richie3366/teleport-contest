@@ -5,11 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1374; cadence **#1740** `90eca343`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Next: Open
+- **Fortress 44/44** after D-1374; cadence **#1745** `08007958`
+  (Scr **11,405** RNG 100% speed `40+0.33/turn`). Next: Open
   `dig.c` `u_wipe_engr` caller (named from D-1360).
-  Not dothrow. D-1374 throw wipe shipped. Do not skip
-  D-1374…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Not dothrow. Reviews **331–334** ACCEPT-WITH-DEBT; Must-fix
+  empty. Do not skip D-1374…D-1229. No FORCE. Do not wrap
+  `wildmiss`.
 - Do not revert D-1217–D-1374. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
