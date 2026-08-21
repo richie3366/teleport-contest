@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380). Not stasis.
 - [ ] `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352). Not CONF.
 - [ ] `spell.c` `spelleffects` SPE_JUMPING (named). Not clairvoyance.
 - [ ] `spell.c` `spelleffects` SPE_CURE_SICKNESS (named). Not jumping.

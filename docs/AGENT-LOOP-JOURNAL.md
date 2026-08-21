@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — D-1395 zap.c zapnodir WAN_ENLIGHTENMENT
+
+**Objective:** Open `zap.c` `zapnodir` WAN_ENLIGHTENMENT
+(named from D-1380). Not stasis.
+**C locus:** `zap.c` `zapnodir` `:2586–2590`; helper
+`do_enlightenment_effect` `:2525–2532`; callee
+`insight.c` MAGIC `enlightenment` (JS `invent.js`, D-1116).
+**Change:** `known=!!dknown` then You_feel / flush /
+MAGIC enlightenment / pline_The / `exercise(A_WIS)`.
+Unseen wand still shows the effect. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps WAN_ENLIGHTENMENT).
+**Verified:** private canary **11**/11; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitm.c` `mdamagem` AD_STUN leftover
+(named from D-1352). Not CONF.
+**Blocked:** none.
+
 ## 2026-08-21 — D-1394 uhitm.c mhitm_ad_phys shade_miss
 
 **Objective:** Open `uhitm.c` `mhitm_ad_phys` shade_miss

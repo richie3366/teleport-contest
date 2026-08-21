@@ -18,6 +18,7 @@
 // lightdamage + zapnodir WAN/SPE_LIGHT + zapyourself WAN_LIGHT/CAMERA (D-1366);
 // zapnodir WAN_CREATE_MONSTER create_critters (D-1379);
 // zapnodir WAN_WISHING Luck+rn2(5) / makewish (D-1380);
+// zapnodir WAN_ENLIGHTENMENT do_enlightenment_effect (D-1395);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
@@ -31,7 +32,8 @@
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
 // probing; zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
-// backfire body; other NODIR (enlighten/stasis); wrest pline; check_capacity;
+// backfire body; other NODIR (stasis); potion peffect_enlightenment;
+// wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
 // D-1353 (shared muse.c clone); mcastu ureflects named; create_polymon after poly_zapped;
@@ -78,7 +80,7 @@ import {
 import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
-import { hold_another_object, makeknown, encumber_msg } from './invent.js';
+import { hold_another_object, makeknown, encumber_msg, enlightenment } from './invent.js';
 import { doname, xname, yname, distant_name, vtense, The, an, An, killer_xname, ansimpleoname, otyp_is_charged } from './objnam.js';
 import { uhim } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
@@ -174,6 +176,7 @@ import {
     xytodir,
     IS_ALTAR, IS_STWALL, Is_earthlevel, IS_AIR, CLOUD, IS_SINK,
     MM_NOTAIL, MM_ADJACENTOK, NATTK,
+    MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS,
 } from './const.js';
 
 const MZ_HUMAN = MZ_MEDIUM;
@@ -191,6 +194,7 @@ const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
 const RIN_SHOCK_RESISTANCE = objectNames.indexOf('RIN_SHOCK_RESISTANCE');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
 const WAN_CREATE_MONSTER = objectNames.indexOf('WAN_CREATE_MONSTER');
+const WAN_ENLIGHTENMENT = objectNames.indexOf('WAN_ENLIGHTENMENT');
 const WAN_POLYMORPH = objectNames.indexOf('WAN_POLYMORPH');
 const SPE_POLYMORPH = objectNames.indexOf('SPE_POLYMORPH');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -2208,12 +2212,26 @@ function Luck() {
 }
 
 /**
+ * C ref: zap.c do_enlightenment_effect :2525–2532.
+ * Callers: zapnodir WAN_ENLIGHTENMENT (D-1395). Named omit:
+ * potion.c peffect_enlightenment; artifact.c invoke enlightenment.
+ */
+export async function do_enlightenment_effect() {
+    await You_feel('self-knowledgeable...');
+    await flush_topl_more(); // display_nhwindow(WIN_MESSAGE, FALSE)
+    await enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
+    await pline('The feeling subsides.'); // C pline_The
+    exercise(A_WIS, true);
+}
+
+/**
  * C ref: zap.c zapnodir — NODIR wand effects.
  * Branch envelope: WAN_SECRET_DOOR_DETECTION → findit;
  * WAN_LIGHT / SPE_LIGHT → litroom + lightdamage (D-1366);
  * WAN_CREATE_MONSTER → create_critters (D-1379);
- * WAN_WISHING → Luck+rn2(5) then makewish (D-1380).
- * Named omit: enlighten / stasis.
+ * WAN_WISHING → Luck+rn2(5) then makewish (D-1380);
+ * WAN_ENLIGHTENMENT → do_enlightenment_effect (D-1395).
+ * Named omit: WAN_STASIS.
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -2250,8 +2268,14 @@ export async function zapnodir(obj) {
             await makewish();
         }
         break;
+    case WAN_ENLIGHTENMENT:
+        // C zap.c zapnodir :2586–2590 — known = !!dknown then
+        // do_enlightenment_effect (always describes enlightenment).
+        known = !!obj.dknown;
+        await do_enlightenment_effect();
+        break;
     default:
-        // enlighten / stasis deferred
+        // WAN_STASIS deferred
         break;
     }
 

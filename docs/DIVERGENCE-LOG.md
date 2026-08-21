@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1395 — zap.c zapnodir WAN_ENLIGHTENMENT
+
+- **Status:** fixed (map-driven Open from D-1380; not a public FAIL)
+- **Symptom:** zapping a wand of enlightenment was a no-op.
+  C `known = !!obj->dknown` then `do_enlightenment_effect()`
+  always describes enlightenment (`You_feel` self-knowledgeable,
+  `display_nhwindow(WIN_MESSAGE, FALSE)`, MAGIC
+  `enlightenment`, `pline_The` feeling subsides, then
+  `exercise(A_WIS, TRUE)`). Unseen wand still shows the effect
+  but is not `learnwand`'d.
+- **C locus:** `zap.c` `zapnodir` `:2586–2590`; helper
+  `do_enlightenment_effect` `:2525–2532`. Caller `weffects`
+  NODIR. Callee `insight.c` `enlightenment(MAGICENLIGHTENMENT,
+  ENL_GAMEINPROGRESS)` already live (`js/invent.js`, D-1116).
+- **JS was:** zapnodir default skip after D-1380 wishing arm.
+- **Fix:** live helper + WAN_ENLIGHTENMENT arm. Rule #2: no fs.
+- **JS:** `js/zap.js` `zapnodir` / `do_enlightenment_effect`.
+- **Not this iter:** WAN_STASIS; potion.c `peffect_enlightenment`;
+  artifact.c invoke enlightenment; fountain case 19 already
+  D-1116 (exercise before pline_The, unlike this helper).
+- **Verified:** private canary **11**/11 (C/JS grep; NODIR;
+  dknown MAGIC overlay + learnwand+XP + rn2(19); !dknown
+  effect no makeknown; already-known no XP; LIGHT/CREATE/WISH
+  regression; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session zaps WAN_ENLIGHTENMENT.
+- **Follow-up:** Open `mhitm.c` `mdamagem` AD_STUN leftover
+  (named from D-1352). Not CONF.
+- **Files:** `js/zap.js`.
+
 ## D-1394 — uhitm.c mhitm_ad_phys shade_miss
 
 - **Status:** fixed (map-driven Open from D-1341; not a public FAIL)

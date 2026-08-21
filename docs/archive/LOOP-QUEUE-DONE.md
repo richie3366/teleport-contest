@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `uhitm.c` `mhitm_ad_phys` shade_miss (named from D-1341). Not hmon. **Addressed:** D-1394
+- [x] `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380). Not stasis. **Addressed:** D-1395
+
+
+- [x] `uhitm.c` `mhitm_ad_phys` shade_miss (named from D-1341). Not hmon. **Addressed:** D-1394 `91827af6`
 
 
 - [x] `zap.c` `bhit` WEB stick (named from D-1383). Not M_AP_OBJECT. **Addressed:** D-1393 `7863ae2a`

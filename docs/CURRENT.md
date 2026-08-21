@@ -59,25 +59,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1394. **Next cluster:** Open
-`zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380).
-Not stasis. Reviews **339–345** ACCEPT-WITH-DEBT; **346**
-QUALITY-RISK shipped as D-1387. Do not skip D-1394…D-1229
+**Map-driven fortress** after D-1395. **Next cluster:** Open
+`mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352).
+Not CONF. Reviews **339–345** ACCEPT-WITH-DEBT; **346**
+QUALITY-RISK shipped as D-1387. Do not skip D-1395…D-1229
 (index). Keep mention_map addr. Do not wrap `wildmiss` or
 `msg_mon_movement` as `pline_mon`. Do not rewrite
 `confer_oc_oprop`. Do not add trailing `confdir` inside
 shared `getdir`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1394.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1395.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1394 (index). Recent: **D-1394** uhitm.c
-`mhitm_ad_phys` shade_miss. Prior: **D-1393** zap.js
-`bhit` WEB stick. **D-1392** `bhit` M_AP_OBJECT skip.
+**Keep:** D-0845…D-1395 (index). Recent: **D-1395** zap.c
+`zapnodir` WAN_ENLIGHTENMENT. Prior: **D-1394** uhitm.c
+`mhitm_ad_phys` shade_miss. **D-1393** zap.js `bhit` WEB stick.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1394
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1395
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
