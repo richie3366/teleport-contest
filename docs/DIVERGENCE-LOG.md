@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1356 — eat.c lesshungry/bite choke + fullwarn
+
+- **Status:** fixed (map-driven Open from D-1344; not a public FAIL)
+- **Symptom:** stuffing past 2000 nutrition never called `choke`
+  (meal or tin/fountain), and crossing 1500 never warned. JS
+  `lesshungry` only added `uhunger` + field `newuhs`; `bite`
+  skipped the canchoke gate; `doeat` hardcoded `canchoke=0`.
+- **C locus:** `eat.c` `lesshungry` `:3289–3333`; caller `bite`
+  `:3138–3140` (`canchoke && uhunger>=2000` then `return 1`);
+  `doeat` `:3077` `canchoke = (u.uhs == SATIATED)`; `reset_eat`
+  `:308–318`. `iseating` is `occupation==eatfood || force_save_hs`
+  so `start_eating`'s first bite still chokes on `victual.piece`.
+- **JS was:** named omit (D-1344 / D-1204). `choke` itself is D-1344.
+- **Fix:** port lesshungry choke/fullwarn; bite choke +
+  `force_save_hs`; SATIATED canchoke snapshot; thin `do_reset_eat`
+  (stop occupation). Fountain awaits lesshungry. Rule #2: no fs.
+- **JS:** `js/eat.js` `lesshungry` / `bite` / `doeat`; `js/fountain.js`.
+- **Not this iter:** `adj_victual_nutrition` (lembas/cram race);
+  `do_reset_eat` `touchfood` leftover weight; `newuhs` occupation
+  hunger messages; `the()` CapitalMon.
+- **Verified:** private canary **21**/21 (C/JS grep; fullwarn
+  1500 multi=-2 vs eating `fullwarn`; Hunger skip; !canchoke
+  no choke at 2010; canchoke Breathless vomit+doreset; snack
+  when not eating; Continue `n` one-bite-left skip; Rule #2);
+  green+strict seed8000/0900; cohort **9**/9 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session chokes or crosses 1500.
+- **Follow-up:** Open `objnam.c` `the()` CapitalMon.
+- **Files:** `js/eat.js`, `js/fountain.js`.
+
 ## D-1355 — zap.c zapyourself WAN_LIGHTNING + flashburn
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

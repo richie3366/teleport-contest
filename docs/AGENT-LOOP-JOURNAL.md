@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1356 eat.c lesshungry/bite choke callers
+
+**Objective:** Open `eat.c` lesshungry/bite choke callers (named
+from D-1344). Not zap.
+**C locus:** `eat.c` `lesshungry` `:3289–3333`; `bite`
+`:3133–3158`; `doeat` canchoke `:3077`; `reset_eat` `:308–318`.
+**Change:** choke at 2000 (`iseating` eatfood/`force_save_hs`
+or `!canchoke` skip while eating); tin/`null` snack when not
+eating; fullwarn 1500 + paranoid Continue; `doeat` SATIATED
+canchoke snapshot. adj_victual_nutrition / `do_reset_eat`
+touchfood named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session chokes). Next audit @**#1725**.
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **9**/9 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `objnam.c` `the()` CapitalMon (named from
+D-1335). Not warn_obj.
+**Blocked:** none.
 ## 2026-08-21 — D-1355 zap.c zapyourself WAN_LIGHTNING
 
 **Objective:** Open `zap.c` `zapyourself` WAN_LIGHTNING (named).

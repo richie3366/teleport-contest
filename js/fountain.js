@@ -856,7 +856,7 @@ export async function drinkfountain() {
 
     if (fate < 10) {
         await pline('The cool draught refreshes you.');
-        lesshungry(rnd(10)); // u.uhunger += rnd(10); newuhs deferred
+        await lesshungry(rnd(10));
         if (mgkftn) return;
     } else {
         switch (fate) {

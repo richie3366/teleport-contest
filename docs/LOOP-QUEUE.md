@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `eat.c` lesshungry/bite choke callers (named from D-1344). Not zap.
 - [ ] `objnam.c` `the()` CapitalMon (named from D-1335). Not warn_obj.
 - [ ] `dokick.c` `wake_nearby` caller (C `:1383` after maybe_kick; callee live). Not knockback.
 - [ ] `dokick.c` `u_wipe_engr` caller (C `:1384`; body D-1051). Not knockback.
