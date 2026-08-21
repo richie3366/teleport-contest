@@ -1,6 +1,6 @@
 // mhitm.js — Monster vs monster combat (minimal RNG-faithful peel).
-// C ref: mhitm.c — mdisplacem, mattackm, gazemm, gulpmm, passivemm, mdamagem;
-//         worn.c find_mac (re-export); uhitm.c mhitm_knockback (RNG order only).
+// C ref: mhitm.c — mdisplacem, mattackm, gazemm, explmm, gulpmm, passivemm,
+//         mdamagem; worn.c find_mac (re-export); uhitm.c mhitm_knockback.
 
 import { rn2, rnd, d } from './rng.js';
 import {
@@ -177,6 +177,7 @@ const AD_DRIN = 32; /* drains intelligence (mind flayer) — monattk.h */
 const AD_SSEX = 35; /* Succubus seduction (extended) */
 const AD_BLND = 11; /* blinds — monattk.h (Archon gaze) */
 const AD_STUN = 12; /* stuns — monattk.h */
+const AD_HALU = 36; /* hallucinate (black light AT_EXPL) */
 const AD_PLYS = 14; /* paralyzes — monattk.h */
 const AD_ENCH = 41; /* remove enchantment (disenchanter) — monattk.h */
 const AD_POLY = 43; /* polymorph target (genetic engineer) — monattk.h */
@@ -210,7 +211,7 @@ async function You_hear(line) {
 /**
  * C ref: mhitm.c noises — out-of-sight m-vs-m combat feedback.
  * Rate-limited via gf.far_noise / gn.noisetime (stored on game).
- * Named omission: explmm AT_EXPL path shares this helper when wired.
+ * explmm (D-1339) uses this when !cansee(magr).
  */
 async function noises(magr, mattk) {
     const farq = mdistu(magr) > 15;
@@ -619,6 +620,27 @@ async function mhitm_ad_blnd(magr, mattk, mdef, mhm) {
         if (rnd_tmp > 127) rnd_tmp = 127;
         mdef.mblinded = rnd_tmp;
         mdef.mcansee = 0;
+        mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
+    }
+    if (mhm) mhm.damage = 0;
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_halu mhitm arm :3911–3919.
+ * Black-light AT_EXPL via explmm→mdamagem. uhitm/mhitu arms just
+ * zero dice (named).
+ */
+async function mhitm_ad_halu(magr, mattk, mdef, mhm) {
+    void mattk;
+    const pd = mdef?.data;
+    if (!(magr?.mcan | 0) && haseyes(pd) && (mdef.mcansee | 0)) {
+        if (_mm_vis && canseemon(mdef)) {
+            await pline_mon(
+                mdef,
+                `${Monnam(mdef)} looks ${mdef.mconf ? 'more ' : ''}confused.`,
+            );
+        }
+        mdef.mconf = 1;
         mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
     }
     if (mhm) mhm.damage = 0;
@@ -1955,6 +1977,33 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
     }
 
+    // C: mhitm_adtyping → mhitm_ad_halu for AD_HALU (D-1339 explmm).
+    if ((mattk.adtyp | 0) === AD_HALU) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_halu(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
     mhitm_knockback(magr, mdef, mattk, hitflags, !!mwep);
 
     if (!damage) return hitflags === M_ATTK_AGR_DIED ? M_ATTK_AGR_DIED : M_ATTK_HIT;
@@ -2243,7 +2292,7 @@ async function gulpmm(magr, mdef, mattk) {
  * C ref: mhitm.c gazemm :736–803 — monster gazes at another monster.
  * Caller mattackm AT_GAZE (strike=0). Archon extra mhitm_ad_blnd + rn2(2)
  * stun then mdamagem leftover. Medusa reflect stones magr.
- * Named omit: mhitm_ad_ston/conf/stun/fire leftover dice; explmm; AT_HUGS;
+ * Named omit: mhitm_ad_ston/conf/stun/fire leftover dice; AT_HUGS;
  * shade_miss; arti_reflects(MON_WEP); mon_perma_blind; resists_blnd_by_arti.
  */
 export async function gazemm(magr, mdef, mattk) {
@@ -2311,6 +2360,57 @@ export async function gazemm(magr, mdef, mattk) {
     }
 
     return mdamagem(magr, mdef, mattk, null, 0);
+}
+
+/**
+ * C ref: mhitm.c explmm :970–1010 — monster explodes at another monster.
+ * Caller mattackm AT_EXPL when distmin<=1 (:497–508). Cancelled is
+ * M_ATTK_MISS (not a strike; skips passivemm). FIRE/COLD/ELEC call
+ * mon_explodes and set AGR_DIED unconditionally (lifesave named on
+ * mondead). Else mdamagem then mondead. Tame melancholy even if seen.
+ * Named omit: mondead→m_unleash object (slack printed here); AT_HUGS;
+ * shade_miss; mdamagem ston/conf/stun/fire leftover.
+ */
+export async function explmm(magr, mdef, mattk) {
+    if (!magr || !mdef || !mattk) return M_ATTK_MISS;
+    if (magr.mcan) return M_ATTK_MISS;
+
+    if (cansee(magr.mx | 0, magr.my | 0)) {
+        await pline_mon(magr, `${Monnam(magr)} explodes!`);
+    } else {
+        await noises(magr, mattk);
+    }
+
+    let result;
+    const ad = mattk.adtyp | 0;
+    if (ad === AD_FIRE || ad === AD_COLD || ad === AD_ELEC) {
+        await mon_explodes(magr, mattk);
+        result = M_ATTK_AGR_DIED | (deadmonster(mdef) ? M_ATTK_DEF_DIED : 0);
+    } else {
+        result = await mdamagem(magr, mdef, mattk, null, 0);
+    }
+
+    if (!(result & M_ATTK_AGR_DIED)) {
+        const was_leashed = !!(magr.mleashed | 0);
+        mondead(magr);
+        if (!deadmonster(magr)) return result; /* life saved */
+        result |= M_ATTK_AGR_DIED;
+        /* C: mondead→m_detach→m_unleash suppresses slack; print here. */
+        if (was_leashed) {
+            await pline('Your leash falls slack.');
+            magr.mleashed = 0;
+            const mid = magr.m_id | 0;
+            for (const otmp of game.invent || []) {
+                if ((otmp.leashmon | 0) === mid) otmp.leashmon = 0;
+            }
+        }
+    }
+    if (magr.mtame) {
+        await pline(
+            'You have a melancholy feeling for a moment, then it passes.',
+        );
+    }
+    return result;
 }
 
 /**
@@ -2434,9 +2534,22 @@ export async function mattackm(magr, mdef) {
             }
             case AT_GAZE: {
                 // C mhitm.c mattackm `:492–495` — gaze is not a strike;
-                // ranged (no distmin skip). explmm / AT_HUGS named.
+                // ranged (no distmin skip). AT_HUGS named.
                 strike = 0;
                 res[i] = await gazemm(magr, mdef, mattk);
+                break;
+            }
+            case AT_EXPL: {
+                // C mhitm.c mattackm `:497–508` — adjacent only; cancelled
+                // (M_ATTK_MISS) is not a strike and skips passivemm.
+                if (distmin(magr.mx, magr.my, mdef.mx, mdef.my) > 1) continue;
+                res[i] = await explmm(magr, mdef, mattk);
+                if (res[i] === M_ATTK_MISS) {
+                    strike = 0;
+                    attk = 0;
+                } else {
+                    strike = 1;
+                }
                 break;
             }
             // AT_SPIT/AT_BREA: spitmm/breamm live in mthrowu; mon-mon spit

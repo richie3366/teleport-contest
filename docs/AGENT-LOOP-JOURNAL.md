@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1339 mhitm.c explmm
+
+**Objective:** Open `mhitm.c` explmm (named from D-1326). Not gazemm.
+**C locus:** `mhitm.c` `explmm` `:970–1010`; caller `mattackm`
+AT_EXPL `:497–508`; callee `mdamagem` + `mhitm_ad_halu` mhitm
+`:3911–3919`.
+**Change:** AT_EXPL no longer falls through `mattackm` default.
+`mcan` miss; cansee explodes else noises; FIRE/COLD/ELEC
+`mon_explodes`; else mdamagem then mondead; tame melancholy;
+leashed slack. AT_HUGS / `shade_miss` named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1700**.
+**Verified:** canary **33**/33; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitm.c` AT_HUGS (named from D-1327). Not explmm.
+**Blocked:** none.
 ## 2026-08-21 — D-1338 mhitm.c gazemm
 
 **Objective:** Open `mhitm.c` gazemm (named from D-1328). Not AD_WRAP.

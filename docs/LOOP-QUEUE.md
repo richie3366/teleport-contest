@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitm.c` explmm (named from D-1326). Not gazemm.
 - [ ] `mhitm.c` AT_HUGS (named from D-1327). Not explmm.
 - [ ] `mhitm.c` hitmm `shade_miss` (named from D-0887). Not AT_HUGS.
 - [ ] `artifact.c` `arti_reflects` W_WEP (named from D-1328). Not gazemu.

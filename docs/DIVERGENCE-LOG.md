@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1339 — mhitm.c explmm
+
+- **Status:** fixed (map-driven Open from D-1326; not a public FAIL)
+- **Symptom:** an AT_EXPL monster never exploded at another monster.
+  C `mattackm` `case AT_EXPL` calls `explmm` when `distmin<=1`.
+  JS fell through `default` (`attk=0`).
+- **C locus:** `mhitm.c` `explmm` `:970–1010`; caller `mattackm`
+  `:497–508`. Callee `mdamagem` for non-FIRE/COLD/ELEC;
+  `uhitm.c` `mhitm_ad_halu` mhitm arm `:3911–3919` (black light).
+- **JS was:** named omit (D-1326 / D-1338).
+- **Fix:** `mcan` miss before `d()`; `cansee` `"explodes!"` else
+  `noises`; FIRE/COLD/ELEC `mon_explodes` + AGR_DIED
+  unconditionally; else `mdamagem` then `mondead`; tame
+  melancholy even if seen; leashed slack after death. Cancelled
+  is not a strike (skips passivemm). Rule #2: no fs.
+- **JS:** `js/mhitm.js` `explmm` + `mattackm` `case AT_EXPL` +
+  `mhitm_ad_halu` / `mdamagem` AD_HALU.
+- **Not this iter:** mhitm AT_HUGS; `shade_miss`; mdamagem
+  AD_STON/CONF/STUN/FIRE leftover dice; uhitm/mhitu AD_HALU
+  (zero-dice arms); `defended`; `mondead` lifesave/`m_unleash`
+  object beyond slack+leashmon.
+- **Verified:** private canary **33**/33 (C/JS shape; cancelled
+  no RNG; BLND blinds + agr dies + def HP unchanged; cansee
+  explodes; noises; HALU confuse/eyeless/more-conf; tame
+  melancholy; leash slack; distmin skip; mattackm dispatch;
+  FIRE AGR_DIED; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session faces AT_EXPL mon-vs-mon.
+- **Follow-up:** Open `mhitm.c` AT_HUGS.
+- **Files:** `js/mhitm.js`.
+
 ## D-1338 — mhitm.c gazemm
 
 - **Status:** fixed (map-driven Open from D-1328; not a public FAIL)
@@ -34,7 +65,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
   1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
   session faces AT_GAZE mon-vs-mon.
-- **Follow-up:** Open `mhitm.c` explmm.
+- **Follow-up:** Open `mhitm.c` explmm (D-1339).
 - **Files:** `js/mhitm.js`.
 
 ## D-1337 — apply.c splash_lit
