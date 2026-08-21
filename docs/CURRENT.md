@@ -59,24 +59,23 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1335. Reviews **292–295**
+**Map-driven fortress** after D-1336. Reviews **292–295**
 ACCEPT-WITH-DEBT (**288–291** held). **Next cluster:** Open
-`dokick.c` `maybe_mnexto` evade (named from D-1310). Not
-kickstr. Do not skip D-1335…D-1229 (index). Keep mention_map
-addr. Do not wrap `wildmiss` or `msg_mon_movement` as
-`pline_mon`.
+`apply.c` `splash_lit` (named from D-1242). Not snuff_candle.
+Do not skip D-1336…D-1229 (index). Keep mention_map addr. Do
+not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1335.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1336.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1335 (index). Recent: **D-1335** `objnam.c`
-`killer_xname` (C `:1942`; dokick kickobjnam `:498` + petrify
-`:551–554`; not `kickstr`). Prior: **D-1334** mthrowu
-`return_from_mtoss` snuff. **D-1333** throwit land snuff.
-**D-1332** `kickdmg` `special_dmgval(W_ARMF)`.
+**Keep:** D-0845…D-1336 (index). Recent: **D-1336** `mon.c`
+`maybe_mnexto` + dokick evade (C `:3998–4017` / `:267–285`;
+not `kickstr`). Prior: **D-1335** `killer_xname`. **D-1334**
+mthrowu snuff. **D-1333** throwit land snuff. **D-1332**
+`kickdmg` `special_dmgval(W_ARMF)`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1335
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1336
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

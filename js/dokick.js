@@ -1,6 +1,7 @@
 // dokick.js — #kick command + object fall-through (impact_drop / ship_object).
 // C ref: dokick.c — dokick, kick_dumb, kick_door, kick_nondoor, maybe_kick_monster,
-// kick_monster, kickdmg (partial; poly AT_KICK D-1310; special_dmgval D-1332);
+// kick_monster, kickdmg (partial; poly AT_KICK D-1310; special_dmgval D-1332;
+// maybe_mnexto evade D-1336);
 // down_gate / drop_to / impact_drop (D-0961);
 // ship_object / otransit_msg (D-0984); obj_delivery (D-1177);
 // deliver_obj_to_mon (D-1193);
@@ -17,8 +18,8 @@ import {
     change_luck, adjalign,
 } from './attrib.js';
 import {
-    pline, newsym, canspotmon, canseemon, map_invisible, flush_topl_more,
-    verbalize, feel_newsym, feel_location, Norep,
+    pline, newsym, canspotmon, canseemon, map_invisible, unmap_invisible,
+    flush_topl_more, verbalize, feel_newsym, feel_location, Norep,
 } from './display.js';
 import { vision_recalc, recalc_block_point, couldsee, cansee } from './vision.js';
 import { getdir, breakchestlock } from './lock.js';
@@ -41,12 +42,14 @@ import {
     set_wounded_legs, legs_in_no_shape, b_trapped, t_at, water_damage,
     fall_through, chest_trap, instapetrify, activate_statue_trap,
 } from './trap.js';
-import { setmangry, seemimic, angry_guards, wakeup, wake_nearto } from './mon.js';
+import {
+    setmangry, seemimic, angry_guards, wakeup, wake_nearto, maybe_mnexto,
+} from './mon.js';
 import { mon_nam, Monnam, christen_orc, free_oname } from './do_name.js';
 import { martial_bonus, use_skill, special_dmgval } from './weapon.js';
 import {
-    verysmall, bigmonst, thick_skinned, nohands, haseyes,
-    is_flyer, is_floater, can_teleport, M1_SLITHY, is_watch, mons,
+    verysmall, bigmonst, thick_skinned, nohands, haseyes, nolimbs, slithy,
+    is_flyer, is_floater, can_teleport, is_watch, mons,
     likes_gold, is_mercenary, touch_petrifies, poly_when_stoned,
     M2_UNDEAD, M2_WERE, M2_HUMAN, M2_ELF, M2_DWARF, M2_GNOME, M2_ORC,
     M2_DEMON, M2_GIANT,
@@ -96,7 +99,7 @@ import { del_engr_at, disturb_grave } from './engrave.js';
 import { sink_backs_up } from './fountain.js';
 import { makemon, mpickobj, add_to_minv } from './makemon.js';
 import { scatter } from './explode.js';
-import { enexto, rloco } from './teleport.js';
+import { enexto, rloco, noteleport_level } from './teleport.js';
 import { is_art } from './artifact.js';
 import { ART_MJOLLNIR } from './generated/artifacts_data.js';
 import { hero_breaks, thitmonst, breaks, breaktest } from './dothrow.js';
@@ -800,7 +803,8 @@ async function kickdmg(mon, clumsy) {
 /**
  * C ref: dokick.c kick_monster — anger, encumbrance clumsiness, evade, kickdmg.
  * Poly AT_KICK loop D-1310 (`Upolyd && attacktype(AT_KICK)` then return).
- * maybe_mnexto evade body / Levitation wild-miss named when those arms fire.
+ * maybe_mnexto evade D-1336 (`:267–285` else of block). abuse_dog /
+ * martial knockback still named.
  */
 export async function kick_monster(mon, x, y) {
     let clumsy = false;
@@ -902,11 +906,27 @@ export async function kick_monster(mon, x, y) {
             await pline(`${Monnam(mon)} blocks your ${clumsy ? 'clumsy ' : ''}kick.`);
             await passive(mon, u.uarmf, false, 1, AT_KICK, false);
             return;
+        } else {
+            /* C dokick.c `:267–285` — maybe_mnexto then evade pline+return */
+            await maybe_mnexto(mon);
+            if (mon.mx !== x || mon.my !== y) {
+                unmap_invisible(x, y);
+                const how = (can_teleport(ptr) && !noteleport_level(mon))
+                    ? 'teleports'
+                    : is_floater(ptr)
+                        ? 'floats'
+                        : is_flyer(ptr)
+                            ? 'swoops'
+                            : (nolimbs(ptr) || slithy(ptr))
+                                ? 'slides'
+                                : 'jumps';
+                await pline(
+                    `${Monnam(mon)} ${how}, ${clumsy ? 'easily' : 'nimbly'} evading your ${clumsy ? 'clumsy ' : ''}kick.`,
+                );
+                await passive(mon, u.uarmf, false, 1, AT_KICK, false);
+                return;
+            }
         }
-        // maybe_mnexto evade body deferred — mon stays put → fall through
-        void is_floater;
-        void can_teleport;
-        void M1_SLITHY;
     }
     await kickdmg(mon, clumsy);
 }

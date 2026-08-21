@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dokick.c` `maybe_mnexto` evade (named from D-1310). Not kickstr.
 - [ ] `apply.c` `splash_lit` (named from D-1242). Not snuff_candle.
 - [ ] `mhitm.c` gazemm (named from D-1328). Not AD_WRAP.
 - [ ] `mhitm.c` explmm (named from D-1326). Not gazemm.

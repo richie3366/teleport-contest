@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1335; cadence **#1690** `b82375a7`
+- **Fortress 44/44** after D-1336; cadence **#1690** `b82375a7`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **292–295**
-  ACCEPT-WITH-DEBT. Next: Open `dokick.c` `maybe_mnexto` evade
-  (named from D-1310). Not kickstr. Do not skip D-1335…D-1229.
+  ACCEPT-WITH-DEBT. Next: Open `apply.c` `splash_lit` (named
+  from D-1242). Not snuff_candle. Do not skip D-1336…D-1229.
   Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1335. warn_obj / `artifact_light` `)`
+- Do not revert D-1217–D-1336. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
 ## Don't re-check (≤15)
@@ -20,7 +20,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1335.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1336.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,9 +34,10 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1335 (index). Named still: uhitm/mhitm
-  `mhitm_ad_wrap` arms; `kickstr`; eat/zap/dothrow
-  `killer_xname`. No ALIGN/FORCE on seed0383.
+- Do not skip D-1071…D-1336 (index). Named still: uhitm/mhitm
+  `mhitm_ad_wrap` arms; `abuse_dog` / martial knockback;
+  `kickstr`; eat/zap/dothrow `killer_xname`. No ALIGN/FORCE
+  on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -47,6 +48,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1336: `mon.c` `maybe_mnexto` `:3998–4017` — 20× `enexto` +
+  `couldsee` + `NODIAG` then `rloc_to` (no montelecontrol).
+  Caller `dokick.c` `kick_monster` `:267–285` else of block:
+  relocate → unmap_invisible + teleports/floats/swoops/slides/
+  jumps evade pline + `passive` return. Stay-put falls through
+  to `kickdmg`. `abuse_dog` / martial knockback / `kickstr`
+  named.
 - D-1335: `objnam.c` `killer_xname` `:1942–2005` — dokick
   kickobjnam `:498` + petrify `:551–554` (not `xname`). Artifact
   `bare_artifactname`; CORPSE/SLIME_MOLD; restore known/uname.
@@ -62,8 +70,8 @@ Objective/score live in `CURRENT.md`.
   `special_dmgval(&youmonst, mon, W_ARMF, NULL)` after shade
   `dmg=0`, before `!specialdmg` `pline_The` return; then
   `dmg += specialdmg`. Blessed boots vs undead/demon `rnd(4)`.
-  Poly-loop call already D-1310. `maybe_mnexto` / `abuse_dog` /
-  martial knockback named.
+  Poly-loop call already D-1310. `abuse_dog` / martial
+  knockback named. `maybe_mnexto` evade is D-1336.
 - D-1331: `uhitm.c` `mhitm_ad_wrap` mhitu `:3376–3417` —
   `(!mcan || ustuck==magr) && !sticks`; `!ustuck && !rn2(10)`
   `u_slip_free` else `set_ustuck` + coil/swing; held pool drown /
@@ -108,10 +116,3 @@ Objective/score live in `CURRENT.md`.
 - D-1322: `objnam.c` doname W_WEP `:1561` `!mrg_to_wielded` +
   `:1591–1595` AKLYS `"tethered to"` (review **283**). Pickup
   `pickup_prinv` flag already live. **warn_obj named**.
-- D-1321: `objnam.c` doname W_WEP `:1578–1595` `body_part(HAND)` +
-  bimanual `makeplural` / URIGHTY; SWAPWEP `:1616`; RING `:1499`.
-  Late-bind (objnam↔polyself).
-- D-1320: `objnam.c` doname POTION POT_OIL `:1488–1491` `lamplit`
-  Concat `" (lit)"` (no known gate). xname bare.
-- D-1319: LEASH `:1431–1445` after worn; `find_mid(FM_FMON)` skip-dead
-  `" (attached to %s)"` `noit_mon_nam`; else `leashmon=0`. Worn skip.

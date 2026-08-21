@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1336 mon.c maybe_mnexto + dokick evade
+
+**Objective:** Open `dokick.c` `maybe_mnexto` evade (named from
+D-1310). Not kickstr.
+**C locus:** `mon.c` `maybe_mnexto` `:3998–4017`; caller
+`dokick.c` `kick_monster` `:267–285`.
+**Change:** evade now calls `maybe_mnexto` (20× enexto+couldsee+
+NODIAG `rloc_to`, no montelecontrol) and returns with the
+teleports/floats/swoops/slides/jumps pline when the monster
+moves. Stay-put still `kickdmg`. `abuse_dog` / knockback /
+`kickstr` named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1695**.
+**Verified:** canary **17**/17; green+strict seed8000/0900;
+cohort **7**/7 + seed0060 kick + strict.
+**Next:** Open `apply.c` `splash_lit` (named from D-1242). Not
+snuff_candle.
+**Blocked:** none.
 ## 2026-08-21 — D-1335 objnam.c killer_xname (dokick kickobjnam)
 
 **Objective:** Open `dokick.c` `killer_xname` (kickobjnam still

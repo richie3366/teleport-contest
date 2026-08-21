@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1336 — `mon.c` `maybe_mnexto` + dokick evade
+
+- **Status:** fixed (map-driven Open from D-1310; not a public FAIL)
+- **Symptom:** when a kick's evade gates fired and the monster did
+  not block, JS fell through to `kickdmg` instead of relocating
+  via `maybe_mnexto` and returning with the evade pline.
+- **C locus:** `mon.c` `maybe_mnexto` `:3998–4017` — 20 `enexto`
+  tries near the hero; `couldsee` dest; `NODIAG` rejects grid-bug
+  diagonal; `rloc_to` (not `rloc_to_flag`; no montelecontrol).
+  Failed `enexto` returns without moving. Caller `dokick.c`
+  `kick_monster` `:267–285` else of the block arm: if `mx/my`
+  changed, `unmap_invisible` then teleports/floats/swoops/slides/
+  jumps + easily/nimbly evade pline + `passive` return.
+- **JS was:** comment `maybe_mnexto evade body deferred — mon stays
+  put → fall through`.
+- **Fix:** port `maybe_mnexto` in `mon.js`; wire the else-arm.
+  Block path already live. Stay-put still `kickdmg`. Rule #2:
+  no fs.
+- **JS:** `js/mon.js` `maybe_mnexto`; `js/dokick.js` `kick_monster`.
+- **Not this iter:** `abuse_dog` / `monflee`; martial knockback;
+  `wake_nearby`; `u_wipe_engr`; shop-town watchman; `kickstr`;
+  `splash_lit`; `mnearto` overcrowding.
+- **Verified:** private canary **17**/17 (C/JS shape; relocate;
+  enexto fail stay; !couldsee stay; grid-bug row/col; jackal
+  jumps no HP; monkey block; floats/swoops/slides/teleports
+  verbs; noteleport skips teleports; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + seed0060 kick + strict
+  1500/1800/0012/0004/0007/2200/0383/0060. **Public-unhit**
+  unless a later audit score says otherwise.
+
 ## D-1335 — objnam.c killer_xname (dokick kickobjnam)
 
 - **Status:** fixed (map-driven Open from D-1334; not a public FAIL)
