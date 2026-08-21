@@ -54,10 +54,10 @@ Fail-closed (default): density / protected / banned / empty-port /
 QUALITY-RISK-without-Must-fix halt and revert the iteration (or halt
 without reset if already pushed). Green / full-suite regression is
 logged; the loop continues so the next iteration can recover.
-Every LOOP_CADENCE_EVERY (5) is review + full-suite score (no port).
+Every LOOP_CADENCE_EVERY (10) is review + full-suite score (no port).
 Crash-before-commit keeps the tree, arms continue-unfinished (with
 that iter's .raw/.log), rewinds n, and **retries in this supervisor
-run** even if that global # is n%5==0. Does not write STOP. 3× short
+run** even if that global # is n%LOOP_CADENCE_EVERY==0. Does not write STOP. 3× short
 runs still halt (out of tokens). Queue below LOOP_QUEUE_MIN (8) must
 be refilled from the map
 (target LOOP_QUEUE_TARGET 12); halt after a port that still has no
@@ -233,7 +233,7 @@ arm_continue_unfinished() {
 
 # Crash / uncommitted leftover: keep the tree and arm a continue iter so
 # the next attempt (same supervisor run, or next launch) finishes leftover
-# work even if that # is n%5==0 (audit). Always arm — a clean tree still
+# work even if that # is n%LOOP_CADENCE_EVERY==0 (audit). Always arm — a clean tree still
 # needs the prior .raw/.log (typical audit resource_exhausted).
 arm_continue_retry() {
   local reason="$1"
@@ -333,7 +333,7 @@ ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-3600}"
 # Token-exhaustion detector: N consecutive agent runs shorter than this → halt.
 SHORT_ITER_SEC="${SHORT_ITER_SEC:-30}"
 SHORT_STREAK_LIMIT="${SHORT_STREAK_LIMIT:-3}"
-LOOP_CADENCE_EVERY="${LOOP_CADENCE_EVERY:-5}"
+LOOP_CADENCE_EVERY="${LOOP_CADENCE_EVERY:-10}"
 LOOP_MAX_JS_INSERTIONS="${LOOP_MAX_JS_INSERTIONS:-400}"
 LOOP_MAX_JS_FILES="${LOOP_MAX_JS_FILES:-8}"
 LOOP_PUSH="${LOOP_PUSH:-1}"
@@ -942,7 +942,7 @@ while true; do
     prompt_body="$(cat "$CONTINUE_PROMPT_FILE")"
     prompt_body+=$'\n\n**Forced mode:** `'"$mode"$'`. Cadence for this global # would have been `'
     prompt_body+="$(iter_mode "$iter")"
-    prompt_body+=$'` — ignore n%5; do not switch to audit/port because of the number.\n'
+    prompt_body+=$'` — ignore n%'"${LOOP_CADENCE_EVERY}"$'; do not switch to audit/port because of the number.\n'
     if [[ "$mode" == "audit" ]]; then
       prompt_body+=$'\n\n## Unfinished work is an audit (no js/ edits)\n'
       prompt_body+="$(cat "$REVIEW_PROMPT_FILE")"

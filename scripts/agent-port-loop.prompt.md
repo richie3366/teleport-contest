@@ -72,7 +72,7 @@ Mark temporary DIAG distinctly; remove before exit.
 4. subsystem cohort if shared; 5. strict lengths; 6. full `sessions` after
 shared startup/RNG/display or foundation milestones.
 
-**Public score every 5 iterations** is the **audit** iter (`n % 5 == 0`):
+**Public score every 10 iterations** is the **audit** iter (`n % 10 == 0`):
 review + `node frozen/ps_test_runner.mjs sessions`, not a port iter.
 If this prompt is a port iter, skip the full suite unless CURRENT says
 otherwise (shared startup/RNG/display).

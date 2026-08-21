@@ -10,7 +10,7 @@ no `fs`/`path`/`url`/`node:*`, no runtime filesystem. Persist only via
 
 ## Public score cadence
 
-**Every 5 global loop iterations** (`iteration-count % 5 == 0`) is an
+**Every 10 global loop iterations** (`iteration-count % 10 == 0`) is an
 **audit**: write the C-fidelity review **and** run:
 
 ```bash
@@ -99,6 +99,6 @@ journal tail · `archive/PROGRESS-HISTORY.md`.
 ## Handoff rule
 
 Update **this file** when score, green gate, or primary objective changes.
-On every 5th global iteration, write the C-fidelity review **and**
+On every 10th global iteration, write the C-fidelity review **and**
 refresh Score from a full `sessions` run.
 Journal; divergence + index; one C-JS-MAP section. No completed D-lists.

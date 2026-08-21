@@ -4,9 +4,9 @@ or `resource_exhausted`). **Resume that attempt** — do not start a new
 cluster and do not pop `LOOP-QUEUE.md`.
 
 This iteration **is a port** unless the overlay says the unfinished
-work is an audit. **Ignore** `n % 5 == 0` cadence: do **not** switch
+work is an audit. **Ignore** `n % 10 == 0` cadence: do **not** switch
 to review+score and do **not** refuse `js/` solely because the global
-iteration number is divisible by 5.
+iteration number is divisible by 10.
 
 ## Resume from the prior stream
 

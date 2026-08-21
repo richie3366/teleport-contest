@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — audit cadence every 10; progressive review writes
+
+**Objective:** human process change (loop stopped). Audit when
+`n % 10 == 0` (9 port/js iters, then review+score). Reviewer
+writes each SHA’s file before the next SHA; still **one grouped
+commit** at the end.
+**C locus:** n/a (loop scripts / prompts / CURRENT).
+**Change:** `LOOP_CADENCE_EVERY` default 10;
+`agent-port-loop.review.prompt.md` Write order. No `js/`.
+**Score:** fortress unchanged (not a score iter).
+**Verified:** next audit remains **#1760** (`1760 % 10 == 0`).
+**Next:** operator restarts the loop.
+**Blocked:** none.
 ## 2026-08-21 — D-1387 spell.c unskilled FIREBALL getdir cancel
 
 **Objective:** Must-fix `spell.c` unskilled SPE_FIREBALL/CONE

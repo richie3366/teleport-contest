@@ -11,9 +11,23 @@ write the review, enqueue Must-fix items, **commit, and `git push origin HEAD`**
 2. `docs/CURRENT.md`, `docs/LOOP-QUEUE.md`, `docs/NOTES.md`.
 3. Prior reviews that this SHA claims to close (`reviews/loop-unattended/`,
    `reviews/loop-2026-08-15/`).
-4. `git log --oneline -15`. Review **every commit since the last
-   `reviews/loop-unattended/` file** that touches `js/` (if none, last 4
+4. `git log --oneline -25`. Review **every commit since the last
+   `reviews/loop-unattended/` file** that touches `js/` (if none, last 9
    `js/` commits). Do not skip a SHA because the journal said “fortress held”.
+
+## One SHA, then write that file (mandatory)
+
+List JS-touching SHAs **oldest first**. Work **one SHA at a time**.
+When the Method for a SHA is done, **write that SHA’s review file to
+disk immediately** — that is the end of reviewing that SHA. Then start
+the next SHA. Do **not** review several SHAs and write the markdown
+files only after the last one.
+
+Skip a SHA that already has `reviews/loop-unattended/*-HASH-*.md` on
+disk (continue-unfinished leftover).
+
+Git is unchanged: **one grouped commit** at the end of the iteration.
+Do **not** `git commit` after each SHA.
 
 ## Method (mandatory, each JS-touching commit)
 
@@ -34,22 +48,25 @@ This is an audit against **pinned C**, not against the commit message.
    for a **dispatch** while the **callee** is a stub? Say so explicitly.
 6. Density §2b. Verification: focused + green + **relevant** cohort, or
    admit public-unhit.
+7. **End of this SHA:** write `reviews/loop-unattended/NN-HASH-slug.md`
+   now, append its `00-INDEX.md` row now, and if QUALITY-RISK/REJECT
+   prepend the Must-fix line(s) now. Only then open the next SHA.
 
 Write in **English**. Length is `check-hot-docs.mjs --review NN` (JS-touching
 150–350, docs-only 40–80; +33% is still `ok`). No full-diff paste. Short
 C/JS citations (≤30 lines).
 
-## Required output
+## Required output (end of iteration, after every SHA file is already on disk)
 
-1. `reviews/loop-unattended/NN-HASH-slug.md` (NN = next index)
-2. Update `reviews/loop-unattended/00-INDEX.md`
-3. If the verdict is QUALITY-RISK or REJECT: **prepend** one `- [ ]` line
-   per distinct C-wrong family under `LOOP-QUEUE.md` **Must-fix** (not
-   Open). Each line cites `Source: reviews/loop-unattended/NN-…`. Set
-   `CURRENT.md` **Next cluster** to the first new Must-fix item.
-4. Journal crumb. `node scripts/check-hot-docs.mjs --fix --review NN …`
+The per-SHA files and INDEX rows are **not** written here — they were
+written in Method step 7 after each SHA. Here you only finish the iter:
+
+1. Confirm every listed SHA has `reviews/loop-unattended/NN-HASH-slug.md`
+2. Journal crumb. Cadence score (full `sessions`) if this is the audit
+   overlay. `node scripts/check-hot-docs.mjs --fix --review NN …`
    (this iter’s review ids; do not count). `ok` = no cap edit. If REFILL,
-   append Open to ~12 from named map omits. Commit **and** `git push origin HEAD`.
+   append Open to ~12 from named map omits. **Then** one grouped commit
+   **and** `git push origin HEAD`.
 
 ### Required headings
 
@@ -77,7 +94,8 @@ production / unrevertible mess). QUALITY-RISK continues via Must-fix.
 
 ## Git
 
-Stage review + queue + CURRENT + NOTES + journal. Commit with why.
+Stage **all** new review files + queue + CURRENT + NOTES + journal together.
+**One commit** for the whole audit (not one commit per SHA). Commit with why.
 **`git push origin HEAD`** (no force-push, no amend of pushed commits,
 no `git reset --hard`). Do not `git add` `STOP_AGENT_LOOP.md` (gitignored).
 No `js/` edits. If leftover `- [x]` remain in `LOOP-QUEUE.md`, run

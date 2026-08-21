@@ -199,7 +199,7 @@ Do not stack JS FORCE or WIN_STOP shims until C state at those loci is known.
 
 | Fact type | Owner |
 |-----------|-------|
-| Score / green gate / primary objective | **`CURRENT.md`** (keep tiny; refresh Score every 5 loop iters via full `sessions`) |
+| Score / green gate / primary objective | **`CURRENT.md`** (keep tiny; refresh Score every 10 loop iters via full `sessions`) |
 | Unresolved hypothesis / dead end | `NOTES.md` (target 100 lines; `check-hot-docs.mjs`) |
 | Proved cause / rejected theory | `DIVERGENCE-LOG.md` + index row |
 | Module status / omissions | one `c-js-map/*.md` |
@@ -269,7 +269,7 @@ node scripts/strict-output-check.mjs \
   sessions/seed8000-tourist-starter.session.json \
   sessions/seed0900-tourist-explore-actions.session.json
 
-# Full public score (mandatory every 5 global loop iterations)
+# Full public score (mandatory every 10 global loop iterations)
 node frozen/ps_test_runner.mjs sessions
 # Then update CURRENT.md Score from __RESULTS_JSON__ aggregates — not guesses.
 
