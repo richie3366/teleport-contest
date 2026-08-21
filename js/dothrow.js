@@ -2361,7 +2361,7 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
     // C dothrow.c throwit :1818 — land snuff after flooreffects (and
     // pick-snatch, named) before ship_object. Candles / candelabrum
     // only, not snuff_lit. throwit_mon_hit snuffs only when mon!=NULL
-    // (D-1313); miss-land never hits that helper. mthrowu :942 named.
+    // (D-1313); miss-land never hits that helper. mthrowu :942 is D-1334.
     {
         const { snuff_candle } = await import('./apply.js');
         await snuff_candle(obj);

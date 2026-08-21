@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1334 — mthrowu.c return_from_mtoss snuff_candle
+
+- **Status:** fixed (map-driven Open from D-1333; not a public FAIL)
+- **Symptom:** a monster throw-and-return that is not caught landed
+  still burning if the missile was a lit candle or candelabrum.
+  C `return_from_mtoss` calls `snuff_candle` at `:942` on the
+  notcaught path **before** `ship_object` / `flooreffects("drop")`.
+  JS `m_throw` always `drop_throw` (no return path), so `:942`
+  never ran. `drop_throw` itself does not snuff (C matches).
+- **C locus:** `mthrowu.c` `return_from_mtoss` `:849–965`, snuff
+  `:942`. Callee `apply.c` `snuff_candle` `:1472–1491` (`Is_candle`
+  or `CANDELABRUM_OF_INVOCATION`, `lamplit`, `end_burn(TRUE)`).
+  Caller `m_throw` `:829–830` when `arw && return_flightpath`
+  (wielded AKLYS; `tethered_weapon` computed before unwield).
+  Order is not throwit land (D-1333: flooreffects then snuff).
+- **JS was:** flight always `drop_throw`; no `return_from_mtoss`.
+- **Fix:** port `return_from_mtoss`; `m_throw` sets
+  `return_flightpath` instead of `drop_throw` when tethered
+  (hero hit or end of path). Notcaught snuffs candles/candelabrum
+  then ship then `flooreffects("drop")`. Lamps stay lit (`snuff_candle`,
+  not `snuff_lit`). Did not pull `thrwmu` always_toss/polearm,
+  `shade_miss`, iron bars, or `splash_lit`. Rule #2: no fs.
+- **JS:** `js/mthrowu.js` `return_from_mtoss` + `m_throw` tether
+  wire; `js/apply.js` caller comment.
+- **Not this iter:** `thrwmu` always_toss / polearm; `killer_xname`;
+  `splash_lit`; `obj_sheds_light` full `obj_is_burning`; Soundeffect;
+  add_to_minv merge; Hallu/neuter `mhis` beyond female/his + Hallu
+  `rn2(4)`.
+- **Verified:** private canary **17**/17 (C/JS snuff then ship then
+  drop; notcaught lit tallow/candelabrum snuff; unlit no-op;
+  magic/oil lamp stay lit; Blind still snuffs; dart no flame;
+  `m_throw` wielded AKLYS lands via return path; non-tethered dart
+  still `drop_throw`; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session has a monster miss-return a
+  lit candle/aklys.
+- **Follow-up:** Open `dokick.c` `killer_xname` (kickobjnam still
+  xname).
+- **Files:** `js/mthrowu.js`.
+
 ## D-1333 — dothrow.c throwit land snuff_candle
 
 - **Status:** fixed (map-driven Open from D-1325; not a public FAIL)

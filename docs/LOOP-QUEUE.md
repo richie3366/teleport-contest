@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mthrowu.c` `snuff_candle` (C `:942` notcaught land). Not throwit land.
 - [ ] `dokick.c` `killer_xname` (kickobjnam still xname). Not special_dmgval.
 - [ ] `dokick.c` `maybe_mnexto` evade (named from D-1310). Not kickstr.
 - [ ] `apply.c` `splash_lit` (named from D-1242). Not snuff_candle.
