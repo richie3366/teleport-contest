@@ -5,9 +5,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1354; cadence **#1715** `d3f2a9e5`
-  (Scr **11,405** RNG 100% speed `36+0.30/turn`). Review **312**
-  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `zap.c`
+- **Fortress 44/44** after D-1354; cadence **#1720** `6570ddba`
+  (Scr **11,405** RNG 100% speed `37+0.31/turn`). Reviews
+  **313–316** ACCEPT-WITH-DEBT (no Must-fix). Next: Open `zap.c`
   `zapyourself` WAN_LIGHTNING (named). Not killer_xname.
   Do not skip D-1354…D-1229. Do not wrap
   `wildmiss` as `pline_mon`. No FORCE.

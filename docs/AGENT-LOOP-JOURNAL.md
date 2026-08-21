@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — review D-1351–D-1354 (audit #1720)
+
+**Objective:** audit — C-fidelity reviews **313–316** of JS SHAs
+`48f2f0a2`…`6570ddba` since `35dfdd85`, plus full `sessions`
+score. No `js/` port.
+**C locus:** `mhitm.c` `hitmm` `:706–726`; `uhitm.c`
+`mhitm_ad_ston` `:4254–4261`; `muse.c` `ureflects` `:2850–2864`;
+`weapon.c` `dmgval` `:307–308`.
+**Change:** **313–316** ACCEPT-WITH-DEBT. No Must-fix. Filled
+D-1354 archive hash `6570ddba`. Cadence **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`37+0.31/turn` (R² 0.85) at `6570ddba`. Rule #2: no fs.
+**Score:** fortress held. Next audit @**#1725**.
+**Verified:** `node frozen/ps_test_runner.mjs sessions` this iter.
+**Next:** Open `zap.c` `zapyourself` WAN_LIGHTNING (named).
+Not killer_xname.
+**Blocked:** none.
 ## 2026-08-21 — D-1354 weapon.c dmgval shade/shade_glare
 
 **Objective:** Open `weapon.c` `dmgval` shade/`shade_glare`

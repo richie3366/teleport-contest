@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `weapon.c` `dmgval` shade/`shade_glare` (named from D-1341). Not hitmm shade_miss. **Addressed:** D-1354
+- [x] `weapon.c` `dmgval` shade/`shade_glare` (named from D-1341). Not hitmm shade_miss. **Addressed:** D-1354 `6570ddba`
 
 
 - [x] `zap.c` `ureflects` W_AMUL/W_ARM/dragon (named from D-1342). Not W_WEP. **Addressed:** D-1353 `03e578b1`

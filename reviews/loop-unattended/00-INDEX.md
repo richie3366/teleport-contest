@@ -322,3 +322,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [310-dde5f91b-mhitm-ad-wrap.md](./310-dde5f91b-mhitm-ad-wrap.md) | `dde5f91b` | D-1348 uhitm AD_WRAP | **ACCEPT-WITH-DEBT** |
 | [311-533e732f-kickdmg-abuse-dog.md](./311-533e732f-kickdmg-abuse-dog.md) | `533e732f` | D-1349 kickdmg `abuse_dog` | **ACCEPT-WITH-DEBT** |
 | [312-d3f2a9e5-kickdmg-martial-knockback.md](./312-d3f2a9e5-kickdmg-martial-knockback.md) | `d3f2a9e5` | D-1350 kickdmg martial knockback | **ACCEPT-WITH-DEBT** |
+| [313-48f2f0a2-hitmm-silver-sear.md](./313-48f2f0a2-hitmm-silver-sear.md) | `48f2f0a2` | D-1351 hitmm silver sear | **ACCEPT-WITH-DEBT** |
+| [314-160de986-mdamagem-ad-ston.md](./314-160de986-mdamagem-ad-ston.md) | `160de986` | D-1352 mdamagem AD_STON leftover | **ACCEPT-WITH-DEBT** |
+| [315-03e578b1-ureflects-amul-arm.md](./315-03e578b1-ureflects-amul-arm.md) | `03e578b1` | D-1353 ureflects W_AMUL/W_ARM/dragon | **ACCEPT-WITH-DEBT** |
+| [316-6570ddba-dmgval-shade-glare.md](./316-6570ddba-dmgval-shade-glare.md) | `6570ddba` | D-1354 dmgval shade/`shade_glare` | **ACCEPT-WITH-DEBT** |
