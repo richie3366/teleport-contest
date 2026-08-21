@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1404 zap.c zapnodir WAN_STASIS
+
+**Objective:** Open `zap.c` `zapnodir` WAN_STASIS (named from
+D-1380). Not enlightenment.
+**C locus:** `zap.c` `zapnodir` `:2559–2568`; consumers
+`teleport.c` `noteleport_level`, `apply.c` magic whistle,
+`do.c` `revive_mon` displacer already live.
+**Change:** silent `stasis_until` max `moves+rn1(21,10)`;
+`known` stays FALSE (no learnwand). SPE_DETECT_UNSEEN named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps WAN_STASIS).
+**Verified:** private canary **15**/15; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` `mhitm_ad_fire` leftover (named
+from D-1385). Not STUN.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1403 uhitm.c mhitm_ad_phys AT_KICK thick_skinned
 
 **Objective:** Open `uhitm.c` `mhitm_ad_phys` AT_KICK

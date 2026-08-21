@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zapnodir` WAN_STASIS (named from D-1380). Not enlightenment.
 - [ ] `uhitm.c` `mhitm_ad_fire` leftover (named from D-1385). Not STUN.
 - [ ] `mhitm.c` `mhitm_ad_wrap` brush (named from D-1348). Not uhitm wrap.
 - [ ] `spell.c` `spelleffects` SPE_MAGIC_MAPPING seffects (named). Not create monster.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `spell.c` `spell_backfire` (named). Not peffects.
 - [ ] `zap.c` `zapyourself` WAN_SPEED_MONSTER (named from D-1369). Not make invisible.
 - [ ] `potion.c` `peffect_full_healing` (named). Not haste.
+- [ ] `zap.c` `zapnodir` SPE_DETECT_UNSEEN (named from D-1404). Not stasis.
+- [ ] `potion.c` `peffect_enlightenment` (named from D-1395). Not full healing.
+- [ ] `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named from D-1369). Not zapyourself speed.
+- [ ] `uhitm.c` `mhitm_ad_phys` artifact_hit leftover (named from D-1403). Not rustm.
+- [ ] `zap.c` `backfire` (named). Not zapyourself.
 
 ## Parked (do not pop)
 

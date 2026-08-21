@@ -19,6 +19,7 @@
 // zapnodir WAN_CREATE_MONSTER create_critters (D-1379);
 // zapnodir WAN_WISHING Luck+rn2(5) / makewish (D-1380);
 // zapnodir WAN_ENLIGHTENMENT do_enlightenment_effect (D-1395);
+// zapnodir WAN_STASIS stasis_until max moves+rn1(21,10) (D-1404);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
@@ -32,7 +33,7 @@
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
 // probing; zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
-// backfire body; other NODIR (stasis); potion peffect_enlightenment;
+// backfire body; other NODIR (SPE_DETECT_UNSEEN); potion peffect_enlightenment;
 // wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
@@ -195,6 +196,7 @@ const RIN_SHOCK_RESISTANCE = objectNames.indexOf('RIN_SHOCK_RESISTANCE');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
 const WAN_CREATE_MONSTER = objectNames.indexOf('WAN_CREATE_MONSTER');
 const WAN_ENLIGHTENMENT = objectNames.indexOf('WAN_ENLIGHTENMENT');
+const WAN_STASIS = objectNames.indexOf('WAN_STASIS');
 const WAN_POLYMORPH = objectNames.indexOf('WAN_POLYMORPH');
 const SPE_POLYMORPH = objectNames.indexOf('SPE_POLYMORPH');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -2230,8 +2232,9 @@ export async function do_enlightenment_effect() {
  * WAN_LIGHT / SPE_LIGHT → litroom + lightdamage (D-1366);
  * WAN_CREATE_MONSTER → create_critters (D-1379);
  * WAN_WISHING → Luck+rn2(5) then makewish (D-1380);
- * WAN_ENLIGHTENMENT → do_enlightenment_effect (D-1395).
- * Named omit: WAN_STASIS.
+ * WAN_ENLIGHTENMENT → do_enlightenment_effect (D-1395);
+ * WAN_STASIS → stasis_until max moves+rn1(21,10) (D-1404).
+ * Named omit: SPE_DETECT_UNSEEN (C shares SECRET_DOOR findit).
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -2274,8 +2277,19 @@ export async function zapnodir(obj) {
         known = !!obj.dknown;
         await do_enlightenment_effect();
         break;
+    case WAN_STASIS: {
+        // C zap.c zapnodir :2559–2568 — no message, known stays
+        // FALSE (not distinguishable from other silent NODIR);
+        // tmp_until = moves + rn1(21, 10); keep the longest.
+        const tmp_until = (game.moves | 0) + rn1(21, 10);
+        const lf = game.level.flags;
+        if (tmp_until > (lf.stasis_until | 0)) {
+            lf.stasis_until = tmp_until;
+        }
+        break;
+    }
     default:
-        // WAN_STASIS deferred
+        // SPE_DETECT_UNSEEN named (C shares SECRET_DOOR findit)
         break;
     }
 

@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1404 — zap.c zapnodir WAN_STASIS
+
+- **Status:** fixed (map-driven Open from D-1380; not a public FAIL)
+- **Symptom:** zapping a wand of stasis was a silent no-op.
+  C `zapnodir` WAN_STASIS sets
+  `tmp_until = svm.moves + rn1(21, 10)` and keeps
+  `svl.level.flags.stasis_until` as the longest (not
+  latest). No message and `known` stays FALSE so the wand
+  is not `learnwand`'d (indistinguishable from other silent
+  NODIR). Consumers already live: `noteleport_level` (even
+  covetous), magic whistle, displacer `revive_mon` bump.
+- **C locus:** `zap.c` `zapnodir` `:2559–2568`. Caller
+  `weffects` NODIR. Field `rm.h` `stasis_until`.
+- **JS was:** zapnodir default skip after D-1395
+  enlightenment arm.
+- **Fix:** live WAN_STASIS arm. Rule #2: no fs.
+- **JS:** `js/zap.js` `zapnodir`.
+- **Not this iter:** SPE_DETECT_UNSEEN (C shares
+  SECRET_DOOR `findit`); potion.c `peffect_enlightenment`;
+  artifact.c invoke enlightenment; engrave NODIR already
+  calls `zapnodir`; timeout wizard stasis display.
+- **Verified:** private canary **15**/15 (C/JS grep; NODIR;
+  dknown silent no makeknown/XP + rn2(21) duration;
+  !dknown still sets until; keep longest; replace shorter;
+  `noteleport_level` including covetous; LIGHT/CREATE/WISH/
+  ENLIGHTENMENT regression; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session zaps WAN_STASIS.
+- **Follow-up:** Open `uhitm.c` `mhitm_ad_fire` leftover
+  (named from D-1385). Not STUN.
+- **Files:** `js/zap.js`.
+
+
 ## D-1403 — uhitm.c mhitm_ad_phys AT_KICK thick_skinned
 
 - **Status:** fixed (map-driven Open from D-1402; not a public FAIL)
