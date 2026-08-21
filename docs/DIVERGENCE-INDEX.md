@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1360 | fixed | dokick.c dokick u_wipe_engr(2) | map-driven Open from D-1358; C `dokick.c:1384` after `wake_nearby(FALSE)` before isok/`kick_monster` `u_wipe_engr(2)` (hero cell; `can_reach_floor(TRUE)` then `wipe_engr_at`); JS stub comment; live `js/dokick.js` `dokick` + callee `js/engrave.js` D-1051; allmain/uhitm/dothrow/dig still named |
 | D-1359 | fixed | fountain.c drinkfountain fate<10 | Must-fix review **318**; C `fountain.c:279–282` `uhunger += rnd(10)` + `newuhs(FALSE)` (“don't choke on water”); JS `await lesshungry` after D-1356 could choke/fullwarn; live `js/fountain.js`; `newuhs` messages still named |
 | D-1358 | fixed | dokick.c dokick wake_nearby | map-driven Open from D-1350; C `dokick.c:1383` after maybe_kick before `u_wipe_engr`/`kick_monster` `wake_nearby(FALSE)` (`ulevel*20`, petcall FALSE); JS stub comment; live `js/dokick.js` `dokick` + callee `js/mon.js`; `u_wipe_engr` still named |
 | D-1357 | fixed | objnam.c the() CapitalMon | map-driven Open from D-1335; C `rumors.c` `CapitalMon`/`init_CapMons` + `objnam.c` `the()` `:2171–2231`; JS skipped capitalized titles/types; live `js/objnam.js` (27 mons + hallu types; first-space `" of "` + PYEC); fruit_from_name + artifact_name still named |

@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1360 — dokick.c dokick u_wipe_engr(2)
+
+- **Status:** fixed (map-driven Open from D-1358; not a public FAIL)
+- **Symptom:** `#kick` never smudged the hero-cell engraving. C
+  `dokick()` calls `u_wipe_engr(2)` after `wake_nearby(FALSE)` and
+  **before** `isok` / `kick_monster`. JS had a stub comment after
+  D-1358; the callee was already live (D-1051).
+- **C locus:** `dokick.c` `dokick` `:1384` (`u_wipe_engr(2)`);
+  callee `engrave.c` `u_wipe_engr` `:264–268` →
+  `can_reach_floor(TRUE)` then `wipe_engr_at(u.ux, u.uy, cnt, FALSE)`.
+  Early return `:1378–1380` when maybe_kick declines skips wake
+  **and** wipe. No RNG when there is no engraving (HEADSTONE /
+  `nowipeout` / BURN-on-stone also skip).
+- **JS was:** named omit after D-1358. `u_wipe_engr` already live
+  in `engrave.js` (D-1051 apply pole/grapple); `dokick()` never
+  called it.
+- **Fix:** `u_wipe_engr(2)` on the maybe_kick keep-path, after
+  `wake_nearby(false)`, before `isok` / `kick_monster`. Import the
+  live callee. Rule #2: no fs.
+- **JS:** `js/dokick.js` `dokick`; callee `js/engrave.js`
+  `u_wipe_engr`.
+- **Not this iter:** allmain/uhitm/dothrow/dig `u_wipe_engr`
+  callers; shop-town watchman; swallow / pit / levitation brace;
+  glyph / `map_invisible` / air recoil; kick_ouch drawbridge
+  `find_drawbridge`.
+- **Verified:** private canary **15**/15 (C/JS call order;
+  declined-kick returns first; live dokick DUST smudge; no-engraving
+  no RNG; HEADSTONE/BURN/Levitation skip; Rule #2); green+strict
+  seed8000/0900; focused seed0060; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session kicks while standing on a wipeable engraving.
+- **Follow-up:** Open `dokick.c` kick_ouch drawbridge
+  `find_drawbridge` remap.
+- **Files:** `js/dokick.js`.
+
 ## D-1359 — fountain.c drinkfountain fate<10 uhunger += rnd(10)
 
 - **Status:** fixed (Must-fix review **318**; not a public FAIL)

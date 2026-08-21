@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1360 dokick.c dokick u_wipe_engr(2)
+
+**Objective:** Open `dokick.c` `u_wipe_engr` caller (C `:1384`;
+body D-1051). Not knockback.
+**C locus:** `dokick.c` `dokick` `:1384`; callee `engrave.c`
+`u_wipe_engr` `:264–268`.
+**Change:** after `wake_nearby(FALSE)`, call live `u_wipe_engr(2)`
+before `isok` / `kick_monster`. Declined peaceful still returns
+first. Filled D-1359 archive/review hash `0ff8d15e`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless kick
+on a wipeable engraving).
+**Verified:** private canary **15**/15; green+strict seed8000/0900;
+focused seed0060; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `dokick.c` kick_ouch drawbridge `find_drawbridge`
+remap (named from D-1343).
+**Blocked:** none.
 ## 2026-08-21 — D-1359 fountain.c drinkfountain fate<10 uhunger+=
 
 **Objective:** Must-fix review **318** `fountain.c` `drinkfountain`

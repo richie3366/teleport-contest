@@ -3,7 +3,8 @@
 // kick_monster, kickdmg (partial; poly AT_KICK D-1310; special_dmgval D-1332;
 // maybe_mnexto evade D-1336; abuse_dog/monflee D-1349;
 // martial knockback D-1350);
-// dokick wake_nearby(FALSE) D-1358);
+// dokick wake_nearby(FALSE) D-1358;
+// dokick u_wipe_engr(2) D-1360);
 // down_gate / drop_to / impact_drop (D-0961);
 // ship_object / otransit_msg (D-0984); obj_delivery (D-1177);
 // deliver_obj_to_mon (D-1193);
@@ -103,7 +104,7 @@ import {
 import { shkname, Shknam } from './shknam.js';
 import { cvt_sdoor_to_door } from './detect.js';
 import { altar_wrath } from './pray.js';
-import { del_engr_at, disturb_grave } from './engrave.js';
+import { del_engr_at, disturb_grave, u_wipe_engr } from './engrave.js';
 import { sink_backs_up } from './fountain.js';
 import { makemon, mpickobj, add_to_minv } from './makemon.js';
 import { scatter } from './explode.js';
@@ -881,7 +882,8 @@ async function kickdmg(mon, clumsy) {
  * Poly AT_KICK loop D-1310 (`Upolyd && attacktype(AT_KICK)` then return).
  * maybe_mnexto evade D-1336 (`:267–285` else of block).
  * kickdmg abuse_dog D-1349. martial knockback D-1350.
- * dokick() wake_nearby(FALSE) D-1358 runs before this (clears msleeping).
+ * dokick() wake_nearby(FALSE) D-1358 then u_wipe_engr(2) D-1360 run
+ * before this (clears msleeping; smudges hero-cell dust).
  */
 export async function kick_monster(mon, x, y) {
     let clumsy = false;
@@ -1572,10 +1574,12 @@ export async function dokick() {
         }
     }
 
-    /* C dokick.c `:1383` — wake_nearby(FALSE) after maybe_kick, before
-     * u_wipe_engr / isok / kick_monster. Callee live (mon.js D-1007). */
+    /* C dokick.c `:1383–1384` — wake_nearby(FALSE) then u_wipe_engr(2)
+     * after maybe_kick, before isok / kick_monster. Callees live
+     * (mon.js D-1007; engrave.js D-1051). Declined peaceful returns
+     * first and skips both. */
     await wake_nearby(false);
-    // u_wipe_engr(2) — no RNG when no engraving; deferred (D-1051 body)
+    u_wipe_engr(2);
 
     if (!isok(x, y)) {
         // C dokick.c:1387 gm.maploc = &gn.nowhere then kick_ouch

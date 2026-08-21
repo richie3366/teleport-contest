@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dokick.c` `u_wipe_engr` caller (C `:1384`; body D-1051). Not knockback.
 - [ ] `dokick.c` kick_ouch drawbridge `find_drawbridge` remap (named from D-1343).
 - [ ] `dokick.c` no_kick poly/steed/lizard/uinwater/boulder (named from D-0786). Not Wounded_legs.
 - [ ] `dokick.c` `obj_delivery` stolen_booty / `mksobj_migr_to_species` (named from D-1177).

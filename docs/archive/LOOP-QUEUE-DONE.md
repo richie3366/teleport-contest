@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `fountain.c` `drinkfountain` fate<10 `uhunger += rnd(10)` + `newuhs(FALSE)` (C `:279–282`; "don't choke on water"). Not eat.c lesshungry. Source: reviews/loop-unattended/318-6fd45ec4-lesshungry-bite-choke.md **Addressed:** D-1359
+- [x] `dokick.c` `u_wipe_engr` caller (C `:1384`; body D-1051). Not knockback. **Addressed:** D-1360
+
+
+- [x] `fountain.c` `drinkfountain` fate<10 `uhunger += rnd(10)` + `newuhs(FALSE)` (C `:279–282`; "don't choke on water"). Not eat.c lesshungry. Source: reviews/loop-unattended/318-6fd45ec4-lesshungry-bite-choke.md **Addressed:** D-1359 `0ff8d15e`
 
 
 - [x] `dokick.c` `wake_nearby` caller (C `:1383` after maybe_kick; callee live). Not knockback. **Addressed:** D-1358 `fbfc72d9`
