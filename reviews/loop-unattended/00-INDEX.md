@@ -297,3 +297,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [285-b50daaea-bhit-tether-isqrt.md](./285-b50daaea-bhit-tether-isqrt.md) | `b50daaea` | D-1323 `bhit` THROWN_TETHERED / isqrt | **ACCEPT-WITH-DEBT** |
 | [286-1d5b0b66-thitmonst-swallow-vanish.md](./286-1d5b0b66-thitmonst-swallow-vanish.md) | `1d5b0b66` | D-1324 thitmonst swallow vanish pline | **ACCEPT-WITH-DEBT** |
 | [287-2cdf2b1f-dokick-snuff-candle.md](./287-2cdf2b1f-dokick-snuff-candle.md) | `2cdf2b1f` | D-1325 dokick `snuff_candle` | **ACCEPT-WITH-DEBT** |
+| [288-9570f32a-explmu-at-expl.md](./288-9570f32a-explmu-at-expl.md) | `9570f32a` | D-1326 explmu / AT_EXPL | **ACCEPT-WITH-DEBT** |
+| [289-2c9dff6a-mattacku-at-hugs.md](./289-2c9dff6a-mattacku-at-hugs.md) | `2c9dff6a` | D-1327 `mattacku` AT_HUGS | **ACCEPT-WITH-DEBT** |
+| [290-b21765a2-gazemu.md](./290-b21765a2-gazemu.md) | `b21765a2` | D-1328 `gazemu` / AT_GAZE | **ACCEPT-WITH-DEBT** |
+| [291-a7a5a835-mhitm-ad-drin-u.md](./291-a7a5a835-mhitm-ad-drin-u.md) | `a7a5a835` | D-1329 mhitu AD_DRIN | **ACCEPT-WITH-DEBT** |

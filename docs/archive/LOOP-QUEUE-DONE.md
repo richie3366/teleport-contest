@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `mhitu.c` AD_DRIN (named from D-1309). Not gazemu. **Addressed:** D-1329
+- [x] `mhitu.c` AD_DRIN (named from D-1309). Not gazemu. **Addressed:** D-1329 `a7a5a835`
 
 
 - [x] `mhitu.c` gazemu (named from D-1314). Not explmu. **Addressed:** D-1328 `b21765a2`

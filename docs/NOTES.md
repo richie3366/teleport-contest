@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1329; cadence **#1680** `2cdf2b1f`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **284–287**
+- **Fortress 44/44** after D-1329; cadence **#1685** `a7a5a835`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **288–291**
   ACCEPT-WITH-DEBT (**283** closed). Next: Open `mhitm.c` AD_DRIN
   (named from D-1307). Not mhitu AD_DRIN. Not `u_slip_free` AD_WRAP /
   kickdmg `special_dmgval`. Do not skip D-1329…D-1229. Do not wrap

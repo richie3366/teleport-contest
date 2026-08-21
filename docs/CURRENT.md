@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-21** — full `sessions` at review **#1680**
-HEAD `2cdf2b1f` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `37+0.30/turn` (R² 0.84). Next audit (review + score) @**#1685**.
+Score last measured: **2026-08-21** — full `sessions` at review **#1685**
+HEAD `a7a5a835` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `37+0.30/turn` (R² 0.84). Next audit (review + score) @**#1690**.
 
 ## Score
 
@@ -59,7 +59,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1329. Reviews **284–287**
+**Map-driven fortress** after D-1329. Reviews **288–291**
 ACCEPT-WITH-DEBT (review **283** closed by D-1322). **Next
 cluster:** Open `mhitm.c` AD_DRIN (named from D-1307). Not mhitu
 AD_DRIN. Not `u_slip_free` AD_WRAP / kickdmg `special_dmgval`. Do
