@@ -1884,7 +1884,8 @@ function closed_door_boom(x, y) {
  * C dothrow.c throwit_mon_hit — snuff_candle, thitmonst, shk hot_pursuit.
  * Callers: throwit (D-1315), boomhit (D-1301). boomhit m_respond is D-1314.
  * apply.js imports thitmonst — snuff_candle is a dynamic import.
- * dokick really_kick_object snuff is D-1325 (not this helper).
+ * dokick really_kick_object snuff is D-1325; throwit land :1818 is
+ * D-1333 (not this helper).
  */
 export async function throwit_mon_hit(obj, mon) {
     if (!mon) return false;
@@ -2356,6 +2357,14 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
             throwit_return(true);
             return;
         }
+    }
+    // C dothrow.c throwit :1818 — land snuff after flooreffects (and
+    // pick-snatch, named) before ship_object. Candles / candelabrum
+    // only, not snuff_lit. throwit_mon_hit snuffs only when mon!=NULL
+    // (D-1313); miss-land never hits that helper. mthrowu :942 named.
+    {
+        const { snuff_candle } = await import('./apply.js');
+        await snuff_candle(obj);
     }
     // C: !mon && ship_object(obj, bhitpos, FALSE) before place
     {

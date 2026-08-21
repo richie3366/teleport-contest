@@ -1139,8 +1139,8 @@ async function kick_object(x, y, kickobjnam) {
  * grease/Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
  * hero_breaks; thump; split; slide; bhit KICKED_WEAPON; mon thitmonst/
  * ghitm; shop stolen_value; flooreffects; place+stack.
- * Named omit: killer_xname polish (xname stand-in); throwit land /
- * mthrowu snuff_candle.
+ * Named omit: killer_xname polish (xname stand-in); mthrowu
+ * snuff_candle (`:942`). Throwit land snuff is D-1333.
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};

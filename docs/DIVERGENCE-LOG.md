@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1333 — dothrow.c throwit land snuff_candle
+
+- **Status:** fixed (map-driven Open from D-1325; not a public FAIL)
+- **Symptom:** a thrown lit candle or candelabrum that missed
+  (or never hit a monster) landed still burning. C `throwit`
+  calls `snuff_candle` at `:1818` after flooreffects and before
+  `ship_object`. JS skipped that call. `throwit_mon_hit` already
+  snuffs when `mon != NULL` (D-1313); miss-land never enters it.
+- **C locus:** `dothrow.c` `throwit` `:1818`. Callee `apply.c`
+  `snuff_candle` `:1472–1491` (`Is_candle` or
+  `CANDELABRUM_OF_INVOCATION`, `lamplit`, `end_burn(TRUE)`).
+  Caller is the post-bhit land path (not mthrowu `:942`).
+- **JS was:** flooreffects then `ship_object` then `place_object`
+  with no land snuff. Hit-path snuff already live.
+- **Fix:** dynamic-import `snuff_candle` (apply↔dothrow already)
+  between flooreffects and `ship_object`. Lamps stay lit
+  (`snuff_candle`, not `snuff_lit`). Did not pull mthrowu
+  notcaught land, shk pick-snatch, or `obj_no_longer_held`.
+  Rule #2: no fs.
+- **JS:** `js/dothrow.js` `throwit` land; `js/apply.js` caller
+  comment.
+- **Not this iter:** mthrowu `:942`; `splash_lit`; shk pick
+  snatch; `obj_no_longer_held`; `obj_sheds_light` vision recalc;
+  `killer_xname`.
+- **Verified:** private canary **16**/16 (C/JS flooreffects →
+  snuff → ship_object; miss-land lit tallow/candelabrum snuff;
+  unlit no-op; magic/oil lamp stay lit; hit-path still snuffs;
+  Blind still snuffs; dart no flame; mthrowu still omits;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session throws a lit candle that misses.
+- **Follow-up:** Open `mthrowu.c` `snuff_candle` (C `:942`
+  notcaught land).
+- **Files:** `js/dothrow.js`.
+
 ## D-1332 — `dokick.c` `kickdmg` `special_dmgval(W_ARMF)`
 
 - **Status:** fixed (map-driven Open from D-1310; not a public FAIL)
