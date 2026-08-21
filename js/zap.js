@@ -53,6 +53,7 @@
 // is D-1386 (this callee SPE ubuzz). SPE_FORCE_BOLT IMMEDIATE bhit
 // + bhitm spell_damage_bonus is D-1388. zhitm spell_damage_bonus named.
 // muse MUSE_CAMERA is D-1376; Sunsword invoke_blinding_ray is D-1377.
+// bhit WEB stick D-1393; throwit fly / skiprange named.
 // bhitm / zap_updown / zap_steed WAN_MAKE_INVISIBLE; setworn w_blocks.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
 // via uprops[SHOCK_RES] (D-1371); inventory_resistance / full
@@ -4028,9 +4029,10 @@ function bhit_xyglyph_known_monster(loc) {
  * caller (`:3863–3866`, `:4023–4024`, `:4125–4127`; D-1323).
  * shade_miss thrown/kicked skip is D-1383 (`:3984–3986`).
  * M_AP_OBJECT skip is D-1392 (`:3986–3992`).
+ * WEB stick is D-1393 (`:3926–3938`) — after m_at/t_at, before shade.
  * Named omit: THROWN_WEAPON fly callers (throwit still inlines those
- * and still stops on a shade / mimic-object); FLASHED_LIGHT DISP_BEAM /
- * INVIS_BEAM stop; show_transient_light; WEB stick rn2; shkcatch pick;
+ * and still skips WEB / shade / mimic-object); FLASHED_LIGHT DISP_BEAM /
+ * INVIS_BEAM stop; show_transient_light; shkcatch pick;
  * map_invisible / unmap_object; zap_map / doorlock; skiprange rocks.
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
@@ -4104,11 +4106,27 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
             }
 
             let mtmp = m_at(x, y);
+            const ttmp = t_at(x, y);
+            // C zap.c bhit :3926–3938 — empty WEB + thrown/kicked
+            // !rn2(3) sticks (D-1393). Monster on the web skips this
+            // (shade/M_AP_OBJECT come later). ZAPPED_WAND/FLASHED_LIGHT
+            // do not roll. throwit THROWN_WEAPON fly still named.
+            if (!mtmp && ttmp && (ttmp.ttyp | 0) === WEB
+                && (weapon === THROWN_WEAPON || weapon === KICKED_WEAPON)
+                && !rn2(3)) {
+                if (cansee(x, y)) {
+                    await pline(`${Yname2_destroy(obj)} gets stuck in a web!`);
+                    ttmp.tseen = true;
+                    newsym(x, y);
+                }
+                if (was_returning) game.iflags.returning_missile = null;
+                break;
+            }
             // C zap.c bhit :3983–3992 — glyph_at then thrown/kicked
             // shade_miss(TRUE,TRUE) (D-1383) OR (M_AP_OBJECT &&
             // !glyph_is_monster && !glyph_is_warning &&
             // !glyph_is_invisible); FLASHED_LIGHT skips M_AP_OBJECT
-            // with no glyph gate (D-1392). WEB stick named.
+            // with no glyph gate (D-1392).
             const known_mon = bhit_xyglyph_known_monster(loc);
             if (mtmp
                 && (((weapon === THROWN_WEAPON || weapon === KICKED_WEAPON)
@@ -4180,7 +4198,7 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
         }
     } finally {
         // C :4125–4127 — skip END when tethered unless returning_missile
-        // was cleared mid-flight (WEB stick named). Monster hit already
+        // was cleared mid-flight (WEB stick D-1393). Monster hit already
         // ENDed non-tethered via goto bhit_done. Gate on do_flash so a
         // ZAPPED_WAND / empty FLASHED_LIGHT does not close a leftover tmp.
         if (!bhit_done && do_flash) {

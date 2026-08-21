@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `zap.c` `bhit` M_AP_OBJECT skip (named from D-1383). Not WEB. **Addressed:** D-1392
+- [x] `zap.c` `bhit` WEB stick (named from D-1383). Not M_AP_OBJECT. **Addressed:** D-1393
+
+
+- [x] `zap.c` `bhit` M_AP_OBJECT skip (named from D-1383). Not WEB. **Addressed:** D-1392 `adfd4533`
 
 
 - [x] `spell.c` `spelleffects` SPE_CLAIRVOYANCE (named). Not protection. **Addressed:** D-1391 `a4923869`

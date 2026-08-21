@@ -5,11 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1392; cadence **#1755** `1f94d5e3`
+- **Fortress 44/44** after D-1393; cadence **#1755** `1f94d5e3`
   (Scr **11,405** RNG 100% speed `38+0.31/turn` R² 0.85). Next:
-  Open `zap.c` `bhit` WEB stick (named from D-1383).
-  Not M_AP_OBJECT. Reviews **339–345** ACCEPT-WITH-DEBT; **346**
-  QUALITY-RISK shipped D-1387. Do not skip D-1392…D-1229.
+  Open `uhitm.c` `mhitm_ad_phys` shade_miss (named from D-1341).
+  Not hmon. Reviews **339–345** ACCEPT-WITH-DEBT; **346**
+  QUALITY-RISK shipped D-1387. Do not skip D-1393…D-1229.
   No FORCE. Do not wrap `wildmiss`. Do not add trailing
   `confdir` to shared `getdir`.
 - Do not revert D-1217–D-1392. `see_monsters` warn_obj_cnt /
@@ -38,7 +38,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066). Do not skip D-1067…D-1392 (index).
 - Do not skip D-1071…D-1392 (index). Named still: hitmm artifact
   wep; `mhitm_ad_phys` `shade_miss` (hmon is D-1384; zap bhit shade
-  is D-1383; M_AP_OBJECT skip is D-1392; mthrowu is D-1382);
+  is D-1383; M_AP_OBJECT skip is D-1392; WEB stick is D-1393;
+  mthrowu is D-1382);
   mdamagem STUN/FIRE leftover; mhitm wrap brush.
   Do not restore fountain `lesshungry` (D-1359). No ALIGN/FORCE
   on seed0383.
@@ -52,11 +53,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1393: `zap.c` `bhit` `:3926–3938` — empty WEB +
+  thrown/kicked `!rn2(3)` Yname2 stuck pline + tseen/newsym
+  + clear returning then break. Callee D-1383 shade after.
+  throwit fly / skiprange / shkcatch named.
 - D-1392: `zap.c` `bhit` `:3986–3992` — thrown/kicked
   `M_AP_OBJECT` && !glyph_is_monster/warning/invisible (or
   FLASHED_LIGHT M_AP_OBJECT) clears mtmp keep flying. JS
-  gbuf `disp_kind`+I+warnsym analogue. Callee D-1383 shade.
-  WEB / throwit fly named.
+  gbuf `disp_kind`+I+warnsym analogue. WEB is D-1393.
 - D-1391: `spell.c` `spelleffects` `:1572–1580` SPE_CLAIRVOYANCE
   `!BClairvoyant` skilled bless + `do_vicinity_map(pseudo)`;
   else cornuthaum `body_part(HEAD)` hat. Callee `detect.c`
@@ -100,7 +104,7 @@ Objective/score live in `CURRENT.md`.
 - D-1383: `zap.c` `bhit` `:3972–3992` — thrown/kicked
   `shade_miss(&youmonst,mtmp,obj,TRUE,TRUE)` clears mtmp and
   keeps flying. ZAPPED_WAND still fhitm. Callee D-1341;
-  mthrowu is D-1382. M_AP_OBJECT skip is D-1392. WEB /
+  mthrowu is D-1382. M_AP_OBJECT skip is D-1392. WEB is D-1393.
   throwit fly named.
 - D-1382: `mthrowu.c` `m_throw` `:680–686` —
   `mtmp && shade_miss(..., TRUE, TRUE)` skip `ohitmon` keep
@@ -117,6 +121,3 @@ Objective/score live in `CURRENT.md`.
   `create_critters(rn2(23)?1:rn1(7,2),NULL,FALSE)` +
   `makemon.c` `:1556–1590` eel `enexto` / seen known.
   Scroll/spell create named.
-- D-1378: `spell.c` skilled SPE_FIREBALL/CONE `throwspell`
-  `:1655–1701` + scatter `:1419–1454` `rnd(8)+1` explode olet 0
-  + `spell_damage_bonus`. Unskilled FALLTHROUGH weffects is D-1386.

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `bhit` WEB stick (named from D-1383). Not M_AP_OBJECT.
 - [ ] `uhitm.c` `mhitm_ad_phys` shade_miss (named from D-1341). Not hmon.
 - [ ] `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380). Not stasis.
 - [ ] `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352). Not CONF.

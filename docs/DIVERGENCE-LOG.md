@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1393 — zap.c bhit WEB stick
+
+- **Status:** fixed (map-driven Open from D-1383; not a public FAIL)
+- **Symptom:** a thrown or kicked missile always flew through an empty
+  WEB. C `bhit` `:3926–3938` after `m_at`/`t_at`: `!mtmp &&
+  ttyp==WEB && (THROWN_WEAPON||KICKED_WEAPON) && !rn2(3)` then
+  `cansee` → `"%s gets stuck in a web!"` Yname2 + `tseen` +
+  `newsym`, clear `returning_missile` if `was_returning`,
+  `break` (bhitpos stays on the web). JS after D-1392 had no
+  arm. Monster on the web skips (shade/M_AP_OBJECT later).
+  ZAPPED_WAND/FLASHED_LIGHT do not roll. THROWN_TETHERED remaps
+  to THROWN so it sticks.
+- **C locus:** `zap.c` `bhit` `:3926–3938` (before skiprange /
+  D-1383 shade / D-1392 M_AP_OBJECT).
+- **JS was:** named omit after D-1392; always continue.
+- **Fix:** same short-circuit + Yname2_destroy pline + tseen +
+  newsym + clear returning. Rule #2: no fs.
+- **JS:** `js/zap.js` `bhit`.
+- **Not this iter:** throwit THROWN_WEAPON fly still inlines
+  without WEB; skiprange rocks; shkcatch pick; map_invisible;
+  FLASHED_LIGHT DISP_BEAM / `flash_hits_mon`.
+- **Verified:** private canary **16**/16 (C/JS grep; stick +
+  fly; returning clear; !cansee silent stop; PIT no roll;
+  ZAPPED_WAND/FLASHED_LIGHT no roll; gnome on web stop;
+  shade-on-web D-1383 order; kicked ux+2dx; tether remap;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session throws/kicks over a WEB
+  via `bhit`.
+- **Follow-up:** Open `uhitm.c` `mhitm_ad_phys` shade_miss
+  (named from D-1341). Not hmon.
+- **Files:** `js/zap.js`.
+
 ## D-1392 — zap.c bhit M_AP_OBJECT skip
 
 - **Status:** fixed (map-driven Open from D-1383; not a public FAIL)
