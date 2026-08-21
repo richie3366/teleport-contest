@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `mhitm.c` AT_HUGS (named from D-1327). Not explmm. **Addressed:** D-1340
+- [x] `mhitm.c` hitmm `shade_miss` (named from D-0887). Not AT_HUGS. **Addressed:** D-1341
+
+
+- [x] `mhitm.c` AT_HUGS (named from D-1327). Not explmm. **Addressed:** D-1340 `85eee14d`
 
 
 - [x] `mhitm.c` explmm (named from D-1326). Not gazemm. **Addressed:** D-1339 `fdb30435`

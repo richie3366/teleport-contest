@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1341 — uhitm.c shade_miss + mhitm.c hitmm
+
+- **Status:** fixed (map-driven Open from D-0887; not a public FAIL)
+- **Symptom:** a monster's successful melee vs a shade still ran
+  `mdamagem`. C `hitmm` returns `M_ATTK_MISS` when `!compat &&
+  shade_miss(...)` so the blow passes harmlessly through.
+- **C locus:** `uhitm.c` `shade_miss` `:2016–2051` + static
+  `shade_aware` `:1992–2011`; caller `mhitm.c` `hitmm` `:659–661`.
+- **JS was:** named omit (D-0887 / D-1340). `hitmm` always
+  continued to vis pline + `mdamagem`.
+- **Fix:** `shade_miss` (JS in `mhitm.js` — `uhitm.js` already
+  imports `mhitm`) uses `dmgval` for zero/not-zero, verbose
+  harmlessly-through (`Your`/`s_suffix`/`The` + `vtense`),
+  `map_invisible` when unseen, wakes `msleeping`. `hitmm`
+  `!compat && shade_miss` returns `M_ATTK_MISS`. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `shade_aware` / `shade_miss` / `hitmm`.
+- **Not this iter:** `dmgval` shade/`shade_glare` (a club still
+  “hurts” so `shade_miss` is false); mthrowu / zap `bhit` / hmon /
+  `mhitm_ad_phys` callers; hitmm silver sear / artifact wep;
+  mdamagem AD_STON leftover; uhitm/mhitm wrap arms.
+- **Verified:** private canary **13**/13 (C/JS shape; unarmed
+  miss+wake; youagr Your; thrown cream pie `The`; shade_aware
+  mirror “attack”; club not-miss named; !verbose; mattackm jackal
+  vs shade HP unchanged; jackal vs gnome still bites; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session has mon-vs-shade melee.
+- **Follow-up:** Open `artifact.c` `arti_reflects` W_WEP.
+- **Files:** `js/mhitm.js`.
+
 ## D-1340 — mhitm.c mattackm AT_HUGS
 
 - **Status:** fixed (map-driven Open from D-1327; not a public FAIL)

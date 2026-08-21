@@ -9,11 +9,11 @@ import {
     mtrapped_in_pit,
 } from './mon.js';
 import { game } from './gstate.js';
-import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, glyph_is_invisible, You_feel, flush_screen, verbalize } from './display.js';
+import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, glyph_is_invisible, You_feel, flush_screen, verbalize, sensemon } from './display.js';
 import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
 import { resist_conflict, set_mon_data } from './mondata.js';
-import { MON_WEP, mon_wield_item, hitval } from './weapon.js';
+import { MON_WEP, mon_wield_item, hitval, dmgval } from './weapon.js';
 import { find_mac, which_armor } from './worn.js';
 import { update_monster_region } from './region.js';
 import { remove_worm, place_worm_tail_randomly } from './worm.js';
@@ -99,7 +99,7 @@ import {
     weight, mksobj, set_corpsenm, obj_stop_timers,
 } from './mkobj.js';
 import { Monnam, mon_nam, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam } from './do_name.js';
-import { an, xname, makeplural } from './objnam.js';
+import { an, xname, makeplural, cxname, vtense, The } from './objnam.js';
 import { mon_explodes } from './explode.js';
 import { newcham, pm_to_cham } from './makemon.js';
 import { polyself } from './polyself.js';
@@ -110,6 +110,11 @@ const CORPSE = objectNames.indexOf('CORPSE');
 const STATUE = objectNames.indexOf('STATUE');
 const ROCK = objectNames.indexOf('ROCK');
 const BOULDER = objectNames.indexOf('BOULDER');
+const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
+const IRON_CHAIN = objectNames.indexOf('IRON_CHAIN');
+const MIRROR = objectNames.indexOf('MIRROR');
+const CLOVE_OF_GARLIC = objectNames.indexOf('CLOVE_OF_GARLIC');
+const SILVER = 14; /* objclass.h SILVER */
 const GLOB_OF_BLACK_PUDDING = objectNames.indexOf('GLOB_OF_BLACK_PUDDING');
 const PM_GRAY_OOZE = monsterNames.indexOf('PM_GRAY_OOZE');
 const PM_BROWN_PUDDING = monsterNames.indexOf('PM_BROWN_PUDDING');
@@ -2020,16 +2025,73 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
 }
 
 /**
+ * C ref: uhitm.c shade_aware — boulder/ball/chain/mirror/garlic/silver.
+ * Used only for the shade_miss noun ("attack" vs cxname).
+ */
+function shade_aware(obj) {
+    if (!obj) return false;
+    const otyp = obj.otyp | 0;
+    if (otyp === BOULDER || otyp === HEAVY_IRON_BALL || otyp === IRON_CHAIN
+        || otyp === MIRROR || otyp === CLOVE_OF_GARLIC) {
+        return true;
+    }
+    return (game.objects?.[otyp]?.oc_material | 0) === SILVER;
+}
+
+/** C you.h m_next2u — squared distu ≤ 2. */
+function m_next2u_mm(mtmp) {
+    const u = game.u || {};
+    return dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0) <= 2;
+}
+
+/**
+ * C ref: uhitm.c shade_miss :2016–2051 — hero/mon vs shade.
+ * dmgval is zero/not-zero only (weapon.c shade_glare still named, so a
+ * non-silver mwep currently still "hurts" and this returns false).
+ * Callers mthrowu / zap bhit / hmon / mhitm_ad_phys still named.
+ */
+export async function shade_miss(magr, mdef, obj, thrown, verbose) {
+    const youagr = magr === game.youmonst;
+    const youdef = mdef === game.youmonst;
+    const pd = mdef?.data;
+    if (!pd || (pd.mndx | 0) !== PM_SHADE || (obj && dmgval(obj, mdef))) {
+        return false;
+    }
+
+    if (verbose
+        && (youdef || cansee(mdef.mx, mdef.my) || sensemon(mdef)
+            || (youagr && m_next2u_mm(mdef)))) {
+        const what = (!obj || shade_aware(obj)) ? 'attack' : cxname(obj);
+        const target = youdef ? 'you' : mon_nam(mdef);
+        const thru = ' harmlessly through ';
+        const pass = vtense(what, 'pass');
+        if (!thrown) {
+            const whose = youagr ? 'Your' : s_suffix_mm(Monnam(magr));
+            await pline(`${whose} ${what} ${pass}${thru}${target}.`);
+        } else {
+            await pline(`${The(what)} ${pass}${thru}${target}.`);
+        }
+        if (!youdef && !canspotmon(mdef)) {
+            map_invisible(mdef.mx, mdef.my);
+        }
+    }
+    if (!youdef) mdef.msleeping = 0;
+    return true;
+}
+
+/**
  * C ref: mhitm.c hitmm — hit pline when gv.vis; else noises().
  * Seduce: smiles/talks + engagingly/seductively when could_seduce && !mcan.
- * Named omissions: shade_miss; silver sear; artifact wep.
+ * shade_miss (D-1341) bypasses mdamagem. Named omit: silver sear; artifact wep.
  */
 async function hitmm(magr, mdef, mattk, mwep, dieroll) {
     pre_mm_attack(magr, mdef);
 
-    // C: compat = !magr->mcan ? could_seduce(...) : 0; shade_miss if !compat
+    // C: compat = !magr->mcan ? could_seduce(...) : 0;
     const compat = !magr.mcan ? could_seduce(magr, mdef, mattk) : 0;
-    // shade_miss deferred
+    if (!compat && await shade_miss(magr, mdef, mwep, false, _mm_vis)) {
+        return M_ATTK_MISS; /* bypass mdamagem() */
+    }
 
     if (_mm_vis) {
         if (compat) {
@@ -2299,7 +2361,8 @@ async function gulpmm(magr, mdef, mattk) {
  * Caller mattackm AT_GAZE (strike=0). Archon extra mhitm_ad_blnd + rn2(2)
  * stun then mdamagem leftover. Medusa reflect stones magr.
  * Named omit: mhitm_ad_ston/conf/stun/fire leftover dice;
- * shade_miss; arti_reflects(MON_WEP); mon_perma_blind; resists_blnd_by_arti.
+ * arti_reflects(MON_WEP); mon_perma_blind; resists_blnd_by_arti.
+ * hitmm shade_miss is D-1341; other shade_miss callers still named.
  */
 export async function gazemm(magr, mdef, mattk) {
     if (!magr || !mdef || !mattk) return M_ATTK_MISS;
@@ -2375,7 +2438,7 @@ export async function gazemm(magr, mdef, mattk) {
  * mon_explodes and set AGR_DIED unconditionally (lifesave named on
  * mondead). Else mdamagem then mondead. Tame melancholy even if seen.
  * Named omit: mondead→m_unleash object (slack printed here);
- * shade_miss; mdamagem ston/conf/stun/fire leftover.
+ * mdamagem ston/conf/stun/fire leftover. hitmm shade_miss is D-1341.
  */
 export async function explmm(magr, mdef, mattk) {
     if (!magr || !mdef || !mattk) return M_ATTK_MISS;
