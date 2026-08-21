@@ -19,10 +19,11 @@
 // SPE_CREATE_FAMILIAR make_familiar(NULL,u.ux,u.uy,FALSE) (D-1389);
 // SPE_PROTECTION cast_protection (D-1390; timeout.c usptime tick);
 // SPE_CLAIRVOYANCE do_vicinity_map (D-1391; callee detect.c);
-// SPE_JUMPING jump(max(role_skill,1)) (D-1397; callee apply.c).
+// SPE_JUMPING jump(max(role_skill,1)) (D-1397; callee apply.c);
+// SPE_CURE_SICKNESS healup+ill/slime (D-1398; callee potion.c).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps (CURE/CHAIN/seffects/peffects);
+// swap/sort; other spelleffects otyps (CURE_BLINDNESS/CHAIN/seffects/peffects);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -46,7 +47,7 @@ import { morehungry, poison_strdmg } from './eat.js';
 import { zapyourself, spell_damage_bonus, weffects } from './zap.js';
 import { tele } from './teleport.js';
 import { aggravate } from './wizard.js';
-import { make_confused } from './potion.js';
+import { make_confused, healup, make_slimed } from './potion.js';
 import { trycall, hcolor, hliquid } from './do_name.js';
 import { an } from './objnam.js';
 import { is_whirly, is_animal } from './monsters.js';
@@ -152,6 +153,7 @@ const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
 const SPE_CREATE_FAMILIAR = objectNames.indexOf('SPE_CREATE_FAMILIAR');
 const SPE_PROTECTION = objectNames.indexOf('SPE_PROTECTION');
 const SPE_CLAIRVOYANCE = objectNames.indexOf('SPE_CLAIRVOYANCE');
+const SPE_CURE_SICKNESS = objectNames.indexOf('SPE_CURE_SICKNESS');
 const SPE_JUMPING = objectNames.indexOf('SPE_JUMPING');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
@@ -1447,6 +1449,8 @@ async function cast_protection() {
  * do_vicinity_map (D-1391; callee detect.c; blocked
  * cornuthaum hat). SPE_JUMPING jump(max(role_skill, 1))
  * (D-1397; callee apply.c jump; !TIME → nothing_happens).
+ * SPE_CURE_SICKNESS healup(0,0,TRUE,FALSE) then ill/slime
+ * (D-1398; callee potion.c healup/make_slimed).
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1573,6 +1577,21 @@ export async function spelleffects(spell_otyp, atme, force) {
             await pline(
                 `You sense a pointy hat on top of your ${body_part(HEAD)}.`,
             );
+        }
+    } else if (otyp === SPE_CURE_SICKNESS) {
+        /* C spell.c :1552–1567 — capture Sick/Slimed, then
+         * healup(0, 0, TRUE, FALSE) (make_vomiting + make_sick),
+         * then You("are %s ill.") unless only-slimed, then
+         * make_slimed(0, "The slime disappears!"). */
+        const u = game.u;
+        const was_sick = !!(u.Sick | 0);
+        const was_slimed = !!(u.Slimed | 0);
+        await healup(0, 0, true, false);
+        if (was_sick || !was_slimed) {
+            await pline(`You are ${was_sick ? 'no longer' : 'not'} ill.`);
+        }
+        if (was_slimed) {
+            await make_slimed(0, 'The slime disappears!');
         }
     } else if (otyp === SPE_JUMPING) {
         /* C spell.c :1584–1587 — jump(max(role_skill, 1)); if that

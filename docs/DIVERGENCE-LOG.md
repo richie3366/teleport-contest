@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1398 — spell.c spelleffects SPE_CURE_SICKNESS
+
+- **Status:** fixed (map-driven Open from D-1397; not a public FAIL)
+- **Symptom:** casting SPE_CURE_SICKNESS printed `Nothing happens.`
+  C `spelleffects` `:1552–1567` captures `!!Sick`/`!!Slimed`,
+  calls `healup(0, 0, TRUE, FALSE)`, then `You("are %s ill.")`
+  unless only-slimed, then `make_slimed(0L, "The slime disappears!")`.
+  Callee `potion.c` `healup` `:1452–1455` `make_vomiting(0L, TRUE)`
+  then `make_sick(0L, NULL, TRUE, SICK_ALL)` (talk "cured" before
+  the ill pline). Spell still returns TIME after energy.
+- **C locus:** `spell.c` `spelleffects` `:1552–1567`; callee
+  `potion.c` `healup` `:1428–1458` / `make_sick` `:137–192` /
+  `make_slimed` `:195–218`.
+- **JS was:** named omit after D-1397. Other-otyp arm printed
+  `Nothing happens.`; `healup` zeroed `u.Sick` without
+  `make_vomiting`/`make_sick`.
+- **Fix:** SPE_CURE_SICKNESS arm. `healup` curesick now calls
+  already-ported `make_vomiting` + `make_sick`. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/potion.js` `healup`.
+- **Not this iter:** SPE_CURE_BLINDNESS / CHAIN; scroll `seffects`
+  / potion `peffects`; zap.js local `healup` (SPE_HEALING
+  zapyourself cycle); `make_deaf` talk.
+- **Verified:** private canary **18**/18 (C/JS grep; healthy not
+  ill; sick cured+no longer ill+killer clear; slimed-only skip
+  ill; sick+slimed both timeouts; vomiting nauseated+not ill;
+  CURE_BLINDNESS / CHAIN still omit; JUMPING / CLAIRVOYANCE /
+  FORCE_BOLT / HEALING / PROTECTION regression; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts cure sickness.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_CURE_BLINDNESS
+  (named). Not sickness.
+- **Files:** `js/spell.js`, `js/potion.js`.
+
 ## D-1397 — spell.c spelleffects SPE_JUMPING
 
 - **Status:** fixed (map-driven Open from D-1391; not a public FAIL)

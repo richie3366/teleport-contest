@@ -9,6 +9,23 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — D-1398 spell.c SPE_CURE_SICKNESS healup+ill/slime
+
+**Objective:** Open `spell.c` `spelleffects` SPE_CURE_SICKNESS
+(named). Not jumping.
+**C locus:** `spell.c` `spelleffects` `:1552–1567`; callee
+`potion.c` `healup` `:1452–1455` `make_vomiting` + `make_sick`.
+**Change:** capture Sick/Slimed; `healup(0,0,TRUE,FALSE)`; ill
+pline unless only-slimed; `make_slimed(0)`. healup curesick
+now calls make_vomiting/make_sick. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts cure sickness).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_CURE_BLINDNESS
+(named). Not sickness.
+**Blocked:** none.
 ## 2026-08-21 — D-1397 spell.c SPE_JUMPING jump(max skill)
 
 **Objective:** Open `spell.c` `spelleffects` SPE_JUMPING (named).

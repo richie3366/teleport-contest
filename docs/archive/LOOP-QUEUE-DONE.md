@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `spell.c` `spelleffects` SPE_JUMPING (named). Not clairvoyance. **Addressed:** D-1397
+- [x] `spell.c` `spelleffects` SPE_CURE_SICKNESS (named). Not jumping. **Addressed:** D-1398
+
+
+- [x] `spell.c` `spelleffects` SPE_JUMPING (named). Not clairvoyance. **Addressed:** D-1397 `f5e00af7`
 
 
 - [x] `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352). Not CONF. **Addressed:** D-1396 `66018a5a`
