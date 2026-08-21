@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` `spelleffects` SPE_CREATE_FAMILIAR (named). Not force bolt.
 - [ ] `spell.c` `cast_protection` SPE_PROTECTION (named). Not familiar.
 - [ ] `spell.c` `spelleffects` SPE_CLAIRVOYANCE (named). Not protection.
 - [ ] `zap.c` `bhit` M_AP_OBJECT skip (named from D-1383). Not WEB.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `uhitm.c` `mhitm_ad_phys` shade_miss (named from D-1341). Not hmon.
 - [ ] `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380). Not stasis.
 - [ ] `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352). Not CONF.
+- [ ] `spell.c` `spelleffects` SPE_JUMPING (named). Not clairvoyance.
+- [ ] `spell.c` `spelleffects` SPE_CURE_SICKNESS (named). Not jumping.
+- [ ] `spell.c` `spelleffects` SPE_CURE_BLINDNESS (named). Not sickness.
+- [ ] `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING (named). Not cure.
+- [ ] `spell.c` `spelleffects` SPE_CREATE_MONSTER seffects (named). Not chain.
 
 ## Parked (do not pop)
 

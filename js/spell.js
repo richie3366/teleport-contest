@@ -15,10 +15,12 @@
 // skilled SPE_FIREBALL/SPE_CONE_OF_COLD throwspell scatter (D-1378);
 // unskilled FIREBALL/CONE FALLTHROUGH weffects (D-1386) + getdir
 // cancel leftover dirs (D-1387);
-// SPE_FORCE_BOLT IMMEDIATE weffects/bhit (D-1388).
+// SPE_FORCE_BOLT IMMEDIATE weffects/bhit (D-1388);
+// SPE_CREATE_FAMILIAR make_familiar(NULL,u.ux,u.uy,FALSE) (D-1389).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps; directional weffects for
+// swap/sort; other spelleffects otyps (PROTECTION/CLAIRVOYANCE/JUMPING/
+// CURE/CHAIN/seffects/peffects); directional weffects for
 // IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
 // In_W_tower in aggravate. #teleport doextcmd D-1230.
@@ -137,6 +139,7 @@ const SPE_FORCE_BOLT = objectNames.indexOf('SPE_FORCE_BOLT');
 const SPE_MAGIC_MISSILE = objectNames.indexOf('SPE_MAGIC_MISSILE');
 const SPE_FIREBALL = objectNames.indexOf('SPE_FIREBALL');
 const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
+const SPE_CREATE_FAMILIAR = objectNames.indexOf('SPE_CREATE_FAMILIAR');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
 const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
@@ -1338,7 +1341,9 @@ async function wand_duplicate_weffects(pseudo, atme, physical_damage) {
  * SPE_CONE_OF_COLD throwspell scatter (D-1378). Unskilled
  * FIREBALL/CONE FALLTHROUGH weffects (D-1386) + live getdir
  * cancel leftover dirs (D-1387). SPE_FORCE_BOLT IMMEDIATE
- * weffects/bhit (D-1388). Other otyps named omission
+ * weffects/bhit (D-1388). SPE_CREATE_FAMILIAR
+ * make_familiar(NULL, u.ux, u.uy, FALSE) (D-1389; callee
+ * dog.c D-1029). Other otyps named omission
  * (return TIME after energy spent + exercise).
  */
 export async function spelleffects(spell_otyp, atme, force) {
@@ -1440,6 +1445,11 @@ export async function spelleffects(spell_otyp, atme, force) {
             }
         }
         // else weffects deferred — directional teleport/heal on monster
+    } else if (otyp === SPE_CREATE_FAMILIAR) {
+        /* C spell.c :1569–1571 — (void) make_familiar(NULL, u.ux, u.uy, FALSE).
+         * Dynamic import: dog.js → weapon.js → spell.js. */
+        const { make_familiar } = await import('./dog.js');
+        await make_familiar(null, game.u.ux, game.u.uy, false);
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
         await pline('Nothing happens.');

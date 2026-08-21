@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1389 spell.c SPE_CREATE_FAMILIAR make_familiar
+
+**Objective:** Open `spell.c` `spelleffects` SPE_CREATE_FAMILIAR
+(named). Not force bolt.
+**C locus:** `spell.c` `spelleffects` `:1569–1571`; callee
+`dog.c` `make_familiar` / `pick_familiar_pm` `!rn2(3)`
+`pet_type` else `rndmonst_adj`.
+**Change:** CREATE_FAMILIAR calls `make_familiar(null, ux, uy,
+false)` via dynamic import (dog→weapon→spell). Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts create familiar).
+**Verified:** private canary **13**/13; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `cast_protection` SPE_PROTECTION
+(named). Not familiar.
+**Blocked:** none.
 ## 2026-08-21 — D-1388 spell.c SPE_FORCE_BOLT IMMEDIATE bhit
 
 **Objective:** Open `spell.c` `spelleffects` SPE_FORCE_BOLT

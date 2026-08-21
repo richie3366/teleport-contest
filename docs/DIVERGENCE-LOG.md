@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1389 — spell.c SPE_CREATE_FAMILIAR make_familiar
+
+- **Status:** fixed (map-driven Open from D-1388; not a public FAIL)
+- **Symptom:** casting SPE_CREATE_FAMILIAR printed `Nothing happens.`
+  C `spelleffects` `:1569–1571` calls
+  `make_familiar((struct obj *) 0, u.ux, u.uy, FALSE)` then
+  `use_skill`. Helper `pick_familiar_pm` (`otmp` null): `!rn2(3)`
+  `pet_type()` else `rndmonst_adj(0, 3 * P_SKILL(cleric))`.
+  Figurine path is D-1029. FORCE_BOLT IMMEDIATE is D-1388.
+- **C locus:** `spell.c` `spelleffects` `:1569–1571`; callee
+  `dog.c` `make_familiar` / `pick_familiar_pm` `:103–215`.
+- **JS was:** named omit after D-1388. Other-otyp arm printed
+  `Nothing happens.`; `make_familiar` already lived for figurines.
+- **Fix:** SPE_CREATE_FAMILIAR arm `await make_familiar(null,
+  u.ux, u.uy, false)`. Dynamic `import('./dog.js')` — static
+  would cycle `spell → dog → weapon → spell`. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callee `js/dog.js`.
+- **Not this iter:** SPE_PROTECTION / CLAIRVOYANCE / JUMPING /
+  CURE / CHAIN; scroll `seffects` / potion `peffects`;
+  directional IMMEDIATE heal/tele `weffects`; doorlock;
+  zap_updown/steed; `spell_backfire`.
+- **Verified:** private canary **13**/13 (C/JS grep; NODIR
+  clerical; `rn2(3)=0` + preferred_pet `c` tame kitten not on
+  hero tile; `rn2(3)≠0` rndmonst_adj not kitten-only;
+  PROTECTION/CLAIRVOYANCE still omit; FORCE_BOLT east still
+  IMMEDIATE; HEALING atme; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts create familiar.
+- **Follow-up:** Open `spell.c` `cast_protection` SPE_PROTECTION
+  (named). Not familiar.
+- **Files:** `js/spell.js`, `js/dog.js` (comment).
+
 ## D-1388 — spell.c SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 
 - **Status:** fixed (map-driven Open from D-1387; not a public FAIL)

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball. **Addressed:** D-1388
+- [x] `spell.c` `spelleffects` SPE_CREATE_FAMILIAR (named). Not force bolt. **Addressed:** D-1389
+
+
+- [x] `spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball. **Addressed:** D-1388 `c6af8407`
 
 
 - [x] `spell.c` unskilled SPE_FIREBALL/CONE `getdir` cancel must leave previous `u.dx/u.dy/u.dz` like C `getdir((char*)0)` (`cmd.c` `:4095–4111`); `getdir_spell` zeros then always self-zaps. Use live `lock.js` `getdir` or stop zeroing. Do not add trailing `confdir` to shared `getdir`. Source: reviews/loop-unattended/346-1f94d5e3-unskilled-fireball-weffects.md. **Addressed:** D-1387 `c3d768d1`
