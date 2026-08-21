@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1354 — weapon.c dmgval shade / shade_glare
+
+- **Status:** fixed (map-driven Open from D-1341; not a public FAIL)
+- **Symptom:** a club (or other non-silver, non-undead-bane weapon)
+  vs a shade still “hurt” (`dmgval>0`), so `shade_miss` was false
+  and `hitmm` ran `mdamagem`. C zeros `tmp` when the defender is a
+  shade and the object does not `shade_glare`.
+- **C locus:** `weapon.c` `dmgval` `:307–308`; callee
+  `artifact.c` `shade_glare` `:555–571`.
+- **JS was:** named omit (D-1341). `dmgval` returned dice+spe only.
+- **Fix:** `shade_glare` (silver `oc_material`, or artifact
+  SPFX_DFLAG2 + mtype M2_UNDEAD). `dmgval` zeros after spe when
+  `mndx==PM_SHADE && !shade_glare`. Dice still roll first (C).
+  Blessed vs undead stays after the zero (named). Rule #2: no fs.
+- **JS:** `js/artifact.js` `shade_glare`; `js/weapon.js` `dmgval`.
+- **Not this iter:** thick-skin; silver/blessed/axe/iron-ball/
+  artifact_light/`spec_dbon`/erosion; hmon ranged `shade_glare`;
+  mthrowu / zap `bhit` / hmon / `mhitm_ad_phys` `shade_miss` callers.
+- **Verified:** private canary **20**/20 (C/JS shade_glare silver
+  then DFLAG2+UNDEAD not blessed; club/Grimtooth/Orcrist false;
+  Sunsword true; `dmgval` club vs shade 0, gnome/saber/Sunsword
+  >0; cream pie early 0; blessed club still 0 named; club
+  `shade_miss` + wake; saber not-miss; jackal bite still
+  harmlessly; gnome still bites; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session hits a shade with a non-glare weapon.
+- **Follow-up:** Open `zap.c` `zapyourself` WAN_LIGHTNING.
+- **Files:** `js/artifact.js`, `js/weapon.js`, `js/mhitm.js` (comment).
+
 ## D-1353 — muse.c ureflects W_AMUL/W_ARM/dragon
 
 - **Status:** fixed (map-driven Open from D-1342; not a public FAIL)

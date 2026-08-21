@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1354 weapon.c dmgval shade/shade_glare
+
+**Objective:** Open `weapon.c` `dmgval` shade/`shade_glare`
+(named from D-1341). Not hitmm shade_miss.
+**C locus:** `weapon.c` `dmgval` `:307–308`; callee
+`artifact.c` `shade_glare` `:555–571`.
+**Change:** silver or SPFX_DFLAG2+M2_UNDEAD artifact glares;
+else shade tmp=0 (dice still burn). Club vs shade is a miss.
+Blessed/thick-skin/hmon ranged named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session hits a shade with a non-glare weapon). Next audit @**#1720**.
+**Verified:** canary **20**/20; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapyourself` WAN_LIGHTNING (named).
+Not killer_xname.
+**Blocked:** none.
 ## 2026-08-21 — D-1353 muse.c ureflects W_AMUL/W_ARM/dragon
 
 **Objective:** Open `zap.c` `ureflects` W_AMUL/W_ARM/dragon

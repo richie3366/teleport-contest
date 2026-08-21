@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `weapon.c` `dmgval` shade/`shade_glare` (named from D-1341). Not hitmm shade_miss.
 - [ ] `zap.c` `zapyourself` WAN_LIGHTNING (named). Not killer_xname.
 - [ ] `eat.c` lesshungry/bite choke callers (named from D-1344). Not zap.
 - [ ] `objnam.c` `the()` CapitalMon (named from D-1335). Not warn_obj.

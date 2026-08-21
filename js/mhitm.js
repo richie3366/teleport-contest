@@ -2128,8 +2128,7 @@ function m_next2u_mm(mtmp) {
 
 /**
  * C ref: uhitm.c shade_miss :2016–2051 — hero/mon vs shade.
- * dmgval is zero/not-zero only (weapon.c shade_glare still named, so a
- * non-silver mwep currently still "hurts" and this returns false).
+ * dmgval is zero/not-zero (weapon.c shade/`shade_glare` D-1354).
  * Callers mthrowu / zap bhit / hmon / mhitm_ad_phys still named.
  */
 export async function shade_miss(magr, mdef, obj, thrown, verbose) {

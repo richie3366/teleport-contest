@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1353; cadence **#1715** `d3f2a9e5`
+- **Fortress 44/44** after D-1354; cadence **#1715** `d3f2a9e5`
   (Scr **11,405** RNG 100% speed `36+0.30/turn`). Review **312**
-  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `weapon.c`
-  `dmgval` shade/`shade_glare` (named from D-1341). Not
-  hitmm shade_miss. Do not skip D-1353…D-1229. Do not wrap
+  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `zap.c`
+  `zapyourself` WAN_LIGHTNING (named). Not killer_xname.
+  Do not skip D-1354…D-1229. Do not wrap
   `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1353. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1354. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   mcastu ureflects still named.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1353.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1354.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,8 +36,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1353 (index). Named still: hitmm artifact
-  wep; `dmgval` shade/`shade_glare`; mthrowu/zap/hmon
+- Do not skip D-1071…D-1354 (index). Named still: hitmm artifact
+  wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush; `wake_nearby` / `u_wipe_engr` kick
   callers. No ALIGN/FORCE on seed0383.
@@ -51,6 +51,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1354: `weapon.c` `dmgval` `:307–308` shade
+  `!shade_glare` tmp=0; `artifact.c` `shade_glare`
+  `:555–571` silver or SPFX_DFLAG2+M2_UNDEAD.
+  Dice still burn. Blessed/thick-skin/hmon ranged named.
 - D-1353: muse.c `ureflects` `:2850–2864` W_AMUL
   medallion+makeknown, W_ARM armor/`uskin` luster,
   PM_SILVER_DRAGON scales. zap/pray clones share
@@ -96,10 +100,8 @@ Objective/score live in `CURRENT.md`.
   W_WEP `:867–872`. `mon_reflects` MON_WEP; hero `EReflecting&W_WEP`.
   cspfx / mcastu ureflects named (zap/pray W_AMUL·ARM D-1353).
 - D-1341: `uhitm.c` `shade_miss` `:2016–2051` + `mhitm.c` `hitmm`
-  `:659–661` `!compat` → `M_ATTK_MISS`. `dmgval` shade / silver
-  sear / mthrowu·zap·hmon callers named.
+  `:659–661` `!compat` → `M_ATTK_MISS`. `dmgval` shade is D-1354;
+  mthrowu·zap·hmon callers named.
 - D-1340: `mhitm.c` `mattackm` AT_HUGS `:476–490` auto-hit iff prev
   two `res[]==M_ATTK_HIT`; `hitmm` `:691–695` squeezes unless
   `magr==u.ustuck`.
-- D-1339: `mhitm.c` `explmm` `:970–1010` — distmin>1 skip; mcan
-  miss; FIRE/COLD/ELEC `mon_explodes`; else mdamagem then mondead.
