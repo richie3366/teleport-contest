@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1382 — mthrowu.c m_throw shade_miss
+
+- **Status:** fixed (map-driven Open from D-1354; not a public FAIL)
+- **Symptom:** a monster missile always called `ohitmon` even vs a
+  shade. C `m_throw` `if (mtmp && shade_miss(mon, mtmp, singleobj,
+  TRUE, TRUE))` clears mtmp and keeps flying (harmlessly-through
+  + wake). JS left that as a stub and always `ohitmon`.
+- **C locus:** `mthrowu.c` `m_throw` `:680–686`; callee
+  `uhitm.c` `shade_miss` `:2016–2051` (`dmgval` zero/not-zero;
+  thrown `The(what)`). Helper already live (D-1341);
+  shade/`shade_glare` zero already live (D-1354).
+- **JS was:** `// C: shade_miss → clear mtmp and keep going (deferred)`
+  then always `ohitmon`.
+- **Fix:** `mtmp && await shade_miss(..., true, true)` skips
+  `ohitmon` and keeps flying; else `ohitmon`; else hero cell.
+  Silver/`shade_glare` still ohitmon. Rule #2: no fs.
+- **JS:** `js/mthrowu.js` `m_throw`; callee `js/mhitm.js`
+  `shade_miss`.
+- **Not this iter:** zap.c `bhit` shade_miss; uhitm.c `hmon`
+  shade_miss; `mhitm_ad_phys`; iron bars / sink / gem catch;
+  distant_name/mshot_xname; poison/silver/acid/egg petrify.
+- **Verified:** private canary **12**/12 (C/JS grep; dart/club
+  harmlessly + wake + no `rnd(20)` + fly past; silver saber
+  glare ohitmon; gnome ohitmon; empty short-circuit; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session has a monster missile through a shade.
+- **Follow-up:** Open `zap.c` `shade_miss` caller.
+- **Files:** `js/mthrowu.js`, `js/mhitm.js` (caller comment).
+
 ## D-1381 — uhitm.c do_attack leprechaun evade
 
 - **Status:** fixed (map-driven Open from D-1373; not a public FAIL)

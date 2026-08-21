@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `uhitm.c` `do_attack` leprechaun evade (named from D-1373). Not wipe. **Addressed:** D-1381
+- [x] `mthrowu.c` `shade_miss` caller (named from D-1354). Not uhitm hmon. **Addressed:** D-1382
+
+
+- [x] `uhitm.c` `do_attack` leprechaun evade (named from D-1373). Not wipe. **Addressed:** D-1381 `e0594454`
 
 
 - [x] `zap.c` `zapnodir` WAN_WISHING (named). Not create. **Addressed:** D-1380 `ef8a60b0`

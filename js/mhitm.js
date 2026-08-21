@@ -2129,7 +2129,8 @@ function m_next2u_mm(mtmp) {
 /**
  * C ref: uhitm.c shade_miss :2016–2051 — hero/mon vs shade.
  * dmgval is zero/not-zero (weapon.c shade/`shade_glare` D-1354).
- * Callers mthrowu / zap bhit / hmon / mhitm_ad_phys still named.
+ * Caller mthrowu m_throw is D-1382; zap bhit / hmon /
+ * mhitm_ad_phys still named.
  */
 export async function shade_miss(magr, mdef, obj, thrown, verbose) {
     const youagr = magr === game.youmonst;

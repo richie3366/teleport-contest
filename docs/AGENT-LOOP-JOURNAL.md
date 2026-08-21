@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+
+## 2026-08-21 — D-1382 mthrowu.c m_throw shade_miss
+
+**Objective:** Open `mthrowu.c` `shade_miss` caller (named from
+D-1354). Not uhitm hmon.
+**C locus:** `mthrowu.c` `m_throw` `:680–686`; callee
+`uhitm.c` `shade_miss` `:2016–2051` (JS `mhitm.js`).
+**Change:** `mtmp && shade_miss(mon,mtmp,singleobj,TRUE,TRUE)`
+skips `ohitmon` and keeps flying. Silver glare still ohitmon.
+Zap/hmon callers named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session has a monster missile through a shade).
+**Verified:** private canary **12**/12; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `shade_miss` caller (named from D-1354).
+Not mthrowu.
+**Blocked:** none.
 ## 2026-08-21 — D-1381 uhitm.c do_attack leprechaun evade
 
 **Objective:** Open `uhitm.c` `do_attack` leprechaun evade
