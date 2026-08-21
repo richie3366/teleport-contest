@@ -5,14 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1341; cadence **#1700** `e3a30202`
+- **Fortress 44/44** after D-1342; cadence **#1700** `e3a30202`
   (Scr **11,405** RNG 100% speed `36+0.29/turn`). Reviews **300–303**
-  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `artifact.c`
-  `arti_reflects` W_WEP (named from D-1328). Not gazemu. Do not
-  skip D-1341…D-1229. Do not wrap `wildmiss` as `pline_mon`. No
+  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `dokick.c` `kickstr`
+  (named; kick_ouch still raw kickobjnam). Not maybe_mnexto. Do not
+  skip D-1342…D-1229. Do not wrap `wildmiss` as `pline_mon`. No
   FORCE.
-- Do not revert D-1217–D-1341. warn_obj / `artifact_light` `)`
-  rewrite still named on the same W_WEP envelope.
+- Do not revert D-1217–D-1342. warn_obj / `artifact_light` `)`
+  rewrite still named. zap/pray ureflects W_AMUL/W_ARM/dragon and
+  mcastu ureflects still named.
 
 ## Don't re-check (≤15)
 
@@ -21,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1341.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1342.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,7 +36,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1341 (index). Named still: hitmm silver
+- Do not skip D-1071…D-1342 (index). Named still: hitmm silver
   sear; `dmgval` shade/`shade_glare`; mthrowu/zap/hmon
   `shade_miss` callers; uhitm/mhitm wrap arms; `abuse_dog` /
   martial knockback; `kickstr`; eat/zap/dothrow `killer_xname`.
@@ -50,6 +51,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1342: `artifact.c` `arti_reflects` `:537–550` +
+  `set_artifact_intrinsic` SPFX_REFLECT W_WEP `:867–872`.
+  `mon_reflects` MON_WEP between shield and amulet; hero
+  `EReflecting&W_WEP`. cspfx extract / zap·pray W_AMUL·ARM /
+  mcastu ureflects named.
 - D-1341: `uhitm.c` `shade_miss` `:2016–2051` + `mhitm.c` `hitmm`
   `:659–661` — `!compat && shade_miss` returns `M_ATTK_MISS`
   (unarmed vs shade harmlessly-through + wake). `dmgval`
@@ -120,8 +126,4 @@ Objective/score live in `CURRENT.md`.
   `:832–837` skip Medusa (mndx) + `mon.c` `m_respond_medusa`.
   AD_STON reflect/stone, CONF/STUN/BLND/FIRE, cancelled looks-X,
   Hallu `rn2(4)`. `#ifdef PM_BEHOLDER` AD_SLEE/AD_SLOW compiled
-  out (`#if 0` MON). gazemm is D-1338; arti_reflects W_WEP named.
-- D-1327: `mhitu.c` `mattacku` AT_HUGS `:823–830` + `uhitm.c`
-  `mhitm_ad_phys` `:4023–4037` + `u_slip_free` `:1045–1085`.
-  Auto-hit if prev two succeeded or ustuck; `failed_grab` pline;
-  `rn2(2)` grab / crush / rope-golem choke. mhitu AD_WRAP D-1331.
+  out (`#if 0` MON). gazemm is D-1338; arti_reflects W_WEP is D-1342.

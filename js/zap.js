@@ -23,7 +23,7 @@
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // backfire body; other NODIR; wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
-// EReflecting bits; ureflects W_WEP/W_AMUL/W_ARM/silver-dragon arms
+// EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/silver-dragon arms
 // beyond shield makeknown; create_polymon after poly_zapped;
 // do_osshock shop bill; invent/worn poly_obj arms; floor boxlock;
 // blank_novel / corpse revive→rot timer;
@@ -137,7 +137,7 @@ import {
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
-    W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
+    W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE, W_WEP,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
@@ -868,9 +868,10 @@ export async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodin
 }
 
 /**
- * C ref: muse.c ureflects — shield slot only (W_WEP/W_AMUL/W_ARM/dragon
- * deferred). When fmt+str given, makeknown like C so first observed
- * reflection discovers the type and may exercise(A_WIS) (D-0452).
+ * C ref: muse.c ureflects — shield then W_WEP artifact (D-1342).
+ * W_AMUL/W_ARM/dragon deferred. When fmt+str given, makeknown like C so
+ * first observed reflection discovers the type and may exercise(A_WIS)
+ * (D-0452).
  */
 async function ureflects(fmt, str) {
     if (game.u?.uarms?.otyp === SHIELD_OF_REFLECTION) {
@@ -878,6 +879,12 @@ async function ureflects(fmt, str) {
             // C: pline(fmt, str, "shield") with fmt "But %s reflects from your %s!"
             await pline(`But ${str} reflects from your shield!`);
             makeknown(SHIELD_OF_REFLECTION);
+        }
+        return true;
+    }
+    if (((game.u?.EReflecting | 0) & W_WEP) !== 0) {
+        if (fmt && str) {
+            await pline(`But ${str} reflects from your weapon!`);
         }
         return true;
     }

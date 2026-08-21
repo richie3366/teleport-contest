@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
+- [x] `artifact.c` `arti_reflects` W_WEP (named from D-1328). Not gazemu. **Addressed:** D-1342
+
+
 - [x] `mhitm.c` hitmm `shade_miss` (named from D-0887). Not AT_HUGS. **Addressed:** D-1341 `e3a30202`
 
 

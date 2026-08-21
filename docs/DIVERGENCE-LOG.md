@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1342 — artifact.c arti_reflects W_WEP
+
+- **Status:** fixed (map-driven Open from D-1328; not a public FAIL)
+- **Symptom:** a monster wielding Dragonbane / Longbow of Diana did
+  not reflect (gaze, floating-eye freeze, etc.). A hero wielding
+  those artifacts did not get `EReflecting&W_WEP`, so `ureflects`
+  never named the weapon.
+- **C locus:** `artifact.c` `arti_reflects` `:537–550`;
+  `set_artifact_intrinsic` SPFX_REFLECT && W_WEP `:867–872`.
+  Caller `muse.c` `mon_reflects` `:2807` between shield and amulet;
+  `ureflects` `:2845–2849` uses the bit.
+- **JS was:** named omit (D-1328 / D-1338 / D-1241). `mon_reflects`
+  clones skipped MON_WEP; `set_artifact_intrinsic` had HALRES only.
+- **Fix:** `arti_reflects` (worn `owornmask & ~W_ART` &&
+  `spfx&SPFX_REFLECT`, else `cspfx`). Wielding sets
+  `u.uprops[REFLECTING].extrinsic` and `u.EReflecting`. Wired into
+  `mhitu.js` `mon_reflects`, `mhitm.js` `mon_reflects_mm`, zap/pray
+  `ureflects` W_WEP after shield. Rule #2: no fs.
+- **JS:** `js/artifact.js` `arti_reflects` / `set_artifact_intrinsic`;
+  `js/mhitu.js`; `js/mhitm.js`; `js/zap.js`; `js/pray.js`.
+- **Not this iter:** cspfx extract (no artilist row has
+  `cspfx&SPFX_REFLECT`); zap/pray W_AMUL/W_ARM/dragon; mcastu /
+  uhitm-passive `ureflects`; other `set_artifact_intrinsic` SPFX;
+  `mon_reflects_mm` makeknown.
+- **Verified:** private canary **17**/17 (null/plain/Excalibur;
+  Dragonbane unworn/W_ART/W_WEP; Longbow; confer/clear bit;
+  W_ARMS mask skip; MON_WEP null/unworn; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session wields Dragonbane or the Longbow of Diana.
+- **Follow-up:** Open `dokick.c` `kickstr`.
+- **Files:** `js/artifact.js`, `js/mhitu.js`, `js/mhitm.js`,
+  `js/zap.js`, `js/pray.js`.
+
 ## D-1341 — uhitm.c shade_miss + mhitm.c hitmm
 
 - **Status:** fixed (map-driven Open from D-0887; not a public FAIL)

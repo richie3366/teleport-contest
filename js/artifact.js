@@ -34,6 +34,7 @@ import {
     W_SWAPWEP,
     W_WEP,
     HALLUC_RES,
+    REFLECTING,
     ECMD_OK,
     ECMD_TIME,
     ECMD_CANCEL,
@@ -73,6 +74,7 @@ export const SPFX_DFLAG1 = 0x00400000;
 export const SPFX_DFLAG2 = 0x00800000;
 export const SPFX_DALIGN = 0x01000000;
 export const SPFX_DBONUS = 0x01F00000;
+export const SPFX_REFLECT = 0x04000000;
 
 // C ref: monattk.h — used by spec_applies ATTK arms
 const AD_PHYS = 0;
@@ -115,6 +117,8 @@ export function artifacts_globals_init() {
         name: raw.name,
         otyp: objectNames.indexOf(raw.otypName),
         spfx: raw.spfx | 0,
+        // cspfx not extracted (D-1342: no artilist row has cspfx SPFX_REFLECT)
+        cspfx: raw.cspfx | 0,
         mtype: resolveMtype(raw),
         attk: {
             adtyp: raw.attkAdtyp | 0,
@@ -256,6 +260,27 @@ export function confers_luck(obj) {
 }
 
 /**
+ * C ref: artifact.c arti_reflects :537–550 — worn SPFX_REFLECT, else
+ * carried cspfx. Callers: muse.c mon_reflects MON_WEP (:2807).
+ * Hero W_WEP identity is set_artifact_intrinsic EReflecting (:867–872)
+ * then ureflects (EReflecting & W_WEP).
+ * Named omit: cspfx extract (no row in this artilist has cspfx&SPFX_REFLECT).
+ * @param {object|null} obj
+ * @returns {boolean}
+ */
+export function arti_reflects(obj) {
+    const list = artilist();
+    const arti = get_artifact(obj);
+    if (arti !== list[0]) {
+        if (((obj.owornmask | 0) & ~W_ART) && ((arti.spfx | 0) & SPFX_REFLECT)) {
+            return true;
+        }
+        if ((arti.cspfx | 0) & SPFX_REFLECT) return true;
+    }
+    return false;
+}
+
+/**
  * C ref: objnam.c bare_artifactname — artiname with leading "The "→"the ".
  * Non-artifact falls back to xname-like minimal name via artilist miss.
  */
@@ -274,7 +299,8 @@ export function bare_artifactname(obj) {
  * C uses make_hallucinated(xtime=!on, talk, wp_mask) which sets
  * EHalluc_resistance |= mask when conferring (xtime==0).
  * Named omissions: defn resist masks; SPFX_SEARCH/ESP/STLTH/REGEN/TCTRL/
- * WARN/EREGEN/HSPDAM/HPHDAM/REFLECT; see_monsters; message paths.
+ * WARN/EREGEN/HSPDAM/HPHDAM; see_monsters; message paths.
+ * SPFX_REFLECT && W_WEP is D-1342 (not other wp_mask).
  * @param {object} otmp
  * @param {boolean} on
  * @param {number} wp_mask
@@ -304,6 +330,23 @@ export function set_artifact_intrinsic(otmp, on, wp_mask) {
                 (u.uprops[HALLUC_RES].extrinsic | 0) & ~(wp_mask | 0);
             u.EHalluc_resistance =
                 (u.EHalluc_resistance | 0) & ~(wp_mask | 0);
+        }
+    }
+    // C artifact.c:867–872 — only the wielded-weapon slot sets EReflecting
+    if ((spfx & SPFX_REFLECT) && (wp_mask & W_WEP)) {
+        const u = game.u || (game.u = {});
+        if (!u.uprops) u.uprops = {};
+        if (!u.uprops[REFLECTING]) {
+            u.uprops[REFLECTING] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+        }
+        if (on) {
+            u.uprops[REFLECTING].extrinsic =
+                (u.uprops[REFLECTING].extrinsic | 0) | (wp_mask | 0);
+            u.EReflecting = (u.EReflecting | 0) | (wp_mask | 0);
+        } else {
+            u.uprops[REFLECTING].extrinsic =
+                (u.uprops[REFLECTING].extrinsic | 0) & ~(wp_mask | 0);
+            u.EReflecting = (u.EReflecting | 0) & ~(wp_mask | 0);
         }
     }
 }

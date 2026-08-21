@@ -14,6 +14,7 @@ import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
 import { resist_conflict, set_mon_data } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval } from './weapon.js';
+import { arti_reflects } from './artifact.js';
 import { find_mac, which_armor } from './worn.js';
 import { update_monster_region } from './region.js';
 import { remove_worm, place_worm_tail_randomly } from './worm.js';
@@ -932,13 +933,17 @@ async function golemeffects_mm(mon, damtype, dam) {
 }
 
 /**
- * C ref: muse.c mon_reflects — shield / amulet / silver DSM / silver or
- * chromatic dragon. Named omit: arti_reflects(MON_WEP); makeknown.
+ * C ref: muse.c mon_reflects — shield / arti_reflects(MON_WEP) (D-1342) /
+ * amulet / silver DSM / silver or chromatic dragon. Named omit: makeknown.
  */
 async function mon_reflects_mm(mon, fmt) {
     let orefl = which_armor(mon, W_ARMS);
     if (orefl && (orefl.otyp | 0) === SHIELD_OF_REFLECTION) {
         if (fmt) await pline(fmt(s_suffix_mm(mon_nam(mon)), 'shield'));
+        return true;
+    }
+    if (arti_reflects(MON_WEP(mon))) {
+        if (fmt) await pline(fmt(s_suffix_mm(mon_nam(mon)), 'weapon'));
         return true;
     }
     orefl = which_armor(mon, W_AMUL);
@@ -1042,7 +1047,8 @@ async function acid_damage_mm(obj) {
  * monkilled(magr) without gz.zombify (D-1241). Raw mddat.mattk, not
  * get_mattk. AD_ACID goto assess skips mcan/mdead return and rn2(3).
  * Named omit: zap.c drain_item ring/helm ABON (spe-- + obj_resists 10/90
- * still); golem MSLOW; arti_reflects; stagger locomotion table.
+ * still); golem MSLOW; stagger locomotion table.
+ * arti_reflects(MON_WEP) is D-1342.
  */
 async function passivemm(magr, mdef, mhitb, mdead, mwep) {
     const mhit = mhitb ? M_ATTK_HIT : M_ATTK_MISS;
@@ -2361,7 +2367,8 @@ async function gulpmm(magr, mdef, mattk) {
  * Caller mattackm AT_GAZE (strike=0). Archon extra mhitm_ad_blnd + rn2(2)
  * stun then mdamagem leftover. Medusa reflect stones magr.
  * Named omit: mhitm_ad_ston/conf/stun/fire leftover dice;
- * arti_reflects(MON_WEP); mon_perma_blind; resists_blnd_by_arti.
+ * mon_perma_blind; resists_blnd_by_arti.
+ * arti_reflects(MON_WEP) is D-1342.
  * hitmm shade_miss is D-1341; other shade_miss callers still named.
  */
 export async function gazemm(magr, mdef, mattk) {

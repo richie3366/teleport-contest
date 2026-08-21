@@ -59,25 +59,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1341. Reviews **300–303**
+**Map-driven fortress** after D-1342. Reviews **300–303**
 ACCEPT-WITH-DEBT (**296–299** held). **Next cluster:** Open
-`artifact.c` `arti_reflects` W_WEP (named from D-1328). Not
-gazemu.
-Do not skip D-1341…D-1229 (index). Keep mention_map addr. Do
+`dokick.c` `kickstr` (named; kick_ouch still raw kickobjnam). Not
+maybe_mnexto.
+Do not skip D-1342…D-1229 (index). Keep mention_map addr. Do
 not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1341.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1342.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1341 (index). Recent: **D-1341** `uhitm.c`
-`shade_miss` + `mhitm.c` `hitmm` (C `uhitm.c:2016–2051` /
-`mhitm.c:659–661`; unarmed vs shade `M_ATTK_MISS` +
-harmlessly-through, wakes; `dmgval` shade/`shade_glare` still
-named so a club still “hurts”). Prior: **D-1340** AT_HUGS.
-**D-1339** `explmm`. **D-1338** `gazemm`.
+**Keep:** D-0845…D-1342 (index). Recent: **D-1342** `artifact.c`
+`arti_reflects` + `set_artifact_intrinsic` SPFX_REFLECT W_WEP
+(C `artifact.c:537–550` / `:867–872`; muse.c `mon_reflects`
+MON_WEP between shield and amulet; hero `EReflecting&W_WEP`).
+Prior: **D-1341** `uhitm.c` `shade_miss` + `mhitm.c` `hitmm`.
+**D-1340** AT_HUGS. **D-1339** `explmm`. **D-1338** `gazemm`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1341
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1342
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

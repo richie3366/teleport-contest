@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1342 artifact.c arti_reflects W_WEP
+
+**Objective:** Open `artifact.c` `arti_reflects` W_WEP (named from
+D-1328). Not gazemu.
+**C locus:** `artifact.c` `arti_reflects` `:537–550`;
+`set_artifact_intrinsic` SPFX_REFLECT W_WEP `:867–872`; caller
+`muse.c` `mon_reflects` `:2807`.
+**Change:** wielded Dragonbane/Longbow of Diana reflect. Hero
+`EReflecting&W_WEP`; `mon_reflects` MON_WEP between shield and
+amulet. cspfx extract / zap·pray AMUL·ARM named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1705**.
+**Verified:** canary **17**/17; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dokick.c` `kickstr` (named; kick_ouch still raw
+kickobjnam). Not maybe_mnexto.
+**Blocked:** none.
 ## 2026-08-21 — review D-1338–D-1341 (audit #1700)
 
 **Objective:** audit — C-fidelity reviews **300–303** of JS SHAs

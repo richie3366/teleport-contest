@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `artifact.c` `arti_reflects` W_WEP (named from D-1328). Not gazemu.
 - [ ] `dokick.c` `kickstr` (named; kick_ouch still raw kickobjnam). Not maybe_mnexto.
 - [ ] `eat.c` choke `killer_xname` (remaining caller). Not dokick kickobjnam.
 - [ ] `zap.c` zapyourself `killer_xname` (remaining). Not eat choke.
