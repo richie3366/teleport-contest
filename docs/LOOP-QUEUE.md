@@ -26,6 +26,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `fountain.c` `drinkfountain` fate<10 `uhunger += rnd(10)` + `newuhs(FALSE)` (C `:279–282`; "don't choke on water"). Not eat.c lesshungry. Source: reviews/loop-unattended/318-6fd45ec4-lesshungry-bite-choke.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `dokick.c` `u_wipe_engr` caller (C `:1384`; body D-1051). Not knockback.

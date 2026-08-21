@@ -326,3 +326,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [314-160de986-mdamagem-ad-ston.md](./314-160de986-mdamagem-ad-ston.md) | `160de986` | D-1352 mdamagem AD_STON leftover | **ACCEPT-WITH-DEBT** |
 | [315-03e578b1-ureflects-amul-arm.md](./315-03e578b1-ureflects-amul-arm.md) | `03e578b1` | D-1353 ureflects W_AMUL/W_ARM/dragon | **ACCEPT-WITH-DEBT** |
 | [316-6570ddba-dmgval-shade-glare.md](./316-6570ddba-dmgval-shade-glare.md) | `6570ddba` | D-1354 dmgval shade/`shade_glare` | **ACCEPT-WITH-DEBT** |
+| [317-0be6d98e-zapyourself-lightning.md](./317-0be6d98e-zapyourself-lightning.md) | `0be6d98e` | D-1355 zapyourself WAN_LIGHTNING | **ACCEPT-WITH-DEBT** |
+| [318-6fd45ec4-lesshungry-bite-choke.md](./318-6fd45ec4-lesshungry-bite-choke.md) | `6fd45ec4` | D-1356 lesshungry/bite choke | **QUALITY-RISK** |
+| [319-0be5135b-the-capitalmon.md](./319-0be5135b-the-capitalmon.md) | `0be5135b` | D-1357 `the()` CapitalMon | **ACCEPT-WITH-DEBT** |
+| [320-fbfc72d9-dokick-wake-nearby.md](./320-fbfc72d9-dokick-wake-nearby.md) | `fbfc72d9` | D-1358 dokick `wake_nearby` | **ACCEPT-WITH-DEBT** |

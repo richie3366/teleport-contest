@@ -5,11 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1358; cadence **#1720** `6570ddba`
-  (Scr **11,405** RNG 100% speed `37+0.31/turn`). Reviews
-  **313–316** ACCEPT-WITH-DEBT (no Must-fix). Next: Open
-  `dokick.c` `u_wipe_engr` caller (C `:1384`; body D-1051).
-  Not knockback. Do not skip D-1358…D-1229. Do not wrap
+- **Fortress 44/44** after D-1358; cadence **#1725** `fbfc72d9`
+  (Scr **11,405** RNG 100% speed `37+0.32/turn`). Reviews
+  **317/319/320** ACCEPT-WITH-DEBT; **318** QUALITY-RISK.
+  Next: Must-fix `fountain.c` `drinkfountain` fate<10
+  `uhunger += rnd(10)` + `newuhs` (C `:279–282`). Not
+  eat.c lesshungry. Do not skip D-1358…D-1229. Do not wrap
   `wildmiss` as `pline_mon`. No FORCE.
 - Do not revert D-1217–D-1358. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
@@ -39,7 +40,8 @@ Objective/score live in `CURRENT.md`.
 - Do not skip D-1071…D-1358 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
-  mhitm wrap brush; `u_wipe_engr` kick caller. No ALIGN/FORCE
+  mhitm wrap brush; `u_wipe_engr` kick caller; fountain fate<10 still
+  `lesshungry` (review **318**). No ALIGN/FORCE
   on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
