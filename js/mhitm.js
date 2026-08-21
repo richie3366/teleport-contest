@@ -86,8 +86,8 @@ import {
 import {
     verysmall, G_FREQ, G_NOCORPSE, G_UNIQ, is_neuter, nonliving,
     bigmonst, is_golem, is_mplayer, is_rider, monsterNames, mons,
-    is_animal, M1_SEE_INVIS, is_vampshifter, MZ_TINY, MZ_HUGE, amorphous,
-    is_flyer, MR_STONE, MALE, FEMALE, NEUTRAL, can_teleport,
+    is_animal, M1_SEE_INVIS, is_vampshifter, MZ_TINY, MZ_SMALL, MZ_HUGE, amorphous,
+    is_flyer, is_floater, slithy, nolimbs, MR_STONE, MALE, FEMALE, NEUTRAL, can_teleport,
     touch_petrifies, poly_when_stoned, resists_ston, humanoid,
     unsolid, is_whirly, passes_walls, haseyes, flaming, slimeproof,
     is_male, is_female, is_shapeshifter, has_head, mon_hates_silver,
@@ -552,7 +552,7 @@ export {
     AT_SPIT, AT_ENGL, AT_BREA, AT_EXPL, AT_BOOM, AT_GAZE, AT_TENT,
     AT_WEAP, AT_MAGC, AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_ACID,
     AD_BLND, AD_DRDX, AD_DRCO, AD_DRIN, AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
-    AD_STON, AD_CONF,
+    AD_STON, AD_CONF, AD_STUN,
     could_seduce,
 };
 
@@ -663,7 +663,7 @@ async function mhitm_ad_halu(magr, mattk, mdef, mhm) {
  * (unlike HALU/BLND, which zero dice).
  * Named omit: uhitm you-as-agr; mhitu you-as-def (hitmsg + rn2(4)
  * + make_confused).
- * mhitm_ad_phys shade_miss is D-1394.
+ * mhitm_ad_phys shade_miss is D-1394. mhitm_ad_stun leftover is D-1396.
  */
 async function mhitm_ad_conf(magr, mattk, mdef, mhm) {
     void mattk;
@@ -675,6 +675,55 @@ async function mhitm_ad_conf(magr, mattk, mdef, mhm) {
         mdef.mconf = 1;
         mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
     }
+}
+
+/**
+ * C ref: mondata.c stagger :1394–1407 — stun/wobble verb for the
+ * mhitm AD_STUN pline. locomotion() itself named.
+ */
+function stagger(ptr, def) {
+    const s = String(def ?? '');
+    const ch = s.charAt(0);
+    const code = ch.charCodeAt(0);
+    /* C hacklib highc: a–z → A–Z; locoindx 2 if *def != highc(*def). */
+    const high = (code >= 97 && code <= 122)
+        ? String.fromCharCode(code - 32) : ch;
+    const cap = ch === high;
+    const pick = (lo, hi) => (cap ? hi : lo);
+    if (is_floater(ptr)) return pick('wobble', 'Wobble');
+    if (is_flyer(ptr) && ((ptr.msize | 0) <= MZ_SMALL)) {
+        return pick('flutter', 'Flutter');
+    }
+    if (is_flyer(ptr) && ((ptr.msize | 0) > MZ_SMALL)) {
+        return pick('stagger', 'Stagger');
+    }
+    if (slithy(ptr)) return pick('falter', 'Falter');
+    if (amorphous(ptr)) return pick('tremble', 'Tremble');
+    if (!(ptr?.mmove | 0)) return pick('pulsate', 'Pulsate');
+    if (nolimbs(ptr)) return pick('falter', 'Falter');
+    return def;
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_stun mhitm arm :4410–4420.
+ * Cancelled returns keeping leftover d() (no stun, no phys).
+ * Else canseemon pline + mstun=1 even if already stunned (no
+ * spec-used / wait-for-hero unlike CONF) then mhitm_ad_phys.
+ * Named omit: uhitm you-as-agr (!Blind stagger + phys);
+ * mhitu you-as-def (hitmsg + !mcan && !rn2(4) make_stunned + dmg/2).
+ */
+async function mhitm_ad_stun(magr, mattk, mdef, mhm) {
+    if (magr.mcan) return;
+    const pd = mdef?.data;
+    if (canseemon(mdef)) {
+        await pline_mon(
+            mdef,
+            `${Monnam(mdef)} ${makeplural(stagger(pd, 'stagger'))} for a moment.`,
+        );
+    }
+    mdef.mstun = 1;
+    await mhitm_ad_phys(magr, mattk, mdef, mhm);
+    if (mhm.done) return;
 }
 
 /**
@@ -2161,6 +2210,34 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
     }
 
+    // C: mhitm_adtyping → mhitm_ad_stun for AD_STUN (D-1396). Sets
+    // mstun when !mcan then mhitm_ad_phys (shade may zero leftover).
+    if ((mattk.adtyp | 0) === AD_STUN) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_stun(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
     // C: mhitm_adtyping → mhitm_ad_phys for AD_PHYS (D-1394).
     // shade_miss zeros leftover dice (and returns mhm.hitflags, usually
     // MISS). Non-zero dice fall through to shared knockback + HP.
@@ -2560,9 +2637,10 @@ async function gulpmm(magr, mdef, mattk) {
  * C ref: mhitm.c gazemm :736–803 — monster gazes at another monster.
  * Caller mattackm AT_GAZE (strike=0). Archon extra mhitm_ad_blnd + rn2(2)
  * stun then mdamagem leftover. Medusa reflect stones magr.
- * Named omit: mhitm_ad_stun/fire leftover dice;
+ * Named omit: mhitm_ad_fire leftover dice;
  * mon_perma_blind; resists_blnd_by_arti.
- * mdamagem AD_STON leftover is D-1352; AD_CONF leftover is D-1385.
+ * mdamagem AD_STON leftover is D-1352; AD_CONF leftover is D-1385;
+ * AD_STUN leftover is D-1396.
  * arti_reflects(MON_WEP) is D-1342.
  * hitmm shade_miss is D-1341; hitmm silver sear is D-1351;
  * zap bhit shade_miss is D-1383; hmon shade_miss is D-1384;
@@ -2642,8 +2720,9 @@ export async function gazemm(magr, mdef, mattk) {
  * mon_explodes and set AGR_DIED unconditionally (lifesave named on
  * mondead). Else mdamagem then mondead. Tame melancholy even if seen.
  * Named omit: mondead→m_unleash object (slack printed here);
- * mdamagem stun/fire leftover. mdamagem AD_STON leftover is D-1352;
- * AD_CONF leftover is D-1385. mhitm_ad_phys shade_miss is D-1394
+ * mdamagem fire leftover. mdamagem AD_STON leftover is D-1352;
+ * AD_CONF leftover is D-1385; AD_STUN leftover is D-1396.
+ * mhitm_ad_phys shade_miss is D-1394
  * (explmm AD_PHYS skips hitmm, so mdamagem is the shade gate).
  * hitmm shade_miss is D-1341;
  * hitmm silver sear is D-1351.

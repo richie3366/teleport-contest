@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1396 — mhitm.c mdamagem AD_STUN leftover
+
+- **Status:** fixed (map-driven Open from D-1352; not a public FAIL)
+- **Symptom:** a monster's AD_STUN hit (Baalzebub gaze leftover,
+  abbot-style kick) dealt leftover `d()` HP and never set
+  `mstun`. C `mdamagem` → `mhitm_adtyping` → `mhitm_ad_stun`.
+- **C locus:** `uhitm.c` `mhitm_ad_stun` mhitm arm `:4410–4420`;
+  caller `mhitm.c` `mdamagem` `:1059`. gazemm returns `mdamagem`
+  after the gaze pline (cancelled gaze misses first). Callee
+  `mondata.c` `stagger` `:1394–1407`; then `mhitm_ad_phys`
+  (D-1394; shade may zero leftover).
+- **JS was:** named omit (D-1352 / D-1385). AD_STUN fell through
+  `mdamagem` generic HP.
+- **Fix:** `mcan` returns keeping leftover `d()`. Else
+  `canseemon` stagger pline + `mstun=1` (even if already
+  stunned; no spec-used / WAITFORU unlike CONF) then
+  `mhitm_ad_phys`. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_stun` / `stagger` / `mdamagem`
+  AD_STUN.
+- **Not this iter:** uhitm you-as-agr; mhitu you-as-def
+  (`hitmsg` + `rn2(4)` + `make_stunned` + dmg/2); AD_FIRE
+  leftover; `mdamagem` touch_petrifies aggressor prefix;
+  locomotion() besides this stun verb.
+- **Verified:** private canary **15**/15 (C/JS shape; gaze
+  leftover HP + stun + WAITFORU kept; cancelled gaze miss;
+  already-stun still prints; bite leftover HP + stun;
+  cancelled leftover HP no stun; mspec_used still stuns;
+  gazemm shade stun then harmlessly; hitmm shade bypass no
+  stun; amorphous tremble; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session faces vis mon-vs-mon AD_STUN.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_JUMPING
+  (named). Not clairvoyance.
+- **Files:** `js/mhitm.js`.
+
 ## D-1395 — zap.c zapnodir WAN_ENLIGHTENMENT
 
 - **Status:** fixed (map-driven Open from D-1380; not a public FAIL)

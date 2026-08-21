@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1395; cadence **#1760** `05f8c1a1`
+- **Fortress 44/44** after D-1396; cadence **#1760** `05f8c1a1`
   (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
-  Open `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352).
-  Not CONF. Reviews **347–355** ACCEPT-WITH-DEBT (no Must-fix);
-  **346** QUALITY-RISK shipped D-1387. Do not skip D-1395…D-1229.
+  Open `spell.c` `spelleffects` SPE_JUMPING (named). Not
+  clairvoyance. Reviews **347–355** ACCEPT-WITH-DEBT (no Must-fix);
+  **346** QUALITY-RISK shipped D-1387. Do not skip D-1396…D-1229.
   No FORCE. Do not wrap `wildmiss`. Do not add trailing
   `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1395. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1396. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1395.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1396.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,14 +35,14 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1395 (index).
-- Do not skip D-1071…D-1395 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1396 (index).
+- Do not skip D-1071…D-1396 (index). Named still: hitmm artifact
   wep; `mhitm_ad_phys` shade_miss is D-1394 (kick thick / mwep
   dmgval / worm-shrieker named; hmon is D-1384; zap bhit shade
   is D-1383; M_AP_OBJECT skip is D-1392; WEB stick is D-1393;
   mthrowu is D-1382); zapnodir enlighten is D-1395 (stasis
   named; potion peffect_enlightenment named);
-  mdamagem STUN/FIRE leftover; mhitm wrap brush.
+  mdamagem FIRE leftover (STUN is D-1396); mhitm wrap brush.
   Do not restore fountain `lesshungry` (D-1359). No ALIGN/FORCE
   on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -55,6 +55,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1396: `uhitm.c` `mhitm_ad_stun` mhitm `:4410–4420` via
+  `mhitm.c` `mdamagem` `:1059` — `mcan` keeps leftover `d()`;
+  else canseemon `stagger` pline + `mstun=1` (no spec-used /
+  WAITFORU unlike CONF) then `mhitm_ad_phys` (shade may zero).
+  Callee `mondata.c` `stagger` `:1394–1407`. uhitm/mhitu /
+  FIRE leftover named. CONF is D-1385.
 - D-1395: `zap.c` `zapnodir` WAN_ENLIGHTENMENT `:2586–2590` —
   `known=!!dknown` then `do_enlightenment_effect` `:2525–2532`
   You_feel / WIN_MESSAGE flush / MAGIC `enlightenment` /
@@ -109,8 +115,8 @@ Objective/score live in `CURRENT.md`.
 - D-1385: `uhitm.c` `mhitm_ad_conf` mhitm `:3713–3724` via
   `mhitm.c` `mdamagem` `:1059` — `!mcan && !mconf && !mspec_used`
   vis `"looks confused."` + `mconf=1` + clear WAITFORU; leftover
-  `d()` kept (not HALU/BLND zero). uhitm/mhitu named. STUN/FIRE
-  leftover named. STON is D-1352.
+  `d()` kept (not HALU/BLND zero). uhitm/mhitu named. FIRE
+  leftover named. STUN is D-1396. STON is D-1352.
 - D-1384: `uhitm.c` `hmon_hitmon` `:1812–1822` — melee/applied
   `shade_miss(&youmonst,mon,obj,FALSE,TRUE)` + barehands shade
   dmg 0. Thrown/kicked skip (D-1383). Callee D-1341; dmgval
@@ -124,7 +130,3 @@ Objective/score live in `CURRENT.md`.
   `mtmp && shade_miss(..., TRUE, TRUE)` skip `ohitmon` keep
   flying. Callee D-1341; dmgval shade D-1354. Zap is D-1383;
   hmon is D-1384; `mhitm_ad_phys` is D-1394.
-- D-1381: `uhitm.c` `do_attack` `:555–563` —
-  `S_LEPRECHAUN` `!rn2(7)` `m_move(0)` then stumble/
-  `return FALSE`. Wipe is D-1373. check_capacity /
-  twoweapon named.
