@@ -5,13 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1370; cadence **#1735** `9a144895`
-  (Scr **11,405** RNG 100% speed `36+0.29/turn`). Open
-  kick_ouch/kick_dumb air/Lev `hurtle` shipped: youprop
-  `(H||E)&&!B`; dumb `rn2(2)` range 1; ouch `rn1(2,4)` after
-  losehp noreturn skip. Next Open: allmain `u_wipe_engr`.
-  Do not skip D-1370…D-1229. No FORCE. Do not rewrite
-  `confer_oc_oprop`. Do not wrap `wildmiss`.
+- **Fortress 44/44** after D-1370; cadence **#1740** `90eca343`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Next:
+  Must-fix review **328** zap.js `Shock_resistance()` via
+  `uprops[SHOCK_RES]` (D-1089). Not confer rewrite. Not
+  allmain wipe. D-1367 Antimagic uprops shipped. Do not
+  skip D-1370…D-1229. No FORCE. Do not wrap `wildmiss`.
 - Do not revert D-1217–D-1370. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.

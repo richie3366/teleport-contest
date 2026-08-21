@@ -336,3 +336,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [324-17a0937c-zapyourself-magic-missile.md](./324-17a0937c-zapyourself-magic-missile.md) | `17a0937c` | D-1364 zapyourself WAN/SPE_MAGIC_MISSILE | **QUALITY-RISK** |
 | [325-d8f4fba6-zapyourself-fireball.md](./325-d8f4fba6-zapyourself-fireball.md) | `d8f4fba6` | D-1365 zapyourself SPE_FIREBALL | **ACCEPT-WITH-DEBT** |
 | [326-9a144895-lightdamage-wan-light.md](./326-9a144895-lightdamage-wan-light.md) | `9a144895` | D-1366 `lightdamage` WAN_LIGHT/camera | **ACCEPT-WITH-DEBT** |
+| [327-463e151d-antimagic-uprops.md](./327-463e151d-antimagic-uprops.md) | `463e151d` | D-1367 `Antimagic()` uprops[ANTIMAGIC] | **ACCEPT-WITH-DEBT** |
+| [328-9df30ee3-maybe-destroy-item-elec.md](./328-9df30ee3-maybe-destroy-item-elec.md) | `9df30ee3` | D-1368 `maybe_destroy_item` AD_ELEC | **QUALITY-RISK** |
+| [329-46c4e1b0-zapyourself-make-invisible.md](./329-46c4e1b0-zapyourself-make-invisible.md) | `46c4e1b0` | D-1369 zapyourself WAN_MAKE_INVISIBLE | **ACCEPT-WITH-DEBT** |
+| [330-90eca343-kick-air-hurtle.md](./330-90eca343-kick-air-hurtle.md) | `90eca343` | D-1370 kick_ouch/kick_dumb air/Lev hurtle | **ACCEPT-WITH-DEBT** |

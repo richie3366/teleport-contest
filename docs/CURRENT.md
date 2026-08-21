@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-21** — full `sessions` at review **#1735**
-HEAD `9a144895` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `36+0.29/turn` (R² 0.85). Next audit (review + score) @**#1740**.
+Score last measured: **2026-08-21** — full `sessions` at review **#1740**
+HEAD `90eca343` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `37+0.30/turn` (R² 0.84). Next audit (review + score) @**#1745**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `36+0.29/turn` (R² 0.85). Next audit (review + score) @**#1740**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `36+0.29/turn` (R² 0.85) |
+| Speed label | `37+0.30/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,10 +59,11 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1370. **Next cluster:** Open
-`allmain.c` `u_wipe_engr` DEX timeout caller (named from D-1360). Not dokick.
-Reviews **323/325/326** ACCEPT-WITH-DEBT. **324** shipped
-(`Antimagic()` via `uprops[ANTIMAGIC]`). Do not skip
+**Map-driven fortress** after D-1370. **Next cluster:** Must-fix
+zap.js `Shock_resistance()` via `uprops[SHOCK_RES]` (review
+**328**). Not confer rewrite. Not allmain wipe. Reviews
+**327/329/330** ACCEPT-WITH-DEBT. **328** QUALITY-RISK
+(AD_ELEC xresist sticky Shock). Do not skip
 D-1370…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`. Do not
 rewrite `confer_oc_oprop`.
