@@ -7,6 +7,7 @@
 // kick_nondoor SDOOR/furniture (D-0985);
 // throne fall_through + tree scatter/swarm (D-0986);
 // kick_object + bhit KICKED_WEAPON (D-0988);
+// kick_object/instapetrify killer_xname (D-1335);
 // Is_box container_impact/lock/lid/chest_trap + ghitm (D-0989).
 
 import { game } from './gstate.js';
@@ -56,6 +57,7 @@ import { stairway_at, stairway_find_from } from './mklev.js';
 import { ok_to_quest } from './quest.js';
 import {
     xname, The, cxname, An, doname, singular, distant_name, the, makeplural,
+    killer_xname,
 } from './objnam.js';
 import { setuwep, setuqwep, setuswapwep } from './wield.js';
 import {
@@ -1124,8 +1126,8 @@ async function kick_object(x, y, kickobjnam) {
     game.kickedobj = objects_at(x, y);
     let res = 0;
     if (game.kickedobj) {
-        // C: killer_xname — xname stand-in
-        kickobjnam.value = xname(game.kickedobj) || '';
+        // C dokick.c:498 Strcpy(kickobjnam, killer_xname(gk.kickedobj))
+        kickobjnam.value = killer_xname(game.kickedobj) || '';
         res = await really_kick_object(x, y);
         game.kickedobj = null;
     }
@@ -1139,8 +1141,8 @@ async function kick_object(x, y, kickobjnam) {
  * grease/Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
  * hero_breaks; thump; split; slide; bhit KICKED_WEAPON; mon thitmonst/
  * ghitm; shop stolen_value; flooreffects; place+stack.
- * Named omit: killer_xname polish (xname stand-in). Throwit land
- * snuff is D-1333; mthrowu `:942` is D-1334.
+ * Named omit: kickstr (kick_ouch still raw kickobjnam). eat/zap/dothrow
+ * killer_xname callers still named.
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};
@@ -1185,9 +1187,9 @@ async function really_kick_object(x, y) {
                 && (await polymon(PM_STONE_GOLEM))) {
                 // hero transformed; kick continues
             } else {
-                // C: killer_xname stand-in → xname / cxname
+                // C :551–554 Sprintf(killer, "kicking %s barefoot", killer_xname)
                 await instapetrify(
-                    `kicking ${cxname(kicked)} barefoot`,
+                    `kicking ${killer_xname(kicked)} barefoot`,
                 );
             }
         }

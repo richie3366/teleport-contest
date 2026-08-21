@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1335 objnam.c killer_xname (dokick kickobjnam)
+
+**Objective:** Open `dokick.c` `killer_xname` (kickobjnam still
+xname). Not special_dmgval.
+**C locus:** `objnam.c` `killer_xname` `:1942–2005`; callers
+`dokick.c` `kick_object` `:498` and petrify `:551–554`.
+**Change:** kickobjnam and barefoot petrify now use
+`killer_xname` (full ID, article, corpse type, slime mold
+"deadly", restore). `kickstr` still named. Remaining eat/zap/
+dothrow callers named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1695**.
+**Verified:** canary **29**/29; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dokick.c` `maybe_mnexto` evade (named from
+D-1310). Not kickstr.
+**Blocked:** none.
 ## 2026-08-21 — D-1334 mthrowu.c return_from_mtoss snuff_candle
 
 **Objective:** Open `mthrowu.c` `snuff_candle` (C `:942` notcaught

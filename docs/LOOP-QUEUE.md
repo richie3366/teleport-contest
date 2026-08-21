@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dokick.c` `killer_xname` (kickobjnam still xname). Not special_dmgval.
 - [ ] `dokick.c` `maybe_mnexto` evade (named from D-1310). Not kickstr.
 - [ ] `apply.c` `splash_lit` (named from D-1242). Not snuff_candle.
 - [ ] `mhitm.c` gazemm (named from D-1328). Not AD_WRAP.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `mhitm.c` AT_HUGS (named from D-1327). Not explmm.
 - [ ] `mhitm.c` hitmm `shade_miss` (named from D-0887). Not AT_HUGS.
 - [ ] `artifact.c` `arti_reflects` W_WEP (named from D-1328). Not gazemu.
+- [ ] `dokick.c` `kickstr` (named; kick_ouch still raw kickobjnam). Not maybe_mnexto.
+- [ ] `eat.c` choke `killer_xname` (remaining caller). Not dokick kickobjnam.
+- [ ] `zap.c` zapyourself `killer_xname` (remaining). Not eat choke.
+- [ ] `dothrow.c` throwit `losehp` `killer_xname` (C `:1747`). Not zap.
+- [ ] `objnam.c` warn_obj glow (named from D-1322). Not killer_xname.
 
 ## Parked (do not pop)
 

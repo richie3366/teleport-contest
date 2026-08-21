@@ -5,13 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1334; cadence **#1690** `b82375a7`
+- **Fortress 44/44** after D-1335; cadence **#1690** `b82375a7`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **292–295**
-  ACCEPT-WITH-DEBT. Next: Open `dokick.c` `killer_xname`
-  (kickobjnam still xname). Not special_dmgval. Not maybe_mnexto.
-  Do not skip D-1334…D-1229. Do not wrap `wildmiss` as
-  `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1334. warn_obj / `artifact_light` `)`
+  ACCEPT-WITH-DEBT. Next: Open `dokick.c` `maybe_mnexto` evade
+  (named from D-1310). Not kickstr. Do not skip D-1335…D-1229.
+  Do not wrap `wildmiss` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1335. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
 ## Don't re-check (≤15)
@@ -21,7 +20,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1334.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1335.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,9 +34,9 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1334 (index). Named still: uhitm/mhitm
-  `mhitm_ad_wrap` arms; `killer_xname` kickobjnam.
-  No ALIGN/FORCE on seed0383.
+- Do not skip D-1071…D-1335 (index). Named still: uhitm/mhitm
+  `mhitm_ad_wrap` arms; `kickstr`; eat/zap/dothrow
+  `killer_xname`. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -48,6 +47,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1335: `objnam.c` `killer_xname` `:1942–2005` — dokick
+  kickobjnam `:498` + petrify `:551–554` (not `xname`). Artifact
+  `bare_artifactname`; CORPSE/SLIME_MOLD; restore known/uname.
+  eat/zap/dothrow remaining; `kickstr` named.
 - D-1334: `mthrowu.c` `return_from_mtoss` `:942` — notcaught
   `snuff_candle` then `ship_object` then `flooreffects("drop")`.
   Tethered AKLYS `m_throw` sets `return_flightpath` (before

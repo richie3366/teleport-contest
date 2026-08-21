@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1335 — objnam.c killer_xname (dokick kickobjnam)
+
+- **Status:** fixed (map-driven Open from D-1334; not a public FAIL)
+- **Symptom:** kicking an object stored `xname` into `kickobjnam`, so a
+  fatal kick ouch or barefoot petrify used a vague type name (no
+  article, no corpse species, user-supplied name leaked, slime mold
+  not "deadly"). C `kick_object` copies `killer_xname(gk.kickedobj)`
+  at `:498`; petrify `:551–554` formats `"kicking %s barefoot"` with
+  the same helper. JS used `xname` / `cxname`.
+- **C locus:** `objnam.c` `killer_xname` `:1942–2005`. Callers
+  `dokick.c` `kick_object` `:498` and `really_kick_object` `:551–554`.
+  Artifact path `bare_artifactname` `:2502–2514`. `kickstr` (`:793`)
+  still prefixes `"kicking "` for `kick_ouch` and is not this iter.
+- **JS was:** `kickobjnam.value = xname(...)`; petrify
+  `` `kicking ${cxname(kicked)} barefoot` ``.
+- **Fix:** port `killer_xname` (force known/dknown, clear BUC/poison/
+  uname/oname except artifacts and POT_WATER holy, CORPSE
+  `corpse_xname`, SLIME_MOLD `"deadly slime mold"`, `an`/`the`,
+  restore). Wire both dokick sites. Local `bare_artifactname` so
+  objnam does not import artifact.js (invent cycle). `the()`
+  CapitalMon unique still named (AoY may omit `"the "`). Rule #2:
+  no fs.
+- **JS:** `js/objnam.js` `killer_xname`; `js/dokick.js`
+  `kick_object` + petrify.
+- **Not this iter:** `kickstr`; eat choke / zap zapyourself /
+  dothrow throwit `losehp` / pickup / wield / invent / do_wear /
+  artifact / mthrowu remaining callers; `the()` CapitalMon;
+  `maybe_mnexto`; `splash_lit`.
+- **Verified:** private canary **29**/29 (C/JS shape; dart article;
+  named stripped; wand fully ID'd then restored; slime mold;
+  newt/cockatrice corpse; holy water; Excalibur / Orb; poison
+  suppressed; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a later audit score says otherwise.
+
 ## D-1334 — mthrowu.c return_from_mtoss snuff_candle
 
 - **Status:** fixed (map-driven Open from D-1333; not a public FAIL)

@@ -30,7 +30,9 @@ import {
 import {
     PM_SAMURAI, PM_CLERIC, PM_LICHEN, PM_ACID_BLOB, PM_LONG_WORM_TAIL,
 } from './generated/monsters_data.js';
-import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
+import {
+    ART_ORB_OF_DETECTION, artilistRaw, NROFARTIFACTS,
+} from './generated/artifacts_data.js';
 import {
     W_ARMOR, W_AMUL, W_RING, W_RINGL, W_RINGR, W_QUIVER, W_WEP, W_SWAPWEP,
     W_BALL, W_CHAIN, W_TOOL, W_SADDLE,
@@ -48,6 +50,9 @@ import {
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
 const BOULDER = objectNames.indexOf('BOULDER');
 const POT_OIL = objectNames.indexOf('POT_OIL');
+const POT_WATER = objectNames.indexOf('POT_WATER');
+const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
+const CORPSE = objectNames.indexOf('CORPSE');
 const AKLYS = objectNames.indexOf('AKLYS');
 
 /** C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (D-0716: no sticky u.Blind). */
@@ -944,6 +949,108 @@ export function cxname_singular(obj) {
     const nam = xname(obj);
     obj.quan = saveq;
     return nam;
+}
+
+/** C ref: hacklib.c strstri — case-insensitive substring. */
+function strstri_objnam(hay, needle) {
+    return String(hay ?? '').toLowerCase().includes(String(needle).toLowerCase());
+}
+
+/**
+ * C ref: objnam.c bare_artifactname `:2502–2514` — artiname, "The "→"the ".
+ * Local copy so objnam does not import artifact.js (invent cycle).
+ */
+function bare_artifactname_objnam(obj) {
+    if (obj?.oartifact) {
+        const a = obj.oartifact | 0;
+        const name = (a > 0 && a <= NROFARTIFACTS && artilistRaw[a]?.name) || '';
+        if (name.slice(0, 4) === 'The ') return `the ${name.slice(4)}`;
+        return name || xname(obj);
+    }
+    return xname(obj);
+}
+
+/**
+ * C ref: objnam.c killer_xname `:1942–2005` — fully ID'd death-reason name.
+ * Temporarily sets known/dknown, clears BUC/poison/uname/oname (not artifacts),
+ * formats, applies an()/the(), then restores the object and objects[].
+ * Caller uses KILLED_BY. Remaining eat/zap/dothrow/pickup/wield callers named.
+ */
+export function killer_xname(obj) {
+    if (!obj) return 'something';
+    // C: bypass object twiddling for artifacts
+    if (obj.oartifact) return bare_artifactname_objnam(obj);
+
+    const save_known = obj.known;
+    const save_dknown = obj.dknown;
+    const save_bknown = obj.bknown;
+    const save_rknown = obj.rknown;
+    const save_greased = obj.greased;
+    const save_blessed = obj.blessed;
+    const save_cursed = obj.cursed;
+    const save_opoisoned = obj.opoisoned;
+    const save_next_boulder = obj.next_boulder;
+    const save_oname = has_oname(obj) ? ONAME(obj) : null;
+
+    obj.known = 1;
+    obj.dknown = 1;
+    obj.bknown = 0;
+    obj.rknown = 0;
+    obj.greased = 0;
+    if ((obj.otyp | 0) !== POT_WATER) {
+        obj.blessed = 0;
+        obj.cursed = 0;
+    } else {
+        obj.bknown = 1; // describe holy/unholy water as such
+    }
+    obj.opoisoned = 0;
+    if (!obj.oartifact && save_oname && obj.oextra) {
+        obj.oextra.oname = null;
+    }
+
+    const ocl = objects()?.[obj.otyp];
+    const save_ocknown = ocl ? ocl.oc_name_known : 0;
+    const save_ocuname = ocl ? (ocl.oc_uname ?? null) : null;
+    if (ocl) {
+        ocl.oc_name_known = 1;
+        ocl.oc_uname = null; // avoid "foo called bar"
+    }
+
+    let buf;
+    try {
+        if ((obj.otyp | 0) === CORPSE) {
+            buf = corpse_xname(obj, null, CXN_NORMAL);
+        } else if ((obj.otyp | 0) === SLIME_MOLD) {
+            buf = `deadly slime mold${(obj.quan | 0) === 1 ? '' : 's'}`;
+        } else {
+            buf = xname(obj);
+        }
+        // C: article iff quan==1 and not already possessive; KILLED_BY caller
+        if ((obj.quan | 0) === 1
+            && !strstri_objnam(buf, "'s ")
+            && !strstri_objnam(buf, "s' ")) {
+            buf = (obj_is_pname(obj) || the_unique_obj(obj)) ? the(buf) : an(buf);
+        }
+    } finally {
+        if (ocl) {
+            ocl.oc_name_known = save_ocknown;
+            ocl.oc_uname = save_ocuname;
+        }
+        obj.known = save_known;
+        obj.dknown = save_dknown;
+        obj.bknown = save_bknown;
+        obj.rknown = save_rknown;
+        obj.greased = save_greased;
+        obj.blessed = save_blessed;
+        obj.cursed = save_cursed;
+        obj.opoisoned = save_opoisoned;
+        obj.next_boulder = save_next_boulder;
+        if (!obj.oartifact && save_oname) {
+            if (!obj.oextra) obj.oextra = {};
+            obj.oextra.oname = save_oname;
+        }
+    }
+    return buf;
 }
 
 /**
