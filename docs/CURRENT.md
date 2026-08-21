@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-21** — full `sessions` at review **#1730**
-HEAD `a979a9ac` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `37+0.30/turn` (R² 0.85). Next audit (review + score) @**#1735**.
+Score last measured: **2026-08-21** — full `sessions` at review **#1735**
+HEAD `9a144895` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `36+0.29/turn` (R² 0.85). Next audit (review + score) @**#1740**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `37+0.30/turn` (R² 0.85). Next audit (review + score) @**#1735**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `37+0.30/turn` (R² 0.85) |
+| Speed label | `36+0.29/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,12 +59,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1366. Reviews **321–322**
-ACCEPT-WITH-DEBT (no Must-fix). **Next cluster:** Open
-`zap.c` `maybe_destroy_item` AD_ELEC (named). Not
-zapyourself lightning.
+**Map-driven fortress** after D-1366. Review **324** QUALITY-RISK
+Must-fix: zap.js `zapyourself` WAN/SPE_MAGIC_MISSILE `Antimagic()`
+sticky clone vs `uprops[ANTIMAGIC]` (D-1089). Reviews **323/325/326**
+ACCEPT-WITH-DEBT. **Next cluster:** that Must-fix (cloak-of-MR still
+`d(4,6)`). Then Open `maybe_destroy_item` AD_ELEC.
 Do not skip D-1366…D-1229 (index). Keep mention_map addr. Do
 not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
+Do not rewrite `confer_oc_oprop`.
 
 **Parked:** D-0006. **Do not re-break D-0660…D-1366.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `zap.c` `lightdamage` (named; WAN_LIGHT/camera). Not flashburn lightning. **Addressed:** D-1366
+- [x] `zap.c` `lightdamage` (named; WAN_LIGHT/camera). Not flashburn lightning. **Addressed:** D-1366 `9a144895`
 
 
 - [x] `zap.c` `zapyourself` SPE_FIREBALL (named). Not lightning. **Addressed:** D-1365 `d8f4fba6`

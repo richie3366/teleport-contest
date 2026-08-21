@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1366; cadence **#1730** `a979a9ac`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews
-  **321/322** ACCEPT-WITH-DEBT (no Must-fix). Next: Open
-  `zap.c` `maybe_destroy_item` AD_ELEC (named). Not
-  zapyourself lightning. Do not skip D-1366…D-1229. Do not
-  wrap `wildmiss` as `pline_mon`. No FORCE.
+- **Fortress 44/44** after D-1366; cadence **#1735** `9a144895`
+  (Scr **11,405** RNG 100% speed `36+0.29/turn`). Review **324**
+  QUALITY-RISK Must-fix: zap.js MAGIC_MISSILE `Antimagic()` must
+  read `uprops[ANTIMAGIC]` (D-1089), not sticky bits — CoMR still
+  `d(4,6)`. **323/325/326** ACCEPT-WITH-DEBT. Then Open AD_ELEC
+  destroy. Do not skip D-1366…D-1229. No FORCE. Do not rewrite
+  `confer_oc_oprop`.
 - Do not revert D-1217–D-1366. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.

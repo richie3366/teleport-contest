@@ -332,3 +332,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [320-fbfc72d9-dokick-wake-nearby.md](./320-fbfc72d9-dokick-wake-nearby.md) | `fbfc72d9` | D-1358 dokick `wake_nearby` | **ACCEPT-WITH-DEBT** |
 | [321-a895ac7e-kick-ouch-drawbridge.md](./321-a895ac7e-kick-ouch-drawbridge.md) | `a895ac7e` | D-1361 kick_ouch drawbridge remap | **ACCEPT-WITH-DEBT** |
 | [322-a979a9ac-dokick-no-kick.md](./322-a979a9ac-dokick-no-kick.md) | `a979a9ac` | D-1362 dokick no_kick + `kick_steed` | **ACCEPT-WITH-DEBT** |
+| [323-c10f4246-stolen-booty-migr-species.md](./323-c10f4246-stolen-booty-migr-species.md) | `c10f4246` | D-1363 `mksobj_migr_to_species` / stolen_booty | **ACCEPT-WITH-DEBT** |
+| [324-17a0937c-zapyourself-magic-missile.md](./324-17a0937c-zapyourself-magic-missile.md) | `17a0937c` | D-1364 zapyourself WAN/SPE_MAGIC_MISSILE | **QUALITY-RISK** |
+| [325-d8f4fba6-zapyourself-fireball.md](./325-d8f4fba6-zapyourself-fireball.md) | `d8f4fba6` | D-1365 zapyourself SPE_FIREBALL | **ACCEPT-WITH-DEBT** |
+| [326-9a144895-lightdamage-wan-light.md](./326-9a144895-lightdamage-wan-light.md) | `9a144895` | D-1366 `lightdamage` WAN_LIGHT/camera | **ACCEPT-WITH-DEBT** |
