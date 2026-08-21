@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1359 — fountain.c drinkfountain fate<10 uhunger += rnd(10)
+
+- **Status:** fixed (Must-fix review **318**; not a public FAIL)
+- **Symptom:** `drinkfountain` fate<10 called `lesshungry(rnd(10))`.
+  After D-1356, that chokes at 2000 (`"quick snack"`) and fullwarns
+  with `multi=-2` at 1500. C never routes fountain water through
+  `lesshungry` (comment: “don't choke on water”).
+- **C locus:** `fountain.c` `drinkfountain` `:279–282`
+  (`pline_The` cool draught; `u.uhunger += rnd(10)`;
+  `newuhs(FALSE)`; `mgkftn` return). Caller `potion.c`
+  `dodrink` fountain yn (D-0237).
+- **JS was:** `await lesshungry(rnd(10))` (D-1356 treated that as
+  fidelity; review **318** QUALITY-RISK).
+- **Fix:** raw `u.uhunger += rnd(10)` then `newuhs(false)`. Drop
+  `lesshungry` import. Eat.c choke/fullwarn stays for food.
+  `newuhs` occupation messages still named (D-0438). Rule #2: no fs.
+- **JS:** `js/fountain.js` `drinkfountain`.
+- **Not this iter:** `newuhs` hunger messages / faint; `adj_victual_nutrition`;
+  `do_reset_eat` `touchfood`; `u_wipe_engr` kick caller.
+- **Verified:** private canary **16**/16 (C/JS grep; 1495 no fullwarn;
+  1995 no choke; lesshungry contrast still chokes; live
+  `drinkfountain` cool draught; Rule #2); green+strict seed8000/0900;
+  focused seed0014; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** on 1500+ water (seed0014 drinks below).
+- **Follow-up:** Open `dokick.c` `u_wipe_engr` caller.
+- **Files:** `js/fountain.js`.
+
 ## D-1358 — dokick.c dokick wake_nearby(FALSE)
 
 - **Status:** fixed (map-driven Open from D-1350; not a public FAIL)

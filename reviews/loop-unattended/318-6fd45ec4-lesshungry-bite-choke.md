@@ -111,3 +111,5 @@ C eat: no RNG in `lesshungry`/`bite` (paranoid yn is input). C fountain: `rnd(10
 - Verdict: **QUALITY-RISK**
 - One sentence: eat.c choke/fullwarn matches C; `drinkfountain` fate<10 still calls `lesshungry` so water can now choke or steal a turn.
 - Must-fix: prepend fountain fate<10 raw `uhunger +=` (this review).
+
+**Addressed:** D-1359

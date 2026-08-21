@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1359 fountain.c drinkfountain fate<10 uhunger+=
+
+**Objective:** Must-fix review **318** `fountain.c` `drinkfountain`
+fate<10 `uhunger += rnd(10)` + `newuhs(FALSE)` (C `:279–282`).
+Not eat.c lesshungry.
+**C locus:** `fountain.c` `drinkfountain` `:279–282`.
+**Change:** replace `await lesshungry(rnd(10))` with raw add +
+`newuhs(false)`. Water no longer chokes or steals a turn at 1500.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit on 1500+ water;
+seed0014 PASS below 1500).
+**Verified:** private canary **16**/16; green+strict seed8000/0900;
+focused seed0014; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+2200/0383.
+**Next:** Open `dokick.c` `u_wipe_engr` caller (C `:1384`).
+**Blocked:** none.
 ## 2026-08-21 — review D-1355–D-1358 (audit #1725)
 
 **Objective:** audit — C-fidelity reviews **317–320** of JS SHAs

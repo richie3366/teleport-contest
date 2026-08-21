@@ -5,14 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1358; cadence **#1725** `fbfc72d9`
+- **Fortress 44/44** after D-1359; cadence **#1725** `fbfc72d9`
   (Scr **11,405** RNG 100% speed `37+0.32/turn`). Reviews
-  **317/319/320** ACCEPT-WITH-DEBT; **318** QUALITY-RISK.
-  Next: Must-fix `fountain.c` `drinkfountain` fate<10
-  `uhunger += rnd(10)` + `newuhs` (C `:279–282`). Not
-  eat.c lesshungry. Do not skip D-1358…D-1229. Do not wrap
-  `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1358. `see_monsters` warn_obj_cnt /
+  **317/319/320** ACCEPT-WITH-DEBT; **318** QUALITY-RISK → D-1359.
+  Next: Open `dokick.c` `u_wipe_engr` caller (C `:1384`;
+  body D-1051). Not knockback. Do not skip D-1359…D-1229.
+  Do not wrap `wildmiss` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1359. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
 
@@ -23,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1358.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1359.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,11 +36,11 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1358 (index). Named still: hitmm artifact
+- Do not skip D-1071…D-1359 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
-  mhitm wrap brush; `u_wipe_engr` kick caller; fountain fate<10 still
-  `lesshungry` (review **318**). No ALIGN/FORCE
+  mhitm wrap brush; `u_wipe_engr` kick caller. Do not
+  restore fountain `lesshungry` (D-1359). No ALIGN/FORCE
   on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -53,6 +52,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1359: `fountain.c` `drinkfountain` `:279–282` — fate<10
+  `uhunger += rnd(10)` + `newuhs(FALSE)` (don't choke on
+  water). Not `lesshungry`. mgkftn still returns after
+  refresh. `newuhs` messages named.
 - D-1358: `dokick.c` `dokick` `:1383` — after maybe_kick,
   `wake_nearby(FALSE)` (`ulevel*20`, petcall FALSE) before
   `u_wipe_engr` / `kick_monster`. Callee live. Declined
@@ -109,6 +112,3 @@ Objective/score live in `CURRENT.md`.
 - D-1345: `zap.c` `dozap` `:2658–2663` — self-zap `losehp`
   `"zapped "+uhim()+"self with "+killer_xname` + `NO_KILLER_PREFIX`.
   Not `xname` / `u.female`. throwit `:1747` is D-1346.
-- D-1344: `eat.c` `choke` `:268–284` — non-coin `killer_xname` +
-  `KILLED_BY`; coins `"very rich meal"`; null `"quick snack"`.
-  eataccessory AoS live; lesshungry/bite is D-1356; throw_obj petrify named.

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1359 | fixed | fountain.c drinkfountain fate<10 | Must-fix review **318**; C `fountain.c:279–282` `uhunger += rnd(10)` + `newuhs(FALSE)` (“don't choke on water”); JS `await lesshungry` after D-1356 could choke/fullwarn; live `js/fountain.js`; `newuhs` messages still named |
 | D-1358 | fixed | dokick.c dokick wake_nearby | map-driven Open from D-1350; C `dokick.c:1383` after maybe_kick before `u_wipe_engr`/`kick_monster` `wake_nearby(FALSE)` (`ulevel*20`, petcall FALSE); JS stub comment; live `js/dokick.js` `dokick` + callee `js/mon.js`; `u_wipe_engr` still named |
 | D-1357 | fixed | objnam.c the() CapitalMon | map-driven Open from D-1335; C `rumors.c` `CapitalMon`/`init_CapMons` + `objnam.c` `the()` `:2171–2231`; JS skipped capitalized titles/types; live `js/objnam.js` (27 mons + hallu types; first-space `" of "` + PYEC); fruit_from_name + artifact_name still named |
 | D-1356 | fixed | eat.c lesshungry/bite choke+fullwarn | map-driven Open from D-1344; C `eat.c` `lesshungry` `:3289–3333` choke at 2000 (`iseating` eatfood/`force_save_hs` else tin/0) + fullwarn 1500; `bite` `:3138–3140` canchoke gate; `doeat` `:3077` SATIATED snapshot; JS field-only + `canchoke=0`; live `js/eat.js` + fountain await; adj_victual_nutrition / `do_reset_eat` touchfood still named |
