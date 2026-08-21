@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1403 — uhitm.c mhitm_ad_phys AT_KICK thick_skinned
+
+- **Status:** fixed (map-driven Open from D-1402; not a public FAIL)
+- **Symptom:** a monster-vs-monster AT_KICK AD_PHYS hit that
+  passed `shade_miss` still dealt leftover `d()` from
+  `mdamagem` even when the defender was `thick_skinned`.
+  C `mhitm_ad_phys` mhitm arm `else if (AT_KICK &&
+  thick_skinned(pd))` zeros leftover (mwep already nulled
+  unless AT_WEAP/AT_CLAW; no kicking-boots check). AT_CLAW
+  vs hide is not this arm (youmonst halves; mhitm keeps
+  leftover unless mwep).
+- **C locus:** `uhitm.c` `mhitm_ad_phys` `:4138–4141` (mhitm
+  arm after D-1394 shade, before D-1402 mwep). Callee
+  `mondata.h` `thick_skinned`. Caller `mhitm.c` `mdamagem`
+  `:1059` `mhitm_adtyping` `case AD_PHYS`.
+- **JS was:** named omit (D-1402). shade_miss zeroed leftover
+  vs shade; kick vs hide kept leftover dice.
+- **Fix:** `else if (aatyp === AT_KICK && thick_skinned(pd))`
+  zeros leftover. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_phys`.
+- **Not this iter:** youmonst `damageum_ad_phys` (already
+  live); mhitu `mhitm_ad_phys_u`; artifact_hit / rustm /
+  `mhitm_really_poison`; purple worm vs shrieker cap.
+- **Verified:** private canary **12**/12 (C/JS grep; gnome
+  leftover kept; iron-golem kick zeros; club on kicker still
+  nulled; AT_CLAW vs hide keeps leftover; D-1402 club dmgval;
+  D-1394 shade explmm + silver AT_WEAP; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session has mon-vs-mon AT_KICK
+  AD_PHYS vs thick hide via `mdamagem`.
+- **Follow-up:** Open `zap.c` `zapnodir` WAN_STASIS (named
+  from D-1380). Not enlightenment.
+- **Files:** `js/mhitm.js`.
+
 ## D-1402 — uhitm.c mhitm_ad_phys mwep dmgval
 
 - **Status:** fixed (map-driven Open from D-1394; not a public FAIL)

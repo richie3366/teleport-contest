@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1402; cadence **#1760** `05f8c1a1`
+- **Fortress 44/44** after D-1403; cadence **#1760** `05f8c1a1`
   (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
-  Open `uhitm.c` `mhitm_ad_phys` AT_KICK thick_skinned (named).
-  Not mwep. Reviews **347–355** ACCEPT-WITH-DEBT (no Must-fix);
-  **346** QUALITY-RISK shipped D-1387. Do not skip D-1402…D-1229.
-  No FORCE. Do not wrap `wildmiss`. Do not add trailing
-  `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1402. Named still: `see_monsters`
+  Open `zap.c` `zapnodir` WAN_STASIS (named from D-1380).
+  Not enlightenment. Reviews **347–355** ACCEPT-WITH-DEBT (no
+  Must-fix); **346** QUALITY-RISK shipped D-1387. Do not skip
+  D-1403…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
+  trailing `confdir` to shared `getdir`.
+- Do not revert D-1217–D-1403. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1402.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1403.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,11 +35,12 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1402 (index).
-- Named still: hitmm artifact wep; kick thick / artifact_hit /
-  rustm / poison / worm-shrieker; zapnodir stasis; potion
+  nhcore (D-1066). Do not skip D-1067…D-1403 (index).
+- Named still: hitmm artifact wep; artifact_hit / rustm /
+  poison / worm-shrieker; zapnodir stasis; potion
   peffect_enlightenment; mdamagem FIRE leftover; mhitm wrap
-  brush; mwep dmgval is D-1402. CREATE_MONSTER is D-1401.
+  brush; kick thick is D-1403. mwep dmgval is D-1402.
+  CREATE_MONSTER is D-1401.
   CURE_SICKNESS is D-1398. CURE_BLINDNESS is D-1399. CHAIN is
   D-1400 (peffects named). JUMPING is D-1397. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
@@ -53,11 +54,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1403: `uhitm.c` `mhitm_ad_phys` mhitm `:4138–4141` after
+  D-1394 shade — AT_KICK `thick_skinned(pd)` zeros leftover
+  `d()` (mwep already nulled). Youmonst already in
+  `damageum_ad_phys`. artifact_hit / rustm / poison /
+  worm-shrieker named. mwep dmgval is D-1402.
 - D-1402: `uhitm.c` `mhitm_ad_phys` mhitm `:4142–4157` after
   D-1394 shade — AT_WEAP/AT_CLAW `mwep` corpse `do_stone_mon`
-  then `dmgval` + GOP `rn1(4,3)` + min 1. Kick thick /
-  artifact_hit / rustm / poison / worm-shrieker named.
-  CREATE_MONSTER is D-1401.
+  then `dmgval` + GOP `rn1(4,3)` + min 1. Kick thick is
+  D-1403. artifact_hit / rustm / poison / worm-shrieker
+  named. CREATE_MONSTER is D-1401.
 - D-1401: `spell.c` `:1528–1531` SPE_CREATE_MONSTER
   `(void) seffects(pseudo)` (no skilled bless). Callee
   `read.c` `seffect_create_monster` `:1608–1624` count
@@ -102,5 +108,3 @@ Objective/score live in `CURRENT.md`.
   gain; `uspmtime` 20 expert else 10; timeout usptime tick.
 - D-1389: `spell.c` `:1569–1571` SPE_CREATE_FAMILIAR
   `make_familiar(NULL,u.ux,u.uy,FALSE)`. Callee D-1029.
-- D-1388: `spell.c` `:1458–1514` SPE_FORCE_BOLT IMMEDIATE
-  `weffects`/`bhit(rn1(8,6))`. CREATE_FAMILIAR is D-1389.

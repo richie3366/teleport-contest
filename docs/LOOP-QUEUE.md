@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` `mhitm_ad_phys` AT_KICK thick_skinned (named). Not mwep.
 - [ ] `zap.c` `zapnodir` WAN_STASIS (named from D-1380). Not enlightenment.
 - [ ] `uhitm.c` `mhitm_ad_fire` leftover (named from D-1385). Not STUN.
 - [ ] `mhitm.c` `mhitm_ad_wrap` brush (named from D-1348). Not uhitm wrap.

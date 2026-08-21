@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `uhitm.c` `mhitm_ad_phys` mwep dmgval (named). Not shade_miss. **Addressed:** D-1402
+- [x] `uhitm.c` `mhitm_ad_phys` AT_KICK thick_skinned (named). Not mwep. **Addressed:** D-1403
+
+
+- [x] `uhitm.c` `mhitm_ad_phys` mwep dmgval (named). Not shade_miss. **Addressed:** D-1402 `2a3da9b9`
 
 
 - [x] `spell.c` `spelleffects` SPE_CREATE_MONSTER seffects (named). Not chain. **Addressed:** D-1401 `88587b68`

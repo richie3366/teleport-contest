@@ -89,6 +89,7 @@ import {
     is_animal, M1_SEE_INVIS, is_vampshifter, MZ_TINY, MZ_SMALL, MZ_HUGE, amorphous,
     is_flyer, is_floater, slithy, nolimbs, MR_STONE, MALE, FEMALE, NEUTRAL, can_teleport,
     touch_petrifies, poly_when_stoned, resists_ston, humanoid,
+    thick_skinned,
     unsolid, is_whirly, passes_walls, haseyes, flaming, slimeproof,
     is_male, is_female, is_shapeshifter, has_head, mon_hates_silver,
     noncorporeal,
@@ -774,21 +775,26 @@ async function mhitm_ad_ston(magr, mattk, mdef, mhm) {
 
 /**
  * C ref: uhitm.c mhitm_ad_phys mhitm arm :4128–4198 (D-1394 shade;
- * D-1402 mwep dmgval).
+ * D-1402 mwep dmgval; D-1403 AT_KICK thick_skinned).
  * Re-reads MON_WEP then zeros it unless AT_WEAP/AT_CLAW (so a bite
  * while holding silver still shade_misses). vis is canseemon both,
  * not gv.vis. shade_miss callee is D-1341.
  * Named omit: youmonst is damageum_ad_phys; mhitu is mhitm_ad_phys_u;
- * AT_KICK thick_skinned; artifact_hit / rustm / mhitm_really_poison;
+ * artifact_hit / rustm / mhitm_really_poison;
  * purple worm vs shrieker cap.
  */
 async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
     let mwep = MON_WEP(magr);
     const vis = !!(canseemon(magr) && canseemon(mdef));
     const aatyp = mattk.aatyp | 0;
+    const pd = mdef?.data;
     /* C `:4133–4134` — non-weapon/claw physical blows ignore the wep. */
     if (aatyp !== AT_WEAP && aatyp !== AT_CLAW) mwep = null;
     if (await shade_miss(magr, mdef, mwep, false, vis)) {
+        mhm.damage = 0;
+    } else if (aatyp === AT_KICK && thick_skinned(pd)) {
+        /* C `:4138–4141` — no kicking-boots check; monsters that kick
+           cannot wear boots. Zeros leftover d() (mwep already nulled). */
         mhm.damage = 0;
     } else if (mwep) {
         /* C `:4142–4157` — corpse stone then dmgval + gauntlets + min 1.
@@ -2255,9 +2261,10 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
     }
 
     // C: mhitm_adtyping → mhitm_ad_phys for AD_PHYS (D-1394 shade;
-    // D-1402 mwep dmgval). shade_miss zeros leftover dice. AT_WEAP/AT_CLAW
-    // mwep adds dmgval (and may bump leftover). Non-zero dice fall through
-    // to shared knockback + HP.
+    // D-1402 mwep dmgval; D-1403 AT_KICK thick_skinned). shade_miss
+    // zeros leftover. AT_KICK vs thick hide zeros leftover (mwep
+    // already nulled). AT_WEAP/AT_CLAW mwep adds dmgval. Non-zero
+    // dice fall through to shared knockback + HP.
     if ((mattk.adtyp | 0) === AD_PHYS) {
         const mhm = {
             damage,

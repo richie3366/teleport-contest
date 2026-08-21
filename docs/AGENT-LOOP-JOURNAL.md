@@ -9,6 +9,24 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1403 uhitm.c mhitm_ad_phys AT_KICK thick_skinned
+
+**Objective:** Open `uhitm.c` `mhitm_ad_phys` AT_KICK
+thick_skinned (named). Not mwep.
+**C locus:** `uhitm.c` `mhitm_ad_phys` mhitm `:4138–4141`
+after D-1394 shade, before D-1402 mwep; callee
+`mondata.h` `thick_skinned`.
+**Change:** AT_KICK vs thick hide zeros leftover `d()`
+(mwep already nulled). artifact_hit / rustm / poison /
+worm-shrieker named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session has mon-vs-mon AT_KICK AD_PHYS vs thick hide).
+**Verified:** private canary **12**/12; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapnodir` WAN_STASIS (named from
+D-1380). Not enlightenment.
+**Blocked:** none.
 ## 2026-08-21 — D-1402 uhitm.c mhitm_ad_phys mwep dmgval
 
 **Objective:** Open `uhitm.c` `mhitm_ad_phys` mwep dmgval
