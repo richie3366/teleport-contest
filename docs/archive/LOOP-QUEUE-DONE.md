@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `spell.c` `spelleffects` SPE_CREATE_FAMILIAR (named). Not force bolt. **Addressed:** D-1389
+- [x] `spell.c` `cast_protection` SPE_PROTECTION (named). Not familiar. **Addressed:** D-1390
+
+
+- [x] `spell.c` `spelleffects` SPE_CREATE_FAMILIAR (named). Not force bolt. **Addressed:** D-1389 `5e8d1fbd`
 
 
 - [x] `spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball. **Addressed:** D-1388 `c6af8407`

@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1390 spell.c SPE_PROTECTION cast_protection
+
+**Objective:** Open `spell.c` `cast_protection` SPE_PROTECTION
+(named). Not familiar.
+**C locus:** `spell.c` `cast_protection` `:1104–1177`; caller
+`spelleffects` `:1581–1583`; callee `timeout.c` `:652–661`
+usptime tick + `find_ac`.
+**Change:** SPE_PROTECTION calls `cast_protection` (log2 gain,
+expert 20 else 10, find_ac via dynamic u_init). timeout
+dissipates. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts protection).
+**Verified:** private canary **17**/17; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_CLAIRVOYANCE
+(named). Not protection.
+**Blocked:** none.
 ## 2026-08-21 — D-1389 spell.c SPE_CREATE_FAMILIAR make_familiar
 
 **Objective:** Open `spell.c` `spelleffects` SPE_CREATE_FAMILIAR

@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1390 — spell.c SPE_PROTECTION cast_protection
+
+- **Status:** fixed (map-driven Open from D-1389; not a public FAIL)
+- **Symptom:** casting SPE_PROTECTION printed `Nothing happens.`
+  C `cast_protection` `:1104–1177` computes log2(ulevel)+1 minus
+  `uspellprot / (4-min(3,natac))` with `natac=(10-(u.uac+uspellprot))/10`,
+  then `uspmtime` 20 if clerical P_EXPERT else 10, arms `usptime`
+  only when 0, `find_ac()`. Gain 0 → `Your skin feels warm`.
+  Callee `timeout.c` `:652–661` `--usptime` then `--uspellprot`.
+  CREATE_FAMILIAR is D-1389.
+- **C locus:** `spell.c` `cast_protection` `:1104–1177`; caller
+  `spelleffects` `:1581–1583`; callee `timeout.c` `nh_timeout`
+  `:652–661` + `do_wear.c` `find_ac`.
+- **JS was:** named omit after D-1389. Other-otyp arm printed
+  `Nothing happens.`; `find_ac` already subtracted `uspellprot`.
+- **Fix:** SPE_PROTECTION arm `await cast_protection()`. Dynamic
+  `import('./u_init.js')` for `find_ac` (u_init→spell). timeout.js
+  dissipates after mtimedone. Rule #2: no fs.
+- **JS:** `js/spell.js` `cast_protection`; `js/timeout.js`
+  `nh_timeout`; `js/u_init.js` BSS-zero.
+- **Not this iter:** SPE_CLAIRVOYANCE / JUMPING / CURE / CHAIN;
+  scroll `seffects` / potion `peffects`; ugallop; insight
+  Protection line; directional IMMEDIATE heal/tele `weffects`.
+- **Verified:** private canary **17**/17 (C/JS grep; NODIR
+  clerical; ulevel 1 AC 10 → 1,2,3,4 then warm; ulevel 8 → 4;
+  expert 20; recast keeps usptime; Blind silent gain; water/cloud
+  atmosphere; 10-tick Norep disappear; CLAIRVOYANCE still omit;
+  FORCE_BOLT east still IMMEDIATE; HEALING atme; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts protection.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_CLAIRVOYANCE
+  (named). Not protection.
+- **Files:** `js/spell.js`, `js/timeout.js`, `js/u_init.js`.
+
 ## D-1389 — spell.c SPE_CREATE_FAMILIAR make_familiar
 
 - **Status:** fixed (map-driven Open from D-1388; not a public FAIL)

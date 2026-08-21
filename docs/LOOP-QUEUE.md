@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` `cast_protection` SPE_PROTECTION (named). Not familiar.
 - [ ] `spell.c` `spelleffects` SPE_CLAIRVOYANCE (named). Not protection.
 - [ ] `zap.c` `bhit` M_AP_OBJECT skip (named from D-1383). Not WEB.
 - [ ] `zap.c` `bhit` WEB stick (named from D-1383). Not M_AP_OBJECT.

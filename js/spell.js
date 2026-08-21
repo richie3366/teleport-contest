@@ -16,10 +16,11 @@
 // unskilled FIREBALL/CONE FALLTHROUGH weffects (D-1386) + getdir
 // cancel leftover dirs (D-1387);
 // SPE_FORCE_BOLT IMMEDIATE weffects/bhit (D-1388);
-// SPE_CREATE_FAMILIAR make_familiar(NULL,u.ux,u.uy,FALSE) (D-1389).
+// SPE_CREATE_FAMILIAR make_familiar(NULL,u.ux,u.uy,FALSE) (D-1389);
+// SPE_PROTECTION cast_protection (D-1390; timeout.c usptime tick).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps (PROTECTION/CLAIRVOYANCE/JUMPING/
+// swap/sort; other spelleffects otyps (CLAIRVOYANCE/JUMPING/
 // CURE/CHAIN/seffects/peffects); directional weffects for
 // IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -44,7 +45,9 @@ import { zapyourself, spell_damage_bonus, weffects } from './zap.js';
 import { tele } from './teleport.js';
 import { aggravate } from './wizard.js';
 import { make_confused } from './potion.js';
-import { trycall } from './do_name.js';
+import { trycall, hcolor, hliquid } from './do_name.js';
+import { an } from './objnam.js';
+import { is_whirly, is_animal } from './monsters.js';
 import { nomul, losehp, maybe_half_phys } from './hack.js';
 import { uhim } from './roles.js';
 import { erode_obj } from './trap.js';
@@ -86,7 +89,9 @@ import {
     isok,
     u_at,
     IS_STWALL,
+    IS_TREE,
     IS_DOOR,
+    CLOUD,
     ZAP_POS,
     D_ISOPEN,
     STONE,
@@ -98,7 +103,7 @@ import {
     HI_ZAP,
 } from './const.js';
 import { objectNames, objectNameStrs } from './generated/objects_data.js';
-import { PM_KNIGHT, PM_WIZARD } from './generated/monsters_data.js';
+import { PM_KNIGHT, PM_WIZARD, monsterNames } from './generated/monsters_data.js';
 
 /** C: spell.c explodes[] */
 const EXPLODES = 'radiates explosive energy';
@@ -140,11 +145,17 @@ const SPE_MAGIC_MISSILE = objectNames.indexOf('SPE_MAGIC_MISSILE');
 const SPE_FIREBALL = objectNames.indexOf('SPE_FIREBALL');
 const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
 const SPE_CREATE_FAMILIAR = objectNames.indexOf('SPE_CREATE_FAMILIAR');
+const SPE_PROTECTION = objectNames.indexOf('SPE_PROTECTION');
+const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
 const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 const QUARTERSTAFF = objectNames.indexOf('QUARTERSTAFF');
 const LENSES = objectNames.indexOf('LENSES');
+
+/** C monattk.h — local for enfolds (do not import mhitm). */
+const AT_ENGL = 11;
+const AD_WRAP = 28;
 
 const IRON = 11;
 const MITHRIL = 17;
@@ -206,6 +217,26 @@ function P_SKILL(type) {
 /** C ref: spell.c spell_skilltype */
 export function spell_skilltype(booktype) {
     return game.objects?.[booktype]?.oc_skill ?? 0;
+}
+
+/** C youprop.h Blind — (HBlinded || EBlinded) && !BBlinded. Sticky first. */
+function Blind() {
+    const u = game.u || {};
+    if (u.Blind || u.ublind) return true;
+    const H = u.HBlinded | 0;
+    const E = u.EBlinded | 0;
+    const B = u.BBlinded | 0;
+    return !!(H || E) && !B;
+}
+
+/** C ref: mondata.h enfolds — AT_ENGL + AD_WRAP. */
+function enfolds(ptr) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (const a of slots) {
+        if ((a.aatyp | 0) === AT_ENGL && (a.adtyp | 0) === AD_WRAP) return true;
+    }
+    return false;
 }
 
 /**
@@ -1335,6 +1366,66 @@ async function wand_duplicate_weffects(pseudo, atme, physical_damage) {
 }
 
 /**
+ * C ref: spell.c cast_protection :1104–1177
+ * log2(ulevel)+1 minus uspellprot/(4-min(3,natac)); natac is
+ * (10-(u.uac+uspellprot))/10 so find_ac's uspellprot subtract
+ * is factored back out. Expert clerical skill → uspmtime 20
+ * else 10; usptime only armed when it was 0. find_ac via
+ * dynamic import (u_init.js → spell.js).
+ */
+async function cast_protection() {
+    const u = game.u || (game.u = {});
+    let l = u.ulevel | 0;
+    let loglev = 0;
+    let natac = (u.uac | 0) + (u.uspellprot | 0);
+    /* C: while (l) { loglev++; l /= 2; } — int division. */
+    while (l) {
+        loglev++;
+        l = Math.trunc(l / 2);
+    }
+    natac = Math.trunc((10 - natac) / 10);
+    const gain = loglev
+        - Math.trunc((u.uspellprot | 0) / (4 - Math.min(3, natac)));
+
+    if (gain > 0) {
+        if (!Blind()) {
+            const hgolden = hcolor('golden'); /* NH_GOLDEN */
+            if (u.uspellprot) {
+                await pline(
+                    `The ${hgolden} haze around you becomes more dense.`,
+                );
+            } else {
+                const pm = u.ustuck ? u.ustuck.data : null;
+                const rmtyp = game.level?.at?.(u.ux | 0, u.uy | 0)?.typ;
+                const atmosphere = (pm && u.uswallow)
+                    ? (((pm.mndx ?? -1) === PM_FOG_CLOUD) ? 'mist'
+                        : is_whirly(pm) ? 'maelstrom'
+                        : enfolds(pm) ? 'folds'
+                        : is_animal(pm) ? 'maw'
+                        : 'ooze')
+                    : (u.uinwater ? hliquid('water')
+                        : (rmtyp === CLOUD) ? 'cloud'
+                        : IS_TREE(rmtyp) ? 'vegetation'
+                        : IS_STWALL(rmtyp) ? 'stone'
+                        : 'air');
+                await pline(
+                    `The ${atmosphere} around you begins to shimmer with ${an(hgolden)} haze.`,
+                );
+            }
+        }
+        u.uspellprot = ((u.uspellprot | 0) + gain) & 0xff;
+        u.uspmtime = (P_SKILL(spell_skilltype(SPE_PROTECTION)) === P_EXPERT)
+            ? 20 : 10;
+        if (!(u.usptime | 0)) u.usptime = u.uspmtime;
+        /* Dynamic: u_init.js imports spell.js. */
+        const { find_ac } = await import('./u_init.js');
+        find_ac();
+    } else {
+        await pline('Your skin feels warm for a moment.');
+    }
+}
+
+/**
  * C ref: spell.c spelleffects
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / SPE_TELEPORT_AWAY
  * directional self-zap (D-1225 atme ^T); skilled SPE_FIREBALL /
@@ -1343,8 +1434,9 @@ async function wand_duplicate_weffects(pseudo, atme, physical_damage) {
  * cancel leftover dirs (D-1387). SPE_FORCE_BOLT IMMEDIATE
  * weffects/bhit (D-1388). SPE_CREATE_FAMILIAR
  * make_familiar(NULL, u.ux, u.uy, FALSE) (D-1389; callee
- * dog.c D-1029). Other otyps named omission
- * (return TIME after energy spent + exercise).
+ * dog.c D-1029). SPE_PROTECTION cast_protection (D-1390;
+ * callee find_ac + timeout.c usptime tick). Other otyps
+ * named omission (return TIME after energy spent + exercise).
  */
 export async function spelleffects(spell_otyp, atme, force) {
     const spell = force ? spell_otyp : spell_idx(spell_otyp);
@@ -1450,6 +1542,9 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Dynamic import: dog.js → weapon.js → spell.js. */
         const { make_familiar } = await import('./dog.js');
         await make_familiar(null, game.u.ux, game.u.uy, false);
+    } else if (otyp === SPE_PROTECTION) {
+        /* C spell.c :1581–1583 — cast_protection(); */
+        await cast_protection();
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
         await pline('Nothing happens.');
