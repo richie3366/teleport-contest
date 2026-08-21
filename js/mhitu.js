@@ -11,17 +11,19 @@ import {
     Upolyd, DIED, P_WHIP, NON_PM, XKILL_NOMSG, NEW_MOON,
     DISPLACED, CONFLICT, IS_WATERWALL, RLOC_MSG, RLOC_NOMSG, TIMEOUT, ARTICLE_A,
     LEFT_SIDE, RIGHT_SIDE, LEG,
+    W_ARMS, W_WEP, W_AMUL, W_ARM, BOLT_LIM, STONING, KILLED_BY, M_SEEN_FIRE,
 } from './const.js';
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
 import { destroy_items } from './zap.js';
 import { nomul, stop_occupation, maybe_half_phys, is_pool } from './hack.js';
-import { rnd, d, rn2 } from './rng.js';
+import { rnd, d, rn2, rn1 } from './rng.js';
 import {
     pline, pline_mon, set_msg_xy, mon_visible, canspotmon, map_invisible,
     canseemon, newsym, docrt, swallowed, flush_topl_more, tp_sensemon,
+    shieldeff, urgent_pline,
 } from './display.js';
-import { cansee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
+import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import { Monnam, mon_nam, pmname, hliquid, x_monnam, Hallucination } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval, hitval } from './weapon.js';
 import { is_pole } from './wield.js';
@@ -35,13 +37,20 @@ import {
     is_orc, is_demon, is_were, is_animal, is_whirly, amorphous, unsolid,
     MZ_HUGE, M1_SEE_INVIS, MALE, FEMALE, haseyes, resists_ston,
     hides_under, is_flyer, thick_skinned, nolimbs, touch_petrifies,
+    poly_when_stoned,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
 } from './monsters.js';
-import { done_in_by } from './end.js';
+import { done_in_by, done } from './end.js';
 import { msummon, Inhell } from './minion.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { A_STR, A_DEX, A_CON, acurr, exercise, poisoned } from './attrib.js';
-import { xkilled } from './uhitm.js';
+import { xkilled, killed } from './uhitm.js';
+import {
+    m_seenres, cvt_adtyp_to_mseenres, monstseesu, monstunseesu, m_canseeu,
+} from './mondata.js';
+import { which_armor } from './worn.js';
+import { makeknown } from './invent.js';
+import { burn_away_slime } from './timeout.js';
 import {
     get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mattackm,
     could_seduce, mon_poly, mondead,
@@ -52,10 +61,10 @@ import {
     AD_SITM, AD_SEDU, AD_SSEX, AD_POLY, AD_DRIN,
 } from './mhitm.js';
 import { castmu, buzzmu } from './mcastu.js';
-import { rehumanize } from './polyself.js';
-import { set_wounded_legs } from './trap.js';
+import { rehumanize, polymon } from './polyself.js';
+import { set_wounded_legs, burnarmor, ignite_items } from './trap.js';
 import { mon_explodes } from './explode.js';
-import { make_hallucinated } from './potion.js';
+import { make_hallucinated, make_confused, make_stunned } from './potion.js';
 
 /** C ref: monattk.h — passiveum damage types beyond mhitm export set. */
 const AD_STUN = 12;
@@ -73,7 +82,16 @@ const PM_VIOLET_FUNGUS = monsterNames.indexOf('PM_VIOLET_FUNGUS');
 const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
 const PM_ROPE_GOLEM = monsterNames.indexOf('PM_ROPE_GOLEM');
+const PM_MEDUSA = monsterNames.indexOf('PM_MEDUSA');
+const PM_ARCHON = monsterNames.indexOf('PM_ARCHON');
+const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
+const PM_CHROMATIC_DRAGON = monsterNames.indexOf('PM_CHROMATIC_DRAGON');
+const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const OILSKIN_CLOAK = objectNames.indexOf('OILSKIN_CLOAK');
+const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
+const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
+const SILVER_DRAGON_SCALES = objectNames.indexOf('SILVER_DRAGON_SCALES');
+const SILVER_DRAGON_SCALE_MAIL = objectNames.indexOf('SILVER_DRAGON_SCALE_MAIL');
 const ROBE = objectNames.indexOf('ROBE');
 const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
 const ALCHEMY_SMOCK = objectNames.indexOf('ALCHEMY_SMOCK');
@@ -98,6 +116,7 @@ const CLOAK_OF_DISPLACEMENT = objectNames.indexOf('CLOAK_OF_DISPLACEMENT');
 
 /** C ref: monattk.h — engulf damage types used by gulpmu. */
 const AD_BLND = 11;
+const AD_CONF = 25; /* umber hulk gaze — monattk.h */
 const AD_HALU = 36; /* monattk.h — black-light AT_EXPL */
 const AD_DREN = 16;
 const AD_STCK = 19; /* stick-to (mimic, lichen) — monattk.h */
@@ -464,7 +483,7 @@ function Blind() {
  * C ref: youprop.h Unaware — multi < 0 && (unconscious || fainted).
  * Full unconscious prefixes / is_fainted named omit.
  */
-function Unaware_explmu() {
+function Unaware() {
     if ((game.multi | 0) >= 0) return false;
     const u = game.u || {};
     return !!(u.usleep || u.Unaware);
@@ -489,7 +508,7 @@ function dmgtype_fromattack(ptr, adtyp, aatyp) {
  * Named omit: resists_blnd_by_arti (Sunsword).
  */
 function resists_blnd_you() {
-    if (Blind() || Unaware_explmu()) return true;
+    if (Blind() || Unaware()) return true;
     const ptr = game.youmonst?.data;
     return dmgtype_fromattack(ptr, AD_BLND, AT_EXPL)
         || dmgtype_fromattack(ptr, AD_BLND, AT_GAZE);
@@ -1689,11 +1708,336 @@ async function summonmu(mtmp, youseeit) {
 }
 
 /**
+ * C ref: youprop.h Reflecting — H||E plus worn shield/amulet/silver DSM
+ * (setworn EReflecting bits still named).
+ */
+function Reflecting() {
+    const u = game.u || {};
+    if (u.HReflecting || u.EReflecting || u.Reflecting) return true;
+    if (u.uarms?.otyp === SHIELD_OF_REFLECTION) return true;
+    if (u.uamul?.otyp === AMULET_OF_REFLECTION) return true;
+    const arm = u.uarm?.otyp | 0;
+    if (arm === SILVER_DRAGON_SCALES || arm === SILVER_DRAGON_SCALE_MAIL) {
+        return true;
+    }
+    return (game.youmonst?.data?.mndx | 0) === PM_SILVER_DRAGON;
+}
+
+/** C ref: youprop.h Stone_resistance. */
+function Stone_resistance() {
+    const u = game.u || {};
+    return !!(u.Stone_resistance || u.HStone_resistance || u.EStone_resistance);
+}
+
+/** C ref: youprop.h Fire_resistance. */
+function Fire_resistance() {
+    const u = game.u || {};
+    return !!(u.Fire_resistance || u.HFire_resistance || u.EFire_resistance);
+}
+
+/** C printf %s %s for ureflects / mon_reflects. */
+function sprintf2(fmt, a, b) {
+    let n = 0;
+    return String(fmt).replace(/%s/g, () => (n++ === 0 ? a : b));
+}
+
+/**
+ * C ref: muse.c ureflects :2836–2866 — outermost to innermost.
+ * Named omit: arti_reflects identity of the W_WEP artifact (bit only).
+ */
+async function ureflects(fmt, str) {
+    const u = game.u || {};
+    const er = u.EReflecting | 0;
+    let what = null;
+    let known = -1;
+    if ((er & W_ARMS) || u.uarms?.otyp === SHIELD_OF_REFLECTION) {
+        what = 'shield';
+        known = SHIELD_OF_REFLECTION;
+    } else if (er & W_WEP) {
+        what = 'weapon';
+    } else if ((er & W_AMUL) || u.uamul?.otyp === AMULET_OF_REFLECTION) {
+        what = 'medallion';
+        known = AMULET_OF_REFLECTION;
+    } else if ((er & W_ARM)
+        || u.uarm?.otyp === SILVER_DRAGON_SCALES
+        || u.uarm?.otyp === SILVER_DRAGON_SCALE_MAIL) {
+        what = u.uskin ? 'luster' : 'armor';
+    } else if ((game.youmonst?.data?.mndx | 0) === PM_SILVER_DRAGON) {
+        what = 'scales';
+    } else {
+        return false;
+    }
+    if (fmt && str) {
+        await pline(sprintf2(fmt, str, what));
+        if (known >= 0) makeknown(known);
+    }
+    return true;
+}
+
+/**
+ * C ref: muse.c mon_reflects :2797–2833.
+ * Named omit: arti_reflects(MON_WEP).
+ */
+async function mon_reflects(mon, str) {
+    let orefl = which_armor(mon, W_ARMS);
+    if (orefl && (orefl.otyp | 0) === SHIELD_OF_REFLECTION) {
+        if (str) {
+            await pline(sprintf2(str, s_suffix_hitmsg(mon_nam(mon)), 'shield'));
+            makeknown(SHIELD_OF_REFLECTION);
+        }
+        return true;
+    }
+    orefl = which_armor(mon, W_AMUL);
+    if (orefl && (orefl.otyp | 0) === AMULET_OF_REFLECTION) {
+        if (str) {
+            await pline(sprintf2(str, s_suffix_hitmsg(mon_nam(mon)), 'amulet'));
+            makeknown(AMULET_OF_REFLECTION);
+        }
+        return true;
+    }
+    orefl = which_armor(mon, W_ARM);
+    if (orefl && ((orefl.otyp | 0) === SILVER_DRAGON_SCALES
+            || (orefl.otyp | 0) === SILVER_DRAGON_SCALE_MAIL)) {
+        if (str) {
+            await pline(sprintf2(str, s_suffix_hitmsg(mon_nam(mon)), 'armor'));
+        }
+        return true;
+    }
+    const mndx = mon?.data?.mndx ?? mon?.mnum ?? -1;
+    if (mndx === PM_SILVER_DRAGON || mndx === PM_CHROMATIC_DRAGON) {
+        if (str) {
+            await pline(sprintf2(str, s_suffix_hitmsg(mon_nam(mon)), 'scales'));
+        }
+        return true;
+    }
+    return false;
+}
+
+const GAZEMU_REACTIONS = [
+    'confused', 'stunned', 'puzzled', 'dazzled',
+    'irritated', 'inflamed', 'tired', 'dulled',
+];
+
+/**
+ * C ref: mhitu.c gazemu :1668–1898 — monster gazes at the hero.
+ * Callers: mattacku AT_GAZE when mdat is not Medusa (:832–837);
+ * mon.c m_respond_medusa first AT_GAZE slot.
+ * Named omit: #ifdef PM_BEHOLDER AD_SLEE/AD_SLOW (MON is #if 0);
+ * impossible() default; arti_reflects W_WEP; gazemm.
+ */
+export async function gazemu(mtmp, mattk) {
+    if (!mtmp || !mattk) return M_ATTK_MISS;
+    if (m_seenres(mtmp, cvt_adtyp_to_mseenres(mattk.adtyp))) {
+        return M_ATTK_MISS;
+    }
+
+    const is_medusa = (mtmp.data?.mndx | 0) === PM_MEDUSA;
+    const reflectable = !!(Reflecting() && couldsee(mtmp.mx, mtmp.my)
+        && is_medusa);
+    let cancelled = !!(mtmp.mcan | 0);
+    let already = false;
+    let react = -1;
+    const mcanseeu = !!(canseemon(mtmp) && couldsee(mtmp.mx, mtmp.my)
+        && (mtmp.mcansee | 0));
+
+    if ((Hallucination() && rn2(4)) || (Unaware() && !reflectable)) {
+        cancelled = true;
+    }
+
+    switch (mattk.adtyp | 0) {
+    case AD_STON:
+        if (cancelled || !(mtmp.mcansee | 0)) {
+            if (!canseemon(mtmp)) break;
+            if (Unaware()) {
+                react = is_medusa ? 4 : 2;
+                break;
+            }
+            if (is_medusa && Hallucination() && !rn2(3)) {
+                await pline('Someone seems overdue for a serpent cut.');
+            } else {
+                await pline_mon(mtmp, `${Monnam(mtmp)} ${
+                    (is_medusa && mtmp.mcan && !react)
+                        ? "doesn't look all that ugly"
+                        : 'gazes ineffectually'
+                }.`);
+            }
+            break;
+        }
+        if (reflectable) {
+            const useeit = canseemon(mtmp);
+            if (useeit) {
+                await ureflects(
+                    '%s gaze is reflected by your %s.',
+                    s_suffix_hitmsg(Monnam(mtmp)),
+                );
+            }
+            if (await mon_reflects(mtmp, useeit
+                ? 'The gaze is reflected away by %s %s!'
+                : null)) {
+                break;
+            }
+            if (!m_canseeu(mtmp)) {
+                if (useeit) {
+                    await pline(
+                        `${Monnam(mtmp)} doesn't seem to notice that `
+                        + `${mhis(mtmp)} gaze was reflected.`,
+                    );
+                }
+                break;
+            }
+            if (useeit) {
+                await pline_mon(mtmp, `${Monnam(mtmp)} is turned to stone!`);
+            }
+            if (!game.context) game.context = {};
+            game.context.stoned = true;
+            await killed(mtmp);
+            if ((mtmp.mhp | 0) >= 1) break;
+            return M_ATTK_AGR_DIED;
+        }
+        if (canseemon(mtmp) && couldsee(mtmp.mx, mtmp.my)
+            && !Stone_resistance() && !Unaware()) {
+            await pline(`You meet ${s_suffix_hitmsg(mon_nam(mtmp))} gaze.`);
+            await stop_occupation();
+            if (poly_when_stoned(game.youmonst?.data, game.mvitals)
+                && (await polymon(PM_STONE_GOLEM))) {
+                break;
+            }
+            await urgent_pline('You turn to stone...');
+            if (!game.killer) game.killer = { name: '', format: 0 };
+            game.killer.format = KILLED_BY;
+            game.killer.name = pmname(
+                mtmp.data, mtmp.female ? FEMALE : MALE,
+            );
+            await done(STONING);
+        }
+        break;
+    case AD_CONF:
+        if (mcanseeu && !(mtmp.mspec_used | 0) && rn2(5)) {
+            if (cancelled) {
+                react = 0;
+                already = !!(mtmp.mconf | 0);
+            } else {
+                const conf = d(3, 4);
+                mtmp.mspec_used = (mtmp.mspec_used | 0) + (conf + rn2(6));
+                if (!((game.u?.HConfusion | 0) || game.u?.Confusion)) {
+                    await pline_mon(
+                        mtmp, `${s_suffix_hitmsg(Monnam(mtmp))} gaze confuses you!`,
+                    );
+                } else {
+                    await pline('You are getting more and more confused.');
+                }
+                await make_confused((game.u?.HConfusion | 0) + conf, false);
+                await stop_occupation();
+            }
+        }
+        break;
+    case AD_STUN:
+        if (mcanseeu && !(mtmp.mspec_used | 0) && rn2(5)) {
+            if (cancelled) {
+                react = 1;
+                already = !!(mtmp.mstun | 0);
+            } else {
+                const stun = d(2, 6);
+                mtmp.mspec_used = (mtmp.mspec_used | 0) + (stun + rn2(6));
+                await pline_mon(
+                    mtmp, `${Monnam(mtmp)} stares piercingly at you!`,
+                );
+                await make_stunned(
+                    ((game.u?.HStun | 0) & TIMEOUT) + stun, true,
+                );
+                await stop_occupation();
+            }
+        }
+        break;
+    case AD_BLND:
+        if (canseemon(mtmp) && !resists_blnd_you()
+            && dist2u(mtmp) <= BOLT_LIM * BOLT_LIM) {
+            if (cancelled) {
+                react = rn1(2, 2);
+                already = !(mtmp.mcansee | 0);
+                if (mtmp.mcan && (mtmp.data?.mndx | 0) === PM_ARCHON
+                    && rn2(5)) {
+                    react = -1;
+                }
+            } else {
+                const blnd = d(mattk.damn | 0, mattk.damd | 0);
+                await pline(
+                    `You are blinded by ${s_suffix_hitmsg(mon_nam(mtmp))} radiance!`,
+                );
+                make_blinded(blnd, false);
+                await stop_occupation();
+                if (!Blind()) {
+                    await pline('Your vision clears.');
+                } else {
+                    const oldstun = (game.u?.HStun | 0) & TIMEOUT;
+                    const newstun = rnd(3);
+                    await make_stunned(Math.max(oldstun, newstun), true);
+                }
+            }
+        }
+        break;
+    case AD_FIRE:
+        if (mcanseeu && !(mtmp.mspec_used | 0) && rn2(5)) {
+            if (cancelled) {
+                react = rn1(2, 4);
+            } else {
+                let dmg = d(2, 6);
+                const orig_dmg = dmg;
+                const lev = mtmp.m_lev | 0;
+                await pline_mon(
+                    mtmp, `${Monnam(mtmp)} attacks you with a fiery gaze!`,
+                );
+                await stop_occupation();
+                if (Fire_resistance()) {
+                    await shieldeff(game.u?.ux | 0, game.u?.uy | 0);
+                    await pline('The fire doesn\'t feel hot!');
+                    monstseesu(M_SEEN_FIRE);
+                    await ugolemeffects(AD_FIRE, d(12, 6));
+                    dmg = 0;
+                } else {
+                    monstunseesu(M_SEEN_FIRE);
+                }
+                await burn_away_slime();
+                if (lev > rn2(20)) {
+                    await burnarmor(game.youmonst);
+                }
+                if (lev > rn2(20)) {
+                    await destroy_items(game.youmonst, AD_FIRE, orig_dmg);
+                    await ignite_items(game.invent);
+                }
+                if (dmg) await mdamageu(mtmp, dmg);
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    if (react >= 0) {
+        if (Hallucination() && rn2(3)) {
+            react = rn2(GAZEMU_REACTIONS.length);
+        }
+        let prefix = '';
+        if (!rn2(3)) {
+            prefix = '';
+        } else if (already) {
+            prefix = 'quite ';
+        } else {
+            prefix = !rn2(2) ? 'a bit ' : 'somewhat ';
+        }
+        await pline_mon(
+            mtmp,
+            `${Monnam(mtmp)} looks ${prefix}${GAZEMU_REACTIONS[react]}.`,
+        );
+    }
+    return M_ATTK_MISS;
+}
+
+/**
  * C ref: mhitu.c explmu :1591–1664 — monster explodes in the hero's
  * face. Caller mattacku AT_EXPL when !range2 (:839–842).
  * Named omit: defended(mtmp, adtyp) exploder artifact/dragon scales
  * (no RNG; AT_EXPL spheres/lights never qualify);
- * resists_blnd_by_arti; gazemu; mhitm explmm.
+ * resists_blnd_by_arti; mhitm explmm.
  */
 export async function explmu(mtmp, mattk, ufound) {
     if (!mtmp) return M_ATTK_MISS;
@@ -1783,8 +2127,8 @@ export async function explmu(mtmp, mattk, ufound) {
 /**
  * C ref: mhitu.c mattacku — AT_WEAP ranged thrwmu + melee HTH / weapon hit
  * (AT_TENT with claw/kick/bite/sting/touch/butt, D-1309); AT_EXPL explmu
- * (D-1326); AT_HUGS grab/crush (D-1327); AT_ENGL gulpmu; AT_BREA/SPIT/MAGC.
- * Gaze deferred.
+ * (D-1326); AT_HUGS grab/crush (D-1327); AT_GAZE gazemu (D-1328, skip
+ * Medusa); AT_ENGL gulpmu; AT_BREA/SPIT/MAGC.
  * Returns 1 if monster died.
  */
 export async function mattacku(mtmp) {
@@ -1838,7 +2182,6 @@ export async function mattacku(mtmp) {
         if ((mtmp.mflee | 0) && !already_fleeing) return 0;
         mdat = mtmp.data;
     }
-    void mdat;
 
     // C: find_offensive / use_offensive before attack loop — potion throw
     // spends the turn (return 2) without melee/ranged AT_WEAP.
@@ -1916,6 +2259,15 @@ export async function mattacku(mtmp) {
                 if (!(await failed_grab(mtmp, mattk))) {
                     sum[i] = await hitmu(mtmp, mattk);
                 }
+            }
+            break;
+
+        case AT_GAZE: /* can affect you either ranged or not */
+            /* C mhitu.c mattacku `:832–837` — Medusa already gazed
+             * through m_respond in dochug; don't gaze twice. Compare
+             * mndx (D-0928). */
+            if ((mdat?.mndx | 0) !== PM_MEDUSA) {
+                sum[i] = await gazemu(mtmp, mattk);
             }
             break;
 

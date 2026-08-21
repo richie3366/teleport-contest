@@ -2081,7 +2081,7 @@ export async function dochug(mtmp) {
         }
     }
 
-    // C mon.c m_respond — shrieker / Medusa / Erinys (gazemu named)
+    // C mon.c m_respond — shrieker / Medusa / Erinys
     await m_respond(mtmp);
     if ((mtmp.mhp | 0) < 1) return 1; /* m_respond gaze can kill medusa */
 

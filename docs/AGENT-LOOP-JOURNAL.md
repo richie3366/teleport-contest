@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1328 mhitu.c gazemu
+
+**Objective:** Open `mhitu.c` gazemu (named from D-1314). Not explmu.
+**C locus:** `mhitu.c` `gazemu` `:1668–1898`; `mattacku` AT_GAZE
+`:832–837`; `mon.c` `m_respond_medusa` `:4109–4118`.
+**Change:** AT_GAZE now gazes (skip Medusa in `mattacku`;
+`m_respond_medusa` dynamic-imports `gazemu`). AD_STON
+reflect/stone, CONF/STUN/BLND/FIRE, cancelled looks-X, Hallu
+`rn2(4)`. BEHOLDER AD_SLEE/AD_SLOW stay compiled out. mhitu
+AD_DRIN still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1685**.
+**Verified:** canary **20**/20; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitu.c` AD_DRIN (named from D-1309). Not gazemu.
+**Blocked:** none.
 ## 2026-08-21 — D-1327 mhitu.c mattacku AT_HUGS
 
 **Objective:** Open `mhitu.c` AT_HUGS (named). Not explmu.

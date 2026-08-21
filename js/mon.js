@@ -1013,15 +1013,14 @@ async function m_respond_shrieker(mtmp) {
 }
 
 /**
- * C mon.c m_respond_medusa — first AT_GAZE slot → gazemu.
- * gazemu (mhitu.c AD_STON reflect/stone + other adtyps) named omit.
+ * C mon.c m_respond_medusa — first AT_GAZE slot → gazemu (D-1328).
  */
 async function m_respond_medusa(mtmp) {
     const atks = mtmp.data?.mattk || [];
     for (let i = 0; i < NATTK; i++) {
         if ((atks[i]?.aatyp | 0) === AT_GAZE) {
-            // C mhitu.c gazemu(mtmp, &mattk[i]) — named omit
-            void atks[i];
+            const { gazemu } = await import('./mhitu.js');
+            await gazemu(mtmp, atks[i]);
             break;
         }
     }
@@ -1030,7 +1029,7 @@ async function m_respond_medusa(mtmp) {
 /**
  * C mon.c m_respond — monster responds to player action (not passive).
  * Callers: monmove.c dochug; zap.c boomhit / bhitm.
- * Named omit: gazemu; qst_guardians_respond / peacefuls_respond (setmangry).
+ * Named omit: qst_guardians_respond / peacefuls_respond (setmangry).
  * Compare mndx, not mons() identity (D-0928).
  */
 export async function m_respond(mtmp) {

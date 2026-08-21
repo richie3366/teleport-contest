@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-21
+
+- [x] `mhitu.c` gazemu (named from D-1314). Not explmu. **Addressed:** D-1328
+
 ## 2026-08-20
 
-- [x] `mhitu.c` AT_HUGS (named). Not explmu. **Addressed:** D-1327
+- [x] `mhitu.c` AT_HUGS (named). Not explmu. **Addressed:** D-1327 `2c9dff6a`
 
 
 - [x] `mhitu.c` explmu (named). Not AT_HUGS. **Addressed:** D-1326 `9570f32a`

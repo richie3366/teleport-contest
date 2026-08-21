@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1328 — mhitu.c gazemu
+
+- **Status:** fixed (map-driven Open from D-1314; not a public FAIL)
+- **Symptom:** an AT_GAZE monster (pyrolisk fire, umber hulk confuse,
+  Archon blind, Baalzebub stun, Medusa stone) never gazed. C
+  `mattacku` `case AT_GAZE` calls `gazemu` unless the gazer is
+  Medusa (she already gazed from `m_respond`). JS fell through
+  `default`; `m_respond_medusa` walked the slot and no-op'd.
+- **C locus:** `mhitu.c` `gazemu` `:1668–1898`; caller `mattacku`
+  `:832–837`; `mon.c` `m_respond_medusa` `:4109–4118`. Callees
+  `ureflects` / `mon_reflects` (`muse.c`), `killed`, `polymon`,
+  `done(STONING)`, `make_confused`/`make_stunned`/`make_blinded`,
+  `mdamageu`, `burnarmor`/`destroy_items`/`ignite_items`.
+- **JS was:** named omit (D-1314 / D-1326 / D-1327).
+- **Fix:** `m_seenres` miss; Hallu `rn2(4)` / Unaware+!reflectable
+  cancel; AD_STON cancelled pline / reflect `ureflects` then
+  `mon_reflects` then `killed` stoned / else meet-gaze
+  `poly_when_stoned` or `done(STONING)`; AD_CONF/STUN `rn2(5)`
+  `mspec_used`; AD_BLND `resists_blnd` + `BOLT_LIM²` + Archon
+  cancelled `rn2(5)` suppress; AD_FIRE `rn2(5)` resist/`d(12,6)`
+  golem / `burn_away_slime` / two `lev>rn2(20)` arms; cancelled
+  looks-X `reactions[]`. `mattacku` skips Medusa by **mndx**.
+  `#ifdef PM_BEHOLDER` AD_SLEE/AD_SLOW stay out (`#if 0` MON).
+  Rule #2: no fs.
+- **JS:** `js/mhitu.js` `gazemu` + `mattacku` `case AT_GAZE`;
+  `js/mon.js` `m_respond_medusa` dynamic import (cycle).
+- **Not this iter:** gazemm (`mhitm.c`); arti_reflects W_WEP;
+  `impossible()` default; mhitu AD_DRIN; AD_WRAP `mhitm_ad_wrap`.
+- **Verified:** private canary **20**/20 (C/JS shape; FIRE
+  `m_seenres` skip; cancelled Medusa ineffectual; Unaware
+  irritated; Stone_resistance no meet-gaze; reflecting Medusa
+  AGR_DIED; umber `rn2(5)`; cancelled Archon BLND; pyrolisk
+  FIRE; `mattacku` Medusa skip vs pyrolisk call; `m_respond`
+  Medusa; Hallu `rn2(4)`; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session faces an AT_GAZE monster.
+- **Follow-up:** Open `mhitu.c` AD_DRIN (named from D-1309).
+- **Files:** `js/mhitu.js`, `js/mon.js`.
+
 ## D-1327 — mhitu.c mattacku AT_HUGS
 
 - **Status:** fixed (map-driven Open from D-1326; not a public FAIL)
