@@ -17,6 +17,7 @@
 // SPE_FIREBALL self-explode (D-1365);
 // lightdamage + zapnodir WAN/SPE_LIGHT + zapyourself WAN_LIGHT/CAMERA (D-1366);
 // zapnodir WAN_CREATE_MONSTER create_critters (D-1379);
+// zapnodir WAN_WISHING Luck+rn2(5) / makewish (D-1380);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
@@ -28,7 +29,7 @@
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
 // probing; zap_map; spell ubuzz; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
-// backfire body; other NODIR (wish/enlighten/stasis); wrest pline; check_capacity;
+// backfire body; other NODIR (enlighten/stasis); wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
 // D-1353 (shared muse.c clone); mcastu ureflects named; create_polymon after poly_zapped;
@@ -2189,12 +2190,19 @@ export async function release_hold() {
     }
 }
 
+/** C ref: you.h Luck — u.uluck + u.moreluck. */
+function Luck() {
+    const u = game.u || {};
+    return (u.uluck | 0) + (u.moreluck | 0);
+}
+
 /**
  * C ref: zap.c zapnodir — NODIR wand effects.
  * Branch envelope: WAN_SECRET_DOOR_DETECTION → findit;
  * WAN_LIGHT / SPE_LIGHT → litroom + lightdamage (D-1366);
- * WAN_CREATE_MONSTER → create_critters (D-1379).
- * Named omit: wish / enlighten / stasis.
+ * WAN_CREATE_MONSTER → create_critters (D-1379);
+ * WAN_WISHING → Luck+rn2(5) then makewish (D-1380).
+ * Named omit: enlighten / stasis.
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -2219,8 +2227,20 @@ export async function zapnodir(obj) {
             known = !!obj.dknown;
         }
         break;
+    case WAN_WISHING:
+        // C zap.c zapnodir :2575–2585 — Luck + rn2(5) < 0 then
+        // "Unfortunately, nothing happens." (known FALSE); else
+        // known = !!dknown then makewish() (discover unless unseen).
+        if (Luck() + rn2(5) < 0) {
+            await pline('Unfortunately, nothing happens.');
+            known = false;
+        } else {
+            known = !!obj.dknown;
+            await makewish();
+        }
+        break;
     default:
-        // wish / enlighten / stasis deferred
+        // enlighten / stasis deferred
         break;
     }
 

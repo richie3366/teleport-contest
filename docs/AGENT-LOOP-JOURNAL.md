@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1380 zap.c zapnodir WAN_WISHING
+
+**Objective:** Open `zap.c` `zapnodir` WAN_WISHING (named).
+Not create.
+**C locus:** `zap.c` `zapnodir` `:2575–2585`; `you.h` `Luck`.
+**Change:** `Luck()+rn2(5)<0` unfortunately else
+`known=!!dknown` + `makewish()`. Enlighten/stasis named.
+Create stays D-1379. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps WAN_WISHING).
+**Verified:** private canary **12**/12; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` `do_attack` leprechaun evade
+(named from D-1373). Not wipe.
+**Blocked:** none.
 ## 2026-08-21 — D-1379 zap.c zapnodir WAN_CREATE_MONSTER
 
 **Objective:** Open `zap.c` `zapnodir` WAN_CREATE_MONSTER (named).

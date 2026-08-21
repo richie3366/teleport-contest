@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1380 — zap.c zapnodir WAN_WISHING
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** zapping a wand of wishing was a no-op.
+  C `Luck + rn2(5) < 0` prints `Unfortunately, nothing happens.`
+  (known FALSE); else `known = !!obj->dknown` then `makewish()`.
+- **C locus:** `zap.c` `zapnodir` `:2575–2585`. `Luck` is
+  `you.h` `u.uluck + u.moreluck`. Caller `weffects` NODIR.
+  Callee `makewish` already live (D-0064 / D-0559).
+- **JS was:** zapnodir default skip after D-1379 create arm.
+- **Fix:** live Luck+rn2(5) gate + makewish. Rule #2: no fs.
+- **JS:** `js/zap.js` `zapnodir` WAN_WISHING.
+- **Not this iter:** WAN_ENLIGHTENMENT / WAN_STASIS;
+  `makewish` help / history / livelog / MAXWISHTRY still named.
+- **Verified:** private canary **12**/12 (C/JS grep; NODIR;
+  Luck 0 makewish+learnwand+XP; !dknown no makeknown; Luck -5
+  unfortunately + rn2(5) only; moreluck -5; Luck -2 both
+  rn2 arms; LIGHT/CREATE regression; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until
+  a session zaps WAN_WISHING.
+- **Follow-up:** Open `uhitm.c` `do_attack` leprechaun evade
+  (named from D-1373). Not wipe.
+- **Files:** `js/zap.js`.
+
 ## D-1379 — zap.c zapnodir WAN_CREATE_MONSTER
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
