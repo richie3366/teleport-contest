@@ -72,7 +72,7 @@ import { getlin } from './getline.js';
 import {
     flush_screen, flush_topl_more, pline, pline_dir, Norep, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon,
-    obj_glyph,
+    obj_glyph, glyph_is_invisible,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
@@ -160,7 +160,8 @@ import {
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd, INVIS,
     LEFT_RING, RIGHT_RING,
-    M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
+    M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, M_AP_OBJECT, NON_PM, ismnum,
+    def_warnsyms,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
     REFLECTING, ANTIMAGIC, SHOCK_RES,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
@@ -3998,16 +3999,38 @@ export async function bhitpile(wand, fhito, tx, ty, _zz) {
 }
 
 /**
+ * C zap.c bhit :3983 + display.h glyph_is_monster / glyph_is_warning /
+ * glyph_is_invisible on glyph_at (gbuf). JS has no integer glyph ids;
+ * classify loc.disp_kind + remembered I + def_warnsyms.
+ */
+function bhit_xyglyph_known_monster(loc) {
+    if (!loc) return false;
+    if (loc.disp_kind === 'monster') return true;
+    if (loc.disp_kind === 'invisible' || glyph_is_invisible(loc)) return true;
+    if (loc.disp_kind === 'object' || loc.disp_kind === 'terrain'
+        || loc.disp_kind === 'trap') {
+        return false;
+    }
+    const ch = loc.disp_ch;
+    if (ch == null) return false;
+    for (let i = 0; i < def_warnsyms.length; i++) {
+        if (def_warnsyms[i]?.ch === ch) return true;
+    }
+    return false;
+}
+
+/**
  * C ref: zap.c bhit — ZAPPED_WAND + KICKED_WEAPON + THROWN_TETHERED_WEAPON.
  * Branch envelope: kicked start+range--; WATERWALL/LAVAWALL stop;
  * hits_bars; mon stop; coin/ship_object; DISP_FLASH / DISP_TETHER tmp_at
  * + nh_delay_output; pool/lava/sink stop. THROWN_TETHERED remaps to
  * THROWN_WEAPON after opening TETHER and leaves the cord open for the
  * caller (`:3863–3866`, `:4023–4024`, `:4125–4127`; D-1323).
- * shade_miss thrown/kicked skip is D-1383 (`:3984–3992`).
+ * shade_miss thrown/kicked skip is D-1383 (`:3984–3986`).
+ * M_AP_OBJECT skip is D-1392 (`:3986–3992`).
  * Named omit: THROWN_WEAPON fly callers (throwit still inlines those
- * and still stops on a shade); FLASHED_LIGHT DISP_BEAM / INVIS_BEAM;
- * show_transient_light; M_AP_OBJECT skip; WEB stick rn2; shkcatch pick;
+ * and still stops on a shade / mimic-object); FLASHED_LIGHT DISP_BEAM /
+ * INVIS_BEAM stop; show_transient_light; WEB stick rn2; shkcatch pick;
  * map_invisible / unmap_object; zap_map / doorlock; skiprange rocks.
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
@@ -4081,11 +4104,18 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
             }
 
             let mtmp = m_at(x, y);
-            // C zap.c bhit :3972–3992 — thrown/kicked shade_miss(TRUE,TRUE)
-            // clears mtmp so the missile keeps flying (callee D-1341).
-            // M_AP_OBJECT / FLASHED_LIGHT mimic skip and WEB stick named.
-            if (mtmp && (weapon === THROWN_WEAPON || weapon === KICKED_WEAPON)
-                && await shade_miss(game.youmonst, mtmp, obj, true, true)) {
+            // C zap.c bhit :3983–3992 — glyph_at then thrown/kicked
+            // shade_miss(TRUE,TRUE) (D-1383) OR (M_AP_OBJECT &&
+            // !glyph_is_monster && !glyph_is_warning &&
+            // !glyph_is_invisible); FLASHED_LIGHT skips M_AP_OBJECT
+            // with no glyph gate (D-1392). WEB stick named.
+            const known_mon = bhit_xyglyph_known_monster(loc);
+            if (mtmp
+                && (((weapon === THROWN_WEAPON || weapon === KICKED_WEAPON)
+                    && (await shade_miss(game.youmonst, mtmp, obj, true, true)
+                        || (M_AP_TYPE(mtmp) === M_AP_OBJECT && !known_mon)))
+                    || (weapon === FLASHED_LIGHT
+                        && M_AP_TYPE(mtmp) === M_AP_OBJECT))) {
                 mtmp = null;
             }
 

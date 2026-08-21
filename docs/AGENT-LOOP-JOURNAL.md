@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1392 zap.c bhit M_AP_OBJECT skip
+
+**Objective:** Open `zap.c` `bhit` M_AP_OBJECT skip
+(named from D-1383). Not WEB.
+**C locus:** `zap.c` `bhit` `:3986–3992` (same `if` as
+D-1383 shade); display.h `glyph_is_*` on `glyph_at`.
+**Change:** thrown/kicked mimic-as-object with no
+monster/warning/I gbuf glyph (or FLASHED_LIGHT
+M_AP_OBJECT) clears mtmp and keeps flying. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session throws/kicks over a mimic via `bhit`).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `bhit` WEB stick
+(named from D-1383). Not M_AP_OBJECT.
+**Blocked:** none.
 ## 2026-08-21 — D-1391 spell.c SPE_CLAIRVOYANCE do_vicinity_map
 
 **Objective:** Open `spell.c` `spelleffects` SPE_CLAIRVOYANCE

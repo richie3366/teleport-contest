@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1392 — zap.c bhit M_AP_OBJECT skip
+
+- **Status:** fixed (map-driven Open from D-1383; not a public FAIL)
+- **Symptom:** a thrown or kicked missile always stopped on a mimic
+  pretending to be an object. C `bhit` `:3983–3992` after
+  `xyglyph = glyph_at`: thrown/kicked
+  `shade_miss(...) || (M_AP_TYPE==M_AP_OBJECT &&
+  !glyph_is_monster && !glyph_is_warning &&
+  !glyph_is_invisible)` OR FLASHED_LIGHT `M_AP_OBJECT`
+  clears mtmp so the missile keeps flying (hero aimed over
+  the apparent object). JS after D-1383 only ran shade_miss.
+  ZAPPED_WAND still hits the mimic.
+- **C locus:** `zap.c` `bhit` `:3986–3992` (same `if` as
+  D-1383 shade); callee display.h `glyph_is_*` on gbuf.
+- **JS was:** named omit after D-1383; always stop unless shade.
+- **Fix:** thrown/kicked `M_AP_OBJECT && !known_mon` or
+  FLASHED_LIGHT `M_AP_OBJECT` clears mtmp. JS analogue of
+  glyph_at is loc.disp_kind + remembered I + def_warnsyms
+  (no integer glyph ids). Rule #2: no fs.
+- **JS:** `js/zap.js` `bhit` + `bhit_xyglyph_known_monster`.
+- **Not this iter:** WEB stick; throwit THROWN_WEAPON fly
+  still inlines without this skip; FLASHED_LIGHT DISP_BEAM
+  stop / `flash_hits_mon`; skiprange; shkcatch; map_invisible.
+- **Verified:** private canary **16**/16 (C/JS grep; unsensed
+  object-glyph fly; monster/I/warning glyph stop; kicked
+  skip; revealed mimic stop; gnome stop; ZAPPED_WAND fhitm;
+  shade_miss regression; FLASHED_LIGHT skip; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session throws/kicks over a
+  mimic-as-object via `bhit`.
+- **Follow-up:** Open `zap.c` `bhit` WEB stick
+  (named from D-1383). Not M_AP_OBJECT.
+- **Files:** `js/zap.js`.
+
 ## D-1391 — spell.c SPE_CLAIRVOYANCE do_vicinity_map
 
 - **Status:** fixed (map-driven Open from D-1390; not a public FAIL)
