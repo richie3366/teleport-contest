@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1330 — mhitm.c AD_DRIN (mhitm_ad_drin mon→mon arm)
+
+- **Status:** fixed (map-driven Open from D-1307 / D-1329; not a public FAIL)
+- **Symptom:** a mind flayer never ate another monster's brain. C
+  `mhitm_ad_drin` mhitm arm does headless/`notonhead` `pline_mon` +
+  zero dice + skipdrin, helm `(misc_worn_check&W_ARMH)&&rn2(8)`
+  (always "helmet"), `eat_brains(gv.vis,&damage)`, lifsav skipdrin
+  if the amulet vanished. Caller `mdamagem` → `mhitm_adtyping`.
+  `mattackm` dispatches `AT_TENT` with claw/kick/bite; `hitmm`
+  "tentacles suck". JS dropped `AT_TENT` into default (no hit) and
+  never called the drain arm, so tentacles were no-ops.
+- **C locus:** `uhitm.c` `mhitm_ad_drin` `:3272–3301`; `mhitm.c`
+  `mattackm` `:425` AT_TENT; `hitmm` `:687–689`; callee `eat.c`
+  `eat_brains` `:725–745`. Caller `mdamagem` `:1059`.
+- **JS was:** named omit (D-1329). uhitm arm D-1307; mhitu arm
+  D-1329; `eat_brains` mhitm branch already in `eat.js` (D-1306)
+  with no mhitm caller. `mattackm` skipdrin continue already live.
+- **Fix:** `mhitm_ad_drin` in `mhitm.js`; `mdamagem` AD_DRIN like
+  POLY/DGST; `case AT_TENT` melee FALLTHROUGH; hitmm tentacles
+  suck. No `m_slips_free` (uhitm-only). Helm is the worn bit +
+  literal "helmet", not `helm_simple_name`. Helmet/slip-equivalent
+  return keeps dice and does not skipdrin. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_drin` / `mdamagem` / `mattackm`
+  AT_TENT / `hitmm`.
+- **Not this iter:** AD_WRAP `u_slip_free` caller; gazemm; explmm;
+  mhitm AT_HUGS; `shade_miss`; cockatrice instinct / unsolid
+  `failed_grab` on the melee group; full `defends()`.
+- **Verified:** private canary **14**/14 (C/JS shape; headless
+  skipdrin; notonhead; helm `rn2(8)` block vs eat; no-helm skip
+  `rn2(8)`; mindless MISS keeps dice; lifsav still worn after
+  eat_brains; `mattackm` blob skipdrin + gnome HP drop; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session has a mind flayer eat another monster.
+- **Follow-up:** Open `mhitu.c` `u_slip_free` AD_WRAP (named from
+  D-1307).
+- **Files:** `js/mhitm.js`, `js/uhitm.js`, `js/mhitu.js`,
+  `js/eat.js`.
+
 ## D-1329 — mhitu.c AD_DRIN (mhitm_ad_drin youmonst arm)
 
 - **Status:** fixed (map-driven Open from D-1309; not a public FAIL)

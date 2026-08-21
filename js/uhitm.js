@@ -1052,7 +1052,7 @@ async function m_slips_free(mdef, mattk) {
  * (D-1298). Headed: m_slips_free then helmet which_armor(W_ARMH)&&rn2(8)
  * then eat_brains (D-1306) then lifsav skipdrin if the amulet vanished.
  * Helmet/slip return without zeroing dice and without skipdrin.
- * mhitu u_slip_free/uarmh D-1329; mhitm arm named.
+ * mhitu u_slip_free/uarmh D-1329; mhitm arm D-1330 in mhitm.js.
  */
 async function mhitm_ad_drin(magr, mattk, mdef, mhm) {
     const pd = mdef?.data;
@@ -2082,8 +2082,8 @@ export async function gulpum(mdef, mattk) {
  * AD_DRIN + pit AT_KICK D-1298 (`gs.skipdrin`; `mtrapped_in_pit`).
  * eat_brains D-1306 (uhitm headed). Helmet / m_slips_free / lifsav
  * skipdrin D-1307 (uhitm arm). mattacku AT_TENT melee D-1309.
- * mhitu AD_DRIN D-1329. Named: mhitm AD_DRIN; AD_WRAP m_slips_free;
- * remaining mhitm_ad_*.
+ * mhitu AD_DRIN D-1329. mhitm AD_DRIN D-1330. Named: AD_WRAP
+ * m_slips_free; remaining mhitm_ad_*.
  */
 export async function hmonas(mon) {
     const u = game.u || {};

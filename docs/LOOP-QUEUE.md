@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitm.c` AD_DRIN (named from D-1307). Not mhitu AD_DRIN.
 - [ ] `mhitu.c` `u_slip_free` AD_WRAP (named from D-1307). Not AD_DRIN.
 - [ ] `dokick.c` kickdmg `special_dmgval` (named from D-1310). Not snuff_candle.
 - [ ] `dothrow.c` throwit land `snuff_candle` (C `:1818`). Not mthrowu.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dokick.c` `killer_xname` (kickobjnam still xname). Not special_dmgval.
 - [ ] `dokick.c` `maybe_mnexto` evade (named from D-1310). Not kickstr.
 - [ ] `apply.c` `splash_lit` (named from D-1242). Not snuff_candle.
+- [ ] `mhitm.c` gazemm (named from D-1328). Not AD_WRAP.
+- [ ] `mhitm.c` explmm (named from D-1326). Not gazemm.
+- [ ] `mhitm.c` AT_HUGS (named from D-1327). Not explmm.
+- [ ] `mhitm.c` hitmm `shade_miss` (named from D-0887). Not AT_HUGS.
+- [ ] `artifact.c` `arti_reflects` W_WEP (named from D-1328). Not gazemu.
 
 ## Parked (do not pop)
 

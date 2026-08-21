@@ -59,17 +59,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1329. Reviews **288–291**
+**Map-driven fortress** after D-1330. Reviews **288–291**
 ACCEPT-WITH-DEBT (review **283** closed by D-1322). **Next
-cluster:** Open `mhitm.c` AD_DRIN (named from D-1307). Not mhitu
-AD_DRIN. Not `u_slip_free` AD_WRAP / kickdmg `special_dmgval`. Do
-not skip D-1329…D-1229 (index). Keep mention_map addr. Do not wrap
+cluster:** Open `mhitu.c` `u_slip_free` AD_WRAP (named from
+D-1307). Not AD_DRIN. Not kickdmg `special_dmgval`. Do not skip
+D-1330…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1329.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1330.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1329 (index). Recent: **D-1329** `uhitm.c`
+**Keep:** D-0845…D-1330 (index). Recent: **D-1330** `uhitm.c`
+`mhitm_ad_drin` mhitm (mon→mon) + `mattackm` AT_TENT + hitmm
+tentacles suck. Prior: **D-1329** `uhitm.c`
 `mhitm_ad_drin` mhitu (monster→you) + `losespells` /
 `drain_weapon_skill` + `adjattrib` dunce. Prior: **D-1328** `mhitu.c`
 `gazemu` + `mattacku` AT_GAZE skip-Medusa + `m_respond_medusa`.
@@ -86,7 +88,7 @@ urange. D-1315 `throwit_mon_hit`. D-1314 `m_respond`. D-1313 snuff /
 `hot_pursuit`. D-1312 leader catch. D-1311 DISP_TETHER.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1329
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1330
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

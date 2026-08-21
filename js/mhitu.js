@@ -1426,7 +1426,7 @@ async function mhitm_ad_poly_u(mtmp, mattk, mhm) {
  * uarmh && rn2(8) helm/hat block (no skipdrin); Half_physical then
  * mdamageu and zero leftover dice (AC does not reduce); eat_brains
  * unless dunce cap; adjattrib(A_INT,-rnd(2),FALSE); 1/5 losespells
- * and 1/5 drain_weapon_skill set skipdrin. mhitm arm named.
+ * and 1/5 drain_weapon_skill set skipdrin. mhitm arm D-1330.
  */
 export async function mhitm_ad_drin_u(mtmp, mattk, mhm) {
     await hitmsg(mtmp, mattk);

@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1330 mhitm.c AD_DRIN
+
+**Objective:** Open `mhitm.c` AD_DRIN (named from D-1307). Not mhitu.
+**C locus:** `uhitm.c` `mhitm_ad_drin` mhitm `:3272–3301`; `mhitm.c`
+`mattackm` AT_TENT `:425`; `hitmm` tentacles suck; `eat_brains`.
+**Change:** a mind-flayer tentacle now eats another monster's brain
+(headless skipdrin, helm `W_ARMH&&rn2(8)` literal helmet,
+`eat_brains(gv.vis)`, lifsav skipdrin). `mattackm` AT_TENT no
+longer falls out of the switch. AD_WRAP still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1690**.
+**Verified:** canary **14**/14; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitu.c` `u_slip_free` AD_WRAP (named from D-1307).
+**Blocked:** none.
 ## 2026-08-21 — #1685 review D-1326–D-1329 + cadence
 
 **Objective:** audit — C-fidelity reviews **288–291** of JS SHAs
