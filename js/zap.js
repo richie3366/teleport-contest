@@ -45,7 +45,7 @@
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
 // spell.c skilled SPE_FIREBALL scatter;
-// muse MUSE_CAMERA is D-1376; Sunsword invoke_blinding_ray still named.
+// muse MUSE_CAMERA is D-1376; Sunsword invoke_blinding_ray is D-1377.
 // bhitm / zap_updown / zap_steed WAN_MAKE_INVISIBLE; setworn w_blocks.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
 // via uprops[SHOCK_RES] (D-1371); inventory_resistance / full
@@ -3276,8 +3276,7 @@ function resists_blnd_you() {
  * bare_artifactname). SCROLL/SPBOOK force "blasted".
  * Callers: zapnodir WAN/SPE_LIGHT; zapyourself WAN_LIGHT
  * (broken) + EXPENSIVE_CAMERA; read.c seffect_light via import;
- * muse MUSE_CAMERA (D-1376).
- * Named omit: artifact invoke_blinding_ray.
+ * muse MUSE_CAMERA (D-1376); artifact invoke_blinding_ray (D-1377).
  * @returns {Promise<number>} possibly reduced dmg
  */
 export async function lightdamage(obj, ordinary, amt) {

@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1376; cadence **#1745** `08007958`
+- **Fortress 44/44** after D-1377; cadence **#1745** `08007958`
   (Scr **11,405** RNG 100% speed `40+0.33/turn`). Next: Open
-  `artifact.c` `invoke_blinding_ray` (named from D-1366).
-  Not camera. Reviews **331–334** ACCEPT-WITH-DEBT; Must-fix
-  empty. Do not skip D-1376…D-1229. No FORCE. Do not wrap
-  `wildmiss`.
-- Do not revert D-1217–D-1376. `see_monsters` warn_obj_cnt /
+  `spell.c` skilled SPE_FIREBALL scatter (named from D-1365).
+  Not zapyourself explode. Reviews **331–334** ACCEPT-WITH-DEBT;
+  Must-fix empty. Do not skip D-1377…D-1229. No FORCE. Do not
+  wrap `wildmiss`.
+- Do not revert D-1217–D-1377. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1376.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1377.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,8 +34,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1376 (index).
-- Do not skip D-1071…D-1376 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1377 (index).
+- Do not skip D-1071…D-1377 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush;
@@ -52,81 +52,24 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- D-1376: `muse.c` MUSE_CAMERA `:1566–1574` / `:1938–1955`
-  — `find_offensive` last after potions (SCR_EARTH named);
-  `(!Blind && !resists_blnd) || hates_light` (gremlin) +
-  `dist2(mux,muy)<=2` + `spe>0` + `!rn2(6)`. Use: Hallu
-  `"Say cheese!"` (SetVoice named) else `!Blind` picture;
-  `m_using`; flash `make_blinded(BlindedTimeout+rnd(51))`;
-  `lightdamage(otmp,TRUE,5)` (D-1366); `spe--`; **return 1**
-  (C; mhitu treats as died). Callee zap.js. invoke_blinding_ray
-  still named.
-- D-1375: `dig.c` `use_pick_axe2` `:1328–1335` — after pool/lava
-  (uteetering named) `!ispick && (!trap || not LANDMINE/
-  BEAR_TRAP)` scratch then `u_wipe_engr(3)`. Callee D-1051;
-  dokick(2) D-1360; allmain DEX D-1372; uhitm(3) D-1373;
-  dothrow(2) D-1374. Pick-down / axe on landmine·beartrap
-  start digging (no wipe). Self-hit returns first. No extra
-  RNG with no engraving / HEADSTONE / BURN-on-stone /
-  Levitation. Underwater / swallow polish still named.
-- D-1374: `dothrow.c` `throw_obj` `:138` — after self refuse
-  (`dx=dy=dz=0`) `u_wipe_engr(2)` before petrify/welded/wet-towel
-  / multishot. Callee D-1051; dokick(2) D-1360; allmain DEX
-  D-1372; uhitm(3) D-1373; dig is D-1375. No extra RNG with no
-  engraving / HEADSTONE / BURN-on-stone / Levitation.
-  canletgo / Mjollnir / too-heavy still named (C returns
-  before wipe).
-- D-1373: `uhitm.c` `do_attack` `:551–553` — after `exercise(A_STR,TRUE)`
-  `u_wipe_engr(3)` before leprechaun/hitum. Callee D-1051;
-  dokick(2) D-1360; allmain DEX D-1372; dothrow is D-1374.
-  No extra RNG with no engraving / HEADSTONE / BURN-on-stone /
-  Levitation. dig is D-1375; leprechaun evade still named.
-- D-1372: `allmain.c` `moveloop` `:360–361` — after invault
-  (amulet named) `!rn2(40+ACURR(A_DEX)*3)` then
-  `u_wipe_engr(rnd(3))`. Callee D-1051; dokick(2) D-1360.
-  `rnd(3)` always on fire; no extra RNG with no engraving /
-  HEADSTONE / BURN-on-stone / Levitation. uhitm is D-1373;
-  dothrow is D-1374; dig is D-1375.
-- D-1371: zap.js `Shock_resistance()` — C `youprop.h:42–44`
-  H||E via `uprops[SHOCK_RES]` (invent `hero_Shock_resistance`
-  / D-1089). confer ring/shield extrinsic only; exploding-wand
-  `"You aren't hurt!"` (still `rnd(10)`) + WAN_LIGHTNING
-  unharmed. Did not rewrite confer. explode/pray/sit clones
-  named. AD_ELEC destroy body is D-1368.
-- D-1370: `dokick.c` `kick_dumb` `:876–877` + `kick_ouch`
-  `:904–905` — air/Lev `hurtle`. Dumb: `(Is_airlevel ||
-  Levitation) && rn2(2)` range 1. Ouch: after `losehp`
-  (noreturn skip) `rn1(2,4)`. Levitation is youprop
-  `(H||E)&&!B` (D-1070). Callee `dothrow.js` `hurtle`.
-  Monster recoil / `kick_object` air still named.
-- D-1369: `zap.c` `zapyourself` WAN_MAKE_INVISIBLE `:2825–2842`
-  — snapshot `!Invis && !Blind && !BInvis`; wrapping
-  `You_feel` itchy absorb; else `incr_itimeout(&HInvis,
-  rn1(15,31))`; msg → learn + `newsym` + `self_invis_message`.
-  BInvis stand-in: worn `MUMMY_WRAPPING` (setworn w_blocks
-  named). bhitm / zap_updown / zap_steed still named.
-- D-1368: `zap.c` `maybe_destroy_item` AD_ELEC `:5858–5879` +
-  `destroyable` `:5641–5644` — RIN_SHOCK/WAN_LIGHTNING immune;
-  worn non-metallic gloves skip; charged ring `rn2(3)`
-  `recharge(obj,0)` RING spin/`rn2(7)` explode; else dust;
-  wand `rnd(10)` explode + Shock `aren't hurt`. Worn
-  `Ring_gone`/`setnotworn`. Full read.c wand/tool recharge
-  named. WAN_SPEED/SLOW/DRAIN_LIFE still named.
-- D-1367: `zap.js` `Antimagic()` — C `youprop.h` H||E via
-  `uprops[ANTIMAGIC]` (invent `hero_Antimagic` / sit D-1089).
-  confer_oc_oprop cloak-of-MR / gray DSM extrinsic only; bounce
-  MAGIC_MISSILE (no `d(4,6)`) and WAN_STRIKING `"Boing!"`.
-  Did not rewrite confer. shieldeff/monstseesu still named.
-- D-1366: `zap.c` `lightdamage` `:3024–3056` — gremlin
-  `rnd`/`cap`/`Ow`/`losehp(Maybe_Half_Phys)` zapped/blasted +
-  `ansimpleoname`. zapnodir WAN/SPE_LIGHT `litroom` then amt 5.
-  zapyourself WAN_LIGHT `d(spe,25)` FALLTHROUGH CAMERA +
-  `rnd(25)` `flashburn(FALSE)` damage 0. Live `js/zap.js` +
-  `read.js` seffect_light. muse camera is D-1376; Sunsword invoke
-  named.
-- D-1365: `zap.c` `zapyourself` `:2748–2751` SPE_FIREBALL —
-  `You` explode on self then `explode(ux,uy,11,d(6,6),WAND_CLASS,EXPL_FIERY)`.
-  No `learn_it`; return 0 (explode owns HP). Live `js/zap.js`
-  + `explode.js`. WAN_MAKE_INVISIBLE /
-  spell.c skilled scatter named.
+- D-1377: `artifact.c` `invoke_blinding_ray` `:2054–2086` —
+  getdir ray / dz `litroom` radius-0 / self `lightdamage`+
+  `flashburn`; cost `SPELL_LEV_PW(5)`/`rnz(100)`/`d(3,10)`.
+  Extract `inv_prop`. Other specials named.
+- D-1376: `muse.c` MUSE_CAMERA find `!rn2(6)` + use
+  `make_blinded`/`lightdamage(TRUE,5)`/`spe--`/return 1.
+- D-1375: `dig.c` `use_pick_axe2` axe-scratch `u_wipe_engr(3)`
+  unless LANDMINE/BEAR_TRAP. Callee D-1051.
+- D-1374: `dothrow.c` `throw_obj` `:138` `u_wipe_engr(2)` after
+  self refuse.
+- D-1373: `uhitm.c` `do_attack` `:551` `u_wipe_engr(3)` after
+  STR exercise; leprechaun evade still named.
+- D-1372: `allmain.c` `moveloop` DEX `!rn2(40+ACURR(A_DEX)*3)`
+  then `u_wipe_engr(rnd(3))`.
+- D-1371: zap.js `Shock_resistance()` uprops[SHOCK_RES]; did
+  not rewrite confer. Explode/pray/sit clones named.
+- D-1370: `dokick.c` kick_dumb/ouch air/Lev `hurtle`.
+- D-1369: `zapyourself` WAN_MAKE_INVISIBLE `incr_itimeout`.
+- D-1366: `lightdamage` live; camera D-1376; Sunsword D-1377.
+
 

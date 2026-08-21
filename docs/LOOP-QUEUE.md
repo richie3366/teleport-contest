@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `artifact.c` `invoke_blinding_ray` (named from D-1366). Not camera.
 - [ ] `spell.c` skilled SPE_FIREBALL scatter (named from D-1365). Not zapyourself explode.
 - [ ] `zap.c` `zapnodir` WAN_CREATE_MONSTER (named). Not light.
 - [ ] `zap.c` `zapnodir` WAN_WISHING (named). Not create.

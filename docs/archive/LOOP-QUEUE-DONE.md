@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `muse.c` MUSE_CAMERA `lightdamage` (named from D-1366). Not zapnodir. **Addressed:** D-1376
+- [x] `artifact.c` `invoke_blinding_ray` (named from D-1366). Not camera. **Addressed:** D-1377
+
+
+- [x] `muse.c` MUSE_CAMERA `lightdamage` (named from D-1366). Not zapnodir. **Addressed:** D-1376 `61c15769`
 
 
 - [x] `dig.c` `u_wipe_engr` caller (named from D-1360). Not dothrow. **Addressed:** D-1375 `8a2a32bd`

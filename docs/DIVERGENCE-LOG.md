@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1377 — artifact.c invoke_blinding_ray
+
+- **Status:** fixed (map-driven Open from D-1366; not a public FAIL)
+- **Symptom:** `#invoke` on Sunsword printed `nothing_happens`.
+  JS `arti_invoke` stubbed every `inv_prop` special; artilist
+  `inv_prop` was not extracted, so BLINDING_RAY never dispatched
+  to `do_blinding_ray` / `litroom` / `lightdamage`+`flashburn`.
+- **C locus:** `artifact.c` `invoke_blinding_ray` `:2054–2086`;
+  `arti_invoke` switch `:2172`; `arti_invoke_cost` /
+  `arti_invoke_cost_pw` `:2088–2128`. Callees: `apply.c`
+  `do_blinding_ray`; `read.c` `litroom` `:2596–2599`
+  (`is_art(obj, ART_SUNSWORD)` radius 0); `zap.c`
+  `lightdamage`/`flashburn` (D-1366).
+- **JS was:** `inv_prop` missing from `artifacts_data`;
+  `arti_invoke` always `nothing_happens` after crystal-ball.
+- **Fix:** extract `inv_prop`; dispatch BLINDING_RAY through
+  cost then getdir (ray / up-down spot / self / cancel refund
+  `age=moves`). Rule #2: no fs.
+- **JS:** `js/artifact.js`; `scripts/extract-artifacts.py` +
+  `js/generated/artifacts_data.js`; `js/apply.js` export;
+  `js/read.js` Sunsword `set_lit` hero cell.
+- **Not this iter:** TAMING/HEALING/ENERGY_BOOST/UNTRAP/
+  CHARGE_OBJ/LEV_TELE/CREATE_PORTAL/ENLIGHTENING/CREATE_AMMO/
+  BANISH/FLING_POISON/FIRESTORM/SNOWSTORM; INVIS/LEVITATION/
+  CONFLICT toggle; `transient_light_cleanup`;
+  `resists_blnd_by_arti` sparkle.
+- **Verified:** private canary **20**/20 (C/JS grep; inv_prop
+  extract; Mjollnir/HEALING/LEVITATION still named; cancel
+  refund; dz radius-0 vs scroll clear_area; tired `d(3,10)` /
+  Pw drain 25; self flashburn; gremlin `lightdamage`; dx ray;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session `#invoke`s Sunsword.
+- **Follow-up:** Open `spell.c` skilled SPE_FIREBALL scatter.
+- **Files:** `js/artifact.js`, `js/generated/artifacts_data.js`,
+  `js/apply.js`, `js/read.js`, `js/zap.js` (caller comment),
+  `scripts/extract-artifacts.py`.
+
 ## D-1376 — muse.c MUSE_CAMERA lightdamage
 
 - **Status:** fixed (map-driven Open from D-1366; not a public FAIL)

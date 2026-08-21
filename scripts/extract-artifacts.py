@@ -100,6 +100,29 @@ M2 = {
     "M2_GIANT": 0x00002000,
 }
 
+# include/prop.h LAST_PROP = LIFESAVED; artifact.h enum invoke_prop_types
+LAST_PROP = 68
+INV_PROP = {
+    "0": 0,
+    "INVIS": 40,
+    "CONFLICT": 44,
+    "LEVITATION": 48,
+    "TAMING": LAST_PROP + 1,
+    "HEALING": LAST_PROP + 2,
+    "ENERGY_BOOST": LAST_PROP + 3,
+    "UNTRAP": LAST_PROP + 4,
+    "CHARGE_OBJ": LAST_PROP + 5,
+    "LEV_TELE": LAST_PROP + 6,
+    "CREATE_PORTAL": LAST_PROP + 7,
+    "ENLIGHTENING": LAST_PROP + 8,
+    "CREATE_AMMO": LAST_PROP + 9,
+    "BANISH": LAST_PROP + 10,
+    "FLING_POISON": LAST_PROP + 11,
+    "FIRESTORM": LAST_PROP + 12,
+    "SNOWSTORM": LAST_PROP + 13,
+    "BLINDING_RAY": LAST_PROP + 14,
+}
+
 
 def parse_attk(expr: str) -> tuple[int, int, int]:
     """Parse NO_ATTK / PHYS(a,b) / DRLI(a,b) / … → (adtyp, damn, damd)."""
@@ -280,6 +303,11 @@ def main() -> int:
         except ValueError as e:
             print("attk fail", name, e, file=sys.stderr)
             continue
+        inv_tok = strip_c_comments(args[8]).strip()
+        if inv_tok not in INV_PROP:
+            print("bad inv_prop", name, inv_tok, file=sys.stderr)
+            continue
+        inv_prop = INV_PROP[inv_tok]
         align_tok = args[9].strip()
         role_tok = args[10].strip()
         race_tok = args[11].strip()
@@ -307,6 +335,7 @@ def main() -> int:
                 "attkAdtyp": attk_adtyp,
                 "attkDamn": attk_damn,
                 "attkDamd": attk_damd,
+                "inv_prop": inv_prop,
                 "alignment": ALIGN[align_tok],
                 "roleName": role_tok,
                 "raceName": race_tok,
@@ -350,6 +379,7 @@ def main() -> int:
             f' attkAdtyp: {e["attkAdtyp"]},'
             f' attkDamn: {e["attkDamn"]},'
             f' attkDamd: {e["attkDamd"]},'
+            f' inv_prop: {e["inv_prop"]},'
             f' alignment: {e["alignment"]},'
             f' roleName: {e["roleName"]!r},'
             f' raceName: {e["raceName"]!r},'

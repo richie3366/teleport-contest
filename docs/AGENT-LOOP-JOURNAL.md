@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1377 artifact.c invoke_blinding_ray
+
+**Objective:** Open `artifact.c` `invoke_blinding_ray`
+(named from D-1366). Not camera.
+**C locus:** `artifact.c` `invoke_blinding_ray` `:2054–2086`
++ `arti_invoke_cost` `:2088–2128`; callees `do_blinding_ray`
+/ `litroom` Sunsword radius-0 / `lightdamage`+`flashburn`.
+**Change:** extract `inv_prop`; BLINDING_RAY getdir ray /
+spot / self / cancel refund. Other specials named. Rule #2:
+no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session `#invoke`s Sunsword).
+**Verified:** private canary **20**/20; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` skilled SPE_FIREBALL scatter
+(named from D-1365). Not zapyourself explode.
+**Blocked:** none.
 ## 2026-08-21 — D-1376 muse.c MUSE_CAMERA lightdamage
 
 **Objective:** Open `muse.c` MUSE_CAMERA `lightdamage`
