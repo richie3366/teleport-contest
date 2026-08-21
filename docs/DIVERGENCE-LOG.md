@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1383 — zap.c bhit shade_miss
+
+- **Status:** fixed (map-driven Open from D-1354; not a public FAIL)
+- **Symptom:** a thrown or kicked missile always stopped on a live
+  shade. C `bhit` `if (mtmp && ((THROWN_WEAPON||KICKED_WEAPON)
+  && shade_miss(&gy.youmonst, mtmp, obj, TRUE, TRUE) …))` clears
+  mtmp and keeps flying (harmlessly-through + wake). JS stub
+  always returned the monster. ZAPPED_WAND does not call
+  `shade_miss`.
+- **C locus:** `zap.c` `bhit` `:3972–3992`; callee
+  `uhitm.c` `shade_miss` `:2016–2051` (`dmgval` zero/not-zero;
+  thrown `The(what)`). Helper already live (D-1341);
+  shade/`shade_glare` zero already live (D-1354); mthrowu
+  `m_throw` is D-1382.
+- **JS was:** `// WEB trap stick / shade_miss / mimic-as-object
+  skip deferred` then always stop on `mtmp`.
+- **Fix:** thrown/kicked `await shade_miss(youmonst, mtmp, obj,
+  true, true)` clears mtmp and keeps flying; else stop.
+  Silver/`shade_glare` still stops. Rule #2: no fs.
+- **JS:** `js/zap.js` `bhit`; callee `js/mhitm.js` `shade_miss`.
+- **Not this iter:** `uhitm.c` `hmon` shade_miss; `mhitm_ad_phys`;
+  M_AP_OBJECT / FLASHED_LIGHT mimic skip; WEB stick; skiprange;
+  throwit THROWN_WEAPON fly still inlines without shade_miss.
+- **Verified:** private canary **13**/13 (C/JS grep; thrown dart
+  + kicked club harmlessly + wake + fly past; silver saber
+  glare stop; gnome stop; empty short-circuit; ZAPPED_WAND
+  fhitm no shade_miss; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session kicks or tethers through a shade.
+- **Follow-up:** Open `uhitm.c` `hmon` `shade_miss` caller.
+- **Files:** `js/zap.js`, `js/mhitm.js` (caller comment).
+
+
 ## D-1382 — mthrowu.c m_throw shade_miss
 
 - **Status:** fixed (map-driven Open from D-1354; not a public FAIL)

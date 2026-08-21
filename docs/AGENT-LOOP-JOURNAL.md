@@ -9,6 +9,24 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — D-1383 zap.c bhit shade_miss
+
+**Objective:** Open `zap.c` `shade_miss` caller (named from
+D-1354). Not mthrowu.
+**C locus:** `zap.c` `bhit` `:3972–3992`; callee
+`uhitm.c` `shade_miss` `:2016–2051` (JS `mhitm.js`).
+**Change:** thrown/kicked `shade_miss(youmonst,mtmp,obj,TRUE,TRUE)`
+clears mtmp and keeps flying. ZAPPED_WAND still fhitm.
+M_AP_OBJECT / WEB / throwit fly named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session kicks/tethers through a shade).
+**Verified:** private canary **13**/13; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` `hmon` `shade_miss` caller (named from
+D-1354). Not zap.
+**Blocked:** none.
+
 ## 2026-08-21 — D-1382 mthrowu.c m_throw shade_miss
 
 **Objective:** Open `mthrowu.c` `shade_miss` caller (named from

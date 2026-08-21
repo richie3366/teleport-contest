@@ -59,23 +59,23 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1382. **Next cluster:** Open
-`zap.c` `shade_miss` caller (named from D-1354). Not mthrowu.
+**Map-driven fortress** after D-1383. **Next cluster:** Open
+`uhitm.c` `hmon` `shade_miss` caller (named from D-1354). Not zap.
 Must-fix empty after reviews **335–338**.
-Do not skip D-1382…D-1229 (index). Keep mention_map addr.
+Do not skip D-1383…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1382.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1383.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1382 (index). Recent: **D-1382** mthrowu.js
-`m_throw` shade_miss skip `ohitmon`. Prior: **D-1381** uhitm.js
-`do_attack` leprechaun evade `!rn2(7)`/`m_move`.
+**Keep:** D-0845…D-1383 (index). Recent: **D-1383** zap.js
+`bhit` thrown/kicked shade_miss skip. Prior: **D-1382** mthrowu.js
+`m_throw` shade_miss skip `ohitmon`.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1382
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1383
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

@@ -92,7 +92,7 @@ import {
     G_UNIQ, is_rider, is_swimmer, mindless, MZ_MEDIUM,
 } from './monsters.js';
 import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond } from './mon.js';
-import { find_mac, monkilled } from './mhitm.js';
+import { find_mac, monkilled, shade_miss } from './mhitm.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
@@ -3991,10 +3991,11 @@ export async function bhitpile(wand, fhito, tx, ty, _zz) {
  * + nh_delay_output; pool/lava/sink stop. THROWN_TETHERED remaps to
  * THROWN_WEAPON after opening TETHER and leaves the cord open for the
  * caller (`:3863–3866`, `:4023–4024`, `:4125–4127`; D-1323).
- * Named omit: THROWN_WEAPON fly callers (throwit still inlines those);
- * FLASHED_LIGHT DISP_BEAM / INVIS_BEAM; show_transient_light;
- * shade_miss / M_AP_OBJECT skip; WEB stick rn2; shkcatch pick;
- * map_invisible / unmap_object; zap_map / doorlock.
+ * shade_miss thrown/kicked skip is D-1383 (`:3984–3992`).
+ * Named omit: THROWN_WEAPON fly callers (throwit still inlines those
+ * and still stops on a shade); FLASHED_LIGHT DISP_BEAM / INVIS_BEAM;
+ * show_transient_light; M_AP_OBJECT skip; WEB stick rn2; shkcatch pick;
+ * map_invisible / unmap_object; zap_map / doorlock; skiprange rocks.
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
 async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
@@ -4067,7 +4068,13 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
             }
 
             let mtmp = m_at(x, y);
-            // WEB trap stick / shade_miss / mimic-as-object skip deferred
+            // C zap.c bhit :3972–3992 — thrown/kicked shade_miss(TRUE,TRUE)
+            // clears mtmp so the missile keeps flying (callee D-1341).
+            // M_AP_OBJECT / FLASHED_LIGHT mimic skip and WEB stick named.
+            if (mtmp && (weapon === THROWN_WEAPON || weapon === KICKED_WEAPON)
+                && await shade_miss(game.youmonst, mtmp, obj, true, true)) {
+                mtmp = null;
+            }
 
             if (mtmp) {
                 if (weapon === ZAPPED_WAND) {

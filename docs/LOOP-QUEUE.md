@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `shade_miss` caller (named from D-1354). Not mthrowu.
 - [ ] `uhitm.c` `hmon` `shade_miss` caller (named from D-1354). Not zap.
 - [ ] `mhitm.c` `mdamagem` AD_CONF leftover (named from D-1352). Not STON.
 - [ ] `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects (named from D-1378). Not skilled scatter.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `spell.c` `spelleffects` SPE_CREATE_FAMILIAR (named). Not force bolt.
 - [ ] `spell.c` `cast_protection` SPE_PROTECTION (named). Not familiar.
 - [ ] `spell.c` `spelleffects` SPE_CLAIRVOYANCE (named). Not protection.
+- [ ] `zap.c` `bhit` M_AP_OBJECT skip (named from D-1383). Not WEB.
+- [ ] `zap.c` `bhit` WEB stick (named from D-1383). Not M_AP_OBJECT.
+- [ ] `uhitm.c` `mhitm_ad_phys` shade_miss (named from D-1341). Not hmon.
+- [ ] `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380). Not stasis.
+- [ ] `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352). Not CONF.
 
 ## Parked (do not pop)
 
