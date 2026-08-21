@@ -25,11 +25,11 @@ import {
 } from './display.js';
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import { Monnam, mon_nam, pmname, hliquid, x_monnam, Hallucination } from './do_name.js';
-import { MON_WEP, mon_wield_item, dmgval, hitval } from './weapon.js';
+import { MON_WEP, mon_wield_item, dmgval, hitval, drain_weapon_skill } from './weapon.js';
 import { is_pole } from './wield.js';
 import { xname, doname } from './objnam.js';
-import { objectNames } from './objects.js';
-import { objects_at } from './mkobj.js';
+import { objectNames, ARMOR_CLASS } from './objects.js';
+import { objects_at, is_metallic, is_crackable } from './mkobj.js';
 import { steal } from './steal.js';
 import { rloc, tele_restrict } from './teleport.js';
 import { monflee } from './monmove.js';
@@ -37,13 +37,13 @@ import {
     is_orc, is_demon, is_were, is_animal, is_whirly, amorphous, unsolid,
     MZ_HUGE, M1_SEE_INVIS, MALE, FEMALE, haseyes, resists_ston,
     hides_under, is_flyer, thick_skinned, nolimbs, touch_petrifies,
-    poly_when_stoned,
+    poly_when_stoned, has_head,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
 } from './monsters.js';
 import { done_in_by, done } from './end.js';
 import { msummon, Inhell } from './minion.js';
 import { monsterNames } from './generated/monsters_data.js';
-import { A_STR, A_DEX, A_CON, acurr, exercise, poisoned } from './attrib.js';
+import { A_STR, A_INT, A_DEX, A_CON, acurr, adjattrib, exercise, poisoned } from './attrib.js';
 import { xkilled, killed } from './uhitm.js';
 import {
     m_seenres, cvt_adtyp_to_mseenres, monstseesu, monstunseesu, m_canseeu,
@@ -87,7 +87,10 @@ const PM_ARCHON = monsterNames.indexOf('PM_ARCHON');
 const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
 const PM_CHROMATIC_DRAGON = monsterNames.indexOf('PM_CHROMATIC_DRAGON');
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
+const DUNCE_CAP = objectNames.indexOf('DUNCE_CAP');
 const OILSKIN_CLOAK = objectNames.indexOf('OILSKIN_CLOAK');
+/** C objclass.h ARM_HELM — helm_simple_name via oc_skill. */
+const ARM_HELM = 2;
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
 const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
 const SILVER_DRAGON_SCALES = objectNames.indexOf('SILVER_DRAGON_SCALES');
@@ -861,10 +864,38 @@ function cloak_simple_name(cloak) {
 }
 
 /**
+ * C ref: obj.h is_helmet — ARMOR + oc_armcat ARM_HELM (JS oc_skill stand-in).
+ */
+function is_helmet_mhitu(obj) {
+    return obj?.oclass === ARMOR_CLASS
+        && (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_HELM;
+}
+
+/** C ref: do_wear.c hard_helmet `:567–573` — metallic or glass helm. */
+function hard_helmet(obj) {
+    if (!obj || !is_helmet_mhitu(obj)) return false;
+    return is_metallic(obj) || is_crackable(obj);
+}
+
+/** C ref: objnam.c helm_simple_name `:5513–5528` — hat vs helm. */
+function helm_simple_name(helmet) {
+    return !hard_helmet(helmet) ? 'hat' : 'helm';
+}
+
+/**
+ * C ref: artifact.c defends(AD_DRIN, uwep) `:636–683`.
+ * No artifact DFNS(AD_DRIN); dragon-armor switch has no AD_DRIN case
+ * (falls through to FALSE). Full defends() still named.
+ */
+function defends_ad_drin(_otmp) {
+    return false;
+}
+
+/**
  * C ref: mhitu.c u_slip_free `:1045–1085` — greased/oilskin clothing
- * slips a hug or wrap. AT_ENGL never slips. AD_DRIN looks at uarmh;
- * other attacks walk cloak then suit then shirt. AD_WRAP caller
- * (mhitm_ad_wrap) still named.
+ * slips a hug or wrap. AT_ENGL never slips. AD_DRIN looks at uarmh
+ * (mhitu mhitm_ad_drin D-1329); other attacks walk cloak then suit
+ * then shirt. AD_WRAP caller (mhitm_ad_wrap) still named.
  */
 export async function u_slip_free(mtmp, mattk) {
     if ((mattk?.aatyp | 0) === AT_ENGL) return false;
@@ -1390,9 +1421,60 @@ async function mhitm_ad_poly_u(mtmp, mattk, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_drin `:3222–3271` — mhitu (monster→you).
+ * hitmsg; defends(AD_DRIN,uwep) / headless skipdrin; u_slip_free;
+ * uarmh && rn2(8) helm/hat block (no skipdrin); Half_physical then
+ * mdamageu and zero leftover dice (AC does not reduce); eat_brains
+ * unless dunce cap; adjattrib(A_INT,-rnd(2),FALSE); 1/5 losespells
+ * and 1/5 drain_weapon_skill set skipdrin. mhitm arm named.
+ */
+export async function mhitm_ad_drin_u(mtmp, mattk, mhm) {
+    await hitmsg(mtmp, mattk);
+    const pd = game.youmonst?.data;
+    const u = game.u || {};
+    if (defends_ad_drin(u.uwep) || !has_head(pd)) {
+        await pline("You don't seem harmed.");
+        game.skipdrin = true;
+        return;
+    }
+    if (await u_slip_free(mtmp, mattk)) return;
+
+    if (u.uarmh && rn2(8)) {
+        /* C `:3236` — not body_part(HEAD) */
+        await pline(
+            `Your ${helm_simple_name(u.uarmh)} blocks the attack to your head.`,
+        );
+        return;
+    }
+    /* C `:3241–3244` — Half_physical_damage only (not Mitre); AC skipped */
+    mhm.damage = maybe_half_phys(mhm.damage | 0);
+    await mdamageu(mtmp, mhm.damage);
+    mhm.damage = 0; /* don't inflict a second dose in hitmu */
+
+    if (!u.uarmh || (u.uarmh.otyp | 0) !== DUNCE_CAP) {
+        const oldmort = u.umortality | 0;
+        const { eat_brains } = await import('./eat.js');
+        const mhitu = await eat_brains(mtmp, game.youmonst, true, null);
+        if ((u.umortality | 0) > oldmort) game.skipdrin = true;
+        if (mhitu === M_ATTK_MISS) return;
+    }
+    /* adjattrib gives dunce cap message when appropriate */
+    await adjattrib(A_INT, -rnd(2), false);
+    if (!rn2(5)) {
+        const { losespells } = await import('./spell.js');
+        losespells();
+        game.skipdrin = true;
+    }
+    if (!rn2(5)) {
+        await drain_weapon_skill(rnd(2));
+        game.skipdrin = true;
+    }
+}
+
+/**
  * C ref: uhitm.c mhitm_adtyping — mhitu (monster→you) subset.
  * PHYS + ELEC + COLD + DRST/DRDX/DRCO + SITM/SEDU + BLND + STON + LEGS
- * + POLY (D-1004); other adtyps zero damage.
+ * + POLY (D-1004) + DRIN (D-1329); other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     switch (mattk.adtyp | 0) {
@@ -1425,6 +1507,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_POLY:
         await mhitm_ad_poly_u(mtmp, mattk, mhm);
+        break;
+    case AD_DRIN:
+        await mhitm_ad_drin_u(mtmp, mattk, mhm);
         break;
     default:
         mhm.damage = 0;
@@ -2128,7 +2213,7 @@ export async function explmu(mtmp, mattk, ufound) {
  * C ref: mhitu.c mattacku — AT_WEAP ranged thrwmu + melee HTH / weapon hit
  * (AT_TENT with claw/kick/bite/sting/touch/butt, D-1309); AT_EXPL explmu
  * (D-1326); AT_HUGS grab/crush (D-1327); AT_GAZE gazemu (D-1328, skip
- * Medusa); AT_ENGL gulpmu; AT_BREA/SPIT/MAGC.
+ * Medusa); AD_DRIN tentacle drain (D-1329); AT_ENGL gulpmu; AT_BREA/SPIT/MAGC.
  * Returns 1 if monster died.
  */
 export async function mattacku(mtmp) {

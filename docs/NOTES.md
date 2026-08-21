@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1328; cadence **#1680** `2cdf2b1f`
+- **Fortress 44/44** after D-1329; cadence **#1680** `2cdf2b1f`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **284–287**
-  ACCEPT-WITH-DEBT (**283** closed). Next: Open `mhitu.c` AD_DRIN
-  (named from D-1309). Not gazemu. Not mhitm AD_DRIN / kickdmg
-  `special_dmgval`. Do not skip D-1328…D-1229. Do not wrap
+  ACCEPT-WITH-DEBT (**283** closed). Next: Open `mhitm.c` AD_DRIN
+  (named from D-1307). Not mhitu AD_DRIN. Not `u_slip_free` AD_WRAP /
+  kickdmg `special_dmgval`. Do not skip D-1329…D-1229. Do not wrap
   `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1328. warn_obj / `artifact_light` `)`
+- Do not revert D-1217–D-1329. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
 ## Don't re-check (≤15)
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1328.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1329.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,7 +35,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1328 (index). Named still: mhitu+mhitm
+- Do not skip D-1071…D-1329 (index). Named still: mhitm
   AD_DRIN / AD_WRAP `u_slip_free` caller;
   throwit land / mthrowu `snuff_candle`; kickdmg `special_dmgval`.
   No ALIGN/FORCE on seed0383.
@@ -49,6 +49,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1329: `uhitm.c` `mhitm_ad_drin` mhitu `:3222–3271` — hitmsg,
+  `defends(AD_DRIN,uwep)`/`!has_head` skipdrin, `u_slip_free`,
+  `uarmh&&rn2(8)` hat/helm, Half then `mdamageu`+zero dice,
+  `eat_brains` unless DUNCE_CAP, `adjattrib(A_INT,-rnd(2),FALSE)`,
+  1/5 `losespells` / 1/5 `drain_weapon_skill`. mhitm arm named.
+  Full `defends()` dragon-armor switch named.
 - D-1328: `mhitu.c` `gazemu` `:1668–1898` + `mattacku` AT_GAZE
   `:832–837` skip Medusa (mndx) + `mon.c` `m_respond_medusa`.
   AD_STON reflect/stone, CONF/STUN/BLND/FIRE, cancelled looks-X,
@@ -93,5 +99,3 @@ Objective/score live in `CURRENT.md`.
   uball / ammo / hurtle / boulder / Mjollnir / underwater).
 - D-1315: throwit `:1695` → `throwit_mon_hit` after swallow/bhit/boomhit.
   TRUE MINVENT shk → `throwit_return(TRUE)`. Helper D-1313.
-- D-1314: `m_respond` shriek/`aggravate`/Medusa AT_GAZE (gazemu D-1328)
-  / Erinys. Callers dochug/boomhit/bhitm.

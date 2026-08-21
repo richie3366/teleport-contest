@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1329 — mhitu.c AD_DRIN (mhitm_ad_drin youmonst arm)
+
+- **Status:** fixed (map-driven Open from D-1309; not a public FAIL)
+- **Symptom:** a monster with `AD_DRIN` (mind flayer tentacles) never
+  ate the hero's brain. C `mhitm_ad_drin` mhitu arm does hitmsg,
+  headless skipdrin, `u_slip_free`, helm `rn2(8)`, Half then
+  `mdamageu` and zeros leftover dice, `eat_brains` unless dunce,
+  `adjattrib(A_INT,-rnd(2),FALSE)`, 1/5 `losespells` / 1/5
+  `drain_weapon_skill`. JS `mhitm_adtyping_u` defaulted AD_DRIN to
+  zero damage.
+- **C locus:** `uhitm.c` `mhitm_ad_drin` `:3222–3271`; callees
+  `eat.c` `eat_brains` `:693–723`, `mhitu.c` `u_slip_free`
+  `:1045–1085`, `spell.c` `losespells` `:1763–1827`, `weapon.c`
+  `drain_weapon_skill` `:1476–1514`, `attrib.c` `adjattrib` dunce
+  `:129–133`. Caller `hitmu` → `mhitm_adtyping`.
+- **JS was:** named omit (D-1309 / D-1328). uhitm arm live D-1307;
+  `eat_brains` mhitu branch already in `eat.js` (D-1306) with no
+  caller.
+- **Fix:** `mhitm_ad_drin_u` in `mhitu.js`; `case AD_DRIN` in
+  `mhitm_adtyping_u`. Headless/`defends(AD_DRIN,uwep)` (no artifact
+  DFNS AD_DRIN; dragon-armor switch default FALSE) skipdrin;
+  greased `uarmh` slips before helm `rn2(8)`; oilskin cloak ignored;
+  Half_physical only (not Mitre); `mdamageu` then `mhm.damage=0`;
+  dunce skips `eat_brains` then `adjattrib` constricts; INT `-rnd(2)`
+  with msgflg FALSE. `losespells` / `drain_weapon_skill` callees.
+  Rule #2: no fs.
+- **JS:** `js/mhitu.js` `mhitm_ad_drin_u`; `js/spell.js`
+  `losespells`; `js/weapon.js` `drain_weapon_skill`; `js/attrib.js`
+  `adjattrib` dunce/`Fixed_abil`.
+- **Not this iter:** mhitm AD_DRIN (`:3272–3301`); AD_WRAP
+  `mhitm_ad_wrap` / `u_slip_free` caller; full `defends()`
+  dragon-armor switch; `#if 0` forget-book in `losespells`.
+- **Verified:** private canary **19**/19 (C/JS shape; headless
+  skipdrin; greased helm slip; oilskin cloak ignored; helm vs hat;
+  `rn2(8)` block/fallthrough; Half `(5+1)/2`; shade MISS; dunce
+  constricts; empty `losespells` `rn2(1)`; dagger skill drain;
+  `mattacku` skipdrin continue; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session faces a mind flayer.
+- **Follow-up:** Open `mhitm.c` AD_DRIN (named from D-1307).
+- **Files:** `js/mhitu.js`, `js/spell.js`, `js/weapon.js`,
+  `js/attrib.js`.
+
 ## D-1328 — mhitu.c gazemu
 
 - **Status:** fixed (map-driven Open from D-1314; not a public FAIL)
