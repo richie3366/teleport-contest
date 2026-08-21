@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `mhitu.c` `u_slip_free` AD_WRAP (named from D-1307). Not AD_DRIN. **Addressed:** D-1331
+- [x] `dokick.c` kickdmg `special_dmgval` (named from D-1310). Not snuff_candle. **Addressed:** D-1332
+
+
+- [x] `mhitu.c` `u_slip_free` AD_WRAP (named from D-1307). Not AD_DRIN. **Addressed:** D-1331 `ea5df558`
 
 
 - [x] `mhitm.c` AD_DRIN (named from D-1307). Not mhitu AD_DRIN. **Addressed:** D-1330 `cfc95500`

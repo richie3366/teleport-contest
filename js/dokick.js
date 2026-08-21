@@ -1,6 +1,7 @@
 // dokick.js — #kick command + object fall-through (impact_drop / ship_object).
 // C ref: dokick.c — dokick, kick_dumb, kick_door, kick_nondoor, maybe_kick_monster,
-// kick_monster, kickdmg (partial; poly AT_KICK D-1310); down_gate / drop_to / impact_drop (D-0961);
+// kick_monster, kickdmg (partial; poly AT_KICK D-1310; special_dmgval D-1332);
+// down_gate / drop_to / impact_drop (D-0961);
 // ship_object / otransit_msg (D-0984); obj_delivery (D-1177);
 // deliver_obj_to_mon (D-1193);
 // kick_nondoor SDOOR/furniture (D-0985);
@@ -745,7 +746,8 @@ async function maybe_kick_monster(mon, x, y) {
 
 /**
  * C ref: dokick.c kickdmg — non-poly kick damage + passive.
- * special_dmgval / abuse_dog / monflee / hurtle deferred.
+ * special_dmgval(W_ARMF) D-1332 (`:56` before shade return, `:90` add).
+ * abuse_dog / monflee / martial knockback still named.
  */
 async function kickdmg(mon, clumsy) {
     let dmg = Math.trunc((acurrstr() + acurr(A_DEX) + acurr(A_CON)) / 15);
@@ -758,8 +760,8 @@ async function kickdmg(mon, clumsy) {
     if (thick_skinned(mon.data)) dmg = 0;
     if ((mon.data?.mndx ?? -1) === PM_SHADE) dmg = 0;
 
-    // special_dmgval deferred (0 when no blessed/silver boots wired)
-    const specialdmg = 0;
+    /* C dokick.c `:56` — blessed (or hypothetically silver) boots */
+    const specialdmg = special_dmgval(game.youmonst, mon, W_ARMF, null);
     if ((mon.data?.mndx ?? -1) === PM_SHADE && !specialdmg) {
         await pline(`The ${kick_passes_thru}.`);
         return;

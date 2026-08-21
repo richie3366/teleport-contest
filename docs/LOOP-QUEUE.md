@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dokick.c` kickdmg `special_dmgval` (named from D-1310). Not snuff_candle.
 - [ ] `dothrow.c` throwit land `snuff_candle` (C `:1818`). Not mthrowu.
 - [ ] `mthrowu.c` `snuff_candle` (C `:942` notcaught land). Not throwit land.
 - [ ] `dokick.c` `killer_xname` (kickobjnam still xname). Not special_dmgval.

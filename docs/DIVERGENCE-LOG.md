@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1332 — `dokick.c` `kickdmg` `special_dmgval(W_ARMF)`
+
+- **Status:** fixed (map-driven Open from D-1310; not a public FAIL)
+- **Symptom:** human `kickdmg` stubbed `special_dmgval` at 0, so
+  blessed boots never rolled `rnd(4)` vs undead/demon and a shade
+  always took `The kick passes harmlessly through` even in
+  blessed footwear. C calls `special_dmgval(&youmonst, mon,
+  W_ARMF, NULL)` after shade `dmg=0` and before that early
+  return, then `dmg += specialdmg`.
+- **C locus:** `dokick.c` `kickdmg` `:56` / `:58–62` / `:90`.
+  Callee `weapon.c` `special_dmgval` `:361–431` (`which_armor`
+  boots; blessed `rnd(4)` if `mon_hates_blessings`; silver
+  `rnd(20)` if `mon_hates_silver` — boots are not silver in
+  stock objects). Caller `kick_monster` after evade, non-poly.
+- **JS was:** `const specialdmg = 0` with a deferred comment.
+  Poly AT_KICK loop already called the live callee (D-1310).
+- **Fix:** same call as C. Shade + blessed boots can now deal
+  `rnd(4)+spe+udaminc`. Did not pull `abuse_dog`, martial
+  knockback, or `maybe_mnexto` evade. Rule #2: no fs.
+- **JS:** `js/dokick.js` `kickdmg`.
+- **Not this iter:** `maybe_mnexto` evade; `abuse_dog` /
+  `monflee`; martial knockback `goodpos`/`mintrap`;
+  `killer_xname`; throwit land / mthrowu `snuff_candle`.
+- **Verified:** private canary **18**/18 (C/JS call order; shade
+  barefoot/uncursed harmlessly + no `rnd(4)`; blessed shade
+  `rnd(4)` + HP; goblin no `rnd(4)`; zombie `rnd(4)`; `+spe`;
+  poly-loop call kept; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session kicks with blessed boots
+  vs undead/demon/shade.
+- **Follow-up:** Open `dothrow.c` throwit land `snuff_candle`
+  (C `:1818`).
+- **Files:** `js/dokick.js`.
+
 ## D-1331 — mhitu.c AD_WRAP (mhitm_ad_wrap monster→you arm)
 
 - **Status:** fixed (map-driven Open from D-1307; not a public FAIL)
