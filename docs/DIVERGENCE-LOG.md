@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1401 — spell.c spelleffects SPE_CREATE_MONSTER seffects
+
+- **Status:** fixed (map-driven Open from D-1400; not a public FAIL)
+- **Symptom:** casting SPE_CREATE_MONSTER printed `Nothing happens.`
+  C `spelleffects` `:1528–1531` calls `(void) seffects(pseudo)`
+  for MAGIC_MAPPING and CREATE_MONSTER (no skilled bless — that
+  FALLTHROUGH is REMOVE_CURSE through CHARM_MONSTER only).
+  Callee `read.c` `seffect_create_monster` `:1608–1624`
+  `create_critters(1 + ((confused || scursed) ? 12 : 0)
+  + ((sblessed || rn2(73)) ? 0 : rnd(4)),
+  confused ? &mons[PM_ACID_BLOB] : NULL, FALSE)` then
+  `gk.known` iff seen. `create_critters` already live (D-1379).
+  Spell still returns TIME after energy. Pseudo is always
+  uncursed/unblessed.
+- **C locus:** `spell.c` `spelleffects` `:1528–1531`;
+  `read.c` `seffects` `:2229–2231` / `seffect_create_monster`
+  `:1608–1624`; callee `makemon.c` `create_critters` `:1556–1590`.
+- **JS was:** named omit after D-1400. Other-otyp arm printed
+  `Nothing happens.`; `create_critters` lived only on wand
+  zapnodir; seffects default unimplemented.
+- **Fix:** SPE_CREATE_MONSTER arm via dynamic `seffects`.
+  Live `seffect_create_monster` + SCR/SPE seffects cases +
+  doread SCR gate. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/read.js`
+  `seffect_create_monster` / `seffects` / `doread`;
+  `js/makemon.js` caller comment.
+- **Not this iter:** SPE_MAGIC_MAPPING seffects; potion
+  `peffects`; wizard `create_particular` class-letter / `*`.
+- **Verified:** private canary **18**/18 (C/JS grep; uncursed
+  rn2(73); confused acid blobs +12; cursed +12 not blobs;
+  blessed skip rn2(73); skilled still unblessed; MAGIC_MAPPING
+  still omit; CHAIN / CURE_BLINDNESS / JUMPING / FORCE_BOLT /
+  HEALING regression; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts create monster.
+- **Follow-up:** Open `uhitm.c` `mhitm_ad_phys` mwep dmgval
+  (named). Not shade_miss.
+- **Files:** `js/spell.js`, `js/read.js`, `js/makemon.js`.
+
 ## D-1400 — spell.c spelleffects SPE_CHAIN_LIGHTNING
 
 - **Status:** fixed (map-driven Open from D-1399; not a public FAIL)

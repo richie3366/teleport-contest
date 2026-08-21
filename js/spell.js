@@ -24,10 +24,13 @@
 // SPE_CURE_BLINDNESS healup(0,0,FALSE,TRUE) (D-1399; callee potion.c
 // healup cream + make_blinded + make_deaf);
 // SPE_CHAIN_LIGHTNING cast_chain_lightning (D-1400; callee zap.c
-// zhitm BZ_U_SPELL(AD_ELEC-1) nd=2).
+// zhitm BZ_U_SPELL(AD_ELEC-1) nd=2);
+// SPE_CREATE_MONSTER seffects (D-1401; callee read.c
+// seffect_create_monster → makemon.c create_critters).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps (seffects/peffects);
+// swap/sort; other spelleffects otyps (SPE_MAGIC_MAPPING seffects /
+// peffects);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -174,6 +177,7 @@ const SPE_CURE_SICKNESS = objectNames.indexOf('SPE_CURE_SICKNESS');
 const SPE_CURE_BLINDNESS = objectNames.indexOf('SPE_CURE_BLINDNESS');
 const SPE_JUMPING = objectNames.indexOf('SPE_JUMPING');
 const SPE_CHAIN_LIGHTNING = objectNames.indexOf('SPE_CHAIN_LIGHTNING');
+const SPE_CREATE_MONSTER = objectNames.indexOf('SPE_CREATE_MONSTER');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
@@ -1660,6 +1664,9 @@ async function cast_protection() {
  * (D-1399; callee potion.c cream + make_blinded + make_deaf).
  * SPE_CHAIN_LIGHTNING cast_chain_lightning
  * (D-1400; callee zap.c zhitm BZ_U_SPELL(AD_ELEC-1) nd=2).
+ * SPE_CREATE_MONSTER seffects(pseudo) (D-1401; C `:1528–1531`;
+ * no skilled bless — that is REMOVE_CURSE..CHARM_MONSTER only;
+ * callee read.c seffect_create_monster).
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1819,6 +1826,13 @@ export async function spelleffects(spell_otyp, atme, force) {
     } else if (otyp === SPE_CHAIN_LIGHTNING) {
         /* C spell.c :1588–1590 — cast_chain_lightning(); */
         await cast_chain_lightning();
+    } else if (otyp === SPE_CREATE_MONSTER) {
+        /* C spell.c :1528–1531 — MAGIC_MAPPING/CREATE_MONSTER
+         * (void) seffects(pseudo); CREATE_MONSTER does not take the
+         * skilled-bless FALLTHROUGH (that is REMOVE_CURSE through
+         * CHARM_MONSTER). Dynamic import: read.js → spell.js. */
+        const { seffects } = await import('./read.js');
+        await seffects(pseudo);
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
         await pline('Nothing happens.');

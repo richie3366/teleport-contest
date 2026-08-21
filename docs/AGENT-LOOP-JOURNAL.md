@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — D-1401 spell.c SPE_CREATE_MONSTER seffects
+
+**Objective:** Open `spell.c` `spelleffects` SPE_CREATE_MONSTER
+seffects (named). Not chain.
+**C locus:** `spell.c` `spelleffects` `:1528–1531`
+`(void) seffects(pseudo)` (no skilled bless). Callee
+`read.c` `seffect_create_monster` `:1608–1624` →
+`create_critters` (D-1379).
+**Change:** SPE_CREATE_MONSTER → `seffects(pseudo)`. Live
+`seffect_create_monster` count/blob + doread SCR gate. Dynamic
+`read.js`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts create monster).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` `mhitm_ad_phys` mwep dmgval
+(named). Not shade_miss.
+**Blocked:** none.
 ## 2026-08-21 — D-1400 spell.c SPE_CHAIN_LIGHTNING cast_chain_lightning
 
 **Objective:** Open `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING
