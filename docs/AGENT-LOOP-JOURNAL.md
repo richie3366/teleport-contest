@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1346 dothrow.c throwit killer_xname
+
+**Objective:** Open `dothrow.c` throwit `losehp` `killer_xname`
+(C `:1747`). Not zap.
+**C locus:** `dothrow.c` `throwit` `:1747–1748` (returning-missile
+arm-hit after `artifact_hit`).
+**Change:** `losehp(Maybe_Half_Phys(dmg), killer_xname(obj),
+KILLED_BY)` not `xname`. throw_obj `:139–148` petrify named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless
+returning-missile arm-hit death). Next audit @**#1710**.
+**Verified:** canary **28**/28; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `objnam.c` warn_obj glow (named from D-1322).
+Not killer_xname.
+**Blocked:** none.
 ## 2026-08-21 — review D-1342–D-1345 (audit #1705)
 
 **Objective:** audit — C-fidelity reviews **304–307** of JS SHAs

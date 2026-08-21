@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
+- [x] `dothrow.c` throwit `losehp` `killer_xname` (C `:1747`). Not zap. **Addressed:** D-1346
+
+
 - [x] `zap.c` zapyourself `killer_xname` (remaining). Not eat choke. **Addressed:** D-1345 `2a5e72e0`
 
 

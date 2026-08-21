@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1346 — dothrow.c throwit returning-missile killer_xname
+
+- **Status:** fixed (map-driven Open from D-1345; not a public FAIL)
+- **Symptom:** a returning Mjollnir/aklys that hit the hero's arm
+  stored `xname(obj)` as the killer, so the tombstone was
+  `"killed by thonged club"` (unknown appearance, BUC/called-name
+  leak, no article). C `throwit` `losehp(Maybe_Half_Phys(dmg),
+  killer_xname(obj), KILLED_BY)` at `:1747–1748` after optional
+  `artifact_hit`.
+- **C locus:** `dothrow.c` `throwit` `:1708–1758`; arm-hit
+  `:1738–1748`. Callee `killer_xname` is `objnam.c:1942–2005`.
+  Feet-land `!dmg` path does not call `losehp`.
+- **JS was:** `losehp(maybe_half_phys(dmg), xname(obj), KILLED_BY)`
+  in `throwit_returning_missile`.
+- **Fix:** `killer_xname(obj)`. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `throwit_returning_missile`.
+- **Not this iter:** `throw_obj` `:139–148` petrify
+  `"throwing "+killer_xname+" bare-handed"`; pickup / wield /
+  invent / mthrowu / do_wear remaining `killer_xname`;
+  `the()` CapitalMon; warn_obj glow.
+- **Verified:** private canary **28**/28 (source grep; unknown
+  aklys vs `xname`; called-name/BUC/oname/poison strip+restore;
+  Mjollnir `bare_artifactname`; dart article; `KILLED_BY` prefix;
+  feet-land no `losehp`; `throw_obj` petrify still omit; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session dies of a returning-missile arm hit.
+- **Follow-up:** Open `objnam.c` warn_obj glow.
+- **Files:** `js/dothrow.js`.
+
 ## D-1345 — zap.c dozap zapyourself killer_xname
 
 - **Status:** fixed (map-driven Open from D-1344; not a public FAIL)
