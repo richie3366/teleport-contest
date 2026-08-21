@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — review D-1334–D-1337 (audit #1695)
+
+**Objective:** C-fidelity review of JS SHAs since
+`reviews/loop-unattended/` `1eef5d0c`, plus full `sessions` score.
+**C locus:** `mthrowu.c:849–965` / `objnam.c:1942–2005` /
+`mon.c:3998–4017` / `apply.c:1518–1572` vs `487daa2f` `31d32cad`
+`a7ac5e52` `2bd70a77`.
+**Change:** reviews **296–299** ACCEPT-WITH-DEBT; no Must-fix.
+Filled archive D-1337 `2bd70a77`. Next Open gazemm. No `js/` edits.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `36+0.30/turn` (R² 0.84) at `2bd70a77`. Next audit
+@**#1700**.
+**Verified:** `node frozen/ps_test_runner.mjs sessions` this iter.
+**Next:** Open `mhitm.c` gazemm (named from D-1328). Not AD_WRAP.
+**Blocked:** none.
 ## 2026-08-21 — D-1337 apply.c splash_lit
 
 **Objective:** Open `apply.c` `splash_lit` (named from D-1242). Not

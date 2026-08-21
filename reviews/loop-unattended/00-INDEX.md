@@ -305,3 +305,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [293-ea5df558-mhitm-ad-wrap-u.md](./293-ea5df558-mhitm-ad-wrap-u.md) | `ea5df558` | D-1331 mhitu AD_WRAP | **ACCEPT-WITH-DEBT** |
 | [294-e430e099-kickdmg-special-dmgval.md](./294-e430e099-kickdmg-special-dmgval.md) | `e430e099` | D-1332 kickdmg `special_dmgval` | **ACCEPT-WITH-DEBT** |
 | [295-b82375a7-throwit-land-snuff.md](./295-b82375a7-throwit-land-snuff.md) | `b82375a7` | D-1333 throwit land `snuff_candle` | **ACCEPT-WITH-DEBT** |
+| [296-487daa2f-mthrowu-return-snuff.md](./296-487daa2f-mthrowu-return-snuff.md) | `487daa2f` | D-1334 mthrowu `return_from_mtoss` snuff | **ACCEPT-WITH-DEBT** |
+| [297-31d32cad-killer-xname.md](./297-31d32cad-killer-xname.md) | `31d32cad` | D-1335 `killer_xname` kickobjnam | **ACCEPT-WITH-DEBT** |
+| [298-a7ac5e52-maybe-mnexto.md](./298-a7ac5e52-maybe-mnexto.md) | `a7ac5e52` | D-1336 `maybe_mnexto` kick evade | **ACCEPT-WITH-DEBT** |
+| [299-2bd70a77-splash-lit.md](./299-2bd70a77-splash-lit.md) | `2bd70a77` | D-1337 `splash_lit` | **ACCEPT-WITH-DEBT** |

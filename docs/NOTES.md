@@ -5,10 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1337; cadence **#1690** `b82375a7`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **292–295**
-  ACCEPT-WITH-DEBT. Next: Open `mhitm.c` gazemm (named from
-  D-1328). Not AD_WRAP. Do not skip D-1337…D-1229.
+- **Fortress 44/44** after D-1337; cadence **#1695** `2bd70a77`
+  (Scr **11,405** RNG 100% speed `36+0.30/turn`). Reviews **296–299**
+  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `mhitm.c` gazemm
+  (named from D-1328). Not AD_WRAP. Do not skip D-1337…D-1229.
   Do not wrap `wildmiss` as `pline_mon`. No FORCE.
 - Do not revert D-1217–D-1337. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
