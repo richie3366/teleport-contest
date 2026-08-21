@@ -8,7 +8,27 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — review D-1379–D-1386 (audit #1755)
 
+**Objective:** audit — C-fidelity reviews **339–346** of JS SHAs
+`ad7b89c7` / `ef8a60b0` / `e0594454` / `6077050a` /
+`970c6097` / `ec703f48` / `5be02746` / `1f94d5e3` plus full
+`sessions` score.
+**C locus:** `zap.c:2569–2585`; `makemon.c:1556–1590`;
+`uhitm.c:555–563` / `:1812–1822`; `mthrowu.c:680–686`;
+`zap.c:3984–3992`; `uhitm.c:3713–3724`; `spell.c:1454–1514`;
+`cmd.c:4095–4111`.
+**Change:** no `js/` edits. **339–345** ACCEPT-WITH-DEBT.
+**346** QUALITY-RISK: unskilled FIREBALL `getdir_spell` cancel
+zeros dirs (C `getdir` reuses leftover). Must-fix prepended.
+Filled archive D-1386 `1f94d5e3`. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `38+0.31/turn` (R² 0.85).
+**Verified:** full `sessions` at HEAD `1f94d5e3`; public-unhit
+on create/wish/leprechaun/shade/AD_CONF/unskilled fireball.
+**Next:** Must-fix unskilled FIREBALL/CONE `getdir` cancel.
+Not Open FORCE_BOLT.
+**Blocked:** none.
 ## 2026-08-21 — D-1386 spell.c unskilled FIREBALL FALLTHROUGH
 
 **Objective:** Open `spell.c` unskilled SPE_FIREBALL/CONE
@@ -26,7 +46,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `spell.c` `spelleffects` SPE_FORCE_BOLT (named).
 Not fireball.
 **Blocked:** none.
-
 ## 2026-08-21 — D-1385 mhitm.c mdamagem AD_CONF leftover
 
 **Objective:** Open `mhitm.c` `mdamagem` AD_CONF leftover
@@ -45,7 +64,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH
 weffects (named from D-1378). Not skilled scatter.
 **Blocked:** none.
-
 ## 2026-08-21 — D-1384 uhitm.c hmon shade_miss
 
 **Objective:** Open `uhitm.c` `hmon` `shade_miss` caller (named from
@@ -63,7 +81,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `mhitm.c` `mdamagem` AD_CONF leftover (named from
 D-1352). Not STON.
 **Blocked:** none.
-
 ## 2026-08-21 — D-1383 zap.c bhit shade_miss
 
 **Objective:** Open `zap.c` `shade_miss` caller (named from
@@ -81,7 +98,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `uhitm.c` `hmon` `shade_miss` caller (named from
 D-1354). Not zap.
 **Blocked:** none.
-
 ## 2026-08-21 — D-1382 mthrowu.c m_throw shade_miss
 
 **Objective:** Open `mthrowu.c` `shade_miss` caller (named from
@@ -167,110 +183,4 @@ Filled archive D-1378 `12953730`. Must-fix empty. Next Open
 on axe wipe / monster camera / Sunsword invoke / skilled scatter.
 **Next:** Open `zap.c` `zapnodir` WAN_CREATE_MONSTER (named).
 Not light.
-**Blocked:** none.
-## 2026-08-21 — D-1378 spell.c skilled SPE_FIREBALL scatter
-
-**Objective:** Open `spell.c` skilled SPE_FIREBALL scatter
-(named from D-1365). Not zapyourself explode.
-**C locus:** `spell.c` `spelleffects` `:1419–1454` +
-`throwspell` `:1655–1701`; `zap.c` `spell_damage_bonus`
-`:3479–3502`. Callee `explode`.
-**Change:** skilled FIREBALL/CONE `throwspell` then
-`rnd(8)+1` explode scatter olet 0 + Int/level bonus.
-Unskilled FALLTHROUGH weffects named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session casts skilled fireball).
-**Verified:** private canary **23**/23; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `zap.c` `zapnodir` WAN_CREATE_MONSTER (named).
-Not light.
-**Blocked:** none.
-## 2026-08-21 — D-1377 artifact.c invoke_blinding_ray
-
-**Objective:** Open `artifact.c` `invoke_blinding_ray`
-(named from D-1366). Not camera.
-**C locus:** `artifact.c` `invoke_blinding_ray` `:2054–2086`
-+ `arti_invoke_cost` `:2088–2128`; callees `do_blinding_ray`
-/ `litroom` Sunsword radius-0 / `lightdamage`+`flashburn`.
-**Change:** extract `inv_prop`; BLINDING_RAY getdir ray /
-spot / self / cancel refund. Other specials named. Rule #2:
-no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session `#invoke`s Sunsword).
-**Verified:** private canary **20**/20; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `spell.c` skilled SPE_FIREBALL scatter
-(named from D-1365). Not zapyourself explode.
-**Blocked:** none.
-## 2026-08-21 — D-1376 muse.c MUSE_CAMERA lightdamage
-
-**Objective:** Open `muse.c` MUSE_CAMERA `lightdamage`
-(named from D-1366). Not zapnodir.
-**C locus:** `muse.c` `find_offensive` `:1566–1574` +
-`use_offensive` `:1938–1955`; callee `zap.c` `lightdamage`.
-**Change:** camera select (`!rn2(6)` after sight/gremlin +
-dist2<=2 + spe>0) and use (Hallu cheese / picture / flash
-`rnd(51)` / `lightdamage` / spe-- / return 1). SCR_EARTH
-and Sunsword invoke still named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-hostile fires a charged camera adjacent).
-**Verified:** private canary **21**/21; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `artifact.c` `invoke_blinding_ray` (named
-from D-1366). Not camera.
-**Blocked:** none.
-## 2026-08-21 — D-1375 dig.c use_pick_axe2 u_wipe_engr(3)
-
-**Objective:** Open `dig.c` `u_wipe_engr` caller
-(named from D-1360). Not dothrow.
-**C locus:** `dig.c` `use_pick_axe2` `:1328–1335`; callee
-`engrave.c` `u_wipe_engr` `:264–268`.
-**Change:** axe-scratch arm (`!ispick` and not LANDMINE/
-BEAR_TRAP) calls live `u_wipe_engr(3)` after the scratch
-pline. Pick-down / axe on those traps still start digging.
-uteetering still named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session chops down with an axe on a wipeable engraving).
-**Verified:** private canary **22**/22; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `muse.c` MUSE_CAMERA `lightdamage` (named
-from D-1366). Not zapnodir.
-**Blocked:** none.
-## 2026-08-21 — review D-1371–D-1374 (audit #1745)
-
-**Objective:** audit — C-fidelity reviews **331–334** of JS SHAs
-`211485a0` / `b3fe3015` / `d5614c8a` / `08007958` plus full
-`sessions` score.
-**C locus:** `youprop.h:42–44` Shock_resistance; `allmain.c`
-`:360–361`; `uhitm.c` `:551–553`; `dothrow.c` `:138`.
-**Change:** no `js/` edits. All four **ACCEPT-WITH-DEBT**.
-Filled archive D-1374 `08007958`. Must-fix empty. Next Open
-`dig.c` wipe. Rule #2: no fs.
-**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
-(100%) speed `40+0.33/turn` (R² 0.86).
-**Verified:** full `sessions` at HEAD `08007958`; public-unhit
-on conferral shock / EOT wipe / melee wipe / throw wipe.
-**Next:** Open `dig.c` `u_wipe_engr` caller (named from
-D-1360). Not dothrow.
-**Blocked:** none.
-## 2026-08-21 — D-1374 dothrow.c throw_obj u_wipe_engr(2)
-
-**Objective:** Open `dothrow.c` `u_wipe_engr` caller
-(named from D-1360). Not uhitm. Not dig.
-**C locus:** `dothrow.c` `throw_obj` `:138`; callee
-`engrave.c` `u_wipe_engr` `:264–268`.
-**Change:** after self refuse, call live `u_wipe_engr(2)`
-before named petrify / multishot. Import live callee.
-dig still named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session throws on a wipeable engraving).
-**Verified:** private canary **19**/19; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `dig.c` `u_wipe_engr` caller
-(named from D-1360). Not dothrow.
 **Blocked:** none.

@@ -348,3 +348,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [336-61c15769-muse-camera.md](./336-61c15769-muse-camera.md) | `61c15769` | D-1376 MUSE_CAMERA `lightdamage` | **ACCEPT-WITH-DEBT** |
 | [337-e785f5bb-invoke-blinding-ray.md](./337-e785f5bb-invoke-blinding-ray.md) | `e785f5bb` | D-1377 `invoke_blinding_ray` | **ACCEPT-WITH-DEBT** |
 | [338-12953730-skilled-fireball-scatter.md](./338-12953730-skilled-fireball-scatter.md) | `12953730` | D-1378 skilled SPE_FIREBALL scatter | **ACCEPT-WITH-DEBT** |
+| [339-ad7b89c7-zapnodir-create-monster.md](./339-ad7b89c7-zapnodir-create-monster.md) | `ad7b89c7` | D-1379 zapnodir WAN_CREATE_MONSTER | **ACCEPT-WITH-DEBT** |
+| [340-ef8a60b0-zapnodir-wishing.md](./340-ef8a60b0-zapnodir-wishing.md) | `ef8a60b0` | D-1380 zapnodir WAN_WISHING | **ACCEPT-WITH-DEBT** |
+| [341-e0594454-do-attack-leprechaun.md](./341-e0594454-do-attack-leprechaun.md) | `e0594454` | D-1381 `do_attack` leprechaun evade | **ACCEPT-WITH-DEBT** |
+| [342-6077050a-mthrowu-shade-miss.md](./342-6077050a-mthrowu-shade-miss.md) | `6077050a` | D-1382 `m_throw` shade_miss | **ACCEPT-WITH-DEBT** |
+| [343-970c6097-bhit-shade-miss.md](./343-970c6097-bhit-shade-miss.md) | `970c6097` | D-1383 `bhit` shade_miss | **ACCEPT-WITH-DEBT** |
+| [344-ec703f48-hmon-shade-miss.md](./344-ec703f48-hmon-shade-miss.md) | `ec703f48` | D-1384 `hmon` shade_miss | **ACCEPT-WITH-DEBT** |
+| [345-5be02746-mdamagem-ad-conf.md](./345-5be02746-mdamagem-ad-conf.md) | `5be02746` | D-1385 mdamagem AD_CONF leftover | **ACCEPT-WITH-DEBT** |
+| [346-1f94d5e3-unskilled-fireball-weffects.md](./346-1f94d5e3-unskilled-fireball-weffects.md) | `1f94d5e3` | D-1386 unskilled SPE_FIREBALL weffects | **QUALITY-RISK** |

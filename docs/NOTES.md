@@ -5,11 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1386; cadence **#1750** `12953730`
-  (Scr **11,405** RNG 100% speed `38+0.31/turn`). Next: Open
-  `spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball.
-  Reviews **335–338** ACCEPT-WITH-DEBT; Must-fix empty.
-  Do not skip D-1386…D-1229. No FORCE. Do not wrap `wildmiss`.
+- **Fortress 44/44** after D-1386; cadence **#1755** `1f94d5e3`
+  (Scr **11,405** RNG 100% speed `38+0.31/turn` R² 0.85). Next:
+  Must-fix unskilled FIREBALL/CONE `getdir` cancel (review
+  **346**). Not Open FORCE_BOLT. Reviews **339–345**
+  ACCEPT-WITH-DEBT; **346** QUALITY-RISK. Do not skip
+  D-1386…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
+  trailing `confdir` to shared `getdir`.
 - Do not revert D-1217–D-1386. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.

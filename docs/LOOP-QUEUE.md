@@ -26,6 +26,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `spell.c` unskilled SPE_FIREBALL/CONE `getdir` cancel must leave previous `u.dx/u.dy/u.dz` like C `getdir((char*)0)` (`cmd.c` `:4095–4111`); `getdir_spell` zeros then always self-zaps. Use live `lock.js` `getdir` or stop zeroing. Do not add trailing `confdir` to shared `getdir`. Source: reviews/loop-unattended/346-1f94d5e3-unskilled-fireball-weffects.md.
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball.

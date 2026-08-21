@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects (named from D-1378). Not skilled scatter. **Addressed:** D-1386
+- [x] `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects (named from D-1378). Not skilled scatter. **Addressed:** D-1386 `1f94d5e3`
 
 
 - [x] `mhitm.c` `mdamagem` AD_CONF leftover (named from D-1352). Not STON. **Addressed:** D-1385 `5be02746`

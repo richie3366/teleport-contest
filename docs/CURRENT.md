@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-21** — full `sessions` at review **#1750**
-HEAD `12953730` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `38+0.31/turn` (R² 0.84). Next audit (review + score) @**#1755**.
+Score last measured: **2026-08-21** — full `sessions` at review **#1755**
+HEAD `1f94d5e3` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `38+0.31/turn` (R² 0.85). Next audit (review + score) @**#1760**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `38+0.31/turn` (R² 0.84). Next audit (review + score) @**#1755**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `38+0.31/turn` (R² 0.84) |
+| Speed label | `38+0.31/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,12 +59,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1386. **Next cluster:** Open
-`spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball.
-Must-fix empty after reviews **335–338**.
+**Map-driven fortress** after D-1386. **Next cluster:** Must-fix
+`spell.c` unskilled FIREBALL/CONE `getdir` cancel (review
+**346**). Not Open FORCE_BOLT. Reviews **339–345**
+ACCEPT-WITH-DEBT; **346** QUALITY-RISK.
 Do not skip D-1386…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not rewrite `confer_oc_oprop`.
+Do not rewrite `confer_oc_oprop`. Do not add trailing `confdir`
+inside shared `getdir`.
 
 **Parked:** D-0006. **Do not re-break D-0660…D-1386.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
