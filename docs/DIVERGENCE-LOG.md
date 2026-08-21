@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1344 — eat.c choke killer_xname
+
+- **Status:** fixed (map-driven Open from D-1343; not a public FAIL)
+- **Symptom:** choking to death stored `xname(food)` as the killer,
+  so the tombstone was `"choked on food ration"` (no article, unnamed
+  type, user-supplied name leaked, slime mold not `"deadly"`, corpses
+  without species). C `choke` copies `killer_xname(food)` at `:279`
+  and sets `KILLED_BY` because the helper already applies `an`/`the`.
+- **C locus:** `eat.c` `choke` `:245–288`; killer arms `:268–284`.
+  Caller `eataccessory` AMULET_OF_STRANGULATION `:2387`. Coins
+  `"very rich meal"` (`KILLED_BY_AN`) and null `"quick snack"`
+  already matched. `foodword` pline is a material word, not the
+  tombstone name.
+- **JS was:** `game.killer.name = xname(food)` with `KILLED_BY`.
+- **Fix:** `killer_xname(food)` at the non-coin arm. Rule #2: no fs.
+- **JS:** `js/eat.js` `choke`.
+- **Not this iter:** lesshungry/bite choke callers (still named);
+  zap `zapyourself` / dothrow `throwit` `losehp` / pickup / wield
+  remaining `killer_xname`; `the()` CapitalMon.
+- **Verified:** private canary **45**/45 (C/JS three arms; ration
+  article vs bare xname; named stripped; newt/cockatrice; slime
+  mold; coins/snack `KILLED_BY_AN`; AoS; wand fully ID'd then
+  restored; holy water; poison suppressed; double-article gate;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session dies of choking.
+- **Follow-up:** Open `zap.c` zapyourself `killer_xname`.
+- **Files:** `js/eat.js`.
+
 ## D-1343 — dokick.c kickstr
 
 - **Status:** fixed (map-driven Open from D-1335; not a public FAIL)

@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1344 eat.c choke killer_xname
+
+**Objective:** Open `eat.c` choke `killer_xname` (remaining caller).
+Not dokick kickobjnam.
+**C locus:** `eat.c` `choke` `:245–288`; killer `:268–284`
+(`:279` `killer_xname`); caller `eataccessory` AoS `:2387`.
+**Change:** non-coin food tombstone uses `killer_xname` +
+`KILLED_BY` (article in name). Coins `"very rich meal"` /
+null `"quick snack"` already matched. lesshungry/bite +
+zap/dothrow named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless choke
+death). Next audit @**#1705**.
+**Verified:** canary **45**/45; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` zapyourself `killer_xname` (remaining).
+Not eat choke.
+**Blocked:** none.
 ## 2026-08-21 — D-1343 dokick.c kickstr
 
 **Objective:** Open `dokick.c` `kickstr` (named; kick_ouch still

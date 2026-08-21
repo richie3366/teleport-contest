@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `eat.c` choke `killer_xname` (remaining caller). Not dokick kickobjnam.
 - [ ] `zap.c` zapyourself `killer_xname` (remaining). Not eat choke.
 - [ ] `dothrow.c` throwit `losehp` `killer_xname` (C `:1747`). Not zap.
 - [ ] `objnam.c` warn_obj glow (named from D-1322). Not killer_xname.

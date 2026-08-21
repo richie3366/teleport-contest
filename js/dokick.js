@@ -1196,7 +1196,7 @@ async function kick_object(x, y, kickobjnam) {
  * grease/Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
  * hero_breaks; thump; split; slide; bhit KICKED_WEAPON; mon thitmonst/
  * ghitm; shop stolen_value; flooreffects; place+stack.
- * Named omit: eat/zap/dothrow killer_xname callers still named.
+ * Named omit: zap/dothrow killer_xname callers still named (eat choke D-1344).
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};

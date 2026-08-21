@@ -974,7 +974,8 @@ function bare_artifactname_objnam(obj) {
  * C ref: objnam.c killer_xname `:1942–2005` — fully ID'd death-reason name.
  * Temporarily sets known/dknown, clears BUC/poison/uname/oname (not artifacts),
  * formats, applies an()/the(), then restores the object and objects[].
- * Caller uses KILLED_BY. Remaining eat/zap/dothrow/pickup/wield callers named.
+ * Caller uses KILLED_BY. eat choke wired (D-1344). Remaining zap/dothrow/
+ * pickup/wield callers named.
  */
 export function killer_xname(obj) {
     if (!obj) return 'something';

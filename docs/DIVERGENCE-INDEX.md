@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1344 | fixed | eat.c choke killer_xname | map-driven Open from D-1343; C `eat.c:245–288` `choke` `:279` `killer_xname` + `KILLED_BY` (coins `"very rich meal"` / null `"quick snack"`); JS `xname`; live `js/eat.js` `choke`; lesshungry/bite callers / zap·dothrow `killer_xname` still named |
 | D-1343 | fixed | dokick.c kickstr | map-driven Open from D-1335; C `dokick.c:794–830` `kickstr` + `kick_ouch:903` `losehp(..., kickstr, KILLED_BY)`; dokick `:1387` nowhere / `:1391` `&levl[x][y]`; JS `kickobjnam \|\| 'a wall'`; live `js/dokick.js` `kickstr` + `game.maploc`; drawbridge `find_drawbridge` remap / eat·zap·dothrow `killer_xname` still named |
 | D-1342 | fixed | artifact.c arti_reflects W_WEP | map-driven Open from D-1328; C `artifact.c:537–550` `arti_reflects` + `:867–872` `set_artifact_intrinsic` SPFX_REFLECT&&W_WEP; caller `muse.c:2807` `mon_reflects` MON_WEP; JS named omit; live `js/artifact.js` + mhitu/mhitm mon_reflects + zap/pray ureflects W_WEP; cspfx extract / W_AMUL·ARM / mcastu ureflects still named |
 | D-1341 | fixed | uhitm.c shade_miss + mhitm.c hitmm | map-driven Open from D-0887; C `uhitm.c:2016–2051` `shade_miss` + `mhitm.c:659–661` `!compat && shade_miss` → `M_ATTK_MISS`; JS named omit; live `js/mhitm.js` (unarmed vs shade harmlessly-through + wake; `dmgval` shade/`shade_glare` still named so a club still “hurts”); mthrowu/zap/hmon callers / silver sear still named |
