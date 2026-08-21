@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1351 — mhitm.c hitmm silver sear
+
+- **Status:** fixed (map-driven Open from D-0887; not a public FAIL)
+- **Symptom:** a monster's successful silver-weapon melee vs a
+  silver-hating defender never printed the sear line. C `hitmm`
+  after the vis hit pline, `!compat`, `mon_hates_silver &&
+  silverhit`, `"%s %s sears %s!"` with `s_suffix(Monnam)`,
+  `simpleonames(mwep)`, and flesh unless ghost/amorph.
+- **C locus:** `mhitm.c` `hitmm` `:652–655` weaponhit/silverhit;
+  `:706–726` sear. `mondata.c` `mon_hates_silver` already D-1254.
+- **JS was:** named omit (D-0887 / D-1341). Vis hit pline then
+  `mdamagem` with no sear.
+- **Fix:** same predicates and message as C. `weaponhit` is
+  AT_WEAP or AT_CLAW+mwep; silver is `objects[].oc_material`.
+  Self-hit `strsubst` himself/herself/itself → his/her/its own.
+  Shade is S_GHOST here so skips flesh. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `hitmm`.
+- **Not this iter:** artifact wep skips default `"hits"` buf;
+  `dmgval` shade/`shade_glare`; mthrowu/zap/hmon `shade_miss`
+  callers; mdamagem AD_STON leftover.
+- **Verified:** private canary **16**/16 (C/JS shape; vampire
+  flesh; gnome/iron/jackal-bite/`!vis` no sear; shade no flesh;
+  balrog self his-own; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session has vis mon-vs-mon silver.
+- **Follow-up:** Open `mhitm.c` `mdamagem` AD_STON leftover
+  (named from D-1338). Not shade_miss.
+- **Files:** `js/mhitm.js`.
+
 ## D-1350 — dokick.c kickdmg martial knockback
 
 - **Status:** fixed (map-driven Open from D-1332; not a public FAIL)

@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1351 mhitm.c hitmm silver sear
+
+**Objective:** Open `mhitm.c` hitmm silver sear (named from
+D-0887). Not shade_miss.
+**C locus:** `mhitm.c` `hitmm` `:652–655` weaponhit/silverhit;
+`:706–726` sear after vis hit pline.
+**Change:** vis `!compat` `mon_hates_silver && silverhit`
+then `s_suffix(Monnam)` `simpleonames` sears; flesh unless
+ghost/amorph; self himself→his own. Artifact wep named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session has vis mon-vs-mon silver). Next audit @**#1720**.
+**Verified:** canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitm.c` `mdamagem` AD_STON leftover (named
+from D-1338). Not shade_miss.
+**Blocked:** none.
 ## 2026-08-21 — review D-1350 (audit #1715)
 
 **Objective:** audit — C-fidelity review **312** of JS SHA

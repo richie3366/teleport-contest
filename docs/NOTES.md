@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1350; cadence **#1715** `d3f2a9e5`
+- **Fortress 44/44** after D-1351; cadence **#1715** `d3f2a9e5`
   (Scr **11,405** RNG 100% speed `36+0.30/turn`). Review **312**
-  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `mhitm.c` hitmm
-  silver sear (named from D-0887). Not shade_miss. Do not
-  skip D-1350…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1350. `see_monsters` warn_obj_cnt /
+  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `mhitm.c`
+  `mdamagem` AD_STON leftover (named from D-1338). Not
+  shade_miss. Do not skip D-1351…D-1229. Do not wrap
+  `wildmiss` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1351. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   zap/pray ureflects W_AMUL/W_ARM/dragon and mcastu ureflects
   still named.
@@ -22,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1350.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1351.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,11 +37,11 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1350 (index). Named still: hitmm silver
-  sear; `dmgval` shade/`shade_glare`; mthrowu/zap/hmon
-  `shade_miss` callers; mhitm wrap brush; `wake_nearby` /
-  `u_wipe_engr` kick callers; throw_obj `:147` petrify / pickup /
-  wield `killer_xname`. No ALIGN/FORCE on seed0383.
+- Do not skip D-1071…D-1351 (index). Named still: hitmm artifact
+  wep; `dmgval` shade/`shade_glare`; mthrowu/zap/hmon
+  `shade_miss` callers; mdamagem AD_STON leftover; mhitm wrap
+  brush; `wake_nearby` / `u_wipe_engr` kick callers. No
+  ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -51,6 +52,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1351: `mhitm.c` `hitmm` `:706–726` — vis `!compat` after
+  hit pline; `weaponhit` AT_WEAP or AT_CLAW+mwep; silver
+  `oc_material`; `mon_hates_silver` then `simpleonames`
+  sears; flesh unless `noncorporeal`/`amorphous`; self
+  himself→his own. Artifact wep named.
 - D-1350: `dokick.c` `kickdmg` `:96–113` — after HP, martial
   `!bigmonst` `!rn2(3)` then `mcanmove`/`!ustuck`/`!mtrapped`.
   `goodpos(...,0)` then reels pline, `m_in_out_region`,
@@ -94,5 +100,3 @@ Objective/score live in `CURRENT.md`.
   `mon_reflects`/`monstone(magr)`; Archon `mhitm_ad_blnd`+`rn2(2)`.
 - D-1337: `apply.c` `splash_lit` `:1518–1572` — rust-trap lantern
   stays lit; dunk snuffs+age drain; else `snuff_lit`.
-- D-1336: `mon.c` `maybe_mnexto` `:3998–4017` + dokick evade
-  `:267–285`. Knockback is D-1350. abuse_dog is D-1349.

@@ -90,7 +90,8 @@ import {
     is_flyer, MR_STONE, MALE, FEMALE, NEUTRAL, can_teleport,
     touch_petrifies, poly_when_stoned, resists_ston, humanoid,
     unsolid, is_whirly, passes_walls, haseyes, flaming, slimeproof,
-    is_male, is_female, is_shapeshifter, has_head,
+    is_male, is_female, is_shapeshifter, has_head, mon_hates_silver,
+    noncorporeal,
 } from './monsters.js';
 import { objectNames } from './objects.js';
 import { ART_TROLLSBANE } from './generated/artifacts_data.js';
@@ -100,7 +101,7 @@ import {
     weight, mksobj, set_corpsenm, obj_stop_timers,
 } from './mkobj.js';
 import { Monnam, mon_nam, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam } from './do_name.js';
-import { an, xname, makeplural, cxname, vtense, The } from './objnam.js';
+import { an, xname, makeplural, cxname, vtense, The, simpleonames } from './objnam.js';
 import { mon_explodes } from './explode.js';
 import { newcham, pm_to_cham } from './makemon.js';
 import { polyself } from './polyself.js';
@@ -2088,9 +2089,16 @@ export async function shade_miss(magr, mdef, obj, thrown, verbose) {
 /**
  * C ref: mhitm.c hitmm — hit pline when gv.vis; else noises().
  * Seduce: smiles/talks + engagingly/seductively when could_seduce && !mcan.
- * shade_miss (D-1341) bypasses mdamagem. Named omit: silver sear; artifact wep.
+ * shade_miss (D-1341) bypasses mdamagem. Silver sear D-1351 (`:706–726`).
+ * Named omit: artifact wep skips the default "hits" buf.
  */
 async function hitmm(magr, mdef, mattk, mwep, dieroll) {
+    /* C `:652–655` — AT_WEAP, or claw while already holding mwep. */
+    const weaponhit = (mattk.aatyp | 0) === AT_WEAP
+        || ((mattk.aatyp | 0) === AT_CLAW && !!mwep);
+    const silverhit = !!(weaponhit && mwep
+        && (game.objects?.[mwep.otyp]?.oc_material | 0) === SILVER);
+
     pre_mm_attack(magr, mdef);
 
     // C: compat = !magr->mcan ? could_seduce(...) : 0;
@@ -2100,32 +2108,55 @@ async function hitmm(magr, mdef, mattk, mwep, dieroll) {
     }
 
     if (_mm_vis) {
+        /* C copies Monnam once; sear then s_suffix's that same buffer. */
+        let magr_name = Monnam(magr);
         if (compat) {
             const smile = mdef.mcansee ? 'smiles at' : 'talks to';
             const how = (compat === 2) ? 'engagingly' : 'seductively';
             await pline(
-                `${Monnam(magr)} ${smile} ${mon_nam(mdef)} ${how}.`,
-            );
-        } else if ((mattk.aatyp | 0) === AT_TENT) {
-            /* C `:687–689` — s_suffix(Monnam) tentacles suck */
-            await pline(
-                `${s_suffix_mm(Monnam(magr))} tentacles suck ${mon_nam_too(mdef, magr)}.`,
-            );
-        } else if ((mattk.aatyp | 0) === AT_HUGS
-            && magr !== game.u?.ustuck) {
-            /* C `:691–695` — squeezes unless magr already holds the hero */
-            await pline(
-                `${Monnam(magr)} squeezes ${mon_nam_too(mdef, magr)}.`,
+                `${magr_name} ${smile} ${mon_nam(mdef)} ${how}.`,
             );
         } else {
-            let verb = 'hits';
-            if (mattk.aatyp === AT_BITE) verb = 'bites';
-            else if (mattk.aatyp === AT_STNG) verb = 'stings';
-            else if (mattk.aatyp === AT_BUTT) verb = 'butts';
-            else if (mattk.aatyp === AT_TUCH) verb = 'touches';
-            await pline(
-                `${Monnam(magr)} ${verb} ${mon_nam_too(mdef, magr)}.`,
-            );
+            if ((mattk.aatyp | 0) === AT_TENT) {
+                /* C `:687–689` — s_suffix(Monnam) tentacles suck */
+                await pline(
+                    `${s_suffix_mm(magr_name)} tentacles suck ${mon_nam_too(mdef, magr)}.`,
+                );
+            } else if ((mattk.aatyp | 0) === AT_HUGS
+                && magr !== game.u?.ustuck) {
+                /* C `:691–695` — squeezes unless magr already holds the hero */
+                await pline(
+                    `${magr_name} squeezes ${mon_nam_too(mdef, magr)}.`,
+                );
+            } else {
+                let verb = 'hits';
+                if (mattk.aatyp === AT_BITE) verb = 'bites';
+                else if (mattk.aatyp === AT_STNG) verb = 'stings';
+                else if (mattk.aatyp === AT_BUTT) verb = 'butts';
+                else if (mattk.aatyp === AT_TUCH) verb = 'touches';
+                await pline(
+                    `${magr_name} ${verb} ${mon_nam_too(mdef, magr)}.`,
+                );
+            }
+            /* C `:706–726` — vis, !compat, after the hit pline. */
+            if (mon_hates_silver(mdef) && silverhit) {
+                let mdef_name = mon_nam_too(mdef, magr);
+                magr_name = s_suffix_mm(magr_name);
+                if (!noncorporeal(mdef.data) && !amorphous(mdef.data)) {
+                    if (mdef !== magr) {
+                        mdef_name = s_suffix_mm(mdef_name);
+                    } else {
+                        /* C strsubst first occurrence: himself/herself/itself. */
+                        mdef_name = mdef_name.replace('himself', 'his own');
+                        mdef_name = mdef_name.replace('herself', 'her own');
+                        mdef_name = mdef_name.replace('itself', 'its own');
+                    }
+                    mdef_name += ' flesh';
+                }
+                await pline(
+                    `${magr_name} ${simpleonames(mwep)} sears ${mdef_name}!`,
+                );
+            }
         }
     } else {
         await noises(magr, mattk);
@@ -2369,7 +2400,8 @@ async function gulpmm(magr, mdef, mattk) {
  * Named omit: mhitm_ad_ston/conf/stun/fire leftover dice;
  * mon_perma_blind; resists_blnd_by_arti.
  * arti_reflects(MON_WEP) is D-1342.
- * hitmm shade_miss is D-1341; other shade_miss callers still named.
+ * hitmm shade_miss is D-1341; hitmm silver sear is D-1351;
+ * other shade_miss callers still named.
  */
 export async function gazemm(magr, mdef, mattk) {
     if (!magr || !mdef || !mattk) return M_ATTK_MISS;
@@ -2445,7 +2477,8 @@ export async function gazemm(magr, mdef, mattk) {
  * mon_explodes and set AGR_DIED unconditionally (lifesave named on
  * mondead). Else mdamagem then mondead. Tame melancholy even if seen.
  * Named omit: mondead→m_unleash object (slack printed here);
- * mdamagem ston/conf/stun/fire leftover. hitmm shade_miss is D-1341.
+ * mdamagem ston/conf/stun/fire leftover. hitmm shade_miss is D-1341;
+ * hitmm silver sear is D-1351.
  */
 export async function explmm(magr, mdef, mattk) {
     if (!magr || !mdef || !mattk) return M_ATTK_MISS;

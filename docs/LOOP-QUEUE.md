@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitm.c` hitmm silver sear (named from D-0887). Not shade_miss.
 - [ ] `mhitm.c` `mdamagem` AD_STON leftover (named from D-1338). Not shade_miss.
 - [ ] `zap.c` `ureflects` W_AMUL/W_ARM/dragon (named from D-1342). Not W_WEP.
 - [ ] `weapon.c` `dmgval` shade/`shade_glare` (named from D-1341). Not hitmm shade_miss.
