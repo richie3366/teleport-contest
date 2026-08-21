@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1387 spell.c unskilled FIREBALL getdir cancel
+
+**Objective:** Must-fix `spell.c` unskilled SPE_FIREBALL/CONE
+`getdir` cancel leftover dirs (review **346**). Not Open
+FORCE_BOLT.
+**C locus:** `cmd.c` `getdir` `:4095–4111`; caller
+`spell.c` `spelleffects` `:1488–1510`.
+**Change:** live `lock.js` `getdir` instead of `getdir_spell`
+zero-on-cancel; leftover-dir ESC `weffects`. No trailing
+`confdir` on shared `getdir`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts unskilled fireball/cone with leftover dirs).
+**Verified:** private canary **14**/14; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_FORCE_BOLT (named).
+Not fireball.
+**Blocked:** none.
 ## 2026-08-21 — review D-1379–D-1386 (audit #1755)
 
 **Objective:** audit — C-fidelity reviews **339–346** of JS SHAs

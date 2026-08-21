@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1387 — spell.c unskilled FIREBALL getdir cancel leftover dirs
+
+- **Status:** fixed (Must-fix review **346**; not a public FAIL)
+- **Symptom:** unskilled fireball/cone ESC/space/return always
+  self-exploded. C `getdir((char *) 0)` quitchars return 0
+  **without** zeroing leftover `u.dx/u.dy/u.dz`; `spelleffects`
+  prints `The magical energy is released!` then `weffects` if
+  any leftover dir is nonzero. `.` is GETDIR_SELF (zeros, returns 1,
+  no energy-released line).
+- **C locus:** `cmd.c` `getdir` `:4095–4111`; caller
+  `spell.c` `spelleffects` `:1488–1510`.
+- **JS was:** local `getdir_spell` zeroed dirs on cancel then
+  always `zapyourself`. Comment claimed C released energy at self.
+- **Fix:** call live `lock.js` `getdir` (cancel already leaves
+  dirs; `apply_dirsym` has `.`/`s`/`<>` / numpad). Did **not**
+  add trailing `confdir` to shared `getdir`. Deleted the clone.
+  Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`.
+- **Not this iter:** SPE_FORCE_BOLT IMMEDIATE `bhit`; other
+  `spelleffects` otyps; directional IMMEDIATE heal/tele
+  `weffects`; `zhitm` `spell_damage_bonus`; `update_inventory`;
+  zap_updown/steed; mouse `_` / help_dir / cmdassist on getdir.
+- **Verified:** private canary **14**/14 (C/JS grep; leftover-dir
+  ESC/space weffects `rn2(7)`+`d(12,6)` not `d(6,6)`; zero-leftover
+  ESC still self; leftover `.` SELF-zero self; hjkl; CONE leftover
+  ESC ray; FORCE_BOLT still omit; skilled scatter; HEALING;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until a
+  session casts unskilled fireball/cone with leftover dirs.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_FORCE_BOLT
+  (named). Not fireball.
+- **Files:** `js/spell.js`.
+
 ## D-1386 — spell.c unskilled SPE_FIREBALL FALLTHROUGH weffects
 
 - **Status:** fixed (map-driven Open from D-1378; not a public FAIL)

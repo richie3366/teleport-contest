@@ -13,7 +13,8 @@
 // dotelecmd m-prefix (D-1209); known_spell + SPE_TELEPORT_AWAY atme
 // zapyourself + check_capacity in spelleffects_check (D-1225);
 // skilled SPE_FIREBALL/SPE_CONE_OF_COLD throwspell scatter (D-1378);
-// unskilled FIREBALL/CONE FALLTHROUGH weffects (D-1386).
+// unskilled FIREBALL/CONE FALLTHROUGH weffects (D-1386) + getdir
+// cancel leftover dirs (D-1387).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps; directional weffects for
@@ -47,6 +48,7 @@ import { erode_obj } from './trap.js';
 import { set_occupation } from './engrave.js';
 import { rndcurse, take_gold } from './sit.js';
 import { explode } from './explode.js';
+import { getdir } from './lock.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { cansee } from './vision.js';
 import { m_at } from './mon.js';
@@ -918,40 +920,6 @@ function use_skill(skill, degree) {
 }
 
 /**
- * C ref: cmd.c getdir for spell cast — '.' is self (success), not cancel.
- * Esc/space/return cancel with dx=dy=dz=0 (C then releases energy at self).
- */
-async function getdir_spell() {
-    const msg = 'In what direction?';
-    game._pending_message = `${msg} `;
-    await flush_screen(1);
-    const disp = game.nhDisplay;
-    if (disp?.setCursor) disp.setCursor(game._pending_message.length, 0);
-    const key = await nhgetch();
-    const ch = String.fromCharCode(key);
-    game._pending_message = '';
-    if (!game.u) game.u = {};
-    if (ch === '.') {
-        game.u.dx = game.u.dy = game.u.dz = 0;
-        return true;
-    }
-    if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
-        game.u.dx = game.u.dy = game.u.dz = 0;
-        return false;
-    }
-    const DIR_DX = { h: -1, l: 1, j: 0, k: 0, y: -1, u: 1, b: -1, n: 1 };
-    const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
-    if (!(ch in DIR_DX)) {
-        game.u.dx = game.u.dy = game.u.dz = 0;
-        return false;
-    }
-    game.u.dx = DIR_DX[ch];
-    game.u.dy = DIR_DY[ch];
-    game.u.dz = 0;
-    return true;
-}
-
-/**
  * C ref: spell.c dospellmenu — VIEW / CAST (PICK_NONE / PICK_ONE + sort).
  * Returns { ok, splnum }; ok false = cancel.
  * VIEW: swap/sort deferred — letter/`+` treated as cancel.
@@ -1329,7 +1297,8 @@ async function throwspell() {
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / SPE_TELEPORT_AWAY
  * directional self-zap (D-1225 atme ^T); skilled SPE_FIREBALL /
  * SPE_CONE_OF_COLD throwspell scatter (D-1378). Unskilled
- * FIREBALL/CONE FALLTHROUGH weffects (D-1386). Other otyps named
+ * FIREBALL/CONE FALLTHROUGH weffects (D-1386) + live getdir
+ * cancel leftover dirs (D-1387). Other otyps named
  * omission (return TIME after energy spent + exercise).
  */
 export async function spelleffects(spell_otyp, atme, force) {
@@ -1408,7 +1377,9 @@ export async function spelleffects(spell_otyp, atme, force) {
             if (oc?.oc_dir !== NODIR) {
                 if (atme) {
                     game.u.dx = game.u.dy = game.u.dz = 0;
-                } else if (!(await getdir_spell())) {
+                } else if (!(await getdir(null))) {
+                    /* C cmd.c getdir quitchars return 0 without
+                     * zeroing u.dx/dy/dz; spell.c then reuses them. */
                     await pline('The magical energy is released!');
                 }
                 if (!game.u.dx && !game.u.dy && !game.u.dz) {
@@ -1439,7 +1410,7 @@ export async function spelleffects(spell_otyp, atme, force) {
         }
         if (atme) {
             game.u.dx = game.u.dy = game.u.dz = 0;
-        } else if (!(await getdir_spell())) {
+        } else if (!(await getdir(null))) {
             await pline('The magical energy is released!');
         }
         if (!game.u.dx && !game.u.dy && !game.u.dz) {
