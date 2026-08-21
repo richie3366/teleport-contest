@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
+- [x] `dokick.c` `obj_delivery` stolen_booty / `mksobj_migr_to_species` (named from D-1177). **Addressed:** D-1363
+
+
 - [x] `dokick.c` no_kick poly/steed/lizard/uinwater/boulder (named from D-0786). Not Wounded_legs. **Addressed:** D-1362 `a979a9ac`
 
 

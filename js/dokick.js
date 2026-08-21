@@ -2103,7 +2103,8 @@ export async function impact_drop(missile, x, y, dlev) {
  * trap-door with the hero), TRUE after check_special_room (stairs /
  * random). C XOR: skip when (!near_hero) != (where == MIGR_WITH_HERO).
  * nx/ny persist across the loop like C (only RANDOM/default zeros).
- * Named omit: mkmaze stolen_booty producer. wizkit FALSE is D-1192.
+ * Named omit: none for species cargo skip (producer is D-1363).
+ * wizkit FALSE is D-1192.
  */
 export async function obj_delivery(near_hero) {
     const u = game.u || {};
@@ -2220,9 +2221,8 @@ function migr_species_of(otmp) {
  * migrating_objs whose migr_species equals
  * (mtmp->data->mflags2 & DELIVER_PM). No dest-level filter (unlike
  * obj_delivery). Callers: makemon.c after allow_minvent (DF_NONE,
- * cnt=1). dog.c mon_arrive MIGR_LEFTOVERS (DF_ALL) still named.
- * Named omit: mkobj.c mksobj_migr_to_species / mkmaze stolen_booty;
- * add_to_minv merge.
+ * cnt=1). Producer: mkobj.c mksobj_migr_to_species / mkmaze stolen_booty
+ * (D-1363). Named omit: dog.c mon_arrive leftovers DF_ALL; add_to_minv merge.
  */
 export function deliver_obj_to_mon(mtmp, cnt, deliverflags) {
     if (!mtmp) return;

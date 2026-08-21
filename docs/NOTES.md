@@ -5,15 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1362; cadence **#1730** `a979a9ac`
+- **Fortress 44/44** after D-1363; cadence **#1730** `a979a9ac`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews
   **321/322** ACCEPT-WITH-DEBT (no Must-fix). Next: Open
-  `dokick.c` `obj_delivery` stolen_booty /
-  `mksobj_migr_to_species` (named from D-1177). Do not skip
-  D-1362…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1362. `see_monsters` warn_obj_cnt /
+  `zap.c` `zapyourself` WAN_MAGIC_MISSILE (named). Not
+  WAN_LIGHTNING. Do not skip D-1363…D-1229. Do not wrap
+  `wildmiss` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1363. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
+  minetn-1 loader / dog leftovers / `add_to_minv` merge named.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1362.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1363.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,8 +34,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1362 (index).
-- Do not skip D-1071…D-1362 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1363 (index).
+- Do not skip D-1071…D-1363 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush; allmain/uhitm/dothrow/dig `u_wipe_engr`.
@@ -50,6 +51,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1363: `mkobj.c` `mksobj_migr_to_species` `:253–265` +
+  `mkmaze.c` `stolen_booty` `:799–889` — orctown loot onto
+  `migrating_objs` (`MIGR_TO_SPECIES`, `migr_species` overlays
+  `corpsenm`) then captain/extra orcs. Caller
+  `fixup_special` mines+ransacked. `new_oname` + local
+  orc `fruitadd`. minetn-1 loader / dog leftovers /
+  `add_to_minv` merge / cleric·stronghold graveyard named.
 - D-1362: `dokick.c` `dokick` `:1265–1310` — no_kick
   nolimbs/slithy, verysmall, steed yn+`kick_steed`, wounded
   (D-0786), encumber, S_LIZARD, `uinwater && !rn2(2)`, utrap
@@ -111,7 +119,3 @@ Objective/score live in `CURRENT.md`.
 - D-1349: `dokick.c` `kickdmg` `:70–76` — tame `abuse_dog` then
   still-tame `monflee(dmg?rnd(dmg):1)` else `mflee=0`, after
   caitiff and before `rnd(dmg)`. Callees already D-0836.
-- D-1348: `uhitm.c` `mhitm_ad_wrap` `:3344–3375` — uhitm you-as-agr
-  (`m_slips_free`; C `tailmiss=!gn.notonhead`; coil/swing,
-  pool `!cant_drown`, AT_HUGS crush, verbose brush). mhitu
-  wrap is D-1331; mhitm brush named.

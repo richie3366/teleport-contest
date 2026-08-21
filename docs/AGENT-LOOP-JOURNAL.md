@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1363 mkobj.c mksobj_migr_to_species / stolen_booty
+
+**Objective:** Open `dokick.c` `obj_delivery` stolen_booty /
+`mksobj_migr_to_species` (named from D-1177). Not no_kick.
+**C locus:** `mkobj.c` `mksobj_migr_to_species` `:253–265`;
+`mkmaze.c` `migr_booty_item`/`stolen_booty`/`migrate_orc`/
+`shiny_orc_stuff`; caller `fixup_special` `:694–695`;
+`do_name.c` `new_oname`.
+**Change:** queue orctown loot as `MIGR_TO_SPECIES` overlay
+cargo; gang oname lowercase; captain leftovers + extra
+orcs `MIGR_RANDOM`. Local orc `fruitadd`. Filled D-1361
+index row. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until
+minetn-1 loader).
+**Verified:** private canary **24**/24; green+strict
+seed8000/0900; focused seed0060; cohort **8**/8 + strict
+1500/1800/0012/0004/0007/2200/0383 + seed0060.
+**Next:** Open `zap.c` `zapyourself` WAN_MAGIC_MISSILE
+(named). Not WAN_LIGHTNING.
+**Blocked:** none.
 ## 2026-08-21 — review D-1361–D-1362 (audit #1730)
 
 **Objective:** audit — C-fidelity reviews **321–322** of JS SHAs

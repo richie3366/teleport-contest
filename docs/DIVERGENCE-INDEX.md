@@ -5,7 +5,9 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1363 | fixed | mkobj.c mksobj_migr_to_species / mkmaze stolen_booty | map-driven Open from D-1177; C `mkobj.c:253–265` + `mkmaze.c` `stolen_booty`/`migr_booty_item`/`fixup_special` mines+ransacked; JS had consume path only; live `js/mkobj.js` + `js/mklev.js` + `new_oname`; minetn-1 loader / dog leftovers / `add_to_minv` merge named |
 | D-1362 | fixed | dokick.c no_kick poly/steed/lizard/uinwater/boulder | map-driven Open from D-0786; C `dokick.c:1265–1310` chain + `steed.c` `kick_steed`; JS wounded/utrap/encumber only; live `js/dokick.js` + `js/steed.js`; swallow/pit-brace/Lev after getdir named |
+| D-1361 | fixed | dokick.c kick_ouch find_drawbridge remap | map-driven Open from D-1343; C `dokick.c:892–897` `is_drawbridge_wall` then `pline_The` + `find_drawbridge` remaps `gm.maploc` before `wake_nearto 5*5`/`kickstr`; JS named omit; live `js/dokick.js` + `js/dbridge.js`; air/Lev `hurtle` named |
 | D-1360 | fixed | dokick.c dokick u_wipe_engr(2) | map-driven Open from D-1358; C `dokick.c:1384` after `wake_nearby(FALSE)` before isok/`kick_monster` `u_wipe_engr(2)` (hero cell; `can_reach_floor(TRUE)` then `wipe_engr_at`); JS stub comment; live `js/dokick.js` `dokick` + callee `js/engrave.js` D-1051; allmain/uhitm/dothrow/dig still named |
 | D-1359 | fixed | fountain.c drinkfountain fate<10 | Must-fix review **318**; C `fountain.c:279–282` `uhunger += rnd(10)` + `newuhs(FALSE)` (“don't choke on water”); JS `await lesshungry` after D-1356 could choke/fullwarn; live `js/fountain.js`; `newuhs` messages still named |
 | D-1358 | fixed | dokick.c dokick wake_nearby | map-driven Open from D-1350; C `dokick.c:1383` after maybe_kick before `u_wipe_engr`/`kick_monster` `wake_nearby(FALSE)` (`ulevel*20`, petcall FALSE); JS stub comment; live `js/dokick.js` `dokick` + callee `js/mon.js`; `u_wipe_engr` still named |

@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1363 — mkobj.c mksobj_migr_to_species / mkmaze.c stolen_booty
+
+- **Status:** fixed (map-driven Open from D-1177; not a public FAIL)
+- **Symptom:** `obj_delivery` skipped `MIGR_TO_SPECIES` and
+  `deliver_obj_to_mon` could extract it, but nothing ever queued
+  orctown cargo. C `stolen_booty` builds that list via
+  `mksobj_migr_to_species`.
+- **C locus:** `mkobj.c` `mksobj_migr_to_species` `:253–265`
+  (`mksobj` → `add_to_migration` → `owornmask = MIGR_TO_SPECIES`
+  → `migr_species = mflags2`, overlaying `corpsenm`);
+  `mkmaze.c` `migr_booty_item` `:779–796`, `stolen_booty`
+  `:799–889`, `shiny_orc_stuff`, `migrate_orc`; caller
+  `fixup_special` `:694–695` (`mines_dnum && ransacked`);
+  `do_name.c` `new_oname` `:61–77`.
+- **JS was:** named omit after D-1193. `check_ransacked` already
+  set `game.ransacked` for proto `minetn-1`.
+- **Fix:** port producer + helpers. Overlay keeps
+  `migr_species` and `corpsenm` equal. Booty oname is lowercase
+  `rndorcname`; `upstart` only for monster names. Orc/bones
+  `fruitadd` else-branch is local in `mklev.js` (avoid
+  mklev↔options cycle). Rule #2: no fs.
+- **JS:** `js/mkobj.js` `mksobj_migr_to_species`; `js/mklev.js`
+  `stolen_booty` / `migr_booty_item` / `shiny_orc_stuff` /
+  `migrate_orc`; `js/do_name.js` `new_oname`; comments in
+  `js/dokick.js`.
+- **Not this iter:** minetn-1/6/7 loader (public-unhit);
+  dog.c `mon_arrive` `MIGR_LEFTOVERS` `DF_ALL`; `add_to_minv`
+  merge; cleric/stronghold graveyard in the same
+  `fixup_special` else-if; options.c user-specified `fruitadd`.
+- **Verified:** private canary **24**/24 (C/JS order; overlay;
+  `OBJ_MIGRATING`; `obj_delivery` skip; `deliver_obj_to_mon`
+  extract; ransacked clear; captain `MIGR_LEFTOVERS`; extra
+  orcs `MIGR_RANDOM`; leftover cargo or DF_NONE minvent booty
+  otyp; Rule #2); green+strict seed8000/0900; focused
+  seed0060; cohort **8**/8 + strict 1500/1800/0012/0004/0007/
+  2200/0383 + seed0060. **Public-unhit** until minetn-1 loads.
+- **Follow-up:** Open `zap.c` `zapyourself` WAN_MAGIC_MISSILE
+  (named). Not WAN_LIGHTNING.
+- **Files:** `js/mkobj.js`, `js/mklev.js`, `js/do_name.js`,
+  `js/dokick.js`.
+
 ## D-1362 — dokick.c no_kick poly/steed/lizard/uinwater/utrap/boulder
 
 - **Status:** fixed (map-driven Open from D-0786; not a public FAIL)

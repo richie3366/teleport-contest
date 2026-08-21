@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dokick.c` `obj_delivery` stolen_booty / `mksobj_migr_to_species` (named from D-1177).
 - [ ] `zap.c` `zapyourself` WAN_MAGIC_MISSILE (named). Not WAN_LIGHTNING.
 - [ ] `zap.c` `zapyourself` SPE_FIREBALL (named). Not lightning.
 - [ ] `zap.c` `lightdamage` (named; WAN_LIGHT/camera). Not flashburn lightning.
