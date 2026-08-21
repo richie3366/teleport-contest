@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1330; cadence **#1685** `a7a5a835`
+- **Fortress 44/44** after D-1331; cadence **#1685** `a7a5a835`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **288–291**
-  ACCEPT-WITH-DEBT (**283** closed). Next: Open `mhitu.c`
-  `u_slip_free` AD_WRAP (named from D-1307). Not AD_DRIN. Not
-  kickdmg `special_dmgval`. Do not skip D-1330…D-1229. Do not wrap
-  `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1330. warn_obj / `artifact_light` `)`
+  ACCEPT-WITH-DEBT (**283** closed). Next: Open `dokick.c` kickdmg
+  `special_dmgval` (named from D-1310). Not snuff_candle. Not
+  throwit land. Do not skip D-1331…D-1229. Do not wrap `wildmiss`
+  as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1331. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
 ## Don't re-check (≤15)
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1330.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1331.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,8 +35,8 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1330 (index). Named still: AD_WRAP
-  `u_slip_free` caller; throwit land / mthrowu `snuff_candle`;
+- Do not skip D-1071…D-1331 (index). Named still: uhitm/mhitm
+  `mhitm_ad_wrap` arms; throwit land / mthrowu `snuff_candle`;
   kickdmg `special_dmgval`. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -48,11 +48,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1331: `uhitm.c` `mhitm_ad_wrap` mhitu `:3376–3417` —
+  `(!mcan || ustuck==magr) && !sticks`; `!ustuck && !rn2(10)`
+  `u_slip_free` else `set_ustuck` + coil/swing; held pool drown /
+  AT_HUGS crush; verbose brush zeros dice. uhitm/mhitm wrap arms
+  named.
 - D-1330: `uhitm.c` `mhitm_ad_drin` mhitm `:3272–3301` — headless
   `pline_mon` skipdrin, helm `misc_worn_check&W_ARMH&&rn2(8)`
   literal helmet, `eat_brains(gv.vis)`, lifsav skipdrin.
-  `mattackm` AT_TENT FALLTHROUGH + hitmm tentacles suck. AD_WRAP
-  caller named.
+  `mattackm` AT_TENT FALLTHROUGH + hitmm tentacles suck.
 - D-1329: `uhitm.c` `mhitm_ad_drin` mhitu `:3222–3271` — hitmsg,
   `defends(AD_DRIN,uwep)`/`!has_head` skipdrin, `u_slip_free`,
   `uarmh&&rn2(8)` hat/helm, Half then `mdamageu`+zero dice,
@@ -67,7 +71,7 @@ Objective/score live in `CURRENT.md`.
 - D-1327: `mhitu.c` `mattacku` AT_HUGS `:823–830` + `uhitm.c`
   `mhitm_ad_phys` `:4023–4037` + `u_slip_free` `:1045–1085`.
   Auto-hit if prev two succeeded or ustuck; `failed_grab` pline;
-  `rn2(2)` grab / crush / rope-golem choke. AD_WRAP caller named.
+  `rn2(2)` grab / crush / rope-golem choke. mhitu AD_WRAP D-1331.
 - D-1326: `mhitu.c` `explmu` `:1591–1664` + `mattacku` AT_EXPL
   `:839–842`. `mcan` miss before `d()`; thin-air/`empty water`;
   COLD/FIRE/ELEC `mon_explodes`; BLND visible skip-`rnd`; HALU
@@ -99,5 +103,3 @@ Objective/score live in `CURRENT.md`.
   break (skips leash/candelabrum/lamp/charges).
 - D-1317: CANDELABRUM `:1447–1454` `" (n of 7 candle%s)"` +
   unlit `" attached"` / lit `", lit"`; break before lamp.
-- D-1316: throwit ACURRSTR urange `:1613–1682` (crossbow 18 / owt /
-  uball / ammo / hurtle / boulder / Mjollnir / underwater).

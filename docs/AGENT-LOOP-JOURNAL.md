@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1331 mhitu.c AD_WRAP
+
+**Objective:** Open `mhitu.c` `u_slip_free` AD_WRAP (named from
+D-1307). Not AD_DRIN.
+**C locus:** `uhitm.c` `mhitm_ad_wrap` mhitu `:3376–3417`; callee
+`mhitu.c` `u_slip_free`; caller `mhitm_adtyping`.
+**Change:** an eel/python wrap now slips, grabs (coil/swing),
+drowns in a pool, crushes on AT_HUGS, or brushes (verbose). JS
+no longer zeros AD_WRAP in `mhitm_adtyping_u`. uhitm/mhitm wrap
+arms still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1690**.
+**Verified:** canary **23**/23; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dokick.c` kickdmg `special_dmgval` (named from
+D-1310). Not snuff_candle.
+**Blocked:** none.
 ## 2026-08-21 — D-1330 mhitm.c AD_DRIN
 
 **Objective:** Open `mhitm.c` AD_DRIN (named from D-1307). Not mhitu.

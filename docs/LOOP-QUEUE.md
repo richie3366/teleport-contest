@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitu.c` `u_slip_free` AD_WRAP (named from D-1307). Not AD_DRIN.
 - [ ] `dokick.c` kickdmg `special_dmgval` (named from D-1310). Not snuff_candle.
 - [ ] `dothrow.c` throwit land `snuff_candle` (C `:1818`). Not mthrowu.
 - [ ] `mthrowu.c` `snuff_candle` (C `:942` notcaught land). Not throwit land.

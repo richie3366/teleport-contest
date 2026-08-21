@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1331 — mhitu.c AD_WRAP (mhitm_ad_wrap monster→you arm)
+
+- **Status:** fixed (map-driven Open from D-1307; not a public FAIL)
+- **Symptom:** a giant eel or python never wrapped the hero. C
+  `mhitm_ad_wrap` mhitu arm grabs on `!ustuck && !rn2(10)` unless
+  `u_slip_free`, else already-held pool drown / AT_HUGS crush, else
+  verbose coil-or-leg brush that zeros leftover dice. Cancelled
+  or `sticks(you)` also zeros dice. JS `mhitm_adtyping_u` defaulted
+  `AD_WRAP` to `damage = 0`. Helper `u_slip_free` was already live
+  (D-1327) with no wrap caller.
+- **C locus:** `uhitm.c` `mhitm_ad_wrap` `:3376–3417` (mhitu arm
+  only). Caller `mhitm_adtyping` `case AD_WRAP`. Callee `mhitu.c`
+  `u_slip_free` `:1045–1085`. Coil: `slithy(pa) && (S_SNAKE ||
+  S_NAGA)`. Drown: `is_pool && !Swimming && !Amphibious &&
+  !Breathless`; moat vs `"pool of water"` via `typ != POOL &&
+  !is_waterwall && !Is_medusa_level && !Is_waterlevel`.
+- **JS was:** named omit (reviews **289**/**291**, D-1307/D-1327).
+  `u_slip_free` live; `mhitm_adtyping_u` defaulted WRAP to 0.
+- **Fix:** `mhitm_ad_wrap_u` in `mhitu.js`; `case AD_WRAP` in
+  `mhitm_adtyping_u`. Some_Monnam AUGMENT_IT still named. Rule #2:
+  no fs.
+- **JS:** `js/mhitu.js` `mhitm_ad_wrap_u` / `mhitm_adtyping_u`.
+- **Not this iter:** uhitm arm (`m_slips_free`); mhitm brush arm;
+  gazemm; explmm; mhitm AT_HUGS; `shade_miss`; kickdmg
+  `special_dmgval`.
+- **Verified:** private canary **23**/23 (C/JS shape; python coil
+  vs eel swing; grease slip; cancelled/sticks zero dice; verbose
+  brush; AT_HUGS crush; pool drown + wizard Die? `n`; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session actually wraps.
+- **Follow-up:** Open `dokick.c` kickdmg `special_dmgval` (named
+  from D-1310).
+- **Files:** `js/mhitu.js`.
+
 ## D-1330 — mhitm.c AD_DRIN (mhitm_ad_drin mon→mon arm)
 
 - **Status:** fixed (map-driven Open from D-1307 / D-1329; not a public FAIL)
