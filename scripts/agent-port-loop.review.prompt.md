@@ -48,25 +48,21 @@ This is an audit against **pinned C**, not against the commit message.
    for a **dispatch** while the **callee** is a stub? Say so explicitly.
 6. Density §2b. Verification: focused + green + **relevant** cohort, or
    admit public-unhit.
-7. **End of this SHA:** write `reviews/loop-unattended/NN-HASH-slug.md`
-   now, append its `00-INDEX.md` row now, and if QUALITY-RISK/REJECT
-   prepend the Must-fix line(s) now. Only then open the next SHA.
+7. **End of this SHA:** do **Required output (this SHA)** now. Only then
+   open the next SHA.
 
 Write in **English**. Length is `check-hot-docs.mjs --review NN` (JS-touching
 150–350, docs-only 40–80; +33% is still `ok`). No full-diff paste. Short
 C/JS citations (≤30 lines).
 
-## Required output (end of iteration, after every SHA file is already on disk)
+## Required output (this SHA — write now, not after the last SHA)
 
-The per-SHA files and INDEX rows are **not** written here — they were
-written in Method step 7 after each SHA. Here you only finish the iter:
-
-1. Confirm every listed SHA has `reviews/loop-unattended/NN-HASH-slug.md`
-2. Journal crumb. Cadence score (full `sessions`) if this is the audit
-   overlay. `node scripts/check-hot-docs.mjs --fix --review NN …`
-   (this iter’s review ids; do not count). `ok` = no cap edit. If REFILL,
-   append Open to ~12 from named map omits. **Then** one grouped commit
-   **and** `git push origin HEAD`.
+1. `reviews/loop-unattended/NN-HASH-slug.md` (NN = next index)
+2. Update `reviews/loop-unattended/00-INDEX.md`
+3. If the verdict is QUALITY-RISK or REJECT: **prepend** one `- [ ]` line
+   per distinct C-wrong family under `LOOP-QUEUE.md` **Must-fix** (not
+   Open). Each line cites `Source: reviews/loop-unattended/NN-…`. Set
+   `CURRENT.md` **Next cluster** to the first new Must-fix item.
 
 ### Required headings
 
@@ -86,6 +82,15 @@ Verdict line **exactly** one of:
 ACCEPT-WITH-DEBT still lists Actionable items if any C-wrong remains
 (named omits go in the map, not Must-fix). QUALITY-RISK **without** a
 Must-fix prepend is a failed review — the supervisor will halt.
+
+## Required output (end of iteration)
+
+After every listed SHA already has its file on disk: journal crumb.
+Cadence score (full `sessions`) if this is the audit overlay.
+`node scripts/check-hot-docs.mjs --fix --review NN …` (this iter’s
+review ids; do not count). `ok` = no cap edit. If REFILL, append Open
+to ~12 from named map omits. **Then** one grouped commit **and**
+`git push origin HEAD`.
 
 ## STOP
 
