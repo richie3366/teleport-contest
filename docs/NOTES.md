@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1393; cadence **#1755** `1f94d5e3`
+- **Fortress 44/44** after D-1394; cadence **#1755** `1f94d5e3`
   (Scr **11,405** RNG 100% speed `38+0.31/turn` R² 0.85). Next:
-  Open `uhitm.c` `mhitm_ad_phys` shade_miss (named from D-1341).
-  Not hmon. Reviews **339–345** ACCEPT-WITH-DEBT; **346**
-  QUALITY-RISK shipped D-1387. Do not skip D-1393…D-1229.
+  Open `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380).
+  Not stasis. Reviews **339–345** ACCEPT-WITH-DEBT; **346**
+  QUALITY-RISK shipped D-1387. Do not skip D-1394…D-1229.
   No FORCE. Do not wrap `wildmiss`. Do not add trailing
   `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1392. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1394. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1392.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1394.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,9 +35,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1392 (index).
-- Do not skip D-1071…D-1392 (index). Named still: hitmm artifact
-  wep; `mhitm_ad_phys` `shade_miss` (hmon is D-1384; zap bhit shade
+  nhcore (D-1066). Do not skip D-1067…D-1394 (index).
+- Do not skip D-1071…D-1394 (index). Named still: hitmm artifact
+  wep; `mhitm_ad_phys` shade_miss is D-1394 (kick thick / mwep
+  dmgval / worm-shrieker named; hmon is D-1384; zap bhit shade
   is D-1383; M_AP_OBJECT skip is D-1392; WEB stick is D-1393;
   mthrowu is D-1382);
   mdamagem STUN/FIRE leftover; mhitm wrap brush.
@@ -53,6 +54,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1394: `uhitm.c` `mhitm_ad_phys` mhitm `:4128–4137` —
+  `MON_WEP` then null unless AT_WEAP/AT_CLAW, `shade_miss`
+  vis=`canseemon` both zeros leftover `d()`. Caller
+  `mdamagem` AD_PHYS; explmm skips hitmm so this is the
+  shade gate. Callee D-1341. Kick thick / mwep dmgval /
+  worm-shrieker named. hmon is D-1384.
 - D-1393: `zap.c` `bhit` `:3926–3938` — empty WEB +
   thrown/kicked `!rn2(3)` Yname2 stuck pline + tseen/newsym
   + clear returning then break. Callee D-1383 shade after.
@@ -100,7 +107,7 @@ Objective/score live in `CURRENT.md`.
 - D-1384: `uhitm.c` `hmon_hitmon` `:1812–1822` — melee/applied
   `shade_miss(&youmonst,mon,obj,FALSE,TRUE)` + barehands shade
   dmg 0. Thrown/kicked skip (D-1383). Callee D-1341; dmgval
-  shade D-1354. `mhitm_ad_phys` named.
+  shade D-1354. `mhitm_ad_phys` is D-1394.
 - D-1383: `zap.c` `bhit` `:3972–3992` — thrown/kicked
   `shade_miss(&youmonst,mtmp,obj,TRUE,TRUE)` clears mtmp and
   keeps flying. ZAPPED_WAND still fhitm. Callee D-1341;
@@ -109,7 +116,7 @@ Objective/score live in `CURRENT.md`.
 - D-1382: `mthrowu.c` `m_throw` `:680–686` —
   `mtmp && shade_miss(..., TRUE, TRUE)` skip `ohitmon` keep
   flying. Callee D-1341; dmgval shade D-1354. Zap is D-1383;
-  hmon is D-1384.
+  hmon is D-1384; `mhitm_ad_phys` is D-1394.
 - D-1381: `uhitm.c` `do_attack` `:555–563` —
   `S_LEPRECHAUN` `!rn2(7)` `m_move(0)` then stumble/
   `return FALSE`. Wipe is D-1373. check_capacity /
@@ -117,7 +124,3 @@ Objective/score live in `CURRENT.md`.
 - D-1380: `zap.c` `zapnodir` WAN_WISHING `:2575–2585` —
   `Luck+rn2(5)<0` unfortunately else `known=!!dknown` +
   `makewish()`. Enlighten/stasis named. Create is D-1379.
-- D-1379: `zap.c` `zapnodir` WAN_CREATE_MONSTER `:2569–2574`
-  `create_critters(rn2(23)?1:rn1(7,2),NULL,FALSE)` +
-  `makemon.c` `:1556–1590` eel `enexto` / seen known.
-  Scroll/spell create named.

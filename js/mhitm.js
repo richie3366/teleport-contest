@@ -663,6 +663,7 @@ async function mhitm_ad_halu(magr, mattk, mdef, mhm) {
  * (unlike HALU/BLND, which zero dice).
  * Named omit: uhitm you-as-agr; mhitu you-as-def (hitmsg + rn2(4)
  * + make_confused).
+ * mhitm_ad_phys shade_miss is D-1394.
  */
 async function mhitm_ad_conf(magr, mattk, mdef, mhm) {
     void mattk;
@@ -679,7 +680,7 @@ async function mhitm_ad_conf(magr, mattk, mdef, mhm) {
 /**
  * C ref: uhitm.c do_stone_mon :3944–3978.
  * Named omit: munstone (muse.c lizard/acid tin eat; treat as false).
- * mhitm_ad_phys cockatrice-corpse wep caller still named.
+ * mhitm_ad_phys mwep corpse still named (D-1394 ports shade_miss only).
  */
 async function do_stone_mon(magr, mattk, mdef, mhm) {
     const pd = mdef?.data;
@@ -719,6 +720,26 @@ async function mhitm_ad_ston(magr, mattk, mdef, mhm) {
     if (magr.mcan) return;
     await do_stone_mon(magr, mattk, mdef, mhm);
     if (mhm.done) return;
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_phys mhitm arm :4128–4198 (D-1394).
+ * Re-reads MON_WEP then zeros it unless AT_WEAP/AT_CLAW (so a bite
+ * while holding silver still shade_misses). vis is canseemon both,
+ * not gv.vis. shade_miss callee is D-1341.
+ * Named omit: youmonst is damageum_ad_phys; mhitu is mhitm_ad_phys_u;
+ * AT_KICK thick_skinned; mwep dmgval/gauntlets/artifact_hit/rustm/
+ * mhitm_really_poison; purple worm vs shrieker cap.
+ */
+async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
+    let mwep = MON_WEP(magr);
+    const vis = !!(canseemon(magr) && canseemon(mdef));
+    const aatyp = mattk.aatyp | 0;
+    /* C `:4133–4134` — non-weapon/claw physical blows ignore the wep. */
+    if (aatyp !== AT_WEAP && aatyp !== AT_CLAW) mwep = null;
+    if (await shade_miss(magr, mdef, mwep, false, vis)) {
+        mhm.damage = 0;
+    }
 }
 
 /** C ref: mondata.h perceives — M1_SEE_INVIS. */
@@ -2140,6 +2161,24 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
     }
 
+    // C: mhitm_adtyping → mhitm_ad_phys for AD_PHYS (D-1394).
+    // shade_miss zeros leftover dice (and returns mhm.hitflags, usually
+    // MISS). Non-zero dice fall through to shared knockback + HP.
+    if ((mattk.adtyp | 0) === AD_PHYS) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_phys(magr, mattk, mdef, mhm);
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (mhm.done || !damage) {
+            mhitm_knockback(magr, mdef, mattk, hitflags, !!mwep);
+            return hitflags;
+        }
+    }
+
     mhitm_knockback(magr, mdef, mattk, hitflags, !!mwep);
 
     if (!damage) return hitflags === M_ATTK_AGR_DIED ? M_ATTK_AGR_DIED : M_ATTK_HIT;
@@ -2179,7 +2218,7 @@ function m_next2u_mm(mtmp) {
  * C ref: uhitm.c shade_miss :2016–2051 — hero/mon vs shade.
  * dmgval is zero/not-zero (weapon.c shade/`shade_glare` D-1354).
  * Caller mthrowu m_throw is D-1382; zap bhit is D-1383;
- * hmon is D-1384; mhitm_ad_phys still named.
+ * hmon is D-1384; mhitm_ad_phys is D-1394.
  */
 export async function shade_miss(magr, mdef, obj, thrown, verbose) {
     const youagr = magr === game.youmonst;
@@ -2527,7 +2566,7 @@ async function gulpmm(magr, mdef, mattk) {
  * arti_reflects(MON_WEP) is D-1342.
  * hitmm shade_miss is D-1341; hitmm silver sear is D-1351;
  * zap bhit shade_miss is D-1383; hmon shade_miss is D-1384;
- * mhitm_ad_phys still named.
+ * mhitm_ad_phys shade_miss is D-1394.
  */
 export async function gazemm(magr, mdef, mattk) {
     if (!magr || !mdef || !mattk) return M_ATTK_MISS;
@@ -2604,7 +2643,8 @@ export async function gazemm(magr, mdef, mattk) {
  * mondead). Else mdamagem then mondead. Tame melancholy even if seen.
  * Named omit: mondead→m_unleash object (slack printed here);
  * mdamagem stun/fire leftover. mdamagem AD_STON leftover is D-1352;
- * AD_CONF leftover is D-1385.
+ * AD_CONF leftover is D-1385. mhitm_ad_phys shade_miss is D-1394
+ * (explmm AD_PHYS skips hitmm, so mdamagem is the shade gate).
  * hitmm shade_miss is D-1341;
  * hitmm silver sear is D-1351.
  */

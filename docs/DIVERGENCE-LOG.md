@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1394 — uhitm.c mhitm_ad_phys shade_miss
+
+- **Status:** fixed (map-driven Open from D-1341; not a public FAIL)
+- **Symptom:** a monster-vs-monster AD_PHYS hit that reached
+  `mdamagem` still subtracted leftover `d()` from a shade.
+  C `mhitm_ad_phys` mhitm arm re-reads `MON_WEP`, zeros it
+  unless `AT_WEAP`/`AT_CLAW`, then `shade_miss(..., FALSE,
+  canseemon both)` zeros `mhm.damage`. `hitmm` already
+  misses unarmed shades (D-1341); `explmm` AD_PHYS skips
+  `hitmm`, so this was the remaining gate. A silver wep on
+  a non-WEAP/CLAW blow still shade_misses.
+- **C locus:** `uhitm.c` `mhitm_ad_phys` `:4128–4137` (mhitm
+  arm). Callee `uhitm.c` `shade_miss` `:2016–2051` (JS
+  `mhitm.js`, D-1341). Caller `mhitm.c` `mdamagem` `:1059`
+  `mhitm_adtyping` `case AD_PHYS`.
+- **JS was:** named omit (D-1341 / D-1384). `mdamagem` AD_PHYS
+  fell through to generic HP.
+- **Fix:** `mhitm_ad_phys` mhitm arm + `mdamagem` AD_PHYS
+  (zero-damage returns `mhm.hitflags`, usually MISS). Rule
+  #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_phys` / `mdamagem`.
+- **Not this iter:** youmonst `damageum_ad_phys`; mhitu
+  `mhitm_ad_phys_u`; AT_KICK `thick_skinned`; mwep
+  `dmgval`/gauntlets/`artifact_hit`/`rustm`/poison; purple
+  worm vs shrieker cap; AD_WERE/HEAL/STUN callers.
+- **Verified:** private canary **12**/12 (C/JS grep; explmm
+  AD_PHYS vs shade HP+harmlessly+exploder dies; silver mw
+  still miss because aatyp nulls wep; gnome still hurt;
+  jackal hitmm D-1341 regression; AT_WEAP silver keeps mwep
+  and hurts; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session has mon-vs-shade AD_PHYS
+  via `mdamagem`.
+- **Follow-up:** Open `zap.c` `zapnodir` WAN_ENLIGHTENMENT
+  (named from D-1380). Not stasis.
+- **Files:** `js/mhitm.js`.
+
 ## D-1393 — zap.c bhit WEB stick
 
 - **Status:** fixed (map-driven Open from D-1383; not a public FAIL)

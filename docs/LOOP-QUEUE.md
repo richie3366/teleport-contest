@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` `mhitm_ad_phys` shade_miss (named from D-1341). Not hmon.
 - [ ] `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380). Not stasis.
 - [ ] `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352). Not CONF.
 - [ ] `spell.c` `spelleffects` SPE_JUMPING (named). Not clairvoyance.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `spell.c` `spelleffects` SPE_CURE_BLINDNESS (named). Not sickness.
 - [ ] `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING (named). Not cure.
 - [ ] `spell.c` `spelleffects` SPE_CREATE_MONSTER seffects (named). Not chain.
+- [ ] `uhitm.c` `mhitm_ad_phys` mwep dmgval (named). Not shade_miss.
+- [ ] `uhitm.c` `mhitm_ad_phys` AT_KICK thick_skinned (named). Not mwep.
+- [ ] `zap.c` `zapnodir` WAN_STASIS (named from D-1380). Not enlightenment.
+- [ ] `uhitm.c` `mhitm_ad_fire` leftover (named from D-1385). Not STUN.
+- [ ] `mhitm.c` `mhitm_ad_wrap` brush (named from D-1348). Not uhitm wrap.
 
 ## Parked (do not pop)
 

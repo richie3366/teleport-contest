@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+
+## 2026-08-21 — D-1394 uhitm.c mhitm_ad_phys shade_miss
+
+**Objective:** Open `uhitm.c` `mhitm_ad_phys` shade_miss
+(named from D-1341). Not hmon.
+**C locus:** `uhitm.c` `mhitm_ad_phys` mhitm `:4128–4137`;
+callee `shade_miss` `:2016–2051` (JS `mhitm.js`, D-1341);
+caller `mhitm.c` `mdamagem` AD_PHYS.
+**Change:** null `MON_WEP` unless AT_WEAP/AT_CLAW then
+`shade_miss` zeros leftover `d()`. explmm AD_PHYS skips
+hitmm so this is the shade gate. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session has mon-vs-shade AD_PHYS via `mdamagem`).
+**Verified:** private canary **12**/12; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapnodir` WAN_ENLIGHTENMENT
+(named from D-1380). Not stasis.
+**Blocked:** none.
+
 ## 2026-08-21 — D-1393 zap.c bhit WEB stick
 
 **Objective:** Open `zap.c` `bhit` WEB stick
