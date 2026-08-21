@@ -2022,7 +2022,7 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
 /**
  * C ref: mhitm.c hitmm — hit pline when gv.vis; else noises().
  * Seduce: smiles/talks + engagingly/seductively when could_seduce && !mcan.
- * Named omissions: shade_miss; AT_HUGS verb; silver sear; artifact wep.
+ * Named omissions: shade_miss; silver sear; artifact wep.
  */
 async function hitmm(magr, mdef, mattk, mwep, dieroll) {
     pre_mm_attack(magr, mdef);
@@ -2042,6 +2042,12 @@ async function hitmm(magr, mdef, mattk, mwep, dieroll) {
             /* C `:687–689` — s_suffix(Monnam) tentacles suck */
             await pline(
                 `${s_suffix_mm(Monnam(magr))} tentacles suck ${mon_nam_too(mdef, magr)}.`,
+            );
+        } else if ((mattk.aatyp | 0) === AT_HUGS
+            && magr !== game.u?.ustuck) {
+            /* C `:691–695` — squeezes unless magr already holds the hero */
+            await pline(
+                `${Monnam(magr)} squeezes ${mon_nam_too(mdef, magr)}.`,
             );
         } else {
             let verb = 'hits';
@@ -2292,7 +2298,7 @@ async function gulpmm(magr, mdef, mattk) {
  * C ref: mhitm.c gazemm :736–803 — monster gazes at another monster.
  * Caller mattackm AT_GAZE (strike=0). Archon extra mhitm_ad_blnd + rn2(2)
  * stun then mdamagem leftover. Medusa reflect stones magr.
- * Named omit: mhitm_ad_ston/conf/stun/fire leftover dice; AT_HUGS;
+ * Named omit: mhitm_ad_ston/conf/stun/fire leftover dice;
  * shade_miss; arti_reflects(MON_WEP); mon_perma_blind; resists_blnd_by_arti.
  */
 export async function gazemm(magr, mdef, mattk) {
@@ -2368,7 +2374,7 @@ export async function gazemm(magr, mdef, mattk) {
  * M_ATTK_MISS (not a strike; skips passivemm). FIRE/COLD/ELEC call
  * mon_explodes and set AGR_DIED unconditionally (lifesave named on
  * mondead). Else mdamagem then mondead. Tame melancholy even if seen.
- * Named omit: mondead→m_unleash object (slack printed here); AT_HUGS;
+ * Named omit: mondead→m_unleash object (slack printed here);
  * shade_miss; mdamagem ston/conf/stun/fire leftover.
  */
 export async function explmm(magr, mdef, mattk) {
@@ -2501,6 +2507,23 @@ export async function mattackm(magr, mdef) {
                 }
                 break;
             }
+            case AT_HUGS: {
+                // C mhitm.c mattackm `:476–490` — automatic if the previous
+                // two slots were exact M_ATTK_HIT (not a bitmask). No
+                // distmin skip. failed_grab (unsolid / notonhead) then
+                // hitmm with no weapon, dieroll 0. AT_HUGS verb is
+                // hitmm "squeezes" unless magr === u.ustuck.
+                strike = (i >= 2 && res[i - 1] === M_ATTK_HIT
+                    && res[i - 2] === M_ATTK_HIT) ? 1 : 0;
+                if (strike) {
+                    if (await failed_grab(magr, mdef, mattk)) {
+                        strike = 0;
+                    } else {
+                        res[i] = await hitmm(magr, mdef, mattk, null, 0);
+                    }
+                }
+                break;
+            }
             case AT_ENGL: {
                 // C: mhitm.c mattackm AT_ENGL — shade futile; usteed skip;
                 // distmin>1 continue; engulfing_u miss; rnd hit then
@@ -2534,7 +2557,7 @@ export async function mattackm(magr, mdef) {
             }
             case AT_GAZE: {
                 // C mhitm.c mattackm `:492–495` — gaze is not a strike;
-                // ranged (no distmin skip). AT_HUGS named.
+                // ranged (no distmin skip).
                 strike = 0;
                 res[i] = await gazemm(magr, mdef, mattk);
                 break;

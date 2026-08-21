@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1340 — mhitm.c mattackm AT_HUGS
+
+- **Status:** fixed (map-driven Open from D-1327; not a public FAIL)
+- **Symptom:** a monster with an `AT_HUGS` slot never hugged another
+  monster. C `mattackm` `case AT_HUGS` auto-hits when the previous
+  two slots were exact `M_ATTK_HIT`. JS fell through `default`
+  (`attk=0`).
+- **C locus:** `mhitm.c` `mattackm` `:476–490`; `hitmm` AT_HUGS
+  verb `:691–695`. `failed_grab` already live (`:597–639`).
+- **JS was:** named omit (D-1327 / D-1339). `hitmm` defaulted hugs
+  to `"hits"`.
+- **Fix:** `i>=2 && res[i-1]==M_ATTK_HIT && res[i-2]==M_ATTK_HIT`
+  then `failed_grab` else `hitmm(magr,mdef,mattk,NULL,0)`. No
+  distmin skip. Vis hug `"squeezes"` unless `magr==u.ustuck`
+  (FALLTHROUGH `"hits"`). Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mattackm` `case AT_HUGS` + `hitmm` squeeze
+  verb.
+- **Not this iter:** `shade_miss`; hitmm silver sear / artifact
+  wep; mdamagem AD_STON/CONF/STUN/FIRE leftover; uhitm/mhitm wrap
+  arms.
+- **Verified:** private canary **12**/12 (C/JS shape; adjacent
+  owlbear squeezes; unsolid pass-through; notonhead tail; i=0 skip;
+  i=1 skip; distmin>1 skip; `u.ustuck` hits not squeezes; missed
+  claws skip; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session has mon-vs-mon hug.
+- **Follow-up:** Open `mhitm.c` hitmm `shade_miss`.
+- **Files:** `js/mhitm.js`.
+
 ## D-1339 — mhitm.c explmm
 
 - **Status:** fixed (map-driven Open from D-1326; not a public FAIL)

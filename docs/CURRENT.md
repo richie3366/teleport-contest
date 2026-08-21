@@ -59,24 +59,23 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1339. Reviews **296–299**
+**Map-driven fortress** after D-1340. Reviews **296–299**
 ACCEPT-WITH-DEBT (**292–295** held). **Next cluster:** Open
-`mhitm.c` AT_HUGS (named from D-1327). Not explmm.
-Do not skip D-1339…D-1229 (index). Keep mention_map addr. Do
+`mhitm.c` hitmm `shade_miss` (named from D-0887). Not AT_HUGS.
+Do not skip D-1340…D-1229 (index). Keep mention_map addr. Do
 not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1339.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1340.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1339 (index). Recent: **D-1339** `mhitm.c`
-`explmm` (C `:970–1010`; AT_EXPL distmin, mcan miss, cansee/
-noises, FIRE/COLD/ELEC `mon_explodes`, else mdamagem then
-mondead, tame melancholy, leashed slack; not AT_HUGS). Prior:
-**D-1338** `gazemm`. **D-1337** `splash_lit`. **D-1336**
-`maybe_mnexto`. **D-1335** `killer_xname`. **D-1334** mthrowu snuff.
+**Keep:** D-0845…D-1340 (index). Recent: **D-1340** `mhitm.c`
+`mattackm` AT_HUGS (C `:476–490`; prev two exact `M_ATTK_HIT`,
+`failed_grab`, `hitmm` no wep; hitmm `:691–695` squeezes unless
+`u.ustuck`). Prior: **D-1339** `explmm`. **D-1338** `gazemm`.
+**D-1337** `splash_lit`. **D-1336** `maybe_mnexto`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1339
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1340
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

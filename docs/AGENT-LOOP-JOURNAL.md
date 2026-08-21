@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1340 mhitm.c AT_HUGS
+
+**Objective:** Open `mhitm.c` AT_HUGS (named from D-1327). Not explmm.
+**C locus:** `mhitm.c` `mattackm` `:476–490`; `hitmm` `:691–695`.
+**Change:** AT_HUGS no longer falls through `mattackm` default.
+Auto-hit iff prev two slots are exact `M_ATTK_HIT`; `failed_grab`
+else `hitmm` with no weapon. Vis `"squeezes"` unless
+`magr==u.ustuck`. `shade_miss` named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1700**.
+**Verified:** canary **12**/12; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitm.c` hitmm `shade_miss` (named from D-0887).
+Not AT_HUGS.
+**Blocked:** none.
 ## 2026-08-21 — D-1339 mhitm.c explmm
 
 **Objective:** Open `mhitm.c` explmm (named from D-1326). Not gazemm.

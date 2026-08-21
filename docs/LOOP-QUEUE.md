@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitm.c` AT_HUGS (named from D-1327). Not explmm.
 - [ ] `mhitm.c` hitmm `shade_miss` (named from D-0887). Not AT_HUGS.
 - [ ] `artifact.c` `arti_reflects` W_WEP (named from D-1328). Not gazemu.
 - [ ] `dokick.c` `kickstr` (named; kick_ouch still raw kickobjnam). Not maybe_mnexto.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` zapyourself `killer_xname` (remaining). Not eat choke.
 - [ ] `dothrow.c` throwit `losehp` `killer_xname` (C `:1747`). Not zap.
 - [ ] `objnam.c` warn_obj glow (named from D-1322). Not killer_xname.
+- [ ] `uhitm.c` `m_slips_free` AD_WRAP (uhitm you-as-agr; named from D-1331). Not mhitu wrap.
+- [ ] `dokick.c` `abuse_dog` (named from D-1332). Not kickstr.
+- [ ] `dokick.c` martial knockback (named from D-1332). Not abuse_dog.
+- [ ] `mhitm.c` hitmm silver sear (named from D-0887). Not shade_miss.
+- [ ] `mhitm.c` `mdamagem` AD_STON leftover (named from D-1338). Not shade_miss.
 
 ## Parked (do not pop)
 
