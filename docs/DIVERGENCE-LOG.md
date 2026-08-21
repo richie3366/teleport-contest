@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1357 — objnam.c the() CapitalMon
+
+- **Status:** fixed (map-driven Open from D-1335; not a public FAIL)
+- **Symptom:** `the("Oracle")` / `the("Archon")` omitted `"the "`
+  (capitalized type/title), and `the("Amulet of Yendor")` used
+  last-space vs C first-space so `" of "` artifacts also lost
+  the article. Pname uniques like Medusa correctly stayed bare.
+- **C locus:** `rumors.c` `CapitalMon` `:791–822` + `init_CapMons`
+  `:829–935` (skip `G_UNIQ && !the_unique_pm`; hallu
+  `!bogon_is_pname`); caller `objnam.c` `the()` `:2171–2231`
+  (`CapitalMon` then fruit then last space-or-hyphen;
+  `strchr` first space `< tmp` for `" of "` / named / PYEC).
+- **JS was:** named omit (D-1335). Capitalized names with no
+  lowercase last segment returned as-is; `of` path used
+  `lastIndexOf(' ')` so `"Staff of Aesculapius"` missed `"the "`.
+- **Fix:** port `CapitalMon`/`init_CapMons` (mons[] 27 + bogusmon
+  types from embedded `BOGUSMON_BUF`; no fs). Rewrite `the()`
+  to C order: already-`the ` lowc-first; else lowercase /
+  CapitalMon; else apostrophe / first-space `" of "` / PYEC.
+  fruit_from_name + artifact_name named (invent cycle).
+  Rule #2: no fs.
+- **JS:** `js/objnam.js` `the` / `CapitalMon` / `init_CapMons`.
+- **Not this iter:** fruit_from_name + artifact_name fruit carve;
+  warn_obj `see_monsters` cnt / SPFX_WARN / ARMOR `:1412`;
+  `wake_nearby` kick callers.
+- **Verified:** private canary **26**/26 (C/JS grep; Oracle/Archon/
+  Green-elf/Wizard `"the "`; Medusa/Excalibur/Dudley bare;
+  Archon's vs Medusa's corpse; AoY/Staff `" of "`; PYEC; Y2K
+  hallu type; CapMons mons[] **27**; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383. **Public-unhit** unless a session names a
+  capitalized type via `the()`.
+- **Follow-up:** Open `dokick.c` `wake_nearby` caller.
+- **Files:** `js/objnam.js`.
+
 ## D-1356 — eat.c lesshungry/bite choke + fullwarn
 
 - **Status:** fixed (map-driven Open from D-1344; not a public FAIL)

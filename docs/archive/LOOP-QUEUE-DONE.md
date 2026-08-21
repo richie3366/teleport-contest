@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `eat.c` lesshungry/bite choke callers (named from D-1344). Not zap. **Addressed:** D-1356
+- [x] `objnam.c` `the()` CapitalMon (named from D-1335). Not warn_obj. **Addressed:** D-1357
+
+
+- [x] `eat.c` lesshungry/bite choke callers (named from D-1344). Not zap. **Addressed:** D-1356 `6fd45ec4`
 
 
 - [x] `zap.c` `zapyourself` WAN_LIGHTNING (named). Not killer_xname. **Addressed:** D-1355 `0be6d98e`
