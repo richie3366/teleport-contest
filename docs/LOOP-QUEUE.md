@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dokick.c` martial knockback (named from D-1332). Not abuse_dog.
 - [ ] `mhitm.c` hitmm silver sear (named from D-0887). Not shade_miss.
 - [ ] `mhitm.c` `mdamagem` AD_STON leftover (named from D-1338). Not shade_miss.
 - [ ] `zap.c` `ureflects` W_AMUL/W_ARM/dragon (named from D-1342). Not W_WEP.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `zapyourself` WAN_LIGHTNING (named). Not killer_xname.
 - [ ] `eat.c` lesshungry/bite choke callers (named from D-1344). Not zap.
 - [ ] `objnam.c` `the()` CapitalMon (named from D-1335). Not warn_obj.
+- [ ] `dokick.c` `wake_nearby` caller (C `:1383` after maybe_kick; callee live). Not knockback.
+- [ ] `dokick.c` `u_wipe_engr` caller (C `:1384`; body D-1051). Not knockback.
+- [ ] `dokick.c` kick_ouch drawbridge `find_drawbridge` remap (named from D-1343).
+- [ ] `dokick.c` no_kick poly/steed/lizard/uinwater/boulder (named from D-0786). Not Wounded_legs.
+- [ ] `dokick.c` `obj_delivery` stolen_booty / `mksobj_migr_to_species` (named from D-1177).
 
 ## Parked (do not pop)
 

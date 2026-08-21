@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1350 — dokick.c kickdmg martial knockback
+
+- **Status:** fixed (map-driven Open from D-1332; not a public FAIL)
+- **Symptom:** a martial kick never reeled a small mobile monster
+  backward. C `kickdmg` after HP subtract, if still alive, martial,
+  `!bigmonst`, `!rn2(3)`, `mcanmove`, not `ustuck`, `!mtrapped`,
+  then `goodpos(mx+dx,my+dy,mon,0)`, `"reels from the blow."`,
+  `m_in_out_region`, `remove_monster`/`place_monster`, `set_apparxy`,
+  `mintrap` — `Trap_Killed_Mon` skips later `killed`. JS left a
+  stub comment. Not `mhurtle` (C TODO). Callees already live.
+- **C locus:** `dokick.c` `kickdmg` `:96–113`. Callees
+  `teleport.c` `goodpos`; `region.c` `m_in_out_region`;
+  `trap.c` `mintrap`; `monmove.c` `set_apparxy`. Caller
+  `kick_monster` after evade, non-poly.
+- **JS was:** named omit (D-1332 / D-1336 / D-1349). Comment only.
+- **Fix:** same order as C. Occupancy via `MON_OFFMAP` then
+  `MON_FLOOR` (JS `mx`/`my`; D-1231). Shade/dead/big/stuck/trap
+  still skip. `!rn2(3)` only after martial/`!bigmonst`.
+  Rule #2: no fs.
+- **JS:** `js/dokick.js` `kickdmg`.
+- **Not this iter:** `wake_nearby`; `u_wipe_engr`; shop-town
+  watchman; kick_ouch drawbridge remap; `mhurtle`.
+- **Verified:** private canary **17**/17 (C/JS order; tourist no
+  reel; samurai knock+stay seeds; STONE/occupied `goodpos` skip;
+  `bigmonst` short-circuit; `mtrapped`/`ustuck`/`!mcanmove`;
+  occupancy `m_at`; `rn2(3)` on move; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383. **Public-unhit** unless a session martial-kicks
+  a small mobile monster into a free cell.
+- **Follow-up:** Open `mhitm.c` hitmm silver sear (named from
+  D-0887). Not shade_miss.
+- **Files:** `js/dokick.js`.
+
 ## D-1349 — dokick.c kickdmg abuse_dog / monflee
 
 - **Status:** fixed (map-driven Open from D-1332; not a public FAIL)

@@ -1,7 +1,8 @@
 // dokick.js — #kick command + object fall-through (impact_drop / ship_object).
 // C ref: dokick.c — dokick, kick_dumb, kick_door, kick_nondoor, maybe_kick_monster,
 // kick_monster, kickdmg (partial; poly AT_KICK D-1310; special_dmgval D-1332;
-// maybe_mnexto evade D-1336; abuse_dog/monflee D-1349);
+// maybe_mnexto evade D-1336; abuse_dog/monflee D-1349;
+// martial knockback D-1350);
 // down_gate / drop_to / impact_drop (D-0961);
 // ship_object / otransit_msg (D-0984); obj_delivery (D-1177);
 // deliver_obj_to_mon (D-1193);
@@ -42,12 +43,14 @@ import {
 import {
     set_wounded_legs, legs_in_no_shape, b_trapped, t_at, water_damage,
     fall_through, chest_trap, instapetrify, activate_statue_trap,
+    mintrap, Trap_Killed_Mon, NO_TRAP_FLAGS,
 } from './trap.js';
 import {
     setmangry, seemimic, angry_guards, wakeup, wake_nearto, maybe_mnexto,
 } from './mon.js';
 import { abuse_dog } from './dog.js';
-import { monflee } from './monmove.js';
+import { monflee, set_apparxy } from './monmove.js';
+import { m_in_out_region } from './region.js';
 import { mon_nam, Monnam, christen_orc, free_oname } from './do_name.js';
 import { martial_bonus, use_skill, special_dmgval } from './weapon.js';
 import {
@@ -76,7 +79,7 @@ import {
     IS_TREE, IS_ALTAR, IS_OBSTRUCTED, IS_DRAWBRIDGE, IS_ROOM, Is_earthlevel,
     KILLED_BY, Upolyd, M_AP_TYPE, M_AP_MONSTER, P_NONE,
     NATTK, M_ATTK_MISS, M_ATTK_DEF_DIED, W_ARMF,
-    P_MARTIAL_ARTS,
+    P_MARTIAL_ARTS, MON_FLOOR, MON_OFFMAP,
     RIGHT_SIDE, TIMEOUT, FOOT, LEG, SHOPBASE, SHOP_DOOR_COST,
     MIGR_NOWHERE, MIGR_RANDOM, MIGR_STAIRS_UP, MIGR_LADDER_UP, MIGR_SSTAIRS,
     MIGR_WITH_HERO, MIGR_NOBREAK, MIGR_NOSCATTER, MIGR_TO_SPECIES,
@@ -102,7 +105,7 @@ import { del_engr_at, disturb_grave } from './engrave.js';
 import { sink_backs_up } from './fountain.js';
 import { makemon, mpickobj, add_to_minv } from './makemon.js';
 import { scatter } from './explode.js';
-import { enexto, rloco, noteleport_level } from './teleport.js';
+import { enexto, rloco, noteleport_level, goodpos } from './teleport.js';
 import { is_art } from './artifact.js';
 import { ART_MJOLLNIR } from './generated/artifacts_data.js';
 import { hero_breaks, thitmonst, breaks, breaktest } from './dothrow.js';
@@ -790,11 +793,12 @@ async function maybe_kick_monster(mon, x, y) {
  * C ref: dokick.c kickdmg — non-poly kick damage + passive.
  * special_dmgval(W_ARMF) D-1332 (`:56` before shade return, `:90` add).
  * abuse_dog / monflee D-1349 (`:70–76` after caitiff, before rnd(dmg)).
- * martial knockback still named.
+ * martial knockback D-1350 (`:96–113` after HP subtract, before passive).
  */
 async function kickdmg(mon, clumsy) {
     let dmg = Math.trunc((acurrstr() + acurr(A_DEX) + acurr(A_CON)) / 15);
     let kick_skill = P_NONE;
+    let trapkilled = false;
     const u = game.u || {};
     const uarmf = u.uarmf;
 
@@ -837,10 +841,36 @@ async function kickdmg(mon, clumsy) {
     dmg += u.udaminc | 0;
     if (dmg > 0) mon.mhp = (mon.mhp | 0) - dmg;
 
-    // martial knockback / goodpos / mintrap deferred (needs !rn2(3) when martial)
+    /* C dokick.c `:96–113` — martial knockback (not mhurtle; C TODO).
+     * Short-circuit: alive, martial, !bigmonst, then !rn2(3), then
+     * mcanmove / !ustuck / !mtrapped. goodpos gpflags=0. Region
+     * check before remove/place. mintrap Trap_Killed_Mon skips killed. */
+    if ((mon.mhp | 0) > 0 && martial() && !bigmonst(mon.data) && !rn2(3)
+        && mon.mcanmove && mon !== u.ustuck && !mon.mtrapped) {
+        const mdx = (mon.mx | 0) + (u.dx | 0);
+        const mdy = (mon.my | 0) + (u.dy | 0);
+        if (goodpos(mdx, mdy, mon, 0)) {
+            await pline(`${Monnam(mon)} reels from the blow.`);
+            if (m_in_out_region(mon, mdx, mdy)) {
+                /* C rm.h remove_monster — grid clear; mx/my unchanged.
+                 * JS occupancy is mx/my; MON_OFFMAP makes m_at skip. */
+                mon.mstate = (mon.mstate | 0) | MON_OFFMAP;
+                newsym(mon.mx, mon.my);
+                /* C steed.c place_monster — mx/my + MON_FLOOR */
+                mon.mx = mdx;
+                mon.my = mdy;
+                mon.mstate = MON_FLOOR;
+                newsym(mon.mx, mon.my);
+                set_apparxy(mon);
+                if ((await mintrap(mon, NO_TRAP_FLAGS)) === Trap_Killed_Mon) {
+                    trapkilled = true;
+                }
+            }
+        }
+    }
 
     await passive(mon, uarmf, true, (mon.mhp | 0) > 0, AT_KICK, false);
-    if ((mon.mhp | 0) <= 0) await killed(mon);
+    if ((mon.mhp | 0) <= 0 && !trapkilled) await killed(mon);
     if (kick_skill !== P_NONE) use_skill(kick_skill, 1);
 }
 
@@ -848,7 +878,7 @@ async function kickdmg(mon, clumsy) {
  * C ref: dokick.c kick_monster — anger, encumbrance clumsiness, evade, kickdmg.
  * Poly AT_KICK loop D-1310 (`Upolyd && attacktype(AT_KICK)` then return).
  * maybe_mnexto evade D-1336 (`:267–285` else of block).
- * kickdmg abuse_dog D-1349. martial knockback still named.
+ * kickdmg abuse_dog D-1349. martial knockback D-1350.
  */
 export async function kick_monster(mon, x, y) {
     let clumsy = false;

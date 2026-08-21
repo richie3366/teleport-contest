@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1350 dokick.c kickdmg martial knockback
+
+**Objective:** Open `dokick.c` martial knockback (named from
+D-1332). Not abuse_dog.
+**C locus:** `dokick.c` `kickdmg` `:96–113`. Callees
+`goodpos` / `m_in_out_region` / `mintrap` / `set_apparxy`.
+Caller `kick_monster` after evade, non-poly.
+**Change:** after HP subtract, alive martial `!bigmonst`
+`!rn2(3)` then `mcanmove`/`!ustuck`/`!mtrapped`. `goodpos`
+gpflags=0, reels pline, region, remove/place, apparxy,
+`mintrap` Trap_Killed_Mon skips `killed`. Not mhurtle.
+`wake_nearby` named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session martial-kicks a small mobile monster). Next audit
+@**#1715**.
+**Verified:** canary **17**/17; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitm.c` hitmm silver sear (named from
+D-0887). Not shade_miss.
+**Blocked:** none.
 ## 2026-08-21 — review D-1346–D-1349 (audit #1710)
 
 **Objective:** audit — C-fidelity reviews **308–311** of JS SHAs
