@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` `spelleffects` SPE_JUMPING (named). Not clairvoyance.
 - [ ] `spell.c` `spelleffects` SPE_CURE_SICKNESS (named). Not jumping.
 - [ ] `spell.c` `spelleffects` SPE_CURE_BLINDNESS (named). Not sickness.
 - [ ] `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING (named). Not cure.

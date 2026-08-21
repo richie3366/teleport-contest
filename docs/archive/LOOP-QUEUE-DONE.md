@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352). Not CONF. **Addressed:** D-1396
+- [x] `spell.c` `spelleffects` SPE_JUMPING (named). Not clairvoyance. **Addressed:** D-1397
+
+
+- [x] `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352). Not CONF. **Addressed:** D-1396 `66018a5a`
 
 
 - [x] `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380). Not stasis. **Addressed:** D-1395 `05f8c1a1`

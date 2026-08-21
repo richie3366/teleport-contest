@@ -9,6 +9,23 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — D-1397 spell.c SPE_JUMPING jump(max skill)
+
+**Objective:** Open `spell.c` `spelleffects` SPE_JUMPING (named).
+Not clairvoyance.
+**C locus:** `spell.c` `spelleffects` `:1584–1587`; callee
+`apply.c` `jump` `:1988–2163` (magic ustuck `:2023–2036`).
+**Change:** `jump(max(role_skill,1))`; !TIME → nothing_happens.
+Callee magic writhe + tame pull-free + air/waterlevel flail.
+Dynamic `apply.js`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts jumping).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_CURE_SICKNESS
+(named). Not jumping.
+**Blocked:** none.
 ## 2026-08-21 — D-1396 mhitm.c mdamagem AD_STUN leftover
 
 **Objective:** Open `mhitm.c` `mdamagem` AD_STUN leftover

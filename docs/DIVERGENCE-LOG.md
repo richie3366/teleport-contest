@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1397 — spell.c spelleffects SPE_JUMPING
+
+- **Status:** fixed (map-driven Open from D-1391; not a public FAIL)
+- **Symptom:** casting SPE_JUMPING printed `Nothing happens.`
+  C `spelleffects` `:1584–1587` calls `jump(max(role_skill, 1))`
+  and if that return lacks `ECMD_TIME`, `pline1(nothing_happens)`.
+  Callee `apply.c` `jump` `:1988–2163` (physical `#jump` already
+  D-0899): magic swallow bounce / water swish / ustuck writhe
+  (tame pull-free first) / `Levitation||Is_airlevel||Is_waterlevel`
+  flail, else getpos. Spell still returns TIME after energy.
+- **C locus:** `spell.c` `spelleffects` `:1584–1587`; callee
+  `apply.c` `jump` `:1988–2163` (magic ustuck `:2023–2036`,
+  air/waterlevel `:2037–2043`).
+- **JS was:** named omit after D-1391. Other-otyp arm printed
+  `Nothing happens.`; `jump()` already live for `#jump`.
+  Magic ustuck always `"cannot escape"` (ECMD_OK).
+- **Fix:** SPE_JUMPING arm. Dynamic `import('./apply.js')`
+  (`apply` → `weapon` → `spell`). Callee magic ustuck writhe +
+  tame pull-free + air/waterlevel flail. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/apply.js` `jump`.
+- **Not this iter:** SPE_CURE_SICKNESS / CURE_BLINDNESS / CHAIN;
+  scroll `seffects` / potion `peffects`; `#jump` `known_spell`
+  fallback; trap-escape; `hurtle_jump`; stucksteed; nolimbs.
+- **Verified:** private canary **18**/18 (C/JS grep; IMMEDIATE
+  escape; swallow bounce; water swish; Lev/air flail; hostile
+  writhe; tame pull-free; getpos ESC Nothing happens + TIME;
+  physical jump(0) still can't; CURE still omit; CLAIRVOYANCE /
+  FORCE_BOLT / HEALING / PROTECTION regression; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts jumping.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_CURE_SICKNESS
+  (named). Not jumping.
+- **Files:** `js/spell.js`, `js/apply.js`.
+
 ## D-1396 — mhitm.c mdamagem AD_STUN leftover
 
 - **Status:** fixed (map-driven Open from D-1352; not a public FAIL)

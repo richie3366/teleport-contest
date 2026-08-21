@@ -18,11 +18,12 @@
 // SPE_FORCE_BOLT IMMEDIATE weffects/bhit (D-1388);
 // SPE_CREATE_FAMILIAR make_familiar(NULL,u.ux,u.uy,FALSE) (D-1389);
 // SPE_PROTECTION cast_protection (D-1390; timeout.c usptime tick);
-// SPE_CLAIRVOYANCE do_vicinity_map (D-1391; callee detect.c).
+// SPE_CLAIRVOYANCE do_vicinity_map (D-1391; callee detect.c);
+// SPE_JUMPING jump(max(role_skill,1)) (D-1397; callee apply.c).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps (JUMPING/
-// CURE/CHAIN/seffects/peffects); directional weffects for
+// swap/sort; other spelleffects otyps (CURE/CHAIN/seffects/peffects);
+// #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
 // In_W_tower in aggravate. #teleport doextcmd D-1230.
@@ -80,6 +81,7 @@ import {
     ECMD_OK,
     ECMD_TIME,
     ECMD_FAIL,
+    nothing_happens,
     EXT_ENCUMBER,
     NO_KILLER_PREFIX,
     TIMEOUT,
@@ -150,6 +152,7 @@ const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
 const SPE_CREATE_FAMILIAR = objectNames.indexOf('SPE_CREATE_FAMILIAR');
 const SPE_PROTECTION = objectNames.indexOf('SPE_PROTECTION');
 const SPE_CLAIRVOYANCE = objectNames.indexOf('SPE_CLAIRVOYANCE');
+const SPE_JUMPING = objectNames.indexOf('SPE_JUMPING');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
@@ -1442,8 +1445,10 @@ async function cast_protection() {
  * dog.c D-1029). SPE_PROTECTION cast_protection (D-1390;
  * callee find_ac + timeout.c usptime tick). SPE_CLAIRVOYANCE
  * do_vicinity_map (D-1391; callee detect.c; blocked
- * cornuthaum hat). Other otyps named omission (return TIME
- * after energy spent + exercise).
+ * cornuthaum hat). SPE_JUMPING jump(max(role_skill, 1))
+ * (D-1397; callee apply.c jump; !TIME → nothing_happens).
+ * Other otyps named omission (return TIME after energy
+ * spent + exercise).
  */
 export async function spelleffects(spell_otyp, atme, force) {
     const spell = force ? spell_otyp : spell_idx(spell_otyp);
@@ -1568,6 +1573,16 @@ export async function spelleffects(spell_otyp, atme, force) {
             await pline(
                 `You sense a pointy hat on top of your ${body_part(HEAD)}.`,
             );
+        }
+    } else if (otyp === SPE_JUMPING) {
+        /* C spell.c :1584–1587 — jump(max(role_skill, 1)); if that
+         * does not take TIME, pline1(nothing_happens). Dynamic
+         * import: apply.js → weapon.js → spell.js. */
+        const { jump } = await import('./apply.js');
+        const magiclevel = Math.max(role_skill | 0, 1);
+        const jres = await jump(magiclevel);
+        if (!((jres | 0) & ECMD_TIME)) {
+            await pline(nothing_happens);
         }
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
