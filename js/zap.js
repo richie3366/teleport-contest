@@ -25,9 +25,10 @@
 // Reflecting); IMMEDIATE weffects → bhit(rn1(8,6)) + bhito WAN_POLYMORPH
 // / cancel / striking boulder+statue+hero_breaks / tele pile + bhitm
 // strike/cancel/poly/tele/undead(+unturn_dead); RAY WAN_DIGGING/SPE_DIG
-// → zap_dig (dig.c).
+// → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
+// → ubuzz BZ_U_SPELL (D-1386).
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
-// probing; zap_map; spell ubuzz; mon_reflects;
+// probing; zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // backfire body; other NODIR (enlighten/stasis); wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
@@ -48,7 +49,7 @@
 // trap_ice_effects; Underwater/utrap lava arms.
 // spell.c skilled SPE_FIREBALL scatter is D-1378 (this callee
 // spell_damage_bonus); unskilled FIREBALL/CONE FALLTHROUGH weffects
-// + zhitm bonus still named.
+// is D-1386 (this callee SPE ubuzz). zhitm spell_damage_bonus named.
 // muse MUSE_CAMERA is D-1376; Sunsword invoke_blinding_ray is D-1377.
 // bhitm / zap_updown / zap_steed WAN_MAKE_INVISIBLE; setworn w_blocks.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
@@ -470,12 +471,18 @@ function zaptype(type) {
     return Math.abs(t);
 }
 
-/** C ref: hack.h BZ_OFS_WAN / BZ_U_WAND */
+/** C ref: hack.h BZ_OFS_WAN / BZ_U_WAND / BZ_OFS_SPE / BZ_U_SPELL */
 function BZ_OFS_WAN(otyp) {
     return Math.abs((otyp | 0) - WAN_MAGIC_MISSILE) % 10;
 }
 function BZ_U_WAND(bztyp) {
     return 0 + (bztyp | 0);
+}
+function BZ_OFS_SPE(otyp) {
+    return Math.abs((otyp | 0) - SPE_MAGIC_MISSILE) % 10;
+}
+function BZ_U_SPELL(bztyp) {
+    return 10 + (bztyp | 0);
 }
 
 /**
@@ -4168,9 +4175,10 @@ export { zapsetup, bhito, bhit };
 /**
  * C ref: zap.c weffects — exercise + effect dispatch.
  * NODIR + RAY wand ubuzz; IMMEDIATE bhit WAN_POLYMORPH;
- * WAN_DIGGING/SPE_DIG → zap_dig; spell ubuzz / zap_updown / steed deferred.
+ * WAN_DIGGING/SPE_DIG → zap_dig; RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH
+ * ubuzz (D-1386). zap_updown / steed deferred.
  */
-async function weffects(obj) {
+export async function weffects(obj) {
     const otyp = obj.otyp;
     const oc = game.objects?.[otyp];
     let disclose = false;
@@ -4200,6 +4208,13 @@ async function weffects(obj) {
         if (otyp === WAN_DIGGING || otyp === SPE_DIG) {
             await zap_dig();
             disclose = true;
+        } else if (otyp >= SPE_MAGIC_MISSILE && otyp <= SPE_FINGER_OF_DEATH) {
+            /* C zap.c :3461–3462 */
+            await ubuzz(
+                BZ_U_SPELL(BZ_OFS_SPE(otyp)),
+                Math.trunc((game.u?.ulevel | 0) / 2) + 1,
+            );
+            disclose = true;
         } else if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_LIGHTNING) {
             await ubuzz(
                 BZ_U_WAND(BZ_OFS_WAN(otyp)),
@@ -4207,7 +4222,7 @@ async function weffects(obj) {
             );
             disclose = true;
         }
-        // SPE_* ubuzz deferred
+        /* C impossible("weffects: unexpected spell or wand") named omit */
     }
     // C: fatal zhitu→losehp→done never resumes here for learnwand
     if (game.program_state?.gameover) return;

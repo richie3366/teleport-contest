@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1386 — spell.c unskilled SPE_FIREBALL FALLTHROUGH weffects
+
+- **Status:** fixed (map-driven Open from D-1378; not a public FAIL)
+- **Symptom:** unskilled/basic fireball/cone printed `Nothing happens.`
+  C FALLTHROUGH through `SPE_FORCE_BOLT` (`physical_damage = TRUE`)
+  into wand-duplicate `getdir` + `zapyourself` / `weffects`.
+  RAY `weffects` `ubuzz(BZ_U_SPELL(BZ_OFS_SPE(otyp)), u.ulevel/2+1)`
+  (fireball type 11 explode `d(12,6)` olet 0; cone is a cold ray).
+  Skilled scatter is D-1378; self-explode is D-1365.
+- **C locus:** `spell.c` `spelleffects` `:1454–1514`; callee
+  `zap.c` `weffects` `:3456–3462` (`BZ_U_SPELL` / `BZ_OFS_SPE`
+  in `hack.h`).
+- **JS was:** named omit after D-1378. Unskilled arm printed
+  `Nothing happens.`; `weffects` SPE ubuzz deferred.
+- **Fix:** unskilled FIREBALL/CONE getdir + self/`weffects`;
+  export `weffects`; SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH
+  `ubuzz`. FORCE_BOLT IMMEDIATE still named. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/zap.js` `weffects`.
+- **Not this iter:** SPE_FORCE_BOLT IMMEDIATE `bhit`; other
+  `spelleffects` otyps; directional IMMEDIATE heal/tele
+  `weffects`; `zhitm` `spell_damage_bonus`; `update_inventory`;
+  zap_updown/steed.
+- **Verified:** private canary **17**/17 (C/JS grep; BZ arithmetic;
+  unskilled dir `rn2(7)`+`d(12,6)` not `rnd(8)`; self `d(6,6)`;
+  ESC self; CONE ray hit; FORCE_BOLT still omit; skilled scatter
+  regression; HEALING; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until
+  a session casts unskilled fireball/cone.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_FORCE_BOLT
+  (named). Not fireball.
+- **Files:** `js/spell.js`, `js/zap.js`.
+
 ## D-1385 — mhitm.c mdamagem AD_CONF leftover
 
 - **Status:** fixed (map-driven Open from D-1352; not a public FAIL)

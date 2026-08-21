@@ -5,13 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1385; cadence **#1750** `12953730`
+- **Fortress 44/44** after D-1386; cadence **#1750** `12953730`
   (Scr **11,405** RNG 100% speed `38+0.31/turn`). Next: Open
-  `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects (named from
-  D-1378). Not skilled scatter.
+  `spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball.
   Reviews **335–338** ACCEPT-WITH-DEBT; Must-fix empty.
-  Do not skip D-1385…D-1229. No FORCE. Do not wrap `wildmiss`.
-- Do not revert D-1217–D-1385. `see_monsters` warn_obj_cnt /
+  Do not skip D-1386…D-1229. No FORCE. Do not wrap `wildmiss`.
+- Do not revert D-1217–D-1386. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -23,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1385.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1386.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,8 +33,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1385 (index).
-- Do not skip D-1071…D-1385 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1386 (index).
+- Do not skip D-1071…D-1386 (index). Named still: hitmm artifact
   wep; `mhitm_ad_phys` `shade_miss` (hmon is D-1384; zap bhit is
   D-1383; mthrowu is D-1382);
   mdamagem STUN/FIRE leftover; mhitm wrap brush.
@@ -51,6 +50,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1386: `spell.c` `spelleffects` `:1454–1514` — unskilled
+  SPE_FIREBALL/CONE FALLTHROUGH FORCE_BOLT `physical_damage` then
+  getdir + `zapyourself` / `weffects`; callee `zap.c` `:3461–3462`
+  RAY `ubuzz(BZ_U_SPELL(BZ_OFS_SPE(otyp)), ulevel/2+1)`. Skilled
+  scatter is D-1378. FORCE_BOLT IMMEDIATE named. zhitm bonus named.
 - D-1385: `uhitm.c` `mhitm_ad_conf` mhitm `:3713–3724` via
   `mhitm.c` `mdamagem` `:1059` — `!mcan && !mconf && !mspec_used`
   vis `"looks confused."` + `mconf=1` + clear WAITFORU; leftover
@@ -81,7 +85,7 @@ Objective/score live in `CURRENT.md`.
   Scroll/spell create named.
 - D-1378: `spell.c` skilled SPE_FIREBALL/CONE `throwspell`
   `:1655–1701` + scatter `:1419–1454` `rnd(8)+1` explode olet 0
-  + `spell_damage_bonus`. Unskilled FALLTHROUGH weffects named.
+  + `spell_damage_bonus`. Unskilled FALLTHROUGH weffects is D-1386.
 - D-1377: `artifact.c` `invoke_blinding_ray` `:2054–2086` —
   getdir ray / dz `litroom` radius-0 / self `lightdamage`+
   `flashburn`; cost `SPELL_LEV_PW(5)`/`rnz(100)`/`d(3,10)`.
@@ -94,7 +98,3 @@ Objective/score live in `CURRENT.md`.
   self refuse.
 - D-1373: `uhitm.c` `do_attack` `:551` `u_wipe_engr(3)` after
   STR exercise. Leprechaun evade is D-1381.
-- D-1372: `allmain.c` `moveloop` DEX `!rn2(40+ACURR(A_DEX)*3)`
-  then `u_wipe_engr(rnd(3))`.
-- D-1371: zap.js `Shock_resistance()` uprops[SHOCK_RES]; did
-  not rewrite confer. Explode/pray/sit clones named.

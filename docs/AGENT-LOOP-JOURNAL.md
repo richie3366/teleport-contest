@@ -9,6 +9,24 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — D-1386 spell.c unskilled FIREBALL FALLTHROUGH
+
+**Objective:** Open `spell.c` unskilled SPE_FIREBALL/CONE
+FALLTHROUGH weffects (named from D-1378). Not skilled scatter.
+**C locus:** `spell.c` `spelleffects` `:1454–1514`; callee
+`zap.c` `weffects` `:3461–3462` `BZ_U_SPELL`/`BZ_OFS_SPE`.
+**Change:** unskilled FIREBALL/CONE FALLTHROUGH FORCE_BOLT
+`physical_damage` then getdir + `zapyourself`/`weffects`;
+SPE RAY `ubuzz`. FORCE_BOLT IMMEDIATE named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts unskilled fireball/cone).
+**Verified:** private canary **17**/17; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_FORCE_BOLT (named).
+Not fireball.
+**Blocked:** none.
+
 ## 2026-08-21 — D-1385 mhitm.c mdamagem AD_CONF leftover
 
 **Objective:** Open `mhitm.c` `mdamagem` AD_CONF leftover

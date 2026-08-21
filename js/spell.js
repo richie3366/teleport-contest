@@ -12,11 +12,12 @@
 // spelleffects_check + SPE_HEALING self-zap; tport_spell hide/add for
 // dotelecmd m-prefix (D-1209); known_spell + SPE_TELEPORT_AWAY atme
 // zapyourself + check_capacity in spelleffects_check (D-1225);
-// skilled SPE_FIREBALL/SPE_CONE_OF_COLD throwspell scatter (D-1378).
+// skilled SPE_FIREBALL/SPE_CONE_OF_COLD throwspell scatter (D-1378);
+// unskilled FIREBALL/CONE FALLTHROUGH weffects (D-1386).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps; unskilled FIREBALL/CONE
-// FALLTHROUGH weffects; directional weffects; spell_backfire;
+// swap/sort; other spelleffects otyps; directional weffects for
+// IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
 // In_W_tower in aggravate. #teleport doextcmd D-1230.
 // Wizard turns column in dospellmenu ported (D-0586).
@@ -32,10 +33,10 @@ import { yn_function } from './getline.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import { weight, mksobj, delobj } from './mkobj.js';
 import { acurr, A_WIS, A_STR, A_INT, exercise } from './attrib.js';
-import { SPBOOK_CLASS } from './objects.js';
+import { SPBOOK_CLASS, NODIR } from './objects.js';
 import { rnd, rn2, rn1, rnl } from './rng.js';
 import { morehungry, poison_strdmg } from './eat.js';
-import { zapyourself, spell_damage_bonus } from './zap.js';
+import { zapyourself, spell_damage_bonus, weffects } from './zap.js';
 import { tele } from './teleport.js';
 import { aggravate } from './wizard.js';
 import { make_confused } from './potion.js';
@@ -1327,9 +1328,9 @@ async function throwspell() {
  * C ref: spell.c spelleffects
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / SPE_TELEPORT_AWAY
  * directional self-zap (D-1225 atme ^T); skilled SPE_FIREBALL /
- * SPE_CONE_OF_COLD throwspell scatter (D-1378). Other otyps named
- * omission (return TIME after energy spent + exercise). Unskilled
- * FIREBALL/CONE FALLTHROUGH weffects named.
+ * SPE_CONE_OF_COLD throwspell scatter (D-1378). Unskilled
+ * FIREBALL/CONE FALLTHROUGH weffects (D-1386). Other otyps named
+ * omission (return TIME after energy spent + exercise).
  */
 export async function spelleffects(spell_otyp, atme, force) {
     const spell = force ? spell_otyp : spell_idx(spell_otyp);
@@ -1400,8 +1401,35 @@ export async function spelleffects(spell_otyp, atme, force) {
                 }
             }
         } else {
-            // Unskilled FALLTHROUGH weffects named
-            await pline('Nothing happens.');
+            /* C spell.c :1454 FALLTHROUGH through SPE_FORCE_BOLT
+             * (physical_damage = TRUE) into wand-duplicate weffects. */
+            const physical_damage = true;
+            const oc = game.objects?.[otyp];
+            if (oc?.oc_dir !== NODIR) {
+                if (atme) {
+                    game.u.dx = game.u.dy = game.u.dz = 0;
+                } else if (!(await getdir_spell())) {
+                    await pline('The magical energy is released!');
+                }
+                if (!game.u.dx && !game.u.dy && !game.u.dz) {
+                    let damage = await zapyourself(pseudo, true);
+                    if (damage) {
+                        if (physical_damage) {
+                            damage = maybe_half_phys(damage);
+                        }
+                        losehp(
+                            damage,
+                            `zapped ${uhim()}self with a spell`,
+                            NO_KILLER_PREFIX,
+                        );
+                    }
+                } else {
+                    await weffects(pseudo);
+                }
+            } else {
+                await weffects(pseudo);
+            }
+            /* C update_inventory() named omit */
         }
     } else if (otyp === SPE_HEALING || otyp === SPE_EXTRA_HEALING
         || otyp === SPE_TELEPORT_AWAY) {

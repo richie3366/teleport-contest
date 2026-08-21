@@ -59,25 +59,24 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1385. **Next cluster:** Open
-`spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects (named from
-D-1378). Not skilled scatter.
+**Map-driven fortress** after D-1386. **Next cluster:** Open
+`spell.c` `spelleffects` SPE_FORCE_BOLT (named). Not fireball.
 Must-fix empty after reviews **335–338**.
-Do not skip D-1385…D-1229 (index). Keep mention_map addr.
+Do not skip D-1386…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1385.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1386.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1385 (index). Recent: **D-1385** mhitm.js
-`mdamagem` AD_CONF leftover. Prior: **D-1384** uhitm.js
-`hmon` melee/applied shade_miss. **D-1383** zap.js
-`bhit` thrown/kicked shade_miss skip.
+**Keep:** D-0845…D-1386 (index). Recent: **D-1386** spell.js
+unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects. Prior: **D-1385**
+mhitm.js `mdamagem` AD_CONF leftover. **D-1384** uhitm.js
+`hmon` melee/applied shade_miss.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1385
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1386
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

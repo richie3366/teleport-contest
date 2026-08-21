@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `mhitm.c` `mdamagem` AD_CONF leftover (named from D-1352). Not STON. **Addressed:** D-1385
+- [x] `spell.c` unskilled SPE_FIREBALL/CONE FALLTHROUGH weffects (named from D-1378). Not skilled scatter. **Addressed:** D-1386
+
+
+- [x] `mhitm.c` `mdamagem` AD_CONF leftover (named from D-1352). Not STON. **Addressed:** D-1385 `5be02746`
 
 
 - [x] `uhitm.c` `hmon` `shade_miss` caller (named from D-1354). Not zap. **Addressed:** D-1384 `ec703f48`
