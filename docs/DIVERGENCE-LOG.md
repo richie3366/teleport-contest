@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1376 — muse.c MUSE_CAMERA lightdamage
+
+- **Status:** fixed (map-driven Open from D-1366; not a public FAIL)
+- **Symptom:** monsters never used a charged expensive camera.
+  JS `find_offensive` stopped at potions; `use_offensive` had
+  no MUSE_CAMERA arm, so `lightdamage` (D-1366) was never
+  reached from muse.
+- **C locus:** `muse.c` `find_offensive` `:1566–1574`
+  (`nomore(MUSE_CAMERA)` after named SCR_EARTH);
+  `use_offensive` `:1938–1955`. Callee `zap.c` `lightdamage`
+  `:3024–3056`. Select: `(!Blind && !resists_blnd(&youmonst))
+  || hates_light(youmonst.data)` (gremlin), `dist2(mx,my,mux,muy)<=2`,
+  `spe>0`, `!rn2(6)`. Use: Hallu `verbalize("Say cheese!")`
+  (SetVoice named) else `!Blind` picture pline; `m_using`;
+  `!Blind && !resists_blnd` then You flash +
+  `make_blinded(BlindedTimeout+rnd(1+50), FALSE)`;
+  `lightdamage(otmp, TRUE, 5)`; `spe--`; **return 1** (C
+  even if the monster lives; mhitu maps 1→died).
+- **JS was:** camera listed only in `searches_for_item`;
+  find/use omitted.
+- **Fix:** camera nomore+select after POT_ACID; use arm
+  with live `make_blinded` / `lightdamage`. Rule #2: no fs.
+- **JS:** `js/muse.js` `find_offensive` / `use_offensive`;
+  callee `js/zap.js` `lightdamage` (D-1366).
+- **Not this iter:** SCR_EARTH; ray wands/horns; SetVoice;
+  resists_blnd AD_BLND/Sunsword; artifact `invoke_blinding_ray`.
+- **Verified:** private canary **21**/21 (C/JS grep; 1/6
+  select + rn2(6); Blind skip; empty/far skip; acid overwrite
+  and nomore; Blind gremlin hates_light; flash `rnd(51)` +
+  spe-- return 1; Unaware picture; Hallu cheese; gremlin
+  `lightdamage` rnd; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a hostile with a charged camera
+  stands adjacent.
+- **Follow-up:** Open `artifact.c` `invoke_blinding_ray`.
+- **Files:** `js/muse.js`, `js/zap.js` (caller comment).
+
 ## D-1375 — dig.c use_pick_axe2 u_wipe_engr(3)
 
 - **Status:** fixed (map-driven Open from D-1360; not a public FAIL)

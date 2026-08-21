@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1375; cadence **#1745** `08007958`
+- **Fortress 44/44** after D-1376; cadence **#1745** `08007958`
   (Scr **11,405** RNG 100% speed `40+0.33/turn`). Next: Open
-  `muse.c` MUSE_CAMERA `lightdamage` (named from D-1366).
-  Not zapnodir. Reviews **331–334** ACCEPT-WITH-DEBT; Must-fix
-  empty. Do not skip D-1375…D-1229. No FORCE. Do not wrap
+  `artifact.c` `invoke_blinding_ray` (named from D-1366).
+  Not camera. Reviews **331–334** ACCEPT-WITH-DEBT; Must-fix
+  empty. Do not skip D-1376…D-1229. No FORCE. Do not wrap
   `wildmiss`.
-- Do not revert D-1217–D-1375. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1376. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1375.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1376.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,8 +34,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1375 (index).
-- Do not skip D-1071…D-1375 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1376 (index).
+- Do not skip D-1071…D-1376 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush;
@@ -52,6 +52,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1376: `muse.c` MUSE_CAMERA `:1566–1574` / `:1938–1955`
+  — `find_offensive` last after potions (SCR_EARTH named);
+  `(!Blind && !resists_blnd) || hates_light` (gremlin) +
+  `dist2(mux,muy)<=2` + `spe>0` + `!rn2(6)`. Use: Hallu
+  `"Say cheese!"` (SetVoice named) else `!Blind` picture;
+  `m_using`; flash `make_blinded(BlindedTimeout+rnd(51))`;
+  `lightdamage(otmp,TRUE,5)` (D-1366); `spe--`; **return 1**
+  (C; mhitu treats as died). Callee zap.js. invoke_blinding_ray
+  still named.
 - D-1375: `dig.c` `use_pick_axe2` `:1328–1335` — after pool/lava
   (uteetering named) `!ispick && (!trap || not LANDMINE/
   BEAR_TRAP)` scratch then `u_wipe_engr(3)`. Callee D-1051;
@@ -113,8 +122,8 @@ Objective/score live in `CURRENT.md`.
   `ansimpleoname`. zapnodir WAN/SPE_LIGHT `litroom` then amt 5.
   zapyourself WAN_LIGHT `d(spe,25)` FALLTHROUGH CAMERA +
   `rnd(25)` `flashburn(FALSE)` damage 0. Live `js/zap.js` +
-  `read.js` seffect_light. muse camera / Sunsword invoke /
-  WAN_MAKE_INVISIBLE named.
+  `read.js` seffect_light. muse camera is D-1376; Sunsword invoke
+  named.
 - D-1365: `zap.c` `zapyourself` `:2748–2751` SPE_FIREBALL —
   `You` explode on self then `explode(ux,uy,11,d(6,6),WAND_CLASS,EXPL_FIERY)`.
   No `learn_it`; return 0 (explode owns HP). Live `js/zap.js`
