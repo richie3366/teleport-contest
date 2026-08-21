@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `uhitm.c` `m_slips_free` AD_WRAP (uhitm you-as-agr; named from D-1331). Not mhitu wrap. **Addressed:** D-1348
+- [x] `dokick.c` `abuse_dog` (named from D-1332). Not kickstr. **Addressed:** D-1349
+
+
+- [x] `uhitm.c` `m_slips_free` AD_WRAP (uhitm you-as-agr; named from D-1331). Not mhitu wrap. **Addressed:** D-1348 `dde5f91b`
 
 
 - [x] `objnam.c` warn_obj glow (named from D-1322). Not killer_xname. **Addressed:** D-1347 `1651816e`

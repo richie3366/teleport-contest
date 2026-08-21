@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1349 dokick.c kickdmg abuse_dog
+
+**Objective:** Open `dokick.c` `abuse_dog` (named from D-1332).
+Not kickstr.
+**C locus:** `dokick.c` `kickdmg` `:70–76`. Callees `dog.c`
+`abuse_dog` (D-0836) + `monmove.c` `monflee`. Caller
+`kick_monster` after evade, non-poly.
+**Change:** after `check_caitiff`, tame `abuse_dog` then
+still-tame `monflee(dmg?rnd(dmg):1)` else `mflee=0`, before
+`rnd(dmg)`. Shade return still skips. Martial knockback
+named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session kicks a pet). Next audit @**#1710**.
+**Verified:** canary **15**/15; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dokick.c` martial knockback (named from
+D-1332). Not abuse_dog.
+**Blocked:** none.
 ## 2026-08-21 — D-1348 uhitm.c mhitm_ad_wrap you-as-agr
 
 **Objective:** Open `uhitm.c` `m_slips_free` AD_WRAP (uhitm

@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1349 — dokick.c kickdmg abuse_dog / monflee
+
+- **Status:** fixed (map-driven Open from D-1332; not a public FAIL)
+- **Symptom:** kicking a pet never reduced tameness or made it
+  flee. C `kickdmg` after `check_caitiff` calls `abuse_dog`, then
+  still-tame `monflee(dmg ? rnd(dmg) : 1, FALSE, FALSE)` else
+  `mflee = 0`, **before** converting potential `dmg` with
+  `rnd(dmg)`. JS left an empty `if (mon.mtame)` stub. Callees
+  `abuse_dog` / `yelp` / `growl` / `monflee` were already live
+  (D-0836 / D-0922).
+- **C locus:** `dokick.c` `kickdmg` `:70–76`. Callee `dog.c`
+  `abuse_dog` `:1362–1393`; `monmove.c` `monflee`. Caller
+  `kick_monster` after evade, non-poly.
+- **JS was:** named omit (D-1332 / D-1336). Empty tame `if`.
+- **Fix:** same order as C. Potential `dmg` (0 for thick-hide /
+  shade) feeds fleetime; shade `!specialdmg` still returns before
+  caitiff. Martial knockback `goodpos`/`mintrap` stays named.
+  Rule #2: no fs.
+- **JS:** `js/dokick.js` `kickdmg`.
+- **Not this iter:** martial knockback; `wake_nearby`;
+  `u_wipe_engr`; shop-town watchman; trap/hack `abuse_dog`
+  callers.
+- **Verified:** private canary **15**/15 (C/JS order; hostile no
+  extra `rnd`; tame `mtame--` + two `rnd(3)`; last-tame growl +
+  `mflee=0`; shade skip; thick-hide fleetime 1→2; Aggravate half;
+  isminion no `abuse++`; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session kicks a pet.
+- **Follow-up:** Open `dokick.c` martial knockback (named from
+  D-1332). Not abuse_dog.
+- **Files:** `js/dokick.js`.
+
 ## D-1348 — uhitm.c mhitm_ad_wrap (hero→mon arm)
 
 - **Status:** fixed (map-driven Open from D-1331; not a public FAIL)

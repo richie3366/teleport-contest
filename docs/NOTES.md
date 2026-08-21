@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1348; cadence **#1705** `2a5e72e0`
+- **Fortress 44/44** after D-1349; cadence **#1705** `2a5e72e0`
   (Scr **11,405** RNG 100% speed `37+0.29/turn`). Reviews **304–307**
   ACCEPT-WITH-DEBT (no Must-fix). Next: Open `dokick.c`
-  `abuse_dog` (named from D-1332). Not kickstr. Do not skip
-  D-1348…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1348. `see_monsters` warn_obj_cnt /
+  martial knockback (named from D-1332). Not abuse_dog. Do not
+  skip D-1349…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1349. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   zap/pray ureflects W_AMUL/W_ARM/dragon and mcastu ureflects
   still named.
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1348.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1349.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,10 +36,10 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1348 (index). Named still: hitmm silver
+- Do not skip D-1071…D-1349 (index). Named still: hitmm silver
   sear; `dmgval` shade/`shade_glare`; mthrowu/zap/hmon
-  `shade_miss` callers; mhitm wrap brush; `abuse_dog` /
-  martial knockback; throw_obj `:147` petrify / pickup / wield
+  `shade_miss` callers; mhitm wrap brush; martial knockback
+  `goodpos`/`mintrap`; throw_obj `:147` petrify / pickup / wield
   `killer_xname`. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -51,6 +51,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1349: `dokick.c` `kickdmg` `:70–76` — tame `abuse_dog` then
+  still-tame `monflee(dmg?rnd(dmg):1)` else `mflee=0`, after
+  caitiff and before `rnd(dmg)`. Callees already D-0836.
+  Martial knockback `goodpos`/`mintrap` named.
 - D-1348: `uhitm.c` `mhitm_ad_wrap` `:3344–3375` — uhitm you-as-agr
   (`m_slips_free`; C `tailmiss=!gn.notonhead`; coil/swing,
   pool `!cant_drown`, AT_HUGS crush, verbose brush). mhitu
@@ -87,9 +91,7 @@ Objective/score live in `CURRENT.md`.
 - D-1337: `apply.c` `splash_lit` `:1518–1572` — rust-trap lantern
   stays lit; dunk snuffs+age drain; else `snuff_lit`.
 - D-1336: `mon.c` `maybe_mnexto` `:3998–4017` + dokick evade
-  `:267–285`. `abuse_dog` / martial knockback named.
+  `:267–285`. Martial knockback named. abuse_dog is D-1349.
 - D-1335: `objnam.c` `killer_xname` `:1942–2005` — dokick `:498` +
   petrify `:551–554`. eat choke D-1344; dozap D-1345; throwit D-1346.
   warn_obj glow is D-1347.
-- D-1334: `mthrowu.c` `return_from_mtoss` `:942` snuff then ship
-  then flooreffects. Tethered AKLYS `return_flightpath`.

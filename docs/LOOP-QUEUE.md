@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dokick.c` `abuse_dog` (named from D-1332). Not kickstr.
 - [ ] `dokick.c` martial knockback (named from D-1332). Not abuse_dog.
 - [ ] `mhitm.c` hitmm silver sear (named from D-0887). Not shade_miss.
 - [ ] `mhitm.c` `mdamagem` AD_STON leftover (named from D-1338). Not shade_miss.

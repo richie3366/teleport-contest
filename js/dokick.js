@@ -1,7 +1,7 @@
 // dokick.js — #kick command + object fall-through (impact_drop / ship_object).
 // C ref: dokick.c — dokick, kick_dumb, kick_door, kick_nondoor, maybe_kick_monster,
 // kick_monster, kickdmg (partial; poly AT_KICK D-1310; special_dmgval D-1332;
-// maybe_mnexto evade D-1336);
+// maybe_mnexto evade D-1336; abuse_dog/monflee D-1349);
 // down_gate / drop_to / impact_drop (D-0961);
 // ship_object / otransit_msg (D-0984); obj_delivery (D-1177);
 // deliver_obj_to_mon (D-1193);
@@ -46,6 +46,8 @@ import {
 import {
     setmangry, seemimic, angry_guards, wakeup, wake_nearto, maybe_mnexto,
 } from './mon.js';
+import { abuse_dog } from './dog.js';
+import { monflee } from './monmove.js';
 import { mon_nam, Monnam, christen_orc, free_oname } from './do_name.js';
 import { martial_bonus, use_skill, special_dmgval } from './weapon.js';
 import {
@@ -787,7 +789,8 @@ async function maybe_kick_monster(mon, x, y) {
 /**
  * C ref: dokick.c kickdmg — non-poly kick damage + passive.
  * special_dmgval(W_ARMF) D-1332 (`:56` before shade return, `:90` add).
- * abuse_dog / monflee / martial knockback still named.
+ * abuse_dog / monflee D-1349 (`:70–76` after caitiff, before rnd(dmg)).
+ * martial knockback still named.
  */
 async function kickdmg(mon, clumsy) {
     let dmg = Math.trunc((acurrstr() + acurr(A_DEX) + acurr(A_CON)) / 15);
@@ -811,8 +814,14 @@ async function kickdmg(mon, clumsy) {
     // C: check_caitiff(mon) before tame abuse
     check_caitiff(mon);
 
+    /* C dokick.c `:70–76` — squeeze some guilt feelings… */
     if (mon.mtame) {
-        // abuse_dog / monflee deferred — still need damage path RNG
+        await abuse_dog(mon);
+        if (mon.mtame) {
+            await monflee(mon, (dmg ? rnd(dmg) : 1), false, false);
+        } else {
+            mon.mflee = 0;
+        }
     }
 
     if (dmg > 0) {
@@ -838,8 +847,8 @@ async function kickdmg(mon, clumsy) {
 /**
  * C ref: dokick.c kick_monster — anger, encumbrance clumsiness, evade, kickdmg.
  * Poly AT_KICK loop D-1310 (`Upolyd && attacktype(AT_KICK)` then return).
- * maybe_mnexto evade D-1336 (`:267–285` else of block). abuse_dog /
- * martial knockback still named.
+ * maybe_mnexto evade D-1336 (`:267–285` else of block).
+ * kickdmg abuse_dog D-1349. martial knockback still named.
  */
 export async function kick_monster(mon, x, y) {
     let clumsy = false;
