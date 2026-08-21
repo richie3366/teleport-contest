@@ -1031,10 +1031,10 @@ export async function djinni_from_bottle(obj) {
 
 /**
  * C ref: potion.c healup — add HP; optional sick/blind cure.
- * cureblind → make_blinded(0,TRUE) (learn_unseen_invent via toggle).
+ * cureblind → make_blinded(0,TRUE) (learn_unseen_invent via toggle)
+ * then make_deaf(0,TRUE) (D-1399; SPE_CURE_BLINDNESS).
  * curesick → make_vomiting(0,TRUE) + make_sick(0,NULL,TRUE,SICK_ALL)
- * (D-1398; SPE_CURE_SICKNESS). make_deaf talk still deferred
- * (TIMEOUT clear only). zap.js keeps a local copy for SPE_HEALING
+ * (D-1398; SPE_CURE_SICKNESS). zap.js keeps a local copy for SPE_HEALING
  * zapyourself (avoids import cycle).
  */
 export async function healup(nhp, nxtra, curesick, cureblind) {
@@ -1057,12 +1057,11 @@ export async function healup(nhp, nxtra, curesick, cureblind) {
         }
     }
     if (cureblind) {
+        /* C potion.c :1444–1450 — cream then make_blinded then make_deaf. */
         u.ucreamed = 0;
-        // C: make_blinded(0L, TRUE) → toggle_blindness → learn_unseen_invent
         const { make_blinded } = await import('./do.js');
         await make_blinded(0, true);
-        // C: make_deaf(0L, TRUE) — talk deferred
-        u.HDeaf = (u.HDeaf | 0) & ~TIMEOUT;
+        await make_deaf(0, true);
     }
     if (curesick) {
         /* C potion.c :1452–1455 */

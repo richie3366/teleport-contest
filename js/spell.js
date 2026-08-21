@@ -20,10 +20,12 @@
 // SPE_PROTECTION cast_protection (D-1390; timeout.c usptime tick);
 // SPE_CLAIRVOYANCE do_vicinity_map (D-1391; callee detect.c);
 // SPE_JUMPING jump(max(role_skill,1)) (D-1397; callee apply.c);
-// SPE_CURE_SICKNESS healup+ill/slime (D-1398; callee potion.c).
+// SPE_CURE_SICKNESS healup+ill/slime (D-1398; callee potion.c);
+// SPE_CURE_BLINDNESS healup(0,0,FALSE,TRUE) (D-1399; callee potion.c
+// healup cream + make_blinded + make_deaf).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps (CURE_BLINDNESS/CHAIN/seffects/peffects);
+// swap/sort; other spelleffects otyps (CHAIN/seffects/peffects);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -154,6 +156,7 @@ const SPE_CREATE_FAMILIAR = objectNames.indexOf('SPE_CREATE_FAMILIAR');
 const SPE_PROTECTION = objectNames.indexOf('SPE_PROTECTION');
 const SPE_CLAIRVOYANCE = objectNames.indexOf('SPE_CLAIRVOYANCE');
 const SPE_CURE_SICKNESS = objectNames.indexOf('SPE_CURE_SICKNESS');
+const SPE_CURE_BLINDNESS = objectNames.indexOf('SPE_CURE_BLINDNESS');
 const SPE_JUMPING = objectNames.indexOf('SPE_JUMPING');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
@@ -1451,6 +1454,8 @@ async function cast_protection() {
  * (D-1397; callee apply.c jump; !TIME → nothing_happens).
  * SPE_CURE_SICKNESS healup(0,0,TRUE,FALSE) then ill/slime
  * (D-1398; callee potion.c healup/make_slimed).
+ * SPE_CURE_BLINDNESS healup(0,0,FALSE,TRUE)
+ * (D-1399; callee potion.c cream + make_blinded + make_deaf).
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1578,6 +1583,10 @@ export async function spelleffects(spell_otyp, atme, force) {
                 `You sense a pointy hat on top of your ${body_part(HEAD)}.`,
             );
         }
+    } else if (otyp === SPE_CURE_BLINDNESS) {
+        /* C spell.c :1549–1551 — healup(0, 0, FALSE, TRUE)
+         * (ucreamed=0, make_blinded(0,TRUE), make_deaf(0,TRUE)). */
+        await healup(0, 0, false, true);
     } else if (otyp === SPE_CURE_SICKNESS) {
         /* C spell.c :1552–1567 — capture Sick/Slimed, then
          * healup(0, 0, TRUE, FALSE) (make_vomiting + make_sick),

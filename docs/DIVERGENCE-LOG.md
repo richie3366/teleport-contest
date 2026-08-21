@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1399 — spell.c spelleffects SPE_CURE_BLINDNESS
+
+- **Status:** fixed (map-driven Open from D-1398; not a public FAIL)
+- **Symptom:** casting SPE_CURE_BLINDNESS printed `Nothing happens.`
+  C `spelleffects` `:1549–1551` calls `healup(0, 0, FALSE, TRUE)`.
+  Callee `potion.c` `healup` `:1444–1450` zeros `u.ucreamed`, then
+  `make_blinded(0L, TRUE)`, then `make_deaf(0L, TRUE)`. Spell still
+  returns TIME after energy. `oc_dir` is IMMEDIATE but this otyp
+  is its own case, not wand-duplicate `weffects`.
+- **C locus:** `spell.c` `spelleffects` `:1549–1551`; callee
+  `potion.c` `healup` `:1444–1450` / `make_blinded` `:261–331` /
+  `make_deaf` `:443–457`.
+- **JS was:** named omit after D-1398. Other-otyp arm printed
+  `Nothing happens.`; `healup` cureblind called `make_blinded`
+  but only cleared `HDeaf` TIMEOUT (no `make_deaf` talk).
+- **Fix:** SPE_CURE_BLINDNESS arm. `healup` cureblind now calls
+  already-ported `make_deaf(0, TRUE)`. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/potion.js` `healup`.
+- **Not this iter:** SPE_CHAIN_LIGHTNING; scroll `seffects` /
+  potion `peffects`; zap.js local `healup`; `make_blinded`
+  Hallu/Eyes/Blindfolded talk; `peffect_full_healing`.
+- **Verified:** private canary **19**/19 (C/JS grep; healthy
+  silent; blind see-again; cream zeroed; deaf hear-again;
+  blind+deaf both; does not cure Sick; CHAIN still omit;
+  CURE_SICKNESS / JUMPING / CLAIRVOYANCE / FORCE_BOLT /
+  HEALING / PROTECTION regression; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts cure blindness.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING
+  (named). Not cure.
+- **Files:** `js/spell.js`, `js/potion.js`.
+
 ## D-1398 — spell.c spelleffects SPE_CURE_SICKNESS
 
 - **Status:** fixed (map-driven Open from D-1397; not a public FAIL)

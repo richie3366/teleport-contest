@@ -9,6 +9,23 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — D-1399 spell.c SPE_CURE_BLINDNESS healup cream+blind+deaf
+
+**Objective:** Open `spell.c` `spelleffects` SPE_CURE_BLINDNESS
+(named). Not sickness.
+**C locus:** `spell.c` `spelleffects` `:1549–1551`; callee
+`potion.c` `healup` `:1444–1450` cream + `make_blinded` + `make_deaf`.
+**Change:** SPE_CURE_BLINDNESS → `healup(0,0,FALSE,TRUE)`. healup
+cureblind now calls `make_deaf(0,TRUE)` (was TIMEOUT clear only).
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts cure blindness).
+**Verified:** private canary **19**/19; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING
+(named). Not cure.
+**Blocked:** none.
 ## 2026-08-21 — D-1398 spell.c SPE_CURE_SICKNESS healup+ill/slime
 
 **Objective:** Open `spell.c` `spelleffects` SPE_CURE_SICKNESS
