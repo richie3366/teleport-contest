@@ -317,3 +317,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [305-946d719d-kickstr.md](./305-946d719d-kickstr.md) | `946d719d` | D-1343 `kickstr` | **ACCEPT-WITH-DEBT** |
 | [306-5195acee-choke-killer-xname.md](./306-5195acee-choke-killer-xname.md) | `5195acee` | D-1344 choke `killer_xname` | **ACCEPT-WITH-DEBT** |
 | [307-2a5e72e0-dozap-killer-xname.md](./307-2a5e72e0-dozap-killer-xname.md) | `2a5e72e0` | D-1345 dozap `killer_xname` | **ACCEPT-WITH-DEBT** |
+| [308-15b20ab4-throwit-killer-xname.md](./308-15b20ab4-throwit-killer-xname.md) | `15b20ab4` | D-1346 throwit `killer_xname` | **ACCEPT-WITH-DEBT** |
+| [309-1651816e-doname-warn-obj-glow.md](./309-1651816e-doname-warn-obj-glow.md) | `1651816e` | D-1347 doname warn_obj glow | **ACCEPT-WITH-DEBT** |
+| [310-dde5f91b-mhitm-ad-wrap.md](./310-dde5f91b-mhitm-ad-wrap.md) | `dde5f91b` | D-1348 uhitm AD_WRAP | **ACCEPT-WITH-DEBT** |
+| [311-533e732f-kickdmg-abuse-dog.md](./311-533e732f-kickdmg-abuse-dog.md) | `533e732f` | D-1349 kickdmg `abuse_dog` | **ACCEPT-WITH-DEBT** |

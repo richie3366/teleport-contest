@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1349; cadence **#1705** `2a5e72e0`
-  (Scr **11,405** RNG 100% speed `37+0.29/turn`). Reviews **304–307**
+- **Fortress 44/44** after D-1349; cadence **#1710** `533e732f`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **308–311**
   ACCEPT-WITH-DEBT (no Must-fix). Next: Open `dokick.c`
   martial knockback (named from D-1332). Not abuse_dog. Do not
   skip D-1349…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
