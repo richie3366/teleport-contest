@@ -24,8 +24,8 @@
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // backfire body; other NODIR; wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
-// EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/silver-dragon arms
-// beyond shield makeknown; create_polymon after poly_zapped;
+// EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
+// D-1353 (shared muse.c clone); mcastu ureflects named; create_polymon after poly_zapped;
 // do_osshock shop bill; invent/worn poly_obj arms; floor boxlock;
 // blank_novel / corpse revive→rot timer;
 // cant_finish_meal; animate_statue montraits wire; defended(); resists_magm
@@ -97,7 +97,7 @@ import { cvt_sdoor_to_door } from './detect.js';
 import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock_invent } from './lock.js';
 import { monflee, sticks } from './monmove.js';
-import { digests, set_ustuck, unstuck, expels } from './mhitu.js';
+import { digests, set_ustuck, unstuck, expels, ureflects } from './mhitu.js';
 import { newcham, makemon, monhp_per_lvl, neweshk, add_to_minv } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
@@ -139,7 +139,8 @@ import {
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
-    W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE, W_WEP,
+    W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
+    REFLECTING,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
@@ -171,6 +172,9 @@ const AMULET_OF_UNCHANGING = objectNames.indexOf('AMULET_OF_UNCHANGING');
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 const SPE_SLEEP = objectNames.indexOf('SPE_SLEEP');
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
+const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
+const SILVER_DRAGON_SCALES = objectNames.indexOf('SILVER_DRAGON_SCALES');
+const SILVER_DRAGON_SCALE_MAIL = objectNames.indexOf('SILVER_DRAGON_SCALE_MAIL');
 const WAN_DIGGING = objectNames.indexOf('WAN_DIGGING');
 const SPE_DIG = objectNames.indexOf('SPE_DIG');
 const WAN_DEATH = objectNames.indexOf('WAN_DEATH');
@@ -223,6 +227,7 @@ const RIN_INCREASE_DAMAGE = objectNames.indexOf('RIN_INCREASE_DAMAGE');
 const RIN_PROTECTION = objectNames.indexOf('RIN_PROTECTION');
 const GAUNTLETS_OF_DEXTERITY = objectNames.indexOf('GAUNTLETS_OF_DEXTERITY');
 const HELM_OF_BRILLIANCE = objectNames.indexOf('HELM_OF_BRILLIANCE');
+const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
 const PM_CLAY_GOLEM = monsterNames.indexOf('PM_CLAY_GOLEM');
 const PM_KNIGHT = monsterNames.indexOf('PM_KNIGHT');
 const NC_VIA_WAND_OR_SPELL = 0x02;
@@ -297,13 +302,22 @@ function Half_spell_damage() {
  */
 
 /**
- * C ref: youprop.h Reflecting — setworn EReflecting deferred; worn
- * SHIELD_OF_REFLECTION matches Healer starter kit (D-0450).
+ * C ref: youprop.h Reflecting — HReflecting || EReflecting
+ * (uprops[REFLECTING] + W_WEP flat). Worn otyp / silver-dragon form
+ * stand in while confer_oc_oprop does not mirror EReflecting (D-1353).
  */
-function Reflecting() {
+export function Reflecting() {
     const u = game.u || {};
-    if (u.HReflecting || u.EReflecting) return true;
-    return u.uarms?.otyp === SHIELD_OF_REFLECTION;
+    if (u.HReflecting || u.EReflecting || u.Reflecting) return true;
+    const e = u.uprops?.[REFLECTING];
+    if ((e?.intrinsic | 0) || (e?.extrinsic | 0)) return true;
+    if (u.uarms?.otyp === SHIELD_OF_REFLECTION) return true;
+    if (u.uamul?.otyp === AMULET_OF_REFLECTION) return true;
+    const arm = u.uarm?.otyp | 0;
+    if (arm === SILVER_DRAGON_SCALES || arm === SILVER_DRAGON_SCALE_MAIL) {
+        return true;
+    }
+    return (game.youmonst?.data?.mndx | 0) === PM_SILVER_DRAGON;
 }
 
 function Blind() {
@@ -867,30 +881,6 @@ export async function zap_over_floor(x, y, type, shopdamage, ignoremon, explodin
         if (mon) await wakeup(mon, (type | 0) >= 0);
     }
     return rangemod;
-}
-
-/**
- * C ref: muse.c ureflects — shield then W_WEP artifact (D-1342).
- * W_AMUL/W_ARM/dragon deferred. When fmt+str given, makeknown like C so
- * first observed reflection discovers the type and may exercise(A_WIS)
- * (D-0452).
- */
-async function ureflects(fmt, str) {
-    if (game.u?.uarms?.otyp === SHIELD_OF_REFLECTION) {
-        if (fmt && str) {
-            // C: pline(fmt, str, "shield") with fmt "But %s reflects from your %s!"
-            await pline(`But ${str} reflects from your shield!`);
-            makeknown(SHIELD_OF_REFLECTION);
-        }
-        return true;
-    }
-    if (((game.u?.EReflecting | 0) & W_WEP) !== 0) {
-        if (fmt && str) {
-            await pline(`But ${str} reflects from your weapon!`);
-        }
-        return true;
-    }
-    return false;
 }
 
 /**

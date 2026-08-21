@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1353 — muse.c ureflects W_AMUL/W_ARM/dragon
+
+- **Status:** fixed (map-driven Open from D-1342; not a public FAIL)
+- **Symptom:** a hero wearing an amulet of reflection, silver
+  dragon scale mail/scales, or polymorphed into a silver dragon
+  still named only the shield/weapon slot (or skipped identity)
+  when a zap ray or god-zap bounced.
+- **C locus:** `muse.c` `ureflects` `:2836–2866` after W_WEP:
+  `EReflecting & W_AMUL` → `"medallion"` + `makeknown(AMULET_OF_REFLECTION)`;
+  `EReflecting & W_ARM` → `uskin ? "luster" : "armor"`;
+  `youmonst.data == &mons[PM_SILVER_DRAGON]` → `"scales"`.
+  Callers `zap.c` dobuzz + `pray.c` `god_zaps_you`.
+- **JS was:** zap/pray clones stopped after shield otyp and
+  `EReflecting&W_WEP` (D-1342). mhitu already had the full chain.
+- **Fix:** export mhitu `ureflects` (OR uprops[REFLECTING].extrinsic
+  as C `EReflecting`); zap/pray import it. zap/pray `Reflecting()`
+  bounce gate includes uprops + AoR/DSM/form. Rule #2: no fs.
+- **JS:** `js/mhitu.js` `ureflects`; `js/zap.js`; `js/pray.js`.
+- **Not this iter:** mcastu / uhitm-passive `ureflects`; setworn
+  `EReflecting` flat mirror; cspfx extract; chromatic in ureflects
+  (C omits — `mon_reflects` only).
+- **Verified:** private canary **20**/20 (empty; shield otyp/bit;
+  W_WEP; W_AMUL bit+otyp medallion makeknown; W_ARM armor;
+  uskin luster; DSM/scales; gray DSM false; silver form scales;
+  chromatic form false; outermost wins; fmt-null; pray fmt;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session bounces a ray off AoR/DSM/silver form.
+- **Follow-up:** Open `weapon.c` `dmgval` shade/`shade_glare`.
+- **Files:** `js/mhitu.js`, `js/zap.js`, `js/pray.js`.
+
 ## D-1352 — mhitm.c mdamagem AD_STON leftover
 
 - **Status:** fixed (map-driven Open from D-1338; not a public FAIL)

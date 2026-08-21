@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `mhitm.c` `mdamagem` AD_STON leftover (named from D-1338). Not shade_miss. **Addressed:** D-1352
+- [x] `zap.c` `ureflects` W_AMUL/W_ARM/dragon (named from D-1342). Not W_WEP. **Addressed:** D-1353
+
+
+- [x] `mhitm.c` `mdamagem` AD_STON leftover (named from D-1338). Not shade_miss. **Addressed:** D-1352 `160de986`
 
 
 - [x] `mhitm.c` hitmm silver sear (named from D-0887). Not shade_miss. **Addressed:** D-1351 `48f2f0a2`

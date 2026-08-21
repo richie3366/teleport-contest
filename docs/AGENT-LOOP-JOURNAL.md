@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1353 muse.c ureflects W_AMUL/W_ARM/dragon
+
+**Objective:** Open `zap.c` `ureflects` W_AMUL/W_ARM/dragon
+(named from D-1342). Not W_WEP.
+**C locus:** `muse.c` `ureflects` `:2850–2864` after W_WEP;
+callers zap dobuzz / pray `god_zaps_you`.
+**Change:** zap/pray clones import mhitu `ureflects` (medallion
+makeknown, armor/`uskin` luster, silver-dragon scales). Bounce
+`Reflecting()` includes uprops+AoR/DSM/form. mcastu named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session bounces off AoR/DSM/silver form). Next audit @**#1720**.
+**Verified:** canary **20**/20; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `weapon.c` `dmgval` shade/`shade_glare` (named
+from D-1341). Not hitmm shade_miss.
+**Blocked:** none.
 ## 2026-08-21 — D-1352 mhitm.c mdamagem AD_STON leftover
 
 **Objective:** Open `mhitm.c` `mdamagem` AD_STON leftover
