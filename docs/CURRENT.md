@@ -59,23 +59,23 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1360. Reviews **317–320**
+**Map-driven fortress** after D-1361. Reviews **317–320**
 (**318** QUALITY-RISK → D-1359; **317/319/320** ACCEPT-WITH-DEBT).
-**Next cluster:** Open `dokick.c` kick_ouch drawbridge
-`find_drawbridge` remap (named from D-1343). Do not skip
-D-1360…D-1229 (index). Keep mention_map addr. Do not wrap
-`wildmiss` or `msg_mon_movement` as `pline_mon`.
+**Next cluster:** Open `dokick.c` no_kick poly/steed/lizard/
+uinwater/boulder (named from D-0786). Not Wounded_legs.
+Do not skip D-1361…D-1229 (index). Keep mention_map addr. Do
+not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1360.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1361.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1360 (index). Recent: **D-1360** dokick.c
-`u_wipe_engr(2)` after `wake_nearby` (body D-1051). Prior:
-**D-1359** fountain.c `drinkfountain` fate<10 `uhunger += rnd(10)`
-+ `newuhs(FALSE)`. **D-1358** dokick.c `wake_nearby(FALSE)`.
+**Keep:** D-0845…D-1361 (index). Recent: **D-1361** dokick.c
+`kick_ouch` drawbridge `find_drawbridge` remap (D-1343 omit).
+Prior: **D-1360** `u_wipe_engr(2)`; **D-1359** fountain fate<10
+`uhunger += rnd(10)`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1360
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1361
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1361 — dokick.c kick_ouch drawbridge find_drawbridge remap
+
+- **Status:** fixed (map-driven Open from D-1343; not a public FAIL)
+- **Symptom:** kicking a raised drawbridge portcullis (`DBWALL`, or
+  a down-bridge `DOOR` portcullis) named `"kicking a wall"` /
+  `"kicking a door"` and woke sleepers around the wall cell. C
+  remaps `gm.maploc` to the span first.
+- **C locus:** `dokick.c` `kick_ouch` `:892–897` —
+  `is_drawbridge_wall(x,y) >= 0` then `pline_The("drawbridge is
+  unaffected.")`, `(void) find_drawbridge(&x, &y)`,
+  `gm.maploc = &levl[x][y]` **before** `wake_nearto(x, y, 5*5)`
+  and `kickstr`. Callees `dbridge.c` `is_drawbridge_wall` /
+  `find_drawbridge` (D-0959).
+- **JS was:** named omit after D-1343. `kickstr` already knew
+  `IS_DRAWBRIDGE` → `"a drawbridge"`, but `kick_ouch` never
+  remapped a portcullis, so `IS_STWALL`/`IS_DOOR` won.
+- **Fix:** live `is_drawbridge_wall` / `find_drawbridge` from
+  `dbridge.js`; mutate local x,y; write `game.maploc` to the
+  span; `pline('The drawbridge is unaffected.')` ≡ `pline_The`.
+  `wake_nearto` uses remapped coords (`dist2 < 25`). Rule #2:
+  no fs.
+- **JS:** `js/dokick.js` `kick_ouch` / `kickstr`; callees
+  `js/dbridge.js`.
+- **Not this iter:** airlevel/Levitation `hurtle`; no_kick
+  poly/steed/lizard/uinwater/boulder; shop-town watchman.
+- **Verified:** private canary **22**/22 (C/JS order; four
+  `find_drawbridge` dirs; kickstr wall vs span; STONE wakes far
+  sleeper dist2=16; DBWALL/DOOR portcullis remap + far sleeper
+  stays asleep; fatal `KILLED_BY` `"kicking a drawbridge"`; live
+  dokick DBWALL vs STONE; Rule #2); green+strict seed8000/0900;
+  focused seed0060; cohort **8**/8 + strict
+  1500/1800/0012/0004/0007/2200/0383 + seed0060. **Public-unhit**
+  unless a session kicks a portcullis.
+- **Follow-up:** Open `dokick.c` no_kick poly/steed/lizard/
+  uinwater/boulder (named from D-0786).
+- **Files:** `js/dokick.js`.
+
 ## D-1360 — dokick.c dokick u_wipe_engr(2)
 
 - **Status:** fixed (map-driven Open from D-1358; not a public FAIL)

@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1360; cadence **#1725** `fbfc72d9`
+- **Fortress 44/44** after D-1361; cadence **#1725** `fbfc72d9`
   (Scr **11,405** RNG 100% speed `37+0.32/turn`). Reviews
   **317/319/320** ACCEPT-WITH-DEBT; **318** QUALITY-RISK → D-1359.
-  Next: Open `dokick.c` kick_ouch drawbridge `find_drawbridge`
-  remap (named from D-1343). Do not skip D-1360…D-1229.
-  Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1360. `see_monsters` warn_obj_cnt /
+  Next: Open `dokick.c` no_kick poly/steed/lizard/uinwater/
+  boulder (named from D-0786). Not Wounded_legs. Do not skip
+  D-1361…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1361. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1360.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1361.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,10 +33,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
-  (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
-  in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1360 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1361 (index).
+- Do not skip D-1071…D-1361 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush; allmain/uhitm/dothrow/dig `u_wipe_engr`.
@@ -52,6 +50,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1361: `dokick.c` `kick_ouch` `:892–897` — `is_drawbridge_wall`
+  then `pline_The` unaffected, `find_drawbridge` remaps `gm.maploc`
+  (and x,y for `wake_nearto 5*5`) to the span so `kickstr` is
+  `"kicking a drawbridge"` not IS_STWALL `"a wall"`. Live
+  `dbridge.js` callees. Air/Lev `hurtle` named.
 - D-1360: `dokick.c` `dokick` `:1384` — after `wake_nearby(FALSE)`,
   `u_wipe_engr(2)` (hero cell; body D-1051). Declined peaceful
   returns first. No RNG when no engraving. allmain/uhitm/
@@ -110,6 +113,3 @@ Objective/score live in `CURRENT.md`.
   overwrite `)` with `glow_verb`/`glow_color` or
   `arti_light_description` lit. `see_monsters` cnt / SPFX_WARN /
   ARMOR `:1412` / Hallu `hcolor` named.
-- D-1346: `dothrow.c` `throwit` `:1747–1748` — returning-missile
-  arm-hit `losehp(Maybe_Half_Phys, killer_xname, KILLED_BY)`.
-  Not `xname`. throw_obj `:147` petrify / pickup / wield named.

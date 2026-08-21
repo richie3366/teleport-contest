@@ -13,6 +13,7 @@
 // kick_object + bhit KICKED_WEAPON (D-0988);
 // kick_object/instapetrify killer_xname (D-1335);
 // kickstr (D-1343);
+// kick_ouch drawbridge find_drawbridge remap (D-1361);
 // Is_box container_impact/lock/lid/chest_trap + ghitm (D-0989).
 
 import { game } from './gstate.js';
@@ -103,6 +104,7 @@ import {
 } from './shk.js';
 import { shkname, Shknam } from './shknam.js';
 import { cvt_sdoor_to_door } from './detect.js';
+import { find_drawbridge, is_drawbridge_wall } from './dbridge.js';
 import { altar_wrath } from './pray.js';
 import { del_engr_at, disturb_grave, u_wipe_engr } from './engrave.js';
 import { sink_backs_up } from './fountain.js';
@@ -281,8 +283,8 @@ async function kick_dumb(x, y) {
  * C ref: dokick.c kickstr `:794–830` — cause of death if kicking kills
  * the kicker. Prefix `"kicking "` onto kickobjnam, else terrain from
  * gm.maploc (nowhere sentinel → `"nothing"`). Caller kick_ouch `:903`.
- * Named omit: kick_ouch drawbridge find_drawbridge remap of maploc
- * before this (DBWALL still `"a wall"`).
+ * Drawbridge walls: kick_ouch remaps maploc via find_drawbridge first
+ * (D-1361) so this reports `"a drawbridge"` not IS_STWALL `"a wall"`.
  */
 export function kickstr(kickobjnam) {
     let what;
@@ -313,18 +315,27 @@ export function kickstr(kickobjnam) {
 
 /**
  * C ref: dokick.c kick_ouch — solid terrain / failed impact (partial).
- * wake_nearto wired; drawbridge remap / airlevel hurtle deferred.
+ * wake_nearto wired; drawbridge wall remap D-1361; airlevel hurtle deferred.
  * losehp applies the damage roll (regen_hp needs uhp < uhpmax).
  * set_wounded_legs on !rn2(3) → ATEMP(DEX)-- (D-0785).
- * killer string via kickstr (D-1343).
+ * killer string via kickstr (D-1343) after maploc remap.
  */
-async function kick_ouch(x, y, kickobjnam = '') {
+export async function kick_ouch(x, y, kickobjnam = '') {
     await pline('Ouch!  That hurts!');
     exercise(A_DEX, false);
     exercise(A_STR, false);
     if (isok(x, y)) {
         if (Blind()) feel_location(x, y); /* we know we hit it */
-        // drawbridge wall unaffected + maploc remap deferred
+        /* C dokick.c:892–897 — portcullis: pline_The + find_drawbridge
+         * remaps gm.maploc (and x,y for wake_nearto) to the span. */
+        if (is_drawbridge_wall(x, y) >= 0) {
+            await pline('The drawbridge is unaffected.');
+            const xy = { x, y };
+            find_drawbridge(xy);
+            x = xy.x;
+            y = xy.y;
+            game.maploc = game.level?.at(x, y) || null;
+        }
         await wake_nearto(x, y, 5 * 5);
     }
     if (!rn2(3)) {
@@ -336,8 +347,6 @@ async function kick_ouch(x, y, kickobjnam = '') {
     const dmg = rnd(acurr(A_CON) > 15 ? 3 : 5);
     await losehp(maybe_half_phys(dmg), kickstr(kickobjnam), KILLED_BY);
     // Is_airlevel / Levitation hurtle deferred
-    void x;
-    void y;
 }
 
 /**

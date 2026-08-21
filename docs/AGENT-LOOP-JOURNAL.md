@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1361 dokick.c kick_ouch find_drawbridge remap
+
+**Objective:** Open `dokick.c` kick_ouch drawbridge
+`find_drawbridge` remap (named from D-1343). Not no_kick.
+**C locus:** `dokick.c` `kick_ouch` `:892–897`; callees
+`dbridge.c` `is_drawbridge_wall` / `find_drawbridge`.
+**Change:** portcullis `pline_The` + remap `gm.maploc`/x,y
+before `wake_nearto`/`kickstr`. Live dbridge helpers. Filled
+D-1360 archive hash `bdf4c27e`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session kicks a portcullis).
+**Verified:** private canary **22**/22; green+strict seed8000/0900;
+focused seed0060; cohort **8**/8 + strict 1500/1800/0012/0004/
+0007/2200/0383 + seed0060.
+**Next:** Open `dokick.c` no_kick poly/steed/lizard/uinwater/
+boulder (named from D-0786). Not Wounded_legs.
+**Blocked:** none.
 ## 2026-08-21 — D-1360 dokick.c dokick u_wipe_engr(2)
 
 **Objective:** Open `dokick.c` `u_wipe_engr` caller (C `:1384`;

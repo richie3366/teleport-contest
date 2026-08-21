@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dokick.c` kick_ouch drawbridge `find_drawbridge` remap (named from D-1343).
 - [ ] `dokick.c` no_kick poly/steed/lizard/uinwater/boulder (named from D-0786). Not Wounded_legs.
 - [ ] `dokick.c` `obj_delivery` stolen_booty / `mksobj_migr_to_species` (named from D-1177).
 - [ ] `zap.c` `zapyourself` WAN_MAGIC_MISSILE (named). Not WAN_LIGHTNING.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `lightdamage` (named; WAN_LIGHT/camera). Not flashburn lightning.
 - [ ] `zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself lightning.
 - [ ] `zap.c` `zapyourself` WAN_MAKE_INVISIBLE (named). Not lightning.
+- [ ] `dokick.c` kick_ouch/kick_dumb airlevel/Levitation `hurtle` (named from D-1361). Not no_kick.
+- [ ] `allmain.c` `u_wipe_engr` DEX timeout caller (named from D-1360). Not dokick.
+- [ ] `uhitm.c` `u_wipe_engr` attacker caller (named from D-1360). Not allmain.
+- [ ] `dothrow.c` `u_wipe_engr` caller (named from D-1360). Not uhitm.
+- [ ] `dig.c` `u_wipe_engr` caller (named from D-1360). Not dothrow.
 
 ## Parked (do not pop)
 
