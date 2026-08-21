@@ -1,6 +1,7 @@
 // uhitm.js — Hero hitting monsters (partial).
 // C ref: uhitm.c — do_attack / attack_checks mimic / stumble_onto_mimic / hitum / known_hitum / find_roll_to_hit / hmon / hmonas / explum / gulpum / damageum;
-//         do_attack u_wipe_engr(3) D-1373; hack.c overexertion; mon.c killed / xkilled / corpse_chance.
+//         do_attack u_wipe_engr(3) D-1373; do_attack leprechaun evade D-1381;
+//         hack.c overexertion; mon.c killed / xkilled / corpse_chance.
 
 import { game } from './gstate.js';
 import { rn2, rnd, d, rn1 } from './rng.js';
@@ -18,7 +19,7 @@ import {
     HAND, LEG, A_LAWFUL, Is_airlevel, Is_waterlevel, PARANOID_HIT, LOW_PM,
     W_ARM, W_ARMC, W_ARMH, W_ARMU, W_ARMG, W_RINGL, W_RINGR, W_AMUL,
     MON_EXPLODE, NO_MM_FLAGS, DISP_ALWAYS, DISP_END, STOMACH, DIED, NO_KILLER_PREFIX,
-    KILLED_BY_AN, PASSES_WALLS, SLOW_DIGESTION, MALE, FEMALE,
+    KILLED_BY_AN, PASSES_WALLS, SLOW_DIGESTION, MALE, FEMALE, MMOVE_DIED,
 } from './const.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, TOOL_CLASS, FOOD_CLASS, RANDOM_CLASS,
@@ -64,7 +65,7 @@ import {
     wake_nearto, m_carrying, healmon, zombie_maker, zombie_form,
     mtrapped_in_pit,
 } from './mon.js';
-import { monflee } from './monmove.js';
+import { monflee, m_move } from './monmove.js';
 import { livelog_printf } from './pline.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
 import { explode, mon_explodes, adtyp_to_expltype } from './explode.js';
@@ -2660,11 +2661,13 @@ function ing_suffix(s) {
  * C ref: uhitm.c do_attack — safemon displace, else attack → hitum.
  * attack_checks: invis Wait + mimic stumble before overexertion.
  * After STR exercise: u_wipe_engr(3) (D-1373; callee D-1051).
- * Leprechaun evade still named. dothrow throw_obj(2) is D-1374;
- * dig.c still named.
+ * Leprechaun evade `!rn2(7)` then m_move (D-1381). check_capacity /
+ * twoweapon still named.
  */
 export async function do_attack(mtmp) {
     if (!mtmp) return false;
+    /* C: struct permonst *mdat = mtmp->data; captured before attack_checks. */
+    const mdat = mtmp.data;
 
     // C: is_safemon && !forcefight → try to avoid attacking pets/peacefuls
     if (is_safemon(mtmp) && !game.context?.forcefight) {
@@ -2750,7 +2753,20 @@ export async function do_attack(mtmp) {
        HEADSTONE / BURN-on-stone / Levitation. D-1373. */
     u_wipe_engr(3);
 
-    // Leprechaun evade !rn2(7) deferred (not kobold)
+    /* C uhitm.c do_attack `:555–563` — after wipe, before hitum/hmonas.
+       Short-circuit: S_LEPRECHAUN && !mfrozen && !helpless && !mconf
+       && mcansee && !rn2(7) && (m_move(mtmp,0)==MMOVE_DIED || left
+       u.ux+u.dx,u.uy+u.dy). Stay-put after m_move falls through to
+       hitum. Evade returns FALSE so domove stumbles into the cell
+       (skips atk_done map_invisible). D-1381. */
+    if (mdat?.mlet === 'S_LEPRECHAUN' && !mtmp.mfrozen && !helpless(mtmp)
+        && !mtmp.mconf && mtmp.mcansee && !rn2(7)
+        && ((await m_move(mtmp, 0)) === MMOVE_DIED
+            || mtmp.mx !== (game.u?.ux | 0) + (game.u?.dx | 0)
+            || mtmp.my !== (game.u?.uy | 0) + (game.u?.dy | 0))) {
+        await pline('You miss wildly and stumble forwards.');
+        return false;
+    }
 
     // C: if (Upolyd) hmonas; else hitum(youmonst.data->mattk)
     if (Upolyd(game.u)) {

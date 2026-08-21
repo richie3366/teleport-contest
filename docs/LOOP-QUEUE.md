@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` `do_attack` leprechaun evade (named from D-1373). Not wipe.
 - [ ] `mthrowu.c` `shade_miss` caller (named from D-1354). Not uhitm hmon.
 - [ ] `zap.c` `shade_miss` caller (named from D-1354). Not mthrowu.
 - [ ] `uhitm.c` `hmon` `shade_miss` caller (named from D-1354). Not zap.

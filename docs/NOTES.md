@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1380; cadence **#1750** `12953730`
+- **Fortress 44/44** after D-1381; cadence **#1750** `12953730`
   (Scr **11,405** RNG 100% speed `38+0.31/turn`). Next: Open
-  `uhitm.c` `do_attack` leprechaun evade (named from D-1373).
-  Not wipe. Reviews **335–338** ACCEPT-WITH-DEBT; Must-fix empty.
-  Do not skip D-1380…D-1229. No FORCE. Do not wrap `wildmiss`.
-- Do not revert D-1217–D-1380. `see_monsters` warn_obj_cnt /
+  `mthrowu.c` `shade_miss` caller (named from D-1354). Not uhitm
+  hmon. Reviews **335–338** ACCEPT-WITH-DEBT; Must-fix empty.
+  Do not skip D-1381…D-1229. No FORCE. Do not wrap `wildmiss`.
+- Do not revert D-1217–D-1381. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1380.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1381.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,12 +33,11 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1380 (index).
-- Do not skip D-1071…D-1380 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1381 (index).
+- Do not skip D-1071…D-1381 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
-  mhitm wrap brush;
-  `do_attack` leprechaun evade.
+  mhitm wrap brush.
   Do not restore fountain `lesshungry` (D-1359). No ALIGN/FORCE
   on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -51,6 +50,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1381: `uhitm.c` `do_attack` `:555–563` —
+  `S_LEPRECHAUN` `!rn2(7)` `m_move(0)` then stumble/
+  `return FALSE`. Wipe is D-1373. check_capacity /
+  twoweapon named.
 - D-1380: `zap.c` `zapnodir` WAN_WISHING `:2575–2585` —
   `Luck+rn2(5)<0` unfortunately else `known=!!dknown` +
   `makewish()`. Enlighten/stasis named. Create is D-1379.
@@ -72,7 +75,7 @@ Objective/score live in `CURRENT.md`.
 - D-1374: `dothrow.c` `throw_obj` `:138` `u_wipe_engr(2)` after
   self refuse.
 - D-1373: `uhitm.c` `do_attack` `:551` `u_wipe_engr(3)` after
-  STR exercise; leprechaun evade still named.
+  STR exercise. Leprechaun evade is D-1381.
 - D-1372: `allmain.c` `moveloop` DEX `!rn2(40+ACURR(A_DEX)*3)`
   then `u_wipe_engr(rnd(3))`.
 - D-1371: zap.js `Shock_resistance()` uprops[SHOCK_RES]; did

@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1381 — uhitm.c do_attack leprechaun evade
+
+- **Status:** fixed (map-driven Open from D-1373; not a public FAIL)
+- **Symptom:** melee on an alert leprechaun always went to
+  `hitum`/`hmonas`. C `do_attack` after `u_wipe_engr(3)` gives
+  `S_LEPRECHAUN` a 1/7 `m_move(mtmp,0)` dodge: if the monster
+  dies or leaves `u.ux+u.dx,u.uy+u.dy`, the hero misses wildly
+  and stumbles forward (`return FALSE` so `domove` continues).
+  JS left that arm as a stub comment.
+- **C locus:** `uhitm.c` `do_attack` `:555–563`
+  (`mdat->mlet == S_LEPRECHAUN && !mfrozen && !helpless &&
+  !mconf && mcansee && !rn2(7) && (m_move==MMOVE_DIED ||
+  left attack cell)`); callee `monmove.c` `m_move`. Short-circuit
+  skips `rn2(7)`/`m_move` for frozen/helpless/conf/blind/other
+  mlets; stay-put after `m_move` falls through to hitum.
+- **JS was:** `// Leprechaun evade !rn2(7) deferred (not kobold)`
+  after D-1373 wipe.
+- **Fix:** live predicate + `await m_move(mtmp, 0)` + stumble
+  pline / `return false`. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `do_attack`; callee `js/monmove.js`
+  `m_move`.
+- **Not this iter:** `check_capacity`; twoweapon `untwoweapon`;
+  Upolyd `noattacks`; atk_done forcefight `map_invisible`;
+  dochug S_LEPRECHAUN findgold arm; mthrowu/zap/hmon
+  `shade_miss` callers.
+- **Verified:** private canary **13**/13 (C/JS grep; frozen /
+  sleep / !mcanmove / conf / !mcansee / kobold skip `rn2(7)`;
+  meating stay-put consumes `rn2(7)` no stumble; fleeing seed
+  stumbles+`return false`; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session melees an alert leprechaun
+  that actually leaves the attack cell.
+- **Follow-up:** Open `mthrowu.c` `shade_miss` caller.
+- **Files:** `js/uhitm.js`.
+
 ## D-1380 — zap.c zapnodir WAN_WISHING
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
