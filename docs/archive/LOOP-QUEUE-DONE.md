@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `spell.c` `spelleffects` SPE_CREATE_MONSTER seffects (named). Not chain. **Addressed:** D-1401
+- [x] `uhitm.c` `mhitm_ad_phys` mwep dmgval (named). Not shade_miss. **Addressed:** D-1402
+
+
+- [x] `spell.c` `spelleffects` SPE_CREATE_MONSTER seffects (named). Not chain. **Addressed:** D-1401 `88587b68`
 
 
 - [x] `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING (named). Not cure. **Addressed:** D-1400 `dce9ac86`

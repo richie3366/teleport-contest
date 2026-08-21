@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1402 — uhitm.c mhitm_ad_phys mwep dmgval
+
+- **Status:** fixed (map-driven Open from D-1394; not a public FAIL)
+- **Symptom:** a monster-vs-monster AT_WEAP/AT_CLAW AD_PHYS hit
+  that passed `shade_miss` still dealt only leftover `d()` from
+  `mdamagem`. C `mhitm_ad_phys` mhitm arm `else if (mwep)` (mwep
+  already non-null iff AT_WEAP/AT_CLAW) adds `dmgval(mwep,mdef)`,
+  then GOP `rn1(4,3)`, then clamps `<1` to 1. Cockatrice-corpse
+  wep `do_stone_mon` first (may `done` before dmgval). AT_KICK
+  zeros mwep so it does not take this arm.
+- **C locus:** `uhitm.c` `mhitm_ad_phys` `:4142–4157` (mhitm
+  arm after D-1394 shade). Callee `weapon.c` `dmgval` (D-1354
+  shade_glare) + `worn.c` `which_armor(W_ARMG)` +
+  `do_stone_mon` `:3944–3978`. Caller `mhitm.c` `mdamagem`
+  `:1059` `mhitm_adtyping` `case AD_PHYS`.
+- **JS was:** named omit (D-1394). shade_miss zeroed leftover;
+  non-shade weapon hits kept dice only.
+- **Fix:** `else if (mwep)` corpse then dmgval + GOP + min 1.
+  Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_phys`.
+- **Not this iter:** youmonst `damageum_ad_phys`; mhitu
+  `mhitm_ad_phys_u`; AT_KICK `thick_skinned`; artifact_hit /
+  rustm / `mhitm_really_poison`; purple worm vs shrieker cap.
+- **Verified:** private canary **13**/13 (C/JS grep; leftover 0
+  no wep unchanged; cream pie min-1; club leftover 0 == dmgval;
+  AT_BITE nulls mwep; GOP + rn1(4,3); leftover 4d6 + second
+  dmgval; D-1394 shade explmm + silver AT_WEAP; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session has mon-vs-mon AT_WEAP/AT_CLAW
+  AD_PHYS via `mdamagem`.
+- **Follow-up:** Open `uhitm.c` `mhitm_ad_phys` AT_KICK
+  thick_skinned (named). Not mwep.
+- **Files:** `js/mhitm.js`.
+
 ## D-1401 — spell.c spelleffects SPE_CREATE_MONSTER seffects
 
 - **Status:** fixed (map-driven Open from D-1400; not a public FAIL)

@@ -2,7 +2,7 @@
 // C ref: mhitm.c — mdisplacem, mattackm, gazemm, explmm, gulpmm, passivemm,
 //         mdamagem; worn.c find_mac (re-export); uhitm.c mhitm_knockback.
 
-import { rn2, rnd, d } from './rng.js';
+import { rn2, rnd, rn1, d } from './rng.js';
 import {
     distmin, m_at, record_mvitals_died, undead_to_corpse, monnear, seemimic,
     zombie_maker, zombie_form, minliquid, healmon, wake_nearto, mon_givit,
@@ -109,6 +109,7 @@ import { you_were, you_unwere } from './were.js';
 import { rloc, tele_restrict, tele, goodpos } from './teleport.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
+const GAUNTLETS_OF_POWER = objectNames.indexOf('GAUNTLETS_OF_POWER');
 const STATUE = objectNames.indexOf('STATUE');
 const ROCK = objectNames.indexOf('ROCK');
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -729,7 +730,7 @@ async function mhitm_ad_stun(magr, mattk, mdef, mhm) {
 /**
  * C ref: uhitm.c do_stone_mon :3944–3978.
  * Named omit: munstone (muse.c lizard/acid tin eat; treat as false).
- * mhitm_ad_phys mwep corpse still named (D-1394 ports shade_miss only).
+ * Caller: mhitm_ad_ston leftover (D-1352); mhitm_ad_phys mwep corpse (D-1402).
  */
 async function do_stone_mon(magr, mattk, mdef, mhm) {
     const pd = mdef?.data;
@@ -772,13 +773,14 @@ async function mhitm_ad_ston(magr, mattk, mdef, mhm) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_phys mhitm arm :4128–4198 (D-1394).
+ * C ref: uhitm.c mhitm_ad_phys mhitm arm :4128–4198 (D-1394 shade;
+ * D-1402 mwep dmgval).
  * Re-reads MON_WEP then zeros it unless AT_WEAP/AT_CLAW (so a bite
  * while holding silver still shade_misses). vis is canseemon both,
  * not gv.vis. shade_miss callee is D-1341.
  * Named omit: youmonst is damageum_ad_phys; mhitu is mhitm_ad_phys_u;
- * AT_KICK thick_skinned; mwep dmgval/gauntlets/artifact_hit/rustm/
- * mhitm_really_poison; purple worm vs shrieker cap.
+ * AT_KICK thick_skinned; artifact_hit / rustm / mhitm_really_poison;
+ * purple worm vs shrieker cap.
  */
 async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
     let mwep = MON_WEP(magr);
@@ -788,6 +790,20 @@ async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
     if (aatyp !== AT_WEAP && aatyp !== AT_CLAW) mwep = null;
     if (await shade_miss(magr, mdef, mwep, false, vis)) {
         mhm.damage = 0;
+    } else if (mwep) {
+        /* C `:4142–4157` — corpse stone then dmgval + gauntlets + min 1.
+           artifact_hit / rustm / poison still named. */
+        if ((mwep.otyp | 0) === CORPSE
+            && touch_petrifies(mons(mwep.corpsenm))) {
+            await do_stone_mon(magr, mattk, mdef, mhm);
+            if (mhm.done) return;
+        }
+        mhm.damage = (mhm.damage | 0) + dmgval(mwep, mdef);
+        const marmg = which_armor(magr, W_ARMG);
+        if (marmg && (marmg.otyp | 0) === GAUNTLETS_OF_POWER) {
+            mhm.damage += rn1(4, 3); /* 3..6 */
+        }
+        if ((mhm.damage | 0) < 1) mhm.damage = 1;
     }
 }
 
@@ -2238,9 +2254,10 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
     }
 
-    // C: mhitm_adtyping → mhitm_ad_phys for AD_PHYS (D-1394).
-    // shade_miss zeros leftover dice (and returns mhm.hitflags, usually
-    // MISS). Non-zero dice fall through to shared knockback + HP.
+    // C: mhitm_adtyping → mhitm_ad_phys for AD_PHYS (D-1394 shade;
+    // D-1402 mwep dmgval). shade_miss zeros leftover dice. AT_WEAP/AT_CLAW
+    // mwep adds dmgval (and may bump leftover). Non-zero dice fall through
+    // to shared knockback + HP.
     if ((mattk.adtyp | 0) === AD_PHYS) {
         const mhm = {
             damage,
