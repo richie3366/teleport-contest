@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1352 — mhitm.c mdamagem AD_STON leftover
+
+- **Status:** fixed (map-driven Open from D-1338; not a public FAIL)
+- **Symptom:** a monster's AD_STON hit (cockatrice touch, Medusa
+  gaze leftover) dealt leftover `d()` HP or nothing instead of
+  petrifying. C `mdamagem` → `mhitm_adtyping` → `mhitm_ad_ston`.
+- **C locus:** `uhitm.c` `mhitm_ad_ston` mhitm arm `:4254–4261`;
+  `do_stone_mon` `:3944–3978`; caller `mhitm.c` `mdamagem`
+  `:1059`. gazemm returns `mdamagem` after Medusa reflect.
+- **JS was:** named omit (D-1338 / D-1351). AD_STON fell through
+  `mdamagem` generic HP.
+- **Fix:** cancelled keeps opening `d()`; else `poly_when_stoned`
+  `mon_to_stone` leftover 0, or `!resists_ston` vis
+  `"turns to stone!"` + `monstone` + `grow_up` `done`, or leftover
+  `AD_STON?0:1`. `munstone` named. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_ston` / `do_stone_mon` /
+  `mdamagem` AD_STON.
+- **Not this iter:** `munstone` lizard/acid tin; uhitm
+  munstone+minstapetrify; mhitu `mhitm_ad_ston_u` already live;
+  `mhitm_ad_phys` corpse-wep `do_stone_mon`; CONF/STUN/FIRE
+  leftover; `mdamagem` touch_petrifies aggressor prefix.
+- **Verified:** private canary **11**/11 (C/JS shape; Medusa gaze
+  stones gnome; stone golem leftover 0; cancelled 2d6 HP not
+  stone; bite leftover stones; flesh golem poly; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session faces mon-vs-mon AD_STON.
+- **Follow-up:** Open `zap.c` `ureflects` W_AMUL/W_ARM/dragon
+  (named from D-1342). Not W_WEP.
+- **Files:** `js/mhitm.js`.
+
 ## D-1351 — mhitm.c hitmm silver sear
 
 - **Status:** fixed (map-driven Open from D-0887; not a public FAIL)

@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1351; cadence **#1715** `d3f2a9e5`
+- **Fortress 44/44** after D-1352; cadence **#1715** `d3f2a9e5`
   (Scr **11,405** RNG 100% speed `36+0.30/turn`). Review **312**
-  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `mhitm.c`
-  `mdamagem` AD_STON leftover (named from D-1338). Not
-  shade_miss. Do not skip D-1351…D-1229. Do not wrap
+  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `zap.c`
+  `ureflects` W_AMUL/W_ARM/dragon (named from D-1342). Not
+  W_WEP. Do not skip D-1352…D-1229. Do not wrap
   `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1351. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1352. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   zap/pray ureflects W_AMUL/W_ARM/dragon and mcastu ureflects
   still named.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1351.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1352.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,11 +37,11 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1351 (index). Named still: hitmm artifact
+- Do not skip D-1071…D-1352 (index). Named still: hitmm artifact
   wep; `dmgval` shade/`shade_glare`; mthrowu/zap/hmon
-  `shade_miss` callers; mdamagem AD_STON leftover; mhitm wrap
-  brush; `wake_nearby` / `u_wipe_engr` kick callers. No
-  ALIGN/FORCE on seed0383.
+  `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
+  mhitm wrap brush; `wake_nearby` / `u_wipe_engr` kick
+  callers. No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -52,6 +52,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1352: `uhitm.c` `mhitm_ad_ston` mhitm `:4254–4261` +
+  `do_stone_mon` `:3944–3978` via `mdamagem` leftover.
+  Cancelled keeps `d()`; else poly golem / `monstone` /
+  resist leftover 0. `munstone` named.
 - D-1351: `mhitm.c` `hitmm` `:706–726` — vis `!compat` after
   hit pline; `weaponhit` AT_WEAP or AT_CLAW+mwep; silver
   `oc_material`; `mon_hates_silver` then `simpleonames`
@@ -98,5 +102,3 @@ Objective/score live in `CURRENT.md`.
   miss; FIRE/COLD/ELEC `mon_explodes`; else mdamagem then mondead.
 - D-1338: `mhitm.c` `gazemm` `:736–803` — vis gaze; Medusa
   `mon_reflects`/`monstone(magr)`; Archon `mhitm_ad_blnd`+`rn2(2)`.
-- D-1337: `apply.c` `splash_lit` `:1518–1572` — rust-trap lantern
-  stays lit; dunk snuffs+age drain; else `snuff_lit`.

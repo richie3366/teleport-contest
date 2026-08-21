@@ -173,6 +173,7 @@ const AD_COLD = 3;
 const AD_ELEC = 6;
 const AD_DRST = 7; /* drains str (poison) — monattk.h */
 const AD_ACID = 8; /* acid damage — monattk.h (was wrongly AD_DRDX=8) */
+const AD_STON = 18; /* petrifies (cockatrice touch / Medusa gaze) — monattk.h */
 const AD_STCK = 19;
 const AD_SITM = 21; /* steals item (nymphs) — monattk.h */
 const AD_SEDU = 22; /* seduces & steals multiple items */
@@ -550,6 +551,7 @@ export {
     AT_SPIT, AT_ENGL, AT_BREA, AT_EXPL, AT_BOOM, AT_GAZE, AT_TENT,
     AT_WEAP, AT_MAGC, AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_ACID,
     AD_BLND, AD_DRDX, AD_DRCO, AD_DRIN, AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
+    AD_STON,
     could_seduce,
 };
 
@@ -651,6 +653,51 @@ async function mhitm_ad_halu(magr, mattk, mdef, mhm) {
         mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
     }
     if (mhm) mhm.damage = 0;
+}
+
+/**
+ * C ref: uhitm.c do_stone_mon :3944–3978.
+ * Named omit: munstone (muse.c lizard/acid tin eat; treat as false).
+ * mhitm_ad_phys cockatrice-corpse wep caller still named.
+ */
+async function do_stone_mon(magr, mattk, mdef, mhm) {
+    const pd = mdef?.data;
+    if (poly_when_stoned(pd, game.mvitals)) {
+        await mon_to_stone(mdef);
+        mhm.damage = 0;
+        return;
+    }
+    if (!resists_ston(mdef)) {
+        if (_mm_vis && canseemon(mdef)) {
+            await pline_mon(mdef, `${Monnam(mdef)} turns to stone!`);
+        }
+        await monstone(mdef);
+        if (!deadmonster(mdef)) {
+            mhm.hitflags = M_ATTK_MISS;
+            mhm.done = true;
+            return;
+        } else if (mdef.mtame && !_mm_vis) {
+            await pline(
+                'You have a peculiarly sad feeling for a moment, then it passes.',
+            );
+        }
+        const grew = await grow_up(magr, mdef);
+        mhm.hitflags = M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        mhm.done = true;
+        return;
+    }
+    mhm.damage = ((mattk.adtyp | 0) === AD_STON) ? 0 : 1;
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_ston mhitm arm :4254–4261.
+ * Cancelled keeps leftover d() from mdamagem. Else do_stone_mon.
+ * uhitm munstone+minstapetrify and mhitu mhitm_ad_ston_u named.
+ */
+async function mhitm_ad_ston(magr, mattk, mdef, mhm) {
+    if (magr.mcan) return;
+    await do_stone_mon(magr, mattk, mdef, mhm);
+    if (mhm.done) return;
 }
 
 /** C ref: mondata.h perceives — M1_SEE_INVIS. */
@@ -2016,6 +2063,34 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
     }
 
+    // C: mhitm_adtyping → mhitm_ad_ston for AD_STON (D-1352). Cancelled
+    // keeps the opening d(); else do_stone_mon zeros leftover or stones.
+    if ((mattk.adtyp | 0) === AD_STON) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_ston(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
     mhitm_knockback(magr, mdef, mattk, hitflags, !!mwep);
 
     if (!damage) return hitflags === M_ATTK_AGR_DIED ? M_ATTK_AGR_DIED : M_ATTK_HIT;
@@ -2397,8 +2472,9 @@ async function gulpmm(magr, mdef, mattk) {
  * C ref: mhitm.c gazemm :736–803 — monster gazes at another monster.
  * Caller mattackm AT_GAZE (strike=0). Archon extra mhitm_ad_blnd + rn2(2)
  * stun then mdamagem leftover. Medusa reflect stones magr.
- * Named omit: mhitm_ad_ston/conf/stun/fire leftover dice;
+ * Named omit: mhitm_ad_conf/stun/fire leftover dice;
  * mon_perma_blind; resists_blnd_by_arti.
+ * mdamagem AD_STON leftover is D-1352.
  * arti_reflects(MON_WEP) is D-1342.
  * hitmm shade_miss is D-1341; hitmm silver sear is D-1351;
  * other shade_miss callers still named.
@@ -2477,7 +2553,8 @@ export async function gazemm(magr, mdef, mattk) {
  * mon_explodes and set AGR_DIED unconditionally (lifesave named on
  * mondead). Else mdamagem then mondead. Tame melancholy even if seen.
  * Named omit: mondead→m_unleash object (slack printed here);
- * mdamagem ston/conf/stun/fire leftover. hitmm shade_miss is D-1341;
+ * mdamagem conf/stun/fire leftover. mdamagem AD_STON leftover is D-1352.
+ * hitmm shade_miss is D-1341;
  * hitmm silver sear is D-1351.
  */
 export async function explmm(magr, mdef, mattk) {

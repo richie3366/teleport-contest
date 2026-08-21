@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `mhitm.c` hitmm silver sear (named from D-0887). Not shade_miss. **Addressed:** D-1351
+- [x] `mhitm.c` `mdamagem` AD_STON leftover (named from D-1338). Not shade_miss. **Addressed:** D-1352
+
+
+- [x] `mhitm.c` hitmm silver sear (named from D-0887). Not shade_miss. **Addressed:** D-1351 `48f2f0a2`
 
 
 - [x] `dokick.c` martial knockback (named from D-1332). Not abuse_dog. **Addressed:** D-1350 `d3f2a9e5`

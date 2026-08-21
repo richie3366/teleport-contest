@@ -59,22 +59,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1351. Review **312**
+**Map-driven fortress** after D-1352. Review **312**
 ACCEPT-WITH-DEBT (**308–311** held). **Next cluster:** Open
-`mhitm.c` `mdamagem` AD_STON leftover (named from
-D-1338). Not shade_miss. Do not skip D-1351…D-1229
+`zap.c` `ureflects` W_AMUL/W_ARM/dragon (named from
+D-1342). Not W_WEP. Do not skip D-1352…D-1229
 (index). Keep mention_map addr. Do not wrap `wildmiss`
 or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1351.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1352.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1351 (index). Recent: **D-1351** `mhitm.c`
-`hitmm` silver sear (`:706–726` after vis hit pline).
-Prior: **D-1350** `kickdmg` martial knockback.
+**Keep:** D-0845…D-1352 (index). Recent: **D-1352** `mdamagem`
+AD_STON leftover (`mhitm_ad_ston` / `do_stone_mon`).
+Prior: **D-1351** `hitmm` silver sear.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1351
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1352
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
