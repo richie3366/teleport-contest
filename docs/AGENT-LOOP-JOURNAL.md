@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1379 zap.c zapnodir WAN_CREATE_MONSTER
+
+**Objective:** Open `zap.c` `zapnodir` WAN_CREATE_MONSTER (named).
+Not light.
+**C locus:** `zap.c` `zapnodir` `:2569–2574`; callee
+`makemon.c` `create_critters` `:1556–1590`.
+**Change:** `create_critters(rn2(23)?1:rn1(7,2), null, false)`
++ eel `enexto` short-circuit + seen/`dknown` learnwand.
+Wish/enlighten/stasis + scroll/spell create named. Rule #2:
+no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps WAN_CREATE_MONSTER).
+**Verified:** private canary **19**/19; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapnodir` WAN_WISHING (named). Not
+create.
+**Blocked:** none.
 ## 2026-08-21 — review D-1375–D-1378 (audit #1750)
 
 **Objective:** audit — C-fidelity reviews **335–338** of JS SHAs

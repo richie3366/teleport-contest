@@ -16,6 +16,7 @@
 // WAN/SPE_MAGIC_MISSILE (D-1364; Antimagic uprops D-1367);
 // SPE_FIREBALL self-explode (D-1365);
 // lightdamage + zapnodir WAN/SPE_LIGHT + zapyourself WAN_LIGHT/CAMERA (D-1366);
+// zapnodir WAN_CREATE_MONSTER create_critters (D-1379);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
@@ -27,7 +28,7 @@
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
 // probing; zap_map; spell ubuzz; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
-// backfire body; other NODIR; wrest pline; check_capacity;
+// backfire body; other NODIR (wish/enlighten/stasis); wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
 // D-1353 (shared muse.c clone); mcastu ureflects named; create_polymon after poly_zapped;
@@ -112,7 +113,7 @@ import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock_invent } from './lock.js';
 import { monflee, sticks } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels, ureflects } from './mhitu.js';
-import { newcham, makemon, monhp_per_lvl, neweshk, add_to_minv } from './makemon.js';
+import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
 import { rehumanize } from './polyself.js';
@@ -183,6 +184,7 @@ const WAN_MAKE_INVISIBLE = objectNames.indexOf('WAN_MAKE_INVISIBLE');
 const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
 const RIN_SHOCK_RESISTANCE = objectNames.indexOf('RIN_SHOCK_RESISTANCE');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
+const WAN_CREATE_MONSTER = objectNames.indexOf('WAN_CREATE_MONSTER');
 const WAN_POLYMORPH = objectNames.indexOf('WAN_POLYMORPH');
 const SPE_POLYMORPH = objectNames.indexOf('SPE_POLYMORPH');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -2190,10 +2192,11 @@ export async function release_hold() {
 /**
  * C ref: zap.c zapnodir — NODIR wand effects.
  * Branch envelope: WAN_SECRET_DOOR_DETECTION → findit;
- * WAN_LIGHT / SPE_LIGHT → litroom + lightdamage (D-1366).
- * Named omit: create / wish / enlighten / stasis.
+ * WAN_LIGHT / SPE_LIGHT → litroom + lightdamage (D-1366);
+ * WAN_CREATE_MONSTER → create_critters (D-1379).
+ * Named omit: wish / enlighten / stasis.
  */
-async function zapnodir(obj) {
+export async function zapnodir(obj) {
     let known = false;
 
     switch (obj.otyp) {
@@ -2209,8 +2212,15 @@ async function zapnodir(obj) {
         known = !!obj.dknown;
         await findit();
         break;
+    case WAN_CREATE_MONSTER:
+        // C zap.c zapnodir :2569–2574 — rn2(23)?1:rn1(7,2) then
+        // create_critters(..., NULL, FALSE); known iff seen + dknown.
+        if (await create_critters(rn2(23) ? 1 : rn1(7, 2), null, false)) {
+            known = !!obj.dknown;
+        }
+        break;
     default:
-        // create / wish / enlighten / stasis deferred
+        // wish / enlighten / stasis deferred
         break;
     }
 

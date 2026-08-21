@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1379 — zap.c zapnodir WAN_CREATE_MONSTER
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** zapping a wand of create monster was a no-op.
+  C `create_critters(rn2(23) ? 1 : rn1(7, 2), NULL, FALSE)` then
+  `known = !!obj->dknown` iff a new monster is seen.
+- **C locus:** `zap.c` `zapnodir` `:2569–2574`; callee
+  `makemon.c` `create_critters` `:1556–1590` (`wizard &&
+  !neverask` → `create_particular`; `!mptr && u.uinwater &&
+  enexto(..., &mons[PM_GIANT_EEL])`; `makemon(..., NO_MM_FLAGS)`;
+  `canseemon`+`M_AP_NOTHING`/`M_AP_MONSTER` or `sensemon`).
+  Caller `weffects` NODIR.
+- **JS was:** zapnodir default skip; create_critters absent.
+- **Fix:** live create_critters + zapnodir arm. Rule #2: no fs.
+- **JS:** `js/zap.js` `zapnodir`; `js/makemon.js` `create_critters`.
+- **Not this iter:** WAN_WISHING / WAN_ENLIGHTENMENT / WAN_STASIS;
+  read.c `seffect_create_monster` / spell SPE_CREATE_MONSTER;
+  create_particular class-letter / * random (already named).
+- **Verified:** private canary **19**/19 (C/JS grep; jackal 1/3/0;
+  uinwater eel short-circuit; rn2(23)/rn1(7,2); dknown
+  learnwand+XP; !dknown; LIGHT regression; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until
+  a session zaps WAN_CREATE_MONSTER.
+- **Follow-up:** Open `zap.c` `zapnodir` WAN_WISHING (named).
+  Not create.
+- **Files:** `js/zap.js`, `js/makemon.js`.
+
 ## D-1378 — spell.c skilled SPE_FIREBALL scatter
 
 - **Status:** fixed (map-driven Open from D-1365; not a public FAIL)

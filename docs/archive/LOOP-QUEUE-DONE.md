@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
+- [x] `zap.c` `zapnodir` WAN_CREATE_MONSTER (named). Not light. **Addressed:** D-1379
+
+
 - [x] `spell.c` skilled SPE_FIREBALL scatter (named from D-1365). Not zapyourself explode. **Addressed:** D-1378 `12953730`
 
 
