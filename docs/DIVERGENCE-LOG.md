@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1343 — dokick.c kickstr
+
+- **Status:** fixed (map-driven Open from D-1335; not a public FAIL)
+- **Symptom:** dying from a kick named the raw object or `"a wall"`
+  instead of `"kicking a dart"` / `"kicking a door"` / `"kicking
+  nothing"`.
+- **C locus:** `dokick.c` `kickstr` `:794–830`; caller `kick_ouch`
+  `:903` `losehp(..., kickstr(buf, kickobjnam), KILLED_BY)`.
+  dokick `:1386–1391` sets `gm.maploc` to `&gn.nowhere` when
+  `!isok`, else `&levl[x][y]`, before pool/object/door.
+- **JS was:** named omit (D-1335 / review **297**). `kick_ouch`
+  used `kickobjnam || 'a wall'` with no `"kicking "` prefix and
+  no terrain chain.
+- **Fix:** `kickstr` prefixes `"kicking "` onto kickobjnam, else
+  nowhere `"nothing"` then `IS_DOOR`/`IS_TREE`/`IS_STWALL`/
+  `IS_OBSTRUCTED`/throne/fountain/grave/sink/altar/`IS_DRAWBRIDGE`/
+  STAIRS/LADDER/IRONBARS/`"something weird"`. dokick writes
+  `game.maploc` (null = gn.nowhere). Rule #2: no fs.
+- **JS:** `js/dokick.js` `kickstr` / `kick_ouch` / `dokick`.
+- **Not this iter:** kick_ouch drawbridge `find_drawbridge` remap
+  of maploc (DBWALL still `"a wall"`); airlevel/Levitation
+  hurtle; `abuse_dog` / martial knockback; eat choke / zap
+  `zapyourself` / dothrow `throwit` `losehp` `killer_xname`.
+- **Verified:** private canary **41**/41 (nam wins; nowhere;
+  door/tree/wall/rock/furniture/drawbridge/stairs/ladder/bars/
+  weird; arboreal STONE `"a tree"`; wiring; Rule #2); green+strict
+  seed8000/0900; cohort **8**/8 + strict
+  1500/1800/0012/0004/0007/2200/0383 + seed0060. **Public-unhit**
+  unless a session dies from a kick.
+- **Follow-up:** Open `eat.c` choke `killer_xname`.
+- **Files:** `js/dokick.js`.
+
 ## D-1342 — artifact.c arti_reflects W_WEP
 
 - **Status:** fixed (map-driven Open from D-1328; not a public FAIL)

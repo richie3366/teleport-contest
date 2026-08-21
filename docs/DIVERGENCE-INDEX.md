@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1343 | fixed | dokick.c kickstr | map-driven Open from D-1335; C `dokick.c:794–830` `kickstr` + `kick_ouch:903` `losehp(..., kickstr, KILLED_BY)`; dokick `:1387` nowhere / `:1391` `&levl[x][y]`; JS `kickobjnam \|\| 'a wall'`; live `js/dokick.js` `kickstr` + `game.maploc`; drawbridge `find_drawbridge` remap / eat·zap·dothrow `killer_xname` still named |
 | D-1342 | fixed | artifact.c arti_reflects W_WEP | map-driven Open from D-1328; C `artifact.c:537–550` `arti_reflects` + `:867–872` `set_artifact_intrinsic` SPFX_REFLECT&&W_WEP; caller `muse.c:2807` `mon_reflects` MON_WEP; JS named omit; live `js/artifact.js` + mhitu/mhitm mon_reflects + zap/pray ureflects W_WEP; cspfx extract / W_AMUL·ARM / mcastu ureflects still named |
 | D-1341 | fixed | uhitm.c shade_miss + mhitm.c hitmm | map-driven Open from D-0887; C `uhitm.c:2016–2051` `shade_miss` + `mhitm.c:659–661` `!compat && shade_miss` → `M_ATTK_MISS`; JS named omit; live `js/mhitm.js` (unarmed vs shade harmlessly-through + wake; `dmgval` shade/`shade_glare` still named so a club still “hurts”); mthrowu/zap/hmon callers / silver sear still named |
 | D-1340 | fixed | mhitm.c mattackm AT_HUGS | map-driven Open from D-1327; C `mhitm.c:476–490` auto-hit iff prev two `res[]==M_ATTK_HIT` then `failed_grab`/`hitmm(NULL,0)`; `hitmm:691–695` squeezes unless `magr==u.ustuck`; JS fell through default; live `js/mhitm.js`; `shade_miss` / silver sear / ston leftover still named |

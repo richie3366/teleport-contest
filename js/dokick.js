@@ -9,6 +9,7 @@
 // throne fall_through + tree scatter/swarm (D-0986);
 // kick_object + bhit KICKED_WEAPON (D-0988);
 // kick_object/instapetrify killer_xname (D-1335);
+// kickstr (D-1343);
 // Is_box container_impact/lock/lid/chest_trap + ghitm (D-0989).
 
 import { game } from './gstate.js';
@@ -70,7 +71,7 @@ import {
     LA_DOWN,
     SLT_ENCUMBER,
     IS_DOOR, IS_STWALL, IS_POOL, IS_THRONE, IS_FOUNTAIN, IS_SINK, IS_GRAVE,
-    IS_TREE, IS_ALTAR, IS_OBSTRUCTED, IS_ROOM, Is_earthlevel,
+    IS_TREE, IS_ALTAR, IS_OBSTRUCTED, IS_DRAWBRIDGE, IS_ROOM, Is_earthlevel,
     KILLED_BY, Upolyd, M_AP_TYPE, M_AP_MONSTER, P_NONE,
     NATTK, M_ATTK_MISS, M_ATTK_DEF_DIED, W_ARMF,
     P_MARTIAL_ARTS,
@@ -269,10 +270,45 @@ async function kick_dumb(x, y) {
 }
 
 /**
+ * C ref: dokick.c kickstr `:794–830` — cause of death if kicking kills
+ * the kicker. Prefix `"kicking "` onto kickobjnam, else terrain from
+ * gm.maploc (nowhere sentinel → `"nothing"`). Caller kick_ouch `:903`.
+ * Named omit: kick_ouch drawbridge find_drawbridge remap of maploc
+ * before this (DBWALL still `"a wall"`).
+ */
+export function kickstr(kickobjnam) {
+    let what;
+    if (kickobjnam) {
+        what = kickobjnam;
+    } else if (!game.maploc) {
+        // C: gm.maploc == &gn.nowhere (dokick !isok)
+        what = 'nothing';
+    } else {
+        const typ = game.maploc.typ | 0;
+        if (IS_DOOR(typ)) what = 'a door';
+        else if (IS_TREE(typ)) what = 'a tree';
+        else if (IS_STWALL(typ)) what = 'a wall';
+        else if (IS_OBSTRUCTED(typ)) what = 'a rock';
+        else if (IS_THRONE(typ)) what = 'a throne';
+        else if (IS_FOUNTAIN(typ)) what = 'a fountain';
+        else if (IS_GRAVE(typ)) what = 'a headstone';
+        else if (IS_SINK(typ)) what = 'a sink';
+        else if (IS_ALTAR(typ)) what = 'an altar';
+        else if (IS_DRAWBRIDGE(typ)) what = 'a drawbridge';
+        else if (typ === STAIRS) what = 'the stairs';
+        else if (typ === LADDER) what = 'a ladder';
+        else if (typ === IRONBARS) what = 'an iron bar';
+        else what = 'something weird';
+    }
+    return `kicking ${what}`;
+}
+
+/**
  * C ref: dokick.c kick_ouch — solid terrain / failed impact (partial).
- * wake_nearto wired; drawbridge / airlevel hurtle deferred.
+ * wake_nearto wired; drawbridge remap / airlevel hurtle deferred.
  * losehp applies the damage roll (regen_hp needs uhp < uhpmax).
  * set_wounded_legs on !rn2(3) → ATEMP(DEX)-- (D-0785).
+ * killer string via kickstr (D-1343).
  */
 async function kick_ouch(x, y, kickobjnam = '') {
     await pline('Ouch!  That hurts!');
@@ -280,7 +316,7 @@ async function kick_ouch(x, y, kickobjnam = '') {
     exercise(A_STR, false);
     if (isok(x, y)) {
         if (Blind()) feel_location(x, y); /* we know we hit it */
-        // drawbridge wall unaffected path deferred
+        // drawbridge wall unaffected + maploc remap deferred
         await wake_nearto(x, y, 5 * 5);
     }
     if (!rn2(3)) {
@@ -288,10 +324,9 @@ async function kick_ouch(x, y, kickobjnam = '') {
         await set_wounded_legs(RIGHT_SIDE, 5 + rnd(5));
     }
     // C: dmg = rnd(ACURR(A_CON) > 15 ? 3 : 5);
-    //     losehp(Maybe_Half_Phys(dmg), kickstr(...), KILLED_BY);
+    //     losehp(Maybe_Half_Phys(dmg), kickstr(buf, kickobjnam), KILLED_BY);
     const dmg = rnd(acurr(A_CON) > 15 ? 3 : 5);
-    const what = kickobjnam || 'a wall';
-    await losehp(maybe_half_phys(dmg), what, KILLED_BY);
+    await losehp(maybe_half_phys(dmg), kickstr(kickobjnam), KILLED_BY);
     // Is_airlevel / Levitation hurtle deferred
     void x;
     void y;
@@ -1161,8 +1196,7 @@ async function kick_object(x, y, kickobjnam) {
  * grease/Mjollnir/blocker; Norep; obstructed-loose; Is_box impact/lock/lid;
  * hero_breaks; thump; split; slide; bhit KICKED_WEAPON; mon thitmonst/
  * ghitm; shop stolen_value; flooreffects; place+stack.
- * Named omit: kickstr (kick_ouch still raw kickobjnam). eat/zap/dothrow
- * killer_xname callers still named.
+ * Named omit: eat/zap/dothrow killer_xname callers still named.
  */
 async function really_kick_object(x, y) {
     const u = game.u || {};
@@ -1499,11 +1533,15 @@ export async function dokick() {
     // wake/engraving side effects deferred
 
     if (!isok(x, y)) {
+        // C dokick.c:1387 gm.maploc = &gn.nowhere then kick_ouch
+        game.maploc = null;
         await kick_ouch(x, y);
         return true;
     }
 
     const loc = game.level?.at(x, y);
+    // C dokick.c:1391 gm.maploc = &levl[x][y] before pool/object/door
+    game.maploc = loc || null;
     if (!loc) {
         await kick_dumb(x, y);
         return true;

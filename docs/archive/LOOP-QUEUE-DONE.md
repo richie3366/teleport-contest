@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `artifact.c` `arti_reflects` W_WEP (named from D-1328). Not gazemu. **Addressed:** D-1342
+- [x] `dokick.c` `kickstr` (named; kick_ouch still raw kickobjnam). Not maybe_mnexto. **Addressed:** D-1343
+
+
+- [x] `artifact.c` `arti_reflects` W_WEP (named from D-1328). Not gazemu. **Addressed:** D-1342 `34de9f33`
 
 
 - [x] `mhitm.c` hitmm `shade_miss` (named from D-0887). Not AT_HUGS. **Addressed:** D-1341 `e3a30202`

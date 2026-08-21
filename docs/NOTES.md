@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1342; cadence **#1700** `e3a30202`
+- **Fortress 44/44** after D-1343; cadence **#1700** `e3a30202`
   (Scr **11,405** RNG 100% speed `36+0.29/turn`). Reviews **300–303**
-  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `dokick.c` `kickstr`
-  (named; kick_ouch still raw kickobjnam). Not maybe_mnexto. Do not
-  skip D-1342…D-1229. Do not wrap `wildmiss` as `pline_mon`. No
+  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `eat.c` choke
+  `killer_xname` (remaining caller). Not dokick kickobjnam. Do not
+  skip D-1343…D-1229. Do not wrap `wildmiss` as `pline_mon`. No
   FORCE.
-- Do not revert D-1217–D-1342. warn_obj / `artifact_light` `)`
+- Do not revert D-1217–D-1343. warn_obj / `artifact_light` `)`
   rewrite still named. zap/pray ureflects W_AMUL/W_ARM/dragon and
   mcastu ureflects still named.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1342.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1343.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,10 +36,10 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1342 (index). Named still: hitmm silver
+- Do not skip D-1071…D-1343 (index). Named still: hitmm silver
   sear; `dmgval` shade/`shade_glare`; mthrowu/zap/hmon
   `shade_miss` callers; uhitm/mhitm wrap arms; `abuse_dog` /
-  martial knockback; `kickstr`; eat/zap/dothrow `killer_xname`.
+  martial knockback; eat/zap/dothrow `killer_xname`.
   No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -51,6 +51,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1343: `dokick.c` `kickstr` `:794–830` + `kick_ouch` `:903`
+  `losehp(..., kickstr, KILLED_BY)`. Empty nam → nowhere
+  `"nothing"` / door/tree/stwall/obstructed/throne/fountain/
+  headstone/sink/altar/drawbridge/`the stairs`/ladder/`an iron
+  bar` / `"something weird"` then `"kicking "` prefix. dokick
+  sets `game.maploc` (`!isok` null = gn.nowhere). Drawbridge
+  `find_drawbridge` remap of maploc still named. eat/zap/dothrow
+  `killer_xname` remaining.
 - D-1342: `artifact.c` `arti_reflects` `:537–550` +
   `set_artifact_intrinsic` SPFX_REFLECT W_WEP `:867–872`.
   `mon_reflects` MON_WEP between shield and amulet; hero
@@ -88,12 +96,12 @@ Objective/score live in `CURRENT.md`.
   Caller `dokick.c` `kick_monster` `:267–285` else of block:
   relocate → unmap_invisible + teleports/floats/swoops/slides/
   jumps evade pline + `passive` return. Stay-put falls through
-  to `kickdmg`. `abuse_dog` / martial knockback / `kickstr`
-  named.
+  to `kickdmg`. `abuse_dog` / martial knockback named.
+  `kickstr` is D-1343.
 - D-1335: `objnam.c` `killer_xname` `:1942–2005` — dokick
   kickobjnam `:498` + petrify `:551–554` (not `xname`). Artifact
   `bare_artifactname`; CORPSE/SLIME_MOLD; restore known/uname.
-  eat/zap/dothrow remaining; `kickstr` named.
+  eat/zap/dothrow remaining; kickstr is D-1343.
 - D-1334: `mthrowu.c` `return_from_mtoss` `:942` — notcaught
   `snuff_candle` then `ship_object` then `flooreffects("drop")`.
   Tethered AKLYS `m_throw` sets `return_flightpath` (before
@@ -122,8 +130,3 @@ Objective/score live in `CURRENT.md`.
   `eat_brains` unless DUNCE_CAP, `adjattrib(A_INT,-rnd(2),FALSE)`,
   1/5 `losespells` / 1/5 `drain_weapon_skill`. Full `defends()`
   dragon-armor switch named.
-- D-1328: `mhitu.c` `gazemu` `:1668–1898` + `mattacku` AT_GAZE
-  `:832–837` skip Medusa (mndx) + `mon.c` `m_respond_medusa`.
-  AD_STON reflect/stone, CONF/STUN/BLND/FIRE, cancelled looks-X,
-  Hallu `rn2(4)`. `#ifdef PM_BEHOLDER` AD_SLEE/AD_SLOW compiled
-  out (`#if 0` MON). gazemm is D-1338; arti_reflects W_WEP is D-1342.
