@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1337 apply.c splash_lit
+
+**Objective:** Open `apply.c` `splash_lit` (named from D-1242). Not
+snuff_candle.
+**C locus:** `apply.c` `splash_lit` `:1518–1572`; callers `trap.c`
+`water_damage` `:4722` and rust-trap walks `:1632–1636` / `:1697–1701`.
+**Change:** live `splash_lit` in `apply.js` — brass lantern rust-trap
+stays lit (crackle/flicker); dunk snuffs then drains age; other lit
+lamps/candles go through `snuff_lit`/`end_burn`. trap.js stub
+`lamplit=0` replaced with dynamic import. gulpmu invent / gulpum /
+litroom / pickup still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit). Next audit
+@**#1695**.
+**Verified:** canary **30**/30; green+strict seed8000/0900; cohort
+**7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitm.c` gazemm (named from D-1328). Not AD_WRAP.
+**Blocked:** none.
 ## 2026-08-21 — D-1336 mon.c maybe_mnexto + dokick evade
 
 **Objective:** Open `dokick.c` `maybe_mnexto` evade (named from

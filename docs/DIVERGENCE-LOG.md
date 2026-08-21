@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1337 — apply.c splash_lit
+
+- **Status:** fixed (map-driven Open from D-1242; not a public FAIL)
+- **Symptom:** JS `trap.js` `splash_lit` only cleared `lamplit`, so a
+  rust-trap splash snuffed a brass lantern and skipped `end_burn`.
+  C leaves invent/humanoid-minvent lanterns lit (crackle/flicker)
+  unless dunked; other lit lamps/candles call `snuff_lit` then
+  `end_burn`. Dunk drains `age` after snuff. No `rn2`.
+- **C locus:** `apply.c` `splash_lit` `:1518–1572`. Callers
+  `trap.c` `water_damage` `:4722` (before ostr/luck) and rust-trap
+  invent walk `:1632–1636` / minvent walk `:1697–1701`.
+- **JS was:** `obj.lamplit = 0; return true` in `trap.js`.
+- **Fix:** port `splash_lit` in `apply.js` next to `snuff_lit`;
+  trap.js dynamic-imports it (apply.js already static-imports
+  trap.js). Brass dunk/crackle live. Did not pull gulpmu invent
+  snuff, gulpum, `litroom` artifact_light, or pickup
+  `obj_is_burning`. Rule #2: no fs.
+- **JS:** `js/apply.js` `splash_lit`; `js/trap.js` rust-trap +
+  `water_damage`.
+- **Not this iter:** gulpmu invent snuff; gulpum; `litroom`
+  artifact_light; pickup `obj_is_burning`; water_damage invent
+  plines / pot_acid boom / waterproof makeknown / SPE_NOVEL;
+  rust `update_inventory` / mlifesaver.
+- **Verified:** private canary **30**/30 (C lantern gate; dunk
+  age; no rn2; JS export; trap.js await import; invent oil/
+  MAGIC_LAMP/POT_OIL/tallow snuff; invent lantern stay-lit;
+  dunk 1500→1400 and 80→40; levitation no dunk; floor lantern
+  snuffs; goblin minvent stay-lit; jackal minvent snuffs;
+  water_damage ER_DAMAGED vs stay-lit; Blind+Deaf stay-lit;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  rust trap or `water_damage` hits a lit lamp.
+- **Follow-up:** Open `mhitm.c` gazemm.
+
 ## D-1336 — `mon.c` `maybe_mnexto` + dokick evade
 
 - **Status:** fixed (map-driven Open from D-1310; not a public FAIL)

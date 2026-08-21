@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `dokick.c` `maybe_mnexto` evade (named from D-1310). Not kickstr. **Addressed:** D-1336
+- [x] `apply.c` `splash_lit` (named from D-1242). Not snuff_candle. **Addressed:** D-1337
+
+
+- [x] `dokick.c` `maybe_mnexto` evade (named from D-1310). Not kickstr. **Addressed:** D-1336 `a7ac5e52`
 
 
 - [x] `dokick.c` `killer_xname` (kickobjnam still xname). Not special_dmgval. **Addressed:** D-1335 `31d32cad`

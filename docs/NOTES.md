@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1336; cadence **#1690** `b82375a7`
+- **Fortress 44/44** after D-1337; cadence **#1690** `b82375a7`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **292–295**
-  ACCEPT-WITH-DEBT. Next: Open `apply.c` `splash_lit` (named
-  from D-1242). Not snuff_candle. Do not skip D-1336…D-1229.
+  ACCEPT-WITH-DEBT. Next: Open `mhitm.c` gazemm (named from
+  D-1328). Not AD_WRAP. Do not skip D-1337…D-1229.
   Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1336. warn_obj / `artifact_light` `)`
+- Do not revert D-1217–D-1337. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
 ## Don't re-check (≤15)
@@ -20,7 +20,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1336.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1337.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,7 +34,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1336 (index). Named still: uhitm/mhitm
+- Do not skip D-1071…D-1337 (index). Named still: uhitm/mhitm
   `mhitm_ad_wrap` arms; `abuse_dog` / martial knockback;
   `kickstr`; eat/zap/dothrow `killer_xname`. No ALIGN/FORCE
   on seed0383.
@@ -48,6 +48,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1337: `apply.c` `splash_lit` `:1518–1572` — brass lantern
+  rust-trap/nymph-carry stays lit (crackle/flicker); dunk
+  snuffs then `age -= age>200?100:age/2`; else `snuff_lit`.
+  Callers `trap.c` water_damage `:4722` + rust-trap invent/
+  minvent walks. JS stub was `lamplit=0`. gulpmu invent /
+  gulpum / litroom / pickup `obj_is_burning` named.
 - D-1336: `mon.c` `maybe_mnexto` `:3998–4017` — 20× `enexto` +
   `couldsee` + `NODIAG` then `rloc_to` (no montelecontrol).
   Caller `dokick.c` `kick_monster` `:267–285` else of block:
@@ -113,6 +119,3 @@ Objective/score live in `CURRENT.md`.
   END for caller; throwit `min(range, isqrt(arw->range))` and
   calls bhit (C `:1664–1677` / `:3863–4127`). THROWN_WEAPON fly
   stand-in named.
-- D-1322: `objnam.c` doname W_WEP `:1561` `!mrg_to_wielded` +
-  `:1591–1595` AKLYS `"tethered to"` (review **283**). Pickup
-  `pickup_prinv` flag already live. **warn_obj named**.
