@@ -47,8 +47,9 @@
 // spell.c skilled SPE_FIREBALL scatter;
 // muse MUSE_CAMERA / Sunsword invoke_blinding_ray lightdamage callers.
 // bhitm / zap_updown / zap_steed WAN_MAKE_INVISIBLE; setworn w_blocks.
-// maybe_destroy_item AD_ELEC rings/wands (D-1368); inventory_resistance
-// / full read.c recharge wand·tool·blessed still named.
+// maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
+// via uprops[SHOCK_RES] (D-1371); inventory_resistance / full
+// read.c recharge wand·tool·blessed still named.
 // explode AD_FIRE mon/hero combat: D-0968 (explode.js).
 // explode AD_COLD/ELEC mon/hero combat: D-0971 (explode.js).
 // explode AD_MAGM/DISN/DRST/ACID mon/hero combat: D-0973 (explode.js).
@@ -154,7 +155,7 @@ import {
     LEFT_RING, RIGHT_RING,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
-    REFLECTING, ANTIMAGIC,
+    REFLECTING, ANTIMAGIC, SHOCK_RES,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
@@ -293,10 +294,20 @@ function Cold_resistance() {
     return !!(u.Cold_resistance || u.HCold_resistance || u.ECold_resistance);
 }
 
-/** C ref: youprop.h Shock_resistance */
+/**
+ * C youprop.h Shock_resistance — HShock_resistance || EShock_resistance
+ * ≡ uprops[SHOCK_RES].intrinsic || uprops[SHOCK_RES].extrinsic.
+ * confer_oc_oprop writes SHOCK_RES only to uprops (EShock_resistance
+ * unmirrored). Keep H/E/sticky flats for eat/poly (invent.js
+ * hero_Shock_resistance / D-1089). Worn RIN_SHOCK_RESISTANCE must
+ * skip exploding-wand HP ("You aren't hurt!") and WAN_LIGHTNING
+ * self-zap (D-1371 / review 328).
+ */
 function Shock_resistance() {
     const u = game.u || {};
-    return !!(u.Shock_resistance || u.HShock_resistance || u.EShock_resistance);
+    const e = u.uprops?.[SHOCK_RES];
+    return !!((u.Shock_resistance || u.HShock_resistance || u.EShock_resistance)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
 }
 
 /** C ref: youprop.h Acid_resistance */
@@ -1213,7 +1224,8 @@ async function recharge_elec_ring(obj) {
 
 /**
  * C ref: zap.c maybe_destroy_item — AD_COLD potions + AD_FIRE potion/scroll/
- * spbook + AD_ELEC ring/wand (D-1368). Named omissions:
+ * spbook + AD_ELEC ring/wand (D-1368). Shock_resistance via
+ * uprops[SHOCK_RES] (D-1371). Named omissions:
  * inventory_resistance_check; Book-of-Dead glow; read.c recharge
  * wand/tool/blessed; mult forms beyond 1-of-1.
  */

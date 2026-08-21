@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1371 | fixed | zap.js Shock_resistance() uprops[SHOCK_RES] | review **328** Must-fix; C `youprop.h:42–44` H||E; confer shock-ring / shock-shield extrinsic not `EShock_resistance`; exploding-wand `"You aren't hurt!"` (still `rnd(10)`) + WAN_LIGHTNING unharmed; D-1089 shape; did not rewrite confer; explode/pray/sit clones still named |
 | D-1370 | fixed | dokick.c kick_ouch/kick_dumb air/Lev hurtle | map-driven Open from D-1361; C `dokick.c:876–877` dumb `(Is_airlevel\|\|Levitation)&&rn2(2)` range 1; `:904–905` ouch after losehp `rn1(2,4)`; JS named omit; live `js/dokick.js` + `js/dothrow.js` `hurtle`; youprop `(H\|\|E)&&!B`; monster recoil / kick_object air still named |
 | D-1369 | fixed | zap.c zapyourself WAN_MAKE_INVISIBLE | map-driven Open; C `zap.c` `:2825–2842` snapshot msg, wrapping absorb, `incr_itimeout(&HInvis, rn1(15,31))`, learn+newsym+`self_invis_message`; JS defaulted; live `js/zap.js`; bhitm/zap_updown/zap_steed / setworn w_blocks / WAN_SPEED still named |
 | D-1368 | fixed | zap.c maybe_destroy_item AD_ELEC | map-driven Open; C `zap.c` `:5858–5879` + `destroyable` `:5641–5644`; RIN_SHOCK/WAN_LIGHTNING immune; gloves skip; charged ring chargeit `recharge(obj,0)` RING spin/explode; wand `rnd(10)`; JS had `else return 0`; live `js/zap.js`; full read.c wand/tool recharge / WAN_SPEED still named |

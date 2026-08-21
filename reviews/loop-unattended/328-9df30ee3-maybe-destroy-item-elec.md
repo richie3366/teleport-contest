@@ -96,7 +96,7 @@ Journal: private canary **22**/22 (C/JS grep; shock/lightning immune no `rn2(3)`
 
 ## Actionable C-wrongs
 
-1. `zap.js` `maybe_destroy_item` AD_ELEC `Shock_resistance()` must read `youprop.h` `uprops[SHOCK_RES]` intrinsic||extrinsic (invent.js `hero_Shock_resistance` / D-1089 shape), not sticky `u.Shock_resistance||H||E` only. Worn ring of shock resistance currently still takes exploding-wand `rnd(10)` HP instead of `"You aren't hurt!"`. Same helper already gates `zapyourself` WAN_LIGHTNING. Fix the helper once. Do **not** rewrite `confer_oc_oprop`. Source: this review.
+1. `zap.js` `maybe_destroy_item` AD_ELEC `Shock_resistance()` must read `youprop.h` `uprops[SHOCK_RES]` intrinsic||extrinsic (invent.js `hero_Shock_resistance` / D-1089 shape), not sticky `u.Shock_resistance||H||E` only. Worn ring of shock resistance currently still takes exploding-wand `rnd(10)` HP instead of `"You aren't hurt!"`. Same helper already gates `zapyourself` WAN_LIGHTNING. Fix the helper once. Do **not** rewrite `confer_oc_oprop`. Source: this review. **Addressed:** D-1371
 
 Named omits (map / already-Open, not Must-fix):
 

@@ -59,23 +59,21 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1370. **Next cluster:** Must-fix
-zap.js `Shock_resistance()` via `uprops[SHOCK_RES]` (review
-**328**). Not confer rewrite. Not allmain wipe. Reviews
-**327/329/330** ACCEPT-WITH-DEBT. **328** QUALITY-RISK
-(AD_ELEC xresist sticky Shock). Do not skip
-D-1370…D-1229 (index). Keep mention_map addr. Do not wrap
-`wildmiss` or `msg_mon_movement` as `pline_mon`. Do not
-rewrite `confer_oc_oprop`.
+**Map-driven fortress** after D-1371. **Next cluster:** Open
+`allmain.c` `u_wipe_engr` DEX timeout caller (named from
+D-1360). Not dokick. Must-fix empty after review **328**.
+Do not skip D-1371…D-1229 (index). Keep mention_map addr.
+Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
+Do not rewrite `confer_oc_oprop`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1370.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1371.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1370 (index). Recent: **D-1370** dokick.js
-`kick_ouch`/`kick_dumb` air/Lev `hurtle`. Prior: **D-1369** zap.js
-`zapyourself` WAN_MAKE_INVISIBLE. **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
+**Keep:** D-0845…D-1371 (index). Recent: **D-1371** zap.js
+`Shock_resistance()` via `uprops[SHOCK_RES]`. Prior: **D-1370**
+dokick.js `kick_ouch`/`kick_dumb` air/Lev `hurtle`. **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1370
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1371
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

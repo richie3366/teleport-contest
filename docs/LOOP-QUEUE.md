@@ -26,8 +26,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] zap.js maybe_destroy_item AD_ELEC Shock_resistance() must use youprop.h uprops[SHOCK_RES] (invent hero_Shock_resistance / D-1089), not zap.js sticky-only clone — worn ring of shock resistance still takes exploding-wand rnd(10) HP instead of "You aren't hurt!". Same helper already gates WAN_LIGHTNING. Do not rewrite confer_oc_oprop. Source: reviews/loop-unattended/328-9df30ee3-maybe-destroy-item-elec.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `allmain.c` `u_wipe_engr` DEX timeout caller (named from D-1360). Not dokick.

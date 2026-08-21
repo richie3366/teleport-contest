@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1371 — zap.js Shock_resistance() via uprops[SHOCK_RES]
+
+- **Status:** fixed (review **328** Must-fix; not a public FAIL)
+- **Symptom:** `maybe_destroy_item` AD_ELEC `xresist` and
+  `zapyourself` WAN_LIGHTNING used a sticky-only
+  `Shock_resistance()` clone. A worn ring of shock
+  resistance (`confer_oc_oprop` writes `uprops[SHOCK_RES].extrinsic`
+  only) still took exploding-wand `rnd(10)` HP instead of
+  `"You aren't hurt!"`. C `youprop.h` `Shock_resistance` is H||E
+  via uprops.
+- **C locus:** `youprop.h:42–44`; `zap.c` `maybe_destroy_item`
+  `:5859–5860` / `:5939–5940`; same helper already gates
+  WAN_LIGHTNING `:2733`. D-1089 invent `hero_Shock_resistance`.
+- **JS was:** `u.Shock_resistance || HShock_resistance ||
+  EShock_resistance` only (D-1368 arm otherwise live).
+- **Fix:** OR `uprops[SHOCK_RES].intrinsic||extrinsic`. Did
+  not rewrite `confer_oc_oprop`. Sticky H/E still work.
+  C still rolls `rnd(10)` when xresist; HP skip only.
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `Shock_resistance`.
+- **Not this iter:** `inventory_resistance_check`; full
+  `read.c` recharge wand/tool/blessed; explode/pray/sit
+  Shock clones; `shieldeff` / `ugolemeffects`.
+- **Verified:** private canary **17**/17 (C/JS grep; seeing
+  explode takes HP; sticky HShock aren't-hurt; confer
+  shock-ring / shock-shield / raw uprops aren't-hurt still
+  `rnd(10)`; WAN_LIGHTNING conferral unharmed + seeing
+  shock regression; confer not rewritten; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session elec-destroys while wearing shock-res.
+- **Follow-up:** Open `allmain.c` `u_wipe_engr` DEX timeout
+  caller (named from D-1360). Not dokick.
+- **Files:** `js/zap.js`.
+
 ## D-1370 — dokick.c kick_ouch/kick_dumb airlevel/Levitation hurtle
 
 - **Status:** fixed (map-driven Open from D-1361; not a public FAIL)
