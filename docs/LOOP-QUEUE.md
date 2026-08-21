@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `lightdamage` (named; WAN_LIGHT/camera). Not flashburn lightning.
 - [ ] `zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself lightning.
 - [ ] `zap.c` `zapyourself` WAN_MAKE_INVISIBLE (named). Not lightning.
 - [ ] `dokick.c` kick_ouch/kick_dumb airlevel/Levitation `hurtle` (named from D-1361). Not no_kick.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `uhitm.c` `u_wipe_engr` attacker caller (named from D-1360). Not allmain.
 - [ ] `dothrow.c` `u_wipe_engr` caller (named from D-1360). Not uhitm.
 - [ ] `dig.c` `u_wipe_engr` caller (named from D-1360). Not dothrow.
+- [ ] `muse.c` MUSE_CAMERA `lightdamage` (named from D-1366). Not zapnodir.
+- [ ] `artifact.c` `invoke_blinding_ray` (named from D-1366). Not camera.
+- [ ] `spell.c` skilled SPE_FIREBALL scatter (named from D-1365). Not zapyourself explode.
+- [ ] `zap.c` `zapnodir` WAN_CREATE_MONSTER (named). Not light.
+- [ ] `zap.c` `zapnodir` WAN_WISHING (named). Not create.
 
 ## Parked (do not pop)
 

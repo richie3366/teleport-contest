@@ -1,6 +1,6 @@
 // zap.js — Zap command / wish helpers (partial).
 // C ref: zap.c dozap, zappable, weffects, zapnodir, learnwand, makewish,
-//        zapyourself, flashburn, ubreatheu, ubuzz, dobuzz, zhitm, destroy_items, resist,
+//        zapyourself, flashburn, lightdamage, ubreatheu, ubuzz, dobuzz, zhitm, destroy_items, resist,
 //        bhit, bhito, bhitm, bhitpile, poly_obj, obj_shudders,
 //        cancel_item, cancel_monst, revive, revive_egg, unturn_dead,
 //        unturn_you
@@ -15,6 +15,7 @@
 // WAN_LIGHTNING + flashburn (D-1355);
 // WAN/SPE_MAGIC_MISSILE (D-1364);
 // SPE_FIREBALL self-explode (D-1365);
+// lightdamage + zapnodir WAN/SPE_LIGHT + zapyourself WAN_LIGHT/CAMERA (D-1366);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
@@ -42,8 +43,9 @@
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
-// lightdamage (WAN_LIGHT/camera); WAN_MAKE_INVISIBLE; spell.c skilled
-// SPE_FIREBALL scatter; maybe_destroy_item AD_ELEC body.
+// WAN_MAKE_INVISIBLE; spell.c skilled SPE_FIREBALL scatter;
+// maybe_destroy_item AD_ELEC body; muse MUSE_CAMERA / Sunsword
+// invoke_blinding_ray lightdamage callers.
 // explode AD_FIRE mon/hero combat: D-0968 (explode.js).
 // explode AD_COLD/ELEC mon/hero combat: D-0971 (explode.js).
 // explode AD_MAGM/DISN/DRST/ACID mon/hero combat: D-0973 (explode.js).
@@ -65,7 +67,7 @@ import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import { hold_another_object, makeknown, encumber_msg } from './invent.js';
-import { doname, xname, distant_name, vtense, The, an, An, killer_xname } from './objnam.js';
+import { doname, xname, distant_name, vtense, The, an, An, killer_xname, ansimpleoname } from './objnam.js';
 import { uhim } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
 import {
@@ -110,7 +112,8 @@ import { rehumanize } from './polyself.js';
 import { costly_alteration, stolen_value, costly_spot, shop_keeper, hot_pursuit } from './shk.js';
 import { dryup } from './fountain.js';
 import { explode } from './explode.js';
-import { unpunish } from './read.js';
+import { unpunish, litroom } from './read.js';
+import { bare_artifactname } from './artifact.js';
 import { which_armor } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
 import { abuse_dog, wary_dog, tamedog } from './dog.js';
@@ -164,6 +167,8 @@ const WAN_MAGIC_MISSILE = objectNames.indexOf('WAN_MAGIC_MISSILE');
 const SPE_MAGIC_MISSILE = objectNames.indexOf('SPE_MAGIC_MISSILE');
 const WAN_SLEEP = objectNames.indexOf('WAN_SLEEP');
 const WAN_LIGHT = objectNames.indexOf('WAN_LIGHT');
+const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
+const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const WAN_LIGHTNING = objectNames.indexOf('WAN_LIGHTNING');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
 const WAN_POLYMORPH = objectNames.indexOf('WAN_POLYMORPH');
@@ -236,6 +241,7 @@ const HELM_OF_BRILLIANCE = objectNames.indexOf('HELM_OF_BRILLIANCE');
 const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
 const PM_CLAY_GOLEM = monsterNames.indexOf('PM_CLAY_GOLEM');
 const PM_KNIGHT = monsterNames.indexOf('PM_KNIGHT');
+const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const NC_VIA_WAND_OR_SPELL = 0x02;
 const NC_SHOW_MSG = 0x01;
 
@@ -2012,18 +2018,28 @@ export async function release_hold() {
 
 /**
  * C ref: zap.c zapnodir — NODIR wand effects.
- * Branch envelope: WAN_SECRET_DOOR_DETECTION → findit only.
+ * Branch envelope: WAN_SECRET_DOOR_DETECTION → findit;
+ * WAN_LIGHT / SPE_LIGHT → litroom + lightdamage (D-1366).
+ * Named omit: create / wish / enlighten / stasis.
  */
 async function zapnodir(obj) {
     let known = false;
 
     switch (obj.otyp) {
+    case WAN_LIGHT:
+    case SPE_LIGHT:
+        // C zap.c zapnodir :2544–2550 — known if dknown && !Blind;
+        // litroom(TRUE) then lightdamage(obj, TRUE, 5) (void).
+        known = !!(obj.dknown && !Blind());
+        await litroom(true, obj);
+        await lightdamage(obj, true, 5);
+        break;
     case WAN_SECRET_DOOR_DETECTION:
         known = !!obj.dknown;
         await findit();
         break;
     default:
-        // light / create / wish / enlighten / stasis deferred
+        // create / wish / enlighten / stasis deferred
         break;
     }
 
@@ -3084,6 +3100,48 @@ function resists_blnd_you() {
 }
 
 /**
+ * C ref: zap.c lightdamage :3024–3056 — light damages hero in gremlin form.
+ * Non-gremlin returns amt with no RNG. Gremlin: rnd(amt), if >10 then
+ * 10+rnd(amt-10), cap 20; pline; losehp(Maybe_Half_Phys) with
+ * zapped/blasted + uhim + ansimpleoname (or "spell of light" /
+ * bare_artifactname). SCROLL/SPBOOK force "blasted".
+ * Callers this iter: zapnodir WAN/SPE_LIGHT; zapyourself WAN_LIGHT
+ * (broken) + EXPENSIVE_CAMERA; read.c seffect_light via import.
+ * Named omit: muse MUSE_CAMERA; artifact invoke_blinding_ray.
+ * @returns {Promise<number>} possibly reduced dmg
+ */
+export async function lightdamage(obj, ordinary, amt) {
+    let dmg = amt | 0;
+    const u = game.u || {};
+    // C: youmonst.data == &mons[PM_GREMLIN] — JS mons() is a new
+    // object each call, so compare stored mndx (set_uasmon).
+    const isGremlin = (game.youmonst?.data?.mndx | 0) === PM_GREMLIN
+        || (u.umonnum | 0) === PM_GREMLIN;
+    if (dmg && isGremlin) {
+        dmg = rnd(dmg);
+        if (dmg > 10) dmg = 10 + rnd(dmg - 10);
+        if (dmg > 20) dmg = 20;
+        await pline(
+            `Ow, that light hurts${(dmg > 2 || (u.mh | 0) <= 5) ? '!' : '.'}`,
+        );
+        let ord = ordinary;
+        if (obj.oclass === SCROLL_CLASS || obj.oclass === SPBOOK_CLASS) {
+            ord = false; // say blasted rather than zapped
+        }
+        const how = obj.oclass === SPBOOK_CLASS
+            ? 'spell of light'
+            : !obj.oartifact
+                ? ansimpleoname(obj)
+                : bare_artifactname(obj);
+        const buf = `${ord ? 'zapped' : 'blasted'} ${uhim()}self with ${how}`;
+        // C: might rehumanize(); fatal only for Unchanging — losehp
+        // poly-death still named (hack.c rehumanize deferred).
+        losehp(maybe_half_phys(dmg), buf, NO_KILLER_PREFIX);
+    }
+    return dmg;
+}
+
+/**
  * C ref: zap.c flashburn :3059–3079 — light[ning] blinds the hero.
  * Caller always burns duration RNG (zapyourself WAN_LIGHTNING rnd(100)).
  * via_lightning skips arti shieldeff even if resists_blnd_by_arti.
@@ -3111,10 +3169,12 @@ export async function flashburn(duration, via_lightning) {
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / WAN_SLEEP /
  * SPE_SLEEP / WAN_DEATH / SPE_FINGER_OF_DEATH / WAN_POLYMORPH /
  * SPE_POLYMORPH / WAN_STRIKING / WAN_CANCELLATION / WAN_TELEPORTATION /
- * WAN_UNDEAD_TURNING / WAN_LIGHT / WAN_OPENING / SPE_KNOCK;
+ * WAN_UNDEAD_TURNING / WAN_LIGHT / EXPENSIVE_CAMERA / WAN_OPENING / SPE_KNOCK;
  * WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN;
  * WAN_LIGHTNING + flashburn (D-1355);
  * WAN/SPE_MAGIC_MISSILE (D-1364);
+ * SPE_FIREBALL self-explode (D-1365);
+ * lightdamage WAN_LIGHT/CAMERA (D-1366);
  * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
@@ -3239,7 +3299,17 @@ export async function zapyourself(obj, ordinary) {
     }
 
     case WAN_LIGHT:
-        // broken wand: lightdamage + flashburn(FALSE) caller named
+        // C zap.c zapyourself :2915–2918 — broken wand: d(spe,25)
+        // then FALLTHROUGH into EXPENSIVE_CAMERA.
+        damage = d(obj.spe | 0, 25);
+        // FALLTHROUGH
+    case EXPENSIVE_CAMERA:
+        // C :2920–2928 — if !damage then 5; lightdamage; +rnd(25)
+        // flashburn(FALSE); damage reset (explode/losehp not here).
+        if (!damage) damage = 5;
+        damage = await lightdamage(obj, ordinary, damage);
+        damage += rnd(25);
+        if (await flashburn(damage, false)) learn_it = true;
         damage = 0;
         break;
 
@@ -3900,7 +3970,7 @@ async function weffects(obj) {
  * C ref: zap.c dozap / #zap ('z')
  * Self-zap losehp uses killer_xname + uhim (D-1345; C `:2661–2663`).
  * Named omit: throwit `:1747` / pickup / wield / invent / mthrowu /
- * do_wear remaining killer_xname; lightdamage ansimpleoname; backfire body.
+ * do_wear remaining killer_xname; backfire body.
  * @returns {Promise<number>} 0 = cancel/no turn, 1 = took time
  */
 export async function dozap() {

@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1365; cadence **#1730** `a979a9ac`
+- **Fortress 44/44** after D-1366; cadence **#1730** `a979a9ac`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews
   **321/322** ACCEPT-WITH-DEBT (no Must-fix). Next: Open
-  `zap.c` `lightdamage` (named; WAN_LIGHT/camera). Not
-  flashburn lightning. Do not skip D-1365…D-1229. Do not
+  `zap.c` `maybe_destroy_item` AD_ELEC (named). Not
+  zapyourself lightning. Do not skip D-1366…D-1229. Do not
   wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1365. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1366. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1365.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1366.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,8 +34,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1365 (index).
-- Do not skip D-1071…D-1365 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1366 (index).
+- Do not skip D-1071…D-1366 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush; allmain/uhitm/dothrow/dig `u_wipe_engr`.
@@ -51,16 +51,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1366: `zap.c` `lightdamage` `:3024–3056` — gremlin
+  `rnd`/`cap`/`Ow`/`losehp(Maybe_Half_Phys)` zapped/blasted +
+  `ansimpleoname`. zapnodir WAN/SPE_LIGHT `litroom` then amt 5.
+  zapyourself WAN_LIGHT `d(spe,25)` FALLTHROUGH CAMERA +
+  `rnd(25)` `flashburn(FALSE)` damage 0. Live `js/zap.js` +
+  `read.js` seffect_light. muse camera / Sunsword invoke /
+  WAN_MAKE_INVISIBLE / AD_ELEC destroy body named.
 - D-1365: `zap.c` `zapyourself` `:2748–2751` SPE_FIREBALL —
   `You` explode on self then `explode(ux,uy,11,d(6,6),WAND_CLASS,EXPL_FIERY)`.
   No `learn_it`; return 0 (explode owns HP). Live `js/zap.js`
-  + `explode.js`. `lightdamage` / WAN_MAKE_INVISIBLE /
+  + `explode.js`. WAN_MAKE_INVISIBLE /
   AD_ELEC destroy body / spell.c skilled scatter named.
-- D-1364: `zap.c` `zapyourself` `:2790–2802` WAN/SPE_MAGIC_MISSILE
-  — always `learn_it`; Antimagic `pline_The` bounce (no `d()`)
-  else `d(4,6)` + Idiot (two spaces). Not zhitu
-  `"bounce off"`. shieldeff/monstseesu named. SPE_FIREBALL
-  is D-1365. `lightdamage` / WAN_MAKE_INVISIBLE named.
 - D-1363: `mkobj.c` `mksobj_migr_to_species` `:253–265` +
   `mkmaze.c` `stolen_booty` `:799–889` — orctown loot onto
   `migrating_objs` (`MIGR_TO_SPECIES`, `migr_species` overlays

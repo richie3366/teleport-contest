@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1366 zap.c lightdamage WAN_LIGHT/camera
+
+**Objective:** Open `zap.c` `lightdamage` (named; WAN_LIGHT/camera).
+Not flashburn lightning.
+**C locus:** `zap.c` `lightdamage` `:3024–3056`. Callers
+`zapnodir` `:2544–2550`; `zapyourself` `:2915–2928`.
+**Change:** gremlin rnd/cap/Ow/losehp; zapnodir WAN/SPE_LIGHT
+litroom+amt 5; WAN_LIGHT FALLTHROUGH CAMERA + rnd(25)
+flashburn(FALSE) damage 0. Filled D-1365 archive hash.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps light / self-photos).
+**Verified:** private canary **25**/25; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `maybe_destroy_item` AD_ELEC (named).
+Not zapyourself lightning.
+**Blocked:** none.
 ## 2026-08-21 — D-1365 zap.c zapyourself SPE_FIREBALL
 
 **Objective:** Open `zap.c` `zapyourself` SPE_FIREBALL (named).

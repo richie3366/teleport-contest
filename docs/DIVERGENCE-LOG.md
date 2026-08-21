@@ -4,7 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1366 — zap.c lightdamage (WAN_LIGHT/camera)
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `lightdamage` was a non-gremlin stub (`return amt`);
+  NODIR `WAN_LIGHT` did nothing; self-camera / broken wand of
+  light skipped `lightdamage` + `flashburn(FALSE)`.
+- **C locus:** `zap.c` `lightdamage` `:3024–3056`; callers
+  `zapnodir` `:2544–2550` (WAN/SPE_LIGHT `litroom` then
+  `lightdamage(obj, TRUE, 5)`); `zapyourself` `:2915–2928`
+  (WAN_LIGHT `d(spe,25)` FALLTHROUGH EXPENSIVE_CAMERA;
+  `lightdamage`; `+rnd(25)`; `flashburn(..., FALSE)`;
+  damage reset). `read.c` `seffect_light` already called it.
+- **JS was:** `read.js` stub; `zapnodir` default; zapyourself
+  WAN_LIGHT `damage = 0`.
+- **Fix:** gremlin `rnd`/`cap`/`Ow`/`losehp(Maybe_Half_Phys)`
+  with zapped/blasted + `ansimpleoname` / spell-of-light /
+  `bare_artifactname`. SCROLL/SPBOOK force blasted.
+  Non-gremlin still returns amt with no RNG. Rule #2: no fs.
+- **JS:** `js/zap.js` `lightdamage` / `zapnodir` / `zapyourself`;
+  `js/read.js` `seffect_light` dynamic import.
+- **Not this iter:** muse `MUSE_CAMERA`; artifact
+  `invoke_blinding_ray`; WAN_MAKE_INVISIBLE;
+  `maybe_destroy_item` AD_ELEC; zapnodir create/wish/
+  enlighten/stasis; spell.c skilled fireball scatter;
+  losehp poly rehumanize.
+- **Verified:** private canary **25**/25 (C/JS grep; non-gremlin
+  no RNG; gremlin rnd+mh; fatal zapped/blasted/spell-of-light;
+  CAMERA `rnd(25)`+`flashburn(FALSE)` + Blind skip; broken
+  WAN_LIGHT `d(spe,25)`; MAKE_INVISIBLE still default;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session zaps light / self-photos.
+- **Follow-up:** Open `zap.c` `maybe_destroy_item` AD_ELEC
+  (named). Not zapyourself lightning.
+- **Files:** `js/zap.js`, `js/read.js`.
+
 ## D-1365 — zap.c zapyourself SPE_FIREBALL
+
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
 - **Symptom:** self-aimed fireball spell was a no-op (default
