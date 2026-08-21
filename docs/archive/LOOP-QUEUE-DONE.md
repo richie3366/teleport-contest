@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
+- [x] `dig.c` `u_wipe_engr` caller (named from D-1360). Not dothrow. **Addressed:** D-1375
+
+
 - [x] `dothrow.c` `u_wipe_engr` caller (named from D-1360). Not uhitm. **Addressed:** D-1374 `08007958`
 
 

@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1375 — dig.c use_pick_axe2 u_wipe_engr(3)
+
+- **Status:** fixed (map-driven Open from D-1360; not a public FAIL)
+- **Symptom:** chopping downward with an axe never smudged the
+  hero-cell engraving. C `use_pick_axe2` calls `u_wipe_engr(3)`
+  after the "merely scratches" pline when `!ispick` and the
+  cell is not a LANDMINE/BEAR_TRAP. JS already printed the
+  scratch but omitted the wipe. Callee live since D-1051.
+- **C locus:** `dig.c` `use_pick_axe2` `:1328–1335`
+  (`u_wipe_engr(3);`); callee `engrave.c` `u_wipe_engr`
+  `:264–268` → `can_reach_floor(TRUE)` then
+  `wipe_engr_at(u.ux,u.uy,cnt,FALSE)`. Constant 3: no wrapper
+  RNG; no extra RNG with no engraving / HEADSTONE /
+  BURN-on-stone / Levitation skip. ENGRAVE uses
+  `rn2(1+50/(3+1))` i.e. `rn2(13)`. Pick (ispick) and axe on
+  LANDMINE/BEAR_TRAP start downward dig instead (no wipe).
+  Self-hit (`dx=dy=dz=0`) returns before this arm.
+- **JS was:** `else if (!ispick) { scratch pline; }` with no
+  trap gate and no wipe, then pick-only `else` downward dig.
+- **Fix:** C's `!ispick && (!trap || (ttyp != LANDMINE &&
+  ttyp != BEAR_TRAP))` then scratch + `u_wipe_engr(3)`. Import
+  the live callee. Rule #2: no fs.
+- **JS:** `js/dig.js` `use_pick_axe2`; callee `js/engrave.js`
+  `u_wipe_engr`.
+- **Not this iter:** uteetering/uescaped_shaft `dotrap`;
+  Underwater; swallowed attack polish; cant_reach_floor
+  messaging.
+- **Verified:** private canary **22**/22 (C/JS grep; live DUST
+  smudge via callee and `use_pick_axe2` axe-down; self-hit /
+  pick-down / LANDMINE / BEAR_TRAP do not wipe; no-engraving /
+  HEADSTONE / BURN / Levitation only exercise RNG; ENGRAVE
+  `rn2(13)`; cnt=3 vs throw cnt=2; apply/dokick/allmain/uhitm/
+  dothrow kept; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session chops down with an axe
+  while standing on a wipeable engraving.
+- **Follow-up:** Open `muse.c` MUSE_CAMERA `lightdamage`.
+- **Files:** `js/dig.js`.
+
 ## D-1374 — dothrow.c throw_obj u_wipe_engr(2)
 
 - **Status:** fixed (map-driven Open from D-1360; not a public FAIL)
@@ -37,7 +76,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
   unless a session throws while standing on a wipeable
   engraving.
-- **Follow-up:** Open `dig.c` `u_wipe_engr` caller.
+- **Follow-up:** Open `dig.c` `u_wipe_engr` caller (D-1375).
 - **Files:** `js/dothrow.js`.
 
 ## D-1373 — uhitm.c do_attack u_wipe_engr(3)

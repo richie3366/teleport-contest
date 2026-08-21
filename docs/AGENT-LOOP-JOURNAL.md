@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1375 dig.c use_pick_axe2 u_wipe_engr(3)
+
+**Objective:** Open `dig.c` `u_wipe_engr` caller
+(named from D-1360). Not dothrow.
+**C locus:** `dig.c` `use_pick_axe2` `:1328–1335`; callee
+`engrave.c` `u_wipe_engr` `:264–268`.
+**Change:** axe-scratch arm (`!ispick` and not LANDMINE/
+BEAR_TRAP) calls live `u_wipe_engr(3)` after the scratch
+pline. Pick-down / axe on those traps still start digging.
+uteetering still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session chops down with an axe on a wipeable engraving).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `muse.c` MUSE_CAMERA `lightdamage` (named
+from D-1366). Not zapnodir.
+**Blocked:** none.
 ## 2026-08-21 — review D-1371–D-1374 (audit #1745)
 
 **Objective:** audit — C-fidelity reviews **331–334** of JS SHAs
