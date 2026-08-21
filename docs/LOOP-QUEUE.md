@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` zapyourself `killer_xname` (remaining). Not eat choke.
 - [ ] `dothrow.c` throwit `losehp` `killer_xname` (C `:1747`). Not zap.
 - [ ] `objnam.c` warn_obj glow (named from D-1322). Not killer_xname.
 - [ ] `uhitm.c` `m_slips_free` AD_WRAP (uhitm you-as-agr; named from D-1331). Not mhitu wrap.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dokick.c` martial knockback (named from D-1332). Not abuse_dog.
 - [ ] `mhitm.c` hitmm silver sear (named from D-0887). Not shade_miss.
 - [ ] `mhitm.c` `mdamagem` AD_STON leftover (named from D-1338). Not shade_miss.
+- [ ] `zap.c` `ureflects` W_AMUL/W_ARM/dragon (named from D-1342). Not W_WEP.
+- [ ] `weapon.c` `dmgval` shade/`shade_glare` (named from D-1341). Not hitmm shade_miss.
+- [ ] `zap.c` `zapyourself` WAN_LIGHTNING (named). Not killer_xname.
+- [ ] `eat.c` lesshungry/bite choke callers (named from D-1344). Not zap.
+- [ ] `objnam.c` `the()` CapitalMon (named from D-1335). Not warn_obj.
 
 ## Parked (do not pop)
 

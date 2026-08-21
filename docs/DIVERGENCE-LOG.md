@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1345 — zap.c dozap zapyourself killer_xname
+
+- **Status:** fixed (map-driven Open from D-1344; not a public FAIL)
+- **Symptom:** dying from a self-directed wand zap stored
+  `xname(obj)` and `u.female` as the killer, so the tombstone
+  was `"zapped himself with maple wand"` (unknown appearance,
+  BUC/called-name leak, no article, wrong pronoun if `u.female`
+  ≠ `flags.female`). C `dozap` Sprintf `"zapped %sself with %s"`
+  with `uhim()` + `killer_xname(obj)` at `:2661–2663` and
+  `NO_KILLER_PREFIX`.
+- **C locus:** `zap.c` `dozap` `:2627–2683`; self-zap arm
+  `:2657–2664`. Callee `zapyourself` returns damage; killer
+  is formatted in `dozap`. `uhim()` is `genders[flags.female].him`.
+- **JS was:** `` `zapped ${game.u?.female ? 'her' : 'him'}self with ${xname(obj)}` ``.
+- **Fix:** `killer_xname(obj)` + `uhim()`. Rule #2: no fs.
+- **JS:** `js/zap.js` `dozap`.
+- **Not this iter:** dothrow `throwit` `:1747`; pickup / wield /
+  invent / mthrowu / do_wear remaining `killer_xname`;
+  `lightdamage` `ansimpleoname`; `backfire` body; WAN_LIGHTNING /
+  WAN_MAGIC_MISSILE `zapyourself`; `the()` CapitalMon.
+- **Verified:** private canary **31**/31 (source grep; unknown
+  striking vs `xname`; called-name/BUC/oname strip+restore;
+  `flags.female` vs `u.female`; `NO_KILLER_PREFIX` vs KILLED_BY
+  prefix; fire/cold; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session dies of self-zap.
+- **Follow-up:** Open `dothrow.c` throwit `losehp` `killer_xname`.
+- **Files:** `js/zap.js`.
+
 ## D-1344 — eat.c choke killer_xname
 
 - **Status:** fixed (map-driven Open from D-1343; not a public FAIL)

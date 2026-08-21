@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1345 zap.c dozap killer_xname
+
+**Objective:** Open `zap.c` zapyourself `killer_xname` (remaining).
+Not eat choke.
+**C locus:** `zap.c` `dozap` `:2658–2663` (`uhim()` +
+`killer_xname`); callee `zapyourself` returns damage.
+**Change:** self-zap tombstone uses `killer_xname` + `uhim()`
++ `NO_KILLER_PREFIX` (not `xname` / `u.female`). dothrow
+`:1747` / pickup / wield named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless
+self-zap death). Next audit @**#1705**.
+**Verified:** canary **31**/31; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dothrow.c` throwit `losehp` `killer_xname`
+(C `:1747`). Not zap.
+**Blocked:** none.
 ## 2026-08-21 — D-1344 eat.c choke killer_xname
 
 **Objective:** Open `eat.c` choke `killer_xname` (remaining caller).

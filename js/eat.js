@@ -2225,7 +2225,7 @@ function bounded_increase(old, inc, typ) {
  * else killer + done(CHOKING). Non-coin food uses killer_xname (D-1344;
  * C `:279`; format KILLED_BY because the helper already adds an article).
  * Named omissions: multi-turn food choke callers beyond eataccessory
- * (lesshungry/bite); zap/dothrow remaining killer_xname.
+ * (lesshungry/bite); dothrow remaining killer_xname.
  */
 async function choke(food) {
     const u = game.u || (game.u = {});

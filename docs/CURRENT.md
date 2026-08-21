@@ -59,23 +59,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1344. Reviews **300–303**
+**Map-driven fortress** after D-1345. Reviews **300–303**
 ACCEPT-WITH-DEBT (**296–299** held). **Next cluster:** Open
-`zap.c` zapyourself `killer_xname` (remaining). Not eat choke.
-Do not skip D-1344…D-1229 (index). Keep mention_map addr. Do
+`dothrow.c` throwit `losehp` `killer_xname` (C `:1747`). Not zap.
+Do not skip D-1345…D-1229 (index). Keep mention_map addr. Do
 not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1344.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1345.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1344 (index). Recent: **D-1344** `eat.c`
-`choke` `killer_xname` (C `:279`; non-coin food tombstone
-`KILLED_BY`; coins `"very rich meal"` / null `"quick snack"`).
-Prior: **D-1343** `dokick.c` `kickstr`. **D-1342**
-`artifact.c` `arti_reflects` W_WEP. **D-1341** `shade_miss`.
+**Keep:** D-0845…D-1345 (index). Recent: **D-1345** `zap.c`
+`dozap` self-zap `killer_xname` (C `:2661–2663`; `uhim()` +
+fully ID'd wand + `NO_KILLER_PREFIX`). Prior: **D-1344** `eat.c`
+`choke` `killer_xname`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1344
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1345
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

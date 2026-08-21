@@ -2013,7 +2013,8 @@ export async function boomhit(obj, dx, dy) {
  * throwit ACURRSTR urange / post-bhit lev hurtle (D-1316).
  * tethered THROWN_TETHERED_WEAPON bhit + isqrt(arw->range) (D-1323).
  * thitmonst swallow vanish pline (D-1324).
- * Named omit: objsplit unsplit; killer_xname polish;
+ * Named omit: objsplit unsplit; throwit `:1747` killer_xname polish
+ * (dozap self-zap is D-1345);
  * THROWN_WEAPON still uses the JS fly stand-in (not zap.js bhit).
  */
 
