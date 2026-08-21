@@ -36,7 +36,7 @@
 // body; ignite_items body; burnarmor worn erode ported (D-0741);
 // acid_damage/erode_armor; death-breath disintegrate_arm;
 // potionbreathe invis flash (D-0741); inventory_resistance_check;
-// destroy_items elec body; ugolemeffects; burn_away_slime;
+// ugolemeffects; burn_away_slime;
 // spell_damage_bonus / Knight questart double; Rider/Death specials;
 // disintegrate_mon; fire completelyburns XKILL_NOCORPSE; mon_reflects;
 // flash_hits WAN_LIGHT bhitm (D-0979); openholding/openfalling +
@@ -44,8 +44,9 @@
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
 // WAN_MAKE_INVISIBLE; spell.c skilled SPE_FIREBALL scatter;
-// maybe_destroy_item AD_ELEC body; muse MUSE_CAMERA / Sunsword
-// invoke_blinding_ray lightdamage callers.
+// muse MUSE_CAMERA / Sunsword invoke_blinding_ray lightdamage callers.
+// maybe_destroy_item AD_ELEC rings/wands (D-1368); inventory_resistance
+// / full read.c recharge wand·tool·blessed still named.
 // explode AD_FIRE mon/hero combat: D-0968 (explode.js).
 // explode AD_COLD/ELEC mon/hero combat: D-0971 (explode.js).
 // explode AD_MAGM/DISN/DRST/ACID mon/hero combat: D-0973 (explode.js).
@@ -67,7 +68,7 @@ import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import { hold_another_object, makeknown, encumber_msg } from './invent.js';
-import { doname, xname, distant_name, vtense, The, an, An, killer_xname, ansimpleoname } from './objnam.js';
+import { doname, xname, yname, distant_name, vtense, The, an, An, killer_xname, ansimpleoname, otyp_is_charged } from './objnam.js';
 import { uhim } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
 import {
@@ -114,6 +115,7 @@ import { dryup } from './fountain.js';
 import { explode } from './explode.js';
 import { unpunish, litroom } from './read.js';
 import { bare_artifactname } from './artifact.js';
+import { Ring_gone, Ring_off, Ring_on, setworn } from './do_wear.js';
 import { which_armor } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
 import { abuse_dog, wary_dog, tamedog } from './dog.js';
@@ -122,7 +124,7 @@ import {
     oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
     eaten_stat, start_timer, spot_stop_timers, spot_time_left,
     obj_ice_effects, place_object, stackobj,
-    get_mtraits, free_omonst, free_omid,
+    get_mtraits, free_omonst, free_omid, is_metallic,
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
@@ -146,6 +148,7 @@ import {
     SHOP_DOOR_COST,
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd,
+    LEFT_RING, RIGHT_RING,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
     REFLECTING, ANTIMAGIC,
@@ -170,6 +173,7 @@ const WAN_LIGHT = objectNames.indexOf('WAN_LIGHT');
 const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const WAN_LIGHTNING = objectNames.indexOf('WAN_LIGHTNING');
+const RIN_SHOCK_RESISTANCE = objectNames.indexOf('RIN_SHOCK_RESISTANCE');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
 const WAN_POLYMORPH = objectNames.indexOf('WAN_POLYMORPH');
 const SPE_POLYMORPH = objectNames.indexOf('SPE_POLYMORPH');
@@ -1077,8 +1081,9 @@ function destroyable(obj, adtyp) {
     }
     if (adtyp === AD_ELEC) {
         if (obj.oclass !== RING_CLASS && obj.oclass !== WAND_CLASS) return false;
-        // RIN_SHOCK / WAN_LIGHTNING immune deferred → treat as destroyable
-        return true;
+        // C zap.c destroyable :5641–5644 — RIN_SHOCK / WAN_LIGHTNING immune
+        return (obj.otyp | 0) !== RIN_SHOCK_RESISTANCE
+            && (obj.otyp | 0) !== WAN_LIGHTNING;
     }
     return false;
 }
@@ -1093,10 +1098,58 @@ const DESTROY_STRINGS = [
     ['breaks apart and explodes', '', 'exploding wand'],
 ];
 
+/** C ref: objnam.c Yname2 — capitalized yname. */
+function Yname2_destroy(obj) {
+    const s = yname(obj);
+    if (!s) return s;
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/** C ref: objnam.c Yobjnam2 — "Your <xname> <otense verb>". */
+function Yobjnam2_destroy(obj, verb) {
+    const nam = xname(obj);
+    if (!verb) return `Your ${nam}`;
+    return `Your ${nam} ${vtense(nam, verb)}`;
+}
+
+/**
+ * C ref: read.c recharge RING_CLASS curse_bless==0 — maybe_destroy_item
+ * chargeit callee. Wand/tool/blessed/cursed recharge named omit.
+ */
+async function recharge_elec_ring(obj) {
+    if (!obj) return;
+    const u = game.u || {};
+    const is_on = obj === u.uleft || obj === u.uright;
+    // curse_bless == 0 → s = 1
+    if ((obj.spe | 0) > rn2(7) || (obj.spe | 0) <= -5) {
+        await pline(
+            `${Yobjnam2_destroy(obj, 'pulsate')} momentarily, then ${vtense(xname(obj), 'explode')}!`,
+        );
+        if (is_on) await Ring_gone(obj);
+        const s = rnd(3 * Math.abs(obj.spe | 0));
+        useup_invent(obj);
+        losehp(maybe_half_phys(s), 'exploding ring', KILLED_BY_AN);
+        if (game._losehp_needs_done || game.program_state?.gameover) {
+            await finish_losehp_done();
+        }
+    } else {
+        await pline(`${Yname2_destroy(obj)} spins clockwise for a moment.`);
+        const mask = is_on ? (obj === u.uleft ? LEFT_RING : RIGHT_RING) : 0;
+        if (is_on) await Ring_off(obj);
+        obj.spe = (obj.spe | 0) + 1;
+        if (is_on) {
+            setworn(obj, mask);
+            await Ring_on(obj);
+        }
+        // unpaid alter_cost named omit
+    }
+}
+
 /**
  * C ref: zap.c maybe_destroy_item — AD_COLD potions + AD_FIRE potion/scroll/
- * spbook. Named omissions: inventory_resistance_check; worn Ring_gone;
- * Book-of-Dead glow; AD_ELEC body; chargeit; mult forms beyond 1-of-1.
+ * spbook + AD_ELEC ring/wand (D-1368). Named omissions:
+ * inventory_resistance_check; Book-of-Dead glow; read.c recharge
+ * wand/tool/blessed; mult forms beyond 1-of-1.
  */
 async function maybe_destroy_item(carrier, obj, dmgtyp) {
     if (!obj) return 0;
@@ -1108,6 +1161,7 @@ async function maybe_destroy_item(carrier, obj, dmgtyp) {
     let dindx = 0;
     let xresist = false;
     let skip = false;
+    let chargeit = false;
 
     if (dmgtyp === AD_COLD) {
         quan = obj.quan | 0;
@@ -1137,62 +1191,90 @@ async function maybe_destroy_item(carrier, obj, dmgtyp) {
         } else {
             return 0;
         }
-    } else {
-        // AD_ELEC body deferred
-        return 0;
-    }
-
-    if (skip) return 0;
-
-    const osym = obj.oclass;
-    if (obj.in_use) quan -= 1;
-    let cnt = 0;
-    for (let i = 0; i < quan; i++) {
-        if (!rn2(3)) cnt++;
-    }
-    if (!cnt) return 0;
-
-    // C: pline("%s%s %s!", mult, Yname2/yname, destroy_strings[dindx][cnt>1])
-    const vis = !u_carry && canseemon(carrier);
-    if (u_carry || vis) {
-        const mult = (cnt === 1)
-            ? ((quan === 1) ? '' : 'One of ')
-            : ((cnt < quan) ? 'Some of '
-                : (quan === 2) ? 'Both of ' : 'All of ');
-        const verb = DESTROY_STRINGS[dindx]?.[cnt > 1 ? 1 : 0] || 'destroyed';
-        // Yname2 ≈ "Your " + xname for 1-of-1 carried
-        const nam = (cnt === 1 && quan === 1 && u_carry)
-            ? `Your ${xname(obj)}`
-            : (u_carry ? `your ${xname(obj)}` : xname(obj));
-        await pline(`${mult}${nam} ${verb}!`);
-    }
-
-    if (u_carry) {
-        // C: potionbreathe before useup (fire/elec potions, not cold)
-        if (osym === POTION_CLASS && dmgtyp !== AD_COLD) {
-            // breathless/haseyes deferred — wizard/human always qualifies
-            await potionbreathe(obj);
+    } else if (dmgtyp === AD_ELEC) {
+        // C zap.c maybe_destroy_item :5858–5879
+        xresist = obj.oclass !== RING_CLASS
+            && (u_carry ? Shock_resistance() : resists_elec(carrier));
+        quan = obj.quan | 0;
+        if (obj.oclass === RING_CLASS) {
+            const uarmg = game.u?.uarmg;
+            if ((((obj.owornmask | 0) & W_RING) && uarmg && !is_metallic(uarmg))
+                || (obj.otyp | 0) === RIN_SHOCK_RESISTANCE) {
+                skip = true;
+            } else if (otyp_is_charged(obj.otyp) && rn2(3)) {
+                chargeit = true;
+            } else {
+                dindx = 5;
+                dmg = 0;
+            }
+        } else if (obj.oclass === WAND_CLASS) {
+            dindx = 6;
+            dmg = rnd(10);
         }
-        // Ring_gone / setnotworn deferred for worn rings
-        if (obj === game.current_wand) game.current_wand = null;
+    } else {
+        skip = true;
     }
 
-    for (let i = 0; i < cnt; i++) {
-        if (u_carry) useup_invent(obj);
-        else m_useup(carrier, obj);
-    }
-    if (dmg) {
-        if (!u_carry) return xresist ? 0 : dmg;
-        if (xresist) {
-            await pline("You aren't hurt!");
-        } else {
-            const how = DESTROY_STRINGS[dindx]?.[2] || 'destroyed item';
-            const one = cnt === 1;
-            losehp(dmg, one ? how : `${how}s`, one ? KILLED_BY_AN : KILLED_BY);
-            exercise(A_STR, false);
-            // C losehp → urgent_pline + done noreturn
-            if (game._losehp_needs_done || game.program_state?.gameover) {
-                await finish_losehp_done();
+    if (chargeit) {
+        // C: recharge only handles hero inventory
+        if (u_carry) await recharge_elec_ring(obj);
+    } else if (!skip) {
+        const osym = obj.oclass;
+        if (obj.in_use) quan -= 1;
+        let cnt = 0;
+        for (let i = 0; i < quan; i++) {
+            if (!rn2(3)) cnt++;
+        }
+        if (!cnt) return 0;
+
+        // C: pline("%s%s %s!", mult, Yname2/yname, destroy_strings[dindx][cnt>1])
+        const vis = !u_carry && canseemon(carrier);
+        if (u_carry || vis) {
+            const mult = (cnt === 1)
+                ? ((quan === 1) ? '' : 'One of ')
+                : ((cnt < quan) ? 'Some of '
+                    : (quan === 2) ? 'Both of ' : 'All of ');
+            const verb = DESTROY_STRINGS[dindx]?.[cnt > 1 ? 1 : 0] || 'destroyed';
+            // Yname2 ≈ "Your " + xname for 1-of-1 carried
+            const nam = (cnt === 1 && quan === 1 && u_carry)
+                ? `Your ${xname(obj)}`
+                : (u_carry ? `your ${xname(obj)}` : xname(obj));
+            await pline(`${mult}${nam} ${verb}!`);
+        }
+
+        if (u_carry) {
+            // C: potionbreathe before useup (fire/elec potions, not cold)
+            if (osym === POTION_CLASS && dmgtyp !== AD_COLD) {
+                // breathless/haseyes deferred — wizard/human always qualifies
+                await potionbreathe(obj);
+            }
+            if (obj.owornmask) {
+                if ((obj.owornmask | 0) & W_RING) await Ring_gone(obj);
+                else {
+                    const { setnotworn } = await import('./do.js');
+                    setnotworn(obj);
+                }
+            }
+            if (obj === game.current_wand) game.current_wand = null;
+        }
+
+        for (let i = 0; i < cnt; i++) {
+            if (u_carry) useup_invent(obj);
+            else m_useup(carrier, obj);
+        }
+        if (dmg) {
+            if (!u_carry) return xresist ? 0 : dmg;
+            if (xresist) {
+                await pline("You aren't hurt!");
+            } else {
+                const how = DESTROY_STRINGS[dindx]?.[2] || 'destroyed item';
+                const one = cnt === 1;
+                losehp(dmg, one ? how : `${how}s`, one ? KILLED_BY_AN : KILLED_BY);
+                exercise(A_STR, false);
+                // C losehp → urgent_pline + done noreturn
+                if (game._losehp_needs_done || game.program_state?.gameover) {
+                    await finish_losehp_done();
+                }
             }
         }
     }
@@ -1202,7 +1284,7 @@ async function maybe_destroy_item(carrier, obj, dmgtyp) {
 /**
  * C ref: zap.c destroy_items — limit rn2 + invent/minvent scan.
  * Hero uses game.invent array; monsters use minvent nobj chain.
- * Named omissions: bypass_objlist; defer levitation/were; elec body.
+ * Named omissions: bypass_objlist; defer levitation/were.
  */
 export async function destroy_items(mon, dmgtyp, dmg_in) {
     let limit = Math.trunc((dmg_in | 0) / DMG_DESTROY_SCALE);

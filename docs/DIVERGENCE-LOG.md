@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1368 — zap.c maybe_destroy_item AD_ELEC
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `maybe_destroy_item` returned 0 for AD_ELEC before
+  `rn2(3)`. `destroyable` treated RIN_SHOCK / WAN_LIGHTNING as
+  eligible. Lightning self-zap called `destroy_items` but rings
+  and wands never exploded or recharged.
+- **C locus:** `zap.c` `maybe_destroy_item` `:5858–5879` +
+  `destroyable` `:5641–5644` + chargeit `recharge(obj, 0)`
+  `:5887–5890`. Callee `read.c` `recharge` RING_CLASS
+  `curse_bless==0` (`:801–833`). Callers `destroy_items`
+  (zapyourself WAN_LIGHTNING, `zhitu`/`zhitm` elec).
+- **JS was:** AD_ELEC `else return 0`; destroyable `return true`
+  after ring/wand class check.
+- **Fix:** immune otyps; worn non-metallic `uarmg` skip; charged
+  ring `rn2(3)` → RING-only `recharge(0)` (spin `spe+1` or
+  `rn2(7)` explode); else dindx 5 dust / wand dindx 6 `rnd(10)`
+  + Shock `aren't hurt`. Worn `Ring_gone` / `setnotworn`.
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `destroyable` / `maybe_destroy_item` /
+  `recharge_elec_ring`.
+- **Not this iter:** full `read.c` recharge wand/tool/blessed;
+  `inventory_resistance_check`; WAN_MAKE_INVISIBLE; muse
+  MUSE_CAMERA; `ugolemeffects` / `shieldeff`.
+- **Verified:** private canary **22**/22 (C/JS grep; shock/lightning
+  immune no `rn2(3)`; wand `rnd(10)`+explode/survive; Shock
+  aren't-hurt; uncharged ring; leather-glove skip; metallic
+  gauntlets roll; charged chargeit `rn2(7)`; AD_COLD regression;
+  MAKE_INVISIBLE still default; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session destroys rings/wands to elec.
+- **Follow-up:** Open `zap.c` `zapyourself` WAN_MAKE_INVISIBLE
+  (named). Not lightning.
+- **Files:** `js/zap.js`.
+
 ## D-1367 — zap.js Antimagic() via uprops[ANTIMAGIC]
 
 - **Status:** fixed (review **324** Must-fix; not a public FAIL)

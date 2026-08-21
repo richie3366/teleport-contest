@@ -59,22 +59,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1367. **Next cluster:** Open
-`zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself
+**Map-driven fortress** after D-1368. **Next cluster:** Open
+`zap.c` `zapyourself` WAN_MAKE_INVISIBLE (named). Not
 lightning. Reviews **323/325/326** ACCEPT-WITH-DEBT. **324**
 shipped (`Antimagic()` via `uprops[ANTIMAGIC]`). Do not skip
-D-1367…D-1229 (index). Keep mention_map addr. Do not wrap
+D-1368…D-1229 (index). Keep mention_map addr. Do not wrap
 `wildmiss` or `msg_mon_movement` as `pline_mon`. Do not
 rewrite `confer_oc_oprop`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1367.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1368.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1367 (index). Recent: **D-1367** zap.js
-`Antimagic()` `uprops[ANTIMAGIC]`. Prior: **D-1366** lightdamage.
-**Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
+**Keep:** D-0845…D-1368 (index). Recent: **D-1368** zap.js
+`maybe_destroy_item` AD_ELEC. Prior: **D-1367** `Antimagic()`
+uprops. **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1367
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1368
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

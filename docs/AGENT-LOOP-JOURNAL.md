@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1368 zap.c maybe_destroy_item AD_ELEC
+
+**Objective:** Open `zap.c` `maybe_destroy_item` AD_ELEC
+(named). Not zapyourself lightning.
+**C locus:** `zap.c` `maybe_destroy_item` `:5858–5879` +
+`destroyable` `:5641–5644`; chargeit `read.c` `recharge`
+RING `curse_bless==0`.
+**Change:** immune RIN_SHOCK/WAN_LIGHTNING; gloves skip;
+charged ring chargeit spin/explode; wand `rnd(10)` + Shock
+aren't-hurt; worn Ring_gone/setnotworn. Filled D-1367
+archive hash `463e151d`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session elec-destroys rings/wands).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapyourself` WAN_MAKE_INVISIBLE
+(named). Not lightning.
+**Blocked:** none.
 ## 2026-08-21 — D-1367 zap.js Antimagic() uprops[ANTIMAGIC]
 
 **Objective:** Must-fix review **324** — zap.c `zapyourself`
