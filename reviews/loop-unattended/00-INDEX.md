@@ -301,3 +301,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [289-2c9dff6a-mattacku-at-hugs.md](./289-2c9dff6a-mattacku-at-hugs.md) | `2c9dff6a` | D-1327 `mattacku` AT_HUGS | **ACCEPT-WITH-DEBT** |
 | [290-b21765a2-gazemu.md](./290-b21765a2-gazemu.md) | `b21765a2` | D-1328 `gazemu` / AT_GAZE | **ACCEPT-WITH-DEBT** |
 | [291-a7a5a835-mhitm-ad-drin-u.md](./291-a7a5a835-mhitm-ad-drin-u.md) | `a7a5a835` | D-1329 mhitu AD_DRIN | **ACCEPT-WITH-DEBT** |
+| [292-cfc95500-mhitm-ad-drin.md](./292-cfc95500-mhitm-ad-drin.md) | `cfc95500` | D-1330 mhitm AD_DRIN | **ACCEPT-WITH-DEBT** |
+| [293-ea5df558-mhitm-ad-wrap-u.md](./293-ea5df558-mhitm-ad-wrap-u.md) | `ea5df558` | D-1331 mhitu AD_WRAP | **ACCEPT-WITH-DEBT** |
+| [294-e430e099-kickdmg-special-dmgval.md](./294-e430e099-kickdmg-special-dmgval.md) | `e430e099` | D-1332 kickdmg `special_dmgval` | **ACCEPT-WITH-DEBT** |
+| [295-b82375a7-throwit-land-snuff.md](./295-b82375a7-throwit-land-snuff.md) | `b82375a7` | D-1333 throwit land `snuff_candle` | **ACCEPT-WITH-DEBT** |

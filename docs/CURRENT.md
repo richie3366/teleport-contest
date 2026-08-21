@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-21** — full `sessions` at review **#1685**
-HEAD `a7a5a835` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `37+0.30/turn` (R² 0.84). Next audit (review + score) @**#1690**.
+Score last measured: **2026-08-21** — full `sessions` at review **#1690**
+HEAD `b82375a7` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `37+0.30/turn` (R² 0.85). Next audit (review + score) @**#1695**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `37+0.30/turn` (R² 0.84). Next audit (review + score) @**#1690**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `37+0.30/turn` (R² 0.84) |
+| Speed label | `37+0.30/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,12 +59,12 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1333. Reviews **288–291**
-ACCEPT-WITH-DEBT (review **283** closed by D-1322). **Next
-cluster:** Open `mthrowu.c` `snuff_candle` (C `:942` notcaught
-land). Not throwit land. Not killer_xname. Do not skip
-D-1333…D-1229 (index). Keep mention_map addr. Do not wrap
-`wildmiss` or `msg_mon_movement` as `pline_mon`.
+**Map-driven fortress** after D-1333. Reviews **292–295**
+ACCEPT-WITH-DEBT (**288–291** held). **Next cluster:** Open
+`mthrowu.c` `snuff_candle` (C `:942` notcaught land). Not
+throwit land. Not killer_xname. Do not skip D-1333…D-1229
+(index). Keep mention_map addr. Do not wrap `wildmiss` or
+`msg_mon_movement` as `pline_mon`.
 
 **Parked:** D-0006. **Do not re-break D-0660…D-1333.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).

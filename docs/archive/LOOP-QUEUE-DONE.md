@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `dothrow.c` throwit land `snuff_candle` (C `:1818`). Not mthrowu. **Addressed:** D-1333
+- [x] `dothrow.c` throwit land `snuff_candle` (C `:1818`). Not mthrowu. **Addressed:** D-1333 `b82375a7`
 
 
 - [x] `dokick.c` kickdmg `special_dmgval` (named from D-1310). Not snuff_candle. **Addressed:** D-1332 `e430e099`

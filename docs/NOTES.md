@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1333; cadence **#1685** `a7a5a835`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **288–291**
-  ACCEPT-WITH-DEBT (**283** closed). Next: Open `mthrowu.c`
-  `snuff_candle` (C `:942` notcaught land). Not throwit land. Not
-  killer_xname. Do not skip D-1333…D-1229. Do not wrap `wildmiss`
-  as `pline_mon`. No FORCE.
+- **Fortress 44/44** after D-1333; cadence **#1690** `b82375a7`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **292–295**
+  ACCEPT-WITH-DEBT. Next: Open `mthrowu.c` `snuff_candle` (C
+  `:942` notcaught land). Not throwit land. Not killer_xname.
+  Do not skip D-1333…D-1229. Do not wrap `wildmiss` as
+  `pline_mon`. No FORCE.
 - Do not revert D-1217–D-1333. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
