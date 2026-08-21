@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `spell.c` skilled SPE_FIREBALL scatter (named from D-1365). Not zapyourself explode. **Addressed:** D-1378
+- [x] `spell.c` skilled SPE_FIREBALL scatter (named from D-1365). Not zapyourself explode. **Addressed:** D-1378 `12953730`
 
 
 - [x] `artifact.c` `invoke_blinding_ray` (named from D-1366). Not camera. **Addressed:** D-1377 `e785f5bb`

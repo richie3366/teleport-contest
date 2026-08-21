@@ -5,10 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1378; cadence **#1745** `08007958`
-  (Scr **11,405** RNG 100% speed `40+0.33/turn`). Next: Open
+- **Fortress 44/44** after D-1378; cadence **#1750** `12953730`
+  (Scr **11,405** RNG 100% speed `38+0.31/turn`). Next: Open
   `zap.c` `zapnodir` WAN_CREATE_MONSTER (named). Not light.
-  Reviews **331–334** ACCEPT-WITH-DEBT; Must-fix empty. Do not
+  Reviews **335–338** ACCEPT-WITH-DEBT; Must-fix empty. Do not
   skip D-1378…D-1229. No FORCE. Do not wrap `wildmiss`.
 - Do not revert D-1217–D-1378. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.

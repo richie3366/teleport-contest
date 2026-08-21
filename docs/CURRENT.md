@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-21** — full `sessions` at review **#1745**
-HEAD `08007958` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `40+0.33/turn` (R² 0.86). Next audit (review + score) @**#1750**.
+Score last measured: **2026-08-21** — full `sessions` at review **#1750**
+HEAD `12953730` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `38+0.31/turn` (R² 0.84). Next audit (review + score) @**#1755**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `40+0.33/turn` (R² 0.86). Next audit (review + score) @**#1750**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `40+0.33/turn` (R² 0.86) |
+| Speed label | `38+0.31/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -61,7 +61,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Map-driven fortress** after D-1378. **Next cluster:** Open
 `zap.c` `zapnodir` WAN_CREATE_MONSTER (named). Not light.
-Must-fix empty after review **334**.
+Must-fix empty after reviews **335–338**.
 Do not skip D-1378…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`.

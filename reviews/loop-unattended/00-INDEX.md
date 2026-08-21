@@ -344,3 +344,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [332-b3fe3015-allmain-dex-wipe.md](./332-b3fe3015-allmain-dex-wipe.md) | `b3fe3015` | D-1372 allmain DEX `u_wipe_engr(rnd(3))` | **ACCEPT-WITH-DEBT** |
 | [333-d5614c8a-do-attack-wipe.md](./333-d5614c8a-do-attack-wipe.md) | `d5614c8a` | D-1373 `do_attack` `u_wipe_engr(3)` | **ACCEPT-WITH-DEBT** |
 | [334-08007958-throw-obj-wipe.md](./334-08007958-throw-obj-wipe.md) | `08007958` | D-1374 `throw_obj` `u_wipe_engr(2)` | **ACCEPT-WITH-DEBT** |
+| [335-8a2a32bd-dig-axe-wipe.md](./335-8a2a32bd-dig-axe-wipe.md) | `8a2a32bd` | D-1375 `use_pick_axe2` `u_wipe_engr(3)` | **ACCEPT-WITH-DEBT** |
+| [336-61c15769-muse-camera.md](./336-61c15769-muse-camera.md) | `61c15769` | D-1376 MUSE_CAMERA `lightdamage` | **ACCEPT-WITH-DEBT** |
+| [337-e785f5bb-invoke-blinding-ray.md](./337-e785f5bb-invoke-blinding-ray.md) | `e785f5bb` | D-1377 `invoke_blinding_ray` | **ACCEPT-WITH-DEBT** |
+| [338-12953730-skilled-fireball-scatter.md](./338-12953730-skilled-fireball-scatter.md) | `12953730` | D-1378 skilled SPE_FIREBALL scatter | **ACCEPT-WITH-DEBT** |

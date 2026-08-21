@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — review D-1375–D-1378 (audit #1750)
+
+**Objective:** audit — C-fidelity reviews **335–338** of JS SHAs
+`8a2a32bd` / `61c15769` / `e785f5bb` / `12953730` plus full
+`sessions` score.
+**C locus:** `dig.c:1328–1335`; `muse.c:1566–1574` /
+`:1938–1955`; `artifact.c:2054–2128`; `spell.c:1419–1454` /
+`:1655–1701`.
+**Change:** no `js/` edits. All four **ACCEPT-WITH-DEBT**.
+Filled archive D-1378 `12953730`. Must-fix empty. Next Open
+`zapnodir` WAN_CREATE_MONSTER. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `38+0.31/turn` (R² 0.84).
+**Verified:** full `sessions` at HEAD `12953730`; public-unhit
+on axe wipe / monster camera / Sunsword invoke / skilled scatter.
+**Next:** Open `zap.c` `zapnodir` WAN_CREATE_MONSTER (named).
+Not light.
+**Blocked:** none.
 ## 2026-08-21 — D-1378 spell.c skilled SPE_FIREBALL scatter
 
 **Objective:** Open `spell.c` skilled SPE_FIREBALL scatter
