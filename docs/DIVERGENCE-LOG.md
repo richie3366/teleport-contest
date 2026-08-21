@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1362 — dokick.c no_kick poly/steed/lizard/uinwater/utrap/boulder
+
+- **Status:** fixed (map-driven Open from D-0786; not a public FAIL)
+- **Symptom:** `#kick` skipped C's poly/steed/lizard/uinwater/boulder
+  gates and checked `utrap` before encumbrance. A snake-poly or
+  boulder-cell kick proceeded to `getdir` while C `--More--`'d
+  `ECMD_FAIL`. Mounted kick never asked `"Kick your steed?"`.
+- **C locus:** `dokick.c` `dokick` `:1265–1310` (nolimbs/slithy,
+  verysmall, `u.usteed` yn+`kick_steed`, Wounded_legs D-0786,
+  `near_capacity`, S_LIZARD, `uinwater && !rn2(2)`, `utrap`
+  TT_PIT `Passes_walls` / WEB|BEARTRAP `You_cant`, boulder
+  `sobj_at && !Passes_walls`); callee `steed.c` `kick_steed`
+  `:402–449`.
+- **JS was:** named omit after D-0786. Chain was wounded → utrap
+  (generic pit pline) → encumber.
+- **Fix:** C-order chain; steed `'y'` → `You kick` + `kick_steed`
+  (`ECMD_TIME`) / `'n'` → `ECMD_OK` without More. `kick_steed` in
+  `steed.js`; apply whip uses the same export. Rule #2: no fs.
+- **JS:** `js/dokick.js` `dokick`; `js/steed.js` `kick_steed`;
+  `js/apply.js` whip callee.
+- **Not this iter:** swallow / pit-brace / Levitation after
+  getdir; air/Lev `hurtle`; `monverbself` vtense/makeplural;
+  `obj_delivery` stolen_booty; shop-town watchman.
+- **Verified:** private canary **60**/60 (C/JS order; live
+  slithy/nolimbs/verysmall/lizard/pit/web/beartrap/boulder;
+  poly-before-wounded; Passes_walls pit/boulder keep-path;
+  steed `n`; `kick_steed` mtame/gallop/helpless; uinwater
+  `rn2(2)`; Rule #2); green+strict seed8000/0900; focused
+  seed0060; cohort **8**/8 + strict 1500/1800/0012/0004/0007/
+  2200/0383 + seed0060. **Public-unhit** unless a session
+  kicks while poly'd, mounted, lizard, swimming, or on a
+  boulder.
+- **Follow-up:** Open `dokick.c` `obj_delivery` stolen_booty /
+  `mksobj_migr_to_species` (named from D-1177).
+- **Files:** `js/dokick.js`, `js/steed.js`, `js/apply.js`.
+
 ## D-1361 — dokick.c kick_ouch drawbridge find_drawbridge remap
 
 - **Status:** fixed (map-driven Open from D-1343; not a public FAIL)

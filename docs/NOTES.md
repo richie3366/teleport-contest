@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1361; cadence **#1725** `fbfc72d9`
+- **Fortress 44/44** after D-1362; cadence **#1725** `fbfc72d9`
   (Scr **11,405** RNG 100% speed `37+0.32/turn`). Reviews
   **317/319/320** ACCEPT-WITH-DEBT; **318** QUALITY-RISK → D-1359.
-  Next: Open `dokick.c` no_kick poly/steed/lizard/uinwater/
-  boulder (named from D-0786). Not Wounded_legs. Do not skip
-  D-1361…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1361. `see_monsters` warn_obj_cnt /
+  Next: Open `dokick.c` `obj_delivery` stolen_booty /
+  `mksobj_migr_to_species` (named from D-1177). Do not skip
+  D-1362…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
+- Do not revert D-1217–D-1362. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1361.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1362.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,8 +33,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1361 (index).
-- Do not skip D-1071…D-1361 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1362 (index).
+- Do not skip D-1071…D-1362 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush; allmain/uhitm/dothrow/dig `u_wipe_engr`.
@@ -50,6 +50,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1362: `dokick.c` `dokick` `:1265–1310` — no_kick
+  nolimbs/slithy, verysmall, steed yn+`kick_steed`, wounded
+  (D-0786), encumber, S_LIZARD, `uinwater && !rn2(2)`, utrap
+  pit `Passes_walls` / WEB|BEARTRAP, boulder `!Passes_walls`.
+  Steed `'n'` is ECMD_OK without More. `kick_steed` in
+  `steed.js`. Swallow/pit-brace/Lev after getdir named.
 - D-1361: `dokick.c` `kick_ouch` `:892–897` — `is_drawbridge_wall`
   then `pline_The` unaffected, `find_drawbridge` remaps `gm.maploc`
   (and x,y for `wake_nearto 5*5`) to the span so `kickstr` is
@@ -109,7 +115,3 @@ Objective/score live in `CURRENT.md`.
   (`m_slips_free`; C `tailmiss=!gn.notonhead`; coil/swing,
   pool `!cant_drown`, AT_HUGS crush, verbose brush). mhitu
   wrap is D-1331; mhitm brush named.
-- D-1347: `objnam.c` `doname_base` `:1599–1609` — W_WEP else
-  overwrite `)` with `glow_verb`/`glow_color` or
-  `arti_light_description` lit. `see_monsters` cnt / SPFX_WARN /
-  ARMOR `:1412` / Hallu `hcolor` named.

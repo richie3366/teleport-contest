@@ -5,6 +5,7 @@
 // martial knockback D-1350);
 // dokick wake_nearby(FALSE) D-1358;
 // dokick u_wipe_engr(2) D-1360);
+// dokick no_kick poly/steed/lizard/uinwater/utrap/boulder D-1362;
 // down_gate / drop_to / impact_drop (D-0961);
 // ship_object / otransit_msg (D-0984); obj_delivery (D-1177);
 // deliver_obj_to_mon (D-1193);
@@ -28,6 +29,8 @@ import {
 } from './display.js';
 import { vision_recalc, recalc_block_point, couldsee, cansee } from './vision.js';
 import { getdir, breakchestlock } from './lock.js';
+import { yn_function } from './getline.js';
+import { kick_steed } from './steed.js';
 import { near_capacity, inv_weight, weight_cap } from './invent.js';
 import {
     objects_at, obj_extract_self, add_to_migration, mksobj_at, mksobj, mkgold,
@@ -85,6 +88,7 @@ import {
     NATTK, M_ATTK_MISS, M_ATTK_DEF_DIED, W_ARMF,
     P_MARTIAL_ARTS, MON_FLOOR, MON_OFFMAP,
     RIGHT_SIDE, TIMEOUT, FOOT, LEG, SHOPBASE, SHOP_DOOR_COST,
+    TT_PIT, TT_WEB, TT_BEARTRAP,
     MIGR_NOWHERE, MIGR_RANDOM, MIGR_STAIRS_UP, MIGR_LADDER_UP, MIGR_SSTAIRS,
     MIGR_WITH_HERO, MIGR_NOBREAK, MIGR_NOSCATTER, MIGR_TO_SPECIES,
     DF_RANDOM, DF_ALL, In_mines, NON_PM, has_oname, has_mgivenname,
@@ -219,6 +223,14 @@ function is_ice(x, y) {
 function Passes_walls() {
     const u = game.u || {};
     return !!(u.Passes_walls || u.HPasses_walls || u.EPasses_walls);
+}
+
+/** C hack.c / mkobj.c sobj_at — first floor object of otyp at x,y. */
+function sobj_at(otyp, x, y) {
+    for (let o = objects_at(x, y); o; o = o.nexthere) {
+        if ((o.otyp | 0) === otyp) return o;
+    }
+    return null;
 }
 
 /** C ref: hack.c closed_door. */
@@ -1537,21 +1549,60 @@ async function really_kick_object(x, y) {
 export async function dokick() {
     const u = game.u || (game.u = {});
     let no_kick = false;
-
-    // C order: poly/steed deferred; Wounded_legs before encumbrance/utrap.
-    // lizard / uinwater / boulder no_kick arms still deferred.
+    const youdata = game.youmonst?.data;
     const wounded = !!(u.Wounded_legs
         || ((u.HWounded_legs | 0) & TIMEOUT)
         || (u.EWounded_legs | 0));
-    if (wounded) {
-        // C: legs_in_no_shape("kicking", FALSE) then no_kick (D-0786)
+
+    /* C dokick.c dokick `:1265–1310` — no_kick chain (D-1362).
+     * Poly/steed before wounded (D-0786). Encumber before lizard /
+     * uinwater / utrap / boulder. Steed yn returns before More.
+     * Swallow / pit-brace / Levitation after getdir still named. */
+    if (nolimbs(youdata) || slithy(youdata)) {
+        await pline('You have no legs to kick with.');
+        no_kick = true;
+    } else if (verysmall(youdata)) {
+        await pline('You are too small to do any kicking.');
+        no_kick = true;
+    } else if (u.usteed) {
+        // C: yn_function("Kick your steed?", ynchars, 'y', TRUE)
+        if ((await yn_function('Kick your steed?', 'yn', 'y')) === 'y') {
+            await pline(`You kick ${mon_nam(u.usteed)}.`);
+            await kick_steed();
+            return true;
+        }
+        return false;
+    } else if (wounded) {
         await legs_in_no_shape('kicking', false);
+        no_kick = true;
+    } else if (near_capacity() > SLT_ENCUMBER) {
+        await pline('Your load is too heavy to balance yourself for a kick.');
+        no_kick = true;
+    } else if (youdata?.mlet === 'S_LIZARD') {
+        await pline('Your legs cannot kick effectively.');
+        no_kick = true;
+    } else if (u.uinwater && !rn2(2)) {
+        await pline("Your slow motion kick doesn't hit anything.");
         no_kick = true;
     } else if ((u.utrap | 0) !== 0) {
         no_kick = true;
-        await pline("There's not enough room to kick down here.");
-    } else if (near_capacity() > SLT_ENCUMBER) {
-        await pline('Your load is too heavy to balance yourself for a kick.');
+        switch (u.utraptype | 0) {
+        case TT_PIT:
+            if (!Passes_walls()) {
+                await pline("There's not enough room to kick down here.");
+            } else {
+                no_kick = false;
+            }
+            break;
+        case TT_WEB:
+        case TT_BEARTRAP:
+            await pline(`You can't move your ${body_part(LEG)}!`);
+            break;
+        default:
+            break;
+        }
+    } else if (sobj_at(BOULDER, u.ux | 0, u.uy | 0) && !Passes_walls()) {
+        await pline("There's not enough room to kick in here.");
         no_kick = true;
     }
 

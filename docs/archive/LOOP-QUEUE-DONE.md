@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `dokick.c` kick_ouch drawbridge `find_drawbridge` remap (named from D-1343). **Addressed:** D-1361
+- [x] `dokick.c` no_kick poly/steed/lizard/uinwater/boulder (named from D-0786). Not Wounded_legs. **Addressed:** D-1362
+
+
+- [x] `dokick.c` kick_ouch drawbridge `find_drawbridge` remap (named from D-1343). **Addressed:** D-1361 `a895ac7e`
 
 
 - [x] `dokick.c` `u_wipe_engr` caller (C `:1384`; body D-1051). Not knockback. **Addressed:** D-1360 `bdf4c27e`
