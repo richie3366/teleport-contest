@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1348 — uhitm.c mhitm_ad_wrap (hero→mon arm)
+
+- **Status:** fixed (map-driven Open from D-1331; not a public FAIL)
+- **Symptom:** a poly'd eel/python never wrapped a monster. C
+  `mhitm_ad_wrap` uhitm arm uses `tailmiss = !gn.notonhead` (C as
+  written): grab only when `!ustuck && !tailmiss && !rn2(10)`
+  unless `m_slips_free`, else already-held pool `!cant_drown`
+  drown to `mhp` / AT_HUGS crush, else verbose coil-or-tail/LEG
+  brush that zeros leftover dice. `sticks(pd)` also zeros dice.
+  JS `damageum_adtyping` skipped `AD_WRAP`. Helper `m_slips_free`
+  was already live (D-1307) with no wrap caller.
+- **C locus:** `uhitm.c` `mhitm_ad_wrap` `:3344–3375` (uhitm arm
+  only). Caller `mhitm_adtyping` `case AD_WRAP` via `damageum`.
+  Callee `m_slips_free` `:2053–2093`. Coil: `slithy(pa) &&
+  (S_SNAKE || S_NAGA)`. Drown: `is_pool(u.ux,u.uy) &&
+  !cant_drown(pd)`.
+- **JS was:** named omit (D-1331). `m_slips_free` live; PHYS/POLY/
+  DRIN only in `damageum_adtyping`.
+- **Fix:** `mhitm_ad_wrap` in `uhitm.js`; `AD_WRAP` in
+  `damageum_adtyping`. Match C `tailmiss=!notonhead` (grab is the
+  `notonhead` true arm). mhitm brush still named. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `mhitm_ad_wrap` / `damageum_adtyping`.
+- **Not this iter:** mhitm brush arm (`some_mon_nam`); `abuse_dog`;
+  martial knockback; hitmm silver sear.
+- **Verified:** private canary **22**/22 (C/JS shape; tailmiss
+  never-grab on `!notonhead`; python coil vs eel swing when
+  `notonhead`; grease slip; sticks zero dice; verbose brush;
+  AT_HUGS crush; pool drown; shark `cant_drown`; `damageum` wire;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session polys into wrap and hits a worm tail (`notonhead`).
+- **Follow-up:** Open `dokick.c` `abuse_dog` (named from D-1332).
+- **Files:** `js/uhitm.js`.
+
 ## D-1347 — objnam.c doname W_WEP warn_obj / artifact_light paren
 
 - **Status:** fixed (map-driven Open from D-1322; not a public FAIL)

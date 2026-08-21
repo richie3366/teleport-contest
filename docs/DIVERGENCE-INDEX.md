@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1348 | fixed | uhitm.c mhitm_ad_wrap you-as-agr | map-driven Open from D-1331; C `uhitm.c:3344–3375` uhitm arm; JS `damageum_adtyping` skipped WRAP (`m_slips_free` already live D-1307); live `js/uhitm.js` `mhitm_ad_wrap` (C `tailmiss=!notonhead`, slip/`!rn2(10)` coil-or-swing grab, pool `!cant_drown`, AT_HUGS crush, verbose brush); mhitu wrap D-1331; mhitm brush still named |
 | D-1347 | fixed | objnam.c doname W_WEP warn_obj glow | map-driven Open from D-1322; C `objnam.c:1599–1609` overwrite W_WEP `)` with `glow_verb`/`glow_color` or `arti_light_description` lit; JS named omit; live `js/objnam.js` + `glow_verb`/`glow_color` + artilist `acolor`; `see_monsters` cnt / SPFX_WARN / ARMOR `:1412` / Hallu `hcolor` / `the()` CapitalMon still named |
 | D-1346 | fixed | dothrow.c throwit killer_xname | map-driven Open from D-1345; C `dothrow.c:1747–1748` `throwit` returning-missile `losehp(Maybe_Half_Phys, killer_xname, KILLED_BY)`; JS `xname`; live `js/dothrow.js` `throwit_returning_missile`; throw_obj `:147` petrify / pickup / wield remaining |
 | D-1345 | fixed | zap.c dozap killer_xname | map-driven Open from D-1344; C `zap.c:2658–2663` `dozap` `"zapped "+uhim()+"self with "+killer_xname` + `NO_KILLER_PREFIX`; JS `xname` + `u.female`; live `js/zap.js` `dozap`; dothrow `:1747` / pickup / wield remaining |

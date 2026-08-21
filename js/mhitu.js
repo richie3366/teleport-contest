@@ -898,7 +898,7 @@ function defends_ad_drin(_otmp) {
  * slips a hug or wrap. AT_ENGL never slips. AD_DRIN looks at uarmh
  * (mhitu mhitm_ad_drin D-1329); other attacks walk cloak then suit
  * then shirt. mhitu AD_WRAP caller is mhitm_ad_wrap_u (D-1331);
- * uhitm/mhitm arms of mhitm_ad_wrap still named.
+ * uhitm arm is mhitm_ad_wrap (D-1348). mhitm brush still named.
  */
 export async function u_slip_free(mtmp, mattk) {
     if ((mattk?.aatyp | 0) === AT_ENGL) return false;
@@ -1527,7 +1527,7 @@ function Breathless() {
  * (!mcan || ustuck==magr) && !sticks(you): !ustuck && !rn2(10) grab
  * with u_slip_free, else already-held pool drown / AT_HUGS crush,
  * else verbose brush. Cancelled / sticks zeros leftover dice.
- * uhitm (m_slips_free) and mhitm arms still named.
+ * uhitm arm is mhitm_ad_wrap (D-1348). mhitm brush still named.
  */
 export async function mhitm_ad_wrap_u(mtmp, mattk, mhm) {
     const pd = game.youmonst?.data;

@@ -59,23 +59,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1347. Reviews **304–307**
+**Map-driven fortress** after D-1348. Reviews **304–307**
 ACCEPT-WITH-DEBT (**300–303** held). **Next cluster:** Open
-`uhitm.c` `m_slips_free` AD_WRAP (uhitm you-as-agr; named from
-D-1331). Not mhitu wrap.
-Do not skip D-1347…D-1229 (index). Keep mention_map addr. Do
+`dokick.c` `abuse_dog` (named from D-1332). Not kickstr.
+Do not skip D-1348…D-1229 (index). Keep mention_map addr. Do
 not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1347.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1348.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1347 (index). Recent: **D-1347** `objnam.c`
-`doname` W_WEP warn_obj / artifact_light `)` rewrite (C
-`:1599–1609`). Prior: **D-1346** `dothrow.c` `throwit`
-returning-missile `losehp` `killer_xname`.
+**Keep:** D-0845…D-1348 (index). Recent: **D-1348** `uhitm.c`
+`mhitm_ad_wrap` uhitm arm (`m_slips_free`, C
+`tailmiss=!notonhead`). Prior: **D-1347** `objnam.c` `doname`
+W_WEP warn_obj / artifact_light `)` rewrite.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1347
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1348
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

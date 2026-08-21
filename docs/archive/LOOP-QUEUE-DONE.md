@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `objnam.c` warn_obj glow (named from D-1322). Not killer_xname. **Addressed:** D-1347
+- [x] `uhitm.c` `m_slips_free` AD_WRAP (uhitm you-as-agr; named from D-1331). Not mhitu wrap. **Addressed:** D-1348
+
+
+- [x] `objnam.c` warn_obj glow (named from D-1322). Not killer_xname. **Addressed:** D-1347 `1651816e`
 
 
 - [x] `dothrow.c` throwit `losehp` `killer_xname` (C `:1747`). Not zap. **Addressed:** D-1346 `15b20ab4`
