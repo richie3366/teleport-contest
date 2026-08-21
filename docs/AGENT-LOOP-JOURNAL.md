@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — review D-1361–D-1362 (audit #1730)
+
+**Objective:** audit — C-fidelity reviews **321–322** of JS SHAs
+`a895ac7e` / `a979a9ac` plus full `sessions` score.
+**C locus:** `dokick.c` `kick_ouch` `:892–897`; `dokick` `:1265–1310`
++ `steed.c` `kick_steed` `:402–449`.
+**Change:** no `js/` edits. Both **ACCEPT-WITH-DEBT**. Named: hurtle;
+swallow/pit-brace/Lev; `monverbself` vtense. Filled archive
+D-1362 `a979a9ac`. Must-fix empty. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `37+0.30/turn` (R² 0.85).
+**Verified:** full `sessions` at HEAD `a979a9ac`; public-unhit on
+portcullis/poly/steed kick.
+**Next:** Open `dokick.c` `obj_delivery` stolen_booty /
+`mksobj_migr_to_species` (named from D-1177).
+**Blocked:** none.
 ## 2026-08-21 — D-1362 dokick.c no_kick poly/steed/lizard/uinwater/boulder
 
 **Objective:** Open `dokick.c` no_kick poly/steed/lizard/

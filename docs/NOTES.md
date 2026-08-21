@@ -5,10 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1362; cadence **#1725** `fbfc72d9`
-  (Scr **11,405** RNG 100% speed `37+0.32/turn`). Reviews
-  **317/319/320** ACCEPT-WITH-DEBT; **318** QUALITY-RISK → D-1359.
-  Next: Open `dokick.c` `obj_delivery` stolen_booty /
+- **Fortress 44/44** after D-1362; cadence **#1730** `a979a9ac`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews
+  **321/322** ACCEPT-WITH-DEBT (no Must-fix). Next: Open
+  `dokick.c` `obj_delivery` stolen_booty /
   `mksobj_migr_to_species` (named from D-1177). Do not skip
   D-1362…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.
 - Do not revert D-1217–D-1362. `see_monsters` warn_obj_cnt /

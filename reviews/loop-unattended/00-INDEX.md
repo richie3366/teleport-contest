@@ -330,3 +330,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [318-6fd45ec4-lesshungry-bite-choke.md](./318-6fd45ec4-lesshungry-bite-choke.md) | `6fd45ec4` | D-1356 lesshungry/bite choke | **QUALITY-RISK** |
 | [319-0be5135b-the-capitalmon.md](./319-0be5135b-the-capitalmon.md) | `0be5135b` | D-1357 `the()` CapitalMon | **ACCEPT-WITH-DEBT** |
 | [320-fbfc72d9-dokick-wake-nearby.md](./320-fbfc72d9-dokick-wake-nearby.md) | `fbfc72d9` | D-1358 dokick `wake_nearby` | **ACCEPT-WITH-DEBT** |
+| [321-a895ac7e-kick-ouch-drawbridge.md](./321-a895ac7e-kick-ouch-drawbridge.md) | `a895ac7e` | D-1361 kick_ouch drawbridge remap | **ACCEPT-WITH-DEBT** |
+| [322-a979a9ac-dokick-no-kick.md](./322-a979a9ac-dokick-no-kick.md) | `a979a9ac` | D-1362 dokick no_kick + `kick_steed` | **ACCEPT-WITH-DEBT** |
