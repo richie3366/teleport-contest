@@ -59,23 +59,23 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1354. Reviews **313–316**
+**Map-driven fortress** after D-1355. Reviews **313–316**
 ACCEPT-WITH-DEBT (**312** held). **Next cluster:** Open
-`zap.c` `zapyourself` WAN_LIGHTNING (named). Not
-killer_xname. Do not skip D-1354…D-1229
+`eat.c` lesshungry/bite choke callers (named from D-1344).
+Not zap. Do not skip D-1355…D-1229
 (index). Keep mention_map addr. Do not wrap `wildmiss`
 or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1354.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1355.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1354 (index). Recent: **D-1354** weapon.c
-`dmgval` shade/`shade_glare`. Prior: **D-1353** muse.c
-`ureflects` W_AMUL/W_ARM/dragon. **D-1352** `mdamagem`
-AD_STON leftover.
+**Keep:** D-0845…D-1355 (index). Recent: **D-1355** zap.c
+`zapyourself` WAN_LIGHTNING + `flashburn`. Prior: **D-1354**
+weapon.c `dmgval` shade/`shade_glare`. **D-1353** muse.c
+`ureflects` W_AMUL/W_ARM/dragon.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1354
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1355
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

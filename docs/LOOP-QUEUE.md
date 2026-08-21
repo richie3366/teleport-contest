@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zapyourself` WAN_LIGHTNING (named). Not killer_xname.
 - [ ] `eat.c` lesshungry/bite choke callers (named from D-1344). Not zap.
 - [ ] `objnam.c` `the()` CapitalMon (named from D-1335). Not warn_obj.
 - [ ] `dokick.c` `wake_nearby` caller (C `:1383` after maybe_kick; callee live). Not knockback.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dokick.c` kick_ouch drawbridge `find_drawbridge` remap (named from D-1343).
 - [ ] `dokick.c` no_kick poly/steed/lizard/uinwater/boulder (named from D-0786). Not Wounded_legs.
 - [ ] `dokick.c` `obj_delivery` stolen_booty / `mksobj_migr_to_species` (named from D-1177).
+- [ ] `zap.c` `zapyourself` WAN_MAGIC_MISSILE (named). Not WAN_LIGHTNING.
+- [ ] `zap.c` `zapyourself` SPE_FIREBALL (named). Not lightning.
+- [ ] `zap.c` `lightdamage` (named; WAN_LIGHT/camera). Not flashburn lightning.
+- [ ] `zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself lightning.
+- [ ] `zap.c` `zapyourself` WAN_MAKE_INVISIBLE (named). Not lightning.
 
 ## Parked (do not pop)
 

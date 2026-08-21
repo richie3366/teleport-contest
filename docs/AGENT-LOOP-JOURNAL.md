@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1355 zap.c zapyourself WAN_LIGHTNING
+
+**Objective:** Open `zap.c` `zapyourself` WAN_LIGHTNING (named).
+Not killer_xname.
+**C locus:** `zap.c` `zapyourself` `:2730–2746`; callee
+`flashburn` `:3059–3079`.
+**Change:** learn + `d(12,6)` + Shock shock/exercise vs unharmed;
+`destroy_items` AD_ELEC; `flashburn(rnd(100), TRUE)` Blind/Unaware
+`make_blinded` talk=FALSE. ugolemeffects / AD_ELEC body /
+MAGIC_MISSILE named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session self-zaps lightning). Next audit @**#1725**.
+**Verified:** canary **25**/25; green+strict seed8000/0900;
+cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `eat.c` lesshungry/bite choke callers (named
+from D-1344). Not zap.
+**Blocked:** none.
 ## 2026-08-21 — review D-1351–D-1354 (audit #1720)
 
 **Objective:** audit — C-fidelity reviews **313–316** of JS SHAs

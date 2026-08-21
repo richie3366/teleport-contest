@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1354; cadence **#1720** `6570ddba`
+- **Fortress 44/44** after D-1355; cadence **#1720** `6570ddba`
   (Scr **11,405** RNG 100% speed `37+0.31/turn`). Reviews
-  **313–316** ACCEPT-WITH-DEBT (no Must-fix). Next: Open `zap.c`
-  `zapyourself` WAN_LIGHTNING (named). Not killer_xname.
-  Do not skip D-1354…D-1229. Do not wrap
+  **313–316** ACCEPT-WITH-DEBT (no Must-fix). Next: Open `eat.c`
+  lesshungry/bite choke callers (named from D-1344). Not zap.
+  Do not skip D-1355…D-1229. Do not wrap
   `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1354. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1355. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   mcastu ureflects still named.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1354.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1355.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,7 +36,7 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1354 (index). Named still: hitmm artifact
+- Do not skip D-1071…D-1355 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush; `wake_nearby` / `u_wipe_engr` kick
@@ -51,6 +51,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1355: `zap.c` `zapyourself` WAN_LIGHTNING `:2730–2746`
+  learn + `d(12,6)` + Shock shock/exercise vs unharmed;
+  `destroy_items` AD_ELEC; `flashburn(rnd(100),TRUE)`.
+  ugolemeffects / AD_ELEC body / MAGIC_MISSILE / FIREBALL /
+  `lightdamage` named.
 - D-1354: `weapon.c` `dmgval` `:307–308` shade
   `!shade_glare` tmp=0; `artifact.c` `shade_glare`
   `:555–571` silver or SPFX_DFLAG2+M2_UNDEAD.
@@ -102,6 +107,3 @@ Objective/score live in `CURRENT.md`.
 - D-1341: `uhitm.c` `shade_miss` `:2016–2051` + `mhitm.c` `hitmm`
   `:659–661` `!compat` → `M_ATTK_MISS`. `dmgval` shade is D-1354;
   mthrowu·zap·hmon callers named.
-- D-1340: `mhitm.c` `mattackm` AT_HUGS `:476–490` auto-hit iff prev
-  two `res[]==M_ATTK_HIT`; `hitmm` `:691–695` squeezes unless
-  `magr==u.ustuck`.

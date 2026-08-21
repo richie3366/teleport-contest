@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1355 — zap.c zapyourself WAN_LIGHTNING + flashburn
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** self-zapping a wand of lightning was a no-op
+  (default arm). C always learns the wand, rolls `d(12,6)`,
+  shocks unless `Shock_resistance` (then unharmed + golem
+  heal), always `destroy_items(AD_ELEC)` then
+  `flashburn(rnd(100), TRUE)`.
+- **C locus:** `zap.c` `zapyourself` `:2730–2746`; callee
+  `flashburn` `:3059–3079` (`resists_blnd` → You flash +
+  `make_blinded(duration, FALSE)`; `via_lightning` skips
+  arti shieldeff).
+- **JS was:** named omit (D-1345). WAN_FIRE/COLD lived; lightning
+  fell through default.
+- **Fix:** WAN_LIGHTNING arm + `flashburn` (Blind/Unaware
+  `resists_blnd`; `make_blinded` talk=FALSE). Caller burns
+  `rnd(100)` before flash. Rule #2: no fs.
+- **JS:** `js/zap.js` `zapyourself` + `flashburn`.
+- **Not this iter:** ugolemeffects / shieldeff / monstseesu;
+  `resists_blnd_by_arti` (Sunsword); expl/gaze AD_BLND;
+  `maybe_destroy_item` AD_ELEC body; WAN_MAGIC_MISSILE /
+  SPE_FIREBALL / `lightdamage` / WAN_LIGHT `flashburn(FALSE)`.
+- **Verified:** private canary **25**/25 (C/JS case+flashburn
+  grep; seeing shock `d(12,6)` + flash TIMEOUT 1..100; Shock
+  resist 0 dmg but still blinds; already Blind skip flash
+  pline keep timeout; MAGIC_MISSILE/FIREBALL still default;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session self-zaps lightning.
+- **Follow-up:** Open `eat.c` lesshungry/bite choke callers.
+- **Files:** `js/zap.js`.
+
 ## D-1354 — weapon.c dmgval shade / shade_glare
 
 - **Status:** fixed (map-driven Open from D-1341; not a public FAIL)

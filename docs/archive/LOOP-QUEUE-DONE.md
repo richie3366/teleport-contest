@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
+- [x] `zap.c` `zapyourself` WAN_LIGHTNING (named). Not killer_xname. **Addressed:** D-1355
+
+
 - [x] `weapon.c` `dmgval` shade/`shade_glare` (named from D-1341). Not hitmm shade_miss. **Addressed:** D-1354 `6570ddba`
 
 

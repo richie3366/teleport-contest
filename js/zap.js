@@ -1,6 +1,6 @@
 // zap.js — Zap command / wish helpers (partial).
 // C ref: zap.c dozap, zappable, weffects, zapnodir, learnwand, makewish,
-//        zapyourself, ubreatheu, ubuzz, dobuzz, zhitm, destroy_items, resist,
+//        zapyourself, flashburn, ubreatheu, ubuzz, dobuzz, zhitm, destroy_items, resist,
 //        bhit, bhito, bhitm, bhitpile, poly_obj, obj_shudders,
 //        cancel_item, cancel_monst, revive, revive_egg, unturn_dead,
 //        unturn_you
@@ -12,6 +12,7 @@
 // SPE_FINGER_OF_DEATH / WAN_POLYMORPH / WAN_STRIKING / WAN_CANCELLATION /
 // WAN_TELEPORTATION / WAN_UNDEAD_TURNING / WAN_LIGHT /
 // WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN (D-0974);
+// WAN_LIGHTNING + flashburn (D-1355);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
@@ -3050,6 +3051,56 @@ export async function bhitm(mtmp, otmp) {
     return 0;
 }
 
+/** C youprop.h Unaware — multi < 0 && (unconscious || fainted). */
+function Unaware() {
+    if ((game.multi | 0) >= 0) return false;
+    const u = game.u || {};
+    return !!(u.usleep || u.Unaware);
+}
+
+/**
+ * C youprop.h Blind — (HBlinded || EBlinded) && !BBlinded.
+ * Sticky u.Blind / ublind / roleplay stand in for unsynced mirrors.
+ */
+function Blind_props() {
+    const u = game.u || {};
+    if (u.uroleplay?.blind) return true;
+    if (u.Blind || u.ublind) return true;
+    return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
+}
+
+/**
+ * C ref: mondata.c resists_blnd youmonst :248–272 — Blind / Unaware.
+ * Named omit: expl/gaze AD_BLND (yellow light / Archon);
+ * resists_blnd_by_arti (Sunsword).
+ */
+function resists_blnd_you() {
+    return Blind_props() || Unaware();
+}
+
+/**
+ * C ref: zap.c flashburn :3059–3079 — light[ning] blinds the hero.
+ * Caller always burns duration RNG (zapyourself WAN_LIGHTNING rnd(100)).
+ * via_lightning skips arti shieldeff even if resists_blnd_by_arti.
+ * @returns {Promise<boolean>} TRUE if an observable flash occurred
+ */
+export async function flashburn(duration, via_lightning) {
+    if (!resists_blnd_you()) {
+        await You('are blinded by the flash!');
+        const { make_blinded } = await import('./do.js');
+        await make_blinded(duration | 0, false);
+        if (!Blind_props()) {
+            await pline('Your vision clears.');
+        }
+        return true;
+    }
+    // C: !via_lightning && resists_blnd_by_arti → shieldeff (named)
+    if (!via_lightning) {
+        /* shieldeff deferred */
+    }
+    return false;
+}
+
 /**
  * C ref: zap.c zapyourself — self-directed wand/spell effects.
  * Branch envelope: SPE_HEALING / SPE_EXTRA_HEALING / WAN_SLEEP /
@@ -3057,6 +3108,7 @@ export async function bhitm(mtmp, otmp) {
  * SPE_POLYMORPH / WAN_STRIKING / WAN_CANCELLATION / WAN_TELEPORTATION /
  * WAN_UNDEAD_TURNING / WAN_LIGHT / WAN_OPENING / SPE_KNOCK;
  * WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN;
+ * WAN_LIGHTNING + flashburn (D-1355);
  * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
@@ -3181,7 +3233,7 @@ export async function zapyourself(obj, ordinary) {
     }
 
     case WAN_LIGHT:
-        // broken wand: lightdamage + flashburn deferred → no hero dmg
+        // broken wand: lightdamage + flashburn(FALSE) caller named
         damage = 0;
         break;
 
@@ -3243,6 +3295,30 @@ export async function zapyourself(obj, ordinary) {
             damage = orig_dmg;
         }
         await destroy_items(game.youmonst || { _youmonst: true }, AD_COLD, orig_dmg);
+        break;
+    }
+
+    case WAN_LIGHTNING: {
+        // C zap.c zapyourself :2730–2746 — always learn; d(12,6);
+        // !Shock → shock pline + damage + exercise(A_CON); else unharmed;
+        // destroy_items AD_ELEC; flashburn(rnd(100), TRUE).
+        learn_it = true;
+        const orig_dmg = d(12, 6);
+        if (!Shock_resistance()) {
+            await You('shock yourself!');
+            damage = orig_dmg;
+            exercise(A_CON, false);
+            // monstunseesu deferred
+        } else {
+            // shieldeff / monstseesu / ugolemeffects deferred
+            await You('zap yourself, but seem unharmed.');
+        }
+        await destroy_items(
+            game.youmonst || { _youmonst: true },
+            AD_ELEC,
+            orig_dmg,
+        );
+        await flashburn(rnd(100), true);
         break;
     }
 
