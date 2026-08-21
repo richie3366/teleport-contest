@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1374 dothrow.c throw_obj u_wipe_engr(2)
+
+**Objective:** Open `dothrow.c` `u_wipe_engr` caller
+(named from D-1360). Not uhitm. Not dig.
+**C locus:** `dothrow.c` `throw_obj` `:138`; callee
+`engrave.c` `u_wipe_engr` `:264–268`.
+**Change:** after self refuse, call live `u_wipe_engr(2)`
+before named petrify / multishot. Import live callee.
+dig still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session throws on a wipeable engraving).
+**Verified:** private canary **19**/19; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dig.c` `u_wipe_engr` caller
+(named from D-1360). Not dothrow.
+**Blocked:** none.
 ## 2026-08-21 — D-1373 uhitm.c do_attack u_wipe_engr(3)
 
 **Objective:** Open `uhitm.c` `u_wipe_engr` attacker caller

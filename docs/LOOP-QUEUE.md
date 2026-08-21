@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dothrow.c` `u_wipe_engr` caller (named from D-1360). Not uhitm.
 - [ ] `dig.c` `u_wipe_engr` caller (named from D-1360). Not dothrow.
 - [ ] `muse.c` MUSE_CAMERA `lightdamage` (named from D-1366). Not zapnodir.
 - [ ] `artifact.c` `invoke_blinding_ray` (named from D-1366). Not camera.

@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1373; cadence **#1740** `90eca343`
+- **Fortress 44/44** after D-1374; cadence **#1740** `90eca343`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Next: Open
-  `dothrow.c` `u_wipe_engr` caller (named from D-1360).
-  Not uhitm. D-1373 melee wipe shipped. Do not skip
-  D-1373…D-1229. No FORCE. Do not wrap `wildmiss`.
-- Do not revert D-1217–D-1373. `see_monsters` warn_obj_cnt /
+  `dig.c` `u_wipe_engr` caller (named from D-1360).
+  Not dothrow. D-1374 throw wipe shipped. Do not skip
+  D-1374…D-1229. No FORCE. Do not wrap `wildmiss`.
+- Do not revert D-1217–D-1374. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1373.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1374.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,11 +33,11 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1373 (index).
-- Do not skip D-1071…D-1373 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1374 (index).
+- Do not skip D-1071…D-1374 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
-  mhitm wrap brush; dothrow/dig `u_wipe_engr`;
+  mhitm wrap brush; dig `u_wipe_engr`;
   `do_attack` leprechaun evade.
   Do not restore fountain `lesshungry` (D-1359). No ALIGN/FORCE
   on seed0383.
@@ -51,17 +51,24 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1374: `dothrow.c` `throw_obj` `:138` — after self refuse
+  (`dx=dy=dz=0`) `u_wipe_engr(2)` before petrify/welded/wet-towel
+  / multishot. Callee D-1051; dokick(2) D-1360; allmain DEX
+  D-1372; uhitm(3) D-1373. No extra RNG with no engraving /
+  HEADSTONE / BURN-on-stone / Levitation. canletgo / Mjollnir /
+  too-heavy still named (C returns before wipe). dig.c still
+  named.
 - D-1373: `uhitm.c` `do_attack` `:551–553` — after `exercise(A_STR,TRUE)`
   `u_wipe_engr(3)` before leprechaun/hitum. Callee D-1051;
-  dokick(2) D-1360; allmain DEX D-1372. No extra RNG with no
-  engraving / HEADSTONE / BURN-on-stone / Levitation. dothrow/dig
-  callers and leprechaun evade still named.
+  dokick(2) D-1360; allmain DEX D-1372; dothrow is D-1374.
+  No extra RNG with no engraving / HEADSTONE / BURN-on-stone /
+  Levitation. dig.c caller and leprechaun evade still named.
 - D-1372: `allmain.c` `moveloop` `:360–361` — after invault
   (amulet named) `!rn2(40+ACURR(A_DEX)*3)` then
   `u_wipe_engr(rnd(3))`. Callee D-1051; dokick(2) D-1360.
   `rnd(3)` always on fire; no extra RNG with no engraving /
   HEADSTONE / BURN-on-stone / Levitation. uhitm is D-1373;
-  dothrow/dig still named.
+  dothrow is D-1374; dig still named.
 - D-1371: zap.js `Shock_resistance()` — C `youprop.h:42–44`
   H||E via `uprops[SHOCK_RES]` (invent `hero_Shock_resistance`
   / D-1089). confer ring/shield extrinsic only; exploding-wand

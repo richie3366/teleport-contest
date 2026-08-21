@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `uhitm.c` `u_wipe_engr` attacker caller (named from D-1360). Not allmain. **Addressed:** D-1373
+- [x] `dothrow.c` `u_wipe_engr` caller (named from D-1360). Not uhitm. **Addressed:** D-1374
+
+
+- [x] `uhitm.c` `u_wipe_engr` attacker caller (named from D-1360). Not allmain. **Addressed:** D-1373 `d5614c8a`
 
 
 - [x] `allmain.c` `u_wipe_engr` DEX timeout caller (named from D-1360). Not dokick. **Addressed:** D-1372 `b3fe3015`

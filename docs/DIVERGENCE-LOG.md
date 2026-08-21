@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1374 — dothrow.c throw_obj u_wipe_engr(2)
+
+- **Status:** fixed (map-driven Open from D-1360; not a public FAIL)
+- **Symptom:** throwing never smudged the hero-cell engraving. C
+  `throw_obj` calls `u_wipe_engr(2)` after the self-throw refuse
+  and before petrify / welded / wet-towel / multishot. JS already
+  refused `.`/`s` (D-0720) but omitted the wipe. Callee live
+  since D-1051.
+- **C locus:** `dothrow.c` `throw_obj` `:138` (`u_wipe_engr(2);`);
+  callee `engrave.c` `u_wipe_engr` `:264–268` →
+  `can_reach_floor(TRUE)` then `wipe_engr_at(u.ux,u.uy,cnt,FALSE)`.
+  Constant 2: no wrapper RNG; no extra RNG with no engraving /
+  HEADSTONE / BURN-on-stone / Levitation skip. ENGRAVE uses
+  `rn2(1+50/(2+1))` i.e. `rn2(17)`. C `canletgo` / Mjollnir /
+  too-heavy return before this wipe (still named in JS).
+- **JS was:** self refuse then named petrify omit / multishot.
+  Gold still returns before the wipe (`throw_gold`).
+- **Fix:** `u_wipe_engr(2)` on that site. Import the live
+  callee. Rule #2: no fs.
+- **JS:** `js/dothrow.js` `throw_obj`; callee `js/engrave.js`
+  `u_wipe_engr`.
+- **Not this iter:** `dig.c` `u_wipe_engr(3)` axe-scratch;
+  canletgo / Mjollnir / too-heavy / welded / wet-towel;
+  throw_obj `:139–148` petrify `killer_xname`.
+- **Verified:** private canary **19**/19 (C/JS grep; live DUST
+  smudge via callee and `throw_obj`; self-refuse does not wipe;
+  no-engraving / HEADSTONE / BURN / Levitation only exercise
+  RNG; ENGRAVE `rn2(17)`; cnt=2 vs melee cnt=3; apply/dokick/
+  allmain/uhitm kept; dig still named; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session throws while standing on a wipeable
+  engraving.
+- **Follow-up:** Open `dig.c` `u_wipe_engr` caller.
+- **Files:** `js/dothrow.js`.
+
 ## D-1373 — uhitm.c do_attack u_wipe_engr(3)
 
 - **Status:** fixed (map-driven Open from D-1360; not a public FAIL)

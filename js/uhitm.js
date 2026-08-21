@@ -2660,7 +2660,8 @@ function ing_suffix(s) {
  * C ref: uhitm.c do_attack — safemon displace, else attack → hitum.
  * attack_checks: invis Wait + mimic stumble before overexertion.
  * After STR exercise: u_wipe_engr(3) (D-1373; callee D-1051).
- * Leprechaun evade still named.
+ * Leprechaun evade still named. dothrow throw_obj(2) is D-1374;
+ * dig.c still named.
  */
 export async function do_attack(mtmp) {
     if (!mtmp) return false;
