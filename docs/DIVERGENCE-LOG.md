@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1338 — mhitm.c gazemm
+
+- **Status:** fixed (map-driven Open from D-1328; not a public FAIL)
+- **Symptom:** an AT_GAZE monster never gazed at another monster.
+  C `mattackm` `case AT_GAZE` calls `gazemm` (ranged; strike=0).
+  JS fell through `default` (`attk=0`).
+- **C locus:** `mhitm.c` `gazemm` `:736–803`; caller `mattackm`
+  `:492–495`. Callee `uhitm.c` `mhitm_ad_blnd` mhitm arm
+  `:2986–3011` (Archon extra, `mhm=NULL` then leftover zeros
+  dice). `mon_reflects` / `monstone` on Medusa reflect.
+- **JS was:** named omit (D-1328 / D-1330).
+- **Fix:** vis `"gazes at/toward"`; cancelled / `!mdef.mcansee` /
+  (Archon `resists_blnd` else `!magr.mcansee`) / invis /
+  sleeping miss + `"but nothing happens."`; Medusa reflect
+  `mon_reflects` then `monstone(magr)` AGR_DIED; Archon extra
+  blind + `rn2(2)` stun; `mdamagem` AD_BLND leftover. Compare
+  mndx (D-0928). Rule #2: no fs.
+- **JS:** `js/mhitm.js` `gazemm` + `mattackm` `case AT_GAZE` +
+  `mhitm_ad_blnd` / `mdamagem` AD_BLND.
+- **Not this iter:** explmm; mhitm AT_HUGS; `shade_miss`;
+  mdamagem AD_STON/CONF/STUN/FIRE leftover dice; `arti_reflects`;
+  `mon_perma_blind`; `resists_blnd_by_arti`.
+- **Verified:** private canary **18**/18 (C/JS shape; cancelled
+  miss; blind non-Archon miss; blind Archon still blinds + HP
+  unchanged; Archon-vs-Archon resists_blnd; Medusa shield
+  AGR_DIED; double reflect both live; silver dragon scales;
+  ranged gaze; invis/sleep direct; seemimic; mundetected;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session faces AT_GAZE mon-vs-mon.
+- **Follow-up:** Open `mhitm.c` explmm.
+- **Files:** `js/mhitm.js`.
+
 ## D-1337 — apply.c splash_lit
 
 - **Status:** fixed (map-driven Open from D-1242; not a public FAIL)

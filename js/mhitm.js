@@ -1,5 +1,5 @@
 // mhitm.js — Monster vs monster combat (minimal RNG-faithful peel).
-// C ref: mhitm.c — mdisplacem, mattackm, gulpmm, passivemm, mdamagem;
+// C ref: mhitm.c — mdisplacem, mattackm, gazemm, gulpmm, passivemm, mdamagem;
 //         worn.c find_mac (re-export); uhitm.c mhitm_knockback (RNG order only).
 
 import { rn2, rnd, d } from './rng.js';
@@ -68,6 +68,7 @@ import {
     STRAT_WAITMASK,
     STRAT_WAITFORU,
     M_AP_TYPE,
+    M_AP_NOTHING,
     M_AP_MONSTER,
     W_ARM,
     W_ARMC,
@@ -97,7 +98,7 @@ import {
     obj_meld, pudding_merge_message, place_object, add_to_container,
     weight, mksobj, set_corpsenm, obj_stop_timers,
 } from './mkobj.js';
-import { Monnam, mon_nam, oname, pmname, x_monnam, hliquid, y_monnam } from './do_name.js';
+import { Monnam, mon_nam, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam } from './do_name.js';
 import { an, xname, makeplural } from './objnam.js';
 import { mon_explodes } from './explode.js';
 import { newcham, pm_to_cham } from './makemon.js';
@@ -133,6 +134,8 @@ const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
 const PM_QUEEN_BEE = monsterNames.indexOf('PM_QUEEN_BEE');
 const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
 const PM_CHROMATIC_DRAGON = monsterNames.indexOf('PM_CHROMATIC_DRAGON');
+const PM_MEDUSA = monsterNames.indexOf('PM_MEDUSA');
+const PM_ARCHON = monsterNames.indexOf('PM_ARCHON');
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
 const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
 const SILVER_DRAGON_SCALES = objectNames.indexOf('SILVER_DRAGON_SCALES');
@@ -172,6 +175,7 @@ const AD_DRDX = 30; /* drains dexterity (quasit) — monattk.h */
 const AD_DRCO = 31; /* drains constitution — monattk.h */
 const AD_DRIN = 32; /* drains intelligence (mind flayer) — monattk.h */
 const AD_SSEX = 35; /* Succubus seduction (extended) */
+const AD_BLND = 11; /* blinds — monattk.h (Archon gaze) */
 const AD_STUN = 12; /* stuns — monattk.h */
 const AD_PLYS = 14; /* paralyzes — monattk.h */
 const AD_ENCH = 41; /* remove enchantment (disenchanter) — monattk.h */
@@ -537,7 +541,7 @@ export {
     AT_NONE, AT_CLAW, AT_BITE, AT_KICK, AT_BUTT, AT_TUCH, AT_STNG, AT_HUGS,
     AT_SPIT, AT_ENGL, AT_BREA, AT_EXPL, AT_BOOM, AT_GAZE, AT_TENT,
     AT_WEAP, AT_MAGC, AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_ACID,
-    AD_DRDX, AD_DRCO, AD_DRIN, AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
+    AD_BLND, AD_DRDX, AD_DRCO, AD_DRIN, AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
     could_seduce,
 };
 
@@ -553,6 +557,71 @@ function dmgtype(ptr, adtyp) {
         if ((a.adtyp | 0) === (adtyp | 0)) return true;
     }
     return false;
+}
+
+/** C ref: mondata.c dmgtype_fromattack — mattk slot matches adtyp+aatyp. */
+function dmgtype_fromattack(ptr, adtyp, aatyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    const ad = adtyp | 0;
+    const at = aatyp | 0;
+    for (const a of slots) {
+        if ((a.adtyp | 0) === ad && (a.aatyp | 0) === at) return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: mondata.c resists_blnd monster arm :248–272.
+ * Named omit: resists_blnd_by_arti (Sunsword); youmonst Blind/Unaware.
+ */
+function resists_blnd_mm(mon) {
+    if (!mon) return true;
+    const ptr = mon.data;
+    if ((mon.mblinded | 0) || !(mon.mcansee | 0) || !haseyes(ptr)
+        || (mon.msleeping | 0)) {
+        return true;
+    }
+    return dmgtype_fromattack(ptr, AD_BLND, AT_EXPL)
+        || dmgtype_fromattack(ptr, AD_BLND, AT_GAZE);
+}
+
+/**
+ * C ref: mondata.c can_blnd AT_GAZE/EXPL/BOOM/MAGC/BREA :331–339.
+ * Named omit: mon_perma_blind; raven-vs-raven; visor/cream/engl you arms.
+ */
+function can_blnd_mm(magr, mdef, aatyp) {
+    if (!haseyes(mdef?.data)) return false;
+    const at = aatyp | 0;
+    if (at === AT_EXPL || at === AT_BOOM || at === AT_GAZE
+        || at === AT_MAGC || at === AT_BREA) {
+        if (magr && (magr.mcan | 0)) return false;
+        return !resists_blnd_mm(mdef);
+    }
+    return true;
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_blnd mhitm arm :2986–3011.
+ * gazemm Archon extra passes mhm=null; mdamagem leftover zeros dice.
+ */
+async function mhitm_ad_blnd(magr, mattk, mdef, mhm) {
+    if (can_blnd_mm(magr, mdef, mattk?.aatyp)) {
+        if (_mm_vis && (mdef.mcansee | 0) && canspotmon(mdef)) {
+            let buf = `${Monnam(mdef)} is blinded`;
+            if ((mdef.data?.mndx | 0) === PM_ARCHON && canseemon(mdef)) {
+                buf += ` by ${s_suffix_mm(mon_nam(magr))} radiance`;
+            }
+            await pline(`${buf}.`);
+        }
+        let rnd_tmp = d(mattk.damn | 0, mattk.damd | 0);
+        rnd_tmp += mdef.mblinded | 0;
+        if (rnd_tmp > 127) rnd_tmp = 127;
+        mdef.mblinded = rnd_tmp;
+        mdef.mcansee = 0;
+        mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
+    }
+    if (mhm) mhm.damage = 0;
 }
 
 /** C ref: mondata.h perceives — M1_SEE_INVIS. */
@@ -1858,6 +1927,34 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
     }
 
+    // C: mhitm_adtyping → mhitm_ad_blnd for AD_BLND (D-1338). gazemm Archon
+    // extra already applied with mhm=null; leftover dice zero here.
+    if ((mattk.adtyp | 0) === AD_BLND) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_blnd(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
     mhitm_knockback(magr, mdef, mattk, hitflags, !!mwep);
 
     if (!damage) return hitflags === M_ATTK_AGR_DIED ? M_ATTK_AGR_DIED : M_ATTK_HIT;
@@ -2143,6 +2240,80 @@ async function gulpmm(magr, mdef, mattk) {
 }
 
 /**
+ * C ref: mhitm.c gazemm :736–803 — monster gazes at another monster.
+ * Caller mattackm AT_GAZE (strike=0). Archon extra mhitm_ad_blnd + rn2(2)
+ * stun then mdamagem leftover. Medusa reflect stones magr.
+ * Named omit: mhitm_ad_ston/conf/stun/fire leftover dice; explmm; AT_HUGS;
+ * shade_miss; arti_reflects(MON_WEP); mon_perma_blind; resists_blnd_by_arti.
+ */
+export async function gazemm(magr, mdef, mattk) {
+    if (!magr || !mdef || !mattk) return M_ATTK_MISS;
+
+    const magr_mndx = magr.data?.mndx ?? magr.mnum ?? -1;
+    const archon = magr_mndx === PM_ARCHON && (mattk.adtyp | 0) === AD_BLND;
+    const altmesg = !!(archon && !(magr.mcansee | 0));
+
+    if (mdef.data?.mlet === 'S_MIMIC' && M_AP_TYPE(mdef) !== M_AP_NOTHING) {
+        seemimic(mdef);
+    }
+    mdef.mundetected = 0;
+
+    if (_mm_vis) {
+        const who = altmesg ? Adjmonnam(magr, 'blinded') : Monnam(magr);
+        const prep = altmesg ? 'toward' : 'at';
+        const tgt = canspotmon(mdef) ? mon_nam(mdef) : 'something';
+        await pline(`${who} gazes ${prep} ${tgt}...`);
+    }
+
+    if ((magr.mcan | 0) || !(mdef.mcansee | 0)
+        || (archon ? resists_blnd_mm(mdef) : !(magr.mcansee | 0))
+        || (magr.minvis && !perceives(mdef.data)) || (mdef.msleeping | 0)) {
+        if (_mm_vis && canspotmon(mdef)) {
+            await pline('but nothing happens.');
+        }
+        return M_ATTK_MISS;
+    }
+
+    const gazeFmt = (who, what) =>
+        `The gaze is reflected away by ${who} ${what}.`;
+
+    if (magr_mndx === PM_MEDUSA && await mon_reflects_mm(mdef, null)) {
+        if (canseemon(mdef)) {
+            await mon_reflects_mm(mdef, gazeFmt);
+        }
+        if (mdef.mcansee | 0) {
+            if (await mon_reflects_mm(magr, null)) {
+                if (canseemon(magr)) {
+                    await mon_reflects_mm(magr, gazeFmt);
+                }
+                return M_ATTK_MISS;
+            }
+            if (mdef.minvis && !perceives(magr.data)) {
+                if (canseemon(magr)) {
+                    await pline(
+                        `${Monnam(magr)} doesn't seem to notice that ${
+                            mhis_disp(magr)
+                        } gaze was reflected.`,
+                    );
+                }
+                return M_ATTK_MISS;
+            }
+            if (canseemon(magr)) {
+                await pline_mon(magr, `${Monnam(magr)} is turned to stone!`);
+            }
+            await monstone(magr);
+            if (!deadmonster(magr)) return M_ATTK_MISS;
+            return M_ATTK_AGR_DIED;
+        }
+    } else if (archon) {
+        await mhitm_ad_blnd(magr, mattk, mdef, null);
+        if (rn2(2)) mdef.mstun = 1;
+    }
+
+    return mdamagem(magr, mdef, mattk, null, 0);
+}
+
+/**
  * C ref: mhitm.c mattackm()
  * Returns M_ATTK_* bitmask. Async: combat pline may await --More--.
  */
@@ -2259,6 +2430,13 @@ export async function mattackm(magr, mdef) {
                 } else {
                     await missmm(magr, mdef, mattk);
                 }
+                break;
+            }
+            case AT_GAZE: {
+                // C mhitm.c mattackm `:492–495` — gaze is not a strike;
+                // ranged (no distmin skip). explmm / AT_HUGS named.
+                strike = 0;
+                res[i] = await gazemm(magr, mdef, mattk);
                 break;
             }
             // AT_SPIT/AT_BREA: spitmm/breamm live in mthrowu; mon-mon spit

@@ -59,23 +59,23 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1337. Reviews **296–299**
+**Map-driven fortress** after D-1338. Reviews **296–299**
 ACCEPT-WITH-DEBT (**292–295** held). **Next cluster:** Open
-`mhitm.c` gazemm (named from D-1328). Not AD_WRAP.
-Do not skip D-1337…D-1229 (index). Keep mention_map addr. Do
+`mhitm.c` explmm (named from D-1326). Not gazemm.
+Do not skip D-1338…D-1229 (index). Keep mention_map addr. Do
 not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1337.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1338.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1337 (index). Recent: **D-1337** `apply.c`
-`splash_lit` (C `:1518–1572`; trap rust-trap + `water_damage`;
-not snuff_candle). Prior: **D-1336** `maybe_mnexto`. **D-1335**
-`killer_xname`. **D-1334** mthrowu snuff. **D-1333** throwit land
-snuff. **D-1332** `kickdmg` `special_dmgval(W_ARMF)`.
+**Keep:** D-0845…D-1338 (index). Recent: **D-1338** `mhitm.c`
+`gazemm` (C `:736–803`; AT_GAZE vis/miss/Medusa reflect/Archon
+blnd; not explmm). Prior: **D-1337** `splash_lit`. **D-1336**
+`maybe_mnexto`. **D-1335** `killer_xname`. **D-1334** mthrowu snuff.
+**D-1333** throwit land snuff. **D-1332** `kickdmg` `special_dmgval(W_ARMF)`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1337
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1338
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
+- [x] `mhitm.c` gazemm (named from D-1328). Not AD_WRAP. **Addressed:** D-1338
+
+
 - [x] `apply.c` `splash_lit` (named from D-1242). Not snuff_candle. **Addressed:** D-1337 `2bd70a77`
 
 

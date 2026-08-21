@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1337; cadence **#1695** `2bd70a77`
+- **Fortress 44/44** after D-1338; cadence **#1695** `2bd70a77`
   (Scr **11,405** RNG 100% speed `36+0.30/turn`). Reviews **296–299**
-  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `mhitm.c` gazemm
-  (named from D-1328). Not AD_WRAP. Do not skip D-1337…D-1229.
+  ACCEPT-WITH-DEBT (no Must-fix). Next: Open `mhitm.c` explmm
+  (named from D-1326). Not gazemm. Do not skip D-1338…D-1229.
   Do not wrap `wildmiss` as `pline_mon`. No FORCE.
-- Do not revert D-1217–D-1337. warn_obj / `artifact_light` `)`
+- Do not revert D-1217–D-1338. warn_obj / `artifact_light` `)`
   rewrite still named on the same W_WEP envelope.
 
 ## Don't re-check (≤15)
@@ -20,7 +20,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1337.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1338.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,10 +34,10 @@ Objective/score live in `CURRENT.md`.
   nhcore (D-1066) / dosit `"your steed"` (D-1067) / skip hider clear
   (D-1068) / Levitation-only `dosit` (D-1069) / sticky `u.Levitation`
   in `can_reach_floor` (D-1070).
-- Do not skip D-1071…D-1337 (index). Named still: uhitm/mhitm
-  `mhitm_ad_wrap` arms; `abuse_dog` / martial knockback;
-  `kickstr`; eat/zap/dothrow `killer_xname`. No ALIGN/FORCE
-  on seed0383.
+- Do not skip D-1071…D-1338 (index). Named still: uhitm/mhitm
+  wrap arms; explmm; mhitm AT_HUGS; `shade_miss`; `abuse_dog` /
+  martial knockback; `kickstr`; eat/zap/dothrow `killer_xname`.
+  No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -48,6 +48,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1338: `mhitm.c` `gazemm` `:736–803` — AT_GAZE vis pline,
+  cancelled/blind-target/invis/sleep miss, Medusa `mon_reflects`
+  then `monstone(magr)`, Archon extra `mhitm_ad_blnd` + `rn2(2)`
+  stun then mdamagem leftover dice zero. Caller `mattackm`
+  `:492–495` strike=0, no distmin skip. explmm / AT_HUGS /
+  `shade_miss` / ston/conf/stun/fire leftover named.
 - D-1337: `apply.c` `splash_lit` `:1518–1572` — brass lantern
   rust-trap/nymph-carry stays lit (crackle/flicker); dunk
   snuffs then `age -= age>200?100:age/2`; else `snuff_lit`.
@@ -97,7 +103,7 @@ Objective/score live in `CURRENT.md`.
   `:832–837` skip Medusa (mndx) + `mon.c` `m_respond_medusa`.
   AD_STON reflect/stone, CONF/STUN/BLND/FIRE, cancelled looks-X,
   Hallu `rn2(4)`. `#ifdef PM_BEHOLDER` AD_SLEE/AD_SLOW compiled
-  out (`#if 0` MON). gazemm / arti_reflects W_WEP named.
+  out (`#if 0` MON). gazemm is D-1338; arti_reflects W_WEP named.
 - D-1327: `mhitu.c` `mattacku` AT_HUGS `:823–830` + `uhitm.c`
   `mhitm_ad_phys` `:4023–4037` + `u_slip_free` `:1045–1085`.
   Auto-hit if prev two succeeded or ustuck; `failed_grab` pline;
@@ -115,7 +121,3 @@ Objective/score live in `CURRENT.md`.
   `Tobjnam` vanish + digests entrails / whirly currents.
   Weapon/hmon swallow path unchanged. potionhit / ball / boulder
   still named.
-- D-1323: `zap.c` bhit THROWN_TETHERED remap + DISP_TETHER, skip
-  END for caller; throwit `min(range, isqrt(arw->range))` and
-  calls bhit (C `:1664–1677` / `:3863–4127`). THROWN_WEAPON fly
-  stand-in named.

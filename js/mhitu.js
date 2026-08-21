@@ -2023,7 +2023,7 @@ const GAZEMU_REACTIONS = [
  * Callers: mattacku AT_GAZE when mdat is not Medusa (:832–837);
  * mon.c m_respond_medusa first AT_GAZE slot.
  * Named omit: #ifdef PM_BEHOLDER AD_SLEE/AD_SLOW (MON is #if 0);
- * impossible() default; arti_reflects W_WEP; gazemm.
+ * impossible() default; arti_reflects W_WEP. gazemm is D-1338.
  */
 export async function gazemu(mtmp, mattk) {
     if (!mtmp || !mattk) return M_ATTK_MISS;
