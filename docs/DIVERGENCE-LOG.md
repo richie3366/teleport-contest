@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1391 — spell.c SPE_CLAIRVOYANCE do_vicinity_map
+
+- **Status:** fixed (map-driven Open from D-1390; not a public FAIL)
+- **Symptom:** casting SPE_CLAIRVOYANCE printed `Nothing happens.`
+  C `spelleffects` `:1572–1580` if `!BClairvoyant`: skilled/expert
+  `pseudo->blessed = 1` then `do_vicinity_map(pseudo)`; else if
+  wearing CORNUTHAUM, `You("sense a pointy hat on top of your %s.",
+  body_part(HEAD))`. Callee `detect.c` `do_vicinity_map`
+  `:1448–1585` maps a 9×5 rectangle (`ux±9/10`, `uy±5/6`),
+  `show_map_spot` + top object + `map_monst`; `extended` when
+  blessed or already Clairvoyant observes objects and may
+  browse `"You sense your surroundings."`; unskilled +
+  `hero_memory` is silent. allmain `seer_turn` still named.
+  PROTECTION is D-1390.
+- **C locus:** `spell.c` `spelleffects` `:1572–1580`; callee
+  `detect.c` `do_vicinity_map` `:1448–1585` + `unconstrain_map`
+  / `reconstrain_map` / `browse_map`.
+- **JS was:** named omit after D-1390. Other-otyp arm printed
+  `Nothing happens.`; `show_map_spot` already live (D-0075).
+- **Fix:** SPE_CLAIRVOYANCE arm. Dynamic `import('./detect.js')`
+  for `do_vicinity_map`; cornuthaum hat via `polyself.js`
+  `body_part`. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/detect.js`
+  `do_vicinity_map`.
+- **Not this iter:** SPE_JUMPING / CURE / CHAIN; scroll
+  `seffects` / potion `peffects`; allmain `seer_turn` random
+  farsight caller; worm-tail glyph_to_mon; pet/detected glyphs.
+- **Verified:** private canary **15**/15 (C/JS grep; NODIR
+  divination; unskilled 9×5 SVALL silent; unskilled no dknown;
+  skilled observe dknown; BClairvoyant silent; cornuthaum hat;
+  already-Clairvoyant extended; JUMPING still omit; PROTECTION
+  still gain; FORCE_BOLT east; HEALING atme; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts clairvoyance.
+- **Follow-up:** Open `zap.c` `bhit` M_AP_OBJECT skip
+  (named from D-1383). Not WEB.
+- **Files:** `js/spell.js`, `js/detect.js`.
+
 ## D-1390 — spell.c SPE_PROTECTION cast_protection
 
 - **Status:** fixed (map-driven Open from D-1389; not a public FAIL)

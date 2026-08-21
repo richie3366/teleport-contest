@@ -17,10 +17,11 @@
 // cancel leftover dirs (D-1387);
 // SPE_FORCE_BOLT IMMEDIATE weffects/bhit (D-1388);
 // SPE_CREATE_FAMILIAR make_familiar(NULL,u.ux,u.uy,FALSE) (D-1389);
-// SPE_PROTECTION cast_protection (D-1390; timeout.c usptime tick).
+// SPE_PROTECTION cast_protection (D-1390; timeout.c usptime tick);
+// SPE_CLAIRVOYANCE do_vicinity_map (D-1391; callee detect.c).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps (CLAIRVOYANCE/JUMPING/
+// swap/sort; other spelleffects otyps (JUMPING/
 // CURE/CHAIN/seffects/peffects); directional weffects for
 // IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -101,6 +102,8 @@ import {
     DISP_BEAM,
     DISP_END,
     HI_ZAP,
+    HEAD,
+    CLAIRVOYANT,
 } from './const.js';
 import { objectNames, objectNameStrs } from './generated/objects_data.js';
 import { PM_KNIGHT, PM_WIZARD, monsterNames } from './generated/monsters_data.js';
@@ -146,6 +149,8 @@ const SPE_FIREBALL = objectNames.indexOf('SPE_FIREBALL');
 const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
 const SPE_CREATE_FAMILIAR = objectNames.indexOf('SPE_CREATE_FAMILIAR');
 const SPE_PROTECTION = objectNames.indexOf('SPE_PROTECTION');
+const SPE_CLAIRVOYANCE = objectNames.indexOf('SPE_CLAIRVOYANCE');
+const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
@@ -1435,8 +1440,10 @@ async function cast_protection() {
  * weffects/bhit (D-1388). SPE_CREATE_FAMILIAR
  * make_familiar(NULL, u.ux, u.uy, FALSE) (D-1389; callee
  * dog.c D-1029). SPE_PROTECTION cast_protection (D-1390;
- * callee find_ac + timeout.c usptime tick). Other otyps
- * named omission (return TIME after energy spent + exercise).
+ * callee find_ac + timeout.c usptime tick). SPE_CLAIRVOYANCE
+ * do_vicinity_map (D-1391; callee detect.c; blocked
+ * cornuthaum hat). Other otyps named omission (return TIME
+ * after energy spent + exercise).
  */
 export async function spelleffects(spell_otyp, atme, force) {
     const spell = force ? spell_otyp : spell_idx(spell_otyp);
@@ -1545,6 +1552,23 @@ export async function spelleffects(spell_otyp, atme, force) {
     } else if (otyp === SPE_PROTECTION) {
         /* C spell.c :1581–1583 — cast_protection(); */
         await cast_protection();
+    } else if (otyp === SPE_CLAIRVOYANCE) {
+        /* C spell.c :1572–1580 — !BClairvoyant → skilled bless +
+         * do_vicinity_map(pseudo); else cornuthaum hat. Dynamic
+         * import: detect.js is a callee (no spell import). */
+        const u = game.u;
+        const blocked = (u.BClairvoyant | 0)
+            || (u.uprops?.[CLAIRVOYANT]?.blocked | 0);
+        if (!blocked) {
+            if (role_skill >= P_SKILLED) pseudo.blessed = true;
+            const { do_vicinity_map } = await import('./detect.js');
+            await do_vicinity_map(pseudo);
+        } else if (u.uarmh && (u.uarmh.otyp | 0) === CORNUTHAUM) {
+            const { body_part } = await import('./polyself.js');
+            await pline(
+                `You sense a pointy hat on top of your ${body_part(HEAD)}.`,
+            );
+        }
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
         await pline('Nothing happens.');

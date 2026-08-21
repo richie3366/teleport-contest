@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1390; cadence **#1755** `1f94d5e3`
+- **Fortress 44/44** after D-1391; cadence **#1755** `1f94d5e3`
   (Scr **11,405** RNG 100% speed `38+0.31/turn` R² 0.85). Next:
-  Open `spell.c` `spelleffects` SPE_CLAIRVOYANCE (named).
-  Not protection. Reviews **339–345** ACCEPT-WITH-DEBT; **346**
-  QUALITY-RISK shipped D-1387. Do not skip D-1390…D-1229.
+  Open `zap.c` `bhit` M_AP_OBJECT skip (named from D-1383).
+  Not WEB. Reviews **339–345** ACCEPT-WITH-DEBT; **346**
+  QUALITY-RISK shipped D-1387. Do not skip D-1391…D-1229.
   No FORCE. Do not wrap `wildmiss`. Do not add trailing
   `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1390. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1391. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1390.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1391.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,8 +35,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1390 (index).
-- Do not skip D-1071…D-1390 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1391 (index).
+- Do not skip D-1071…D-1391 (index). Named still: hitmm artifact
   wep; `mhitm_ad_phys` `shade_miss` (hmon is D-1384; zap bhit is
   D-1383; mthrowu is D-1382);
   mdamagem STUN/FIRE leftover; mhitm wrap brush.
@@ -52,11 +52,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1391: `spell.c` `spelleffects` `:1572–1580` SPE_CLAIRVOYANCE
+  `!BClairvoyant` skilled bless + `do_vicinity_map(pseudo)`;
+  else cornuthaum `body_part(HEAD)` hat. Callee `detect.c`
+  `:1448–1585` 9×5 `show_map_spot` + observe/map_monst;
+  unskilled hero_memory silent; allmain seer_turn named.
+  JUMPING / CURE still named.
 - D-1390: `spell.c` `cast_protection` `:1104–1177` SPE_PROTECTION
   log2(ulevel)+1 gain vs uspellprot/(4-min(3,natac)); expert
   `uspmtime` 20 else 10; `find_ac`; callee `timeout.c`
   `:652–661` usptime tick. Dynamic `u_init` find_ac.
-  CLAIRVOYANCE named.
+  CLAIRVOYANCE is D-1391.
 - D-1389: `spell.c` `spelleffects` `:1569–1571` SPE_CREATE_FAMILIAR
   `make_familiar(NULL, u.ux, u.uy, FALSE)`. Callee `dog.c`
   `pick_familiar_pm` `!rn2(3)` `pet_type` else `rndmonst_adj`
@@ -112,5 +118,3 @@ Objective/score live in `CURRENT.md`.
   getdir ray / dz `litroom` radius-0 / self `lightdamage`+
   `flashburn`; cost `SPELL_LEV_PW(5)`/`rnz(100)`/`d(3,10)`.
   Extract `inv_prop`. Other specials named.
-- D-1376: `muse.c` MUSE_CAMERA find `!rn2(6)` + use
-  `make_blinded`/`lightdamage(TRUE,5)`/`spe--`/return 1.
