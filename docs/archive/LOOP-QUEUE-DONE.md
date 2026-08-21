@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `zap.c` `zapyourself` WAN_MAGIC_MISSILE (named). Not WAN_LIGHTNING. **Addressed:** D-1364
+- [x] `zap.c` `zapyourself` SPE_FIREBALL (named). Not lightning. **Addressed:** D-1365
+
+
+- [x] `zap.c` `zapyourself` WAN_MAGIC_MISSILE (named). Not WAN_LIGHTNING. **Addressed:** D-1364 `17a0937c`
 
 
 - [x] `dokick.c` `obj_delivery` stolen_booty / `mksobj_migr_to_species` (named from D-1177). **Addressed:** D-1363 `c10f4246`

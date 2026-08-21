@@ -14,6 +14,7 @@
 // WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN (D-0974);
 // WAN_LIGHTNING + flashburn (D-1355);
 // WAN/SPE_MAGIC_MISSILE (D-1364);
+// SPE_FIREBALL self-explode (D-1365);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
@@ -41,6 +42,8 @@
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
+// lightdamage (WAN_LIGHT/camera); WAN_MAKE_INVISIBLE; spell.c skilled
+// SPE_FIREBALL scatter; maybe_destroy_item AD_ELEC body.
 // explode AD_FIRE mon/hero combat: D-0968 (explode.js).
 // explode AD_COLD/ELEC mon/hero combat: D-0971 (explode.js).
 // explode AD_MAGM/DISN/DRST/ACID mon/hero combat: D-0973 (explode.js).
@@ -3266,6 +3269,23 @@ export async function zapyourself(obj, ordinary) {
         }
         break;
     }
+
+    case SPE_FIREBALL:
+        // C zap.c zapyourself :2748–2751 — You explode on self;
+        // explode(ux, uy, 11 /* ZT_SPELL(ZT_FIRE) */, d(6,6),
+        // WAND_CLASS, EXPL_FIERY). No learn_it; damage stays 0
+        // (explode handles HP). WAN_FIRE/FIRE_HORN is the next
+        // case (D-0974). spell.c skilled scatter named.
+        await You('explode a fireball on top of yourself!');
+        await explode(
+            game.u.ux,
+            game.u.uy,
+            ZT_SPELL_0 + ZT_FIRE,
+            d(6, 6),
+            WAND_CLASS,
+            EXPL_FIERY,
+        );
+        break;
 
     case WAN_FIRE:
     case FIRE_HORN: {

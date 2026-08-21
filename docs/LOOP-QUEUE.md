@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zapyourself` SPE_FIREBALL (named). Not lightning.
 - [ ] `zap.c` `lightdamage` (named; WAN_LIGHT/camera). Not flashburn lightning.
 - [ ] `zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself lightning.
 - [ ] `zap.c` `zapyourself` WAN_MAKE_INVISIBLE (named). Not lightning.

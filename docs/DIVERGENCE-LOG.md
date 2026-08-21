@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1365 — zap.c zapyourself SPE_FIREBALL
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** self-aimed fireball spell was a no-op (default
+  arm). C `You("explode a fireball on top of yourself!")` then
+  `explode(u.ux, u.uy, 11, d(6,6), WAND_CLASS, EXPL_FIERY)`.
+  No `learn_it`; `zapyourself` returns 0 (explode owns HP).
+- **C locus:** `zap.c` `zapyourself` `:2748–2751`. Callee
+  `explode.c` `explode` (type `11` = `ZT_SPELL(ZT_FIRE)`;
+  `olet` is WAND_CLASS so Role_switch damu/5 or /2). Callers
+  `spell.c` `spelleffects` unskilled FALLTHROUGH / atme, and
+  skilled scatter when dx=dy=dz=0.
+- **JS was:** named omit (D-1364). WAN/SPE_MAGIC_MISSILE and
+  WAN_FIRE/FIRE_HORN lived; SPE_FIREBALL fell through default.
+- **Fix:** SPE_FIREBALL arm. `d(6,6)` before explode body.
+  Type `ZT_SPELL_0 + ZT_FIRE`. Fire_resistance is explode's
+  `explosionmask` (items only), not a zapyourself short-circuit.
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `zapyourself` (callee `js/explode.js` live).
+- **Not this iter:** `lightdamage`; WAN_MAKE_INVISIBLE;
+  `maybe_destroy_item` AD_ELEC body; spell.c skilled scatter
+  (`rnd(8)+1` `explode` with olet 0); shieldeff/ugolemeffects.
+- **Verified:** private canary **19**/19 (C/JS case grep; return 0
+  + `d(6,6)` HP; Fire_resistance 0 HP; Wizard damu/5; MAGIC_MISSILE
+  regression; WAN_FIRE still `d(12,6)` afire; MAKE_INVISIBLE still
+  default; Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  until `spelleffects` wires SPE_FIREBALL.
+- **Follow-up:** Open `zap.c` `lightdamage` (named; WAN_LIGHT/
+  camera). Not flashburn lightning.
+- **Files:** `js/zap.js`.
+
 ## D-1364 — zap.c zapyourself WAN/SPE_MAGIC_MISSILE
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
