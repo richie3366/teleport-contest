@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380). Not stasis. **Addressed:** D-1395
+- [x] `zap.c` `zapnodir` WAN_ENLIGHTENMENT (named from D-1380). Not stasis. **Addressed:** D-1395 `05f8c1a1`
 
 
 - [x] `uhitm.c` `mhitm_ad_phys` shade_miss (named from D-1341). Not hmon. **Addressed:** D-1394 `91827af6`

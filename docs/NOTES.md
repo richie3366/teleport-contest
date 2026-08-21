@@ -5,11 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1395; cadence **#1755** `1f94d5e3`
-  (Scr **11,405** RNG 100% speed `38+0.31/turn` R² 0.85). Next:
+- **Fortress 44/44** after D-1395; cadence **#1760** `05f8c1a1`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
   Open `mhitm.c` `mdamagem` AD_STUN leftover (named from D-1352).
-  Not CONF. Reviews **339–345** ACCEPT-WITH-DEBT; **346**
-  QUALITY-RISK shipped D-1387. Do not skip D-1395…D-1229.
+  Not CONF. Reviews **347–355** ACCEPT-WITH-DEBT (no Must-fix);
+  **346** QUALITY-RISK shipped D-1387. Do not skip D-1395…D-1229.
   No FORCE. Do not wrap `wildmiss`. Do not add trailing
   `confdir` to shared `getdir`.
 - Do not revert D-1217–D-1395. `see_monsters` warn_obj_cnt /

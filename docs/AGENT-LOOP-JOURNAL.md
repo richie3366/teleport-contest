@@ -9,6 +9,27 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — review D-1387–D-1395 (audit #1760)
+
+**Objective:** audit — C-fidelity reviews **347–355** of JS SHAs
+`c3d768d1` / `c6af8407` / `5e8d1fbd` / `b5b5eb34` /
+`a4923869` / `adfd4533` / `7863ae2a` / `91827af6` /
+`05f8c1a1` plus full `sessions` score.
+**C locus:** `cmd.c:4095–4111`; `spell.c:1458–1583` /
+`:1569–1571` / `:1104–1177` / `:1572–1580`; `timeout.c:652–661`;
+`detect.c:1448–1585`; `zap.c:3986–3992` / `:3926–3938` /
+`:2586–2590`; `uhitm.c:4128–4137`.
+**Change:** no `js/` edits. **347–355** ACCEPT-WITH-DEBT.
+No Must-fix. Filled archive D-1395 `05f8c1a1`. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `37+0.30/turn` (R² 0.85).
+**Verified:** full `sessions` at HEAD `05f8c1a1`; public-unhit
+on leftover-dir fireball / force bolt / familiar / protection /
+clairvoyance / mimic skip / WEB / explmm-shade / WAN_ENLIGHTENMENT.
+**Next:** Open `mhitm.c` `mdamagem` AD_STUN leftover.
+Not CONF.
+**Blocked:** none.
+
 ## 2026-08-21 — D-1395 zap.c zapnodir WAN_ENLIGHTENMENT
 
 **Objective:** Open `zap.c` `zapnodir` WAN_ENLIGHTENMENT

@@ -357,3 +357,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [344-ec703f48-hmon-shade-miss.md](./344-ec703f48-hmon-shade-miss.md) | `ec703f48` | D-1384 `hmon` shade_miss | **ACCEPT-WITH-DEBT** |
 | [345-5be02746-mdamagem-ad-conf.md](./345-5be02746-mdamagem-ad-conf.md) | `5be02746` | D-1385 mdamagem AD_CONF leftover | **ACCEPT-WITH-DEBT** |
 | [346-1f94d5e3-unskilled-fireball-weffects.md](./346-1f94d5e3-unskilled-fireball-weffects.md) | `1f94d5e3` | D-1386 unskilled SPE_FIREBALL weffects | **QUALITY-RISK** |
+| [347-c3d768d1-getdir-cancel-leftover.md](./347-c3d768d1-getdir-cancel-leftover.md) | `c3d768d1` | D-1387 getdir cancel leftover dirs | **ACCEPT-WITH-DEBT** |
+| [348-c6af8407-force-bolt-immediate.md](./348-c6af8407-force-bolt-immediate.md) | `c6af8407` | D-1388 SPE_FORCE_BOLT IMMEDIATE weffects | **ACCEPT-WITH-DEBT** |
+| [349-5e8d1fbd-create-familiar.md](./349-5e8d1fbd-create-familiar.md) | `5e8d1fbd` | D-1389 SPE_CREATE_FAMILIAR make_familiar | **ACCEPT-WITH-DEBT** |
+| [350-b5b5eb34-cast-protection.md](./350-b5b5eb34-cast-protection.md) | `b5b5eb34` | D-1390 SPE_PROTECTION cast_protection | **ACCEPT-WITH-DEBT** |
+| [351-a4923869-clairvoyance-vicinity.md](./351-a4923869-clairvoyance-vicinity.md) | `a4923869` | D-1391 SPE_CLAIRVOYANCE do_vicinity_map | **ACCEPT-WITH-DEBT** |
+| [352-adfd4533-bhit-mimic-object.md](./352-adfd4533-bhit-mimic-object.md) | `adfd4533` | D-1392 bhit M_AP_OBJECT skip | **ACCEPT-WITH-DEBT** |
+| [353-7863ae2a-bhit-web-stick.md](./353-7863ae2a-bhit-web-stick.md) | `7863ae2a` | D-1393 bhit WEB stick | **ACCEPT-WITH-DEBT** |
+| [354-91827af6-mhitm-ad-phys-shade.md](./354-91827af6-mhitm-ad-phys-shade.md) | `91827af6` | D-1394 mhitm_ad_phys shade_miss | **ACCEPT-WITH-DEBT** |
+| [355-05f8c1a1-zapnodir-enlightenment.md](./355-05f8c1a1-zapnodir-enlightenment.md) | `05f8c1a1` | D-1395 zapnodir WAN_ENLIGHTENMENT | **ACCEPT-WITH-DEBT** |
