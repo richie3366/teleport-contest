@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `allmain.c` `u_wipe_engr` DEX timeout caller (named from D-1360). Not dokick.
 - [ ] `uhitm.c` `u_wipe_engr` attacker caller (named from D-1360). Not allmain.
 - [ ] `dothrow.c` `u_wipe_engr` caller (named from D-1360). Not uhitm.
 - [ ] `dig.c` `u_wipe_engr` caller (named from D-1360). Not dothrow.

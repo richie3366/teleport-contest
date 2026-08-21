@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1372 — allmain.c moveloop DEX timeout u_wipe_engr(rnd(3))
+
+- **Status:** fixed (map-driven Open from D-1360; not a public FAIL)
+- **Symptom:** once-per-turn EOT never smudged the hero-cell
+  engraving. C `moveloop` calls `u_wipe_engr(rnd(3))` after
+  `invault` / `amulet()` when `!rn2(40+ACURR(A_DEX)*3)`. JS
+  already burned `rn2` + `rnd(3)` but did not call the live
+  callee (D-1051).
+- **C locus:** `allmain.c` `moveloop` `:360–361`
+  (`if (!rn2(40 + (int)(ACURR(A_DEX)*3))) u_wipe_engr(rnd(3))`);
+  callee `engrave.c` `u_wipe_engr` `:264–268` →
+  `can_reach_floor(TRUE)` then `wipe_engr_at(u.ux,u.uy,cnt,FALSE)`.
+  `rnd(3)` always evaluates on fire; no extra RNG with no
+  engraving / HEADSTONE / BURN-on-stone / Levitation skip.
+- **JS was:** `if (!rn2(...)) { rnd(3); }` stub after invault.
+  `amulet()` / udemigod `intervene` still named (skipped).
+- **Fix:** `u_wipe_engr(rnd(3))` on the timeout then-arm.
+  Import the live callee. Rule #2: no fs.
+- **JS:** `js/allmain.js` moveloop EOT; callee `js/engrave.js`
+  `u_wipe_engr`.
+- **Not this iter:** uhitm/dothrow/dig `u_wipe_engr` callers;
+  `amulet()`; udemigod `intervene`; `do_storms` /
+  `mkot_trap_warn` / `Glib` `glibr`.
+- **Verified:** private canary **29**/29 (C/JS grep; DEX
+  bound 9/18/3/25; live DUST smudge; no-engraving /
+  HEADSTONE / BURN / Levitation only `rnd(3)`; ENGRAVE
+  `rn2(1+50/(cnt+1))`; live 400-turn timeout arm; dokick(2)
+  kept; uhitm/dothrow/dig still named; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** unless
+  a session stands on a wipeable engraving when the DEX
+  timeout fires.
+- **Follow-up:** Open `uhitm.c` `u_wipe_engr` attacker caller.
+- **Files:** `js/allmain.js`.
+
 ## D-1371 — zap.js Shock_resistance() via uprops[SHOCK_RES]
 
 - **Status:** fixed (review **328** Must-fix; not a public FAIL)

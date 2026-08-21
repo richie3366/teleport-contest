@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] zap.js maybe_destroy_item AD_ELEC Shock_resistance() must use youprop.h uprops[SHOCK_RES] (invent hero_Shock_resistance / D-1089), not zap.js sticky-only clone — worn ring of shock resistance still takes exploding-wand rnd(10) HP instead of "You aren't hurt!". Same helper already gates WAN_LIGHTNING. Do not rewrite confer_oc_oprop. Source: reviews/loop-unattended/328-9df30ee3-maybe-destroy-item-elec.md **Addressed:** D-1371
+- [x] `allmain.c` `u_wipe_engr` DEX timeout caller (named from D-1360). Not dokick. **Addressed:** D-1372
+
+
+- [x] zap.js maybe_destroy_item AD_ELEC Shock_resistance() must use youprop.h uprops[SHOCK_RES] (invent hero_Shock_resistance / D-1089), not zap.js sticky-only clone — worn ring of shock resistance still takes exploding-wand rnd(10) HP instead of "You aren't hurt!". Same helper already gates WAN_LIGHTNING. Do not rewrite confer_oc_oprop. Source: reviews/loop-unattended/328-9df30ee3-maybe-destroy-item-elec.md **Addressed:** D-1371 `211485a0`
 
 
 - [x] `dokick.c` kick_ouch/kick_dumb airlevel/Levitation `hurtle` (named from D-1361). Not no_kick. **Addressed:** D-1370 `90eca343`

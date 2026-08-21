@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1372 allmain.c DEX timeout u_wipe_engr(rnd(3))
+
+**Objective:** Open `allmain.c` `u_wipe_engr` DEX timeout
+caller (named from D-1360). Not dokick. Not uhitm.
+**C locus:** `allmain.c` `moveloop` `:360–361`; callee
+`engrave.c` `u_wipe_engr` `:264–268`.
+**Change:** replace `rnd(3)` stub with `u_wipe_engr(rnd(3))`
+behind `!rn2(40+ACURR(A_DEX)*3)`. Import live callee.
+`amulet()` / udemigod still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session is on a wipeable engraving when the DEX timeout fires).
+**Verified:** private canary **29**/29; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` `u_wipe_engr` attacker caller
+(named from D-1360). Not allmain.
+**Blocked:** none.
 ## 2026-08-21 — D-1371 zap.js Shock_resistance() uprops[SHOCK_RES]
 
 **Objective:** Must-fix review **328** zap.js `Shock_resistance()`

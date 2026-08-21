@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1371; cadence **#1740** `90eca343`
+- **Fortress 44/44** after D-1372; cadence **#1740** `90eca343`
   (Scr **11,405** RNG 100% speed `37+0.30/turn`). Next: Open
-  `allmain.c` `u_wipe_engr` DEX timeout (named from D-1360).
-  Not dokick. D-1371 Shock uprops shipped. Do not skip
-  D-1371…D-1229. No FORCE. Do not wrap `wildmiss`.
-- Do not revert D-1217–D-1371. `see_monsters` warn_obj_cnt /
+  `uhitm.c` `u_wipe_engr` attacker caller (named from D-1360).
+  Not allmain. D-1372 DEX timeout wipe shipped. Do not skip
+  D-1372…D-1229. No FORCE. Do not wrap `wildmiss`.
+- Do not revert D-1217–D-1372. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1371.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1372.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,11 +33,11 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1371 (index).
-- Do not skip D-1071…D-1371 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1372 (index).
+- Do not skip D-1071…D-1372 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
-  mhitm wrap brush; allmain/uhitm/dothrow/dig `u_wipe_engr`.
+  mhitm wrap brush; uhitm/dothrow/dig `u_wipe_engr`.
   Do not restore fountain `lesshungry` (D-1359). No ALIGN/FORCE
   on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -50,6 +50,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1372: `allmain.c` `moveloop` `:360–361` — after invault
+  (amulet named) `!rn2(40+ACURR(A_DEX)*3)` then
+  `u_wipe_engr(rnd(3))`. Callee D-1051; dokick(2) D-1360.
+  `rnd(3)` always on fire; no extra RNG with no engraving /
+  HEADSTONE / BURN-on-stone / Levitation. uhitm/dothrow/dig
+  still named.
 - D-1371: zap.js `Shock_resistance()` — C `youprop.h:42–44`
   H||E via `uprops[SHOCK_RES]` (invent `hero_Shock_resistance`
   / D-1089). confer ring/shield extrinsic only; exploding-wand
@@ -92,38 +98,4 @@ Objective/score live in `CURRENT.md`.
   No `learn_it`; return 0 (explode owns HP). Live `js/zap.js`
   + `explode.js`. WAN_MAKE_INVISIBLE /
   spell.c skilled scatter named.
-- D-1363: `mkobj.c` `mksobj_migr_to_species` `:253–265` +
-  `mkmaze.c` `stolen_booty` `:799–889` — orctown loot onto
-  `migrating_objs` (`MIGR_TO_SPECIES`, `migr_species` overlays
-  `corpsenm`) then captain/extra orcs. Caller
-  `fixup_special` mines+ransacked. `new_oname` + local
-  orc `fruitadd`. minetn-1 loader / dog leftovers /
-  `add_to_minv` merge / cleric·stronghold graveyard named.
-- D-1362: `dokick.c` `dokick` `:1265–1310` — no_kick
-  nolimbs/slithy, verysmall, steed yn+`kick_steed`, wounded
-  (D-0786), encumber, S_LIZARD, `uinwater && !rn2(2)`, utrap
-  pit `Passes_walls` / WEB|BEARTRAP, boulder `!Passes_walls`.
-  Steed `'n'` is ECMD_OK without More. `kick_steed` in
-  `steed.js`. Swallow/pit-brace/Lev after getdir named.
-- D-1361: `dokick.c` `kick_ouch` `:892–897` — `is_drawbridge_wall`
-  then `pline_The` unaffected, `find_drawbridge` remaps `gm.maploc`
-  (and x,y for `wake_nearto 5*5`) to the span so `kickstr` is
-  `"kicking a drawbridge"` not IS_STWALL `"a wall"`. Live
-  `dbridge.js` callees. Air/Lev `hurtle` is D-1370.
-- D-1360: `dokick.c` `dokick` `:1384` — after `wake_nearby(FALSE)`,
-  `u_wipe_engr(2)` (hero cell; body D-1051). Declined peaceful
-  returns first. No RNG when no engraving. allmain/uhitm/
-  dothrow/dig callers named.
-- D-1359: `fountain.c` `drinkfountain` `:279–282` — fate<10
-  `uhunger += rnd(10)` + `newuhs(FALSE)` (don't choke on
-  water). Not `lesshungry`. mgkftn still returns after
-  refresh. `newuhs` messages named.
-- D-1358: `dokick.c` `dokick` `:1383` — after maybe_kick,
-  `wake_nearby(FALSE)` (`ulevel*20`, petcall FALSE) before
-  `u_wipe_engr` / `kick_monster`. Callee live. Declined
-  peaceful returns first. Wipe is D-1360.
-- D-1357: `objnam.c` `the()` + `rumors.c` `CapitalMon`/
-  `init_CapMons` — G_UNIQ titles/types (Oracle, Archon)
-  get `"the "`; pname uniques (Medusa) do not; first-space
-  `" of "` + PYEC. fruit_from_name + artifact_name named.
 
