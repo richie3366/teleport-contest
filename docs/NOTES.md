@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1345; cadence **#1700** `e3a30202`
-  (Scr **11,405** RNG 100% speed `36+0.29/turn`). Reviews **300–303**
+- **Fortress 44/44** after D-1345; cadence **#1705** `2a5e72e0`
+  (Scr **11,405** RNG 100% speed `37+0.29/turn`). Reviews **304–307**
   ACCEPT-WITH-DEBT (no Must-fix). Next: Open `dothrow.c` throwit
   `losehp` `killer_xname` (C `:1747`). Not zap. Do not skip
   D-1345…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.

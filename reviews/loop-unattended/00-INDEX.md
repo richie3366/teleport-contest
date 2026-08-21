@@ -313,3 +313,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [301-fdb30435-explmm.md](./301-fdb30435-explmm.md) | `fdb30435` | D-1339 `explmm` | **ACCEPT-WITH-DEBT** |
 | [302-85eee14d-mattackm-at-hugs.md](./302-85eee14d-mattackm-at-hugs.md) | `85eee14d` | D-1340 mattackm AT_HUGS | **ACCEPT-WITH-DEBT** |
 | [303-e3a30202-shade-miss.md](./303-e3a30202-shade-miss.md) | `e3a30202` | D-1341 hitmm `shade_miss` | **ACCEPT-WITH-DEBT** |
+| [304-34de9f33-arti-reflects.md](./304-34de9f33-arti-reflects.md) | `34de9f33` | D-1342 `arti_reflects` W_WEP | **ACCEPT-WITH-DEBT** |
+| [305-946d719d-kickstr.md](./305-946d719d-kickstr.md) | `946d719d` | D-1343 `kickstr` | **ACCEPT-WITH-DEBT** |
+| [306-5195acee-choke-killer-xname.md](./306-5195acee-choke-killer-xname.md) | `5195acee` | D-1344 choke `killer_xname` | **ACCEPT-WITH-DEBT** |
+| [307-2a5e72e0-dozap-killer-xname.md](./307-2a5e72e0-dozap-killer-xname.md) | `2a5e72e0` | D-1345 dozap `killer_xname` | **ACCEPT-WITH-DEBT** |

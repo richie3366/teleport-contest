@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — review D-1342–D-1345 (audit #1705)
+
+**Objective:** audit — C-fidelity reviews **304–307** of JS SHAs
+since `36035cf8`, plus full `sessions` score. No `js/` port.
+**C locus:** `artifact.c` `arti_reflects`; `dokick.c` `kickstr`;
+`eat.c` `choke`; `zap.c` `dozap` `killer_xname`.
+**Change:** **304–307** ACCEPT-WITH-DEBT. No Must-fix. Filled
+D-1345 archive hash `2a5e72e0`. Cadence **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`37+0.29/turn` (R² 0.85) at `2a5e72e0`. Rule #2: no fs.
+**Score:** fortress held. Next audit @**#1710**.
+**Verified:** `node frozen/ps_test_runner.mjs sessions` this iter.
+**Next:** Open `dothrow.c` throwit `losehp` `killer_xname`
+(C `:1747`). Not zap.
+**Blocked:** none.
 ## 2026-08-21 — D-1345 zap.c dozap killer_xname
 
 **Objective:** Open `zap.c` zapyourself `killer_xname` (remaining).

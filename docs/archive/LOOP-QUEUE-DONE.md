@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `zap.c` zapyourself `killer_xname` (remaining). Not eat choke. **Addressed:** D-1345
+- [x] `zap.c` zapyourself `killer_xname` (remaining). Not eat choke. **Addressed:** D-1345 `2a5e72e0`
 
 
 - [x] `eat.c` choke `killer_xname` (remaining caller). Not dokick kickobjnam. **Addressed:** D-1344 `5195acee`
