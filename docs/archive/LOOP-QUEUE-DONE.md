@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `spell.c` `spelleffects` SPE_CURE_BLINDNESS (named). Not sickness. **Addressed:** D-1399
+- [x] `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING (named). Not cure. **Addressed:** D-1400
+
+
+- [x] `spell.c` `spelleffects` SPE_CURE_BLINDNESS (named). Not sickness. **Addressed:** D-1399 `64d4d089`
 
 
 - [x] `spell.c` `spelleffects` SPE_CURE_SICKNESS (named). Not jumping. **Addressed:** D-1398 `a938a5b9`

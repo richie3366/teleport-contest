@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1400 — spell.c spelleffects SPE_CHAIN_LIGHTNING
+
+- **Status:** fixed (map-driven Open from D-1399; not a public FAIL)
+- **Symptom:** casting SPE_CHAIN_LIGHTNING printed `Nothing happens.`
+  C `spelleffects` `:1588–1590` calls `cast_chain_lightning()`.
+  Body `:1002–1100` inits the beam (Hallucination uses display
+  `rn2_on_display_rng(6)` **before** the swallow return), then
+  BFS-spreads through `CHAIN_LIGHTNING_POS` (SPACE_POS / pool /
+  moat / drawbridge-up / lavapool / unlocked doors). Peacefuls
+  skipped. Callee `zap.c` `zhitm(BZ_U_SPELL(AD_ELEC-1), 2)` then
+  `xkilled` / `"You shock %s%s"` / `"%s resists."` +
+  `wakeup(mon, FALSE)`. Extra `u.uen--` when chaining past a
+  non-resistant monster. Spell still returns TIME after energy.
+- **C locus:** `spell.c` `spelleffects` `:1588–1590`;
+  `cast_chain_lightning` `:1002–1100`;
+  `propagate_chain_lightning` `:951–1000`; callee `zap.c`
+  `zhitm` `:4238–4398`.
+- **JS was:** named omit after D-1399. Other-otyp arm printed
+  `Nothing happens.`; `zhitm` was file-private in `zap.js`.
+- **Fix:** SPE_CHAIN_LIGHTNING arm. Queue + terrain + peaceful
+  skip + zhitm/xkilled/wakeup. Exported `zhitm` and
+  `resists_elec`. Swallow still TODO (matches C). Rule #2: no fs.
+- **JS:** `js/spell.js` `cast_chain_lightning` / `spelleffects`;
+  `js/zap.js` exports.
+- **Not this iter:** scroll `seffects` / potion `peffects`;
+  `defended(mon, AD_ELEC)`; zhitm `spell_damage_bonus` / shieldeff;
+  engulfer damage when swallowed.
+- **Verified:** private canary **21**/21 (C/JS grep; empty TIME;
+  swallow silent; peaceful skip; hostile dmg+Pw; shock-resist
+  pline; closed-door/WATER block; open-door/POOL hit; hallu
+  display rng; CREATE_MONSTER still omit; CURE_BLINDNESS /
+  FORCE_BOLT / JUMPING regression; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts chain lightning.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_CREATE_MONSTER
+  seffects (named). Not chain.
+- **Files:** `js/spell.js`, `js/zap.js`.
+
 ## D-1399 — spell.c spelleffects SPE_CURE_BLINDNESS
 
 - **Status:** fixed (map-driven Open from D-1398; not a public FAIL)

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING (named). Not cure.
 - [ ] `spell.c` `spelleffects` SPE_CREATE_MONSTER seffects (named). Not chain.
 - [ ] `uhitm.c` `mhitm_ad_phys` mwep dmgval (named). Not shade_miss.
 - [ ] `uhitm.c` `mhitm_ad_phys` AT_KICK thick_skinned (named). Not mwep.

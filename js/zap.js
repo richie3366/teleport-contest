@@ -1089,7 +1089,7 @@ function mon_resists_bit(mon, mrBit) {
 }
 function resists_fire(mon) { return mon_resists_bit(mon, MR_FIRE); }
 function resists_cold(mon) { return mon_resists_bit(mon, MR_COLD); }
-function resists_elec(mon) { return mon_resists_bit(mon, MR_ELEC); }
+export function resists_elec(mon) { return mon_resists_bit(mon, MR_ELEC); }
 function resists_poison(mon) { return mon_resists_bit(mon, MR_POISON); }
 function resists_acid(mon) { return mon_resists_bit(mon, MR_ACID); }
 function resists_disint(mon) { return mon_resists_bit(mon, MR_DISINT); }
@@ -1463,7 +1463,7 @@ async function resist(mtmp, oclass, damage, tell) {
  * armor strip; Rider/Death; Knight questart double; shieldeff.
  * @returns {Promise<number>} damage applied (MAGIC_COOKIE = disintegrate)
  */
-async function zhitm(mon, type, nd, ootmp) {
+export async function zhitm(mon, type, nd, ootmp) {
     let tmp = 0;
     let orig_dmg = 0;
     const damgtype = zaptype(type) % 10;

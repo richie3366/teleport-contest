@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-21 — D-1400 spell.c SPE_CHAIN_LIGHTNING cast_chain_lightning
+
+**Objective:** Open `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING
+(named). Not cure.
+**C locus:** `spell.c` `spelleffects` `:1588–1590`; body
+`cast_chain_lightning` `:1002–1100` + `propagate_chain_lightning`
+`:951–1000`. Callee `zap.c` `zhitm` `BZ_U_SPELL(AD_ELEC-1)` nd=2.
+**Change:** SPE_CHAIN_LIGHTNING → `cast_chain_lightning()`. BFS
+queue, peaceful skip, closed-door/WATER block, pool/open-door
+spread, swallow TODO, extra Pw on chain-past-mon. Exported
+`zhitm`/`resists_elec`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts chain lightning).
+**Verified:** private canary **21**/21; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_CREATE_MONSTER
+seffects (named). Not chain.
+**Blocked:** none.
 ## 2026-08-21 — D-1399 spell.c SPE_CURE_BLINDNESS healup cream+blind+deaf
 
 **Objective:** Open `spell.c` `spelleffects` SPE_CURE_BLINDNESS

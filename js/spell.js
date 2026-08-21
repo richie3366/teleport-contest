@@ -22,10 +22,12 @@
 // SPE_JUMPING jump(max(role_skill,1)) (D-1397; callee apply.c);
 // SPE_CURE_SICKNESS healup+ill/slime (D-1398; callee potion.c);
 // SPE_CURE_BLINDNESS healup(0,0,FALSE,TRUE) (D-1399; callee potion.c
-// healup cream + make_blinded + make_deaf).
+// healup cream + make_blinded + make_deaf);
+// SPE_CHAIN_LIGHTNING cast_chain_lightning (D-1400; callee zap.c
+// zhitm BZ_U_SPELL(AD_ELEC-1) nd=2).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps (CHAIN/seffects/peffects);
+// swap/sort; other spelleffects otyps (seffects/peffects);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -36,7 +38,8 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, pline, You_feel, impossible, canspotmon, tmp_at,
-    clear_nhwindow_message,
+    clear_nhwindow_message, canseemon, map_invisible, zapdir_to_glyph,
+    nh_delay_output,
 } from './display.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, discover_object, makeknown, near_capacity, update_inventory } from './invent.js';
 import { yn_function } from './getline.js';
@@ -44,13 +47,13 @@ import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import { weight, mksobj, delobj } from './mkobj.js';
 import { acurr, A_WIS, A_STR, A_INT, exercise } from './attrib.js';
 import { SPBOOK_CLASS, NODIR } from './objects.js';
-import { rnd, rn2, rn1, rnl } from './rng.js';
+import { rnd, rn2, rn1, rnl, rn2_on_display_rng } from './rng.js';
 import { morehungry, poison_strdmg } from './eat.js';
-import { zapyourself, spell_damage_bonus, weffects } from './zap.js';
+import { zapyourself, spell_damage_bonus, weffects, zhitm, resists_elec } from './zap.js';
 import { tele } from './teleport.js';
 import { aggravate } from './wizard.js';
 import { make_confused, healup, make_slimed } from './potion.js';
-import { trycall, hcolor, hliquid } from './do_name.js';
+import { trycall, hcolor, hliquid, Hallucination, mon_nam, Monnam } from './do_name.js';
 import { an } from './objnam.js';
 import { is_whirly, is_animal } from './monsters.js';
 import { nomul, losehp, maybe_half_phys } from './hack.js';
@@ -62,7 +65,7 @@ import { explode } from './explode.js';
 import { getdir } from './lock.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { cansee } from './vision.js';
-import { m_at } from './mon.js';
+import { m_at, wakeup } from './mon.js';
 import { walk_path } from './dothrow.js';
 import { distmin } from './hacklib.js';
 import {
@@ -105,7 +108,19 @@ import {
     EXPL_FIERY,
     EXPL_FROSTY,
     DISP_BEAM,
+    DISP_CHANGE,
     DISP_END,
+    N_DIRS,
+    xdir,
+    ydir,
+    POOL,
+    MOAT,
+    DRAWBRIDGE_UP,
+    LAVAPOOL,
+    D_CLOSED,
+    D_LOCKED,
+    SPACE_POS,
+    XKILL_GIVEMSG,
     HI_ZAP,
     HEAD,
     CLAIRVOYANT,
@@ -158,6 +173,7 @@ const SPE_CLAIRVOYANCE = objectNames.indexOf('SPE_CLAIRVOYANCE');
 const SPE_CURE_SICKNESS = objectNames.indexOf('SPE_CURE_SICKNESS');
 const SPE_CURE_BLINDNESS = objectNames.indexOf('SPE_CURE_BLINDNESS');
 const SPE_JUMPING = objectNames.indexOf('SPE_JUMPING');
+const SPE_CHAIN_LIGHTNING = objectNames.indexOf('SPE_CHAIN_LIGHTNING');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
@@ -169,6 +185,8 @@ const LENSES = objectNames.indexOf('LENSES');
 /** C monattk.h — local for enfolds (do not import mhitm). */
 const AT_ENGL = 11;
 const AD_WRAP = 28;
+/** C monattk.h AD_ELEC — chain lightning beam / zhitm type. */
+const AD_ELEC = 6;
 
 const IRON = 11;
 const MITHRIL = 17;
@@ -1342,6 +1360,190 @@ async function throwspell() {
 }
 
 /**
+ * C ref: spell.c CHAIN_LIGHTNING_LIMIT — smaller than TMP_AT_MAX_GLYPHS.
+ */
+const CHAIN_LIGHTNING_LIMIT = 100;
+
+/** C ref: hack.h DIR_LEFT / DIR_RIGHT2 — 8-dir wrap. */
+function DIR_LEFT(dir) {
+    return ((dir | 0) + 7) % N_DIRS;
+}
+function DIR_RIGHT2(dir) {
+    return ((dir | 0) + 2) % N_DIRS;
+}
+
+/** C ref: hack.h BZ_U_SPELL — hero-spell buzz type 10..19. */
+function BZ_U_SPELL(bztyp) {
+    return 10 + (bztyp | 0);
+}
+
+/**
+ * C ref: zap.c exclam — punctuation for "You shock %s%s".
+ * Local copy (zap.js helper is not exported).
+ */
+function exclam_chain(force) {
+    if (force < 0) return '?';
+    if (force <= 4) return '.';
+    return '!';
+}
+
+/**
+ * C ref: spell.c CHAIN_LIGHTNING_TYP — open space / pool / moat /
+ * drawbridge-up / lavapool; not WATER or LAVAWALL.
+ */
+function CHAIN_LIGHTNING_TYP(typ) {
+    const t = typ | 0;
+    return SPACE_POS(t) || t === POOL || t === MOAT
+        || t === DRAWBRIDGE_UP || t === LAVAPOOL;
+}
+
+/**
+ * C ref: spell.c CHAIN_LIGHTNING_POS — isok + TYP or an unlocked door.
+ */
+function CHAIN_LIGHTNING_POS(x, y) {
+    if (!isok(x, y)) return false;
+    const loc = game.level?.at?.(x, y);
+    const typ = loc?.typ | 0;
+    if (CHAIN_LIGHTNING_TYP(typ)) return true;
+    return IS_DOOR(typ) && !((loc?.doormask | 0) & (D_CLOSED | D_LOCKED));
+}
+
+/**
+ * C ref: spell.c propagate_chain_lightning :951–1000.
+ * zap is copied (C pass-by-value); mutates the copy then maybe enqueue.
+ * defended(mon, AD_ELEC) named omit (same as zap.js zhitm).
+ */
+function propagate_chain_lightning(clq, zapIn) {
+    const zap = {
+        dir: zapIn.dir | 0,
+        x: (zapIn.x | 0) + (xdir[zapIn.dir | 0] | 0),
+        y: (zapIn.y | 0) + (ydir[zapIn.dir | 0] | 0),
+        strength: zapIn.strength | 0,
+    };
+
+    if (clq.tail >= CHAIN_LIGHTNING_LIMIT) return;
+    if (!CHAIN_LIGHTNING_POS(zap.x, zap.y)) return;
+
+    const mon = m_at(zap.x, zap.y);
+    if (mon && mon.mpeaceful) return;
+
+    if (mon && !resists_elec(mon) /* && !defended(mon, AD_ELEC) */) {
+        zap.strength = 3;
+    } else if (mon) {
+        zap.strength = 0;
+    }
+
+    if (!mon && !zap.strength) return;
+
+    for (let i = 0; i < clq.tail; i++) {
+        if (clq.q[i].x === zap.x && clq.q[i].y === zap.y) return;
+    }
+
+    clq.q[clq.tail++] = zap;
+
+    tmp_at(DISP_CHANGE, zapdir_to_glyph(
+        xdir[zap.dir], ydir[zap.dir], clq.displayed_beam,
+    ));
+    tmp_at(zap.x, zap.y);
+}
+
+/**
+ * C ref: spell.c cast_chain_lightning :1002–1100.
+ * Display-rng beam when Hallucination (even if swallowed — C inits
+ * clq first). Swallow TODO matches C (no engulfer damage).
+ * Callee zap.c zhitm(BZ_U_SPELL(AD_ELEC-1), 2); xkilled dynamic
+ * (uhitm ← dog ← weapon ← spell).
+ */
+async function cast_chain_lightning() {
+    const clq = {
+        q: [],
+        head: 0,
+        tail: 0,
+        displayed_beam: Hallucination()
+            ? rn2_on_display_rng(6)
+            : (AD_ELEC - 1),
+    };
+
+    if (game.u?.uswallow) {
+        /* C :1009–1011 — TODO: damage the engulfer */
+        return;
+    }
+
+    tmp_at(DISP_BEAM, zapdir_to_glyph(0, 1, clq.displayed_beam));
+
+    for (let dir = 0; dir < N_DIRS; dir++) {
+        propagate_chain_lightning(clq, {
+            dir,
+            x: game.u.ux | 0,
+            y: game.u.uy | 0,
+            strength: 2,
+        });
+    }
+    await nh_delay_output();
+
+    while (clq.head < clq.tail) {
+        const delay_tail = clq.tail;
+        while (clq.head < delay_tail) {
+            const zap = { ...clq.q[clq.head++] };
+            const mon = m_at(zap.x, zap.y);
+
+            if (mon) {
+                const unused = { otmp: null };
+                const bp = game.bhitpos || {};
+                game.notonhead = ((mon.mx | 0) !== (bp.x | 0)
+                    || (mon.my | 0) !== (bp.y | 0));
+                const dmg = await zhitm(
+                    mon, BZ_U_SPELL(AD_ELEC - 1), 2, unused,
+                );
+
+                if (dmg) {
+                    if ((mon.mhp | 0) < 1) {
+                        const { xkilled } = await import('./uhitm.js');
+                        await xkilled(mon, XKILL_GIVEMSG);
+                    } else {
+                        await pline(
+                            `You shock ${mon_nam(mon)}${exclam_chain(dmg)}`,
+                        );
+                        if (!canseemon(mon) && !game.notonhead) {
+                            map_invisible(zap.x, zap.y);
+                        }
+                    }
+                } else if (canseemon(mon)) {
+                    await pline(`${Monnam(mon)} resists.`);
+                }
+                if ((mon.mhp | 0) >= 1) {
+                    if (!game.context) game.context = {};
+                    game.context.forcefight = (game.context.forcefight | 0) + 1;
+                    await wakeup(mon, false);
+                    game.context.forcefight = (game.context.forcefight | 0) - 1;
+                }
+            }
+
+            if (!zap.strength) continue;
+            zap.strength--;
+
+            propagate_chain_lightning(clq, zap);
+
+            if (zap.strength < 2) {
+                zap.strength = 0;
+            } else if ((game.u.uen | 0) > 0) {
+                game.u.uen--;
+            }
+            zap.dir = DIR_LEFT(zap.dir);
+            propagate_chain_lightning(clq, zap);
+
+            zap.dir = DIR_RIGHT2(zap.dir);
+            propagate_chain_lightning(clq, zap);
+        }
+        await nh_delay_output();
+    }
+    await nh_delay_output();
+    await nh_delay_output();
+
+    tmp_at(DISP_END, 0);
+}
+
+/**
  * C ref: spell.c spelleffects :1479–1514 — wand-duplicate getdir +
  * zapyourself / weffects. `physical_damage` is set by SPE_FORCE_BOLT
  * FALLTHROUGH (also unskilled FIREBALL/CONE). update_inventory after
@@ -1456,6 +1658,8 @@ async function cast_protection() {
  * (D-1398; callee potion.c healup/make_slimed).
  * SPE_CURE_BLINDNESS healup(0,0,FALSE,TRUE)
  * (D-1399; callee potion.c cream + make_blinded + make_deaf).
+ * SPE_CHAIN_LIGHTNING cast_chain_lightning
+ * (D-1400; callee zap.c zhitm BZ_U_SPELL(AD_ELEC-1) nd=2).
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1612,6 +1816,9 @@ export async function spelleffects(spell_otyp, atme, force) {
         if (!((jres | 0) & ECMD_TIME)) {
             await pline(nothing_happens);
         }
+    } else if (otyp === SPE_CHAIN_LIGHTNING) {
+        /* C spell.c :1588–1590 — cast_chain_lightning(); */
+        await cast_chain_lightning();
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
         await pline('Nothing happens.');

@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1399; cadence **#1760** `05f8c1a1`
+- **Fortress 44/44** after D-1400; cadence **#1760** `05f8c1a1`
   (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
-  Open `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING (named). Not
-  cure. Reviews **347–355** ACCEPT-WITH-DEBT (no Must-fix);
-  **346** QUALITY-RISK shipped D-1387. Do not skip D-1399…D-1229.
+  Open `spell.c` `spelleffects` SPE_CREATE_MONSTER seffects (named).
+  Not chain. Reviews **347–355** ACCEPT-WITH-DEBT (no Must-fix);
+  **346** QUALITY-RISK shipped D-1387. Do not skip D-1400…D-1229.
   No FORCE. Do not wrap `wildmiss`. Do not add trailing
   `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1399. Named still: `see_monsters`
+- Do not revert D-1217–D-1400. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1399.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1400.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,12 +35,12 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1399 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1400 (index).
 - Named still: hitmm artifact wep; kick thick / mwep dmgval /
   worm-shrieker; zapnodir stasis; potion peffect_enlightenment;
   mdamagem FIRE leftover; mhitm wrap brush; CURE_SICKNESS is
-  D-1398. CURE_BLINDNESS is D-1399 (CHAIN / seffects / peffects
-  named). JUMPING is D-1397. No fountain
+  D-1398. CURE_BLINDNESS is D-1399. CHAIN is D-1400 (seffects /
+  peffects named). JUMPING is D-1397. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -52,10 +52,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1400: `spell.c` `:1588–1590` SPE_CHAIN_LIGHTNING
+  `cast_chain_lightning()`; body `:1002–1100` BFS queue, peaceful
+  skip, `zhitm(BZ_U_SPELL(AD_ELEC-1),2)`, swallow TODO. Callee
+  `zap.c` `zhitm`. seffects / peffects named. CURE_BLINDNESS is
+  D-1399.
 - D-1399: `spell.c` `:1549–1551` SPE_CURE_BLINDNESS
   `healup(0,0,FALSE,TRUE)`. Callee `potion.c` `healup`
   `:1444–1450` cream=0, `make_blinded(0,TRUE)`, `make_deaf(0,TRUE)`.
-  CHAIN / seffects / peffects named. CURE_SICKNESS is D-1398.
+  CHAIN is D-1400. CURE_SICKNESS is D-1398.
 - D-1398: `spell.c` `:1552–1567` SPE_CURE_SICKNESS capture
   Sick/Slimed, `healup(0,0,TRUE,FALSE)` then ill/slime plines.
   Callee `potion.c` `healup` `:1452–1455` `make_vomiting` +
@@ -91,5 +96,3 @@ Objective/score live in `CURRENT.md`.
   `u.dx/dy/dz`. No trailing `confdir`. FORCE_BOLT is D-1388.
 - D-1386: unskilled FIREBALL/CONE FALLTHROUGH FORCE_BOLT then
   RAY `ubuzz`. Cancel leftover is D-1387. zhitm bonus named.
-- D-1385: `uhitm.c` `mhitm_ad_conf` `:3713–3724` vis confuse +
-  leftover `d()`. STUN is D-1396. STON is D-1352.
