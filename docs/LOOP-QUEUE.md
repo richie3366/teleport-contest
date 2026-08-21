@@ -26,8 +26,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] zap.c zapyourself WAN/SPE_MAGIC_MISSILE Antimagic() must use youprop.h uprops[ANTIMAGIC] (D-1089 / invent hero_Antimagic), not zap.js sticky-only clone — cloak-of-MR / gray DSM still take d(4,6). Source: reviews/loop-unattended/324-17a0937c-zapyourself-magic-missile.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself lightning.

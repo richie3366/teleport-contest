@@ -5,14 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1366; cadence **#1735** `9a144895`
-  (Scr **11,405** RNG 100% speed `36+0.29/turn`). Review **324**
-  QUALITY-RISK Must-fix: zap.js MAGIC_MISSILE `Antimagic()` must
-  read `uprops[ANTIMAGIC]` (D-1089), not sticky bits — CoMR still
-  `d(4,6)`. **323/325/326** ACCEPT-WITH-DEBT. Then Open AD_ELEC
-  destroy. Do not skip D-1366…D-1229. No FORCE. Do not rewrite
+- **Fortress 44/44** after D-1367; cadence **#1735** `9a144895`
+  (Scr **11,405** RNG 100% speed `36+0.29/turn`). Must-fix **324**
+  shipped: zap.js `Antimagic()` ORs `uprops[ANTIMAGIC]` (cloak-of-MR
+  / gray DSM bounce, no `d(4,6)`). Next Open: `maybe_destroy_item`
+  AD_ELEC. Do not skip D-1367…D-1229. No FORCE. Do not rewrite
   `confer_oc_oprop`.
-- Do not revert D-1217–D-1366. `see_monsters` warn_obj_cnt /
+- Do not revert D-1217–D-1367. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -24,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1366.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1367.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,8 +34,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1366 (index).
-- Do not skip D-1071…D-1366 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1367 (index).
+- Do not skip D-1071…D-1367 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush; allmain/uhitm/dothrow/dig `u_wipe_engr`.
@@ -52,6 +51,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1367: `zap.js` `Antimagic()` — C `youprop.h` H||E via
+  `uprops[ANTIMAGIC]` (invent `hero_Antimagic` / sit D-1089).
+  confer_oc_oprop cloak-of-MR / gray DSM extrinsic only; bounce
+  MAGIC_MISSILE (no `d(4,6)`) and WAN_STRIKING `"Boing!"`.
+  Did not rewrite confer. shieldeff/monstseesu still named.
 - D-1366: `zap.c` `lightdamage` `:3024–3056` — gremlin
   `rnd`/`cap`/`Ow`/`losehp(Maybe_Half_Phys)` zapped/blasted +
   `ansimpleoname`. zapnodir WAN/SPE_LIGHT `litroom` then amt 5.
@@ -118,8 +122,3 @@ Objective/score live in `CURRENT.md`.
   `do_stone_mon` `:3944–3978` via `mdamagem` leftover.
   Cancelled keeps `d()`; else poly golem / `monstone` /
   resist leftover 0. `munstone` named.
-- D-1351: `mhitm.c` `hitmm` `:706–726` — vis `!compat` after
-  hit pline; `weaponhit` AT_WEAP or AT_CLAW+mwep; silver
-  `oc_material`; `mon_hates_silver` then `simpleonames`
-  sears; flesh unless `noncorporeal`/`amorphous`; self
-  himself→his own. Artifact wep named.

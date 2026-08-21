@@ -13,7 +13,7 @@
 // WAN_TELEPORTATION / WAN_UNDEAD_TURNING / WAN_LIGHT /
 // WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN (D-0974);
 // WAN_LIGHTNING + flashburn (D-1355);
-// WAN/SPE_MAGIC_MISSILE (D-1364);
+// WAN/SPE_MAGIC_MISSILE (D-1364; Antimagic uprops D-1367);
 // SPE_FIREBALL self-explode (D-1365);
 // lightdamage + zapnodir WAN/SPE_LIGHT + zapyourself WAN_LIGHT/CAMERA (D-1366);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
@@ -148,7 +148,7 @@ import {
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
-    REFLECTING,
+    REFLECTING, ANTIMAGIC,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
@@ -296,10 +296,19 @@ function Acid_resistance() {
     return !!(u.Acid_resistance || u.HAcid_resistance || u.EAcid_resistance);
 }
 
-/** C ref: youprop.h Antimagic */
+/**
+ * C youprop.h Antimagic — HAntimagic || EAntimagic
+ * ≡ uprops[ANTIMAGIC].intrinsic || uprops[ANTIMAGIC].extrinsic.
+ * confer_oc_oprop writes ANTIMAGIC only to uprops (EAntimagic
+ * unmirrored). Keep H/E/sticky flats for eat/poly (invent.js
+ * hero_Antimagic / sit.js D-1089). Worn CLOAK_OF_MAGIC_RESISTANCE
+ * / gray DSM must bounce MAGIC_MISSILE and WAN_STRIKING (D-1367).
+ */
 function Antimagic() {
     const u = game.u || {};
-    return !!(u.Antimagic || u.HAntimagic || u.EAntimagic);
+    const e = u.uprops?.[ANTIMAGIC];
+    return !!((u.Antimagic || u.HAntimagic || u.EAntimagic)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
 }
 
 /** C ref: youprop.h Half_spell_damage */
@@ -3172,7 +3181,7 @@ export async function flashburn(duration, via_lightning) {
  * WAN_UNDEAD_TURNING / WAN_LIGHT / EXPENSIVE_CAMERA / WAN_OPENING / SPE_KNOCK;
  * WAN_FIRE / FIRE_HORN / WAN_COLD / SPE_CONE_OF_COLD / FROST_HORN;
  * WAN_LIGHTNING + flashburn (D-1355);
- * WAN/SPE_MAGIC_MISSILE (D-1364);
+ * WAN/SPE_MAGIC_MISSILE (D-1364; Antimagic uprops D-1367);
  * SPE_FIREBALL self-explode (D-1365);
  * lightdamage WAN_LIGHT/CAMERA (D-1366);
  * other otyps named in C-JS-MAP.
@@ -3418,8 +3427,8 @@ export async function zapyourself(obj, ordinary) {
     case WAN_MAGIC_MISSILE:
     case SPE_MAGIC_MISSILE:
         // C zap.c zapyourself :2790–2802 — always learn;
-        // Antimagic → pline_The bounce (no d()); else d(4,6)+Idiot.
-        // shieldeff / monstseesu named.
+        // Antimagic (youprop.h uprops, D-1367) → pline_The bounce
+        // (no d()); else d(4,6)+Idiot. shieldeff / monstseesu named.
         learn_it = true;
         if (Antimagic()) {
             await pline('The missiles bounce!');

@@ -106,7 +106,7 @@ Journal: private canary **22**/22 (C/JS case grep; seeing `d(4,6)` + Idiot; stic
 
 ## Actionable C-wrongs
 
-1. `zap.js` `zapyourself` WAN/SPE_MAGIC_MISSILE `Antimagic()` must read `youprop.h` `uprops[ANTIMAGIC]` intrinsic||extrinsic (D-1089 `hero_Antimagic` / sit.js), not sticky `u.Antimagic||H||E` only. Cloak of magic resistance / gray DSM currently still take `d(4,6)` and `"Idiot!"` instead of bounce with no dice. Same helper already gates WAN_STRIKING `"Boing!"` — fix the helper once. Do **not** rewrite `confer_oc_oprop`. Source: this review.
+1. `zap.js` `zapyourself` WAN/SPE_MAGIC_MISSILE `Antimagic()` must read `youprop.h` `uprops[ANTIMAGIC]` intrinsic||extrinsic (D-1089 `hero_Antimagic` / sit.js), not sticky `u.Antimagic||H||E` only. Cloak of magic resistance / gray DSM currently still take `d(4,6)` and `"Idiot!"` instead of bounce with no dice. Same helper already gates WAN_STRIKING `"Boing!"` — fix the helper once. Do **not** rewrite `confer_oc_oprop`. Source: this review. **Addressed:** D-1367
 
 Named omits (map / already-Open, not Must-fix):
 

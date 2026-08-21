@@ -59,23 +59,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1366. Review **324** QUALITY-RISK
-Must-fix: zap.js `zapyourself` WAN/SPE_MAGIC_MISSILE `Antimagic()`
-sticky clone vs `uprops[ANTIMAGIC]` (D-1089). Reviews **323/325/326**
-ACCEPT-WITH-DEBT. **Next cluster:** that Must-fix (cloak-of-MR still
-`d(4,6)`). Then Open `maybe_destroy_item` AD_ELEC.
-Do not skip D-1366…D-1229 (index). Keep mention_map addr. Do
-not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not rewrite `confer_oc_oprop`.
+**Map-driven fortress** after D-1367. **Next cluster:** Open
+`zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself
+lightning. Reviews **323/325/326** ACCEPT-WITH-DEBT. **324**
+shipped (`Antimagic()` via `uprops[ANTIMAGIC]`). Do not skip
+D-1367…D-1229 (index). Keep mention_map addr. Do not wrap
+`wildmiss` or `msg_mon_movement` as `pline_mon`. Do not
+rewrite `confer_oc_oprop`.
 
-**Parked:** D-0006. **Do not re-break D-0660…D-1366.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1367.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1366 (index). Recent: **D-1366** zap.c
-`lightdamage` WAN_LIGHT/camera. Prior: **D-1365** SPE_FIREBALL.
+**Keep:** D-0845…D-1367 (index). Recent: **D-1367** zap.js
+`Antimagic()` `uprops[ANTIMAGIC]`. Prior: **D-1366** lightdamage.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1366
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1367
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1367 — zap.js Antimagic() via uprops[ANTIMAGIC]
+
+- **Status:** fixed (review **324** Must-fix; not a public FAIL)
+- **Symptom:** `zapyourself` WAN/SPE_MAGIC_MISSILE bounce vs
+  `d(4,6)` used a sticky-only `Antimagic()` clone. Cloak of
+  magic resistance / gray DSM (`confer_oc_oprop` writes
+  `uprops[ANTIMAGIC].extrinsic` only) still took `d(4,6)` +
+  Idiot. C `youprop.h` `Antimagic` is H||E via uprops.
+- **C locus:** `youprop.h:55–57`; `zap.c` `zapyourself`
+  `:2790–2802` (`if (Antimagic)`); same helper already gates
+  WAN_STRIKING `:2715` `"Boing!"`. D-1089 sit/invent shape.
+- **JS was:** `u.Antimagic || HAntimagic || EAntimagic` only
+  (D-1364 arm otherwise live).
+- **Fix:** OR `uprops[ANTIMAGIC].intrinsic||extrinsic`. Did
+  not rewrite `confer_oc_oprop`. Other files' clones named.
+  shieldeff/monstseesu still named. Rule #2: no fs.
+- **JS:** `js/zap.js` `Antimagic()`.
+- **Not this iter:** `maybe_destroy_item` AD_ELEC;
+  WAN_MAKE_INVISIBLE; `shieldeff`; `spell.c` SPE_MAGIC_MISSILE
+  dispatcher; pray/muse/explode `Antimagic()` clones.
+- **Verified:** private canary **22**/22 (C macros; confer
+  cloak/gray DSM bounce no `d(4,6)` with `EAntimagic` still 0;
+  sticky H still bounce; seeing no-bits still Idiot; SPE cloak;
+  WAN_STRIKING Boing!; MAKE_INVISIBLE still default; lightning
+  regression; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session self-zaps missile/striking
+  while wearing conferral MR.
+- **Follow-up:** Open `zap.c` `maybe_destroy_item` AD_ELEC
+  (named). Not zapyourself lightning.
+- **Files:** `js/zap.js`.
+
 ## D-1366 — zap.c lightdamage (WAN_LIGHT/camera)
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1367 | fixed | zap.js Antimagic() uprops[ANTIMAGIC] | review **324** Must-fix; C `youprop.h:55–57` H||E; confer cloak-of-MR / gray DSM extrinsic not `EAntimagic`; MAGIC_MISSILE bounce (no `d(4,6)`) + WAN_STRIKING Boing!; D-1089 shape; did not rewrite confer; shieldeff / AD_ELEC destroy still named |
 | D-1366 | fixed | zap.c lightdamage WAN_LIGHT/camera | map-driven Open; C `zap.c` `lightdamage` `:3024–3056` gremlin rnd/cap/`losehp` + zapnodir WAN/SPE_LIGHT + zapyourself WAN_LIGHT/CAMERA `flashburn(FALSE)`; JS stub returned amt; live `js/zap.js` + `read.js` seffect_light import; muse MUSE_CAMERA / Sunsword invoke / WAN_MAKE_INVISIBLE still named |
 | D-1365 | fixed | zap.c zapyourself SPE_FIREBALL | map-driven Open; C `zap.c` `zapyourself` `:2748–2751` You explode + `explode(ux,uy,11,d(6,6),WAND_CLASS,EXPL_FIERY)`; no learn; return 0; JS defaulted; live `js/zap.js` + `explode.js`; `lightdamage` / WAN_MAKE_INVISIBLE / AD_ELEC destroy / spell.c skilled scatter still named |
 | D-1364 | fixed | zap.c zapyourself WAN/SPE_MAGIC_MISSILE | map-driven Open; C `zap.c` `zapyourself` `:2790–2802` learn + Antimagic `pline_The` bounce (no `d()`) else `d(4,6)`+Idiot; JS defaulted; live `js/zap.js`; SPE_FIREBALL is D-1365; `lightdamage` / WAN_MAKE_INVISIBLE / AD_ELEC destroy body still named |

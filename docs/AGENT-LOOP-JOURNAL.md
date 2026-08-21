@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1367 zap.js Antimagic() uprops[ANTIMAGIC]
+
+**Objective:** Must-fix review **324** — zap.c `zapyourself`
+WAN/SPE_MAGIC_MISSILE `Antimagic()` via `youprop.h`
+`uprops[ANTIMAGIC]` (D-1089), not sticky clone.
+**C locus:** `youprop.h:55–57`; `zap.c` `zapyourself` `:2790–2802`
+(+ WAN_STRIKING `:2715`).
+**Change:** OR uprops intrinsic||extrinsic. Cloak-of-MR / gray
+DSM bounce with no `d(4,6)`. Did not rewrite confer. Filled
+no prior missing `%h`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session self-zaps missile under conferral MR).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `maybe_destroy_item` AD_ELEC (named).
+Not zapyourself lightning.
+**Blocked:** none.
 ## 2026-08-21 — review D-1363–D-1366 (audit #1735)
 
 **Objective:** audit — C-fidelity reviews **323–326** of JS SHAs
