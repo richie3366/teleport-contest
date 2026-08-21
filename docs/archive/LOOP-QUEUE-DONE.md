@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `dokick.c` martial knockback (named from D-1332). Not abuse_dog. **Addressed:** D-1350
+- [x] `dokick.c` martial knockback (named from D-1332). Not abuse_dog. **Addressed:** D-1350 `d3f2a9e5`
 
 
 - [x] `dokick.c` `abuse_dog` (named from D-1332). Not kickstr. **Addressed:** D-1349 `533e732f`

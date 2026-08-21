@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1350; cadence **#1710** `533e732f`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn`). Reviews **308–311**
+- **Fortress 44/44** after D-1350; cadence **#1715** `d3f2a9e5`
+  (Scr **11,405** RNG 100% speed `36+0.30/turn`). Review **312**
   ACCEPT-WITH-DEBT (no Must-fix). Next: Open `mhitm.c` hitmm
   silver sear (named from D-0887). Not shade_miss. Do not
   skip D-1350…D-1229. Do not wrap `wildmiss` as `pline_mon`. No FORCE.

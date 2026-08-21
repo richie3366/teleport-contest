@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — review D-1350 (audit #1715)
+
+**Objective:** audit — C-fidelity review **312** of JS SHA
+`d3f2a9e5` since `df69cf2e`, plus full `sessions` score. No `js/` port.
+**C locus:** `dokick.c` `kickdmg` `:96–113`.
+**Change:** **312** ACCEPT-WITH-DEBT. No Must-fix. Filled
+D-1350 archive hash `d3f2a9e5`. Cadence **44**/44 Scr
+**11,405**/11,405 RNG **792,838**/792,838 (100%) speed
+`36+0.30/turn` (R² 0.85) at `d3f2a9e5`. Rule #2: no fs.
+**Score:** fortress held. Next audit @**#1720**.
+**Verified:** `node frozen/ps_test_runner.mjs sessions` this iter.
+**Next:** Open `mhitm.c` hitmm silver sear (named from D-0887).
+Not shade_miss.
+**Blocked:** none.
 ## 2026-08-21 — D-1350 dokick.c kickdmg martial knockback
 
 **Objective:** Open `dokick.c` martial knockback (named from

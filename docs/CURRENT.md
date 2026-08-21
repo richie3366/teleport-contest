@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-21** — full `sessions` at review **#1710**
-HEAD `533e732f` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `37+0.30/turn` (R² 0.85). Next audit (review + score) @**#1715**.
+Score last measured: **2026-08-21** — full `sessions` at review **#1715**
+HEAD `d3f2a9e5` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `36+0.30/turn` (R² 0.85). Next audit (review + score) @**#1720**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `37+0.30/turn` (R² 0.85). Next audit (review + score) @**#1715**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `37+0.30/turn` (R² 0.85) |
+| Speed label | `36+0.30/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,8 +59,8 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1350. Reviews **308–311**
-ACCEPT-WITH-DEBT (**304–307** held). **Next cluster:** Open
+**Map-driven fortress** after D-1350. Review **312**
+ACCEPT-WITH-DEBT (**308–311** held). **Next cluster:** Open
 `mhitm.c` hitmm silver sear (named from D-0887). Not
 shade_miss. Do not skip D-1350…D-1229 (index). Keep
 mention_map addr. Do not wrap `wildmiss` or
