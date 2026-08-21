@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1369 zap.c zapyourself WAN_MAKE_INVISIBLE
+
+**Objective:** Open `zap.c` `zapyourself` WAN_MAKE_INVISIBLE
+(named). Not lightning.
+**C locus:** `zap.c` `zapyourself` `:2825–2842`; `potion.c`
+`incr_itimeout` / `self_invis_message`; `youprop.h` Invis.
+**Change:** msg snapshot; wrapping itchy absorb; `rn1(15,31)`
+timeout on HInvis+uprops; learn+newsym+self_invis_message.
+Filled D-1368 archive hash `9df30ee3`. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session self-zaps make-invisible).
+**Verified:** private canary **25**/25; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dokick.c` kick_ouch/kick_dumb air/Lev `hurtle`
+(named from D-1361). Not no_kick.
+**Blocked:** none.
 ## 2026-08-21 — D-1368 zap.c maybe_destroy_item AD_ELEC
 
 **Objective:** Open `zap.c` `maybe_destroy_item` AD_ELEC

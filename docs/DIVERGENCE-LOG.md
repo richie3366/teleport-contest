@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1369 — zap.c zapyourself WAN_MAKE_INVISIBLE
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zapyourself` defaulted `WAN_MAKE_INVISIBLE`. Self-zap
+  never timed `HInvis`, never learned the wand, never printed
+  `self_invis_message`, and never absorbed into a mummy wrapping.
+- **C locus:** `zap.c` `zapyourself` `:2825–2842`. Helpers
+  `potion.c` `incr_itimeout` / `self_invis_message`; `youprop.h`
+  `Invis`/`BInvis`/`Blind`; `worn.c` `setworn` `w_blocks`.
+  Caller `dozap` self-dir (`dx==dy==dz==0`).
+- **JS was:** `default` break (no timeout, no learn).
+- **Fix:** snapshot `msg = !Invis && !Blind && !BInvis` before
+  `HInvis`; wrapping `You_feel` itchy absorb; else
+  `incr_itimeout(&HInvis, rn1(15,31))` on `HInvis` +
+  `uprops[INVIS].intrinsic`; if msg: `learnwand` + `newsym` +
+  `self_invis_message`. BInvis stand-in: worn `MUMMY_WRAPPING`
+  (JS `setworn` named-omits `w_blocks`). Rule #2: no fs.
+- **JS:** `js/zap.js` `zapyourself` + `incr_itimeout_HInvis`.
+- **Not this iter:** `bhitm` / `zap_updown` / `zap_steed`
+  WAN_MAKE_INVISIBLE; `setworn` w_blocks; WAN_SPEED_MONSTER /
+  WAN_SLOW / SPE_DRAIN_LIFE / WAN_LOCKING / WAN_PROBING.
+- **Verified:** private canary **25**/25 (C/JS grep; fresh
+  `rn2(15)` + TIMEOUT 31..45 + uprops sync + learn; already
+  Invis grows timeout no learn; Blind/HBlinded no learn;
+  wrapping absorb; BInvis+wrapping; SPE_FIREBALL still a
+  case; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session self-zaps make-invisible.
+- **Follow-up:** Open `dokick.c` kick_ouch/kick_dumb airlevel/Lev
+  `hurtle` (named from D-1361). Not no_kick.
+
 ## D-1368 — zap.c maybe_destroy_item AD_ELEC
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

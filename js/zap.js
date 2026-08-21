@@ -16,6 +16,7 @@
 // WAN/SPE_MAGIC_MISSILE (D-1364; Antimagic uprops D-1367);
 // SPE_FIREBALL self-explode (D-1365);
 // lightdamage + zapnodir WAN/SPE_LIGHT + zapyourself WAN_LIGHT/CAMERA (D-1366);
+// zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
@@ -43,8 +44,9 @@
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
-// WAN_MAKE_INVISIBLE; spell.c skilled SPE_FIREBALL scatter;
+// spell.c skilled SPE_FIREBALL scatter;
 // muse MUSE_CAMERA / Sunsword invoke_blinding_ray lightdamage callers.
+// bhitm / zap_updown / zap_steed WAN_MAKE_INVISIBLE; setworn w_blocks.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); inventory_resistance
 // / full read.c recharge wand·tool·blessed still named.
 // explode AD_FIRE mon/hero combat: D-0968 (explode.js).
@@ -97,6 +99,7 @@ import { finish_losehp_done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap,
     NO_TRAP_FLAGS, ignite_items, openholdingtrap, openfallingtrap,
+    self_invis_message,
 } from './trap.js';
 import { potionbreathe, make_stunned } from './potion.js';
 import { burn_away_slime } from './timeout.js';
@@ -147,7 +150,7 @@ import {
     PLNMSG_ENVELOPED_IN_GAS, PLNMSG_OBJ_GLOWS, IRONBARS, SDOOR, SHOPBASE,
     SHOP_DOOR_COST,
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
-    TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd,
+    TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd, INVIS,
     LEFT_RING, RIGHT_RING,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, NON_PM, ismnum,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
@@ -173,6 +176,8 @@ const WAN_LIGHT = objectNames.indexOf('WAN_LIGHT');
 const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const WAN_LIGHTNING = objectNames.indexOf('WAN_LIGHTNING');
+const WAN_MAKE_INVISIBLE = objectNames.indexOf('WAN_MAKE_INVISIBLE');
+const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
 const RIN_SHOCK_RESISTANCE = objectNames.indexOf('RIN_SHOCK_RESISTANCE');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
 const WAN_POLYMORPH = objectNames.indexOf('WAN_POLYMORPH');
@@ -347,6 +352,67 @@ export function Reflecting() {
 
 function Blind() {
     return !!(game.u?.Blind || game.u?.ublind);
+}
+
+/**
+ * C youprop.h Blind for zapyourself WAN_MAKE_INVISIBLE msg —
+ * (HBlinded || EBlinded) && !BBlinded. Sticky Blind() first.
+ */
+function Blinded_for_invis() {
+    const u = game.u || {};
+    if (Blind()) return true;
+    return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
+}
+
+/**
+ * C youprop.h BInvis — uprops[INVIS].blocked.
+ * JS setworn named-omits w_blocks; worn MUMMY_WRAPPING on uarmc
+ * stands in (C worn.c setworn `:126–127`).
+ */
+function BInvis() {
+    const u = game.u || {};
+    const p = u.uprops?.[INVIS];
+    if ((u.BInvis | 0) || (p?.blocked | 0)) return true;
+    const cloak = u.uarmc;
+    return !!(cloak && (cloak.otyp | 0) === MUMMY_WRAPPING);
+}
+
+/**
+ * C youprop.h Invis — (HInvis || EInvis) && !BInvis
+ * via flats + uprops[INVIS] (cloak-of-invis confer writes
+ * extrinsic only).
+ */
+function Invis() {
+    const u = game.u || {};
+    const p = u.uprops?.[INVIS];
+    const H = (u.HInvis | 0) || (p?.intrinsic | 0);
+    const E = (u.EInvis | 0) || (p?.extrinsic | 0);
+    return !!(H || E) && !BInvis();
+}
+
+/** C potion.c itimeout — clamp into TIMEOUT field. */
+function itimeout(val) {
+    val = val | 0;
+    if (val >= TIMEOUT) return TIMEOUT;
+    if (val < 1) return 0;
+    return val;
+}
+
+/**
+ * C potion.c incr_itimeout(&HInvis, n) — TIMEOUT bits only.
+ * Write HInvis and uprops[INVIS].intrinsic (C single storage;
+ * timeout.js decrements uprops then syncs the flat).
+ */
+function incr_itimeout_HInvis(incr) {
+    const u = game.u || (game.u = {});
+    if (!u.uprops) u.uprops = {};
+    if (!u.uprops[INVIS]) {
+        u.uprops[INVIS] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+    }
+    const cur = (u.HInvis | 0) | (u.uprops[INVIS].intrinsic | 0);
+    const next = (cur & ~TIMEOUT) | itimeout((cur & TIMEOUT) + (incr | 0));
+    u.HInvis = next;
+    u.uprops[INVIS].intrinsic = next;
 }
 
 /** C ref: do_name.c Amonnam — highc(a_monnam). */
@@ -3266,6 +3332,7 @@ export async function flashburn(duration, via_lightning) {
  * WAN/SPE_MAGIC_MISSILE (D-1364; Antimagic uprops D-1367);
  * SPE_FIREBALL self-explode (D-1365);
  * lightdamage WAN_LIGHT/CAMERA (D-1366);
+ * WAN_MAKE_INVISIBLE (D-1369);
  * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
@@ -3519,6 +3586,28 @@ export async function zapyourself(obj, ordinary) {
             await pline("Idiot!  You've shot yourself!");
         }
         break;
+
+    case WAN_MAKE_INVISIBLE: {
+        // C zap.c zapyourself :2825–2842 — snapshot msg before
+        // changing HInvis; mummy wrapping absorbs (BInvis +
+        // uarmc MUMMY_WRAPPING); else incr_itimeout rn1(15,31);
+        // if msg: learn + newsym then self_invis_message.
+        // bhitm / zap_updown / zap_steed still named.
+        const u = game.u || {};
+        const msg = !Invis() && !Blinded_for_invis() && !BInvis();
+        const uarmc = u.uarmc;
+        if (BInvis() && uarmc && (uarmc.otyp | 0) === MUMMY_WRAPPING) {
+            await You_feel(`rather itchy under ${yname(uarmc)}.`);
+            break;
+        }
+        incr_itimeout_HInvis(rn1(15, 31));
+        if (msg) {
+            learn_it = true;
+            newsym(u.ux | 0, u.uy | 0);
+            await self_invis_message();
+        }
+        break;
+    }
 
     default:
         // Other zapyourself cases deferred

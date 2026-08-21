@@ -5,13 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1368; cadence **#1735** `9a144895`
+- **Fortress 44/44** after D-1369; cadence **#1735** `9a144895`
   (Scr **11,405** RNG 100% speed `36+0.29/turn`). Open
-  `maybe_destroy_item` AD_ELEC shipped: rings/wands destroy,
-  RIN_SHOCK/WAN_LIGHTNING immune, chargeit ring `recharge(0)`.
-  Next Open: `zapyourself` WAN_MAKE_INVISIBLE. Do not skip
-  D-1368…D-1229. No FORCE. Do not rewrite `confer_oc_oprop`.
-- Do not revert D-1217–D-1368. `see_monsters` warn_obj_cnt /
+  `zapyourself` WAN_MAKE_INVISIBLE shipped: msg snapshot,
+  mummy wrapping absorb, `incr_itimeout(&HInvis, rn1(15,31))`,
+  learn+newsym+`self_invis_message`. Next Open: dokick
+  air/Lev `hurtle`. Do not skip D-1369…D-1229. No FORCE.
+  Do not rewrite `confer_oc_oprop`. Do not wrap `wildmiss`.
+- Do not revert D-1217–D-1369. `see_monsters` warn_obj_cnt /
   `Sting_effects` / SPFX_WARN / ARMOR gloves `:1412` still named.
   fruit_from_name + artifact_name in `the()` still named.
   minetn-1 loader / dog leftovers / `add_to_minv` merge named.
@@ -23,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1368.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1369.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,8 +35,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1368 (index).
-- Do not skip D-1071…D-1368 (index). Named still: hitmm artifact
+  nhcore (D-1066). Do not skip D-1067…D-1369 (index).
+- Do not skip D-1071…D-1369 (index). Named still: hitmm artifact
   wep; mthrowu/zap/hmon
   `shade_miss` callers; mdamagem CONF/STUN/FIRE leftover;
   mhitm wrap brush; allmain/uhitm/dothrow/dig `u_wipe_engr`.
@@ -51,13 +52,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1369: `zap.c` `zapyourself` WAN_MAKE_INVISIBLE `:2825–2842`
+  — snapshot `!Invis && !Blind && !BInvis`; wrapping
+  `You_feel` itchy absorb; else `incr_itimeout(&HInvis,
+  rn1(15,31))`; msg → learn + `newsym` + `self_invis_message`.
+  BInvis stand-in: worn `MUMMY_WRAPPING` (setworn w_blocks
+  named). bhitm / zap_updown / zap_steed still named.
 - D-1368: `zap.c` `maybe_destroy_item` AD_ELEC `:5858–5879` +
   `destroyable` `:5641–5644` — RIN_SHOCK/WAN_LIGHTNING immune;
   worn non-metallic gloves skip; charged ring `rn2(3)`
   `recharge(obj,0)` RING spin/`rn2(7)` explode; else dust;
   wand `rnd(10)` explode + Shock `aren't hurt`. Worn
   `Ring_gone`/`setnotworn`. Full read.c wand/tool recharge
-  named. WAN_MAKE_INVISIBLE still named.
+  named. WAN_SPEED/SLOW/DRAIN_LIFE still named.
 - D-1367: `zap.js` `Antimagic()` — C `youprop.h` H||E via
   `uprops[ANTIMAGIC]` (invent `hero_Antimagic` / sit D-1089).
   confer_oc_oprop cloak-of-MR / gray DSM extrinsic only; bounce
@@ -121,7 +128,3 @@ Objective/score live in `CURRENT.md`.
   `!shade_glare` tmp=0; `artifact.c` `shade_glare`
   `:555–571` silver or SPFX_DFLAG2+M2_UNDEAD.
   Dice still burn. Blessed/thick-skin/hmon ranged named.
-- D-1353: muse.c `ureflects` `:2850–2864` W_AMUL
-  medallion+makeknown, W_ARM armor/`uskin` luster,
-  PM_SILVER_DRAGON scales. zap/pray clones share
-  `mhitu.js`. mcastu named.

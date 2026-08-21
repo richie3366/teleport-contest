@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself lightning. **Addressed:** D-1368
+- [x] `zap.c` `zapyourself` WAN_MAKE_INVISIBLE (named). Not lightning. **Addressed:** D-1369
+
+
+- [x] `zap.c` `maybe_destroy_item` AD_ELEC (named). Not zapyourself lightning. **Addressed:** D-1368 `9df30ee3`
 
 
 - [x] zap.c zapyourself WAN/SPE_MAGIC_MISSILE Antimagic() must use youprop.h uprops[ANTIMAGIC] (D-1089 / invent hero_Antimagic), not zap.js sticky-only clone — cloak-of-MR / gray DSM still take d(4,6). Source: reviews/loop-unattended/324-17a0937c-zapyourself-magic-missile.md **Addressed:** D-1367 `463e151d`
