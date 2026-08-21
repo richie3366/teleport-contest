@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-21 — D-1373 uhitm.c do_attack u_wipe_engr(3)
+
+**Objective:** Open `uhitm.c` `u_wipe_engr` attacker caller
+(named from D-1360). Not allmain. Not dothrow.
+**C locus:** `uhitm.c` `do_attack` `:551–553`; callee
+`engrave.c` `u_wipe_engr` `:264–268`.
+**Change:** replace stub comment with `u_wipe_engr(3)` after
+`exercise(A_STR,true)` before named leprechaun/`hitum`. Import
+live callee. dothrow/dig still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session melees on a wipeable engraving).
+**Verified:** private canary **28**/28; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `dothrow.c` `u_wipe_engr` caller
+(named from D-1360). Not uhitm.
+**Blocked:** none.
 ## 2026-08-21 — D-1372 allmain.c DEX timeout u_wipe_engr(rnd(3))
 
 **Objective:** Open `allmain.c` `u_wipe_engr` DEX timeout

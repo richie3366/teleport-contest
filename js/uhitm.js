@@ -1,6 +1,6 @@
 // uhitm.js — Hero hitting monsters (partial).
 // C ref: uhitm.c — do_attack / attack_checks mimic / stumble_onto_mimic / hitum / known_hitum / find_roll_to_hit / hmon / hmonas / explum / gulpum / damageum;
-//         hack.c overexertion; mon.c killed / xkilled / corpse_chance.
+//         do_attack u_wipe_engr(3) D-1373; hack.c overexertion; mon.c killed / xkilled / corpse_chance.
 
 import { game } from './gstate.js';
 import { rn2, rnd, d, rn1 } from './rng.js';
@@ -78,6 +78,7 @@ import { ndemon } from './minion.js';
 import { ART_GIANTSLAYER, ART_STORMBRINGER } from './generated/artifacts_data.js';
 import { paranoid_query } from './getline.js';
 import { which_armor } from './worn.js';
+import { u_wipe_engr } from './engrave.js';
 
 // C monflag.h — MZ_HUMAN is MZ_MEDIUM
 const MZ_HUMAN = MZ_MEDIUM;
@@ -2658,6 +2659,8 @@ function ing_suffix(s) {
 /**
  * C ref: uhitm.c do_attack — safemon displace, else attack → hitum.
  * attack_checks: invis Wait + mimic stumble before overexertion.
+ * After STR exercise: u_wipe_engr(3) (D-1373; callee D-1051).
+ * Leprechaun evade still named.
  */
 export async function do_attack(mtmp) {
     if (!mtmp) return false;
@@ -2740,7 +2743,11 @@ export async function do_attack(mtmp) {
     }
 
     exercise(A_STR, true); // you're exercising muscles
-    // u_wipe_engr(3) — no RNG when no engraving
+    /* C uhitm.c do_attack `:551–553` — after exercise, before leprechaun
+       evade / hitum: u_wipe_engr(3) (andrew@orca: no unlimited pick-axe
+       attacks). Callee D-1051; no extra RNG with no engraving /
+       HEADSTONE / BURN-on-stone / Levitation. D-1373. */
+    u_wipe_engr(3);
 
     // Leprechaun evade !rn2(7) deferred (not kobold)
 

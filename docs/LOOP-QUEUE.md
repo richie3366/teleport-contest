@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` `u_wipe_engr` attacker caller (named from D-1360). Not allmain.
 - [ ] `dothrow.c` `u_wipe_engr` caller (named from D-1360). Not uhitm.
 - [ ] `dig.c` `u_wipe_engr` caller (named from D-1360). Not dothrow.
 - [ ] `muse.c` MUSE_CAMERA `lightdamage` (named from D-1366). Not zapnodir.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `spell.c` skilled SPE_FIREBALL scatter (named from D-1365). Not zapyourself explode.
 - [ ] `zap.c` `zapnodir` WAN_CREATE_MONSTER (named). Not light.
 - [ ] `zap.c` `zapnodir` WAN_WISHING (named). Not create.
+- [ ] `uhitm.c` `do_attack` leprechaun evade (named from D-1373). Not wipe.
+- [ ] `mthrowu.c` `shade_miss` caller (named from D-1354). Not uhitm hmon.
+- [ ] `zap.c` `shade_miss` caller (named from D-1354). Not mthrowu.
+- [ ] `uhitm.c` `hmon` `shade_miss` caller (named from D-1354). Not zap.
+- [ ] `mhitm.c` `mdamagem` AD_CONF leftover (named from D-1352). Not STON.
 
 ## Parked (do not pop)
 

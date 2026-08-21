@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1373 — uhitm.c do_attack u_wipe_engr(3)
+
+- **Status:** fixed (map-driven Open from D-1360; not a public FAIL)
+- **Symptom:** melee never smudged the hero-cell engraving. C
+  `do_attack` calls `u_wipe_engr(3)` after `exercise(A_STR,TRUE)`
+  and before the leprechaun evade / `hitum`/`hmonas`. JS already
+  exercised STR but left the wipe as a stub comment. Callee
+  live since D-1051.
+- **C locus:** `uhitm.c` `do_attack` `:551–553`
+  (`exercise(A_STR, TRUE); u_wipe_engr(3);`); callee
+  `engrave.c` `u_wipe_engr` `:264–268` →
+  `can_reach_floor(TRUE)` then `wipe_engr_at(u.ux,u.uy,cnt,FALSE)`.
+  Constant 3: no wrapper RNG; no extra RNG with no engraving /
+  HEADSTONE / BURN-on-stone / Levitation skip. ENGRAVE uses
+  `rn2(1+50/(3+1))` i.e. `rn2(13)`.
+- **JS was:** `exercise(A_STR, true); // u_wipe_engr(3) — no RNG
+  when no engraving` after unweapon / before named leprechaun.
+- **Fix:** `u_wipe_engr(3)` on that site. Import the live
+  callee. Rule #2: no fs.
+- **JS:** `js/uhitm.js` `do_attack`; callee `js/engrave.js`
+  `u_wipe_engr`.
+- **Not this iter:** dothrow/dig `u_wipe_engr` callers;
+  leprechaun evade `!rn2(7)`; `check_capacity`; twoweapon
+  `untwoweapon`.
+- **Verified:** private canary **28**/28 (C/JS grep; live DUST
+  smudge via callee and `do_attack`; no-engraving / HEADSTONE /
+  BURN / Levitation only exercise RNG; ENGRAVE `rn2(13)`; cnt=3
+  vs dokick cnt=2; apply/dokick/allmain kept; dothrow/dig still
+  named; Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session melees while standing on a wipeable
+  engraving.
+- **Follow-up:** Open `dothrow.c` `u_wipe_engr` caller.
+- **Files:** `js/uhitm.js`.
+
 ## D-1372 — allmain.c moveloop DEX timeout u_wipe_engr(rnd(3))
 
 - **Status:** fixed (map-driven Open from D-1360; not a public FAIL)
