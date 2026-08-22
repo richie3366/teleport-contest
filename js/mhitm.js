@@ -9,10 +9,10 @@ import {
     mtrapped_in_pit,
 } from './mon.js';
 import { game } from './gstate.js';
-import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, glyph_is_invisible, You_feel, flush_screen, verbalize, sensemon } from './display.js';
+import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, glyph_is_invisible, You_feel, flush_screen, verbalize, sensemon, shieldeff } from './display.js';
 import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
-import { resist_conflict, set_mon_data } from './mondata.js';
+import { resist_conflict, set_mon_data, on_fire } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval } from './weapon.js';
 import { arti_reflects } from './artifact.js';
 import { find_mac, which_armor } from './worn.js';
@@ -666,6 +666,7 @@ async function mhitm_ad_halu(magr, mattk, mdef, mhm) {
  * Named omit: uhitm you-as-agr; mhitu you-as-def (hitmsg + rn2(4)
  * + make_confused).
  * mhitm_ad_phys shade_miss is D-1394. mhitm_ad_stun leftover is D-1396.
+ * mhitm_ad_fire leftover is D-1405.
  */
 async function mhitm_ad_conf(magr, mattk, mdef, mhm) {
     void mattk;
@@ -713,6 +714,7 @@ function stagger(ptr, def) {
  * spec-used / wait-for-hero unlike CONF) then mhitm_ad_phys.
  * Named omit: uhitm you-as-agr (!Blind stagger + phys);
  * mhitu you-as-def (hitmsg + !mcan && !rn2(4) make_stunned + dmg/2).
+ * mhitm_ad_fire leftover is D-1405.
  */
 async function mhitm_ad_stun(magr, mattk, mdef, mhm) {
     if (magr.mcan) return;
@@ -726,6 +728,59 @@ async function mhitm_ad_stun(magr, mattk, mdef, mhm) {
     mdef.mstun = 1;
     await mhitm_ad_phys(magr, mattk, mdef, mhm);
     if (mhm.done) return;
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_fire mhitm arm :2588–2621.
+ * MC zeros leftover and returns (unlike STUN, which keeps d()).
+ * vis+canseemon on_fire pline; paper/straw completelyburns then
+ * monkilled + grow_up and done. resists_fire zeros leftover after
+ * shield/golemeffects; destroy_items uses orig leftover then
+ * ignite_items(minvent).
+ * Named omit: uhitm you-as-agr; mhitu you-as-def (hitmsg +
+ * Fire_resistance / rn2(20) destroy / burn_away_slime);
+ * defended(AD_FIRE) artifact/dragon-scale; golem FIRE slow.
+ */
+async function mhitm_ad_fire(magr, mattk, mdef, mhm) {
+    const orig_dmg = mhm.damage | 0;
+    if (await mhitm_mgc_atk_negated(magr, mdef, true)) {
+        mhm.damage = 0;
+        return;
+    }
+    const pd = mdef?.data;
+    if (_mm_vis && canseemon(mdef)) {
+        await pline_mon(mdef, `${Monnam(mdef)} is ${on_fire(pd, mattk)}!`);
+    }
+    if (completelyburns_mm(pd)) {
+        if (_mm_vis && canseemon(mdef)) {
+            const how = !mlifesaver(mdef)
+                ? 'burns completely' : 'is totally engulfed in flames';
+            await pline_mon(mdef, `${Monnam(mdef)} ${how}!`);
+        }
+        await monkilled(mdef, '', AD_FIRE);
+        if (!deadmonster(mdef)) {
+            mhm.hitflags = M_ATTK_MISS;
+            mhm.done = true;
+            return;
+        }
+        const grew = await grow_up(magr, mdef);
+        mhm.hitflags = M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        mhm.done = true;
+        return;
+    }
+    if (resists_fire(mdef) /* || defended(mdef, AD_FIRE) */) {
+        if (_mm_vis && canseemon(mdef)) {
+            await pline(`The fire doesn't seem to burn ${mon_nam(mdef)}!`);
+        }
+        await shieldeff(mdef.mx, mdef.my);
+        await golemeffects_mm(mdef, AD_FIRE, mhm.damage | 0);
+        mhm.damage = 0;
+    }
+    const { destroy_items } = await import('./zap.js');
+    mhm.damage = (mhm.damage | 0)
+        + ((await destroy_items(mdef, AD_FIRE, orig_dmg)) | 0);
+    const { ignite_items } = await import('./trap.js');
+    await ignite_items(mdef.minvent);
 }
 
 /**
@@ -1394,22 +1449,40 @@ function magic_negation_you() {
 }
 
 /**
+ * C ref: mhitu.c magic_negation — worn a_can max for a monster defender.
+ * Named omit: amulet of guarding / protects() / innate cleric·minion.
+ */
+function magic_negation_mon(mon) {
+    let mc = 0;
+    for (let o = mon?.minvent; o; o = o.nobj) {
+        if (((o.owornmask || 0) & W_ARMOR) !== 0) {
+            const armpro = game.objects?.[o.otyp]?.oc_level ?? 0;
+            if (armpro > mc) mc = armpro;
+        }
+    }
+    return mc;
+}
+
+/**
  * C ref: uhitm.c mhitm_mgc_atk_negated — cancellation / MC gate.
  * Always burns rn2(10) unless attacker is cancelled (mcan → TRUE, no roll).
  * mdef null = hero (&gy.youmonst). Verbose pline only when thwarted.
+ * Monster-defender a_can is magic_negation_mon (D-1405).
  */
 export async function mhitm_mgc_atk_negated(magr, mdef, verbosely) {
     // C: magr != &youmonst && magr->mcan → TRUE (no message)
     if (magr != null && magr.mcan) return true;
 
-    const armpro = (mdef == null) ? magic_negation_you() : 0;
-    // Named omission: monster-defender magic_negation (minvent a_can) —
-    // not needed until m-vs-m elemental peels call this with mdef set.
+    const armpro = (mdef == null)
+        ? magic_negation_you()
+        : magic_negation_mon(mdef);
     const negated = !(rn2(10) >= 3 * armpro);
     if (negated) {
         if (verbosely) {
             if (mdef == null) await pline('You avoid harm.');
-            // mon-visible "avoids harm" deferred
+            else if (_mm_vis && canseemon(mdef)) {
+                await pline_mon(mdef, `${Monnam(mdef)} avoids harm.`);
+            }
         }
         return true;
     }
@@ -2260,6 +2333,35 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
     }
 
+    // C: mhitm_adtyping → mhitm_ad_fire for AD_FIRE (D-1405). MC zeros
+    // leftover. Resist zeros leftover then destroy_items(orig).
+    // Paper/straw completelyburns done. uhitm/mhitu named.
+    if ((mattk.adtyp | 0) === AD_FIRE) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_fire(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
     // C: mhitm_adtyping → mhitm_ad_phys for AD_PHYS (D-1394 shade;
     // D-1402 mwep dmgval; D-1403 AT_KICK thick_skinned). shade_miss
     // zeros leftover. AT_KICK vs thick hide zeros leftover (mwep
@@ -2661,10 +2763,9 @@ async function gulpmm(magr, mdef, mattk) {
  * C ref: mhitm.c gazemm :736–803 — monster gazes at another monster.
  * Caller mattackm AT_GAZE (strike=0). Archon extra mhitm_ad_blnd + rn2(2)
  * stun then mdamagem leftover. Medusa reflect stones magr.
- * Named omit: mhitm_ad_fire leftover dice;
- * mon_perma_blind; resists_blnd_by_arti.
+ * Named omit: mon_perma_blind; resists_blnd_by_arti.
  * mdamagem AD_STON leftover is D-1352; AD_CONF leftover is D-1385;
- * AD_STUN leftover is D-1396.
+ * AD_STUN leftover is D-1396; AD_FIRE leftover is D-1405.
  * arti_reflects(MON_WEP) is D-1342.
  * hitmm shade_miss is D-1341; hitmm silver sear is D-1351;
  * zap bhit shade_miss is D-1383; hmon shade_miss is D-1384;
@@ -2743,9 +2844,10 @@ export async function gazemm(magr, mdef, mattk) {
  * M_ATTK_MISS (not a strike; skips passivemm). FIRE/COLD/ELEC call
  * mon_explodes and set AGR_DIED unconditionally (lifesave named on
  * mondead). Else mdamagem then mondead. Tame melancholy even if seen.
- * Named omit: mondead→m_unleash object (slack printed here);
- * mdamagem fire leftover. mdamagem AD_STON leftover is D-1352;
- * AD_CONF leftover is D-1385; AD_STUN leftover is D-1396.
+ * Named omit: mondead→m_unleash object (slack printed here).
+ * FIRE/COLD/ELEC skip mdamagem (mon_explodes). mdamagem AD_STON
+ * leftover is D-1352; AD_CONF leftover is D-1385; AD_STUN leftover
+ * is D-1396; AD_FIRE leftover is D-1405.
  * mhitm_ad_phys shade_miss is D-1394
  * (explmm AD_PHYS skips hitmm, so mdamagem is the shade gate).
  * hitmm shade_miss is D-1341;

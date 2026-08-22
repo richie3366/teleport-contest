@@ -9,6 +9,26 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1405 uhitm.c mhitm_ad_fire leftover
+
+**Objective:** Open `uhitm.c` `mhitm_ad_fire` leftover (named from
+D-1385). Not STUN.
+**C locus:** `uhitm.c` `mhitm_ad_fire` mhitm `:2588–2621`; caller
+`mhitm.c` `mdamagem` `:1059`; callees `on_fire` / `completelyburns`
+/ `destroy_items` / `ignite_items` already live.
+**Change:** MC zeros leftover (unlike STUN); vis on_fire pline;
+paper/straw `monkilled`+`grow_up` done; `resists_fire` zeros then
+`destroy_items(orig)`+`ignite_items`. uhitm/mhitu / `defended`
+named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a session
+has vis mon-vs-mon AD_FIRE leftover).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mhitm.c` `mhitm_ad_wrap` brush (named from
+D-1348). Not uhitm wrap.
+**Blocked:** none.
+
 ## 2026-08-22 — review D-1396–D-1404 (audit #1770)
 
 **Objective:** audit — C-fidelity reviews **356–364** of JS SHAs

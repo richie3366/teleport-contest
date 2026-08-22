@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-22
+
+- [x] `uhitm.c` `mhitm_ad_fire` leftover (named from D-1385). Not STUN. **Addressed:** D-1405
+
 ## 2026-08-21
 
 - [x] `zap.c` `zapnodir` WAN_STASIS (named from D-1380). Not enlightenment. **Addressed:** D-1404 `cc7284d4`

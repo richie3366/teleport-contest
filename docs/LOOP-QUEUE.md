@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` `mhitm_ad_fire` leftover (named from D-1385). Not STUN.
 - [ ] `mhitm.c` `mhitm_ad_wrap` brush (named from D-1348). Not uhitm wrap.
 - [ ] `spell.c` `spelleffects` SPE_MAGIC_MAPPING seffects (named). Not create monster.
 - [ ] `spell.c` `spelleffects` SPE_HASTE_SELF peffects (named). Not mapping.

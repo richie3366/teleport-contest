@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1404; cadence **#1770** `cc7284d4`
+- **Fortress 44/44** after D-1405; cadence **#1770** `cc7284d4`
   (Scr **11,405** RNG 100% speed `39+0.31/turn` R² 0.85). Next:
-  Open `uhitm.c` `mhitm_ad_fire` leftover (named from D-1385).
-  Not STUN. Reviews **356–364** ACCEPT-WITH-DEBT (no
+  Open `mhitm.c` `mhitm_ad_wrap` brush (named from D-1348).
+  Not uhitm wrap. Reviews **356–364** ACCEPT-WITH-DEBT (no
   Must-fix). Do not skip
-  D-1404…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
+  D-1405…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
   trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1404. Named still: `see_monsters`
+- Do not revert D-1217–D-1405. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1404.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1405.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,12 +35,12 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1404 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1405 (index).
 - Named still: hitmm artifact wep; artifact_hit / rustm /
   poison / worm-shrieker; zapnodir SPE_DETECT_UNSEEN;
-  potion peffect_enlightenment; mdamagem FIRE leftover;
-  mhitm wrap brush; engrave NODIR `zapnodir` still named.
-  Stasis is D-1404. kick thick is
+  potion peffect_enlightenment; mhitm wrap brush;
+  engrave NODIR `zapnodir` still named.
+  FIRE leftover is D-1405. Stasis is D-1404. kick thick is
   D-1403. mwep dmgval is D-1402. CREATE_MONSTER is D-1401.
   CURE_SICKNESS is D-1398. CURE_BLINDNESS is D-1399. CHAIN is
   D-1400 (peffects named). JUMPING is D-1397. No fountain
@@ -55,6 +55,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1405: `uhitm.c` `mhitm_ad_fire` mhitm `:2588–2621` via
+  `mdamagem` `:1059` — MC zeros leftover; vis `on_fire`;
+  paper/straw `completelyburns` `monkilled`+`grow_up` done;
+  `resists_fire` zeros then `destroy_items(orig)`+ignite.
+  uhitm/mhitu / `defended` / COLD leftover named. Wrap is
+  next. Stasis is D-1404.
 - D-1404: `zap.c` `zapnodir` WAN_STASIS `:2559–2568` —
   silent `stasis_until` max `moves+rn1(21,10)`; `known`
   stays FALSE. Consumers `noteleport_level` / whistle /
@@ -98,7 +104,7 @@ Objective/score live in `CURRENT.md`.
   named. CURE_SICKNESS is D-1398. CLAIRVOYANCE is D-1391.
 - D-1396: `uhitm.c` `mhitm_ad_stun` `:4410–4420` via `mdamagem`
   `:1059` — `mcan` keeps leftover `d()`; else stagger + `mstun=1`
-  then phys (shade may zero). uhitm/mhitu / FIRE leftover named.
+  then phys (shade may zero). uhitm/mhitu named. FIRE leftover is D-1405.
 - D-1395: `zap.c` `zapnodir` WAN_ENLIGHTENMENT `:2586–2590` —
   `known=!!dknown` then `do_enlightenment_effect`. Stasis is
   D-1404. potion peffect / artifact invoke named. Wish is D-1380.
@@ -111,5 +117,3 @@ Objective/score live in `CURRENT.md`.
   skip keep flying. WEB is D-1393.
 - D-1391: `spell.c` `:1572–1580` SPE_CLAIRVOYANCE `do_vicinity_map`;
   blocked cornuthaum hat. JUMPING is D-1397; CURE_SICKNESS is D-1398.
-- D-1390: `spell.c` `cast_protection` `:1104–1177` log2(ulevel)
-  gain; `uspmtime` 20 expert else 10; timeout usptime tick.

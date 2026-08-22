@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1405 — uhitm.c mhitm_ad_fire leftover
+
+- **Status:** fixed (map-driven Open from D-1385; not a public FAIL)
+- **Symptom:** a monster's AD_FIRE hit (pyrolisk gaze leftover,
+  fire-ant bite) dealt leftover `d()` HP with no on-fire
+  pline, resist, or paper/straw burn. C `mdamagem` →
+  `mhitm_adtyping` → `mhitm_ad_fire`.
+- **C locus:** `uhitm.c` `mhitm_ad_fire` mhitm arm `:2588–2621`;
+  caller `mhitm.c` `mdamagem` `:1059`. Callees `mondata.c`
+  `on_fire` (already live), `completelyburns`, `zap.c`
+  `destroy_items`, `trap.c` `ignite_items`, `mon.c`
+  `golemeffects` / `monkilled`.
+- **JS was:** named omit (D-1385 / D-1396). AD_FIRE fell
+  through `mdamagem` generic HP.
+- **Fix:** `mhitm_mgc_atk_negated` zeros leftover and
+  returns (unlike STUN, which keeps `d()`). vis+canseemon
+  `on_fire` pline. Paper/straw `completelyburns` then
+  `monkilled`+`grow_up` done. `resists_fire` zeros leftover
+  after shield/golemeffects; `destroy_items` uses orig
+  leftover then `ignite_items(minvent)`. Monster-defender
+  worn `a_can` for the MC gate. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_fire` / `mdamagem` AD_FIRE
+  / `magic_negation_mon`.
+- **Not this iter:** uhitm you-as-agr; mhitu you-as-def
+  (`hitmsg` + `Fire_resistance` / `rn2(20)` destroy /
+  `burn_away_slime`); `defended(AD_FIRE)` artifact/dragon-scale;
+  golem FIRE slow; COLD leftover.
+- **Verified:** private canary **22**/22 (C/JS shape; on_fire
+  verbs; gaze leftover HP + pline; cancelled gaze miss;
+  resist zeros leftover + burn pline; bite leftover HP;
+  mcan bite zeros leftover; paper golem DEF_DIED; STUN/CONF
+  regression; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session faces vis mon-vs-mon
+  AD_FIRE leftover.
+- **Follow-up:** Open `mhitm.c` `mhitm_ad_wrap` brush
+  (named from D-1348). Not uhitm wrap.
+- **Files:** `js/mhitm.js`.
+
 ## D-1404 — zap.c zapnodir WAN_STASIS
 
 - **Status:** fixed (map-driven Open from D-1380; not a public FAIL)
