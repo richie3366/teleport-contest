@@ -9,6 +9,26 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1414 zap.c bhitm WAN_MAKE_INVISIBLE
+
+**Objective:** Open `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named
+from D-1369). Not zapyourself speed.
+**C locus:** `zap.c` `bhitm` `:348–368`; callee `worn.c`
+`mon_set_minvis` `:474–484`; `display.h` `_knowninvisible`.
+**Change:** monster-aimed make-invisible now `seemimic`, snapshot
+`Monnam`, `mon_set_minvis(FALSE)`, then transparent+learn iff
+`!oldinvis && knowninvisible` else vanish iff `couldsee &&
+!canseemon`. zap_updown / zap_steed / speed / worm segs still
+named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps make-invisible at a monster).
+**Verified:** private canary **10**/10; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` `mhitm_ad_phys` artifact_hit leftover
+(named from D-1403). Not rustm.
+**Blocked:** none.
+
 ## 2026-08-22 — review D-1405–D-1413 (audit #1780)
 
 **Objective:** audit — C-fidelity reviews **365–373** of JS SHAs

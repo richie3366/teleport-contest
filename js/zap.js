@@ -23,6 +23,7 @@
 // zapnodir SPE_DETECT_UNSEEN shares SECRET_DOOR findit (D-1412);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
+// bhitm WAN_MAKE_INVISIBLE mon_set_minvis + knowninvisible (D-1414);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
@@ -33,7 +34,8 @@
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
-// probing (zapyourself WAN_SPEED is D-1410; bhitm speed still named);
+// probing (zapyourself WAN_SPEED is D-1410; bhitm speed still named;
+// bhitm WAN_MAKE_INVISIBLE is D-1414);
 // zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // backfire body; remaining NODIR wand-duplicate SPE_LIGHT cast
@@ -61,7 +63,8 @@
 // + bhitm spell_damage_bonus is D-1388. zhitm spell_damage_bonus named.
 // muse MUSE_CAMERA is D-1376; Sunsword invoke_blinding_ray is D-1377.
 // bhit WEB stick D-1393; throwit fly / skiprange named.
-// bhitm / zap_updown / zap_steed WAN_MAKE_INVISIBLE; setworn w_blocks.
+// bhitm WAN_MAKE_INVISIBLE is D-1414; zap_updown / zap_steed
+// WAN_MAKE_INVISIBLE + setworn w_blocks still named.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
 // via uprops[SHOCK_RES] (D-1371); inventory_resistance / full
 // read.c recharge wand·tool·blessed still named.
@@ -135,7 +138,7 @@ import { explode } from './explode.js';
 import { unpunish, litroom } from './read.js';
 import { bare_artifactname } from './artifact.js';
 import { Ring_gone, Ring_off, Ring_on, setworn } from './do_wear.js';
-import { which_armor } from './worn.js';
+import { which_armor, mon_set_minvis } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
 import { abuse_dog, wary_dog, tamedog } from './dog.js';
 import {
@@ -167,6 +170,7 @@ import {
     SHOP_DOOR_COST,
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd, INVIS,
+    TELEPAT, INTRINSIC, BOLT_LIM,
     LEFT_RING, RIGHT_RING,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, M_AP_OBJECT, NON_PM, ismnum,
     def_warnsyms,
@@ -420,6 +424,32 @@ function Invis() {
     const H = (u.HInvis | 0) || (p?.intrinsic | 0);
     const E = (u.EInvis | 0) || (p?.extrinsic | 0);
     return !!(H || E) && !BInvis();
+}
+
+/**
+ * C display.h _knowninvisible — minvis and (See_invisible or
+ * Detect_monsters at the cell, or !Blind timeout-telepathy
+ * within BOLT_LIM²). Sole caller: zap.c bhitm WAN_MAKE_INVISIBLE
+ * (D-1414).
+ */
+function knowninvisible(mon) {
+    if (!mon?.minvis) return false;
+    const u = game.u || {};
+    const See_invisible = !!((u.HSee_invisible | 0)
+        || (u.ESee_invisible | 0) || u.See_invisible);
+    const Detect_monsters = !!(u.Detect_monsters
+        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0));
+    if (cansee(mon.mx | 0, mon.my | 0)
+        && (See_invisible || Detect_monsters)) {
+        return true;
+    }
+    const HTelepat = (u.HTelepat | 0)
+        || (u.uprops?.[TELEPAT]?.intrinsic | 0);
+    const dx = (mon.mx | 0) - (u.ux | 0);
+    const dy = (mon.my | 0) - (u.uy | 0);
+    return !Blinded_for_invis()
+        && !!(HTelepat & ~INTRINSIC)
+        && (dx * dx + dy * dy) <= (BOLT_LIM * BOLT_LIM);
 }
 
 /** C potion.c itimeout — clamp into TIMEOUT field. */
@@ -3126,11 +3156,14 @@ async function miss_msg(str, mtmp) {
  * C ref: zap.c bhitm — monster hit by wand/spell effect.
  * Envelope (break-wand / IMMEDIATE): WAN_STRIKING, WAN_UNDEAD_TURNING
  * (damage; invent unturn_dead deferred), WAN_POLYMORPH, WAN_CANCELLATION,
- * WAN_TELEPORTATION, WAN_LIGHT (flash_hits_mon), WAN_OPENING/SPE_KNOCK
+ * WAN_TELEPORTATION, WAN_MAKE_INVISIBLE (D-1414), WAN_LIGHT
+ * (flash_hits_mon), WAN_OPENING/SPE_KNOCK
  * (release_hold; openholding/openfalling; SPE_KNOCK mhurtle; saddle).
  * Named omit: slow/speed/locking/probing; long-worm mcorpsenm polish;
  * Knight questart double; mhurtle petrify/steed;
- * that_is_a_mimic box_or_door. SPE_FORCE_BOLT spell_damage_bonus is D-1388.
+ * that_is_a_mimic box_or_door; zap_updown/zap_steed WAN_MAKE_INVISIBLE;
+ * worm see_wsegs; bhitm map_invisible epilogue. SPE_FORCE_BOLT
+ * spell_damage_bonus is D-1388.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
 export async function bhitm(mtmp, otmp) {
@@ -3244,6 +3277,26 @@ export async function bhitm(mtmp, otmp) {
         reveal_invis = !(await u_teleport_mon(mtmp, true));
         learn_it = canspotmon(mtmp);
         break;
+    case WAN_MAKE_INVISIBLE: {
+        // C zap.c bhitm :348–368 — snapshot name before minvis;
+        // mon_set_minvis(FALSE); transparent iff !oldinvis &&
+        // knowninvisible; else vanish iff couldsee && !canseemon.
+        // zap_updown is a no-op; zap_steed still named (routes
+        // through this when the wrapper exists).
+        const oldinvis = mtmp.minvis;
+        const couldsee = canseemon(mtmp);
+        if (disguised_mimic) seemimic(mtmp);
+        const nambuf = Monnam(mtmp);
+        mon_set_minvis(mtmp, false);
+        if (!oldinvis && knowninvisible(mtmp)) {
+            await pline(`${nambuf} turns transparent!`);
+            reveal_invis = true;
+            learn_it = true;
+        } else if (couldsee && !canseemon(mtmp)) {
+            await pline(`${nambuf} vanishes!`);
+        }
+        break;
+    }
     case WAN_LIGHT:
         // C: broken-wand / IMMEDIATE light flash on monster
         if (await flash_hits_mon(mtmp, otmp)) {
@@ -3725,7 +3778,7 @@ export async function zapyourself(obj, ordinary) {
         // changing HInvis; mummy wrapping absorbs (BInvis +
         // uarmc MUMMY_WRAPPING); else incr_itimeout rn1(15,31);
         // if msg: learn + newsym then self_invis_message.
-        // bhitm / zap_updown / zap_steed still named.
+        // bhitm is D-1414; zap_updown / zap_steed still named.
         const u = game.u || {};
         const msg = !Invis() && !Blinded_for_invis() && !BInvis();
         const uarmc = u.uarmc;

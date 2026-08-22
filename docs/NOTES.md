@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1413; cadence **#1780** `285218b2`
+- **Fortress 44/44** after D-1414; cadence **#1780** `285218b2`
   (Scr **11,405** RNG 100% speed `38+0.31/turn` R² 0.85). Next:
-  Open `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named from
-  D-1369). Not zapyourself speed. Reviews **365–373**
-  ACCEPT-WITH-DEBT (no Must-fix). Do not skip D-1413…D-1229.
+  Open `uhitm.c` `mhitm_ad_phys` artifact_hit leftover (named
+  from D-1403). Not rustm. Reviews **365–373**
+  ACCEPT-WITH-DEBT (no Must-fix). Do not skip D-1414…D-1229.
   No FORCE. Do not wrap `wildmiss`. Do not add trailing
   `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1413. Named still: `see_monsters`
+- Do not revert D-1217–D-1414. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1413.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1414.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,12 +35,12 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1413 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1414 (index).
 - Named still: artifact_hit / rustm / poison / worm-shrieker;
   remaining peffects; remaining wand-duplicate SPE_LIGHT
-  cast; artifact invoke enlightenment. peffect_enlightenment
-  is D-1413; SPE_DETECT_UNSEEN is D-1412;
-  full healing D-1411; zapyourself WAN_SPEED D-1410;
+  cast; artifact invoke enlightenment. bhitm WAN_MAKE_INVISIBLE
+  is D-1414; peffect_enlightenment is D-1413; SPE_DETECT_UNSEEN
+  is D-1412; full healing D-1411; zapyourself WAN_SPEED D-1410;
   spell_backfire D-1409; haste D-1408. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -53,6 +53,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1414: `zap.c` `bhitm` WAN_MAKE_INVISIBLE `:348–368`
+  snapshot `Monnam`; `mon_set_minvis(FALSE)`; transparent+learn
+  iff `!oldinvis && knowninvisible` else vanish iff
+  `couldsee && !canseemon`. Callee worn.c `:474–484`.
+  zap_updown / zap_steed / speed still named.
 - D-1413: `potion.c` `peffect_enlightenment` `:794–808`
   cursed `potion_unkn`+uneasy+`exercise(WIS,FALSE)`; else
   blessed `adjattrib` INT then WIS then `do_enlightenment_effect`
@@ -87,5 +92,3 @@ Objective/score live in `CURRENT.md`.
   MAGIC_MAPPING is D-1407. peffects named.
 - D-1400: SPE_CHAIN_LIGHTNING BFS `zhitm(BZ_U_SPELL(AD_ELEC-1),2)`.
   Swallow TODO. CURE_BLINDNESS is D-1399.
-- D-1399: SPE_CURE_BLINDNESS `healup(0,0,FALSE,TRUE)` cream+blind+deaf.
-  CURE_SICKNESS is D-1398.

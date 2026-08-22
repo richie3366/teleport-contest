@@ -59,25 +59,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1413. **Next cluster:** Open
-`zap.c` `bhitm` WAN_MAKE_INVISIBLE (named from D-1369). Not
-zapyourself speed. Reviews **365–373** ACCEPT-WITH-DEBT (no Must-fix).
-Do not skip D-1413…D-1229
+**Map-driven fortress** after D-1414. **Next cluster:** Open
+`uhitm.c` `mhitm_ad_phys` artifact_hit leftover (named from
+D-1403). Not rustm. Reviews **365–373** ACCEPT-WITH-DEBT (no
+Must-fix). Do not skip D-1414…D-1229
 (index). Keep mention_map addr. Do not wrap `wildmiss` or
 `msg_mon_movement` as `pline_mon`. Do not rewrite
 `confer_oc_oprop`. Do not add trailing `confdir` inside
 shared `getdir`.
-**Parked:** D-0006. **Do not re-break D-0660…D-1413.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1414.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1413 (index). Recent: **D-1413** potion.c
-`peffect_enlightenment`. Prior: **D-1412** zap.c
-`zapnodir` SPE_DETECT_UNSEEN. **D-1411** potion.c
-`peffect_full_healing`.
+**Keep:** D-0845…D-1414 (index). Recent: **D-1414** zap.c
+`bhitm` WAN_MAKE_INVISIBLE. Prior: **D-1413** potion.c
+`peffect_enlightenment`. **D-1412** zap.c
+`zapnodir` SPE_DETECT_UNSEEN.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1413
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1414
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

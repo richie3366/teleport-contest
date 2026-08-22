@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1414 — zap.c bhitm WAN_MAKE_INVISIBLE
+
+- **Status:** fixed (map-driven Open from D-1369; not a public FAIL)
+- **Symptom:** `bhitm` defaulted `WAN_MAKE_INVISIBLE`. A
+  monster-aimed wand never set `perminvis`/`minvis`, never
+  printed `turns transparent!` / `vanishes!`, and never
+  `learnwand`. Self-zap was D-1369.
+- **C locus:** `zap.c` `bhitm` `:348–368`. Helpers `worn.c`
+  `mon_set_minvis` `:474–484` (FALSE = not cursed potion);
+  `display.h` `_knowninvisible` (`minvis` and see-invis/detect
+  at the cell, or `!Blind` + `HTelepat & ~INTRINSIC` within
+  `BOLT_LIM²`). Caller IMMEDIATE `weffects` → `bhit` →
+  `bhitm`. `zap_steed` defaults to this `bhitm` in C.
+- **JS was:** `default` break (no minvis, no pline, no learn).
+- **Fix:** snapshot `oldinvis`/`couldsee`; `seemimic` if
+  disguised; format `Monnam` before visibility change;
+  `mon_set_minvis(mtmp, FALSE)`; if `!oldinvis &&
+  knowninvisible` → transparent pline + `reveal_invis` +
+  `learn_it`; else if `couldsee && !canseemon` → vanish
+  pline (same wording as unseen teleport). `invis_blkd`
+  keeps `minvis` off (perminvis still set). Rule #2: no fs.
+- **JS:** `js/zap.js` `bhitm` + `knowninvisible`;
+  `js/worn.js` `mon_set_minvis`.
+- **Not this iter:** `zap_updown` (C object no-op);
+  `zap_steed` wrapper; worm `see_wsegs`; bhitm
+  `map_invisible` epilogue; bhitm WAN_SPEED / WAN_SLOW /
+  WAN_LOCKING / WAN_PROBING / SPE_DRAIN; `setworn` w_blocks.
+- **Verified:** private canary **10**/10 (C/JS grep; vanish
+  no learn; See_invisible transparent+learn; already minvis
+  silent; `invis_blkd` perminvis-only; WAN_SPEED still
+  default; zapyourself D-1369 still a case; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session zaps make-invisible at a monster.
+- **Follow-up:** Open `uhitm.c` `mhitm_ad_phys` artifact_hit
+  leftover (named from D-1403). Not rustm.
+- **Files:** `js/zap.js`, `js/worn.js`.
+
 ## D-1413 — potion.c peffect_enlightenment
 
 - **Status:** fixed (map-driven Open from D-1395; not a public FAIL)

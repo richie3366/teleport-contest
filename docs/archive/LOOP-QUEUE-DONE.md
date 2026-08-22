@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-22
 
+- [x] `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named from D-1369). Not zapyourself speed. **Addressed:** D-1414
+
+
 - [x] `potion.c` `peffect_enlightenment` (named from D-1395). Not full healing. **Addressed:** D-1413 `285218b2`
 
 
