@@ -5,11 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1404; cadence **#1760** `05f8c1a1`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
+- **Fortress 44/44** after D-1404; cadence **#1770** `cc7284d4`
+  (Scr **11,405** RNG 100% speed `39+0.31/turn` R² 0.85). Next:
   Open `uhitm.c` `mhitm_ad_fire` leftover (named from D-1385).
-  Not STUN. Reviews **347–355** ACCEPT-WITH-DEBT (no
-  Must-fix); **346** QUALITY-RISK shipped D-1387. Do not skip
+  Not STUN. Reviews **356–364** ACCEPT-WITH-DEBT (no
+  Must-fix). Do not skip
   D-1404…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
   trailing `confdir` to shared `getdir`.
 - Do not revert D-1217–D-1404. Named still: `see_monsters`
@@ -39,7 +39,8 @@ Objective/score live in `CURRENT.md`.
 - Named still: hitmm artifact wep; artifact_hit / rustm /
   poison / worm-shrieker; zapnodir SPE_DETECT_UNSEEN;
   potion peffect_enlightenment; mdamagem FIRE leftover;
-  mhitm wrap brush; stasis is D-1404. kick thick is
+  mhitm wrap brush; engrave NODIR `zapnodir` still named.
+  Stasis is D-1404. kick thick is
   D-1403. mwep dmgval is D-1402. CREATE_MONSTER is D-1401.
   CURE_SICKNESS is D-1398. CURE_BLINDNESS is D-1399. CHAIN is
   D-1400 (peffects named). JUMPING is D-1397. No fountain

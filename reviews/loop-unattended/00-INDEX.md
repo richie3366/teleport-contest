@@ -366,3 +366,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [353-7863ae2a-bhit-web-stick.md](./353-7863ae2a-bhit-web-stick.md) | `7863ae2a` | D-1393 bhit WEB stick | **ACCEPT-WITH-DEBT** |
 | [354-91827af6-mhitm-ad-phys-shade.md](./354-91827af6-mhitm-ad-phys-shade.md) | `91827af6` | D-1394 mhitm_ad_phys shade_miss | **ACCEPT-WITH-DEBT** |
 | [355-05f8c1a1-zapnodir-enlightenment.md](./355-05f8c1a1-zapnodir-enlightenment.md) | `05f8c1a1` | D-1395 zapnodir WAN_ENLIGHTENMENT | **ACCEPT-WITH-DEBT** |
+| [356-66018a5a-mhitm-ad-stun.md](./356-66018a5a-mhitm-ad-stun.md) | `66018a5a` | D-1396 mhitm_ad_stun leftover | **ACCEPT-WITH-DEBT** |
+| [357-f5e00af7-spe-jumping.md](./357-f5e00af7-spe-jumping.md) | `f5e00af7` | D-1397 SPE_JUMPING jump(max skill) | **ACCEPT-WITH-DEBT** |
+| [358-a938a5b9-spe-cure-sickness.md](./358-a938a5b9-spe-cure-sickness.md) | `a938a5b9` | D-1398 SPE_CURE_SICKNESS healup | **ACCEPT-WITH-DEBT** |
+| [359-64d4d089-spe-cure-blindness.md](./359-64d4d089-spe-cure-blindness.md) | `64d4d089` | D-1399 SPE_CURE_BLINDNESS healup | **ACCEPT-WITH-DEBT** |
+| [360-dce9ac86-chain-lightning.md](./360-dce9ac86-chain-lightning.md) | `dce9ac86` | D-1400 SPE_CHAIN_LIGHTNING BFS zhitm | **ACCEPT-WITH-DEBT** |
+| [361-88587b68-spe-create-monster.md](./361-88587b68-spe-create-monster.md) | `88587b68` | D-1401 SPE_CREATE_MONSTER seffects | **ACCEPT-WITH-DEBT** |
+| [362-2a3da9b9-mhitm-ad-phys-mwep.md](./362-2a3da9b9-mhitm-ad-phys-mwep.md) | `2a3da9b9` | D-1402 mhitm_ad_phys mwep dmgval | **ACCEPT-WITH-DEBT** |
+| [363-d9134735-mhitm-ad-phys-kick.md](./363-d9134735-mhitm-ad-phys-kick.md) | `d9134735` | D-1403 mhitm_ad_phys AT_KICK thick | **ACCEPT-WITH-DEBT** |
+| [364-cc7284d4-zapnodir-stasis.md](./364-cc7284d4-zapnodir-stasis.md) | `cc7284d4` | D-1404 zapnodir WAN_STASIS | **ACCEPT-WITH-DEBT** |

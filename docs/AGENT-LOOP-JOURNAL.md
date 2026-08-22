@@ -9,6 +9,26 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — review D-1396–D-1404 (audit #1770)
+
+**Objective:** audit — C-fidelity reviews **356–364** of JS SHAs
+`66018a5a` / `f5e00af7` / `a938a5b9` / `64d4d089` /
+`dce9ac86` / `88587b68` / `2a3da9b9` / `d9134735` /
+`cc7284d4` plus full `sessions` score.
+**C locus:** `uhitm.c:4410–4420` / `:4142–4157` / `:4138–4141`;
+`spell.c:1584–1587` / `:1552–1567` / `:1549–1551` /
+`:1588–1590` / `:1528–1531`; `zap.c:2559–2568`.
+**Change:** no `js/` edits. **356–364** ACCEPT-WITH-DEBT.
+No Must-fix. Filled archive D-1404 `cc7284d4`. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `39+0.31/turn` (R² 0.85).
+**Verified:** full `sessions` at HEAD `cc7284d4`; public-unhit
+on STUN leftover / JUMPING / CURE_SICKNESS / CURE_BLINDNESS /
+CHAIN / CREATE_MONSTER / mwep dmgval / kick-thick / WAN_STASIS.
+**Next:** Open `uhitm.c` `mhitm_ad_fire` leftover.
+Not STUN.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1404 zap.c zapnodir WAN_STASIS
 
 **Objective:** Open `zap.c` `zapnodir` WAN_STASIS (named from

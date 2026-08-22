@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-21
 
-- [x] `zap.c` `zapnodir` WAN_STASIS (named from D-1380). Not enlightenment. **Addressed:** D-1404
+- [x] `zap.c` `zapnodir` WAN_STASIS (named from D-1380). Not enlightenment. **Addressed:** D-1404 `cc7284d4`
 
 
 - [x] `uhitm.c` `mhitm_ad_phys` AT_KICK thick_skinned (named). Not mwep. **Addressed:** D-1403 `d9134735`
