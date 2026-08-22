@@ -4,6 +4,53 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1407 — spell.c spelleffects SPE_MAGIC_MAPPING seffects
+
+- **Status:** fixed (map-driven Open from D-1401; not a public FAIL)
+- **Symptom:** casting SPE_MAGIC_MAPPING printed `Nothing happens.`
+  C `spelleffects` `:1528–1531` calls `(void) seffects(pseudo)`
+  for MAGIC_MAPPING and CREATE_MONSTER (no skilled bless — that
+  FALLTHROUGH is REMOVE_CURSE through CHARM_MONSTER only).
+  Callee `read.c` `seffect_magic_mapping` `:2102–2153`:
+  scroll nommap crazy-lines / Hallu modern-art else
+  `body_part(HEAD)` bewilderment then
+  `make_confused(HConfusion+rnd(30), FALSE)`; blessed scroll
+  SDOOR convert; spell nommap `body_part(HEAD)` + `something`
+  blocks then same confuse; else "A map coalesces", cursed
+  unconfused temporary HConfusion=1, `notice_mon_off` /
+  `do_mapping` / `notice_mon_on`. Spell still TIME after energy.
+  Pseudo is always uncursed/unblessed. SCR mapping already
+  live (D-0075).
+- **C locus:** `spell.c` `spelleffects` `:1528–1531`;
+  `read.c` `seffects` `:2263–2265` / `seffect_magic_mapping`
+  `:2102–2153`; callee `detect.c` `do_mapping` `:1422–1444`.
+- **JS was:** named omit after D-1401. Other-otyp arm printed
+  `Nothing happens.`; `seffect_magic_mapping` lived only on
+  SCR (nommap `make_confused` and `notice_mon_off/on` deferred).
+- **Fix:** SPE_MAGIC_MAPPING arm via the same dynamic `seffects`
+  as CREATE_MONSTER. Fill nommap `make_confused` + `body_part`
+  + `notice_mon_off/on`. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/read.js`
+  `seffect_magic_mapping` / `seffects`; `js/detect.js` caller
+  comment.
+- **Not this iter:** potion `peffects`; Rogue `unblock_point`
+  on blessed SDOOR (JS `vision_recalc`+`newsym`); cursed-scroll
+  cval still sets `u.Confusion` for JS `do_mapping` (C sets
+  `HConfusion`); SPE_HASTE_SELF peffects.
+- **Verified:** private canary **18**/18 (C/JS grep; uncursed
+  coalesce + seenv SVALL + SDOOR kept; skilled still unblessed;
+  nommap spell block + rnd(30); nommap scroll bewilderment;
+  Hallu modern-art; cursed scroll cannot-grasp; CREATE_MONSTER /
+  CHAIN / CURE_BLINDNESS / JUMPING / FORCE_BOLT / HEALING
+  regression; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts magic mapping
+  (seed2200 scroll mapping still PASS).
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_HASTE_SELF
+  peffects (named). Not mapping.
+- **Files:** `js/spell.js`, `js/read.js`, `js/detect.js`.
+
 ## D-1406 — uhitm.c mhitm_ad_wrap (mhitm brush arm)
 
 - **Status:** fixed (map-driven Open from D-1348; not a public FAIL)

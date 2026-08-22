@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-22
 
-- [x] `mhitm.c` `mhitm_ad_wrap` brush (named from D-1348). Not uhitm wrap. **Addressed:** D-1406
+- [x] `spell.c` `spelleffects` SPE_MAGIC_MAPPING seffects (named). Not create monster. **Addressed:** D-1407
+
+
+- [x] `mhitm.c` `mhitm_ad_wrap` brush (named from D-1348). Not uhitm wrap. **Addressed:** D-1406 `61936a70`
 
 
 - [x] `uhitm.c` `mhitm_ad_fire` leftover (named from D-1385). Not STUN. **Addressed:** D-1405 `7c3921f2`

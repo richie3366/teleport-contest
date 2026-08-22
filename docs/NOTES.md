@@ -5,14 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1406; cadence **#1770** `cc7284d4`
+- **Fortress 44/44** after D-1407; cadence **#1770** `cc7284d4`
   (Scr **11,405** RNG 100% speed `39+0.31/turn` R² 0.85). Next:
-  Open `spell.c` `spelleffects` SPE_MAGIC_MAPPING seffects (named).
-  Not create monster. Reviews **356–364** ACCEPT-WITH-DEBT (no
+  Open `spell.c` `spelleffects` SPE_HASTE_SELF peffects (named).
+  Not mapping. Reviews **356–364** ACCEPT-WITH-DEBT (no
   Must-fix). Do not skip
-  D-1406…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
+  D-1407…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
   trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1406. Named still: `see_monsters`
+- Do not revert D-1217–D-1407. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1406.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1407.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,10 +35,11 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1406 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1407 (index).
 - Named still: hitmm artifact wep; artifact_hit / rustm /
   poison / worm-shrieker; zapnodir SPE_DETECT_UNSEEN;
   potion peffect_enlightenment; wrap brush is D-1406;
+  MAGIC_MAPPING seffects is D-1407; peffects named.
   engrave NODIR `zapnodir` still named.
   FIRE leftover is D-1405. Stasis is D-1404. kick thick is
   D-1403. mwep dmgval is D-1402. CREATE_MONSTER is D-1401.
@@ -55,11 +56,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1407: `spell.c` `:1528–1531` SPE_MAGIC_MAPPING
+  `(void) seffects(pseudo)` (no skilled bless). Callee
+  `read.c` `seffect_magic_mapping` `:2102–2153` nommap
+  `make_confused(HConfusion+rnd(30))` + `body_part(HEAD)` +
+  `notice_mon_off`/`do_mapping`/`notice_mon_on`. SCR D-0075.
+  peffects named. CREATE_MONSTER is D-1401.
 - D-1406: `uhitm.c` `mhitm_ad_wrap` mhitm `:3418–3426` via
   `mdamagem` `:1059` — `mcan` zeros leftover; vis
   `Some_Monnam`/`some_mon_nam` brush iff leftover 0. Live
   leftover `d()` kept (no grab/drown). uhitm D-1348 / mhitu
-  D-1331. AUGMENT_IT named. MAGIC_MAPPING seffects next.
+  D-1331. AUGMENT_IT named. MAGIC_MAPPING seffects is D-1407.
 - D-1405: `uhitm.c` `mhitm_ad_fire` mhitm `:2588–2621` via
   `mdamagem` `:1059` — MC zeros leftover; vis `on_fire`;
   paper/straw `completelyburns` `monkilled`+`grow_up` done;
@@ -87,7 +94,7 @@ Objective/score live in `CURRENT.md`.
   `read.c` `seffect_create_monster` `:1608–1624` count
   `1+(conf||cursed?12:0)+(blessed||rn2(73)?0:rnd(4))`,
   confused acid blob, `create_critters` D-1379. MAGIC_MAPPING
-  seffects / peffects named. CHAIN is D-1400.
+  is D-1407. peffects named. CHAIN is D-1400.
 - D-1400: `spell.c` `:1588–1590` SPE_CHAIN_LIGHTNING
   `cast_chain_lightning()`; body `:1002–1100` BFS queue, peaceful
   skip, `zhitm(BZ_U_SPELL(AD_ELEC-1),2)`, swallow TODO. Callee
@@ -118,7 +125,3 @@ Objective/score live in `CURRENT.md`.
   thick named; mwep dmgval is D-1402. hmon is D-1384.
 - D-1393: `zap.c` `bhit` `:3926–3938` empty WEB + thrown/kicked
   `!rn2(3)` stick. throwit fly / skiprange / shkcatch named.
-- D-1392: `zap.c` `bhit` `:3986–3992` thrown/kicked `M_AP_OBJECT`
-  skip keep flying. WEB is D-1393.
-- D-1391: `spell.c` `:1572–1580` SPE_CLAIRVOYANCE `do_vicinity_map`;
-  blocked cornuthaum hat. JUMPING is D-1397; CURE_SICKNESS is D-1398.
