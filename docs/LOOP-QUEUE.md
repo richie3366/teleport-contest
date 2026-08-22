@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` `mhitm_ad_phys` artifact_hit leftover (named from D-1403). Not rustm.
 - [ ] `zap.c` `backfire` (named). Not zapyourself.
 - [ ] `spell.c` `spelleffects` SPE_DETECT_TREASURE peffects (named from D-1408). Not DETECT_MONSTERS.
 - [ ] `spell.c` `spelleffects` SPE_DETECT_MONSTERS peffects (named from D-1408). Not LEVITATION.

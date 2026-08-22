@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1415 — uhitm.c mhitm_ad_phys artifact_hit leftover
+
+- **Status:** fixed (map-driven Open from D-1403; not a public FAIL)
+- **Symptom:** a monster-vs-monster AT_WEAP/AT_CLAW AD_PHYS hit
+  that already added `dmgval` still skipped `artifact_hit`.
+  C `mhitm_ad_phys` mhitm arm `if (mwep->oartifact)` calls
+  `artifact_hit` (updates leftover, may destroy carried
+  items). If it returns false, `gv.vis` delayed `"hits"` then
+  `M_ATTK_HIT`. `DEADMONSTER` then `grow_up` and done (before
+  rustm). Caller `hitmm` skips default `"hits"` when
+  `weaponhit && mwep && oartifact`.
+- **C locus:** `uhitm.c` `mhitm_ad_phys` `:4158–4180` (mhitm
+  arm after D-1402 dmgval, before rustm). Callee `artifact.c`
+  `artifact_hit` (D-0613). Caller `mhitm.c` `hitmm` `:698–701`
+  + `mdamagem` `:1059` `mhitm_adtyping` `case AD_PHYS`.
+- **JS was:** named omit (D-1403). mwep `dmgval` live; artifact
+  wep still leftover-only and hitmm always printed `"hits"`.
+- **Fix:** after min-1, `oartifact` → `artifact_hit` via dmgBox
+  + `mhm.dieroll`; delayed `pline_mon` iff `!artifact_hit` and
+  `_mm_vis`; DEADMONSTER `grow_up` done. hitmm skips default
+  hits when artifact wep. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_phys` / `hitmm` / `mdamagem`.
+- **Not this iter:** youmonst `damageum_ad_phys` / hmon already
+  live; mhitu `mhitm_ad_phys_u`; rustm / `mhitm_really_poison`;
+  purple worm vs shrieker cap; `artifact_hit` realizes_damage
+  plines / destroy_items / Mb_hit / SPFX_BEHEAD / SPFX_DRLI.
+- **Verified:** private canary **16**/16 (C/JS grep; club
+  dmgval-only; Grayswandir double; Orcrist gnome no-bonus /
+  orc double; Fire Brand double; bite nulls mwep; D-1394
+  shade; club hits pline; Grayswandir delayed hits; Fire
+  Brand skip+no delayed; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session has mon-vs-mon artifact
+  wep via `mdamagem`.
+- **Follow-up:** Open `zap.c` `backfire` (named). Not
+  zapyourself.
+- **Files:** `js/mhitm.js`.
+
 ## D-1414 — zap.c bhitm WAN_MAKE_INVISIBLE
 
 - **Status:** fixed (map-driven Open from D-1369; not a public FAIL)
@@ -39,7 +78,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
   unless a session zaps make-invisible at a monster.
 - **Follow-up:** Open `uhitm.c` `mhitm_ad_phys` artifact_hit
-  leftover (named from D-1403). Not rustm.
+  leftover is D-1415. Next Open `zap.c` `backfire`.
 - **Files:** `js/zap.js`, `js/worn.js`.
 
 ## D-1413 — potion.c peffect_enlightenment

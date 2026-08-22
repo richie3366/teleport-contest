@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1415 uhitm.c mhitm_ad_phys artifact_hit leftover
+
+**Objective:** Open `uhitm.c` `mhitm_ad_phys` artifact_hit leftover
+(named from D-1403). Not rustm.
+**C locus:** `uhitm.c` `mhitm_ad_phys` `:4158–4180`; caller
+`mhitm.c` `hitmm` `:698–701`; callee `artifact.c` `artifact_hit`
+D-0613.
+**Change:** mwep artifact now `artifact_hit` after dmgval;
+hitmm skips default hits; delayed `gv.vis` hits iff false;
+DEADMONSTER `grow_up` done. rustm / poison / worm-shrieker
+still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session has mon-vs-mon artifact wep).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `backfire` (named). Not zapyourself.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1414 zap.c bhitm WAN_MAKE_INVISIBLE
 
 **Objective:** Open `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named
