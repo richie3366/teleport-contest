@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-22
 
-- [x] `spell.c` `spelleffects` SPE_DETECT_TREASURE peffects (named from D-1408). Not DETECT_MONSTERS. **Addressed:** D-1417
+- [x] `spell.c` `spelleffects` SPE_DETECT_MONSTERS peffects (named from D-1408). Not LEVITATION. **Addressed:** D-1418
+
+
+- [x] `spell.c` `spelleffects` SPE_DETECT_TREASURE peffects (named from D-1408). Not DETECT_MONSTERS. **Addressed:** D-1417 `e78d7780`
 
 
 - [x] `zap.c` `backfire` (named). Not zapyourself. **Addressed:** D-1416 `22e87b3b`

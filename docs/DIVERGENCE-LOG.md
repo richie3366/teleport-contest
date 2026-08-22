@@ -4,6 +4,65 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1418 — spell.c spelleffects SPE_DETECT_MONSTERS peffects
+
+- **Status:** fixed (map-driven Open from D-1408; not a public FAIL)
+- **Symptom:** casting SPE_DETECT_MONSTERS printed `Nothing happens.`
+  C `spelleffects` `:1534–1546` skilled-blesses the pseudo
+  (`role_skill >= P_SKILLED`) then FALLTHROUGH
+  `(void) peffects(pseudo)` (same arm as HASTE_SELF /
+  DETECT_TREASURE / LEVITATION / RESTORE_ABILITY + INVISIBILITY).
+  Callee `potion.c` `peffects` `:1366–1370` POT_MONSTER_DETECTION /
+  SPE_DETECT_MONSTERS → `peffect_monster_detection`. That helper
+  `:914–952`: blessed `incr_itimeout(&HDetect_monsters)` —
+  `rn1(40,21)` SPBOOK else `rn2(100)+100`, or 1 if TIMEOUT already
+  `>=300` — unmap `GLYPH_INVISIBLE`, `MON_AT` clears
+  `potion_unkn`; `!uswallow && !Underwater` → `see_monsters` then
+  lonely if still unkn, return 0. Else / unblessed:
+  `monster_detect(otmp,0)` then `exercise(A_WIS,TRUE)`; empty
+  returns 1 (dopotion skips second useup). `detect.c`
+  `monster_detect` `:798–862`: empty + detector →
+  `strange_feeling` threatened / hallu heebie jeebies. Spell
+  still TIME after energy. Pseudo `quan=20` so useup cannot
+  free it. Unskilled leaves unblessed (map browse, no timeout).
+  `timeout.c` `:932–934` DETECT_MONSTERS expiry `see_monsters`.
+- **C locus:** `spell.c` `spelleffects` `:1534–1546`;
+  `potion.c` `peffects` `:1366–1370` / `peffect_monster_detection`
+  `:914–952`; `detect.c` `monster_detect` `:798–862`;
+  `timeout.c` `:932–934`; `potion.c` `strange_feeling`
+  `:1461–1476`.
+- **JS was:** named omit after D-1417. Other-otyp arm printed
+  `Nothing happens.`; `peffects` lacked POT_MONSTER_DETECTION /
+  SPE_DETECT_MONSTERS; `monster_detect` skipped `strange_feeling`.
+- **Fix:** SPE_DETECT_MONSTERS arm skilled-blesses then `peffects`.
+  Port `peffect_monster_detection`. Wire POT_MONSTER_DETECTION in
+  the same C case. Empty + otmp → strange_feeling return 1.
+  Blessed timeout + lonely; `nh_timeout` expiry `see_monsters`.
+  Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/potion.js`
+  `peffects` / `peffect_monster_detection`; `js/detect.js`
+  `monster_detect` / `strange_feeling`; `js/timeout.js`
+  TIMEOUT_FLAT DETECT_MONSTERS.
+- **Not this iter:** sibling LEVITATION / RESTORE_ABILITY /
+  INVISIBILITY; cursed-otmp wake; blessed WIN_MAP persistent;
+  unconstrain / worm segs / pet_to_glyph; potionbreathe/mix
+  monster-detection.
+- **Verified:** private canary **22**/22 (C/JS grep; unskilled
+  empty threatened no timeout; skilled empty lonely
+  TIMEOUT 21..60; unskilled presence browse; skilled
+  presence timeout no browse; POT empty useup; blessed
+  potion TIMEOUT 100..199; crystal-ball null no
+  strange_feeling; hallu heebie jeebies; nh_timeout expiry;
+  LEVITATION still omit; TREASURE/HASTE/CURE_BLINDNESS/
+  POT_HEALING regression; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts detect monsters.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_LEVITATION
+  peffects (named). Not RESTORE_ABILITY.
+- **Files:** `js/spell.js`, `js/potion.js`, `js/detect.js`,
+  `js/timeout.js`.
+
 ## D-1417 — spell.c spelleffects SPE_DETECT_TREASURE peffects
 
 - **Status:** fixed (map-driven Open from D-1408; not a public FAIL)

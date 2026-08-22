@@ -16,6 +16,7 @@
 // browse_map/getpos + docrt;
 // **monster_detect** (fountain case 26) live-fmon + map_monst +
 // display_self + browse_map(TER_DETECT|TER_MON) (D-0370 / D-1275);
+// empty otmp → strange_feeling threatened / heebie jeebies (D-1418);
 // **use_crystal_ball** Blind/fail/hallu/uncharged + charged detect
 // via furniture/object/monster/trap/level_distance (D-1010);
 // **openit** / **openone** (apply use_bell / knock) boxes+doors+scorr+
@@ -37,7 +38,7 @@
 // reveal_terrain region/gascloud / trap keep restore /
 // M_AP_FURNITURE; wiz_map_levltyp / wiz_levltyp_legend;
 // TER_FULL explore-only map body; arboreal default tree;
-// monster_detect strange_feeling / cursed wake / blessed WIN_MAP /
+// monster_detect cursed wake / blessed WIN_MAP /
 // worm segs / pet_to_glyph / TER_DETECT autodescribe;
 // mfind0 set_msg_xy / display_nhwindow flush;
 // object_detect buried/minvent/cursed-mimic/gold/clear_stale_map;
@@ -1109,11 +1110,12 @@ function map_monst(mtmp, mon_glyph, show_glyph_cell) {
  * Returns 1 if nothing detected, 0 if something was.
  * Branch envelope: live-fmon scan + cls + map_monst + You sense +
  * browse_map(TER_DETECT|TER_MON) when !blessed-otmp; map_redisplay.
- * Named omissions: strange_feeling when !mcnt+otmp; cursed-otmp wake;
- * blessed persistent display_nhwindow; unconstrain underwater/buried/
- * swallow; worm detect_wsegs; pet_to_glyph / detected_mon_to_glyph
- * (plain mon_glyph); Hallucination strange_feeling text.
- * display_self U_AP_TYPE: D-1275 (was hardcoded '@').
+ * Empty + otmp → strange_feeling (D-1418; hallu heebie jeebies else
+ * threatened). Crystal-ball / fountain pass null and skip that.
+ * Named omissions: cursed-otmp wake; blessed persistent
+ * display_nhwindow; unconstrain underwater/buried/swallow; worm
+ * detect_wsegs; pet_to_glyph / detected_mon_to_glyph
+ * (plain mon_glyph).
  */
 export async function monster_detect(otmp, mclass) {
     const { cls, pline, mon_glyph, show_glyph_cell, flush_topl_more } =
@@ -1128,8 +1130,15 @@ export async function monster_detect(otmp, mclass) {
     }
 
     if (!mcnt) {
-        // strange_feeling(otmp, ...) deferred — fountain uses return 1 only
-        void otmp;
+        if (otmp) {
+            const hallu = !!(game.u?.Hallucination || game.u?.HHallucination);
+            await strange_feeling(
+                otmp,
+                hallu
+                    ? 'You get the heebie jeebies.'
+                    : 'You feel threatened.',
+            );
+        }
         return 1;
     }
 
