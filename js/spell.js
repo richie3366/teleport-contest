@@ -35,11 +35,13 @@
 // spell_backfire (D-1409; C `:1179–1217` rn2(10) confuse/stun
 // TIMEOUT increment; caller spelleffects_check `:1251–1260`
 // when spellknow<=0).
+// SPE_DETECT_UNSEEN NODIR weffects → zapnodir findit (D-1412;
+// C `:1474` wand-duplicate group; callee zap.c `:2552–2558`).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects:
 // DETECT_TREASURE / DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY /
-// INVISIBILITY);
+// INVISIBILITY; remaining wand-duplicate SPE_LIGHT / SLEEP / DIG / …);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -189,6 +191,7 @@ const SPE_CHAIN_LIGHTNING = objectNames.indexOf('SPE_CHAIN_LIGHTNING');
 const SPE_CREATE_MONSTER = objectNames.indexOf('SPE_CREATE_MONSTER');
 const SPE_MAGIC_MAPPING = objectNames.indexOf('SPE_MAGIC_MAPPING');
 const SPE_HASTE_SELF = objectNames.indexOf('SPE_HASTE_SELF');
+const SPE_DETECT_UNSEEN = objectNames.indexOf('SPE_DETECT_UNSEEN');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
@@ -1727,6 +1730,9 @@ async function cast_protection() {
  * speed_up). Sibling potion-like otyps still named.
  * Forgotten spellknow<=0 → spell_backfire then rnd(energy)
  * Pw debit (D-1409; C `:1251–1260`) before this body.
+ * SPE_DETECT_UNSEEN NODIR weffects → zapnodir findit (D-1412;
+ * C `:1474` / zap.c `:2552–2558`). Remaining wand-duplicate
+ * SPE_LIGHT / SLEEP / DIG still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1899,6 +1905,10 @@ export async function spelleffects(spell_otyp, atme, force) {
          * RESTORE_ABILITY FALLTHROUGH + SPE_INVISIBILITY still named. */
         if (role_skill >= P_SKILLED) pseudo.blessed = true;
         await peffects(pseudo);
+    } else if (otyp === SPE_DETECT_UNSEEN) {
+        /* C spell.c :1474 NODIR weffects → zapnodir findit (D-1412).
+         * physical_damage is FORCE_BOLT-only; unused on NODIR. */
+        await wand_duplicate_weffects(pseudo, atme, false);
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
         await pline('Nothing happens.');

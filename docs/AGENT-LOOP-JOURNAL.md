@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1412 zap.c zapnodir SPE_DETECT_UNSEEN
+
+**Objective:** Open `zap.c` `zapnodir` SPE_DETECT_UNSEEN
+(named from D-1404). Not stasis.
+**C locus:** `zap.c` `zapnodir` `:2552–2558`; caller
+`spell.c` `:1474` NODIR `weffects`; callee `findit` D-0074.
+**Change:** SPE_DETECT_UNSEEN shares SECRET_DOOR `findit`
++ `known=!!dknown`. SPBOOK skips `learnwand`. spell.js
+routes to `wand_duplicate_weffects`. SPE_LIGHT cast /
+enlightenment still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts detect unseen).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `peffect_enlightenment` (named
+from D-1395). Not full healing.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1411 potion.c peffect_full_healing
 
 **Objective:** Open `potion.c` `peffect_full_healing` (named).

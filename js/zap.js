@@ -20,6 +20,7 @@
 // zapnodir WAN_WISHING Luck+rn2(5) / makewish (D-1380);
 // zapnodir WAN_ENLIGHTENMENT do_enlightenment_effect (D-1395);
 // zapnodir WAN_STASIS stasis_until max moves+rn1(21,10) (D-1404);
+// zapnodir SPE_DETECT_UNSEEN shares SECRET_DOOR findit (D-1412);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
@@ -35,7 +36,8 @@
 // probing (zapyourself WAN_SPEED is D-1410; bhitm speed still named);
 // zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
-// backfire body; other NODIR (SPE_DETECT_UNSEEN); potion peffect_enlightenment;
+// backfire body; remaining NODIR wand-duplicate SPE_LIGHT cast
+// dispatch; potion peffect_enlightenment;
 // wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
@@ -2001,6 +2003,7 @@ function healup(nhp, nxtra, curesick, cureblind) {
 const MAXWISHTRY = 5;
 const WAN_SECRET_DOOR_DETECTION =
     objectNames.indexOf('WAN_SECRET_DOOR_DETECTION');
+const SPE_DETECT_UNSEEN = objectNames.indexOf('SPE_DETECT_UNSEEN');
 
 /** Invent letters of zappable wands (C zap_ok → GETOBJ_SUGGEST). */
 function zap_lets() {
@@ -2236,8 +2239,10 @@ export async function do_enlightenment_effect() {
  * WAN_CREATE_MONSTER → create_critters (D-1379);
  * WAN_WISHING → Luck+rn2(5) then makewish (D-1380);
  * WAN_ENLIGHTENMENT → do_enlightenment_effect (D-1395);
- * WAN_STASIS → stasis_until max moves+rn1(21,10) (D-1404).
- * Named omit: SPE_DETECT_UNSEEN (C shares SECRET_DOOR findit).
+ * WAN_STASIS → stasis_until max moves+rn1(21,10) (D-1404);
+ * SPE_DETECT_UNSEEN shares SECRET_DOOR findit (D-1412).
+ * Named omit: remaining NODIR wand-duplicate SPE_LIGHT cast
+ * dispatch (zapnodir SPE_LIGHT already live D-1366).
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -2252,6 +2257,10 @@ export async function zapnodir(obj) {
         await lightdamage(obj, true, 5);
         break;
     case WAN_SECRET_DOOR_DETECTION:
+    case SPE_DETECT_UNSEEN:
+        // C zap.c zapnodir :2552–2558 — findit() feedback discovers
+        // the type even when Blind or when it finds nothing;
+        // known = !!dknown. Spellbooks skip learnwand (SPBOOK_CLASS).
         known = !!obj.dknown;
         await findit();
         break;
@@ -2292,7 +2301,6 @@ export async function zapnodir(obj) {
         break;
     }
     default:
-        // SPE_DETECT_UNSEEN named (C shares SECRET_DOOR findit)
         break;
     }
 

@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1412 — zap.c zapnodir SPE_DETECT_UNSEEN
+
+- **Status:** fixed (map-driven Open from D-1404; not a public FAIL)
+- **Symptom:** casting detect unseen (or `zapnodir` of a
+  SPE_DETECT_UNSEEN pseudo) was a no-op / "Nothing happens."
+  C `zapnodir` shares WAN_SECRET_DOOR_DETECTION: `known =
+  !!dknown` then `findit()`. Feedback discovers even when
+  Blind or when nothing is found. `learnwand` skips
+  SPBOOK_CLASS so the fake spellbook is not `makeknown`.
+  Caller `spell.c` `:1474` is the wand-duplicate NODIR
+  `weffects` group. Callee `detect.c` `findit` already live
+  (D-0074).
+- **C locus:** `zap.c` `zapnodir` `:2552–2558`. Caller
+  `spell.c` `spelleffects` `:1473–1514` (`weffects` when
+  `oc_dir == NODIR`). `learnwand` `:133` SPBOOK skip.
+- **JS was:** zapnodir default skip after D-1404 stasis;
+  `spelleffects` other-otyp "Nothing happens."
+- **Fix:** live SPE_DETECT_UNSEEN arm sharing SECRET_DOOR
+  `findit`; spell.js routes to `wand_duplicate_weffects`.
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `zapnodir`; `js/spell.js` `spelleffects`.
+- **Not this iter:** remaining wand-duplicate SPE_LIGHT
+  cast dispatch (zapnodir SPE_LIGHT already D-1366);
+  potion.c `peffect_enlightenment`; `backfire`; findone
+  flash/mimic/invis named on detect.js.
+- **Verified:** private canary **18**/18 (C/JS grep; NODIR
+  SPBOOK vs SECRET_DOOR wand; dknown XP + skip makeknown;
+  !dknown still findit no XP; swallow silent; adjacent
+  SDOOR reveal; wand SECRET_DOOR learnwand regression;
+  weffects NODIR; STASIS/ENLIGHTEN/WISH/CREATE/LIGHT
+  still wired; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts detect unseen.
+- **Follow-up:** Open `potion.c` `peffect_enlightenment`
+  (named from D-1395). Not full healing.
+- **Files:** `js/zap.js`, `js/spell.js`.
+
+
 ## D-1411 — potion.c peffect_full_healing
 
 - **Status:** fixed (map-driven Open from D-1410; not a public FAIL)
