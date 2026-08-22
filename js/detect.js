@@ -40,8 +40,9 @@
 // monster_detect strange_feeling / cursed wake / blessed WIN_MAP /
 // worm segs / pet_to_glyph / TER_DETECT autodescribe;
 // mfind0 set_msg_xy / display_nhwindow flush;
-// object_detect buried/minvent/cursed-mimic/gold/clear_stale_map/
-// observe_recursively; trap_detect chest/door OTRAP arms;
+// object_detect buried/minvent/cursed-mimic/gold/clear_stale_map;
+// observe_recursively on buried/minvent (invent+floor do_dknown D-1417);
+// trap_detect chest/door OTRAP arms;
 // furniture_detect M_AP_FURNITURE seemimic polish.
 
 import { game } from './gstate.js';
@@ -66,7 +67,7 @@ import { m_at, seemimic, wake_nearto } from './mon.js';
 import { find_drawbridge, open_drawbridge } from './dbridge.js';
 import { expels, digests } from './mhitu.js';
 import { is_hider, hides_under } from './monsters.js';
-import { Monnam, x_monnam, x_monnam_tame } from './do_name.js';
+import { Monnam, x_monnam, x_monnam_tame, trycall } from './do_name.js';
 import {
     objectNames, MAXOCLASSES, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
     AMULET_CLASS, TOOL_CLASS, FOOD_CLASS, POTION_CLASS, SCROLL_CLASS,
@@ -87,7 +88,7 @@ import {
     TER_MAP, TER_TRP, TER_OBJ, TER_MON, TER_FULL, TER_DETECT, ECMD_OK,
     I_SPECIAL, M_AP_TYPE, ARTICLE_A, ROOMOFFSET,
     TIMEOUT, Never_mind, KILLED_BY_AN, TOE, SYM_BOULDER,
-    IN_SIGHT, CLAIRVOYANT, LAVAPOOL, LAVAWALL,
+    IN_SIGHT, CLAIRVOYANT, LAVAPOOL, LAVAWALL, Has_contents,
 } from './const.js';
 import { room_discovered } from './dungeon.js';
 
@@ -175,6 +176,39 @@ function useup(otmp) {
     const inv = game.invent || [];
     const idx = inv.indexOf(otmp);
     if (idx >= 0) inv.splice(idx, 1);
+}
+
+/**
+ * C ref: potion.c strange_feeling — beginner/Hallucination default
+ * text, else txt; trycall if dknown; useup. Crystal-ball callers
+ * pass a null detector and skip this.
+ */
+async function strange_feeling(obj, txt) {
+    const beginner = !!(game.flags?.beginner);
+    const Hallucination = !!(game.u?.Hallucination || game.u?.HHallucination);
+    if (beginner || !txt) {
+        await pline(
+            `You have a ${Hallucination ? 'normal' : 'strange'} feeling for a moment, then it passes.`,
+        );
+    } else {
+        await pline(txt);
+    }
+    if (!obj) return;
+    if (obj.dknown) await trycall(obj);
+    useup(obj);
+}
+
+/**
+ * C ref: detect.c observe_recursively — observe_object then contents.
+ */
+function observe_recursively(obj) {
+    if (!obj) return;
+    observe_object(obj);
+    if (Has_contents(obj)) {
+        for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) {
+            observe_recursively(otmp);
+        }
+    }
 }
 
 /** C objnam.c otense — verb given plural; singular → vtense. */
@@ -1325,13 +1359,25 @@ export async function doterrain() {
  * Returns 1 if nothing detected, 0 if something was.
  * Branch envelope: floor objects of class (0 = all); cls + map_object +
  * You detect + browse_map(TER_DETECT|TER_OBJ); map_redisplay.
+ * Detector (D-1417): blessed potion/spellbook do_dknown observe_recursively
+ * on invent + floor; nothing-found → strange_feeling then return 1.
  * Named omissions: buried/minvent/cursed-mimic/findgold; clear_stale_map;
- * do_dknown observe_recursively; boulder dual-class; absence-underfoot.
+ * do_dknown buried/minvent; boulder dual-class; absence-underfoot.
  */
 export async function object_detect(detector, oclass) {
-    void detector;
     let class_ = oclass | 0;
     if (class_ < 0 || class_ >= MAXOCLASSES) class_ = 0;
+
+    const do_dknown = !!(detector
+        && ((detector.oclass | 0) === POTION_CLASS
+            || (detector.oclass | 0) === SPBOOK_CLASS)
+        && detector.blessed);
+
+    if (do_dknown) {
+        for (const obj of game.invent || []) {
+            if (obj) observe_recursively(obj);
+        }
+    }
 
     let ct = 0;
     let ctu = 0;
@@ -1344,10 +1390,16 @@ export async function object_detect(detector, oclass) {
                     if (x === ux && y === uy) ctu++;
                     else ct++;
                 }
+                if (do_dknown) observe_recursively(obj);
             }
         }
     }
-    if (!ct && !ctu) return 1;
+    if (!ct && !ctu) {
+        if (detector) {
+            await strange_feeling(detector, 'You feel a lack of something.');
+        }
+        return 1;
+    }
 
     const { cls, flush_topl_more } = await import('./display.js');
     await cls();

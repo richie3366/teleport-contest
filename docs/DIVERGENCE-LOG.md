@@ -4,6 +4,56 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1417 — spell.c spelleffects SPE_DETECT_TREASURE peffects
+
+- **Status:** fixed (map-driven Open from D-1408; not a public FAIL)
+- **Symptom:** casting SPE_DETECT_TREASURE printed `Nothing happens.`
+  C `spelleffects` `:1534–1546` skilled-blesses the pseudo
+  (`role_skill >= P_SKILLED`) then FALLTHROUGH
+  `(void) peffects(pseudo)` (same arm as HASTE_SELF /
+  DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY + INVISIBILITY).
+  Callee `potion.c` `peffects` `:1371–1375` POT_OBJECT_DETECTION /
+  SPE_DETECT_TREASURE → `peffect_object_detection`. That helper
+  `:954–961`: `object_detect(otmp, 0)` then if nothing, return 1
+  (dopotion `retval>=0` skips a second useup); else
+  `exercise(A_WIS, TRUE)` and peffects returns -1. `detect.c`
+  `object_detect` `:603–788`: blessed potion/spellbook `do_dknown`
+  `observe_recursively` invent then floor; empty + detector →
+  `strange_feeling(..., "You feel a lack of something.")`. Spell
+  still TIME after energy. Pseudo `quan=20` so useup cannot
+  free it. Unskilled leaves unblessed (no do_dknown).
+- **C locus:** `spell.c` `spelleffects` `:1534–1546`;
+  `potion.c` `peffects` `:1371–1375` / `peffect_object_detection`
+  `:954–961`; `detect.c` `object_detect` `:603–788` /
+  `observe_recursively` `:249–258`; `potion.c` `strange_feeling`
+  `:1461–1476`.
+- **JS was:** named omit after D-1408. Other-otyp arm printed
+  `Nothing happens.`; `peffects` lacked POT_OBJECT_DETECTION /
+  SPE_DETECT_TREASURE; `object_detect` voided detector.
+- **Fix:** SPE_DETECT_TREASURE arm skilled-blesses then `peffects`.
+  Port `peffect_object_detection`. Wire POT_OBJECT_DETECTION in
+  the same C case. Pass detector: do_dknown invent+floor;
+  empty → strange_feeling return 1. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/potion.js`
+  `peffects` / `peffect_object_detection`; `js/detect.js`
+  `object_detect` / `observe_recursively` / `strange_feeling`.
+- **Not this iter:** sibling DETECT_MONSTERS / LEVITATION /
+  RESTORE_ABILITY / INVISIBILITY; buried / minvent /
+  cursed-mimic / findgold / clear_stale_map / boulder dual-class /
+  absence-underfoot; potionbreathe/mix object-detection.
+- **Verified:** private canary **18**/18 (C/JS grep; unskilled
+  empty lack-of-something no dknown; skilled empty invent
+  dknown; floor presence pline; POT_OBJECT_DETECTION dopotion
+  useup; empty potion strange_feeling useup; crystal-ball
+  null no strange_feeling; DETECT_MONSTERS still omit;
+  HASTE/CURE_BLINDNESS/POT_HEALING regression; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts detect treasure.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_DETECT_MONSTERS
+  peffects (named). Not LEVITATION.
+- **Files:** `js/spell.js`, `js/potion.js`, `js/detect.js`.
+
 ## D-1416 — zap.c backfire cursed-wand explode
 
 - **Status:** fixed (map-driven Open from D-1415; not a public FAIL)

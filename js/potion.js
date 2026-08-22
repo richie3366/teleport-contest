@@ -11,6 +11,8 @@
 // djinni_from_bottle chance remap + mongrantswish (D-1144).
 // throwit steed potionhit crash/saddle/H2Opotion_dip/POT_WATER (D-1297).
 // SPE_HASTE_SELF / POT_SPEED peffect_speed + speed_up (D-1408).
+// SPE_DETECT_TREASURE / POT_OBJECT_DETECTION peffect_object_detection
+// (D-1417; callee detect.c object_detect).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -92,6 +94,8 @@ const POT_FULL_HEALING = objectNames.indexOf('POT_FULL_HEALING');
 const POT_ENLIGHTENMENT = objectNames.indexOf('POT_ENLIGHTENMENT');
 const POT_SPEED = objectNames.indexOf('POT_SPEED');
 const SPE_HASTE_SELF = objectNames.indexOf('SPE_HASTE_SELF');
+const POT_OBJECT_DETECTION = objectNames.indexOf('POT_OBJECT_DETECTION');
+const SPE_DETECT_TREASURE = objectNames.indexOf('SPE_DETECT_TREASURE');
 const POT_SICKNESS = objectNames.indexOf('POT_SICKNESS');
 const POT_WATER = objectNames.indexOf('POT_WATER');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -920,6 +924,19 @@ async function peffect_speed(otmp) {
 }
 
 /**
+ * C ref: potion.c peffect_object_detection
+ * object_detect(otmp, 0); return 1 if nothing detected (caller
+ * skips a second useup — strange_feeling already consumed it).
+ * Else exercise(A_WIS, TRUE) and return 0 → peffects -1.
+ */
+async function peffect_object_detection(otmp) {
+    const { object_detect } = await import('./detect.js');
+    if (await object_detect(otmp, 0)) return 1;
+    exercise(A_WIS, true);
+    return 0;
+}
+
+/**
  * C ref: potion.c peffect_booze
  * potion_unkn + taste pline; !blessed → make_confused(d(2+uhs,8));
  * !odiluted → healup(1); hunger + newuhs; exercise WIS; cursed pass-out.
@@ -1019,7 +1036,8 @@ async function peffect_water(otmp) {
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
  * full healing (D-1411) / enlightenment (D-1413) / sickness / water;
- * POT_SPEED / SPE_HASTE_SELF (D-1408); other otyps in map.
+ * POT_SPEED / SPE_HASTE_SELF (D-1408);
+ * POT_OBJECT_DETECTION / SPE_DETECT_TREASURE (D-1417); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1054,6 +1072,10 @@ export async function peffects(otmp) {
     case POT_SPEED:
     case SPE_HASTE_SELF:
         await peffect_speed(otmp);
+        return -1;
+    case POT_OBJECT_DETECTION:
+    case SPE_DETECT_TREASURE:
+        if (await peffect_object_detection(otmp)) return 1;
         return -1;
     case POT_SICKNESS:
         await peffect_sickness(otmp);

@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1417 spell.c SPE_DETECT_TREASURE peffects
+
+**Objective:** Open `spell.c` `spelleffects` SPE_DETECT_TREASURE
+peffects (named from D-1408). Not DETECT_MONSTERS.
+**C locus:** `spell.c` `spelleffects` `:1534–1546`; `potion.c`
+`peffect_object_detection` `:954–961`; callee `detect.c`
+`object_detect` `:603–788`.
+**Change:** skilled bless then `peffects`; object_detect
+do_dknown invent+floor; empty `strange_feeling` return 1.
+DETECT_MONSTERS still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts detect treasure).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_DETECT_MONSTERS
+peffects (named from D-1408). Not LEVITATION.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1416 zap.c backfire
 
 **Objective:** Open `zap.c` `backfire` (named). Not zapyourself.

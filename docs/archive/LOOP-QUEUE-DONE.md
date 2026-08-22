@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-22
 
-- [x] `zap.c` `backfire` (named). Not zapyourself. **Addressed:** D-1416
+- [x] `spell.c` `spelleffects` SPE_DETECT_TREASURE peffects (named from D-1408). Not DETECT_MONSTERS. **Addressed:** D-1417
+
+
+- [x] `zap.c` `backfire` (named). Not zapyourself. **Addressed:** D-1416 `22e87b3b`
 
 
 - [x] `uhitm.c` `mhitm_ad_phys` artifact_hit leftover (named from D-1403). Not rustm. **Addressed:** D-1415 `081c5c6a`

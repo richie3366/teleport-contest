@@ -32,6 +32,9 @@
 // D-0075).
 // SPE_HASTE_SELF peffects (D-1408; C `:1534–1546` skilled bless then
 // peffects(pseudo); callee potion.c peffect_speed / speed_up).
+// SPE_DETECT_TREASURE peffects (D-1417; same C `:1534–1546` skilled
+// bless then peffects; callee potion.c peffect_object_detection →
+// detect.c object_detect).
 // spell_backfire (D-1409; C `:1179–1217` rn2(10) confuse/stun
 // TIMEOUT increment; caller spelleffects_check `:1251–1260`
 // when spellknow<=0).
@@ -40,8 +43,8 @@
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects:
-// DETECT_TREASURE / DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY /
-// INVISIBILITY; remaining wand-duplicate SPE_LIGHT / SLEEP / DIG / …);
+// DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY / INVISIBILITY;
+// remaining wand-duplicate SPE_LIGHT / SLEEP / DIG / …);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -191,6 +194,7 @@ const SPE_CHAIN_LIGHTNING = objectNames.indexOf('SPE_CHAIN_LIGHTNING');
 const SPE_CREATE_MONSTER = objectNames.indexOf('SPE_CREATE_MONSTER');
 const SPE_MAGIC_MAPPING = objectNames.indexOf('SPE_MAGIC_MAPPING');
 const SPE_HASTE_SELF = objectNames.indexOf('SPE_HASTE_SELF');
+const SPE_DETECT_TREASURE = objectNames.indexOf('SPE_DETECT_TREASURE');
 const SPE_DETECT_UNSEEN = objectNames.indexOf('SPE_DETECT_UNSEEN');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
@@ -1727,7 +1731,9 @@ async function cast_protection() {
  * callee read.c seffect_magic_mapping — scroll path D-0075).
  * SPE_HASTE_SELF peffects(pseudo) (D-1408; C `:1534–1546`
  * skilled bless then peffects; callee potion.c peffect_speed /
- * speed_up). Sibling potion-like otyps still named.
+ * speed_up). SPE_DETECT_TREASURE peffects (D-1417; same arm;
+ * callee potion.c peffect_object_detection). Sibling DETECT_MONSTERS
+ * / LEVITATION / RESTORE_ABILITY / INVISIBILITY still named.
  * Forgotten spellknow<=0 → spell_backfire then rnd(energy)
  * Pw debit (D-1409; C `:1251–1260`) before this body.
  * SPE_DETECT_UNSEEN NODIR weffects → zapnodir findit (D-1412;
@@ -1899,10 +1905,10 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Dynamic import: read.js → spell.js. */
         const { seffects } = await import('./read.js');
         await seffects(pseudo);
-    } else if (otyp === SPE_HASTE_SELF) {
+    } else if (otyp === SPE_HASTE_SELF || otyp === SPE_DETECT_TREASURE) {
         /* C spell.c :1534–1546 — skilled bless then peffects(pseudo).
-         * Sibling DETECT_TREASURE / DETECT_MONSTERS / LEVITATION /
-         * RESTORE_ABILITY FALLTHROUGH + SPE_INVISIBILITY still named. */
+         * Sibling DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY
+         * FALLTHROUGH + SPE_INVISIBILITY still named. */
         if (role_skill >= P_SKILLED) pseudo.blessed = true;
         await peffects(pseudo);
     } else if (otyp === SPE_DETECT_UNSEEN) {

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` `spelleffects` SPE_DETECT_TREASURE peffects (named from D-1408). Not DETECT_MONSTERS.
 - [ ] `spell.c` `spelleffects` SPE_DETECT_MONSTERS peffects (named from D-1408). Not LEVITATION.
 - [ ] `spell.c` `spelleffects` SPE_LEVITATION peffects (named from D-1408). Not RESTORE_ABILITY.
 - [ ] `spell.c` `spelleffects` SPE_RESTORE_ABILITY peffects (named from D-1408). Not INVISIBILITY.
