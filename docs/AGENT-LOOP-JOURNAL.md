@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1409 spell.c spell_backfire
+
+**Objective:** Open `spell.c` `spell_backfire` (named). Not
+peffects.
+**C locus:** `spell.c` `spell_backfire` `:1179–1217`; caller
+`spelleffects_check` `:1251–1260`.
+**Change:** forgotten `spellknow<=0` now `rn2(10)` confuse/stun
+TIMEOUT increment (talk FALSE) then `rnd(energy)` Pw debit.
+Callees live `make_confused`/`make_stunned`. Remaining
+peffects named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts a forgotten spell).
+**Verified:** private canary **14**/14; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapyourself` WAN_SPEED_MONSTER (named
+from D-1369). Not make invisible.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1408 spell.c SPE_HASTE_SELF peffects
 
 **Objective:** Open `spell.c` `spelleffects` SPE_HASTE_SELF

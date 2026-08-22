@@ -2,8 +2,8 @@
 // C ref: spell.c initialspell, study_book, cursed_book, learn, dovspell,
 //        dospellmenu, percent_success, spellretention, spelltypemnemonic,
 //        spell_skilltype, skill_based_spellbook_id, docast, getspell,
-//        rejectcasting, spelleffects_check, spelleffects, tport_spell,
-//        throwspell, can_center_spell_location, spell_aim_step.
+//        rejectcasting, spelleffects_check, spell_backfire, spelleffects,
+//        tport_spell, throwspell, can_center_spell_location, spell_aim_step.
 //
 // Branch envelope: spl_book init; initialspell from ini_inv_use_obj;
 // study_book blank + known-refresh yn + delay/too_hard + cursed_book
@@ -32,13 +32,16 @@
 // D-0075).
 // SPE_HASTE_SELF peffects (D-1408; C `:1534–1546` skilled bless then
 // peffects(pseudo); callee potion.c peffect_speed / speed_up).
+// spell_backfire (D-1409; C `:1179–1217` rn2(10) confuse/stun
+// TIMEOUT increment; caller spelleffects_check `:1251–1260`
+// when spellknow<=0).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects:
 // DETECT_TREASURE / DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY /
 // INVISIBILITY);
 // #jump known_spell fallback; directional weffects for
-// IMMEDIATE heal/tele; spell_backfire;
+// IMMEDIATE heal/tele;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
 // In_W_tower in aggravate. #teleport doextcmd D-1230.
 // Wizard turns column in dospellmenu ported (D-0586).
@@ -61,7 +64,7 @@ import { morehungry, poison_strdmg } from './eat.js';
 import { zapyourself, spell_damage_bonus, weffects, zhitm, resists_elec } from './zap.js';
 import { tele } from './teleport.js';
 import { aggravate } from './wizard.js';
-import { make_confused, healup, make_slimed, peffects } from './potion.js';
+import { make_confused, make_stunned, healup, make_slimed, peffects } from './potion.js';
 import { trycall, hcolor, hliquid, Hallucination, mon_nam, Monnam } from './do_name.js';
 import { an } from './objnam.js';
 import { is_whirly, is_animal } from './monsters.js';
@@ -1181,6 +1184,48 @@ async function getspell() {
 }
 
 /**
+ * C ref: spell.c spell_backfire `:1179–1217` — forgotten-spell
+ * disorientation. duration = (spellev+1)*3 (6..24). switch rn2(10):
+ * 0..3 confuse +duration (40%); 4..6 confuse 2d/3 + stun d/3 (30%);
+ * 7..8 stun 2d/3 + confuse d/3 (20%); 9 stun +duration (10%).
+ * Adds to existing TIMEOUT (does not override). talk=FALSE.
+ * Stun increment is hypothetical: rejectcasting blocks Stunned casters.
+ */
+async function spell_backfire(spell) {
+    const duration = ((spellev(spell) | 0) + 1) * 3;
+    const old_stun = (game.u?.HStun | 0) & TIMEOUT;
+    const old_conf = (game.u?.HConfusion | 0) & TIMEOUT;
+    switch (rn2(10)) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+        await make_confused(old_conf + duration, false);
+        break;
+    case 4:
+    case 5:
+    case 6:
+        await make_confused(
+            old_conf + Math.trunc((2 * duration) / 3),
+            false,
+        );
+        await make_stunned(old_stun + Math.trunc(duration / 3), false);
+        break;
+    case 7:
+    case 8:
+        await make_stunned(
+            old_stun + Math.trunc((2 * duration) / 3),
+            false,
+        );
+        await make_confused(old_conf + Math.trunc(duration / 3), false);
+        break;
+    case 9:
+        await make_stunned(old_stun + duration, false);
+        break;
+    }
+}
+
+/**
  * C ref: spell.c spelleffects_check
  * @returns {Promise<{abort: boolean, res: number, energy: number}>}
  */
@@ -1196,9 +1241,9 @@ async function spelleffects_check(spell) {
     energy = SPELL_LEV_PW(spellev(spell));
 
     if (spellknow(spell) <= 0) {
-        // spell_backfire deferred — still burn some energy like C
         await pline('Your knowledge of this spell is twisted.');
         await pline('It invokes nightmarish images in your mind...');
+        await spell_backfire(spell);
         game.u.uen = Math.max(0, (game.u.uen ?? 0) - rnd(energy));
         if (game.flags) game.flags.botl = true;
         return { abort: true, res: ECMD_TIME, energy };
@@ -1680,6 +1725,8 @@ async function cast_protection() {
  * SPE_HASTE_SELF peffects(pseudo) (D-1408; C `:1534–1546`
  * skilled bless then peffects; callee potion.c peffect_speed /
  * speed_up). Sibling potion-like otyps still named.
+ * Forgotten spellknow<=0 → spell_backfire then rnd(energy)
+ * Pw debit (D-1409; C `:1251–1260`) before this body.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */

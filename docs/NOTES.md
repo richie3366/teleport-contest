@@ -5,13 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1408; cadence **#1770** `cc7284d4`
+- **Fortress 44/44** after D-1409; cadence **#1770** `cc7284d4`
   (Scr **11,405** RNG 100% speed `39+0.31/turn` R² 0.85). Next:
-  Open `spell.c` `spell_backfire` (named). Not peffects.
-  Reviews **356–364** ACCEPT-WITH-DEBT (no Must-fix). Do not
-  skip D-1408…D-1229. No FORCE. Do not wrap `wildmiss`. Do not
-  add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1408. Named still: `see_monsters`
+  Open `zap.c` `zapyourself` WAN_SPEED_MONSTER (named from
+  D-1369). Not make invisible. Reviews **356–364**
+  ACCEPT-WITH-DEBT (no Must-fix). Do not skip D-1409…D-1229.
+  No FORCE. Do not wrap `wildmiss`. Do not add trailing
+  `confdir` to shared `getdir`.
+- Do not revert D-1217–D-1409. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -23,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1408.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1409.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,18 +35,12 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1408 (index).
-- Named still: hitmm artifact wep; artifact_hit / rustm /
-  poison / worm-shrieker; zapnodir SPE_DETECT_UNSEEN;
-  potion peffect_enlightenment; wrap brush is D-1406;
-  MAGIC_MAPPING seffects is D-1407; haste peffects is D-1408;
-  remaining peffects / spell_backfire named.
-  engrave NODIR `zapnodir` still named.
-  FIRE leftover is D-1405. Stasis is D-1404. kick thick is
-  D-1403. mwep dmgval is D-1402. CREATE_MONSTER is D-1401.
-  CURE_SICKNESS is D-1398. CURE_BLINDNESS is D-1399. CHAIN is
-  D-1400. JUMPING is D-1397. No fountain
-  `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
+  nhcore (D-1066). Do not skip D-1067…D-1409 (index).
+- Named still: artifact_hit / rustm / poison / worm-shrieker;
+  zapnodir SPE_DETECT_UNSEEN; peffect_enlightenment; remaining
+  peffects. spell_backfire is D-1409; haste D-1408; mapping
+  D-1407. No fountain `lesshungry` (D-1359). No ALIGN/FORCE
+  on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -56,76 +51,33 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
-- D-1408: `spell.c` `:1534–1546` SPE_HASTE_SELF skilled bless
-  then `peffects(pseudo)`. Callee `potion.c` `peffect_speed`
-  `:1052–1070` / `speed_up` `:2918–2928` `rn1(10,100+60*bcsign)`
-  + wounded POT_SPEED `heal_legs` + FROMOUTSIDE. Siblings
-  DETECT_TREASURE/MONSTERS/LEVITATION/RESTORE_ABILITY/INVIS
-  named. MAGIC_MAPPING is D-1407. spell_backfire named.
-- D-1407: `spell.c` `:1528–1531` SPE_MAGIC_MAPPING
-  `(void) seffects(pseudo)` (no skilled bless). Callee
-  `read.c` `seffect_magic_mapping` `:2102–2153` nommap
-  `make_confused(HConfusion+rnd(30))` + `body_part(HEAD)` +
-  `notice_mon_off`/`do_mapping`/`notice_mon_on`. SCR D-0075.
-  haste peffects is D-1408. CREATE_MONSTER is D-1401.
-- D-1406: `uhitm.c` `mhitm_ad_wrap` mhitm `:3418–3426` via
-  `mdamagem` `:1059` — `mcan` zeros leftover; vis
-  `Some_Monnam`/`some_mon_nam` brush iff leftover 0. Live
-  leftover `d()` kept (no grab/drown). uhitm D-1348 / mhitu
-  D-1331. AUGMENT_IT named. MAGIC_MAPPING seffects is D-1407.
-- D-1405: `uhitm.c` `mhitm_ad_fire` mhitm `:2588–2621` via
-  `mdamagem` `:1059` — MC zeros leftover; vis `on_fire`;
-  paper/straw `completelyburns` `monkilled`+`grow_up` done;
-  `resists_fire` zeros then `destroy_items(orig)`+ignite.
-  uhitm/mhitu / `defended` / COLD leftover named. Wrap is
-  D-1406. Stasis is D-1404.
-- D-1404: `zap.c` `zapnodir` WAN_STASIS `:2559–2568` —
-  silent `stasis_until` max `moves+rn1(21,10)`; `known`
-  stays FALSE. Consumers `noteleport_level` / whistle /
-  displacer revive already live. SPE_DETECT_UNSEEN /
-  potion peffect / artifact invoke named. Enlighten is
-  D-1395.
-- D-1403: `uhitm.c` `mhitm_ad_phys` mhitm `:4138–4141` after
-  D-1394 shade — AT_KICK `thick_skinned(pd)` zeros leftover
-  `d()` (mwep already nulled). Youmonst already in
-  `damageum_ad_phys`. artifact_hit / rustm / poison /
-  worm-shrieker named. mwep dmgval is D-1402.
-- D-1402: `uhitm.c` `mhitm_ad_phys` mhitm `:4142–4157` after
-  D-1394 shade — AT_WEAP/AT_CLAW `mwep` corpse `do_stone_mon`
-  then `dmgval` + GOP `rn1(4,3)` + min 1. Kick thick is
-  D-1403. artifact_hit / rustm / poison / worm-shrieker
-  named. CREATE_MONSTER is D-1401.
-- D-1401: `spell.c` `:1528–1531` SPE_CREATE_MONSTER
-  `(void) seffects(pseudo)` (no skilled bless). Callee
-  `read.c` `seffect_create_monster` `:1608–1624` count
-  `1+(conf||cursed?12:0)+(blessed||rn2(73)?0:rnd(4))`,
-  confused acid blob, `create_critters` D-1379. MAGIC_MAPPING
-  is D-1407. peffects named. CHAIN is D-1400.
-- D-1400: `spell.c` `:1588–1590` SPE_CHAIN_LIGHTNING
-  `cast_chain_lightning()`; body `:1002–1100` BFS queue, peaceful
-  skip, `zhitm(BZ_U_SPELL(AD_ELEC-1),2)`, swallow TODO. Callee
-  `zap.c` `zhitm`. peffects named. CURE_BLINDNESS is
-  D-1399. CREATE_MONSTER is D-1401.
-- D-1399: `spell.c` `:1549–1551` SPE_CURE_BLINDNESS
-  `healup(0,0,FALSE,TRUE)`. Callee `potion.c` `healup`
-  `:1444–1450` cream=0, `make_blinded(0,TRUE)`, `make_deaf(0,TRUE)`.
-  CHAIN is D-1400. CURE_SICKNESS is D-1398.
-- D-1398: `spell.c` `:1552–1567` SPE_CURE_SICKNESS capture
-  Sick/Slimed, `healup(0,0,TRUE,FALSE)` then ill/slime plines.
-  Callee `potion.c` `healup` `:1452–1455` `make_vomiting` +
-  `make_sick(SICK_ALL)`. CURE_BLINDNESS is D-1399. JUMPING
-  is D-1397.
-- D-1397: `spell.c` `:1584–1587` SPE_JUMPING `jump(max(role_skill,1))`;
-  !TIME → nothing_happens. Callee `apply.c` `jump` magic bounce /
-  swish / writhe + tame pull-free / Lev+air/waterlevel flail.
-  Dynamic `apply.js`. #jump known_spell / trap-escape / hurtle_jump
-  named. CURE_SICKNESS is D-1398. CLAIRVOYANCE is D-1391.
-- D-1396: `uhitm.c` `mhitm_ad_stun` `:4410–4420` via `mdamagem`
-  `:1059` — `mcan` keeps leftover `d()`; else stagger + `mstun=1`
-  then phys (shade may zero). uhitm/mhitu named. FIRE leftover is D-1405.
-- D-1395: `zap.c` `zapnodir` WAN_ENLIGHTENMENT `:2586–2590` —
-  `known=!!dknown` then `do_enlightenment_effect`. Stasis is
-  D-1404. potion peffect / artifact invoke named. Wish is D-1380.
-- D-1394: `uhitm.c` `mhitm_ad_phys` `:4128–4137` — null mwep unless
-  AT_WEAP/AT_CLAW then `shade_miss` zeros leftover `d()`. Kick
-  thick named; mwep dmgval is D-1402. hmon is D-1384.
+- D-1409: `spell.c` `spell_backfire` `:1179–1217`; caller
+  `spelleffects_check` `:1251–1260` `spellknow<=0` then `rnd(energy)`.
+- D-1408: `spell.c` SPE_HASTE_SELF skilled bless then `peffects`;
+  callee `peffect_speed`/`speed_up` `rn1(10,100+60*bcsign)`.
+- D-1407: `spell.c` SPE_MAGIC_MAPPING `seffects` (no skilled bless);
+  callee `seffect_magic_mapping` nommap + `do_mapping`. SCR D-0075.
+- D-1406: `mhitm_ad_wrap` mhitm `:3418–3426` — `mcan` zeros leftover;
+  vis brush iff leftover 0. uhitm D-1348 / mhitu D-1331.
+- D-1405: `mhitm_ad_fire` `:2588–2621` MC zeros leftover; vis `on_fire`;
+  paper/straw burn; resist then `destroy_items`+ignite.
+- D-1404: `zapnodir` WAN_STASIS silent `stasis_until` `moves+rn1(21,10)`;
+  `known` stays FALSE. SPE_DETECT_UNSEEN named.
+- D-1403: `mhitm_ad_phys` AT_KICK `thick_skinned` zeros leftover `d()`.
+  artifact_hit / rustm / poison / worm-shrieker named.
+- D-1402: `mhitm_ad_phys` mwep `dmgval` + GOP `rn1(4,3)` + min 1 after
+  shade. Kick thick is D-1403.
+- D-1401: SPE_CREATE_MONSTER `seffects` → `create_critters` D-1379.
+  MAGIC_MAPPING is D-1407. peffects named.
+- D-1400: SPE_CHAIN_LIGHTNING BFS `zhitm(BZ_U_SPELL(AD_ELEC-1),2)`.
+  Swallow TODO. CURE_BLINDNESS is D-1399.
+- D-1399: SPE_CURE_BLINDNESS `healup(0,0,FALSE,TRUE)` cream+blind+deaf.
+  CURE_SICKNESS is D-1398.
+- D-1398: SPE_CURE_SICKNESS `healup(0,0,TRUE,FALSE)` then ill/slime.
+  JUMPING is D-1397.
+- D-1397: SPE_JUMPING `jump(max(role_skill,1))`; magic ustuck writhe.
+  #jump known_spell named.
+- D-1396: `mhitm_ad_stun` `:4410–4420` `mcan` keeps leftover; else
+  stagger + `mstun=1` then phys. FIRE leftover is D-1405.
+- D-1395: `zapnodir` WAN_ENLIGHTENMENT `known=!!dknown` then
+  `do_enlightenment_effect`. Stasis is D-1404.

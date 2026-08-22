@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1409 — spell.c spell_backfire forgotten-spell disorientation
+
+- **Status:** fixed (map-driven Open from D-1408; not a public FAIL)
+- **Symptom:** casting a forgotten spell (`spellknow<=0`) printed the
+  twisted/nightmare plines and burned `rnd(energy)` Pw, but skipped
+  C `spell_backfire` — no `rn2(10)` confuse/stun TIMEOUT increment.
+  C `spelleffects_check` `:1251–1260` calls `spell_backfire` **before**
+  the Pw debit. `spell_backfire` `:1179–1217`: duration
+  `(spellev+1)*3` (6..24); `old_stun = HStun&TIMEOUT`,
+  `old_conf = HConfusion&TIMEOUT`; `switch (rn2(10))`:
+  0..3 confuse +duration (40%); 4..6 confuse 2d/3 + stun d/3 (30%);
+  7..8 stun 2d/3 + confuse d/3 (20%); 9 stun +duration (10%).
+  Increments existing TIMEOUT (does not override). talk=FALSE.
+  Stun increment is hypothetical (`rejectcasting` blocks Stunned).
+  Callees `potion.c` `make_confused`/`make_stunned` already live.
+  Abort TIME; no `spelleffects` body. uen clamped at 0.
+- **C locus:** `spell.c` `spell_backfire` `:1179–1217`; caller
+  `spelleffects_check` `:1251–1260`.
+- **JS was:** named omit after D-1408. Twisted+nightmare plines +
+  `rnd(energy)` debit only.
+- **Fix:** port `spell_backfire` `rn2(10)` arms; await live
+  `make_confused`/`make_stunned` with talk false; keep debit after.
+  Rule #2: no fs.
+- **JS:** `js/spell.js` `spell_backfire` + `spelleffects_check`.
+- **Not this iter:** remaining peffects (DETECT_TREASURE /
+  DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY / INVISIBILITY);
+  Amulet drain; zap.c `zapyourself` WAN_SPEED_MONSTER;
+  `peffect_full_healing`.
+- **Verified:** private canary **14**/14 (C/JS grep; forgotten
+  TIME+nightmare no haste; `rn2(10)` then `rnd(energy)` TIMEOUT
+  matches all four arms across seeds 1..80; Confusion increment;
+  uen clamp 0; Stunned second-cast reject; D-1408 force haste;
+  INVISIBILITY still omit; CURE_BLINDNESS live; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts a forgotten spell.
+- **Follow-up:** Open `zap.c` `zapyourself` WAN_SPEED_MONSTER
+  (named from D-1369). Not make invisible.
+- **Files:** `js/spell.js`.
+
 ## D-1408 — spell.c spelleffects SPE_HASTE_SELF peffects
 
 - **Status:** fixed (map-driven Open from D-1407; not a public FAIL)

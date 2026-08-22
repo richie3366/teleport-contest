@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-22
 
-- [x] `spell.c` `spelleffects` SPE_HASTE_SELF peffects (named). Not mapping. **Addressed:** D-1408
+- [x] `spell.c` `spell_backfire` (named). Not peffects. **Addressed:** D-1409
+
+
+- [x] `spell.c` `spelleffects` SPE_HASTE_SELF peffects (named). Not mapping. **Addressed:** D-1408 `5c71fc34`
 
 
 - [x] `spell.c` `spelleffects` SPE_MAGIC_MAPPING seffects (named). Not create monster. **Addressed:** D-1407 `6ec1c72d`
