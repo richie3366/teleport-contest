@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-22
 
-- [x] `zap.c` `zapyourself` WAN_SPEED_MONSTER (named from D-1369). Not make invisible. **Addressed:** D-1410
+- [x] `potion.c` `peffect_full_healing` (named). Not haste. **Addressed:** D-1411
+
+
+- [x] `zap.c` `zapyourself` WAN_SPEED_MONSTER (named from D-1369). Not make invisible. **Addressed:** D-1410 `55259f2b`
 
 
 - [x] `spell.c` `spell_backfire` (named). Not peffects. **Addressed:** D-1409 `fa039634`

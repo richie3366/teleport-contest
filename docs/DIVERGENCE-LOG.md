@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1411 — potion.c peffect_full_healing
+
+- **Status:** fixed (map-driven Open from D-1410; not a public FAIL)
+- **Symptom:** `peffects` defaulted `POT_FULL_HEALING` to
+  `"That potion is not implemented yet."` and returned 0 (no
+  `useup`). C `:1144–1162` `You_feel("completely healed.")`
+  then `healup(400, 4+4*bcsign, !cursed, TRUE)` (always
+  cream/blind/deaf; sick unless cursed). Blessed +
+  `ulevel < ulevelmax` decrements `ulevelmax` then
+  `pluslvl(FALSE)` so multiple lost levels return at half
+  rate. Then `make_hallucinated(0L,TRUE,0L)`, exercise STR
+  then CON. Wounded legs: blessed even when riding (steed);
+  uncursed iff `!usteed`; cursed never. nxtra: cursed 0 /
+  uncursed 4 / blessed 8. Callees `healup` / `pluslvl` /
+  `make_hallucinated` / `heal_legs` already live.
+- **C locus:** `potion.c` `peffect_full_healing` `:1144–1162`.
+  Caller `peffects` `:1401–1402`. Helper `exper.c` `pluslvl`
+  `:307–372` (JS `exper.js` D-0061).
+- **JS was:** named omit after D-1410. Default unimplemented.
+- **Fix:** port the function; `peffects` `POT_FULL_HEALING`
+  returns -1. Import live `pluslvl`. Rule #2: no fs.
+- **JS:** `js/potion.js` `peffect_full_healing` + `peffects`.
+- **Not this iter:** `potionhit` / `potionbreathe` full-heal
+  arms; mix alchemy; dodip poison-coat; `peffect_enlightenment`
+  / levitation / remaining peffects; zapnodir SPE_DETECT_UNSEEN.
+- **Verified:** private canary **19**/19 (C/JS grep; uncursed
+  nxtra 4 + -1; blessed nxtra 8 no pluslvl when equal levels;
+  cursed nxtra 0 still fills; blessed two-lost → 9/9 Welcome
+  back; uncursed keeps drain; hallu boring; sick cure iff
+  !cursed; cursed still deaf; uncursed legs !steed; riding
+  only blessed; extra healing sibling; enlightenment omit;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session quaffs full healing.
+- **Follow-up:** Open `zap.c` `zapnodir` SPE_DETECT_UNSEEN
+  (named from D-1404). Not stasis.
+- **Files:** `js/potion.js`.
+
 ## D-1410 — zap.c zapyourself WAN_SPEED_MONSTER
 
 - **Status:** fixed (map-driven Open from D-1369; not a public FAIL)

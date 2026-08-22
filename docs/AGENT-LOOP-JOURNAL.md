@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1411 potion.c peffect_full_healing
+
+**Objective:** Open `potion.c` `peffect_full_healing` (named).
+Not haste.
+**C locus:** `potion.c` `peffect_full_healing` `:1144–1162`;
+caller `peffects` `:1401–1402`; callee `exper.c` `pluslvl`.
+**Change:** quaff full healing now `healup(400,4+4*bcsign)`
+then blessed lost-level `ulevelmax--`/`pluslvl(FALSE)`, hallu,
+STR then CON, wounded legs (blessed even riding). potionhit /
+breathe / mix / enlightenment still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session quaffs full healing).
+**Verified:** private canary **19**/19; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapnodir` SPE_DETECT_UNSEEN (named
+from D-1404). Not stasis.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1410 zap.c zapyourself WAN_SPEED_MONSTER
 
 **Objective:** Open `zap.c` `zapyourself` WAN_SPEED_MONSTER
