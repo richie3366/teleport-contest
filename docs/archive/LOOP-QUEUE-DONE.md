@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-22
 
-- [x] `spell.c` `spell_backfire` (named). Not peffects. **Addressed:** D-1409
+- [x] `zap.c` `zapyourself` WAN_SPEED_MONSTER (named from D-1369). Not make invisible. **Addressed:** D-1410
+
+
+- [x] `spell.c` `spell_backfire` (named). Not peffects. **Addressed:** D-1409 `fa039634`
 
 
 - [x] `spell.c` `spelleffects` SPE_HASTE_SELF peffects (named). Not mapping. **Addressed:** D-1408 `5c71fc34`

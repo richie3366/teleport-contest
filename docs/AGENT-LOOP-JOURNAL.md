@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1410 zap.c zapyourself WAN_SPEED_MONSTER
+
+**Objective:** Open `zap.c` `zapyourself` WAN_SPEED_MONSTER
+(named from D-1369). Not make invisible.
+**C locus:** `zap.c` `zapyourself` `:2845–2849`; callee
+`potion.c` `speed_up` `:2918–2928` (D-1408). Caller
+`dozap` self-dir.
+**Change:** self-zap now `speed_up(rn1(25,50))` then always
+`learnwand`. No FROMOUTSIDE. WAN_SLOW / bhitm speed /
+zap_steed still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session self-zaps speed).
+**Verified:** private canary **11**/11; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `peffect_full_healing` (named).
+Not haste.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1409 spell.c spell_backfire
 
 **Objective:** Open `spell.c` `spell_backfire` (named). Not

@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1410 — zap.c zapyourself WAN_SPEED_MONSTER
+
+- **Status:** fixed (map-driven Open from D-1369; not a public FAIL)
+- **Symptom:** `zapyourself` defaulted `WAN_SPEED_MONSTER`. Self-zap
+  never called `speed_up`, never timed `HFast`, never learned the
+  wand. C `:2845–2849` is timeout-only Very_fast (comment: no
+  longer intrinsic). `rn1(25,50)` → 50..74. Always `learn_it`.
+  Callee `potion.c` `speed_up` `:2918–2928` already live (D-1408):
+  !Very_fast `"suddenly moving %sfaster"` (`Fast` ? `""` :
+  `"much "`); else `makeplural(body_part(LEG))` `"get new energy."`;
+  `exercise(A_DEX)` then `incr_itimeout(&HFast, duration)`.
+  Unlike POT_SPEED, this arm does **not** set `FROMOUTSIDE`.
+  Caller `dozap` self-dir (`dx==dy==dz==0`); wand is IMMEDIATE.
+- **C locus:** `zap.c` `zapyourself` `:2845–2849`. Helper
+  `potion.c` `speed_up` `:2918–2928` / `incr_itimeout`. Caller
+  `dozap` `:2657–2664`.
+- **JS was:** `default` break (no timeout, no learn).
+- **Fix:** `await speed_up(rn1(25, 50)); learn_it = true;`
+  Import live `speed_up` (zap.js already imported potion.js).
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `zapyourself`; callee `js/potion.js`
+  `speed_up`.
+- **Not this iter:** `bhitm` / `zap_steed` WAN_SPEED_MONSTER
+  (`mon_adjust_speed`); `zapyourself` WAN_SLOW /
+  SPE_DRAIN_LIFE / WAN_LOCKING / WAN_PROBING; `zap.c`
+  `backfire` body.
+- **Verified:** private canary **11**/11 (C/JS grep; fresh
+  `rn2(25)` + TIMEOUT 50..74 + uprops sync + learn + no
+  FROMOUTSIDE; INTRINSIC Fast `"faster"` not `"much"`; already
+  Very_fast TIMEOUT grows + legs energy; EFast boots legs +
+  keep E; Blind skip makeknown; WAN_SLOW still default;
+  WAN_MAKE_INVISIBLE still a case; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session self-zaps speed.
+- **Follow-up:** Open `potion.c` `peffect_full_healing`
+  (named). Not haste.
+- **Files:** `js/zap.js`, `js/potion.js` (comment).
+
 ## D-1409 — spell.c spell_backfire forgotten-spell disorientation
 
 - **Status:** fixed (map-driven Open from D-1408; not a public FAIL)

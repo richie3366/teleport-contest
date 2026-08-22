@@ -5,14 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1409; cadence **#1770** `cc7284d4`
+- **Fortress 44/44** after D-1410; cadence **#1770** `cc7284d4`
   (Scr **11,405** RNG 100% speed `39+0.31/turn` R² 0.85). Next:
-  Open `zap.c` `zapyourself` WAN_SPEED_MONSTER (named from
-  D-1369). Not make invisible. Reviews **356–364**
-  ACCEPT-WITH-DEBT (no Must-fix). Do not skip D-1409…D-1229.
-  No FORCE. Do not wrap `wildmiss`. Do not add trailing
-  `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1409. Named still: `see_monsters`
+  Open `potion.c` `peffect_full_healing` (named). Not haste.
+  Reviews **356–364** ACCEPT-WITH-DEBT (no Must-fix). Do not
+  skip D-1410…D-1229. No FORCE. Do not wrap `wildmiss`. Do
+  not add trailing `confdir` to shared `getdir`.
+- Do not revert D-1217–D-1410. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -24,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1409.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1410.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,12 +34,12 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1409 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1410 (index).
 - Named still: artifact_hit / rustm / poison / worm-shrieker;
   zapnodir SPE_DETECT_UNSEEN; peffect_enlightenment; remaining
-  peffects. spell_backfire is D-1409; haste D-1408; mapping
-  D-1407. No fountain `lesshungry` (D-1359). No ALIGN/FORCE
-  on seed0383.
+  peffects. zapyourself WAN_SPEED is D-1410; spell_backfire is D-1409;
+  haste D-1408; mapping D-1407. No fountain `lesshungry`
+  (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -51,6 +50,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1410: `zap.c` `zapyourself` WAN_SPEED_MONSTER `:2845–2849`
+  `speed_up(rn1(25,50))` always learn. Callee D-1408. WAN_SLOW named.
 - D-1409: `spell.c` `spell_backfire` `:1179–1217`; caller
   `spelleffects_check` `:1251–1260` `spellknow<=0` then `rnd(energy)`.
 - D-1408: `spell.c` SPE_HASTE_SELF skilled bless then `peffects`;
@@ -79,5 +80,3 @@ Objective/score live in `CURRENT.md`.
   #jump known_spell named.
 - D-1396: `mhitm_ad_stun` `:4410–4420` `mcan` keeps leftover; else
   stagger + `mstun=1` then phys. FIRE leftover is D-1405.
-- D-1395: `zapnodir` WAN_ENLIGHTENMENT `known=!!dknown` then
-  `do_enlightenment_effect`. Stasis is D-1404.

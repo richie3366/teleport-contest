@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zapyourself` WAN_SPEED_MONSTER (named from D-1369). Not make invisible.
 - [ ] `potion.c` `peffect_full_healing` (named). Not haste.
 - [ ] `zap.c` `zapnodir` SPE_DETECT_UNSEEN (named from D-1404). Not stasis.
 - [ ] `potion.c` `peffect_enlightenment` (named from D-1395). Not full healing.

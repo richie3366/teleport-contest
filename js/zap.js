@@ -21,6 +21,7 @@
 // zapnodir WAN_ENLIGHTENMENT do_enlightenment_effect (D-1395);
 // zapnodir WAN_STASIS stasis_until max moves+rn1(21,10) (D-1404);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
+// zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
@@ -31,7 +32,8 @@
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
-// probing; zap_map; mon_reflects;
+// probing (zapyourself WAN_SPEED is D-1410; bhitm speed still named);
+// zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // backfire body; other NODIR (SPE_DETECT_UNSEEN); potion peffect_enlightenment;
 // wrest pline; check_capacity;
@@ -113,7 +115,7 @@ import {
     NO_TRAP_FLAGS, ignite_items, openholdingtrap, openfallingtrap,
     self_invis_message,
 } from './trap.js';
-import { potionbreathe, make_stunned } from './potion.js';
+import { potionbreathe, make_stunned, speed_up } from './potion.js';
 import { burn_away_slime } from './timeout.js';
 import { create_gas_cloud } from './region.js';
 import { cvt_sdoor_to_door } from './detect.js';
@@ -191,6 +193,7 @@ const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const WAN_LIGHTNING = objectNames.indexOf('WAN_LIGHTNING');
 const WAN_MAKE_INVISIBLE = objectNames.indexOf('WAN_MAKE_INVISIBLE');
+const WAN_SPEED_MONSTER = objectNames.indexOf('WAN_SPEED_MONSTER');
 const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
 const RIN_SHOCK_RESISTANCE = objectNames.indexOf('RIN_SHOCK_RESISTANCE');
 const WAN_WISHING = objectNames.indexOf('WAN_WISHING');
@@ -3453,6 +3456,7 @@ export function spell_damage_bonus(dmgIn) {
  * SPE_FIREBALL self-explode (D-1365; skilled scatter is spell.c D-1378);
  * lightdamage WAN_LIGHT/CAMERA (D-1366);
  * WAN_MAKE_INVISIBLE (D-1369);
+ * WAN_SPEED_MONSTER speed_up (D-1410);
  * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
@@ -3728,6 +3732,15 @@ export async function zapyourself(obj, ordinary) {
         }
         break;
     }
+
+    case WAN_SPEED_MONSTER:
+        // C zap.c zapyourself :2845–2849 — no longer intrinsic;
+        // speed_up(rn1(25, 50)) then always learn. Callee
+        // potion.c speed_up :2918–2928 (D-1408). bhitm /
+        // zap_steed / WAN_SLOW still named.
+        await speed_up(rn1(25, 50));
+        learn_it = true;
+        break;
 
     default:
         // Other zapyourself cases deferred

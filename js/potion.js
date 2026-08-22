@@ -464,7 +464,7 @@ function incr_itimeout_HFast(incr) {
  * !Very_fast → "suddenly moving %sfaster" (Fast ? "" : "much ");
  * else body_part(LEG) plural "get new energy."; exercise DEX;
  * incr_itimeout(&HFast, duration). zap.c zapyourself WAN_SPEED_MONSTER
- * still named (queue).
+ * is D-1410 (this callee).
  */
 export async function speed_up(duration) {
     if (!Very_fast()) {
