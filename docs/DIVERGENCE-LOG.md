@@ -4,6 +4,52 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1408 — spell.c spelleffects SPE_HASTE_SELF peffects
+
+- **Status:** fixed (map-driven Open from D-1407; not a public FAIL)
+- **Symptom:** casting SPE_HASTE_SELF printed `Nothing happens.`
+  C `spelleffects` `:1534–1546` skilled-blesses the pseudo
+  (`role_skill >= P_SKILLED`) then FALLTHROUGH
+  `(void) peffects(pseudo)` (same arm as DETECT_TREASURE /
+  DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY + INVISIBILITY).
+  Callee `potion.c` `peffects` `:1385–1388` POT_SPEED /
+  SPE_HASTE_SELF → `peffect_speed`. `peffect_speed` `:1052–1070`:
+  is_speed ≡ POT_SPEED; wounded + !cursed + !usteed →
+  `heal_legs(0)` + `potion_unkn` (no speed); else
+  `speed_up(rn1(10, 100+60*bcsign))`; non-cursed potion without
+  INTRINSIC Fast → "quickness feels very natural" +
+  `HFast |= FROMOUTSIDE`. `speed_up` `:2918–2928`: !Very_fast
+  "suddenly moving %sfaster" (Fast ? "" : "much "); else
+  `makeplural(body_part(LEG))` "get new energy."; `exercise(A_DEX)`
+  then `incr_itimeout(&HFast, duration)`. Spell pseudo is
+  uncursed; SPE_HASTE_SELF is not is_speed (no heal_legs /
+  no intrinsic). Spell still TIME after energy.
+- **C locus:** `spell.c` `spelleffects` `:1534–1546`;
+  `potion.c` `peffects` `:1385–1388` / `peffect_speed`
+  `:1052–1070` / `speed_up` `:2918–2928` / `incr_itimeout`.
+- **JS was:** named omit after D-1407. Other-otyp arm printed
+  `Nothing happens.`; `peffects` lacked POT_SPEED / SPE_HASTE_SELF.
+- **Fix:** SPE_HASTE_SELF arm skilled-blesses then `peffects`.
+  Port `peffect_speed` + `speed_up` + HFast TIMEOUT sync.
+  Wire POT_SPEED in the same C case. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/potion.js`
+  `peffects` / `peffect_speed` / `speed_up`.
+- **Not this iter:** sibling potion-like spells (DETECT_TREASURE /
+  DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY / INVISIBILITY);
+  `spell_backfire`; zap.c `zapyourself` WAN_SPEED_MONSTER
+  (`speed_up` exported); `peffect_full_healing`.
+- **Verified:** private canary **16**/16 (C/JS grep; unskilled
+  much-faster TIMEOUT 100..109; skilled bless 160..169; recast
+  legs energy; POT_SPEED FROMOUTSIDE; wounded heal skip; spell
+  ignores wounds; INVISIBILITY still omit; CURE_BLINDNESS /
+  POT_HEALING / MAGIC_MAPPING regression; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts haste self.
+- **Follow-up:** Open `spell.c` `spell_backfire` (named). Not
+  peffects.
+- **Files:** `js/spell.js`, `js/potion.js`.
+
 ## D-1407 — spell.c spelleffects SPE_MAGIC_MAPPING seffects
 
 - **Status:** fixed (map-driven Open from D-1401; not a public FAIL)

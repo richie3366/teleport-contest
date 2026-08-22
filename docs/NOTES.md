@@ -5,14 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1407; cadence **#1770** `cc7284d4`
+- **Fortress 44/44** after D-1408; cadence **#1770** `cc7284d4`
   (Scr **11,405** RNG 100% speed `39+0.31/turn` R² 0.85). Next:
-  Open `spell.c` `spelleffects` SPE_HASTE_SELF peffects (named).
-  Not mapping. Reviews **356–364** ACCEPT-WITH-DEBT (no
-  Must-fix). Do not skip
-  D-1407…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
-  trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1407. Named still: `see_monsters`
+  Open `spell.c` `spell_backfire` (named). Not peffects.
+  Reviews **356–364** ACCEPT-WITH-DEBT (no Must-fix). Do not
+  skip D-1408…D-1229. No FORCE. Do not wrap `wildmiss`. Do not
+  add trailing `confdir` to shared `getdir`.
+- Do not revert D-1217–D-1408. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -24,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1407.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1408.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,16 +34,17 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1407 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1408 (index).
 - Named still: hitmm artifact wep; artifact_hit / rustm /
   poison / worm-shrieker; zapnodir SPE_DETECT_UNSEEN;
   potion peffect_enlightenment; wrap brush is D-1406;
-  MAGIC_MAPPING seffects is D-1407; peffects named.
+  MAGIC_MAPPING seffects is D-1407; haste peffects is D-1408;
+  remaining peffects / spell_backfire named.
   engrave NODIR `zapnodir` still named.
   FIRE leftover is D-1405. Stasis is D-1404. kick thick is
   D-1403. mwep dmgval is D-1402. CREATE_MONSTER is D-1401.
   CURE_SICKNESS is D-1398. CURE_BLINDNESS is D-1399. CHAIN is
-  D-1400 (peffects named). JUMPING is D-1397. No fountain
+  D-1400. JUMPING is D-1397. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -56,12 +56,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1408: `spell.c` `:1534–1546` SPE_HASTE_SELF skilled bless
+  then `peffects(pseudo)`. Callee `potion.c` `peffect_speed`
+  `:1052–1070` / `speed_up` `:2918–2928` `rn1(10,100+60*bcsign)`
+  + wounded POT_SPEED `heal_legs` + FROMOUTSIDE. Siblings
+  DETECT_TREASURE/MONSTERS/LEVITATION/RESTORE_ABILITY/INVIS
+  named. MAGIC_MAPPING is D-1407. spell_backfire named.
 - D-1407: `spell.c` `:1528–1531` SPE_MAGIC_MAPPING
   `(void) seffects(pseudo)` (no skilled bless). Callee
   `read.c` `seffect_magic_mapping` `:2102–2153` nommap
   `make_confused(HConfusion+rnd(30))` + `body_part(HEAD)` +
   `notice_mon_off`/`do_mapping`/`notice_mon_on`. SCR D-0075.
-  peffects named. CREATE_MONSTER is D-1401.
+  haste peffects is D-1408. CREATE_MONSTER is D-1401.
 - D-1406: `uhitm.c` `mhitm_ad_wrap` mhitm `:3418–3426` via
   `mdamagem` `:1059` — `mcan` zeros leftover; vis
   `Some_Monnam`/`some_mon_nam` brush iff leftover 0. Live
@@ -123,5 +129,3 @@ Objective/score live in `CURRENT.md`.
 - D-1394: `uhitm.c` `mhitm_ad_phys` `:4128–4137` — null mwep unless
   AT_WEAP/AT_CLAW then `shade_miss` zeros leftover `d()`. Kick
   thick named; mwep dmgval is D-1402. hmon is D-1384.
-- D-1393: `zap.c` `bhit` `:3926–3938` empty WEB + thrown/kicked
-  `!rn2(3)` stick. throwit fly / skiprange / shkcatch named.

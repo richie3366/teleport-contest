@@ -30,9 +30,13 @@
 // SPE_MAGIC_MAPPING seffects (D-1407; same C `:1528–1531` arm, no
 // skilled bless; callee read.c seffect_magic_mapping — SCR live
 // D-0075).
+// SPE_HASTE_SELF peffects (D-1408; C `:1534–1546` skilled bless then
+// peffects(pseudo); callee potion.c peffect_speed / speed_up).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
-// swap/sort; other spelleffects otyps (peffects);
+// swap/sort; other spelleffects otyps (remaining peffects:
+// DETECT_TREASURE / DETECT_MONSTERS / LEVITATION / RESTORE_ABILITY /
+// INVISIBILITY);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele; spell_backfire;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -57,7 +61,7 @@ import { morehungry, poison_strdmg } from './eat.js';
 import { zapyourself, spell_damage_bonus, weffects, zhitm, resists_elec } from './zap.js';
 import { tele } from './teleport.js';
 import { aggravate } from './wizard.js';
-import { make_confused, healup, make_slimed } from './potion.js';
+import { make_confused, healup, make_slimed, peffects } from './potion.js';
 import { trycall, hcolor, hliquid, Hallucination, mon_nam, Monnam } from './do_name.js';
 import { an } from './objnam.js';
 import { is_whirly, is_animal } from './monsters.js';
@@ -181,6 +185,7 @@ const SPE_JUMPING = objectNames.indexOf('SPE_JUMPING');
 const SPE_CHAIN_LIGHTNING = objectNames.indexOf('SPE_CHAIN_LIGHTNING');
 const SPE_CREATE_MONSTER = objectNames.indexOf('SPE_CREATE_MONSTER');
 const SPE_MAGIC_MAPPING = objectNames.indexOf('SPE_MAGIC_MAPPING');
+const SPE_HASTE_SELF = objectNames.indexOf('SPE_HASTE_SELF');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
@@ -1672,6 +1677,9 @@ async function cast_protection() {
  * callee read.c seffect_create_monster).
  * SPE_MAGIC_MAPPING seffects(pseudo) (D-1407; same C case;
  * callee read.c seffect_magic_mapping — scroll path D-0075).
+ * SPE_HASTE_SELF peffects(pseudo) (D-1408; C `:1534–1546`
+ * skilled bless then peffects; callee potion.c peffect_speed /
+ * speed_up). Sibling potion-like otyps still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1838,6 +1846,12 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Dynamic import: read.js → spell.js. */
         const { seffects } = await import('./read.js');
         await seffects(pseudo);
+    } else if (otyp === SPE_HASTE_SELF) {
+        /* C spell.c :1534–1546 — skilled bless then peffects(pseudo).
+         * Sibling DETECT_TREASURE / DETECT_MONSTERS / LEVITATION /
+         * RESTORE_ABILITY FALLTHROUGH + SPE_INVISIBILITY still named. */
+        if (role_skill >= P_SKILLED) pseudo.blessed = true;
+        await peffects(pseudo);
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
         await pline('Nothing happens.');

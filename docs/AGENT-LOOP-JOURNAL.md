@@ -9,6 +9,26 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1408 spell.c SPE_HASTE_SELF peffects
+
+**Objective:** Open `spell.c` `spelleffects` SPE_HASTE_SELF
+peffects (named). Not mapping.
+**C locus:** `spell.c` `spelleffects` `:1534–1546`; callee
+`potion.c` `peffects` / `peffect_speed` `:1052–1070` /
+`speed_up` `:2918–2928`.
+**Change:** skilled bless then `peffects(pseudo)`. Callee
+`speed_up(rn1(10,100+60*bcsign))` + POT_SPEED wounded
+`heal_legs` / FROMOUTSIDE. Siblings still named. Rule #2:
+no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts haste self).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spell_backfire` (named). Not
+peffects.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1407 spell.c SPE_MAGIC_MAPPING seffects
 
 **Objective:** Open `spell.c` `spelleffects` SPE_MAGIC_MAPPING
