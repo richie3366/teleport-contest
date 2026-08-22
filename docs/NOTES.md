@@ -5,10 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1413; cadence **#1770** `cc7284d4`
-  (Scr **11,405** RNG 100% speed `39+0.31/turn` R² 0.85). Next:
+- **Fortress 44/44** after D-1413; cadence **#1780** `285218b2`
+  (Scr **11,405** RNG 100% speed `38+0.31/turn` R² 0.85). Next:
   Open `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named from
-  D-1369). Not zapyourself speed. Reviews **356–364**
+  D-1369). Not zapyourself speed. Reviews **365–373**
   ACCEPT-WITH-DEBT (no Must-fix). Do not skip D-1413…D-1229.
   No FORCE. Do not wrap `wildmiss`. Do not add trailing
   `confdir` to shared `getdir`.

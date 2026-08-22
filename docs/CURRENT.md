@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-22** — full `sessions` at review **#1770**
-HEAD `cc7284d4` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `39+0.31/turn` (R² 0.85). Next audit (review + score) @**#1780**.
+Score last measured: **2026-08-22** — full `sessions` at review **#1780**
+HEAD `285218b2` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `38+0.31/turn` (R² 0.85). Next audit (review + score) @**#1790**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `39+0.31/turn` (R² 0.85). Next audit (review + score) @**#1780**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `39+0.31/turn` (R² 0.85) |
+| Speed label | `38+0.31/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -61,7 +61,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Map-driven fortress** after D-1413. **Next cluster:** Open
 `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named from D-1369). Not
-zapyourself speed. Reviews **356–364** ACCEPT-WITH-DEBT (no Must-fix).
+zapyourself speed. Reviews **365–373** ACCEPT-WITH-DEBT (no Must-fix).
 Do not skip D-1413…D-1229
 (index). Keep mention_map addr. Do not wrap `wildmiss` or
 `msg_mon_movement` as `pline_mon`. Do not rewrite

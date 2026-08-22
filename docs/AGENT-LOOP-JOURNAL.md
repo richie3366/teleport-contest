@@ -9,6 +9,28 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — review D-1405–D-1413 (audit #1780)
+
+**Objective:** audit — C-fidelity reviews **365–373** of JS SHAs
+`7c3921f2` / `61936a70` / `6ec1c72d` / `5c71fc34` /
+`fa039634` / `55259f2b` / `71ee9186` / `fb872749` /
+`285218b2` plus full `sessions` score.
+**C locus:** `uhitm.c:2588–2621` / `:3418–3426`;
+`spell.c:1528–1531` / `:1534–1546` / `:1179–1217`;
+`zap.c:2845–2849` / `:2552–2558`; `potion.c:1144–1162` /
+`:794–808`.
+**Change:** no `js/` edits. **365–373** ACCEPT-WITH-DEBT.
+No Must-fix. Filled archive D-1413 `285218b2`. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `38+0.31/turn` (R² 0.85).
+**Verified:** full `sessions` at HEAD `285218b2`; public-unhit
+on FIRE leftover / wrap brush / haste / backfire / wand speed /
+full healing / detect unseen / enlightenment; mapping hit via
+seed2200 scroll.
+**Next:** Open `zap.c` `bhitm` WAN_MAKE_INVISIBLE.
+Not zapyourself speed.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1413 potion.c peffect_enlightenment
 
 **Objective:** Open `potion.c` `peffect_enlightenment` (named

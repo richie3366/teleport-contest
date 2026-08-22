@@ -375,3 +375,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [362-2a3da9b9-mhitm-ad-phys-mwep.md](./362-2a3da9b9-mhitm-ad-phys-mwep.md) | `2a3da9b9` | D-1402 mhitm_ad_phys mwep dmgval | **ACCEPT-WITH-DEBT** |
 | [363-d9134735-mhitm-ad-phys-kick.md](./363-d9134735-mhitm-ad-phys-kick.md) | `d9134735` | D-1403 mhitm_ad_phys AT_KICK thick | **ACCEPT-WITH-DEBT** |
 | [364-cc7284d4-zapnodir-stasis.md](./364-cc7284d4-zapnodir-stasis.md) | `cc7284d4` | D-1404 zapnodir WAN_STASIS | **ACCEPT-WITH-DEBT** |
+| [365-7c3921f2-mhitm-ad-fire.md](./365-7c3921f2-mhitm-ad-fire.md) | `7c3921f2` | D-1405 mhitm_ad_fire leftover | **ACCEPT-WITH-DEBT** |
+| [366-61936a70-mhitm-ad-wrap.md](./366-61936a70-mhitm-ad-wrap.md) | `61936a70` | D-1406 mhitm_ad_wrap brush | **ACCEPT-WITH-DEBT** |
+| [367-6ec1c72d-spe-magic-mapping.md](./367-6ec1c72d-spe-magic-mapping.md) | `6ec1c72d` | D-1407 SPE_MAGIC_MAPPING seffects | **ACCEPT-WITH-DEBT** |
+| [368-5c71fc34-spe-haste-self.md](./368-5c71fc34-spe-haste-self.md) | `5c71fc34` | D-1408 SPE_HASTE_SELF peffects | **ACCEPT-WITH-DEBT** |
+| [369-fa039634-spell-backfire.md](./369-fa039634-spell-backfire.md) | `fa039634` | D-1409 spell_backfire | **ACCEPT-WITH-DEBT** |
+| [370-55259f2b-zapyourself-wan-speed.md](./370-55259f2b-zapyourself-wan-speed.md) | `55259f2b` | D-1410 zapyourself WAN_SPEED | **ACCEPT-WITH-DEBT** |
+| [371-71ee9186-peffect-full-healing.md](./371-71ee9186-peffect-full-healing.md) | `71ee9186` | D-1411 peffect_full_healing | **ACCEPT-WITH-DEBT** |
+| [372-fb872749-zapnodir-detect-unseen.md](./372-fb872749-zapnodir-detect-unseen.md) | `fb872749` | D-1412 zapnodir SPE_DETECT_UNSEEN | **ACCEPT-WITH-DEBT** |
+| [373-285218b2-peffect-enlightenment.md](./373-285218b2-peffect-enlightenment.md) | `285218b2` | D-1413 peffect_enlightenment | **ACCEPT-WITH-DEBT** |

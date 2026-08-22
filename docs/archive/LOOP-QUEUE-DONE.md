@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-22
 
-- [x] `potion.c` `peffect_enlightenment` (named from D-1395). Not full healing. **Addressed:** D-1413
+- [x] `potion.c` `peffect_enlightenment` (named from D-1395). Not full healing. **Addressed:** D-1413 `285218b2`
 
 
 - [x] `zap.c` `zapnodir` SPE_DETECT_UNSEEN (named from D-1404). Not stasis. **Addressed:** D-1412 `fb872749`
