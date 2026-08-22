@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1413 — potion.c peffect_enlightenment
+
+- **Status:** fixed (map-driven Open from D-1395; not a public FAIL)
+- **Symptom:** `peffects` defaulted `POT_ENLIGHTENMENT` to
+  `"That potion is not implemented yet."` and returned 0 (no
+  `useup`). C `:794–808` cursed: `potion_unkn++`,
+  `You("have an uneasy feeling...")`, `exercise(A_WIS, FALSE)`.
+  Else: blessed `adjattrib(A_INT,1,FALSE)` then
+  `adjattrib(A_WIS,1,FALSE)` then `do_enlightenment_effect()`
+  (`zap.c` `:2525–2532`, D-1395: You_feel / WIN_MESSAGE flush /
+  MAGIC `enlightenment` / pline_The / `exercise(A_WIS, TRUE)`).
+  Cursed sets `potion_unkn` so `dopotion` `trycall`s instead of
+  `makeknown`. Dunce cap still gates INT/WIS via live
+  `adjattrib`. Callee helper already live.
+- **C locus:** `potion.c` `peffect_enlightenment` `:794–808`.
+  Caller `peffects` `:1349–1350`. Helper `zap.c`
+  `do_enlightenment_effect` `:2525–2532` (JS `zap.js` D-1395).
+- **JS was:** named omit after D-1411. Default unimplemented.
+- **Fix:** port the function; `peffects` `POT_ENLIGHTENMENT`
+  returns -1. Dynamic-import live helper (zap.js already
+  imports potion.js). Rule #2: no fs.
+- **JS:** `js/potion.js` `peffect_enlightenment` + `peffects`.
+- **Not this iter:** artifact.c invoke enlightenment; mix
+  alchemy; remaining peffects (levitation / restore / invis /
+  …); potionhit / potionbreathe.
+- **Verified:** private canary **12**/12 (C/JS grep; uncursed
+  MAGIC overlay + no attr bump + exercise `rn2(19)`; cursed
+  uneasy + `rn2(2)` no helper; blessed INT then WIS +1 then
+  helper; dunce ACURR 6 ABASE unchanged + helper; dopotion
+  uncursed dknown makeknown+XP; cursed !dknown useup no
+  makeknown; full healing sibling; levitation omit; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session quaffs enlightenment.
+- **Follow-up:** Open `zap.c` `bhitm` WAN_MAKE_INVISIBLE
+  (named from D-1369). Not zapyourself speed.
+- **Files:** `js/potion.js`, `js/zap.js` (comment).
+
 ## D-1412 — zap.c zapnodir SPE_DETECT_UNSEEN
 
 - **Status:** fixed (map-driven Open from D-1404; not a public FAIL)

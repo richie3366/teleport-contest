@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1413 potion.c peffect_enlightenment
+
+**Objective:** Open `potion.c` `peffect_enlightenment` (named
+from D-1395). Not full healing.
+**C locus:** `potion.c` `peffect_enlightenment` `:794–808`;
+caller `peffects` `:1349`; callee `zap.c`
+`do_enlightenment_effect` D-1395.
+**Change:** quaff enlightenment now cursed uneasy+WIS
+exercise, else blessed INT then WIS then MAGIC helper.
+Artifact invoke / mix / remaining peffects still named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session quaffs enlightenment).
+**Verified:** private canary **12**/12; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named
+from D-1369). Not zapyourself speed.
+**Blocked:** none.
 ## 2026-08-22 — D-1412 zap.c zapnodir SPE_DETECT_UNSEEN
 
 **Objective:** Open `zap.c` `zapnodir` SPE_DETECT_UNSEEN
@@ -27,7 +46,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `potion.c` `peffect_enlightenment` (named
 from D-1395). Not full healing.
 **Blocked:** none.
-
 ## 2026-08-22 — D-1411 potion.c peffect_full_healing
 
 **Objective:** Open `potion.c` `peffect_full_healing` (named).
@@ -46,7 +64,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `zap.c` `zapnodir` SPE_DETECT_UNSEEN (named
 from D-1404). Not stasis.
 **Blocked:** none.
-
 ## 2026-08-22 — D-1410 zap.c zapyourself WAN_SPEED_MONSTER
 
 **Objective:** Open `zap.c` `zapyourself` WAN_SPEED_MONSTER
@@ -65,7 +82,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `potion.c` `peffect_full_healing` (named).
 Not haste.
 **Blocked:** none.
-
 ## 2026-08-22 — D-1409 spell.c spell_backfire
 
 **Objective:** Open `spell.c` `spell_backfire` (named). Not
@@ -84,7 +100,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `zap.c` `zapyourself` WAN_SPEED_MONSTER (named
 from D-1369). Not make invisible.
 **Blocked:** none.
-
 ## 2026-08-22 — D-1408 spell.c SPE_HASTE_SELF peffects
 
 **Objective:** Open `spell.c` `spelleffects` SPE_HASTE_SELF
@@ -104,7 +119,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `spell.c` `spell_backfire` (named). Not
 peffects.
 **Blocked:** none.
-
 ## 2026-08-22 — D-1407 spell.c SPE_MAGIC_MAPPING seffects
 
 **Objective:** Open `spell.c` `spelleffects` SPE_MAGIC_MAPPING
@@ -124,7 +138,6 @@ seed8000/0900; cohort **7**/7 + strict
 **Next:** Open `spell.c` `spelleffects` SPE_HASTE_SELF peffects
 (named). Not mapping.
 **Blocked:** none.
-
 ## 2026-08-22 — D-1406 uhitm.c mhitm_ad_wrap mhitm brush
 
 **Objective:** Open `mhitm.c` `mhitm_ad_wrap` brush (named from
@@ -180,113 +193,4 @@ on STUN leftover / JUMPING / CURE_SICKNESS / CURE_BLINDNESS /
 CHAIN / CREATE_MONSTER / mwep dmgval / kick-thick / WAN_STASIS.
 **Next:** Open `uhitm.c` `mhitm_ad_fire` leftover.
 Not STUN.
-**Blocked:** none.
-## 2026-08-22 — D-1404 zap.c zapnodir WAN_STASIS
-
-**Objective:** Open `zap.c` `zapnodir` WAN_STASIS (named from
-D-1380). Not enlightenment.
-**C locus:** `zap.c` `zapnodir` `:2559–2568`; consumers
-`teleport.c` `noteleport_level`, `apply.c` magic whistle,
-`do.c` `revive_mon` displacer already live.
-**Change:** silent `stasis_until` max `moves+rn1(21,10)`;
-`known` stays FALSE (no learnwand). SPE_DETECT_UNSEEN named.
-Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit until a
-session zaps WAN_STASIS).
-**Verified:** private canary **15**/15; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `uhitm.c` `mhitm_ad_fire` leftover (named
-from D-1385). Not STUN.
-**Blocked:** none.
-## 2026-08-22 — D-1403 uhitm.c mhitm_ad_phys AT_KICK thick_skinned
-
-**Objective:** Open `uhitm.c` `mhitm_ad_phys` AT_KICK
-thick_skinned (named). Not mwep.
-**C locus:** `uhitm.c` `mhitm_ad_phys` mhitm `:4138–4141`
-after D-1394 shade, before D-1402 mwep; callee
-`mondata.h` `thick_skinned`.
-**Change:** AT_KICK vs thick hide zeros leftover `d()`
-(mwep already nulled). artifact_hit / rustm / poison /
-worm-shrieker named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session has mon-vs-mon AT_KICK AD_PHYS vs thick hide).
-**Verified:** private canary **12**/12; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `zap.c` `zapnodir` WAN_STASIS (named from
-D-1380). Not enlightenment.
-**Blocked:** none.
-## 2026-08-21 — D-1402 uhitm.c mhitm_ad_phys mwep dmgval
-
-**Objective:** Open `uhitm.c` `mhitm_ad_phys` mwep dmgval
-(named). Not shade_miss.
-**C locus:** `uhitm.c` `mhitm_ad_phys` mhitm `:4142–4157`
-after D-1394 shade; callee `weapon.c` `dmgval` +
-`which_armor(W_ARMG)` + `do_stone_mon`.
-**Change:** AT_WEAP/AT_CLAW `mwep` corpse then `dmgval` + GOP
-`rn1(4,3)` + min 1. Kick thick / artifact_hit / rustm /
-poison named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session has mon-vs-mon AT_WEAP/AT_CLAW AD_PHYS).
-**Verified:** private canary **13**/13; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `uhitm.c` `mhitm_ad_phys` AT_KICK
-thick_skinned (named). Not mwep.
-**Blocked:** none.
-## 2026-08-21 — D-1401 spell.c SPE_CREATE_MONSTER seffects
-
-**Objective:** Open `spell.c` `spelleffects` SPE_CREATE_MONSTER
-seffects (named). Not chain.
-**C locus:** `spell.c` `spelleffects` `:1528–1531`
-`(void) seffects(pseudo)` (no skilled bless). Callee
-`read.c` `seffect_create_monster` `:1608–1624` →
-`create_critters` (D-1379).
-**Change:** SPE_CREATE_MONSTER → `seffects(pseudo)`. Live
-`seffect_create_monster` count/blob + doread SCR gate. Dynamic
-`read.js`. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session casts create monster).
-**Verified:** private canary **18**/18; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `uhitm.c` `mhitm_ad_phys` mwep dmgval
-(named). Not shade_miss.
-**Blocked:** none.
-## 2026-08-21 — D-1400 spell.c SPE_CHAIN_LIGHTNING cast_chain_lightning
-
-**Objective:** Open `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING
-(named). Not cure.
-**C locus:** `spell.c` `spelleffects` `:1588–1590`; body
-`cast_chain_lightning` `:1002–1100` + `propagate_chain_lightning`
-`:951–1000`. Callee `zap.c` `zhitm` `BZ_U_SPELL(AD_ELEC-1)` nd=2.
-**Change:** SPE_CHAIN_LIGHTNING → `cast_chain_lightning()`. BFS
-queue, peaceful skip, closed-door/WATER block, pool/open-door
-spread, swallow TODO, extra Pw on chain-past-mon. Exported
-`zhitm`/`resists_elec`. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session casts chain lightning).
-**Verified:** private canary **21**/21; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `spell.c` `spelleffects` SPE_CREATE_MONSTER
-seffects (named). Not chain.
-**Blocked:** none.
-## 2026-08-21 — D-1399 spell.c SPE_CURE_BLINDNESS healup cream+blind+deaf
-
-**Objective:** Open `spell.c` `spelleffects` SPE_CURE_BLINDNESS
-(named). Not sickness.
-**C locus:** `spell.c` `spelleffects` `:1549–1551`; callee
-`potion.c` `healup` `:1444–1450` cream + `make_blinded` + `make_deaf`.
-**Change:** SPE_CURE_BLINDNESS → `healup(0,0,FALSE,TRUE)`. healup
-cureblind now calls `make_deaf(0,TRUE)` (was TIMEOUT clear only).
-Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session casts cure blindness).
-**Verified:** private canary **19**/19; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `spell.c` `spelleffects` SPE_CHAIN_LIGHTNING
-(named). Not cure.
 **Blocked:** none.

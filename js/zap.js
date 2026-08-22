@@ -37,7 +37,7 @@
 // zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // backfire body; remaining NODIR wand-duplicate SPE_LIGHT cast
-// dispatch; potion peffect_enlightenment;
+// dispatch; potion peffect_enlightenment is D-1413;
 // wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
@@ -2221,8 +2221,9 @@ function Luck() {
 
 /**
  * C ref: zap.c do_enlightenment_effect :2525–2532.
- * Callers: zapnodir WAN_ENLIGHTENMENT (D-1395). Named omit:
- * potion.c peffect_enlightenment; artifact.c invoke enlightenment.
+ * Callers: zapnodir WAN_ENLIGHTENMENT (D-1395);
+ * potion.c peffect_enlightenment (D-1413). Named omit:
+ * artifact.c invoke enlightenment.
  */
 export async function do_enlightenment_effect() {
     await You_feel('self-knowledgeable...');

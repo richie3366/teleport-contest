@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` `peffect_enlightenment` (named from D-1395). Not full healing.
 - [ ] `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named from D-1369). Not zapyourself speed.
 - [ ] `uhitm.c` `mhitm_ad_phys` artifact_hit leftover (named from D-1403). Not rustm.
 - [ ] `zap.c` `backfire` (named). Not zapyourself.

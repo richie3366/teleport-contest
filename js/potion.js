@@ -2,6 +2,7 @@
 // C ref: potion.c dodrink, dopotion, peffects, peffect_oil,
 //         peffect_confusion, peffect_booze, peffect_healing,
 //         peffect_extra_healing, peffect_full_healing (D-1411),
+//         peffect_enlightenment (D-1413),
 //         peffect_speed (D-1408), peffect_water,
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
@@ -11,6 +12,7 @@
 // throwit steed potionhit crash/saddle/H2Opotion_dip/POT_WATER (D-1297).
 // SPE_HASTE_SELF / POT_SPEED peffect_speed + speed_up (D-1408).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
+// POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -23,7 +25,7 @@ import {
     weight, obj_extract_self, bless, curse, unbless, uncurse,
 } from './mkobj.js';
 import {
-    A_WIS, A_DEX, A_CON, A_STR, A_MAX, adjattrib, exercise, acurr,
+    A_WIS, A_INT, A_DEX, A_CON, A_STR, A_MAX, adjattrib, exercise, acurr,
     Fast, Very_fast,
 } from './attrib.js';
 import { makeknown, compactify_invlets } from './invent.js';
@@ -87,6 +89,7 @@ const POT_INVISIBILITY = objectNames.indexOf('POT_INVISIBILITY');
 const POT_HEALING = objectNames.indexOf('POT_HEALING');
 const POT_EXTRA_HEALING = objectNames.indexOf('POT_EXTRA_HEALING');
 const POT_FULL_HEALING = objectNames.indexOf('POT_FULL_HEALING');
+const POT_ENLIGHTENMENT = objectNames.indexOf('POT_ENLIGHTENMENT');
 const POT_SPEED = objectNames.indexOf('POT_SPEED');
 const SPE_HASTE_SELF = objectNames.indexOf('SPE_HASTE_SELF');
 const POT_SICKNESS = objectNames.indexOf('POT_SICKNESS');
@@ -867,6 +870,28 @@ async function peffect_full_healing(otmp) {
 }
 
 /**
+ * C ref: potion.c peffect_enlightenment :794–808.
+ * cursed → potion_unkn + You uneasy + exercise(WIS, FALSE).
+ * else blessed adjattrib(A_INT,1,FALSE) then adjattrib(A_WIS,1,FALSE)
+ * then do_enlightenment_effect (zap.c :2525–2532, D-1395).
+ * artifact.c invoke / mix alchemy still named.
+ */
+async function peffect_enlightenment(otmp) {
+    if (otmp.cursed) {
+        potion_unkn++;
+        await pline('You have an uneasy feeling...');
+        exercise(A_WIS, false);
+    } else {
+        if (otmp.blessed) {
+            await adjattrib(A_INT, 1, false);
+            await adjattrib(A_WIS, 1, false);
+        }
+        const { do_enlightenment_effect } = await import('./zap.js');
+        await do_enlightenment_effect();
+    }
+}
+
+/**
  * C ref: potion.c peffect_speed
  * is_speed ≡ POT_SPEED (not SPE_HASTE_SELF). Wounded + !cursed + !usteed
  * → heal_legs(0) + potion_unkn (no speed_up). Else
@@ -993,8 +1018,8 @@ async function peffect_water(otmp) {
 /**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
- * full healing (D-1411) / sickness / water; POT_SPEED / SPE_HASTE_SELF
- * (D-1408); other otyps in map.
+ * full healing (D-1411) / enlightenment (D-1413) / sickness / water;
+ * POT_SPEED / SPE_HASTE_SELF (D-1408); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1022,6 +1047,9 @@ export async function peffects(otmp) {
         return -1;
     case POT_FULL_HEALING:
         await peffect_full_healing(otmp);
+        return -1;
+    case POT_ENLIGHTENMENT:
+        await peffect_enlightenment(otmp);
         return -1;
     case POT_SPEED:
     case SPE_HASTE_SELF:
