@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-22
 
-- [x] `uhitm.c` `mhitm_ad_phys` artifact_hit leftover (named from D-1403). Not rustm. **Addressed:** D-1415
+- [x] `zap.c` `backfire` (named). Not zapyourself. **Addressed:** D-1416
+
+
+- [x] `uhitm.c` `mhitm_ad_phys` artifact_hit leftover (named from D-1403). Not rustm. **Addressed:** D-1415 `081c5c6a`
 
 
 - [x] `zap.c` `bhitm` WAN_MAKE_INVISIBLE (named from D-1369). Not zapyourself speed. **Addressed:** D-1414 `f968904d`

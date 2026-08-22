@@ -9,6 +9,23 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1416 zap.c backfire
+
+**Objective:** Open `zap.c` `backfire` (named). Not zapyourself.
+**C locus:** `zap.c` `backfire` `:2605–2614`; caller `dozap`
+`:2647–2652`; callee `invent.c` `useupall` `:1312–1317`.
+**Change:** cursed `!rn2(100)` now explodes via `The(xname)`,
+`d(spe+2,6)`, `losehp` exploding wand, `useupall`, then
+exercise STR. Dust spe<0 still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps a cursed wand that rolls `rn2(100)==0`).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_DETECT_TREASURE
+peffects (named from D-1408). Not DETECT_MONSTERS.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1415 uhitm.c mhitm_ad_phys artifact_hit leftover
 
 **Objective:** Open `uhitm.c` `mhitm_ad_phys` artifact_hit leftover

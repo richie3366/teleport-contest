@@ -5,13 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1415; cadence **#1780** `285218b2`
+- **Fortress 44/44** after D-1416; cadence **#1780** `285218b2`
   (Scr **11,405** RNG 100% speed `38+0.31/turn` R² 0.85). Next:
-  Open `zap.c` `backfire` (named). Not zapyourself. Reviews
+  Open `spell.c` `spelleffects` SPE_DETECT_TREASURE peffects
+  (named from D-1408). Not DETECT_MONSTERS. Reviews
   **365–373** ACCEPT-WITH-DEBT (no Must-fix). Do not skip
-  D-1415…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
+  D-1416…D-1229. No FORCE. Do not wrap `wildmiss`. Do not add
   trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1415. Named still: `see_monsters`
+- Do not revert D-1217–D-1416. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -23,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1415.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1416.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,14 +35,14 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1415 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1416 (index).
 - Named still: rustm / poison / worm-shrieker;
   remaining peffects; remaining wand-duplicate SPE_LIGHT
   cast; artifact invoke enlightenment. mhitm artifact_hit
   is D-1415; bhitm WAN_MAKE_INVISIBLE is D-1414;
   peffect_enlightenment is D-1413; SPE_DETECT_UNSEEN
   is D-1412; full healing D-1411; zapyourself WAN_SPEED D-1410;
-  spell_backfire D-1409; haste D-1408. No fountain
+  spell_backfire D-1409; haste D-1408; zap backfire D-1416. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -53,6 +54,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1416: `zap.c` `backfire` `:2605–2614` in_use +
+  `The(xname)` explode + `d(spe+2,6)` + `losehp`
+  exploding wand `KILLED_BY_AN` + `useupall`; caller
+  `dozap` `:2647–2652` cursed `!rn2(100)` then
+  `exercise(STR,FALSE)` TIME. Dust spe<0 still named.
 - D-1415: `mhitm_ad_phys` artifact_hit leftover `:4158–4180`
   after dmgval; hitmm skips default hits; `gv.vis` delayed
   hit iff `!artifact_hit`; DEADMONSTER `grow_up` then done.
@@ -92,5 +98,3 @@ Objective/score live in `CURRENT.md`.
   artifact_hit is D-1415; rustm / poison / worm-shrieker named.
 - D-1402: `mhitm_ad_phys` mwep `dmgval` + GOP `rn1(4,3)` + min 1 after
   shade. Kick thick is D-1403.
-- D-1401: SPE_CREATE_MONSTER `seffects` → `create_critters` D-1379.
-  MAGIC_MAPPING is D-1407. peffects named.

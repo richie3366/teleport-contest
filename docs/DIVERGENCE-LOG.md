@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1416 — zap.c backfire cursed-wand explode
+
+- **Status:** fixed (map-driven Open from D-1415; not a public FAIL)
+- **Symptom:** cursed `dozap` with `!rn2(WAND_BACKFIRE_CHANCE)`
+  only `exercise(A_STR,FALSE)` and returned. C `backfire`
+  explodes the wand: `in_use`, `The(xname)` `"suddenly
+  explodes!"`, `d(spe+2,6)`, `losehp` `"exploding wand"`
+  `KILLED_BY_AN`, `useupall`.
+- **C locus:** `zap.c` `backfire` `:2605–2614`; caller
+  `dozap` `:2647–2652` (backfire **then** exercise then
+  `ECMD_TIME`; skip trailing `update_inventory`). Callee
+  `invent.c` `useupall` `:1312–1317` `setnotworn` +
+  `freeinv` + `obfree`.
+- **JS was:** named omit (reviews **307** / **370**). Gate
+  live; body exercise+return.
+- **Fix:** `backfire` sets `in_use`, pline, `d(spe+2,6)`,
+  `maybe_half_phys` `losehp`; fatal → `finish_losehp_done`
+  (C noreturn, skip `useupall`); else `useupall_invent`
+  (`setnotworn` + invent splice + `freeinv_core`). Caller
+  then `exercise(A_STR,FALSE)` iff survived. Rule #2: no fs.
+- **JS:** `js/zap.js` `backfire` / `useupall_invent` /
+  `dozap`. Callees `do.js` `setnotworn`, `invent.js`
+  `freeinv_core`, live `losehp`/`The`/`xname`/`d`.
+- **Not this iter:** `dozap` `spe<0` dust `useupall`;
+  `check_capacity` / `check_unpaid` / wrest pline;
+  zapyourself remaining; bhitm speed/slow/locking/probing;
+  `obfree` contents/oextra; `finish_maybe_wail`.
+- **Verified:** private canary **16**/16 (C/JS grep; cursed
+  `rn2(100)=0` explode + `d(6,6)` after spe-- + HP + gone +
+  STR `rn2(2)`; wielded `uwep` cleared; Half_phys
+  `trunc((d+1)/2)`; uncursed short-circuit no `rn2(100)`;
+  cursed `rn2!=0` no explode; quan stack useupall; dust
+  still named; WAN_SLOW zapyourself still unnamed; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps a cursed wand that
+  rolls `rn2(100)==0`.
+- **Follow-up:** Open `spell.c` `spelleffects`
+  SPE_DETECT_TREASURE peffects (named from D-1408). Not
+  DETECT_MONSTERS.
+- **Files:** `js/zap.js`.
+
 ## D-1415 — uhitm.c mhitm_ad_phys artifact_hit leftover
 
 - **Status:** fixed (map-driven Open from D-1403; not a public FAIL)

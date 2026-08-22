@@ -24,6 +24,7 @@
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // bhitm WAN_MAKE_INVISIBLE mon_set_minvis + knowninvisible (D-1414);
+// dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (zhitm damage types + bounce +
@@ -38,8 +39,9 @@
 // bhitm WAN_MAKE_INVISIBLE is D-1414);
 // zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
-// backfire body; remaining NODIR wand-duplicate SPE_LIGHT cast
+// remaining NODIR wand-duplicate SPE_LIGHT cast
 // dispatch; potion peffect_enlightenment is D-1413;
+// dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
@@ -88,7 +90,8 @@ import {
 import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
-import { hold_another_object, makeknown, encumber_msg, enlightenment } from './invent.js';
+import { hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core } from './invent.js';
+import { setnotworn } from './do.js';
 import { doname, xname, yname, distant_name, vtense, The, an, An, killer_xname, ansimpleoname, otyp_is_charged } from './objnam.js';
 import { uhim } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
@@ -4404,10 +4407,45 @@ export async function weffects(obj) {
 }
 
 /**
+ * C ref: invent.c useupall `:1312–1317` — setnotworn + freeinv + obfree.
+ * Named omit: obfree contents/oextra; update_inventory (C dozap
+ * backfire returns before the trailing update_inventory).
+ */
+function useupall_invent(obj) {
+    if (!obj) return;
+    setnotworn(obj);
+    const inv = game.invent || [];
+    const idx = inv.indexOf(obj);
+    if (idx >= 0) inv.splice(idx, 1);
+    freeinv_core(obj);
+    obj.quan = 0;
+    obj.where = OBJ_FREE;
+}
+
+/**
+ * C ref: zap.c backfire `:2605–2614` — cursed-wand explode.
+ * in_use before losehp so a fatal done() still sees the wand;
+ * C done() is noreturn so skip useupall when JS losehp is fatal.
+ */
+async function backfire(otmp) {
+    otmp.in_use = true;
+    await pline(`${The(xname(otmp))} suddenly explodes!`);
+    const dmg = d((otmp.spe | 0) + 2, 6);
+    losehp(maybe_half_phys(dmg), 'exploding wand', KILLED_BY_AN);
+    if (game._losehp_needs_done || game.program_state?.gameover) {
+        await finish_losehp_done();
+        return;
+    }
+    useupall_invent(otmp);
+}
+
+/**
  * C ref: zap.c dozap / #zap ('z')
  * Self-zap losehp uses killer_xname + uhim (D-1345; C `:2661–2663`).
- * Named omit: throwit `:1747` / pickup / wield / invent / mthrowu /
- * do_wear remaining killer_xname; backfire body.
+ * Cursed `rn2(WAND_BACKFIRE_CHANCE)==0` → backfire then exercise STR
+ * (D-1416; C `:2647–2652`). Named omit: throwit `:1747` / pickup /
+ * wield / invent / mthrowu / do_wear remaining killer_xname;
+ * spe<0 dust useupall.
  * @returns {Promise<number>} 0 = cancel/no turn, 1 = took time
  */
 export async function dozap() {
@@ -4427,7 +4465,8 @@ export async function dozap() {
     if (!zappable(obj)) {
         await pline(nothing_happens);
     } else if (obj.cursed && !rn2(WAND_BACKFIRE_CHANCE)) {
-        // backfire body deferred — still exercise like C then stop
+        await backfire(obj); /* the wand blows up in your face! */
+        if (game.program_state?.gameover) return 1;
         exercise(A_STR, false);
         return 1;
     } else if (need_dir && !(await getdir_zap(null))) {
