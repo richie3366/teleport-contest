@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-22 — D-1406 uhitm.c mhitm_ad_wrap mhitm brush
+
+**Objective:** Open `mhitm.c` `mhitm_ad_wrap` brush (named from
+D-1348). Not uhitm wrap.
+**C locus:** `uhitm.c` `mhitm_ad_wrap` mhitm `:3418–3426`; caller
+`mhitm.c` `mdamagem` `:1059`.
+**Change:** `mcan` zeros leftover; vis
+`Some_Monnam`/`some_mon_nam` brush iff leftover is 0. Live leftover
+`d()` kept (no grab/drown). uhitm/mhitu already live. AUGMENT_IT
+named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a session
+has vis cancelled/zero-dice mon-vs-mon AD_WRAP).
+**Verified:** private canary **14**/14; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_MAGIC_MAPPING seffects
+(named). Not create monster.
+**Blocked:** none.
+
 ## 2026-08-22 — D-1405 uhitm.c mhitm_ad_fire leftover
 
 **Objective:** Open `uhitm.c` `mhitm_ad_fire` leftover (named from

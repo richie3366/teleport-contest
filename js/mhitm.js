@@ -554,7 +554,7 @@ export {
     AT_SPIT, AT_ENGL, AT_BREA, AT_EXPL, AT_BOOM, AT_GAZE, AT_TENT,
     AT_WEAP, AT_MAGC, AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_ACID,
     AD_BLND, AD_DRDX, AD_DRCO, AD_DRIN, AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
-    AD_STON, AD_CONF, AD_STUN,
+    AD_STON, AD_CONF, AD_STUN, AD_WRAP,
     could_seduce,
 };
 
@@ -781,6 +781,42 @@ async function mhitm_ad_fire(magr, mattk, mdef, mhm) {
         + ((await destroy_items(mdef, AD_FIRE, orig_dmg)) | 0);
     const { ignite_items } = await import('./trap.js');
     await ignite_items(mdef.minvent);
+}
+
+/**
+ * C ref: do_name.c some_mon_nam — x_monnam ARTICLE_THE + AUGMENT_IT.
+ * Visible → mon_nam. Unseen stand-in matches mhitu Some_Monnam
+ * (is_animal something/someone). AUGMENT_IT in x_monnam (humanoid
+ * && !animal && !mindless; hallu !rn2(2)) still named.
+ */
+function some_mon_nam_mm(mtmp) {
+    if (canspotmon(mtmp)) return mon_nam(mtmp);
+    return is_animal(mtmp?.data) ? 'something' : 'someone';
+}
+
+/** C ref: do_name.c Some_Monnam — highc(some_mon_nam). */
+function Some_Monnam_mm(mtmp) {
+    if (canspotmon(mtmp)) return Monnam(mtmp);
+    return is_animal(mtmp?.data) ? 'Something' : 'Someone';
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_wrap mhitm arm `:3418–3426`.
+ * Cancelled zeros leftover. Brush iff leftover is 0 and
+ * canseemon(agr) || canseemon(def): Some_Monnam brushes
+ * against some_mon_nam. Non-cancelled leftover dice are
+ * kept (no grab / drown / coil — those are uhitm/mhitu).
+ * Named omit: uhitm you-as-agr (D-1348); mhitu you-as-def
+ * (D-1331); do_name.c AUGMENT_IT in x_monnam.
+ */
+async function mhitm_ad_wrap(magr, mattk, mdef, mhm) {
+    void mattk;
+    if (magr.mcan) mhm.damage = 0;
+    if (!(mhm.damage | 0) && (canseemon(magr) || canseemon(mdef))) {
+        await pline(
+            `${Some_Monnam_mm(magr)} brushes against ${some_mon_nam_mm(mdef)}.`,
+        );
+    }
 }
 
 /**
@@ -2343,6 +2379,35 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
             done: false,
         };
         await mhitm_ad_fire(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
+    // C: mhitm_adtyping → mhitm_ad_wrap for AD_WRAP (D-1406). mcan
+    // zeros leftover then vis brush; else leftover d() kept.
+    // uhitm/mhitu wrap arms already live (D-1348 / D-1331).
+    if ((mattk.adtyp | 0) === AD_WRAP) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_wrap(magr, mattk, mdef, mhm);
         mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
         if (mhm.done) return mhm.hitflags;
         damage = mhm.damage | 0;

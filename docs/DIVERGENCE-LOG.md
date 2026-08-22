@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1406 — uhitm.c mhitm_ad_wrap (mhitm brush arm)
+
+- **Status:** fixed (map-driven Open from D-1348; not a public FAIL)
+- **Symptom:** a cancelled (or zero-dice) eel/python wrap vs
+  another monster still applied leftover `d()` HP and never
+  printed the vis brush. C `mhitm_ad_wrap` mhitm arm zeros
+  leftover on `magr->mcan`, then if leftover is 0 and
+  `canseemon(agr)||canseemon(def)` prints
+  `"%s brushes against %s."` with `Some_Monnam` /
+  `some_mon_nam`. Non-cancelled leftover dice are kept (no
+  grab / drown / coil — those are uhitm/mhitu).
+- **C locus:** `uhitm.c` `mhitm_ad_wrap` mhitm `:3418–3426`.
+  Caller `mhitm.c` `mdamagem` `:1059` via `mhitm_adtyping`
+  `case AD_WRAP`.
+- **JS was:** named omit (D-1348). AD_WRAP fell through
+  `mdamagem` generic HP. uhitm you-as-agr D-1348 and mhitu
+  you-as-def D-1331 already live.
+- **Fix:** `mhitm_ad_wrap` in `mhitm.js`; wire `AD_WRAP` in
+  `mdamagem`. Local `Some_Monnam`/`some_mon_nam` stand-in
+  matches mhitu (visible `Monnam`/`mon_nam`; unseen
+  animal Something / Someone). Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_wrap` / `mdamagem` AD_WRAP.
+- **Not this iter:** uhitm you-as-agr (D-1348); mhitu
+  you-as-def (D-1331); `do_name.c` AUGMENT_IT in `x_monnam`
+  (humanoid && !animal && !mindless; hallu `!rn2(2)`);
+  remaining `mhitm_ad_*`.
+- **Verified:** private canary **14**/14 (C/JS shape;
+  cancelled vis brush + zero leftover; live leftover HP no
+  brush; zero-dice vis brush; unseen no brush; invis agr
+  Something stand-in; lethal leftover DEF_DIED; STUN/FIRE
+  regression; uhitm export still you-as-agr; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session has vis cancelled/zero-dice mon-vs-mon
+  AD_WRAP.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_MAGIC_MAPPING
+  seffects (named). Not create monster.
+- **Files:** `js/mhitm.js`.
+
 ## D-1405 — uhitm.c mhitm_ad_fire leftover
 
 - **Status:** fixed (map-driven Open from D-1385; not a public FAIL)
