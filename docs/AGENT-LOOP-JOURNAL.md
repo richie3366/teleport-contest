@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1428 potion.c peffect_polymorph
+
+**Objective:** Open `potion.c` `peffect_polymorph` (named).
+Not gain energy.
+**C locus:** `potion.c` `peffect_polymorph` `:1318–1330` /
+`peffects` `:1417–1418`; callee `polyself.c` `:506–508`
+LOW_CTRL forcecontrol downgrade.
+**Change:** You_feel little strange/normal; `!Unchanging`
+POLY_NOFLAGS unless blessed original form
+POLY_CONTROLLED|POLY_LOW_CTRL then mtimedone min
+rn2(15)+10. Unchanging skips polyself. SPE_POLYMORPH
+not this case. potionhit named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session quaffs polymorph).
+**Verified:** private canary **15**/15; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `peffect_gain_energy` (named). Not
+acid.
+**Blocked:** none.
 ## 2026-08-25 — D-1427 spell.c SPE_LIGHT NODIR wand-duplicate
 
 **Objective:** Open `zap.c` `zapnodir` remaining SPE_LIGHT

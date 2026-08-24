@@ -9,6 +9,7 @@
 //         peffect_levitation (D-1419),
 //         peffect_restore_ability (D-1420),
 //         peffect_invisibility (D-1421),
+//         peffect_polymorph (D-1428),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -31,6 +32,9 @@
 // C spell.c :1544–1546 FALLTHROUGH peffects, no skilled bless;
 // mummy wrapping spell-block; HInvis FROMOUTSIDE / d(6-3*bcsign,100)+100;
 // cursed aggravate strips FROMOUTSIDE; timeout.c INVIS expiry).
+// POT_POLYMORPH peffect_polymorph (D-1428; You_feel little strange/normal;
+// !Unchanging POLY_NOFLAGS unless blessed original form
+// POLY_CONTROLLED|POLY_LOW_CTRL then mtimedone min rn2(15)+10).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -72,6 +76,7 @@ import {
     A_CHAOTIC, A_LAWFUL, Upolyd, ismnum, NON_PM, NEUTRAL,
     P_RIDING, P_BASIC, ER_DESTROYED, ER_NOTHING, MM_NOMSG,
     OBJ_INVENT, ARTICLE_THE, SUPPRESS_IT, SUPPRESS_SADDLE, W_SADDLE,
+    POLY_NOFLAGS, POLY_CONTROLLED, POLY_LOW_CTRL, UNCHANGING,
 } from './const.js';
 import { hands_obj, P_SKILL } from './weapon.js';
 import { rn2, rnd, d, rn1, rnl } from './rng.js';
@@ -101,6 +106,7 @@ import {
 } from './end.js';
 import { you_were, you_unwere, set_ulycn, new_were } from './were.js';
 import { which_armor } from './worn.js';
+import { polyself } from './polyself.js';
 
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const POT_ACID = objectNames.indexOf('POT_ACID');
@@ -1396,6 +1402,37 @@ async function peffect_water(otmp) {
     }
 }
 
+/** C ref: youprop.h Unchanging — H || E via flat + uprops. */
+function Unchanging(u = game.u || {}) {
+    const e = u.uprops?.[UNCHANGING];
+    return !!((u.Unchanging || u.HUnchanging || u.EUnchanging)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/**
+ * C ref: potion.c peffect_polymorph :1318–1330.
+ * You_feel a little strange (Hallucination: normal). If !Unchanging:
+ * unblessed or already polymorphed → polyself(POLY_NOFLAGS); blessed
+ * original form → polyself(POLY_CONTROLLED|POLY_LOW_CTRL) then
+ * mtimedone = min(mtimedone, rn2(15)+10) when still Upolyd.
+ * SPE_POLYMORPH is not this case (wand-duplicate / zapyourself).
+ * potionhit / potionbreathe / mix / dipsink POT_POLYMORPH still named.
+ */
+async function peffect_polymorph(otmp) {
+    const u = game.u || (game.u = {});
+    await You_feel(`a little ${Hallucination() ? 'normal' : 'strange'}.`);
+    if (!Unchanging(u)) {
+        if (!otmp.blessed || ((u.umonnum | 0) !== (u.umonster | 0))) {
+            await polyself(POLY_NOFLAGS);
+        } else {
+            await polyself(POLY_CONTROLLED | POLY_LOW_CTRL);
+            if ((u.mtimedone | 0) && ((u.umonnum | 0) !== (u.umonster | 0))) {
+                u.mtimedone = Math.min(u.mtimedone | 0, rn2(15) + 10);
+            }
+        }
+    }
+}
+
 /**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
@@ -1405,7 +1442,8 @@ async function peffect_water(otmp) {
  * POT_MONSTER_DETECTION / SPE_DETECT_MONSTERS (D-1418);
  * POT_LEVITATION / SPE_LEVITATION (D-1419);
  * POT_RESTORE_ABILITY / SPE_RESTORE_ABILITY (D-1420);
- * POT_INVISIBILITY / SPE_INVISIBILITY (D-1421); other otyps in map.
+ * POT_INVISIBILITY / SPE_INVISIBILITY (D-1421);
+ * POT_POLYMORPH (D-1428); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1466,6 +1504,9 @@ export async function peffects(otmp) {
         return -1;
     case POT_WATER:
         await peffect_water(otmp);
+        return -1;
+    case POT_POLYMORPH:
+        await peffect_polymorph(otmp);
         return -1;
     default:
         // Other peffect_* deferred — do not useup

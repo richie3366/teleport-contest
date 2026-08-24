@@ -4,6 +4,50 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1428 — potion.c peffect_polymorph
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** quaffing a potion of polymorph printed
+  "That potion is not implemented yet." and skipped
+  `useup`. C `peffects` `:1417–1418` calls
+  `peffect_polymorph`. That helper `:1318–1330`:
+  `You_feel("a little %s.", Hallucination ? "normal" :
+  "strange")`; if `!Unchanging`, unblessed or already
+  `u.umonnum != u.umonster` → `polyself(POLY_NOFLAGS)`
+  else `polyself(POLY_CONTROLLED|POLY_LOW_CTRL)` then
+  `u.mtimedone = min(u.mtimedone, rn2(15)+10)` while
+  still polymorphed. Unchanging skips `polyself` (no
+  "fail to transform"). Callee `polyself.c` `:506–508`
+  LOW_CTRL clears `forcecontrol` for draconian /
+  monsterpoly / vamp / were (no getlin). SPE_POLYMORPH
+  is not this case.
+- **C locus:** `potion.c` `peffect_polymorph` `:1318–1330`
+  / `peffects` `:1417–1418`. Callee `polyself.c`
+  `polyself` `:468–508`.
+- **JS was:** `peffects` default "not implemented"
+  (return 0, no useup). `polyself` voided `POLY_LOW_CTRL`.
+- **Fix:** Port `peffect_polymorph`. Wire POT_POLYMORPH.
+  LOW_CTRL forcecontrol downgrade. Rule #2: no fs.
+- **JS:** `js/potion.js` `peffects` /
+  `peffect_polymorph`; `js/polyself.js` `polyself`.
+- **Not this iter:** remaining peffects (gain energy /
+  acid / gain level / blindness / sleeping);
+  potionhit / potionbreathe / mix / dipsink
+  POT_POLYMORPH; were/vamp/dragon-merge /
+  controllable_poly getlin.
+- **Verified:** private canary **15**/15 (C/JS grep;
+  Unchanging feel no fail-to-transform; hallu normal;
+  blessed original getlin ESC Never mind; blessed
+  jackal mtimedone 10..24; blessed already-poly no
+  getlin; were LOW_CTRL skips getlin; uncursed
+  POLY_NOFLAGS; gain energy still not-implemented;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session quaffs polymorph.
+- **Follow-up:** Open `potion.c` `peffect_gain_energy`
+  (named). Not acid.
+- **Files:** `js/potion.js`, `js/polyself.js`.
+
 ## D-1427 — spell.c SPE_LIGHT NODIR wand-duplicate
 
 - **Status:** fixed (map-driven Open from D-1412; not a public FAIL)

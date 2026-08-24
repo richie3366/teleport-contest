@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` `peffect_polymorph` (named). Not gain energy.
 - [ ] `potion.c` `peffect_gain_energy` (named). Not acid.
 - [ ] `potion.c` `peffect_acid` (named). Not gain level.
 - [ ] `potion.c` `peffect_gain_level` (named). Not blindness.
