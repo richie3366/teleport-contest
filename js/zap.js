@@ -24,6 +24,7 @@
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // bhitm WAN_MAKE_INVISIBLE mon_set_minvis + knowninvisible (D-1414);
+// knowninvisible See_invisible/Detect_monsters ≡ uprops (D-1423);
 // bhitm WAN_SPEED_MONSTER mon_adjust_speed + check_gear_next_turn (D-1422);
 // dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
@@ -66,7 +67,8 @@
 // + bhitm spell_damage_bonus is D-1388. zhitm spell_damage_bonus named.
 // muse MUSE_CAMERA is D-1376; Sunsword invoke_blinding_ray is D-1377.
 // bhit WEB stick D-1393; throwit fly / skiprange named.
-// bhitm WAN_MAKE_INVISIBLE is D-1414; zap_updown / zap_steed
+// bhitm WAN_MAKE_INVISIBLE is D-1414; conferral See_invisible
+// uprops in knowninvisible is D-1423; zap_updown / zap_steed
 // WAN_MAKE_INVISIBLE + setworn w_blocks still named.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
 // via uprops[SHOCK_RES] (D-1371); inventory_resistance / full
@@ -174,6 +176,7 @@ import {
     SHOP_DOOR_COST,
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd, INVIS,
+    SEE_INVIS, DETECT_MONSTERS,
     TELEPAT, INTRINSIC, BOLT_LIM,
     LEFT_RING, RIGHT_RING,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, M_AP_OBJECT, NON_PM, ismnum,
@@ -434,15 +437,25 @@ function Invis() {
  * C display.h _knowninvisible — minvis and (See_invisible or
  * Detect_monsters at the cell, or !Blind timeout-telepathy
  * within BOLT_LIM²). Sole caller: zap.c bhitm WAN_MAKE_INVISIBLE
- * (D-1414).
+ * (D-1414). C youprop.h See_invisible / Detect_monsters are
+ * H||E ≡ uprops[SEE_INVIS] / DETECT_MONSTERS (D-1423). JS
+ * confer_oc_oprop writes ring-of-see-invisible to extrinsic
+ * only (no ESee_invisible mirror); timeout.js See_invisible()
+ * already ORs those uprops — this helper must too.
  */
 function knowninvisible(mon) {
     if (!mon?.minvis) return false;
     const u = game.u || {};
+    const pSee = u.uprops?.[SEE_INVIS];
+    const pDet = u.uprops?.[DETECT_MONSTERS];
+    // C youprop.h:152 See_invisible (HSee_invisible || ESee_invisible)
     const See_invisible = !!((u.HSee_invisible | 0)
-        || (u.ESee_invisible | 0) || u.See_invisible);
+        || (u.ESee_invisible | 0) || u.See_invisible
+        || (pSee?.intrinsic | 0) || (pSee?.extrinsic | 0));
+    // C youprop.h:190 Detect_monsters (HDetect_monsters || EDetect_monsters)
     const Detect_monsters = !!(u.Detect_monsters
-        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0));
+        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0)
+        || (pDet?.intrinsic | 0) || (pDet?.extrinsic | 0));
     if (cansee(mon.mx | 0, mon.my | 0)
         && (See_invisible || Detect_monsters)) {
         return true;
@@ -3301,8 +3314,9 @@ export async function bhitm(mtmp, otmp) {
         // C zap.c bhitm :348–368 — snapshot name before minvis;
         // mon_set_minvis(FALSE); transparent iff !oldinvis &&
         // knowninvisible; else vanish iff couldsee && !canseemon.
-        // zap_updown is a no-op; zap_steed still named (routes
-        // through this when the wrapper exists).
+        // knowninvisible See_invisible is youprop.h H||E ≡
+        // uprops[SEE_INVIS] so conferral ring-of-SI still learns
+        // (D-1423). zap_updown is a no-op; zap_steed still named.
         const oldinvis = mtmp.minvis;
         const couldsee = canseemon(mtmp);
         if (disguised_mimic) seemimic(mtmp);

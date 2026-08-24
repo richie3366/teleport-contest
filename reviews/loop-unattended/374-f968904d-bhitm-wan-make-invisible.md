@@ -129,3 +129,5 @@ Do not Must-fix “already minvis should print transparent again” (C skips). D
 C callers: IMMEDIATE `weffects` → `bhit` → `bhitm`; `zap_steed` default. No new `rn2`/`d` in the case. `learnwand` → `makeknown` may `exercise(A_WIS)` (`rn2(19)` typical) only on the transparent arm. Conferral SI currently skips that exercise in JS and burns no extra dice on vanish either — the wrong **message/learn**, not a prefix RNG chew. Public fortress never needs these.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1423

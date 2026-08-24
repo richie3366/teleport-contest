@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1423 — zap.js knowninvisible conferral See_invisible
+
+- **Status:** fixed (Must-fix from review **374** on D-1414; not a public FAIL)
+- **Symptom:** D-1414 `knowninvisible` cloned C `_knowninvisible` but
+  tested only sticky/`H`/`E` `See_invisible` bits. C `youprop.h:152`
+  `See_invisible` is `HSee_invisible || ESee_invisible` ≡
+  `uprops[SEE_INVIS]`. `confer_oc_oprop` writes ring-of-see-invisible
+  to `uprops[SEE_INVIS].extrinsic` only (no `ESee_invisible` mirror).
+  A seeing hero with conferral-only SI therefore failed
+  `!oldinvis && knowninvisible`, took the vanish arm, and skipped
+  `learnwand`. Same miss on conferral `Detect_monsters`
+  (`youprop.h:190`). `timeout.js` `See_invisible()` already ORs
+  those uprops.
+- **C locus:** `display.h` `_knowninvisible` `:146–151`;
+  `youprop.h` `See_invisible` `:150–152` /
+  `Detect_monsters` `:188–190`. Caller `zap.c` `bhitm`
+  WAN_MAKE_INVISIBLE `:358`.
+- **JS was:** D-1414 helper without `uprops[SEE_INVIS]` /
+  `DETECT_MONSTERS`.
+- **Fix:** OR intrinsic+extrinsic uprops in `knowninvisible`
+  (same shape as `timeout.js` `See_invisible()`). Did **not**
+  rewrite `canseemon` (transparent arm short-circuits vanish)
+  or `confer_oc_oprop`. Rule #2: no fs.
+- **JS:** `js/zap.js` `knowninvisible`.
+- **Not this iter:** `canseemon` sticky `u.See_invisible`;
+  worm `see_wsegs`; `map_invisible` epilogue; zap_updown /
+  zap_steed wrappers; bhitm WAN_SLOW / WAN_LOCKING /
+  WAN_PROBING.
+- **Verified:** private canary **13**/13 (C macros; JS uprops
+  OR; conferral SI transparent+learn; conferral detect
+  transparent+learn; vanish still no learn; sticky SI still
+  learns; already minvis silent; invis_blkd; WAN_SPEED still
+  a case; WAN_SLOW still default; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit**
+  unless a session zaps make-invisible at a monster while
+  wearing a conferral SI ring.
+- **Follow-up:** Open `zap.c` `bhitm` WAN_SLOW_MONSTER
+  (named). Not locking.
+- **Files:** `js/zap.js`.
+
 ## D-1422 — zap.c bhitm WAN_SPEED_MONSTER
 
 - **Status:** fixed (map-driven Open from D-1410; not a public FAIL)
