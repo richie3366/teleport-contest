@@ -44,6 +44,8 @@
 // SPE_RESTORE_ABILITY peffects (D-1420; same C `:1534–1546` skilled
 // bless then peffects; callee potion.c peffect_restore_ability →
 // apply.c unfixable_trouble_count; potion pluslvl only).
+// SPE_INVISIBILITY peffects (D-1421; C `:1544–1546` FALLTHROUGH
+// peffects, no skilled bless; callee potion.c peffect_invisibility).
 // spell_backfire (D-1409; C `:1179–1217` rn2(10) confuse/stun
 // TIMEOUT increment; caller spelleffects_check `:1251–1260`
 // when spellknow<=0).
@@ -52,7 +54,7 @@
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects:
-// INVISIBILITY;
+// polymorph/gain energy/acid/gain level/blindness;
 // remaining wand-duplicate SPE_LIGHT / SLEEP / DIG / …);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
@@ -188,6 +190,7 @@ const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
 const SPE_EXTRA_HEALING = objectNames.indexOf('SPE_EXTRA_HEALING');
 const SPE_DETECT_FOOD = objectNames.indexOf('SPE_DETECT_FOOD');
 const SPE_RESTORE_ABILITY = objectNames.indexOf('SPE_RESTORE_ABILITY');
+const SPE_INVISIBILITY = objectNames.indexOf('SPE_INVISIBILITY');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
 const SPE_FORCE_BOLT = objectNames.indexOf('SPE_FORCE_BOLT');
 const SPE_MAGIC_MISSILE = objectNames.indexOf('SPE_MAGIC_MISSILE');
@@ -1748,7 +1751,8 @@ async function cast_protection() {
  * peffect_monster_detection). SPE_LEVITATION peffects (D-1419;
  * same arm; callee potion.c peffect_levitation). SPE_RESTORE_ABILITY
  * peffects (D-1420; same arm; callee potion.c peffect_restore_ability).
- * Sibling INVISIBILITY still named.
+ * SPE_INVISIBILITY peffects (D-1421; C `:1544–1546` FALLTHROUGH
+ * peffects, no skilled bless; callee potion.c peffect_invisibility).
  * Forgotten spellknow<=0 → spell_backfire then rnd(energy)
  * Pw debit (D-1409; C `:1251–1260`) before this body.
  * SPE_DETECT_UNSEEN NODIR weffects → zapnodir findit (D-1412;
@@ -1923,9 +1927,11 @@ export async function spelleffects(spell_otyp, atme, force) {
     } else if (otyp === SPE_HASTE_SELF || otyp === SPE_DETECT_TREASURE
         || otyp === SPE_DETECT_MONSTERS || otyp === SPE_LEVITATION
         || otyp === SPE_RESTORE_ABILITY) {
-        /* C spell.c :1534–1546 — skilled bless then peffects(pseudo).
-         * Sibling SPE_INVISIBILITY still named (no skilled bless). */
+        /* C spell.c :1534–1546 — skilled bless then peffects(pseudo). */
         if (role_skill >= P_SKILLED) pseudo.blessed = true;
+        await peffects(pseudo);
+    } else if (otyp === SPE_INVISIBILITY) {
+        /* C spell.c :1544–1546 — FALLTHROUGH peffects; no skilled bless. */
         await peffects(pseudo);
     } else if (otyp === SPE_DETECT_UNSEEN) {
         /* C spell.c :1474 NODIR weffects → zapnodir findit (D-1412).

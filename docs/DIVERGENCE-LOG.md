@@ -4,6 +4,66 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1421 — spell.c spelleffects SPE_INVISIBILITY peffects
+
+- **Status:** fixed (map-driven Open from D-1408; not a public FAIL)
+- **Symptom:** casting SPE_INVISIBILITY printed `Nothing happens.`
+  C `spelleffects` `:1534–1546` skilled-blesses HASTE_SELF /
+  DETECT_TREASURE / DETECT_MONSTERS / LEVITATION /
+  RESTORE_ABILITY (`role_skill >= P_SKILLED`) then FALLTHROUGH
+  to SPE_INVISIBILITY `:1544–1546` `(void) peffects(pseudo)`.
+  SPE_INVISIBILITY itself is **after** FALLTHROUGH — skilled
+  does **not** bless the pseudo. Unskilled and skilled both
+  get uncursed potion semantics. Callee `potion.c` `peffects`
+  `:1352–1354` POT_INVISIBILITY / SPE_INVISIBILITY →
+  `peffect_invisibility`. That helper `:811–838`: spell
+  (`oclass == SPBOOK_CLASS`) + `BInvis` + `uarmc->otyp ==
+  MUMMY_WRAPPING` → `You_feel("rather itchy under %s.",
+  yname(uarmc))` return (no timeout). Else if `Invis || Blind
+  || BInvis` → `gp.potion_nothing++` else
+  `self_invis_message()`. Blessed `!rn2(HInvis ? 15 : 30)` →
+  `HInvis |= FROMOUTSIDE` else `incr_itimeout(&HInvis,
+  d(6 - 3 * bcsign(otmp), 100) + 100)` (uncursed 106..700;
+  blessed timeout 103..400; cursed 109..1000). Then
+  `newsym(u.ux, u.uy)`. Cursed: presence-known pline,
+  `aggravate()`, `HInvis &= ~FROMOUTSIDE`. Spell still TIME
+  after energy. Pseudo `quan=20` so useup cannot free it.
+  `timeout.c` `:759–767` INVIS TIMEOUT expiry: `newsym`; if
+  `!Invis && !BInvis && !Blind` You `"are no longer
+  invisible."` / See_invisible `"can no longer see through
+  yourself."`; `stop_occupation()`.
+- **C locus:** `spell.c` `spelleffects` `:1544–1546`;
+  `potion.c` `peffects` `:1352–1354` /
+  `peffect_invisibility` `:811–838`; `timeout.c` `:759–767`.
+- **JS was:** named omit after D-1420. Other-otyp arm printed
+  `Nothing happens.`; `peffects` lacked POT/SPE_INVISIBILITY.
+  Generic `TIMEOUT_FLAT` already decremented HInvis; expiry
+  message/newsym was missing.
+- **Fix:** SPE_INVISIBILITY arm `peffects` with **no**
+  `P_SKILLED` bless. Port `peffect_invisibility`. Wire
+  POT_INVISIBILITY in the same C case. Port INVIS expiry
+  `newsym` + You. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/potion.js`
+  `peffects` / `peffect_invisibility`; `js/timeout.js`
+  INVIS expiry.
+- **Not this iter:** remaining peffects (polymorph/gain
+  energy/acid/gain level/blindness); potionhit/potionbreathe/
+  mix invis; amulet drain.
+- **Verified:** private canary **18**/18 (C/JS grep; Rule #2;
+  NODIR escape; unskilled timeout 106–700 + self-invis msg +
+  no FROMOUTSIDE; skilled still no FROMOUTSIDE; mummy wrapping
+  itchy + no timeout; uncursed potion; cursed timeout 109–1000
+  + presence + `aggravate` wake; blessed FROMOUTSIDE or
+  103–400; already-invis extends without self-msg; `nh_timeout`
+  expiry both messages; skilled `SPE_HASTE_SELF` still
+  blesses; `SPE_RESTORE_ABILITY` still not Nothing happens);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts invisibility.
+- **Follow-up:** Open `zap.c` `bhitm` WAN_SPEED_MONSTER
+  (named). Not slow.
+- **Files:** `js/spell.js`, `js/potion.js`, `js/timeout.js`.
+
 ## D-1420 — spell.c spelleffects SPE_RESTORE_ABILITY peffects
 
 - **Status:** fixed (map-driven Open from D-1408; not a public FAIL)

@@ -240,13 +240,16 @@ function incr_itimeout_HFumbling(incr) {
  * `:932–934`; remaining expiry switch still silent).
  * LEVITATION TIMEOUT → float_down(I_SPECIAL|TIMEOUT) (D-1419; C timeout.c
  * `:794–803`; Flying TIMEOUT==1 bypass so both expiring skip "now flying").
+ * INVIS TIMEOUT → newsym + You no-longer-invisible / can-no-longer-see-
+ * through-yourself iff !Invis && !BInvis && !Blind (D-1421; C timeout.c
+ * `:759–767`).
  * mtimedone → rehumanize / Unchanging rnd refresh (D-0928 #1112).
  * usptime SPE_PROTECTION dissipate (D-1390; after mtimedone like C).
  * Remaining uprops TIMEOUT (incl. INVULNERABLE from #wizintrinsic) —
  * generic -- like C's for (upp = u.uprops; …) (D-0928 #1168); expiry
  * switch cases for those props still deferred (silent clear).
  * Named omissions: luck baseluck; Stoned/Slimed/Sick/… dialogues;
- * STUNNED/INVIS/SEE_INVIS/HALLUC/SLEEPY/… expiry messages;
+ * STUNNED/SEE_INVIS/HALLUC/SLEEPY/… expiry messages;
  * FLYING timed-land (wizintrinsic); GLIB `make_glib(0)` inventory on expiry; ublesscnt (in allmain); ugallop; delayed
  * killers; defer_decor; full ice/mount slip_or_trip arms;
  * you_unwere callers beyond mtimedone (pray TROUBLE / potion).
@@ -400,9 +403,9 @@ export async function nh_timeout() {
             if (p === STUNNED) u.Stunned = u.HStun;
             if (p === GLIB) u.HGlib = next;
         }
-        // Expiry switch (STONED/HALLUC/INVIS/…) deferred — silent clear
-        // except DETECT_MONSTERS → see_monsters (D-1418) and LEVITATION
-        // → float_down (D-1419).
+        // Expiry switch (STONED/HALLUC/…) deferred — silent clear
+        // except DETECT_MONSTERS → see_monsters (D-1418), LEVITATION
+        // → float_down (D-1419), and INVIS → newsym + You (D-1421).
         if (!(next & TIMEOUT) && p === DETECT_MONSTERS) {
             see_monsters();
         }
@@ -430,6 +433,19 @@ export async function nh_timeout() {
             }
             u.uprops[LEVITATION].intrinsic = u.HLevitation | 0;
             u.uprops[LEVITATION].extrinsic = u.ELevitation | 0;
+        }
+        if (!(next & TIMEOUT) && p === INVIS) {
+            /* C timeout.c :759–767 — newsym then You iff
+             * !Invis && !BInvis && !Blind. */
+            newsym(u.ux | 0, u.uy | 0);
+            if (!Invis() && !BInvis() && !Blind()) {
+                await pline(
+                    !See_invisible()
+                        ? 'You are no longer invisible.'
+                        : 'You can no longer see through yourself.',
+                );
+                await stop_occupation();
+            }
         }
     }
 
@@ -552,6 +568,43 @@ function Blind() {
     const u = game.u || {};
     return !!((u.HBlind | 0) || (u.EBlind | 0) || u.Blind
         || ((u.HBlinded | 0) & TIMEOUT) || (u.EBlinded | 0));
+}
+
+const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
+
+/**
+ * C youprop.h BInvis — uprops[INVIS].blocked.
+ * JS setworn named-omits w_blocks; worn MUMMY_WRAPPING on uarmc
+ * stands in (C worn.c setworn; zap.js / potion.js BInvis).
+ */
+function BInvis() {
+    const u = game.u || {};
+    const p = u.uprops?.[INVIS];
+    if ((u.BInvis | 0) || (p?.blocked | 0)) return true;
+    const cloak = u.uarmc;
+    return !!(cloak && (cloak.otyp | 0) === MUMMY_WRAPPING);
+}
+
+/**
+ * C youprop.h Invis — (HInvis || EInvis) && !BInvis
+ */
+function Invis() {
+    const u = game.u || {};
+    const p = u.uprops?.[INVIS];
+    const H = (u.HInvis | 0) || (p?.intrinsic | 0);
+    const E = (u.EInvis | 0) || (p?.extrinsic | 0);
+    return !!(H || E) && !BInvis();
+}
+
+/**
+ * C youprop.h See_invisible — HSee_invisible || ESee_invisible
+ */
+function See_invisible() {
+    const u = game.u || {};
+    const p = u.uprops?.[SEE_INVIS];
+    return !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0)
+        || u.See_invisible
+        || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
 
 function carried(obj) {

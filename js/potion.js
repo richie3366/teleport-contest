@@ -8,6 +8,7 @@
 //         peffect_monster_detection (D-1418),
 //         peffect_levitation (D-1419),
 //         peffect_restore_ability (D-1420),
+//         peffect_invisibility (D-1421),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -26,6 +27,10 @@
 // SPE_RESTORE_ABILITY / POT_RESTORE_ABILITY peffect_restore_ability
 // (D-1420; apply.c unfixable_trouble_count; potion pluslvl; spell
 // does not restore lost levels).
+// SPE_INVISIBILITY / POT_INVISIBILITY peffect_invisibility (D-1421;
+// C spell.c :1544–1546 FALLTHROUGH peffects, no skilled bless;
+// mummy wrapping spell-block; HInvis FROMOUTSIDE / d(6-3*bcsign,100)+100;
+// cursed aggravate strips FROMOUTSIDE; timeout.c INVIS expiry).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -50,7 +55,7 @@ import { makeknown, compactify_invlets } from './invent.js';
 import { yn_function } from './getline.js';
 import {
     doname, xname, short_oname, thesimpleoname, makeplural,
-    The, vtense, an, cxname,
+    The, vtense, an, cxname, yname,
 } from './objnam.js';
 import {
     dipfountain, drinkfountain, drinksink, dipsink,
@@ -61,7 +66,7 @@ import {
     ECMD_TIME, ECMD_CANCEL,
     POTHIT_HERO_THROW, POTHIT_OTHER_THROW, KILLED_BY_AN, KILLED_BY,
     TIMEOUT, I_SPECIAL, HALLUC_RES, GLIB, FAST, FROMOUTSIDE, INTRINSIC, LEG,
-    DETECT_MONSTERS, LEVITATION, HEAD, COLNO, ROWNO,
+    DETECT_MONSTERS, LEVITATION, INVIS, HEAD, COLNO, ROWNO,
     In_endgame, Is_earthlevel,
     QBUFSZ, STONED, SLIMED, SICK, SICK_ALL,
     A_CHAOTIC, A_LAWFUL, Upolyd, ismnum, NON_PM, NEUTRAL,
@@ -89,7 +94,8 @@ import {
     Hallucination,
 } from './do_name.js';
 import { newuhs } from './eat.js';
-import { heal_legs, water_damage, float_up } from './trap.js';
+import { heal_legs, water_damage, float_up, self_invis_message } from './trap.js';
+import { aggravate } from './wizard.js';
 import {
     delayed_killer, find_delayed_killer, dealloc_killer,
 } from './end.js';
@@ -120,6 +126,8 @@ const POT_LEVITATION = objectNames.indexOf('POT_LEVITATION');
 const SPE_LEVITATION = objectNames.indexOf('SPE_LEVITATION');
 const POT_RESTORE_ABILITY = objectNames.indexOf('POT_RESTORE_ABILITY');
 const SPE_RESTORE_ABILITY = objectNames.indexOf('SPE_RESTORE_ABILITY');
+const SPE_INVISIBILITY = objectNames.indexOf('SPE_INVISIBILITY');
+const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
 const POT_SICKNESS = objectNames.indexOf('POT_SICKNESS');
 const POT_WATER = objectNames.indexOf('POT_WATER');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -574,6 +582,55 @@ function set_itimeout_HLevitation(val) {
 function incr_itimeout_HLevitation(incr) {
     const cur = hlev_bits();
     set_HLevitation((cur & ~TIMEOUT) | itimeout_incr(cur, incr));
+}
+
+/** Sync flat HInvis with uprops[INVIS].intrinsic (C HInvis single slot). */
+function set_HInvis(val) {
+    const u = game.u || (game.u = {});
+    u.HInvis = val | 0;
+    if (!u.uprops) u.uprops = {};
+    const prop = u.uprops[INVIS] || (u.uprops[INVIS] = {
+        intrinsic: 0, extrinsic: 0, blocked: 0,
+    });
+    prop.intrinsic = u.HInvis;
+}
+
+function hinvis_bits() {
+    const u = game.u || (game.u = {});
+    return (u.HInvis | 0) | (u.uprops?.[INVIS]?.intrinsic | 0);
+}
+
+/**
+ * C potion.c incr_itimeout(&HInvis, incr) — TIMEOUT bits only.
+ */
+function incr_itimeout_HInvis(incr) {
+    const cur = hinvis_bits();
+    set_HInvis((cur & ~TIMEOUT) | itimeout_incr(cur, incr));
+}
+
+/**
+ * C youprop.h BInvis — uprops[INVIS].blocked.
+ * JS setworn named-omits w_blocks; worn MUMMY_WRAPPING on uarmc
+ * stands in (C worn.c setworn; zap.js BInvis).
+ */
+function BInvis() {
+    const u = game.u || {};
+    const p = u.uprops?.[INVIS];
+    if ((u.BInvis | 0) || (p?.blocked | 0)) return true;
+    const cloak = u.uarmc;
+    return !!(cloak && (cloak.otyp | 0) === MUMMY_WRAPPING);
+}
+
+/**
+ * C youprop.h Invis — (HInvis || EInvis) && !BInvis
+ * via flats + uprops[INVIS].
+ */
+function Invis() {
+    const u = game.u || {};
+    const p = u.uprops?.[INVIS];
+    const H = (u.HInvis | 0) || (p?.intrinsic | 0);
+    const E = (u.EInvis | 0) || (p?.extrinsic | 0);
+    return !!(H || E) && !BInvis();
 }
 
 /** C youprop.h Detect_monsters — HDetect_monsters || EDetect_monsters. */
@@ -1205,6 +1262,45 @@ async function peffect_restore_ability(otmp) {
 }
 
 /**
+ * C ref: potion.c peffect_invisibility :811–838.
+ * Spell + BInvis + mummy wrapping: You_feel itchy under yname(uarmc)
+ * and return (no timeout). Else Invis||Blind||BInvis → potion_nothing
+ * else self_invis_message. Blessed !rn2(HInvis?15:30) → HInvis |=
+ * FROMOUTSIDE else incr_itimeout d(6-3*bcsign,100)+100. newsym.
+ * Cursed: presence-known pline, aggravate, HInvis &= ~FROMOUTSIDE.
+ */
+async function peffect_invisibility(otmp) {
+    const u = game.u || (game.u = {});
+    const is_spell = (otmp.oclass | 0) === SPBOOK_CLASS;
+
+    /* spell cannot penetrate mummy wrapping */
+    if (is_spell && BInvis() && u.uarmc
+        && (u.uarmc.otyp | 0) === MUMMY_WRAPPING) {
+        await You_feel(`rather itchy under ${yname(u.uarmc)}.`);
+        return;
+    }
+    if (Invis() || Blind() || BInvis()) {
+        potion_nothing++;
+    } else {
+        await self_invis_message();
+    }
+    if (otmp.blessed && !rn2(hinvis_bits() ? 15 : 30)) {
+        set_HInvis(hinvis_bits() | FROMOUTSIDE);
+    } else {
+        incr_itimeout_HInvis(d(6 - 3 * bcsign(otmp), 100) + 100);
+    }
+    newsym(u.ux | 0, u.uy | 0); /* update position */
+    if (otmp.cursed) {
+        await pline('For some reason, you feel your presence is known.');
+        aggravate();
+
+        /* doing this gives temporary invisibility, but removes permanent
+           invisibility */
+        set_HInvis(hinvis_bits() & ~FROMOUTSIDE);
+    }
+}
+
+/**
  * C ref: potion.c peffect_booze
  * potion_unkn + taste pline; !blessed → make_confused(d(2+uhs,8));
  * !odiluted → healup(1); hunger + newuhs; exercise WIS; cursed pass-out.
@@ -1308,7 +1404,8 @@ async function peffect_water(otmp) {
  * POT_OBJECT_DETECTION / SPE_DETECT_TREASURE (D-1417);
  * POT_MONSTER_DETECTION / SPE_DETECT_MONSTERS (D-1418);
  * POT_LEVITATION / SPE_LEVITATION (D-1419);
- * POT_RESTORE_ABILITY / SPE_RESTORE_ABILITY (D-1420); other otyps in map.
+ * POT_RESTORE_ABILITY / SPE_RESTORE_ABILITY (D-1420);
+ * POT_INVISIBILITY / SPE_INVISIBILITY (D-1421); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1359,6 +1456,10 @@ export async function peffects(otmp) {
     case POT_RESTORE_ABILITY:
     case SPE_RESTORE_ABILITY:
         await peffect_restore_ability(otmp);
+        return -1;
+    case SPE_INVISIBILITY:
+    case POT_INVISIBILITY:
+        await peffect_invisibility(otmp);
         return -1;
     case POT_SICKNESS:
         await peffect_sickness(otmp);

@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-24 — D-1421 spell.c SPE_INVISIBILITY peffects
+
+**Objective:** Open `spell.c` `spelleffects` SPE_INVISIBILITY
+peffects (named from D-1408). Not amulet drain.
+**C locus:** `spell.c` `spelleffects` `:1544–1546` FALLTHROUGH
+`peffects` (no skilled bless); `potion.c`
+`peffect_invisibility` `:811–838`; `timeout.c` `:759–767`.
+**Change:** separate invis arm (uncursed even when skilled);
+wrapping itchy return; timeout / FROMOUTSIDE; cursed
+aggravate; INVIS expiry You. Remaining peffects still named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts invisibility).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `bhitm` WAN_SPEED_MONSTER (named from
+D-1410). Not slow.
+**Blocked:** none.
 ## 2026-08-24 — D-1420 spell.c SPE_RESTORE_ABILITY peffects
 
 **Objective:** Open `spell.c` `spelleffects` SPE_RESTORE_ABILITY
