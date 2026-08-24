@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1431; cadence **#1790** `9f2a3a08`
-  (Scr **11,405** RNG 100% speed `38+0.30/turn` R² 0.83). Next:
+- **Fortress 44/44** after D-1431; cadence **#1800** `66254727`
+  (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
   Open `potion.c` `peffect_blindness` (named). Not sleeping.
   Do not skip D-1431…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.

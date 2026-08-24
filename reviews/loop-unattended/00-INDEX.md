@@ -393,3 +393,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [380-9ab114b4-spe-restore-ability.md](./380-9ab114b4-spe-restore-ability.md) | `9ab114b4` | D-1420 SPE_RESTORE_ABILITY peffects | **ACCEPT-WITH-DEBT** |
 | [381-d6d910c2-spe-invisibility.md](./381-d6d910c2-spe-invisibility.md) | `d6d910c2` | D-1421 SPE_INVISIBILITY peffects | **ACCEPT-WITH-DEBT** |
 | [382-9f2a3a08-bhitm-wan-speed-monster.md](./382-9f2a3a08-bhitm-wan-speed-monster.md) | `9f2a3a08` | D-1422 bhitm WAN_SPEED_MONSTER | **ACCEPT-WITH-DEBT** |
+| [383-1200fdb0-knowninvisible-conferral-see-invis.md](./383-1200fdb0-knowninvisible-conferral-see-invis.md) | `1200fdb0` | D-1423 knowninvisible conferral See_invisible | **ACCEPT-WITH-DEBT** |
+| [384-faa5f3f3-bhitm-wan-slow-monster.md](./384-faa5f3f3-bhitm-wan-slow-monster.md) | `faa5f3f3` | D-1424 bhitm WAN_SLOW_MONSTER | **ACCEPT-WITH-DEBT** |
+| [385-8f334efb-bhitm-wan-locking.md](./385-8f334efb-bhitm-wan-locking.md) | `8f334efb` | D-1425 bhitm WAN_LOCKING | **ACCEPT-WITH-DEBT** |
+| [386-e50968db-bhitm-wan-probing.md](./386-e50968db-bhitm-wan-probing.md) | `e50968db` | D-1426 bhitm WAN_PROBING | **ACCEPT-WITH-DEBT** |
+| [387-91c11733-spe-light-nodir.md](./387-91c11733-spe-light-nodir.md) | `91c11733` | D-1427 SPE_LIGHT NODIR weffects | **ACCEPT-WITH-DEBT** |
+| [388-19c24f62-peffect-polymorph.md](./388-19c24f62-peffect-polymorph.md) | `19c24f62` | D-1428 peffect_polymorph | **ACCEPT-WITH-DEBT** |
+| [389-4a16af4e-peffect-gain-energy.md](./389-4a16af4e-peffect-gain-energy.md) | `4a16af4e` | D-1429 peffect_gain_energy | **ACCEPT-WITH-DEBT** |
+| [390-3e742468-peffect-acid.md](./390-3e742468-peffect-acid.md) | `3e742468` | D-1430 peffect_acid | **ACCEPT-WITH-DEBT** |
+| [391-66254727-peffect-gain-level.md](./391-66254727-peffect-gain-level.md) | `66254727` | D-1431 peffect_gain_level | **ACCEPT-WITH-DEBT** |

@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — review D-1423–D-1431 (audit #1800)
+
+**Objective:** audit — C-fidelity reviews **383–391** of JS SHAs
+`1200fdb0` / `faa5f3f3` / `8f334efb` / `e50968db` /
+`91c11733` / `19c24f62` / `4a16af4e` / `3e742468` /
+`66254727` plus full `sessions` score.
+**C locus:** `display.h` `_knowninvisible`; `zap.c` `bhitm`
+`:218–232` / `:370–375` / `:376–381`; `spell.c` `:1473–1514`;
+`potion.c` `:1318–1330` / `:1224–1257` / `:1297–1314` /
+`:1083–1116`.
+**Change:** no `js/` edits. **383–391** ACCEPT-WITH-DEBT.
+Filled archive D-1431 `66254727`. Must-fix empty. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `37+0.30/turn` (R² 0.85).
+**Verified:** full `sessions` at HEAD `66254727`; public-unhit
+on conferral SI / slow / locking / probing / light / polymorph
+/ gain energy / acid / gain level.
+**Next:** Open `potion.c` `peffect_blindness` (named). Not
+sleeping.
+**Blocked:** none.
 ## 2026-08-25 — D-1431 potion.c peffect_gain_level
 
 **Objective:** Open `potion.c` `peffect_gain_level` (named).
