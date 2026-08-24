@@ -8,6 +8,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1431 potion.c peffect_gain_level
+
+**Objective:** Open `potion.c` `peffect_gain_level` (named).
+Not blindness.
+**C locus:** `potion.c` `peffect_gain_level` `:1083–1116` /
+`peffects` `:1392–1393`; callee `dungeon.c`
+`Can_rise_up` `:1674–1687`; `exper.c` `pluslvl` /
+`rndexp`; `do.c` `goto_level`.
+**Change:** cursed potion_unkn++ then ledger 1+amulet →
+earth_level else Can_rise_up → get_level(depth-1);
+same-level It tasted bad; else You rise through
+ceiling + goto_level else uneasy. Uncursed/blessed
+pluslvl(FALSE); blessed uexp=rndexp(TRUE). Blindness
+still named. potionhit/mix named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session quaffs gain level).
+**Verified:** private canary **15**/15; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `peffect_blindness` (named). Not
+sleeping.
+**Blocked:** none.
 ## 2026-08-25 — D-1430 potion.c peffect_acid
 
 **Objective:** Open `potion.c` `peffect_acid` (named).

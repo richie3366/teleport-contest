@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-24
 
-- [x] `potion.c` `peffect_acid` (named). Not gain level. **Addressed:** D-1430
+- [x] `potion.c` `peffect_gain_level` (named). Not blindness. **Addressed:** D-1431
+
+
+- [x] `potion.c` `peffect_acid` (named). Not gain level. **Addressed:** D-1430 `3e742468`
 
 
 - [x] `potion.c` `peffect_gain_energy` (named). Not acid. **Addressed:** D-1429 `4a16af4e`

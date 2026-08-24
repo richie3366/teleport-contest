@@ -4,6 +4,51 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1431 — potion.c peffect_gain_level
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** quaffing a potion of gain level printed
+  "That potion is not implemented yet." and skipped
+  `useup`. C `peffects` `:1392–1393` calls
+  `peffect_gain_level`. That helper `:1083–1116`:
+  cursed `potion_unkn++`; `on_lvl_1 = ledger_no==1`;
+  if (`on_lvl_1 ? u.uhave.amulet : Can_rise_up`)
+  then ledger-1 → `assign_level(earth_level)` else
+  `get_level(depth-1)` (same-level "It tasted bad"
+  return) then `You rise up, through the ceiling`
+  + `goto_level`; else uneasy. Uncursed/blessed:
+  `pluslvl(FALSE)`; blessed `u.uexp = rndexp(TRUE)`.
+  Callee `dungeon.c` `Can_rise_up` `:1674–1687`.
+  potionhit isyou has no live POT_GAIN_LEVEL arm
+  (commented).
+- **C locus:** `potion.c` `peffect_gain_level` `:1083–1116`
+  / `peffects` `:1392–1393`. Callee `dungeon.c`
+  `Can_rise_up` `:1674–1687`; `exper.c` `pluslvl` /
+  `rndexp`; `do.c` `goto_level`.
+- **JS was:** `peffects` default "not implemented"
+  (return 0, no useup).
+- **Fix:** Port `peffect_gain_level` + `Can_rise_up`.
+  Wire POT_GAIN_LEVEL. Reuse `ceiling_at` (vault/
+  temple/shop still named). Rule #2: no fs.
+- **JS:** `js/potion.js` `peffects` / `peffect_gain_level`
+  / `Can_rise_up`.
+- **Not this iter:** remaining peffects (blindness /
+  sleeping / gain ability / hallucination);
+  potionhit / potionbreathe / mix / dipsink
+  POT_GAIN_LEVEL; ceiling vault/temple/shop labels.
+- **Verified:** private canary **15**/15 (C/JS grep;
+  uncursed pluslvl Welcome 11 + newuexp(10); blessed
+  rndexp rn2(10000); cursed ledger1 uneasy; sokoban /
+  endgame / wiz1-tower Can_rise_up false uneasy;
+  branch dlevel1 special-up "It tasted bad"; ledger1
+  amulet rise pline; blindness still not-implemented;
+  Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session quaffs gain level.
+- **Follow-up:** Open `potion.c` `peffect_blindness`
+  (named). Not sleeping.
+- **Files:** `js/potion.js`.
+
 ## D-1430 — potion.c peffect_acid
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

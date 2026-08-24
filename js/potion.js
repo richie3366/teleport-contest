@@ -12,6 +12,7 @@
 //         peffect_polymorph (D-1428),
 //         peffect_gain_energy (D-1429),
 //         peffect_acid (D-1430),
+//         peffect_gain_level (D-1431),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -44,6 +45,10 @@
 // else burns a little/a lot/like acid; d(cursed?2:1, blessed?4:8)
 // losehp Maybe_Half_Phys KILLED_BY_AN; exercise CON FALSE; Stoned
 // eat.c fix_petrification; potion_unkn++).
+// POT_GAIN_LEVEL peffect_gain_level (D-1431; cursed potion_unkn++ then
+// ledger 1+amulet → earth_level else Can_rise_up → get_level(depth-1);
+// same-level "It tasted bad"; else You rise through ceiling + goto_level
+// else uneasy; uncursed/blessed pluslvl(FALSE); blessed uexp=rndexp(TRUE)).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -80,7 +85,7 @@ import {
     POTHIT_HERO_THROW, POTHIT_OTHER_THROW, KILLED_BY_AN, KILLED_BY,
     TIMEOUT, I_SPECIAL, HALLUC_RES, GLIB, FAST, FROMOUTSIDE, INTRINSIC, LEG,
     DETECT_MONSTERS, LEVITATION, INVIS, HEAD, COLNO, ROWNO,
-    In_endgame, Is_earthlevel,
+    In_endgame, Is_earthlevel, In_sokoban,
     QBUFSZ, STONED, SLIMED, SICK, SICK_ALL,
     A_CHAOTIC, A_LAWFUL, Upolyd, ismnum, NON_PM, NEUTRAL,
     P_RIDING, P_BASIC, ER_DESTROYED, ER_NOTHING, MM_NOMSG,
@@ -102,7 +107,8 @@ import { mongone, wakeup, healmon, wake_nearto, dist2, m_at } from './mon.js';
 import { tamedog } from './dog.js';
 import { can_reach_floor } from './engrave.js';
 import { bcsign } from './rumors.js';
-import { more_experienced, pluslvl } from './exper.js';
+import { more_experienced, pluslvl, rndexp } from './exper.js';
+import { depth } from './hacklib.js';
 import {
     trycall, hliquid, a_monnam, Monnam, hcolor, x_monnam, mon_nam,
     Hallucination,
@@ -147,6 +153,7 @@ const POT_SICKNESS = objectNames.indexOf('POT_SICKNESS');
 const POT_WATER = objectNames.indexOf('POT_WATER');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
 const POT_GAIN_ENERGY = objectNames.indexOf('POT_GAIN_ENERGY');
+const POT_GAIN_LEVEL = objectNames.indexOf('POT_GAIN_LEVEL');
 const PM_DJINNI = monsterNames.indexOf('PM_DJINNI');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
@@ -1528,6 +1535,139 @@ async function peffect_acid(otmp) {
     potion_unkn++;
 }
 
+/** C dungeon.c ledger_no — dlevel + dungeons[dnum].ledger_start. */
+function ledger_no(lev) {
+    const dun = game.dungeons?.[lev?.dnum | 0];
+    return ((lev?.dlevel | 0) + (dun?.ledger_start | 0)) | 0;
+}
+
+/** C dungeon.c on_level — same dnum/dlevel. */
+function on_level(a, b) {
+    return (a?.dnum | 0) === (b?.dnum | 0) && (a?.dlevel | 0) === (b?.dlevel | 0);
+}
+
+/** C dungeon.h Lassigned — dlevel or dnum nonzero. */
+function Lassigned(z) {
+    return !!((z?.dlevel | 0) || (z?.dnum | 0));
+}
+
+/** C dungeon.h Is_wiz1_level. */
+function Is_wiz1_level(lev) {
+    const w = game.wiz1_level;
+    return Lassigned(w) && on_level(lev, w);
+}
+
+/** C dungeon.c On_W_tower_level — wizard1/2/3 specials. */
+function On_W_tower_level(lev) {
+    for (const key of ['wiz1_level', 'wiz2_level', 'wiz3_level']) {
+        const w = game[key];
+        if (Lassigned(w) && on_level(lev, w)) return true;
+    }
+    return false;
+}
+
+/**
+ * C dungeon.c In_W_tower — inside the Wizard's Tower rectangle (dndest).
+ * Named omit: impossible() when nlx==0.
+ */
+function In_W_tower(x, y, lev) {
+    if (!On_W_tower_level(lev)) return false;
+    const d = game.dndest;
+    if (!d || !(d.nlx | 0)) return false;
+    return (x | 0) >= (d.nlx | 0) && (x | 0) <= (d.nhx | 0)
+        && (y | 0) >= (d.nly | 0) && (y | 0) <= (d.nhy | 0);
+}
+
+/**
+ * C stairs.c stairway_find_special_dir — branch stair whose
+ * tolev.dnum != u.uz.dnum and up != want.
+ */
+function stairway_find_special_dir(up) {
+    const want = !!up;
+    const dnum = game.u?.uz?.dnum ?? 0;
+    for (let s = game.stairs; s; s = s.next) {
+        if ((s.tolev?.dnum | 0) !== dnum && !!s.up !== want) return s;
+    }
+    return null;
+}
+
+/**
+ * C ref: dungeon.c Can_rise_up :1674–1687.
+ * True if cursed gain-level can escape upward (not endgame/sokoban/
+ * Wizard tower top). dlevel>1, or dungeon entry_lev==1 with a
+ * special up-stair and not ledger 1.
+ */
+function Can_rise_up(x, y, lev) {
+    const stway = stairway_find_special_dir(false);
+    if (In_endgame(lev) || In_sokoban(lev)
+        || (Is_wiz1_level(lev) && In_W_tower(x, y, lev))) {
+        return false;
+    }
+    return (lev?.dlevel | 0) > 1
+        || ((game.dungeons?.[lev?.dnum | 0]?.entry_lev | 0) === 1
+            && ledger_no(lev) !== 1
+            && stway && stway.up);
+}
+
+/**
+ * C dungeon.c assign_level — dest = src.
+ */
+function assign_level(dest, src) {
+    dest.dnum = src?.dnum | 0;
+    dest.dlevel = src?.dlevel | 0;
+}
+
+/**
+ * C ref: potion.c peffect_gain_level :1083–1116.
+ * Cursed: potion_unkn++; ledger_no==1 with amulet → earth_level,
+ * else Can_rise_up → get_level(depth-1); same-level "It tasted bad"
+ * return; else You rise through ceiling + goto_level; else uneasy.
+ * Uncursed/blessed: pluslvl(FALSE); blessed u.uexp = rndexp(TRUE)
+ * (middle of the new level's XP band, not the low point).
+ * potionhit / potionbreathe / mix / dipsink POT_GAIN_LEVEL still named.
+ * ceiling() vault/temple/shop/water/fire/quest/Underwater still named
+ * (ceiling_at).
+ */
+async function peffect_gain_level(otmp) {
+    const u = game.u || (game.u = {});
+    if (otmp.cursed) {
+        const on_lvl_1 = ledger_no(u.uz) === 1;
+
+        potion_unkn++;
+        /* they went up a level */
+        const haveAmulet = !!(u.uhave?.amulet || u.uhave_amulet);
+        if (on_lvl_1 ? haveAmulet : Can_rise_up(u.ux, u.uy, u.uz)) {
+            const newlevel = { dnum: 0, dlevel: 0 };
+
+            if (on_lvl_1) {
+                assign_level(newlevel, game.earth_level);
+            } else {
+                const newlev = depth(u.uz) - 1;
+                const { get_level } = await import('./dungeon.js');
+                get_level(newlevel, newlev);
+                if (on_level(newlevel, u.uz)) {
+                    await pline('It tasted bad.');
+                    return;
+                }
+            }
+            await pline(
+                `You rise up, through the ${ceiling_at(u.ux | 0, u.uy | 0)}!`,
+            );
+            const { goto_level } = await import('./do.js');
+            await goto_level(newlevel, false, false, false);
+        } else {
+            await pline('You have an uneasy feeling.');
+        }
+        return;
+    }
+    await pluslvl(false);
+    /* blessed potions place you at a random spot in the
+       middle of the new level instead of the low point */
+    if (otmp.blessed) {
+        u.uexp = rndexp(true);
+    }
+}
+
 /**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
@@ -1539,7 +1679,7 @@ async function peffect_acid(otmp) {
  * POT_RESTORE_ABILITY / SPE_RESTORE_ABILITY (D-1420);
  * POT_INVISIBILITY / SPE_INVISIBILITY (D-1421);
  * POT_POLYMORPH (D-1428); POT_GAIN_ENERGY (D-1429);
- * POT_ACID (D-1430); other otyps in map.
+ * POT_ACID (D-1430); POT_GAIN_LEVEL (D-1431); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1609,6 +1749,9 @@ export async function peffects(otmp) {
         return -1;
     case POT_ACID:
         await peffect_acid(otmp);
+        return -1;
+    case POT_GAIN_LEVEL:
+        await peffect_gain_level(otmp);
         return -1;
     default:
         // Other peffect_* deferred — do not useup
