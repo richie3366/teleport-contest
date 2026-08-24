@@ -41,6 +41,9 @@
 // SPE_LEVITATION peffects (D-1419; same C `:1534–1546` skilled bless
 // then peffects; callee potion.c peffect_levitation → trap.c
 // float_up / timeout.c float_down).
+// SPE_RESTORE_ABILITY peffects (D-1420; same C `:1534–1546` skilled
+// bless then peffects; callee potion.c peffect_restore_ability →
+// apply.c unfixable_trouble_count; potion pluslvl only).
 // spell_backfire (D-1409; C `:1179–1217` rn2(10) confuse/stun
 // TIMEOUT increment; caller spelleffects_check `:1251–1260`
 // when spellknow<=0).
@@ -49,7 +52,7 @@
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects:
-// RESTORE_ABILITY / INVISIBILITY;
+// INVISIBILITY;
 // remaining wand-duplicate SPE_LIGHT / SLEEP / DIG / …);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
@@ -1743,8 +1746,9 @@ async function cast_protection() {
  * callee potion.c peffect_object_detection). SPE_DETECT_MONSTERS
  * peffects (D-1418; same arm; callee potion.c
  * peffect_monster_detection). SPE_LEVITATION peffects (D-1419;
- * same arm; callee potion.c peffect_levitation). Sibling
- * RESTORE_ABILITY / INVISIBILITY still named.
+ * same arm; callee potion.c peffect_levitation). SPE_RESTORE_ABILITY
+ * peffects (D-1420; same arm; callee potion.c peffect_restore_ability).
+ * Sibling INVISIBILITY still named.
  * Forgotten spellknow<=0 → spell_backfire then rnd(energy)
  * Pw debit (D-1409; C `:1251–1260`) before this body.
  * SPE_DETECT_UNSEEN NODIR weffects → zapnodir findit (D-1412;
@@ -1917,10 +1921,10 @@ export async function spelleffects(spell_otyp, atme, force) {
         const { seffects } = await import('./read.js');
         await seffects(pseudo);
     } else if (otyp === SPE_HASTE_SELF || otyp === SPE_DETECT_TREASURE
-        || otyp === SPE_DETECT_MONSTERS || otyp === SPE_LEVITATION) {
+        || otyp === SPE_DETECT_MONSTERS || otyp === SPE_LEVITATION
+        || otyp === SPE_RESTORE_ABILITY) {
         /* C spell.c :1534–1546 — skilled bless then peffects(pseudo).
-         * Sibling RESTORE_ABILITY FALLTHROUGH + SPE_INVISIBILITY
-         * still named. */
+         * Sibling SPE_INVISIBILITY still named (no skilled bless). */
         if (role_skill >= P_SKILLED) pseudo.blessed = true;
         await peffects(pseudo);
     } else if (otyp === SPE_DETECT_UNSEEN) {

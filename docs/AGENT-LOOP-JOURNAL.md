@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-24 — D-1420 spell.c SPE_RESTORE_ABILITY peffects
+
+**Objective:** Open `spell.c` `spelleffects` SPE_RESTORE_ABILITY
+peffects (named from D-1408). Not INVISIBILITY.
+**C locus:** `spell.c` `spelleffects` `:1534–1546`; `potion.c`
+`peffect_restore_ability` `:646–693`; `apply.c`
+`unfixable_trouble_count` `:4431–4469`.
+**Change:** skilled bless then `peffects`; Wow/Ulch; ABASE=AMAX
++ AEXE max 0; potion `pluslvl`; spell skips levels. INVIS still
+named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts restore ability).
+**Verified:** private canary **41**/41; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_INVISIBILITY
+peffects (named from D-1408). Not amulet drain.
+**Blocked:** none.
 ## 2026-08-24 — D-1419 spell.c SPE_LEVITATION peffects
 
 **Objective:** Open `spell.c` `spelleffects` SPE_LEVITATION

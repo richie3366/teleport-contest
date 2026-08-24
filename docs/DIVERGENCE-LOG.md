@@ -4,6 +4,57 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1420 — spell.c spelleffects SPE_RESTORE_ABILITY peffects
+
+- **Status:** fixed (map-driven Open from D-1408; not a public FAIL)
+- **Symptom:** casting SPE_RESTORE_ABILITY printed `Nothing happens.`
+  C `spelleffects` `:1534–1546` skilled-blesses the pseudo
+  (`role_skill >= P_SKILLED`) then FALLTHROUGH
+  `(void) peffects(pseudo)` (same arm as HASTE_SELF /
+  DETECT_TREASURE / DETECT_MONSTERS / LEVITATION).
+  Callee `potion.c` `peffects` `:1336–1339` POT_RESTORE_ABILITY /
+  SPE_RESTORE_ABILITY → `peffect_restore_ability`. That helper
+  `:646–693`: `potion_unkn++`; cursed `Ulch!  This makes you
+  feel mediocre!` return; else Wow good / better (blessed +
+  `unfixable_trouble_count(FALSE)`) / great; `rn2(A_MAX)` start
+  then wrap `A_MAX`; `ABASE(i)=AMAX(i)` + `AEXE(i)=max(AEXE,0)`
+  for first drained attr (uncursed) or all (blessed). Overrides
+  Fixed_abil (direct ABASE, not adjattrib). Does not recover
+  ATEMP hunger STR / wounded-legs DEX. Potion only:
+  `pluslvl(FALSE)` while `ulevel < ulevelmax` (blessed: all lost
+  levels; uncursed: one). Spell otyp skips pluslvl. Spell still
+  TIME after energy. Pseudo `quan=20` so useup cannot free it.
+  Unskilled leaves uncursed (one attr). Callee
+  `apply.c` `unfixable_trouble_count` `:4431–4469`.
+- **C locus:** `spell.c` `spelleffects` `:1534–1546`;
+  `potion.c` `peffects` `:1336–1339` /
+  `peffect_restore_ability` `:646–693`; `apply.c`
+  `unfixable_trouble_count` `:4431–4469`; `exper.c` `pluslvl`.
+- **JS was:** named omit after D-1419. Other-otyp arm printed
+  `Nothing happens.`; `peffects` lacked POT/SPE_RESTORE_ABILITY.
+- **Fix:** SPE_RESTORE_ABILITY arm skilled-blesses then
+  `peffects`. Port `peffect_restore_ability`. Wire
+  POT_RESTORE_ABILITY in the same C case. Port
+  `unfixable_trouble_count`. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/potion.js`
+  `peffects` / `peffect_restore_ability`; `js/apply.js`
+  `unfixable_trouble_count`.
+- **Not this iter:** sibling INVISIBILITY; potionhit heal-mon
+  / potionbreathe +1-attr vapor / mix restore; unihorn
+  `unfixable_trbl` leftover local.
+- **Verified:** private canary **41**/41 (C/JS grep; cursed
+  Ulch no restore; uncursed Wow good + one attr + AEXE abuse 0;
+  blessed Wow great all attrs / better when Stoned; Fixed_abil
+  override; ATEMP STR kept; spell skips pluslvl; potion
+  uncursed +1 / blessed all lost levels; horn vs potion
+  timed Sick/Deaf; SPE_INVISIBILITY still omit; HASTE/LEV
+  arm; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts restore ability.
+- **Follow-up:** Open `spell.c` `spelleffects`
+  SPE_INVISIBILITY peffects (named). Not amulet drain.
+- **Files:** `js/spell.js`, `js/potion.js`, `js/apply.js`.
+
 ## D-1419 — spell.c spelleffects SPE_LEVITATION peffects
 
 - **Status:** fixed (map-driven Open from D-1408; not a public FAIL)

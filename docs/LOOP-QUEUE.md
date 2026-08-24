@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` `spelleffects` SPE_RESTORE_ABILITY peffects (named from D-1408). Not INVISIBILITY.
 - [ ] `spell.c` `spelleffects` SPE_INVISIBILITY peffects (named from D-1408). Not amulet drain.
 - [ ] `zap.c` `bhitm` WAN_SPEED_MONSTER (named from D-1410). Not slow.
 - [ ] `zap.c` `bhitm` WAN_SLOW_MONSTER (named). Not speed.

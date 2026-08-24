@@ -7,6 +7,7 @@
 //         peffect_object_detection (D-1417),
 //         peffect_monster_detection (D-1418),
 //         peffect_levitation (D-1419),
+//         peffect_restore_ability (D-1420),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -22,6 +23,9 @@
 // SPE_LEVITATION / POT_LEVITATION peffect_levitation (D-1419;
 // callee trap.c float_up / timeout.c float_down; cursed doup /
 // ceiling losehp).
+// SPE_RESTORE_ABILITY / POT_RESTORE_ABILITY peffect_restore_ability
+// (D-1420; apply.c unfixable_trouble_count; potion pluslvl; spell
+// does not restore lost levels).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -114,6 +118,8 @@ const POT_MONSTER_DETECTION = objectNames.indexOf('POT_MONSTER_DETECTION');
 const SPE_DETECT_MONSTERS = objectNames.indexOf('SPE_DETECT_MONSTERS');
 const POT_LEVITATION = objectNames.indexOf('POT_LEVITATION');
 const SPE_LEVITATION = objectNames.indexOf('SPE_LEVITATION');
+const POT_RESTORE_ABILITY = objectNames.indexOf('POT_RESTORE_ABILITY');
+const SPE_RESTORE_ABILITY = objectNames.indexOf('SPE_RESTORE_ABILITY');
 const POT_SICKNESS = objectNames.indexOf('POT_SICKNESS');
 const POT_WATER = objectNames.indexOf('POT_WATER');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -1153,6 +1159,52 @@ async function peffect_levitation(otmp) {
 }
 
 /**
+ * C ref: potion.c peffect_restore_ability :646–693.
+ * potion_unkn++. Cursed: Ulch mediocre return. Else Wow good (uncursed)
+ * / better (blessed + unfixable_trouble_count(FALSE)) / great; rn2(A_MAX)
+ * start; ABASE=AMAX + AEXE = max(AEXE,0) for first (uncursed) or all
+ * (blessed) drained attrs. Overrides Fixed_abil (direct ABASE, not
+ * adjattrib). Does not recover ATEMP hunger STR / wounded-legs DEX.
+ * Potion only: pluslvl(FALSE) while ulevel < ulevelmax (blessed: all
+ * lost levels; uncursed: one). Spell otyp skips pluslvl.
+ */
+async function peffect_restore_ability(otmp) {
+    potion_unkn++;
+    if (otmp.cursed) {
+        await pline('Ulch!  This makes you feel mediocre!');
+        return;
+    }
+    let feel;
+    if (!otmp.blessed) {
+        feel = 'good';
+    } else {
+        const { unfixable_trouble_count } = await import('./apply.js');
+        feel = unfixable_trouble_count(false) ? 'better' : 'great';
+    }
+    await pline(`Wow!  This makes you feel ${feel}!`);
+    const u = game.u || (game.u = {});
+    let i = rn2(A_MAX); /* start at a random point */
+    for (let ii = 0; ii < A_MAX; ii++) {
+        const lim = u.amax.a[i] | 0;
+        if ((u.acurr.a[i] | 0) < lim) {
+            u.acurr.a[i] = lim;
+            if (!u.aexe) u.aexe = { a: [0, 0, 0, 0, 0, 0] };
+            u.aexe.a[i] = Math.max(u.aexe.a[i] | 0, 0);
+            if (game.disp) game.disp.botl = true;
+            if (game.flags) game.flags.botl = true;
+            if (!otmp.blessed) break;
+        }
+        if (++i >= A_MAX) i = 0;
+    }
+    if ((otmp.otyp | 0) === POT_RESTORE_ABILITY
+        && (u.ulevel | 0) < (u.ulevelmax | 0)) {
+        do {
+            await pluslvl(false);
+        } while ((u.ulevel | 0) < (u.ulevelmax | 0) && otmp.blessed);
+    }
+}
+
+/**
  * C ref: potion.c peffect_booze
  * potion_unkn + taste pline; !blessed → make_confused(d(2+uhs,8));
  * !odiluted → healup(1); hunger + newuhs; exercise WIS; cursed pass-out.
@@ -1255,7 +1307,8 @@ async function peffect_water(otmp) {
  * POT_SPEED / SPE_HASTE_SELF (D-1408);
  * POT_OBJECT_DETECTION / SPE_DETECT_TREASURE (D-1417);
  * POT_MONSTER_DETECTION / SPE_DETECT_MONSTERS (D-1418);
- * POT_LEVITATION / SPE_LEVITATION (D-1419); other otyps in map.
+ * POT_LEVITATION / SPE_LEVITATION (D-1419);
+ * POT_RESTORE_ABILITY / SPE_RESTORE_ABILITY (D-1420); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1302,6 +1355,10 @@ export async function peffects(otmp) {
     case POT_LEVITATION:
     case SPE_LEVITATION:
         await peffect_levitation(otmp);
+        return -1;
+    case POT_RESTORE_ABILITY:
+    case SPE_RESTORE_ABILITY:
+        await peffect_restore_ability(otmp);
         return -1;
     case POT_SICKNESS:
         await peffect_sickness(otmp);
