@@ -4,6 +4,51 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1424 — zap.c bhitm WAN_SLOW_MONSTER
+
+- **Status:** fixed (map-driven Open from D-1422; not a public FAIL)
+- **Symptom:** `bhitm` defaulted `WAN_SLOW_MONSTER`. A
+  monster-aimed slow wand never called `mon_adjust_speed(-1)`,
+  never set `permspeed`/`mspeed`, never `check_gear_next_turn`,
+  never learned the wand, and never expelled a whirly engulfer.
+  C `:218–232`: `WAN_SLOW`/`SPE_SLOW` `!resist(..., NOTELL)`
+  then `seemimic` + `mon_adjust_speed(mtmp, -1, otmp)` +
+  `check_gear_next_turn` + whirly `engulfing_u` `You disrupt`
+  / huge hole / `expels`. No `helpful_gesture` (unlike
+  WAN_SPEED D-1422) so wakeup can anger peaceful. Callee
+  `worn.c` `:488–564` (JS `muse.js` D-0871): adjust -1
+  `MFAST→0` else `MSLOW`; worn FAST boots force `mspeed`;
+  pline + `learnwand` iff seen. `zap_steed` default-routes
+  to this `bhitm` in C.
+- **C locus:** `zap.c` `bhitm` `:218–232`. Helpers
+  `worn.c` `mon_adjust_speed` `:488–564`; `mon.c`
+  `check_gear_next_turn` `:5915–5918`; `mhitu.c` `expels`.
+  Caller IMMEDIATE `weffects` → `bhit` → `bhitm`. Self-zap
+  `u_slow_down` still named. Speed is D-1422.
+- **JS was:** `default` break (no slow, no I_SPECIAL).
+- **Fix:** case `WAN_SLOW_MONSTER`/`SPE_SLOW_MONSTER`;
+  dynamic-import `mon_adjust_speed` (muse.js already
+  imports zap.js); static `check_gear_next_turn` from
+  worn.js; whirly `expels`. Rule #2: no fs.
+- **JS:** `js/zap.js` `bhitm`; callee `js/muse.js`
+  `mon_adjust_speed`; `js/worn.js` `check_gear_next_turn`;
+  `js/mhitu.js` `expels`.
+- **Not this iter:** zapyourself WAN_SLOW / `u_slow_down`;
+  WAN_LOCKING / WAN_PROBING; `zap_steed` wrapper; worm
+  `see_wsegs`; `map_invisible` epilogue.
+- **Verified:** private canary **15**/15 (C/JS grep; Rule #2;
+  IMMEDIATE wand; 0→MSLOW pline+learn+I_SPECIAL+anger;
+  already MSLOW silent; asleep skips learn; MFAST→0 not
+  MSLOW; resist no speed but angered; boots keep MFAST no
+  learn; mimic seemimic; SPE_SLOW same arm; WAN_LOCKING
+  still default; WAN_SPEED still peaceful; zapyourself
+  WAN_SLOW still default); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps slow at a monster.
+- **Follow-up:** Open `zap.c` `bhitm` WAN_LOCKING
+  (named from D-1369). Not probing.
+- **Files:** `js/zap.js`.
+
 ## D-1423 — zap.js knowninvisible conferral See_invisible
 
 - **Status:** fixed (Must-fix from review **374** on D-1414; not a public FAIL)

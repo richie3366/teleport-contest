@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1424 zap.c bhitm WAN_SLOW_MONSTER
+
+**Objective:** Open `zap.c` `bhitm` WAN_SLOW_MONSTER (named).
+Not speed.
+**C locus:** `zap.c` `bhitm` `:218–232`; callee `worn.c`
+`mon_adjust_speed` `:488–564`; `mon.c` `check_gear_next_turn`.
+**Change:** resist NOTELL then seemimic + mon_adjust_speed(-1)
++ check_gear_next_turn; whirly engulf expels. No
+helpful_gesture (can anger). SPE_SLOW same case.
+zapyourself WAN_SLOW / locking still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps slow at a monster).
+**Verified:** private canary **15**/15; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `bhitm` WAN_LOCKING (named from
+D-1369). Not probing.
+**Blocked:** none.
 ## 2026-08-25 — D-1423 zap.js knowninvisible conferral See_invisible
 
 **Objective:** Must-fix `zap.c` `bhitm` WAN_MAKE_INVISIBLE

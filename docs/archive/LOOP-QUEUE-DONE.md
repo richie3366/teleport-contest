@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-24
 
-- [x] `zap.c` `bhitm` WAN_MAKE_INVISIBLE `knowninvisible` must use C `See_invisible`/`Detect_monsters` (`H||E` ≡ `uprops[SEE_INVIS]`/`DETECT_MONSTERS`) so a conferral ring-of-see-invisible still takes the transparent+learnwand arm, not vanish. Source: reviews/loop-unattended/374-f968904d-bhitm-wan-make-invisible.md **Addressed:** D-1423
+- [x] `zap.c` `bhitm` WAN_SLOW_MONSTER (named). Not speed. **Addressed:** D-1424
+
+
+- [x] `zap.c` `bhitm` WAN_MAKE_INVISIBLE `knowninvisible` must use C `See_invisible`/`Detect_monsters` (`H||E` ≡ `uprops[SEE_INVIS]`/`DETECT_MONSTERS`) so a conferral ring-of-see-invisible still takes the transparent+learnwand arm, not vanish. Source: reviews/loop-unattended/374-f968904d-bhitm-wan-make-invisible.md **Addressed:** D-1423 `1200fdb0`
 
 
 - [x] `zap.c` `bhitm` WAN_SPEED_MONSTER (named from D-1410). Not slow. **Addressed:** D-1422 `9f2a3a08`

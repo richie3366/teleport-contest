@@ -130,4 +130,4 @@ C callers: IMMEDIATE `weffects` → `bhit` → `bhitm`; `zap_steed` default. No 
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1423
+**Addressed:** D-1423 `1200fdb0`

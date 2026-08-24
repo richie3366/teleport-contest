@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1423; cadence **#1790** `9f2a3a08`
+- **Fortress 44/44** after D-1424; cadence **#1790** `9f2a3a08`
   (Scr **11,405** RNG 100% speed `38+0.30/turn` R² 0.83). Next:
-  Open `zap.c` `bhitm` WAN_SLOW_MONSTER (named). Not locking.
-  Do not skip D-1423…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `zap.c` `bhitm` WAN_LOCKING (named from D-1369). Not probing.
+  Do not skip D-1424…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1423. Named still: `see_monsters`
+- Do not revert D-1217–D-1424. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1423.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1424.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,7 +33,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1423 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1424 (index).
 - Named still: rustm / poison / worm-shrieker; remaining peffects
   (polymorph/gain energy/acid/gain level/blindness); remaining
   SPE_LIGHT wand-duplicate; artifact invoke. No fountain
@@ -48,13 +48,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1424: `bhitm` WAN_SLOW/SPE_SLOW `:218–232`
+  `!resist` NOTELL then `seemimic` +
+  `mon_adjust_speed(-1)` + `check_gear_next_turn` +
+  whirly expels. No `helpful_gesture` (can anger).
+  zapyourself WAN_SLOW / locking / probing named.
 - D-1423: `knowninvisible` ORs `uprops[SEE_INVIS]` /
   `DETECT_MONSTERS` (`youprop.h` H||E). Conferral SI
   transparent+learn, not vanish. No `canseemon` /
-  `confer_oc_oprop` rewrite. WAN_SLOW still named.
+  `confer_oc_oprop` rewrite. WAN_SLOW is D-1424.
 - D-1422: `bhitm` WAN_SPEED `:233–242` `!resist` NOTELL then
   `seemimic` + `mon_adjust_speed(+1)` + `check_gear_next_turn`;
-  `helpful_gesture` always. WAN_SLOW / zap_steed named.
+  `helpful_gesture` always. WAN_SLOW is D-1424; zap_steed named.
 - D-1421: SPE_INVISIBILITY FALLTHROUGH `peffects` (no skilled
   bless); wrapping itchy; timeout/FROMOUTSIDE; cursed aggravate.
 - D-1420: SPE_RESTORE_ABILITY skilled bless then `peffects`;
