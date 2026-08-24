@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-24
 
-- [x] `spell.c` `spelleffects` SPE_INVISIBILITY peffects (named from D-1408). Not amulet drain. **Addressed:** D-1421
+- [x] `zap.c` `bhitm` WAN_SPEED_MONSTER (named from D-1410). Not slow. **Addressed:** D-1422
+
+
+- [x] `spell.c` `spelleffects` SPE_INVISIBILITY peffects (named from D-1408). Not amulet drain. **Addressed:** D-1421 `d6d910c2`
 
 
 - [x] `spell.c` `spelleffects` SPE_RESTORE_ABILITY peffects (named from D-1408). Not INVISIBILITY. **Addressed:** D-1420 `9ab114b4`

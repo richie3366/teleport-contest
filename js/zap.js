@@ -24,6 +24,7 @@
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // bhitm WAN_MAKE_INVISIBLE mon_set_minvis + knowninvisible (D-1414);
+// bhitm WAN_SPEED_MONSTER mon_adjust_speed + check_gear_next_turn (D-1422);
 // dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
@@ -34,8 +35,8 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_updown/uswallow full; bhitm slow/speed/locking/
-// probing (zapyourself WAN_SPEED is D-1410; bhitm speed still named;
+// Named omissions: zap_updown/uswallow full; bhitm slow/locking/
+// probing (zapyourself WAN_SPEED is D-1410; bhitm WAN_SPEED is D-1422;
 // bhitm WAN_MAKE_INVISIBLE is D-1414);
 // zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
@@ -141,7 +142,7 @@ import { explode } from './explode.js';
 import { unpunish, litroom } from './read.js';
 import { bare_artifactname } from './artifact.js';
 import { Ring_gone, Ring_off, Ring_on, setworn } from './do_wear.js';
-import { which_armor, mon_set_minvis } from './worn.js';
+import { which_armor, mon_set_minvis, check_gear_next_turn } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
 import { abuse_dog, wary_dog, tamedog } from './dog.js';
 import {
@@ -3159,10 +3160,11 @@ async function miss_msg(str, mtmp) {
  * C ref: zap.c bhitm — monster hit by wand/spell effect.
  * Envelope (break-wand / IMMEDIATE): WAN_STRIKING, WAN_UNDEAD_TURNING
  * (damage; invent unturn_dead deferred), WAN_POLYMORPH, WAN_CANCELLATION,
- * WAN_TELEPORTATION, WAN_MAKE_INVISIBLE (D-1414), WAN_LIGHT
+ * WAN_TELEPORTATION, WAN_MAKE_INVISIBLE (D-1414), WAN_SPEED_MONSTER
+ * (D-1422; mon_adjust_speed + check_gear_next_turn), WAN_LIGHT
  * (flash_hits_mon), WAN_OPENING/SPE_KNOCK
  * (release_hold; openholding/openfalling; SPE_KNOCK mhurtle; saddle).
- * Named omit: slow/speed/locking/probing; long-worm mcorpsenm polish;
+ * Named omit: slow/locking/probing; long-worm mcorpsenm polish;
  * Knight questart double; mhurtle petrify/steed;
  * that_is_a_mimic box_or_door; zap_updown/zap_steed WAN_MAKE_INVISIBLE;
  * worm see_wsegs; bhitm map_invisible epilogue. SPE_FORCE_BOLT
@@ -3209,6 +3211,21 @@ export async function bhitm(mtmp, otmp) {
             if (!disguised_mimic) await miss_msg(zap_type_text, mtmp);
             learn_it = false;
         }
+        break;
+    }
+    case WAN_SPEED_MONSTER: {
+        // C zap.c bhitm :233–242 — !resist NOTELL then seemimic,
+        // mon_adjust_speed(mtmp, 1, otmp), check_gear_next_turn.
+        // helpful_gesture always (wake without anger). Callee
+        // worn.c mon_adjust_speed lives in muse.js (D-0871).
+        // zap_steed routes here; WAN_SLOW still named.
+        if (!(await resist(mtmp, otmp.oclass, 0, NOTELL))) {
+            if (disguised_mimic) seemimic(mtmp);
+            const { mon_adjust_speed } = await import('./muse.js');
+            await mon_adjust_speed(mtmp, 1, otmp);
+            check_gear_next_turn(mtmp);
+        }
+        helpful_gesture = true;
         break;
     }
     case WAN_UNDEAD_TURNING:
@@ -3801,8 +3818,8 @@ export async function zapyourself(obj, ordinary) {
     case WAN_SPEED_MONSTER:
         // C zap.c zapyourself :2845–2849 — no longer intrinsic;
         // speed_up(rn1(25, 50)) then always learn. Callee
-        // potion.c speed_up :2918–2928 (D-1408). bhitm /
-        // zap_steed / WAN_SLOW still named.
+        // potion.c speed_up :2918–2928 (D-1408). bhitm
+        // WAN_SPEED is D-1422; zap_steed / WAN_SLOW still named.
         await speed_up(rn1(25, 50));
         learn_it = true;
         break;

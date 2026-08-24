@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-24 — D-1422 zap.c bhitm WAN_SPEED_MONSTER
+
+**Objective:** Open `zap.c` `bhitm` WAN_SPEED_MONSTER (named
+from D-1410). Not slow.
+**C locus:** `zap.c` `bhitm` `:233–242`; callee `worn.c`
+`mon_adjust_speed` `:488–564`; `mon.c` `check_gear_next_turn`.
+**Change:** resist NOTELL then seemimic + mon_adjust_speed(+1)
++ check_gear_next_turn; helpful_gesture always. WAN_SLOW
+still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps speed at a monster).
+**Verified:** private canary **15**/15; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `bhitm` WAN_SLOW_MONSTER (named). Not
+speed.
+**Blocked:** none.
 ## 2026-08-24 — D-1421 spell.c SPE_INVISIBILITY peffects
 
 **Objective:** Open `spell.c` `spelleffects` SPE_INVISIBILITY
