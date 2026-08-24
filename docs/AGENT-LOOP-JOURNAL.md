@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1427 spell.c SPE_LIGHT NODIR wand-duplicate
+
+**Objective:** Open `zap.c` `zapnodir` remaining SPE_LIGHT
+wand-duplicate (named from D-1412). Not detect unseen.
+**C locus:** `spell.c` `spelleffects` `:1473–1514` (NODIR
+`weffects`); callee `zap.c` `zapnodir` `:2544–2550` (D-1366
+`litroom` + `lightdamage`); `weffects` `:3453–3454`.
+**Change:** route SPE_LIGHT through `wand_duplicate_weffects`
+(same NODIR arm as SPE_DETECT_UNSEEN). Fake SPBOOK skips
+`learnwand`. SLEEP / DIG / IMMEDIATE still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts light).
+**Verified:** private canary **21**/21; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `peffect_polymorph` (named). Not
+gain energy.
+**Blocked:** none.
 ## 2026-08-25 — D-1426 zap.c bhitm WAN_PROBING
 
 **Objective:** Open `zap.c` `bhitm` WAN_PROBING (named from

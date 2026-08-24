@@ -22,6 +22,7 @@
 // zapnodir WAN_ENLIGHTENMENT do_enlightenment_effect (D-1395);
 // zapnodir WAN_STASIS stasis_until max moves+rn1(21,10) (D-1404);
 // zapnodir SPE_DETECT_UNSEEN shares SECRET_DOOR findit (D-1412);
+// SPE_LIGHT NODIR wand-duplicate cast dispatch (D-1427;
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // bhitm WAN_MAKE_INVISIBLE mon_set_minvis + knowninvisible (D-1414);
@@ -47,8 +48,9 @@
 // bhitm WAN_LOCKING is D-1425; bhitm WAN_PROBING is D-1426);
 // zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
-// remaining NODIR wand-duplicate SPE_LIGHT cast
-// dispatch; potion peffect_enlightenment is D-1413;
+// SPE_LIGHT NODIR wand-duplicate cast dispatch is D-1427
+// (zapnodir SPE_LIGHT already D-1366); remaining SLEEP/DIG
+// wand-duplicate; potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
@@ -2314,9 +2316,10 @@ export async function do_enlightenment_effect() {
  * WAN_WISHING → Luck+rn2(5) then makewish (D-1380);
  * WAN_ENLIGHTENMENT → do_enlightenment_effect (D-1395);
  * WAN_STASIS → stasis_until max moves+rn1(21,10) (D-1404);
- * SPE_DETECT_UNSEEN shares SECRET_DOOR findit (D-1412).
- * Named omit: remaining NODIR wand-duplicate SPE_LIGHT cast
- * dispatch (zapnodir SPE_LIGHT already live D-1366).
+ * SPE_DETECT_UNSEEN shares SECRET_DOOR findit (D-1412);
+ * SPE_LIGHT NODIR wand-duplicate cast dispatch (D-1427;
+ * zapnodir SPE_LIGHT already live D-1366).
+ * Named omit: remaining wand-duplicate SLEEP / DIG / IMMEDIATE.
  */
 export async function zapnodir(obj) {
     let known = false;

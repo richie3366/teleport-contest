@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1427 — spell.c SPE_LIGHT NODIR wand-duplicate
+
+- **Status:** fixed (map-driven Open from D-1412; not a public FAIL)
+- **Symptom:** casting light (`spelleffects` SPE_LIGHT) was
+  "Nothing happens." C `:1473–1514` puts SPE_LIGHT in the
+  wand-duplicate group: `oc_dir == NODIR` so `weffects(pseudo)`
+  then `update_inventory()`. `weffects` `:3453–3454` calls
+  `zapnodir`. `zapnodir` `:2544–2550` (D-1366) already does
+  `known = dknown && !Blind`, `litroom(TRUE, obj)`,
+  `lightdamage(obj, TRUE, 5)`. Fake spellbook is SPBOOK so
+  `learnwand` skips `makeknown`.
+- **C locus:** `spell.c` `spelleffects` `:1473–1514`. Callee
+  `zap.c` `weffects` `:3453–3454` / `zapnodir` `:2544–2550`;
+  `read.c` `litroom`. Caller `docast` / `getspell`.
+- **JS was:** other-otyp "Nothing happens." after D-1412
+  SPE_DETECT_UNSEEN; zapnodir SPE_LIGHT already live (D-1366).
+- **Fix:** route SPE_LIGHT through `wand_duplicate_weffects`
+  beside SPE_DETECT_UNSEEN (NODIR `weffects`). Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callee `js/zap.js`
+  `zapnodir` / `weffects`.
+- **Not this iter:** remaining wand-duplicate SLEEP / DIG /
+  IMMEDIATE (KNOCK / SLOW / LOCK / …); potion
+  `peffect_polymorph`; swallow litroom engulfer msgs.
+- **Verified:** private canary **21**/21 (C/JS grep; NODIR
+  SPBOOK vs WAN_LIGHT; cast lit-field + radius; dknown XP +
+  skip makeknown; !dknown still litroom no XP; Blind silent
+  no XP; swallow no ordinary pline; WAN_LIGHT learnwand
+  regression; weffects NODIR; SLEEP still Nothing happens;
+  DETECT_UNSEEN/STASIS/ENLIGHTEN/WISH/CREATE still wired;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts light.
+- **Follow-up:** Open `potion.c` `peffect_polymorph`
+  (named). Not gain energy.
+- **Files:** `js/spell.js`, `js/zap.js` (comments).
+
 ## D-1426 — zap.c bhitm WAN_PROBING
 
 - **Status:** fixed (map-driven Open from D-1369 / D-1425; not a public FAIL)

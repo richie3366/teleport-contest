@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-24
 
-- [x] `zap.c` `bhitm` WAN_PROBING (named from D-1369). Not locking. **Addressed:** D-1426
+- [x] `zap.c` `zapnodir` remaining SPE_LIGHT wand-duplicate (named from D-1412). Not detect unseen. **Addressed:** D-1427
+
+
+- [x] `zap.c` `bhitm` WAN_PROBING (named from D-1369). Not locking. **Addressed:** D-1426 `e50968db`
 
 
 - [x] `zap.c` `bhitm` WAN_LOCKING (named from D-1369). Not probing. **Addressed:** D-1425 `8f334efb`
