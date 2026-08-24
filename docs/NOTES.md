@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1425; cadence **#1790** `9f2a3a08`
+- **Fortress 44/44** after D-1426; cadence **#1790** `9f2a3a08`
   (Scr **11,405** RNG 100% speed `38+0.30/turn` R² 0.83). Next:
-  Open `zap.c` `bhitm` WAN_PROBING (named from D-1369). Not locking.
-  Do not skip D-1425…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `zap.c` `zapnodir` remaining SPE_LIGHT wand-duplicate
+  (named from D-1412). Not detect unseen.
+  Do not skip D-1426…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1425. Named still: `see_monsters`
+- Do not revert D-1217–D-1426. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -22,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1425.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1426.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,7 +34,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1425 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1426 (index).
 - Named still: rustm / poison / worm-shrieker; remaining peffects
   (polymorph/gain energy/acid/gain level/blindness/sleeping); remaining
   SPE_LIGHT wand-duplicate; artifact invoke. No fountain
@@ -48,6 +49,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1426: `bhitm` WAN_PROBING `:376–381` wake FALSE,
+  reveal_invis, `probe_monster`, always learn. Callee
+  `probe_objchain` observe + container lknown/cknown (not
+  SchroedingersBox cknown) + tin known; `display_minventory`
+  MINV_ALL|MINV_NOLET|PICK_NONE. notonhead skips minvent.
+  zapyourself / zap_steed / zap_updown / bhito named.
 - D-1425: `bhitm` WAN_LOCKING/SPE_WIZARD_LOCK `:370–375`
   `box_or_door` + `closeholdingtrap` (wake = trap-hit).
   Callee `trap.c` `:6210–6247`. that_is_a_mimic pline named.
@@ -78,4 +85,3 @@ Objective/score live in `CURRENT.md`.
 - D-1412: zapnodir SPE_DETECT_UNSEEN shares `findit`.
 - D-1410: zapyourself WAN_SPEED `speed_up(rn1(25,50))`.
 - D-1409: `spell_backfire` `rn2(10)` then `rnd(energy)`.
-- D-1408: SPE_HASTE_SELF `speed_up` `rn1(10,100+60*bcsign)`.

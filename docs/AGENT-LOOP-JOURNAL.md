@@ -8,6 +8,27 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1426 zap.c bhitm WAN_PROBING
+
+**Objective:** Open `zap.c` `bhitm` WAN_PROBING (named from
+D-1369). Not locking.
+**C locus:** `zap.c` `bhitm` `:376–381`; callees
+`probe_monster` `:625–640`, `probe_objchain` `:611–623`;
+`invent.c` `display_minventory` `:5340–5386`.
+**Change:** wake FALSE, reveal_invis, probe_monster, always
+learn. probe_objchain observe + container lknown/cknown
+(SchroedingersBox skips cknown) + tin known; notonhead
+skips minvent; empty "not carrying". Thin display_minventory
+MINV_ALL|PICK_NONE. bhitm map_invisible epilogue wired.
+zapyourself / zap_steed / zap_updown / bhito named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps probing at a monster).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapnodir` remaining SPE_LIGHT
+wand-duplicate (named from D-1412). Not detect unseen.
+**Blocked:** none.
 ## 2026-08-25 — D-1425 zap.c bhitm WAN_LOCKING
 
 **Objective:** Open `zap.c` `bhitm` WAN_LOCKING (named from

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-24
 
-- [x] `zap.c` `bhitm` WAN_LOCKING (named from D-1369). Not probing. **Addressed:** D-1425
+- [x] `zap.c` `bhitm` WAN_PROBING (named from D-1369). Not locking. **Addressed:** D-1426
+
+
+- [x] `zap.c` `bhitm` WAN_LOCKING (named from D-1369). Not probing. **Addressed:** D-1425 `8f334efb`
 
 
 - [x] `zap.c` `bhitm` WAN_SLOW_MONSTER (named). Not speed. **Addressed:** D-1424 `faa5f3f3`

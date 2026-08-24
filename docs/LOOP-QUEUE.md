@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `bhitm` WAN_PROBING (named from D-1369). Not locking.
 - [ ] `zap.c` `zapnodir` remaining SPE_LIGHT wand-duplicate (named from D-1412). Not detect unseen.
 - [ ] `potion.c` `peffect_polymorph` (named). Not gain energy.
 - [ ] `potion.c` `peffect_gain_energy` (named). Not acid.

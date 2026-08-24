@@ -4,6 +4,52 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1426 — zap.c bhitm WAN_PROBING
+
+- **Status:** fixed (map-driven Open from D-1369 / D-1425; not a public FAIL)
+- **Symptom:** `bhitm` defaulted `WAN_PROBING`. A monster-aimed
+  probing wand always woke (wake defaulted true), never called
+  `probe_monster`, never learned the wand, and never mapped an
+  unseen target. C `:376–381`: `wake = FALSE`; `reveal_invis`;
+  `probe_monster(mtmp)`; `learn_it = TRUE`. Callee
+  `probe_monster` `:625–640`: `mstatusline`; `notonhead` skips
+  minvent (long-worm tail); else `probe_objchain` +
+  `display_minventory(MINV_ALL|MINV_NOLET|PICK_NONE)` or
+  "not carrying anything" (+ " besides you" if engulfing).
+  `probe_objchain` `:611–623`: `observe_object`; container/statue
+  `lknown` and `cknown` unless `SchroedingersBox`; tin `known`.
+  `zap_steed` calls `probe_monster` directly (not via this
+  `bhitm`). Self-zap `probe_objchain(invent)` still named.
+- **C locus:** `zap.c` `bhitm` `:376–381`. Helpers
+  `probe_monster` `:625–640`, `probe_objchain` `:611–623`;
+  `invent.c` `display_minventory` `:5340–5386`. Caller
+  IMMEDIATE `weffects` → `bhit` → `bhitm`.
+- **JS was:** `default` break (wake without probing).
+- **Fix:** case `WAN_PROBING`; `wake = false`; `reveal_invis`;
+  `probe_monster`; `learn_it = true`. Ported `probe_objchain` +
+  `probe_monster` in `zap.js`; thin `display_minventory` for
+  MINV_ALL|PICK_NONE (INVORDER_SORT class headings + doname
+  under `suppress_price`; INCLUDE_HERO / worn_wield_only /
+  PICK_ONE / sortloot loot-name named). Wired bhitm
+  `map_invisible` epilogue `:563–566`. Rule #2: no fs.
+- **JS:** `js/zap.js` `bhitm` / `probe_monster`; callee
+  `js/invent.js` `display_minventory`.
+- **Not this iter:** zapyourself WAN_PROBING; `zap_steed`
+  probe_monster; `zap_updown` / `bhito` WAN_PROBING;
+  INCLUDE_HERO fake-hero row.
+- **Verified:** private canary **18**/18 (C/JS grep; Rule #2;
+  empty minvent sleep+learn+not-carrying; minvent
+  dknown/lknown/cknown/tin known; SchroedingersBox skips
+  cknown; STATUE lknown+cknown; notonhead skips chain;
+  engulfing "besides you"; WAN_LOCKING still D-1425;
+  WAN_SLOW still D-1424); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps probing at a monster.
+- **Follow-up:** Open `zap.c` `zapnodir` remaining SPE_LIGHT
+  wand-duplicate (named from D-1412). Not detect unseen.
+- **Files:** `js/zap.js`, `js/invent.js`.
+
 ## D-1425 — zap.c bhitm WAN_LOCKING
 
 - **Status:** fixed (map-driven Open from D-1369 / D-1424; not a public FAIL)

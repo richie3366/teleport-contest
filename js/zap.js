@@ -2,6 +2,7 @@
 // C ref: zap.c dozap, zappable, weffects, zapnodir, learnwand, makewish,
 //        zapyourself, flashburn, lightdamage, ubreatheu, ubuzz, dobuzz, zhitm, destroy_items, resist,
 //        bhit, bhito, bhitm, bhitpile, poly_obj, obj_shudders,
+//        probe_monster, probe_objchain,
 //        cancel_item, cancel_monst, revive, revive_egg, unturn_dead,
 //        unturn_you
 //
@@ -28,6 +29,7 @@
 // bhitm WAN_SPEED_MONSTER mon_adjust_speed + check_gear_next_turn (D-1422);
 // bhitm WAN_SLOW_MONSTER mon_adjust_speed(-1) + whirly expels (D-1424);
 // bhitm WAN_LOCKING closeholdingtrap (D-1425);
+// bhitm WAN_PROBING probe_monster + probe_objchain (D-1426);
 // dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
@@ -38,10 +40,11 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_updown/uswallow full; bhitm probing
+// Named omissions: zap_updown/uswallow full; zapyourself WAN_PROBING /
+// zap_steed probe_monster / bhito WAN_PROBING
 // (zapyourself WAN_SPEED is D-1410; bhitm WAN_SPEED is D-1422;
 // bhitm WAN_SLOW is D-1424; bhitm WAN_MAKE_INVISIBLE is D-1414;
-// bhitm WAN_LOCKING is D-1425);
+// bhitm WAN_LOCKING is D-1425; bhitm WAN_PROBING is D-1426);
 // zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // remaining NODIR wand-duplicate SPE_LIGHT cast
@@ -63,6 +66,7 @@
 // flash_hits WAN_LIGHT bhitm (D-0979); openholding/openfalling +
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
 // closeholdingtrap bhitm WAN_LOCKING (D-1425);
+// probe_monster bhitm WAN_PROBING (D-1426);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
 // spell.c skilled SPE_FIREBALL scatter is D-1378 (this callee
@@ -92,12 +96,16 @@ import { getlin } from './getline.js';
 import {
     flush_screen, flush_topl_more, pline, pline_dir, Norep, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon,
-    obj_glyph, glyph_is_invisible,
+    obj_glyph, glyph_is_invisible, map_invisible,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
-import { hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core } from './invent.js';
+import {
+    hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
+    observe_object, display_minventory,
+} from './invent.js';
+import { mstatusline } from './insight.js';
 import { setnotworn } from './do.js';
 import { doname, xname, yname, distant_name, vtense, The, an, An, killer_xname, ansimpleoname, otyp_is_charged } from './objnam.js';
 import { uhim } from './roles.js';
@@ -123,7 +131,7 @@ import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from '.
 import {
     killed, xkilled, flash_hits_mon, m_is_steadfast,
 } from './uhitm.js';
-import { mon_nam, Monnam, christen_monst, hliquid, Hallucination } from './do_name.js';
+import { mon_nam, Monnam, noit_Monnam, christen_monst, hliquid, Hallucination } from './do_name.js';
 import { finish_losehp_done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap,
@@ -180,7 +188,8 @@ import {
     SHOP_DOOR_COST,
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd, INVIS,
-    engulfing_u,
+    engulfing_u, Is_container,
+    MINV_ALL, MINV_NOLET, PICK_NONE,
     SEE_INVIS, DETECT_MONSTERS,
     TELEPAT, INTRINSIC, BOLT_LIM,
     LEFT_RING, RIGHT_RING,
@@ -252,6 +261,7 @@ const WAN_OPENING = objectNames.indexOf('WAN_OPENING');
 const SPE_KNOCK = objectNames.indexOf('SPE_KNOCK');
 const WAN_LOCKING = objectNames.indexOf('WAN_LOCKING');
 const SPE_WIZARD_LOCK = objectNames.indexOf('SPE_WIZARD_LOCK');
+const WAN_PROBING = objectNames.indexOf('WAN_PROBING');
 const CHEST = objectNames.indexOf('CHEST');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 // C defsym.h S_vodoor..S_hcdoor — is_cmap_door (sym.h)
@@ -264,6 +274,7 @@ const FIRE_HORN = objectNames.indexOf('FIRE_HORN');
 const FROST_HORN = objectNames.indexOf('FROST_HORN');
 const BOULDER = objectNames.indexOf('BOULDER');
 const STATUE = objectNames.indexOf('STATUE');
+const TIN = objectNames.indexOf('TIN');
 const SCR_BLANK_PAPER = objectNames.indexOf('SCR_BLANK_PAPER');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
@@ -3191,6 +3202,52 @@ function box_or_door(monst) {
     return false;
 }
 
+/** C obj.h SchroedingersBox — LARGE_BOX with spe==1. */
+function SchroedingersBox(obj) {
+    return !!obj && (obj.otyp | 0) === LARGE_BOX && (obj.spe | 0) === 1;
+}
+
+/**
+ * C zap.c probe_objchain :611–623 — observe each; container/statue
+ * lknown (+ cknown unless SchroedingersBox); tin known.
+ */
+function probe_objchain(otmp) {
+    for (; otmp; otmp = otmp.nobj) {
+        observe_object(otmp);
+        if (Is_container(otmp) || (otmp.otyp | 0) === STATUE) {
+            otmp.lknown = 1;
+            if (!SchroedingersBox(otmp)) otmp.cknown = 1;
+        } else if ((otmp.otyp | 0) === TIN) {
+            otmp.known = 1;
+        }
+    }
+}
+
+/**
+ * C zap.c probe_monster :625–640 — mstatusline; notonhead skips
+ * minvent (long-worm tail). Else probe_objchain + display_minventory
+ * (MINV_ALL|MINV_NOLET|PICK_NONE) or "not carrying anything".
+ * Callers: bhitm WAN_PROBING (D-1426); zap_steed still named.
+ */
+export async function probe_monster(mtmp) {
+    if (!mtmp) return;
+    await mstatusline(mtmp);
+    if (game.notonhead) return;
+    if (mtmp.minvent) {
+        probe_objchain(mtmp.minvent);
+        // C display_minventory NULL title → s_suffix(noit_Monnam)+" possessions:"
+        const title = `${s_suffix_zap(noit_Monnam(mtmp))} possessions:`;
+        await display_minventory(
+            mtmp, MINV_ALL | MINV_NOLET | PICK_NONE, title,
+        );
+    } else {
+        const extra = engulfing_u(mtmp) ? ' besides you' : '';
+        await pline(
+            `${noit_Monnam(mtmp)} is not carrying anything${extra}.`,
+        );
+    }
+}
+
 /** C ref: zap.c miss — wand/spell miss message. */
 async function miss_msg(str, mtmp) {
     const bx = game._bhitpos?.x ?? mtmp.mx;
@@ -3211,12 +3268,13 @@ async function miss_msg(str, mtmp) {
  * WAN_LIGHT (flash_hits_mon), WAN_OPENING/SPE_KNOCK
  * (release_hold; openholding/openfalling; SPE_KNOCK mhurtle; saddle),
  * WAN_LOCKING/SPE_WIZARD_LOCK (D-1425; closeholdingtrap; wake =
- * trap-hit). Named omit: probing; long-worm mcorpsenm polish;
+ * trap-hit), WAN_PROBING (D-1426; probe_monster; wake = FALSE;
+ * always learn). Named omit: long-worm mcorpsenm polish;
  * Knight questart double; mhurtle petrify/steed;
  * that_is_a_mimic MIM_REVEAL pline (box_or_door+seemimic wired);
- * zap_updown/zap_steed WAN_MAKE_INVISIBLE;
- * worm see_wsegs; bhitm map_invisible epilogue. SPE_FORCE_BOLT
- * spell_damage_bonus is D-1388.
+ * zap_updown/zap_steed WAN_MAKE_INVISIBLE / WAN_PROBING;
+ * zapyourself WAN_PROBING; bhito WAN_PROBING; worm see_wsegs.
+ * SPE_FORCE_BOLT spell_damage_bonus is D-1388.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
 export async function bhitm(mtmp, otmp) {
@@ -3400,6 +3458,16 @@ export async function bhitm(mtmp, otmp) {
         wake = closed.happened;
         break;
     }
+    case WAN_PROBING:
+        // C zap.c bhitm :376–381 — wake FALSE; reveal_invis; probe;
+        // always learn. Callee probe_monster :625–640. zap_steed
+        // calls probe_monster directly (named). zapyourself /
+        // zap_updown / bhito still named.
+        wake = false;
+        reveal_invis = true;
+        await probe_monster(mtmp);
+        learn_it = true;
+        break;
     case WAN_LIGHT:
         // C: broken-wand / IMMEDIATE light flash on monster
         if (await flash_hits_mon(mtmp, otmp)) {
@@ -3489,7 +3557,16 @@ export async function bhitm(mtmp, otmp) {
             hot_pursuit(mtmp);
         }
     }
-    void reveal_invis;
+    // C zap.c bhitm :563–566 — reveal_invis maps 'I' at bhitpos
+    // when the hero can see the spot but not the monster (D-1426;
+    // probing always sets this; other arms already set the flag).
+    if (reveal_invis && (mtmp.mhp | 0) > 0) {
+        const bx = bhitpos.x | 0;
+        const by = bhitpos.y | 0;
+        if (cansee(bx, by) && !canspotmon(mtmp)) {
+            map_invisible(bx, by);
+        }
+    }
     if (learn_it) learnwand(otmp);
     return 0;
 }
