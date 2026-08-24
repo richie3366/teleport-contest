@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` `peffect_acid` (named). Not gain level.
 - [ ] `potion.c` `peffect_gain_level` (named). Not blindness.
 - [ ] `potion.c` `peffect_blindness` (named). Not sleeping.
 - [ ] `zap.c` `zapyourself` WAN_SLOW_MONSTER (named from D-1424). Not locking self.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `zapyourself` WAN_PROBING (named). Not drain.
 - [ ] `zap.c` `bhitm` SPE_DRAIN_LIFE (named). Not zapyourself slow.
 - [ ] `potion.c` `peffect_sleeping` (named). Not remaining peffects.
+- [ ] `potion.c` `peffect_gain_ability` (named). Not hallucination.
+- [ ] `potion.c` `peffect_hallucination` (named). Not remaining mix.
+- [ ] `zap.c` `weffects` SPE_SLEEP wand-duplicate (named from D-1427). Not DIG.
+- [ ] `zap.c` `weffects` SPE_DIG wand-duplicate (named from D-1427). Not IMMEDIATE.
+- [ ] `uhitm.c` `mhitm_ad_phys` rustm leftover (named from D-1415). Not poison.
 
 ## Parked (do not pop)
 

@@ -11,6 +11,7 @@
 //         peffect_invisibility (D-1421),
 //         peffect_polymorph (D-1428),
 //         peffect_gain_energy (D-1429),
+//         peffect_acid (D-1430),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -39,6 +40,10 @@
 // POT_GAIN_ENERGY peffect_gain_energy (D-1429; cursed lackluster else
 // Magical energies; d(blessed?3:!cursed?2:1,6) ±uenmax + 3*num uen
 // clamp 0/max; uenpeak; botl; exercise WIS TRUE).
+// POT_ACID peffect_acid (D-1430; Acid_resistance tastes tangy/sour
+// else burns a little/a lot/like acid; d(cursed?2:1, blessed?4:8)
+// losehp Maybe_Half_Phys KILLED_BY_AN; exercise CON FALSE; Stoned
+// eat.c fix_petrification; potion_unkn++).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -80,7 +85,7 @@ import {
     A_CHAOTIC, A_LAWFUL, Upolyd, ismnum, NON_PM, NEUTRAL,
     P_RIDING, P_BASIC, ER_DESTROYED, ER_NOTHING, MM_NOMSG,
     OBJ_INVENT, ARTICLE_THE, SUPPRESS_IT, SUPPRESS_SADDLE, W_SADDLE,
-    POLY_NOFLAGS, POLY_CONTROLLED, POLY_LOW_CTRL, UNCHANGING,
+    POLY_NOFLAGS, POLY_CONTROLLED, POLY_LOW_CTRL, UNCHANGING, ACID_RES,
 } from './const.js';
 import { hands_obj, P_SKILL } from './weapon.js';
 import { rn2, rnd, d, rn1, rnl } from './rng.js';
@@ -102,7 +107,7 @@ import {
     trycall, hliquid, a_monnam, Monnam, hcolor, x_monnam, mon_nam,
     Hallucination,
 } from './do_name.js';
-import { newuhs } from './eat.js';
+import { newuhs, fix_petrification } from './eat.js';
 import { heal_legs, water_damage, float_up, self_invis_message } from './trap.js';
 import { aggravate } from './wizard.js';
 import {
@@ -1415,6 +1420,27 @@ function Unchanging(u = game.u || {}) {
 }
 
 /**
+ * C youprop.h Acid_resistance — HAcid_resistance || EAcid_resistance
+ * ≡ uprops[ACID_RES].intrinsic || uprops[ACID_RES].extrinsic.
+ * confer_oc_oprop writes ACID_RES only to uprops (EAcid_resistance
+ * unmirrored). Keep H/E/sticky flats for eat/poly.
+ */
+function Acid_resistance(u = game.u || {}) {
+    const e = u.uprops?.[ACID_RES];
+    return !!((u.Acid_resistance || u.HAcid_resistance || u.EAcid_resistance)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/**
+ * C youprop.h Stoned — uprops[STONED].intrinsic.
+ * make_stoned writes the Stoned flat; check both.
+ */
+function Stoned(u = game.u || {}) {
+    const e = u.uprops?.[STONED];
+    return !!((u.Stoned | 0) || (e?.intrinsic | 0));
+}
+
+/**
  * C ref: potion.c peffect_polymorph :1318–1330.
  * You_feel a little strange (Hallucination: normal). If !Unchanging:
  * unblessed or already polymorphed → polyself(POLY_NOFLAGS); blessed
@@ -1474,6 +1500,35 @@ async function peffect_gain_energy(otmp) {
 }
 
 /**
+ * C ref: potion.c peffect_acid :1297–1314.
+ * Acid_resistance: This tastes tangy (Hallucination) / sour.
+ * Else: This burns a little / a lot / like acid; dmg =
+ * d(cursed?2:1, blessed?4:8); losehp(Maybe_Half_Phys) "potion of
+ * acid" KILLED_BY_AN; exercise(A_CON, FALSE).
+ * Always: if Stoned, eat.c fix_petrification; potion_unkn++
+ * (holy/unholy water can burn like acid too).
+ * potionhit / potionbreathe / mix / dipsink POT_ACID still named.
+ */
+async function peffect_acid(otmp) {
+    const u = game.u || (game.u = {});
+    if (Acid_resistance(u)) {
+        /* Not necessarily a creature who _likes_ acid */
+        await pline(`This tastes ${Hallucination() ? 'tangy' : 'sour'}.`);
+    } else {
+        const how = otmp.blessed ? ' a little'
+            : otmp.cursed ? ' a lot' : ' like acid';
+        await pline(`This burns${how}!`);
+        const dmg = d(otmp.cursed ? 2 : 1, otmp.blessed ? 4 : 8);
+        losehp(maybe_half_phys(dmg), 'potion of acid', KILLED_BY_AN);
+        exercise(A_CON, false);
+    }
+    if (Stoned(u)) {
+        await fix_petrification();
+    }
+    potion_unkn++;
+}
+
+/**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
  * full healing (D-1411) / enlightenment (D-1413) / sickness / water;
@@ -1483,7 +1538,8 @@ async function peffect_gain_energy(otmp) {
  * POT_LEVITATION / SPE_LEVITATION (D-1419);
  * POT_RESTORE_ABILITY / SPE_RESTORE_ABILITY (D-1420);
  * POT_INVISIBILITY / SPE_INVISIBILITY (D-1421);
- * POT_POLYMORPH (D-1428); POT_GAIN_ENERGY (D-1429); other otyps in map.
+ * POT_POLYMORPH (D-1428); POT_GAIN_ENERGY (D-1429);
+ * POT_ACID (D-1430); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1550,6 +1606,9 @@ export async function peffects(otmp) {
         return -1;
     case POT_GAIN_ENERGY:
         await peffect_gain_energy(otmp);
+        return -1;
+    case POT_ACID:
+        await peffect_acid(otmp);
         return -1;
     default:
         // Other peffect_* deferred — do not useup

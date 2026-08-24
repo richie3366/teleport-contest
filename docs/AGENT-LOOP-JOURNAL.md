@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1430 potion.c peffect_acid
+
+**Objective:** Open `potion.c` `peffect_acid` (named).
+Not gain level.
+**C locus:** `potion.c` `peffect_acid` `:1297–1314` /
+`peffects` `:1414–1415`; callee `eat.c`
+`fix_petrification` `:867–877`.
+**Change:** Acid_resistance tastes tangy/sour else burns
+a little/a lot/like acid; `d(cursed?2:1, blessed?4:8)`
+losehp Maybe_Half_Phys KILLED_BY_AN; exercise CON FALSE;
+Stoned fix_petrification; potion_unkn++. Gain level still
+named. potionhit/mix named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session quaffs acid).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `peffect_gain_level` (named). Not
+blindness.
+**Blocked:** none.
 ## 2026-08-25 — D-1429 potion.c peffect_gain_energy
 
 **Objective:** Open `potion.c` `peffect_gain_energy` (named).

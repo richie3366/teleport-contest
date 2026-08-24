@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1430 — potion.c peffect_acid
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** quaffing a potion of acid printed
+  "That potion is not implemented yet." and skipped
+  `useup`. C `peffects` `:1414–1415` calls
+  `peffect_acid`. That helper `:1297–1314`:
+  `Acid_resistance` → `This tastes tangy/sour`
+  (Hallucination); else `This burns a little / a lot /
+  like acid`, `dmg = d(cursed?2:1, blessed?4:8)`,
+  `losehp(Maybe_Half_Phys(dmg), "potion of acid",
+  KILLED_BY_AN)`, `exercise(A_CON, FALSE)`. Always:
+  `if (Stoned) fix_petrification()` (eat.c `:867–877`
+  `make_stoned(0)`); `gp.potion_unkn++`.
+  potionhit isyou has its own POT_ACID arm (already
+  live; vapors/mix still named).
+- **C locus:** `potion.c` `peffect_acid` `:1297–1314`
+  / `peffects` `:1414–1415`. Callee `eat.c`
+  `fix_petrification` `:867–877`.
+- **JS was:** `peffects` default "not implemented"
+  (return 0, no useup).
+- **Fix:** Port `peffect_acid`. Wire POT_ACID.
+  Export `fix_petrification`. Acid_resistance via
+  flats + `uprops[ACID_RES]` (H||E). Rule #2: no fs.
+- **JS:** `js/potion.js` `peffects` / `peffect_acid`;
+  `js/eat.js` `fix_petrification`.
+- **Not this iter:** remaining peffects (gain level /
+  blindness / sleeping / gain ability / hallucination);
+  potionhit / potionbreathe / mix / dipsink POT_ACID
+  polish.
+- **Verified:** private canary **16**/16 (C/JS grep;
+  uncursed burns like acid d(1,8); blessed a little
+  d(1,4); cursed a lot d(2,8); HAcid_resistance sour
+  no dice; conferral uprops extrinsic sour; hallu
+  tangy; Stoned limber; resist+Stoned sour+limber;
+  Upolyd mh CON skip; gain level still not-implemented;
+  Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session quaffs acid.
+- **Follow-up:** Open `potion.c` `peffect_gain_level`
+  (named). Not blindness.
+- **Files:** `js/potion.js`, `js/eat.js`.
+
 ## D-1429 — potion.c peffect_gain_energy
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
