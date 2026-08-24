@@ -27,6 +27,7 @@
 // knowninvisible See_invisible/Detect_monsters ≡ uprops (D-1423);
 // bhitm WAN_SPEED_MONSTER mon_adjust_speed + check_gear_next_turn (D-1422);
 // bhitm WAN_SLOW_MONSTER mon_adjust_speed(-1) + whirly expels (D-1424);
+// bhitm WAN_LOCKING closeholdingtrap (D-1425);
 // dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
@@ -37,9 +38,10 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_updown/uswallow full; bhitm locking/
-// probing (zapyourself WAN_SPEED is D-1410; bhitm WAN_SPEED is D-1422;
-// bhitm WAN_SLOW is D-1424; bhitm WAN_MAKE_INVISIBLE is D-1414);
+// Named omissions: zap_updown/uswallow full; bhitm probing
+// (zapyourself WAN_SPEED is D-1410; bhitm WAN_SPEED is D-1422;
+// bhitm WAN_SLOW is D-1424; bhitm WAN_MAKE_INVISIBLE is D-1414;
+// bhitm WAN_LOCKING is D-1425);
 // zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // remaining NODIR wand-duplicate SPE_LIGHT cast
@@ -60,6 +62,7 @@
 // disintegrate_mon; fire completelyburns XKILL_NOCORPSE; mon_reflects;
 // flash_hits WAN_LIGHT bhitm (D-0979); openholding/openfalling +
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
+// closeholdingtrap bhitm WAN_LOCKING (D-1425);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
 // spell.c skilled SPE_FIREBALL scatter is D-1378 (this callee
@@ -124,8 +127,8 @@ import { mon_nam, Monnam, christen_monst, hliquid, Hallucination } from './do_na
 import { finish_losehp_done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap,
-    NO_TRAP_FLAGS, ignite_items, openholdingtrap, openfallingtrap,
-    self_invis_message,
+    NO_TRAP_FLAGS, ignite_items, openholdingtrap, closeholdingtrap,
+    openfallingtrap, self_invis_message,
 } from './trap.js';
 import { potionbreathe, make_stunned, speed_up } from './potion.js';
 import { burn_away_slime } from './timeout.js';
@@ -181,7 +184,8 @@ import {
     SEE_INVIS, DETECT_MONSTERS,
     TELEPAT, INTRINSIC, BOLT_LIM,
     LEFT_RING, RIGHT_RING,
-    M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, M_AP_OBJECT, NON_PM, ismnum,
+    M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, M_AP_OBJECT, M_AP_FURNITURE,
+    NON_PM, ismnum,
     def_warnsyms,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
     REFLECTING, ANTIMAGIC, SHOCK_RES,
@@ -246,6 +250,13 @@ const WAN_UNDEAD_TURNING = objectNames.indexOf('WAN_UNDEAD_TURNING');
 const SPE_TURN_UNDEAD = objectNames.indexOf('SPE_TURN_UNDEAD');
 const WAN_OPENING = objectNames.indexOf('WAN_OPENING');
 const SPE_KNOCK = objectNames.indexOf('SPE_KNOCK');
+const WAN_LOCKING = objectNames.indexOf('WAN_LOCKING');
+const SPE_WIZARD_LOCK = objectNames.indexOf('SPE_WIZARD_LOCK');
+const CHEST = objectNames.indexOf('CHEST');
+const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
+// C defsym.h S_vodoor..S_hcdoor — is_cmap_door (sym.h)
+const S_VODOOR = 13;
+const S_HCDOOR = 16;
 const WAN_FIRE = objectNames.indexOf('WAN_FIRE');
 const WAN_COLD = objectNames.indexOf('WAN_COLD');
 const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
@@ -3163,6 +3174,23 @@ async function hit_msg(str, mtmp, force) {
     await pline(`${The(str)} ${vtense(str, 'hit')} ${whom}${force}`);
 }
 
+/**
+ * C zap.c bhitm box_or_door — mimic appearances that have locks
+ * (CHEST/LARGE_BOX or cmap door S_vodoor..S_hcdoor).
+ */
+function box_or_door(monst) {
+    const ap = M_AP_TYPE(monst);
+    if (ap === M_AP_OBJECT) {
+        const appear = monst.mappearance | 0;
+        return appear === CHEST || appear === LARGE_BOX;
+    }
+    if (ap === M_AP_FURNITURE) {
+        const i = monst.mappearance | 0;
+        return i >= S_VODOOR && i <= S_HCDOOR;
+    }
+    return false;
+}
+
 /** C ref: zap.c miss — wand/spell miss message. */
 async function miss_msg(str, mtmp) {
     const bx = game._bhitpos?.x ?? mtmp.mx;
@@ -3181,10 +3209,12 @@ async function miss_msg(str, mtmp) {
  * (D-1422; mon_adjust_speed(+1) + check_gear_next_turn), WAN_SLOW_MONSTER
  * (D-1424; mon_adjust_speed(-1) + whirly expels; no helpful_gesture),
  * WAN_LIGHT (flash_hits_mon), WAN_OPENING/SPE_KNOCK
- * (release_hold; openholding/openfalling; SPE_KNOCK mhurtle; saddle).
- * Named omit: locking/probing; long-worm mcorpsenm polish;
+ * (release_hold; openholding/openfalling; SPE_KNOCK mhurtle; saddle),
+ * WAN_LOCKING/SPE_WIZARD_LOCK (D-1425; closeholdingtrap; wake =
+ * trap-hit). Named omit: probing; long-worm mcorpsenm polish;
  * Knight questart double; mhurtle petrify/steed;
- * that_is_a_mimic box_or_door; zap_updown/zap_steed WAN_MAKE_INVISIBLE;
+ * that_is_a_mimic MIM_REVEAL pline (box_or_door+seemimic wired);
+ * zap_updown/zap_steed WAN_MAKE_INVISIBLE;
  * worm see_wsegs; bhitm map_invisible epilogue. SPE_FORCE_BOLT
  * spell_damage_bonus is D-1388.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
@@ -3355,6 +3385,19 @@ export async function bhitm(mtmp, otmp) {
         } else if (couldsee && !canseemon(mtmp)) {
             await pline(`${nambuf} vanishes!`);
         }
+        break;
+    }
+    case WAN_LOCKING:
+    case SPE_WIZARD_LOCK: {
+        // C zap.c bhitm :370–375 — box_or_door mimic then
+        // wake = closeholdingtrap(mtmp, &learn_it). that_is_a_mimic
+        // (MIM_REVEAL) named; seemimic is the C comment. Callee
+        // trap.c :6210–6247. zapyourself / zap_updown still named.
+        // zap_steed does not route locking to bhitm.
+        if (disguised_mimic && box_or_door(mtmp)) seemimic(mtmp);
+        const closed = await closeholdingtrap(mtmp);
+        if (closed.noticed) learn_it = true;
+        wake = closed.happened;
         break;
     }
     case WAN_LIGHT:

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `bhitm` WAN_LOCKING (named from D-1369). Not probing.
 - [ ] `zap.c` `bhitm` WAN_PROBING (named from D-1369). Not locking.
 - [ ] `zap.c` `zapnodir` remaining SPE_LIGHT wand-duplicate (named from D-1412). Not detect unseen.
 - [ ] `potion.c` `peffect_polymorph` (named). Not gain energy.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `potion.c` `peffect_acid` (named). Not gain level.
 - [ ] `potion.c` `peffect_gain_level` (named). Not blindness.
 - [ ] `potion.c` `peffect_blindness` (named). Not sleeping.
+- [ ] `zap.c` `zapyourself` WAN_SLOW_MONSTER (named from D-1424). Not locking self.
+- [ ] `zap.c` `zapyourself` WAN_LOCKING (named). Not probing self.
+- [ ] `zap.c` `zapyourself` WAN_PROBING (named). Not drain.
+- [ ] `zap.c` `bhitm` SPE_DRAIN_LIFE (named). Not zapyourself slow.
+- [ ] `potion.c` `peffect_sleeping` (named). Not remaining peffects.
 
 ## Parked (do not pop)
 

@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1425 — zap.c bhitm WAN_LOCKING
+
+- **Status:** fixed (map-driven Open from D-1369 / D-1424; not a public FAIL)
+- **Symptom:** `bhitm` defaulted `WAN_LOCKING`/`SPE_WIZARD_LOCK`. A
+  monster-aimed locking wand never called `closeholdingtrap`, never
+  snapped a BEAR_TRAP/WEB, always woke (wake defaulted true), and
+  never learned the wand. C `:370–375`: `box_or_door` mimic then
+  `wake = closeholdingtrap(mtmp, &learn_it)`. Callee `trap.c`
+  `:6210–6247`: only BEAR_TRAP/WEB; already-trapped returns FALSE
+  without setting noticed; hero `dotrap(FORCETRAP[+NOWEBMSG])` then
+  `u.utrap != 0`; monster `mintrap(FORCETRAP) != Trap_Effect_Finished`
+  and noticed = `cansee || canspotmon`. No `helpful_gesture` so
+  wakeup can anger peaceful. `zap_steed` does **not** route locking
+  to this `bhitm` in C.
+- **C locus:** `zap.c` `bhitm` `:370–375`. Helper `trap.c`
+  `closeholdingtrap` `:6210–6247`. Caller IMMEDIATE `weffects` →
+  `bhit` → `bhitm`. Self-zap `boxlock_invent` still named. Probing
+  is next Open.
+- **JS was:** `default` break (wake without trapping).
+- **Fix:** case `WAN_LOCKING`/`SPE_WIZARD_LOCK`; `box_or_door` +
+  `seemimic`; `wake = closeholdingtrap.happened` and learn iff
+  noticed. Ported `closeholdingtrap` beside `openholdingtrap`
+  (D-0981). `that_is_a_mimic` MIM_REVEAL pline named. Rule #2: no fs.
+- **JS:** `js/zap.js` `bhitm`; callee `js/trap.js` `closeholdingtrap`.
+- **Not this iter:** zapyourself WAN_LOCKING / `boxlock_invent`;
+  WAN_PROBING; `zap_updown` close_drawbridge; `that_is_a_mimic`
+  pline; hero WEB `dotrap` still deferred in trapeffect_web.
+- **Verified:** private canary **18**/18 (C/JS grep; Rule #2;
+  IMMEDIATE wand; no-trap sleep stays; WEB catch+learn+anger;
+  already-trapped silent; SPE_WIZARD_LOCK same arm; BEAR_TRAP orc;
+  chest/door mimic seemimic; non-box mimic stays; WAN_PROBING still
+  default; WAN_SLOW still D-1424; hero BEAR_TRAP utrap); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps locking at a monster.
+- **Follow-up:** Open `zap.c` `bhitm` WAN_PROBING
+  (named from D-1369). Not locking.
+- **Files:** `js/zap.js`, `js/trap.js`.
+
 ## D-1424 — zap.c bhitm WAN_SLOW_MONSTER
 
 - **Status:** fixed (map-driven Open from D-1422; not a public FAIL)

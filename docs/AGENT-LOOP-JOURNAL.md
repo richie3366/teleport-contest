@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1425 zap.c bhitm WAN_LOCKING
+
+**Objective:** Open `zap.c` `bhitm` WAN_LOCKING (named from
+D-1369). Not probing.
+**C locus:** `zap.c` `bhitm` `:370–375`; callee `trap.c`
+`closeholdingtrap` `:6210–6247`.
+**Change:** box_or_door + seemimic then
+`wake = closeholdingtrap`; learn iff noticed. Ported
+closeholdingtrap (BEAR_TRAP/WEB; hero dotrap FORCETRAP;
+mon mintrap FORCETRAP). that_is_a_mimic pline named.
+zapyourself WAN_LOCKING / probing still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session zaps locking at a monster).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `bhitm` WAN_PROBING (named from
+D-1369). Not locking.
+**Blocked:** none.
 ## 2026-08-25 — D-1424 zap.c bhitm WAN_SLOW_MONSTER
 
 **Objective:** Open `zap.c` `bhitm` WAN_SLOW_MONSTER (named).
