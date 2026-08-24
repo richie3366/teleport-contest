@@ -6,6 +6,7 @@
 //         peffect_speed (D-1408), peffect_water,
 //         peffect_object_detection (D-1417),
 //         peffect_monster_detection (D-1418),
+//         peffect_levitation (D-1419),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -18,6 +19,9 @@
 // SPE_DETECT_MONSTERS / POT_MONSTER_DETECTION peffect_monster_detection
 // (D-1418; callee detect.c monster_detect when unblessed / swallow /
 // underwater).
+// SPE_LEVITATION / POT_LEVITATION peffect_levitation (D-1419;
+// callee trap.c float_up / timeout.c float_down; cursed doup /
+// ceiling losehp).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -27,9 +31,12 @@ import {
     flush_screen, flush_topl_more, pline, You_feel, verbalize, canspotmon,
     canseemon, see_monsters, unmap_object, glyph_is_invisible, newsym,
 } from './display.js';
-import { POTION_CLASS, SPBOOK_CLASS, COIN_CLASS, objectNames } from './objects.js';
+import {
+    POTION_CLASS, SPBOOK_CLASS, COIN_CLASS, ARMOR_CLASS, objectNames,
+} from './objects.js';
 import {
     weight, obj_extract_self, bless, curse, unbless, uncurse,
+    is_metallic, is_crackable,
 } from './mkobj.js';
 import {
     A_WIS, A_INT, A_DEX, A_CON, A_STR, A_MAX, adjattrib, exercise, acurr,
@@ -46,11 +53,12 @@ import {
     wash_hands, floating_above, mongrantswish,
 } from './fountain.js';
 import {
-    IS_FOUNTAIN, IS_SINK,
+    IS_FOUNTAIN, IS_SINK, IS_AIR, IS_ROOM, IS_WALL, IS_DOOR, SDOOR,
     ECMD_TIME, ECMD_CANCEL,
     POTHIT_HERO_THROW, POTHIT_OTHER_THROW, KILLED_BY_AN, KILLED_BY,
-    TIMEOUT, HALLUC_RES, GLIB, FAST, FROMOUTSIDE, INTRINSIC, LEG,
-    DETECT_MONSTERS, COLNO, ROWNO,
+    TIMEOUT, I_SPECIAL, HALLUC_RES, GLIB, FAST, FROMOUTSIDE, INTRINSIC, LEG,
+    DETECT_MONSTERS, LEVITATION, HEAD, COLNO, ROWNO,
+    In_endgame, Is_earthlevel,
     QBUFSZ, STONED, SLIMED, SICK, SICK_ALL,
     A_CHAOTIC, A_LAWFUL, Upolyd, ismnum, NON_PM, NEUTRAL,
     P_RIDING, P_BASIC, ER_DESTROYED, ER_NOTHING, MM_NOMSG,
@@ -77,7 +85,7 @@ import {
     Hallucination,
 } from './do_name.js';
 import { newuhs } from './eat.js';
-import { heal_legs, water_damage } from './trap.js';
+import { heal_legs, water_damage, float_up } from './trap.js';
 import {
     delayed_killer, find_delayed_killer, dealloc_killer,
 } from './end.js';
@@ -104,6 +112,8 @@ const POT_OBJECT_DETECTION = objectNames.indexOf('POT_OBJECT_DETECTION');
 const SPE_DETECT_TREASURE = objectNames.indexOf('SPE_DETECT_TREASURE');
 const POT_MONSTER_DETECTION = objectNames.indexOf('POT_MONSTER_DETECTION');
 const SPE_DETECT_MONSTERS = objectNames.indexOf('SPE_DETECT_MONSTERS');
+const POT_LEVITATION = objectNames.indexOf('POT_LEVITATION');
+const SPE_LEVITATION = objectNames.indexOf('SPE_LEVITATION');
 const POT_SICKNESS = objectNames.indexOf('POT_SICKNESS');
 const POT_WATER = objectNames.indexOf('POT_WATER');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
@@ -496,6 +506,68 @@ function incr_itimeout_HDetect_monsters(incr) {
     const cur = (u.HDetect_monsters | 0)
         | (u.uprops?.[DETECT_MONSTERS]?.intrinsic | 0);
     set_HDetect_monsters((cur & ~TIMEOUT) | itimeout_incr(cur, incr));
+}
+
+/** C obj.h is_helmet — ARMOR + oc_armcat ARM_HELM (JS oc_skill stand-in). */
+const ARM_HELM = 2;
+function is_helmet(obj) {
+    return !!obj && obj.oclass === ARMOR_CLASS
+        && (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_HELM;
+}
+
+/** C ref: do_wear.c hard_helmet — metallic or glass helm. */
+function hard_helmet(obj) {
+    if (!obj || !is_helmet(obj)) return false;
+    return is_metallic(obj) || is_crackable(obj);
+}
+
+/** C dungeon.c has_ceiling — endgame non-earth has no ceiling. */
+function has_ceiling(lev) {
+    if (In_endgame(lev) && !Is_earthlevel(lev)) return false;
+    return true;
+}
+
+/**
+ * C dungeon.c ceiling — room/air labels for cursed levitation pline.
+ * Named omit: vault/temple/shop in_rooms; water/fire/quest/Underwater.
+ */
+function ceiling_at(x, y) {
+    const typ = game.level?.at?.(x, y)?.typ ?? 0;
+    if (IS_AIR(typ)) return 'sky';
+    if (IS_ROOM(typ) || IS_WALL(typ) || IS_DOOR(typ) || typ === SDOOR) {
+        return 'ceiling';
+    }
+    return 'rock cavern';
+}
+
+/** Sync flat HLevitation with uprops[LEVITATION].intrinsic. */
+function set_HLevitation(val) {
+    const u = game.u || (game.u = {});
+    u.HLevitation = val | 0;
+    if (!u.uprops) u.uprops = {};
+    const prop = u.uprops[LEVITATION] || (u.uprops[LEVITATION] = {
+        intrinsic: 0, extrinsic: 0, blocked: 0,
+    });
+    prop.intrinsic = u.HLevitation;
+}
+
+function hlev_bits() {
+    const u = game.u || (game.u = {});
+    return (u.HLevitation | 0) | (u.uprops?.[LEVITATION]?.intrinsic | 0);
+}
+
+/** C potion.c set_itimeout(&HLevitation, val) — TIMEOUT bits only. */
+function set_itimeout_HLevitation(val) {
+    const cur = hlev_bits();
+    set_HLevitation((cur & ~TIMEOUT) | ((val | 0) & TIMEOUT));
+}
+
+/**
+ * C potion.c incr_itimeout(&HLevitation, incr) — TIMEOUT bits only.
+ */
+function incr_itimeout_HLevitation(incr) {
+    const cur = hlev_bits();
+    set_HLevitation((cur & ~TIMEOUT) | itimeout_incr(cur, incr));
 }
 
 /** C youprop.h Detect_monsters — HDetect_monsters || EDetect_monsters. */
@@ -1019,6 +1091,68 @@ async function peffect_monster_detection(otmp) {
 }
 
 /**
+ * C ref: potion.c peffect_levitation
+ * !Levitation && !BLevitation → set_itimeout(HLevitation,1) + float_up;
+ * else potion_nothing++. Cursed: HLevitation &= ~I_SPECIAL then upstairs
+ * doup or has_ceiling rnd(!uarmh?10:!hard_helmet?6:3) losehp Maybe_Half_Phys
+ * colliding with the ceiling. Blessed: incr rn1(50,250) + I_SPECIAL.
+ * Uncursed: incr rn1(140,10). Levitation+sink → spoteffects(FALSE).
+ * Always float_vs_flight. Cursed potion/spell upstairs / ceiling named
+ * live; vault/temple/shop ceiling labels still named.
+ */
+async function peffect_levitation(otmp) {
+    const u = game.u || (game.u = {});
+    if (!Levitation() && !BLevitation()) {
+        /* kludge so float_up sees Levitation */
+        set_itimeout_HLevitation(1);
+        await float_up();
+        /* cursed keeps timeout 1 → float_down next turn */
+    } else {
+        potion_nothing++;
+    }
+
+    if (otmp.cursed) {
+        set_HLevitation(hlev_bits() & ~I_SPECIAL);
+        if (BLevitation()) {
+            /* rising via levitation is blocked */
+        } else {
+            const { stairway_at } = await import('./mklev.js');
+            const stway = stairway_at(u.ux | 0, u.uy | 0);
+            if (stway && stway.up) {
+                const { doup } = await import('./do.js');
+                await doup();
+                potion_nothing = 0;
+            } else if (has_ceiling(u.uz)) {
+                const dmg = rnd(!u.uarmh ? 10
+                    : !hard_helmet(u.uarmh) ? 6 : 3);
+                const { body_part } = await import('./polyself.js');
+                await pline(
+                    `You hit your ${body_part(HEAD)} on the ${ceiling_at(u.ux | 0, u.uy | 0)}.`,
+                );
+                losehp(
+                    maybe_half_phys(dmg),
+                    'colliding with the ceiling',
+                    KILLED_BY,
+                );
+                potion_nothing = 0;
+            }
+        }
+    } else if (otmp.blessed) {
+        incr_itimeout_HLevitation(rn1(50, 250));
+        set_HLevitation(hlev_bits() | I_SPECIAL);
+    } else {
+        incr_itimeout_HLevitation(rn1(140, 10));
+    }
+
+    if (Levitation() && IS_SINK(game.level?.at?.(u.ux | 0, u.uy | 0)?.typ)) {
+        const { spoteffects } = await import('./pickup.js');
+        await spoteffects(false);
+    }
+    const { float_vs_flight } = await import('./polyself.js');
+    float_vs_flight();
+}
+
+/**
  * C ref: potion.c peffect_booze
  * potion_unkn + taste pline; !blessed → make_confused(d(2+uhs,8));
  * !odiluted → healup(1); hunger + newuhs; exercise WIS; cursed pass-out.
@@ -1120,7 +1254,8 @@ async function peffect_water(otmp) {
  * full healing (D-1411) / enlightenment (D-1413) / sickness / water;
  * POT_SPEED / SPE_HASTE_SELF (D-1408);
  * POT_OBJECT_DETECTION / SPE_DETECT_TREASURE (D-1417);
- * POT_MONSTER_DETECTION / SPE_DETECT_MONSTERS (D-1418); other otyps in map.
+ * POT_MONSTER_DETECTION / SPE_DETECT_MONSTERS (D-1418);
+ * POT_LEVITATION / SPE_LEVITATION (D-1419); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1163,6 +1298,10 @@ export async function peffects(otmp) {
     case POT_MONSTER_DETECTION:
     case SPE_DETECT_MONSTERS:
         if (await peffect_monster_detection(otmp)) return 1;
+        return -1;
+    case POT_LEVITATION:
+    case SPE_LEVITATION:
+        await peffect_levitation(otmp);
         return -1;
     case POT_SICKNESS:
         await peffect_sickness(otmp);
@@ -1414,12 +1553,21 @@ async function getobj_dip(at_here) {
 
 /**
  * C youprop.h Levitation — (HLevitation || ELevitation) && !BLevitation.
- * Sticky u.Levitation is not a C field (D-1070).
+ * Sticky u.Levitation is not a C field (D-1070). Flat + uprops (D-1419).
  */
 function Levitation() {
     const u = game.u || {};
-    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
-        && !(u.BLevitation | 0));
+    const p = u.uprops?.[LEVITATION];
+    const h = (u.HLevitation | 0) || (p?.intrinsic | 0);
+    const e = (u.ELevitation | 0) || (p?.extrinsic | 0);
+    const b = (u.BLevitation | 0) || (p?.blocked | 0);
+    return !!(h || e) && !b;
+}
+
+/** C youprop.h BLevitation — blocked bits (flat or uprops). */
+function BLevitation() {
+    const u = game.u || {};
+    return !!((u.BLevitation | 0) || (u.uprops?.[LEVITATION]?.blocked | 0));
 }
 
 /**

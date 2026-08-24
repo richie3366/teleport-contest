@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-24
+
+- [x] `spell.c` `spelleffects` SPE_LEVITATION peffects (named from D-1408). Not RESTORE_ABILITY. **Addressed:** D-1419
+
 ## 2026-08-22
 
-- [x] `spell.c` `spelleffects` SPE_DETECT_MONSTERS peffects (named from D-1408). Not LEVITATION. **Addressed:** D-1418
+- [x] `spell.c` `spelleffects` SPE_DETECT_MONSTERS peffects (named from D-1408). Not LEVITATION. **Addressed:** D-1418 `e611ef84`
 
 
 - [x] `spell.c` `spelleffects` SPE_DETECT_TREASURE peffects (named from D-1408). Not DETECT_MONSTERS. **Addressed:** D-1417 `e78d7780`

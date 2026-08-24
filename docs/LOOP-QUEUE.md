@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` `spelleffects` SPE_LEVITATION peffects (named from D-1408). Not RESTORE_ABILITY.
 - [ ] `spell.c` `spelleffects` SPE_RESTORE_ABILITY peffects (named from D-1408). Not INVISIBILITY.
 - [ ] `spell.c` `spelleffects` SPE_INVISIBILITY peffects (named from D-1408). Not amulet drain.
 - [ ] `zap.c` `bhitm` WAN_SPEED_MONSTER (named from D-1410). Not slow.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `bhitm` WAN_LOCKING (named from D-1369). Not probing.
 - [ ] `zap.c` `bhitm` WAN_PROBING (named from D-1369). Not locking.
 - [ ] `zap.c` `zapnodir` remaining SPE_LIGHT wand-duplicate (named from D-1412). Not detect unseen.
+- [ ] `potion.c` `peffect_polymorph` (named). Not gain energy.
+- [ ] `potion.c` `peffect_gain_energy` (named). Not acid.
+- [ ] `potion.c` `peffect_acid` (named). Not gain level.
+- [ ] `potion.c` `peffect_gain_level` (named). Not blindness.
+- [ ] `potion.c` `peffect_blindness` (named). Not sleeping.
 
 ## Parked (do not pop)
 

@@ -4,6 +4,63 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1419 — spell.c spelleffects SPE_LEVITATION peffects
+
+- **Status:** fixed (map-driven Open from D-1408; not a public FAIL)
+- **Symptom:** casting SPE_LEVITATION printed `Nothing happens.`
+  C `spelleffects` `:1534–1546` skilled-blesses the pseudo
+  (`role_skill >= P_SKILLED`) then FALLTHROUGH
+  `(void) peffects(pseudo)` (same arm as HASTE_SELF /
+  DETECT_TREASURE / DETECT_MONSTERS / RESTORE_ABILITY +
+  INVISIBILITY). Callee `potion.c` `peffects` `:1404–1407`
+  POT_LEVITATION / SPE_LEVITATION → `peffect_levitation`.
+  That helper `:1165–1221`: `!Levitation && !BLevitation` →
+  `set_itimeout(&HLevitation, 1L)` + `float_up()` else
+  `potion_nothing++`. Cursed: `HLevitation &= ~I_SPECIAL`
+  then upstairs `doup()` or `has_ceiling` `rnd(!uarmh?10:
+  !hard_helmet?6:3)` `losehp(Maybe_Half_Phys)` colliding
+  with the ceiling. Blessed: `incr_itimeout` `rn1(50,250)`
+  + `I_SPECIAL`. Uncursed: `incr_itimeout` `rn1(140,10)`.
+  Then `Levitation && IS_SINK` `spoteffects(FALSE)` and
+  `float_vs_flight()`. Spell still TIME after energy.
+  Pseudo `quan=20` so useup cannot free it. Unskilled
+  leaves uncursed (timeout 11..150, no Lev_at_will).
+  `timeout.c` `:794–803` LEVITATION expiry
+  `float_down(I_SPECIAL|TIMEOUT)` (Flying TIMEOUT==1
+  bypass). Without `float_down`, leftover `I_SPECIAL`
+  would pin levitation after TIMEOUT hits 0.
+- **C locus:** `spell.c` `spelleffects` `:1534–1546`;
+  `potion.c` `peffects` `:1404–1407` /
+  `peffect_levitation` `:1165–1221`; `trap.c` `float_up`
+  / `float_down`; `timeout.c` `:794–803`.
+- **JS was:** named omit after D-1418. Other-otyp arm
+  printed `Nothing happens.`; `peffects` lacked
+  POT_LEVITATION / SPE_LEVITATION; LEVITATION TIMEOUT
+  expired silently (I_SPECIAL leftover).
+- **Fix:** SPE_LEVITATION arm skilled-blesses then
+  `peffects`. Port `peffect_levitation`. Wire
+  POT_LEVITATION in the same C case. `nh_timeout`
+  expiry `float_down`. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/potion.js`
+  `peffects` / `peffect_levitation`; `js/timeout.js`
+  LEVITATION expiry.
+- **Not this iter:** sibling RESTORE_ABILITY /
+  INVISIBILITY; vault/temple/shop `ceiling()` labels;
+  potionhit/potionbreathe/mix levitation; FLYING
+  timed-land wizintrinsic.
+- **Verified:** private canary **24**/24 (C/JS grep;
+  uncursed TIMEOUT 11..150 no I_SPECIAL; blessed
+  251..300 + I_SPECIAL; already-levitating extends;
+  cursed TIMEOUT 1 + ceiling HP; nh_timeout expiry
+  clears TIMEOUT+I_SPECIAL; RESTORE still omit;
+  HASTE/DETECT_MONSTERS regression; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts levitation.
+- **Follow-up:** Open `spell.c` `spelleffects`
+  SPE_RESTORE_ABILITY peffects (named). Not INVISIBILITY.
+- **Files:** `js/spell.js`, `js/potion.js`, `js/timeout.js`.
+
 ## D-1418 — spell.c spelleffects SPE_DETECT_MONSTERS peffects
 
 - **Status:** fixed (map-driven Open from D-1408; not a public FAIL)
