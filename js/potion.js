@@ -10,6 +10,7 @@
 //         peffect_restore_ability (D-1420),
 //         peffect_invisibility (D-1421),
 //         peffect_polymorph (D-1428),
+//         peffect_gain_energy (D-1429),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -35,6 +36,9 @@
 // POT_POLYMORPH peffect_polymorph (D-1428; You_feel little strange/normal;
 // !Unchanging POLY_NOFLAGS unless blessed original form
 // POLY_CONTROLLED|POLY_LOW_CTRL then mtimedone min rn2(15)+10).
+// POT_GAIN_ENERGY peffect_gain_energy (D-1429; cursed lackluster else
+// Magical energies; d(blessed?3:!cursed?2:1,6) ±uenmax + 3*num uen
+// clamp 0/max; uenpeak; botl; exercise WIS TRUE).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -137,6 +141,7 @@ const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
 const POT_SICKNESS = objectNames.indexOf('POT_SICKNESS');
 const POT_WATER = objectNames.indexOf('POT_WATER');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
+const POT_GAIN_ENERGY = objectNames.indexOf('POT_GAIN_ENERGY');
 const PM_DJINNI = monsterNames.indexOf('PM_DJINNI');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
@@ -1434,6 +1439,41 @@ async function peffect_polymorph(otmp) {
 }
 
 /**
+ * C ref: potion.c peffect_gain_energy :1224–1257.
+ * Cursed You_feel lackluster; else Magical energies pline.
+ * num = d(blessed ? 3 : !cursed ? 2 : 1, 6); cursed negates.
+ * uenmax += num (peak if higher; clamp <=0 to 0); uen += 3*num
+ * (clamp to [0, uenmax]); disp.botl; exercise(A_WIS, TRUE).
+ * potionhit / potionbreathe / mix / dipsink POT_GAIN_ENERGY still named.
+ */
+async function peffect_gain_energy(otmp) {
+    const u = game.u || (game.u = {});
+    if (otmp.cursed) {
+        await You_feel('lackluster.');
+    } else {
+        await pline('Magical energies course through your body.');
+    }
+    /* C: d(otmp->blessed ? 3 : !otmp->cursed ? 2 : 1, 6) */
+    let num = d(otmp.blessed ? 3 : !otmp.cursed ? 2 : 1, 6);
+    if (otmp.cursed) num = -num;
+    u.uenmax = (u.uenmax | 0) + num;
+    if ((u.uenmax | 0) > (u.uenpeak | 0)) {
+        u.uenpeak = u.uenmax;
+    } else if ((u.uenmax | 0) <= 0) {
+        u.uenmax = 0;
+    }
+    u.uen = (u.uen | 0) + 3 * num;
+    if ((u.uen | 0) > (u.uenmax | 0)) {
+        u.uen = u.uenmax;
+    } else if ((u.uen | 0) <= 0) {
+        u.uen = 0;
+    }
+    if (game.disp) game.disp.botl = true;
+    if (game.flags) game.flags.botl = true;
+    exercise(A_WIS, true);
+}
+
+/**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
  * full healing (D-1411) / enlightenment (D-1413) / sickness / water;
@@ -1443,7 +1483,7 @@ async function peffect_polymorph(otmp) {
  * POT_LEVITATION / SPE_LEVITATION (D-1419);
  * POT_RESTORE_ABILITY / SPE_RESTORE_ABILITY (D-1420);
  * POT_INVISIBILITY / SPE_INVISIBILITY (D-1421);
- * POT_POLYMORPH (D-1428); other otyps in map.
+ * POT_POLYMORPH (D-1428); POT_GAIN_ENERGY (D-1429); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1507,6 +1547,9 @@ export async function peffects(otmp) {
         return -1;
     case POT_POLYMORPH:
         await peffect_polymorph(otmp);
+        return -1;
+    case POT_GAIN_ENERGY:
+        await peffect_gain_energy(otmp);
         return -1;
     default:
         // Other peffect_* deferred — do not useup

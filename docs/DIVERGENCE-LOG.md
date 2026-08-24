@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1429 — potion.c peffect_gain_energy
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** quaffing a potion of gain energy printed
+  "That potion is not implemented yet." and skipped
+  `useup`. C `peffects` `:1408–1409` calls
+  `peffect_gain_energy`. That helper `:1224–1257`:
+  cursed `You_feel("lackluster.")` else Magical
+  energies pline; `num = d(blessed?3:!cursed?2:1, 6)`
+  (negated if cursed); `uenmax += num` (raise `uenpeak`
+  if higher, else clamp `uenmax <= 0` to 0);
+  `uen += 3 * num` then clamp to `[0, uenmax]`;
+  `disp.botl = TRUE`; `exercise(A_WIS, TRUE)`.
+  potionhit isyou has no GAIN_ENERGY arm.
+- **C locus:** `potion.c` `peffect_gain_energy` `:1224–1257`
+  / `peffects` `:1408–1409`.
+- **JS was:** `peffects` default "not implemented"
+  (return 0, no useup).
+- **Fix:** Port `peffect_gain_energy`. Wire POT_GAIN_ENERGY.
+  Rule #2: no fs.
+- **JS:** `js/potion.js` `peffects` / `peffect_gain_energy`.
+- **Not this iter:** remaining peffects (acid / gain level /
+  blindness / sleeping); potionhit / potionbreathe / mix /
+  dipsink POT_GAIN_ENERGY.
+- **Verified:** private canary **12**/12 (C/JS grep;
+  uncursed at-max += d(2,6); below-max current += 3*num;
+  blessed d(3,6); cursed lackluster subtract + peak kept;
+  cursed floor clamp 0; acid still not-implemented;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session quaffs gain energy.
+- **Follow-up:** Open `potion.c` `peffect_acid`
+  (named). Not gain level.
+- **Files:** `js/potion.js`.
+
 ## D-1428 — potion.c peffect_polymorph
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

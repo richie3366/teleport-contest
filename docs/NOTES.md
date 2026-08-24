@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1428; cadence **#1790** `9f2a3a08`
+- **Fortress 44/44** after D-1429; cadence **#1790** `9f2a3a08`
   (Scr **11,405** RNG 100% speed `38+0.30/turn` R² 0.83). Next:
-  Open `potion.c` `peffect_gain_energy` (named). Not acid.
-  Do not skip D-1428…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `potion.c` `peffect_acid` (named). Not gain level.
+  Do not skip D-1429…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1428. Named still: `see_monsters`
+- Do not revert D-1217–D-1429. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1428.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1429.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,9 +33,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1428 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1429 (index).
 - Named still: rustm / poison / worm-shrieker; remaining peffects
-  (gain energy/acid/gain level/blindness/sleeping);
+  (acid/gain level/blindness/sleeping);
   remaining wand-duplicate SLEEP/DIG; artifact invoke. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -48,11 +48,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1429: `peffect_gain_energy` cursed lackluster else Magical
+  energies; d(blessed?3:!cursed?2:1,6) ±uenmax + 3*num uen
+  clamp 0/max; uenpeak; botl; exercise WIS TRUE. Acid still
+  named. potionhit/mix named.
 - D-1428: `peffect_polymorph` You_feel little strange/normal;
   `!Unchanging` POLY_NOFLAGS unless blessed original form
   POLY_CONTROLLED|POLY_LOW_CTRL then mtimedone min rn2(15)+10.
   Callee POLY_LOW_CTRL forcecontrol downgrade. potionhit
-  named. Gain energy still named.
+  named. Gain energy is D-1429.
 - D-1427: SPE_LIGHT NODIR wand-duplicate `weffects` →
   zapnodir litroom+lightdamage. SPBOOK skips `learnwand`.
   SLEEP / DIG / IMMEDIATE still named.
@@ -89,4 +93,3 @@ Objective/score live in `CURRENT.md`.
 - D-1416: `backfire` explode + `d(spe+2,6)` + `useupall`.
 - D-1415: mhitm artifact_hit leftover after dmgval.
 - D-1414: `bhitm` WAN_MAKE_INVISIBLE minvis; conferral is D-1423.
-- D-1412: zapnodir SPE_DETECT_UNSEEN shares `findit`.
