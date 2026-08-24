@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-24
 
-- [x] `zap.c` `bhitm` WAN_SPEED_MONSTER (named from D-1410). Not slow. **Addressed:** D-1422
+- [x] `zap.c` `bhitm` WAN_SPEED_MONSTER (named from D-1410). Not slow. **Addressed:** D-1422 `9f2a3a08`
 
 
 - [x] `spell.c` `spelleffects` SPE_INVISIBILITY peffects (named from D-1408). Not amulet drain. **Addressed:** D-1421 `d6d910c2`

@@ -5,10 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1422; cadence **#1780** `285218b2`
-  (Scr **11,405** RNG 100% speed `38+0.31/turn` R² 0.85). Next:
-  Open `zap.c` `bhitm` WAN_SLOW_MONSTER (named). Not speed.
-  Reviews **365–373** ACCEPT-WITH-DEBT (no Must-fix).
+- **Fortress 44/44** after D-1422; cadence **#1790** `9f2a3a08`
+  (Scr **11,405** RNG 100% speed `38+0.30/turn` R² 0.83). Next:
+  Must-fix `zap.c` `bhitm` WAN_MAKE_INVISIBLE `knowninvisible`
+  conferral `See_invisible` (review **374**). Not slow.
+  Reviews **375–382** ACCEPT-WITH-DEBT; **374** QUALITY-RISK.
   Do not skip D-1422…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
 - Do not revert D-1217–D-1422. Named still: `see_monsters`

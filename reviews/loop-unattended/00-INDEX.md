@@ -384,3 +384,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [371-71ee9186-peffect-full-healing.md](./371-71ee9186-peffect-full-healing.md) | `71ee9186` | D-1411 peffect_full_healing | **ACCEPT-WITH-DEBT** |
 | [372-fb872749-zapnodir-detect-unseen.md](./372-fb872749-zapnodir-detect-unseen.md) | `fb872749` | D-1412 zapnodir SPE_DETECT_UNSEEN | **ACCEPT-WITH-DEBT** |
 | [373-285218b2-peffect-enlightenment.md](./373-285218b2-peffect-enlightenment.md) | `285218b2` | D-1413 peffect_enlightenment | **ACCEPT-WITH-DEBT** |
+| [374-f968904d-bhitm-wan-make-invisible.md](./374-f968904d-bhitm-wan-make-invisible.md) | `f968904d` | D-1414 bhitm WAN_MAKE_INVISIBLE | **QUALITY-RISK** |
+| [375-081c5c6a-mhitm-ad-phys-artifact-hit.md](./375-081c5c6a-mhitm-ad-phys-artifact-hit.md) | `081c5c6a` | D-1415 mhitm_ad_phys artifact_hit leftover | **ACCEPT-WITH-DEBT** |
+| [376-22e87b3b-backfire.md](./376-22e87b3b-backfire.md) | `22e87b3b` | D-1416 backfire | **ACCEPT-WITH-DEBT** |
+| [377-e78d7780-spe-detect-treasure.md](./377-e78d7780-spe-detect-treasure.md) | `e78d7780` | D-1417 SPE_DETECT_TREASURE peffects | **ACCEPT-WITH-DEBT** |
+| [378-e611ef84-spe-detect-monsters.md](./378-e611ef84-spe-detect-monsters.md) | `e611ef84` | D-1418 SPE_DETECT_MONSTERS peffects | **ACCEPT-WITH-DEBT** |
+| [379-89f05e45-spe-levitation.md](./379-89f05e45-spe-levitation.md) | `89f05e45` | D-1419 SPE_LEVITATION peffects | **ACCEPT-WITH-DEBT** |
+| [380-9ab114b4-spe-restore-ability.md](./380-9ab114b4-spe-restore-ability.md) | `9ab114b4` | D-1420 SPE_RESTORE_ABILITY peffects | **ACCEPT-WITH-DEBT** |
+| [381-d6d910c2-spe-invisibility.md](./381-d6d910c2-spe-invisibility.md) | `d6d910c2` | D-1421 SPE_INVISIBILITY peffects | **ACCEPT-WITH-DEBT** |
+| [382-9f2a3a08-bhitm-wan-speed-monster.md](./382-9f2a3a08-bhitm-wan-speed-monster.md) | `9f2a3a08` | D-1422 bhitm WAN_SPEED_MONSTER | **ACCEPT-WITH-DEBT** |

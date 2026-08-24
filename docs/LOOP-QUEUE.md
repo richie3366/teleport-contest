@@ -26,6 +26,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `zap.c` `bhitm` WAN_MAKE_INVISIBLE `knowninvisible` must use C `See_invisible`/`Detect_monsters` (`H||E` ≡ `uprops[SEE_INVIS]`/`DETECT_MONSTERS`) so a conferral ring-of-see-invisible still takes the transparent+learnwand arm, not vanish. Source: reviews/loop-unattended/374-f968904d-bhitm-wan-make-invisible.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `zap.c` `bhitm` WAN_SLOW_MONSTER (named). Not speed.

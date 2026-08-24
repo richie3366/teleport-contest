@@ -8,6 +8,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-24 — review D-1414–D-1422 (audit #1790)
+
+**Objective:** audit — C-fidelity reviews **374–382** of JS SHAs
+`f968904d` / `081c5c6a` / `22e87b3b` / `e78d7780` /
+`e611ef84` / `89f05e45` / `9ab114b4` / `d6d910c2` /
+`9f2a3a08` plus full `sessions` score.
+**C locus:** `zap.c` `bhitm` `:348–368` / `:233–242`;
+`uhitm.c` `:4158–4180`; `zap.c` `backfire` `:2605–2614`;
+`spell.c` `:1534–1546` / `:1544–1546`; `potion.c`
+`:914–952` / `:1165–1221` / `:646–693` / `:811–838`.
+**Change:** no `js/` edits. **374** QUALITY-RISK (Must-fix:
+conferral See_invisible `knowninvisible`). **375–382**
+ACCEPT-WITH-DEBT. Filled archive D-1422 `9f2a3a08`. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `38+0.30/turn` (R² 0.83).
+**Verified:** full `sessions` at HEAD `9f2a3a08`; public-unhit
+on make-invisible / artifact leftover / backfire / detect treasure
+/ detect monsters / levitation / restore / invisibility / speed wand.
+**Next:** Must-fix `zap.c` `bhitm` WAN_MAKE_INVISIBLE
+`knowninvisible` conferral `See_invisible` (review **374**).
+Not slow.
+**Blocked:** none.
 ## 2026-08-24 — D-1422 zap.c bhitm WAN_SPEED_MONSTER
 
 **Objective:** Open `zap.c` `bhitm` WAN_SPEED_MONSTER (named
