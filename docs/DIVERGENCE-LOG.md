@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1486 — potion.c potion_dip unicorn/amethyst mixtype dip
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `#dip` of a unicorn horn or amethyst into a
+  potion always printed Interesting... C `potion.c`
+  `potion_dip` `:2726–2787` after `in_use=FALSE`: if
+  `UNICORN_HORN`/`AMETHYST` and `mixtype(obj, potion)` is
+  not `STRANGE_OBJECT`, split quan>1, `costly_alteration
+  COST_NUTRLZ`, rewrite otyp (sickness→fruit juice;
+  hallu/blind/conf→water; amethyst+booze→juice), copy
+  cursed from the dipper unless water (clears cursed+
+  odiluted), observe + color/`clears` pline, optional
+  `docall` of the old type, `hold_potion` juggle. Callee
+  `mixtype` already D-1457.
+- **C locus:** `potion.c` `potion_dip` `:2726–2787`. Caller
+  `dodip` `:2371`. Callee `mixtype` `:2151–2164`;
+  `hold_potion` `:2242–2261`; `observe_object`;
+  `costly_alteration`.
+- **JS was:** named omit after D-1457 — mix `else if` then
+  Interesting... skipped the horn/gem arm.
+- **Fix:** Port the unicorn/amethyst arm. Rule #2: no fs.
+- **JS:** `js/potion.js` `potion_dip` / existing `mixtype`.
+- **Not this iter:** poison-coat; acid-erode; oil/lamp;
+  `poly_obj`/`obj_unpolyable`; lichen/towel; `dip_into`;
+  H2O `useeit` ublindf disjunct.
+- **Verified:** private canary **16**/16 (C/JS grep; Rule #2;
+  horn+sickness juice; hallu/blind/conf water+clears;
+  amethyst+booze juice; unmatched Interesting; cursed
+  copy vs water wipe; quan>1 split+dipped-into; Blind skip
+  turns; same-otyp mix regression; peffects stay);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session #dips a unicorn horn
+  or amethyst.
+
 ## D-1485 — zap.c zap_updown default break into down bhitpile+zap_map
 
 - **Status:** fixed (map-driven Must-fix from review **437**; not a public FAIL)

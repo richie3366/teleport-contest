@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype.
 - [ ] `objnam.c` `the()` fruit_from_name + artifact_name (named). Not CapitalMon.
 - [ ] `artifact.c` `doinvoke` remaining `inv_prop` (named). Not BLINDING_RAY.
 - [ ] `zap.c` `zap_map` lateral drawbridge / bhit (named). Not engraving.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `worm.c` `worm_move` (named). Not initworm.
 - [ ] `makemon.c` `add_to_minv` merge (named). Not stolen_booty.
 - [ ] `allmain.c` `see_monsters` Hallu / Warn_of_mon (named). Not DETECT_MONSTERS timeout.
+- [ ] `potion.c` `potion_dip` poison-coat / healing unpoison (named). Not unicorn mix.
+- [ ] `potion.c` `potion_dip` oil/lamp (named). Not poison-coat.
+- [ ] `potion.c` `potion_dip` `poly_obj`/`obj_unpolyable` (named). Not mixtype.
+- [ ] `potion.c` `dip_into` (named). Not dodip.
+- [ ] `potion.c` `H2Opotion_dip` useeit `ublindf && Blindfolded_only` (named). Not mix.
 
 ## Parked (do not pop)
 

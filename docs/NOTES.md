@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1485; cadence **#1870** `dba2c79a`
+- **Fortress 44/44** after D-1486; cadence **#1870** `dba2c79a`
   (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Open
-  `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype.
-  Do not skip D-1485…D-1229. No FORCE / `wildmiss` wrap /
+  `objnam.c` `the()` fruit_from_name + artifact_name (named).
+  Not CapitalMon.
+  Do not skip D-1486…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1485. Named still: `see_monsters`
+- Do not revert D-1217–D-1486. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -21,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1485.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1486.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -32,8 +33,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1485 (index).
-- Named still: worm-shrieker; unicorn/amethyst mix;
+  nhcore (D-1066). Do not skip D-1067…D-1486 (index).
+- Named still: worm-shrieker; potion_dip poison-coat / oil/lamp;
   zap_map lateral drawbridge / bhit; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -44,6 +45,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1486: `potion_dip` unicorn/amethyst mixtype dip
+  (`:2726–2787`); `COST_NUTRLZ` + `hold_potion` juggle.
+  Sickness→fruit juice; hallu/blind/conf→water; amethyst
+  booze→juice. Not mixtype potion-potion. Poison-coat /
+  oil/lamp / `poly_obj` / `dip_into` named.
 - D-1485: `zap_updown` `default` `break` into down
   `bhitpile`+`zap_map` (`:3378–3389`); unmounted POLY/
   cancel/invis/tele hit D-1476 arms. Not probing. Not
@@ -108,7 +114,3 @@ Objective/score live in `CURRENT.md`.
   heal FALLTHROUGH + Pestilence illness/heal; sickness;
   conf/invis/sleep/para/speed/blind/oil/acid; poly via
   bhitm). C-commented GAIN_LEVEL named. potionbreathe is D-1477.
-- D-1471: `zap_steed` WAN/SPE_POLYMORPH via bhitm;
-  mr=0 disclose (bhitm resist/`newcham`); high-mr
-  resist still disclose; SPBOOK skip makeknown.
-  Invis is D-1473.

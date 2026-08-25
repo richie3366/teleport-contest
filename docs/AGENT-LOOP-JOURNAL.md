@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1486 potion.c potion_dip unicorn/amethyst mix
+
+**Objective:** Open `potion.c` `potion_dip` unicorn/amethyst mix
+(named). Not mixtype.
+**C locus:** `potion.c` `potion_dip` `:2726–2787`. Callee
+`mixtype` already D-1457; `hold_potion` already live.
+**Change:** After mix `else if`, `in_use=FALSE` then unicorn
+horn / amethyst `mixtype` transform (sickness→fruit juice;
+hallu/blind/conf→water; amethyst+booze→juice), `COST_NUTRLZ`,
+juggle `hold_potion`. Poison-coat / oil/lamp / `poly_obj` /
+`dip_into` named. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `objnam.c` `the()` fruit_from_name + artifact_name
+(named). Not CapitalMon.
+**Blocked:** none.
 ## 2026-08-25 — D-1485 zap.c zap_updown default break
 
 **Objective:** Must-fix `zap.c` `zap_updown` `default` `break`
