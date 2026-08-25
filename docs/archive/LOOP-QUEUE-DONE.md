@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `mklev.c` minetn-6 load_special (named). Not minetn-1. **Addressed:** D-1503
+- [x] `mklev.c` minetn-6 load_special (named). Not minetn-1. **Addressed:** D-1503 `1f64431d`
 
 
 - [x] `artifact.c` `doinvoke` TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH (named). Not HEALING/storm. **Addressed:** D-1502 `89b85fcc`

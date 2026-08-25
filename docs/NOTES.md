@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1503; cadence **#1880** `8669b5b8`
-  (Scr **11,405** RNG 100%, `39+0.30/turn`). Next: Open
+- **Fortress 44/44** after D-1503; cadence **#1890** `1f64431d`
+  (Scr **11,405** RNG 100%, `38+0.30/turn` R² 0.849). Next: Open
   `mklev.c` minetn-7 load_special (named). Not minetn-6.
   Do not skip D-1503…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`. `body_part` is

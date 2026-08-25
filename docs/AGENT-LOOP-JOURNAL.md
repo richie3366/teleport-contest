@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — review D-1494–D-1503 (audit #1890)
+
+**Objective:** audit — C-fidelity reviews **455–464** of JS SHAs
+`27a1f4b6` / `4722df06` / `08854746` / `377302b9` /
+`51ea77da` / `089a9829` / `b96ac27f` / `83b29455` /
+`89b85fcc` / `1f64431d` plus full `sessions` score.
+**C locus:** `artifact.c` `:1787` Blinded; `trap.c` untrap
+door; `polyself.c` body_part callers; `potion.c` dip
+poison/oil/poly/`dip_into`/H2O; `artifact.c` TAMING/CHARGE/
+PORTAL/BANISH; `dat/minetn-6.lua`.
+**Change:** no `js/` edits. All ten **ACCEPT** or
+**ACCEPT-WITH-DEBT**. No Must-fix. Filled archive D-1503
+`1f64431d`. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `38+0.30/turn` (R² 0.849).
+**Verified:** full `sessions` at HEAD `1f64431d`; public-unhit
+of the new arms.
+**Next:** Open `mklev.c` minetn-7 load_special (named). Not
+minetn-6.
+**Blocked:** none.
 ## 2026-08-25 — D-1503 mklev.c minetn-6 load_special Bustling Town
 
 **Objective:** Open `mklev.c` minetn-6 load_special (named).

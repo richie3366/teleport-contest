@@ -465,3 +465,13 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [452-f26e11aa-worm-move.md](./452-f26e11aa-worm-move.md) | `f26e11aa` | D-1491 worm.c worm_move / shrink_worm / worm_nomove | **ACCEPT-WITH-DEBT** |
 | [453-b303c111-add-to-minv-merge.md](./453-b303c111-add-to-minv-merge.md) | `b303c111` | D-1492 mkobj.c add_to_minv merge | **ACCEPT-WITH-DEBT** |
 | [454-8669b5b8-see-monsters-hallu-warn.md](./454-8669b5b8-see-monsters-hallu-warn.md) | `8669b5b8` | D-1493 allmain.c see_monsters Hallu / Warn_of_mon | **ACCEPT-WITH-DEBT** |
+| [455-27a1f4b6-invoke-healing-blinded.md](./455-27a1f4b6-invoke-healing-blinded.md) | `27a1f4b6` | D-1494 invoke_healing Blinded 0/1 | **ACCEPT** |
+| [456-4722df06-untrap-door-force.md](./456-4722df06-untrap-door-force.md) | `4722df06` | D-1495 untrap door force / has_magic_key | **ACCEPT-WITH-DEBT** |
+| [457-08854746-body-part-callers.md](./457-08854746-body-part-callers.md) | `08854746` | D-1496 body_part / mbodypart callers | **ACCEPT-WITH-DEBT** |
+| [458-377302b9-potion-dip-poison-coat.md](./458-377302b9-potion-dip-poison-coat.md) | `377302b9` | D-1497 potion_dip poison-coat / healing unpoison | **ACCEPT-WITH-DEBT** |
+| [459-51ea77da-potion-dip-oil-lamp.md](./459-51ea77da-potion-dip-oil-lamp.md) | `51ea77da` | D-1498 potion_dip oil/lamp | **ACCEPT-WITH-DEBT** |
+| [460-089a9829-potion-dip-poly-obj.md](./460-089a9829-potion-dip-poly-obj.md) | `089a9829` | D-1499 potion_dip poly_obj / obj_unpolyable | **ACCEPT-WITH-DEBT** |
+| [461-b96ac27f-dip-into-altdip.md](./461-b96ac27f-dip-into-altdip.md) | `b96ac27f` | D-1500 potion.c dip_into #altdip | **ACCEPT-WITH-DEBT** |
+| [462-83b29455-h2opotion-dip-useeit.md](./462-83b29455-h2opotion-dip-useeit.md) | `83b29455` | D-1501 H2Opotion_dip useeit / towel | **ACCEPT-WITH-DEBT** |
+| [463-89b85fcc-arti-invoke-taming-charge-portal-banish.md](./463-89b85fcc-arti-invoke-taming-charge-portal-banish.md) | `89b85fcc` | D-1502 TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH | **ACCEPT-WITH-DEBT** |
+| [464-1f64431d-minetn-6-bustling-town.md](./464-1f64431d-minetn-6-bustling-town.md) | `1f64431d` | D-1503 minetn-6 load_special Bustling Town | **ACCEPT-WITH-DEBT** |
