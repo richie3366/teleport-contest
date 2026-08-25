@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1457 — potion.c mixtype / potion_dip potion-potion mix
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `dodip` after fountain/sink/pool yn printed
+  Never mind and cancelled, so #dip never asked for a potion
+  and never mixed two potions. C `dodip` `:2365–2371` getobj
+  `drink_ok` then `potion_dip`. `potion_dip` `:2503–2593`:
+  `mixtype` recipes (healing FALLTHROUGH unicorn neutralize;
+  catalyst swap), stack `rnd` subset, mix pline, `useup`
+  dip-into, `dip_potion_explosion` (`amt + rnd(9)` always;
+  cursed/acid/lit-oil skip `rn2(10/30)`), BUC wipe, result
+  otyp or `rnd(8)` water/sickness/mkobj/evaporate, dilute,
+  look pline, `freeinv`+`hold_potion`. Klein bottle / hands /
+  `H2Opotion_dip` live; poly_obj named gate.
+- **C locus:** `potion.c` `mixtype` `:2120–2209`; `potion_dip`
+  `:2441–2594`; `dodip` `:2365–2371`; `dip_potion_explosion`
+  `:2416–2437`; `hold_potion` `:2242–2261`; `poof` `:2407–2413`.
+  Callee `H2Opotion_dip` already live. Caller `dodip` / `dip_into`
+  (`dip_into` still named).
+- **JS was:** named omit — `dodip` returned CANCEL with Never
+  mind after floor features.
+- **Fix:** `getobj_dip_into` + `drink_ok_extra` after 'n';
+  port `mixtype` + mix branch + explosion + hold. Rule #2: no fs.
+- **JS:** `js/potion.js` `mixtype` / `potion_dip` / `dodip`.
+- **Not this iter:** unicorn/amethyst mixtype dip; poison-coat;
+  acid-erode; oil/lamp; `poly_obj`/`obj_unpolyable`; `dip_into`;
+  potionhit / potionbreathe.
+- **Verified:** private canary **16**/16 (C/JS grep; Klein;
+  hands; cursed boom skip rn2(10)+rnd(9); healing+speed →
+  extra healing; healing+sickness FALLTHROUGH fruit juice;
+  same otyp Interesting; poly gate; fountain n dip-into;
+  empty dip-into; oc_magic split; peffects stay; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session #dips two potions.
+- **Follow-up:** Open `zap.c` `weffects` SPE_TURN_UNDEAD
+  IMMEDIATE wand-duplicate (named). Not POLYMORPH.
+- **Files:** `js/potion.js`.
+
 ## D-1456 — zap.c zap_updown WAN_STRIKING/SPE_FORCE_BOLT
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

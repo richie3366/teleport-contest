@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1457 potion.c mixtype / potion_dip mix
+
+**Objective:** Open `potion.c` remaining mix alchemy (named from
+D-1439). Not peffects.
+**C locus:** `potion.c` `mixtype` `:2120–2209`; `potion_dip`
+`:2441–2594`; `dodip` getobj `:2365–2371`; callees
+`dip_potion_explosion` / `hold_potion` / `H2Opotion_dip`.
+**Change:** Wire `dodip` potion getobj → `potion_dip`. Port
+`mixtype` + potion-potion mix (Klein/hands/H2O/poly gate).
+Unicorn/poison/oil named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session #dips two potions).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `weffects` SPE_TURN_UNDEAD IMMEDIATE
+wand-duplicate (named). Not POLYMORPH.
+**Blocked:** none.
 ## 2026-08-25 — D-1456 zap.c zap_updown WAN_STRIKING/SPE_FORCE_BOLT
 
 **Objective:** Open `zap.c` `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT

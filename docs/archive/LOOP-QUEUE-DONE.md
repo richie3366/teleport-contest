@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT (named). Not OPENING. **Addressed:** D-1456
+- [x] `potion.c` remaining mix alchemy (named from D-1439). Not peffects. **Addressed:** D-1457
+
+
+- [x] `zap.c` `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT (named). Not OPENING. **Addressed:** D-1456 `91e3e8a8`
 
 
 - [x] `zap.c` `zap_steed` WAN_TELEPORTATION (named). Not probing. **Addressed:** D-1455 `ad3eca95`
