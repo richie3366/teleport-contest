@@ -4,6 +4,51 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1435 — zap.c zapyourself WAN_PROBING
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zapyourself` defaulted `WAN_PROBING`. Self-zap
+  never walked invent via `probe_objchain`, never called
+  `update_inventory` / `ustatusline`, never learned the wand.
+  C `:2960–2965`: `probe_objchain(gi.invent);
+  update_inventory(); learn_it = TRUE; ustatusline();`.
+  Always learns (empty pack still). Does **not** call
+  `probe_monster` (that is `bhitm` D-1426 / `zap_steed`).
+  `probe_objchain` `:611–623` observe + container/statue
+  lknown/cknown (SchroedingersBox skips cknown) + tin known.
+  Hero invent is JS Array (C `gi.invent` nobj, D-1017).
+  Callee `insight.c` `ustatusline` (stethoscope; ailments
+  named). Caller `dozap` self-dir; wand is IMMEDIATE.
+- **C locus:** `zap.c` `zapyourself` `:2960–2965`. Helpers
+  `zap.c` `probe_objchain` `:611–623` (D-1426),
+  `invent.c` `update_inventory`, `insight.c` `ustatusline`.
+  Caller `dozap` `:2657–2664`.
+- **JS was:** `default` break (no probe, no status, no
+  learn). `probe_objchain` nobj-only (hero Array missed
+  items without `nobj` links).
+- **Fix:** case `WAN_PROBING`; Array-or-nobj `probe_objchain`;
+  `update_inventory`; always `learn_it`; `ustatusline`.
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `zapyourself` / `probe_objchain`;
+  callees already `js/invent.js` `update_inventory`,
+  `js/insight.js` `ustatusline`.
+- **Not this iter:** zapyourself SPE_DRAIN_LIFE;
+  `zap_steed` / `zap_updown` / `bhito` WAN_PROBING;
+  `ustatusline` Sick/Stoned/Upolyd HP; `learnwand`
+  Hallucination (C `observe_object` vs JS `!Blind` dknown).
+- **Verified:** private canary **17**/17 (C/JS grep; Rule #2;
+  empty invent still learn+Status; chest dknown/lknown/cknown;
+  tin known; dagger observe-only; SchroedingersBox skips
+  cknown; statue lknown+cknown; Array walk two chests no nobj;
+  Blind still learns via invent observe; Hallu observe skip
+  dknown with lknown still; SPE_DRAIN still default;
+  WAN_LOCKING D-1434); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session self-zaps probing.
+- **Follow-up:** Open `zap.c` `bhitm` SPE_DRAIN_LIFE
+  (named). Not zapyourself slow.
+- **Files:** `js/zap.js`; callee comment in `js/insight.js`.
+
 ## D-1434 — zap.c zapyourself WAN_LOCKING
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

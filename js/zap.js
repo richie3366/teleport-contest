@@ -28,6 +28,7 @@
 // zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
 // zapyourself WAN_LOCKING/SPE_WIZARD_LOCK closeholdingtrap +
 // boxlock_invent (D-1434);
+// zapyourself WAN_PROBING probe_objchain + ustatusline (D-1435);
 // bhitm WAN_MAKE_INVISIBLE mon_set_minvis + knowninvisible (D-1414);
 // knowninvisible See_invisible/Detect_monsters ≡ uprops (D-1423);
 // bhitm WAN_SPEED_MONSTER mon_adjust_speed + check_gear_next_turn (D-1422);
@@ -44,10 +45,10 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_updown/uswallow full; zapyourself WAN_PROBING /
-// SPE_DRAIN_LIFE / zap_steed probe_monster / bhito WAN_PROBING
+// Named omissions: zap_updown/uswallow full; zapyourself SPE_DRAIN_LIFE
+// / zap_steed probe_monster / zap_updown / bhito WAN_PROBING
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
-// zapyourself WAN_LOCKING is D-1434;
+// zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
 // bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
 // bhitm WAN_PROBING is D-1426);
@@ -74,6 +75,7 @@
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
 // closeholdingtrap bhitm WAN_LOCKING (D-1425);
 // zapyourself WAN_LOCKING boxlock_invent (D-1434);
+// zapyourself WAN_PROBING probe_objchain + ustatusline (D-1435);
 // probe_monster bhitm WAN_PROBING (D-1426);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
@@ -111,9 +113,9 @@ import { nhgetch } from './input.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
-    observe_object, display_minventory,
+    observe_object, display_minventory, update_inventory,
 } from './invent.js';
-import { mstatusline } from './insight.js';
+import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn } from './do.js';
 import { doname, xname, yname, distant_name, vtense, The, an, An, killer_xname, ansimpleoname, otyp_is_charged } from './objnam.js';
 import { uhim } from './roles.js';
@@ -3219,17 +3221,24 @@ function SchroedingersBox(obj) {
 /**
  * C zap.c probe_objchain :611–623 — observe each; container/statue
  * lknown (+ cknown unless SchroedingersBox); tin known.
+ * Hero invent is JS Array (C gi.invent nobj, D-1017); minvent stays nobj.
  */
 function probe_objchain(otmp) {
-    for (; otmp; otmp = otmp.nobj) {
-        observe_object(otmp);
-        if (Is_container(otmp) || (otmp.otyp | 0) === STATUE) {
-            otmp.lknown = 1;
-            if (!SchroedingersBox(otmp)) otmp.cknown = 1;
-        } else if ((otmp.otyp | 0) === TIN) {
-            otmp.known = 1;
+    const visit = (o) => {
+        if (!o) return;
+        observe_object(o);
+        if (Is_container(o) || (o.otyp | 0) === STATUE) {
+            o.lknown = 1;
+            if (!SchroedingersBox(o)) o.cknown = 1;
+        } else if ((o.otyp | 0) === TIN) {
+            o.known = 1;
         }
+    };
+    if (Array.isArray(otmp)) {
+        for (const o of otmp) visit(o);
+        return;
     }
+    for (; otmp; otmp = otmp.nobj) visit(otmp);
 }
 
 /**
@@ -3237,6 +3246,7 @@ function probe_objchain(otmp) {
  * minvent (long-worm tail). Else probe_objchain + display_minventory
  * (MINV_ALL|MINV_NOLET|PICK_NONE) or "not carrying anything".
  * Callers: bhitm WAN_PROBING (D-1426); zap_steed still named.
+ * zapyourself WAN_PROBING uses probe_objchain + ustatusline (D-1435).
  */
 export async function probe_monster(mtmp) {
     if (!mtmp) return;
@@ -3282,8 +3292,8 @@ async function miss_msg(str, mtmp) {
  * Knight questart double; mhurtle petrify/steed;
  * that_is_a_mimic MIM_REVEAL pline (box_or_door+seemimic wired);
  * zap_updown/zap_steed WAN_MAKE_INVISIBLE / WAN_PROBING;
- * zapyourself WAN_PROBING; bhito WAN_PROBING; worm see_wsegs.
- * zapyourself WAN_LOCKING is D-1434.
+ * bhito WAN_PROBING; worm see_wsegs.
+ * zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435.
  * SPE_FORCE_BOLT spell_damage_bonus is D-1388.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
@@ -3472,8 +3482,8 @@ export async function bhitm(mtmp, otmp) {
     case WAN_PROBING:
         // C zap.c bhitm :376–381 — wake FALSE; reveal_invis; probe;
         // always learn. Callee probe_monster :625–640. zap_steed
-        // calls probe_monster directly (named). zapyourself /
-        // zap_updown / bhito still named.
+        // calls probe_monster directly (named). zap_updown / bhito
+        // still named. zapyourself WAN_PROBING is D-1435.
         wake = false;
         reveal_invis = true;
         await probe_monster(mtmp);
@@ -3713,6 +3723,8 @@ export function spell_damage_bonus(dmgIn) {
  * WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
  * WAN_LOCKING/SPE_WIZARD_LOCK closeholdingtrap + boxlock_invent
  * (D-1434);
+ * WAN_PROBING probe_objchain + update_inventory + ustatusline
+ * (D-1435);
  * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
@@ -4004,7 +4016,7 @@ export async function zapyourself(obj, ordinary) {
         // C zap.c zapyourself :2868–2874 — HFast&(TIMEOUT|INTRINSIC)
         // then learn + u_slow_down. Boots-only EFast is a no-op.
         // Callee mhitu.c u_slow_down :161–171. WAN_LOCKING is
-        // D-1434. WAN_PROBING / SPE_DRAIN_LIFE still named.
+        // D-1434. WAN_PROBING is D-1435. SPE_DRAIN_LIFE still named.
         const u = game.u || {};
         const hfast = (u.HFast | 0) | (u.uprops?.[FAST]?.intrinsic | 0);
         if (hfast & (TIMEOUT | INTRINSIC)) {
@@ -4023,7 +4035,7 @@ export async function zapyourself(obj, ordinary) {
         // C || short-circuits: already-trapped skips closeholdingtrap
         // (noticed stays unset). Callee trap.c :6210–6247 (D-1425)
         // + zap.c boxlock_invent :2687–2702 (lock.c boxlock).
-        // WAN_PROBING / SPE_DRAIN_LIFE / zap_updown still named.
+        // WAN_PROBING is D-1435. SPE_DRAIN_LIFE / zap_updown still named.
         const alreadyTrapped = !!(game.u?.utrap | 0);
         if (alreadyTrapped) {
             await boxlock_invent(obj);
@@ -4038,6 +4050,21 @@ export async function zapyourself(obj, ordinary) {
         }
         break;
     }
+
+    case WAN_PROBING:
+        // C zap.c zapyourself :2960–2965 — probe_objchain(invent);
+        // update_inventory(); learn_it = TRUE; ustatusline().
+        // Always learn (empty pack still). Does not call probe_monster
+        // (that is bhitm D-1426 / zap_steed named). Callees
+        // probe_objchain :611–623 (hero invent Array, D-1017);
+        // invent.c update_inventory; insight.c ustatusline
+        // (stethoscope; ailments named). SPE_DRAIN_LIFE /
+        // zap_updown / bhito WAN_PROBING still named.
+        probe_objchain(game.invent);
+        update_inventory();
+        learn_it = true;
+        await ustatusline();
+        break;
 
     default:
         // Other zapyourself cases deferred

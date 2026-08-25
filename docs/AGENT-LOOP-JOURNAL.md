@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1435 zap.c zapyourself WAN_PROBING
+
+**Objective:** Open `zap.c` `zapyourself` WAN_PROBING
+(named). Not drain.
+**C locus:** `zap.c` `zapyourself` `:2960–2965`; callees
+`probe_objchain` `:611–623` (D-1426), `invent.c`
+`update_inventory`, `insight.c` `ustatusline`.
+**Change:** probe invent (JS Array D-1017) then
+update_inventory; always learn; ustatusline. Not
+probe_monster. SPE_DRAIN / zap_steed / zap_updown /
+bhito still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session self-zaps probing).
+**Verified:** private canary **17**/17; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `bhitm` SPE_DRAIN_LIFE (named).
+Not zapyourself slow.
+**Blocked:** none.
 ## 2026-08-25 — D-1434 zap.c zapyourself WAN_LOCKING
 
 **Objective:** Open `zap.c` `zapyourself` WAN_LOCKING
