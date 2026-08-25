@@ -48,6 +48,7 @@
 // zap_steed WAN_TELEPORTATION / SPE_TELEPORT_AWAY tele() together (D-1455);
 // zap_updown WAN_PROBING bhitpile+zap_map+display_binventory (D-1444);
 // zap_updown WAN_OPENING/SPE_KNOCK portcullis/quest/traps (D-1454);
+// zap_updown WAN_STRIKING/SPE_FORCE_BOLT destroy db / rock / trapdoor (D-1456);
 // bhito WAN_PROBING observe + display_cinventory / tin / egg (D-1445);
 // bhito SPE_DRAIN_LIFE drain_item (D-1453);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
@@ -61,7 +62,7 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_updown STRIKING/LOCKING/STONE / uswallow pile;
+// Named omissions: zap_updown LOCKING/STONE / uswallow pile;
 // bhito boxlock / opening chain
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
@@ -69,6 +70,7 @@
 // zap_steed WAN_PROBING is D-1443; zap_steed WAN_TELEPORTATION is D-1455;
 // zap_updown WAN_PROBING is D-1444;
 // zap_updown WAN_OPENING/SPE_KNOCK is D-1454;
+// zap_updown WAN_STRIKING/SPE_FORCE_BOLT is D-1456;
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
 // bhitm-routed zap_steed named;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
@@ -174,7 +176,10 @@ import {
 import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder } from './mon.js';
 import { find_mac, monkilled, shade_miss } from './mhitm.js';
 import { update_mapseen_for } from './dungeon.js';
-import { find_drawbridge, open_drawbridge, is_db_wall } from './dbridge.js';
+import {
+    find_drawbridge, open_drawbridge, is_db_wall, is_drawbridge_wall,
+    destroy_drawbridge,
+} from './dbridge.js';
 import { ok_to_quest } from './quest.js';
 import { more_experienced, losexp } from './exper.js';
 import { obj_resists } from './dogmove.js';
@@ -214,7 +219,8 @@ import {
     oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
     eaten_stat, start_timer, spot_stop_timers, spot_time_left,
     obj_ice_effects, place_object, stackobj,
-    get_mtraits, free_omonst, free_omid, is_metallic,
+    get_mtraits, free_omonst, free_omid, is_metallic, is_crackable,
+    mksobj_at,
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
@@ -252,7 +258,7 @@ import {
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
     OMONST, has_oname, ONAME, has_omonst, has_omid, OMID, ESHK,
-    WEB, PIT, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
+    WEB, PIT, HOLE, TRAPDOOR, HEAD, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
     TIMER_LEVEL, MELT_ICE_AWAY, EXPL_FIERY, COLNO, ROWNO,
     xytodir,
     IS_ALTAR, Is_earthlevel, IS_AIR, CLOUD, IS_SINK,
@@ -325,7 +331,10 @@ const WAN_COLD = objectNames.indexOf('WAN_COLD');
 const SPE_CONE_OF_COLD = objectNames.indexOf('SPE_CONE_OF_COLD');
 const FIRE_HORN = objectNames.indexOf('FIRE_HORN');
 const FROST_HORN = objectNames.indexOf('FROST_HORN');
+const ROCK = objectNames.indexOf('ROCK');
 const BOULDER = objectNames.indexOf('BOULDER');
+/** C objclass.h ARM_HELM — oc_armcat; JS oc_skill stand-in. */
+const ARM_HELM = 2;
 const STATUE = objectNames.indexOf('STATUE');
 const TIN = objectNames.indexOf('TIN');
 const SCR_BLANK_PAPER = objectNames.indexOf('SCR_BLANK_PAPER');
@@ -516,6 +525,30 @@ export function Reflecting() {
 
 function Blind() {
     return !!(game.u?.Blind || game.u?.ublind);
+}
+
+/** C obj.h is_helmet — ARMOR + oc_armcat ARM_HELM (JS oc_skill stand-in). */
+function is_helmet_zap(obj) {
+    return !!obj && obj.oclass === ARMOR_CLASS
+        && (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_HELM;
+}
+
+/**
+ * C do_wear.c hard_helmet :567–573 — metallic or glass helm.
+ * Caller: zap_updown WAN_STRIKING/SPE_FORCE_BOLT falling rock (D-1456).
+ */
+function hard_helmet(obj) {
+    if (!obj || !is_helmet_zap(obj)) return false;
+    return is_metallic(obj) || is_crackable(obj);
+}
+
+/**
+ * C polyself.c body_part for zap_updown rock. Poly tables named
+ * (avoid static zap→polyself→do→zap cycle); humanoid HEAD → "head".
+ */
+function body_part_zap(part) {
+    if (part === HEAD) return 'head';
+    return 'body';
 }
 
 /**
@@ -5087,13 +5120,20 @@ function on_level_updown(a, b) {
         && (a?.dlevel | 0) === (b?.dlevel | 0);
 }
 
+/** C dungeon.h / quest.h Is_qstart — on_level vs qstart_level. */
+function Is_qstart_updown(lev) {
+    return on_level_updown(lev, game.qstart_level);
+}
+
 /**
  * C zap.c zap_updown :3219–3411 — IMMEDIATE wand/spell up or down.
  * WAN_PROBING :3236–3262 (D-1444; early return; own bhitpile).
  * WAN_OPENING/SPE_KNOCK :3263–3288 (D-1454) then shared down
  * bhitpile+zap_map / up hideunder bhito :3382–3408.
- * Named: WAN_STRIKING/SPE_FORCE_BOLT; WAN_LOCKING/SPE_WIZARD_LOCK;
- * SPE_STONE_TO_FLESH; zap_map engraving/cancel trap; bhito boxlock.
+ * WAN_STRIKING/SPE_FORCE_BOLT :3290–3354 (D-1456; striking=TRUE
+ * FALLTHROUGH into locking body; locking cases still named).
+ * Named: WAN_LOCKING/SPE_WIZARD_LOCK; SPE_STONE_TO_FLESH;
+ * zap_map engraving/cancel trap; bhito boxlock; poly body_part.
  */
 async function zap_updown(obj) {
     if (!obj) return false;
@@ -5101,6 +5141,8 @@ async function zap_updown(obj) {
     const y = game.u?.uy | 0;
     const dz = game.u?.dz | 0;
     let disclose = false;
+    /* C :3233 — trap snapshot before switch (drawbridge may move hero). */
+    const ttmp = t_at(x, y);
 
     switch (obj.otyp | 0) {
     case WAN_PROBING: {
@@ -5161,6 +5203,59 @@ async function zap_updown(obj) {
                 false,
             );
             if (fall.noticed) disclose = true;
+        }
+        break;
+    }
+    case WAN_STRIKING:
+    case SPE_FORCE_BOLT: {
+        /* C zap.c :3290–3354 — striking=TRUE; WAN_LOCKING named. */
+        const striking = true;
+        const dbxy = { x, y };
+        const levtyp = game.level?.at(x, y)?.typ | 0;
+        const db_hit = (levtyp === DRAWBRIDGE_DOWN)
+            ? (dz > 0)
+            : (is_drawbridge_wall(x, y) >= 0 && !is_db_wall(x, y));
+        if (db_hit && find_drawbridge(dbxy)) {
+            /* C :3302–3306 — !striking close_drawbridge is LOCKING (named). */
+            await destroy_drawbridge(dbxy.x, dbxy.y);
+            disclose = true;
+        } else if (striking && dz < 0 && rn2(3)
+            && !Is_airlevel(game.u?.uz)
+            && !Is_waterlevel(game.u?.uz)
+            && !(game.u?.uinwater | 0)
+            && !Is_qstart_updown(game.u?.uz)) {
+            /* C :3310–3320 — disclose stays false. */
+            await pline(
+                `A rock is dislodged from the ${ceiling_updown(x, y)} and falls on your ${body_part_zap(HEAD)}.`,
+            );
+            const dmg = rnd(hard_helmet(game.u?.uarmh) ? 2 : 6);
+            losehp(maybe_half_phys(dmg), 'falling rock', KILLED_BY_AN);
+            if (game._losehp_needs_done || game.program_state?.gameover) {
+                await finish_losehp_done();
+                return disclose;
+            }
+            const otmp = mksobj_at(ROCK, x, y, false, false);
+            if (otmp) {
+                xname(otmp);
+                stackobj(otmp);
+            }
+            newsym(x, y);
+        } else if (dz > 0 && ttmp) {
+            /* C :3322 — !striking closeholdingtrap / hole→trapdoor named. */
+            if (striking && (ttmp.ttyp | 0) === TRAPDOOR) {
+                if (Blind() && !(ttmp.tseen | 0)) {
+                    await pline('Something beneath you shatters.');
+                } else if (!(ttmp.tseen | 0)) {
+                    await pline("There's a trapdoor beneath you; it shatters.");
+                } else {
+                    await pline('The trapdoor beneath you shatters.');
+                    disclose = true;
+                }
+                ttmp.ttyp = HOLE;
+                ttmp.tseen = 1;
+                newsym(x, y);
+                await dotrap(ttmp, NO_TRAP_FLAGS);
+            }
         }
         break;
     }
@@ -5251,8 +5346,9 @@ async function zap_steed(obj) {
  * zapyourself D-1434).
  * zap_steed WAN_PROBING (D-1443); zap_steed WAN_TELEPORTATION /
  * SPE_TELEPORT_AWAY (D-1455); zap_updown WAN_PROBING (D-1444);
- * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); remaining zap_steed
- * bhitm-routed otyps / zap_updown STRIKING/LOCKING/STONE /
+ * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown
+ * WAN_STRIKING/SPE_FORCE_BOLT (D-1456); remaining zap_steed
+ * bhitm-routed otyps / zap_updown LOCKING/STONE /
  * doorlock deferred.
  */
 export async function weffects(obj) {

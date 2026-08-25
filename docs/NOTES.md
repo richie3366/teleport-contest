@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1455; cadence **#1820** `70c2b8e6`
-  (Scr **11,405** RNG 100%). Next: Open `zap.c` `zap_updown`
-  WAN_STRIKING/SPE_FORCE_BOLT (named). Not OPENING.
-  Do not skip D-1455…D-1229. No FORCE / `wildmiss` wrap /
+- **Fortress 44/44** after D-1456; cadence **#1820** `70c2b8e6`
+  (Scr **11,405** RNG 100%). Next: Open `potion.c` remaining
+  mix alchemy (named from D-1439). Not peffects.
+  Do not skip D-1456…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1455. Named still: `see_monsters`
+- Do not revert D-1217–D-1456. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1455.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1456.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -32,10 +32,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1455 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1456 (index).
 - Named still: worm-shrieker; remaining mix / potionhit /
   potionbreathe; wand-duplicate IMMEDIATE TURN/…; zap_steed
-  bhitm-routed; zap_updown STRIKING; artifact invoke.
+  bhitm-routed; zap_updown LOCKING/STONE; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -45,6 +45,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1456: `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT destroy
+  drawbridge / ceiling rock / trapdoor→HOLE; rock does not
+  disclose; LOCKING still named.
 - D-1455: `zap_steed` WAN/SPE_TELEPORT `tele()` together
   (not bhitm); learnwand on post-`teleds` ux0; disclose still learns.
 - D-1454: `zap_updown` WAN_OPENING/SPE_KNOCK portcullis /
@@ -65,4 +68,3 @@ Objective/score live in `CURRENT.md`.
 - D-1443: `zap_steed` WAN_PROBING `probe_monster` + learnwand;
   teleport is D-1455; remaining bhitm-routed named.
 - D-1442: `mhitm_ad_phys` rustm leftover `if (damage) rustm`.
-- D-1441: SPE_DIG RAY wand-duplicate → weffects zap_dig.

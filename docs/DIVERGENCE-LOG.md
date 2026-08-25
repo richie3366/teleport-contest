@@ -4,6 +4,52 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1456 — zap.c zap_updown WAN_STRIKING/SPE_FORCE_BOLT
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_updown` defaulted after D-1454 OPENING, so an
+  up/down striking wand or force-bolt spell never destroyed an
+  open drawbridge/portcullis, never dropped a ceiling rock, never
+  shattered a trapdoor into a hole, and never disclosed
+  (`weffects` `learnwand`) on the drawbridge/seen-trapdoor paths.
+  C `zap_updown` `:3290–3354`: `striking=TRUE` FALLTHROUGH into
+  the locking body. Drawbridge: `DRAWBRIDGE_DOWN` only when
+  `dz>0`, else open portcullis (`is_drawbridge_wall &&
+  !is_db_wall`) then `find_drawbridge` → `destroy_drawbridge`
+  (locking would `close_drawbridge`) and `disclose=TRUE`. Else
+  up `rn2(3)` and not air/water/`Underwater`/`Is_qstart`: pline
+  rock from `ceiling` onto `body_part(HEAD)`, `rnd(hard_helmet
+  ? 2 : 6)`, `losehp(Maybe_Half_Phys)`, `mksobj_at(ROCK)` —
+  **no disclose**. Else down+trap: locking `closeholdingtrap` /
+  hole→trapdoor named; striking TRAPDOOR → HOLE, `tseen=1`,
+  `dotrap`. Then shared `:3382–3408` down `bhitpile`+`zap_map`.
+  Caller `weffects` `:3445–3446` `u.dz`.
+- **C locus:** `zap.c` `zap_updown` `:3290–3354` + epilogue
+  `:3382–3408`. Callees `dbridge.c` `is_drawbridge_wall` /
+  `destroy_drawbridge`; `do_wear.c` `hard_helmet` `:567–573`;
+  `trap.c` `dotrap`. Caller `weffects` `:3440–3446`.
+- **JS was:** named omit. OPENING/KNOCK live (D-1454); STRIKING
+  hit `default` `return false`.
+- **Fix:** WAN_STRIKING/SPE_FORCE_BOLT arm with striking=true
+  paths. LOCKING cases still default. Poly `body_part` tables
+  named (no zap→polyself cycle). Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_updown`; `js/dbridge.js`
+  `destroy_drawbridge` (already live).
+- **Not this iter:** `zap_updown` LOCKING/STONE; `zap_map`
+  engraving/cancel trap; `bhito` boxlock; `zap_steed` striking
+  `bhitm`; `bhit` doorlock.
+- **Verified:** private canary **12**/12 (C/JS grep; Rule #2;
+  down DRAWBRIDGE_DOWN destroy+learnwand; up rock+HP no learn;
+  SPE_FORCE_BOLT SPBOOK skip makeknown; tseen trapdoor→HOLE
+  +learn; LOCKING still default; OPENING sibling D-1454;
+  probing sibling D-1444); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps striking/force-bolt
+  up/down.
+- **Follow-up:** Open `potion.c` remaining mix alchemy
+  (named from D-1439). Not peffects.
+- **Files:** `js/zap.js`.
+
 ## D-1455 — zap.c zap_steed WAN_TELEPORTATION
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

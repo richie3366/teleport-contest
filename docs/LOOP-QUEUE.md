@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT (named). Not OPENING.
 - [ ] `potion.c` remaining mix alchemy (named from D-1439). Not peffects.
 - [ ] `zap.c` `weffects` SPE_TURN_UNDEAD IMMEDIATE wand-duplicate (named). Not POLYMORPH.
 - [ ] `zap.c` `weffects` SPE_POLYMORPH IMMEDIATE wand-duplicate (named). Not CANCELLATION.
