@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` SPE_MAGIC_MISSILE wand-duplicate RAY (named from D-1440). Not FINGER.
 - [ ] `spell.c` SPE_FINGER_OF_DEATH wand-duplicate RAY (named from D-1440). Not MAGIC_MISSILE.
 - [ ] `zap.c` `weffects` SPE_KNOCK IMMEDIATE wand-duplicate (named from D-1427). Not SLOW.
 - [ ] `zap.c` `weffects` SPE_SLOW_MONSTER IMMEDIATE wand-duplicate (named). Not LOCK.

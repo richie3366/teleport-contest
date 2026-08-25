@@ -27,6 +27,8 @@
 // C spell.c :1462 / zap.c :3461–3462);
 // SPE_DIG RAY wand-duplicate weffects zap_dig (D-1441;
 // C spell.c :1467 / zap.c :3459–3460);
+// SPE_MAGIC_MISSILE RAY wand-duplicate weffects ubuzz (D-1448;
+// C spell.c :1463 / zap.c :3461–3462);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
@@ -71,8 +73,9 @@
 // SPE_LIGHT NODIR wand-duplicate cast dispatch is D-1427
 // (zapnodir SPE_LIGHT already D-1366); SPE_SLEEP RAY
 // wand-duplicate weffects is D-1440; SPE_DIG RAY
-// wand-duplicate weffects/zap_dig is D-1441; remaining
-// MAGIC_MISSILE / FINGER / IMMEDIATE wand-duplicate;
+// wand-duplicate weffects/zap_dig is D-1441; SPE_MAGIC_MISSILE
+// RAY wand-duplicate weffects is D-1448; remaining FINGER /
+// IMMEDIATE wand-duplicate;
 // potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
@@ -2415,8 +2418,8 @@ export async function do_enlightenment_effect() {
  * zapnodir SPE_LIGHT already live D-1366).
  * SPE_SLEEP RAY wand-duplicate weffects ubuzz (D-1440).
  * SPE_DIG RAY wand-duplicate weffects zap_dig (D-1441).
- * Named omit: remaining wand-duplicate MAGIC_MISSILE /
- * FINGER / IMMEDIATE.
+ * SPE_MAGIC_MISSILE RAY wand-duplicate weffects ubuzz (D-1448).
+ * Named omit: remaining wand-duplicate FINGER / IMMEDIATE.
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -4997,7 +5000,8 @@ async function zap_steed(obj) {
  * SPE_FORCE_BOLT (D-1388); SPE_DRAIN_LIFE (D-1436);
  * WAN_DIGGING/SPE_DIG → zap_dig (SPE_DIG cast D-1441);
  * RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH ubuzz (D-1386)
- * including SPE_SLEEP wand-duplicate (D-1440).
+ * including SPE_SLEEP (D-1440) and SPE_MAGIC_MISSILE (D-1448)
+ * wand-duplicate.
  * zap_steed WAN_PROBING (D-1443); zap_updown WAN_PROBING (D-1444);
  * remaining zap_steed otyps / other zap_updown otyps / doorlock
  * deferred.

@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1448 — spell.c SPE_MAGIC_MISSILE RAY wand-duplicate
+
+- **Status:** fixed (map-driven Open from D-1440; not a public FAIL)
+- **Symptom:** casting magic missile (`spelleffects` SPE_MAGIC_MISSILE)
+  was "Nothing happens." C `:1463–1514` puts SPE_MAGIC_MISSILE in
+  the wand-duplicate group: `oc_dir == RAY` so getdir then
+  `zapyourself` (dx=dy=dz=0) or `weffects(pseudo)` then
+  `update_inventory()`. `weffects` `:3456–3468` RAY
+  `otyp >= SPE_MAGIC_MISSILE && otyp <= SPE_FINGER_OF_DEATH`
+  calls `ubuzz(BZ_U_SPELL(BZ_OFS_SPE(otyp)), u.ulevel/2+1)`.
+  SPE_MAGIC_MISSILE is offset 0 (`ZT_MAGIC_MISSILE`); type 10.
+  Fake spellbook is SPBOOK so `learnwand` skips `makeknown`;
+  disclose still `more_experienced(0,10)` when the type was
+  unknown. Self-zap `zapyourself` `:2790–2802` already live
+  (D-1364; Antimagic uprops D-1367).
+- **C locus:** `spell.c` `spelleffects` `:1463–1514`. Callee
+  `zap.c` `weffects` `:3461–3462` / `ubuzz` / `zhitm`
+  `:4251–4259`; `zapyourself` `:2790–2802` on self-dir.
+- **JS was:** other-otyp "Nothing happens." after D-1441
+  SPE_DIG; weffects RAY SPE range already live (D-1386);
+  zapyourself WAN/SPE_MAGIC_MISSILE already live.
+- **Fix:** route SPE_MAGIC_MISSILE through
+  `wand_duplicate_weffects` (`physical_damage` false).
+  Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callee `js/zap.js`
+  `weffects` / `ubuzz` / `zapyourself`.
+- **Not this iter:** remaining wand-duplicate FINGER_OF_DEATH
+  / IMMEDIATE (KNOCK / SLOW / LOCK / …); zhitm
+  `spell_damage_bonus` on hero-spell missile; `defended(AD_MAGM)`.
+- **Verified:** private canary **20**/20 (C/JS grep; RAY
+  SPBOOK vs WAN_MAGIC_MISSILE; BZ_OFS 0; self-dir Idiot
+  d(4,6) + Antimagic bounce; directed absorb + XP skip
+  makeknown; FINGER/KNOCK still Nothing happens; SLEEP/DIG/
+  LIGHT/DRAIN still wired; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts magic missile.
+- **Follow-up:** Open `spell.c` SPE_FINGER_OF_DEATH
+  wand-duplicate RAY (named from D-1440). Not MAGIC_MISSILE.
+- **Files:** `js/spell.js`, `js/zap.js` (comments).
+
 ## D-1447 — uhitm.c mhitm_ad_phys poison leftover
 
 - **Status:** fixed (map-driven Open from D-1415; not a public FAIL)

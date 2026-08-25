@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1448 spell.c SPE_MAGIC_MISSILE RAY wand-duplicate
+
+**Objective:** Open `spell.c` SPE_MAGIC_MISSILE wand-duplicate
+RAY (named from D-1440). Not FINGER.
+**C locus:** `spell.c` `spelleffects` `:1463–1514`; callee
+`zap.c` `weffects` `:3461–3462` `ubuzz` BZ_U_SPELL nd=ulevel/2+1.
+**Change:** route SPE_MAGIC_MISSILE through `wand_duplicate_weffects`
+(`physical_damage` false). Self-dir zapyourself already D-1364.
+FINGER / IMMEDIATE named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session casts magic missile).
+**Verified:** private canary **20**/20; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` SPE_FINGER_OF_DEATH wand-duplicate
+RAY (named from D-1440). Not MAGIC_MISSILE.
+**Blocked:** none.
 ## 2026-08-25 — D-1447 uhitm.c mhitm_ad_phys poison leftover
 
 **Objective:** Open `uhitm.c` `mhitm_ad_phys` poison leftover

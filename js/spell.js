@@ -57,6 +57,9 @@
 // same wand-duplicate group; callee zap.c `:3461–3462`).
 // SPE_DIG RAY weffects → zap_dig (D-1441; C `:1467` same group;
 // callee zap.c `:3459–3460` / dig.c `zap_dig`).
+// SPE_MAGIC_MISSILE RAY weffects → ubuzz BZ_U_SPELL (D-1448;
+// C `:1463` same group; callee zap.c `:3461–3462`; self-dir
+// zapyourself already D-1364 / Antimagic D-1367).
 // SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436; C `:1477`
 // same wand-duplicate group; callee zap.c `:521–544`).
 // SPE_DRAIN_LIFE self-dir zapyourself !Drain_resistance + losexp
@@ -65,7 +68,7 @@
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects
 // mix/potionhit/potionbreathe;
-// remaining wand-duplicate MAGIC_MISSILE / FINGER / IMMEDIATE);
+// remaining wand-duplicate FINGER / IMMEDIATE);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -1775,10 +1778,12 @@ async function cast_protection() {
  * `:2544–2550` D-1366). SPE_SLEEP RAY weffects → ubuzz
  * BZ_U_SPELL (D-1440; C `:1462` / zap.c `:3461–3462`).
  * SPE_DIG RAY weffects → zap_dig (D-1441; C `:1467` /
- * zap.c `:3459–3460`). SPE_DRAIN_LIFE IMMEDIATE weffects →
- * bhitm (D-1436; C `:1477` / zap.c `:521–544`); self-dir
- * zapyourself is D-1446. Remaining
- * wand-duplicate MAGIC_MISSILE / FINGER / IMMEDIATE still named.
+ * zap.c `:3459–3460`). SPE_MAGIC_MISSILE RAY weffects →
+ * ubuzz BZ_U_SPELL (D-1448; C `:1463` / zap.c `:3461–3462`);
+ * self-dir zapyourself is D-1364. SPE_DRAIN_LIFE IMMEDIATE
+ * weffects → bhitm (D-1436; C `:1477` / zap.c `:521–544`);
+ * self-dir zapyourself is D-1446. Remaining wand-duplicate
+ * FINGER / IMMEDIATE still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1972,8 +1977,15 @@ export async function spelleffects(spell_otyp, atme, force) {
          * → zap_dig (D-1441; callee zap.c :3459–3460 /
          * dig.c zap_dig). oc_dir RAY so getdir; self-dir
          * zapyourself is a no-op (C :2955–2959). physical_damage
-         * is FORCE_BOLT-only. MAGIC_MISSILE / FINGER / IMMEDIATE
-         * still named. */
+         * is FORCE_BOLT-only. FINGER / IMMEDIATE still named. */
+        await wand_duplicate_weffects(pseudo, atme, false);
+    } else if (otyp === SPE_MAGIC_MISSILE) {
+        /* C spell.c :1463–1514 wand-duplicate RAY weffects
+         * → ubuzz BZ_U_SPELL(BZ_OFS_SPE(SPE_MAGIC_MISSILE))
+         * nd=ulevel/2+1 (D-1448; callee zap.c :3461–3462).
+         * BZ_OFS 0 (ZT_MAGIC_MISSILE). physical_damage is
+         * FORCE_BOLT-only. Self-dir zapyourself already
+         * D-1364 / Antimagic D-1367. FINGER still named. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_DRAIN_LIFE) {
         /* C spell.c :1477–1514 wand-duplicate IMMEDIATE weffects

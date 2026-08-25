@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `uhitm.c` `mhitm_ad_phys` poison leftover (named from D-1415). Not rustm. **Addressed:** D-1447
+- [x] `spell.c` SPE_MAGIC_MISSILE wand-duplicate RAY (named from D-1440). Not FINGER. **Addressed:** D-1448
+
+
+- [x] `uhitm.c` `mhitm_ad_phys` poison leftover (named from D-1415). Not rustm. **Addressed:** D-1447 `4dde6eeb`
 
 
 - [x] `zap.c` `zapyourself` SPE_DRAIN_LIFE (named). Not bhitm drain. **Addressed:** D-1446 `ed218e86`
