@@ -233,7 +233,9 @@ Stage intentional changes; commit with why (C locus / D-ID / verification).
 **`git push origin HEAD`.** The supervisor fail-closes (density /
 authority / empty port) and pushes if you forgot (`docs/AGENT-PORT-LOOP.md`).
 Green / full-suite regression is logged; the loop continues so the next
-iteration can recover.
+iteration can recover. A banned-pattern hit (bare `FORCE`/`DIAG`, seed
+gate, `console.log`) does **not** write STOP: rewrite those lines in
+the next iter (full C names such as `SPE_FORCE_BOLT`) and continue.
 No `--force`, no amend of pushed commits, no `git reset --hard` (that
 restored a tracked `STOP_AGENT_LOOP.md` `0` and continued a stopped
 loop). `STOP_AGENT_LOOP.md` is gitignored; do not add or commit it.

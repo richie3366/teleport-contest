@@ -2,12 +2,14 @@
 
 Repeatedly asks Cursor Agent CLI to continue the NetHack JS port. The
 shell is the **gate**: agents **commit and `git push`** inside the
-iteration. Density overflow, banned patterns, protected-file edits,
-empty ports, and QUALITY-RISK without a Must-fix still fail-close
-(revert+halt if the push has not landed, else halt without reset).
-Green / full-suite regression is logged; the loop **continues** so the
-next iteration can recover. If the agent forgot to push, the supervisor
-pushes after those gates (including after a suite warning).
+iteration. Density overflow, protected-file edits, empty ports, and
+QUALITY-RISK without a Must-fix still fail-close (revert+halt if the
+push has not landed, else halt without reset). Green / full-suite
+regression **and** banned-pattern hits are logged; the loop
+**continues** so the next iteration can recover (unpushed ban →
+revert this iter; already pushed → next-iter heal prompt, no STOP).
+If the agent forgot to push, the supervisor pushes after those gates
+(including after a suite warning).
 
 Still not a full isolated worktree (see `docs/AUDIT-ROADMAP.md` P2).
 Do not run with `AGENT_FORCE=1` on an uncheckpointed dirty checkout —
@@ -114,11 +116,11 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │             Open from the map (target 12) then ships one cluster   │
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
 │       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
-│         3× short runs, tool denials, protected edit, banned        │
-│         pattern, js/ on audit, empty committed port, density       │
-│         >400/8, QUALITY-RISK/REJECT with no new Must-fix row       │
-│       WARN + CONTINUE (no STOP, no revert; still push if needed):  │
-│         green fail, audit/cadence full-suite fail,                 │
+│         3× short runs, tool denials, protected edit,               │
+│         js/ on audit, empty committed port, density >400/8,        │
+│         QUALITY-RISK/REJECT with no new Must-fix row               │
+│       WARN + CONTINUE (no STOP): green / full-suite fail;          │
+│         banned-pattern (unpushed → revert; pushed → heal prompt);  │
 │         crash/timeout/resource_exhausted before commit: rewind n,  │
 │         arm continue-unfinished (cite that iter .log/.raw), retry  │
 │         the same # in this run (even if n%10==0)                   │
@@ -352,7 +354,8 @@ Halt reason is still `last-halt-reason.txt`.
 | `neither cursor-agent nor agent found` | Install CLI / fix PATH |
 | Auth errors | `agent login` |
 | `Workspace Trust Required` | Loop defaults to `--trust`; upgrade CLI or set `AGENT_TRUST=1` |
-| banned-pattern / density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
+| banned-pattern (DIAG/FORCE/seed gate) | **Continue** (unpushed → revert this iter; already pushed → heal prompt, next iter strips hits). Does **not** write STOP |
+| density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
 | `N consecutive agent runs <30s` | Out of tokens / quota — halt+revert |
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
 | `3× consecutive missing usage` | stream-json had no `result.usage` — halt |
@@ -360,6 +363,7 @@ Halt reason is still `last-halt-reason.txt`.
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
 | Agent `git push` then density/authority fail | Halt without reset; human reverts origin |
+| Agent `git push` then banned-pattern hit | Continue; next iter gets a heal prompt and strips the hits |
 | Agent `git push` then green/suite FAIL | Continue; next iter recovers |
 | Port / audit `resource_exhausted` before commit | Supervisor **retries** the same `#` as continue-unfinished (cites that iter `.log`/`.raw`); does **not** exit. 3× short runs still halt |
 | Uncommitted `js/` or `reviews/` after the agent returns | Same in-process retry, keep tree |
@@ -370,9 +374,9 @@ Halt reason is still `last-halt-reason.txt`.
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
 enforces density, one-loop locking, protected-path hashes, finite
 iteration time, and a diff-based banned-pattern scan. Automatic halt
-writes `STOP_AGENT_LOOP.md=1`. Green / full-suite FAIL does **not**
-halt. `LOOP_FAIL_CLOSED=0` restores warn-and-continue for the remaining
-fail-closed gates (debugging only).
+writes `STOP_AGENT_LOOP.md=1`. Green / full-suite FAIL and
+banned-pattern hits do **not** halt. `LOOP_FAIL_CLOSED=0` restores
+warn-and-continue for the remaining fail-closed gates (debugging only).
 
 ## Relation to in-chat `/loop`
 

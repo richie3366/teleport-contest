@@ -909,7 +909,7 @@ export async function doorlock(otmp, x, y) {
             /* C :1124–1125 — OPENING/KNOCK return; striking continues. */
             return true;
         default:
-            /* WAN_LOCKING / SPE_WIZARD_LOCK / STRIKING / FORCE named. */
+            /* WAN_LOCKING / SPE_WIZARD_LOCK / WAN_STRIKING / SPE_FORCE_BOLT named. */
             return false;
         }
     }

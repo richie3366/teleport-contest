@@ -4,9 +4,10 @@
 #
 # Crash / resource_exhausted before commit: keep the tree, arm
 # continue-unfinished (cite that iter's .raw/.log), rewind n, retry in
-# this run. Density, bans, protected files, empty committed ports, and
-# QUALITY-RISK without Must-fix still halt. Stop: write "1" into
-# STOP_AGENT_LOOP.md.
+# this run. Density, protected files, empty committed ports, and
+# QUALITY-RISK without Must-fix still halt. Banned-pattern hits do not
+# write STOP: revert if unpushed, else arm a next-iter heal prompt.
+# Stop: write "1" into STOP_AGENT_LOOP.md.
 # Design + usage: docs/AGENT-PORT-LOOP.md
 #
 # Token budget (optional, this run only — not persisted):
@@ -50,10 +51,11 @@ Options:
   -h, --help            Show this help.
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
-Fail-closed (default): density / protected / banned / empty-port /
+Fail-closed (default): density / protected / empty-port /
 QUALITY-RISK-without-Must-fix halt and revert the iteration (or halt
-without reset if already pushed). Green / full-suite regression is
-logged; the loop continues so the next iteration can recover.
+without reset if already pushed). Green / full-suite regression and
+banned-pattern hits are logged; the loop continues so the next
+iteration can recover (unpushed ban → revert; pushed ban → heal prompt).
 Every LOOP_CADENCE_EVERY (10) is review + full-suite score (no port).
 Crash-before-commit keeps the tree, arms continue-unfinished (with
 that iter's .raw/.log), rewinds n, and **retries in this supervisor
@@ -593,9 +595,11 @@ except subprocess.TimeoutExpired:
 ' "$ITERATION_TIMEOUT_SEC" "$@"
 }
 
-scan_new_banned_patterns() {
+# Print banned-pattern hits vs $1 (js/ snapshot). Empty = clean.
+# Word-bound DIAG/FORCE so C flags like FORCETRAP / FORCEBUNGLE pass.
+dump_banned_hits() {
   local snapshot="$1"
-  local found=0 rel old new delta
+  local rel old new delta
   while IFS= read -r new; do
     rel="${new#"$ROOT/js/"}"
     old="$snapshot/js/$rel"
@@ -604,26 +608,61 @@ scan_new_banned_patterns() {
     else
       delta="$(diff -U0 /dev/null "$new" || true)"
     fi
-    # Word-bound DIAG/FORCE so C flags like FORCETRAP / FORCEBUNGLE pass.
     if printf '%s\n' "$delta" \
-      | rg '^\+[^+].*(\bDIAG\b|\bFORCE\b|seed[0-9]{4}|console\.(log|error|debug)|getRngLog.*(===|==|>=|<=))'
+      | rg -q '^\+[^+].*(\bDIAG\b|\bFORCE\b|seed[0-9]{4}|console\.(log|error|debug)|getRngLog.*(===|==|>=|<=))'
     then
-      echo "warning: suspicious new production line in js/$rel" >&2
+      echo "js/$rel"
       printf '%s\n' "$delta" \
-        | rg '^\+[^+].*(\bDIAG\b|\bFORCE\b|seed[0-9]{4}|console\.(log|error|debug)|getRngLog.*(===|==|>=|<=))' \
-        | head -5 >&2
-      found=1
+        | rg '^\+[^+].*(\bDIAG\b|\bFORCE\b|seed[0-9]{4}|console\.(log|error|debug)|getRngLog.*(===|==|>=|<=))'
     fi
   done < <(rg --files "$ROOT/js" -g '*.js')
 
   while IFS= read -r old; do
     rel="${old#"$snapshot/js/"}"
     if [[ ! -f "$ROOT/js/$rel" ]]; then
-      echo "warning: unattended iteration deleted js/$rel" >&2
-      found=1
+      echo "deleted js/$rel"
     fi
   done < <(rg --files "$snapshot/js" -g '*.js')
-  return "$found"
+}
+
+scan_new_banned_patterns() {
+  local snapshot="$1"
+  local hits
+  hits="$(dump_banned_hits "$snapshot" || true)"
+  if [[ -n "$hits" ]]; then
+    echo "warning: suspicious new production line in js/" >&2
+    printf '%s\n' "$hits" | head -20 >&2
+    return 1
+  fi
+  return 0
+}
+
+# Next iteration strips DIAG/FORCE/seed-gate hits that already landed
+# (cannot reset --hard after push). Consumed by apply_iteration_overlays.
+arm_banned_heal_prompt() {
+  local snapshot="$1"
+  local hits
+  hits="$(dump_banned_hits "$snapshot" || true)"
+  {
+    echo "The supervisor banned-pattern scan flagged new production js/"
+    echo "lines (word-bound DIAG/FORCE, seed####, console.log/error/debug,"
+    echo "getRngLog compare, or a deleted js/ file). Recover in-loop:"
+    echo "do not write STOP and do not wait for a human revert."
+    echo
+    echo "FIRST, rewrite or restore those lines so a fresh scan is clean."
+    echo "Use full C names (SPE_FORCE_BOLT, WAN_STRIKING) — never a bare"
+    echo "FORCE or DIAG token in js/. No seed gates, no console, no"
+    echo "getRngLog compares. Restore any deleted js/ file from git."
+    echo "Then continue the queue cluster."
+    echo
+    if [[ -n "$hits" ]]; then
+      echo "Hits:"
+      echo
+      echo '```'
+      printf '%s\n' "$hits"
+      echo '```'
+    fi
+  } >"$NEXT_ITER_PROMPT"
 }
 
 iter_mode() {
@@ -811,8 +850,9 @@ maybe_halt() {
     | tee -a "$MASTER_LOG"
 }
 
-# Suite/green FAIL: keep the commit, keep going. Next port pops Must-fix
-# (or the next Open item) instead of parking the supervisor.
+# Suite/green FAIL or a pushed banned-pattern hit: keep the commit,
+# keep going. Next port pops Must-fix / strips the hits / next Open
+# instead of parking the supervisor.
 warn_regression() {
   local reason="$1"
   echo "$(date -Iseconds) warning: $reason — continuing (next iteration should recover; not writing STOP)" \
@@ -1215,9 +1255,30 @@ NODE
 
   if ! scan_new_banned_patterns "$snapshot"; then
     if (( agent_pushed )); then
-      halt_loop "banned-pattern audit failed AND already pushed — human must revert origin" 0
+      warn_regression "banned-pattern audit failed AND already pushed — next iteration must strip the hits"
+      arm_banned_heal_prompt "$snapshot"
+    else
+      echo "$(date -Iseconds) warning: banned-pattern audit failed — reverting this iteration and continuing (not writing STOP)" \
+        | tee -a "$MASTER_LOG"
+      if [[ -n "${before_head:-}" ]]; then
+        echo "$(date -Iseconds) revert: git reset --hard $before_head" | tee -a "$MASTER_LOG"
+        git reset --hard "$before_head" >/dev/null
+        git clean -fd -- js reviews >/dev/null 2>&1 || true
+      fi
+      rm -rf "$snapshot"
+      if should_stop; then
+        echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting after reverted banned-pattern iteration $iter" \
+          | tee -a "$MASTER_LOG"
+        exit 0
+      fi
+      if token_budget_exceeded; then
+        echo "$(date -Iseconds) TOKEN BUDGET: ${TOKENS_USED} >= ${TOKEN_BUDGET} (${TOKEN_BUDGET_M}M) — exiting after reverted banned-pattern iteration $iter" \
+          | tee -a "$MASTER_LOG"
+        exit 0
+      fi
+      sleep "${LOOP_SLEEP_SEC:-2}"
+      continue
     fi
-    halt_loop "banned-pattern audit failed (DIAG/FORCE/seed gate/console/getRngLog or deleted js/)" 1
   fi
 
   if [[ "$mode" != "port" ]] && (( js_files > 0 )); then

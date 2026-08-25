@@ -5172,7 +5172,7 @@ function bhit_xyglyph_known_monster(loc) {
  * and still skips WEB / shade / mimic-object); FLASHED_LIGHT DISP_BEAM /
  * INVIS_BEAM stop; show_transient_light; shkcatch pick;
  * map_invisible / unmap_object; zap_map / doorlock LOCKING/STRIKING/
- * FORCE; skiprange rocks.
+ * SPE_FORCE_BOLT; skiprange rocks.
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
 async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
