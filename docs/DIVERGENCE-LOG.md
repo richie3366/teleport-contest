@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1477 — potion.c potionbreathe remaining otyps
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `potionbreathe` after D-0741 invis flash / D-1004
+  water lycan still defaulted remaining otyps (heal/sickness/
+  restore/gain/speed/hallu/poly/towel/`trycall`). C `potion.c`
+  `potionbreathe` `:1931–2118` switches on
+  `Half_gas_damage ? TOWEL : obj->otyp`. Towel vapor is harmless.
+  Restore/gain cursed Ulch/sting else `rn2(A_MAX)` `ABASE++`
+  (first only unless blessed). Heal FALLTHROUGH +1 mh/uhp then
+  `make_blinded(0,!ucreamed)`/`make_deaf` when cureblind.
+  Sickness −5 (floor 1; healer skip; Upolyd mh). Hallu momentary
+  vision. Conf `make_confused(itimeout_incr(HConfusion,rnd(5)))`.
+  Speed `incr_itimeout(&HFast,rnd(5))`. Blindness
+  `make_blinded(itimeout_incr(BlindedTimeout,rnd(5)))`. Water
+  gremlin `split_mon` + lycan D-1004. Acid/poly `exercise CON`.
+  `dknown`: kn `makeknown` else `trycall`. `in_use` save/restore.
+- **C locus:** `potion.c` `potionbreathe` `:1931–2118`.
+- **JS was:** invis/para/sleep/conf stub/blind stub/water lycan/
+  acid only; other otyps no-op; `trycall` skipped.
+- **Fix:** Port remaining switch + towel + trycall + in_use.
+  Rule #2: no fs.
+- **JS:** `js/potion.js` `potionbreathe`.
+- **Not this iter:** C-commented GAIN_LEVEL/ENERGY/LEV/FRUIT/
+  DETECT/OIL; `potion_dip` unicorn/amethyst mix; dipsink;
+  Unaware faint body; `potionhit` already D-1472.
+- **Verified:** private canary **21**/21 (C/JS grep; Rule #2;
+  heal +1/+2/+3 FALLTHROUGH; towel skip; sickness −5; healer
+  skip; Upolyd mh; restore one ABASE / blessed all six; hallu
+  no HP; speed HFast; conf `make_confused`; poly exercise;
+  in_use 0/1; blindness TIMEOUT; paralysis makeknown;
+  C-commented named); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1476 — zap.c zap_map engraving/cancel trap
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

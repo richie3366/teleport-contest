@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1476; cadence **#1860** `a3a2d65a`
-  (Scr **11,405** RNG 100%, `40+0.32/turn`). Next: Open `potion.c`
-  `potionbreathe` remaining otyps
-  (named). Not potionhit.
-  Do not skip D-1476…D-1229. No FORCE / `wildmiss` wrap /
+- **Fortress 44/44** after D-1477; cadence **#1860** `a3a2d65a`
+  (Scr **11,405** RNG 100%, `40+0.32/turn`). Next: Open `zap.c`
+  `zap_steed` WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm
+  (named). Not STRIKING.
+  Do not skip D-1477…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1476. Named still: `see_monsters`
+- Do not revert D-1217–D-1477. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1476.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1477.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,10 +33,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1476 (index).
-- Named still: worm-shrieker; unicorn/amethyst mix /
-  potionbreathe remaining otyps; zap_steed bhitm-routed
-  slow/speed/SPE_CURE_SICKNESS;
+  nhcore (D-1066). Do not skip D-1067…D-1477 (index).
+- Named still: worm-shrieker; unicorn/amethyst mix;
+  zap_steed bhitm-routed slow/speed/SPE_CURE_SICKNESS;
   zap_map lateral drawbridge / bhit; bhit doorlock STRIKING;
   bhito uchain / poly-arm boxlock; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -48,6 +47,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1477: `potionbreathe` remaining otyps; towel Half_gas_damage;
+  restore/gain ABASE++; heal FALLTHROUGH +1 + make_blinded/make_deaf;
+  sickness −5 (healer skip; Upolyd mh); hallu vision; conf
+  `make_confused` rnd(5); speed HFast; blindness `make_blinded`
+  rnd(5); acid/poly CON; trycall !kn; in_use save.
+  C-commented GAIN_LEVEL/ENERGY/LEV/FRUIT/DETECT/OIL named.
+  potionhit is D-1472.
 - D-1476: `zap_map` down engraving + `maybe_explode_trap`;
   portal shield+tseen+learnwand; magical trap explode+deltrap;
   HEADSTONE skip; cancel/invis del_engr; poly random_engraving;
@@ -67,8 +73,7 @@ Objective/score live in `CURRENT.md`.
   (hero OIL explode / POLY !Unchanging&&!Antimagic; mon
   heal FALLTHROUGH + Pestilence illness/heal; sickness;
   conf/invis/sleep/para/speed/blind/oil/acid; poly via
-  bhitm). C-commented GAIN_LEVEL named. potionbreathe
-  remaining otyps still named.
+  bhitm). C-commented GAIN_LEVEL named. potionbreathe is D-1477.
 - D-1471: `zap_steed` WAN/SPE_POLYMORPH via bhitm;
   mr=0 disclose (bhitm resist/`newcham`); high-mr
   resist still disclose; SPBOOK skip makeknown.
@@ -98,6 +103,3 @@ Objective/score live in `CURRENT.md`.
   skip makeknown. Cancel is D-1470.
 - D-1463: `zap_steed` WAN_OPENING/SPE_KNOCK via bhitm; saddle
   drop + knock-back/stun + disclose. Drain is D-1464.
-- D-1462: `bhit` doorlock WAN_OPENING/SPE_KNOCK; SDOOR appear
-  + locked unlock + picking_at; JS had typ===STONE. LOCKING
-  is D-1475; STRIKING named; boxlock is D-1467.
