@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1485 — zap.c zap_updown default break into down bhitpile+zap_map
+
+- **Status:** fixed (map-driven Must-fix from review **437**; not a public FAIL)
+- **Symptom:** Unmounted down IMMEDIATE POLY/cancel/invis/tele never
+  reached `zap_map`. C `zap.c` `zap_updown` `:3378–3379` is
+  `default: break` then the shared down epilogue `:3382–3389`
+  `(void) bhitpile` + `zap_map` (PROBE already returned).
+  JS `return false` skipped D-1476’s engraving/cancel-trap arms
+  for those otyps. STONE/STRIKING/OPENING/LOCKING already
+  `break`. Riding-down those otyps go through `zap_steed` in
+  both C and JS (`steedhit` skips `zap_updown`).
+- **C locus:** `zap.c` `zap_updown` `:3378–3389`. Caller
+  `weffects` `:3445–3446`. Callee `zap_map` already D-1476.
+- **JS was:** `default: return false` after D-1466 (named on
+  D-1476/D-1483).
+- **Fix:** `default: break` into the shared epilogue. Rule #2:
+  no fs.
+- **JS:** `js/zap.js` `zap_updown`.
+- **Not this iter:** lateral drawbridge; `zap_map` from lateral
+  `bhit`; `force_decor`; Rogue `draft_message`; Invocation_lev
+  vibrating-square `the`.
+- **Verified:** private canary **22**/22 (C/JS grep; Rule #2;
+  weffects unmounted down cancel/invis `del_engr`; poly rewrite;
+  tele `rloc_engr`; SPE skip makeknown; portal tseen+learnwand;
+  MAGIC_TRAP explode+deltrap; PIT no-op; HEADSTONE skip; STONE
+  smoother; striking DUST wipe; up/lateral skip; riding-down
+  `zap_steed`; probing/OPENING regression); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383.
+
 ## D-1484 — muse.c mbhit doorlock
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

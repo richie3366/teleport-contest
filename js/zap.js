@@ -78,6 +78,7 @@
 // zap_updown WAN_STRIKING/SPE_FORCE_BOLT destroy db / rock / trapdoor (D-1456);
 // zap_updown WAN_LOCKING/SPE_WIZARD_LOCK close db / hole→trapdoor (D-1465);
 // zap_updown SPE_STONE_TO_FLESH blood / nothing_happens then epilogue (D-1466);
+// zap_updown default break into down bhitpile+zap_map (D-1485);
 // bhito WAN_PROBING observe + display_cinventory / tin / egg (D-1445);
 // bhito SPE_DRAIN_LIFE drain_item (D-1453);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
@@ -112,6 +113,7 @@
 // zap_updown WAN_STRIKING/SPE_FORCE_BOLT is D-1456;
 // zap_updown WAN_LOCKING/SPE_WIZARD_LOCK is D-1465;
 // zap_updown SPE_STONE_TO_FLESH is D-1466;
+// zap_updown default down POLY/cancel/invis/tele bhitpile+zap_map is D-1485;
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
 // bhito WAN_OPENING/WAN_LOCKING/SPE_KNOCK/SPE_WIZARD_LOCK boxlock
 // is D-1467; bhito uchain unpunish WAN_OPENING/SPE_KNOCK is D-1481;
@@ -5793,7 +5795,9 @@ function Levitation_updown() {
  * :3295–3354 (D-1465; !striking close_drawbridge / closeholdingtrap
  * / hole→trapdoor). SPE_STONE_TO_FLESH :3355–3377 (D-1466; C has
  * no WAN_STONE_TO_FLESH) then shared down bhitpile+zap_map / up
- * hideunder. Named: zap_map lateral drawbridge; poly body_part.
+ * hideunder. default :3378–3379 break into that epilogue so
+ * unmounted down POLY/cancel/invis/tele hit zap_map (D-1485).
+ * Named: zap_map lateral drawbridge; poly body_part.
  * zap_map engraving/cancel trap is D-1476.
  * bhito boxlock is D-1467.
  */
@@ -5977,9 +5981,8 @@ async function zap_updown(obj) {
     }
     default:
         /* C zap.c :3378–3379 — break into shared down bhitpile
-         * / up hideunder. JS still returns false (named: down
-         * POLY/cancel/tele skip the epilogue; not this cluster). */
-        return false;
+         * + zap_map / up hideunder (D-1485). */
+        break;
     }
 
     /* C zap.c :3382–3408 — PROBING already returned. */
@@ -6150,9 +6153,10 @@ async function zap_steed(obj) {
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown
  * WAN_STRIKING/SPE_FORCE_BOLT (D-1456); zap_updown
  * WAN_LOCKING/SPE_WIZARD_LOCK (D-1465); zap_updown
- * SPE_STONE_TO_FLESH (D-1466); zap_map engraving/cancel trap
- * is D-1476; doorlock STRIKING is D-1482;
- * LOCKING is D-1475.
+ * SPE_STONE_TO_FLESH (D-1466); zap_updown default down
+ * POLY/cancel/invis/tele bhitpile+zap_map (D-1485);
+ * zap_map engraving/cancel trap is D-1476; doorlock STRIKING
+ * is D-1482; LOCKING is D-1475.
  */
 export async function weffects(obj) {
     const otyp = obj.otyp;

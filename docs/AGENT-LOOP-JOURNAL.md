@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1485 zap.c zap_updown default break
+
+**Objective:** Must-fix `zap.c` `zap_updown` `default` `break`
+into down `bhitpile`+`zap_map` (C `:3378–3389`). Not probing.
+Not lateral `bhit`. Source: review **437**.
+**C locus:** `zap.c` `zap_updown` `:3378–3389`. Caller
+`weffects` `:3445–3446`. Callee `zap_map` already D-1476.
+**Change:** JS `default: return false` → `break` so unmounted
+down POLY/cancel/invis/tele hit D-1476 arms. Riding-down still
+`zap_steed`. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `potion.c` `potion_dip` unicorn/amethyst mix
+(named). Not mixtype.
+**Blocked:** none.
 ## 2026-08-25 — review D-1476–D-1484 (audit #1870)
 
 **Objective:** audit — C-fidelity reviews **437–445** of JS SHAs

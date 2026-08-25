@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
+- [x] `zap.c` `zap_updown` `default` must `break` into shared down `bhitpile`+`zap_map` (C `:3378–3389`) so unmounted down POLY/cancel/invis/tele hit D-1476’s arms. Not probing. Not lateral `bhit`. Source: reviews/loop-unattended/437-747e6616-zap-map-engraving-cancel-trap.md **Addressed:** D-1485
+
+
 - [x] `muse.c` `mbhit` doorlock (named). Not hero `bhit`. **Addressed:** D-1484 `dba2c79a`
 
 

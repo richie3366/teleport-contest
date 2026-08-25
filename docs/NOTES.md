@@ -5,14 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1484; cadence **#1870** `dba2c79a`
-  (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Must-fix
-  `zap.c` `zap_updown` `default` `break` into down
-  `bhitpile`+`zap_map` (C `:3378–3389`; review **437**).
-  Not probing. Not potion_dip. Do not skip D-1484…D-1229.
-  No FORCE / `wildmiss` wrap / trailing `confdir` in
-  shared `getdir`.
-- Do not revert D-1217–D-1484. Named still: `see_monsters`
+- **Fortress 44/44** after D-1485; cadence **#1870** `dba2c79a`
+  (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Open
+  `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype.
+  Do not skip D-1485…D-1229. No FORCE / `wildmiss` wrap /
+  trailing `confdir` in shared `getdir`.
+- Do not revert D-1217–D-1485. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -23,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1484.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1485.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,10 +32,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1484 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1485 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix;
-  zap_map lateral drawbridge / bhit; zap_updown default
-  down POLY/cancel/tele bhitpile; artifact invoke.
+  zap_map lateral drawbridge / bhit; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -47,6 +44,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1485: `zap_updown` `default` `break` into down
+  `bhitpile`+`zap_map` (`:3378–3389`); unmounted POLY/
+  cancel/invis/tele hit D-1476 arms. Not probing. Not
+  lateral `bhit`. Riding-down still `zap_steed`.
 - D-1484: `mbhit` doorlock WAN_OPENING/LOCKING/STRIKING
   (`:1785–1802`); zap_oseen `makeknown`; shop D_BROKEN
   `add_damage(0)`. Not hero `bhit` learnwand/`SHOP_DOOR_COST`.
@@ -55,8 +56,8 @@ Objective/score live in `CURRENT.md`.
 - D-1483: `bhito` poly-arm `Is_box` `boxlock` `reset_pick`
   after unpolyable, before shudder; callee POLY only
   when `xlock.box==obj` (res stays 1). uskin/unpolyable
-  skips. polypiles/livelog + hideunder cover +
-  zap_updown default down POLY named. Boxlock is D-1467.
+  skips. polypiles/livelog + hideunder cover named.
+  Boxlock is D-1467. Caller down POLY bhitpile is D-1485.
 - D-1482: `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT;
   SDOOR appear then continue; locked/closed smash
   D_BROKEN crash; trapped explode D_NODOOR;
@@ -111,6 +112,3 @@ Objective/score live in `CURRENT.md`.
   mr=0 disclose (bhitm resist/`newcham`); high-mr
   resist still disclose; SPBOOK skip makeknown.
   Invis is D-1473.
-- D-1470: `zap_steed` WAN/SPE_CANCELLATION via bhitm;
-  mr=0 `mcan`; saddle stays (`self_cancel` FALSE); high-mr
-  resist still disclose; SPBOOK skip makeknown. Poly is D-1471.

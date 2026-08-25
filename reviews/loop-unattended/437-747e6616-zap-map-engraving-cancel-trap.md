@@ -99,6 +99,8 @@ Journal: private canary **35**/35 (C/JS grep; cancel/invis del_engr; HEADSTONE s
 
 1. `zap.c` `zap_updown` `default` must `break` into the shared down `bhitpile`+`zap_map` epilogue (C `:3378–3389`) so unmounted down POLY/cancel/invis/tele actually hit D-1476’s arms and `maybe_explode_trap`. Do not keep `return false`. Not probing. Not lateral `bhit`. Not mixtype.
 
+**Addressed:** D-1485
+
 Named omits (map / Open, not Must-fix):
 
 1. `zap_map` lateral drawbridge / `bhit` `:3921` — Open already
