@@ -428,7 +428,8 @@ temperate → hot; valley still overrides temperate);
 **D-0752 sanctum `teleport_region` `region_islev=1` absolute** (C `levregion_add` skips 
 `get_location`; was mx+ → span 23 vs 26; prefix **41671→41768**) + 
 **D-0753 `maybe_generate_rnd_mon` stronghold-depth rate** + **D-0754 `minetn-5`** + 
-**D-1490 `minetn-1`** + **D-1503 `minetn-6`** + **D-1504 `minetn-7`**; fakewiz deferred (hellfill D-0906); 
+**D-1490 `minetn-1`** + **D-1503 `minetn-6`** + **D-1504 `minetn-7`** +
+**D-1513 minetn-7 town-floor three gnomes**; fakewiz deferred (hellfill D-0906); 
 flip_level lregion coord update deferred; 
 **D-0608 `minend-1` `des.object("(")`→TOOL not WEAPON** (defsym `'('`=TOOL_CLASS); 
 **D-0543 `soko1-2` load_special** (map/reward percent(25); other `soko*-*` deferred); 
@@ -473,7 +474,9 @@ seed0360 Scr **589→616**; prefix **180→231**; **D-1490 `minetn-1` Orcish Tow
 **D-1503 `minetn-6` Bustling Town** (solidfill then mines lit=1 bg HWALL + 
 top-aligned map `'x'` skip + shops/temple/peaceful watch); 
 **D-1504 `minetn-7` Bazaar Town** (nested `des.room` 30×15 + `percent(75)` 
-nests + chance shops + sink `pos=0` door + temple `align[1]` + watch); 
+nests + chance shops + sink `pos=0` door + temple `align[1]` + watch) +
+**D-1513 town-floor `des.monster("gnome")` ×3** (lua `:155–165`; not four;
+review **465**); 
 **stolen_booty D-1363** live when proto is minetn-1; 
 cleric/stronghold graveyard else-if named); other-role quest fills; **D-0533 egg hatch timeout**; 
 **D-0534 `mktrap` WEB→`makemon(PM_GIANT_SPIDER)` before victim gate** 

@@ -143,6 +143,8 @@ D-log: private canary **16**/16 (dispatch, 30×15, fountains, 11× percent, chan
 
 1. `mklev.js` `load_minetn_7` town-room monster list must match C `dat/minetn-7.lua`: four peaceful watchmen, one peaceful watch captain, **three** `des.monster("gnome")`, then gnome lord, then two monkeys. JS currently calls `splev_room_monster(town, 'gnome')` four times (`js/mklev.js` ~8714–8717). Delete the extra call so `induced_align(80)` + `makemon` match C. Not `ensure_way_out`. Not a Lua VM. Not minetn-6.
 
+**Addressed:** D-1513
+
 Remaining named (map / Open, already queued elsewhere): `ensure_way_out` when some other proto sets inaccessibles; `link_doors_rooms` extras; `map_cleanup`; `count_level_features`. Do not Must-fix “should have run a Lua VM.” Do not Must-fix “sink should skip `nsinks++`” (fountain clone already counts). Do not Must-fix “fountain should skip `IS_FURNITURE`” in this SHA (pre-existing helper; town cells are ROOM).
 
 Verdict: **QUALITY-RISK**

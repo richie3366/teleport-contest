@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1513 — mklev.c minetn-7 town-floor three gnomes
+
+- **Status:** fixed (map-driven Must-fix from review
+  **465**; not a public FAIL)
+- **Symptom:** Bazaar Town floor spawned four
+  `gnome` then gnome lord. C `dat/minetn-7.lua`
+  `:155–165` is four peaceful watchmen, one
+  peaceful watch captain, **three**
+  `des.monster("gnome")`, gnome lord, two monkeys.
+  Each `splev_room_monster` burns
+  `create_monster` `sp_amask_to_amask`
+  `AM_SPLEV_RANDOM` → `induced_align(80)` then
+  `makemon`. Extra call shifted the stream
+  before gnome lord.
+- **C locus:** `dat/minetn-7.lua` `:155–165`.
+  Callee `sp_lev.c` `create_monster` `:1943` /
+  `sp_amask_to_amask` `:1916–1917`. Dispatch
+  D-1504.
+- **JS was:** `load_minetn_7` called
+  `splev_room_monster(town, 'gnome')` four times
+  after the captain (review **465** QUALITY-RISK).
+- **Fix:** Delete the extra town gnome so the
+  clone matches lua. Nested monkey-room gnome
+  and stair-room gnomes unchanged. Rule #2: no fs.
+- **JS:** `js/mklev.js` `load_minetn_7`.
+- **Not this iter:** `ensure_way_out`;
+  `link_doors_rooms` extras; `map_cleanup`;
+  `count_level_features`; Lua VM.
+- **Verified:** private canary **16**/16 (lua×3,
+  JS×3, not four, counts match, watch×4, stair
+  2+1, nested gnome+monkeys, `induced_align(80)`,
+  Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/
+  0383. **Public-unhit** unless `makemaz` rolls
+  variant 7.
+- **Follow-up:** Open `artifact.c` SPFX_WARN
+  conferral / MATCH_WARN.
+- **Files:** `js/mklev.js`.
+
 ## D-1512 — region.c any_visible_region + allmain see_monsters
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

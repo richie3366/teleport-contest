@@ -8570,8 +8570,9 @@ xxxx-------xxxxxxxxxxxxxxx--------------
 /**
  * C ref: dat/minetn-7.lua via load_special — Mines town "Bazaar Town".
  * Nested des.room town + chance shops + temple align[1] + sink + watch.
- * Named omissions: link_doors_rooms extras; ensure_way_out;
- * map_cleanup; count_level_features.
+ * Town floor: C lua :155–165 three gnome then gnome lord + two
+ * monkeys (D-1513; not four). Named omissions: link_doors_rooms
+ * extras; ensure_way_out; map_cleanup; count_level_features.
  */
 function load_minetn_7() {
     const g = game;
@@ -8705,13 +8706,12 @@ function load_minetn_7() {
             splev_room_monster(r, 'gnomish wizard');
         });
 
-        // Town Watch then bazaar gnomes/monkeys (lua order)
+        // Town Watch then bazaar gnomes/monkeys (lua :155–165; D-1513)
         splev_room_monster(town, 'watchman', 1);
         splev_room_monster(town, 'watchman', 1);
         splev_room_monster(town, 'watchman', 1);
         splev_room_monster(town, 'watchman', 1);
         splev_room_monster(town, 'watch captain', 1);
-        splev_room_monster(town, 'gnome');
         splev_room_monster(town, 'gnome');
         splev_room_monster(town, 'gnome');
         splev_room_monster(town, 'gnome');

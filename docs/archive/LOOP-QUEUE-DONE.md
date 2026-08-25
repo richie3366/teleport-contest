@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
+- [x] `mklev.js` `load_minetn_7` town-room gnomes: C `dat/minetn-7.lua` has three `des.monster("gnome")` then gnome lord + two monkeys; JS calls `splev_room_monster('gnome')` four times (extra `induced_align(80)`+`makemon`). Source: reviews/loop-unattended/465-eeb0e912-minetn-7-bazaar-town.md **Addressed:** D-1513
+
+
 - [x] `display.c` `any_visible_region` (named). Not Hallu/Warn_of_mon. **Addressed:** D-1512 `79744185`
 
 

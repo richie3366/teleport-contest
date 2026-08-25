@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1513 mklev.c minetn-7 town-floor three gnomes
+
+**Objective:** Must-fix `load_minetn_7` three town gnomes
+not four (review **465**). Not SPFX_WARN.
+**C locus:** `dat/minetn-7.lua` `:155–165`; callee
+`sp_lev.c` `create_monster` `induced_align(80)`.
+**JS locus:** `js/mklev.js` `load_minetn_7`.
+**Change:** delete the extra
+`splev_room_monster(town, 'gnome')` so lua×3 matches.
+Nested / stair gnomes unchanged. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1900);
+Bazaar Town public-unhit unless variant 7.
+**Verified:** canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `artifact.c` SPFX_WARN conferral /
+MATCH_WARN. Not Sting_effects.
+**Blocked:** none.
 ## 2026-08-26 — review D-1504–D-1512 (audit #1900)
 
 **Objective:** audit — C-fidelity reviews **465–473** of JS SHAs
