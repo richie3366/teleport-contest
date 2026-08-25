@@ -1679,7 +1679,8 @@ async function cast_chain_lightning() {
  * C ref: spell.c spelleffects :1479–1514 — wand-duplicate getdir +
  * zapyourself / weffects. `physical_damage` is set by SPE_FORCE_BOLT
  * FALLTHROUGH (also unskilled FIREBALL/CONE). update_inventory after
- * the group (C :1513). doorlock / zap_updown / zap_steed named.
+ * the group (C :1513). bhit doorlock OPENING/KNOCK is D-1462;
+ * zap_updown / zap_steed remaining named.
  */
 async function wand_duplicate_weffects(pseudo, atme, physical_damage) {
     const oc = game.objects?.[pseudo.otyp];
@@ -2061,7 +2062,8 @@ export async function spelleffects(spell_otyp, atme, force) {
          * zap.c :3440–3451). physical_damage is FORCE_BOLT-only.
          * Self-dir zapyourself already D-0981. bhitm SPE_KNOCK
          * mhurtle/saddle already D-0981. POLY is D-1459.
-         * doorlock / zap_updown OPENING / bhito boxlock named. */
+         * bhit doorlock OPENING/KNOCK is D-1462; zap_updown
+         * OPENING is D-1454; bhito boxlock named. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_SLOW_MONSTER) {
         /* C spell.c :1465–1514 wand-duplicate IMMEDIATE weffects

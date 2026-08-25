@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1462 zap.c bhit doorlock WAN_OPENING/SPE_KNOCK
+
+**Objective:** Open `zap.c` `bhit` doorlock WAN_OPENING/SPE_KNOCK
+(named). Not boxlock.
+**C locus:** `zap.c` `bhit` `:4056–4074`; callee `lock.c`
+`doorlock` `:1103–1272` (`:1113–1125` SDOOR, `:1193–1200`
+unlock, `:1267–1271` picking_at).
+**Change:** Port `doorlock` OPENING/KNOCK; wire `bhit` on
+`IS_DOOR|SDOOR` (JS had `typ===STONE`). LOCKING/STRIKING /
+boxlock / zap_steed OPENING named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps a locked/secret door).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_steed` WAN_OPENING/SPE_KNOCK via
+bhitm (named). Not teleport.
+**Blocked:** none.
 ## 2026-08-25 — D-1461 spell.c SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate
 
 **Objective:** Open `zap.c` `weffects` SPE_STONE_TO_FLESH IMMEDIATE

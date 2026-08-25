@@ -1,12 +1,15 @@
 // lock.js — Lock picking, door open/close.
-// C ref: lock.c pick_lock / picklock / doopen_indir / doclose (subset).
+// C ref: lock.c pick_lock / picklock / doopen_indir / doclose /
+//        boxlock / doorlock (subset).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, newsym } from './display.js';
-import { vision_recalc, recalc_block_point } from './vision.js';
+import { vision_recalc, recalc_block_point, cansee } from './vision.js';
+import { stop_occupation } from './hack.js';
 import {
     COLNO, ROWNO, IS_DOOR, ECMD_OK, ECMD_TIME, OBJ_FLOOR, OBJ_FREE,
+    DOOR, SDOOR,
     D_NODOOR, D_BROKEN, D_ISOPEN, D_CLOSED, D_LOCKED, D_TRAPPED,
     P_DAGGER, P_FLAIL, P_LANCE, P_PICK_AXE, P_SABER, P_NONE,
     AUTOUNLOCK_APPLY_KEY, STRAT_WAITMASK, TT_PIT, M_AP_TYPE,
@@ -871,6 +874,70 @@ export async function boxlock_invent(obj) {
     for (const otmp of [...(game.invent || [])]) {
         if (Is_box(otmp)) await boxlock(otmp, obj);
     }
+}
+
+/**
+ * C lock.c doorlock :1103–1272 — wand/spell on a door or secret door.
+ * Returns true if something happened.
+ * Branch envelope (D-1462): WAN_OPENING/SPE_KNOCK. SDOOR → DOOR
+ * D_CLOSED|D_TRAPPED + "A door appears in the wall!" then return
+ * TRUE (`:1113–1125`; striking continues named). Locked door →
+ * D_CLOSED + "The door unlocks!" (`:1193–1200`). picking_at →
+ * stop_occupation + reset_pick (`:1267–1271`; SDOOR early return
+ * skips this). Named: WAN_LOCKING/SPE_WIZARD_LOCK Rogue hide /
+ * obstructed / trap-in-doorway / lock-shut; WAN_STRIKING/
+ * SPE_FORCE_BOLT trapped explode / D_BROKEN crash; loudness
+ * wake_nearto + shop add_damage; muse.c mbhit doorlock.
+ */
+export async function doorlock(otmp, x, y) {
+    const door = game.level?.at?.(x, y);
+    if (!door || !otmp) return false;
+    let res = true;
+    let msg = null;
+    const otyp = otmp.otyp | 0;
+
+    if ((door.typ | 0) === SDOOR) {
+        switch (otyp) {
+        case WAN_OPENING:
+        case SPE_KNOCK:
+            door.typ = DOOR;
+            door.doormask = D_CLOSED | ((door.doormask | 0) & D_TRAPPED);
+            newsym(x, y);
+            if (cansee(x, y)) {
+                await pline('A door appears in the wall!');
+            }
+            /* C :1124–1125 — OPENING/KNOCK return; striking continues. */
+            return true;
+        default:
+            /* WAN_LOCKING / SPE_WIZARD_LOCK / STRIKING / FORCE named. */
+            return false;
+        }
+    }
+
+    switch (otyp) {
+    case WAN_OPENING:
+    case SPE_KNOCK:
+        if ((door.doormask | 0) & D_LOCKED) {
+            msg = 'The door unlocks!';
+            door.doormask = D_CLOSED | ((door.doormask | 0) & D_TRAPPED);
+        } else {
+            res = false;
+        }
+        break;
+    default:
+        /* LOCKING / STRIKING named — C :1135–1253. */
+        res = false;
+        break;
+    }
+    if (msg && cansee(x, y)) {
+        await pline(msg);
+    }
+    /* loudness named (OPENING/KNOCK never set it). */
+    if (res && picking_at(x, y)) {
+        await stop_occupation();
+        reset_pick();
+    }
+    return res;
 }
 
 /** C ref: obj.h is_weptool */

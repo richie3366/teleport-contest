@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1462 — zap.c bhit doorlock WAN_OPENING/SPE_KNOCK
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Lateral IMMEDIATE WAN_OPENING/SPE_KNOCK did not
+  unlock doors or reveal secret doors. C `zap.c` `bhit`
+  `:4056–4074` calls `doorlock` on `IS_DOOR || SDOOR` for
+  WAN_OPENING/SPE_KNOCK (and LOCKING/STRIKING named). Callee
+  `lock.c` `doorlock` `:1103–1272`: SDOOR → DOOR
+  `D_CLOSED|D_TRAPPED` + "A door appears in the wall!" return
+  TRUE (`:1113–1125`); locked → `D_CLOSED` + "The door unlocks!"
+  (`:1193–1200`); `picking_at` → `stop_occupation`+`reset_pick`.
+  Caller `learnwand` iff `cansee`.
+- **C locus:** `zap.c` `bhit` `:4056–4074`; callee `lock.c`
+  `doorlock` `:1103–1272` (`:1113–1125`, `:1193–1200`,
+  `:1258–1272`).
+- **JS was:** named omit — `bhit` stubbed doorlock and tested
+  `typ === STONE` (wrong; C is `SDOOR`). `weffects` already
+  called `bhit` for IMMEDIATE OPENING/KNOCK (D-1450 knock
+  wand-duplicate).
+- **Fix:** Port `doorlock` OPENING/KNOCK; wire `bhit` on
+  `IS_DOOR|SDOOR`. Rule #2: no fs.
+- **JS:** `js/lock.js` `doorlock`; `js/zap.js` `bhit`.
+- **Not this iter:** WAN_LOCKING/SPE_WIZARD_LOCK Rogue hide /
+  obstructed / lock-shut; WAN_STRIKING/SPE_FORCE_BOLT break /
+  trap explode / shop `add_damage`/`pay_for_damage`; `bhito`
+  boxlock; `zap_steed` OPENING bhitm; muse.c `mbhit` doorlock.
+- **Verified:** private canary **18**/18 (C/JS grep; locked
+  unlock+learnwand; SPE_KNOCK SPBOOK skip makeknown; trapped
+  keeps D_TRAPPED; closed no-op; SDOOR appear; LOCKING/STRIKING
+  named; bhit skips STONE; D_ISOPEN false; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1461 — spell.c SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

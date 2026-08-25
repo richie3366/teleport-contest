@@ -59,23 +59,23 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1461. **Next cluster:** Open
-`zap.c` `bhit` doorlock WAN_OPENING/SPE_KNOCK (named). Not
-boxlock.
-Do not skip D-1461…D-1229 (index). Keep mention_map addr.
+**Map-driven fortress** after D-1462. **Next cluster:** Open
+`zap.c` `zap_steed` WAN_OPENING/SPE_KNOCK via bhitm (named).
+Not teleport.
+Do not skip D-1462…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Parked:** D-0006. **Do not re-break D-0660…D-1461.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1462.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1461 (index). Recent: **D-1461** spell.c
-SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate. Prior: **D-1460**
-spell.c SPE_CANCELLATION IMMEDIATE wand-duplicate.
+**Keep:** D-0845…D-1462 (index). Recent: **D-1462** zap.c
+`bhit` doorlock WAN_OPENING/SPE_KNOCK. Prior: **D-1461**
+spell.c SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1461
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1462
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

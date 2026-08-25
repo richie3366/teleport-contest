@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `weffects` SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate (named). Not mix. **Addressed:** D-1461
+- [x] `zap.c` `bhit` doorlock WAN_OPENING/SPE_KNOCK (named). Not boxlock. **Addressed:** D-1462
+
+
+- [x] `zap.c` `weffects` SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate (named). Not mix. **Addressed:** D-1461 `e4d98eb1`
 
 
 - [x] `zap.c` `weffects` SPE_CANCELLATION IMMEDIATE wand-duplicate (named). Not STONE. **Addressed:** D-1460 `f071b0ad`
