@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `bhito` SPE_DRAIN_LIFE `drain_item` (named). Not probing. **Addressed:** D-1453
+- [x] `zap.c` `zap_updown` WAN_OPENING/SPE_KNOCK (named). Not probing. **Addressed:** D-1454
+
+
+- [x] `zap.c` `bhito` SPE_DRAIN_LIFE `drain_item` (named). Not probing. **Addressed:** D-1453 `291aea0a`
 
 
 - [x] `zap.c` `weffects` SPE_WIZARD_LOCK IMMEDIATE wand-duplicate (named). Not POLYMORPH. **Addressed:** D-1452 `41c16bfe`

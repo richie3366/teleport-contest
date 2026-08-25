@@ -46,6 +46,7 @@
 // bhitm WAN_PROBING probe_monster + probe_objchain (D-1426);
 // zap_steed WAN_PROBING probe_monster (D-1443);
 // zap_updown WAN_PROBING bhitpile+zap_map+display_binventory (D-1444);
+// zap_updown WAN_OPENING/SPE_KNOCK portcullis/quest/traps (D-1454);
 // bhito WAN_PROBING observe + display_cinventory / tin / egg (D-1445);
 // bhito SPE_DRAIN_LIFE drain_item (D-1453);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
@@ -59,12 +60,13 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_updown other otyps / uswallow pile;
+// Named omissions: zap_updown STRIKING/LOCKING/STONE / uswallow pile;
 // bhito boxlock / opening chain
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
 // zapyourself SPE_DRAIN_LIFE is D-1446;
 // zap_steed WAN_PROBING is D-1443; zap_updown WAN_PROBING is D-1444;
+// zap_updown WAN_OPENING/SPE_KNOCK is D-1454;
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
 // teleport/bhitm-routed zap_steed named;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
@@ -164,10 +166,13 @@ import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
     MR_POISON, MR_ACID, is_undead, is_were, is_vampshifter, monsterNames, mons,
     G_UNIQ, is_rider, is_swimmer, mindless, MZ_MEDIUM, is_whirly,
+    hides_under,
 } from './monsters.js';
-import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond } from './mon.js';
+import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder } from './mon.js';
 import { find_mac, monkilled, shade_miss } from './mhitm.js';
 import { update_mapseen_for } from './dungeon.js';
+import { find_drawbridge, open_drawbridge, is_db_wall } from './dbridge.js';
+import { ok_to_quest } from './quest.js';
 import { more_experienced, losexp } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
@@ -5043,18 +5048,26 @@ async function zap_map(x, y, obj) {
     if (learn_it) learnwand(obj);
 }
 
+/** C dungeon.c on_level — same dnum/dlevel. zap_updown quest stairs. */
+function on_level_updown(a, b) {
+    return (a?.dnum | 0) === (b?.dnum | 0)
+        && (a?.dlevel | 0) === (b?.dlevel | 0);
+}
+
 /**
  * C zap.c zap_updown :3219–3411 — IMMEDIATE wand/spell up or down.
- * WAN_PROBING :3236–3262 this iter (early return; own bhitpile).
- * Named: WAN_OPENING/SPE_KNOCK; WAN_STRIKING/SPE_FORCE_BOLT;
- * WAN_LOCKING/SPE_WIZARD_LOCK; SPE_STONE_TO_FLESH; default
- * down bhitpile+zap_map / up hideunder bhito.
+ * WAN_PROBING :3236–3262 (D-1444; early return; own bhitpile).
+ * WAN_OPENING/SPE_KNOCK :3263–3288 (D-1454) then shared down
+ * bhitpile+zap_map / up hideunder bhito :3382–3408.
+ * Named: WAN_STRIKING/SPE_FORCE_BOLT; WAN_LOCKING/SPE_WIZARD_LOCK;
+ * SPE_STONE_TO_FLESH; zap_map engraving/cancel trap; bhito boxlock.
  */
 async function zap_updown(obj) {
     if (!obj) return false;
     const x = game.u?.ux | 0;
     const y = game.u?.uy | 0;
     const dz = game.u?.dz | 0;
+    let disclose = false;
 
     switch (obj.otyp | 0) {
     case WAN_PROBING: {
@@ -5082,10 +5095,63 @@ async function zap_updown(obj) {
         if (!ptmp) await Your('probe reveals nothing.');
         return true;
     }
-    default:
+    case WAN_OPENING:
+    case SPE_KNOCK: {
+        /* C zap.c :3263–3288 */
+        let stway = game.stairs;
+        while (stway) {
+            if (!stway.isladder && !stway.up
+                && (stway.tolev?.dnum | 0) === (game.u?.uz?.dnum | 0)) {
+                break;
+            }
+            stway = stway.next;
+        }
+        const dbxy = { x, y };
+        if (is_db_wall(x, y) && find_drawbridge(dbxy)) {
+            await open_drawbridge(dbxy.x, dbxy.y);
+            disclose = true;
+        } else if (dz > 0 && stway && (stway.sx | 0) === x
+            && (stway.sy | 0) === y
+            && on_level_updown(game.u?.uz, game.qstart_level)
+            && !ok_to_quest()) {
+            await pline('The stairs seem to ripple momentarily.');
+            disclose = true;
+        }
+        if (dz > 0 && (game.u?.utrap | 0)) {
+            const hold = await openholdingtrap(
+                game.youmonst || { _youmonst: true },
+            );
+            if (hold.noticed) disclose = true;
+        } else if (dz > 0 && !(game.u?.utrap | 0)) {
+            const fall = await openfallingtrap(
+                game.youmonst || { _youmonst: true },
+                false,
+            );
+            if (fall.noticed) disclose = true;
+        }
         break;
     }
-    return false;
+    default:
+        return false;
+    }
+
+    /* C zap.c :3382–3408 — PROBING already returned. Other otyps named. */
+    if (dz > 0) {
+        await bhitpile(obj, bhito, x, y, dz);
+        await zap_map(x, y, obj);
+    } else if (dz < 0) {
+        if ((game.u?.uundetected | 0)
+            && hides_under(game.youmonst?.data)) {
+            const otmp = objects_at(game.u.ux | 0, game.u.uy | 0);
+            let hitit = 0;
+            if (otmp) hitit = await bhito(otmp, obj);
+            if (hitit) {
+                hideunder(game.youmonst);
+                disclose = true;
+            }
+        }
+    }
+    return disclose;
 }
 
 /**
@@ -5133,8 +5199,8 @@ async function zap_steed(obj) {
  * SPE_WIZARD_LOCK IMMEDIATE bhit (D-1452; bhitm D-1425;
  * zapyourself D-1434).
  * zap_steed WAN_PROBING (D-1443); zap_updown WAN_PROBING (D-1444);
- * remaining zap_steed otyps / other zap_updown otyps / doorlock
- * deferred.
+ * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); remaining zap_steed
+ * otyps / zap_updown STRIKING/LOCKING/STONE / doorlock deferred.
  */
 export async function weffects(obj) {
     const otyp = obj.otyp;

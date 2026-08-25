@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1454 — zap.c zap_updown WAN_OPENING/SPE_KNOCK
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_updown` defaulted after D-1444 probing, so an
+  up/down opening wand or knock spell never opened a closed
+  portcullis, never rippled locked quest downstairs, never
+  released a holding trap or triggered a falling trap, and
+  never disclosed (`weffects` `learnwand`). C `zap_updown`
+  `:3263–3288`: walk `gs.stairs` for same-dungeon downstairs;
+  `is_db_wall` + `find_drawbridge` → `open_drawbridge`; else
+  down on qstart downstairs `!ok_to_quest` → "The stairs
+  seem to ripple momentarily."; down+`u.utrap` →
+  `openholdingtrap`; else down `openfallingtrap(..., FALSE)`.
+  Then shared `:3382–3408` down `bhitpile`+`zap_map` / up
+  hideunder `bhito`. Caller `weffects` `:3445–3446` `u.dz`.
+- **C locus:** `zap.c` `zap_updown` `:3263–3288` + epilogue
+  `:3382–3408`. Callees `dbridge.c` `is_db_wall` `:169–173`
+  / `find_drawbridge` / `open_drawbridge`; `trap.c`
+  `openholdingtrap` / `openfallingtrap` (D-0981); `quest.c`
+  `ok_to_quest`. Caller `weffects` `:3440–3446`.
+- **JS was:** named omit. `zap_updown` WAN_PROBING early-return
+  else `return false`.
+- **Fix:** WAN_OPENING/SPE_KNOCK arm + shared down/up epilogue
+  for that arm. `is_db_wall` exported from `dbridge.js`.
+  Other switch arms still default-return. Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_updown`; `js/dbridge.js` `is_db_wall`.
+- **Not this iter:** `zap_updown` STRIKING/LOCKING/STONE;
+  `zap_map` engraving/cancel trap / lateral drawbridge;
+  `bhito` boxlock / uchain unpunish; `zap_steed` OPENING
+  `bhitm` routing; `bhit` doorlock.
+- **Verified:** private canary **14**/14 (C/JS grep; Rule #2;
+  down bear-trap release + learnwand; SPE_KNOCK SPBOOK skip
+  makeknown; STRIKING still default; probing sibling D-1444;
+  up no-op; quest ripple; closed portcullis `open_drawbridge`);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps opening/knock up/down.
+- **Follow-up:** Open `zap.c` `zap_steed` WAN_TELEPORTATION
+  (named). Not probing.
+- **Files:** `js/zap.js`, `js/dbridge.js`.
+
 ## D-1453 — zap.c bhito SPE_DRAIN_LIFE drain_item
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
