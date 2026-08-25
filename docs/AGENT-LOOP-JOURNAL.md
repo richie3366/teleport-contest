@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1504 mklev.c minetn-7 load_special Bazaar Town
+
+**Objective:** Open `mklev.c` minetn-7 load_special (named).
+Not minetn-6.
+**C locus:** `dat/minetn-7.lua` via `mkmaze.c` `makemaz` /
+`sp_lev.c` `load_special` / `lspo_room` / `lspo_door` pos /
+`lspo_feature` sink.
+**JS locus:** `js/mklev.js` `load_minetn_7` /
+`load_special_proto`.
+**Change:** dispatch + clone: nested 30×15 town, percent(75)
+nests, chance shops, pos=0 door, sink, temple align[1],
+watch. Door helper forwards pos. `ensure_way_out` named.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1890); public-unhit
+unless `rnd` hits variant 7.
+**Verified:** canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `dog.c` `mon_arrive` `MIGR_LEFTOVERS` DF_ALL
+(named). Not stolen_booty.
+**Blocked:** none.
 ## 2026-08-25 — review D-1494–D-1503 (audit #1890)
 
 **Objective:** audit — C-fidelity reviews **455–464** of JS SHAs

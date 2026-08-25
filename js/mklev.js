@@ -1358,13 +1358,13 @@ function reset_xystart_size() {
  * Bar-filb, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
  * soko1-2, soko2-1, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
  * tower3, fire, air, minend-1, minend-2, minetn-1, minetn-2, minetn-3,
- * minetn-4, minetn-5, minetn-6, medusa-1, medusa-3, oracle, castle, valley,
+ * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-3, oracle, castle, valley,
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
  * Wiz-fila, Wiz-filb,
- * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6, Kni-goal.
+ * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
  * Named omissions: other bigrm-N / soko2-2 / quest
  * protos (Bar-goal; Wiz-goal; Kni-strt/loca/fila/filb);
- * minetn-7; minend-3; medusa-2/4; water/astral; fakewiz;
+ * minend-3; medusa-2/4; water/astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
 async function makemaz(s) {
@@ -1625,6 +1625,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'minetn-6') {
         load_minetn_6();
+        return true;
+    }
+    if (protofile === 'minetn-7') {
+        load_minetn_7();
         return true;
     }
     if (protofile === 'oracle') {
@@ -7471,9 +7475,9 @@ function load_minend_2() {
 /**
  * C ref: dat/minetn-1.lua via load_special — Mines town "Orcish Town".
  * mines init + centered map + iron bars + ransacked orc army.
- * Named omissions: minetn-7; link_doors_rooms extras; ensure_way_out;
+ * Named omissions: link_doors_rooms extras; ensure_way_out;
  * map_cleanup; count_level_features; dog leftovers. add_to_minv merge is D-1492.
- * minetn-6 is D-1503.
+ * minetn-6 is D-1503. minetn-7 is D-1504.
  */
 function load_minetn_1() {
     const g = game;
@@ -7750,8 +7754,8 @@ function load_minetn_1() {
 /**
  * C ref: dat/minetn-2.lua via load_special — Mines town "Town Square".
  * Nested des.room + create_subroom/create_door + shops/temple/watch.
- * Named omissions: minetn-7; link_doors_rooms extras; ensure_way_out.
- * minetn-6 is D-1503.
+ * Named omissions: link_doors_rooms extras; ensure_way_out.
+ * minetn-6 is D-1503. minetn-7 is D-1504.
  */
 function load_minetn_2() {
     const g = game;
@@ -7852,8 +7856,8 @@ function load_minetn_2() {
 /**
  * C ref: dat/minetn-3.lua via load_special — Mines town "Alley Town".
  * Nested des.room town + chance shops + temple align[1] + watch.
- * Named omissions: minetn-7; link_doors_rooms extras; ensure_way_out.
- * minetn-6 is D-1503.
+ * Named omissions: link_doors_rooms extras; ensure_way_out.
+ * minetn-6 is D-1503. minetn-7 is D-1504.
  */
 function load_minetn_3() {
     const g = game;
@@ -7984,8 +7988,8 @@ function load_minetn_3() {
 /**
  * C ref: dat/minetn-4.lua via load_special — Mines town "College Town".
  * Nested des.room town + book/candle/tool/food shops + temple align[1]
- * + watch. Named omissions: minetn-7; link_doors_rooms extras;
- * ensure_way_out. minetn-6 is D-1503.
+ * + watch. Named omissions: link_doors_rooms extras;
+ * ensure_way_out. minetn-6 is D-1503. minetn-7 is D-1504.
  */
 function load_minetn_4() {
     const g = game;
@@ -8105,9 +8109,9 @@ function load_minetn_4() {
 /**
  * C ref: dat/minetn-5.lua via load_special — Mines town "Grotto Town".
  * Solidfill + centered map + percent terrain + shops/temple/watch.
- * Named omissions: minetn-7; link_doors_rooms extras; ensure_way_out;
+ * Named omissions: link_doors_rooms extras; ensure_way_out;
  * hellfill/asmodeus/baalz/orcus/juiblex/wizard1-3/fakewiz.
- * minetn-6 is D-1503.
+ * minetn-6 is D-1503. minetn-7 is D-1504.
  */
 function load_minetn_5() {
     const g = game;
@@ -8344,9 +8348,9 @@ function load_minetn_5() {
 /**
  * C ref: dat/minetn-6.lua via load_special — Mines town "Bustling Town".
  * Solidfill then mines (lit=1, bg HWALL) + top-aligned map ('x' keeps
- * cavern) + shops/temple/watch. Named omissions: minetn-7;
+ * cavern) + shops/temple/watch. Named omissions:
  * link_doors_rooms extras; ensure_way_out (lua inaccessibles flag);
- * map_cleanup; count_level_features.
+ * map_cleanup; count_level_features. minetn-7 is D-1504.
  */
 function load_minetn_6() {
     const g = game;
@@ -8558,6 +8562,184 @@ xxxx-------xxxxxxxxxxxxxxx--------------
 
     // C load_special: wallification → flip → fixup
     if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/minetn-7.lua via load_special — Mines town "Bazaar Town".
+ * Nested des.room town + chance shops + temple align[1] + sink + watch.
+ * Named omissions: link_doors_rooms extras; ensure_way_out;
+ * map_cleanup; count_level_features.
+ */
+function load_minetn_7() {
+    const g = game;
+    nhlib_shuffle_align();
+    const align = g.splev_align || ['law', 'neutral', 'chaos'];
+
+    // Outer bazaar: des.room x=3,y=3 center 30×15 lit
+    splev_des_room({
+        type: 'ordinary', lit: 1, x: 3, y: 3,
+        xalign: SPLEV_CENTER, yalign: SPLEV_CENTER, w: 30, h: 15,
+    }, null, (town) => {
+        splev_room_feature_fountain(town, 12, 7);
+        splev_room_feature_fountain(town, 11, 13);
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', x: 2, y: 2, w: 4, h: 2,
+            }, town, (r) => splev_room_door(r, 'closed', 'south'));
+        }
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', x: 7, y: 2, w: 2, h: 2,
+            }, town, (r) => splev_room_door(r, 'closed', 'north'));
+        }
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', x: 7, y: 5, w: 2, h: 2,
+            }, town, (r) => splev_room_door(r, 'closed', 'south'));
+        }
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', lit: 1, x: 10, y: 2, w: 3, h: 4,
+            }, town, (r) => {
+                splev_room_monster(r, 'gnome');
+                splev_room_monster(r, 'monkey');
+                splev_room_monster(r, 'monkey');
+                splev_room_monster(r, 'monkey');
+                splev_room_door(r, 'closed', 'south');
+            });
+        }
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', x: 14, y: 2, w: 4, h: 2,
+            }, town, (r) => {
+                // lua des.door wall=south pos=0 (C lspo_door tmpd.pos)
+                splev_room_door(r, 'closed', 'south', 0);
+                splev_room_monster(r, 'n');
+            });
+        }
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', x: 16, y: 5, w: 2, h: 2,
+            }, town, (r) => splev_room_door(r, 'closed', 'south'));
+        }
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', lit: 0, x: 19, y: 2, w: 2, h: 2,
+            }, town, (r) => {
+                splev_room_door(r, 'locked', 'east');
+                splev_room_monster(r, 'gnome king');
+            });
+        }
+
+        splev_des_room({
+            type: monkfoodshop(), chance: 50, lit: 1, x: 19, y: 5, w: 2, h: 3,
+        }, town, (r) => splev_room_door(r, 'closed', 'south'));
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', x: 2, y: 7, w: 2, h: 2,
+            }, town, (r) => splev_room_door(r, 'closed', 'east'));
+        }
+
+        splev_des_room({
+            type: 'tool shop', chance: 50, lit: 1, x: 2, y: 10, w: 2, h: 3,
+        }, town, (r) => splev_room_door(r, 'closed', 'south'));
+
+        splev_des_room({
+            type: 'candle shop', lit: 1, x: 5, y: 10, w: 3, h: 3,
+        }, town, (r) => splev_room_door(r, 'closed', 'north'));
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', x: 11, y: 10, w: 2, h: 2,
+            }, town, (r) => {
+                splev_room_door(r, 'locked', 'west');
+                splev_room_monster(r, 'G');
+            });
+        }
+
+        splev_des_room({
+            type: 'shop', chance: 60, lit: 1, x: 14, y: 10, w: 2, h: 3,
+        }, town, (r) => splev_room_door(r, 'closed', 'north'));
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', x: 17, y: 11, w: 4, h: 2,
+            }, town, (r) => splev_room_door(r, 'closed', 'north'));
+        }
+
+        if (percent(75)) {
+            splev_des_room({
+                type: 'ordinary', x: 22, y: 11, w: 2, h: 2,
+            }, town, (r) => {
+                splev_room_door(r, 'closed', 'south');
+                splev_room_feature_sink(r, 0, 0);
+            });
+        }
+
+        splev_des_room({
+            type: monkfoodshop(), chance: 50, lit: 1, x: 25, y: 11, w: 3, h: 2,
+        }, town, (r) => splev_room_door(r, 'closed', 'east'));
+
+        splev_des_room({
+            type: 'tool shop', chance: 30, lit: 1, x: 25, y: 2, w: 3, h: 3,
+        }, town, (r) => splev_room_door(r, 'closed', 'west'));
+
+        splev_des_room({
+            type: 'temple', lit: 1, x: 24, y: 6, w: 4, h: 4,
+        }, town, (r) => {
+            splev_room_door(r, 'closed', 'west');
+            // Lua align[1] → JS align[0]
+            splev_room_altar_shrine(r, 2, 1, align[0]);
+            splev_room_monster(r, 'gnomish wizard');
+            splev_room_monster(r, 'gnomish wizard');
+        });
+
+        // Town Watch then bazaar gnomes/monkeys (lua order)
+        splev_room_monster(town, 'watchman', 1);
+        splev_room_monster(town, 'watchman', 1);
+        splev_room_monster(town, 'watchman', 1);
+        splev_room_monster(town, 'watchman', 1);
+        splev_room_monster(town, 'watch captain', 1);
+        splev_room_monster(town, 'gnome');
+        splev_room_monster(town, 'gnome');
+        splev_room_monster(town, 'gnome');
+        splev_room_monster(town, 'gnome');
+        splev_room_monster(town, 'gnome lord');
+        splev_room_monster(town, 'monkey');
+        splev_room_monster(town, 'monkey');
+    });
+
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, true);
+    });
+    splev_ordinary_room((r) => {
+        splev_room_stair(r, false);
+        splev_room_trap(r);
+        splev_room_monster(r, 'gnome');
+        splev_room_monster(r, 'gnome');
+    });
+    splev_ordinary_room((r) => {
+        splev_room_monster(r, 'dwarf');
+    });
+    splev_ordinary_room((r) => {
+        splev_room_trap(r);
+        splev_room_monster(r, 'gnome');
+    });
+
+    makecorridors();
+
+    if (!g.level.flags?.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
     fixup_special();
@@ -11792,15 +11974,17 @@ const DOOR_STATE = {
  * C ref: sp_lev.c lspo_door wall-form → create_door.
  * Random state burns rnddoor() for typ/secret only; mask stays -1 so
  * create_door still rolls its mask branch (C tmpd.mask = msk).
+ * Optional pos (default -1) is C get_table_int_opt("pos", -1).
  */
-function splev_room_door(croom, state, wall) {
+function splev_room_door(croom, state, wall, pos = -1) {
     const msk = DOOR_STATE[state] ?? -1;
     // C: typ = (msk == -1) ? rnddoor() : (coordxy) msk;
     const typ = (msk === -1) ? rnddoor() : msk;
     create_door({
         secret: (typ === D_SECRET) ? 1 : 0,
         mask: msk,
-        pos: -1,
+        // C lspo_door: tmpd.pos = get_table_int_opt(..., "pos", -1)
+        pos: pos ?? -1,
         wall: DOOR_WALL[wall] ?? W_ANY,
     }, croom);
 }
@@ -11875,6 +12059,20 @@ function splev_room_feature_fountain(croom, rx, ry) {
     loc.typ = FOUNTAIN;
     if (game.level.flags) game.level.flags.nfountains =
         (game.level.flags.nfountains | 0) + 1;
+}
+
+/**
+ * C ref: sp_lev.c lspo_feature sink at relative room coords (sel_set_feature).
+ */
+function splev_room_feature_sink(croom, rx, ry) {
+    const x = croom.lx + rx;
+    const y = croom.ly + ry;
+    const loc = game.level.at(x, y);
+    if (!loc) return;
+    if (IS_FURNITURE(loc.typ)) return;
+    loc.typ = SINK;
+    if (game.level.flags) game.level.flags.nsinks =
+        (game.level.flags.nsinks | 0) + 1;
 }
 
 /**

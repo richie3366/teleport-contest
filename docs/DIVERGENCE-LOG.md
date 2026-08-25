@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1504 — mklev.c minetn-7 load_special Bazaar Town
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Mines town variant 7 (`makemaz` proto
+  `minetn-7`) fell through to an empty maze. C
+  `dat/minetn-7.lua` via `sp_lev.c` `load_special` is
+  Bazaar Town: `nhlib` shuffle align, outer `des.room`
+  ordinary lit 30×15 center, two fountains, eleven
+  `percent(75)` nested rooms (monkey/gnome/nymph/gnome-king
+  occupants), chance shops (monkfood 50, tool 50, candle
+  100, general 60, monkfood 50, tool 30), `des.door`
+  south `pos=0`, sink at 0,0, temple `align[1]` shrine +
+  two gnomish wizards, peaceful watch (one captain) then
+  gnomes/monkeys, four ordinary stair/trap rooms,
+  `des.random_corridors`, C wallification / flip /
+  `fixup_special`.
+- **C locus:** `dat/minetn-7.lua`; `mkmaze.c` `makemaz`;
+  `sp_lev.c` `load_special` / `lspo_room` / `lspo_door`
+  (`tmpd.pos`) / `lspo_feature` sink / `create_monster`.
+- **JS was:** `load_special_proto` dispatched minetn-1..6
+  only; minetn-7 named after D-1503.
+- **Fix:** Port the lua sequence; reuse minetn-2/4
+  `splev_des_room`/`splev_room_door`/`splev_room_monster`
+  / `splev_room_altar_shrine` / `priestini`. Door helper
+  forwards lua `pos`; new `splev_room_feature_sink`.
+  Rule #2: no fs.
+- **JS:** `js/mklev.js` `load_minetn_7`.
+- **Not this iter:** `link_doors_rooms` extras;
+  `ensure_way_out`; `map_cleanup`; `count_level_features`.
+- **Verified:** private canary **16**/16 (dispatch, 30×15
+  center, fountains, 11× percent(75), chance shops, pos=0,
+  sink, altar align[0], monster order, stair rooms,
+  wallify/flip/fixup, Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `dog.c` `mon_arrive` `MIGR_LEFTOVERS`.
+- **Files:** `js/mklev.js`.
+
 ## D-1503 — mklev.c minetn-6 load_special Bustling Town
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
