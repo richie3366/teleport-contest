@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1484; cadence **#1860** `a3a2d65a`
-  (Scr **11,405** RNG 100%, `40+0.32/turn`). Next: Open `potion.c`
-  `potion_dip` unicorn/amethyst mix
-  (named). Not mixtype.
-  Do not skip D-1484…D-1229. No FORCE / `wildmiss` wrap /
-  trailing `confdir` in shared `getdir`.
+- **Fortress 44/44** after D-1484; cadence **#1870** `dba2c79a`
+  (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Must-fix
+  `zap.c` `zap_updown` `default` `break` into down
+  `bhitpile`+`zap_map` (C `:3378–3389`; review **437**).
+  Not probing. Not potion_dip. Do not skip D-1484…D-1229.
+  No FORCE / `wildmiss` wrap / trailing `confdir` in
+  shared `getdir`.
 - Do not revert D-1217–D-1484. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.

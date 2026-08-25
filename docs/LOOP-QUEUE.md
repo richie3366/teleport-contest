@@ -26,6 +26,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `zap.c` `zap_updown` `default` must `break` into shared down `bhitpile`+`zap_map` (C `:3378–3389`) so unmounted down POLY/cancel/invis/tele hit D-1476’s arms. Not probing. Not lateral `bhit`. Source: reviews/loop-unattended/437-747e6616-zap-map-engraving-cancel-trap.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype.

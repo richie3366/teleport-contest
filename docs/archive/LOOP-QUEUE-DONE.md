@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `muse.c` `mbhit` doorlock (named). Not hero `bhit`. **Addressed:** D-1484
+- [x] `muse.c` `mbhit` doorlock (named). Not hero `bhit`. **Addressed:** D-1484 `dba2c79a`
 
 
 - [x] `zap.c` `bhito` poly-arm boxlock `reset_pick` (named). Not uchain. **Addressed:** D-1483 `49826707`

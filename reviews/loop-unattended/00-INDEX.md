@@ -447,3 +447,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [434-e6a44782-zap-steed-wan-make-invisible.md](./434-e6a44782-zap-steed-wan-make-invisible.md) | `e6a44782` | D-1473 zap_steed WAN_MAKE_INVISIBLE via bhitm | **ACCEPT-WITH-DEBT** |
 | [435-dfd88d1b-zap-steed-wan-striking.md](./435-dfd88d1b-zap-steed-wan-striking.md) | `dfd88d1b` | D-1474 zap_steed WAN_STRIKING/SPE_FORCE_BOLT via bhitm | **ACCEPT-WITH-DEBT** |
 | [436-a3a2d65a-bhit-doorlock-wan-locking.md](./436-a3a2d65a-bhit-doorlock-wan-locking.md) | `a3a2d65a` | D-1475 bhit doorlock WAN_LOCKING/SPE_WIZARD_LOCK | **ACCEPT-WITH-DEBT** |
+| [437-747e6616-zap-map-engraving-cancel-trap.md](./437-747e6616-zap-map-engraving-cancel-trap.md) | `747e6616` | D-1476 zap_map down engraving / maybe_explode_trap | **QUALITY-RISK** |
+| [438-c3f67016-potionbreathe-remaining-otyps.md](./438-c3f67016-potionbreathe-remaining-otyps.md) | `c3f67016` | D-1477 potionbreathe remaining otyps | **ACCEPT-WITH-DEBT** |
+| [439-713e0441-zap-steed-wan-slow.md](./439-713e0441-zap-steed-wan-slow.md) | `713e0441` | D-1478 zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm | **ACCEPT-WITH-DEBT** |
+| [440-7c918806-zap-steed-wan-speed.md](./440-7c918806-zap-steed-wan-speed.md) | `7c918806` | D-1479 zap_steed WAN_SPEED_MONSTER via bhitm | **ACCEPT-WITH-DEBT** |
+| [441-a65834a1-zap-steed-spe-cure-sickness.md](./441-a65834a1-zap-steed-spe-cure-sickness.md) | `a65834a1` | D-1480 zap_steed SPE_CURE_SICKNESS via bhitm | **ACCEPT-WITH-DEBT** |
+| [442-4642b8b1-bhito-uchain-unpunish.md](./442-4642b8b1-bhito-uchain-unpunish.md) | `4642b8b1` | D-1481 bhito uchain unpunish WAN_OPENING/SPE_KNOCK | **ACCEPT-WITH-DEBT** |
+| [443-f0cb5942-bhit-doorlock-wan-striking.md](./443-f0cb5942-bhit-doorlock-wan-striking.md) | `f0cb5942` | D-1482 bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT | **ACCEPT-WITH-DEBT** |
+| [444-49826707-bhito-poly-arm-boxlock.md](./444-49826707-bhito-poly-arm-boxlock.md) | `49826707` | D-1483 bhito poly-arm boxlock reset_pick | **ACCEPT-WITH-DEBT** |
+| [445-dba2c79a-mbhit-doorlock.md](./445-dba2c79a-mbhit-doorlock.md) | `dba2c79a` | D-1484 muse.c mbhit doorlock WAN_STRIKING | **ACCEPT-WITH-DEBT** |
