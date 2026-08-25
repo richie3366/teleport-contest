@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1467 — zap.c bhito boxlock WAN_OPENING/WAN_LOCKING
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `bhito` still defaulted WAN_OPENING / SPE_KNOCK /
+  WAN_LOCKING / SPE_WIZARD_LOCK (`res=0`), so a floor chest or
+  large box hit by an opening/locking wand or knock/wizard-lock
+  spell never Klunk/Klick, never changed `olocked`, and never
+  `learnwand`. C `zap.c` `bhito` `:2393–2403`: those four otyps
+  `Is_box(obj)` → `res = boxlock(obj, otmp)` else `res = 0`;
+  `if (res) learn_it = TRUE` then `learnwand`. Callee `lock.c`
+  `boxlock` `:1056–1098`: unlocked → Klunk `olocked=1` `obroken=0`
+  Wizard `lknown`; locked → Klick unlock; already-locked locking
+  is a no-op; unlocked opening silently clears `obroken`. Callers
+  `bhitpile` / `bhit` / `zap_updown` down epilogue.
+- **C locus:** `zap.c` `bhito` `:2393–2403`. Callee `lock.c`
+  `boxlock` `:1056–1098`. Callers `bhitpile` `:2434`; `bhit`
+  `:4045–4047`; `zap_updown` `:3384`.
+- **JS was:** named omit. `boxlock` already live for
+  `boxlock_invent` (D-1434 / D-0981); `bhito` hit `default`
+  `res=0`.
+- **Fix:** wire the four otyps through existing `boxlock`;
+  learn iff Klunk/Klick (SPBOOK still skips `makeknown`).
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `bhito`; `js/lock.js` `boxlock` (already
+  live).
+- **Not this iter:** uchain `unpunish`; poly-arm `boxlock`
+  `reset_pick`; `bhit` doorlock LOCKING/STRIKING; remaining
+  zap_steed bhitm-routed otyps; `zap_map` engraving.
+- **Verified:** private canary **22**/22 (C/JS grep; Rule #2;
+  Klunk lock + Tourist `lknown=0`; Klick unlock + learnwand;
+  SPE_WIZARD_LOCK/SPE_KNOCK skip makeknown; already-locked
+  no-op; silent `obroken` fix; dagger/sack `res=0`; Wizard
+  `lknown=1`; self-hit; `weffects` east + down `bhitpile`;
+  doorlock LOCKING still named); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps opening/locking at a
+  floor box.
+- **Follow-up:** Open `spell.c` `spelleffects` SPE_TELEPORT_AWAY
+  IMMEDIATE wand-duplicate weffects (named). Not STONE.
+- **Files:** `js/zap.js`, `js/lock.js`, `js/spell.js` (comment).
+
 ## D-1466 — zap.c zap_updown SPE_STONE_TO_FLESH
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

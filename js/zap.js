@@ -76,7 +76,8 @@
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_map engraving/cancel trap / uswallow pile;
-// bhito boxlock / opening chain; bhit doorlock LOCKING/STRIKING;
+// bhito opening chain / uchain unpunish; poly-arm boxlock reset_pick;
+// bhit doorlock LOCKING/STRIKING;
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
 // zapyourself SPE_DRAIN_LIFE is D-1446;
@@ -89,6 +90,8 @@
 // zap_updown WAN_LOCKING/SPE_WIZARD_LOCK is D-1465;
 // zap_updown SPE_STONE_TO_FLESH is D-1466;
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
+// bhito WAN_OPENING/WAN_LOCKING/SPE_KNOCK/SPE_WIZARD_LOCK boxlock
+// is D-1467;
 // remaining bhitm-routed zap_steed (cancel/poly/invis/
 // striking/slow/speed/heal) named;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
@@ -117,7 +120,7 @@
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
 // D-1353 (shared muse.c clone); mcastu ureflects named; create_polymon after poly_zapped;
-// do_osshock shop bill; invent/worn poly_obj arms; floor boxlock;
+// do_osshock shop bill; invent/worn poly_obj arms; poly-arm boxlock;
 // blank_novel / corpse revive→rot timer;
 // cant_finish_meal; animate_statue montraits wire; defended(); resists_magm
 // body; ignite_items body; burnarmor worn erode ported (D-0741);
@@ -225,7 +228,7 @@ import { useup, carried, fix_petrification } from './eat.js';
 import { burn_away_slime, get_obj_location } from './timeout.js';
 import { create_gas_cloud } from './region.js';
 import { recalc_block_point } from './vision.js';
-import { picking_at, reset_pick, boxlock_invent, doorlock } from './lock.js';
+import { picking_at, reset_pick, boxlock, boxlock_invent, doorlock } from './lock.js';
 import { monflee, sticks } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './mhitu.js';
 import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv } from './makemon.js';
@@ -4988,8 +4991,11 @@ export async function drain_item(obj, by_you) {
  * drain_item (D-1453; void return so res stays 1); WAN_TELEPORTATION
  * rloco; WAN_UNDEAD_TURNING floor corpse/egg thin revive;
  * SPE_STONE_TO_FLESH stone_to_flesh_obj (D-1461; invent ok —
- * C `:2178–2179` floor-or-STONE). Named omit: boxlock; opening
- * chain; uchain unpunish. zap_updown SPE_STONE_TO_FLESH is D-1466.
+ * C `:2178–2179` floor-or-STONE); WAN_OPENING/SPE_KNOCK/
+ * WAN_LOCKING/SPE_WIZARD_LOCK boxlock (D-1467; learn iff
+ * Klunk/Klick). Named omit: opening chain / uchain unpunish;
+ * poly-arm boxlock reset_pick. zap_updown SPE_STONE_TO_FLESH
+ * is D-1466.
  * @returns {Promise<number>} 1 if affected
  */
 async function bhito(obj, otmp) {
@@ -5120,6 +5126,20 @@ async function bhito(obj, otmp) {
         } else {
             res = 0;
         }
+        break;
+    case WAN_OPENING:
+    case SPE_KNOCK:
+    case WAN_LOCKING:
+    case SPE_WIZARD_LOCK:
+        /* C zap.c bhito :2393–2403 — Is_box → boxlock; else res=0.
+         * learn_it iff boxlock returned true (Klunk/Klick).
+         * uchain unpunish named; poly-arm boxlock named. */
+        if (Is_box(obj)) {
+            res = (await boxlock(obj, otmp)) ? 1 : 0;
+        } else {
+            res = 0;
+        }
+        if (res) learn_it = true;
         break;
     case SPE_STONE_TO_FLESH:
         /* C zap.c bhito :2412–2414 — stone_to_flesh_obj; no learn_it. */
@@ -5494,8 +5514,8 @@ function Levitation_updown() {
  * :3295–3354 (D-1465; !striking close_drawbridge / closeholdingtrap
  * / hole→trapdoor). SPE_STONE_TO_FLESH :3355–3377 (D-1466; C has
  * no WAN_STONE_TO_FLESH) then shared down bhitpile+zap_map / up
- * hideunder. Named: zap_map engraving/cancel trap; bhito boxlock;
- * poly body_part.
+ * hideunder. Named: zap_map engraving/cancel trap; poly body_part.
+ * bhito boxlock is D-1467.
  */
 async function zap_updown(obj) {
     if (!obj) return false;

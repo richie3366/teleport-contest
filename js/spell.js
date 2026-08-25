@@ -2063,7 +2063,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Self-dir zapyourself already D-0981. bhitm SPE_KNOCK
          * mhurtle/saddle already D-0981. POLY is D-1459.
          * bhit doorlock OPENING/KNOCK is D-1462; zap_updown
-         * OPENING is D-1454; bhito boxlock named. */
+         * OPENING is D-1454; bhito boxlock is D-1467. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_SLOW_MONSTER) {
         /* C spell.c :1465–1514 wand-duplicate IMMEDIATE weffects
@@ -2080,7 +2080,8 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Self-dir zapyourself already D-1434 (closeholdingtrap
          * then boxlock_invent). bhitm WAN_LOCKING/SPE_WIZARD_LOCK
          * closeholdingtrap already D-1425. POLY is D-1459.
-         * doorlock / zap_updown LOCKING / bhito boxlock named. */
+         * doorlock LOCKING named; zap_updown LOCKING is D-1465;
+         * bhito boxlock is D-1467. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_TURN_UNDEAD) {
         /* C spell.c :1468–1514 wand-duplicate IMMEDIATE weffects

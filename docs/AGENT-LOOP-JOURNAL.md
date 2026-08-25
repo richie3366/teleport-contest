@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1467 zap.c bhito boxlock WAN_OPENING/WAN_LOCKING
+
+**Objective:** Open `zap.c` `bhito` boxlock WAN_OPENING/WAN_LOCKING
+(named). Not doorlock.
+**C locus:** `zap.c` `bhito` `:2393–2403`; callee `lock.c`
+`boxlock` `:1056–1098`; callers `bhitpile`/`bhit`/`zap_updown`.
+**Change:** Wire floor-box WAN_OPENING/SPE_KNOCK/WAN_LOCKING/
+SPE_WIZARD_LOCK through live `boxlock` so Klunk/Klick learns
+the wand (SPBOOK skips makeknown). uchain / poly-arm named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps opening/locking at a floor box).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects` SPE_TELEPORT_AWAY
+IMMEDIATE wand-duplicate weffects (named). Not STONE.
+**Blocked:** none.
 ## 2026-08-25 — review D-1459–D-1466 (audit #1850)
 
 **Objective:** audit — C-fidelity reviews **419–427** of JS SHAs

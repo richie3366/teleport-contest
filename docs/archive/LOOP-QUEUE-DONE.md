@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
+- [x] `zap.c` `bhito` boxlock WAN_OPENING/WAN_LOCKING (named). Not doorlock. **Addressed:** D-1467
+
+
 - [x] `zap.c` `zap_updown` WAN_STONE_TO_FLESH (named). Not LOCKING. **Addressed:** D-1466 `3605a281`
 
 
