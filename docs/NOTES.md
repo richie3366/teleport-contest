@@ -5,25 +5,27 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1511; cadence **#1890** `1f64431d`
+- **Fortress 44/44** after D-1512; cadence **#1890** `1f64431d`
   (Scr **11,405** RNG 100%, `38+0.30/turn` R² 0.849). Next: Open
-  `display.c` `any_visible_region`
-  (named). Not Hallu/Warn_of_mon. Do not skip D-1511…D-1229.
+  `artifact.c` SPFX_WARN conferral / MATCH_WARN
+  (named). Not Sting_effects. Do not skip D-1512…D-1229.
   No FORCE / `wildmiss` wrap / trailing `confdir` in
   shared `getdir`. pickup `body_part` is latebound
   (polyself→do cycle); do not import pickup→polyself.
-- Do not revert D-1217–D-1511. Named still:
-  `any_visible_region`; `see_monsters` worm segs /
-  MATCH_WARN / SPFX_WARN conferral; GETOBJ_ALLOWCNT;
+- Do not revert D-1217–D-1512. Named still:
+  `see_monsters` worm segs / MATCH_WARN /
+  SPFX_WARN conferral; timeout `visible_region_summary`;
+  display `show_region`; GETOBJ_ALLOWCNT;
   tamedog is_covetous / is_demon-vs-hero;
   INTERNALCMD `#altdip`; options fruitadd walker;
   doname fake_arti / bones `goodfruit` / `reorder_fruit`;
   wander/`somexy` / Wiz_arrive; mktrap_victim floor candle;
   S_KOP / non-salamander S_LIZARD; `mcast_blind_you` EYE;
   `observe_quantum_cat` FOOT.
-- Falsifier for D-1511: xname of SLIME_MOLD with `spe` not
-  in `ffruit` must be `"fruit"`; custom fname must appear.
-  Don’t re-check objectNameStrs `"slime mold"` as the live path.
+- Falsifier for D-1512: `any_visible_region` true iff some
+  `visible && ttl !== -2`; allmain else-if ORs it after
+  Warn_of_mon. Hallu arm must not extra-call it.
+  Don’t re-check seed0383 Hallu as this OR.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1511.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1512.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,7 +45,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1511 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1512 (index).
 - Named still: worm-shrieker; GETOBJ_ALLOWCNT / tamedog is_covetous;
   options fruitadd walker; `ensure_way_out`.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -59,6 +61,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1512: `any_visible_region` first `visible && ttl != -2`;
+  allmain once-per-input else-if OR after Warn_of_mon.
+  C is `region.c` not display.c. Hallu arm unchanged.
+  timeout `visible_region_summary` / display `show_region`
+  named. SPFX_WARN conferral still named.
 - D-1511: `fruit_from_indx` by fid; xname/doname SLIME_MOLD
   `fname` / `"fruit"` / quan ick; `init_fruit_chain` fid 1
   before mksobj. killer_xname still deadly slime mold.
@@ -112,7 +119,3 @@ Objective/score live in `CURRENT.md`.
   OIL_LAMP/MAGIC_LAMP fill (empty MAGIC→OIL; age>1000 full
   else `4/3 * age/2` clamp 1500). `is_ammo` is arrows/bolts
   not darts. Brass lantern skip.
-- D-1497: `potion_dip` sickness coats `is_poisonable`
-  (`-P_SHURIKEN`..`-P_BOW` or Grimtooth); healing/extra/full
-  strip `!permapoisoned`. Local clone — do not change mkobj
-  named-missile RNG `is_poisonable`. Unicorn mix is D-1486.

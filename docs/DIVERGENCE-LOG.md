@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1512 — region.c any_visible_region + allmain see_monsters
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** once-per-input else-if skipped
+  `see_monsters` unless telepat/Warning/Warn_of_mon.
+  C `region.c` `any_visible_region` `:658–670`
+  returns TRUE on the first `gr.regions[i]` with
+  `visible && ttl != -2`. Caller `allmain.c`
+  `:462–468` ORs it after Warn_of_mon so a monster
+  seen next to a gas cloud is unmapped after the
+  hero walks away. Queue said `display.c`; C lives
+  in `region.c`.
+- **C locus:** `region.c` `any_visible_region`
+  `:658–670`. Callers `allmain.c` `:467`;
+  `timeout.c` `wiz_timeout_queue` `:2112` (named).
+- **JS was:** named omit after D-1493 — Hallu /
+  Warn_of_mon wired; `any_visible_region` not
+  exported.
+- **Fix:** Port the scan (`!visible || ttl === -2`
+  continue, else TRUE). Wire the allmain OR.
+  Short-circuit matches C. Hallu arm unchanged
+  (display RNG). Rule #2: no fs.
+- **JS:** `js/region.js` `any_visible_region`;
+  `js/allmain.js` once-per-input.
+- **Not this iter:** timeout `visible_region_summary`;
+  display `show_region` / newsym `visible_region_at`
+  overlay; invent look-at / insight status cloud;
+  SPFX_WARN conferral; worm `see_wsegs`.
+- **Verified:** private canary **23**/23 (empty /
+  invisible / ttl−2 / live / ttl 0 / ttl −1 /
+  skip-then-hit / not geometry; C/JS grep; allmain
+  OR; timeout named; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a non-Hallu input with a
+  live cloud and no telepat/Warning/Warn_of_mon.
+- **Follow-up:** Open `artifact.c` SPFX_WARN
+  conferral / MATCH_WARN.
+- **Files:** `js/region.js`, `js/allmain.js`.
+
 ## D-1511 — objnam.c fruit_from_indx + xname SLIME_MOLD
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

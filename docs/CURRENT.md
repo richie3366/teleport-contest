@@ -59,27 +59,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1511. **Next cluster:** Open
-`display.c` `any_visible_region`
-(named). Not Hallu/Warn_of_mon.
-**Do not skip D-1511…D-1229 (index).** Keep mention_map addr.
+**Map-driven fortress** after D-1512. **Next cluster:** Open
+`artifact.c` SPFX_WARN conferral / MATCH_WARN
+(named). Not Sting_effects.
+**Do not skip D-1512…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1511.** Do not FORCE
+**Do not re-break D-0660…D-1512.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1511 (index). Recent: **D-1511**
-`objnam.c` `fruit_from_indx` + xname FOOD SLIME_MOLD.
-Prior: **D-1510** `zap.c` `poly_obj` worn `set_wear`;
-**D-1509** lichen/acid-erode; **D-1508**
-`body_part` HEAD/HAND; **D-1507** Sokoban
-`throws_rocks`. stolen_booty is D-1363.
+**Keep:** D-0845…D-1512 (index). Recent: **D-1512**
+`region.c` `any_visible_region` + allmain once-per-input
+OR (queue said display.c). Prior: **D-1511**
+`objnam.c` `fruit_from_indx` + xname FOOD SLIME_MOLD;
+**D-1510** `zap.c` `poly_obj` worn `set_wear`.
+stolen_booty is D-1363.
 minetn-7 is D-1504; minetn-6 is D-1503; minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1511
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1512
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

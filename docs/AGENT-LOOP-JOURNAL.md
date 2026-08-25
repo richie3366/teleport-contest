@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1512 region.c any_visible_region + allmain
+
+**Objective:** Open `display.c` `any_visible_region`
+(named). Not Hallu/Warn_of_mon. C is `region.c`.
+**C locus:** `region.c` `any_visible_region` `:658–670`;
+caller `allmain.c` `:462–468`.
+**JS locus:** `js/region.js`; `js/allmain.js`.
+**Change:** scan `visible && ttl != -2`; OR into
+once-per-input else-if. Hallu arm unchanged.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1890);
+gas-cloud refresh public-unhit.
+**Verified:** canary **23**/23; green+strict
+seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `artifact.c` SPFX_WARN conferral /
+MATCH_WARN. Not Sting_effects.
+**Blocked:** none.
 ## 2026-08-26 — D-1511 objnam.c fruit_from_indx + xname SLIME_MOLD
 
 **Objective:** Open `objnam.c` `fruit_from_indx`

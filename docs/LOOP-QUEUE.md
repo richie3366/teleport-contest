@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `display.c` `any_visible_region` (named). Not Hallu/Warn_of_mon.
 - [ ] `artifact.c` SPFX_WARN conferral / MATCH_WARN (named). Not Sting_effects.
 - [ ] `makemon.c` S_KOP `m_initweap` specials (named). Not throws_rocks.
 - [ ] `makemon.c` non-salamander S_LIZARD `m_initweap` (named). Not S_KOP.
