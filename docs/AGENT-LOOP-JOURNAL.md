@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1438 potion.c peffect_gain_ability
+
+**Objective:** Open `potion.c` `peffect_gain_ability` (named).
+Not hallucination.
+**C locus:** `potion.c` `peffect_gain_ability` `:1030–1048`
+/ `peffects` `:1382–1384`. Callee `attrib.c` `adjattrib`.
+**Change:** cursed Ulch+unkn; Fixed_abil (extrinsic)
+potion_nothing; else blessed adjattrib all A_MAX
+msgflg 0, uncursed rn2 tries msgflg -1 then last 0,
+break on first success. potionhit / potionbreathe /
+mix still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session quaffs gain ability).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `peffect_hallucination` (named).
+Not remaining mix.
+**Blocked:** none.
 ## 2026-08-25 — D-1437 potion.c peffect_sleeping
 
 **Objective:** Open `potion.c` `peffect_sleeping` (named).

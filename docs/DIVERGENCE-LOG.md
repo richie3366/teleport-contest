@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1438 — potion.c peffect_gain_ability
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** quaffing a potion of gain ability printed
+  "That potion is not implemented yet." and skipped
+  `useup`. C `peffects` `:1382–1384` calls
+  `peffect_gain_ability`. That helper `:1030–1048`:
+  cursed Ulch foul + `potion_unkn++`; else
+  `Fixed_abil` (youprop.h extrinsic only) →
+  `potion_nothing++`; else blessed `adjattrib(i,1,0)`
+  for i=0..A_MAX-1, uncursed up to A_MAX `rn2(A_MAX)`
+  tries with msgflg -1 except last 0, break on first
+  success. Callee `attrib.c` `adjattrib` (verbose
+  already-max plines still named). potionhit monster
+  heal and potionbreathe restore-ABASE are separate
+  functions (still named).
+- **C locus:** `potion.c` `peffect_gain_ability`
+  `:1030–1048` / `peffects` `:1382–1384`. Callee
+  `attrib.c` `adjattrib` `:117–199`.
+- **JS was:** `peffects` default "not implemented"
+  (return 0, no useup).
+- **Fix:** Port `peffect_gain_ability`. Wire
+  POT_GAIN_ABILITY. Reuse `attrib.js` `adjattrib`.
+  Rule #2: no fs.
+- **JS:** `js/potion.js` `peffects` /
+  `peffect_gain_ability`.
+- **Not this iter:** remaining peffect hallucination;
+  potionhit / potionbreathe / mix POT_GAIN_ABILITY;
+  `adjattrib` verbose already-max `flags.verbose`
+  plines.
+- **Verified:** private canary **16**/16 (C/JS grep;
+  uncursed one +1 + one You_feel + one rn2(A_MAX);
+  blessed all six +1 no rn2; cursed Ulch no attr;
+  EFixed_abil / uprops extrinsic peculiar+useup;
+  already-max 6 rn2 silent; dknown makeknown+useup;
+  hallucination still not-implemented; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session quaffs gain ability.
+- **Follow-up:** Open `potion.c` `peffect_hallucination`
+  (named). Not remaining mix.
+- **Files:** `js/potion.js`.
+
 ## D-1437 — potion.c peffect_sleeping
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

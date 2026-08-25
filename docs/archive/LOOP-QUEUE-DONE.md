@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `potion.c` `peffect_sleeping` (named). Not remaining peffects. **Addressed:** D-1437
+- [x] `potion.c` `peffect_gain_ability` (named). Not hallucination. **Addressed:** D-1438
+
+
+- [x] `potion.c` `peffect_sleeping` (named). Not remaining peffects. **Addressed:** D-1437 `af184f1e`
 
 
 - [x] `zap.c` `bhitm` SPE_DRAIN_LIFE (named). Not zapyourself slow. **Addressed:** D-1436 `e413754d`

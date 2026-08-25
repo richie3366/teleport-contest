@@ -15,6 +15,7 @@
 //         peffect_gain_level (D-1431),
 //         peffect_blindness (D-1432),
 //         peffect_sleeping (D-1437),
+//         peffect_gain_ability (D-1438),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -58,6 +59,10 @@
 // POT_SLEEPING peffect_sleeping (D-1437; Sleep_resistance||Free_action
 // monstseesu + yawn else fall_asleep(-rn1(10, 25-12*bcsign), TRUE);
 // callee timeout.c fall_asleep / mondata.c monstseesu).
+// POT_GAIN_ABILITY peffect_gain_ability (D-1438; cursed Ulch+unkn;
+// Fixed_abil extrinsic potion_nothing; else blessed adjattrib all
+// A_MAX with msgflg 0, uncursed rn2 tries msgflg -1 then last 0,
+// break on first success).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -100,7 +105,7 @@ import {
     P_RIDING, P_BASIC, ER_DESTROYED, ER_NOTHING, MM_NOMSG,
     OBJ_INVENT, ARTICLE_THE, SUPPRESS_IT, SUPPRESS_SADDLE, W_SADDLE,
     POLY_NOFLAGS, POLY_CONTROLLED, POLY_LOW_CTRL, UNCHANGING, ACID_RES,
-    M_SEEN_SLEEP,
+    M_SEEN_SLEEP, FIXED_ABIL,
 } from './const.js';
 import { hands_obj, P_SKILL } from './weapon.js';
 import { rn2, rnd, d, rn1, rnl } from './rng.js';
@@ -165,6 +170,7 @@ const POT_WATER = objectNames.indexOf('POT_WATER');
 const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
 const POT_GAIN_ENERGY = objectNames.indexOf('POT_GAIN_ENERGY');
 const POT_GAIN_LEVEL = objectNames.indexOf('POT_GAIN_LEVEL');
+const POT_GAIN_ABILITY = objectNames.indexOf('POT_GAIN_ABILITY');
 const PM_DJINNI = monsterNames.indexOf('PM_DJINNI');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
@@ -1748,6 +1754,45 @@ async function peffect_sleeping(otmp) {
 }
 
 /**
+ * C youprop.h Fixed_abil — u.uprops[FIXED_ABIL].extrinsic only (ring
+ * of sustain ability). JS also mirrors EFixed_abil / Fixed_abil.
+ */
+function Fixed_abil() {
+    const u = game.u || {};
+    return !!((u.uprops?.[FIXED_ABIL]?.extrinsic | 0)
+        || (u.EFixed_abil | 0)
+        || u.Fixed_abil);
+}
+
+/**
+ * C ref: potion.c peffect_gain_ability :1030–1048.
+ * Cursed: Ulch foul + potion_unkn++. Fixed_abil: potion_nothing++.
+ * Else blessed: adjattrib(i, 1, 0) for i = 0 .. A_MAX-1.
+ * Uncursed: up to A_MAX rn2(A_MAX) tries; msgflg -1 except last (0);
+ * break on first successful adjattrib. Callee attrib.c adjattrib
+ * (verbose already-max plines still named there). potionhit /
+ * potionbreathe / mix / dipsink POT_GAIN_ABILITY still named.
+ */
+async function peffect_gain_ability(otmp) {
+    if (otmp.cursed) {
+        await pline('Ulch!  That potion tasted foul!');
+        potion_unkn++;
+    } else if (Fixed_abil()) {
+        potion_nothing++;
+    } else { /* If blessed, increase all; if not, try up to */
+        let i = -1; /* increment to 0 */
+        for (let ii = A_MAX; ii > 0; ii--) {
+            i = otmp.blessed ? i + 1 : rn2(A_MAX);
+            /* only give "your X is already as high as it can get"
+               message on last attempt (except blessed potions) */
+            const itmp = (otmp.blessed || ii === 1) ? 0 : -1;
+            if (await adjattrib(i, 1, itmp) && !otmp.blessed)
+                break;
+        }
+    }
+}
+
+/**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
  * full healing (D-1411) / enlightenment (D-1413) / sickness / water;
@@ -1759,7 +1804,7 @@ async function peffect_sleeping(otmp) {
  * POT_INVISIBILITY / SPE_INVISIBILITY (D-1421);
  * POT_POLYMORPH (D-1428); POT_GAIN_ENERGY (D-1429);
  * POT_ACID (D-1430); POT_GAIN_LEVEL (D-1431); POT_BLINDNESS (D-1432);
- * POT_SLEEPING (D-1437);
+ * POT_SLEEPING (D-1437); POT_GAIN_ABILITY (D-1438);
  * other otyps in map.
  */
 export async function peffects(otmp) {
@@ -1839,6 +1884,9 @@ export async function peffects(otmp) {
         return -1;
     case POT_BLINDNESS:
         await peffect_blindness(otmp);
+        return -1;
+    case POT_GAIN_ABILITY:
+        await peffect_gain_ability(otmp);
         return -1;
     default:
         // Other peffect_* deferred — do not useup
