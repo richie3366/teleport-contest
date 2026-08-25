@@ -13,6 +13,7 @@
 //         peffect_gain_energy (D-1429),
 //         peffect_acid (D-1430),
 //         peffect_gain_level (D-1431),
+//         peffect_blindness (D-1432),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -49,6 +50,10 @@
 // ledger 1+amulet → earth_level else Can_rise_up → get_level(depth-1);
 // same-level "It tasted bad"; else You rise through ceiling + goto_level
 // else uneasy; uncursed/blessed pluslvl(FALSE); blessed uexp=rndexp(TRUE)).
+// POT_BLINDNESS peffect_blindness (D-1432; already Blind or
+// (H||E)&&BBlinded → potion_nothing++; make_blinded(itimeout_incr(
+// BlindedTimeout, rn1(200, 250-125*bcsign)), !Blind); callee do.js
+// make_blinded).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -1669,6 +1674,38 @@ async function peffect_gain_level(otmp) {
 }
 
 /**
+ * C youprop.h BlindedTimeout — HBlinded & TIMEOUT.
+ */
+function BlindedTimeout() {
+    const u = game.u || {};
+    return (u.HBlinded | 0) & TIMEOUT;
+}
+
+/**
+ * C ref: potion.c peffect_blindness :1073–1080.
+ * Already Blind, or (HBlinded||EBlinded)&&BBlinded (Eyes override):
+ * potion_nothing++. Always make_blinded(itimeout_incr(BlindedTimeout,
+ * rn1(200, 250-125*bcsign(otmp))), !Blind). Talk is the pre-call
+ * !Blind snapshot (C arg). Callee do.js make_blinded (Eyes talk /
+ * Unaware / Hallucination / Punished set_bc / Sting still named there).
+ * potionhit / potionbreathe / mix / dipsink POT_BLINDNESS still named.
+ */
+async function peffect_blindness(otmp) {
+    const u = game.u || {};
+    const HBlinded = u.HBlinded | 0;
+    const EBlinded = u.EBlinded | 0;
+    const BBlinded = u.BBlinded | 0;
+    if (Blind() || ((HBlinded || EBlinded) && BBlinded)) {
+        potion_nothing++;
+    }
+    const { make_blinded } = await import('./do.js');
+    await make_blinded(
+        itimeout_incr(BlindedTimeout(), rn1(200, 250 - 125 * bcsign(otmp))),
+        !Blind(),
+    );
+}
+
+/**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
  * full healing (D-1411) / enlightenment (D-1413) / sickness / water;
@@ -1679,7 +1716,8 @@ async function peffect_gain_level(otmp) {
  * POT_RESTORE_ABILITY / SPE_RESTORE_ABILITY (D-1420);
  * POT_INVISIBILITY / SPE_INVISIBILITY (D-1421);
  * POT_POLYMORPH (D-1428); POT_GAIN_ENERGY (D-1429);
- * POT_ACID (D-1430); POT_GAIN_LEVEL (D-1431); other otyps in map.
+ * POT_ACID (D-1430); POT_GAIN_LEVEL (D-1431); POT_BLINDNESS (D-1432);
+ * other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1752,6 +1790,9 @@ export async function peffects(otmp) {
         return -1;
     case POT_GAIN_LEVEL:
         await peffect_gain_level(otmp);
+        return -1;
+    case POT_BLINDNESS:
+        await peffect_blindness(otmp);
         return -1;
     default:
         // Other peffect_* deferred — do not useup

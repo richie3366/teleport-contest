@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1432 potion.c peffect_blindness
+
+**Objective:** Open `potion.c` `peffect_blindness` (named).
+Not sleeping.
+**C locus:** `potion.c` `peffect_blindness` `:1073–1080` /
+`peffects` `:1389–1390`; callee `make_blinded`
+`:261–331` (JS `do.js`).
+**Change:** already Blind or (H||E)&&BBlinded →
+potion_nothing++; always make_blinded(itimeout_incr(
+BlindedTimeout, rn1(200, 250-125*bcsign)), !Blind).
+Sleeping still named. potionhit/mix named. Rule #2:
+no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session quaffs blindness).
+**Verified:** private canary **14**/14; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapyourself` WAN_SLOW_MONSTER
+(named from D-1424). Not locking self.
+**Blocked:** none.
 ## 2026-08-25 — review D-1423–D-1431 (audit #1800)
 
 **Objective:** audit — C-fidelity reviews **383–391** of JS SHAs

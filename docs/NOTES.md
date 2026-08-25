@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1431; cadence **#1800** `66254727`
+- **Fortress 44/44** after D-1432; cadence **#1800** `66254727`
   (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
-  Open `potion.c` `peffect_blindness` (named). Not sleeping.
-  Do not skip D-1431…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `zap.c` `zapyourself` WAN_SLOW_MONSTER (named from D-1424).
+  Not locking self.
+  Do not skip D-1432…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1431. Named still: `see_monsters`
+- Do not revert D-1217–D-1432. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -22,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1431.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1432.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,9 +34,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1431 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1432 (index).
 - Named still: rustm / poison / worm-shrieker; remaining peffects
-  (blindness/sleeping/gain ability);
+  (sleeping/gain ability/hallucination);
   remaining wand-duplicate SLEEP/DIG; artifact invoke. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -48,12 +49,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1432: `peffect_blindness` already Blind or
+  (H||E)&&BBlinded → potion_nothing++; always
+  make_blinded(itimeout_incr(BlindedTimeout,
+  rn1(200, 250-125*bcsign)), !Blind). Callee
+  do.js make_blinded. Sleeping still named.
+  potionhit/potionbreathe/mix named.
 - D-1431: `peffect_gain_level` cursed potion_unkn++ then
   ledger 1+amulet → earth_level else Can_rise_up →
   get_level(depth-1); same-level It tasted bad; else
   You rise through ceiling + goto_level else uneasy;
   pluslvl(FALSE); blessed uexp=rndexp(TRUE). Callee
-  dungeon.c Can_rise_up. Blindness still named.
+  dungeon.c Can_rise_up. Blindness is D-1432.
   potionhit/mix named.
 - D-1430: `peffect_acid` Acid_resistance tastes tangy/sour else
   burns a little/a lot/like acid; d(cursed?2:1, blessed?4:8)
@@ -100,6 +107,4 @@ Objective/score live in `CURRENT.md`.
   ABASE=AMAX; potion `pluslvl`. Invisibility is D-1421.
 - D-1419: SPE_LEVITATION `float_up` + timeout/`I_SPECIAL`;
   cursed ceiling. Restore is D-1420.
-- D-1418: SPE_DETECT_MONSTERS blessed TIMEOUT else
-  `monster_detect`. Treasure is D-1417.
 

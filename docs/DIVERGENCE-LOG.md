@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1432 — potion.c peffect_blindness
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** quaffing a potion of blindness printed
+  "That potion is not implemented yet." and skipped
+  `useup`. C `peffects` `:1389–1390` calls
+  `peffect_blindness`. That helper `:1073–1080`:
+  if `Blind || ((HBlinded || EBlinded) && BBlinded)`
+  then `potion_unkn` via `potion_nothing++`; always
+  `make_blinded(itimeout_incr(BlindedTimeout,
+  rn1(200, 250-125*bcsign(otmp))), !Blind)`.
+  Talk is the pre-call `!Blind` snapshot. Callee
+  `do.js` `make_blinded` (already live). potionhit
+  monster POT_BLINDNESS and potionbreathe vapors
+  are separate functions (still named).
+- **C locus:** `potion.c` `peffect_blindness` `:1073–1080`
+  / `peffects` `:1389–1390`. Callee `potion.c`
+  `make_blinded` `:261–331` (JS `do.js`).
+- **JS was:** `peffects` default "not implemented"
+  (return 0, no useup).
+- **Fix:** Port `peffect_blindness`. Wire POT_BLINDNESS.
+  Reuse `itimeout_incr` + `do.js` `make_blinded`.
+  Rule #2: no fs.
+- **JS:** `js/potion.js` `peffects` / `peffect_blindness`.
+- **Not this iter:** remaining peffects (sleeping /
+  gain ability / hallucination); potionhit /
+  potionbreathe / mix / dipsink POT_BLINDNESS;
+  Eyes/Unaware/Hallucination talk arms inside
+  `make_blinded`.
+- **Verified:** private canary **14**/14 (C/JS grep;
+  uncursed cloud + TIMEOUT 250..449 + rn2(200);
+  blessed 125..324; cursed 375..574; already-blind
+  peculiar no cloud + timeout add; EBlinded
+  blindfold peculiar; BBlinded+H Eyes still seeing
+  + peculiar; sighted dknown makeknown; sleeping /
+  gain ability still not-implemented; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session quaffs blindness.
+
 ## D-1431 — potion.c peffect_gain_level
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

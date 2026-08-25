@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-25
+
+- [x] `potion.c` `peffect_blindness` (named). Not sleeping. **Addressed:** D-1432
+
 ## 2026-08-24
 
 - [x] `potion.c` `peffect_gain_level` (named). Not blindness. **Addressed:** D-1431 `66254727`

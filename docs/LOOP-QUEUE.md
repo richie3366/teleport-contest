@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` `peffect_blindness` (named). Not sleeping.
 - [ ] `zap.c` `zapyourself` WAN_SLOW_MONSTER (named from D-1424). Not locking self.
 - [ ] `zap.c` `zapyourself` WAN_LOCKING (named). Not probing self.
 - [ ] `zap.c` `zapyourself` WAN_PROBING (named). Not drain.
