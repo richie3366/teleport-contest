@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `polyself.c` `body_part` aliases: `body_part_head` (mcastu.js), `body_part_hand` (pickup.js). Deferred for scope. zap.js is D-1496. **Addressed:** D-1508
+- [x] `potion.c` `potion_dip` lichen corpse / acid-erode (named). Not H2O useeit. **Addressed:** D-1509
+
+
+- [x] `polyself.c` `body_part` aliases: `body_part_head` (mcastu.js), `body_part_hand` (pickup.js). Deferred for scope. zap.js is D-1496. **Addressed:** D-1508 `be542317`
 
 
 - [x] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle. **Addressed:** D-1507 `a4a370f4`

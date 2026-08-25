@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` `potion_dip` lichen corpse / acid-erode (named). Not H2O useeit.
 - [ ] `zap.c` `poly_obj` worn `set_wear` (named). Not potion_dip.
 - [ ] `objnam.c` `fruit_from_indx` (named). Not the().
 - [ ] `display.c` `any_visible_region` (named). Not Hallu/Warn_of_mon.

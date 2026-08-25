@@ -59,26 +59,26 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1508. **Next cluster:** Open
-`potion.c` `potion_dip` lichen corpse / acid-erode
-(named). Not H2O useeit.
-**Do not skip D-1508…D-1229 (index).** Keep mention_map addr.
+**Map-driven fortress** after D-1509. **Next cluster:** Open
+`zap.c` `poly_obj` worn `set_wear`
+(named). Not potion_dip.
+**Do not skip D-1509…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1508.** Do not FORCE
+**Do not re-break D-0660…D-1509.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1508 (index). Recent: **D-1508**
-`polyself.c` `body_part` aliases — mcastu `HEAD` + pickup
-`HAND` (latebound). `mcast_blind_you` EYE named. Prior:
+**Keep:** D-0845…D-1509 (index). Recent: **D-1509**
+`potion.c` `potion_dip` lichen corpse / acid-erode.
+Prior: **D-1508** `body_part` HEAD/HAND aliases;
 **D-1507** Sokoban `throws_rocks` first-try; **D-1506**
 S_GNOME `begin_burn`. stolen_booty is D-1363.
 minetn-7 is D-1504; minetn-6 is D-1503; minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1508
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1509
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1509 — potion.c potion_dip lichen corpse / acid-erode
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `#dip` of acid onto a lichen corpse or a
+  corrodeable always printed Interesting... C
+  `potion.c` `potion_dip` `:2596–2606` after mix: POT_ACID
+  + CORPSE `corpsenm==PM_LICHEN` → The(cxname) otense
+  turn + Blind wrinkled / diluted `hcolor(NH_ORANGE)` /
+  else `hcolor(NH_RED)` around the edges; `in_use=FALSE`;
+  `dknown` `trycall`; no poof. Then towel/poison. Then
+  `:2638–2643` POT_ACID `erode_obj(obj,0,ERODE_CORRODE,
+  EF_GREASE)!=ER_NOTHING` → poof. Callee `trap.c`
+  `erode_obj` already live. H2O useeit is D-1501.
+- **C locus:** `potion.c` `potion_dip` `:2596–2606` +
+  `:2638–2643`. Caller `dodip` `:2371`. Callee
+  `erode_obj`; `do_name.c` `trycall` / `hcolor`;
+  `objnam.c` `The`/`cxname`/`otense`.
+- **JS was:** named omit after D-1501 — comments at
+  `:2596` / `:2638` skipped both arms.
+- **Fix:** Port both `if`s in C order. Dynamic
+  `trap.js` `erode_obj` (potion↔trap load cycle).
+  Rule #2: no fs.
+- **JS:** `js/potion.js` `potion_dip`.
+- **Not this iter:** worn-slot `set_wear` on
+  `poly_obj`; INTERNALCMD `#altdip`; `erode_obj`
+  `grease_protect` polish / `inventory_resistance_check`
+  AD_ACID (existing trap omit).
+- **Verified:** private canary **17**/17 (C/JS grep;
+  Rule #2; lichen red/orange/Blind wrinkled/quan>1 turn;
+  newt skip; iron sword `oeroded2++` poof; MAX_ERODE /
+  known-proof / ring Interesting keep potion; greased
+  ER_GREASED poof no wear; oil sheen + sickness coat
+  regressions); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session #dips acid onto a
+  lichen corpse or corrodeable.
+- **Follow-up:** Open `zap.c` `poly_obj` worn
+  `set_wear`.
+- **Files:** `js/potion.js`.
+
 ## D-1508 — polyself.c body_part HEAD/HAND aliases
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

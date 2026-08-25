@@ -5,18 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1508; cadence **#1890** `1f64431d`
+- **Fortress 44/44** after D-1509; cadence **#1890** `1f64431d`
   (Scr **11,405** RNG 100%, `38+0.30/turn` R² 0.849). Next: Open
-  `potion.c` `potion_dip` lichen corpse / acid-erode
-  (named). Not H2O useeit. Do not skip D-1508…D-1229.
+  `zap.c` `poly_obj` worn `set_wear`
+  (named). Not potion_dip. Do not skip D-1509…D-1229.
   No FORCE / `wildmiss` wrap / trailing `confdir` in
   shared `getdir`. pickup `body_part` is latebound
   (polyself→do cycle); do not import pickup→polyself.
-- Do not revert D-1217–D-1508. Named still:
+- Do not revert D-1217–D-1509. Named still:
   `any_visible_region`; `see_monsters` worm segs /
   MATCH_WARN / SPFX_WARN conferral; GETOBJ_ALLOWCNT;
-  tamedog is_covetous / is_demon-vs-hero; lichen/acid-erode /
-  worn `set_wear` on poly_obj; INTERNALCMD `#altdip`;
+  tamedog is_covetous / is_demon-vs-hero; worn `set_wear`
+  on poly_obj; INTERNALCMD `#altdip`;
   wander/`somexy` / Wiz_arrive; mktrap_victim floor candle;
   S_KOP / non-salamander S_LIZARD; `mcast_blind_you` EYE;
   `observe_quantum_cat` FOOT.
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1508.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1509.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,8 +39,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1508 (index).
-- Named still: worm-shrieker; lichen/acid-erode;
+  nhcore (D-1066). Do not skip D-1067…D-1509 (index).
+- Named still: worm-shrieker; worn `set_wear` on poly_obj;
   GETOBJ_ALLOWCNT / tamedog is_covetous; fruit_from_indx /
   options fruitadd walker; `ensure_way_out`.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -54,6 +54,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1509: `potion_dip` lichen CORPSE + POT_ACID wrinkle /
+  `hcolor` (Blind/diluted) no-poof + `trycall`; else
+  `erode_obj` ERODE_CORRODE EF_GREASE poof unless
+  ER_NOTHING. Worn `set_wear` named. H2O is D-1501.
 - D-1508: `body_part` aliases — mcastu `HEAD` via
   `polyself.js`; pickup `HAND` via latebound
   (`u_handsy` / `able_to_loot` / Sokoban boulder).
@@ -82,7 +86,7 @@ Objective/score live in `CURRENT.md`.
   (`youprop.h` Blindfolded≡EBlinded); unpaid POT_WATER
   `alter_cost`/`costly_alteration`; `mentioned_water`
   `makeknown`; towel soak; `water_damage` invent container/
-  grease plines. lichen/acid-erode named. dip_into D-1500.
+  grease plines. lichen/acid-erode is D-1509. dip_into D-1500.
 - D-1500: `dip_into` `#altdip` reverse getobj (canned
   `drink_ok` then `dip_ok` GETOBJ_PROMPT); IA_DIP_OBJ;
   ignores floor. poly_obj D-1499.
@@ -104,3 +108,4 @@ Objective/score live in `CURRENT.md`.
 - D-1495: `untrap` door D_TRAPPED find/disarm uses `force`
   (`has_magic_key`→force). Floor disarm_*/box named.
   invoke_healing Blinded 0/1 is D-1494.
+

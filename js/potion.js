@@ -24,6 +24,7 @@
 //         potion_dip poly_obj / obj_unpolyable (D-1499),
 //         dip_into #altdip reverse getobj (D-1500),
 //         H2Opotion_dip useeit ublindf && Blindfolded_only (D-1501),
+//         potion_dip lichen corpse / acid-erode (D-1509),
 //         potionhit remaining otyp switch + shop unpaid (D-1472),
 //         potionbreathe remaining otyps (D-1477),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
@@ -134,6 +135,7 @@ import {
     QBUFSZ, STONED, SLIMED, SICK, SICK_ALL,
     A_CHAOTIC, A_LAWFUL, Upolyd, ismnum, NON_PM, NEUTRAL,
     P_RIDING, P_BASIC, ER_DESTROYED, ER_NOTHING, MM_NOMSG,
+    ERODE_CORRODE, EF_GREASE,
     OBJ_INVENT, ARTICLE_THE, SUPPRESS_IT, SUPPRESS_SADDLE, W_SADDLE,
     POLY_NOFLAGS, POLY_CONTROLLED, POLY_LOW_CTRL, UNCHANGING, ACID_RES,
     M_SEEN_SLEEP, FIXED_ABIL, ANTIMAGIC, SHOPBASE, STRAT_WAITFORU,
@@ -156,7 +158,7 @@ import {
     dmgtype, MR_POISON, MR_ACID, MR_SLEEP,
 } from './monsters.js';
 import { rider_cant_reach } from './steed.js';
-import { PM_HUMAN, PM_HEALER } from './generated/monsters_data.js';
+import { PM_HUMAN, PM_HEALER, PM_LICHEN } from './generated/monsters_data.js';
 import { makemon, set_malign } from './makemon.js';
 import { mongone, wakeup, healmon, wake_nearto, dist2, m_at, seemimic } from './mon.js';
 import { tamedog } from './dog.js';
@@ -222,6 +224,7 @@ const UNICORN_HORN = objectNames.indexOf('UNICORN_HORN');
 const AMETHYST = objectNames.indexOf('AMETHYST');
 const ALCHEMY_SMOCK = objectNames.indexOf('ALCHEMY_SMOCK');
 const TOWEL = objectNames.indexOf('TOWEL');
+const CORPSE = objectNames.indexOf('CORPSE');
 const PM_DJINNI = monsterNames.indexOf('PM_DJINNI');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const PM_CYCLOPS = monsterNames.indexOf('PM_CYCLOPS');
@@ -238,6 +241,8 @@ const ZT_SPELL_O_FIRE = 11;
 const NH_AMBER = 'amber';
 const NH_LIGHT_BLUE = 'light blue';
 const NH_BLACK = 'black';
+const NH_RED = 'red';
+const NH_ORANGE = 'orange';
 
 /** C: gp.potion_nothing / gp.potion_unkn for dopotion trycall gate. */
 let potion_nothing = 0;
@@ -3215,8 +3220,8 @@ function Yname2_pot(obj) {
  * Envelope: Klein bottle, hands, H2Opotion_dip useeit (D-1501),
  * poly_obj/obj_unpolyable (D-1499), potion-potion mixtype (D-1457),
  * poison-coat / healing unpoison (D-1497), oil/lamp (D-1498),
- * unicorn/amethyst mixtype dip (D-1486), towel soak. Named: lichen/acid
- * corpse, acid-erode. dip_into is D-1500.
+ * unicorn/amethyst mixtype dip (D-1486), towel soak,
+ * lichen corpse / acid-erode (D-1509). dip_into is D-1500.
  */
 async function potion_dip(obj, potion) {
     if (potion === obj && (potion.quan | 0) === 1) {
@@ -3341,7 +3346,21 @@ async function potion_dip(obj, potion) {
         return ECMD_TIME;
     }
 
-    /* C potion.c potion_dip `:2596–2606` lichen/acid named. */
+    /* C potion.c potion_dip `:2596–2606` — acid + lichen corpse
+     * wrinkle/color; potion does not poof. */
+    if ((potion.otyp | 0) === POT_ACID && (obj.otyp | 0) === CORPSE
+        && (obj.corpsenm | 0) === PM_LICHEN) {
+        const edge = Blind()
+            ? 'wrinkled'
+            : potion.odiluted
+                ? hcolor(NH_ORANGE)
+                : hcolor(NH_RED);
+        await pline(`${The(cxname(obj))} ${
+            otense_pot(obj, 'turn')} ${edge} around the edges.`);
+        potion.in_use = false; /* didn't go poof */
+        if (potion.dknown) await trycall(potion);
+        return ECMD_TIME;
+    }
 
     /* C potion.c potion_dip `:2608–2613` — POT_WATER + TOWEL after
      * H2Opotion_dip returned false (water_damage already wet it). */
@@ -3376,7 +3395,16 @@ async function potion_dip(obj, potion) {
         }
     }
 
-    // acid-erode named (C `:2638–2643` between poison-coat and oil)
+    /* C potion.c potion_dip `:2638–2643` — POT_ACID erode_obj CORRODE
+     * EF_GREASE; poof unless ER_NOTHING. Callee trap.c erode_obj. */
+    if ((potion.otyp | 0) === POT_ACID) {
+        const { erode_obj } = await import('./trap.js');
+        if ((await erode_obj(obj, null, ERODE_CORRODE, EF_GREASE))
+            !== ER_NOTHING) {
+            await poof(potion);
+            return ECMD_TIME;
+        }
+    }
     // C potion.c potion_dip `:2645–2686` POT_OIL weapon/weptool; `:2687–2724`
     // more_dips OIL_LAMP / MAGIC_LAMP fill (goto more_dips for non-weapons).
     let oil_more_dips = false;

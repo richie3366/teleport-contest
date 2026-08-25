@@ -9,6 +9,25 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-26 — D-1509 potion.c potion_dip lichen corpse / acid-erode
+
+**Objective:** Open `potion.c` `potion_dip` lichen corpse /
+acid-erode (named). Not H2O useeit.
+**C locus:** `potion.c` `potion_dip` `:2596–2606` +
+`:2638–2643`; callee `trap.c` `erode_obj`.
+**JS locus:** `js/potion.js` `potion_dip`.
+**Change:** acid+lichen corpse wrinkle/color, no poof,
+`trycall` if dknown. Else POT_ACID `erode_obj`
+ERODE_CORRODE EF_GREASE; poof unless ER_NOTHING.
+Dynamic trap import. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1890); public-unhit
+until a session #dips acid onto a lichen corpse or
+corrodeable.
+**Verified:** canary **17**/17; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `zap.c` `poly_obj` worn `set_wear`.
+Not potion_dip.
+**Blocked:** none.
 ## 2026-08-26 — D-1508 polyself.c body_part HEAD/HAND aliases
 
 **Objective:** Open `polyself.c` `body_part` aliases:
