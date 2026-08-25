@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1447 uhitm.c mhitm_ad_phys poison leftover
+
+**Objective:** Open `uhitm.c` `mhitm_ad_phys` poison leftover
+(named from D-1415). Not rustm.
+**C locus:** `uhitm.c` `mhitm_ad_phys` `:4184–4189`; callee
+`mhitm_really_poison` `:3104–3118`.
+**Change:** after rustm, poisoned/Grimtooth wep `!rn2(4)` →
+vis poisoned pline, resist skip or `rn1(10,6)` + deadly.
+mhitu `poisoned()` / AD_DRST 1/8 / worm-shrieker named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless
+a session has mon-vs-mon poisoned wep).
+**Verified:** private canary **14**/14; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` SPE_MAGIC_MISSILE wand-duplicate
+RAY (named from D-1440). Not FINGER.
+**Blocked:** none.
 ## 2026-08-25 — D-1446 zap.c zapyourself SPE_DRAIN_LIFE
 
 **Objective:** Open `zap.c` `zapyourself` SPE_DRAIN_LIFE

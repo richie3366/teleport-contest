@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1446; cadence **#1810** `530eaa3c`
+- **Fortress 44/44** after D-1447; cadence **#1810** `530eaa3c`
   (Scr **11,405** RNG 100% speed `36+0.30/turn` R² 0.857). Next:
-  Open `uhitm.c` `mhitm_ad_phys` poison leftover (named from
-  D-1415). Not rustm.
-  Do not skip D-1446…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `spell.c` SPE_MAGIC_MISSILE wand-duplicate RAY (named from
+  D-1440). Not FINGER.
+  Do not skip D-1447…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1446. Named still: `see_monsters`
+- Do not revert D-1217–D-1447. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1446.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1447.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,8 +34,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1446 (index).
-- Named still: poison leftover / worm-shrieker; remaining mix /
+  nhcore (D-1066). Do not skip D-1067…D-1447 (index).
+- Named still: worm-shrieker; remaining mix /
   potionhit / potionbreathe;
   remaining wand-duplicate MAGIC_MISSILE / FINGER / IMMEDIATE;
   bhito drain_item; artifact invoke. No fountain
@@ -50,6 +50,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1447: `mhitm_ad_phys` poison leftover
+  after rustm `(opoisoned||permapoisoned)
+  && !rn2(4)` → `mhitm_really_poison`
+  vis pline / resist skip / rn1(10,6)+deadly.
+  Grimtooth permapoisoned. mhitu poisoned /
+  mhitm_ad_drst 1/8 / worm-shrieker named.
 - D-1446: `zapyourself` SPE_DRAIN_LIFE
   `!Drain_resistance` (youprop H||E /
   uprops[DRAIN_RES]) then learn +
@@ -76,7 +82,7 @@ Objective/score live in `CURRENT.md`.
   `if (damage) rustm(mdef, mwep)` after artifact_hit;
   callee `mhitm.c` rustm AD_CORR / AD_RUST / AD_FIRE
   except steam vortex then `erode_obj` GREASE|VERBOSE.
-  mhitu rustm / poison / worm-shrieker named.
+  mhitu rustm / mhitm_ad_drst / worm-shrieker named.
 - D-1441: SPE_DIG RAY wand-duplicate
   `wand_duplicate_weffects` → `weffects` zap_dig;
   self-dir zapyourself no-op. MAGIC_MISSILE /
@@ -108,7 +114,5 @@ Objective/score live in `CURRENT.md`.
   !closeholdingtrap then boxlock_invent.
 - D-1433: `zapyourself` WAN_SLOW HFast
   TIMEOUT|INTRINSIC → u_slow_down.
-- D-1432: `peffect_blindness` potion_nothing if
-  Blind; make_blinded rn1 timeout.
 
 

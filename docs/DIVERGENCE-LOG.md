@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1447 — uhitm.c mhitm_ad_phys poison leftover
+
+- **Status:** fixed (map-driven Open from D-1415; not a public FAIL)
+- **Symptom:** a monster-vs-monster AT_WEAP/AT_CLAW AD_PHYS hit
+  that already applied `dmgval` / `artifact_hit` / `rustm` still
+  skipped weapon poison. C `mhitm_ad_phys` mhitm arm after rustm
+  `if ((mwep->opoisoned || permapoisoned(mwep)) && !rn2(4))`
+  calls `mhitm_really_poison` (m-vs-m only: not mcan, not the
+  AD_DRST 1/8). That helper vis-plines `s_suffix(Monnam)` +
+  `mpoisons_subj` "was poisoned!", then `resists_poison` skip
+  else `mhm->damage += rn1(10, 6)` and a deadly pline when
+  leftover >= mhp. Poison is **not** gated on leftover damage
+  (unlike rustm). `permapoisoned` is Grimtooth. Caller
+  `mdamagem` `case AD_PHYS`.
+- **C locus:** `uhitm.c` `mhitm_ad_phys` `:4184–4189` (mhitm
+  arm after D-1442 rustm, before purple-worm/shrieker). Callee
+  `mhitm_really_poison` `:3104–3118`; `mhitu.c` `mpoisons_subj`
+  `:145–158`; `artifact.c` `permapoisoned` `:2837–2840`.
+  Caller `mhitm.c` `mdamagem` `:1059` `mhitm_adtyping`
+  `case AD_PHYS`.
+- **JS was:** named omit (D-1415 / D-1442). rustm live; poisoned
+  / Grimtooth wep never added `rn1(10,6)` or poison plines.
+- **Fix:** after rustm, `opoisoned || permapoisoned` then
+  `!rn2(4)` → `mhitm_really_poison`. Resist uses
+  `Resists_Elem` subset (`mresists|mextrinsics|mintrinsics`);
+  worn/artifact grants named. Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_phys` / `mhitm_really_poison`.
+- **Not this iter:** mhitu `mhitm_ad_phys_u` `poisoned()`;
+  `mhitm_ad_drst` 1/8 (uhitm/mhitu/mhitm); purple worm vs
+  shrieker cap; `hmon_hitmon_poison`; worn-item poison resist.
+- **Verified:** private canary **14**/14 (C/JS grep; unpoisoned
+  club dmgval-only; poisoned gnome extras 6..15; orc resist
+  no HP; bite nulls mwep; vis poisoned/resist/deadly plines;
+  Grimtooth `rn2(4)` without opoisoned; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session has mon-vs-mon poisoned
+  wep via `mdamagem`.
+- **Follow-up:** Open `spell.c` SPE_MAGIC_MISSILE wand-duplicate
+  RAY (named from D-1440). Not FINGER.
+- **Files:** `js/mhitm.js`.
+
 ## D-1446 — zap.c zapyourself SPE_DRAIN_LIFE
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

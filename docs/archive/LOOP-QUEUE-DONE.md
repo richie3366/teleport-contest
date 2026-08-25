@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zapyourself` SPE_DRAIN_LIFE (named). Not bhitm drain. **Addressed:** D-1446
+- [x] `uhitm.c` `mhitm_ad_phys` poison leftover (named from D-1415). Not rustm. **Addressed:** D-1447
+
+
+- [x] `zap.c` `zapyourself` SPE_DRAIN_LIFE (named). Not bhitm drain. **Addressed:** D-1446 `ed218e86`
 
 
 - [x] `zap.c` `bhito` WAN_PROBING (named). Not updown. **Addressed:** D-1445 `7628b03e`

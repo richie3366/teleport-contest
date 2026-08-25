@@ -14,7 +14,7 @@ import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
 import { resist_conflict, set_mon_data, on_fire } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval } from './weapon.js';
-import { arti_reflects, artifact_hit } from './artifact.js';
+import { arti_reflects, artifact_hit, is_art, ART_GRIMTOOTH } from './artifact.js';
 import { find_mac, which_armor } from './worn.js';
 import { update_monster_region } from './region.js';
 import { remove_worm, place_worm_tail_randomly } from './worm.js';
@@ -95,7 +95,7 @@ import {
     thick_skinned,
     unsolid, is_whirly, passes_walls, haseyes, flaming, slimeproof,
     is_male, is_female, is_shapeshifter, has_head, mon_hates_silver,
-    noncorporeal,
+    noncorporeal, MR_POISON,
 } from './monsters.js';
 import { objectNames } from './objects.js';
 import { ART_TROLLSBANE } from './generated/artifacts_data.js';
@@ -899,16 +899,82 @@ export async function rustm(mdef, obj) {
 }
 
 /**
+ * C ref: artifact.c permapoisoned :2837–2840 — currently only Grimtooth.
+ * Caller uhitm.c mhitm_ad_phys mhitm leftover `:4184`.
+ */
+function permapoisoned(obj) {
+    return !!(obj && is_art(obj, ART_GRIMTOOTH));
+}
+
+/**
+ * C ref: mhitu.c mpoisons_subj :145–158.
+ * AT_WEAP uses MON_WEP opoisoned (not permapoisoned). Other aatyps
+ * are contact/gaze/bite else sting. Local: mhitu.js is a cycle.
+ */
+function mpoisons_subj_mm(mtmp, mattk) {
+    const aatyp = mattk?.aatyp | 0;
+    if (aatyp === AT_WEAP) {
+        const mwep = MON_WEP(mtmp);
+        return (!mwep || !mwep.opoisoned) ? 'attack' : 'weapon';
+    }
+    if (aatyp === AT_TUCH) return 'contact';
+    if (aatyp === AT_GAZE) return 'gaze';
+    if (aatyp === AT_BITE) return 'bite';
+    return 'sting';
+}
+
+/**
+ * C ref: monst.h resists_poison → Resists_Elem(POISON_RES) subset:
+ * data.mresists | mextrinsics | mintrinsics. Artifact/worn grants named.
+ * mhitm_really_poison is m-vs-m only (not youmonst).
+ */
+function resists_poison_mm(mtmp) {
+    if (!mtmp) return false;
+    const bits = (mtmp.data?.mresists | 0)
+        | (mtmp.mextrinsics | 0)
+        | (mtmp.mintrinsics | 0);
+    return !!(bits & MR_POISON);
+}
+
+/**
+ * C ref: uhitm.c mhitm_really_poison :3104–3118.
+ * m-vs-m only — not subject to mcan or the AD_DRST 1/8. vis uses gv.vis
+ * (`_mm_vis`). Caller mhitm_ad_phys leftover `:4184–4189` after rustm
+ * (D-1447). mhitm_ad_drst mhitm 1/8 still named.
+ */
+async function mhitm_really_poison(magr, mattk, mdef, mhm) {
+    if (_mm_vis && canspotmon(magr)) {
+        await pline(
+            `${s_suffix_mm(Monnam(magr))} ${mpoisons_subj_mm(magr, mattk)} was poisoned!`,
+        );
+    }
+    if (resists_poison_mm(mdef)) {
+        if (_mm_vis && canspotmon(mdef) && canspotmon(magr)) {
+            await pline(
+                `The poison doesn't seem to affect ${mon_nam(mdef)}.`,
+            );
+        }
+    } else {
+        mhm.damage = (mhm.damage | 0) + rn1(10, 6);
+        if ((mhm.damage | 0) >= (mdef.mhp | 0)
+            && _mm_vis && canspotmon(mdef)) {
+            await pline('The poison was deadly...');
+        }
+    }
+}
+
+/**
  * C ref: uhitm.c mhitm_ad_phys mhitm arm :4128–4198 (D-1394 shade;
  * D-1402 mwep dmgval; D-1403 AT_KICK thick_skinned; D-1415 artifact_hit;
- * D-1442 rustm).
+ * D-1442 rustm; D-1447 poison leftover).
  * Re-reads MON_WEP then zeros it unless AT_WEAP/AT_CLAW (so a bite
  * while holding silver still shade_misses). vis is canseemon both,
  * not gv.vis. Delayed artifact hit-pline uses gv.vis (`_mm_vis`).
  * shade_miss callee is D-1341. artifact_hit callee is D-0613.
  * rustm callee is mhitm.c :1260–1280.
- * Named omit: youmonst is damageum_ad_phys; mhitu is mhitm_ad_phys_u;
- * mhitm_really_poison; purple worm vs shrieker cap.
+ * Named omit: youmonst is damageum_ad_phys; mhitu is mhitm_ad_phys_u
+ * (was_poisoned + poisoned()); mhitm_ad_drst 1/8; purple worm vs
+ * shrieker cap.
  */
 async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
     let mwep = MON_WEP(magr);
@@ -924,8 +990,8 @@ async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
            cannot wear boots. Zeros leftover d() (mwep already nulled). */
         mhm.damage = 0;
     } else if (mwep) {
-        /* C `:4142–4183` — corpse stone then dmgval + gauntlets + min 1
-           then artifact_hit then rustm if leftover. poison still named. */
+        /* C `:4142–4189` — corpse stone then dmgval + gauntlets + min 1
+           then artifact_hit then rustm if leftover then 1/4 poison. */
         if ((mwep.otyp | 0) === CORPSE
             && touch_petrifies(mons(mwep.corpsenm))) {
             await do_stone_mon(magr, mattk, mdef, mhm);
@@ -960,9 +1026,13 @@ async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
                 return;
             }
         }
-        /* C `:4182–4183` — rustm after artifact_hit iff leftover;
-           poison is the next leftover. */
+        /* C `:4182–4189` — rustm after artifact_hit iff leftover;
+           then 1/4 poisoned/permapoisoned leftover (not gated on
+           leftover damage). */
         if (mhm.damage | 0) await rustm(mdef, mwep);
+        if ((mwep.opoisoned || permapoisoned(mwep)) && !rn2(4)) {
+            await mhitm_really_poison(magr, mattk, mdef, mhm);
+        }
     }
 }
 
@@ -2490,10 +2560,11 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
 
     // C: mhitm_adtyping → mhitm_ad_phys for AD_PHYS (D-1394 shade;
     // D-1402 mwep dmgval; D-1403 AT_KICK thick_skinned; D-1415
-    // artifact_hit; D-1442 rustm). shade_miss zeros leftover. AT_KICK
-    // vs thick hide zeros leftover (mwep already nulled). AT_WEAP/AT_CLAW
-    // mwep adds dmgval then artifact_hit then rustm. Non-zero dice fall
-    // through to shared knockback + HP. Poison leftover still named.
+    // artifact_hit; D-1442 rustm; D-1447 poison leftover). shade_miss
+    // zeros leftover. AT_KICK vs thick hide zeros leftover (mwep
+    // already nulled). AT_WEAP/AT_CLAW mwep adds dmgval then
+    // artifact_hit then rustm then 1/4 poison. Non-zero dice fall
+    // through to shared knockback + HP. Worm-shrieker still named.
     if ((mattk.adtyp | 0) === AD_PHYS) {
         const mhm = {
             damage,
