@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1448; cadence **#1810** `530eaa3c`
+- **Fortress 44/44** after D-1449; cadence **#1810** `530eaa3c`
   (Scr **11,405** RNG 100% speed `36+0.30/turn` R² 0.857). Next:
-  Open `spell.c` SPE_FINGER_OF_DEATH wand-duplicate RAY (named from
-  D-1440). Not MAGIC_MISSILE.
-  Do not skip D-1448…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `zap.c` `weffects` SPE_KNOCK IMMEDIATE wand-duplicate
+  (named from D-1427). Not SLOW.
+  Do not skip D-1449…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1448. Named still: `see_monsters`
+- Do not revert D-1217–D-1449. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1448.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1449.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,10 +34,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1448 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1449 (index).
 - Named still: worm-shrieker; remaining mix /
   potionhit / potionbreathe;
-  remaining wand-duplicate FINGER / IMMEDIATE;
+  remaining wand-duplicate IMMEDIATE;
   bhito drain_item; artifact invoke. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -50,11 +50,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1449: SPE_FINGER_OF_DEATH RAY wand-duplicate
+  `wand_duplicate_weffects` → `weffects` ubuzz
+  BZ_U_SPELL nd=ulevel/2+1; BZ_OFS 4 (ZT_DEATH);
+  self-dir zapyourself already D-0156. MAGIC_MISSILE
+  is D-1448; IMMEDIATE named. Sleep/dig are
+  D-1440/D-1441.
 - D-1448: SPE_MAGIC_MISSILE RAY wand-duplicate
   `wand_duplicate_weffects` → `weffects` ubuzz
   BZ_U_SPELL nd=ulevel/2+1; self-dir zapyourself
-  already D-1364 / Antimagic D-1367. FINGER /
-  IMMEDIATE named. Sleep/dig are D-1440/D-1441.
+  already D-1364 / Antimagic D-1367. IMMEDIATE
+  named. Sleep/dig are D-1440/D-1441.
 - D-1447: `mhitm_ad_phys` poison leftover
   after rustm `(opoisoned||permapoisoned)
   && !rn2(4)` → `mhitm_really_poison`
@@ -91,7 +97,7 @@ Objective/score live in `CURRENT.md`.
 - D-1441: SPE_DIG RAY wand-duplicate
   `wand_duplicate_weffects` → `weffects` zap_dig;
   self-dir zapyourself no-op. MAGIC_MISSILE is D-1448;
-  FINGER / IMMEDIATE named. Swallow pierce named
+  FINGER is D-1449; IMMEDIATE named. Swallow pierce named
   on zap_dig.
 - D-1440: SPE_SLEEP RAY wand-duplicate
   `wand_duplicate_weffects` → `weffects` ubuzz
@@ -115,7 +121,5 @@ Objective/score live in `CURRENT.md`.
 - D-1435: `zapyourself` WAN_PROBING invent
   probe_objchain + update_inventory + learn +
   ustatusline (not probe_monster). Array D-1017.
-- D-1434: `zapyourself` WAN_LOCKING utrap ||
-  !closeholdingtrap then boxlock_invent.
 
 

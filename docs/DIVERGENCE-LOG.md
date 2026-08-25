@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1449 — spell.c SPE_FINGER_OF_DEATH RAY wand-duplicate
+
+- **Status:** fixed (map-driven Open from D-1440; not a public FAIL)
+- **Symptom:** casting finger of death (`spelleffects` SPE_FINGER_OF_DEATH)
+  was "Nothing happens." C `:1472–1514` puts SPE_FINGER_OF_DEATH in
+  the wand-duplicate group: `oc_dir == RAY` so getdir then
+  `zapyourself` (dx=dy=dz=0) or `weffects(pseudo)` then
+  `update_inventory()`. `weffects` `:3456–3468` RAY
+  `otyp >= SPE_MAGIC_MISSILE && otyp <= SPE_FINGER_OF_DEATH`
+  calls `ubuzz(BZ_U_SPELL(BZ_OFS_SPE(otyp)), u.ulevel/2+1)`.
+  SPE_FINGER_OF_DEATH is offset 4 (`ZT_DEATH`); type 14.
+  Fake spellbook is SPBOOK so `learnwand` skips `makeknown`;
+  disclose still `more_experienced(0,10)` when the type was
+  unknown. Self-zap `zapyourself` `:2885–2902` already live
+  (D-0156 / D-0928 #1103): nonliving/demon harmless beam
+  else learn + `done(DIED)`.
+- **C locus:** `spell.c` `spelleffects` `:1472–1514`. Callee
+  `zap.c` `weffects` `:3461–3462` / `ubuzz` / `zhitm`
+  `:4299–4341`; `zapyourself` `:2885–2902` on self-dir.
+- **JS was:** other-otyp "Nothing happens." after D-1448
+  SPE_MAGIC_MISSILE; weffects RAY SPE range already live
+  (D-1386); zapyourself WAN/SPE_FINGER_OF_DEATH already live.
+- **Fix:** route SPE_FINGER_OF_DEATH through
+  `wand_duplicate_weffects` (`physical_damage` false).
+  Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callee `js/zap.js`
+  `weffects` / `ubuzz` / `zapyourself`.
+- **Not this iter:** remaining wand-duplicate IMMEDIATE
+  (KNOCK / SLOW / LOCK / …); zhitm `PM_DEATH` heal /
+  `is_vampshifter` / `defended(AD_MAGM)`; zhitu breath
+  disintegrate.
+- **Verified:** private canary **25**/25 (C/JS grep; RAY
+  SPBOOK vs WAN_DEATH; BZ_OFS 4; undead self-dir 0 dmg;
+  directed SPBOOK skip makeknown; KNOCK still Nothing
+  happens; SLEEP/DIG/MAGIC_MISSILE/LIGHT/DRAIN still
+  wired; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts finger of death.
+- **Follow-up:** Open `zap.c` `weffects` SPE_KNOCK
+  IMMEDIATE wand-duplicate (named from D-1427). Not SLOW.
+- **Files:** `js/spell.js`, `js/zap.js` (comments).
+
 ## D-1448 — spell.c SPE_MAGIC_MISSILE RAY wand-duplicate
 
 - **Status:** fixed (map-driven Open from D-1440; not a public FAIL)
