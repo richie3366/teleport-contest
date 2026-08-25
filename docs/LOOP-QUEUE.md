@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `weffects` SPE_KNOCK IMMEDIATE wand-duplicate (named from D-1427). Not SLOW.
 - [ ] `zap.c` `weffects` SPE_SLOW_MONSTER IMMEDIATE wand-duplicate (named). Not LOCK.
 - [ ] `zap.c` `weffects` SPE_WIZARD_LOCK IMMEDIATE wand-duplicate (named). Not POLYMORPH.
 - [ ] `zap.c` `bhito` SPE_DRAIN_LIFE `drain_item` (named). Not probing.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `zap_steed` WAN_TELEPORTATION (named). Not probing.
 - [ ] `zap.c` `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT (named). Not OPENING.
 - [ ] `potion.c` remaining mix alchemy (named from D-1439). Not peffects.
+- [ ] `zap.c` `weffects` SPE_TURN_UNDEAD IMMEDIATE wand-duplicate (named). Not POLYMORPH.
+- [ ] `zap.c` `weffects` SPE_POLYMORPH IMMEDIATE wand-duplicate (named). Not CANCELLATION.
+- [ ] `zap.c` `weffects` SPE_CANCELLATION IMMEDIATE wand-duplicate (named). Not STONE.
+- [ ] `zap.c` `weffects` SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate (named). Not mix.
+- [ ] `zap.c` `bhit` doorlock WAN_OPENING/SPE_KNOCK (named). Not boxlock.
 
 ## Parked (do not pop)
 

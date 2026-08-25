@@ -77,8 +77,9 @@
 // wand-duplicate weffects is D-1440; SPE_DIG RAY
 // wand-duplicate weffects/zap_dig is D-1441; SPE_MAGIC_MISSILE
 // RAY wand-duplicate weffects is D-1448; SPE_FINGER_OF_DEATH
-// RAY wand-duplicate weffects is D-1449; remaining IMMEDIATE
-// wand-duplicate;
+// RAY wand-duplicate weffects is D-1449; SPE_KNOCK IMMEDIATE
+// wand-duplicate weffects is D-1450; remaining IMMEDIATE
+// wand-duplicate SLOW/LOCK/…;
 // potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
@@ -2423,7 +2424,9 @@ export async function do_enlightenment_effect() {
  * SPE_DIG RAY wand-duplicate weffects zap_dig (D-1441).
  * SPE_MAGIC_MISSILE RAY wand-duplicate weffects ubuzz (D-1448).
  * SPE_FINGER_OF_DEATH RAY wand-duplicate weffects ubuzz (D-1449).
- * Named omit: remaining wand-duplicate IMMEDIATE.
+ * SPE_KNOCK IMMEDIATE wand-duplicate weffects bhit (D-1450;
+ * bhitm/zapyourself SPE_KNOCK already D-0981).
+ * Named omit: remaining wand-duplicate IMMEDIATE (SLOW/LOCK/…).
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -5005,7 +5008,8 @@ async function zap_steed(obj) {
  * WAN_DIGGING/SPE_DIG → zap_dig (SPE_DIG cast D-1441);
  * RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH ubuzz (D-1386)
  * including SPE_SLEEP (D-1440), SPE_MAGIC_MISSILE (D-1448),
- * and SPE_FINGER_OF_DEATH (D-1449) wand-duplicate.
+ * and SPE_FINGER_OF_DEATH (D-1449) wand-duplicate;
+ * SPE_KNOCK IMMEDIATE bhit (D-1450; bhitm D-0981).
  * zap_steed WAN_PROBING (D-1443); zap_updown WAN_PROBING (D-1444);
  * remaining zap_steed otyps / other zap_updown otyps / doorlock
  * deferred.

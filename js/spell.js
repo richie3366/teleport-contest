@@ -63,6 +63,10 @@
 // SPE_FINGER_OF_DEATH RAY weffects → ubuzz BZ_U_SPELL (D-1449;
 // C `:1472` same group; callee zap.c `:3461–3462`; self-dir
 // zapyourself already D-0156 / D-0928 #1103).
+// SPE_KNOCK IMMEDIATE weffects → bhit (D-1450; C `:1464` same
+// wand-duplicate group; callee zap.c `:3440–3451` IMMEDIATE
+// bhit/bhitm; bhitm SPE_KNOCK mhurtle D-0981; self-dir
+// zapyourself already D-0981).
 // SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436; C `:1477`
 // same wand-duplicate group; callee zap.c `:521–544`).
 // SPE_DRAIN_LIFE self-dir zapyourself !Drain_resistance + losexp
@@ -71,7 +75,7 @@
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects
 // mix/potionhit/potionbreathe;
-// remaining wand-duplicate IMMEDIATE);
+// remaining wand-duplicate IMMEDIATE SLOW/LOCK/…);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -230,6 +234,7 @@ const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
 const SPE_SLEEP = objectNames.indexOf('SPE_SLEEP');
 const SPE_DIG = objectNames.indexOf('SPE_DIG');
 const SPE_FINGER_OF_DEATH = objectNames.indexOf('SPE_FINGER_OF_DEATH');
+const SPE_KNOCK = objectNames.indexOf('SPE_KNOCK');
 const SPE_DRAIN_LIFE = objectNames.indexOf('SPE_DRAIN_LIFE');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
@@ -1787,10 +1792,12 @@ async function cast_protection() {
  * self-dir zapyourself is D-1364. SPE_FINGER_OF_DEATH RAY
  * weffects → ubuzz BZ_U_SPELL (D-1449; C `:1472` /
  * zap.c `:3461–3462`); self-dir zapyourself is D-0156.
+ * SPE_KNOCK IMMEDIATE weffects → bhit (D-1450; C `:1464` /
+ * zap.c `:3440–3451`); self-dir zapyourself is D-0981.
  * SPE_DRAIN_LIFE IMMEDIATE
  * weffects → bhitm (D-1436; C `:1477` / zap.c `:521–544`);
  * self-dir zapyourself is D-1446. Remaining wand-duplicate
- * IMMEDIATE still named.
+ * IMMEDIATE (SLOW/LOCK/…) still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -2000,7 +2007,15 @@ export async function spelleffects(spell_otyp, atme, force) {
          * nd=ulevel/2+1 (D-1449; callee zap.c :3461–3462).
          * BZ_OFS 4 (ZT_DEATH). physical_damage is
          * FORCE_BOLT-only. Self-dir zapyourself already
-         * D-0156 / D-0928 #1103. IMMEDIATE still named. */
+         * D-0156 / D-0928 #1103. Remaining IMMEDIATE named. */
+        await wand_duplicate_weffects(pseudo, atme, false);
+    } else if (otyp === SPE_KNOCK) {
+        /* C spell.c :1464–1514 wand-duplicate IMMEDIATE weffects
+         * → bhit(rn1(8,6), bhitm, bhito) (D-1450; callee
+         * zap.c :3440–3451). physical_damage is FORCE_BOLT-only.
+         * Self-dir zapyourself already D-0981. bhitm SPE_KNOCK
+         * mhurtle/saddle already D-0981. SLOW/LOCK still named.
+         * doorlock / zap_updown OPENING / bhito boxlock named. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_DRAIN_LIFE) {
         /* C spell.c :1477–1514 wand-duplicate IMMEDIATE weffects
