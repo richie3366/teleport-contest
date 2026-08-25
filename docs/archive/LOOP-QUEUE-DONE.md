@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `objnam.c` `the()` fruit_from_name + artifact_name (named). Not CapitalMon. **Addressed:** D-1487
+- [x] `artifact.c` `doinvoke` remaining `inv_prop` (named). Not BLINDING_RAY. **Addressed:** D-1488
+
+
+- [x] `objnam.c` `the()` fruit_from_name + artifact_name (named). Not CapitalMon. **Addressed:** D-1487 `8d41bd04`
 
 
 - [x] `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype. **Addressed:** D-1486 `9f784a5c`

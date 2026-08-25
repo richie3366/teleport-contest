@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1488 — artifact.c arti_invoke remaining inv_prop
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `#invoke` on artifacts with `inv_prop > LAST_PROP`
+  other than Sunsword, or property-toggle arts (Orb/Ahriman/Sceptre),
+  printed `nothing_happens`. JS dispatched only BLINDING_RAY
+  (D-1377); remaining specials and the `else` xor `W_ARTI` arm
+  were named stubs (no cost).
+- **C locus:** `artifact.c` `arti_invoke` switch `:2154–2172` and
+  property arm `:2178–2228`; helpers `invoke_healing` `:1779–1815`,
+  `invoke_energy_boost` `:1818–1835`, `invoke_untrap` `:1838–1845`,
+  `invoke_create_ammo` `:1934–1960`, `invoke_fling_poison`
+  `:2022–2037`, `invoke_storm_spell` `:2040–2051`;
+  `arti_invoke_cost` already D-1377. Callees already live:
+  `make_sick`/`make_slimed`/`make_blinded`, `untrap`, `level_tele`,
+  `enlightenment`, `hold_another_object`, `throwit`, `spelleffects`,
+  `float_up`/`float_down`.
+- **JS was:** `nothing_happens` after crystal-ball for every
+  special except BLINDING_RAY, and for all `inv_prop <= LAST_PROP`.
+- **Fix:** cost then switch for live specials; HEALING half-HP +
+  Sick/Slimed/BlindedTimeout; ENERGY clamp; UNTRAP force getdir;
+  LEV_TELE; ENLIGHTENING MAGIC; CREATE_AMMO `mksobj(ARROW)` +
+  `rnd`; FLING_POISON `rn2` venom + `throwit`; FIRESTORM/SNOWSTORM
+  temp `P_EXPERT` `spelleffects`; property xor `W_ARTI` on flats +
+  `uprops`. Rule #2: no fs.
+- **JS:** `js/artifact.js` `arti_invoke` / helpers.
+- **Not this iter:** TAMING (`seffects` SCR_TAMING); CHARGE_OBJ
+  (`recharge`+getobj); CREATE_PORTAL (dungeon menu+`goto_level`);
+  BANISH (`migrate_mon`); `untrap` force luck-skip body (callee).
+- **Verified:** private canary **18**/18 (C/JS grep; enum extract;
+  HEALING 50→75; ENERGY 0→20 / full surge; CHARGE_OBJ/BANISH still
+  named no `rnz`; CONFLICT on/off/tired; INVIS on; FLING cancel
+  refund; CREATE_AMMO quan; Sunsword cancel; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session `#invoke`s these artifacts.
+- **Follow-up:** Open `zap.c` `zap_map` lateral drawbridge / bhit.
+- **Files:** `js/artifact.js`.
+
 ## D-1487 — objnam.c the() fruit_from_name + artifact_name
 
 - **Status:** fixed (map-driven Open from D-1357; not a public FAIL)

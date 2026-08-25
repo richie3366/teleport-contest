@@ -5,14 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1487; cadence **#1870** `dba2c79a`
+- **Fortress 44/44** after D-1488; cadence **#1870** `dba2c79a`
   (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Open
-  `artifact.c` `doinvoke` remaining `inv_prop` (named).
-  Not BLINDING_RAY.
-  Do not skip D-1487…D-1229. No FORCE / `wildmiss` wrap /
+  `zap.c` `zap_map` lateral drawbridge / bhit (named).
+  Not engraving.
+  Do not skip D-1488…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1487. Named still: `see_monsters`
-  warn_obj / Sting; minetn-1 / dog leftovers / `add_to_minv`.
+- Do not revert D-1217–D-1488. Named still: `see_monsters`
+  warn_obj / Sting; minetn-1 / dog leftovers / `add_to_minv`;
+  TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH.
 
 ## Don't re-check (≤15)
 
@@ -21,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1487.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1488.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -32,10 +33,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1487 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1488 (index).
 - Named still: worm-shrieker; potion_dip poison-coat / oil/lamp;
-  zap_map lateral drawbridge / bhit; artifact invoke;
-  fruit_from_indx / options fruitadd walker.
+  zap_map lateral drawbridge / bhit; TAMING / CHARGE_OBJ /
+  CREATE_PORTAL / BANISH; fruit_from_indx / options fruitadd walker.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -45,6 +46,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1488: `arti_invoke` remaining specials + property
+  toggle (`artifact.c:1779–2051` / `:2154–2228`);
+  HEALING half-HP + Sick/Slimed/BlindedTimeout;
+  ENERGY clamp; UNTRAP; LEV_TELE; ENLIGHTENING;
+  CREATE_AMMO `rnd`; FLING_POISON venom `throwit`;
+  FIRE/SNOW temp `P_EXPERT` `spelleffects`; xor
+  `W_ARTI` CONFLICT/LEVITATION/INVIS. TAMING /
+  CHARGE_OBJ / CREATE_PORTAL / BANISH named.
+  BLINDING_RAY is D-1377.
 - D-1487: `the()` fruit_from_name + artifact_name
   (`objnam.c:2191–2193` / `:443–519`); named fruit
   takes `"the "` unless pname artifact (Excalibur);
@@ -112,6 +122,3 @@ Objective/score live in `CURRENT.md`.
 - D-1474: `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via
   bhitm; easy-hit d(2,12)+disclose; miss still disclose;
   SPE_FORCE_BOLT SPBOOK skip makeknown. Slow is D-1478.
-- D-1473: `zap_steed` WAN_MAKE_INVISIBLE via bhitm;
-  minvis+vanish; See_invisible transparent; already
-  minvis still disclose. Striking is D-1474.
