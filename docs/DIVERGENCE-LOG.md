@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1495 — trap.c untrap door force + has_magic_key
+
+- **Status:** fixed (map-driven Must-fix review **449**; not a public FAIL)
+- **Symptom:** `invoke_untrap` paid `arti_invoke_cost` then always
+  refunded (`age=0`, `ECMD_CANCEL`) because `trap.js` `untrap`
+  ignored `force` and returned 0 for doors and seen floor traps.
+  C `:1840–1844` keeps the cost when `untrap(TRUE,0,0,NULL)` is
+  true (door find/disarm, including “find no traps”).
+- **C locus:** `trap.c` `untrap` `:5865–5868` `has_magic_key`→force
+  and `:6051–6095` door D_TRAPPED find/disarm (`force` skips find
+  `rn2` and fail `rnd`); `artifact.c` `is_magic_key` `:2774–2786`
+  / `has_magic_key` `:2789–2803`; caller `invoke_untrap` `:1838–1845`.
+- **JS was:** `void force`; door arm always 0 (D-1488 stub).
+- **Fix:** Port door switch + trapped find/disarm using `force`.
+  Non-rogue blessed / rogue uncursed Master Key sets force for
+  `#untrap`. Floor `disarm_*` / box / squeaky / pit named. Rule #2:
+  no fs.
+- **JS:** `js/trap.js` `untrap`; `js/artifact.js` `is_magic_key` /
+  `has_magic_key`.
+- **Not this iter:** floor `try_disarm`/`cnv_trap_obj`;
+  `disarm_squeaky_board` getobj; pit `help_monster_out`;
+  `untrap_box`; TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH.
+  Remaining specials are D-1488; Blinded 0/1 is D-1494.
+- **Verified:** private canary **15**/15 (C grep; magic-key
+  bless/curse; invoke trapped door + y `ECMD_TIME` keep age;
+  decline still TIME; getdir cancel refund; untrapped door
+  return 1 no rn2; empty floor named 0; `#untrap` with Key
+  force; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `potion.c` `potion_dip` poison-coat.
+- **Files:** `js/trap.js`, `js/artifact.js`.
+
 ## D-1494 — artifact.c invoke_healing Blinded 0/1
 
 - **Status:** fixed (map-driven Must-fix review **449**; not a public FAIL)

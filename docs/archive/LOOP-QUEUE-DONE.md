@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `artifact.c` `invoke_healing` first `You_feel("better.")` gate must use C `Blinded` as 0/1 (`HBlinded && !BBlinded`, `youprop.h:92`) vs `ucreamed`, not the full `HBlinded` word (`artifact.c :1787`). Keep the second `BlindedTimeout` gate. Not ENERGY. Source: reviews/loop-unattended/449-00d5d4d6-arti-invoke-remaining.md **Addressed:** D-1494
+- [x] `artifact.c` `invoke_untrap` is on the live cost+switch list while `trap.js` `untrap` always returns 0 (`void force`; door/floor disarm deferred). Either port C `untrap(TRUE,0,0,NULL)` success (`:1838–1845`) or keep UNTRAP named (no cost) until the callee can return true. Source: reviews/loop-unattended/449-00d5d4d6-arti-invoke-remaining.md **Addressed:** D-1495
+
+
+- [x] `artifact.c` `invoke_healing` first `You_feel("better.")` gate must use C `Blinded` as 0/1 (`HBlinded && !BBlinded`, `youprop.h:92`) vs `ucreamed`, not the full `HBlinded` word (`artifact.c :1787`). Keep the second `BlindedTimeout` gate. Not ENERGY. Source: reviews/loop-unattended/449-00d5d4d6-arti-invoke-remaining.md **Addressed:** D-1494 `27a1f4b6`
 
 
 - [x] `allmain.c` `see_monsters` Hallu / Warn_of_mon (named). Not DETECT_MONSTERS timeout. **Addressed:** D-1493 `8669b5b8`

@@ -82,8 +82,9 @@ import {
     ART_ORCRIST,
     ART_STING,
     ART_GRAYSWANDIR,
+    ART_MASTER_KEY_OF_THIEVERY,
 } from './generated/artifacts_data.js';
-import { PM_KNIGHT } from './generated/monsters_data.js';
+import { PM_KNIGHT, PM_ROGUE } from './generated/monsters_data.js';
 import { aligns } from './roles.js';
 export { ART_NONARTIFACT, ART_EXCALIBUR, ART_GRIMTOOTH, ART_ORCRIST, ART_STING, ART_GRAYSWANDIR };
 
@@ -1067,7 +1068,7 @@ async function invoke_energy_boost(obj) {
 
 /**
  * C ref: artifact.c invoke_untrap :1838–1845 — Master Key of Thievery.
- * Callee trap.c untrap(TRUE,0,0,NULL); force luck-skip still named there.
+ * Callee trap.c untrap(TRUE,0,0,NULL); door force luck-skip is D-1495.
  */
 async function invoke_untrap(obj) {
     const { untrap } = await import('./trap.js');
@@ -1379,6 +1380,45 @@ let spec_dbon_applies = false;
 /** C ref: artifact.c is_art — otmp->oartifact == art index. */
 export function is_art(otmp, art) {
     return !!(otmp && (otmp.oartifact | 0) === (art | 0));
+}
+
+/**
+ * C ref: artifact.c is_magic_key :2774–2786 — Master Key bless/curse.
+ * Rogue: non-cursed. Non-rogue: must be blessed. Other objects false.
+ * @param {object|null} mon
+ * @param {object|null} obj
+ * @returns {boolean}
+ */
+export function is_magic_key(mon, obj) {
+    if (!is_art(obj, ART_MASTER_KEY_OF_THIEVERY)) return false;
+    const you = game.youmonst;
+    const isHero = !mon || mon === you || !!mon._youmonst;
+    if (isHero ? Role_if(PM_ROGUE) : ((mon?.data?.mndx | 0) === PM_ROGUE)) {
+        return !obj.cursed;
+    }
+    return !!obj.blessed;
+}
+
+/**
+ * C ref: artifact.c has_magic_key :2789–2803 — carrying a magic Master Key.
+ * Hero walks JS invent[]; monster walks minvent nobj. Null mon → youmonst.
+ * @param {object|null} [mon]
+ * @returns {object|null} the key, else null (C struct obj *)
+ */
+export function has_magic_key(mon) {
+    if (!mon) mon = game.youmonst;
+    const you = game.youmonst;
+    const isHero = mon === you || !!mon?._youmonst;
+    if (isHero) {
+        for (const o of game.invent || []) {
+            if (is_magic_key(mon, o)) return o;
+        }
+        return null;
+    }
+    for (let o = mon.minvent; o; o = o.nobj) {
+        if (is_magic_key(mon, o)) return o;
+    }
+    return null;
 }
 
 /**

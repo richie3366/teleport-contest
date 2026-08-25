@@ -100,7 +100,12 @@ Journal: private canary **18**/18 (enum; HEALING 50→75; ENERGY 0→20 / full s
 ## Actionable C-wrongs
 
 1. `artifact.c` `invoke_healing` first `You_feel("better.")` gate must use C `Blinded` as 0/1 (`HBlinded && !BBlinded`, `youprop.h:92`) compared to `ucreamed`, not the full `HBlinded` word (`artifact.c :1787`). Keep the second `BlindedTimeout` gate. Not ENERGY. Not UNTRAP.
+
+**Addressed:** D-1494 `27a1f4b6`
+
 2. `artifact.c` `invoke_untrap` is on the live cost+switch list while `trap.c` `untrap` always returns 0 (force ignored; door/floor disarm deferred). Either port the C `untrap(TRUE,0,0,NULL)` success path (`:1838–1845`) or keep UNTRAP named (no cost) until that callee can return true. Do not stamp “Match C Master Key.”
+
+**Addressed:** D-1495
 
 Named omits (map / Open, not Must-fix):
 
@@ -117,4 +122,6 @@ C caller: `doinvoke` → `arti_invoke`. JS same. New dice as above; UNTRAP refun
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1494
+**Addressed:** D-1494 `27a1f4b6`
+
+**Addressed:** D-1495
