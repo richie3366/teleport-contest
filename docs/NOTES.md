@@ -5,7 +5,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1466; cadence **#1840** `01edf8b9`
+- **Fortress 44/44** after D-1466; cadence **#1850** `3605a281`
   (Scr **11,405** RNG 100%). Next: Open `zap.c` `bhito`
   boxlock WAN_OPENING/WAN_LOCKING (named). Not doorlock.
   Do not skip D-1466…D-1229. No FORCE / `wildmiss` wrap /

@@ -429,3 +429,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [416-91e3e8a8-zap-updown-wan-striking.md](./416-91e3e8a8-zap-updown-wan-striking.md) | `91e3e8a8` | D-1456 zap_updown WAN_STRIKING/SPE_FORCE_BOLT | **ACCEPT-WITH-DEBT** |
 | [417-c2736f3e-potion-mixtype-dip.md](./417-c2736f3e-potion-mixtype-dip.md) | `c2736f3e` | D-1457 mixtype / potion_dip mix | **ACCEPT-WITH-DEBT** |
 | [418-01edf8b9-spe-turn-undead-wand-duplicate.md](./418-01edf8b9-spe-turn-undead-wand-duplicate.md) | `01edf8b9` | D-1458 SPE_TURN_UNDEAD IMMEDIATE wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [419-7634fd61-spe-polymorph-wand-duplicate.md](./419-7634fd61-spe-polymorph-wand-duplicate.md) | `7634fd61` | D-1459 SPE_POLYMORPH IMMEDIATE wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [420-f071b0ad-spe-cancellation-wand-duplicate.md](./420-f071b0ad-spe-cancellation-wand-duplicate.md) | `f071b0ad` | D-1460 SPE_CANCELLATION IMMEDIATE wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [421-e4d98eb1-spe-stone-to-flesh-wand-duplicate.md](./421-e4d98eb1-spe-stone-to-flesh-wand-duplicate.md) | `e4d98eb1` | D-1461 SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [422-2173fc2d-bhit-doorlock-wan-opening.md](./422-2173fc2d-bhit-doorlock-wan-opening.md) | `2173fc2d` | D-1462 bhit doorlock WAN_OPENING/SPE_KNOCK | **ACCEPT-WITH-DEBT** |
+| [423-849d7532-banned-pattern-comment-strip.md](./423-849d7532-banned-pattern-comment-strip.md) | `849d7532` | banned-pattern comment strip (no D-id) | **ACCEPT** |
+| [424-99a31c84-zap-steed-wan-opening.md](./424-99a31c84-zap-steed-wan-opening.md) | `99a31c84` | D-1463 zap_steed WAN_OPENING/SPE_KNOCK via bhitm | **ACCEPT-WITH-DEBT** |
+| [425-89aab16d-zap-steed-spe-drain.md](./425-89aab16d-zap-steed-spe-drain.md) | `89aab16d` | D-1464 zap_steed SPE_DRAIN_LIFE via bhitm | **ACCEPT-WITH-DEBT** |
+| [426-a52401a6-zap-updown-wan-locking.md](./426-a52401a6-zap-updown-wan-locking.md) | `a52401a6` | D-1465 zap_updown WAN_LOCKING/SPE_WIZARD_LOCK | **ACCEPT-WITH-DEBT** |
+| [427-3605a281-zap-updown-spe-stone-to-flesh.md](./427-3605a281-zap-updown-spe-stone-to-flesh.md) | `3605a281` | D-1466 zap_updown SPE_STONE_TO_FLESH | **ACCEPT-WITH-DEBT** |
