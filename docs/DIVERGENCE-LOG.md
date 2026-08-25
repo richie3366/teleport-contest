@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1483 — zap.c bhito poly-arm boxlock reset_pick
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `bhito` WAN_POLYMORPH/SPE_POLYMORPH skipped
+  `Is_box` → `boxlock`, so a chest the hero had started to
+  pick kept `xlock.box` after the zap. C `zap.c` `bhito`
+  `:2202–2204` (after `obj_unpolyable`, before shudder):
+  “any saved lock context will be dangerously obsolete”;
+  `Is_box(obj)` → `(void) boxlock(obj, otmp)`. Callee
+  `lock.c` `boxlock` `:1089–1095` POLY/SPE_POLYMORPH only
+  `reset_pick()` when `gx.xlock.box == obj` (does not set
+  `res`, so `bhito` res stays 1 and does not `learnwand`
+  from the reset). Unpolyable boxes skip the call. JS
+  `delobj` still omits `maybe_reset_pick` (named), so the
+  explicit caller is the live path.
+- **C locus:** `zap.c` `bhito` `:2191–2221` (`:2202–2204`).
+  Callee `lock.c` `boxlock` `:1089–1095` / `reset_pick`
+  `:259–265`. Callers `bhitpile` / lateral `bhit`.
+- **JS was:** named omit after D-1481. Poly arm went
+  unpolyable → shudder → `poly_obj`. `boxlock` POLY arm
+  already lived for `boxlock_invent`.
+- **Fix:** Match C order. `Is_box` → `await boxlock` after
+  unpolyable, before shudder. Rule #2: no fs.
+- **JS:** `js/zap.js` `bhito`; `js/lock.js` `boxlock` (POLY
+  already live).
+- **Not this iter:** polypiles/livelog; hideunder cover after
+  shudder; `zap_updown` default still `return false` (down
+  POLY/cancel/tele skip shared `bhitpile`); muse.c `mbhit`
+  doorlock.
+- **Verified:** private canary **19**/19 (C/JS grep; Rule #2;
+  boxlock POLY reset vs other-box; WAN/SPE bhito; uskin
+  unpolyable skip; dagger/sack/other-chest; D-1467 Klick;
+  weffects east; zap_updown default named); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/
+  0004/0007/2200/0383.
+
 ## D-1482 — zap.c bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

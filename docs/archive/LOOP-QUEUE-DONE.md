@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT (named). Not LOCKING. **Addressed:** D-1482
+- [x] `zap.c` `bhito` poly-arm boxlock `reset_pick` (named). Not uchain. **Addressed:** D-1483
+
+
+- [x] `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT (named). Not LOCKING. **Addressed:** D-1482 `f0cb5942`
 
 
 - [x] `zap.c` `bhito` uchain unpunish WAN_OPENING (named). Not boxlock. **Addressed:** D-1481 `4642b8b1`

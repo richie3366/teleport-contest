@@ -96,7 +96,8 @@
 // Named omissions: zap_map lateral drawbridge / uswallow pile;
 // zap_map from lateral bhit; force_decor ice/furniture; draft_message
 // Rogue SDOOR; Invocation_lev vibrating-square "the";
-// bhito opening chain / uchain unpunish is D-1481; poly-arm boxlock reset_pick;
+// bhito opening chain / uchain unpunish is D-1481;
+// bhito poly-arm boxlock reset_pick is D-1483;
 // bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT is D-1482;
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
@@ -113,6 +114,7 @@
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
 // bhito WAN_OPENING/WAN_LOCKING/SPE_KNOCK/SPE_WIZARD_LOCK boxlock
 // is D-1467; bhito uchain unpunish WAN_OPENING/SPE_KNOCK is D-1481;
+// bhito poly-arm Is_box boxlock reset_pick is D-1483;
 // zap_steed SPE_CURE_SICKNESS bhitm is D-1480;
 // zap_steed WAN_SPEED_MONSTER bhitm is D-1479;
 // zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER bhitm is D-1478;
@@ -148,7 +150,8 @@
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
 // D-1353 (shared muse.c clone); mcastu ureflects named; create_polymon after poly_zapped;
-// do_osshock shop bill; invent/worn poly_obj arms; poly-arm boxlock;
+// do_osshock shop bill; invent/worn poly_obj arms;
+// poly-arm boxlock reset_pick is D-1483; polypiles/livelog named;
 // blank_novel / corpse revive→rot timer;
 // cant_finish_meal; animate_statue montraits wire; defended(); resists_magm
 // body; ignite_items body; burnarmor worn erode ported (D-0741);
@@ -5140,7 +5143,10 @@ export async function drain_item(obj, by_you) {
  * WAN_LOCKING/SPE_WIZARD_LOCK boxlock (D-1467; learn iff
  * Klunk/Klick); uchain WAN_OPENING/SPE_KNOCK unpunish
  * (D-1481; C `:2181–2188` before the otyp switch; uball
- * always res=0). Named omit: poly-arm boxlock reset_pick.
+ * always res=0); poly-arm Is_box boxlock reset_pick
+ * (D-1483; C `:2202–2204` after unpolyable, before shudder;
+ * callee POLY returns false so res stays 1). Named:
+ * polypiles/livelog; hideunder cover; muse.c mbhit.
  * zap_updown SPE_STONE_TO_FLESH is D-1466.
  * @returns {Promise<number>} 1 if affected
  */
@@ -5169,6 +5175,13 @@ async function bhito(obj, otmp) {
         if (obj_unpolyable(obj)) {
             res = 0;
             break;
+        }
+        /* C zap.c bhito :2202–2204 — lock context is obsolete if
+         * the zapped floor object is a box. boxlock POLY only
+         * reset_pick when xlock.box == obj (D-1483). (void) so
+         * res stays 1. polypiles/livelog named. */
+        if (Is_box(obj)) {
+            await boxlock(obj, otmp);
         }
         if (obj_shudders(obj)) {
             if (cansee(obj.ox, obj.oy)) learn_it = true;
@@ -5288,7 +5301,7 @@ async function bhito(obj, otmp) {
         /* C zap.c bhito :2393–2403 — Is_box → boxlock; else res=0.
          * learn_it iff boxlock returned true (Klunk/Klick).
          * uchain unpunish is D-1481 (before this switch).
-         * poly-arm boxlock named. */
+         * poly-arm boxlock reset_pick is D-1483. */
         if (Is_box(obj)) {
             res = (await boxlock(obj, otmp)) ? 1 : 0;
         } else {
@@ -5961,6 +5974,9 @@ async function zap_updown(obj) {
         break;
     }
     default:
+        /* C zap.c :3378–3379 — break into shared down bhitpile
+         * / up hideunder. JS still returns false (named: down
+         * POLY/cancel/tele skip the epilogue; not this cluster). */
         return false;
     }
 

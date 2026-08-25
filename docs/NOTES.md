@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1482; cadence **#1860** `a3a2d65a`
-  (Scr **11,405** RNG 100%, `40+0.32/turn`). Next: Open `zap.c`
-  `bhito` poly-arm boxlock `reset_pick`
-  (named). Not uchain.
-  Do not skip D-1482…D-1229. No FORCE / `wildmiss` wrap /
+- **Fortress 44/44** after D-1483; cadence **#1860** `a3a2d65a`
+  (Scr **11,405** RNG 100%, `40+0.32/turn`). Next: Open `muse.c`
+  `mbhit` doorlock
+  (named). Not hero `bhit`.
+  Do not skip D-1483…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1482. Named still: `see_monsters`
+- Do not revert D-1217–D-1483. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1482.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1483.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,10 +33,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1482 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1483 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix;
-  zap_map lateral drawbridge / bhit; poly-arm boxlock
-  reset_pick; artifact invoke.
+  zap_map lateral drawbridge / bhit; zap_updown default
+  down POLY/cancel/tele bhitpile; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -46,6 +46,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1483: `bhito` poly-arm `Is_box` `boxlock` `reset_pick`
+  after unpolyable, before shudder; callee POLY only
+  when `xlock.box==obj` (res stays 1). uskin/unpolyable
+  skips. polypiles/livelog + hideunder cover +
+  zap_updown default down POLY named. Boxlock is D-1467.
 - D-1482: `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT;
   SDOOR appear then continue; locked/closed smash
   D_BROKEN crash; trapped explode D_NODOOR;
@@ -56,7 +61,7 @@ Objective/score live in `CURRENT.md`.
   unpunish + learn_it; uball always res=0;
   other otyps on chain skip the switch (no
   boxlock/breaks). Boxlock is D-1467; poly-arm
-  named. Callee `unpunish` already live.
+  is D-1483. Callee `unpunish` already live.
 - D-1480: `zap_steed` SPE_CURE_SICKNESS via bhitm;
   objects.h NODIR so weffects skips; bhitm has no arm
   (C default impossible); forced IMMEDIATE still disclose.
@@ -107,6 +112,3 @@ Objective/score live in `CURRENT.md`.
   wand-duplicate weffects bhit; bhitm healmon + extra/skilled
   mcureblindness; Pestilence resist; zap_steed via bhitm;
   zapyourself healup already D-0135. TELE is D-1468.
-- D-1468: SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate → weffects
-  bhit; bhitm u_teleport_mon; zapyourself tele(); bhito rloco;
-  zap_steed tele() is D-1455. HEALING is D-1469.

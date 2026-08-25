@@ -895,7 +895,7 @@ function Is_box(obj) {
  * C ref: lock.c boxlock — wand/spell lock/unlock on a box.
  * Callers: zap.c bhito WAN_OPENING/WAN_LOCKING/SPE_KNOCK/
  * SPE_WIZARD_LOCK (D-1467); zap.c boxlock_invent (D-1434 /
- * D-0981). Named: bhito poly-arm reset_pick; Soundeffect.
+ * D-0981); zap.c bhito poly-arm (D-1483). Named: Soundeffect.
  * @returns {Promise<boolean>} true if something happened
  */
 export async function boxlock(obj, otmp) {
