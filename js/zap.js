@@ -39,6 +39,8 @@
 // C spell.c :1471 / zap.c :3440–3451);
 // SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate weffects bhit (D-1461;
 // C spell.c :1478 / zap.c :3440–3451);
+// SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate weffects bhit (D-1468;
+// C spell.c :1470 / zap.c :3440–3451);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
@@ -112,8 +114,9 @@
 // IMMEDIATE wand-duplicate weffects is D-1458; SPE_POLYMORPH
 // IMMEDIATE wand-duplicate weffects is D-1459; SPE_CANCELLATION
 // IMMEDIATE wand-duplicate weffects is D-1460; SPE_STONE_TO_FLESH
-// IMMEDIATE wand-duplicate weffects is D-1461; remaining
-// IMMEDIATE wand-duplicate TELE;
+// IMMEDIATE wand-duplicate weffects is D-1461; SPE_TELEPORT_AWAY
+// IMMEDIATE wand-duplicate weffects is D-1468; remaining
+// IMMEDIATE directional heal weffects;
 // potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
@@ -2563,7 +2566,9 @@ export async function do_enlightenment_effect() {
  * (D-1459; bhitm WAN/SPE/POT poly live; zapyourself D-0156).
  * SPE_CANCELLATION IMMEDIATE wand-duplicate weffects bhit
  * (D-1460). SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate
- * weffects bhit (D-1461). Named omit: remaining TELE.
+ * weffects bhit (D-1461). SPE_TELEPORT_AWAY IMMEDIATE
+ * wand-duplicate weffects bhit (D-1468). Named omit:
+ * directional heal weffects.
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -5801,6 +5806,8 @@ async function zap_steed(obj) {
  * cancel_monst live; zapyourself cancel_monst(&youmonst) live).
  * SPE_STONE_TO_FLESH IMMEDIATE bhit (D-1461; bhitm golem/mimic;
  * zapyourself polymon/Stoned/invent; bhito stone_to_flesh_obj).
+ * SPE_TELEPORT_AWAY IMMEDIATE bhit (D-1468; bhitm
+ * u_teleport_mon; zapyourself tele(); bhito rloco).
  * zap_steed WAN_PROBING (D-1443); zap_steed WAN_TELEPORTATION /
  * SPE_TELEPORT_AWAY (D-1455); zap_steed WAN_OPENING/SPE_KNOCK
  * via bhitm (D-1463); zap_steed SPE_DRAIN_LIFE via bhitm

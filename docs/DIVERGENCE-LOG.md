@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1468 — spell.c SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Casting SPE_TELEPORT_AWAY in a direction spent energy
+  then skipped `weffects`. C `spell.c` `:1470–1514` puts it in the
+  wand-duplicate group: getdir then `zapyourself` / `weffects`.
+  `zap.c` `weffects` `:3440–3451` IMMEDIATE `bhit(rn1(8,6), bhitm,
+  bhito)`. `bhitm` `:341–347` WAN/SPE: `seemimic` then
+  `u_teleport_mon(mtmp, TRUE)`. Self-dir `zapyourself` `:2876–2882`
+  `tele()` then the same learnwand criteria as `zap_steed`. `bhito`
+  `:2321–2328` `rloco` + `maybe_unhide_at`. Mounted down is D-1455
+  `tele()` together (not `bhitm`).
+- **C locus:** `spell.c` `spelleffects` `:1470–1514`; callee
+  `zap.c` `weffects` `:3440–3451`; `bhitm` `:341–347`;
+  `zapyourself` `:2876–2882`; `bhito` `:2321–2328`; `zap_steed`
+  `:3104–3113` (already D-1455).
+- **JS was:** named omit — HEALING/TELE shared a getdir + self-zap
+  arm with `// else weffects deferred`. Callees already live for
+  wand teleport. `update_inventory` after the group was skipped.
+- **Fix:** `wand_duplicate_weffects` for SPE_TELEPORT_AWAY
+  (SPBOOK skips `learnwand`). HEALING stays named. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callees `js/zap.js`
+  `weffects` / `bhitm` / `zapyourself` / `bhito` `rloco`.
+- **Not this iter:** SPE_HEALING/SPE_EXTRA_HEALING directional
+  weffects; `bhito` `maybe_unhide_at`; `zap_map` engraving
+  `rloc_engr`; remaining bhitm-routed `zap_steed`.
+- **Verified:** private canary **16**/16 (C/JS grep; IMMEDIATE
+  SPBOOK; atme TIME skip makeknown + noteleport force;
+  zapyourself damage 0; bhitm kobold; east cast TIME +
+  vanishes/reappears; HEALING still skips weffects; prior
+  STONE/POLY/CANCEL/TURN/KNOCK/SLOW/LOCK/RAY/NODIR/DRAIN stay;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `spell.c` `spelleffects`
+  SPE_HEALING/SPE_EXTRA_HEALING directional weffects (named).
+  Not TELE.
+- **Files:** `js/spell.js`, `js/zap.js` (comments).
+
 ## D-1467 — zap.c bhito boxlock WAN_OPENING/WAN_LOCKING
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

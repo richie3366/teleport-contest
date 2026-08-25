@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1468 spell.c SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate
+
+**Objective:** Open `spell.c` `spelleffects` SPE_TELEPORT_AWAY
+IMMEDIATE wand-duplicate weffects (named). Not STONE.
+**C locus:** `spell.c` `spelleffects` `:1470–1514`; callee
+`zap.c` `weffects` `:3440–3451`; `bhitm` `:341–347`;
+`zapyourself` `:2876–2882`; `bhito` `:2321–2328`.
+**Change:** Route SPE_TELEPORT_AWAY through
+`wand_duplicate_weffects` so a directional cast `bhit`s via
+live `u_teleport_mon` / `rloco` instead of skipping weffects.
+HEALING stays named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session casts teleport-away at a monster).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `spell.c` `spelleffects`
+SPE_HEALING/SPE_EXTRA_HEALING directional weffects (named).
+Not TELE.
+**Blocked:** none.
 ## 2026-08-25 — D-1467 zap.c bhito boxlock WAN_OPENING/WAN_LOCKING
 
 **Objective:** Open `zap.c` `bhito` boxlock WAN_OPENING/WAN_LOCKING

@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1467; cadence **#1850** `3605a281`
+- **Fortress 44/44** after D-1468; cadence **#1850** `3605a281`
   (Scr **11,405** RNG 100%). Next: Open `spell.c`
-  `spelleffects` SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate
-  weffects (named). Not STONE.
-  Do not skip D-1467…D-1229. No FORCE / `wildmiss` wrap /
+  `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING directional
+  weffects (named). Not TELE.
+  Do not skip D-1468…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1467. Named still: `see_monsters`
+- Do not revert D-1217–D-1468. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1467.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1468.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,9 +33,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1467 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1468 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix / potionhit /
-  potionbreathe; wand-duplicate IMMEDIATE TELE;
+  potionbreathe; directional HEALING weffects;
   zap_steed bhitm-routed cancel/poly; zap_map engraving;
   bhit doorlock LOCKING/STRIKING; bhito uchain / poly-arm
   boxlock; artifact invoke.
@@ -48,6 +48,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1468: SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate → weffects
+  bhit; bhitm u_teleport_mon; zapyourself tele(); bhito rloco;
+  zap_steed tele() is D-1455. HEALING directional named.
 - D-1467: `bhito` WAN_OPENING/WAN_LOCKING/SPE_KNOCK/
   SPE_WIZARD_LOCK `boxlock`; learn iff Klunk/Klick;
   SPBOOK skips makeknown; uchain / poly-arm named.
@@ -68,7 +71,7 @@ Objective/score live in `CURRENT.md`.
   STRIKING named; boxlock is D-1467.
 - D-1461: SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate → weffects
   bhit; bhitm golem/mimic; zapyourself polymon/Stoned/invent;
-  bhito stone_to_flesh_obj. TELE named.
+  bhito stone_to_flesh_obj. TELE is D-1468.
 - D-1460: SPE_CANCELLATION IMMEDIATE wand-duplicate → weffects
   bhit; bhitm/zapyourself cancel_monst already live.
   STONE is D-1461.
@@ -85,5 +88,3 @@ Objective/score live in `CURRENT.md`.
   (not bhitm); learnwand on post-`teleds` ux0; disclose still learns.
 - D-1454: `zap_updown` WAN_OPENING/SPE_KNOCK portcullis /
   quest ripple / holding+falling traps then bhitpile+zap_map.
-- D-1453: `bhito` SPE_DRAIN `drain_item` spe-- after
-  defends(AD_DRLI)/obj_resists; COST_DRAIN; worn ABON.
