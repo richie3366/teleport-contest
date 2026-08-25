@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1480; cadence **#1860** `a3a2d65a`
+- **Fortress 44/44** after D-1481; cadence **#1860** `a3a2d65a`
   (Scr **11,405** RNG 100%, `40+0.32/turn`). Next: Open `zap.c`
-  `bhito` uchain unpunish WAN_OPENING
-  (named). Not boxlock.
-  Do not skip D-1480…D-1229. No FORCE / `wildmiss` wrap /
+  `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT
+  (named). Not LOCKING.
+  Do not skip D-1481…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1480. Named still: `see_monsters`
+- Do not revert D-1217–D-1481. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1480.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1481.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,10 +33,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1480 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1481 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix;
   zap_map lateral drawbridge / bhit; bhit doorlock STRIKING;
-  bhito uchain / poly-arm boxlock; artifact invoke.
+  poly-arm boxlock reset_pick; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -46,6 +46,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1481: `bhito` uchain WAN_OPENING/SPE_KNOCK
+  unpunish + learn_it; uball always res=0;
+  other otyps on chain skip the switch (no
+  boxlock/breaks). Boxlock is D-1467; poly-arm
+  named. Callee `unpunish` already live.
 - D-1480: `zap_steed` SPE_CURE_SICKNESS via bhitm;
   objects.h NODIR so weffects skips; bhitm has no arm
   (C default impossible); forced IMMEDIATE still disclose.
@@ -101,8 +106,4 @@ Objective/score live in `CURRENT.md`.
   zap_steed tele() is D-1455. HEALING is D-1469.
 - D-1467: `bhito` WAN_OPENING/WAN_LOCKING/SPE_KNOCK/
   SPE_WIZARD_LOCK `boxlock`; learn iff Klunk/Klick;
-  SPBOOK skips makeknown; uchain / poly-arm named.
-- D-1466: `zap_updown` SPE_STONE_TO_FLESH (C has no WAN_);
-  air/water/Underwater/qstart-up nothing; up Blood face; down
-  !OBJ_AT + !ENGRAVE blood/nothing then bhitpile+zap_map;
-  disclose stays false. zap_map engraving is D-1476.
+  SPBOOK skips makeknown; uchain is D-1481; poly-arm named.

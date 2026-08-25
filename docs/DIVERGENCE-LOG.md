@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1481 — zap.c bhito uchain unpunish WAN_OPENING
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `bhito` after D-1467 boxlock still early-returned 0
+  for `uball || uchain`, so a WAN_OPENING/SPE_KNOCK zap that
+  hit the floor punishment chain never called `unpunish` or
+  `learnwand`. C `zap.c` `bhito` `:2181–2188` splits:
+  `obj == uball` → `res = 0`; else `obj == uchain` and
+  `WAN_OPENING || SPE_KNOCK` → `learn_it = TRUE; unpunish()`
+  (res stays 1) else `res = 0`; both skip the otyp switch
+  (no boxlock/breaks on the chain). Callee `read.c`
+  `unpunish` `:3066–3077` already live (`delobj` chain;
+  ball persists). Caller `bhitpile`/`zap_updown` down /
+  `bhit`. Self-zap Punished is `zapyourself` D-0981.
+- **C locus:** `zap.c` `bhito` `:2181–2188`. Callee
+  `read.c` `unpunish` `:3066–3077`.
+- **JS was:** named omit. Combined `uball || uchain` return 0
+  before the otyp switch; boxlock arms live (D-1467).
+- **Fix:** Match C if/else-if/else-switch. WAN_OPENING/SPE_KNOCK
+  on `uchain` set `learn_it` and `unpunish()`; uball and
+  other chain otyps `res = 0`. Rule #2: no fs.
+- **JS:** `js/zap.js` `bhito` / existing `unpunish`.
+- **Not this iter:** poly-arm boxlock `reset_pick`; `bhit`
+  doorlock STRIKING; muse `mbhit`.
+- **Verified:** private canary **16**/16 (C/JS grep; Rule #2;
+  OPENING unpunish+learn; KNOCK skip makeknown; LOCKING/
+  STRIKING/SLOW still punished; uball no-op; loose chain
+  non-box; D-1467 chest; weffects-down bhitpile; poly-arm
+  still named); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1480 — zap.c zap_steed SPE_CURE_SICKNESS via bhitm
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -94,7 +94,7 @@
 // Named omissions: zap_map lateral drawbridge / uswallow pile;
 // zap_map from lateral bhit; force_decor ice/furniture; draft_message
 // Rogue SDOOR; Invocation_lev vibrating-square "the";
-// bhito opening chain / uchain unpunish; poly-arm boxlock reset_pick;
+// bhito opening chain / uchain unpunish is D-1481; poly-arm boxlock reset_pick;
 // bhit doorlock STRIKING/SPE_FORCE_BOLT;
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
@@ -110,7 +110,7 @@
 // zap_updown SPE_STONE_TO_FLESH is D-1466;
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
 // bhito WAN_OPENING/WAN_LOCKING/SPE_KNOCK/SPE_WIZARD_LOCK boxlock
-// is D-1467;
+// is D-1467; bhito uchain unpunish WAN_OPENING/SPE_KNOCK is D-1481;
 // zap_steed SPE_CURE_SICKNESS bhitm is D-1480;
 // zap_steed WAN_SPEED_MONSTER bhitm is D-1479;
 // zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER bhitm is D-1478;
@@ -5136,9 +5136,10 @@ export async function drain_item(obj, by_you) {
  * SPE_STONE_TO_FLESH stone_to_flesh_obj (D-1461; invent ok —
  * C `:2178–2179` floor-or-STONE); WAN_OPENING/SPE_KNOCK/
  * WAN_LOCKING/SPE_WIZARD_LOCK boxlock (D-1467; learn iff
- * Klunk/Klick). Named omit: opening chain / uchain unpunish;
- * poly-arm boxlock reset_pick. zap_updown SPE_STONE_TO_FLESH
- * is D-1466.
+ * Klunk/Klick); uchain WAN_OPENING/SPE_KNOCK unpunish
+ * (D-1481; C `:2181–2188` before the otyp switch; uball
+ * always res=0). Named omit: poly-arm boxlock reset_pick.
+ * zap_updown SPE_STONE_TO_FLESH is D-1466.
  * @returns {Promise<number>} 1 if affected
  */
 async function bhito(obj, otmp) {
@@ -5148,11 +5149,19 @@ async function bhito(obj, otmp) {
     let res = 1;
     let learn_it = false;
 
-    if (obj === game.u?.uball || obj === game.u?.uchain) {
-        return 0;
-    }
-
-    switch (otmp.otyp) {
+    /* C zap.c bhito :2181–2188 — uball never affected; uchain
+     * + WAN_OPENING/SPE_KNOCK → learn_it + unpunish (res stays 1);
+     * other otyps on uchain → res=0. Both skip the otyp switch. */
+    if (obj === game.u?.uball) {
+        res = 0;
+    } else if (obj === game.u?.uchain) {
+        if ((otmp.otyp | 0) === WAN_OPENING || (otmp.otyp | 0) === SPE_KNOCK) {
+            learn_it = true;
+            unpunish();
+        } else {
+            res = 0;
+        }
+    } else switch (otmp.otyp) {
     case WAN_POLYMORPH:
     case SPE_POLYMORPH:
         if (obj_unpolyable(obj)) {
@@ -5276,7 +5285,8 @@ async function bhito(obj, otmp) {
     case SPE_WIZARD_LOCK:
         /* C zap.c bhito :2393–2403 — Is_box → boxlock; else res=0.
          * learn_it iff boxlock returned true (Klunk/Klick).
-         * uchain unpunish named; poly-arm boxlock named. */
+         * uchain unpunish is D-1481 (before this switch).
+         * poly-arm boxlock named. */
         if (Is_box(obj)) {
             res = (await boxlock(obj, otmp)) ? 1 : 0;
         } else {

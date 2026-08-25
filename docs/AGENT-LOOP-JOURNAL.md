@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1481 zap.c bhito uchain unpunish WAN_OPENING
+
+**Objective:** Open `zap.c` `bhito` uchain unpunish WAN_OPENING
+(named). Not boxlock.
+**C locus:** `zap.c` `bhito` `:2181–2188`. Callee `read.c`
+`unpunish` `:3066–3077` already live.
+**Change:** Split `uball || uchain` early-return: uball `res=0`;
+uchain WAN_OPENING/SPE_KNOCK `learn_it`+`unpunish()`; else
+`res=0`; both skip the otyp switch. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT
+(named). Not LOCKING.
+**Blocked:** none.
 ## 2026-08-25 — D-1480 zap.c zap_steed SPE_CURE_SICKNESS via bhitm
 
 **Objective:** Open `zap.c` `zap_steed` SPE_CURE_SICKNESS
