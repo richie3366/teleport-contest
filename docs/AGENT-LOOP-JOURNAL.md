@@ -8,6 +8,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — review D-1485–D-1493 (audit #1880)
+
+**Objective:** audit — C-fidelity reviews **446–454** of JS SHAs
+`e98c0be8` / `9f784a5c` / `8d41bd04` / `00d5d4d6` /
+`83fa138f` / `69080895` / `f26e11aa` / `b303c111` /
+`8669b5b8` plus full `sessions` score.
+**C locus:** `zap.c` `zap_updown` `:3378–3389` / `zap_map`
+`:3685–3717`; `potion.c` `potion_dip` unicorn; `objnam.c`
+`the()`; `artifact.c` `arti_invoke` `:2149–2228`;
+`mklev.c` minetn-1; `worm.c` `:189–297`; `mkobj.c`
+`add_to_minv` `:2648–2665`; `allmain.c` `:453–468`.
+**Change:** no `js/` edits. **449** QUALITY-RISK (Must-fix:
+`invoke_healing` Blinded 0/1; `invoke_untrap` stub callee).
+**446** ACCEPT; **447–448**, **450–454** ACCEPT-WITH-DEBT.
+Filled archive D-1493 `8669b5b8`. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `39+0.30/turn` (R² 0.84).
+**Verified:** full `sessions` at HEAD `8669b5b8`; public-unhit
+of the new arms.
+**Next:** Must-fix `artifact.c` `invoke_healing` first
+`You_feel` gate = C `Blinded` 0/1 vs `ucreamed`. Not ENERGY.
+**Blocked:** none.
 ## 2026-08-25 — D-1493 allmain.c see_monsters Hallu / Warn_of_mon
 
 **Objective:** Open `allmain.c` `see_monsters` Hallu / Warn_of_mon
@@ -164,110 +186,4 @@ seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
 0007/2200/0383.
 **Next:** Open `potion.c` `potion_dip` unicorn/amethyst mix
 (named). Not mixtype.
-**Blocked:** none.
-## 2026-08-25 — review D-1476–D-1484 (audit #1870)
-
-**Objective:** audit — C-fidelity reviews **437–445** of JS SHAs
-`747e6616` / `c3f67016` / `713e0441` / `7c918806` /
-`a65834a1` / `4642b8b1` / `f0cb5942` / `49826707` /
-`dba2c79a` plus full `sessions` score.
-**C locus:** `zap.c` `zap_map` `:3594–3800` / `zap_updown`
-`:3378–3389`; `potion.c` `potionbreathe` `:1931–2118`;
-`zap_steed` `:3115–3134`; `bhito` `:2181–2204`;
-`bhit`/`doorlock` `:4056–4074` / `lock.c` `:1201–1253`;
-`muse.c` `mbhit` `:1785–1802`.
-**Change:** no `js/` edits. **437** QUALITY-RISK (Must-fix:
-`zap_updown` `default` `break` into down `bhitpile`+`zap_map`).
-**438–445** ACCEPT-WITH-DEBT. Filled archive D-1484 `dba2c79a`.
-Rule #2: no fs.
-**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
-(100%) speed `38+0.31/turn` (R² 0.853).
-**Verified:** full `sessions` at HEAD `dba2c79a`; public-unhit
-of the new arms.
-**Next:** Must-fix `zap.c` `zap_updown` `default` `break` into
-down `bhitpile`+`zap_map` (C `:3378–3389`). Not probing.
-**Blocked:** none.
-## 2026-08-25 — D-1484 muse.c mbhit doorlock
-
-**Objective:** Open `muse.c` `mbhit` doorlock (named). Not hero
-`bhit`.
-**C locus:** `muse.c` `mbhit` `:1785–1802`. Callee `lock.c`
-`doorlock` already live (D-1462/D-1475/D-1482).
-**Change:** Wire `IS_DOOR||SDOOR` WAN_OPENING/LOCKING/STRIKING
-`doorlock`; zap_oseen `makeknown`; shop D_BROKEN `add_damage(0)`.
-Drawbridge still named (else-if gate). Rule #2: no fs.
-**Score:** fortress unchanged (public-unhit).
-**Verified:** private canary **12**/12; green+strict
-seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
-0007/2200/0383.
-**Next:** Open `potion.c` `potion_dip` unicorn/amethyst mix
-(named). Not mixtype.
-**Blocked:** none.
-## 2026-08-25 — D-1483 zap.c bhito poly-arm boxlock reset_pick
-
-**Objective:** Open `zap.c` `bhito` poly-arm boxlock `reset_pick`
-(named). Not uchain.
-**C locus:** `zap.c` `bhito` `:2202–2204`. Callee `lock.c`
-`boxlock` POLY `:1089–1095` already live.
-**Change:** After `obj_unpolyable`, `Is_box` → `(void) boxlock`
-so a chest being picked `reset_pick`s before shudder/poly.
-POLY returns false (res stays 1). Unpolyable skips.
-Rule #2: no fs.
-**Score:** fortress unchanged (public-unhit).
-**Verified:** private canary **19**/19; green+strict
-seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
-0007/2200/0383.
-**Next:** Open `muse.c` `mbhit` doorlock (named). Not hero
-`bhit`.
-**Blocked:** none.
-## 2026-08-25 — D-1482 zap.c bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT
-
-**Objective:** Open `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT
-(named). Not LOCKING.
-**C locus:** `zap.c` `bhit` `:4056–4074`, `:4129–4130`. Callee
-`lock.c` `doorlock` `:1201–1253` (SDOOR `:1117–1126`).
-**Change:** Port STRIKING/FORCE smash (`D_BROKEN`) and trapped
-explode (`D_NODOOR`); SDOOR appear then continue; `bhit`
-learnwand also if WAN_STRIKING && !Deaf; shop D_BROKEN
-`add_damage` + `pay_for_damage("destroy")`. Rule #2: no fs.
-**Score:** fortress unchanged (public-unhit).
-**Verified:** private canary **20**/20; green+strict
-seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
-0007/2200/0383.
-**Next:** Open `zap.c` `bhito` poly-arm boxlock `reset_pick`
-(named). Not uchain.
-**Blocked:** none.
-## 2026-08-25 — D-1481 zap.c bhito uchain unpunish WAN_OPENING
-
-**Objective:** Open `zap.c` `bhito` uchain unpunish WAN_OPENING
-(named). Not boxlock.
-**C locus:** `zap.c` `bhito` `:2181–2188`. Callee `read.c`
-`unpunish` `:3066–3077` already live.
-**Change:** Split `uball || uchain` early-return: uball `res=0`;
-uchain WAN_OPENING/SPE_KNOCK `learn_it`+`unpunish()`; else
-`res=0`; both skip the otyp switch. Rule #2: no fs.
-**Score:** fortress unchanged (public-unhit).
-**Verified:** private canary **16**/16; green+strict
-seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
-0007/2200/0383.
-**Next:** Open `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT
-(named). Not LOCKING.
-**Blocked:** none.
-## 2026-08-25 — D-1480 zap.c zap_steed SPE_CURE_SICKNESS via bhitm
-
-**Objective:** Open `zap.c` `zap_steed` SPE_CURE_SICKNESS
-via bhitm (named). Not SPEED.
-**C locus:** `zap.c` `zap_steed` `:3116` (bhitm group
-`:3115–3134`). Caller `weffects` `:3437–3439` (`oc_dir !=
-NODIR`). Callee `bhitm` has no arm (`:548–550` impossible).
-`objects.h` SPE_CURE_SICKNESS is NODIR; self-cast is D-1398.
-**Change:** SPE_CURE_SICKNESS arm `await bhitm(steed, obj)` +
-`steedhit = true` instead of skipping `zap_steed`. Do not
-invent a `bhitm` cure arm. Rule #2: no fs.
-**Score:** fortress unchanged (public-unhit).
-**Verified:** private canary **27**/27; green+strict
-seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
-0007/2200/0383.
-**Next:** Open `zap.c` `bhito` uchain unpunish WAN_OPENING
-(named). Not boxlock.
 **Blocked:** none.

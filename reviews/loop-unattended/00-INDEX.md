@@ -456,3 +456,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [443-f0cb5942-bhit-doorlock-wan-striking.md](./443-f0cb5942-bhit-doorlock-wan-striking.md) | `f0cb5942` | D-1482 bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT | **ACCEPT-WITH-DEBT** |
 | [444-49826707-bhito-poly-arm-boxlock.md](./444-49826707-bhito-poly-arm-boxlock.md) | `49826707` | D-1483 bhito poly-arm boxlock reset_pick | **ACCEPT-WITH-DEBT** |
 | [445-dba2c79a-mbhit-doorlock.md](./445-dba2c79a-mbhit-doorlock.md) | `dba2c79a` | D-1484 muse.c mbhit doorlock WAN_STRIKING | **ACCEPT-WITH-DEBT** |
+| [446-e98c0be8-zap-updown-default-break.md](./446-e98c0be8-zap-updown-default-break.md) | `e98c0be8` | D-1485 zap_updown default break into down bhitpile+zap_map | **ACCEPT** |
+| [447-9f784a5c-potion-dip-unicorn-amethyst.md](./447-9f784a5c-potion-dip-unicorn-amethyst.md) | `9f784a5c` | D-1486 potion_dip unicorn/amethyst mixtype dip | **ACCEPT-WITH-DEBT** |
+| [448-8d41bd04-the-fruit-from-name.md](./448-8d41bd04-the-fruit-from-name.md) | `8d41bd04` | D-1487 the() fruit_from_name + artifact_name | **ACCEPT-WITH-DEBT** |
+| [449-00d5d4d6-arti-invoke-remaining.md](./449-00d5d4d6-arti-invoke-remaining.md) | `00d5d4d6` | D-1488 arti_invoke remaining inv_prop | **QUALITY-RISK** |
+| [450-83fa138f-zap-map-lateral-drawbridge.md](./450-83fa138f-zap-map-lateral-drawbridge.md) | `83fa138f` | D-1489 zap_map lateral drawbridge / bhit | **ACCEPT-WITH-DEBT** |
+| [451-69080895-minetn-1-orcish-town.md](./451-69080895-minetn-1-orcish-town.md) | `69080895` | D-1490 minetn-1 load_special Orcish Town | **ACCEPT-WITH-DEBT** |
+| [452-f26e11aa-worm-move.md](./452-f26e11aa-worm-move.md) | `f26e11aa` | D-1491 worm.c worm_move / shrink_worm / worm_nomove | **ACCEPT-WITH-DEBT** |
+| [453-b303c111-add-to-minv-merge.md](./453-b303c111-add-to-minv-merge.md) | `b303c111` | D-1492 mkobj.c add_to_minv merge | **ACCEPT-WITH-DEBT** |
+| [454-8669b5b8-see-monsters-hallu-warn.md](./454-8669b5b8-see-monsters-hallu-warn.md) | `8669b5b8` | D-1493 allmain.c see_monsters Hallu / Warn_of_mon | **ACCEPT-WITH-DEBT** |

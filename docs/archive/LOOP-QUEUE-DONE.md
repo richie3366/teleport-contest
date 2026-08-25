@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `allmain.c` `see_monsters` Hallu / Warn_of_mon (named). Not DETECT_MONSTERS timeout. **Addressed:** D-1493
+- [x] `allmain.c` `see_monsters` Hallu / Warn_of_mon (named). Not DETECT_MONSTERS timeout. **Addressed:** D-1493 `8669b5b8`
 
 
 - [x] `makemon.c` `add_to_minv` merge (named). Not stolen_booty. **Addressed:** D-1492 `b303c111`

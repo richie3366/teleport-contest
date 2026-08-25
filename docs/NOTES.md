@@ -5,10 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1493; cadence **#1870** `dba2c79a`
-  (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Open
-  `potion.c` `potion_dip` poison-coat / healing unpoison (named).
-  Not unicorn mix.
+- **Fortress 44/44** after D-1493; cadence **#1880** `8669b5b8`
+  (Scr **11,405** RNG 100%, `39+0.30/turn`). Next: Must-fix
+  `artifact.c` `invoke_healing` Blinded 0/1 vs `ucreamed`
+  (`youprop.h:92` / `:1787`). Not ENERGY. Not `potion_dip`.
+  Second Must-fix: `invoke_untrap` vs stub `untrap` (review **449**).
   Do not skip D-1493…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
 - Do not revert D-1217–D-1493. Named still: `any_visible_region`;
@@ -70,4 +71,5 @@ Objective/score live in `CURRENT.md`.
 - D-1482: `bhit` doorlock STRIKING/FORCE. LOCKING D-1475.
 - D-1481: `bhito` uchain WAN_OPENING unpunish.
 - D-1480: `zap_steed` SPE_CURE_SICKNESS via bhitm.
-- D-1479: `zap_steed` WAN_SPEED_MONSTER via bhitm.
+- Review **449** QUALITY-RISK Must-fix: Staff HEALING Blinded
+  0/1; Master Key UNTRAP stub `untrap` (next port).

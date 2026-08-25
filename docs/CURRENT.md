@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-25** — full `sessions` at review **#1870**
-HEAD `dba2c79a` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `38+0.31/turn` (R² 0.853). Next audit (review + score) @**#1880**.
+Score last measured: **2026-08-25** — full `sessions` at review **#1880**
+HEAD `8669b5b8` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `39+0.30/turn` (R² 0.84). Next audit (review + score) @**#1890**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `38+0.31/turn` (R² 0.853). Next audit (review + score) @**#1880**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `38+0.31/turn` (R² 0.853) |
+| Speed label | `39+0.30/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,9 +59,11 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1493. **Next cluster:** Open
-`potion.c` `potion_dip` poison-coat / healing unpoison (named).
-Not unicorn mix.
+**Map-driven fortress** after D-1493. **Next cluster:** Must-fix
+`artifact.c` `invoke_healing` first `You_feel("better.")` gate
+must use C `Blinded` as **0/1** vs `ucreamed` (`youprop.h:92`,
+`:1787`), not the full `HBlinded` word. Not ENERGY. Not
+`potion_dip`.
 Do not skip D-1493…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
@@ -70,8 +72,8 @@ Do not rewrite `confer_oc_oprop`. Do not add trailing
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
 **Keep:** D-0845…D-1493 (index). Recent: **D-1493** allmain.c
-`see_monsters` Hallu / Warn_of_mon. Prior: **D-1492** mkobj.c
-`add_to_minv` merge.
+`see_monsters` Hallu / Warn_of_mon (review **454** ACCEPT-WITH-DEBT;
+SPFX_WARN conferral still named). Prior: **D-1492** `add_to_minv`.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
