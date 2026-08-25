@@ -5,14 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1493; cadence **#1880** `8669b5b8`
+- **Fortress 44/44** after D-1494; cadence **#1880** `8669b5b8`
   (Scr **11,405** RNG 100%, `39+0.30/turn`). Next: Must-fix
-  `artifact.c` `invoke_healing` Blinded 0/1 vs `ucreamed`
-  (`youprop.h:92` / `:1787`). Not ENERGY. Not `potion_dip`.
-  Second Must-fix: `invoke_untrap` vs stub `untrap` (review **449**).
-  Do not skip D-1493…D-1229. No FORCE / `wildmiss` wrap /
-  trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1493. Named still: `any_visible_region`;
+  `artifact.c` `invoke_untrap` vs stub `untrap` (review **449**).
+  Not ENERGY. Not `potion_dip`. Do not skip D-1494…D-1229.
+  No FORCE / `wildmiss` wrap / trailing `confdir` in shared
+  `getdir`.
+- Do not revert D-1217–D-1494. Named still: `any_visible_region`;
   `see_monsters` worm segs / MATCH_WARN / SPFX_WARN conferral;
   minetn-6/7 / dog leftovers;
   TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH.
@@ -24,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1493.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1494.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -35,7 +34,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1493 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1494 (index).
 - Named still: worm-shrieker; potion_dip poison-coat / oil/lamp;
   minetn-6/7 load_special; TAMING / CHARGE_OBJ /
   CREATE_PORTAL / BANISH; fruit_from_indx / options fruitadd walker.
@@ -48,6 +47,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1494: `invoke_healing` first `You_feel` uses C Blinded
+  0/1 vs `ucreamed` (`youprop.h:92` / `:1787`), not H word.
+  BlindedTimeout gates kept. UNTRAP stub named (next Must-fix).
 - D-1493: allmain once-per-input Hallu (H&&!resist) /
   Warn_of_mon; see_monsters warntype.obj count +
   Sting_effects. `any_visible_region` / SPFX_WARN named.
@@ -70,6 +72,5 @@ Objective/score live in `CURRENT.md`.
 - D-1483: `bhito` poly-arm boxlock `reset_pick`. Boxlock D-1467.
 - D-1482: `bhit` doorlock STRIKING/FORCE. LOCKING D-1475.
 - D-1481: `bhito` uchain WAN_OPENING unpunish.
-- D-1480: `zap_steed` SPE_CURE_SICKNESS via bhitm.
-- Review **449** QUALITY-RISK Must-fix: Staff HEALING Blinded
-  0/1; Master Key UNTRAP stub `untrap` (next port).
+- Review **449** remaining Must-fix: Master Key UNTRAP stub
+  `untrap` (D-1494 closed the Staff Blinded 0/1 gate).

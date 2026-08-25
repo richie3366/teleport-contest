@@ -116,3 +116,5 @@ Do not Must-fix “storm `spelleffects` is a stub” (it is live). Do not Must-f
 C caller: `doinvoke` → `arti_invoke`. JS same. New dice as above; UNTRAP refunds `rnz` cost. Public fortress does not hit these arts.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1494

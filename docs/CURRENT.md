@@ -59,25 +59,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1493. **Next cluster:** Must-fix
-`artifact.c` `invoke_healing` first `You_feel("better.")` gate
-must use C `Blinded` as **0/1** vs `ucreamed` (`youprop.h:92`,
-`:1787`), not the full `HBlinded` word. Not ENERGY. Not
-`potion_dip`.
-Do not skip D-1493…D-1229 (index). Keep mention_map addr.
+**Map-driven fortress** after D-1494. **Next cluster:** Must-fix
+`artifact.c` `invoke_untrap` is on the live cost+switch list
+while `trap.js` `untrap` always returns 0 (`void force`;
+door/floor disarm deferred). Either port C
+`untrap(TRUE,0,0,NULL)` success (`:1838–1845`) or keep UNTRAP
+named (no cost) until the callee can return true. Source:
+reviews/loop-unattended/449-00d5d4d6-arti-invoke-remaining.md
+Do not skip D-1494…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1493.** Do not FORCE
+**Do not re-break D-0660…D-1494.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1493 (index). Recent: **D-1493** allmain.c
-`see_monsters` Hallu / Warn_of_mon (review **454** ACCEPT-WITH-DEBT;
-SPFX_WARN conferral still named). Prior: **D-1492** `add_to_minv`.
+**Keep:** D-0845…D-1494 (index). Recent: **D-1494** `invoke_healing`
+first `You_feel` Blinded 0/1 vs `ucreamed` (review **449**).
+Prior: **D-1493** allmain Hallu / Warn_of_mon.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1493
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1494
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

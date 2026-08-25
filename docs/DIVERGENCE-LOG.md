@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1494 — artifact.c invoke_healing Blinded 0/1
+
+- **Status:** fixed (map-driven Must-fix review **449**; not a public FAIL)
+- **Symptom:** First `You_feel("better.")` extra-fired when the
+  hero was timeout-blind with `ucreamed>=1` and no missing HP /
+  Sick / Slimed. C `:1787` compares `Blinded > creamed` where
+  `Blinded` is **0/1**. JS compared the full `HBlinded` word.
+- **C locus:** `artifact.c` `invoke_healing` `:1779–1815`;
+  `youprop.h` `:92` `#define Blinded (HBlinded && !BBlinded)`;
+  `:93` `BlindedTimeout`. Caller `arti_invoke` HEALING.
+- **JS was:** `Blinded_bits()` returned 0 if `BBlinded` else
+  `HBlinded` (D-1488). `50 > 10` true when C `1 > 10` is false.
+- **Fix:** `Blinded()` returns `((HBlinded && !BBlinded) ? 1 : 0)`
+  at the first gate. Keep `BlindedTimeout() > creamed` for the
+  second `You_feel` and `make_blinded`. Rule #2: no fs.
+- **JS:** `js/artifact.js` `Blinded` + `invoke_healing`.
+- **Not this iter:** ENERGY_BOOST; UNTRAP stub callee;
+  TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH; `Upolyd` `mtimedone`
+  vs C `umonnum != umonster`. Remaining specials are D-1488.
+- **Verified:** private canary **10**/10 (C grep; JS 0/1 not
+  bits; HP 50→75; creamed==0 two `better.`; ucreamed=10 one
+  `better.` + timeout 10; healamt still first; BBlinded skip
+  first; nothing_special; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Must-fix `invoke_untrap` vs stub `untrap`.
+- **Files:** `js/artifact.js`.
+
 ## D-1493 — allmain.c see_monsters Hallu / Warn_of_mon
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

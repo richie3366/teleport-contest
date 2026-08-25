@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1494 artifact.c invoke_healing Blinded 0/1
+
+**Objective:** Must-fix `artifact.c` `invoke_healing` first
+`You_feel("better.")` gate uses C `Blinded` 0/1 vs `ucreamed`.
+Not ENERGY. Source: review **449**.
+**C locus:** `artifact.c` `invoke_healing` `:1787`;
+`youprop.h` `:92` `Blinded` / `:93` `BlindedTimeout`.
+**Change:** `Blinded()` is `((H&&!B)?1:0)` at the first gate;
+keep `BlindedTimeout` for the second `You_feel` and
+`make_blinded`. UNTRAP stub still named. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit Staff invoke).
+**Verified:** private canary **10**/10; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Must-fix `artifact.c` `invoke_untrap` vs stub
+`untrap`. Not ENERGY.
+**Blocked:** none.
 ## 2026-08-25 — review D-1485–D-1493 (audit #1880)
 
 **Objective:** audit — C-fidelity reviews **446–454** of JS SHAs

@@ -825,10 +825,14 @@ function Blind() {
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
 }
 
-/** C youprop.h Blinded — HBlinded && !BBlinded (whole H word). */
-function Blinded_bits() {
+/**
+ * C youprop.h :92 Blinded — (HBlinded && !BBlinded) as 0/1.
+ * C `&&` yields 1 or 0; invoke_healing compares that to ucreamed (`:1787`).
+ * Do not return the HBlinded word (D-1494).
+ */
+function Blinded() {
     const u = game.u || {};
-    return (u.BBlinded | 0) ? 0 : (u.HBlinded | 0);
+    return ((u.HBlinded | 0) && !(u.BBlinded | 0)) ? 1 : 0;
 }
 
 /** C youprop.h BlindedTimeout — HBlinded & TIMEOUT. */
@@ -997,8 +1001,8 @@ async function nothing_special(obj) {
 /**
  * C ref: artifact.c invoke_healing :1779–1815 — Staff of Aesculapius.
  * Half missing HP; cure Sick/Slimed; wipe BlindedTimeout down to ucreamed.
- * Pinned C prints You_feel("better.") then the %sbetter line when both
- * Blinded and BlindedTimeout gates fire.
+ * First You_feel uses Blinded 0/1 vs ucreamed (`youprop.h:92`, `:1787`);
+ * second uses BlindedTimeout (`:1789`). Both fire when creamed==0.
  */
 async function invoke_healing(obj) {
     const u = game.u || (game.u = {});
@@ -1009,7 +1013,7 @@ async function invoke_healing(obj) {
     }
     const sick = !!(u.Sick | 0);
     const slimed = !!(u.Slimed | 0);
-    if (healamt || sick || slimed || Blinded_bits() > creamed) {
+    if (healamt || sick || slimed || Blinded() > creamed) {
         await You_feel('better.');
     }
     if (healamt || sick || slimed || BlindedTimeout() > creamed) {
