@@ -4,6 +4,50 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1451 — spell.c SPE_SLOW_MONSTER IMMEDIATE wand-duplicate
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** casting slow monster (`spelleffects` SPE_SLOW_MONSTER)
+  was "Nothing happens." C `:1465–1514` puts SPE_SLOW_MONSTER in the
+  wand-duplicate group: `oc_dir == IMMEDIATE` so getdir then
+  `zapyourself` (dx=dy=dz=0) or `weffects(pseudo)` then
+  `update_inventory()`. `weffects` `:3440–3451` IMMEDIATE
+  `zapsetup` then swallow `bhitm(ustuck)` / `u.dz` `zap_updown`
+  / else `bhit(rn1(8,6), bhitm, bhito)`. Fake spellbook is
+  SPBOOK so `learnwand` skips `makeknown`. Self-zap
+  `zapyourself` `:2868–2874` already live (D-1433):
+  `HFast&(TIMEOUT|INTRINSIC)` then `u_slow_down()`. Directed
+  monster `bhitm` `:218–232` already live (D-1424):
+  `!resist` NOTELL then `mon_adjust_speed(mtmp, -1, otmp)` +
+  `check_gear_next_turn`; whirly engulfer expels.
+- **C locus:** `spell.c` `spelleffects` `:1465–1514`. Callee
+  `zap.c` `weffects` `:3440–3451` / `bhit` / `bhitm` `:218–232`;
+  `zapyourself` `:2868–2874` on self-dir.
+- **JS was:** other-otyp "Nothing happens." after D-1450
+  SPE_KNOCK; weffects IMMEDIATE bhit already live
+  (D-1388 FORCE_BOLT); bhitm/zapyourself SPE_SLOW already
+  live (D-1424 / D-1433).
+- **Fix:** route SPE_SLOW_MONSTER through
+  `wand_duplicate_weffects` (`physical_damage` false).
+  Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callee `js/zap.js`
+  `weffects` / `bhit` / `bhitm` / `zapyourself`.
+- **Not this iter:** remaining wand-duplicate IMMEDIATE
+  (LOCK / TURN / POLY / …); `bhit` `doorlock`;
+  `zap_updown` WAN_OPENING/SPE_KNOCK; `bhito` boxlock /
+  drain_item; zap_steed slow/opening.
+- **Verified:** private canary **19**/19 (C/JS grep; IMMEDIATE
+  SPBOOK vs WAN_SLOW; atme not Nothing happens; HFast
+  You slow down; directed kobold moving slower + permspeed
+  MSLOW; SPBOOK skip makeknown; LOCK still Nothing happens;
+  KNOCK/SLEEP/DIG/MAGIC_MISSILE/FINGER/LIGHT/DRAIN still
+  wired; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts slow monster.
+- **Follow-up:** Open `zap.c` `weffects` SPE_WIZARD_LOCK
+  IMMEDIATE wand-duplicate (named). Not POLYMORPH.
+- **Files:** `js/spell.js`, `js/zap.js` (comments).
+
 ## D-1450 — spell.c SPE_KNOCK IMMEDIATE wand-duplicate
 
 - **Status:** fixed (map-driven Open from D-1427; not a public FAIL)

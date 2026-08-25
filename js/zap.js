@@ -78,8 +78,9 @@
 // wand-duplicate weffects/zap_dig is D-1441; SPE_MAGIC_MISSILE
 // RAY wand-duplicate weffects is D-1448; SPE_FINGER_OF_DEATH
 // RAY wand-duplicate weffects is D-1449; SPE_KNOCK IMMEDIATE
-// wand-duplicate weffects is D-1450; remaining IMMEDIATE
-// wand-duplicate SLOW/LOCK/…;
+// wand-duplicate weffects is D-1450; SPE_SLOW_MONSTER
+// IMMEDIATE wand-duplicate weffects is D-1451; remaining
+// IMMEDIATE wand-duplicate LOCK/…;
 // potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
@@ -2426,7 +2427,9 @@ export async function do_enlightenment_effect() {
  * SPE_FINGER_OF_DEATH RAY wand-duplicate weffects ubuzz (D-1449).
  * SPE_KNOCK IMMEDIATE wand-duplicate weffects bhit (D-1450;
  * bhitm/zapyourself SPE_KNOCK already D-0981).
- * Named omit: remaining wand-duplicate IMMEDIATE (SLOW/LOCK/…).
+ * SPE_SLOW_MONSTER IMMEDIATE wand-duplicate weffects bhit
+ * (D-1451; bhitm D-1424; zapyourself D-1433).
+ * Named omit: remaining wand-duplicate IMMEDIATE (LOCK/…).
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -3494,6 +3497,7 @@ export async function bhitm(mtmp, otmp) {
         // No helpful_gesture (unlike WAN_SPEED :233–242 / D-1422).
         // Callee worn.c mon_adjust_speed lives in muse.js (D-0871).
         // zap_steed routes here; zapyourself WAN_SLOW is D-1433.
+        // SPE_SLOW wand-duplicate weffects is D-1451.
         if (!(await resist(mtmp, otmp.oclass, 0, NOTELL))) {
             if (disguised_mimic) seemimic(mtmp);
             const { mon_adjust_speed } = await import('./muse.js');
@@ -4223,6 +4227,7 @@ export async function zapyourself(obj, ordinary) {
         // Callee mhitu.c u_slow_down :161–171. WAN_LOCKING is
         // D-1434. WAN_PROBING is D-1435. bhitm SPE_DRAIN is D-1436;
         // zapyourself SPE_DRAIN_LIFE is D-1446.
+        // SPE_SLOW wand-duplicate weffects is D-1451.
         const u = game.u || {};
         const hfast = (u.HFast | 0) | (u.uprops?.[FAST]?.intrinsic | 0);
         if (hfast & (TIMEOUT | INTRINSIC)) {
@@ -5009,7 +5014,9 @@ async function zap_steed(obj) {
  * RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH ubuzz (D-1386)
  * including SPE_SLEEP (D-1440), SPE_MAGIC_MISSILE (D-1448),
  * and SPE_FINGER_OF_DEATH (D-1449) wand-duplicate;
- * SPE_KNOCK IMMEDIATE bhit (D-1450; bhitm D-0981).
+ * SPE_KNOCK IMMEDIATE bhit (D-1450; bhitm D-0981);
+ * SPE_SLOW_MONSTER IMMEDIATE bhit (D-1451; bhitm D-1424;
+ * zapyourself D-1433).
  * zap_steed WAN_PROBING (D-1443); zap_updown WAN_PROBING (D-1444);
  * remaining zap_steed otyps / other zap_updown otyps / doorlock
  * deferred.
