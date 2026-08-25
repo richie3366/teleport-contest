@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1492 — mkobj.c add_to_minv merge
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `add_to_minv` always prepended. C
+  `mkobj.c` `add_to_minv` walks `mon->minvent` and
+  `merged(&otmp,&obj)` (invent.c) so a second gold
+  stack or post-`free_oname` stackable joins the
+  existing object (return 1, obj C-freed). Else
+  prepend `OBJ_MINVENT` (return 0). JS skipped the
+  merge loop after D-0029 `OBJ_MINVENT`.
+- **C locus:** `mkobj.c` `add_to_minv` `:2648–2665`;
+  callee `invent.c` `merged` `:814–948` /
+  `mergable` `:4379–4499`. Callers: `steal.c`
+  `mpickobj`; `makemon.c` `mkmonmoney`/`mongets`;
+  `dokick.c` `deliver_obj_to_mon`; `dothrow.c`
+  `throw_gold`; `mkmaze.c` `shiny_orc_stuff`.
+- **JS was:** prepend-only in `makemon.js` (merge
+  named after D-1193 / D-1363 / D-1490).
+- **Fix:** Same merge-then-prepend as
+  `add_to_container`; live in `js/mkobj.js`;
+  re-export `makemon.js`. Rule #2: no fs.
+- **JS:** `js/mkobj.js` `add_to_minv`; re-export
+  `js/makemon.js`.
+- **Not this iter:** `mergable` unpaid/erosion/oname/
+  candle/mail; gnome `begin_burn` after `!mpickobj`;
+  dog `MIGR_LEFTOVERS`; minetn-6/7. stolen_booty is
+  D-1363.
+- **Verified:** private canary **30**/30 (re-export;
+  empty prepend; gold quan merge; dagger merge;
+  spe mismatch prepend; walk past dagger to gold;
+  wand no-merge; mpickobj flag; null; newest head);
+  green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `allmain.c` `see_monsters`
+  Hallu / Warn_of_mon.
+- **Files:** `js/mkobj.js`, `js/makemon.js`.
+
 ## D-1491 — worm.c worm_move / shrink_worm / worm_nomove
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

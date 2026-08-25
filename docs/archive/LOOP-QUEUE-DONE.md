@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `worm.c` `worm_move` (named). Not initworm. **Addressed:** D-1491
+- [x] `makemon.c` `add_to_minv` merge (named). Not stolen_booty. **Addressed:** D-1492
+
+
+- [x] `worm.c` `worm_move` (named). Not initworm. **Addressed:** D-1491 `f26e11aa`
 
 
 - [x] `mklev.c` `minetn-1` load_special (named). Not minetn-5. **Addressed:** D-1490 `69080895`

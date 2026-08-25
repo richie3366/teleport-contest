@@ -5,13 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1491; cadence **#1870** `dba2c79a`
+- **Fortress 44/44** after D-1492; cadence **#1870** `dba2c79a`
   (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Open
-  `makemon.c` `add_to_minv` merge (named). Not stolen_booty.
-  Do not skip D-1491…D-1229. No FORCE / `wildmiss` wrap /
+  `allmain.c` `see_monsters` Hallu / Warn_of_mon (named).
+  Not DETECT_MONSTERS timeout.
+  Do not skip D-1492…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1491. Named still: `see_monsters`
-  warn_obj / Sting; minetn-6/7 / dog leftovers / `add_to_minv`;
+- Do not revert D-1217–D-1492. Named still: `see_monsters`
+  warn_obj / Sting; minetn-6/7 / dog leftovers;
   TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH.
 
 ## Don't re-check (≤15)
@@ -21,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1491.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1492.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -32,7 +33,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1491 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1492 (index).
 - Named still: worm-shrieker; potion_dip poison-coat / oil/lamp;
   minetn-6/7 load_special; TAMING / CHARGE_OBJ /
   CREATE_PORTAL / BANISH; fruit_from_indx / options fruitadd walker.
@@ -45,6 +46,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1492: `add_to_minv` merge (`mkobj.c:2648–2665` via
+  invent.c `merged()`); walk minvent, merge then return 1,
+  else prepend `OBJ_MINVENT` return 0. Re-export
+  `makemon.js`. mergable unpaid/erosion/oname/candle;
+  gnome `begin_burn`; dog leftovers named. stolen_booty
+  is D-1363.
 - D-1491: `worm_move`/`shrink_worm`/`worm_nomove` (`worm.c:189–297`
   / `monmove.c:2054–2071`); after `place_monster`+`msg_mon_movement`
   occupy old dummy, append new, grow (`wgrowtime` `rnd(5)` then
@@ -56,8 +63,8 @@ Objective/score live in `CURRENT.md`.
   via `makemaz`/`load_special`); mines init + centered map +
   iron bars + no-temple altar + orc army (`percent` then
   `rndcoord`); `stolen_booty` live when proto is minetn-1.
-  minetn-6/7 / `link_doors_rooms` extras / dog leftovers /
-  `add_to_minv` named. minetn-5 is D-0754.
+  minetn-6/7 / `link_doors_rooms` extras / dog leftovers
+  named. add_to_minv is D-1492. minetn-5 is D-0754.
 - D-1489: `zap_map` lateral drawbridge + `bhit` ZAPPED_WAND
   (`zap.c:3685–3717` / `:3919–3924`); OPENING/KNOCK
   `is_db_wall` `open_drawbridge`; LOCKING/WIZARD_LOCK
@@ -122,10 +129,3 @@ Objective/score live in `CURRENT.md`.
   bhitm; mr=0 MSLOW + disclose; high-mr resist still
   disclose; SPE_SLOW SPBOOK skip makeknown. Speed is
   D-1479. Striking is D-1474. Callee bhitm is D-1424.
-- D-1477: `potionbreathe` remaining otyps; towel Half_gas_damage;
-  restore/gain ABASE++; heal FALLTHROUGH +1 + make_blinded/make_deaf;
-  sickness −5 (healer skip; Upolyd mh); hallu vision; conf
-  `make_confused` rnd(5); speed HFast; blindness `make_blinded`
-  rnd(5); acid/poly CON; trycall !kn; in_use save.
-  C-commented GAIN_LEVEL/ENERGY/LEV/FRUIT/DETECT/OIL named.
-  potionhit is D-1472.

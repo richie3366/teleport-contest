@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `add_to_minv` merge (named). Not stolen_booty.
 - [ ] `allmain.c` `see_monsters` Hallu / Warn_of_mon (named). Not DETECT_MONSTERS timeout.
 - [ ] `potion.c` `potion_dip` poison-coat / healing unpoison (named). Not unicorn mix.
 - [ ] `potion.c` `potion_dip` oil/lamp (named). Not poison-coat.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `potion.c` `dip_into` (named). Not dodip.
 - [ ] `potion.c` `H2Opotion_dip` useeit `ublindf && Blindfolded_only` (named). Not mix.
 - [ ] `artifact.c` `doinvoke` TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH (named). Not HEALING/storm.
+- [ ] `mklev.c` minetn-6 load_special (named). Not minetn-1.
+- [ ] `mklev.c` minetn-7 load_special (named). Not minetn-6.
+- [ ] `dog.c` `mon_arrive` `MIGR_LEFTOVERS` DF_ALL (named). Not stolen_booty.
+- [ ] `makemon.c` gnome candle `begin_burn` after `!mpickobj` (named). Not add_to_minv.
+- [ ] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle.
 
 ## Parked (do not pop)
 

@@ -959,7 +959,7 @@ function migr_booty_item(otyp, gang) {
 /**
  * C ref: mkmaze.c stolen_booty — orctown loot onto migrating_objs and
  * fleeing orcs. Caller: fixup_special when mines && ransacked.
- * Named omit: dog.c mon_arrive MIGR_LEFTOVERS DF_ALL; add_to_minv merge.
+ * Named omit: dog.c mon_arrive MIGR_LEFTOVERS DF_ALL. add_to_minv merge is D-1492.
  */
 export function stolen_booty() {
     const gang = rndorcname();
@@ -7467,7 +7467,7 @@ function load_minend_2() {
  * C ref: dat/minetn-1.lua via load_special — Mines town "Orcish Town".
  * mines init + centered map + iron bars + ransacked orc army.
  * Named omissions: minetn-6/7; link_doors_rooms extras; ensure_way_out;
- * map_cleanup; count_level_features; dog leftovers / add_to_minv merge.
+ * map_cleanup; count_level_features; dog leftovers. add_to_minv merge is D-1492.
  */
 function load_minetn_1() {
     const g = game;

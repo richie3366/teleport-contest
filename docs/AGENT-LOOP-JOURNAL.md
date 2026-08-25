@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1492 mkobj.c add_to_minv merge
+
+**Objective:** Open `makemon.c` `add_to_minv` merge (named).
+Not stolen_booty.
+**C locus:** `mkobj.c` `add_to_minv` `:2648–2665`; callee
+`invent.c` `merged`.
+**Change:** Walk minvent and merge, else prepend
+`OBJ_MINVENT`. Live in `mkobj.js`; re-export
+`makemon.js`. mergable unpaid/erosion/oname / gnome
+`begin_burn` / dog leftovers named. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit merge).
+**Verified:** private canary **30**/30; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `allmain.c` `see_monsters` Hallu /
+Warn_of_mon (named). Not DETECT_MONSTERS timeout.
+**Blocked:** none.
 ## 2026-08-25 — D-1491 worm.c worm_move / shrink / nomove
 
 **Objective:** Open `worm.c` `worm_move` (named). Not initworm.
