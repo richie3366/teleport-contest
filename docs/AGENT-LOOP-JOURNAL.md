@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1499 potion.c potion_dip poly_obj / obj_unpolyable
+
+**Objective:** Open `potion.c` `potion_dip` `poly_obj`/`obj_unpolyable`
+(named). Not mixtype.
+**C locus:** `potion.c` `potion_dip` `:2468–2502`; callees
+`zap.c` `obj_unpolyable` / `poly_obj`; `mkobj.c`
+`replace_object` invent.
+**JS locus:** `js/potion.js` `potion_dip`; export
+`js/zap.js` `poly_obj`/`obj_unpolyable`.
+**Change:** unpolyable resist gate; else polypiles +
+`poly_obj(STRANGE_OBJECT)` then makeknown/useup/`prinv` or
+nothing_seems/`poof`. Invent replace + erosion/oil/lamp
+polish in the callee. Worn `set_wear` named.
+**Verify:** green seed8000/0900 + strict PASS; cohort
+seed1500/1800/0012/0004/0007/2200/0383 + strict PASS.
+**Next:** Open `potion.c` `dip_into`. Not dodip.
+
 ## 2026-08-25 — D-1498 potion.c potion_dip oil/lamp
 
 **Objective:** Open `potion.c` `potion_dip` oil/lamp

@@ -335,7 +335,7 @@ milky/smoky bottles, lit-oil burn, worn-stack split, **`potion_dip` potion-potio
 (D-1457; Klein/hands/H2O/poly gate) + **`potion_dip` unicorn/amethyst mixtype dip** (D-1486) + 
 **`potion_dip` poison-coat / healing unpoison** (D-1497; `is_poisonable` missile window or 
 Grimtooth) + **`potion_dip` oil/lamp** (D-1498; lit `fire_damage` / cursed `make_glib` /
-weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill; `poly_obj`, lichen/towel/acid-erode, `dip_into` named); **`dodip` pool yn** (D-1128; 
+weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill) + **`potion_dip` `poly_obj`/`obj_unpolyable`** (D-1499; unpolyable `obj_resists(5,95)` then `poly_obj(STRANGE_OBJECT)` + polypiles/`prinv`/`poof`; lichen/towel/acid-erode, `dip_into` named); **`dodip` pool yn** (D-1128; 
 `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; 
 Levitation `floating_above`; unskilled rider skip; hands/uarmg `wash_hands`; 
 else `water_damage` + POT_ACID `in_use`/`useup`; 
@@ -365,8 +365,8 @@ death-disintegrate / poison·acid / ugolemeffects / inventory_resistance deferre
 **fatal `zhitu`→`losehp` awaits `finish_losehp_done` + `weffects` skips `learnwand` (D-0737; 
 ≡C noreturn / thitu D-0255)**; **IMMEDIATE `weffects` → `bhit(rn1(8,6))` + 
 `bhito` WAN_POLYMORPH (`obj_unpolyable`/`obj_shudders`/`poly_obj` floor + 
-`learnwand`→`makeknown`) + `zapwrapup` `You_feel` shudder** (D-0509/D-0513; 
-`bhitm` poly / `zap_updown`/`zap_map` / `create_polymon` / invent-worn poly / other bhito otyps 
+invent replace D-1499; `learnwand`→`makeknown`) + `zapwrapup` `You_feel` shudder** (D-0509/D-0513; 
+`bhitm` poly / `zap_updown`/`zap_map` / `create_polymon` / worn-slot `set_wear` / other bhito otyps 
 deferred); **RAY `WAN_DIGGING`/`SPE_DIG` → `zap_dig`** (D-0516); 
 **`weffects`/`zapnodir` `more_experienced(0,10)` on disclose** (D-0582); 
 `makewish` subset (D-0064); **`makewish` `readobjnam_wish` wizterrainwish furniture/liquid/floor 

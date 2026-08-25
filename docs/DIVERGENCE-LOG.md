@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1499 — potion.c potion_dip poly_obj / obj_unpolyable
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `#dip` of a polymorph potion (or dipping a
+  polymorph potion) always printed Nothing happens. C
+  `potion.c` `potion_dip` `:2468–2502` after H2O: if
+  `obj_unpolyable` of the non-poly bottle (type gate +
+  `obj_resists(5,95)`) then `nothing_happens` and no poof;
+  else first `polypiles` livelog, `poly_obj(obj,
+  STRANGE_OBJECT)`, then gone → `makeknown`; otyp change →
+  `makeknown`+`useup`+`prinv`; same otyp →
+  `nothing_seems_to_happen`+`poof`. JS skipped the callee
+  after D-1498.
+- **C locus:** `potion.c` `potion_dip` `:2468–2502`. Callees
+  `zap.c` `obj_unpolyable` `:1678–1683` / `poly_obj`
+  `:1702–1988`; `mkobj.c` `replace_object` invent;
+  `invent.c` `prinv` / `freeinv_core`. Worn `set_wear` still
+  named (async).
+- **JS was:** named omit — always `nothing_happens` +
+  `in_use=FALSE`.
+- **JS now:** live `js/potion.js` `potion_dip`; exported
+  `js/zap.js` `poly_obj`/`obj_unpolyable`; invent
+  `replace_object` + erosion/oil/lamp/marker polish in
+  `poly_obj`. `roles.js` `uhis` for the conduct livelog.
+- **Verify:** green seed8000/0900 + strict; cohort
+  seed1500/1800/0012/0004/0007/2200/0383 + strict. All PASS.
+- **Follow-up:** lichen/towel/acid-erode / `dip_into` named.
+  Worn-slot remap / sokoban_guilt / egg/leash / addinv_core /
+  gem mineral `rnd` / spestudied named on `poly_obj`.
+
 ## D-1498 — potion.c potion_dip oil/lamp
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

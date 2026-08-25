@@ -2130,12 +2130,33 @@ export function objects_at(x, y) {
 
 /**
  * C ref: mkobj.c replace_object — swap otmp into obj's chain position.
- * Floor arm used by zap.c poly_obj; invent/minvent/contained deferred.
+ * Floor + invent used by zap.c poly_obj; minvent/contained named.
  */
 export function replace_object(obj, otmp) {
     if (!obj || !otmp) return;
     const where = obj.where;
     otmp.where = where;
+    if (where === OBJ_INVENT) {
+        /* C :648–651 — otmp.nobj = obj.nobj; extract_nobj(obj, invent). */
+        otmp.nobj = obj.nobj || null;
+        const inv = game.invent;
+        if (Array.isArray(inv)) {
+            const i = inv.indexOf(obj);
+            if (i >= 0) inv[i] = otmp;
+        } else if (inv === obj) {
+            game.invent = otmp;
+        } else {
+            for (let p = inv; p; p = p.nobj) {
+                if (p.nobj === obj) {
+                    p.nobj = otmp;
+                    break;
+                }
+            }
+        }
+        obj.nobj = null;
+        obj.where = OBJ_FREE;
+        return;
+    }
     if (where === OBJ_FLOOR) {
         otmp.nobj = obj.nobj || null;
         otmp.nexthere = obj.nexthere || null;

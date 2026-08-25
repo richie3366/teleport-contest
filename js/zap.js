@@ -1,7 +1,7 @@
 // zap.js — Zap command / wish helpers (partial).
 // C ref: zap.c dozap, zappable, weffects, zapnodir, learnwand, makewish,
 //        zapyourself, flashburn, lightdamage, ubreatheu, ubuzz, dobuzz, zhitm, destroy_items, resist,
-//        bhit, bhito, bhitm, bhitpile, poly_obj, obj_shudders,
+//        bhit, bhito, bhitm, bhitpile, poly_obj, obj_unpolyable, obj_shudders,
 //        probe_monster, probe_objchain,
 //        cancel_item, cancel_monst, revive, revive_egg, unturn_dead,
 //        unturn_you, drain_item, zap_map, maybe_explode_trap
@@ -291,7 +291,8 @@ import { dryup } from './fountain.js';
 import { explode } from './explode.js';
 import { unpunish, litroom } from './read.js';
 import { engr_at, del_engr, make_engr_at, wipe_engr_at, random_engraving, rloc_engr } from './engrave.js';
-import { bare_artifactname, defends, defends_when_carried } from './artifact.js';
+import { bare_artifactname, defends, defends_when_carried, is_art } from './artifact.js';
+import { ART_GRIMTOOTH } from './generated/artifacts_data.js';
 import { Ring_gone, Ring_off, Ring_on, setworn } from './do_wear.js';
 import { which_armor, mon_set_minvis, check_gear_next_turn } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
@@ -302,7 +303,8 @@ import {
     eaten_stat, start_timer, spot_stop_timers, spot_time_left, obj_stop_timers,
     obj_ice_effects, place_object, stackobj, mergable, set_corpsenm,
     get_mtraits, free_omonst, free_omid, is_metallic, is_crackable,
-    mksobj_at,
+    mksobj_at, is_flammable, is_rottable, is_rustprone, is_corrodeable,
+    erosion_matters, is_damageable, fixup_oil,
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
@@ -347,6 +349,7 @@ import {
     IS_ALTAR, Is_earthlevel, IS_AIR, CLOUD, IS_SINK,
     MM_NOTAIL, MM_ADJACENTOK, NATTK,
     MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS,
+    P_SHURIKEN, P_BOW,
     IS_FURNITURE, IS_GRAVE, SCORR, VAULT, TEMPLE, In_quest, Is_firelevel,
     VIBRATING_SQUARE, MAGIC_PORTAL, HEADSTONE, TRAP_EXPLODE, is_magical_trap,
 } from './const.js';
@@ -431,6 +434,11 @@ const POT_SICKNESS = objectNames.indexOf('POT_SICKNESS');
 const POT_SEE_INVISIBLE = objectNames.indexOf('POT_SEE_INVISIBLE');
 const POT_FRUIT_JUICE = objectNames.indexOf('POT_FRUIT_JUICE');
 const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
+const OIL_LAMP = objectNames.indexOf('OIL_LAMP');
+const MAGIC_MARKER = objectNames.indexOf('MAGIC_MARKER');
+const UNICORN_HORN = objectNames.indexOf('UNICORN_HORN');
+const LOW_BOOTS = objectNames.indexOf('LOW_BOOTS');
+const POT_GAIN_ABILITY = objectNames.indexOf('POT_GAIN_ABILITY');
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const CANDELABRUM_OF_INVOCATION = objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const CORPSE = objectNames.indexOf('CORPSE');
@@ -465,6 +473,7 @@ const PM_HEALER = monsterNames.indexOf('PM_HEALER');
 const PM_MONK = monsterNames.indexOf('PM_MONK');
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
+const PM_CROCODILE = monsterNames.indexOf('PM_CROCODILE');
 const PM_DEATH = monsterNames.indexOf('PM_DEATH');
 const PM_PESTILENCE = monsterNames.indexOf('PM_PESTILENCE');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
@@ -4719,7 +4728,7 @@ function unpolyable(obj) {
 /**
  * C ref: zap.c obj_unpolyable — type gate then obj_resists(5, 95).
  */
-function obj_unpolyable(obj) {
+export function obj_unpolyable(obj) {
     if (unpolyable(obj) || obj === game.u?.uball || obj === game.u?.uskin) {
         return true;
     }
@@ -4912,11 +4921,12 @@ async function stone_to_flesh_obj(obj) {
 }
 
 /**
- * C ref: zap.c poly_obj — STRANGE_OBJECT floor path (wand/pile zap)
- * plus mksobj(id) for stone-to-flesh (D-1461 :1728–1736).
- * Worn-slot remap / sokoban_guilt / egg/leash named.
+ * C ref: zap.c poly_obj — STRANGE_OBJECT class-preserving poly
+ * (wand/pile + potion_dip D-1499) plus mksobj(id) for stone-to-flesh
+ * (D-1461 :1728–1736). Worn-slot remap / sokoban_guilt / egg/leash /
+ * addinv_core1/2 / shop bill / gem mineral rnd / spestudied named.
  */
-function poly_obj(obj, id) {
+export function poly_obj(obj, id) {
     if (!obj) return null;
     const can_merge = id === STRANGE_OBJECT;
     const obj_location = obj.where;
@@ -4924,8 +4934,10 @@ function poly_obj(obj, id) {
 
     if (id === STRANGE_OBJECT) {
         let try_limit = 3;
-        const magic_obj = game.objects?.[obj.otyp]?.oc_magic | 0;
-        // degraded unicorn horn → magic_obj=0 deferred
+        let magic_obj = game.objects?.[obj.otyp]?.oc_magic | 0;
+        if ((obj.otyp | 0) === UNICORN_HORN && obj.degraded_horn) {
+            magic_obj = 0;
+        }
         otmp = null;
         do {
             if (otmp) delobj(otmp);
@@ -4954,7 +4966,39 @@ function poly_obj(obj, id) {
     otmp.recharged = obj.recharged | 0;
     otmp.cursed = !!obj.cursed;
     otmp.blessed = !!obj.blessed;
-    // erosion / traps / poison deferred
+
+    if (erosion_matters(otmp)) {
+        if (is_flammable(otmp) || is_rustprone(otmp) || is_crackable(otmp)) {
+            otmp.oeroded = obj.oeroded | 0;
+        }
+        if (is_corrodeable(otmp) || is_rottable(otmp)) {
+            otmp.oeroded2 = obj.oeroded2 | 0;
+        }
+        if (is_damageable(otmp)) {
+            otmp.oerodeproof = obj.oerodeproof;
+        }
+    }
+
+    if (obj.otrapped && Is_box(otmp)) otmp.otrapped = 1;
+    if (obj.opoisoned) {
+        const sk = game.objects?.[otmp.otyp]?.oc_skill ?? 0;
+        if (((otmp.oclass | 0) === WEAPON_CLASS
+                && sk >= -P_SHURIKEN && sk <= -P_BOW)
+            || is_art(otmp, ART_GRIMTOOTH)) {
+            otmp.opoisoned = 1;
+        }
+    }
+
+    if (id === STRANGE_OBJECT && (obj.otyp | 0) === CORPSE
+        && (obj.corpsenm | 0) === PM_CROCODILE) {
+        otmp.otyp = LOW_BOOTS;
+        otmp.oclass = ARMOR_CLASS;
+        otmp.spe = 0;
+        otmp.oeroded = 0;
+        otmp.oerodeproof = true;
+        otmp.quan = 1;
+        otmp.cursed = false;
+    }
 
     if (Has_contents(otmp)) delete_contents(otmp);
 
@@ -4968,7 +5012,12 @@ function poly_obj(obj, id) {
 
     switch (otmp.oclass) {
     case TOOL_CLASS:
-        // MAGIC_LAMP / MAGIC_MARKER polish deferred
+        if ((otmp.otyp | 0) === MAGIC_LAMP) {
+            otmp.otyp = OIL_LAMP;
+            otmp.age = 1500;
+        } else if ((otmp.otyp | 0) === MAGIC_MARKER) {
+            otmp.recharged = 1;
+        }
         break;
     case WAND_CLASS:
         while (otmp.otyp === WAN_WISHING || otmp.otyp === WAN_POLYMORPH) {
@@ -4976,25 +5025,24 @@ function poly_obj(obj, id) {
         }
         if ((otmp.recharged | 0) < rn2(7)) otmp.recharged = (otmp.recharged | 0) + 1;
         break;
-    case POTION_CLASS: {
-        const POT_WATER = objectNames.indexOf('POT_WATER');
-        const POT_GAIN = objectNames.indexOf('POT_GAIN_ABILITY');
+    case POTION_CLASS:
         while (otmp.otyp === POT_POLYMORPH) {
-            otmp.otyp = rnd_class(POT_GAIN, POT_WATER);
+            otmp.otyp = rnd_class(POT_GAIN_ABILITY, POT_WATER);
+        }
+        if ((otmp.otyp | 0) === POT_OIL || (obj.otyp | 0) === POT_OIL) {
+            fixup_oil(otmp, obj);
         }
         break;
-    }
     case SPBOOK_CLASS: {
-        const SPE_BLANK = objectNames.indexOf('SPE_BLANK_PAPER');
         const bases = game.bases || [];
         while (otmp.otyp === SPE_POLYMORPH) {
-            otmp.otyp = rnd_class(bases[SPBOOK_CLASS] | 0, SPE_BLANK);
+            otmp.otyp = rnd_class(bases[SPBOOK_CLASS] | 0, SPE_BLANK_PAPER);
         }
-        // spestudied degrade deferred
+        // spestudied degrade named
         break;
     }
     case GEM_CLASS:
-        // mineral→ROCK backfire deferred
+        // mineral→ROCK backfire named (rnd(4) RNG)
         break;
     default:
         break;
@@ -5002,18 +5050,14 @@ function poly_obj(obj, id) {
 
     otmp.owt = weight(otmp);
 
-    if (obj_location === OBJ_FLOOR) {
+    if (obj_location === OBJ_FLOOR || obj_location === OBJ_INVENT) {
         replace_object(obj, otmp);
-        // boulder block_point deferred
-    } else if (obj_location === OBJ_INVENT
-        && Array.isArray(game.invent)) {
-        /* C :1904–1913 replace + freeinv_core/addinv. Worn remap named. */
-        const i = game.invent.indexOf(obj);
-        if (i >= 0) game.invent[i] = otmp;
-        otmp.where = OBJ_INVENT;
-        otmp.nobj = obj.nobj || null;
-        obj.nobj = null;
-        obj.where = OBJ_FREE;
+        if (obj_location === OBJ_INVENT) {
+            /* C :1904–1913 replace + freeinv_core. addinv_core1/2 and
+             * worn-slot remap named (set_wear is async). */
+            freeinv_core(obj);
+        }
+        // boulder block_point / shop bill named
     } else {
         // minvent/contained — extract+free old; leave otmp free
         delobj(obj);

@@ -59,27 +59,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1498. **Next cluster:** Open
-`potion.c` `potion_dip` `poly_obj`/`obj_unpolyable`
-(named). Not mixtype.
-Do not skip D-1498…D-1229 (index). Keep mention_map addr.
+**Map-driven fortress** after D-1499. **Next cluster:** Open
+`potion.c` `dip_into` (named). Not dodip.
+Do not skip D-1499…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1498.** Do not FORCE
+**Do not re-break D-0660…D-1499.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1498 (index). Recent: **D-1498** `potion_dip`
-oil/lamp (lit `fire_damage` / cursed `make_glib` /
-weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP
-fill; empty MAGIC_LAMP→OIL_LAMP; age>1000 full else
-`4/3 * age/2` clamp 1500). `poly_obj` named.
-Prior: **D-1497** `potion_dip` poison-coat / healing
-unpoison. **D-1496** `body_part` clones → `polyself.js`.
+**Keep:** D-0845…D-1499 (index). Recent: **D-1499** `potion_dip`
+`poly_obj`/`obj_unpolyable` (unpolyable `obj_resists(5,95)`
+else polypiles + `poly_obj(STRANGE_OBJECT)` + makeknown/
+useup/`prinv` or nothing_seems/`poof`; callee invent
+`replace_object` + erosion/oil/lamp polish). Worn-slot
+`set_wear` / lichen/towel/acid-erode / `dip_into` named.
+Prior: **D-1498** `potion_dip` oil/lamp. **D-1497**
+poison-coat / healing unpoison. **D-1496** `body_part`
+clones → `polyself.js`.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1498
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1499
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

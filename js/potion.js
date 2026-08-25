@@ -21,6 +21,7 @@
 //         potion_dip unicorn/amethyst mixtype dip (D-1486),
 //         potion_dip poison-coat / healing unpoison (D-1497),
 //         potion_dip oil/lamp (D-1498),
+//         potion_dip poly_obj / obj_unpolyable (D-1499),
 //         potionhit remaining otyp switch + shop unpaid (D-1472),
 //         potionbreathe remaining otyps (D-1477),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
@@ -104,6 +105,7 @@ import {
 import {
     makeknown, compactify_invlets, enlightenment, observe_object,
     hold_another_object, update_inventory, near_capacity, freeinv_core,
+    prinv,
 } from './invent.js';
 import { yn_function } from './getline.js';
 import {
@@ -117,6 +119,7 @@ import {
 import {
     IS_FOUNTAIN, IS_SINK, IS_AIR, IS_ROOM, IS_WALL, IS_DOOR, SDOOR,
     ECMD_TIME, ECMD_CANCEL, ECMD_OK, HAND, BOLT_LIM, nothing_happens,
+    nothing_seems_to_happen,
     OBJ_FREE,
     POTHIT_HERO_THROW, POTHIT_OTHER_THROW, KILLED_BY_AN, KILLED_BY,
     TIMEOUT, I_SPECIAL, HALLUC_RES, GLIB, FAST, FROMOUTSIDE, INTRINSIC, LEG,
@@ -131,7 +134,7 @@ import {
     M_SEEN_SLEEP, FIXED_ABIL, ANTIMAGIC, SHOPBASE, STRAT_WAITFORU,
     M_AP_FURNITURE, M_AP_OBJECT, BURNING_OIL, LOST_EXPLODING, EXPL_FIERY,
     MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS, COST_NUTRLZ,
-    P_SHURIKEN, P_BOW, P_CROSSBOW, P_NONE, FINGER,
+    P_SHURIKEN, P_BOW, P_CROSSBOW, P_NONE, FINGER, LL_CONDUCT,
 } from './const.js';
 import { hands_obj, P_SKILL } from './weapon.js';
 import { rn2, rnd, d, rn1, rnl } from './rng.js';
@@ -166,6 +169,9 @@ import { you_were, you_unwere, set_ulycn, new_were } from './were.js';
 import { which_armor, mon_set_minvis } from './worn.js';
 import { polyself, body_part } from './polyself.js';
 import { is_art, ART_GRIMTOOTH } from './artifact.js';
+import { poly_obj, obj_unpolyable } from './zap.js';
+import { livelog_printf } from './pline.js';
+import { uhis } from './roles.js';
 
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const OIL_LAMP = objectNames.indexOf('OIL_LAMP');
@@ -2976,10 +2982,10 @@ function Yname2_pot(obj) {
 
 /**
  * C potion.c potion_dip `:2441–2791` — after dodip/dip_into choose.
- * Envelope: Klein bottle, hands, H2Opotion_dip, poly gate, potion-potion
- * mixtype (D-1457), poison-coat / healing unpoison (D-1497),
- * oil/lamp (D-1498), unicorn/amethyst mixtype dip (D-1486). Named:
- * poly_obj, lichen/acid, towel, acid-erode, dip_into.
+ * Envelope: Klein bottle, hands, H2Opotion_dip, poly_obj/obj_unpolyable
+ * (D-1499), potion-potion mixtype (D-1457), poison-coat / healing
+ * unpoison (D-1497), oil/lamp (D-1498), unicorn/amethyst mixtype dip
+ * (D-1486). Named: lichen/acid, towel, acid-erode, dip_into.
  */
 async function potion_dip(obj, potion) {
     if (potion === obj && (potion.quan | 0) === 1) {
@@ -3002,9 +3008,35 @@ async function potion_dip(obj, potion) {
         }
     } else if ((obj.otyp | 0) === POT_POLYMORPH
         || (potion.otyp | 0) === POT_POLYMORPH) {
-        // obj_unpolyable / poly_obj named
-        await pline(nothing_happens);
-        potion.in_use = false;
+        /* C potion.c potion_dip `:2468–2502` — poly the dipped obj. */
+        if (obj_unpolyable((obj.otyp | 0) === POT_POLYMORPH ? potion : obj)) {
+            await pline(nothing_happens);
+        } else {
+            const save_otyp = obj.otyp | 0;
+            const u = game.u || (game.u = {});
+            if (!u.uconduct) u.uconduct = {};
+            if (!(u.uconduct.polypiles | 0)) {
+                u.uconduct.polypiles = 1;
+                livelog_printf(LL_CONDUCT, 'polymorphed %s first item', uhis());
+            } else {
+                u.uconduct.polypiles = (u.uconduct.polypiles | 0) + 1;
+            }
+            obj = poly_obj(obj, STRANGE_OBJECT);
+            if (!obj) {
+                makeknown(POT_POLYMORPH);
+                return ECMD_TIME;
+            } else if ((obj.otyp | 0) !== save_otyp) {
+                makeknown(POT_POLYMORPH);
+                useup(potion);
+                await prinv(null, obj, 0);
+                return ECMD_TIME;
+            } else {
+                await pline(nothing_seems_to_happen);
+                await poof(potion);
+                return ECMD_TIME;
+            }
+        }
+        potion.in_use = false; /* didn't go poof */
         return ECMD_TIME;
     } else if (obj.oclass === POTION_CLASS && obj.otyp !== potion.otyp) {
         let amt = obj.quan | 0;

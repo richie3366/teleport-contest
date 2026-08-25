@@ -72,7 +72,7 @@ import { monflee } from './monmove.js';
 import { nomul, confdir, losehp, maybe_half_phys, is_pool, is_lava, overexertion, in_rooms } from './hack.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { walk_path, thitmonst, hurtle } from './dothrow.js';
-import { uhim } from './roles.js';
+import { uhim, uhis } from './roles.js';
 import { is_art } from './artifact.js';
 import { ART_SNICKERSNEE } from './generated/artifacts_data.js';
 import { P_SKILL, weapon_type, dbon, MON_WEP, is_wet_towel, dry_a_towel, hands_obj } from './weapon.js';
@@ -3363,10 +3363,6 @@ function sgn_apply(n) {
 
 function Role_if(pm) {
     return (game.urole?.mnum | 0) === pm;
-}
-
-function uhis() {
-    return game.flags?.female ? 'her' : 'his';
 }
 
 function s_suffix_apply(s) {
