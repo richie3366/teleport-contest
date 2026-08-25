@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-25** — full `sessions` at review **#1810**
-HEAD `530eaa3c` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `36+0.30/turn` (R² 0.857). Next audit (review + score) @**#1820**.
+Score last measured: **2026-08-25** — full `sessions` at review **#1820**
+HEAD `70c2b8e6` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `36+0.30/turn` (R² 0.857). Next audit (review + score) @**#1830**.
 
 ## Score
 

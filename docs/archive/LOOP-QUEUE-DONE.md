@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `spell.c` SPE_FINGER_OF_DEATH wand-duplicate RAY (named from D-1440). Not MAGIC_MISSILE. **Addressed:** D-1449
+- [x] `spell.c` SPE_FINGER_OF_DEATH wand-duplicate RAY (named from D-1440). Not MAGIC_MISSILE. **Addressed:** D-1449 `70c2b8e6`
 
 
 - [x] `spell.c` SPE_MAGIC_MISSILE wand-duplicate RAY (named from D-1440). Not FINGER. **Addressed:** D-1448 `20f59004`

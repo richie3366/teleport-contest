@@ -411,3 +411,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [398-abdbcad6-peffect-gain-ability.md](./398-abdbcad6-peffect-gain-ability.md) | `abdbcad6` | D-1438 peffect_gain_ability | **ACCEPT-WITH-DEBT** |
 | [399-f6dd492b-peffect-hallucination.md](./399-f6dd492b-peffect-hallucination.md) | `f6dd492b` | D-1439 peffect_hallucination | **ACCEPT-WITH-DEBT** |
 | [400-530eaa3c-spe-sleep-wand-duplicate.md](./400-530eaa3c-spe-sleep-wand-duplicate.md) | `530eaa3c` | D-1440 SPE_SLEEP wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [401-b8ef02c3-spe-dig-wand-duplicate.md](./401-b8ef02c3-spe-dig-wand-duplicate.md) | `b8ef02c3` | D-1441 SPE_DIG wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [402-892be171-mhitm-ad-phys-rustm.md](./402-892be171-mhitm-ad-phys-rustm.md) | `892be171` | D-1442 mhitm_ad_phys rustm leftover | **ACCEPT-WITH-DEBT** |
+| [403-4a0aa5cc-zap-steed-wan-probing.md](./403-4a0aa5cc-zap-steed-wan-probing.md) | `4a0aa5cc` | D-1443 zap_steed WAN_PROBING | **ACCEPT-WITH-DEBT** |
+| [404-ae0cf7f4-zap-updown-wan-probing.md](./404-ae0cf7f4-zap-updown-wan-probing.md) | `ae0cf7f4` | D-1444 zap_updown WAN_PROBING | **ACCEPT-WITH-DEBT** |
+| [405-7628b03e-bhito-wan-probing.md](./405-7628b03e-bhito-wan-probing.md) | `7628b03e` | D-1445 bhito WAN_PROBING | **ACCEPT-WITH-DEBT** |
+| [406-ed218e86-zapyourself-spe-drain-life.md](./406-ed218e86-zapyourself-spe-drain-life.md) | `ed218e86` | D-1446 zapyourself SPE_DRAIN_LIFE | **ACCEPT-WITH-DEBT** |
+| [407-4dde6eeb-mhitm-ad-phys-poison.md](./407-4dde6eeb-mhitm-ad-phys-poison.md) | `4dde6eeb` | D-1447 mhitm_ad_phys poison leftover | **ACCEPT-WITH-DEBT** |
+| [408-20f59004-spe-magic-missile-wand-duplicate.md](./408-20f59004-spe-magic-missile-wand-duplicate.md) | `20f59004` | D-1448 SPE_MAGIC_MISSILE wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [409-70c2b8e6-spe-finger-wand-duplicate.md](./409-70c2b8e6-spe-finger-wand-duplicate.md) | `70c2b8e6` | D-1449 SPE_FINGER_OF_DEATH wand-duplicate | **ACCEPT-WITH-DEBT** |

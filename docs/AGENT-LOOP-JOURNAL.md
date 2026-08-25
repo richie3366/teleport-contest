@@ -8,6 +8,27 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — review D-1441–D-1449 (audit #1820)
+
+**Objective:** audit — C-fidelity reviews **401–409** of JS SHAs
+`b8ef02c3` / `892be171` / `4a0aa5cc` / `ae0cf7f4` /
+`7628b03e` / `ed218e86` / `4dde6eeb` / `20f59004` /
+`70c2b8e6` plus full `sessions` score.
+**C locus:** `spell.c` `spelleffects` `:1457–1514`;
+`uhitm.c` `mhitm_ad_phys` `:4182–4189` / `:3104–3118` /
+`:1260–1280`; `zap.c` `zap_steed` `:3099–3103`;
+`zap_updown` `:3236–3262`; `bhito` `:2222–2274`;
+`zapyourself` `:2817–2823`.
+**Change:** no `js/` edits. **401–409** ACCEPT-WITH-DEBT.
+Filled archive D-1449 `70c2b8e6`. Must-fix empty. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `36+0.30/turn` (R² 0.857).
+**Verified:** full `sessions` at HEAD `70c2b8e6`; public-unhit
+on dig-cast / rustm / steed-probe / updown-probe / bhito-probe /
+self-drain / poison leftover / missile-cast / finger-cast.
+**Next:** Open `zap.c` `weffects` SPE_KNOCK IMMEDIATE
+wand-duplicate (named from D-1427). Not SLOW.
+**Blocked:** none.
 ## 2026-08-25 — D-1449 spell.c SPE_FINGER_OF_DEATH RAY wand-duplicate
 
 **Objective:** Open `spell.c` SPE_FINGER_OF_DEATH wand-duplicate
