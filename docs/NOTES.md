@@ -5,17 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1502; cadence **#1880** `8669b5b8`
+- **Fortress 44/44** after D-1503; cadence **#1880** `8669b5b8`
   (Scr **11,405** RNG 100%, `39+0.30/turn`). Next: Open
-  `mklev.c` minetn-6 load_special (named). Not minetn-1.
-  Do not skip D-1502…D-1229. No FORCE / `wildmiss` wrap /
+  `mklev.c` minetn-7 load_special (named). Not minetn-6.
+  Do not skip D-1503…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`. `body_part` is
   `polyself.js` (wield via `body_part_latebound`; zap
   appends the existing import). `body_part_head` / `_hand`
   deferred for scope.
-- Do not revert D-1217–D-1502. Named still: `any_visible_region`;
+- Do not revert D-1217–D-1503. Named still: `any_visible_region`;
   `see_monsters` worm segs / MATCH_WARN / SPFX_WARN conferral;
-  minetn-6/7 / dog leftovers; GETOBJ_ALLOWCNT count prefix;
+  minetn-7 / dog leftovers; GETOBJ_ALLOWCNT count prefix;
   tamedog is_covetous / is_demon-vs-hero; lichen/acid-erode /
   worn `set_wear` on poly_obj; INTERNALCMD `#altdip`.
 
@@ -26,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1502.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1503.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,9 +37,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1502 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1503 (index).
 - Named still: worm-shrieker; lichen/acid-erode;
-  minetn-6/7 load_special; GETOBJ_ALLOWCNT / tamedog
+  minetn-7 load_special; GETOBJ_ALLOWCNT / tamedog
   is_covetous; fruit_from_indx / options fruitadd walker.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -52,6 +52,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1503: minetn-6 Bustling Town `load_special`; solidfill then
+  mines lit=1 bg HWALL; top-aligned `'x'` skip map; shops/temple.
+  `ensure_way_out` named. minetn-7 still empty-maze.
 - D-1502: `arti_invoke` TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH;
   `seffect_taming`/`charge_ok`/`recharge`; `tamedog` MANFOOD.
   GETOBJ_ALLOWCNT named. Palantir `#if 0`. H2O dip D-1501.
@@ -88,11 +91,9 @@ Objective/score live in `CURRENT.md`.
   `begin_burn` / dog leftovers named. stolen_booty D-1363.
 - D-1491: `worm_move`/`shrink_worm`/`worm_nomove`;
   cutworm / see_wsegs named. initworm D-0544.
-- D-1490: minetn-1 Orcish Town `load_special`; minetn-6/7
-  named. minetn-5 D-0754.
+- D-1490: minetn-1 Orcish Town `load_special`; minetn-6 is
+  D-1503; minetn-7 named. minetn-5 D-0754.
 - D-1489: `zap_map` lateral drawbridge + `bhit` ZAPPED_WAND.
   force_decor named. Engraving D-1476.
 - D-1488: `arti_invoke` remaining specials + W_ARTI xor.
   TAMING/CHARGE/PORTAL/BANISH is D-1502.
-- D-1487: `the()` fruit_from_name + artifact_name.
-  fruit_from_indx named. CapitalMon D-1357.

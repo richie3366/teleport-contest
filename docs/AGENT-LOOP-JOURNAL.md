@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1503 mklev.c minetn-6 load_special Bustling Town
+
+**Objective:** Open `mklev.c` minetn-6 load_special (named).
+Not minetn-1.
+**C locus:** `dat/minetn-6.lua` via `mkmaze.c` `makemaz` /
+`sp_lev.c` `load_special` / `lspo_map` / `lspo_region`.
+**JS locus:** `js/mklev.js` `load_minetn_6` /
+`load_special_proto`.
+**Change:** dispatch + clone: solidfill then mines lit=1
+bg HWALL, top-aligned 40×20 map (`'x'` skip), shops/temple
+`priestini`, peaceful watch. `ensure_way_out` named.
+Rule #2: no fs.
+**Verify:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mklev.c` minetn-7 load_special (named). Not
+minetn-6.
+
 ## 2026-08-25 — D-1502 artifact.c doinvoke TAMING/CHARGE/PORTAL/BANISH
 
 **Objective:** Open `artifact.c` `doinvoke` TAMING / CHARGE_OBJ /

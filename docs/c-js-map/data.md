@@ -424,7 +424,7 @@ temperate → hot; valley still overrides temperate);
 **D-0752 sanctum `teleport_region` `region_islev=1` absolute** (C `levregion_add` skips 
 `get_location`; was mx+ → span 23 vs 26; prefix **41671→41768**) + 
 **D-0753 `maybe_generate_rnd_mon` stronghold-depth rate** + **D-0754 `minetn-5`** + 
-**D-1490 `minetn-1`**; fakewiz deferred (hellfill D-0906); 
+**D-1490 `minetn-1`** + **D-1503 `minetn-6`**; fakewiz deferred (hellfill D-0906); 
 flip_level lregion coord update deferred; 
 **D-0608 `minend-1` `des.object("(")`→TOOL not WEAPON** (defsym `'('`=TOOL_CLASS); 
 **D-0543 `soko1-2` load_special** (map/reward percent(25); other `soko*-*` deferred); 
@@ -466,7 +466,9 @@ seed4500 **61698→82788**) + **D-0754 `minetn-5` load_special** (Grotto Town so
 percent terrain + shops/temple/watch; seed0360 prefix **41777→43248**) + 
 **D-0802 `des.region(sel,"lit")` → `light_region` wall-expand** (minetn-5 + minend-2; 
 seed0360 Scr **589→616**; prefix **180→231**; **D-1490 `minetn-1` Orcish Town**; 
-minetn-6/7 deferred; **stolen_booty D-1363** live when proto is minetn-1; 
+**D-1503 `minetn-6` Bustling Town** (solidfill then mines lit=1 bg HWALL + 
+top-aligned map `'x'` skip + shops/temple/peaceful watch); minetn-7 deferred; 
+**stolen_booty D-1363** live when proto is minetn-1; 
 cleric/stronghold graveyard else-if named); other-role quest fills; **D-0533 egg hatch timeout**; 
 **D-0534 `mktrap` WEB→`makemon(PM_GIANT_SPIDER)` before victim gate** 
 (`splev_create_trap`/`mktrap_room`/`mktrap_seen_victim`; tut-1 `nospider`); 

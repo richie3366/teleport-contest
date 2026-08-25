@@ -1358,12 +1358,13 @@ function reset_xystart_size() {
  * Bar-filb, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
  * soko1-2, soko2-1, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
  * tower3, fire, air, minend-1, minend-2, minetn-1, minetn-2, minetn-3,
- * minetn-5, medusa-1, medusa-3, oracle, castle, valley, sanctum, asmodeus,
- * juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca, Wiz-fila, Wiz-filb,
- * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5, Kni-goal.
+ * minetn-4, minetn-5, minetn-6, medusa-1, medusa-3, oracle, castle, valley,
+ * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
+ * Wiz-fila, Wiz-filb,
+ * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6, Kni-goal.
  * Named omissions: other bigrm-N / soko2-2 / quest
  * protos (Bar-goal; Wiz-goal; Kni-strt/loca/fila/filb);
- * minetn-6/7; minend-3; medusa-2/4; water/astral; fakewiz;
+ * minetn-7; minend-3; medusa-2/4; water/astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
 async function makemaz(s) {
@@ -1620,6 +1621,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'minetn-5') {
         load_minetn_5();
+        return true;
+    }
+    if (protofile === 'minetn-6') {
+        load_minetn_6();
         return true;
     }
     if (protofile === 'oracle') {
@@ -7466,8 +7471,9 @@ function load_minend_2() {
 /**
  * C ref: dat/minetn-1.lua via load_special — Mines town "Orcish Town".
  * mines init + centered map + iron bars + ransacked orc army.
- * Named omissions: minetn-6/7; link_doors_rooms extras; ensure_way_out;
+ * Named omissions: minetn-7; link_doors_rooms extras; ensure_way_out;
  * map_cleanup; count_level_features; dog leftovers. add_to_minv merge is D-1492.
+ * minetn-6 is D-1503.
  */
 function load_minetn_1() {
     const g = game;
@@ -7744,7 +7750,8 @@ function load_minetn_1() {
 /**
  * C ref: dat/minetn-2.lua via load_special — Mines town "Town Square".
  * Nested des.room + create_subroom/create_door + shops/temple/watch.
- * Named omissions: minetn-6/7; link_doors_rooms extras; ensure_way_out.
+ * Named omissions: minetn-7; link_doors_rooms extras; ensure_way_out.
+ * minetn-6 is D-1503.
  */
 function load_minetn_2() {
     const g = game;
@@ -7845,7 +7852,8 @@ function load_minetn_2() {
 /**
  * C ref: dat/minetn-3.lua via load_special — Mines town "Alley Town".
  * Nested des.room town + chance shops + temple align[1] + watch.
- * Named omissions: minetn-6/7; link_doors_rooms extras; ensure_way_out.
+ * Named omissions: minetn-7; link_doors_rooms extras; ensure_way_out.
+ * minetn-6 is D-1503.
  */
 function load_minetn_3() {
     const g = game;
@@ -7976,8 +7984,8 @@ function load_minetn_3() {
 /**
  * C ref: dat/minetn-4.lua via load_special — Mines town "College Town".
  * Nested des.room town + book/candle/tool/food shops + temple align[1]
- * + watch. Named omissions: minetn-6/7; link_doors_rooms extras;
- * ensure_way_out.
+ * + watch. Named omissions: minetn-7; link_doors_rooms extras;
+ * ensure_way_out. minetn-6 is D-1503.
  */
 function load_minetn_4() {
     const g = game;
@@ -8097,8 +8105,9 @@ function load_minetn_4() {
 /**
  * C ref: dat/minetn-5.lua via load_special — Mines town "Grotto Town".
  * Solidfill + centered map + percent terrain + shops/temple/watch.
- * Named omissions: minetn-6/7; link_doors_rooms extras; ensure_way_out;
+ * Named omissions: minetn-7; link_doors_rooms extras; ensure_way_out;
  * hellfill/asmodeus/baalz/orcus/juiblex/wizard1-3/fakewiz.
+ * minetn-6 is D-1503.
  */
 function load_minetn_5() {
     const g = game;
@@ -8324,6 +8333,228 @@ function load_minetn_5() {
         if (templeRoom) priestini(g.u?.uz, templeRoom, ax, ay, false);
         if (g.level.flags) g.level.flags.has_temple = true;
     }
+
+    // C load_special: wallification → flip → fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/minetn-6.lua via load_special — Mines town "Bustling Town".
+ * Solidfill then mines (lit=1, bg HWALL) + top-aligned map ('x' keeps
+ * cavern) + shops/temple/watch. Named omissions: minetn-7;
+ * link_doors_rooms extras; ensure_way_out (lua inaccessibles flag);
+ * map_cleanup; count_level_features.
+ */
+function load_minetn_6() {
+    const g = game;
+    nhlib_shuffle_align();
+    const align = g.splev_align || ['law', 'neutral', 'chaos'];
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+
+    // des.level_flags("mazelevel", "inaccessibles") — ensure_way_out named
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init({ style="mines", fg=".", bg="-", smoothed=true,
+    // joined=true, lit=1, walled=true }) — filling defaults to fg
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: HWALL, filling: ROOM,
+        lit: 1, smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+
+    const MINETN6_MAP = `
+x--------xxxxxxxxxxx-------------------x
+x------xxxxxxxxxxxxxx-----------------xx
+.-----................----------------.x
+.|...|................|...|..|...|...|..
+.|...+..--+--.........|...|..|...|...|..
+.|...|..|...|..-----..|...|..|-+---+--..
+.-----..|...|--|...|..--+---+-.........x
+........|...|..|...+.............-----.x
+........-----..|...|......--+-...|...|..
+x----...|...|+------..{...|..|...+...|..
+x|..+...|...|.............|..|...|...|..
+.|..|...|...|-+-.....---+-------------.x
+.----...--+--..|..-+-|..................
+...|........|..|..|..|----....--------.x
+...|..T.....----..|..|...+....|......|..
+...|-....{........|..|...|....+......|x.
+...--..-....T.....--------....|......|x.
+.......--.....................----------
+.xxxx-----xxxxxxxxxxxxxxxxxx------------
+xxxx-------xxxxxxxxxxxxxxx--------------
+`.replace(/^\n/, '');
+    const mf = mapfrag_fromstr(MINETN6_MAP);
+    const { xstart: mx, ystart: my } = splev_map_aligned_start(
+        mf.wid, mf.hei, 'center', 'top',
+    );
+    g.splev_xstart = mx;
+    g.splev_ystart = my;
+    g.splev_xsize = mf.wid;
+    g.splev_ysize = mf.hei;
+    if (!g.SpLev_Map) g.SpLev_Map = new Set();
+    for (let yy = my; yy < Math.min(ROWNO, my + mf.hei); yy++) {
+        for (let xx = mx; xx < Math.min(COLNO, mx + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - mx, yy - my);
+            // C lspo_map: 'x' → MAX_TYPE skip (keep mines cavern)
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+            g.SpLev_Map.add(`${xx},${yy}`);
+        }
+    }
+    // C lspo_map table form lit=FALSE → set_levltyp_lit on written cells
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const x = Number(key.slice(0, comma));
+                const y = Number(key.slice(comma + 1));
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                loc.lit = IS_LAVA(loc.typ) ? true : false;
+            }
+        }
+    }
+
+    // des.region(selection.area(00,00,39,19), "lit") — grow + sel_set_lit
+    light_region(mx + 0, my + 0, mx + 39, my + 19, true);
+
+    // des.levregion stair-up / stair-down — region_islev=1; exclude map-rel
+    const pushLev = (rtype, region, exclude) => {
+        levregion_add({
+            inarea: {
+                x1: region[0] | 0, y1: region[1] | 0,
+                x2: region[2] | 0, y2: region[3] | 0,
+            },
+            delarea: {
+                x1: exclude[0] | 0, y1: exclude[1] | 0,
+                x2: exclude[2] | 0, y2: exclude[3] | 0,
+            },
+            in_islev: true,
+            del_islev: false,
+            rtype,
+            padding: 0,
+            rname: { str: null },
+        });
+    };
+    pushLev(LR_UPSTAIR, [1, 3, 21, 19], [1, 0, 39, 18]);
+    pushLev(LR_DOWNSTAIR, [60, 3, 75, 19], [0, 0, 38, 18]);
+
+    // des.region(selection.area(13,7,14,8), "unlit") — no grow
+    light_region(mx + 13, my + 7, mx + 14, my + 8, false);
+
+    const addRectRoom = (x1, y1, x2, y2, lit, rtype) => {
+        const dx1 = mx + x1, dy1 = my + y1, dx2 = mx + x2, dy2 = my + y2;
+        if ((g.level.nroom | 0) >= MAXNROFROOMS) return null;
+        add_room(dx1, dy1, dx2, dy2, lit, rtype, true);
+        const troom = g.level.rooms[g.level.nroom - 1];
+        if (!troom) return null;
+        troom.rlit = lit ? 1 : 0;
+        troom.needfill = FILL_NORMAL;
+        troom.needjoining = true;
+        topologize(troom);
+        add_doors_to_room(troom);
+        return troom;
+    };
+    const tnDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    const placeNamedAt = (id, rx, ry) => {
+        const { mndx, female } = find_montype_gender(id);
+        induced_align(80);
+        let pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        pm = splev_mines_maybe_clear_your_race(pm);
+        let x = mx + rx, y = my + ry;
+        const moved = splev_resolve_occupied(x, y, pm);
+        x = moved.x; y = moved.y;
+        const mtmp = makemon(pm, x, y, 0);
+        if (mtmp && pm) mtmp.female = female;
+    };
+
+    // des.region filled shops / temple (needfill later in makelevel)
+    addRectRoom(9, 9, 11, 11, true, CANDLESHOP);
+    addRectRoom(16, 6, 18, 8, true, TOOLSHOP);
+    addRectRoom(23, 3, 25, 5, true, SHOPBASE);
+    addRectRoom(22, 14, 24, 15, true, splev_roomtype(monkfoodshop()));
+    const templeRoom = addRectRoom(31, 14, 36, 16, true, TEMPLE);
+
+    // des.altar align[1] shrine — Lua 1-based → JS align[0]
+    {
+        const ax = mx + 35, ay = my + 15;
+        const loc = g.level.at(ax, ay);
+        const alignStrToAmask = (s) => {
+            if (s === 'law') return AM_LAWFUL;
+            if (s === 'neutral') return AM_NEUTRAL;
+            if (s === 'chaos') return AM_CHAOTIC;
+            return AM_NEUTRAL;
+        };
+        const amask = alignStrToAmask(align[0]) | AM_SHRINE;
+        if (loc) {
+            loc.typ = ALTAR;
+            loc.flags = amask;
+            loc.altarmask = amask;
+        }
+        if (templeRoom) priestini(g.u?.uz, templeRoom, ax, ay, false);
+        if (g.level.flags) g.level.flags.has_temple = true;
+    }
+
+    tnDoor(5, 4, D_CLOSED);
+    tnDoor(4, 10, D_LOCKED);
+    tnDoor(10, 4, D_CLOSED);
+    tnDoor(10, 12, D_CLOSED);
+    tnDoor(13, 9, D_LOCKED);
+    tnDoor(14, 11, D_LOCKED);
+    tnDoor(19, 7, D_CLOSED);
+    tnDoor(19, 12, D_CLOSED);
+    tnDoor(24, 6, D_CLOSED);
+    tnDoor(24, 11, D_CLOSED);
+    tnDoor(25, 14, D_CLOSED);
+    tnDoor(28, 6, D_CLOSED);
+    tnDoor(28, 8, D_LOCKED);
+    tnDoor(30, 15, D_CLOSED);
+    tnDoor(31, 5, D_CLOSED);
+    tnDoor(35, 5, D_CLOSED);
+    tnDoor(33, 9, D_CLOSED);
+
+    for (let i = 0; i < 6; i++) splev_create_monster('gnome');
+    placeNamedAt('gnome', 14, 8);
+    placeNamedAt('gnome lord', 14, 7);
+    placeNamedAt('gnome', 27, 10);
+    splev_create_monster('gnome lord');
+    splev_create_monster('gnome lord');
+    splev_create_monster('dwarf');
+    splev_create_monster('dwarf');
+    splev_create_monster('dwarf');
+    splev_create_monster('dwarf', 1);
+    splev_create_monster('dwarf', 1);
+    splev_create_monster('gnome', 1);
+    splev_create_monster('gnome', 1);
+    splev_create_monster('hobbit', 1);
+    splev_create_monster('goblin', 1);
+    splev_create_monster('kobold', 1);
+    splev_create_monster('dog', 1);
+    splev_create_monster('watchman', 1);
+    splev_create_monster('watchman', 1);
+    splev_create_monster('watchman', 1);
+    splev_create_monster('watch captain', 1);
+    splev_create_monster('watch captain', 1);
 
     // C load_special: wallification → flip → fixup
     if (!g.level.flags.corrmaze)

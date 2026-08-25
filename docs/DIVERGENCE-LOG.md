@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1503 — mklev.c minetn-6 load_special Bustling Town
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Mines town variant 6 (`makemaz` proto
+  `minetn-6`) fell through to an empty maze. C
+  `dat/minetn-6.lua` via `sp_lev.c` `load_special` is
+  Bustling Town: `nhlib` shuffle align, solidfill then
+  `mazelevel`+`inaccessibles`, mines init (`fg="."` `bg="-"`
+  HWALL, `lit=1`, smoothed/joined/walled), table `des.map`
+  `halign=center` `valign=top` (`'x'`=MAX_TYPE skip so cavern
+  fill remains; string/table `lit=FALSE` on written cells),
+  `des.region` lit grow on the 40×20 map then unlit 13,7–14,8,
+  levregion stairs (`region_islev=1`), filled candle/tool/
+  shop/monkfood/temple rooms, shrine altar `align[1]` +
+  `priestini`, closed/locked doors, gnomes/dwarves then
+  peaceful watch (two captains), C wallification / flip /
+  `fixup_special`. Lua sets `inaccessibles` so C would call
+  `ensure_way_out` (named omit; map is full-height to avoid
+  shop backdoors).
+- **C locus:** `dat/minetn-6.lua`; `mkmaze.c` `makemaz`;
+  `sp_lev.c` `load_special` / `lspo_map` / `lspo_region` /
+  `create_monster` / `create_altar`.
+- **JS was:** `load_special_proto` dispatched minetn-1..5
+  only; minetn-6 named after D-1490.
+- **Fix:** Port the lua sequence; reuse minetn-5
+  `addRectRoom`/`splev_create_monster`/`placeNamedAt`.
+  Rule #2: no fs.
+- **JS:** `js/mklev.js` `load_minetn_6`.
+- **Not this iter:** minetn-7; `link_doors_rooms` extras;
+  `ensure_way_out`; `map_cleanup`; `count_level_features`.
+- **Verified:** private canary **18**/18 (dispatch, mines
+  HWALL lit=1, top-align, `'x'` skip, map 20×40 lua≡JS,
+  shops/temple/priestini, monster order, minetn-7 omit,
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `mklev.c` minetn-7 load_special.
+- **Files:** `js/mklev.js`.
+
 ## D-1502 — artifact.c doinvoke TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
