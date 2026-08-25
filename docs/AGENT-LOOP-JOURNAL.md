@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1491 worm.c worm_move / shrink / nomove
+
+**Objective:** Open `worm.c` `worm_move` (named). Not initworm.
+**C locus:** `worm.c` `worm_move` `:189–277`; `shrink_worm`
+`:170–186`; `worm_nomove` `:280–297`; caller `monmove.c`
+`m_move` `:2054–2071`.
+**Change:** After place, occupy old dummy and grow or shrink
+the tail; failed move shrinks + HP floor 1. cutworm /
+wormgone / save/rest / `worm_known` / see_wsegs / muse·mhitu
+callers named. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit movement).
+**Verified:** private canary **27**/27; green+strict
+seed8000/0900; focused seed0373 FULL; cohort **7**/7 +
+strict 1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `makemon.c` `add_to_minv` merge (named).
+Not stolen_booty.
+**Blocked:** none.
 ## 2026-08-25 — D-1490 mklev.c minetn-1 load_special Orcish Town
 
 **Objective:** Open `mklev.c` `minetn-1` load_special (named).

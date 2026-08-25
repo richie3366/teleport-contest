@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1491 — worm.c worm_move / shrink_worm / worm_nomove
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** After `m_move` `place_monster`, a long worm's dummy
+  head stayed frozen. C `worm.c` `worm_move` occupies the old
+  dummy via `place_worm_seg`, appends a new dummy at `mx/my`,
+  then grows (`wgrowtime<=moves`: first `rnd(5)`, later
+  `rn1(10,2)*NORMAL_SPEED/mcalcmove(FALSE)` + `d(2,2)` HP
+  ladder 33/22/11, `MHPMAX`) or `shrink_worm`s the tail.
+  Failed move calls `worm_nomove` (shrink + HP floor 1).
+  JS created worms (D-0544) but never moved the chain.
+- **C locus:** `worm.c` `worm_move` `:189–277`; `shrink_worm`
+  `:170–186`; `worm_nomove` `:280–297`; caller `monmove.c`
+  `m_move` `:2054–2071` after `place_monster`/`msg_mon_movement`.
+- **JS was:** named omit after D-0544 initworm; `m_move`
+  set `mx/my` only.
+- **Fix:** Port grow/shrink; wire `m_move` place + failed-move.
+  Rule #2: no fs.
+- **JS:** `js/worm.js` `worm_move`/`shrink_worm`/`worm_nomove`;
+  `js/monmove.js` `m_move`.
+- **Not this iter:** cutworm; wormgone; save/rest wsegs;
+  `worm_known`; see_wsegs/detect_wsegs; muse.c / mhitu.c
+  `worm_move` callers (those JS paths are not live).
+- **Verified:** private canary **27**/27 (C/JS grep; first
+  grow `rnd(5)`+`d(2,2)`; same-turn shrink; later grow
+  `rn2(10)` no `rn2(12)`; nomove HP floor 1; Rule #2);
+  green+strict seed8000/0900; focused seed0373 **FULL**
+  RNG+Scr; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383.
+- **Follow-up:** Open `makemon.c` `add_to_minv` merge.
+- **Files:** `js/worm.js`, `js/monmove.js`.
+
 ## D-1490 — mklev.c minetn-1 load_special Orcish Town
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
@@ -39,7 +71,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   shaman `i==1` m_lev only, ransacked→stolen_booty,
   Rule #2); green+strict seed8000/0900; cohort **7**/7 +
   strict 1500/1800/0012/0004/0007/2200/0383.
-- **Follow-up:** Open `worm.c` `worm_move`.
+- **Follow-up:** Open `makemon.c` `add_to_minv` merge.
 - **Files:** `js/mklev.js`.
 
 ## D-1489 — zap.c zap_map lateral drawbridge / bhit

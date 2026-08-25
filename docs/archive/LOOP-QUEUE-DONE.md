@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `mklev.c` `minetn-1` load_special (named). Not minetn-5. **Addressed:** D-1490
+- [x] `worm.c` `worm_move` (named). Not initworm. **Addressed:** D-1491
+
+
+- [x] `mklev.c` `minetn-1` load_special (named). Not minetn-5. **Addressed:** D-1490 `69080895`
 
 
 - [x] `zap.c` `zap_map` lateral drawbridge / bhit (named). Not engraving. **Addressed:** D-1489 `83fa138f`

@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1490; cadence **#1870** `dba2c79a`
+- **Fortress 44/44** after D-1491; cadence **#1870** `dba2c79a`
   (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Open
-  `worm.c` `worm_move` (named). Not initworm.
-  Do not skip D-1490…D-1229. No FORCE / `wildmiss` wrap /
+  `makemon.c` `add_to_minv` merge (named). Not stolen_booty.
+  Do not skip D-1491…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1490. Named still: `see_monsters`
+- Do not revert D-1217–D-1491. Named still: `see_monsters`
   warn_obj / Sting; minetn-6/7 / dog leftovers / `add_to_minv`;
   TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH.
 
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1490.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1491.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -32,7 +32,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1490 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1491 (index).
 - Named still: worm-shrieker; potion_dip poison-coat / oil/lamp;
   minetn-6/7 load_special; TAMING / CHARGE_OBJ /
   CREATE_PORTAL / BANISH; fruit_from_indx / options fruitadd walker.
@@ -45,6 +45,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1491: `worm_move`/`shrink_worm`/`worm_nomove` (`worm.c:189–297`
+  / `monmove.c:2054–2071`); after `place_monster`+`msg_mon_movement`
+  occupy old dummy, append new, grow (`wgrowtime` `rnd(5)` then
+  `rn1(10,2)*NORMAL/mcalcmove FALSE` + `d(2,2)` HP ladder) or
+  shrink tail; failed move shrinks + HP floor 1. cutworm /
+  wormgone / save/rest / `worm_known` / see_wsegs / muse·mhitu
+  callers named. initworm is D-0544.
 - D-1490: `minetn-1` Orcish Town `load_special` (`dat/minetn-1.lua`
   via `makemaz`/`load_special`); mines init + centered map +
   iron bars + no-temple altar + orc army (`percent` then
@@ -122,8 +129,3 @@ Objective/score live in `CURRENT.md`.
   rnd(5); acid/poly CON; trycall !kn; in_use save.
   C-commented GAIN_LEVEL/ENERGY/LEV/FRUIT/DETECT/OIL named.
   potionhit is D-1472.
-- D-1476: `zap_map` down engraving + `maybe_explode_trap`;
-  portal shield+tseen+learnwand; magical trap explode+deltrap;
-  HEADSTONE skip; cancel/invis del_engr; poly random_engraving;
-  tele `rloc_engr`; STONE ENGRAVE wipe; striking wipe.
-  Lateral drawbridge / bhit is D-1489. Probing is D-1444.
