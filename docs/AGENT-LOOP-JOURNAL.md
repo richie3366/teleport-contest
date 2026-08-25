@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1498 potion.c potion_dip oil/lamp
+
+**Objective:** Open `potion.c` `potion_dip` oil/lamp
+(named). Not poison-coat.
+**C locus:** `potion.c` `potion_dip` `:2645–2724`. Macros
+`is_weptool`/`is_ammo`/`is_rustprone`/`is_corrodeable`;
+callees `fire_damage`/`make_glib`/`explode`/`check_unpaid`.
+Caller `dodip`.
+**Change:** POT_OIL lit `fire_damage` / cursed glib /
+weapon gleam-derust; `more_dips` OIL_LAMP/MAGIC_LAMP fill
+(empty MAGIC→OIL; age>1000 full else `4/3*age/2` clamp
+1500). `poly_obj` named. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit #dip oil).
+**Verified:** private canary **23**/23; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `potion_dip` `poly_obj`/
+`obj_unpolyable` (named). Not mixtype.
+**Blocked:** none.
 ## 2026-08-25 — D-1497 potion.c potion_dip poison-coat / unpoison
 
 **Objective:** Open `potion.c` `potion_dip` poison-coat /

@@ -20,6 +20,7 @@
 //         mixtype / potion_dip potion-potion mix (D-1457),
 //         potion_dip unicorn/amethyst mixtype dip (D-1486),
 //         potion_dip poison-coat / healing unpoison (D-1497),
+//         potion_dip oil/lamp (D-1498),
 //         potionhit remaining otyp switch + shop unpaid (D-1472),
 //         potionbreathe remaining otyps (D-1477),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
@@ -89,11 +90,12 @@ import {
 } from './display.js';
 import {
     POTION_CLASS, SPBOOK_CLASS, COIN_CLASS, ARMOR_CLASS, WEAPON_CLASS,
-    objectNames, objectDescrs,
+    TOOL_CLASS, GEM_CLASS, objectNames, objectNameStrs, objectDescrs,
 } from './objects.js';
 import {
     weight, obj_extract_self, bless, curse, unbless, uncurse,
     is_metallic, is_crackable, splitobj, mkobj, fixup_oil,
+    is_rustprone, is_corrodeable,
 } from './mkobj.js';
 import {
     A_WIS, A_INT, A_DEX, A_CON, A_STR, A_MAX, adjattrib, exercise, acurr,
@@ -129,7 +131,7 @@ import {
     M_SEEN_SLEEP, FIXED_ABIL, ANTIMAGIC, SHOPBASE, STRAT_WAITFORU,
     M_AP_FURNITURE, M_AP_OBJECT, BURNING_OIL, LOST_EXPLODING, EXPL_FIERY,
     MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS, COST_NUTRLZ,
-    P_SHURIKEN, P_BOW,
+    P_SHURIKEN, P_BOW, P_CROSSBOW, P_NONE, FINGER,
 } from './const.js';
 import { hands_obj, P_SKILL } from './weapon.js';
 import { rn2, rnd, d, rn1, rnl } from './rng.js';
@@ -166,6 +168,8 @@ import { polyself, body_part } from './polyself.js';
 import { is_art, ART_GRIMTOOTH } from './artifact.js';
 
 const POT_OIL = objectNames.indexOf('POT_OIL');
+const OIL_LAMP = objectNames.indexOf('OIL_LAMP');
+const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
 const POT_ACID = objectNames.indexOf('POT_ACID');
 const POT_SLEEPING = objectNames.indexOf('POT_SLEEPING');
 const POT_PARALYSIS = objectNames.indexOf('POT_PARALYSIS');
@@ -2924,12 +2928,58 @@ function is_poisonable_dip(obj) {
         || permapoisoned_dip(obj);
 }
 
+/** C obj.h is_weptool — TOOL_CLASS && oc_skill != P_NONE. */
+function is_weptool_dip(o) {
+    if (!o || (o.oclass | 0) !== TOOL_CLASS) return false;
+    const sk = game.objects?.[o.otyp]?.oc_skill;
+    return (sk ?? P_NONE) !== P_NONE;
+}
+
+/** C obj.h is_ammo — WEAPON/GEM skill `-P_CROSSBOW`..`-P_BOW`. */
+function is_ammo_dip(otmp) {
+    if (!otmp) return false;
+    if ((otmp.oclass | 0) !== WEAPON_CLASS && (otmp.oclass | 0) !== GEM_CLASS) {
+        return false;
+    }
+    const sk = game.objects?.[otmp.otyp]?.oc_skill ?? 0;
+    return sk >= -P_CROSSBOW && sk <= -P_BOW;
+}
+
+/**
+ * C objnam.c gloves_simple_name — "gauntlets" iff dknown and
+ * (oc_name_known ? OBJ_NAME : OBJ_DESCR) contains "gauntlets".
+ */
+function gloves_simple_name_dip(gloves) {
+    if (gloves && gloves.dknown) {
+        const otyp = gloves.otyp | 0;
+        const ocl = game.objects?.[otyp];
+        const actualn = objectNameStrs[otyp] || '';
+        const descrpn = objectDescrs[otyp] || '';
+        const s = ocl?.oc_name_known ? actualn : descrpn;
+        if (String(s).toLowerCase().includes('gauntlets')) return 'gauntlets';
+    }
+    return 'gloves';
+}
+
+/** C do_wear.c fingers_or_gloves — gloves vs makeplural(FINGER). */
+function fingers_or_gloves_dip(check_gloves) {
+    const u = game.u || {};
+    if (check_gloves && u.uarmg) return gloves_simple_name_dip(u.uarmg);
+    return makeplural(body_part(FINGER));
+}
+
+/** C objnam.c Yname2 — capitalized yname. */
+function Yname2_pot(obj) {
+    const s = yname(obj) || '';
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
+
 /**
  * C potion.c potion_dip `:2441–2791` — after dodip/dip_into choose.
  * Envelope: Klein bottle, hands, H2Opotion_dip, poly gate, potion-potion
  * mixtype (D-1457), poison-coat / healing unpoison (D-1497),
- * unicorn/amethyst mixtype dip (D-1486). Named: poly_obj, lichen/acid,
- * towel, acid-erode, oil/lamp, dip_into.
+ * oil/lamp (D-1498), unicorn/amethyst mixtype dip (D-1486). Named:
+ * poly_obj, lichen/acid, towel, acid-erode, dip_into.
  */
 async function potion_dip(obj, potion) {
     if (potion === obj && (potion.quan | 0) === 1) {
@@ -3051,7 +3101,84 @@ async function potion_dip(obj, potion) {
         }
     }
 
-    // acid-erode, oil/lamp named
+    // acid-erode named (C `:2638–2643` between poison-coat and oil)
+    // C potion.c potion_dip `:2645–2686` POT_OIL weapon/weptool; `:2687–2724`
+    // more_dips OIL_LAMP / MAGIC_LAMP fill (goto more_dips for non-weapons).
+    let oil_more_dips = false;
+    if ((potion.otyp | 0) === POT_OIL) {
+        let wisx = false;
+        if (potion.lamplit) { /* burning */
+            const u = game.u || {};
+            const { fire_damage } = await import('./do.js');
+            await fire_damage(obj, true, u.ux, u.uy);
+        } else if (potion.cursed) {
+            await pline(`The potion spills and covers your ${
+                fingers_or_gloves_dip(true)} with oil.`);
+            make_glib((Glib() & TIMEOUT) + d(2, 10));
+        } else if ((obj.oclass | 0) !== WEAPON_CLASS && !is_weptool_dip(obj)) {
+            oil_more_dips = true;
+        } else if ((!is_rustprone(obj) && !is_corrodeable(obj))
+            || is_ammo_dip(obj) || (!obj.oeroded && !obj.oeroded2)) {
+            if (!Blind()) {
+                await pline(`${Yname2_pot(obj)} ${
+                    otense_pot(obj, 'gleam')} with an oily sheen.`);
+            } else {
+                await pline(`${Yname2_pot(obj)} ${
+                    otense_pot(obj, 'feel')} oily.`);
+            }
+        } else {
+            const rustword = (obj.oeroded && obj.oeroded2)
+                ? 'corroded and rusty'
+                : obj.oeroded ? 'rusty' : 'corroded';
+            await pline(`${Yname2_pot(obj)} ${
+                otense_pot(obj, !Blind() ? 'are' : 'feel')} less ${rustword}.`);
+            if ((obj.oeroded | 0) > 0) obj.oeroded--;
+            if ((obj.oeroded2 | 0) > 0) obj.oeroded2--;
+            wisx = true;
+        }
+        if (!oil_more_dips) {
+            exercise(A_WIS, wisx);
+            if (potion.dknown) makeknown(potion.otyp);
+            useup(potion);
+            return ECMD_TIME;
+        }
+    }
+    // more_dips
+    if (((obj.otyp | 0) === OIL_LAMP || (obj.otyp | 0) === MAGIC_LAMP)
+        && (potion.otyp | 0) === POT_OIL) {
+        if (obj.lamplit || potion.lamplit) {
+            useup(potion);
+            const u = game.u || {};
+            const { explode } = await import('./explode.js');
+            await explode(u.ux, u.uy, ZT_SPELL_O_FIRE, d(6, 6), 0, EXPL_FIERY);
+            exercise(A_WIS, false);
+            return ECMD_TIME;
+        }
+        /* Adding oil to an empty magic lamp renders it into an oil lamp */
+        if ((obj.otyp | 0) === MAGIC_LAMP && (obj.spe | 0) === 0) {
+            obj.otyp = OIL_LAMP;
+            obj.age = 0;
+        }
+        if ((obj.age | 0) > 1000) {
+            await pline(`${Yname2_pot(obj)} ${otense_pot(obj, 'are')} full.`);
+            potion.in_use = false; /* didn't go poof */
+        } else {
+            await pline(`You fill ${yname(obj)} with oil.`);
+            const { check_unpaid } = await import('./shk.js');
+            await check_unpaid(potion); /* Yendorian Fuel Tax */
+            obj.age = (obj.age | 0)
+                + Math.trunc(((!potion.odiluted ? 4 : 3)
+                    * (potion.age | 0)) / 2);
+            if ((obj.age | 0) > 1500) obj.age = 1500;
+            useup(potion);
+            exercise(A_WIS, true);
+        }
+        if (potion.dknown) makeknown(POT_OIL);
+        obj.spe = 1;
+        update_inventory();
+        return ECMD_TIME;
+    }
+
     potion.in_use = false; /* didn't go poof */
     // C potion.c potion_dip `:2726–2787` — unicorn horn / amethyst mixtype
     if ((obj.otyp | 0) === UNICORN_HORN || (obj.otyp | 0) === AMETHYST) {

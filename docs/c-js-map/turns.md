@@ -334,7 +334,8 @@ MAGIC_LAMP `#rub` wire (D-1144; dodrink smoky occupant chance still named);
 milky/smoky bottles, lit-oil burn, worn-stack split, **`potion_dip` potion-potion `mixtype`** 
 (D-1457; Klein/hands/H2O/poly gate) + **`potion_dip` unicorn/amethyst mixtype dip** (D-1486) + 
 **`potion_dip` poison-coat / healing unpoison** (D-1497; `is_poisonable` missile window or 
-Grimtooth; oil/lamp, poly_obj, lichen/towel/acid-erode, `dip_into` named); **`dodip` pool yn** (D-1128; 
+Grimtooth) + **`potion_dip` oil/lamp** (D-1498; lit `fire_damage` / cursed `make_glib` /
+weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill; `poly_obj`, lichen/towel/acid-erode, `dip_into` named); **`dodip` pool yn** (D-1128; 
 `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; 
 Levitation `floating_above`; unskilled rider skip; hands/uarmg `wash_hands`; 
 else `water_damage` + POT_ACID `in_use`/`useup`; 

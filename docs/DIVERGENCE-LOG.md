@@ -4,6 +4,55 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1498 — potion.c potion_dip oil/lamp
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `#dip` of oil onto a weapon or oil/magic lamp
+  always printed Interesting... C `potion.c` `potion_dip`
+  `:2645–2724` after poison-coat (acid-erode still named
+  between): POT_OIL lit → `fire_damage`; cursed → spill
+  `fingers_or_gloves(TRUE)` + `make_glib((Glib&TIMEOUT)+d(2,10))`;
+  non-WEAPON `!is_weptool` → `goto more_dips`; else gleam
+  (`!rustprone&&!corrodeable` / `is_ammo` / clean) or
+  rust/corrode `--` (`wisx`); then `exercise` + `makeknown`
+  + `useup`. `more_dips`: OIL_LAMP/MAGIC_LAMP + POT_OIL —
+  lit either → `useup` + `explode(...,11,d(6,6),0,EXPL_FIERY)`;
+  empty MAGIC_LAMP `spe==0` → OIL_LAMP age 0; age>1000 full
+  (`in_use=FALSE`) else fill `4L/3L * age / 2L` clamp 1500
+  + `check_unpaid`; `makeknown(POT_OIL)`; `spe=1`. Callees
+  `fire_damage` / `explode` / `check_unpaid` / `make_glib`
+  already live. Poison-coat is D-1497.
+- **C locus:** `potion.c` `potion_dip` `:2645–2724`. Caller
+  `dodip` `:2371`. Macros `obj.h` `is_weptool` / `is_ammo`;
+  `objclass.h` `is_rustprone` / `is_corrodeable`;
+  `do_wear.c` `fingers_or_gloves`; `objnam.c` `Yname2`.
+- **JS was:** named omit after D-1497 — `in_use=FALSE` then
+  unicorn skipped oil/lamp.
+- **Fix:** Port POT_OIL weapon/weptool arms then lamp fill
+  (`oil_more_dips` for C `goto more_dips`). Local
+  `is_weptool_dip` / `is_ammo_dip` / `Yname2_pot` /
+  `fingers_or_gloves_dip`. Dynamic `do.js` `fire_damage` and
+  `explode.js` (load cycles via zap/mthrowu). Rule #2: no fs.
+- **JS:** `js/potion.js` `potion_dip`.
+- **Not this iter:** acid-erode; lichen/towel;
+  `poly_obj`/`obj_unpolyable`; `dip_into`; H2O `useeit`
+  ublindf disjunct. Brass lantern is not in C's lamp fill.
+- **Verified:** private canary **23**/23 (C/JS grep; Rule #2;
+  sword sheen; rusty/corrode `--`; arrow `is_ammo` skip
+  derust; dart missile derust; Blind feels oily; cursed
+  glib fingers; lamp +800 / clamp 1500 / diluted *3/2;
+  age>1000 full keeps potion; empty MAGIC→OIL; charged
+  MAGIC stays + fills; brass lantern / ring Interesting;
+  unicorn horn sheen not juice; sickness coat regression;
+  lit lamp explode path); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session #dips oil onto a
+  weapon or lamp.
+- **Follow-up:** Open `potion.c` `potion_dip`
+  `poly_obj`/`obj_unpolyable`.
+- **Files:** `js/potion.js`.
+
 ## D-1497 — potion.c potion_dip poison-coat / healing unpoison
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
