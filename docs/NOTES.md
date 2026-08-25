@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1489; cadence **#1870** `dba2c79a`
+- **Fortress 44/44** after D-1490; cadence **#1870** `dba2c79a`
   (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Open
-  `mklev.c` `minetn-1` load_special (named). Not minetn-5.
-  Do not skip D-1489…D-1229. No FORCE / `wildmiss` wrap /
+  `worm.c` `worm_move` (named). Not initworm.
+  Do not skip D-1490…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1489. Named still: `see_monsters`
-  warn_obj / Sting; minetn-1 / dog leftovers / `add_to_minv`;
+- Do not revert D-1217–D-1490. Named still: `see_monsters`
+  warn_obj / Sting; minetn-6/7 / dog leftovers / `add_to_minv`;
   TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH.
 
 ## Don't re-check (≤15)
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1489.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1490.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -32,9 +32,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1489 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1490 (index).
 - Named still: worm-shrieker; potion_dip poison-coat / oil/lamp;
-  minetn-1 load_special; TAMING / CHARGE_OBJ /
+  minetn-6/7 load_special; TAMING / CHARGE_OBJ /
   CREATE_PORTAL / BANISH; fruit_from_indx / options fruitadd walker.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -45,6 +45,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1490: `minetn-1` Orcish Town `load_special` (`dat/minetn-1.lua`
+  via `makemaz`/`load_special`); mines init + centered map +
+  iron bars + no-temple altar + orc army (`percent` then
+  `rndcoord`); `stolen_booty` live when proto is minetn-1.
+  minetn-6/7 / `link_doors_rooms` extras / dog leftovers /
+  `add_to_minv` named. minetn-5 is D-0754.
 - D-1489: `zap_map` lateral drawbridge + `bhit` ZAPPED_WAND
   (`zap.c:3685–3717` / `:3919–3924`); OPENING/KNOCK
   `is_db_wall` `open_drawbridge`; LOCKING/WIZARD_LOCK
@@ -121,7 +127,3 @@ Objective/score live in `CURRENT.md`.
   HEADSTONE skip; cancel/invis del_engr; poly random_engraving;
   tele `rloc_engr`; STONE ENGRAVE wipe; striking wipe.
   Lateral drawbridge / bhit is D-1489. Probing is D-1444.
-- D-1475: `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK; SDOOR
-  no-op; Rogue hide SDOOR; obstructed/trap abort; CLOSED/
-  ISOPEN/BROKEN/NODOOR lock-shut; already-locked res FALSE.
-  STRIKING is D-1482. OPENING is D-1462.

@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1490 — mklev.c minetn-1 load_special Orcish Town
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Mines town variant 1 (`makemaz` proto
+  `minetn-1`) fell through to an empty maze. C
+  `dat/minetn-1.lua` via `sp_lev.c` `load_special` is
+  Orcish Town: `nhlib` shuffle align, `mazelevel` then
+  mines init (`lit` BOOL_RANDOM), centered 37×19 map
+  (`F`=IRONBARS, string `lspo_map` lit=FALSE), levregion
+  stairs, fountains, no-temple `noalign` altar (skip
+  `priestini` / `AM_SHRINE`), `rnddoor`, wall chance
+  replace, shuffled shop corpses + rubble/candles/lamp/
+  empty wands, orc army (`percent` then `inside:rndcoord(1)`
+  then `find_montype`), shamans `m_lev_adj` on first only,
+  hill orc/goblin, `wallify` then C wallification / flip /
+  `fixup_special`. `makemaz` `check_ransacked` sets
+  `ransacked` so `stolen_booty` (D-1363) runs.
+- **C locus:** `dat/minetn-1.lua`; `mkmaze.c` `makemaz` /
+  `check_ransacked`; `sp_lev.c` `load_special` /
+  `create_monster` / `create_object` / `create_altar`.
+- **JS was:** `load_special_proto` dispatched minetn-2/3/4/5
+  only; minetn-1 named after D-0754.
+- **Fix:** Port the lua sequence; local `placeHostile`
+  `set_malign` (do not add it to shared
+  `splev_create_monster`). Rule #2: no fs.
+- **JS:** `js/mklev.js` `load_minetn_1`.
+- **Not this iter:** minetn-6/7; `link_doors_rooms` extras;
+  `ensure_way_out`; `map_cleanup`; `count_level_features`;
+  dog `MIGR_LEFTOVERS`; `add_to_minv` merge.
+- **Verified:** private canary **25**/25 (dispatch, mazelevel
+  before mines, map `F`/lit clear, no-temple altar skip
+  `priestini`/`AM_SHRINE`, army percent-then-rndcoord,
+  shaman `i==1` m_lev only, ransacked→stolen_booty,
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `worm.c` `worm_move`.
+- **Files:** `js/mklev.js`.
+
 ## D-1489 — zap.c zap_map lateral drawbridge / bhit
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

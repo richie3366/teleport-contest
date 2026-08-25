@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1490 mklev.c minetn-1 load_special Orcish Town
+
+**Objective:** Open `mklev.c` `minetn-1` load_special (named).
+Not minetn-5.
+**C locus:** `dat/minetn-1.lua` via `mkmaze.c` `makemaz` /
+`check_ransacked` + `sp_lev.c` `load_special`.
+**Change:** Live Orcish Town (mines+map+bars+orcs+rubble);
+no-temple altar skips priestini; army `percent` then
+`rndcoord`. minetn-6/7 / dog leftovers / `add_to_minv`
+named. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit; no public
+session rolls `rnd(7)=1` for minetn).
+**Verified:** private canary **25**/25; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `worm.c` `worm_move` (named). Not initworm.
+**Blocked:** none.
 ## 2026-08-25 — D-1489 zap.c zap_map lateral drawbridge / bhit
 
 **Objective:** Open `zap.c` `zap_map` lateral drawbridge / bhit

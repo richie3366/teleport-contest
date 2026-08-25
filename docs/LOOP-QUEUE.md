@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mklev.c` `minetn-1` load_special (named). Not minetn-5.
 - [ ] `worm.c` `worm_move` (named). Not initworm.
 - [ ] `makemon.c` `add_to_minv` merge (named). Not stolen_booty.
 - [ ] `allmain.c` `see_monsters` Hallu / Warn_of_mon (named). Not DETECT_MONSTERS timeout.
