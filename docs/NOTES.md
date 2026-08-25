@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1474; cadence **#1850** `3605a281`
+- **Fortress 44/44** after D-1475; cadence **#1850** `3605a281`
   (Scr **11,405** RNG 100%). Next: Open `zap.c`
-  `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK
-  (named). Not OPENING.
-  Do not skip D-1474…D-1229. No FORCE / `wildmiss` wrap /
+  `zap_map` engraving/cancel trap
+  (named). Not probing.
+  Do not skip D-1475…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1474. Named still: `see_monsters`
+- Do not revert D-1217–D-1475. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1474.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1475.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,11 +33,11 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1474 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1475 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix /
   potionbreathe remaining otyps; zap_steed bhitm-routed
   slow/speed/SPE_CURE_SICKNESS;
-  zap_map engraving; bhit doorlock LOCKING/STRIKING;
+  zap_map engraving; bhit doorlock STRIKING;
   bhito uchain / poly-arm boxlock; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -48,6 +48,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1475: `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK; SDOOR
+  no-op; Rogue hide SDOOR; obstructed/trap abort; CLOSED/
+  ISOPEN/BROKEN/NODOOR lock-shut; already-locked res FALSE.
+  STRIKING named. OPENING is D-1462.
 - D-1474: `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via
   bhitm; easy-hit d(2,12)+disclose; miss still disclose;
   SPE_FORCE_BOLT SPBOOK skip makeknown. Slow named.
@@ -90,11 +94,8 @@ Objective/score live in `CURRENT.md`.
 - D-1463: `zap_steed` WAN_OPENING/SPE_KNOCK via bhitm; saddle
   drop + knock-back/stun + disclose. Drain is D-1464.
 - D-1462: `bhit` doorlock WAN_OPENING/SPE_KNOCK; SDOOR appear
-  + locked unlock + picking_at; JS had typ===STONE. LOCKING/
-  STRIKING named; boxlock is D-1467.
+  + locked unlock + picking_at; JS had typ===STONE. LOCKING
+  is D-1475; STRIKING named; boxlock is D-1467.
 - D-1461: SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate → weffects
   bhit; bhitm golem/mimic; zapyourself polymon/Stoned/invent;
   bhito stone_to_flesh_obj. TELE is D-1468.
-- D-1460: SPE_CANCELLATION IMMEDIATE wand-duplicate → weffects
-  bhit; bhitm/zapyourself cancel_monst already live.
-  STONE is D-1461. zap_steed cancel is D-1470.

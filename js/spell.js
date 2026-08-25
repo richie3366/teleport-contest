@@ -1689,8 +1689,8 @@ async function cast_chain_lightning() {
  * FALLTHROUGH (also unskilled FIREBALL/CONE). update_inventory after
  * the group (C :1513). SPE_TELEPORT_AWAY is D-1468.
  * SPE_HEALING/SPE_EXTRA_HEALING skilled bless then this helper
- * is D-1469. bhit doorlock OPENING/KNOCK is D-1462; zap_map
- * engraving remaining named.
+ * is D-1469. bhit doorlock OPENING/KNOCK is D-1462; LOCKING is
+ * D-1475; zap_map engraving remaining named.
  */
 async function wand_duplicate_weffects(pseudo, atme, physical_damage) {
     const oc = game.objects?.[pseudo.otyp];
@@ -2098,7 +2098,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Self-dir zapyourself already D-1434 (closeholdingtrap
          * then boxlock_invent). bhitm WAN_LOCKING/SPE_WIZARD_LOCK
          * closeholdingtrap already D-1425. POLY is D-1459.
-         * doorlock LOCKING named; zap_updown LOCKING is D-1465;
+         * doorlock LOCKING is D-1475; zap_updown LOCKING is D-1465;
          * bhito boxlock is D-1467. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_TURN_UNDEAD) {

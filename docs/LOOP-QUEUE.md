@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK (named). Not OPENING.
 - [ ] `zap.c` `zap_map` engraving/cancel trap (named). Not probing.
 - [ ] `potion.c` `potionbreathe` remaining otyps (named). Not potionhit.
 - [ ] `zap.c` `zap_steed` WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm (named). Not STRIKING.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `zap_steed` SPE_CURE_SICKNESS via bhitm (named). Not SPEED.
 - [ ] `zap.c` `bhito` uchain unpunish WAN_OPENING (named). Not boxlock.
 - [ ] `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT (named). Not LOCKING.
+- [ ] `zap.c` `bhito` poly-arm boxlock `reset_pick` (named). Not uchain.
+- [ ] `muse.c` `mbhit` doorlock (named). Not hero `bhit`.
+- [ ] `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype.
+- [ ] `objnam.c` `the()` fruit_from_name + artifact_name (named). Not CapitalMon.
+- [ ] `artifact.c` `doinvoke` remaining `inv_prop` (named). Not BLINDING_RAY.
 
 ## Parked (do not pop)
 

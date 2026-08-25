@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via bhitm (named). Not INVIS. **Addressed:** D-1474
+- [x] `zap.c` `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK (named). Not OPENING. **Addressed:** D-1475
+
+
+- [x] `zap.c` `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via bhitm (named). Not INVIS. **Addressed:** D-1474 `dfd88d1b`
 
 
 - [x] `zap.c` `zap_steed` WAN_MAKE_INVISIBLE via bhitm (named). Not POLY. **Addressed:** D-1473 `e6a44782`

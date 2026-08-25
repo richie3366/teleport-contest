@@ -68,6 +68,8 @@
 // zap_updown WAN_PROBING bhitpile+zap_map+display_binventory (D-1444);
 // zap_updown WAN_OPENING/SPE_KNOCK portcullis/quest/traps (D-1454);
 // bhit doorlock WAN_OPENING/SPE_KNOCK SDOOR appear + locked unlock (D-1462);
+// bhit doorlock WAN_LOCKING/SPE_WIZARD_LOCK Rogue hide / obstructed /
+// trap-in-doorway / lock-shut (D-1475);
 // zap_updown WAN_STRIKING/SPE_FORCE_BOLT destroy db / rock / trapdoor (D-1456);
 // zap_updown WAN_LOCKING/SPE_WIZARD_LOCK close db / hole→trapdoor (D-1465);
 // zap_updown SPE_STONE_TO_FLESH blood / nothing_happens then epilogue (D-1466);
@@ -88,7 +90,7 @@
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_map engraving/cancel trap / uswallow pile;
 // bhito opening chain / uchain unpunish; poly-arm boxlock reset_pick;
-// bhit doorlock LOCKING/STRIKING;
+// bhit doorlock STRIKING/SPE_FORCE_BOLT;
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
 // zapyourself SPE_DRAIN_LIFE is D-1446;
@@ -5328,12 +5330,12 @@ function bhit_xyglyph_known_monster(loc) {
  * shade_miss thrown/kicked skip is D-1383 (`:3984–3986`).
  * M_AP_OBJECT skip is D-1392 (`:3986–3992`).
  * WEB stick is D-1393 (`:3926–3938`) — after m_at/t_at, before shade.
- * doorlock WAN_OPENING/SPE_KNOCK is D-1462 (`:4056–4074`; callee
- * lock.c `:1103–1272`).
+ * doorlock WAN_OPENING/SPE_KNOCK is D-1462; WAN_LOCKING/SPE_WIZARD_LOCK
+ * is D-1475 (`:4056–4074`; callee lock.c `:1103–1272`).
  * Named omit: THROWN_WEAPON fly callers (throwit still inlines those
  * and still skips WEB / shade / mimic-object); FLASHED_LIGHT DISP_BEAM /
  * INVIS_BEAM stop; show_transient_light; shkcatch pick;
- * map_invisible / unmap_object; zap_map / doorlock LOCKING/STRIKING/
+ * map_invisible / unmap_object; zap_map / doorlock STRIKING/
  * SPE_FORCE_BOLT; skiprange rocks.
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
@@ -5472,12 +5474,15 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
 
             if (weapon === ZAPPED_WAND && (IS_DOOR(typ) || typ === SDOOR)) {
                 /* C zap.c bhit :4056–4074 — doorlock WAN_OPENING/
-                 * SPE_KNOCK (D-1462). JS had typ===STONE (wrong);
-                 * C is SDOOR. WAN_LOCKING/STRIKING / SPE_WIZARD_LOCK/
-                 * FORCE_BOLT named. D_BROKEN shop add_damage named
-                 * (OPENING/KNOCK do not break). */
+                 * SPE_KNOCK (D-1462) + WAN_LOCKING/SPE_WIZARD_LOCK
+                 * (D-1475). JS had typ===STONE (wrong); C is SDOOR.
+                 * WAN_STRIKING/SPE_FORCE_BOLT named. D_BROKEN shop
+                 * add_damage named (OPENING/KNOCK/LOCKING do not
+                 * break). C learnwand also if WAN_STRIKING && !Deaf
+                 * — false here. */
                 const otyp = obj?.otyp | 0;
-                if (otyp === WAN_OPENING || otyp === SPE_KNOCK) {
+                if (otyp === WAN_OPENING || otyp === SPE_KNOCK
+                    || otyp === WAN_LOCKING || otyp === SPE_WIZARD_LOCK) {
                     if (await doorlock(obj, x, y)) {
                         if (cansee(x, y)) learnwand(obj);
                     }
@@ -5968,7 +5973,7 @@ async function zap_steed(obj) {
  * WAN_LOCKING/SPE_WIZARD_LOCK (D-1465); zap_updown
  * SPE_STONE_TO_FLESH (D-1466); remaining zap_steed
  * bhitm-routed slow/speed/SPE_CURE_SICKNESS / zap_map
- * engraving / doorlock LOCKING/STRIKING named.
+ * engraving / doorlock STRIKING named; LOCKING is D-1475.
  */
 export async function weffects(obj) {
     const otyp = obj.otyp;

@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1475 — zap.c bhit doorlock WAN_LOCKING/SPE_WIZARD_LOCK
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Lateral IMMEDIATE WAN_LOCKING/SPE_WIZARD_LOCK did not
+  lock doors or Rogue-hide a doorway. C `zap.c` `bhit`
+  `:4056–4074` calls `doorlock` on `IS_DOOR || SDOOR` for
+  WAN_LOCKING/SPE_WIZARD_LOCK (OPENING is D-1462; STRIKING named).
+  Callee `lock.c` `doorlock` `:1103–1272`: SDOOR LOCKING returns
+  FALSE (`:1127–1130`); Rogue hide as SDOOR `D_NODOOR` (`:1137–1158`);
+  `obstructed`/`t_at` abort; else CLOSED/ISOPEN/BROKEN/NODOOR lock
+  messages then `D_LOCKED|(doormask&D_TRAPPED)` (`:1171–1192`).
+  Caller `learnwand` iff `cansee` (STRIKING `!Deaf` extra is false
+  here). Already-locked hits default `res=FALSE` (still assigns
+  D_LOCKED).
+- **C locus:** `zap.c` `bhit` `:4056–4074`; callee `lock.c`
+  `doorlock` `:1135–1192` (`:1127–1130` SDOOR, `:1258–1272` msg /
+  picking_at).
+- **JS was:** named omit after D-1462 — `bhit` called `doorlock`
+  only for OPENING/KNOCK; `doorlock` defaulted LOCKING to false.
+- **Fix:** Port `doorlock` LOCKING/WIZARD_LOCK; wire `bhit` on
+  those otyps. Rule #2: no fs.
+- **JS:** `js/lock.js` `doorlock`; `js/zap.js` `bhit`.
+- **Not this iter:** WAN_STRIKING/SPE_FORCE_BOLT break / trap
+  explode / shop `add_damage`; `bhito` uchain / poly-arm
+  `reset_pick`; muse.c `mbhit` doorlock; `zap_map` engraving.
+- **Verified:** private canary **21**/21 (C/JS grep; closed lock+
+  learnwand; SPE_WIZARD_LOCK SPBOOK skip makeknown; trapped keeps
+  D_TRAPPED; already-locked no-op; SDOOR no-op; D_ISOPEN shut+lock;
+  D_BROKEN reassemble; D_NODOOR assemble; trap-in-doorway dissipates;
+  Rogue hide SDOOR; obstructed abort; OPENING regression; STRIKING
+  named; bhit skips STONE; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1474 — zap.c zap_steed WAN_STRIKING/SPE_FORCE_BOLT via bhitm
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
