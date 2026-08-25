@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1445; cadence **#1810** `530eaa3c`
+- **Fortress 44/44** after D-1446; cadence **#1810** `530eaa3c`
   (Scr **11,405** RNG 100% speed `36+0.30/turn` R² 0.857). Next:
-  Open `zap.c` `zapyourself` SPE_DRAIN_LIFE (named). Not bhitm drain.
-  Do not skip D-1445…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `uhitm.c` `mhitm_ad_phys` poison leftover (named from
+  D-1415). Not rustm.
+  Do not skip D-1446…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1445. Named still: `see_monsters`
+- Do not revert D-1217–D-1446. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -22,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1445.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1446.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,11 +34,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1445 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1446 (index).
 - Named still: poison leftover / worm-shrieker; remaining mix /
   potionhit / potionbreathe;
   remaining wand-duplicate MAGIC_MISSILE / FINGER / IMMEDIATE;
-  zapyourself SPE_DRAIN;
   bhito drain_item; artifact invoke. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -50,6 +50,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1446: `zapyourself` SPE_DRAIN_LIFE
+  `!Drain_resistance` (youprop H||E /
+  uprops[DRAIN_RES]) then learn +
+  `losexp("life drainage")`; damage 0.
+  Callee exper.c. Undead still no-ops
+  in losexp. bhito drain_item named.
 - D-1445: `bhito` WAN_PROBING
   `res=!dknown` + observe; container/statue
   peek (`display_cinventory`) / tin / egg;
@@ -94,7 +100,7 @@ Objective/score live in `CURRENT.md`.
 - D-1436: `bhitm` SPE_DRAIN_LIFE seemimic +
   monhp_per_lvl/dbldam/bonus; resists_drli shield
   else !resist then mhpmax+m_lev-- / killed.
-  spell.c weffects. zapyourself drain named.
+  spell.c weffects. zapyourself drain is D-1446.
 - D-1435: `zapyourself` WAN_PROBING invent
   probe_objchain + update_inventory + learn +
   ustatusline (not probe_monster). Array D-1017.
@@ -104,7 +110,5 @@ Objective/score live in `CURRENT.md`.
   TIMEOUT|INTRINSIC → u_slow_down.
 - D-1432: `peffect_blindness` potion_nothing if
   Blind; make_blinded rn1 timeout.
-- D-1431: `peffect_gain_level` cursed unkn;
-  Can_rise_up / pluslvl / blessed rndexp.
 
 

@@ -33,6 +33,7 @@
 // zapyourself WAN_LOCKING/SPE_WIZARD_LOCK closeholdingtrap +
 // boxlock_invent (D-1434);
 // zapyourself WAN_PROBING probe_objchain + ustatusline (D-1435);
+// zapyourself SPE_DRAIN_LIFE !Drain_resistance + losexp (D-1446);
 // bhitm WAN_MAKE_INVISIBLE mon_set_minvis + knowninvisible (D-1414);
 // knowninvisible See_invisible/Detect_monsters ≡ uprops (D-1423);
 // bhitm WAN_SPEED_MONSTER mon_adjust_speed + check_gear_next_turn (D-1422);
@@ -53,10 +54,11 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_updown other otyps / uswallow pile; zapyourself SPE_DRAIN_LIFE
-// / bhito SPE_DRAIN_LIFE drain_item
+// Named omissions: zap_updown other otyps / uswallow pile;
+// bhito SPE_DRAIN_LIFE drain_item
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
+// zapyourself SPE_DRAIN_LIFE is D-1446;
 // zap_steed WAN_PROBING is D-1443; zap_updown WAN_PROBING is D-1444;
 // bhito WAN_PROBING is D-1445;
 // teleport/bhitm-routed zap_steed named;
@@ -91,6 +93,7 @@
 // closeholdingtrap bhitm WAN_LOCKING (D-1425);
 // zapyourself WAN_LOCKING boxlock_invent (D-1434);
 // zapyourself WAN_PROBING probe_objchain + ustatusline (D-1435);
+// zapyourself SPE_DRAIN_LIFE !Drain_resistance + losexp (D-1446);
 // probe_monster bhitm WAN_PROBING (D-1426);
 // zap_steed WAN_PROBING probe_monster (D-1443);
 // montraits/omonst/ghost recorporealize (D-0982);
@@ -155,7 +158,7 @@ import {
 import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond } from './mon.js';
 import { find_mac, monkilled, shade_miss } from './mhitm.js';
 import { update_mapseen_for } from './dungeon.js';
-import { more_experienced } from './exper.js';
+import { more_experienced, losexp } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
 import {
@@ -226,7 +229,7 @@ import {
     NON_PM, ismnum,
     def_warnsyms,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
-    REFLECTING, ANTIMAGIC, SHOCK_RES,
+    REFLECTING, ANTIMAGIC, SHOCK_RES, DRAIN_RES,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
@@ -419,6 +422,21 @@ function Antimagic() {
     const u = game.u || {};
     const e = u.uprops?.[ANTIMAGIC];
     return !!((u.Antimagic || u.HAntimagic || u.EAntimagic)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/**
+ * C youprop.h Drain_resistance — HDrain_resistance || EDrain_resistance
+ * ≡ uprops[DRAIN_RES].intrinsic || uprops[DRAIN_RES].extrinsic.
+ * confer_oc_oprop writes DRAIN_RES only to uprops (EDrain_resistance
+ * unmirrored except black DSM `set_extrinsic_bit`). Keep H/E/sticky
+ * flats. Caller: zapyourself SPE_DRAIN_LIFE (D-1446). Not
+ * resists_drli (that is losexp / bhitm D-1436).
+ */
+function Drain_resistance() {
+    const u = game.u || {};
+    const e = u.uprops?.[DRAIN_RES];
+    return !!((u.Drain_resistance || u.HDrain_resistance || u.EDrain_resistance)
         || (e?.intrinsic | 0) || (e?.extrinsic | 0));
 }
 
@@ -3412,7 +3430,7 @@ async function shieldeff_mon(mtmp) {
  * WAN_MAKE_INVISIBLE; zap_steed WAN_PROBING is D-1443; bhito WAN_PROBING is
  * D-1445; SPE_DRAIN_LIFE drain_item; worm see_wsegs; defended(AD_DRLI).
  * zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
- * zapyourself SPE_DRAIN_LIFE still named.
+ * zapyourself SPE_DRAIN_LIFE is D-1446.
  * SPE_FORCE_BOLT spell_damage_bonus is D-1388.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
@@ -3619,7 +3637,7 @@ export async function bhitm(mtmp, otmp) {
         // (unlike probing).
         // Callees: makemon.c monhp_per_lvl; mondata.c resists_drli
         // (defended AD_DRLI named); mon.c shieldeff_mon; zap.c
-        // resist. zapyourself SPE_DRAIN still named; bhito
+        // resist. zapyourself SPE_DRAIN is D-1446; bhito
         // drain_item named; zap_steed routes here in C.
         if (disguised_mimic) seemimic(mtmp);
         let dmg = monhp_per_lvl(mtmp);
@@ -3883,6 +3901,7 @@ export function spell_damage_bonus(dmgIn) {
  * (D-1434);
  * WAN_PROBING probe_objchain + update_inventory + ustatusline
  * (D-1435);
+ * SPE_DRAIN_LIFE !Drain_resistance + losexp (D-1446);
  * WAN_DIGGING / SPE_DIG no-op (C :2955–2959; directed D-1441
  * weffects → zap_dig);
  * other otyps named in C-JS-MAP.
@@ -3980,6 +3999,22 @@ export async function zapyourself(obj, ordinary) {
     case WAN_CANCELLATION:
     case SPE_CANCELLATION:
         await cancel_monst(game.youmonst, obj, true, true, true);
+        break;
+
+    case SPE_DRAIN_LIFE:
+        // C zap.c zapyourself :2817–2823 — if (!Drain_resistance)
+        // learn_it + losexp("life drainage"); damage = 0.
+        // Gate is youprop.h H||E (uprops[DRAIN_RES]), not
+        // resists_drli. learnwand is a no-op for SPBOOK
+        // ("no effect for spells..."). Callee exper.c losexp
+        // (undead/demon still no-ops after learn_it). bhitm
+        // drain is D-1436; bhito drain_item named; zap_steed
+        // routes drain to bhitm (named).
+        if (!Drain_resistance()) {
+            learn_it = true;
+            await losexp('life drainage');
+        }
+        damage = 0;
         break;
 
     case WAN_TELEPORTATION:
@@ -4177,7 +4212,7 @@ export async function zapyourself(obj, ordinary) {
         // then learn + u_slow_down. Boots-only EFast is a no-op.
         // Callee mhitu.c u_slow_down :161–171. WAN_LOCKING is
         // D-1434. WAN_PROBING is D-1435. bhitm SPE_DRAIN is D-1436;
-        // zapyourself SPE_DRAIN_LIFE still named.
+        // zapyourself SPE_DRAIN_LIFE is D-1446.
         const u = game.u || {};
         const hfast = (u.HFast | 0) | (u.uprops?.[FAST]?.intrinsic | 0);
         if (hfast & (TIMEOUT | INTRINSIC)) {
@@ -4197,7 +4232,7 @@ export async function zapyourself(obj, ordinary) {
         // (noticed stays unset). Callee trap.c :6210–6247 (D-1425)
         // + zap.c boxlock_invent :2687–2702 (lock.c boxlock).
         // WAN_PROBING is D-1435. bhitm SPE_DRAIN is D-1436;
-        // zapyourself SPE_DRAIN / other zap_updown otyps still named.
+        // zapyourself SPE_DRAIN is D-1446; other zap_updown otyps still named.
         const alreadyTrapped = !!(game.u?.utrap | 0);
         if (alreadyTrapped) {
             await boxlock_invent(obj);
@@ -4228,7 +4263,7 @@ export async function zapyourself(obj, ordinary) {
         // probe_objchain :611–623 (hero invent Array, D-1017);
         // invent.c update_inventory; insight.c ustatusline
         // (stethoscope; ailments named). bhitm SPE_DRAIN is D-1436;
-        // zapyourself SPE_DRAIN / zap_updown WAN_PROBING is D-1444;
+        // zapyourself SPE_DRAIN is D-1446; zap_updown WAN_PROBING is D-1444;
         // bhito WAN_PROBING is D-1445.
         probe_objchain(game.invent);
         update_inventory();

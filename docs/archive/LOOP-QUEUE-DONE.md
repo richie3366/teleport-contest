@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `bhito` WAN_PROBING (named). Not updown. **Addressed:** D-1445
+- [x] `zap.c` `zapyourself` SPE_DRAIN_LIFE (named). Not bhitm drain. **Addressed:** D-1446
+
+
+- [x] `zap.c` `bhito` WAN_PROBING (named). Not updown. **Addressed:** D-1445 `7628b03e`
 
 
 - [x] `zap.c` `zap_updown` WAN_PROBING (named). Not steed. **Addressed:** D-1444 `ae0cf7f4`

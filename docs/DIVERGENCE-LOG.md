@@ -4,7 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1446 — zap.c zapyourself SPE_DRAIN_LIFE
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zapyourself` defaulted SPE_DRAIN_LIFE. A self-directed
+  drain-life spell did not gate `Drain_resistance` or call
+  `losexp("life drainage")`, so the hero never lost a level (and
+  undead poly never took the C path of learn-then-`resists_drli`
+  no-op). Directed drain is `bhitm` (D-1436); this is the `.`
+  / atme arm.
+- **C locus:** `zap.c` `zapyourself` `:2817–2823`. Gate is
+  youprop.h `Drain_resistance` (`H||E` ≡ `uprops[DRAIN_RES]`),
+  **not** `resists_drli`. Then `learn_it` + `losexp("life drainage")`;
+  `damage = 0`. `learnwand` is a no-op for SPBOOK. Caller
+  `spell.c` `:1500–1508` wand-duplicate self-dir. Callee
+  `exper.c` `losexp` (`resists_drli(&youmonst)` still no-ops
+  undead after learn_it).
+- **JS was:** named omit. `default` break.
+- **Fix:** SPE_DRAIN_LIFE arm + `Drain_resistance()` (uprops, same
+  conferral shape as Antimagic D-1367). Did not rewrite
+  `confer_oc_oprop`. bhito `drain_item` / zap_steed bhitm routing
+  named. Rule #2: no fs.
+- **JS:** `js/zap.js` `zapyourself`; `js/spell.js` comment only.
+- **Not this iter:** `bhito` SPE_DRAIN_LIFE `drain_item`; zap_steed
+  drain → bhitm; `losexp` level-1 `done(DIED)`; `defended(AD_DRLI)`.
+- **Verified:** private canary **16**/16 (C/JS grep; Rule #2;
+  ulevel drop + Goodbye; E/H/uprops-only skip; undead poly
+  no-op; ordinary unused; locking sibling; bhitm still D-1436);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session self-zaps drain life.
+
 ## D-1445 — zap.c bhito WAN_PROBING
+
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
 - **Symptom:** `bhito` defaulted WAN_PROBING (`res=0`). A probing

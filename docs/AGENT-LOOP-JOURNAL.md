@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1446 zap.c zapyourself SPE_DRAIN_LIFE
+
+**Objective:** Open `zap.c` `zapyourself` SPE_DRAIN_LIFE
+(named). Not bhitm drain.
+**C locus:** `zap.c` `zapyourself` `:2817–2823`; caller
+`spell.c` `:1500–1508`; callee `exper.c` `losexp`.
+**Change:** `!Drain_resistance` (youprop H||E / uprops)
+then `learn_it` + `losexp("life drainage")`; damage 0.
+bhito `drain_item` / zap_steed drain named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless
+a session self-zaps drain life).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` `mhitm_ad_phys` poison leftover
+(named from D-1415). Not rustm.
+**Blocked:** none.
 ## 2026-08-25 — D-1445 zap.c bhito WAN_PROBING
 
 **Objective:** Open `zap.c` `bhito` WAN_PROBING

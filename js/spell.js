@@ -59,6 +59,8 @@
 // callee zap.c `:3459–3460` / dig.c `zap_dig`).
 // SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436; C `:1477`
 // same wand-duplicate group; callee zap.c `:521–544`).
+// SPE_DRAIN_LIFE self-dir zapyourself !Drain_resistance + losexp
+// (D-1446; callee zap.c `:2817–2823` / exper.c losexp).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects
@@ -1774,7 +1776,8 @@ async function cast_protection() {
  * BZ_U_SPELL (D-1440; C `:1462` / zap.c `:3461–3462`).
  * SPE_DIG RAY weffects → zap_dig (D-1441; C `:1467` /
  * zap.c `:3459–3460`). SPE_DRAIN_LIFE IMMEDIATE weffects →
- * bhitm (D-1436; C `:1477` / zap.c `:521–544`). Remaining
+ * bhitm (D-1436; C `:1477` / zap.c `:521–544`); self-dir
+ * zapyourself is D-1446. Remaining
  * wand-duplicate MAGIC_MISSILE / FINGER / IMMEDIATE still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
@@ -1975,7 +1978,7 @@ export async function spelleffects(spell_otyp, atme, force) {
     } else if (otyp === SPE_DRAIN_LIFE) {
         /* C spell.c :1477–1514 wand-duplicate IMMEDIATE weffects
          * → bhit → bhitm SPE_DRAIN_LIFE (D-1436). physical_damage
-         * is FORCE_BOLT-only. Self-dir still zapyourself (named). */
+         * is FORCE_BOLT-only. Self-dir zapyourself is D-1446. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
