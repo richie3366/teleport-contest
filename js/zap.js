@@ -31,6 +31,8 @@
 // C spell.c :1463 / zap.c :3461–3462);
 // SPE_FINGER_OF_DEATH RAY wand-duplicate weffects ubuzz (D-1449;
 // C spell.c :1472 / zap.c :3461–3462);
+// SPE_TURN_UNDEAD IMMEDIATE wand-duplicate weffects bhit (D-1458;
+// C spell.c :1468 / zap.c :3440–3451);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
@@ -87,8 +89,9 @@
 // RAY wand-duplicate weffects is D-1449; SPE_KNOCK IMMEDIATE
 // wand-duplicate weffects is D-1450; SPE_SLOW_MONSTER
 // IMMEDIATE wand-duplicate weffects is D-1451; SPE_WIZARD_LOCK
-// IMMEDIATE wand-duplicate weffects is D-1452; remaining
-// IMMEDIATE wand-duplicate TURN/…;
+// IMMEDIATE wand-duplicate weffects is D-1452; SPE_TURN_UNDEAD
+// IMMEDIATE wand-duplicate weffects is D-1458; remaining
+// IMMEDIATE wand-duplicate POLY/CANCEL/STONE/TELE;
 // potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
@@ -2500,7 +2503,9 @@ export async function do_enlightenment_effect() {
  * (D-1451; bhitm D-1424; zapyourself D-1433).
  * SPE_WIZARD_LOCK IMMEDIATE wand-duplicate weffects bhit
  * (D-1452; bhitm D-1425; zapyourself D-1434).
- * Named omit: remaining wand-duplicate IMMEDIATE (TURN/…).
+ * SPE_TURN_UNDEAD IMMEDIATE wand-duplicate weffects bhit
+ * (D-1458; bhitm/zapyourself unturn D-0955).
+ * Named omit: remaining wand-duplicate IMMEDIATE (POLY/…).
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -3515,6 +3520,8 @@ async function shieldeff_mon(mtmp) {
  * D-1445; SPE_DRAIN_LIFE drain_item is D-1453; worm see_wsegs; defended(AD_DRLI).
  * zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
  * zapyourself SPE_DRAIN_LIFE is D-1446.
+ * SPE_TURN_UNDEAD wand-duplicate weffects is D-1458
+ * (bhitm dbldam + spell_damage_bonus; unturn_dead D-0955).
  * SPE_FORCE_BOLT spell_damage_bonus is D-1388.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
@@ -3599,12 +3606,23 @@ export async function bhitm(mtmp, otmp) {
     }
     case WAN_UNDEAD_TURNING:
     case SPE_TURN_UNDEAD: {
+        // C zap.c bhitm :243–262 — wake FALSE then unturn_dead
+        // (invent eggs/corpses) can wake. Undead/vampshifter:
+        // reveal + wake + rnd(8); Knight questart dbldam ×2;
+        // SPE_TURN_UNDEAD spell_damage_bonus; bypasses then
+        // !resist NOTELL then monflee if still alive.
+        // SPE_TURN_UNDEAD wand-duplicate weffects is D-1458.
         wake = false;
         if (await unturn_dead(mtmp)) wake = true;
         if (is_undead(mtmp.data) || is_vampshifter(mtmp)) {
             reveal_invis = true;
             wake = true;
             let dmg = rnd(8);
+            const dbldam = Role_if(PM_KNIGHT) && !!(game.u?.uhave?.questart);
+            if (dbldam) dmg *= 2;
+            if (otyp === SPE_TURN_UNDEAD) {
+                dmg = spell_damage_bonus(dmg);
+            }
             if (!game.context) game.context = {};
             game.context.bypasses = true;
             if (!(await resist(mtmp, otmp.oclass, dmg, NOTELL))) {
@@ -5344,6 +5362,8 @@ async function zap_steed(obj) {
  * zapyourself D-1433);
  * SPE_WIZARD_LOCK IMMEDIATE bhit (D-1452; bhitm D-1425;
  * zapyourself D-1434).
+ * SPE_TURN_UNDEAD IMMEDIATE bhit (D-1458; bhitm unturn_dead
+ * + undead dmg D-0955; zapyourself unturn_you D-0955).
  * zap_steed WAN_PROBING (D-1443); zap_steed WAN_TELEPORTATION /
  * SPE_TELEPORT_AWAY (D-1455); zap_updown WAN_PROBING (D-1444);
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown

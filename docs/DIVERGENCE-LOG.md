@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1458 — spell.c SPE_TURN_UNDEAD IMMEDIATE wand-duplicate
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Casting SPE_TURN_UNDEAD printed Nothing happens.
+  C `spell.c` `:1468–1514` puts it in the wand-duplicate group:
+  getdir then `zapyourself` / `weffects`. `zap.c` `weffects`
+  `:3440–3451` IMMEDIATE `bhit(rn1(8,6), bhitm, bhito)`.
+  `bhitm` `:243–262` WAN/SPE_TURN: `unturn_dead` then undead
+  `rnd(8)` / Knight `dbldam` / SPE `spell_damage_bonus` /
+  `monflee`. Self-dir `zapyourself` `:2903–2907` `unturn_you`.
+- **C locus:** `spell.c` `spelleffects` `:1468–1514`; callee
+  `zap.c` `weffects` `:3440–3451`; `bhitm` `:243–262`;
+  `zapyourself` `:2903–2907` (`unturn_you` D-0955).
+- **JS was:** named omit — other-otyp Nothing happens after
+  energy/exercise/mksobj. `bhitm` undead skipped `dbldam` and
+  `spell_damage_bonus`.
+- **Fix:** `wand_duplicate_weffects` for SPE_TURN_UNDEAD
+  (SPBOOK skips `learnwand`). `bhitm` applies `dbldam` then
+  SPE `spell_damage_bonus` before `bypasses`/`resist`. Rule #2:
+  no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/zap.js` `bhitm`.
+- **Not this iter:** SPE_POLYMORPH / CANCELLATION /
+  STONE_TO_FLESH / TELEPORT_AWAY wand-duplicate; remaining
+  bhitm-routed `zap_steed`; `zap_updown` LOCKING/STONE.
+- **Verified:** private canary **21**/21 (C/JS grep; IMMEDIATE
+  SPBOOK; atme shudder; zapyourself skip makeknown; bhitm
+  kobold no-op; bhitm ghost `rnd(8)`; east cast TIME; POLY/
+  CANCEL still Nothing happens; prior KNOCK/SLOW/LOCK/RAY/
+  NODIR stay; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1457 — potion.c mixtype / potion_dip potion-potion mix
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

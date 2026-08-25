@@ -73,6 +73,10 @@
 // SPE_WIZARD_LOCK IMMEDIATE weffects → bhit (D-1452; C `:1466`
 // same group; callee zap.c `:3440–3451`; bhitm closeholdingtrap
 // D-1425; self-dir zapyourself D-1434).
+// SPE_TURN_UNDEAD IMMEDIATE weffects → bhit (D-1458; C `:1468`
+// same group; callee zap.c `:3440–3451`; bhitm unturn_dead +
+// undead rnd(8)/dbldam/spell_damage_bonus D-0955; self-dir
+// zapyourself unturn_you D-0955).
 // SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436; C `:1477`
 // same wand-duplicate group; callee zap.c `:521–544`).
 // SPE_DRAIN_LIFE self-dir zapyourself !Drain_resistance + losexp
@@ -81,7 +85,7 @@
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects
 // mix/potionhit/potionbreathe;
-// remaining wand-duplicate IMMEDIATE TURN/…);
+// remaining wand-duplicate IMMEDIATE POLY/CANCEL/STONE/TELE);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -243,6 +247,7 @@ const SPE_FINGER_OF_DEATH = objectNames.indexOf('SPE_FINGER_OF_DEATH');
 const SPE_KNOCK = objectNames.indexOf('SPE_KNOCK');
 const SPE_SLOW_MONSTER = objectNames.indexOf('SPE_SLOW_MONSTER');
 const SPE_WIZARD_LOCK = objectNames.indexOf('SPE_WIZARD_LOCK');
+const SPE_TURN_UNDEAD = objectNames.indexOf('SPE_TURN_UNDEAD');
 const SPE_DRAIN_LIFE = objectNames.indexOf('SPE_DRAIN_LIFE');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
@@ -1807,10 +1812,13 @@ async function cast_protection() {
  * self-dir zapyourself is D-1433. SPE_WIZARD_LOCK IMMEDIATE
  * weffects → bhit (D-1452; C `:1466` / zap.c `:3440–3451`);
  * bhitm is D-1425; self-dir zapyourself is D-1434.
- * SPE_DRAIN_LIFE IMMEDIATE
+ * SPE_TURN_UNDEAD IMMEDIATE weffects → bhit (D-1458;
+ * C `:1468` / zap.c `:3440–3451`); bhitm unturn_dead +
+ * undead dmg is D-0955; self-dir zapyourself unturn_you
+ * is D-0955. SPE_DRAIN_LIFE IMMEDIATE
  * weffects → bhitm (D-1436; C `:1477` / zap.c `:521–544`);
  * self-dir zapyourself is D-1446. Remaining wand-duplicate
- * IMMEDIATE (TURN/…) still named.
+ * IMMEDIATE (POLY/CANCEL/STONE/TELE) still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -2027,7 +2035,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * → bhit(rn1(8,6), bhitm, bhito) (D-1450; callee
          * zap.c :3440–3451). physical_damage is FORCE_BOLT-only.
          * Self-dir zapyourself already D-0981. bhitm SPE_KNOCK
-         * mhurtle/saddle already D-0981. TURN still named.
+         * mhurtle/saddle already D-0981. POLY still named.
          * doorlock / zap_updown OPENING / bhito boxlock named. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_SLOW_MONSTER) {
@@ -2036,7 +2044,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * zap.c :3440–3451). physical_damage is FORCE_BOLT-only.
          * Self-dir zapyourself already D-1433 (HFast then
          * u_slow_down). bhitm SPE_SLOW mon_adjust_speed(-1)
-         * already D-1424. TURN still named. */
+         * already D-1424. POLY still named. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_WIZARD_LOCK) {
         /* C spell.c :1466–1514 wand-duplicate IMMEDIATE weffects
@@ -2044,8 +2052,18 @@ export async function spelleffects(spell_otyp, atme, force) {
          * zap.c :3440–3451). physical_damage is FORCE_BOLT-only.
          * Self-dir zapyourself already D-1434 (closeholdingtrap
          * then boxlock_invent). bhitm WAN_LOCKING/SPE_WIZARD_LOCK
-         * closeholdingtrap already D-1425. TURN still named.
+         * closeholdingtrap already D-1425. POLY still named.
          * doorlock / zap_updown LOCKING / bhito boxlock named. */
+        await wand_duplicate_weffects(pseudo, atme, false);
+    } else if (otyp === SPE_TURN_UNDEAD) {
+        /* C spell.c :1468–1514 wand-duplicate IMMEDIATE weffects
+         * → bhit(rn1(8,6), bhitm, bhito) (D-1458; callee
+         * zap.c :3440–3451). physical_damage is FORCE_BOLT-only.
+         * Self-dir zapyourself already D-0955 (unturn_you).
+         * bhitm WAN_UNDEAD_TURNING/SPE_TURN_UNDEAD unturn_dead
+         * then undead rnd(8)/dbldam/spell_damage_bonus already
+         * D-0955. POLY/CANCEL/STONE/TELE still named.
+         * zap_steed remaining bhitm-routed named. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_DRAIN_LIFE) {
         /* C spell.c :1477–1514 wand-duplicate IMMEDIATE weffects
