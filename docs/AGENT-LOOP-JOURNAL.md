@@ -8,6 +8,27 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — review D-1450–D-1458 (audit #1840)
+
+**Objective:** audit — C-fidelity reviews **410–418** of JS SHAs
+`de69d3f9` / `5c8b73c5` / `41c16bfe` / `291aea0a` /
+`68635edb` / `ad3eca95` / `91e3e8a8` / `c2736f3e` /
+`01edf8b9` plus full `sessions` score.
+**C locus:** `spell.c` `spelleffects` `:1457–1514`;
+`zap.c` `bhito`/`drain_item` `:2318–2320` / `:1382–1455`;
+`zap_updown` `:3263–3354`; `zap_steed` `:3104–3113`;
+`potion.c` `mixtype`/`potion_dip` `:2120–2209` / `:2503–2593`;
+`bhitm` TURN `:243–262`.
+**Change:** no `js/` edits. **410–418** ACCEPT-WITH-DEBT.
+Filled archive D-1458 `01edf8b9`. Must-fix empty. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `38+0.31/turn` (R² 0.843).
+**Verified:** full `sessions` at HEAD `01edf8b9`; public-unhit
+on knock/slow/lock/turn-cast / drain_item / updown-opening /
+steed-tele / updown-striking / mixtype-dip.
+**Next:** Open `zap.c` `weffects` SPE_POLYMORPH IMMEDIATE
+wand-duplicate (named). Not CANCELLATION.
+**Blocked:** none.
 ## 2026-08-25 — D-1458 spell.c SPE_TURN_UNDEAD IMMEDIATE wand-duplicate
 
 **Objective:** Open `zap.c` `weffects` SPE_TURN_UNDEAD IMMEDIATE

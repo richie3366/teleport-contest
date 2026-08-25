@@ -5,7 +5,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1458; cadence **#1820** `70c2b8e6`
+- **Fortress 44/44** after D-1458; cadence **#1840** `01edf8b9`
   (Scr **11,405** RNG 100%). Next: Open `zap.c` `weffects`
   SPE_POLYMORPH IMMEDIATE wand-duplicate (named). Not
   CANCELLATION.

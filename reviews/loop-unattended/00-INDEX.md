@@ -420,3 +420,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [407-4dde6eeb-mhitm-ad-phys-poison.md](./407-4dde6eeb-mhitm-ad-phys-poison.md) | `4dde6eeb` | D-1447 mhitm_ad_phys poison leftover | **ACCEPT-WITH-DEBT** |
 | [408-20f59004-spe-magic-missile-wand-duplicate.md](./408-20f59004-spe-magic-missile-wand-duplicate.md) | `20f59004` | D-1448 SPE_MAGIC_MISSILE wand-duplicate | **ACCEPT-WITH-DEBT** |
 | [409-70c2b8e6-spe-finger-wand-duplicate.md](./409-70c2b8e6-spe-finger-wand-duplicate.md) | `70c2b8e6` | D-1449 SPE_FINGER_OF_DEATH wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [410-de69d3f9-spe-knock-wand-duplicate.md](./410-de69d3f9-spe-knock-wand-duplicate.md) | `de69d3f9` | D-1450 SPE_KNOCK IMMEDIATE wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [411-5c8b73c5-spe-slow-wand-duplicate.md](./411-5c8b73c5-spe-slow-wand-duplicate.md) | `5c8b73c5` | D-1451 SPE_SLOW_MONSTER IMMEDIATE wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [412-41c16bfe-spe-wizard-lock-wand-duplicate.md](./412-41c16bfe-spe-wizard-lock-wand-duplicate.md) | `41c16bfe` | D-1452 SPE_WIZARD_LOCK IMMEDIATE wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [413-291aea0a-bhito-spe-drain-item.md](./413-291aea0a-bhito-spe-drain-item.md) | `291aea0a` | D-1453 bhito SPE_DRAIN_LIFE drain_item | **ACCEPT-WITH-DEBT** |
+| [414-68635edb-zap-updown-wan-opening.md](./414-68635edb-zap-updown-wan-opening.md) | `68635edb` | D-1454 zap_updown WAN_OPENING/SPE_KNOCK | **ACCEPT-WITH-DEBT** |
+| [415-ad3eca95-zap-steed-wan-teleport.md](./415-ad3eca95-zap-steed-wan-teleport.md) | `ad3eca95` | D-1455 zap_steed WAN_TELEPORTATION | **ACCEPT-WITH-DEBT** |
+| [416-91e3e8a8-zap-updown-wan-striking.md](./416-91e3e8a8-zap-updown-wan-striking.md) | `91e3e8a8` | D-1456 zap_updown WAN_STRIKING/SPE_FORCE_BOLT | **ACCEPT-WITH-DEBT** |
+| [417-c2736f3e-potion-mixtype-dip.md](./417-c2736f3e-potion-mixtype-dip.md) | `c2736f3e` | D-1457 mixtype / potion_dip mix | **ACCEPT-WITH-DEBT** |
+| [418-01edf8b9-spe-turn-undead-wand-duplicate.md](./418-01edf8b9-spe-turn-undead-wand-duplicate.md) | `01edf8b9` | D-1458 SPE_TURN_UNDEAD IMMEDIATE wand-duplicate | **ACCEPT-WITH-DEBT** |
