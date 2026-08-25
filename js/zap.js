@@ -41,6 +41,7 @@
 // bhitm WAN_PROBING probe_monster + probe_objchain (D-1426);
 // zap_steed WAN_PROBING probe_monster (D-1443);
 // zap_updown WAN_PROBING bhitpile+zap_map+display_binventory (D-1444);
+// bhito WAN_PROBING observe + display_cinventory / tin / egg (D-1445);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
 // dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
@@ -53,10 +54,11 @@
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_updown other otyps / uswallow pile; zapyourself SPE_DRAIN_LIFE
-// / bhito WAN_PROBING
+// / bhito SPE_DRAIN_LIFE drain_item
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
 // zap_steed WAN_PROBING is D-1443; zap_updown WAN_PROBING is D-1444;
+// bhito WAN_PROBING is D-1445;
 // teleport/bhitm-routed zap_steed named;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
 // bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
@@ -128,7 +130,8 @@ import { nhgetch } from './input.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
-    observe_object, display_minventory, display_binventory, update_inventory,
+    observe_object, display_minventory, display_binventory, display_cinventory,
+    update_inventory, set_cknown_lknown,
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn } from './do.js';
@@ -158,7 +161,7 @@ import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from '.
 import {
     killed, xkilled, flash_hits_mon, m_is_steadfast,
 } from './uhitm.js';
-import { mon_nam, Monnam, noit_Monnam, christen_monst, hliquid, Hallucination } from './do_name.js';
+import { mon_nam, Monnam, noit_Monnam, christen_monst, hliquid, Hallucination, rndmonnam } from './do_name.js';
 import { finish_losehp_done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap,
@@ -214,7 +217,7 @@ import {
     SHOP_DOOR_COST,
     SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd, INVIS,
-    engulfing_u, Is_container,
+    engulfing_u, Is_container, Is_box,
     MINV_ALL, MINV_NOLET, PICK_NONE,
     SEE_INVIS, DETECT_MONSTERS,
     TELEPAT, INTRINSIC, FAST, BOLT_LIM,
@@ -3286,6 +3289,18 @@ function SchroedingersBox(obj) {
     return !!obj && (obj.otyp | 0) === LARGE_BOX && (obj.spe | 0) === 1;
 }
 
+/** C objnam.c otense — verb given plural; singular → vtense. */
+function otense_zap(obj, verb) {
+    if ((obj?.quan | 0) !== 1) return verb;
+    return vtense(null, verb);
+}
+
+/** C objnam.c Tobjnam — The(xname) + otense. Caller: bhito WAN_PROBING. */
+function Tobjnam_zap(obj, verb) {
+    const bp = The(xname(obj));
+    return verb ? `${bp} ${otense_zap(obj, verb)}` : bp;
+}
+
 /**
  * C zap.c probe_objchain :611–623 — observe each; container/statue
  * lknown (+ cknown unless SchroedingersBox); tin known.
@@ -3316,6 +3331,7 @@ function probe_objchain(otmp) {
  * Callers: bhitm WAN_PROBING (D-1426); zap_steed WAN_PROBING (D-1443).
  * zapyourself WAN_PROBING uses probe_objchain + ustatusline (D-1435).
  * zap_updown WAN_PROBING uses bhitpile/zap_map/display_binventory (D-1444).
+ * bhito WAN_PROBING uses observe_object + display_cinventory (D-1445).
  */
 export async function probe_monster(mtmp) {
     if (!mtmp) return;
@@ -3393,8 +3409,8 @@ async function shieldeff_mon(mtmp) {
  * long-worm mcorpsenm polish; Knight questart double on striking;
  * mhurtle petrify/steed; that_is_a_mimic MIM_REVEAL pline
  * (box_or_door+seemimic wired); zap_updown/zap_steed
- * WAN_MAKE_INVISIBLE; zap_steed WAN_PROBING is D-1443; bhito WAN_PROBING /
- * SPE_DRAIN_LIFE drain_item; worm see_wsegs; defended(AD_DRLI).
+ * WAN_MAKE_INVISIBLE; zap_steed WAN_PROBING is D-1443; bhito WAN_PROBING is
+ * D-1445; SPE_DRAIN_LIFE drain_item; worm see_wsegs; defended(AD_DRLI).
  * zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
  * zapyourself SPE_DRAIN_LIFE still named.
  * SPE_FORCE_BOLT spell_damage_bonus is D-1388.
@@ -3586,8 +3602,8 @@ export async function bhitm(mtmp, otmp) {
         // C zap.c bhitm :376–381 — wake FALSE; reveal_invis; probe;
         // always learn. Callee probe_monster :625–640. zap_steed
         // WAN_PROBING calls probe_monster directly (D-1443), not
-        // this bhitm. zap_updown WAN_PROBING is D-1444; bhito still named.
-        // zapyourself WAN_PROBING is D-1435.
+        // this bhitm. zap_updown WAN_PROBING is D-1444; bhito WAN_PROBING
+        // is D-1445. zapyourself WAN_PROBING is D-1435.
         wake = false;
         reveal_invis = true;
         await probe_monster(mtmp);
@@ -4213,7 +4229,7 @@ export async function zapyourself(obj, ordinary) {
         // invent.c update_inventory; insight.c ustatusline
         // (stethoscope; ailments named). bhitm SPE_DRAIN is D-1436;
         // zapyourself SPE_DRAIN / zap_updown WAN_PROBING is D-1444;
-        // bhito WAN_PROBING still named.
+        // bhito WAN_PROBING is D-1445.
         probe_objchain(game.invent);
         update_inventory();
         learn_it = true;
@@ -4407,9 +4423,12 @@ function poly_obj(obj, id) {
 
 /**
  * C ref: zap.c bhito — floor object hit by wand.
- * Envelope: WAN_POLYMORPH; WAN_CANCELLATION; WAN_STRIKING boulder/statue/
- * hero_breaks|breaks; WAN_TELEPORTATION rloco; WAN_UNDEAD_TURNING floor
- * corpse/egg thin revive. Named omit: probing; boxlock; full revive arms.
+ * Envelope: WAN_POLYMORPH; WAN_PROBING (D-1445; observe + container
+ * peek / tin known / egg known; learn iff res); WAN_CANCELLATION;
+ * WAN_STRIKING boulder/statue/hero_breaks|breaks; WAN_TELEPORTATION
+ * rloco; WAN_UNDEAD_TURNING floor corpse/egg thin revive.
+ * Named omit: SPE_DRAIN_LIFE drain_item; boxlock; opening chain;
+ * uchain unpunish.
  * @returns {Promise<number>} 1 if affected
  */
 async function bhito(obj, otmp) {
@@ -4439,6 +4458,45 @@ async function bhito(obj, otmp) {
             const neu = poly_obj(obj, STRANGE_OBJECT);
             if (neu) newsym(neu.ox, neu.oy);
         }
+        break;
+    case WAN_PROBING:
+        /* C zap.c bhito :2222–2274 */
+        res = !obj.dknown ? 1 : 0;
+        observe_object(obj);
+        if (Is_container(obj) || (obj.otyp | 0) === STATUE) {
+            obj.cknown = 1;
+            obj.lknown = 1;
+            if (Is_box(obj) && !obj.tknown) {
+                if (obj.otrapped) {
+                    await pline(`${Tobjnam_zap(obj, 'are')} trapped!`);
+                }
+                obj.tknown = 1;
+            }
+            if (!obj.cobj) {
+                await pline(`${Tobjnam_zap(obj, 'are')} empty.`);
+            } else if (SchroedingersBox(obj)) {
+                await You(
+                    `aren't sure whether ${the(xname(obj))} has ${
+                        an(Hallucination() ? rndmonnam(null) : 'cat')
+                    } or its corpse inside.`,
+                );
+                obj.cknown = 0;
+            } else {
+                for (let o = obj.cobj; o; o = o.nobj) observe_object(o);
+                await display_cinventory(obj);
+            }
+            res = 1;
+        } else if ((obj.otyp | 0) === TIN) {
+            if (!obj.known || !obj.cknown) res = 1;
+            obj.known = 1;
+            set_cknown_lknown(obj);
+        } else if ((obj.otyp | 0) === EGG) {
+            if (!obj.known && (obj.corpsenm ?? NON_PM) !== NON_PM) {
+                res = 1;
+            }
+            obj.known = 1;
+        }
+        if (res) learn_it = true;
         break;
     case WAN_CANCELLATION:
     case SPE_CANCELLATION:

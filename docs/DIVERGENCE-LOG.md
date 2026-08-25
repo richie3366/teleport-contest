@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1445 — zap.c bhito WAN_PROBING
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `bhito` defaulted WAN_PROBING (`res=0`). A probing
+  wand hitting a floor object never `observe_object`, never peeked
+  containers/statues (`display_cinventory`), never identified
+  tins/eggs, and never `learnwand` from the pile. Lateral IMMEDIATE
+  zaps only learn via `bhito`/`bhitm` (weffects does not disclose).
+  Down `zap_updown` already called `bhitpile(bhito)` (D-1444) so
+  floor piles stayed unseen. C `bhito` `:2222–2274`:
+  `res = !obj->dknown`; `observe_object`; container/statue
+  `cknown`/`lknown`; box `!tknown` trap pline + `tknown`; empty
+  Tobjnam / SchroedingersBox inconclusive (cknown=0) /
+  observe `cobj` + `display_cinventory`; always `res=1` for those;
+  TIN known + `set_cknown_lknown`; EGG known (learn if
+  `!known && corpsenm != NON_PM`); `if (res) learn_it`.
+- **C locus:** `zap.c` `bhito` `:2119–2474` (WAN_PROBING
+  `:2222–2274`). Callee `invent.c` `display_cinventory`
+  `:5446–5473`. Callers `bhitpile` / `bhit` / `zap_updown` down.
+- **JS was:** named omit. default `res=0`.
+- **Fix:** WAN_PROBING arm + `display_cinventory`. Other bhito
+  otyps (`drain_item`, boxlock, opening chain) named. Rule #2:
+  no fs.
+- **JS:** `js/zap.js` `bhito`; `js/invent.js` `display_cinventory`.
+- **Not this iter:** `bhito` SPE_DRAIN_LIFE `drain_item`; other
+  `zap_updown` otyps; zap_steed teleport; zapyourself SPE_DRAIN;
+  `zap_map` from lateral `bhit`.
+- **Verified:** private canary **19**/19 (C/JS grep; Rule #2;
+  fresh dagger learn; already-dknown no learn; self-hit 0;
+  empty trapped chest; contents observe; SchroedingersBox;
+  tin/egg known gates; empty statue; locking default; bhitm
+  still D-1426); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session probes a floor object.
+- **Follow-up:** Open `zap.c` `zapyourself` SPE_DRAIN_LIFE
+  (named). Not bhitm drain.
+- **Files:** `js/zap.js`, `js/invent.js`.
+
 ## D-1444 — zap.c zap_updown WAN_PROBING
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

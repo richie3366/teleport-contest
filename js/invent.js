@@ -5,8 +5,9 @@
 //        suppress_price dance (D-1126; perm_invent On WIN_INVEN still named);
 //        display_minventory MINV_ALL|PICK_NONE (D-1426; zap.c
 //        probe_monster); display_binventory buried/pool (D-1444;
-//        zap.c zap_updown WAN_PROBING); worn_wield_only / PICK_ONE /
-//        INCLUDE_HERO named;
+//        zap.c zap_updown WAN_PROBING); display_cinventory container
+//        contents (D-1445; zap.c bhito WAN_PROBING); worn_wield_only /
+//        PICK_ONE / INCLUDE_HERO named;
 //        o_init.c dodiscovered / discover_object;
 //        insight.c enlightenment (BASIC ^X + MAGIC-only in-progress D-1116).
 // D-0856: display_pickinv / invent_lines obj_to_glyph Hallu display RNG.
@@ -759,7 +760,7 @@ export function not_fully_identified(otmp) {
 }
 
 /** C ref: invent.c set_cknown_lknown */
-function set_cknown_lknown(obj) {
+export function set_cknown_lknown(obj) {
     if (!obj) return;
     if (Is_container(obj) || (obj.otyp | 0) === STATUE) {
         obj.cknown = obj.lknown = 1;
@@ -1382,6 +1383,46 @@ export async function display_binventory(x, y, as_if_seen) {
         );
     }
     return n + n2;
+}
+
+/** C invent.c cinv_doname :5391–5418 — insert "trapped" before lock word. */
+function cinv_doname(obj) {
+    let result = doname(obj);
+    if (!obj?.otrapped) return result;
+    const p = result.indexOf(' locked');
+    const q = result.indexOf(' unlocked');
+    if (p >= 0 && (q < 0 || p < q)) {
+        result = result.replace(' locked ', ' trapped locked ');
+    } else if (q >= 0) {
+        result = result.replace(' unlocked ', ' trapped unlocked ');
+    }
+    return result.replace('an trapped ', 'a trapped ');
+}
+
+/**
+ * C invent.c display_cinventory :5446–5473 — container/statue contents.
+ * Caller: zap.c bhito WAN_PROBING (D-1445). Title via cinv_doname.
+ * PICK_NONE query_objlist analog; empty → "(empty)". Always cknown.
+ * Named omit: safe_qbuf overflow → cinv_ansimpleoname; PICK_ONE.
+ * @returns {Promise<object|null>}
+ */
+export async function display_cinventory(obj) {
+    if (!obj) return null;
+    const headingAttr = game.program_state?.gameover ? 0 : ATR_INVERSE;
+    const qbuf = `Contents of ${cinv_doname(obj)}:`;
+    const items = [];
+    for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) items.push(otmp);
+    if (items.length) {
+        await query_objlist_pick_none_binv(qbuf, items, true);
+    } else {
+        await select_menu_pick_none([
+            { text: qbuf, attr: headingAttr },
+            { text: '', attr: 0 },
+            { text: '(empty)', attr: 0 },
+        ]);
+    }
+    obj.cknown = 1;
+    return null;
 }
 
 /**
