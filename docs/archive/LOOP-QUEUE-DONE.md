@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zap_steed` WAN_PROBING (named). Not zapyourself. **Addressed:** D-1443
+- [x] `zap.c` `zap_updown` WAN_PROBING (named). Not steed. **Addressed:** D-1444
+
+
+- [x] `zap.c` `zap_steed` WAN_PROBING (named). Not zapyourself. **Addressed:** D-1443 `4a0aa5cc`
 
 
 - [x] `uhitm.c` `mhitm_ad_phys` rustm leftover (named from D-1415). Not poison. **Addressed:** D-1442 `892be171`

@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1444 zap.c zap_updown WAN_PROBING
+
+**Objective:** Open `zap.c` `zap_updown` WAN_PROBING
+(named). Not steed.
+**C locus:** `zap.c` `zap_updown` `:3236–3262`; caller
+`weffects` `:3440–3446`; callees `zap_map` probing
+`:3720–3796`, `invent.c` `display_binventory`
+`:5488–5546`, `dungeon.c` `update_mapseen_for`.
+**Change:** weffects `u.dz` → `zap_updown` WAN_PROBING
+ceiling/beneath + `bhitpile` + `zap_map` + buried
+menu; always disclose. Other updown otyps / bhito
+probing / force_decor named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless
+a session zaps probing up/down unmounted).
+**Verified:** private canary **21**/21; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `bhito` WAN_PROBING (named).
+Not updown.
+**Blocked:** none.
 ## 2026-08-25 — D-1443 zap.c zap_steed WAN_PROBING
 
 **Objective:** Open `zap.c` `zap_steed` WAN_PROBING

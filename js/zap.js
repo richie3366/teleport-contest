@@ -40,6 +40,7 @@
 // bhitm WAN_LOCKING closeholdingtrap (D-1425);
 // bhitm WAN_PROBING probe_monster + probe_objchain (D-1426);
 // zap_steed WAN_PROBING probe_monster (D-1443);
+// zap_updown WAN_PROBING bhitpile+zap_map+display_binventory (D-1444);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
 // dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
@@ -51,15 +52,17 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_updown/uswallow full; zapyourself SPE_DRAIN_LIFE
-// / zap_updown / bhito WAN_PROBING
+// Named omissions: zap_updown other otyps / uswallow pile; zapyourself SPE_DRAIN_LIFE
+// / bhito WAN_PROBING
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
-// zap_steed WAN_PROBING is D-1443; teleport/bhitm-routed zap_steed named;
+// zap_steed WAN_PROBING is D-1443; zap_updown WAN_PROBING is D-1444;
+// teleport/bhitm-routed zap_steed named;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
 // bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
 // bhitm WAN_PROBING is D-1426; bhitm SPE_DRAIN_LIFE is D-1436);
-// zap_map; mon_reflects;
+// zap_map non-probing (engraving/drawbridge/cancel trap); force_decor;
+// zap_map from lateral bhit; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // SPE_LIGHT NODIR wand-duplicate cast dispatch is D-1427
 // (zapnodir SPE_LIGHT already D-1366); SPE_SLEEP RAY
@@ -125,20 +128,21 @@ import { nhgetch } from './input.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
-    observe_object, display_minventory, update_inventory,
+    observe_object, display_minventory, display_binventory, update_inventory,
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn } from './do.js';
-import { doname, xname, yname, distant_name, vtense, The, an, An, killer_xname, ansimpleoname, otyp_is_charged } from './objnam.js';
+import { doname, xname, yname, distant_name, vtense, The, the, an, An, killer_xname, ansimpleoname, otyp_is_charged } from './objnam.js';
 import { uhim } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
 import {
     A_WIS, A_STR, A_CON, A_DEX, A_INT, A_CHA, exercise, acurr,
 } from './attrib.js';
-import { findit } from './detect.js';
+import { findit, cvt_sdoor_to_door, show_map_spot } from './detect.js';
 import {
     confdir, fall_asleep, losehp, maybe_half_phys, nomul, is_pool,
     is_lava, is_moat, waterbody_name, in_rooms, dissolve_bars, stop_occupation,
+    SURFACE_AT,
 } from './hack.js';
 import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
@@ -147,6 +151,7 @@ import {
 } from './monsters.js';
 import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond } from './mon.js';
 import { find_mac, monkilled, shade_miss } from './mhitm.js';
+import { update_mapseen_for } from './dungeon.js';
 import { more_experienced } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
@@ -158,12 +163,11 @@ import { finish_losehp_done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap,
     NO_TRAP_FLAGS, ignite_items, openholdingtrap, closeholdingtrap,
-    openfallingtrap, self_invis_message,
+    openfallingtrap, self_invis_message, trapname,
 } from './trap.js';
 import { potionbreathe, make_stunned, speed_up } from './potion.js';
 import { burn_away_slime } from './timeout.js';
 import { create_gas_cloud } from './region.js';
-import { cvt_sdoor_to_door } from './detect.js';
 import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock_invent } from './lock.js';
 import { monflee, sticks } from './monmove.js';
@@ -227,9 +231,11 @@ import {
     WEB, PIT, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
     TIMER_LEVEL, MELT_ICE_AWAY, EXPL_FIERY, COLNO, ROWNO,
     xytodir,
-    IS_ALTAR, IS_STWALL, Is_earthlevel, IS_AIR, CLOUD, IS_SINK,
+    IS_ALTAR, Is_earthlevel, IS_AIR, CLOUD, IS_SINK,
     MM_NOTAIL, MM_ADJACENTOK, NATTK,
     MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS,
+    IS_FURNITURE, IS_GRAVE, SCORR, VAULT, TEMPLE, In_quest, Is_firelevel,
+    VIBRATING_SQUARE,
 } from './const.js';
 
 const MZ_HUMAN = MZ_MEDIUM;
@@ -632,6 +638,11 @@ function useupf(obj, numused) {
 /** C ref: pline.c You — prefix "You ". */
 async function You(rest) {
     await pline(`You ${rest}`);
+}
+
+/** C ref: pline.c Your — prefix "Your ". */
+async function Your(rest) {
+    await pline(`Your ${rest}`);
 }
 
 /** C ref: dbridge.c / rm.h is_ice — ICE or drawbridge-under DB_ICE. */
@@ -2255,16 +2266,56 @@ function s_suffix_zap(s) {
     return `${s}'s`;
 }
 
-/** C ref: dungeon.c surface — floor/ground stand-in for saddle drop. */
-function surface_zap(x, y) {
+/**
+ * C dungeon.c ceiling :1714–1747 — vault/temple/shop in_rooms then
+ * water/air/fire/quest/Underwater/room. Caller: zap_updown WAN_PROBING up.
+ */
+function ceiling_updown(x, y) {
     const loc = game.level?.at?.(x, y);
     const typ = loc?.typ ?? 0;
-    if (IS_FOUNTAIN(typ)) return 'fountain';
-    if (IS_ALTAR(typ)) return 'altar';
-    if (IS_WALL(typ) || IS_STWALL(typ)) return 'wall';
-    if (IS_DOOR(typ)) return 'doorway';
-    if (IS_ROOM(typ) && !Is_earthlevel(game.u?.uz)) return 'floor';
-    if (IS_AIR(typ)) return typ === CLOUD ? 'cloud' : 'air';
+    const uz = game.u?.uz;
+    if (in_rooms(x, y, VAULT)) return "vault's ceiling";
+    if (in_rooms(x, y, TEMPLE)) return "temple's ceiling";
+    if (in_rooms(x, y, SHOPBASE)) return "shop's ceiling";
+    if (Is_waterlevel(uz)) return 'water above';
+    if (IS_AIR(typ)) return 'sky';
+    if (Is_firelevel(uz)) return 'flames above';
+    if (In_quest(uz)) return 'expanse above';
+    if (game.u?.Underwater) return "water's surface";
+    if ((IS_ROOM(typ) && !Is_earthlevel(uz))
+        || IS_WALL(typ) || IS_DOOR(typ) || typ === SDOOR) {
+        return 'ceiling';
+    }
+    return 'rock cavern';
+}
+
+/**
+ * C dungeon.c surface :1750–1787 — swallow named (zap_updown is
+ * !uswallow); air/pool/ice/lava/bridge/altar/grave/fountain/stairs/
+ * wall/door/floor/ground. On_stairs named → ground unless furniture
+ * (zap_updown WAN_PROBING uses "it" for IS_FURNITURE).
+ */
+function surface_zap(x, y) {
+    const loc = game.level?.at?.(x, y);
+    const levtyp = SURFACE_AT(x, y);
+    const uz = game.u?.uz;
+    if (IS_AIR(levtyp)) {
+        if (Is_waterlevel(uz)) return 'air bubble';
+        return levtyp === CLOUD ? 'cloud' : 'air';
+    }
+    if (is_pool(x, y)) {
+        return (game.u?.Underwater && !Is_waterlevel(uz))
+            ? 'bottom' : hliquid('water');
+    }
+    if (is_ice(x, y)) return 'ice';
+    if (is_lava(x, y)) return hliquid('lava');
+    if ((loc?.typ | 0) === DRAWBRIDGE_DOWN) return 'bridge';
+    if (IS_ALTAR(levtyp)) return 'altar';
+    if (IS_GRAVE(levtyp) || levtyp === GRAVE) return 'headstone';
+    if (IS_FOUNTAIN(levtyp)) return 'fountain';
+    if (IS_WALL(levtyp) || levtyp === SDOOR) return 'wall';
+    if (IS_DOOR(levtyp)) return 'doorway';
+    if (IS_ROOM(levtyp) && !Is_earthlevel(uz)) return 'floor';
     return 'ground';
 }
 
@@ -3264,6 +3315,7 @@ function probe_objchain(otmp) {
  * (MINV_ALL|MINV_NOLET|PICK_NONE) or "not carrying anything".
  * Callers: bhitm WAN_PROBING (D-1426); zap_steed WAN_PROBING (D-1443).
  * zapyourself WAN_PROBING uses probe_objchain + ustatusline (D-1435).
+ * zap_updown WAN_PROBING uses bhitpile/zap_map/display_binventory (D-1444).
  */
 export async function probe_monster(mtmp) {
     if (!mtmp) return;
@@ -3521,7 +3573,7 @@ export async function bhitm(mtmp, otmp) {
         // C zap.c bhitm :370–375 — box_or_door mimic then
         // wake = closeholdingtrap(mtmp, &learn_it). that_is_a_mimic
         // (MIM_REVEAL) named; seemimic is the C comment. Callee
-        // trap.c :6210–6247. zap_updown still named.
+        // trap.c :6210–6247. other zap_updown otyps named.
         // zap_steed does not route locking to bhitm.
         // zapyourself WAN_LOCKING is D-1434.
         if (disguised_mimic && box_or_door(mtmp)) seemimic(mtmp);
@@ -3534,7 +3586,7 @@ export async function bhitm(mtmp, otmp) {
         // C zap.c bhitm :376–381 — wake FALSE; reveal_invis; probe;
         // always learn. Callee probe_monster :625–640. zap_steed
         // WAN_PROBING calls probe_monster directly (D-1443), not
-        // this bhitm. zap_updown / bhito still named.
+        // this bhitm. zap_updown WAN_PROBING is D-1444; bhito still named.
         // zapyourself WAN_PROBING is D-1435.
         wake = false;
         reveal_invis = true;
@@ -4129,7 +4181,7 @@ export async function zapyourself(obj, ordinary) {
         // (noticed stays unset). Callee trap.c :6210–6247 (D-1425)
         // + zap.c boxlock_invent :2687–2702 (lock.c boxlock).
         // WAN_PROBING is D-1435. bhitm SPE_DRAIN is D-1436;
-        // zapyourself SPE_DRAIN / zap_updown still named.
+        // zapyourself SPE_DRAIN / other zap_updown otyps still named.
         const alreadyTrapped = !!(game.u?.utrap | 0);
         if (alreadyTrapped) {
             await boxlock_invent(obj);
@@ -4160,7 +4212,8 @@ export async function zapyourself(obj, ordinary) {
         // probe_objchain :611–623 (hero invent Array, D-1017);
         // invent.c update_inventory; insight.c ustatusline
         // (stethoscope; ailments named). bhitm SPE_DRAIN is D-1436;
-        // zapyourself SPE_DRAIN / zap_updown / bhito WAN_PROBING still named.
+        // zapyourself SPE_DRAIN / zap_updown WAN_PROBING is D-1444;
+        // bhito WAN_PROBING still named.
         probe_objchain(game.invent);
         update_inventory();
         learn_it = true;
@@ -4703,6 +4756,118 @@ export async function zapwrapup() {
 export { zapsetup, bhito, bhit };
 
 /**
+ * C zap.c zap_map :3628–3800 — WAN_PROBING terrain/trap (D-1444).
+ * Called from zap_updown down before display_binventory.
+ * Named: maybe_explode_trap; down-zap engravings; lateral
+ * drawbridge; force_decor ice/furniture describe; draft_message
+ * Rogue SDOOR; Invocation_lev vibrating-square "the"; lateral
+ * bhit zap_map.
+ */
+async function zap_map(x, y, obj) {
+    if (!obj) return;
+    const ttmp = t_at(x, y);
+    let learn_it = false;
+
+    if ((obj.otyp | 0) === WAN_PROBING) {
+        const oldtyp = game.lastseentyp?.[x]?.[y] | 0;
+        const loc0 = game.level?.at?.(x, y);
+        const oldglyph = loc0
+            ? `${loc0.disp_ch ?? ''}|${loc0.disp_kind ?? ''}|${loc0.disp_color ?? ''}`
+            : '';
+        show_map_spot(x, y, false);
+        const loc1 = game.level?.at?.(x, y);
+        const newglyph = loc1
+            ? `${loc1.disp_ch ?? ''}|${loc1.disp_kind ?? ''}|${loc1.disp_color ?? ''}`
+            : '';
+        if ((game.lastseentyp?.[x]?.[y] | 0) !== oldtyp || newglyph !== oldglyph) {
+            learn_it = true;
+        }
+        const ltyp = SURFACE_AT(x, y);
+        if (ltyp === SDOOR) {
+            if (loc1) cvt_sdoor_to_door(loc1);
+            recalc_block_point(x, y);
+            newsym(x, y);
+            if (cansee(x, y)) {
+                await pline('Probing reveals a secret door.');
+                learn_it = true;
+            }
+            /* Rogue !cansee draft_message named */
+        } else if (ltyp === SCORR) {
+            if (loc1) loc1.typ = CORR;
+            recalc_block_point(x, y);
+            newsym(x, y);
+            await pline('Probing exposes a secret corridor.');
+            learn_it = true;
+        } else if (ltyp === ICE || IS_FURNITURE(ltyp)) {
+            if ((game.u?.dz | 0) > 0) {
+                /* force_decor(TRUE) named */
+                learn_it = true;
+            }
+        }
+        if (ttmp) {
+            const t_already_seen = ttmp.tseen | 0;
+            const hallu = Hallucination();
+            ttmp.tseen = 1;
+            newsym(x, y);
+            if (!t_already_seen || hallu) {
+                const ttmpname = trapname(ttmp.ttyp, false);
+                /* Invocation_lev vibrating-square "the" named */
+                const use_the = hallu ? !rn2(4) : false;
+                await You(`find ${use_the ? the(ttmpname) : an(ttmpname)}${use_the ? '!' : '.'}`);
+                learn_it = !hallu;
+            }
+        }
+    }
+
+    if (learn_it) learnwand(obj);
+}
+
+/**
+ * C zap.c zap_updown :3219–3411 — IMMEDIATE wand/spell up or down.
+ * WAN_PROBING :3236–3262 this iter (early return; own bhitpile).
+ * Named: WAN_OPENING/SPE_KNOCK; WAN_STRIKING/SPE_FORCE_BOLT;
+ * WAN_LOCKING/SPE_WIZARD_LOCK; SPE_STONE_TO_FLESH; default
+ * down bhitpile+zap_map / up hideunder bhito.
+ */
+async function zap_updown(obj) {
+    if (!obj) return false;
+    const x = game.u?.ux | 0;
+    const y = game.u?.uy | 0;
+    const dz = game.u?.dz | 0;
+
+    switch (obj.otyp | 0) {
+    case WAN_PROBING: {
+        /* C zap.c :3236–3262 */
+        let ptmp = 0;
+        if (dz < 0) {
+            await You(`probe towards the ${ceiling_updown(x, y)}.`);
+        } else {
+            const rememberedltyp = update_mapseen_for(x, y);
+            ptmp += await bhitpile(obj, bhito, x, y, dz);
+            const ltyp = SURFACE_AT(x, y);
+            await zap_map(x, y, obj);
+            let surf;
+            if (ltyp === ICE || IS_FURNITURE(ltyp)) {
+                surf = 'it';
+                if ((game.lastseentyp?.[x]?.[y] | 0) !== rememberedltyp) {
+                    ptmp += 1;
+                }
+            } else {
+                surf = the(surface_zap(x, y));
+            }
+            await You(`probe beneath ${surf}.`);
+            ptmp += await display_binventory(x, y, true);
+        }
+        if (!ptmp) await Your('probe reveals nothing.');
+        return true;
+    }
+    default:
+        break;
+    }
+    return false;
+}
+
+/**
  * C zap.c zap_steed :3087–3140 — downward wand/spell while riding.
  * WAN_PROBING probes the steed directly (not via bhitm). Caller
  * weffects :3437–3439 sets disclose then learnwand again.
@@ -4740,8 +4905,9 @@ async function zap_steed(obj) {
  * WAN_DIGGING/SPE_DIG → zap_dig (SPE_DIG cast D-1441);
  * RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH ubuzz (D-1386)
  * including SPE_SLEEP wand-duplicate (D-1440).
- * zap_steed WAN_PROBING (D-1443); zap_updown / remaining
- * zap_steed otyps / doorlock deferred.
+ * zap_steed WAN_PROBING (D-1443); zap_updown WAN_PROBING (D-1444);
+ * remaining zap_steed otyps / other zap_updown otyps / doorlock
+ * deferred.
  */
 export async function weffects(obj) {
     const otyp = obj.otyp;
@@ -4764,7 +4930,7 @@ export async function weffects(obj) {
         if (game.u?.uswallow) {
             if (game.u.ustuck) await bhitm(game.u.ustuck, obj);
         } else if (game.u?.dz) {
-            // zap_updown deferred
+            disclose = await zap_updown(obj);
         } else {
             const range = rn1(8, 6);
             const pref = { obj };

@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1444 — zap.c zap_updown WAN_PROBING
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `weffects` skipped `zap_updown` on `u.dz`. An up/down
+  probing wand never printed ceiling/beneath messages, never
+  `bhitpile`/`zap_map`/`display_binventory`, and never disclosed.
+  C `zap_updown` `:3236–3262`: up `You("probe towards the %s.",
+  ceiling)` then `!ptmp` nothing; down `update_mapseen_for` +
+  `bhitpile(bhito)` + `zap_map` + `You("probe beneath %s.")` +
+  `display_binventory(x,y,TRUE)`; always `return TRUE` (own
+  bhitpile). Caller `weffects` `:3445–3446` `u.dz` after
+  mounted `zap_steed` miss. `zap_map` WAN_PROBING `:3720–3796`
+  `show_map_spot` / SDOOR / SCORR / ice-furniture `learn_it` /
+  trap `tseen`.
+- **C locus:** `zap.c` `zap_updown` `:3219–3411` (WAN_PROBING
+  `:3236–3262`). Callees `zap_map` `:3720–3796`; `invent.c`
+  `display_binventory` `:5488–5546`; `dungeon.c`
+  `update_mapseen_for` `:2943–2947`. Caller `weffects`
+  `:3440–3446`.
+- **JS was:** named omit. `weffects` `u.dz` empty.
+- **Fix:** `zap_updown` WAN_PROBING arm + weffects `u.dz`
+  disclose; probing-only `zap_map`; `display_binventory`.
+  Other otyps return false. Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_updown` / `zap_map` / `weffects`;
+  `js/invent.js` `display_binventory`; `js/dungeon.js`
+  `update_mapseen_for`.
+- **Not this iter:** `bhito` WAN_PROBING; other `zap_updown`
+  otyps; `force_decor`; `zap_map` engraving/drawbridge/cancel
+  trap / lateral `bhit`; Rogue SDOOR `draft_message`;
+  Invocation_lev vibrating-square `the`; zap_steed teleport /
+  bhitm-routed otyps; zapyourself SPE_DRAIN_LIFE.
+- **Verified:** private canary **21**/21 (C/JS grep; Rule #2;
+  up ceiling+nothing+learn+XP; down floor/ice/furniture;
+  buried observe; steed still D-1443; locking default;
+  SDOOR; trap tseen; pool overlay); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session probes up/down unmounted.
+- **Follow-up:** Open `zap.c` `bhito` WAN_PROBING (named).
+  Not updown.
+- **Files:** `js/zap.js`, `js/invent.js`, `js/dungeon.js`.
+
 ## D-1443 — zap.c zap_steed WAN_PROBING
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
