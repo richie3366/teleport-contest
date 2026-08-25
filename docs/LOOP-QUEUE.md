@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_steed` WAN_SPEED_MONSTER via bhitm (named). Not SLOW.
 - [ ] `zap.c` `zap_steed` SPE_CURE_SICKNESS via bhitm (named). Not SPEED.
 - [ ] `zap.c` `bhito` uchain unpunish WAN_OPENING (named). Not boxlock.
 - [ ] `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT (named). Not LOCKING.
