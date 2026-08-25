@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1453 zap.c bhito SPE_DRAIN_LIFE drain_item
+
+**Objective:** Open `zap.c` `bhito` SPE_DRAIN_LIFE `drain_item`
+(named). Not probing.
+**C locus:** `zap.c` `drain_item` `:1382–1455`; `bhito`
+`:2318–2320`; callees `artifact.c` `defends` `:636–683` /
+`defends_when_carried` `:687–694`.
+**Change:** extract defn/cary; port `defends`/`defends_when_carried`;
+port `drain_item` (defends then `obj_resists(10,90)` then `spe--`
++ ABON); `bhito` SPE_DRAIN arm. AD_ENCH callers named. Rule #2:
+no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session drains a floor object).
+**Verified:** private canary **19**/19; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_updown` WAN_OPENING/SPE_KNOCK
+(named). Not probing.
+**Blocked:** none.
 ## 2026-08-25 — D-1452 spell.c SPE_WIZARD_LOCK IMMEDIATE wand-duplicate
 
 **Objective:** Open `zap.c` `weffects` SPE_WIZARD_LOCK IMMEDIATE

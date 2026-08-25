@@ -4,7 +4,7 @@
 //        bhit, bhito, bhitm, bhitpile, poly_obj, obj_shudders,
 //        probe_monster, probe_objchain,
 //        cancel_item, cancel_monst, revive, revive_egg, unturn_dead,
-//        unturn_you
+//        unturn_you, drain_item
 //
 // Branch envelope: getobj wand + zappable + cursed backfire gate +
 // NODIR weffects → zapnodir WAN_SECRET_DOOR_DETECTION → findit;
@@ -47,6 +47,7 @@
 // zap_steed WAN_PROBING probe_monster (D-1443);
 // zap_updown WAN_PROBING bhitpile+zap_map+display_binventory (D-1444);
 // bhito WAN_PROBING observe + display_cinventory / tin / egg (D-1445);
+// bhito SPE_DRAIN_LIFE drain_item (D-1453);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
 // dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
@@ -59,12 +60,12 @@
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_updown other otyps / uswallow pile;
-// bhito SPE_DRAIN_LIFE drain_item
+// bhito boxlock / opening chain
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
 // zapyourself SPE_DRAIN_LIFE is D-1446;
 // zap_steed WAN_PROBING is D-1443; zap_updown WAN_PROBING is D-1444;
-// bhito WAN_PROBING is D-1445;
+// bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
 // teleport/bhitm-routed zap_steed named;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
 // bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
@@ -135,7 +136,7 @@ import { getlin } from './getline.js';
 import {
     flush_screen, flush_topl_more, pline, pline_dir, pline_mon, Norep, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon, shieldeff,
-    obj_glyph, glyph_is_invisible, map_invisible,
+    obj_glyph, glyph_is_invisible, map_invisible, bot,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
@@ -195,7 +196,7 @@ import { costly_alteration, stolen_value, costly_spot, shop_keeper, hot_pursuit 
 import { dryup } from './fountain.js';
 import { explode } from './explode.js';
 import { unpunish, litroom } from './read.js';
-import { bare_artifactname } from './artifact.js';
+import { bare_artifactname, defends, defends_when_carried } from './artifact.js';
 import { Ring_gone, Ring_off, Ring_on, setworn } from './do_wear.js';
 import { which_armor, mon_set_minvis, check_gear_next_turn } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
@@ -227,7 +228,7 @@ import {
     Is_waterlevel, Is_rogue_level, Is_airlevel, AD_RBRE, AD_SPEL, UNCHANGING,
     PLNMSG_ENVELOPED_IN_GAS, PLNMSG_OBJ_GLOWS, IRONBARS, SDOOR, SHOPBASE,
     SHOP_DOOR_COST,
-    SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_UNCURS, COST_UNBLSS,
+    SHOP_BARS_COST, W_NONDIGGABLE, COST_CANCEL, COST_DRAIN, COST_UNCURS, COST_UNBLSS,
     TIMEOUT, XKILL_GIVEMSG, XKILL_NOCORPSE, Upolyd, INVIS,
     engulfing_u, Is_container, Is_box,
     MINV_ALL, MINV_NOLET, PICK_NONE,
@@ -373,6 +374,7 @@ const MAGIC_COOKIE = 1000; // zap.c local #define
 const AD_COLD = 3;
 const AD_FIRE = 2;
 const AD_ELEC = 6;
+const AD_DRLI = 15;
 const DMG_DESTROY_SCALE = 5;
 const MAX_ITEMS_DESTROYED = 20;
 
@@ -3444,7 +3446,7 @@ async function shieldeff_mon(mtmp) {
  * mhurtle petrify/steed; that_is_a_mimic MIM_REVEAL pline
  * (box_or_door+seemimic wired); zap_updown/zap_steed
  * WAN_MAKE_INVISIBLE; zap_steed WAN_PROBING is D-1443; bhito WAN_PROBING is
- * D-1445; SPE_DRAIN_LIFE drain_item; worm see_wsegs; defended(AD_DRLI).
+ * D-1445; SPE_DRAIN_LIFE drain_item is D-1453; worm see_wsegs; defended(AD_DRLI).
  * zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
  * zapyourself SPE_DRAIN_LIFE is D-1446.
  * SPE_FORCE_BOLT spell_damage_bonus is D-1388.
@@ -3656,7 +3658,7 @@ export async function bhitm(mtmp, otmp) {
         // Callees: makemon.c monhp_per_lvl; mondata.c resists_drli
         // (defended AD_DRLI named); mon.c shieldeff_mon; zap.c
         // resist. zapyourself SPE_DRAIN is D-1446; bhito
-        // drain_item named; zap_steed routes here in C.
+        // drain_item is D-1453; zap_steed routes here in C.
         if (disguised_mimic) seemimic(mtmp);
         let dmg = monhp_per_lvl(mtmp);
         const dbldam = Role_if(PM_KNIGHT) && !!(game.u?.uhave?.questart);
@@ -4026,7 +4028,7 @@ export async function zapyourself(obj, ordinary) {
         // resists_drli. learnwand is a no-op for SPBOOK
         // ("no effect for spells..."). Callee exper.c losexp
         // (undead/demon still no-ops after learn_it). bhitm
-        // drain is D-1436; bhito drain_item named; zap_steed
+        // drain is D-1436; bhito drain_item is D-1453; zap_steed
         // routes drain to bhitm (named).
         if (!Drain_resistance()) {
             learn_it = true;
@@ -4477,13 +4479,114 @@ function poly_obj(obj, id) {
 }
 
 /**
+ * C ref: zap.c drain_item :1382–1455 — strip one spe from a charged
+ * or enchanted object. First caller this iter: bhito SPE_DRAIN_LIFE
+ * (D-1453). Callees: artifact.c defends / defends_when_carried
+ * (defn/cary extract), obj_resists(10,90), costly_alteration
+ * COST_DRAIN, bot, invent update_inventory. Named omit: uhitm /
+ * mhitu / mhitm AD_ENCH callers.
+ * @returns {Promise<boolean>} TRUE if spe was reduced
+ */
+export async function drain_item(obj, by_you) {
+    if (!obj) return false;
+    const oc = game.objects?.[obj.otyp];
+    const charged = !!(oc?.oc_charged) || otyp_is_charged(obj.otyp | 0);
+    if ((!charged
+            && obj.oclass !== WEAPON_CLASS
+            && obj.oclass !== ARMOR_CLASS
+            && !is_weptool(obj))
+        || (obj.spe | 0) <= 0) {
+        return false;
+    }
+    if (defends(AD_DRLI, obj) || defends_when_carried(AD_DRLI, obj)
+        || obj_resists(obj, 10, 90)) {
+        return false;
+    }
+    if (by_you) {
+        await costly_alteration(obj, COST_DRAIN);
+    }
+    obj.spe = (obj.spe | 0) - 1;
+    const u = game.u || {};
+    const u_ring = obj === u.uleft || obj === u.uright;
+    switch (obj.otyp) {
+    case RIN_GAIN_STRENGTH:
+        if (((obj.owornmask | 0) & W_RING) && u_ring) {
+            if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+            u.abon.a[A_STR] = (u.abon.a[A_STR] | 0) - 1;
+            if (game.flags) game.flags.botl = true;
+            if (game.disp) game.disp.botl = true;
+        }
+        break;
+    case RIN_GAIN_CONSTITUTION:
+        if (((obj.owornmask | 0) & W_RING) && u_ring) {
+            if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+            u.abon.a[A_CON] = (u.abon.a[A_CON] | 0) - 1;
+            if (game.flags) game.flags.botl = true;
+            if (game.disp) game.disp.botl = true;
+        }
+        break;
+    case RIN_ADORNMENT:
+        if (((obj.owornmask | 0) & W_RING) && u_ring) {
+            if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+            u.abon.a[A_CHA] = (u.abon.a[A_CHA] | 0) - 1;
+            if (game.flags) game.flags.botl = true;
+            if (game.disp) game.disp.botl = true;
+        }
+        break;
+    case RIN_INCREASE_ACCURACY:
+        if (((obj.owornmask | 0) & W_RING) && u_ring) {
+            u.uhitinc = (u.uhitinc | 0) - 1;
+        }
+        break;
+    case RIN_INCREASE_DAMAGE:
+        if (((obj.owornmask | 0) & W_RING) && u_ring) {
+            u.udaminc = (u.udaminc | 0) - 1;
+        }
+        break;
+    case RIN_PROTECTION:
+        /* C :1430–1432 — u_ring only, no owornmask & W_RING */
+        if (u_ring) {
+            if (game.flags) game.flags.botl = true;
+            if (game.disp) game.disp.botl = true;
+        }
+        break;
+    case HELM_OF_BRILLIANCE:
+        if (((obj.owornmask | 0) & W_ARMH) && obj === u.uarmh) {
+            if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+            u.abon.a[A_INT] = (u.abon.a[A_INT] | 0) - 1;
+            u.abon.a[A_WIS] = (u.abon.a[A_WIS] | 0) - 1;
+            if (game.flags) game.flags.botl = true;
+            if (game.disp) game.disp.botl = true;
+        }
+        break;
+    case GAUNTLETS_OF_DEXTERITY:
+        if (((obj.owornmask | 0) & W_ARMG) && obj === u.uarmg) {
+            if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+            u.abon.a[A_DEX] = (u.abon.a[A_DEX] | 0) - 1;
+            if (game.flags) game.flags.botl = true;
+            if (game.disp) game.disp.botl = true;
+        }
+        break;
+    default:
+        break;
+    }
+    if (game.disp?.botl || game.flags?.botl) {
+        await bot();
+    }
+    if ((obj.where | 0) === OBJ_INVENT) {
+        update_inventory();
+    }
+    return true;
+}
+
+/**
  * C ref: zap.c bhito — floor object hit by wand.
  * Envelope: WAN_POLYMORPH; WAN_PROBING (D-1445; observe + container
  * peek / tin known / egg known; learn iff res); WAN_CANCELLATION;
- * WAN_STRIKING boulder/statue/hero_breaks|breaks; WAN_TELEPORTATION
+ * WAN_STRIKING boulder/statue/hero_breaks|breaks; SPE_DRAIN_LIFE
+ * drain_item (D-1453; void return so res stays 1); WAN_TELEPORTATION
  * rloco; WAN_UNDEAD_TURNING floor corpse/egg thin revive.
- * Named omit: SPE_DRAIN_LIFE drain_item; boxlock; opening chain;
- * uchain unpunish.
+ * Named omit: boxlock; opening chain; uchain unpunish.
  * @returns {Promise<number>} 1 if affected
  */
 async function bhito(obj, otmp) {
@@ -4557,6 +4660,11 @@ async function bhito(obj, otmp) {
     case SPE_CANCELLATION:
         await cancel_item(obj);
         newsym(obj.ox | 0, obj.oy | 0);
+        break;
+    case SPE_DRAIN_LIFE:
+        /* C zap.c bhito :2318–2320 — drain_item(obj, TRUE); void
+         * so res stays 1. Does not set learn_it. */
+        await drain_item(obj, true);
         break;
     case WAN_STRIKING:
     case SPE_FORCE_BOLT: {

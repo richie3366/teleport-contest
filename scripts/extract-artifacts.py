@@ -68,6 +68,28 @@ ADTYP = {
     "STON": 18,  # AD_STON
 }
 
+# DFNS(AD_*) / CARY(AD_*) in artilist A() dfn/cry (drain_item defends)
+AD_NAMES = {
+    "AD_PHYS": 0,
+    "AD_MAGM": 1,
+    "AD_FIRE": 2,
+    "AD_COLD": 3,
+    "AD_SLEE": 4,
+    "AD_DISN": 5,
+    "AD_ELEC": 6,
+    "AD_DRST": 7,
+    "AD_ACID": 8,
+    "AD_BLND": 11,
+    "AD_STUN": 12,
+    "AD_SLOW": 13,
+    "AD_PLYS": 14,
+    "AD_DRLI": 15,
+    "AD_STON": 18,
+    "AD_WERE": 29,
+    "AD_DISE": 33,
+    "AD_HALU": 36,
+}
+
 # include/color.h — artilist A() acolor (glow, not item tint)
 CLR = {
     "CLR_BLACK": 0,
@@ -133,6 +155,20 @@ def parse_attk(expr: str) -> tuple[int, int, int]:
     if not m:
         raise ValueError(f"unparsed attk {expr!r}")
     return (ADTYP[m.group(1)], int(m.group(2)), int(m.group(3)))
+
+
+def parse_defn_or_cary(expr: str) -> tuple[int, int, int]:
+    """Parse NO_DFNS / DFNS(AD_*) / CARY(AD_*) / DRLI(0,0) / … → (adtyp, damn, damd)."""
+    expr = strip_c_comments(expr).strip()
+    if expr in ("NO_ATTK", "NO_DFNS", "NO_CARY"):
+        return (0, 0, 0)
+    m = re.match(r"^(?:DFNS|CARY)\(\s*(AD_\w+)\s*\)$", expr)
+    if m:
+        ad = AD_NAMES.get(m.group(1))
+        if ad is None:
+            raise ValueError(f"unparsed DFNS/CARY {expr!r}")
+        return (ad, 0, 0)
+    return parse_attk(expr)
 
 
 def parse_mtype(tok: str) -> tuple[str, int]:
@@ -303,6 +339,16 @@ def main() -> int:
         except ValueError as e:
             print("attk fail", name, e, file=sys.stderr)
             continue
+        try:
+            defn_adtyp, defn_damn, defn_damd = parse_defn_or_cary(args[6])
+        except ValueError as e:
+            print("defn fail", name, e, file=sys.stderr)
+            continue
+        try:
+            cary_adtyp, cary_damn, cary_damd = parse_defn_or_cary(args[7])
+        except ValueError as e:
+            print("cary fail", name, e, file=sys.stderr)
+            continue
         inv_tok = strip_c_comments(args[8]).strip()
         if inv_tok not in INV_PROP:
             print("bad inv_prop", name, inv_tok, file=sys.stderr)
@@ -335,6 +381,12 @@ def main() -> int:
                 "attkAdtyp": attk_adtyp,
                 "attkDamn": attk_damn,
                 "attkDamd": attk_damd,
+                "defnAdtyp": defn_adtyp,
+                "defnDamn": defn_damn,
+                "defnDamd": defn_damd,
+                "caryAdtyp": cary_adtyp,
+                "caryDamn": cary_damn,
+                "caryDamd": cary_damd,
                 "inv_prop": inv_prop,
                 "alignment": ALIGN[align_tok],
                 "roleName": role_tok,
@@ -379,6 +431,12 @@ def main() -> int:
             f' attkAdtyp: {e["attkAdtyp"]},'
             f' attkDamn: {e["attkDamn"]},'
             f' attkDamd: {e["attkDamd"]},'
+            f' defnAdtyp: {e["defnAdtyp"]},'
+            f' defnDamn: {e["defnDamn"]},'
+            f' defnDamd: {e["defnDamd"]},'
+            f' caryAdtyp: {e["caryAdtyp"]},'
+            f' caryDamn: {e["caryDamn"]},'
+            f' caryDamd: {e["caryDamd"]},'
             f' inv_prop: {e["inv_prop"]},'
             f' alignment: {e["alignment"]},'
             f' roleName: {e["roleName"]!r},'

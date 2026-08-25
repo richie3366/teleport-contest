@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1453 — zap.c bhito SPE_DRAIN_LIFE drain_item
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `bhito` defaulted SPE_DRAIN_LIFE (`res=0`). A drain-life
+  spell hitting a floor object never called `drain_item`, so
+  enchanted/charged items kept `spe` (and worn rings/helms never
+  lost ABON). C `bhito` `:2318–2320` is `(void) drain_item(obj, TRUE)`
+  so `res` stays 1 and the type is not learned. Directed monsters
+  are `bhitm` (D-1436); self-dir is `zapyourself` (D-1446).
+- **C locus:** `zap.c` `drain_item` `:1382–1455` + `bhito`
+  `:2318–2320`. Callees `artifact.c` `defends` `:636–683` /
+  `defends_when_carried` `:687–694` + `obj_resists(10,90)` +
+  `costly_alteration(COST_DRAIN)` + `bot` / `update_inventory`.
+  Callers `bhitpile` / `bhit` (IMMEDIATE weffects already routes
+  SPE_DRAIN via D-1436).
+- **JS was:** named omit. `bhito` default `res=0`. `drain_item`
+  absent. `defends`/`defends_when_carried` absent; artilist
+  extractor omitted `defn`/`cary`.
+- **Fix:** extract `defn`/`cary`; port `defends` (artifact defn
+  + dragon mail→scales, AD_DRLI = black) and
+  `defends_when_carried` (cary); port `drain_item` (`oc_charged`
+  / weapon / armor / weptool, `spe<=0`, short-circuit defends
+  then `obj_resists(10,90)`, COST_DRAIN, `spe--`, worn ring/helm
+  ABON); `bhito` SPE_DRAIN_LIFE arm. Did not rewrite
+  `confer_oc_oprop`. Rule #2: no fs.
+- **JS:** `js/zap.js` `drain_item` / `bhito`; `js/artifact.js`
+  `defends`; `js/generated/artifacts_data.js` + extractor.
+- **Not this iter:** uhitm / mhitu / mhitm AD_ENCH callers;
+  `zap_updown` OPENING; `zap_steed` drain → bhitm; `defended`
+  worn-item walk; bhito boxlock / opening chain.
+- **Verified:** private canary **19**/19 (C/JS grep; Rule #2;
+  spe<=0 / potion skip; black DSM + Excalibur defends no RNG;
+  ordinary +spe `rn2(100)`; worn left ring ABON; bhito res=1
+  no learnwand; self-hit 0; probing sibling D-1445; locking
+  still default); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session drains a floor object.
+- **Follow-up:** Open `zap.c` `zap_updown` WAN_OPENING/SPE_KNOCK
+  (named). Not probing.
+
 ## D-1452 — spell.c SPE_WIZARD_LOCK IMMEDIATE wand-duplicate
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
