@@ -41,6 +41,9 @@
 // C spell.c :1478 / zap.c :3440–3451);
 // SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate weffects bhit (D-1468;
 // C spell.c :1470 / zap.c :3440–3451);
+// SPE_HEALING/SPE_EXTRA_HEALING IMMEDIATE wand-duplicate weffects
+// bhit (D-1469; C spell.c :1475–1514 / zap.c :3440–3451;
+// bhitm :433–473 healmon);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
@@ -67,6 +70,8 @@
 // bhito WAN_PROBING observe + display_cinventory / tin / egg (D-1445);
 // bhito SPE_DRAIN_LIFE drain_item (D-1453);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
+// bhitm SPE_HEALING/SPE_EXTRA_HEALING healmon + skilled/extra
+// mcureblindness (D-1469);
 // dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
@@ -86,6 +91,7 @@
 // zap_steed WAN_PROBING is D-1443; zap_steed WAN_TELEPORTATION is D-1455;
 // zap_steed WAN_OPENING/SPE_KNOCK bhitm is D-1463;
 // zap_steed SPE_DRAIN_LIFE bhitm is D-1464;
+// zap_steed SPE_HEALING/SPE_EXTRA_HEALING bhitm is D-1469;
 // zap_updown WAN_PROBING is D-1444;
 // zap_updown WAN_OPENING/SPE_KNOCK is D-1454;
 // zap_updown WAN_STRIKING/SPE_FORCE_BOLT is D-1456;
@@ -95,7 +101,7 @@
 // bhito WAN_OPENING/WAN_LOCKING/SPE_KNOCK/SPE_WIZARD_LOCK boxlock
 // is D-1467;
 // remaining bhitm-routed zap_steed (cancel/poly/invis/
-// striking/slow/speed/heal) named;
+// striking/slow/speed) named;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
 // bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
 // bhitm WAN_PROBING is D-1426; bhitm SPE_DRAIN_LIFE is D-1436);
@@ -115,8 +121,8 @@
 // IMMEDIATE wand-duplicate weffects is D-1459; SPE_CANCELLATION
 // IMMEDIATE wand-duplicate weffects is D-1460; SPE_STONE_TO_FLESH
 // IMMEDIATE wand-duplicate weffects is D-1461; SPE_TELEPORT_AWAY
-// IMMEDIATE wand-duplicate weffects is D-1468; remaining
-// IMMEDIATE directional heal weffects;
+// IMMEDIATE wand-duplicate weffects is D-1468; SPE_HEALING/
+// SPE_EXTRA_HEALING IMMEDIATE wand-duplicate weffects is D-1469;
 // potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
@@ -191,7 +197,7 @@ import { doname, xname, yname, distant_name, vtense, The, the, an, An, killer_xn
 import { uhim } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
 import {
-    A_WIS, A_STR, A_CON, A_DEX, A_INT, A_CHA, exercise, acurr,
+    A_WIS, A_STR, A_CON, A_DEX, A_INT, A_CHA, exercise, acurr, adjalign,
 } from './attrib.js';
 import { findit, cvt_sdoor_to_door, show_map_spot } from './detect.js';
 import {
@@ -205,7 +211,7 @@ import {
     G_UNIQ, G_NOCORPSE, is_rider, is_swimmer, mindless, MZ_MEDIUM, is_whirly,
     hides_under, is_golem, vegetarian, carnivorous,
 } from './monsters.js';
-import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder } from './mon.js';
+import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon } from './mon.js';
 import { find_mac, monkilled, shade_miss } from './mhitm.js';
 import { update_mapseen_for } from './dungeon.js';
 import {
@@ -213,7 +219,7 @@ import {
     is_drawbridge_wall, destroy_drawbridge,
 } from './dbridge.js';
 import { ok_to_quest } from './quest.js';
-import { more_experienced, losexp } from './exper.js';
+import { more_experienced, losexp, newexplevel } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
 import {
@@ -234,7 +240,7 @@ import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock, boxlock_invent, doorlock } from './lock.js';
 import { monflee, sticks } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './mhitu.js';
-import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv } from './makemon.js';
+import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv, set_mimic_sym } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
 import { rehumanize, polymon } from './polyself.js';
@@ -412,10 +418,12 @@ const HELM_OF_BRILLIANCE = objectNames.indexOf('HELM_OF_BRILLIANCE');
 const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
 const PM_CLAY_GOLEM = monsterNames.indexOf('PM_CLAY_GOLEM');
 const PM_KNIGHT = monsterNames.indexOf('PM_KNIGHT');
+const PM_HEALER = monsterNames.indexOf('PM_HEALER');
 const PM_MONK = monsterNames.indexOf('PM_MONK');
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
 const PM_DEATH = monsterNames.indexOf('PM_DEATH');
+const PM_PESTILENCE = monsterNames.indexOf('PM_PESTILENCE');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const NC_VIA_WAND_OR_SPELL = 0x02;
 const NC_SHOW_MSG = 0x01;
@@ -2567,8 +2575,9 @@ export async function do_enlightenment_effect() {
  * SPE_CANCELLATION IMMEDIATE wand-duplicate weffects bhit
  * (D-1460). SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate
  * weffects bhit (D-1461). SPE_TELEPORT_AWAY IMMEDIATE
- * wand-duplicate weffects bhit (D-1468). Named omit:
- * directional heal weffects.
+ * wand-duplicate weffects bhit (D-1468). SPE_HEALING/
+ * SPE_EXTRA_HEALING IMMEDIATE wand-duplicate weffects bhit
+ * (D-1469; bhitm healmon :433–473).
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -3591,6 +3600,29 @@ async function shieldeff_mon(mtmp) {
     }
 }
 
+/* C decl.c c_obj_colors[] — mimic_hit_msg vivid color. */
+const C_OBJ_COLORS_ZAP = [
+    'black', 'red', 'green', 'brown', 'blue', 'magenta', 'cyan', 'gray',
+    'transparent', 'orange', 'bright green', 'yellow', 'bright blue',
+    'bright magenta', 'bright cyan', 'white',
+];
+
+/**
+ * C ref: mon.c mimic_hit_msg :5776–5793 — object-mimic hit by
+ * SPE_HEALING/SPE_EXTRA_HEALING prints a more vivid color.
+ * Caller: zap.c bhitm (D-1469).
+ */
+async function mimic_hit_msg(mtmp, otyp) {
+    if (M_AP_TYPE(mtmp) !== M_AP_OBJECT) return;
+    if (otyp !== SPE_HEALING && otyp !== SPE_EXTRA_HEALING) return;
+    const ap = mtmp.mappearance | 0;
+    const oc = game.objects?.[ap];
+    const color = C_OBJ_COLORS_ZAP[oc?.oc_color | 0] || 'colorless';
+    const raw = objectNames[ap] || 'object';
+    const name = String(raw).toLowerCase().replace(/_/g, ' ');
+    await pline_mon(mtmp, `${The(name)} seems a more vivid ${color} than before.`);
+}
+
 /**
  * C ref: zap.c bhitm — monster hit by wand/spell effect.
  * Envelope (break-wand / IMMEDIATE): WAN_STRIKING, WAN_UNDEAD_TURNING
@@ -3606,7 +3638,9 @@ async function shieldeff_mon(mtmp) {
  * spell_damage_bonus; resists_drli → shieldeff_mon else !resist
  * NOTELL then extra mhp/mhpmax + m_lev-- / killed),
  * SPE_STONE_TO_FLESH (D-1461; golem newcham / stone-mimic
- * that_is_a_mimic(MIM_REVEAL|MIM_OMIT_WAIT); else wake FALSE).
+ * that_is_a_mimic(MIM_REVEAL|MIM_OMIT_WAIT); else wake FALSE),
+ * SPE_HEALING/SPE_EXTRA_HEALING (D-1469; healmon + skilled/extra
+ * mcureblindness; Pestilence resist TELL; wake FALSE).
  * Named omit: long-worm mcorpsenm polish; Knight questart double
  * on striking; mhurtle petrify/steed; that_is_a_mimic MIM_REVEAL
  * pline (box_or_door+seemimic wired);
@@ -3618,6 +3652,7 @@ async function shieldeff_mon(mtmp) {
  * SPE_TURN_UNDEAD wand-duplicate weffects is D-1458
  * (bhitm dbldam + spell_damage_bonus; unturn_dead D-0955).
  * SPE_FORCE_BOLT spell_damage_bonus is D-1388.
+ * SPE_HEALING/SPE_EXTRA_HEALING wand-duplicate weffects is D-1469.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
 export async function bhitm(mtmp, otmp) {
@@ -3627,6 +3662,8 @@ export async function bhitm(mtmp, otmp) {
     let learn_it = false;
     let helpful_gesture = false;
     const otyp = otmp.otyp | 0;
+    /* C zap.c bhitm :186 — SPBOOK + blessed (skilled heal spell). */
+    const skilled_spell = otmp.oclass === SPBOOK_CLASS && !!otmp.blessed;
     let zap_type_text = 'spell';
     const disguised_mimic = mtmp.data?.mlet === 'S_MIMIC'
         && M_AP_TYPE(mtmp) !== M_AP_NOTHING;
@@ -3984,6 +4021,57 @@ export async function bhitm(mtmp, otmp) {
             }
         }
         break;
+    case SPE_HEALING:
+    case SPE_EXTRA_HEALING: {
+        /* C zap.c bhitm :433–473. d(6, extra?8:4) then Pestilence
+         * resist(healamt/2, TELL); else wake FALSE, healmon,
+         * skilled||extra mcureblindness, looks better, Healer
+         * tame XP, tame/peaceful adjalign. Caller spelleffects
+         * D-1469; zap_steed via bhitm. */
+        const healamt = d(6, otyp === SPE_EXTRA_HEALING ? 8 : 4);
+        reveal_invis = true;
+        const pest = (mtmp.data?.mndx | 0) === PM_PESTILENCE
+            || mtmp.data === mons(PM_PESTILENCE);
+        if (!pest) {
+            const delta = (mtmp.mhpmax | 0) - (mtmp.mhp | 0);
+            wake = false;
+            healmon(mtmp, healamt, 0);
+            if (skilled_spell || otyp === SPE_EXTRA_HEALING) {
+                const { mcureblindness } = await import('./muse.js');
+                await mcureblindness(mtmp, canseemon(mtmp));
+            }
+            if (canseemon(mtmp)) {
+                if (disguised_mimic) {
+                    if (M_AP_TYPE(mtmp) === M_AP_OBJECT
+                        && (mtmp.mappearance | 0) === STRANGE_OBJECT) {
+                        set_mimic_sym(mtmp);
+                        newsym(mtmp.mx | 0, mtmp.my | 0);
+                    } else {
+                        await mimic_hit_msg(mtmp, otyp);
+                    }
+                } else {
+                    await pline(
+                        `${Monnam(mtmp)} looks${
+                            otyp === SPE_EXTRA_HEALING ? ' much' : ''
+                        } better.`,
+                    );
+                }
+            }
+            if (mtmp.mtame && Role_if(PM_HEALER) && delta > 0) {
+                more_experienced(Math.min(delta, healamt), 0);
+                await newexplevel();
+            }
+            if (mtmp.mtame || mtmp.mpeaceful) {
+                const atype = game.u?.ualign?.type | 0;
+                adjalign(Role_if(PM_HEALER)
+                    ? 1
+                    : (atype < 0 ? -1 : atype !== 0 ? 1 : 0));
+            }
+        } else {
+            await resist(mtmp, otmp.oclass, (healamt / 2) | 0, TELL);
+        }
+        break;
+    }
     default:
         break;
     }
@@ -5730,9 +5818,10 @@ async function zap_updown(obj) {
  * together then learnwand on the same criteria as zapyourself
  * (D-1455). WAN_OPENING / SPE_KNOCK go through bhitm (D-1463).
  * SPE_DRAIN_LIFE goes through bhitm (D-1464; callee D-1436).
+ * SPE_HEALING/SPE_EXTRA_HEALING go through bhitm (D-1469).
  * Caller weffects :3437–3439 sets disclose then
  * learnwand again. Named: remaining bhitm routing (invis /
- * cancel / poly / striking / slow / speed / heal).
+ * cancel / poly / striking / slow / speed).
  */
 async function zap_steed(obj) {
     const steed = game.u?.usteed;
@@ -5768,13 +5857,17 @@ async function zap_steed(obj) {
         break;
     }
     case SPE_DRAIN_LIFE:
+    case SPE_HEALING:
+    case SPE_EXTRA_HEALING:
     case WAN_OPENING:
     case SPE_KNOCK:
         /* C zap.c :3115–3134 — Default processing via bhitm().
          * SPE_DRAIN_LIFE is D-1464 (callee bhitm D-1436).
-         * Saddle drop / SPE_KNOCK mhurtle live in bhitm (D-0981).
-         * Remaining bhitm-routed otyps (cancel/poly/invis/
-         * striking/slow/speed/heal) still named. */
+         * SPE_HEALING/SPE_EXTRA_HEALING is D-1469 (callee
+         * bhitm :433–473). Saddle drop / SPE_KNOCK mhurtle
+         * live in bhitm (D-0981). Remaining bhitm-routed
+         * otyps (cancel/poly/invis/striking/slow/speed)
+         * still named. */
         await bhitm(steed, obj);
         steedhit = true;
         break;
@@ -5808,10 +5901,14 @@ async function zap_steed(obj) {
  * zapyourself polymon/Stoned/invent; bhito stone_to_flesh_obj).
  * SPE_TELEPORT_AWAY IMMEDIATE bhit (D-1468; bhitm
  * u_teleport_mon; zapyourself tele(); bhito rloco).
+ * SPE_HEALING/SPE_EXTRA_HEALING IMMEDIATE bhit (D-1469;
+ * bhitm healmon; zapyourself healup D-0135; zap_steed
+ * via bhitm).
  * zap_steed WAN_PROBING (D-1443); zap_steed WAN_TELEPORTATION /
  * SPE_TELEPORT_AWAY (D-1455); zap_steed WAN_OPENING/SPE_KNOCK
  * via bhitm (D-1463); zap_steed SPE_DRAIN_LIFE via bhitm
- * (D-1464); zap_updown WAN_PROBING (D-1444);
+ * (D-1464); zap_steed SPE_HEALING/SPE_EXTRA_HEALING via
+ * bhitm (D-1469); zap_updown WAN_PROBING (D-1444);
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown
  * WAN_STRIKING/SPE_FORCE_BOLT (D-1456); zap_updown
  * WAN_LOCKING/SPE_WIZARD_LOCK (D-1465); zap_updown
@@ -5831,6 +5928,7 @@ export async function weffects(obj) {
      * steed first. WAN_PROBING is D-1443; WAN_TELEPORTATION /
      * SPE_TELEPORT_AWAY is D-1455; WAN_OPENING/SPE_KNOCK via
      * bhitm is D-1463; SPE_DRAIN_LIFE via bhitm is D-1464;
+     * SPE_HEALING/SPE_EXTRA_HEALING via bhitm is D-1469;
      * remaining zap_steed otyps return false and fall through
      * (named). */
     if (game.u?.usteed && oc && oc.oc_dir !== NODIR

@@ -59,25 +59,24 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1468. **Next cluster:** Open
-`spell.c` `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING directional
-weffects (named). Not TELE.
-Do not skip D-1468…D-1229 (index). Keep mention_map addr.
+**Map-driven fortress** after D-1469. **Next cluster:** Open
+`zap.c` `zap_steed` WAN_CANCELLATION/SPE_CANCELLATION via bhitm
+(named). Not OPENING.
+Do not skip D-1469…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Parked:** D-0006. **Do not re-break D-0660…D-1468.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1469.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1468 (index). Recent: **D-1468** spell.c
-`spelleffects` SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate
-`weffects`/`bhit`. Prior: **D-1467** zap.c
-`bhito` WAN_OPENING/WAN_LOCKING/SPE_KNOCK/SPE_WIZARD_LOCK
-`boxlock` (learn iff Klunk/Klick).
+**Keep:** D-0845…D-1469 (index). Recent: **D-1469** spell.c
+`spelleffects` SPE_HEALING/SPE_EXTRA_HEALING directional
+`weffects`/`bhitm` healmon. Prior: **D-1468** spell.c
+SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate `weffects`/`bhit`.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1468
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1469
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1469 — spell.c SPE_HEALING/SPE_EXTRA_HEALING directional weffects
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Casting SPE_HEALING/SPE_EXTRA_HEALING in a direction
+  spent energy then skipped `weffects`. C `spell.c` `:1475–1514`
+  puts them in the wand-duplicate group: skilled bless then getdir
+  then `zapyourself` / `weffects`. `zap.c` `weffects` `:3440–3451`
+  IMMEDIATE `bhit(rn1(8,6), bhitm, bhito)`. `bhitm` `:433–473`
+  `d(6, extra?8:4)` then Pestilence `resist(healamt/2, TELL)` else
+  `wake=FALSE`, `healmon`, skilled/extra `mcureblindness`, looks
+  better, Healer tame XP, tame/peaceful `adjalign`. Self-dir
+  `zapyourself` `:2908–2913` `healup` already D-0135. `zap_steed`
+  `:3127–3133` routes via `bhitm`.
+- **C locus:** `spell.c` `spelleffects` `:1475–1514`; callee
+  `zap.c` `weffects` `:3440–3451`; `bhitm` `:433–473`;
+  `zapyourself` `:2908–2913` (already D-0135); `zap_steed`
+  `:3127–3133`; `mon.c` `healmon` `:4596–4614`; `muse.c`
+  `mcureblindness`.
+- **JS was:** named omit — HEALING/EXTRA getdir + self-zap with
+  `// else weffects deferred`. `bhitm` had no SPE_HEALING case
+  (default no-op). `update_inventory` after the group skipped.
+- **Fix:** skilled bless then `wand_duplicate_weffects`; port
+  `bhitm` healing; `zap_steed` via `bhitm`. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/zap.js` `bhitm` /
+  `zap_steed`; `js/muse.js` `mcureblindness` (export).
+- **Not this iter:** remaining bhitm-routed `zap_steed`
+  (cancel/poly/invis/striking/slow/speed); `zap_map` engraving;
+  `resist` TELL shieldeff; `bhito` explicit res=0 already default.
+- **Verified:** private canary **18**/18 (C/JS grep; IMMEDIATE
+  SPBOOK; atme You_feel + skip makeknown; zapyourself extra much
+  better; bhitm kobold looks better + HP + adjalign; extra
+  mcureblindness; unskilled no-cure; blessed skilled_spell cures;
+  Pestilence no looks-better; east cast TIME + looks better;
+  skilled cast cures; zap_steed via bhitm; prior TELE/STONE/POLY/
+  CANCEL/TURN/KNOCK/SLOW/LOCK/RAY/NODIR/DRAIN stay; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `zap.c` `zap_steed`
+  WAN_CANCELLATION/SPE_CANCELLATION via bhitm (named). Not
+  OPENING.
+- **Files:** `js/spell.js`, `js/zap.js`, `js/muse.js`.
+
 ## D-1468 — spell.c SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

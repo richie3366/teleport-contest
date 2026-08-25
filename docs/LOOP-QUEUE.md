@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `spell.c` `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING directional weffects (named). Not TELE.
 - [ ] `zap.c` `zap_steed` WAN_CANCELLATION/SPE_CANCELLATION via bhitm (named). Not OPENING.
 - [ ] `zap.c` `zap_steed` WAN_POLYMORPH/SPE_POLYMORPH via bhitm (named). Not CANCEL.
 - [ ] `potion.c` `potionhit` (named from D-1457). Not mixtype.

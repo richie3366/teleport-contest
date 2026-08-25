@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `spell.c` `spelleffects` SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate weffects (named). Not STONE. **Addressed:** D-1468
+- [x] `spell.c` `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING directional weffects (named). Not TELE. **Addressed:** D-1469
+
+
+- [x] `spell.c` `spelleffects` SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate weffects (named). Not STONE. **Addressed:** D-1468 `3b4c39e2`
 
 
 - [x] `zap.c` `bhito` boxlock WAN_OPENING/WAN_LOCKING (named). Not doorlock. **Addressed:** D-1467 `1003ab88`

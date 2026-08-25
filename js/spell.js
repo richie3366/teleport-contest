@@ -93,6 +93,12 @@
 // same group; callee zap.c `:3440–3451`; bhitm u_teleport_mon
 // `:341–347`; zapyourself tele() `:2876–2882`; bhito rloco
 // `:2321–2328`; zap_steed tele() D-1455).
+// SPE_HEALING/SPE_EXTRA_HEALING IMMEDIATE weffects → bhit
+// (D-1469; C `:1475–1514` skilled bless then getdir +
+// zapyourself/weffects; callee zap.c `:3440–3451`; bhitm
+// `:433–473` healmon + skilled/extra mcureblindness;
+// zapyourself healup already D-0135 / D-0156; zap_steed
+// via bhitm).
 // SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436; C `:1477`
 // same wand-duplicate group; callee zap.c `:521–544`).
 // SPE_DRAIN_LIFE self-dir zapyourself !Drain_resistance + losexp
@@ -101,8 +107,7 @@
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects
 // mix/potionhit/potionbreathe);
-// #jump known_spell fallback; directional weffects for
-// IMMEDIATE heal;
+// #jump known_spell fallback;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
 // In_W_tower in aggravate. #teleport doextcmd D-1230.
 // Wizard turns column in dospellmenu ported (D-0586).
@@ -1683,8 +1688,9 @@ async function cast_chain_lightning() {
  * zapyourself / weffects. `physical_damage` is set by SPE_FORCE_BOLT
  * FALLTHROUGH (also unskilled FIREBALL/CONE). update_inventory after
  * the group (C :1513). SPE_TELEPORT_AWAY is D-1468.
- * bhit doorlock OPENING/KNOCK is D-1462; zap_map engraving
- * / directional heal weffects remaining named.
+ * SPE_HEALING/SPE_EXTRA_HEALING skilled bless then this helper
+ * is D-1469. bhit doorlock OPENING/KNOCK is D-1462; zap_map
+ * engraving remaining named.
  */
 async function wand_duplicate_weffects(pseudo, atme, physical_damage) {
     const oc = game.objects?.[pseudo.otyp];
@@ -1850,10 +1856,15 @@ async function cast_protection() {
  * stone_to_flesh_obj. SPE_TELEPORT_AWAY IMMEDIATE
  * weffects → bhit (D-1468; C `:1470` / zap.c `:3440–3451`);
  * bhitm u_teleport_mon; zapyourself tele(); bhito rloco;
- * zap_steed tele() is D-1455. SPE_DRAIN_LIFE IMMEDIATE
- * weffects → bhitm (D-1436; C `:1477` / zap.c `:521–544`);
- * self-dir zapyourself is D-1446. Remaining wand-duplicate
- * directional heal weffects still named.
+ * zap_steed tele() is D-1455. SPE_HEALING/SPE_EXTRA_HEALING
+ * IMMEDIATE weffects → bhit (D-1469; C `:1475–1514` skilled
+ * bless then getdir + zapyourself/weffects; callee zap.c
+ * `:3440–3451`; bhitm `:433–473` healmon; zapyourself
+ * healup already D-0135 / D-0156; zap_steed via bhitm).
+ * SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436;
+ * C `:1477` / zap.c `:521–544`); self-dir zapyourself is
+ * D-1446. Remaining wand-duplicate named omit is empty
+ * for this group; zap_map engraving still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1935,28 +1946,16 @@ export async function spelleffects(spell_otyp, atme, force) {
          * getdir + zapyourself / weffects IMMEDIATE bhit. */
         await wand_duplicate_weffects(pseudo, atme, true);
     } else if (otyp === SPE_HEALING || otyp === SPE_EXTRA_HEALING) {
-        /* C spell.c :1475–1485 skilled bless then getdir; directional
-         * weffects still named (next Open). Self-dir zapyourself
-         * healup already D-0135 / D-0156. */
+        /* C spell.c :1475–1514 skilled bless then wand-duplicate
+         * IMMEDIATE weffects → bhit(rn1(8,6), bhitm, bhito)
+         * (D-1469; callee zap.c :3440–3451). physical_damage
+         * is FORCE_BOLT-only. Self-dir zapyourself healup
+         * already D-0135 / D-0156. bhitm healmon + extra/
+         * skilled mcureblindness. zap_steed via bhitm. */
         if (role_skill >= P_SKILLED) {
             pseudo.blessed = true;
         }
-        if (atme) {
-            game.u.dx = game.u.dy = game.u.dz = 0;
-        } else if (!(await getdir(null))) {
-            await pline('The magical energy is released!');
-        }
-        if (!game.u.dx && !game.u.dy && !game.u.dz) {
-            const damage = await zapyourself(pseudo, true);
-            if (damage) {
-                losehp(
-                    damage,
-                    `zapped ${uhim()}self with a spell`,
-                    NO_KILLER_PREFIX,
-                );
-            }
-        }
-        // else weffects deferred — directional heal on monster
+        await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_TELEPORT_AWAY) {
         /* C spell.c :1470–1514 wand-duplicate IMMEDIATE weffects
          * → bhit(rn1(8,6), bhitm, bhito) (D-1468; callee
@@ -1964,7 +1963,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Self-dir zapyourself tele() already live.
          * bhitm u_teleport_mon already live. bhito rloco
          * already live. zap_steed tele() is D-1455.
-         * HEALING directional weffects still named. */
+         * HEALING directional weffects is D-1469. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_CREATE_FAMILIAR) {
         /* C spell.c :1569–1571 — (void) make_familiar(NULL, u.ux, u.uy, FALSE).

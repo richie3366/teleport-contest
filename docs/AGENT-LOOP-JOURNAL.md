@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1469 spell.c SPE_HEALING/SPE_EXTRA_HEALING directional weffects
+
+**Objective:** Open `spell.c` `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING
+directional weffects (named). Not TELE.
+**C locus:** `spell.c` `spelleffects` `:1475–1514`; callee
+`zap.c` `weffects` `:3440–3451`; `bhitm` `:433–473`;
+`zap_steed` `:3127–3133`; `mon.c` `healmon`; `muse.c`
+`mcureblindness`.
+**Change:** Skilled bless then `wand_duplicate_weffects` so a
+directional heal `bhit`s via live `healmon` instead of skipping
+weffects. `zap_steed` via bhitm. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session casts healing at a monster).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_steed`
+WAN_CANCELLATION/SPE_CANCELLATION via bhitm (named). Not OPENING.
+**Blocked:** none.
 ## 2026-08-25 — D-1468 spell.c SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate
 
 **Objective:** Open `spell.c` `spelleffects` SPE_TELEPORT_AWAY
