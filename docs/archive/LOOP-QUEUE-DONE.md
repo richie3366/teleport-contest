@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype. **Addressed:** D-1486
+- [x] `objnam.c` `the()` fruit_from_name + artifact_name (named). Not CapitalMon. **Addressed:** D-1487
+
+
+- [x] `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype. **Addressed:** D-1486 `9f784a5c`
 
 
 - [x] `zap.c` `zap_updown` `default` must `break` into shared down `bhitpile`+`zap_map` (C `:3378–3389`) so unmounted down POLY/cancel/invis/tele hit D-1476’s arms. Not probing. Not lateral `bhit`. Source: reviews/loop-unattended/437-747e6616-zap-map-engraving-cancel-trap.md **Addressed:** D-1485 `e98c0be8`

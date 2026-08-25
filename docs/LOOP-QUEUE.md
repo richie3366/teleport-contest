@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` `the()` fruit_from_name + artifact_name (named). Not CapitalMon.
 - [ ] `artifact.c` `doinvoke` remaining `inv_prop` (named). Not BLINDING_RAY.
 - [ ] `zap.c` `zap_map` lateral drawbridge / bhit (named). Not engraving.
 - [ ] `mklev.c` `minetn-1` load_special (named). Not minetn-5.

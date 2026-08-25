@@ -5,15 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1486; cadence **#1870** `dba2c79a`
+- **Fortress 44/44** after D-1487; cadence **#1870** `dba2c79a`
   (Scr **11,405** RNG 100%, `38+0.31/turn`). Next: Open
-  `objnam.c` `the()` fruit_from_name + artifact_name (named).
-  Not CapitalMon.
-  Do not skip D-1486…D-1229. No FORCE / `wildmiss` wrap /
+  `artifact.c` `doinvoke` remaining `inv_prop` (named).
+  Not BLINDING_RAY.
+  Do not skip D-1487…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1486. Named still: `see_monsters`
-  warn_obj / Sting; fruit_from_name + artifact_name in
-  `the()`; minetn-1 / dog leftovers / `add_to_minv`.
+- Do not revert D-1217–D-1487. Named still: `see_monsters`
+  warn_obj / Sting; minetn-1 / dog leftovers / `add_to_minv`.
 
 ## Don't re-check (≤15)
 
@@ -22,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1486.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1487.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,9 +32,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1486 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1487 (index).
 - Named still: worm-shrieker; potion_dip poison-coat / oil/lamp;
-  zap_map lateral drawbridge / bhit; artifact invoke.
+  zap_map lateral drawbridge / bhit; artifact invoke;
+  fruit_from_indx / options fruitadd walker.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -45,6 +45,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1487: `the()` fruit_from_name + artifact_name
+  (`objnam.c:2191–2193` / `:443–519`); named fruit
+  takes `"the "` unless pname artifact (Excalibur);
+  `"The "` arts still take `"the "`; local
+  artifact_name copy (invent cycle). fruit_from_indx
+  / options.js fruitadd walker named. CapitalMon is D-1357.
 - D-1486: `potion_dip` unicorn/amethyst mixtype dip
   (`:2726–2787`); `COST_NUTRLZ` + `hold_potion` juggle.
   Sickness→fruit juice; hallu/blind/conf→water; amethyst
@@ -109,8 +115,3 @@ Objective/score live in `CURRENT.md`.
 - D-1473: `zap_steed` WAN_MAKE_INVISIBLE via bhitm;
   minvis+vanish; See_invisible transparent; already
   minvis still disclose. Striking is D-1474.
-- D-1472: `potionhit` remaining otyp switch + shop unpaid
-  (hero OIL explode / POLY !Unchanging&&!Antimagic; mon
-  heal FALLTHROUGH + Pestilence illness/heal; sickness;
-  conf/invis/sleep/para/speed/blind/oil/acid; poly via
-  bhitm). C-commented GAIN_LEVEL named. potionbreathe is D-1477.

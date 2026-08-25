@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1487 — objnam.c the() fruit_from_name + artifact_name
+
+- **Status:** fixed (map-driven Open from D-1357; not a public FAIL)
+- **Symptom:** Capitalized named fruits omitted `"the "` (treated
+  as proper names). C `objnam.c` `the()` `:2185–2193` also
+  inserts `"the "` when `fruit_from_name(str, TRUE)` matches
+  unless `artifact_name` returns a pname artifact (not
+  `"the "`). JS skipped the fruit carve (invent cycle).
+- **C locus:** `objnam.c` `the()` `:2171–2231` fruit disjunct
+  `:2191–2193`; callee `fruit_from_name` `:443–519` (exact
+  then `makesingular`; prefix when `!exact`); `artifact.c`
+  `artifact_name` `:329–353` (`strcmpi` after stripping
+  `"the "`, `fuzzy=FALSE`).
+- **JS was:** named omit after D-1357 — lowercase /
+  CapitalMon then apostrophe/`" of "`/PYEC; no fruit chain.
+- **Fix:** Port `fruit_from_name` into `objnam.js` (C home).
+  Local `artifact_name` copy via `artilistRaw` so objnam
+  does not import `artifact.js`. Wire C `||` short-circuit
+  into `the()`. Rule #2: no fs.
+- **JS:** `js/objnam.js` `the` / `fruit_from_name` /
+  `artifact_name_objnam`.
+- **Not this iter:** `fruit_from_indx`; options.js fruitadd
+  still uses its local count walker; `artifact_name` fuzzy
+  stays in `artifact.js`; `doinvoke` remaining `inv_prop`.
+- **Verified:** private canary **29**/29 (C/JS grep; Rule #2;
+  fruit Apple/`Magic Banana`/`Green-Apple`/`Medusa` take
+  `"the "`; Excalibur/Sting pname arts stay bare; `"The "`
+  arts still take `"the "`; exact no prefix; singular
+  Apples; CapitalMon/Medusa/of/PYEC regressions); green+
+  strict seed8000/0900; cohort **7**/7 + strict 1500/1800/
+  0012/0004/0007/2200/0383. **Public-unhit** unless a
+  session names a capitalized fruit via `the()`.
+- **Follow-up:** Open `artifact.c` `doinvoke` remaining
+  `inv_prop`.
+- **Files:** `js/objnam.js`.
+
 ## D-1486 — potion.c potion_dip unicorn/amethyst mixtype dip
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1487 objnam.c the() fruit_from_name + artifact_name
+
+**Objective:** Open `objnam.c` `the()` fruit_from_name +
+artifact_name (named). Not CapitalMon.
+**C locus:** `objnam.c` `the()` `:2191–2193`; callee
+`fruit_from_name` `:443–519`; `artifact.c` `artifact_name`
+`:329–353` (`fuzzy=FALSE`).
+**Change:** Port `fruit_from_name` into `objnam.js`. Local
+`artifact_name` copy via `artilistRaw` (no invent cycle).
+Named fruit takes `"the "` unless pname artifact.
+`fruit_from_indx` / options fruitadd walker named. Rule #2:
+no fs.
+**Score:** fortress unchanged (public-unhit).
+**Verified:** private canary **29**/29; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `artifact.c` `doinvoke` remaining `inv_prop`
+(named). Not BLINDING_RAY.
+**Blocked:** none.
 ## 2026-08-25 — D-1486 potion.c potion_dip unicorn/amethyst mix
 
 **Objective:** Open `potion.c` `potion_dip` unicorn/amethyst mix
