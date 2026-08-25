@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1441 — spell.c SPE_DIG RAY wand-duplicate
+
+- **Status:** fixed (map-driven Open from D-1427; not a public FAIL)
+- **Symptom:** casting dig (`spelleffects` SPE_DIG) was
+  "Nothing happens." C `:1467–1514` puts SPE_DIG in the
+  wand-duplicate group: `oc_dir == RAY` so getdir then
+  `zapyourself` (dx=dy=dz=0) or `weffects(pseudo)` then
+  `update_inventory()`. `weffects` `:3456–3468` RAY
+  `otyp == WAN_DIGGING || otyp == SPE_DIG` calls
+  `zap_dig()` (before the SPE_MAGIC_MISSILE..FINGER
+  `ubuzz` range). Fake spellbook is SPBOOK so
+  `learnwand` skips `makeknown`; disclose still
+  `more_experienced(0,10)` when the type was unknown.
+  Self-zap `zapyourself` `:2955–2959` is a no-op.
+- **C locus:** `spell.c` `spelleffects` `:1467–1514`. Callee
+  `zap.c` `weffects` `:3459–3460` / `dig.c` `zap_dig`
+  `:1548–1610` (horizontal `rn1(18,8)` live D-0516);
+  `zapyourself` `:2955–2959` on self-dir.
+- **JS was:** other-otyp "Nothing happens." after D-1440
+  SPE_SLEEP; weffects SPE_DIG → zap_dig already live
+  (D-0516); zapyourself defaulted the no-op.
+- **Fix:** route SPE_DIG through `wand_duplicate_weffects`
+  (`physical_damage` false). Explicit zapyourself
+  WAN_DIGGING/SPE_DIG no-op. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callee `js/zap.js`
+  `weffects` / `zapyourself`; `js/dig.js` `zap_dig`.
+- **Not this iter:** remaining wand-duplicate MAGIC_MISSILE
+  / FINGER_OF_DEATH / IMMEDIATE (KNOCK / SLOW / LOCK / …);
+  zap_dig swallow pierce / u.dz falling-rock / pitdig.
+- **Verified:** private canary **22**/22 (C/JS grep; RAY
+  SPBOOK vs WAN_DIGGING; FIRST_SPELL before MAGIC_MISSILE;
+  door razed; self-dir no-op; swallow early-out; SLEEP/
+  LIGHT/DRAIN/DETECT_UNSEEN still wired; MAGIC_MISSILE/
+  FINGER/KNOCK still Nothing happens; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts dig.
+- **Follow-up:** Open `uhitm.c` `mhitm_ad_phys` rustm leftover
+  (named from D-1415). Not poison.
+- **Files:** `js/spell.js`, `js/zap.js`.
+
 ## D-1440 — spell.c SPE_SLEEP RAY wand-duplicate
 
 - **Status:** fixed (map-driven Open from D-1427; not a public FAIL)

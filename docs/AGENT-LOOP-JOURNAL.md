@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1441 spell.c SPE_DIG RAY wand-duplicate
+
+**Objective:** Open `zap.c` `weffects` SPE_DIG wand-duplicate
+(named from D-1427). Not IMMEDIATE.
+**C locus:** `spell.c` `spelleffects` `:1467–1514`; callee
+`zap.c` `weffects` `:3459–3460` `zap_dig()`; `zapyourself`
+`:2955–2959` no-op.
+**Change:** route SPE_DIG through `wand_duplicate_weffects`
+(RAY weffects → zap_dig). Self-dir zapyourself no-op.
+MAGIC_MISSILE / FINGER / IMMEDIATE still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts dig).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `uhitm.c` `mhitm_ad_phys` rustm leftover
+(named from D-1415). Not poison.
+**Blocked:** none.
 ## 2026-08-25 — review D-1432–D-1440 (audit #1810)
 
 **Objective:** audit — C-fidelity reviews **392–400** of JS SHAs

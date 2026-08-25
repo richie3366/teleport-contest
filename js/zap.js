@@ -25,6 +25,8 @@
 // SPE_LIGHT NODIR wand-duplicate cast dispatch (D-1427);
 // SPE_SLEEP RAY wand-duplicate weffects ubuzz (D-1440;
 // C spell.c :1462 / zap.c :3461–3462);
+// SPE_DIG RAY wand-duplicate weffects zap_dig (D-1441;
+// C spell.c :1467 / zap.c :3459–3460);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
@@ -59,8 +61,10 @@
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // SPE_LIGHT NODIR wand-duplicate cast dispatch is D-1427
 // (zapnodir SPE_LIGHT already D-1366); SPE_SLEEP RAY
-// wand-duplicate weffects is D-1440; remaining DIG
-// wand-duplicate; potion peffect_enlightenment is D-1413;
+// wand-duplicate weffects is D-1440; SPE_DIG RAY
+// wand-duplicate weffects/zap_dig is D-1441; remaining
+// MAGIC_MISSILE / FINGER / IMMEDIATE wand-duplicate;
+// potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
@@ -2334,7 +2338,9 @@ export async function do_enlightenment_effect() {
  * SPE_LIGHT NODIR wand-duplicate cast dispatch (D-1427;
  * zapnodir SPE_LIGHT already live D-1366).
  * SPE_SLEEP RAY wand-duplicate weffects ubuzz (D-1440).
- * Named omit: remaining wand-duplicate DIG / IMMEDIATE.
+ * SPE_DIG RAY wand-duplicate weffects zap_dig (D-1441).
+ * Named omit: remaining wand-duplicate MAGIC_MISSILE /
+ * FINGER / IMMEDIATE.
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -3804,6 +3810,8 @@ export function spell_damage_bonus(dmgIn) {
  * (D-1434);
  * WAN_PROBING probe_objchain + update_inventory + ustatusline
  * (D-1435);
+ * WAN_DIGGING / SPE_DIG no-op (C :2955–2959; directed D-1441
+ * weffects → zap_dig);
  * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
@@ -4131,6 +4139,13 @@ export async function zapyourself(obj, ordinary) {
         }
         break;
     }
+
+    case WAN_DIGGING:
+    case SPE_DIG:
+        // C zap.c zapyourself :2955–2959 — break (also
+        // SPE_DETECT_UNSEEN / WAN_NOTHING). No learn_it.
+        // Directed SPE_DIG is weffects → zap_dig (D-1441).
+        break;
 
     case WAN_PROBING:
         // C zap.c zapyourself :2960–2965 — probe_objchain(invent);
@@ -4686,7 +4701,7 @@ export { zapsetup, bhito, bhit };
  * C ref: zap.c weffects — exercise + effect dispatch.
  * NODIR + RAY wand ubuzz; IMMEDIATE bhit WAN_POLYMORPH /
  * SPE_FORCE_BOLT (D-1388); SPE_DRAIN_LIFE (D-1436);
- * WAN_DIGGING/SPE_DIG → zap_dig;
+ * WAN_DIGGING/SPE_DIG → zap_dig (SPE_DIG cast D-1441);
  * RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH ubuzz (D-1386)
  * including SPE_SLEEP wand-duplicate (D-1440).
  * zap_updown / steed / doorlock deferred.
