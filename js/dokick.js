@@ -120,7 +120,7 @@ import { is_art } from './artifact.js';
 import { ART_MJOLLNIR } from './generated/artifacts_data.js';
 import { hero_breaks, thitmonst, breaks, breaktest, hurtle } from './dothrow.js';
 import { finish_meating, obj_resists } from './dogmove.js';
-import { polymon } from './polyself.js';
+import { polymon, body_part } from './polyself.js';
 const BOULDER = objectNames.indexOf('BOULDER');
 const ROCK = objectNames.indexOf('ROCK');
 const CORPSE = objectNames.indexOf('CORPSE');
@@ -155,12 +155,6 @@ const kick_passes_thru = 'kick passes harmlessly through';
 const something = 'something';
 const Something = 'Something';
 
-/** C ref: mondata.c body_part — FOOT/LEG; full poly table deferred. */
-function body_part(part) {
-    if (part === FOOT) return 'foot';
-    if (part === LEG) return 'leg';
-    return 'body';
-}
 const TREEFRUITS = [
     objectNames.indexOf('APPLE'),
     objectNames.indexOf('ORANGE'),

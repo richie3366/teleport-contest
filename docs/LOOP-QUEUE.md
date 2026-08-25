@@ -1,7 +1,13 @@
 # Loop work queue
 
 Unattended **port** iterations pop the **first unchecked** item, preferring
-**Must-fix** over Open. Do not combine items. Do not invent a substitute.
+**Must-fix** over Open. Do not combine **unrelated** items. Consecutive
+Open rows that share one C `file.c:function` may ship in one port iff
+every C callee those arms reach is **live** (imported, C body), a
+**clone** matched to C in this commit, or **named omitted** in the map
+in this commit. A **stub** in a live arm → split that arm back out.
+Must-fix stays **one item, first, not glued** to Open. Do not invent a
+substitute.
 Live file is **unchecked-only**. Done rows live in
 `docs/archive/LOOP-QUEUE-DONE.md`.
 
@@ -39,6 +45,8 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dog.c` `mon_arrive` `MIGR_LEFTOVERS` DF_ALL (named). Not stolen_booty.
 - [ ] `makemon.c` gnome candle `begin_burn` after `!mpickobj` (named). Not add_to_minv.
 - [ ] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle.
+- [ ] `polyself.c` `body_part` aliases: `body_part_head` (mcastu.js),
+  `body_part_hand` (pickup.js). Deferred for scope. zap.js is D-1496.
 
 ## Parked (do not pop)
 

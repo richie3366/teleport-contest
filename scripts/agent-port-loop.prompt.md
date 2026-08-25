@@ -53,9 +53,22 @@ Chrome**. No filesystem / Node builtins (`fs`/`path`/`url`/`node:*`) /
 - Longer RNG prefix without a C-cited cause is **not** success.
 - One C function / tight helper cluster; related map deferrals OK; name
   remaining deferred branches in the map section.
-- Target **50–300** lines of C-faithful JS. The supervisor **reverts**
-  the iteration if `js/` insertions exceed 400 or `js/` files touched
-  exceed 8. Do not “finish tut-1” / whip+pole+grapple in one iter.
+- Target **80–400** lines of C-faithful JS. Below ~40 insertions on a
+  non-Must-fix port is a failed density handoff unless C is that small.
+  Consecutive Open rows of the **same** C `file.c:function` may ship
+  together iff every C callee is live, a C-matched clone, or named
+  omitted in this commit (no stub in a live arm). Must-fix stays one
+  item, alone. The supervisor **reverts** if `js/` insertions exceed
+  600 or `js/` files exceed 10. Do not “finish tut-1” / whip+pole+grapple.
+
+Resolve export/async/file for a name list with **one**
+`node scripts/sym.mjs Name1 Name2 …` (indexes `js/` including
+`js/generated/`). Do **not** grep `export (async )?function`
+to find symbols. Edit `c-js-map/*.md` and
+`NOTES.md` with the edit tool, not `python3` heredocs. Write
+`NOTES.md` **once** at the end. After prose is ready, run
+`node scripts/finish-iteration.mjs` for mechanical stamps only
+(does not invent D-ids or write D-log/CURRENT/journal).
 
 Before patching: C locus + callers, JS locus, channel, falsifiable hypothesis,
 focused + green + cohort commands.

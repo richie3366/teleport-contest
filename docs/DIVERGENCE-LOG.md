@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1496 — polyself.c body_part / mbodypart
+
+- **Status:** fixed (map-driven human density cluster; not a
+  public FAIL; not a loop iter)
+- **Symptom:** Nine exact-name `body_part` clones plus zap
+  `body_part_zap` used humanoid stand-ins. After the clones
+  imported `polyself.js` `body_part`, `trap.js` still had a
+  local `mbodypart(_mon, part)` that ignored `mon` and followed
+  the **hero** (poly-coupled steed FOOT). Docs claimed a
+  zap↔polyself cycle; `zap.js` already imported polyself.
+- **C locus:** `polyself.c` `body_part` → `mbodypart(&youmonst,
+  part)`; `mbodypart` tables (HUMANOID_PARTS / HORSE_PARTS).
+- **JS was:** local `body_part` in dokick/timeout/pray/mhitu/
+  trap/priest/sit/detect; `body_part_zap` HEAD/FACE/FOOT;
+  trap `mbodypart` hero-only.
+- **Fix:** Import `polyself.js` `body_part` (and `mbodypart`
+  in trap). Append `body_part` to zap's existing polyself
+  import. wield uses `objnam.js` `body_part_latebound` /
+  `set_body_part` (direct wield→polyself cycle). Named:
+  `body_part_head` (mcastu), `body_part_hand` (pickup).
+  Rule #2: no fs.
+- **JS:** `js/polyself.js` `body_part` / `mbodypart`;
+  `js/trap.js`; `js/zap.js`; `js/objnam.js`
+  `body_part_latebound`; callers dokick/timeout/pray/mhitu/
+  priest/sit/detect; wield via seam.
+- **Not this iter:** `body_part_head` / `body_part_hand`
+  (scope). Untrap door is D-1495.
+- **Verified:** `node --check` on touched JS; green+strict
+  seed8000/0900; full `sessions` **44**/44 on this tree.
+  `sym.mjs`: `body_part` only `polyself.js`; `mbodypart` no
+  trap clone; generated symbols resolve.
+- **Follow-up:** Open `potion.c` `potion_dip` poison-coat.
+- **Files:** `js/detect.js`, `js/dokick.js`, `js/mhitu.js`,
+  `js/objnam.js`, `js/pray.js`, `js/priest.js`, `js/sit.js`,
+  `js/timeout.js`, `js/trap.js`, `js/wield.js`, `js/zap.js`.
+
 ## D-1495 — trap.c untrap door force + has_magic_key
 
 - **Status:** fixed (map-driven Must-fix review **449**; not a public FAIL)

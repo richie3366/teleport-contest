@@ -117,7 +117,7 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
 │       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
 │         3× short runs, tool denials, protected edit,               │
-│         js/ on audit, empty committed port, density >400/8,        │
+│         js/ on audit, empty committed port, density >600/10,       │
 │         QUALITY-RISK/REJECT with no new Must-fix row               │
 │       WARN + CONTINUE (no STOP): green / full-suite fail;          │
 │         banned-pattern (unpushed → revert; pushed → heal prompt);  │
@@ -302,8 +302,8 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `LOOP_NEXT_PROMPT` | unset | Path copied like `--next-prompt` |
 | `LOOP_NEXT_MODE` | unset | Same as `--next-mode` |
 | `LOOP_CADENCE_EVERY` | `10` | Review + full-suite score when `n % this == 0` |
-| `LOOP_MAX_JS_INSERTIONS` | `400` | Halt+revert if a port iter exceeds this `js/` insertion count |
-| `LOOP_MAX_JS_FILES` | `8` | Halt+revert if a port iter touches more `js/` files |
+| `LOOP_MAX_JS_INSERTIONS` | `600` | Halt+revert if a port iter exceeds this `js/` insertion count |
+| `LOOP_MAX_JS_FILES` | `10` | Halt+revert if a port iter touches more `js/` files |
 | `LOOP_QUEUE_MIN` | `8` | Agent must refill Open when live `- [ ]` count is below this |
 | `LOOP_QUEUE_TARGET` | `12` | Refill up to about this many open rows |
 | `LOOP_PUSH` | `1` | Supervisor `git push origin HEAD` after gates |

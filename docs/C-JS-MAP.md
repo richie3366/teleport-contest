@@ -4,7 +4,9 @@ Structural ledger for the port. Status meanings are defined in
 `PORTING-RUNBOOK.md`; a passing session alone does not imply `ported`.
 
 **Read rule:** open **only** the subsystem file you will edit. Do not load
-this index’s children by default.
+this index’s children by default. Entries are `### C` + `JS: … — status`
++ wrapped evidence (not giant table rows). Edit with the edit tool, not
+heredocs.
 
 Last broad audit: **2026-07-12** (see section files for later row updates).
 

@@ -42,6 +42,16 @@ This is an audit against **pinned C**, not against the commit message.
 3. Classify each helper: **C callee** (imported real function) vs **clone**
    (local `getdir_whip` / `Amonnam_apply` / glyph stand-in) vs **no-op**.
    Clones that diverge from C are **C-wrongs**, not named omits.
+   Combined-arm ports — callee closure: for each `case`/arm list every C
+   callee. LIVE = imported, body ports C. CLONE = local re-def matched
+   to C here. STUB = early/no-op/TODO. OMIT = named in the map in this
+   commit with a C citation. An arm may ship iff every callee is LIVE,
+   OMIT, or a verified CLONE. One STUB in a live arm ⇒ that arm should
+   have been its own Open row. “Dispatch ported, callee stubbed” is
+   QUALITY-RISK even if the subject says “Match C”. Resolve names with
+   `node scripts/sym.mjs` (export? async? clone count?). **Required:**
+   run `sym.mjs` on every symbol the diff deletes or re-points
+   (local clone → import) and paste that output in this SHA’s review.
 4. Grep the diff: `FORCE`, `DIAG`, `getRngLog`, `readFileSync`, `from 'fs'`,
    `node:`, seed names in control flow, `fastforward`, hardcoded coordinates.
 5. Hallucination check: does the D-log / CURRENT / subject say “Match C”
@@ -51,9 +61,11 @@ This is an audit against **pinned C**, not against the commit message.
 7. **End of this SHA:** do **Required output (this SHA)** now. Only then
    open the next SHA.
 
-Write in **English**. Length is `check-hot-docs.mjs --review NN` (JS-touching
-150–350, docs-only 40–80; +33% is still `ok`). No full-diff paste. Short
-C/JS citations (≤30 lines).
+Write in **English**. Length is `check-hot-docs.mjs --review NN`
+(JS-touching 150–350; >250 `js/` insertions raise the ceiling to 450.
+200-floor only for **new** reviews, id >454 — do **not** pad older
+files. docs-only 40–80; +33% is still `ok`). No full-diff paste.
+Short C/JS citations (≤30 lines).
 
 ## Required output (this SHA — write now, not after the last SHA)
 

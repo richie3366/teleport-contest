@@ -86,9 +86,13 @@ journal). Prefer **fewer, denser** iterations once the suite is green.
 
 **Rule:** one falsifier, one C locus family, usually one JS module (or
 two that already call each other). Related map deferrals in that
-envelope may retire together. Target roughly **50–300 lines** of
-C-faithful JS or one small-file restart. If success/failure needs two
-unrelated theories, the batch is too wide — split.
+envelope may retire together. Target roughly **80–400 lines** of
+C-faithful JS or one small-file restart. Below ~40 insertions on a
+non-Must-fix port is a failed density handoff unless C is that small.
+Consecutive Open rows of the **same** C `file.c:function` may ship
+together iff every C callee is live, a C-matched clone, or a named
+omit in this commit (no stub in a live arm). Must-fix stays one item,
+alone. If success/failure needs two unrelated theories, split.
 
 Amortize verification: focused → green → cohort; full `sessions` on
 cadence or shared/startup/display/RNG changes. Stop the loop on empty

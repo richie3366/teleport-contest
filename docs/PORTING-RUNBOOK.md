@@ -111,8 +111,12 @@ An iteration should still be one **semantic cluster**: one C function or
 tightly coupled caller/callee family — not one map bullet, and not an
 unrelated multi-subsystem rewrite. Related deferrals in that envelope may
 retire together when they share one falsifier and verification story.
-A useful density target once the suite is green is roughly 50–300 lines of
+A useful density target once the suite is green is roughly 80–400 lines of
 C-faithful JS or one small-file restart (amortizes fixed agent cost).
+Below ~40 insertions on a non-Must-fix port is a failed density handoff
+unless C is that small. Consecutive Open rows of one C function may
+combine when every callee is live, a C-matched clone, or named omitted
+here (no stub in a live arm). Must-fix stays one item, alone.
 But "small"/"cluster" does not mean "only the branch this seed took."
 
 For every touched function:

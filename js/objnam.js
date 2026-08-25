@@ -1626,9 +1626,20 @@ export function set_body_part(fn) {
     _body_part = fn;
 }
 
+/**
+ * Seam for modules that cannot import polyself.js (wield: polyself→wield).
+ * Not the C-locus name — that is only `polyself.js` `body_part`.
+ * Unset → C mbodypart null-data humanoid "hand" / "body part".
+ */
+export function body_part_latebound(part) {
+    if (_body_part) return _body_part(part);
+    if ((part | 0) === HAND) return 'hand';
+    return 'body part';
+}
+
 /** C polyself.c body_part(HAND) via doname_base W_WEP / W_SWAPWEP / RING. */
 function doname_hand() {
-    return _body_part ? _body_part(HAND) : 'hand';
+    return body_part_latebound(HAND);
 }
 
 /** C youprop.h EWarn_of_mon ≡ u.uprops[WARN_OF_MON].extrinsic. */

@@ -132,7 +132,7 @@ import { get_obj_location } from './timeout.js';
 import { costly_spot, shop_keeper, stolen_value, make_angry_shk, add_damage } from './shk.js';
 import { unpunish } from './read.js';
 import { create_gas_cloud } from './region.js';
-import { polymon } from './polyself.js';
+import { polymon, body_part, mbodypart } from './polyself.js';
 import { done } from './end.js';
 import { mon_adjust_speed } from './muse.js';
 import { m_dowear } from './worn.js';
@@ -2683,15 +2683,6 @@ export async function heal_legs(how) {
     if ((how | 0) === 0) await encumber_msg();
 }
 
-/** C ref: mondata.c body_part — FOOT/LEG/HEAD/ARM; full poly deferred. */
-function body_part(part) {
-    if (part === FOOT) return 'foot';
-    if (part === LEG) return 'leg';
-    if (part === HEAD) return 'head';
-    if (part === ARM) return 'arm';
-    return 'body';
-}
-
 /**
  * C ref: trap.c instapetrify — Stone_resistance / poly_when_stoned stone
  * golem short-circuit, else urgent "You turn to stone..." + done(STONING).
@@ -2791,18 +2782,13 @@ export async function selftouch(arg) {
     }
 }
 
-/** C ref: mondata.c mbodypart — FOOT→"foot"; full poly table deferred. */
-function mbodypart(_mon, part) {
-    return body_part(part);
-}
-
 /**
  * C ref: trap.c trapeffect_bear_trap — hero + monster branches.
  * Envelope: hero d(2,4) then Lev/Fly skip; feeltrap; amorph/whirly/unsolid
  * /small harmlessly; set_utrap(rn1(4,4)); steed thitm or wounded-legs+losehp;
  * exercise DEX. Monster: size/amorph/air catch + thitm(d(2,4)).
- * Named omissions: float_vs_flight; Yname2 iron-shoe msg; full body_part
- * poly; Soundeffect roar; which_armor wearing_iron_shoes body.
+ * Named omissions: float_vs_flight; Yname2 iron-shoe msg;
+ * Soundeffect roar; which_armor wearing_iron_shoes body.
  */
 async function trapeffect_bear_trap(mtmp, trap, trflags) {
     const A_Your = ['A', 'Your'];

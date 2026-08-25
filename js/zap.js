@@ -285,7 +285,7 @@ import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './
 import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv, set_mimic_sym } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
-import { rehumanize, polymon } from './polyself.js';
+import { rehumanize, polymon, body_part } from './polyself.js';
 import { costly_alteration, stolen_value, costly_spot, shop_keeper, hot_pursuit } from './shk.js';
 import { dryup } from './fountain.js';
 import { explode } from './explode.js';
@@ -648,18 +648,6 @@ function is_helmet_zap(obj) {
 function hard_helmet(obj) {
     if (!obj || !is_helmet_zap(obj)) return false;
     return is_metallic(obj) || is_crackable(obj);
-}
-
-/**
- * C polyself.c body_part for zap_updown rock (D-1456) and
- * SPE_STONE_TO_FLESH FACE/FOOT (D-1466). Poly tables named
- * (avoid static zap→polyself→do→zap cycle); humanoid HEAD/FACE/FOOT.
- */
-function body_part_zap(part) {
-    if (part === HEAD) return 'head';
-    if (part === FACE) return 'face';
-    if (part === FOOT) return 'foot';
-    return 'body';
 }
 
 /**
@@ -5847,7 +5835,6 @@ function Levitation_updown() {
  * no WAN_STONE_TO_FLESH) then shared down bhitpile+zap_map / up
  * hideunder. default :3378–3379 break into that epilogue so
  * unmounted down POLY/cancel/invis/tele hit zap_map (D-1485).
- * Named: poly body_part.
  * zap_map engraving/cancel trap is D-1476.
  * zap_map lateral drawbridge + bhit zap_map is D-1489.
  * bhito boxlock is D-1467.
@@ -5947,7 +5934,7 @@ async function zap_updown(obj) {
             && !Is_qstart_updown(game.u?.uz)) {
             /* C :3310–3320 — disclose stays false. */
             await pline(
-                `A rock is dislodged from the ${ceiling_updown(x, y)} and falls on your ${body_part_zap(HEAD)}.`,
+                `A rock is dislodged from the ${ceiling_updown(x, y)} and falls on your ${body_part(HEAD)}.`,
             );
             const dmg = rnd(hard_helmet(game.u?.uarmh) ? 2 : 6);
             losehp(maybe_half_phys(dmg), 'falling rock', KILLED_BY_AN);
@@ -6012,7 +5999,7 @@ async function zap_updown(obj) {
             await pline(nothing_happens);
         } else if (dz < 0) {
             /* C :3359–3360 — "we should do more..." */
-            await pline(`Blood drips on your ${body_part_zap(FACE)}.`);
+            await pline(`Blood drips on your ${body_part(FACE)}.`);
         } else if (dz > 0 && !objects_at(x, y)) {
             /* C :3361–3375 — skip if ENGRAVE (zap_map D-1476 owns it). */
             const e = engr_at(x, y);
@@ -6023,7 +6010,7 @@ async function zap_updown(obj) {
                     await pline(
                         `Blood ${is_lava(x, y) ? 'boil' : 'pool'}s ${
                             Levitation_updown() ? 'beneath' : 'at'
-                        } your ${makeplural(body_part_zap(FOOT))}.`,
+                        } your ${makeplural(body_part(FOOT))}.`,
                     );
                 }
             }

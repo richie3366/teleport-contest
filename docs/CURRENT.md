@@ -59,23 +59,24 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1495. **Next cluster:** Open
+**Map-driven fortress** after D-1496. **Next cluster:** Open
 `potion.c` `potion_dip` poison-coat / healing unpoison
 (named). Not unicorn mix.
-Do not skip D-1495…D-1229 (index). Keep mention_map addr.
+Do not skip D-1496…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1495.** Do not FORCE
+**Do not re-break D-0660…D-1496.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1495 (index). Recent: **D-1495** `untrap`
-door force + `has_magic_key` (review **449**).
-Prior: **D-1494** `invoke_healing` Blinded 0/1.
+**Keep:** D-0845…D-1496 (index). Recent: **D-1496** `body_part`
+clones → `polyself.js`; trap `mbodypart(mon)`; zap appends
+existing import; wield `body_part_latebound`.
+Prior: **D-1495** `untrap` door force (review **449**).
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1495
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1496
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

@@ -18,6 +18,7 @@
  * Exit 1 if any ROTATE (without --fix), REFILL, FAIL, or missing.
  */
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { join, dirname, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -48,8 +49,15 @@ const HOT_SUM_MAX = 40_000;
 const QUEUE_MIN = 8;
 const QUEUE_TARGET = 12;
 const NOTES_SECTION_TARGET = 15;
+/** Default JS review 150–350. >250 js/ insertions raise the ceiling to
+ *  450. The 200-floor applies only to review ids after
+ *  REVIEW_GRANDFATHER_ID (do not FAIL historical reviews). */
 const REVIEW_JS = { lo: 150, hi: 350 };
+const REVIEW_JS_LARGE = { lo: 200, hi: 450 };
 const REVIEW_DOCS = { lo: 40, hi: 80 };
+const REVIEW_LARGE_INS = 250;
+const REVIEW_GRANDFATHER_ID = 454;
+const MAP_DIR = 'docs/c-js-map';
 
 function lineCount(text) {
   if (!text.length) return 0;
@@ -187,18 +195,42 @@ function catalogReviews() {
   return files;
 }
 
+function idFromRel(rel) {
+  const m = String(rel).match(/(?:^|\/)(\d+)-/);
+  return m ? Number(m[1]) : null;
+}
+
+function shaFromRel(rel) {
+  const m = String(rel).match(/-([0-9a-f]{7,40})-/i);
+  return m ? m[1].toLowerCase() : null;
+}
+
 function resolveReviewToken(token, cat) {
   const asPath = isAbsolute(token) ? token : join(root, token);
   if (existsSync(asPath) && asPath.endsWith('.md')) {
-    return { rel: relative(root, asPath), label: token };
+    const rel = relative(root, asPath);
+    const catHit = cat.find((f) => f.rel === rel);
+    return {
+      rel,
+      label: token,
+      sha: catHit?.sha || shaFromRel(rel),
+      id: catHit?.id ?? idFromRel(rel),
+    };
   }
   const byName = cat.find((f) => f.name === token || f.rel === token);
-  if (byName) return { rel: byName.rel, label: `review ${byName.id ?? token}` };
+  if (byName) {
+    return {
+      rel: byName.rel,
+      label: `review ${byName.id ?? token}`,
+      sha: byName.sha,
+      id: byName.id,
+    };
+  }
 
   if (/^\d+$/.test(token)) {
     const id = Number(token);
     const hit = cat.find((f) => f.id === id);
-    if (hit) return { rel: hit.rel, label: `review ${id}` };
+    if (hit) return { rel: hit.rel, label: `review ${id}`, sha: hit.sha, id };
     return {
       missing: true,
       label: `review ${id}`,
@@ -209,11 +241,51 @@ function resolveReviewToken(token, cat) {
   if (/^[0-9a-f]{7,40}$/i.test(token)) {
     const sha = token.toLowerCase();
     const hit = cat.find((f) => f.sha && (f.sha === sha || f.sha.startsWith(sha) || sha.startsWith(f.sha)));
-    if (hit) return { rel: hit.rel, label: `review ${hit.id ?? sha.slice(0, 8)}` };
+    if (hit) {
+      return {
+        rel: hit.rel,
+        label: `review ${hit.id ?? sha.slice(0, 8)}`,
+        sha: hit.sha,
+        id: hit.id,
+      };
+    }
     return { missing: true, label: `review ${sha.slice(0, 8)}`, hint: 'not found' };
   }
 
   return { missing: true, label: token, hint: 'not found' };
+}
+
+const jsInsCache = new Map();
+function jsInsertions(sha) {
+  if (!sha) return 0;
+  if (jsInsCache.has(sha)) return jsInsCache.get(sha);
+  const r = spawnSync(
+    'git',
+    ['diff-tree', '--no-commit-id', '--numstat', '-r', sha],
+    { cwd: root, encoding: 'utf8' },
+  );
+  let ins = 0;
+  if (r.status === 0) {
+    for (const line of r.stdout.split('\n')) {
+      const m = line.match(/^(\d+)\s+\d+\s+(.+)$/);
+      if (m && m[2].startsWith('js/') && m[2].endsWith('.js')) {
+        ins += Number(m[1]);
+      }
+    }
+  }
+  jsInsCache.set(sha, ins);
+  return ins;
+}
+
+function reviewBandFor(hit, docsOnly) {
+  if (docsOnly) return REVIEW_DOCS;
+  const ins = jsInsertions(hit.sha);
+  if (ins <= REVIEW_LARGE_INS) return REVIEW_JS;
+  const id = hit.id ?? idFromRel(hit.rel);
+  if (id == null || id <= REVIEW_GRANDFATHER_ID) {
+    return { lo: REVIEW_JS.lo, hi: REVIEW_JS_LARGE.hi };
+  }
+  return REVIEW_JS_LARGE;
 }
 
 function main() {
@@ -224,7 +296,8 @@ function main() {
 Run this yourself and read the statuses. Do not wc/count.
 
   --fix         rotate journal if over cap, then report
-  --docs-only   review band 40–80 (default 150–350)
+  --docs-only   review band 40–80 (default 150–350; >250 js/ ins →
+                ceiling 450; 200-floor only if review id >454)
   IDs           187 | 183-187 | 183,184 | path | SHA
 
 ok = in target or within +33% — no edit required.
@@ -370,12 +443,52 @@ FAIL / ROTATE / REFILL / missing = do that action only.`);
     sumStatus === 'FAIL' ? 'hot sum over budget' : '',
   );
 
+  // Map sections: report-only. Do not add their bytes into fail-closed
+  // hotSum (turns.md alone is ~178 kB). Visible “hot+largest map” line
+  // is honesty, not a gate. Fail-closed maxBytes only after a human
+  // scopes a turns.md split.
+  const mapDir = join(root, MAP_DIR);
+  let largestMap = { rel: '', bytes: 0, lines: 0, maxLine: 0 };
+  if (existsSync(mapDir)) {
+    const names = readdirSync(mapDir)
+      .filter((f) => f.endsWith('.md'))
+      .sort();
+    for (const name of names) {
+      const rel = `${MAP_DIR}/${name}`;
+      const text = readRel(rel);
+      if (text == null) continue;
+      const bytes = Buffer.byteLength(text);
+      const lines = lineCount(text);
+      let maxLine = 0;
+      for (const ln of text.split('\n')) {
+        if (ln.length > maxLine) maxLine = ln.length;
+      }
+      add(
+        'ok',
+        rel,
+        `${lines} L  ${fmtBytes(bytes)}  maxline ${maxLine}  ~${approxTok(bytes)} tok`,
+        'report-only (no FAIL on map size)',
+        '',
+      );
+      if (bytes > largestMap.bytes) {
+        largestMap = { rel, bytes, lines, maxLine };
+      }
+    }
+    if (largestMap.rel) {
+      const vis = hotSum + largestMap.bytes;
+      add(
+        'ok',
+        'hot+largest map',
+        `${fmtBytes(hotSum)} + ${fmtBytes(largestMap.bytes)} = ${fmtBytes(vis)}  (${largestMap.rel})`,
+        'visible only — map bytes are not in the 40 kB FAIL sum',
+        '',
+      );
+    }
+  }
+
   const reviewSpecs = args.reviews.flatMap(expandSpec);
   if (reviewSpecs.length) {
     const cat = catalogReviews();
-    const band = args.docsOnly ? REVIEW_DOCS : REVIEW_JS;
-    const failLo = floorTol(band.lo);
-    const failHi = ceilTol(band.hi);
     for (const spec of reviewSpecs) {
       const hit = resolveReviewToken(spec, cat);
       if (hit.missing) {
@@ -387,6 +500,9 @@ FAIL / ROTATE / REFILL / missing = do that action only.`);
         add('missing', hit.label, hit.rel, 'unreadable', `${hit.label}: unreadable`);
         continue;
       }
+      const band = reviewBandFor(hit, args.docsOnly);
+      const failLo = floorTol(band.lo);
+      const failHi = ceilTol(band.hi);
       const n = lineCount(text);
       const status = statusBand(n, band.lo, band.hi);
       const hint =

@@ -11,4 +11,6 @@ When changing a subsystem:
 2. update status only if the status definition is met;
 3. name deferred semantics, not the public seed that failed to exercise them;
 4. add verification evidence or link to `DIVERGENCE-LOG.md`.
+5. keep one map entry per heading; wrap evidence (do not restore
+   10k-character table rows). Use the edit tool, not heredocs.
 
