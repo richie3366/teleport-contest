@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zap_steed` SPE_DRAIN_LIFE via bhitm (named). Not OPENING. **Addressed:** D-1464
+- [x] `zap.c` `zap_updown` WAN_LOCKING/SPE_WIZARD_LOCK (named). Not STRIKING. **Addressed:** D-1465
+
+
+- [x] `zap.c` `zap_steed` SPE_DRAIN_LIFE via bhitm (named). Not OPENING. **Addressed:** D-1464 `89aab16d`
 
 
 - [x] `zap.c` `zap_steed` WAN_OPENING/SPE_KNOCK via bhitm (named). Not teleport. **Addressed:** D-1463 `99a31c84`

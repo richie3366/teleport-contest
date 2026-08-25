@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1465 zap.c zap_updown WAN_LOCKING/SPE_WIZARD_LOCK
+
+**Objective:** Open `zap.c` `zap_updown` WAN_LOCKING/SPE_WIZARD_LOCK
+(named). Not STRIKING.
+**C locus:** `zap.c` `zap_updown` `:3295–3354` + epilogue
+`:3382–3408`; callees `dbridge.c` `close_drawbridge`,
+`trap.c` `closeholdingtrap` `:6210–6247`; caller `weffects`
+`:3445–3446`.
+**Change:** Port `!striking` FALLTHROUGH arms so up/down locking
+closes a drawbridge, snaps a holding trap, or turns a hole into
+a trapdoor and discloses. STONE named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps locking up or down).
+**Verified:** private canary **15**/15; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_updown` WAN_STONE_TO_FLESH
+(named). Not LOCKING.
+**Blocked:** none.
 ## 2026-08-25 — D-1464 zap.c zap_steed SPE_DRAIN_LIFE via bhitm
 
 **Objective:** Open `zap.c` `zap_steed` SPE_DRAIN_LIFE via
