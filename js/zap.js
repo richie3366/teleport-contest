@@ -45,6 +45,7 @@
 // bhitm WAN_LOCKING closeholdingtrap (D-1425);
 // bhitm WAN_PROBING probe_monster + probe_objchain (D-1426);
 // zap_steed WAN_PROBING probe_monster (D-1443);
+// zap_steed WAN_TELEPORTATION / SPE_TELEPORT_AWAY tele() together (D-1455);
 // zap_updown WAN_PROBING bhitpile+zap_map+display_binventory (D-1444);
 // zap_updown WAN_OPENING/SPE_KNOCK portcullis/quest/traps (D-1454);
 // bhito WAN_PROBING observe + display_cinventory / tin / egg (D-1445);
@@ -65,10 +66,11 @@
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
 // zapyourself SPE_DRAIN_LIFE is D-1446;
-// zap_steed WAN_PROBING is D-1443; zap_updown WAN_PROBING is D-1444;
+// zap_steed WAN_PROBING is D-1443; zap_steed WAN_TELEPORTATION is D-1455;
+// zap_updown WAN_PROBING is D-1444;
 // zap_updown WAN_OPENING/SPE_KNOCK is D-1454;
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
-// teleport/bhitm-routed zap_steed named;
+// bhitm-routed zap_steed named;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
 // bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
 // bhitm WAN_PROBING is D-1426; bhitm SPE_DRAIN_LIFE is D-1436);
@@ -108,6 +110,7 @@
 // zapyourself SPE_DRAIN_LIFE !Drain_resistance + losexp (D-1446);
 // probe_monster bhitm WAN_PROBING (D-1426);
 // zap_steed WAN_PROBING probe_monster (D-1443);
+// zap_steed WAN_TELEPORTATION / SPE_TELEPORT_AWAY tele() together (D-1455);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
 // spell.c skilled SPE_FIREBALL scatter is D-1378 (this callee
@@ -118,8 +121,8 @@
 // bhit WEB stick D-1393; throwit fly / skiprange named.
 // bhitm WAN_MAKE_INVISIBLE is D-1414; conferral See_invisible
 // uprops in knowninvisible is D-1423; zap_steed WAN_PROBING is
-// D-1443; zap_updown / zap_steed WAN_MAKE_INVISIBLE + setworn
-// w_blocks still named.
+// D-1443; zap_steed WAN_TELEPORTATION is D-1455; zap_updown /
+// zap_steed WAN_MAKE_INVISIBLE + setworn w_blocks still named.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
 // via uprops[SHOCK_RES] (D-1371); inventory_resistance / full
 // read.c recharge wand·tool·blessed still named.
@@ -244,7 +247,7 @@ import {
     NON_PM, ismnum,
     def_warnsyms,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
-    REFLECTING, ANTIMAGIC, SHOCK_RES, DRAIN_RES,
+    REFLECTING, ANTIMAGIC, SHOCK_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
@@ -454,6 +457,31 @@ function Drain_resistance() {
     const e = u.uprops?.[DRAIN_RES];
     return !!((u.Drain_resistance || u.HDrain_resistance || u.EDrain_resistance)
         || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/**
+ * C youprop.h Teleport_control — HTeleport_control || ETeleport_control
+ * ≡ uprops[TELEPORT_CONTROL].intrinsic || extrinsic.
+ * confer_oc_oprop writes TELEPORT_CONTROL only to uprops (E unmirrored).
+ * Keep H/E/sticky flats for poly/eat. Callers: zap_steed /
+ * zapyourself WAN_TELEPORTATION (D-1455; same C criteria).
+ */
+function Teleport_control() {
+    const u = game.u || {};
+    const e = u.uprops?.[TELEPORT_CONTROL];
+    return !!((u.Teleport_control || u.HTeleport_control || u.ETeleport_control)
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/**
+ * C youprop.h Stunned — HStun ≡ uprops[STUNNED].intrinsic (not EStun).
+ * Sticky u.Stunned kept for JS gates. Caller: zap_steed /
+ * zapyourself WAN_TELEPORTATION learnwand (D-1455).
+ */
+function Stunned() {
+    const u = game.u || {};
+    const e = u.uprops?.[STUNNED];
+    return !!((u.HStun | 0) || u.Stunned || (e?.intrinsic | 0));
 }
 
 /** C ref: youprop.h Half_spell_damage */
@@ -3601,6 +3629,9 @@ export async function bhitm(mtmp, otmp) {
         break;
     case WAN_TELEPORTATION:
     case SPE_TELEPORT_AWAY:
+        // C zap.c bhitm :341–347. zap_steed WAN/SPE_TELEPORT
+        // calls tele() (hero+steed together, D-1455), not this
+        // u_teleport_mon path.
         if (disguised_mimic) seemimic(mtmp);
         reveal_invis = !(await u_teleport_mon(mtmp, true));
         learn_it = canspotmon(mtmp);
@@ -4044,17 +4075,19 @@ export async function zapyourself(obj, ordinary) {
 
     case WAN_TELEPORTATION:
     case SPE_TELEPORT_AWAY: {
-        const u0x = game.u?.ux0 ?? game.u?.ux | 0;
-        const u0y = game.u?.uy0 ?? game.u?.uy | 0;
+        // C zap.c zapyourself :2876–2882 — tele() then same
+        // learnwand criteria as mounted zap_steed :3104–3113
+        // (D-1455): (Teleport_control && !Stunned) ||
+        // !couldsee(ux0,uy0) || distu(ux0,uy0) >= 16. teleds
+        // sets ux0 to the origin; do not snapshot pre-tele ux0.
         await tele();
         const u = game.u || {};
-        const Teleport_control = !!(u.HTeleport_control || u.ETeleport_control
-            || u.Teleport_control);
-        const Stunned = !!(u.HStun || u.Stunned);
-        const dx = (u.ux | 0) - (u0x | 0);
-        const dy = (u.uy | 0) - (u0y | 0);
-        if ((Teleport_control && !Stunned)
-            || !couldsee(u0x | 0, u0y | 0)
+        const u0x = u.ux0 | 0;
+        const u0y = u.uy0 | 0;
+        const dx = (u.ux | 0) - u0x;
+        const dy = (u.uy | 0) - u0y;
+        if ((Teleport_control() && !Stunned())
+            || !couldsee(u0x, u0y)
             || (dx * dx + dy * dy) >= 16) {
             learn_it = true;
         }
@@ -5156,11 +5189,12 @@ async function zap_updown(obj) {
 
 /**
  * C zap.c zap_steed :3087–3140 — downward wand/spell while riding.
- * WAN_PROBING probes the steed directly (not via bhitm). Caller
- * weffects :3437–3439 sets disclose then learnwand again.
- * Named: WAN_TELEPORTATION / SPE_TELEPORT_AWAY; bhitm routing
- * (invis / cancel / poly / striking / slow / speed / heal /
- * drain / opening).
+ * WAN_PROBING probes the steed directly (not via bhitm) (D-1443).
+ * WAN_TELEPORTATION / SPE_TELEPORT_AWAY tele() the hero+steed
+ * together then learnwand on the same criteria as zapyourself
+ * (D-1455). Caller weffects :3437–3439 sets disclose then
+ * learnwand again. Named: bhitm routing (invis / cancel / poly /
+ * striking / slow / speed / heal / drain / opening).
  */
 async function zap_steed(obj) {
     const steed = game.u?.usteed;
@@ -5178,6 +5212,23 @@ async function zap_steed(obj) {
         learnwand(obj);
         steedhit = true;
         break;
+    case WAN_TELEPORTATION:
+    case SPE_TELEPORT_AWAY: {
+        /* C zap.c :3104–3113 — you go together; not bhitm. */
+        await tele();
+        const u = game.u || {};
+        const u0x = u.ux0 | 0;
+        const u0y = u.uy0 | 0;
+        const dx = (u.ux | 0) - u0x;
+        const dy = (u.uy | 0) - u0y;
+        if ((Teleport_control() && !Stunned())
+            || !couldsee(u0x, u0y)
+            || (dx * dx + dy * dy) >= 16) {
+            learnwand(obj);
+        }
+        steedhit = true;
+        break;
+    }
     default:
         steedhit = false;
         break;
@@ -5198,9 +5249,11 @@ async function zap_steed(obj) {
  * zapyourself D-1433);
  * SPE_WIZARD_LOCK IMMEDIATE bhit (D-1452; bhitm D-1425;
  * zapyourself D-1434).
- * zap_steed WAN_PROBING (D-1443); zap_updown WAN_PROBING (D-1444);
+ * zap_steed WAN_PROBING (D-1443); zap_steed WAN_TELEPORTATION /
+ * SPE_TELEPORT_AWAY (D-1455); zap_updown WAN_PROBING (D-1444);
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); remaining zap_steed
- * otyps / zap_updown STRIKING/LOCKING/STONE / doorlock deferred.
+ * bhitm-routed otyps / zap_updown STRIKING/LOCKING/STONE /
+ * doorlock deferred.
  */
 export async function weffects(obj) {
     const otyp = obj.otyp;
@@ -5211,7 +5264,8 @@ export async function weffects(obj) {
     exercise(A_WIS, true);
 
     /* C zap.c weffects :3437–3439 — mounted downward zap hits the
-     * steed first. WAN_PROBING is D-1443; other zap_steed otyps
+     * steed first. WAN_PROBING is D-1443; WAN_TELEPORTATION /
+     * SPE_TELEPORT_AWAY is D-1455; remaining zap_steed otyps
      * return false and fall through (named). */
     if (game.u?.usteed && oc && oc.oc_dir !== NODIR
         && !(game.u.dx | 0) && !(game.u.dy | 0)

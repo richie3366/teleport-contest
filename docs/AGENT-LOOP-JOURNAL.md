@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1455 zap.c zap_steed WAN_TELEPORTATION
+
+**Objective:** Open `zap.c` `zap_steed` WAN_TELEPORTATION
+(named). Not probing.
+**C locus:** `zap.c` `zap_steed` `:3104–3113`; caller
+`weffects` `:3437–3439`; sibling `zapyourself` `:2876–2882`;
+callee `teleport.c` `tele`/`scrolltele`/`teleds`.
+**Change:** mounted down WAN/SPE_TELEPORT `tele()` together
+then same learnwand criteria on post-`teleds` ux0 (not
+`u_teleport_mon`). Disclose still learns. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps teleport while riding down).
+**Verified:** private canary **17**/17; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT
+(named). Not OPENING.
+**Blocked:** none.
 ## 2026-08-25 — D-1454 zap.c zap_updown WAN_OPENING/SPE_KNOCK
 
 **Objective:** Open `zap.c` `zap_updown` WAN_OPENING/SPE_KNOCK

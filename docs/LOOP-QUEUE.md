@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_steed` WAN_TELEPORTATION (named). Not probing.
 - [ ] `zap.c` `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT (named). Not OPENING.
 - [ ] `potion.c` remaining mix alchemy (named from D-1439). Not peffects.
 - [ ] `zap.c` `weffects` SPE_TURN_UNDEAD IMMEDIATE wand-duplicate (named). Not POLYMORPH.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `weffects` SPE_CANCELLATION IMMEDIATE wand-duplicate (named). Not STONE.
 - [ ] `zap.c` `weffects` SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate (named). Not mix.
 - [ ] `zap.c` `bhit` doorlock WAN_OPENING/SPE_KNOCK (named). Not boxlock.
+- [ ] `zap.c` `zap_steed` WAN_OPENING/SPE_KNOCK via bhitm (named). Not teleport.
+- [ ] `zap.c` `zap_steed` SPE_DRAIN_LIFE via bhitm (named). Not OPENING.
+- [ ] `zap.c` `zap_updown` WAN_LOCKING/SPE_WIZARD_LOCK (named). Not STRIKING.
+- [ ] `zap.c` `zap_updown` WAN_STONE_TO_FLESH (named). Not LOCKING.
+- [ ] `zap.c` `bhito` boxlock WAN_OPENING/WAN_LOCKING (named). Not doorlock.
 
 ## Parked (do not pop)
 

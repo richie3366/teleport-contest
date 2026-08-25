@@ -4,6 +4,51 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1455 — zap.c zap_steed WAN_TELEPORTATION
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_steed` after D-1443 probing still defaulted
+  WAN_TELEPORTATION / SPE_TELEPORT_AWAY, so a downward teleport
+  wand or teleport-away spell while riding never moved the
+  hero+steed together and never disclosed. C `zap_steed`
+  `:3104–3113`: `tele()` ("you go together" — not `bhitm` /
+  `u_teleport_mon`) then learnwand iff `(Teleport_control &&
+  !Stunned) || !couldsee(u.ux0, u.uy0) || distu(u.ux0, u.uy0)
+  >= 16` (same as unmounted `zapyourself` `:2876–2882`).
+  `teleds` writes `ux0/uy0` to the origin before `u_on_newpos`.
+  Caller `weffects` `:3437–3439` sets `disclose` so a second
+  `learnwand` + `more_experienced(0,10)` still fires even on
+  a short hop. `youprop.h`: `Teleport_control` is H||E;
+  `Stunned` is HStun only.
+- **C locus:** `zap.c` `zap_steed` `:3104–3113`. Caller
+  `weffects` `:3437–3439`. Sibling `zapyourself` `:2876–2882`.
+  Callee `teleport.c` `tele` → `scrolltele(NULL)` → `teleds`.
+- **JS was:** named omit. WAN_PROBING arm live (D-1443);
+  teleport fell through to empty `zap_updown`. `zapyourself`
+  snapshotted `ux0` *before* `tele()` (C-wrong vs live
+  post-`teleds` origin).
+- **Fix:** WAN/SPE_TELEPORT arm `await tele()` then the C
+  criteria on live `ux0`. Shared `Teleport_control()` /
+  `Stunned()` helpers (conferral uprops; Stunned not EStun).
+  `zapyourself` uses the same post-tele ux0. Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_steed` / `zapyourself` / helpers.
+- **Not this iter:** remaining `zap_steed` bhitm-routed
+  (invis / cancel / poly / striking / slow / speed / heal /
+  drain / opening); `zap_updown` STRIKING/LOCKING/STONE;
+  `bhit` doorlock; `bhito` boxlock.
+- **Verified:** private canary **17**/17 (C/JS grep; Rule #2;
+  riding-down wand moves together + disclose learn+XP;
+  SPE skips makeknown; noteleport no move still disclose;
+  probing sibling D-1443; locking/drain still default;
+  no-steed / dx / dz<0 skip; zapyourself still `tele()`);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps teleport while
+  riding down.
+- **Follow-up:** Open `zap.c` `zap_updown`
+  WAN_STRIKING/SPE_FORCE_BOLT (named). Not OPENING.
+- **Files:** `js/zap.js`.
+
 ## D-1454 — zap.c zap_updown WAN_OPENING/SPE_KNOCK
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
