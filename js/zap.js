@@ -99,6 +99,7 @@
 // bhito opening chain / uchain unpunish is D-1481;
 // bhito poly-arm boxlock reset_pick is D-1483;
 // bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT is D-1482;
+// muse.c mbhit doorlock is D-1484;
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
 // zapyourself SPE_DRAIN_LIFE is D-1446;
@@ -5146,7 +5147,8 @@ export async function drain_item(obj, by_you) {
  * always res=0); poly-arm Is_box boxlock reset_pick
  * (D-1483; C `:2202–2204` after unpolyable, before shudder;
  * callee POLY returns false so res stays 1). Named:
- * polypiles/livelog; hideunder cover; muse.c mbhit.
+ * polypiles/livelog; hideunder cover; muse.c mbhit fhito_loc /
+ * destroy_drawbridge (doorlock is D-1484).
  * zap_updown SPE_STONE_TO_FLESH is D-1466.
  * @returns {Promise<number>} 1 if affected
  */

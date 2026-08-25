@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1484 — muse.c mbhit doorlock
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Monster WAN_STRIKING beam (`mbhit`) skipped doors.
+  C `muse.c` `mbhit` `:1785–1802` calls `doorlock` on
+  `IS_DOOR || SDOOR` for WAN_OPENING/WAN_LOCKING/WAN_STRIKING
+  (placeholders for opening/locking; live caller is striking).
+  `gz.zap_oseen` → `makeknown(otyp)` (not hero `bhit`
+  `learnwand` / `WAN_STRIKING && !Deaf`). Shop `D_BROKEN`
+  `add_damage(..., 0L)` (no cost; not `SHOP_DOOR_COST` /
+  `pay_for_damage`). STRIKING `find_drawbridge` else-if
+  gates doorlock (`:1776–1785`). Callee `lock.c` `doorlock`
+  already live (D-1462/D-1475/D-1482).
+- **C locus:** `muse.c` `mbhit` `:1734–1812` (`:1785–1802`).
+  Callers `use_offensive` STRIKING/TELE/UNDEAD `:1884` and
+  defensive TELE/UNDEAD `:864`/`:978`. Callee `lock.c`
+  `doorlock` `:1103–1272`.
+- **JS was:** named omit after D-1482 — `mbhit` stopped on
+  locked/closed doors without calling `doorlock`.
+- **Fix:** Wire `mbhit` doorlock switch; zap_oseen makeknown;
+  shop D_BROKEN add_damage(0); keep drawbridge as named skip
+  that still gates the else-if. Rule #2: no fs.
+- **JS:** `js/muse.js` `mbhit`; `js/lock.js` `doorlock`
+  (already live).
+- **Not this iter:** fhito_loc; destroy_drawbridge body;
+  map_invisible on unseen m_at; other muse offense wands.
+- **Verified:** private canary **12**/12 (C/JS grep; locked
+  smash+oseen makeknown; trapped explode; open no-op; SDOOR
+  appear+smash; STONE skip; minvis skip makeknown; OPENING
+  placeholder unlock; hero bhit still learnwand/SHOP_DOOR_COST;
+  Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1483 — zap.c bhito poly-arm boxlock reset_pick
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

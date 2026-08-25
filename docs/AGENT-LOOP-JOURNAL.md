@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1484 muse.c mbhit doorlock
+
+**Objective:** Open `muse.c` `mbhit` doorlock (named). Not hero
+`bhit`.
+**C locus:** `muse.c` `mbhit` `:1785–1802`. Callee `lock.c`
+`doorlock` already live (D-1462/D-1475/D-1482).
+**Change:** Wire `IS_DOOR||SDOOR` WAN_OPENING/LOCKING/STRIKING
+`doorlock`; zap_oseen `makeknown`; shop D_BROKEN `add_damage(0)`.
+Drawbridge still named (else-if gate). Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit).
+**Verified:** private canary **12**/12; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `potion.c` `potion_dip` unicorn/amethyst mix
+(named). Not mixtype.
+**Blocked:** none.
 ## 2026-08-25 — D-1483 zap.c bhito poly-arm boxlock reset_pick
 
 **Objective:** Open `zap.c` `bhito` poly-arm boxlock `reset_pick`

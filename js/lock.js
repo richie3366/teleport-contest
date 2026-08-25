@@ -954,8 +954,8 @@ export async function boxlock_invent(obj) {
  * continue, trapped explode / D_BROKEN crash (`:1201–1253`),
  * loudness wake_nearto + shop add_damage(0) (`:1260–1265`).
  * picking_at → stop_occupation + reset_pick (`:1267–1271`; SDOOR
- * OPENING/KNOCK and Rogue LOCKING early return skip this). Named:
- * muse.c mbhit doorlock; mondied / mon_learns_traps in mb_trapped;
+ * OPENING/KNOCK and Rogue LOCKING early return skip this). mbhit
+ * doorlock is D-1484. Named: mondied / mon_learns_traps in mb_trapped;
  * Soundeffect. obstructed Some_Monnam / worm-tail / map_invisible.
  */
 export async function doorlock(otmp, x, y) {

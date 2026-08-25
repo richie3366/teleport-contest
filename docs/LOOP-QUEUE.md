@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `muse.c` `mbhit` doorlock (named). Not hero `bhit`.
 - [ ] `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype.
 - [ ] `objnam.c` `the()` fruit_from_name + artifact_name (named). Not CapitalMon.
 - [ ] `artifact.c` `doinvoke` remaining `inv_prop` (named). Not BLINDING_RAY.
