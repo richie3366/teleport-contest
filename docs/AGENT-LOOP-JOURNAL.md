@@ -8,6 +8,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — review D-1467–D-1475 (audit #1860)
+
+**Objective:** audit — C-fidelity reviews **428–436** of JS SHAs
+`1003ab88` / `3b4c39e2` / `245c783d` / `444e2080` /
+`36a4e811` / `71a0a3d5` / `e6a44782` / `dfd88d1b` /
+`a3a2d65a` plus full `sessions` score. Continue-unfinished
+from leftover **428**.
+**C locus:** `zap.c` `bhito` `:2393–2403`; `spell.c`
+`:1470–1514`; `zap.c` `bhitm` healmon `:433–473`;
+`zap_steed` `:3115–3134`; `potion.c` `potionhit`
+`:1623–1928`; `bhit`/`doorlock` `:4056–4074` /
+`lock.c` `:1135–1192`.
+**Change:** no `js/` edits. **428–436** ACCEPT-WITH-DEBT.
+Must-fix empty. Filled archive D-1475 `a3a2d65a`. Rule #2:
+no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `40+0.32/turn` (R² 0.845).
+**Verified:** full `sessions` at HEAD `a3a2d65a`; public-unhit
+of the new arms. Next Open: `zap_map` engraving/cancel trap.
+**Next:** Open `zap.c` `zap_map` engraving/cancel trap
+(named). Not probing.
+**Blocked:** none.
 ## 2026-08-25 — D-1475 zap.c bhit doorlock WAN_LOCKING/SPE_WIZARD_LOCK
 
 **Objective:** Open `zap.c` `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK

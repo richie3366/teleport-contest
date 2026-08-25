@@ -438,3 +438,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [425-89aab16d-zap-steed-spe-drain.md](./425-89aab16d-zap-steed-spe-drain.md) | `89aab16d` | D-1464 zap_steed SPE_DRAIN_LIFE via bhitm | **ACCEPT-WITH-DEBT** |
 | [426-a52401a6-zap-updown-wan-locking.md](./426-a52401a6-zap-updown-wan-locking.md) | `a52401a6` | D-1465 zap_updown WAN_LOCKING/SPE_WIZARD_LOCK | **ACCEPT-WITH-DEBT** |
 | [427-3605a281-zap-updown-spe-stone-to-flesh.md](./427-3605a281-zap-updown-spe-stone-to-flesh.md) | `3605a281` | D-1466 zap_updown SPE_STONE_TO_FLESH | **ACCEPT-WITH-DEBT** |
+| [428-1003ab88-bhito-boxlock.md](./428-1003ab88-bhito-boxlock.md) | `1003ab88` | D-1467 bhito boxlock WAN_OPENING/WAN_LOCKING | **ACCEPT-WITH-DEBT** |
+| [429-3b4c39e2-spe-teleport-away.md](./429-3b4c39e2-spe-teleport-away.md) | `3b4c39e2` | D-1468 SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate | **ACCEPT-WITH-DEBT** |
+| [430-245c783d-spe-healing-weffects.md](./430-245c783d-spe-healing-weffects.md) | `245c783d` | D-1469 SPE_HEALING/SPE_EXTRA_HEALING directional weffects | **ACCEPT-WITH-DEBT** |
+| [431-444e2080-zap-steed-wan-cancellation.md](./431-444e2080-zap-steed-wan-cancellation.md) | `444e2080` | D-1470 zap_steed WAN_CANCELLATION/SPE_CANCELLATION via bhitm | **ACCEPT-WITH-DEBT** |
+| [432-36a4e811-zap-steed-wan-polymorph.md](./432-36a4e811-zap-steed-wan-polymorph.md) | `36a4e811` | D-1471 zap_steed WAN_POLYMORPH/SPE_POLYMORPH via bhitm | **ACCEPT-WITH-DEBT** |
+| [433-71a0a3d5-potionhit-remaining-otyp.md](./433-71a0a3d5-potionhit-remaining-otyp.md) | `71a0a3d5` | D-1472 potionhit remaining otyp switch | **ACCEPT-WITH-DEBT** |
+| [434-e6a44782-zap-steed-wan-make-invisible.md](./434-e6a44782-zap-steed-wan-make-invisible.md) | `e6a44782` | D-1473 zap_steed WAN_MAKE_INVISIBLE via bhitm | **ACCEPT-WITH-DEBT** |
+| [435-dfd88d1b-zap-steed-wan-striking.md](./435-dfd88d1b-zap-steed-wan-striking.md) | `dfd88d1b` | D-1474 zap_steed WAN_STRIKING/SPE_FORCE_BOLT via bhitm | **ACCEPT-WITH-DEBT** |
+| [436-a3a2d65a-bhit-doorlock-wan-locking.md](./436-a3a2d65a-bhit-doorlock-wan-locking.md) | `a3a2d65a` | D-1475 bhit doorlock WAN_LOCKING/SPE_WIZARD_LOCK | **ACCEPT-WITH-DEBT** |

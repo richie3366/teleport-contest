@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1475; cadence **#1850** `3605a281`
-  (Scr **11,405** RNG 100%). Next: Open `zap.c`
+- **Fortress 44/44** after D-1475; cadence **#1860** `a3a2d65a`
+  (Scr **11,405** RNG 100%, `40+0.32/turn`). Next: Open `zap.c`
   `zap_map` engraving/cancel trap
   (named). Not probing.
   Do not skip D-1475…D-1229. No FORCE / `wildmiss` wrap /
