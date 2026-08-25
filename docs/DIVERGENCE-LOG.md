@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1442 — uhitm.c mhitm_ad_phys rustm leftover
+
+- **Status:** fixed (map-driven Open from D-1415; not a public FAIL)
+- **Symptom:** a monster-vs-monster AT_WEAP/AT_CLAW AD_PHYS hit
+  that already applied `dmgval` / `artifact_hit` still skipped
+  `rustm`. C `mhitm_ad_phys` mhitm arm `if (mhm->damage)
+  rustm(mdef, mwep)` after the artifact DEADMONSTER return.
+  `rustm` maps defender `dmgtype` AD_CORR → corrode, else
+  AD_RUST → rust, else AD_FIRE except steam vortex → burn
+  (chance 6). Then `!rn2(chance)` `erode_obj(...,
+  EF_GREASE | EF_VERBOSE)`. AD_ACID / AD_ENCH stay in
+  passivemm. Caller is leftover damage only (min-1 ordinary
+  wep still rusts; artifact may zero leftover and skip).
+- **C locus:** `uhitm.c` `mhitm_ad_phys` `:4182–4183` (mhitm
+  arm after D-1415 artifact_hit, before poison). Callee
+  `mhitm.c` `rustm` `:1260–1280`. Nested callee `trap.c`
+  `erode_obj` (JS `trap.js`; monster/floor vis named).
+  Caller `mhitm.c` `mdamagem` `:1059` `mhitm_adtyping`
+  `case AD_PHYS`.
+- **JS was:** named omit (D-1415). artifact_hit live; rustm
+  skipped so iron vs rust monster / pudding / fire never
+  eroded the hitting wep.
+- **Fix:** after artifact_hit (unless DEADMONSTER done),
+  leftover damage → `rustm(mdef, mwep)`. `rustm` CORR /
+  RUST / FIRE-except-steam then `erode_obj` via dynamic
+  import (trap.js already imports this file). Rule #2: no fs.
+- **JS:** `js/mhitm.js` `mhitm_ad_phys` / `rustm`.
+- **Not this iter:** mhitu `mhitm_ad_phys_u` `rustm(&youmonst)`;
+  `mhitm_really_poison`; purple worm vs shrieker cap;
+  `erode_obj` monster/floor vis plines / grease_protect RNG;
+  youmonst `damageum_ad_phys` already live.
+- **Verified:** private canary **15**/15 (C/JS grep; club vs
+  gnome no rust; long sword vs rust monster `oeroded++`;
+  club vs rust wood skip; pudding `oeroded2`; bite nulls
+  mwep; steam vortex skip; fire elemental ~1/6 burn; null
+  no-op; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session has mon-vs-mon wep vs
+  AD_RUST/AD_CORR/AD_FIRE via `mdamagem`.
+- **Follow-up:** Open `zap.c` `zap_steed` WAN_PROBING (named).
+  Not zapyourself.
+- **Files:** `js/mhitm.js`.
+
 ## D-1441 — spell.c SPE_DIG RAY wand-duplicate
 
 - **Status:** fixed (map-driven Open from D-1427; not a public FAIL)

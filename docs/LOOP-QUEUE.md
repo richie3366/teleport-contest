@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `uhitm.c` `mhitm_ad_phys` rustm leftover (named from D-1415). Not poison.
 - [ ] `zap.c` `zap_steed` WAN_PROBING (named). Not zapyourself.
 - [ ] `zap.c` `zap_updown` WAN_PROBING (named). Not steed.
 - [ ] `zap.c` `bhito` WAN_PROBING (named). Not updown.

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `weffects` SPE_DIG wand-duplicate (named from D-1427). Not IMMEDIATE. **Addressed:** D-1441
+- [x] `uhitm.c` `mhitm_ad_phys` rustm leftover (named from D-1415). Not poison. **Addressed:** D-1442
+
+
+- [x] `zap.c` `weffects` SPE_DIG wand-duplicate (named from D-1427). Not IMMEDIATE. **Addressed:** D-1441 `b8ef02c3`
 
 
 - [x] `zap.c` `weffects` SPE_SLEEP wand-duplicate (named from D-1427). Not DIG. **Addressed:** D-1440 `530eaa3c`

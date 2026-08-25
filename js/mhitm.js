@@ -78,6 +78,9 @@ import {
     W_ARMF,
     W_ARMU,
     W_AMUL,
+    ERODE_NONE,
+    ERODE_BURN,
+    ERODE_RUST,
     ERODE_CORRODE,
     EF_GREASE,
     EF_VERBOSE,
@@ -134,6 +137,7 @@ const AMULET_OF_LIFE_SAVING = objectNames.indexOf('AMULET_OF_LIFE_SAVING');
 const PM_LIZARD = monsterNames.indexOf('PM_LIZARD');
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
 const PM_SHADE = monsterNames.indexOf('PM_SHADE');
+const PM_STEAM_VORTEX = monsterNames.indexOf('PM_STEAM_VORTEX');
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const PM_GRID_BUG = monsterNames.indexOf('PM_GRID_BUG');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
@@ -178,6 +182,7 @@ const AD_ACID = 8; /* acid damage — monattk.h (was wrongly AD_DRDX=8) */
 const AD_STON = 18; /* petrifies (cockatrice touch / Medusa gaze) — monattk.h */
 const AD_STCK = 19;
 const AD_SITM = 21; /* steals item (nymphs) — monattk.h */
+const AD_RUST = 24; /* rusts armour (Rust Monster) — monattk.h */
 const AD_SEDU = 22; /* seduces & steals multiple items */
 const AD_DGST = 26; /* digestion (engulf) — monattk.h */
 const AD_WRAP = 28; /* wrap / engulf hold — monattk.h */
@@ -191,6 +196,7 @@ const AD_STUN = 12; /* stuns — monattk.h */
 const AD_HALU = 36; /* hallucinate (black light AT_EXPL) */
 const AD_PLYS = 14; /* paralyzes — monattk.h */
 const AD_ENCH = 41; /* remove enchantment (disenchanter) — monattk.h */
+const AD_CORR = 42; /* corrode armor (black pudding) — monattk.h */
 const AD_POLY = 43; /* polymorph target (genetic engineer) — monattk.h */
 const MR_FIRE = 0x01;
 const MR_COLD = 0x02;
@@ -865,14 +871,44 @@ async function mhitm_ad_ston(magr, mattk, mdef, mhm) {
 }
 
 /**
+ * C ref: mhitm.c rustm :1260–1280.
+ * Defender AD_CORR / AD_RUST / AD_FIRE (not steam vortex) may erode
+ * the hitting object. Caller uhitm.c mhitm_ad_phys mhitm `:4182–4183`
+ * after artifact_hit iff leftover damage (D-1442). mhitu
+ * rustm(&youmonst) still named. AD_ACID / AD_ENCH are passivemm.
+ * Callee trap.c erode_obj (dynamic: trap.js already imports this file).
+ * Named omit: erode_obj monster/floor vis plines.
+ */
+export async function rustm(mdef, obj) {
+    let dmgtyp = ERODE_NONE;
+    let chance = 1;
+    if (!mdef || !obj) return;
+    if (dmgtype(mdef.data, AD_CORR)) {
+        dmgtyp = ERODE_CORRODE;
+    } else if (dmgtype(mdef.data, AD_RUST)) {
+        dmgtyp = ERODE_RUST;
+    } else if (dmgtype(mdef.data, AD_FIRE)
+        && (mdef.data?.mndx | 0) !== PM_STEAM_VORTEX) {
+        dmgtyp = ERODE_BURN;
+        chance = 6;
+    }
+    if (dmgtyp !== ERODE_NONE && !rn2(chance)) {
+        const { erode_obj } = await import('./trap.js');
+        await erode_obj(obj, null, dmgtyp, EF_GREASE | EF_VERBOSE);
+    }
+}
+
+/**
  * C ref: uhitm.c mhitm_ad_phys mhitm arm :4128–4198 (D-1394 shade;
- * D-1402 mwep dmgval; D-1403 AT_KICK thick_skinned; D-1415 artifact_hit).
+ * D-1402 mwep dmgval; D-1403 AT_KICK thick_skinned; D-1415 artifact_hit;
+ * D-1442 rustm).
  * Re-reads MON_WEP then zeros it unless AT_WEAP/AT_CLAW (so a bite
  * while holding silver still shade_misses). vis is canseemon both,
  * not gv.vis. Delayed artifact hit-pline uses gv.vis (`_mm_vis`).
  * shade_miss callee is D-1341. artifact_hit callee is D-0613.
+ * rustm callee is mhitm.c :1260–1280.
  * Named omit: youmonst is damageum_ad_phys; mhitu is mhitm_ad_phys_u;
- * rustm / mhitm_really_poison; purple worm vs shrieker cap.
+ * mhitm_really_poison; purple worm vs shrieker cap.
  */
 async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
     let mwep = MON_WEP(magr);
@@ -888,8 +924,8 @@ async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
            cannot wear boots. Zeros leftover d() (mwep already nulled). */
         mhm.damage = 0;
     } else if (mwep) {
-        /* C `:4142–4180` — corpse stone then dmgval + gauntlets + min 1
-           then artifact_hit. rustm / poison still named. */
+        /* C `:4142–4183` — corpse stone then dmgval + gauntlets + min 1
+           then artifact_hit then rustm if leftover. poison still named. */
         if ((mwep.otyp | 0) === CORPSE
             && touch_petrifies(mons(mwep.corpsenm))) {
             await do_stone_mon(magr, mattk, mdef, mhm);
@@ -924,6 +960,9 @@ async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
                 return;
             }
         }
+        /* C `:4182–4183` — rustm after artifact_hit iff leftover;
+           poison is the next leftover. */
+        if (mhm.damage | 0) await rustm(mdef, mwep);
     }
 }
 
@@ -2451,10 +2490,10 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
 
     // C: mhitm_adtyping → mhitm_ad_phys for AD_PHYS (D-1394 shade;
     // D-1402 mwep dmgval; D-1403 AT_KICK thick_skinned; D-1415
-    // artifact_hit). shade_miss zeros leftover. AT_KICK vs thick hide
-    // zeros leftover (mwep already nulled). AT_WEAP/AT_CLAW mwep adds
-    // dmgval then artifact_hit. Non-zero dice fall through to shared
-    // knockback + HP.
+    // artifact_hit; D-1442 rustm). shade_miss zeros leftover. AT_KICK
+    // vs thick hide zeros leftover (mwep already nulled). AT_WEAP/AT_CLAW
+    // mwep adds dmgval then artifact_hit then rustm. Non-zero dice fall
+    // through to shared knockback + HP. Poison leftover still named.
     if ((mattk.adtyp | 0) === AD_PHYS) {
         const mhm = {
             damage,
