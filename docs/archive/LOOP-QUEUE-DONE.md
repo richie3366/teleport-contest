@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zap_steed` WAN_SPEED_MONSTER via bhitm (named). Not SLOW. **Addressed:** D-1479
+- [x] `zap.c` `zap_steed` SPE_CURE_SICKNESS via bhitm (named). Not SPEED. **Addressed:** D-1480
+
+
+- [x] `zap.c` `zap_steed` WAN_SPEED_MONSTER via bhitm (named). Not SLOW. **Addressed:** D-1479 `7c918806`
 
 
 - [x] `zap.c` `zap_steed` WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm (named). Not STRIKING. **Addressed:** D-1478 `713e0441`

@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_steed` SPE_CURE_SICKNESS via bhitm (named). Not SPEED.
 - [ ] `zap.c` `bhito` uchain unpunish WAN_OPENING (named). Not boxlock.
 - [ ] `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT (named). Not LOCKING.
 - [ ] `zap.c` `bhito` poly-arm boxlock `reset_pick` (named). Not uchain.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype.
 - [ ] `objnam.c` `the()` fruit_from_name + artifact_name (named). Not CapitalMon.
 - [ ] `artifact.c` `doinvoke` remaining `inv_prop` (named). Not BLINDING_RAY.
+- [ ] `zap.c` `zap_map` lateral drawbridge / bhit (named). Not engraving.
+- [ ] `mklev.c` `minetn-1` load_special (named). Not minetn-5.
+- [ ] `worm.c` `worm_move` (named). Not initworm.
+- [ ] `makemon.c` `add_to_minv` merge (named). Not stolen_booty.
+- [ ] `allmain.c` `see_monsters` Hallu / Warn_of_mon (named). Not DETECT_MONSTERS timeout.
 
 ## Parked (do not pop)
 

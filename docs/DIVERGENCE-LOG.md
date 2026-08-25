@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1480 — zap.c zap_steed SPE_CURE_SICKNESS via bhitm
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_steed` after D-1479 SPEED still defaulted
+  SPE_CURE_SICKNESS, so a downward cure-sickness spell while
+  riding never hit the steed via `bhitm` when `oc_dir` is not
+  NODIR. C `zap_steed` `:3115–3134` lists SPE_CURE_SICKNESS
+  first under “Default processing via `bhitm()`”:
+  `(void) bhitm(u.usteed, obj); steedhit = TRUE`. Callee
+  `bhitm` has **no** SPE_CURE_SICKNESS arm (`:548–550`
+  default `impossible`). Caller `weffects` `:3437–3439`
+  only invokes `zap_steed` when `oc_dir != NODIR`;
+  `objects.h` SPE_CURE_SICKNESS is NODIR, and `spell.c`
+  `:1552–1567` self-`healup` (D-1398) never wand-duplicates
+  into `weffects`. Forced-IMMEDIATE canary still discloses
+  (`learnwand` + XP; SPBOOK skips `makeknown`).
+- **C locus:** `zap.c` `zap_steed` `:3116` (bhitm group
+  `:3115–3134`). Caller `weffects` `:3437–3439`. Callee
+  `bhitm` default `:548–550`. `objects.h` `:1349–1351`.
+- **JS was:** named omit. WAN_PROBING (D-1443), TELEPORT
+  (D-1455), OPENING/KNOCK (D-1463), SPE_DRAIN_LIFE (D-1464),
+  SPE_HEALING (D-1469), WAN/SPE_CANCELLATION (D-1470),
+  WAN/SPE_POLYMORPH (D-1471), WAN_MAKE_INVISIBLE (D-1473),
+  WAN_STRIKING/SPE_FORCE_BOLT (D-1474),
+  WAN_SLOW_MONSTER/SPE_SLOW_MONSTER (D-1478),
+  WAN_SPEED_MONSTER (D-1479) arms live;
+  SPE_CURE_SICKNESS fell through to `zap_updown`/`zapnodir`
+  instead of `bhitm` on the mount.
+- **Fix:** SPE_CURE_SICKNESS arm `await bhitm(steed, obj)`
+  + `steedhit = true` (same group as SPEED/SLOW/STRIKING).
+  Do not invent a `bhitm` cure arm C lacks. Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_steed` / existing `bhitm` default.
+- **Not this iter:** `bhit` doorlock STRIKING;
+  `zap_map` lateral drawbridge; `bhito` uchain.
+- **Verified:** private canary **27**/27 (C/JS grep; Rule #2;
+  NODIR riding-down skips zap_steed; forced IMMEDIATE
+  disclose+bhitpos+stay tame; D-1479…D-1443 regressions;
+  locking still named); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1479 — zap.c zap_steed WAN_SPEED_MONSTER via bhitm
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

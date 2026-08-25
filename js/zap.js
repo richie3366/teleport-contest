@@ -67,6 +67,7 @@
 // zap_steed WAN_STRIKING/SPE_FORCE_BOLT via bhitm (D-1474);
 // zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm (D-1478);
 // zap_steed WAN_SPEED_MONSTER via bhitm (D-1479);
+// zap_steed SPE_CURE_SICKNESS via bhitm (D-1480);
 // zap_updown WAN_PROBING bhitpile+zap_map+display_binventory (D-1444);
 // zap_updown WAN_OPENING/SPE_KNOCK portcullis/quest/traps (D-1454);
 // bhit doorlock WAN_OPENING/SPE_KNOCK SDOOR appear + locked unlock (D-1462);
@@ -110,7 +111,7 @@
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
 // bhito WAN_OPENING/WAN_LOCKING/SPE_KNOCK/SPE_WIZARD_LOCK boxlock
 // is D-1467;
-// remaining bhitm-routed zap_steed (SPE_CURE_SICKNESS) named;
+// zap_steed SPE_CURE_SICKNESS bhitm is D-1480;
 // zap_steed WAN_SPEED_MONSTER bhitm is D-1479;
 // zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER bhitm is D-1478;
 // zap_steed WAN_CANCELLATION/SPE_CANCELLATION bhitm is D-1470;
@@ -171,6 +172,7 @@
 // zap_steed WAN_STRIKING/SPE_FORCE_BOLT via bhitm (D-1474);
 // zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm (D-1478);
 // zap_steed WAN_SPEED_MONSTER via bhitm (D-1479);
+// zap_steed SPE_CURE_SICKNESS via bhitm (D-1480);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
 // spell.c skilled SPE_FIREBALL scatter is D-1378 (this callee
@@ -190,6 +192,7 @@
 // zap_steed WAN_STRIKING/SPE_FORCE_BOLT bhitm is D-1474;
 // zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER bhitm is D-1478;
 // zap_steed WAN_SPEED_MONSTER bhitm is D-1479;
+// zap_steed SPE_CURE_SICKNESS bhitm is D-1480;
 // zap_map WAN_MAKE_INVISIBLE engraving is D-1476; setworn
 // w_blocks still named.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
@@ -341,6 +344,7 @@ import {
 const MZ_HUMAN = MZ_MEDIUM;
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
 const SPE_EXTRA_HEALING = objectNames.indexOf('SPE_EXTRA_HEALING');
+const SPE_CURE_SICKNESS = objectNames.indexOf('SPE_CURE_SICKNESS');
 const WAN_MAGIC_MISSILE = objectNames.indexOf('WAN_MAGIC_MISSILE');
 const SPE_MAGIC_MISSILE = objectNames.indexOf('SPE_MAGIC_MISSILE');
 const WAN_SLEEP = objectNames.indexOf('WAN_SLEEP');
@@ -3683,6 +3687,8 @@ async function mimic_hit_msg(mtmp, otyp) {
  * (bhitm dbldam + spell_damage_bonus; unturn_dead D-0955).
  * SPE_FORCE_BOLT spell_damage_bonus is D-1388.
  * SPE_HEALING/SPE_EXTRA_HEALING wand-duplicate weffects is D-1469.
+ * zap_steed SPE_CURE_SICKNESS routes here (D-1480) but C has
+ * no bhitm arm (default impossible; objects.h NODIR).
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
 export async function bhitm(mtmp, otmp) {
@@ -5966,9 +5972,11 @@ async function zap_updown(obj) {
  * (D-1478; callee :218–232 resist NOTELL / mon_adjust_speed(-1)).
  * WAN_SPEED_MONSTER goes through bhitm
  * (D-1479; callee :233–242 resist NOTELL / mon_adjust_speed(+1)
- * / helpful_gesture). Caller weffects :3437–3439 sets
- * disclose then learnwand again. Named: remaining bhitm
- * routing (SPE_CURE_SICKNESS).
+ * / helpful_gesture). SPE_CURE_SICKNESS goes through bhitm
+ * (D-1480; callee has no arm — C bhitm default impossible;
+ * objects.h oc_dir is NODIR so weffects never reaches this
+ * from a real cast). Caller weffects :3437–3439 sets
+ * disclose then learnwand again when oc_dir != NODIR.
  */
 async function zap_steed(obj) {
     const steed = game.u?.usteed;
@@ -6003,6 +6011,7 @@ async function zap_steed(obj) {
         steedhit = true;
         break;
     }
+    case SPE_CURE_SICKNESS:
     case WAN_MAKE_INVISIBLE:
     case WAN_STRIKING:
     case SPE_FORCE_BOLT:
@@ -6019,6 +6028,10 @@ async function zap_steed(obj) {
     case WAN_OPENING:
     case SPE_KNOCK:
         /* C zap.c :3115–3134 — Default processing via bhitm().
+         * SPE_CURE_SICKNESS is D-1480 (callee bhitm has no
+         * arm; C default impossible; objects.h NODIR so
+         * weffects :3437 skips zap_steed on a real cast;
+         * spell.c self healup is D-1398).
          * WAN_SPEED_MONSTER is D-1479 (callee bhitm :233–242
          * !resist NOTELL then seemimic + mon_adjust_speed(+1)
          * + check_gear_next_turn; helpful_gesture always).
@@ -6036,8 +6049,7 @@ async function zap_steed(obj) {
          * SPE_DRAIN_LIFE is D-1464 (callee bhitm D-1436).
          * SPE_HEALING/SPE_EXTRA_HEALING is D-1469 (callee
          * bhitm :433–473). Saddle drop / SPE_KNOCK mhurtle
-         * live in bhitm (D-0981). Remaining bhitm-routed
-         * otyps (SPE_CURE_SICKNESS) still named. */
+         * live in bhitm (D-0981). */
         await bhitm(steed, obj);
         steedhit = true;
         break;
@@ -6084,13 +6096,13 @@ async function zap_steed(obj) {
  * bhitm (D-1473); zap_steed WAN_STRIKING/SPE_FORCE_BOLT
  * via bhitm (D-1474); zap_steed WAN_SLOW_MONSTER/
  * SPE_SLOW_MONSTER via bhitm (D-1478); zap_steed
- * WAN_SPEED_MONSTER via bhitm (D-1479); zap_updown WAN_PROBING (D-1444);
+ * WAN_SPEED_MONSTER via bhitm (D-1479); zap_steed
+ * SPE_CURE_SICKNESS via bhitm (D-1480); zap_updown WAN_PROBING (D-1444);
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown
  * WAN_STRIKING/SPE_FORCE_BOLT (D-1456); zap_updown
  * WAN_LOCKING/SPE_WIZARD_LOCK (D-1465); zap_updown
  * SPE_STONE_TO_FLESH (D-1466); zap_map engraving/cancel trap
- * is D-1476; remaining zap_steed
- * bhitm-routed SPE_CURE_SICKNESS / doorlock STRIKING named;
+ * is D-1476; doorlock STRIKING named;
  * LOCKING is D-1475.
  */
 export async function weffects(obj) {
@@ -6112,6 +6124,8 @@ export async function weffects(obj) {
      * WAN_STRIKING/SPE_FORCE_BOLT via bhitm is D-1474;
      * WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm is D-1478;
      * WAN_SPEED_MONSTER via bhitm is D-1479;
+     * SPE_CURE_SICKNESS via bhitm is D-1480 (objects.h NODIR
+     * so this prefix does not run on a real cast);
      * remaining zap_steed otyps return false and fall through
      * (named). */
     if (game.u?.usteed && oc && oc.oc_dir !== NODIR
