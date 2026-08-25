@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `allmain.c` `see_monsters` Hallu / Warn_of_mon (named). Not DETECT_MONSTERS timeout.
 - [ ] `potion.c` `potion_dip` poison-coat / healing unpoison (named). Not unicorn mix.
 - [ ] `potion.c` `potion_dip` oil/lamp (named). Not poison-coat.
 - [ ] `potion.c` `potion_dip` `poly_obj`/`obj_unpolyable` (named). Not mixtype.

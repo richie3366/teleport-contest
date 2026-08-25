@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1493 — allmain.c see_monsters Hallu / Warn_of_mon
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Once-per-input `see_monsters` used sticky
+  `u.Hallucination` or `HHallucination` (fires under
+  Halluc_resistance) and skipped `Warn_of_mon`. Callee
+  never counted `warntype.obj` or called `Sting_effects`,
+  so doname glow `warn_obj_cnt` stayed 0.
+- **C locus:** `allmain.c` `:453–468`; `youprop.h`
+  `Hallucination` / `Warn_of_mon`; callee `display.c`
+  `see_monsters` `:1487–1529`; `artifact.c` `Sting_effects`
+  `:2466–2501`; `do.c` `maybe_lvltport_feedback` `:2032–2039`.
+- **JS was:** Hallu path without resist; else-if only
+  Unblind_telepat or Warning (D-0672); `see_monsters` newsym
+  only (warn_obj / Sting named after D-0667 / D-1347).
+- **Fix:** C `Hallucination` (H && !resist) then
+  objects/traps/swallowed; else Unblind_telepat or Warning or
+  Warn_of_mon. Callee counts `warntype.obj & mflags2` then
+  `Sting_effects` (Sting/Orcrist/Grimtooth). Rule #2: no fs.
+- **JS:** `js/allmain.js` once-per-input; `js/display.js`
+  `Hallucination`/`Warn_of_mon`/`see_monsters`; `js/artifact.js`
+  `Sting_effects` (late-bind via `init_artifacts`).
+- **Not this iter:** `any_visible_region`; worm `see_wsegs`;
+  MATCH_WARN_OF_MON overlay; SPFX_WARN conferral;
+  make_blinded `Sting_effects(-1)`; MON_STILL_ARRIVING.
+  DETECT_MONSTERS expiry is D-1418.
+- **Verified:** private canary **43**/43 (C grep; Hallu
+  resist/sticky/uprops; Warn_of_mon H/E/uprops; orc count
+  2→3→0; defer skip; glow_strength; materialize dfr;
+  Sting/Orcrist/Grimtooth; Excalibur skip; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383 (Hallu).
+- **Follow-up:** Open `potion.c` `potion_dip` poison-coat /
+  healing unpoison.
+- **Files:** `js/allmain.js`, `js/display.js`, `js/artifact.js`.
+
 ## D-1492 — mkobj.c add_to_minv merge
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

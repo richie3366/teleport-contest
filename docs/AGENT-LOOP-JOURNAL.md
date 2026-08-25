@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1493 allmain.c see_monsters Hallu / Warn_of_mon
+
+**Objective:** Open `allmain.c` `see_monsters` Hallu / Warn_of_mon
+(named). Not DETECT_MONSTERS timeout.
+**C locus:** `allmain.c` `:453–468`; callee `display.c`
+`see_monsters` `:1513–1524`; `artifact.c` `Sting_effects`
+`:2466–2501`.
+**Change:** Once-per-input uses C `Hallucination` (H &&
+!resist) then objects/traps; else Unblind_telepat|
+Warning|Warn_of_mon. Callee counts warntype.obj then
+Sting_effects. `any_visible_region` / worm segs /
+MATCH_WARN / SPFX_WARN conferral named. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit Sting count).
+**Verified:** private canary **43**/43; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `potion_dip` poison-coat /
+healing unpoison (named). Not unicorn mix.
+**Blocked:** none.
 ## 2026-08-25 — D-1492 mkobj.c add_to_minv merge
 
 **Objective:** Open `makemon.c` `add_to_minv` merge (named).

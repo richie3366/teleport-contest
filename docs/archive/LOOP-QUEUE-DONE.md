@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `makemon.c` `add_to_minv` merge (named). Not stolen_booty. **Addressed:** D-1492
+- [x] `allmain.c` `see_monsters` Hallu / Warn_of_mon (named). Not DETECT_MONSTERS timeout. **Addressed:** D-1493
+
+
+- [x] `makemon.c` `add_to_minv` merge (named). Not stolen_booty. **Addressed:** D-1492 `b303c111`
 
 
 - [x] `worm.c` `worm_move` (named). Not initworm. **Addressed:** D-1491 `f26e11aa`

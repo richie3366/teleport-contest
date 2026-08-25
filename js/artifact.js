@@ -59,7 +59,10 @@ import {
 } from './const.js';
 import { rn2, rnd, d, rnz } from './rng.js';
 import { nhgetch } from './input.js';
-import { flush_screen, flush_topl_more, pline, You_feel, newsym } from './display.js';
+import {
+    flush_screen, flush_topl_more, pline, You_feel, newsym,
+    set_sting_effects,
+} from './display.js';
 import { compactify_invlets } from './invent.js';
 import { xname, the, vtense, cxname } from './objnam.js';
 
@@ -76,11 +79,13 @@ import {
     ART_NONARTIFACT,
     ART_EXCALIBUR,
     ART_GRIMTOOTH,
+    ART_ORCRIST,
+    ART_STING,
     ART_GRAYSWANDIR,
 } from './generated/artifacts_data.js';
 import { PM_KNIGHT } from './generated/monsters_data.js';
 import { aligns } from './roles.js';
-export { ART_NONARTIFACT, ART_EXCALIBUR, ART_GRIMTOOTH, ART_GRAYSWANDIR };
+export { ART_NONARTIFACT, ART_EXCALIBUR, ART_GRIMTOOTH, ART_ORCRIST, ART_STING, ART_GRAYSWANDIR };
 
 // C ref: include/artifact.h — subset used by touch/wish / spec_applies
 export const SPFX_NOGEN = 0x00000001;
@@ -280,6 +285,7 @@ function hack_artifacts() {
 export function init_artifacts() {
     artifacts_globals_init();
     hack_artifacts();
+    set_sting_effects(Sting_effects);
 }
 
 /**
@@ -442,12 +448,61 @@ export function glow_verb(count, ingsfx) {
     return resbuf;
 }
 
+/** C obj.h u_wield_art — is_art(uwep, art). */
+function u_wield_art(art) {
+    return is_art(game.u?.uwep, art);
+}
+
+/**
+ * C ref: do.c maybe_lvltport_feedback `:2032–2039` — deliver pending
+ * "You materialize…" before Sting start-glow (goto_level → docrt →
+ * see_monsters). Other dfr_post_msg stay for goto_level.
+ */
+function maybe_lvltport_feedback() {
+    const msg = game.dfr_post_msg;
+    if (!msg) return Promise.resolve();
+    if (String(msg).slice(0, 15).toLowerCase() !== 'you materialize') {
+        return Promise.resolve();
+    }
+    game.dfr_post_msg = null;
+    return pline(msg);
+}
+
+/**
+ * C ref: artifact.c Sting_effects `:2466–2501` — glow messages for
+ * Sting / Orcrist / Grimtooth when warn_obj_cnt strength changes.
+ * orc_count -1 is blindness toggle (make_blinded caller named omit).
+ * Hallu hcolor inside glow_color named omit.
+ */
+export async function Sting_effects(orc_count) {
+    if (!u_wield_art(ART_STING)
+        && !u_wield_art(ART_ORCRIST)
+        && !u_wield_art(ART_GRIMTOOTH)) {
+        return;
+    }
+    const uwep = game.u.uwep;
+    const oldstr = glow_strength(game.warn_obj_cnt | 0);
+    const newstr = glow_strength(orc_count);
+    if (orc_count === -1 && (game.warn_obj_cnt | 0) > 0) {
+        await pline(`${bare_artifactname(uwep)} is ${glow_verb(Blind() ? 0 : (game.warn_obj_cnt | 0), true)}.`);
+    } else if (newstr > 0 && newstr !== oldstr) {
+        await maybe_lvltport_feedback();
+        if (!Blind()) {
+            await pline(`${bare_artifactname(uwep)} ${otense(uwep, glow_verb(orc_count, false))} ${glow_color(uwep.oartifact)}${newstr > oldstr ? '!' : '.'}`);
+        } else if (oldstr === 0) {
+            await pline(`${bare_artifactname(uwep)} ${otense(uwep, glow_verb(0, false))} slightly.`);
+        }
+    } else if (orc_count === 0 && (game.warn_obj_cnt | 0) > 0) {
+        await pline(`${bare_artifactname(uwep)} stops ${glow_verb(Blind() ? 0 : (game.warn_obj_cnt | 0), true)}.`);
+    }
+}
+
 /**
  * C ref: artifact.c set_artifact_intrinsic — SPFX_HALRES subset.
  * C uses make_hallucinated(xtime=!on, talk, wp_mask) which sets
  * EHalluc_resistance |= mask when conferring (xtime==0).
  * Named omissions: defn resist masks; SPFX_SEARCH/ESP/STLTH/REGEN/TCTRL/
- * WARN/EREGEN/HSPDAM/HPHDAM; see_monsters; message paths.
+ * WARN conferral/EREGEN/HSPDAM/HPHDAM; message paths.
  * SPFX_REFLECT && W_WEP is D-1342 (not other wp_mask).
  * @param {object} otmp
  * @param {boolean} on
