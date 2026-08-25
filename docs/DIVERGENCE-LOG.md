@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1478 — zap.c zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_steed` after D-1474 STRIKING still defaulted
+  WAN_SLOW_MONSTER/SPE_SLOW_MONSTER, so a downward slow wand or
+  slow-monster spell while riding never hit the steed via `bhitm`
+  (`resist` NOTELL / `mon_adjust_speed(-1)` never ran) and never
+  disclosed. C `zap_steed` `:3115–3134` lists WAN_SLOW_MONSTER/
+  SPE_SLOW_MONSTER under “Default processing via `bhitm()`”:
+  `(void) bhitm(u.usteed, obj); steedhit = TRUE`. Callee `bhitm`
+  `:218–232` (D-1424): `!resist` NOTELL then `seemimic` +
+  `mon_adjust_speed(mtmp, -1, otmp)` + `check_gear_next_turn`;
+  whirly engulfer expels; no `helpful_gesture`. Caller `weffects`
+  `:3437–3439` sets `disclose` so `learnwand` +
+  `more_experienced(0,10)` still fire (SPBOOK skips `makeknown`)
+  even when MR resists the slow.
+- **C locus:** `zap.c` `zap_steed` `:3124–3125` (bhitm group
+  `:3115–3134`). Caller `weffects` `:3437–3439`. Callee
+  `bhitm` `:218–232`.
+- **JS was:** named omit. WAN_PROBING (D-1443), TELEPORT
+  (D-1455), OPENING/KNOCK (D-1463), SPE_DRAIN_LIFE (D-1464),
+  SPE_HEALING (D-1469), WAN/SPE_CANCELLATION (D-1470),
+  WAN/SPE_POLYMORPH (D-1471), WAN_MAKE_INVISIBLE (D-1473),
+  WAN_STRIKING/SPE_FORCE_BOLT (D-1474) arms live;
+  WAN_SLOW_MONSTER/SPE_SLOW_MONSTER fell through to
+  `zap_updown` instead of `bhitm` on the mount.
+- **Fix:** WAN_SLOW_MONSTER/SPE_SLOW_MONSTER arm
+  `await bhitm(steed, obj)` + `steedhit = true` (same group
+  as STRIKING/INVIS/POLY/CANCEL/OPENING). Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_steed` / existing `bhitm`.
+- **Not this iter:** remaining `zap_steed` bhitm-routed
+  (speed / SPE_CURE_SICKNESS); `bhit` doorlock STRIKING;
+  `zap_map` lateral drawbridge; `bhito` uchain.
+- **Verified:** private canary **25**/25 (C/JS grep; Rule #2;
+  riding-down WAN_SLOW mr=0 MSLOW+disclose+gear flag; high-mr
+  resist still disclose; SPE_SLOW MSLOW+XP skip makeknown;
+  D-1474…D-1443 regressions; speed/cure/locking still named);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1477 — potion.c potionbreathe remaining otyps
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

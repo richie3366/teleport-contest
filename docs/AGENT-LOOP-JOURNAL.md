@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1478 zap.c zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm
+
+**Objective:** Open `zap.c` `zap_steed` WAN_SLOW_MONSTER/SPE_SLOW_MONSTER
+via bhitm (named). Not STRIKING.
+**C locus:** `zap.c` `zap_steed` `:3124–3125` (bhitm group
+`:3115–3134`). Caller `weffects` `:3437–3439`. Callee `bhitm`
+`:218–232` already D-1424.
+**Change:** WAN/SPE_SLOW arm `await bhitm(steed, obj)` +
+`steedhit = true` instead of skipping `zap_steed`. Disclose
+learns (SPBOOK skips `makeknown`) even when MR resists.
+Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit).
+**Verified:** private canary **25**/25; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `zap.c` `zap_steed` WAN_SPEED_MONSTER via
+bhitm (named). Not SLOW.
+**Blocked:** none.
 ## 2026-08-25 — D-1477 potion.c potionbreathe remaining otyps
 
 **Objective:** Open `potion.c` `potionbreathe` remaining otyps

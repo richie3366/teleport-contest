@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1477; cadence **#1860** `a3a2d65a`
+- **Fortress 44/44** after D-1478; cadence **#1860** `a3a2d65a`
   (Scr **11,405** RNG 100%, `40+0.32/turn`). Next: Open `zap.c`
-  `zap_steed` WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm
-  (named). Not STRIKING.
-  Do not skip D-1477…D-1229. No FORCE / `wildmiss` wrap /
+  `zap_steed` WAN_SPEED_MONSTER via bhitm
+  (named). Not SLOW.
+  Do not skip D-1478…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1477. Named still: `see_monsters`
+- Do not revert D-1217–D-1478. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1477.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1478.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,9 +33,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1477 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1478 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix;
-  zap_steed bhitm-routed slow/speed/SPE_CURE_SICKNESS;
+  zap_steed bhitm-routed speed/SPE_CURE_SICKNESS;
   zap_map lateral drawbridge / bhit; bhit doorlock STRIKING;
   bhito uchain / poly-arm boxlock; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -47,6 +47,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1478: `zap_steed` WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via
+  bhitm; mr=0 MSLOW + disclose; high-mr resist still
+  disclose; SPE_SLOW SPBOOK skip makeknown. Speed named.
+  Striking is D-1474. Callee bhitm is D-1424.
 - D-1477: `potionbreathe` remaining otyps; towel Half_gas_damage;
   restore/gain ABASE++; heal FALLTHROUGH +1 + make_blinded/make_deaf;
   sickness −5 (healer skip; Upolyd mh); hallu vision; conf
@@ -65,7 +69,7 @@ Objective/score live in `CURRENT.md`.
   STRIKING named. OPENING is D-1462.
 - D-1474: `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via
   bhitm; easy-hit d(2,12)+disclose; miss still disclose;
-  SPE_FORCE_BOLT SPBOOK skip makeknown. Slow named.
+  SPE_FORCE_BOLT SPBOOK skip makeknown. Slow is D-1478.
 - D-1473: `zap_steed` WAN_MAKE_INVISIBLE via bhitm;
   minvis+vanish; See_invisible transparent; already
   minvis still disclose. Striking is D-1474.
@@ -101,5 +105,3 @@ Objective/score live in `CURRENT.md`.
 - D-1464: `zap_steed` SPE_DRAIN_LIFE via bhitm; mr=0
   m_lev-- + weaker; undead resists still disclose; SPBOOK
   skip makeknown. Cancel is D-1470.
-- D-1463: `zap_steed` WAN_OPENING/SPE_KNOCK via bhitm; saddle
-  drop + knock-back/stun + disclose. Drain is D-1464.

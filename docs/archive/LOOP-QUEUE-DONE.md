@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `potion.c` `potionbreathe` remaining otyps (named). Not potionhit. **Addressed:** D-1477
+- [x] `zap.c` `zap_steed` WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm (named). Not STRIKING. **Addressed:** D-1478
+
+
+- [x] `potion.c` `potionbreathe` remaining otyps (named). Not potionhit. **Addressed:** D-1477 `c3f67016`
 
 
 - [x] `zap.c` `zap_map` engraving/cancel trap (named). Not probing. **Addressed:** D-1476 `747e6616`
