@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1443 — zap.c zap_steed WAN_PROBING
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `weffects` skipped `zap_steed`. A downward
+  probing wand while riding never called `probe_monster`
+  on the steed; JS fell through to empty `zap_updown`.
+  C `zap_steed` `:3099–3103`: `probe_monster(u.usteed);
+  learnwand(obj); steedhit = TRUE;` (not via `bhitm`).
+  Caller `:3437–3439`: `u.usteed && oc_dir != NODIR &&
+  !dx && !dy && dz > 0 && zap_steed(obj)` then disclose
+  (second `learnwand` + `more_experienced` if was_unkn).
+  Sets `gb.bhitpos` to steed mx/my and `gn.notonhead =
+  FALSE` before the switch.
+- **C locus:** `zap.c` `zap_steed` `:3087–3140` (WAN_PROBING
+  `:3099–3103`). Callee `probe_monster` `:625–640` (D-1426).
+  Caller `weffects` `:3437–3439`.
+- **JS was:** named omit. `weffects` had no steed prefix.
+- **Fix:** `zap_steed` WAN_PROBING arm + weffects prefix
+  matching C short-circuit. Other otyps return false
+  (teleport / bhitm routing named). Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_steed` / `weffects`.
+- **Not this iter:** `zap_updown` / `bhito` WAN_PROBING;
+  zap_steed teleport / bhitm-routed otyps; zapyourself
+  SPE_DRAIN_LIFE.
+- **Verified:** private canary **18**/18 (C/JS grep; Rule #2;
+  riding down empty not-carrying+learn+disclose XP;
+  minvent observe/lknown/cknown/tin; SchroedingersBox;
+  statue; leftover notonhead still probes; no-steed /
+  dx / dz<0 skip; locking/drain default; zapyourself
+  still D-1435); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session probes downward
+  while mounted.
+- **Follow-up:** Open `zap.c` `zap_updown` WAN_PROBING
+  (named). Not steed.
+- **Files:** `js/zap.js`.
+
 ## D-1442 — uhitm.c mhitm_ad_phys rustm leftover
 
 - **Status:** fixed (map-driven Open from D-1415; not a public FAIL)

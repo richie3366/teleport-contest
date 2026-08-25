@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1443 zap.c zap_steed WAN_PROBING
+
+**Objective:** Open `zap.c` `zap_steed` WAN_PROBING
+(named). Not zapyourself.
+**C locus:** `zap.c` `zap_steed` `:3099–3103`; caller
+`weffects` `:3437–3439`; callee `probe_monster` D-1426.
+**Change:** weffects mounted-down prefix + WAN_PROBING
+`probe_monster(usteed)` + `learnwand`. Teleport / bhitm
+routing still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless
+a session probes downward while mounted).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_updown` WAN_PROBING (named).
+Not steed.
+**Blocked:** none.
 ## 2026-08-25 — D-1442 uhitm.c mhitm_ad_phys rustm leftover
 
 **Objective:** Open `uhitm.c` `mhitm_ad_phys` rustm leftover

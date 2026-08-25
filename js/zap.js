@@ -39,6 +39,7 @@
 // bhitm WAN_SLOW_MONSTER mon_adjust_speed(-1) + whirly expels (D-1424);
 // bhitm WAN_LOCKING closeholdingtrap (D-1425);
 // bhitm WAN_PROBING probe_monster + probe_objchain (D-1426);
+// zap_steed WAN_PROBING probe_monster (D-1443);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
 // dozap cursed backfire explode + d(spe+2,6) + useupall (D-1416);
 // dozap self-zap losehp killer_xname + uhim (D-1345);
@@ -51,9 +52,10 @@
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_updown/uswallow full; zapyourself SPE_DRAIN_LIFE
-// / zap_steed probe_monster / zap_updown / bhito WAN_PROBING
+// / zap_updown / bhito WAN_PROBING
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
+// zap_steed WAN_PROBING is D-1443; teleport/bhitm-routed zap_steed named;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
 // bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
 // bhitm WAN_PROBING is D-1426; bhitm SPE_DRAIN_LIFE is D-1436);
@@ -85,6 +87,7 @@
 // zapyourself WAN_LOCKING boxlock_invent (D-1434);
 // zapyourself WAN_PROBING probe_objchain + ustatusline (D-1435);
 // probe_monster bhitm WAN_PROBING (D-1426);
+// zap_steed WAN_PROBING probe_monster (D-1443);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
 // spell.c skilled SPE_FIREBALL scatter is D-1378 (this callee
@@ -94,8 +97,9 @@
 // muse MUSE_CAMERA is D-1376; Sunsword invoke_blinding_ray is D-1377.
 // bhit WEB stick D-1393; throwit fly / skiprange named.
 // bhitm WAN_MAKE_INVISIBLE is D-1414; conferral See_invisible
-// uprops in knowninvisible is D-1423; zap_updown / zap_steed
-// WAN_MAKE_INVISIBLE + setworn w_blocks still named.
+// uprops in knowninvisible is D-1423; zap_steed WAN_PROBING is
+// D-1443; zap_updown / zap_steed WAN_MAKE_INVISIBLE + setworn
+// w_blocks still named.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
 // via uprops[SHOCK_RES] (D-1371); inventory_resistance / full
 // read.c recharge wand·tool·blessed still named.
@@ -3258,7 +3262,7 @@ function probe_objchain(otmp) {
  * C zap.c probe_monster :625–640 — mstatusline; notonhead skips
  * minvent (long-worm tail). Else probe_objchain + display_minventory
  * (MINV_ALL|MINV_NOLET|PICK_NONE) or "not carrying anything".
- * Callers: bhitm WAN_PROBING (D-1426); zap_steed still named.
+ * Callers: bhitm WAN_PROBING (D-1426); zap_steed WAN_PROBING (D-1443).
  * zapyourself WAN_PROBING uses probe_objchain + ustatusline (D-1435).
  */
 export async function probe_monster(mtmp) {
@@ -3337,7 +3341,7 @@ async function shieldeff_mon(mtmp) {
  * long-worm mcorpsenm polish; Knight questart double on striking;
  * mhurtle petrify/steed; that_is_a_mimic MIM_REVEAL pline
  * (box_or_door+seemimic wired); zap_updown/zap_steed
- * WAN_MAKE_INVISIBLE / WAN_PROBING; bhito WAN_PROBING /
+ * WAN_MAKE_INVISIBLE; zap_steed WAN_PROBING is D-1443; bhito WAN_PROBING /
  * SPE_DRAIN_LIFE drain_item; worm see_wsegs; defended(AD_DRLI).
  * zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
  * zapyourself SPE_DRAIN_LIFE still named.
@@ -3529,8 +3533,9 @@ export async function bhitm(mtmp, otmp) {
     case WAN_PROBING:
         // C zap.c bhitm :376–381 — wake FALSE; reveal_invis; probe;
         // always learn. Callee probe_monster :625–640. zap_steed
-        // calls probe_monster directly (named). zap_updown / bhito
-        // still named. zapyourself WAN_PROBING is D-1435.
+        // WAN_PROBING calls probe_monster directly (D-1443), not
+        // this bhitm. zap_updown / bhito still named.
+        // zapyourself WAN_PROBING is D-1435.
         wake = false;
         reveal_invis = true;
         await probe_monster(mtmp);
@@ -4151,7 +4156,7 @@ export async function zapyourself(obj, ordinary) {
         // C zap.c zapyourself :2960–2965 — probe_objchain(invent);
         // update_inventory(); learn_it = TRUE; ustatusline().
         // Always learn (empty pack still). Does not call probe_monster
-        // (that is bhitm D-1426 / zap_steed named). Callees
+        // (that is bhitm D-1426 / zap_steed D-1443). Callees
         // probe_objchain :611–623 (hero invent Array, D-1017);
         // invent.c update_inventory; insight.c ustatusline
         // (stethoscope; ailments named). bhitm SPE_DRAIN is D-1436;
@@ -4698,13 +4703,45 @@ export async function zapwrapup() {
 export { zapsetup, bhito, bhit };
 
 /**
+ * C zap.c zap_steed :3087–3140 — downward wand/spell while riding.
+ * WAN_PROBING probes the steed directly (not via bhitm). Caller
+ * weffects :3437–3439 sets disclose then learnwand again.
+ * Named: WAN_TELEPORTATION / SPE_TELEPORT_AWAY; bhitm routing
+ * (invis / cancel / poly / striking / slow / speed / heal /
+ * drain / opening).
+ */
+async function zap_steed(obj) {
+    const steed = game.u?.usteed;
+    if (!steed || !obj) return false;
+    let steedhit = false;
+    const bhitpos = game._bhitpos || (game._bhitpos = { x: 0, y: 0 });
+    game.bhitpos = bhitpos;
+    bhitpos.x = steed.mx | 0;
+    bhitpos.y = steed.my | 0;
+    game.notonhead = false;
+    switch (obj.otyp | 0) {
+    case WAN_PROBING:
+        /* C zap.c :3099–3103 */
+        await probe_monster(steed);
+        learnwand(obj);
+        steedhit = true;
+        break;
+    default:
+        steedhit = false;
+        break;
+    }
+    return steedhit;
+}
+
+/**
  * C ref: zap.c weffects — exercise + effect dispatch.
  * NODIR + RAY wand ubuzz; IMMEDIATE bhit WAN_POLYMORPH /
  * SPE_FORCE_BOLT (D-1388); SPE_DRAIN_LIFE (D-1436);
  * WAN_DIGGING/SPE_DIG → zap_dig (SPE_DIG cast D-1441);
  * RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH ubuzz (D-1386)
  * including SPE_SLEEP wand-duplicate (D-1440).
- * zap_updown / steed / doorlock deferred.
+ * zap_steed WAN_PROBING (D-1443); zap_updown / remaining
+ * zap_steed otyps / doorlock deferred.
  */
 export async function weffects(obj) {
     const otyp = obj.otyp;
@@ -4714,9 +4751,14 @@ export async function weffects(obj) {
 
     exercise(A_WIS, true);
 
-    // steed down-zap deferred
-    if (oc?.oc_dir === NODIR) {
-        await zapnodir(obj);
+    /* C zap.c weffects :3437–3439 — mounted downward zap hits the
+     * steed first. WAN_PROBING is D-1443; other zap_steed otyps
+     * return false and fall through (named). */
+    if (game.u?.usteed && oc && oc.oc_dir !== NODIR
+        && !(game.u.dx | 0) && !(game.u.dy | 0)
+        && (game.u.dz | 0) > 0
+        && await zap_steed(obj)) {
+        disclose = true;
     } else if (oc?.oc_dir === IMMEDIATE) {
         zapsetup();
         if (game.u?.uswallow) {
@@ -4731,6 +4773,8 @@ export async function weffects(obj) {
             // C may null *pobj if destroyed — wand is hero's, keep
         }
         await zapwrapup();
+    } else if (oc?.oc_dir === NODIR) {
+        await zapnodir(obj);
     } else {
         // RAY — neither immediate nor directionless
         if (otyp === WAN_DIGGING || otyp === SPE_DIG) {
