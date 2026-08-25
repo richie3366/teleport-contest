@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1473 zap.c zap_steed WAN_MAKE_INVISIBLE via bhitm
+
+**Objective:** Open `zap.c` `zap_steed` WAN_MAKE_INVISIBLE via
+bhitm (named). Not POLY.
+**C locus:** `zap.c` `zap_steed` `:3117` (bhitm group
+`:3115–3134`); callee `bhitm` `:348–368` `mon_set_minvis` /
+knowninvisible; caller `weffects` `:3437–3439`.
+**Change:** WAN_MAKE_INVISIBLE arm `await bhitm(steed, obj)`
+so a downward make-invisible wand while riding hits the
+steed instead of skipping `zap_steed`. Disclose learns.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps make-invisible while riding down).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_steed`
+WAN_STRIKING/SPE_FORCE_BOLT via bhitm (named). Not INVIS.
+**Blocked:** none.
 ## 2026-08-25 — D-1472 potion.c potionhit remaining otyp switch
 
 **Objective:** Open `potion.c` `potionhit` (named from D-1457).

@@ -63,6 +63,7 @@
 // zap_steed SPE_DRAIN_LIFE via bhitm (D-1464);
 // zap_steed WAN_CANCELLATION/SPE_CANCELLATION via bhitm (D-1470);
 // zap_steed WAN_POLYMORPH/SPE_POLYMORPH via bhitm (D-1471);
+// zap_steed WAN_MAKE_INVISIBLE via bhitm (D-1473);
 // zap_updown WAN_PROBING bhitpile+zap_map+display_binventory (D-1444);
 // zap_updown WAN_OPENING/SPE_KNOCK portcullis/quest/traps (D-1454);
 // bhit doorlock WAN_OPENING/SPE_KNOCK SDOOR appear + locked unlock (D-1462);
@@ -102,10 +103,11 @@
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
 // bhito WAN_OPENING/WAN_LOCKING/SPE_KNOCK/SPE_WIZARD_LOCK boxlock
 // is D-1467;
-// remaining bhitm-routed zap_steed (invis/
-// striking/slow/speed) named;
+// remaining bhitm-routed zap_steed (striking/slow/speed/
+// SPE_CURE_SICKNESS) named;
 // zap_steed WAN_CANCELLATION/SPE_CANCELLATION bhitm is D-1470;
 // zap_steed WAN_POLYMORPH/SPE_POLYMORPH bhitm is D-1471;
+// zap_steed WAN_MAKE_INVISIBLE bhitm is D-1473;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
 // bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
 // bhitm WAN_PROBING is D-1426; bhitm SPE_DRAIN_LIFE is D-1436);
@@ -155,6 +157,7 @@
 // zap_steed SPE_DRAIN_LIFE via bhitm (D-1464);
 // zap_steed WAN_CANCELLATION/SPE_CANCELLATION via bhitm (D-1470);
 // zap_steed WAN_POLYMORPH/SPE_POLYMORPH via bhitm (D-1471);
+// zap_steed WAN_MAKE_INVISIBLE via bhitm (D-1473);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
 // spell.c skilled SPE_FIREBALL scatter is D-1378 (this callee
@@ -170,7 +173,8 @@
 // SPE_DRAIN_LIFE bhitm is D-1464; zap_steed
 // WAN_CANCELLATION/SPE_CANCELLATION bhitm is D-1470;
 // zap_steed WAN_POLYMORPH/SPE_POLYMORPH bhitm is D-1471;
-// zap_updown / zap_steed WAN_MAKE_INVISIBLE + setworn
+// zap_steed WAN_MAKE_INVISIBLE bhitm is D-1473;
+// zap_map WAN_MAKE_INVISIBLE engraving + setworn
 // w_blocks still named.
 // maybe_destroy_item AD_ELEC rings/wands (D-1368); Shock_resistance
 // via uprops[SHOCK_RES] (D-1371); inventory_resistance / full
@@ -3653,7 +3657,8 @@ async function mimic_hit_msg(mtmp, otyp) {
  * Named omit: long-worm mcorpsenm polish; Knight questart double
  * on striking; mhurtle petrify/steed; that_is_a_mimic MIM_REVEAL
  * pline (box_or_door+seemimic wired);
- * zap_updown/zap_steed WAN_MAKE_INVISIBLE; zap_steed WAN_PROBING
+ * zap_steed WAN_MAKE_INVISIBLE is D-1473; zap_map engraving
+ * WAN_MAKE_INVISIBLE named; zap_steed WAN_PROBING
  * is D-1443; bhito WAN_PROBING is
  * D-1445; SPE_DRAIN_LIFE drain_item is D-1453; worm see_wsegs; defended(AD_DRLI).
  * zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
@@ -3840,7 +3845,8 @@ export async function bhitm(mtmp, otmp) {
         // knowninvisible; else vanish iff couldsee && !canseemon.
         // knowninvisible See_invisible is youprop.h H||E ≡
         // uprops[SEE_INVIS] so conferral ring-of-SI still learns
-        // (D-1423). zap_updown is a no-op; zap_steed still named.
+        // (D-1423). zap_steed WAN_MAKE_INVISIBLE routes here
+        // (D-1473). zap_map engraving WAN_MAKE_INVISIBLE named.
         const oldinvis = mtmp.minvis;
         const couldsee = canseemon(mtmp);
         if (disguised_mimic) seemimic(mtmp);
@@ -4527,7 +4533,8 @@ export async function zapyourself(obj, ordinary) {
         // changing HInvis; mummy wrapping absorbs (BInvis +
         // uarmc MUMMY_WRAPPING); else incr_itimeout rn1(15,31);
         // if msg: learn + newsym then self_invis_message.
-        // bhitm is D-1414; zap_updown / zap_steed still named.
+        // bhitm is D-1414; zap_steed is D-1473; zap_map
+        // engraving WAN_MAKE_INVISIBLE named.
         const u = game.u || {};
         const msg = !Invis() && !Blinded_for_invis() && !BInvis();
         const uarmc = u.uarmc;
@@ -5835,9 +5842,11 @@ async function zap_updown(obj) {
  * (D-1470; callee cancel_monst invent=FALSE).
  * WAN_POLYMORPH / SPE_POLYMORPH go through bhitm
  * (D-1471; callee resist / rn2(25) shock / newcham).
+ * WAN_MAKE_INVISIBLE goes through bhitm
+ * (D-1473; callee mon_set_minvis / knowninvisible).
  * Caller weffects :3437–3439 sets disclose then
- * learnwand again. Named: remaining bhitm routing (invis /
- * striking / slow / speed / SPE_CURE_SICKNESS).
+ * learnwand again. Named: remaining bhitm routing
+ * (striking / slow / speed / SPE_CURE_SICKNESS).
  */
 async function zap_steed(obj) {
     const steed = game.u?.usteed;
@@ -5872,6 +5881,7 @@ async function zap_steed(obj) {
         steedhit = true;
         break;
     }
+    case WAN_MAKE_INVISIBLE:
     case WAN_POLYMORPH:
     case SPE_POLYMORPH:
     case WAN_CANCELLATION:
@@ -5882,6 +5892,8 @@ async function zap_steed(obj) {
     case WAN_OPENING:
     case SPE_KNOCK:
         /* C zap.c :3115–3134 — Default processing via bhitm().
+         * WAN_MAKE_INVISIBLE is D-1473 (callee bhitm
+         * :348–368 mon_set_minvis / knowninvisible).
          * WAN/SPE_POLYMORPH is D-1471 (callee bhitm
          * :263–334 resist / rn2(25) shock / newcham).
          * WAN/SPE_CANCELLATION is D-1470 (callee bhitm
@@ -5890,7 +5902,7 @@ async function zap_steed(obj) {
          * SPE_HEALING/SPE_EXTRA_HEALING is D-1469 (callee
          * bhitm :433–473). Saddle drop / SPE_KNOCK mhurtle
          * live in bhitm (D-0981). Remaining bhitm-routed
-         * otyps (invis/striking/slow/speed/SPE_CURE_SICKNESS)
+         * otyps (striking/slow/speed/SPE_CURE_SICKNESS)
          * still named. */
         await bhitm(steed, obj);
         steedhit = true;
@@ -5934,7 +5946,8 @@ async function zap_steed(obj) {
  * (D-1464); zap_steed SPE_HEALING/SPE_EXTRA_HEALING via
  * bhitm (D-1469); zap_steed WAN_CANCELLATION/SPE_CANCELLATION
  * via bhitm (D-1470); zap_steed WAN_POLYMORPH/SPE_POLYMORPH
- * via bhitm (D-1471); zap_updown WAN_PROBING (D-1444);
+ * via bhitm (D-1471); zap_steed WAN_MAKE_INVISIBLE via
+ * bhitm (D-1473); zap_updown WAN_PROBING (D-1444);
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown
  * WAN_STRIKING/SPE_FORCE_BOLT (D-1456); zap_updown
  * WAN_LOCKING/SPE_WIZARD_LOCK (D-1465); zap_updown
@@ -5957,6 +5970,7 @@ export async function weffects(obj) {
      * SPE_HEALING/SPE_EXTRA_HEALING via bhitm is D-1469;
      * WAN_CANCELLATION/SPE_CANCELLATION via bhitm is D-1470;
      * WAN_POLYMORPH/SPE_POLYMORPH via bhitm is D-1471;
+     * WAN_MAKE_INVISIBLE via bhitm is D-1473;
      * remaining zap_steed otyps return false and fall through
      * (named). */
     if (game.u?.usteed && oc && oc.oc_dir !== NODIR
