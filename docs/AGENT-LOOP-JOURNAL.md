@@ -9,6 +9,26 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-26 — D-1508 polyself.c body_part HEAD/HAND aliases
+
+**Objective:** Open `polyself.c` `body_part` aliases:
+`body_part_head` (mcastu), `body_part_hand` (pickup).
+Not zap (D-1496).
+**C locus:** `polyself.c` `body_part`; callers
+`mcastu.c` `mcast_psi_bolt` HEAD; `pickup.c`
+`u_handsy` / `able_to_loot` / Sokoban `lift_object` HAND.
+**JS locus:** `js/mcastu.js`; `js/pickup.js` latebound.
+**Change:** drop local clones; mcastu imports
+`body_part(HEAD)`; pickup `body_part_latebound(HAND)`
+(polyself→do cycle). Freehand loot + Sokoban boulder.
+`mcast_blind_you` EYE named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1890); public-unhit
+unless poly prints those anatomy lines.
+**Verified:** canary **9**/9; green+strict seed8000/0900;
+focused seed4500; cohort **7**/7 + strict.
+**Next:** Open `potion.c` `potion_dip` lichen corpse /
+acid-erode. Not H2O useeit.
+**Blocked:** none.
 ## 2026-08-26 — D-1507 makemon.c throws_rocks Sokoban first-try
 
 **Objective:** Open `makemon.c` `throws_rocks` Sokoban first-try

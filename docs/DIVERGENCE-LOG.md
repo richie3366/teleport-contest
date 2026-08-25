@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1508 — polyself.c body_part HEAD/HAND aliases
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `mcastu.js` `body_part_head` and
+  `pickup.js` `body_part_hand` were local clones
+  (fungus/jelly HEAD subset; HAND always `"hand"`).
+  C uses `body_part(HEAD)` / `body_part(HAND)` so poly
+  forms get table nouns (dog `"paw"`, fungus `"cap
+  area"`).
+- **C locus:** `polyself.c` `body_part` →
+  `mbodypart(&youmonst, part)`. Callers:
+  `mcastu.c` `mcast_psi_bolt` `:613–619`;
+  `pickup.c` `u_handsy` `:2948–2949`;
+  `able_to_loot` `:2063–2066`; Sokoban
+  `lift_object` `:1713–1716`.
+- **JS was:** named omit after D-1496 (scope).
+- **Fix:** mcastu imports `polyself.js` `body_part(HEAD)`.
+  pickup uses `objnam.js` `body_part_latebound(HAND)`
+  (polyself→do→pickup cycle; same seam as wield).
+  Wire live HAND sites: freehand loot gate; Sokoban
+  boulder refuse. Rule #2: no fs.
+- **JS:** `js/mcastu.js` `mcast_psi_bolt`;
+  `js/pickup.js` `u_handsy` / `able_to_loot` /
+  `lift_object`.
+- **Not this iter:** `mcast_blind_you` `body_part(EYE)`;
+  `observe_quantum_cat` FOOT; LOADSTONE/giant-boulder
+  weight override.
+- **Verified:** `sym.mjs` clones gone; canary **9**/9
+  (human/lichen/jelly/blob/pudding/dog HEAD·HAND);
+  green+strict seed8000/0900; focused seed4500
+  **108275**/108275 Scr **1814**; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a public session polys and
+  prints those anatomy lines.
+- **Follow-up:** Open `potion.c` `potion_dip` lichen
+  corpse / acid-erode.
+- **Files:** `js/mcastu.js`, `js/pickup.js`.
+
 ## D-1507 — makemon.c throws_rocks Sokoban first-try
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

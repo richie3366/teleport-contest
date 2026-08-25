@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle. **Addressed:** D-1507
+- [x] `polyself.c` `body_part` aliases: `body_part_head` (mcastu.js), `body_part_hand` (pickup.js). Deferred for scope. zap.js is D-1496. **Addressed:** D-1508
+
+
+- [x] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle. **Addressed:** D-1507 `a4a370f4`
 
 
 - [x] `makemon.c` gnome candle `begin_burn` after `!mpickobj` (named). Not add_to_minv. **Addressed:** D-1506 `1e1d1864`

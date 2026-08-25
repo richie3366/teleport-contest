@@ -59,31 +59,32 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1507. **Next cluster:** Open
-`polyself.c` `body_part` aliases: `body_part_head`
-(mcastu.js), `body_part_hand` (pickup.js). Deferred for
-scope. zap.js is D-1496.
-**Do not skip D-1507…D-1229 (index).** Keep mention_map addr.
+**Map-driven fortress** after D-1508. **Next cluster:** Open
+`potion.c` `potion_dip` lichen corpse / acid-erode
+(named). Not H2O useeit.
+**Do not skip D-1508…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1507.** Do not FORCE
+**Do not re-break D-0660…D-1508.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1507 (index). Recent: **D-1507**
-`makemon.c` `makemon` Sokoban first-try `throws_rocks`
-(`tryct==1` reject before `goodpos`). S_KOP / lizard
-named. Prior: **D-1506** S_GNOME `begin_burn`; **D-1505**
-`MIGR_LEFTOVERS` DF_ALL. stolen_booty is D-1363.
+**Keep:** D-0845…D-1508 (index). Recent: **D-1508**
+`polyself.c` `body_part` aliases — mcastu `HEAD` + pickup
+`HAND` (latebound). `mcast_blind_you` EYE named. Prior:
+**D-1507** Sokoban `throws_rocks` first-try; **D-1506**
+S_GNOME `begin_burn`. stolen_booty is D-1363.
 minetn-7 is D-1504; minetn-6 is D-1503; minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1507
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1508
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
 shared `getdir`. throw keeps `getdir_cmdassist`.
+Do not import `wield.js`/`pickup.js`→`polyself.js` for
+`body_part` (latebound).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

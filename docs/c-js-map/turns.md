@@ -239,8 +239,10 @@ full `TEST_TRAV`/`TRAVP_GUESS`/`travelmap`/`#retravel`; **`#wizmakemap` D-1288**
 remaining `extcmdlist` bodies; …
 **`body_part`** exact-name clones import `polyself.js` (wield via
 `objnam.js` `body_part_latebound`; D-1496). `zap.js` appends `body_part`
-to its existing polyself import. Named aliases: `body_part_head`
-(`mcastu.js`), `body_part_hand` (`pickup.js`) — deferred for scope.
+to its existing polyself import. **`mcastu` `body_part(HEAD)` +
+`pickup` `body_part(HAND)` D-1508** (mcastu imports `polyself.js`;
+pickup via latebound — polyself→do→pickup cycle). Named:
+`mcast_blind_you` EYE; `observe_quantum_cat` FOOT.
 
 ### `src/potion.c`
 
@@ -955,7 +957,7 @@ unconscious skip deferred); **`pickup_object` gold `disp.botl` before pick/prinv
 **`pickup_prinv`→`prinv` count/total_of** (D-0388); 
 **`#loot`/`doloot`/`do_loot_cont` locked autounlock + `use_container` `:` look + 
 MENU_FULL take-out** (D-0362/D-0489/D-0490) + **`doloot` capacity+nohands + 
-`use_container` `u_handsy`** (D-0726; Confusion reverse_loot deferred) + 
+`use_container` `u_handsy`** (D-0726; **`able_to_loot` freehand `body_part(HAND)` D-1508**; Confusion reverse_loot deferred) + 
 **`doloot` mon_beside → `getdir_cmdassist` lootmon** (D-0451; loot_mon/saddle/multi-cont deferred); 
 + **`#untrap`/`could_untrap` nohands gate** (D-0726; door force D-1495; floor `untrap()` named); 
 **`domove` diagonal `test_move` intact-doorway ban + `doorless_door`** (D-0219) + 
@@ -1027,7 +1029,7 @@ D-0190); fulll `end_running`/`cmdq_clear`;
 Passes_walls/autodig/chew; Blind `feel_location`/`autopick` arms; 
 full `back_to_glyph`/`wall_angle`→S_stone / OOB mention_walls; traditional yn/query_classes; 
 **`pickup_object` telekinesis / `lift_object` / `carry_count` / scare raise-vs-pick / corpse 
-remote** (D-1050); shop bill; Sokoban boulder / LOADSTONE weight override / ghostly / container 
+remote** (D-1050); shop bill; **Sokoban boulder `body_part(HAND)` D-1508**; LOADSTONE/giant-boulder weight override / ghostly / container 
 `delta_cwt`; furniture nothing msgs; engulfer loot_mon; Deafness/Hear_again; Rogue `doorless_door`; 
 shop `block_door`/`block_entry`; full `test_move` NODIAG/boulder 
 **`swim_move_danger`/`handle_tip(TIP_SWIM)` + `m`→nopick; 
@@ -1921,7 +1923,7 @@ JS: `js/mhitu.js`, `js/minion.js`, `js/mthrowu.js`, `js/weapon.js`, `js/muse.js`
 **`castmu` cast pline + PSI_BOLT/OPEN_WOUNDS severity plines before `mdamageu`; 
 `urgent_pline`/WIN_NOSTOP; `polyman` was_blind `make_blinded`** (D-0928 #1191; 
 seed4500 Scr **1799→1803** prefix **@1761→@1770**; 
-Half_spell_damage in castmu + other mcast_spell bodies deferred); 
+Half_spell_damage in castmu + other mcast_spell bodies deferred; **PSI_BOLT `body_part(HEAD)` D-1508**; `mcast_blind_you` EYE named); 
 **`enhance_weapon_skill` wizard y_n + speedy PICK_ONE / `skill_advance` / wizard practice columns** 
 (D-0928 #1146; seed4500 Scr **1001→1120** prefix **@630→@707**; 
 `add_weapon_skill`/`lose_weapon_skill` / `use_skill` may-advance msg deferred); 

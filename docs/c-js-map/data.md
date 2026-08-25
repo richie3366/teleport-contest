@@ -639,8 +639,9 @@ losexp`; MAGIC_PORTAL/LEVEL_TELEP `mlevel_tele_trap` arms; valley_level strongho
 migrate light/worm/isshk; **`encumber_msg` callers beyond set_wounded_legs/preamble** (allmain 
 turn-loop / exercise STR·CON / pickup/drop); Lev/air/steed `weight_cap` MAX; `stagger()` poly; 
 `heal_legs`; **`body_part`** / **`mbodypart`** import `polyself.js` (D-1496;
-steed FOOT uses `mbodypart(usteed)`, not the hero). Named:
-`body_part_head` / `body_part_hand` (scope).
+steed FOOT uses `mbodypart(usteed)`, not the hero). **mcastu HEAD /
+pickup HAND D-1508**. Named: `mcast_blind_you` EYE;
+`observe_quantum_cat` FOOT.
 
 ### `src/dog.c` `tamedog` / `initedog`
 
