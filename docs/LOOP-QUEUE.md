@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_map` lateral drawbridge / bhit (named). Not engraving.
 - [ ] `mklev.c` `minetn-1` load_special (named). Not minetn-5.
 - [ ] `worm.c` `worm_move` (named). Not initworm.
 - [ ] `makemon.c` `add_to_minv` merge (named). Not stolen_booty.

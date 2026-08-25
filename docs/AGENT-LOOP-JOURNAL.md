@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1489 zap.c zap_map lateral drawbridge / bhit
+
+**Objective:** Open `zap.c` `zap_map` lateral drawbridge / bhit
+(named). Not engraving.
+**C locus:** `zap.c` `zap_map` `:3685–3717`; caller `bhit`
+`:3919–3924`. Callees already live (`dbridge.js`).
+**Change:** `!u.dz` OPENING/LOCKING/STRIKING drawbridge +
+`bhit` ZAPPED_WAND `zap_map` before `m_at`. force_decor /
+draft_message / Invocation_lev named. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit).
+**Verified:** private canary **25**/25; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `mklev.c` `minetn-1` load_special (named).
+Not minetn-5.
+**Blocked:** none.
 ## 2026-08-25 — D-1488 artifact.c arti_invoke remaining inv_prop
 
 **Objective:** Open `artifact.c` `doinvoke` remaining `inv_prop`

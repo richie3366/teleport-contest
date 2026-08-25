@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1489 — zap.c zap_map lateral drawbridge / bhit
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Lateral IMMEDIATE wands skipped drawbridge
+  open/close/destroy. C `zap.c` `zap_map` `:3685–3717`
+  (`!u.dz`) runs `find_drawbridge` then OPENING/KNOCK
+  `is_db_wall` `open_drawbridge`; LOCKING/WIZARD_LOCK
+  `close_drawbridge` (learn iff remapped span is
+  DRAWBRIDGE_DOWN); STRIKING/FORCE `ltyp!=DRAWBRIDGE_UP`
+  `destroy_drawbridge`. Caller `bhit` `:3919–3924` calls
+  `zap_map` on every ZAPPED_WAND cell before `m_at` and
+  refreshes `typ` (SDOOR/SCORR/doorlock). JS left the
+  `!u.dz` arm empty after D-1476 engraving and never
+  called `zap_map` from `bhit`.
+- **C locus:** `zap.c` `zap_map` `:3685–3717`; `bhit`
+  `:3919–3924`. Callees `dbridge.c` `find_drawbridge` /
+  `open_drawbridge` / `close_drawbridge` /
+  `destroy_drawbridge` already live.
+- **JS was:** empty `else if (!u.dz)` in `zap_map`;
+  `bhit` skipped `zap_map` (named after D-1476/D-1485).
+- **Fix:** Port the lateral switch; `bhit` ZAPPED_WAND
+  `await zap_map` then `typ = loc.typ`. Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_map` / `bhit`.
+- **Not this iter:** `force_decor` ice/furniture; Rogue
+  `draft_message`; Invocation_lev vibrating-square `the`;
+  muse `mbhit` `destroy_drawbridge`.
+- **Verified:** private canary **25**/25 (C/JS grep;
+  portcullis OPENING/KNOCK open; DRAWBRIDGE_UP span skip
+  OPENING; DOWN LOCKING close; UP LOCKING no-op; DOWN
+  STRIKING/FORCE destroy; UP STRIKING skip; portcullis
+  STRIKING destroy; `u.dz` skip; POLY default; weffects
+  lateral OPENING/LOCKING/STRIKING via `bhit`; thrown skip;
+  D-1476 down cancel engraving; probing still after
+  lateral; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `mklev.c` `minetn-1` load_special.
+- **Files:** `js/zap.js`.
+
 ## D-1488 — artifact.c arti_invoke remaining inv_prop
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

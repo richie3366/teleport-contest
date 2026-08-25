@@ -79,6 +79,7 @@
 // zap_updown WAN_LOCKING/SPE_WIZARD_LOCK close db / hole→trapdoor (D-1465);
 // zap_updown SPE_STONE_TO_FLESH blood / nothing_happens then epilogue (D-1466);
 // zap_updown default break into down bhitpile+zap_map (D-1485);
+// zap_map lateral drawbridge + bhit ZAPPED_WAND zap_map (D-1489);
 // bhito WAN_PROBING observe + display_cinventory / tin / egg (D-1445);
 // bhito SPE_DRAIN_LIFE drain_item (D-1453);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
@@ -94,8 +95,9 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_map lateral drawbridge / uswallow pile;
-// zap_map from lateral bhit; force_decor ice/furniture; draft_message
+// zap_map lateral drawbridge + bhit ZAPPED_WAND zap_map (D-1489);
+// Named omissions: zap_map uswallow pile;
+// force_decor ice/furniture; draft_message
 // Rogue SDOOR; Invocation_lev vibrating-square "the";
 // bhito opening chain / uchain unpunish is D-1481;
 // bhito poly-arm boxlock reset_pick is D-1483;
@@ -5383,11 +5385,12 @@ function bhit_xyglyph_known_monster(loc) {
  * is D-1475; WAN_STRIKING/SPE_FORCE_BOLT is D-1482 (`:4056–4074`;
  * callee lock.c `:1103–1272`; learnwand also if WAN_STRIKING &&
  * !Deaf; D_BROKEN shop add_damage + pay_for_damage destroy).
+ * zap_map from lateral ZAPPED_WAND is D-1489 (`:3919–3924`;
+ * callee `zap_map` `:3685–3717` OPENING/LOCKING/STRIKING).
  * Named omit: THROWN_WEAPON fly callers (throwit still inlines those
  * and still skips WEB / shade / mimic-object); FLASHED_LIGHT DISP_BEAM /
  * INVIS_BEAM stop; show_transient_light; shkcatch pick;
- * map_invisible / unmap_object; zap_map from lateral bhit;
- * skiprange rocks.
+ * map_invisible / unmap_object; skiprange rocks.
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
 async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
@@ -5436,7 +5439,7 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
             }
 
             const loc = game.level?.at?.(x, y);
-            const typ = loc?.typ;
+            let typ = loc?.typ;
 
             // C: WATERWALL / LAVAWALL stop thrown/kicked items
             if ((weapon === THROWN_WEAPON || weapon === KICKED_WEAPON)
@@ -5458,6 +5461,14 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
                         break;
                     }
                 }
+            }
+
+            if (weapon === ZAPPED_WAND) {
+                /* C zap.c bhit :3919–3924 — cancellation/opening/
+                 * locking/striking/probing before m_at (D-1489). */
+                await zap_map(x, y, obj);
+                /* terrain might have changed (exposed secret door|corridor) */
+                typ = loc?.typ;
             }
 
             let mtmp = m_at(x, y);
@@ -5651,10 +5662,11 @@ async function maybe_explode_trap(ttmp, otmp, learn) {
 
 /**
  * C zap.c zap_map :3628–3800 — cancel trap + down engraving (D-1476)
- * then WAN_PROBING terrain/trap (D-1444).
- * Called from zap_updown down. Named: lateral drawbridge;
- * force_decor ice/furniture; draft_message Rogue SDOOR;
- * Invocation_lev vibrating-square "the"; zap_map from lateral bhit.
+ * then !u.dz lateral drawbridge (D-1489; `:3685–3717`) then
+ * WAN_PROBING terrain/trap (D-1444). Caller zap_updown down
+ * (D-1444/D-1485) and bhit ZAPPED_WAND (D-1489 `:3919–3924`).
+ * Named: force_decor ice/furniture; draft_message Rogue SDOOR;
+ * Invocation_lev vibrating-square "the".
  */
 async function zap_map(x, y, obj) {
     if (!obj) return;
@@ -5706,7 +5718,45 @@ async function zap_map(x, y, obj) {
             }
         }
     } else if (!(game.u?.dz | 0)) {
-        /* C :3685–3717 — lateral drawbridge named */
+        /* C :3685–3717 — lateral drawbridge (D-1489).
+         * Up/down drawbridge is zap_updown (D-1454/D-1456/D-1465). */
+        const ltyp = game.level?.at?.(x, y)?.typ | 0;
+        const dbxy = { x: x | 0, y: y | 0 };
+        if (find_drawbridge(dbxy)) {
+            switch (obj.otyp | 0) {
+            case WAN_OPENING:
+            case SPE_KNOCK:
+                /* dbwall: closed portcullis of a raised bridge */
+                if (is_db_wall(x, y)) {
+                    if (cansee(dbxy.x, dbxy.y) || cansee(x, y)) {
+                        learn.v = true;
+                    }
+                    await open_drawbridge(dbxy.x, dbxy.y);
+                }
+                break;
+            case WAN_LOCKING:
+            case SPE_WIZARD_LOCK:
+                /* learn only when the remapped span is lowered */
+                if ((cansee(dbxy.x, dbxy.y) || cansee(x, y))
+                    && (game.level?.at?.(dbxy.x, dbxy.y)?.typ | 0)
+                        === DRAWBRIDGE_DOWN) {
+                    learn.v = true;
+                }
+                await close_drawbridge(dbxy.x, dbxy.y);
+                break;
+            case WAN_STRIKING:
+            case SPE_FORCE_BOLT:
+                /* !DRAWBRIDGE_UP: lowered span or portcullis, not
+                 * the empty moat in front of a raised bridge */
+                if (ltyp !== DRAWBRIDGE_UP) {
+                    learn.v = true;
+                    await destroy_drawbridge(dbxy.x, dbxy.y);
+                }
+                break;
+            default:
+                break;
+            }
+        }
     }
 
     if ((obj.otyp | 0) === WAN_PROBING) {
@@ -5797,8 +5847,9 @@ function Levitation_updown() {
  * no WAN_STONE_TO_FLESH) then shared down bhitpile+zap_map / up
  * hideunder. default :3378–3379 break into that epilogue so
  * unmounted down POLY/cancel/invis/tele hit zap_map (D-1485).
- * Named: zap_map lateral drawbridge; poly body_part.
+ * Named: poly body_part.
  * zap_map engraving/cancel trap is D-1476.
+ * zap_map lateral drawbridge + bhit zap_map is D-1489.
  * bhito boxlock is D-1467.
  */
 async function zap_updown(obj) {
@@ -6155,7 +6206,8 @@ async function zap_steed(obj) {
  * WAN_LOCKING/SPE_WIZARD_LOCK (D-1465); zap_updown
  * SPE_STONE_TO_FLESH (D-1466); zap_updown default down
  * POLY/cancel/invis/tele bhitpile+zap_map (D-1485);
- * zap_map engraving/cancel trap is D-1476; doorlock STRIKING
+ * zap_map engraving/cancel trap is D-1476; zap_map lateral
+ * drawbridge + bhit zap_map is D-1489; doorlock STRIKING
  * is D-1482; LOCKING is D-1475.
  */
 export async function weffects(obj) {

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `artifact.c` `doinvoke` remaining `inv_prop` (named). Not BLINDING_RAY. **Addressed:** D-1488
+- [x] `zap.c` `zap_map` lateral drawbridge / bhit (named). Not engraving. **Addressed:** D-1489
+
+
+- [x] `artifact.c` `doinvoke` remaining `inv_prop` (named). Not BLINDING_RAY. **Addressed:** D-1488 `00d5d4d6`
 
 
 - [x] `objnam.c` `the()` fruit_from_name + artifact_name (named). Not CapitalMon. **Addressed:** D-1487 `8d41bd04`
