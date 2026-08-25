@@ -402,3 +402,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [389-4a16af4e-peffect-gain-energy.md](./389-4a16af4e-peffect-gain-energy.md) | `4a16af4e` | D-1429 peffect_gain_energy | **ACCEPT-WITH-DEBT** |
 | [390-3e742468-peffect-acid.md](./390-3e742468-peffect-acid.md) | `3e742468` | D-1430 peffect_acid | **ACCEPT-WITH-DEBT** |
 | [391-66254727-peffect-gain-level.md](./391-66254727-peffect-gain-level.md) | `66254727` | D-1431 peffect_gain_level | **ACCEPT-WITH-DEBT** |
+| [392-b19bcf7a-peffect-blindness.md](./392-b19bcf7a-peffect-blindness.md) | `b19bcf7a` | D-1432 peffect_blindness | **ACCEPT-WITH-DEBT** |
+| [393-07c5ee30-zapyourself-wan-slow.md](./393-07c5ee30-zapyourself-wan-slow.md) | `07c5ee30` | D-1433 zapyourself WAN_SLOW | **ACCEPT-WITH-DEBT** |
+| [394-4488f535-zapyourself-wan-locking.md](./394-4488f535-zapyourself-wan-locking.md) | `4488f535` | D-1434 zapyourself WAN_LOCKING | **ACCEPT-WITH-DEBT** |
+| [395-ebe912e0-zapyourself-wan-probing.md](./395-ebe912e0-zapyourself-wan-probing.md) | `ebe912e0` | D-1435 zapyourself WAN_PROBING | **ACCEPT-WITH-DEBT** |
+| [396-e413754d-bhitm-spe-drain-life.md](./396-e413754d-bhitm-spe-drain-life.md) | `e413754d` | D-1436 bhitm SPE_DRAIN_LIFE | **ACCEPT-WITH-DEBT** |
+| [397-af184f1e-peffect-sleeping.md](./397-af184f1e-peffect-sleeping.md) | `af184f1e` | D-1437 peffect_sleeping | **ACCEPT-WITH-DEBT** |
+| [398-abdbcad6-peffect-gain-ability.md](./398-abdbcad6-peffect-gain-ability.md) | `abdbcad6` | D-1438 peffect_gain_ability | **ACCEPT-WITH-DEBT** |
+| [399-f6dd492b-peffect-hallucination.md](./399-f6dd492b-peffect-hallucination.md) | `f6dd492b` | D-1439 peffect_hallucination | **ACCEPT-WITH-DEBT** |
+| [400-530eaa3c-spe-sleep-wand-duplicate.md](./400-530eaa3c-spe-sleep-wand-duplicate.md) | `530eaa3c` | D-1440 SPE_SLEEP wand-duplicate | **ACCEPT-WITH-DEBT** |

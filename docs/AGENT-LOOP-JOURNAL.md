@@ -8,6 +8,27 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — review D-1432–D-1440 (audit #1810)
+
+**Objective:** audit — C-fidelity reviews **392–400** of JS SHAs
+`b19bcf7a` / `07c5ee30` / `4488f535` / `ebe912e0` /
+`e413754d` / `af184f1e` / `abdbcad6` / `f6dd492b` /
+`530eaa3c` plus full `sessions` score.
+**C locus:** `potion.c` `peffect_blindness` `:1073–1080`;
+`zap.c` `zapyourself` `:2868–2874` / `:2948–2954` /
+`:2960–2965`; `bhitm` `:521–544`; `potion.c`
+`:901–911` / `:1030–1048` / `:696–714`; `spell.c`
+`:1462–1514`.
+**Change:** no `js/` edits. **392–400** ACCEPT-WITH-DEBT.
+Filled archive D-1440 `530eaa3c`. Must-fix empty. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `36+0.30/turn` (R² 0.857).
+**Verified:** full `sessions` at HEAD `530eaa3c`; public-unhit
+on blindness / slow-self / locking / probing / drain /
+sleeping / gain ability / hallucination / sleep-cast.
+**Next:** Open `zap.c` `weffects` SPE_DIG wand-duplicate
+(named from D-1427). Not IMMEDIATE.
+**Blocked:** none.
 ## 2026-08-25 — D-1440 spell.c SPE_SLEEP RAY wand-duplicate
 
 **Objective:** Open `zap.c` `weffects` SPE_SLEEP wand-duplicate

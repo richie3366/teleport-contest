@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1440; cadence **#1800** `66254727`
-  (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
+- **Fortress 44/44** after D-1440; cadence **#1810** `530eaa3c`
+  (Scr **11,405** RNG 100% speed `36+0.30/turn` R² 0.857). Next:
   Open `zap.c` `weffects` SPE_DIG wand-duplicate (named from
   D-1427). Not IMMEDIATE.
   Do not skip D-1440…D-1229. No FORCE. Do not wrap `wildmiss`.

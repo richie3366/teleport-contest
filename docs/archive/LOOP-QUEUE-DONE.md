@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `weffects` SPE_SLEEP wand-duplicate (named from D-1427). Not DIG. **Addressed:** D-1440
+- [x] `zap.c` `weffects` SPE_SLEEP wand-duplicate (named from D-1427). Not DIG. **Addressed:** D-1440 `530eaa3c`
 
 
 - [x] `potion.c` `peffect_hallucination` (named). Not remaining mix. **Addressed:** D-1439 `f6dd492b`
