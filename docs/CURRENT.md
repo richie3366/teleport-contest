@@ -59,27 +59,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1505. **Next cluster:** Open
-`makemon.c` gnome candle `begin_burn` after `!mpickobj`
-(named). Not add_to_minv.
-**Do not skip D-1505…D-1229 (index).** Keep mention_map addr.
+**Map-driven fortress** after D-1506. **Next cluster:** Open
+`makemon.c` `throws_rocks` Sokoban first-try
+(named). Not gnome candle.
+**Do not skip D-1506…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1505.** Do not FORCE
+**Do not re-break D-0660…D-1506.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1505 (index). Recent: **D-1505**
-`dog.c` `mon_arrive` `MIGR_LEFTOVERS` `deliver_obj_to_mon`
-DF_ALL after xyloc, before `my=xyflags`/place. With_you
-returns first. wander/`somexy` named. stolen_booty is
-D-1363. Prior: **D-1504** `mklev.c` minetn-7 Bazaar Town
-`load_special`. `ensure_way_out` named. minetn-1 is D-1490;
-minetn-5 is D-0754; minetn-6 is D-1503.
+**Keep:** D-0845…D-1506 (index). Recent: **D-1506**
+`makemon.c` `m_initinv` S_GNOME `begin_burn` after
+`!mpickobj` && unlit tile. mktrap_victim floor candle
+named. Prior: **D-1505** `dog.c` `mon_arrive`
+`MIGR_LEFTOVERS` DF_ALL. wander/`somexy` named.
+stolen_booty is D-1363. minetn-7 is D-1504; minetn-6 is
+D-1503; minetn-1 is D-1490; minetn-5 is D-0754.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1505
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1506
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

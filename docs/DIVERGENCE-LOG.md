@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1506 — makemon.c m_initinv S_GNOME begin_burn
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** a gnome who rolled a candle on an unlit
+  tile kept it dark. C lights that candle after a
+  successful (non-merge) `mpickobj`. JS called
+  `mpickobj` and stopped.
+- **C locus:** `makemon.c` `m_initinv` S_GNOME `:809–816`.
+  `steal.c` `mpickobj` returns 1 iff `add_to_minv`
+  merged/freed `otmp` (`mkobj.c` `:2648–2665`). Callee
+  `timeout.c` `begin_burn` `:1712–1797` (D-0978).
+- **JS was:** named omit after D-0172 / D-1492; comment
+  said deferred (no RNG).
+- **Fix:** `if (!mpickobj(mtmp, otmp) && !levl.lit)
+  begin_burn(otmp, FALSE)`. Live `timeout.js` `begin_burn`.
+  Short-circuit skips a freed merge. Rule #2: no fs.
+- **JS:** `js/makemon.js` `m_initinv` S_GNOME.
+- **Not this iter:** `mktrap_victim` floor candle
+  `begin_burn`; `throws_rocks` Sokoban first-try;
+  S_KOP / non-salamander S_LIZARD; candle `oc_merge`.
+- **Verified:** private canary **10**/10 (C/JS predicate;
+  unlit lights + timer + LS_OBJECT; lit skip; merge
+  skip; `makemon` gnome on unlit mines; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a public gnome candle lands
+  on an unlit tile.
+- **Follow-up:** Open `makemon.c` `throws_rocks` Sokoban.
+- **Files:** `js/makemon.js`.
+
 ## D-1505 — dog.c mon_arrive MIGR_LEFTOVERS DF_ALL
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

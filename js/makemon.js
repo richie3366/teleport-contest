@@ -129,6 +129,7 @@ import {
 import { cansee } from './vision.js';
 import { newsym, Norep, canseemon, sensemon } from './display.js';
 import { emits_light, new_light_source } from './light.js';
+import { begin_burn } from './timeout.js';
 import { christen_monst, oname, x_monnam } from './do_name.js';
 import { vtense } from './objnam.js';
 import { get_shop_item, shkname } from './shknam.js';
@@ -1718,8 +1719,12 @@ function m_initinv(mtmp) {
             );
             otmp.quan = 1;
             otmp.owt = weight(otmp);
-            // begin_burn when mpickobj fails and tile unlit — deferred (no RNG)
-            mpickobj(mtmp, otmp);
+            // C makemon.c m_initinv S_GNOME: !mpickobj means otmp still
+            // lives on minvent (not merged/freed); unlit tile → light it.
+            if (!mpickobj(mtmp, otmp)
+                && !game.level?.at?.(mtmp.mx, mtmp.my)?.lit) {
+                begin_burn(otmp, false);
+            }
         }
         break;
     case 'S_NYMPH':

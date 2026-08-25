@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` gnome candle `begin_burn` after `!mpickobj` (named). Not add_to_minv.
 - [ ] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle.
 - [ ] `polyself.c` `body_part` aliases: `body_part_head` (mcastu.js),
   `body_part_hand` (pickup.js). Deferred for scope. zap.js is D-1496.
@@ -43,6 +42,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `objnam.c` `fruit_from_indx` (named). Not the().
 - [ ] `display.c` `any_visible_region` (named). Not Hallu/Warn_of_mon.
 - [ ] `artifact.c` SPFX_WARN conferral / MATCH_WARN (named). Not Sting_effects.
+- [ ] `makemon.c` S_KOP `m_initweap` specials (named). Not throws_rocks.
+- [ ] `makemon.c` non-salamander S_LIZARD `m_initweap` (named). Not S_KOP.
+- [ ] `makemon.c` `set_mimic_sym` maze/sokoban/`in_town` (named). Not shop arm.
+- [ ] `makemon.c` dprince MS_BRIBE / raven BEC_DE_CORBIN (named). Not emin.
+- [ ] `mklev.c` `mktrap_victim` gnome candle `begin_burn` (named). Not `m_initinv`.
 
 ## Parked (do not pop)
 

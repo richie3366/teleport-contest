@@ -9,6 +9,23 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-26 — D-1506 makemon.c m_initinv S_GNOME begin_burn
+
+**Objective:** Open `makemon.c` gnome candle `begin_burn` after
+`!mpickobj` (named). Not add_to_minv.
+**C locus:** `makemon.c` `m_initinv` S_GNOME 809–816;
+callee `timeout.c` `begin_burn`; `steal.c` `mpickobj` 1=freed.
+**JS locus:** `js/makemon.js` `m_initinv` S_GNOME.
+**Change:** `!mpickobj && !levl.lit` → live `begin_burn`.
+Merge-freed skip. mktrap_victim floor candle named.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1890); public-unhit
+unless a gnome candle lands on an unlit tile.
+**Verified:** canary **10**/10; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `makemon.c` `throws_rocks` Sokoban first-try
+(named). Not gnome candle.
+**Blocked:** none.
 ## 2026-08-25 — D-1505 dog.c mon_arrive MIGR_LEFTOVERS DF_ALL
 
 **Objective:** Open `dog.c` `mon_arrive` `MIGR_LEFTOVERS` DF_ALL

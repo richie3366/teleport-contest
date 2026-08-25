@@ -228,7 +228,9 @@ SPE_DIG on earth deferred) + **`is_golem`→`golemhp(mndx)` fixed HP** (D-0554) 
 **`adj_erinys` mutates mlevel + `adj_lev` re-reads live table** (D-0928 #1099; 
 omit rider/`mlevel>49`/`is_home_elemental`); 
 **`m_initinv` S_GNOME candle + shopkeeper + `rnd_defensive_item` + PM_SOLDIER early-return + 
-tail** (D-0172/D-0249); **`rnd_defensive_item` Sokoban via `sokoban_rules` not sticky `g.Sokoban`** 
+tail** (D-0172/D-0249) + **D-1506 S_GNOME `begin_burn` after `!mpickobj` && `!levl.lit`** 
+(callee `timeout.c` `begin_burn`; live `js/timeout.js`; mktrap_victim floor candle named); 
+**`rnd_defensive_item` Sokoban via `sokoban_rules` not sticky `g.Sokoban`** 
 (D-0557); **`likes_gold`/`findgold`/`mkmonmoney` trailing gold** (D-0174); 
 **`rndghostname`/`christen` for `PM_GHOST`** (D-0144); **`rndmonnum_adj` + Plan B** (D-0244); 
 **`set_mimic_sym` shop arm `get_shop_item`/`depth` + FODDERSHOP jelly/mold + 
@@ -283,7 +285,8 @@ PM_NINJA weap still named); **D-0644 `m_initinv` S_WRAITH/S_LICH/S_DEMON** (Nazg
 Master/Arch Lich; ice devil spear / Asmodeus wands); 
 omit `throws_rocks` Sokoban first-try, S_KOP specials, non-salamander S_LIZARD; 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
-live `js/mkobj.js`, re-export `makemon.js`); observe_quantum_cat/disclose SchroedingersBox; 
+live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
+observe_quantum_cat/disclose SchroedingersBox; 
 maze town/sokoban/`in_town` mimic arms; altar Align2amask; 
 `ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters; 
 egg `attach_egg_hatch_timeout`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
@@ -335,7 +338,7 @@ JS: `js/mklev.js` — partial
 
 Ordinary level path substantial; **`fill_ordinary_room` nsubrooms recursion before needfill** 
 (D-0917); mineralize bury-vs-place (D-0014); 
-`mktrap_victim` place_object ammo/possessions (D-0016); 
+`mktrap_victim` place_object ammo/possessions (D-0016; floor gnome candle `begin_burn` named); 
 **`set_wall_state`/`xy_set_wall_state`** (D-0038); 
 **`makeniche` → real `mkclass(S_HUMAN)`** (D-0053); 
 supply-chest **`SPBOOK_no_NOVEL`** (D-0055) + **`add_to_container` fill + 
