@@ -2119,7 +2119,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * polyself). bhitm WAN_POLYMORPH/SPE_POLYMORPH/
          * POT_POLYMORPH already live (resist / rn2(25) shock /
          * newcham). TELE is D-1468.
-         * zap_steed poly is bhitm-routed (named). */
+         * zap_steed WAN/SPE_POLYMORPH via bhitm is D-1471. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_CANCELLATION) {
         /* C spell.c :1471–1514 wand-duplicate IMMEDIATE weffects

@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1471 — zap.c zap_steed WAN/SPE_POLYMORPH via bhitm
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_steed` after D-1470 CANCELLATION still defaulted
+  WAN_POLYMORPH / SPE_POLYMORPH, so a downward polymorph wand
+  or spell while riding never hit the steed via `bhitm`
+  (`resist`/`rn2(25)`/`newcham` never ran) and never disclosed.
+  C `zap_steed` `:3115–3134` lists WAN/SPE_POLYMORPH under
+  “Default processing via `bhitm()`”: `(void) bhitm(u.usteed,
+  obj); steedhit = TRUE`. Callee `bhitm` `:263–334` (D-0952 /
+  D-1459): `resists_magm` else `!resist` NOTELL then `rn2(25)`
+  system shock or `newcham`. Caller `weffects` `:3437–3439`
+  sets `disclose` so `learnwand` + `more_experienced(0,10)`
+  still fire; SPBOOK `learnwand` is a no-op.
+- **C locus:** `zap.c` `zap_steed` `:3120–3121` (bhitm group
+  `:3115–3134`). Caller `weffects` `:3437–3439`. Callee
+  `bhitm` `:263–334` / `newcham`.
+- **JS was:** named omit. WAN_PROBING (D-1443), TELEPORT
+  (D-1455), OPENING/KNOCK (D-1463), SPE_DRAIN_LIFE (D-1464),
+  SPE_HEALING (D-1469), WAN/SPE_CANCELLATION (D-1470) arms
+  live; WAN/SPE_POLYMORPH fell through to `zap_updown`
+  default instead of `bhitm` on the mount.
+- **Fix:** WAN_POLYMORPH / SPE_POLYMORPH arm
+  `await bhitm(steed, obj)` + `steedhit = true` (same group
+  as OPENING/KNOCK/DRAIN/HEALING/CANCEL). Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_steed` / existing `bhitm`.
+- **Not this iter:** remaining `zap_steed` bhitm-routed
+  (invis / striking / slow / speed / SPE_CURE_SICKNESS);
+  `zap_map` engraving; `bhit` doorlock LOCKING/STRIKING;
+  `bhito` uchain.
+- **Verified:** private canary **22**/22 (C/JS grep; Rule #2;
+  riding-down WAN_POLYMORPH mr=0 disclose learn; SPE skip
+  makeknown; high-mr resist still disclose; cancel/opening/
+  teleport/probing/drain siblings; invis/striking/locking
+  still default; no-steed / dx / dz<0 skip); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps poly while riding
+  down.
+- **Follow-up:** Open `potion.c` `potionhit` (named from
+  D-1457). Not mixtype.
+- **Files:** `js/zap.js`; comment in `js/spell.js`.
+
 ## D-1470 — zap.c zap_steed WAN/SPE_CANCELLATION via bhitm
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1471 zap.c zap_steed WAN/SPE_POLYMORPH via bhitm
+
+**Objective:** Open `zap.c` `zap_steed` WAN_POLYMORPH/
+SPE_POLYMORPH via bhitm (named). Not CANCEL.
+**C locus:** `zap.c` `zap_steed` `:3120–3133` (bhitm group
+`:3115–3134`); callee `bhitm` `:263–334` resist/`rn2(25)`/
+`newcham`; caller `weffects` `:3437–3439`.
+**Change:** WAN/SPE_POLYMORPH arm `await bhitm(steed, obj)`
+so a downward polymorph while riding hits the steed
+instead of skipping `zap_steed`. Disclose learns (SPBOOK
+skips `makeknown`). Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps poly while riding down).
+**Verified:** private canary **22**/22; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `potionhit` (named from D-1457).
+Not mixtype.
+**Blocked:** none.
 ## 2026-08-25 — D-1470 zap.c zap_steed WAN/SPE_CANCELLATION via bhitm
 
 **Objective:** Open `zap.c` `zap_steed` WAN_CANCELLATION/

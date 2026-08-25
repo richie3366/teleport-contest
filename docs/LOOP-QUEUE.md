@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_steed` WAN_POLYMORPH/SPE_POLYMORPH via bhitm (named). Not CANCEL.
 - [ ] `potion.c` `potionhit` (named from D-1457). Not mixtype.
 - [ ] `zap.c` `zap_steed` WAN_MAKE_INVISIBLE via bhitm (named). Not POLY.
 - [ ] `zap.c` `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via bhitm (named). Not INVIS.

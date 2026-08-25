@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zap_steed` WAN_CANCELLATION/SPE_CANCELLATION via bhitm (named). Not OPENING. **Addressed:** D-1470
+- [x] `zap.c` `zap_steed` WAN_POLYMORPH/SPE_POLYMORPH via bhitm (named). Not CANCEL. **Addressed:** D-1471
+
+
+- [x] `zap.c` `zap_steed` WAN_CANCELLATION/SPE_CANCELLATION via bhitm (named). Not OPENING. **Addressed:** D-1470 `444e2080`
 
 
 - [x] `spell.c` `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING directional weffects (named). Not TELE. **Addressed:** D-1469 `245c783d`

@@ -5,13 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1470; cadence **#1850** `3605a281`
-  (Scr **11,405** RNG 100%). Next: Open `zap.c`
-  `zap_steed` WAN_POLYMORPH/SPE_POLYMORPH via bhitm
-  (named). Not CANCEL.
-  Do not skip D-1470…D-1229. No FORCE / `wildmiss` wrap /
+- **Fortress 44/44** after D-1471; cadence **#1850** `3605a281`
+  (Scr **11,405** RNG 100%). Next: Open `potion.c`
+  `potionhit` (named from D-1457). Not mixtype.
+  Do not skip D-1471…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1470. Named still: `see_monsters`
+- Do not revert D-1217–D-1471. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -22,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1470.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1471.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,9 +32,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1470 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1471 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix / potionhit /
-  potionbreathe; zap_steed bhitm-routed poly/invis/
+  potionbreathe; zap_steed bhitm-routed invis/
   striking/slow/speed;
   zap_map engraving; bhit doorlock LOCKING/STRIKING;
   bhito uchain / poly-arm boxlock; artifact invoke.
@@ -48,9 +47,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1471: `zap_steed` WAN/SPE_POLYMORPH via bhitm;
+  mr=0 disclose (bhitm resist/`newcham`); high-mr
+  resist still disclose; SPBOOK skip makeknown.
+  Invis named.
 - D-1470: `zap_steed` WAN/SPE_CANCELLATION via bhitm;
   mr=0 `mcan`; saddle stays (`self_cancel` FALSE); high-mr
-  resist still disclose; SPBOOK skip makeknown. Poly named.
+  resist still disclose; SPBOOK skip makeknown. Poly is D-1471.
 - D-1469: SPE_HEALING/SPE_EXTRA_HEALING skilled bless then
   wand-duplicate weffects bhit; bhitm healmon + extra/skilled
   mcureblindness; Pestilence resist; zap_steed via bhitm;
@@ -88,6 +91,3 @@ Objective/score live in `CURRENT.md`.
   bhit; bhitm dbldam + spell_damage_bonus; POLY is D-1459.
 - D-1457: `mixtype` / `potion_dip` potion-potion mix +
   `dodip` potion getobj; Klein/hands/H2O; unicorn dip named.
-- D-1456: `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT destroy
-  drawbridge / ceiling rock / trapdoor→HOLE; rock does not
-  disclose; LOCKING is D-1465.
