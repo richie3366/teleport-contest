@@ -59,27 +59,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1504. **Next cluster:** Open
-`dog.c` `mon_arrive` `MIGR_LEFTOVERS` DF_ALL (named). Not stolen_booty.
-**Do not skip D-1504…D-1229 (index).** Keep mention_map addr.
+**Map-driven fortress** after D-1505. **Next cluster:** Open
+`makemon.c` gnome candle `begin_burn` after `!mpickobj`
+(named). Not add_to_minv.
+**Do not skip D-1505…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1504.** Do not FORCE
+**Do not re-break D-0660…D-1505.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1504 (index). Recent: **D-1504**
-`mklev.c` minetn-7 Bazaar Town `load_special` (nested `des.room`
-30×15, `percent(75)` nests, chance shops, `pos=0` door, sink,
-temple `align[1]`, peaceful watch). `ensure_way_out` named.
-Prior: **D-1503** `mklev.c` minetn-6 Bustling Town `load_special`
-(solidfill then mines lit=1 bg HWALL, top-aligned map `'x'` skip,
-shops/temple, peaceful watch). minetn-1 is D-1490; minetn-5 is
-D-0754.
+**Keep:** D-0845…D-1505 (index). Recent: **D-1505**
+`dog.c` `mon_arrive` `MIGR_LEFTOVERS` `deliver_obj_to_mon`
+DF_ALL after xyloc, before `my=xyflags`/place. With_you
+returns first. wander/`somexy` named. stolen_booty is
+D-1363. Prior: **D-1504** `mklev.c` minetn-7 Bazaar Town
+`load_special`. `ensure_way_out` named. minetn-1 is D-1490;
+minetn-5 is D-0754; minetn-6 is D-1503.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1504
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1505
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

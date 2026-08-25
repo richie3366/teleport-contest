@@ -2239,7 +2239,7 @@ function migr_species_of(otmp) {
  * (mtmp->data->mflags2 & DELIVER_PM). No dest-level filter (unlike
  * obj_delivery). Callers: makemon.c after allow_minvent (DF_NONE,
  * cnt=1). Producer: mkobj.c mksobj_migr_to_species / mkmaze stolen_booty
- * (D-1363). Named omit: dog.c mon_arrive leftovers DF_ALL. add_to_minv merge is D-1492.
+ * (D-1363). Caller: dog.c mon_arrive MIGR_LEFTOVERS DF_ALL (D-1505).
  */
 export function deliver_obj_to_mon(mtmp, cnt, deliverflags) {
     if (!mtmp) return;

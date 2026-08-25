@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1505 — dog.c mon_arrive MIGR_LEFTOVERS DF_ALL
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** orctown leftover `MIGR_TO_SPECIES` cargo stayed on
+  `migrating_objs` when the captain arrived. C `obj_delivery`
+  skips that bit; `mon_arrive` After_you/`Wiz_arrive` drains
+  the rest with `deliver_obj_to_mon(..., DF_ALL)` so the
+  leader takes every remaining matching object. JS `makemon`
+  `DF_NONE` (D-1193) still took only one at spawn.
+- **C locus:** `dog.c` `mon_arrive` `:576–580` after the xyloc
+  switch, before wander / `my=xyflags` / `mnearto`/`rloc`.
+  Callee `dokick.c` `deliver_obj_to_mon` `:1853–1906` (D-1193).
+  Setter `mkmaze.c` `migrate_orc` ORC_LEADER (D-1363).
+  `With_you` returns before this arm.
+- **JS was:** named omit after D-1199; `mon_arrive_after_you`
+  went xyloc → `my=xyflags` → place.
+- **Fix:** same predicate and order. Import live
+  `deliver_obj_to_mon`. Do not clear `MIGR_LEFTOVERS` (C
+  does not). Rule #2: no fs.
+- **JS:** `js/dog.js` `mon_arrive_after_you`.
+- **Not this iter:** wander/`somexy`; Wiz_arrive;
+  failed_arrivals/`m_into_limbo`; kops; `MIGR_EXACT_XY`
+  Before_you; full `mnearto` yank; gnome `begin_burn`.
+- **Verified:** private canary **15**/15 (C/JS order;
+  With_you skip; DF_ALL both orc otyps; HUMAN cargo stays;
+  no-flag skip; empty list; DF_NONE remainder; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383 + seed0060 lengths.
+  **Public-unhit** until minetn-1 captain arrives.
+- **Follow-up:** Open `makemon.c` gnome candle `begin_burn`.
+- **Files:** `js/dog.js`, `js/dokick.js`, `js/mklev.js`
+  (comments).
+
 ## D-1504 — mklev.c minetn-7 load_special Bazaar Town
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

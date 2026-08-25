@@ -890,7 +890,7 @@ dokick monster recoil / `kick_object` air `hurtle` still named);
 `goto_level` FALSE after placebc / TRUE after `check_special_room`; XOR WITH_HERO; 
 `obj_extract_self` OBJ_MIGRATING; `deliver_obj_to_mon` D-1193 makemon DF_NONE; 
 **`mksobj_migr_to_species` / stolen_booty D-1363**; 
-dog leftovers / `add_to_minv` merge / minetn-1 loader still named; wizkit FALSE D-1192); 
+**`mon_arrive` MIGR_LEFTOVERS DF_ALL D-1505**; add_to_minv merge D-1492; minetn-1 D-1490; wizkit FALSE D-1192); 
 **`kick_object` + `bhit` KICKED_WEAPON** (D-0988) + 
 **`really_kick_object` snuff_candle after extract before bhit D-1325** (candles/candelabrum only, 
 not snuff_lit; throwit land D-1333; mthrowu `:942` D-1334) + 
@@ -2084,8 +2084,9 @@ next trailing exercise / seg1. **seed0367 @1946 getobj_takeoff (D-0634);
 **`makedog` pony → `put_saddle_on_mon`** (D-0212); **`initedog` `u.uconduct.pets++`** (D-0125); 
 **`keepdogs`/`losedogs`/`levl_follower`/`mon_arrive` With_you** (D-0149); 
 **`migrate_to_level` `In_W_tower` xyflags bit 2 (D-1198)**; 
-**`mon_arrive` After_you `my=xyflags` before rloc (D-1199; 
-kops/EXACT_XY Before_you/failed_arrivals/wander/leftovers/Wiz_arrive/mnearto yank still named)**; 
+**`mon_arrive` After_you `my=xyflags` before rloc (D-1199)**; 
+**`mon_arrive` After_you `MIGR_LEFTOVERS` `deliver_obj_to_mon` DF_ALL (D-1505; 
+kops/EXACT_XY Before_you/failed_arrivals/wander/somexy/Wiz_arrive/mnearto yank still named)**; 
 **`levl_follower` `M2_STALK` + flee/amulet + `mydogs` prepend** (D-0474; 
 `mon_has_amulet` iswiz / `is_fshk` deferred); 
 **pickup/drop plines use `Monnam` MGIVENNAME** (D-0095); 

@@ -959,7 +959,7 @@ function migr_booty_item(otyp, gang) {
 /**
  * C ref: mkmaze.c stolen_booty — orctown loot onto migrating_objs and
  * fleeing orcs. Caller: fixup_special when mines && ransacked.
- * Named omit: dog.c mon_arrive MIGR_LEFTOVERS DF_ALL. add_to_minv merge is D-1492.
+ * Arrival leftovers DF_ALL is D-1505. add_to_minv merge is D-1492.
  */
 export function stolen_booty() {
     const gang = rndorcname();

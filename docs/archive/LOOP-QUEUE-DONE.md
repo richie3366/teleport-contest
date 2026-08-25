@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `mklev.c` minetn-7 load_special (named). Not minetn-6. **Addressed:** D-1504
+- [x] `dog.c` `mon_arrive` `MIGR_LEFTOVERS` DF_ALL (named). Not stolen_booty. **Addressed:** D-1505
+
+
+- [x] `mklev.c` minetn-7 load_special (named). Not minetn-6. **Addressed:** D-1504 `eeb0e912`
 
 
 - [x] `mklev.c` minetn-6 load_special (named). Not minetn-1. **Addressed:** D-1503 `1f64431d`

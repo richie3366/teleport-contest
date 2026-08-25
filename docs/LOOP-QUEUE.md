@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dog.c` `mon_arrive` `MIGR_LEFTOVERS` DF_ALL (named). Not stolen_booty.
 - [ ] `makemon.c` gnome candle `begin_burn` after `!mpickobj` (named). Not add_to_minv.
 - [ ] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle.
 - [ ] `polyself.c` `body_part` aliases: `body_part_head` (mcastu.js),
