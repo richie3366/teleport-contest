@@ -335,7 +335,7 @@ milky/smoky bottles, lit-oil burn, worn-stack split, **`potion_dip` potion-potio
 (D-1457; Klein/hands/H2O/poly gate) + **`potion_dip` unicorn/amethyst mixtype dip** (D-1486) + 
 **`potion_dip` poison-coat / healing unpoison** (D-1497; `is_poisonable` missile window or 
 Grimtooth) + **`potion_dip` oil/lamp** (D-1498; lit `fire_damage` / cursed `make_glib` /
-weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill) + **`potion_dip` `poly_obj`/`obj_unpolyable`** (D-1499; unpolyable `obj_resists(5,95)` then `poly_obj(STRANGE_OBJECT)` + polypiles/`prinv`/`poof`; lichen/towel/acid-erode, `dip_into` named); **`dodip` pool yn** (D-1128; 
+weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill) + **`potion_dip` `poly_obj`/`obj_unpolyable`** (D-1499; unpolyable `obj_resists(5,95)` then `poly_obj(STRANGE_OBJECT)` + polypiles/`prinv`/`poof`; lichen/towel/acid-erode named) + **`dip_into` #altdip** (D-1500; C `:2374–2405` canned `drink_ok` then `dip_ok` GETOBJ_PROMPT; caller `iactions.c` IA_DIP_OBJ; ignores floor; INTERNALCMD `#altdip` named); **`dodip` pool yn** (D-1128; 
 `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; 
 Levitation `floating_above`; unskilled rider skip; hands/uarmg `wash_hands`; 
 else `water_damage` + POT_ACID `in_use`/`useup`; 
@@ -1531,8 +1531,8 @@ JS: `js/invent.js`, `js/iactions.js`, `js/do.js` — partial
 Corner NHW_MENU invent (D-0024); **`invent_lines`/`display_pickinv_reply` prop Blind observe** 
 (D-0928 #1186; sticky `u.Blind` missed FROMFORM molds → false dknown); 
 **`ddoinv`→`dispinv_with_action`→`itemactions` `Do what with` menu + 
-blank WIN_STATUS during itemed (D-0467; **`itemactions_pushkeys` throw/drop/apply/read/…** D-0742; 
-remaining pushkeys / full apply catalogue deferred)**; 
+blank WIN_STATUS during itemed (D-0467; **`itemactions_pushkeys` throw/drop/apply/read/…** D-0742 + **IA_DIP_OBJ `dip_into`** D-1500;
+remaining pushkeys / full apply catalogue deferred)**;
 **`display_pickinv`/`invent_lines` Hallu `obj_glyph`≡`obj_to_glyph(rn2_on_display_rng)` per item** 
 (D-0856; seed0383 Scr 209→211); **`dismiss_nhw_menu` ≡ erase_menu_or_text** (fullscreen docrt / 
 corner gbuf-flush; D-0857); **`doattributes` Status `Hallucination` + 

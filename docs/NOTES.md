@@ -5,19 +5,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1499; cadence **#1880** `8669b5b8`
+- **Fortress 44/44** after D-1500; cadence **#1880** `8669b5b8`
   (Scr **11,405** RNG 100%, `39+0.30/turn`). Next: Open
-  `potion.c` `dip_into`. Not dodip.
-  Do not skip D-1499…D-1229. No FORCE / `wildmiss` wrap /
-  trailing `confdir` in shared `getdir`.
+  `potion.c` `H2Opotion_dip` useeit `ublindf && Blindfolded_only`.
+  Not mix. Do not skip D-1500…D-1229. No FORCE / `wildmiss`
+  wrap / trailing `confdir` in shared `getdir`.
   `body_part` is `polyself.js` (wield via
   `body_part_latebound`; zap appends the existing import).
   `body_part_head` / `_hand` deferred for scope.
-- Do not revert D-1217–D-1499. Named still: `any_visible_region`;
+- Do not revert D-1217–D-1500. Named still: `any_visible_region`;
   `see_monsters` worm segs / MATCH_WARN / SPFX_WARN conferral;
   minetn-6/7 / dog leftovers;
   TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH;
-  lichen/towel/acid-erode / worn `set_wear` on poly_obj.
+  lichen/towel/acid-erode / worn `set_wear` on poly_obj;
+  H2O `useeit` ublindf.
 
 ## Don't re-check (≤15)
 
@@ -26,7 +27,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1499.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1500.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,8 +38,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1499 (index).
-- Named still: worm-shrieker; `dip_into`;
+  nhcore (D-1066). Do not skip D-1067…D-1500 (index).
+- Named still: worm-shrieker; H2O `useeit` ublindf;
   minetn-6/7 load_special; TAMING / CHARGE_OBJ /
   CREATE_PORTAL / BANISH; fruit_from_indx / options fruitadd walker.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -52,6 +53,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1500: `dip_into` `#altdip` reverse getobj (canned
+  `drink_ok` then `dip_ok` GETOBJ_PROMPT); IA_DIP_OBJ;
+  ignores floor. H2O `useeit` ublindf named. poly_obj D-1499.
 - D-1499: `potion_dip` `obj_unpolyable` then `poly_obj(STRANGE_OBJECT)`
   + polypiles/`prinv`/`poof`. Callee invent `replace_object` +
   erosion/oil/lamp polish. Worn `set_wear` named. Oil/lamp is D-1498.
@@ -87,8 +91,5 @@ Objective/score live in `CURRENT.md`.
   fruit_from_indx named. CapitalMon D-1357.
 - D-1486: `potion_dip` unicorn/amethyst mixtype.
   Poison-coat is D-1497; oil/lamp is D-1498; `poly_obj` is
-  D-1499; `dip_into` named.
+  D-1499; `dip_into` is D-1500.
 - D-1485: `zap_updown` default break into down bhitpile+zap_map.
-- D-1484: `mbhit` doorlock OPENING/LOCKING/STRIKING.
-- Review **449** Must-fix UNTRAP stub closed (D-1495 door
-  force); Staff Blinded 0/1 is D-1494.

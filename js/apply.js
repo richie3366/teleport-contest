@@ -2170,7 +2170,7 @@ function Tobjnam_grease(obj, verb) {
  * C ref: do_wear.c inaccessible_equipment predicate (no messages).
  * Worn suit under cloak, shirt under suit/cloak, ring under gloves.
  */
-function equipment_is_inaccessible(obj, only_if_known_cursed) {
+export function equipment_is_inaccessible(obj, only_if_known_cursed) {
     if (!obj || !obj.owornmask) return false;
     const u = game.u || {};
     const anycovering = !only_if_known_cursed;
@@ -2190,7 +2190,7 @@ function equipment_is_inaccessible(obj, only_if_known_cursed) {
  * C ref: do_wear.c inaccessible_equipment — messages when verb is set.
  * Named omit: shk_owns shop prefix (unpaid / floor costly).
  */
-async function inaccessible_equipment(obj, verb, only_if_known_cursed) {
+export async function inaccessible_equipment(obj, verb, only_if_known_cursed) {
     if (!equipment_is_inaccessible(obj, only_if_known_cursed)) return false;
     if (!verb) return true;
     const u = game.u || {};

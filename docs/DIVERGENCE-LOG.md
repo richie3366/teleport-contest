@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1500 — potion.c dip_into #altdip
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** inventory item-action `a` on a potion (Dip
+  something into this potion) queued nothing. C
+  `potion.c` `dip_into` `:2374–2405` is `#altdip`: reverse
+  getobj (potion first from CQ_CANNED `drink_ok`, then
+  object via `dip_ok` GETOBJ_PROMPT), ignores floor water,
+  then `potion_dip`. Caller `iactions.c` IA_DIP_OBJ
+  `:159–166` queues `dip_into` + invlet. JS showed the menu
+  line but pushkeys defaulted.
+- **C locus:** `potion.c` `dip_into` `:2374–2405`. Callees
+  `invent.c` getobj + `potion.c` `drink_ok`/`dip_ok`;
+  `do_wear.c` `inaccessible_equipment`; `potion_dip`.
+  Caller `iactions.c` `itemactions_pushkeys` IA_DIP_OBJ.
+- **JS was:** named omit — `getobj_dip_into` is dodip's
+  second prompt only; IA_DIP_OBJ fell through.
+- **JS now:** live `js/potion.js` `dip_into`; canned
+  `getobj_drink_ok("dip")` then `getobj_dip_ok`;
+  `js/iactions.js` IA_DIP_OBJ; `apply.js` exports
+  `inaccessible_equipment` (dynamic import; apply already
+  imports potion).
+- **Verify:** private canary **17**/17; green seed8000/0900
+  + strict; cohort seed1500/1800/0012/0004/0007/2200/0383
+  + strict. All PASS.
+- **Follow-up:** H2O `useeit` `ublindf && Blindfolded_only`;
+  lichen/towel/acid-erode; INTERNALCMD `#altdip`
+  autocomplete; Eyes of Overworld `is_plural`; dodip
+  `inaccessible_equipment` still named.
+
 ## D-1499 — potion.c potion_dip poly_obj / obj_unpolyable
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

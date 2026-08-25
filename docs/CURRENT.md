@@ -59,28 +59,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1499. **Next cluster:** Open
-`potion.c` `dip_into` (named). Not dodip.
-Do not skip D-1499…D-1229 (index). Keep mention_map addr.
+**Map-driven fortress** after D-1500. **Next cluster:** Open
+`potion.c` `H2Opotion_dip` useeit `ublindf && Blindfolded_only`
+(named). Not mix.
+Do not skip D-1500…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1499.** Do not FORCE
+**Do not re-break D-0660…D-1500.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1499 (index). Recent: **D-1499** `potion_dip`
-`poly_obj`/`obj_unpolyable` (unpolyable `obj_resists(5,95)`
-else polypiles + `poly_obj(STRANGE_OBJECT)` + makeknown/
-useup/`prinv` or nothing_seems/`poof`; callee invent
-`replace_object` + erosion/oil/lamp polish). Worn-slot
-`set_wear` / lichen/towel/acid-erode / `dip_into` named.
-Prior: **D-1498** `potion_dip` oil/lamp. **D-1497**
-poison-coat / healing unpoison. **D-1496** `body_part`
-clones → `polyself.js`.
+**Keep:** D-0845…D-1500 (index). Recent: **D-1500** `dip_into`
+`#altdip` (canned `drink_ok` then `dip_ok` GETOBJ_PROMPT;
+IA_DIP_OBJ; ignores floor). Worn `set_wear` / lichen/towel/
+acid-erode / H2O `useeit` ublindf named. Prior: **D-1499**
+`potion_dip` `poly_obj`/`obj_unpolyable`. **D-1498** oil/lamp.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1499
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1500
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
