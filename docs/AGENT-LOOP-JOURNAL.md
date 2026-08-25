@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1459 spell.c SPE_POLYMORPH IMMEDIATE wand-duplicate
+
+**Objective:** Open `zap.c` `weffects` SPE_POLYMORPH IMMEDIATE
+wand-duplicate (named). Not CANCELLATION.
+**C locus:** `spell.c` `spelleffects` `:1469–1514`; callee
+`zap.c` `weffects` `:3440–3451`; `bhitm` `:263–334`;
+`zapyourself` `:2804–2810`.
+**Change:** Wire SPE_POLYMORPH through `wand_duplicate_weffects`
+→ IMMEDIATE `bhit`. Callees already live (resist/newcham;
+self-dir !Unchanging polyself D-0156). CANCEL named. Rule #2:
+no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session casts polymorph).
+**Verified:** private canary **19**/19; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `weffects` SPE_CANCELLATION IMMEDIATE
+wand-duplicate (named). Not STONE.
+**Blocked:** none.
 ## 2026-08-25 — review D-1450–D-1458 (audit #1840)
 
 **Objective:** audit — C-fidelity reviews **410–418** of JS SHAs

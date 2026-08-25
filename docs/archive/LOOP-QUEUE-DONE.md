@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
+- [x] `zap.c` `weffects` SPE_POLYMORPH IMMEDIATE wand-duplicate (named). Not CANCELLATION. **Addressed:** D-1459
+
+
 - [x] `zap.c` `weffects` SPE_TURN_UNDEAD IMMEDIATE wand-duplicate (named). Not POLYMORPH. **Addressed:** D-1458 `01edf8b9`
 
 

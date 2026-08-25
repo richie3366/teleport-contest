@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1458; cadence **#1840** `01edf8b9`
+- **Fortress 44/44** after D-1459; cadence **#1840** `01edf8b9`
   (Scr **11,405** RNG 100%). Next: Open `zap.c` `weffects`
-  SPE_POLYMORPH IMMEDIATE wand-duplicate (named). Not
-  CANCELLATION.
-  Do not skip D-1458…D-1229. No FORCE / `wildmiss` wrap /
+  SPE_CANCELLATION IMMEDIATE wand-duplicate (named). Not
+  STONE.
+  Do not skip D-1459…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1458. Named still: `see_monsters`
+- Do not revert D-1217–D-1459. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1458.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1459.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,9 +33,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1458 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1459 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix / potionhit /
-  potionbreathe; wand-duplicate IMMEDIATE POLY/CANCEL/STONE;
+  potionbreathe; wand-duplicate IMMEDIATE CANCEL/STONE/TELE;
   zap_steed bhitm-routed; zap_updown LOCKING/STONE; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -46,8 +46,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1459: SPE_POLYMORPH IMMEDIATE wand-duplicate → weffects
+  bhit; bhitm resist/newcham; self-dir !Unchanging polyself.
+  CANCEL named.
 - D-1458: SPE_TURN_UNDEAD IMMEDIATE wand-duplicate → weffects
-  bhit; bhitm dbldam + spell_damage_bonus; POLY named.
+  bhit; bhitm dbldam + spell_damage_bonus; POLY is D-1459.
 - D-1457: `mixtype` / `potion_dip` potion-potion mix +
   `dodip` potion getobj; Klein/hands/H2O; unicorn dip named.
 - D-1456: `zap_updown` WAN_STRIKING/SPE_FORCE_BOLT destroy
@@ -68,5 +71,3 @@ Objective/score live in `CURRENT.md`.
   `mhitm_really_poison` vis / resist / rn1(10,6)+deadly.
 - D-1446: `zapyourself` SPE_DRAIN `!Drain_resistance` + losexp.
 - D-1445: `bhito` WAN_PROBING observe + cinventory / tin / egg.
-- D-1444: `zap_updown` WAN_PROBING ceiling/beneath + bhitpile +
-  zap_map + binventory; always disclose.

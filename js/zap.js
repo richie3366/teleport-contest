@@ -33,6 +33,8 @@
 // C spell.c :1472 / zap.c :3461–3462);
 // SPE_TURN_UNDEAD IMMEDIATE wand-duplicate weffects bhit (D-1458;
 // C spell.c :1468 / zap.c :3440–3451);
+// SPE_POLYMORPH IMMEDIATE wand-duplicate weffects bhit (D-1459;
+// C spell.c :1469 / zap.c :3440–3451);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
@@ -90,8 +92,9 @@
 // wand-duplicate weffects is D-1450; SPE_SLOW_MONSTER
 // IMMEDIATE wand-duplicate weffects is D-1451; SPE_WIZARD_LOCK
 // IMMEDIATE wand-duplicate weffects is D-1452; SPE_TURN_UNDEAD
-// IMMEDIATE wand-duplicate weffects is D-1458; remaining
-// IMMEDIATE wand-duplicate POLY/CANCEL/STONE/TELE;
+// IMMEDIATE wand-duplicate weffects is D-1458; SPE_POLYMORPH
+// IMMEDIATE wand-duplicate weffects is D-1459; remaining
+// IMMEDIATE wand-duplicate CANCEL/STONE/TELE;
 // potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
@@ -2505,7 +2508,9 @@ export async function do_enlightenment_effect() {
  * (D-1452; bhitm D-1425; zapyourself D-1434).
  * SPE_TURN_UNDEAD IMMEDIATE wand-duplicate weffects bhit
  * (D-1458; bhitm/zapyourself unturn D-0955).
- * Named omit: remaining wand-duplicate IMMEDIATE (POLY/…).
+ * SPE_POLYMORPH IMMEDIATE wand-duplicate weffects bhit
+ * (D-1459; bhitm WAN/SPE/POT poly live; zapyourself D-0156).
+ * Named omit: remaining wand-duplicate IMMEDIATE (CANCEL/…).
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -3612,6 +3617,7 @@ export async function bhitm(mtmp, otmp) {
         // SPE_TURN_UNDEAD spell_damage_bonus; bypasses then
         // !resist NOTELL then monflee if still alive.
         // SPE_TURN_UNDEAD wand-duplicate weffects is D-1458.
+        // SPE_POLYMORPH wand-duplicate weffects is D-1459.
         wake = false;
         if (await unturn_dead(mtmp)) wake = true;
         if (is_undead(mtmp.data) || is_vampshifter(mtmp)) {
@@ -3636,6 +3642,8 @@ export async function bhitm(mtmp, otmp) {
     case WAN_POLYMORPH:
     case SPE_POLYMORPH:
     case POT_POLYMORPH: {
+        // C zap.c bhitm :263–334. SPE_POLYMORPH wand-duplicate
+        // weffects is D-1459. long-worm mcorpsenm skip named.
         if (mtmp.data === mons(PM_LONG_WORM)
             || (mtmp.data?.mndx | 0) === PM_LONG_WORM) {
             // long-worm mcorpsenm skip deferred — still allow first hit
@@ -4074,7 +4082,9 @@ export async function zapyourself(obj, ordinary) {
 
     case WAN_POLYMORPH:
     case SPE_POLYMORPH: {
-        // C: zap.c zapyourself — !Unchanging → learn + polyself(POLY_NOFLAGS)
+        // C: zap.c zapyourself :2804–2810 — !Unchanging →
+        // learn + polyself(POLY_NOFLAGS). SPE_POLYMORPH
+        // wand-duplicate weffects is D-1459.
         const u = game.u || {};
         const up = u.uprops?.[UNCHANGING];
         const unchanging = !!(u.Unchanging || u.HUnchanging || u.EUnchanging
@@ -5364,6 +5374,8 @@ async function zap_steed(obj) {
  * zapyourself D-1434).
  * SPE_TURN_UNDEAD IMMEDIATE bhit (D-1458; bhitm unturn_dead
  * + undead dmg D-0955; zapyourself unturn_you D-0955).
+ * SPE_POLYMORPH IMMEDIATE bhit (D-1459; bhitm WAN/SPE/POT
+ * poly live; zapyourself !Unchanging polyself D-0156).
  * zap_steed WAN_PROBING (D-1443); zap_steed WAN_TELEPORTATION /
  * SPE_TELEPORT_AWAY (D-1455); zap_updown WAN_PROBING (D-1444);
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown
