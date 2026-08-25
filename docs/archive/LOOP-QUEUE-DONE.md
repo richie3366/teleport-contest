@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `spell.c` `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING directional weffects (named). Not TELE. **Addressed:** D-1469
+- [x] `zap.c` `zap_steed` WAN_CANCELLATION/SPE_CANCELLATION via bhitm (named). Not OPENING. **Addressed:** D-1470
+
+
+- [x] `spell.c` `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING directional weffects (named). Not TELE. **Addressed:** D-1469 `245c783d`
 
 
 - [x] `spell.c` `spelleffects` SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate weffects (named). Not STONE. **Addressed:** D-1468 `3b4c39e2`

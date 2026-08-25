@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1470 zap.c zap_steed WAN/SPE_CANCELLATION via bhitm
+
+**Objective:** Open `zap.c` `zap_steed` WAN_CANCELLATION/
+SPE_CANCELLATION via bhitm (named). Not OPENING.
+**C locus:** `zap.c` `zap_steed` `:3118–3133` (bhitm group
+`:3115–3134`); callee `bhitm` `:335–340` `cancel_monst`
+invent=FALSE; caller `weffects` `:3437–3439`.
+**Change:** WAN/SPE_CANCELLATION arm `await bhitm(steed, obj)`
+so a downward cancel while riding hits the steed (`mcan`)
+instead of skipping `zap_steed`. Saddle stays. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps cancel while riding down).
+**Verified:** private canary **21**/21; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_steed` WAN_POLYMORPH/SPE_POLYMORPH
+via bhitm (named). Not CANCEL.
+**Blocked:** none.
 ## 2026-08-25 — D-1469 spell.c SPE_HEALING/SPE_EXTRA_HEALING directional weffects
 
 **Objective:** Open `spell.c` `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING

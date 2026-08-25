@@ -2128,7 +2128,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Self-dir zapyourself already cancel_monst(&youmonst,
          * TRUE, TRUE, TRUE). bhitm WAN/SPE_CANCELLATION already
          * cancel_monst(mtmp, TRUE, TRUE, FALSE). TELE is D-1468.
-         * zap_steed cancel is bhitm-routed (named). */
+         * zap_steed WAN/SPE_CANCELLATION via bhitm is D-1470. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_STONE_TO_FLESH) {
         /* C spell.c :1478–1514 wand-duplicate IMMEDIATE weffects

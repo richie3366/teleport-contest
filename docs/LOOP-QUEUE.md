@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_steed` WAN_CANCELLATION/SPE_CANCELLATION via bhitm (named). Not OPENING.
 - [ ] `zap.c` `zap_steed` WAN_POLYMORPH/SPE_POLYMORPH via bhitm (named). Not CANCEL.
 - [ ] `potion.c` `potionhit` (named from D-1457). Not mixtype.
 - [ ] `zap.c` `zap_steed` WAN_MAKE_INVISIBLE via bhitm (named). Not POLY.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK (named). Not OPENING.
 - [ ] `zap.c` `zap_map` engraving/cancel trap (named). Not probing.
 - [ ] `potion.c` `potionbreathe` remaining otyps (named). Not potionhit.
+- [ ] `zap.c` `zap_steed` WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm (named). Not STRIKING.
+- [ ] `zap.c` `zap_steed` WAN_SPEED_MONSTER via bhitm (named). Not SLOW.
+- [ ] `zap.c` `zap_steed` SPE_CURE_SICKNESS via bhitm (named). Not SPEED.
+- [ ] `zap.c` `bhito` uchain unpunish WAN_OPENING (named). Not boxlock.
+- [ ] `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT (named). Not LOCKING.
 
 ## Parked (do not pop)
 
