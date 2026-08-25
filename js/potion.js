@@ -19,6 +19,7 @@
 //         peffect_hallucination (D-1439),
 //         mixtype / potion_dip potion-potion mix (D-1457),
 //         potion_dip unicorn/amethyst mixtype dip (D-1486),
+//         potion_dip poison-coat / healing unpoison (D-1497),
 //         potionhit remaining otyp switch + shop unpaid (D-1472),
 //         potionbreathe remaining otyps (D-1477),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
@@ -87,8 +88,8 @@ import {
     map_invisible,
 } from './display.js';
 import {
-    POTION_CLASS, SPBOOK_CLASS, COIN_CLASS, ARMOR_CLASS, objectNames,
-    objectDescrs,
+    POTION_CLASS, SPBOOK_CLASS, COIN_CLASS, ARMOR_CLASS, WEAPON_CLASS,
+    objectNames, objectDescrs,
 } from './objects.js';
 import {
     weight, obj_extract_self, bless, curse, unbless, uncurse,
@@ -105,7 +106,7 @@ import {
 import { yn_function } from './getline.js';
 import {
     doname, xname, short_oname, thesimpleoname, simpleonames, makeplural,
-    The, vtense, an, cxname, yname,
+    The, the, vtense, an, cxname, yname,
 } from './objnam.js';
 import {
     dipfountain, drinkfountain, drinksink, dipsink,
@@ -128,6 +129,7 @@ import {
     M_SEEN_SLEEP, FIXED_ABIL, ANTIMAGIC, SHOPBASE, STRAT_WAITFORU,
     M_AP_FURNITURE, M_AP_OBJECT, BURNING_OIL, LOST_EXPLODING, EXPL_FIERY,
     MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS, COST_NUTRLZ,
+    P_SHURIKEN, P_BOW,
 } from './const.js';
 import { hands_obj, P_SKILL } from './weapon.js';
 import { rn2, rnd, d, rn1, rnl } from './rng.js';
@@ -161,6 +163,7 @@ import {
 import { you_were, you_unwere, set_ulycn, new_were } from './were.js';
 import { which_armor, mon_set_minvis } from './worn.js';
 import { polyself, body_part } from './polyself.js';
+import { is_art, ART_GRIMTOOTH } from './artifact.js';
 
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const POT_ACID = objectNames.indexOf('POT_ACID');
@@ -1117,8 +1120,8 @@ async function peffect_extra_healing(otmp) {
  * You_feel completely healed; healup(400, 4+4*bcsign, !cursed, TRUE);
  * blessed + ulevel < ulevelmax → ulevelmax-- then pluslvl(FALSE);
  * clear hallu; exercise STR then CON; wounded legs: blessed always
- * (steed too), uncursed iff !usteed. potionhit / potionbreathe /
- * dip poison-coat still named.
+ * (steed too), uncursed iff !usteed. potionhit / potionbreathe named.
+ * Dip poison-coat / healing unpoison is D-1497.
  */
 async function peffect_full_healing(otmp) {
     await You_feel('completely healed.');
@@ -2902,10 +2905,31 @@ async function hold_potion(potobj, drop_fmt, drop_arg, hold_msg) {
 }
 
 /**
+ * C artifact.c permapoisoned `:2837–2840` — currently only Grimtooth.
+ * Local clone: mhitm.js is a cycle with potionhit.
+ */
+function permapoisoned_dip(obj) {
+    return !!(obj && is_art(obj, ART_GRIMTOOTH));
+}
+
+/**
+ * C obj.h is_poisonable — WEAPON_CLASS missile skill window
+ * (`-P_SHURIKEN`..`-P_BOW`) or permapoisoned. Local: mkobj.js
+ * `is_poisonable` is the mkobj named-missile subset (RNG).
+ */
+function is_poisonable_dip(obj) {
+    const sk = game.objects?.[obj.otyp]?.oc_skill ?? 0;
+    return ((obj.oclass | 0) === WEAPON_CLASS
+        && sk >= -P_SHURIKEN && sk <= -P_BOW)
+        || permapoisoned_dip(obj);
+}
+
+/**
  * C potion.c potion_dip `:2441–2791` — after dodip/dip_into choose.
  * Envelope: Klein bottle, hands, H2Opotion_dip, poly gate, potion-potion
- * mixtype (D-1457), unicorn/amethyst mixtype dip (D-1486). Named:
- * poly_obj, lichen/acid, towel, poison-coat, oil/lamp, dip_into.
+ * mixtype (D-1457), poison-coat / healing unpoison (D-1497),
+ * unicorn/amethyst mixtype dip (D-1486). Named: poly_obj, lichen/acid,
+ * towel, acid-erode, oil/lamp, dip_into.
  */
 async function potion_dip(obj, potion) {
     if (potion === obj && (potion.quan | 0) === 1) {
@@ -3001,7 +3025,33 @@ async function potion_dip(obj, potion) {
         return ECMD_TIME;
     }
 
-    // lichen/acid corpse, towel soak, poison-coat, acid-erode, oil/lamp named
+    // lichen/acid corpse, towel soak named
+    // C potion.c potion_dip `:2615–2636` — sickness coats is_poisonable;
+    // healing / extra / full healing strips !permapoisoned coating.
+    if (is_poisonable_dip(obj)) {
+        if ((potion.otyp | 0) === POT_SICKNESS && !obj.opoisoned) {
+            let buf;
+            if ((potion.quan | 0) > 1) {
+                buf = `One of ${the(xname(potion))}`;
+            } else {
+                buf = The(xname(potion));
+            }
+            await pline(`${buf} forms a coating on ${the(xname(obj))}.`);
+            obj.opoisoned = 1; /* C TRUE */
+            await poof(potion);
+            return ECMD_TIME;
+        } else if (obj.opoisoned && !permapoisoned_dip(obj)
+            && ((potion.otyp | 0) === POT_HEALING
+                || (potion.otyp | 0) === POT_EXTRA_HEALING
+                || (potion.otyp | 0) === POT_FULL_HEALING)) {
+            await pline(`A coating wears off ${the(xname(obj))}.`);
+            obj.opoisoned = 0;
+            await poof(potion);
+            return ECMD_TIME;
+        }
+    }
+
+    // acid-erode, oil/lamp named
     potion.in_use = false; /* didn't go poof */
     // C potion.c potion_dip `:2726–2787` — unicorn horn / amethyst mixtype
     if ((obj.otyp | 0) === UNICORN_HORN || (obj.otyp | 0) === AMETHYST) {

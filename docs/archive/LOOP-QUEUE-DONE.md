@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `artifact.c` `invoke_untrap` is on the live cost+switch list while `trap.js` `untrap` always returns 0 (`void force`; door/floor disarm deferred). Either port C `untrap(TRUE,0,0,NULL)` success (`:1838–1845`) or keep UNTRAP named (no cost) until the callee can return true. Source: reviews/loop-unattended/449-00d5d4d6-arti-invoke-remaining.md **Addressed:** D-1495
+- [x] `potion.c` `potion_dip` poison-coat / healing unpoison (named). Not unicorn mix. **Addressed:** D-1497
+
+
+- [x] `artifact.c` `invoke_untrap` is on the live cost+switch list while `trap.js` `untrap` always returns 0 (`void force`; door/floor disarm deferred). Either port C `untrap(TRUE,0,0,NULL)` success (`:1838–1845`) or keep UNTRAP named (no cost) until the callee can return true. Source: reviews/loop-unattended/449-00d5d4d6-arti-invoke-remaining.md **Addressed:** D-1495 `4722df06`
 
 
 - [x] `artifact.c` `invoke_healing` first `You_feel("better.")` gate must use C `Blinded` as 0/1 (`HBlinded && !BBlinded`, `youprop.h:92`) vs `ucreamed`, not the full `HBlinded` word (`artifact.c :1787`). Keep the second `BlindedTimeout` gate. Not ENERGY. Source: reviews/loop-unattended/449-00d5d4d6-arti-invoke-remaining.md **Addressed:** D-1494 `27a1f4b6`

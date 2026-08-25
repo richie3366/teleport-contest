@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1497 — potion.c potion_dip poison-coat / healing unpoison
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `#dip` of a sickness potion onto a poisonable
+  missile always printed Interesting... C `potion.c`
+  `potion_dip` `:2615–2636` after mix: `is_poisonable`
+  (`obj.h` WEAPON_CLASS `-P_SHURIKEN`..`-P_BOW` or
+  `permapoisoned`) then POT_SICKNESS `!opoisoned` coats
+  (`TRUE` + `poof`) else opoisoned `!permapoisoned` +
+  healing/extra/full healing strips coating (`opoisoned=0`
+  + `poof`). Callee `poof` already live. Unicorn mix is
+  D-1486 (after `in_use=FALSE`).
+- **C locus:** `potion.c` `potion_dip` `:2615–2636`. Caller
+  `dodip` `:2371`. Macro `obj.h` `is_poisonable`; callee
+  `artifact.c` `permapoisoned` `:2837–2840` (Grimtooth);
+  `poof`.
+- **JS was:** named omit after D-1486 — mix/`in_use=FALSE`
+  then unicorn skipped the coat/unpoison arms.
+- **Fix:** Port the coat/unpoison arms before `in_use=FALSE`.
+  Local `is_poisonable_dip` / `permapoisoned_dip` clones
+  (mkobj `is_poisonable` is the mkobj missile-name RNG
+  subset; mhitm `permapoisoned` is unexported). Rule #2:
+  no fs.
+- **JS:** `js/potion.js` `potion_dip`.
+- **Not this iter:** oil/lamp; acid-erode; lichen/towel;
+  `poly_obj`/`obj_unpolyable`; `dip_into`; H2O `useeit`
+  ublindf disjunct.
+- **Verified:** private canary **19**/19 (C/JS grep; Rule #2;
+  dart/arrow/shuriken coat; quan>1 One of; already-poisoned
+  sickness Interesting; healing/extra/full unpoison; clean
+  dart+heal Interesting; long sword skip; Grimtooth
+  permapoisoned skip unpoison / still coat; unicorn juice
+  regression; same-otyp Interesting); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session #dips a missile in
+  sickness or healing.
+- **Follow-up:** Open `potion.c` `potion_dip` oil/lamp.
+- **Files:** `js/potion.js`.
+
 ## D-1496 — polyself.c body_part / mbodypart
 
 - **Status:** fixed (map-driven human density cluster; not a

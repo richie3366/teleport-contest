@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1496; cadence **#1880** `8669b5b8`
+- **Fortress 44/44** after D-1497; cadence **#1880** `8669b5b8`
   (Scr **11,405** RNG 100%, `39+0.30/turn`). Next: Open
-  `potion.c` `potion_dip` poison-coat / healing unpoison.
-  Not unicorn mix. Do not skip D-1496…D-1229.
-  No FORCE / `wildmiss` wrap / trailing `confdir` in shared
-  `getdir`. `body_part` is `polyself.js` (wield via
+  `potion.c` `potion_dip` oil/lamp. Not poison-coat.
+  Do not skip D-1497…D-1229. No FORCE / `wildmiss` wrap /
+  trailing `confdir` in shared `getdir`.
+  `body_part` is `polyself.js` (wield via
   `body_part_latebound`; zap appends the existing import).
   `body_part_head` / `_hand` deferred for scope.
-- Do not revert D-1217–D-1496. Named still: `any_visible_region`;
+- Do not revert D-1217–D-1497. Named still: `any_visible_region`;
   `see_monsters` worm segs / MATCH_WARN / SPFX_WARN conferral;
   minetn-6/7 / dog leftovers;
   TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH.
@@ -25,7 +25,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1496.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1497.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -36,8 +36,8 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1496 (index).
-- Named still: worm-shrieker; potion_dip poison-coat / oil/lamp;
+  nhcore (D-1066). Do not skip D-1067…D-1497 (index).
+- Named still: worm-shrieker; potion_dip oil/lamp;
   minetn-6/7 load_special; TAMING / CHARGE_OBJ /
   CREATE_PORTAL / BANISH; fruit_from_indx / options fruitadd walker.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -51,6 +51,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1497: `potion_dip` sickness coats `is_poisonable`
+  (`-P_SHURIKEN`..`-P_BOW` or Grimtooth); healing/extra/full
+  strip `!permapoisoned`. Local clone — do not change mkobj
+  named-missile RNG `is_poisonable`. oil/lamp / `poly_obj` named.
+  Unicorn mix is D-1486.
 - D-1496: `body_part` clones → `polyself.js`; trap `mbodypart(mon)`;
   zap appends existing import. wield `body_part_latebound`.
   `body_part_head` / `_hand` named.
@@ -73,10 +78,9 @@ Objective/score live in `CURRENT.md`.
 - D-1487: `the()` fruit_from_name + artifact_name.
   fruit_from_indx named. CapitalMon D-1357.
 - D-1486: `potion_dip` unicorn/amethyst mixtype.
-  Poison-coat / oil/lamp / `poly_obj` / `dip_into` named.
+  Poison-coat is D-1497; oil/lamp / `poly_obj` / `dip_into` named.
 - D-1485: `zap_updown` default break into down bhitpile+zap_map.
 - D-1484: `mbhit` doorlock OPENING/LOCKING/STRIKING.
 - D-1483: `bhito` poly-arm boxlock `reset_pick`. Boxlock D-1467.
-- D-1482: `bhit` doorlock STRIKING/FORCE. LOCKING D-1475.
 - Review **449** Must-fix UNTRAP stub closed (D-1495 door
   force); Staff Blinded 0/1 is D-1494.

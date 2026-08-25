@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1497 potion.c potion_dip poison-coat / unpoison
+
+**Objective:** Open `potion.c` `potion_dip` poison-coat /
+healing unpoison (named). Not unicorn mix.
+**C locus:** `potion.c` `potion_dip` `:2615–2636`. Macro
+`obj.h` `is_poisonable`; callee `permapoisoned` /
+`poof`. Caller `dodip`.
+**Change:** After mix, sickness coats `is_poisonable`
+`!opoisoned`; healing/extra/full strip `!permapoisoned`.
+Local skill-window clone (mkobj named-missile RNG subset
+untouched). oil/lamp / `poly_obj` named. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit #dip coat).
+**Verified:** private canary **19**/19; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `potion_dip` oil/lamp (named).
+Not poison-coat.
+**Blocked:** none.
 ## 2026-08-25 — D-1495 trap.c untrap door force + has_magic_key
 
 **Objective:** Must-fix `artifact.c` `invoke_untrap` vs stub

@@ -315,7 +315,7 @@ else already Hallucination `potion_nothing++` then still
 blessed `!rn2(3)` else `!cursed && !rn2(6)` MAGIC enlightenment; 
 callee `make_hallucinated` + `invent.js` `enlightenment`; potionhit/potionbreathe named); 
 **`peffect_full_healing`** healup 400/`4+4*bcsign` + blessed `ulevelmax--`/`pluslvl(FALSE)` + 
-hallu + STR then CON + wounded legs (D-1411; potionhit/potionbreathe/dip poison-coat still named); 
+hallu + STR then CON + wounded legs (D-1411; potionhit/potionbreathe named; dip poison-coat D-1497); 
 **`peffect_enlightenment`** cursed `potion_unkn`+uneasy+`exercise(WIS,FALSE)` else blessed 
 `adjattrib` INT then WIS then `do_enlightenment_effect` (D-1413; artifact invoke still named)); 
 **`POT_SICKNESS`/`peffect_sickness`** blessed stale-fruit + uncursed attr/HP (D-0680; 
@@ -332,8 +332,9 @@ drink_ok_extra "else " deferred); omit other `peffect_*` (gain ability/hallucina
 drink underwater, **`djinni_from_bottle`** BUC chance + `mongrantswish`/tame/peace/vanish/hostile + 
 MAGIC_LAMP `#rub` wire (D-1144; dodrink smoky occupant chance still named); 
 milky/smoky bottles, lit-oil burn, worn-stack split, **`potion_dip` potion-potion `mixtype`** 
-(D-1457; Klein/hands/H2O/poly gate) + **`potion_dip` unicorn/amethyst mixtype dip** (D-1486; 
-poison-coat, oil/lamp, poly_obj, `dip_into` named); **`dodip` pool yn** (D-1128; 
+(D-1457; Klein/hands/H2O/poly gate) + **`potion_dip` unicorn/amethyst mixtype dip** (D-1486) + 
+**`potion_dip` poison-coat / healing unpoison** (D-1497; `is_poisonable` missile window or 
+Grimtooth; oil/lamp, poly_obj, lichen/towel/acid-erode, `dip_into` named); **`dodip` pool yn** (D-1128; 
 `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; 
 Levitation `floating_above`; unskilled rider skip; hands/uarmg `wash_hands`; 
 else `water_damage` + POT_ACID `in_use`/`useup`; 

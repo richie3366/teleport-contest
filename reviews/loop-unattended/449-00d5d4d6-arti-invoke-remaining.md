@@ -105,7 +105,7 @@ Journal: private canary **18**/18 (enum; HEALING 50→75; ENERGY 0→20 / full s
 
 2. `artifact.c` `invoke_untrap` is on the live cost+switch list while `trap.c` `untrap` always returns 0 (force ignored; door/floor disarm deferred). Either port the C `untrap(TRUE,0,0,NULL)` success path (`:1838–1845`) or keep UNTRAP named (no cost) until that callee can return true. Do not stamp “Match C Master Key.”
 
-**Addressed:** D-1495
+**Addressed:** D-1495 `4722df06`
 
 Named omits (map / Open, not Must-fix):
 
@@ -124,4 +124,4 @@ Verdict: **QUALITY-RISK**
 
 **Addressed:** D-1494 `27a1f4b6`
 
-**Addressed:** D-1495
+**Addressed:** D-1495 `4722df06`
