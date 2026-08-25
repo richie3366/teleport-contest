@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_steed` WAN_OPENING/SPE_KNOCK via bhitm (named). Not teleport.
 - [ ] `zap.c` `zap_steed` SPE_DRAIN_LIFE via bhitm (named). Not OPENING.
 - [ ] `zap.c` `zap_updown` WAN_LOCKING/SPE_WIZARD_LOCK (named). Not STRIKING.
 - [ ] `zap.c` `zap_updown` WAN_STONE_TO_FLESH (named). Not LOCKING.

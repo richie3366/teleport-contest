@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1463 zap.c zap_steed WAN_OPENING/SPE_KNOCK via bhitm
+
+**Objective:** Open `zap.c` `zap_steed` WAN_OPENING/SPE_KNOCK
+via bhitm (named). Not teleport.
+**C locus:** `zap.c` `zap_steed` `:3115–3134`; callee
+`bhitm` `:383–432` (D-0981 saddle/`mhurtle`); caller
+`weffects` `:3437–3439`.
+**Change:** Route riding-down OPENING/KNOCK through `bhitm`
+so a saddle can fall off and knock can stun; disclose still
+learns. Drain/cancel/poly named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps opening/knock while riding down).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_steed` SPE_DRAIN_LIFE via
+bhitm (named). Not OPENING.
+**Blocked:** none.
 ## 2026-08-25 — D-1462 zap.c bhit doorlock WAN_OPENING/SPE_KNOCK
 
 **Objective:** Open `zap.c` `bhit` doorlock WAN_OPENING/SPE_KNOCK

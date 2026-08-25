@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1463 — zap.c zap_steed WAN_OPENING/SPE_KNOCK via bhitm
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_steed` after D-1455 teleport still defaulted
+  WAN_OPENING / SPE_KNOCK, so a downward opening wand or knock
+  spell while riding never hit the steed via `bhitm` (saddle
+  stay on; no knock-back) and never disclosed. C `zap_steed`
+  `:3115–3134` lists those otyps under “Default processing via
+  `bhitm()`”: `(void) bhitm(u.usteed, obj); steedhit = TRUE`.
+  Callee `bhitm` `:383–432` (D-0981): traps first, then SPE_KNOCK
+  `mhurtle` / “doesn't budge” else WAN_OPENING saddle
+  `mdrop_obj`. Caller `weffects` `:3437–3439` sets `disclose`
+  so `learnwand` + `more_experienced(0,10)` still fire even
+  when `bhitm` leaves `learn_it` false (bare saddle-less hit).
+- **C locus:** `zap.c` `zap_steed` `:3115–3134`. Caller
+  `weffects` `:3437–3439`. Callee `bhitm` `:383–432`.
+- **JS was:** named omit. WAN_PROBING (D-1443) and TELEPORT
+  (D-1455) arms live; OPENING/KNOCK fell through to
+  `zap_updown` (D-1454) instead of `bhitm` on the mount.
+- **Fix:** WAN_OPENING/SPE_KNOCK arm `await bhitm(steed, obj)`
+  + `steedhit = true`. Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_steed` / existing `bhitm`.
+- **Not this iter:** remaining `zap_steed` bhitm-routed
+  (drain / cancel / poly / invis / striking / slow / speed /
+  heal); `zap_updown` LOCKING/STONE; `bhito` boxlock;
+  `mdrop_obj` `update_mon_extrinsics` saddle-throw rider.
+- **Verified:** private canary **18**/18 (C/JS grep; Rule #2;
+  riding-down wand drops saddle + disclose learn+XP; bare
+  steed still disclose; SPE knock-back/stun + SPBOOK skip
+  makeknown; teleport/probing siblings; drain/cancel/locking
+  still default; no-steed / dx / dz<0 skip); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps opening/knock while
+  riding down.
+- **Follow-up:** Open `zap.c` `zap_steed` SPE_DRAIN_LIFE via
+  bhitm (named). Not OPENING.
+- **Files:** `js/zap.js`.
+
 ## D-1462 — zap.c bhit doorlock WAN_OPENING/SPE_KNOCK
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
