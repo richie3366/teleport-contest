@@ -26,6 +26,8 @@
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
+// zapyourself WAN_LOCKING/SPE_WIZARD_LOCK closeholdingtrap +
+// boxlock_invent (D-1434);
 // bhitm WAN_MAKE_INVISIBLE mon_set_minvis + knowninvisible (D-1414);
 // knowninvisible See_invisible/Detect_monsters ≡ uprops (D-1423);
 // bhitm WAN_SPEED_MONSTER mon_adjust_speed + check_gear_next_turn (D-1422);
@@ -43,8 +45,9 @@
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_updown/uswallow full; zapyourself WAN_PROBING /
-// zap_steed probe_monster / bhito WAN_PROBING
+// SPE_DRAIN_LIFE / zap_steed probe_monster / bhito WAN_PROBING
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
+// zapyourself WAN_LOCKING is D-1434;
 // bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
 // bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
 // bhitm WAN_PROBING is D-1426);
@@ -70,6 +73,7 @@
 // flash_hits WAN_LIGHT bhitm (D-0979); openholding/openfalling +
 // Punished/boxlock_invent/SPE_KNOCK hurtle/saddle (D-0981);
 // closeholdingtrap bhitm WAN_LOCKING (D-1425);
+// zapyourself WAN_LOCKING boxlock_invent (D-1434);
 // probe_monster bhitm WAN_PROBING (D-1426);
 // montraits/omonst/ghost recorporealize (D-0982);
 // trap_ice_effects; Underwater/utrap lava arms.
@@ -3279,6 +3283,7 @@ async function miss_msg(str, mtmp) {
  * that_is_a_mimic MIM_REVEAL pline (box_or_door+seemimic wired);
  * zap_updown/zap_steed WAN_MAKE_INVISIBLE / WAN_PROBING;
  * zapyourself WAN_PROBING; bhito WAN_PROBING; worm see_wsegs.
+ * zapyourself WAN_LOCKING is D-1434.
  * SPE_FORCE_BOLT spell_damage_bonus is D-1388.
  * @returns {Promise<number>} 0 (non-stopping for bhit range)
  */
@@ -3455,8 +3460,9 @@ export async function bhitm(mtmp, otmp) {
         // C zap.c bhitm :370–375 — box_or_door mimic then
         // wake = closeholdingtrap(mtmp, &learn_it). that_is_a_mimic
         // (MIM_REVEAL) named; seemimic is the C comment. Callee
-        // trap.c :6210–6247. zapyourself / zap_updown still named.
+        // trap.c :6210–6247. zap_updown still named.
         // zap_steed does not route locking to bhitm.
+        // zapyourself WAN_LOCKING is D-1434.
         if (disguised_mimic && box_or_door(mtmp)) seemimic(mtmp);
         const closed = await closeholdingtrap(mtmp);
         if (closed.noticed) learn_it = true;
@@ -3705,6 +3711,8 @@ export function spell_damage_bonus(dmgIn) {
  * WAN_MAKE_INVISIBLE (D-1369);
  * WAN_SPEED_MONSTER speed_up (D-1410);
  * WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
+ * WAN_LOCKING/SPE_WIZARD_LOCK closeholdingtrap + boxlock_invent
+ * (D-1434);
  * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
@@ -3995,13 +4003,38 @@ export async function zapyourself(obj, ordinary) {
     case SPE_SLOW_MONSTER: {
         // C zap.c zapyourself :2868–2874 — HFast&(TIMEOUT|INTRINSIC)
         // then learn + u_slow_down. Boots-only EFast is a no-op.
-        // Callee mhitu.c u_slow_down :161–171. WAN_LOCKING /
-        // WAN_PROBING / SPE_DRAIN_LIFE still named.
+        // Callee mhitu.c u_slow_down :161–171. WAN_LOCKING is
+        // D-1434. WAN_PROBING / SPE_DRAIN_LIFE still named.
         const u = game.u || {};
         const hfast = (u.HFast | 0) | (u.uprops?.[FAST]?.intrinsic | 0);
         if (hfast & (TIMEOUT | INTRINSIC)) {
             learn_it = true;
             await u_slow_down();
+        }
+        break;
+    }
+
+    case WAN_LOCKING:
+    case SPE_WIZARD_LOCK: {
+        // C zap.c zapyourself :2948–2954 — similar to opening;
+        // invent is hit iff no trap triggered:
+        // if (u.utrap || !closeholdingtrap(&youmonst, &learn_it))
+        //     boxlock_invent(obj);
+        // C || short-circuits: already-trapped skips closeholdingtrap
+        // (noticed stays unset). Callee trap.c :6210–6247 (D-1425)
+        // + zap.c boxlock_invent :2687–2702 (lock.c boxlock).
+        // WAN_PROBING / SPE_DRAIN_LIFE / zap_updown still named.
+        const alreadyTrapped = !!(game.u?.utrap | 0);
+        if (alreadyTrapped) {
+            await boxlock_invent(obj);
+        } else {
+            const closed = await closeholdingtrap(
+                game.youmonst || { _youmonst: true },
+            );
+            if (closed.noticed) learn_it = true;
+            if (!closed.happened) {
+                await boxlock_invent(obj);
+            }
         }
         break;
     }

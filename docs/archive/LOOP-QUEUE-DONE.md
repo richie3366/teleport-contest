@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zapyourself` WAN_SLOW_MONSTER (named from D-1424). Not locking self. **Addressed:** D-1433
+- [x] `zap.c` `zapyourself` WAN_LOCKING (named). Not probing self. **Addressed:** D-1434
+
+
+- [x] `zap.c` `zapyourself` WAN_SLOW_MONSTER (named from D-1424). Not locking self. **Addressed:** D-1433 `07c5ee30`
 
 
 - [x] `potion.c` `peffect_blindness` (named). Not sleeping. **Addressed:** D-1432 `b19bcf7a`

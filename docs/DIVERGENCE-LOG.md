@@ -4,6 +4,53 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1434 — zap.c zapyourself WAN_LOCKING
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zapyourself` defaulted `WAN_LOCKING` /
+  `SPE_WIZARD_LOCK`. Self-zap never snapped a BEAR_TRAP/WEB
+  via `closeholdingtrap`, never locked carried boxes via
+  `boxlock_invent`, never learned the wand from a holding
+  trap. C `:2948–2954`: `if (u.utrap ||
+  !closeholdingtrap(&gy.youmonst, &learn_it))
+  boxlock_invent(obj);`. Already-trapped short-circuits
+  (no closeholdingtrap, still locks invent). Trap-hit
+  (`happened`) skips invent. `*noticed` (not Klunk) sets
+  `learn_it`. Callee `trap.c` `closeholdingtrap`
+  `:6210–6247` (D-1425) + `lock.c` `boxlock` Klunk.
+  `learnwand` skips `SPBOOK`. Caller `dozap` self-dir
+  (`dx==dy==dz==0`); wand is IMMEDIATE.
+- **C locus:** `zap.c` `zapyourself` `:2948–2954`. Helpers
+  `zap.c` `boxlock_invent` `:2687–2702`, `lock.c` `boxlock`
+  `:1056–1098`, `trap.c` `closeholdingtrap` `:6210–6247`.
+  Caller `dozap` `:2657–2664`.
+- **JS was:** `default` break (no trap, no boxlock, no
+  learn). `boxlock_invent` already live for WAN_OPENING
+  (D-0981).
+- **Fix:** case `WAN_LOCKING`/`SPE_WIZARD_LOCK`; snapshot
+  `utrap` then `closeholdingtrap` else `boxlock_invent`.
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `zapyourself`; callees already
+  `js/trap.js` `closeholdingtrap`, `js/lock.js`
+  `boxlock_invent`.
+- **Not this iter:** zapyourself WAN_PROBING /
+  SPE_DRAIN_LIFE; `zap_updown` close_drawbridge / hole→
+  trapdoor; hero WEB `trapeffect_web` (D-1425 named);
+  floor `boxlock` / `doorlock`.
+- **Verified:** private canary **16**/16 (C/JS grep; Rule #2;
+  unlocked Klunk+olocked no learn; already-locked silent;
+  empty invent no-op; BEAR_TRAP utrap+learn skips chest;
+  already-utrap still boxlock no learn; SPE_WIZARD_LOCK
+  SPBOOK skip learn; Blind skip makeknown; Wizard lknown;
+  tourist clears lknown; WAN_PROBING still default;
+  WAN_SLOW D-1433; WAN_SPEED D-1410); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session self-zaps locking.
+- **Follow-up:** Open `zap.c` `zapyourself` WAN_PROBING
+  (named). Not drain.
+- **Files:** `js/zap.js`; callee comment in `js/trap.js`.
+
 ## D-1433 — zap.c zapyourself WAN_SLOW_MONSTER
 
 - **Status:** fixed (map-driven Open from D-1424; not a public FAIL)

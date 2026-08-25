@@ -4927,8 +4927,8 @@ export async function openholdingtrap(mon) {
  * hit (might avoid actually becoming trapped). *noticed is set only
  * when the attempt runs; otherwise the previous value is left intact
  * (JS: noticed stays false on early return).
- * Callers: zap.c bhitm WAN_LOCKING (D-1425); zapyourself / zap_updown
- * still named.
+ * Callers: zap.c bhitm WAN_LOCKING (D-1425); zapyourself WAN_LOCKING
+ * (D-1434); zap_updown still named.
  * @param {object|null} mon  target (youmonst or steed → hero path)
  * @returns {Promise<{happened:boolean,noticed:boolean}>}
  */

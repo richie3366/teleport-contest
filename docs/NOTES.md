@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1433; cadence **#1800** `66254727`
+- **Fortress 44/44** after D-1434; cadence **#1800** `66254727`
   (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
-  Open `zap.c` `zapyourself` WAN_LOCKING (named).
-  Not probing self.
-  Do not skip D-1433…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `zap.c` `zapyourself` WAN_PROBING (named).
+  Not drain.
+  Do not skip D-1434…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1433. Named still: `see_monsters`
+- Do not revert D-1217–D-1434. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1433.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1434.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,7 +34,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1433 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1434 (index).
 - Named still: rustm / poison / worm-shrieker; remaining peffects
   (sleeping/gain ability/hallucination);
   remaining wand-duplicate SLEEP/DIG; artifact invoke. No fountain
@@ -49,12 +49,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1434: `zapyourself` WAN/SPE_WIZARD_LOCK if
+  utrap || !closeholdingtrap then
+  boxlock_invent. Trap-hit skips chests;
+  already-trapped still locks. noticed→learn.
+  Callee D-1425 closeholdingtrap + lock.c
+  boxlock (Klunk). Probing / drain still named.
 - D-1433: `zapyourself` WAN/SPE_SLOW if
   HFast&(TIMEOUT|INTRINSIC) then learn +
   `u_slow_down` (mhitu.c: HFast=0; !Fast You
   slow down else boots less natural; exercise
   DEX FALSE). EFast-only / FROM_FORM miss.
-  Locking / probing / drain still named.
+  Locking is D-1434. Probing / drain still named.
 - D-1432: `peffect_blindness` already Blind or
   (H||E)&&BBlinded → potion_nothing++; always
   make_blinded(itimeout_incr(BlindedTimeout,
@@ -94,7 +100,7 @@ Objective/score live in `CURRENT.md`.
 - D-1425: `bhitm` WAN_LOCKING/SPE_WIZARD_LOCK `:370–375`
   `box_or_door` + `closeholdingtrap` (wake = trap-hit).
   Callee `trap.c` `:6210–6247`. that_is_a_mimic pline named.
-  zapyourself WAN_LOCKING / probing named.
+  zapyourself locking is D-1434; probing named.
 - D-1424: `bhitm` WAN_SLOW/SPE_SLOW `:218–232`
   `!resist` NOTELL then `seemimic` +
   `mon_adjust_speed(-1)` + `check_gear_next_turn` +
@@ -111,6 +117,4 @@ Objective/score live in `CURRENT.md`.
   bless); wrapping itchy; timeout/FROMOUTSIDE; cursed aggravate.
 - D-1420: SPE_RESTORE_ABILITY skilled bless then `peffects`;
   ABASE=AMAX; potion `pluslvl`. Invisibility is D-1421.
-- D-1419: SPE_LEVITATION `float_up` + timeout/`I_SPECIAL`;
-  cursed ceiling. Restore is D-1420.
 
