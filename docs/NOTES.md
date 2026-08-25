@@ -5,21 +5,25 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1510; cadence **#1890** `1f64431d`
+- **Fortress 44/44** after D-1511; cadence **#1890** `1f64431d`
   (Scr **11,405** RNG 100%, `38+0.30/turn` R² 0.849). Next: Open
-  `objnam.c` `fruit_from_indx`
-  (named). Not the(). Do not skip D-1510…D-1229.
+  `display.c` `any_visible_region`
+  (named). Not Hallu/Warn_of_mon. Do not skip D-1511…D-1229.
   No FORCE / `wildmiss` wrap / trailing `confdir` in
   shared `getdir`. pickup `body_part` is latebound
   (polyself→do cycle); do not import pickup→polyself.
-- Do not revert D-1217–D-1510. Named still:
+- Do not revert D-1217–D-1511. Named still:
   `any_visible_region`; `see_monsters` worm segs /
   MATCH_WARN / SPFX_WARN conferral; GETOBJ_ALLOWCNT;
   tamedog is_covetous / is_demon-vs-hero;
-  INTERNALCMD `#altdip`; fruit_from_indx;
+  INTERNALCMD `#altdip`; options fruitadd walker;
+  doname fake_arti / bones `goodfruit` / `reorder_fruit`;
   wander/`somexy` / Wiz_arrive; mktrap_victim floor candle;
   S_KOP / non-salamander S_LIZARD; `mcast_blind_you` EYE;
   `observe_quantum_cat` FOOT.
+- Falsifier for D-1511: xname of SLIME_MOLD with `spe` not
+  in `ffruit` must be `"fruit"`; custom fname must appear.
+  Don’t re-check objectNameStrs `"slime mold"` as the live path.
 
 ## Don't re-check (≤15)
 
@@ -28,7 +32,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1510.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1511.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,9 +43,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1510 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1511 (index).
 - Named still: worm-shrieker; GETOBJ_ALLOWCNT / tamedog is_covetous;
-  fruit_from_indx / options fruitadd walker; `ensure_way_out`.
+  options fruitadd walker; `ensure_way_out`.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -50,9 +54,15 @@ Objective/score live in `CURRENT.md`.
   / `restore_artifacts`. Default `spot_monsters` Off.
 - Do not import `wield.js`/`pickup.js`→`polyself.js` for
   `body_part` (use `objnam.js` `body_part_latebound`).
+- Do not call JS `fruitadd` at init after objects exist
+  (candifies `"slime mold"`). `init_fruit_chain` only.
 
 ## Landmarks (≤15)
 
+- D-1511: `fruit_from_indx` by fid; xname/doname SLIME_MOLD
+  `fname` / `"fruit"` / quan ick; `init_fruit_chain` fid 1
+  before mksobj. killer_xname still deadly slime mold.
+  options fruitadd walker / fake_arti / goodfruit named.
 - D-1510: `poly_obj` invent worn remap — W_WEAPONS keep
   slot else `wearslot&old`; `remove_worn_item` then
   `setuwep`/`setuswapwep`/`setuqwep` or `setworn`+
@@ -106,6 +116,3 @@ Objective/score live in `CURRENT.md`.
   (`-P_SHURIKEN`..`-P_BOW` or Grimtooth); healing/extra/full
   strip `!permapoisoned`. Local clone — do not change mkobj
   named-missile RNG `is_poisonable`. Unicorn mix is D-1486.
-- D-1496: `body_part` clones → `polyself.js`; trap `mbodypart(mon)`;
-  zap appends existing import. wield `body_part_latebound`.
-  HEAD/HAND aliases are D-1508.

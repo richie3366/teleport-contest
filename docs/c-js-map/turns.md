@@ -748,7 +748,10 @@ drawbridge/lava `pooleffects` still named;
 **dozap self-zap D-1345**; **throwit `:1747` D-1346**; throw_obj `:147` / pickup/wield remaining); 
 **warn_obj / artifact_light W_WEP `)` rewrite D-1347**; **`the()` CapitalMon D-1357**; 
 **`the()` fruit_from_name + artifact_name D-1487** (named fruit takes `"the "` unless pname 
-artifact; local artifact_name copy; fruit_from_indx / options.js fruitadd walker still named); 
+artifact; local artifact_name copy); **`fruit_from_indx` + xname FOOD SLIME_MOLD D-1511** 
+(`spe`→fname; missing `"fruit"`; quan ick singular then plural; `init_fruit_chain` default 
+fid 1; options.js fruitadd walker / doname fake_arti / bones `goodfruit` / `reorder_fruit` / 
+pager look `spe` still named); 
 CHAIN erosion polish / other ball otypes deferred); 
 **`readobjnam_parse_charges` `(N)`/`(R:S)` + wrp[] `wand of X` → oclass/actualn + 
 wand `recharged`** (D-0507; named/called/labeled, o_ranges, glass, fruits, drawbridge (furniture 
@@ -758,7 +761,7 @@ doname empty/wield/swapwep/potion/implicit-uncursed (D-0024);
 **`the_unique_obj`/`obj_is_pname` → `"the "` + Amulet uncursed skip** (D-0568) + 
 **`xname`/`doname` `!nn && oc_uses_known && oc_unique` → `known=0`** (D-0872; 
 gen table omits `oc_uses_known` — Bell/Candelabrum/Amulet/Book heuristic; 
-CORPSE article skip / fake_arti deferred); **cleric skip `"uncursed "`** (D-0121); 
+CORPSE article skip / slime-mold doname fake_arti named); **cleric skip `"uncursed "`** (D-0121); 
 **Priest `xname`/`doname` force `bknown=1`** (D-0315); CORPSE `corpsenm` (D-0019); 
 **COIN quan=1 `"a gold piece"`** (D-0037); 
 **`Japanese_item_name` table** for Samurai discovery (D-0045); 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `poly_obj` worn `set_wear` (named). Not potion_dip. **Addressed:** D-1510
+- [x] `objnam.c` `fruit_from_indx` (named). Not the(). **Addressed:** D-1511
+
+
+- [x] `zap.c` `poly_obj` worn `set_wear` (named). Not potion_dip. **Addressed:** D-1510 `57d22857`
 
 
 - [x] `potion.c` `potion_dip` lichen corpse / acid-erode (named). Not H2O useeit. **Addressed:** D-1509 `7092fab7`

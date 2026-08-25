@@ -794,6 +794,28 @@ function fruitadd(str, replaceFruit) {
 }
 
 /**
+ * C ref: options.c initoptions_finish fruitadd(pl_fruit, NULL) `:7329`.
+ * Runs before objects[] food-class is live, so default "slime mold" is
+ * not candied. fid 1; current_fruit. OPTIONS=fruit: (opt_initial) only
+ * nmcpy's pl_fruit — this call installs the chain. Do not call fruitadd
+ * here after objects exist (that walker candifies SLIME_MOLD). Bones
+ * loadfruitchn / fruitadd prefix walker named.
+ */
+export function init_fruit_chain() {
+    if (game.ffruit) return;
+    let nam = makesingular(
+        String(game.pl_fruit || game.flags?.fruit || 'slime mold'),
+    );
+    nam = sanitize_name(nam);
+    if (!nam) nam = 'slime mold';
+    if (nam.length > PL_FSIZ - 1) nam = nam.slice(0, PL_FSIZ - 1);
+    game.pl_fruit = nam;
+    game.ffruit = { fname: nam, fid: 1, nextf: null };
+    if (!game.context) game.context = {};
+    game.context.current_fruit = 1;
+}
+
+/**
  * C ref: options.c optfn_fruit do_set (!opt_initial) after doset getlin.
  * give_opt_msg is false inside doset_simple so no "Fruit is now" pline.
  */

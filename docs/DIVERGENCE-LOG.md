@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1511 — objnam.c fruit_from_indx + xname SLIME_MOLD
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** slime mold `xname`/`doname` always used
+  objectNameStrs `"slime mold"`. C `objnam.c`
+  `fruit_from_indx` `:431–439` walks `gf.ffruit` by
+  `fid`. Caller `xname_flags` FOOD SLIME_MOLD
+  `:747–774`: `fruit_from_indx(obj->spe)`; miss →
+  impossible + `"fruit"`; else `fname`; if `pluralize`,
+  `makesingular` then `makeplural` then
+  `pluralize=FALSE`. C `initoptions_finish` fruitadd
+  installs default `"slime mold"` fid 1 before objects
+  food-class can candify. Callee used from bones
+  `goodfruit(-id)` (named).
+- **C locus:** `objnam.c` `fruit_from_indx` `:429–439`
+  + `xname_flags` `:747–774`. Callers bones
+  `goodfruit`; `minimal_xname` copies `spe`.
+- **JS was:** named omit after D-1487 — `the()` fruit
+  conjunct only; pretty_base ignored `spe`.
+- **Fix:** Port lookup. Wire FOOD SLIME_MOLD in
+  pretty_base; quan ick in xname/doname.
+  `init_fruit_chain` after `game.context` (do not call
+  JS fruitadd after objects exist). Rule #2: no fs.
+- **JS:** `js/objnam.js` `fruit_from_indx` / xname /
+  doname; `js/options.js` `init_fruit_chain`;
+  `js/jsmain.js`.
+- **Not this iter:** options fruitadd exact-only walker;
+  doname fake_arti; bones `goodfruit`; `reorder_fruit`;
+  pager look `spe`; save/restore fruitchn; readobjnam
+  fruit wish.
+- **Verified:** private canary **16**/16 (C/JS grep;
+  Rule #2; default slime mold; Apple spe; missing
+  `"fruit"`; quan ick Apples; simpleonames singular;
+  killer_xname deadly; the() Apple); green+strict
+  seed8000/0900; focused seed0060 slime-mold invent;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  Fortress still shows default `"slime mold"`.
+- **Follow-up:** Open `display.c` `any_visible_region`.
+- **Files:** `js/objnam.js`, `js/options.js`,
+  `js/jsmain.js`, `js/mkobj.js`.
+
 ## D-1510 — zap.c poly_obj worn set_wear
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -1287,7 +1287,7 @@ function mksobj_init(otmp, artif) {
             }
             blessorcurse(otmp, 10);
         } else if (name === 'SLIME_MOLD') {
-            // C ref: mkobj.c SLIME_MOLD — spe = current_fruit; fruit chain deferred
+            // C ref: mkobj.c SLIME_MOLD — spe = current_fruit (D-1511 chain)
             if (game.context?.current_fruit != null) {
                 otmp.spe = game.context.current_fruit;
             }

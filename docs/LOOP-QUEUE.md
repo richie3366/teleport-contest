@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` `fruit_from_indx` (named). Not the().
 - [ ] `display.c` `any_visible_region` (named). Not Hallu/Warn_of_mon.
 - [ ] `artifact.c` SPFX_WARN conferral / MATCH_WARN (named). Not Sting_effects.
 - [ ] `makemon.c` S_KOP `m_initweap` specials (named). Not throws_rocks.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `makemon.c` `set_mimic_sym` maze/sokoban/`in_town` (named). Not shop arm.
 - [ ] `makemon.c` dprince MS_BRIBE / raven BEC_DE_CORBIN (named). Not emin.
 - [ ] `mklev.c` `mktrap_victim` gnome candle `begin_burn` (named). Not `m_initinv`.
+- [ ] `options.c` fruitadd should call objnam `fruit_from_name` (not the exact-only walker). Not fruit_from_indx.
+- [ ] `objnam.c` doname_base slime-mold fake_arti (named). Not fruit_from_indx.
+- [ ] `objnam.c` `reorder_fruit` (named). Not fruit_from_indx.
+- [ ] `bones.c` `goodfruit` (named). Not fruit_from_indx.
+- [ ] `pager.c` look SLIME_MOLD `spe = current_fruit` (named). Not xname.
 
 ## Parked (do not pop)
 

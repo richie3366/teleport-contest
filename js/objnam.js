@@ -439,6 +439,15 @@ function tin_details(obj) {
 
 function pretty_base(obj) {
     const n = objectNames[obj.otyp];
+    // C ref: objnam.c xname_flags FOOD_CLASS SLIME_MOLD `:747–774` —
+    // fruit_from_indx(obj->spe); missing → "fruit" (impossible pline is
+    // named: xname/doname are sync). fname only; quan pluralize is in
+    // xname/doname (C sets pluralize FALSE after singular→plural ick).
+    if ((obj.otyp | 0) === SLIME_MOLD) {
+        const f = fruit_from_indx(obj.spe | 0);
+        if (!f) return 'fruit';
+        return String(f.fname || '');
+    }
     // C ref: objnam.c xname_flags FOOD_CLASS — Concat(actualn);
     // if (typ == TIN && known) tin_details(...). Unidentified → bare "tin".
     if (n === 'TIN') return obj.known ? tin_details(obj) : 'tin';
@@ -753,7 +762,13 @@ export function xname(obj) {
         base = `next ${base}`;
         obj.next_boulder = 0;
     }
-    if ((obj.quan || 1) !== 1) base = makeplural(base);
+    // C xname_flags FOOD SLIME_MOLD: if (pluralize) singular then plural
+    // then pluralize=FALSE (already-plural fname; D-1511).
+    if ((obj.otyp | 0) === SLIME_MOLD) {
+        if ((obj.quan || 1) !== 1) base = makeplural(makesingular(base));
+    } else if ((obj.quan || 1) !== 1) {
+        base = makeplural(base);
+    }
     // C xname_flags: has_oname && dknown → " named " ONAME
     const onameStr = obj.oextra?.oname;
     if (onameStr && obj.dknown) {
@@ -1140,10 +1155,23 @@ export function CapitalMon(word) {
 }
 
 /**
+ * C ref: objnam.c fruit_from_indx `:431–439` — look up a named fruit by
+ * fid (1..127). First match; NULL if the chain has no such index.
+ */
+export function fruit_from_indx(indx) {
+    const want = indx | 0;
+    let f;
+    for (f = game.ffruit; f; f = f.nextf) {
+        if ((f.fid | 0) === want) break;
+    }
+    return f || null;
+}
+
+/**
  * C ref: objnam.c fruit_from_name `:443–519` — look up a named fruit.
  * exact True: strcmp then makesingular; False also tries longest prefix
  * and prefix+singularize. Case-sensitive. highest_fid optional out
- * `{ fid }` (only meaningful when not found). fruit_from_indx named.
+ * `{ fid }` (only meaningful when not found).
  */
 export function fruit_from_name(fname, exact, highest_fid = null) {
     if (highest_fid) highest_fid.fid = 0;
@@ -1217,7 +1245,8 @@ function artifact_name_objnam(name) {
 
 /**
  * C ref: objnam.c the() — definite article for non-proper names.
- * fruit_from_name + artifact_name fruit carve (D-1487). fruit_from_indx named.
+ * fruit_from_name + artifact_name fruit carve (D-1487).
+ * slime-mold spe → fruit_from_indx is D-1511.
  */
 export function the(str) {
     if (!str) return 'the []';
@@ -1805,6 +1834,8 @@ export function yname(obj) {
  * C bareobj = zeroobj (owt 0) → BALL_CLASS never gets "very " via this path
  * (xname/doname of the live object still apply punish weight).
  * Named omissions: sack→bag family aliases; full bareobj field subset.
+ * C copies SLIME_MOLD spe onto zeroobj so fruit_from_indx still hits;
+ * JS pretty_base reads the live spe (quan stays 1 via no makeplural here).
  */
 export function simpleonames(obj) {
     if (!obj) return 'object';
@@ -1949,6 +1980,9 @@ export function doname(obj) {
     // C xname CORPSE is bare "corpse"; corpse_xname owns the monster type.
     if (oname === 'CORPSE') {
         base = (quan !== 1) ? makeplural('corpse') : 'corpse';
+    } else if ((obj.otyp | 0) === SLIME_MOLD) {
+        // C doname_base starts at xname: fruit ick already applied.
+        if (quan !== 1) base = makeplural(makesingular(base));
     } else if (quan !== 1) {
         base = makeplural(base);
     }
@@ -1959,7 +1993,7 @@ export function doname(obj) {
     // Article: quan / the_unique_obj|obj_is_pname → "the " / else "a "
     // (then just_an redo). C skips article for CORPSE so corpse_xname
     // can take the BUC/greased/oeaten prefix as its adjective
-    // (CXN_ARTICLE|CXN_NOCORPSE; D-1255). Slime-mold fake_arti deferred.
+    // (CXN_ARTICLE|CXN_NOCORPSE; D-1255). Slime-mold fake_arti named.
     let prefix = '';
     if (quan !== 1) {
         prefix = `${quan} `;
