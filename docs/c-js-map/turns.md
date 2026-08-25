@@ -337,7 +337,7 @@ milky/smoky bottles, lit-oil burn, worn-stack split, **`potion_dip` potion-potio
 (D-1457; Klein/hands/H2O/poly gate) + **`potion_dip` unicorn/amethyst mixtype dip** (D-1486) + 
 **`potion_dip` poison-coat / healing unpoison** (D-1497; `is_poisonable` missile window or 
 Grimtooth) + **`potion_dip` oil/lamp** (D-1498; lit `fire_damage` / cursed `make_glib` /
-weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill) + **`potion_dip` `poly_obj`/`obj_unpolyable`** (D-1499; unpolyable `obj_resists(5,95)` then `poly_obj(STRANGE_OBJECT)` + polypiles/`prinv`/`poof`) + **`potion_dip` lichen corpse / acid-erode** (D-1509; POT_ACID+CORPSE PM_LICHEN wrinkle/`hcolor` no-poof; else `erode_obj` ERODE_CORRODE EF_GREASE poof unless ER_NOTHING; worn `set_wear` named) + **`dip_into` #altdip** (D-1500; C `:2374–2405` canned `drink_ok` then `dip_ok` GETOBJ_PROMPT; caller `iactions.c` IA_DIP_OBJ; ignores floor; INTERNALCMD `#altdip` named) + **`H2Opotion_dip` useeit `ublindf && Blindfolded_only`** (D-1501; C `potion.c` `:2461` / `youprop.h` Blindfolded≡EBlinded; unpaid POT_WATER `alter_cost`/`costly_alteration`; `mentioned_water` `makeknown`; towel soak; callee `trap.c` `water_damage` invent container plines); **`dodip` pool yn** (D-1128; 
+weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill) + **`potion_dip` `poly_obj`/`obj_unpolyable`** (D-1499; unpolyable `obj_resists(5,95)` then `poly_obj(STRANGE_OBJECT)` + polypiles/`prinv`/`poof`) + **`potion_dip` lichen corpse / acid-erode** (D-1509; POT_ACID+CORPSE PM_LICHEN wrinkle/`hcolor` no-poof; else `erode_obj` ERODE_CORRODE EF_GREASE poof unless ER_NOTHING; worn `set_wear` is D-1510) + **`dip_into` #altdip** (D-1500; C `:2374–2405` canned `drink_ok` then `dip_ok` GETOBJ_PROMPT; caller `iactions.c` IA_DIP_OBJ; ignores floor; INTERNALCMD `#altdip` named) + **`H2Opotion_dip` useeit `ublindf && Blindfolded_only`** (D-1501; C `potion.c` `:2461` / `youprop.h` Blindfolded≡EBlinded; unpaid POT_WATER `alter_cost`/`costly_alteration`; `mentioned_water` `makeknown`; towel soak; callee `trap.c` `water_damage` invent container plines); **`dodip` pool yn** (D-1128; 
 `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; 
 Levitation `floating_above`; unskilled rider skip; hands/uarmg `wash_hands`; 
 else `water_damage` + POT_ACID `in_use`/`useup`; 
@@ -368,8 +368,8 @@ death-disintegrate / poison·acid / ugolemeffects / inventory_resistance deferre
 ≡C noreturn / thitu D-0255)**; **IMMEDIATE `weffects` → `bhit(rn1(8,6))` + 
 `bhito` WAN_POLYMORPH (`obj_unpolyable`/`obj_shudders`/`poly_obj` floor + 
 invent replace D-1499; `learnwand`→`makeknown`) + `zapwrapup` `You_feel` shudder** (D-0509/D-0513; 
-`bhitm` poly / `zap_updown`/`zap_map` / `create_polymon` / worn-slot `set_wear` / other bhito otyps 
-deferred); **RAY `WAN_DIGGING`/`SPE_DIG` → `zap_dig`** (D-0516); 
+`bhitm` poly / `zap_updown`/`zap_map` / `create_polymon` / other bhito otyps 
+deferred; **worn-slot `set_wear`** D-1510); **RAY `WAN_DIGGING`/`SPE_DIG` → `zap_dig`** (D-0516); 
 **`weffects`/`zapnodir` `more_experienced(0,10)` on disclose** (D-0582); 
 `makewish` subset (D-0064); **`makewish` `readobjnam_wish` wizterrainwish furniture/liquid/floor 
 `switch_terrain` D-1279** (traps/door/wall named); 
@@ -709,7 +709,7 @@ Ring_off`+`float_down`** (D-0966; **`toggle_stealth`** D-0970;
 toggle_blindness see_monsters deferred) + **empty wear/puton getobj prompt `[*]` not `[*?]`** 
 (D-0584; C `invent.c` `!buf[0]` → `" [*]"`) + 
 **`set_wear` from `moveloop_preamble` → `Helmet_on` fedora Archeologist `change_luck(1)`** (D-0596; 
-`Ring_on` body / initial `pickup(1)` / poly_obj `set_wear(obj)` callers deferred); 
+`Ring_on` body / initial `pickup(1)` deferred; **`poly_obj` `set_wear(obj)`** D-1510); 
 **`dragon_armor_handling` + `Armor_on`/`Armor_off` + 
 FAST `EFast` mirror / `Very_fast` uprops** (D-0636; 
 gold `make_hallucinated`, red `see_monsters`, yellow `wielding_corpse`, arti_light burn deferred); 

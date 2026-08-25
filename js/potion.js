@@ -3260,7 +3260,7 @@ async function potion_dip(obj, potion) {
             } else {
                 u.uconduct.polypiles = (u.uconduct.polypiles | 0) + 1;
             }
-            obj = poly_obj(obj, STRANGE_OBJECT);
+            obj = await poly_obj(obj, STRANGE_OBJECT);
             if (!obj) {
                 makeknown(POT_POLYMORPH);
                 return ECMD_TIME;

@@ -9,6 +9,26 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-26 — D-1510 zap.c poly_obj worn set_wear
+
+**Objective:** Open `zap.c` `poly_obj` worn `set_wear`
+(named). Not potion_dip.
+**C locus:** `zap.c` `poly_obj` `:1921–1950`; callees
+`worn.c` `wearslot` / `wearmask_to_obj`; `steal.c`
+`remove_worn_item`; `do_wear.c` `set_wear`.
+**JS locus:** `js/zap.js` `poly_obj`; `js/worn.js`.
+**Change:** invent worn remap after `freeinv_core`:
+W_WEAPONS keep slot else `wearslot&old`; then
+`setuwep`/`setuswapwep`/`setuqwep` or
+`setworn`+`set_wear`+`wearmask_to_obj`. `poly_obj`
+async. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1890); public-unhit
+until a session polys worn gear.
+**Verified:** canary **12**/12; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `objnam.c` `fruit_from_indx`.
+Not the().
+**Blocked:** none.
 ## 2026-08-26 — D-1509 potion.c potion_dip lichen corpse / acid-erode
 
 **Objective:** Open `potion.c` `potion_dip` lichen corpse /

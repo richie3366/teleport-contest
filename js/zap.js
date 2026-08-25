@@ -155,7 +155,7 @@
 // check_unpaid; update_inventory; shieldeff/monstunseesu; setworn
 // EReflecting bits (W_WEP artifact D-1342); ureflects W_AMUL/W_ARM/dragon
 // D-1353 (shared muse.c clone); mcastu ureflects named; create_polymon after poly_zapped;
-// do_osshock shop bill; invent/worn poly_obj arms;
+// do_osshock shop bill; invent poly_obj worn remap is D-1510;
 // poly-arm boxlock reset_pick is D-1483; polypiles/livelog named;
 // blank_novel / corpse revive→rot timer;
 // cant_finish_meal; animate_statue montraits wire; defended(); resists_magm
@@ -293,10 +293,12 @@ import { unpunish, litroom } from './read.js';
 import { engr_at, del_engr, make_engr_at, wipe_engr_at, random_engraving, rloc_engr } from './engrave.js';
 import { bare_artifactname, defends, defends_when_carried, is_art } from './artifact.js';
 import { ART_GRIMTOOTH } from './generated/artifacts_data.js';
-import { Ring_gone, Ring_off, Ring_on, setworn } from './do_wear.js';
-import { which_armor, mon_set_minvis, check_gear_next_turn } from './worn.js';
+import { Ring_gone, Ring_off, Ring_on, setworn, set_wear } from './do_wear.js';
+import { which_armor, mon_set_minvis, check_gear_next_turn, wearslot, wearmask_to_obj } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
 import { abuse_dog, wary_dog, tamedog } from './dog.js';
+import { setuwep, setuswapwep, setuqwep, set_twoweap } from './wield.js';
+import { remove_worn_item } from './steal.js';
 import {
     mkobj, mksobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
     oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
@@ -337,7 +339,8 @@ import {
     NON_PM, ismnum,
     MIM_REVEAL, MIM_OMIT_WAIT, ANIMATE_SPELL,
     def_warnsyms,
-    W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
+    W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE, W_ART, W_ARTI,
+    W_WEP, W_SWAPWEP, W_QUIVER, W_WEAPONS,
     REFLECTING, ANTIMAGIC, SHOCK_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
@@ -2681,6 +2684,13 @@ function is_weptool(obj) {
     return sk != null && sk !== 0 && sk !== -1 /* P_NONE */;
 }
 
+/** C ref: obj.h bimanual — WEAPON/TOOL with oc_bimanual (oc_big). */
+function bimanual(obj) {
+    if (!obj) return false;
+    if (obj.oclass !== WEAPON_CLASS && obj.oclass !== TOOL_CLASS) return false;
+    return !!(game.objects?.[obj.otyp]?.oc_big);
+}
+
 /** C ref: mkobj.c unbless — clear blessed only. */
 function unbless(obj) {
     if (obj) obj.blessed = false;
@@ -4799,7 +4809,7 @@ async function stone_to_flesh_obj(obj) {
     case ROCK_CLASS:
     case TOOL_CLASS:
         if ((obj.otyp | 0) === BOULDER) {
-            obj = poly_obj(obj, ENORMOUS_MEATBALL);
+            obj = await poly_obj(obj, ENORMOUS_MEATBALL);
             smell = true;
         } else if ((obj.otyp | 0) === STATUE
             || (obj.otyp | 0) === FIGURINE) {
@@ -4808,7 +4818,7 @@ async function stone_to_flesh_obj(obj) {
             if (is_golem(ptr)) {
                 golem_xform = ptr !== mons(PM_FLESH_GOLEM);
             } else if (vegetarian(ptr)) {
-                obj = poly_obj(obj, MEATBALL);
+                obj = await poly_obj(obj, MEATBALL);
                 smell = true;
                 break;
             }
@@ -4857,22 +4867,22 @@ async function stone_to_flesh_obj(obj) {
                     obj_extract_self(item);
                     place_object(item, oox, ooy);
                 }
-                obj = poly_obj(obj, CORPSE);
+                obj = await poly_obj(obj, CORPSE);
             }
         } else {
             res = 0;
         }
         break;
     case RING_CLASS:
-        obj = poly_obj(obj, MEAT_RING);
+        obj = await poly_obj(obj, MEAT_RING);
         smell = true;
         break;
     case WAND_CLASS:
-        obj = poly_obj(obj, MEAT_STICK);
+        obj = await poly_obj(obj, MEAT_STICK);
         smell = true;
         break;
     case GEM_CLASS:
-        obj = poly_obj(obj, MEATBALL);
+        obj = await poly_obj(obj, MEATBALL);
         smell = true;
         break;
     case WEAPON_CLASS:
@@ -4898,10 +4908,11 @@ async function stone_to_flesh_obj(obj) {
 /**
  * C ref: zap.c poly_obj — STRANGE_OBJECT class-preserving poly
  * (wand/pile + potion_dip D-1499) plus mksobj(id) for stone-to-flesh
- * (D-1461 :1728–1736). Worn-slot remap / sokoban_guilt / egg/leash /
- * addinv_core1/2 / shop bill / gem mineral rnd / spestudied named.
+ * (D-1461 :1728–1736). Invent worn remap + set_wear (D-1510).
+ * Named: sokoban_guilt / egg/leash / addinv_core1/2 / shop bill /
+ * gem mineral rnd / spestudied / floor boulder block.
  */
-export function poly_obj(obj, id) {
+export async function poly_obj(obj, id) {
     if (!obj) return null;
     const can_merge = id === STRANGE_OBJECT;
     const obj_location = obj.where;
@@ -5025,12 +5036,46 @@ export function poly_obj(obj, id) {
 
     otmp.owt = weight(otmp);
 
+    /* C :1900–1913 — done adjusting except possibly wearing. */
+    get_obj_location(obj, BURIED_TOO | CONTAINED_TOO);
+    const old_wornmask = (obj.owornmask | 0) & ~(W_ART | W_ARTI);
+
     if (obj_location === OBJ_FLOOR || obj_location === OBJ_INVENT) {
         replace_object(obj, otmp);
         if (obj_location === OBJ_INVENT) {
-            /* C :1904–1913 replace + freeinv_core. addinv_core1/2 and
-             * worn-slot remap named (set_wear is async). */
             freeinv_core(obj);
+            /* addinv_core1/2 named */
+            if (old_wornmask) {
+                /* C :1921–1950 — keep weapon slots; else wearslot & old. */
+                const was_twohanded = bimanual(obj);
+                const was_twoweap = !!(game.u?.twoweap);
+                const new_wornmask = ((old_wornmask & W_WEAPONS) !== 0)
+                    ? old_wornmask
+                    : (wearslot(otmp) & old_wornmask);
+                await remove_worn_item(obj, true);
+                const u = game.u || {};
+                if ((new_wornmask & W_WEP) !== 0) {
+                    if (was_twohanded || !bimanual(otmp) || !u.uarms) {
+                        setuwep(otmp);
+                    }
+                    if (was_twoweap && u.uwep && !bimanual(u.uwep)) {
+                        set_twoweap(true);
+                    }
+                } else if ((new_wornmask & W_SWAPWEP) !== 0) {
+                    if (was_twohanded || !bimanual(otmp)) {
+                        setuswapwep(otmp);
+                    }
+                    if (was_twoweap && u.uswapwep) {
+                        set_twoweap(true);
+                    }
+                } else if ((new_wornmask & W_QUIVER) !== 0) {
+                    setuqwep(otmp);
+                } else if (new_wornmask) {
+                    setworn(otmp, new_wornmask);
+                    await set_wear(otmp);
+                    otmp = wearmask_to_obj(new_wornmask);
+                }
+            }
         }
         // boulder block_point / shop bill named
     } else {
@@ -5202,7 +5247,7 @@ async function bhito(obj, otmp) {
             break;
         }
         {
-            const neu = poly_obj(obj, STRANGE_OBJECT);
+            const neu = await poly_obj(obj, STRANGE_OBJECT);
             if (neu) newsym(neu.ox, neu.oy);
         }
         break;

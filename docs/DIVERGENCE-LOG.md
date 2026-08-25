@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1510 — zap.c poly_obj worn set_wear
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** invent polymorphed worn gear stayed
+  unequipped. C `zap.c` `poly_obj` `:1921–1950` after
+  `replace_object`/`freeinv_core`: if `old_wornmask`
+  (`owornmask` minus W_ART/W_ARTI), keep W_WEAPONS bits
+  else `wearslot(otmp) & old`; `remove_worn_item(obj,
+  TRUE)`; then W_WEP `setuwep`/`set_twoweap`, W_SWAPWEP
+  `setuswapwep`, W_QUIVER `setuqwep`, else
+  `setworn`+`set_wear`+`wearmask_to_obj` (amulet of
+  change may destroy otmp). Callees `worn.c`
+  `wearslot` `:282–351` / `wearmask_to_obj` `:206–214`;
+  `steal.c` `remove_worn_item`; `do_wear.c` `set_wear`.
+- **C locus:** `zap.c` `poly_obj` `:1900–1950`. Callers
+  `potion_dip` / `bhito` / `stone_to_flesh_obj`.
+- **JS was:** named omit after D-1499 — invent path only
+  `freeinv_core`; comment said set_wear is async.
+- **Fix:** `poly_obj` async. Port `wearslot` /
+  `wearmask_to_obj`. Invent worn remap in C order.
+  Await `remove_worn_item` and `set_wear`. Rule #2: no fs.
+- **JS:** `js/zap.js` `poly_obj`; `js/worn.js`
+  `wearslot`/`wearmask_to_obj`; callers await.
+- **Not this iter:** `addinv_core1/2`; sokoban_guilt;
+  egg/leash; shop bill; gem mineral `rnd`; spestudied;
+  floor boulder block; steal `Amulet_off`/`Ring_gone`/
+  `Blindf_off` still setworn stand-in.
+- **Verified:** private canary **12**/12 (C/JS grep;
+  Rule #2; wearslot helm/ring/amulet/gem/meat/tool/wep;
+  fedora→helm luck-1; fedora→fedora luck 0; fedora→plate
+  unequip; unworn skip; wielded sword→dagger W_WEP);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session polys worn gear.
+- **Follow-up:** Open `objnam.c` `fruit_from_indx`.
+- **Files:** `js/zap.js`, `js/worn.js`, `js/potion.js`.
+
 ## D-1509 — potion.c potion_dip lichen corpse / acid-erode
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

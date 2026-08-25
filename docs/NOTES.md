@@ -5,18 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1509; cadence **#1890** `1f64431d`
+- **Fortress 44/44** after D-1510; cadence **#1890** `1f64431d`
   (Scr **11,405** RNG 100%, `38+0.30/turn` R² 0.849). Next: Open
-  `zap.c` `poly_obj` worn `set_wear`
-  (named). Not potion_dip. Do not skip D-1509…D-1229.
+  `objnam.c` `fruit_from_indx`
+  (named). Not the(). Do not skip D-1510…D-1229.
   No FORCE / `wildmiss` wrap / trailing `confdir` in
   shared `getdir`. pickup `body_part` is latebound
   (polyself→do cycle); do not import pickup→polyself.
-- Do not revert D-1217–D-1509. Named still:
+- Do not revert D-1217–D-1510. Named still:
   `any_visible_region`; `see_monsters` worm segs /
   MATCH_WARN / SPFX_WARN conferral; GETOBJ_ALLOWCNT;
-  tamedog is_covetous / is_demon-vs-hero; worn `set_wear`
-  on poly_obj; INTERNALCMD `#altdip`;
+  tamedog is_covetous / is_demon-vs-hero;
+  INTERNALCMD `#altdip`; fruit_from_indx;
   wander/`somexy` / Wiz_arrive; mktrap_victim floor candle;
   S_KOP / non-salamander S_LIZARD; `mcast_blind_you` EYE;
   `observe_quantum_cat` FOOT.
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1509.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1510.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,10 +39,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1509 (index).
-- Named still: worm-shrieker; worn `set_wear` on poly_obj;
-  GETOBJ_ALLOWCNT / tamedog is_covetous; fruit_from_indx /
-  options fruitadd walker; `ensure_way_out`.
+  nhcore (D-1066). Do not skip D-1067…D-1510 (index).
+- Named still: worm-shrieker; GETOBJ_ALLOWCNT / tamedog is_covetous;
+  fruit_from_indx / options fruitadd walker; `ensure_way_out`.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089).
@@ -54,10 +53,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1510: `poly_obj` invent worn remap — W_WEAPONS keep
+  slot else `wearslot&old`; `remove_worn_item` then
+  `setuwep`/`setuswapwep`/`setuqwep` or `setworn`+
+  `set_wear`+`wearmask_to_obj`. `poly_obj` async.
+  addinv_core / sokoban_guilt / egg/leash named.
 - D-1509: `potion_dip` lichen CORPSE + POT_ACID wrinkle /
   `hcolor` (Blind/diluted) no-poof + `trycall`; else
   `erode_obj` ERODE_CORRODE EF_GREASE poof unless
-  ER_NOTHING. Worn `set_wear` named. H2O is D-1501.
+  ER_NOTHING. Worn `set_wear` is D-1510. H2O is D-1501.
 - D-1508: `body_part` aliases — mcastu `HEAD` via
   `polyself.js`; pickup `HAND` via latebound
   (`u_handsy` / `able_to_loot` / Sokoban boulder).
@@ -92,7 +96,7 @@ Objective/score live in `CURRENT.md`.
   ignores floor. poly_obj D-1499.
 - D-1499: `potion_dip` `obj_unpolyable` then `poly_obj(STRANGE_OBJECT)`
   + polypiles/`prinv`/`poof`. Callee invent `replace_object` +
-  erosion/oil/lamp polish. Worn `set_wear` named. Oil/lamp is D-1498.
+  erosion/oil/lamp polish. Worn `set_wear` is D-1510. Oil/lamp is D-1498.
 - D-1498: `potion_dip` POT_OIL lit `fire_damage` / cursed
   `make_glib` / gleam or rust-corrode `--`; `more_dips`
   OIL_LAMP/MAGIC_LAMP fill (empty MAGIC→OIL; age>1000 full
@@ -105,7 +109,3 @@ Objective/score live in `CURRENT.md`.
 - D-1496: `body_part` clones → `polyself.js`; trap `mbodypart(mon)`;
   zap appends existing import. wield `body_part_latebound`.
   HEAD/HAND aliases are D-1508.
-- D-1495: `untrap` door D_TRAPPED find/disarm uses `force`
-  (`has_magic_key`→force). Floor disarm_*/box named.
-  invoke_healing Blinded 0/1 is D-1494.
-
