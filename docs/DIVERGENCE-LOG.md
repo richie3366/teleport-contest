@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1514 — artifact.c SPFX_WARN conferral + MATCH_WARN
+
+- **Status:** fixed (map-driven Open from D-1493; not a public FAIL)
+- **Symptom:** `see_monsters` counted `warntype.obj` and
+  `Sting_effects` was live, but nothing wrote
+  `EWarn_of_mon` or `context.warntype.obj`, so Sting
+  glow stayed 0 and MATCH_WARN never showed orcs.
+- **C locus:** `artifact.c` `set_artifact_intrinsic`
+  SPFX_WARN `:824–839`; `spec_m2` `:1065–1072`;
+  `hack.h` `MATCH_WARN_OF_MON` `:1135–1140`.
+  Callers `wield.c` `setuwep`; `display.h` `_sensemon`;
+  `display.c` `newsym` see_it / `display_warning`.
+- **JS was:** HALRES + REFLECT W_WEP only (D-1342);
+  `warntype.obj` read-only (review **454**).
+- **Fix:** Confer spec_m2 → `EWarn_of_mon` +
+  `warntype.obj` then `see_monsters`; else `EWarning`.
+  Export MATCH_WARN; OR it into `sensemon` and both
+  `newsym` see_it arms; `display_warning` mon_to_glyph
+  else-if. Not `confer_oc_oprop`. Rule #2: no fs.
+- **JS:** `js/artifact.js` `spec_m2` /
+  `set_artifact_intrinsic`; `js/display.js`
+  `MATCH_WARN_OF_MON`.
+- **Not this iter:** cspfx W_ART (MKoT/Orb of Fate);
+  invent `W_ART` conferral; worm_tail / `see_wsegs`;
+  `MON_STILL_ARRIVING`; `make_blinded(-1)`; polyself
+  `warntype.polyd`/`species` producer; vision
+  `howmonsseen`; Underwater pool gate; Detect_monsters
+  cansee arm. Sting_effects is D-1493.
+- **Verified:** private canary **44**/44 (spec_m2
+  Sting/Orcrist/Grimtooth/Excalibur; on/off bits;
+  MATCH_WARN orc vs elf vs jackal; sensemon vs
+  tp_sensemon; count 2 orcs skip !mx; polyd/species
+  arms; Warn_of_mon gate; Longbow REFLECT D-1342;
+  C grep; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** until a session wields
+  Sting/Orcrist/Grimtooth.
+- **Follow-up:** Open `makemon.c` S_KOP `m_initweap`
+  specials.
+- **Files:** `js/artifact.js`, `js/display.js`.
+
 ## D-1513 — mklev.c minetn-7 town-floor three gnomes
 
 - **Status:** fixed (map-driven Must-fix from review

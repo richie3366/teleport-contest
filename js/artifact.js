@@ -36,6 +36,8 @@ import {
     W_WEP,
     HALLUC_RES,
     REFLECTING,
+    WARNING,
+    WARN_OF_MON,
     ECMD_OK,
     ECMD_TIME,
     ECMD_CANCEL,
@@ -64,7 +66,7 @@ import {
 import { rn2, rnd, d, rnz } from './rng.js';
 import { nhgetch } from './input.js';
 import {
-    flush_screen, flush_topl_more, pline, You_feel, newsym,
+    flush_screen, flush_topl_more, pline, You_feel, newsym, see_monsters,
     set_sting_effects,
 } from './display.js';
 import { compactify_invlets, display_pickinv_reply, update_inventory } from './invent.js';
@@ -99,6 +101,7 @@ export { ART_NONARTIFACT, ART_EXCALIBUR, ART_GRIMTOOTH, ART_ORCRIST, ART_STING, 
 export const SPFX_NOGEN = 0x00000001;
 export const SPFX_RESTR = 0x00000002;
 export const SPFX_INTEL = 0x00000004;
+export const SPFX_WARN = 0x00000020;
 export const SPFX_ATTK = 0x00000040;
 export const SPFX_HALRES = 0x00000800;
 export const SPFX_LUCK = 0x00080000;
@@ -334,6 +337,20 @@ export function get_artifact(obj) {
     return list[a];
 }
 
+/**
+ * C ref: artifact.c spec_m2 `:1065–1072` — artifact->mtype, else 0.
+ * Extracted m2/num is a bit mask (Sting/Orcrist M2_ORC, Grimtooth M2_ELF).
+ * Class-letter mtype (DCLAS S_*) is not a long in JS; those arts have no
+ * SPFX_WARN so conferral never ORs them into warntype.obj.
+ */
+export function spec_m2(otmp) {
+    const artifact = get_artifact(otmp);
+    const list = artilist();
+    if (artifact === list[0]) return 0;
+    const mt = artifact.mtype;
+    return typeof mt === 'number' ? (mt | 0) : 0;
+}
+
 const LUCKSTONE_OTYP = objectNames.indexOf('LUCKSTONE');
 
 /**
@@ -506,11 +523,45 @@ export async function Sting_effects(orc_count) {
 }
 
 /**
- * C ref: artifact.c set_artifact_intrinsic — SPFX_HALRES subset.
+ * C youprop.h E* ≡ uprops[].extrinsic — write both flat and table.
+ * Artifact spfx, not objects[].oc_oprop.
+ */
+function set_spfx_extrinsic(propIdx, flatField, wp_mask, on) {
+    const u = game.u || (game.u = {});
+    if (!u.uprops) u.uprops = {};
+    if (!u.uprops[propIdx]) {
+        u.uprops[propIdx] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+    }
+    if (on) {
+        u.uprops[propIdx].extrinsic =
+            (u.uprops[propIdx].extrinsic | 0) | (wp_mask | 0);
+        u[flatField] = (u[flatField] | 0) | (wp_mask | 0);
+    } else {
+        u.uprops[propIdx].extrinsic =
+            (u.uprops[propIdx].extrinsic | 0) & ~(wp_mask | 0);
+        u[flatField] = (u[flatField] | 0) & ~(wp_mask | 0);
+    }
+}
+
+/** C context.h warntype_info — obj/polyd M2 bits + poly species. */
+function warntype_info() {
+    const ctx = game.context || (game.context = {});
+    if (!ctx.warntype) {
+        ctx.warntype = { obj: 0, polyd: 0, species: null, speciesidx: NON_PM };
+    }
+    return ctx.warntype;
+}
+
+/**
+ * C ref: artifact.c set_artifact_intrinsic — SPFX_HALRES, SPFX_WARN,
+ * SPFX_REFLECT W_WEP.
  * C uses make_hallucinated(xtime=!on, talk, wp_mask) which sets
  * EHalluc_resistance |= mask when conferring (xtime==0).
+ * SPFX_WARN `:824–839`: spec_m2 → EWarn_of_mon + warntype.obj + see_monsters;
+ * else EWarning. MATCH_WARN overlay is display.c (D-1514).
  * Named omissions: defn resist masks; SPFX_SEARCH/ESP/STLTH/REGEN/TCTRL/
- * WARN conferral/EREGEN/HSPDAM/HPHDAM; message paths.
+ * EREGEN/HSPDAM/HPHDAM; cspfx W_ART (MKoT/Orb of Fate carry WARN);
+ * invent W_ART conferral; message paths.
  * SPFX_REFLECT && W_WEP is D-1342 (not other wp_mask).
  * @param {object} otmp
  * @param {boolean} on
@@ -526,39 +577,24 @@ export function set_artifact_intrinsic(otmp, on, wp_mask) {
     const spfx = (wp_mask !== W_ART) ? (oart.spfx | 0) : 0;
     if (spfx & SPFX_HALRES) {
         // C potion.c make_hallucinated mask arm: !xtime → |= ; xtime → &=~
-        const u = game.u || (game.u = {});
-        if (!u.uprops) u.uprops = {};
-        if (!u.uprops[HALLUC_RES]) {
-            u.uprops[HALLUC_RES] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
-        }
-        if (on) {
-            u.uprops[HALLUC_RES].extrinsic =
-                (u.uprops[HALLUC_RES].extrinsic | 0) | (wp_mask | 0);
-            u.EHalluc_resistance =
-                (u.EHalluc_resistance | 0) | (wp_mask | 0);
+        set_spfx_extrinsic(HALLUC_RES, 'EHalluc_resistance', wp_mask, on);
+    }
+    // C artifact.c:824–839 — Sting/Orcrist/Grimtooth spec_m2, else EWarning
+    if (spfx & SPFX_WARN) {
+        const m2 = spec_m2(otmp);
+        if (m2) {
+            set_spfx_extrinsic(WARN_OF_MON, 'EWarn_of_mon', wp_mask, on);
+            const wt = warntype_info();
+            if (on) wt.obj = (wt.obj | 0) | m2;
+            else wt.obj = (wt.obj | 0) & ~m2;
+            see_monsters();
         } else {
-            u.uprops[HALLUC_RES].extrinsic =
-                (u.uprops[HALLUC_RES].extrinsic | 0) & ~(wp_mask | 0);
-            u.EHalluc_resistance =
-                (u.EHalluc_resistance | 0) & ~(wp_mask | 0);
+            set_spfx_extrinsic(WARNING, 'EWarning', wp_mask, on);
         }
     }
     // C artifact.c:867–872 — only the wielded-weapon slot sets EReflecting
     if ((spfx & SPFX_REFLECT) && (wp_mask & W_WEP)) {
-        const u = game.u || (game.u = {});
-        if (!u.uprops) u.uprops = {};
-        if (!u.uprops[REFLECTING]) {
-            u.uprops[REFLECTING] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
-        }
-        if (on) {
-            u.uprops[REFLECTING].extrinsic =
-                (u.uprops[REFLECTING].extrinsic | 0) | (wp_mask | 0);
-            u.EReflecting = (u.EReflecting | 0) | (wp_mask | 0);
-        } else {
-            u.uprops[REFLECTING].extrinsic =
-                (u.uprops[REFLECTING].extrinsic | 0) & ~(wp_mask | 0);
-            u.EReflecting = (u.EReflecting | 0) & ~(wp_mask | 0);
-        }
+        set_spfx_extrinsic(REFLECTING, 'EReflecting', wp_mask, on);
     }
 }
 

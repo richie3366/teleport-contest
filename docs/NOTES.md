@@ -7,23 +7,24 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after audit **#1900** HEAD `79744185`
   (Scr **11,405** RNG 100%, `37+0.30/turn` R² 0.85).
-  **Next:** Open `artifact.c` SPFX_WARN conferral /
-  MATCH_WARN (named). Not Sting_effects. D-1513
-  town-floor three gnomes shipped. Do not skip
-  D-1513…D-1229. No FORCE / `wildmiss` wrap /
+  **Next:** Open `makemon.c` S_KOP `m_initweap`
+  specials (named). Not throws_rocks. D-1514
+  SPFX_WARN conferral + MATCH_WARN shipped. Do not
+  skip D-1514…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`. pickup
   `body_part` is latebound (polyself→do cycle);
   do not import pickup→polyself.
-- Do not revert D-1217–D-1513. Named still:
-  `see_monsters` worm segs / MATCH_WARN /
-  SPFX_WARN conferral; timeout `visible_region_summary`;
-  display `show_region`; GETOBJ_ALLOWCNT;
-  tamedog is_covetous / is_demon-vs-hero;
-  INTERNALCMD `#altdip`; options fruitadd walker;
-  doname fake_arti / bones `goodfruit` / `reorder_fruit`;
-  wander/`somexy` / Wiz_arrive; mktrap_victim floor candle;
-  S_KOP / non-salamander S_LIZARD; `mcast_blind_you` EYE;
-  `observe_quantum_cat` FOOT.
+- Do not revert D-1217–D-1514. Named still:
+  `see_monsters` worm segs; timeout
+  `visible_region_summary`; display `show_region`;
+  GETOBJ_ALLOWCNT; tamedog is_covetous /
+  is-demon-vs-hero; INTERNALCMD `#altdip`; options
+  fruitadd walker; doname fake_arti / bones
+  `goodfruit` / `reorder_fruit`; wander/`somexy` /
+  Wiz_arrive; mktrap_victim floor candle; S_KOP /
+  non-salamander S_LIZARD; `mcast_blind_you` EYE;
+  `observe_quantum_cat` FOOT; cspfx W_ART WARN;
+  invent W_ART conferral.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +33,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1513.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1514.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,7 +44,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1513 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1514 (index).
 - Named still: worm-shrieker; GETOBJ_ALLOWCNT / tamedog is_covetous;
   options fruitadd walker; `ensure_way_out`. Do not re-add a
   fourth town gnome in `load_minetn_7` (D-1513).
@@ -60,6 +61,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1514: SPFX_WARN conferral `spec_m2` → EWarn_of_mon +
+  warntype.obj + see_monsters; else EWarning. MATCH_WARN
+  in sensemon / newsym see_it / display_warning
+  mon_to_glyph. cspfx W_ART / worm segs named.
 - D-1513: minetn-7 town floor three `gnome` then gnome
   lord + two monkeys (lua `:155–165`). Extra fourth
   `splev_room_monster` deleted (review **465**). Nested
@@ -68,7 +73,7 @@ Objective/score live in `CURRENT.md`.
   allmain once-per-input else-if OR after Warn_of_mon.
   C is `region.c` not display.c. Hallu arm unchanged.
   timeout `visible_region_summary` / display `show_region`
-  named. SPFX_WARN conferral still named.
+  named.
 - D-1511: `fruit_from_indx` by fid; xname/doname SLIME_MOLD
   `fname` / `"fruit"` / quan ick; `init_fruit_chain` fid 1
   before mksobj. killer_xname still deadly slime mold.
@@ -115,6 +120,3 @@ Objective/score live in `CURRENT.md`.
 - D-1500: `dip_into` `#altdip` reverse getobj (canned
   `drink_ok` then `dip_ok` GETOBJ_PROMPT); IA_DIP_OBJ;
   ignores floor. poly_obj D-1499.
-- D-1499: `potion_dip` `obj_unpolyable` then `poly_obj(STRANGE_OBJECT)`
-  + polypiles/`prinv`/`poof`. Callee invent `replace_object` +
-  erosion/oil/lamp polish. Worn `set_wear` is D-1510. Oil/lamp is D-1498.

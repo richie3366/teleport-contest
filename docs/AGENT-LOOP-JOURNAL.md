@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1514 artifact.c SPFX_WARN conferral + MATCH_WARN
+
+**Objective:** Open `artifact.c` SPFX_WARN conferral /
+MATCH_WARN (named). Not Sting_effects.
+**C locus:** `artifact.c` `set_artifact_intrinsic`
+`:824–839`; `spec_m2` `:1065–1072`; `hack.h`
+`MATCH_WARN_OF_MON`.
+**JS locus:** `js/artifact.js`; `js/display.js`.
+**Change:** spec_m2 → EWarn_of_mon + warntype.obj +
+see_monsters; else EWarning. MATCH_WARN in sensemon
+and newsym see_it. Not confer_oc_oprop. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1900);
+Sting glow public-unhit until wielded.
+**Verified:** canary **44**/44; green+strict
+seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `makemon.c` S_KOP `m_initweap`
+specials. Not throws_rocks.
+**Blocked:** none.
 ## 2026-08-26 — D-1513 mklev.c minetn-7 town-floor three gnomes
 
 **Objective:** Must-fix `load_minetn_7` three town gnomes

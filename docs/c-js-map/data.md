@@ -62,6 +62,11 @@ JS rebuilds artilist from generated raw for process-reuse; save/rest `restore_ar
 C `artifact.c:537–550` / `:867–872`; muse.c `mon_reflects` MON_WEP between shield and amulet; 
 hero `EReflecting&W_WEP`; zap/pray `ureflects` W_AMUL/W_ARM/dragon D-1353; 
 cspfx extract / mcastu `ureflects` named — no artilist row has cspfx&SPFX_REFLECT); 
+**`set_artifact_intrinsic` SPFX_WARN + MATCH_WARN D-1514** (C `artifact.c:824–839` 
+`spec_m2` `:1065–1072` + `hack.h` `MATCH_WARN_OF_MON`; Sting/Orcrist `M2_ORC`, Grimtooth `M2_ELF` 
+→ `EWarn_of_mon` + `warntype.obj` + `see_monsters`; else `EWarning`; display `sensemon`/`newsym` 
+see_it / `display_warning` mon_to_glyph; cspfx W_ART MKoT/Orb of Fate / invent `W_ART` conferral / 
+worm_tail / `see_wsegs` / polyd·species producer / vision `howmonsseen` named); 
 **defn/cary extract + `defends`/`defends_when_carried` D-1453**; omit cost/gen_spe; 
 **`inv_prop` extract + `arti_invoke` BLINDING_RAY D-1377**; 
 **remaining specials + property toggle D-1488** (C `artifact.c` 

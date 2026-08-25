@@ -1333,11 +1333,12 @@ full ctrl=2 loop falsified; **#993 gulpmu vision_off alone falsified Scr174**;
 **#994 warn-only×8 alone Scr174**; **#996 flush_topl_more + 
 Hallu vision_off together Scr196→201 — gulp dims match C through ~core16749**); 
 **`tp_sensemon`/`Unblind_telepat` + `recalc_telepat_range`** (D-0669; 
-`MATCH_WARN_OF_MON` deferred); **`altar_color` via `altarmask`/`altar_to_glyph`** (D-0666; 
+**MATCH_WARN_OF_MON overlay D-1514**); **`altar_color` via `altarmask`/`altar_to_glyph`** (D-0666; 
 no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667; 
 **Warn_of_mon count + Sting_effects D-1493**; 
 **allmain `any_visible_region` OR D-1512** (C `region.c`; timeout summary named); 
-worm see_wsegs / MATCH_WARN_OF_MON / MON_STILL_ARRIVING / SPFX_WARN conferral / make_blinded 
+**SPFX_WARN conferral + MATCH_WARN see_it D-1514**; 
+worm see_wsegs / MON_STILL_ARRIVING / make_blinded 
 Sting(-1) deferred); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
 **docrt memory=`show_memory_glyph` + gulpmu `swallowed(1)`** (D-0838; underwater/buried deferred); 
 **DECgfx swallow `S_sw_tc/ml/mr/bc` meta-o/x/x/s** (D-0842; Primary corners `/\\`); 
@@ -1394,7 +1395,7 @@ Blind `set_bc`/`move_bc` glyph / `feel_location` still deferred); omit ladder gl
 infrared `_map_location`, Hallucination `random_trap_to_glyph`/`see_objects`; 
 **`map_trap`/`trap_glyph` tseen in `_map_location`/`newsym`** (D-0419; hallu trap glyphs deferred); 
 hallu/`random_monster` statue; pile-top/gender statue glyph offsets; 
-telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; 
+telepathy/`Detect_monsters`; MATCH_WARN overlay D-1514 (worm tails still named); full `set_uasmon`/uprops; 
 **TREE `terrain_glyph` + scoring grid keeps raw DEC `g`** (D-0565; Primary `#`/CLR_GREEN); 
 **IRONBARS `terrain_glyph` + scoring keeps raw DEC `|`** (D-0566; Primary `#`/HI_METAL); 
 **AIR/CLOUD `terrain_glyph` S_air/S_cloud** (D-0571); DRAWBRIDGE_UP under-typ still default `?`; 
@@ -1407,7 +1408,7 @@ glyph_is_generic remembered-only newsym_force arm; full lev->glyph vs remembered
 Detect_monsters/tp_sensemon/warn !cansee arms; mimic map_object observe; 
 Rogue-level litcorr/room darkening; **`feel_location` + Blind `newsym` u_at** (D-0928 #1169; 
 reachable `_map_location` + Punished `bc_felt` + `feel_newsym`; 
-full levitate-arm do_room_glyph/litcorr + usteed reach + MATCH_WARN overlay deferred); 
+full levitate-arm do_room_glyph/litcorr + usteed reach deferred; MATCH_WARN via `sensemon` is D-1514); 
 **`show_glyph` `show_glyph_change` + `mention_map`→`a11y.glyph_updates` + 
 `docrt` `in_docrt` (D-1219; default Off; firstmatch via `auto_describe_text`; 
 **`gbuf_show_kind` occupancy/tty not Hallu `mon_glyph`/`obj_glyph`** D-1221; 
