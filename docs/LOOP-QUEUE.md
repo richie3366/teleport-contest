@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle.
 - [ ] `polyself.c` `body_part` aliases: `body_part_head` (mcastu.js),
   `body_part_hand` (pickup.js). Deferred for scope. zap.js is D-1496.
 - [ ] `potion.c` `potion_dip` lichen corpse / acid-erode (named). Not H2O useeit.

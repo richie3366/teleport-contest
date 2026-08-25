@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `makemon.c` gnome candle `begin_burn` after `!mpickobj` (named). Not add_to_minv. **Addressed:** D-1506
+- [x] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle. **Addressed:** D-1507
+
+
+- [x] `makemon.c` gnome candle `begin_burn` after `!mpickobj` (named). Not add_to_minv. **Addressed:** D-1506 `1e1d1864`
 
 
 - [x] `dog.c` `mon_arrive` `MIGR_LEFTOVERS` DF_ALL (named). Not stolen_booty. **Addressed:** D-1505 `cac06f86`

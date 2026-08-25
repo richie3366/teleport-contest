@@ -70,6 +70,7 @@ import {
     polyok,
     is_mplayer,
     hides_under,
+    throws_rocks,
     M3_CLOSE, M3_WAITFORU, M3_WAITMASK, M3_COVETOUS,
 } from './monsters.js';
 import { big_to_little } from './mondata.js';
@@ -2095,9 +2096,15 @@ export function makemon(mdat, x, y, mmflags = 0) {
         do {
             ptr = rndmonst();
             if (!ptr) return null;
+            // C: fakemon.data = ptr for goodpos (JS fakemon is { data: ptr })
         } while (++tryct <= 50
-            // throws_rocks(ptr) && In_sokoban deferred — not on ordinary dlvl1
-            && !goodpos(x, y, { data: ptr }, gpflags));
+            /* in Sokoban, don't accept a giant on first try;
+               after that, boulder carriers are fair game
+               (makemon.c :1226–1230). tryct==1 && throws_rocks &&
+               In_sokoban short-circuits so goodpos (eel rn2) is
+               not consumed on that reject. */
+            && ((tryct === 1 && throws_rocks(ptr) && In_sokoban(game.u?.uz))
+                || !goodpos(x, y, { data: ptr }, gpflags)));
     }
 
     // C: *mtmp = cg.zeromonst — mux/muy stay 0 until set_apparxy (not spawn xy)

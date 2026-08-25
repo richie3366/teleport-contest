@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1507 — makemon.c throws_rocks Sokoban first-try
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** a random `makemon(NULL)` in Sokoban could
+  keep the first `rndmonst()` even when that form
+  `throws_rocks`. C rejects that first try so a giant
+  does not spawn on the opening roll; later tries may.
+- **C locus:** `makemon.c` `makemon` `:1226–1230`. After
+  `++tryct`, continue while `tryct<=50` and
+  `(tryct==1 && throws_rocks(ptr) && In_sokoban(&u.uz))
+  || !goodpos(...)`. The first conjunct short-circuits
+  so `goodpos` (eel `rn2`) is not consumed on that
+  reject. Explicit `ptr` skips the gate.
+- **JS was:** named omit after D-0034/D-1506; comment
+  said deferred (ordinary dlvl1).
+- **Fix:** same predicate and short-circuit. Live
+  `throws_rocks` (`monsters.js`) + `In_sokoban`.
+  Rule #2: no fs.
+- **JS:** `js/makemon.js` `makemon` random loop.
+- **Not this iter:** S_KOP `m_initweap` specials;
+  non-salamander S_LIZARD; `set_mimic_sym`
+  maze/sokoban/`in_town`; dprince MS_BRIBE / raven
+  `BEC_DE_CORBIN`.
+- **Verified:** private canary **21**/21 (C/JS source;
+  `throws_rocks` giant vs gnome; In_sokoban; tryct 1/2/51;
+  explicit ptr still spawns; live first-try retry vs
+  keep; off-Sokoban first giant kept; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a public session rolls a
+  random monster on a Sokoban level.
+- **Follow-up:** Open `polyself.c` `body_part` aliases.
+- **Files:** `js/makemon.js`.
+
 ## D-1506 — makemon.c m_initinv S_GNOME begin_burn
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

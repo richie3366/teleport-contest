@@ -9,6 +9,23 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-08-26 — D-1507 makemon.c throws_rocks Sokoban first-try
+
+**Objective:** Open `makemon.c` `throws_rocks` Sokoban first-try
+(named). Not gnome candle.
+**C locus:** `makemon.c` `makemon` 1226–1230; `throws_rocks` /
+`In_sokoban`; `goodpos` short-circuit.
+**JS locus:** `js/makemon.js` `makemon` random loop.
+**Change:** `tryct==1 && throws_rocks && In_sokoban` retries
+before `goodpos`; later tries fair game. Explicit ptr
+skips. S_KOP / lizard named. C is that small. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1890); public-unhit
+unless a public session rolls a random Sokoban monster.
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `polyself.c` `body_part` aliases
+(`body_part_head` / `_hand`). Not zap (D-1496).
+**Blocked:** none.
 ## 2026-08-26 — D-1506 makemon.c m_initinv S_GNOME begin_burn
 
 **Objective:** Open `makemon.c` gnome candle `begin_burn` after
