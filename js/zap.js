@@ -25,6 +25,7 @@
 // SPE_LIGHT NODIR wand-duplicate cast dispatch (D-1427;
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
+// zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
 // bhitm WAN_MAKE_INVISIBLE mon_set_minvis + knowninvisible (D-1414);
 // knowninvisible See_invisible/Detect_monsters ≡ uprops (D-1423);
 // bhitm WAN_SPEED_MONSTER mon_adjust_speed + check_gear_next_turn (D-1422);
@@ -43,9 +44,10 @@
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
 // Named omissions: zap_updown/uswallow full; zapyourself WAN_PROBING /
 // zap_steed probe_monster / bhito WAN_PROBING
-// (zapyourself WAN_SPEED is D-1410; bhitm WAN_SPEED is D-1422;
-// bhitm WAN_SLOW is D-1424; bhitm WAN_MAKE_INVISIBLE is D-1414;
-// bhitm WAN_LOCKING is D-1425; bhitm WAN_PROBING is D-1426);
+// (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
+// bhitm WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
+// bhitm WAN_MAKE_INVISIBLE is D-1414; bhitm WAN_LOCKING is D-1425;
+// bhitm WAN_PROBING is D-1426);
 // zap_map; mon_reflects;
 // Hallucination hdmgtype rn2; map_invisible/unmap during buzz;
 // SPE_LIGHT NODIR wand-duplicate cast dispatch is D-1427
@@ -147,7 +149,7 @@ import { cvt_sdoor_to_door } from './detect.js';
 import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock_invent } from './lock.js';
 import { monflee, sticks } from './monmove.js';
-import { digests, set_ustuck, unstuck, expels, ureflects } from './mhitu.js';
+import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './mhitu.js';
 import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
@@ -193,7 +195,7 @@ import {
     engulfing_u, Is_container,
     MINV_ALL, MINV_NOLET, PICK_NONE,
     SEE_INVIS, DETECT_MONSTERS,
-    TELEPAT, INTRINSIC, BOLT_LIM,
+    TELEPAT, INTRINSIC, FAST, BOLT_LIM,
     LEFT_RING, RIGHT_RING,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, M_AP_OBJECT, M_AP_FURNITURE,
     NON_PM, ismnum,
@@ -3329,7 +3331,7 @@ export async function bhitm(mtmp, otmp) {
         // Whirly engulfer: You disrupt + huge hole + expels.
         // No helpful_gesture (unlike WAN_SPEED :233–242 / D-1422).
         // Callee worn.c mon_adjust_speed lives in muse.js (D-0871).
-        // zap_steed routes here; zapyourself WAN_SLOW still named.
+        // zap_steed routes here; zapyourself WAN_SLOW is D-1433.
         if (!(await resist(mtmp, otmp.oclass, 0, NOTELL))) {
             if (disguised_mimic) seemimic(mtmp);
             const { mon_adjust_speed } = await import('./muse.js');
@@ -3702,6 +3704,7 @@ export function spell_damage_bonus(dmgIn) {
  * lightdamage WAN_LIGHT/CAMERA (D-1366);
  * WAN_MAKE_INVISIBLE (D-1369);
  * WAN_SPEED_MONSTER speed_up (D-1410);
+ * WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
  * other otyps named in C-JS-MAP.
  * @param {boolean} ordinary wand zap (TRUE) vs broken/spell (FALSE)
  * @returns {number} damage (0 for healing/sleep/death/poly)
@@ -3983,10 +3986,25 @@ export async function zapyourself(obj, ordinary) {
         // speed_up(rn1(25, 50)) then always learn. Callee
         // potion.c speed_up :2918–2928 (D-1408). bhitm
         // WAN_SPEED is D-1422; bhitm WAN_SLOW is D-1424;
-        // zap_steed / zapyourself WAN_SLOW still named.
+        // zap_steed still named. zapyourself WAN_SLOW is D-1433.
         await speed_up(rn1(25, 50));
         learn_it = true;
         break;
+
+    case WAN_SLOW_MONSTER:
+    case SPE_SLOW_MONSTER: {
+        // C zap.c zapyourself :2868–2874 — HFast&(TIMEOUT|INTRINSIC)
+        // then learn + u_slow_down. Boots-only EFast is a no-op.
+        // Callee mhitu.c u_slow_down :161–171. WAN_LOCKING /
+        // WAN_PROBING / SPE_DRAIN_LIFE still named.
+        const u = game.u || {};
+        const hfast = (u.HFast | 0) | (u.uprops?.[FAST]?.intrinsic | 0);
+        if (hfast & (TIMEOUT | INTRINSIC)) {
+            learn_it = true;
+            await u_slow_down();
+        }
+        break;
+    }
 
     default:
         // Other zapyourself cases deferred

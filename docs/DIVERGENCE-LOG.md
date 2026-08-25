@@ -4,6 +4,48 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1433 — zap.c zapyourself WAN_SLOW_MONSTER
+
+- **Status:** fixed (map-driven Open from D-1424; not a public FAIL)
+- **Symptom:** `zapyourself` defaulted `WAN_SLOW_MONSTER` /
+  `SPE_SLOW_MONSTER`. Self-zap never called `u_slow_down`,
+  never cleared `HFast`, never learned the wand. C
+  `:2868–2874`: `HFast & (TIMEOUT | INTRINSIC)` then
+  `learn_it` + `u_slow_down()`. Boots-only `EFast` and
+  `FROM_FORM`-only miss the gate. Callee `mhitu.c`
+  `:161–171`: `HFast = 0`; `!Fast` `"You slow down."`
+  else (speed boots) `"Your quickness feels less natural."`;
+  `exercise(A_DEX, FALSE)`. `FROMOUTSIDE` is part of
+  `INTRINSIC` so sticky potion speed is stripped.
+  `learnwand` skips `SPBOOK`. Caller `dozap` self-dir
+  (`dx==dy==dz==0`); wand is IMMEDIATE.
+- **C locus:** `zap.c` `zapyourself` `:2868–2874`. Helper
+  `mhitu.c` `u_slow_down` `:161–171`. Caller `dozap`
+  `:2657–2664`.
+- **JS was:** `default` break (no clear, no learn).
+  `u_slow_down` absent.
+- **Fix:** case `WAN_SLOW_MONSTER`/`SPE_SLOW_MONSTER`;
+  port `u_slow_down` in `mhitu.js` (C home; zap.js already
+  imports mhitu). Sync flat `HFast` with
+  `uprops[FAST].intrinsic`. Rule #2: no fs.
+- **JS:** `js/zap.js` `zapyourself`; callee `js/mhitu.js`
+  `u_slow_down`.
+- **Not this iter:** zapyourself WAN_LOCKING /
+  WAN_PROBING / SPE_DRAIN_LIFE; `zap_steed` wrapper;
+  mhitu AD_SLOW gaze / uhitm `mhitm_ad_slow` callers.
+- **Verified:** private canary **16**/16 (C/JS grep; Rule #2;
+  no-speed no-op; TIMEOUT You slow down + learn + `rn2(2)`;
+  FROMOUTSIDE/FROMEXPER clear; FROM_FORM miss; EFast-only
+  miss; TIMEOUT+EFast less natural + keep E; Blind skip
+  makeknown; SPE_SLOW same arm SPBOOK skip learn; WAN_LOCKING
+  still default; WAN_SPEED D-1410 live); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session self-zaps slow.
+- **Follow-up:** Open `zap.c` `zapyourself` WAN_LOCKING
+  (named). Not probing self.
+- **Files:** `js/zap.js`, `js/mhitu.js`.
+
 ## D-1432 — potion.c peffect_blindness
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1433 zap.c zapyourself WAN_SLOW_MONSTER
+
+**Objective:** Open `zap.c` `zapyourself` WAN_SLOW_MONSTER
+(named from D-1424). Not locking self.
+**C locus:** `zap.c` `zapyourself` `:2868–2874`; callee
+`mhitu.c` `u_slow_down` `:161–171`.
+**Change:** HFast&(TIMEOUT|INTRINSIC) then learn +
+u_slow_down (HFast=0; !Fast You slow down else boots
+less natural; exercise DEX FALSE). EFast-only / FROM_FORM
+miss. Locking / probing / drain still named. Rule #2:
+no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session self-zaps slow).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zapyourself` WAN_LOCKING (named).
+Not probing self.
+**Blocked:** none.
 ## 2026-08-25 — D-1432 potion.c peffect_blindness
 
 **Objective:** Open `potion.c` `peffect_blindness` (named).

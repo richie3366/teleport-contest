@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1432; cadence **#1800** `66254727`
+- **Fortress 44/44** after D-1433; cadence **#1800** `66254727`
   (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
-  Open `zap.c` `zapyourself` WAN_SLOW_MONSTER (named from D-1424).
-  Not locking self.
-  Do not skip D-1432…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `zap.c` `zapyourself` WAN_LOCKING (named).
+  Not probing self.
+  Do not skip D-1433…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1432. Named still: `see_monsters`
+- Do not revert D-1217–D-1433. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1432.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1433.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,7 +34,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1432 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1433 (index).
 - Named still: rustm / poison / worm-shrieker; remaining peffects
   (sleeping/gain ability/hallucination);
   remaining wand-duplicate SLEEP/DIG; artifact invoke. No fountain
@@ -49,6 +49,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1433: `zapyourself` WAN/SPE_SLOW if
+  HFast&(TIMEOUT|INTRINSIC) then learn +
+  `u_slow_down` (mhitu.c: HFast=0; !Fast You
+  slow down else boots less natural; exercise
+  DEX FALSE). EFast-only / FROM_FORM miss.
+  Locking / probing / drain still named.
 - D-1432: `peffect_blindness` already Blind or
   (H||E)&&BBlinded → potion_nothing++; always
   make_blinded(itimeout_incr(BlindedTimeout,
