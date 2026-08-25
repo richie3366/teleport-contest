@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1476 — zap.c zap_map engraving/cancel trap
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Down IMMEDIATE zaps skipped floor engravings and
+  cancellation-vs-trap. C `zap.c` `zap_map` `:3628–3800` runs
+  `maybe_explode_trap` (`:3594–3623`) then, when `u.dz > 0`, a
+  non-HEADSTONE engraving switch (`:3645–3683`). Cancel/invis
+  `del_engr`; poly `random_engraving`+`make_engr_at(..., moves, 0)`;
+  tele `rloc_engr`; SPE_STONE_TO_FLESH ENGRAVE `pline_The` +
+  `wipe_engr_at(d(2,4), TRUE)`; striking/force the same wipe.
+  Magical traps explode (`-WAN_CANCELLATION`, `TRAP_EXPLODE`);
+  portal/vibrating-square `shieldeff`+`tseen`+`learnwand` if
+  `cansee`. Ordinary pits are a no-op. Engraving arms do not set
+  disclose. Caller `zap_updown` down already invoked `zap_map`
+  (D-1444/D-1466). Lateral drawbridge and `bhit` zap_map named.
+- **C locus:** `zap.c` `zap_map` `:3628–3800`; `maybe_explode_trap`
+  `:3594–3623`; callee `engrave.c` `rloc_engr` `:1666–1681`.
+- **JS was:** probing-only `zap_map` after D-1444.
+- **Fix:** Port cancel trap + down engraving switch + `rloc_engr`.
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_map` / `maybe_explode_trap`;
+  `js/engrave.js` `rloc_engr`.
+- **Not this iter:** lateral drawbridge; `zap_map` from lateral
+  `bhit`; `force_decor`; Rogue `draft_message`; Invocation_lev
+  vibrating-square `the`; `bhito` uchain / poly-arm `reset_pick`;
+  `bhit` doorlock STRIKING; muse `mbhit`.
+- **Verified:** private canary **35**/35 (C/JS grep; Rule #2;
+  cancel/invis del_engr; HEADSTONE skip; OPENING default;
+  poly rewrite; STONE ENGRAVE wipe; tele `rloc_engr`; portal
+  tseen+learnwand; SPE skip makeknown; PIT no-op; MAGIC_TRAP
+  explode+deltrap; striking wipe; SPE_POLYMORPH rewrite; up/lateral
+  skip engraving; probing still runs; named lateral bhit);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1475 — zap.c bhit doorlock WAN_LOCKING/SPE_WIZARD_LOCK
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

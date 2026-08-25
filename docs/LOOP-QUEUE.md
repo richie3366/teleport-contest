@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_map` engraving/cancel trap (named). Not probing.
 - [ ] `potion.c` `potionbreathe` remaining otyps (named). Not potionhit.
 - [ ] `zap.c` `zap_steed` WAN_SLOW_MONSTER/SPE_SLOW_MONSTER via bhitm (named). Not STRIKING.
 - [ ] `zap.c` `zap_steed` WAN_SPEED_MONSTER via bhitm (named). Not SLOW.

@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1476 zap.c zap_map engraving/cancel trap
+
+**Objective:** Open `zap.c` `zap_map` engraving/cancel trap
+(named). Not probing.
+**C locus:** `zap.c` `zap_map` `:3628–3800`; `maybe_explode_trap`
+`:3594–3623`; callee `engrave.c` `rloc_engr` `:1666–1681`.
+**Change:** Port down-zap engraving switch + cancel trap
+(`del_engr` / poly `random_engraving` / tele `rloc_engr` /
+STONE+striking wipe; portal shield; magical explode). Rule #2:
+no fs.
+**Score:** fortress unchanged (public-unhit).
+**Verified:** private canary **35**/35; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `potion.c` `potionbreathe` remaining otyps
+(named). Not potionhit.
+**Blocked:** none.
 ## 2026-08-25 — review D-1467–D-1475 (audit #1860)
 
 **Objective:** audit — C-fidelity reviews **428–436** of JS SHAs

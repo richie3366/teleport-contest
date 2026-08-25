@@ -1690,7 +1690,7 @@ async function cast_chain_lightning() {
  * the group (C :1513). SPE_TELEPORT_AWAY is D-1468.
  * SPE_HEALING/SPE_EXTRA_HEALING skilled bless then this helper
  * is D-1469. bhit doorlock OPENING/KNOCK is D-1462; LOCKING is
- * D-1475; zap_map engraving remaining named.
+ * D-1475; zap_map engraving/cancel trap is D-1476.
  */
 async function wand_duplicate_weffects(pseudo, atme, physical_damage) {
     const oc = game.objects?.[pseudo.otyp];
@@ -1864,7 +1864,7 @@ async function cast_protection() {
  * SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436;
  * C `:1477` / zap.c `:521–544`); self-dir zapyourself is
  * D-1446. Remaining wand-duplicate named omit is empty
- * for this group; zap_map engraving still named.
+ * for this group; zap_map engraving/cancel trap is D-1476.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -2138,7 +2138,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Stoned fix_petrification, invent bhito + merge.
          * bhitm :490–520 golem newcham / stone mimic reveal.
          * bhito :2412–2414 stone_to_flesh_obj. TELE is D-1468.
-         * zap_map engraving named. */
+         * zap_map engraving/cancel trap is D-1476. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_DRAIN_LIFE) {
         /* C spell.c :1477–1514 wand-duplicate IMMEDIATE weffects

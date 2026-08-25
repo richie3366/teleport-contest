@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
+- [x] `zap.c` `zap_map` engraving/cancel trap (named). Not probing. **Addressed:** D-1476
+
+
 - [x] `zap.c` `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK (named). Not OPENING. **Addressed:** D-1475 `a3a2d65a`
 
 
