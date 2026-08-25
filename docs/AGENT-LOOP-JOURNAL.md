@@ -8,6 +8,27 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1439 potion.c peffect_hallucination
+
+**Objective:** Open `potion.c` `peffect_hallucination` (named).
+Not remaining mix.
+**C locus:** `potion.c` `peffect_hallucination` `:696–714`
+/ `peffects` `:1340–1342`. Callees `make_hallucinated`;
+`invent.js` `enlightenment`.
+**Change:** Halluc_resistance nothing+return; else
+already-hallu nothing then still make_hallucinated
+rn1(200, 600-300*bcsign) talk TRUE mask 0; blessed
+!rn2(3) else !cursed && !rn2(6) MAGIC enlightenment.
+potionhit / potionbreathe / mix still named. Rule #2:
+no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session quaffs hallucination).
+**Verified:** private canary **17**/17; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `weffects` SPE_SLEEP wand-duplicate
+(named from D-1427). Not DIG.
+**Blocked:** none.
 ## 2026-08-25 — D-1438 potion.c peffect_gain_ability
 
 **Objective:** Open `potion.c` `peffect_gain_ability` (named).

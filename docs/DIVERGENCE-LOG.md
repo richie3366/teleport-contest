@@ -4,6 +4,59 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1439 — potion.c peffect_hallucination
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** quaffing a potion of hallucination printed
+  "That potion is not implemented yet." and skipped
+  `useup`. C `peffects` `:1340–1342` calls
+  `peffect_hallucination`. That helper `:696–714`:
+  `Halluc_resistance` (youprop.h H||E) →
+  `potion_nothing++` and return; else already
+  `Hallucination` → `potion_nothing++` then still
+  continue. `make_hallucinated(itimeout_incr(
+  HHallucination, rn1(200, 600-300*bcsign)), TRUE,
+  0L)`. Then `(blessed && !rn2(3)) || (!cursed &&
+  !rn2(6))` (clang short-circuit): You perceive
+  yourself... + `display_nhwindow(WIN_MESSAGE, FALSE)`
+  + `enlightenment(MAGICENLIGHTENMENT,
+  ENL_GAMEINPROGRESS)` + Your awareness re-normalizes
+  + `exercise(A_WIS, TRUE)`. Callee `make_hallucinated`
+  (eatmupdate / update_inventory / itch-flatten still
+  named there). potionhit momentary vision and
+  potionbreathe/mix are separate functions (still
+  named).
+- **C locus:** `potion.c` `peffect_hallucination`
+  `:696–714` / `peffects` `:1340–1342`. Callees
+  `potion.c` `make_hallucinated` `:369–437`;
+  `insight.c` `enlightenment` (JS `invent.js`);
+  `youprop.h` `Halluc_resistance` / `Hallucination`.
+- **JS was:** `peffects` default "not implemented"
+  (return 0, no useup).
+- **Fix:** Port `peffect_hallucination`. Wire
+  POT_HALLUCINATION. Reuse `make_hallucinated` +
+  `invent.js` `enlightenment`. Rule #2: no fs.
+- **JS:** `js/potion.js` `peffects` /
+  `peffect_hallucination`.
+- **Not this iter:** remaining mix / potionhit
+  (momentary vision) / potionbreathe POT_HALLUCINATION;
+  `make_hallucinated` eatmupdate / update_inventory /
+  itch-flatten clear msgs.
+- **Verified:** private canary **17**/17 (C/JS grep;
+  cursed cosmic looks TIMEOUT 900–1099 rn2(200) only;
+  uncursed 600–799 + rn2(6); blessed 300–499 + rn2(3)
+  then rn2(6) iff first failed; H/E/uprops HALLUC_RES
+  peculiar no timeout; already-hallu normal feeling
+  extends; Blind feels; dknown makeknown+useup;
+  enlightenment perceive+awareness; gain ability stays
+  wired; mix/potionhit still named; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session quaffs hallucination.
+- **Follow-up:** Open `zap.c` `weffects` SPE_SLEEP
+  wand-duplicate (named from D-1427). Not DIG.
+- **Files:** `js/potion.js`.
+
 ## D-1438 — potion.c peffect_gain_ability
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

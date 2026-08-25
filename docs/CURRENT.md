@@ -59,22 +59,23 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1438. **Next cluster:** Open
-`potion.c` `peffect_hallucination` (named). Not remaining mix.
-Do not skip D-1438…D-1229 (index). Keep mention_map addr.
+**Map-driven fortress** after D-1439. **Next cluster:** Open
+`zap.c` `weffects` SPE_SLEEP wand-duplicate (named from D-1427).
+Not DIG.
+Do not skip D-1439…D-1229 (index). Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Parked:** D-0006. **Do not re-break D-0660…D-1438.** Do not FORCE
+**Parked:** D-0006. **Do not re-break D-0660…D-1439.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1438 (index). Recent: **D-1438** potion.c
-`peffect_gain_ability`. Prior: **D-1437** potion.c
-`peffect_sleeping`.
+**Keep:** D-0845…D-1439 (index). Recent: **D-1439** potion.c
+`peffect_hallucination`. Prior: **D-1438** potion.c
+`peffect_gain_ability`.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1438
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1439
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

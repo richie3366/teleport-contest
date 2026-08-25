@@ -16,6 +16,7 @@
 //         peffect_blindness (D-1432),
 //         peffect_sleeping (D-1437),
 //         peffect_gain_ability (D-1438),
+//         peffect_hallucination (D-1439),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -63,6 +64,11 @@
 // Fixed_abil extrinsic potion_nothing; else blessed adjattrib all
 // A_MAX with msgflg 0, uncursed rn2 tries msgflg -1 then last 0,
 // break on first success).
+// POT_HALLUCINATION peffect_hallucination (D-1439; Halluc_resistance
+// potion_nothing return; else already Hallucination potion_nothing
+// then still make_hallucinated(itimeout_incr(HHallucination,
+// rn1(200, 600-300*bcsign)), TRUE, 0); blessed !rn2(3) else
+// !cursed && !rn2(6) MAGIC enlightenment).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -83,7 +89,7 @@ import {
     A_WIS, A_INT, A_DEX, A_CON, A_STR, A_MAX, adjattrib, exercise, acurr,
     Fast, Very_fast,
 } from './attrib.js';
-import { makeknown, compactify_invlets } from './invent.js';
+import { makeknown, compactify_invlets, enlightenment } from './invent.js';
 import { yn_function } from './getline.js';
 import {
     doname, xname, short_oname, thesimpleoname, makeplural,
@@ -106,6 +112,7 @@ import {
     OBJ_INVENT, ARTICLE_THE, SUPPRESS_IT, SUPPRESS_SADDLE, W_SADDLE,
     POLY_NOFLAGS, POLY_CONTROLLED, POLY_LOW_CTRL, UNCHANGING, ACID_RES,
     M_SEEN_SLEEP, FIXED_ABIL,
+    MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS,
 } from './const.js';
 import { hands_obj, P_SKILL } from './weapon.js';
 import { rn2, rnd, d, rn1, rnl } from './rng.js';
@@ -171,6 +178,7 @@ const POT_POLYMORPH = objectNames.indexOf('POT_POLYMORPH');
 const POT_GAIN_ENERGY = objectNames.indexOf('POT_GAIN_ENERGY');
 const POT_GAIN_LEVEL = objectNames.indexOf('POT_GAIN_LEVEL');
 const POT_GAIN_ABILITY = objectNames.indexOf('POT_GAIN_ABILITY');
+const POT_HALLUCINATION = objectNames.indexOf('POT_HALLUCINATION');
 const PM_DJINNI = monsterNames.indexOf('PM_DJINNI');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
@@ -1793,6 +1801,55 @@ async function peffect_gain_ability(otmp) {
 }
 
 /**
+ * C youprop.h Halluc_resistance — HHalluc_resistance || EHalluc_resistance
+ * (uprops[HALLUC_RES] intrinsic/extrinsic). JS also mirrors
+ * u.Halluc_resistance.
+ */
+function Halluc_resistance() {
+    const u = game.u || {};
+    return !!((u.HHalluc_resistance | 0)
+        || (u.EHalluc_resistance | 0)
+        || (u.uprops?.[HALLUC_RES]?.intrinsic | 0)
+        || (u.uprops?.[HALLUC_RES]?.extrinsic | 0)
+        || (u.Halluc_resistance | 0));
+}
+
+/**
+ * C ref: potion.c peffect_hallucination :696–714.
+ * Halluc_resistance: potion_nothing++ and return (no timeout, no
+ * enlightenment). Else already Hallucination: potion_nothing++ then
+ * still extend. make_hallucinated(itimeout_incr(HHallucination,
+ * rn1(200, 600-300*bcsign)), TRUE, 0L). Then
+ * (blessed && !rn2(3)) || (!cursed && !rn2(6)): You perceive
+ * yourself... + display_nhwindow(WIN_MESSAGE, FALSE) +
+ * enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS) + Your
+ * awareness re-normalizes + exercise(WIS, TRUE). Callee
+ * make_hallucinated (eatmupdate / update_inventory / itch-flatten
+ * still named there). potionhit / potionbreathe / mix still named.
+ */
+async function peffect_hallucination(otmp) {
+    const u = game.u || (game.u = {});
+    if (Halluc_resistance()) {
+        potion_nothing++;
+        return;
+    } else if (Hallucination()) {
+        potion_nothing++;
+    }
+    await make_hallucinated(
+        itimeout_incr(u.HHallucination | 0, rn1(200, 600 - 300 * bcsign(otmp))),
+        true,
+        0,
+    );
+    if ((otmp.blessed && !rn2(3)) || (!otmp.cursed && !rn2(6))) {
+        await pline('You perceive yourself...');
+        await flush_topl_more(); // display_nhwindow(WIN_MESSAGE, FALSE)
+        await enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
+        await pline('Your awareness re-normalizes.');
+        exercise(A_WIS, true);
+    }
+}
+
+/**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
  * full healing (D-1411) / enlightenment (D-1413) / sickness / water;
@@ -1805,7 +1862,7 @@ async function peffect_gain_ability(otmp) {
  * POT_POLYMORPH (D-1428); POT_GAIN_ENERGY (D-1429);
  * POT_ACID (D-1430); POT_GAIN_LEVEL (D-1431); POT_BLINDNESS (D-1432);
  * POT_SLEEPING (D-1437); POT_GAIN_ABILITY (D-1438);
- * other otyps in map.
+ * POT_HALLUCINATION (D-1439); other otyps in map.
  */
 export async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -1887,6 +1944,9 @@ export async function peffects(otmp) {
         return -1;
     case POT_GAIN_ABILITY:
         await peffect_gain_ability(otmp);
+        return -1;
+    case POT_HALLUCINATION:
+        await peffect_hallucination(otmp);
         return -1;
     default:
         // Other peffect_* deferred — do not useup

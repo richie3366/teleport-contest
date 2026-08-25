@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `potion.c` `peffect_gain_ability` (named). Not hallucination. **Addressed:** D-1438
+- [x] `potion.c` `peffect_hallucination` (named). Not remaining mix. **Addressed:** D-1439
+
+
+- [x] `potion.c` `peffect_gain_ability` (named). Not hallucination. **Addressed:** D-1438 `abdbcad6`
 
 
 - [x] `potion.c` `peffect_sleeping` (named). Not remaining peffects. **Addressed:** D-1437 `af184f1e`
