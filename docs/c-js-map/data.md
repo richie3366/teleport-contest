@@ -567,7 +567,8 @@ Knox `single_level_branch` deferred); **`water_damage` POT_WATER/force/dilute/sc
 Blind smoke D-1138** + **CAN_OF_GREASE / TOWEL `wet_a_towel` / greased / 
 `Is_container`+`Waterproof_container` before luck `rn2(20)`** (D-0928 #1101) + 
 **`splash_lit` D-1337** (apply.c brass dunk/crackle/`snuff_lit`+age; 
-rust-trap walks + water_damage; invent plines / pot_acid boom / waterproof makeknown / SPE_NOVEL 
+rust-trap walks + water_damage; invent grease wash + container `hliquid` plines /
+waterproof `makeknown` D-1501; pot_acid boom / SPE_NOVEL 
 blank deferred); **monster `trapeffect_pit` + 
 `thitm`→`monkilled`/`make_corpse` ordinary** (D-0150); 
 **hero `trapeffect_pit` PIT/SPIKED + `trapeffect_hole` `Can_fall_thru` (D-1076; 

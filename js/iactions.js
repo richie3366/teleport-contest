@@ -42,7 +42,7 @@ function cmdq_add_key(ch) {
 /**
  * C ref: iactions.c itemactions_pushkeys — queue CQ_CANNED ec + invlet.
  * Named omissions: most arms beyond throw/drop/apply/read/quaff/wield/
- * wear/takeoff/zap/quiver/fire/dip (enough for seed5002 itemed throw).
+ * wear/takeoff/zap/quiver/fire/dip (offer/tip/invoke still named).
  */
 async function itemactions_pushkeys(act, otmp) {
     switch (act) {

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `potion.c` `dip_into` (named). Not dodip. **Addressed:** D-1500
+- [x] `potion.c` `H2Opotion_dip` useeit `ublindf && Blindfolded_only` (named). Not mix. **Addressed:** D-1501
+
+
+- [x] `potion.c` `dip_into` (named). Not dodip. **Addressed:** D-1500 `b96ac27f`
 
 
 - [x] `potion.c` `potion_dip` `poly_obj`/`obj_unpolyable` (named). Not mixtype. **Addressed:** D-1499 `089a9829`

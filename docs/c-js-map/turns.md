@@ -335,7 +335,7 @@ milky/smoky bottles, lit-oil burn, worn-stack split, **`potion_dip` potion-potio
 (D-1457; Klein/hands/H2O/poly gate) + **`potion_dip` unicorn/amethyst mixtype dip** (D-1486) + 
 **`potion_dip` poison-coat / healing unpoison** (D-1497; `is_poisonable` missile window or 
 Grimtooth) + **`potion_dip` oil/lamp** (D-1498; lit `fire_damage` / cursed `make_glib` /
-weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill) + **`potion_dip` `poly_obj`/`obj_unpolyable`** (D-1499; unpolyable `obj_resists(5,95)` then `poly_obj(STRANGE_OBJECT)` + polypiles/`prinv`/`poof`; lichen/towel/acid-erode named) + **`dip_into` #altdip** (D-1500; C `:2374–2405` canned `drink_ok` then `dip_ok` GETOBJ_PROMPT; caller `iactions.c` IA_DIP_OBJ; ignores floor; INTERNALCMD `#altdip` named); **`dodip` pool yn** (D-1128; 
+weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill) + **`potion_dip` `poly_obj`/`obj_unpolyable`** (D-1499; unpolyable `obj_resists(5,95)` then `poly_obj(STRANGE_OBJECT)` + polypiles/`prinv`/`poof`; lichen/acid-erode named) + **`dip_into` #altdip** (D-1500; C `:2374–2405` canned `drink_ok` then `dip_ok` GETOBJ_PROMPT; caller `iactions.c` IA_DIP_OBJ; ignores floor; INTERNALCMD `#altdip` named) + **`H2Opotion_dip` useeit `ublindf && Blindfolded_only`** (D-1501; C `potion.c` `:2461` / `youprop.h` Blindfolded≡EBlinded; unpaid POT_WATER `alter_cost`/`costly_alteration`; `mentioned_water` `makeknown`; towel soak; callee `trap.c` `water_damage` invent container plines); **`dodip` pool yn** (D-1128; 
 `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; 
 Levitation `floating_above`; unskilled rider skip; hands/uarmg `wash_hands`; 
 else `water_damage` + POT_ACID `in_use`/`useup`; 

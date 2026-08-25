@@ -32,7 +32,7 @@ import {
     obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible,
     set_msg_xy,
 } from './display.js';
-import { doname, an, the, The, xname, yname, makeplural, vtense } from './objnam.js';
+import { doname, an, the, The, xname, yname, cxname, makeplural, vtense } from './objnam.js';
 import {
     Monnam, mon_nam, x_monnam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam, hliquid, rndcolor,
@@ -116,7 +116,7 @@ import {
 import { monsterNames, PM_ROGUE } from './generated/monsters_data.js';
 import { thitu, ohitmon, hits_bars } from './mthrowu.js';
 import { dmgval, MON_WEP, mwepgone, wet_a_towel, dry_a_towel, is_wet_towel } from './weapon.js';
-import { observe_object, encumber_msg, near_capacity } from './invent.js';
+import { observe_object, encumber_msg, near_capacity, makeknown, update_inventory } from './invent.js';
 import { makemon, rndmonnum_adj, mpickobj, set_malign, newcham } from './makemon.js';
 import {
     A_CHA, A_STR, A_DEX, A_CON, A_WIS, adjattrib, exercise, adjalign,
@@ -4504,14 +4504,16 @@ const TOWEL = objectNames.indexOf('TOWEL');
  * TOWEL wet; greased wash rn2(2); Is_container / Waterproof_container
  * before luck rn2(20); potion dilute / scroll fade / spellbook fade;
  * else `erode_obj(..., ERODE_RUST, EF_NONE)` (D-0683 / D-0928 #1101).
- * Named omit: invent plines; pot_acid_damage boom; waterproof makeknown;
- * SPE_NOVEL blank_novel.
+ * Named omit: pot_acid_damage boom; SPE_NOVEL blank_novel.
  */
-export async function water_damage(obj, _ostr, force) {
+export async function water_damage(obj, ostr, force) {
     if (!obj) return ER_NOTHING;
+    const in_invent = carried_obj(obj);
 
     // C: splash_lit before ostr / luck — extinguish skips further damage RNG
     if (await splash_lit(obj)) return ER_DAMAGED;
+
+    if (!ostr) ostr = cxname(obj);
 
     if (obj.otyp === CAN_OF_GREASE && (obj.spe | 0) > 0) {
         return ER_NOTHING;
@@ -4523,7 +4525,10 @@ export async function water_damage(obj, _ostr, force) {
     if (obj.greased) {
         if (!rn2(2)) {
             obj.greased = 0;
-            // invent pline / update_inventory deferred
+            if (in_invent) {
+                await pline(`The grease on ${yname(obj)} washes off.`);
+                update_inventory();
+            }
             if (obj.otyp === POT_ACID) {
                 // pot_acid_damage deferred
                 return ER_DESTROYED;
@@ -4533,12 +4538,19 @@ export async function water_damage(obj, _ostr, force) {
     }
     if (Is_container(obj)
         && (!Waterproof_container(obj) || (obj.cursed && !rn2(3)))) {
-        // invent hliquid pline deferred
+        if (in_invent) {
+            await pline(`Some ${hliquid('water')} gets into your ${ostr}!`);
+            game.mentioned_water = !Hallucination();
+        }
         await water_damage_chain(obj.cobj, false);
         return ER_DAMAGED;
     }
     if (Waterproof_container(obj)) {
-        // invent "cannot get into" / makeknown deferred
+        if (in_invent && !Blind() && !(game.u?.uinwater)) {
+            await pline(`The ${hliquid('water')} cannot get into your ${ostr}.`);
+            game.mentioned_water = !Hallucination();
+            makeknown(obj.otyp);
+        }
         return ER_DAMAGED;
     }
 
@@ -4583,7 +4595,7 @@ export async function water_damage(obj, _ostr, force) {
         return ER_NOTHING;
     }
     // C: return erode_obj(obj, ostr, ERODE_RUST, EF_NONE);
-    return await erode_obj(obj, _ostr, ERODE_RUST, EF_NONE);
+    return await erode_obj(obj, ostr, ERODE_RUST, EF_NONE);
 }
 
 /**

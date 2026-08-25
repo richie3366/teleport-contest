@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` `H2Opotion_dip` useeit `ublindf && Blindfolded_only` (named). Not mix.
 - [ ] `artifact.c` `doinvoke` TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH (named). Not HEALING/storm.
 - [ ] `mklev.c` minetn-6 load_special (named). Not minetn-1.
 - [ ] `mklev.c` minetn-7 load_special (named). Not minetn-6.
@@ -43,6 +42,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `makemon.c` `throws_rocks` Sokoban first-try (named). Not gnome candle.
 - [ ] `polyself.c` `body_part` aliases: `body_part_head` (mcastu.js),
   `body_part_hand` (pickup.js). Deferred for scope. zap.js is D-1496.
+- [ ] `potion.c` `potion_dip` lichen corpse / acid-erode (named). Not H2O useeit.
+- [ ] `zap.c` `poly_obj` worn `set_wear` (named). Not potion_dip.
+- [ ] `objnam.c` `fruit_from_indx` (named). Not the().
+- [ ] `display.c` `any_visible_region` (named). Not Hallu/Warn_of_mon.
+- [ ] `artifact.c` SPFX_WARN conferral / MATCH_WARN (named). Not Sting_effects.
 
 ## Parked (do not pop)
 

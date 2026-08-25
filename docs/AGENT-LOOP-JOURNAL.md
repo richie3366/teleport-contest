@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1501 potion.c H2Opotion_dip useeit ublindf
+
+**Objective:** Open `potion.c` `H2Opotion_dip` useeit
+`ublindf && Blindfolded_only` (named). Not mix.
+**C locus:** `potion.c` `potion_dip` `:2461` +
+`H2Opotion_dip` `:1497–1589` + towel `:2608–2613`;
+`youprop.h` Blindfolded; callee `trap.c` `water_damage`.
+**JS locus:** `js/potion.js` `potion_dip`/`H2Opotion_dip`;
+`js/trap.js` `water_damage`; `js/iactions.js` comment.
+**Change:** useeit disjunct; unpaid POT_WATER shop;
+`PLNMSG_OBJ_GLOWS`; `mentioned_water` `makeknown`; towel
+soak; invent container/grease plines. Recovered comment
+(no session name). Rule #2: no fs.
+**Verify:** private canary **14**/14; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `artifact.c` `doinvoke` TAMING / CHARGE_OBJ /
+CREATE_PORTAL / BANISH (named). Not HEALING/storm.
 ## 2026-08-25 — D-1500 potion.c dip_into #altdip
 
 **Objective:** Open `potion.c` `dip_into` (named). Not dodip.

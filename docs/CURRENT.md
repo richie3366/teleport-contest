@@ -59,25 +59,26 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1500. **Next cluster:** Open
-`potion.c` `H2Opotion_dip` useeit `ublindf && Blindfolded_only`
-(named). Not mix.
-Do not skip D-1500…D-1229 (index). Keep mention_map addr.
+**Map-driven fortress** after D-1501. **Next cluster:** Open
+`artifact.c` `doinvoke` TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH
+(named). Not HEALING/storm.
+**Do not skip D-1501…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1500.** Do not FORCE
+**Do not re-break D-0660…D-1501.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1500 (index). Recent: **D-1500** `dip_into`
-`#altdip` (canned `drink_ok` then `dip_ok` GETOBJ_PROMPT;
-IA_DIP_OBJ; ignores floor). Worn `set_wear` / lichen/towel/
-acid-erode / H2O `useeit` ublindf named. Prior: **D-1499**
-`potion_dip` `poly_obj`/`obj_unpolyable`. **D-1498** oil/lamp.
+**Keep:** D-0845…D-1501 (index). Recent: **D-1501**
+`H2Opotion_dip` useeit `ublindf && Blindfolded_only`
+(`youprop.h` EBlinded); unpaid POT_WATER shop; towel soak;
+`water_damage` invent container plines. Prior: **D-1500**
+`dip_into` `#altdip`. **D-1499** `poly_obj`.
+Worn `set_wear` / lichen/acid-erode named.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1500
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1501
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

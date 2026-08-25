@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1501 — potion.c H2Opotion_dip useeit ublindf Blindfolded_only
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** dipping the worn blindfold/towel into holy or unholy
+  water while the only blindness was that cover used `!Blind()` so
+  the glow was skipped and `bknown` forgotten. C
+  `potion.c` `potion_dip` `:2461` is
+  `useeit = !Blind || (obj == ublindf && Blindfolded_only)`
+  (`youprop.h` Blindfolded ≡ EBlinded). JS after D-1500 omitted
+  the disjunct. Same function also skipped unpaid POT_WATER
+  shop cost, `PLNMSG_OBJ_GLOWS`, `mentioned_water` `makeknown`,
+  and the towel-soak follow-up.
+- **C locus:** `potion.c` `potion_dip` `:2461` + `H2Opotion_dip`
+  `:1497–1589` + `:2608–2613` towel. Callee `trap.c`
+  `water_damage` invent container/`hliquid` plines set
+  `gm.mentioned_water`. Macros `youprop.h` Blindfolded /
+  Blindfolded_only / Blinded.
+- **JS was:** `const useeit = !Blind()`; H2O shop /
+  `mentioned_water` / towel named.
+- **JS now:** live `js/potion.js` useeit + Blindfolded helpers;
+  H2O unpaid `alter_cost`/`costly_alteration` + last_msg +
+  `mentioned_water` `makeknown`; towel soak; `js/trap.js`
+  `water_damage` invent grease/container plines. Recovered
+  `iactions.js` comment (no public-session name). lichen /
+  acid-erode / INTERNALCMD `#altdip` still named.
+- **Verify:** private canary **14**/14; green seed8000/0900
+  + strict; cohort seed1500/1800/0012/0004/0007/2200/0383
+  + strict. All PASS.
+- **Follow-up:** lichen/acid-erode; INTERNALCMD `#altdip`;
+  Eyes of Overworld `is_plural`; dodip
+  `inaccessible_equipment`; worn `set_wear`.
+
 ## D-1500 — potion.c dip_into #altdip
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

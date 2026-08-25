@@ -23,6 +23,7 @@
 //         potion_dip oil/lamp (D-1498),
 //         potion_dip poly_obj / obj_unpolyable (D-1499),
 //         dip_into #altdip reverse getobj (D-1500),
+//         H2Opotion_dip useeit ublindf && Blindfolded_only (D-1501),
 //         potionhit remaining otyp switch + shop unpaid (D-1472),
 //         potionbreathe remaining otyps (D-1477),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
@@ -33,6 +34,8 @@
 // throwit steed potionhit crash/saddle/H2Opotion_dip/POT_WATER (D-1297);
 // remaining potionhit otyp switch + shop unpaid (D-1472).
 // dip_into #altdip (D-1500; iactions IA_DIP_OBJ; not dodip).
+// H2Opotion_dip useeit ublindf && Blindfolded_only (D-1501);
+// unpaid POT_WATER alter_cost / costly_alteration; towel soak.
 // potionbreathe remaining otyps (D-1477; towel / restore-gain /
 // heal FALLTHROUGH / sickness / hallu / speed / poly / trycall).
 // SPE_HASTE_SELF / POT_SPEED peffect_speed + speed_up (D-1408).
@@ -136,6 +139,7 @@ import {
     M_SEEN_SLEEP, FIXED_ABIL, ANTIMAGIC, SHOPBASE, STRAT_WAITFORU,
     M_AP_FURNITURE, M_AP_OBJECT, BURNING_OIL, LOST_EXPLODING, EXPL_FIERY,
     MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS, COST_NUTRLZ,
+    COST_UNCURS, COST_UNBLSS, PLNMSG_OBJ_GLOWS,
     P_SHURIKEN, P_BOW, P_CROSSBOW, P_NONE, FINGER, LL_CONDUCT,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_EXCLUDE_INACCESS,
     GETOBJ_EXCLUDE_NONINVENT,
@@ -2075,6 +2079,22 @@ function Blind() {
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
 }
 
+/** C youprop.h Blindfolded ≡ EBlinded (worn cover; lenses do not set it). */
+function Blindfolded() {
+    return !!(game.u?.EBlinded);
+}
+
+/** C youprop.h Blinded ≡ HBlinded && !BBlinded (timeout/fromoutside, 0/1). */
+function Blinded_h2o() {
+    const u = game.u || {};
+    return !!((u.HBlinded | 0) && !(u.BBlinded | 0));
+}
+
+/** C youprop.h Blindfolded_only ≡ Blindfolded && !Blinded. */
+function Blindfolded_only() {
+    return Blindfolded() && !Blinded_h2o();
+}
+
 /**
  * C ref: potion.c djinni_from_bottle — makemon djinni, BUC chance remap,
  * then wish / tame / peaceful / vanish / hostile.
@@ -3192,10 +3212,11 @@ function Yname2_pot(obj) {
 
 /**
  * C potion.c potion_dip `:2441–2791` — after dodip/dip_into choose.
- * Envelope: Klein bottle, hands, H2Opotion_dip, poly_obj/obj_unpolyable
- * (D-1499), potion-potion mixtype (D-1457), poison-coat / healing
- * unpoison (D-1497), oil/lamp (D-1498), unicorn/amethyst mixtype dip
- * (D-1486). Named: lichen/acid, towel, acid-erode. dip_into is D-1500.
+ * Envelope: Klein bottle, hands, H2Opotion_dip useeit (D-1501),
+ * poly_obj/obj_unpolyable (D-1499), potion-potion mixtype (D-1457),
+ * poison-coat / healing unpoison (D-1497), oil/lamp (D-1498),
+ * unicorn/amethyst mixtype dip (D-1486), towel soak. Named: lichen/acid
+ * corpse, acid-erode. dip_into is D-1500.
  */
 async function potion_dip(obj, potion) {
     if (potion === obj && (potion.quan | 0) === 1) {
@@ -3210,7 +3231,10 @@ async function potion_dip(obj, potion) {
     obj.pickup_prev = 0;
     potion.in_use = true;
     if ((potion.otyp | 0) === POT_WATER) {
-        const useeit = !Blind();
+        /* C potion.c `:2461` — see the glow even when Blind if the
+         * dipped object is the worn cover and Blindfolded_only. */
+        const useeit = !Blind()
+            || (obj === (game.u?.ublindf) && Blindfolded_only());
         const obj_glows = Yobjnam2_pot(obj, 'glow');
         if (await H2Opotion_dip(potion, obj, useeit, obj_glows)) {
             await poof(potion);
@@ -3317,7 +3341,16 @@ async function potion_dip(obj, potion) {
         return ECMD_TIME;
     }
 
-    // lichen/acid corpse, towel soak named
+    /* C potion.c potion_dip `:2596–2606` lichen/acid named. */
+
+    /* C potion.c potion_dip `:2608–2613` — POT_WATER + TOWEL after
+     * H2Opotion_dip returned false (water_damage already wet it). */
+    if ((potion.otyp | 0) === POT_WATER && (obj.otyp | 0) === TOWEL) {
+        await pline('The towel soaks it up!');
+        await poof(potion);
+        return ECMD_TIME;
+    }
+
     // C potion.c potion_dip `:2615–2636` — sickness coats is_poisonable;
     // healing / extra / full healing strips !permapoisoned coating.
     if (is_poisonable_dip(obj)) {
@@ -3489,15 +3522,21 @@ async function potion_dip(obj, potion) {
 }
 
 /**
- * C potion.c H2Opotion_dip — holy/unholy water BUC change on targobj
- * (steed saddle splash / #dip water). Unpaid POT_WATER alter_cost /
- * costly_alteration named; mentioned_water makeknown named.
+ * C potion.c H2Opotion_dip `:1497–1589` — holy/unholy water BUC change
+ * on targobj (steed saddle splash / #dip water). Caller potion_dip
+ * useeit is `!Blind || (obj==ublindf && Blindfolded_only)` (D-1501).
+ * Unpaid POT_WATER alter_cost / costly_alteration; mentioned_water
+ * makeknown from trap.c water_damage invent container plines.
  * @returns {Promise<boolean>}
  */
 async function H2Opotion_dip(potion, targobj, useeit, objphrase) {
     if (!potion || (potion.otyp | 0) !== POT_WATER) return false;
+    /* C potion.c `:1506–1508` local COST_alter / COST_none. */
+    const COST_alter = -2;
+    const COST_none = -1;
     let func = null;
     let glowcolor = null;
+    let costchange = COST_none;
     let altfmt = false;
     let res = false;
 
@@ -3505,23 +3544,30 @@ async function H2Opotion_dip(potion, targobj, useeit, objphrase) {
         if (targobj.cursed) {
             func = uncurse;
             glowcolor = NH_AMBER;
+            costchange = COST_UNCURS;
         } else if (!targobj.blessed) {
             func = bless;
             glowcolor = NH_LIGHT_BLUE;
+            costchange = COST_alter;
             altfmt = true;
         }
     } else if (potion.cursed) {
         if (targobj.blessed) {
             func = unbless;
             glowcolor = 'brown';
+            costchange = COST_UNBLSS;
         } else if (!targobj.cursed) {
             func = curse;
             glowcolor = NH_BLACK;
+            costchange = COST_alter;
             altfmt = true;
         }
     } else if (carried_pot(targobj)) {
-        // gm.mentioned_water / makeknown(POT_WATER) named
+        /* C: gm.mentioned_water; water_damage may set it. */
+        game.mentioned_water = false;
         if ((await water_damage(targobj, 0, true)) !== ER_NOTHING) res = true;
+        if (game.mentioned_water) makeknown(POT_WATER);
+        game.mentioned_water = false;
     }
     if (func) {
         if (useeit) {
@@ -3531,11 +3577,21 @@ async function H2Opotion_dip(potion, targobj, useeit, objphrase) {
             } else {
                 await pline(`${objphrase} ${glowcolor}.`);
             }
+            if (!game.iflags) game.iflags = {};
+            game.iflags.last_msg = PLNMSG_OBJ_GLOWS;
             targobj.bknown = !Hallucination();
         } else if (!potion.bknown || !potion.dknown) {
             targobj.bknown = 0;
         }
-        // unpaid POT_WATER alter_cost / costly_alteration named
+        if (targobj.unpaid && (targobj.otyp | 0) === POT_WATER) {
+            if (costchange === COST_alter) {
+                const { alter_cost } = await import('./shk.js');
+                alter_cost(targobj, 0);
+            } else if (costchange !== COST_none) {
+                const { costly_alteration } = await import('./shk.js');
+                await costly_alteration(targobj, costchange);
+            }
+        }
         func(targobj);
         res = true;
     }
