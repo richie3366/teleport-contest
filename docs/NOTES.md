@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1465; cadence **#1840** `01edf8b9`
-  (Scr **11,405** RNG 100%). Next: Open `zap.c` `zap_updown`
-  WAN_STONE_TO_FLESH (named). Not LOCKING.
-  Do not skip D-1465…D-1229. No FORCE / `wildmiss` wrap /
+- **Fortress 44/44** after D-1466; cadence **#1840** `01edf8b9`
+  (Scr **11,405** RNG 100%). Next: Open `zap.c` `bhito`
+  boxlock WAN_OPENING/WAN_LOCKING (named). Not doorlock.
+  Do not skip D-1466…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1465. Named still: `see_monsters`
+- Do not revert D-1217–D-1466. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -21,7 +21,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1465.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1466.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -32,10 +32,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1465 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1466 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix / potionhit /
   potionbreathe; wand-duplicate IMMEDIATE TELE;
-  zap_steed bhitm-routed cancel/poly; zap_updown STONE;
+  zap_steed bhitm-routed cancel/poly; zap_map engraving;
   bhit doorlock LOCKING/STRIKING; bhito boxlock; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
@@ -46,9 +46,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1466: `zap_updown` SPE_STONE_TO_FLESH (C has no WAN_);
+  air/water/Underwater/qstart-up nothing; up Blood face; down
+  !OBJ_AT + !ENGRAVE blood/nothing then bhitpile+zap_map;
+  disclose stays false. zap_map engraving named.
 - D-1465: `zap_updown` WAN_LOCKING/SPE_WIZARD_LOCK close
   drawbridge / closeholdingtrap / hole→trapdoor; rock skipped;
-  STONE still named.
+  STONE is D-1466.
 - D-1464: `zap_steed` SPE_DRAIN_LIFE via bhitm; mr=0
   m_lev-- + weaker; undead resists still disclose; SPBOOK
   skip makeknown. Cancel/poly named.
@@ -79,4 +83,3 @@ Objective/score live in `CURRENT.md`.
 - D-1453: `bhito` SPE_DRAIN `drain_item` spe-- after
   defends(AD_DRLI)/obj_resists; COST_DRAIN; worn ABON.
 - D-1452: SPE_WIZARD_LOCK IMMEDIATE wand-duplicate → weffects bhit.
-- D-1451: SPE_SLOW_MONSTER IMMEDIATE wand-duplicate → weffects bhit.

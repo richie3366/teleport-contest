@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_updown` WAN_STONE_TO_FLESH (named). Not LOCKING.
 - [ ] `zap.c` `bhito` boxlock WAN_OPENING/WAN_LOCKING (named). Not doorlock.
 - [ ] `spell.c` `spelleffects` SPE_TELEPORT_AWAY IMMEDIATE wand-duplicate weffects (named). Not STONE.
 - [ ] `spell.c` `spelleffects` SPE_HEALING/SPE_EXTRA_HEALING directional weffects (named). Not TELE.

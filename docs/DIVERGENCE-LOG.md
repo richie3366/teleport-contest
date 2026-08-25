@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1466 — zap.c zap_updown SPE_STONE_TO_FLESH
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_updown` after D-1465 LOCKING still defaulted
+  SPE_STONE_TO_FLESH (queue named WAN_STONE_TO_FLESH; C has no
+  such wand), so an up/down stone-to-flesh spell never printed
+  Blood / `nothing_happens` and never reached the shared down
+  `bhitpile`+`zap_map` epilogue. C `zap_updown` `:3355–3377`:
+  air/water/Underwater or (qstart and `dz<0`) → `pline1(nothing_happens)`;
+  else up `Blood drips on your %s` `body_part(FACE)`; else down
+  `!OBJ_AT` then skip if `engr_type==ENGRAVE` (zap_map owns
+  engraved stone) else pool/ice nothing else `Blood %ss %s your %s`
+  (`boil`/`pool`, Levitation `beneath`/`at`, `makeplural(FOOT)`).
+  Flavor does not set `disclose`. Then `:3382–3408` down
+  `bhitpile`+`zap_map` / up hideunder `bhito`. Caller `weffects`
+  `:3445–3446` `u.dz`.
+- **C locus:** `zap.c` `zap_updown` `:3355–3377` + epilogue
+  `:3382–3408`. Caller `weffects` `:3440–3446`.
+- **JS was:** named omit. LOCKING live (D-1465); STONE hit
+  `default` `return false` (skipped epilogue).
+- **Fix:** SPE_STONE_TO_FLESH case then `break` into shared
+  epilogue. zap_map engraving still named. Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_updown`; `js/engrave.js` `engr_at`
+  (already live).
+- **Not this iter:** `zap_map` engraving/cancel trap; `bhito`
+  boxlock; `bhit` doorlock LOCKING; remaining zap_steed
+  bhitm-routed otyps; poly `body_part` tables.
+- **Verified:** private canary **20**/20 (C/JS grep; Rule #2;
+  C has no WAN_STONE_TO_FLESH; down empty Blood pools at feet;
+  Levitation beneath; lava boils; pool/ice nothing; OBJ_AT skip
+  Blood; ENGRAVE skip Blood; DUST still Blood; up face drip;
+  air/Underwater/qstart-up nothing; LOCKING/STRIKING/PROBING
+  siblings); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session casts stone-to-flesh up or down.
+- **Follow-up:** Open `zap.c` `bhito` boxlock WAN_OPENING/WAN_LOCKING
+  (named). Not doorlock.
+- **Files:** `js/zap.js`.
+
 ## D-1465 — zap.c zap_updown WAN_LOCKING/SPE_WIZARD_LOCK
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -61,6 +61,7 @@
 // bhit doorlock WAN_OPENING/SPE_KNOCK SDOOR appear + locked unlock (D-1462);
 // zap_updown WAN_STRIKING/SPE_FORCE_BOLT destroy db / rock / trapdoor (D-1456);
 // zap_updown WAN_LOCKING/SPE_WIZARD_LOCK close db / hole→trapdoor (D-1465);
+// zap_updown SPE_STONE_TO_FLESH blood / nothing_happens then epilogue (D-1466);
 // bhito WAN_PROBING observe + display_cinventory / tin / egg (D-1445);
 // bhito SPE_DRAIN_LIFE drain_item (D-1453);
 // bhitm SPE_DRAIN_LIFE monhp_per_lvl + resist + m_lev (D-1436);
@@ -74,7 +75,7 @@
 // → zap_dig (dig.c); RAY SPE_MAGIC_MISSILE..SPE_FINGER_OF_DEATH weffects
 // → ubuzz BZ_U_SPELL (D-1386); SPE_FORCE_BOLT IMMEDIATE weffects/bhit
 // + bhitm spell_damage_bonus (D-1388; Knight questart dbldam named).
-// Named omissions: zap_updown STONE / uswallow pile;
+// Named omissions: zap_map engraving/cancel trap / uswallow pile;
 // bhito boxlock / opening chain; bhit doorlock LOCKING/STRIKING;
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
@@ -86,6 +87,7 @@
 // zap_updown WAN_OPENING/SPE_KNOCK is D-1454;
 // zap_updown WAN_STRIKING/SPE_FORCE_BOLT is D-1456;
 // zap_updown WAN_LOCKING/SPE_WIZARD_LOCK is D-1465;
+// zap_updown SPE_STONE_TO_FLESH is D-1466;
 // bhito WAN_PROBING is D-1445; bhito SPE_DRAIN_LIFE is D-1453;
 // remaining bhitm-routed zap_steed (cancel/poly/invis/
 // striking/slow/speed/heal) named;
@@ -179,7 +181,7 @@ import {
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn } from './do.js';
-import { doname, xname, yname, distant_name, vtense, The, the, an, An, killer_xname, ansimpleoname, otyp_is_charged } from './objnam.js';
+import { doname, xname, yname, distant_name, vtense, The, the, an, An, killer_xname, ansimpleoname, otyp_is_charged, makeplural } from './objnam.js';
 import { uhim } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
 import {
@@ -234,6 +236,7 @@ import { costly_alteration, stolen_value, costly_spot, shop_keeper, hot_pursuit 
 import { dryup } from './fountain.js';
 import { explode } from './explode.js';
 import { unpunish, litroom } from './read.js';
+import { engr_at } from './engrave.js';
 import { bare_artifactname, defends, defends_when_carried } from './artifact.js';
 import { Ring_gone, Ring_off, Ring_on, setworn } from './do_wear.js';
 import { which_armor, mon_set_minvis, check_gear_next_turn } from './worn.js';
@@ -284,7 +287,7 @@ import {
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
     OMONST, has_oname, ONAME, has_omonst, has_omid, OMID, ESHK,
-    WEB, PIT, HOLE, TRAPDOOR, HEAD, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
+    WEB, PIT, HOLE, TRAPDOOR, HEAD, FACE, FOOT, ENGRAVE, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
     TIMER_LEVEL, MELT_ICE_AWAY, EXPL_FIERY, COLNO, ROWNO,
     xytodir,
     IS_ALTAR, Is_earthlevel, IS_AIR, CLOUD, IS_SINK,
@@ -591,11 +594,14 @@ function hard_helmet(obj) {
 }
 
 /**
- * C polyself.c body_part for zap_updown rock. Poly tables named
- * (avoid static zap→polyself→do→zap cycle); humanoid HEAD → "head".
+ * C polyself.c body_part for zap_updown rock (D-1456) and
+ * SPE_STONE_TO_FLESH FACE/FOOT (D-1466). Poly tables named
+ * (avoid static zap→polyself→do→zap cycle); humanoid HEAD/FACE/FOOT.
  */
 function body_part_zap(part) {
     if (part === HEAD) return 'head';
+    if (part === FACE) return 'face';
+    if (part === FOOT) return 'foot';
     return 'body';
 }
 
@@ -3595,7 +3601,7 @@ async function shieldeff_mon(mtmp) {
  * that_is_a_mimic(MIM_REVEAL|MIM_OMIT_WAIT); else wake FALSE).
  * Named omit: long-worm mcorpsenm polish; Knight questart double
  * on striking; mhurtle petrify/steed; that_is_a_mimic MIM_REVEAL
- * pline (box_or_door+seemimic wired); zap_updown STONE;
+ * pline (box_or_door+seemimic wired);
  * zap_updown/zap_steed WAN_MAKE_INVISIBLE; zap_steed WAN_PROBING
  * is D-1443; bhito WAN_PROBING is
  * D-1445; SPE_DRAIN_LIFE drain_item is D-1453; worm see_wsegs; defended(AD_DRLI).
@@ -3822,7 +3828,7 @@ export async function bhitm(mtmp, otmp) {
         /* C zap.c bhitm :490–520 — golem newcham / stone-mimic
          * that_is_a_mimic(MIM_REVEAL|MIM_OMIT_WAIT); else wake
          * FALSE. SPE_STONE wand-duplicate weffects is D-1461.
-         * zap_updown STONE named. */
+         * zap_updown SPE_STONE_TO_FLESH is D-1466. */
         if (mtmp.data?.mlet === 'S_GOLEM') {
             const name = Monnam(mtmp);
             const mndx = mtmp.data?.mndx | 0;
@@ -4642,8 +4648,8 @@ function delete_contents(obj) {
  * C zap.c stone_to_flesh_obj :1991–2112 — mineral/gemstone then
  * obj_resists(2,98); ROCK/TOOL boulder meat / statue animate /
  * figurine makemon; RING meat ring; WAND meat stick; GEM meatball.
- * SPE_STONE wand-duplicate is D-1461. Named: zap_updown STONE;
- * zap_map engraving; globby merge.
+ * SPE_STONE wand-duplicate is D-1461. Named: zap_map
+ * engraving; globby merge. zap_updown SPE_STONE_TO_FLESH is D-1466.
  * @returns {Promise<number>}
  */
 async function stone_to_flesh_obj(obj) {
@@ -4983,7 +4989,7 @@ export async function drain_item(obj, by_you) {
  * rloco; WAN_UNDEAD_TURNING floor corpse/egg thin revive;
  * SPE_STONE_TO_FLESH stone_to_flesh_obj (D-1461; invent ok —
  * C `:2178–2179` floor-or-STONE). Named omit: boxlock; opening
- * chain; uchain unpunish; zap_updown STONE.
+ * chain; uchain unpunish. zap_updown SPE_STONE_TO_FLESH is D-1466.
  * @returns {Promise<number>} 1 if affected
  */
 async function bhito(obj, otmp) {
@@ -5469,6 +5475,16 @@ function Is_qstart_updown(lev) {
 }
 
 /**
+ * C youprop.h Levitation — (HLevitation || ELevitation) && !BLevitation.
+ * Sticky u.Levitation is not a C field (D-1070). zap_updown D-1466.
+ */
+function Levitation_updown() {
+    const u = game.u || {};
+    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !(u.BLevitation | 0));
+}
+
+/**
  * C zap.c zap_updown :3219–3411 — IMMEDIATE wand/spell up or down.
  * WAN_PROBING :3236–3262 (D-1444; early return; own bhitpile).
  * WAN_OPENING/SPE_KNOCK :3263–3288 (D-1454) then shared down
@@ -5476,8 +5492,10 @@ function Is_qstart_updown(lev) {
  * WAN_STRIKING/SPE_FORCE_BOLT :3290–3354 (D-1456; striking=TRUE
  * FALLTHROUGH into locking body). WAN_LOCKING/SPE_WIZARD_LOCK
  * :3295–3354 (D-1465; !striking close_drawbridge / closeholdingtrap
- * / hole→trapdoor). Named: SPE_STONE_TO_FLESH; zap_map
- * engraving/cancel trap; bhito boxlock; poly body_part.
+ * / hole→trapdoor). SPE_STONE_TO_FLESH :3355–3377 (D-1466; C has
+ * no WAN_STONE_TO_FLESH) then shared down bhitpile+zap_map / up
+ * hideunder. Named: zap_map engraving/cancel trap; bhito boxlock;
+ * poly body_part.
  */
 async function zap_updown(obj) {
     if (!obj) return false;
@@ -5630,11 +5648,38 @@ async function zap_updown(obj) {
         }
         break;
     }
+    case SPE_STONE_TO_FLESH: {
+        /* C zap.c :3355–3377 — spell-only; no WAN_STONE_TO_FLESH.
+         * Flavor does not set disclose. Then shared epilogue. */
+        if (Is_airlevel(game.u?.uz) || Is_waterlevel(game.u?.uz)
+            || !!(game.u?.uinwater | 0)
+            || (Is_qstart_updown(game.u?.uz) && dz < 0)) {
+            await pline(nothing_happens);
+        } else if (dz < 0) {
+            /* C :3359–3360 — "we should do more..." */
+            await pline(`Blood drips on your ${body_part_zap(FACE)}.`);
+        } else if (dz > 0 && !objects_at(x, y)) {
+            /* C :3361–3375 — skip if ENGRAVE (zap_map named). */
+            const e = engr_at(x, y);
+            if (!(e && (e.engr_type | 0) === ENGRAVE)) {
+                if (is_pool(x, y) || is_ice(x, y)) {
+                    await pline(nothing_happens);
+                } else {
+                    await pline(
+                        `Blood ${is_lava(x, y) ? 'boil' : 'pool'}s ${
+                            Levitation_updown() ? 'beneath' : 'at'
+                        } your ${makeplural(body_part_zap(FOOT))}.`,
+                    );
+                }
+            }
+        }
+        break;
+    }
     default:
         return false;
     }
 
-    /* C zap.c :3382–3408 — PROBING already returned. Other otyps named. */
+    /* C zap.c :3382–3408 — PROBING already returned. */
     if (dz > 0) {
         await bhitpile(obj, bhito, x, y, dz);
         await zap_map(x, y, obj);
@@ -5742,9 +5787,10 @@ async function zap_steed(obj) {
  * (D-1464); zap_updown WAN_PROBING (D-1444);
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown
  * WAN_STRIKING/SPE_FORCE_BOLT (D-1456); zap_updown
- * WAN_LOCKING/SPE_WIZARD_LOCK (D-1465); remaining zap_steed
- * bhitm-routed otyps / zap_updown STONE /
- * zap_map engraving / doorlock LOCKING/STRIKING named.
+ * WAN_LOCKING/SPE_WIZARD_LOCK (D-1465); zap_updown
+ * SPE_STONE_TO_FLESH (D-1466); remaining zap_steed
+ * bhitm-routed otyps / zap_map engraving / doorlock
+ * LOCKING/STRIKING named.
  */
 export async function weffects(obj) {
     const otyp = obj.otyp;
