@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1436 zap.c bhitm SPE_DRAIN_LIFE
+
+**Objective:** Open `zap.c` `bhitm` SPE_DRAIN_LIFE
+(named). Not zapyourself slow.
+**C locus:** `zap.c` `bhitm` `:521–544`; callees
+`monhp_per_lvl`, `resists_drli`, `shieldeff_mon`,
+`resist` NOTELL; caller `spell.c` `:1477` weffects.
+**Change:** drain-life on a monster seemimic + HP/level
+strip (or undead shield). Spell wand-duplicate dispatch.
+zapyourself drain / bhito drain_item still named.
+Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts drain at a monster).
+**Verified:** private canary **16**/16; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `peffect_sleeping` (named).
+Not remaining peffects.
+**Blocked:** none.
 ## 2026-08-25 — D-1435 zap.c zapyourself WAN_PROBING
 
 **Objective:** Open `zap.c` `zapyourself` WAN_PROBING

@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1436 — zap.c bhitm SPE_DRAIN_LIFE
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `bhitm` defaulted `SPE_DRAIN_LIFE`. Casting drain
+  life at a monster never `seemimic`'d, never rolled
+  `monhp_per_lvl` / Knight questart `dbldam` /
+  `spell_damage_bonus`, never `resists_drli`/`shieldeff_mon`,
+  never `resist` NOTELL then extra `mhp`/`mhpmax` + `m_lev--`
+  or `killed`. C `:521–544`. Spell has no wand duplicate;
+  `spell.c` `:1477–1514` wand-duplicate `weffects` → IMMEDIATE
+  `bhit` is the caller. JS `spelleffects` said Nothing happens.
+- **C locus:** `zap.c` `bhitm` `:521–544`. Helpers
+  `makemon.c` `monhp_per_lvl`, `mondata.c` `resists_drli`
+  `:201–211` (defended AD_DRLI named), `mon.c` `shieldeff_mon`
+  `:6058–6063`, `zap.c` `resist` NOTELL. Caller `spell.c`
+  `spelleffects` `:1477–1514`. `zap_steed` `:3129` also
+  routes here (named).
+- **JS was:** `bhitm` default break (wake only);
+  `spelleffects` other-otyp Nothing happens.
+- **Fix:** `bhitm` case; local `resists_drli` +
+  `shieldeff_mon`; spell wand-duplicate dispatch
+  (`physical_damage` false). Self-dir still `zapyourself`
+  (named). Rule #2: no fs.
+- **JS:** `js/zap.js` `bhitm`; `js/spell.js`
+  `wand_duplicate_weffects`.
+- **Not this iter:** zapyourself SPE_DRAIN_LIFE;
+  `bhito` `drain_item`; `zap_steed` / `zap_updown`;
+  `defended(AD_DRLI)`; remaining wand-duplicate SLEEP/DIG.
+- **Verified:** private canary **16**/16 (C/JS grep; Rule #2;
+  living mr=0 level-strip + weaker; mr=1000 HP-only;
+  undead resists pline no HP; Knight questart dbldam >;
+  probing D-1426; zapyourself still 0); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session casts drain at a monster.
+- **Follow-up:** Open `potion.c` `peffect_sleeping`
+  (named). Not remaining peffects.
+- **Files:** `js/zap.js`; `js/spell.js`.
+
 ## D-1435 — zap.c zapyourself WAN_PROBING
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

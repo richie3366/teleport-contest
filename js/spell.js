@@ -53,10 +53,12 @@
 // C `:1474` wand-duplicate group; callee zap.c `:2552–2558`).
 // SPE_LIGHT NODIR weffects → zapnodir litroom+lightdamage (D-1427;
 // C `:1473` same group; callee zap.c `:2544–2550` D-1366).
+// SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436; C `:1477`
+// same wand-duplicate group; callee zap.c `:521–544`).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects:
-// polymorph/gain energy/acid/gain level/blindness;
+// sleeping/gain ability/hallucination;
 // remaining wand-duplicate SLEEP / DIG / …);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
@@ -213,6 +215,7 @@ const SPE_DETECT_MONSTERS = objectNames.indexOf('SPE_DETECT_MONSTERS');
 const SPE_LEVITATION = objectNames.indexOf('SPE_LEVITATION');
 const SPE_DETECT_UNSEEN = objectNames.indexOf('SPE_DETECT_UNSEEN');
 const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
+const SPE_DRAIN_LIFE = objectNames.indexOf('SPE_DRAIN_LIFE');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
@@ -1761,8 +1764,9 @@ async function cast_protection() {
  * SPE_DETECT_UNSEEN NODIR weffects → zapnodir findit (D-1412;
  * C `:1474` / zap.c `:2552–2558`). SPE_LIGHT NODIR weffects
  * → zapnodir litroom+lightdamage (D-1427; C `:1473` / zap.c
- * `:2544–2550` D-1366). Remaining wand-duplicate SLEEP / DIG
- * still named.
+ * `:2544–2550` D-1366). SPE_DRAIN_LIFE IMMEDIATE weffects →
+ * bhitm (D-1436; C `:1477` / zap.c `:521–544`). Remaining
+ * wand-duplicate SLEEP / DIG still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1943,6 +1947,11 @@ export async function spelleffects(spell_otyp, atme, force) {
          * SPE_LIGHT litroom+lightdamage (D-1427; callee D-1366);
          * SPE_DETECT_UNSEEN findit (D-1412). physical_damage is
          * FORCE_BOLT-only; unused on NODIR. */
+        await wand_duplicate_weffects(pseudo, atme, false);
+    } else if (otyp === SPE_DRAIN_LIFE) {
+        /* C spell.c :1477–1514 wand-duplicate IMMEDIATE weffects
+         * → bhit → bhitm SPE_DRAIN_LIFE (D-1436). physical_damage
+         * is FORCE_BOLT-only. Self-dir still zapyourself (named). */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG
