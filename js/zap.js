@@ -35,6 +35,10 @@
 // C spell.c :1468 / zap.c :3440–3451);
 // SPE_POLYMORPH IMMEDIATE wand-duplicate weffects bhit (D-1459;
 // C spell.c :1469 / zap.c :3440–3451);
+// SPE_CANCELLATION IMMEDIATE wand-duplicate weffects bhit (D-1460;
+// C spell.c :1471 / zap.c :3440–3451);
+// SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate weffects bhit (D-1461;
+// C spell.c :1478 / zap.c :3440–3451);
 // zapyourself WAN_MAKE_INVISIBLE (D-1369);
 // zapyourself WAN_SPEED_MONSTER speed_up(rn1(25,50)) (D-1410);
 // zapyourself WAN/SPE_SLOW_MONSTER u_slow_down (D-1433);
@@ -93,8 +97,10 @@
 // IMMEDIATE wand-duplicate weffects is D-1451; SPE_WIZARD_LOCK
 // IMMEDIATE wand-duplicate weffects is D-1452; SPE_TURN_UNDEAD
 // IMMEDIATE wand-duplicate weffects is D-1458; SPE_POLYMORPH
-// IMMEDIATE wand-duplicate weffects is D-1459; remaining
-// IMMEDIATE wand-duplicate CANCEL/STONE/TELE;
+// IMMEDIATE wand-duplicate weffects is D-1459; SPE_CANCELLATION
+// IMMEDIATE wand-duplicate weffects is D-1460; SPE_STONE_TO_FLESH
+// IMMEDIATE wand-duplicate weffects is D-1461; remaining
+// IMMEDIATE wand-duplicate TELE;
 // potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
@@ -149,7 +155,7 @@ import { getlin } from './getline.js';
 import {
     flush_screen, flush_topl_more, pline, pline_dir, pline_mon, Norep, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon, shieldeff,
-    obj_glyph, glyph_is_invisible, map_invisible, bot,
+    obj_glyph, glyph_is_invisible, map_invisible, bot, set_msg_xy,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
 import { nhgetch } from './input.js';
@@ -176,8 +182,8 @@ import {
 import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
     MR_POISON, MR_ACID, is_undead, is_were, is_vampshifter, monsterNames, mons,
-    G_UNIQ, is_rider, is_swimmer, mindless, MZ_MEDIUM, is_whirly,
-    hides_under,
+    G_UNIQ, G_NOCORPSE, is_rider, is_swimmer, mindless, MZ_MEDIUM, is_whirly,
+    hides_under, is_golem, vegetarian, carnivorous,
 } from './monsters.js';
 import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder } from './mon.js';
 import { find_mac, monkilled, shade_miss } from './mhitm.js';
@@ -191,17 +197,18 @@ import { more_experienced, losexp } from './exper.js';
 import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
 import {
-    killed, xkilled, flash_hits_mon, m_is_steadfast,
+    killed, xkilled, flash_hits_mon, m_is_steadfast, that_is_a_mimic,
 } from './uhitm.js';
 import { mon_nam, Monnam, noit_Monnam, christen_monst, hliquid, Hallucination, rndmonnam } from './do_name.js';
 import { finish_losehp_done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap,
     NO_TRAP_FLAGS, ignite_items, openholdingtrap, closeholdingtrap,
-    openfallingtrap, self_invis_message, trapname,
+    openfallingtrap, self_invis_message, trapname, animate_statue,
 } from './trap.js';
 import { potionbreathe, make_stunned, speed_up } from './potion.js';
-import { burn_away_slime } from './timeout.js';
+import { useup, carried, fix_petrification } from './eat.js';
+import { burn_away_slime, get_obj_location } from './timeout.js';
 import { create_gas_cloud } from './region.js';
 import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock_invent } from './lock.js';
@@ -210,7 +217,7 @@ import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './
 import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
-import { rehumanize } from './polyself.js';
+import { rehumanize, polymon } from './polyself.js';
 import { costly_alteration, stolen_value, costly_spot, shop_keeper, hot_pursuit } from './shk.js';
 import { dryup } from './fountain.js';
 import { explode } from './explode.js';
@@ -221,17 +228,17 @@ import { which_armor, mon_set_minvis, check_gear_next_turn } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
 import { abuse_dog, wary_dog, tamedog } from './dog.js';
 import {
-    mkobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
+    mkobj, mksobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
     oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
-    eaten_stat, start_timer, spot_stop_timers, spot_time_left,
-    obj_ice_effects, place_object, stackobj,
+    eaten_stat, start_timer, spot_stop_timers, spot_time_left, obj_stop_timers,
+    obj_ice_effects, place_object, stackobj, mergable, set_corpsenm,
     get_mtraits, free_omonst, free_omid, is_metallic, is_crackable,
     mksobj_at,
 } from './mkobj.js';
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
     TOOL_CLASS, GEM_CLASS, SCROLL_CLASS, RING_CLASS, FOOD_CLASS, COIN_CLASS,
-    NODIR, IMMEDIATE, objectNames,
+    ROCK_CLASS, NODIR, IMMEDIATE, objectNames,
 } from './objects.js';
 import {
     WAND_BACKFIRE_CHANCE, WAND_WREST_CHANCE, nothing_happens,
@@ -257,6 +264,7 @@ import {
     LEFT_RING, RIGHT_RING,
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, M_AP_OBJECT, M_AP_FURNITURE,
     NON_PM, ismnum,
+    MIM_REVEAL, MIM_OMIT_WAIT, ANIMATE_SPELL,
     def_warnsyms,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE,
     REFLECTING, ANTIMAGIC, SHOCK_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED,
@@ -318,6 +326,7 @@ const SPE_FORCE_BOLT = objectNames.indexOf('SPE_FORCE_BOLT');
 const SPE_DRAIN_LIFE = objectNames.indexOf('SPE_DRAIN_LIFE');
 const WAN_CANCELLATION = objectNames.indexOf('WAN_CANCELLATION');
 const SPE_CANCELLATION = objectNames.indexOf('SPE_CANCELLATION');
+const SPE_STONE_TO_FLESH = objectNames.indexOf('SPE_STONE_TO_FLESH');
 const WAN_TELEPORTATION = objectNames.indexOf('WAN_TELEPORTATION');
 const SPE_TELEPORT_AWAY = objectNames.indexOf('SPE_TELEPORT_AWAY');
 const WAN_UNDEAD_TURNING = objectNames.indexOf('WAN_UNDEAD_TURNING');
@@ -355,6 +364,11 @@ const MAGIC_LAMP = objectNames.indexOf('MAGIC_LAMP');
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const CANDELABRUM_OF_INVOCATION = objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const CORPSE = objectNames.indexOf('CORPSE');
+const FIGURINE = objectNames.indexOf('FIGURINE');
+const MEATBALL = objectNames.indexOf('MEATBALL');
+const MEAT_RING = objectNames.indexOf('MEAT_RING');
+const MEAT_STICK = objectNames.indexOf('MEAT_STICK');
+const ENORMOUS_MEATBALL = objectNames.indexOf('ENORMOUS_MEATBALL');
 const EGG = objectNames.indexOf('EGG');
 const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
 const PM_GUARD = monsterNames.indexOf('PM_GUARD');
@@ -377,10 +391,26 @@ const HELM_OF_BRILLIANCE = objectNames.indexOf('HELM_OF_BRILLIANCE');
 const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
 const PM_CLAY_GOLEM = monsterNames.indexOf('PM_CLAY_GOLEM');
 const PM_KNIGHT = monsterNames.indexOf('PM_KNIGHT');
+const PM_MONK = monsterNames.indexOf('PM_MONK');
+const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
+const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
 const PM_DEATH = monsterNames.indexOf('PM_DEATH');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const NC_VIA_WAND_OR_SPELL = 0x02;
 const NC_SHOW_MSG = 0x01;
+/* C materials.h GEMSTONE=20 MINERAL=21 — stone_to_flesh_obj. */
+const MAT_GEMSTONE = 20;
+const MAT_MINERAL = 21;
+/* C defsym.h PCHAR — stone_furniture_type mimic mappearance. */
+const S_VWALL = 1;
+const S_TRWALL = 11;
+const S_UPSTAIR = 25;
+const S_DNSTAIR = 26;
+const S_BRUPSTAIR = 29;
+const S_BRDNSTAIR = 30;
+const S_ALTAR = 33;
+const S_THRONE = 35;
+const S_SINK = 36;
 
 /* C ref: zap.c ZT_* = AD_* - 1 */
 const ZT_MAGIC_MISSILE = 0;
@@ -2510,7 +2540,9 @@ export async function do_enlightenment_effect() {
  * (D-1458; bhitm/zapyourself unturn D-0955).
  * SPE_POLYMORPH IMMEDIATE wand-duplicate weffects bhit
  * (D-1459; bhitm WAN/SPE/POT poly live; zapyourself D-0156).
- * Named omit: remaining wand-duplicate IMMEDIATE (CANCEL/…).
+ * SPE_CANCELLATION IMMEDIATE wand-duplicate weffects bhit
+ * (D-1460). SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate
+ * weffects bhit (D-1461). Named omit: remaining TELE.
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -3396,6 +3428,35 @@ function box_or_door(monst) {
     return false;
 }
 
+/**
+ * C mkobj.c stone_object_type :1264–1271 — boulder/statue/figurine
+ * mimic shapes undone by stone-to-flesh (D-1461).
+ */
+function stone_object_type(mappearance) {
+    const otyp = mappearance | 0;
+    return otyp === BOULDER || otyp === STATUE || otyp === FIGURINE;
+}
+
+/**
+ * C mkobj.c stone_furniture_type :1276–1295 — stairs/altar/throne/sink
+ * or wall glyphs S_vwall..S_trwall (D-1461).
+ */
+function stone_furniture_type(mappearance) {
+    const sym = mappearance | 0;
+    switch (sym) {
+    case S_UPSTAIR:
+    case S_DNSTAIR:
+    case S_BRUPSTAIR:
+    case S_BRDNSTAIR:
+    case S_ALTAR:
+    case S_THRONE:
+    case S_SINK:
+        return true;
+    default:
+        return sym >= S_VWALL && sym <= S_TRWALL;
+    }
+}
+
 /** C obj.h SchroedingersBox — LARGE_BOX with spe==1. */
 function SchroedingersBox(obj) {
     return !!obj && (obj.otyp | 0) === LARGE_BOX && (obj.spe | 0) === 1;
@@ -3517,11 +3578,14 @@ async function shieldeff_mon(mtmp) {
  * trap-hit), WAN_PROBING (D-1426; probe_monster; wake = FALSE;
  * always learn), SPE_DRAIN_LIFE (D-1436; monhp_per_lvl then
  * spell_damage_bonus; resists_drli → shieldeff_mon else !resist
- * NOTELL then extra mhp/mhpmax + m_lev-- / killed). Named omit:
- * long-worm mcorpsenm polish; Knight questart double on striking;
- * mhurtle petrify/steed; that_is_a_mimic MIM_REVEAL pline
- * (box_or_door+seemimic wired); zap_updown/zap_steed
- * WAN_MAKE_INVISIBLE; zap_steed WAN_PROBING is D-1443; bhito WAN_PROBING is
+ * NOTELL then extra mhp/mhpmax + m_lev-- / killed),
+ * SPE_STONE_TO_FLESH (D-1461; golem newcham / stone-mimic
+ * that_is_a_mimic(MIM_REVEAL|MIM_OMIT_WAIT); else wake FALSE).
+ * Named omit: long-worm mcorpsenm polish; Knight questart double
+ * on striking; mhurtle petrify/steed; that_is_a_mimic MIM_REVEAL
+ * pline (box_or_door+seemimic wired); zap_updown STONE;
+ * zap_updown/zap_steed WAN_MAKE_INVISIBLE; zap_steed WAN_PROBING
+ * is D-1443; bhito WAN_PROBING is
  * D-1445; SPE_DRAIN_LIFE drain_item is D-1453; worm see_wsegs; defended(AD_DRLI).
  * zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
  * zapyourself SPE_DRAIN_LIFE is D-1446.
@@ -3742,6 +3806,40 @@ export async function bhitm(mtmp, otmp) {
         await probe_monster(mtmp);
         learn_it = true;
         break;
+    case SPE_STONE_TO_FLESH: {
+        /* C zap.c bhitm :490–520 — golem newcham / stone-mimic
+         * that_is_a_mimic(MIM_REVEAL|MIM_OMIT_WAIT); else wake
+         * FALSE. SPE_STONE wand-duplicate weffects is D-1461.
+         * zap_updown STONE named. */
+        if (mtmp.data?.mlet === 'S_GOLEM') {
+            const name = Monnam(mtmp);
+            const mndx = mtmp.data?.mndx | 0;
+            let mesg;
+            if (mndx === PM_STONE_GOLEM
+                && newcham(mtmp, mons(PM_FLESH_GOLEM), 0)) {
+                mesg = 'turns to flesh!';
+            } else if (mndx === PM_FLESH_GOLEM) {
+                mesg = 'seems fleshier...';
+            } else {
+                mesg = 'looks rather fleshy for a moment.';
+            }
+            if (canseemon(mtmp)) {
+                await pline(`${name} ${mesg}`);
+            }
+        } else if (mtmp.data?.mlet === 'S_MIMIC'
+            && ((M_AP_TYPE(mtmp) === M_AP_FURNITURE
+                    && stone_furniture_type(mtmp.mappearance))
+                || (M_AP_TYPE(mtmp) === M_AP_OBJECT
+                    && stone_object_type(mtmp.mappearance)))) {
+            if (cansee(mtmp.mx | 0, mtmp.my | 0)) {
+                set_msg_xy(mtmp.mx | 0, mtmp.my | 0);
+                await that_is_a_mimic(mtmp, MIM_REVEAL | MIM_OMIT_WAIT);
+            }
+        } else {
+            wake = false;
+        }
+        break;
+    }
     case SPE_DRAIN_LIFE: {
         // C zap.c bhitm :521–544 — seemimic; dmg = monhp_per_lvl;
         // Knight questart dbldam ×2; SPE always spell_damage_bonus.
@@ -4017,6 +4115,8 @@ export function spell_damage_bonus(dmgIn) {
  * WAN_PROBING probe_objchain + update_inventory + ustatusline
  * (D-1435);
  * SPE_DRAIN_LIFE !Drain_resistance + losexp (D-1446);
+ * SPE_STONE_TO_FLESH polymon flesh golem / Stoned
+ * fix_petrification / invent bhito + merge (D-1461);
  * WAN_DIGGING / SPE_DIG no-op (C :2955–2959; directed D-1441
  * weffects → zap_dig);
  * other otyps named in C-JS-MAP.
@@ -4392,6 +4492,48 @@ export async function zapyourself(obj, ordinary) {
         await ustatusline();
         break;
 
+    case SPE_STONE_TO_FLESH: {
+        /* C zap.c zapyourself :2966–3003 — polymon flesh golem,
+         * Stoned fix_petrification, then invent bhito + paranoid
+         * merge (skip worn). SPE_STONE wand-duplicate is D-1461.
+         * poly_obj worn-slot remap named. */
+        if ((game.u?.umonnum | 0) === PM_STONE_GOLEM) {
+            learn_it = true;
+            await polymon(PM_FLESH_GOLEM);
+        }
+        if (game.u?.Stoned) {
+            learn_it = true;
+            await fix_petrification();
+        }
+        const pack = [...(game.invent || [])];
+        for (const otmp of pack) {
+            if (!otmp) continue;
+            if (await bhito(otmp, obj)) learn_it = true;
+        }
+        let didmerge;
+        do {
+            didmerge = false;
+            const inv = game.invent || [];
+            outer: for (let i = 0; i < inv.length; i++) {
+                const otmp = inv[i];
+                if (otmp.owornmask) continue;
+                for (let j = i + 1; j < inv.length; j++) {
+                    const onxt = inv[j];
+                    if (!mergable(otmp, onxt)) continue;
+                    otmp.quan = (otmp.quan || 1) + (onxt.quan || 1);
+                    otmp.owt = weight(otmp);
+                    if (onxt.known) otmp.known = 1;
+                    if (onxt.bknown) otmp.bknown = 1;
+                    if (onxt.rknown) otmp.rknown = 1;
+                    obj_extract_self(onxt);
+                    didmerge = true;
+                    break outer;
+                }
+            }
+        } while (didmerge);
+        break;
+    }
+
     default:
         // Other zapyourself cases deferred
         break;
@@ -4481,8 +4623,132 @@ function delete_contents(obj) {
 }
 
 /**
- * C ref: zap.c poly_obj — floor STRANGE_OBJECT path (wand/pile zap).
- * Invent/worn/boulder/shop/egg/leash arms deferred.
+ * C zap.c stone_to_flesh_obj :1991–2112 — mineral/gemstone then
+ * obj_resists(2,98); ROCK/TOOL boulder meat / statue animate /
+ * figurine makemon; RING meat ring; WAND meat stick; GEM meatball.
+ * SPE_STONE wand-duplicate is D-1461. Named: zap_updown STONE;
+ * zap_map engraving; globby merge.
+ * @returns {Promise<number>}
+ */
+async function stone_to_flesh_obj(obj) {
+    if (!obj) return 0;
+    const ocl = game.objects?.[obj.otyp];
+    const mat = ocl?.oc_material | 0;
+    if (mat !== MAT_MINERAL && mat !== MAT_GEMSTONE) return 0;
+    if (obj_resists(obj, 2, 98)) return 0;
+
+    const loc = get_obj_location(obj, 0) || { x: 0, y: 0 };
+    const oox = loc.x | 0;
+    const ooy = loc.y | 0;
+    let smell = false;
+    let golem_xform = false;
+    let res = 1;
+    const oclass = ocl?.oc_class;
+
+    switch (oclass) {
+    case ROCK_CLASS:
+    case TOOL_CLASS:
+        if ((obj.otyp | 0) === BOULDER) {
+            obj = poly_obj(obj, ENORMOUS_MEATBALL);
+            smell = true;
+        } else if ((obj.otyp | 0) === STATUE
+            || (obj.otyp | 0) === FIGURINE) {
+            let ptr = mons(obj.corpsenm);
+            let mon = null;
+            if (is_golem(ptr)) {
+                golem_xform = ptr !== mons(PM_FLESH_GOLEM);
+            } else if (vegetarian(ptr)) {
+                obj = poly_obj(obj, MEATBALL);
+                smell = true;
+                break;
+            }
+            if ((obj.otyp | 0) === STATUE) {
+                mon = await animate_statue(
+                    obj, oox, ooy, ANIMATE_SPELL, null,
+                );
+            } else {
+                if (golem_xform) ptr = mons(PM_FLESH_GOLEM);
+                mon = makemon(ptr, oox, ooy, NO_MINVENT | MM_NOMSG);
+                if (mon) {
+                    if (costly_spot(oox, ooy)
+                        && (carried(obj) ? obj.unpaid : !obj.no_charge)) {
+                        const shkp = shop_keeper(
+                            in_rooms(oox, ooy, SHOPBASE) || '',
+                        );
+                        await stolen_value(
+                            obj, oox, ooy, !!(shkp && shkp.mpeaceful), false,
+                        );
+                    }
+                    if (obj.timed) obj_stop_timers(obj);
+                    if (carried(obj)) useup(obj);
+                    else delobj(obj);
+                    if (cansee(mon.mx | 0, mon.my | 0)) {
+                        await pline(
+                            `The figurine ${
+                                golem_xform ? 'turns to flesh and ' : ''
+                            }animates!`,
+                        );
+                    }
+                }
+            }
+            if (mon) {
+                ptr = mon.data;
+                if (is_golem(ptr) && ptr !== mons(PM_FLESH_GOLEM)) {
+                    newcham(
+                        mon, mons(PM_FLESH_GOLEM), NC_VIA_WAND_OR_SPELL,
+                    );
+                }
+            } else if (((ptr?.geno | 0) & (G_NOCORPSE | G_UNIQ)) !== 0) {
+                res = 0;
+            } else {
+                while (obj.cobj) {
+                    const item = obj.cobj;
+                    bypass_obj(item);
+                    obj_extract_self(item);
+                    place_object(item, oox, ooy);
+                }
+                obj = poly_obj(obj, CORPSE);
+            }
+        } else {
+            res = 0;
+        }
+        break;
+    case RING_CLASS:
+        obj = poly_obj(obj, MEAT_RING);
+        smell = true;
+        break;
+    case WAND_CLASS:
+        obj = poly_obj(obj, MEAT_STICK);
+        smell = true;
+        break;
+    case GEM_CLASS:
+        obj = poly_obj(obj, MEATBALL);
+        smell = true;
+        break;
+    case WEAPON_CLASS:
+        /* FALLTHROUGH */
+    default:
+        res = 0;
+        break;
+    }
+
+    if (smell) {
+        if (Role_if(PM_MONK)
+            || !(game.u?.uconduct?.unvegetarian | 0)
+            || !carnivorous(game.youmonst?.data)) {
+            await Norep('You smell the odor of meat.');
+        } else {
+            await Norep('You smell a delicious smell.');
+        }
+    }
+    newsym(oox, ooy);
+    return res;
+}
+
+/**
+ * C ref: zap.c poly_obj — STRANGE_OBJECT floor path (wand/pile zap)
+ * plus mksobj(id) for stone-to-flesh (D-1461 :1728–1736).
+ * Worn-slot remap / sokoban_guilt / egg/leash named.
  */
 function poly_obj(obj, id) {
     if (!obj) return null;
@@ -4501,13 +4767,18 @@ function poly_obj(obj, id) {
         } while (--try_limit > 0
             && ((game.objects?.[otmp.otyp]?.oc_magic | 0) !== magic_obj));
     } else {
-        // mksobj(id) path deferred — callers use STRANGE_OBJECT
-        otmp = mkobj(obj.oclass, false);
+        /* C zap.c :1728–1736 mksobj(id) + USES_CORPSENM. */
+        otmp = mksobj(id, false, false);
+        const uses = (typ) => typ === CORPSE || typ === STATUE
+            || typ === FIGURINE;
+        if (uses(obj.otyp | 0) && uses(id | 0)) {
+            set_corpsenm(otmp, obj.corpsenm);
+        }
     }
 
     otmp.quan = obj.quan | 0;
     otmp.no_charge = obj.no_charge;
-    if (obj_location === 1 /* OBJ_INVENT */) otmp.invlet = obj.invlet;
+    if (obj_location === OBJ_INVENT) otmp.invlet = obj.invlet;
 
     // charged_objs: WAND / WEAPON / ARMOR keep spe
     const oc = otmp.oclass;
@@ -4568,8 +4839,17 @@ function poly_obj(obj, id) {
     if (obj_location === OBJ_FLOOR) {
         replace_object(obj, otmp);
         // boulder block_point deferred
+    } else if (obj_location === OBJ_INVENT
+        && Array.isArray(game.invent)) {
+        /* C :1904–1913 replace + freeinv_core/addinv. Worn remap named. */
+        const i = game.invent.indexOf(obj);
+        if (i >= 0) game.invent[i] = otmp;
+        otmp.where = OBJ_INVENT;
+        otmp.nobj = obj.nobj || null;
+        obj.nobj = null;
+        obj.where = OBJ_FREE;
     } else {
-        // invent/minvent — extract+free old; leave otmp free
+        // minvent/contained — extract+free old; leave otmp free
         delobj(obj);
         return otmp;
     }
@@ -4684,8 +4964,10 @@ export async function drain_item(obj, by_you) {
  * peek / tin known / egg known; learn iff res); WAN_CANCELLATION;
  * WAN_STRIKING boulder/statue/hero_breaks|breaks; SPE_DRAIN_LIFE
  * drain_item (D-1453; void return so res stays 1); WAN_TELEPORTATION
- * rloco; WAN_UNDEAD_TURNING floor corpse/egg thin revive.
- * Named omit: boxlock; opening chain; uchain unpunish.
+ * rloco; WAN_UNDEAD_TURNING floor corpse/egg thin revive;
+ * SPE_STONE_TO_FLESH stone_to_flesh_obj (D-1461; invent ok —
+ * C `:2178–2179` floor-or-STONE). Named omit: boxlock; opening
+ * chain; uchain unpunish; zap_updown STONE.
  * @returns {Promise<number>} 1 if affected
  */
 async function bhito(obj, otmp) {
@@ -4816,6 +5098,10 @@ async function bhito(obj, otmp) {
         } else {
             res = 0;
         }
+        break;
+    case SPE_STONE_TO_FLESH:
+        /* C zap.c bhito :2412–2414 — stone_to_flesh_obj; no learn_it. */
+        res = await stone_to_flesh_obj(obj);
         break;
     default:
         res = 0;
@@ -5378,12 +5664,14 @@ async function zap_steed(obj) {
  * poly live; zapyourself !Unchanging polyself D-0156).
  * SPE_CANCELLATION IMMEDIATE bhit (D-1460; bhitm WAN/SPE
  * cancel_monst live; zapyourself cancel_monst(&youmonst) live).
+ * SPE_STONE_TO_FLESH IMMEDIATE bhit (D-1461; bhitm golem/mimic;
+ * zapyourself polymon/Stoned/invent; bhito stone_to_flesh_obj).
  * zap_steed WAN_PROBING (D-1443); zap_steed WAN_TELEPORTATION /
  * SPE_TELEPORT_AWAY (D-1455); zap_updown WAN_PROBING (D-1444);
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown
  * WAN_STRIKING/SPE_FORCE_BOLT (D-1456); remaining zap_steed
  * bhitm-routed otyps / zap_updown LOCKING/STONE /
- * doorlock deferred.
+ * zap_map engraving / doorlock deferred.
  */
 export async function weffects(obj) {
     const otyp = obj.otyp;

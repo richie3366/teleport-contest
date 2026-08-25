@@ -85,6 +85,10 @@
 // same group; callee zap.c `:3440–3451`; bhitm WAN/SPE
 // cancel_monst already live; self-dir zapyourself
 // cancel_monst(&youmonst) already live).
+// SPE_STONE_TO_FLESH IMMEDIATE weffects → bhit (D-1461; C `:1478`
+// same group; callee zap.c `:3440–3451`; bhitm golem/mimic
+// `:490–520`; zapyourself polymon/Stoned/invent bhito
+// `:2966–3003`; bhito stone_to_flesh_obj `:1991–2112`).
 // SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436; C `:1477`
 // same wand-duplicate group; callee zap.c `:521–544`).
 // SPE_DRAIN_LIFE self-dir zapyourself !Drain_resistance + losexp
@@ -93,7 +97,7 @@
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects
 // mix/potionhit/potionbreathe;
-// remaining wand-duplicate IMMEDIATE STONE/TELE);
+// remaining wand-duplicate IMMEDIATE TELE);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -258,6 +262,7 @@ const SPE_WIZARD_LOCK = objectNames.indexOf('SPE_WIZARD_LOCK');
 const SPE_TURN_UNDEAD = objectNames.indexOf('SPE_TURN_UNDEAD');
 const SPE_POLYMORPH = objectNames.indexOf('SPE_POLYMORPH');
 const SPE_CANCELLATION = objectNames.indexOf('SPE_CANCELLATION');
+const SPE_STONE_TO_FLESH = objectNames.indexOf('SPE_STONE_TO_FLESH');
 const SPE_DRAIN_LIFE = objectNames.indexOf('SPE_DRAIN_LIFE');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
@@ -1832,10 +1837,13 @@ async function cast_protection() {
  * weffects → bhit (D-1460; C `:1471` / zap.c `:3440–3451`);
  * bhitm WAN/SPE cancel_monst already live; self-dir
  * zapyourself cancel_monst(&youmonst) already live.
- * SPE_DRAIN_LIFE IMMEDIATE
+ * SPE_STONE_TO_FLESH IMMEDIATE weffects → bhit (D-1461;
+ * C `:1478` / zap.c `:3440–3451`); bhitm golem/mimic;
+ * zapyourself polymon/Stoned/invent; bhito
+ * stone_to_flesh_obj. SPE_DRAIN_LIFE IMMEDIATE
  * weffects → bhitm (D-1436; C `:1477` / zap.c `:521–544`);
  * self-dir zapyourself is D-1446. Remaining wand-duplicate
- * IMMEDIATE (STONE/TELE) still named.
+ * IMMEDIATE (TELE) still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -2079,7 +2087,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Self-dir zapyourself already D-0955 (unturn_you).
          * bhitm WAN_UNDEAD_TURNING/SPE_TURN_UNDEAD unturn_dead
          * then undead rnd(8)/dbldam/spell_damage_bonus already
-         * D-0955. STONE/TELE still named.
+         * D-0955. TELE still named.
          * zap_steed remaining bhitm-routed named. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_POLYMORPH) {
@@ -2089,7 +2097,7 @@ export async function spelleffects(spell_otyp, atme, force) {
          * Self-dir zapyourself already D-0156 (!Unchanging
          * polyself). bhitm WAN_POLYMORPH/SPE_POLYMORPH/
          * POT_POLYMORPH already live (resist / rn2(25) shock /
-         * newcham). STONE/TELE still named.
+         * newcham). TELE still named.
          * zap_steed poly is bhitm-routed (named). */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_CANCELLATION) {
@@ -2098,8 +2106,18 @@ export async function spelleffects(spell_otyp, atme, force) {
          * zap.c :3440–3451). physical_damage is FORCE_BOLT-only.
          * Self-dir zapyourself already cancel_monst(&youmonst,
          * TRUE, TRUE, TRUE). bhitm WAN/SPE_CANCELLATION already
-         * cancel_monst(mtmp, TRUE, TRUE, FALSE). STONE/TELE
+         * cancel_monst(mtmp, TRUE, TRUE, FALSE). TELE
          * still named. zap_steed cancel is bhitm-routed (named). */
+        await wand_duplicate_weffects(pseudo, atme, false);
+    } else if (otyp === SPE_STONE_TO_FLESH) {
+        /* C spell.c :1478–1514 wand-duplicate IMMEDIATE weffects
+         * → bhit(rn1(8,6), bhitm, bhito) (D-1461; callee
+         * zap.c :3440–3451). physical_damage is FORCE_BOLT-only.
+         * Self-dir zapyourself :2966–3003 polymon stone golem,
+         * Stoned fix_petrification, invent bhito + merge.
+         * bhitm :490–520 golem newcham / stone mimic reveal.
+         * bhito :2412–2414 stone_to_flesh_obj. TELE still named.
+         * zap_updown STONE / zap_map engraving named. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_DRAIN_LIFE) {
         /* C spell.c :1477–1514 wand-duplicate IMMEDIATE weffects

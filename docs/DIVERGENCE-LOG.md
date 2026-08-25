@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1461 — spell.c SPE_STONE_TO_FLESH IMMEDIATE wand-duplicate
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Casting SPE_STONE_TO_FLESH printed Nothing happens.
+  C `spell.c` `:1478–1514` puts it in the wand-duplicate group:
+  getdir then `zapyourself` / `weffects`. `zap.c` `weffects`
+  `:3440–3451` IMMEDIATE `bhit(rn1(8,6), bhitm, bhito)`.
+  `bhitm` `:490–520` golem `newcham` / stone-mimic
+  `that_is_a_mimic`. Self-dir `zapyourself` `:2966–3003`
+  `polymon` flesh golem / `Stoned` `fix_petrification` /
+  invent `bhito`. `bhito` `:2412–2414` `stone_to_flesh_obj`
+  `:1991–2112`. `poly_obj` `:1728–1736` `mksobj(id)`.
+- **C locus:** `spell.c` `spelleffects` `:1478–1514`; callee
+  `zap.c` `weffects` `:3440–3451`; `bhitm` `:490–520`;
+  `zapyourself` `:2966–3003`; `bhito` `:2412–2414`;
+  `stone_to_flesh_obj` `:1991–2112`; `poly_obj` `:1728–1736`.
+- **JS was:** named omit — other-otyp Nothing happens after
+  energy/exercise/mksobj. STONE callees were not live (unlike
+  D-1460 cancel).
+- **Fix:** `wand_duplicate_weffects` for SPE_STONE_TO_FLESH;
+  port `stone_to_flesh_obj` + `poly_obj` `mksobj(id)` invent
+  splice; export `that_is_a_mimic`. Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; `js/zap.js`
+  `weffects` / `bhitm` / `zapyourself` / `bhito` /
+  `stone_to_flesh_obj` / `poly_obj`; `js/uhitm.js`
+  `that_is_a_mimic`.
+- **Not this iter:** SPE_TELEPORT_AWAY wand-duplicate
+  weffects; `zap_updown` SPE_STONE_TO_FLESH; `zap_map`
+  engraving; potion mix; `zap_steed`; doorlock; worn-slot
+  `poly_obj` remap.
+- **Verified:** private canary **17**/17 (C/JS grep;
+  IMMEDIATE SPBOOK; atme TIME skip makeknown; zapyourself
+  damage 0; bhitm kobold; east cast TIME; invent FLINT →
+  MEATBALL; TELE still skips weffects; prior
+  POLY/CANCEL/TURN/KNOCK/SLOW/LOCK/RAY/NODIR/DRAIN stay;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1460 — spell.c SPE_CANCELLATION IMMEDIATE wand-duplicate
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
