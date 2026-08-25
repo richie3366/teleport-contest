@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zap_steed` WAN_POLYMORPH/SPE_POLYMORPH via bhitm (named). Not CANCEL. **Addressed:** D-1471
+- [x] `potion.c` `potionhit` (named from D-1457). Not mixtype. **Addressed:** D-1472
+
+
+- [x] `zap.c` `zap_steed` WAN_POLYMORPH/SPE_POLYMORPH via bhitm (named). Not CANCEL. **Addressed:** D-1471 `36a4e811`
 
 
 - [x] `zap.c` `zap_steed` WAN_CANCELLATION/SPE_CANCELLATION via bhitm (named). Not OPENING. **Addressed:** D-1470 `444e2080`

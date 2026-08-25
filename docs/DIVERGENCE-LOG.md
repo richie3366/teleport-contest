@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1472 — potion.c potionhit remaining otyp switch + shop unpaid
+
+- **Status:** fixed (map-driven Open from D-1457; not a public FAIL)
+- **Symptom:** `potionhit` after D-1297 implemented crash/saddle/
+  POT_WATER only. Hero oil explode / polymorph and the monster
+  otyp switch (heal FALLTHROUGH, sickness, confusion, invis,
+  sleep, paralysis, speed, blindness, oil, acid, poly via
+  `bhitm`) plus shop unpaid never ran. C `potionhit` `:1623–1928`
+  uses those arms after evaporate; unpaid `:1913–1926`
+  `stolen_value` / `subfrombill`.
+- **C locus:** `potion.c` `potionhit` hero `:1683–1705`; mon
+  switch `:1730–1896`; unpaid `:1913–1926`. Callees
+  `explode.c` `explode_oil` `:974–983`; `zap.c` `bhitm`
+  POT_POLYMORPH; `worn.c` `mon_set_minvis`; `mhitm.c`
+  `sleep_monst`/`paralyze_monst`; `muse.c` `mcureblindness` /
+  `mon_adjust_speed`.
+- **JS was:** named omit after D-1297. Hero acid live; monster
+  only POT_WATER via `potionhit_mon_water`. Shop unpaid skipped.
+- **Fix:** live remaining switch + unpaid. Hero POLY is
+  `!Unchanging && !Antimagic` `polyself(POLY_NOFLAGS)` (not
+  peffect_polymorph blessed-control). Heal vs Pestilence
+  `do_illness`; sickness vs Pestilence `do_healing`. Rule #2:
+  no fs.
+- **JS:** `js/potion.js` `potionhit` / `explode_oil` /
+  `potionhit_mon_water`.
+- **Not this iter:** C-commented GAIN_LEVEL/LEVITATION/FRUIT/
+  DETECT; potionbreathe remaining otyps; unicorn/amethyst mix;
+  zap_steed invis.
+- **Verified:** private canary **20**/20 (C/JS grep; Rule #2;
+  heal restore; Pestilence illness vs sickness-heal; poison
+  resist; sickness half; blind/para/invis/conf; hero poly
+  Unchanging/Antimagic skip; unpaid no-shkp; extra-heal
+  mcureblindness); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session throws a non-water potion
+  at a monster (or hero).
+- **Follow-up:** Open `zap.c` `zap_steed` WAN_MAKE_INVISIBLE
+  via bhitm (named). Not POLY.
+- **Files:** `js/potion.js`.
+
 ## D-1471 — zap.c zap_steed WAN/SPE_POLYMORPH via bhitm
 
 - **Status:** fixed (map-driven Open; not a public FAIL)
