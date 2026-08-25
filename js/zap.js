@@ -73,6 +73,8 @@
 // bhit doorlock WAN_OPENING/SPE_KNOCK SDOOR appear + locked unlock (D-1462);
 // bhit doorlock WAN_LOCKING/SPE_WIZARD_LOCK Rogue hide / obstructed /
 // trap-in-doorway / lock-shut (D-1475);
+// bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT SDOOR appear + smash /
+// trapped explode + shop D_BROKEN (D-1482);
 // zap_updown WAN_STRIKING/SPE_FORCE_BOLT destroy db / rock / trapdoor (D-1456);
 // zap_updown WAN_LOCKING/SPE_WIZARD_LOCK close db / hole→trapdoor (D-1465);
 // zap_updown SPE_STONE_TO_FLESH blood / nothing_happens then epilogue (D-1466);
@@ -95,7 +97,7 @@
 // zap_map from lateral bhit; force_decor ice/furniture; draft_message
 // Rogue SDOOR; Invocation_lev vibrating-square "the";
 // bhito opening chain / uchain unpunish is D-1481; poly-arm boxlock reset_pick;
-// bhit doorlock STRIKING/SPE_FORCE_BOLT;
+// bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT is D-1482;
 // (zapyourself WAN_SPEED is D-1410; zapyourself WAN_SLOW is D-1433;
 // zapyourself WAN_LOCKING is D-1434; zapyourself WAN_PROBING is D-1435;
 // zapyourself SPE_DRAIN_LIFE is D-1446;
@@ -5361,12 +5363,14 @@ function bhit_xyglyph_known_monster(loc) {
  * M_AP_OBJECT skip is D-1392 (`:3986–3992`).
  * WEB stick is D-1393 (`:3926–3938`) — after m_at/t_at, before shade.
  * doorlock WAN_OPENING/SPE_KNOCK is D-1462; WAN_LOCKING/SPE_WIZARD_LOCK
- * is D-1475 (`:4056–4074`; callee lock.c `:1103–1272`).
+ * is D-1475; WAN_STRIKING/SPE_FORCE_BOLT is D-1482 (`:4056–4074`;
+ * callee lock.c `:1103–1272`; learnwand also if WAN_STRIKING &&
+ * !Deaf; D_BROKEN shop add_damage + pay_for_damage destroy).
  * Named omit: THROWN_WEAPON fly callers (throwit still inlines those
  * and still skips WEB / shade / mimic-object); FLASHED_LIGHT DISP_BEAM /
  * INVIS_BEAM stop; show_transient_light; shkcatch pick;
  * map_invisible / unmap_object; zap_map from lateral bhit;
- * doorlock STRIKING/SPE_FORCE_BOLT; skiprange rocks.
+ * skiprange rocks.
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
 async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
@@ -5378,6 +5382,7 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
     let point_blank = true;
     let tethered_weapon = false;
     let bhit_done = false;
+    let shopdoor = false;
     const was_returning = (game.iflags?.returning_missile === obj) ? obj : null;
 
     // C: kicked object starts one square ahead; range--
@@ -5505,16 +5510,26 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
             if (weapon === ZAPPED_WAND && (IS_DOOR(typ) || typ === SDOOR)) {
                 /* C zap.c bhit :4056–4074 — doorlock WAN_OPENING/
                  * SPE_KNOCK (D-1462) + WAN_LOCKING/SPE_WIZARD_LOCK
-                 * (D-1475). JS had typ===STONE (wrong); C is SDOOR.
-                 * WAN_STRIKING/SPE_FORCE_BOLT named. D_BROKEN shop
-                 * add_damage named (OPENING/KNOCK/LOCKING do not
-                 * break). C learnwand also if WAN_STRIKING && !Deaf
-                 * — false here. */
+                 * (D-1475) + WAN_STRIKING/SPE_FORCE_BOLT (D-1482).
+                 * JS had typ===STONE (wrong); C is SDOOR.
+                 * learnwand if cansee or (WAN_STRIKING && !Deaf).
+                 * D_BROKEN shop add_damage + pay_for_damage after
+                 * the walk (`:4129–4130`). */
                 const otyp = obj?.otyp | 0;
                 if (otyp === WAN_OPENING || otyp === SPE_KNOCK
-                    || otyp === WAN_LOCKING || otyp === SPE_WIZARD_LOCK) {
+                    || otyp === WAN_LOCKING || otyp === SPE_WIZARD_LOCK
+                    || otyp === WAN_STRIKING || otyp === SPE_FORCE_BOLT) {
                     if (await doorlock(obj, x, y)) {
-                        if (cansee(x, y)) learnwand(obj);
+                        if (cansee(x, y)
+                            || (otyp === WAN_STRIKING && !Deaf())) {
+                            learnwand(obj);
+                        }
+                        if ((loc?.doormask | 0) === D_BROKEN
+                            && in_rooms(x, y, SHOPBASE)) {
+                            shopdoor = true;
+                            const { add_damage } = await import('./shk.js');
+                            add_damage(x, y, SHOP_DOOR_COST);
+                        }
                     }
                 }
             }
@@ -5552,6 +5567,12 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
                 && was_returning !== game.iflags?.returning_missile);
             if (!tethered_weapon || returning_cleared) tmp_at(DISP_END, 0);
         }
+    }
+    /* C zap.c bhit :4129–4130 — after tmp_at END, skipped on
+     * goto bhit_done (thrown/kicked monster). */
+    if (shopdoor) {
+        const { pay_for_damage } = await import('./shk.js');
+        await pay_for_damage('destroy', false);
     }
     return result;
 }
@@ -6112,7 +6133,7 @@ async function zap_steed(obj) {
  * WAN_STRIKING/SPE_FORCE_BOLT (D-1456); zap_updown
  * WAN_LOCKING/SPE_WIZARD_LOCK (D-1465); zap_updown
  * SPE_STONE_TO_FLESH (D-1466); zap_map engraving/cancel trap
- * is D-1476; doorlock STRIKING named;
+ * is D-1476; doorlock STRIKING is D-1482;
  * LOCKING is D-1475.
  */
 export async function weffects(obj) {

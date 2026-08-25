@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT (named). Not LOCKING.
 - [ ] `zap.c` `bhito` poly-arm boxlock `reset_pick` (named). Not uchain.
 - [ ] `muse.c` `mbhit` doorlock (named). Not hero `bhit`.
 - [ ] `potion.c` `potion_dip` unicorn/amethyst mix (named). Not mixtype.

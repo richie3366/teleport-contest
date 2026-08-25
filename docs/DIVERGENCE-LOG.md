@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1482 — zap.c bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Lateral IMMEDIATE WAN_STRIKING/SPE_FORCE_BOLT did not
+  smash or explode doors. C `zap.c` `bhit` `:4056–4074` calls
+  `doorlock` on `IS_DOOR || SDOOR` for WAN_STRIKING/SPE_FORCE_BOLT
+  (OPENING is D-1462; LOCKING is D-1475). Callee `lock.c`
+  `doorlock` `:1103–1272`: SDOOR appear then continue (`:1117–1126`);
+  locked/closed smash to `D_BROKEN` crash (`:1234–1250`) or trapped
+  explode to `D_NODOOR` (`:1207–1232`); `mb_trapped` when a mon
+  stands on the door (`:1215–1218`); loudness `wake_nearto` + shop
+  `add_damage(0)` (`:1260–1265`). Caller `learnwand` iff `cansee`
+  or (`WAN_STRIKING && !Deaf`); `D_BROKEN` shop `add_damage(SHOP_DOOR_COST)`
+  + `pay_for_damage("destroy")` (`:4129–4130`). Open/broken doors
+  `res=FALSE`.
+- **C locus:** `zap.c` `bhit` `:4056–4074`, `:4129–4130`; callee
+  `lock.c` `doorlock` `:1201–1253` (SDOOR `:1117–1126`,
+  `:1258–1272` msg / loudness / picking_at). Callee
+  `monmove.c` `mb_trapped` `:54–74` (mondied / `mon_learns_traps`
+  named).
+- **JS was:** named omit after D-1475 — `bhit` called `doorlock`
+  only for OPENING/KNOCK/LOCKING; `doorlock` defaulted STRIKING
+  to false (SDOOR return false).
+- **Fix:** Port `doorlock` STRIKING/FORCE_BOLT smash/explode;
+  SDOOR appear-then-continue; wire `bhit` otyps + `!Deaf`
+  learnwand + shop D_BROKEN. Rule #2: no fs.
+- **JS:** `js/lock.js` `doorlock`; `js/zap.js` `bhit`.
+- **Not this iter:** muse.c `mbhit` doorlock; `bhito` poly-arm
+  `reset_pick`; mondied / `mon_learns_traps` in `mb_trapped`;
+  `zap_map` lateral drawbridge.
+- **Verified:** private canary **20**/20 (C/JS grep; locked smash+
+  learnwand; SPE_FORCE_BOLT SPBOOK skip makeknown; trapped
+  explode D_NODOOR; open/broken no-op; SDOOR appear+smash /
+  appear+explode; LOCKING/OPENING regression; Blind !cansee
+  !Deaf still learns; Blind+Deaf skip learnwand; STONE skip;
+  Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1481 — zap.c bhito uchain unpunish WAN_OPENING
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

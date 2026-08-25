@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1482 zap.c bhit doorlock WAN_STRIKING/SPE_FORCE_BOLT
+
+**Objective:** Open `zap.c` `bhit` doorlock WAN_STRIKING/SPE_FORCE_BOLT
+(named). Not LOCKING.
+**C locus:** `zap.c` `bhit` `:4056–4074`, `:4129–4130`. Callee
+`lock.c` `doorlock` `:1201–1253` (SDOOR `:1117–1126`).
+**Change:** Port STRIKING/FORCE smash (`D_BROKEN`) and trapped
+explode (`D_NODOOR`); SDOOR appear then continue; `bhit`
+learnwand also if WAN_STRIKING && !Deaf; shop D_BROKEN
+`add_damage` + `pay_for_damage("destroy")`. Rule #2: no fs.
+**Score:** fortress unchanged (public-unhit).
+**Verified:** private canary **20**/20; green+strict
+seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+0007/2200/0383.
+**Next:** Open `zap.c` `bhito` poly-arm boxlock `reset_pick`
+(named). Not uchain.
+**Blocked:** none.
 ## 2026-08-25 — D-1481 zap.c bhito uchain unpunish WAN_OPENING
 
 **Objective:** Open `zap.c` `bhito` uchain unpunish WAN_OPENING
