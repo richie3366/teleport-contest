@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1439; cadence **#1800** `66254727`
+- **Fortress 44/44** after D-1440; cadence **#1800** `66254727`
   (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
-  Open `zap.c` `weffects` SPE_SLEEP wand-duplicate (named from
-  D-1427). Not DIG.
-  Do not skip D-1439…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `zap.c` `weffects` SPE_DIG wand-duplicate (named from
+  D-1427). Not IMMEDIATE.
+  Do not skip D-1440…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1439. Named still: `see_monsters`
+- Do not revert D-1217–D-1440. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1439.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1440.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,10 +34,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1439 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1440 (index).
 - Named still: rustm / poison / worm-shrieker; remaining mix /
   potionhit / potionbreathe;
-  remaining wand-duplicate SLEEP/DIG; zapyourself SPE_DRAIN;
+  remaining wand-duplicate DIG; zapyourself SPE_DRAIN;
   zap_steed/zap_updown/bhito WAN_PROBING; artifact invoke. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -50,6 +50,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1440: SPE_SLEEP RAY wand-duplicate
+  `wand_duplicate_weffects` → `weffects` ubuzz
+  BZ_U_SPELL nd=ulevel/2+1; self-dir zapyourself
+  already live. DIG named.
 - D-1439: `peffect_hallucination` resist return;
   else already-hallu nothing then still
   make_hallucinated rn1(200, 600-300*bcsign);
@@ -83,9 +87,7 @@ Objective/score live in `CURRENT.md`.
 - D-1428: `peffect_polymorph` !Unchanging
   POLY_NOFLAGS; blessed LOW_CTRL.
 - D-1427: SPE_LIGHT NODIR weffects → zapnodir
-  litroom+lightdamage. SLEEP/DIG named.
+  litroom+lightdamage. DIG named.
 - D-1426: `bhitm` WAN_PROBING wake FALSE
   probe_monster always learn.
-- D-1425: `bhitm` WAN_LOCKING wake =
-  closeholdingtrap.
 

@@ -53,13 +53,15 @@
 // C `:1474` wand-duplicate group; callee zap.c `:2552–2558`).
 // SPE_LIGHT NODIR weffects → zapnodir litroom+lightdamage (D-1427;
 // C `:1473` same group; callee zap.c `:2544–2550` D-1366).
+// SPE_SLEEP RAY weffects → ubuzz BZ_U_SPELL (D-1440; C `:1462`
+// same wand-duplicate group; callee zap.c `:3461–3462`).
 // SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436; C `:1477`
 // same wand-duplicate group; callee zap.c `:521–544`).
 // Named omissions: novel/tribute; dull sleep; confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects:
 // sleeping/gain ability/hallucination;
-// remaining wand-duplicate SLEEP / DIG / …);
+// remaining wand-duplicate DIG / …);
 // #jump known_spell fallback; directional weffects for
 // IMMEDIATE heal/tele;
 // amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
@@ -215,6 +217,7 @@ const SPE_DETECT_MONSTERS = objectNames.indexOf('SPE_DETECT_MONSTERS');
 const SPE_LEVITATION = objectNames.indexOf('SPE_LEVITATION');
 const SPE_DETECT_UNSEEN = objectNames.indexOf('SPE_DETECT_UNSEEN');
 const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
+const SPE_SLEEP = objectNames.indexOf('SPE_SLEEP');
 const SPE_DRAIN_LIFE = objectNames.indexOf('SPE_DRAIN_LIFE');
 const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
@@ -1764,9 +1767,10 @@ async function cast_protection() {
  * SPE_DETECT_UNSEEN NODIR weffects → zapnodir findit (D-1412;
  * C `:1474` / zap.c `:2552–2558`). SPE_LIGHT NODIR weffects
  * → zapnodir litroom+lightdamage (D-1427; C `:1473` / zap.c
- * `:2544–2550` D-1366). SPE_DRAIN_LIFE IMMEDIATE weffects →
- * bhitm (D-1436; C `:1477` / zap.c `:521–544`). Remaining
- * wand-duplicate SLEEP / DIG still named.
+ * `:2544–2550` D-1366). SPE_SLEEP RAY weffects → ubuzz
+ * BZ_U_SPELL (D-1440; C `:1462` / zap.c `:3461–3462`).
+ * SPE_DRAIN_LIFE IMMEDIATE weffects → bhitm (D-1436; C `:1477`
+ * / zap.c `:521–544`). Remaining wand-duplicate DIG still named.
  * Other otyps named omission (return TIME after energy
  * spent + exercise).
  */
@@ -1947,6 +1951,13 @@ export async function spelleffects(spell_otyp, atme, force) {
          * SPE_LIGHT litroom+lightdamage (D-1427; callee D-1366);
          * SPE_DETECT_UNSEEN findit (D-1412). physical_damage is
          * FORCE_BOLT-only; unused on NODIR. */
+        await wand_duplicate_weffects(pseudo, atme, false);
+    } else if (otyp === SPE_SLEEP) {
+        /* C spell.c :1462–1514 wand-duplicate RAY weffects
+         * → ubuzz BZ_U_SPELL(BZ_OFS_SPE(SPE_SLEEP)) nd=ulevel/2+1
+         * (D-1440; callee zap.c :3461–3462). physical_damage is
+         * FORCE_BOLT-only. Self-dir zapyourself SPE_SLEEP already
+         * live. DIG still named. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else if (otyp === SPE_DRAIN_LIFE) {
         /* C spell.c :1477–1514 wand-duplicate IMMEDIATE weffects

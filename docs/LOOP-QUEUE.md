@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `weffects` SPE_SLEEP wand-duplicate (named from D-1427). Not DIG.
 - [ ] `zap.c` `weffects` SPE_DIG wand-duplicate (named from D-1427). Not IMMEDIATE.
 - [ ] `uhitm.c` `mhitm_ad_phys` rustm leftover (named from D-1415). Not poison.
 - [ ] `zap.c` `zap_steed` WAN_PROBING (named). Not zapyourself.
@@ -36,6 +35,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `zap.c` `bhito` WAN_PROBING (named). Not updown.
 - [ ] `zap.c` `zapyourself` SPE_DRAIN_LIFE (named). Not bhitm drain.
 - [ ] `uhitm.c` `mhitm_ad_phys` poison leftover (named from D-1415). Not rustm.
+- [ ] `spell.c` SPE_MAGIC_MISSILE wand-duplicate RAY (named from D-1440). Not FINGER.
+- [ ] `spell.c` SPE_FINGER_OF_DEATH wand-duplicate RAY (named from D-1440). Not MAGIC_MISSILE.
+- [ ] `zap.c` `weffects` SPE_KNOCK IMMEDIATE wand-duplicate (named from D-1427). Not SLOW.
+- [ ] `zap.c` `weffects` SPE_SLOW_MONSTER IMMEDIATE wand-duplicate (named). Not LOCK.
+- [ ] `zap.c` `weffects` SPE_WIZARD_LOCK IMMEDIATE wand-duplicate (named). Not POLYMORPH.
 
 ## Parked (do not pop)
 

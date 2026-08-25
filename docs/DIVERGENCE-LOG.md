@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1440 — spell.c SPE_SLEEP RAY wand-duplicate
+
+- **Status:** fixed (map-driven Open from D-1427; not a public FAIL)
+- **Symptom:** casting sleep (`spelleffects` SPE_SLEEP) was
+  "Nothing happens." C `:1462–1514` puts SPE_SLEEP in the
+  wand-duplicate group: `oc_dir == RAY` so getdir then
+  `zapyourself` (dx=dy=dz=0) or `weffects(pseudo)` then
+  `update_inventory()`. `weffects` `:3456–3468` RAY
+  `otyp >= SPE_MAGIC_MISSILE && otyp <= SPE_FINGER_OF_DEATH`
+  calls `ubuzz(BZ_U_SPELL(BZ_OFS_SPE(otyp)), u.ulevel/2+1)`.
+  SPE_SLEEP is offset 3 (`ZT_SLEEP`). Fake spellbook is
+  SPBOOK so `learnwand` skips `makeknown`. Self-zap
+  `zapyourself` `:2851–2866` already live (D-0156).
+- **C locus:** `spell.c` `spelleffects` `:1462–1514`. Callee
+  `zap.c` `weffects` `:3456–3468` / `ubuzz` / `zhitu`
+  `:4454–4462` / `zhitm` `:4292–4298`; `zapyourself`
+  `:2851–2866` on self-dir.
+- **JS was:** other-otyp "Nothing happens." after D-1436
+  SPE_DRAIN_LIFE; weffects RAY SPE range already live
+  (D-1386); zapyourself SPE_SLEEP already live.
+- **Fix:** route SPE_SLEEP through `wand_duplicate_weffects`
+  (`physical_damage` false). Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callee `js/zap.js`
+  `weffects` / `ubuzz` / `zapyourself`.
+- **Not this iter:** remaining wand-duplicate DIG /
+  IMMEDIATE (KNOCK / SLOW / LOCK / …); MAGIC_MISSILE /
+  FINGER_OF_DEATH cast dispatch; zhitu sleep
+  shieldeff/monstseesu; `sleep_monst` oclass resist.
+- **Verified:** private canary **36**/36 (C/JS grep; RAY
+  SPBOOK vs WAN_SLEEP; MAGIC_MISSILE..FINGER range;
+  BZ_OFS 3; DIG still Nothing happens; LIGHT/DRAIN/
+  DETECT_UNSEEN still wired; zapyourself rnd(50)
+  usleep; resist no nomul; WAN_SLEEP regression;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts sleep.
+- **Follow-up:** Open `zap.c` `weffects` SPE_DIG
+  wand-duplicate (named from D-1427). Not IMMEDIATE.
+- **Files:** `js/spell.js`, `js/zap.js` (comments).
+
 ## D-1439 — potion.c peffect_hallucination
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

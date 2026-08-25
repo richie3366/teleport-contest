@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1440 spell.c SPE_SLEEP RAY wand-duplicate
+
+**Objective:** Open `zap.c` `weffects` SPE_SLEEP wand-duplicate
+(named from D-1427). Not DIG.
+**C locus:** `spell.c` `spelleffects` `:1462–1514`; callee
+`zap.c` `weffects` `:3456–3468` `ubuzz(BZ_U_SPELL, ulevel/2+1)`.
+**Change:** route SPE_SLEEP through `wand_duplicate_weffects`
+(RAY weffects). Self-dir zapyourself already live. DIG still
+named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session casts sleep).
+**Verified:** private canary **36**/36; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `weffects` SPE_DIG wand-duplicate
+(named from D-1427). Not IMMEDIATE.
+**Blocked:** none.
 ## 2026-08-25 — D-1439 potion.c peffect_hallucination
 
 **Objective:** Open `potion.c` `peffect_hallucination` (named).
@@ -181,123 +198,4 @@ on conferral SI / slow / locking / probing / light / polymorph
 / gain energy / acid / gain level.
 **Next:** Open `potion.c` `peffect_blindness` (named). Not
 sleeping.
-**Blocked:** none.
-## 2026-08-25 — D-1431 potion.c peffect_gain_level
-
-**Objective:** Open `potion.c` `peffect_gain_level` (named).
-Not blindness.
-**C locus:** `potion.c` `peffect_gain_level` `:1083–1116` /
-`peffects` `:1392–1393`; callee `dungeon.c`
-`Can_rise_up` `:1674–1687`; `exper.c` `pluslvl` /
-`rndexp`; `do.c` `goto_level`.
-**Change:** cursed potion_unkn++ then ledger 1+amulet →
-earth_level else Can_rise_up → get_level(depth-1);
-same-level It tasted bad; else You rise through
-ceiling + goto_level else uneasy. Uncursed/blessed
-pluslvl(FALSE); blessed uexp=rndexp(TRUE). Blindness
-still named. potionhit/mix named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session quaffs gain level).
-**Verified:** private canary **15**/15; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `potion.c` `peffect_blindness` (named). Not
-sleeping.
-**Blocked:** none.
-## 2026-08-25 — D-1430 potion.c peffect_acid
-
-**Objective:** Open `potion.c` `peffect_acid` (named).
-Not gain level.
-**C locus:** `potion.c` `peffect_acid` `:1297–1314` /
-`peffects` `:1414–1415`; callee `eat.c`
-`fix_petrification` `:867–877`.
-**Change:** Acid_resistance tastes tangy/sour else burns
-a little/a lot/like acid; `d(cursed?2:1, blessed?4:8)`
-losehp Maybe_Half_Phys KILLED_BY_AN; exercise CON FALSE;
-Stoned fix_petrification; potion_unkn++. Gain level still
-named. potionhit/mix named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session quaffs acid).
-**Verified:** private canary **16**/16; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `potion.c` `peffect_gain_level` (named). Not
-blindness.
-**Blocked:** none.
-## 2026-08-25 — D-1429 potion.c peffect_gain_energy
-
-**Objective:** Open `potion.c` `peffect_gain_energy` (named).
-Not acid.
-**C locus:** `potion.c` `peffect_gain_energy` `:1224–1257` /
-`peffects` `:1408–1409`.
-**Change:** cursed You_feel lackluster else Magical energies;
-`d(blessed?3:!cursed?2:1,6)` ±uenmax + 3*num uen clamp
-0/max; uenpeak; botl; exercise WIS TRUE. Acid still named.
-potionhit/mix named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session quaffs gain energy).
-**Verified:** private canary **12**/12; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `potion.c` `peffect_acid` (named). Not gain
-level.
-**Blocked:** none.
-## 2026-08-25 — D-1428 potion.c peffect_polymorph
-
-**Objective:** Open `potion.c` `peffect_polymorph` (named).
-Not gain energy.
-**C locus:** `potion.c` `peffect_polymorph` `:1318–1330` /
-`peffects` `:1417–1418`; callee `polyself.c` `:506–508`
-LOW_CTRL forcecontrol downgrade.
-**Change:** You_feel little strange/normal; `!Unchanging`
-POLY_NOFLAGS unless blessed original form
-POLY_CONTROLLED|POLY_LOW_CTRL then mtimedone min
-rn2(15)+10. Unchanging skips polyself. SPE_POLYMORPH
-not this case. potionhit named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session quaffs polymorph).
-**Verified:** private canary **15**/15; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `potion.c` `peffect_gain_energy` (named). Not
-acid.
-**Blocked:** none.
-## 2026-08-25 — D-1427 spell.c SPE_LIGHT NODIR wand-duplicate
-
-**Objective:** Open `zap.c` `zapnodir` remaining SPE_LIGHT
-wand-duplicate (named from D-1412). Not detect unseen.
-**C locus:** `spell.c` `spelleffects` `:1473–1514` (NODIR
-`weffects`); callee `zap.c` `zapnodir` `:2544–2550` (D-1366
-`litroom` + `lightdamage`); `weffects` `:3453–3454`.
-**Change:** route SPE_LIGHT through `wand_duplicate_weffects`
-(same NODIR arm as SPE_DETECT_UNSEEN). Fake SPBOOK skips
-`learnwand`. SLEEP / DIG / IMMEDIATE still named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session casts light).
-**Verified:** private canary **21**/21; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `potion.c` `peffect_polymorph` (named). Not
-gain energy.
-**Blocked:** none.
-## 2026-08-25 — D-1426 zap.c bhitm WAN_PROBING
-
-**Objective:** Open `zap.c` `bhitm` WAN_PROBING (named from
-D-1369). Not locking.
-**C locus:** `zap.c` `bhitm` `:376–381`; callees
-`probe_monster` `:625–640`, `probe_objchain` `:611–623`;
-`invent.c` `display_minventory` `:5340–5386`.
-**Change:** wake FALSE, reveal_invis, probe_monster, always
-learn. probe_objchain observe + container lknown/cknown
-(SchroedingersBox skips cknown) + tin known; notonhead
-skips minvent; empty "not carrying". Thin display_minventory
-MINV_ALL|PICK_NONE. bhitm map_invisible epilogue wired.
-zapyourself / zap_steed / zap_updown / bhito named. Rule #2: no fs.
-**Score:** fortress 44/44 unchanged (public-unhit unless a
-session zaps probing at a monster).
-**Verified:** private canary **18**/18; green+strict
-seed8000/0900; cohort **7**/7 + strict
-1500/1800/0012/0004/0007/2200/0383.
-**Next:** Open `zap.c` `zapnodir` remaining SPE_LIGHT
-wand-duplicate (named from D-1412). Not detect unseen.
 **Blocked:** none.
