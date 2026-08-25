@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1464 — zap.c zap_steed SPE_DRAIN_LIFE via bhitm
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_steed` after D-1463 OPENING still defaulted
+  SPE_DRAIN_LIFE, so a downward drain-life spell while riding
+  never hit the steed via `bhitm` (no `m_lev--` / weaker pline)
+  and never disclosed. C `zap_steed` `:3115–3134` lists
+  SPE_DRAIN_LIFE under “Default processing via `bhitm()`”:
+  `(void) bhitm(u.usteed, obj); steedhit = TRUE`. Callee
+  `bhitm` `:521–544` (D-1436): `monhp_per_lvl` then Knight
+  questart `dbldam` + `spell_damage_bonus`; `resists_drli` →
+  `shieldeff_mon` else `!resist` NOTELL then extra `mhp`/
+  `mhpmax` + `m_lev--` / `killed` (no `learn_it`). Caller
+  `weffects` `:3437–3439` sets `disclose` so `learnwand` +
+  `more_experienced(0,10)` still fire; SPBOOK `learnwand` is
+  a no-op.
+- **C locus:** `zap.c` `zap_steed` `:3129` (bhitm group
+  `:3115–3134`). Caller `weffects` `:3437–3439`. Callee
+  `bhitm` `:521–544`.
+- **JS was:** named omit. WAN_PROBING (D-1443), TELEPORT
+  (D-1455), OPENING/KNOCK (D-1463) arms live; SPE_DRAIN_LIFE
+  fell through to `zap_updown` default instead of `bhitm` on
+  the mount.
+- **Fix:** SPE_DRAIN_LIFE arm `await bhitm(steed, obj)` +
+  `steedhit = true` (same group as OPENING/KNOCK). Rule #2:
+  no fs.
+- **JS:** `js/zap.js` `zap_steed` / existing `bhitm`.
+- **Not this iter:** remaining `zap_steed` bhitm-routed
+  (cancel / poly / invis / striking / slow / speed / heal);
+  `zap_updown` LOCKING/STONE; `bhito` boxlock.
+- **Verified:** private canary **18**/18 (C/JS grep; Rule #2;
+  riding-down drain mr=0 `m_lev--` + weaker + disclose XP;
+  SPBOOK skip makeknown; undead `resists_drli` still
+  disclose; opening/teleport/probing siblings; cancel/poly/
+  locking still default; no-steed / dx / dz<0 skip); green+
+  strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a session zaps drain-life while
+  riding down.
+- **Follow-up:** Open `zap.c` `zap_updown`
+  WAN_LOCKING/SPE_WIZARD_LOCK (named). Not STRIKING.
+- **Files:** `js/zap.js`.
+
 ## D-1463 — zap.c zap_steed WAN_OPENING/SPE_KNOCK via bhitm
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

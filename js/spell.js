@@ -2124,7 +2124,8 @@ export async function spelleffects(spell_otyp, atme, force) {
     } else if (otyp === SPE_DRAIN_LIFE) {
         /* C spell.c :1477–1514 wand-duplicate IMMEDIATE weffects
          * → bhit → bhitm SPE_DRAIN_LIFE (D-1436). physical_damage
-         * is FORCE_BOLT-only. Self-dir zapyourself is D-1446. */
+         * is FORCE_BOLT-only. Self-dir zapyourself is D-1446.
+         * zap_steed SPE_DRAIN_LIFE via bhitm is D-1464. */
         await wand_duplicate_weffects(pseudo, atme, false);
     } else {
         // Other spell otyps deferred after energy/exercise/mksobj RNG

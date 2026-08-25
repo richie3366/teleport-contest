@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1464 zap.c zap_steed SPE_DRAIN_LIFE via bhitm
+
+**Objective:** Open `zap.c` `zap_steed` SPE_DRAIN_LIFE via
+bhitm (named). Not OPENING.
+**C locus:** `zap.c` `zap_steed` `:3129` (bhitm group
+`:3115–3134`); callee `bhitm` `:521–544` (D-1436); caller
+`weffects` `:3437–3439`.
+**Change:** Route riding-down SPE_DRAIN_LIFE through `bhitm`
+so the mount can lose a level; disclose still XP (SPBOOK
+skips makeknown). Cancel/poly named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session zaps drain-life while riding down).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `zap_updown` WAN_LOCKING/SPE_WIZARD_LOCK
+(named). Not STRIKING.
+**Blocked:** none.
 ## 2026-08-25 — D-1463 zap.c zap_steed WAN_OPENING/SPE_KNOCK via bhitm
 
 **Objective:** Open `zap.c` `zap_steed` WAN_OPENING/SPE_KNOCK
