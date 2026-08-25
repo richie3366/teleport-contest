@@ -5376,6 +5376,8 @@ async function zap_steed(obj) {
  * + undead dmg D-0955; zapyourself unturn_you D-0955).
  * SPE_POLYMORPH IMMEDIATE bhit (D-1459; bhitm WAN/SPE/POT
  * poly live; zapyourself !Unchanging polyself D-0156).
+ * SPE_CANCELLATION IMMEDIATE bhit (D-1460; bhitm WAN/SPE
+ * cancel_monst live; zapyourself cancel_monst(&youmonst) live).
  * zap_steed WAN_PROBING (D-1443); zap_steed WAN_TELEPORTATION /
  * SPE_TELEPORT_AWAY (D-1455); zap_updown WAN_PROBING (D-1444);
  * zap_updown WAN_OPENING/SPE_KNOCK (D-1454); zap_updown

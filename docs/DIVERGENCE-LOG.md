@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1460 — spell.c SPE_CANCELLATION IMMEDIATE wand-duplicate
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** Casting SPE_CANCELLATION printed Nothing happens.
+  C `spell.c` `:1471–1514` puts it in the wand-duplicate group:
+  getdir then `zapyourself` / `weffects`. `zap.c` `weffects`
+  `:3440–3451` IMMEDIATE `bhit(rn1(8,6), bhitm, bhito)`.
+  `bhitm` `:335–340` WAN/SPE_CANCELLATION: `seemimic` then
+  `cancel_monst(..., TRUE, TRUE, FALSE)` (no invent). Self-dir
+  `zapyourself` `:2812–2815` `cancel_monst(&youmonst, ..., TRUE)`
+  (invent).
+- **C locus:** `spell.c` `spelleffects` `:1471–1514`; callee
+  `zap.c` `weffects` `:3440–3451`; `bhitm` `:335–340`;
+  `zapyourself` `:2812–2815`; `cancel_monst` `:3149–3215`.
+- **JS was:** named omit — other-otyp Nothing happens after
+  energy/exercise/mksobj. Callees already live for wand cancel.
+- **Fix:** `wand_duplicate_weffects` for SPE_CANCELLATION
+  (SPBOOK skips `learnwand`). Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callees `js/zap.js`
+  `weffects` / `bhitm` / `zapyourself` / `cancel_monst`.
+- **Not this iter:** SPE_STONE_TO_FLESH / TELEPORT_AWAY
+  wand-duplicate; remaining bhitm-routed `zap_steed` (cancel
+  would `bhitm` the mount); `zap_updown` LOCKING/STONE;
+  directional heal weffects.
+- **Verified:** private canary **18**/18 (C/JS grep; IMMEDIATE
+  SPBOOK; atme TIME skip makeknown; zapyourself damage 0;
+  bhitm kobold cancel/resist; east cast TIME; STONE still
+  Nothing happens; prior POLY/TURN/KNOCK/SLOW/LOCK/RAY/NODIR
+  stay; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1459 — spell.c SPE_POLYMORPH IMMEDIATE wand-duplicate
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

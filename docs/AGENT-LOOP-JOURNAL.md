@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1460 spell.c SPE_CANCELLATION IMMEDIATE wand-duplicate
+
+**Objective:** Open `zap.c` `weffects` SPE_CANCELLATION IMMEDIATE
+wand-duplicate (named). Not STONE.
+**C locus:** `spell.c` `spelleffects` `:1471–1514`; callee
+`zap.c` `weffects` `:3440–3451`; `bhitm` `:335–340`;
+`zapyourself` `:2812–2815`; `cancel_monst` `:3149–3215`.
+**Change:** Wire SPE_CANCELLATION through `wand_duplicate_weffects`
+→ IMMEDIATE `bhit`. Callees already live (`cancel_monst`;
+self-dir invent cancel). STONE named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session casts cancellation).
+**Verified:** private canary **18**/18; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `weffects` SPE_STONE_TO_FLESH IMMEDIATE
+wand-duplicate (named). Not mix.
+**Blocked:** none.
 ## 2026-08-25 — D-1459 spell.c SPE_POLYMORPH IMMEDIATE wand-duplicate
 
 **Objective:** Open `zap.c` `weffects` SPE_POLYMORPH IMMEDIATE
