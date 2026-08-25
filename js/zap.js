@@ -1532,43 +1532,18 @@ function Yobjnam2_destroy(obj, verb) {
 
 /**
  * C ref: read.c recharge RING_CLASS curse_bless==0 — maybe_destroy_item
- * chargeit callee. Wand/tool/blessed/cursed recharge named omit.
+ * chargeit callee. Full wand/tool/blessed path is D-1502 in read.js.
  */
 async function recharge_elec_ring(obj) {
-    if (!obj) return;
-    const u = game.u || {};
-    const is_on = obj === u.uleft || obj === u.uright;
-    // curse_bless == 0 → s = 1
-    if ((obj.spe | 0) > rn2(7) || (obj.spe | 0) <= -5) {
-        await pline(
-            `${Yobjnam2_destroy(obj, 'pulsate')} momentarily, then ${vtense(xname(obj), 'explode')}!`,
-        );
-        if (is_on) await Ring_gone(obj);
-        const s = rnd(3 * Math.abs(obj.spe | 0));
-        useup_invent(obj);
-        losehp(maybe_half_phys(s), 'exploding ring', KILLED_BY_AN);
-        if (game._losehp_needs_done || game.program_state?.gameover) {
-            await finish_losehp_done();
-        }
-    } else {
-        await pline(`${Yname2_destroy(obj)} spins clockwise for a moment.`);
-        const mask = is_on ? (obj === u.uleft ? LEFT_RING : RIGHT_RING) : 0;
-        if (is_on) await Ring_off(obj);
-        obj.spe = (obj.spe | 0) + 1;
-        if (is_on) {
-            setworn(obj, mask);
-            await Ring_on(obj);
-        }
-        // unpaid alter_cost named omit
-    }
+    const { recharge } = await import('./read.js');
+    await recharge(obj, 0);
 }
 
 /**
  * C ref: zap.c maybe_destroy_item — AD_COLD potions + AD_FIRE potion/scroll/
  * spbook + AD_ELEC ring/wand (D-1368). Shock_resistance via
  * uprops[SHOCK_RES] (D-1371). Named omissions:
- * inventory_resistance_check; Book-of-Dead glow; read.c recharge
- * wand/tool/blessed; mult forms beyond 1-of-1.
+ * inventory_resistance_check; Book-of-Dead glow; mult forms beyond 1-of-1.
  */
 async function maybe_destroy_item(carrier, obj, dmgtyp) {
     if (!obj) return 0;
@@ -1747,7 +1722,7 @@ export async function destroy_items(mon, dmgtyp, dmg_in) {
  * remaining damage and kill when fatal.
  * @returns {Promise<boolean>} true if resisted
  */
-async function resist(mtmp, oclass, damage, tell) {
+export async function resist(mtmp, oclass, damage, tell) {
     void tell; // shieldeff deferred
     let alev;
     switch (oclass) {

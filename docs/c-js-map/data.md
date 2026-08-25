@@ -71,7 +71,12 @@ live HEALING/ENERGY_BOOST/UNTRAP/LEV_TELE/ENLIGHTENING/CREATE_AMMO/FLING_POISON/
 + CONFLICT/LEVITATION/INVIS; cost then switch); 
 **`invoke_healing` first You_feel Blinded 0/1 D-1494** (C `youprop.h:92` / `artifact.c:1787`; 
 not the HBlinded word; BlindedTimeout gates unchanged); 
-TAMING (`seffects` SCR_TAMING)/CHARGE_OBJ (`recharge`)/CREATE_PORTAL (dungeon menu)/BANISH named; 
+**TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH D-1502** (C `invoke_taming`/`charge_obj`/`create_portal`/`banish` 
+`:1768–2019` + switch; Palantir TAMING artilist `#if 0` still has the arm; 
+zeroobj pseudo has no `oclass` so `tamedog` does not null the scroll path; 
+callees `read.c` `seffect_taming`/`charge_ok`/`recharge`, `mon.c` `migrate_mon`, 
+`dungeon.c` `dunlevs_in_dungeon`/`ledger_no`; zap AD_ELEC ring uses full `recharge`); 
+GETOBJ_ALLOWCNT count prefix named; Palantir not a live artifact; 
 UNTRAP callee door force D-1495 (floor disarm_*/box named); 
 `bane_applies`/blast `d()`/`losehp`/other wield intrinsics; `defended`; DFLAG1; 
 hero/mon elemental resists; destroy_items/ignite; Mb_hit; SPFX_BEHEAD/DRLI; wake_nearto
@@ -636,8 +641,10 @@ JS: `js/dog.js` — partial
 **`tamedog` obj=null envelope** peaceful+edog for magic-trap fate 19 (D-0266) + 
 **demonpet `tamedog(null, FALSE)` D-1252**; 
 **`initedog` `set_malign` after mpeaceful=1 + domestic minimumtame** (D-0839; 
-starting-pet malign −9 vs renegade +3); omit food thrown path, is_demon/covetous/minion full, 
-mon_wield after tame, make_happy_shk, quest leader
+starting-pet malign −9 vs renegade +3); 
+**`tamedog` `obj && dogfood >= MANFOOD` D-1502** (C `:1247`; invoke TAMING zeroobj → APPORT so 
+tame-extend is rejected after peaceful); omit is_demon-vs-hero / is_covetous / is_minion full, 
+mon_wield after tame, make_happy_shk, quest leader, blessed-scroll tameness bump
 
 ### `src/fountain.c`
 

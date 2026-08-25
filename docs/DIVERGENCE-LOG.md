@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1502 — artifact.c doinvoke TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `#invoke` of Palantir TAMING, Yendorian Express Card
+  CHARGE_OBJ, Eye of the Aethiopica CREATE_PORTAL, and Demonbane
+  BANISH printed `nothing_happens` and skipped `arti_invoke_cost`.
+  C `artifact.c` switch `:2154–2172` calls `invoke_taming` /
+  `invoke_charge_obj` / `invoke_create_portal` / `invoke_banish`
+  (`:1768–2019`). Palantir is `#if 0` in `artilist.h` but the
+  switch arm is still live.
+- **C locus:** `artifact.c` `invoke_taming` `:1768–1777` (zeroobj
+  pseudo, `otyp=SCR_TAMING`, `seffects`); `invoke_charge_obj`
+  `:1847–1864` (`getobj` + `recharge`); `invoke_create_portal`
+  `:1866–1931`; `invoke_banish` `:1962–2019`. Callees `read.c`
+  `seffect_taming`/`maybe_tame`/`charge_ok`/`recharge`;
+  `dog.c` `tamedog` `:1247` `obj && dogfood >= MANFOOD`;
+  `mon.c` `migrate_mon`; `dungeon.c` `dunlevs_in_dungeon` /
+  `ledger_no`.
+- **JS was:** D-1488 `live` gate skipped those four `inv_prop`
+  values so `rnz` never ran.
+- **JS now:** live `js/artifact.js` four helpers + switch arms;
+  `js/read.js` `seffect_taming`/`charge_ok`/`recharge` (wand/
+  ring/tool); `tamedog` MANFOOD conjunct so invoke TAMING
+  zeroobj does not `place_object`/`dog_eat`; export
+  `migrate_mon` / `resist` / `dunlevs_in_dungeon` / `ledger_no`;
+  zap AD_ELEC ring uses full `recharge`. GETOBJ_ALLOWCNT count
+  prefix named; Palantir not a generated artifact;
+  `tamedog` is_covetous / is_demon-vs-hero named.
+- **Verify:** private canary **13**/13; green seed8000/0900
+  + strict; cohort seed1500/1800/0012/0004/0007/2200/0383
+  + strict. All PASS. Rule #2: no fs/`node:*` in scored `js/`.
+- **Follow-up:** GETOBJ_ALLOWCNT count prefix; Palantir
+  artilist; tamedog is_covetous / is_demon-vs-hero; minetn-6.
+
 ## D-1501 — potion.c H2Opotion_dip useeit ublindf Blindfolded_only
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

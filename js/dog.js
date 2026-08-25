@@ -12,7 +12,7 @@ import {
     MIGR_RANDOM, MIGR_APPROX_XY, MIGR_EXACT_XY, MIGR_STAIRS_UP,
     MIGR_STAIRS_DOWN, MIGR_LADDER_UP, MIGR_LADDER_DOWN, MIGR_SSTAIRS,
     MIGR_PORTAL, MIGR_WITH_HERO, MON_MIGRATING, MON_LIMBO, STRAT_ARRIVE,
-    RLOC_NOMSG, MAGIC_PORTAL, In_endgame, isok, MTSZ,
+    RLOC_NOMSG, MAGIC_PORTAL, In_endgame, isok, MTSZ, MANFOOD,
 } from './const.js';
 import { SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
 import { is_pool } from './hack.js';
@@ -414,6 +414,12 @@ export async function tamedog(mtmp, obj, givemsg = true) {
         || mtmp.isshk || mtmp.isgd || mtmp.ispriest || mtmp.isminion
         || is_human(mtmp.data)) {
         return false;
+    }
+    // C dog.c tamedog :1247 — is_covetous / is_demon-vs-hero named;
+    // obj && dogfood >= MANFOOD (invoke_taming zeroobj pseudo → APPORT).
+    if (obj) {
+        const { dogfood } = await import('./dogmove.js');
+        if (dogfood(mtmp, obj) >= MANFOOD) return false;
     }
 
     if (!mtmp.edog) mtmp.edog = {};

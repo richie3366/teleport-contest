@@ -8,6 +8,27 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1502 artifact.c doinvoke TAMING/CHARGE/PORTAL/BANISH
+
+**Objective:** Open `artifact.c` `doinvoke` TAMING / CHARGE_OBJ /
+CREATE_PORTAL / BANISH (named). Not HEALING/storm.
+**C locus:** `artifact.c` `invoke_taming` `:1768–1777`,
+`invoke_charge_obj` `:1847–1864`, `invoke_create_portal`
+`:1866–1931`, `invoke_banish` `:1962–2019`; callees
+`read.c` `seffect_taming`/`charge_ok`/`recharge`,
+`dog.c` `tamedog` `:1247`.
+**JS locus:** `js/artifact.js`; `js/read.js`; `js/dog.js`;
+export `js/mon.js` `migrate_mon`, `js/zap.js` `resist`,
+`js/dungeon.js` `dunlevs_in_dungeon`/`ledger_no`.
+**Change:** live switch arms; zeroobj TAMING pseudo (no
+oclass); CHARGE cancel refunds age; portal same-dungeon
+disoriented; BANISH `migrate_mon` Gehennom. GETOBJ_ALLOWCNT
+named. Rule #2: no fs.
+**Verify:** private canary **13**/13; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `mklev.c` minetn-6 load_special (named). Not
+minetn-1.
 ## 2026-08-25 — D-1501 potion.c H2Opotion_dip useeit ublindf
 
 **Objective:** Open `potion.c` `H2Opotion_dip` useeit

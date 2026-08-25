@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `potion.c` `H2Opotion_dip` useeit `ublindf && Blindfolded_only` (named). Not mix. **Addressed:** D-1501
+- [x] `artifact.c` `doinvoke` TAMING / CHARGE_OBJ / CREATE_PORTAL / BANISH (named). Not HEALING/storm. **Addressed:** D-1502
+
+
+- [x] `potion.c` `H2Opotion_dip` useeit `ublindf && Blindfolded_only` (named). Not mix. **Addressed:** D-1501 `83b29455`
 
 
 - [x] `potion.c` `dip_into` (named). Not dodip. **Addressed:** D-1500 `b96ac27f`
