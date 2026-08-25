@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1473; cadence **#1850** `3605a281`
+- **Fortress 44/44** after D-1474; cadence **#1850** `3605a281`
   (Scr **11,405** RNG 100%). Next: Open `zap.c`
-  `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via bhitm
-  (named). Not INVIS.
-  Do not skip D-1473…D-1229. No FORCE / `wildmiss` wrap /
+  `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK
+  (named). Not OPENING.
+  Do not skip D-1474…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Do not revert D-1217–D-1473. Named still: `see_monsters`
+- Do not revert D-1217–D-1474. Named still: `see_monsters`
   warn_obj / Sting; fruit_from_name + artifact_name in
   `the()`; minetn-1 / dog leftovers / `add_to_minv`.
 
@@ -22,7 +22,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1473.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1474.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -33,10 +33,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1473 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1474 (index).
 - Named still: worm-shrieker; unicorn/amethyst mix /
   potionbreathe remaining otyps; zap_steed bhitm-routed
-  striking/slow/speed;
+  slow/speed/SPE_CURE_SICKNESS;
   zap_map engraving; bhit doorlock LOCKING/STRIKING;
   bhito uchain / poly-arm boxlock; artifact invoke.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -48,9 +48,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1474: `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via
+  bhitm; easy-hit d(2,12)+disclose; miss still disclose;
+  SPE_FORCE_BOLT SPBOOK skip makeknown. Slow named.
 - D-1473: `zap_steed` WAN_MAKE_INVISIBLE via bhitm;
   minvis+vanish; See_invisible transparent; already
-  minvis still disclose. Striking named.
+  minvis still disclose. Striking is D-1474.
 - D-1472: `potionhit` remaining otyp switch + shop unpaid
   (hero OIL explode / POLY !Unchanging&&!Antimagic; mon
   heal FALLTHROUGH + Pestilence illness/heal; sickness;
@@ -95,5 +98,3 @@ Objective/score live in `CURRENT.md`.
 - D-1460: SPE_CANCELLATION IMMEDIATE wand-duplicate → weffects
   bhit; bhitm/zapyourself cancel_monst already live.
   STONE is D-1461. zap_steed cancel is D-1470.
-- D-1459: SPE_POLYMORPH IMMEDIATE wand-duplicate → weffects
-  bhit; bhitm resist/newcham; self-dir !Unchanging polyself.

@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1474 — zap.c zap_steed WAN_STRIKING/SPE_FORCE_BOLT via bhitm
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** `zap_steed` after D-1473 INVIS still defaulted
+  WAN_STRIKING/SPE_FORCE_BOLT, so a downward striking wand or
+  force-bolt spell while riding never hit the steed via `bhitm`
+  (`Boing` / `d(2,12)` / miss never ran) and never disclosed.
+  C `zap_steed` `:3115–3134` lists WAN_STRIKING/SPE_FORCE_BOLT
+  under “Default processing via `bhitm()`”: `(void) bhitm(u.usteed,
+  obj); steedhit = TRUE`. Callee `bhitm` `:189–217` (D-1388):
+  `resists_magm` → Boing; else `rnd(20) < 10+find_mac` then
+  `d(2,12)` (+ SPE `spell_damage_bonus`) `resist` TELL; miss
+  skips `learn_it`. Caller `weffects` `:3437–3439` sets
+  `disclose` so `learnwand` + `more_experienced(0,10)` still
+  fire (SPBOOK skips `makeknown`).
+- **C locus:** `zap.c` `zap_steed` `:3122–3123` (bhitm group
+  `:3115–3134`). Caller `weffects` `:3437–3439`. Callee
+  `bhitm` `:189–217`.
+- **JS was:** named omit. WAN_PROBING (D-1443), TELEPORT
+  (D-1455), OPENING/KNOCK (D-1463), SPE_DRAIN_LIFE (D-1464),
+  SPE_HEALING (D-1469), WAN/SPE_CANCELLATION (D-1470),
+  WAN/SPE_POLYMORPH (D-1471), WAN_MAKE_INVISIBLE (D-1473)
+  arms live; WAN_STRIKING/SPE_FORCE_BOLT fell through to
+  `zap_updown` instead of `bhitm` on the mount.
+- **Fix:** WAN_STRIKING/SPE_FORCE_BOLT arm `await bhitm(steed, obj)`
+  + `steedhit = true` (same group as INVIS/POLY/CANCEL/OPENING).
+  Rule #2: no fs.
+- **JS:** `js/zap.js` `zap_steed` / existing `bhitm`.
+- **Not this iter:** remaining `zap_steed` bhitm-routed
+  (slow / speed / SPE_CURE_SICKNESS); `bhit` doorlock
+  LOCKING/STRIKING; `zap_map` engraving; `bhito` uchain.
+  Knight questart dbldam / `shieldeff` on magres still named
+  in `bhitm`.
+- **Verified:** private canary **24**/24 (C/JS grep; Rule #2;
+  riding-down WAN_STRIKING easy-hit dmg+disclose; miss still
+  disclose; SPE_FORCE_BOLT dmg+XP skip makeknown; D-1473…D-1443
+  regressions; slow/speed/locking still named);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1473 — zap.c zap_steed WAN_MAKE_INVISIBLE via bhitm
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

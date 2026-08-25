@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via bhitm (named). Not INVIS.
 - [ ] `zap.c` `bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK (named). Not OPENING.
 - [ ] `zap.c` `zap_map` engraving/cancel trap (named). Not probing.
 - [ ] `potion.c` `potionbreathe` remaining otyps (named). Not potionhit.

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `zap_steed` WAN_MAKE_INVISIBLE via bhitm (named). Not POLY. **Addressed:** D-1473
+- [x] `zap.c` `zap_steed` WAN_STRIKING/SPE_FORCE_BOLT via bhitm (named). Not INVIS. **Addressed:** D-1474
+
+
+- [x] `zap.c` `zap_steed` WAN_MAKE_INVISIBLE via bhitm (named). Not POLY. **Addressed:** D-1473 `e6a44782`
 
 
 - [x] `potion.c` `potionhit` (named from D-1457). Not mixtype. **Addressed:** D-1472 `71a0a3d5`
