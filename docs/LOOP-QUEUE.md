@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `zap.c` `weffects` SPE_WIZARD_LOCK IMMEDIATE wand-duplicate (named). Not POLYMORPH.
 - [ ] `zap.c` `bhito` SPE_DRAIN_LIFE `drain_item` (named). Not probing.
 - [ ] `zap.c` `zap_updown` WAN_OPENING/SPE_KNOCK (named). Not probing.
 - [ ] `zap.c` `zap_steed` WAN_TELEPORTATION (named). Not probing.

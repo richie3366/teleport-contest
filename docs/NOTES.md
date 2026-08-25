@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1451; cadence **#1820** `70c2b8e6`
+- **Fortress 44/44** after D-1452; cadence **#1820** `70c2b8e6`
   (Scr **11,405** RNG 100% speed `36+0.30/turn` R² 0.857). Next:
-  Open `zap.c` `weffects` SPE_WIZARD_LOCK IMMEDIATE
-  wand-duplicate (named). Not POLYMORPH.
-  Do not skip D-1451…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `zap.c` `bhito` SPE_DRAIN_LIFE `drain_item`
+  (named). Not probing.
+  Do not skip D-1452…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1451. Named still: `see_monsters`
+- Do not revert D-1217–D-1452. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1451.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1452.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,10 +34,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1451 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1452 (index).
 - Named still: worm-shrieker; remaining mix /
   potionhit / potionbreathe;
-  remaining wand-duplicate IMMEDIATE LOCK/…;
+  remaining wand-duplicate IMMEDIATE TURN/…;
   bhito drain_item; artifact invoke. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
@@ -50,15 +50,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1452: SPE_WIZARD_LOCK IMMEDIATE wand-duplicate
+  `wand_duplicate_weffects` → `weffects` bhit
+  rn1(8,6); bhitm D-1425 / zapyourself D-1434
+  already live. TURN still named. doorlock /
+  zap_updown LOCKING / bhito boxlock named.
 - D-1451: SPE_SLOW_MONSTER IMMEDIATE wand-duplicate
   `wand_duplicate_weffects` → `weffects` bhit
   rn1(8,6); bhitm D-1424 / zapyourself D-1433
-  already live. LOCK still named. doorlock /
+  already live. LOCK is D-1452. doorlock /
   zap_updown OPENING / bhito boxlock named.
 - D-1450: SPE_KNOCK IMMEDIATE wand-duplicate
   `wand_duplicate_weffects` → `weffects` bhit
   rn1(8,6); bhitm/zapyourself already D-0981.
-  SLOW is D-1451. LOCK still named. doorlock /
+  SLOW is D-1451. LOCK is D-1452. doorlock /
   zap_updown OPENING / bhito boxlock named.
 - D-1449: SPE_FINGER_OF_DEATH RAY wand-duplicate
   `wand_duplicate_weffects` → `weffects` ubuzz
@@ -121,6 +126,3 @@ Objective/score live in `CURRENT.md`.
 - D-1438: `peffect_gain_ability` cursed Ulch+unkn;
   Fixed_abil nothing; else blessed adjattrib all /
   uncursed rn2 tries. Mix named.
-- D-1437: `peffect_sleeping` resist yawn +
-  monstseesu else fall_asleep -rn1(10,
-  25-12*bcsign) TRUE. potionhit/breathe named.

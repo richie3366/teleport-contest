@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `zap.c` `weffects` SPE_SLOW_MONSTER IMMEDIATE wand-duplicate (named). Not LOCK. **Addressed:** D-1451
+- [x] `zap.c` `weffects` SPE_WIZARD_LOCK IMMEDIATE wand-duplicate (named). Not POLYMORPH. **Addressed:** D-1452
+
+
+- [x] `zap.c` `weffects` SPE_SLOW_MONSTER IMMEDIATE wand-duplicate (named). Not LOCK. **Addressed:** D-1451 `5c8b73c5`
 
 
 - [x] `zap.c` `weffects` SPE_KNOCK IMMEDIATE wand-duplicate (named from D-1427). Not SLOW. **Addressed:** D-1450 `de69d3f9`

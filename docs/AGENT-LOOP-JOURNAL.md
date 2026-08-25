@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1452 spell.c SPE_WIZARD_LOCK IMMEDIATE wand-duplicate
+
+**Objective:** Open `zap.c` `weffects` SPE_WIZARD_LOCK IMMEDIATE
+wand-duplicate (named). Not POLYMORPH.
+**C locus:** `spell.c` `spelleffects` `:1466–1514`; callee
+`zap.c` `weffects` `:3440–3451` IMMEDIATE `bhit`/`bhitm`.
+**Change:** route SPE_WIZARD_LOCK through `wand_duplicate_weffects`
+(`physical_damage` false). Self-dir zapyourself already D-1434;
+bhitm already D-1425. TURN named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit until a
+session casts wizard lock).
+**Verified:** private canary **20**/20; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `zap.c` `bhito` SPE_DRAIN_LIFE `drain_item`
+(named). Not probing.
+**Blocked:** none.
 ## 2026-08-25 — D-1451 spell.c SPE_SLOW_MONSTER IMMEDIATE wand-duplicate
 
 **Objective:** Open `zap.c` `weffects` SPE_SLOW_MONSTER IMMEDIATE

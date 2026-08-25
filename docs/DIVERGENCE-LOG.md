@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1452 — spell.c SPE_WIZARD_LOCK IMMEDIATE wand-duplicate
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** casting wizard lock (`spelleffects` SPE_WIZARD_LOCK)
+  was "Nothing happens." C `:1466–1514` puts SPE_WIZARD_LOCK in the
+  wand-duplicate group: `oc_dir == IMMEDIATE` so getdir then
+  `zapyourself` (dx=dy=dz=0) or `weffects(pseudo)` then
+  `update_inventory()`. `weffects` `:3440–3451` IMMEDIATE
+  `zapsetup` then swallow `bhitm(ustuck)` / `u.dz` `zap_updown`
+  / else `bhit(rn1(8,6), bhitm, bhito)`. Fake spellbook is
+  SPBOOK so `learnwand` skips `makeknown`. Self-zap
+  `zapyourself` `:2948–2954` already live (D-1434):
+  `u.utrap || !closeholdingtrap` then `boxlock_invent`. Directed
+  monster `bhitm` `:370–375` already live (D-1425):
+  box_or_door mimic then `closeholdingtrap(mtmp, &learn_it)`.
+- **C locus:** `spell.c` `spelleffects` `:1466–1514`. Callee
+  `zap.c` `weffects` `:3440–3451` / `bhit` / `bhitm` `:370–375`;
+  `zapyourself` `:2948–2954` on self-dir.
+- **JS was:** other-otyp "Nothing happens." after D-1451
+  SPE_SLOW_MONSTER; weffects IMMEDIATE bhit already live
+  (D-1388 FORCE_BOLT); bhitm/zapyourself LOCK already
+  live (D-1425 / D-1434).
+- **Fix:** route SPE_WIZARD_LOCK through
+  `wand_duplicate_weffects` (`physical_damage` false).
+  Rule #2: no fs.
+- **JS:** `js/spell.js` `spelleffects`; callee `js/zap.js`
+  `weffects` / `bhit` / `bhitm` / `zapyourself`.
+- **Not this iter:** remaining wand-duplicate IMMEDIATE
+  (TURN / POLY / CANCEL / STONE); `bhit` `doorlock`;
+  `zap_updown` WAN_OPENING/SPE_KNOCK / WAN_LOCKING;
+  `bhito` boxlock / drain_item; zap_steed teleport.
+- **Verified:** private canary **20**/20 (C/JS grep; IMMEDIATE
+  SPBOOK vs WAN_LOCKING; atme not Nothing happens; unlocked
+  chest Klunk + olocked; directed kobold TIME; SPBOOK skip
+  makeknown; TURN/POLY still Nothing happens;
+  KNOCK/SLOW/SLEEP/DIG/MAGIC_MISSILE/FINGER/LIGHT/DRAIN still
+  wired; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session casts wizard lock.
+- **Follow-up:** Open `zap.c` `bhito` SPE_DRAIN_LIFE
+  `drain_item` (named). Not probing.
+- **Files:** `js/spell.js`, `js/zap.js` (comments).
+
 ## D-1451 — spell.c SPE_SLOW_MONSTER IMMEDIATE wand-duplicate
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

@@ -79,8 +79,9 @@
 // RAY wand-duplicate weffects is D-1448; SPE_FINGER_OF_DEATH
 // RAY wand-duplicate weffects is D-1449; SPE_KNOCK IMMEDIATE
 // wand-duplicate weffects is D-1450; SPE_SLOW_MONSTER
-// IMMEDIATE wand-duplicate weffects is D-1451; remaining
-// IMMEDIATE wand-duplicate LOCK/…;
+// IMMEDIATE wand-duplicate weffects is D-1451; SPE_WIZARD_LOCK
+// IMMEDIATE wand-duplicate weffects is D-1452; remaining
+// IMMEDIATE wand-duplicate TURN/…;
 // potion peffect_enlightenment is D-1413;
 // dozap spe<0 dust useupall (backfire is D-1416);
 // wrest pline; check_capacity;
@@ -2429,7 +2430,9 @@ export async function do_enlightenment_effect() {
  * bhitm/zapyourself SPE_KNOCK already D-0981).
  * SPE_SLOW_MONSTER IMMEDIATE wand-duplicate weffects bhit
  * (D-1451; bhitm D-1424; zapyourself D-1433).
- * Named omit: remaining wand-duplicate IMMEDIATE (LOCK/…).
+ * SPE_WIZARD_LOCK IMMEDIATE wand-duplicate weffects bhit
+ * (D-1452; bhitm D-1425; zapyourself D-1434).
+ * Named omit: remaining wand-duplicate IMMEDIATE (TURN/…).
  */
 export async function zapnodir(obj) {
     let known = false;
@@ -3624,6 +3627,7 @@ export async function bhitm(mtmp, otmp) {
         // trap.c :6210–6247. other zap_updown otyps named.
         // zap_steed does not route locking to bhitm.
         // zapyourself WAN_LOCKING is D-1434.
+        // SPE_WIZARD_LOCK wand-duplicate weffects is D-1452.
         if (disguised_mimic && box_or_door(mtmp)) seemimic(mtmp);
         const closed = await closeholdingtrap(mtmp);
         if (closed.noticed) learn_it = true;
@@ -4248,6 +4252,7 @@ export async function zapyourself(obj, ordinary) {
         // + zap.c boxlock_invent :2687–2702 (lock.c boxlock).
         // WAN_PROBING is D-1435. bhitm SPE_DRAIN is D-1436;
         // zapyourself SPE_DRAIN is D-1446; other zap_updown otyps still named.
+        // SPE_WIZARD_LOCK wand-duplicate weffects is D-1452.
         const alreadyTrapped = !!(game.u?.utrap | 0);
         if (alreadyTrapped) {
             await boxlock_invent(obj);
@@ -5016,7 +5021,9 @@ async function zap_steed(obj) {
  * and SPE_FINGER_OF_DEATH (D-1449) wand-duplicate;
  * SPE_KNOCK IMMEDIATE bhit (D-1450; bhitm D-0981);
  * SPE_SLOW_MONSTER IMMEDIATE bhit (D-1451; bhitm D-1424;
- * zapyourself D-1433).
+ * zapyourself D-1433);
+ * SPE_WIZARD_LOCK IMMEDIATE bhit (D-1452; bhitm D-1425;
+ * zapyourself D-1434).
  * zap_steed WAN_PROBING (D-1443); zap_updown WAN_PROBING (D-1444);
  * remaining zap_steed otyps / other zap_updown otyps / doorlock
  * deferred.
