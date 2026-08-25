@@ -28,7 +28,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` `peffect_sleeping` (named). Not remaining peffects.
 - [ ] `potion.c` `peffect_gain_ability` (named). Not hallucination.
 - [ ] `potion.c` `peffect_hallucination` (named). Not remaining mix.
 - [ ] `zap.c` `weffects` SPE_SLEEP wand-duplicate (named from D-1427). Not DIG.

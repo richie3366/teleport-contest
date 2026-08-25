@@ -4,6 +4,49 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1437 — potion.c peffect_sleeping
+
+- **Status:** fixed (map-driven Open; not a public FAIL)
+- **Symptom:** quaffing a potion of sleeping printed
+  "That potion is not implemented yet." and skipped
+  `useup`. C `peffects` `:1363–1365` calls
+  `peffect_sleeping`. That helper `:901–911`:
+  if `Sleep_resistance || Free_action` then
+  `monstseesu(M_SEEN_SLEEP)` + You yawn; else You
+  suddenly fall asleep, `monstunseesu(M_SEEN_SLEEP)`,
+  `fall_asleep(-rn1(10, 25-12*bcsign(otmp)), TRUE)`.
+  Callee `timeout.c` `fall_asleep` `:951–974` (stop
+  occupation, `nomul`, reason sleeping, `u.usleep`,
+  nomovemsg "You wake up."). potionhit monster
+  POT_SLEEPING and potionbreathe vapors are separate
+  functions (still named).
+- **C locus:** `potion.c` `peffect_sleeping` `:901–911`
+  / `peffects` `:1363–1365`. Callees `timeout.c`
+  `fall_asleep` `:951–974` (JS `hack.js`); `mondata.c`
+  `monstseesu`/`monstunseesu`.
+- **JS was:** `peffects` default "not implemented"
+  (return 0, no useup).
+- **Fix:** Port `peffect_sleeping`. Wire POT_SLEEPING.
+  Reuse `hack.js` `fall_asleep` + `mondata.js`
+  `monstseesu`/`monstunseesu`. Rule #2: no fs.
+- **JS:** `js/potion.js` `peffects` / `peffect_sleeping`.
+- **Not this iter:** remaining peffects (gain ability /
+  hallucination); potionhit / potionbreathe POT_SLEEPING;
+  `#if 0` Deaf/`Hear_again` inside `fall_asleep`.
+- **Verified:** private canary **38**/38 (C/JS grep;
+  uncursed sleep multi -25..-34 + rn2(10) + usleep;
+  blessed -13..-22; cursed -37..-46; H/E Sleep_resistance
+  yawn + monstseesu no nomul; Free_action yawn; fall
+  monstunseesu; uswallow still sleeps skip seenres;
+  dknown makeknown+useup; gain ability / hallucination
+  still not-implemented; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session quaffs sleeping.
+- **Follow-up:** Open `potion.c` `peffect_gain_ability`
+  (named). Not hallucination.
+- **Files:** `js/potion.js`.
+
 ## D-1436 — zap.c bhitm SPE_DRAIN_LIFE
 
 - **Status:** fixed (map-driven Open; not a public FAIL)

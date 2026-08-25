@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1436; cadence **#1800** `66254727`
+- **Fortress 44/44** after D-1437; cadence **#1800** `66254727`
   (Scr **11,405** RNG 100% speed `37+0.30/turn` R² 0.85). Next:
-  Open `potion.c` `peffect_sleeping` (named).
-  Not remaining peffects.
-  Do not skip D-1436…D-1229. No FORCE. Do not wrap `wildmiss`.
+  Open `potion.c` `peffect_gain_ability` (named).
+  Not hallucination.
+  Do not skip D-1437…D-1229. No FORCE. Do not wrap `wildmiss`.
   Do not add trailing `confdir` to shared `getdir`.
-- Do not revert D-1217–D-1436. Named still: `see_monsters`
+- Do not revert D-1217–D-1437. Named still: `see_monsters`
   warn_obj / Sting / SPFX_WARN / ARMOR gloves; fruit_from_name
   + artifact_name in `the()`; minetn-1 / dog leftovers /
   `add_to_minv` merge.
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1436.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1437.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -34,9 +34,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1436 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1437 (index).
 - Named still: rustm / poison / worm-shrieker; remaining peffects
-  (sleeping/gain ability/hallucination);
+  (gain ability/hallucination);
   remaining wand-duplicate SLEEP/DIG; zapyourself SPE_DRAIN;
   zap_steed/zap_updown/bhito WAN_PROBING; artifact invoke. No fountain
   `lesshungry` (D-1359). No ALIGN/FORCE on seed0383.
@@ -50,6 +50,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1437: `peffect_sleeping` resist yawn +
+  monstseesu else fall_asleep -rn1(10,
+  25-12*bcsign) TRUE. potionhit/breathe named.
 - D-1436: `bhitm` SPE_DRAIN_LIFE seemimic +
   monhp_per_lvl/dbldam/bonus; resists_drli shield
   else !resist then mhpmax+m_lev-- / killed.
@@ -62,7 +65,7 @@ Objective/score live in `CURRENT.md`.
 - D-1433: `zapyourself` WAN_SLOW HFast
   TIMEOUT|INTRINSIC → u_slow_down.
 - D-1432: `peffect_blindness` potion_nothing if
-  Blind; make_blinded rn1 timeout. Sleeping named.
+  Blind; make_blinded rn1 timeout. Gain ability named.
 - D-1431: `peffect_gain_level` cursed unkn;
   Can_rise_up / pluslvl / blessed rndexp.
 - D-1430: `peffect_acid` resist taste vs losehp
@@ -81,6 +84,4 @@ Objective/score live in `CURRENT.md`.
   mon_adjust_speed(-1) + whirly expels.
 - D-1423: `knowninvisible` See_invisible
   H||E uprops. No confer_oc_oprop rewrite.
-- D-1422: `bhitm` WAN_SPEED !resist then
-  mon_adjust_speed(+1); helpful_gesture.
 

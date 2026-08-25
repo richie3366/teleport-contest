@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-25 — D-1437 potion.c peffect_sleeping
+
+**Objective:** Open `potion.c` `peffect_sleeping` (named).
+Not remaining peffects.
+**C locus:** `potion.c` `peffect_sleeping` `:901–911` /
+`peffects` `:1363–1365`. Callees `timeout.c` `fall_asleep`
+`:951–974`; `mondata.c` `monstseesu`/`monstunseesu`.
+**Change:** resist (Sleep_resistance||Free_action) yawn +
+monstseesu; else fall_asleep(-rn1(10, 25-12*bcsign), TRUE).
+potionhit / potionbreathe still named. Rule #2: no fs.
+**Score:** fortress 44/44 unchanged (public-unhit unless a
+session quaffs sleeping).
+**Verified:** private canary **38**/38; green+strict
+seed8000/0900; cohort **7**/7 + strict
+1500/1800/0012/0004/0007/2200/0383.
+**Next:** Open `potion.c` `peffect_gain_ability` (named).
+Not hallucination.
+**Blocked:** none.
 ## 2026-08-25 — D-1436 zap.c bhitm SPE_DRAIN_LIFE
 
 **Objective:** Open `zap.c` `bhitm` SPE_DRAIN_LIFE

@@ -14,6 +14,7 @@
 //         peffect_acid (D-1430),
 //         peffect_gain_level (D-1431),
 //         peffect_blindness (D-1432),
+//         peffect_sleeping (D-1437),
 //         make_confused, dodip, speed_up, djinni_from_bottle (D-1144);
 //         invent.c getobj; fountain.c drinkfountain / dipfountain / dipsink.
 // Branch envelope: POT_WATER peffect + potionbreathe lycan vapor (D-1004).
@@ -54,6 +55,9 @@
 // (H||E)&&BBlinded → potion_nothing++; make_blinded(itimeout_incr(
 // BlindedTimeout, rn1(200, 250-125*bcsign)), !Blind); callee do.js
 // make_blinded).
+// POT_SLEEPING peffect_sleeping (D-1437; Sleep_resistance||Free_action
+// monstseesu + yawn else fall_asleep(-rn1(10, 25-12*bcsign), TRUE);
+// callee timeout.c fall_asleep / mondata.c monstseesu).
 // POT_FULL_HEALING peffect_full_healing (D-1411).
 // POT_ENLIGHTENMENT peffect_enlightenment (D-1413).
 
@@ -96,10 +100,12 @@ import {
     P_RIDING, P_BASIC, ER_DESTROYED, ER_NOTHING, MM_NOMSG,
     OBJ_INVENT, ARTICLE_THE, SUPPRESS_IT, SUPPRESS_SADDLE, W_SADDLE,
     POLY_NOFLAGS, POLY_CONTROLLED, POLY_LOW_CTRL, UNCHANGING, ACID_RES,
+    M_SEEN_SLEEP,
 } from './const.js';
 import { hands_obj, P_SKILL } from './weapon.js';
 import { rn2, rnd, d, rn1, rnl } from './rng.js';
-import { losehp, nomul, maybe_half_phys, is_pool, waterbody_name } from './hack.js';
+import { losehp, nomul, maybe_half_phys, is_pool, waterbody_name, fall_asleep } from './hack.js';
+import { monstseesu, monstunseesu } from './mondata.js';
 import { cansee } from './vision.js';
 import {
     mons, mon_hates_blessings, pmnames, is_swimmer, monsterNames,
@@ -1706,6 +1712,42 @@ async function peffect_blindness(otmp) {
 }
 
 /**
+ * C youprop.h Sleep_resistance — HSleep_resistance || ESleep_resistance.
+ */
+function Sleep_resistance() {
+    const u = game.u || {};
+    return !!((u.HSleep_resistance | 0) || (u.ESleep_resistance | 0)
+        || u.Sleep_resistance);
+}
+
+/**
+ * C youprop.h Free_action — u.uprops[FREE_ACTION].extrinsic.
+ * JS also mirrors flat Free_action / EFree_action (peffect_paralysis).
+ */
+function Free_action() {
+    const u = game.u || {};
+    return !!(u.Free_action || u.HFree_action || u.EFree_action);
+}
+
+/**
+ * C ref: potion.c peffect_sleeping :901–911.
+ * Sleep_resistance || Free_action: monstseesu(M_SEEN_SLEEP) then You yawn.
+ * Else You suddenly fall asleep, monstunseesu, then
+ * fall_asleep(-rn1(10, 25-12*bcsign(otmp)), TRUE) (timeout.c; JS hack.js).
+ * potionhit / potionbreathe / mix / dipsink POT_SLEEPING still named.
+ */
+async function peffect_sleeping(otmp) {
+    if (Sleep_resistance() || Free_action()) {
+        monstseesu(M_SEEN_SLEEP);
+        await pline('You yawn.');
+    } else {
+        await pline('You suddenly fall asleep!');
+        monstunseesu(M_SEEN_SLEEP);
+        fall_asleep(-rn1(10, 25 - 12 * bcsign(otmp)), true);
+    }
+}
+
+/**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
  * paralysis / confusion / booze / healing / extra healing /
  * full healing (D-1411) / enlightenment (D-1413) / sickness / water;
@@ -1717,6 +1759,7 @@ async function peffect_blindness(otmp) {
  * POT_INVISIBILITY / SPE_INVISIBILITY (D-1421);
  * POT_POLYMORPH (D-1428); POT_GAIN_ENERGY (D-1429);
  * POT_ACID (D-1430); POT_GAIN_LEVEL (D-1431); POT_BLINDNESS (D-1432);
+ * POT_SLEEPING (D-1437);
  * other otyps in map.
  */
 export async function peffects(otmp) {
@@ -1730,6 +1773,9 @@ export async function peffects(otmp) {
         return -1;
     case POT_PARALYSIS:
         await peffect_paralysis(otmp);
+        return -1;
+    case POT_SLEEPING:
+        await peffect_sleeping(otmp);
         return -1;
     case POT_CONFUSION:
         await peffect_confusion(otmp);
