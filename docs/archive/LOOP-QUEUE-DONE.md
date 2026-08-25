@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-25
 
-- [x] `display.c` `any_visible_region` (named). Not Hallu/Warn_of_mon. **Addressed:** D-1512
+- [x] `display.c` `any_visible_region` (named). Not Hallu/Warn_of_mon. **Addressed:** D-1512 `79744185`
 
 
 - [x] `objnam.c` `fruit_from_indx` (named). Not the(). **Addressed:** D-1511 `85c341a7`

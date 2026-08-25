@@ -5,10 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after D-1512; cadence **#1890** `1f64431d`
-  (Scr **11,405** RNG 100%, `38+0.30/turn` R² 0.849). Next: Open
-  `artifact.c` SPFX_WARN conferral / MATCH_WARN
-  (named). Not Sting_effects. Do not skip D-1512…D-1229.
+- **Fortress 44/44** after audit **#1900** HEAD `79744185`
+  (Scr **11,405** RNG 100%, `37+0.30/turn` R² 0.85).
+  **Next:** Must-fix `load_minetn_7` three town gnomes
+  not four (review **465** QUALITY-RISK). Not SPFX_WARN.
+  Map-driven cluster after that. Do not skip D-1512…D-1229.
   No FORCE / `wildmiss` wrap / trailing `confdir` in
   shared `getdir`. pickup `body_part` is latebound
   (polyself→do cycle); do not import pickup→polyself.
@@ -22,10 +23,6 @@ Objective/score live in `CURRENT.md`.
   wander/`somexy` / Wiz_arrive; mktrap_victim floor candle;
   S_KOP / non-salamander S_LIZARD; `mcast_blind_you` EYE;
   `observe_quantum_cat` FOOT.
-- Falsifier for D-1512: `any_visible_region` true iff some
-  `visible && ttl !== -2`; allmain else-if ORs it after
-  Warn_of_mon. Hallu arm must not extra-call it.
-  Don’t re-check seed0383 Hallu as this OR.
 
 ## Don't re-check (≤15)
 
@@ -96,7 +93,8 @@ Objective/score live in `CURRENT.md`.
   wander/`somexy` named. stolen_booty D-1363.
 - D-1504: minetn-7 Bazaar Town `load_special`; nested 30×15
   `des.room` + percent(75) nests + chance shops + pos=0 door
-  + sink + temple. `ensure_way_out` named.
+  + sink + temple. Town floor: C three gnomes; JS four
+  (review **465** Must-fix). `ensure_way_out` named.
 - D-1503: minetn-6 Bustling Town `load_special`; solidfill then
   mines lit=1 bg HWALL; top-aligned `'x'` skip map; shops/temple.
   `ensure_way_out` named.

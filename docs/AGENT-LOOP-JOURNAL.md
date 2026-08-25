@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — review D-1504–D-1512 (audit #1900)
+
+**Objective:** audit — C-fidelity reviews **465–473** of JS SHAs
+`eeb0e912` / `cac06f86` / `1e1d1864` / `a4a370f4` /
+`be542317` / `7092fab7` / `57d22857` / `85c341a7` /
+`79744185` plus full `sessions` score.
+**C locus:** `dat/minetn-7.lua`; `dog.c` leftovers;
+`makemon.c` gnome candle / `throws_rocks`; `body_part`
+aliases; `potion.c` lichen; `zap.c` worn `set_wear`;
+`objnam.c` `fruit_from_indx`; `region.c` `any_visible_region`.
+**Change:** no `js/` edits. Eight **ACCEPT-WITH-DEBT**;
+**465 QUALITY-RISK** Must-fix extra town gnome. Filled
+archive D-1512 `79744185`. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+(100%) speed `37+0.30/turn` (R² 0.85).
+**Verified:** full `sessions` at HEAD `79744185`.
+**Next:** Must-fix `load_minetn_7` three gnomes not four
+(review 465). Not SPFX_WARN.
+**Blocked:** none.
 ## 2026-08-26 — D-1512 region.c any_visible_region + allmain
 
 **Objective:** Open `display.c` `any_visible_region`

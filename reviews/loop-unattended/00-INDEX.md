@@ -475,3 +475,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [462-83b29455-h2opotion-dip-useeit.md](./462-83b29455-h2opotion-dip-useeit.md) | `83b29455` | D-1501 H2Opotion_dip useeit / towel | **ACCEPT-WITH-DEBT** |
 | [463-89b85fcc-arti-invoke-taming-charge-portal-banish.md](./463-89b85fcc-arti-invoke-taming-charge-portal-banish.md) | `89b85fcc` | D-1502 TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH | **ACCEPT-WITH-DEBT** |
 | [464-1f64431d-minetn-6-bustling-town.md](./464-1f64431d-minetn-6-bustling-town.md) | `1f64431d` | D-1503 minetn-6 load_special Bustling Town | **ACCEPT-WITH-DEBT** |
+| [465-eeb0e912-minetn-7-bazaar-town.md](./465-eeb0e912-minetn-7-bazaar-town.md) | `eeb0e912` | D-1504 minetn-7 load_special Bazaar Town | **QUALITY-RISK** |
+| [466-cac06f86-mon-arrive-leftovers.md](./466-cac06f86-mon-arrive-leftovers.md) | `cac06f86` | D-1505 mon_arrive MIGR_LEFTOVERS DF_ALL | **ACCEPT-WITH-DEBT** |
+| [467-1e1d1864-gnome-candle-begin-burn.md](./467-1e1d1864-gnome-candle-begin-burn.md) | `1e1d1864` | D-1506 m_initinv S_GNOME begin_burn | **ACCEPT-WITH-DEBT** |
+| [468-a4a370f4-throws-rocks-sokoban.md](./468-a4a370f4-throws-rocks-sokoban.md) | `a4a370f4` | D-1507 throws_rocks Sokoban first-try | **ACCEPT-WITH-DEBT** |
+| [469-be542317-body-part-aliases.md](./469-be542317-body-part-aliases.md) | `be542317` | D-1508 body_part HEAD/HAND aliases | **ACCEPT-WITH-DEBT** |
+| [470-7092fab7-potion-dip-lichen-acid.md](./470-7092fab7-potion-dip-lichen-acid.md) | `7092fab7` | D-1509 potion_dip lichen / acid-erode | **ACCEPT-WITH-DEBT** |
+| [471-57d22857-poly-obj-worn-set-wear.md](./471-57d22857-poly-obj-worn-set-wear.md) | `57d22857` | D-1510 poly_obj worn set_wear | **ACCEPT-WITH-DEBT** |
+| [472-85c341a7-fruit-from-indx.md](./472-85c341a7-fruit-from-indx.md) | `85c341a7` | D-1511 fruit_from_indx + xname SLIME_MOLD | **ACCEPT-WITH-DEBT** |
+| [473-79744185-any-visible-region.md](./473-79744185-any-visible-region.md) | `79744185` | D-1512 any_visible_region + allmain see_monsters | **ACCEPT-WITH-DEBT** |

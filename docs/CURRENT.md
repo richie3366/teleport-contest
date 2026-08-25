@@ -20,9 +20,9 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-25** — full `sessions` at review **#1890**
-HEAD `1f64431d` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `38+0.30/turn` (R² 0.849). Next audit (review + score) @**#1900**.
+Score last measured: **2026-08-26** — full `sessions` at review **#1900**
+HEAD `79744185` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
+Speed `37+0.30/turn` (R² 0.85). Next audit (review + score) @**#1910**.
 
 ## Score
 
@@ -31,7 +31,7 @@ Speed `38+0.30/turn` (R² 0.849). Next audit (review + score) @**#1900**.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `38+0.30/turn` (R² 0.849) |
+| Speed label | `37+0.30/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -59,9 +59,9 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1512. **Next cluster:** Open
-`artifact.c` SPFX_WARN conferral / MATCH_WARN
-(named). Not Sting_effects.
+**Map-driven fortress** after D-1512. **Next cluster:** Must-fix
+`mklev.js` `load_minetn_7` town-room three gnomes not four
+(review **465**). Not SPFX_WARN.
 **Do not skip D-1512…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing

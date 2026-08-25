@@ -32,6 +32,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `mklev.js` `load_minetn_7` town-room gnomes: C `dat/minetn-7.lua` has three `des.monster("gnome")` then gnome lord + two monkeys; JS calls `splev_room_monster('gnome')` four times (extra `induced_align(80)`+`makemon`). Source: reviews/loop-unattended/465-eeb0e912-minetn-7-bazaar-town.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `artifact.c` SPFX_WARN conferral / MATCH_WARN (named). Not Sting_effects.
