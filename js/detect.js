@@ -39,7 +39,7 @@
 // M_AP_FURNITURE; wiz_map_levltyp / wiz_levltyp_legend;
 // TER_FULL explore-only map body; arboreal default tree;
 // monster_detect cursed wake / blessed WIN_MAP /
-// worm segs / pet_to_glyph / TER_DETECT autodescribe;
+// pet_to_glyph / TER_DETECT autodescribe;
 // mfind0 set_msg_xy / display_nhwindow flush;
 // object_detect buried/minvent/cursed-mimic/gold/clear_stale_map;
 // observe_recursively on buried/minvent (invent+floor do_dknown D-1417);
@@ -68,7 +68,7 @@ import { cmd_safety_prevention, make_blinded } from './do.js';
 import { m_at, seemimic, wake_nearto } from './mon.js';
 import { find_drawbridge, open_drawbridge } from './dbridge.js';
 import { expels, digests } from './mhitu.js';
-import { is_hider, hides_under } from './monsters.js';
+import { is_hider, hides_under, mons } from './monsters.js';
 import { Monnam, x_monnam, x_monnam_tame, trycall } from './do_name.js';
 import {
     objectNames, MAXOCLASSES, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -80,7 +80,8 @@ import { objects_at, weight } from './mkobj.js';
 import { makeknown, consume_obj_charge, observe_object } from './invent.js';
 import { yn_function } from './getline.js';
 import { nomul, losehp, maybe_half_phys, is_pool } from './hack.js';
-import { PM_LONG_WORM_TAIL } from './generated/monsters_data.js';
+import { detect_wsegs } from './worm.js';
+import { PM_LONG_WORM_TAIL, monsterNames } from './generated/monsters_data.js';
 import { depth, dist2 } from './hacklib.js';
 import {
     isok, SDOOR, SCORR, DOOR, CORR, D_NODOOR, D_CLOSED, D_LOCKED, D_ISOPEN,
@@ -93,6 +94,8 @@ import {
     IN_SIGHT, CLAIRVOYANT, LAVAPOOL, LAVAWALL, Has_contents,
 } from './const.js';
 import { room_discovered } from './dungeon.js';
+
+const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 
 /** C youprop.h Blind — (H||E) && !B; no sticky u.Blind (D-0716). */
 function Blind() {
@@ -990,9 +993,9 @@ function glyph_disp_changed(a, b) {
  * map_monst / map_invisible; skilled/blessed/Clairvoyant observe_object +
  * mdetected browse; random_farsight quick_farsight skip; post-loop I-replace
  * + see_monsters; browse_map then docrt.
- * Named omissions: worm-tail glyph_to_mon skip (heads only via mx==zx);
- * pet_to_glyph / detected_mon_to_glyph (plain mon_glyph); allmain seer_turn
- * caller still named.
+ * Named omissions: pet_to_glyph / detected_mon_to_glyph (plain
+ * mon_glyph); allmain seer_turn caller still named. detect_wsegs is
+ * D-1545 (map_monst FALSE here, like C `:1531`).
  * @param {object|null} sobj fake spellbook (null = random farsight)
  */
 export async function do_vicinity_map(sobj) {
@@ -1041,7 +1044,7 @@ export async function do_vicinity_map(sobj) {
                     && oldglyph.kind !== 'monster') {
                     map_invisible(zx, zy);
                 } else {
-                    map_monst(mtmp, mon_glyph, show_glyph_cell);
+                    map_monst(mtmp, false);
                 }
                 const newglyph = glyph_at_disp(zx, zy);
                 if (extended && glyph_disp_changed(newglyph, oldglyph)
@@ -1093,11 +1096,16 @@ export async function do_vicinity_map(sobj) {
 }
 
 /**
- * C ref: detect.c map_monst — show_glyph mon/pet/detected; worm segs deferred.
+ * C ref: detect.c map_monst :120–134 — show_glyph head; showtail &&
+ * PM_LONG_WORM → detect_wsegs(mtmp, 0) (D-1545). Named: monsym==' '
+ * detected_mon_to_glyph; pet_to_glyph (plain mon_glyph).
  */
-function map_monst(mtmp, mon_glyph, show_glyph_cell) {
+function map_monst(mtmp, showtail) {
     const g = mon_glyph(mtmp);
     show_glyph_cell(mtmp.mx, mtmp.my, g.ch, g.color, false);
+    if (showtail && mtmp.data === mons(PM_LONG_WORM)) {
+        detect_wsegs(mtmp, false);
+    }
 }
 
 /**
@@ -1108,12 +1116,12 @@ function map_monst(mtmp, mon_glyph, show_glyph_cell) {
  * Empty + otmp → strange_feeling (D-1418; hallu heebie jeebies else
  * threatened). Crystal-ball / fountain pass null and skip that.
  * Named omissions: cursed-otmp wake; blessed persistent
- * display_nhwindow; unconstrain underwater/buried/swallow; worm
- * detect_wsegs; pet_to_glyph / detected_mon_to_glyph
- * (plain mon_glyph).
+ * display_nhwindow; unconstrain underwater/buried/swallow;
+ * pet_to_glyph / detected_mon_to_glyph (plain mon_glyph).
+ * detect_wsegs is D-1545 (map_monst TRUE).
  */
 export async function monster_detect(otmp, mclass) {
-    const { cls, pline, mon_glyph, show_glyph_cell, flush_topl_more } =
+    const { cls, pline, flush_topl_more } =
         await import('./display.js');
 
     let mcnt = 0;
@@ -1146,8 +1154,11 @@ export async function monster_detect(otmp, mclass) {
         if ((mtmp.mhp | 0) < 1) continue;
         if (mtmp.isgd && !(mtmp.mx | 0)) continue;
         const mlet = mtmp.data?.mlet;
-        if (!mclass || mlet === mclass) {
-            map_monst(mtmp, mon_glyph, show_glyph_cell);
+        /* C :831–834 — also map a long worm when the class is S_WORM_TAIL */
+        if (!mclass || mlet === mclass
+            || (mtmp.data === mons(PM_LONG_WORM)
+                && mclass === 'S_WORM_TAIL')) {
+            map_monst(mtmp, true);
         }
         // cursed otmp helpless wake deferred
     }

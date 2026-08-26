@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1545 — worm.c detect_wsegs + detect.c map_monst showtail
+
+- **Status:** fixed (map-driven Open from D-1544; not a public FAIL)
+- **Symptom:** Monster detection painted only the long-worm **head**.
+  C `detect_wsegs` `show_glyph`s every body `wseg` except the dummy
+  head, using `what_mon(PM_LONG_WORM_TAIL, newsym_rn2)` once then
+  pet/mon/detected `monnum` glyphs (not `newsym`). Caller
+  `map_monst` passes `use_detection_glyph=0` when showtail &&
+  `PM_LONG_WORM`. `monster_detect` uses showtail TRUE;
+  `do_vicinity_map` FALSE (heads only). Named omit after D-1529.
+- **C locus:** `worm.c` `detect_wsegs` `:502–519`. Caller
+  `detect.c` `map_monst` `:120–134` (`:132–133`);
+  `monster_detect` `:831–834` TRUE + `S_WORM_TAIL` class;
+  `do_vicinity_map` `:1531` FALSE. Callees `display.h`
+  `what_mon` / `petnum_to_glyph` / `monnum_to_glyph` /
+  `detected_monnum_to_glyph` + `show_glyph`.
+- **JS was:** `see_wsegs` live; `map_monst` show_glyph head only;
+  no `detect_wsegs`.
+- **Fix:** Port `detect_wsegs`. Wire `map_monst(showtail)`.
+  `what_mon` once (Hallu display rng even if dummy-only).
+  `show_glyph` not `newsym` (minvis tails still paint). Pet
+  hilite vs MG_DETECT inverse. `S_WORM_TAIL` class maps the
+  long worm. Rule #2: no fs.
+- **JS:** `js/worm.js` `detect_wsegs`; `js/detect.js`
+  `map_monst` / `monster_detect`; `js/display.js`
+  `show_wseg_detect_glyph`.
+- **Not this iter:** `worm_known`; cutworm/wormgone/save;
+  map_monst head `pet_to_glyph` / `detected_mon_to_glyph`;
+  male/fem glyph offsets; MG_DETECT on general `newsym`;
+  feel_location tails. see_wsegs is D-1529.
+- **Verified:** private canary **24**/24 (C/JS grep; dummy
+  no-op; body `~` not dummy; minvis still paints; pet
+  hilite; detected inverse; Hallu one rng for all segs;
+  dummy-only Hallu still burns display rng; no core RNG;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a live long worm is on a detect map.
+- **Follow-up:** Open `dog.c` `tamedog` `wake_nearto`. Not
+  is_covetous.
+- **Files:** `js/worm.js`, `js/detect.js`, `js/display.js`.
+
 ## D-1544 — uhitm.c that_is_a_mimic object_from_map / defsyms
 
 - **Status:** fixed (map-driven Open from D-1543; not a public FAIL)

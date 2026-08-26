@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1545 worm.c detect_wsegs + map_monst showtail
+
+**Objective:** Open `worm.c` `detect_wsegs` (named). Not `see_wsegs`.
+**C locus:** `worm.c` `detect_wsegs` `:502–519`; caller
+`detect.c` `map_monst` `:132–133`.
+**JS locus:** `js/worm.js` `detect_wsegs`; `js/detect.js`
+`map_monst`; `js/display.js` `show_wseg_detect_glyph`.
+**Change:** `what_mon` once then `show_glyph` body segs (not
+`newsym`); `monster_detect` showtail TRUE; vicinity FALSE;
+`S_WORM_TAIL` class maps the long worm. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1930).
+**Verified:** canary **24**/24; green+strict seed8000/0900;
+cohort **7**/7 + strict (incl. seed0004).
+**Next:** Open `dog.c` `tamedog` `wake_nearto`. Not is_covetous.
+**Blocked:** none.
 ## 2026-08-26 — D-1544 that_is_a_mimic object_from_map / defsyms
 
 **Objective:** Open `pager.c` `that_is_a_mimic` (named). Not

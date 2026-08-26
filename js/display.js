@@ -2,7 +2,8 @@
 // C ref: display.c — newsym, show_glyph (glyph_updates / show_glyph_change
 // D-1219; Hallu classifier D-1221), docrt (in_docrt), cls, flush_screen,
 // suppress_map_output (D-1126), show_region overlay (D-1528),
-// see_wsegs / is_worm_tail (D-1529),
+// see_wsegs / is_worm_tail (D-1529), detect_wsegs show_wseg_detect_glyph
+// (D-1545),
 // shieldeff (D-1087; sparkle opt_out default On; sit rndcurse caller).
 
 import { game } from './gstate.js';
@@ -274,6 +275,24 @@ function worm_tail_glyph() {
         ? (mcolors[mnum] ?? CLR_GRAY)
         : CLR_GRAY;
     return { ch, color };
+}
+
+/**
+ * C ref: display.h detected_monnum_to_glyph / petnum_to_glyph /
+ * monnum_to_glyph then display.c show_glyph. Caller worm.c detect_wsegs
+ * `:509–516`. tty: MG_PET + hilite_pet → mon_map_attr; MG_DETECT +
+ * use_inverse → ATR_INVERSE. Named: male/fem glyph offsets (same mlet
+ * on tty).
+ */
+export function show_wseg_detect_glyph(x, y, mnum, worm, use_detection_glyph) {
+    const g = monnum_to_display_glyph(mnum);
+    let attr = 0;
+    if (use_detection_glyph) {
+        if (use_inverse_opt()) attr = ATR_INVERSE;
+    } else if (worm?.mtame) {
+        attr = mon_map_attr(worm);
+    }
+    show_glyph_cell(x, y, g.ch, g.color, false, attr);
 }
 
 // C ref: display.h _mon_visible — invis/undetected only (caller handles sight)

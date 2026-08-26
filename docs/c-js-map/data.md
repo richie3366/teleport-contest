@@ -347,9 +347,14 @@ grow `wgrowtime` `rnd(5)` then `rn1(10,2)*NORMAL/mcalcmove FALSE` +
 **D-1529 `see_wsegs`** (`worm.c:487–495`; callers `display.c` `see_monsters` `:1511–1512`, 
 `worn.c` `mon_set_minvis` `:482–483`, `monmove.c` postmov `:1683–1686`; 
 callee `newsym` `is_worm_tail` + `display_monster` `PM_LONG_WORM_TAIL`); 
-omit cutworm/wormgone, save/rest wsegs, `worm_known`, detect_wsegs, muse/mhitu 
+**D-1545 `detect_wsegs`** (`worm.c:502–519`; caller `detect.c` `map_monst` 
+`:132–133` showtail && `PM_LONG_WORM` always `use_detection_glyph=0`; 
+`monster_detect` TRUE / `do_vicinity_map` FALSE; `what_mon` once then 
+`show_glyph` pet/mon/detected; `S_WORM_TAIL` class maps the long worm); 
+omit cutworm/wormgone, save/rest wsegs, `worm_known`, muse/mhitu 
 `worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 
+map_monst head `pet_to_glyph` / `detected_mon_to_glyph` (plain `mon_glyph`); 
 `worm_cross` live; non-worm `level.monsters[][]` still fmon-only
 
 ### `src/extralev.c`

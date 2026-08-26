@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `pager.c` `that_is_a_mimic` (named). Not object_from_map. **Addressed:** D-1544
+- [x] `worm.c` `detect_wsegs` (named). Not see_wsegs. **Addressed:** D-1545
+
+
+- [x] `pager.c` `that_is_a_mimic` (named). Not object_from_map. **Addressed:** D-1544 `c9f09e97`
 
 
 - [x] `makemon.c` `set_mimic_sym` furnsyms real S_* (named). Not door S_hcdoor. **Addressed:** D-1543 `caae0b20`

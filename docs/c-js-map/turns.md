@@ -106,7 +106,8 @@ SPE_CLAIRVOYANCE caller; unconstrain/reconstrain in this callee; allmain seer_tu
 **`object_detect` detector do_dknown invent+floor + empty `strange_feeling` (D-1417; 
 caller `peffect_object_detection`; buried/minvent/cursed-mimic/gold/clear_stale_map still named)**; 
 **`monster_detect` empty+otmp `strange_feeling` threatened / hallu heebie jeebies (D-1418; 
-caller `peffect_monster_detection`; cursed wake / blessed WIN_MAP / worm segs still named)**; 
+caller `peffect_monster_detection`; **`detect_wsegs` D-1545** via `map_monst` 
+showtail; cursed wake / blessed WIN_MAP / pet_to_glyph still named)**; 
 **`warnreveal`+`mfind0` via_warning** (D-1003; set_msg_xy/display_nhwindow flush still thin); 
 arboreal default tree; **`premap_detect` + `skip_premap_detect` for Sokoban** (D-0567; 
 uses `level.traps[]`)
@@ -1372,6 +1373,7 @@ no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667;
 **Warn_of_mon count + Sting_effects D-1493**; 
 **allmain `any_visible_region` OR D-1512** (C `region.c`; timeout `visible_region_summary` D-1527;
 **newsym/`_map_location` `show_region` D-1528**; **`see_wsegs` / `is_worm_tail` D-1529**; 
+**`detect_wsegs` D-1545**; 
 DRAWBRIDGE_UP under-typ / C FIXME hero-inside-cloud still named); 
 **SPFX_WARN conferral + MATCH_WARN see_it D-1514**; 
 MON_STILL_ARRIVING / make_blinded 
