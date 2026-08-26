@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `worm.c` `worm_known` (named). Not detect_wsegs. **Addressed:** D-1548
+- [x] `worm.c` `worm_known` (named). Not detect_wsegs. **Addressed:** D-1548 `9b53440e`
 
 
 - [x] `pager.c` getpos fakeobj (named). Not that_is_a_mimic. **Addressed:** D-1547 `0461e305`

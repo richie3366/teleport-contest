@@ -5,14 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
-  RNG **792,838**/792,838 = 100%). seed0367 FULL.
-  **Hypothesis:** next work is Open `invent.c` canned CMDQ_INT
-  (named). Not ALLOWCNT. Must-fix empty. D-1548 closed
-  `worm_known` (`_canseemon` / `monkilled`).
-  **Falsify:** canned count uses C `invent.c` CMDQ_INT, not a
-  JS-only digit prefix (`js/invent.js` named).
-  **Next:** Open CMDQ_INT. Not pickinv `&ctmp`.
+- **Suite 44/44** fortress after audit **#1940** (Scr **11,405**
+  RNG **792,838**/792,838 = 100%; `39+0.32/turn`). seed0367 FULL.
+  **Hypothesis:** `map_monst` `mtmp.data === mons(PM_LONG_WORM)`
+  never holds (`mons()` allocates). `detect_wsegs` body is live
+  but unreachable. Review **506** QUALITY-RISK.
+  **Falsify:** `node scripts/sym.mjs mons` + identity vs
+  `mtmp.data?.mndx === PM_LONG_WORM` at `js/detect.js:1108`.
+  **Next:** Must-fix 506 (mndx/mnum). Then trap `monkilled`
+  (review **509**). Not Open CMDQ_INT.
   Do not skip D-1531…D-1548. Do not glue howmonseen / cutworm.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`.
@@ -66,8 +67,10 @@ Objective/score live in `CURRENT.md`.
   statically. Do not zero `cspfx` when `W_ART` (D-1539). Do
   not candify ghostfruit. Do not skip Light source via
   `mksobj_at` without `o->lit`. Do not skip `detect_wsegs`
-  `show_glyph` (D-1545). Do not skip `worm_known` in
-  `_canseemon`/`monkilled` (D-1548) or glue `howmonseen` /
+  `show_glyph` (D-1545). Do not treat `data === mons()` as a
+  long-worm test (review **506**). Do not skip `worm_known` in
+  `_canseemon`/`monkilled` (D-1548) or leave trap `monkilled`
+  on head `cansee` (review **509**). Do not glue `howmonseen` /
   cutworm / `redraw_worm`. Do not skip `tamedog`
   `wake_nearto` (D-1546) or glue FULL_MOON S_DOG / ustuck.
   Do not skip getpos `look_at_object` (D-1547).
@@ -75,17 +78,18 @@ Objective/score live in `CURRENT.md`.
 ## Landmarks (≤15)
 
 - D-1548: `worm_known` any wseg `cansee`; `_canseemon` skips
-  infrared when `wormno`; `monkilled` same. `howmonseen` /
-  cutworm / `redraw_worm` named.
+  infrared when `wormno`; mhitm `monkilled` same. trap.js
+  `monkilled` clone still head `cansee` (review **509**).
+  `howmonseen` / cutworm / `redraw_worm` named.
 - D-1547: lookat getpos `look_at_object` + `glyph_to_obj_at`
   (gbuf; displayed mon wins). `map_object` stores otyp.
   `namefloorobj` / `mhidden_description` named.
 - D-1546: `tamedog` live `wake_nearto(mx,my,1)` (wake_msg +
   STRAT_WAITMASK + disturb; dist2<1). Not local sleep clear.
   FULL_MOON S_DOG / ustuck / `redraw_worm` named.
-- D-1545: `detect_wsegs` `what_mon` once + `show_glyph` body
-  segs; `map_monst` showtail; `S_WORM_TAIL` class. Not newsym.
-  cutworm / map_monst head pet/detected named.
+- D-1545: `detect_wsegs` body is C; `map_monst` gate
+  `data === mons()` never holds (review **506**). Head
+  pet/detected glyphs named.
 - D-1544: `that_is_a_mimic` live `object_from_map` + defsyms
   PCHAR desc + `MIM_OMIT_WAIT`. Dynamic pager import. getpos
   fakeobj is D-1547. `namefloorobj` / `mhidden_description`

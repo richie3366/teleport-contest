@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-26** — full `sessions` at **D-1539**
-HEAD `719506a4` (**audit #1930**; next **#1940**). **44**/44,
+Score last measured: **2026-08-26** — full `sessions` at **D-1548**
+HEAD `9b53440e` (**audit #1940**; next **#1950**). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `38+0.31/turn` (R² 0.848). Fortress held: seed0367 FULL.
-Prior audit **#1920** was 43/44; D-1531 restored 44/44.
+Speed `39+0.32/turn` (R² 0.851). Fortress held: seed0367 FULL.
+Prior audit **#1930** was 44/44 at `719506a4`.
 
 ## Score
 
@@ -33,7 +33,7 @@ Prior audit **#1920** was 43/44; D-1531 restored 44/44.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `38+0.31/turn` (R² 0.848) |
+| Speed label | `39+0.32/turn` (R² 0.851) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -61,8 +61,10 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after audit **#1930**. **Next cluster:**
-Open `invent.c` canned CMDQ_INT (named). Not ALLOWCNT.
+**Suite 44/44** fortress after audit **#1940**. **Next cluster:**
+Must-fix `detect.c` `map_monst` / `monster_detect` long-worm
+`mndx`/`mnum` (not `data === mons()`). Source: review **506**.
+Not Open CMDQ_INT. Not trap `monkilled` until 506 ships.
 **Do not skip D-1531…D-1548 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
@@ -73,7 +75,7 @@ CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Keep:** D-0845…D-1548 (index). Recent: **D-1548**
 `worm.c` `worm_known` — any `wseg` `cansee`; `_canseemon`
 uses it instead of head `cansee`/`infrared` when `wormno`;
-`monkilled` same ternary. Prior: **D-1547**
+`monkilled` same ternary (`mhitm.js`; trap clone is review **509**). Prior: **D-1547**
 `pager.c` lookat `glyph_is_object` → `look_at_object` for
 getpos auto_describe / brief_at (map_object stores otyp;
 gbuf monster wins over memory). Prior: **D-1546**
@@ -115,7 +117,9 @@ Do not skip Light source via `mksobj_at` without `o->lit`.
 Do not stub furnsyms as 0..5 pchar (D-1543).
 Do not glue `namefloorobj` / `mhidden_description`.
 Do not import `uhitm.js`→`pager.js` statically (pager→uhitm `mon_at`).
-Do not skip `detect_wsegs` show_glyph (not newsym).
+Do not skip `detect_wsegs` show_glyph (not newsym). Do not
+compare `mtmp.data === mons(PM_LONG_WORM)` (`mons()` is a new
+object; review **506**).
 Do not skip `worm_known` in `_canseemon` / `monkilled` (D-1548)
 or glue `howmonseen` / cutworm / `redraw_worm`.
 Do not skip `tamedog` `wake_nearto` (D-1546) or glue FULL_MOON S_DOG /

@@ -511,3 +511,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [498-4508a3cb-altdip-internalcmd.md](./498-4508a3cb-altdip-internalcmd.md) | `4508a3cb` | D-1537 INTERNALCMD #altdip | **ACCEPT-WITH-DEBT** |
 | [499-e7574dc9-mon-arrive-wander-somexy.md](./499-e7574dc9-mon-arrive-wander-somexy.md) | `e7574dc9` | D-1538 mon_arrive wander/somexy | **ACCEPT-WITH-DEBT** |
 | [500-719506a4-cspfx-w-art.md](./500-719506a4-cspfx-w-art.md) | `719506a4` | D-1539 set_artifact_intrinsic cspfx W_ART | **ACCEPT-WITH-DEBT** |
+| [501-53f71db1-make-happy-shk.md](./501-53f71db1-make-happy-shk.md) | `53f71db1` | D-1540 make_happy_shk adjalign/home/migrate | **ACCEPT-WITH-DEBT** |
+| [502-21ccdfde-ghostfruit.md](./502-21ccdfde-ghostfruit.md) | `21ccdfde` | D-1541 restore.c ghostfruit fruitadd else | **ACCEPT-WITH-DEBT** |
+| [503-e5188ba2-light-source-fill.md](./503-e5188ba2-light-source-fill.md) | `e5188ba2` | D-1542 themerms Light source oil lamp | **ACCEPT-WITH-DEBT** |
+| [504-caae0b20-set-mimic-sym-furnsyms.md](./504-caae0b20-set-mimic-sym-furnsyms.md) | `caae0b20` | D-1543 set_mimic_sym furnsyms S_* | **ACCEPT-WITH-DEBT** |
+| [505-c9f09e97-that-is-a-mimic.md](./505-c9f09e97-that-is-a-mimic.md) | `c9f09e97` | D-1544 that_is_a_mimic object_from_map | **ACCEPT-WITH-DEBT** |
+| [506-adfba7fc-detect-wsegs.md](./506-adfba7fc-detect-wsegs.md) | `adfba7fc` | D-1545 detect_wsegs map_monst identity | **QUALITY-RISK** |
+| [507-da06ac60-tamedog-wake-nearto.md](./507-da06ac60-tamedog-wake-nearto.md) | `da06ac60` | D-1546 tamedog wake_nearto(mx,my,1) | **ACCEPT-WITH-DEBT** |
+| [508-0461e305-lookat-look-at-object.md](./508-0461e305-lookat-look-at-object.md) | `0461e305` | D-1547 lookat getpos look_at_object | **ACCEPT-WITH-DEBT** |
+| [509-9b53440e-worm-known.md](./509-9b53440e-worm-known.md) | `9b53440e` | D-1548 worm_known trap monkilled clone | **QUALITY-RISK** |
