@@ -8,6 +8,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1520 options.c fruitadd fruit_from_name walker
+
+**Objective:** Open `options.c` fruitadd should call objnam
+`fruit_from_name` (not the exact-only walker). Not
+fruit_from_indx.
+**C locus:** `options.c` `fruitadd` `:8264`; callee
+`objnam.c` `fruit_from_name` `:443–519`; caller
+`optfn_fruit` `:1735`.
+**JS locus:** `js/options.js` `fruitadd`; `js/mklev.js`
+`fruitadd_orc`; `js/hacklib.js` `str_end_is`.
+**Change:** Drop local exact-only walker. Live objnam
+`fruit_from_name(FALSE)` + max fid. Candify tin/corpse/egg
+`name_to_mon`; overflow `rnd(127)`. Orc clone same walker.
+Bones/restore ghostfruit named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1900);
+prefix/candify fruit public-unhit except seed4500 doset
+path (still PASS).
+**Verified:** canary **22**/22; green+strict seed8000/0900;
+cohort **7**/7 + strict; seed4500 + strict.
+**Next:** Open `objnam.c` doname_base slime-mold fake_arti.
+Not fruit_from_indx.
+**Blocked:** none.
 ## 2026-08-26 — D-1519 mklev.c mktrap_victim gnome candle begin_burn
 
 **Objective:** Open `mklev.c` `mktrap_victim` gnome candle

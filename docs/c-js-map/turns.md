@@ -750,7 +750,7 @@ drawbridge/lava `pooleffects` still named;
 **`the()` fruit_from_name + artifact_name D-1487** (named fruit takes `"the "` unless pname 
 artifact; local artifact_name copy); **`fruit_from_indx` + xname FOOD SLIME_MOLD D-1511** 
 (`spe`→fname; missing `"fruit"`; quan ick singular then plural; `init_fruit_chain` default 
-fid 1; options.js fruitadd walker / doname fake_arti / bones `goodfruit` / `reorder_fruit` / 
+fid 1; **fruitadd walker D-1520**; doname fake_arti / bones `goodfruit` / `reorder_fruit` / 
 pager look `spe` still named); 
 CHAIN erosion polish / other ball otypes deferred); 
 **`readobjnam_parse_charges` `(N)`/`(R:S)` + wrp[] `wand of X` → oclass/actualn + 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `mklev.c` `mktrap_victim` gnome candle `begin_burn` (named). Not `m_initinv`. **Addressed:** D-1519
+- [x] `options.c` fruitadd should call objnam `fruit_from_name` (not the exact-only walker). Not fruit_from_indx. **Addressed:** D-1520
+
+
+- [x] `mklev.c` `mktrap_victim` gnome candle `begin_burn` (named). Not `m_initinv`. **Addressed:** D-1519 `d5799f73`
 
 
 - [x] `makemon.c` dprince MS_BRIBE / raven BEC_DE_CORBIN (named). Not emin. **Addressed:** D-1518 `527815fb`

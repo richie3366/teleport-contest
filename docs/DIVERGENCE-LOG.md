@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1520 — options.c fruitadd → objnam fruit_from_name
+
+- **Status:** fixed (map-driven Open from D-1519; not a public FAIL)
+- **Symptom:** `fruitadd` reused a named fruit only on exact
+  `fname` equality and treated the third out-param as chain
+  *count*. C `options.c` `:8264` calls objnam
+  `fruit_from_name(name, FALSE, &highest_fid)` so prefix
+  (`"slime mold pie"`) and singularize reuse the existing
+  fruit, and overflow/100-fruit gates use **max fid**.
+- **C locus:** `options.c` `fruitadd` `:8169–8287`. Callee
+  `objnam.c` `fruit_from_name` `:443–519` (D-1487). Callers
+  `optfn_fruit` `:1735–1758` (`FALSE`, `&fnum`, `fnum>=100`)
+  and `initoptions_finish` `:7329` (JS still
+  `init_fruit_chain`). Candify `:8228–8236` tin-of spinach /
+  `name_to_mon` + `str_end_is` corpse/egg. Overflow
+  `highest_fid >= 127` → `rnd(127)` without updating
+  `current_fruit`.
+- **JS was:** local exact-only walker in `options.js`;
+  `rnd(127)` stubbed; tin/corpse/egg candify named omit
+  after D-0928 / D-1511.
+- **Fix:** Delete the clone. Call live `objnam.js`
+  `fruit_from_name`. Port candify arms + `rnd(127)`.
+  `str_end_is` in `hacklib.js` (C home). Orc else-path
+  `fruitadd_orc` uses the same walker (cannot import
+  options: mklev↔options cycle). Rule #2: no fs.
+- **JS:** `js/options.js` `fruitadd` / `optfn_fruit_set`;
+  `js/mklev.js` `fruitadd_orc`; `js/hacklib.js` `str_end_is`.
+- **Not this iter:** bones/restore `ghostfruit` fruitadd
+  else; doname slime-mold fake_arti; `reorder_fruit`;
+  bones `goodfruit`; pager look `spe`.
+- **Verified:** private canary **22**/22 (C/JS grep; prefix
+  reuse; singular Apple; candify apple/newt/tin/egg;
+  `rnd(127)` overflow; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383;
+  focused seed4500 fruit doset **PASS** + strict.
+  **Public-unhit** unless a session sets a prefix/plural
+  fruit or a food-like name via OPTIONS/doset.
+- **Follow-up:** Open `objnam.c` doname_base slime-mold
+  fake_arti.
+- **Files:** `js/options.js`, `js/mklev.js`, `js/hacklib.js`.
+
 ## D-1519 — mklev.c mktrap_victim gnome candle begin_burn
 
 - **Status:** fixed (map-driven Open from D-1518; not a public FAIL)

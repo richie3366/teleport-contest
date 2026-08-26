@@ -112,6 +112,7 @@ import {
     resists_ston, poly_when_stoned,
 } from './monsters.js';
 import { name_to_monplus, name_to_mon } from './mondata.js';
+import { fruit_from_name } from './objnam.js';
 import { christen_monst, christen_orc, rndorcname, new_oname, oname } from './do_name.js';
 import { makeroguerooms, makerogueghost } from './extralev.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
@@ -845,8 +846,9 @@ function upstart_maz(str) {
 }
 
 /**
- * C ref: options.c fruitadd else (not user_specified) — bones/orctown.
+ * C ref: options.c fruitadd else (not user_specified) — orctown loot.
  * User-specified doset path stays in options.js (mklev↔options cycle).
+ * Walker is live objnam fruit_from_name(FALSE) like C `:8264`.
  */
 function fruitadd_orc(str) {
     let altname = '';
@@ -859,17 +861,13 @@ function fruitadd_orc(str) {
     if (!game.flags) game.flags = {};
     game.flags.made_fruit = true;
     const look = altname || str;
-    let highest = 0;
-    let found = null;
-    for (let f = game.ffruit; f; f = f.nextf) {
-        if ((f.fid | 0) > highest) highest = f.fid | 0;
-        if (!found && f.fname === look) found = f;
-    }
+    const highest = { fid: 0 };
+    const found = fruit_from_name(look, false, highest);
     if (found) return found.fid | 0;
-    if (highest >= 127) return rnd(127);
+    if (highest.fid >= 127) return rnd(127);
     const f = {
         fname: String(look).slice(0, 31),
-        fid: highest + 1,
+        fid: (highest.fid | 0) + 1,
         nextf: game.ffruit || null,
     };
     game.ffruit = f;
