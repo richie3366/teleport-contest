@@ -20,34 +20,31 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-26** — full `sessions` at review **#1920**
-HEAD `a5d779b7` (**43**/44, Scr **11,405**/11,405, RNG **747,952**/792,838
-= **94.3%**). Speed `37+0.30/turn` (R² 0.855). Next audit (review + score)
-@**#1930**. Fortress broke at D-1526 (`4e78ca90`): seed0367 RNG
-**5239**/50125 (review **487** Must-fix).
+Score last measured: **2026-08-26** — full `sessions` at **D-1531**
+(port; next audit **#1930**). **44**/44, Scr **11,405**/11,405, RNG
+**792,838**/792,838 = **100%**. Speed `38+0.30/turn` (R² 0.841).
+Fortress restored: seed0367 FULL after Pri-loca `mk_roamer`
+(review **487** / D-1526 caller). Prior audit **#1920** was 43/44.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **43 / 44** |
+| Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
-| Positional RNG calls matched | **747,952 / 792,838** (94.3%) |
-| Speed label | `37+0.30/turn` (R² 0.855) |
+| Positional RNG calls matched | **792,838 / 792,838** (100%) |
+| Speed label | `38+0.30/turn` (R² 0.841) |
 | Role-init throws | **0 / 44** |
 
-**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
-seed0373, seed5006, seed0116, seed0361, seed0108, seed5002,
+seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
 seed0360, seed0399, seed0014, seed2600, seed4500, seed2200, seed0383.
 
-**Notable non-PASS:** seed0367-priest-quest-tour **FAIL** (RNG
-**5239**/50125, screens **324**/324). Bisect: PASS at `e234a41b`
-(D-1525); FAIL from `4e78ca90` (D-1526 emin on Pri-strt
-`makemon(..., 0)` vs C `mk_roamer`). Review **487**.
+**Notable non-PASS:** none.
 
 ## Green gate
 
@@ -64,31 +61,29 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 43/44** after D-1530. **Next cluster:** Must-fix
-`sp_lev.c` `create_monster` / `load_pri_strt` `align!=RANDOM`
-aligned cleric `mk_roamer` (`MM_EMIN`), not `makemon(..., 0)`
-(review **487** / D-1526 seed0367). Not Open `tamedog`.
-**Do not skip D-1530…D-1229 (index).** Keep mention_map addr.
+**Suite 44/44** fortress after D-1531. **Next cluster:** Open
+`dog.c` `tamedog` is_covetous (named). Not leftovers.
+**Do not skip D-1531…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1530.** Do not FORCE
+**Do not re-break D-0660…D-1531.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1530 (index). Recent: **D-1530**
-`invent.c` `getobj` GETOBJ_ALLOWCNT count prefix + `splittable`
-(`getobj_take_count` / `getobj_split_otmp`). Palantir `#if 0`.
-Prior: **D-1529** `see_wsegs` + `is_worm_tail`
-(`PM_LONG_WORM_TAIL`). D-1528 `show_region` overlay. D-1527 `#timeout`
-Visible-regions. D-1526 emin roaming. D-1525 TEMPLE `S_altar`
-Align2amask. D-1524 `object_from_map` spe. D-1523 `goodfruit`.
-Maze statue is D-1517. dprince is D-1518. stolen_booty is
-D-1363. minetn-7 gnome count is D-1513; dispatch is D-1504;
-minetn-6 is D-1503; minetn-1 is D-1490.
+**Keep:** D-0845…D-1531 (index). Recent: **D-1531**
+`sp_lev.c` `create_monster` align!=RANDOM → `mk_roamer`
+(`MM_EMIN`, `min_align=A_NONE`) for Pri-loca noalign cleric
+(review **487**; live `mk_roamer_splev`). Do not delete emin
+arm (D-1526). Prior: **D-1530** getobj ALLOWCNT. D-1529
+`see_wsegs`. D-1528 `show_region`. D-1527 `#timeout`. D-1526
+emin roaming. D-1525 TEMPLE `S_altar`. Maze statue is D-1517.
+dprince is D-1518. stolen_booty is D-1363. minetn-7 gnome
+count is D-1513; dispatch is D-1504; minetn-6 is D-1503;
+minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1530
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1531
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -100,7 +95,7 @@ for `in_town` (local clone; hack→trap/mon cycle). Do not
 import `makemon.js`→`artifact.js` for `u_wield_art`
 (artifact→display→mkobj cycle). Do not import
 `makemon.js`→`minion.js` for `Inhell` (minion→makemon;
-use dungeon `hellish`).
+use dungeon `hellish`). Do not delete emin roaming.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

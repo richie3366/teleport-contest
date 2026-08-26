@@ -302,7 +302,7 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **D-1517 `set_mimic_sym` maze/sokoban/`in_town`** (`:2439–2443`; JS had `!(In_mines)` so non-town mines never statue; C `in_town(u.ux,u.uy)` not mimic cell; Sokoban already skipped `rn2(2)`); 
 **D-1525 `set_mimic_sym` TEMPLE `S_altar` Align2amask `MCORPSENM`** (`:2458–2460` appear `S_altar`; `:2538–2546` `rn2(3)-1` then hellish `Inhell && rn2(3)` `AM_NONE` else `Align2amask`; `has_mcorpsenm` stale `NON_PM`; no minion `Inhell` import); 
 **D-1518 `makemon` dprince MS_BRIBE / raven `BEC_DE_CORBIN`** (`:1397–1404` after sleep/byyou, before LONG_WORM; `is_dprince` live; local `u_wield_art` clone — artifact→display→mkobj cycle; emin is D-1526); 
-**D-1526 `makemon` emin roaming** (`:1410–1428` after LONG_WORM, before `set_malign`; `ALIGNED_CLERIC`/`HIGH_CLERIC` `!(MM_EPRI|MM_EMIN)` always; `ANGEL` `!(MM_EMIN) && !rn2(3)`; `newemin` + `isminion` + `min_align=rn2(3)-1` + `MM_ANGRY?!rn2(3)` renegade + coalign XOR peaceful; live `newemin`/`EMIN`; `mk_roamer`/`priestini` flags skip); 
+**D-1526 `makemon` emin roaming** (`:1410–1428` after LONG_WORM, before `set_malign`; `ALIGNED_CLERIC`/`HIGH_CLERIC` `!(MM_EPRI|MM_EMIN)` always; `ANGEL` `!(MM_EMIN) && !rn2(3)`; `newemin` + `isminion` + `min_align=rn2(3)-1` + `MM_ANGRY?!rn2(3)` renegade + coalign XOR peaceful; live `newemin`/`EMIN`; `mk_roamer`/`priestini` flags skip; **D-1531** Pri-loca noalign caller); 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
@@ -471,7 +471,10 @@ obj_resists)**; omit Pelias/`Lord Carnarvon`/`Arch Priest` `m_dowear`;
 invent/acolytes/trees/darts/zombies/flip/branch); 
 **D-0642 `Pri-loca` load_special** (mines lit-field + 
 map/morgue regions/shrine+hostile cleric/`Can_fall_thru` hardfloor holes→ROCKTRAP + 
-locate_first text) + **D-0658 `link_doors_rooms` + eastern hx=39** (D-0645 hx=35 interim retired; 
+locate_first text) + **D-1531 Pri-loca `align=noalign` aligned cleric `mk_roamer`**
+(`sp_lev.c` `:1983–1984` + `priest.c` `mk_roamer`; live `mk_roamer_splev` `MM_EMIN`
+`min_align=A_NONE`; review **487** misnamed `load_pri_strt`; emin arm is D-1526;
+`splev_create_monster` still RANDOM-only) + **D-0658 `link_doors_rooms` + eastern hx=39** (D-0645 hx=35 interim retired; 
 D-0657 m_at @35535 cleared) + **D-0668 Pri-loca map lit=FALSE clear** (mines lit-field → dark 
 morgue; global `sel_set_ter(false)`≡C deferred — seed0009) + 
 **D-0673 tower1 map lit=FALSE clear** (solidfill BOOL_RANDOM lit kept by sel_set_ter 
@@ -506,6 +509,10 @@ cleric/stronghold graveyard else-if named); other-role quest fills; **D-0533 egg
 **D-0534 `mktrap` WEB→`makemon(PM_GIANT_SPIDER)` before victim gate** 
 (`splev_create_trap`/`mktrap_room`/`mktrap_seen_victim`; tut-1 `nospider`); 
 **D-0536 `splev_create_monster` MON_AT→`enexto`**; 
+**D-1531 `create_monster` `sp_amask != AM_SPLEV_RANDOM` → `mk_roamer`** (Pri-loca
+lua `align="noalign"`; `Amask2align(AM_NONE)`; female + peaceful override
+`:2125–2129`; `splev_create_monster`/`splev_room_monster` still always
+`induced_align(80)`+`makemon`); 
 **D-0873 `create_monster` always `mtmp->female = m->female` after makemon** (`des.monster()`/class 
 letter → 0; named id → find_montype gender; overwrites makemon `rn2(2)`); 
 **D-0697 `create_monster` mines dwarf/gnome `your_race`→`rn2(3)` clear pm** 

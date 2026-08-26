@@ -5,28 +5,28 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 43/44** after audit **#1920** HEAD `a5d779b7`
-  (Scr **11,405** RNG **747,952**/792,838 = 94.3%,
-  `37+0.30/turn` R² 0.855). seed0367 FAIL from D-1526.
-  **Hypothesis:** Pri-strt `align=noalign` aligned cleric
-  `makemon(..., 0)` burns emin `rn2(3)` that C `mk_roamer`
-  (`MM_EMIN`, `min_align=A_NONE`) never burns.
-  **Falsify:** `node frozen/ps_test_runner.mjs sessions/seed0367-priest-quest-tour.session.json`
-  after Must-fix `load_pri_strt` → `mk_roamer`.
-  **Next:** Must-fix review **487**. Not Open `tamedog`.
-  Do not delete the emin arm (`makemon.c:1414–1427` matches).
-  restore `ghostfruit` named. Do not skip D-1530…D-1229.
+- **Suite 44/44** fortress after D-1531 (Scr **11,405** RNG
+  **792,838**/792,838 = 100%, `38+0.30/turn` R² 0.841).
+  seed0367 FULL. Pri-loca noalign cleric is `mk_roamer_splev`
+  (`MM_EMIN`, `min_align=A_NONE`). Emin arm kept (D-1526).
+  **Hypothesis:** next Open `tamedog` is_covetous is still a
+  named omit vs C `dog.c` `tamedog`.
+  **Falsify:** map row + C `tamedog` is_covetous arm before
+  coding; not a public FAIL peel.
+  **Next:** Open `dog.c` `tamedog` is_covetous. Not leftovers.
+  restore `ghostfruit` named. Do not skip D-1531…D-1229.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`. pickup `body_part` latebound; no
-  pickup→polyself.
-- Do not revert D-1217–D-1530. Named still: tamedog
+  pickup→polyself. Do not delete emin.
+- Do not revert D-1217–D-1531. Named still: tamedog
   is_covetous; `#altdip`; wander/`somexy`;
   `create_object` `o->lit`; door `S_hcdoor`;
   furnsyms real S_*; `mcast_blind_you` EYE; quantum-cat
   FOOT; cspfx W_ART; ghostfruit; getpos fakeobj;
   `that_is_a_mimic`; detect_wsegs; `worm_known`.
   Palantir `#if 0`. CMDQ_INT / pickinv count /
-  `finish_splitting` named.
+  `finish_splitting` named. `splev_create_monster` still
+  RANDOM-only (no align→mk_roamer).
 
 ## Don't re-check (≤15)
 
@@ -35,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1530.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1531.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,7 +46,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1530 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1531 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089). Do not restore exact-only fruit walker (D-1520) or
@@ -56,11 +56,12 @@ Objective/score live in `CURRENT.md`.
   fake look SLIME_MOLD `spe = current_fruit` (D-1524). Do not
   stub TEMPLE `S_altar` or skip Align2amask `MCORPSENM` (D-1525).
   Do not skip emin roaming after LONG_WORM (D-1526). Do not
-  delete that arm to fix seed0367 — Pri-strt must `mk_roamer`
+  delete that arm to fix seed0367 — Pri-loca must `mk_roamer`
   (review **487**). Do not skip
   `#timeout` `visible_region_summary` (D-1527) or `show_region`
   overlay (D-1528). Do not skip `see_wsegs` / `is_worm_tail`
   (D-1529). Do not skip getobj ALLOWCNT count prefix (D-1530).
+  Do not skip Pri-loca noalign `mk_roamer` (D-1531).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
@@ -74,6 +75,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1531: Pri-loca lua `align=noalign` aligned cleric
+  `mk_roamer_splev` (`MM_EMIN`, `min_align=A_NONE`), not
+  `makemon(..., 0)`. Review **487** named load_pri_strt;
+  locus is load_pri_loca. Emin arm kept. seed0367 FULL.
+  `splev_create_monster` RANDOM-only named.
 - D-1530: getobj ALLOWCNT digit `get_count` + throw-one +
   split_otmp. `splittable` loadstone/welded. Child after
   parent on invent[]. Charge/drop/throw/wield/ready/adjust.
@@ -95,6 +101,7 @@ Objective/score live in `CURRENT.md`.
   `!(MM_EPRI|MM_EMIN)` always; angel `!(MM_EMIN)&&!rn2(3)`.
   `newemin`+`isminion`+`min_align=rn2(3)-1`+renegade XOR
   peace. Flagged callers skip. Door `S_hcdoor` named.
+  Pri-loca noalign is D-1531.
 - D-1525: TEMPLE mimic `S_altar` (33); `MCORPSENM`
   `(Inhell && rn2(3)) ? AM_NONE : Align2amask(rn2(3)-1)`;
   hellish not minion `Inhell`; stale `has_mcorpsenm`
@@ -121,5 +128,3 @@ Objective/score live in `CURRENT.md`.
   Demonbane hostile; raven+bec peace. Local `u_wield_art`.
 - D-1517: maze statue `!(In_mines && in_town(u.ux,u.uy))`
   then `!In_sokoban` then `rn2(2)`. Local `in_town` clone.
-- D-1516: non-salamander S_LIZARD unarmed; ninja SHURIKEN|
-  DART then SHORT_SWORD|AXE. Live `mongets`.

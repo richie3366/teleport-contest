@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1531 — sp_lev.c create_monster align!=RANDOM mk_roamer (Pri-loca)
+
+- **Status:** fixed (Must-fix review **487**; public FAIL seed0367)
+- **Symptom:** After D-1526, an unflagged `ALIGNED_CLERIC` always
+  burns emin `rn2(3)` then maybe `!rn2(3)`. C `create_monster`
+  for `sp_amask != AM_SPLEV_RANDOM` (lua `align="noalign"` →
+  `AM_NONE`) calls `mk_roamer` (`MM_EMIN`) so that arm never
+  runs; `min_align` is `A_NONE`. JS packed Pri-loca used
+  `makemon(..., 0)`. Review **487** misnamed the loader
+  `load_pri_strt`; locus is `load_pri_loca` (`js/mklev.js`
+  `:4034–4056`). Pri-strt Arch Priest / acolytes are other
+  `mndx` and stay RANDOM-amask `makemon`.
+- **C locus:** `sp_lev.c` `create_monster` `:1983–1984` then
+  `:2125–2129` female / peaceful override; `priest.c`
+  `mk_roamer` `:724–751`. Callee `makemon` with
+  `MM_ADJACENTOK|MM_EMIN|MM_NOMSG`. Sanctum already used the
+  clone (`placeNoalignCleric`).
+- **JS was:** `makemon(pm, pos, 0)` then `mpeaceful=0` +
+  `set_malign` — two extra `rn2(3)` vs C.
+- **Fix:** Call live `mk_roamer_splev(pm, Amask2align(AM_NONE),
+  x, y, 0)`. Female + `peaceful > BOOL_RANDOM` then
+  `set_malign` like `:2125–2129`. Do **not** delete the emin
+  arm (D-1526). Rule #2: no fs.
+- **JS:** `js/mklev.js` `load_pri_loca` + `mk_roamer_splev`.
+- **Not this iter:** `splev_create_monster` still RANDOM-only
+  (`induced_align(80)` + `makemon`); `reset_hostility`;
+  `mk_mplayer` role-id arm; appear_as / CUSTOM_INVENT;
+  `spo_end_moninvent` `m_dowear`; door `S_hcdoor`.
+- **Verified:** C/JS grep (C `mk_roamer` gate; JS Pri-loca
+  `mk_roamer_splev` + `Amask2align(AM_NONE)`; emin arm kept;
+  `MM_EMIN`; Rule #2); seed0367 **FULL** RNG **50125**/50125
+  Scr **324**/324 + strict; green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383;
+  priest seed0501/0106; full `sessions` **44**/44 RNG
+  **792,838**/792,838 Scr **11,405**.
+- **Follow-up:** Open `dog.c` `tamedog` is_covetous. Not
+  leftovers.
+- **Files:** `js/mklev.js`.
+
 ## D-1530 — invent.c getobj GETOBJ_ALLOWCNT count prefix
 
 - **Status:** fixed (map-driven Open from D-1529; not a public FAIL)

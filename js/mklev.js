@@ -4033,17 +4033,25 @@ function load_pri_loca() {
 
     // des.monster({ id = "aligned cleric", x=20, y=07, align="noalign", peaceful=0 })
     {
-        // C: find_montype gender before create_monster; align=noalign skips
-        // induced_align(80) random-amask burn.
+        // C sp_lev.c create_monster :1983–1984: find_montype gender first;
+        // align=noalign → sp_amask != AM_SPLEV_RANDOM, no induced_align(80);
+        // mk_roamer(pm, Amask2align(AM_NONE), x, y, peaceful) (MM_EMIN,
+        // min_align=A_NONE), not makemon(..., 0). Then :2125–2129 female
+        // and peaceful > BOOL_RANDOM override + set_malign.
         const { mndx, female } = find_montype_gender('aligned cleric');
         const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
         let pos = { x: mx + 20, y: my + 7 };
         pos = splev_resolve_occupied(pos.x, pos.y, pm);
-        const mtmp = pm ? makemon(pm, pos.x, pos.y, 0) : null;
+        const peaceful = 0;
+        const mtmp = pm
+            ? mk_roamer_splev(pm, Amask2align(AM_NONE), pos.x, pos.y, peaceful)
+            : null;
         if (mtmp) {
             mtmp.female = female;
-            mtmp.mpeaceful = 0;
-            set_malign(mtmp);
+            if (peaceful > BOOL_RANDOM) {
+                mtmp.mpeaceful = peaceful;
+                set_malign(mtmp);
+            }
         }
     }
 
@@ -14882,8 +14890,10 @@ function load_wizard3() {
 }
 
 /**
- * C ref: priest.c mk_roamer — aligned cleric/angel with emin (sanctum horde).
- * Local to avoid mklev↔priest cycle. Named: reset_hostility deferred.
+ * C ref: priest.c mk_roamer — aligned cleric/angel with emin.
+ * Callers: sanctum noalign horde; Pri-loca lua align=noalign cleric
+ * (create_monster :1983–1984). Local to avoid mklev↔priest cycle.
+ * Named: reset_hostility deferred.
  */
 function mk_roamer_splev(ptr, alignment, x, y, peaceful) {
     if (m_at(x, y)) rloc(m_at(x, y), RLOC_NOMSG);

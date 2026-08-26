@@ -111,4 +111,6 @@ D-log: private canary **40**/40; green+strict seed8000/0900; cohort **7**/7 **wi
 
 1. **`load_pri_strt` `align=noalign` aligned cleric** (`js/mklev.js:4034–4047`): call `mk_roamer` / `mk_roamer_splev` (`MM_EMIN`, `min_align=A_NONE`, no roaming `rn2`) like C `sp_lev.c:1983–1984` + `priest.c:738–746`, not `makemon(..., 0)`. One port. Do **not** delete the emin arm (it matches `makemon.c:1414–1427`).
 
+**Addressed:** D-1531
+
 Verdict: **QUALITY-RISK**

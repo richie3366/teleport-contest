@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1531 create_monster mk_roamer Pri-loca
+
+**Objective:** Must-fix review **487** — `align!=RANDOM` aligned
+cleric `mk_roamer` (`MM_EMIN`), not `makemon(..., 0)`.
+**C locus:** `sp_lev.c` `create_monster` `:1983–1984` +
+`priest.c` `mk_roamer` `:724–751`. Review named `load_pri_strt`;
+locus is `load_pri_loca` (Pri-loca.lua noalign cleric).
+**JS locus:** `js/mklev.js` `load_pri_loca` + `mk_roamer_splev`.
+**Change:** `mk_roamer_splev(pm, Amask2align(AM_NONE), …)` so
+D-1526 emin `rn2(3)` does not fire. Emin arm kept. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405** RNG **792,838**/792,838
+(100%) speed `38+0.30/turn` (R² 0.841). seed0367 FULL.
+**Verified:** C/JS grep; seed0367 FULL+strict; green+strict;
+cohort **7**/7; priest 0501/0106; full `sessions` 44/44.
+**Next:** Open `dog.c` `tamedog` is_covetous. Not leftovers.
+**Blocked:** none.
 ## 2026-08-26 — review D-1522–D-1530 (audit #1920)
 
 **Objective:** audit — C-fidelity reviews **483–491** of JS SHAs
