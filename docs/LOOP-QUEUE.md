@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` non-salamander S_LIZARD `m_initweap` (named). Not S_KOP.
 - [ ] `makemon.c` `set_mimic_sym` maze/sokoban/`in_town` (named). Not shop arm.
 - [ ] `makemon.c` dprince MS_BRIBE / raven BEC_DE_CORBIN (named). Not emin.
 - [ ] `mklev.c` `mktrap_victim` gnome candle `begin_burn` (named). Not `m_initinv`.

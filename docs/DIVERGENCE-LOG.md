@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1516 — makemon.c m_initweap S_LIZARD non-salamander skip + PM_NINJA kit
+
+- **Status:** fixed (map-driven Open from D-1515; not a public FAIL)
+- **Symptom:** Named omit treated non-salamander S_LIZARD as
+  unfinished `m_initweap`. C `is_armed` is false (no AT_WEAP) so
+  newt/gecko/iguana/baby crocodile/lizard/chameleon/crocodile never
+  enter the function; the S_LIZARD arm is `if (mm == PM_SALAMANDER)
+  mongets(...)` then `break` (D-0556 already had the salamander
+  kit). Same function: JS skipped `PM_NINJA` between priest and
+  guardian, so quest ninja spawned with no shuriken/dart +
+  short sword/axe.
+- **C locus:** `makemon.c` `m_initweap` S_LIZARD `:495–499`;
+  S_HUMAN `PM_NINJA` `:270–272`. Caller `makemon` `is_armed` →
+  `m_initweap`. Callee `mongets` `:2181–2186`.
+- **JS was:** S_LIZARD salamander kit + break (C-matched); ninja
+  named omit after D-1088/D-1515.
+- **Fix:** Keep the S_LIZARD `if`+`break` (no rn2 unless
+  salamander). Port ninja `rn2(4)` SHURIKEN|DART then SHORT_SWORD|AXE
+  with live `mongets`. Rule #2: no fs.
+- **JS:** `js/makemon.js` `m_initweap`.
+- **Not this iter:** `set_mimic_sym` maze/sokoban/`in_town`;
+  dprince MS_BRIBE / raven `BEC_DE_CORBIN`; emin roaming.
+  S_KOP is D-1515; salamander kit is D-0556.
+- **Verified:** private canary **19**/19 (C/JS arms; seven
+  non-salamander lizards `!is_armed` and no spear/trident/stiletto;
+  salamander 40/40 kit kept; 200 ninja throw+melee always,
+  shuriken=147 dart=53 short=151 axe=49; roshi not shuriken);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until
+  quest ninja create (`G_NOGEN`).
+- **Follow-up:** Open `makemon.c` `set_mimic_sym`
+  maze/sokoban/`in_town`.
+- **Files:** `js/makemon.js`.
+
 ## D-1515 — makemon.c m_initweap S_KOP cream pie / club / hose
 
 - **Status:** fixed (map-driven Open from D-1507; not a public FAIL)

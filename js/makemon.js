@@ -1433,9 +1433,14 @@ function m_initweap(mtmp) {
             otmp.spe = rnd(3);
             if (!rn2(2)) curse(otmp);
             mpickobj(mtmp, otmp);
+        } else if (mm === pm('NINJA')) {
+            // C: makemon.c m_initweap S_HUMAN PM_NINJA — extra quest
+            // villains between priest and guardian. AT_WEAP so is_armed
+            // calls this; G_NOGEN until quest create.
+            mongets(mtmp, rn2(4) ? otyp('SHURIKEN') : otyp('DART'));
+            mongets(mtmp, rn2(4) ? otyp('SHORT_SWORD') : otyp('AXE'));
         } else if (
-            // C: ptr->msound == MS_GUARDIAN then switch(mm); PM_NINJA between
-            // priest and guardian is still named-omit (C-JS-MAP).
+            // C: ptr->msound == MS_GUARDIAN then switch(mm)
             (ptr.msound | 0) === MS_GUARDIAN
         ) {
             // C: makemon.c m_initweap MS_GUARDIAN switch
@@ -1498,7 +1503,6 @@ function m_initweap(mtmp) {
                 break;
             }
         }
-        // C: PM_NINJA between priest and guardian — named omit (C-JS-MAP)
         break;
     case 'S_DEMON':
         // C: named demon specials then is_demon → FALLTHROUGH default
@@ -1579,7 +1583,11 @@ function m_initweap(mtmp) {
         }
         break;
     case 'S_LIZARD':
-        // C: makemon.c m_initweap S_LIZARD — salamander weapon kit
+        // C: makemon.c m_initweap S_LIZARD — only PM_SALAMANDER has
+        // AT_WEAP, so is_armed is the call gate. Newt/gecko/iguana/
+        // baby crocodile/lizard/chameleon/crocodile skip this
+        // function. If called, `if (mm == PM_SALAMANDER)` short-circuits
+        // with no rn2, then break.
         if (mm === pm('SALAMANDER')) {
             mongets(mtmp, rn2(7) ? otyp('SPEAR')
                 : rn2(3) ? otyp('TRIDENT') : otyp('STILETTO'));

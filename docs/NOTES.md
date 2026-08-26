@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after audit **#1900** HEAD `79744185`
   (Scr **11,405** RNG 100%, `37+0.30/turn` R² 0.85).
-  **Next:** Open `makemon.c` non-salamander
-  S_LIZARD `m_initweap` (named). Not S_KOP. D-1515
-  Kop cream pie/club/hose shipped. Do not
-  skip D-1515…D-1229. No FORCE / `wildmiss` wrap /
+  **Next:** Open `makemon.c` `set_mimic_sym`
+  maze/sokoban/`in_town` (named). Not shop arm.
+  D-1516 S_LIZARD skip + PM_NINJA kit shipped.
+  Do not skip D-1516…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`. pickup
   `body_part` is latebound (polyself→do cycle);
   do not import pickup→polyself.
-- Do not revert D-1217–D-1515. Named still:
+- Do not revert D-1217–D-1516. Named still:
   `see_monsters` worm segs; timeout
   `visible_region_summary`; display `show_region`;
   GETOBJ_ALLOWCNT; tamedog is_covetous /
@@ -22,9 +22,9 @@ Objective/score live in `CURRENT.md`.
   fruitadd walker; doname fake_arti / bones
   `goodfruit` / `reorder_fruit`; wander/`somexy` /
   Wiz_arrive; mktrap_victim floor candle;
-  non-salamander S_LIZARD; `mcast_blind_you` EYE;
-  `observe_quantum_cat` FOOT; cspfx W_ART WARN;
-  invent W_ART conferral.
+  `set_mimic_sym` maze; dprince/raven;
+  `mcast_blind_you` EYE; `observe_quantum_cat` FOOT;
+  cspfx W_ART WARN; invent W_ART conferral.
 
 ## Don't re-check (≤15)
 
@@ -33,7 +33,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1515.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1516.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -44,7 +44,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1515 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1516 (index).
 - Named still: worm-shrieker; GETOBJ_ALLOWCNT / tamedog is_covetous;
   options fruitadd walker; `ensure_way_out`. Do not re-add a
   fourth town gnome in `load_minetn_7` (D-1513).
@@ -61,10 +61,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1516: S_LIZARD non-salamander `!is_armed` skip
+  (C `if (mm==PM_SALAMANDER)` else break; D-0556 kit kept).
+  Same function PM_NINJA `rn2(4)` SHURIKEN|DART then
+  SHORT_SWORD|AXE. Live `mongets`. G_NOGEN until quest.
+  `set_mimic_sym` maze / dprince/raven named.
 - D-1515: S_KOP `m_initweap` `!rn2(4)` cream pies
   (`m_initthrow` quan 3–4) then `!rn2(3)` CLUB or
   RUBBER_HOSE. Live callees. G_NOGEN until `makekops`.
-  non-salamander S_LIZARD / PM_NINJA named.
 - D-1514: SPFX_WARN conferral `spec_m2` → EWarn_of_mon +
   warntype.obj + see_monsters; else EWarning. MATCH_WARN
   in sensemon / newsym see_it / display_warning
@@ -98,7 +102,7 @@ Objective/score live in `CURRENT.md`.
 - D-1507: `makemon` random loop Sokoban first-try
   `throws_rocks` (`tryct==1` reject before `goodpos`).
   Later tries fair game. Explicit ptr skips. S_KOP is
-  D-1515; non-salamander S_LIZARD named.
+  D-1515; S_LIZARD/ninja is D-1516.
 - D-1506: `m_initinv` S_GNOME `!mpickobj && !levl.lit` →
   live `begin_burn`. Merge-freed skip. mktrap_victim floor
   candle named.
@@ -116,8 +120,3 @@ Objective/score live in `CURRENT.md`.
 - D-1502: `arti_invoke` TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH;
   `seffect_taming`/`charge_ok`/`recharge`; `tamedog` MANFOOD.
   GETOBJ_ALLOWCNT named. Palantir `#if 0`. H2O dip D-1501.
-- D-1501: `H2Opotion_dip` useeit `ublindf && Blindfolded_only`
-  (`youprop.h` Blindfolded≡EBlinded); unpaid POT_WATER
-  `alter_cost`/`costly_alteration`; `mentioned_water`
-  `makeknown`; towel soak; `water_damage` invent container/
-  grease plines. lichen/acid-erode is D-1509. dip_into D-1500.

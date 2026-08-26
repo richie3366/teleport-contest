@@ -216,7 +216,9 @@ JS: `js/makemon.js` — partial
 
 **`STRAT_APPEARMSG` for `M3_WAITMASK|M3_COVETOUS`** (D-0928 #1128; with `mnexto`→`rloc_to_flag`); 
 Ordinary `is_armed`/`m_initweap`/`mongets`/`m_initthrow` 
-(S_KOBOLD/S_ORC/S_OGRE/S_GIANT/S_CENTAUR/S_WRAITH/S_ZOMBIE/S_HUMANOID/S_TROLL/S_LIZARD-salamander/
+(S_KOBOLD/S_ORC/S_OGRE/S_GIANT/S_CENTAUR/S_WRAITH/S_ZOMBIE/S_HUMANOID/S_TROLL/S_LIZARD
+(D-0556 salamander + **D-1516** non-salamander `!is_armed` skip) /
+**S_HUMAN PM_NINJA** (D-1516) /
 **S_ANGEL humanoid** (D-0649) + **S_KOP cream pie/club/hose** (D-1515) + default); 
 **`add_to_minv` uses `OBJ_MINVENT`** (D-0029) + **`add_to_minv` merge D-1492**; 
 **`makemon_rnd_goodpos` + null-ptr `rndmonst` order + `m_initgrp`/`G_SGROUP`** (D-0034); 
@@ -245,7 +247,7 @@ assign_sym/`mkobj`** (D-0262); **D-0619 MS_NEMESIS `nemgend` +
 **D-1088 `m_initweap`/`m_initinv` MS_PRIEST/MS_GUARDIAN `ptr.msound`** + 
 `quest_mon_represents_role` LEADER/NEMESIS; 
 **D-1094** mitem `ptr.msound == MS_NEMESIS` via `role_init` overlay (Tourist Master of Thieves); 
-PM_NINJA weap still named; **`align_shift` oldmoves/`Is_special` cache + 
+**D-1516 PM_NINJA weap**; **`align_shift` oldmoves/`Is_special` cache + 
 moves=0 through mklev (D-0652); **D-0751 `temperature_shift` via `pm_resistance`**; 
 other `m_initinv` bodies (mercenary armor/nymph/giant/…); hell-court `noteleport_level`; 
 **`m_initweap` S_DEMON named specials + `is_demon`→default FALLTHROUGH** (D-0472); 
@@ -286,11 +288,11 @@ in-body await still deferred); **D-0530 `m_initweap` S_TROLL polearm kit**;
 **D-0536 `makemon` MON_AT + `MM_ADJACENTOK`→`enexto_core`**; 
 **D-0603/D-1088 `m_initweap`/`m_initinv` MS_PRIEST** (`ptr.msound` + 
 **D-0637 `quest_mon_represents_role(PM_CLERIC)`** LEADER/NEMESIS not ldrnum; 
-PM_NINJA weap still named); **D-0644 `m_initinv` S_WRAITH/S_LICH/S_DEMON** (Nazgul ring; 
+**D-1516 PM_NINJA weap**); **D-0644 `m_initinv` S_WRAITH/S_LICH/S_DEMON** (Nazgul ring; 
 Master/Arch Lich; ice devil spear / Asmodeus wands); 
 **D-1507 `makemon` Sokoban first-try `throws_rocks`** (`:1226–1230` `tryct==1 && throws_rocks && In_sokoban` then `|| !goodpos`; later tries fair game; explicit ptr skips);
 **D-1515 `m_initweap` S_KOP** (`:402–409` `!rn2(4)` `m_initthrow(CREAM_PIE,2)` then `!rn2(3)` CLUB\|RUBBER_HOSE; live `m_initthrow`/`mongets`; `rnd_offensive_item` still 0);
-omit non-salamander S_LIZARD (no AT_WEAP; C `break` already matched), PM_NINJA weap; 
+**D-1516 `m_initweap` S_LIZARD non-salamander skip + PM_NINJA** (`:270–272` / `:495–499`; live `is_armed`/`mongets`; newt..crocodile `!AT_WEAP`; ninja `rn2(4)` SHURIKEN\|DART then SHORT_SWORD\|AXE); 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 observe_quantum_cat/disclose SchroedingersBox; 
@@ -525,8 +527,7 @@ extract `mresists`** (worn/artifact STONE_RES deferred; medusa-2/4 deferred);
 **D-0553 `m_initinv` S_GIANT**; **D-0554 `golemhp`**; 
 **D-0555 `get_location_coord` random double-retry** before create_monster DRY fallback (fixed 
 coords / croom somexy deferred; object/trap get_location_coord still single-loop); 
-**D-0556 `m_initweap` S_LIZARD salamander** spear/trident/stiletto (other lizards still 
-named — no AT_WEAP so `m_initweap` never runs; S_ANGEL D-0649; S_KOP D-1515); 
+**D-0556 `m_initweap` S_LIZARD salamander** spear/trident/stiletto + **D-1516** other lizards `!is_armed` skip (S_ANGEL D-0649; S_KOP D-1515; PM_NINJA D-1516); 
 seed0373 next @32011 sticky Sokoban? in `rnd_defensive_item`; 
 **D-0762 makelevel Is_rogue → extralev**; **D-0763 asmodeus load_special** (mazegrid+maps+mazewalk; 
 shared: newmonhp mlevel>49, hell-court noteleport, hellprobs, ndemon sleep before G_SGROUP); 
