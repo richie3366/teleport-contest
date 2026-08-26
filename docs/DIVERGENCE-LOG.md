@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1528 — display.c / region.c show_region overlay
+
+- **Status:** fixed (map-driven Open from D-1527; not a public FAIL)
+- **Symptom:** Visible gas/steam clouds never painted into the map
+  gbuf. C `show_region` writes `reg->glyph` (S_cloud /
+  S_poisoncloud). `newsym` cansee paints that and returns when
+  the cell is ACCESSIBLE or a visible cloud over pool/lava and
+  `mon_overrides_region` is false. `_map_location` overlays the
+  same glyph after mapping when show && !Blind. JS named the
+  omit after D-1527 / D-1512.
+- **C locus:** `region.c` `show_region` `:732–735`. Callers
+  `display.c` `_map_location` `:470–471`; `newsym` `:952–998`;
+  helper `mon_overrides_region` `:668–700`.
+- **JS was:** `visible_region_at` live; overlay named
+  (`sym` NOT FOUND).
+- **Fix:** Port show_glyph paint (JS tags, not integer cmap
+  ids). Wire newsym early overlay + `_map_location` after-map
+  overlay + `mon_overrides_region`. Local `is_pool_or_lava`
+  clone (hack.js imports display). Rule #2: no fs.
+- **JS:** `js/region.js` `show_region`; `js/display.js`
+  `newsym` / `map_location` / `mon_overrides_region`.
+- **Not this iter:** worm_tail `is_worm_tail` / `see_wsegs`;
+  DRAWBRIDGE_UP under-typ in the pool/lava test; C FIXME
+  hero-inside-cloud vs monster-outside; detect
+  `reveal_terrain` gascloud; pager lookat displayed
+  S_poisoncloud. timeout summary is D-1527.
+- **Verified:** private canary **31**/31 (C/JS grep; vapor
+  ROOM no-memory; poison green; ttl−2 / !visible skip; pool
+  / lava; STONE map-then-overlay; Blind / show=false; visible
+  mon override; minvis far cloud; hero-in-cloud; object
+  hidden; I-glyph; empty; map_location show; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a live visible cloud is on-screen.
+- **Follow-up:** Open `worm.c` `see_wsegs`. Not worm_move.
+- **Files:** `js/region.js`, `js/display.js`.
+
 ## D-1527 — timeout.c wiz_timeout_queue + region.c visible_region_summary
 
 - **Status:** fixed (map-driven Open from D-1512; not a public FAIL)

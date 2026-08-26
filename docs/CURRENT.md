@@ -59,29 +59,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1527. **Next cluster:** Open
-`display.c` `show_region` (named). Not
-Hallu/Warn_of_mon.
-**Do not skip D-1527…D-1229 (index).** Keep mention_map addr.
+**Map-driven fortress** after D-1528. **Next cluster:** Open
+`worm.c` `see_wsegs` (named). Not worm_move.
+**Do not skip D-1528…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1527.** Do not FORCE
+**Do not re-break D-0660…D-1528.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1527 (index). Recent: **D-1527**
-`timeout.c` `wiz_timeout_queue` + `region.c`
-`visible_region_summary` (`#timeout` Visible-regions listing).
-Prior: **D-1526** emin roaming. D-1525 TEMPLE
-`S_altar` Align2amask. D-1524 `object_from_map` spe.
-D-1523 `goodfruit`. Maze statue is D-1517. dprince
-is D-1518. stolen_booty is D-1363.
+**Keep:** D-0845…D-1528 (index). Recent: **D-1528**
+`display.c`/`region.c` `show_region` overlay (`newsym` +
+`_map_location` + `mon_overrides_region`).
+Prior: **D-1527** `#timeout` Visible-regions. D-1526 emin
+roaming. D-1525 TEMPLE `S_altar` Align2amask. D-1524
+`object_from_map` spe. D-1523 `goodfruit`. Maze statue is
+D-1517. dprince is D-1518. stolen_booty is D-1363.
 minetn-7 gnome count is D-1513; dispatch is D-1504;
 minetn-6 is D-1503; minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1527
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1528
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

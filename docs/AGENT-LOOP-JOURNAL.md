@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1528 display.c show_region
+
+**Objective:** Open `display.c` `show_region` (named). Not
+Hallu/Warn_of_mon.
+**C locus:** `region.c` `show_region` `:732–735`; callers
+`display.c` `_map_location` `:470–471` and `newsym`
+`:993–998`; `mon_overrides_region` `:668–700`.
+**JS locus:** `js/region.js` `show_region`; `js/display.js`
+`newsym` / `map_location`.
+**Change:** Paint S_cloud / S_poisoncloud into gbuf. newsym
+cansee early overlay on ACCESSIBLE or pool/lava unless
+`mon_overrides_region`. `_map_location` overlays after map
+when show && !Blind. worm_tail / DRAWBRIDGE_UP under named.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1910);
+live-cloud gbuf public-unhit.
+**Verified:** canary **31**/31; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `worm.c` `see_wsegs`. Not worm_move.
+**Blocked:** none.
 ## 2026-08-26 — D-1527 timeout.c visible_region_summary
 
 **Objective:** Open `timeout.c` `visible_region_summary`

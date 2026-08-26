@@ -1,7 +1,7 @@
 // display.js — Map rendering and terminal output.
 // C ref: display.c — newsym, show_glyph (glyph_updates / show_glyph_change
 // D-1219; Hallu classifier D-1221), docrt (in_docrt), cls, flush_screen,
-// suppress_map_output (D-1126),
+// suppress_map_output (D-1126), show_region overlay (D-1528),
 // shieldeff (D-1087; sparkle opt_out default On; sit rndcurse caller).
 
 import { game } from './gstate.js';
@@ -25,6 +25,7 @@ import {
     BC_BALL, BC_CHAIN,
     ENGRAVE, BURN, HEADSTONE,
     IS_OBSTRUCTED, IS_DOOR, IS_ROOM, IS_WALL, IS_FURNITURE,
+    ACCESSIBLE,
     Is_waterlevel, Is_airlevel,
     SV0, SV1, SV2, SV3, SV4, SV5, SV6, SV7,
     WM_MASK, WM_C_OUTER, WM_C_INNER,
@@ -87,6 +88,7 @@ import {
 import { depth, dist2 } from './hacklib.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { observe_object, near_capacity } from './invent.js';
+import { visible_region_at, show_region } from './region.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -399,6 +401,74 @@ export function warning_of(mon) {
     let tmp = (mon.m_lev | 0) / 4 | 0;
     if (tmp > WARNCOUNT - 1) tmp = WARNCOUNT - 1;
     return tmp;
+}
+
+/**
+ * C ref: display.c mon_overrides_region — newsym chooses monster vs
+ * gas-cloud glyph when both occupy the cell. Swallow is already
+ * handled by newsym's early return. worm_tail cells (m_at of a
+ * segment, not the head) still named with see_wsegs.
+ */
+function mon_overrides_region(mon, mx, my) {
+    const u = game.u || {};
+    if (u.uswallow && (!mon || mon !== u.ustuck)) return false;
+    if (mon) {
+        if ((mx | 0) === (mon.mx | 0) && (my | 0) === (mon.my | 0)
+            && (sensemon(mon) || mon_warning(mon))) {
+            return true;
+        }
+        const xr = u.xray_range | 0;
+        const r = xr > 1 ? xr : 1;
+        const ap = M_AP_TYPE(mon);
+        if (!hero_Blind() && mon_visible(mon)
+            && ap !== M_AP_FURNITURE && ap !== M_AP_OBJECT
+            && distu(mx, my) <= r * (r + 1)) {
+            return true;
+        }
+    }
+    const loc = game.level?.at(mx, my);
+    return glyph_is_invisible(loc);
+}
+
+/**
+ * C ref: dbridge.c is_pool_or_lava — local clone (hack.js imports
+ * display). DRAWBRIDGE_UP under-typ (is_moat / DB_LAVA) named.
+ */
+function is_pool_or_lava_disp(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return false;
+    const t = loc.typ | 0;
+    if (t === LAVAPOOL || t === LAVAWALL) return true;
+    if (t === POOL || t === MOAT || t === WATER) return true;
+    return false;
+}
+
+/**
+ * C ref: display.c newsym :993–998 — paint the cloud and skip the
+ * rest of newsym when the cell is accessible or a visible cloud
+ * over pool/lava and the monster does not take precedence.
+ * @returns {boolean} true if caller should return
+ */
+function newsym_try_show_region(x, y, loc, mon) {
+    const reg = visible_region_at(x, y);
+    if (reg && (ACCESSIBLE(loc.typ | 0)
+                || (reg.visible && is_pool_or_lava_disp(x, y)))) {
+        if (!mon_overrides_region(mon, x, y)) {
+            show_region(reg, x, y);
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * C ref: display.c _map_location — after mapping, if show && !Blind
+ * && visible_region_at then show_region (does not write memory).
+ */
+function maybe_overlay_visible_region(x, y, show) {
+    if (!show || hero_Blind()) return;
+    const reg = visible_region_at(x, y);
+    if (reg) show_region(reg, x, y);
 }
 
 /**
@@ -1693,6 +1763,14 @@ function cell_shows_displayed_monster(mtmp, x, y) {
  */
 function gbuf_show_kind(x, y, ch, color, decgfx, loc) {
     if (ch === 'I' && !decgfx) return 'invisible';
+    // C show_glyph classifies the already-chosen id; region overlay is
+    // cmap S_cloud / S_poisoncloud, not the occupant under the cloud.
+    const reg = visible_region_at(x, y);
+    if (reg && !hero_Blind()) {
+        const poison = reg.glyph === 'S_poisoncloud';
+        const want = poison ? CLR_BRIGHT_GREEN : CLR_GRAY;
+        if (ch === '#' && color === want) return 'cmap';
+    }
     const mtmp = mon_at_display(x, y);
     if (mtmp && cell_shows_displayed_monster(mtmp, x, y)) {
         // Mimic object: M_AP_TYPE, not a second obj_glyph Hallu roll.
@@ -2557,7 +2635,9 @@ export function feel_newsym(x, y) {
 // C ref: display.c _map_location(x,y,show) — remember non-living contents
 // (object / trap / engraving / background); paint when show.
 // Used under hero/monster so out-of-sight memory keeps the object glyph.
-// Named omissions: Hallucination trap glyphs; visible_region_at after show.
+// After mapping: show && !Blind && visible_region_at → show_region (D-1528).
+// Named omissions: Hallucination trap glyphs; DRAWBRIDGE_UP under-typ
+// in the newsym pool/lava region test.
 export function map_location(x, y, show) {
     const loc = game.level?.at(x, y);
     if (!loc) return;
@@ -2568,6 +2648,7 @@ export function map_location(x, y, show) {
         // C: map_object(obj, show) — Hallu statue memory burns extra
         map_object(obj, show);
         update_lastseentyp(x, y);
+        maybe_overlay_visible_region(x, y, show);
         return;
     }
     // C: t_at && tseen && !covers_traps → map_trap
@@ -2575,6 +2656,7 @@ export function map_location(x, y, show) {
     if (trap && trap.tseen && !covers_traps(x, y)) {
         map_trap(trap, show);
         update_lastseentyp(x, y);
+        maybe_overlay_visible_region(x, y, show);
         return;
     }
     if (spot_shows_engravings(loc)) {
@@ -2591,6 +2673,7 @@ export function map_location(x, y, show) {
     if (mem) loc.remembered_glyph = { ch: g.ch, color: g.color, decgfx: g.decgfx };
     if (show) show_glyph_cell(x, y, g.ch, g.color, g.decgfx);
     update_lastseentyp(x, y);
+    maybe_overlay_visible_region(x, y, show);
 }
 
 function map_location_memory(x, y) {
@@ -2624,7 +2707,8 @@ export function newsym(x, y) {
             loc.waslit = !!loc.lit;
             const hep = engr_at(x, y);
             if (hep) hep.erevealed = 1;
-            // poison/steam regions deferred (mon_overrides_region)
+            // C: poison/steam region may hide self (mon_overrides_region)
+            if (newsym_try_show_region(x, y, loc, mon_at_display(x, y))) return;
             const see_self = canspotself();
             // C: _map_location(x, y, !see_self); if (see_self) display_self()
             map_location(x, y, !see_self);
@@ -2645,6 +2729,8 @@ export function newsym(x, y) {
         // C: erevealed = 1 even when covered by objects or a monster
         const epSee = engr_at(x, y);
         if (epSee) epSee.erevealed = 1;
+        // C: accessible / pool-lava visible region before monster/map
+        if (newsym_try_show_region(x, y, loc, mtmp)) return;
         if (mtmp && (mon_visible(mtmp) || tp_sensemon(mtmp)
             || MATCH_WARN_OF_MON(mtmp))) {
             // C: _map_location(x, y, FALSE) then display_monster — memory
@@ -2686,42 +2772,9 @@ export function newsym(x, y) {
             map_invisible(x, y);
             return;
         }
-        // C ref: display.c _map_location — vobj_at before trap/engraving/bg
-        // C: map_object(obj, show) — Hallu statue memory burns extra
-        const obj = objects_at(x, y);
-        if (obj && !covers_objects(x, y)) {
-            map_object(obj, true);
-            update_lastseentyp(x, y);
-            return;
-        }
-        // C: t_at && tseen && !covers_traps → map_trap
-        const trap = t_at_display(x, y);
-        if (trap && trap.tseen && !covers_traps(x, y)) {
-            map_trap(trap, true);
-            update_lastseentyp(x, y);
-            return;
-        }
-        // C: spot_shows_engravings && engr_at && erevealed → map_engraving
-        if (spot_shows_engravings(loc)) {
-            const ep = engr_at(x, y);
-            if (ep && ep.erevealed && !covers_traps(x, y)) {
-                const eg = engraving_glyph(loc);
-                show_glyph_cell(x, y, eg.ch, eg.color, eg.dec);
-                if (game.level?.flags?.hero_memory) {
-                    loc.remembered_glyph = {
-                        ch: eg.ch, color: eg.color, decgfx: eg.dec,
-                    };
-                }
-                update_lastseentyp(x, y);
-                return;
-            }
-        }
-        const tg = terrain_glyph(loc, x, y);
-        show_glyph_cell(x, y, tg.ch, tg.color, tg.dec);
-        if (game.level?.flags?.hero_memory) {
-            loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
-        }
-        update_lastseentyp(x, y);
+        // C: _map_location(x, y, 1) — object/trap/engraving/bg then
+        // show_region overlay when !Blind (D-1528)
+        map_location(x, y, true);
         return;
     }
 

@@ -16,7 +16,7 @@ Basic move loop and hunger/sound subsets;
 stethoscope free/TIME); **`moveloop_preamble` `set_wear(NULL)` after rndencode** (D-0596); 
 **`amulet_wish` once-per-input → `makewish`** (D-0559); 
 **once-per-input `see_monsters` when Unblind_telepat/Warning/Hallu/Warn_of_mon/`any_visible_region`** (D-0672/D-1493/D-1512; 
-**timeout `visible_region_summary` D-1527**; display `show_region` named); **`encumber_msg` + 
+**timeout `visible_region_summary` D-1527**; **display `show_region` D-1528**); **`encumber_msg` + 
 `mvl_wtcap=near_capacity()` after monsters before EOT arm** (D-0411); 
 **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058; 
 @10966 after_calc theory falsified — D-0412 was travel boulder); 
@@ -1361,7 +1361,9 @@ Hallu vision_off together Scr196→201 — gulp dims match C through ~core16749*
 **MATCH_WARN_OF_MON overlay D-1514**); **`altar_color` via `altarmask`/`altar_to_glyph`** (D-0666; 
 no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667; 
 **Warn_of_mon count + Sting_effects D-1493**; 
-**allmain `any_visible_region` OR D-1512** (C `region.c`; timeout `visible_region_summary` D-1527); 
+**allmain `any_visible_region` OR D-1512** (C `region.c`; timeout `visible_region_summary` D-1527;
+**newsym/`_map_location` `show_region` D-1528**; worm_tail `is_worm_tail` /
+DRAWBRIDGE_UP under-typ / C FIXME hero-inside-cloud still named); 
 **SPFX_WARN conferral + MATCH_WARN see_it D-1514**; 
 worm see_wsegs / MON_STILL_ARRIVING / make_blinded 
 Sting(-1) deferred); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
@@ -1372,7 +1374,7 @@ Hallu statue mem random_obj D-0844; **`see_traps` only if `glyph_is_trap` gbuf**
 **`covers_objects` is_pool&&!Underwater** D-0846; 
 @172 Hallu objs = moves=11 free see_objects after ice expels@10 D-0847 — JS free-window burns 
 inventoried (#984: docrt 21M+4O / see_mon 21M+1W / mnexto+post 2M / once-in 22M+1W+4O); 
-next C ~drn2 dim diff; `newsym` `visible_region_at` / `mon_overrides_region` still deferred; 
+next C ~drn2 dim diff; **`newsym` `show_region` + `mon_overrides_region` D-1528**;
 `vision_recalc(2)` main newsym loop still skipped in JS); 
 **`mon_glyph`/`obj_glyph` Hallu display RNG** (D-0838; trap hallu deferred); 
 **full MONSYM `MLET_CH` + FOUNTAIN/SINK/THRONE/ALTAR/GRAVE terrain** (D-0070); 

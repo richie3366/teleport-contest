@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `timeout.c` `visible_region_summary` (named). Not any_visible_region. **Addressed:** D-1527
+- [x] `display.c` `show_region` (named). Not Hallu/Warn_of_mon. **Addressed:** D-1528
+
+
+- [x] `timeout.c` `visible_region_summary` (named). Not any_visible_region. **Addressed:** D-1527 `d53c5cd1`
 
 
 - [x] `makemon.c` emin roaming (named). Not dprince. **Addressed:** D-1526 `4e78ca90`

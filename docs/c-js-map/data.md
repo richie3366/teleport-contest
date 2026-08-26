@@ -725,7 +725,8 @@ expire dissipation D-1155; fumaroles whoosh D-1156);
 **`dryup` wizard `y_n("Dry up fountain?")` after town warn** (D-1096; `flags.debug`; `'n'` abort; 
 no `debug_fuzzer` gate); **`dryup` `angry_guards(FALSE)` after real dryup when `isyou && in_town`** 
 (D-1104); **`dryup` cansee cloud-glyph skip** (D-1106; fog/steam `S_cloud` not poison; 
-shown mon/I `!cmap`; newsym `show_region` / full `mon_overrides_region` still named); 
+shown mon/I `!cmap`; **newsym `show_region` D-1528**; worm_tail `is_worm_tail` /
+DRAWBRIDGE_UP under-typ still named); 
 **`dipfountain` Excalibur LONG_SWORD body** (D-1107; `exist_artifact`+`artiname`; 
 lawful `oname`/`discover_artifact`/`bless`; unaligned curse+`spe--`; 
 `set_levltyp` ROOM not `dryup`; Excalibur `:441` `update_inventory` D-1145 / artidisco save/rest 

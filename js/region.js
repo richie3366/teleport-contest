@@ -21,12 +21,13 @@
 // Selection create D-1158. rloc_to update_monster_region D-1161; mhitm
 // mdisplacem D-1174 (dbridge named).
 // timeout.c wiz_timeout_queue calls visible_region_summary (D-1527).
-// display.c show_region overlay after map_location named.
+// display.c newsym / _map_location call show_region (D-1528).
 // Level leave stashes the regions array (D-0675).
 
 import { game } from './gstate.js';
 import { rn2, rn1, d, rnd } from './rng.js';
-import { pline, You_feel } from './display.js';
+import { pline, You_feel, show_glyph_cell } from './display.js';
+import { CLR_GRAY, CLR_BRIGHT_GREEN } from './terminal.js';
 import {
     isok, ACCESSIBLE, COLNO, ROWNO, u_at, TIMEOUT, REG_HERO_INSIDE,
     REG_NOT_HEROS,
@@ -85,13 +86,26 @@ export function visible_region_at(x, y) {
 }
 
 /**
+ * C ref: region.c show_region — show_glyph(x, y, reg->glyph).
+ * JS has no integer cmap ids; make_gas_cloud tags 'S_poisoncloud'
+ * or 'S_cloud' (defsym.h '#' / CLR_BRIGHT_GREEN vs CLR_GRAY).
+ * Callers: display.c _map_location (show && !Blind) and newsym
+ * cansee early overlay (D-1528). Does not write hero_memory.
+ */
+export function show_region(reg, x, y) {
+    if (!reg) return;
+    const poison = reg.glyph === 'S_poisoncloud';
+    show_glyph_cell(x, y, '#', poison ? CLR_BRIGHT_GREEN : CLR_GRAY, false);
+}
+
+/**
  * C ref: region.c any_visible_region — true if this level has a
  * visible NhRegion whose ttl is not the expire-in-progress sentinel
  * -2. Walks svn.n_regions in array order; first hit returns TRUE.
  * Caller allmain.c once-per-input else-if (gas-cloud see_monsters
  * refresh after walking away). timeout.c wiz_timeout_queue gates
- * visible_region_summary with this (D-1527). show_region overlay
- * named.
+ * visible_region_summary with this (D-1527). display.c newsym /
+ * _map_location overlay is D-1528.
  */
 export function any_visible_region() {
     const regs = game.regions || [];

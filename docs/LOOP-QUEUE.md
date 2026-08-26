@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `display.c` `show_region` (named). Not Hallu/Warn_of_mon.
 - [ ] `worm.c` `see_wsegs` (named). Not worm_move.
 - [ ] `invent.c` `getobj` GETOBJ_ALLOWCNT count prefix (named). Not Palantir.
 - [ ] `dog.c` `tamedog` is_covetous (named). Not leftovers.
