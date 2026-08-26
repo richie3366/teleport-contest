@@ -245,8 +245,8 @@ remaining `extcmdlist` bodies; …
 to its existing polyself import. **`mcastu` `body_part(HEAD)` +
 `pickup` `body_part(HAND)` D-1508** (mcastu imports `polyself.js`;
 pickup via latebound — polyself→do→pickup cycle). **`mcast_blind_you`
-`body_part(EYE)` D-1534** (`eyecount` live `monsters.js`). Named:
-`observe_quantum_cat` FOOT.
+`body_part(EYE)` D-1534** (`eyecount` live `monsters.js`). **`observe_quantum_cat`
+`body_part(FOOT)` D-1535** (pickup latebound).
 
 ### `src/potion.c`
 
@@ -972,7 +972,7 @@ prompt ATR_INVERSE** (D-0384) + **floor `query_objlist` `sortloot(SORTLOOT_LOOT|
 SKIPINVERT/page invert/search deferred; traditional query_classes / FEEL_COCKATRICE / loot_classify 
 subclass / count-N deferred) + **`:` `container_contents` `sortloot` + 
 `add_to_container` merge / corpse `spe` gender** (D-0383; 
-nested/Schroedinger/identified discover deferred); 
+nested/identified discover deferred; **`observe_quantum_cat` D-1535**); 
 **`autopick_testobj` + `O`/`@` doset_simple/dotogglepickup** (D-0368; 
 full allopt / exceptions / costly_spot / thrown·stolen filters deferred) + 
 **autopick end `check_here(n_picked>0)` + run nomul** (D-0387; hideunder/newsym_force deferred); 
@@ -1163,7 +1163,7 @@ inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace;
 `hide_monst` after ghostly; `paygd`/`clearpriests`; `unleash_all` in finish_paybill; 
 `done_in_by` G_UNIQ/ghost/mimicker/vampshifter/priest|minion/minvis/hallu/monhealthdescr/
 multi_reason; enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
-SchroedingersBox; overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
+**`observe_quantum_cat` disclose D-1535** (live-cat contents line; escape/ascend companion HP named); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
 savelife Sick/endmultishot/curs_on_u/uswallow; 
 ordinary `vision_recalc(2)` gbuf newsym loop / `notice_all_mons`
 
@@ -1316,7 +1316,7 @@ sack/bag → `use_container` take-out** (D-0375) + **put-in coins MENU_FULL** (D
 **`use_container` outmaybe/`yname` + MENU_FULL `query_category` put-in** (D-0394) + 
 **`used`→`cknown=1` containerdone** (D-0395) + 
 **`use_container` emptymsg `Ysimple_name2`** (D-0417; 
-quantum/cursed-mbag `"now "` + full `minimal_xname` deferred); 
+**quantum `"now "` D-1535**; cursed-mbag `"now "` + full `minimal_xname` deferred); 
 **`do_play_instrument`/`do_improvisation` LEATHER_DRUM + `improvised_notes` + 
 `awaken_monsters`/`awaken_scare` TOOL `resist` alev=10 + auditory `onscary(0,0)`→`monflee` + 
 `dosounds` Deaf≡HDeaf** (D-0454) + **`DRUM_OF_EARTHQUAKE` → 

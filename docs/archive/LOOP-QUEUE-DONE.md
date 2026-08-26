@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `mcastu.c` `mcast_blind_you` EYE (named). Not PSI_BOLT HEAD. **Addressed:** D-1534
+- [x] `pickup.c` `observe_quantum_cat` FOOT (named). Not HEAD. **Addressed:** D-1535
+
+
+- [x] `mcastu.c` `mcast_blind_you` EYE (named). Not PSI_BOLT HEAD. **Addressed:** D-1534 `289573bc`
 
 
 - [x] `sp_lev.c` `create_object` `o->lit` (named). Not mktrap_victim. **Addressed:** D-1533 `9d2ba80e`

@@ -309,7 +309,7 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
-observe_quantum_cat/disclose SchroedingersBox; 
+**D-1535 `observe_quantum_cat`** (`pickup.c:2826–2896`; FOOT latebound; use_container/tip TRUE,TRUE; disclose FALSE,FALSE live spe; `Schroedinger's cat!`); muse monster-loot / escape companion HP named; 
 door-wall `S_hcdoor` / furnsyms real S_* / `Protection_from_shape_changers` early-out / `block_point`; 
 `ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters; 
 egg `attach_egg_hatch_timeout`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
@@ -677,8 +677,7 @@ migrate light/worm/isshk; **`encumber_msg` callers beyond set_wounded_legs/pream
 turn-loop / exercise STR·CON / pickup/drop); Lev/air/steed `weight_cap` MAX; `stagger()` poly; 
 `heal_legs`; **`body_part`** / **`mbodypart`** import `polyself.js` (D-1496;
 steed FOOT uses `mbodypart(usteed)`, not the hero). **mcastu HEAD /
-pickup HAND D-1508**. **`mcast_blind_you` EYE D-1534**. Named:
-`observe_quantum_cat` FOOT.
+pickup HAND D-1508**. **`mcast_blind_you` EYE D-1534**. **`observe_quantum_cat` FOOT D-1535**.
 
 ### `src/dog.c` `tamedog` / `initedog`
 

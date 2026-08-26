@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1535 observe_quantum_cat FOOT
+
+**Objective:** Open `pickup.c` `observe_quantum_cat` FOOT (named).
+Not HEAD.
+**C locus:** `pickup.c` `observe_quantum_cat` `:2826–2896`;
+callers use_container/tip TRUE,TRUE; end.c disclose FALSE,FALSE.
+**JS locus:** `js/pickup.js` `observe_quantum_cat`; `js/end.js`
+identify + contents; `js/objnam.js` latebound FOOT.
+**Change:** Collapse SchroedingersBox. Unseen live uses
+`body_part_latebound(FOOT)`. Disclose live leaves spe. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1920 + D-1531 restore).
+**Verified:** canary **16**/16; green+strict seed8000/0900;
+focused seed4500 FULL; cohort **7**/7 + strict.
+**Next:** Open `makemon.c` `set_mimic_sym` door `S_hcdoor`. Not furnsyms.
+**Blocked:** none.
 ## 2026-08-26 — D-1534 mcast_blind_you EYE
 
 **Objective:** Open `mcastu.c` `mcast_blind_you` EYE (named).

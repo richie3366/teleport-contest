@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1535 — pickup.c observe_quantum_cat FOOT
+
+- **Status:** fixed (map-driven Open from D-1534; not a public FAIL)
+- **Symptom:** `#loot` / `#tip` / death disclose never collapsed
+  SchroedingersBox. Live-unseen used no `body_part(FOOT)`; dead path
+  skipped `set_corpsenm`/`oname`; disclose never showed
+  `Schroedinger's cat!`. Named omit after D-1508 HEAD / D-1534 EYE.
+- **C locus:** `pickup.c` `observe_quantum_cat` `:2826–2896`
+  (`!rn2(2)`, `get_obj_location` flags 0, `makemon(PM_HOUSECAT,
+  NO_MINVENT|MM_ADJACENTOK|MM_NOMSG)`, `body_part(FOOT)` when
+  `!canspotmon`, `christen_monst`, extract/obfree corpse, `spe=0`,
+  `more_experienced` 10/20 vs 20/10). Callers `use_container`
+  `:3020–3025` TRUE,TRUE (emptymsg `"now "`); `tipcontainer_checks`
+  `:4034–4045` TRUE,TRUE; `end.c` `:1266–1275` FALSE,FALSE (live
+  leaves spe); `container_contents` `:1619–1653` live-cat line.
+- **JS was:** named omit; loot emptymsg never `"now "`.
+- **Fix:** Live `observe_quantum_cat`. FOOT via `body_part_latebound`
+  (polyself→do→pickup; no pickup→polyself). Humanoid unset
+  fallback `"foot"`. Disclose dynamic-imports pickup (pickup→trap→end).
+  Rule #2: no fs.
+- **JS:** `js/pickup.js` `observe_quantum_cat` / `use_container` /
+  `tipcontainer` / loot `container_contents`. `js/end.js` identify +
+  disclose contents. `js/objnam.js` latebound FOOT.
+- **Not this iter:** muse.c monster-loot; escape/ascend
+  `Schroedingers_cat` companion HP; cursed-mbag emptymsg `"now "`;
+  shop `Shk_Your` ownership; zap.js local `SchroedingersBox` clone.
+- **Verified:** private canary **16**/16 (C/JS grep; makecat FALSE
+  spe; Blind FOOT brush; poly dog rear paw; christen; Rule #2);
+  green+strict seed8000/0900; focused seed4500 **108275**/108275
+  Scr **1814**; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. Public-unhit (no public
+  session opens a quantum box).
+- **Follow-up:** Open `makemon.c` `set_mimic_sym` door `S_hcdoor`.
+  Not furnsyms.
+- **Files:** `js/pickup.js`, `js/end.js`, `js/objnam.js`.
+
 ## D-1534 — mcastu.c mcast_blind_you EYE
 
 - **Status:** fixed (map-driven Open from D-1533; not a public FAIL)
