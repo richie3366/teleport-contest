@@ -61,35 +61,32 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1538. **Next cluster:** Open
-`artifact.c` cspfx W_ART (named). Not SPFX_WARN.
-**Do not skip D-1538…D-1229 (index).** Keep mention_map addr.
+**Suite 44/44** fortress after D-1539. **Next cluster:** Open
+`restore.c` `ghostfruit` (named). Not goodfruit.
+**Do not skip D-1539…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1538.** Do not FORCE
+**Do not re-break D-0660…D-1539.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1538 (index). Recent: **D-1538**
+**Keep:** D-0845…D-1539 (index). Recent: **D-1539**
+`artifact.c` `set_artifact_intrinsic` cspfx W_ART (MKoT/Orb of
+Fate carry WARN|…) + invent addinv/freeinv callers.
+Prior: **D-1538**
 `dog.c` `mon_arrive` wander/`somexy` after catchup (`in_rooms`+clone).
-Prior: **D-1537**
-`cmd.c` INTERNALCMD `#altdip` table + canned `CMDQ_EXTCMD` /
-`can_do_extcmd` buried / typed `#` unknown. **D-1536**
-`makemon.c` `set_mimic_sym` door `S_hcdoor` left-connect /
-rogue `S_hwall`. Furnsyms named. **D-1535**
-`pickup.c` `observe_quantum_cat` FOOT latebound. D-1534
-`mcast_blind_you` EYE. D-1533 `create_object` `o->lit`.
-D-1532 `tamedog` is_covetous. D-1531 Pri-loca `mk_roamer`.
-D-1530 getobj ALLOWCNT. D-1529 `see_wsegs`. D-1528
-`show_region`. D-1527 `#timeout`. D-1526 emin roaming.
-D-1525 TEMPLE `S_altar`. Maze statue is D-1517. dprince is
-D-1518. stolen_booty is D-1363. minetn-7 gnome count is
-D-1513; dispatch is D-1504; minetn-6 is D-1503; minetn-1 is
-D-1490.
+**D-1537** INTERNALCMD `#altdip`. **D-1536** door `S_hcdoor`.
+D-1535 FOOT. D-1534 EYE. D-1533 `o->lit`. D-1532 is_covetous.
+D-1531 Pri-loca `mk_roamer`. D-1530 ALLOWCNT. D-1529
+`see_wsegs`. D-1528 `show_region`. D-1527 `#timeout`.
+D-1526 emin roaming. D-1525 TEMPLE `S_altar`. Maze statue is
+D-1517. dprince is D-1518. stolen_booty is D-1363. minetn-7
+gnome count is D-1513; dispatch is D-1504; minetn-6 is
+D-1503; minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1538
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1539
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -104,6 +101,7 @@ import `makemon.js`→`artifact.js` for `u_wield_art`
 use dungeon `hellish`). Do not delete emin roaming.
 Do not make typed `#altdip` a user extcmd (INTERNALCMD).
 Do not import `dog.js`→`mklev.js` for `somexy` (mklev→trap→dog).
+Do not zero `cspfx` when `wp_mask===W_ART`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

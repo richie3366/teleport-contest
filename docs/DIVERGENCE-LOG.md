@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1539 — artifact.c set_artifact_intrinsic cspfx W_ART
+
+- **Status:** fixed (map-driven Open from D-1538; not a public FAIL)
+- **Symptom:** Carrying MKoT / Orb of Fate (and other quest arts)
+  never conferred cspfx. JS forced `spfx=0` when `wp_mask===W_ART`
+  and invent never called `set_artifact_intrinsic(..., W_ART)`.
+  Named omit after D-1514 SPFX_WARN (wield).
+- **C locus:** `artifact.c` `set_artifact_intrinsic` `:770`
+  `spfx = (wp_mask != W_ART) ? oart->spfx : oart->cspfx`; drop
+  `:771–778` `spfx &= ~art->cspfx`; ESP `:798–805`, STLTH
+  `:806–811`, TCTRL `:818–823`, WARN `:824–839`, EREGEN
+  `:841–846`, HSPDAM `:847–852`, HPHDAM `:853–858`.
+  `artilist.h` A() s2. Callers `invent.c` `addinv_core1` `:991`
+  / `freeinv_core` `:1383`.
+- **JS was:** extractor skipped args[3]; conferral used wield
+  `spfx` only; addinv/freeinv_core omitted W_ART.
+- **Fix:** Extract cspfx. Use it on W_ART. Port carry SPFX
+  arms + other-art strip. `addinv` on, `freeinv_core` off.
+  Rule #2: no fs.
+- **JS:** `scripts/extract-artifacts.py`;
+  `js/generated/artifacts_data.js`; `js/artifact.js`;
+  `js/u_init.js` `addinv`; `js/invent.js` `freeinv_core`.
+- **Not this iter:** defn/cary resist masks; SPFX_SEARCH/REGEN/
+  XRAY/PROTECT; inv_prop `arti_invoke` on drop; questart
+  `artitouch`; zap poly `addinv_core1`; Sunsword EBlnd;
+  `make_hallucinated` talk.
+- **Verified:** private canary **16**/16 (C/JS grep; extract
+  MKoT/Fate/Sting/Heart/Detection/Eye; W_ART on/off; Sting
+  W_ART silent vs W_WEP MATCH_WARN; two-art drop strip;
+  addinv/freeinv_core callers; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/
+  0007/2200/0383. Public-unhit (no public quest-art carry).
+- **Follow-up:** Open `restore.c` `ghostfruit`. Not goodfruit.
+- **Files:** `js/artifact.js`, `js/u_init.js`, `js/invent.js`,
+  `js/generated/artifacts_data.js`, `scripts/extract-artifacts.py`.
+
 ## D-1538 — dog.c mon_arrive wander/somexy
 
 - **Status:** fixed (map-driven Open from D-1537; not a public FAIL)

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `dog.c` wander/`somexy` (named). Not is_covetous. **Addressed:** D-1538
+- [x] `artifact.c` cspfx W_ART (named). Not SPFX_WARN. **Addressed:** D-1539
+
+
+- [x] `dog.c` wander/`somexy` (named). Not is_covetous. **Addressed:** D-1538 `e7574dc9`
 
 
 - [x] `cmd.c` INTERNALCMD `#altdip` (named). Not dip_into. **Addressed:** D-1537 `4508a3cb`

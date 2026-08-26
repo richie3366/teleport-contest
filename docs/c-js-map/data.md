@@ -61,12 +61,19 @@ JS rebuilds artilist from generated raw for process-reuse; save/rest `restore_ar
 `role==Role_switch`); **`arti_reflects` + `set_artifact_intrinsic` SPFX_REFLECT W_WEP** (D-1342; 
 C `artifact.c:537–550` / `:867–872`; muse.c `mon_reflects` MON_WEP between shield and amulet; 
 hero `EReflecting&W_WEP`; zap/pray `ureflects` W_AMUL/W_ARM/dragon D-1353; 
-cspfx extract / mcastu `ureflects` named — no artilist row has cspfx&SPFX_REFLECT); 
+mcastu `ureflects` named — no artilist row has cspfx&SPFX_REFLECT); 
 **`set_artifact_intrinsic` SPFX_WARN + MATCH_WARN D-1514** (C `artifact.c:824–839` 
 `spec_m2` `:1065–1072` + `hack.h` `MATCH_WARN_OF_MON`; Sting/Orcrist `M2_ORC`, Grimtooth `M2_ELF` 
 → `EWarn_of_mon` + `warntype.obj` + `see_monsters`; else `EWarning`; display `sensemon`/`newsym` 
-see_it / `display_warning` mon_to_glyph; cspfx W_ART MKoT/Orb of Fate / invent `W_ART` conferral / 
-`see_wsegs` D-1529 / polyd·species producer / vision `howmonsseen` / `worm_known` named); 
+see_it / `display_warning` mon_to_glyph; `see_wsegs` D-1529 / polyd·species producer / vision 
+`howmonsseen` / `worm_known` named); 
+**`set_artifact_intrinsic` cspfx W_ART D-1539** (C `artifact.c:770` 
+`spfx=(wp_mask!=W_ART)?spfx:cspfx` + drop `:771–778` `spfx&=~art->cspfx`; ESP/STLTH/TCTRL/WARN/
+EREGEN/HSPDAM/HPHDAM; MKoT WARN\|TCTRL\|HPHDAM, Orb of Fate WARN\|HSPDAM\|HPHDAM, Heart STLTH, 
+Detection/PYEC ESP\|HSPDAM, Eye EREGEN\|HSPDAM; callers invent `addinv_core1` `:991` / 
+`freeinv_core` `:1383`; extractor A() s2; live `js/artifact.js` + `js/u_init.js` `addinv` + 
+`js/invent.js` `freeinv_core`; defn/cary resist / SPFX_SEARCH/REGEN/XRAY/PROTECT / inv_prop 
+`arti_invoke` on drop / questart `artitouch` / zap poly `addinv_core1` named); 
 **defn/cary extract + `defends`/`defends_when_carried` D-1453**; omit cost/gen_spe; 
 **`inv_prop` extract + `arti_invoke` BLINDING_RAY D-1377**; 
 **remaining specials + property toggle D-1488** (C `artifact.c` 

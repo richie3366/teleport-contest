@@ -5,29 +5,30 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress after D-1538 (Scr **11,405** RNG
+- **Suite 44/44** fortress after D-1539 (Scr **11,405** RNG
   **792,838**/792,838 = 100%, `38+0.30/turn` R² 0.841).
-  seed0367 FULL. Wander/`somexy` live (D-1538). `#altdip`
-  INTERNALCMD live (D-1537).
-  **Hypothesis:** next Open cspfx W_ART is still a named
-  omit vs C `artifact.c` (not SPFX_WARN).
-  **Falsify:** map row + C `cspfx`/`W_ART` before coding; not a
+  seed0367 FULL. cspfx W_ART live (D-1539). Wander/`somexy`
+  live (D-1538). `#altdip` INTERNALCMD live (D-1537).
+  **Hypothesis:** next Open `ghostfruit` is still a named
+  omit vs C `restore.c` (not goodfruit).
+  **Falsify:** map row + C `ghostfruit` before coding; not a
   public FAIL peel.
-  **Next:** Open `artifact.c` cspfx W_ART. Not SPFX_WARN.
-  Do not skip D-1538…D-1229. No FORCE / `wildmiss` wrap /
+  **Next:** Open `restore.c` `ghostfruit`. Not goodfruit.
+  Do not skip D-1539…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`. pickup `body_part`
   latebound. Do not delete emin. Do not type `#altdip` as
   a user extcmd. Do not import dog→mklev for `somexy`.
-  Furnsyms still named.
+  Do not zero `cspfx` on W_ART. Furnsyms still named.
 - Named still: Light source fill;
-  furnsyms; cspfx W_ART;
-  ghostfruit; getpos fakeobj; `that_is_a_mimic`; detect_wsegs;
-  `worm_known`. Palantir `#if 0`. CMDQ_INT / pickinv count /
-  `finish_splitting`. `splev_create_monster` RANDOM-only.
-  `tamedog` `wake_nearto` / FULL_MOON S_DOG / ustuck named.
-  Other mcast_spell bodies; sit/pray `eyecount` always-2.
-  muse quantum-loot; escape `Schroedingers_cat` HP.
-  Eyes `is_plural`; other INTERNALCMD bodies.
+  furnsyms; ghostfruit; getpos fakeobj; `that_is_a_mimic`;
+  detect_wsegs; `worm_known`. Palantir `#if 0`. CMDQ_INT /
+  pickinv count / `finish_splitting`. `splev_create_monster`
+  RANDOM-only. `tamedog` `wake_nearto` / FULL_MOON S_DOG /
+  ustuck named. Other mcast_spell bodies; sit/pray
+  `eyecount` always-2. muse quantum-loot; escape
+  `Schroedingers_cat` HP. Eyes `is_plural`; other
+  INTERNALCMD bodies. defn/cary resist; SEARCH/REGEN/XRAY/
+  PROTECT; inv_prop drop; questart `artitouch`.
 
 ## Don't re-check (≤15)
 
@@ -36,7 +37,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1538.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1539.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -47,11 +48,12 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1538 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1539 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones. Do not skip
-  D-1520…D-1538 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
-  /door `S_hcdoor` / `#altdip` INTERNALCMD / wander `somexy` (index). Do not delete emin to fix seed0367 (review **487**).
+  D-1520…D-1539 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
+  /door `S_hcdoor` / `#altdip` INTERNALCMD / wander `somexy` /
+  cspfx W_ART (index). Do not delete emin to fix seed0367 (review **487**).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
@@ -67,10 +69,15 @@ Objective/score live in `CURRENT.md`.
   Do not import pickup→polyself for FOOT (D-1535). Do not
   stub door/wall mimic `appear=0` (D-1536). Do not make
   typed `#altdip` a user extcmd (D-1537). Do not import
-  `dog.js`→`mklev.js` for `somexy` (D-1538).
+  `dog.js`→`mklev.js` for `somexy` (D-1538). Do not zero
+  `cspfx` when `wp_mask===W_ART` (D-1539).
 
 ## Landmarks (≤15)
 
+- D-1539: cspfx W_ART carry ESP/STLTH/TCTRL/WARN/EREGEN/HSPDAM/
+  HPHDAM; invent addinv/freeinv callers; extractor A() s2.
+  defn/cary resist / SEARCH/REGEN/XRAY/PROTECT / inv_prop drop
+  / questart `artitouch` named.
 - D-1538: `mon_arrive` wander/`somexy` after catchup; EXACT_XY
   zeros wander; `in_rooms` live; mkroom clone (mklev→trap→dog).
   kops / Before_you / failed_arrivals / `Wiz_arrive` named.
@@ -102,5 +109,3 @@ Objective/score live in `CURRENT.md`.
   `!rn2(3)`. Pri-loca noalign is D-1531.
 - D-1525: TEMPLE `S_altar`; `MCORPSENM` Align2amask; hellish
   not minion `Inhell`. Door is D-1536.
-- D-1524: look fake SLIME_MOLD `spe=current_fruit`. that_is_a_mimic
-  / getpos fakeobj named.

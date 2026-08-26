@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1539 artifact.c cspfx W_ART
+
+**Objective:** Open `artifact.c` cspfx W_ART (named). Not SPFX_WARN.
+**C locus:** `artifact.c` `set_artifact_intrinsic` `:770–858`;
+`artilist.h` A() s2; `invent.c` `addinv_core1`/`freeinv_core`.
+**JS locus:** `js/artifact.js`; `js/u_init.js` `addinv`;
+`js/invent.js` `freeinv_core`; extractor + `artifacts_data.js`.
+**Change:** Extract cspfx. W_ART uses it (MKoT/Orb of Fate
+WARN|…). Drop strips bits other carried arts still confer.
+ESP/STLTH/TCTRL/EREGEN/HSPDAM/HPHDAM. Invent on/off. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1920 + D-1531 restore).
+**Verified:** canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `restore.c` `ghostfruit`. Not goodfruit.
+**Blocked:** none.
 ## 2026-08-26 — D-1538 dog.c mon_arrive wander/somexy
 
 **Objective:** Open `dog.c` wander/`somexy` (named). Not is_covetous.

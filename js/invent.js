@@ -126,6 +126,7 @@ import { stairway_at, stairs_description } from './mklev.js';
 import { objects_at } from './mkobj.js';
 import { PM_SAMURAI, PM_MONK } from './generated/monsters_data.js';
 import { humanoid, strongmonst } from './monsters.js';
+import { set_artifact_intrinsic } from './artifact.js';
 
 // C monflag.h MZ_HUMAN ≡ MZ_MEDIUM
 const MZ_HUMAN = 2;
@@ -3580,12 +3581,15 @@ export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
 }
 
 /**
- * C ref: invent.c freeinv_core — figurine stop FIG_TRANSFORM. Named omit:
- * amulet/candelabrum/bell/book/artifact uhaves; loadstone curse;
- * confers_luck set_moreluck; tin context.
+ * C ref: invent.c freeinv_core — figurine stop FIG_TRANSFORM; artifact
+ * W_ART conferral off (D-1539). Named omit: amulet/candelabrum/bell/book
+ * uhaves / questart; loadstone curse; confers_luck set_moreluck; tin
+ * context; inv_prop arti_invoke on drop.
  */
 export function freeinv_core(obj) {
     if (!obj) return;
+    // C invent.c:1377–1383 — oartifact → set_artifact_intrinsic(obj, 0, W_ART)
+    if (obj.oartifact) set_artifact_intrinsic(obj, false, W_ART);
     if ((obj.otyp | 0) === FIGURINE && (obj.timed | 0)) {
         stop_timer(FIG_TRANSFORM, obj);
     }

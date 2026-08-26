@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `artifact.c` cspfx W_ART (named). Not SPFX_WARN.
 - [ ] `restore.c` `ghostfruit` (named). Not goodfruit.
 - [ ] `themerms.lua` Light source fill oil lamp (named). Not create_object o->lit.
 - [ ] `makemon.c` `set_mimic_sym` furnsyms real S_* (named). Not door S_hcdoor.

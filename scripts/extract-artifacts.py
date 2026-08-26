@@ -328,6 +328,12 @@ def main() -> int:
         except ValueError as e:
             print("spfx fail", name, e, file=sys.stderr)
             continue
+        # A() s2 — carry-only specials (cspfx). MKoT/Orb of Fate WARN|…
+        try:
+            cspfx = eval_spfx(args[3])
+        except ValueError as e:
+            print("cspfx fail", name, e, file=sys.stderr)
+            continue
         mtype_tok = args[4].strip()
         try:
             mtype_kind, mtype_val = parse_mtype(mtype_tok)
@@ -375,6 +381,7 @@ def main() -> int:
                 "name": name,
                 "otypName": otyp_name,
                 "spfx": spfx,
+                "cspfx": cspfx,
                 "mtypeTok": mtype_tok,
                 "mtypeKind": mtype_kind,
                 "mtypeVal": mtype_val,
@@ -425,6 +432,7 @@ def main() -> int:
             f' name: {e["name"]!r},'
             f' otypName: {e["otypName"]!r},'
             f' spfx: {e["spfx"]},'
+            f' cspfx: {e["cspfx"]},'
             f' mtypeTok: {e["mtypeTok"]!r},'
             f' mtypeKind: {e["mtypeKind"]!r},'
             f' mtypeVal: {e["mtypeVal"]},'
