@@ -8,6 +8,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1553 splev_create_monster amask dispatch
+
+**Objective:** Open `splev_create_monster` RANDOM-only. Not mk_roamer.
+**C locus:** `sp_lev.c` `sp_amask_to_amask` / `create_monster`.
+**JS locus:** `js/mklev.js` `splev_create_monster`.
+**Change:** Non-RANDOM → mk_roamer; RANDOM still makemon.
+Room clones wrappers. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1940).
+**Verified:** canary **22**/22; seed0367 FULL; green+strict
+seed8000/0900; cohort **7**/7 + priest 0501/0106 + seed0360.
+**Next:** Open `mhidden_description`. Not `namefloorobj`.
+**Blocked:** none.
 ## 2026-08-26 — D-1552 obj.h is_plural Eyes + artidisco
 
 **Objective:** Open Eyes `is_plural`. Not #altdip.

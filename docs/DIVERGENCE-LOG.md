@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1553 — sp_lev.c splev_create_monster amask dispatch (not RANDOM-only)
+
+- **Status:** fixed (map-driven Open from D-1552; not a public FAIL)
+- **Symptom:** Generic `splev_create_monster` always burned
+  `induced_align(80)` then `makemon(..., 0)`. C `create_monster`
+  calls `sp_amask_to_amask` (RANDOM is the only `induced_align`
+  arm) then `mk_roamer` when `sp_amask != AM_SPLEV_RANDOM`.
+  D-1531 wired packed Pri-loca only; room clones were the same
+  RANDOM-only fork. Review **492** named the omit.
+- **C locus:** `sp_lev.c` `sp_amask_to_amask` `:1907–1922`,
+  `noncoalignment` `:1851–1860`, `create_monster` `:1983–1988`
+  then `:2125–2129`. Callee `priest.c` `mk_roamer` `:724–751`
+  (clone `mk_roamer_splev`). Producer `lspo_monster`
+  `get_table_align` `:3113–3128`.
+- **JS was:** always `induced_align(80)` + `makemon`;
+  `splev_room_monster` / `_at` duplicated that; Pri-loca/sanctum
+  noalign inlined `mk_roamer_splev`.
+- **Fix:** Live `sp_amask_to_amask` (CO/NONCO/RANDOM/`AM_MASK`).
+  Non-RANDOM → `mk_roamer_splev`; else `makemon(mm_flags)`.
+  Peaceful `> BOOL_RANDOM` then `set_malign`. Room helpers are
+  wrappers. Pri-loca/sanctum noalign call the dispatcher.
+  Do **not** stub `mk_mplayer`. Rule #2: no fs.
+- **JS:** `js/mklev.js` `splev_create_monster` /
+  `sp_amask_to_amask` / `noncoalignment`.
+- **Not this iter:** `mk_mplayer` role-id; appear_as; christen;
+  invent DEFAULT/CUSTOM; G_UNIQ extinct / G_GONE; cancelled /
+  revived / avenge / stun / conf / invis / blind / para / flee;
+  waiting vampshifted `newcham`; `m_lev_adj`; hand-rolled tut-1 /
+  ghost / mimic-chest fills. Packed Pri-loca mk_roamer is D-1531.
+- **Verified:** private canary **22**/22 (C/JS grep; AM_NONE
+  `min_align=A_NONE` isminion; RANDOM makemon emin not A_NONE-forced;
+  CO lawful; NONCO `rn2(2)`; croom wrapper; Rule #2);
+  seed0367 **FULL** RNG **50125**/50125 Scr **324**/324 + strict;
+  seed0360 **FULL**; priest 0501/0106; green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `pager.c` `mhidden_description`. Not
+  that_is_a_mimic.
+- **Files:** `js/mklev.js`.
+
 ## D-1552 — obj.h is_plural Eyes + undiscovered_artifact
 
 - **Status:** fixed (map-driven Open from D-1551; not a public FAIL)

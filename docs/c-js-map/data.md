@@ -505,7 +505,8 @@ map/morgue regions/shrine+hostile cleric/`Can_fall_thru` hardfloor holes→ROCKT
 locate_first text) + **D-1531 Pri-loca `align=noalign` aligned cleric `mk_roamer`**
 (`sp_lev.c` `:1983–1984` + `priest.c` `mk_roamer`; live `mk_roamer_splev` `MM_EMIN`
 `min_align=A_NONE`; review **487** misnamed `load_pri_strt`; emin arm is D-1526;
-`splev_create_monster` still RANDOM-only) + **D-0658 `link_doors_rooms` + eastern hx=39** (D-0645 hx=35 interim retired; 
+**D-1553** generic `splev_create_monster` amask dispatch — Pri-loca/sanctum
+noalign now call it; `mk_mplayer` named) + **D-0658 `link_doors_rooms` + eastern hx=39** (D-0645 hx=35 interim retired; 
 D-0657 m_at @35535 cleared) + **D-0668 Pri-loca map lit=FALSE clear** (mines lit-field → dark 
 morgue; global `sel_set_ter(false)`≡C deferred — seed0009) + 
 **D-0673 tower1 map lit=FALSE clear** (solidfill BOOL_RANDOM lit kept by sel_set_ter 
@@ -542,8 +543,10 @@ cleric/stronghold graveyard else-if named); other-role quest fills; **D-0533 egg
 **D-0536 `splev_create_monster` MON_AT→`enexto`**; 
 **D-1531 `create_monster` `sp_amask != AM_SPLEV_RANDOM` → `mk_roamer`** (Pri-loca
 lua `align="noalign"`; `Amask2align(AM_NONE)`; female + peaceful override
-`:2125–2129`; `splev_create_monster`/`splev_room_monster` still always
-`induced_align(80)`+`makemon`); 
+`:2125–2129`) + **D-1553** generic `splev_create_monster` `sp_amask_to_amask`
+(CO/NONCO/RANDOM/`AM_MASK`) then non-RANDOM `mk_roamer` else `makemon(mm_flags)`;
+`splev_room_monster` / `_at` wrappers; Pri-loca/sanctum noalign via dispatcher;
+`mk_mplayer` role-id / appear_as / christen / invent / G_UNIQ extinct named; 
 **D-0873 `create_monster` always `mtmp->female = m->female` after makemon** (`des.monster()`/class 
 letter → 0; named id → find_montype gender; overwrites makemon `rn2(2)`); 
 **D-0697 `create_monster` mines dwarf/gnome `your_race`→`rn2(3)` clear pm** 

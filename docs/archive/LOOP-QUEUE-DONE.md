@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `cmd.c` INTERNALCMD Eyes `is_plural` (named). Not #altdip. **Addressed:** D-1552
+- [x] `sp_lev.c` `splev_create_monster` RANDOM-only (named). Not mk_roamer. **Addressed:** D-1553
+
+
+- [x] `cmd.c` INTERNALCMD Eyes `is_plural` (named). Not #altdip. **Addressed:** D-1552 `4383ae0a`
 
 
 - [x] `invent.c` canned CMDQ_INT (named). Not ALLOWCNT. **Addressed:** D-1551 `73321d0c`
