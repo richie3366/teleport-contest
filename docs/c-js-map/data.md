@@ -351,6 +351,8 @@ callee `newsym` `is_worm_tail` + `display_monster` `PM_LONG_WORM_TAIL`);
 `:132–133` showtail && `PM_LONG_WORM` always `use_detection_glyph=0`; 
 `monster_detect` TRUE / `do_vicinity_map` FALSE; `what_mon` once then 
 `show_glyph` pet/mon/detected; `S_WORM_TAIL` class maps the long worm); 
+**D-1549 `map_monst` identity** (`detect.c:132` / `:832–833`; JS
+`data.mndx ?? mnum` not `mons()` ptr so D-1545 is reachable); 
 **D-1548 `worm_known`** (`worm.c:877–893`; `display.h` `_canseemon` `:117–120` 
 `wormno ? worm_known : cansee||infrared`; callers `mon.c` `monkilled` `:3384` 
 + `vision.c` `howmonseen` `:2162` still named; live `js/worm.js` + 
@@ -808,8 +810,9 @@ timeout vomiting_dialog / zhitu acid_damage bodies still named
 JS: `js/detect.js` — partial
 
 **`monster_detect` live-fmon + cls + map_monst + sense + 
-browse_map(TER_DETECT\|TER_MON)** (D-0370); omit strange_feeling; cursed wake; blessed WIN_MAP; 
-unconstrain; worm segs; pet/detected glyphs; TER_DETECT autodescribe text
+browse_map(TER_DETECT\|TER_MON)** (D-0370); empty strange_feeling D-1418;
+**detect_wsegs D-1545**; **long-worm mndx/mnum D-1549**; omit cursed wake; blessed WIN_MAP; 
+unconstrain; pet/detected glyphs; TER_DETECT autodescribe text
 
 ### `src/sit.c`
 

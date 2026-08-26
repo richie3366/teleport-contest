@@ -68,7 +68,7 @@ import { cmd_safety_prevention, make_blinded } from './do.js';
 import { m_at, seemimic, wake_nearto } from './mon.js';
 import { find_drawbridge, open_drawbridge } from './dbridge.js';
 import { expels, digests } from './mhitu.js';
-import { is_hider, hides_under, mons } from './monsters.js';
+import { is_hider, hides_under } from './monsters.js';
 import { Monnam, x_monnam, x_monnam_tame, trycall } from './do_name.js';
 import {
     objectNames, MAXOCLASSES, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -1098,14 +1098,23 @@ export async function do_vicinity_map(sobj) {
 }
 
 /**
- * C ref: detect.c map_monst :120–134 — show_glyph head; showtail &&
- * PM_LONG_WORM → detect_wsegs(mtmp, 0) (D-1545). Named: monsym==' '
- * detected_mon_to_glyph; pet_to_glyph (plain mon_glyph).
+ * C detect.c :132 / :832 — mtmp->data == &mons[PM_LONG_WORM] (static
+ * slot). JS mons() allocates a new object; compare mnum/mndx (D-1549).
  */
-function map_monst(mtmp, showtail) {
+function mtmp_is_long_worm(mtmp) {
+    return ((mtmp.data?.mndx ?? mtmp.mnum) | 0) === PM_LONG_WORM;
+}
+
+/**
+ * C ref: detect.c map_monst :120–134 — show_glyph head; showtail &&
+ * PM_LONG_WORM → detect_wsegs(mtmp, 0) (D-1545; identity D-1549).
+ * Named: monsym==' ' detected_mon_to_glyph; pet_to_glyph (plain
+ * mon_glyph).
+ */
+export function map_monst(mtmp, showtail) {
     const g = mon_glyph(mtmp);
     show_glyph_cell(mtmp.mx, mtmp.my, g.ch, g.color, false);
-    if (showtail && mtmp.data === mons(PM_LONG_WORM)) {
+    if (showtail && mtmp_is_long_worm(mtmp)) {
         detect_wsegs(mtmp, false);
     }
 }
@@ -1120,7 +1129,8 @@ function map_monst(mtmp, showtail) {
  * Named omissions: cursed-otmp wake; blessed persistent
  * display_nhwindow; unconstrain underwater/buried/swallow;
  * pet_to_glyph / detected_mon_to_glyph (plain mon_glyph).
- * detect_wsegs is D-1545 (map_monst TRUE).
+ * detect_wsegs is D-1545 (map_monst TRUE). Long-worm identity is
+ * D-1549 (mnum/mndx, not mons() ptr).
  */
 export async function monster_detect(otmp, mclass) {
     const { cls, pline, flush_topl_more } =
@@ -1158,7 +1168,7 @@ export async function monster_detect(otmp, mclass) {
         const mlet = mtmp.data?.mlet;
         /* C :831–834 — also map a long worm when the class is S_WORM_TAIL */
         if (!mclass || mlet === mclass
-            || (mtmp.data === mons(PM_LONG_WORM)
+            || (mtmp_is_long_worm(mtmp)
                 && mclass === 'S_WORM_TAIL')) {
             map_monst(mtmp, true);
         }

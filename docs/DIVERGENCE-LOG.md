@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1549 — detect.c map_monst / monster_detect long-worm mndx
+
+- **Status:** fixed (Must-fix review **506**; not a public FAIL)
+- **Symptom:** `map_monst` / `monster_detect` compared
+  `mtmp.data === mons(PM_LONG_WORM)`. JS `mons()` allocates a new
+  object each call; `makemon` stores the spawn-time ptr. The
+  identity never held, so live `detect_wsegs` (D-1545) never ran.
+- **C locus:** `detect.c` `map_monst` `:132–133`; `monster_detect`
+  `:832–833` (`S_WORM_TAIL` class). C `&mons[PM_LONG_WORM]` is a
+  static slot. Callee `worm.c` `detect_wsegs` `:502–519` (D-1545).
+- **JS was:** `data === mons(PM_LONG_WORM)` at both sites.
+- **Fix:** `mtmp_is_long_worm` compares `data.mndx ?? mnum` to
+  `PM_LONG_WORM`. `map_monst(true)` now calls `detect_wsegs`.
+  Vicinity still passes FALSE. Rule #2: no fs.
+- **JS:** `js/detect.js` `mtmp_is_long_worm` / `map_monst` /
+  `monster_detect`.
+- **Not this iter:** `detect_wsegs` body; `see_wsegs`; head
+  `pet_to_glyph` / `detected_mon_to_glyph`; cutworm; `howmonseen`.
+  trap `monkilled` is review **509**. worm_known is D-1548.
+- **Verified:** private canary **21**/21 (C/JS grep; `mons()` ptr
+  inequality; `map_monst(true)` paints body `~`; vicinity FALSE;
+  mndx / mnum fallback; baby data is not long worm; S_WORM_TAIL
+  class via mndx; no core RNG; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until a
+  session monster-detects a live long worm.
+- **Follow-up:** Must-fix trap `monkilled` (review **509**). Not
+  Open CMDQ_INT.
+- **Files:** `js/detect.js`.
+
 ## D-1548 — worm.c worm_known + display.h _canseemon
 
 - **Status:** fixed (map-driven Open from D-1547; not a public FAIL)

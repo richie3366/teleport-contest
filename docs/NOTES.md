@@ -7,14 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1940** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `39+0.32/turn`). seed0367 FULL.
-  **Hypothesis:** `map_monst` `mtmp.data === mons(PM_LONG_WORM)`
-  never holds (`mons()` allocates). `detect_wsegs` body is live
-  but unreachable. Review **506** QUALITY-RISK.
-  **Falsify:** `node scripts/sym.mjs mons` + identity vs
-  `mtmp.data?.mndx === PM_LONG_WORM` at `js/detect.js:1108`.
-  **Next:** Must-fix 506 (mndx/mnum). Then trap `monkilled`
-  (review **509**). Not Open CMDQ_INT.
-  Do not skip D-1531…D-1548. Do not glue howmonseen / cutworm.
+  **Hypothesis:** `js/trap.js` `monkilled` still uses
+  `cansee(head)` while `mhitm.js` uses `wormno ? worm_known :
+  cansee(head)` (C `mon.c` `:3384`). Review **509**.
+  **Falsify:** `node scripts/sym.mjs monkilled worm_known` +
+  trap.js clone vs `js/mhitm.js`.
+  **Next:** Must-fix 509. Not Open CMDQ_INT.
+  Do not skip D-1531…D-1549. Do not glue howmonseen / cutworm.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`.
 - Named still: `howmonseen`; cutworm; `mhidden_description`;
@@ -36,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1548.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1549.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -47,9 +46,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1548 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1549 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1548 (index). Do not
+  `confer_oc_oprop`. Do not skip D-1520…D-1549 (index). Do not
   delete emin (review **487**). Do not stub `make_happy_shk` as
   pacify+“calms down” only (D-1540 / **493**). Do not import
   bones→options for fruitadd (D-1541).
@@ -68,7 +67,7 @@ Objective/score live in `CURRENT.md`.
   not candify ghostfruit. Do not skip Light source via
   `mksobj_at` without `o->lit`. Do not skip `detect_wsegs`
   `show_glyph` (D-1545). Do not treat `data === mons()` as a
-  long-worm test (review **506**). Do not skip `worm_known` in
+  long-worm test (D-1549). Do not skip `worm_known` in
   `_canseemon`/`monkilled` (D-1548) or leave trap `monkilled`
   on head `cansee` (review **509**). Do not glue `howmonseen` /
   cutworm / `redraw_worm`. Do not skip `tamedog`
@@ -77,6 +76,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1549: `map_monst` / `monster_detect` long-worm via
+  `data.mndx ?? mnum` (not `mons()` ptr). `detect_wsegs` reachable.
+  Head pet/detected glyphs named.
 - D-1548: `worm_known` any wseg `cansee`; `_canseemon` skips
   infrared when `wormno`; mhitm `monkilled` same. trap.js
   `monkilled` clone still head `cansee` (review **509**).
@@ -87,8 +89,7 @@ Objective/score live in `CURRENT.md`.
 - D-1546: `tamedog` live `wake_nearto(mx,my,1)` (wake_msg +
   STRAT_WAITMASK + disturb; dist2<1). Not local sleep clear.
   FULL_MOON S_DOG / ustuck / `redraw_worm` named.
-- D-1545: `detect_wsegs` body is C; `map_monst` gate
-  `data === mons()` never holds (review **506**). Head
+- D-1545: `detect_wsegs` body is C; identity is D-1549. Head
   pet/detected glyphs named.
 - D-1544: `that_is_a_mimic` live `object_from_map` + defsyms
   PCHAR desc + `MIM_OMIT_WAIT`. Dynamic pager import. getpos
@@ -113,5 +114,3 @@ Objective/score live in `CURRENT.md`.
   Furnsyms is D-1543.
 - D-1535: `observe_quantum_cat` FOOT latebound + loot/tip/disclose.
   muse/escape HP named.
-- D-1534: `mcast_blind_you` EYE + `make_blinded` 200/100.
-  Blinded `H&&!B`.

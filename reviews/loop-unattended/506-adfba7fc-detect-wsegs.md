@@ -116,3 +116,5 @@ D-log canary **24**/24 (grep; dummy; body `~`; minvis; pet; inverse; Hallu one r
 1. **`detect.c` `map_monst` / `monster_detect` PM_LONG_WORM test** (`:132`, `:832–833`): replace `mtmp.data === mons(PM_LONG_WORM)` with `mndx`/`mnum` (C `&mons[PM_LONG_WORM]`). One port. Do **not** re-do `detect_wsegs` body, `see_wsegs`, or head pet/detected glyphs.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1549

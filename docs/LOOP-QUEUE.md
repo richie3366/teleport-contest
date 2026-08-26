@@ -32,7 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `detect.c` `map_monst` / `monster_detect`: compare long-worm by `mndx`/`mnum`, not `mtmp.data === mons(PM_LONG_WORM)` (`mons()` allocates a new ptr so `detect_wsegs` never runs). Source: reviews/loop-unattended/506-adfba7fc-detect-wsegs.md
 - [ ] `mon.c` `monkilled`: `js/trap.js` clone still `cansee(head)`; use `wormno ? worm_known : cansee(head)` like `mhitm.js`. Source: reviews/loop-unattended/509-9b53440e-worm-known.md
 
 ## Open (map-driven, after Must-fix is empty)

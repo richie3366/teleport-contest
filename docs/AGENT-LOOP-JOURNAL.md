@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1549 detect.c map_monst long-worm mndx
+
+**Objective:** Must-fix review **506** `map_monst` /
+`monster_detect` identity. Not detect_wsegs body.
+**C locus:** `detect.c` `map_monst` `:132`; `monster_detect`
+`:832–833`.
+**JS locus:** `js/detect.js` `mtmp_is_long_worm` / `map_monst`.
+**Change:** Compare `data.mndx ?? mnum` to `PM_LONG_WORM`
+(`mons()` allocates). `detect_wsegs` now reachable. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1940).
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Must-fix 509 trap `monkilled`. Not Open CMDQ_INT.
+**Blocked:** none.
 ## 2026-08-26 — review D-1540–D-1548 (audit #1940)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **500**;
