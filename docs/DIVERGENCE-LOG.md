@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1557 — makemon.c set_mimic_sym does_block / block_point
+
+- **Status:** fixed (map-driven Open from D-1556; not a public FAIL)
+- **Symptom:** `set_mimic_sym` never called C’s trailing
+  `does_block` → `block_point` (`fill_point`). A boulder / closed-door
+  / wall mimic left `viz_clear` open until the next full
+  `vision_reset`. Named omit after DELPHI `S_fountain` (D-1556).
+- **C locus:** `makemon.c` `set_mimic_sym` `:2548–2549`
+  `if (does_block(mx, my, &levl[mx][my])) block_point(mx, my)`.
+  Callees `vision.c` `does_block` `:152–202`, `block_point`
+  `:864–891` (`fill_point(y, x)` then `viz_array[y][x]` →
+  `vision_full_recalc`), `fill_point` `:1050–1128` (function-scoped
+  leftover `i`). Callers unchanged. Not `recalc_block_point`
+  (that unblocks when `does_block` is 0).
+- **JS was:** `// block_point deferred`. `_blocks` was a private
+  `does_block` clone used only by `vision_reset`.
+- **Fix:** Export `does_block` (C 0/1/2; occupancy still fmon — no
+  vision→mon.js `m_at`). Port `fill_point` + `block_point`. Wire the
+  `set_mimic_sym` tail. `vision_reset` uses `!!does_block` so int 1/2
+  does not break `block !== cur_block`. `recalc_block_point` still
+  full `vision_reset`. Rule #2: no fs.
+- **JS:** `js/vision.js` `does_block` / `fill_point` / `block_point`;
+  `js/makemon.js` `set_mimic_sym`.
+- **Not this iter:** Protection_from_shape_changers early-out;
+  nocorpse/hatch/tin Plan-B; `flags.made_fruit`; `unblock_point` /
+  `dig_point`; Underwater moat in `does_block`. DELPHI is D-1556.
+- **Verified:** private canary **29**/29 (C/JS grep; boulder mimic
+  `fill_point` blocks `clear_path`; gold ZOO does not unblock; open
+  door + `S_hcdoor` blocks; closed-door terrain still 1; DELPHI /
+  TEMPLE / D-1536 door live; leftover `i`; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `artifact.c` SEARCH/REGEN/XRAY conferral. Not
+  cspfx. Not Protection.
+- **Files:** `js/vision.js`, `js/makemon.js`.
+
 ## D-1556 — makemon.c set_mimic_sym DELPHI S_fountain
 
 - **Status:** fixed (map-driven Open from D-1555; not a public FAIL)

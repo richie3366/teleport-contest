@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `makemon.c` `set_mimic_sym` DELPHI `S_fountain` (named). Not furnsyms. **Addressed:** D-1556
+- [x] `makemon.c` `set_mimic_sym` `block_point` (named). Not DELPHI. **Addressed:** D-1557
+
+
+- [x] `makemon.c` `set_mimic_sym` DELPHI `S_fountain` (named). Not furnsyms. **Addressed:** D-1556 `f8a7cea2`
 
 
 - [x] `do_name.c` `namefloorobj` (named). Not that_is_a_mimic. **Addressed:** D-1555 `1c43e64c`

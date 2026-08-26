@@ -130,7 +130,7 @@ import {
     RANDOM_CLASS, objects,
 } from './objects.js';
 import { ART_EXCALIBUR, ART_DEMONBANE } from './generated/artifacts_data.js';
-import { cansee } from './vision.js';
+import { cansee, does_block, block_point } from './vision.js';
 import { newsym, Norep, canseemon, sensemon } from './display.js';
 import { mhidden_description } from './pager.js';
 import { emits_light, new_light_source } from './light.js';
@@ -2544,10 +2544,11 @@ function in_town(x, y) {
  * C ref: makemon.c set_mimic_sym — ordinary + shop (get_shop_item) +
  * maze/sokoban/in_town statue (D-1517) + TEMPLE S_altar Align2amask
  * MCORPSENM (D-1525) + door/wall/SDOOR/SCORR S_hcdoor (D-1536) +
- * furnsyms real S_* (D-1543) + DELPHI S_fountain (D-1556).
+ * furnsyms real S_* (D-1543) + DELPHI S_fountain (D-1556) +
+ * does_block / block_point (D-1557).
  * Named omissions: Protection_from_shape_changers early-out when
- * hero wears the amulet (stubbed false at mklev), block_point,
- * slime-mold flags.made_fruit, nocorpse/hatch/tin Plan-B.
+ * hero wears the amulet (stubbed false at mklev), slime-mold
+ * flags.made_fruit, nocorpse/hatch/tin Plan-B.
  */
 export function set_mimic_sym(mtmp) {
     if (!mtmp) return;
@@ -2690,7 +2691,9 @@ export function set_mimic_sym(mtmp) {
         // C: has_mcorpsenm → NON_PM (drop stale statue/figurine shape)
         mtmp.mextra.mcorpsenm = NON_PM;
     }
-    // block_point deferred
+    // C: if (does_block(mx, my, &levl[mx][my])) block_point(mx, my)
+    if (does_block(mx, my, loc))
+        block_point(mx, my);
 }
 
 /**

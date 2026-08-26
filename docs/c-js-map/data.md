@@ -262,6 +262,7 @@ import; `has_mcorpsenm` stale `NON_PM`);
 → `S_hcdoor` else `S_vcdoor`; rogue `S_hwall`/`S_vwall`; `mx!=0` short-circuit; no RNG); 
 **D-1543 furnsyms real `S_*`** (`:2490–2497` `s_sym==MAXOCLASSES` ROLL_FROM `S_upstair×2`/`S_dnstair×2`/`S_altar`/`S_grave`/`S_throne`/`S_sink`; cmap ids not levl.typ; furnsyms `S_altar` takes Align2amask); 
 **D-1556 DELPHI `S_fountain`** (`:2450–2456` `rt==DELPHI` `rn2(2)` STATUE else cmap `S_fountain=37`; not furnsyms; door arm still first); 
+**D-1557 `set_mimic_sym` `does_block`/`block_point`** (`:2548–2549`; callees `vision.c` `does_block`/`fill_point`/`block_point`; live export; occupancy fmon not `m_at`; `recalc_block_point` still full `vision_reset`); 
 **D-0619 MS_NEMESIS `nemgend` + 
 `BELL_OF_OPENING`/`Croesus`/`Pestilence` mitem**; 
 **D-1094 `role_init` quest-pm overlay + mitem `ptr.msound == MS_NEMESIS`**; 
@@ -319,13 +320,14 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **D-1536 `set_mimic_sym` door/wall `S_hcdoor`** (`:2420–2438`; JS had `appear=0`; C left-connect → `S_hcdoor`/`S_vcdoor` or rogue `S_hwall`/`S_vwall`; `mx!=0` short-circuit); 
 **D-1543 `set_mimic_sym` furnsyms real `S_*`** (`:2490–2497`; JS had stub `[0,0,1,1,2,3,4,5]`; C ROLL_FROM real cmap; furnsyms `S_altar` hits existing amask arm); 
 **D-1556 `set_mimic_sym` DELPHI `S_fountain`** (`:2450–2456`; JS had `appear=0`; C `S_fountain=37`; not in furnsyms; door still first); 
+**D-1557 `set_mimic_sym` `does_block`/`block_point`** (`:2548–2549`; JS omitted tail; live `js/vision.js` `does_block`/`fill_point`/`block_point`; not `recalc_block_point`); 
 **D-1518 `makemon` dprince MS_BRIBE / raven `BEC_DE_CORBIN`** (`:1397–1404` after sleep/byyou, before LONG_WORM; `is_dprince` live; local `u_wield_art` clone — artifact→display→mkobj cycle; emin is D-1526); 
 **D-1526 `makemon` emin roaming** (`:1410–1428` after LONG_WORM, before `set_malign`; `ALIGNED_CLERIC`/`HIGH_CLERIC` `!(MM_EPRI|MM_EMIN)` always; `ANGEL` `!(MM_EMIN) && !rn2(3)`; `newemin` + `isminion` + `min_align=rn2(3)-1` + `MM_ANGRY?!rn2(3)` renegade + coalign XOR peaceful; live `newemin`/`EMIN`; `mk_roamer`/`priestini` flags skip; **D-1531** Pri-loca noalign caller); 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
 **D-1535 `observe_quantum_cat`** (`pickup.c:2826–2896`; FOOT latebound; use_container/tip TRUE,TRUE; disclose FALSE,FALSE live spe; `Schroedinger's cat!`); muse monster-loot / escape companion HP named; 
-`Protection_from_shape_changers` early-out / `block_point`; 
+`Protection_from_shape_changers` early-out; 
 `ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters; 
 egg `attach_egg_hatch_timeout`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
@@ -621,10 +623,11 @@ Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018);
 **`couldsee` wired into `dog_goal`** (D-0030); **`cansee` used by `makemon_rnd_goodpos`** (D-0034); 
 **`recalc_block_point` → `vision_reset` after door open/break** (D-0113); 
 **off-hero `do_clear_area`/`view_from` vis_func for wantdoor** (D-0211); 
-**`does_block` BOULDER (+ CLOUD/WATERWALL/LAVAWALL) in `_blocks`** (D-0242) + 
+**`does_block` BOULDER (+ CLOUD/WATERWALL/LAVAWALL)** (D-0242; exported, was `_blocks`) + 
 **`is_lightblocker_mappear` mimic boulder/door/wall/tree** (D-0585) + 
-**`visible_region_at` gas cloud in `_blocks` + `recalc_block_point` on create/expire** (D-0674; 
-`seemimic` incremental `dig_point` deferred); 
+**`visible_region_at` gas cloud return 2 + `recalc_block_point` on create/expire** (D-0674) + 
+**D-1557 `block_point`/`fill_point`** (`vision.c:864–891` / `:1050–1128`; caller `set_mimic_sym`; leftover `i`; `vision_reset` `!!does_block`); 
+`seemimic` incremental `dig_point` / `unblock_point` deferred (`recalc` still full reset); 
 **detect SCORR/SDOOR uncover uses `recalc_block_point`** (D-0269); 
 **`Is_rogue_level` → `rogue_vision`** (D-0486; room bounds + adjacent; pit/underwater deferred); 
 **Blind `vision_recalc` COULD_SEE-only + old IN_SIGHT newsym** (D-0579); 
