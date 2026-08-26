@@ -1228,6 +1228,41 @@ export function fruit_from_name(fname, exact, highest_fid = null) {
 }
 
 /**
+ * C ref: objnam.c reorder_fruit `:521–554` — rebuild gf.ffruit by fid.
+ * allfr[1+127]; k = SIZE = 128. Valid fid is 1..127. forward TRUE walks
+ * indices high→low so the rebuilt list is low→high (1,2,3…); FALSE is
+ * the reverse. Out-of-range or duplicate fid: C impossible() then return
+ * without sorting (impossible pline named: this helper is sync). Sole C
+ * caller is insight.c `#ifdef DEBUG` wizard explicitdebug("fruit") — not
+ * production ^X. fruitadd still prepends (order arbitrary until this
+ * sorts).
+ */
+export function reorder_fruit(forward) {
+    const k = 1 + 127; /* C SIZE(allfr) */
+    const allfr = new Array(k);
+    let i, j, f;
+
+    for (i = 0; i < k; ++i) allfr[i] = null;
+    for (f = game.ffruit; f; f = f.nextf) {
+        j = f.fid | 0;
+        if (j < 1 || j >= k) {
+            return;
+        } else if (allfr[j]) {
+            return;
+        }
+        allfr[j] = f;
+    }
+    game.ffruit = null;
+    for (i = 1; i < k; ++i) {
+        j = forward ? (k - i) : i;
+        if (allfr[j]) {
+            allfr[j].nextf = game.ffruit;
+            game.ffruit = allfr[j];
+        }
+    }
+}
+
+/**
  * C ref: artifact.c artifact_name `:329–353` — strcmpi after stripping
  * leading "the "; fuzzy=FALSE (doname_base / the()). Local copy so
  * objnam does not import artifact.js (invent cycle); fuzzy still lives

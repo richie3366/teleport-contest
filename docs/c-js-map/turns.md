@@ -752,7 +752,10 @@ artifact; local artifact_name copy); **`fruit_from_indx` + xname FOOD SLIME_MOLD
 (`spe`→fname; missing `"fruit"`; quan ick singular then plural; `init_fruit_chain` default 
 fid 1; **fruitadd walker D-1520**; **doname_base slime-mold fake_arti D-1521** 
 (`artifact_name(bp,0,FALSE)`; force_the `"the "` else no a/an; xname `:1011` 
-the-strip); bones `goodfruit` / `reorder_fruit` / pager look `spe` still named); 
+the-strip); **reorder_fruit D-1522** (`objnam.c:521–554` `allfr[1+127]`;
+forward TRUE rebuilds low-to-high; out-of-range/dup fid return unsorted;
+impossible pline named — helper is sync; insight.c `#ifdef DEBUG` wizard
+fruit dump still named); bones `goodfruit` / pager look `spe` still named); 
 CHAIN erosion polish / other ball otypes deferred); 
 **`readobjnam_parse_charges` `(N)`/`(R:S)` + wrp[] `wand of X` → oclass/actualn + 
 wand `recharged`** (D-0507; named/called/labeled, o_ranges, glass, fruits, drawbridge (furniture 

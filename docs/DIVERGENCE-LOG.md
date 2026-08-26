@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1522 — objnam.c reorder_fruit fid sort
+
+- **Status:** fixed (map-driven Open from D-1521; not a public FAIL)
+- **Symptom:** `gf.ffruit` stayed in fruitadd prepend order. C
+  `reorder_fruit` rebuilds the chain by fid (`allfr[1+127]`).
+- **C locus:** `objnam.c` `reorder_fruit` `:521–554`. Walk the
+  list into `allfr[fid]`; fid `<1` or `>=128` or duplicate →
+  `impossible` then return unsorted. `gf.ffruit = 0` then
+  insert-at-head: forward TRUE uses `j = k-i` (high→low) so
+  the chain is 1,2,3…; FALSE is 127…1. Caller `insight.c`
+  `:1960–1974` `#ifdef DEBUG` wizard `explicitdebug("fruit")`
+  only — not production ^X.
+- **JS was:** named omit after D-1521; prepend-only `ffruit`.
+- **Fix:** Live `js/objnam.js` `reorder_fruit`. Early-return
+  on bad/dup fid without mutating `nextf`. `impossible` pline
+  named (sync helper, same as missing `fruit_from_indx`).
+  Do not call from enlightenment (DEBUG-only in C). Rule #2:
+  no fs.
+- **JS:** `js/objnam.js` `reorder_fruit`.
+- **Not this iter:** bones `goodfruit`; pager look
+  `spe = current_fruit`; insight DEBUG fruit dump;
+  `doname_vague_quan` `"some "`.
+- **Verified:** private canary **14**/14 (C/JS grep; prepend
+  2,1,3 → forward 1,2,3 / reverse 3,2,1; holes; fid 127;
+  fid 0/128/dup unsorted; empty; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** (no production caller).
+- **Follow-up:** Open `bones.c` `goodfruit`.
+- **Files:** `js/objnam.js`.
+
 ## D-1521 — objnam.c doname_base slime-mold fake_arti
 
 - **Status:** fixed (map-driven Open from D-1520; not a public FAIL)

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` `reorder_fruit` (named). Not fruit_from_indx.
 - [ ] `bones.c` `goodfruit` (named). Not fruit_from_indx.
 - [ ] `pager.c` look SLIME_MOLD `spe = current_fruit` (named). Not xname.
 - [ ] `makemon.c` `set_mimic_sym` altar Align2amask MCORPSENM (named). Not maze/shop.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `timeout.c` `visible_region_summary` (named). Not any_visible_region.
 - [ ] `display.c` `show_region` (named). Not Hallu/Warn_of_mon.
 - [ ] `worm.c` `see_wsegs` (named). Not worm_move.
+- [ ] `invent.c` `getobj` GETOBJ_ALLOWCNT count prefix (named). Not Palantir.
+- [ ] `dog.c` `tamedog` is_covetous (named). Not leftovers.
+- [ ] `sp_lev.c` `create_object` `o->lit` (named). Not mktrap_victim.
+- [ ] `mcastu.c` `mcast_blind_you` EYE (named). Not PSI_BOLT HEAD.
+- [ ] `pickup.c` `observe_quantum_cat` FOOT (named). Not HEAD.
 
 ## Parked (do not pop)
 

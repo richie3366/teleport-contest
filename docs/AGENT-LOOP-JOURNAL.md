@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1522 objnam.c reorder_fruit fid sort
+
+**Objective:** Open `objnam.c` `reorder_fruit` (named). Not
+fruit_from_indx.
+**C locus:** `objnam.c` `reorder_fruit` `:521–554`; caller
+insight.c `#ifdef DEBUG` wizard fruit dump only.
+**JS locus:** `js/objnam.js` `reorder_fruit`.
+**Change:** rebuild `ffruit` by fid (`allfr[1+127]`; forward
+TRUE → 1,2,3…). Bad/dup fid return unsorted. Impossible
+pline named. Do not call from ^X. `goodfruit` / pager `spe`
+named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1910);
+production caller public-unhit.
+**Verified:** canary **14**/14; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `bones.c` `goodfruit`. Not fruit_from_indx.
+**Blocked:** none.
 ## 2026-08-26 — review D-1513–D-1521 (audit #1910)
 
 **Objective:** audit — C-fidelity reviews **474–482** of JS SHAs
