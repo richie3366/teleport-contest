@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `dog.c` `tamedog` `wake_nearto` (named). Not is_covetous. **Addressed:** D-1546
+- [x] `pager.c` getpos fakeobj (named). Not that_is_a_mimic. **Addressed:** D-1547
+
+
+- [x] `dog.c` `tamedog` `wake_nearto` (named). Not is_covetous. **Addressed:** D-1546 `da06ac60`
 
 
 - [x] `worm.c` `detect_wsegs` (named). Not see_wsegs. **Addressed:** D-1545 `adfba7fc`

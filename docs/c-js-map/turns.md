@@ -586,9 +586,11 @@ look_at_monster hallu/health/stuck/leashed/trapped/mhidden;
 `brief_at`/`look_all` live; doname_with_price/`doname_vague_quan` named — doname 
 stand-in; cmap trapped-chest CHEST|LARGE_BOX / glyph_is_body|statue corpsenm 
 named; **`that_is_a_mimic` D-1544** (`uhitm.c:6201–6276`; live `object_from_map` 
-+ defsyms PCHAR desc + `MIM_OMIT_WAIT`; dynamic pager import); `namefloorobj` / 
-`mhidden_description` still named; getpos auto_describe still `look_shown_at` 
-real piles; remembered-gone glyphs without stored otyp named)
++ defsyms PCHAR desc + `MIM_OMIT_WAIT`; dynamic pager import); **getpos fakeobj 
+D-1547** (`lookat` `glyph_is_object` → `look_at_object`; `map_object` stores 
+otyp; gbuf monster wins over memory); `namefloorobj` / `mhidden_description` 
+still named; Hallu random_obj otyp / cmap trapped-chest / glyph_is_body|statue 
+corpsenm / buried-embedded suffixes named)
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 
@@ -624,8 +626,9 @@ Medusa/juiblex/samurai/waterlevel (D-0626/D-0928 #1163;
 **waterbody_name SURFACE_AT/`db_under_typ` D-1103**; 
 DRAWBRIDGE_UP cmap still typ-gated vs C glyph S_pool; 
 altar/engraving + coord_desc deferred) + **shown floor object → 
-`look_shown_at`+`distant_name`/`doname`** (D-0928 #1136; 
-pager `object_from_map` live D-1524; getpos still real piles; 
+`look_at_object` / fakeobj D-1547** (`pager.c` lookat `glyph_is_object`; 
+`map_object` stores otyp so remembered-gone piles fake; unsensed 
+`M_AP_OBJECT` mappearance; displayed monster glyph wins over memory; 
 `doname_with_price` / `doname_vague_quan` / buried-embedded suffixes 
 deferred) + **`getpos_sethilite` force-newsyms + `flush_screen(0)` last-glyph curs** (D-0928 #1137; 
 apply `display_*_positions` call `tmp_at` S_goodpos D-1051; 
@@ -779,7 +782,7 @@ D-1541** (`:500–511` oldfruit fid→fname then fruitadd else; restobjchn
 `:260–261` after next_ident; fruitadd else clone in bones.js — options
 user path stays; impossible pline / age shift named)); **pager look SLIME_MOLD `spe` D-1524** (`pager.c` `object_from_map`
 `:336–343` / `look_at_object`; fake `current_fruit` then mimic MCORPSENM;
-getpos fakeobj / namefloorobj / that_is_a_mimic is D-1544 / ghostfruit is D-1541); 
+getpos fakeobj is D-1547 / namefloorobj named / that_is_a_mimic is D-1544 / ghostfruit is D-1541); 
 CHAIN erosion polish / other ball otypes deferred); 
 **`readobjnam_parse_charges` `(N)`/`(R:S)` + wrp[] `wand of X` → oclass/actualn + 
 wand `recharged`** (D-0507; named/called/labeled, o_ranges, glass, fruits, drawbridge (furniture 
@@ -2277,7 +2280,7 @@ body/Invulnerable/burn_away_slime/`resists_magm` worn scan deferred);
 **`attack_checks`→`stumble_onto_mimic`/`that_is_a_mimic` next_ident** (D-0207); 
 **`that_is_a_mimic` live `object_from_map` / defsyms / `MIM_OMIT_WAIT` D-1544** 
 (`uhitm.c:6201–6276`; gold `quan=2`; furniture PCHAR desc; masked `M_AP_TYPE`; 
-export `otense`; getpos fakeobj / `namefloorobj` / `mhidden_description` / 
+export `otense`; getpos fakeobj is D-1547; `namefloorobj` / `mhidden_description` / 
 trapped-chest cmap on `M_AP_OBJECT` / Eyes `is_plural` named); **`mondied` undead `"destroyed"` + shared `Monnam` saddle** (D-0214); 
 **`hmon` weapon `maybe_knockback`→`mhitm_knockback` `rn2(3)`+`rn2(6)`** (D-0227); 
 **`mattackm` `gv.vis` + `hitmm`/`missmm`/`mondied` cansee gates** (D-0241); 

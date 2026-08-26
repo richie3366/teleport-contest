@@ -786,6 +786,8 @@ function map_object_premap(obj, show) {
     if (game.level?.flags?.hero_memory) {
         lev.remembered_glyph = {
             ch: og.ch, color: og.color, decgfx: !!og.dec,
+            otyp: obj.otyp | 0,
+            boulder: true,
         };
     }
     if (show) show_glyph_cell(x, y, og.ch, og.color, !!og.dec);

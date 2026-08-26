@@ -7,19 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
   RNG **792,838**/792,838 = 100%). seed0367 FULL.
-  **Hypothesis:** next work is Open `pager.c` getpos fakeobj
-  (named). Not that_is_a_mimic. Must-fix empty. D-1546 closed
-  `tamedog` `wake_nearto(mx,my,1)`.
-  **Falsify:** getpos auto-describe uses `object_from_map`
-  fakeobj like C `pager.c` `look_at_object`, not real piles
-  only (`js/getpos.js` named).
-  **Next:** Open getpos fakeobj. Not `namefloorobj` /
-  `mhidden_description`.
-  Do not skip D-1531…D-1546. Do not glue FULL_MOON S_DOG.
+  **Hypothesis:** next work is Open `worm.c` `worm_known`
+  (named). Not detect_wsegs. Must-fix empty. D-1547 closed
+  lookat getpos fakeobj (`look_at_object` / `glyph_to_obj_at`).
+  **Falsify:** `worm_known` matches C `worm.c` (`canseemon`
+  / `canspotmon` / `Blind` / `u.uswallow`), not JS-only
+  `known_wormno` (`js/worm.js` named).
+  **Next:** Open `worm_known`. Not cutworm.
+  Do not skip D-1531…D-1547. Do not glue getpos fakeobj.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`.
-- Named still: getpos fakeobj; `worm_known`;
-  `mhidden_description`; `namefloorobj`. Palantir `#if 0`.
+- Named still: `worm_known`; `mhidden_description`;
+  `namefloorobj`. Palantir `#if 0`.
   CMDQ_INT / pickinv count. `splev_create_monster` RANDOM-only.
   FULL_MOON S_DOG / ustuck / `redraw_worm`. Other
   mcast_spell; sit/pray `eyecount` always-2. muse quantum-loot;
@@ -37,7 +36,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1546.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1547.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -48,9 +47,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1546 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1547 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1546 (index). Do not
+  `confer_oc_oprop`. Do not skip D-1520…D-1547 (index). Do not
   delete emin (review **487**). Do not stub `make_happy_shk` as
   pacify+“calms down” only (D-1540 / **493**). Do not import
   bones→options for fruitadd (D-1541).
@@ -62,16 +61,22 @@ Objective/score live in `CURRENT.md`.
 - Do not import `makemon.js`→`hack.js`/`artifact.js`/`minion.js`.
   No `fruitadd` after objects exist. No fourth town gnome.
   Do not stub door `appear=0` (D-1536) or furnsyms 0..5 (D-1543).
-  Do not glue getpos fakeobj / `namefloorobj` / `mhidden_description`.
-  Do not import `uhitm.js`→`pager.js` statically. Do not zero
-  `cspfx` when `W_ART` (D-1539). Do not candify ghostfruit.
-  Do not skip Light source via `mksobj_at` without `o->lit`.
-  Do not skip `detect_wsegs` `show_glyph` (D-1545) or glue
-  `worm_known`. Do not skip `tamedog` `wake_nearto` (D-1546) or
-  glue FULL_MOON S_DOG / ustuck / `redraw_worm`.
+  Do not glue `namefloorobj` / `mhidden_description`. Do not
+  let remembered-object otyp win over a displayed monster
+  glyph (D-1547). Do not import `uhitm.js`→`pager.js`
+  statically. Do not zero `cspfx` when `W_ART` (D-1539). Do
+  not candify ghostfruit. Do not skip Light source via
+  `mksobj_at` without `o->lit`. Do not skip `detect_wsegs`
+  `show_glyph` (D-1545) or glue `worm_known`. Do not skip
+  `tamedog` `wake_nearto` (D-1546) or glue FULL_MOON S_DOG /
+  ustuck / `redraw_worm`. Do not skip getpos `look_at_object`
+  (D-1547).
 
 ## Landmarks (≤15)
 
+- D-1547: lookat getpos `look_at_object` + `glyph_to_obj_at`
+  (gbuf; displayed mon wins). `map_object` stores otyp.
+  `namefloorobj` / `mhidden_description` named.
 - D-1546: `tamedog` live `wake_nearto(mx,my,1)` (wake_msg +
   STRAT_WAITMASK + disturb; dist2<1). Not local sleep clear.
   FULL_MOON S_DOG / ustuck / `redraw_worm` named.
@@ -80,7 +85,8 @@ Objective/score live in `CURRENT.md`.
   `worm_known` / cutworm / map_monst head pet/detected named.
 - D-1544: `that_is_a_mimic` live `object_from_map` + defsyms
   PCHAR desc + `MIM_OMIT_WAIT`. Dynamic pager import. getpos
-  fakeobj / `namefloorobj` / `mhidden_description` named.
+  fakeobj is D-1547. `namefloorobj` / `mhidden_description`
+  named.
 - D-1543: furnsyms real S_* (`:2490–2497` ROLL_FROM cmap not
   levl.typ). Not stub 0..5. Protection / `block_point` / DELPHI
   named. Door is D-1536.
@@ -104,5 +110,3 @@ Objective/score live in `CURRENT.md`.
   Blinded `H&&!B`.
 - D-1533: `create_object` `o->lit` `begin_burn` after `stackobj`.
   Light source fill is D-1542.
-- D-1532: `tamedog` is_covetous envelope. `make_happy_shk` is
-  D-1540. `wake_nearto` is D-1546.

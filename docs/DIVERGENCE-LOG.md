@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1547 — pager.c lookat getpos fakeobj via look_at_object
+
+- **Status:** fixed (map-driven Open from D-1546; not a public FAIL)
+- **Symptom:** getpos auto_describe / whatis `brief_at` named only live
+  `look_shown_at` piles (`distant_name`/`doname`). C `lookat`
+  `glyph_is_object` calls `look_at_object` → `object_from_map`, so a
+  remembered-gone glyph or unsensed `M_AP_OBJECT` mimic is fakeobj.
+  Named omit after D-1524 / D-1544.
+- **C locus:** `pager.c` `lookat` `:716–717`; `look_at_object`
+  `:380–399`; `object_from_map` `:284–377` (D-1524). Caller
+  `getpos.c` `auto_describe` `:640–661` via `do_screen_description`.
+  Producer `display.c` `map_object` `:333–366` encodes otyp in
+  `levl.glyph`; `display_monster` `M_AP_OBJECT` `:564–575` fake obj
+  → `map_object`. `glyph_at` is gbuf (visible mon wins over memory).
+- **JS was:** getpos `look_shown_at` + `distant_name`; no stored otyp;
+  mimic-as-object described as monster first.
+- **Fix:** `map_object` / mimic memory stamp `otyp`. `glyph_to_obj_at`
+  (C `glyph_to_obj` analogue). getpos `auto_describe_text` + pager
+  `brief_at` call `look_at_object`. Displayed monster glyph returns
+  −1 so memory otyp cannot hide `peaceful` named mons. getpos→pager
+  live-binding (pager already imported getpos). Rule #2: no fs.
+- **JS:** `js/display.js` `glyph_to_obj_at` / `map_object`;
+  `js/getpos.js` `auto_describe_text`; `js/pager.js` `brief_at`;
+  `js/detect.js` premap boulder otyp.
+- **Not this iter:** `namefloorobj`; `mhidden_description`;
+  `doname_with_price` / `doname_vague_quan`; buried/tree/stone
+  suffixes; Hallu `random_obj_to_glyph` otyp; cmap trapped-chest;
+  glyph_is_body/statue corpsenm; look_all remembered-gone.
+  that_is_a_mimic is D-1544. object_from_map is D-1524.
+- **Verified:** private canary **26**/26 (C/JS grep; live not fake;
+  remembered-gone fake spe; mimic name not “mimicking something”;
+  F_DKNOWN mask; Hallu omits otyp; visible mon over memory otyp;
+  no pile leak; no extra core RNG; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until a
+  session farlooks a remembered-gone object or unsensed mimic.
+- **Follow-up:** Open `worm.c` `worm_known`. Not detect_wsegs.
+- **Files:** `js/display.js`, `js/getpos.js`, `js/pager.js`,
+  `js/detect.js`.
+
 ## D-1546 — dog.c tamedog wake_nearto(mx,my,1)
 
 - **Status:** fixed (map-driven Open from D-1545; not a public FAIL)

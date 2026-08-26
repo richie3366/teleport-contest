@@ -7,7 +7,8 @@
 // (OPTIONS_AT_RUNTIME → get_lua_version nhlib shuffle) + display_file
 // dat/* pages + dokeylist/domenucontrols/docontact; data.base lookups for
 // checkfile. object_from_map + look_at_object (SLIME_MOLD spe =
-// current_fruit). Full glyph encyclopedia, whatdoes keyhelp body, and
+// current_fruit). getpos auto_describe / brief_at glyph_is_object
+// fakeobj (D-1547). Full glyph encyclopedia, whatdoes keyhelp body, and
 // PORT_HELP deferred.
 
 import { game } from './gstate.js';
@@ -16,6 +17,7 @@ import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, more,
     mon_glyph, obj_glyph, look_shown_at, terrain_glyph, Hallucination,
+    glyph_to_obj_at,
 } from './display.js';
 import { getlin, yn_function } from './getline.js';
 import {
@@ -676,7 +678,9 @@ export function object_from_map(glyphotyp, x, y) {
 
 /**
  * C ref: pager.c look_at_object `:380–399`.
+ * Callers: lookat / look_all / getpos auto_describe + brief_at (D-1547).
  * doname_with_price / doname_vague_quan named — doname stand-in.
+ * Buried/tree/stone/wall/door/pool suffixes named.
  */
 export function look_at_object(x, y, glyphotyp) {
     const { fakeobj, otmp } = object_from_map(glyphotyp, x, y);
@@ -709,12 +713,13 @@ function brief_at(x, y) {
     if (u.ux === x && u.uy === y) {
         return self_lookat();
     }
+    // C lookat: glyph_is_monster then glyph_is_object (getpos describeAt)
+    const objTyp = glyph_to_obj_at(x, y);
     const mtmp = mon_at(x, y);
-    if (mtmp) {
+    if (mtmp && objTyp < 0) {
         return look_at_monster_buf(mtmp);
     }
-    const top = objects_at(x, y);
-    if (top) return look_at_object(x, y, top.otyp);
+    if (objTyp >= 0) return look_at_object(x, y, objTyp);
     // C lookat glyph_is_trap → trap_description (seen map_trap glyph)
     const trap = t_at(x, y);
     if (trap && trap.tseen) {
