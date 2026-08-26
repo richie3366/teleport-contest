@@ -86,6 +86,7 @@ import {
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
     ARTICLE_A, BOLT_LIM,
     IS_DOOR, IS_WALL, IS_POOL, IS_LAVA,
+    HWALL, TLCORNER, TRWALL, BLCORNER, TDWALL, CROSSWALL, TUWALL,
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
     ROOMOFFSET, LS_MONSTER,
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT, Align2amask,
@@ -250,7 +251,12 @@ const MIMIC_SYMS = [
 // when appear_as overrides (Storeroom). Indices are pchar S_* stubs
 // (S_upstair/S_dnstair/S_altar/S_grave/S_throne/S_sink named).
 const MIMIC_FURNSYMS = [0, 0, 1, 1, 2, 3, 4, 5];
-// C ref: defsym.h PCHAR S_altar — TEMPLE mimic mappearance (not furnsyms stub).
+// C ref: defsym.h PCHAR — door/wall mimic mappearance (D-1536); TEMPLE S_altar
+// (D-1525). furnsyms real S_* still named.
+const S_vwall = 1;
+const S_hwall = 2;
+const S_vcdoor = 15;
+const S_hcdoor = 16;
 const S_altar = 33;
 
 // C ref: do_name.c ghostnames[] / rndghostname
@@ -2524,11 +2530,11 @@ function in_town(x, y) {
 /**
  * C ref: makemon.c set_mimic_sym — ordinary + shop (get_shop_item) +
  * maze/sokoban/in_town statue (D-1517) + TEMPLE S_altar Align2amask
- * MCORPSENM (D-1525).
- * Named omissions: door/wall S_hcdoor, furnsyms real S_* so ROLL_FROM
- * furniture can be S_altar, Protection_from_shape_changers early-out
- * when hero wears the amulet (stubbed false at mklev), block_point,
- * slime-mold flags.made_fruit, nocorpse/hatch/tin Plan-B.
+ * MCORPSENM (D-1525) + door/wall/SDOOR/SCORR S_hcdoor (D-1536).
+ * Named omissions: furnsyms real S_* so ROLL_FROM furniture can be
+ * S_altar, Protection_from_shape_changers early-out when hero wears
+ * the amulet (stubbed false at mklev), block_point, slime-mold
+ * flags.made_fruit, nocorpse/hatch/tin Plan-B.
  */
 export function set_mimic_sym(mtmp) {
     if (!mtmp) return;
@@ -2553,8 +2559,25 @@ export function set_mimic_sym(mtmp) {
         appear = floorObj.otyp;
     } else if (IS_DOOR(typ) || IS_WALL(typ) || typ === SDOOR || typ === SCORR) {
         ap_type = M_AP_FURNITURE;
-        // door/wall glyph pick has no RNG
-        appear = 0;
+        // C: left-connecting wall → S_hcdoor (rogue S_hwall); else
+        // S_vcdoor (rogue S_vwall). mx==0 short-circuits the levl
+        // read. No RNG. Corners of rooms cannot be doors this way.
+        let leftConnects = false;
+        if (mx !== 0) {
+            const leftTyp = game.level?.at?.(mx - 1, my)?.typ ?? 0;
+            leftConnects = leftTyp === HWALL
+                || leftTyp === TLCORNER
+                || leftTyp === TRWALL
+                || leftTyp === BLCORNER
+                || leftTyp === TDWALL
+                || leftTyp === CROSSWALL
+                || leftTyp === TUWALL;
+        }
+        if (leftConnects) {
+            appear = Is_rogue_level(game.u?.uz) ? S_hwall : S_hcdoor;
+        } else {
+            appear = Is_rogue_level(game.u?.uz) ? S_vwall : S_vcdoor;
+        }
     } else if (game.level?.flags?.is_maze_lev
         && !(In_mines(game.u?.uz)
             && in_town(game.u?.ux | 0, game.u?.uy | 0))

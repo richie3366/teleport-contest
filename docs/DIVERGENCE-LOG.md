@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1536 — makemon.c set_mimic_sym door S_hcdoor
+
+- **Status:** fixed (map-driven Open from D-1535; not a public FAIL)
+- **Symptom:** Door/wall/SDOOR/SCORR mimics used `appear=0`
+  (`S_stone`) instead of C’s left-connecting-wall test. Named
+  omit after D-1525 TEMPLE `S_altar`.
+- **C locus:** `makemon.c` `set_mimic_sym` `:2420–2438`.
+  `IS_DOOR || IS_WALL || SDOOR || SCORR` then `mx != 0` and
+  left `typ` in {HWALL, TLCORNER, TRWALL, BLCORNER, TDWALL,
+  CROSSWALL, TUWALL} → `Is_rogue_level` `S_hwall` else
+  `S_hcdoor`; else `S_vwall` / `S_vcdoor`. No RNG. Callers
+  `makemon` S_MIMIC, `mklev.c` dosdoor trapped-door mimic,
+  `mon.c` `m_restartcham`/`restrap`, `zap.c` heal disguised
+  mimic.
+- **JS was:** `appear = 0` with a “no RNG” comment.
+- **Fix:** Port the left-connect chain and rogue wall glyphs.
+  `mx !== 0` short-circuits the left `levl` read. Rule #2:
+  no fs.
+- **JS:** `js/makemon.js` `set_mimic_sym`.
+- **Not this iter:** furnsyms real S_*; Protection_from_shape_changers
+  early-out; `block_point`; DELPHI `S_fountain` stub;
+  nocorpse/hatch/tin Plan-B; `flags.made_fruit`.
+- **Verified:** private canary **22**/22 (C/JS grep; seven
+  connect types; non-connect VWALL/corners; SDOOR/SCORR/wall
+  cell; mx===0; rogue S_hwall/S_vwall; no RNG; TEMPLE door
+  still S_hcdoor; stale MCORPSENM NON_PM; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. Public-unhit (no
+  public session looks at a door mimic’s cmap).
+- **Follow-up:** Open `cmd.c` INTERNALCMD `#altdip`. Not
+  dip_into.
+- **Files:** `js/makemon.js`.
+
 ## D-1535 — pickup.c observe_quantum_cat FOOT
 
 - **Status:** fixed (map-driven Open from D-1534; not a public FAIL)

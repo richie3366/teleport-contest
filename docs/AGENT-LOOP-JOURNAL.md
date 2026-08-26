@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1536 set_mimic_sym door S_hcdoor
+
+**Objective:** Open `makemon.c` `set_mimic_sym` door `S_hcdoor`
+(named). Not furnsyms.
+**C locus:** `makemon.c` `set_mimic_sym` `:2420–2438`.
+**JS locus:** `js/makemon.js` `set_mimic_sym`.
+**Change:** Door/wall/SDOOR/SCORR left-connect HWALL…TUWALL →
+`S_hcdoor` (rogue `S_hwall`); else `S_vcdoor` (`S_vwall`).
+`mx!=0` short-circuit. No RNG. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1920 + D-1531 restore).
+**Verified:** canary **22**/22; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `cmd.c` INTERNALCMD `#altdip`. Not dip_into.
+**Blocked:** none.
 ## 2026-08-26 — D-1535 observe_quantum_cat FOOT
 
 **Objective:** Open `pickup.c` `observe_quantum_cat` FOOT (named).

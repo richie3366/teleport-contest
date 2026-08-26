@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `set_mimic_sym` door `S_hcdoor` (named). Not furnsyms.
 - [ ] `cmd.c` INTERNALCMD `#altdip` (named). Not dip_into.
 - [ ] `dog.c` wander/`somexy` (named). Not is_covetous.
 - [ ] `artifact.c` cspfx W_ART (named). Not SPFX_WARN.

@@ -5,19 +5,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress after D-1535 (Scr **11,405** RNG
+- **Suite 44/44** fortress after D-1536 (Scr **11,405** RNG
   **792,838**/792,838 = 100%, `38+0.30/turn` R² 0.841).
-  seed0367 FULL. `observe_quantum_cat` FOOT live (D-1535).
-  **Hypothesis:** next Open door `S_hcdoor` is still a named omit
-  vs C `makemon.c` `set_mimic_sym` (not furnsyms).
-  **Falsify:** map row + C `set_mimic_sym` door `S_hcdoor` before
-  coding; not a public FAIL peel.
-  **Next:** Open `makemon.c` `set_mimic_sym` door `S_hcdoor`. Not
-  furnsyms. Do not skip D-1535…D-1229. No FORCE / `wildmiss` wrap /
+  seed0367 FULL. Door `S_hcdoor` live (D-1536).
+  **Hypothesis:** next Open `#altdip` is still a named omit
+  vs C `cmd.c` INTERNALCMD (not dip_into).
+  **Falsify:** map row + C `#altdip` before coding; not a
+  public FAIL peel.
+  **Next:** Open `cmd.c` INTERNALCMD `#altdip`. Not dip_into.
+  Do not skip D-1536…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`. pickup `body_part`
-  latebound. Do not delete emin.
+  latebound. Do not delete emin. Furnsyms still named.
 - Named still: `#altdip`; wander/`somexy`; Light source fill;
-  door `S_hcdoor`; furnsyms; cspfx W_ART;
+  furnsyms; cspfx W_ART;
   ghostfruit; getpos fakeobj; `that_is_a_mimic`; detect_wsegs;
   `worm_known`. Palantir `#if 0`. CMDQ_INT / pickinv count /
   `finish_splitting`. `splev_create_monster` RANDOM-only.
@@ -32,7 +32,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1535.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1536.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,11 +43,11 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1535 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1536 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones. Do not skip
-  D-1520…D-1535 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
-  (index). Do not delete emin to fix seed0367 (review **487**).
+  D-1520…D-1536 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
+  /door `S_hcdoor` (index). Do not delete emin to fix seed0367 (review **487**).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
@@ -60,10 +60,13 @@ Objective/score live in `CURRENT.md`.
   No fourth town gnome (D-1513). Do not gate `create_object`
   `o->lit` on tile.lit (mktrap_victim is D-1519). Do not treat
   Blindfolded as C `Blinded` in `mcast_blind_you` (D-1534).
-  Do not import pickup→polyself for FOOT (D-1535).
+  Do not import pickup→polyself for FOOT (D-1535). Do not
+  stub door/wall mimic `appear=0` (D-1536).
 
 ## Landmarks (≤15)
 
+- D-1536: `set_mimic_sym` door/wall `S_hcdoor` left-connect /
+  rogue `S_hwall`. Furnsyms / Protection / `block_point` named.
 - D-1535: `observe_quantum_cat` FOOT latebound + loot/tip/disclose.
   Live leaves spe; `Schroedinger's cat!`. muse/escape HP named.
 - D-1534: `mcast_blind_you` EYE scales + `make_blinded` 200/100;
@@ -86,11 +89,10 @@ Objective/score live in `CURRENT.md`.
 - D-1526: emin roaming after LONG_WORM. Cleric always; angel
   `!rn2(3)`. Pri-loca noalign is D-1531.
 - D-1525: TEMPLE `S_altar`; `MCORPSENM` Align2amask; hellish
-  not minion `Inhell`. Door `S_hcdoor` named.
+  not minion `Inhell`. Door is D-1536.
 - D-1524: look fake SLIME_MOLD `spe=current_fruit`. that_is_a_mimic
   / getpos fakeobj named.
 - D-1523: goodfruit `fruit_from_indx(-id)` then fid=id.
   savefruitchn fid>=0. ghostfruit named.
 - D-1522: reorder_fruit `allfr[1+127]` fid sort. Insight DEBUG
   dump named.
-- D-1521: doname_base slime-mold `fake_arti` `"the "` else no a/an.

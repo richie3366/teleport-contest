@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `pickup.c` `observe_quantum_cat` FOOT (named). Not HEAD. **Addressed:** D-1535
+- [x] `makemon.c` `set_mimic_sym` door `S_hcdoor` (named). Not furnsyms. **Addressed:** D-1536
+
+
+- [x] `pickup.c` `observe_quantum_cat` FOOT (named). Not HEAD. **Addressed:** D-1535 `455020ed`
 
 
 - [x] `mcastu.c` `mcast_blind_you` EYE (named). Not PSI_BOLT HEAD. **Addressed:** D-1534 `289573bc`

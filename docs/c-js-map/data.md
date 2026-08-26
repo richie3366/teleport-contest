@@ -249,7 +249,10 @@ assign_sym/`mkobj`** (D-0262); **D-1517 maze/sokoban/`in_town` statue**
 STATUE; callee `hack.c` `in_town` local clone — hack→trap/mon→makemon; shop is D-0262); 
 **D-1525 TEMPLE `S_altar` Align2amask `MCORPSENM`** (`:2458–2460` / `:2538–2546`; 
 `rn2(3)-1` then `(Inhell && rn2(3)) ? AM_NONE : Align2amask`; Inhell dungeon `hellish` — no minion 
-import; `has_mcorpsenm` stale `NON_PM`; furnsyms still pchar stubs); 
+import; `has_mcorpsenm` stale `NON_PM`); 
+**D-1536 door/wall `S_hcdoor`** (`:2420–2438` left-connect HWALL/TLCORNER/TRWALL/BLCORNER/TDWALL/CROSSWALL/TUWALL 
+→ `S_hcdoor` else `S_vcdoor`; rogue `S_hwall`/`S_vwall`; `mx!=0` short-circuit; no RNG; furnsyms still 
+pchar stubs); 
 **D-0619 MS_NEMESIS `nemgend` + 
 `BELL_OF_OPENING`/`Croesus`/`Pestilence` mitem**; 
 **D-1094 `role_init` quest-pm overlay + mitem `ptr.msound == MS_NEMESIS`**; 
@@ -304,13 +307,14 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **D-1516 `m_initweap` S_LIZARD non-salamander skip + PM_NINJA** (`:270–272` / `:495–499`; live `is_armed`/`mongets`; newt..crocodile `!AT_WEAP`; ninja `rn2(4)` SHURIKEN\|DART then SHORT_SWORD\|AXE); 
 **D-1517 `set_mimic_sym` maze/sokoban/`in_town`** (`:2439–2443`; JS had `!(In_mines)` so non-town mines never statue; C `in_town(u.ux,u.uy)` not mimic cell; Sokoban already skipped `rn2(2)`); 
 **D-1525 `set_mimic_sym` TEMPLE `S_altar` Align2amask `MCORPSENM`** (`:2458–2460` appear `S_altar`; `:2538–2546` `rn2(3)-1` then hellish `Inhell && rn2(3)` `AM_NONE` else `Align2amask`; `has_mcorpsenm` stale `NON_PM`; no minion `Inhell` import); 
+**D-1536 `set_mimic_sym` door/wall `S_hcdoor`** (`:2420–2438`; JS had `appear=0`; C left-connect → `S_hcdoor`/`S_vcdoor` or rogue `S_hwall`/`S_vwall`; `mx!=0` short-circuit); 
 **D-1518 `makemon` dprince MS_BRIBE / raven `BEC_DE_CORBIN`** (`:1397–1404` after sleep/byyou, before LONG_WORM; `is_dprince` live; local `u_wield_art` clone — artifact→display→mkobj cycle; emin is D-1526); 
 **D-1526 `makemon` emin roaming** (`:1410–1428` after LONG_WORM, before `set_malign`; `ALIGNED_CLERIC`/`HIGH_CLERIC` `!(MM_EPRI|MM_EMIN)` always; `ANGEL` `!(MM_EMIN) && !rn2(3)`; `newemin` + `isminion` + `min_align=rn2(3)-1` + `MM_ANGRY?!rn2(3)` renegade + coalign XOR peaceful; live `newemin`/`EMIN`; `mk_roamer`/`priestini` flags skip; **D-1531** Pri-loca noalign caller); 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
 **D-1535 `observe_quantum_cat`** (`pickup.c:2826–2896`; FOOT latebound; use_container/tip TRUE,TRUE; disclose FALSE,FALSE live spe; `Schroedinger's cat!`); muse monster-loot / escape companion HP named; 
-door-wall `S_hcdoor` / furnsyms real S_* / `Protection_from_shape_changers` early-out / `block_point`; 
+furnsyms real S_* / `Protection_from_shape_changers` early-out / `block_point` / DELPHI `S_fountain`; 
 `ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters; 
 egg `attach_egg_hatch_timeout`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
