@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1548 — worm.c worm_known + display.h _canseemon
+
+- **Status:** fixed (map-driven Open from D-1547; not a public FAIL)
+- **Symptom:** `canseemon` treated a long worm as seen only if the
+  **head** was `cansee` or infrared. C `worm_known` is true if **any**
+  `wseg` (including the dummy co-located with the head) is `cansee`.
+  `_canseemon` uses that instead of head sight/infrared when
+  `mon->wormno`. `monkilled` uses the same ternary (not infrared).
+  Named omit after D-1545.
+- **C locus:** `worm.c` `worm_known` `:877–893`. Callers:
+  `display.h` `_canseemon` `:117–120`; `mon.c` `monkilled` `:3384–3385`;
+  `vision.c` `howmonseen` `:2162` (still named).
+- **JS was:** `canseemon` = `cansee(mx,my)||see_with_infrared` +
+  `mon_visible`; `monkilled` = `cansee(head)`; no `worm_known`.
+- **Fix:** Port `worm_known`. Wire `_canseemon` and `monkilled`.
+  Local `_canseemon` clones (trap/muse/mthrowu) and monmove/dig
+  stubs get the `wormno` arm. Infrared-only head does **not** see
+  a tailed worm. Rule #2: no fs.
+- **JS:** `js/worm.js` `worm_known`; `js/display.js` `canseemon`;
+  `js/mhitm.js` `monkilled`; clones in trap/muse/mthrowu/monmove/dig.
+- **Not this iter:** `howmonseen`; cutworm/wormgone/save/rest;
+  `redraw_worm`; muse/mhitu `worm_move` callers; feel_location
+  tails. detect_wsegs is D-1545. see_wsegs is D-1529.
+- **Verified:** private canary **28**/28 (C/JS grep; dummy head
+  sight; tail-visible/head-dark; infrared-only head false for
+  worm / true without wormno; minvis/mundetected; monkilled
+  predicate; no core RNG; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until a
+  live long worm is `canseemon` via a tail cell the head cannot
+  see.
+- **Follow-up:** Open `invent.c` canned CMDQ_INT. Not ALLOWCNT.
+- **Files:** `js/worm.js`, `js/display.js`, `js/mhitm.js`,
+  `js/trap.js`, `js/muse.js`, `js/mthrowu.js`, `js/monmove.js`,
+  `js/dig.js`.
+
 ## D-1547 — pager.c lookat getpos fakeobj via look_at_object
 
 - **Status:** fixed (map-driven Open from D-1546; not a public FAIL)

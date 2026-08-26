@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `worm.c` `worm_known` (named). Not detect_wsegs.
 - [ ] `invent.c` canned CMDQ_INT (named). Not ALLOWCNT.
 - [ ] `cmd.c` INTERNALCMD Eyes `is_plural` (named). Not #altdip.
 - [ ] `sp_lev.c` `splev_create_monster` RANDOM-only (named). Not mk_roamer.

@@ -2,8 +2,8 @@
 // C ref: worm.c — get_wormno, initworm, create_worm_tail, count_wsegs,
 //   place_worm_tail_randomly, place_worm_seg / remove_monster (rm.h),
 //   worm_move / shrink_worm / worm_nomove (D-1491), see_wsegs (D-1529),
-//   detect_wsegs (D-1545).
-// Named omissions: cutworm, wormgone, save/rest wsegs, worm_known;
+//   detect_wsegs (D-1545), worm_known (D-1548).
+// Named omissions: cutworm, wormgone, save/rest wsegs;
 //   muse.c / mhitu.c worm_move callers.
 
 import { game } from './gstate.js';
@@ -13,6 +13,7 @@ import {
 } from './const.js';
 import { goodpos } from './teleport.js';
 import { newsym, show_wseg_detect_glyph, Hallucination } from './display.js';
+import { cansee } from './vision.js';
 import { NUMMONS } from './monsters.js';
 import { PM_LONG_WORM_TAIL } from './generated/monsters_data.js';
 
@@ -255,6 +256,22 @@ export function see_wsegs(worm) {
         newsym(curr.wx, curr.wy);
         curr = curr.nseg;
     }
+}
+
+/**
+ * C ref: worm.c worm_known :877–893 — true if any segment (incl. dummy
+ * co-located with the head) is cansee. Caller must check invisibility
+ * and telepathy (head only). Used by display.h _canseemon when
+ * mon->wormno, mon.c monkilled :3384, vision.c howmonseen :2162.
+ * Does not use infrared (unlike the non-worm canseemon arm).
+ */
+export function worm_known(worm) {
+    let curr = wtails[worm?.wormno | 0];
+    while (curr) {
+        if (cansee(curr.wx, curr.wy)) return true;
+        curr = curr.nseg;
+    }
+    return false;
 }
 
 /**

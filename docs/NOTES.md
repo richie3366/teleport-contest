@@ -7,17 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
   RNG **792,838**/792,838 = 100%). seed0367 FULL.
-  **Hypothesis:** next work is Open `worm.c` `worm_known`
-  (named). Not detect_wsegs. Must-fix empty. D-1547 closed
-  lookat getpos fakeobj (`look_at_object` / `glyph_to_obj_at`).
-  **Falsify:** `worm_known` matches C `worm.c` (`canseemon`
-  / `canspotmon` / `Blind` / `u.uswallow`), not JS-only
-  `known_wormno` (`js/worm.js` named).
-  **Next:** Open `worm_known`. Not cutworm.
-  Do not skip D-1531…D-1547. Do not glue getpos fakeobj.
+  **Hypothesis:** next work is Open `invent.c` canned CMDQ_INT
+  (named). Not ALLOWCNT. Must-fix empty. D-1548 closed
+  `worm_known` (`_canseemon` / `monkilled`).
+  **Falsify:** canned count uses C `invent.c` CMDQ_INT, not a
+  JS-only digit prefix (`js/invent.js` named).
+  **Next:** Open CMDQ_INT. Not pickinv `&ctmp`.
+  Do not skip D-1531…D-1548. Do not glue howmonseen / cutworm.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`.
-- Named still: `worm_known`; `mhidden_description`;
+- Named still: `howmonseen`; cutworm; `mhidden_description`;
   `namefloorobj`. Palantir `#if 0`.
   CMDQ_INT / pickinv count. `splev_create_monster` RANDOM-only.
   FULL_MOON S_DOG / ustuck / `redraw_worm`. Other
@@ -36,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1547.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1548.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -47,9 +46,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1547 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1548 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1547 (index). Do not
+  `confer_oc_oprop`. Do not skip D-1520…D-1548 (index). Do not
   delete emin (review **487**). Do not stub `make_happy_shk` as
   pacify+“calms down” only (D-1540 / **493**). Do not import
   bones→options for fruitadd (D-1541).
@@ -67,13 +66,17 @@ Objective/score live in `CURRENT.md`.
   statically. Do not zero `cspfx` when `W_ART` (D-1539). Do
   not candify ghostfruit. Do not skip Light source via
   `mksobj_at` without `o->lit`. Do not skip `detect_wsegs`
-  `show_glyph` (D-1545) or glue `worm_known`. Do not skip
-  `tamedog` `wake_nearto` (D-1546) or glue FULL_MOON S_DOG /
-  ustuck / `redraw_worm`. Do not skip getpos `look_at_object`
-  (D-1547).
+  `show_glyph` (D-1545). Do not skip `worm_known` in
+  `_canseemon`/`monkilled` (D-1548) or glue `howmonseen` /
+  cutworm / `redraw_worm`. Do not skip `tamedog`
+  `wake_nearto` (D-1546) or glue FULL_MOON S_DOG / ustuck.
+  Do not skip getpos `look_at_object` (D-1547).
 
 ## Landmarks (≤15)
 
+- D-1548: `worm_known` any wseg `cansee`; `_canseemon` skips
+  infrared when `wormno`; `monkilled` same. `howmonseen` /
+  cutworm / `redraw_worm` named.
 - D-1547: lookat getpos `look_at_object` + `glyph_to_obj_at`
   (gbuf; displayed mon wins). `map_object` stores otyp.
   `namefloorobj` / `mhidden_description` named.
@@ -82,7 +85,7 @@ Objective/score live in `CURRENT.md`.
   FULL_MOON S_DOG / ustuck / `redraw_worm` named.
 - D-1545: `detect_wsegs` `what_mon` once + `show_glyph` body
   segs; `map_monst` showtail; `S_WORM_TAIL` class. Not newsym.
-  `worm_known` / cutworm / map_monst head pet/detected named.
+  cutworm / map_monst head pet/detected named.
 - D-1544: `that_is_a_mimic` live `object_from_map` + defsyms
   PCHAR desc + `MIM_OMIT_WAIT`. Dynamic pager import. getpos
   fakeobj is D-1547. `namefloorobj` / `mhidden_description`
@@ -108,5 +111,3 @@ Objective/score live in `CURRENT.md`.
   muse/escape HP named.
 - D-1534: `mcast_blind_you` EYE + `make_blinded` 200/100.
   Blinded `H&&!B`.
-- D-1533: `create_object` `o->lit` `begin_burn` after `stackobj`.
-  Light source fill is D-1542.

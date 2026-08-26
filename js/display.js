@@ -3,7 +3,7 @@
 // D-1219; Hallu classifier D-1221), docrt (in_docrt), cls, flush_screen,
 // suppress_map_output (D-1126), show_region overlay (D-1528),
 // see_wsegs / is_worm_tail (D-1529), detect_wsegs show_wseg_detect_glyph
-// (D-1545),
+// (D-1545), worm_known in canseemon (D-1548),
 // shieldeff (D-1087; sparkle opt_out default On; sit rndcurse caller).
 
 import { game } from './gstate.js';
@@ -91,7 +91,7 @@ import { depth, dist2 } from './hacklib.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { observe_object, near_capacity } from './invent.js';
 import { visible_region_at, show_region } from './region.js';
-import { see_wsegs } from './worm.js';
+import { see_wsegs, worm_known } from './worm.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -304,13 +304,16 @@ export function mon_visible(mon) {
 }
 
 /**
- * C ref: display.h _canseemon — location sight/infrared + mon_visible.
- * Named omission: worm_known for long worms.
+ * C ref: display.h _canseemon :117–120 — wormno ? worm_known
+ * : (cansee(head) || see_with_infrared) && mon_visible.
+ * Infrared is skipped for tailed worms (D-1548).
  */
 export function canseemon(mon) {
-    if (!mon?.mx) return false;
-    if (!(cansee(mon.mx, mon.my) || see_with_infrared(mon))) return false;
-    return mon_visible(mon);
+    if (!mon) return false;
+    const loc_seen = mon.wormno
+        ? worm_known(mon)
+        : (cansee(mon.mx, mon.my) || see_with_infrared(mon));
+    return loc_seen && mon_visible(mon);
 }
 
 /**

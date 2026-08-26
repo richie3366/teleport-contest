@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1548 worm.c worm_known + _canseemon
+
+**Objective:** Open `worm.c` `worm_known` (named). Not detect_wsegs.
+**C locus:** `worm.c` `worm_known` `:877–893`; callers
+`display.h` `_canseemon` `:117–120`; `mon.c` `monkilled` `:3384`.
+**JS locus:** `js/worm.js` `worm_known`; `js/display.js`
+`canseemon`; `js/mhitm.js` `monkilled`.
+**Change:** Any wseg `cansee` (incl. dummy at head). `_canseemon`
+uses it instead of head `cansee`/`infrared` when `wormno`.
+`monkilled` same ternary. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1930).
+**Verified:** canary **28**/28; green+strict seed8000/0900;
+cohort **7**/7 + strict (incl. seed0012).
+**Next:** Open `invent.c` canned CMDQ_INT. Not ALLOWCNT.
+**Blocked:** none.
 ## 2026-08-26 — D-1547 pager.c lookat getpos fakeobj
 
 **Objective:** Open `pager.c` getpos fakeobj (named). Not

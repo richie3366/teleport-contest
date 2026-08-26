@@ -62,15 +62,18 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1930**. **Next cluster:**
-Open `worm.c` `worm_known` (named). Not detect_wsegs.
-**Do not skip D-1531…D-1547 (index).** Keep mention_map addr.
+Open `invent.c` canned CMDQ_INT (named). Not ALLOWCNT.
+**Do not skip D-1531…D-1548 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1547.** Do not FORCE
+**Do not re-break D-0660…D-1548.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1547 (index). Recent: **D-1547**
+**Keep:** D-0845…D-1548 (index). Recent: **D-1548**
+`worm.c` `worm_known` — any `wseg` `cansee`; `_canseemon`
+uses it instead of head `cansee`/`infrared` when `wormno`;
+`monkilled` same ternary. Prior: **D-1547**
 `pager.c` lookat `glyph_is_object` → `look_at_object` for
 getpos auto_describe / brief_at (map_object stores otyp;
 gbuf monster wins over memory). Prior: **D-1546**
@@ -89,7 +92,7 @@ D-1533 `o->lit`. D-1532 is_covetous. D-1531 Pri-loca
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1547
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1548
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -112,9 +115,11 @@ Do not skip Light source via `mksobj_at` without `o->lit`.
 Do not stub furnsyms as 0..5 pchar (D-1543).
 Do not glue `namefloorobj` / `mhidden_description`.
 Do not import `uhitm.js`→`pager.js` statically (pager→uhitm `mon_at`).
-Do not skip `detect_wsegs` show_glyph (not newsym) or glue `worm_known`.
+Do not skip `detect_wsegs` show_glyph (not newsym).
+Do not skip `worm_known` in `_canseemon` / `monkilled` (D-1548)
+or glue `howmonseen` / cutworm / `redraw_worm`.
 Do not skip `tamedog` `wake_nearto` (D-1546) or glue FULL_MOON S_DOG /
-ustuck / `redraw_worm`.
+ustuck.
 Do not let remembered-object otyp win over a displayed monster glyph
 (D-1547; C `glyph_at` is gbuf).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007

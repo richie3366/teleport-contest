@@ -124,7 +124,7 @@ import {
 } from './attrib.js';
 import { tamedog, wary_dog } from './dog.js';
 import { welded, uwepgone, uswapwepgone } from './wield.js';
-import { count_wsegs } from './worm.js';
+import { count_wsegs, worm_known } from './worm.js';
 import { level_difficulty, depth } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
 import { monstseesu, monstunseesu } from './mondata.js';
@@ -1001,11 +1001,13 @@ function t_missile(otyp, trap) {
     return otmp;
 }
 
-// C ref: display.h _canseemon — real vision (was always-true stub).
+// C ref: display.h _canseemon — wormno ? worm_known : cansee||infrared.
 function canseemon(mtmp) {
     if (!mtmp) return false;
-    if (!(cansee(mtmp.mx, mtmp.my) || see_with_infrared(mtmp))) return false;
-    return mon_visible(mtmp);
+    const loc_seen = mtmp.wormno
+        ? worm_known(mtmp)
+        : (cansee(mtmp.mx, mtmp.my) || see_with_infrared(mtmp));
+    return loc_seen && mon_visible(mtmp);
 }
 
 // C ref: mon.c m_in_air — flyer/floater; cling+ceiling mundetected deferred

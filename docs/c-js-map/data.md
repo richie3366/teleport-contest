@@ -65,8 +65,8 @@ mcastu `ureflects` named — no artilist row has cspfx&SPFX_REFLECT);
 **`set_artifact_intrinsic` SPFX_WARN + MATCH_WARN D-1514** (C `artifact.c:824–839` 
 `spec_m2` `:1065–1072` + `hack.h` `MATCH_WARN_OF_MON`; Sting/Orcrist `M2_ORC`, Grimtooth `M2_ELF` 
 → `EWarn_of_mon` + `warntype.obj` + `see_monsters`; else `EWarning`; display `sensemon`/`newsym` 
-see_it / `display_warning` mon_to_glyph; `see_wsegs` D-1529 / polyd·species producer / vision 
-`howmonsseen` / `worm_known` named); 
+see_it / `display_warning` mon_to_glyph; `see_wsegs` D-1529 / polyd·species producer / 
+`worm_known` D-1548; vision `howmonsseen` named); 
 **`set_artifact_intrinsic` cspfx W_ART D-1539** (C `artifact.c:770` 
 `spfx=(wp_mask!=W_ART)?spfx:cspfx` + drop `:771–778` `spfx&=~art->cspfx`; ESP/STLTH/TCTRL/WARN/
 EREGEN/HSPDAM/HPHDAM; MKoT WARN\|TCTRL\|HPHDAM, Orb of Fate WARN\|HSPDAM\|HPHDAM, Heart STLTH, 
@@ -351,11 +351,16 @@ callee `newsym` `is_worm_tail` + `display_monster` `PM_LONG_WORM_TAIL`);
 `:132–133` showtail && `PM_LONG_WORM` always `use_detection_glyph=0`; 
 `monster_detect` TRUE / `do_vicinity_map` FALSE; `what_mon` once then 
 `show_glyph` pet/mon/detected; `S_WORM_TAIL` class maps the long worm); 
-omit cutworm/wormgone, save/rest wsegs, `worm_known`, muse/mhitu 
+**D-1548 `worm_known`** (`worm.c:877–893`; `display.h` `_canseemon` `:117–120` 
+`wormno ? worm_known : cansee||infrared`; callers `mon.c` `monkilled` `:3384` 
++ `vision.c` `howmonseen` `:2162` still named; live `js/worm.js` + 
+`js/display.js` `canseemon` + `js/mhitm.js` `monkilled`; trap/muse/mthrowu 
+clones + monmove/dig stubs); 
+omit cutworm/wormgone, save/rest wsegs, muse/mhitu 
 `worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 
 map_monst head `pet_to_glyph` / `detected_mon_to_glyph` (plain `mon_glyph`); 
-`worm_cross` live; non-worm `level.monsters[][]` still fmon-only
+`worm_cross` live; `howmonseen` named; non-worm `level.monsters[][]` still fmon-only
 
 ### `src/extralev.c`
 
