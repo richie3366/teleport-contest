@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sp_lev.c` `create_object` `o->lit` (named). Not mktrap_victim.
 - [ ] `mcastu.c` `mcast_blind_you` EYE (named). Not PSI_BOLT HEAD.
 - [ ] `pickup.c` `observe_quantum_cat` FOOT (named). Not HEAD.
 - [ ] `makemon.c` `set_mimic_sym` door `S_hcdoor` (named). Not furnsyms.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dog.c` wander/`somexy` (named). Not is_covetous.
 - [ ] `artifact.c` cspfx W_ART (named). Not SPFX_WARN.
 - [ ] `restore.c` `ghostfruit` (named). Not goodfruit.
+- [ ] `themerms.lua` Light source fill oil lamp (named). Not create_object o->lit.
+- [ ] `makemon.c` `set_mimic_sym` furnsyms real S_* (named). Not door S_hcdoor.
+- [ ] `pager.c` `that_is_a_mimic` (named). Not object_from_map.
+- [ ] `worm.c` `detect_wsegs` (named). Not see_wsegs.
+- [ ] `dog.c` `tamedog` `wake_nearto` (named). Not is_covetous.
 
 ## Parked (do not pop)
 

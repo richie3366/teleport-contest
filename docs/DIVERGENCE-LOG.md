@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1533 — sp_lev.c create_object o->lit begin_burn
+
+- **Status:** fixed (map-driven Open from D-1532; not a public FAIL)
+- **Symptom:** `create_object` stacked floor objects then returned,
+  skipping C's `if (o->lit) begin_burn(otmp, FALSE)` after
+  `stackobj`. Lua table `lit` defaulted only by omission (falsy),
+  not the C `get_table_boolean_opt(..., 0)` write. Distinct from
+  D-1519 `mktrap_victim` (`!levl[x][y].lit` after `place_object`).
+- **C locus:** `sp_lev.c` `create_object` `:2422–2426` (inside
+  `!(o->containment & SP_OBJ_CONTENT)` after `stackobj`); producer
+  `lspo_object` `:3640` `tmpobj.lit = get_table_boolean_opt(L,
+  "lit", 0)`. Callee `timeout.c` `begin_burn` `:1712–1797`
+  (D-0978). Only upstream lua: `themerms.lua` Light source
+  `des.object({ id = "oil lamp", lit = true })`.
+- **JS was:** `stackobj` then return; comment named `lit begin_burn`.
+  `begin_burn` already imported (D-1519).
+- **Fix:** After `stackobj`, `if (o.lit) begin_burn(otmp, false)`.
+  `l_create_object` `tmp.lit == null` → 0. Content objects still
+  skip the whole block. Gate is `o->lit`, not tile light. Rule #2:
+  no fs.
+- **JS:** `js/mklev.js` `create_object` / `l_create_object`. Live
+  `timeout.js` `begin_burn`.
+- **Not this iter:** themerms Light source fill body; buried
+  `bury_an_obj`; oname/novelidx; quan>0 oc_merge; recharged;
+  tknown; achievement prizes; Medusa statue fill;
+  invent_carrying_monster / saddle.
+- **Verified:** private canary **12**/12 (C/JS grep; oil lamp
+  `lit:true` lights on a **lit** tile; omitted lit skips; tallow
+  same arm; `SP_OBJ_CONTENT` skips; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. Public-unhit (`begin_burn`
+  silent; no loader passes `lit` yet).
+- **Follow-up:** Open `mcastu.c` `mcast_blind_you` EYE. Not
+  PSI_BOLT HEAD.
+- **Files:** `js/mklev.js`.
+
 ## D-1532 — dog.c tamedog is_covetous reject envelope
 
 - **Status:** fixed (map-driven Open from D-1531; not a public FAIL)

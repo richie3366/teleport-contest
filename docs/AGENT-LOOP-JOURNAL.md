@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1533 create_object o->lit begin_burn
+
+**Objective:** Open `sp_lev.c` `create_object` `o->lit` (named).
+Not mktrap_victim.
+**C locus:** `sp_lev.c` `create_object` `:2425–2426` after
+`stackobj`; producer `lspo_object` `:3640` lit default 0.
+**JS locus:** `js/mklev.js` `create_object` / `l_create_object`.
+**Change:** `if (o.lit) begin_burn(otmp, false)` after stackobj
+(not tile.lit). Table `lit` defaults 0. Light source fill named.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1920 + D-1531 restore).
+**Verified:** canary **12**/12; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `mcastu.c` `mcast_blind_you` EYE. Not PSI_BOLT HEAD.
+**Blocked:** none.
 ## 2026-08-26 — D-1532 tamedog is_covetous
 
 **Objective:** Open `dog.c` `tamedog` is_covetous (named). Not leftovers.

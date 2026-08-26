@@ -5,20 +5,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress after D-1532 (Scr **11,405** RNG
+- **Suite 44/44** fortress after D-1533 (Scr **11,405** RNG
   **792,838**/792,838 = 100%, `38+0.30/turn` R² 0.841).
-  seed0367 FULL. `tamedog` is_covetous live (D-1532).
-  **Hypothesis:** next Open `create_object` `o->lit` is still a
-  named omit vs C `sp_lev.c` `create_object` (not mktrap_victim
-  D-1519).
-  **Falsify:** map row + C `create_object` `o->lit` `begin_burn`
+  seed0367 FULL. `create_object` `o->lit` live (D-1533).
+  **Hypothesis:** next Open `mcast_blind_you` EYE is still a
+  named omit vs C `mcastu.c` `mcast_blind_you` (not PSI_BOLT
+  HEAD D-1508).
+  **Falsify:** map row + C `mcast_blind_you` `body_part(EYE)`
   before coding; not a public FAIL peel.
-  **Next:** Open `sp_lev.c` `create_object` `o->lit`. Not
-  mktrap_victim. Do not skip D-1532…D-1229. No FORCE /
-  `wildmiss` wrap / trailing `confdir` in shared `getdir`.
-  pickup `body_part` latebound. Do not delete emin.
-- Named still: `#altdip`; wander/`somexy`; `o->lit`; door
-  `S_hcdoor`; furnsyms; `mcast_blind_you` EYE; quantum-cat
+  **Next:** Open `mcastu.c` `mcast_blind_you` EYE. Not PSI_BOLT
+  HEAD. Do not skip D-1533…D-1229. No FORCE / `wildmiss` wrap
+  / trailing `confdir` in shared `getdir`. pickup `body_part`
+  latebound. Do not delete emin.
+- Named still: `#altdip`; wander/`somexy`; Light source fill;
+  door `S_hcdoor`; furnsyms; `mcast_blind_you` EYE; quantum-cat
   FOOT; cspfx W_ART; ghostfruit; getpos fakeobj;
   `that_is_a_mimic`; detect_wsegs; `worm_known`. Palantir
   `#if 0`. CMDQ_INT / pickinv count / `finish_splitting`.
@@ -32,7 +32,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1532.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1533.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,10 +43,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1532 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1533 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones. Do not skip
-  D-1520…D-1532 fruit/emin/`mk_roamer`/`tamedog` is_covetous
+  D-1520…D-1533 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`
   (index). Do not delete emin to fix seed0367 (review **487**).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
@@ -57,10 +57,13 @@ Objective/score live in `CURRENT.md`.
   or `makemon.js`→`artifact.js` for `u_wield_art` (D-1518)
   or `makemon.js`→`minion.js` for `Inhell` (hellish). No
   `fruitadd` after objects exist; `init_fruit_chain` only.
-  No fourth town gnome (D-1513).
+  No fourth town gnome (D-1513). Do not gate `create_object`
+  `o->lit` on tile.lit (mktrap_victim is D-1519).
 
 ## Landmarks (≤15)
 
+- D-1533: `create_object` `o->lit` `begin_burn` after
+  `stackobj`. Table lit default 0. Light source fill named.
 - D-1532: `tamedog` is_covetous + is_demon-vs-hero / quest
   leader / blessed +2 / `make_happy_shk` / givemsg / `mon_wield`.
   `wake_nearto` / FULL_MOON S_DOG / ustuck named.
@@ -88,5 +91,3 @@ Objective/score live in `CURRENT.md`.
 - D-1520: fruitadd objnam `fruit_from_name` FALSE + max fid.
 - D-1519: gnome trap-victim candle `begin_burn` after
   `place_object` if `!lit`. Not minvent D-1506.
-- D-1518: `is_dprince && MS_BRIBE` peace+invis; raven+bec peace.
-  Local `u_wield_art`.

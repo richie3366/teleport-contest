@@ -11312,9 +11312,10 @@ function get_location_coord(humidity, croom, rx, ry) {
  * C ref: sp_lev.c create_object (~2193–2439).
  * Named omit: oname / novelidx; quan>0 oc_merge; recharged; tknown;
  * invent_carrying_monster / saddle; artifact uncreate when container_obj
- * is NULL; Medusa statue fill; achievement prizes; lit begin_burn;
- * buried bury_an_obj; class-letter def_char_to_objclass (id-less
- * RANDOM_CLASS / mkobj_at oclass still work).
+ * is NULL; Medusa statue fill; achievement prizes; buried bury_an_obj;
+ * class-letter def_char_to_objclass (id-less RANDOM_CLASS / mkobj_at
+ * oclass still work). themerms Light source fill still named (only
+ * lua that sets lit=true; this arm is live when a loader passes lit).
  */
 function create_object(o, croom) {
     const named = !!(o.name);
@@ -11413,7 +11414,13 @@ function create_object(o, croom) {
         }
     }
 
-    if (!(containment & SP_OBJ_CONTENT)) stackobj(otmp);
+    if (!(containment & SP_OBJ_CONTENT)) {
+        stackobj(otmp);
+        // C sp_lev.c create_object :2425–2426 — after stackobj, not
+        // levl[x][y].lit (mktrap_victim is D-1519).
+        if (o.lit)
+            begin_burn(otmp, false);
+    }
     return otmp;
 }
 
@@ -11516,6 +11523,8 @@ export function l_create_object(o, contentsFn, croom = null) {
     if (tmp.curse_state == null) tmp.curse_state = 0;
     if (tmp.rx == null) tmp.rx = -1;
     if (tmp.ry == null) tmp.ry = -1;
+    // C lspo_object: get_table_boolean_opt(L, "lit", 0)
+    if (tmp.lit == null) tmp.lit = 0;
     if (tmp.corpsenm == null) tmp.corpsenm = NON_PM;
     if ((tmp.class == null || tmp.class < 0) && (tmp.id | 0) > 0) {
         const oc = game.objects?.[tmp.id]?.oc_class;

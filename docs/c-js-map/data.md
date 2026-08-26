@@ -363,7 +363,7 @@ JS: `js/mklev.js` — partial
 
 Ordinary level path substantial; **`fill_ordinary_room` nsubrooms recursion before needfill** 
 (D-0917); mineralize bury-vs-place (D-0014); 
-`mktrap_victim` place_object ammo/possessions (D-0016) + **D-1519 floor gnome candle `begin_burn`** (`mklev.c:1918–1919` after `place_object`, `!levl[x][y].lit` → live `timeout.js` `begin_burn`; not `m_initinv` D-1506; `create_object` `o->lit` named); 
+`mktrap_victim` place_object ammo/possessions (D-0016) + **D-1519 floor gnome candle `begin_burn`** (`mklev.c:1918–1919` after `place_object`, `!levl[x][y].lit` → live `timeout.js` `begin_burn`; not `m_initinv` D-1506; **D-1533** `create_object` `o->lit`); 
 **`set_wall_state`/`xy_set_wall_state`** (D-0038); 
 **`makeniche` → real `mkclass(S_HUMAN)`** (D-0053); 
 supply-chest **`SPBOOK_no_NOVEL`** (D-0055) + **`add_to_container` fill + 
@@ -391,7 +391,7 @@ C `sokoban_rules=0`); **`fill_lvl`→`makemaz(minefill)` +
 tut_key/eckey/Knight jump/leave-invent/`map_location` tseen/`add_to_container` merge deferred); 
 **occupied invocation_pos** (D-1154); omit other fill *bodies*, nested `des.room` bodies beyond 
 Nesting/Fake Delphi/Huge/… outer sizes, `join` arboreal→ROOM, Lua `post_level_generate` postprocess 
-queue, `mkgrave_room` bury, `create_object` `o->lit` `begin_burn` (sp_lev.c; mktrap_victim is D-1519); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
+queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; themerms Light source fill still named); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
 **D-0906 `hellfill`+`create_maze`/`LVLINIT_MAZE`** (seed4500 **32538→49776** Scr **459**; 
 **hellfill Invocation_lev VS** (D-1154 `pick_vibrasquare_location`+`maketrap`); 
 rnd_hell_prefab/`makemaz("")`/fakewiz deferred); empty `makemaz("")`; Is_special/quest fill; 
