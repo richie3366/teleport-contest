@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `set_mimic_sym` DELPHI `S_fountain` (named). Not furnsyms.
 - [ ] `makemon.c` `set_mimic_sym` `block_point` (named). Not DELPHI.
 - [ ] `artifact.c` SEARCH/REGEN/XRAY conferral (named). Not cspfx.
 - [ ] `invent.c` `display_pickinv` `&ctmp` menu count (named). Not CMDQ_INT.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `pickup.c` stash getobj ALLOWCNT (named). Not CMDQ_INT.
 - [ ] `vision.c` `howmonseen` (named). Not worm_known.
 - [ ] `cmd.c` getobj CQ_REPEAT / `in_doagain` (named). Not canned CMDQ_INT.
+- [ ] `makemon.c` `set_mimic_sym` Protection_from_shape_changers early-out (named). Not DELPHI. Not block_point.
+- [ ] `makemon.c` `set_mimic_sym` slime-mold `flags.made_fruit` (named). Not DELPHI.
+- [ ] `makemon.c` `set_mimic_sym` nocorpse/hatch/tin Plan-B (named). Not DELPHI.
+- [ ] `makemon.c` `clone_mon` `place_monster` 2D grid (named). Not HP split.
+- [ ] `makemon.c` `rndmonst_adj` rogue/elem filters (named). Not mkclass.
 
 ## Parked (do not pop)
 

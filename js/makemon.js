@@ -249,7 +249,8 @@ const MIMIC_SYMS = [
     S_MIMIC_DEF_SYM, S_MIMIC_DEF_SYM,
 ];
 // C ref: defsym.h PCHAR — door/wall mimic mappearance (D-1536); TEMPLE
-// S_altar (D-1525); furnsyms ROLL_FROM (D-1543).
+// S_altar (D-1525); furnsyms ROLL_FROM (D-1543); DELPHI S_fountain
+// (D-1556).
 const S_vwall = 1;
 const S_hwall = 2;
 const S_vcdoor = 15;
@@ -260,6 +261,7 @@ const S_altar = 33;
 const S_grave = 34;
 const S_throne = 35;
 const S_sink = 36;
+const S_fountain = 37; // defsym.h PCHAR — DELPHI mimic (D-1556)
 // C ref: makemon.c set_mimic_sym furnsyms[] :2491–2494
 const MIMIC_FURNSYMS = [
     S_upstair, S_upstair, S_dnstair, S_dnstair,
@@ -2542,11 +2544,10 @@ function in_town(x, y) {
  * C ref: makemon.c set_mimic_sym — ordinary + shop (get_shop_item) +
  * maze/sokoban/in_town statue (D-1517) + TEMPLE S_altar Align2amask
  * MCORPSENM (D-1525) + door/wall/SDOOR/SCORR S_hcdoor (D-1536) +
- * furnsyms real S_* (D-1543).
+ * furnsyms real S_* (D-1543) + DELPHI S_fountain (D-1556).
  * Named omissions: Protection_from_shape_changers early-out when
  * hero wears the amulet (stubbed false at mklev), block_point,
- * DELPHI S_fountain, slime-mold flags.made_fruit, nocorpse/hatch/tin
- * Plan-B.
+ * slime-mold flags.made_fruit, nocorpse/hatch/tin Plan-B.
  */
 export function set_mimic_sym(mtmp) {
     if (!mtmp) return;
@@ -2606,12 +2607,13 @@ export function set_mimic_sym(mtmp) {
         ap_type = M_AP_OBJECT;
         appear = GOLD_PIECE;
     } else if (rt === DELPHI) {
+        // C: rn2(2) STATUE else M_AP_FURNITURE S_fountain (cmap 37).
         if (rn2(2)) {
             ap_type = M_AP_OBJECT;
             appear = STATUE;
         } else {
             ap_type = M_AP_FURNITURE;
-            appear = 0; // S_fountain stub
+            appear = S_fountain;
         }
     } else if (rt === TEMPLE) {
         ap_type = M_AP_FURNITURE;

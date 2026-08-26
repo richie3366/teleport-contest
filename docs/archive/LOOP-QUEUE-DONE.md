@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `do_name.c` `namefloorobj` (named). Not that_is_a_mimic. **Addressed:** D-1555
+- [x] `makemon.c` `set_mimic_sym` DELPHI `S_fountain` (named). Not furnsyms. **Addressed:** D-1556
+
+
+- [x] `do_name.c` `namefloorobj` (named). Not that_is_a_mimic. **Addressed:** D-1555 `1c43e64c`
 
 
 - [x] `pager.c` `mhidden_description` (named). Not that_is_a_mimic. **Addressed:** D-1554 `1918ea61`

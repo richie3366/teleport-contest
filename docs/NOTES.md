@@ -7,18 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1940** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `39+0.32/turn`). seed0367 FULL.
-  **Hypothesis:** Open `makemon.c` `set_mimic_sym` DELPHI
-  `S_fountain` is still named (not furnsyms). `namefloorobj` is
-  D-1555. `mhidden_description` is D-1554.
-  **Falsify:** `node scripts/csym.mjs` set_mimic_sym vs
-  `js/makemon.js` DELPHI fountain arm.
-  **Next:** Open DELPHI `S_fountain`. Not furnsyms. Not
-  `block_point`.
-  Do not skip D-1531…D-1555. Do not glue howmonseen / cutworm.
+  **Hypothesis:** Open `makemon.c` `set_mimic_sym` `block_point`
+  is still named (`does_block`/`fill_point` absent). DELPHI
+  `S_fountain` is D-1556. Furnsyms is D-1543.
+  **Falsify:** `node scripts/csym.mjs` block_point / does_block
+  vs `js/makemon.js` end of `set_mimic_sym`.
+  **Next:** Open `block_point`. Not DELPHI. Not Protection.
+  Do not skip D-1531…D-1556. Do not glue howmonseen / cutworm.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`.
-- Named still: `howmonseen`; cutworm; DELPHI `S_fountain`;
-  `block_point`. Palantir `#if 0`.
+- Named still: `howmonseen`; cutworm; `block_point`;
+  Protection early-out; `made_fruit`; Plan-B. Palantir `#if 0`.
   pickinv `&ctmp`; `finish_splitting`; stash getobj;
   `in_doagain` REPEAT; eat/read/zap/tin NOFLAGS getobj.
   `mk_mplayer` role-id.
@@ -27,9 +26,9 @@ Objective/score live in `CURRENT.md`.
   escape cat HP. other INTERNALCMD.
   defn/cary resist; SEARCH/REGEN/XRAY/PROTECT; inv_prop drop;
   questart `artitouch`. shk mnearto / occupancy / losedogs.
-  ghostfruit impossible / age. Ice/Boulder fills. Protection /
-  `block_point` / DELPHI `S_fountain`. map_monst head
-  pet/detected glyphs.
+  ghostfruit impossible / age. Ice/Boulder fills.
+  `rndmonst_adj` rogue/elem; `place_monster` 2D.
+  map_monst head pet/detected glyphs.
 
 ## Don't re-check (≤15)
 
@@ -38,7 +37,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1555.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1556.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -49,9 +48,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1555 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1556 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1555 (index). Do not
+  `confer_oc_oprop`. Do not skip D-1520…D-1556 (index). Do not
   delete emin (review **487**). Do not stub `make_happy_shk` as
   pacify+“calms down” only (D-1540 / **493**). Do not import
   bones→options for fruitadd (D-1541).
@@ -62,7 +61,8 @@ Objective/score live in `CURRENT.md`.
   `body_part` (use `objnam.js` `body_part_latebound`).
 - Do not import `makemon.js`→`hack.js`/`artifact.js`/`minion.js`.
   No `fruitadd` after objects exist. No fourth town gnome.
-  Do not stub door `appear=0` (D-1536) or furnsyms 0..5 (D-1543).
+  Do not stub door `appear=0` (D-1536) or furnsyms 0..5 (D-1543)
+  or DELPHI `appear=0` (D-1556).
   `namefloorobj` is D-1555. `mhidden_description` is D-1554. Do not
   let remembered-object otyp win over a displayed monster
   glyph (D-1547). Do not import `uhitm.js`→`pager.js`
@@ -81,10 +81,14 @@ Objective/score live in `CURRENT.md`.
   skip `splev_create_monster` amask (D-1553) or stub
   `mk_mplayer` / always `induced_align(80)`. Do not skip
   `mhidden_description` (D-1554) or `namefloorobj` (D-1555).
+  Do not stub DELPHI `appear=0` (D-1556).
   Do not re-clone `call_ok` in iactions.
 
 ## Landmarks (≤15)
 
+- D-1556: DELPHI `set_mimic_sym` `S_fountain=37` not stub 0.
+  `rn2(2)` STATUE else furniture cmap. Not furnsyms. Door first.
+  `block_point` / Protection / Plan-B / `made_fruit` named.
 - D-1555: `namefloorobj` getpos + vobj_at / object_from_map +
   Hallu unames + `call_ok`/`objtyp_is_callable` at C home.
   iactions imports. Fakeobj OBJ_FREE. docallcmd m/o/d named.
@@ -123,9 +127,7 @@ Objective/score live in `CURRENT.md`.
   PCHAR desc + `MIM_OMIT_WAIT`. Dynamic pager import. getpos
   fakeobj is D-1547. `namefloorobj` is D-1555. mhidden is D-1554.
 - D-1543: furnsyms real S_* (`:2490–2497` ROLL_FROM cmap not
-  levl.typ). Not stub 0..5. Protection / `block_point` / DELPHI
-  named. Door is D-1536.
+  levl.typ). Not stub 0..5. Protection / `block_point` named.
+  DELPHI is D-1556. Door is D-1536.
 - D-1542: themerms Light source `l_create_object` OIL_LAMP
   `lit=true` (Lua `:204–209`). Not `mksobj_at`. `o->lit` is D-1533.
-- D-1541: `ghostfruit` oldfruit fid→fname then fruitadd else
-  (no `current_fruit`). Clone in bones.js. goodfruit is D-1523.

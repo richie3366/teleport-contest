@@ -2415,8 +2415,9 @@ function is_plural_that(otmp) {
 
 /**
  * C drawing.c defsyms[].explanation — PCHAR desc, not PCHAR2 tilenm
- * (defsym.h PCHAR_DRAWING). Furniture mimics use 1–2/15–16/25–26/33–36;
- * DELPHI stub 0. Ice/pool/trap cmap except S_trapped_chest named.
+ * (defsym.h PCHAR_DRAWING). Furniture mimics use 1–2/15–16/25–26/33–37
+ * (DELPHI S_fountain is D-1556). Ice/pool/trap cmap except
+ * S_trapped_chest named.
  */
 const DEFSYM_EXPLANATION = [
     'stone', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall',

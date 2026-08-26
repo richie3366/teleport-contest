@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1556 makemon.c set_mimic_sym DELPHI S_fountain
+
+**Objective:** Open DELPHI `S_fountain`. Not furnsyms. Not
+`block_point`.
+**C locus:** `makemon.c` `set_mimic_sym` `:2450–2456`.
+**JS locus:** `js/makemon.js` `set_mimic_sym` (was `appear=0`).
+**Change:** Local `S_fountain=37`; DELPHI furniture uses it.
+No new RNG. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1940).
+**Verified:** canary **23**/23; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `block_point`. Not DELPHI.
+**Blocked:** none.
 ## 2026-08-26 — D-1555 do_name.c namefloorobj
 
 **Objective:** Open `namefloorobj`. Not that_is_a_mimic.

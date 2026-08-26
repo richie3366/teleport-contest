@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1556 — makemon.c set_mimic_sym DELPHI S_fountain
+
+- **Status:** fixed (map-driven Open from D-1555; not a public FAIL)
+- **Symptom:** Delphi-room mimics used `appear = 0` (`S_stone`)
+  on the furniture arm after D-1543. C is `S_fountain` (cmap 37).
+  Named omit after furnsyms real S_*. `that_is_a_mimic` /
+  `mhidden_description` already explain index 37 as "fountain".
+- **C locus:** `makemon.c` `set_mimic_sym` `:2450–2456`. After
+  ZOO/VAULT, before TEMPLE. `rn2(2)` STATUE else
+  `M_AP_FURNITURE` `appear = S_fountain`. `defsym.h` PCHAR 37.
+  Fountain is not `S_altar`, so no Align2amask; stale
+  `has_mcorpsenm` → `NON_PM`. Callers unchanged (makemon
+  S_MIMIC, mklev dosdoor, `m_restartcham`/`restrap`, zap heal).
+  Door/wall arm still precedes `rt`. Furnsyms `[]` still has no
+  fountain.
+- **JS was:** `appear = 0; // S_fountain stub` with the
+  `rn2(2)` STATUE fork already live (RNG matched; glyph did not).
+- **Fix:** Local `S_fountain = 37`; DELPHI furniture
+  `appear = S_fountain`. No new RNG. Rule #2: no fs.
+- **JS:** `js/makemon.js` `set_mimic_sym`; `js/uhitm.js`
+  defsyms comment (table already had fountain).
+- **Not this iter:** Protection_from_shape_changers early-out;
+  `block_point` (`does_block` / `fill_point` absent); nocorpse/
+  hatch/tin Plan-B; `flags.made_fruit`.
+- **Verified:** private canary **23**/23 (C/JS grep; both STATUE
+  and S_fountain; not stub 0; no altar amask; stale NON_PM;
+  fountain only `rn2(2)`; OROOM furnsyms never 37; TEMPLE still
+  S_altar; door still S_hcdoor including in a DELPHI room; Rule
+  #2); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `makemon.c` `set_mimic_sym` `block_point`.
+  Not DELPHI.
+- **Files:** `js/makemon.js`, `js/uhitm.js`.
+
 ## D-1555 — do_name.c namefloorobj (getpos / call_ok / Hallu unames)
 
 - **Status:** fixed (map-driven Open from D-1554; not a public FAIL)
