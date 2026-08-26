@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — review D-1549–D-1557 (audit #1950)
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **509**;
+cadence score. No `js/` edits.
+**C locus:** `detect.c` `map_monst` mndx; trap `monkilled`;
+`invent.c` canned CMDQ_INT; Eyes `is_plural`; splev amask;
+`mhidden_description`; `namefloorobj`; DELPHI `S_fountain`;
+`set_mimic_sym` `does_block`/`block_point`.
+**JS locus:** reviews **510–518** (`34013957`…`0f5e4df5`).
+**Change:** ACCEPT-WITH-DEBT 510–518. No QUALITY-RISK. Must-fix
+empty. D-log “no `m_at`” is occupancy-grid debt, not TDZ
+(`imports --can` SAFE).
+**Score:** **44**/44 Scr **11,405** RNG **792,838**
+`36+0.31/turn` (R² 0.854) at `0f5e4df5`.
+**Verified:** cadence `__RESULTS_JSON__`; `check-hot-docs --review 510-518`.
+**Next:** Open SEARCH/REGEN/XRAY conferral. Not cspfx.
+**Blocked:** none.
 ## 2026-08-26 — D-1557 makemon.c set_mimic_sym block_point
 
 **Objective:** Open `block_point`. Not DELPHI. Not Protection.

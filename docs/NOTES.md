@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress after audit **#1940** (Scr **11,405**
-  RNG **792,838**/792,838 = 100%; `39+0.32/turn`). seed0367 FULL.
+- **Suite 44/44** fortress after audit **#1950** (Scr **11,405**
+  RNG **792,838**/792,838 = 100%; `36+0.31/turn`). seed0367 FULL.
   **Hypothesis:** Open `artifact.c` SEARCH/REGEN/XRAY conferral
   is still named (cspfx W_ART is D-1539). `block_point` is
   D-1557. DELPHI is D-1556.

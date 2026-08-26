@@ -520,3 +520,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [507-da06ac60-tamedog-wake-nearto.md](./507-da06ac60-tamedog-wake-nearto.md) | `da06ac60` | D-1546 tamedog wake_nearto(mx,my,1) | **ACCEPT-WITH-DEBT** |
 | [508-0461e305-lookat-look-at-object.md](./508-0461e305-lookat-look-at-object.md) | `0461e305` | D-1547 lookat getpos look_at_object | **ACCEPT-WITH-DEBT** |
 | [509-9b53440e-worm-known.md](./509-9b53440e-worm-known.md) | `9b53440e` | D-1548 worm_known trap monkilled clone | **QUALITY-RISK** |
+| [510-34013957-map-monst-mndx.md](./510-34013957-map-monst-mndx.md) | `34013957` | D-1549 map_monst / monster_detect mndx | **ACCEPT-WITH-DEBT** |
+| [511-27feb511-trap-monkilled.md](./511-27feb511-trap-monkilled.md) | `27feb511` | D-1550 trap monkilled worm_known | **ACCEPT-WITH-DEBT** |
+| [512-73321d0c-getobj-cmdq-int.md](./512-73321d0c-getobj-cmdq-int.md) | `73321d0c` | D-1551 getobj canned CMDQ_INT | **ACCEPT-WITH-DEBT** |
+| [513-4383ae0a-is-plural-eyes.md](./513-4383ae0a-is-plural-eyes.md) | `4383ae0a` | D-1552 is_plural Eyes + artidisco | **ACCEPT-WITH-DEBT** |
+| [514-9ed46432-splev-amask-mk-roamer.md](./514-9ed46432-splev-amask-mk-roamer.md) | `9ed46432` | D-1553 splev amask + mk_roamer | **ACCEPT-WITH-DEBT** |
+| [515-1918ea61-mhidden-description.md](./515-1918ea61-mhidden-description.md) | `1918ea61` | D-1554 mhidden_description | **ACCEPT-WITH-DEBT** |
+| [516-1c43e64c-namefloorobj.md](./516-1c43e64c-namefloorobj.md) | `1c43e64c` | D-1555 namefloorobj | **ACCEPT-WITH-DEBT** |
+| [517-f8a7cea2-delphi-s-fountain.md](./517-f8a7cea2-delphi-s-fountain.md) | `f8a7cea2` | D-1556 DELPHI S_fountain | **ACCEPT-WITH-DEBT** |
+| [518-0f5e4df5-block-point.md](./518-0f5e4df5-block-point.md) | `0f5e4df5` | D-1557 does_block / block_point | **ACCEPT-WITH-DEBT** |

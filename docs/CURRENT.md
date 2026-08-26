@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-26** — full `sessions` at **D-1548**
-HEAD `9b53440e` (**audit #1940**; next **#1950**). **44**/44,
+Score last measured: **2026-08-26** — full `sessions` at **D-1557**
+HEAD `0f5e4df5` (**audit #1950**; next **#1960**). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `39+0.32/turn` (R² 0.851). Fortress held: seed0367 FULL.
-Prior audit **#1930** was 44/44 at `719506a4`.
+Speed `36+0.31/turn` (R² 0.854). Fortress held: seed0367 FULL.
+Prior audit **#1940** was 44/44 at `9b53440e`.
 
 ## Score
 
@@ -33,7 +33,7 @@ Prior audit **#1930** was 44/44 at `719506a4`.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `39+0.32/turn` (R² 0.851) |
+| Speed label | `36+0.31/turn` (R² 0.854) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -61,7 +61,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after audit **#1940**. **Next cluster:**
+**Suite 44/44** fortress after audit **#1950**. **Next cluster:**
 Open `artifact.c` SEARCH/REGEN/XRAY conferral (named). Not
 cspfx. Not Protection.
 **Do not skip D-1531…D-1557 (index).** Keep mention_map addr.
