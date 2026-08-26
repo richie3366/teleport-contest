@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` canned CMDQ_INT (named). Not ALLOWCNT.
 - [ ] `cmd.c` INTERNALCMD Eyes `is_plural` (named). Not #altdip.
 - [ ] `sp_lev.c` `splev_create_monster` RANDOM-only (named). Not mk_roamer.
 - [ ] `pager.c` `mhidden_description` (named). Not that_is_a_mimic.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `makemon.c` `set_mimic_sym` DELPHI `S_fountain` (named). Not furnsyms.
 - [ ] `makemon.c` `set_mimic_sym` `block_point` (named). Not DELPHI.
 - [ ] `artifact.c` SEARCH/REGEN/XRAY conferral (named). Not cspfx.
+- [ ] `invent.c` `display_pickinv` `&ctmp` menu count (named). Not CMDQ_INT.
+- [ ] `wield.c` `finish_splitting` / `unsplitobj` (named). Not CMDQ_INT.
+- [ ] `pickup.c` stash getobj ALLOWCNT (named). Not CMDQ_INT.
+- [ ] `vision.c` `howmonseen` (named). Not worm_known.
+- [ ] `cmd.c` getobj CQ_REPEAT / `in_doagain` (named). Not canned CMDQ_INT.
 
 ## Parked (do not pop)
 

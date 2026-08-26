@@ -7,17 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1940** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `39+0.32/turn`). seed0367 FULL.
-  **Hypothesis:** Open `invent.c` canned CMDQ_INT is still a named
-  omit (not ALLOWCNT). Review **509** trap `monkilled` is D-1550.
-  **Falsify:** `node scripts/csym.mjs` CMDQ_INT / getobj count path
-  vs `js/invent.js`.
-  **Next:** Open CMDQ_INT. Not Eyes `is_plural`.
-  Do not skip D-1531…D-1550. Do not glue howmonseen / cutworm.
+  **Hypothesis:** Open `cmd.c` INTERNALCMD Eyes `is_plural` is still
+  a named omit (not #altdip). Canned CMDQ_INT is D-1551.
+  **Falsify:** `node scripts/csym.mjs` Eyes / is_plural vs
+  `js/cmd.js` INTERNALCMD / `js/objnam.js`.
+  **Next:** Open Eyes `is_plural`. Not `splev_create_monster`.
+  Do not skip D-1531…D-1551. Do not glue howmonseen / cutworm.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`.
 - Named still: `howmonseen`; cutworm; `mhidden_description`;
   `namefloorobj`. Palantir `#if 0`.
-  CMDQ_INT / pickinv count. `splev_create_monster` RANDOM-only.
+  pickinv `&ctmp`; `finish_splitting`; stash getobj;
+  `in_doagain` REPEAT; eat/read/zap/tin NOFLAGS getobj.
+  `splev_create_monster` RANDOM-only.
   FULL_MOON S_DOG / ustuck / `redraw_worm`. Other
   mcast_spell; sit/pray `eyecount` always-2. muse quantum-loot;
   escape cat HP. Eyes `is_plural`; other INTERNALCMD.
@@ -34,7 +36,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1550.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1551.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,9 +47,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1550 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1551 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1550 (index). Do not
+  `confer_oc_oprop`. Do not skip D-1520…D-1551 (index). Do not
   delete emin (review **487**). Do not stub `make_happy_shk` as
   pacify+“calms down” only (D-1540 / **493**). Do not import
   bones→options for fruitadd (D-1541).
@@ -71,10 +73,15 @@ Objective/score live in `CURRENT.md`.
   on head `cansee` (D-1550 / **509**). Do not glue `howmonseen` /
   cutworm / `redraw_worm`. Do not skip `tamedog`
   `wake_nearto` (D-1546) or glue FULL_MOON S_DOG / ustuck.
-  Do not skip getpos `look_at_object` (D-1547).
+  Do not skip getpos `look_at_object` (D-1547). Do not skip
+  canned `CMDQ_INT` then KEY in getobj (D-1551).
 
 ## Landmarks (≤15)
 
+- D-1551: `getobj_from_cmdq` canned CMDQ_INT then KEY +
+  split_otmp. ALLOWCNT throw/drop/wield/ready/charge/adjust +
+  apply/grease/jelly/rub KEY. eat/read/zap/tin / pickinv
+  `&ctmp` / `in_doagain` named.
 - D-1550: trap.js `monkilled` clone `wormno ? worm_known :
   cansee(head)` (review **509**). pit/fire/rust. Clone stays
   local. `howmonseen` / cutworm named.
@@ -111,5 +118,3 @@ Objective/score live in `CURRENT.md`.
   mkroom clone. kops / `Wiz_arrive` named.
 - D-1537: INTERNALCMD `#altdip`; typed `#` unknown. Eyes
   `is_plural` / other INTERNALCMD named.
-- D-1536: door/wall `S_hcdoor` left-connect / rogue `S_hwall`.
-  Furnsyms is D-1543.

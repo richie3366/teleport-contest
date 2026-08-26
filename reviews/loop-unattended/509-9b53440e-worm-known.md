@@ -128,4 +128,4 @@ D-log canary **28**/28 (grep; dummy head; tail-visible/head-dark; infrared-only;
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1550
+**Addressed:** D-1550 `27feb511`

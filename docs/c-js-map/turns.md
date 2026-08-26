@@ -1609,7 +1609,7 @@ MENU_PREV/FIRST/LAST + other NHW_MENU callers still single-page);
 multi/`dispinv`/`doprinuse`/`*`, uskin noarmor deferred); 
 **`doattributes` Background `In_endgame`/`endgamelevelname` + moves==1 just-started + 
 wizard XP delta** (D-0572; `MAGICENLIGHTENMENT` Attributes for wizard ^X + status `<%d>` + 
-Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; `display_used_invlets`/wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
+Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; **canned CMDQ_INT D-1551** (`need_more_cq` INT then KEY + split_otmp; apply/grease/jelly/rub KEY; eat/read/zap/tin NOFLAGS + pickinv `&ctmp` / `in_doagain` REPEAT record named); `display_used_invlets`/wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
 compactify on other getobj verbs; full magic enlightenment deferred; 
 **`display_pickinv_reply` n==1 + lets → `message_menu` PICK_ONE** (D-0422; 
 force_invmenu/menu_requested/wizid/hands deferred)

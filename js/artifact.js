@@ -75,7 +75,7 @@ import {
     flush_screen, flush_topl_more, pline, You_feel, newsym, see_monsters,
     set_sting_effects,
 } from './display.js';
-import { compactify_invlets, display_pickinv_reply, update_inventory, getobj_take_count, getobj_apply_count } from './invent.js';
+import { compactify_invlets, display_pickinv_reply, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq } from './invent.js';
 import { xname, the, vtense, cxname } from './objnam.js';
 import { recalc_telepat_range } from './do_wear.js';
 
@@ -911,9 +911,11 @@ async function getobj_invoke() {
 
 /** C invent.c getobj("charge", charge_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT).
  * SUGGEST in the prompt; DOWNPLAY/EXCLUDE_SELECTABLE selectable.
- * Count prefix + split_otmp live. Canned CMDQ_INT named. */
+ * Count prefix + split_otmp live. Canned CMDQ_INT/KEY live. */
 async function getobj_charge() {
     const { charge_ok } = await import('./read.js');
+    const cq = getobj_from_cmdq(charge_ok, true);
+    if (!cq.skip) return cq.otmp;
     const selectable = (o) => charge_ok(o) !== GETOBJ_EXCLUDE;
     const suggest = [];
     let anySel = false;

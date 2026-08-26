@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1551 — invent.c getobj canned CMDQ_INT
+
+- **Status:** fixed (map-driven Open from D-1550; not a public FAIL)
+- **Symptom:** Canned `getobj` took CMDQ_KEY (itemactions / wield-reapply)
+  but ignored `CMDQ_INT`. C `need_more_cq` pops an INT count when
+  `GETOBJ_ALLOWCNT`, then a KEY, and `goto split_otmp` (whole stack if
+  `cnt < 1` or `quan <= cnt`). !ALLOWCNT or a second INT clears canned
+  and returns NULL. Interactive throw-one / LRS do not run on this
+  path. JS named the omit after D-1530.
+- **C locus:** `invent.c` `getobj` `:1778–1830`. Producer
+  `cmd.c` `cmdq_add_int` `:334–351` (C's only call is CQ_REPEAT at
+  getobj `:2052`; canned INT is the same node type). Callee
+  `splitobj` / `splittable` (D-1530). Callers: ALLOWCNT
+  throw/drop/wield/ready/charge/adjust; NOFLAGS apply/rub/grease/jelly
+  abort INT.
+- **JS was:** throw/apply KEY-only (`typ === 'key'`); drop/wield/ready/
+  charge/adjust prompted; no `cmdq_add_int`.
+- **Fix:** Shared `getobj_from_cmdq`. INT then KEY splits. KEY-only
+  unchanged. Function / CMDQ_EXTCMD heads left for rhack. C's
+  `need_more_cq` boolean stays FALSE so INT without KEY falls through.
+  Rule #2: no fs.
+- **JS:** `js/invent.js` `getobj_from_cmdq`/`cmdq_add_int`;
+  `js/dothrow.js` `getobj_throw`; `js/do.js` `getobj_drop`;
+  `js/wield.js` `getobj_wield`/`getobj_ready`; `js/artifact.js`
+  `getobj_charge`; `js/apply.js` apply/grease/jelly/rub.
+- **Not this iter:** eat/read/zap/tin NOFLAGS clones; pickinv `&ctmp`;
+  `finish_splitting`/`unsplitobj`; stash getobj; doorganize nobj-unsplit;
+  `in_doagain` CQ_REPEAT record. ALLOWCNT digit prefix is D-1530.
+- **Verified:** private canary **32**/32 (empty skip; KEY-only; INT 2
+  of 5 split; !ALLOWCNT abort+clear; bad KEY; INT without KEY skip;
+  second INT; quan<=cnt / cnt<1 whole stack; HANDS_SYM; USER_INPUT;
+  function head; CMDQ_KEY=0; DOWNPLAY/EXCLUDE; leftover KEY; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a canned INT+KEY (doagain / Lua) hits getobj.
+- **Follow-up:** Open `cmd.c` INTERNALCMD Eyes `is_plural`. Not #altdip.
+- **Files:** `js/invent.js`, `js/dothrow.js`, `js/do.js`, `js/wield.js`,
+  `js/artifact.js`, `js/apply.js`.
+
 ## D-1550 — mon.c monkilled trap.js clone worm_known sight
 
 - **Status:** fixed (Must-fix review **509**; not a public FAIL)

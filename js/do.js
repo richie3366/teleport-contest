@@ -35,6 +35,7 @@ import {
     ERODE_BURN, EF_DESTROY,
     NHCORE_GETPOS_TIP, NHCORE_ENTER_TUTORIAL, NHCORE_LEAVE_TUTORIAL,
     NUM_NHCORE_CALLS,
+    GETOBJ_EXCLUDE, GETOBJ_SUGGEST,
 } from './const.js';
 import {
     seetrap, t_at, delfloortrap, reset_utrap, water_damage, erode_obj,
@@ -90,7 +91,7 @@ import { Monnam, Amonnam, Adjmonnam, mon_nam } from './do_name.js';
 import { revive } from './zap.js';
 import {
     compactify_invlets, near_capacity, learn_unseen_invent, encumber_msg,
-    freeinv_core, getobj_take_count, getobj_apply_count,
+    freeinv_core, getobj_take_count, getobj_apply_count, getobj_from_cmdq,
 } from './invent.js';
 import { can_reach_floor, set_occupation } from './engrave.js';
 import { pickup } from './pickup.js';
@@ -2155,11 +2156,20 @@ function drop_suggest_lets() {
 }
 
 /**
+ * C invent.c any_obj_ok `:1709–1715`.
+ */
+function drop_obj_ok(obj) {
+    return obj ? GETOBJ_SUGGEST : GETOBJ_EXCLUDE;
+}
+
+/**
  * C ref: invent.c getobj("drop", any_obj_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
  * via yn_function(qbuf, NULL, '\0'). Count prefix + split_otmp live.
- * ?/* pickinv still deferred.
+ * Canned CMDQ_INT/KEY live. ?/* pickinv still deferred.
  */
 async function getobj_drop() {
+    const cq = getobj_from_cmdq(drop_obj_ok, true);
+    if (!cq.skip) return cq.otmp;
     for (;;) {
         await flush_topl_more();
         const lets = drop_suggest_lets();

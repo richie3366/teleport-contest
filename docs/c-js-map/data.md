@@ -88,7 +88,8 @@ not the HBlinded word; BlindedTimeout gates unchanged);
 zeroobj pseudo has no `oclass` so `tamedog` does not null the scroll path; 
 callees `read.c` `seffect_taming`/`charge_ok`/`recharge`, `mon.c` `migrate_mon`, 
 `dungeon.c` `dunlevs_in_dungeon`/`ledger_no`; zap AD_ELEC ring uses full `recharge`); 
-**GETOBJ_ALLOWCNT count prefix D-1530** (C `invent.c` `getobj` `:1937–2088` + `splittable` `:1664`; live `js/invent.js` `getobj_take_count`/`getobj_apply_count`/`getobj_split_otmp`; charge/drop/throw/wield/ready/adjust clones; Palantir not a live artifact; canned CMDQ_INT / pickinv `&ctmp` / `finish_splitting`/`unsplitobj` / stash getobj / doorganize_core nobj-unsplit named); 
+**GETOBJ_ALLOWCNT count prefix D-1530** (C `invent.c` `getobj` `:1937–2088` + `splittable` `:1664`; live `js/invent.js` `getobj_take_count`/`getobj_apply_count`/`getobj_split_otmp`; charge/drop/throw/wield/ready/adjust clones; Palantir not a live artifact; pickinv `&ctmp` / `finish_splitting`/`unsplitobj` / stash getobj / doorganize_core nobj-unsplit / `in_doagain` CQ_REPEAT record named); 
+**canned CMDQ_INT D-1551** (C `invent.c` `getobj` need_more_cq `:1778–1830` + `cmd.c` `cmdq_add_int`; live `js/invent.js` `getobj_from_cmdq`/`cmdq_add_int`; ALLOWCNT clones + apply/grease/jelly/rub KEY; INT then KEY splits, !ALLOWCNT/second INT clears canned; eat/read/zap/tin NOFLAGS clones + pickinv `&ctmp` named);
 UNTRAP callee door force D-1495 (floor disarm_*/box named); 
 `bane_applies`/blast `d()`/`losehp`/other wield intrinsics; `defended`; DFLAG1; 
 hero/mon elemental resists; destroy_items/ignite; Mb_hit; SPFX_BEHEAD/DRLI; wake_nearto

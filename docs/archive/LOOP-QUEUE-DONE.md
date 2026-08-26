@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `mon.c` `monkilled`: `js/trap.js` clone still `cansee(head)`; use `wormno ? worm_known : cansee(head)` like `mhitm.js`. Source: reviews/loop-unattended/509-9b53440e-worm-known.md **Addressed:** D-1550
+- [x] `invent.c` canned CMDQ_INT (named). Not ALLOWCNT. **Addressed:** D-1551
+
+
+- [x] `mon.c` `monkilled`: `js/trap.js` clone still `cansee(head)`; use `wormno ? worm_known : cansee(head)` like `mhitm.js`. Source: reviews/loop-unattended/509-9b53440e-worm-known.md **Addressed:** D-1550 `27feb511`
 
 
 - [x] `detect.c` `map_monst` / `monster_detect`: compare long-worm by `mndx`/`mnum`, not `mtmp.data === mons(PM_LONG_WORM)` (`mons()` allocates a new ptr so `detect_wsegs` never runs). Source: reviews/loop-unattended/506-adfba7fc-detect-wsegs.md **Addressed:** D-1549 `34013957`

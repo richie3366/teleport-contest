@@ -8,6 +8,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1551 invent.c getobj canned CMDQ_INT
+
+**Objective:** Open `invent.c` canned CMDQ_INT. Not ALLOWCNT.
+**C locus:** `invent.c` `getobj` `:1778–1830`; `cmd.c` `cmdq_add_int`.
+**JS locus:** `js/invent.js` `getobj_from_cmdq`.
+**Change:** INT then KEY splits; !ALLOWCNT/second INT clears canned.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1940).
+**Verified:** canary **32**/32; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open Eyes `is_plural`. Not `splev_create_monster`.
+**Blocked:** none.
 ## 2026-08-26 — D-1550 trap.js monkilled worm_known sight
 
 **Objective:** Must-fix review **509** `mon.c` `monkilled`
