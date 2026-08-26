@@ -16,7 +16,7 @@ Basic move loop and hunger/sound subsets;
 stethoscope free/TIME); **`moveloop_preamble` `set_wear(NULL)` after rndencode** (D-0596); 
 **`amulet_wish` once-per-input → `makewish`** (D-0559); 
 **once-per-input `see_monsters` when Unblind_telepat/Warning/Hallu/Warn_of_mon/`any_visible_region`** (D-0672/D-1493/D-1512; 
-timeout `visible_region_summary` / display `show_region` named); **`encumber_msg` + 
+**timeout `visible_region_summary` D-1527**; display `show_region` named); **`encumber_msg` + 
 `mvl_wtcap=near_capacity()` after monsters before EOT arm** (D-0411); 
 **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058; 
 @10966 after_calc theory falsified — D-0412 was travel boulder); 
@@ -113,7 +113,7 @@ uses `level.traps[]`)
 
 ### `src/cmd.c` / `src/do.c` / `src/hack.c` lookaround / `src/pray.c` / `src/sounds.c`
 
-JS: `js/cmd.js`, `js/do.js`, `js/wizard.js`, `js/getline.js`, `js/wizcmds.js`, `js/polyself.js`, 
+JS: `js/cmd.js`, `js/do.js`, `js/wizard.js`, `js/getline.js`, `js/wizcmds.js`, `js/timeout.js`, `js/polyself.js`, 
 `js/artifact.js`, `js/zap.js`, `js/read.js`, `js/engrave.js`, `js/pager.js`, `js/getpos.js`, 
 `js/pray.js`, `js/sounds.js`, `js/sit.js`, `js/weapon.js`, `js/dungeon.js`, `js/insight.js`, 
 `js/invent.js`, `js/pline.js` — partial
@@ -214,7 +214,10 @@ door force D-1495; floor `untrap` named)/`**#levelchange `losexp("#levelchange")
 D-1288**`/`#wizintrinsic`(D-0835 HALLUC→`make_hallucinated`; 
 **BLINDED silent when already Blind** D-0928 
 #1097)/`#wizgenesis`/`#wizwhere`→`print_dungeon(FALSE)` text pages (D-0928 #1115; 
-Invocation/portal debug lines deferred)/`#wizidentify`→`wiz_identify`/`override_ID`+`
+Invocation/portal debug lines deferred)/`#timeout`→`wiz_timeout_queue` (D-1527; 
+C `timeout.c` `:2039–2127` + callee `region.c` `visible_region_summary`; 
+VERBOSE_TIMER names / `fmt_ptr` heap / save `timer_id` / `wiz_light_sources` /
+`timer_sanity_check` named)/`#wizidentify`→`wiz_identify`/`override_ID`+`
 display_inventory` wizid (D-0928 #1143; unid_cnt>0 PICK_ANY 
 deferred)/`#name`/`#pray`/`#chat`/`#chronicle`/`#conduct`/`#vanquished`/`#genocided`(empty)/`
 #adjust`/`#terrain`/`#sit`/`#dip`/`#offer`/`#turn`(D-0912; 
@@ -1358,7 +1361,7 @@ Hallu vision_off together Scr196→201 — gulp dims match C through ~core16749*
 **MATCH_WARN_OF_MON overlay D-1514**); **`altar_color` via `altarmask`/`altar_to_glyph`** (D-0666; 
 no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667; 
 **Warn_of_mon count + Sting_effects D-1493**; 
-**allmain `any_visible_region` OR D-1512** (C `region.c`; timeout summary named); 
+**allmain `any_visible_region` OR D-1512** (C `region.c`; timeout `visible_region_summary` D-1527); 
 **SPFX_WARN conferral + MATCH_WARN see_it D-1514**; 
 worm see_wsegs / MON_STILL_ARRIVING / make_blinded 
 Sting(-1) deferred); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 

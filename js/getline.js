@@ -427,6 +427,17 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c "timeout" IFBURIED|AUTOCOMPLETE|WIZMODECMD
+        // → timeout.c wiz_timeout_queue (D-1527)
+        name: 'timeout',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_timeout_queue } = await import('./timeout.js');
+            return wiz_timeout_queue();
+        },
+    },
+    {
         // C: flags IFBURIED|WIZMODECMD (no AUTOCOMPLETE) — full name required
         name: 'wizgenesis',
         wiz: true,

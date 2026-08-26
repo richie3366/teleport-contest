@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `makemon.c` emin roaming (named). Not dprince. **Addressed:** D-1526
+- [x] `timeout.c` `visible_region_summary` (named). Not any_visible_region. **Addressed:** D-1527
+
+
+- [x] `makemon.c` emin roaming (named). Not dprince. **Addressed:** D-1526 `4e78ca90`
 
 
 - [x] `makemon.c` `set_mimic_sym` altar Align2amask MCORPSENM (named). Not maze/shop. **Addressed:** D-1525 `e234a41b`

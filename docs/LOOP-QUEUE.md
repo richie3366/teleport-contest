@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `timeout.c` `visible_region_summary` (named). Not any_visible_region.
 - [ ] `display.c` `show_region` (named). Not Hallu/Warn_of_mon.
 - [ ] `worm.c` `see_wsegs` (named). Not worm_move.
 - [ ] `invent.c` `getobj` GETOBJ_ALLOWCNT count prefix (named). Not Palantir.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `sp_lev.c` `create_object` `o->lit` (named). Not mktrap_victim.
 - [ ] `mcastu.c` `mcast_blind_you` EYE (named). Not PSI_BOLT HEAD.
 - [ ] `pickup.c` `observe_quantum_cat` FOOT (named). Not HEAD.
+- [ ] `makemon.c` `set_mimic_sym` door `S_hcdoor` (named). Not furnsyms.
+- [ ] `cmd.c` INTERNALCMD `#altdip` (named). Not dip_into.
+- [ ] `dog.c` wander/`somexy` (named). Not is_covetous.
+- [ ] `artifact.c` cspfx W_ART (named). Not SPFX_WARN.
+- [ ] `restore.c` `ghostfruit` (named). Not goodfruit.
 
 ## Parked (do not pop)
 

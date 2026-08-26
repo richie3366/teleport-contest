@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1527 — timeout.c wiz_timeout_queue + region.c visible_region_summary
+
+- **Status:** fixed (map-driven Open from D-1512; not a public FAIL)
+- **Symptom:** Wizard `#timeout` had no runner. C lists the timer
+  queue, timed `uprops` TIMEOUT, swallow/vault/stasis, then
+  `any_visible_region()` → `visible_region_summary` (relative
+  ttl+1, poison gas vs vapor, bounding box). JS named the
+  omit after D-1512.
+- **C locus:** `region.c` `visible_region_summary` `:672–711`;
+  caller `timeout.c` `wiz_timeout_queue` `:2039–2127` (gate
+  `:2112–2113`). Helpers `print_queue` `:2013–2037`,
+  `kind_name` `:1994–2011`. `start_timer` tid `:2280`.
+  cmd.c `#timeout` AUTOCOMPLETE|WIZMODECMD `:1903–1904`.
+- **JS was:** `any_visible_region` live (D-1512); summary /
+  `#timeout` named (`sym` NOT FOUND).
+- **Fix:** Port the listing and EXT_CMDS runner. Same skip as
+  `any_visible_region`. Header once. `start_timer` assigns
+  `tid = timer_id++` from 1. Rule #2: no fs.
+- **JS:** `js/region.js` `visible_region_summary`;
+  `js/timeout.js` `wiz_timeout_queue` / `print_queue`;
+  `js/getline.js` `#timeout`; `js/mkobj.js` tid.
+- **Not this iter:** display `show_region`; VERBOSE_TIMER
+  names; `fmt_ptr` heap vs o_id; save/rest `timer_id`;
+  `wiz_light_sources`; `timer_sanity_check`; TIMER_NONE
+  `impossible()`. any_visible_region is D-1512.
+- **Verified:** private canary **43**/43 (empty / invisible /
+  ttl−2 / poison ttl+1 box / vapor ttl 0 / forever −1 /
+  skip-then-hit / header once / tab sep / any-gate /
+  COLD_RES banner / FIRE_RES no banner / swallow vault
+  stasis / tid+print_queue / C/JS grep; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until wizard `#timeout` with a live cloud.
+- **Follow-up:** Open `display.c` `show_region`. Not
+  Hallu/Warn_of_mon.
+- **Files:** `js/region.js`, `js/timeout.js`, `js/getline.js`,
+  `js/mkobj.js`.
+
 ## D-1526 — makemon.c emin roaming ALIGNED_CLERIC/HIGH_CLERIC/ANGEL
 
 - **Status:** fixed (map-driven Open from D-1525; not a public FAIL)
