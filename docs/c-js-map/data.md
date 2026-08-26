@@ -66,7 +66,7 @@ cspfx extract / mcastu `ureflects` named — no artilist row has cspfx&SPFX_REFL
 `spec_m2` `:1065–1072` + `hack.h` `MATCH_WARN_OF_MON`; Sting/Orcrist `M2_ORC`, Grimtooth `M2_ELF` 
 → `EWarn_of_mon` + `warntype.obj` + `see_monsters`; else `EWarning`; display `sensemon`/`newsym` 
 see_it / `display_warning` mon_to_glyph; cspfx W_ART MKoT/Orb of Fate / invent `W_ART` conferral / 
-worm_tail / `see_wsegs` / polyd·species producer / vision `howmonsseen` named); 
+`see_wsegs` D-1529 / polyd·species producer / vision `howmonsseen` / `worm_known` named); 
 **defn/cary extract + `defends`/`defends_when_carried` D-1453**; omit cost/gen_spe; 
 **`inv_prop` extract + `arti_invoke` BLINDING_RAY D-1377**; 
 **remaining specials + property toggle D-1488** (C `artifact.c` 
@@ -329,8 +329,13 @@ place_worm_tail_randomly` + `_level_monsters` occupancy for `place_worm_seg`;
 caller `monmove.c` `m_move` `:2054–2071`; 
 grow `wgrowtime` `rnd(5)` then `rn1(10,2)*NORMAL/mcalcmove FALSE` + 
 `d(2,2)` HP ladder or shrink tail; failed move HP floor 1); 
-omit cutworm/wormgone, save/rest wsegs, `worm_known`, see_wsegs/detect_wsegs, muse/mhitu 
-`worm_move` callers; `worm_cross` live; non-worm `level.monsters[][]` still fmon-only
+**D-1529 `see_wsegs`** (`worm.c:487–495`; callers `display.c` `see_monsters` `:1511–1512`, 
+`worn.c` `mon_set_minvis` `:482–483`, `monmove.c` postmov `:1683–1686`; 
+callee `newsym` `is_worm_tail` + `display_monster` `PM_LONG_WORM_TAIL`); 
+omit cutworm/wormgone, save/rest wsegs, `worm_known`, detect_wsegs, muse/mhitu 
+`worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
+`is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 
+`worm_cross` live; non-worm `level.monsters[][]` still fmon-only
 
 ### `src/extralev.c`
 
@@ -725,7 +730,7 @@ expire dissipation D-1155; fumaroles whoosh D-1156);
 **`dryup` wizard `y_n("Dry up fountain?")` after town warn** (D-1096; `flags.debug`; `'n'` abort; 
 no `debug_fuzzer` gate); **`dryup` `angry_guards(FALSE)` after real dryup when `isyou && in_town`** 
 (D-1104); **`dryup` cansee cloud-glyph skip** (D-1106; fog/steam `S_cloud` not poison; 
-shown mon/I `!cmap`; **newsym `show_region` D-1528**; worm_tail `is_worm_tail` /
+shown mon/I `!cmap`; **newsym `show_region` D-1528**; **`is_worm_tail` D-1529**; 
 DRAWBRIDGE_UP under-typ still named); 
 **`dipfountain` Excalibur LONG_SWORD body** (D-1107; `exist_artifact`+`artiname`; 
 lawful `oname`/`discover_artifact`/`bless`; unaligned curse+`spe--`; 

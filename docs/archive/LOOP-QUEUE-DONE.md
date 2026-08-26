@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `display.c` `show_region` (named). Not Hallu/Warn_of_mon. **Addressed:** D-1528
+- [x] `worm.c` `see_wsegs` (named). Not worm_move. **Addressed:** D-1529
+
+
+- [x] `display.c` `show_region` (named). Not Hallu/Warn_of_mon. **Addressed:** D-1528 `aa4d11f5`
 
 
 - [x] `timeout.c` `visible_region_summary` (named). Not any_visible_region. **Addressed:** D-1527 `d53c5cd1`

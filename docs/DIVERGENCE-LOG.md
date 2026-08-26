@@ -4,6 +4,47 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1529 — worm.c see_wsegs + display.c is_worm_tail
+
+- **Status:** fixed (map-driven Open from D-1528; not a public FAIL)
+- **Symptom:** Long-worm body cells never refreshed as
+  `PM_LONG_WORM_TAIL` (`~`). C `see_wsegs` `newsym`s every
+  `wseg` except the dummy head. `newsym` treats `m_at` at a
+  non-head cell as a tail (skip telepathy/MATCH_WARN/Detect
+  on cansee; skip Detect/warning on tails; Hallu
+  `what_mon(PM_LONG_WORM_TAIL)`). Callers: `see_monsters`,
+  `mon_set_minvis`, postmov pickup-when-minvis. JS named the
+  omit after D-1491 / D-1528.
+- **C locus:** `worm.c` `see_wsegs` `:487–495`. Callers
+  `display.c` `see_monsters` `:1511–1512`; `worn.c`
+  `mon_set_minvis` `:482–483`; `monmove.c` postmov
+  `:1683–1686`. Callee `display.c` `is_worm_tail` `:500` +
+  `newsym` `:969–1055` + `display_monster` `:599–618`.
+- **JS was:** `worm_move` live; `see_monsters` skipped
+  `see_wsegs`; `mon_at_display` head-only; `newsym` painted
+  the head `w` (or floor) at every occupied cell.
+- **Fix:** Port `see_wsegs`. Wire three callers. Occupancy
+  via `_level_monsters` in `mon_at_display`. Tail glyph
+  `~` / Hallu `what_mon`. minvis hides tails. Rule #2: no fs.
+- **JS:** `js/worm.js` `see_wsegs`; `js/display.js`
+  `see_monsters` / `newsym` / `mon_at_display`; `js/worn.js`
+  `mon_set_minvis`; `js/monmove.js` postmov.
+- **Not this iter:** detect_wsegs; `worm_known`; cutworm /
+  wormgone / save/rest; muse.c / mon.c local `mon_set_minvis`
+  clones; feel_location `is_worm_tail`; Detect_monsters
+  cansee; MON_STILL_ARRIVING. worm_move is D-1491.
+- **Verified:** private canary **24**/24 (C/JS grep; dummy
+  no-op; visible `~` vs head `w`; minvis hide;
+  `see_monsters`; `mon_set_minvis`; Blind tp shows tails;
+  Detect skips tails; Hallu display rng; no core RNG;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a live long worm is on-screen.
+- **Follow-up:** Open `invent.c` `getobj` GETOBJ_ALLOWCNT
+  count prefix. Not Palantir.
+- **Files:** `js/worm.js`, `js/display.js`, `js/worn.js`,
+  `js/monmove.js`.
+
 ## D-1528 — display.c / region.c show_region overlay
 
 - **Status:** fixed (map-driven Open from D-1527; not a public FAIL)

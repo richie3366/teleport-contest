@@ -7,22 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after audit **#1910** HEAD `6a42c40e`
   (Scr **11,405** RNG 100%, `36+0.31/turn` R² 0.86).
-  **Next:** Open `worm.c` `see_wsegs`.
-  Not worm_move.
-  D-1528 `show_region` overlay. D-1527 `#timeout`
-  visible_region_summary. D-1526 emin roaming.
-  D-1525 TEMPLE `S_altar` Align2amask. D-1524 look `spe`.
-  restore `ghostfruit` named. Do not skip D-1528…D-1229.
+  **Next:** Open `invent.c` `getobj` GETOBJ_ALLOWCNT.
+  Not Palantir.
+  D-1529 `see_wsegs` + `is_worm_tail`. D-1528 `show_region`.
+  D-1527 `#timeout` visible_region_summary. D-1526 emin.
+  restore `ghostfruit` named. Do not skip D-1529…D-1229.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`. pickup `body_part` latebound; no
   pickup→polyself.
-- Do not revert D-1217–D-1528. Named still: worm segs;
-  GETOBJ_ALLOWCNT;
+- Do not revert D-1217–D-1529. Named still: GETOBJ_ALLOWCNT;
   tamedog is_covetous; `#altdip`; wander/`somexy`;
   `create_object` `o->lit`; door `S_hcdoor`;
   furnsyms real S_*; `mcast_blind_you` EYE; quantum-cat
   FOOT; cspfx W_ART; ghostfruit; getpos fakeobj;
-  `that_is_a_mimic`.
+  `that_is_a_mimic`; detect_wsegs; `worm_known`.
 
 ## Don't re-check (≤15)
 
@@ -31,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1528.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1529.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -42,7 +40,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1528 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1529 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089). Do not restore exact-only fruit walker (D-1520) or
@@ -53,7 +51,8 @@ Objective/score live in `CURRENT.md`.
   stub TEMPLE `S_altar` or skip Align2amask `MCORPSENM` (D-1525).
   Do not skip emin roaming after LONG_WORM (D-1526). Do not skip
   `#timeout` `visible_region_summary` (D-1527) or `show_region`
-  overlay (D-1528).
+  overlay (D-1528). Do not skip `see_wsegs` / `is_worm_tail`
+  (D-1529).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
@@ -67,10 +66,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1529: `see_wsegs` newsyms body segs except dummy.
+  `is_worm_tail` paints `PM_LONG_WORM_TAIL` `~`.
+  Callers see_monsters / mon_set_minvis / postmov minvis.
+  Occupancy `_level_monsters`. minvis hides tails.
+  detect_wsegs / `worm_known` / feel_location named.
 - D-1528: `show_region` paints S_cloud / S_poisoncloud.
   newsym cansee ACCESSIBLE|pool/lava unless
   `mon_overrides_region`. `_map_location` overlay
-  show&&!Blind. worm_tail / DRAWBRIDGE_UP under named.
+  show&&!Blind. DRAWBRIDGE_UP under named.
 - D-1527: `#timeout` `wiz_timeout_queue` + `visible_region_summary`.
   Gate `any_visible_region`; ttl+1; poison gas vs vapor; box
   from rects. tid `timer_id++` from 1.
@@ -108,5 +112,3 @@ Objective/score live in `CURRENT.md`.
   DART then SHORT_SWORD|AXE. Live `mongets`.
 - D-1515: S_KOP `!rn2(4)` cream pies then `!rn2(3)` CLUB|
   RUBBER_HOSE. G_NOGEN until `makekops`.
-- D-1514: SPFX_WARN `spec_m2` → EWarn_of_mon + warntype.obj;
-  else EWarning. MATCH_WARN in sensemon/newsym.

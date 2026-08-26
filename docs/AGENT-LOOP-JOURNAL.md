@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1529 worm.c see_wsegs
+
+**Objective:** Open `worm.c` `see_wsegs` (named). Not worm_move.
+**C locus:** `worm.c` `see_wsegs` `:487–495`; callers
+`display.c` `see_monsters` `:1511–1512`, `worn.c`
+`mon_set_minvis` `:482–483`, `monmove.c` postmov `:1683–1686`;
+callee `is_worm_tail` `:500` + `display_monster` `:599–618`.
+**JS locus:** `js/worm.js` `see_wsegs`; `js/display.js`
+`see_monsters` / `newsym` / `mon_at_display`; `js/worn.js`;
+`js/monmove.js`.
+**Change:** Refresh tail cells except dummy head. Occupancy
+via `_level_monsters`. Visible tails paint `~`; minvis hides
+them; Hallu `what_mon(PM_LONG_WORM_TAIL)`. detect_wsegs /
+`worm_known` named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1910);
+live long-worm tails public-unhit.
+**Verified:** canary **24**/24; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `invent.c` `getobj` GETOBJ_ALLOWCNT. Not Palantir.
+**Blocked:** none.
 ## 2026-08-26 — D-1528 display.c show_region
 
 **Objective:** Open `display.c` `show_region` (named). Not

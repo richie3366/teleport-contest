@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `worm.c` `see_wsegs` (named). Not worm_move.
 - [ ] `invent.c` `getobj` GETOBJ_ALLOWCNT count prefix (named). Not Palantir.
 - [ ] `dog.c` `tamedog` is_covetous (named). Not leftovers.
 - [ ] `sp_lev.c` `create_object` `o->lit` (named). Not mktrap_victim.
