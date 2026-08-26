@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dog.c` `tamedog` `wake_nearto` (named). Not is_covetous.
 - [ ] `pager.c` getpos fakeobj (named). Not that_is_a_mimic.
 - [ ] `worm.c` `worm_known` (named). Not detect_wsegs.
 - [ ] `invent.c` canned CMDQ_INT (named). Not ALLOWCNT.

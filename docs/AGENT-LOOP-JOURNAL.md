@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1546 dog.c tamedog wake_nearto(mx,my,1)
+
+**Objective:** Open `dog.c` `tamedog` `wake_nearto` (named). Not
+is_covetous.
+**C locus:** `dog.c` `tamedog` `:1159–1161`; callee `mon.c`
+`wake_nearto_core` `:4374–4398`.
+**JS locus:** `js/dog.js` `tamedog` (live `js/mon.js`
+`wake_nearto`).
+**Change:** Await `wake_nearto(mx,my,1)` when `msleeping` (wake_msg
++ STRAT_WAITMASK + disturb; distance==1 = mtmp cell). Not local
+`msleeping=0`. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1930).
+**Verified:** canary **14**/14; green+strict seed8000/0900;
+cohort **7**/7 + strict (incl. seed0004).
+**Next:** Open `pager.c` getpos fakeobj. Not that_is_a_mimic.
+**Blocked:** none.
 ## 2026-08-26 — D-1545 worm.c detect_wsegs + map_monst showtail
 
 **Objective:** Open `worm.c` `detect_wsegs` (named). Not `see_wsegs`.

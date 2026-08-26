@@ -7,19 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
   RNG **792,838**/792,838 = 100%). seed0367 FULL.
-  **Hypothesis:** next work is Open `dog.c` `tamedog` `wake_nearto`
-  (named). Not is_covetous. Must-fix empty. D-1545 closed
-  `detect_wsegs` via `map_monst` showtail.
-  **Falsify:** port `wake_nearto` so taming clears nearby
-  `msleeping` like C `dog.c` `:1160–1161`, not a local sleep
-  clear only.
-  **Next:** Open `wake_nearto`. Not FULL_MOON S_DOG.
-  Do not skip D-1531…D-1545. Do not glue `worm_known`. No
-  FORCE / `wildmiss` wrap / trailing `confdir` in shared `getdir`.
+  **Hypothesis:** next work is Open `pager.c` getpos fakeobj
+  (named). Not that_is_a_mimic. Must-fix empty. D-1546 closed
+  `tamedog` `wake_nearto(mx,my,1)`.
+  **Falsify:** getpos auto-describe uses `object_from_map`
+  fakeobj like C `pager.c` `look_at_object`, not real piles
+  only (`js/getpos.js` named).
+  **Next:** Open getpos fakeobj. Not `namefloorobj` /
+  `mhidden_description`.
+  Do not skip D-1531…D-1546. Do not glue FULL_MOON S_DOG.
+  No FORCE / `wildmiss` wrap / trailing `confdir` in shared
+  `getdir`.
 - Named still: getpos fakeobj; `worm_known`;
   `mhidden_description`; `namefloorobj`. Palantir `#if 0`.
   CMDQ_INT / pickinv count. `splev_create_monster` RANDOM-only.
-  `tamedog` `wake_nearto` / FULL_MOON S_DOG / ustuck. Other
+  FULL_MOON S_DOG / ustuck / `redraw_worm`. Other
   mcast_spell; sit/pray `eyecount` always-2. muse quantum-loot;
   escape cat HP. Eyes `is_plural`; other INTERNALCMD.
   defn/cary resist; SEARCH/REGEN/XRAY/PROTECT; inv_prop drop;
@@ -35,7 +37,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1545.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1546.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,9 +48,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1545 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1546 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1545 (index). Do not
+  `confer_oc_oprop`. Do not skip D-1520…D-1546 (index). Do not
   delete emin (review **487**). Do not stub `make_happy_shk` as
   pacify+“calms down” only (D-1540 / **493**). Do not import
   bones→options for fruitadd (D-1541).
@@ -65,10 +67,14 @@ Objective/score live in `CURRENT.md`.
   `cspfx` when `W_ART` (D-1539). Do not candify ghostfruit.
   Do not skip Light source via `mksobj_at` without `o->lit`.
   Do not skip `detect_wsegs` `show_glyph` (D-1545) or glue
-  `worm_known`.
+  `worm_known`. Do not skip `tamedog` `wake_nearto` (D-1546) or
+  glue FULL_MOON S_DOG / ustuck / `redraw_worm`.
 
 ## Landmarks (≤15)
 
+- D-1546: `tamedog` live `wake_nearto(mx,my,1)` (wake_msg +
+  STRAT_WAITMASK + disturb; dist2<1). Not local sleep clear.
+  FULL_MOON S_DOG / ustuck / `redraw_worm` named.
 - D-1545: `detect_wsegs` `what_mon` once + `show_glyph` body
   segs; `map_monst` showtail; `S_WORM_TAIL` class. Not newsym.
   `worm_known` / cutworm / map_monst head pet/detected named.
@@ -99,6 +105,4 @@ Objective/score live in `CURRENT.md`.
 - D-1533: `create_object` `o->lit` `begin_burn` after `stackobj`.
   Light source fill is D-1542.
 - D-1532: `tamedog` is_covetous envelope. `make_happy_shk` is
-  D-1540. `wake_nearto` named.
-- D-1531: Pri-loca `align=noalign` `mk_roamer_splev` (`MM_EMIN`,
-  `A_NONE`). Emin kept.
+  D-1540. `wake_nearto` is D-1546.

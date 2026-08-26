@@ -710,7 +710,10 @@ tame-extend is rejected after peaceful);
 givemsg `pline_mon` / post-tame `mon_wield_item` D-1532**
 (C `:1169–1280`; `is_minion` is `mtmp.isminion` like C `mtmp->isminion`);
 **`tamedog` isshk `make_happy_shk` D-1540** (C `:1235–1238` + `shk.c` `:1395–1435`;
-not pacify+“calms down” only); named: `wake_nearto` sleep; FULL_MOON night
+not pacify+“calms down” only);
+**`tamedog` `wake_nearto(mx,my,1)` D-1546** (C `:1159–1161`; live `mon.js`
+`wake_nearto_core` wake_msg + STRAT_WAITMASK + disturb; distance==1
+limits to mtmp cell, not `wakeup()` anger); named: FULL_MOON night
 S_DOG `rn2(6)`; ustuck expels/unstuck; `redraw_worm`; Tobjnam stop /
 big_corpse catch; `initedog` `has_edog` vs `!mtame`
 

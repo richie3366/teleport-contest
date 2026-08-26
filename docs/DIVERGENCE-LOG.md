@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1546 — dog.c tamedog wake_nearto(mx,my,1)
+
+- **Status:** fixed (map-driven Open from D-1545; not a public FAIL)
+- **Symptom:** Taming a sleeper only cleared `mtmp.msleeping`.
+  C `tamedog` calls `wake_nearto(mx,my,1)` so `wake_msg`,
+  `STRAT_WAITMASK` (unless `G_UNIQ`), and `disturb_buried_zombies`
+  run, limited to the tamed cell (`dist2 < 1`). Named omit after
+  D-1532.
+- **C locus:** `dog.c` `tamedog` `:1159–1161`. Callee `mon.c`
+  `wake_nearto` / `wake_nearto_core` `:4374–4398`. Callers:
+  throw food, read/zap taming, potion, trap, music, demonpet.
+- **JS was:** `if (msleeping) mtmp.msleeping = 0`. Live
+  `wake_nearto` already in `mon.js`.
+- **Fix:** Await live `wake_nearto(mtmp.mx, mtmp.my, 1)` when
+  `msleeping`. `mfrozen` still halved first. Rule #2: no fs.
+- **JS:** `js/dog.js` `tamedog` (import `wake_nearto` from
+  `mon.js`; already imported that module).
+- **Not this iter:** FULL_MOON night S_DOG `rn2(6)`; ustuck
+  `expels`/`unstuck` (mhitu→uhitm→dog cycle); `redraw_worm`;
+  Tobjnam stop / big_corpse catch; `initedog` `has_edog` vs
+  `!mtame`. Local `wake_nearto` clones in trap/dbridge/explode/
+  sounds. is_covetous is D-1532. `make_happy_shk` is D-1540.
+- **Verified:** private canary **14**/14 (C/JS grep; iswiz
+  early-return after wake; neighbor `dist2=1` stays asleep;
+  same-cell sleeper wakes; `G_UNIQ` keeps waitmask; canseemon
+  wake_msg; skip when awake; buried ZOMBIFY_MON `t*2/3`; kitten
+  tame success; no core RNG; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until a
+  public session tames a sleeper.
+- **Follow-up:** Open `pager.c` getpos fakeobj. Not
+  that_is_a_mimic.
+- **Files:** `js/dog.js`.
+
 ## D-1545 — worm.c detect_wsegs + detect.c map_monst showtail
 
 - **Status:** fixed (map-driven Open from D-1544; not a public FAIL)
