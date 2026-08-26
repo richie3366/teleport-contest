@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `objnam.c` doname_base slime-mold fake_arti (named). Not fruit_from_indx. **Addressed:** D-1521
+- [x] `objnam.c` doname_base slime-mold fake_arti (named). Not fruit_from_indx. **Addressed:** D-1521 `6a42c40e`
 
 
 - [x] `options.c` fruitadd should call objnam `fruit_from_name` (not the exact-only walker). Not fruit_from_indx. **Addressed:** D-1520 `5dd0ba20`

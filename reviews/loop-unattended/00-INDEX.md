@@ -484,3 +484,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [471-57d22857-poly-obj-worn-set-wear.md](./471-57d22857-poly-obj-worn-set-wear.md) | `57d22857` | D-1510 poly_obj worn set_wear | **ACCEPT-WITH-DEBT** |
 | [472-85c341a7-fruit-from-indx.md](./472-85c341a7-fruit-from-indx.md) | `85c341a7` | D-1511 fruit_from_indx + xname SLIME_MOLD | **ACCEPT-WITH-DEBT** |
 | [473-79744185-any-visible-region.md](./473-79744185-any-visible-region.md) | `79744185` | D-1512 any_visible_region + allmain see_monsters | **ACCEPT-WITH-DEBT** |
+| [474-2f5f7fd1-minetn-7-town-gnomes.md](./474-2f5f7fd1-minetn-7-town-gnomes.md) | `2f5f7fd1` | D-1513 minetn-7 town-floor three gnomes | **ACCEPT** |
+| [475-9a50ef27-spfx-warn-match-warn.md](./475-9a50ef27-spfx-warn-match-warn.md) | `9a50ef27` | D-1514 SPFX_WARN conferral / MATCH_WARN | **ACCEPT-WITH-DEBT** |
+| [476-3a5f062e-s-kop-m-initweap.md](./476-3a5f062e-s-kop-m-initweap.md) | `3a5f062e` | D-1515 m_initweap S_KOP cream pie / club / hose | **ACCEPT-WITH-DEBT** |
+| [477-cf3c5701-lizard-ninja-m-initweap.md](./477-cf3c5701-lizard-ninja-m-initweap.md) | `cf3c5701` | D-1516 S_LIZARD skip + PM_NINJA kit | **ACCEPT-WITH-DEBT** |
+| [478-8bfe0bc8-set-mimic-sym-in-town.md](./478-8bfe0bc8-set-mimic-sym-in-town.md) | `8bfe0bc8` | D-1517 set_mimic_sym maze/sokoban/in_town | **ACCEPT-WITH-DEBT** |
+| [479-527815fb-dprince-bribe-raven.md](./479-527815fb-dprince-bribe-raven.md) | `527815fb` | D-1518 dprince MS_BRIBE / raven BEC_DE_CORBIN | **ACCEPT-WITH-DEBT** |
+| [480-d5799f73-mktrap-victim-candle.md](./480-d5799f73-mktrap-victim-candle.md) | `d5799f73` | D-1519 mktrap_victim gnome candle begin_burn | **ACCEPT-WITH-DEBT** |
+| [481-5dd0ba20-fruitadd-fruit-from-name.md](./481-5dd0ba20-fruitadd-fruit-from-name.md) | `5dd0ba20` | D-1520 fruitadd → objnam fruit_from_name | **ACCEPT-WITH-DEBT** |
+| [482-6a42c40e-doname-fake-arti.md](./482-6a42c40e-doname-fake-arti.md) | `6a42c40e` | D-1521 doname_base slime-mold fake_arti | **ACCEPT-WITH-DEBT** |

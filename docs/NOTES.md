@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after audit **#1900** HEAD `79744185`
-  (Scr **11,405** RNG 100%, `37+0.30/turn` R² 0.85).
+- **Fortress 44/44** after audit **#1910** HEAD `6a42c40e`
+  (Scr **11,405** RNG 100%, `36+0.31/turn` R² 0.86).
   **Next:** Open `objnam.c` `reorder_fruit`. Not
   fruit_from_indx. D-1521 doname_base slime-mold fake_arti
   (`artifact_name` FALSE; force_the `"the "` else no a/an;
