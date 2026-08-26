@@ -32,7 +32,7 @@ docs before touching C.
 | 2 | Cursor rules / `CONSTITUTION.md` §1–2 (esp. §1.5 Rule #2), §5, §10 | hard bans only | full essays |
 | 3 | **`CURRENT.md`** | score, green gate, **primary objective**, focused cmd | — |
 | 4 | `NOTES.md` | live hypothesis + don’t-recheck | — |
-| 5 | One `c-js-map/*.md` via `C-JS-MAP.md` index | rows for the subsystem you edit | other map files |
+| 5 | One `c-js-map/*.md` via `node scripts/map.mjs` | the section for the subsystem you edit | paging other map files |
 | 6 | `PORTING-RUNBOOK.md` §3–7 | only if procedure unclear | strategy rationale |
 
 **Do not read by default:** `PORTING-STRATEGY.md`, `archive/**`, full
@@ -40,7 +40,8 @@ docs before touching C.
 `## D-NNNN` entry. Read only `AGENT-LOOP-JOURNAL.md` (tail), not archives.
 
 **Always re-read the relevant C function** (body + callers + guarding `if`)
-before patching. Smaller docs are not a substitute for C.
+before patching — `node scripts/csym.mjs fn` / `--callers fn` fetches both in
+one call. Smaller docs are not a substitute for C.
 
 ---
 

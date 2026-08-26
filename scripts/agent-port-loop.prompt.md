@@ -61,10 +61,16 @@ Chrome**. No filesystem / Node builtins (`fs`/`path`/`url`/`node:*`) /
   item, alone. The supervisor **reverts** if `js/` insertions exceed
   600 or `js/` files exceed 10. Do not “finish tut-1” / whip+pole+grapple.
 
-Resolve export/async/file for a name list with **one**
-`node scripts/sym.mjs Name1 Name2 …` (indexes `js/` including
-`js/generated/`). Do **not** grep `export (async )?function`
-to find symbols. Edit `c-js-map/*.md` and
+**Locate with a script, not a grep.** Each is one call and returns
+primary source, not a summary; the supervisor counts the greps you
+used instead. `sym.mjs Name…` JS export/async/clone-count ·
+`csym.mjs fn` (`--callers fn`) pinned-C body + call sites ·
+`map.mjs worm.c` (`--index`) the `c-js-map` section ·
+`imports.mjs --can A.js B.js Name` before any new cross-module
+import — a cycle alone is **not** a blocker (`js/` is already one
+82-module SCC); a top-level TDZ read is. Do **not** grep
+`export (async )?function`, page `c-js-map/*.md` by offset, or grep
+pinned C to find a function. Edit `c-js-map/*.md` and
 `NOTES.md` with the edit tool, not `python3` heredocs. Write
 `NOTES.md` **once** at the end. After prose is ready, run
 `node scripts/finish-iteration.mjs` for mechanical stamps only

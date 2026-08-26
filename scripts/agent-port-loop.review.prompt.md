@@ -37,8 +37,11 @@ This is an audit against **pinned C**, not against the commit message.
    **promises**. List what the diff **actually** adds (functions, helpers).
 2. For **every** new or changed JS function: open the C locus
    (`nethack-c/upstream/src/<file>.c`, body + callers + guarding `if`).
-   Cite C line ranges. Walk branch order and RNG (`rn2`/`rnd`/`rn1`/`d`)
-   call-for-call.
+   `node scripts/csym.mjs fn` returns the body with its line range and
+   `--callers fn` every call site — one call each, and the range it
+   prints is the range you cite. Do **not** grep pinned C to find a
+   function. Cite C line ranges. Walk branch order and RNG
+   (`rn2`/`rnd`/`rn1`/`d`) call-for-call.
 3. Classify each helper: **C callee** (imported real function) vs **clone**
    (local `getdir_whip` / `Amonnam_apply` / glyph stand-in) vs **no-op**.
    Clones that diverge from C are **C-wrongs**, not named omits.
@@ -52,8 +55,13 @@ This is an audit against **pinned C**, not against the commit message.
    `node scripts/sym.mjs` (export? async? clone count?). **Required:**
    run `sym.mjs` on every symbol the diff deletes or re-points
    (local clone → import) and paste that output in this SHA’s review.
-4. Grep the diff: `FORCE`, `DIAG`, `getRngLog`, `readFileSync`, `from 'fs'`,
-   `node:`, seed names in control flow, `fastforward`, hardcoded coordinates.
+4. Grep the diff: `FORCE`, `DIAG`, `getRngLog`, seed names in control flow,
+   `fastforward`, hardcoded coordinates. For Contest Rule #2 across all of
+   scored `js/` (not just the diff) run `node scripts/imports.mjs --rulecheck`.
+   Before calling a kept clone “cycle-forced”, check it:
+   `node scripts/imports.mjs --can <importer> <target> <Name>` — a cycle alone
+   is **not** a blocker (`js/` is already one 82-module SCC); a top-level TDZ
+   read is.
 5. Hallucination check: does the D-log / CURRENT / subject say “Match C”
    for a **dispatch** while the **callee** is a stub? Say so explicitly.
 6. Density §2b. Verification: focused + green + **relevant** cohort, or

@@ -299,6 +299,8 @@ fi
 # Default: Cursor Grok 4.6 Extra High, non-fast
 # (list: agent --list-models | rg grok)
 MODEL="${MODEL:-cursor-grok-4.6-xhigh}"
+# Advisory navigation overlay (see arm_nav_discipline_prompt). 1 disables.
+LOOP_NAV_GATE_OFF="${LOOP_NAV_GATE_OFF:-0}"
 AGENT_BIN="${AGENT_BIN:-}"
 if [[ -z "$AGENT_BIN" ]]; then
   if command -v cursor-agent >/dev/null 2>&1; then
@@ -663,6 +665,30 @@ arm_banned_heal_prompt() {
       echo '```'
     fi
   } >"$NEXT_ITER_PROMPT"
+}
+
+# Navigation discipline (advisory; never halts, never reverts). Names only
+# the grep classes this iteration answered BY HAND while calling the script
+# that answers them zero times — so it goes quiet as substitution improves
+# (33% of recent iterations would trigger it). Yields to a banned-pattern
+# heal, which is a correctness matter and outranks it. LOOP_NAV_GATE_OFF=1
+# disables. Every branch returns 0: this must never trip `set -e`.
+arm_nav_discipline_prompt() {
+  local raw="$1" note=""
+  if [[ "$LOOP_NAV_GATE_OFF" == "1" ]]; then
+    return 0
+  fi
+  if [[ -f "$NEXT_ITER_PROMPT" || -f "$CONTINUE_LATCH" || ! -f "$raw" ]]; then
+    return 0
+  fi
+  note="$(node scripts/loop-nav-report.mjs --gate "$raw" 2>/dev/null || true)"
+  if [[ -z "$note" ]]; then
+    return 0
+  fi
+  printf '%s\n' "$note" >"$NEXT_ITER_PROMPT"
+  echo "$(date -Iseconds) note: navigation-discipline overlay armed for next iteration" \
+    | tee -a "$MASTER_LOG"
+  return 0
 }
 
 iter_mode() {
@@ -1413,6 +1439,8 @@ NODE
       | tee -a "$MASTER_LOG"
     exit 0
   fi
+
+  arm_nav_discipline_prompt "$iter_raw"
 
   # Brief pause so a human can flip STOP_AGENT_LOOP.md between iterations
   sleep "${LOOP_SLEEP_SEC:-2}"
