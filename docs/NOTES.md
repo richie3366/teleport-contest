@@ -7,20 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after audit **#1900** HEAD `79744185`
   (Scr **11,405** RNG 100%, `37+0.30/turn` R² 0.85).
-  **Next:** Open `objnam.c` doname_base slime-mold
-  fake_arti. Not fruit_from_indx. D-1520 fruitadd →
-  live objnam `fruit_from_name(FALSE)` (prefix/singular;
-  tin/corpse/egg candify; `rnd(127)`; orc same walker).
-  Bones/restore ghostfruit named. Do not skip
-  D-1520…D-1229. No FORCE / `wildmiss` wrap / trailing
-  `confdir` in shared `getdir`. pickup `body_part`
+  **Next:** Open `objnam.c` `reorder_fruit`. Not
+  fruit_from_indx. D-1521 doname_base slime-mold fake_arti
+  (`artifact_name` FALSE; force_the `"the "` else no a/an;
+  xname the-strip). D-1520 fruitadd live
+  `fruit_from_name(FALSE)`. Bones/restore ghostfruit named.
+  Do not skip D-1521…D-1229. No FORCE / `wildmiss` wrap /
+  trailing `confdir` in shared `getdir`. pickup `body_part`
   latebound; do not import pickup→polyself.
-- Do not revert D-1217–D-1520. Named still: worm segs;
+- Do not revert D-1217–D-1521. Named still: worm segs;
   `visible_region_summary`; `show_region`; GETOBJ_ALLOWCNT;
-  tamedog is_covetous; `#altdip`; doname fake_arti /
-  `goodfruit` / `reorder_fruit`; wander/`somexy`;
-  `create_object` `o->lit`; emin; altar Align2amask;
-  `mcast_blind_you` EYE; quantum-cat FOOT; cspfx W_ART.
+  tamedog is_covetous; `#altdip`; `goodfruit` /
+  `reorder_fruit`; wander/`somexy`; `create_object` `o->lit`;
+  emin; altar Align2amask; `mcast_blind_you` EYE;
+  quantum-cat FOOT; cspfx W_ART.
 
 ## Don't re-check (≤15)
 
@@ -29,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1520.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1521.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -40,10 +40,11 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1520 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1521 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
-  D-1089). Do not restore exact-only fruit walker (D-1520).
+  D-1089). Do not restore exact-only fruit walker (D-1520) or
+  always-a/an slime-mold doname (D-1521).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
@@ -56,6 +57,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1521: doname_base slime-mold fake_arti. `artifact_name(bp,0,FALSE)`;
+  force_the `"the "` else no a/an. xname `:1011` the-strip.
+  Local `artifact_name_objnam`. `reorder_fruit` named.
 - D-1520: fruitadd live objnam `fruit_from_name` FALSE +
   max fid. Prefix reuse; tin/corpse/egg candify; `rnd(127)`.
   Orc `fruitadd_orc` same walker. ghostfruit named.
@@ -85,5 +89,3 @@ Objective/score live in `CURRENT.md`.
   in pickup. EYE/FOOT named.
 - D-1507: Sokoban first-try `throws_rocks` reject before
   `goodpos`. Later tries fair.
-- D-1506: `m_initinv` S_GNOME `!mpickobj && !levl.lit` →
-  live `begin_burn`. Floor candle is D-1519.

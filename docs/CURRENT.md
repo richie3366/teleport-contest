@@ -59,30 +59,29 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1520. **Next cluster:** Open
-`objnam.c` doname_base slime-mold fake_arti (named). Not
-fruit_from_indx.
-**Do not skip D-1520…D-1229 (index).** Keep mention_map addr.
+**Map-driven fortress** after D-1521. **Next cluster:** Open
+`objnam.c` `reorder_fruit` (named). Not fruit_from_indx.
+**Do not skip D-1521…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1520.** Do not FORCE
+**Do not re-break D-0660…D-1521.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1520 (index). Recent: **D-1520**
-`options.c` fruitadd → objnam `fruit_from_name` FALSE
-(prefix/singular; tin/corpse/egg candify; `rnd(127)`;
-orc `fruitadd_orc` same walker). Prior: **D-1519**
-`mklev.c` `mktrap_victim` gnome candle `begin_burn`
-(live `timeout.js`; not `m_initinv` D-1506). Maze statue
-is D-1517. dprince is D-1518.
+**Keep:** D-0845…D-1521 (index). Recent: **D-1521**
+`objnam.c` doname_base slime-mold fake_arti (`artifact_name`
+FALSE; force_the `"the "` else no a/an; xname `:1011`
+the-strip). Prior: **D-1520** `options.c` fruitadd → objnam
+`fruit_from_name` FALSE (prefix/singular; tin/corpse/egg
+candify; `rnd(127)`; orc `fruitadd_orc` same walker).
+D-1519 gnome candle. Maze statue is D-1517. dprince is D-1518.
 stolen_booty is D-1363.
 minetn-7 gnome count is D-1513; dispatch is D-1504;
 minetn-6 is D-1503; minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1520
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1521
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside

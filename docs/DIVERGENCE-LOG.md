@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1521 — objnam.c doname_base slime-mold fake_arti
+
+- **Status:** fixed (map-driven Open from D-1520; not a public FAIL)
+- **Symptom:** a slime-mold fruit whose `fname` matches an artifact
+  still took `"a "`/`"an "`. C formats it like the artifact:
+  `"the "` if the canonical name starts with `"the "`, else no
+  article.
+- **C locus:** `objnam.c` `doname_base` `:1275–1299`.
+  `fake_arti = (otyp==SLIME_MOLD && artifact_name(bp,0,FALSE))`;
+  `force_the = fake_arti && strncmpi(aname,"the ",4)`. Article:
+  quan / CORPSE skip / `force_the||obj_is_pname||the_unique_obj`
+  `"the "` / `!fake_arti` `"a "`. Callee `artifact.c`
+  `artifact_name` `:329–353` (fuzzy FALSE). `xname_flags`
+  `:1011–1012` strips leading `"the "` from bp before that
+  lookup. Caller `doname()` flags 0.
+- **JS was:** always `"a "` unless pname/unique; `pretty_base`
+  kept `"The …"` fname. Named omit after D-1511 / D-1520.
+- **Fix:** Local `artifact_name_objnam` (already D-1487; no
+  artifact.js import — invent cycle). `force_the` vs skip
+  article. xname + doname slime-mold the-strip so bp matches C.
+  Named-ONAME in the lookup so `Excalibur named Foo` misses.
+  Rule #2: no fs.
+- **JS:** `js/objnam.js` `doname` / `xname`.
+- **Not this iter:** `reorder_fruit`; bones `goodfruit`; pager
+  look `spe = current_fruit`; `doname_vague_quan` `"some "`;
+  BAG_OF_TRICKS/HORN empty prefix; ARMOR gloves `:1412`.
+- **Verified:** private canary **21**/21 (C/JS grep; Excalibur/
+  Sting/Frost Brand/strcmpi; Orb/Eye force_the; the-Excalibur
+  strip; quan 2; blessed; Apple a/an; named-Foo miss; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless OPTIONS/doset fruit is an artifact
+  name.
+- **Follow-up:** Open `objnam.c` `reorder_fruit`.
+- **Files:** `js/objnam.js`.
+
 ## D-1520 — options.c fruitadd → objnam fruit_from_name
 
 - **Status:** fixed (map-driven Open from D-1519; not a public FAIL)

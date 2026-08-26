@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objnam.c` doname_base slime-mold fake_arti (named). Not fruit_from_indx.
 - [ ] `objnam.c` `reorder_fruit` (named). Not fruit_from_indx.
 - [ ] `bones.c` `goodfruit` (named). Not fruit_from_indx.
 - [ ] `pager.c` look SLIME_MOLD `spe = current_fruit` (named). Not xname.

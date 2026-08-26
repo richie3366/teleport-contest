@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1521 objnam.c doname_base slime-mold fake_arti
+
+**Objective:** Open `objnam.c` doname_base slime-mold fake_arti
+(named). Not fruit_from_indx.
+**C locus:** `objnam.c` `doname_base` `:1275–1299`; callee
+`artifact.c` `artifact_name` `:329–353` FALSE; `xname_flags`
+`:1011` the-strip.
+**JS locus:** `js/objnam.js` `doname` / `xname`; local
+`artifact_name_objnam` (no artifact import).
+**Change:** `fake_arti` → force_the `"the "` else skip a/an.
+xname+doname strip leading `"the "` so bp matches C. Named
+ONAME in the lookup. `reorder_fruit` / `goodfruit` / pager
+look named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1900);
+artifact-named fruit public-unhit.
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `objnam.c` `reorder_fruit`. Not fruit_from_indx.
+**Blocked:** none.
 ## 2026-08-26 — D-1520 options.c fruitadd fruit_from_name walker
 
 **Objective:** Open `options.c` fruitadd should call objnam

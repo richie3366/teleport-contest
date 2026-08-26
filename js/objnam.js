@@ -775,6 +775,11 @@ export function xname(obj) {
         base += ` named ${onameStr}`;
         // C: artifact "The …" → downcase leading T — deferred
     }
+    // C xname_flags `:1011–1012` — doname_base artifact_name(bp) sees
+    // this stripped pointer (D-1521 fake_arti).
+    if (base.length >= 4 && base.slice(0, 4).toLowerCase() === 'the ') {
+        base = base.slice(4);
+    }
     return base;
 }
 
@@ -1223,9 +1228,10 @@ export function fruit_from_name(fname, exact, highest_fid = null) {
 }
 
 /**
- * C ref: artifact.c artifact_name — strcmpi after stripping leading "the ".
- * Local copy so objnam does not import artifact.js (invent cycle); fuzzy
- * still lives in artifact.js.
+ * C ref: artifact.c artifact_name `:329–353` — strcmpi after stripping
+ * leading "the "; fuzzy=FALSE (doname_base / the()). Local copy so
+ * objnam does not import artifact.js (invent cycle); fuzzy still lives
+ * in artifact.js.
  */
 function artifact_name_objnam(name) {
     if (!name) return null;
@@ -1987,22 +1993,47 @@ export function doname(obj) {
         base = makeplural(base);
     }
 
+    // C doname_base `:1275–1299` — fruits may be given artifact names
+    // (D-1521). bp is xname: fname (+ ick) + optional " named ONAME" then
+    // strip leading "the " (`:1011`). JS doname uses pretty_base so rebuild
+    // that lookup here; named suffix is still appended after prefix.
+    const onameStrForArti = (obj.dknown && obj.oextra?.oname)
+        ? String(obj.oextra.oname) : '';
+    let bpForArti = onameStrForArti
+        ? `${base} named ${onameStrForArti}` : base;
+    if (bpForArti.length >= 4
+        && bpForArti.slice(0, 4).toLowerCase() === 'the ') {
+        bpForArti = bpForArti.slice(4);
+    }
+    if ((obj.otyp | 0) === SLIME_MOLD && base.length >= 4
+        && base.slice(0, 4).toLowerCase() === 'the ') {
+        base = base.slice(4);
+    }
+    let aname = null;
+    const fake_arti = ((obj.otyp | 0) === SLIME_MOLD
+        && (aname = artifact_name_objnam(bpForArti)) != null);
+    const force_the = !!(fake_arti
+        && String(aname).length >= 4
+        && String(aname).slice(0, 4).toLowerCase() === 'the ');
+
     // C ref: objnam.c doname_base — COIN_CLASS uses the same quan/article
     // path as other objects ("a gold piece", "25 gold pieces"), not a bare
     // numeric string. xname for coins is just "gold piece".
-    // Article: quan / the_unique_obj|obj_is_pname → "the " / else "a "
-    // (then just_an redo). C skips article for CORPSE so corpse_xname
-    // can take the BUC/greased/oeaten prefix as its adjective
-    // (CXN_ARTICLE|CXN_NOCORPSE; D-1255). Slime-mold fake_arti named.
+    // Article: quan / force_the|obj_is_pname|the_unique_obj → "the " /
+    // else if !fake_arti "a " (then just_an redo). C skips article for
+    // CORPSE so corpse_xname can take the BUC/greased/oeaten prefix as
+    // its adjective (CXN_ARTICLE|CXN_NOCORPSE; D-1255).
     let prefix = '';
     if (quan !== 1) {
         prefix = `${quan} `;
     } else if (oname === 'CORPSE') {
         // skip article — corpse_xname owns it
-    } else if (obj_is_pname(obj) || the_unique_obj(obj)) {
-        if (/^the /i.test(base)) base = base.slice(4);
+    } else if (force_the || obj_is_pname(obj) || the_unique_obj(obj)) {
+        if (base.length >= 4 && base.slice(0, 4).toLowerCase() === 'the ') {
+            base = base.slice(4);
+        }
         prefix = 'the ';
-    } else {
+    } else if (!fake_arti) {
         prefix = 'a ';
     }
 
