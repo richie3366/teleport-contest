@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `pager.c` `mhidden_description` (named). Not that_is_a_mimic. **Addressed:** D-1554
+- [x] `do_name.c` `namefloorobj` (named). Not that_is_a_mimic. **Addressed:** D-1555
+
+
+- [x] `pager.c` `mhidden_description` (named). Not that_is_a_mimic. **Addressed:** D-1554 `1918ea61`
 
 
 - [x] `sp_lev.c` `splev_create_monster` RANDOM-only (named). Not mk_roamer. **Addressed:** D-1553 `9ed46432`

@@ -8,6 +8,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1555 do_name.c namefloorobj
+
+**Objective:** Open `namefloorobj`. Not that_is_a_mimic.
+**C locus:** `do_name.c` `namefloorobj` `:678–757` + `call_ok`.
+**JS locus:** `js/do_name.js` `namefloorobj` (was Esc stub).
+**Change:** getpos + vobj_at / object_from_map + Hallu unames +
+call_ok/docall. iactions imports call_ok. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1940).
+**Verified:** canary **20**/20; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open DELPHI `S_fountain`. Not furnsyms.
+**Blocked:** none.
 ## 2026-08-26 — D-1554 pager.c mhidden_description
 
 **Objective:** Open `mhidden_description`. Not `namefloorobj`.

@@ -14,12 +14,13 @@ import { flush_screen, docrt, clear_committed_status } from './display.js';
 import { paint_corner_nhw_menu } from './invent.js';
 import { cxname, the, xname, makeplural, singular, is_plural, the_unique_obj } from './objnam.js';
 import { ia_checkfile } from './pager.js';
+import { call_ok } from './do_name.js';
 import { ammo_and_launcher } from './wield.js';
 import {
-    objects, objectNames, objectDescrs,
+    objects, objectNames,
     WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS, TOOL_CLASS,
     POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS, WAND_CLASS,
-    GEM_CLASS, COIN_CLASS, VENOM_CLASS,
+    GEM_CLASS, COIN_CLASS,
 } from './objects.js';
 import {
     ECMD_OK, GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST,
@@ -167,7 +168,6 @@ const IA_WHATIS_OBJ = 27;
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
 const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
-const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const TIN = objectNames.indexOf('TIN');
@@ -189,41 +189,10 @@ function simpleonames(obj) {
     return singular(obj, xname);
 }
 
-/** C ref: do_name.c objtyp_is_callable — class + OBJ_DESCR / oc_uname. */
-function objtyp_is_callable(i) {
-    const ocl = game.objects?.[i] || objects[i];
-    if (!ocl) return false;
-    if (ocl.oc_uname) return true;
-    const oc = ocl.oc_class;
-    if (oc === AMULET_CLASS) {
-        if (i === AMULET_OF_YENDOR || i === FAKE_AMULET_OF_YENDOR) return false;
-    }
-    if (
-        oc === AMULET_CLASS || oc === SCROLL_CLASS || oc === POTION_CLASS
-        || oc === WAND_CLASS || oc === RING_CLASS || oc === GEM_CLASS
-        || oc === SPBOOK_CLASS || oc === ARMOR_CLASS || oc === TOOL_CLASS
-        || oc === VENOM_CLASS
-    ) {
-        const di = ocl.oc_descr_idx ?? i;
-        return !!(objectDescrs[di] || ocl.oc_descr);
-    }
-    return false;
-}
-
 /** C ref: do_name.c name_ok */
 function name_ok(obj) {
     if (!obj || obj.oclass === COIN_CLASS) return GETOBJ_EXCLUDE;
     if (!obj.dknown || obj.oartifact || obj.otyp === SPE_NOVEL) {
-        return GETOBJ_DOWNPLAY;
-    }
-    return GETOBJ_SUGGEST;
-}
-
-/** C ref: do_name.c call_ok */
-function call_ok(obj) {
-    if (!obj || !objtyp_is_callable(obj.otyp)) return GETOBJ_EXCLUDE;
-    const ocl = game.objects?.[obj.otyp] || objects[obj.otyp];
-    if (!obj.dknown || (ocl?.oc_name_known && !ocl?.oc_uname)) {
         return GETOBJ_DOWNPLAY;
     }
     return GETOBJ_SUGGEST;

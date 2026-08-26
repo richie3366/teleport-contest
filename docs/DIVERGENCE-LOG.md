@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1555 — do_name.c namefloorobj (getpos / call_ok / Hallu unames)
+
+- **Status:** fixed (map-driven Open from D-1554; not a public FAIL)
+- **Symptom:** `namefloorobj` was an Esc-only stub after D-1544/D-1547.
+  `#name` `f` never called `getpos`, `vobj_at` / `object_from_map`,
+  Hallu display-rng names, `call_ok`, or `docall`. `mhidden_description`
+  is D-1554 (not this). `that_is_a_mimic` is D-1544.
+- **C locus:** `do_name.c` `namefloorobj` `:678–757`. Caller
+  `docallcmd` `:590–591` `'f'`. Callees `call_ok` `:479–495`,
+  `objtyp_is_callable` `:428–463`, `getpos`, `object_from_map`
+  (pager.c), `simpleonames` / `The`, `docall`.
+- **JS was:** `namefloorobj_stub` pending-message + Esc loop.
+  `call_ok` / `objtyp_is_callable` lived only as iactions clones.
+- **Fix:** Live `namefloorobj`: getpos (force FALSE); hero cell
+  `objects_at` (C `vobj_at`); else `glyph_to_obj_at` then
+  `object_from_map`; STRANGE_OBJECT skips simpleonames; Hallu six
+  unames (`rank_of`/`bogusmon`/`roguename`/`Wibbly Wobbly`) then
+  `rn2_on_display_rng(6)`; else EXCLUDE / `!dknown` / `docall`.
+  Fakeobj `OBJ_FREE` (GC; no `dealloc_obj` clone). `call_ok` +
+  `objtyp_is_callable` at C home; iactions imports. Rule #2: no fs.
+- **JS:** `js/do_name.js` `namefloorobj` / `call_ok` /
+  `objtyp_is_callable`; `js/iactions.js` `call_ok` import.
+- **Not this iter:** `docallcmd` `m`/`o`/`d`; `dealloc_obj` body;
+  howmonseen; cutworm; DELPHI `S_fountain` / `block_point`; pickinv
+  `&ctmp`; `finish_splitting`; stash getobj; `in_doagain` REPEAT.
+  mhidden is D-1554; getpos fakeobj is D-1547.
+- **Verified:** private canary **20**/20; green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `makemon.c` `set_mimic_sym` DELPHI
+  `S_fountain`. Not furnsyms.
+- **Files:** `js/do_name.js`, `js/iactions.js`.
+
 ## D-1554 — pager.c mhidden_description (mimic/hider/region suffix)
 
 - **Status:** fixed (map-driven Open from D-1553; not a public FAIL)

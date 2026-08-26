@@ -886,7 +886,7 @@ JS: `js/do_name.js` — partial
 
 **artifact oname/`artifact_exists`** (D-0064); 
 **`docallcmd` menu + `i`→getobj name_ok/do_oname** (D-0069/D-0928 #1147; 
-call/floor/disco/monster + artifact_name slip deferred); 
+call/disco/monster + artifact_name slip deferred); 
 **`docall`/`trycall` potion call → `oc_uname`** (D-0430; 
 sink-fluid/`safe_qbuf` fallbacks deferred); **`christen_monst` + tame `x_monnam` subset** (D-0079); 
 **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); 
@@ -909,7 +909,7 @@ chest_trap `Blind ? ROLL_FROM(blindgas) : rndcolor()`;
 sit/apply/pray/detect/do/wield/read identity stubs still named); 
 **exported `x_monnam` adjective/ARTICLE + `mon_nam`→`x_monnam`** (D-0850; 
 priest/minion/`mappear`/invis adj/`is_mplayer` rank/`AUGMENT_IT` deferred); 
-**`uhitm` live `a_monnam` D-1544**; `namefloorobj` still named; 
+**`uhitm` live `a_monnam` D-1544**; **`namefloorobj` getpos + vobj_at / object_from_map + Hallu unames + call_ok D-1555**; 
 **`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889; 
 **seemimic/pit/NODIAG/boulder D-1299**; `goodpos` / mintrap aftermath named); 
 omit astral high-cleric `distant_monnam`
