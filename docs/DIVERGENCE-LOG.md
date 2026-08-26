@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1518 — makemon.c dprince MS_BRIBE / raven BEC_DE_CORBIN
+
+- **Status:** fixed (map-driven Open from D-1517; not a public FAIL)
+- **Symptom:** After in_mklev sleep / byyou newsym, JS jumped
+  to LONG_WORM then `set_malign`. C first forces demon
+  princes with `MS_BRIBE` (Geryon/Dispater/Baalzebub/Asmodeus)
+  peaceful+invisible (`mavenge` 0), then hostile+untame if
+  Excalibur or Demonbane is wielded, then forces a raven
+  peaceful when `uwep->otyp == BEC_DE_CORBIN`. Those mons are
+  `M2_HOSTILE`, so `peace_minded` left them angry.
+- **C locus:** `makemon.c` `makemon` `:1397–1404`. Callees
+  `is_dprince` (`mondata.h`), `u_wield_art` (`obj.h` →
+  `is_art(uwep, art)`). Caller is `makemon` itself, before
+  `set_malign`.
+- **JS was:** named omit after D-1092 / D-1517.
+- **Fix:** Port both `if`s. Live `is_dprince`. Local
+  `u_wield_art` clone (cannot import `artifact.js`:
+  artifact → display → mkobj → makemon). Rule #2: no fs.
+- **JS:** `js/makemon.js` `makemon`.
+- **Not this iter:** emin/angel roaming (`newemin` after
+  worm); altar Align2amask; `Protection_from_shape_changers`.
+  Maze statue is D-1517.
+- **Verified:** private canary **21**/21 (C/JS arms; four
+  bribe princes peace+invis; Orcus/Demogorgon/amorous not;
+  Excalibur/Demonbane hostile+untame keep invis; mundane
+  long sword still peace; raven+bec peace, bat/long-sword
+  not); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until
+  a bribe prince or raven-with-bec spawn.
+- **Follow-up:** Open `mklev.c` `mktrap_victim` gnome candle
+  `begin_burn`.
+- **Files:** `js/makemon.js`.
+
 ## D-1517 — makemon.c set_mimic_sym maze/sokoban/in_town statue
 
 - **Status:** fixed (map-driven Open from D-1516; not a public FAIL)

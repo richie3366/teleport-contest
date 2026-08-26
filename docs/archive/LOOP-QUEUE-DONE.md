@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `makemon.c` `set_mimic_sym` maze/sokoban/`in_town` (named). Not shop arm. **Addressed:** D-1517
+- [x] `makemon.c` dprince MS_BRIBE / raven BEC_DE_CORBIN (named). Not emin. **Addressed:** D-1518
+
+
+- [x] `makemon.c` `set_mimic_sym` maze/sokoban/`in_town` (named). Not shop arm. **Addressed:** D-1517 `8bfe0bc8`
 
 
 - [x] `makemon.c` non-salamander S_LIZARD `m_initweap` (named). Not S_KOP. **Addressed:** D-1516 `cf3c5701`

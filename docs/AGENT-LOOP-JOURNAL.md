@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1518 makemon.c dprince MS_BRIBE / raven BEC_DE_CORBIN
+
+**Objective:** Open `makemon.c` dprince MS_BRIBE / raven
+`BEC_DE_CORBIN` (named). Not emin.
+**C locus:** `makemon.c` `makemon` `:1397–1404`.
+**JS locus:** `js/makemon.js` `makemon`.
+**Change:** Bribe princes peace+invis; Excalibur/Demonbane
+hostile+untame; raven+bec peace. Live `is_dprince`. Local
+`u_wield_art` clone (artifact→display→mkobj cycle). Rule #2:
+no fs.
+**Score:** fortress **44**/44 (cadence #1900);
+public-unhit until bribe prince / raven-with-bec.
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `mklev.c` `mktrap_victim` gnome candle
+`begin_burn`. Not `m_initinv`.
+**Blocked:** none.
 ## 2026-08-26 — D-1517 makemon.c set_mimic_sym maze/in_town statue
 
 **Objective:** Open `makemon.c` `set_mimic_sym`

@@ -7,15 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after audit **#1900** HEAD `79744185`
   (Scr **11,405** RNG 100%, `37+0.30/turn` R² 0.85).
-  **Next:** Open `makemon.c` dprince MS_BRIBE /
-  raven `BEC_DE_CORBIN` (named). Not emin.
-  D-1517 maze/`in_town` statue shipped (local `in_town`
-  clone; do not import makemon→hack).
-  Do not skip D-1517…D-1229. No FORCE / `wildmiss` wrap /
+  **Next:** Open `mklev.c` `mktrap_victim` gnome candle
+  `begin_burn` (named). Not `m_initinv`.
+  D-1518 dprince MS_BRIBE / raven `BEC_DE_CORBIN` shipped
+  (local `u_wield_art` clone; do not import makemon→artifact).
+  Do not skip D-1518…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`. pickup
   `body_part` is latebound (polyself→do cycle);
   do not import pickup→polyself.
-- Do not revert D-1217–D-1517. Named still:
+- Do not revert D-1217–D-1518. Named still:
   `see_monsters` worm segs; timeout
   `visible_region_summary`; display `show_region`;
   GETOBJ_ALLOWCNT; tamedog is_covetous /
@@ -23,7 +23,7 @@ Objective/score live in `CURRENT.md`.
   fruitadd walker; doname fake_arti / bones
   `goodfruit` / `reorder_fruit`; wander/`somexy` /
   Wiz_arrive; mktrap_victim floor candle;
-  dprince/raven; emin roaming; altar Align2amask /
+  emin roaming; altar Align2amask /
   door `S_hcdoor`; `mcast_blind_you` EYE;
   `observe_quantum_cat` FOOT; cspfx W_ART WARN;
   invent W_ART conferral.
@@ -35,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1517.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1518.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,7 +46,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1517 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1518 (index).
 - Named still: worm-shrieker; GETOBJ_ALLOWCNT / tamedog is_covetous;
   options fruitadd walker; `ensure_way_out`. Do not re-add a
   fourth town gnome in `load_minetn_7` (D-1513).
@@ -59,12 +59,19 @@ Objective/score live in `CURRENT.md`.
 - Do not import `wield.js`/`pickup.js`→`polyself.js` for
   `body_part` (use `objnam.js` `body_part_latebound`).
 - Do not import `makemon.js`→`hack.js` for `in_town` (D-1517
-  local clone; hack→trap/mon cycle). Do not call JS `fruitadd`
-  at init after objects exist (candifies `"slime mold"`).
+  local clone; hack→trap/mon cycle). Do not import
+  `makemon.js`→`artifact.js` for `u_wield_art` (D-1518
+  local clone; artifact→display→mkobj cycle). Do not call JS
+  `fruitadd` at init after objects exist (candifies `"slime mold"`).
   `init_fruit_chain` only.
 
 ## Landmarks (≤15)
 
+- D-1518: `makemon` after sleep/byyou, before LONG_WORM:
+  `is_dprince && MS_BRIBE` peace+invis+`mavenge` 0 then
+  Excalibur/Demonbane hostile+untame; raven + `BEC_DE_CORBIN`
+  peace. Live `is_dprince`. Local `u_wield_art` clone.
+  emin roaming named. Maze statue is D-1517.
 - D-1517: `set_mimic_sym` maze statue uses
   `!(In_mines && in_town(u.ux,u.uy))` then `!In_sokoban`
   then `rn2(2)`. Not mines-only skip. Local `in_town`
@@ -73,7 +80,6 @@ Objective/score live in `CURRENT.md`.
   (C `if (mm==PM_SALAMANDER)` else break; D-0556 kit kept).
   Same function PM_NINJA `rn2(4)` SHURIKEN|DART then
   SHORT_SWORD|AXE. Live `mongets`. G_NOGEN until quest.
-  dprince/raven named.
 - D-1515: S_KOP `m_initweap` `!rn2(4)` cream pies
   (`m_initthrow` quan 3–4) then `!rn2(3)` CLUB or
   RUBBER_HOSE. Live callees. G_NOGEN until `makekops`.
@@ -122,9 +128,3 @@ Objective/score live in `CURRENT.md`.
   `des.room` + percent(75) nests + chance shops + pos=0 door
   + sink + temple. Town gnome count is D-1513.
   `ensure_way_out` named.
-- D-1503: minetn-6 Bustling Town `load_special`; solidfill then
-  mines lit=1 bg HWALL; top-aligned `'x'` skip map; shops/temple.
-  `ensure_way_out` named.
-- D-1502: `arti_invoke` TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH;
-  `seffect_taming`/`charge_ok`/`recharge`; `tamedog` MANFOOD.
-  GETOBJ_ALLOWCNT named. Palantir `#if 0`. H2O dip D-1501.

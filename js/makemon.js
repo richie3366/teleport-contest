@@ -53,6 +53,7 @@ import {
     is_elf,
     is_giant,
     is_ndemon,
+    is_dprince,
     is_shapeshifter,
     is_vampire,
     is_vampshifter,
@@ -127,6 +128,7 @@ import {
     TOOL_CLASS, ROCK_CLASS, GEM_CLASS, SPBOOK_CLASS, MAXOCLASSES,
     RANDOM_CLASS, objects,
 } from './objects.js';
+import { ART_EXCALIBUR, ART_DEMONBANE } from './generated/artifacts_data.js';
 import { cansee } from './vision.js';
 import { newsym, Norep, canseemon, sensemon } from './display.js';
 import { emits_light, new_light_source } from './light.js';
@@ -457,7 +459,17 @@ function Race_if(pmnum) {
     return (game.urace?.mnum | 0) === (pmnum | 0);
 }
 
+/**
+ * C ref: obj.h u_wield_art — is_art(uwep, art). Local clone: cannot
+ * import artifact.js (artifact → display → mkobj → makemon).
+ */
+function u_wield_art(art) {
+    const uwep = game.u?.uwep;
+    return !!(uwep && (uwep.oartifact | 0) === (art | 0));
+}
+
 /** C ref: monflag.h enum ms_sounds — msounds[] D-1053; peace/malign D-1079. */
+const MS_BRIBE = 33;
 const MS_LEADER = 36;
 const MS_NEMESIS = 37;
 const MS_GUARDIAN = 38;
@@ -2346,9 +2358,22 @@ export function makemon(mdat, x, y, mmflags = 0) {
         newsym(mtmp.mx, mtmp.my);
     }
 
+    // C: makemon.c :1397–1404 after in_mklev sleep / byyou newsym,
+    // before LONG_WORM. emin roaming still named.
+    if (is_dprince(ptr) && (ptr.msound | 0) === MS_BRIBE) {
+        mtmp.mpeaceful = mtmp.minvis = mtmp.perminvis = 1;
+        mtmp.mavenge = 0;
+        if (u_wield_art(ART_EXCALIBUR) || u_wield_art(ART_DEMONBANE)) {
+            mtmp.mpeaceful = mtmp.mtame = 0;
+        }
+    }
+    if (ptr.mndx === pm('RAVEN') && game.u?.uwep
+        && (game.u.uwep.otyp | 0) === otyp('BEC_DE_CORBIN')) {
+        mtmp.mpeaceful = 1;
+    }
+
     // C: PM_LONG_WORM → get_wormno / initworm / place_worm_tail_randomly
-    // Named omissions: dprince bribe peace; raven BEC_DE_CORBIN; emin/angel
-    // roaming after worm (still before invent in C — deferred).
+    // Named omissions: emin/angel roaming after worm (still before invent).
     if (ptr.mndx === pm('LONG_WORM')) {
         mtmp.wormno = get_wormno();
         if (mtmp.wormno) {
@@ -2360,7 +2385,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
     }
 
     // C: set_malign after peaceful changes (S_ORC/S_UNICORN mlet D-1092;
-    // dprince bribe / raven BEC_DE_CORBIN / emin roaming still deferred)
+    // dprince MS_BRIBE / raven BEC_DE_CORBIN; emin roaming still deferred)
     set_malign(mtmp);
 
     // C: anymon && !(mmflags & MM_NOGRP) → small/large group (after sleep)
