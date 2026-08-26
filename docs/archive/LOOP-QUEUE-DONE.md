@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `restore.c` `ghostfruit` (named). Not goodfruit. **Addressed:** D-1541
+- [x] `themerms.lua` Light source fill oil lamp (named). Not create_object o->lit. **Addressed:** D-1542
+
+
+- [x] `restore.c` `ghostfruit` (named). Not goodfruit. **Addressed:** D-1541 `21ccdfde`
 
 
 - [x] `shk.c` `make_happy_shk` (`:1395–1435`): port `adjalign` (non-Rogue), `!inhishop` `home_shk` / `mdrop_special_objs`+`migrate_to_level`+`dismiss_kops`, and `make_happy_shoppers` (`kops_gone`/`pacify_guards`) so `tamedog` `:1235–1238` matches C, not pacify+“calms down” only. Source: reviews/loop-unattended/493-81e04089-tamedog-covetous.md **Addressed:** D-1540 `53f71db1`

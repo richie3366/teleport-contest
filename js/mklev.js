@@ -11314,8 +11314,8 @@ function get_location_coord(humidity, croom, rx, ry) {
  * invent_carrying_monster / saddle; artifact uncreate when container_obj
  * is NULL; Medusa statue fill; achievement prizes; buried bury_an_obj;
  * class-letter def_char_to_objclass (id-less RANDOM_CLASS / mkobj_at
- * oclass still work). themerms Light source fill still named (only
- * lua that sets lit=true; this arm is live when a loader passes lit).
+ * oclass still work). themerms Light source fill (D-1542) is the
+ * production lua that sets lit=true; this arm is the callee.
  */
 function create_object(o, croom) {
     const named = !!(o.name);
@@ -17762,6 +17762,18 @@ function themeroom_fill_buried_zombies(croom) {
 }
 
 /**
+ * C ref: themerms.lua "Light source" `:204–209` + sp_lev.c create_object
+ * `o->lit` after stackobj (D-1533). Lua eligible is `rm.lit == false`
+ * (`THEMEROOM_FILLS` needs_unlit; `l_push_mkroom_table` lit←rlit).
+ * Contents is one `des.object({ id = "oil lamp", lit = true })` — table
+ * form, no coord → get_location_coord(DRY, croom) then begin_burn.
+ * Do not use create_object_themed / mksobj_at (those skip o->lit).
+ */
+function themeroom_fill_light_source(croom) {
+    l_create_object({ id: OIL_LAMP, lit: true }, null, croom);
+}
+
+/**
  * C ref: themerms.lua "Cloud room" contents + sp_lev.c lspo_gas_cloud.
  * selection.room() then asleep fog clouds (numpoints/4, Lua float /)
  * then des.gas_cloud({ selection = fog }) — damage 0, ttl default -1.
@@ -17933,6 +17945,7 @@ const THEMEROOM_FILL_BODIES = {
     'Buried zombies': themeroom_fill_buried_zombies,
     'Temple of the gods': themeroom_fill_temple_of_the_gods,
     'Cloud room': themeroom_fill_cloud,
+    'Light source': themeroom_fill_light_source,
 };
 
 // C ref: themerms.lua themeroom_fill() — reservoir + dispatched fill bodies
@@ -17952,7 +17965,7 @@ function themeroom_fill(croom) {
     const body = THEMEROOM_FILL_BODIES[pick.name];
     if (body) body(croom);
     // Named omission: other fill contents (Ice/Boulder/Spider/Trap/
-    // Garden/Buried treasure/Massacre/Statuary/Light source/…)
+    // Garden/Buried treasure/Massacre/Statuary/…)
 }
 
 // C ref: themerms.lua filler_region + sp_lev.c lspo_region irregular path

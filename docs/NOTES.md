@@ -7,19 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
   RNG **792,838**/792,838 = 100%, `38+0.31/turn` R² 0.848).
-  seed0367 FULL. **Hypothesis:** next work is Open `themerms.lua`
-  Light source fill oil lamp (named). Not create_object `o->lit`.
-  Must-fix empty. D-1541 closed `ghostfruit`.
-  **Falsify:** port themerms oil-lamp fill; leftover lamps must
-  `begin_burn` from that lua arm, not only `create_object` `o->lit`.
-  **Next:** Open Light source fill. Not furnsyms.
-  Do not skip D-1531…D-1541. Do not import bones→options for
+  seed0367 FULL. **Hypothesis:** next work is Open `makemon.c`
+  `set_mimic_sym` furnsyms real S_* (named). Not door `S_hcdoor`.
+  Must-fix empty. D-1542 closed themerms Light source oil lamp.
+  **Falsify:** port furnsyms so door/wall mimics use real S_*
+  (not only `S_hcdoor` left-connect).
+  **Next:** Open furnsyms. Not `that_is_a_mimic`.
+  Do not skip D-1531…D-1542. Do not skip Light source via
+  `mksobj_at` without `o->lit`. Do not import bones→options for
   fruitadd. Do not candify / write `current_fruit` on ghostfruit.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`. Do not stub `make_happy_shk` as pacify+“calms down”
-  only. Furnsyms still named.
-- Named still: Light source fill;
-  furnsyms; getpos fakeobj; `that_is_a_mimic`;
+  only.
+- Named still: furnsyms; getpos fakeobj; `that_is_a_mimic`;
   detect_wsegs; `worm_known`. Palantir `#if 0`. CMDQ_INT /
   pickinv count / `finish_splitting`. `splev_create_monster`
   RANDOM-only. `tamedog` `wake_nearto` / FULL_MOON S_DOG /
@@ -31,6 +31,8 @@ Objective/score live in `CURRENT.md`.
   `make_happy_shk` mnearto yank / after_shk_move occupancy /
   losedogs shoppers. ghostfruit impossible pline / age shift /
   other resetobjs. `fruitadd_orc` clone (mklev cycle).
+  Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/
+  Statuary themerms fills.
 
 ## Don't re-check (≤15)
 
@@ -39,7 +41,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1541.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1542.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -50,12 +52,13 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1541 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1542 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones. Do not skip
-  D-1520…D-1541 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
+  D-1520…D-1542 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
   /door `S_hcdoor` / `#altdip` INTERNALCMD / wander `somexy` /
-  cspfx W_ART / `make_happy_shk` / `ghostfruit` (index). Do not
+  cspfx W_ART / `make_happy_shk` / `ghostfruit` / Light source
+  fill (index). Do not
   delete emin to fix seed0367 (review **487**). Do not stub
   `make_happy_shk` as pacify+“calms down” only (D-1540 / review
   **493**). Do not import bones→options for fruitadd (D-1541).
@@ -78,9 +81,15 @@ Objective/score live in `CURRENT.md`.
   `cspfx` when `wp_mask===W_ART` (D-1539). Do not import
   `shk.js`→`mon.js` statically (`pacify_guards` clone).
   Do not candify / write `current_fruit` on ghostfruit.
+  Do not skip Light source via `mksobj_at` without `o->lit`.
 
 ## Landmarks (≤15)
 
+- D-1542: themerms Light source fill `l_create_object` OIL_LAMP
+  `lit=true` after needs_unlit pick (Lua `:204–209`). Not
+  `create_object_themed`/`mksobj_at`. Callee `o->lit` is D-1533.
+  Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/
+  Statuary still named.
 - D-1541: `ghostfruit` oldfruit fid→fname then fruitadd else
   (sanitize / `made_fruit` / `fruit_from_name` FALSE / `rnd(127)`
   / prepend; no `current_fruit`). restobjchn after next_ident.
@@ -107,7 +116,7 @@ Objective/score live in `CURRENT.md`.
 - D-1534: `mcast_blind_you` EYE scales + `make_blinded` 200/100;
   `eyecount` in `monsters.js`. Blinded `H&&!B`.
 - D-1533: `create_object` `o->lit` `begin_burn` after
-  `stackobj`. Table lit default 0. Light source fill named.
+  `stackobj`. Table lit default 0. Light source fill is D-1542.
 - D-1532: `tamedog` is_covetous + is_demon-vs-hero / quest
   leader / blessed +2 / givemsg / `mon_wield`. `make_happy_shk`
   is D-1540. `wake_nearto` / FULL_MOON S_DOG / ustuck named.
@@ -119,5 +128,3 @@ Objective/score live in `CURRENT.md`.
   detect_wsegs / `worm_known` named.
 - D-1528: `show_region` S_cloud / S_poisoncloud unless mon
   overrides. DRAWBRIDGE_UP under named.
-- D-1527: `#timeout` `visible_region_summary`; ttl+1; poison
-  vs vapor. tid `timer_id++` from 1.

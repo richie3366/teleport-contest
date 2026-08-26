@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1542 — themerms.lua Light source fill oil lamp
+
+- **Status:** fixed (map-driven Open from D-1541; not a public FAIL)
+- **Symptom:** `themeroom_fill` could pick `"Light source"` (needs_unlit)
+  but `THEMEROOM_FILL_BODIES` had no body, so an unlit themed room never
+  placed the burning oil lamp. Distinct from D-1533 (`create_object`
+  `o->lit` after `stackobj`, already live).
+- **C locus:** `dat/themerms.lua` Light source `:204–209`
+  (`eligible = rm.lit == false`; contents one
+  `des.object({ id = "oil lamp", lit = true })`). Producer
+  `sp_lev.c` `l_push_mkroom_table` `:3066` lit←`rlit`;
+  `lspo_object` `:3640` lit default 0; `create_object` `:2425–2426`
+  `begin_burn(otmp, FALSE)` (D-1533). Callee `timeout.c` `begin_burn`
+  `:1712` (D-0978).
+- **JS was:** `needs_unlit` already in `THEMEROOM_FILLS`; fill name
+  listed as a named omit after D-1533. `l_create_object` lit path
+  live. No dispatch.
+- **Fix:** `themeroom_fill_light_source` →
+  `l_create_object({ id: OIL_LAMP, lit: true }, null, croom)`.
+  Not `create_object_themed` / `mksobj_at` (those skip `o->lit`).
+  Gate is lua `lit=true`, not tile light. Rule #2: no fs.
+- **JS:** `js/mklev.js` `themeroom_fill_light_source` /
+  `THEMEROOM_FILL_BODIES`. Live `l_create_object` + `timeout.js`
+  `begin_burn`.
+- **Not this iter:** Ice/Boulder/Spider/Trap/Garden/Buried
+  treasure/Massacre/Statuary fills; garden/dig postprocess;
+  `bury_an_obj` on `create_object`.
+- **Verified:** private canary **13**/13 (C/JS grep; unlit croom
+  lamp burns; `mksobj_at` alone stays unlit; lit tile still
+  `o->lit` not D-1519; omitted lit skips; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. Public-unhit (no public
+  session picks this fill).
+- **Follow-up:** Open `makemon.c` `set_mimic_sym` furnsyms. Not
+  door `S_hcdoor`.
+- **Files:** `js/mklev.js`.
+
 ## D-1541 — restore.c ghostfruit spe remap via fruitadd else
 
 - **Status:** fixed (map-driven Open from D-1540; not a public FAIL)

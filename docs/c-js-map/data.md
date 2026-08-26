@@ -405,7 +405,7 @@ C `sokoban_rules=0`); **`fill_lvl`→`makemaz(minefill)` +
 tut_key/eckey/Knight jump/leave-invent/`map_location` tseen/`add_to_container` merge deferred); 
 **occupied invocation_pos** (D-1154); omit other fill *bodies*, nested `des.room` bodies beyond 
 Nesting/Fake Delphi/Huge/… outer sizes, `join` arboreal→ROOM, Lua `post_level_generate` postprocess 
-queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; themerms Light source fill still named); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
+queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; **D-1542** themerms Light source fill); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
 **D-0906 `hellfill`+`create_maze`/`LVLINIT_MAZE`** (seed4500 **32538→49776** Scr **459**; 
 **hellfill Invocation_lev VS** (D-1154 `pick_vibrasquare_location`+`maketrap`); 
 rnd_hell_prefab/`makemaz("")`/fakewiz deferred); empty `makemaz("")`; Is_special/quest fill; 
@@ -887,11 +887,14 @@ nested bodies deferred); **Pillars terr shuffle + 2×2 terrain** (D-0901);
 **Temple of the gods fill** + themes `splev_align` store (D-0895; 
 three `create_altar`/`get_free_room_loc`); 
 **Cloud room fill** + `lspo_gas_cloud`/`create_gas_cloud_selection` (D-1158; 
-1×1 bitmap, ttl −1, not BFS; asleep fog `numpoints/4`); **Kni-goal** (D-0928 #1134; 
+1×1 bitmap, ttl −1, not BFS; asleep fog `numpoints/4`); 
+**Light source fill** + `l_create_object` oil lamp `lit=true` (D-1542; 
+needs_unlit `rm.lit==false`; callee D-1533 `o->lit` `begin_burn`; not 
+`create_object_themed`/`mksobj_at`); **Kni-goal** (D-0928 #1134; 
 Kni-strt/loca/fila/filb deferred); full Lua VM + remaining `des.*` still production requirement; 
 Room-in-room nested create_subroom + Pillars terrain + 
 Mausoleum/Twin/Fake Delphi/Huge nested bodies + 
-other fill bodies (Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/Statuary/Light source/…) 
+other fill bodies (Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/Statuary/…) 
 + garden/dig postprocess absent; exclusion_zones save/rest deferred
 
 ### `src/mkroom.c` `mkshop` / `src/shknam.c` `stock_room` / `src/shk.c`

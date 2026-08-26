@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1542 themerms Light source oil lamp fill
+
+**Objective:** Open `themerms.lua` Light source fill oil lamp
+(named). Not create_object `o->lit`.
+**C locus:** `themerms.lua` `:204–209`; `sp_lev.c`
+`l_push_mkroom_table` `:3066`; callee `create_object` `:2425–2426`
+(D-1533).
+**JS locus:** `js/mklev.js` `themeroom_fill_light_source` /
+`THEMEROOM_FILL_BODIES`.
+**Change:** unlit themed fill places `l_create_object`
+`OIL_LAMP` `lit=true` (begin_burn). Not `mksobj_at`. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1930).
+**Verified:** canary **13**/13; green+strict seed8000/0900;
+cohort **7**/7 + strict (incl. seed0004).
+**Next:** Open `makemon.c` `set_mimic_sym` furnsyms. Not
+door `S_hcdoor`.
+**Blocked:** none.
 ## 2026-08-26 — D-1541 restore.c ghostfruit spe remap
 
 **Objective:** Open `restore.c` `ghostfruit` (named). Not goodfruit.
