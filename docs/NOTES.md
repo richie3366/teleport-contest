@@ -7,14 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after audit **#1900** HEAD `79744185`
   (Scr **11,405** RNG 100%, `37+0.30/turn` R² 0.85).
-  **Next:** Open `makemon.c` `set_mimic_sym`
-  maze/sokoban/`in_town` (named). Not shop arm.
-  D-1516 S_LIZARD skip + PM_NINJA kit shipped.
-  Do not skip D-1516…D-1229. No FORCE / `wildmiss` wrap /
+  **Next:** Open `makemon.c` dprince MS_BRIBE /
+  raven `BEC_DE_CORBIN` (named). Not emin.
+  D-1517 maze/`in_town` statue shipped (local `in_town`
+  clone; do not import makemon→hack).
+  Do not skip D-1517…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`. pickup
   `body_part` is latebound (polyself→do cycle);
   do not import pickup→polyself.
-- Do not revert D-1217–D-1516. Named still:
+- Do not revert D-1217–D-1517. Named still:
   `see_monsters` worm segs; timeout
   `visible_region_summary`; display `show_region`;
   GETOBJ_ALLOWCNT; tamedog is_covetous /
@@ -22,9 +23,10 @@ Objective/score live in `CURRENT.md`.
   fruitadd walker; doname fake_arti / bones
   `goodfruit` / `reorder_fruit`; wander/`somexy` /
   Wiz_arrive; mktrap_victim floor candle;
-  `set_mimic_sym` maze; dprince/raven;
-  `mcast_blind_you` EYE; `observe_quantum_cat` FOOT;
-  cspfx W_ART WARN; invent W_ART conferral.
+  dprince/raven; emin roaming; altar Align2amask /
+  door `S_hcdoor`; `mcast_blind_you` EYE;
+  `observe_quantum_cat` FOOT; cspfx W_ART WARN;
+  invent W_ART conferral.
 
 ## Don't re-check (≤15)
 
@@ -33,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1516.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1517.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -44,7 +46,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1516 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1517 (index).
 - Named still: worm-shrieker; GETOBJ_ALLOWCNT / tamedog is_covetous;
   options fruitadd walker; `ensure_way_out`. Do not re-add a
   fourth town gnome in `load_minetn_7` (D-1513).
@@ -56,16 +58,22 @@ Objective/score live in `CURRENT.md`.
   / `restore_artifacts`. Default `spot_monsters` Off.
 - Do not import `wield.js`/`pickup.js`→`polyself.js` for
   `body_part` (use `objnam.js` `body_part_latebound`).
-- Do not call JS `fruitadd` at init after objects exist
-  (candifies `"slime mold"`). `init_fruit_chain` only.
+- Do not import `makemon.js`→`hack.js` for `in_town` (D-1517
+  local clone; hack→trap/mon cycle). Do not call JS `fruitadd`
+  at init after objects exist (candifies `"slime mold"`).
+  `init_fruit_chain` only.
 
 ## Landmarks (≤15)
 
+- D-1517: `set_mimic_sym` maze statue uses
+  `!(In_mines && in_town(u.ux,u.uy))` then `!In_sokoban`
+  then `rn2(2)`. Not mines-only skip. Local `in_town`
+  clone. Shop is D-0262. Altar / `S_hcdoor` named.
 - D-1516: S_LIZARD non-salamander `!is_armed` skip
   (C `if (mm==PM_SALAMANDER)` else break; D-0556 kit kept).
   Same function PM_NINJA `rn2(4)` SHURIKEN|DART then
   SHORT_SWORD|AXE. Live `mongets`. G_NOGEN until quest.
-  `set_mimic_sym` maze / dprince/raven named.
+  dprince/raven named.
 - D-1515: S_KOP `m_initweap` `!rn2(4)` cream pies
   (`m_initthrow` quan 3–4) then `!rn2(3)` CLUB or
   RUBBER_HOSE. Live callees. G_NOGEN until `makekops`.

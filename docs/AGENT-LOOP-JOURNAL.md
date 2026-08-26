@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1517 makemon.c set_mimic_sym maze/in_town statue
+
+**Objective:** Open `makemon.c` `set_mimic_sym`
+maze/sokoban/`in_town` (named). Not shop arm.
+**C locus:** `makemon.c` `set_mimic_sym` `:2439–2443`;
+callee `hack.c` `in_town` + `mkroom.c` `inside_room`.
+**JS locus:** `js/makemon.js` `set_mimic_sym`.
+**Change:** C `!(In_mines && in_town(u.ux,u.uy))` not
+mines-only skip. Local `in_town` clone (hack→trap/mon
+cycle; same as `t_at_local`). Sokoban already skipped
+`rn2(2)`. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1900);
+mines-maze statue public-unhit unless town skip.
+**Verified:** canary **15**/15; green+strict
+seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `makemon.c` dprince MS_BRIBE / raven
+`BEC_DE_CORBIN`. Not emin.
+**Blocked:** none.
 ## 2026-08-26 — D-1516 makemon.c m_initweap S_LIZARD skip + PM_NINJA kit
 
 **Objective:** Open `makemon.c` non-salamander S_LIZARD

@@ -2438,8 +2438,45 @@ export async function makemon_appear_msg(mtmp, x, y, mmflags = 0) {
 }
 
 /**
- * C ref: makemon.c set_mimic_sym — ordinary + shop (get_shop_item) paths.
- * Named omissions: maze town arms, altar Align2amask MCORPSENM,
+ * C ref: mkroom.c inside_room — bbox (incl. walls) or irregular roomno.
+ * Local copy for in_town (hack.js keeps the live export; same reason as
+ * t_at_local — hack → trap/mon → makemon).
+ */
+function inside_room_mimic(croom, x, y) {
+    if (croom.irregular) {
+        const i = (croom.roomnoidx ?? -1) + ROOMOFFSET;
+        const loc = game.level?.at(x, y);
+        return !!(loc && !loc.edge && (loc.roomno | 0) === i);
+    }
+    return x >= (croom.lx | 0) - 1 && x <= (croom.hx | 0) + 1
+        && y >= (croom.ly | 0) - 1 && y <= (croom.hy | 0) + 1;
+}
+
+/**
+ * C ref: hack.c in_town — Mine Town (or whole level if no subroom parent).
+ * Caller set_mimic_sym uses hero u.ux,u.uy, not the mimic cell.
+ */
+function in_town(x, y) {
+    if (!game.level?.flags?.has_town) return false;
+    const rooms = game.level.rooms;
+    if (!rooms) return false;
+    let has_subrooms = false;
+    const n = (game.level.nroom | 0) + (game.level.nsubroom | 0);
+    for (let i = 0; i < n; i++) {
+        const sroom = rooms[i];
+        if (!sroom || (sroom.hx | 0) <= 0) continue;
+        if ((sroom.nsubrooms | 0) > 0) {
+            has_subrooms = true;
+            if (inside_room_mimic(sroom, x, y)) return true;
+        }
+    }
+    return !has_subrooms;
+}
+
+/**
+ * C ref: makemon.c set_mimic_sym — ordinary + shop (get_shop_item) +
+ * maze/sokoban/in_town statue (D-1517).
+ * Named omissions: altar Align2amask MCORPSENM, door/wall S_hcdoor,
  * Protection_from_shape_changers early-out when hero wears the amulet
  * (stubbed false at mklev).
  */
@@ -2469,9 +2506,11 @@ export function set_mimic_sym(mtmp) {
         // door/wall glyph pick has no RNG
         appear = 0;
     } else if (game.level?.flags?.is_maze_lev
-        && !(In_mines(game.u?.uz) /* && in_town */)
+        && !(In_mines(game.u?.uz)
+            && in_town(game.u?.ux | 0, game.u?.uy | 0))
         && !In_sokoban(game.u?.uz) && rn2(2)) {
-        // C: !In_sokoban before rn2(2) — Sokoban must not burn this roll
+        // C: In_mines && in_town(u.ux,u.uy) then !In_sokoban then rn2(2).
+        // Sokoban / mines-town must not burn the statue roll.
         ap_type = M_AP_OBJECT;
         appear = STATUE;
     } else if (roomno < 0 && !t_at_local(mx, my)) {

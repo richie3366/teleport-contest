@@ -59,19 +59,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1516. **Next cluster:** Open
-`makemon.c` `set_mimic_sym` maze/sokoban/`in_town`
-(named). Not shop arm. Not S_LIZARD.
-**Do not skip D-1516…D-1229 (index).** Keep mention_map addr.
+**Map-driven fortress** after D-1517. **Next cluster:** Open
+`makemon.c` dprince MS_BRIBE / raven BEC_DE_CORBIN
+(named). Not emin.
+**Do not skip D-1517…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1516.** Do not FORCE
+**Do not re-break D-0660…D-1517.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1516 (index). Recent: **D-1516**
-`makemon.c` `m_initweap` S_LIZARD non-salamander skip
-+ PM_NINJA kit. Prior: **D-1515** S_KOP cream pie +
+**Keep:** D-0845…D-1517 (index). Recent: **D-1517**
+`makemon.c` `set_mimic_sym` maze/sokoban/`in_town` statue
+(`in_town(u.ux,u.uy)`, not mines-only skip). Prior: **D-1516**
+S_LIZARD skip + PM_NINJA kit; **D-1515** S_KOP cream pie +
 club/hose; **D-1514** SPFX_WARN conferral + MATCH_WARN.
 stolen_booty is D-1363.
 minetn-7 gnome count is D-1513; dispatch is D-1504;
@@ -79,14 +80,15 @@ minetn-6 is D-1503; minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1516
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1517
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
 shared `getdir`. throw keeps `getdir_cmdassist`.
 Do not import `wield.js`/`pickup.js`→`polyself.js` for
 `body_part` (latebound). Do not re-add a fourth town
-gnome in `load_minetn_7`.
+gnome in `load_minetn_7`. Do not import `makemon.js`→`hack.js`
+for `in_town` (local clone; hack→trap/mon cycle).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1517 — makemon.c set_mimic_sym maze/sokoban/in_town statue
+
+- **Status:** fixed (map-driven Open from D-1516; not a public FAIL)
+- **Symptom:** Maze mimics used `!(In_mines)` so every Mines
+  level skipped the statue `rn2(2)` arm. C only skips when
+  `In_mines && in_town(u.ux, u.uy)` (hero cell, not mimic).
+  Sokoban already short-circuited before `rn2(2)`. Shop arm
+  is D-0262.
+- **C locus:** `makemon.c` `set_mimic_sym` `:2439–2443`.
+  Callee `hack.c` `in_town` `:3564–3585` + `mkroom.c`
+  `inside_room` `:678–687`. Callers `makemon` S_MIMIC,
+  `mklev` `dosdoor`, `mon.c` `restrap`/`m_restartcham`,
+  `zap.c` heal disguise.
+- **JS was:** `!(In_mines(uz) /* && in_town */)` after D-0262.
+- **Fix:** C predicate. Local `in_town` clone (cannot import
+  `hack.js`: hack → trap/mon → makemon; same as `t_at_local`).
+  Rule #2: no fs.
+- **JS:** `js/makemon.js` `set_mimic_sym`.
+- **Not this iter:** altar Align2amask MCORPSENM; door/wall
+  `S_hcdoor`; `Protection_from_shape_changers` early-out;
+  dprince MS_BRIBE / raven `BEC_DE_CORBIN`. Shop is D-0262.
+- **Verified:** private canary **15**/15 (C/JS arms; ordinary
+  maze 41/39 statue/boulder over 80; sokoban 0 statue 0 maze
+  rn2; mines !town same 41/39; mines town+hero-in-parent 0
+  statue; mines town+hero-outside 41/39; hero cell not mimic
+  cell); green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until
+  a mines maze mimic that is not Mine Town.
+- **Follow-up:** Open `makemon.c` dprince MS_BRIBE / raven
+  `BEC_DE_CORBIN`.
+- **Files:** `js/makemon.js`.
+
 ## D-1516 — makemon.c m_initweap S_LIZARD non-salamander skip + PM_NINJA kit
 
 - **Status:** fixed (map-driven Open from D-1515; not a public FAIL)

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `set_mimic_sym` maze/sokoban/`in_town` (named). Not shop arm.
 - [ ] `makemon.c` dprince MS_BRIBE / raven BEC_DE_CORBIN (named). Not emin.
 - [ ] `mklev.c` `mktrap_victim` gnome candle `begin_burn` (named). Not `m_initinv`.
 - [ ] `options.c` fruitadd should call objnam `fruit_from_name` (not the exact-only walker). Not fruit_from_indx.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `objnam.c` `reorder_fruit` (named). Not fruit_from_indx.
 - [ ] `bones.c` `goodfruit` (named). Not fruit_from_indx.
 - [ ] `pager.c` look SLIME_MOLD `spe = current_fruit` (named). Not xname.
+- [ ] `makemon.c` `set_mimic_sym` altar Align2amask MCORPSENM (named). Not maze/shop.
+- [ ] `makemon.c` emin roaming (named). Not dprince.
+- [ ] `timeout.c` `visible_region_summary` (named). Not any_visible_region.
+- [ ] `display.c` `show_region` (named). Not Hallu/Warn_of_mon.
+- [ ] `worm.c` `see_wsegs` (named). Not worm_move.
 
 ## Parked (do not pop)
 

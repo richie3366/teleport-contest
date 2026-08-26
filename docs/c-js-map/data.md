@@ -241,7 +241,10 @@ tail** (D-0172/D-0249) + **D-1506 S_GNOME `begin_burn` after `!mpickobj` && `!le
 (D-0557); **`likes_gold`/`findgold`/`mkmonmoney` trailing gold** (D-0174); 
 **`rndghostname`/`christen` for `PM_GHOST`** (D-0144); **`rndmonnum_adj` + Plan B** (D-0244); 
 **`set_mimic_sym` shop arm `get_shop_item`/`depth` + FODDERSHOP jelly/mold + 
-assign_sym/`mkobj`** (D-0262); **D-0619 MS_NEMESIS `nemgend` + 
+assign_sym/`mkobj`** (D-0262); **D-1517 maze/sokoban/`in_town` statue** 
+(`makemon.c:2439–2443` `is_maze_lev && !(In_mines && in_town(u.ux,u.uy)) && !In_sokoban && rn2(2)` 
+STATUE; callee `hack.c` `in_town` local clone — hack→trap/mon→makemon; shop is D-0262); 
+**D-0619 MS_NEMESIS `nemgend` + 
 `BELL_OF_OPENING`/`Croesus`/`Pestilence` mitem**; 
 **D-1094 `role_init` quest-pm overlay + mitem `ptr.msound == MS_NEMESIS`**; 
 **D-1088 `m_initweap`/`m_initinv` MS_PRIEST/MS_GUARDIAN `ptr.msound`** + 
@@ -293,10 +296,11 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **D-1507 `makemon` Sokoban first-try `throws_rocks`** (`:1226–1230` `tryct==1 && throws_rocks && In_sokoban` then `|| !goodpos`; later tries fair game; explicit ptr skips);
 **D-1515 `m_initweap` S_KOP** (`:402–409` `!rn2(4)` `m_initthrow(CREAM_PIE,2)` then `!rn2(3)` CLUB\|RUBBER_HOSE; live `m_initthrow`/`mongets`; `rnd_offensive_item` still 0);
 **D-1516 `m_initweap` S_LIZARD non-salamander skip + PM_NINJA** (`:270–272` / `:495–499`; live `is_armed`/`mongets`; newt..crocodile `!AT_WEAP`; ninja `rn2(4)` SHURIKEN\|DART then SHORT_SWORD\|AXE); 
+**D-1517 `set_mimic_sym` maze/sokoban/`in_town`** (`:2439–2443`; JS had `!(In_mines)` so non-town mines never statue; C `in_town(u.ux,u.uy)` not mimic cell; Sokoban already skipped `rn2(2)`); 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 observe_quantum_cat/disclose SchroedingersBox; 
-maze town/sokoban/`in_town` mimic arms; altar Align2amask; 
+altar Align2amask / door-wall `S_hcdoor`; `Protection_from_shape_changers` early-out; 
 `ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters; 
 egg `attach_egg_hatch_timeout`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
