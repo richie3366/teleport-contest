@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1530 invent.c getobj ALLOWCNT
+
+**Objective:** Open `invent.c` `getobj` GETOBJ_ALLOWCNT (named).
+Not Palantir.
+**C locus:** `invent.c` `getobj` `:1937–2088` + `splittable`
+`:1664`; `cmd.c` `get_count` inkey/`LARGEST_INT`/`GC_SAVEHIST`.
+**JS locus:** `js/invent.js` helpers; charge/drop/throw/wield/
+ready/adjust clones.
+**Change:** Digit prefix, throw-one, "don't have that many",
+`split_otmp` (child after parent on invent[]). Palantir `#if 0`.
+CMDQ_INT / pickinv count / finish_splitting named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1910);
+digit-at-getobj public-unhit.
+**Verified:** canary **32**/32; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `dog.c` `tamedog` is_covetous. Not leftovers.
+**Blocked:** none.
 ## 2026-08-26 — D-1529 worm.c see_wsegs
 
 **Objective:** Open `worm.c` `see_wsegs` (named). Not worm_move.

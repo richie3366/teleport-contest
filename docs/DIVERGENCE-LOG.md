@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1530 — invent.c getobj GETOBJ_ALLOWCNT count prefix
+
+- **Status:** fixed (map-driven Open from D-1529; not a public FAIL)
+- **Symptom:** Digit prefix at getobj with `GETOBJ_ALLOWCNT` was a
+  named omit. C reads digits via `get_count`, then gold LRS /
+  throw-one, "don't have that many", and `split_otmp` (`splittable`
+  then `splitobj`, else cursed loadstone `corpsenm` kludge).
+  Charge/drop/throw/wield/ready/adjust all pass ALLOWCNT. JS clones
+  treated digits as unknown letters and charged/dropped/threw the
+  whole stack.
+- **C locus:** `invent.c` `getobj` `:1937–2088` (digit arm through
+  `split_otmp`); `splittable` `:1664–1668`; `cmd.c` `get_count`
+  `:5009–5089` with inkey first digit, `LARGEST_INT`, `GC_SAVEHIST`.
+  Callers: `artifact.c` `invoke_charge_obj`; `do.c` `dodrop`;
+  `dothrow.c` `dothrow`; `wield.c` `dowield`/`doquiver_core`;
+  `invent.c` `doorganize`.
+- **JS was:** per-verb getobj clones; charge named the omit after
+  D-1502; drop/wield/throw/adjust comments deferred count-split.
+- **Fix:** Shared `getobj_take_count` / `getobj_apply_count` /
+  `getobj_split_otmp` / `splittable`. Child spliced after parent
+  on `invent[]` (C nobj). Wire the six ALLOWCNT clones. Rule #2:
+  no fs. Palantir not generated.
+- **JS:** `js/invent.js`; `js/artifact.js` `getobj_charge`;
+  `js/do.js` `getobj_drop`; `js/dothrow.js` `getobj_throw`;
+  `js/wield.js` `getobj_wield`/`getobj_ready`.
+- **Not this iter:** Palantir artilist `#if 0`; canned `CMDQ_INT`;
+  pickinv `&ctmp` menu count; `GC_SAVEHIST` `putmsghistory`;
+  `finish_splitting`/`unsplitobj` after wield/quiver split;
+  doorganize_core nobj-unsplit on cancel; pickup stash getobj;
+  NOFLAGS getobj clones ("No count allowed").
+- **Verified:** private canary **32**/32 (C/JS grep; split 2 of 5;
+  loadstone corpsenm; welded uwep; !ALLOWCNT; 2a / 15a Count:;
+  ESC; 00a; drop too-many; throw-one; gold count; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a session types a digit at getobj.
+- **Follow-up:** Open `dog.c` `tamedog` is_covetous. Not leftovers.
+- **Files:** `js/invent.js`, `js/artifact.js`, `js/do.js`,
+  `js/dothrow.js`, `js/wield.js`.
+
 ## D-1529 — worm.c see_wsegs + display.c is_worm_tail
 
 - **Status:** fixed (map-driven Open from D-1528; not a public FAIL)

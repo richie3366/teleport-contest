@@ -69,7 +69,7 @@ import {
     flush_screen, flush_topl_more, pline, You_feel, newsym, see_monsters,
     set_sting_effects,
 } from './display.js';
-import { compactify_invlets, display_pickinv_reply, update_inventory } from './invent.js';
+import { compactify_invlets, display_pickinv_reply, update_inventory, getobj_take_count, getobj_apply_count } from './invent.js';
 import { xname, the, vtense, cxname } from './objnam.js';
 
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
@@ -861,7 +861,7 @@ async function getobj_invoke() {
 
 /** C invent.c getobj("charge", charge_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT).
  * SUGGEST in the prompt; DOWNPLAY/EXCLUDE_SELECTABLE selectable.
- * Count prefix (ALLOWCNT) named omit. */
+ * Count prefix + split_otmp live. Canned CMDQ_INT named. */
 async function getobj_charge() {
     const { charge_ok } = await import('./read.js');
     const selectable = (o) => charge_ok(o) !== GETOBJ_EXCLUDE;
@@ -889,8 +889,11 @@ async function getobj_charge() {
         await flush_screen(1);
         game.nhDisplay?.setCursor?.(prompt.length, 0);
         const key = await nhgetch();
-        if (key === 27) return null;
-        const ch = String.fromCharCode(key);
+        let ch = String.fromCharCode(key);
+        const counted = await getobj_take_count(ch, true);
+        if (counted.retry) continue;
+        ch = counted.ch;
+        if (ch.charCodeAt(0) === 27) return null;
         if (ch === '?' || ch === '*') {
             const ilet = await display_pickinv_reply(ch === '*' ? '*' : (raw || '*'));
             if (ilet === '\x1b') return null;
@@ -900,8 +903,13 @@ async function getobj_charge() {
                 await pline("You don't have that object.");
                 continue;
             }
+            const got = await getobj_apply_count(
+                picked, 'charge', counted.cntgiven, counted.cnt,
+            );
+            if (!got) return null;
+            if (got.retry) continue;
             game._pending_message = '';
-            return picked;
+            return got;
         }
         if (ch === ' ' || ch === '\n' || ch === '\r') return null;
         const otmp = (game.invent || []).find((o) => o.invlet === ch);
@@ -909,8 +917,13 @@ async function getobj_charge() {
             await pline("You don't have that object.");
             continue;
         }
+        const got = await getobj_apply_count(
+            otmp, 'charge', counted.cntgiven, counted.cnt,
+        );
+        if (!got) return null;
+        if (got.retry) continue;
         game._pending_message = '';
-        return otmp;
+        return got;
     }
 }
 

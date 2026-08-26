@@ -169,7 +169,7 @@ C `dokick.c:409–485`; throw origin `u.ux,u.uy`; **hitfloor `dropz(TRUE)` D-126
 toss_up / litter still named) + **`doaltarobj`/`fire_damage`/hot potion** (D-0992) + 
 **`getobj_drop` via `yn_function` leaves TOPLINE_NON_EMPTY; 
 `clear_nhwindow_message` clears pending; leftover getobj text does not steal hero cursor** (D-0512; 
-shops/sinks/count-split/`#droptype`/`?`* pickinv deferred; globby pudding_merge deferred); 
+shops/sinks/`#droptype`/`?`* pickinv deferred; **drop getobj ALLOWCNT count prefix D-1530**; globby pudding_merge deferred); 
 **`'>'` → `dodown`/`next_level`/`goto_level` ordinary stairs + 
 `flush_screen(-1)` descend `--More--` + clear `_objects_at`/`head_engr`** (D-0149/D-0160/D-0161); 
 **`goto_level` descend Flying / encumber|Punished|Fumbling fall `rnd(3)` `losehp`** (D-0445; 
@@ -664,8 +664,7 @@ cantwield ridiculous / full setworn / `#swap` deferred);
 Yname2/body_part/Glib drop polish deferred); 
 **`chwepon` glow/spe + strange_feeling + worm-tooth/crysknife** (D-0435; 
 Magicbane clue, artifact restrict_name, shop costly_alteration/alter_cost, useupall polish 
-deferred); omit `cantwield` poly, `cant_wield_corpse`, bimanual+shield weld pline body, count-split 
-`finish_splitting`/`unsplitobj`, `Shk_Your` decline, `arti_speak` / setuwep Sunsword begin_burn 
+deferred); omit `cantwield` poly, `cant_wield_corpse`, bimanual+shield weld pline body, **getobj ALLOWCNT D-1530** (`finish_splitting`/`unsplitobj` after split still named), `Shk_Your` decline, `arti_speak` / setuwep Sunsword begin_burn 
 still named; **`uwepgone` `artifact_light` `end_burn` + Tobjnam + 
 gone-trio `update_inventory`** (D-1204); full `setworn` props; 
 **`getobj_wield` SUGGEST weapons/weptools + `- ` prefix + compactify when suggested>5** (D-0457; 
@@ -1595,7 +1594,7 @@ MENU_PREV/FIRST/LAST + other NHW_MENU callers still single-page);
 multi/`dispinv`/`doprinuse`/`*`, uskin noarmor deferred); 
 **`doattributes` Background `In_endgame`/`endgamelevelname` + moves==1 just-started + 
 wizard XP delta** (D-0572; `MAGICENLIGHTENMENT` Attributes for wizard ^X + status `<%d>` + 
-Is_bigroom deferred); count-split/`display_used_invlets`/wonky-gold/`adjust_split`; 
+Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; `display_used_invlets`/wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
 compactify on other getobj verbs; full magic enlightenment deferred; 
 **`display_pickinv_reply` n==1 + lets → `message_menu` PICK_ONE** (D-0422; 
 force_invmenu/menu_requested/wizid/hands deferred)
@@ -1647,8 +1646,7 @@ not snuff_lit; mthrowu `:942` D-1334); litter named); **volley pline `xname`/`si
 **`dofire` continue after doquiver + mark_topline_seen so invent letter owns getobj** (D-0484; 
 autoquiver/polearm/bullwhip/find_launcher deferred); 
 **`dofire` mark_topline_seen after ready + `dir_from_key` MV_ANY capitals/Ctrl-rush** (D-0485); 
-**`getobj` `*`/`?`→`display_pickinv_reply` + 
-`throwit` mon-hit food/`befriend_with_obj`→`tamedog`** (D-0415); 
+**`getobj` `*`/`?`→`display_pickinv_reply` + ALLOWCNT count prefix D-1530** (throw-one / gold count / split_otmp; pickinv `&ctmp` named) + **`throwit` mon-hit food/`befriend_with_obj`→`tamedog`** (D-0415); 
 **`thitmonst` EGG/CREAM_PIE/VENOM `ACURR(A_DEX)>rnd(25)` → `hmon` cream-pie/`rn1(25,21)` blind** 
 (D-0693); **`tmiss` + food-fail `tmiss(FALSE)` + else `tmiss(TRUE)` `!rn2(3)` wakeup** (D-0867; 
 armor/non-special throw; `mshot_xname`→`xname`; 

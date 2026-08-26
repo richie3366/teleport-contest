@@ -81,7 +81,7 @@ not the HBlinded word; BlindedTimeout gates unchanged);
 zeroobj pseudo has no `oclass` so `tamedog` does not null the scroll path; 
 callees `read.c` `seffect_taming`/`charge_ok`/`recharge`, `mon.c` `migrate_mon`, 
 `dungeon.c` `dunlevs_in_dungeon`/`ledger_no`; zap AD_ELEC ring uses full `recharge`); 
-GETOBJ_ALLOWCNT count prefix named; Palantir not a live artifact; 
+**GETOBJ_ALLOWCNT count prefix D-1530** (C `invent.c` `getobj` `:1937–2088` + `splittable` `:1664`; live `js/invent.js` `getobj_take_count`/`getobj_apply_count`/`getobj_split_otmp`; charge/drop/throw/wield/ready/adjust clones; Palantir not a live artifact; canned CMDQ_INT / pickinv `&ctmp` / `finish_splitting`/`unsplitobj` / stash getobj / doorganize_core nobj-unsplit named); 
 UNTRAP callee door force D-1495 (floor disarm_*/box named); 
 `bane_applies`/blast `d()`/`losehp`/other wield intrinsics; `defended`; DFLAG1; 
 hero/mon elemental resists; destroy_items/ignite; Mb_hit; SPFX_BEHEAD/DRLI; wake_nearto
