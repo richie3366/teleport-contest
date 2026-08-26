@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1519 mklev.c mktrap_victim gnome candle begin_burn
+
+**Objective:** Open `mklev.c` `mktrap_victim` gnome candle
+`begin_burn` (named). Not `m_initinv`.
+**C locus:** `mklev.c` `mktrap_victim` `:1918–1919`.
+**JS locus:** `js/mklev.js` `mktrap_victim`.
+**Change:** After gnome `place_object`, `!levl.lit` → live
+`begin_burn(otmp, false)`. Not D-1506 minvent. `create_object`
+`o->lit` named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1900);
+public-unhit unless gnome victim candle on unlit trap.
+**Verified:** canary **10**/10; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `options.c` fruitadd `fruit_from_name`.
+Not fruit_from_indx.
+**Blocked:** none.
 ## 2026-08-26 — D-1518 makemon.c dprince MS_BRIBE / raven BEC_DE_CORBIN
 
 **Objective:** Open `makemon.c` dprince MS_BRIBE / raven

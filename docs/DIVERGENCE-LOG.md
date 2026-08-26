@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1519 — mklev.c mktrap_victim gnome candle begin_burn
+
+- **Status:** fixed (map-driven Open from D-1518; not a public FAIL)
+- **Symptom:** a gnome trap-victim candle on an unlit floor
+  stayed dark. C lights it after `place_object`. JS placed
+  and cursed the candle, then skipped `begin_burn`.
+- **C locus:** `mklev.c` `mktrap_victim` `:1911–1920`
+  (gnome `!rn2(10)` candle). After `place_object(otmp,x,y)`:
+  `if (!levl[x][y].lit) begin_burn(otmp, FALSE)`. Callee
+  `timeout.c` `begin_burn` `:1712–1797` (D-0978). Caller
+  `mktrap` victim gate `:2135–2151` (`in_mklev` + `rnd(4)`).
+- **JS was:** named omit after D-0016 / D-1506; comment
+  said deferred when tile unlit.
+- **Fix:** same `!lit` gate after `place_object`. Live
+  `timeout.js` `begin_burn`. Floor `get_obj_location` →
+  `LS_OBJECT`. No RNG in `begin_burn`. Rule #2: no fs.
+- **JS:** `js/mklev.js` `mktrap_victim`.
+- **Not this iter:** `m_initinv` S_GNOME is D-1506;
+  `create_object` `o->lit` `begin_burn` (`sp_lev.c`);
+  `mkgrave_room` bury; candle `oc_merge`.
+- **Verified:** private canary **10**/10 (C/JS arm;
+  unlit lights + timer + LS_OBJECT; lit skip; wax
+  unlit; Rule #2); green+strict seed8000/0900; cohort
+  **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** unless a gnome victim candle lands
+  on an unlit trap tile.
+- **Follow-up:** Open `options.c` fruitadd
+  `fruit_from_name` walker.
+- **Files:** `js/mklev.js`.
+
 ## D-1518 — makemon.c dprince MS_BRIBE / raven BEC_DE_CORBIN
 
 - **Status:** fixed (map-driven Open from D-1517; not a public FAIL)

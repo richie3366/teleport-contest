@@ -236,7 +236,7 @@ SPE_DIG on earth deferred) + **`is_golem`→`golemhp(mndx)` fixed HP** (D-0554) 
 omit rider/`mlevel>49`/`is_home_elemental`); 
 **`m_initinv` S_GNOME candle + shopkeeper + `rnd_defensive_item` + PM_SOLDIER early-return + 
 tail** (D-0172/D-0249) + **D-1506 S_GNOME `begin_burn` after `!mpickobj` && `!levl.lit`** 
-(callee `timeout.c` `begin_burn`; live `js/timeout.js`; mktrap_victim floor candle named); 
+(callee `timeout.c` `begin_burn`; live `js/timeout.js`; **D-1519** `mktrap_victim` floor candle); 
 **`rnd_defensive_item` Sokoban via `sokoban_rules` not sticky `g.Sokoban`** 
 (D-0557); **`likes_gold`/`findgold`/`mkmonmoney` trailing gold** (D-0174); 
 **`rndghostname`/`christen` for `PM_GHOST`** (D-0144); **`rndmonnum_adj` + Plan B** (D-0244); 
@@ -300,6 +300,7 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **D-1518 `makemon` dprince MS_BRIBE / raven `BEC_DE_CORBIN`** (`:1397–1404` after sleep/byyou, before LONG_WORM; `is_dprince` live; local `u_wield_art` clone — artifact→display→mkobj cycle; emin roaming named); 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
+**D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
 observe_quantum_cat/disclose SchroedingersBox; 
 altar Align2amask / door-wall `S_hcdoor`; `Protection_from_shape_changers` early-out; 
 `ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters; 
@@ -352,7 +353,7 @@ JS: `js/mklev.js` — partial
 
 Ordinary level path substantial; **`fill_ordinary_room` nsubrooms recursion before needfill** 
 (D-0917); mineralize bury-vs-place (D-0014); 
-`mktrap_victim` place_object ammo/possessions (D-0016; floor gnome candle `begin_burn` named); 
+`mktrap_victim` place_object ammo/possessions (D-0016) + **D-1519 floor gnome candle `begin_burn`** (`mklev.c:1918–1919` after `place_object`, `!levl[x][y].lit` → live `timeout.js` `begin_burn`; not `m_initinv` D-1506; `create_object` `o->lit` named); 
 **`set_wall_state`/`xy_set_wall_state`** (D-0038); 
 **`makeniche` → real `mkclass(S_HUMAN)`** (D-0053); 
 supply-chest **`SPBOOK_no_NOVEL`** (D-0055) + **`add_to_container` fill + 
@@ -380,7 +381,7 @@ C `sokoban_rules=0`); **`fill_lvl`→`makemaz(minefill)` +
 tut_key/eckey/Knight jump/leave-invent/`map_location` tseen/`add_to_container` merge deferred); 
 **occupied invocation_pos** (D-1154); omit other fill *bodies*, nested `des.room` bodies beyond 
 Nesting/Fake Delphi/Huge/… outer sizes, `join` arboreal→ROOM, Lua `post_level_generate` postprocess 
-queue, `mkgrave_room` bury, `begin_burn`; `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
+queue, `mkgrave_room` bury, `create_object` `o->lit` `begin_burn` (sp_lev.c; mktrap_victim is D-1519); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
 **D-0906 `hellfill`+`create_maze`/`LVLINIT_MAZE`** (seed4500 **32538→49776** Scr **459**; 
 **hellfill Invocation_lev VS** (D-1154 `pick_vibrasquare_location`+`maketrap`); 
 rnd_hell_prefab/`makemaz("")`/fakewiz deferred); empty `makemaz("")`; Is_special/quest fill; 

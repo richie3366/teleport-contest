@@ -7,22 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after audit **#1900** HEAD `79744185`
   (Scr **11,405** RNG 100%, `37+0.30/turn` R² 0.85).
-  **Next:** Open `mklev.c` `mktrap_victim` gnome candle
-  `begin_burn` (named). Not `m_initinv`.
-  D-1518 dprince MS_BRIBE / raven `BEC_DE_CORBIN` shipped
-  (local `u_wield_art` clone; do not import makemon→artifact).
-  Do not skip D-1518…D-1229. No FORCE / `wildmiss` wrap /
+  **Next:** Open `options.c` fruitadd `fruit_from_name`
+  walker (not exact-only). Not fruit_from_indx.
+  D-1519 `mktrap_victim` gnome candle `begin_burn` shipped
+  (live `timeout.js`; not `m_initinv` D-1506).
+  Do not skip D-1519…D-1229. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`. pickup
   `body_part` is latebound (polyself→do cycle);
   do not import pickup→polyself.
-- Do not revert D-1217–D-1518. Named still:
+- Do not revert D-1217–D-1519. Named still:
   `see_monsters` worm segs; timeout
   `visible_region_summary`; display `show_region`;
   GETOBJ_ALLOWCNT; tamedog is_covetous /
   is-demon-vs-hero; INTERNALCMD `#altdip`; options
   fruitadd walker; doname fake_arti / bones
   `goodfruit` / `reorder_fruit`; wander/`somexy` /
-  Wiz_arrive; mktrap_victim floor candle;
+  Wiz_arrive; `create_object` `o->lit` `begin_burn`;
   emin roaming; altar Align2amask /
   door `S_hcdoor`; `mcast_blind_you` EYE;
   `observe_quantum_cat` FOOT; cspfx W_ART WARN;
@@ -35,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1518.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1519.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,7 +46,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1518 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1519 (index).
 - Named still: worm-shrieker; GETOBJ_ALLOWCNT / tamedog is_covetous;
   options fruitadd walker; `ensure_way_out`. Do not re-add a
   fourth town gnome in `load_minetn_7` (D-1513).
@@ -67,6 +67,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1519: `mktrap_victim` gnome `!rn2(10)` candle:
+  `place_object` then `!levl[x][y].lit` → live
+  `begin_burn(otmp, FALSE)`. Not minvent D-1506.
+  `create_object` `o->lit` named. dprince is D-1518.
 - D-1518: `makemon` after sleep/byyou, before LONG_WORM:
   `is_dprince && MS_BRIBE` peace+invis+`mavenge` 0 then
   Excalibur/Demonbane hostile+untame; raven + `BEC_DE_CORBIN`
@@ -118,13 +122,10 @@ Objective/score live in `CURRENT.md`.
   Later tries fair game. Explicit ptr skips. S_KOP is
   D-1515; S_LIZARD/ninja is D-1516.
 - D-1506: `m_initinv` S_GNOME `!mpickobj && !levl.lit` →
-  live `begin_burn`. Merge-freed skip. mktrap_victim floor
-  candle named.
+  live `begin_burn`. Merge-freed skip. Floor candle is
+  D-1519.
 - D-1505: `mon_arrive` After_you `MIGR_LEFTOVERS` →
   `deliver_obj_to_mon` DF_ALL after xyloc, before
   `my=xyflags`/place. With_you returns first.
   wander/`somexy` named. stolen_booty D-1363.
-- D-1504: minetn-7 Bazaar Town `load_special`; nested 30×15
-  `des.room` + percent(75) nests + chance shops + pos=0 door
-  + sink + temple. Town gnome count is D-1513.
-  `ensure_way_out` named.
+

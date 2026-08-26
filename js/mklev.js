@@ -125,6 +125,7 @@ import {
     clear_heros_fault,
 } from './region.js';
 import { Norep } from './display.js';
+import { begin_burn } from './timeout.js';
 import { ndemon } from './minion.js';
 import { readobjnam, rnd_otyp_by_namedesc } from './readobjnam.js';
 
@@ -19534,7 +19535,10 @@ function mktrap_victim(trap) {
                 otmp.owt = weight(otmp);
                 curse(otmp);
                 place_object(otmp, x, y);
-                // begin_burn deferred when tile unlit
+                // C mklev.c mktrap_victim :1918–1919 — unlit floor candle
+                if (!game.level.at(x, y)?.lit) {
+                    begin_burn(otmp, false);
+                }
             }
         }
         break;

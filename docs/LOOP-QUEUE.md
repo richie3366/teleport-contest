@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mklev.c` `mktrap_victim` gnome candle `begin_burn` (named). Not `m_initinv`.
 - [ ] `options.c` fruitadd should call objnam `fruit_from_name` (not the exact-only walker). Not fruit_from_indx.
 - [ ] `objnam.c` doname_base slime-mold fake_arti (named). Not fruit_from_indx.
 - [ ] `objnam.c` `reorder_fruit` (named). Not fruit_from_indx.

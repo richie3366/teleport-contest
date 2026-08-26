@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `makemon.c` dprince MS_BRIBE / raven BEC_DE_CORBIN (named). Not emin. **Addressed:** D-1518
+- [x] `mklev.c` `mktrap_victim` gnome candle `begin_burn` (named). Not `m_initinv`. **Addressed:** D-1519
+
+
+- [x] `makemon.c` dprince MS_BRIBE / raven BEC_DE_CORBIN (named). Not emin. **Addressed:** D-1518 `527815fb`
 
 
 - [x] `makemon.c` `set_mimic_sym` maze/sokoban/`in_town` (named). Not shop arm. **Addressed:** D-1517 `8bfe0bc8`
