@@ -686,8 +686,13 @@ JS: `js/dog.js` — partial
 **`initedog` `set_malign` after mpeaceful=1 + domestic minimumtame** (D-0839; 
 starting-pet malign −9 vs renegade +3); 
 **`tamedog` `obj && dogfood >= MANFOOD` D-1502** (C `:1247`; invoke TAMING zeroobj → APPORT so 
-tame-extend is rejected after peaceful); omit is_demon-vs-hero / is_covetous / is_minion full, 
-mon_wield after tame, make_happy_shk, quest leader, blessed-scroll tameness bump
+tame-extend is rejected after peaceful); 
+**`tamedog` is_covetous / is_demon-vs-hero / quest leader / blessed-scroll +2 /
+`make_happy_shk` / givemsg `pline_mon` / post-tame `mon_wield_item` D-1532**
+(C `:1169–1280`; `is_minion` is `mtmp.isminion` like C `mtmp->isminion`);
+named: `wake_nearto` sleep; FULL_MOON night S_DOG `rn2(6)`; ustuck
+expels/unstuck; `redraw_worm`; Tobjnam stop / big_corpse catch;
+`initedog` `has_edog` vs `!mtame`
 
 ### `src/fountain.c`
 

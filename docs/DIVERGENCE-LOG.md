@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1532 — dog.c tamedog is_covetous reject envelope
+
+- **Status:** fixed (map-driven Open from D-1531; not a public FAIL)
+- **Symptom:** `tamedog` omitted C's post-peaceful reject of covetous
+  monsters (`M3_COVETOUS` / any `M3_WANTS*`), demons unless the hero
+  is a demon, and the quest leader. Blessed scroll/spell tameness +2,
+  `make_happy_shk`, success `pline_mon`, and post-tame `mon_wield_item`
+  were also named omits in the same function.
+- **C locus:** `dog.c` `tamedog` `:1240–1248` (`is_covetous` /
+  `is_human` / `is_demon(mtmp) && !is_demon(youmonst)`), `:1250`
+  `leader_m_id`, `:1150–1154`/` :1227–1231` blessed_scroll, `:1235–1238`
+  `make_happy_shk`, `:1169–1173`/` :1270–1272` givemsg, `:1277–1280`
+  `attacktype(AT_WEAP)` `mon_wield_item`. Callers throw/read/zap/
+  potion/trap/music/uhitm demonpet (D-1252).
+- **JS was:** reject `isshk`/`isgd`/`ispriest`/`isminion`/`is_human`
+  only; comment named is_covetous / is_demon-vs-hero; no bless bump,
+  no `make_happy_shk`, no success pline, no post-tame wield.
+- **Fix:** Live `is_covetous`/`is_demon` from `monsters.js`. Same-if
+  demon-vs-hero; nonzero `leader_m_id`; blessed +2 clamp 10; dynamic
+  `make_happy_shk` (shk→mhitu→uhitm→dog cycle); givemsg `pline_mon`
+  + `Hallucination` (display already imported); `mon_wield_item` like
+  `make_familiar`. Rule #2: no fs.
+- **JS:** `js/dog.js` `tamedog`.
+- **Not this iter:** `wake_nearto` for `msleeping`; FULL_MOON `night()`
+  `rn2(6)` S_DOG; ustuck `expels`/`unstuck`; `redraw_worm`; Tobjnam
+  stop / big_corpse catch; `initedog` `has_edog` vs `!mtame`.
+- **Verified:** private canary **19**/19 (master lich covetous reject
+  stays peaceful; horned devil vs human hero reject; vs demon hero
+  tames; quest leader; blessed +2; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383
+  (seed0004 feeding-pony FULL).
+- **Follow-up:** Open `sp_lev.c` `create_object` `o->lit`. Not
+  mktrap_victim.
+- **Files:** `js/dog.js`.
+
 ## D-1531 — sp_lev.c create_monster align!=RANDOM mk_roamer (Pri-loca)
 
 - **Status:** fixed (Must-fix review **487**; public FAIL seed0367)

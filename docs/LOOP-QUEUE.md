@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dog.c` `tamedog` is_covetous (named). Not leftovers.
 - [ ] `sp_lev.c` `create_object` `o->lit` (named). Not mktrap_victim.
 - [ ] `mcastu.c` `mcast_blind_you` EYE (named). Not PSI_BOLT HEAD.
 - [ ] `pickup.c` `observe_quantum_cat` FOOT (named). Not HEAD.

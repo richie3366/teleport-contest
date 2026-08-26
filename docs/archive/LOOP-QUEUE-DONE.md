@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `sp_lev.c` `create_monster` / `load_pri_strt`: `align!=RANDOM` aligned cleric must `mk_roamer` (`MM_EMIN`, `min_align=A_NONE`) like C `:1983–1984` + `priest.c:738–746`, not `makemon(..., 0)`, so D-1526 emin `rn2(3)` does not fire on Pri-strt. Source: reviews/loop-unattended/487-4e78ca90-emin-roaming.md **Addressed:** D-1531
+- [x] `dog.c` `tamedog` is_covetous (named). Not leftovers. **Addressed:** D-1532
+
+
+- [x] `sp_lev.c` `create_monster` / `load_pri_strt`: `align!=RANDOM` aligned cleric must `mk_roamer` (`MM_EMIN`, `min_align=A_NONE`) like C `:1983–1984` + `priest.c:738–746`, not `makemon(..., 0)`, so D-1526 emin `rn2(3)` does not fire on Pri-strt. Source: reviews/loop-unattended/487-4e78ca90-emin-roaming.md **Addressed:** D-1531 `3c112783`
 
 
 - [x] `invent.c` `getobj` GETOBJ_ALLOWCNT count prefix (named). Not Palantir. **Addressed:** D-1530 `a5d779b7`

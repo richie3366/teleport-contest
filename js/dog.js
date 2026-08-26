@@ -5,7 +5,10 @@ import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { makemon, set_malign, rndmonst_adj } from './makemon.js';
 import { deliver_obj_to_mon } from './dokick.js';
-import { mons, NON_PM, is_human, regenerates, M2_STALK, is_domestic, haseyes } from './monsters.js';
+import {
+    mons, NON_PM, is_human, is_covetous, is_demon,
+    regenerates, M2_STALK, is_domestic, haseyes,
+} from './monsters.js';
 import {
     MM_EDOG, MM_IGNOREWATER, MM_NOMSG, MM_FEMALE, MM_MALE, NO_MINVENT,
     STRAT_WAITFORU, G_EXTINCT, MAXMONNO, CORPSTAT_GENDER, CORPSTAT_FEMALE,
@@ -31,7 +34,7 @@ import { christen_monst, Monnam } from './do_name.js';
 import { monnear, m_at, see_monster_closeup, minliquid, restore_cham } from './mon.js';
 import { enexto, rloc_to, rloc, rloc_to_flag, goodpos } from './teleport.js';
 import { put_saddle_on_mon } from './steed.js';
-import { newsym, pline, canspotmon } from './display.js';
+import { newsym, pline, pline_mon, canspotmon, Hallucination } from './display.js';
 import { hero_conflict } from './mondata.js';
 import { cansee } from './vision.js';
 import { objectNames } from './generated/objects_data.js';
@@ -340,20 +343,24 @@ export function keepdogs(pets_only = false) {
 
 /**
  * C ref: dog.c tamedog — obj=null magic-trap / scroll envelope, or thrown food.
- * Peaceful + edog for ordinary monsters; shop/gd/priest/human/covetous
- * rejected. Named omissions: is_demon/is_covetous/is_minion full;
- * mon_wield after tame; make_happy_shk; quest leader; scroll/spell bless bump.
+ * Peaceful + edog for ordinary monsters; shop/gd/priest/minion/human/
+ * is_covetous / is_demon-vs-hero / quest leader rejected. D-1532.
+ * Named omissions: wake_nearto (msleeping); FULL_MOON night S_DOG;
+ * ustuck expels/unstuck (mhitu→uhitm→dog cycle); redraw_worm;
+ * Tobjnam stop / big_corpse catch; initedog has_edog vs !mtame.
  */
 export async function tamedog(mtmp, obj, givemsg = true) {
     if (!mtmp) return false;
-    let msg = givemsg;
+    let blessed_scroll = false;
 
-    // C: scroll/spellbook → blessed_scroll then obj=NULL (bless bump deferred)
+    // C dog.c tamedog :1150–1154 — scroll/spellbook → blessed then obj=NULL
     if (obj && (obj.oclass === SCROLL_CLASS || obj.oclass === SPBOOK_CLASS)) {
+        blessed_scroll = !!obj.blessed;
         obj = null;
     }
 
     if (mtmp.mfrozen) mtmp.mfrozen = ((mtmp.mfrozen | 0) + 1) >> 1;
+    // C :1160–1161 wake_nearto(mx,my,1) named — clear sleep locally
     if (mtmp.msleeping) {
         mtmp.msleeping = 0;
     }
@@ -363,24 +370,29 @@ export async function tamedog(mtmp, obj, givemsg = true) {
         return false;
     }
 
-    if (msg && !mtmp.mpeaceful && (mtmp.mhp == null || mtmp.mhp > 0)) {
-        // canspotmon deferred — still set peaceful
-        msg = false;
+    // C :1169–1173 — canspotmon then pline_mon; givemsg used for both lines
+    if (givemsg && !mtmp.mpeaceful && canspotmon(mtmp)) {
+        await pline_mon(
+            mtmp,
+            `${Monnam(mtmp)} seems ${Hallucination() ? 'really chill' : 'more amiable'}.`,
+        );
+        givemsg = false;
     }
     mtmp.mpeaceful = 1;
     set_malign(mtmp);
+    // C :1176–1178 FULL_MOON && night() && rn2(6) && obj && S_DOG named
 
     mtmp.mflee = 0;
     mtmp.mfleetim = 0;
+    // C :1185–1190 ustuck expels/unstuck named
 
     // C: feeding treats makes already-tame pets tamer (before mtame<10 bump)
     if (mtmp.mtame && obj) {
         const { dogfood, dog_eat } = await import('./dogmove.js');
         const { DOGFOOD, ACCFOOD } = await import('./const.js');
         const { place_object } = await import('./mkobj.js');
-        const { pline, canseemon } = await import('./display.js');
+        const { canseemon } = await import('./display.js');
         const { xname, the } = await import('./objnam.js');
-        const { Monnam } = await import('./do_name.js');
         const { cansee } = await import('./vision.js');
 
         const canmove = mtmp.mcanmove !== false && !(mtmp.mfrozen > 0);
@@ -405,23 +417,39 @@ export async function tamedog(mtmp, obj, givemsg = true) {
         return false;
     }
 
-    // Already tame + low: maybe bump (scroll path); magic trap uses obj null
+    // C :1224–1232 — mtame<10 bump; blessed scroll/spell +2 clamp 10
     if (mtmp.mtame && (mtmp.mtame | 0) < 10) {
         if ((mtmp.mtame | 0) < rnd(10)) mtmp.mtame = (mtmp.mtame | 0) + 1;
+        if (blessed_scroll) {
+            mtmp.mtame = (mtmp.mtame | 0) + 2;
+            if ((mtmp.mtame | 0) > 10) mtmp.mtame = 10;
+        }
         return false;
     }
-    if (mtmp.isshk) return false;
+    // C :1235–1238 — pacify angry shopkeeper; shk.js via dynamic (cycle)
+    if (mtmp.isshk) {
+        const { make_happy_shk } = await import('./shk.js');
+        await make_happy_shk(mtmp, false);
+        return false;
+    }
 
+    // C :1240–1248 — conflicting extra + is_covetous + is_demon-vs-hero
     if (!mtmp.mcanmove
         || mtmp.isshk || mtmp.isgd || mtmp.ispriest || mtmp.isminion
-        || is_human(mtmp.data)) {
+        || is_covetous(mtmp.data) || is_human(mtmp.data)
+        || (is_demon(mtmp.data) && !is_demon(game.youmonst?.data))) {
         return false;
     }
-    // C dog.c tamedog :1247 — is_covetous / is_demon-vs-hero named;
-    // obj && dogfood >= MANFOOD (invoke_taming zeroobj pseudo → APPORT).
+    // C :1247 — obj && dogfood >= MANFOOD (invoke TAMING zeroobj → APPORT)
     if (obj) {
         const { dogfood } = await import('./dogmove.js');
         if (dogfood(mtmp, obj) >= MANFOOD) return false;
+    }
+
+    // C :1250 — quest leader cannot be tamed (leader_m_id 0 is unset)
+    const leader_m_id = game.quest_status?.leader_m_id | 0;
+    if (leader_m_id && (mtmp.m_id | 0) === leader_m_id) {
+        return false;
     }
 
     if (!mtmp.edog) mtmp.edog = {};
@@ -437,10 +465,19 @@ export async function tamedog(mtmp, obj, givemsg = true) {
         }
     }
 
-    if (givemsg) {
-        // pline deferred without display import cycle — caller may message
+    // C :1270–1272
+    if (givemsg && canspotmon(mtmp)) {
+        await pline_mon(
+            mtmp,
+            `${Monnam(mtmp)} seems quite ${Hallucination() ? 'approachable' : 'friendly'}.`,
+        );
     }
     newsym(mtmp.mx, mtmp.my);
+    // C :1275–1276 redraw_worm named
+    if (attacktype(mtmp.data, AT_WEAP)) {
+        mtmp.weapon_check = NEED_HTH_WEAPON;
+        await mon_wield_item(mtmp);
+    }
     return true;
 }
 

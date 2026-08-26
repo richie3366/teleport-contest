@@ -2133,7 +2133,8 @@ lose_guardian_angel/dismount_steed bodies + setworn oc_oprop deferred);
 **`dog_move` newdogpos `ALLOW_U`→`mattacku`/`MMOVE_DONE`** (D-0414; 
 full `m_unleash` + `pet_ranged_attk` youmonst→`mattacku` deferred); 
 **`tamedog` already-tame thrown food → `dogfood`/`dog_eat`** (D-0415; 
-scroll/spell bless bump + new-tame food devour polish deferred); 
+**blessed scroll/spell +2 clamp 10 D-1532**; new-tame food devour polish /
+Tobjnam stop / big_corpse catch named); 
 `m_cansee` in `find_targ` (D-0018); `dog_invent` `mpickobj`+drop RNG + tseen `rn2(40)` (D-0019); 
 `splitobj` when `carryamt != quan` (D-0028); **pet `relobj`/`mdrop_obj`** (D-0029); 
 **`mdrop_obj`/`dog_invent` use `distant_name`→observe when near** (D-0469); 
