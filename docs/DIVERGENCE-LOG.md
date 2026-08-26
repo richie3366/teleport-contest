@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1534 — mcastu.c mcast_blind_you EYE
+
+- **Status:** fixed (map-driven Open from D-1533; not a public FAIL)
+- **Symptom:** `MCAST_BLIND_YOU` fell through `mcast_spell` default
+  (`dmg=0`) with no scales pline, no `make_blinded`, and no
+  `body_part(EYE)`. Named omit after D-1508 PSI_BOLT HEAD. The
+  uselessness gate treated Blindfolded/`uroleplay.blind` as
+  `Blinded`, so C would still pick the spell when JS skipped it.
+- **C locus:** `mcastu.c` `mcast_blind_you` `:729–743` (`!Blinded`,
+  `eyecount(youmonst.data)`, `body_part(EYE)` / `makeplural`,
+  `make_blinded(Half_spell_damage ? 100L : 200L, FALSE)`,
+  `!Blind` → `Your1(vision_clears)`); caller `mcast_spell`
+  `:875–877` `dmg=0`; `spell_would_be_useless` `:977–979`
+  `if (Blinded)`. Macros `youprop.h` `Blinded` (`H&&!B`), `Blind`,
+  `Half_spell_damage`; `mondata.h` `eyecount`. Callee
+  `potion.c` `make_blinded`. `resists_blnd()` does not apply.
+- **JS was:** default omit; Blinded gate was `H||E||uroleplay`.
+- **Fix:** Live `mcast_blind_you`. Dispatch zeros dmg. Gate is C
+  `HBlinded && !BBlinded`. `eyecount` exported from `monsters.js`
+  (mndx; cyclops/floating eye 1). `body_part(EYE)` already live
+  (D-1508). Lazy `do.js` `make_blinded` (talk FALSE). Eyes
+  `BBlinded` still timeout then “Your vision clears.” Rule #2:
+  no fs.
+- **JS:** `js/mcastu.js` `mcast_blind_you` / `castmu` /
+  `spell_would_be_useless`. `js/monsters.js` `eyecount`.
+- **Not this iter:** other `mcast_spell` bodies; `Half_spell_damage`
+  on `castmu` dice; sit/pray `eyecount` always-2 stubs;
+  `observe_quantum_cat` FOOT; potion `eyecount_pot` still a local
+  name.
+- **Verified:** private canary **21**/21 (C/JS grep; human eyes;
+  cyclops eye; floating-eye cornea; jelly dark-spot plural;
+  Half_spell 100; Eyes vision_clears; Blindfolded still casts;
+  already-Blinded impossible; choose gate; Rule #2); green+strict
+  seed8000/0900; focused seed4500 **108275**/108275 Scr **1814**;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  Public-unhit (no public session prints the scales line).
+- **Follow-up:** Open `pickup.c` `observe_quantum_cat` FOOT. Not
+  HEAD.
+- **Files:** `js/mcastu.js`, `js/monsters.js`.
+
 ## D-1533 — sp_lev.c create_object o->lit begin_burn
 
 - **Status:** fixed (map-driven Open from D-1532; not a public FAIL)

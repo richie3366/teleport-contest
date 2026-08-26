@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mcastu.c` `mcast_blind_you` EYE (named). Not PSI_BOLT HEAD.
 - [ ] `pickup.c` `observe_quantum_cat` FOOT (named). Not HEAD.
 - [ ] `makemon.c` `set_mimic_sym` door `S_hcdoor` (named). Not furnsyms.
 - [ ] `cmd.c` INTERNALCMD `#altdip` (named). Not dip_into.

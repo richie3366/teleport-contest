@@ -98,7 +98,10 @@ omit buried `m_canseeu`/other M_SEEN_* muse gates/`monstunseesu_prop`);
 **`hates_silver`/`mon_hates_silver` D-1254** (`js/monsters.js`; 
 C `mondata.c:524–528`/`517–519` were / S_VAMPIRE / demon / PM_SHADE / S_IMP except tengu + 
 `is_vampshifter`; `special_dmgval`/`select_hwep`/`muse` whip-yank; 
-`dmgval` silver/blessed/axe still named); omit full alt_spl/rank titles/plural edge cases
+`dmgval` silver/blessed/axe still named); **`eyecount` D-1534**
+(`js/monsters.js`; C `mondata.h` noeyes 0 / cyclops|floating eye 1 /
+else 2; `mcastu.c` `mcast_blind_you`); sit/pray always-2 stubs +
+potion `eyecount_pot` local name still; omit full alt_spl/rank titles/plural edge cases
 
 ### `src/mkobj.c`
 
@@ -674,7 +677,7 @@ migrate light/worm/isshk; **`encumber_msg` callers beyond set_wounded_legs/pream
 turn-loop / exercise STR·CON / pickup/drop); Lev/air/steed `weight_cap` MAX; `stagger()` poly; 
 `heal_legs`; **`body_part`** / **`mbodypart`** import `polyself.js` (D-1496;
 steed FOOT uses `mbodypart(usteed)`, not the hero). **mcastu HEAD /
-pickup HAND D-1508**. Named: `mcast_blind_you` EYE;
+pickup HAND D-1508**. **`mcast_blind_you` EYE D-1534**. Named:
 `observe_quantum_cat` FOOT.
 
 ### `src/dog.c` `tamedog` / `initedog`

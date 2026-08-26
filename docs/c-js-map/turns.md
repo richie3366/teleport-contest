@@ -244,8 +244,9 @@ remaining `extcmdlist` bodies; …
 `objnam.js` `body_part_latebound`; D-1496). `zap.js` appends `body_part`
 to its existing polyself import. **`mcastu` `body_part(HEAD)` +
 `pickup` `body_part(HAND)` D-1508** (mcastu imports `polyself.js`;
-pickup via latebound — polyself→do→pickup cycle). Named:
-`mcast_blind_you` EYE; `observe_quantum_cat` FOOT.
+pickup via latebound — polyself→do→pickup cycle). **`mcast_blind_you`
+`body_part(EYE)` D-1534** (`eyecount` live `monsters.js`). Named:
+`observe_quantum_cat` FOOT.
 
 ### `src/potion.c`
 
@@ -1953,7 +1954,7 @@ JS: `js/mhitu.js`, `js/minion.js`, `js/mthrowu.js`, `js/weapon.js`, `js/muse.js`
 **`castmu` cast pline + PSI_BOLT/OPEN_WOUNDS severity plines before `mdamageu`; 
 `urgent_pline`/WIN_NOSTOP; `polyman` was_blind `make_blinded`** (D-0928 #1191; 
 seed4500 Scr **1799→1803** prefix **@1761→@1770**; 
-Half_spell_damage in castmu + other mcast_spell bodies deferred; **PSI_BOLT `body_part(HEAD)` D-1508**; `mcast_blind_you` EYE named); 
+Half_spell_damage in castmu + other mcast_spell bodies deferred; **PSI_BOLT `body_part(HEAD)` D-1508**; **`mcast_blind_you` EYE D-1534**); 
 **`enhance_weapon_skill` wizard y_n + speedy PICK_ONE / `skill_advance` / wizard practice columns** 
 (D-0928 #1146; seed4500 Scr **1001→1120** prefix **@630→@707**; 
 `add_weapon_skill`/`lose_weapon_skill` / `use_skill` may-advance msg deferred); 

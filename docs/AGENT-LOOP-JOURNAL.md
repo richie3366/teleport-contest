@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1534 mcast_blind_you EYE
+
+**Objective:** Open `mcastu.c` `mcast_blind_you` EYE (named).
+Not PSI_BOLT HEAD.
+**C locus:** `mcastu.c` `mcast_blind_you` `:729–743`; caller
+`mcast_spell` `:875–877`; `spell_would_be_useless` `:977–979`.
+**JS locus:** `js/mcastu.js` `mcast_blind_you` / `castmu`;
+`js/monsters.js` `eyecount`.
+**Change:** Scales `body_part(EYE)`; `make_blinded(200/100,false)`;
+Eyes vision_clears. Blinded gate is `H&&!B`. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1920 + D-1531 restore).
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+focused seed4500 FULL; cohort **7**/7 + strict.
+**Next:** Open `pickup.c` `observe_quantum_cat` FOOT. Not HEAD.
+**Blocked:** none.
 ## 2026-08-26 — D-1533 create_object o->lit begin_burn
 
 **Objective:** Open `sp_lev.c` `create_object` `o->lit` (named).
