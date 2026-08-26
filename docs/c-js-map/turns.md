@@ -772,10 +772,12 @@ impossible pline named — helper is sync; insight.c `#ifdef DEBUG` wizard
 fruit dump still named); **bones `goodfruit` D-1523** (`bones.c:42–47`
 `fruit_from_indx(-id)` then `fid=id`; savebones `:450–453` negate all
 fids; `drop_upon_death` / resetobjs SLIME_MOLD arm; `savefruitchn`
-fid>=0; getlev `oldfruit=loadfruitchn` then free; restore.c `ghostfruit`
-remap named); **pager look SLIME_MOLD `spe` D-1524** (`pager.c` `object_from_map`
+fid>=0; getlev `oldfruit=loadfruitchn` then free; **restore.c `ghostfruit`
+D-1541** (`:500–511` oldfruit fid→fname then fruitadd else; restobjchn
+`:260–261` after next_ident; fruitadd else clone in bones.js — options
+user path stays; impossible pline / age shift named)); **pager look SLIME_MOLD `spe` D-1524** (`pager.c` `object_from_map`
 `:336–343` / `look_at_object`; fake `current_fruit` then mimic MCORPSENM;
-getpos fakeobj / that_is_a_mimic / namefloorobj / ghostfruit named); 
+getpos fakeobj / that_is_a_mimic / namefloorobj / ghostfruit is D-1541); 
 CHAIN erosion polish / other ball otypes deferred); 
 **`readobjnam_parse_charges` `(N)`/`(R:S)` + wrp[] `wand of X` → oclass/actualn + 
 wand `recharged`** (D-0507; named/called/labeled, o_ranges, glass, fruits, drawbridge (furniture 
@@ -1132,8 +1134,9 @@ debug_fuzzer `place_branch` ucamefrom still named);
 seg9 16582→16630); **`goodfruit` + savebones fid-negate + drop_upon_death /
 resetobjs SLIME_MOLD arm + `savefruitchn` fid>=0 (D-1523)** (C `bones.c:42–47`
 / `:450–453` / `:131–132` / `:287–288`; `save.c:951–971`; getlev
-`oldfruit=loadfruitchn` then `freefruitchn`; restore.c `ghostfruit` spe
-remap named; other resetobjs arms still named); **wizard `Die?`/`Save bones?`/`Get bones?`/`Unlink bones?`/`Replace it?` + 
+`oldfruit=loadfruitchn` then `freefruitchn`; **restore.c `ghostfruit` spe
+remap D-1541** (`:500–511` / restobjchn `:260–261`; fruitadd else clone;
+impossible pline / age shift named); other resetobjs arms still named); **wizard `Die?`/`Save bones?`/`Get bones?`/`Unlink bones?`/`Replace it?` + 
 `savelife` + `hidden_gold`** (D-0581; seed5006 Scr 230→246); 
 **getbones yn leave-level gbuf mon→memory + dirty Terminal paint** (D-0583; seed5006 **PASS**; 
 ordinary `vision_recalc(2)` newsym loop deferred); 

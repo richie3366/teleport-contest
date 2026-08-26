@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1541 — restore.c ghostfruit spe remap via fruitadd else
+
+- **Status:** fixed (map-driven Open from D-1540; not a public FAIL)
+- **Symptom:** Bones getlev loaded `go.oldfruit` then freed it, but
+  `restobjchn` never remapped leftover SLIME_MOLD `spe` through the
+  bones fruit names. A slime mold kept the dead hero’s fid, so it
+  named the live hero’s fruit at that index (or a missing `"fruit"`).
+  Named omit after D-1523 `goodfruit` / `savefruitchn`.
+- **C locus:** `restore.c` `ghostfruit` `:500–511`; caller
+  `restobjchn` `:260–261` after ghostly `next_ident`, before
+  contents / age. Callee `options.c` `fruitadd` else `:8257–8286`
+  (`str != svp.pl_fruit`): sanitize, `made_fruit=TRUE`,
+  `fruit_from_name(FALSE)`, `rnd(127)` overflow, prepend;
+  `nonew` does **not** write `current_fruit`. getlev `:1081–1082`
+  load oldfruit before objects; `:1241` free after.
+- **JS was:** `loadfruitchn` into `game.oldfruit` then `null`;
+  `sym` ghostfruit NOT FOUND. User `fruitadd` always candifies.
+- **Fix:** Port `ghostfruit`. Fruitadd else clone in bones.js
+  (`fruitadd_orc` pattern; bones→options→invent→mklev cycle).
+  Call after `next_ident` in the ghostly remap walk (minvent /
+  fobj / buried / bill / cobj). Rule #2: no fs.
+- **JS:** `js/bones.js` `ghostfruit` / `fruitadd_bones` /
+  `remapObjChainIds`; comments in `js/options.js`.
+- **Not this iter:** impossible pline (sync restobjchn); age
+  shift; 8-bit sanitize strip; other `resetobjs` save arms;
+  user fruitadd pointer-eq; DRY `fruitadd_orc`.
+- **Verified:** private canary **15**/15 (C/JS grep; same-name
+  remap; new-name prepend; miss; fname==pl_fruit still else;
+  prefix reuse; sanitize; overflow `rnd(127)`; cobj; VFS
+  try_load_bones spe 2→7; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  Public-unhit (named-fruit bones).
+- **Follow-up:** Open `themerms.lua` Light source fill oil lamp.
+  Not create_object `o->lit`.
+- **Files:** `js/bones.js`, `js/options.js` (comments).
+
 ## D-1540 — shk.c make_happy_shk adjalign / home / migrate / shoppers
 
 - **Status:** fixed (Must-fix review **493**; not a public FAIL)

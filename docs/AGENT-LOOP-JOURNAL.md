@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1541 restore.c ghostfruit spe remap
+
+**Objective:** Open `restore.c` `ghostfruit` (named). Not goodfruit.
+**C locus:** `restore.c` `ghostfruit` `:500–511`; `restobjchn`
+`:260–261`; `options.c` fruitadd else `:8257–8286`.
+**JS locus:** `js/bones.js` `ghostfruit` / `fruitadd_bones` /
+`remapObjChainIds`.
+**Change:** oldfruit fid→fname then fruitadd else into live
+ffruit; restobjchn after next_ident; no candify / no
+`current_fruit`. Clone (bones→options cycle). Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1930).
+**Verified:** canary **15**/15; green+strict seed8000/0900;
+cohort **7**/7 + strict (incl. seed0004).
+**Next:** Open `themerms.lua` Light source fill. Not `o->lit`.
+**Blocked:** none.
 ## 2026-08-26 — D-1540 make_happy_shk adjalign/home/migrate
 
 **Objective:** Must-fix review **493** — `shk.c` `make_happy_shk`

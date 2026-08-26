@@ -7,20 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
   RNG **792,838**/792,838 = 100%, `38+0.31/turn` R² 0.848).
-  seed0367 FULL. Review **493** QUALITY-RISK closed as **D-1540**.
-  **Hypothesis:** next work is Open `restore.c` `ghostfruit`
-  (named). Not goodfruit. Must-fix empty.
-  **Falsify:** port `ghostfruit`; leftover restore fruit must
-  use that C arm, not only `goodfruit`.
-  **Next:** Open `ghostfruit`. Not Light source fill.
-  Do not skip D-1531…D-1540. Do not stub `make_happy_shk` as
-  pacify+“calms down” only. No FORCE / `wildmiss` wrap /
-  trailing `confdir` in shared `getdir`. Do not delete emin.
-  Do not type `#altdip` as a user extcmd. Do not import
-  dog→mklev for `somexy`. Do not zero `cspfx` on W_ART.
-  Furnsyms still named.
+  seed0367 FULL. **Hypothesis:** next work is Open `themerms.lua`
+  Light source fill oil lamp (named). Not create_object `o->lit`.
+  Must-fix empty. D-1541 closed `ghostfruit`.
+  **Falsify:** port themerms oil-lamp fill; leftover lamps must
+  `begin_burn` from that lua arm, not only `create_object` `o->lit`.
+  **Next:** Open Light source fill. Not furnsyms.
+  Do not skip D-1531…D-1541. Do not import bones→options for
+  fruitadd. Do not candify / write `current_fruit` on ghostfruit.
+  No FORCE / `wildmiss` wrap / trailing `confdir` in shared
+  `getdir`. Do not stub `make_happy_shk` as pacify+“calms down”
+  only. Furnsyms still named.
 - Named still: Light source fill;
-  furnsyms; ghostfruit; getpos fakeobj; `that_is_a_mimic`;
+  furnsyms; getpos fakeobj; `that_is_a_mimic`;
   detect_wsegs; `worm_known`. Palantir `#if 0`. CMDQ_INT /
   pickinv count / `finish_splitting`. `splev_create_monster`
   RANDOM-only. `tamedog` `wake_nearto` / FULL_MOON S_DOG /
@@ -30,7 +29,8 @@ Objective/score live in `CURRENT.md`.
   INTERNALCMD bodies. defn/cary resist; SEARCH/REGEN/XRAY/
   PROTECT; inv_prop drop; questart `artitouch`.
   `make_happy_shk` mnearto yank / after_shk_move occupancy /
-  losedogs shoppers.
+  losedogs shoppers. ghostfruit impossible pline / age shift /
+  other resetobjs. `fruitadd_orc` clone (mklev cycle).
 
 ## Don't re-check (≤15)
 
@@ -39,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1540.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1541.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -50,14 +50,15 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1540 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1541 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones. Do not skip
-  D-1520…D-1540 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
+  D-1520…D-1541 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
   /door `S_hcdoor` / `#altdip` INTERNALCMD / wander `somexy` /
-  cspfx W_ART / `make_happy_shk` (index). Do not delete emin to
-  fix seed0367 (review **487**). Do not stub `make_happy_shk` as
-  pacify+“calms down” only (D-1540 / review **493**).
+  cspfx W_ART / `make_happy_shk` / `ghostfruit` (index). Do not
+  delete emin to fix seed0367 (review **487**). Do not stub
+  `make_happy_shk` as pacify+“calms down” only (D-1540 / review
+  **493**). Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
@@ -76,9 +77,15 @@ Objective/score live in `CURRENT.md`.
   `dog.js`→`mklev.js` for `somexy` (D-1538). Do not zero
   `cspfx` when `wp_mask===W_ART` (D-1539). Do not import
   `shk.js`→`mon.js` statically (`pacify_guards` clone).
+  Do not candify / write `current_fruit` on ghostfruit.
 
 ## Landmarks (≤15)
 
+- D-1541: `ghostfruit` oldfruit fid→fname then fruitadd else
+  (sanitize / `made_fruit` / `fruit_from_name` FALSE / `rnd(127)`
+  / prepend; no `current_fruit`). restobjchn after next_ident.
+  Clone in bones.js. impossible pline / age / other resetobjs
+  named. goodfruit is D-1523.
 - D-1540: `make_happy_shk` adjalign (non-Rogue) / `!inhishop`
   `home_shk` or migrate+`dismiss_kops` / `make_happy_shoppers`
   (`kops_gone`/`pacify_guards`). mnearto yank / occupancy /
@@ -114,5 +121,3 @@ Objective/score live in `CURRENT.md`.
   overrides. DRAWBRIDGE_UP under named.
 - D-1527: `#timeout` `visible_region_summary`; ttl+1; poison
   vs vapor. tid `timer_id++` from 1.
-- D-1526: emin roaming after LONG_WORM. Cleric always; angel
-  `!rn2(3)`. Pri-loca noalign is D-1531.

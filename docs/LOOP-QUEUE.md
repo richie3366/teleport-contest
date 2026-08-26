@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `restore.c` `ghostfruit` (named). Not goodfruit.
 - [ ] `themerms.lua` Light source fill oil lamp (named). Not create_object o->lit.
 - [ ] `makemon.c` `set_mimic_sym` furnsyms real S_* (named). Not door S_hcdoor.
 - [ ] `pager.c` `that_is_a_mimic` (named). Not object_from_map.
