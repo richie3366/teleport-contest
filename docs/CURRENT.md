@@ -61,18 +61,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1537. **Next cluster:** Open
-`dog.c` wander/`somexy` (named). Not is_covetous.
-**Do not skip D-1537…D-1229 (index).** Keep mention_map addr.
+**Suite 44/44** fortress after D-1538. **Next cluster:** Open
+`artifact.c` cspfx W_ART (named). Not SPFX_WARN.
+**Do not skip D-1538…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1537.** Do not FORCE
+**Do not re-break D-0660…D-1538.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1537 (index). Recent: **D-1537**
+**Keep:** D-0845…D-1538 (index). Recent: **D-1538**
+`dog.c` `mon_arrive` wander/`somexy` after catchup (`in_rooms`+clone).
+Prior: **D-1537**
 `cmd.c` INTERNALCMD `#altdip` table + canned `CMDQ_EXTCMD` /
-`can_do_extcmd` buried / typed `#` unknown. Prior: **D-1536**
+`can_do_extcmd` buried / typed `#` unknown. **D-1536**
 `makemon.c` `set_mimic_sym` door `S_hcdoor` left-connect /
 rogue `S_hwall`. Furnsyms named. **D-1535**
 `pickup.c` `observe_quantum_cat` FOOT latebound. D-1534
@@ -87,7 +89,7 @@ D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1537
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1538
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -101,6 +103,7 @@ import `makemon.js`→`artifact.js` for `u_wield_art`
 `makemon.js`→`minion.js` for `Inhell` (minion→makemon;
 use dungeon `hellish`). Do not delete emin roaming.
 Do not make typed `#altdip` a user extcmd (INTERNALCMD).
+Do not import `dog.js`→`mklev.js` for `somexy` (mklev→trap→dog).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

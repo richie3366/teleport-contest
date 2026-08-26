@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `cmd.c` INTERNALCMD `#altdip` (named). Not dip_into. **Addressed:** D-1537
+- [x] `dog.c` wander/`somexy` (named). Not is_covetous. **Addressed:** D-1538
+
+
+- [x] `cmd.c` INTERNALCMD `#altdip` (named). Not dip_into. **Addressed:** D-1537 `4508a3cb`
 
 
 - [x] `makemon.c` `set_mimic_sym` door `S_hcdoor` (named). Not furnsyms. **Addressed:** D-1536 `2778c077`

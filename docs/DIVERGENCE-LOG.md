@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1538 — dog.c mon_arrive wander/somexy
+
+- **Status:** fixed (map-driven Open from D-1537; not a public FAIL)
+- **Symptom:** After catchup, JS skipped C’s nearby jitter. When
+  `mlstmv < moves-1` and `xlocale && wander`, C picks a room cell via
+  `in_rooms`+`somexy` or a corridor `rn1` box; JS placed at the raw
+  locale (or `rloc` if locale 0). Named omit after D-1505 leftovers.
+- **C locus:** `dog.c` `mon_arrive` `:491–500` `wander = min(nmv, 8)`;
+  `:506` `MIGR_EXACT_XY` zeros wander; `:582–605` after leftovers,
+  before `my=xyflags`. Callee `mkroom.c` `somex`/`somey`/`inside_room`/
+  `somexy` `:666–740`; `hack.c` `in_rooms`. Corridor: `max(1,x-wander)`
+  / `min(COLNO-1,x+wander)` then `rn1(j-i,i)` (range `[i,j-1]`); y min 0.
+  somexy fail zeros locale → `rloc`. With_you returns first.
+- **JS was:** catchup without wander; no jitter; `somexy` only in
+  mklev/teleport clones.
+- **Fix:** Port wander + EXACT_XY zero + `arrive_wander_xy`. Live
+  `in_rooms`. Local mkroom clone (cannot import mklev: mklev→trap→dog).
+  Rule #2: no fs.
+- **JS:** `js/dog.js` `mon_arrive_after_you` / `arrive_wander_xy` /
+  `somexy`.
+- **Not this iter:** kops dismiss; `MIGR_EXACT_XY` Before_you;
+  failed_arrivals/`m_into_limbo`; `Wiz_arrive`; full `mnearto` yank;
+  teleport.js thin `somexy` irregular omit.
+- **Verified:** private canary **31**/31 (C/JS grep; wander=0 /
+  xlocale=0 no RNG; ordinary two `rn2(5)`; corridor `[i,j-1]` widths;
+  edge x≥1 y≥0; irregular one-good-cell; irregular miss 200 `rn2` then
+  0,0; subroom wall/`inside_room` reject; missing `croom` zeros;
+  leftovers before jitter; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+  Public-unhit (no public After_you catchup+locale).
+- **Follow-up:** Open `artifact.c` cspfx W_ART. Not SPFX_WARN.
+- **Files:** `js/dog.js`.
+
 ## D-1537 — cmd.c INTERNALCMD #altdip
 
 - **Status:** fixed (map-driven Open from D-1536; not a public FAIL)
