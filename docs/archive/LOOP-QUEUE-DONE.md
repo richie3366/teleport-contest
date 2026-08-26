@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `bones.c` `goodfruit` (named). Not fruit_from_indx. **Addressed:** D-1523
+- [x] `pager.c` look SLIME_MOLD `spe = current_fruit` (named). Not xname. **Addressed:** D-1524
+
+
+- [x] `bones.c` `goodfruit` (named). Not fruit_from_indx. **Addressed:** D-1523 `e13f38ae`
 
 
 - [x] `objnam.c` `reorder_fruit` (named). Not fruit_from_indx. **Addressed:** D-1522 `aac21a74`

@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1524 — pager.c object_from_map SLIME_MOLD spe
+
+- **Status:** fixed (map-driven Open from D-1523; not a public FAIL)
+- **Symptom:** looking at a slime-mold glyph that is not a live floor
+  object (fakeobj) named `"fruit"` / default mold. C `object_from_map`
+  sets `spe = current_fruit` after `mksobj(init=FALSE)`, then mimic
+  `MCORPSENM` can override.
+- **C locus:** `pager.c` `object_from_map` `:284–377`; caller
+  `look_at_object` `:380–399` (`distant_name` + dealloc). Also
+  `lookat` / `look_all`; `mhidden_description`; `uhitm.c`
+  `that_is_a_mimic`; `do_name.c` `namefloorobj`.
+- **JS was:** named omit after D-1523; look used `look_shown_at` +
+  `doname` on real piles only (mkobj already set spe).
+- **Fix:** Live `js/pager.js` `object_from_map` / `look_at_object`.
+  Callers pass glyphotyp (no integer glyph ids). Fake SLIME_MOLD
+  `spe = current_fruit`; mimic `has_mcorpsenm` override. `brief_at`
+  / `look_all` use `look_at_object`. doname_with_price /
+  doname_vague_quan named (doname stand-in). cmap trapped-chest
+  CHEST|LARGE_BOX and glyph_is_body/statue corpsenm named.
+  `that_is_a_mimic` / `namefloorobj` / `mhidden_description` still
+  local mksobj. getpos auto_describe still `look_shown_at` (pager
+  import cycle). Rule #2: no fs.
+- **JS:** `js/pager.js` `object_from_map` / `look_at_object`.
+- **Not this iter:** integer `glyph_to_obj`; remembered-gone glyphs
+  without stored otyp; getpos fakeobj; `that_is_a_mimic`; restore
+  `ghostfruit`; insight DEBUG fruit dump.
+- **Verified:** private canary **16**/16 (C/JS grep; fake spe;
+  look names fruit; real/buried keep spe; mimic override; coin
+  quan=2; leash; observe dknown; no pile leak; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** (fake named-fruit look).
+- **Follow-up:** Open `makemon.c` `set_mimic_sym` altar Align2amask.
+- **Files:** `js/pager.js`.
+
 ## D-1523 — bones.c goodfruit fid sign + savefruitchn
 
 - **Status:** fixed (map-driven Open from D-1522; not a public FAIL)

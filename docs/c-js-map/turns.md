@@ -567,12 +567,19 @@ lookat parenthetical forces `found=1`** (D-0334);
 **`describe_looked` DECgraphics wall ↔ swallow mid + Unicode │** (D-0425; 
 trapped_chest/door + Hallucination + full showsyms cmap scan + SDOOR deferred); 
 omit full `key2extcmddesc` misc/numpad; PORT_HELP; getpos menu-jump/hilite; lootabc true; 
-look_traps format; invis/warning glyphs; object_from_map fakeobj; custom BIND=/number_pad; 
+look_traps format; invis/warning glyphs; custom BIND=/number_pad; 
 selectable `process_menu_window` path; **`self_lookat` → `pmname(umonnum,Ugender)` not male 
 `urole.name.m`** (D-0664) + **Punished `, chained to ` + `ansimpleoname(uball)`** (D-0928 #1149; 
 steed/mhidden/utrap deferred) + **`brief_at` CLOUD fog/vapor** (D-0811) + 
 **`room_cmap_explanation` S_darkroom** (D-0812) + **blocked staircase down qstart** (D-0814); 
-look_at_monster hallu/health/stuck/leashed/trapped/mhidden
+look_at_monster hallu/health/stuck/leashed/trapped/mhidden; 
+**`object_from_map` / `look_at_object` D-1524** (`pager.c:284–399`; fake SLIME_MOLD 
+`spe = current_fruit` then mimic `MCORPSENM`; glyphotyp not integer glyph; 
+`brief_at`/`look_all` live; doname_with_price/`doname_vague_quan` named — doname 
+stand-in; cmap trapped-chest CHEST|LARGE_BOX / glyph_is_body|statue corpsenm 
+named; `that_is_a_mimic` / `namefloorobj` / `mhidden_description` still local 
+mksobj; getpos auto_describe still `look_shown_at` real piles; remembered-gone 
+glyphs without stored otyp named)
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 
@@ -609,7 +616,8 @@ Medusa/juiblex/samurai/waterlevel (D-0626/D-0928 #1163;
 DRAWBRIDGE_UP cmap still typ-gated vs C glyph S_pool; 
 altar/engraving + coord_desc deferred) + **shown floor object → 
 `look_shown_at`+`distant_name`/`doname`** (D-0928 #1136; 
-`object_from_map` fakeobj / `doname_with_price` / `doname_vague_quan` / buried-embedded suffixes 
+pager `object_from_map` live D-1524; getpos still real piles; 
+`doname_with_price` / `doname_vague_quan` / buried-embedded suffixes 
 deferred) + **`getpos_sethilite` force-newsyms + `flush_screen(0)` last-glyph curs** (D-0928 #1137; 
 apply `display_*_positions` call `tmp_at` S_goodpos D-1051; 
 getpos default Normal so paint on SHOWVALID) + 
@@ -759,7 +767,9 @@ fruit dump still named); **bones `goodfruit` D-1523** (`bones.c:42–47`
 `fruit_from_indx(-id)` then `fid=id`; savebones `:450–453` negate all
 fids; `drop_upon_death` / resetobjs SLIME_MOLD arm; `savefruitchn`
 fid>=0; getlev `oldfruit=loadfruitchn` then free; restore.c `ghostfruit`
-remap named); pager look `spe` still named); 
+remap named); **pager look SLIME_MOLD `spe` D-1524** (`pager.c` `object_from_map`
+`:336–343` / `look_at_object`; fake `current_fruit` then mimic MCORPSENM;
+getpos fakeobj / that_is_a_mimic / namefloorobj / ghostfruit named); 
 CHAIN erosion polish / other ball otypes deferred); 
 **`readobjnam_parse_charges` `(N)`/`(R:S)` + wrp[] `wand of X` → oclass/actualn + 
 wand `recharged`** (D-0507; named/called/labeled, o_ranges, glass, fruits, drawbridge (furniture 

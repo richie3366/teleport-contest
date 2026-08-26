@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1524 pager.c object_from_map SLIME_MOLD spe
+
+**Objective:** Open `pager.c` look SLIME_MOLD `spe =
+current_fruit` (named). Not xname.
+**C locus:** `pager.c` `object_from_map` `:284–377`;
+`look_at_object` `:380–399`.
+**JS locus:** `js/pager.js` `object_from_map` /
+`look_at_object`; `brief_at` / `look_all`.
+**Change:** fake SLIME_MOLD `spe = current_fruit`; mimic
+`MCORPSENM` override. Glyphotyp not integer glyph.
+doname_with_price named. `that_is_a_mimic` /
+`namefloorobj` / getpos fakeobj named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1910);
+fake named-fruit look public-unhit.
+**Verified:** canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `makemon.c` `set_mimic_sym` altar
+Align2amask MCORPSENM. Not maze/shop.
+**Blocked:** none.
 ## 2026-08-26 — D-1523 bones.c goodfruit fid sign
 
 **Objective:** Open `bones.c` `goodfruit` (named). Not
