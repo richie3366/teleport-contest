@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `objnam.c` `reorder_fruit` (named). Not fruit_from_indx. **Addressed:** D-1522
+- [x] `bones.c` `goodfruit` (named). Not fruit_from_indx. **Addressed:** D-1523
+
+
+- [x] `objnam.c` `reorder_fruit` (named). Not fruit_from_indx. **Addressed:** D-1522 `aac21a74`
 
 
 - [x] `objnam.c` doname_base slime-mold fake_arti (named). Not fruit_from_indx. **Addressed:** D-1521 `6a42c40e`

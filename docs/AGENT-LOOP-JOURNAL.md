@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1523 bones.c goodfruit fid sign
+
+**Objective:** Open `bones.c` `goodfruit` (named). Not
+fruit_from_indx.
+**C locus:** `bones.c` `goodfruit` `:42–47`; savebones
+`:450–453`; drop `:287–288`; resetobjs save `:131–132`;
+`save.c` `savefruitchn` `:951–971`.
+**JS locus:** `js/bones.js` `goodfruit` / `savefruitchn` /
+`loadfruitchn`; `js/end.js` drop/savebones.
+**Change:** negate all fids; `fruit_from_indx(-id)` restores
+types that still exist as SLIME_MOLD; persist fid>=0;
+getlev oldfruit then free. `ghostfruit` named. Rule #2:
+no fs.
+**Score:** fortress **44**/44 (cadence #1910);
+named-fruit bones public-unhit.
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `pager.c` look SLIME_MOLD `spe = current_fruit`.
+**Blocked:** none.
 ## 2026-08-26 — D-1522 objnam.c reorder_fruit fid sort
 
 **Objective:** Open `objnam.c` `reorder_fruit` (named). Not

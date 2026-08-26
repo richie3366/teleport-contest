@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `bones.c` `goodfruit` (named). Not fruit_from_indx.
 - [ ] `pager.c` look SLIME_MOLD `spe = current_fruit` (named). Not xname.
 - [ ] `makemon.c` `set_mimic_sym` altar Align2amask MCORPSENM (named). Not maze/shop.
 - [ ] `makemon.c` emin roaming (named). Not dprince.

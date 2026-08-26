@@ -1162,6 +1162,7 @@ export function CapitalMon(word) {
 /**
  * C ref: objnam.c fruit_from_indx `:431–439` — look up a named fruit by
  * fid (1..127). First match; NULL if the chain has no such index.
+ * Bones goodfruit looks up -id (D-1523).
  */
 export function fruit_from_indx(indx) {
     const want = indx | 0;

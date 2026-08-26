@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1523 — bones.c goodfruit fid sign + savefruitchn
+
+- **Status:** fixed (map-driven Open from D-1522; not a public FAIL)
+- **Symptom:** bones save kept every named fruit (or none). C marks all
+  `fid` negative, then `goodfruit` restores types that still exist as
+  SLIME_MOLD objects so `savefruitchn` writes only `fid>=0`.
+- **C locus:** `bones.c` `goodfruit` `:42–47` `fruit_from_indx(-id)`
+  then `f->fid = id`. Callers: `savebones` `:450–453` negate-all;
+  `drop_upon_death` `:287–288`; `resetobjs` save `:131–132` (cobj then
+  nobj). Consumer `save.c` `savefruitchn` `:951–971`. Load
+  `restore.c` `loadfruitchn` `:468–483` prepend into `go.oldfruit`;
+  `ghostfruit` spe→`fruitadd` named.
+- **JS was:** named omit after D-1522; bones JSON had no fruitchn;
+  `drop_upon_death` skipped SLIME_MOLD.
+- **Fix:** Live `js/bones.js` `goodfruit` (callee `objnam.js`
+  `fruit_from_indx`). `savebones_negate_fruit_ids` before drop;
+  drop SLIME_MOLD call; resetobjs SLIME_MOLD arm on minvent/fobj/
+  buried/cobj; `savefruitchn` fid>=0; getlev `oldfruit` then free.
+  Other resetobjs arms named. Rule #2: no fs.
+- **JS:** `js/bones.js` `goodfruit` / `savefruitchn` / `loadfruitchn`;
+  `js/end.js` `drop_upon_death` / `savebones`.
+- **Not this iter:** restore `ghostfruit`; pager look
+  `spe = current_fruit`; insight DEBUG fruit dump; other resetobjs.
+- **Verified:** private canary **21**/21 (C/JS grep; negate; flip;
+  miss; filter; load prepend reverse; cobj walk; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** (named-fruit bones).
+- **Follow-up:** Open `pager.c` look SLIME_MOLD `spe = current_fruit`.
+- **Files:** `js/bones.js`, `js/end.js`.
+
 ## D-1522 — objnam.c reorder_fruit fid sort
 
 - **Status:** fixed (map-driven Open from D-1521; not a public FAIL)

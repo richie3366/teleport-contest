@@ -755,7 +755,11 @@ fid 1; **fruitadd walker D-1520**; **doname_base slime-mold fake_arti D-1521**
 the-strip); **reorder_fruit D-1522** (`objnam.c:521–554` `allfr[1+127]`;
 forward TRUE rebuilds low-to-high; out-of-range/dup fid return unsorted;
 impossible pline named — helper is sync; insight.c `#ifdef DEBUG` wizard
-fruit dump still named); bones `goodfruit` / pager look `spe` still named); 
+fruit dump still named); **bones `goodfruit` D-1523** (`bones.c:42–47`
+`fruit_from_indx(-id)` then `fid=id`; savebones `:450–453` negate all
+fids; `drop_upon_death` / resetobjs SLIME_MOLD arm; `savefruitchn`
+fid>=0; getlev `oldfruit=loadfruitchn` then free; restore.c `ghostfruit`
+remap named); pager look `spe` still named); 
 CHAIN erosion polish / other ball otypes deferred); 
 **`readobjnam_parse_charges` `(N)`/`(R:S)` + wrp[] `wand of X` → oclass/actualn + 
 wand `recharged`** (D-0507; named/called/labeled, o_ranges, glass, fruits, drawbridge (furniture 
@@ -1109,7 +1113,11 @@ debug_fuzzer `place_branch` ucamefrom still named);
 **`finish_losehp_done` + bones_ok `mk_named_object` CORPSE + `drop_upon_death` + 
 `PM_GHOST` MM_NONAME** (D-0255; `can_make_bones` before message flush); 
 **`write_bonesfile`/`try_load_bones` VFS JSON + ghostly `next_ident` remap** (D-0274; 
-seg9 16582→16630); **wizard `Die?`/`Save bones?`/`Get bones?`/`Unlink bones?`/`Replace it?` + 
+seg9 16582→16630); **`goodfruit` + savebones fid-negate + drop_upon_death /
+resetobjs SLIME_MOLD arm + `savefruitchn` fid>=0 (D-1523)** (C `bones.c:42–47`
+/ `:450–453` / `:131–132` / `:287–288`; `save.c:951–971`; getlev
+`oldfruit=loadfruitchn` then `freefruitchn`; restore.c `ghostfruit` spe
+remap named; other resetobjs arms still named); **wizard `Die?`/`Save bones?`/`Get bones?`/`Unlink bones?`/`Replace it?` + 
 `savelife` + `hidden_gold`** (D-0581; seed5006 Scr 230→246); 
 **getbones yn leave-level gbuf mon→memory + dirty Terminal paint** (D-0583; seed5006 **PASS**; 
 ordinary `vision_recalc(2)` newsym loop deferred); 
@@ -1137,7 +1145,7 @@ Dump-core `y`→NH_abort deferred); **`done2` cancel `n` → `clear_nhwindow(WIN
 livelog/formatkiller/CHOKING vomit deferred); ParanoidDie/Bones getlin "yes"; 
 LOGFILE/XLOGFILE/toptenwin NHW_TEXT; builds_up `level_difficulty`; ParanoidQuit getlin "yes"; 
 tutorial abandon; binary savelev; arise/statue arms; ebones; give_to_nearby_mon body; 
-resetobjs/set_ghostly; `save_dlevel` assign in `no_bones_level`; Is_special boneid letter variants; 
+resetobjs known-strip / set_ghostly (SLIME_MOLD fruit mark is D-1523); `save_dlevel` assign in `no_bones_level`; Is_special boneid letter variants; 
 inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace; 
 `hide_monst` after ghostly; `paygd`/`clearpriests`; `unleash_all` in finish_paybill; 
 `done_in_by` G_UNIQ/ghost/mimicker/vampshifter/priest|minion/minvis/hallu/monhealthdescr/
