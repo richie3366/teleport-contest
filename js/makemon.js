@@ -1570,7 +1570,13 @@ function m_initweap(mtmp) {
         }
         break;
     case 'S_KOP':
-        // Deferred special cases (C-JS-MAP).
+        // C: makemon.c m_initweap S_KOP — cream pies to throw, then
+        // club or rubber hose. Keystone Kops have AT_WEAP so is_armed
+        // calls this; rnd_offensive_item still returns 0 (muse.c).
+        if (!rn2(4)) m_initthrow(mtmp, otyp('CREAM_PIE'), 2);
+        if (!rn2(3)) {
+            mongets(mtmp, rn2(2) ? otyp('CLUB') : otyp('RUBBER_HOSE'));
+        }
         break;
     case 'S_LIZARD':
         // C: makemon.c m_initweap S_LIZARD — salamander weapon kit

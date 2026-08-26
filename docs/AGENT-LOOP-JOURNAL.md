@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1515 makemon.c m_initweap S_KOP cream pie / club / hose
+
+**Objective:** Open `makemon.c` S_KOP `m_initweap`
+specials (named). Not throws_rocks.
+**C locus:** `makemon.c` `m_initweap` S_KOP `:402–409`;
+callees `m_initthrow` / `mongets`.
+**JS locus:** `js/makemon.js` `m_initweap`.
+**Change:** `!rn2(4)` `m_initthrow(CREAM_PIE,2)` then
+`!rn2(3)` CLUB or RUBBER_HOSE. Not a clone. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1900);
+kops public-unhit until `makekops`.
+**Verified:** canary **17**/17; green+strict
+seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `makemon.c` non-salamander S_LIZARD
+`m_initweap`. Not S_KOP.
+**Blocked:** none.
 ## 2026-08-26 — D-1514 artifact.c SPFX_WARN conferral + MATCH_WARN
 
 **Objective:** Open `artifact.c` SPFX_WARN conferral /

@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1515 — makemon.c m_initweap S_KOP cream pie / club / hose
+
+- **Status:** fixed (map-driven Open from D-1507; not a public FAIL)
+- **Symptom:** `m_initweap` `S_KOP` was an empty `break`, so
+  Keystone Kops (AT_WEAP) spawned with no cream pies or
+  club/rubber hose. C gives `!rn2(4)` pies then `!rn2(3)`
+  club vs hose.
+- **C locus:** `makemon.c` `m_initweap` `S_KOP` `:402–409`.
+  Callees `m_initthrow` `:148–158` (`CREAM_PIE`, quan
+  `rn1(2,3)`); `mongets` `:2181–2186`. Caller `makemon`
+  `is_armed` → `m_initweap`. `rnd_offensive_item` still
+  returns 0 for `S_KOP` (`muse.c`).
+- **JS was:** named omit after D-1507 (`case 'S_KOP': break`).
+- **Fix:** Port the C arm. Live `m_initthrow`/`mongets` in
+  `makemon.js` (no extra clone). Rule #2: no fs.
+- **JS:** `js/makemon.js` `m_initweap` `S_KOP`.
+- **Not this iter:** non-salamander S_LIZARD (no AT_WEAP;
+  C `break` already matched); PM_NINJA weap; `set_mimic_sym`
+  maze/sokoban/`in_town`; dprince MS_BRIBE / raven
+  `BEC_DE_CORBIN`. throws_rocks Sokoban is D-1507.
+- **Verified:** private canary **17**/17 (C/JS arm; four
+  Kop PMs `is_armed`; 200 kops pies=51 weapons=71
+  clubs=30 hoses=41; pie quan 3–4; gecko no kit;
+  salamander D-0556 kept); green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383. **Public-unhit** until shop theft
+  `makekops` (`shk.c`).
+- **Follow-up:** Open `makemon.c` non-salamander S_LIZARD
+  `m_initweap`.
+- **Files:** `js/makemon.js`.
+
 ## D-1514 — artifact.c SPFX_WARN conferral + MATCH_WARN
 
 - **Status:** fixed (map-driven Open from D-1493; not a public FAIL)

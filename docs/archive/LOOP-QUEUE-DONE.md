@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-26
+
+- [x] `makemon.c` S_KOP `m_initweap` specials (named). Not throws_rocks. **Addressed:** D-1515
+
 ## 2026-08-25
 
-- [x] `artifact.c` SPFX_WARN conferral / MATCH_WARN (named). Not Sting_effects. **Addressed:** D-1514
+- [x] `artifact.c` SPFX_WARN conferral / MATCH_WARN (named). Not Sting_effects. **Addressed:** D-1514 `9a50ef27`
 
 
 - [x] `mklev.js` `load_minetn_7` town-room gnomes: C `dat/minetn-7.lua` has three `des.monster("gnome")` then gnome lord + two monkeys; JS calls `splev_room_monster('gnome')` four times (extra `induced_align(80)`+`makemon`). Source: reviews/loop-unattended/465-eeb0e912-minetn-7-bazaar-town.md **Addressed:** D-1513 `2f5f7fd1`
