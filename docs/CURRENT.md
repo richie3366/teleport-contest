@@ -59,30 +59,29 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1524. **Next cluster:** Open
-`makemon.c` `set_mimic_sym` altar Align2amask MCORPSENM (named).
-Not maze/shop.
-**Do not skip D-1524…D-1229 (index).** Keep mention_map addr.
+**Map-driven fortress** after D-1525. **Next cluster:** Open
+`makemon.c` emin roaming (named). Not dprince.
+**Do not skip D-1525…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1524.** Do not FORCE
+**Do not re-break D-0660…D-1525.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1524 (index). Recent: **D-1524**
-`pager.c` `object_from_map` / `look_at_object` (fake SLIME_MOLD
-`spe = current_fruit`; mimic MCORPSENM override). Prior: **D-1523**
-`bones.c` `goodfruit`. D-1522 reorder_fruit. D-1521
-doname_base slime-mold fake_arti. D-1520 fruitadd
-`fruit_from_name` FALSE. restore `ghostfruit` named.
-Maze statue is D-1517. dprince is D-1518.
-stolen_booty is D-1363.
+**Keep:** D-0845…D-1525 (index). Recent: **D-1525**
+`makemon.c` `set_mimic_sym` TEMPLE `S_altar` Align2amask
+`MCORPSENM` (hellish `Inhell` + `rn2(3)` `AM_NONE`;
+`has_mcorpsenm` stale `NON_PM`). Prior: **D-1524**
+`pager.c` `object_from_map` (fake SLIME_MOLD `spe =
+current_fruit`; mimic MCORPSENM override). D-1523
+`bones.c` `goodfruit`. Maze statue is D-1517. dprince
+is D-1518. stolen_booty is D-1363.
 minetn-7 gnome count is D-1513; dispatch is D-1504;
 minetn-6 is D-1503; minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1524
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1525
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -92,7 +91,9 @@ Do not import `wield.js`/`pickup.js`→`polyself.js` for
 gnome in `load_minetn_7`. Do not import `makemon.js`→`hack.js`
 for `in_town` (local clone; hack→trap/mon cycle). Do not
 import `makemon.js`→`artifact.js` for `u_wield_art`
-(artifact→display→mkobj cycle).
+(artifact→display→mkobj cycle). Do not import
+`makemon.js`→`minion.js` for `Inhell` (minion→makemon;
+use dungeon `hellish`).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

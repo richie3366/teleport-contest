@@ -88,7 +88,7 @@ import {
     IS_DOOR, IS_WALL, IS_POOL, IS_LAVA,
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
     ROOMOFFSET, LS_MONSTER,
-    AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
+    AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT, Align2amask,
     In_quest, W_ARMH, W_SADDLE, P_POLEARMS, ROT_CORPSE, Is_waterlevel,
     STRAT_CLOSE, STRAT_WAITFORU, STRAT_APPEARMSG, is_pit,
     A_LAWFUL, ONAME_RANDOM, EMIN,
@@ -247,8 +247,11 @@ const MIMIC_SYMS = [
     S_MIMIC_DEF_SYM, S_MIMIC_DEF_SYM,
 ];
 // C ref: furnsyms[] — only need length for ROLL_FROM RNG; appear value unused
-// when appear_as overrides (Storeroom). Indices are pchar S_* stubs.
+// when appear_as overrides (Storeroom). Indices are pchar S_* stubs
+// (S_upstair/S_dnstair/S_altar/S_grave/S_throne/S_sink named).
 const MIMIC_FURNSYMS = [0, 0, 1, 1, 2, 3, 4, 5];
+// C ref: defsym.h PCHAR S_altar — TEMPLE mimic mappearance (not furnsyms stub).
+const S_altar = 33;
 
 // C ref: do_name.c ghostnames[] / rndghostname
 const GHOSTNAMES = [
@@ -2500,10 +2503,12 @@ function in_town(x, y) {
 
 /**
  * C ref: makemon.c set_mimic_sym — ordinary + shop (get_shop_item) +
- * maze/sokoban/in_town statue (D-1517).
- * Named omissions: altar Align2amask MCORPSENM, door/wall S_hcdoor,
- * Protection_from_shape_changers early-out when hero wears the amulet
- * (stubbed false at mklev).
+ * maze/sokoban/in_town statue (D-1517) + TEMPLE S_altar Align2amask
+ * MCORPSENM (D-1525).
+ * Named omissions: door/wall S_hcdoor, furnsyms real S_* so ROLL_FROM
+ * furniture can be S_altar, Protection_from_shape_changers early-out
+ * when hero wears the amulet (stubbed false at mklev), block_point,
+ * slime-mold flags.made_fruit, nocorpse/hatch/tin Plan-B.
  */
 export function set_mimic_sym(mtmp) {
     if (!mtmp) return;
@@ -2555,7 +2560,7 @@ export function set_mimic_sym(mtmp) {
         }
     } else if (rt === TEMPLE) {
         ap_type = M_AP_FURNITURE;
-        appear = 0; // S_altar stub
+        appear = S_altar;
     } else if (rt >= SHOPBASE) {
         // C: rn2(10) >= depth(&u.uz) → S_MIMIC_DEF; else get_shop_item
         if (rn2(10) >= depth_of_level(game.u?.uz)) {
@@ -2612,8 +2617,20 @@ export function set_mimic_sym(mtmp) {
     } else if (ap_type === M_AP_OBJECT && appear === SLIME_MOLD) {
         if (!mtmp.mextra) mtmp.mextra = {};
         mtmp.mextra.mcorpsenm = game.context?.current_fruit ?? 0;
+        // flags.made_fruit named omit
+    } else if (ap_type === M_AP_FURNITURE && appear === S_altar) {
+        // C: algn = rn2(3)-1; (Inhell && rn2(3)) ? AM_NONE : Align2amask
+        // Inhell = dungeon.c In_hell = dungeons[dnum].flags.hellish
+        // (do not import minion.js Inhell — minion → makemon).
+        const algn = rn2(3) - 1;
+        const inhell = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
+        if (!mtmp.mextra) mtmp.mextra = {};
+        mtmp.mextra.mcorpsenm = (inhell && rn2(3)) ? AM_NONE : Align2amask(algn);
+    } else if (mtmp.mextra && (mtmp.mextra.mcorpsenm ?? NON_PM) !== NON_PM) {
+        // C: has_mcorpsenm → NON_PM (drop stale statue/figurine shape)
+        mtmp.mextra.mcorpsenm = NON_PM;
     }
-    // altar Align2amask / block_point deferred
+    // block_point deferred
 }
 
 /**

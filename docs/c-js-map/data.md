@@ -244,6 +244,9 @@ tail** (D-0172/D-0249) + **D-1506 S_GNOME `begin_burn` after `!mpickobj` && `!le
 assign_sym/`mkobj`** (D-0262); **D-1517 maze/sokoban/`in_town` statue** 
 (`makemon.c:2439–2443` `is_maze_lev && !(In_mines && in_town(u.ux,u.uy)) && !In_sokoban && rn2(2)` 
 STATUE; callee `hack.c` `in_town` local clone — hack→trap/mon→makemon; shop is D-0262); 
+**D-1525 TEMPLE `S_altar` Align2amask `MCORPSENM`** (`:2458–2460` / `:2538–2546`; 
+`rn2(3)-1` then `(Inhell && rn2(3)) ? AM_NONE : Align2amask`; Inhell dungeon `hellish` — no minion 
+import; `has_mcorpsenm` stale `NON_PM`; furnsyms still pchar stubs); 
 **D-0619 MS_NEMESIS `nemgend` + 
 `BELL_OF_OPENING`/`Croesus`/`Pestilence` mitem**; 
 **D-1094 `role_init` quest-pm overlay + mitem `ptr.msound == MS_NEMESIS`**; 
@@ -297,12 +300,13 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **D-1515 `m_initweap` S_KOP** (`:402–409` `!rn2(4)` `m_initthrow(CREAM_PIE,2)` then `!rn2(3)` CLUB\|RUBBER_HOSE; live `m_initthrow`/`mongets`; `rnd_offensive_item` still 0);
 **D-1516 `m_initweap` S_LIZARD non-salamander skip + PM_NINJA** (`:270–272` / `:495–499`; live `is_armed`/`mongets`; newt..crocodile `!AT_WEAP`; ninja `rn2(4)` SHURIKEN\|DART then SHORT_SWORD\|AXE); 
 **D-1517 `set_mimic_sym` maze/sokoban/`in_town`** (`:2439–2443`; JS had `!(In_mines)` so non-town mines never statue; C `in_town(u.ux,u.uy)` not mimic cell; Sokoban already skipped `rn2(2)`); 
+**D-1525 `set_mimic_sym` TEMPLE `S_altar` Align2amask `MCORPSENM`** (`:2458–2460` appear `S_altar`; `:2538–2546` `rn2(3)-1` then hellish `Inhell && rn2(3)` `AM_NONE` else `Align2amask`; `has_mcorpsenm` stale `NON_PM`; no minion `Inhell` import); 
 **D-1518 `makemon` dprince MS_BRIBE / raven `BEC_DE_CORBIN`** (`:1397–1404` after sleep/byyou, before LONG_WORM; `is_dprince` live; local `u_wield_art` clone — artifact→display→mkobj cycle; emin roaming named); 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
 observe_quantum_cat/disclose SchroedingersBox; 
-altar Align2amask / door-wall `S_hcdoor`; `Protection_from_shape_changers` early-out; 
+door-wall `S_hcdoor` / furnsyms real S_* / `Protection_from_shape_changers` early-out / `block_point`; 
 `ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters; 
 egg `attach_egg_hatch_timeout`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 

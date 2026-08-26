@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `pager.c` look SLIME_MOLD `spe = current_fruit` (named). Not xname. **Addressed:** D-1524
+- [x] `makemon.c` `set_mimic_sym` altar Align2amask MCORPSENM (named). Not maze/shop. **Addressed:** D-1525
+
+
+- [x] `pager.c` look SLIME_MOLD `spe = current_fruit` (named). Not xname. **Addressed:** D-1524 `2c688c98`
 
 
 - [x] `bones.c` `goodfruit` (named). Not fruit_from_indx. **Addressed:** D-1523 `e13f38ae`

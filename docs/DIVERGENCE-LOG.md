@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1525 — makemon.c set_mimic_sym altar Align2amask MCORPSENM
+
+- **Status:** fixed (map-driven Open from D-1524; not a public FAIL)
+- **Symptom:** Temple mimics used `appear = 0` and never stored an
+  altar amask. C TEMPLE is `S_altar`; then `MCORPSENM` is
+  `(Inhell && rn2(3)) ? AM_NONE : Align2amask(rn2(3)-1)`.
+  Stale `has_mcorpsenm` is cleared to `NON_PM`.
+- **C locus:** `makemon.c` `set_mimic_sym` `:2458–2460` TEMPLE;
+  `:2538–2546` furniture-altar amask + `has_mcorpsenm`.
+  Callee `align.h` `Align2amask`; `dungeon.c` `In_hell` hellish.
+  Callers `makemon` S_MIMIC, `mklev` `dosdoor`, `mon.c`
+  `restrap`/`m_restartcham`, `zap.c` heal disguise.
+  Consumer `pray.c` `altarmask_at`.
+- **JS was:** named omit after D-1517; TEMPLE `appear = 0`;
+  no altar `MCORPSENM` arm.
+- **Fix:** TEMPLE `appear = S_altar` (defsym.h 33). Altar
+  `MCORPSENM` with C short-circuit (`!hellish` skips second
+  `rn2(3)`). Inhell via dungeon `hellish` (cannot import
+  `minion.js`: minion → makemon; minion `Inhell` is
+  `dnum===GEHENNOM`, not C). Stale `has_mcorpsenm` →
+  `NON_PM`. Live `Align2amask` / `AM_NONE`. Rule #2: no fs.
+- **JS:** `js/makemon.js` `set_mimic_sym`.
+- **Not this iter:** door/wall `S_hcdoor`; furnsyms real S_*
+  (ROLL_FROM furniture still stubs, so ordinary-room furniture
+  is not `S_altar`); `Protection_from_shape_changers`;
+  `block_point`; slime-mold `flags.made_fruit`; DELPHI
+  `S_fountain`; nocorpse/hatch/tin Plan-B. Maze is D-1517;
+  shop is D-0262.
+- **Verified:** private canary **19**/19 (C/JS grep; TEMPLE
+  furniture+33; !hellish one `rn2(3)` Cha/Neu/Law never
+  `AM_NONE`; hellish two `rn2(3)` ~2/3 `AM_NONE`; ZOO gold
+  no altar roll; stale ZOO → `NON_PM`; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until a TEMPLE (or furnsyms-`S_altar`) mimic.
+- **Follow-up:** Open `makemon.c` emin roaming. Not dprince.
+- **Files:** `js/makemon.js`.
+
 ## D-1524 — pager.c object_from_map SLIME_MOLD spe
 
 - **Status:** fixed (map-driven Open from D-1523; not a public FAIL)

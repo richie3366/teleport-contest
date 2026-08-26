@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1525 makemon.c set_mimic_sym altar Align2amask
+
+**Objective:** Open `makemon.c` `set_mimic_sym` altar
+Align2amask MCORPSENM (named). Not maze/shop.
+**C locus:** `makemon.c` `set_mimic_sym` `:2458–2460`
+TEMPLE `S_altar`; `:2538–2546` Align2amask /
+`has_mcorpsenm`.
+**JS locus:** `js/makemon.js` `set_mimic_sym`.
+**Change:** TEMPLE appear `S_altar` (33); `MCORPSENM`
+`(Inhell && rn2(3)) ? AM_NONE : Align2amask(rn2(3)-1)`;
+Inhell via dungeon hellish (no minion import). Stale
+`has_mcorpsenm` → `NON_PM`. Door/wall `S_hcdoor` /
+furnsyms real S_* / Protection / `block_point` named.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1910);
+temple-mimic Align2amask public-unhit.
+**Verified:** canary **19**/19; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `makemon.c` emin roaming. Not dprince.
+**Blocked:** none.
 ## 2026-08-26 — D-1524 pager.c object_from_map SLIME_MOLD spe
 
 **Objective:** Open `pager.c` look SLIME_MOLD `spe =

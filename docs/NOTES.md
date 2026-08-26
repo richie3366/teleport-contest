@@ -7,21 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after audit **#1910** HEAD `6a42c40e`
   (Scr **11,405** RNG 100%, `36+0.31/turn` R² 0.86).
-  **Next:** Open `makemon.c` `set_mimic_sym` altar
-  Align2amask MCORPSENM. Not maze/shop. D-1524
-  `object_from_map` (fake SLIME_MOLD `spe =
-  current_fruit`; mimic MCORPSENM). D-1523 goodfruit.
-  D-1522 reorder_fruit. D-1521 doname fake_arti.
-  D-1520 fruitadd walker. restore `ghostfruit` named.
-  Do not skip D-1524…D-1229. No FORCE / `wildmiss`
+  **Next:** Open `makemon.c` emin roaming. Not dprince.
+  D-1525 TEMPLE `S_altar` Align2amask `MCORPSENM`.
+  D-1524 `object_from_map` fake SLIME_MOLD `spe`.
+  D-1523 goodfruit. restore `ghostfruit` named.
+  Do not skip D-1525…D-1229. No FORCE / `wildmiss`
   wrap / trailing `confdir` in shared `getdir`.
   pickup `body_part` latebound; no pickup→polyself.
-- Do not revert D-1217–D-1524. Named still: worm segs;
+- Do not revert D-1217–D-1525. Named still: worm segs;
   `visible_region_summary`; `show_region`; GETOBJ_ALLOWCNT;
   tamedog is_covetous; `#altdip`; wander/`somexy`;
-  `create_object` `o->lit`; emin; altar Align2amask;
-  `mcast_blind_you` EYE; quantum-cat FOOT; cspfx W_ART;
-  ghostfruit; getpos fakeobj; `that_is_a_mimic`.
+  `create_object` `o->lit`; emin; door `S_hcdoor`;
+  furnsyms real S_*; `mcast_blind_you` EYE; quantum-cat
+  FOOT; cspfx W_ART; ghostfruit; getpos fakeobj;
+  `that_is_a_mimic`.
 
 ## Don't re-check (≤15)
 
@@ -30,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1524.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1525.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,26 +40,32 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1524 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1525 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089). Do not restore exact-only fruit walker (D-1520) or
   always-a/an slime-mold doname (D-1521). Do not omit
   `reorder_fruit` or call it from production ^X (D-1522). Do not
   omit `goodfruit` / `savefruitchn` fid>=0 (D-1523). Do not skip
-  fake look SLIME_MOLD `spe = current_fruit` (D-1524).
+  fake look SLIME_MOLD `spe = current_fruit` (D-1524). Do not
+  stub TEMPLE `S_altar` or skip Align2amask `MCORPSENM` (D-1525).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
 - Do not import `wield.js`/`pickup.js`→`polyself.js` for
   `body_part` (use `objnam.js` `body_part_latebound`).
 - Do not import `makemon.js`→`hack.js` for `in_town` (D-1517)
-  or `makemon.js`→`artifact.js` for `u_wield_art` (D-1518).
+  or `makemon.js`→`artifact.js` for `u_wield_art` (D-1518)
+  or `makemon.js`→`minion.js` for `Inhell` (D-1525; hellish).
   Do not call `fruitadd` at init after objects exist;
   `init_fruit_chain` only. No fourth town gnome (D-1513).
 
 ## Landmarks (≤15)
 
+- D-1525: TEMPLE mimic `S_altar` (33); `MCORPSENM`
+  `(Inhell && rn2(3)) ? AM_NONE : Align2amask(rn2(3)-1)`;
+  hellish not minion `Inhell`; stale `has_mcorpsenm`
+  `NON_PM`. Door `S_hcdoor` / furnsyms named.
 - D-1524: object_from_map fake SLIME_MOLD `spe =
   current_fruit`; mimic MCORPSENM override. look_at_object
   distant_name+doname; brief_at/look_all. Glyphotyp not
@@ -95,5 +100,3 @@ Objective/score live in `CURRENT.md`.
   allmain OR after Warn_of_mon. C is `region.c`.
 - D-1511: `fruit_from_indx` by fid; slime mold `fname` /
   `"fruit"` / quan ick; `init_fruit_chain` fid 1.
-- D-1510: `poly_obj` worn remap W_WEAPONS keep slot else
-  `wearslot&old`; `set_wear` async.
