@@ -7,25 +7,25 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
   RNG **792,838**/792,838 = 100%). seed0367 FULL.
-  **Hypothesis:** next work is Open `pager.c` `that_is_a_mimic`
-  (named). Not object_from_map. Must-fix empty. D-1543 closed
-  furnsyms real S_*.
-  **Falsify:** port `that_is_a_mimic` so looking at a disguised
-  mimic matches C pager, not only `object_from_map` spe.
-  **Next:** Open `that_is_a_mimic`. Not getpos fakeobj.
-  Do not skip D-1531…D-1543. Do not stub furnsyms 0..5. No FORCE
-  / `wildmiss` wrap / trailing `confdir` in shared `getdir`.
-- Named still: `that_is_a_mimic`; getpos fakeobj; detect_wsegs;
-  `worm_known`. Palantir `#if 0`. CMDQ_INT / pickinv count.
-  `splev_create_monster` RANDOM-only. `tamedog` `wake_nearto` /
-  FULL_MOON S_DOG / ustuck. Other mcast_spell; sit/pray
-  `eyecount` always-2. muse quantum-loot; escape cat HP. Eyes
-  `is_plural`; other INTERNALCMD. defn/cary resist;
-  SEARCH/REGEN/XRAY/PROTECT; inv_prop drop; questart `artitouch`.
-  shk mnearto / occupancy / losedogs. ghostfruit impossible /
-  age. `fruitadd_orc` clone. Ice/Boulder/Spider/Trap/Garden/
-  Buried/Massacre/Statuary fills. Protection / `block_point` /
-  DELPHI `S_fountain`.
+  **Hypothesis:** next work is Open `worm.c` `detect_wsegs`
+  (named). Not `see_wsegs`. Must-fix empty. D-1544 closed
+  `that_is_a_mimic` via live `object_from_map`.
+  **Falsify:** port `detect_wsegs` so monster detection paints
+  worm body segs (`detected`/`pet`/`mon` glyph), not only
+  `see_wsegs` `newsym`.
+  **Next:** Open `detect_wsegs`. Not `worm_known`.
+  Do not skip D-1531…D-1544. Do not glue getpos fakeobj. No
+  FORCE / `wildmiss` wrap / trailing `confdir` in shared `getdir`.
+- Named still: getpos fakeobj; detect_wsegs; `worm_known`;
+  `mhidden_description`; `namefloorobj`. Palantir `#if 0`.
+  CMDQ_INT / pickinv count. `splev_create_monster` RANDOM-only.
+  `tamedog` `wake_nearto` / FULL_MOON S_DOG / ustuck. Other
+  mcast_spell; sit/pray `eyecount` always-2. muse quantum-loot;
+  escape cat HP. Eyes `is_plural`; other INTERNALCMD.
+  defn/cary resist; SEARCH/REGEN/XRAY/PROTECT; inv_prop drop;
+  questart `artitouch`. shk mnearto / occupancy / losedogs.
+  ghostfruit impossible / age. Ice/Boulder fills. Protection /
+  `block_point` / DELPHI `S_fountain`.
 
 ## Don't re-check (≤15)
 
@@ -34,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1543.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1544.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,9 +45,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1543 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1544 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1543 (index). Do not
+  `confer_oc_oprop`. Do not skip D-1520…D-1544 (index). Do not
   delete emin (review **487**). Do not stub `make_happy_shk` as
   pacify+“calms down” only (D-1540 / **493**). Do not import
   bones→options for fruitadd (D-1541).
@@ -59,12 +59,16 @@ Objective/score live in `CURRENT.md`.
 - Do not import `makemon.js`→`hack.js`/`artifact.js`/`minion.js`.
   No `fruitadd` after objects exist. No fourth town gnome.
   Do not stub door `appear=0` (D-1536) or furnsyms 0..5 (D-1543).
-  Do not treat Blindfolded as `Blinded` (D-1534). Do not zero
+  Do not glue getpos fakeobj / `namefloorobj` / `mhidden_description`.
+  Do not import `uhitm.js`→`pager.js` statically. Do not zero
   `cspfx` when `W_ART` (D-1539). Do not candify ghostfruit.
   Do not skip Light source via `mksobj_at` without `o->lit`.
 
 ## Landmarks (≤15)
 
+- D-1544: `that_is_a_mimic` live `object_from_map` + defsyms
+  PCHAR desc + `MIM_OMIT_WAIT`. Dynamic pager import. getpos
+  fakeobj / `namefloorobj` / `mhidden_description` named.
 - D-1543: furnsyms real S_* (`:2490–2497` ROLL_FROM cmap not
   levl.typ). Not stub 0..5. Protection / `block_point` / DELPHI
   named. Door is D-1536.
@@ -94,5 +98,3 @@ Objective/score live in `CURRENT.md`.
   `A_NONE`). Emin kept.
 - D-1530: getobj ALLOWCNT `get_count` + throw-one + `split_otmp`.
   Palantir / CMDQ_INT named.
-- D-1529: `see_wsegs` body segs except dummy; `is_worm_tail` `~`.
-  detect_wsegs / `worm_known` named.

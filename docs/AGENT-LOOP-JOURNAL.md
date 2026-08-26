@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1544 that_is_a_mimic object_from_map / defsyms
+
+**Objective:** Open `pager.c` `that_is_a_mimic` (named). Not
+object_from_map. C function is `uhitm.c` `:6201–6276`.
+**C locus:** `uhitm.c` `that_is_a_mimic` `:6201–6276`; callee
+`pager.c` `object_from_map` `:284–377` (D-1524).
+**JS locus:** `js/uhitm.js` `that_is_a_mimic`; `js/objnam.js`
+`otense`.
+**Change:** live `object_from_map` (dynamic import), furniture
+PCHAR desc, gold `Those gold pieces are`, `MIM_OMIT_WAIT`
+strip, masked `M_AP_TYPE`. Not local mksobj. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1930).
+**Verified:** canary **18**/18; green+strict seed8000/0900;
+cohort **7**/7 + strict (incl. seed0004).
+**Next:** Open `worm.c` `detect_wsegs`. Not `see_wsegs`.
+**Blocked:** none.
 ## 2026-08-26 — D-1543 set_mimic_sym furnsyms real S_*
 
 **Objective:** Open `makemon.c` `set_mimic_sym` furnsyms real

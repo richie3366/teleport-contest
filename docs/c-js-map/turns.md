@@ -584,9 +584,10 @@ look_at_monster hallu/health/stuck/leashed/trapped/mhidden;
 `spe = current_fruit` then mimic `MCORPSENM`; glyphotyp not integer glyph; 
 `brief_at`/`look_all` live; doname_with_price/`doname_vague_quan` named — doname 
 stand-in; cmap trapped-chest CHEST|LARGE_BOX / glyph_is_body|statue corpsenm 
-named; `that_is_a_mimic` / `namefloorobj` / `mhidden_description` still local 
-mksobj; getpos auto_describe still `look_shown_at` real piles; remembered-gone 
-glyphs without stored otyp named)
+named; **`that_is_a_mimic` D-1544** (`uhitm.c:6201–6276`; live `object_from_map` 
++ defsyms PCHAR desc + `MIM_OMIT_WAIT`; dynamic pager import); `namefloorobj` / 
+`mhidden_description` still named; getpos auto_describe still `look_shown_at` 
+real piles; remembered-gone glyphs without stored otyp named)
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 
@@ -777,7 +778,7 @@ D-1541** (`:500–511` oldfruit fid→fname then fruitadd else; restobjchn
 `:260–261` after next_ident; fruitadd else clone in bones.js — options
 user path stays; impossible pline / age shift named)); **pager look SLIME_MOLD `spe` D-1524** (`pager.c` `object_from_map`
 `:336–343` / `look_at_object`; fake `current_fruit` then mimic MCORPSENM;
-getpos fakeobj / that_is_a_mimic / namefloorobj / ghostfruit is D-1541); 
+getpos fakeobj / namefloorobj / that_is_a_mimic is D-1544 / ghostfruit is D-1541); 
 CHAIN erosion polish / other ball otypes deferred); 
 **`readobjnam_parse_charges` `(N)`/`(R:S)` + wrp[] `wand of X` → oclass/actualn + 
 wand `recharged`** (D-0507; named/called/labeled, o_ranges, glass, fruits, drawbridge (furniture 
@@ -837,7 +838,8 @@ container paydoname rewrite / `contained_cost` deferred);
 `doname_with_price` for-sale + **`record_price_quote`** (D-0460/D-0469); 
 **box `locked`/`unlocked`/`broken`/`trapped` prefixes** (D-0464; `greased` prefix deferred); 
 **`short_oname` + `simpleonames`/`thesimpleoname`** (D-0881; 
-other safe_qbuf callers deferred) + **`yname`/`shk_your`/`the_unique_pm` (D-1045; 
+other safe_qbuf callers deferred) + **`otense` export D-1544** (C `objnam.c:2531–2546`; 
+Eyes `is_plural` named; pre-existing local clones stay) + **`yname`/`shk_your`/`the_unique_pm` (D-1045; 
 `mon_owns` via `y_monnam`; `shk_owns` shop unpaid/floor costly deferred)**
 
 ### `src/invent.c` `hold_another_object` / `prinv` / `count_contents` / `assigninvlet`
@@ -892,9 +894,10 @@ chest_trap `Blind ? ROLL_FROM(blindgas) : rndcolor()`;
 sit/apply/pray/detect/do/wield/read identity stubs still named); 
 **exported `x_monnam` adjective/ARTICLE + `mon_nam`→`x_monnam`** (D-0850; 
 priest/minion/`mappear`/invis adj/`is_mplayer` rank/`AUGMENT_IT` deferred); 
+**`uhitm` live `a_monnam` D-1544**; `namefloorobj` still named; 
 **`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889; 
 **seemimic/pit/NODIAG/boulder D-1299**; `goodpos` / mintrap aftermath named); 
-omit astral high-cleric `distant_monnam`; `uhitm` private `a_monnam` still bare given-name
+omit astral high-cleric `distant_monnam`
 
 ### `src/dokick.c`
 
@@ -2269,8 +2272,11 @@ body/Invulnerable/burn_away_slime/`resists_magm` worn scan deferred);
 **`xkilled` treasure `mkobj(RANDOM_CLASS)` + food/size filters** (D-0229); 
 **`xkilled` final `newsym` after treasure/corpse** (D-0304); 
 **`mhitm_mgc_atk_negated` + hero armor `a_can`** (D-0198); 
-**`attack_checks`→`stumble_onto_mimic`/`that_is_a_mimic` object-mappearance `mksobj(FALSE)`** 
-(D-0207); **`mondied` undead `"destroyed"` + shared `Monnam` saddle** (D-0214); 
+**`attack_checks`→`stumble_onto_mimic`/`that_is_a_mimic` next_ident** (D-0207); 
+**`that_is_a_mimic` live `object_from_map` / defsyms / `MIM_OMIT_WAIT` D-1544** 
+(`uhitm.c:6201–6276`; gold `quan=2`; furniture PCHAR desc; masked `M_AP_TYPE`; 
+export `otense`; getpos fakeobj / `namefloorobj` / `mhidden_description` / 
+trapped-chest cmap on `M_AP_OBJECT` / Eyes `is_plural` named); **`mondied` undead `"destroyed"` + shared `Monnam` saddle** (D-0214); 
 **`hmon` weapon `maybe_knockback`→`mhitm_knockback` `rn2(3)`+`rn2(6)`** (D-0227); 
 **`mattackm` `gv.vis` + `hitmm`/`missmm`/`mondied` cansee gates** (D-0241); 
 **`noises`/`You_hear` out-of-sight m-vs-m** (D-0294; `far_noise`/`noisetime`); 
@@ -2281,7 +2287,7 @@ body/Invulnerable/burn_away_slime/`resists_magm` worn scan deferred);
 `is_golem`/`weirdnonliving`/`nonliving` in `monsters.js`); 
 omit `seemimic`/`mundetected` unhide+showit; 
 omit stun pline/`mhurtle_to_doom`, `special_dmgval` gloves/silver, `attack_checks` 
-Blind/hallu/invis-marker/peaceful yn/furniture defsyms, Cleaver `hitum_cleave`, knockback 
+Blind/hallu/invis-marker/peaceful yn, Cleaver `hitum_cleave`, knockback 
 hurtle/steadfast/size/weapon gates + ART_OGRESMASHER, full AD_PLYS/`erode_obj`/`done_in_by` 
 stone/`dokick` passive callers; **D-1095** `passive` AD_COLD `healmon`+`split_mon`; 
 mhitu/mhitm AD_COLD still named; thrown multishot hit-when-destroyed; `hit()` thrown path; 

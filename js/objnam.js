@@ -1638,6 +1638,15 @@ export function vtense(subj, verb) {
     return verb + 's';
 }
 
+/**
+ * C ref: objnam.c otense — plural verb if is_plural(otmp), else
+ * vtense(NULL, verb). Eyes of the Overworld quan==1 plural named omit.
+ */
+export function otense(otmp, verb) {
+    if ((otmp?.quan | 0) === 1) return vtense(null, verb);
+    return verb;
+}
+
 /** C ref: obj.h bimanual — WEAPON/TOOL with oc_bimanual (oc_big). */
 function bimanual(obj) {
     if (!obj) return false;

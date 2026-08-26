@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1544 — uhitm.c that_is_a_mimic object_from_map / defsyms
+
+- **Status:** fixed (map-driven Open from D-1543; not a public FAIL)
+- **Symptom:** Disguised-mimic reveal used local `mksobj` +
+  `objectNameStrs` instead of C `object_from_map` (fruit `spe`,
+  gold `quan=2`, `simpleonames`/`otense`) and furniture
+  `defsyms[].explanation` (PCHAR desc). `MIM_OMIT_WAIT` did not
+  strip `"Wait!  "`. Named omit after D-1524.
+- **C locus:** `uhitm.c` `that_is_a_mimic` `:6201–6276`. Callers
+  `stumble_onto_mimic` (`MIM_REVEAL`), `zap.c` `bhitm`
+  (`MIM_REVEAL|MIM_OMIT_WAIT`). Callees `pager.c`
+  `object_from_map` `:284–377` (D-1524); `objnam.c` `simpleonames`
+  / `otense`; `drawing.c` `defsyms[].explanation`.
+- **JS was:** local `mksobj` + `objectNameStrs`; no defsyms
+  table; no omit_wait strip; local stub `a_monnam`.
+- **Fix:** Live pager `object_from_map` (dynamic import;
+  pager→uhitm `mon_at` cycle). Furniture PCHAR desc (not PCHAR2
+  tilenm). Gold `Those gold pieces are`. `M_AP_TYPE` masked so
+  `M_AP_F_DKNOWN` does not skip the sleeping `x_monnam` arm.
+  Export `otense` (no 7th clone). Rule #2: no fs.
+- **JS:** `js/uhitm.js` `that_is_a_mimic`; `js/objnam.js` `otense`.
+- **Not this iter:** getpos fakeobj; `namefloorobj`;
+  `mhidden_description`; trapped-chest cmap on `M_AP_OBJECT`;
+  Eyes `is_plural`; zap `box_or_door` `seemimic` stand-in;
+  `dealloc_obj` (GC); JS `simpleonames` still no quan-plural
+  (this arm clones C’s makeplural).
+- **Verified:** private canary **18**/18; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. Public-unhit (no public
+  session looks at a disguised mimic).
+- **Follow-up:** Open `worm.c` `detect_wsegs`. Not `see_wsegs`.
+- **Files:** `js/uhitm.js`, `js/objnam.js`.
+
 ## D-1543 — makemon.c set_mimic_sym furnsyms real S_*
 
 - **Status:** fixed (map-driven Open from D-1542; not a public FAIL)

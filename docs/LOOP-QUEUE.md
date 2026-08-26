@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pager.c` `that_is_a_mimic` (named). Not object_from_map.
 - [ ] `worm.c` `detect_wsegs` (named). Not see_wsegs.
 - [ ] `dog.c` `tamedog` `wake_nearto` (named). Not is_covetous.
 - [ ] `pager.c` getpos fakeobj (named). Not that_is_a_mimic.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `invent.c` canned CMDQ_INT (named). Not ALLOWCNT.
 - [ ] `cmd.c` INTERNALCMD Eyes `is_plural` (named). Not #altdip.
 - [ ] `sp_lev.c` `splev_create_monster` RANDOM-only (named). Not mk_roamer.
+- [ ] `pager.c` `mhidden_description` (named). Not that_is_a_mimic.
+- [ ] `do_name.c` `namefloorobj` (named). Not that_is_a_mimic.
+- [ ] `makemon.c` `set_mimic_sym` DELPHI `S_fountain` (named). Not furnsyms.
+- [ ] `makemon.c` `set_mimic_sym` `block_point` (named). Not DELPHI.
+- [ ] `artifact.c` SEARCH/REGEN/XRAY conferral (named). Not cspfx.
 
 ## Parked (do not pop)
 
