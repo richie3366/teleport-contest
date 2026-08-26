@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1552 — obj.h is_plural Eyes + undiscovered_artifact
+
+- **Status:** fixed (map-driven Open from D-1551; not a public FAIL)
+- **Symptom:** `is_plural` / `otense` used `quan !== 1` only, so discovered
+  Eyes of the Overworld stayed singular. `not_fully_identified` skipped
+  the artidisco gate; `fully_identify_obj` skipped `discover_artifact`;
+  `obj_is_pname` used a known/dknown/bknown subset; iactions naming
+  always said "this specific". JS named the omit after D-1537.
+- **C locus:** `include/obj.h` `is_plural` `:421–426`. Callee
+  `artifact.c` `undiscovered_artifact` `:1130–1143`. Callers
+  `objnam.c` `otense` `:2540`, `not_fully_identified` `:1804`,
+  `obj_is_pname` `:337`; `invent.c` `fully_identify_obj` `:2641`;
+  `iactions.c` `item_naming_classification` `:63–75`.
+- **JS was:** three quan-only `is_plural` clones; `otense` quan gate;
+  `not_fully_identified` skipped oartifact; `discover_artifact` wrote
+  artidisco but identify never called it.
+- **Fix:** Live `undiscovered_artifact` + `is_plural` Eyes arm.
+  `otense` uses `is_plural`. Identify records artidisco.
+  `obj_is_pname` late-binds full `not_fully_identified`.
+  iactions `the_unique_obj` / `is_plural`. Clones retired.
+  Rule #2: no fs.
+- **JS:** `js/objnam.js` `is_plural`/`otense`/`obj_is_pname`;
+  `js/artifact.js` `undiscovered_artifact`; `js/invent.js`;
+  `js/iactions.js`; do/dokick/detect/dothrow/music import `otense`.
+- **Not this iter:** other INTERNALCMD (`clicklook` / `mouseaction` /
+  `altadjust` / `alttakeoff` / `altunwield`); pray/fountain gift
+  `discover_artifact` already live for Excalibur; `learn_egg_type`;
+  save/rest artidisco. #altdip is D-1537.
+- **Verified:** private canary **31**/31; green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+
 ## D-1551 — invent.c getobj canned CMDQ_INT
 
 - **Status:** fixed (map-driven Open from D-1550; not a public FAIL)

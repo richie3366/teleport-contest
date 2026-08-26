@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `cmd.c` INTERNALCMD Eyes `is_plural` (named). Not #altdip.
 - [ ] `sp_lev.c` `splev_create_monster` RANDOM-only (named). Not mk_roamer.
 - [ ] `pager.c` `mhidden_description` (named). Not that_is_a_mimic.
 - [ ] `do_name.c` `namefloorobj` (named). Not that_is_a_mimic.

@@ -221,7 +221,15 @@ VERBOSE_TIMER names / `fmt_ptr` heap / save `timer_id` / `wiz_light_sources` /
 `timer_sanity_check` named)/ **INTERNALCMD `#altdip` → `dip_into`** (D-1537; 
 C `cmd.c` `:2063` table + `ext_func_tab_from_func`/`cmdq_add_ec` `CMDQ_EXTCMD` + 
 `extcmds_match` skip + `can_do_extcmd` buried no `IFBURIED`; typed `#altdip` unknown; 
-`cmd_from_ecname` `#altdip`; other INTERNALCMD bodies / Eyes `is_plural` named)/`#wizidentify`→`wiz_identify`/`override_ID`+`
+`cmd_from_ecname` `#altdip`; **Eyes `is_plural` D-1552** (C `obj.h` 
+`is_plural` + `artifact.c` `undiscovered_artifact` `:1130–1143`; 
+`objnam.c` `otense`/`not_fully_identified`/`obj_is_pname`; 
+`invent.c` `fully_identify_obj` `discover_artifact`; 
+`iactions.c` `item_naming_classification` `the_unique_obj`; 
+live `js/objnam.js` + `js/artifact.js` late-bind; clones retired; 
+other INTERNALCMD `clicklook`/`mouseaction`/`altadjust`/`alttakeoff`/
+`altunwield` / pray gift `discover_artifact` / `learn_egg_type` / 
+save/rest artidisco named)/`#wizidentify`→`wiz_identify`/`override_ID`+`
 display_inventory` wizid (D-0928 #1143; unid_cnt>0 PICK_ANY 
 deferred)/`#name`/`#pray`/`#chat`/`#chronicle`/`#conduct`/`#vanquished`/`#genocided`(empty)/`
 #adjust`/`#terrain`/`#sit`/`#dip`/`#offer`/`#turn`(D-0912; 

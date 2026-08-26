@@ -67,7 +67,7 @@ import {
 } from './generated/monsters_data.js';
 import {
     xname, killer_xname, singular, an, the, vtense, doname, thesimpleoname,
-    makeplural,
+    makeplural, otense,
 } from './objnam.js';
 import { m_at, wakeup, seemimic, wake_nearto, distmin, monnear, m_respond } from './mon.js';
 import { mon_nam, Monnam, hliquid, Hallucination } from './do_name.js';
@@ -424,12 +424,6 @@ function befriend_with_obj(ptr, obj) {
         return obj.otyp === CORPSE && (obj.corpsenm | 0) === PM_LICHEN;
     }
     return true;
-}
-
-/** C ref: objnam.c otense — plural verb if xname(obj) would be plural. */
-function otense(obj, verb) {
-    if ((obj?.quan | 0) !== 1) return verb; // quan≠1 → plural form (C is_plural)
-    return vtense(null, verb);
 }
 
 function The(str) {

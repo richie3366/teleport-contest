@@ -12,7 +12,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, docrt, clear_committed_status } from './display.js';
 import { paint_corner_nhw_menu } from './invent.js';
-import { cxname, the, xname, makeplural, singular } from './objnam.js';
+import { cxname, the, xname, makeplural, singular, is_plural, the_unique_obj } from './objnam.js';
 import { ia_checkfile } from './pager.js';
 import { ammo_and_launcher } from './wield.js';
 import {
@@ -189,10 +189,6 @@ function simpleonames(obj) {
     return singular(obj, xname);
 }
 
-function is_plural(obj) {
-    return (obj?.quan || 1) > 1;
-}
-
 /** C ref: do_name.c objtyp_is_callable — class + OBJ_DESCR / oc_uname. */
 function objtyp_is_callable(i) {
     const ocl = game.objects?.[i] || objects[i];
@@ -243,12 +239,15 @@ function item_naming_classification(obj, onamebuf, ocallbuf) {
     if (name_ok(obj) === GETOBJ_SUGGEST) {
         const named = has_oname(obj) && ONAME(obj);
         const verb = !named ? 'Name' : 'Rename or un-name';
-        const which = 'this specific'; // the_unique / plural deferred
+        const which = the_unique_obj(obj) ? 'the'
+            : !is_plural(obj) ? 'this specific'
+            : 'this stack of';
         onamebuf.s = `${verb} ${which} ${simpleonames(obj)}`;
     }
     if (call_ok(obj) === GETOBJ_SUGGEST) {
         let callname = simpleonames(obj);
-        if (!is_plural(obj)) callname = makeplural(callname);
+        if (the_unique_obj(obj)) callname = the(callname);
+        else if (!is_plural(obj)) callname = makeplural(callname);
         const ocl = game.objects?.[obj.otyp] || objects[obj.otyp];
         const verb = !ocl?.oc_uname ? 'Call' : 'Re-call or un-call';
         ocallbuf.s = `${verb} the type for ${callname}`;

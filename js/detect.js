@@ -57,7 +57,7 @@ import {
 } from './display.js';
 import { vision_recalc, couldsee, recalc_block_point, cansee } from './vision.js';
 import { visible_region_at } from './region.js';
-import { an, the, xname, The, makeplural, vtense } from './objnam.js';
+import { an, the, xname, The, makeplural, vtense, otense } from './objnam.js';
 import { body_part } from './polyself.js';
 import { A_WIS, A_INT, acurr, exercise } from './attrib.js';
 import {
@@ -216,13 +216,6 @@ function observe_recursively(obj) {
     }
 }
 
-/** C objnam.c otense — verb given plural; singular → vtense. */
-function otense(obj, verb) {
-    if ((obj?.quan | 0) !== 1) return verb;
-    return vtense(null, verb);
-}
-
-/** C objnam.c Tobjnam */
 function Tobjnam(obj, verb) {
     const bp = The(xname(obj));
     return verb ? `${bp} ${otense(obj, verb)}` : bp;

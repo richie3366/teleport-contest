@@ -18,7 +18,7 @@ import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
     endgamelevelname, obj_glyph, suppress_map_output, clear_nhwindow_message,
 } from './display.js';
-import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname } from './objnam.js';
+import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified } from './objnam.js';
 import { yn_function } from './getline.js';
 import { mergable, is_damageable, stop_timer, splitobj } from './mkobj.js';
 import { cansee } from './vision.js';
@@ -135,7 +135,7 @@ import { stairway_at, stairs_description } from './mklev.js';
 import { objects_at } from './mkobj.js';
 import { PM_SAMURAI, PM_MONK } from './generated/monsters_data.js';
 import { humanoid, strongmonst } from './monsters.js';
-import { set_artifact_intrinsic } from './artifact.js';
+import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact } from './artifact.js';
 
 // C monflag.h MZ_HUMAN ≡ MZ_MEDIUM
 const MZ_HUMAN = 2;
@@ -743,8 +743,7 @@ function is_weptool_obj(obj) {
 
 /**
  * C ref: objnam.c not_fully_identified.
- * Named omissions: undiscovered_artifact (always treated discovered);
- * MAIL_STRUCTURES SCR_MAIL bknown skip when SCR_MAIL absent.
+ * Named omissions: MAIL_STRUCTURES SCR_MAIL bknown skip when SCR_MAIL absent.
  */
 export function not_fully_identified(otmp) {
     if (!otmp) return false;
@@ -759,7 +758,9 @@ export function not_fully_identified(otmp) {
         || (!otmp.lknown && Is_box(otmp))) {
         return true;
     }
-    // oartifact undiscovered_artifact deferred — skip artifact gate
+    if (otmp.oartifact && undiscovered_artifact(otmp.oartifact)) {
+        return true;
+    }
     if (otmp.rknown
         || (otmp.oclass !== ARMOR_CLASS && otmp.oclass !== WEAPON_CLASS
             && !is_weptool_obj(otmp)
@@ -769,6 +770,7 @@ export function not_fully_identified(otmp) {
     // lack of rknown only matters for damageable objects
     return is_damageable(otmp);
 }
+set_not_fully_identified(not_fully_identified);
 
 /** C ref: invent.c set_cknown_lknown */
 export function set_cknown_lknown(obj) {
@@ -782,12 +784,12 @@ export function set_cknown_lknown(obj) {
 
 /**
  * C ref: invent.c fully_identify_obj.
- * Named omissions: discover_artifact; learn_egg_type.
+ * Named omissions: learn_egg_type.
  */
 export function fully_identify_obj(otmp) {
     if (!otmp) return;
     makeknown(otmp.otyp);
-    // discover_artifact deferred
+    if (otmp.oartifact) discover_artifact(otmp.oartifact);
     observe_object(otmp);
     otmp.known = otmp.bknown = otmp.rknown = 1;
     set_cknown_lknown(otmp);

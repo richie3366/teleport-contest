@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1552 obj.h is_plural Eyes + artidisco
+
+**Objective:** Open Eyes `is_plural`. Not #altdip.
+**C locus:** `obj.h` `is_plural`; `artifact.c` `undiscovered_artifact`.
+**JS locus:** `js/objnam.js` `is_plural`/`otense`; `js/artifact.js`.
+**Change:** Discovered Eyes are plural; identify writes artidisco.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1940).
+**Verified:** canary **31**/31; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `splev_create_monster` RANDOM-only. Not
+`mhidden_description`.
+**Blocked:** none.
 ## 2026-08-26 — D-1551 invent.c getobj canned CMDQ_INT
 
 **Objective:** Open `invent.c` canned CMDQ_INT. Not ALLOWCNT.

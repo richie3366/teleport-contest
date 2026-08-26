@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `invent.c` canned CMDQ_INT (named). Not ALLOWCNT. **Addressed:** D-1551
+- [x] `cmd.c` INTERNALCMD Eyes `is_plural` (named). Not #altdip. **Addressed:** D-1552
+
+
+- [x] `invent.c` canned CMDQ_INT (named). Not ALLOWCNT. **Addressed:** D-1551 `73321d0c`
 
 
 - [x] `mon.c` `monkilled`: `js/trap.js` clone still `cansee(head)`; use `wormno ? worm_known : cansee(head)` like `mhitm.js`. Source: reviews/loop-unattended/509-9b53440e-worm-known.md **Addressed:** D-1550 `27feb511`

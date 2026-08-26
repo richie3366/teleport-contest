@@ -86,7 +86,7 @@ import { place_object, stackobj, weight, delobj, obj_extract_self,
     save_timers, restore_timers, run_timers,
 } from './mkobj.js';
 import { ship_object, obj_delivery, container_impact_dmg } from './dokick.js';
-import { doname, xname, the, The, vtense, an, yname, corpse_xname } from './objnam.js';
+import { doname, xname, the, The, vtense, an, yname, corpse_xname, is_plural, otense } from './objnam.js';
 import { Monnam, Amonnam, Adjmonnam, mon_nam } from './do_name.js';
 import { revive } from './zap.js';
 import {
@@ -461,13 +461,6 @@ function distu(x, y) {
 /** C mondata.h m_in_air subset — flyer/floater. */
 function m_in_air(mtmp) {
     return is_flyer(mtmp?.data) || is_floater(mtmp?.data);
-}
-function is_plural(obj) {
-    return (obj?.quan | 0) !== 1;
-}
-function otense(obj, verb) {
-    if (is_plural(obj)) return verb;
-    return vtense(null, verb);
 }
 async function You_hear(line) {
     if (Deaf()) return;
