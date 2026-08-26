@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1550 trap.js monkilled worm_known sight
+
+**Objective:** Must-fix review **509** `mon.c` `monkilled`
+trap.js clone. Not howmonseen.
+**C locus:** `mon.c` `monkilled` `:3384–3385`.
+**JS locus:** `js/trap.js` `monkilled`.
+**Change:** `wormno ? worm_known : cansee(head)` like `mhitm.js`.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1940).
+**Verified:** canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open CMDQ_INT. Not Eyes `is_plural`.
+**Blocked:** none.
 ## 2026-08-26 — D-1549 detect.c map_monst long-worm mndx
 
 **Objective:** Must-fix review **506** `map_monst` /

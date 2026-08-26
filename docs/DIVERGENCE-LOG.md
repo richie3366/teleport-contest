@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1550 — mon.c monkilled trap.js clone worm_known sight
+
+- **Status:** fixed (Must-fix review **509**; not a public FAIL)
+- **Symptom:** C has one `monkilled`. JS `mhitm.js` used
+  `wormno ? worm_known : cansee(head)` (D-1548) but `js/trap.js`
+  kept `cansee(head)`. A long worm killed by a pit/fire/rust
+  trap with only a **tail** `cansee` stayed silent.
+- **C locus:** `mon.c` `monkilled` `:3384–3385`. Callers
+  `trap.c` `:1716` rust / `:1803` fire / `:2436` / `:6756`
+  (JS pit `thitm`, rust iron-golem, fire `thitm`/HP).
+  Callee `worm.c` `worm_known` `:877–893` (D-1548).
+- **JS was:** `if (cansee(mdef.mx, mdef.my))` in the trap clone.
+- **Fix:** Same ternary as `mhitm.js`. Infrared still not used
+  (unlike `_canseemon`). Clone stays local (thinner: always
+  “killed”, no disintegested, no pet roast). Rule #2: no fs.
+- **JS:** `js/trap.js` `monkilled`. `worm_known` already imported.
+- **Not this iter:** `howmonseen`; cutworm/`redraw_worm`;
+  `canseemon` clone #6; nonliving verb / pet roast /
+  `pline_mon` / disintegested in the trap clone. D-1548 is
+  `worm_known` + export `monkilled`.
+- **Verified:** private canary **16**/16 (C/JS grep; trap clone
+  ternary; tail-visible/head-dark `mintrap` PIT kill pline;
+  non-worm dark silent / seen kill; no core RNG; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. **Public-unhit** until a
+  session trap-kills a live long worm via a tail cell.
+- **Follow-up:** Open `invent.c` canned CMDQ_INT. Not ALLOWCNT.
+- **Files:** `js/trap.js`.
+
 ## D-1549 — detect.c map_monst / monster_detect long-worm mndx
 
 - **Status:** fixed (Must-fix review **506**; not a public FAIL)

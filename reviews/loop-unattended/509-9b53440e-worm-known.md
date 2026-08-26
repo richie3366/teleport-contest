@@ -127,3 +127,5 @@ D-log canary **28**/28 (grep; dummy head; tail-visible/head-dark; infrared-only;
 1. **`mon.c` `monkilled` sight test in `js/trap.js` clone** (`:3384–3385`): use `mdef.wormno ? worm_known(mdef) : cansee(mdef.mx, mdef.my)` (same as `mhitm.js`). One port. Do **not** re-do `worm_known` / `_canseemon` / glue `howmonseen` / cutworm / `redraw_worm`. Do **not** add `canseemon` clone #6.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1550

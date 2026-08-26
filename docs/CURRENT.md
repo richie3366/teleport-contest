@@ -62,23 +62,23 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1940**. **Next cluster:**
-Must-fix `mon.c` `monkilled`: `js/trap.js` clone still
-`cansee(head)`; use `wormno ? worm_known : cansee(head)` like
-`mhitm.js`. Source: review **509**.
-Not Open CMDQ_INT.
-**Do not skip D-1531…D-1549 (index).** Keep mention_map addr.
+Open `invent.c` canned CMDQ_INT (named). Not ALLOWCNT.
+Not Eyes `is_plural`.
+**Do not skip D-1531…D-1550 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1549.** Do not FORCE
+**Do not re-break D-0660…D-1550.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1549 (index). Recent: **D-1549**
+**Keep:** D-0845…D-1550 (index). Recent: **D-1550**
+`mon.c` `monkilled` trap.js clone `wormno ? worm_known :
+cansee(head)` (review **509**; mhitm is D-1548). Prior: **D-1549**
 `detect.c` `map_monst` / `monster_detect` long-worm identity
 via `data.mndx ?? mnum` (not `mons()` ptr; review **506**). Prior: **D-1548**
 `worm.c` `worm_known` — any `wseg` `cansee`; `_canseemon`
 uses it instead of head `cansee`/`infrared` when `wormno`;
-`monkilled` same ternary (`mhitm.js`; trap clone is review **509**). Prior: **D-1547**
+`monkilled` same ternary (`mhitm.js`). Prior: **D-1547**
 `pager.c` lookat `glyph_is_object` → `look_at_object` for
 getpos auto_describe / brief_at (map_object stores otyp;
 gbuf monster wins over memory). Prior: **D-1546**
@@ -97,7 +97,7 @@ D-1533 `o->lit`. D-1532 is_covetous. D-1531 Pri-loca
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1549
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1550
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -124,7 +124,7 @@ Do not skip `detect_wsegs` show_glyph (not newsym). Do not
 compare `mtmp.data === mons(PM_LONG_WORM)` (`mons()` is a new
 object; D-1549).
 Do not skip `worm_known` in `_canseemon` / `monkilled` (D-1548)
-or leave trap `monkilled` on head `cansee` (review **509**).
+or leave trap `monkilled` on head `cansee` (D-1550 / **509**).
 Do not glue `howmonseen` / cutworm / `redraw_worm`.
 Do not skip `tamedog` `wake_nearto` (D-1546) or glue FULL_MOON S_DOG /
 ustuck.

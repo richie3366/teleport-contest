@@ -1107,11 +1107,14 @@ async function mondied(mdef) {
     if (await corpse_chance(mdef)) make_corpse(mdef);
 }
 
-// C ref: mon.c monkilled — trap fltxt path
+// C ref: mon.c monkilled :3384–3385 — trap fltxt path (D-1550).
+// Sight is wormno ? worm_known : cansee(head), not infrared (same as
+// mhitm.js). Named omit: nonliving "destroyed"; pet roast; pline_mon;
+// disintegested mondead.
 async function monkilled(mdef, fltxt, _how) {
     const mptr = mdef.data;
     const txt = fltxt || '';
-    if (cansee(mdef.mx, mdef.my)) {
+    if (mdef.wormno ? worm_known(mdef) : cansee(mdef.mx, mdef.my)) {
         const verb = 'killed'; /* nonliving → destroyed deferred */
         void mptr;
         await pline(`${Monnam(mdef)} is ${verb}${txt ? ' by the ' : ''}${txt}!`);

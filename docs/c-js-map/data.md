@@ -357,7 +357,10 @@ callee `newsym` `is_worm_tail` + `display_monster` `PM_LONG_WORM_TAIL`);
 `wormno ? worm_known : cansee||infrared`; callers `mon.c` `monkilled` `:3384` 
 + `vision.c` `howmonseen` `:2162` still named; live `js/worm.js` + 
 `js/display.js` `canseemon` + `js/mhitm.js` `monkilled`; trap/muse/mthrowu 
-clones + monmove/dig stubs); 
+canseemon clones + monmove/dig stubs); 
+**D-1550 trap `monkilled` clone** (`mon.c:3384–3385`; review **509**; 
+`js/trap.js` same `wormno ? worm_known : cansee(head)` as mhitm; pit 
+`thitm` / rust iron-golem / fire; not infrared; clone stays local); 
 omit cutworm/wormgone, save/rest wsegs, muse/mhitu 
 `worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 

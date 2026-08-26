@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `mon.c` `monkilled`: `js/trap.js` clone still `cansee(head)`; use `wormno ? worm_known : cansee(head)` like `mhitm.js`. Source: reviews/loop-unattended/509-9b53440e-worm-known.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `invent.c` canned CMDQ_INT (named). Not ALLOWCNT.
