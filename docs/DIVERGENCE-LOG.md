@@ -4,6 +4,43 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1543 — makemon.c set_mimic_sym furnsyms real S_*
+
+- **Status:** fixed (map-driven Open from D-1542; not a public FAIL)
+- **Symptom:** Ordinary-room `ROLL_FROM(syms)` furniture used stub
+  cmap ids `[0,0,1,1,2,3,4,5]` (`S_stone`…`S_brcorner`) instead of
+  C’s `furnsyms[]`. A furnsyms altar never reached the D-1525
+  Align2amask arm (`appear===2`, not `S_altar=33`). Named omit
+  after D-1536 door `S_hcdoor`.
+- **C locus:** `makemon.c` `set_mimic_sym` `:2490–2497`.
+  `s_sym == MAXOCLASSES` then static
+  `{S_upstair, S_upstair, S_dnstair, S_dnstair, S_altar, S_grave,
+  S_throne, S_sink}` `ROLL_FROM`. Appear is a **cmap** index
+  (`defsym.h` 25/26/33/34/35/36), not `levl.typ` (`rm.h` ROOM=25
+  coincidentally equals `S_upstair`). Callers `makemon` S_MIMIC,
+  `mklev.c` dosdoor, `mon.c` `m_restartcham`/`restrap`, `zap.c`
+  heal disguised mimic. Shop `syms[rn2(SIZE-2)+2]` skips the two
+  leading `MAXOCLASSES` so shops do not take this table.
+- **JS was:** `MIMIC_FURNSYMS = [0, 0, 1, 1, 2, 3, 4, 5]` with
+  “appear value unused” after D-1536. Length (RNG) already
+  matched; values did not.
+- **Fix:** Port the eight cmap ids. Furnsyms `S_altar` now hits
+  the live Align2amask / Inhell `AM_NONE` arm. Rule #2: no fs.
+- **JS:** `js/makemon.js` `set_mimic_sym` / `MIMIC_FURNSYMS`.
+- **Not this iter:** Protection_from_shape_changers early-out;
+  `block_point`; DELPHI `S_fountain` stub; nocorpse/hatch/tin
+  Plan-B; `flags.made_fruit`.
+- **Verified:** private canary **16**/16 (C/JS grep; OROOM hits
+  every S_*; no stub 0..5; furnsyms altar amask off-hell; stairs
+  stale NON_PM; hellish AM_NONE; TEMPLE still S_altar; door still
+  S_hcdoor; DELPHI stub named; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. Public-unhit (no public
+  session looks at ordinary-room furniture cmap).
+- **Follow-up:** Open `pager.c` `that_is_a_mimic`. Not
+  object_from_map.
+- **Files:** `js/makemon.js`.
+
 ## D-1542 — themerms.lua Light source fill oil lamp
 
 - **Status:** fixed (map-driven Open from D-1541; not a public FAIL)

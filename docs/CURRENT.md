@@ -62,18 +62,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1930**. **Next cluster:**
-Open `makemon.c` `set_mimic_sym` furnsyms real S_* (named). Not
-door `S_hcdoor`.
-**Do not skip D-1531…D-1542 (index).** Keep mention_map addr.
+Open `pager.c` `that_is_a_mimic` (named). Not object_from_map.
+**Do not skip D-1531…D-1543 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1542.** Do not FORCE
+**Do not re-break D-0660…D-1543.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1542 (index). Recent: **D-1542**
+**Keep:** D-0845…D-1543 (index). Recent: **D-1543**
+`makemon.c` `set_mimic_sym` furnsyms real S_* (ROLL_FROM cmap
+ids; not stub 0..5). Prior: **D-1542**
 `themerms.lua` Light source fill oil lamp `l_create_object`
-`lit=true` (needs_unlit; callee D-1533). Prior: **D-1541**
+`lit=true` (needs_unlit; callee D-1533). **D-1541**
 `restore.c` `ghostfruit` oldfruit fid→fname then fruitadd else
 (restobjchn after next_ident; clone in bones.js).
 **D-1540**
@@ -86,7 +87,7 @@ D-1523. fruitadd walker is D-1520.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1542
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1543
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -106,6 +107,7 @@ Do not stub `make_happy_shk` as pacify+“calms down” only.
 Do not import `bones.js`→`options.js` for fruitadd (cycle).
 Do not candify / write `current_fruit` on ghostfruit.
 Do not skip Light source via `mksobj_at` without `o->lit`.
+Do not stub furnsyms as 0..5 pchar (D-1543).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

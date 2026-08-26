@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1543 set_mimic_sym furnsyms real S_*
+
+**Objective:** Open `makemon.c` `set_mimic_sym` furnsyms real
+S_* (named). Not door `S_hcdoor`.
+**C locus:** `makemon.c` `set_mimic_sym` `:2490–2497`.
+**JS locus:** `js/makemon.js` `set_mimic_sym` / `MIMIC_FURNSYMS`.
+**Change:** ROLL_FROM furniture uses real cmap S_upstair×2 /
+S_dnstair×2 / S_altar / S_grave / S_throne / S_sink, not stub
+0..5. Furnsyms altar hits Align2amask. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1930).
+**Verified:** canary **16**/16; green+strict seed8000/0900;
+cohort **7**/7 + strict (incl. seed0004).
+**Next:** Open `pager.c` `that_is_a_mimic`. Not
+object_from_map.
+**Blocked:** none.
 ## 2026-08-26 — D-1542 themerms Light source oil lamp fill
 
 **Objective:** Open `themerms.lua` Light source fill oil lamp
@@ -148,102 +163,4 @@ identify + contents; `js/objnam.js` latebound FOOT.
 **Verified:** canary **16**/16; green+strict seed8000/0900;
 focused seed4500 FULL; cohort **7**/7 + strict.
 **Next:** Open `makemon.c` `set_mimic_sym` door `S_hcdoor`. Not furnsyms.
-**Blocked:** none.
-## 2026-08-26 — D-1534 mcast_blind_you EYE
-
-**Objective:** Open `mcastu.c` `mcast_blind_you` EYE (named).
-Not PSI_BOLT HEAD.
-**C locus:** `mcastu.c` `mcast_blind_you` `:729–743`; caller
-`mcast_spell` `:875–877`; `spell_would_be_useless` `:977–979`.
-**JS locus:** `js/mcastu.js` `mcast_blind_you` / `castmu`;
-`js/monsters.js` `eyecount`.
-**Change:** Scales `body_part(EYE)`; `make_blinded(200/100,false)`;
-Eyes vision_clears. Blinded gate is `H&&!B`. Rule #2: no fs.
-**Score:** fortress **44**/44 (cadence #1920 + D-1531 restore).
-**Verified:** canary **21**/21; green+strict seed8000/0900;
-focused seed4500 FULL; cohort **7**/7 + strict.
-**Next:** Open `pickup.c` `observe_quantum_cat` FOOT. Not HEAD.
-**Blocked:** none.
-## 2026-08-26 — D-1533 create_object o->lit begin_burn
-
-**Objective:** Open `sp_lev.c` `create_object` `o->lit` (named).
-Not mktrap_victim.
-**C locus:** `sp_lev.c` `create_object` `:2425–2426` after
-`stackobj`; producer `lspo_object` `:3640` lit default 0.
-**JS locus:** `js/mklev.js` `create_object` / `l_create_object`.
-**Change:** `if (o.lit) begin_burn(otmp, false)` after stackobj
-(not tile.lit). Table `lit` defaults 0. Light source fill named.
-Rule #2: no fs.
-**Score:** fortress **44**/44 (cadence #1920 + D-1531 restore).
-**Verified:** canary **12**/12; green+strict seed8000/0900;
-cohort **7**/7 + strict.
-**Next:** Open `mcastu.c` `mcast_blind_you` EYE. Not PSI_BOLT HEAD.
-**Blocked:** none.
-## 2026-08-26 — D-1532 tamedog is_covetous
-
-**Objective:** Open `dog.c` `tamedog` is_covetous (named). Not leftovers.
-**C locus:** `dog.c` `tamedog` `:1240–1280` (`is_covetous`,
-is_demon-vs-hero, `leader_m_id`, blessed-scroll, `make_happy_shk`,
-givemsg, `mon_wield_item`).
-**JS locus:** `js/dog.js` `tamedog`.
-**Change:** Reject covetous / demon-vs-human-hero / quest leader
-after peaceful. Blessed +2 clamp 10. Dynamic `make_happy_shk`.
-`pline_mon` givemsg. Post-tame `mon_wield_item`. Rule #2: no fs.
-**Score:** fortress **44**/44 (cadence #1920 + D-1531 restore).
-**Verified:** canary **19**/19; green+strict seed8000/0900;
-cohort **7**/7 + strict (incl. seed0004 feeding-pony).
-**Next:** Open `sp_lev.c` `create_object` `o->lit`. Not mktrap_victim.
-**Blocked:** none.
-## 2026-08-26 — D-1531 create_monster mk_roamer Pri-loca
-
-**Objective:** Must-fix review **487** — `align!=RANDOM` aligned
-cleric `mk_roamer` (`MM_EMIN`), not `makemon(..., 0)`.
-**C locus:** `sp_lev.c` `create_monster` `:1983–1984` +
-`priest.c` `mk_roamer` `:724–751`. Review named `load_pri_strt`;
-locus is `load_pri_loca` (Pri-loca.lua noalign cleric).
-**JS locus:** `js/mklev.js` `load_pri_loca` + `mk_roamer_splev`.
-**Change:** `mk_roamer_splev(pm, Amask2align(AM_NONE), …)` so
-D-1526 emin `rn2(3)` does not fire. Emin arm kept. Rule #2: no fs.
-**Score:** **44**/44 Scr **11,405** RNG **792,838**/792,838
-(100%) speed `38+0.30/turn` (R² 0.841). seed0367 FULL.
-**Verified:** C/JS grep; seed0367 FULL+strict; green+strict;
-cohort **7**/7; priest 0501/0106; full `sessions` 44/44.
-**Next:** Open `dog.c` `tamedog` is_covetous. Not leftovers.
-**Blocked:** none.
-## 2026-08-26 — review D-1522–D-1530 (audit #1920)
-
-**Objective:** audit — C-fidelity reviews **483–491** of JS SHAs
-`aac21a74` / `e13f38ae` / `2c688c98` / `e234a41b` /
-`4e78ca90` / `d53c5cd1` / `aa4d11f5` / `72c1fcdd` /
-`a5d779b7` plus full `sessions` score.
-**C locus:** `reorder_fruit`; `goodfruit`; `object_from_map`;
-TEMPLE `S_altar`; emin roaming; `#timeout` summary;
-`show_region`; `see_wsegs`; getobj ALLOWCNT.
-**Change:** no `js/` edits. One **QUALITY-RISK** (487 D-1526
-Pri-strt `makemon(..., 0)` vs C `mk_roamer`). Eight
-**ACCEPT-WITH-DEBT**. Must-fix prepended. Filled archive
-D-1530 `a5d779b7`. Rule #2: no fs.
-**Score:** **43**/44 Scr **11,405**/11,405 RNG
-**747,952**/792,838 (94.3%) speed `37+0.30/turn` (R² 0.855).
-seed0367 FAIL RNG **5239**/50125 from `4e78ca90`.
-**Verified:** full `sessions` at HEAD `a5d779b7`.
-**Next:** Must-fix `load_pri_strt` `mk_roamer` (review **487**).
-Not Open `tamedog`. Do not delete emin.
-**Blocked:** none.
-## 2026-08-26 — D-1530 invent.c getobj ALLOWCNT
-
-**Objective:** Open `invent.c` `getobj` GETOBJ_ALLOWCNT (named).
-Not Palantir.
-**C locus:** `invent.c` `getobj` `:1937–2088` + `splittable`
-`:1664`; `cmd.c` `get_count` inkey/`LARGEST_INT`/`GC_SAVEHIST`.
-**JS locus:** `js/invent.js` helpers; charge/drop/throw/wield/
-ready/adjust clones.
-**Change:** Digit prefix, throw-one, "don't have that many",
-`split_otmp` (child after parent on invent[]). Palantir `#if 0`.
-CMDQ_INT / pickinv count / finish_splitting named. Rule #2: no fs.
-**Score:** fortress **44**/44 (cadence #1910);
-digit-at-getobj public-unhit.
-**Verified:** canary **32**/32; green+strict seed8000/0900;
-cohort **7**/7 + strict.
-**Next:** Open `dog.c` `tamedog` is_covetous. Not leftovers.
 **Blocked:** none.

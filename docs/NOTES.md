@@ -6,33 +6,26 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
-  RNG **792,838**/792,838 = 100%, `38+0.31/turn` R² 0.848).
-  seed0367 FULL. **Hypothesis:** next work is Open `makemon.c`
-  `set_mimic_sym` furnsyms real S_* (named). Not door `S_hcdoor`.
-  Must-fix empty. D-1542 closed themerms Light source oil lamp.
-  **Falsify:** port furnsyms so door/wall mimics use real S_*
-  (not only `S_hcdoor` left-connect).
-  **Next:** Open furnsyms. Not `that_is_a_mimic`.
-  Do not skip D-1531…D-1542. Do not skip Light source via
-  `mksobj_at` without `o->lit`. Do not import bones→options for
-  fruitadd. Do not candify / write `current_fruit` on ghostfruit.
-  No FORCE / `wildmiss` wrap / trailing `confdir` in shared
-  `getdir`. Do not stub `make_happy_shk` as pacify+“calms down”
-  only.
-- Named still: furnsyms; getpos fakeobj; `that_is_a_mimic`;
-  detect_wsegs; `worm_known`. Palantir `#if 0`. CMDQ_INT /
-  pickinv count / `finish_splitting`. `splev_create_monster`
-  RANDOM-only. `tamedog` `wake_nearto` / FULL_MOON S_DOG /
-  ustuck named. Other mcast_spell bodies; sit/pray
-  `eyecount` always-2. muse quantum-loot; escape
-  `Schroedingers_cat` HP. Eyes `is_plural`; other
-  INTERNALCMD bodies. defn/cary resist; SEARCH/REGEN/XRAY/
-  PROTECT; inv_prop drop; questart `artitouch`.
-  `make_happy_shk` mnearto yank / after_shk_move occupancy /
-  losedogs shoppers. ghostfruit impossible pline / age shift /
-  other resetobjs. `fruitadd_orc` clone (mklev cycle).
-  Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/
-  Statuary themerms fills.
+  RNG **792,838**/792,838 = 100%). seed0367 FULL.
+  **Hypothesis:** next work is Open `pager.c` `that_is_a_mimic`
+  (named). Not object_from_map. Must-fix empty. D-1543 closed
+  furnsyms real S_*.
+  **Falsify:** port `that_is_a_mimic` so looking at a disguised
+  mimic matches C pager, not only `object_from_map` spe.
+  **Next:** Open `that_is_a_mimic`. Not getpos fakeobj.
+  Do not skip D-1531…D-1543. Do not stub furnsyms 0..5. No FORCE
+  / `wildmiss` wrap / trailing `confdir` in shared `getdir`.
+- Named still: `that_is_a_mimic`; getpos fakeobj; detect_wsegs;
+  `worm_known`. Palantir `#if 0`. CMDQ_INT / pickinv count.
+  `splev_create_monster` RANDOM-only. `tamedog` `wake_nearto` /
+  FULL_MOON S_DOG / ustuck. Other mcast_spell; sit/pray
+  `eyecount` always-2. muse quantum-loot; escape cat HP. Eyes
+  `is_plural`; other INTERNALCMD. defn/cary resist;
+  SEARCH/REGEN/XRAY/PROTECT; inv_prop drop; questart `artitouch`.
+  shk mnearto / occupancy / losedogs. ghostfruit impossible /
+  age. `fruitadd_orc` clone. Ice/Boulder/Spider/Trap/Garden/
+  Buried/Massacre/Statuary fills. Protection / `block_point` /
+  DELPHI `S_fountain`.
 
 ## Don't re-check (≤15)
 
@@ -41,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1542.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1543.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -52,79 +45,54 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1542 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1543 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop` / other `Antimagic()` clones. Do not skip
-  D-1520…D-1542 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
-  /door `S_hcdoor` / `#altdip` INTERNALCMD / wander `somexy` /
-  cspfx W_ART / `make_happy_shk` / `ghostfruit` / Light source
-  fill (index). Do not
-  delete emin to fix seed0367 (review **487**). Do not stub
-  `make_happy_shk` as pacify+“calms down” only (D-1540 / review
-  **493**). Do not import bones→options for fruitadd (D-1541).
+  `confer_oc_oprop`. Do not skip D-1520…D-1543 (index). Do not
+  delete emin (review **487**). Do not stub `make_happy_shk` as
+  pacify+“calms down” only (D-1540 / **493**). Do not import
+  bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
 - Do not import `wield.js`/`pickup.js`→`polyself.js` for
   `body_part` (use `objnam.js` `body_part_latebound`).
-- Do not import `makemon.js`→`hack.js` for `in_town` (D-1517)
-  or `makemon.js`→`artifact.js` for `u_wield_art` (D-1518)
-  or `makemon.js`→`minion.js` for `Inhell` (hellish). No
-  `fruitadd` after objects exist; `init_fruit_chain` only.
-  No fourth town gnome (D-1513). Do not gate `create_object`
-  `o->lit` on tile.lit (mktrap_victim is D-1519). Do not treat
-  Blindfolded as C `Blinded` in `mcast_blind_you` (D-1534).
-  Do not import pickup→polyself for FOOT (D-1535). Do not
-  stub door/wall mimic `appear=0` (D-1536). Do not make
-  typed `#altdip` a user extcmd (D-1537). Do not import
-  `dog.js`→`mklev.js` for `somexy` (D-1538). Do not zero
-  `cspfx` when `wp_mask===W_ART` (D-1539). Do not import
-  `shk.js`→`mon.js` statically (`pacify_guards` clone).
-  Do not candify / write `current_fruit` on ghostfruit.
+- Do not import `makemon.js`→`hack.js`/`artifact.js`/`minion.js`.
+  No `fruitadd` after objects exist. No fourth town gnome.
+  Do not stub door `appear=0` (D-1536) or furnsyms 0..5 (D-1543).
+  Do not treat Blindfolded as `Blinded` (D-1534). Do not zero
+  `cspfx` when `W_ART` (D-1539). Do not candify ghostfruit.
   Do not skip Light source via `mksobj_at` without `o->lit`.
 
 ## Landmarks (≤15)
 
-- D-1542: themerms Light source fill `l_create_object` OIL_LAMP
-  `lit=true` after needs_unlit pick (Lua `:204–209`). Not
-  `create_object_themed`/`mksobj_at`. Callee `o->lit` is D-1533.
-  Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/
-  Statuary still named.
+- D-1543: furnsyms real S_* (`:2490–2497` ROLL_FROM cmap not
+  levl.typ). Not stub 0..5. Protection / `block_point` / DELPHI
+  named. Door is D-1536.
+- D-1542: themerms Light source `l_create_object` OIL_LAMP
+  `lit=true` (Lua `:204–209`). Not `mksobj_at`. `o->lit` is D-1533.
 - D-1541: `ghostfruit` oldfruit fid→fname then fruitadd else
-  (sanitize / `made_fruit` / `fruit_from_name` FALSE / `rnd(127)`
-  / prepend; no `current_fruit`). restobjchn after next_ident.
-  Clone in bones.js. impossible pline / age / other resetobjs
-  named. goodfruit is D-1523.
-- D-1540: `make_happy_shk` adjalign (non-Rogue) / `!inhishop`
-  `home_shk` or migrate+`dismiss_kops` / `make_happy_shoppers`
-  (`kops_gone`/`pacify_guards`). mnearto yank / occupancy /
-  losedogs named. Covetous is D-1532.
-- D-1539: cspfx W_ART carry ESP/STLTH/TCTRL/WARN/EREGEN/HSPDAM/
-  HPHDAM; invent addinv/freeinv callers; extractor A() s2.
-  defn/cary resist / SEARCH/REGEN/XRAY/PROTECT / inv_prop drop
-  / questart `artitouch` named.
-- D-1538: `mon_arrive` wander/`somexy` after catchup; EXACT_XY
-  zeros wander; `in_rooms` live; mkroom clone (mklev→trap→dog).
-  kops / Before_you / failed_arrivals / `Wiz_arrive` named.
-- D-1537: INTERNALCMD `#altdip` table + canned `CMDQ_EXTCMD` /
-  `can_do_extcmd` buried; typed `#` unknown. Eyes `is_plural`
-  / other INTERNALCMD bodies named.
-- D-1536: `set_mimic_sym` door/wall `S_hcdoor` left-connect /
-  rogue `S_hwall`. Furnsyms / Protection / `block_point` named.
+  (no `current_fruit`). Clone in bones.js. goodfruit is D-1523.
+- D-1540: `make_happy_shk` adjalign / home or migrate+kops /
+  shoppers. mnearto / occupancy named. Covetous is D-1532.
+- D-1539: cspfx W_ART ESP/STLTH/TCTRL/WARN/EREGEN/HSPDAM/HPHDAM;
+  invent callers. defn/cary / SEARCH/REGEN/XRAY named.
+- D-1538: `mon_arrive` wander/`somexy`; EXACT_XY zeros wander;
+  mkroom clone. kops / `Wiz_arrive` named.
+- D-1537: INTERNALCMD `#altdip`; typed `#` unknown. Eyes
+  `is_plural` / other INTERNALCMD named.
+- D-1536: door/wall `S_hcdoor` left-connect / rogue `S_hwall`.
+  Furnsyms is D-1543.
 - D-1535: `observe_quantum_cat` FOOT latebound + loot/tip/disclose.
-  Live leaves spe; `Schroedinger's cat!`. muse/escape HP named.
-- D-1534: `mcast_blind_you` EYE scales + `make_blinded` 200/100;
-  `eyecount` in `monsters.js`. Blinded `H&&!B`.
-- D-1533: `create_object` `o->lit` `begin_burn` after
-  `stackobj`. Table lit default 0. Light source fill is D-1542.
-- D-1532: `tamedog` is_covetous + is_demon-vs-hero / quest
-  leader / blessed +2 / givemsg / `mon_wield`. `make_happy_shk`
-  is D-1540. `wake_nearto` / FULL_MOON S_DOG / ustuck named.
-- D-1531: Pri-loca `align=noalign` cleric `mk_roamer_splev`
-  (`MM_EMIN`, `A_NONE`), not `makemon(..., 0)`. Emin kept.
+  muse/escape HP named.
+- D-1534: `mcast_blind_you` EYE + `make_blinded` 200/100.
+  Blinded `H&&!B`.
+- D-1533: `create_object` `o->lit` `begin_burn` after `stackobj`.
+  Light source fill is D-1542.
+- D-1532: `tamedog` is_covetous envelope. `make_happy_shk` is
+  D-1540. `wake_nearto` named.
+- D-1531: Pri-loca `align=noalign` `mk_roamer_splev` (`MM_EMIN`,
+  `A_NONE`). Emin kept.
 - D-1530: getobj ALLOWCNT `get_count` + throw-one + `split_otmp`.
-  Palantir / CMDQ_INT / pickinv count named.
+  Palantir / CMDQ_INT named.
 - D-1529: `see_wsegs` body segs except dummy; `is_worm_tail` `~`.
   detect_wsegs / `worm_known` named.
-- D-1528: `show_region` S_cloud / S_poisoncloud unless mon
-  overrides. DRAWBRIDGE_UP under named.

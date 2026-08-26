@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `themerms.lua` Light source fill oil lamp (named). Not create_object o->lit. **Addressed:** D-1542
+- [x] `makemon.c` `set_mimic_sym` furnsyms real S_* (named). Not door S_hcdoor. **Addressed:** D-1543
+
+
+- [x] `themerms.lua` Light source fill oil lamp (named). Not create_object o->lit. **Addressed:** D-1542 `e5188ba2`
 
 
 - [x] `restore.c` `ghostfruit` (named). Not goodfruit. **Addressed:** D-1541 `21ccdfde`

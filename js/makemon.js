@@ -247,17 +247,23 @@ const MIMIC_SYMS = [
     AMULET_CLASS, TOOL_CLASS, ROCK_CLASS, GEM_CLASS, SPBOOK_CLASS,
     S_MIMIC_DEF_SYM, S_MIMIC_DEF_SYM,
 ];
-// C ref: furnsyms[] — only need length for ROLL_FROM RNG; appear value unused
-// when appear_as overrides (Storeroom). Indices are pchar S_* stubs
-// (S_upstair/S_dnstair/S_altar/S_grave/S_throne/S_sink named).
-const MIMIC_FURNSYMS = [0, 0, 1, 1, 2, 3, 4, 5];
-// C ref: defsym.h PCHAR — door/wall mimic mappearance (D-1536); TEMPLE S_altar
-// (D-1525). furnsyms real S_* still named.
+// C ref: defsym.h PCHAR — door/wall mimic mappearance (D-1536); TEMPLE
+// S_altar (D-1525); furnsyms ROLL_FROM (D-1543).
 const S_vwall = 1;
 const S_hwall = 2;
 const S_vcdoor = 15;
 const S_hcdoor = 16;
+const S_upstair = 25;
+const S_dnstair = 26;
 const S_altar = 33;
+const S_grave = 34;
+const S_throne = 35;
+const S_sink = 36;
+// C ref: makemon.c set_mimic_sym furnsyms[] :2491–2494
+const MIMIC_FURNSYMS = [
+    S_upstair, S_upstair, S_dnstair, S_dnstair,
+    S_altar, S_grave, S_throne, S_sink,
+];
 
 // C ref: do_name.c ghostnames[] / rndghostname
 const GHOSTNAMES = [
@@ -2530,11 +2536,12 @@ function in_town(x, y) {
 /**
  * C ref: makemon.c set_mimic_sym — ordinary + shop (get_shop_item) +
  * maze/sokoban/in_town statue (D-1517) + TEMPLE S_altar Align2amask
- * MCORPSENM (D-1525) + door/wall/SDOOR/SCORR S_hcdoor (D-1536).
- * Named omissions: furnsyms real S_* so ROLL_FROM furniture can be
- * S_altar, Protection_from_shape_changers early-out when hero wears
- * the amulet (stubbed false at mklev), block_point, slime-mold
- * flags.made_fruit, nocorpse/hatch/tin Plan-B.
+ * MCORPSENM (D-1525) + door/wall/SDOOR/SCORR S_hcdoor (D-1536) +
+ * furnsyms real S_* (D-1543).
+ * Named omissions: Protection_from_shape_changers early-out when
+ * hero wears the amulet (stubbed false at mklev), block_point,
+ * DELPHI S_fountain, slime-mold flags.made_fruit, nocorpse/hatch/tin
+ * Plan-B.
  */
 export function set_mimic_sym(mtmp) {
     if (!mtmp) return;
@@ -2631,6 +2638,9 @@ export function set_mimic_sym(mtmp) {
 
     if (assignSym) {
         if (s_sym === MAXOCLASSES) {
+            // C: ROLL_FROM(furnsyms) — S_upstair×2, S_dnstair×2,
+            // S_altar, S_grave, S_throne, S_sink. Appear is a cmap
+            // index (not levl.typ). S_altar then takes the amask arm.
             ap_type = M_AP_FURNITURE;
             appear = MIMIC_FURNSYMS[rn2(MIMIC_FURNSYMS.length)];
         } else {

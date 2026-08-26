@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `set_mimic_sym` furnsyms real S_* (named). Not door S_hcdoor.
 - [ ] `pager.c` `that_is_a_mimic` (named). Not object_from_map.
 - [ ] `worm.c` `detect_wsegs` (named). Not see_wsegs.
 - [ ] `dog.c` `tamedog` `wake_nearto` (named). Not is_covetous.
