@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `artifact.c` cspfx W_ART (named). Not SPFX_WARN. **Addressed:** D-1539
+- [x] `artifact.c` cspfx W_ART (named). Not SPFX_WARN. **Addressed:** D-1539 `719506a4`
 
 
 - [x] `dog.c` wander/`somexy` (named). Not is_covetous. **Addressed:** D-1538 `e7574dc9`

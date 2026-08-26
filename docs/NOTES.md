@@ -5,20 +5,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress after D-1539 (Scr **11,405** RNG
-  **792,838**/792,838 = 100%, `38+0.30/turn` R² 0.841).
-  seed0367 FULL. cspfx W_ART live (D-1539). Wander/`somexy`
-  live (D-1538). `#altdip` INTERNALCMD live (D-1537).
-  **Hypothesis:** next Open `ghostfruit` is still a named
-  omit vs C `restore.c` (not goodfruit).
-  **Falsify:** map row + C `ghostfruit` before coding; not a
-  public FAIL peel.
-  **Next:** Open `restore.c` `ghostfruit`. Not goodfruit.
-  Do not skip D-1539…D-1229. No FORCE / `wildmiss` wrap /
-  trailing `confdir` in shared `getdir`. pickup `body_part`
-  latebound. Do not delete emin. Do not type `#altdip` as
-  a user extcmd. Do not import dog→mklev for `somexy`.
-  Do not zero `cspfx` on W_ART. Furnsyms still named.
+- **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
+  RNG **792,838**/792,838 = 100%, `38+0.31/turn` R² 0.848).
+  seed0367 FULL. Reviews **492–500**: one QUALITY-RISK
+  (**493** `make_happy_shk` stub).
+  **Hypothesis:** next work is Must-fix `shk.c` `make_happy_shk`
+  (`:1395–1435`), not Open `ghostfruit`. C `tamedog` `:1235–1238`
+  is live dispatch onto a stub callee (review **493**).
+  **Falsify:** port that C block; leftover isshk must
+  `adjalign`/`home_shk`/migrate/`make_happy_shoppers`, not
+  pacify+“calms down” only.
+  **Next:** Must-fix `make_happy_shk`. Not Open `ghostfruit`.
+  Do not skip D-1531…D-1539. Do not treat 493 as closed.
+  No FORCE / `wildmiss` wrap / trailing `confdir` in shared
+  `getdir`. Do not delete emin. Do not type `#altdip` as a
+  user extcmd. Do not import dog→mklev for `somexy`. Do not
+  zero `cspfx` on W_ART. Furnsyms still named.
 - Named still: Light source fill;
   furnsyms; ghostfruit; getpos fakeobj; `that_is_a_mimic`;
   detect_wsegs; `worm_known`. Palantir `#if 0`. CMDQ_INT /
@@ -54,6 +56,7 @@ Objective/score live in `CURRENT.md`.
   D-1520…D-1539 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
   /door `S_hcdoor` / `#altdip` INTERNALCMD / wander `somexy` /
   cspfx W_ART (index). Do not delete emin to fix seed0367 (review **487**).
+  Do not treat review **493** QUALITY-RISK as closed (`make_happy_shk` stub).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.

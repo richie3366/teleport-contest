@@ -502,3 +502,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [489-aa4d11f5-show-region.md](./489-aa4d11f5-show-region.md) | `aa4d11f5` | D-1528 display.c/region.c show_region overlay | **ACCEPT-WITH-DEBT** |
 | [490-72c1fcdd-see-wsegs.md](./490-72c1fcdd-see-wsegs.md) | `72c1fcdd` | D-1529 worm.c see_wsegs + is_worm_tail | **ACCEPT-WITH-DEBT** |
 | [491-a5d779b7-getobj-allowcnt.md](./491-a5d779b7-getobj-allowcnt.md) | `a5d779b7` | D-1530 invent.c getobj GETOBJ_ALLOWCNT count prefix | **ACCEPT-WITH-DEBT** |
+| [492-3c112783-pri-loca-mk-roamer.md](./492-3c112783-pri-loca-mk-roamer.md) | `3c112783` | D-1531 Pri-loca mk_roamer | **ACCEPT-WITH-DEBT** |
+| [493-81e04089-tamedog-covetous.md](./493-81e04089-tamedog-covetous.md) | `81e04089` | D-1532 tamedog is_covetous / make_happy_shk stub | **QUALITY-RISK** |
+| [494-9d2ba80e-create-object-lit.md](./494-9d2ba80e-create-object-lit.md) | `9d2ba80e` | D-1533 create_object o->lit | **ACCEPT-WITH-DEBT** |
+| [495-289573bc-mcast-blind-you.md](./495-289573bc-mcast-blind-you.md) | `289573bc` | D-1534 mcast_blind_you EYE | **ACCEPT-WITH-DEBT** |
+| [496-455020ed-observe-quantum-cat.md](./496-455020ed-observe-quantum-cat.md) | `455020ed` | D-1535 observe_quantum_cat FOOT | **ACCEPT-WITH-DEBT** |
+| [497-2778c077-set-mimic-sym-door.md](./497-2778c077-set-mimic-sym-door.md) | `2778c077` | D-1536 set_mimic_sym door S_hcdoor | **ACCEPT-WITH-DEBT** |
+| [498-4508a3cb-altdip-internalcmd.md](./498-4508a3cb-altdip-internalcmd.md) | `4508a3cb` | D-1537 INTERNALCMD #altdip | **ACCEPT-WITH-DEBT** |
+| [499-e7574dc9-mon-arrive-wander-somexy.md](./499-e7574dc9-mon-arrive-wander-somexy.md) | `e7574dc9` | D-1538 mon_arrive wander/somexy | **ACCEPT-WITH-DEBT** |
+| [500-719506a4-cspfx-w-art.md](./500-719506a4-cspfx-w-art.md) | `719506a4` | D-1539 set_artifact_intrinsic cspfx W_ART | **ACCEPT-WITH-DEBT** |

@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-26** — full `sessions` at **D-1531**
-(port; next audit **#1930**). **44**/44, Scr **11,405**/11,405, RNG
-**792,838**/792,838 = **100%**. Speed `38+0.30/turn` (R² 0.841).
-Fortress restored: seed0367 FULL after Pri-loca `mk_roamer`
-(review **487** / D-1526 caller). Prior audit **#1920** was 43/44.
+Score last measured: **2026-08-26** — full `sessions` at **D-1539**
+HEAD `719506a4` (**audit #1930**; next **#1940**). **44**/44,
+Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
+Speed `38+0.31/turn` (R² 0.848). Fortress held: seed0367 FULL.
+Prior audit **#1920** was 43/44; D-1531 restored 44/44.
 
 ## Score
 
@@ -33,7 +33,7 @@ Fortress restored: seed0367 FULL after Pri-loca `mk_roamer`
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `38+0.30/turn` (R² 0.841) |
+| Speed label | `38+0.31/turn` (R² 0.848) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -61,9 +61,11 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1539. **Next cluster:** Open
-`restore.c` `ghostfruit` (named). Not goodfruit.
-**Do not skip D-1539…D-1229 (index).** Keep mention_map addr.
+**Suite 44/44** fortress after audit **#1930**. **Next cluster:**
+Must-fix `shk.c` `make_happy_shk` (review **493** QUALITY-RISK:
+pacify+“calms down” vs C `adjalign`/`home_shk`/migrate/`make_happy_shoppers`).
+Not Open `ghostfruit`. Do **not** treat 493 as closed.
+**Do not skip D-1531…D-1539 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
@@ -102,6 +104,7 @@ use dungeon `hellish`). Do not delete emin roaming.
 Do not make typed `#altdip` a user extcmd (INTERNALCMD).
 Do not import `dog.js`→`mklev.js` for `somexy` (mklev→trap→dog).
 Do not zero `cspfx` when `wp_mask===W_ART`.
+Do not treat review **493** QUALITY-RISK as closed (`make_happy_shk`).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

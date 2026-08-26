@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — review D-1531–D-1539 (audit #1930)
+
+**Objective:** audit — C-fidelity reviews **492–500** of JS SHAs
+`3c112783` / `81e04089` / `9d2ba80e` / `289573bc` /
+`455020ed` / `2778c077` / `4508a3cb` / `e7574dc9` /
+`719506a4` plus full `sessions` score.
+**C locus:** Pri-loca `mk_roamer`; `tamedog` covetous; `o->lit`;
+EYE; FOOT; door `S_hcdoor`; `#altdip`; wander/`somexy`; cspfx W_ART.
+**Change:** no `js/` edits. One **QUALITY-RISK** (493 D-1532
+`make_happy_shk` stub in live isshk arm). Eight
+**ACCEPT-WITH-DEBT**. Must-fix prepended. Filled archive
+D-1539 `719506a4`. Rule #2: no fs.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG
+**792,838**/792,838 (100%) speed `38+0.31/turn` (R² 0.848).
+seed0367 FULL. Fortress held.
+**Verified:** full `sessions` at HEAD `719506a4`.
+**Next:** Must-fix `make_happy_shk` (review **493**). Not Open
+`ghostfruit`.
+**Blocked:** none.
 ## 2026-08-26 — D-1539 artifact.c cspfx W_ART
 
 **Objective:** Open `artifact.c` cspfx W_ART (named). Not SPFX_WARN.
