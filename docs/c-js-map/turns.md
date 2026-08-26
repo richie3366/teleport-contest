@@ -217,7 +217,10 @@ D-1288**`/`#wizintrinsic`(D-0835 HALLUC→`make_hallucinated`;
 Invocation/portal debug lines deferred)/`#timeout`→`wiz_timeout_queue` (D-1527; 
 C `timeout.c` `:2039–2127` + callee `region.c` `visible_region_summary`; 
 VERBOSE_TIMER names / `fmt_ptr` heap / save `timer_id` / `wiz_light_sources` /
-`timer_sanity_check` named)/`#wizidentify`→`wiz_identify`/`override_ID`+`
+`timer_sanity_check` named)/ **INTERNALCMD `#altdip` → `dip_into`** (D-1537; 
+C `cmd.c` `:2063` table + `ext_func_tab_from_func`/`cmdq_add_ec` `CMDQ_EXTCMD` + 
+`extcmds_match` skip + `can_do_extcmd` buried no `IFBURIED`; typed `#altdip` unknown; 
+`cmd_from_ecname` `#altdip`; other INTERNALCMD bodies / Eyes `is_plural` named)/`#wizidentify`→`wiz_identify`/`override_ID`+`
 display_inventory` wizid (D-0928 #1143; unid_cnt>0 PICK_ANY 
 deferred)/`#name`/`#pray`/`#chat`/`#chronicle`/`#conduct`/`#vanquished`/`#genocided`(empty)/`
 #adjust`/`#terrain`/`#sit`/`#dip`/`#offer`/`#turn`(D-0912; 
@@ -341,7 +344,7 @@ milky/smoky bottles, lit-oil burn, worn-stack split, **`potion_dip` potion-potio
 (D-1457; Klein/hands/H2O/poly gate) + **`potion_dip` unicorn/amethyst mixtype dip** (D-1486) + 
 **`potion_dip` poison-coat / healing unpoison** (D-1497; `is_poisonable` missile window or 
 Grimtooth) + **`potion_dip` oil/lamp** (D-1498; lit `fire_damage` / cursed `make_glib` /
-weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill) + **`potion_dip` `poly_obj`/`obj_unpolyable`** (D-1499; unpolyable `obj_resists(5,95)` then `poly_obj(STRANGE_OBJECT)` + polypiles/`prinv`/`poof`) + **`potion_dip` lichen corpse / acid-erode** (D-1509; POT_ACID+CORPSE PM_LICHEN wrinkle/`hcolor` no-poof; else `erode_obj` ERODE_CORRODE EF_GREASE poof unless ER_NOTHING; worn `set_wear` is D-1510) + **`dip_into` #altdip** (D-1500; C `:2374–2405` canned `drink_ok` then `dip_ok` GETOBJ_PROMPT; caller `iactions.c` IA_DIP_OBJ; ignores floor; INTERNALCMD `#altdip` named) + **`H2Opotion_dip` useeit `ublindf && Blindfolded_only`** (D-1501; C `potion.c` `:2461` / `youprop.h` Blindfolded≡EBlinded; unpaid POT_WATER `alter_cost`/`costly_alteration`; `mentioned_water` `makeknown`; towel soak; callee `trap.c` `water_damage` invent container plines); **`dodip` pool yn** (D-1128; 
+weapon gleam-derust / `more_dips` OIL_LAMP/MAGIC_LAMP fill) + **`potion_dip` `poly_obj`/`obj_unpolyable`** (D-1499; unpolyable `obj_resists(5,95)` then `poly_obj(STRANGE_OBJECT)` + polypiles/`prinv`/`poof`) + **`potion_dip` lichen corpse / acid-erode** (D-1509; POT_ACID+CORPSE PM_LICHEN wrinkle/`hcolor` no-poof; else `erode_obj` ERODE_CORRODE EF_GREASE poof unless ER_NOTHING; worn `set_wear` is D-1510) + **`dip_into` #altdip** (D-1500; C `:2374–2405` canned `drink_ok` then `dip_ok` GETOBJ_PROMPT; caller `iactions.c` IA_DIP_OBJ; ignores floor; INTERNALCMD `#altdip` D-1537) + **`H2Opotion_dip` useeit `ublindf && Blindfolded_only`** (D-1501; C `potion.c` `:2461` / `youprop.h` Blindfolded≡EBlinded; unpaid POT_WATER `alter_cost`/`costly_alteration`; `mentioned_water` `makeknown`; towel soak; callee `trap.c` `water_damage` invent container plines); **`dodip` pool yn** (D-1128; 
 `is_pool` not `IS_POOL`; `can_reach_floor(FALSE)` gate; `waterbody_name` yn; 
 Levitation `floating_above`; unskilled rider skip; hands/uarmg `wash_hands`; 
 else `water_damage` + POT_ACID `in_use`/`useup`; 

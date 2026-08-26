@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1537 — cmd.c INTERNALCMD #altdip
+
+- **Status:** fixed (map-driven Open from D-1536; not a public FAIL)
+- **Symptom:** `extcmdlist` `"altdip"` was omitted from JS. Typed `#altdip`
+  is unknown in C (`extcmds_match` skips `INTERNALCMD`), but
+  `cmdq_add_ec(dip_into)` looks up the table row, `cmd_from_ecname`
+  returns `#altdip`, and canned `rhack` runs `can_do_extcmd` (buried
+  refuses: no `IFBURIED`). Extractor skipped all INTERNALCMD after
+  D-1500 `dip_into`.
+- **C locus:** `cmd.c` `:2063` `{ '\\0', "altdip", NULL, dip_into,
+  INTERNALCMD }`; `cmdq_add_ec` `:253–270` `CMDQ_EXTCMD` via
+  `ext_func_tab_from_func` `:3015–3025`; `extcmds_match` `:2532–2534`;
+  `can_do_extcmd` `:462–488`; `tty_get_ext_cmd` `ECM_IGNOREAC|ECM_EXACTMATCH`.
+  Caller `iactions.c` IA_DIP_OBJ still queues the function (D-1500).
+- **JS was:** generated `EXTCMDLIST` dropped INTERNALCMD; canned IA_DIP_OBJ
+  pushed a bare `dip_into` function with no table/`can_do_extcmd`.
+- **Fix:** Extractor keeps INTERNALCMD. `extcmds_match` skip + typed `#`
+  unknown. `cmdq_add_ec_entry('altdip')` + `rhack` `CMDQ_EXTCMD` +
+  `can_do_extcmd` buried. `cmd_from_ecname("altdip")` is `#altdip`.
+  Rule #2: no fs.
+- **JS:** `scripts/extract-extcmdlist.py`; `js/generated/extcmdlist_data.js`;
+  `js/cmd.js` `can_do_extcmd`/`ext_func_tab_from_txt`/`run_cmdq_extcmd`;
+  `js/getline.js` `extcmds_match` + internal `altdip` runner;
+  `js/iactions.js` IA_DIP_OBJ.
+- **Not this iter:** Eyes of Overworld `is_plural`; other INTERNALCMD
+  bodies (`clicklook`/`mouseaction`/`altadjust`/`alttakeoff`/`altunwield`);
+  Lua `NHCB_CMD_BEFORE`; `can_do_extcmd` on typed `#dip`/`doextcmd`;
+  CQ_REPEAT `ext_tlist`; dodip `inaccessible_equipment`.
+- **Verified:** private canary **24**/24 (C/JS grep; table flags;
+  `cmd_from_ecname`; `extcmds_match` skip; dokeylist omit; buried
+  pline + leftover key clear; not-buried run + key remains; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383. Public-unhit (no public
+  session types `#altdip` or item-actions a potion while buried).
+- **Follow-up:** Open `dog.c` wander/`somexy`. Not is_covetous.
+- **Files:** `js/cmd.js`, `js/getline.js`, `js/iactions.js`, `js/potion.js`,
+  `js/generated/extcmdlist_data.js`, `scripts/extract-extcmdlist.py`.
+
 ## D-1536 — makemon.c set_mimic_sym door S_hcdoor
 
 - **Status:** fixed (map-driven Open from D-1535; not a public FAIL)

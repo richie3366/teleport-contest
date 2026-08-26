@@ -323,9 +323,11 @@ def main() -> None:
         # Skip CMD_NOT_AVAILABLE (non-functional shell etc. when disabled)
         # Still include when SHELL off would set the flag — we strip ifdefs so
         # CMD_NOT_AVAILABLE only appears when the feature is off.
+        # INTERNALCMD stays in the table (cmd.c:2059–2065): cmdq_add_ec
+        # looks up dip_into → "altdip" via ext_func_tab_from_func, and
+        # cmd_from_ecname("#altdip"). bind_key / extcmds_match / dokeylist
+        # skip INTERNALCMD at those call sites — do not drop them here.
         if flags & FLAG_NAMES["CMD_NOT_AVAILABLE"]:
-            continue
-        if flags & FLAG_NAMES["INTERNALCMD"]:
             continue
         key = eval_key(key_expr)
         entries.append(

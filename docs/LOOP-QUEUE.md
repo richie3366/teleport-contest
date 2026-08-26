@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `cmd.c` INTERNALCMD `#altdip` (named). Not dip_into.
 - [ ] `dog.c` wander/`somexy` (named). Not is_covetous.
 - [ ] `artifact.c` cspfx W_ART (named). Not SPFX_WARN.
 - [ ] `restore.c` `ghostfruit` (named). Not goodfruit.

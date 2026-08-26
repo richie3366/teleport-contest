@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1537 cmd.c INTERNALCMD #altdip
+
+**Objective:** Open `cmd.c` INTERNALCMD `#altdip` (named). Not dip_into.
+**C locus:** `cmd.c` `:2063` `"altdip"` `INTERNALCMD` → `dip_into`;
+`cmdq_add_ec`/`ext_func_tab_from_func`; `extcmds_match` skip;
+`can_do_extcmd` buried.
+**JS locus:** `js/generated/extcmdlist_data.js`; `js/cmd.js`
+`can_do_extcmd`/`CMDQ_EXTCMD`; `js/getline.js` `extcmds_match`;
+`js/iactions.js` IA_DIP_OBJ.
+**Change:** Table row live. Typed `#altdip` unknown. Canned
+`CMDQ_EXTCMD` + buried refuse. `cmd_from_ecname` `#altdip`.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1920 + D-1531 restore).
+**Verified:** canary **24**/24; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `dog.c` wander/`somexy`. Not is_covetous.
+**Blocked:** none.
 ## 2026-08-26 — D-1536 set_mimic_sym door S_hcdoor
 
 **Objective:** Open `makemon.c` `set_mimic_sym` door `S_hcdoor`
