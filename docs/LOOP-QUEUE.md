@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pager.c` `mhidden_description` (named). Not that_is_a_mimic.
 - [ ] `do_name.c` `namefloorobj` (named). Not that_is_a_mimic.
 - [ ] `makemon.c` `set_mimic_sym` DELPHI `S_fountain` (named). Not furnsyms.
 - [ ] `makemon.c` `set_mimic_sym` `block_point` (named). Not DELPHI.

@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1554 — pager.c mhidden_description (mimic/hider/region suffix)
+
+- **Status:** fixed (map-driven Open from D-1553; not a public FAIL)
+- **Symptom:** `mhidden_description` was named after D-1544/D-1547.
+  `self_lookat` / `look_at_monster` skipped mimic/hider/region suffixes;
+  `makemon_appear_msg` skipped furniture/object appear; `flash_hits_mon`
+  skipped the glyph-change pline; `mstatusline` skipped probing hide
+  text. `that_is_a_mimic` is D-1544 (not this).
+- **C locus:** `pager.c` `mhidden_description` `:184–280`. Callers
+  `self_lookat` `:124`, `look_at_monster` `:482`, `insight.c`
+  `mstatusline` `:3319`, `makemon.c` appear `:1487`, `uhitm.c`
+  `flash_hits_mon` `:6361`. Flags `hack.h` MHID_*.
+- **JS was:** function absent; callers named the omit.
+- **Fix:** Live suffix: furniture `defsyms` explanation; object via
+  `object_from_map` when remembered/gbuf otyp (C `glyph_is_object`);
+  altmon `pmname` (article follows PREFIX, not ARTICLE); hiding under /
+  ceiling_hider inline / eel pool; region poison/vapor. Callers wired.
+  Dynamic pager bind in `flash_hits_mon` (pager→uhitm). Rule #2: no fs.
+- **JS:** `js/pager.js` `mhidden_description`; `js/uhitm.js`
+  `flash_hits_mon`; `js/makemon.js` `makemon_appear_msg`;
+  `js/insight.js` `mstatusline`.
+- **Not this iter:** `namefloorobj`; dungeon.c `surface` ice/pool/altar/
+  swallow (trapper "floor"); howmonseen; steed/utrap; `set_msg_xy`;
+  gb.bhitpos worm-tail region gate; integer `glyph_is_cmap`.
+- **Verified:** private canary **17**/17; green+strict seed8000/0900;
+  cohort **7**/7 + strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `do_name.c` `namefloorobj`. Not that_is_a_mimic.
+- **Files:** `js/pager.js`, `js/uhitm.js`, `js/makemon.js`, `js/insight.js`.
+
 ## D-1553 — sp_lev.c splev_create_monster amask dispatch (not RANDOM-only)
 
 - **Status:** fixed (map-driven Open from D-1552; not a public FAIL)

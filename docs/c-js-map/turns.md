@@ -586,9 +586,9 @@ omit full `key2extcmddesc` misc/numpad; PORT_HELP; getpos menu-jump/hilite; loot
 look_traps format; invis/warning glyphs; custom BIND=/number_pad; 
 selectable `process_menu_window` path; **`self_lookat` → `pmname(umonnum,Ugender)` not male 
 `urole.name.m`** (D-0664) + **Punished `, chained to ` + `ansimpleoname(uball)`** (D-0928 #1149; 
-steed/mhidden/utrap deferred) + **`brief_at` CLOUD fog/vapor** (D-0811) + 
+steed/utrap deferred) + **`brief_at` CLOUD fog/vapor** (D-0811) + 
 **`room_cmap_explanation` S_darkroom** (D-0812) + **blocked staircase down qstart** (D-0814); 
-look_at_monster hallu/health/stuck/leashed/trapped/mhidden; 
+look_at_monster hallu/health/stuck/leashed/trapped/howmonseen; 
 **`object_from_map` / `look_at_object` D-1524** (`pager.c:284–399`; fake SLIME_MOLD 
 `spe = current_fruit` then mimic `MCORPSENM`; glyphotyp not integer glyph; 
 `brief_at`/`look_all` live; doname_with_price/`doname_vague_quan` named — doname 
@@ -596,8 +596,11 @@ stand-in; cmap trapped-chest CHEST|LARGE_BOX / glyph_is_body|statue corpsenm
 named; **`that_is_a_mimic` D-1544** (`uhitm.c:6201–6276`; live `object_from_map` 
 + defsyms PCHAR desc + `MIM_OMIT_WAIT`; dynamic pager import); **getpos fakeobj 
 D-1547** (`lookat` `glyph_is_object` → `look_at_object`; `map_object` stores 
-otyp; gbuf monster wins over memory); `namefloorobj` / `mhidden_description` 
-still named; Hallu random_obj otyp / cmap trapped-chest / glyph_is_body|statue 
+otyp; gbuf monster wins over memory); **`mhidden_description` D-1554** 
+(`pager.c:184–280`; PREFIX/ARTICLE/ALTMON/REGION; memory otyp vs glyph_at; 
+self_lookat / look_at_monster / mstatusline / makemon appear / flash_hits_mon; 
+dungeon.c surface ice/pool/altar named); `namefloorobj` still named; Hallu 
+random_obj otyp / cmap trapped-chest / glyph_is_body|statue 
 corpsenm / buried-embedded suffixes named)
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`

@@ -62,16 +62,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1940**. **Next cluster:**
-Open `pager.c` `mhidden_description` (named). Not
-that_is_a_mimic. Not `namefloorobj`.
-**Do not skip D-1531…D-1553 (index).** Keep mention_map addr.
+Open `do_name.c` `namefloorobj` (named). Not
+that_is_a_mimic. Not `mhidden_description`.
+**Do not skip D-1531…D-1554 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1553.** Do not FORCE
+**Do not re-break D-0660…D-1554.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1553 (index). Recent: **D-1553**
+**Keep:** D-0845…D-1554 (index). Recent: **D-1554**
+`pager.c` `mhidden_description` PREFIX/ARTICLE/ALTMON/REGION
+(self_lookat / look_at_monster / mstatusline / makemon appear /
+flash_hits_mon; memory otyp vs glyph_at). Prior: **D-1553**
 `sp_lev.c` `splev_create_monster` `sp_amask_to_amask` +
 non-RANDOM `mk_roamer` (room clones wrappers; Pri-loca/sanctum
 via dispatcher; `mk_mplayer` named). Prior: **D-1552**
@@ -106,7 +109,7 @@ D-1533 `o->lit`. D-1532 is_covetous. D-1531 Pri-loca
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1553
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1554
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -127,7 +130,7 @@ Do not import `bones.js`→`options.js` for fruitadd (cycle).
 Do not candify / write `current_fruit` on ghostfruit.
 Do not skip Light source via `mksobj_at` without `o->lit`.
 Do not stub furnsyms as 0..5 pchar (D-1543).
-Do not glue `namefloorobj` / `mhidden_description`.
+Do not glue `namefloorobj`. `mhidden_description` is D-1554.
 Do not import `uhitm.js`→`pager.js` statically (pager→uhitm `mon_at`).
 Do not skip `detect_wsegs` show_glyph (not newsym). Do not
 compare `mtmp.data === mons(PM_LONG_WORM)` (`mons()` is a new
@@ -145,6 +148,7 @@ Do not skip Eyes `is_plural` / `undiscovered_artifact` (D-1552)
 or leave quan-only `otense` clones.
 Do not skip `splev_create_monster` amask (D-1553) or stub
 `mk_mplayer` in a live arm or always `induced_align(80)`.
+Do not skip `mhidden_description` (D-1554) or glue `namefloorobj`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

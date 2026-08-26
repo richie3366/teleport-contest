@@ -14,9 +14,9 @@ import {
     LL_CONDUCT, Upolyd, P_BARE_HANDED_COMBAT, P_TWO_WEAPON_COMBAT, P_BASIC, P_WHIP,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_DEF_DIED, NATTK,
     M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE, M_AP_NOTHING,
-    M_AP_TYPMASK,
+    M_AP_TYPMASK, MHID_ALTMON,
     MIM_REVEAL, MIM_OMIT_WAIT, engulfing_u, OBJ_FREE, MON_DETACH,
-    has_mgivenname, ARTICLE_NONE, ARTICLE_THE, ARTICLE_A, SUPPRESS_SADDLE,
+    has_mgivenname, ARTICLE_NONE, ARTICLE_THE, ARTICLE_A, ARTICLE_YOUR, SUPPRESS_SADDLE,
     SUPPRESS_NAME, SUPPRESS_IT, SUPPRESS_INVISIBLE, EXACT_NAME,
     HAND, LEG, A_LAWFUL, Is_airlevel, Is_waterlevel, PARANOID_HIT, LOW_PM,
     W_ARM, W_ARMC, W_ARMH, W_ARMU, W_ARMG, W_RINGL, W_RINGR, W_AMUL,
@@ -83,8 +83,17 @@ import { paranoid_query } from './getline.js';
 import { which_armor } from './worn.js';
 import { u_wipe_engr } from './engrave.js';
 
-/** Live pager.c object_from_map; bound on first that_is_a_mimic (pager→uhitm). */
+/** Live pager.c object_from_map / mhidden_description; bound on first use
+ * (pager.js imports mon_at from this file — static import cycles). */
 let _object_from_map = null;
+let _mhidden_description = null;
+
+async function pager_bind() {
+    if (_object_from_map && _mhidden_description) return;
+    const pager = await import('./pager.js');
+    _object_from_map = pager.object_from_map;
+    _mhidden_description = pager.mhidden_description;
+}
 
 // C monflag.h — MZ_HUMAN is MZ_MEDIUM
 const MZ_HUMAN = MZ_MEDIUM;
@@ -2421,7 +2430,7 @@ const DEFSYM_EXPLANATION = [
 ];
 const S_TRAPPED_CHEST = 73; // defsym.h PCHAR S_trapped_chest
 
-function defsym_explanation(sym) {
+export function defsym_explanation(sym) {
     const s = sym | 0;
     if (s === S_TRAPPED_CHEST) return 'trapped chest';
     return DEFSYM_EXPLANATION[s] || 'furniture';
@@ -2462,11 +2471,7 @@ export async function that_is_a_mimic(mtmp, mimic_flags) {
         } else if (ap === M_AP_OBJECT) {
             let fakeobj = false;
             let otmp = null;
-            if (!_object_from_map) {
-                // pager.js imports mon_at from this file — static import cycles.
-                const pager = await import('./pager.js');
-                _object_from_map = pager.object_from_map;
-            }
+            await pager_bind();
             if (_object_from_map) {
                 const got = _object_from_map(mtmp.mappearance | 0, x, y);
                 fakeobj = !!got?.fakeobj;
@@ -2569,11 +2574,12 @@ async function light_hits_gremlin(mon, dmg) {
 
 /**
  * C ref: uhitm.c flash_hits_mon — flash/light effect on monster.
- * Envelope: disguised mimic wakeup/seemimic; sleep awaken; blind + flee
- * RNG; gremlin light_hits (cry/recoil pline_mon D-1240); resists_blnd
- * illuminate msgs; unlit More. Awaken/blind/illuminate stay pline like C.
- * Named omit: mhidden_description / glyph-diff exact pline; shieldeff
- * resists_blnd_by_arti. Camera caller wires see_monster_closeup (D-0999).
+ * Envelope: disguised mimic wakeup/seemimic + mhidden_description
+ * (D-1554); sleep awaken; blind + flee RNG; gremlin light_hits
+ * (cry/recoil pline_mon D-1240); resists_blnd illuminate msgs; unlit
+ * More. Awaken/blind/illuminate stay pline like C.
+ * Named omit: shieldeff resists_blnd_by_arti. Camera caller wires
+ * see_monster_closeup (D-0999).
  * @returns {Promise<number>} 1 if noticeable effect, else 0
  */
 export async function flash_hits_mon(mtmp, otmp) {
@@ -2584,9 +2590,23 @@ export async function flash_hits_mon(mtmp, otmp) {
     const useeit = canseemon(mtmp);
     let res = 0;
 
-    if (M_AP_TYPE(mtmp) !== M_AP_NOTHING) {
-        // C: mhidden_description + glyph_at before/after pline deferred
+    if (that_map_type(mtmp) !== M_AP_NOTHING) {
+        let whatbuf = '';
+        await pager_bind();
+        if (_mhidden_description) {
+            whatbuf = _mhidden_description(mtmp, MHID_ALTMON);
+        }
+        // C glyph_at before/after; JS has no integer glyphs — gbuf ch/kind
+        const oldCh = lev?.disp_ch;
+        const oldKind = lev?.disp_kind;
         await wakeup(mtmp, false); // → seemimic for non-M_AP_MONSTER
+        if (lev && (lev.disp_ch !== oldCh || lev.disp_kind !== oldKind)) {
+            await pline(`That ${whatbuf} is really ${
+                x_monnam(mtmp, mtmp.mtame ? ARTICLE_YOUR : ARTICLE_A,
+                    null, 0, false)
+            }${mtmp.mtame ? '.' : '!'}`);
+            res = 1;
+        }
     }
 
     if (mtmp.msleeping && haseyes(mtmp.data)) {

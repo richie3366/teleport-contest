@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `sp_lev.c` `splev_create_monster` RANDOM-only (named). Not mk_roamer. **Addressed:** D-1553
+- [x] `pager.c` `mhidden_description` (named). Not that_is_a_mimic. **Addressed:** D-1554
+
+
+- [x] `sp_lev.c` `splev_create_monster` RANDOM-only (named). Not mk_roamer. **Addressed:** D-1553 `9ed46432`
 
 
 - [x] `cmd.c` INTERNALCMD Eyes `is_plural` (named). Not #altdip. **Addressed:** D-1552 `4383ae0a`
