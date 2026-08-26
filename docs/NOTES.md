@@ -7,20 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1930** (Scr **11,405**
   RNG **792,838**/792,838 = 100%, `38+0.31/turn` R² 0.848).
-  seed0367 FULL. Reviews **492–500**: one QUALITY-RISK
-  (**493** `make_happy_shk` stub).
-  **Hypothesis:** next work is Must-fix `shk.c` `make_happy_shk`
-  (`:1395–1435`), not Open `ghostfruit`. C `tamedog` `:1235–1238`
-  is live dispatch onto a stub callee (review **493**).
-  **Falsify:** port that C block; leftover isshk must
-  `adjalign`/`home_shk`/migrate/`make_happy_shoppers`, not
-  pacify+“calms down” only.
-  **Next:** Must-fix `make_happy_shk`. Not Open `ghostfruit`.
-  Do not skip D-1531…D-1539. Do not treat 493 as closed.
-  No FORCE / `wildmiss` wrap / trailing `confdir` in shared
-  `getdir`. Do not delete emin. Do not type `#altdip` as a
-  user extcmd. Do not import dog→mklev for `somexy`. Do not
-  zero `cspfx` on W_ART. Furnsyms still named.
+  seed0367 FULL. Review **493** QUALITY-RISK closed as **D-1540**.
+  **Hypothesis:** next work is Open `restore.c` `ghostfruit`
+  (named). Not goodfruit. Must-fix empty.
+  **Falsify:** port `ghostfruit`; leftover restore fruit must
+  use that C arm, not only `goodfruit`.
+  **Next:** Open `ghostfruit`. Not Light source fill.
+  Do not skip D-1531…D-1540. Do not stub `make_happy_shk` as
+  pacify+“calms down” only. No FORCE / `wildmiss` wrap /
+  trailing `confdir` in shared `getdir`. Do not delete emin.
+  Do not type `#altdip` as a user extcmd. Do not import
+  dog→mklev for `somexy`. Do not zero `cspfx` on W_ART.
+  Furnsyms still named.
 - Named still: Light source fill;
   furnsyms; ghostfruit; getpos fakeobj; `that_is_a_mimic`;
   detect_wsegs; `worm_known`. Palantir `#if 0`. CMDQ_INT /
@@ -31,6 +29,8 @@ Objective/score live in `CURRENT.md`.
   `Schroedingers_cat` HP. Eyes `is_plural`; other
   INTERNALCMD bodies. defn/cary resist; SEARCH/REGEN/XRAY/
   PROTECT; inv_prop drop; questart `artitouch`.
+  `make_happy_shk` mnearto yank / after_shk_move occupancy /
+  losedogs shoppers.
 
 ## Don't re-check (≤15)
 
@@ -39,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1539.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1540.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -50,13 +50,14 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1539 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1540 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones. Do not skip
-  D-1520…D-1539 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
+  D-1520…D-1540 fruit/emin/`mk_roamer`/`tamedog`/`o->lit`/EYE/FOOT
   /door `S_hcdoor` / `#altdip` INTERNALCMD / wander `somexy` /
-  cspfx W_ART (index). Do not delete emin to fix seed0367 (review **487**).
-  Do not treat review **493** QUALITY-RISK as closed (`make_happy_shk` stub).
+  cspfx W_ART / `make_happy_shk` (index). Do not delete emin to
+  fix seed0367 (review **487**). Do not stub `make_happy_shk` as
+  pacify+“calms down” only (D-1540 / review **493**).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
@@ -73,10 +74,15 @@ Objective/score live in `CURRENT.md`.
   stub door/wall mimic `appear=0` (D-1536). Do not make
   typed `#altdip` a user extcmd (D-1537). Do not import
   `dog.js`→`mklev.js` for `somexy` (D-1538). Do not zero
-  `cspfx` when `wp_mask===W_ART` (D-1539).
+  `cspfx` when `wp_mask===W_ART` (D-1539). Do not import
+  `shk.js`→`mon.js` statically (`pacify_guards` clone).
 
 ## Landmarks (≤15)
 
+- D-1540: `make_happy_shk` adjalign (non-Rogue) / `!inhishop`
+  `home_shk` or migrate+`dismiss_kops` / `make_happy_shoppers`
+  (`kops_gone`/`pacify_guards`). mnearto yank / occupancy /
+  losedogs named. Covetous is D-1532.
 - D-1539: cspfx W_ART carry ESP/STLTH/TCTRL/WARN/EREGEN/HSPDAM/
   HPHDAM; invent addinv/freeinv callers; extractor A() s2.
   defn/cary resist / SEARCH/REGEN/XRAY/PROTECT / inv_prop drop
@@ -96,8 +102,8 @@ Objective/score live in `CURRENT.md`.
 - D-1533: `create_object` `o->lit` `begin_burn` after
   `stackobj`. Table lit default 0. Light source fill named.
 - D-1532: `tamedog` is_covetous + is_demon-vs-hero / quest
-  leader / blessed +2 / `make_happy_shk` / givemsg / `mon_wield`.
-  `wake_nearto` / FULL_MOON S_DOG / ustuck named.
+  leader / blessed +2 / givemsg / `mon_wield`. `make_happy_shk`
+  is D-1540. `wake_nearto` / FULL_MOON S_DOG / ustuck named.
 - D-1531: Pri-loca `align=noalign` cleric `mk_roamer_splev`
   (`MM_EMIN`, `A_NONE`), not `makemon(..., 0)`. Emin kept.
 - D-1530: getobj ALLOWCNT `get_count` + throw-one + `split_otmp`.
@@ -110,5 +116,3 @@ Objective/score live in `CURRENT.md`.
   vs vapor. tid `timer_id++` from 1.
 - D-1526: emin roaming after LONG_WORM. Cleric always; angel
   `!rn2(3)`. Pri-loca noalign is D-1531.
-- D-1525: TEMPLE `S_altar`; `MCORPSENM` Align2amask; hellish
-  not minion `Inhell`. Door is D-1536.

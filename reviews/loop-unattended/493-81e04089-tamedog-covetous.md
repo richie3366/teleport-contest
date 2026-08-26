@@ -130,3 +130,5 @@ D-log canary **19**/19 (lich covetous, horned devil vs human/demon hero, quest l
 1. **`shk.c` `make_happy_shk`** (`:1395–1435`): port `adjalign` (non-Rogue), `!inhishop` `home_shk` / `mdrop_special_objs`+`migrate_to_level`+`dismiss_kops`, and `make_happy_shoppers` (`kops_gone`/`pacify_guards`) so `tamedog` `:1235–1238` matches C, not pacify+“calms down” only. One port. Do **not** re-do covetous/demon.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1540

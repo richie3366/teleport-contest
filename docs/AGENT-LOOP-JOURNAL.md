@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1540 make_happy_shk adjalign/home/migrate
+
+**Objective:** Must-fix review **493** — `shk.c` `make_happy_shk`
+not pacify+“calms down” only.
+**C locus:** `shk.c` `make_happy_shk` `:1395–1435`;
+`make_happy_shoppers` `:1438–1445`; `kops_gone`; `pacify_guards`.
+**JS locus:** `js/shk.js` `make_happy_shk`; export `mdrop_special_objs`.
+**Change:** Non-Rogue `adjalign(sgn)`; `!inhishop` `home_shk` or
+migrate+`dismiss_kops`; then shoppers (`kops_gone`/`pacify_guards`).
+`pacify_guards` clone (mon→trap/monmove→shk). Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1930).
+**Verified:** canary **14**/14; green+strict seed8000/0900;
+cohort **7**/7 + strict (incl. seed0004).
+**Next:** Open `restore.c` `ghostfruit`. Not goodfruit.
+**Blocked:** none.
 ## 2026-08-26 — review D-1531–D-1539 (audit #1930)
 
 **Objective:** audit — C-fidelity reviews **492–500** of JS SHAs

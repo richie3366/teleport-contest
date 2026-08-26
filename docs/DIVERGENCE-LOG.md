@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1540 — shk.c make_happy_shk adjalign / home / migrate / shoppers
+
+- **Status:** fixed (Must-fix review **493**; not a public FAIL)
+- **Symptom:** `tamedog` `:1235–1238` dispatched to a stub
+  `make_happy_shk` that only `pacify_shk`, zeroed follow/robbed, and
+  plined “calms down” whenever the shk was angry. C also
+  `adjalign`s (unless Rogue), homes or migrates when `!inhishop`,
+  then `make_happy_shoppers`. Named QUALITY-RISK on D-1532.
+- **C locus:** `shk.c` `make_happy_shk` `:1395–1435`;
+  `make_happy_shoppers` `:1438–1445`; `home_shk` `:1317–1327`;
+  `kops_gone` `:5606–5623`; `mon.c` `pacify_guards` `:5769–5772`.
+  Caller `dog.c` `tamedog` `:1235–1238`.
+- **JS was:** pacify + “calms down”; `_silentkops` unused; comment
+  deferred home/migrate/shoppers.
+- **Fix:** Port the C block. Live `adjalign`/`inhishop`/
+  `mdrop_special_objs`/`migrate_to_level`. `kops_gone` via dynamic
+  `mongone`. `pacify_guards` clone (cannot import mon.js).
+  Rule #2: no fs.
+- **JS:** `js/shk.js` `make_happy_shk` / `make_happy_shoppers` /
+  `kops_gone` / `home_shk`; `js/mon.js` export `mdrop_special_objs`.
+- **Not this iter:** full `mnearto` yank; `after_shk_move`
+  occupancy `check_special_room` (`bill_p==-1000` producer);
+  `losedogs` `make_happy_shoppers`; `inhishop` `on_level`+`in_rooms`
+  (roomno still); covetous/demon (D-1532).
+- **Verified:** private canary **14**/14 (C/JS grep; in-shop
+  adjalign+kops+watch; Rogue skip; neu/chaotic sgn; home; migrate
+  `MIGR_APPROX_XY`+`dismiss_kops`; other-angry kops stay;
+  silentkops; Rule #2); green+strict seed8000/0900; cohort **7**/7
+  + strict 1500/1800/0012/0004/0007/2200/0383. Public-unhit
+  (no public shk taming).
+- **Follow-up:** Open `restore.c` `ghostfruit`. Not goodfruit.
+- **Files:** `js/shk.js`, `js/mon.js`, `js/dog.js` (comment).
+
 ## D-1539 — artifact.c set_artifact_intrinsic cspfx W_ART
 
 - **Status:** fixed (map-driven Open from D-1538; not a public FAIL)

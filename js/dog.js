@@ -345,6 +345,7 @@ export function keepdogs(pets_only = false) {
  * C ref: dog.c tamedog — obj=null magic-trap / scroll envelope, or thrown food.
  * Peaceful + edog for ordinary monsters; shop/gd/priest/minion/human/
  * is_covetous / is_demon-vs-hero / quest leader rejected. D-1532.
+ * isshk → make_happy_shk D-1540.
  * Named omissions: wake_nearto (msleeping); FULL_MOON night S_DOG;
  * ustuck expels/unstuck (mhitu→uhitm→dog cycle); redraw_worm;
  * Tobjnam stop / big_corpse catch; initedog has_edog vs !mtame.

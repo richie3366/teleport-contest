@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
+- [x] `shk.c` `make_happy_shk` (`:1395–1435`): port `adjalign` (non-Rogue), `!inhishop` `home_shk` / `mdrop_special_objs`+`migrate_to_level`+`dismiss_kops`, and `make_happy_shoppers` (`kops_gone`/`pacify_guards`) so `tamedog` `:1235–1238` matches C, not pacify+“calms down” only. Source: reviews/loop-unattended/493-81e04089-tamedog-covetous.md **Addressed:** D-1540
+
+
 - [x] `artifact.c` cspfx W_ART (named). Not SPFX_WARN. **Addressed:** D-1539 `719506a4`
 
 

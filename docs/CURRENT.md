@@ -62,20 +62,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1930**. **Next cluster:**
-Must-fix `shk.c` `make_happy_shk` (review **493** QUALITY-RISK:
-pacify+“calms down” vs C `adjalign`/`home_shk`/migrate/`make_happy_shoppers`).
-Not Open `ghostfruit`. Do **not** treat 493 as closed.
-**Do not skip D-1531…D-1539 (index).** Keep mention_map addr.
+Open `restore.c` `ghostfruit` (named). Not goodfruit.
+**Do not skip D-1531…D-1540 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1539.** Do not FORCE
+**Do not re-break D-0660…D-1540.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1539 (index). Recent: **D-1539**
+**Keep:** D-0845…D-1540 (index). Recent: **D-1540**
+`shk.c` `make_happy_shk` adjalign (non-Rogue) / `!inhishop`
+`home_shk` or migrate+`dismiss_kops` / `make_happy_shoppers`
+(`kops_gone`/`pacify_guards`) — review **493**.
+Prior: **D-1539**
 `artifact.c` `set_artifact_intrinsic` cspfx W_ART (MKoT/Orb of
 Fate carry WARN|…) + invent addinv/freeinv callers.
-Prior: **D-1538**
+**D-1538**
 `dog.c` `mon_arrive` wander/`somexy` after catchup (`in_rooms`+clone).
 **D-1537** INTERNALCMD `#altdip`. **D-1536** door `S_hcdoor`.
 D-1535 FOOT. D-1534 EYE. D-1533 `o->lit`. D-1532 is_covetous.
@@ -88,7 +90,7 @@ D-1503; minetn-1 is D-1490.
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1539
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1540
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -104,7 +106,7 @@ use dungeon `hellish`). Do not delete emin roaming.
 Do not make typed `#altdip` a user extcmd (INTERNALCMD).
 Do not import `dog.js`→`mklev.js` for `somexy` (mklev→trap→dog).
 Do not zero `cspfx` when `wp_mask===W_ART`.
-Do not treat review **493** QUALITY-RISK as closed (`make_happy_shk`).
+Do not stub `make_happy_shk` as pacify+“calms down” only.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

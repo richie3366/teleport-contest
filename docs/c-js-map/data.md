@@ -701,11 +701,12 @@ starting-pet malign −9 vs renegade +3);
 **`tamedog` `obj && dogfood >= MANFOOD` D-1502** (C `:1247`; invoke TAMING zeroobj → APPORT so 
 tame-extend is rejected after peaceful); 
 **`tamedog` is_covetous / is_demon-vs-hero / quest leader / blessed-scroll +2 /
-`make_happy_shk` / givemsg `pline_mon` / post-tame `mon_wield_item` D-1532**
+givemsg `pline_mon` / post-tame `mon_wield_item` D-1532**
 (C `:1169–1280`; `is_minion` is `mtmp.isminion` like C `mtmp->isminion`);
-named: `wake_nearto` sleep; FULL_MOON night S_DOG `rn2(6)`; ustuck
-expels/unstuck; `redraw_worm`; Tobjnam stop / big_corpse catch;
-`initedog` `has_edog` vs `!mtame`
+**`tamedog` isshk `make_happy_shk` D-1540** (C `:1235–1238` + `shk.c` `:1395–1435`;
+not pacify+“calms down” only); named: `wake_nearto` sleep; FULL_MOON night
+S_DOG `rn2(6)`; ustuck expels/unstuck; `redraw_worm`; Tobjnam stop /
+big_corpse catch; `initedog` `has_edog` vs `!mtame`
 
 ### `src/fountain.c`
 
@@ -900,6 +901,10 @@ JS: `js/mklev.js`, `js/shknam.js`, `js/makemon.js`, `js/shk.js` — partial
 **`mkshop` eligibility + shtypes** (D-0201); 
 **`stock_room`/`shkinit`/`mkshobj_at`/`get_shop_item`/iprobs/shknms + 
 shopkeeper `m_initinv`/`rnd_misc_item`/`MM_ESHK` + tribute novel** (D-0203); 
+**`make_happy_shk` adjalign / `home_shk` / migrate / `make_happy_shoppers` D-1540**
+(C `:1395–1435`; `kops_gone`; `pacify_guards` mon.c clone; live
+`mdrop_special_objs`/`migrate_to_level`; named: full `mnearto` yank;
+`after_shk_move` occupancy `check_special_room`; `losedogs` shoppers);
 **`shk_move`/`move_special`/`inhishop` + m_move isshk dispatch** (D-0205); 
 **`u_entered_shop` welcome + `move_update`/`ushops_entered` via `check_special_room`** (D-0307; 
 **deserted/angry/surcharge/robbed/Invis + pickaxe/steed/Fast doorway `dochug` D-1080**; 
