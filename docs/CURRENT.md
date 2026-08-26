@@ -20,29 +20,34 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-26** — full `sessions` at review **#1910**
-HEAD `6a42c40e` (**44**/44, Scr **11,405**/11,405, RNG **100%**).
-Speed `36+0.31/turn` (R² 0.86). Next audit (review + score) @**#1920**.
+Score last measured: **2026-08-26** — full `sessions` at review **#1920**
+HEAD `a5d779b7` (**43**/44, Scr **11,405**/11,405, RNG **747,952**/792,838
+= **94.3%**). Speed `37+0.30/turn` (R² 0.855). Next audit (review + score)
+@**#1930**. Fortress broke at D-1526 (`4e78ca90`): seed0367 RNG
+**5239**/50125 (review **487** Must-fix).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **44 / 44** |
+| Sessions passing | **43 / 44** |
 | Screens matched | **11,405 / 11,405** |
-| Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `36+0.31/turn` (R² 0.86) |
+| Positional RNG calls matched | **747,952 / 792,838** (94.3%) |
+| Speed label | `37+0.30/turn` (R² 0.855) |
 | Role-init throws | **0 / 44** |
 
-**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
-seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
+seed0373, seed5006, seed0116, seed0361, seed0108, seed5002,
 seed0360, seed0399, seed0014, seed2600, seed4500, seed2200, seed0383.
 
-**Notable non-PASS:** none (regression fortress).
+**Notable non-PASS:** seed0367-priest-quest-tour **FAIL** (RNG
+**5239**/50125, screens **324**/324). Bisect: PASS at `e234a41b`
+(D-1525); FAIL from `4e78ca90` (D-1526 emin on Pri-strt
+`makemon(..., 0)` vs C `mk_roamer`). Review **487**.
 
 ## Green gate
 
@@ -59,8 +64,10 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Map-driven fortress** after D-1530. **Next cluster:** Open
-`dog.c` `tamedog` is_covetous (named). Not leftovers.
+**Suite 43/44** after D-1530. **Next cluster:** Must-fix
+`sp_lev.c` `create_monster` / `load_pri_strt` `align!=RANDOM`
+aligned cleric `mk_roamer` (`MM_EMIN`), not `makemon(..., 0)`
+(review **487** / D-1526 seed0367). Not Open `tamedog`.
 **Do not skip D-1530…D-1229 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing

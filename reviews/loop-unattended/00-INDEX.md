@@ -493,3 +493,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [480-d5799f73-mktrap-victim-candle.md](./480-d5799f73-mktrap-victim-candle.md) | `d5799f73` | D-1519 mktrap_victim gnome candle begin_burn | **ACCEPT-WITH-DEBT** |
 | [481-5dd0ba20-fruitadd-fruit-from-name.md](./481-5dd0ba20-fruitadd-fruit-from-name.md) | `5dd0ba20` | D-1520 fruitadd → objnam fruit_from_name | **ACCEPT-WITH-DEBT** |
 | [482-6a42c40e-doname-fake-arti.md](./482-6a42c40e-doname-fake-arti.md) | `6a42c40e` | D-1521 doname_base slime-mold fake_arti | **ACCEPT-WITH-DEBT** |
+| [483-aac21a74-reorder-fruit.md](./483-aac21a74-reorder-fruit.md) | `aac21a74` | D-1522 objnam.c reorder_fruit fid sort | **ACCEPT-WITH-DEBT** |
+| [484-e13f38ae-goodfruit.md](./484-e13f38ae-goodfruit.md) | `e13f38ae` | D-1523 bones.c goodfruit fid sign + savefruitchn | **ACCEPT-WITH-DEBT** |
+| [485-2c688c98-object-from-map.md](./485-2c688c98-object-from-map.md) | `2c688c98` | D-1524 pager.c object_from_map SLIME_MOLD spe | **ACCEPT-WITH-DEBT** |
+| [486-e234a41b-temple-altar-mimic.md](./486-e234a41b-temple-altar-mimic.md) | `e234a41b` | D-1525 set_mimic_sym TEMPLE S_altar Align2amask | **ACCEPT-WITH-DEBT** |
+| [487-4e78ca90-emin-roaming.md](./487-4e78ca90-emin-roaming.md) | `4e78ca90` | D-1526 makemon.c emin roaming ALIGNED_CLERIC/ANGEL | **QUALITY-RISK** |
+| [488-d53c5cd1-visible-region-summary.md](./488-d53c5cd1-visible-region-summary.md) | `d53c5cd1` | D-1527 wiz_timeout_queue + visible_region_summary | **ACCEPT-WITH-DEBT** |
+| [489-aa4d11f5-show-region.md](./489-aa4d11f5-show-region.md) | `aa4d11f5` | D-1528 display.c/region.c show_region overlay | **ACCEPT-WITH-DEBT** |
+| [490-72c1fcdd-see-wsegs.md](./490-72c1fcdd-see-wsegs.md) | `72c1fcdd` | D-1529 worm.c see_wsegs + is_worm_tail | **ACCEPT-WITH-DEBT** |
+| [491-a5d779b7-getobj-allowcnt.md](./491-a5d779b7-getobj-allowcnt.md) | `a5d779b7` | D-1530 invent.c getobj GETOBJ_ALLOWCNT count prefix | **ACCEPT-WITH-DEBT** |

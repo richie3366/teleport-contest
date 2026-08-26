@@ -5,13 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Fortress 44/44** after audit **#1910** HEAD `6a42c40e`
-  (Scr **11,405** RNG 100%, `36+0.31/turn` R² 0.86).
-  **Next:** Open `dog.c` `tamedog` is_covetous.
-  Not leftovers.
-  D-1530 getobj ALLOWCNT count prefix. D-1529 `see_wsegs` +
-  `is_worm_tail`. D-1528 `show_region`. D-1527 `#timeout`
-  visible_region_summary. D-1526 emin.
+- **Suite 43/44** after audit **#1920** HEAD `a5d779b7`
+  (Scr **11,405** RNG **747,952**/792,838 = 94.3%,
+  `37+0.30/turn` R² 0.855). seed0367 FAIL from D-1526.
+  **Hypothesis:** Pri-strt `align=noalign` aligned cleric
+  `makemon(..., 0)` burns emin `rn2(3)` that C `mk_roamer`
+  (`MM_EMIN`, `min_align=A_NONE`) never burns.
+  **Falsify:** `node frozen/ps_test_runner.mjs sessions/seed0367-priest-quest-tour.session.json`
+  after Must-fix `load_pri_strt` → `mk_roamer`.
+  **Next:** Must-fix review **487**. Not Open `tamedog`.
+  Do not delete the emin arm (`makemon.c:1414–1427` matches).
   restore `ghostfruit` named. Do not skip D-1530…D-1229.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
   `getdir`. pickup `body_part` latebound; no
@@ -52,7 +55,9 @@ Objective/score live in `CURRENT.md`.
   omit `goodfruit` / `savefruitchn` fid>=0 (D-1523). Do not skip
   fake look SLIME_MOLD `spe = current_fruit` (D-1524). Do not
   stub TEMPLE `S_altar` or skip Align2amask `MCORPSENM` (D-1525).
-  Do not skip emin roaming after LONG_WORM (D-1526). Do not skip
+  Do not skip emin roaming after LONG_WORM (D-1526). Do not
+  delete that arm to fix seed0367 — Pri-strt must `mk_roamer`
+  (review **487**). Do not skip
   `#timeout` `visible_region_summary` (D-1527) or `show_region`
   overlay (D-1528). Do not skip `see_wsegs` / `is_worm_tail`
   (D-1529). Do not skip getobj ALLOWCNT count prefix (D-1530).

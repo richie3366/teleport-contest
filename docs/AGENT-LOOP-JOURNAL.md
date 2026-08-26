@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — review D-1522–D-1530 (audit #1920)
+
+**Objective:** audit — C-fidelity reviews **483–491** of JS SHAs
+`aac21a74` / `e13f38ae` / `2c688c98` / `e234a41b` /
+`4e78ca90` / `d53c5cd1` / `aa4d11f5` / `72c1fcdd` /
+`a5d779b7` plus full `sessions` score.
+**C locus:** `reorder_fruit`; `goodfruit`; `object_from_map`;
+TEMPLE `S_altar`; emin roaming; `#timeout` summary;
+`show_region`; `see_wsegs`; getobj ALLOWCNT.
+**Change:** no `js/` edits. One **QUALITY-RISK** (487 D-1526
+Pri-strt `makemon(..., 0)` vs C `mk_roamer`). Eight
+**ACCEPT-WITH-DEBT**. Must-fix prepended. Filled archive
+D-1530 `a5d779b7`. Rule #2: no fs.
+**Score:** **43**/44 Scr **11,405**/11,405 RNG
+**747,952**/792,838 (94.3%) speed `37+0.30/turn` (R² 0.855).
+seed0367 FAIL RNG **5239**/50125 from `4e78ca90`.
+**Verified:** full `sessions` at HEAD `a5d779b7`.
+**Next:** Must-fix `load_pri_strt` `mk_roamer` (review **487**).
+Not Open `tamedog`. Do not delete emin.
+**Blocked:** none.
 ## 2026-08-26 — D-1530 invent.c getobj ALLOWCNT
 
 **Objective:** Open `invent.c` `getobj` GETOBJ_ALLOWCNT (named).

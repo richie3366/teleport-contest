@@ -32,6 +32,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `sp_lev.c` `create_monster` / `load_pri_strt`: `align!=RANDOM` aligned cleric must `mk_roamer` (`MM_EMIN`, `min_align=A_NONE`) like C `:1983–1984` + `priest.c:738–746`, not `makemon(..., 0)`, so D-1526 emin `rn2(3)` does not fire on Pri-strt. Source: reviews/loop-unattended/487-4e78ca90-emin-roaming.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `dog.c` `tamedog` is_covetous (named). Not leftovers.

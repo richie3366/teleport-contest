@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-26
 
-- [x] `invent.c` `getobj` GETOBJ_ALLOWCNT count prefix (named). Not Palantir. **Addressed:** D-1530
+- [x] `invent.c` `getobj` GETOBJ_ALLOWCNT count prefix (named). Not Palantir. **Addressed:** D-1530 `a5d779b7`
 
 
 - [x] `worm.c` `see_wsegs` (named). Not worm_move. **Addressed:** D-1529 `72c1fcdd`
