@@ -265,7 +265,7 @@ other `m_initinv` bodies (mercenary armor/nymph/giant/…); hell-court `notelepo
 **D-0761 mlet switch before `set_malign`/`G_SGROUP`** (cave spider `mkobj` before group `rn2(2)`) 
 **D-0928 #1119 `S_BAT` Inhell `is_bat`→`permspeed`/`mspeed` MFAST** + 
 **D-1092 `S_ORC` `Race_if(PM_ELF)` / `S_UNICORN` `is_unicorn` co-align mlet peace** (5.0 has no 
-`S_ELF` mlet; **D-1518** dprince MS_BRIBE / raven `BEC_DE_CORBIN`; emin roaming still omitted); 
+`S_ELF` mlet; **D-1518** dprince MS_BRIBE / raven `BEC_DE_CORBIN`; **D-1526** emin roaming); 
 + **D-0628 `hides_under`/`M1_CONCEAL` gate** (python `S_SNAKE` but !CONCEAL stays visible; 
 was blind `mundetected=1`); **D-0630 inline hideunder non-pit `t_at` blocks** (POLY_TRAP; 
 `can_hide_under_obj` coins / pet cursed / cockatrice still deferred); 
@@ -301,7 +301,8 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **D-1516 `m_initweap` S_LIZARD non-salamander skip + PM_NINJA** (`:270–272` / `:495–499`; live `is_armed`/`mongets`; newt..crocodile `!AT_WEAP`; ninja `rn2(4)` SHURIKEN\|DART then SHORT_SWORD\|AXE); 
 **D-1517 `set_mimic_sym` maze/sokoban/`in_town`** (`:2439–2443`; JS had `!(In_mines)` so non-town mines never statue; C `in_town(u.ux,u.uy)` not mimic cell; Sokoban already skipped `rn2(2)`); 
 **D-1525 `set_mimic_sym` TEMPLE `S_altar` Align2amask `MCORPSENM`** (`:2458–2460` appear `S_altar`; `:2538–2546` `rn2(3)-1` then hellish `Inhell && rn2(3)` `AM_NONE` else `Align2amask`; `has_mcorpsenm` stale `NON_PM`; no minion `Inhell` import); 
-**D-1518 `makemon` dprince MS_BRIBE / raven `BEC_DE_CORBIN`** (`:1397–1404` after sleep/byyou, before LONG_WORM; `is_dprince` live; local `u_wield_art` clone — artifact→display→mkobj cycle; emin roaming named); 
+**D-1518 `makemon` dprince MS_BRIBE / raven `BEC_DE_CORBIN`** (`:1397–1404` after sleep/byyou, before LONG_WORM; `is_dprince` live; local `u_wield_art` clone — artifact→display→mkobj cycle; emin is D-1526); 
+**D-1526 `makemon` emin roaming** (`:1410–1428` after LONG_WORM, before `set_malign`; `ALIGNED_CLERIC`/`HIGH_CLERIC` `!(MM_EPRI|MM_EMIN)` always; `ANGEL` `!(MM_EMIN) && !rn2(3)`; `newemin` + `isminion` + `min_align=rn2(3)-1` + `MM_ANGRY?!rn2(3)` renegade + coalign XOR peaceful; live `newemin`/`EMIN`; `mk_roamer`/`priestini` flags skip); 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 

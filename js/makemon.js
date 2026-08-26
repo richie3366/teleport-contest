@@ -77,7 +77,7 @@ import {
 import { big_to_little } from './mondata.js';
 import {
     NO_MINVENT, NO_MM_FLAGS, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD,
-    MM_EMIN, MM_EPRI, MM_ADJACENTOK, MM_NOTAIL, MM_NOWAIT, MM_MALE, MM_FEMALE,
+    MM_EMIN, MM_EPRI, MM_ANGRY, MM_ADJACENTOK, MM_NOTAIL, MM_NOWAIT, MM_MALE, MM_FEMALE,
     MM_NOMSG, MM_NOEXCLAM, MM_IGNOREWATER,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, Is_earthlevel,
     In_mines, In_sokoban, In_endgame,
@@ -2362,7 +2362,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
     }
 
     // C: makemon.c :1397–1404 after in_mklev sleep / byyou newsym,
-    // before LONG_WORM. emin roaming still named.
+    // before LONG_WORM. emin roaming is :1410–1428 after worm.
     if (is_dprince(ptr) && (ptr.msound | 0) === MS_BRIBE) {
         mtmp.mpeaceful = mtmp.minvis = mtmp.perminvis = 1;
         mtmp.mavenge = 0;
@@ -2376,7 +2376,6 @@ export function makemon(mdat, x, y, mmflags = 0) {
     }
 
     // C: PM_LONG_WORM → get_wormno / initworm / place_worm_tail_randomly
-    // Named omissions: emin/angel roaming after worm (still before invent).
     if (ptr.mndx === pm('LONG_WORM')) {
         mtmp.wormno = get_wormno();
         if (mtmp.wormno) {
@@ -2387,8 +2386,29 @@ export function makemon(mdat, x, y, mmflags = 0) {
         }
     }
 
+    // C: makemon.c :1410–1428 after LONG_WORM, before set_malign.
+    // Ordinary ALIGNED_CLERIC/HIGH_CLERIC without MM_EPRI|MM_EMIN, or
+    // ANGEL without MM_EMIN && !rn2(3), get emin roaming. Caller that
+    // passed those flags fills emin/epri itself (mk_roamer / priestini).
+    {
+        const mndx = ptr.mndx | 0;
+        if ((mndx === pm('ALIGNED_CLERIC') || mndx === pm('HIGH_CLERIC'))
+                ? !(mmflags & (MM_EPRI | MM_EMIN))
+                : (mndx === pm('ANGEL') && !(mmflags & MM_EMIN) && !rn2(3))) {
+            newemin(mtmp);
+            const eminp = EMIN(mtmp);
+            mtmp.isminion = 1; /* make priest be a roamer */
+            eminp.min_align = rn2(3) - 1; /* no A_NONE */
+            eminp.renegade = (mmflags & MM_ANGRY) ? 1 : (!rn2(3) ? 1 : 0);
+            const ual = game.u?.ualign?.type | 0;
+            mtmp.mpeaceful = (eminp.min_align === ual)
+                ? (eminp.renegade ? 0 : 1)
+                : eminp.renegade;
+        }
+    }
+
     // C: set_malign after peaceful changes (S_ORC/S_UNICORN mlet D-1092;
-    // dprince MS_BRIBE / raven BEC_DE_CORBIN; emin roaming still deferred)
+    // dprince MS_BRIBE / raven BEC_DE_CORBIN; emin roaming D-1526)
     set_malign(mtmp);
 
     // C: anymon && !(mmflags & MM_NOGRP) → small/large group (after sleep)

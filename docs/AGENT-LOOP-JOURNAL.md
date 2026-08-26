@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-26 — D-1526 makemon.c emin roaming
+
+**Objective:** Open `makemon.c` emin roaming (named). Not
+dprince.
+**C locus:** `makemon.c` `makemon` `:1410–1428` after
+LONG_WORM, before `set_malign`.
+**JS locus:** `js/makemon.js` `makemon`.
+**Change:** Ordinary ALIGNED_CLERIC/HIGH_CLERIC without
+`MM_EPRI|MM_EMIN`, or ANGEL without `MM_EMIN` `!rn2(3)`,
+get `newemin` + `isminion` + `min_align=rn2(3)-1` +
+renegade + coalign XOR peaceful. Flagged callers skip.
+Door `S_hcdoor` / furnsyms / Protection / `block_point`
+named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1910);
+ordinary cleric/angel emin public-unhit.
+**Verified:** canary **40**/40; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `timeout.c` `visible_region_summary`. Not
+any_visible_region.
+**Blocked:** none.
 ## 2026-08-26 — D-1525 makemon.c set_mimic_sym altar Align2amask
 
 **Objective:** Open `makemon.c` `set_mimic_sym` altar

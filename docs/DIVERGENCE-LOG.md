@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1526 — makemon.c emin roaming ALIGNED_CLERIC/HIGH_CLERIC/ANGEL
+
+- **Status:** fixed (map-driven Open from D-1525; not a public FAIL)
+- **Symptom:** After LONG_WORM, JS jumped to `set_malign`. C
+  initializes emin for ordinary aligned/high clerics when the
+  caller did not pass `MM_EPRI|MM_EMIN`, and for 1/3 of
+  ordinary angels when `MM_EMIN` is unset (`!rn2(3)`). Those
+  roamers get `isminion`, `min_align = rn2(3)-1` (no
+  `A_NONE`), `renegade` (`MM_ANGRY` else `!rn2(3)`), and
+  `mpeaceful` = coalign XOR renegade, then `set_malign`.
+- **C locus:** `makemon.c` `makemon` `:1410–1428`. Callee
+  `minion.c` `newemin`. Followed by `set_malign`. Callers
+  `mk_roamer` / `priestini` / `msummon` pass `MM_EMIN` or
+  `MM_EPRI` and fill fields themselves (skipped).
+- **JS was:** named omit after D-1518.
+- **Fix:** Port the C ternary + body. Live `newemin` / `EMIN`.
+  `MM_ANGRY` imported. Rule #2: no fs.
+- **JS:** `js/makemon.js` `makemon`.
+- **Not this iter:** door/wall `S_hcdoor`; furnsyms real S_*;
+  `Protection_from_shape_changers`; `block_point`;
+  `discard_minvent`; byyou `set_apparxy`. dprince is D-1518;
+  altar Align2amask is D-1525.
+- **Verified:** private canary **40**/40 (C/JS grep; cleric/
+  high always emin+isminion; jackal none; `MM_EMIN`/`MM_EPRI`
+  skip roaming; `MM_ANGRY` renegade 1 + XOR; angel mix;
+  `newemin` does not set isminion; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+  **Public-unhit** until an ordinary cleric/high/angel spawn
+  without those flags.
+- **Follow-up:** Open `timeout.c` `visible_region_summary`.
+  Not any_visible_region.
+- **Files:** `js/makemon.js`.
+
 ## D-1525 — makemon.c set_mimic_sym altar Align2amask MCORPSENM
 
 - **Status:** fixed (map-driven Open from D-1524; not a public FAIL)
@@ -40,6 +74,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   1500/1800/0012/0004/0007/2200/0383.
   **Public-unhit** until a TEMPLE (or furnsyms-`S_altar`) mimic.
 - **Follow-up:** Open `makemon.c` emin roaming. Not dprince.
+  (Shipped D-1526.)
 - **Files:** `js/makemon.js`.
 
 ## D-1524 — pager.c object_from_map SLIME_MOLD spe

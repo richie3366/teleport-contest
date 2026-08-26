@@ -7,17 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 - **Fortress 44/44** after audit **#1910** HEAD `6a42c40e`
   (Scr **11,405** RNG 100%, `36+0.31/turn` R² 0.86).
-  **Next:** Open `makemon.c` emin roaming. Not dprince.
-  D-1525 TEMPLE `S_altar` Align2amask `MCORPSENM`.
-  D-1524 `object_from_map` fake SLIME_MOLD `spe`.
-  D-1523 goodfruit. restore `ghostfruit` named.
-  Do not skip D-1525…D-1229. No FORCE / `wildmiss`
-  wrap / trailing `confdir` in shared `getdir`.
-  pickup `body_part` latebound; no pickup→polyself.
-- Do not revert D-1217–D-1525. Named still: worm segs;
+  **Next:** Open `timeout.c` `visible_region_summary`.
+  Not any_visible_region.
+  D-1526 emin roaming. D-1525 TEMPLE `S_altar`
+  Align2amask. D-1524 look `spe`. restore `ghostfruit`
+  named. Do not skip D-1526…D-1229. No FORCE /
+  `wildmiss` wrap / trailing `confdir` in shared
+  `getdir`. pickup `body_part` latebound; no
+  pickup→polyself.
+- Do not revert D-1217–D-1526. Named still: worm segs;
   `visible_region_summary`; `show_region`; GETOBJ_ALLOWCNT;
   tamedog is_covetous; `#altdip`; wander/`somexy`;
-  `create_object` `o->lit`; emin; door `S_hcdoor`;
+  `create_object` `o->lit`; door `S_hcdoor`;
   furnsyms real S_*; `mcast_blind_you` EYE; quantum-cat
   FOOT; cspfx W_ART; ghostfruit; getpos fakeobj;
   `that_is_a_mimic`.
@@ -29,7 +30,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1525.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1526.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -40,7 +41,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1525 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1526 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop` / other `Antimagic()` clones (D-1060 / D-1085 /
   D-1089). Do not restore exact-only fruit walker (D-1520) or
@@ -49,6 +50,7 @@ Objective/score live in `CURRENT.md`.
   omit `goodfruit` / `savefruitchn` fid>=0 (D-1523). Do not skip
   fake look SLIME_MOLD `spe = current_fruit` (D-1524). Do not
   stub TEMPLE `S_altar` or skip Align2amask `MCORPSENM` (D-1525).
+  Do not skip emin roaming after LONG_WORM (D-1526).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
   / `restore_artifacts`. Default `spot_monsters` Off.
@@ -62,6 +64,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1526: emin roaming after LONG_WORM. Cleric/high
+  `!(MM_EPRI|MM_EMIN)` always; angel `!(MM_EMIN)&&!rn2(3)`.
+  `newemin`+`isminion`+`min_align=rn2(3)-1`+renegade XOR
+  peace. Flagged callers skip. Door `S_hcdoor` named.
 - D-1525: TEMPLE mimic `S_altar` (33); `MCORPSENM`
   `(Inhell && rn2(3)) ? AM_NONE : Align2amask(rn2(3)-1)`;
   hellish not minion `Inhell`; stale `has_mcorpsenm`
@@ -98,5 +104,3 @@ Objective/score live in `CURRENT.md`.
   monkeys. No fourth `splev_room_monster`.
 - D-1512: `any_visible_region` first `visible && ttl != -2`;
   allmain OR after Warn_of_mon. C is `region.c`.
-- D-1511: `fruit_from_indx` by fid; slime mold `fname` /
-  `"fruit"` / quan ick; `init_fruit_chain` fid 1.

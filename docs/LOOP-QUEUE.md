@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` emin roaming (named). Not dprince.
 - [ ] `timeout.c` `visible_region_summary` (named). Not any_visible_region.
 - [ ] `display.c` `show_region` (named). Not Hallu/Warn_of_mon.
 - [ ] `worm.c` `see_wsegs` (named). Not worm_move.
