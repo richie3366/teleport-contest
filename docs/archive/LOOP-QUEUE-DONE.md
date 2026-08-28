@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `cmd.c` PREFIXCMD / `cmdq_shift` (named). Not do_repeat. **Addressed:** D-1582
+- [x] `vision.c` `nv_range` circle (named). Not unblock_point. **Addressed:** D-1583
+
+
+- [x] `cmd.c` PREFIXCMD / `cmdq_shift` (named). Not do_repeat. **Addressed:** D-1582 `6c996e15`
 
 
 - [x] `pickup.c` traditional_loot askchain (named). Not `'r'` reversed. **Addressed:** D-1581 `fd458754`

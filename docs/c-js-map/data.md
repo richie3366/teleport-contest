@@ -687,9 +687,14 @@ lit); **D-1562 `howmonseen`** (`vision.c:2151–2186`; callers `apply.c` `use_mi
 `[seen:]`; `look_all` NULL; `worm_known` is D-1548; mdistu inlined); 
 **D-1571 `vision_recalc` xray IN_SIGHT** (`:631–668`; `circle_ptr` +
 seenv SVALL + rmin/rmax + newsym before lights; Eyes D-1558 3/−1;
-not rogue/Blind/`control==2`); **D-1574 `unblock_point`/`dig_point`**;
+not rogue/Blind/`control==2`); **D-1583 `vision_recalc` nv_range
+circle** (`:670–700`; `has_night_vision && xray_range < nv_range`;
+`circle_ptr`; `if (next_row[col]) |=IN_SIGHT`; range 0 hero SVALL;
+lighting-loop 3×3 stand-in retired; `u_init_misc` nv_range=1);
+**D-1574 `unblock_point`/`dig_point`**;
 **D-1576 region per-cell block/unblock**;
-nv_range circle / pit / underwater / `notice_all_mons` named
+pit TT_PIT / underwater `has_night_vision=0` + pool 3×3 /
+`notice_all_mons` named
 
 ### `src/trap.c`
 

@@ -63,19 +63,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1576 (seed4500 recovered). **Next cluster:**
-Open `vision.c` `nv_range` circle (named). Not PREFIXCMD.
-Not traditional_loot. Not revert D-1574 `seemimic` / `dig_point` body.
-**Do not skip D-1531…D-1582 (index).** Keep mention_map addr.
+Open `makemon.c` `mk_mplayer` (named). Not nv_range.
+Not ndemon. Not revert D-1574 `seemimic` / `dig_point` body.
+**Do not skip D-1531…D-1583 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1582.** Do not FORCE
+**Do not re-break D-0660…D-1583.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1582 (index). Recent: **D-1582**
-`cmd.c` PREFIXCMD / `cmdq_shift` (`got_prefix_input`;
-doextcmd ext_tlist add+shift; `do_rush`/`do_run`/`do_fight`/
-`do_reqmenu`; `set_move_cmd`/`do_move_*` REPEAT). Prior:
+**Keep:** D-0845…D-1583 (index). Recent: **D-1583**
+`vision.c` `nv_range` circle (`apply_nv_range_in_sight`;
+`circle_ptr`; `next_row[col]` gate; 3×3 lighting stand-in
+retired). Prior: **D-1582** PREFIXCMD / `cmdq_shift`.
 **D-1581** `pickup.c` traditional_loot + `invent.c` askchain.
 **D-1580** `invent.c` gacc / `'0'` ball class. **D-1579**
 `invent.c` mime_action. **D-1578** force_invmenu `*`/`?` redo.
@@ -83,11 +83,11 @@ doextcmd ext_tlist add+shift; `do_rush`/`do_run`/`do_fight`/
 `block_point`/`unblock_point` (seed4500). **D-1575**
 `mk_gen_ok` MAIL + `ndemon` mkclass. **D-1574**
 `unblock_point`. **D-1573** `newcham` cancel. Older
-D-1531…D-1582 live in the index — do not re-paste.
+D-1531…D-1583 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-skip D-1229…D-1582 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1583 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -107,8 +107,8 @@ Hatch timeout is D-1572. `newcham` cancel is D-1573.
 Region per-cell block is D-1576. `redraw_worm` is D-1577.
 force_invmenu redo is D-1578. mime_action is D-1579.
 gacc / `'0'` ball is D-1580. traditional_loot is D-1581.
-PREFIXCMD / `cmdq_shift` is D-1582.
-Do not glue nv_range circle / `mimic_light_blocking`.
+PREFIXCMD / `cmdq_shift` is D-1582. `nv_range` circle is D-1583.
+Do not glue `mimic_light_blocking`.
 `howmonseen` is D-1562. Do not
 skip `tamedog` `wake_nearto` or glue FULL_MOON S_DOG / ustuck.
 Remembered otyp does not beat a displayed mon glyph (D-1547).

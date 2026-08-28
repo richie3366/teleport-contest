@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `vision.c` `nv_range` circle (named). Not unblock_point.
 - [ ] `makemon.c` `mk_mplayer` (named). Not ndemon.
 - [ ] `dog.c` FULL_MOON S_DOG `rn2(6)` (named). Not wake_nearto.
 - [ ] `mon.c` `newcham` NC_SHOW_MSG `pline_mon` (named). Not Protection cancel.

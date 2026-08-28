@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1583 — vision.c vision_recalc nv_range circle
+
+- **Status:** fixed (map-driven Open from D-1582; not a public FAIL)
+- **Symptom:** `nv_range` circle named leftover after D-1571: lighting
+  loop used a hardcoded 3×3 `IN_SIGHT` stand-in (`nv_range===1`)
+  instead of C `circle_ptr(u.nv_range)` after xray, before lights.
+- **C locus:** `vision.c` `vision_recalc` `:670–700`
+  (`has_night_vision && u.xray_range < u.nv_range`). Range 0: hero
+  cell `|=IN_SIGHT` + `seenv=SVALL`. Range >0: `circle_ptr` +
+  `v_abs` dy; `if (next_row[col]) |=IN_SIGHT` (no SVALL/newsym).
+  Setter `u_init.c` `u_init_misc` `:1020` `nv_range=1`. Callee
+  `circle_ptr` `vision.h:62` (live D-1571).
+- **JS was:** adjacent 3×3 in the post-light lighting loop +
+  `continue`; xray circle live (D-1571).
+- **Fix:** live `apply_nv_range_in_sight` on the non-rogue else
+  after xray; drop the 3×3 stand-in. Rule #2: no fs.
+- **JS:** `js/vision.js` `apply_nv_range_in_sight` / `vision_recalc`.
+- **Not this iter:** pit TT_PIT 3×3; underwater `has_night_vision=0`
+  + pool 3×3; `notice_all_mons`; `mimic_light_blocking` See_invisible.
+  xray IN_SIGHT is D-1571. PREFIXCMD is D-1582.
+- **Verified:** private canary **28**/28 (C locus + nv=1/2/3/0;
+  wall-blocked; xray>=nv skip; Blind/`control==2`; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1582 — cmd.c PREFIXCMD / cmdq_shift
 
 - **Status:** fixed (map-driven Open from D-1581; not a public FAIL)

@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1583 vision.c nv_range circle
+
+**Objective:** Open `vision.c` `nv_range` circle (named).
+Not unblock_point.
+**C locus:** `vision.c` `vision_recalc` `:670–700`;
+`u_init_misc` nv_range=1; `circle_ptr`.
+**JS locus:** 3×3 lighting-loop stand-in after D-1571.
+**Change:** `apply_nv_range_in_sight` after xray; drop 3×3.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **28**/28; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `mk_mplayer`. Not nv_range.
+**Blocked:** none.
 ## 2026-08-28 — D-1582 cmd.c PREFIXCMD / cmdq_shift
 
 **Objective:** Open `cmd.c` PREFIXCMD / `cmdq_shift` (named).
