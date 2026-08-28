@@ -529,3 +529,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [516-1c43e64c-namefloorobj.md](./516-1c43e64c-namefloorobj.md) | `1c43e64c` | D-1555 namefloorobj | **ACCEPT-WITH-DEBT** |
 | [517-f8a7cea2-delphi-s-fountain.md](./517-f8a7cea2-delphi-s-fountain.md) | `f8a7cea2` | D-1556 DELPHI S_fountain | **ACCEPT-WITH-DEBT** |
 | [518-0f5e4df5-block-point.md](./518-0f5e4df5-block-point.md) | `0f5e4df5` | D-1557 does_block / block_point | **ACCEPT-WITH-DEBT** |
+| [519-599494b3-search-regen-xray.md](./519-599494b3-search-regen-xray.md) | `599494b3` | D-1558 SEARCH/REGEN/XRAY conferral | **ACCEPT-WITH-DEBT** |
+| [520-30c83eb9-pickinv-ctmp.md](./520-30c83eb9-pickinv-ctmp.md) | `30c83eb9` | D-1559 pickinv `&ctmp` menu count | **ACCEPT-WITH-DEBT** |
+| [521-67d0c50c-finish-splitting.md](./521-67d0c50c-finish-splitting.md) | `67d0c50c` | D-1560 finish_splitting / unsplitobj | **ACCEPT-WITH-DEBT** |
+| [522-c60475f1-stash-allowcnt.md](./522-c60475f1-stash-allowcnt.md) | `c60475f1` | D-1561 stash getobj ALLOWCNT | **ACCEPT-WITH-DEBT** |
+| [523-a54cb31b-howmonseen.md](./523-a54cb31b-howmonseen.md) | `a54cb31b` | D-1562 howmonseen bitmask | **ACCEPT-WITH-DEBT** |
+| [524-1504ead1-do-repeat.md](./524-1504ead1-do-repeat.md) | `1504ead1` | D-1563 do_repeat / getobj CQ_REPEAT | **ACCEPT-WITH-DEBT** |
+| [525-e8cc4c96-set-mimic-sym-protection.md](./525-e8cc4c96-set-mimic-sym-protection.md) | `e8cc4c96` | D-1564 set_mimic_sym Protection / fruit / Plan-B | **ACCEPT-WITH-DEBT** |
+| [526-224bd3a6-place-monster.md](./526-224bd3a6-place-monster.md) | `224bd3a6` | D-1565 place_monster / clone_mon 2D grid | **ACCEPT-WITH-DEBT** |
+| [527-72735008-rndmonst-adj.md](./527-72735008-rndmonst-adj.md) | `72735008` | D-1566 rndmonst_adj rogue/elem filters | **ACCEPT-WITH-DEBT** |

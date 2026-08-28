@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — review D-1558–D-1566 (audit #1960)
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **518**;
+cadence score. No `js/` edits.
+**C locus:** artifact SEARCH/REGEN/XRAY; pickinv `&ctmp`;
+`finish_splitting`; stash ALLOWCNT; `howmonseen`; `do_repeat`
+CQ_REPEAT; `set_mimic_sym` Protection/fruit/Plan-B;
+`place_monster` 2D; `rndmonst_adj` rogue/elem.
+**JS locus:** reviews **519–527** (`599494b3`…`72735008`).
+**Change:** ACCEPT-WITH-DEBT 519–527. No QUALITY-RISK. Must-fix
+empty. Next Open `'r'` reversed. Filled archive D-1566 `%h`.
+**Score:** **44**/44 Scr **11,405** RNG **792,838**
+`38+0.31/turn` (R² 0.847) at `72735008`.
+**Verified:** cadence `__RESULTS_JSON__`; `check-hot-docs --review 519-527`.
+**Next:** Open `pickup.c` `'r'` reversed put-in then take-out. Not stash.
+**Blocked:** none.
 ## 2026-08-28 — D-1566 makemon.c rndmonst_adj rogue/elem filters
 
 **Objective:** Open `rndmonst_adj` rogue/elem filters. Not mkclass.

@@ -5,8 +5,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress after audit **#1950** (Scr **11,405**
-  RNG **792,838**/792,838 = 100%; `36+0.31/turn`). seed0367 FULL.
+- **Suite 44/44** fortress after audit **#1960** (Scr **11,405**
+  RNG **792,838**/792,838 = 100%; `38+0.31/turn`). seed0367 FULL.
   **Hypothesis:** Open `pickup.c` `'r'` reversed put-in then
   take-out is still named (`rndmonst_adj` rogue/elem is D-1566).
   Not stash.

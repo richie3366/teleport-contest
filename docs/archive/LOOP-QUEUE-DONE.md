@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `makemon.c` `rndmonst_adj` rogue/elem filters (named). Not mkclass. **Addressed:** D-1566
+- [x] `makemon.c` `rndmonst_adj` rogue/elem filters (named). Not mkclass. **Addressed:** D-1566 `72735008`
 
 
 - [x] `makemon.c` `clone_mon` `place_monster` 2D grid (named). Not HP split. **Addressed:** D-1565 `224bd3a6`
