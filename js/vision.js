@@ -10,8 +10,14 @@ import {
     IS_WALL, IS_WATERWALL, IS_OBSTRUCTED, IS_DOOR,
     ROOMOFFSET, Is_rogue_level,
     TEMP_LIT, M_AP_OBJECT, M_AP_FURNITURE, M_AP_TYPE,
+    MONSEEN_NORMAL, MONSEEN_SEEINVIS, MONSEEN_INFRAVIS, MONSEEN_TELEPAT,
+    MONSEEN_XRAYVIS, MONSEEN_DETECT, MONSEEN_WARNMON,
 } from './const.js';
-import { newsym } from './display.js';
+import {
+    newsym, canseemon, mon_visible, see_with_infrared, tp_sensemon,
+    MATCH_WARN_OF_MON,
+} from './display.js';
+import { worm_known } from './worm.js';
 import { objectNames } from './objects.js';
 import { do_light_sources } from './light.js';
 import { visible_region_at } from './region.js';
@@ -866,6 +872,48 @@ export function cansee(x, y) {
 export function couldsee(x, y) {
     if (y < 0 || y >= ROWNO || x < 0 || x >= COLNO) return false;
     return !!(game.viz_array?.[y]?.[x] & COULD_SEE);
+}
+
+/**
+ * C ref: vision.c howmonseen :2151–2186 — bitmask of ways the hero
+ * sees `mon`. Callers apply.c use_mirror (SEENMON vs INFRAVIS-only)
+ * and pager.c look_at_monster monbuf. NORMAL is cansee&&couldsee (or
+ * worm_known), not canseemon: astral IN_SIGHT without COULD_SEE is
+ * XRAYVIS. mdistu inlined (hack.h dist2; no mdistu clone).
+ */
+export function howmonseen(mon) {
+    if (!mon) return 0;
+    const u = game.u || {};
+    const useemon = canseemon(mon);
+    const xr = u.xray_range | 0;
+    const xraydist = xr < 0 ? -1 : xr * xr;
+    let how_seen = 0;
+    const mx = mon.mx | 0;
+    const my = mon.my | 0;
+    /* C: cansee is true for normal and astral; couldsee is not for astral */
+    if ((mon.wormno ? worm_known(mon) : (cansee(mx, my) && couldsee(mx, my)))
+        && mon_visible(mon) && !mon.minvis) {
+        how_seen |= MONSEEN_NORMAL;
+    }
+    if (useemon && mon.minvis) how_seen |= MONSEEN_SEEINVIS;
+    const See_invisible = !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0)
+        || u.See_invisible);
+    if ((!mon.minvis || See_invisible) && see_with_infrared(mon)) {
+        how_seen |= MONSEEN_INFRAVIS;
+    }
+    if (tp_sensemon(mon)) how_seen |= MONSEEN_TELEPAT;
+    /* C hack.h mdistu(mon) ≡ dist2(mx, my, ux, uy) */
+    const dx = mx - (u.ux | 0);
+    const dy = my - (u.uy | 0);
+    if (useemon && xraydist > 0 && (dx * dx + dy * dy) <= xraydist) {
+        how_seen |= MONSEEN_XRAYVIS;
+    }
+    if ((u.HDetect_monsters | 0) || (u.EDetect_monsters | 0)
+        || u.Detect_monsters) {
+        how_seen |= MONSEEN_DETECT;
+    }
+    if (MATCH_WARN_OF_MON(mon)) how_seen |= MONSEEN_WARNMON;
+    return how_seen;
 }
 
 export function init_vision_globals() {

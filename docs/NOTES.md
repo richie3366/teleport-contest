@@ -7,23 +7,23 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1950** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `36+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open `vision.c` `howmonseen` is still named
-  (`stash` getobj is D-1561). Not worm_known.
-  **Falsify:** `node scripts/csym.mjs howmonseen` vs
-  `js/vision.js`.
-  **Next:** Open `howmonseen`. Not stash. Not cutworm.
-  Do not skip D-1531…D-1561. No FORCE / `wildmiss` wrap /
+  **Hypothesis:** Open `cmd.c` getobj CQ_REPEAT / `in_doagain` is
+  still named (`howmonseen` is D-1562). Not canned CMDQ_INT.
+  **Falsify:** `node scripts/csym.mjs in_doagain` vs `js/invent.js`
+  / `js/cmd.js` getobj.
+  **Next:** Open `in_doagain`. Not cutworm. Not `'r'` reversed.
+  Do not skip D-1531…D-1562. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Named still: `howmonseen`; cutworm; Protection; `made_fruit`;
-  Plan-B; Palantir `#if 0`; `'r'` reversed; `in_doagain`;
-  eat/read/zap/tin NOFLAGS; pickinv hands/xtra; `mk_mplayer`;
-  FULL_MOON S_DOG / ustuck / `redraw_worm`; other mcast; sit/pray
-  `eyecount`; muse loot; escape cat HP; other INTERNALCMD;
-  defn/cary resist; PROTECT; inv_prop drop; `artitouch`; shk
-  mnearto; ghostfruit age; Ice/Boulder fills; `rndmonst_adj`;
-  `place_monster` 2D; map_monst head glyphs;
-  `unblock_point`/`dig_point`; vision_recalc xray IN_SIGHT;
-  `Shk_Your`; dothrow/apply unsplitobj callers.
+- Named still: cutworm; Protection; `made_fruit`; Plan-B;
+  Palantir `#if 0`; `'r'` reversed; `in_doagain`; eat/read/zap/tin
+  NOFLAGS; pickinv hands/xtra; `mk_mplayer`; FULL_MOON S_DOG /
+  ustuck / `redraw_worm`; other mcast; sit/pray `eyecount`; muse
+  loot; escape cat HP; other INTERNALCMD; defn/cary resist;
+  PROTECT; inv_prop drop; `artitouch`; shk mnearto; ghostfruit
+  age; Ice/Boulder fills; `rndmonst_adj`; `place_monster` 2D;
+  map_monst head glyphs; `unblock_point`/`dig_point`;
+  `vision_recalc` xray IN_SIGHT; `Shk_Your`; dothrow/apply
+  unsplitobj callers.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +32,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1561.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1562.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +43,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1561 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1562 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1561. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1562. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -60,10 +60,16 @@ Objective/score live in `CURRENT.md`.
   mhidden D-1554. Do not skip SEARCH/REGEN/XRAY (D-1558) or leave
   Eyes `setworn` without it. Do not skip pickinv `&ctmp`
   (D-1559) or `finish_splitting` (D-1560) or stash getobj
-  (D-1561). Do not glue `howmonseen` / cutworm / `'r'` reversed.
+  (D-1561) or `howmonseen` (D-1562). Do not glue cutworm /
+  `'r'` reversed / `in_doagain`.
 
 ## Landmarks (≤15)
 
+- D-1562: `howmonseen` bitmask. NORMAL `cansee&&couldsee` or
+  `worm_known`; SEEINVIS/INFRAVIS/TELEPAT/XRAYVIS/DETECT/WARNMON.
+  use_mirror SEENMON vs INFRAVIS-only; look `[seen:]` (look_all
+  NULL). mdistu inlined. cutworm / xray IN_SIGHT named.
+  stash is D-1561. worm_known is D-1548.
 - D-1561: stash getobj ALLOWCNT. `stash_ok`/`ck_bag`; prompt
   `|ALLOWCNT`; `in_container` worn/quest/loadstone/uwep +
   `unsplitobj` on refuse. `'r'` reversed / traditional_loot /
@@ -97,8 +103,7 @@ Objective/score live in `CURRENT.md`.
 - D-1551: canned CMDQ_INT then KEY + `split_otmp`. eat/read/zap
   / tin NOFLAGS / `in_doagain` REPEAT record named.
 - D-1550: trap `monkilled` `wormno ? worm_known : cansee(head)`
-  (**509**). `howmonseen` named.
+  (**509**). `howmonseen` is D-1562.
 - D-1549: `map_monst` long-worm via `mndx`/`mnum` not `mons()`.
 - D-1548: `worm_known` any wseg `cansee`; `_canseemon` skips
   infrared when `wormno`.
-- D-1547: getpos `look_at_object` + `glyph_to_obj_at` (gbuf).

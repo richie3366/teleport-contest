@@ -9,7 +9,7 @@ import {
     verbalize, mon_visible, tp_sensemon, see_with_infrared, tmp_at,
     set_msg_xy,
 } from './display.js';
-import { vision_recalc, cansee, couldsee } from './vision.js';
+import { vision_recalc, cansee, couldsee, howmonseen } from './vision.js';
 import {
     TOOL_CLASS, WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, POTION_CLASS,
     COIN_CLASS, GEM_CLASS, FOOD_CLASS, RING_CLASS, RANDOM_CLASS,
@@ -37,6 +37,7 @@ import {
     MAX_SPELL_STUDY, HOMEMADE_TIN, G_GONE, NO_MINVENT, MM_NOMSG, TT_BURIEDBALL,
     IS_TREE, W_NONPASSWALL, FIG_TRANSFORM, TIMER_OBJECT, OBJ_MINVENT,
     EXACT_NAME, DISP_BEAM, DISP_END, HI_ZAP,
+    MONSEEN_NORMAL, MONSEEN_SEEINVIS, MONSEEN_INFRAVIS,
 } from './const.js';
 import { pick_lock, getdir } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -254,10 +255,7 @@ const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 const MAXLEASHED = 2;
 /** C monflag.h MS_SILENT. */
 const MS_SILENT = 0;
-/** C mon.h howmonseen bits — NORMAL suffices for lit-room pets. */
-const MONSEEN_NORMAL = 0x01;
-const MONSEEN_SEEINVIS = 0x02;
-const MONSEEN_INFRAVIS = 0x04;
+/** C apply.c use_mirror SEENMON — NORMAL|SEEINVIS|INFRAVIS. */
 const SEENMON = MONSEEN_NORMAL | MONSEEN_SEEINVIS | MONSEEN_INFRAVIS;
 
 /** C invent getobj callback ranks (hack.h). */
@@ -632,9 +630,10 @@ function bhit_invis_beam(ddx, ddy, range) {
 
 /**
  * C apply.c use_mirror — getdir then reflect self / beam mon reactions.
- * Named omissions: Hallucination hcolor self; full howmonseen bits;
- * mon_reflects Medusa; nymph steal+rloc; monverbself polish; Underwater /
- * swallow / dz surface|ceiling wording; See_invisible / Invis edge cases.
+ * Named omissions: Hallucination hcolor self; mon_reflects Medusa;
+ * nymph steal+rloc; monverbself polish; Underwater / swallow / dz
+ * surface|ceiling wording; See_invisible / Invis edge cases.
+ * howmonseen is D-1562.
  * @returns {number} ECMD_*
  */
 async function use_mirror(obj) {
@@ -735,8 +734,8 @@ async function use_mirror(obj) {
     if (!mtmp || !haseyes(mtmp.data) || game.notonhead) return ECMD_TIME;
 
     const vis = canseemon(mtmp);
-    // howmonseen deferred — lit canseemon ≡ NORMAL (not INFRAVIS-only)
-    const how_seen = vis ? MONSEEN_NORMAL : 0;
+    // C apply.c:1108 — vis ? howmonseen(mtmp) : 0 (D-1562)
+    const how_seen = vis ? howmonseen(mtmp) : 0;
     const monable = !mtmp.mcan
         && (!mtmp.minvis || perceives(mtmp.data));
     const mlet = mtmp.data?.mlet;

@@ -588,7 +588,7 @@ selectable `process_menu_window` path; **`self_lookat` → `pmname(umonnum,Ugend
 `urole.name.m`** (D-0664) + **Punished `, chained to ` + `ansimpleoname(uball)`** (D-0928 #1149; 
 steed/utrap deferred) + **`brief_at` CLOUD fog/vapor** (D-0811) + 
 **`room_cmap_explanation` S_darkroom** (D-0812) + **blocked staircase down qstart** (D-0814); 
-look_at_monster hallu/health/stuck/leashed/trapped/howmonseen; 
+look_at_monster hallu/health/stuck/leashed/trapped; **howmonseen D-1562**; 
 **`object_from_map` / `look_at_object` D-1524** (`pager.c:284–399`; fake SLIME_MOLD 
 `spe = current_fruit` then mimic `MCORPSENM`; glyphotyp not integer glyph; 
 `brief_at`/`look_all` live; doname_with_price/`doname_vague_quan` named — doname 
@@ -1330,7 +1330,7 @@ free first `hero_seq`** (D-0155) + **adjacent isok/`m_at`/empty return `res` TIM
 SDOOR/SCORR/`its_dead`/defsyms furniture/`map_invisible`/ailment flags deferred) + 
 **`use_mirror` getdir+cursed+self+`bhit` INVIS_BEAM+flee `rn2(5)`/`monflee` + 
 `use_camera` getdir+charge+`flash_hits_mon` subset** (D-0736; 
-Medusa/`mon_reflects`/nymph steal+rloc; full `howmonseen`; `see_monster_closeup`; 
+Medusa/`mon_reflects`/nymph steal+rloc; `howmonseen` is D-1562; `see_monster_closeup`; 
 flash mimic/gremlin deferred); **`apply_ok` SUGGEST tools/wands/spbooks + 
 weapon/oil/food/graystone ranks** (D-0157); **`getobj_apply` prompt `compactify` when suggested>5; 
 `?` keeps raw lets** (D-0466); **getobj `?`/`*` → `display_pickinv_reply`; 

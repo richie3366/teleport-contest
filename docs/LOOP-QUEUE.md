@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `vision.c` `howmonseen` (named). Not worm_known.
 - [ ] `cmd.c` getobj CQ_REPEAT / `in_doagain` (named). Not canned CMDQ_INT.
 - [ ] `makemon.c` `set_mimic_sym` Protection_from_shape_changers early-out (named). Not DELPHI. Not block_point.
 - [ ] `makemon.c` `set_mimic_sym` slime-mold `flags.made_fruit` (named). Not DELPHI.

@@ -367,7 +367,7 @@ callee `newsym` `is_worm_tail` + `display_monster` `PM_LONG_WORM_TAIL`);
 `data.mndx ?? mnum` not `mons()` ptr so D-1545 is reachable); 
 **D-1548 `worm_known`** (`worm.c:877–893`; `display.h` `_canseemon` `:117–120` 
 `wormno ? worm_known : cansee||infrared`; callers `mon.c` `monkilled` `:3384` 
-+ `vision.c` `howmonseen` `:2162` still named; live `js/worm.js` + 
++ `vision.c` `howmonseen` is D-1562; live `js/worm.js` + 
 `js/display.js` `canseemon` + `js/mhitm.js` `monkilled`; trap/muse/mthrowu 
 canseemon clones + monmove/dig stubs); 
 **D-1550 trap `monkilled` clone** (`mon.c:3384–3385`; review **509**; 
@@ -377,7 +377,7 @@ omit cutworm/wormgone, save/rest wsegs, muse/mhitu
 `worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 
 map_monst head `pet_to_glyph` / `detected_mon_to_glyph` (plain `mon_glyph`); 
-`worm_cross` live; `howmonseen` named; non-worm `level.monsters[][]` still fmon-only
+`worm_cross` live; `howmonseen` is D-1562; non-worm `level.monsters[][]` still fmon-only
 
 ### `src/extralev.c`
 
@@ -645,7 +645,10 @@ goto_level stash/rest** (binary `save_regions` format / free_region teardown def
 **D-0773 open:** wizard2 mumak LOS — JS `viz_clear` blocks at ROOM boulder → linedup rn2(3); 
 C screen lava flanks differ + warn mon @(55,9); recorder `couldsee`/boulder open; 
 Underwater moat in does_block deferred; seed0030 @372 blank niche was **not** doorway LOS (D-0302 
-lit)
+lit); **D-1562 `howmonseen`** (`vision.c:2151–2186`; callers `apply.c` `use_mirror` 
+`:1108` SEENMON vs INFRAVIS-only + `pager.c` `look_at_monster` `:485–554` monbuf 
+`[seen:]`; `look_all` NULL; `worm_known` is D-1548; mdistu inlined); 
+`vision_recalc` xray IN_SIGHT named
 
 ### `src/trap.c`
 

@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1562 — vision.c howmonseen bitmask
+
+- **Status:** fixed (map-driven Open from D-1561; not a public FAIL)
+- **Symptom:** JS had no `howmonseen`. `use_mirror` treated every
+  `canseemon` hit as `MONSEEN_NORMAL`, so INFRAVIS-only never took
+  C's "too far away to see in the dark" arm. `look_at_monster`
+  never filled monbuf `[seen:]`. Named omit after D-1548.
+  Not worm_known.
+- **C locus:** `vision.c` `howmonseen` `:2151–2186`. Callers
+  `apply.c` `use_mirror` `:1108` (`vis ? howmonseen : 0`; SEENMON
+  vs `MONSEEN_INFRAVIS`); `pager.c` `look_at_monster` `:485–554`
+  (monbuf; `look_all` `:2002` NULL). Bits: NORMAL (worm_known or
+  `cansee&&couldsee` + `mon_visible` + `!minvis`), SEEINVIS,
+  INFRAVIS, TELEPAT, XRAYVIS (`mdistu` vs `xray_range²`), DETECT,
+  WARNMON.
+- **JS was:** `use_mirror` `how_seen = vis ? MONSEEN_NORMAL : 0`;
+  pager `look_at_monster_buf` omitted monbuf.
+- **Fix:** live `js/vision.js` `howmonseen` (import `canseemon` /
+  `worm_known`; mdistu inlined, no clone). `js/apply.js` calls it.
+  `js/pager.js` `howmonseen_look_buf` + describe_looked `[seen:]`.
+  Rule #2: no fs.
+- **JS:** `js/vision.js`; `js/apply.js`; `js/pager.js`.
+- **Not this iter:** cutworm / `redraw_worm`; `vision_recalc` xray
+  IN_SIGHT; look_at_monster hallu/health/stuck/leashed/trapped;
+  Medusa `mon_reflects` / nymph steal+rloc. worm_known is D-1548.
+- **Verified:** private canary **11**/11 (NORMAL/DETECT/SEEINVIS/
+  TELEPAT/XRAYVIS/WARNMON/INFRAVIS-only SEENMON); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383.
+- **Follow-up:** Open `cmd.c` getobj CQ_REPEAT / `in_doagain`.
+  Not canned CMDQ_INT.
+
 ## D-1561 — pickup.c stash getobj ALLOWCNT
 
 - **Status:** fixed (map-driven Open from D-1560; not a public FAIL)

@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1562 vision.c howmonseen
+
+**Objective:** Open `howmonseen`. Not worm_known.
+**C locus:** `vision.c` `howmonseen` `:2151–2186`; callers
+`apply.c` `use_mirror` `:1108`; `pager.c` `look_at_monster`
+`:485–554`.
+**JS locus:** `js/vision.js` (missing); apply NORMAL stub;
+pager no monbuf.
+**Change:** live bitmask + use_mirror SEENMON + look `[seen:]`.
+cutworm / xray IN_SIGHT named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1950).
+**Verified:** canary **11**/11; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `in_doagain`. Not canned CMDQ_INT.
+**Blocked:** none.
 ## 2026-08-28 — D-1561 pickup.c stash getobj ALLOWCNT
 
 **Objective:** Open stash getobj ALLOWCNT. Not CMDQ_INT.

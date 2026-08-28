@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `pickup.c` stash getobj ALLOWCNT (named). Not CMDQ_INT. **Addressed:** D-1561
+- [x] `vision.c` `howmonseen` (named). Not worm_known. **Addressed:** D-1562
+
+
+- [x] `pickup.c` stash getobj ALLOWCNT (named). Not CMDQ_INT. **Addressed:** D-1561 `c60475f1`
 
 
 - [x] `wield.c` `finish_splitting` / `unsplitobj` (named). Not CMDQ_INT. **Addressed:** D-1560 `67d0c50c`
