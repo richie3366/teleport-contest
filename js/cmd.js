@@ -12,7 +12,7 @@ import {
     see_nearby_objects,
     clear_nhwindow_message,
     mon_visible, sensemon, glyph_is_invisible, unmap_object, map_object,
-    look_shown_at, Norep,
+    look_shown_at, Norep, tty_doprev_message,
 } from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN, SCORR, LAVAWALL,
@@ -1662,6 +1662,7 @@ function rhack_repeat_command(ch, key) {
     if (key === 4) return dokick;
     if (key === 6) return wiz_map;
     if (key === 7) return wiz_genesis;
+    if (key === 16) return doprev_message; // C('p')
     if (key === 20) return dotelecmd;
     if (key === 22) return wiz_level_tele;
     if (key === 23) return wiz_wish;
@@ -1740,6 +1741,7 @@ function rhack_repeat_txt(ch, key) {
     if (key === 4) return 'kick';
     if (key === 6) return 'wizmap';
     if (key === 7) return 'wizgenesis';
+    if (key === 16) return 'prevmsg';
     if (key === 20) return 'teleport';
     if (key === 22) return 'wizlevelport';
     if (key === 23) return 'wizwish';
@@ -1786,6 +1788,16 @@ export async function do_repeat() {
         if (game.context?.move) res = ECMD_TIME;
     }
     return res;
+}
+
+/**
+ * C cmd.c doprev_message `:163–168` — #prevmsg / ^P.
+ * Windowproc is tty_doprev_message (D-1601). ECMD_OK, no turn.
+ * @returns {Promise<number>}
+ */
+export async function doprev_message() {
+    await tty_doprev_message();
+    return ECMD_OK;
 }
 
 // C ref: cmd.c rhack — main command dispatcher
@@ -2310,6 +2322,10 @@ export async function rhack(key) {
     } else if (ch === '\\') {
         // C ref: o_init.c dodiscovered
         await dodiscovered();
+        game.context.move = 0;
+    } else if (key === 16) { // ^P — C('p') doprev_message
+        // C ref: cmd.c doprev_message / topl.c tty_doprev_message (D-1601)
+        await doprev_message();
         game.context.move = 0;
     } else if (key === 20) { // ^T — C('t') dotelecmd
         // C ref: teleport.c dotelecmd / cmd.c teleport

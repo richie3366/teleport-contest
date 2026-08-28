@@ -178,6 +178,17 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c "prevmsg" IFBURIED|GENERALCMD (no AUTOCOMPLETE) →
+        // doprev_message → tty_doprev_message (D-1601). Key C('p').
+        name: 'prevmsg',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { doprev_message } = await import('./cmd.js');
+            return doprev_message();
+        },
+    },
+    {
         name: 'chat',
         wiz: false,
         autocomplete: true,

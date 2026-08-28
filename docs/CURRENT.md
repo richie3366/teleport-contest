@@ -62,117 +62,32 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1600 (seed4500 still PASS). **Next cluster:**
-Open `topl.c` `tty_doprev_message` (named). Not putmsghistory
-(D-1588). Not perm_invent InvInUse (D-1600).
-**Do not skip D-1531…D-1600 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1601 (seed4500 still PASS). **Next cluster:**
+Open `pickup.c` ggetobj takeoff/identify askchain (named). Not
+traditional_loot (D-1581). Not `tty_doprev_message` (D-1601).
+**Do not skip D-1531…D-1601 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1600.** Do not FORCE
+**Do not re-break D-0660…D-1601.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1600 (index). Recent: **D-1600**
-`invent.c` perm_invent InvInUse (`prepare_perminvent` invmode;
-WIN_INVEN `inuse_only = invmode&InvInUse` / `show_gold`;
-`"In use"` header; `sync_perminvent` `display_inventory(NULL,FALSE)`
-PICK_NONE; default Off still no-op). tty paint / InvSparse /
-`#perminv` named. Prior: **D-1599**
-`invent.c` SORTLOOT_PETRIFY filter override (`touch_petrifies`
-CORPSE past filterfunc) + `will_feel_cockatrice` /
-`feel_cockatrice` + `look_here` skip/single/multi feel + pickup
-`query_objlist` FEEL abort to `look_here(0)`. Prior: **D-1598**
-`has_mcorpsenm` / `newmcorpsenm` / `freemcorpsenm` (`mextra &&
-MCORPSENM != NON_PM`; `seemimic` free; zap long-worm skip+flag;
-`copy_mextra`; display `PM_TENGU`; pager clone retired). Prior:
-**D-1597**
-`light.c` `show_transient_light` / `transient_light_cleanup`
-(camera range 0 + thrown lamplit `mtemplit`; zap `bhit` + apply
-`do_blinding_ray` + minion S_ANGEL). Prior: **D-1596**
-`mplayer.c` `create_mplayers` (`rn1` class + `goodpos` tryct +
-`mk_mplayer`; Astral `goto_level` `rn1(4,3), TRUE`). Prior: **D-1595**
-`dog.c` `tamedog` `initedog` `has_edog` vs `!mtame` (`newedog` +
-`initedog(TRUE)` else `initedog(FALSE)`; MM_EDOG). Prior: **D-1594**
-`mon.c` `normal_shape` await `newcham(..., NC_SHOW_MSG)` (PfSC
-`rescham`/`restore_cham`/zap cancel shapeshift pline before
-`cham=NON_PM`/clay-golem). Prior: **D-1593**
-`dog.c` `tamedog` ustuck expels/unstuck (swallow `expels` else
-`!(Upolyd && sticks)` `unstuck`). Prior: **D-1592**
-`pickup.c` `in_or_out_menu` more_containers `n` (`#loot` Next
-default + multi PICK_ANY). Prior: **D-1591**
-`invent.c` `display_used_invlets` (#adjust `?`/`*` used-letters
-PICK_ONE). Prior: **D-1590**
-`invent.c` wizid unid_cnt>0 PICK_ANY (`_`/^I identify_pack).
-Prior: **D-1589**
-`invent.c` sortloot SORTLOOT_INUSE / display_pickinv inuse_only.
-Prior: **D-1588**
-`invent.c` getobj putmsghistory + `topl.c` `tty_putmsghistory`.
-**D-1587**
-`display.c` `mimic_light_blocking` See_invisible `block_point`/`unblock_point`
-(not `recalc`). **D-1586**
-`mon.c` `newcham` NC_SHOW_MSG `pline_mon`/`usmellmon`/`noname_monnam`.
-**D-1585** `dog.c` `tamedog` FULL_MOON S_DOG `rn2(6)` + catch
-`Tobjnam`/big_corpse. **D-1584** `mplayer.c` `mk_mplayer`.
-**D-1583** `vision.c` `nv_range` circle.
-**D-1582** PREFIXCMD / `cmdq_shift`.
-**D-1581** `pickup.c` traditional_loot + `invent.c` askchain.
-**D-1580** `invent.c` gacc / `'0'` ball class. **D-1579**
-`invent.c` mime_action. **D-1578** force_invmenu `*`/`?` redo.
-**D-1577** `redraw_worm`. **D-1576** region per-cell
-`block_point`/`unblock_point` (seed4500). **D-1575**
-`mk_gen_ok` MAIL + `ndemon` mkclass. **D-1574**
-`unblock_point`. **D-1573** `newcham` cancel. Older
-D-1531…D-1600 live in the index — do not re-paste.
+**Keep:** D-0845…D-1601 (index). Recent: **D-1601**
+`topl.c` `tty_doprev_message` (`redotoplin` NEED_MORE/`more` when
+cury; `'s'`/`'f'`/`'c'`/`'r'`; cmd ^P `#prevmsg`; `msg_window`
+first-char TTY `'s'`). getline/yn `inread` named. Prior: **D-1600**
+perm_invent InvInUse (WIN_INVEN `invmode`; default Off no-op).
+Older D-1531…D-1599 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1600 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1601 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
-No trailing `confdir` in shared `getdir`. throw keeps
-`getdir_cmdassist`. Latebound `body_part` (no wield/pickup →
-polyself). No fourth town gnome. No makemon→hack/`artifact`/
-`minion` (use `hellish`). Do not delete emin. `#altdip` stays
-INTERNALCMD. No dog→mklev `somexy`. Do not zero `cspfx` on
-W_ART. Do not stub `make_happy_shk` pacify-only. No
-bones→options fruitadd. No ghostfruit `current_fruit`. Do not
-skip `o->lit` Light source. Do not stub furnsyms 0..5
-(D-1543). `namefloorobj` D-1555; mhidden D-1554. No static
-uhitm→pager. Do not skip `detect_wsegs` show_glyph or compare
-`data === mons()`. Do not skip `worm_known` (D-1548) or trap
-`monkilled` (D-1550). cutworm is D-1570. xray IN_SIGHT is D-1571.
-Hatch timeout is D-1572. `newcham` cancel is D-1573.
-`unblock_point` is D-1574. `ndemon` mkclass is D-1575.
-Region per-cell block is D-1576. `redraw_worm` is D-1577.
-force_invmenu redo is D-1578. mime_action is D-1579.
-gacc / `'0'` ball is D-1580. traditional_loot is D-1581.
-PREFIXCMD / `cmdq_shift` is D-1582. `nv_range` circle is D-1583.
-`mk_mplayer` is D-1584. FULL_MOON S_DOG is D-1585.
-`newcham` NC_SHOW_MSG is D-1586.
-`mimic_light_blocking` is D-1587.
-putmsghistory is D-1588.
-sortloot inuse_only is D-1589.
-wizid unid_cnt>0 PICK_ANY is D-1590.
-`display_used_invlets` is D-1591.
-more_containers `n` is D-1592.
-ustuck expels/unstuck is D-1593.
-`normal_shape` await NC_SHOW_MSG is D-1594.
-`initedog` has_edog vs `!mtame` is D-1595.
-`create_mplayers` is D-1596. `howmonseen` is D-1562. Do not
-skip `tamedog` `wake_nearto`. show_transient_light is D-1597.
-has_mcorpsenm is D-1598.
-SORTLOOT_PETRIFY is D-1599.
-perm_invent InvInUse is D-1600.
-Remembered otyp does not beat a displayed mon glyph (D-1547).
-Do not skip canned CMDQ_INT (D-1551), Eyes `is_plural`
-(D-1552), splev amask (D-1553), DELPHI (D-1556), `block_point`
-(D-1557; not `recalc`), SEARCH/REGEN/XRAY (D-1558), pickinv
-`&ctmp` (D-1559), `finish_splitting` (D-1560), stash ALLOWCNT
-(D-1561), `do_repeat` CQ_REPEAT (D-1563), Protection/`made_fruit`/Plan-B
-(D-1564). `place_monster` 2D is D-1565. `rndmonst_adj` rogue/elem
-is D-1566. `'r'` reversed is D-1567. Eat/read/zap/tin
-NOFLAGS is D-1568. Pickinv hands/xtra is D-1569.
-Do not rewrite `confer_oc_oprop`.
+No trailing `confdir` in shared `getdir`. Latebound `body_part`.
+No fourth town gnome. No makemon→hack/`artifact`/`minion`.
+Do not delete emin. `#altdip` stays INTERNALCMD. No
+bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

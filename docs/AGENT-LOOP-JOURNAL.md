@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1601 topl.c tty_doprev_message
+
+**Objective:** Open `topl.c` `tty_doprev_message` (named). Not
+putmsghistory.
+**C locus:** `topl.c` `tty_doprev_message` `:19–119`;
+`redotoplin` `:121–141`; `cmd.c` `doprev_message` `:163–168`;
+`options.c` TTY `'s'` + `optfn_msg_window`.
+**JS locus:** named omit after D-1588 (ring live; ^P unknown).
+**Change:** live single/full/combo/reversed walk + cmd ^P /
+`#prevmsg`. getline/yn `inread` named. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **23**/23; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open ggetobj takeoff. Not `tty_doprev_message`.
+**Blocked:** none.
 ## 2026-08-28 — D-1600 invent.c perm_invent InvInUse
 
 **Objective:** Open `invent.c` perm_invent InvInUse (named). Not

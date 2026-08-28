@@ -1,3 +1,34 @@
+## D-1601 — topl.c tty_doprev_message / redotoplin
+
+- **Status:** fixed (map-driven Open from D-1600; not a public FAIL)
+- **Symptom:** `tty_doprev_message` was a named omit after D-1588
+  (`putmsghistory`/`remember_topl` live; WIN_MESSAGE ^P still
+  unknown). JS had no `redotoplin` / prev-message walk, so `#prevmsg`
+  / Ctrl-P was `Unknown command '^P'`.
+- **C locus:** `topl.c` `tty_doprev_message` `:19–119` four
+  `iflags.prevmsg_window` arms (`'s'` single `redotoplin` +
+  `dismiss_more=C('p')`; `'f'` full NHW_MENU; `'c'` first two singles
+  then full; else reversed LIFO). Callee `redotoplin` `:121–141`
+  NEED_MORE + `more()` iff `cury && otoplin != SPECIAL_PROMPT`.
+  `cmd.c` `doprev_message` `:163–168` `nh_doprev_message`.
+  `options.c` `initoptions_init` TTY `'s'` + `optfn_msg_window`
+  `lowc(*op)`. Callers getline.c / yn `inread=0` dance named.
+- **JS was:** named omit; ring live for put/get; ^P fell through
+  rhack unknown.
+- **Fix:** live `tty_doprev_message` + `redotoplin`; cmd ^P /
+  `#prevmsg` / REPEAT; `msg_window` first-char + TTY default `'s'`.
+  getline/yn `inread` / restore_msghistory / get_count historicmsg
+  named. Rule #2: no fs.
+- **JS:** `js/display.js`; `js/cmd.js`; `js/getline.js`;
+  `js/options.js`; `js/jsmain.js`.
+- **Not this iter:** getline.c ^P; `tty_yn_function` ^P;
+  `restore_msghistory`; get_count historicmsg; mixed `/` glyph
+  redotoplin. putmsghistory is D-1588. perm_invent InvInUse is
+  D-1600.
+- **Verified:** private canary **23**/23; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1600 — invent.c perm_invent InvInUse / prepare_perminvent
 
 - **Status:** fixed (map-driven Open from D-1599; not a public FAIL)

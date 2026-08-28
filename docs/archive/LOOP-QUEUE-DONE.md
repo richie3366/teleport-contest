@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` perm_invent InvInUse (named). Not inuse_only. **Addressed:** D-1600
+- [x] `topl.c` `tty_doprev_message` (named). Not putmsghistory. **Addressed:** D-1601
+
+
+- [x] `invent.c` perm_invent InvInUse (named). Not inuse_only. **Addressed:** D-1600 `fb87326a`
 
 
 - [x] `invent.c` SORTLOOT_PETRIFY (named). Not inuse_only. **Addressed:** D-1599 `95ad0f11`

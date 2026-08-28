@@ -1278,8 +1278,13 @@ export function obj_glyph(obj) {
 const TOPLINE_EMPTY = 0;
 const TOPLINE_NEED_MORE = 1;
 const TOPLINE_NON_EMPTY = 2;
+const TOPLINE_SPECIAL_PROMPT = 3;
+// C global.h C(c) — Ctrl-P for #prevmsg / dismiss_more
+const CTRL_P = 0x10;
 let _toplines = '';
 let _toplin = TOPLINE_EMPTY;
+// C wintty.h ttyDisplay->inread — getline/yn set this; command ^P is 0.
+let _tty_inread = 0;
 let _win_stop = false;
 // C ref: wintty.h WIN_NOSTOP — urgent message; one-shot, blocks WIN_STOP
 let _win_nostop = false;
@@ -1292,8 +1297,8 @@ let _morc = 0;
 
 // C ref: wintty.c tty_create_nhwindow NHW_MESSAGE — circular ^P ring
 // (iflags.msg_history, min 20, max MAX_MSG_HISTORY). maxrow is the write
-// index; rows stays at the ring size. save.c getmsghistory walk /
-// restore.c restore_msghistory / tty_doprev_message still named.
+// index; rows stays at the ring size. tty_doprev_message is D-1601.
+// restore.c restore_msghistory / getline.c ^P / yn ^P still named.
 const MSG_HISTORY_MIN = 20;
 let _msg_cw = null;
 // C topl.c snapshot_mesgs — shared by tty_getmsghistory / tty_putmsghistory
@@ -1452,6 +1457,148 @@ export function putmsghistory(msg, restoring_msghist) {
     }
 }
 
+/**
+ * C options.c initoptions_init TTY default `'s'`; optfn_msg_window
+ * stores `lowc(*op)` (`s`/`c`/`f`/`r`). Whole words from older parses
+ * still match on the first character.
+ * @returns {'s'|'c'|'f'|'r'}
+ */
+function prevmsg_window_mode() {
+    const raw = game.iflags?.prevmsg_window;
+    if (raw == null || raw === '') return 's';
+    const c = String(raw).charAt(0).toLowerCase();
+    if (c === 's' || c === 'c' || c === 'f' || c === 'r') return c;
+    return 's';
+}
+
+/**
+ * C topl.c tty_doprev_message maxcol walk after each single-step show.
+ * @param {{ maxcol: number, maxrow: number, rows: number, data: (string|null)[] }} cw
+ */
+function prevmsg_step_maxcol(cw) {
+    cw.maxcol--;
+    if (cw.maxcol < 0) cw.maxcol = cw.rows - 1;
+    if (!cw.data[cw.maxcol]) cw.maxcol = cw.maxrow;
+}
+
+/**
+ * C topl.c tty_doprev_message `'f'` / combination-full putstr walk.
+ * @param {{ maxcol: number, maxrow: number, rows: number, data: (string|null)[] }} cw
+ * @returns {string[]}
+ */
+function prevmsg_full_menu_lines(cw) {
+    const lines = ['Message History', ''];
+    cw.maxcol = cw.maxrow;
+    let i = cw.maxcol;
+    do {
+        const mesg = cw.data[i];
+        if (mesg && mesg !== '') lines.push(mesg);
+        i = (i + 1) % cw.rows;
+    } while (i !== cw.maxcol);
+    lines.push(_toplines);
+    return lines;
+}
+
+/**
+ * C topl.c tty_doprev_message reversed (`else`) LIFO putstr walk.
+ * @param {{ maxcol: number, maxrow: number, rows: number, data: (string|null)[] }} cw
+ * @returns {string[]}
+ */
+function prevmsg_reversed_menu_lines(cw) {
+    const lines = ['Message History', '', _toplines];
+    cw.maxcol = cw.maxrow - 1;
+    if (cw.maxcol < 0) cw.maxcol = cw.rows - 1;
+    do {
+        lines.push(cw.data[cw.maxcol] || '');
+        cw.maxcol--;
+        if (cw.maxcol < 0) cw.maxcol = cw.rows - 1;
+        if (!cw.data[cw.maxcol]) cw.maxcol = cw.maxrow;
+    } while (cw.maxcol !== cw.maxrow);
+    return lines;
+}
+
+/**
+ * C topl.c redotoplin `:121–141`. home/putsyms/cl_end; NEED_MORE;
+ * more() only when cury && otoplin != SPECIAL_PROMPT. Mixed `/` glyph
+ * and topl_utf8 named. more() must not drop gt.toplines (C more does
+ * not clear it; JS more() does — restore for the ^P loop).
+ * @param {string|null|undefined} str
+ */
+async function redotoplin(str) {
+    const otoplin = _toplin;
+    const text = str == null ? '' : String(str);
+    _toplines = text;
+    game._pending_message = text;
+    _toplin = TOPLINE_NEED_MORE;
+    const CO = game?.nhDisplay?.cols || 80;
+    // C putsyms: wrap at CO-1 → cury>0; update_topl already stores `\n`.
+    const cury = text.includes('\n') || text.length >= CO ? 1 : 0;
+    if (_delay_flushing) _paintToplineOnly();
+    else _buildScreenOutput();
+    if (cury && otoplin !== TOPLINE_SPECIAL_PROMPT) {
+        const saved = _toplines;
+        await more();
+        _toplines = saved;
+    }
+}
+
+/**
+ * C topl.c tty_doprev_message `:19–119`. WIN_MESSAGE ring + gt.toplines.
+ * `'s'` single (TTY default): redotoplin current then older, ^P at
+ * --More-- continues. `'f'` full / `'r'` reversed: NHW_MENU text.
+ * `'c'` combination: first two as singles, then full. inread skips
+ * f/c/r (getline.c zeros it around the call — named). Returns 0.
+ * @returns {Promise<number>}
+ */
+export async function tty_doprev_message() {
+    const cw = ensure_message_win();
+    const mode = prevmsg_window_mode();
+    const inread = _tty_inread | 0;
+
+    if (mode !== 's' && !inread) {
+        if (mode === 'f') {
+            const { show_nhw_menu_text } = await import('./pager.js');
+            await show_nhw_menu_text(prevmsg_full_menu_lines(cw));
+        } else if (mode === 'c') {
+            do {
+                _morc = 0;
+                if (cw.maxcol === cw.maxrow) {
+                    _dismiss_more = CTRL_P;
+                    await redotoplin(_toplines);
+                    prevmsg_step_maxcol(cw);
+                } else if (cw.maxcol === (cw.maxrow - 1)) {
+                    _dismiss_more = CTRL_P;
+                    await redotoplin(cw.data[cw.maxcol]);
+                    prevmsg_step_maxcol(cw);
+                } else {
+                    const { show_nhw_menu_text } = await import('./pager.js');
+                    await show_nhw_menu_text(prevmsg_full_menu_lines(cw));
+                }
+            } while (_morc === CTRL_P);
+            _dismiss_more = 0;
+        } else {
+            _morc = 0;
+            const { show_nhw_menu_text } = await import('./pager.js');
+            await show_nhw_menu_text(prevmsg_reversed_menu_lines(cw));
+            cw.maxcol = cw.maxrow;
+            _dismiss_more = 0;
+        }
+    } else if (mode === 's') {
+        _dismiss_more = CTRL_P;
+        do {
+            _morc = 0;
+            if (cw.maxcol === cw.maxrow) {
+                await redotoplin(_toplines);
+            } else if (cw.data[cw.maxcol]) {
+                await redotoplin(cw.data[cw.maxcol]);
+            }
+            prevmsg_step_maxcol(cw);
+        } while (_morc === CTRL_P);
+        _dismiss_more = 0;
+    }
+    return 0;
+}
+
 /** Reset module topline/delay state for a fresh runSegment (not in C game
  *  object; must not leak NEED_MORE across harness sessions). */
 export function reset_display_messages() {
@@ -1465,6 +1612,7 @@ export function reset_display_messages() {
     _prevmsg = '';
     _dismiss_more = 0;
     _morc = 0;
+    _tty_inread = 0;
     _msg_cw = null;
     _snapshot_mesgs = null;
     _putmsghistory_initd = false;

@@ -463,7 +463,15 @@ export function parseNethackrc(rc) {
                 }
                 else if (key === 'symset') result.symset = val;
                 else if (key === 'suppress_alert') result.flags.suppress_alert = val;
-                else if (key === 'msg_window') result.iflags.prevmsg_window = val;
+                else if (key === 'msg_window') {
+                    // C optfn_msg_window: lowc(*op) → s/c/f/r; negated
+                    // with a value is bad_negation.
+                    if (negated) continue;
+                    const tmp = val.charAt(0).toLowerCase();
+                    if (tmp === 's' || tmp === 'c' || tmp === 'f' || tmp === 'r') {
+                        result.iflags.prevmsg_window = tmp;
+                    }
+                }
                 else if (key === 'disclose') {
                     result.flags.end_disclose = parseDiscloseOption(val, negated);
                 }
@@ -513,6 +521,10 @@ export function parseNethackrc(rc) {
                 else if (lname === 'verbose') result.flags.verbose = value;
                 // C: OPTIONS=DECgraphics loads Primary DEC showsyms (same as symset:)
                 else if (lname === 'decgraphics') result.flags.decgraphics = value;
+                else if (lname === 'msg_window') {
+                    // C optfn_msg_window empty_optstr: negated → 's', else 'f'
+                    result.iflags.prevmsg_window = negated ? 's' : 'f';
+                }
                 else if (lname === 'accessiblemsg') {
                     parse_a11y_accessiblemsg(result, value);
                 }

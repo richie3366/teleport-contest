@@ -5,30 +5,30 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1600 (`perm_invent` InvInUse live). seed4500
+- **Suite 44/44** after D-1601 (`tty_doprev_message` live). seed4500
   still PASS.
-  **Hypothesis:** Open `topl.c` `tty_doprev_message` (named).
-  Not putmsghistory (D-1588). WIN_MESSAGE ^P prev-message still
-  named after D-1588.
-  **Falsify:** port C `tty_doprev_message` so ^P / prev-message
-  walks the remembered topline ring like `remember_topl` /
-  `getmsghistory`, then a canary that a second stored line is
-  shown on the next prev-message.
-  **Next:** Open `tty_doprev_message`. Not ggetobj takeoff.
-  Do not skip D-1531…D-1600. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `pickup.c` ggetobj takeoff/identify askchain
+  (named). Not traditional_loot (D-1581). Not `tty_doprev_message`
+  (D-1601).
+  **Falsify:** port C `ggetobj` takeoff/identify `askchain` so those
+  verbs walk the pack like traditional_loot, then a canary that
+  takeoff/identify use askchain not only the menu path.
+  **Next:** Open ggetobj takeoff. Not `#seeall`.
+  Do not skip D-1531…D-1601. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   `m_unleash` / break-armor / Elbereth; clone auto-open yn;
   ggetobj takeoff; floor `query_classes`; `mplayer_talk`;
   potion/timeout/polyself `set_mimic_blocking`;
-  `tty_doprev_message` / restore_msghistory;
+  getline/yn ^P `inread`; restore_msghistory;
   `#seeall` EXT_CMDS; getlev `restore_cham`; wiz_intrinsic
   `rescham`; livelog first pet; initedog ogoal `-1`;
   `gain_guardian_angel`; mplayer-sword spe; object_detect
   cursed-mimic; `altarmask_at`; worn `clear_bypasses`; worm tails
   on show_transient_light; eat.c / doloot / pray feel_cockatrice;
   engulfer stomach minvent feel; tty WIN_INVEN paint / InvSparse /
-  `#perminv` scroll; `consume_obj_charge` `update_inventory`.
+  `#perminv` scroll; `consume_obj_charge` `update_inventory`;
+  get_count historicmsg.
 
 ## Don't re-check (≤15)
 
@@ -37,7 +37,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1600.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1601.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -48,9 +48,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1600 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1601 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1600. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1601. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -61,19 +61,24 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` bodies or global `recalc` as
-  `vision_reset`. D-1576…D-1600 live in the index (gacc D-1580;
+  `vision_reset`. D-1576…D-1601 live in the index (gacc D-1580;
   inuse_only D-1589; wizid PICK_ANY D-1590; used-invlets D-1591;
   more_containers `n` D-1592; ustuck expels D-1593;
   `normal_shape` await D-1594; has_edog D-1595;
   create_mplayers D-1596; show_transient_light D-1597;
   has_mcorpsenm D-1598; SORTLOOT_PETRIFY D-1599;
-  perm_invent InvInUse D-1600).
-  Do not glue `tty_doprev_message` / ggetobj takeoff /
-  `m_unleash`. Do not add
-  `ing_suffix` clone #3 or `Tobjnam` #8 or `upstart` #9.
+  perm_invent InvInUse D-1600; `tty_doprev_message` D-1601).
+  Do not glue ggetobj takeoff / `m_unleash` / getline ^P.
+  Do not add `ing_suffix` clone #3 or `Tobjnam` #8 or `upstart` #9.
 
 ## Landmarks (≤15)
 
+- D-1601: `tty_doprev_message` walks WIN_MESSAGE + `gt.toplines`
+  (`redotoplin` NEED_MORE / `more` iff cury; `'s'` single
+  `C('p')` dismiss_more; `'f'`/`'c'`/`'r'` NHW_MENU). cmd ^P /
+  `#prevmsg`. `msg_window` first-char; TTY default `'s'`.
+  getline/yn `inread` / restore_msghistory named. putmsghistory
+  is D-1588.
 - D-1600: perm_invent InvInUse is WIN_INVEN invmode
   (`prepare_perminvent` copies `perminv_mode`; `inuse_only =
   invmode&InvInUse`; header `"In use"`; default Off still no-op).
@@ -119,8 +124,6 @@ Objective/score live in `CURRENT.md`.
 - D-1589: SORTLOOT_INUSE `inuse_classify` + `is_inuse` / fake HANDS
   / inuse_headers; `dispinv` `sortloot='i'`; `doprinuse` `*`.
 - D-1588: getobj `putmsghistory(qbuf,FALSE)` + `tty_putmsghistory`
-  NEED_MORE→NON_EMPTY. `tty_doprev_message` named.
+  NEED_MORE→NON_EMPTY. `tty_doprev_message` is D-1601.
 - D-1587: `mimic_light_blocking` See_invisible block/unblock (not
   `recalc`). potion/timeout/polyself named.
-- D-1586: `newcham` NC_SHOW_MSG `pline_mon` + `usmellmon`.
-  `m_unleash` named. Protection cancel is D-1573.

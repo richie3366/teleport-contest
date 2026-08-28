@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `topl.c` `tty_doprev_message` (named). Not putmsghistory.
 - [ ] `pickup.c` ggetobj takeoff/identify askchain (named). Not traditional_loot.
 - [ ] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse.
 - [ ] `mplayer.c` `mplayer_talk` (named). Not create_mplayers.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `minion.c` `gain_guardian_angel` (named). Not create_mplayers.
 - [ ] `mon.c` `m_unleash` (named). Not newcham.
 - [ ] `dog.c` `initedog` ogoal `-1` (named). Not has_edog.
+- [ ] `getline.c` getlin ^P `tty_doprev_message` (named). Not command ^P.
+- [ ] `topl.c` `tty_yn_function` ^P (named). Not command ^P.
+- [ ] `cmd.c` `get_count` historicmsg (named). Not putmsghistory.
+- [ ] `restore.c` `restore_msghistory` (named). Not putmsghistory.
+- [ ] `apply.c` `consume_obj_charge` `update_inventory` (named). Not perm_invent InvInUse.
 
 ## Parked (do not pop)
 

@@ -1588,7 +1588,8 @@ livelog addbranch); **insight ^X endgame dungeon via shared `endgamelevelname`**
 **`bot` skip when `u.uhp==-1`** (D-0310); **`pline`→`flush`→`bot`; `more` paints cache only; 
 `cls` `botlx`; spell `uen` `botl`** (D-0314); omit livelog file write; 
 full `update_topl` NON_EMPTY cury/docorner; backspace-across-wrap / EDIT_GETLIN; 
-**putmsghistory D-1588** (`topl.c` `tty_putmsghistory` + `remember_topl`/`msghistory_snapshot`/`dumplogmsg`; getobj force_invmenu qbuf); `tty_doprev_message` / restore.c `restore_msghistory` / cmd.c get_count historicmsg / files.c tribute / questpgr synopsis named; 
+**putmsghistory D-1588** (`topl.c` `tty_putmsghistory` + `remember_topl`/`msghistory_snapshot`/`dumplogmsg`; getobj force_invmenu qbuf); 
+**tty_doprev_message D-1601** (`topl.c` `:19–119` + `redotoplin` `:121–141`; TTY `'s'` single ring walk / `'f'` full / `'c'` combo / `'r'` reversed NHW_MENU; `cmd.c` `doprev_message` ^P/`#prevmsg`; `options.c` `msg_window` first-char); getline.c ^P / yn ^P `inread` / restore.c `restore_msghistory` / cmd.c get_count historicmsg / files.c tribute / questpgr synopsis named; 
 full message/window policy incomplete; `%-2d` pad; Upolyd mh botl; 
 **`timebot` via `flags.time_botl` on `moves++`** (D-0928 #1179; tty→`bot()`; 
 VIA_WINDOWPORT `stat_update_time` / `bot_disabled` / `suppress_map_output` deferred)
