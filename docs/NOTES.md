@@ -7,15 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1950** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `36+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open `cmd.c` getobj CQ_REPEAT / `in_doagain` is
-  still named (`howmonseen` is D-1562). Not canned CMDQ_INT.
-  **Falsify:** `node scripts/csym.mjs in_doagain` vs `js/invent.js`
-  / `js/cmd.js` getobj.
-  **Next:** Open `in_doagain`. Not cutworm. Not `'r'` reversed.
-  Do not skip D-1531…D-1562. No FORCE / `wildmiss` wrap /
+  **Hypothesis:** Open `makemon.c` `set_mimic_sym`
+  Protection_from_shape_changers early-out is still named
+  (`do_repeat` / getobj CQ_REPEAT is D-1563). Not DELPHI. Not
+  block_point.
+  **Falsify:** `node scripts/csym.mjs set_mimic_sym` vs
+  `js/makemon.js` Protection_from_shape_changers.
+  **Next:** Open Protection. Not `made_fruit`. Not Plan-B.
+  Do not skip D-1531…D-1563. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
 - Named still: cutworm; Protection; `made_fruit`; Plan-B;
-  Palantir `#if 0`; `'r'` reversed; `in_doagain`; eat/read/zap/tin
+  Palantir `#if 0`; `'r'` reversed; eat/read/zap/tin
   NOFLAGS; pickinv hands/xtra; `mk_mplayer`; FULL_MOON S_DOG /
   ustuck / `redraw_worm`; other mcast; sit/pray `eyecount`; muse
   loot; escape cat HP; other INTERNALCMD; defn/cary resist;
@@ -23,7 +25,8 @@ Objective/score live in `CURRENT.md`.
   age; Ice/Boulder fills; `rndmonst_adj`; `place_monster` 2D;
   map_monst head glyphs; `unblock_point`/`dig_point`;
   `vision_recalc` xray IN_SIGHT; `Shk_Your`; dothrow/apply
-  unsplitobj callers.
+  unsplitobj callers; PREFIXCMD / movement / doextcmd
+  `cmdq_shift` REPEAT.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1562.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1563.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +46,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1562 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1563 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1562. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1563. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -60,11 +63,15 @@ Objective/score live in `CURRENT.md`.
   mhidden D-1554. Do not skip SEARCH/REGEN/XRAY (D-1558) or leave
   Eyes `setworn` without it. Do not skip pickinv `&ctmp`
   (D-1559) or `finish_splitting` (D-1560) or stash getobj
-  (D-1561) or `howmonseen` (D-1562). Do not glue cutworm /
-  `'r'` reversed / `in_doagain`.
+  (D-1561) or `howmonseen` (D-1562) or `do_repeat` (D-1563). Do not glue cutworm /
+  `'r'` reversed.
 
 ## Landmarks (≤15)
 
+- D-1563: `do_repeat` / getobj CQ_REPEAT. `!in_doagain` INT+KEY
+  record; `cmdq_pop` REPEAT; Ctrl-A / `#repeat` copy-restore.
+  PREFIXCMD / movement / doextcmd `cmdq_shift` / eat/read/zap/tin
+  NOFLAGS named. howmonseen is D-1562. canned INT is D-1551.
 - D-1562: `howmonseen` bitmask. NORMAL `cansee&&couldsee` or
   `worm_known`; SEEINVIS/INFRAVIS/TELEPAT/XRAYVIS/DETECT/WARNMON.
   use_mirror SEENMON vs INFRAVIS-only; look `[seen:]` (look_all
@@ -101,9 +108,8 @@ Objective/score live in `CURRENT.md`.
 - D-1552: Eyes `is_plural` + `undiscovered_artifact`. `otense` /
   `obj_is_pname` / `discover_artifact`.
 - D-1551: canned CMDQ_INT then KEY + `split_otmp`. eat/read/zap
-  / tin NOFLAGS / `in_doagain` REPEAT record named.
+  / tin NOFLAGS named. `in_doagain` REPEAT is D-1563.
 - D-1550: trap `monkilled` `wormno ? worm_known : cansee(head)`
   (**509**). `howmonseen` is D-1562.
-- D-1549: `map_monst` long-worm via `mndx`/`mnum` not `mons()`.
 - D-1548: `worm_known` any wseg `cansee`; `_canseemon` skips
   infrared when `wormno`.

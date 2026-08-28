@@ -132,7 +132,10 @@ legacy `_repeat_search` path unused when occupation set);
 **`g`/`G` PREFIXCMD `do_rush`/`do_run` run=2/3 + following walk first-step keeps run (D-1186; 
 nested F+g/G / rhack inner `parse` / full CMD_gGF table still named)**; 
 **rhack Unknown command `visctrl(key)` (D-1189; Ctrl-C is `^C`; 
-`custompline(SUPPRESS_HISTORY)` / `cmdq_clear` CQ_REPEAT / `sanity_no_check` still named)**; 
+**`do_repeat` CQ_REPEAT D-1563** (C `cmd.c` `:1637–1660` copy/`in_doagain`/`rhack(0)` restore; 
+getobj `:2049–2054` INT+KEY; `cmdq_pop` REPEAT when `in_doagain`; Ctrl-A / `#repeat`; 
+PREFIXCMD / movement `do_move_*` / doextcmd `cmdq_shift` named); 
+`custompline(SUPPRESS_HISTORY)` / `sanity_no_check` still named)**; 
 **`lookaround` `mon_visible` gate** (D-0705; Blind/traps/mention_walls deferred); 
 **`#lookaround`/`dolookaround`** (D-1217; 
 C `cmd.c:1261–1368` floodfill/seen/`lookaround_known_room` + 
@@ -1619,7 +1622,7 @@ MENU_PREV/FIRST/LAST + other NHW_MENU callers still single-page);
 multi/`dispinv`/`doprinuse`/`*`, uskin noarmor deferred); 
 **`doattributes` Background `In_endgame`/`endgamelevelname` + moves==1 just-started + 
 wizard XP delta** (D-0572; `MAGICENLIGHTENMENT` Attributes for wizard ^X + status `<%d>` + 
-Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; **canned CMDQ_INT D-1551** (`need_more_cq` INT then KEY + split_otmp; apply/grease/jelly/rub KEY; eat/read/zap/tin NOFLAGS); **`display_pickinv` `&ctmp` D-1559** (PICK_ONE digits / n==1 `-1`; ALLOWCNT throw/drop/wield/ready/charge/adjust; **stash D-1561**; hands/xtra_choice / force_invmenu `*`/`?` redo / gacc named); `in_doagain` REPEAT record named; `display_used_invlets`/wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
+Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; **canned CMDQ_INT D-1551** (`need_more_cq` INT then KEY + split_otmp; apply/grease/jelly/rub KEY; eat/read/zap/tin NOFLAGS); **`display_pickinv` `&ctmp` D-1559** (PICK_ONE digits / n==1 `-1`; ALLOWCNT throw/drop/wield/ready/charge/adjust; **stash D-1561**; hands/xtra_choice / force_invmenu `*`/`?` redo / gacc named); **`in_doagain` CQ_REPEAT D-1563** (getobj INT+KEY record; `do_repeat`; eat/read/zap/tin NOFLAGS clones named); `display_used_invlets`/wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
 compactify on other getobj verbs; full magic enlightenment deferred; 
 **`display_pickinv_reply` n==1 + lets → `message_menu` PICK_ONE** (D-0422; 
 force_invmenu/menu_requested/wizid/hands deferred)

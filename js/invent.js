@@ -3862,15 +3862,52 @@ export function getobj_split_otmp(otmp, cntgiven, cnt) {
 }
 
 /**
- * C cmd.c cmdq_add_int. CQ_REPEAT is `game._cmdq_repeat` (in_doagain
- * named). Interactive getobj REPEAT record named.
+ * C cmd.c command_queue[CQ_*] — JS arrays on game.
+ * @param {number} q
+ */
+function cmdq_qname(q) {
+    return (q | 0) === CQ_REPEAT ? '_cmdq_repeat' : '_cmdq_canned';
+}
+
+/**
+ * C cmd.c cmdq_add_int. Interactive getobj REPEAT record is
+ * getobj_record_repeat (D-1563).
  * @param {number} q CQ_CANNED or CQ_REPEAT
  * @param {number} val
  */
 export function cmdq_add_int(q, val) {
-    const name = (q | 0) === CQ_REPEAT ? '_cmdq_repeat' : '_cmdq_canned';
+    const name = cmdq_qname(q);
     if (!game[name]) game[name] = [];
     game[name].push({ typ: CMDQ_INT, intval: val | 0 });
+}
+
+/**
+ * C cmd.c cmdq_add_key. Apply/dig/iactions keep canned clones (do not
+ * write a fourth canned-only clone).
+ * @param {number} q CQ_CANNED or CQ_REPEAT
+ * @param {string|number} key invlet or char code
+ */
+export function cmdq_add_key(q, key) {
+    const name = cmdq_qname(q);
+    if (!game[name]) game[name] = [];
+    const k = typeof key === 'string' ? key : String.fromCharCode(key | 0);
+    game[name].push({ typ: CMDQ_KEY, key: k });
+}
+
+/**
+ * C invent.c getobj `:2049–2054`. Record count+letter on CQ_REPEAT when
+ * not in_doagain. Hands '-' returns before this in C.
+ * @param {object|null} otmp
+ * @param {string} [ilet]
+ * @param {boolean} [cntgiven=false]
+ * @param {number} [cnt=0]
+ */
+export function getobj_record_repeat(otmp, ilet, cntgiven = false, cnt = 0) {
+    if (!otmp || game.in_doagain) return;
+    const rec = ilet != null && ilet !== '' ? ilet : otmp.invlet;
+    if (rec == null || rec === '') return;
+    if (cntgiven && cnt > 0) cmdq_add_int(CQ_REPEAT, cnt);
+    cmdq_add_key(CQ_REPEAT, rec);
 }
 
 /** C cmd.c cmdq_pop — in_doagain uses CQ_REPEAT, else CQ_CANNED. */
@@ -3901,7 +3938,7 @@ function getobj_cmdq_rank_ok(v) {
  * C's `need_more_cq` boolean is never set TRUE, so INT without a
  * following KEY falls through to interactive. USER_INPUT is consumed
  * then interactive. JS function / CMDQ_EXTCMD heads are rhack's — do
- * not pop them here. in_doagain REPEAT record named.
+ * not pop them here. in_doagain pops CQ_REPEAT (D-1563).
  * @param {(obj: object|null) => number} obj_ok
  * @param {boolean} allowcnt
  * @param {object|null} [hands] C `&hands_obj` when '-' is acceptable
@@ -4006,11 +4043,17 @@ export async function getobj_display_pickinv(ch, rawLets, allowcnt, counted) {
 
 /**
  * C invent.c getobj after the letter `:2021–2088` — gold LRS, throw-one,
- * "don't have that many", then split_otmp. CMDQ_REPEAT record /
- * silly_thing named. pickinv `&ctmp` is getobj_display_pickinv (D-1559).
+ * botl, CQ_REPEAT record `:2049–2054`, "don't have that many", then
+ * split_otmp. silly_thing named. pickinv `&ctmp` is getobj_display_pickinv
+ * (D-1559).
+ * @param {object|null} otmp
+ * @param {string} word
+ * @param {boolean} cntgiven
+ * @param {number} cnt
+ * @param {string} [ilet] typed letter (C `ilet`; default `otmp.invlet`)
  * @returns {Promise<null | { retry: true } | object>}
  */
-export async function getobj_apply_count(otmp, word, cntgiven, cnt) {
+export async function getobj_apply_count(otmp, word, cntgiven, cnt, ilet) {
     const coins = !!(otmp && otmp.oclass === COIN_CLASS);
     if (coins && cntgiven && cnt <= 0) {
         if (cnt < 0) {
@@ -4036,10 +4079,15 @@ export async function getobj_apply_count(otmp, word, cntgiven, cnt) {
     }
     if (!game.flags) game.flags = {};
     game.flags.botl = true; // C disp.botl
-    if (!otmp) return { retry: true };
+    getobj_record_repeat(otmp, ilet, cntgiven, cnt);
+    if (!otmp) {
+        if (game.in_doagain) return null;
+        return { retry: true };
+    }
     const quan = otmp.quan || 1;
     if (cnt < 0 || quan < cnt) {
         await pline(`You don't have that many!  You have only ${quan}.`);
+        if (game.in_doagain) return null;
         return { retry: true };
     }
     return getobj_split_otmp(otmp, cntgiven, cnt);

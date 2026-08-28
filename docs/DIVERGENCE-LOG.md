@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1563 — cmd.c do_repeat / getobj CQ_REPEAT in_doagain
+
+- **Status:** fixed (map-driven Open from D-1562; not a public FAIL)
+- **Symptom:** Interactive getobj never recorded CQ_REPEAT. `cmdq_pop`
+  in rhack always used canned. Ctrl-A / `#repeat` was unknown.
+  Named omit after D-1551 (canned INT consumer; C's only
+  `cmdq_add_int` caller is getobj REPEAT). Not CMDQ_INT.
+- **C locus:** `invent.c` `getobj` `:2049–2054` (`!in_doagain`
+  `cmdq_add_int`/`cmdq_add_key` CQ_REPEAT). `cmd.c` `do_repeat`
+  `:1637–1660` (copy / `in_doagain` / `rhack(0)` / restore).
+  `cmdq_pop` `:409–420` REPEAT when `in_doagain`. rhack
+  `:3732–3740` records the command. Missing-object / too-many
+  return when `in_doagain`.
+- **JS was:** `getobj_apply_count` skipped the record; rhack
+  `cmdq_pop` canned-only; key 1 unknown.
+- **Fix:** `getobj_record_repeat` + `cmdq_add_key(q,…)`; apply
+  NOFLAGS clones call it; `do_repeat`; rhack records the
+  dispatch fn and pops REPEAT when `in_doagain`; Ctrl-A /
+  `#repeat`. Rule #2: no fs.
+- **JS:** `js/invent.js`; `js/cmd.js`; `js/apply.js`; `js/getline.js`.
+- **Not this iter:** eat/read/zap/tin NOFLAGS clones; PREFIXCMD /
+  movement `do_move_*` REPEAT; doextcmd `cmdq_shift`; getdir /
+  yn_function REPEAT keys; `'r'` reversed. canned CMDQ_INT is
+  D-1551. howmonseen is D-1562.
+- **Verified:** private canary **39**/39 (C/JS grep; record INT+KEY;
+  in_doagain no-record; from_cmdq REPEAT vs canned; empty
+  ECMD_FAIL; stub copy-restore; nested no-op; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `makemon.c` `set_mimic_sym`
+  Protection_from_shape_changers. Not DELPHI. Not block_point.
+
 ## D-1562 — vision.c howmonseen bitmask
 
 - **Status:** fixed (map-driven Open from D-1561; not a public FAIL)

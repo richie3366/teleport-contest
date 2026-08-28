@@ -48,7 +48,7 @@ import {
 import {
     compactify_invlets, makeknown, near_capacity, observe_object, prinv,
     hold_another_object, consume_obj_charge, update_inventory,
-    getobj_from_cmdq,
+    getobj_from_cmdq, getobj_record_repeat,
 } from './invent.js';
 import { rn2, rn1, rnd, d, rnl, shuffle_int_array } from './rng.js';
 import {
@@ -421,6 +421,7 @@ async function getobj_apply() {
                 return null;
             }
             game._pending_message = '';
+            getobj_record_repeat(picked, ilet);
             return picked;
         }
         const otmp = (game.invent || []).find((o) => o.invlet === ch);
@@ -437,6 +438,7 @@ async function getobj_apply() {
         // SUGGEST / DOWNPLAY / EXCLUDE_SELECTABLE → return; doapply default
         // prints "Sorry…" for EXCLUDE_SELECTABLE otyps.
         game._pending_message = '';
+        getobj_record_repeat(otmp, ch);
         return otmp;
     }
 }
@@ -2281,6 +2283,7 @@ async function getobj_grease() {
                 return null;
             }
             game._pending_message = '';
+            getobj_record_repeat(picked, ilet);
             return picked;
         }
         if (ch === '$') {
@@ -2307,6 +2310,7 @@ async function getobj_grease() {
             return null;
         }
         game._pending_message = '';
+        getobj_record_repeat(otmp, ch);
         return otmp;
     }
 }
@@ -2867,6 +2871,9 @@ function any_obj_ok_stone(obj) {
  * for use_stone second-object pick. DOWNPLAY letters accepted; EXCLUDE not.
  */
 async function getobj_rub_on_stone(stonebuf, okfn) {
+    const cq = getobj_from_cmdq(okfn, false);
+    if (!cq.skip) return cq.otmp;
+
     const suggest_lets = () => {
         const lets = [];
         for (const o of game.invent || []) {
@@ -2923,6 +2930,7 @@ async function getobj_rub_on_stone(stonebuf, okfn) {
                 return null;
             }
             game._pending_message = '';
+            getobj_record_repeat(picked, ilet);
             return picked;
         }
         const otmp = (game.invent || []).find((o) => o.invlet === ch);
@@ -2936,6 +2944,7 @@ async function getobj_rub_on_stone(stonebuf, okfn) {
             return null;
         }
         game._pending_message = '';
+        getobj_record_repeat(otmp, ch);
         return otmp;
     }
 }
@@ -3142,6 +3151,7 @@ async function getobj_jelly() {
                 return null;
             }
             game._pending_message = '';
+            getobj_record_repeat(picked, ilet);
             return picked;
         }
         const otmp = (game.invent || []).find((o) => o.invlet === ch);
@@ -3155,6 +3165,7 @@ async function getobj_jelly() {
             return null;
         }
         game._pending_message = '';
+        getobj_record_repeat(otmp, ch);
         return otmp;
     }
 }
@@ -5411,7 +5422,10 @@ async function getobj_rub() {
             continue;
         }
         for (const o of game.invent || []) {
-            if (o.invlet === ch && rub_ok(o) === GETOBJ_SUGGEST) return o;
+            if (o.invlet === ch && rub_ok(o) === GETOBJ_SUGGEST) {
+                getobj_record_repeat(o, ch);
+                return o;
+            }
         }
         await pline(`You don't have that object.`);
     }

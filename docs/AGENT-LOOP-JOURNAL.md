@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1563 cmd.c do_repeat / getobj CQ_REPEAT
+
+**Objective:** Open getobj CQ_REPEAT / `in_doagain`. Not canned CMDQ_INT.
+**C locus:** `invent.c` `getobj` `:2049–2054`; `cmd.c` `do_repeat`
+`:1637–1660`; `cmdq_pop` `:409–420`; rhack `:3732–3740`.
+**JS locus:** `getobj_apply_count` (record named); rhack canned-only
+pop; Ctrl-A unknown.
+**Change:** REPEAT INT+KEY record; `do_repeat`; `cmdq_pop` in_doagain;
+Ctrl-A / `#repeat`. PREFIXCMD / movement / `cmdq_shift` named.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1950).
+**Verified:** canary **39**/39; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open Protection_from_shape_changers. Not DELPHI.
+**Blocked:** none.
 ## 2026-08-28 — D-1562 vision.c howmonseen
 
 **Objective:** Open `howmonseen`. Not worm_known.
