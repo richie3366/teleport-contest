@@ -63,26 +63,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1576 (seed4500 recovered). **Next cluster:**
-Open `invent.c` force_invmenu `*`/`?` redo (named). Not hands/xtra.
+Open `invent.c` mime_action (named). Not force_invmenu.
 Not revert D-1574 `seemimic` / `dig_point` body.
-**Do not skip D-1531…D-1577 (index).** Keep mention_map addr.
+**Do not skip D-1531…D-1578 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1577.** Do not FORCE
+**Do not re-break D-0660…D-1578.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1577 (index). Recent: **D-1577**
-`worm.c` `redraw_worm` (`tamedog` / `abuse_dog`; unlike `see_wsegs`
-includes dummy). Prior: **D-1576** region per-cell
+**Keep:** D-0845…D-1578 (index). Recent: **D-1578**
+`invent.c` force_invmenu `*`/`?` redo (getobj auto `?`/`*`
+oneloop + display_pickinv Special + redo_menu). Prior: **D-1577**
+`worm.c` `redraw_worm`. **D-1576** region per-cell
 `block_point`/`unblock_point` (seed4500). **D-1575**
 `mk_gen_ok` MAIL + `ndemon` mkclass. **D-1574**
 `unblock_point`. **D-1573** `newcham` cancel. Older
-D-1531…D-1576 live in the index — do not re-paste.
+D-1531…D-1577 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-skip D-1229…D-1577 (index). No `reset_glyphmap` /
+skip D-1229…D-1578 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -100,7 +101,7 @@ uhitm→pager. Do not skip `detect_wsegs` show_glyph or compare
 Hatch timeout is D-1572. `newcham` cancel is D-1573.
 `unblock_point` is D-1574. `ndemon` mkclass is D-1575.
 Region per-cell block is D-1576. `redraw_worm` is D-1577.
-Do not glue force_invmenu redo / mime_action / gacc /
+force_invmenu redo is D-1578. Do not glue mime_action / gacc /
 nv_range circle / `mimic_light_blocking`.
 `howmonseen` is D-1562. Do not
 skip `tamedog` `wake_nearto` or glue FULL_MOON S_DOG / ustuck.

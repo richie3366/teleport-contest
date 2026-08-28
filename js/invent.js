@@ -11,6 +11,7 @@
 //        o_init.c dodiscovered / discover_object;
 //        insight.c enlightenment (BASIC ^X + MAGIC-only in-progress D-1116).
 // D-0856: display_pickinv / invent_lines obj_to_glyph Hallu display RNG.
+// D-1578: force_invmenu Special `*`/`?` + getobj redo_menu / oneloop.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -979,6 +980,41 @@ function append_long_digit(L, D) {
 }
 
 /**
+ * C invent.c getobj `:1923–1927` — force_invmenu first letter:
+ * '?' if any SUGGEST lets or altlets, else '*'. Null when the flag
+ * is off (caller uses yn_function). putmsghistory named omit.
+ * @param {string} [lets]
+ * @param {string} [altlets]
+ * @returns {string|null}
+ */
+export function getobj_force_invmenu_ch(lets = '', altlets = '') {
+    if (!game.iflags?.force_invmenu) return null;
+    return (lets || altlets) ? '?' : '*';
+}
+
+/**
+ * C invent.c display_pickinv `:3345–3366` — force_invmenu want_reply
+ * Special accelerator. `lets` empty/null/'*' is C NULL (full invent).
+ * inv length ≡ inv_cnt(TRUE). Null when the row is omitted.
+ * @param {string|null} lets
+ * @param {boolean} allowxtra C allowxtra (getobj allownone)
+ * @param {boolean} usextra C (xtra_choice && allowxtra)
+ * @returns {{ ch: string, text: string }|null}
+ */
+export function force_invmenu_special(lets, allowxtra, usextra) {
+    if (!game.iflags?.force_invmenu) return null;
+    const letsStr = (lets && lets !== '*') ? lets : '';
+    const invn = (game.invent || []).length;
+    if ((allowxtra && !usextra) || (letsStr && letsStr.length < invn)) {
+        return { ch: '*', text: '(list everything)' };
+    }
+    if (!letsStr) {
+        return { ch: '?', text: '(list likely candidates)' };
+    }
+    return null;
+}
+
+/**
  * C ref: invent.c display_pickinv(lets, …, want_reply=TRUE, out_cnt) subset
  * for getobj `?`/`*`. Shows invent filtered to `lets` (or all when lets
  * null/'*'), PICK_ONE by invlet; ESC cancels; Space next page or null on
@@ -993,18 +1029,23 @@ function append_long_digit(L, D) {
  * PICK_ONE digits: wintty.c process_menu_window count then
  * selected[0].count (D-1559). `out_cnt` is C `long *` (`{ n }`); omitted
  * when getobj !ALLOWCNT.
- * Named omissions: sortloot inuse_only; wizid; force_invmenu /
- * menu_requested `*`/`?` redo; MENU_PREV/FIRST/LAST; group accelerators
- * (gacc / '0' ball class).
+ * force_invmenu want_reply: Special `*`/`?` (D-1578) + tty_end_menu
+ * query (blank + prompt) when opts.query is set. redo_menu lives in
+ * getobj_display_pickinv.
+ * Named omissions: sortloot inuse_only; wizid; menu_requested n==1
+ * skip (flag read; prefix `m` still named); putmsghistory; MENU_PREV/
+ * FIRST/LAST; group accelerators (gacc / '0' ball class).
  * @param {string|null} lets
  * @param {{ n: number }|null} [out_cnt]
  * @param {{ choice: string, allow: boolean }|null} [xtra] C xtra_choice + allowxtra
+ * @param {{ query?: string|null, allowxtra?: boolean }|null} [opts]
  * @returns {string|null} selected invlet, or null if cancelled / no pick
  */
-export async function display_pickinv_reply(lets, out_cnt = null, xtra = null) {
+export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, opts = null) {
     const allowAll = !lets || lets === '*';
     const inv = game.invent || [];
     const usextra = !!(xtra?.choice && xtra?.allow);
+    const allowxtra = !!(opts?.allowxtra ?? xtra?.allow);
 
     // C: n = lets ? strlen(lets) : invent 0/1/2+; then
     // if (usextra || (n==1 && (!lets || wizid))) ++n — so bare invent
@@ -1086,9 +1127,28 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null) {
             entries.push({ text: xprname(otmp), attr: 0 });
         }
     }
+    // C display_pickinv `:3345–3366` — after class items, before end_menu
+    const special = force_invmenu_special(lets, allowxtra, usextra);
+    if (special) {
+        entries.push({ text: 'Special', attr: ATR_INVERSE });
+        byLet.set(special.ch, { _special: special.ch });
+        entries.push({
+            text: `${special.ch} - ${special.text}`,
+            attr: 0,
+        });
+    }
     if (!byLet.size) {
         await pline('Not carrying anything appropriate.');
         return null;
+    }
+
+    // C wintty.c tty_end_menu `:2680–2690` — reverse then prepend blank
+    // + prompt (non-selectable). Query is getobj menuquery when
+    // force_invmenu; display_inventory passes NULL.
+    const query = opts?.query;
+    if (query) {
+        entries.unshift({ text: query, attr: 0 });
+        entries.unshift({ text: '', attr: 0 });
     }
 
     // C ref: wintty.c tty_end_menu / process_menu_window PICK_ONE —
@@ -4098,27 +4158,41 @@ export function getobj_pickinv_ctmp(allowcnt, ctmp, counted) {
 
 /**
  * C invent.c getobj redo_menu `?`/`*` `:1963–2001`.
- * display_pickinv(lets or NULL, handsbuf, …, allowcnt ? &ctmp : NULL)
- * then allowcnt && ctmp >= 0. force_invmenu `*`/`?` redo named.
+ * display_pickinv(lets or NULL, handsbuf, menuquery, allownone, TRUE,
+ * allowcnt ? &ctmp : NULL) then `*`/`?` → goto redo_menu (D-1578).
+ * Menu query is set only when force_invmenu. Handsbuf recomputed each
+ * redo from the current letter (`*` → NULL lets).
  * @param {string} ch '?' or '*'
  * @param {string} rawLets non-compacted SUGGEST letters
  * @param {boolean} allowcnt
  * @param {{ cnt: number, cntgiven: boolean }} counted
- * @param {{ word: string, allownone: boolean, promptHasHands: boolean }|null} [ctx]
+ * @param {{ word: string, allownone: boolean, promptHasHands: boolean, altLets?: string }|null} [ctx]
  * @returns {Promise<string|null>}
  */
 export async function getobj_display_pickinv(ch, rawLets, allowcnt, counted, ctx = null) {
-    const ctmp = { n: 0 };
-    const xtra = ctx ? getobj_pickinv_xtra(ch, rawLets, ctx) : null;
-    const ilet = await display_pickinv_reply(
-        ch === '*' ? '*' : (rawLets || '*'),
-        allowcnt ? ctmp : null,
-        xtra,
-    );
-    if (ilet && ilet !== '\x1b' && ilet !== '*' && ilet !== '?') {
-        getobj_pickinv_ctmp(allowcnt, ctmp, counted);
+    let ilet = ch;
+    const force = !!(game.iflags?.force_invmenu);
+    const query = (force && ctx?.word)
+        ? `What do you want to ${ctx.word}?`
+        : null;
+    for (;;) {
+        const ctmp = { n: 0 };
+        const xtra = ctx ? getobj_pickinv_xtra(ilet, rawLets, ctx) : null;
+        let allowed = rawLets || '';
+        if (ilet === '?' && !allowed && ctx?.altLets) allowed = ctx.altLets;
+        const pickLets = ilet === '*' ? '*' : (allowed || '*');
+        ilet = await display_pickinv_reply(
+            pickLets,
+            allowcnt ? ctmp : null,
+            xtra,
+            { query, allowxtra: !!(ctx?.allownone) },
+        );
+        if (ilet === '*' || ilet === '?') continue;
+        if (ilet && ilet !== '\x1b') {
+            getobj_pickinv_ctmp(allowcnt, ctmp, counted);
+        }
+        return ilet;
     }
-    return ilet;
 }
 
 /**
@@ -4192,13 +4266,14 @@ function getobj_find_ilet(ch) {
  * ALLOWCNT (D-1530); !ALLOWCNT → "No count allowed" and retry.
  * `?`/`*` → display_pickinv `allowcnt ? &ctmp : NULL` (D-1559) +
  * xtra_choice/handsbuf when allownone (D-1569).
+ * force_invmenu: skip yn_function, auto `?`/`*`, oneloop empty
+ * cancel, display_pickinv Special + redo_menu (D-1578).
  * GETOBJ_NOFLAGS + no SUGGEST / hands / DOWNPLAY forceprompt →
  * "don't have anything [else] to WORD" (inaccess from
  * EXCLUDE_NONINVENT / EXCLUDE_INACCESS). GETOBJ_PROMPT still prompts
  * `[*]` when suggested==0.
- * Named omit: force_invmenu oneloop; in_doagain readchar (REPEAT
- * cmdq live); mime_action; sortloot body (invlet sort);
- * call-Amulet silly_thing.
+ * Named omit: in_doagain readchar (REPEAT cmdq live); mime_action;
+ * putmsghistory; sortloot body (invlet sort); call-Amulet silly_thing.
  * @param {string} word
  * @param {(obj: object|null) => number} obj_ok
  * @param {number} ctrlflags
@@ -4263,11 +4338,22 @@ export async function getobj(word, obj_ok, ctrlflags) {
         ? (compactLets ? `- ${compactLets}` : '-')
         : compactLets;
 
+    let oneloop = false;
+    let ch = '';
     for (;;) {
-        const query = promptLets
-            ? `What do you want to ${word}? [${promptLets} or ?*]`
-            : `What do you want to ${word}? [*]`;
-        let ch = await yn_function(query, null, '\0');
+        if (game.iflags?.force_invmenu) {
+            // C invent.c getobj `:1923–1931` — skip yn_function.
+            // putmsghistory(qbuf) named omit.
+            if (!oneloop) {
+                ch = getobj_force_invmenu_ch(rawLets, altLets) || '*';
+            }
+            oneloop = true;
+        } else {
+            const query = promptLets
+                ? `What do you want to ${word}? [${promptLets} or ?*]`
+                : `What do you want to ${word}? [*]`;
+            ch = await yn_function(query, null, '\0');
+        }
         const counted = await getobj_take_count(ch, allowcnt);
         if (counted.retry) continue;
         ch = counted.ch;
@@ -4284,13 +4370,19 @@ export async function getobj(word, obj_ok, ctrlflags) {
             if (ch === '?' && !allowed && altLets) allowed = altLets;
             const ilet = await getobj_display_pickinv(
                 ch, allowed, allowcnt, counted,
-                { word, allownone, promptHasHands: handsSuggest },
+                {
+                    word, allownone, promptHasHands: handsSuggest,
+                    altLets,
+                },
             );
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline(Never_mind);
                 return null;
             }
-            if (!ilet) continue;
+            if (!ilet) {
+                if (oneloop) return null;
+                continue;
+            }
             if (ilet === HANDS_SYM) {
                 if (!allownone) return null;
                 return hands_obj;
@@ -4299,7 +4391,10 @@ export async function getobj(word, obj_ok, ctrlflags) {
             const used = await getobj_finish_pick(
                 picked, word, obj_ok, counted, ilet,
             );
-            if (used && used.retry) continue;
+            if (used && used.retry) {
+                ch = ilet;
+                continue;
+            }
             return used;
         }
         const otmp = getobj_find_ilet(ch);
@@ -4365,45 +4460,60 @@ function adjust_suggest_lets() {
 /**
  * C ref: invent.c getobj("adjust", adjust_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
  * Count prefix + split_otmp live. Canned CMDQ_INT/KEY live.
- * `?`/`*` → display_pickinv `&ctmp` (D-1559). doorganize_core nobj-unsplit named.
+ * `?`/`*` → display_pickinv `&ctmp` (D-1559). force_invmenu auto
+ * `?`/`*` + redo_menu (D-1578). doorganize_core nobj-unsplit named.
  */
 async function getobj_adjust() {
     const cq = getobj_from_cmdq(adjust_ok, true);
     if (!cq.skip) return cq.otmp;
+    let oneloop = false;
+    let ch = '';
     for (;;) {
-        await flush_topl_more();
-        const lets = adjust_suggest_lets();
-        const query = lets
-            ? `What do you want to adjust? [${lets} or ?*]`
-            : 'What do you want to adjust? [*]';
-        const prompt = `${query} `;
-        game._pending_message = prompt;
-        await flush_screen(1);
-        const disp = game.nhDisplay;
-        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
+        const rawLets = adjust_raw_lets();
+        if (game.iflags?.force_invmenu) {
+            if (!oneloop) {
+                ch = getobj_force_invmenu_ch(rawLets) || '*';
+            }
+            oneloop = true;
+        } else {
+            await flush_topl_more();
+            const lets = adjust_suggest_lets();
+            const query = lets
+                ? `What do you want to adjust? [${lets} or ?*]`
+                : 'What do you want to adjust? [*]';
+            const prompt = `${query} `;
+            game._pending_message = prompt;
+            await flush_screen(1);
+            const disp = game.nhDisplay;
+            if (disp?.setCursor) disp.setCursor(prompt.length, 0);
 
-        let key = await nhgetch();
-        let ch = String.fromCharCode(key);
+            const key = await nhgetch();
+            ch = String.fromCharCode(key);
+        }
         const counted = await getobj_take_count(ch, true);
         if (counted.retry) continue;
         ch = counted.ch;
-        key = ch.charCodeAt(0);
-        if (QUITCHARS.includes(ch) || key === 27) {
+        if (QUITCHARS.includes(ch) || ch === '\x1b') {
             if (game.flags?.verbose !== false) await pline(Never_mind);
             return null;
         }
         if (ch === '?' || ch === '*') {
             const ilet = await getobj_display_pickinv(
-                ch, adjust_raw_lets(), true, counted,
+                ch, rawLets, true, counted,
+                { word: 'adjust', allownone: false, promptHasHands: false },
             );
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline(Never_mind);
                 return null;
             }
-            if (!ilet) continue;
+            if (!ilet) {
+                if (oneloop) return null;
+                continue;
+            }
             const picked = (game.invent || []).find((o) => o.invlet === ilet);
             if (!picked) {
                 await pline("You don't have that object.");
+                ch = ilet;
                 continue;
             }
             if (picked.oclass === COIN_CLASS) {
@@ -4411,10 +4521,13 @@ async function getobj_adjust() {
                 return null;
             }
             const got = await getobj_apply_count(
-                picked, 'adjust', counted.cntgiven, counted.cnt,
+                picked, 'adjust', counted.cntgiven, counted.cnt, ilet,
             );
             if (!got) return null;
-            if (got.retry) continue;
+            if (got.retry) {
+                ch = ilet;
+                continue;
+            }
             game._pending_message = '';
             return got;
         }
@@ -4429,7 +4542,7 @@ async function getobj_adjust() {
             return null;
         }
         const got = await getobj_apply_count(
-            otmp, 'adjust', counted.cntgiven, counted.cnt,
+            otmp, 'adjust', counted.cntgiven, counted.cnt, ch,
         );
         if (!got) return null;
         if (got.retry) continue;

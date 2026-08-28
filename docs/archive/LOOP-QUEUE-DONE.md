@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `worm.c` `redraw_worm` (named). Not cutworm. **Addressed:** D-1577
+- [x] `invent.c` force_invmenu `*`/`?` redo (named). Not hands/xtra. **Addressed:** D-1578
+
+
+- [x] `worm.c` `redraw_worm` (named). Not cutworm. **Addressed:** D-1577 `38c61b34`
 
 
 - [x] `region.c` `add_region` / `remove_region` / `expire_gas_cloud` per-cell `block_point`/`unblock_point` (C `:326–328` / `:375–376` / `:1071–1072`). D-1574 made `recalc_block_point` incremental; JS still one-corner `recalc` (expire pass 1 empty). First public FAIL: seed4500 at `1ba35e31` (RNG 88490/108275). Source: reviews/loop-unattended/535-1ba35e31-unblock-point.md **Addressed:** D-1576 `7131dc25`

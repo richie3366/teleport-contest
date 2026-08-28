@@ -402,14 +402,20 @@ async function getobj_apply() {
             return null;
         }
         if (ch === '?' || ch === '*') {
-            // C: display_pickinv uses non-compacted lets[]
-            const { display_pickinv_reply } = await import('./invent.js');
-            const ilet = await display_pickinv_reply(ch === '*' ? '*' : rawLets);
+            // C: display_pickinv uses non-compacted lets[]; redo_menu D-1578
+            const counted = { cnt: 0, cntgiven: false };
+            const ilet = await getobj_display_pickinv(
+                ch, rawLets, false, counted,
+                { word: 'use or apply', allownone: false, promptHasHands: false },
+            );
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline('Never mind.');
                 return null;
             }
-            if (!ilet) continue; // Space/Return → re-prompt getobj
+            if (!ilet) {
+                if (game.iflags?.force_invmenu) return null;
+                continue; // Space/Return → re-prompt getobj
+            }
             const picked = (game.invent || []).find((o) => o.invlet === ilet);
             if (!picked) {
                 await pline("You don't have that object.");
@@ -2269,7 +2275,10 @@ async function getobj_grease() {
                 if (game.flags?.verbose !== false) await pline('Never mind.');
                 return null;
             }
-            if (!ilet) continue;
+            if (!ilet) {
+                if (game.iflags?.force_invmenu) return null;
+                continue;
+            }
             if (ilet === '-') return hands_obj;
             const picked = (game.invent || []).find((o) => o.invlet === ilet);
             if (!picked) {
@@ -2915,13 +2924,19 @@ async function getobj_rub_on_stone(stonebuf, okfn) {
             return null;
         }
         if (ch === '?' || ch === '*') {
-            const { display_pickinv_reply } = await import('./invent.js');
-            const ilet = await display_pickinv_reply(ch === '*' ? '*' : rawLets);
+            const counted = { cnt: 0, cntgiven: false };
+            const ilet = await getobj_display_pickinv(
+                ch, rawLets, false, counted,
+                { word: stonebuf, allownone: false, promptHasHands: false },
+            );
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline('Never mind.');
                 return null;
             }
-            if (!ilet) continue;
+            if (!ilet) {
+                if (game.iflags?.force_invmenu) return null;
+                continue;
+            }
             const picked = (game.invent || []).find((o) => o.invlet === ilet);
             if (!picked) {
                 await pline("You don't have that object.");
@@ -3136,13 +3151,19 @@ async function getobj_jelly() {
             return null;
         }
         if (ch === '?' || ch === '*') {
-            const { display_pickinv_reply } = await import('./invent.js');
-            const ilet = await display_pickinv_reply(ch === '*' ? '*' : rawLets);
+            const counted = { cnt: 0, cntgiven: false };
+            const ilet = await getobj_display_pickinv(
+                ch, rawLets, false, counted,
+                { word, allownone: false, promptHasHands: false },
+            );
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline('Never mind.');
                 return null;
             }
-            if (!ilet) continue;
+            if (!ilet) {
+                if (game.iflags?.force_invmenu) return null;
+                continue;
+            }
             const picked = (game.invent || []).find((o) => o.invlet === ilet);
             if (!picked) {
                 await pline("You don't have that object.");

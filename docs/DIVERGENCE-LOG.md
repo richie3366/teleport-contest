@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1578 — invent.c getobj / display_pickinv force_invmenu `*`/`?` redo
+
+- **Status:** fixed (map-driven Open from D-1577; not a public FAIL)
+- **Symptom:** force_invmenu `*`/`?` redo named leftover after D-1569:
+  getobj always used yn_function; pickinv had no Special `*`/`?`
+  rows, so a menu `*`/`?` could not reopen the other filter.
+- **C locus:** `invent.c` `getobj` `:1923–2001` (`iflags.force_invmenu`
+  skip yn, auto `?` if lets/altlets else `*`, oneloop empty → NULL,
+  `redo_menu` when display_pickinv returns `*`/`?`; menuquery when
+  force). `display_pickinv` `:3345–3366` Special heading + `*`
+  `(list everything)` or `?` `(list likely candidates)` (`inv_cnt(TRUE)`);
+  tty_end_menu prepends blank+prompt. Callers: getobj `?`/`*` and
+  `display_inventory` want_reply.
+- **JS was:** omit; n==1 already skipped message_menu when force;
+  getobj_display_pickinv returned `*`/`?` without looping.
+- **Fix:** live Special rows + query; getobj/getobj_adjust auto
+  `?`/`*` + oneloop; redo in `getobj_display_pickinv`. Apply/potion/
+  write/do_name `?`/`*` use that helper. Rule #2: no fs.
+- **JS:** `js/invent.js`; apply/potion/write/do_name clones.
+- **Not this iter:** mime_action; gacc / `'0'` ball class; putmsghistory;
+  clone auto-open yn (drop/throw/wield/stash still prompt then `?`);
+  menu_requested n==1 prefix; sortloot inuse_only. hands is D-1569.
+  `redraw_worm` is D-1577.
+- **Verified:** private canary **21**/21 (C Special conditions + auto
+  ilet; Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1577 — worm.c redraw_worm
 
 - **Status:** fixed (map-driven Open from D-1576; not a public FAIL)

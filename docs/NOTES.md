@@ -8,20 +8,21 @@ Objective/score live in `CURRENT.md`.
 - **Suite 44/44** after D-1576 (Scr **11,405**/11,405 RNG
   **792,838**/792,838 = 100%; `41+0.30/turn`). seed0367 FULL.
   seed4500 recovered (was FAIL at D-1574 `1ba35e31`).
-  **Hypothesis:** Open force_invmenu `*`/`?` redo is the next
-  named omit (`invent.c`; not hands/xtra D-1569).
-  **Falsify:** port force_invmenu redo then green + cohort; do
-  not invent a FAIL peel.
-  **Next:** Open force_invmenu. Not mime_action / gacc.
-  Do not skip D-1531…D-1577. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open mime_action is the next named omit
+  (`invent.c` getobj `ilet == HANDS_SYM` when `!allownone`;
+  not force_invmenu D-1578).
+  **Falsify:** port mime_action then green + cohort; do not
+  invent a FAIL peel.
+  **Next:** Open mime_action. Not gacc.
+  Do not skip D-1531…D-1578. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: `mk_mplayer`; FULL_MOON S_DOG / ustuck;
   sit/pray `eyecount`; PREFIXCMD / `cmdq_shift`; Palantir `#if 0`;
   nv_range circle; `mimic_light_blocking` See_invisible;
-  traditional_loot; more_containers `n`; force_invmenu redo;
-  mime_action; gacc. NC_SHOW_MSG `pline_mon` / `m_unleash` /
-  ustuck / break-armor / Elbereth `monflee`. `has_mcorpsenm`.
-  show_transient_light. flip_worm_segs.
+  traditional_loot; more_containers `n`; mime_action; gacc.
+  NC_SHOW_MSG `pline_mon` / `m_unleash` / ustuck / break-armor /
+  Elbereth `monflee`. `has_mcorpsenm`. show_transient_light.
+  flip_worm_segs. putmsghistory; clone auto-open yn.
 
 ## Don't re-check (≤15)
 
@@ -30,7 +31,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1577.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1578.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,14 +42,14 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1577 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1578 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1577. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1578. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
-  `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`
-  / `restore_artifacts`. Default `spot_monsters` Off.
+  `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level` /
+  `restore_artifacts`. Default `spot_monsters` Off.
 - Do not import `wield.js`/`pickup.js`→`polyself.js` for
   `body_part` (use `objnam.js` `body_part_latebound`).
 - Do not import `makemon.js`→`hack.js`/`artifact.js`/`minion.js`.
@@ -56,14 +57,19 @@ Objective/score live in `CURRENT.md`.
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557).
   Do not revert D-1574 `dig_point`/`seemimic` bodies; do not
   restore **global** `recalc_block_point` as `vision_reset`.
-  Region per-cell is D-1576. `redraw_worm` is D-1577 (do not
-  glue force_invmenu / nv_range / `mimic_light_blocking`).
-  D-1558…D-1577 live in the index. Do not re-port `dig_point`
-  leftover-`i` or `newcham` Protection cancel. Do not skip
-  MAIL `mk_gen_ok`.
+  Region per-cell is D-1576. `redraw_worm` is D-1577. force_invmenu
+  redo is D-1578 (do not glue mime_action / gacc / nv_range /
+  `mimic_light_blocking`). D-1558…D-1578 live in the index. Do not
+  re-port `dig_point` leftover-`i` or `newcham` Protection cancel.
+  Do not skip MAIL `mk_gen_ok`.
 
 ## Landmarks (≤15)
 
+- D-1578: `invent.c` getobj force_invmenu skip yn auto `?`/`*`
+  oneloop; display_pickinv Special `*`/`?` + end_menu query;
+  getobj_display_pickinv redo_menu. Apply/potion/write/do_name
+  `?`/`*` through helper. mime_action / gacc / putmsghistory /
+  clone auto-open yn named. Hands is D-1569. `redraw_worm` is D-1577.
 - D-1577: `worm.c` `redraw_worm` `newsym` every wseg including
   dummy (unlike `see_wsegs`); `tamedog`/`abuse_dog` callers.
   save/rest / flip_worm_segs / mondead-dog wormgone named.
@@ -99,7 +105,7 @@ Objective/score live in `CURRENT.md`.
   worm_known D-1548. Hands/xtra D-1569.
 - D-1569: pickinv usextra hands/xtra_choice; `getobj_hands_txt`;
   n==1 `message_menu` HANDS_SYM; sortpack Miscellaneous `'-'`.
-  force_invmenu redo / mime_action / gacc named. `&ctmp` D-1559.
+  force_invmenu redo is D-1578. mime_action / gacc named. `&ctmp` D-1559.
 - D-1568: `getobj` eat/read/zap/tin NOFLAGS; read PROMPT
   DOWNPLAY; eat_ok/`getobj_else`; tinopen. Stash D-1561. `'r'` D-1567.
 - D-1567: `'r'` `loot_in_first` put-in then take-out;
@@ -109,4 +115,3 @@ Objective/score live in `CURRENT.md`.
 - D-1565: `clone_mon` `place_monster` 2D grid. cutworm is D-1570.
 - D-1564: Protection early-out + `made_fruit` + Plan-B.
   `newcham` cancel is D-1573. Hatch timeout is D-1572.
-- D-1563: `do_repeat` / getobj CQ_REPEAT. PREFIXCMD named.

@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1578 invent.c force_invmenu `*`/`?` redo
+
+**Objective:** Open `invent.c` force_invmenu `*`/`?` redo (named).
+Not hands/xtra.
+**C locus:** `invent.c` `getobj` `:1923–2001`; `display_pickinv`
+`:3345–3366`.
+**JS locus:** named omit after D-1569; n==1 already skipped
+message_menu when force.
+**Change:** Special `*`/`?` rows + query; getobj auto `?`/`*`
+oneloop; redo_menu in `getobj_display_pickinv`. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **21**/21; green+strict seed8000/0900; cohort
+**7**/7 + strict.
+**Next:** Open mime_action. Not gacc.
+**Blocked:** none.
 ## 2026-08-28 — D-1577 worm.c redraw_worm
 
 **Objective:** Open `worm.c` `redraw_worm` (named). Not cutworm.

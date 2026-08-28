@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` force_invmenu `*`/`?` redo (named). Not hands/xtra.
 - [ ] `invent.c` mime_action (named). Not force_invmenu.
 - [ ] `invent.c` gacc / `'0'` ball class (named). Not mime_action.
 - [ ] `pickup.c` traditional_loot askchain (named). Not `'r'` reversed.
