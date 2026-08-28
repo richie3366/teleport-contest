@@ -16,6 +16,7 @@
 // D-1580: pickinv gacc collect + BALL `'0'` vs count; def_oc_syms.
 // D-1588: getobj force_invmenu putmsghistory(qbuf) + topl.c remember_topl.
 // D-1589: sortloot SORTLOOT_INUSE + display_pickinv inuse_only / doprinuse.
+// D-1590: display_pickinv wizid unid_cnt>0 PICK_ANY (`_`/^I identify_pack).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -75,6 +76,8 @@ import {
     PICK_ONE,
     PICK_NONE,
     PICK_ANY,
+    MENU_ITEMFLAGS_NONE,
+    MENU_ITEMFLAGS_SKIPINVERT,
     CONTAINED_SYM,
     MINV_ALL,
     MINV_NOLET,
@@ -109,6 +112,8 @@ import {
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
 import { depth, ing_suffix } from './hacklib.js';
+import { visctrl } from './dokeylist.js';
+import { select_menu_pick_any } from './options.js';
 import { rn2 } from './rng.js';
 import { newuexp } from './exper.js';
 import {
@@ -1186,7 +1191,7 @@ async function menu_identify(id_limit) {
 /**
  * C ref: invent.c identify_pack(id_limit, learning_id).
  * id_limit 0 = identify all unidentified invent items.
- * Named omissions: update_inventory; MENU_TRADITIONAL ggetobj.
+ * Named omissions: MENU_TRADITIONAL ggetobj.
  */
 export async function identify_pack(id_limit, learning_id) {
     let unid_cnt = count_unidentified(game.invent);
@@ -1204,7 +1209,7 @@ export async function identify_pack(id_limit, learning_id) {
         // flags.menu_style == MENU_TRADITIONAL ggetobj deferred → menu
         await menu_identify(id_limit);
     }
-    // update_inventory deferred
+    update_inventory();
 }
 
 // C: xname_flags observe + distant_name cansee (wired late to break cycles)
@@ -1369,8 +1374,8 @@ function pickinv_build_inuse(lets, wizid) {
  * is 0 like C `:3323–3325`.
  * SORTLOOT_INUSE when flags.sortloot=='i' (dispinv_with_action): is_inuse
  * filter, inuse_headers, optional fake HANDS_SYM W_WEP (D-1589).
- * Named omissions: wizid unid_cnt>0 PICK_ANY;
- * MENU_PREV/FIRST/LAST. putmsghistory is D-1588.
+ * Named omissions: MENU_PREV/FIRST/LAST. wizid unid_cnt>0 is D-1590.
+ * putmsghistory is D-1588.
  * @param {string|null} lets
  * @param {{ n: number }|null} [out_cnt]
  * @param {{ choice: string, allow: boolean }|null} [xtra] C xtra_choice + allowxtra
@@ -1631,36 +1636,122 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
 }
 
 /**
- * C ref: invent.c display_pickinv wizid branch (wizard && override_ID).
- * Debug Identify title; unid_cnt==0 → "(all items are permanently identified
- * already)" then select_menu PICK_ANY (no selectors → dismiss).
- * Named omissions: unid_cnt>0 PICK_ANY ('_'/^I identify_pack, per-item
- * identify, sortpack class headers, MENU_ITEMFLAGS_SKIPINVERT);
- * update_inventory nesting. def_oc_syms gacc collect is D-1580
- * (helpers live; this menu still PICK_NONE dismiss).
+ * C invent.c display_pickinv wizid_fakeobj — `'_'` / override_ID group
+ * accel selects identify_pack(0, FALSE).
  */
-async function display_pickinv_wizid() {
-    const unid_cnt = count_unidentified(game.invent);
+export const WIZID_FAKEOBJ = { _wizid_fake: true };
+
+/**
+ * C invent.c display_pickinv wizid `:3222–3325`.
+ * Title; unid_cnt==0 all-identified string; else `'_'` SKIPINVERT +
+ * visctrl(^I) when unid_cnt>1; skip fully identified; sortpack class
+ * headers (want_reply is FALSE so no showsym); item gacc def_oc_syms.
+ * Empty invent is not this menu (C n==0 pline).
+ * @returns {{ unid_cnt: number, items: object[] }}
+ */
+export function build_wizid_pickinv_items() {
+    const inv = game.invent || [];
+    const unid_cnt = count_unidentified(inv);
     let prompt = 'Debug Identify';
     if (unid_cnt) {
         prompt += ` -- unidentified or partially identified item${
             unid_cnt === 1 ? '' : 's'
         }`;
     }
-    const entries = [{ text: prompt, attr: 0 }];
+    const items = [{ text: prompt, attr: 0, selectable: false }];
     if (!unid_cnt) {
-        entries.push({
+        items.push({
             text: '(all items are permanently identified already)',
             attr: 0,
+            selectable: false,
         });
-        await paint_corner_nhw_menu(entries, '(end) ');
+        return { unid_cnt, items };
+    }
+    const override_ID = (game.iflags?.override_ID | 0) || 9;
+    let selprompt = `select ${
+        unid_cnt === 1 ? 'it' : 'any or all of them'
+    } to permanently identify`;
+    if (unid_cnt > 1) {
+        selprompt += ` (${visctrl(override_ID)} for all)`;
+    }
+    items.push({
+        text: selprompt,
+        attr: 0,
+        selectable: true,
+        selector: '_',
+        gselector: String.fromCharCode(override_ID & 255),
+        itemflags: MENU_ITEMFLAGS_SKIPINVERT,
+        obj: WIZID_FAKEOBJ,
+    });
+    const sortpack = game.flags?.sortpack !== false;
+    let sortflags = (game.flags?.sortloot === 'f') ? SORTLOOT_LOOT : SORTLOOT_INVLET;
+    if (sortpack) sortflags |= SORTLOOT_PACK;
+    const sorted = sortloot(inv, sortflags, false, null);
+    let prevclass = -1;
+    for (const srt of sorted) {
+        const otmp = srt.obj;
+        if (!otmp) continue;
+        if (!not_fully_identified(otmp)) continue;
+        if (sortpack && otmp.oclass !== prevclass) {
+            items.push({
+                text: let_to_name(otmp.oclass, false, false),
+                attr: ATR_INVERSE,
+                selectable: false,
+            });
+            prevclass = otmp.oclass;
+        }
+        if (!Blind()) observe_object(otmp);
+        obj_glyph(otmp);
+        const letch = otmp.invlet || '?';
+        items.push({
+            text: doname(otmp),
+            attr: 0,
+            selectable: true,
+            selector: letch,
+            gselector: pickinv_item_gacc(otmp, true),
+            itemflags: MENU_ITEMFLAGS_NONE,
+            obj: otmp,
+        });
+    }
+    return { unid_cnt, items };
+}
+
+/**
+ * C ref: invent.c display_pickinv wizid branch (wizard && override_ID).
+ * Empty invent → "Not carrying anything." unid_cnt==0 → all-identified
+ * strings then dismiss. unid_cnt>0 → PICK_ANY (`'_'`/^I identify_pack,
+ * per-item identify, sortpack headers, SKIPINVERT). override_ID=0 before
+ * identify so nested update_inventory is not wizid. Named omissions:
+ * MENU_PREV/FIRST/LAST; MENU_SEARCH; count-prefix digits.
+ */
+async function display_pickinv_wizid() {
+    const inv = game.invent || [];
+    if (!inv.length) {
+        await pline('Not carrying anything.');
+        return;
+    }
+    const { unid_cnt, items } = build_wizid_pickinv_items();
+    if (!unid_cnt) {
+        await paint_corner_nhw_menu(items, '(end) ');
         await flush_screen(1);
         await nhgetch();
         await dismiss_nhw_menu();
         return;
     }
-    // Deferred: C PICK_ANY item menu ('_'/^I / letters). Do not invent.
+    const selected = await select_menu_pick_any(items);
     if (game.iflags) game.iflags.override_ID = 0;
+    let all_id = false;
+    for (const it of selected) {
+        const otmp = it.obj;
+        if (otmp === WIZID_FAKEOBJ) {
+            await identify_pack(0, false);
+            all_id = true;
+            break;
+        } else if (otmp && not_fully_identified(otmp)) {
+            await identify(otmp);
+        }
+    }
+    if (!all_id) update_inventory();
 }
 
 /**
@@ -1669,7 +1760,8 @@ async function display_pickinv_wizid() {
  *        "(N of M)" paging (select_menu PICK_NONE). Single-page corner vs
  *        fullscreen still uses "(end) ".
  * Shows invent and waits for a dismiss key (Space advances pages).
- * When wizard && iflags.override_ID → wizid Debug Identify path.
+ * When wizard && iflags.override_ID → wizid Debug Identify path
+ * (unid_cnt>0 PICK_ANY is D-1590).
  */
 export async function display_inventory() {
     const wizard = !!(game.flags?.debug || game.flags?.wizard);

@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1590 invent.c wizid unid_cnt>0 PICK_ANY
+
+**Objective:** Open `invent.c` wizid unid_cnt>0 PICK_ANY (named). Not gacc.
+**C locus:** `invent.c` `display_pickinv` `:3222–3407`; `windows.c`
+`menuitem_invert_test`; `wintty.c` group_accel; `visctrl`.
+**JS locus:** named omit after D-0928/D-1580/D-1589.
+**Change:** live `_`/`^I` SKIPINVERT PICK_ANY + identify_pack /
+per-item identify; empty invent pline. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **25**/25; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `display_used_invlets`. Not wizid unid_cnt>0.
+**Blocked:** none.
 ## 2026-08-28 — D-1589 invent.c sortloot inuse_only
 
 **Objective:** Open `invent.c` sortloot inuse_only (named). Not gacc.

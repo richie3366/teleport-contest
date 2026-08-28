@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` sortloot inuse_only (named). Not gacc. **Addressed:** D-1589
+- [x] `invent.c` wizid unid_cnt>0 PICK_ANY (named). Not gacc. **Addressed:** D-1590
+
+
+- [x] `invent.c` sortloot inuse_only (named). Not gacc. **Addressed:** D-1589 `7415056f`
 
 
 - [x] `invent.c` putmsghistory (named). Not gacc. **Addressed:** D-1588 `a3325fe0`

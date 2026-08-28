@@ -63,16 +63,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1584 audit (seed4500 still PASS). **Next cluster:**
-Open `invent.c` wizid unid_cnt>0 PICK_ANY (named). Not gacc. Not
-sortloot inuse_only. Not putmsghistory. Not `mimic_light_blocking`. Not revert D-1574 `seemimic` / `dig_point` body.
-**Do not skip D-1531…D-1589 (index).** Keep mention_map addr.
+Open `invent.c` `display_used_invlets` (named). Not gacc. Not wizid
+unid_cnt>0. Not more_containers `n`. Not revert D-1574 `seemimic` /
+`dig_point` body.
+**Do not skip D-1531…D-1590 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1589.** Do not FORCE
+**Do not re-break D-0660…D-1590.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1589 (index). Recent: **D-1589**
+**Keep:** D-0845…D-1590 (index). Recent: **D-1590**
+`invent.c` wizid unid_cnt>0 PICK_ANY (`_`/^I identify_pack).
+Prior: **D-1589**
 `invent.c` sortloot SORTLOOT_INUSE / display_pickinv inuse_only.
 Prior: **D-1588**
 `invent.c` getobj putmsghistory + `topl.c` `tty_putmsghistory`.
@@ -91,11 +94,11 @@ Prior: **D-1588**
 `block_point`/`unblock_point` (seed4500). **D-1575**
 `mk_gen_ok` MAIL + `ndemon` mkclass. **D-1574**
 `unblock_point`. **D-1573** `newcham` cancel. Older
-D-1531…D-1589 live in the index — do not re-paste.
+D-1531…D-1590 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1589 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1590 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -121,6 +124,7 @@ PREFIXCMD / `cmdq_shift` is D-1582. `nv_range` circle is D-1583.
 `mimic_light_blocking` is D-1587.
 putmsghistory is D-1588.
 sortloot inuse_only is D-1589.
+wizid unid_cnt>0 PICK_ANY is D-1590.
 `howmonseen` is D-1562. Do not
 skip `tamedog` `wake_nearto` or glue ustuck / has_edog.
 Remembered otyp does not beat a displayed mon glyph (D-1547).

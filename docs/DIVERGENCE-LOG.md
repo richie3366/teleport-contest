@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1590 — invent.c display_pickinv wizid unid_cnt>0 PICK_ANY
+
+- **Status:** fixed (map-driven Open from D-1589; not a public FAIL)
+- **Symptom:** `#wizidentify` / `^I` only handled `unid_cnt==0`
+  (all-identified dismiss). When unidentified items existed, JS
+  cleared `override_ID` and returned without a PICK_ANY menu.
+- **C locus:** `invent.c` `display_pickinv` `:3222–3407` (title +
+  `'_'` `iflags.override_ID` `MENU_ITEMFLAGS_SKIPINVERT`; skip
+  `!not_fully_identified`; sortpack `let_to_name`; item gacc
+  `def_oc_syms`; `select_menu` PICK_ANY; fakeobj →
+  `identify_pack(0,FALSE)`; else `identify`; `override_ID=0` then
+  `update_inventory` unless all_id). Callees `windows.c`
+  `menuitem_invert_test` `:1561–1589`; `wintty.c`
+  `process_menu_window` group_accel invert. `hacklib.c` `visctrl`.
+  Empty invent `:3140–3142` `"Not carrying anything."`
+- **JS was:** named omit after D-0928/D-1580/D-1589 (`unid_cnt==0`
+  live; unid_cnt>0 deferred). `select_menu_pick_any` named
+  SKIPINVERT / no gacc invert.
+- **Fix:** live `build_wizid_pickinv_items` + PICK_ANY `_`/`^I` /
+  letters / class gacc; SKIPINVERT via `menuitem_invert_test`;
+  `identify_pack` calls `update_inventory`. Rule #2: no fs.
+- **JS:** `js/invent.js`; `js/options.js` `select_menu_pick_any`.
+- **Not this iter:** `display_used_invlets`; SORTLOOT_PETRIFY;
+  perm_invent InvInUse; MENU_SEARCH; count-prefix digits;
+  MENU_PREV/FIRST/LAST. gacc PICK_ONE is D-1580. inuse_only is
+  D-1589. putmsghistory is D-1588.
+- **Verified:** private canary **25**/25; green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1589 — invent.c sortloot SORTLOOT_INUSE / display_pickinv inuse_only
 
 - **Status:** fixed (map-driven Open from D-1588; not a public FAIL)

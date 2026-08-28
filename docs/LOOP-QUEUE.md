@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` wizid unid_cnt>0 PICK_ANY (named). Not gacc.
 - [ ] `invent.c` `display_used_invlets` (named). Not gacc.
 - [ ] `pickup.c` more_containers `n` (named). Not traditional_loot.
 - [ ] `dog.c` tamedog ustuck expels/unstuck (named). Not FULL_MOON.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `mplayer.c` `create_mplayers` (named). Not mk_mplayer.
 - [ ] `makemon.c` `show_transient_light` (named). Not ndemon.
 - [ ] `makemon.c` `has_mcorpsenm` (named). Not set_mimic_sym.
+- [ ] `invent.c` SORTLOOT_PETRIFY (named). Not inuse_only.
+- [ ] `invent.c` perm_invent InvInUse (named). Not inuse_only.
+- [ ] `topl.c` `tty_doprev_message` (named). Not putmsghistory.
+- [ ] `pickup.c` ggetobj takeoff/identify askchain (named). Not traditional_loot.
+- [ ] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse.
 
 ## Parked (do not pop)
 
