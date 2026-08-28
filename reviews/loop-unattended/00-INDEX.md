@@ -565,3 +565,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [552-92bbf63b-display-used-invlets.md](./552-92bbf63b-display-used-invlets.md) | `92bbf63b` | D-1591 display_used_invlets | **ACCEPT-WITH-DEBT** |
 | [553-c4be5135-more-containers-n.md](./553-c4be5135-more-containers-n.md) | `c4be5135` | D-1592 in_or_out_menu more_containers n | **ACCEPT-WITH-DEBT** |
 | [554-4b34b340-tamedog-ustuck.md](./554-4b34b340-tamedog-ustuck.md) | `4b34b340` | D-1593 tamedog ustuck expels/unstuck | **ACCEPT-WITH-DEBT** |
+| [555-dc1d6d94-normal-shape-await.md](./555-dc1d6d94-normal-shape-await.md) | `dc1d6d94` | D-1594 normal_shape await NC_SHOW_MSG | **ACCEPT-WITH-DEBT** |
+| [556-ab70af21-tamedog-has-edog.md](./556-ab70af21-tamedog-has-edog.md) | `ab70af21` | D-1595 tamedog initedog has_edog | **ACCEPT-WITH-DEBT** |
+| [557-fa152acc-create-mplayers.md](./557-fa152acc-create-mplayers.md) | `fa152acc` | D-1596 create_mplayers Astral final_level | **ACCEPT-WITH-DEBT** |
+| [558-9244ce75-show-transient-light.md](./558-9244ce75-show-transient-light.md) | `9244ce75` | D-1597 show_transient_light mtemplit | **QUALITY-RISK** |
+| [559-9a4cbd04-has-mcorpsenm.md](./559-9a4cbd04-has-mcorpsenm.md) | `9a4cbd04` | D-1598 has_mcorpsenm NON_PM unset | **ACCEPT-WITH-DEBT** |
+| [560-95ad0f11-sortloot-petrify.md](./560-95ad0f11-sortloot-petrify.md) | `95ad0f11` | D-1599 SORTLOOT_PETRIFY / feel_cockatrice | **ACCEPT-WITH-DEBT** |
+| [561-fb87326a-perm-invent-inv-inuse.md](./561-fb87326a-perm-invent-inv-inuse.md) | `fb87326a` | D-1600 perm_invent InvInUse / prepare_perminvent | **QUALITY-RISK** |
+| [562-fd0ada3f-tty-doprev-message.md](./562-fd0ada3f-tty-doprev-message.md) | `fd0ada3f` | D-1601 tty_doprev_message / ^P #prevmsg | **ACCEPT-WITH-DEBT** |
+| [563-b9710bcf-ggetobj-takeoff-identify.md](./563-b9710bcf-ggetobj-takeoff-identify.md) | `b9710bcf` | D-1602 ggetobj takeoff/identify askchain | **ACCEPT-WITH-DEBT** |

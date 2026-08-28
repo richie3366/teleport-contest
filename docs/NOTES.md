@@ -5,13 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1602 (`ggetobj` takeoff/identify askchain).
+- **Suite 44/44** after D-1602 (cadence `#2000` at `b9710bcf`).
   seed4500 still PASS.
-  **Hypothesis:** Open `cmd.c` `#seeall` EXT_CMDS (named). Not
-  doprinuse. Not ggetobj takeoff (D-1602).
-  **Falsify:** port C `#seeall` EXT_CMDS so the wizard command is
-  live, then a canary that `#seeall` is not doprinuse.
-  **Next:** Open `#seeall`. Not `mplayer_talk`.
+  **Hypothesis:** Must-fix `allmain.c:71` `beyond_savefile_load=1`
+  (review **561**). JS `sync_perminvent` gates InvInUse on a field
+  it never sets. Not `#seeall`. Not zap Blind (review **558**,
+  second Must-fix).
+  **Falsify:** set the flag where C does (`allmain.c:71` /
+  `restore.c:942`); a perm_invent On InvInUse canary then lists
+  `is_inuse` only.
+  **Next:** Must-fix **561**. Not Open `#seeall`.
   Do not skip D-1531…D-1602. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
@@ -64,16 +67,17 @@ Objective/score live in `CURRENT.md`.
 - D-1601: `tty_doprev_message` WIN_MESSAGE + `gt.toplines`; `'s'`
   `redotoplin` NEED_MORE/`more` iff cury; `'f'`/`'c'`/`'r'` menu.
   cmd ^P / `#prevmsg`. getline/yn `inread` named.
-- D-1600: perm_invent InvInUse is WIN_INVEN `invmode` (`inuse_only
-  = invmode&InvInUse`; `"In use"`; default Off no-op). tty paint /
-  `#perminv` named.
+- D-1600: perm_invent InvInUse helpers live; **review 561**
+  QUALITY-RISK: `beyond_savefile_load` never assigned (`allmain.c:71`).
+  tty paint / `#perminv` named.
 - D-1599: SORTLOOT_PETRIFY keeps `touch_petrifies` CORPSE when
   filter rejects FOOD; Blind `look_here`/`pickup` feel. eat/doloot
   named.
 - D-1598: `has_mcorpsenm` `mextra && MCORPSENM != NON_PM`.
   object_detect / `altarmask_at` named.
 - D-1597: `show_transient_light` camera range 0 + thrown lamplit
-  `mtemplit`. Worm tails named.
+  `mtemplit`. **Review 558** QUALITY-RISK: zap `bhit` sticky Blind.
+  Worm tails named.
 - D-1596: `create_mplayers` class `rn1` + `goodpos` + `mk_mplayer`.
   `mplayer_talk` / `gain_guardian_angel` named.
 - D-1595: `tamedog` `!has_edog` `newedog`+`initedog(TRUE)`.

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `pickup.c` ggetobj takeoff/identify askchain (named). Not traditional_loot. **Addressed:** D-1602
+- [x] `pickup.c` ggetobj takeoff/identify askchain (named). Not traditional_loot. **Addressed:** D-1602 `b9710bcf`
 
 
 - [x] `topl.c` `tty_doprev_message` (named). Not putmsghistory. **Addressed:** D-1601 `fd0ada3f`

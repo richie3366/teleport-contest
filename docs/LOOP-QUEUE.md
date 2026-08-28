@@ -32,6 +32,9 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `allmain.c` new-game `program_state.beyond_savefile_load = 1` (`:71`, “for TTY_PERM_INVENT”) and `restore.c` `:942` after load. JS `sync_perminvent` gates `pickinv_build_perm` on that field but never sets it, so D-1600 InvInUse filter is dead. Source: reviews/loop-unattended/561-fb87326a-perm-invent-inv-inuse.md
+- [ ] `zap.c` `bhit` `show_transient_light` `!Blind` must use youprop `(HBlinded||EBlinded)&&!BBlinded` (`youprop.h:103`), not `zap.js` sticky `u.Blind||u.ublind`. Source: reviews/loop-unattended/558-9244ce75-show-transient-light.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse.
