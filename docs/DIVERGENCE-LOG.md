@@ -4,7 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1571 — vision.c vision_recalc xray IN_SIGHT
+
+- **Status:** fixed (map-driven Open from D-1570; not a public FAIL)
+- **Symptom:** wearing Eyes (`u.xray_range = 3`) never ORed `IN_SIGHT`
+  through walls. JS had `howmonseen` XRAYVIS (D-1562) and SPFX_XRAY
+  range 3/−1 (D-1558) but `vision_recalc` skipped C's xray circle.
+- **C locus:** `vision.c` `vision_recalc` `:631–668` (`u.xray_range >= 0`
+  after `view_from`, before `do_light_sources`; not rogue/Blind/
+  swallow/`control==2`). `circle_ptr` + `v_abs` dy; `|= IN_SIGHT`;
+  `seenv = SVALL`; newsym on old `viz_array`; expand rmin/rmax.
+  Range 0 is hero cell only. Callee `circle_ptr` `vision.h:62`.
+  Setter `artifact.c` `set_artifact_intrinsic` `:859–866` (D-1558).
+- **JS was:** adjacent 3×3 NV stand-in + lit `IN_SIGHT`; no xray circle.
+- **Fix:** live `circle_ptr` + `apply_xray_in_sight` on the non-rogue
+  else after `view_from`. Rule #2: no fs.
+- **JS:** `js/vision.js` `circle_ptr` / `apply_xray_in_sight` /
+  `vision_recalc`.
+- **Not this iter:** nv_range circle (3×3 stand-in kept); pit /
+  underwater; `unblock_point`/`dig_point`; `notice_all_mons`.
+  howmonseen is D-1562. SEARCH/REGEN/XRAY conferral is D-1558.
+  cutworm is D-1570.
+- **Verified:** private canary **24**/24 (C locus + wall-through
+  radius 3; outside circle; range 0; Blind/`control==2` skip;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1570 — worm.c cutworm / place_wsegs
+
 
 - **Status:** fixed (map-driven Open from D-1569; not a public FAIL)
 - **Symptom:** long-worm body hits never split or shrink. JS had

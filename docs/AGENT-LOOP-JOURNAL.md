@@ -8,7 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1571 vision.c vision_recalc xray IN_SIGHT
+
+**Objective:** Open `vision_recalc` xray IN_SIGHT. Not howmonseen.
+**C locus:** `vision.c` `vision_recalc` `:631–668`; `circle_ptr`
+`vision.h:62`; setter Eyes D-1558.
+**JS locus:** `js/vision.js` after view_from; no xray circle.
+**Change:** live `circle_ptr` + `apply_xray_in_sight` (SVALL +
+newsym before lights). nv_range / pit / underwater named.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1960).
+**Verified:** canary **24**/24; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `attach_egg_hatch_timeout`. Not Plan-B.
 ## 2026-08-28 — D-1570 worm.c cutworm / place_wsegs
+
 
 **Objective:** Open `cutworm`. Not worm_known.
 **C locus:** `worm.c` `cutworm` `:372–477`; `place_wsegs` `:614–635`;

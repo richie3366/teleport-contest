@@ -659,7 +659,10 @@ Underwater moat in does_block deferred; seed0030 @372 blank niche was **not** do
 lit); **D-1562 `howmonseen`** (`vision.c:2151–2186`; callers `apply.c` `use_mirror` 
 `:1108` SEENMON vs INFRAVIS-only + `pager.c` `look_at_monster` `:485–554` monbuf 
 `[seen:]`; `look_all` NULL; `worm_known` is D-1548; mdistu inlined); 
-`vision_recalc` xray IN_SIGHT named
+**D-1571 `vision_recalc` xray IN_SIGHT** (`:631–668`; `circle_ptr` +
+seenv SVALL + rmin/rmax + newsym before lights; Eyes D-1558 3/−1;
+not rogue/Blind/`control==2`); nv_range circle / pit / underwater /
+`notice_all_mons` named; `unblock_point`/`dig_point` named
 
 ### `src/trap.c`
 

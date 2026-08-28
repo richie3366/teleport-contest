@@ -7,17 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1960** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `38+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open `vision_recalc` xray IN_SIGHT is still named
-  (cutworm is D-1570). Not howmonseen.
-  **Falsify:** `node scripts/csym.mjs vision_recalc` vs `js/vision.js`.
-  **Next:** Open `vision_recalc` xray IN_SIGHT. Not howmonseen. Do not
-  skip D-1531…D-1570. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `attach_egg_hatch_timeout` is still named
+  (xray IN_SIGHT is D-1571). Not Plan-B.
+  **Falsify:** `node scripts/csym.mjs attach_egg_hatch_timeout` vs
+  `js/timeout.js`.
+  **Next:** Open `attach_egg_hatch_timeout`. Not Plan-B. Do not
+  skip D-1531…D-1571. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: `mk_mplayer`; FULL_MOON S_DOG / ustuck /
   `redraw_worm`; sit/pray `eyecount`; PREFIXCMD / `cmdq_shift`;
   Palantir `#if 0`; `newcham` Protection cancel;
   `attach_egg_hatch_timeout`; `ndemon` mkclass;
-  `unblock_point`/`dig_point`; `vision_recalc` xray IN_SIGHT;
+  `unblock_point`/`dig_point`; nv_range circle;
   traditional_loot; more_containers `n`; force_invmenu redo;
   mime_action; gacc.
 
@@ -28,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1570.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1571.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,9 +40,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1570 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1571 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1570. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1571. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -53,10 +54,13 @@ Objective/score live in `CURRENT.md`.
   No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557) or
   `recalc` there. Do not glue `redraw_worm` / force_invmenu redo.
-  D-1558…D-1570 live in the index (cutworm is D-1570).
+  D-1558…D-1571 live in the index (xray IN_SIGHT is D-1571).
 
 ## Landmarks (≤15)
 
+- D-1571: `vision_recalc` xray IN_SIGHT `circle_ptr` + seenv SVALL
+  before lights; not rogue/Blind. nv_range / pit named.
+  howmonseen D-1562. Eyes conferral D-1558.
 - D-1570: `cutworm` + `place_wsegs`; known_hitum slice_or_chop
   after Vorpal oldhp; thitmonst chopper. redraw_worm named.
   worm_known D-1548. Hands/xtra D-1569.
@@ -73,9 +77,9 @@ Objective/score live in `CURRENT.md`.
 - D-1564: Protection early-out + `made_fruit` + Plan-B.
   `newcham` cancel / hatch timeout named.
 - D-1563: `do_repeat` / getobj CQ_REPEAT. PREFIXCMD named.
-- D-1562: `howmonseen` bitmask. xray IN_SIGHT named.
+- D-1562: `howmonseen` bitmask. xray IN_SIGHT is D-1571.
 - D-1561: stash getobj ALLOWCNT. traditional_loot / mbag named.
 - D-1560: `finish_splitting` / `unsplitobj`. `Shk_Your` named.
 - D-1559: pickinv `&ctmp`. Hands/xtra is D-1569.
-- D-1558: SEARCH/REGEN/XRAY conferral. xray circle named.
+- D-1558: SEARCH/REGEN/XRAY conferral. xray circle is D-1571.
 - D-1557: `does_block` then `block_point`. `unblock_point` named.

@@ -60,6 +60,11 @@ const circle_data = [
 ];
 const circle_start = [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120];
 
+/** C vision.h: circle_ptr(z) ≡ &circle_data[(int) circle_start[z]] */
+function circle_ptr(z) {
+    return circle_data.slice(circle_start[z] | 0);
+}
+
 // Vision state arrays
 const viz_clear = Array.from({ length: ROWNO }, () => new Int8Array(COLNO));
 const left_ptrs = Array.from({ length: ROWNO }, () => new Int16Array(COLNO));
@@ -683,6 +688,47 @@ function rogue_vision(next, rmin, rmax) {
     }
 }
 
+/**
+ * C ref: vision.c vision_recalc :631–668 — OR IN_SIGHT in the xray
+ * circle (or the hero cell when range is 0). seenv = SVALL; newsym
+ * while viz_array is still the old buffer (C order, before lights).
+ * Caller is the non-rogue else after view_from. Range < 0 is a no-op
+ * (u_init_misc sets -1 until Eyes SPFX_XRAY).
+ */
+function apply_xray_in_sight(next, next_rmin, next_rmax, u) {
+    if (!(u.xray_range >= 0)) return;
+    const level = game.level;
+    if (u.xray_range) {
+        const ranges = circle_ptr(u.xray_range);
+        for (let row = u.uy - u.xray_range; row <= u.uy + u.xray_range; row++) {
+            if (row < 0) continue;
+            if (row >= ROWNO) break;
+            const dy = (u.uy - row) < 0 ? (row - u.uy) : (u.uy - row);
+            const next_row = next[row];
+            const start = Math.max(1, u.ux - ranges[dy]);
+            const stop = Math.min(COLNO - 1, u.ux + ranges[dy]);
+            for (let col = start; col <= stop; col++) {
+                const old_row_val = next_row[col];
+                next_row[col] |= IN_SIGHT;
+                const loc = level?.at(col, row);
+                const oldseenv = loc ? (loc.seenv | 0) : 0;
+                if (loc) loc.seenv = SVALL;
+                if (!(old_row_val & IN_SIGHT) || oldseenv !== SVALL) {
+                    newsym(col, row);
+                }
+            }
+            next_rmin[row] = Math.min(start, next_rmin[row]);
+            next_rmax[row] = Math.max(stop, next_rmax[row]);
+        }
+    } else {
+        next[u.uy][u.ux] |= IN_SIGHT;
+        const loc = level?.at(u.ux, u.uy);
+        if (loc) loc.seenv = SVALL;
+        next_rmin[u.uy] = Math.min(u.ux, next_rmin[u.uy]);
+        next_rmax[u.uy] = Math.max(u.ux, next_rmax[u.uy]);
+    }
+}
+
 // C ref: vision_recalc(control)
 export function vision_recalc(control = 0) {
     const u = game.u;
@@ -742,6 +788,11 @@ export function vision_recalc(control = 0) {
             rogue_vision(next, next_rmin, next_rmax);
         } else {
             view_from(u.uy, u.ux, next, next_rmin, next_rmax);
+            // C vision.c vision_recalc :631–668 — IN_SIGHT for xray
+            // after view_from, before do_light_sources. Not rogue.
+            // Night vision nv_range circle still the adjacent stand-in
+            // in the lighting loop (C :670–700 named).
+            apply_xray_in_sight(next, next_rmin, next_rmax, u);
         }
     }
 
@@ -760,7 +811,7 @@ export function vision_recalc(control = 0) {
             const loc = level?.at(col, row);
             if (!loc) continue;
 
-            // Night vision: adjacent cells always IN_SIGHT
+            // C nv_range circle named; 3×3 is nv_range===1 stand-in
             if (Math.abs(col - ux) <= 1 && Math.abs(row - uy) <= 1) {
                 next[row][col] |= IN_SIGHT;
                 continue;

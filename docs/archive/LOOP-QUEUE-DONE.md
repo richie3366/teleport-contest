@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `worm.c` `cutworm` (named). Not worm_known. **Addressed:** D-1570
+- [x] `vision.c` `vision_recalc` xray IN_SIGHT (named). Not howmonseen. **Addressed:** D-1571
+
+
+- [x] `worm.c` `cutworm` (named). Not worm_known. **Addressed:** D-1570 `3ace1611`
 
 
 - [x] `invent.c` pickinv hands/xtra_choice (named). Not `&ctmp`. **Addressed:** D-1569 `934f168b`
