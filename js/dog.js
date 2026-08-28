@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
-import { makemon, set_malign, rndmonst_adj } from './makemon.js';
+import { makemon, set_malign, rndmonst_adj, newedog } from './makemon.js';
 import { deliver_obj_to_mon } from './dokick.js';
 import {
     mons, NON_PM, is_human, is_covetous, is_demon,
@@ -17,7 +17,7 @@ import {
     MIGR_STAIRS_DOWN, MIGR_LADDER_UP, MIGR_LADDER_DOWN, MIGR_SSTAIRS,
     MIGR_PORTAL, MIGR_WITH_HERO, MIGR_LEFTOVERS, MON_MIGRATING, MON_LIMBO,
     STRAT_ARRIVE, RLOC_NOMSG, MAGIC_PORTAL, In_endgame, isok, MTSZ, MANFOOD,
-    DOGFOOD, ACCFOOD, FULL_MOON, Upolyd,
+    DOGFOOD, ACCFOOD, FULL_MOON, Upolyd, has_edog, EDOG,
     DF_ALL, COLNO, ROWNO, ROOMOFFSET, IS_WALL,
 } from './const.js';
 import { SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
@@ -78,10 +78,9 @@ function pet_type() {
     return rn2(2) ? PM_KITTEN : PM_LITTLE_DOG;
 }
 
-// C ref: dog.c initedog()
+// C ref: dog.c initedog() — EDOG(mtmp) already allocated (newedog / MM_EDOG).
 export function initedog(mtmp, everything) {
-    if (!mtmp.edog) mtmp.edog = {};
-    const edogp = mtmp.edog;
+    const edogp = EDOG(mtmp);
     const minhungry = (game.moves ?? 1) + 1000;
     // C: is_domestic → minimumtame 10 else 5
     const minimumtame = is_domestic(mtmp.data) ? 10 : 5;
@@ -97,7 +96,7 @@ export function initedog(mtmp, everything) {
         // C: ACURR(A_CHA) at makedog — before init_attr, clamps to 3
         edogp.apport = acurr(A_CHA);
         edogp.whistletime = 0;
-        edogp.ogoal = { x: 0, y: 0 }; // C: ogoal.x==0 means unset
+        edogp.ogoal = { x: 0, y: 0 }; // C: ogoal.x==-1; JS dog_goal still 0 unset
         edogp.abuse = 0;
         edogp.revivals = 0;
         edogp.mhpmax_penalty = 0;
@@ -106,6 +105,8 @@ export function initedog(mtmp, everything) {
         edogp.apport = 1;
     }
     if ((edogp.hungrytime || 0) < minhungry) edogp.hungrytime = minhungry;
+    // dogmove/sounds still read mtmp.edog
+    mtmp.edog = edogp;
     // C: u.uconduct.pets++ (livelog only when !pets && in_moveloop — deferred)
     if (!game.u) game.u = {};
     if (!game.u.uconduct) game.u.uconduct = {};
@@ -174,8 +175,7 @@ async function pick_familiar_pm(otmp, quietly) {
  * (otmp null). makemon MM_EDOG|MM_IGNOREWATER|NO_MINVENT|MM_NOMSG + gender;
  * figurine shatter / angel free_emin; pool minliquid; rn2(10) then B/U/C
  * 80/10/10 tame·peace·hostile; named christen; initedog; AT_WEAP wield.
- * Spell dispatch is D-1389. Named omit: livelog first pet; makemon
- * MM_EDOG newedog alloc (initedog still creates edog).
+ * Spell dispatch is D-1389. Named omit: livelog first pet.
  */
 export async function make_familiar(otmp, x, y, quietly) {
     let mtmp = null;
@@ -358,7 +358,8 @@ export function keepdogs(pets_only = false) {
  * Tobjnam stop D-1585 (C :1199–1209).
  * ustuck expels/unstuck D-1593 (C :1184–1190; live mhitu expels/unstuck;
  * engrave sticks — not monmove AT_HUGS=6 clone).
- * Named omissions: initedog has_edog vs !mtame.
+ * initedog has_edog vs !mtame D-1595 (C :1253–1259; live newedog +
+ * initedog(TRUE) when !has_edog, else initedog(FALSE) — not !mtame).
  * redraw_worm is D-1577.
  */
 export async function tamedog(mtmp, obj, givemsg = true) {
@@ -421,7 +422,8 @@ export async function tamedog(mtmp, obj, givemsg = true) {
             const tasty = dogfood(mtmp, obj);
             if (tasty === DOGFOOD
                 || (tasty <= ACCFOOD
-                    && (mtmp.edog?.hungrytime || 0) <= (game.moves || 1))) {
+                    && (EDOG(mtmp)?.hungrytime || mtmp.edog?.hungrytime || 0)
+                        <= (game.moves || 1))) {
                 // C :1199–1209 — canseemon pline_mon + big_corpse; else Tobjnam
                 if (canseemon(mtmp)) {
                     const big_corpse =
@@ -479,8 +481,14 @@ export async function tamedog(mtmp, obj, givemsg = true) {
         return false;
     }
 
-    if (!mtmp.edog) mtmp.edog = {};
-    initedog(mtmp, !(mtmp.mtame));
+    // C :1253–1259 — add pet extension: !has_edog → newedog +
+    // initedog(TRUE); else initedog(FALSE) (feral former pet / mtame>=10).
+    if (!has_edog(mtmp)) {
+        newedog(mtmp);
+        initedog(mtmp, true);
+    } else {
+        initedog(mtmp, false);
+    }
 
     // C: thrown food for newly tamed — place_object + dog_eat(devour)
     if (obj) {
@@ -1018,8 +1026,9 @@ export async function abuse_dog(mtmp) {
     }
 
     if (mtmp.mtame && !mtmp.isminion) {
-        if (!mtmp.edog) mtmp.edog = {};
-        mtmp.edog.abuse = (mtmp.edog.abuse | 0) + 1;
+        // C :1372–1373 — EDOG(mtmp)->abuse++; tame non-minion has edog
+        const edog = EDOG(mtmp) || mtmp.edog;
+        if (edog) edog.abuse = (edog.abuse | 0) + 1;
     }
 
     if (!mtmp.mtame && mtmp.mleashed) {

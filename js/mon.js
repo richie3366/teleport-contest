@@ -65,7 +65,7 @@ import { visible_region_at, is_poisoncloud_region } from './region.js';
 import { were_change } from './were.js';
 import {
     set_mimic_sym, newcham, pickvampshape, pm_to_cham, neweshk, newegd,
-    newemin, newepri, mpickobj, makemon, makemon_appear_msg,
+    newemin, newepri, newedog, mpickobj, makemon, makemon_appear_msg,
 } from './makemon.js';
 import { in_your_sanctuary, p_coaligned } from './priest.js';
 import { in_rooms, is_pool, is_lava, disturb_buried_zombies, stop_occupation } from './hack.js';
@@ -2529,7 +2529,7 @@ export function copy_mextra(mtmp2, mtmp1) {
         Object.assign(mtmp2.mextra.emin, srcExtra.emin);
     }
     if (srcEdog) {
-        if (!mtmp2.mextra.edog) mtmp2.mextra.edog = {};
+        newedog(mtmp2);
         Object.assign(mtmp2.mextra.edog, srcEdog);
         if (srcEdog.ogoal) {
             mtmp2.mextra.edog.ogoal = {

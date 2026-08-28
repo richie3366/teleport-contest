@@ -85,13 +85,14 @@ import {
 import { big_to_little, set_mon_data } from './mondata.js';
 import {
     NO_MINVENT, NO_MM_FLAGS, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD,
-    MM_EMIN, MM_EPRI, MM_ANGRY, MM_ADJACENTOK, MM_NOTAIL, MM_NOWAIT, MM_MALE, MM_FEMALE,
+    MM_EMIN, MM_EPRI, MM_EDOG, MM_ANGRY, MM_ADJACENTOK, MM_NOTAIL, MM_NOWAIT,
+    MM_MALE, MM_FEMALE,
     MM_NOMSG, MM_NOEXCLAM, MM_IGNOREWATER,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, Is_earthlevel,
     Is_firelevel, Is_airlevel, Is_astralevel,
     In_mines, In_sokoban, In_endgame,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD, G_EXTINCT,
-    isok, has_mgivenname, MGIVENNAME, has_emin, MON_FLOOR,
+    isok, has_mgivenname, MGIVENNAME, has_emin, EDOG, MON_FLOOR,
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
     ARTICLE_A, ARTICLE_THE, ARTICLE_YOUR, SUPPRESS_SADDLE, SUPPRESS_NAME,
     NC_SHOW_MSG, NC_VIA_WAND_OR_SPELL, Upolyd,
@@ -239,6 +240,32 @@ export function newepri(mtmp) {
         };
     }
     return mtmp.mextra.epri;
+}
+
+/**
+ * C ref: dog.c newedog — allocate mextra.edog (memset 0 + parentmid).
+ * Callers: tamedog !has_edog, makemon MM_EDOG, copy_mextra.
+ * Mirrors top-level mtmp.edog so dogmove/sounds still read C EDOG.
+ */
+export function newedog(mtmp) {
+    if (!mtmp.mextra) mtmp.mextra = {};
+    if (!mtmp.mextra.edog) {
+        mtmp.mextra.edog = {
+            parentmid: mtmp.m_id | 0,
+            droptime: 0,
+            dropdist: 0,
+            apport: 0,
+            whistletime: 0,
+            hungrytime: 0,
+            ogoal: { x: 0, y: 0 },
+            abuse: 0,
+            revivals: 0,
+            mhpmax_penalty: 0,
+            killed_by_u: 0,
+        };
+    }
+    mtmp.edog = mtmp.mextra.edog;
+    return mtmp.mextra.edog;
 }
 
 // C ref: makemon.c set_mimic_sym — S_MIMIC_DEF sentinel (MONSYMS_S_ENUM idx 60)
@@ -2500,17 +2527,19 @@ export function makemon(mdat, x, y, mmflags = 0) {
         wormno: 0,
     };
 
-    // C: MM_EGD / MM_ESHK / MM_EMIN / MM_EPRI → new* before m_id assignment
+    // C: MM_EGD / MM_EPRI / MM_ESHK / MM_EMIN / MM_EDOG → new* before m_id
     if (mmflags & MM_EGD) newegd(mtmp);
     if (mmflags & MM_ESHK) neweshk(mtmp);
     if (mmflags & MM_EMIN) newemin(mtmp);
     if (mmflags & MM_EPRI) newepri(mtmp);
+    if (mmflags & MM_EDOG) newedog(mtmp);
 
     mtmp.m_id = next_ident();
     if (mtmp.mextra?.egd) mtmp.mextra.egd.parentmid = mtmp.m_id;
     if (mtmp.mextra?.eshk) mtmp.mextra.eshk.parentmid = mtmp.m_id;
     if (mtmp.mextra?.emin) mtmp.mextra.emin.parentmid = mtmp.m_id;
     if (mtmp.mextra?.epri) mtmp.mextra.epri.parentmid = mtmp.m_id;
+    if (mtmp.mextra?.edog) mtmp.mextra.edog.parentmid = mtmp.m_id;
 
     // C: ptr->msound == MS_LEADER && quest_info(MS_LEADER) == mndx
     const ldr = game.urole?.ldrnum ?? NON_PM;
@@ -3127,17 +3156,19 @@ export async function clone_mon(mon, x, y) {
             EMIN(m2).renegade = (atyp !== ual) ^ !m2.mpeaceful;
         }
     } else if (m2.mtame) {
+        // C :929–937 — tamedog will not re-tame a tame dog; zero mtame
+        // so !has_edog newedog+initedog(TRUE), then *EDOG(m2)=*EDOG(mon).
         m2.mtame = 0;
         const { tamedog } = await import('./dog.js');
         if (await tamedog(m2, null, false)) {
-            const src = mon.edog || mon.mextra?.edog;
-            if (src) {
-                m2.edog = { ...src };
+            const src = EDOG(mon) || mon.edog;
+            const dst = EDOG(m2);
+            if (src && dst) {
+                Object.assign(dst, src);
                 if (src.ogoal) {
-                    m2.edog.ogoal = { x: src.ogoal.x | 0, y: src.ogoal.y | 0 };
+                    dst.ogoal = { x: src.ogoal.x | 0, y: src.ogoal.y | 0 };
                 }
-                if (!m2.mextra) m2.mextra = {};
-                m2.mextra.edog = m2.edog;
+                m2.edog = dst;
             }
         }
     }

@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1595 dog.c tamedog initedog has_edog vs !mtame
+
+**Objective:** Open `dog.c` tamedog `initedog` has_edog vs `!mtame`.
+Not FULL_MOON. Not ustuck.
+**C locus:** `dog.c` `tamedog` `:1253–1259`; `newedog` `:22–32`;
+`initedog` `EDOG`; `makemon.c` MM_EDOG `:1245–1246`.
+**JS locus:** `initedog(mtmp, !(mtmp.mtame))` + `mtmp.edog={}`.
+**Change:** live `newedog`; `!has_edog` → `initedog(TRUE)` else
+FALSE; MM_EDOG; `copy_mextra`. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **11**/11; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `create_mplayers`. Not has_edog.
+**Blocked:** none.
 ## 2026-08-28 — D-1594 mon.c normal_shape await newcham NC_SHOW_MSG
 
 **Objective:** Must-fix **547** — `normal_shape` await

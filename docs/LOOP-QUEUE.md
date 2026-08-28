@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dog.c` tamedog `initedog` has_edog vs `!mtame` (named). Not FULL_MOON.
 - [ ] `mplayer.c` `create_mplayers` (named). Not mk_mplayer.
 - [ ] `makemon.c` `show_transient_light` (named). Not ndemon.
 - [ ] `makemon.c` `has_mcorpsenm` (named). Not set_mimic_sym.

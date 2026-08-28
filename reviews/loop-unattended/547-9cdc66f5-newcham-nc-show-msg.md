@@ -136,4 +136,4 @@ Named (not Must-fix): mhitm stone `:3825`; genocide `:5665`; muse/trap/uhitm vis
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1594
+**Addressed:** D-1594 `dc1d6d94`

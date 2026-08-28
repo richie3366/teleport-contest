@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `mon.c` `normal_shape` must await `newcham(..., NC_SHOW_MSG)` (C `:4438`) so PfSC `rescham`/`restore_cham`/zap cancel print the shapeshift pline before `cham=NON_PM`/`newsym`/clay-golem, not as a dropped Promise. Source: reviews/loop-unattended/547-9cdc66f5-newcham-nc-show-msg.md **Addressed:** D-1594
+- [x] `dog.c` tamedog `initedog` has_edog vs `!mtame` (named). Not FULL_MOON. **Addressed:** D-1595
+
+
+- [x] `mon.c` `normal_shape` must await `newcham(..., NC_SHOW_MSG)` (C `:4438`) so PfSC `rescham`/`restore_cham`/zap cancel print the shapeshift pline before `cham=NON_PM`/`newsym`/clay-golem, not as a dropped Promise. Source: reviews/loop-unattended/547-9cdc66f5-newcham-nc-show-msg.md **Addressed:** D-1594 `dc1d6d94`
 
 
 - [x] `dog.c` tamedog ustuck expels/unstuck (named). Not FULL_MOON. **Addressed:** D-1593 `4b34b340`

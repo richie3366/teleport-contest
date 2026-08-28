@@ -1,3 +1,32 @@
+## D-1595 — dog.c tamedog initedog has_edog vs !mtame
+
+- **Status:** fixed (map-driven Open from D-1594; not a public FAIL)
+- **Symptom:** `tamedog` used `initedog(mtmp, !(mtmp.mtame))` and
+  allocated top-level `mtmp.edog={}` so a feral former pet
+  (`mtame==0` but `has_edog`) reset abuse/apport/revivals, and
+  `makemon(MM_EDOG)` never called `newedog`.
+- **C locus:** `dog.c` `tamedog` `:1253–1259` after quest-leader
+  reject: `if (!has_edog(mtmp)) { newedog(mtmp); initedog(mtmp,
+  TRUE); } else { initedog(mtmp, FALSE); }`. Callee `newedog`
+  `:22–32` (`mextra` + memset edog + `parentmid`). `initedog`
+  `:44–88` `EDOG(mtmp)`. `makemon.c` `:1245–1246` `MM_EDOG`.
+  `copy_mextra` `newedog` then `*EDOG`. `has_edog` is
+  `mextra && EDOG` (`mextra.h:232`).
+- **JS was:** named omit after D-1593 (`ustuck` live; has_edog
+  comment only). `initedog` created `mtmp.edog` if missing.
+- **Fix:** live `newedog`; `tamedog` matches C `has_edog` split;
+  `initedog` uses `EDOG(mtmp)` and mirrors `mtmp.edog` for
+  dogmove; `makemon` `MM_EDOG`; `copy_mextra`/`clone_mon` via
+  `newedog`/`EDOG`. Rule #2: no fs.
+- **JS:** `js/dog.js` `tamedog`/`initedog`; `js/makemon.js`
+  `newedog`; `js/mon.js` `copy_mextra`.
+- **Not this iter:** livelog first pet (`!pets && in_moveloop`);
+  `ogoal.x/y = -1`; `free_edog` (extern only); restore `newedog`.
+  ustuck is D-1593. FULL_MOON is D-1585.
+- **Verified:** private canary **11**/11; green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1594 — mon.c normal_shape await newcham NC_SHOW_MSG
 
 - **Status:** fixed (Must-fix review **547**; not a public FAIL)

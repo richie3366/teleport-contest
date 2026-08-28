@@ -815,7 +815,13 @@ left-to-right `night()` then `rn2(6)` even if `obj` is null / not a dog);
 **`tamedog` ustuck expels/unstuck D-1593** (C `:1184–1190`; live
 `mhitu.js` `expels`/`unstuck`; `engrave.js` `sticks` not monmove
 AT_HUGS=6; after mflee, before already-tame food);
-named: `initedog` `has_edog` vs `!mtame`
+**`tamedog` `initedog` `has_edog` vs `!mtame` D-1595** (C `:1253–1259`
+`newedog`+`initedog(TRUE)` else `initedog(FALSE)`; `dog.c` `newedog`
+`:22–32`; `makemon.c` MM_EDOG `:1245–1246`; `initedog` `EDOG(mtmp)`;
+mirrors `mtmp.edog` for dogmove; livelog first pet / ogoal `-1` /
+`free_edog` / restore `newedog` named)
+
+
 
 ### `src/fountain.c`
 
