@@ -7,19 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1960** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `38+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open `ndemon` aligned `mkclass` is still named
-  (`unblock_point`/`dig_point` is D-1574). Not rndmonst_adj.
-  **Falsify:** `node scripts/csym.mjs ndemon` vs `js/makemon.js`.
-  **Next:** Open `ndemon` aligned `mkclass`. Not rndmonst_adj.
-  Do not skip D-1531…D-1574. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `redraw_worm` is still named
+  (`ndemon`/MAIL `mk_gen_ok` is D-1575). Not cutworm.
+  **Falsify:** `node scripts/csym.mjs redraw_worm` vs `js/worm.js`.
+  **Next:** Open `redraw_worm`. Not cutworm.
+  Do not skip D-1531…D-1575. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: `mk_mplayer`; FULL_MOON S_DOG / ustuck /
   `redraw_worm`; sit/pray `eyecount`; PREFIXCMD / `cmdq_shift`;
-  Palantir `#if 0`; `ndemon` mkclass;
+  Palantir `#if 0`;
   nv_range circle; `mimic_light_blocking` See_invisible;
   traditional_loot; more_containers `n`; force_invmenu redo;
   mime_action; gacc. NC_SHOW_MSG `pline_mon` / `m_unleash` /
   ustuck / break-armor / Elbereth `monflee`. `has_mcorpsenm`.
+  show_transient_light.
 
 ## Don't re-check (≤15)
 
@@ -28,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1574.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1575.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,9 +40,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1574 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1575 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1574. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1575. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -54,12 +55,17 @@ Objective/score live in `CURRENT.md`.
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557) or
   restore `recalc_block_point` as `vision_reset`. Do not glue
   `redraw_worm` / force_invmenu redo / nv_range /
-  `mimic_light_blocking`. D-1558…D-1574 live in the index
+  `mimic_light_blocking`. D-1558…D-1575 live in the index
   (`unblock_point` is D-1574). Do not re-port `dig_point` leftover-`i`
-  (fill_point only) or `newcham` Protection cancel.
+  (fill_point only) or `newcham` Protection cancel. Do not skip
+  MAIL `mk_gen_ok` or glue `redraw_worm`.
 
 ## Landmarks (≤15)
 
+- D-1575: `mk_gen_ok` MAIL_DAEMON + `ndemon` `mkclass_aligned`;
+  `msummon` is_lminion/`llord`/PM_ANGEL `ndemon`. Export
+  `is_lminion`. show_transient_light / `mk_mplayer` named.
+  `rndmonst_adj` is D-1566. `unblock_point` is D-1574.
 - D-1574: `unblock_point` + `dig_point` (viz_clear=1; continue
   non-end; both-blocked left=col-1 right=col+1); C
   `recalc_block_point`; `seemimic` capture-then-unblock.

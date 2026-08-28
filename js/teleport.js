@@ -355,7 +355,7 @@ function mon_aligntyp(mon) {
 }
 
 /** C monst.h is_lminion — is_minion(data) && mon_aligntyp == A_LAWFUL. */
-function is_lminion(mon) {
+export function is_lminion(mon) {
     return is_minion(mon?.data) && mon_aligntyp(mon) === A_LAWFUL;
 }
 

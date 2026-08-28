@@ -8,6 +8,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1575 makemon.c ndemon / mkclass_aligned MAIL
+
+**Objective:** Open `ndemon` aligned `mkclass`. Not rndmonst_adj.
+**C locus:** `makemon.c` `mk_gen_ok` `:1746–1749`; `mkclass_aligned`;
+`minion.c` `ndemon` `:443–464`; `msummon` is_lminion/PM_ANGEL; `llord`.
+**JS locus:** MAIL omit; msummon arms deferred.
+**Change:** live MAIL reject; `llord`; msummon is_lminion/PM_ANGEL;
+export `is_lminion`. show_transient_light named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1960).
+**Verified:** canary **24**/24; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `redraw_worm`. Not cutworm.
 ## 2026-08-28 — D-1574 vision.c unblock_point / dig_point
 
 **Objective:** Open `unblock_point`/`dig_point`. Not block_point.

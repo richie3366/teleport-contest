@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `vision.c` `unblock_point`/`dig_point` (named). Not block_point. **Addressed:** D-1574
+- [x] `makemon.c` `ndemon` aligned `mkclass` (named). Not rndmonst_adj. **Addressed:** D-1575
+
+
+- [x] `vision.c` `unblock_point`/`dig_point` (named). Not block_point. **Addressed:** D-1574 `1ba35e31`
 
 
 - [x] `mon.c` `newcham` Protection_from_shape_changers cancel (named). Not set_mimic_sym early-out. **Addressed:** D-1573 `423b6b29`

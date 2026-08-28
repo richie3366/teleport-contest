@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `ndemon` aligned `mkclass` (named). Not rndmonst_adj.
 - [ ] `worm.c` `redraw_worm` (named). Not cutworm.
 - [ ] `invent.c` force_invmenu `*`/`?` redo (named). Not hands/xtra.
 - [ ] `invent.c` mime_action (named). Not force_invmenu.

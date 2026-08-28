@@ -594,7 +594,8 @@ export function set_malign(mtmp) {
     }
 }
 
-// C ref: makemon.c mk_gen_ok
+// C ref: makemon.c mk_gen_ok — MAIL_STRUCTURES rejects PM_MAIL_DAEMON so
+// mkclass(S_DEMON, G_NOGEN) / ndemon cannot pick the mail daemon.
 function mk_gen_ok(mndx, mvflagsmask, genomask) {
     const ptr = mons(mndx);
     if (!ptr) return false;
@@ -602,6 +603,7 @@ function mk_gen_ok(mndx, mvflagsmask, genomask) {
     if (mvflags & mvflagsmask) return false;
     if (ptr.geno & genomask) return false;
     if (is_placeholder(ptr)) return false;
+    if ((ptr.mndx | 0) === pm('MAIL_DAEMON')) return false;
     return true;
 }
 
@@ -638,13 +640,18 @@ export function mkclass(mletClass, spc = 0) {
     return mkclass_aligned(mletClass, spc, A_NONE);
 }
 
-// C ref: makemon.c mkclass_aligned — pick permonst from class by geno/freq
+// C ref: makemon.c mkclass_aligned — pick permonst from class by geno/freq.
+// ndemon uses mkclass_aligned(S_DEMON, 0, atyp) instead of retrying mkclass.
 export function mkclass_aligned(mletClass, spc = 0, atyp = A_NONE) {
-    init_mongen_order();
     const nums = new Array(SPECIAL_PM + 1).fill(0);
     const maxmlev = level_difficulty() >> 1;
     // C: gehennom = Inhell != 0 — dungeon hellish flag, not dnum===GEHENNOM
     const gehennom = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
+    // C: class < 1 || class >= MAXMCLASSES — JS mlet is S_* string
+    if ((MLET_ORD[mletClass] ?? 0) < 1) return null;
+
+    init_mongen_order();
+    // C: after init_mongen_order()
     const zero_freq_for_entire_class = (mclass_maxf[mletClass] ?? 0) === 0;
 
     let first;

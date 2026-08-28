@@ -246,7 +246,8 @@ Ordinary `is_armed`/`m_initweap`/`mongets`/`m_initthrow`
 **S_ANGEL humanoid** (D-0649) + **S_KOP cream pie/club/hose** (D-1515) + default); 
 **`add_to_minv` uses `OBJ_MINVENT`** (D-0029) + **`add_to_minv` merge D-1492**; 
 **`makemon_rnd_goodpos` + null-ptr `rndmonst` order + `m_initgrp`/`G_SGROUP`** (D-0034); 
-**`mkclass`/`mkclass_aligned`/`init_mongen_order`/`mk_gen_ok`/`is_placeholder`** (D-0053); 
+**`mkclass`/`mkclass_aligned`/`init_mongen_order`/`mk_gen_ok`/`is_placeholder`** (D-0053) +
+**D-1575 `mk_gen_ok` MAIL_DAEMON** (random-demon `mkclass(S_DEMON, G_NOGEN)` / `ndemon`); 
 **`peace_minded` co-align + `race_hostile`/`race_peaceful` via urace hatemask/lovemask** 
 (D-0056/D-0172) + **`PM_ERINYS` → `!ualign.abuse`** (D-0905; `msounds[]` D-1053; 
 **`peace_minded`/`set_malign` `ptr.msound`** D-1079); 
@@ -347,8 +348,11 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
 **D-1535 `observe_quantum_cat`** (`pickup.c:2826–2896`; FOOT latebound; use_container/tip TRUE,TRUE; disclose FALSE,FALSE live spe; `Schroedinger's cat!`); muse monster-loot / escape companion HP named;
-**D-1573 `newcham` Protection cancel**; `ndemon`/aligned `mkclass` callers unaudited;
-`unblock_point`/`dig_point`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
+**D-1573 `newcham` Protection cancel**; **D-1575 `mk_gen_ok` MAIL_DAEMON**
+(`:1746–1749` MAIL_STRUCTURES; `ndemon` `minion.c:462` `mkclass_aligned(S_DEMON,0,atyp)`;
+`msummon` is_lminion/`llord`/PM_ANGEL `ndemon`; live export `teleport.js` `is_lminion`;
+show_transient_light / `transient_light_cleanup` named);
+**D-1574 `unblock_point`/`dig_point`**; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
 `GEHENNOM` dnum sites still wrong); **D-0749 `rnd_misc_item` life-saving `!nonliving && 
 !is_vampshifter`** (See_invisible peaceful invis arm deferred); 

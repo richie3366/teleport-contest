@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1575 — makemon.c ndemon / mkclass_aligned MAIL + msummon arms
+
+- **Status:** fixed (map-driven Open from D-1574; not a public FAIL)
+- **Symptom:** `ndemon`/aligned `mkclass` callers named leftover after
+  D-0053/D-0748/D-1566: `mk_gen_ok` omitted MAIL_STRUCTURES
+  `PM_MAIL_DAEMON`, so `mkclass(S_DEMON, G_NOGEN)` (tower `&`) could
+  pick the mail daemon; `msummon` skipped `is_lminion`/`llord` and
+  the PM_ANGEL `ndemon` arm.
+- **C locus:** `makemon.c` `mk_gen_ok` `:1746–1749` (`PM_MAIL_DAEMON`);
+  `mkclass_aligned` `:1879–1974`; `minion.c` `ndemon` `:443–464`;
+  `msummon` `:102–124`; `llord` `:419–426`.
+- **JS was:** `mk_gen_ok` placeholder/geno only; msummon dtype stayed
+  NON_PM for lawful minions and non-lawful angels.
+- **Fix:** MAIL reject in `mk_gen_ok`; live `llord`; `msummon`
+  is_lminion/`llord`/PM_ANGEL (export `teleport.js` `is_lminion`,
+  no second clone). Rule #2: no fs.
+- **JS:** `js/makemon.js` `mk_gen_ok`/`mkclass_aligned`; `js/minion.js`
+  `llord`/`msummon`; `js/teleport.js` export.
+- **Not this iter:** `show_transient_light` / `transient_light_cleanup`;
+  `mk_mplayer`; `pick_nasty` GEHENNOM dnum; newmonhp ×3 / grow_up.
+  `rndmonst_adj` is D-1566. `unblock_point` is D-1574.
+- **Verified:** private canary **24**/24 (C/JS locus; MAIL never from
+  G_NOGEN/`ndemon`; lawful align; `llord`/`is_lminion`; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1574 — vision.c unblock_point / dig_point
 
 - **Status:** fixed (map-driven Open from D-1573; not a public FAIL)
