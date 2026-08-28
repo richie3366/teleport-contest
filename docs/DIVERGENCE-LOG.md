@@ -1,8 +1,35 @@
-# Divergence log
+## D-1591 — invent.c display_used_invlets used-letters PICK_ONE
 
-Evidence-backed history of important C↔JS divergences. Active speculation stays
-small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
-to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
+- **Status:** fixed (map-driven Open from D-1590; not a public FAIL)
+- **Symptom:** `#adjust` destination `?`/`*` printed Never_mind
+  instead of C's used-inventory-letters PICK_ONE menu.
+- **C locus:** `invent.c` `display_used_invlets` `:3466–3519`
+  (`gi.invent` NHW_MENU; sortpack `flags.inv_order` class
+  `let_to_name(*invlet,FALSE,FALSE)` headings; skip `avoidlet`;
+  `obj_to_glyph(otmp, rn2_on_display_rng)` + `doname`;
+  `end_menu` `"Inventory letters used:"`; `select_menu` PICK_ONE;
+  n>0 letter, n==0 `'\0'` retry, n<0 ESC). Callees
+  `wintty.c` `tty_add_menu` `"%c - %s"` `:2602`; `tty_end_menu`
+  blank+prompt `:2680–2690`; `tty_select_menu` n. Caller
+  `doorganize_core` `:5144–5150` `?`/`*`
+  `display_used_invlets(splitting ? obj->invlet : 0)`.
+- **JS was:** named omit after D-0127/D-1590 (`#adjust` getobj +
+  dest live; `?`/`*` stub Never_mind).
+- **Fix:** live `build_used_invlets_items` (sortpack DEF_INV_ORDER
+  headings / invent-order when `sortpack==false`; avoidlet skip)
+  + PICK_ONE letter / ESC / Space-or-Return empty. doorganize_core
+  `?`/`*` awaits it. nobj-split still passes avoidlet 0. Rule #2:
+  no fs.
+- **JS:** `js/invent.js` `build_used_invlets_items` /
+  `display_used_invlets` / `doorganize_core`.
+- **Not this iter:** nobj `splitting` / `unsplitobj` cancel;
+  gold adjust; pack-full bump; SORTLOOT_PETRIFY; perm_invent
+  InvInUse; custom packorder; VENOM if not in DEF_INV_ORDER;
+  use_menu_glyphs; MENU_SEARCH; count-prefix; MENU_PREV/FIRST/LAST.
+  wizid is D-1590. gacc is D-1580. inuse_only is D-1589.
+- **Verified:** private canary **12**/12; green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
 
 ## D-1590 — invent.c display_pickinv wizid unid_cnt>0 PICK_ANY
 

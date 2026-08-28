@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` `display_used_invlets` (named). Not gacc.
 - [ ] `pickup.c` more_containers `n` (named). Not traditional_loot.
 - [ ] `dog.c` tamedog ustuck expels/unstuck (named). Not FULL_MOON.
 - [ ] `dog.c` tamedog `initedog` has_edog vs `!mtame` (named). Not FULL_MOON.

@@ -6,20 +6,19 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Suite 44/44** after D-1584 audit `05c69d9b`. seed4500 still PASS.
-  **Hypothesis:** Open `invent.c` `display_used_invlets` is next
-  (not wizid D-1590; not gacc D-1580).
-  **Falsify:** port `display_used_invlets` then green + cohort.
-  **Next:** Open `display_used_invlets`. Not more_containers `n`.
-  Do not skip D-1531…D-1590. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `pickup.c` more_containers `n` is next
+  (not `display_used_invlets` D-1591; not traditional_loot D-1581).
+  **Falsify:** port more_containers `n` then green + cohort.
+  **Next:** Open more_containers `n`. Not ustuck expels.
+  Do not skip D-1531…D-1591. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: ustuck expels/unstuck; `initedog` `has_edog`; sit/pray
   `eyecount`; Palantir `#if 0`; pit/underwater; more_containers `n`;
-  `display_used_invlets`; `m_unleash` / break-armor / Elbereth;
-  `has_mcorpsenm`; show_transient_light; clone auto-open yn; ggetobj
-  takeoff; floor `query_classes`; `create_mplayers`; potion/timeout/
-  polyself `set_mimic_blocking`; `tty_doprev_message` /
-  restore_msghistory; SORTLOOT_PETRIFY; perm_invent InvInUse;
-  `#seeall` EXT_CMDS.
+  `m_unleash` / break-armor / Elbereth; `has_mcorpsenm`;
+  show_transient_light; clone auto-open yn; ggetobj takeoff; floor
+  `query_classes`; `create_mplayers`; potion/timeout/polyself
+  `set_mimic_blocking`; `tty_doprev_message` / restore_msghistory;
+  SORTLOOT_PETRIFY; perm_invent InvInUse; `#seeall` EXT_CMDS.
 
 ## Don't re-check (≤15)
 
@@ -28,7 +27,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1590.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1591.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,9 +38,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1590 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1591 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1590. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1591. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -52,17 +51,20 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` bodies or global `recalc` as
-  `vision_reset`. D-1576…D-1590 live in the index (gacc D-1580;
-  inuse_only D-1589; wizid PICK_ANY D-1590). Do not glue
-  `display_used_invlets` / SORTLOOT_PETRIFY / `tty_doprev_message` /
-  ustuck / has_edog / `m_unleash`. Do not add `ing_suffix` clone #3
-  or `Tobjnam` #8 or `upstart` #9.
+  `vision_reset`. D-1576…D-1591 live in the index (gacc D-1580;
+  inuse_only D-1589; wizid PICK_ANY D-1590; used-invlets D-1591).
+  Do not glue more_containers `n` / SORTLOOT_PETRIFY /
+  `tty_doprev_message` / ustuck / has_edog / `m_unleash`. Do not add
+  `ing_suffix` clone #3 or `Tobjnam` #8 or `upstart` #9.
 
 ## Landmarks (≤15)
 
+- D-1591: `display_used_invlets` sortpack `let_to_name` + doname +
+  obj_glyph PICK_ONE; `#adjust` `?`/`*` (ESC vs empty). nobj-split
+  avoidlet / gold adjust named. wizid is D-1590.
 - D-1590: wizid unid_cnt>0 PICK_ANY `'_'`/`^I` SKIPINVERT + skip
   fully ID'd; empty pline; `identify_pack` `update_inventory`.
-  `display_used_invlets` named. inuse_only is D-1589.
+  inuse_only is D-1589.
 - D-1589: SORTLOOT_INUSE `inuse_classify` + `is_inuse` / fake HANDS
   / inuse_headers; `dispinv` `sortloot='i'`; `doprinuse` `*`.
 - D-1588: getobj `putmsghistory(qbuf,FALSE)` + `tty_putmsghistory`
@@ -85,4 +87,3 @@ Objective/score live in `CURRENT.md`.
 - D-1579: mime_action typed `'-'` `!allownone`; `ing_suffix`.
 - D-1578: force_invmenu skip yn auto `?`/`*` + Special redo.
 - D-1577: `redraw_worm` `newsym` every wseg including dummy.
-- D-1576: region per-cell `block_point`/`unblock_point`. seed4500.

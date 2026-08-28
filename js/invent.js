@@ -17,6 +17,7 @@
 // D-1588: getobj force_invmenu putmsghistory(qbuf) + topl.c remember_topl.
 // D-1589: sortloot SORTLOOT_INUSE + display_pickinv inuse_only / doprinuse.
 // D-1590: display_pickinv wizid unid_cnt>0 PICK_ANY (`_`/^I identify_pack).
+// D-1591: invent.c display_used_invlets (#adjust ?/* used-letters PICK_ONE).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -5147,8 +5148,139 @@ function names_ok_for_adjust_merge(otmp, obj) {
 }
 
 /**
+ * C invent.c display_used_invlets `:3466–3519` menu body (before
+ * end_menu / select_menu). sortpack walks DEF_INV_ORDER (C
+ * flags.inv_order default) with let_to_name headings; else invent
+ * order and no headers. Skip avoidlet (doorganize_core split source).
+ * obj_to_glyph Hallu display RNG then doname; tty_add_menu `"%c - %s"`
+ * ≡ xprname. Named omit: custom packorder; VENOM if not in
+ * DEF_INV_ORDER; use_menu_glyphs dash-slot.
+ * @param {string|number} [avoidlet] C char; 0 / '' / '\0' = none
+ * @returns {{ entries: {text:string, attr:number}[], byLet: Map<string, object> }}
+ */
+export function build_used_invlets_items(avoidlet = 0) {
+    const inv = game.invent || [];
+    const entries = [];
+    const byLet = new Map();
+    const skip = (ilet) => !!(avoidlet && avoidlet !== '\0' && ilet === avoidlet);
+    const headingAttr = game.program_state?.gameover ? 0 : ATR_INVERSE;
+    const pushItem = (otmp) => {
+        if (!otmp || skip(otmp.invlet)) return false;
+        // C: obj_to_glyph(otmp, rn2_on_display_rng) then doname
+        obj_glyph(otmp);
+        byLet.set(otmp.invlet, otmp);
+        entries.push({ text: xprname(otmp), attr: 0 });
+        return true;
+    };
+    if (game.flags?.sortpack === false) {
+        for (const otmp of inv) pushItem(otmp);
+    } else {
+        for (const oclass of DEF_INV_ORDER) {
+            let classcount = 0;
+            for (const otmp of inv) {
+                if (!otmp || skip(otmp.invlet) || otmp.oclass !== oclass) {
+                    continue;
+                }
+                if (!classcount) {
+                    entries.push({
+                        text: let_to_name(oclass, false, false),
+                        attr: headingAttr,
+                    });
+                    classcount++;
+                }
+                pushItem(otmp);
+            }
+        }
+    }
+    return { entries, byLet };
+}
+
+/**
+ * C invent.c display_used_invlets. Caller doorganize_core `:5146`
+ * `?`/`*`. Empty invent → 0. select_menu PICK_ONE: n>0 letter; n==0
+ * retry yn; n<0 ESC noadjust. tty_end_menu prepends blank +
+ * "Inventory letters used:".
+ * Named omit: MENU_SEARCH; count-prefix; MENU_PREV/FIRST/LAST.
+ * @param {string|number} [avoidlet]
+ * @returns {Promise<string>} letter, '' (n==0), or '\x1b'
+ */
+export async function display_used_invlets(avoidlet = 0) {
+    const inv = game.invent || [];
+    if (!inv.length) return '';
+
+    const { entries, byLet } = build_used_invlets_items(avoidlet);
+    // C wintty.c tty_end_menu `:2680–2690` — reverse then prepend
+    // blank + prompt (non-selectable).
+    entries.unshift({ text: 'Inventory letters used:', attr: 0 });
+    entries.unshift({ text: '', attr: 0 });
+
+    const rows = display()?.rows || 24;
+    const lmax = Math.min(52, rows - 1);
+    const npages = Math.max(1, Math.floor((entries.length + lmax - 1) / lmax));
+    let curr_page = 0;
+
+    for (;;) {
+        const start = curr_page * lmax;
+        const page = entries.slice(start, start + lmax);
+        const morestr = npages > 1
+            ? `(${curr_page + 1} of ${npages})`
+            : '(end) ';
+
+        if (npages > 1) {
+            const painted = page.map((e) => ({
+                text: ` ${typeof e === 'string' ? e : e.text}`,
+                attr: typeof e === 'string' ? 0 : (e.attr || 0),
+            }));
+            painted.push({ text: ` ${morestr}`, attr: 0 });
+            paint_overlay(painted, {
+                col: 0,
+                withStatus: false,
+                cursor: [morestr.length + 1, page.length],
+            });
+            game._tty_menu_geom = { offx: 0, endRow: page.length };
+        } else {
+            await paint_corner_nhw_menu(entries, morestr);
+        }
+        await flush_screen(1);
+        const key = await nhgetch();
+
+        if (key === 27) {
+            await dismiss_nhw_menu();
+            return '\x1b';
+        }
+        if (key === 32) {
+            if (curr_page < npages - 1) {
+                curr_page++;
+                continue;
+            }
+            await dismiss_nhw_menu();
+            return '';
+        }
+        if (key === 13 || key === 10) {
+            await dismiss_nhw_menu();
+            return '';
+        }
+        const ch = String.fromCharCode(key);
+        if (npages > 1) {
+            const onPage = page.some((e) => {
+                const t = typeof e === 'string' ? e : e.text;
+                return t.length >= 3 && t[1] === ' ' && t[0] === ch;
+            });
+            if (onPage && byLet.has(ch)) {
+                await dismiss_nhw_menu();
+                return ch;
+            }
+        } else if (byLet.has(ch)) {
+            await dismiss_nhw_menu();
+            return ch;
+        }
+        // invalid / other-page letter → re-prompt (C nhbell)
+    }
+}
+
+/**
  * C ref: invent.c doorganize_core — destination pick + move/collect/swap/merge.
- * Deferred: display_used_invlets, gold adjust, pack-full bump.
+ * Deferred: gold adjust, pack-full bump. display_used_invlets is D-1591.
  * getobj count-split is live; nobj splitting / unsplitobj on cancel named.
  */
 async function doorganize_core(obj) {
@@ -5182,9 +5314,13 @@ async function doorganize_core(obj) {
     for (let trycnt = 1; ; ++trycnt) {
         let_ = await yn_function(qbuf, null, '\0');
         if (let_ === '?' || let_ === '*') {
-            // display_used_invlets deferred
-            if (game.flags?.verbose !== false) await pline(Never_mind);
-            return ECMD_OK;
+            // C `:5144–5150` — splitting ? obj->invlet : 0 (nobj-split named)
+            let_ = await display_used_invlets(0);
+            if (!let_) continue;
+            if (let_ === '\x1b') {
+                if (!ever_mind) await pline(Never_mind);
+                return ECMD_OK;
+            }
         }
         if (QUITCHARS.includes(let_)) {
             if (!ever_mind) await pline(Never_mind);
