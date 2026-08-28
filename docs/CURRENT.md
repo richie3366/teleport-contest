@@ -62,15 +62,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1950**. **Next cluster:**
-Open `pickup.c` stash getobj ALLOWCNT (named). Not CMDQ_INT.
-**Do not skip D-1531…D-1560 (index).** Keep mention_map addr.
+Open `vision.c` `howmonseen` (named). Not worm_known.
+**Do not skip D-1531…D-1561 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1560.** Do not FORCE
+**Do not re-break D-0660…D-1561.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1560 (index). Recent: **D-1560**
+**Keep:** D-0845…D-1561 (index). Recent: **D-1561**
+`pickup.c` stash getobj ALLOWCNT (`stash_ok`/`ck_bag`;
+`GETOBJ_PROMPT|GETOBJ_ALLOWCNT`; `in_container` early-outs +
+unwield; refuse → `unsplitobj`). `'r'` reversed named.
+Prior: **D-1560**
 `wield.c` `finish_splitting` / `unsplitobj` (getobj child own
 invlet; welded/already/gold unsplit; ynq split-one/rest).
 Prior: **D-1559**
@@ -124,7 +128,7 @@ D-1533 `o->lit`. D-1532 is_covetous. D-1531 Pri-loca
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1560
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1561
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -170,7 +174,8 @@ Do not skip `mhidden_description` (D-1554) or `namefloorobj`
 `set_artifact_intrinsic` SEARCH/REGEN/XRAY (D-1558) or leave
 Eyes `setworn` without it. Do not skip pickinv `&ctmp`
 (D-1559) or leave ALLOWCNT `?`/`*` as Never_mind. Do not skip
-`finish_splitting`/`unsplitobj` (D-1560) or glue stash getobj.
+`finish_splitting`/`unsplitobj` (D-1560) or stash getobj
+ALLOWCNT (D-1561). Do not glue `'r'` reversed / `howmonseen`.
 Do not rewrite `confer_oc_oprop`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

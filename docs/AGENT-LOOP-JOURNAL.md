@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1561 pickup.c stash getobj ALLOWCNT
+
+**Objective:** Open stash getobj ALLOWCNT. Not CMDQ_INT.
+**C locus:** `pickup.c` `use_container` `:3174–3185`; `stash_ok`
+`:2956–2969`; `ck_bag` `:2719–2723`; `in_container` early-outs.
+**JS locus:** `js/pickup.js` (ignored `'s'` after D-1559/D-1560);
+`js/wield.js` `weldmsg`.
+**Change:** ALLOWCNT stash getobj + `in_container` refusals/
+unwield; refuse → `unsplitobj`. `'r'` named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1950).
+**Verified:** canary **26**/26; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `howmonseen`. Not worm_known.
+**Blocked:** none.
 ## 2026-08-28 — D-1560 wield.c finish_splitting / unsplitobj
 
 **Objective:** Open finish_splitting / unsplitobj. Not CMDQ_INT.

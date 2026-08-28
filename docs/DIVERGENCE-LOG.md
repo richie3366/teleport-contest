@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1561 — pickup.c stash getobj ALLOWCNT
+
+- **Status:** fixed (map-driven Open from D-1560; not a public FAIL)
+- **Symptom:** `in_or_out_menu` offered `'s'` / lootabc `'e'` but
+  `use_container` ignored stash. C `getobj("stash", stash_ok,
+  GETOBJ_PROMPT|GETOBJ_ALLOWCNT)` then `in_container` / `unsplitobj`.
+  Named omit after D-1559/D-1560. Not CMDQ_INT.
+- **C locus:** `pickup.c` `use_container` `:3174–3185` (`stash_one`).
+  `stash_ok` `:2956–2969` (null EXCLUDE; `!ck_bag` EXCLUDE_SELECTABLE;
+  else SUGGEST). `ck_bag` `:2719–2723`. `in_container` `:2557–2712`
+  (uball/self/worn W_ARMOR\|W_ACCESSORY/loadstone/quest/leash/uwep
+  weldmsg+setuwep/uswap/uquiver; fatal_corpse; box/boulder/statue;
+  `freeinv`; put `the(xname)`). Caller `'s'` from `in_or_out_menu`.
+- **JS was:** stash menu item returned `'s'` then fell through;
+  `in_container` rejected all `owornmask` and skipped C early-outs.
+- **Fix:** `stash_ok`/`ck_bag`; `getobj_stash` ALLOWCNT + canned
+  INT/KEY + pickinv `&ctmp`; `in_container` C refusals + unwield;
+  refuse → `unsplitobj`. `weldmsg` at wield home. Rule #2: no fs.
+- **JS:** `js/pickup.js`; `js/wield.js` (`weldmsg`).
+- **Not this iter:** `'r'` reversed; traditional_loot; more_containers
+  `'n'`; mbag explosion; icebox age; shop sellobj; snuff_lit;
+  `in_doagain` REPEAT record; eat/read/zap/tin NOFLAGS. pickinv
+  `&ctmp` is D-1559. `finish_splitting` is D-1560. canned
+  CMDQ_INT is D-1551.
+- **Verified:** private canary **26**/26 (C stash_ok/getobj/unsplit;
+  ck_bag ranks; canned INT+KEY split; `'s'`+`3a` stash split;
+  self/worn/Yendor/loadstone refuse; uwep unwield+put); green+strict
+  seed8000/0900; cohort **7**/7 + strict 1500/1800/0012/0004/0007/
+  2200/0383.
+- **Follow-up:** Open `vision.c` `howmonseen`. Not worm_known.
+
 ## D-1560 — wield.c finish_splitting / unsplitobj
 
 - **Status:** fixed (map-driven Open from D-1559; not a public FAIL)

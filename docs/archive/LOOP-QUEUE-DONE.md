@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `wield.c` `finish_splitting` / `unsplitobj` (named). Not CMDQ_INT. **Addressed:** D-1560
+- [x] `pickup.c` stash getobj ALLOWCNT (named). Not CMDQ_INT. **Addressed:** D-1561
+
+
+- [x] `wield.c` `finish_splitting` / `unsplitobj` (named). Not CMDQ_INT. **Addressed:** D-1560 `67d0c50c`
 
 
 - [x] `invent.c` `display_pickinv` `&ctmp` menu count (named). Not CMDQ_INT. **Addressed:** D-1559 `30c83eb9`

@@ -173,6 +173,20 @@ export function welded(obj) {
 }
 
 /**
+ * C ref: wield.c weldmsg — suppress doname "(weapon in hand)".
+ * Caller: pickup.c in_container welded uwep.
+ */
+export async function weldmsg(obj) {
+    if (!obj) return;
+    let hand = body_part_latebound(HAND);
+    if (bimanual(obj)) hand = makeplural(hand);
+    const savewornmask = obj.owornmask || 0;
+    obj.owornmask = 0; // C: suppress doname "(weapon in hand)"
+    await pline(`${Yobjnam2(obj, 'are')} welded to your ${hand}!`);
+    obj.owornmask = savewornmask;
+}
+
+/**
  * C ref: wield.c wield_tool — #rub / apply pick/whip/polearm auto-wield.
  * Named omissions: welded verbose hand/plural; cantwield; bimanual+shield;
  * will_weld → ready_weapon; untwoweapon side effects beyond basic clear.

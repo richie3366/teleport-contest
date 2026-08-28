@@ -1352,8 +1352,8 @@ Mastermind hints** D-0977; `Hero_playnotes`; flees_light; can_blow poly; selftou
 flooreffects full; maketrap shop-hole/DRAWBRIDGE_UP ice named (**set_levltyp D-1280**); 
 sleep defended/shieldeff; set_entity crush still deferred); 
 omit `do_break_wand`/`flip_through_book`/`flip_coin`, adjacent/dz/cursed stethoscope, forcelock 
-shop/erosion polish, `feel_location` mapseen gating, stash/`'r'` reversed, more_containers 
-`n`/lootabc, BUC filter apply / autopick `A` / justpicked shortcut, mbag explosion; 
+shop/erosion polish, `feel_location` mapseen gating, **stash getobj ALLOWCNT D-1561** (`stash_ok`/`ck_bag`/`GETOBJ_PROMPT|GETOBJ_ALLOWCNT` + `in_container` early-outs/`unsplitobj`; `'r'` reversed / traditional_loot / more_containers 
+`n`/lootabc, BUC filter apply / autopick `A` / justpicked shortcut, mbag explosion / icebox age / shop sellobj / snuff_lit named); 
 door `b_trapped` body / AUTOUNLOCK_KICK / quest-artifact autokey ranking; 
 **`use_leash`/`next_to_u`/`check_leash`/`m_unleash`/`o_unleash`/`get_mleash`/`number_leashed`/`
 leashable`/`mon_has_amulet` + `whimper` + domove/stairs/tele/dig/trap wires** (D-1005; 
@@ -1619,7 +1619,7 @@ MENU_PREV/FIRST/LAST + other NHW_MENU callers still single-page);
 multi/`dispinv`/`doprinuse`/`*`, uskin noarmor deferred); 
 **`doattributes` Background `In_endgame`/`endgamelevelname` + moves==1 just-started + 
 wizard XP delta** (D-0572; `MAGICENLIGHTENMENT` Attributes for wizard ^X + status `<%d>` + 
-Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; **canned CMDQ_INT D-1551** (`need_more_cq` INT then KEY + split_otmp; apply/grease/jelly/rub KEY; eat/read/zap/tin NOFLAGS); **`display_pickinv` `&ctmp` D-1559** (PICK_ONE digits / n==1 `-1`; ALLOWCNT throw/drop/wield/ready/charge/adjust; hands/xtra_choice / force_invmenu `*`/`?` redo / gacc named); `in_doagain` REPEAT record named; `display_used_invlets`/wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
+Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; **canned CMDQ_INT D-1551** (`need_more_cq` INT then KEY + split_otmp; apply/grease/jelly/rub KEY; eat/read/zap/tin NOFLAGS); **`display_pickinv` `&ctmp` D-1559** (PICK_ONE digits / n==1 `-1`; ALLOWCNT throw/drop/wield/ready/charge/adjust; **stash D-1561**; hands/xtra_choice / force_invmenu `*`/`?` redo / gacc named); `in_doagain` REPEAT record named; `display_used_invlets`/wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
 compactify on other getobj verbs; full magic enlightenment deferred; 
 **`display_pickinv_reply` n==1 + lets → `message_menu` PICK_ONE** (D-0422; 
 force_invmenu/menu_requested/wizid/hands deferred)
