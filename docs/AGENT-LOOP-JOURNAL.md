@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1596 mplayer.c create_mplayers
+
+**Objective:** Open `mplayer.c` `create_mplayers` (named). Not
+mk_mplayer. Not has_edog.
+**C locus:** `mplayer.c` `create_mplayers` `:326–353`; caller
+`do.c` `final_level` `:2049` / `goto_level` `:1885`.
+**JS locus:** named omit after D-1584; `goto_level` skipped Astral
+`final_level` (always `resurrect` on newdungeon+amulet).
+**Change:** live class/`goodpos`/tryct/`mk_mplayer`; Astral
+`madeNew` `rn1(4,3), TRUE`; else-if `resurrect`. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **9**/9; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `show_transient_light`. Not create_mplayers.
+**Blocked:** none.
 ## 2026-08-28 — D-1595 dog.c tamedog initedog has_edog vs !mtame
 
 **Objective:** Open `dog.c` tamedog `initedog` has_edog vs `!mtame`.

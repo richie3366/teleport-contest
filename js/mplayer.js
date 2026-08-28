@@ -1,10 +1,11 @@
 // mplayer.js — Player-monster creation (partial).
-// C ref: mplayer.c mk_mplayer / get_mplname / mk_mplayer_armor / dev_name.
-// create_mplayers (do.c endgame) named omit.
+// C ref: mplayer.c mk_mplayer / get_mplname / mk_mplayer_armor / dev_name /
+// create_mplayers. mplayer_talk named omit.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
-import { is_mplayer, is_female } from './monsters.js';
+import { is_mplayer, is_female, mons } from './monsters.js';
+import { set_mon_data } from './mondata.js';
 import {
     PM_ARCHEOLOGIST, PM_BARBARIAN, PM_CAVE_DWELLER, PM_HEALER, PM_KNIGHT,
     PM_MONK, PM_CLERIC, PM_RANGER, PM_ROGUE, PM_SAMURAI, PM_TOURIST,
@@ -20,7 +21,7 @@ import {
 import { mk_artifact, is_art } from './artifact.js';
 import { ART_MAGICBANE } from './generated/artifacts_data.js';
 import { m_dowear } from './worn.js';
-import { rloc } from './teleport.js';
+import { rloc, goodpos } from './teleport.js';
 import { m_at } from './mon.js';
 import { christen_monst } from './do_name.js';
 import { rank_of } from './roles.js';
@@ -28,7 +29,7 @@ import { monmightthrowwep } from './weapon.js';
 import { impossible } from './display.js';
 import {
     In_endgame, MM_NOMSG, NO_MM_FLAGS, A_NONE, RLOC_ERR, RLOC_NOMSG,
-    has_mgivenname, MGIVENNAME, P_SPEAR,
+    has_mgivenname, MGIVENNAME, P_SPEAR, COLNO, ROWNO,
 } from './const.js';
 import { objectNames, WEAPON_CLASS, RANDOM_CLASS } from './objects.js';
 
@@ -320,4 +321,37 @@ export function mk_mplayer(ptr, x, y, special) {
     }
 
     return mtmp;
+}
+
+/**
+ * C ref: mplayer.c create_mplayers — `num` random role-monsters at
+ * goodpos cells. Caller do.c final_level (Astral, madeNew) passes
+ * rn1(4, 3), TRUE. tryct>50 after the do-while aborts the rest of
+ * the loop even if the last roll was goodpos (C `:346–348`).
+ * Named omit: mplayer_talk; final_level reset_hostility /
+ * gain_guardian_angel / ACH_ASTR.
+ */
+export function create_mplayers(num, special) {
+    const fakemon = { mx: 0, my: 0, wormno: 0, m_id: 0 };
+
+    while (num) {
+        let tryct = 0;
+
+        /* roll for character class */
+        const pm = rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST);
+        set_mon_data(fakemon, mons(pm));
+
+        /* roll for an available location */
+        let x, y;
+        do {
+            x = rn1(COLNO - 4, 2);
+            y = rnd(ROWNO - 2);
+        } while (!goodpos(x, y, fakemon, 0) && tryct++ <= 50);
+
+        /* if pos not found in 50 tries, don't bother to continue */
+        if (tryct > 50) return;
+
+        mk_mplayer(mons(pm), x, y, special);
+        num--;
+    }
 }

@@ -5,23 +5,24 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1595 (review **547** closed; has_edog live).
-  seed4500 still PASS.
-  **Hypothesis:** Open `mplayer.c` `create_mplayers` (named). Not
-  mk_mplayer. Not has_edog.
-  **Falsify:** port `create_mplayers` from C (`mplayer.c`) then a
-  canary that several mplayers spawn vs `mk_mplayer` alone.
-  **Next:** Open `create_mplayers`. Not `show_transient_light`.
-  Do not skip D-1531…D-1595. No FORCE / `wildmiss` wrap / trailing
+- **Suite 44/44** after D-1596 (create_mplayers live). seed4500 still
+  PASS.
+  **Hypothesis:** Open `makemon.c` `show_transient_light` (named).
+  Not ndemon. Not create_mplayers.
+  **Falsify:** port `show_transient_light` from C (`light.c`; queue
+  cites makemon.c) then a canary that a camera flash / thrown lamp
+  sets `mtemplit` on mons in range vs vision_recalc alone.
+  **Next:** Open `show_transient_light`. Not `has_mcorpsenm`.
+  Do not skip D-1531…D-1596. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   `m_unleash` / break-armor / Elbereth; `has_mcorpsenm`;
   show_transient_light; clone auto-open yn; ggetobj takeoff; floor
-  `query_classes`; `create_mplayers`; potion/timeout/polyself
+  `query_classes`; `mplayer_talk`; potion/timeout/polyself
   `set_mimic_blocking`; `tty_doprev_message` / restore_msghistory;
   SORTLOOT_PETRIFY; perm_invent InvInUse; `#seeall` EXT_CMDS;
   getlev `restore_cham`; wiz_intrinsic `rescham`; livelog first pet;
-  initedog ogoal `-1`.
+  initedog ogoal `-1`; `gain_guardian_angel`; mplayer-sword spe.
 
 ## Don't re-check (≤15)
 
@@ -30,7 +31,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1595.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1596.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,9 +42,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1595 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1596 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1595. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1596. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -54,19 +55,24 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` bodies or global `recalc` as
-  `vision_reset`. D-1576…D-1595 live in the index (gacc D-1580;
+  `vision_reset`. D-1576…D-1596 live in the index (gacc D-1580;
   inuse_only D-1589; wizid PICK_ANY D-1590; used-invlets D-1591;
   more_containers `n` D-1592; ustuck expels D-1593;
-  `normal_shape` await D-1594; has_edog D-1595).
+  `normal_shape` await D-1594; has_edog D-1595;
+  create_mplayers D-1596).
   Do not glue SORTLOOT_PETRIFY /
   `tty_doprev_message` / `m_unleash`. Do not add
   `ing_suffix` clone #3 or `Tobjnam` #8 or `upstart` #9.
 
 ## Landmarks (≤15)
 
+- D-1596: `create_mplayers` class `rn1` + `goodpos` tryct +
+  `mk_mplayer`; Astral `goto_level` `rn1(4,3), TRUE`. `mplayer_talk`
+  / `gain_guardian_angel` / mplayer-sword spe named. mk_mplayer is
+  D-1584.
 - D-1595: `tamedog` `!has_edog` `newedog`+`initedog(TRUE)` else
   FALSE; MM_EDOG; `initedog` `EDOG`. livelog / ogoal `-1` named.
-  `create_mplayers` waits. ustuck is D-1593.
+  ustuck is D-1593.
 - D-1594: `normal_shape` awaits `newcham(..., NC_SHOW_MSG)` before
   `cham=NON_PM` / clay-golem (review **547**).
   getlev `restore_cham` / wiz_intrinsic `rescham` named. NC_SHOW_MSG
@@ -94,10 +100,8 @@ Objective/score live in `CURRENT.md`.
 - D-1585: `tamedog` FULL_MOON night S_DOG `rn2(6)` + catch
   `Tobjnam`. ustuck is D-1593.
 - D-1584: `mk_mplayer` + `dev_name`/`get_mplname`/`mk_mplayer_armor`.
-  `create_mplayers` named.
+  create_mplayers is D-1596.
 - D-1583: `nv_range` circle after xray; `circle_ptr`. Pit/underwater
   named. xray is D-1571.
 - D-1582: PREFIXCMD `got_prefix_input` + `cmdq_shift`. Keyboard
   hjkl DIR_DX named.
-- D-1581: traditional_loot + askchain INVLET. more_containers is
-  D-1592; ggetobj takeoff named.

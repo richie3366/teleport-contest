@@ -378,8 +378,13 @@ JS: `js/mplayer.js` — partial
 `adjust_spe=FALSE` / `is_art` Magicbane / `m_dowear` / `christen_monst` /
 `rank_of` / `rnd_class` / `weapon.c` `monmightthrowwep` (`rwep[]`).
 Occupied `rloc(RLOC_ERR|RLOC_NOMSG)` fire-and-forget like
-`mk_roamer_splev` (JS `rloc` async). Named: `create_mplayers` (`do.c:2049`
-endgame); `mongets` mplayer-sword `spe=3+rn2(4)`. ndemon is D-1575.
+`mk_roamer_splev` (JS `rloc` async). **D-1596 `create_mplayers`**
+(`mplayer.c:326–353`; caller `do.c` `final_level` `:2049` Astral
+`madeNew` `rn1(4,3), TRUE`). Live `js/mplayer.js` + `goto_level`
+`Is_astralevel` (reset_hostility / gain_guardian_angel / ACH_ASTR
+named). Callees `set_mon_data`/`goodpos`/`mk_mplayer`; tryct>50
+aborts. Named: `mplayer_talk`; `mongets` mplayer-sword `spe=3+rn2(4)`.
+ndemon is D-1575.
 
 ### `src/worm.c`
 

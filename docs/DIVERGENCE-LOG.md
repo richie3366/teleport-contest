@@ -1,3 +1,35 @@
+## D-1596 — mplayer.c create_mplayers
+
+- **Status:** fixed (map-driven Open from D-1595; not a public FAIL)
+- **Symptom:** `create_mplayers` was a named omit after D-1584
+  (`mk_mplayer` live). Astral `final_level` never rolled several
+  role-monsters at `goodpos` cells; JS `goto_level` also skipped the
+  C `new && on_level(astral)` arm so a first Astral visit with the
+  amulet could still `resurrect()` (C `else if`).
+- **C locus:** `mplayer.c` `create_mplayers` `:326–353`: `fakemon =
+  cg.zeromonst`; `while (num)` class `rn1(PM_WIZARD -
+  PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST)`, `set_mon_data`, `do`
+  `rn1(COLNO-4,2)`/`rnd(ROWNO-2)` while `!goodpos && tryct++ <=
+  50`; `tryct > 50` return; `mk_mplayer(&mons[pm], x, y,
+  special)`; `num--`. Caller `do.c` `final_level` `:2049`
+  `create_mplayers(rn1(4, 3), TRUE)` from `goto_level` `:1885–1887`
+  `new && on_level(&u.uz, &astral_level)` else-if `newdungeon &&
+  amulet` `resurrect`.
+- **JS was:** named omit after D-1584. `goto_level` In_endgame always
+  `resurrect` on `newdungeon`+amulet (no Astral `final_level`).
+- **Fix:** live `create_mplayers`; `goto_level` `madeNew &&
+  Is_astralevel` calls it with `rn1(4, 3), true` then else-if
+  `resurrect`. `reset_hostility` / `gain_guardian_angel` / ACH_ASTR
+  named omit (no stub). Rule #2: no fs.
+- **JS:** `js/mplayer.js`; `js/do.js` `goto_level`.
+- **Not this iter:** `mplayer_talk`; `mongets` mplayer-sword
+  `spe=3+rn2(4)`; `final_level` `iter_mons(reset_hostility)` /
+  `gain_guardian_angel` / ACH_ENDG/ASTR. mk_mplayer is D-1584.
+  has_edog is D-1595.
+- **Verified:** private canary **9**/9; green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1595 — dog.c tamedog initedog has_edog vs !mtame
 
 - **Status:** fixed (map-driven Open from D-1594; not a public FAIL)

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mplayer.c` `create_mplayers` (named). Not mk_mplayer.
 - [ ] `makemon.c` `show_transient_light` (named). Not ndemon.
 - [ ] `makemon.c` `has_mcorpsenm` (named). Not set_mimic_sym.
 - [ ] `invent.c` SORTLOOT_PETRIFY (named). Not inuse_only.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `topl.c` `tty_doprev_message` (named). Not putmsghistory.
 - [ ] `pickup.c` ggetobj takeoff/identify askchain (named). Not traditional_loot.
 - [ ] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse.
+- [ ] `mplayer.c` `mplayer_talk` (named). Not create_mplayers.
+- [ ] `makemon.c` mongets mplayer-sword spe (named). Not show_transient_light.
+- [ ] `minion.c` `gain_guardian_angel` (named). Not create_mplayers.
+- [ ] `mon.c` `m_unleash` (named). Not newcham.
+- [ ] `dog.c` `initedog` ogoal `-1` (named). Not has_edog.
 
 ## Parked (do not pop)
 
