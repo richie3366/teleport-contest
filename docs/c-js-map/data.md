@@ -812,7 +812,10 @@ limits to mtmp cell, not `wakeup()` anger);
 `pline_mon` / big_corpse / `Tobjnam` stop D-1585** (C `:1176–1178` /
 `:1199–1209`; `objnam.c` `Tobjnam`; generated mlet `'S_DOG'`;
 left-to-right `night()` then `rn2(6)` even if `obj` is null / not a dog);
-named: ustuck expels/unstuck; `initedog` `has_edog` vs `!mtame`
+**`tamedog` ustuck expels/unstuck D-1593** (C `:1184–1190`; live
+`mhitu.js` `expels`/`unstuck`; `engrave.js` `sticks` not monmove
+AT_HUGS=6; after mflee, before already-tame food);
+named: `initedog` `has_edog` vs `!mtame`
 
 ### `src/fountain.c`
 

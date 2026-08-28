@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1593 dog.c tamedog ustuck expels/unstuck
+
+**Objective:** Open `dog.c` tamedog ustuck expels/unstuck (named). Not
+FULL_MOON.
+**C locus:** `dog.c` `tamedog` `:1184–1190`; `mhitu.c` `expels`;
+`mon.c` `unstuck`; `mondata.c` `sticks`.
+**JS locus:** named omit after D-1585 (comment only).
+**Change:** live swallow `expels` else `!(Upolyd && sticks)` `unstuck`.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **11**/11; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open tamedog `initedog` has_edog. Not ustuck.
+**Blocked:** none.
 ## 2026-08-28 — D-1592 pickup.c more_containers n
 
 **Objective:** Open `pickup.c` more_containers `n` (named). Not

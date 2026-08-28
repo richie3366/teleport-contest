@@ -17,7 +17,7 @@ import {
     MIGR_STAIRS_DOWN, MIGR_LADDER_UP, MIGR_LADDER_DOWN, MIGR_SSTAIRS,
     MIGR_PORTAL, MIGR_WITH_HERO, MIGR_LEFTOVERS, MON_MIGRATING, MON_LIMBO,
     STRAT_ARRIVE, RLOC_NOMSG, MAGIC_PORTAL, In_endgame, isok, MTSZ, MANFOOD,
-    DOGFOOD, ACCFOOD, FULL_MOON,
+    DOGFOOD, ACCFOOD, FULL_MOON, Upolyd,
     DF_ALL, COLNO, ROWNO, ROOMOFFSET, IS_WALL,
 } from './const.js';
 import { SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
@@ -42,6 +42,8 @@ import { cansee } from './vision.js';
 import { night } from './calendar.js';
 import { Tobjnam, the, xname } from './objnam.js';
 import { objectNames } from './generated/objects_data.js';
+import { expels, unstuck } from './mhitu.js';
+import { sticks } from './engrave.js';
 
 const PM_LITTLE_DOG = monsterNames.indexOf('PM_LITTLE_DOG');
 const PM_KITTEN = monsterNames.indexOf('PM_KITTEN');
@@ -354,7 +356,9 @@ export function keepdogs(pets_only = false) {
  * FULL_MOON night S_DOG rn2(6) D-1585 (C :1176–1178; generated mlet
  * 'S_DOG' ≡ C enum S_DOG). Already-tame catch pline_mon / big_corpse /
  * Tobjnam stop D-1585 (C :1199–1209).
- * Named omissions: ustuck expels/unstuck; initedog has_edog vs !mtame.
+ * ustuck expels/unstuck D-1593 (C :1184–1190; live mhitu expels/unstuck;
+ * engrave sticks — not monmove AT_HUGS=6 clone).
+ * Named omissions: initedog has_edog vs !mtame.
  * redraw_worm is D-1577.
  */
 export async function tamedog(mtmp, obj, givemsg = true) {
@@ -398,7 +402,14 @@ export async function tamedog(mtmp, obj, givemsg = true) {
 
     mtmp.mflee = 0;
     mtmp.mfleetim = 0;
-    // C :1185–1190 ustuck expels/unstuck named
+    // C :1184–1190 — grabber lets go now, whether it becomes tame or not
+    if (mtmp === game.u?.ustuck) {
+        if (game.u.uswallow) {
+            await expels(mtmp, mtmp.data, true);
+        } else if (!(Upolyd(game.u) && sticks(game.youmonst?.data))) {
+            await unstuck(mtmp);
+        }
+    }
 
     // C: feeding treats makes already-tame pets tamer (before mtame<10 bump)
     if (mtmp.mtame && obj) {

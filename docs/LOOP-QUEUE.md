@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dog.c` tamedog ustuck expels/unstuck (named). Not FULL_MOON.
 - [ ] `dog.c` tamedog `initedog` has_edog vs `!mtame` (named). Not FULL_MOON.
 - [ ] `mplayer.c` `create_mplayers` (named). Not mk_mplayer.
 - [ ] `makemon.c` `show_transient_light` (named). Not ndemon.

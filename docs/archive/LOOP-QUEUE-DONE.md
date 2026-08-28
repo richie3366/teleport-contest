@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `pickup.c` more_containers `n` (named). Not traditional_loot. **Addressed:** D-1592
+- [x] `dog.c` tamedog ustuck expels/unstuck (named). Not FULL_MOON. **Addressed:** D-1593
+
+
+- [x] `pickup.c` more_containers `n` (named). Not traditional_loot. **Addressed:** D-1592 `c4be5135`
 
 
 - [x] `invent.c` `display_used_invlets` (named). Not gacc. **Addressed:** D-1591 `92bbf63b`

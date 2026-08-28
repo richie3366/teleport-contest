@@ -1,3 +1,31 @@
+## D-1593 — dog.c tamedog ustuck expels/unstuck
+
+- **Status:** fixed (map-driven Open from D-1592; not a public FAIL)
+- **Symptom:** `tamedog` never released `u.ustuck`; a swallowed or
+  holding grabber stayed stuck even after pacify/tame.
+- **C locus:** `dog.c` `tamedog` `:1184–1190` (after `mflee=0`,
+  before already-tame food): `mtmp == u.ustuck` then
+  `u.uswallow` → `expels(mtmp, mtmp->data, TRUE)` else
+  `!(Upolyd && sticks(gy.youmonst.data))` → `unstuck(mtmp)`.
+  Callees `mhitu.c` `expels` `:263–306`; `mon.c` `unstuck`
+  `:3437–3467`; `mondata.c` `sticks` `:653–659`. FULL_MOON
+  return is before this block; iswiz/Medusa/WANTSARTI return
+  even earlier (no release).
+- **JS was:** named omit after D-1585 (`FULL_MOON` + catch live;
+  ustuck comment only).
+- **Fix:** live `expels`/`unstuck` from `mhitu.js`; `Upolyd` +
+  `engrave.js` `sticks` (C-matched AT_HUGS=7 / AT_ENGL=11; not
+  `monmove.js` clone). Grabber lets go whether taming succeeds.
+  Rule #2: no fs.
+- **JS:** `js/dog.js` `tamedog`.
+- **Not this iter:** `initedog` `has_edog` vs `!mtame` /
+  `newedog`; Punished `placebc` in `unstuck`; `expels`
+  `spoteffects`/`um_dist`. FULL_MOON is D-1585. `wake_nearto`
+  is D-1546. `redraw_worm` is D-1577.
+- **Verified:** private canary **11**/11; green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1592 — pickup.c in_or_out_menu more_containers `n`
 
 - **Status:** fixed (map-driven Open from D-1591; not a public FAIL)
