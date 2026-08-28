@@ -15,7 +15,7 @@ import {
     let_to_name, DEF_INV_ORDER, prinv, near_capacity, calc_capacity,
     max_capacity, compactify_invlets, getobj_take_count, getobj_apply_count,
     getobj_from_cmdq, getobj_display_pickinv, freeinv, display_inventory,
-    splittable,
+    splittable, will_feel_cockatrice,
 } from './invent.js';
 import { nomul, check_special_room, is_pool, is_lava, in_rooms, dosinkfall, SURFACE_AT, switch_terrain } from './hack.js';
 import {
@@ -34,12 +34,12 @@ import {
     is_pit, LOST_DROPPED,
     STONE, ICE, MAX_TYPE,
     IS_POOL, IS_LAVA, IS_FURNITURE, IS_WATERWALL, IS_SINK,
-    LOOKHERE_PICKED_SOME, LOOKHERE_SKIP_DFEATURE,
+    LOOKHERE_PICKED_SOME, LOOKHERE_SKIP_DFEATURE, LOOKHERE_NOFLAGS,
     Has_contents, Is_container, Is_box,
     Never_mind,
     GETOBJ_EXCLUDE, GETOBJ_SUGGEST, GETOBJ_EXCLUDE_SELECTABLE,
     W_ARMOR, W_ACCESSORY,
-    SORTLOOT_PACK, SORTLOOT_LOOT, SORTLOOT_INVLET,
+    SORTLOOT_PACK, SORTLOOT_LOOT, SORTLOOT_INVLET, SORTLOOT_PETRIFY,
     ALL_TYPES_SELECTED, BUC_BLESSED, BUC_CURSED, BUC_UNCURSED, BUC_UNKNOWN,
     MENU_INVERT_ALL, MENU_SELECT_ALL, MENU_UNSELECT_ALL,
     MENU_TRADITIONAL, MENU_COMBINATION, MENU_FULL,
@@ -793,31 +793,40 @@ export async function pickup_object(obj, count, telekinesis) {
  * `@` MENU_INVERT_ALL / `.` SELECT_ALL / `-` UNSELECT_ALL (tty wintty).
  * INVORDER_SORT (sortpack): pack-order class headings via let_to_name;
  * menu letters assigned in that display order (no USE_INVLET on floor).
- * Sort: sortloot(SORTLOOT_LOOT|PACK) + nexthere (D-0405).
- * Named omissions: FEEL_COCKATRICE; count-N; allow-filter;
- * menu_head_objsym; INCLUDE_VENOM; traditional query_classes; engulfer;
- * loot_classify subclass/disco/BUCX; SKIPINVERT; page invert/search.
+ * Sort: sortloot(SORTLOOT_LOOT|PACK|PETRIFY) + nexthere (D-0405, D-1599).
+ * FEEL_COCKATRICE: will_feel during walk → look_here(0) abort (no menu).
+ * Named omissions: count-N; menu_head_objsym; INCLUDE_VENOM;
+ * traditional query_classes; engulfer; loot_classify subclass/disco/BUCX;
+ * SKIPINVERT; page invert/search; doloot Blind !uarmg feel before
+ * containers.
  */
 async function query_objlist_pickup(objList) {
     const flags = game.flags || {};
     const doSort = flags.sortpack !== false;
     // C: sortflags — sortloot 'l'/'f' + !USE_INVLET → SORTLOOT_LOOT;
-    // sortpack → SORTLOOT_PACK. Floor pile is a nexthere chain.
+    // sortpack → SORTLOOT_PACK; FEEL_COCKATRICE → SORTLOOT_PETRIFY.
+    // Floor pile is a nexthere chain.
     const sortlootOpt = flags.sortloot ?? 'l';
-    let sortflags = 0;
+    let sortflags = SORTLOOT_PETRIFY;
     if (sortlootOpt === 'l' || sortlootOpt === 'f') sortflags |= SORTLOOT_LOOT;
     if (doSort) sortflags |= SORTLOOT_PACK;
 
-    const allow = new Set(objList);
+    const allowSet = new Set(objList);
+    const allow = (o) => allowSet.has(o);
     const head = objList[0] || null;
-    const ranked = head
-        ? sortloot(head, sortflags, true).filter((s) => allow.has(s.obj))
-        : [];
+    const ranked = head ? sortloot(head, sortflags, true, allow) : [];
 
     const items = [];
     let nextLet = 'a'.charCodeAt(0);
     let first = true;
     for (const { obj } of ranked) {
+        // C query_objlist `:1111–1116` — FEEL_COCKATRICE CORPSE will_feel
+        // destroys the menu and reverts to look_here(0, LOOKHERE_NOFLAGS).
+        if ((obj.otyp | 0) === CORPSE && will_feel_cockatrice(obj, false)) {
+            await look_here(0, LOOKHERE_NOFLAGS);
+            return [];
+        }
+        if (!allow(obj)) continue;
         let letch;
         // C: !USE_INVLET → '$' only when the first menu item is a coin
         if (first && obj.oclass === COIN_CLASS) {

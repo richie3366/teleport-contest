@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `makemon.c` `has_mcorpsenm` (named). Not set_mimic_sym. **Addressed:** D-1598
+- [x] `invent.c` SORTLOOT_PETRIFY (named). Not inuse_only. **Addressed:** D-1599
+
+
+- [x] `makemon.c` `has_mcorpsenm` (named). Not set_mimic_sym. **Addressed:** D-1598 `9a4cbd04`
 
 
 - [x] `makemon.c` `show_transient_light` (named). Not ndemon. **Addressed:** D-1597 `9244ce75`

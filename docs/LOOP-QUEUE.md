@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` SORTLOOT_PETRIFY (named). Not inuse_only.
 - [ ] `invent.c` perm_invent InvInUse (named). Not inuse_only.
 - [ ] `topl.c` `tty_doprev_message` (named). Not putmsghistory.
 - [ ] `pickup.c` ggetobj takeoff/identify askchain (named). Not traditional_loot.

@@ -1,3 +1,36 @@
+## D-1599 — invent.c sortloot SORTLOOT_PETRIFY / will_feel_cockatrice
+
+- **Status:** fixed (map-driven Open from D-1598; not a public FAIL)
+- **Symptom:** `SORTLOOT_PETRIFY` was a named omit after D-1589
+  (inuse_only live). JS `sortloot` dropped any `filterfunc` reject
+  with no cockatrice override; `will_feel_cockatrice` /
+  `feel_cockatrice` were absent; `look_here` never felt a
+  petrifying corpse; pickup `query_objlist_pickup` never aborted
+  the `,` menu into `look_here(0)`.
+- **C locus:** `invent.c` `sortloot` `:611–620` `augment_filter =
+  (mode & SORTLOOT_PETRIFY)` then `mode &= ~SORTLOOT_PETRIFY`; keep
+  `otyp==CORPSE && touch_petrifies` when the filter rejects.
+  `will_feel_cockatrice` `:4333–4340`; `feel_cockatrice`
+  `:4342–4361` `CXN_PFX_THE` + `instapetrify(killer_xname)`.
+  `look_here` skip_objects `:4265–4276` / single `:4284–4285` /
+  multi `doname...` `:4300–4311`. Caller `pickup.c`
+  `query_objlist` `:1084–1116` `FEEL_COCKATRICE` → PETRIFY +
+  `look_here(0, LOOKHERE_NOFLAGS)` (query itself does not
+  `feel_cockatrice`).
+- **JS was:** named omit on `sortloot` / pickup FEEL / look_here
+  cockatrice. NOTES had wrongly guessed a petrify *sort class*.
+- **Fix:** live filter override + `will_feel_cockatrice` /
+  `feel_cockatrice`; `look_here` three floor feel arms; pickup
+  `,` menu FEEL abort. eat.c / doloot Blind !uarmg / pray
+  `force_touch` / engulfer stomach named. Rule #2: no fs.
+- **JS:** `js/invent.js`; `js/pickup.js` `query_objlist_pickup`.
+- **Not this iter:** eat.c feel; doloot corpse-before-container;
+  pray `force_touch`; swallow minvent feel; perm_invent InvInUse.
+  inuse_only is D-1589. has_mcorpsenm is D-1598.
+- **Verified:** private canary **23**/23; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1598 — mextra.h has_mcorpsenm / makemon.c newmcorpsenm
 
 - **Status:** fixed (map-driven Open from D-1597; not a public FAIL)

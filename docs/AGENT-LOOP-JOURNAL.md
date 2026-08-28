@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1599 invent.c SORTLOOT_PETRIFY
+
+**Objective:** Open `invent.c` SORTLOOT_PETRIFY (named). Not
+inuse_only.
+**C locus:** `invent.c` `sortloot` `:611–620` filter override;
+`will_feel_cockatrice` `:4333–4340`; `feel_cockatrice`
+`:4342–4361`; `look_here` feel arms; `pickup.c` `query_objlist`
+FEEL abort `look_here(0)`.
+**JS locus:** named omit after D-1589 (`sortloot` drop-filter;
+look_here cockatrice deferred).
+**Change:** live PETRIFY keep `touch_petrifies` CORPSE past
+filterfunc; feel helpers; look_here skip/single/multi; pickup
+`,` menu abort. eat/doloot/pray/engulfer named. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **23**/23; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open perm_invent InvInUse. Not SORTLOOT_PETRIFY.
+**Blocked:** none.
 ## 2026-08-28 — D-1598 mextra.h has_mcorpsenm
 
 **Objective:** Open `makemon.c` `has_mcorpsenm` (named). Not

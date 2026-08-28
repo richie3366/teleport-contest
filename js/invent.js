@@ -18,6 +18,7 @@
 // D-1589: sortloot SORTLOOT_INUSE + display_pickinv inuse_only / doprinuse.
 // D-1590: display_pickinv wizid unid_cnt>0 PICK_ANY (`_`/^I identify_pack).
 // D-1591: invent.c display_used_invlets (#adjust ?/* used-letters PICK_ONE).
+// D-1599: sortloot SORTLOOT_PETRIFY filter override + will_feel_cockatrice.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -26,7 +27,7 @@ import {
     endgamelevelname, obj_glyph, suppress_map_output, clear_nhwindow_message,
     putmsghistory,
 } from './display.js';
-import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound } from './objnam.js';
+import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function } from './getline.js';
 import { mergable, is_damageable, stop_timer, splitobj } from './mkobj.js';
 import { cansee } from './vision.js';
@@ -74,6 +75,9 @@ import {
     SORTLOOT_LOOT,
     SORTLOOT_INVLET,
     SORTLOOT_INUSE,
+    SORTLOOT_PETRIFY,
+    CXN_PFX_THE,
+    CXN_ARTICLE,
     PICK_ONE,
     PICK_NONE,
     PICK_ANY,
@@ -165,7 +169,7 @@ import {
 import { stairway_at, stairs_description } from './mklev.js';
 import { objects_at } from './mkobj.js';
 import { PM_SAMURAI, PM_MONK } from './generated/monsters_data.js';
-import { humanoid, strongmonst } from './monsters.js';
+import { humanoid, strongmonst, mons, touch_petrifies, poly_when_stoned } from './monsters.js';
 import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact } from './artifact.js';
 
 // C monflag.h MZ_HUMAN ≡ MZ_MEDIUM
@@ -179,6 +183,7 @@ function Blind() {
 }
 
 const OTYP_LEASH = objectNames.indexOf('LEASH');
+const OTYP_CORPSE = objectNames.indexOf('CORPSE');
 
 /**
  * C invent.c inuse_headers — [4] "Accessories"; dispinv_with_action may
@@ -438,23 +443,67 @@ function inuse_classify(sort_item, obj) {
 }
 
 /**
+ * C invent.c will_feel_cockatrice `:4333–4340`.
+ * Blind (or force_touch) && !uarmg && !Stone_resistance && CORPSE
+ * that touch_petrifies. eat.c / doloot / pray force_touch named.
+ */
+export function will_feel_cockatrice(otmp, force_touch = false) {
+    const u = game.u || {};
+    const Stone_resistance = !!(u.Stone_resistance
+        || u.HStone_resistance || u.EStone_resistance);
+    if ((Blind() || force_touch) && !u.uarmg && !Stone_resistance
+        && (otmp?.otyp | 0) === OTYP_CORPSE
+        && touch_petrifies(mons(otmp.corpsenm))) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C invent.c feel_cockatrice `:4342–4361`.
+ * will_feel then corpse_xname CXN_PFX_THE + instapetrify killer_xname.
+ */
+export async function feel_cockatrice(otmp, force_touch = false) {
+    if (!will_feel_cockatrice(otmp, force_touch)) return;
+    const kbuf = corpse_xname(otmp, null, CXN_PFX_THE);
+    if (poly_when_stoned(game.youmonst?.data, game.mvitals)) {
+        await pline(
+            `You touched ${kbuf} with your bare ${makeplural(body_part_latebound(HAND))}.`,
+        );
+    } else {
+        await pline(`Touching ${kbuf} is a fatal mistake...`);
+    }
+    const { instapetrify } = await import('./trap.js');
+    await instapetrify(`touching ${killer_xname(otmp)} bare-handed`);
+}
+
+/**
  * C ref: invent.c sortloot `:592–643` — Loot[] view; does not relink.
  * Branch envelope: SORTLOOT_PACK class + SORTLOOT_INVLET + SORTLOOT_LOOT
  * + SORTLOOT_INUSE (inuse_classify; bigger inuse first) + optional
- * filterfunc (display_pickinv is_inuse). Invent Array or nobj/nexthere.
+ * filterfunc (display_pickinv is_inuse) + SORTLOOT_PETRIFY (keep
+ * touch_petrifies CORPSE even when filterfunc rejects FOOD).
  * Named: subclass/disco/BUCX/erosion; loot_classify armor/weapon/tool
- * detail; SORTLOOT_PETRIFY cockatrice-filter override (pickup FEEL).
+ * detail.
  * @param {object|object[]|null} olist nobj/nexthere head or invent Array
  * @param {number} mode SORTLOOT_* flags
  * @param {boolean} [by_nexthere=false]
  * @param {((obj: object) => boolean)|null} [filterfunc]
  */
 export function sortloot(olist, mode, by_nexthere = false, filterfunc = null) {
+    // C: keep-cockatrice flag is overloaded with sort mode; strip it
+    // before sortloot_cmp (PETRIFY is not a compare class).
+    const augment_filter = (mode & SORTLOOT_PETRIFY) !== 0;
+    mode &= ~SORTLOOT_PETRIFY;
     const items = [];
     let i = 0;
     const consider = (o) => {
         if (!o) return;
-        if (filterfunc && !filterfunc(o)) return;
+        if (filterfunc && !filterfunc(o)
+            && (!augment_filter || (o.otyp | 0) !== OTYP_CORPSE
+                || !touch_petrifies(mons(o.corpsenm)))) {
+            return;
+        }
         items.push({
             obj: o, indx: i++, orderclass: 0, subclass: 0, disco: 0,
             inuse: 0, str: null,
@@ -3939,10 +3988,11 @@ export function dfeature_at(x, y) {
  * dfeature pline; single `You see/feel here`; multi NHW_MENU
  * "Things that are/you feel here:" via display_nhwindow(WIN_MESSAGE)+putstr
  * (D-0220); **observe_object before doname** (D-0399; C xname_flags).
- * **doname_with_price** (D-0460). Named omissions: pile_limit skip_objects
- * full arm, altar/ice Blind variants beyond floor, trap+region,
- * cockatrice feel, engulfer stomach; blanket xname observe / distant_name.
- * Furniture with ct==0 uses pickup.describe_decor (D-0356), not this path.
+ * **doname_with_price** (D-0460). **feel_cockatrice** D-1599 (skip_objects
+ * / single / multi `doname...` then feel). Named omissions: altar/ice
+ * Blind variants beyond floor, trap+region, engulfer stomach minvent
+ * feel; blanket xname observe / distant_name. Furniture with ct==0 uses
+ * pickup.describe_decor (D-0356), not this path.
  */
 export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
     // Dynamic import avoids invent↔shk cycle (shk imports paint_corner).
@@ -4029,6 +4079,21 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
                 `There are ${how}${picked_some ? ' more' : ''} objects here.`,
             );
         }
+        // C invent.c `:4265–4276` — first will_feel CORPSE then feel.
+        for (let o = otmp; o; o = o.nexthere) {
+            if ((o.otyp | 0) === OTYP_CORPSE && will_feel_cockatrice(o, false)) {
+                const including = obj_cnt > 1 ? 'Including'
+                    : (o.quan || 1) > 1 ? "They're" : "It's";
+                const unfortunately = poly_when_stoned(
+                    game.youmonst?.data, game.mvitals,
+                ) ? '' : ', unfortunately';
+                await pline(
+                    `${including} ${corpse_xname(o, null, CXN_ARTICLE)}${unfortunately}.`,
+                );
+                await feel_cockatrice(o, false);
+                break;
+            }
+        }
         return;
     }
 
@@ -4046,6 +4111,7 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
         if (!blind) observe_object(otmp);
         // C: You("%s here %s.", verb, doname_with_price(otmp))
         await pline(`You ${verb} here ${doname_with_price(otmp)}.`);
+        if ((otmp.otyp | 0) === OTYP_CORPSE) await feel_cockatrice(otmp, false);
         return;
     }
 
@@ -4064,13 +4130,22 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
             blind ? 'you feel' : 'are'
         } here:`,
     );
+    let felt_cockatrice = false;
+    let felt_obj = null;
     for (let o = otmp; o; o = o.nexthere) {
+        if ((o.otyp | 0) === OTYP_CORPSE && will_feel_cockatrice(o, false)) {
+            felt_cockatrice = true;
+            felt_obj = o;
+            lines.push(`${doname(o)}...`);
+            break;
+        }
         // C: doname_with_price → xname observe_object (dknown for gem color)
         if (!blind) observe_object(o);
         lines.push(doname_with_price(o));
     }
     const { show_nhw_menu_text } = await import('./pager.js');
     await show_nhw_menu_text(lines, { keep_message_leftover: true });
+    if (felt_cockatrice) await feel_cockatrice(felt_obj, false);
     {
         const { read_engr_at } = await import('./engrave.js');
         await read_engr_at(u?.ux, u?.uy);

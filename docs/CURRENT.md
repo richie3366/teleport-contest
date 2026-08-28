@@ -62,17 +62,21 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1598 (seed4500 still PASS). **Next cluster:**
-Open `invent.c` SORTLOOT_PETRIFY (named). Not inuse_only. Not
-has_mcorpsenm (D-1598). Not show_transient_light (D-1597).
-**Do not skip D-1531…D-1598 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1599 (seed4500 still PASS). **Next cluster:**
+Open `invent.c` perm_invent InvInUse (named). Not SORTLOOT_PETRIFY.
+Not inuse_only (D-1589). Not has_mcorpsenm (D-1598).
+**Do not skip D-1531…D-1599 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1598.** Do not FORCE
+**Do not re-break D-0660…D-1599.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1598 (index). Recent: **D-1598**
+**Keep:** D-0845…D-1599 (index). Recent: **D-1599**
+`invent.c` SORTLOOT_PETRIFY filter override (`touch_petrifies`
+CORPSE past filterfunc) + `will_feel_cockatrice` /
+`feel_cockatrice` + `look_here` skip/single/multi feel + pickup
+`query_objlist` FEEL abort to `look_here(0)`. Prior: **D-1598**
 `has_mcorpsenm` / `newmcorpsenm` / `freemcorpsenm` (`mextra &&
 MCORPSENM != NON_PM`; `seemimic` free; zap long-worm skip+flag;
 `copy_mextra`; display `PM_TENGU`; pager clone retired). Prior:
@@ -113,11 +117,11 @@ Prior: **D-1588**
 `block_point`/`unblock_point` (seed4500). **D-1575**
 `mk_gen_ok` MAIL + `ndemon` mkclass. **D-1574**
 `unblock_point`. **D-1573** `newcham` cancel. Older
-D-1531…D-1598 live in the index — do not re-paste.
+D-1531…D-1599 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1598 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1599 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -152,6 +156,7 @@ ustuck expels/unstuck is D-1593.
 `create_mplayers` is D-1596. `howmonseen` is D-1562. Do not
 skip `tamedog` `wake_nearto`. show_transient_light is D-1597.
 has_mcorpsenm is D-1598.
+SORTLOOT_PETRIFY is D-1599.
 Remembered otyp does not beat a displayed mon glyph (D-1547).
 Do not skip canned CMDQ_INT (D-1551), Eyes `is_plural`
 (D-1552), splev amask (D-1553), DELPHI (D-1556), `block_point`
