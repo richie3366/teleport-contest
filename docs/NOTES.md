@@ -5,9 +5,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1576 (Scr **11,405**/11,405 RNG
-  **792,838**/792,838 = 100%; `41+0.30/turn`). seed0367 FULL.
-  seed4500 recovered (D-1574 `1ba35e31` FAIL).
+- **Suite 44/44** after D-1584 audit `05c69d9b` (Scr **11,405**/11,405
+  RNG **792,838**/792,838 = 100%; `38+0.30/turn`). seed0367 FULL.
+  seed4500 still PASS (D-1574 `1ba35e31` was FAIL).
   **Hypothesis:** Open FULL_MOON S_DOG `rn2(6)` is the next named
   omit (`dog.c`; not mk_mplayer D-1584; not wake_nearto D-1546).
   **Falsify:** port FULL_MOON S_DOG then green + cohort; no FAIL peel.

@@ -547,3 +547,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [534-423b6b29-newcham-cancel.md](./534-423b6b29-newcham-cancel.md) | `423b6b29` | D-1573 newcham Protection cancel / wormgone | **ACCEPT-WITH-DEBT** |
 | [535-1ba35e31-unblock-point.md](./535-1ba35e31-unblock-point.md) | `1ba35e31` | D-1574 unblock_point / dig_point | **QUALITY-RISK** |
 | [536-d13bf416-mk-gen-ok-mail.md](./536-d13bf416-mk-gen-ok-mail.md) | `d13bf416` | D-1575 mk_gen_ok MAIL / msummon ndemon arms | **ACCEPT-WITH-DEBT** |
+| [537-7131dc25-add-region-per-cell.md](./537-7131dc25-add-region-per-cell.md) | `7131dc25` | D-1576 add_region / remove / expire per-cell block | **ACCEPT-WITH-DEBT** |
+| [538-38c61b34-redraw-worm.md](./538-38c61b34-redraw-worm.md) | `38c61b34` | D-1577 redraw_worm tamedog / abuse_dog | **ACCEPT-WITH-DEBT** |
+| [539-c4019a30-force-invmenu.md](./539-c4019a30-force-invmenu.md) | `c4019a30` | D-1578 getobj force_invmenu `*`/`?` redo | **ACCEPT-WITH-DEBT** |
+| [540-51d877a8-mime-action.md](./540-51d877a8-mime-action.md) | `51d877a8` | D-1579 mime_action typed `'-'` | **ACCEPT-WITH-DEBT** |
+| [541-d7879b7c-gacc-ball.md](./541-d7879b7c-gacc-ball.md) | `d7879b7c` | D-1580 pickinv gacc / BALL `'0'` | **ACCEPT-WITH-DEBT** |
+| [542-fd458754-traditional-loot.md](./542-fd458754-traditional-loot.md) | `fd458754` | D-1581 traditional_loot / askchain | **ACCEPT-WITH-DEBT** |
+| [543-6c996e15-prefixcmd-cmdq-shift.md](./543-6c996e15-prefixcmd-cmdq-shift.md) | `6c996e15` | D-1582 PREFIXCMD / cmdq_shift | **ACCEPT-WITH-DEBT** |
+| [544-7843458b-nv-range-circle.md](./544-7843458b-nv-range-circle.md) | `7843458b` | D-1583 nv_range circle_ptr | **ACCEPT-WITH-DEBT** |
+| [545-05c69d9b-mk-mplayer.md](./545-05c69d9b-mk-mplayer.md) | `05c69d9b` | D-1584 mk_mplayer splev role-id | **ACCEPT-WITH-DEBT** |

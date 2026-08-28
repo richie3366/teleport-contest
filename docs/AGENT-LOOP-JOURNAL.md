@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — review D-1576–D-1584 (audit #1980)
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **536**;
+cadence score. No `js/` edits.
+**C locus:** region per-cell block; `redraw_worm`; force_invmenu;
+`mime_action`; gacc/`'0'`; traditional_loot; PREFIXCMD/`cmdq_shift`;
+`nv_range` circle; `mk_mplayer`.
+**JS locus:** reviews **537–545** (`7131dc25`…`05c69d9b`).
+**Change:** all **ACCEPT-WITH-DEBT**. Must-fix empty. Filled
+archive D-1584 `%h` `05c69d9b`.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+`38+0.30/turn` (R² 0.85) at `05c69d9b`. seed4500 PASS.
+**Verified:** cadence `__RESULTS_JSON__`; `check-hot-docs --review 537-545`.
+**Next:** Open FULL_MOON S_DOG. Not `create_mplayers`.
+**Blocked:** none.
 ## 2026-08-28 — D-1584 mplayer.c mk_mplayer
 
 **Objective:** Open `makemon.c` `mk_mplayer` (named).
