@@ -5,9 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `makemon.c` `set_mimic_sym` Protection_from_shape_changers early-out (named). Not DELPHI. Not block_point. **Addressed:** D-1564
-- [x] `makemon.c` `set_mimic_sym` slime-mold `flags.made_fruit` (named). Not DELPHI. **Addressed:** D-1564
-- [x] `makemon.c` `set_mimic_sym` nocorpse/hatch/tin Plan-B (named). Not DELPHI. **Addressed:** D-1564
+- [x] `makemon.c` `clone_mon` `place_monster` 2D grid (named). Not HP split. **Addressed:** D-1565
+
+
+- [x] `makemon.c` `set_mimic_sym` Protection_from_shape_changers early-out (named). Not DELPHI. Not block_point. **Addressed:** D-1564 `e8cc4c96`
+- [x] `makemon.c` `set_mimic_sym` slime-mold `flags.made_fruit` (named). Not DELPHI. **Addressed:** D-1564 `e8cc4c96`
+- [x] `makemon.c` `set_mimic_sym` nocorpse/hatch/tin Plan-B (named). Not DELPHI. **Addressed:** D-1564 `e8cc4c96`
 
 
 - [x] `cmd.c` getobj CQ_REPEAT / `in_doagain` (named). Not canned CMDQ_INT. **Addressed:** D-1563 `1504ead1`

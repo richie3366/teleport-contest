@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1565 — makemon.c clone_mon place_monster 2D grid
+
+- **Status:** fixed (map-driven Open from D-1564; not a public FAIL)
+- **Symptom:** `clone_mon` set mx/my/`MON_FLOOR` but never called
+  C `place_monster`, so clones were fmon-only. Occupancy for a
+  second clone / `m_at` / gulpmm did not share
+  `svl.level.monsters[][]`. Named omit after D-1078 (HP split
+  live). Not HP split.
+- **C locus:** `steed.c` `place_monster` `:897–932` (`isok` /
+  vault `<0,0>` isgd; steed unless `in_steed_dismounting`;
+  `DEADMONSTER` unless isgd at 0,0; overlap impossible then
+  still write `svl.level.monsters[x][y]` + `MON_FLOOR`).
+  Caller `makemon.c` `clone_mon` `:898` after HP split.
+  Callee `rm.h` `remove_monster` clears the grid (mx/my
+  unchanged). gulpmm / mdamagem already called JS locals.
+- **JS was:** `clone_mon_occupied` fmon+worm scan; mhitm local
+  `place_monster` mx/my only; `_level_monsters` worm segs.
+- **Fix:** live `js/steed.js` `place_monster`/`remove_monster`
+  (C home). `clone_mon` calls it. gulpmm clone retired
+  (import). `level_mon_at` live grid (head mx/my or wormno;
+  stale mx/my-only ignored). MON_OFFMAP still hides fmon
+  heads after gulpmm remove (D-1231). Rule #2: no fs.
+- **JS:** `js/steed.js`, `js/makemon.js`, `js/mhitm.js`,
+  `js/worm.js`; `m_at` readers use `level_mon_at`.
+- **Not this iter:** `cutworm`; makemon itself calling
+  `place_monster`; `rndmonst_adj` rogue/elem; `newcham`
+  Protection cancel. HP split is D-1078. Protection/`made_fruit`/
+  Plan-B is D-1564.
+- **Verified:** private canary **24**/24 (C/JS locus; grid
+  write; m_at; DEADMONSTER; steed; dismount; isgd 0,0;
+  remove OFFMAP; stale ignore; clone occupy+HP 4/5 of 9;
+  MON_AT no stack; mhp<=1 fail; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1564 — makemon.c set_mimic_sym Protection / made_fruit / Plan-B
 
 - **Status:** fixed (map-driven Open from D-1563; not a public FAIL)

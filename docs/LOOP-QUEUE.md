@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `clone_mon` `place_monster` 2D grid (named). Not HP split.
 - [ ] `makemon.c` `rndmonst_adj` rogue/elem filters (named). Not mkclass.
 - [ ] `pickup.c` `'r'` reversed put-in then take-out (named). Not stash.
 - [ ] `invent.c` getobj eat/read/zap/tin NOFLAGS (named). Not ALLOWCNT.

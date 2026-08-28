@@ -10,6 +10,7 @@ import { game } from './gstate.js';
 import { rn2, rnd, rn1, d, rn2_on_display_rng } from './rng.js';
 import {
     MAX_NUM_WORMS, N_DIRS, xdir, ydir, MHPMAX, MSLOW, MFAST, NORMAL_SPEED,
+    MON_OFFMAP,
 } from './const.js';
 import { goodpos } from './teleport.js';
 import { newsym, show_wseg_detect_glyph, Hallucination } from './display.js';
@@ -44,11 +45,30 @@ function remove_monster_xy(x, y) {
 }
 
 /**
- * Occupancy for worm body segs (heads stay on fmon via mx/my).
+ * Live occupant of C `level.monsters[x][y]` (JS `_level_monsters`).
+ * Heads from place_monster: mx/my match this cell.
+ * Worm segs from place_worm_seg: head pointer, mx/my is the head.
+ * Stale heads (JS movement without remove_monster) are ignored so
+ * mixed occupancy does not ghost a cell. Mounted steed is not on
+ * the map (C remove_monster while riding).
+ */
+export function level_mon_at(x, y) {
+    const mon = game._level_monsters?.get(`${x},${y}`);
+    if (!mon) return null;
+    if (mon === game.u?.usteed) return null;
+    if ((mon.mhp | 0) <= 0) return null;
+    if ((mon.mstate | 0) & MON_OFFMAP) return null;
+    if ((mon.mx | 0) === (x | 0) && (mon.my | 0) === (y | 0)) return mon;
+    if (mon.wormno) return mon;
+    return null;
+}
+
+/**
+ * Occupancy for worm body segs (heads also via place_monster).
  * C: level.monsters[x][y] holds the worm head pointer at every seg cell.
  */
 export function worm_mon_at(x, y) {
-    return game._level_monsters?.get(`${x},${y}`) ?? null;
+    return level_mon_at(x, y);
 }
 
 /** C ref: worm.c get_wormno */

@@ -6,7 +6,7 @@
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { depth as depth_of_level, level_difficulty as level_difficulty_of } from './hacklib.js';
-import { put_saddle_on_mon, can_saddle } from './steed.js';
+import { put_saddle_on_mon, can_saddle, place_monster } from './steed.js';
 import { m_dowear, which_armor } from './worn.js';
 import {
     LOW_PM,
@@ -147,7 +147,7 @@ import {
     worm_mon_at,
 } from './worm.js';
 import { deliver_obj_to_mon } from './dokick.js';
-import { can_be_hatched } from './mon.js';
+import { can_be_hatched, m_at } from './mon.js';
 
 /** C ref: shknam.c neweshk — allocate eshk for MM_ESHK makemon. */
 export function neweshk(mtmp) {
@@ -2719,8 +2719,8 @@ export function set_mimic_sym(mtmp) {
 
 /**
  * C ref: makemon.c clone_mon.
- * Occupancy is fmon + worm segs (same as makemon MON_AT). C
- * place_monster 2D grid / impossible() diagnostics named omit.
+ * Occupancy is C MON_AT via m_at (2D grid + fmon heads not yet on
+ * the grid). place_monster writes `_level_monsters` (D-1565).
  * Long-worm callers still use cutworm. tamedog via dynamic import
  * (dog.js → makemon.js).
  */
@@ -2744,9 +2744,9 @@ export async function clone_mon(mon, x, y) {
         // C: impossible("clone_mon trying to create a monster at <%d,%d>?")
         return null;
     }
-    if (clone_mon_occupied(mm.x, mm.y)) {
+    if (m_at(mm.x, mm.y)) {
         if (!enexto(mm, mm.x, mm.y, mon.data)
-            || clone_mon_occupied(mm.x, mm.y)) {
+            || m_at(mm.x, mm.y)) {
             return null;
         }
     }
@@ -2768,7 +2768,6 @@ export async function clone_mon(mon, x, y) {
     m2.m_id = next_ident();
     m2.mx = mm.x;
     m2.my = mm.y;
-    m2.mstate = MON_FLOOR;
 
     m2.mundetected = 0;
     m2.mtrapped = 0;
@@ -2784,6 +2783,9 @@ export async function clone_mon(mon, x, y) {
     m2.isgd = 0;
     m2.ispriest = 0;
     // isminion kept; emin attached below
+
+    // C: place_monster(m2, m2->mx, m2->my) — 2D grid + MON_FLOOR
+    place_monster(m2, m2.mx, m2.my);
 
     const lit = emits_light(m2.data);
     if (lit) {
@@ -2838,18 +2840,6 @@ export async function clone_mon(mon, x, y) {
     set_malign(m2);
     newsym(m2.mx, m2.my);
     return m2;
-}
-
-/** C MON_AT — living fmon head or worm seg. Skip mounted steed. */
-function clone_mon_occupied(x, y) {
-    if (worm_mon_at(x, y)) return true;
-    const steed = game.u?.usteed;
-    for (const m of game.fmon || []) {
-        if (m === steed) continue;
-        if ((m.mhp | 0) <= 0) continue;
-        if (m.mx === x && m.my === y) return true;
-    }
-    return false;
 }
 
 export { MM_NOGRP };

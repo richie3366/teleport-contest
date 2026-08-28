@@ -34,6 +34,7 @@ import {
     PLNMSG_ENVELOPED_IN_GAS, KILLED_BY_AN, EYE, LUNG, POISON_RES,
     M_SEEN_POISON, M_POISONGAS_OK, M_POISONGAS_MINOR, M_POISONGAS_BAD,
     Is_waterlevel,
+    MON_OFFMAP,
 } from './const.js';
 import {
     is_pool, is_lava, losehp, maybe_half_phys, finish_maybe_wail,
@@ -49,6 +50,7 @@ import { body_part } from './polyself.js';
 import { Monnam } from './do_name.js';
 import { monstseesu, monstunseesu } from './mondata.js';
 import { dist2 } from './hacklib.js';
+import { level_mon_at } from './worm.js';
 
 const MAX_CLOUD_SIZE = 150;
 const INSIDE_GAS_CLOUD = 1; // JS inside_f tag (C callbacks[] uses 0)
@@ -303,12 +305,13 @@ function is_hero_inside_gas_cloud() {
 
 /** Local m_at — avoid mon.js cycle (mon.js imports region.js). */
 function m_at_xy(x, y) {
-    const seg = game._level_monsters?.get(`${x},${y}`);
-    if (seg && (seg.mhp | 0) > 0) return seg;
+    const seg = level_mon_at(x, y);
+    if (seg) return seg;
     const steed = game.u?.usteed;
     for (const m of game.fmon || []) {
         if (m === steed) continue;
         if ((m.mhp | 0) <= 0) continue;
+        if ((m.mstate | 0) & MON_OFFMAP) continue;
         if (m.mx === x && m.my === y) return m;
     }
     return null;

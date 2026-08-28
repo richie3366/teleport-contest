@@ -56,7 +56,7 @@ import { enexto, rloc_to, rloc, tele_restrict, noteleport_level, rloc_to_flag, m
 import { may_dig } from './dig.js';
 import { newsym, pline, pline_mon, You_feel, sensemon, canseemon, canspotmon } from './display.js';
 import { online2, level_difficulty } from './hacklib.js';
-import { worm_cross } from './worm.js';
+import { worm_cross, level_mon_at } from './worm.js';
 import { Monnam, mon_nam } from './do_name.js';
 import { cansee, couldsee } from './vision.js';
 import { fightm, mondead, mondied } from './mhitm.js';
@@ -1219,14 +1219,14 @@ export async function angry_guards(silent) {
 }
 
 export function m_at(x, y) {
-    // C: level.monsters[][] — worm segs via place_worm_seg; heads on fmon.
-    // Steed is remove_monster'd while mounted.
+    // C: level.monsters[][] — worm segs via place_worm_seg; heads via
+    // place_monster (D-1565). Steed is remove_monster'd while mounted.
     // Dead mons stay on fmon until dmonsfree but are off the map grid (C).
     // gulpmm remove_monster leaves mx/my; JS marks MON_OFFMAP so this
-    // skip matches C's empty grid cell (D-1231).
-    const seg = game._level_monsters?.get(`${x},${y}`);
-    if (seg && (seg.mhp | 0) > 0
-        && !((seg.mstate | 0) & MON_OFFMAP)) return seg;
+    // skip matches C's empty grid cell (D-1231). Stale grid heads
+    // (mx/my-only movement) are ignored by level_mon_at.
+    const seg = level_mon_at(x, y);
+    if (seg) return seg;
     const list = game.fmon || [];
     const steed = game.u?.usteed;
     for (const m of list) {
