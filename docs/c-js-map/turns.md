@@ -130,11 +130,16 @@ legacy `_repeat_search` path unused when occupation set);
 **`runSegment` ICRNL `\r`→`\n` + `C(dir)` rush (keys 1..26 only)** (D-0259); 
 **Ctrl-rush `context.run=3` / capital run `run=1`** (D-0261); 
 **`g`/`G` PREFIXCMD `do_rush`/`do_run` run=2/3 + following walk first-step keeps run (D-1186; 
-nested F+g/G / rhack inner `parse` / full CMD_gGF table still named)**; 
+**rhack `got_prefix_input` + `cmdq_shift` D-1582** — C `cmd.c` PREFIXCMD `:3762–3774` 
+`goto got_prefix_input` (g/G/F/m `do_rush`/`do_run`/`do_fight`/`do_reqmenu`); 
+`cmdq_shift` `:354–370`; doextcmd `:3753–3760` ext_tlist add+shift; 
+`set_move_cmd` `:1386–1400` + `do_move_*` REPEAT; keyboard hjkl still DIR_DX; 
+nested F+g/G / full CMD_gGF table / `dxdy_moveok` / `cmd_from_func` / capital 
+`do_run_*` REPEAT / travelmap `reset_cmd_vars` named)**; 
 **rhack Unknown command `visctrl(key)` (D-1189; Ctrl-C is `^C`; 
 **`do_repeat` CQ_REPEAT D-1563** (C `cmd.c` `:1637–1660` copy/`in_doagain`/`rhack(0)` restore; 
 getobj `:2049–2054` INT+KEY; `cmdq_pop` REPEAT when `in_doagain`; Ctrl-A / `#repeat`; 
-PREFIXCMD / movement `do_move_*` / doextcmd `cmdq_shift` named); 
+PREFIXCMD / `cmdq_shift` is D-1582); 
 `custompline(SUPPRESS_HISTORY)` / `sanity_no_check` still named)**; 
 **`lookaround` `mon_visible` gate** (D-0705; Blind/traps/mention_walls deferred); 
 **`#lookaround`/`dolookaround`** (D-1217; 

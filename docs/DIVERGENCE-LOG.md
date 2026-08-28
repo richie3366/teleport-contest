@@ -4,6 +4,34 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1582 — cmd.c PREFIXCMD / cmdq_shift
+
+- **Status:** fixed (map-driven Open from D-1581; not a public FAIL)
+- **Symptom:** PREFIXCMD g/G/F/m returned from rhack so the next key
+  was a new allmain tick; CQ_REPEAT was replaced per key; `#` never
+  `cmdq_shift`ed the resolved extcmd ahead of getobj keys.
+- **C locus:** `cmd.c` `rhack` PREFIXCMD `:3762–3774`; `cmdq_shift`
+  `:354–370`; doextcmd `:3753–3760` ext_tlist add+shift. Callees
+  `do_rush` `:1589–1602`, `do_run` `:1605–1618`, `do_fight`
+  `:1621–1634`, `do_reqmenu` `:1574–1586`, `set_move_cmd`
+  `:1386–1400`, `do_move_*` `:1403–1464`, `reset_cmd_vars`
+  `:3606–3624`. `cmdq_add_ec` `:253–270`.
+- **JS was:** omit after D-1563/D-1186 (`do_repeat` live; g/G set
+  run and returned; REPEAT `[fn]` replace; no `cmdq_shift`).
+- **Fix:** `got_prefix_input` loop; PREFIXCMD continue; REPEAT
+  append unless prefix_seen; doextcmd `ext_tlist` + shift. Rule #2:
+  no fs.
+- **JS:** `js/cmd.js`; `js/getline.js` `ext_tlist`; `js/const.js`
+  `CMD_gGF_PREFIX`.
+- **Not this iter:** nested F+g/G full CMD_gGF table; keyboard hjkl
+  still DIR_DX (REPEAT uses `do_move_*`); `dxdy_moveok`;
+  `cmd_from_func`; capital `do_run_*` REPEAT; travelmap
+  `reset_cmd_vars`. traditional_loot is D-1581. `do_repeat` is
+  D-1563.
+- **Verified:** private canary **11**/11 (shift + prefix OK/CANCEL);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1581 — pickup.c traditional_loot / invent.c askchain
 
 - **Status:** fixed (map-driven Open from D-1580; not a public FAIL)

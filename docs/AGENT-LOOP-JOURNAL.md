@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1582 cmd.c PREFIXCMD / cmdq_shift
+
+**Objective:** Open `cmd.c` PREFIXCMD / `cmdq_shift` (named).
+Not do_repeat.
+**C locus:** `cmd.c` PREFIXCMD `:3762–3774`; `cmdq_shift`
+`:354–370`; doextcmd `:3753–3760`.
+**JS locus:** named omit after D-1563/D-1186; g/G returned;
+REPEAT replace; no shift.
+**Change:** `got_prefix_input` loop; REPEAT append; ext_tlist
+shift. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **11**/11; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open nv_range circle. Not PREFIXCMD.
+**Blocked:** none.
 ## 2026-08-28 — D-1581 pickup.c traditional_loot / invent.c askchain
 
 **Objective:** Open `pickup.c` traditional_loot askchain (named).

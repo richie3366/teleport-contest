@@ -8,15 +8,15 @@ Objective/score live in `CURRENT.md`.
 - **Suite 44/44** after D-1576 (Scr **11,405**/11,405 RNG
   **792,838**/792,838 = 100%; `41+0.30/turn`). seed0367 FULL.
   seed4500 recovered (D-1574 `1ba35e31` FAIL).
-  **Hypothesis:** Open PREFIXCMD / `cmdq_shift` is the next named
-  omit (`cmd.c`; not do_repeat D-1563; not traditional_loot D-1581).
-  **Falsify:** port PREFIXCMD then green + cohort; no FAIL peel.
-  **Next:** Open PREFIXCMD / `cmdq_shift`. Not nv_range.
-  Do not skip D-1531…D-1581. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open nv_range circle is the next named omit
+  (`vision.c`; not PREFIXCMD D-1582; not unblock_point D-1574).
+  **Falsify:** port nv_range then green + cohort; no FAIL peel.
+  **Next:** Open nv_range circle. Not `mk_mplayer`.
+  Do not skip D-1531…D-1582. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: `mk_mplayer`; FULL_MOON S_DOG / ustuck; sit/pray
-  `eyecount`; PREFIXCMD / `cmdq_shift`; Palantir `#if 0`; nv_range
-  circle; `mimic_light_blocking` See_invisible; more_containers `n`;
+  `eyecount`; Palantir `#if 0`; nv_range circle;
+  `mimic_light_blocking` See_invisible; more_containers `n`;
   putmsghistory; sortloot inuse_only; wizid unid_cnt>0;
   `display_used_invlets`. NC_SHOW_MSG `pline_mon` / `m_unleash` /
   ustuck / break-armor / Elbereth `monflee`. `has_mcorpsenm`.
@@ -27,10 +27,11 @@ Objective/score live in `CURRENT.md`.
 
 - Stamp `D-NNNN` in the fix; next commit fills `%h`. Same-commit archive.
 - Do not revert D-0078 H2344 or hardcode offx 72 (D-1185).
-- Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
-  Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
-  `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1581.
+- Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is
+  D-1582. Do not skip ParanoidTrap portal yn (D-1187) /
+  `domagicportal` / `undestroyable_trap` / `mktrap` dst /
+  `goto_level` uz0 (D-1188).
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1582.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,9 +42,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1581 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1582 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1581. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1582. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -58,14 +59,18 @@ Objective/score live in `CURRENT.md`.
   restore **global** `recalc_block_point` as `vision_reset`.
   Region per-cell is D-1576. `redraw_worm` is D-1577. force_invmenu
   redo is D-1578. mime_action is D-1579. gacc / `'0'` ball is
-  D-1580. traditional_loot is D-1581 (do not glue PREFIXCMD /
-  nv_range / `mimic_light_blocking`). D-1558…D-1581 live in the
-  index. Do not re-port `dig_point` leftover-`i` or `newcham`
+  D-1580. traditional_loot is D-1581. PREFIXCMD / `cmdq_shift` is
+  D-1582 (do not glue nv_range / `mimic_light_blocking`). D-1558…D-1582
+  live in the index. Do not re-port `dig_point` leftover-`i` or `newcham`
   Protection cancel. Do not skip MAIL `mk_gen_ok`. Do not add
   `ing_suffix` clone #3 (hacklib export is the C home).
 
 ## Landmarks (≤15)
 
+- D-1582: `cmd.c` PREFIXCMD `got_prefix_input` + `cmdq_shift`;
+  doextcmd ext_tlist; `do_rush`/`do_run`/`do_fight`/`do_reqmenu`;
+  `set_move_cmd`/`do_move_*` REPEAT. Keyboard hjkl DIR_DX named.
+  nv_range named. traditional_loot is D-1581.
 - D-1581: `pickup.c` traditional_loot + `invent.c` askchain;
   MENU_TRADITIONAL `query_classes`/`askchain`; `sortloot` INVLET;
   yn `#`. more_containers `n` / ggetobj takeoff named. gacc is D-1580.
@@ -96,6 +101,4 @@ Objective/score live in `CURRENT.md`.
 - D-1569: pickinv usextra hands/xtra_choice; `getobj_hands_txt`;
   n==1 `message_menu` HANDS_SYM. force_invmenu is D-1578.
 - D-1568: `getobj` eat/read/zap/tin NOFLAGS; eat_ok/`getobj_else`.
-  Stash D-1561. `'r'` D-1567.
-- D-1567: `'r'` `loot_in_first` put-in then take-out; TRADITIONAL yn
-  `rs` + help. traditional_loot is D-1581. mbag named.
+  Stash D-1561. `'r'` D-1567. traditional_loot is D-1581.

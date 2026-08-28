@@ -752,6 +752,7 @@ export async function get_ext_cmd() {
 
 /** C ref: cmd.c doextcmd — returns callee ECMD_* (pray → ECMD_TIME). */
 export async function doextcmd() {
+    game.ext_tlist = null;
     const idx = await get_ext_cmd();
     if (idx < 0) return 0; // ECMD_OK
     const ec = availableExtCmds()[idx];
@@ -765,6 +766,13 @@ export async function doextcmd() {
         await pline(`'m' prefix has no effect for the ${ec.name} command.`);
         game.iflags.menu_requested = false;
     }
+    /* C cmd.c:513 — tell rhack() what command is actually executing */
+    const row = EXTCMDLIST.find((e) => e.txt.toLowerCase() === ec.name);
+    game.ext_tlist = {
+        txt: ec.name,
+        run: ec.run,
+        flags: row ? (row.flags | 0) : 0,
+    };
     const res = await ec.run();
     return res | 0;
 }
