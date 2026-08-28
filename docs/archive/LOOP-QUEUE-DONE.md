@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` pickinv hands/xtra_choice (named). Not `&ctmp`. **Addressed:** D-1569
+- [x] `worm.c` `cutworm` (named). Not worm_known. **Addressed:** D-1570
+
+
+- [x] `invent.c` pickinv hands/xtra_choice (named). Not `&ctmp`. **Addressed:** D-1569 `934f168b`
 
 
 - [x] `invent.c` getobj eat/read/zap/tin NOFLAGS (named). Not ALLOWCNT. **Addressed:** D-1568 `413df120`

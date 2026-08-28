@@ -62,26 +62,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1960**. **Next cluster:**
-Open `worm.c` `cutworm` (named). Not worm_known.
-**Do not skip D-1531…D-1569 (index).** Keep mention_map addr.
+Open `vision.c` `vision_recalc` xray IN_SIGHT (named). Not howmonseen.
+**Do not skip D-1531…D-1570 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1569.** Do not FORCE
+**Do not re-break D-0660…D-1570.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1569 (index). Recent: **D-1569**
-`invent.c` pickinv hands/xtra_choice (`getobj_hands_txt`;
-usextra n-bump + n==1 `message_menu`; sortpack Miscellaneous
-`'-'` row; not `&ctmp`).
-Prior: **D-1568** `invent.c` getobj eat/read/zap/tin NOFLAGS
-(eat_ok/tin_ok NOFLAGS; read GETOBJ_PROMPT; zap_ok; not ALLOWCNT).
-Older D-1531…D-1567 live in the
+**Keep:** D-0845…D-1570 (index). Recent: **D-1570**
+`worm.c` cutworm / place_wsegs (known_hitum slice_or_chop +
+thitmonst chopper; not worm_known / redraw_worm).
+Prior: **D-1569** pickinv hands/xtra (`getobj_hands_txt`).
+**D-1568** eat/read/zap/tin NOFLAGS.
+Older D-1531…D-1568 live in the
 index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-skip D-1229…D-1569 (index). No `reset_glyphmap` /
+skip D-1229…D-1570 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -95,8 +94,8 @@ skip `o->lit` Light source. Do not stub furnsyms 0..5
 (D-1543). `namefloorobj` D-1555; mhidden D-1554. No static
 uhitm→pager. Do not skip `detect_wsegs` show_glyph or compare
 `data === mons()`. Do not skip `worm_known` (D-1548) or trap
-`monkilled` (D-1550). Do not glue cutworm / `redraw_worm` /
-`vision_recalc` xray IN_SIGHT. `howmonseen` is D-1562. Do not
+`monkilled` (D-1550). cutworm is D-1570. Do not glue
+`redraw_worm` / `vision_recalc` xray IN_SIGHT. `howmonseen` is D-1562. Do not
 skip `tamedog` `wake_nearto` or glue FULL_MOON S_DOG / ustuck.
 Remembered otyp does not beat a displayed mon glyph (D-1547).
 Do not skip canned CMDQ_INT (D-1551), Eyes `is_plural`
@@ -107,7 +106,7 @@ Do not skip canned CMDQ_INT (D-1551), Eyes `is_plural`
 (D-1564). `place_monster` 2D is D-1565. `rndmonst_adj` rogue/elem
 is D-1566. `'r'` reversed is D-1567. Eat/read/zap/tin
 NOFLAGS is D-1568. Pickinv hands/xtra is D-1569. Do not glue
-cutworm / force_invmenu redo / mime_action / gacc.
+`redraw_worm` / force_invmenu redo / mime_action / gacc.
 Do not rewrite `confer_oc_oprop`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

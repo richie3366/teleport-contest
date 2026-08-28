@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1570 — worm.c cutworm / place_wsegs
+
+- **Status:** fixed (map-driven Open from D-1569; not a public FAIL)
+- **Symptom:** long-worm body hits never split or shrink. JS had
+  `worm_known` (D-1548) and `clone_mon` 2D place (D-1565) but
+  `cutworm` / `place_wsegs` were named omits; `known_hitum` and
+  `thitmonst` skipped the C call.
+- **C locus:** `worm.c` `cutworm` `:372–477` (rnd(20)+cuttier,
+  head return before rnd, tail `shrink_worm`, else split;
+  `m_lev>=3 && !rn2(3)` then `get_wormno`+`clone_mon`;
+  `mcloned=0`; both halves Nd8 not `newmonhp`). Callee
+  `place_wsegs` `:614–635`. Callers `uhitm.c` `known_hitum`
+  `:599–642` (`slice_or_chop` = `is_blade\|\|is_axe` before
+  hmon; Vorpal oldhp `*mhit=0`; then `wormno && *mhit`);
+  `dothrow.c` `thitmonst` `:2194–2207` (`chopper=is_axe`).
+- **JS was:** no `cutworm`; thitmonst `void chopper`; known_hitum
+  no oldhp / notonhead / cutworm.
+- **Fix:** live `cutworm` + `place_wsegs`; wire both callers;
+  export `s_suffix` from `do_name.js` (C `hacklib.c`; no 9th
+  clone). Rule #2: no fs.
+- **JS:** `js/worm.js` `cutworm` / `place_wsegs`; `js/uhitm.js`
+  `known_hitum`; `js/dothrow.js` `thitmonst`; `js/do_name.js`
+  `s_suffix`.
+- **Not this iter:** `redraw_worm`; wormgone; save/rest wsegs;
+  restore/replmon `place_wsegs`; muse/mhitu `worm_move`.
+  worm_known is D-1548. Hands/xtra is D-1569.
+- **Verified:** private canary **22**/22 (C locus + head/!wormno
+  before rnd; tail shrink; m_lev<3 toss+half HP; clone arm
+  mcloned=0 Nd8; place_wsegs; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1569 — invent.c display_pickinv hands/xtra_choice
 
 - **Status:** fixed (map-driven Open from D-1568; not a public FAIL)

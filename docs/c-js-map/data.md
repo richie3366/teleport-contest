@@ -378,11 +378,17 @@ canseemon clones + monmove/dig stubs);
 **D-1550 trap `monkilled` clone** (`mon.c:3384–3385`; review **509**; 
 `js/trap.js` same `wormno ? worm_known : cansee(head)` as mhitm; pit 
 `thitm` / rust iron-golem / fire; not infrared; clone stays local); 
-omit cutworm/wormgone, save/rest wsegs, muse/mhitu 
+**D-1570 `cutworm`** (`worm.c:372–477`; callee `place_wsegs` `:614–635`;
+callers `uhitm.c` `known_hitum` `:641–642` slice_or_chop after Vorpal
+oldhp `*mhit`, `dothrow.c` `thitmonst` `:2206–2207` chopper=`is_axe`;
+`m_lev>=3 && !rn2(3)` then `clone_mon`; `mcloned=0` + Nd8 not
+`newmonhp`; live `js/worm.js` + uhitm/dothrow; restore/replmon
+`place_wsegs` named); 
+omit wormgone, save/rest wsegs, `redraw_worm`, muse/mhitu 
 `worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 
 map_monst head `pet_to_glyph` / `detected_mon_to_glyph` (plain `mon_glyph`); 
-`worm_cross` live; `howmonseen` is D-1562; non-worm `level.monsters[][]` still fmon-only
+`worm_cross` live; `howmonseen` is D-1562; `worm_known` is D-1548; non-worm `level.monsters[][]` still fmon-only
 
 ### `src/extralev.c`
 

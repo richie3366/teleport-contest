@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `worm.c` `cutworm` (named). Not worm_known.
 - [ ] `vision.c` `vision_recalc` xray IN_SIGHT (named). Not howmonseen.
 - [ ] `timeout.c` `attach_egg_hatch_timeout` (named). Not Plan-B.
 - [ ] `mon.c` `newcham` Protection_from_shape_changers cancel (named). Not set_mimic_sym early-out.

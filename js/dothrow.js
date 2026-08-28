@@ -79,6 +79,7 @@ import {
 } from './monsters.js';
 import { tamedog } from './dog.js';
 import { hmon, passive_obj } from './uhitm.js';
+import { cutworm } from './worm.js';
 import { potionbreathe, potionhit } from './potion.js';
 import { body_part, polymon } from './polyself.js';
 import { goodpos, rloc_to } from './teleport.js';
@@ -593,7 +594,7 @@ function Some_Monnam(mtmp) {
  * leader catch / finish_quest (D-1312); swallow vanish pline
  * (D-1324; entrails/currents + cockatrice minstapetrify/delobj).
  * Deferred: gem_accept luck/mpickobj; iron ball / boulder hit;
- * potionhit; cutworm; check_shop_obj on mulch; mshot_xname.
+ * potionhit; check_shop_obj on mulch; mshot_xname.
  * @returns {boolean} true if obj was consumed / taken care of
  */
 export async function thitmonst(mon, obj) {
@@ -741,8 +742,10 @@ export async function thitmonst(mon, obj) {
                 u.uconduct.weaphit = (u.uconduct.weaphit | 0) + 1;
             }
             if (await hmon(mon, obj, hmode, dieroll)) {
-                // cutworm(mon, bhitpos, chopper) deferred
-                void chopper;
+                if (mon.wormno) {
+                    const bp = game.bhitpos || {};
+                    await cutworm(mon, bp.x | 0, bp.y | 0, chopper);
+                }
             }
             exercise(A_DEX, true);
             if (wasthrown && !game.thrownobj) return true;
