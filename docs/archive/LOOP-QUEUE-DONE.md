@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` SORTLOOT_PETRIFY (named). Not inuse_only. **Addressed:** D-1599
+- [x] `invent.c` perm_invent InvInUse (named). Not inuse_only. **Addressed:** D-1600
+
+
+- [x] `invent.c` SORTLOOT_PETRIFY (named). Not inuse_only. **Addressed:** D-1599 `95ad0f11`
 
 
 - [x] `makemon.c` `has_mcorpsenm` (named). Not set_mimic_sym. **Addressed:** D-1598 `9a4cbd04`

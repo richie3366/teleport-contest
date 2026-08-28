@@ -2,7 +2,9 @@
 // C ref: invent.c display_inventory / ddoinv / let_to_name / doorganize;
 //        consume_obj_charge unpaid check_unpaid (D-1047);
 //        update_inventory in_moveloop + suppress_map_output +
-//        suppress_price dance (D-1126; perm_invent On WIN_INVEN still named);
+//        suppress_price dance (D-1126); perm_invent InvInUse D-1600
+//        (prepare_perminvent invmode / display_pickinv WIN_INVEN filter;
+//        tty paint / sparse grid / #perminv scroll named);
 //        display_minventory MINV_ALL|PICK_NONE (D-1426; zap.c
 //        probe_monster); display_binventory buried/pool (D-1444;
 //        zap.c zap_updown WAN_PROBING); display_cinventory container
@@ -19,6 +21,7 @@
 // D-1590: display_pickinv wizid unid_cnt>0 PICK_ANY (`_`/^I identify_pack).
 // D-1591: invent.c display_used_invlets (#adjust ?/* used-letters PICK_ONE).
 // D-1599: sortloot SORTLOOT_PETRIFY filter override + will_feel_cockatrice.
+// D-1600: perm_invent InvInUse (prepare_perminvent invmode + WIN_INVEN filter).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -94,6 +97,18 @@ import {
     thats_enough_tries,
     LARGEST_INT,
     HANDS_SYM,
+    InvInUse,
+    InvShowGold,
+    InvOptNone,
+    InvOptOn,
+    toggling_off,
+    toggling_not,
+    toggling_on,
+    fromcore_set_mode,
+    fromcore_request_settings,
+    TOCORE_TOO_SMALL,
+    TOCORE_PROHIBITED,
+    TOCORE_TOO_EARLY,
     HAND,
     FINGER,
     FINGERTIP,
@@ -201,6 +216,84 @@ export function inuse_headers_accessories() {
 /** C invent.c inuse_headers[4] = alt_label (or restore "Accessories"). */
 export function inuse_headers_set_accessories(label) {
     inuse_headers[4] = label || 'Accessories';
+}
+
+/* C invent.c static wri_info / perminv_flags / in_perm_invent_toggled.
+ * WIN_INVEN id stand-in for create_nhwindow(NHW_MENU) (not WIN_ERR). */
+const WIN_INVEN_ID = 20;
+let perminv_flags = InvOptNone;
+let in_perm_invent_toggled = false;
+let wri_info = {
+    fromcore: { invmode: InvOptNone, core_request: 0 },
+    tocore: { tocore_flags: 0, maxslot: 0 },
+};
+/** C invent.c sync_perminvent static win_request_info *wri. */
+let sync_wri = null;
+
+/**
+ * C wintty.c tty_ctrl_nhwindow set_mode / request_settings subset.
+ * maxslot is a stub (assesstty too_small/prohibited/too_early named).
+ * @param {number} _window
+ * @param {number} request
+ * @param {object|null} wri
+ */
+function ctrl_nhwindow_perm(_window, request, wri) {
+    if (!wri) return null;
+    if (request === fromcore_set_mode) return wri;
+    if (request === fromcore_request_settings) {
+        const invmode = wri.fromcore.invmode | 0;
+        const inuse_only = (invmode & InvInUse) !== 0;
+        wri.tocore = {
+            tocore_flags: 0,
+            maxslot: inuse_only ? 16 : 32,
+        };
+        return wri;
+    }
+    return wri;
+}
+
+/**
+ * C invent.c prepare_perminvent `:5548–5562`.
+ * Copy iflags.perminv_mode onto wri_info.fromcore.invmode when it changes.
+ * @param {number} window
+ */
+export function prepare_perminvent(window) {
+    const invmode = (game.iflags?.perminv_mode | 0);
+    if (perminv_flags !== invmode) {
+        wri_info = {
+            fromcore: { invmode, core_request: fromcore_set_mode },
+            tocore: { tocore_flags: 0, maxslot: 0 },
+        };
+        ctrl_nhwindow_perm(window, fromcore_set_mode, wri_info);
+        perminv_flags = invmode;
+    }
+}
+
+/**
+ * C invent.c perm_invent_toggled `:5660–5677`.
+ * @param {boolean} negated
+ */
+export function perm_invent_toggled(negated) {
+    in_perm_invent_toggled = true;
+    if (!game.gp) game.gp = {};
+    if (!game.gc) game.gc = {};
+    if (!game.gi) game.gi = {};
+    if (negated) {
+        game.gp.perm_invent_toggling_direction = toggling_off;
+        game.WIN_INVEN = WIN_ERR;
+        game.gc.core_invent_state = 0;
+        game.gi.perminvent_entries = [];
+        game.gi.perminvent_listed = [];
+    } else {
+        game.gp.perm_invent_toggling_direction = toggling_on;
+        const iflags = game.iflags || (game.iflags = {});
+        if ((iflags.perminv_mode | 0) === InvOptNone) {
+            iflags.perminv_mode = InvOptOn;
+        }
+        sync_perminvent();
+    }
+    game.gp.perm_invent_toggling_direction = toggling_not;
+    in_perm_invent_toggled = false;
 }
 
 // C ref: hack.c weight_cap() — STR+CON base; Upolyd msize/cwt scale;
@@ -1340,11 +1433,14 @@ export function force_invmenu_special(lets, allowxtra, usextra) {
 /**
  * C invent.c display_pickinv inuse_only `:3186–3317`.
  * sortloot(SORTLOOT_INUSE, is_inuse); fake '-' W_WEP when !uwep;
- * "Inventory in use" then inuse_headers[orderclass].
+ * doing_perm_invent → "In use" else "Inventory in use"; then
+ * inuse_headers[orderclass].
  * @param {string|null} lets
  * @param {boolean} wizid
+ * @param {{ doing_perm_invent?: boolean }} [opts]
  */
-function pickinv_build_inuse(lets, wizid) {
+function pickinv_build_inuse(lets, wizid, opts = null) {
+    const doing_perm_invent = !!opts?.doing_perm_invent;
     const allow = (!lets || lets === '*') ? null : new Set([...lets]);
     const u = game.u || {};
     const fake = !u.uwep ? {
@@ -1361,6 +1457,7 @@ function pickinv_build_inuse(lets, wizid) {
         sorted = [];
     }
     const entries = [];
+    const listed = [];
     const byLet = new Map();
     const pickItems = [];
     let inusecount = 0;
@@ -1370,7 +1467,11 @@ function pickinv_build_inuse(lets, wizid) {
         if (!otmp) continue;
         if (allow && !allow.has(otmp.invlet)) continue;
         if (!inusecount++) {
-            entries.push({ text: 'Inventory in use', attr: ATR_INVERSE });
+            // C `:3277–3280` doing_perm_invent ? "In use" : "Inventory in use"
+            entries.push({
+                text: doing_perm_invent ? 'In use' : 'Inventory in use',
+                attr: ATR_INVERSE,
+            });
         }
         if (srt.orderclass !== prevorderclass) {
             const hdr = inuse_headers[srt.orderclass];
@@ -1392,13 +1493,70 @@ function pickinv_build_inuse(lets, wizid) {
         if (!Blind()) observe_object(otmp);
         obj_glyph(otmp);
         byLet.set(letch, otmp);
+        listed.push(otmp);
         pickItems.push({
             selector: letch,
             gselector: pickinv_item_gacc(otmp, wizid),
         });
         entries.push({ text: xprname(otmp), attr: 0 });
     }
-    return { entries, byLet, pickItems };
+    if (doing_perm_invent && !inusecount) {
+        entries.push({ text: 'Not using any items', attr: 0 });
+    }
+    return { entries, byLet, pickItems, listed };
+}
+
+/**
+ * C invent.c display_pickinv WIN_INVEN branch `:3108–3113` +
+ * `:3186–3376` (PICK_NONE; tty select_menu PERMINV returns 0).
+ * inuse_only = invmode & InvInUse; show_gold = invmode & InvShowGold.
+ * Named: tty slot paint / InvSparse grid / #perminv scroll.
+ */
+function pickinv_build_perm() {
+    prepare_perminvent(game.WIN_INVEN ?? WIN_ERR);
+    const invmode = wri_info.fromcore.invmode | 0;
+    const show_gold = (invmode & InvShowGold) !== 0;
+    const inuse_only = (invmode & InvInUse) !== 0;
+    if (inuse_only) {
+        return pickinv_build_inuse(null, false, { doing_perm_invent: true });
+    }
+    const entries = [];
+    const listed = [];
+    let skipped_gold = false;
+    const inv = game.invent || [];
+    const sorted = sortloot(inv, SORTLOOT_INVLET, false, null);
+    for (const srt of sorted) {
+        const otmp = srt.obj;
+        if (!otmp) continue;
+        // C `:3281–3286` skip unquivered gold when !show_gold
+        if (!show_gold && otmp.invlet === GOLD_SYM && !(otmp.owornmask | 0)) {
+            skipped_gold = true;
+            continue;
+        }
+        if (!Blind()) observe_object(otmp);
+        obj_glyph(otmp);
+        listed.push(otmp);
+        entries.push({ text: xprname(otmp), attr: 0 });
+    }
+    if (!listed.length) {
+        entries.push({
+            text: (!show_gold && skipped_gold)
+                ? 'Only carrying gold'
+                : 'Not carrying anything',
+            attr: 0,
+        });
+    }
+    return { entries, listed, show_gold, skipped_gold };
+}
+
+/** Last WIN_INVEN menu objects (C WinDesc mlist stand-in). */
+export function perminvent_listed() {
+    return game.gi?.perminvent_listed || [];
+}
+
+/** Last WIN_INVEN menu rows including headers / empty placeholder. */
+export function perminvent_entries() {
+    return game.gi?.perminvent_entries || [];
 }
 
 /**
@@ -1424,6 +1582,7 @@ function pickinv_build_inuse(lets, wizid) {
  * is 0 like C `:3323–3325`.
  * SORTLOOT_INUSE when flags.sortloot=='i' (dispinv_with_action): is_inuse
  * filter, inuse_headers, optional fake HANDS_SYM W_WEP (D-1589).
+ * perm_invent InvInUse is D-1600 (WIN_INVEN invmode bit, not this path).
  * Named omissions: MENU_PREV/FIRST/LAST. wizid unid_cnt>0 is D-1590.
  * putmsghistory is D-1588.
  * @param {string|null} lets
@@ -2160,26 +2319,74 @@ export function makeknown(otyp) {
 }
 
 /**
- * C ref: invent.c sync_perminvent.
- * Default perm_invent Off: WIN_INVEN is WIN_ERR, core_invent_state 0,
- * static wri null → return before display_inventory. TTY_PERM_INVENT On
- * (ctrl_nhwindow / WIN_INVEN display_inventory) still named.
+ * C invent.c sync_perminvent `:5564–5658`.
+ * Default Off: WIN_INVEN WIN_ERR, core_invent_state 0, static wri null
+ * → return before display. On: request_settings then
+ * display_inventory(NULL, FALSE) PICK_NONE (no nhgetch).
+ * Named: assesstty too_small/prohibited pline; tty WIN_INVEN paint.
  */
-function sync_perminvent() {
-    const iflags = game.iflags || {};
+export function sync_perminvent() {
+    const iflags = game.iflags || (game.iflags = {});
+    if (!game.gc) game.gc = {};
+    if (!game.gi) game.gi = {};
+    if (!game.gp) game.gp = {};
     const win_inven = game.WIN_INVEN ?? WIN_ERR;
-    const core_invent_state = game.gc?.core_invent_state | 0;
+    const prohibited = (wri_info.tocore.tocore_flags | 0) & TOCORE_PROHIBITED;
+    const togglingOn = in_perm_invent_toggled
+        && (game.gp.perm_invent_toggling_direction | 0) === toggling_on;
 
-    // C: if (WIN_INVEN == WIN_ERR && (core_invent_state || prohibited)
-    //    && !toggling_on) return; prohibited/toggling still named.
-    if (win_inven === WIN_ERR && core_invent_state) return;
-    // prepare_perminvent: InvOptNone no-op unless perminv_mode changed (named).
-    if (!iflags.perm_invent && core_invent_state) return;
-    if (iflags.perm_invent) {
-        // Named: request_settings / display_inventory(NULL, FALSE).
+    if (win_inven === WIN_ERR) {
+        if (((game.gc.core_invent_state | 0) || prohibited) && !togglingOn) {
+            return;
+        }
+    }
+    prepare_perminvent(game.WIN_INVEN ?? WIN_ERR);
+
+    if (!iflags.perm_invent && (game.gc.core_invent_state | 0)) {
+        perm_invent_toggled(true);
+        // C: docrt(); tty erase of WIN_INVEN named
         return;
     }
-    // C: if (!wri || wri->tocore.maxslot == 0) return;
+
+    if ((iflags.perm_invent && !(game.gc.core_invent_state | 0))
+        || (!iflags.perm_invent && togglingOn)) {
+        if ((iflags.perm_invent && !(game.gc.core_invent_state | 0))
+            || in_perm_invent_toggled) {
+            sync_wri = ctrl_nhwindow_perm(
+                game.WIN_INVEN ?? WIN_ERR,
+                fromcore_request_settings,
+                wri_info,
+            );
+            if (sync_wri) {
+                const tflags = sync_wri.tocore.tocore_flags | 0;
+                if (tflags & TOCORE_TOO_EARLY) {
+                    iflags.perm_invent_pending = true;
+                    return;
+                }
+                if (tflags & (TOCORE_TOO_SMALL | TOCORE_PROHIBITED)) {
+                    iflags.perm_invent = false;
+                    game.WIN_INVEN = WIN_ERR;
+                    return;
+                }
+            }
+            game.gc.core_invent_state = (game.gc.core_invent_state | 0) + 1;
+        }
+    }
+
+    if (!sync_wri || !(sync_wri.tocore.maxslot | 0)) return;
+
+    if (togglingOn) {
+        game.WIN_INVEN = WIN_INVEN_ID;
+    }
+
+    if ((game.WIN_INVEN ?? WIN_ERR) !== WIN_ERR
+        && (game.program_state?.beyond_savefile_load | 0)) {
+        game.gi.in_sync_perminvent = 1;
+        const built = pickinv_build_perm();
+        game.gi.perminvent_entries = built.entries;
+        game.gi.perminvent_listed = built.listed;
+        game.gi.in_sync_perminvent = 0;
+    }
 }
 
 /**

@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1600 invent.c perm_invent InvInUse
+
+**Objective:** Open `invent.c` perm_invent InvInUse (named). Not
+inuse_only.
+**C locus:** `invent.c` `prepare_perminvent` `:5548–5562`;
+`display_pickinv` `:3108–3113` WIN_INVEN `InvInUse` /
+`InvShowGold`; `:3277–3280` `"In use"`; `sync_perminvent`
+`:5653–5656` `display_inventory(NULL,FALSE)`; `wintype.h`
+InvInUse=8.
+**JS locus:** named omit after D-1589 (`sync_perminvent`
+early-return; inuse only via `sortloot=='i'`).
+**Change:** live invmode filter; default Off still no-op.
+tty paint / InvSparse / `#perminv` named. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **23**/23; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `tty_doprev_message`. Not putmsghistory.
+**Blocked:** none.
 ## 2026-08-28 — D-1599 invent.c SORTLOOT_PETRIFY
 
 **Objective:** Open `invent.c` SORTLOOT_PETRIFY (named). Not

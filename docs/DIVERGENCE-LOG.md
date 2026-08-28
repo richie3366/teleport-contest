@@ -1,4 +1,41 @@
-## D-1599 — invent.c sortloot SORTLOOT_PETRIFY / will_feel_cockatrice
+## D-1600 — invent.c perm_invent InvInUse / prepare_perminvent
+
+- **Status:** fixed (map-driven Open from D-1599; not a public FAIL)
+- **Symptom:** perm_invent `InvInUse` was a named omit after D-1589
+  (inuse_only live for `flags.sortloot=='i'` / `doprinuse` only).
+  JS `sync_perminvent` returned before `display_inventory` when
+  `iflags.perm_invent` was On; `display_pickinv` never took the
+  WIN_INVEN branch, so `invmode & InvInUse` never filtered unused
+  pack items.
+- **C locus:** `invent.c` `prepare_perminvent` `:5548–5562`
+  `wri_info.fromcore.invmode = iflags.perminv_mode`.
+  `display_pickinv` `:3108–3113` WIN_INVEN `show_gold =
+  invmode & InvShowGold`, `inuse_only = invmode & InvInUse`;
+  `:3277–3280` header `"In use"` vs `"Inventory in use"`;
+  `:3281–3286` skip unquivered gold; `:3372–3375` empty
+  `"Not using any items"` / `"Only carrying gold"`.
+  `sync_perminvent` `:5564–5658` `display_inventory(NULL, FALSE)`
+  PICK_NONE (`wintty.c` `MENU_BEHAVE_PERMINV` returns 0).
+  `perm_invent_toggled` `:5660–5677`. `wintype.h` `InvInUse = 8`
+  / `InvOptInUse`.
+- **JS was:** named omit; `sync_perminvent` early-return on
+  `perm_invent`; inuse filter only via `sortloot=='i'` (D-1589).
+- **Fix:** live inv_modes + `prepare_perminvent` / toggle /
+  `sync_perminvent` WIN_INVEN stand-in; `pickinv_build_perm`
+  InvInUse `is_inuse` + InvShowGold skip. Default Off still
+  no-ops (no extra RNG). tty slot paint / InvSparse grid /
+  `#perminv` scroll / assesstty too_small / `consume_obj_charge`
+  redraw named. Rule #2: no fs.
+- **JS:** `js/const.js` `InvInUse`/`InvOpt*`; `js/invent.js`.
+- **Not this iter:** tty WIN_INVEN paint; InvSparse grid;
+  `#perminv` EXTCMD; options `optfn_perminv_mode`;
+  `consume_obj_charge` `update_inventory`. inuse_only is
+  D-1589. SORTLOOT_PETRIFY is D-1599.
+- **Verified:** private canary **23**/23; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
+
 
 - **Status:** fixed (map-driven Open from D-1598; not a public FAIL)
 - **Symptom:** `SORTLOOT_PETRIFY` was a named omit after D-1589
