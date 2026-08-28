@@ -1,3 +1,23 @@
+## D-1606 — mplayer.c mplayer_talk
+
+- **Status:** fixed (map-driven Open from D-1605; not a public FAIL)
+- **Symptom:** Hostile endgame `#chat` with a role-monster was silent.
+  C `mplayer_talk` verbalizes a same-class vs other-class line
+  (`rn2(3)` once). JS had no export after D-1596 `create_mplayers`.
+- **C locus:** `mplayer.c` `:355–377`. Caller `sounds.c` MS_HUMANOID
+  `:1026–1031` `!mpeaceful && In_endgame(&u.uz) && is_mplayer(ptr)`.
+  `SetVoice` is empty without SND_LIB (`sndprocs.h`).
+- **JS was:** named omit; `domonnoise` MS_BARK/SEDUCE/LEADER only.
+- **Fix:** live `mplayer_talk` (mndx vs `urole.mnum`; `mons()` is not
+  a stable pointer). `domonnoise` MS_HUMANOID 25 wires the endgame
+  arm only and returns `ECMD_TIME`. Rule #2: no fs.
+- **JS:** `js/mplayer.js` + `js/sounds.js` `domonnoise`.
+- **Not this iter:** peaceful MS_HUMANOID chatter; hostile
+  `"threatens you."`; MS_BOAST fallthrough; `mongets` mplayer-sword
+  `spe`. create_mplayers is D-1596.
+- **Verified:** private canary **15**/15; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1605 — cmd.c #seeall EXT_CMDS (doprinuse)
 
 - **Status:** fixed (map-driven Open from D-1604; not a public FAIL)

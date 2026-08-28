@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1606 mplayer.c mplayer_talk
+
+**Objective:** Open `mplayer.c` `mplayer_talk` (named). Not
+create_mplayers.
+**C locus:** `mplayer.c` `:355–377`; caller `sounds.c` MS_HUMANOID
+`:1026–1031`.
+**JS locus:** `js/mplayer.js` `mplayer_talk` + `js/sounds.js`
+`domonnoise`.
+**Change:** hostile endgame `is_mplayer` `#chat` verbalize + one
+`rn2(3)`. SetVoice no-op. Peaceful / "threatens you." named.
+Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **15**/15; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open mplayer-sword spe. Not show_transient_light.
+**Blocked:** none.
 ## 2026-08-29 — D-1605 cmd.c #seeall EXT_CMDS
 
 **Objective:** Open `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse.

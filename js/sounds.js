@@ -1,6 +1,6 @@
 // sounds.js — Ambient sounds and #chat.
-// C ref: sounds.c — dosounds / dotalk / dochat / domonnoise (MS_BARK subset)
-//         + yelp / growl (pet abuse; D-0836).
+// C ref: sounds.c — dosounds / dotalk / dochat / domonnoise (MS_BARK subset
+//         + MS_HUMANOID mplayer_talk D-1606) + yelp / growl (pet abuse; D-0836).
 
 import { game } from './gstate.js';
 import { pline, canseemon } from './display.js';
@@ -16,14 +16,15 @@ import { vtense } from './objnam.js';
 import { nomul } from './hack.js';
 import {
     is_animal, is_flyer, is_lord, is_prince, is_mercenary, is_undead,
-    monsterNames, G_UNIQ,
+    is_mplayer, monsterNames, G_UNIQ,
 } from './monsters.js';
 import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, isok, IS_WALL, SDOOR, SIZE,
     ANY_SHOP, ANY_TYPE, OROOM, SHOPBASE, ROOMOFFSET, VAULT,
     COURT, BEEHIVE, MORGUE, BARRACKS, ZOO,
-    ESHK, Is_astralevel, Is_oracle_level, STRAT_WAITMASK,
+    ESHK, Is_astralevel, Is_oracle_level, In_endgame, STRAT_WAITMASK,
 } from './const.js';
+import { mplayer_talk } from './mplayer.js';
 import { vault_occupied, findgd } from './vault.js';
 
 const STATUE = objectNames.indexOf('STATUE');
@@ -367,6 +368,7 @@ const MS_MOO = 13;
 const MS_WAIL = 14;
 const MS_ANIMAL = 17;
 const MS_MUMBLE = 21;
+const MS_HUMANOID = 25;
 const MS_SEDUCE = 31;
 const MS_LEADER = 36;
 const MS_GROAN = 44;
@@ -585,11 +587,13 @@ function poly_gender() {
 }
 
 /**
- * C ref: sounds.c domonnoise — MS_BARK + MS_SEDUCE + MS_LEADER.
+ * C ref: sounds.c domonnoise — MS_BARK + MS_SEDUCE + MS_LEADER +
+ * MS_HUMANOID hostile endgame mplayer_talk (D-1606).
  * Other MS_* named omitted in C-JS-MAP; unknown → ECMD_OK (silent).
  * FULL_MOON howl needs night() — deferred; falls through to bark.
  * MS_PRIEST priest_talk deferred (non-leader temple priests).
  * MS_SEDUCE doseduce (SYSOPT non-nymph) deferred.
+ * Peaceful MS_HUMANOID / hostile "threatens you." named omitted.
  */
 export async function domonnoise(mtmp) {
     if (!mtmp) return ECMD_OK;
@@ -647,6 +651,15 @@ export async function domonnoise(mtmp) {
         if (swval === 2) verbl_msg = 'Hello, sailor.';
         else if (swval === 1) pline_msg = 'comes on to you.';
         else pline_msg = 'cajoles you.';
+    } else if (msound === MS_HUMANOID) {
+        // C sounds.c MS_HUMANOID !mpeaceful: In_endgame is_mplayer →
+        // mplayer_talk else "threatens you." Peaceful chatter named.
+        if (!mtmp.mpeaceful
+            && In_endgame(game.u?.uz)
+            && is_mplayer(ptr)) {
+            await mplayer_talk(mtmp);
+            return ECMD_TIME;
+        }
     }
     // Other msound cases deferred
 

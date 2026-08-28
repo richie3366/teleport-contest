@@ -389,8 +389,14 @@ Occupied `rloc(RLOC_ERR|RLOC_NOMSG)` fire-and-forget like
 `madeNew` `rn1(4,3), TRUE`). Live `js/mplayer.js` + `goto_level`
 `Is_astralevel` (reset_hostility / gain_guardian_angel / ACH_ASTR
 named). Callees `set_mon_data`/`goodpos`/`mk_mplayer`; tryct>50
-aborts. Named: `mplayer_talk`; `mongets` mplayer-sword `spe=3+rn2(4)`.
-ndemon is D-1575.
+aborts. **D-1606 `mplayer_talk`** (`mplayer.c:355–377`; caller
+`sounds.c` MS_HUMANOID `:1026–1031` `!mpeaceful && In_endgame &&
+is_mplayer`). Live `js/mplayer.js` + `js/sounds.js` `domonnoise`
+endgame arm (`ECMD_TIME`); same-class vs other `rn2(3)` once;
+`SetVoice` no-op without SND_LIB; mndx vs `urole.mnum` (`mons()` is
+a fresh object). Named: peaceful MS_HUMANOID / hostile
+`"threatens you."` / MS_BOAST fallthrough; `mongets` mplayer-sword
+`spe=3+rn2(4)`. ndemon is D-1575.
 
 ### `src/worm.c`
 

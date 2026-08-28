@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse. **Addressed:** D-1605
+- [x] `mplayer.c` `mplayer_talk` (named). Not create_mplayers. **Addressed:** D-1606
+
+
+- [x] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse. **Addressed:** D-1605 `44151244`
 
 
 - [x] `zap.c` `bhit` `show_transient_light` `!Blind` must use youprop `(HBlinded||EBlinded)&&!BBlinded` (`youprop.h:103`), not `zap.js` sticky `u.Blind||u.ublind`. Source: reviews/loop-unattended/558-9244ce75-show-transient-light.md **Addressed:** D-1604 `49933ea8`
