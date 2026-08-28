@@ -35,6 +35,7 @@ import { monnear, m_at, see_monster_closeup, minliquid, restore_cham, wake_neart
 import { enexto, rloc_to, rloc, rloc_to_flag, goodpos } from './teleport.js';
 import { put_saddle_on_mon } from './steed.js';
 import { newsym, pline, pline_mon, canspotmon, Hallucination } from './display.js';
+import { redraw_worm } from './worm.js';
 import { hero_conflict } from './mondata.js';
 import { cansee } from './vision.js';
 import { objectNames } from './generated/objects_data.js';
@@ -347,8 +348,9 @@ export function keepdogs(pets_only = false) {
  * is_covetous / is_demon-vs-hero / quest leader rejected. D-1532.
  * isshk → make_happy_shk D-1540.
  * Named omissions: FULL_MOON night S_DOG;
- * ustuck expels/unstuck (mhitu→uhitm→dog cycle); redraw_worm;
+ * ustuck expels/unstuck (mhitu→uhitm→dog cycle);
  * Tobjnam stop / big_corpse catch; initedog has_edog vs !mtame.
+ * redraw_worm is D-1577.
  */
 export async function tamedog(mtmp, obj, givemsg = true) {
     if (!mtmp) return false;
@@ -475,7 +477,8 @@ export async function tamedog(mtmp, obj, givemsg = true) {
         );
     }
     newsym(mtmp.mx, mtmp.my);
-    // C :1275–1276 redraw_worm named
+    // C :1275–1276 — redraw_worm after head newsym (D-1577)
+    if (mtmp.wormno) redraw_worm(mtmp);
     if (attacktype(mtmp.data, AT_WEAP)) {
         mtmp.weapon_check = NEED_HTH_WEAPON;
         await mon_wield_item(mtmp);
@@ -978,7 +981,7 @@ export async function wary_dog(mtmp, was_dead) {
 /**
  * C ref: dog.c abuse_dog — reduce tameness; yelp/growl when on-map.
  * Called from hmon_hitmon_pet (and kick/zap/trap/hack callers deferred).
- * Named omissions: worm redraw on untame; Aggravate/Conflict /=2 path unverified this peel.
+ * redraw_worm on untame is D-1577.
  */
 export async function abuse_dog(mtmp) {
     if (!mtmp?.mtame) return;
@@ -1012,7 +1015,7 @@ export async function abuse_dog(mtmp) {
         }
         if (!mtmp.mtame) {
             newsym(mtmp.mx, mtmp.my);
-            // worm redraw deferred
+            if (mtmp.wormno) redraw_worm(mtmp);
         }
     }
 }

@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1577 worm.c redraw_worm
+
+**Objective:** Open `worm.c` `redraw_worm` (named). Not cutworm.
+**C locus:** `worm.c` `redraw_worm` `:989–998`; callers `dog.c`
+`tamedog` `:1275–1276`, `abuse_dog` `:1386–1390`.
+**JS locus:** named omit after D-1570; `see_wsegs` skips dummy.
+**Change:** live walker including dummy; wire tamedog/abuse_dog.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **20**/20; green+strict seed8000/0900; cohort
+**7**/7 + strict.
+**Next:** Open force_invmenu `*`/`?` redo. Not hands/xtra.
+**Blocked:** none.
 ## 2026-08-28 — D-1576 region.c add_region per-cell block/unblock
 
 **Objective:** Must-fix review **535** `add_region` /

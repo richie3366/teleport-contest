@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1577 — worm.c redraw_worm
+
+- **Status:** fixed (map-driven Open from D-1576; not a public FAIL)
+- **Symptom:** `redraw_worm` named leftover after D-1570/D-1573:
+  `see_wsegs` refreshes body segs only (stops before the dummy at
+  `wheads`); taming or abusing a long worm to wild never re-`newsym`'d
+  the tail chain.
+- **C locus:** `worm.c` `redraw_worm` `:989–998` (`while (curr)`
+  `newsym` every wseg including the dummy). Callers `dog.c`
+  `tamedog` `:1275–1276` (after head `newsym` if `wormno`);
+  `abuse_dog` `:1386–1390` (untame and `mx != 0`).
+- **JS was:** omit; tamedog/abuse_dog comments named the walker.
+- **Fix:** live walker; wire both callers. Unlike `see_wsegs`,
+  includes the dummy. Rule #2: no fs.
+- **JS:** `js/worm.js` `redraw_worm`; `js/dog.js` `tamedog` /
+  `abuse_dog`.
+- **Not this iter:** save/rest wsegs; `flip_worm_segs_vertical` /
+  `flip_worm_segs_horizontal`; mondead/dog `wormgone`; muse/mhitu
+  `worm_move`; restore/replmon `place_wsegs`. cutworm is D-1570.
+  `wormgone` is D-1573. `see_wsegs` is D-1529.
+- **Verified:** private canary **20**/20 (C/JS locus; dummy-only vs
+  grown; `see_wsegs` skips dummy; tamedog/abuse_dog refresh body;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1576 — region.c add_region / remove_region / expire_gas_cloud per-cell block
 
 - **Status:** fixed (Must-fix review **535**; seed4500 FAIL at D-1574)

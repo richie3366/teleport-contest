@@ -139,4 +139,4 @@ D-log private canary **29**/29 (locus; fill/dig inverse; door recalc; boulder/`S
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1576
+**Addressed:** D-1576 `7131dc25`

@@ -400,11 +400,14 @@ oldhp `*mhit`, `dothrow.c` `thitmonst` `:2206–2207` chopper=`is_axe`;
 `place_wsegs` named); 
 **D-1573 `wormgone`** (`worm.c:307–332`; callee `toss_wsegs`; caller `mon.c` `newcham`
 `:5359` place_monster head-back; mondead `:2787` / dog `:755` callers still named);
-omit save/rest wsegs, `redraw_worm`, muse/mhitu 
+**D-1577 `redraw_worm`** (`worm.c:989–998`; callers `dog.c` `tamedog` `:1275–1276`
+after head `newsym`, `abuse_dog` `:1386–1390` when the pet goes wild; unlike
+`see_wsegs` includes the dummy at `wheads`; live `js/worm.js` + `js/dog.js`);
+omit save/rest wsegs, `flip_worm_segs_vertical`/`flip_worm_segs_horizontal`, muse/mhitu 
 `worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 
 map_monst head `pet_to_glyph` / `detected_mon_to_glyph` (plain `mon_glyph`); 
-`worm_cross` live; `howmonseen` is D-1562; `worm_known` is D-1548; non-worm `level.monsters[][]` still fmon-only
+`worm_cross` live; `howmonseen` is D-1562; `worm_known` is D-1548; cutworm is D-1570; non-worm `level.monsters[][]` still fmon-only
 
 ### `src/extralev.c`
 
@@ -780,8 +783,9 @@ givemsg `pline_mon` / post-tame `mon_wield_item` D-1532**
 not pacify+“calms down” only);
 **`tamedog` `wake_nearto(mx,my,1)` D-1546** (C `:1159–1161`; live `mon.js`
 `wake_nearto_core` wake_msg + STRAT_WAITMASK + disturb; distance==1
-limits to mtmp cell, not `wakeup()` anger); named: FULL_MOON night
-S_DOG `rn2(6)`; ustuck expels/unstuck; `redraw_worm`; Tobjnam stop /
+limits to mtmp cell, not `wakeup()` anger);
+**`tamedog`/`abuse_dog` `redraw_worm` D-1577** (C `worm.c:989–998`); named: FULL_MOON night
+S_DOG `rn2(6)`; ustuck expels/unstuck; Tobjnam stop /
 big_corpse catch; `initedog` `has_edog` vs `!mtame`
 
 ### `src/fountain.c`
