@@ -5,16 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1603 (cadence `#2000` at `b9710bcf`).
+- **Suite 44/44** after D-1604 (cadence `#2000` at `b9710bcf`).
   seed4500 still PASS.
-  **Hypothesis:** Must-fix `zap.c` `bhit` `show_transient_light`
-  `!Blind` must be youprop `(HBlinded||EBlinded)&&!BBlinded`
-  (`youprop.h:103`), not sticky `u.Blind||u.ublind` (review **558**).
-  Not `#seeall`. Not doprinuse.
-  **Falsify:** `node scripts/csym.mjs` Blind / `youprop.h:103`;
-  zap `bhit` camera/`mtemplit` path uses the youprop form.
-  **Next:** Must-fix **558**. Not Open `#seeall`.
-  Do not skip D-1531…D-1603. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `cmd.c` `#seeall` EXT_CMDS (named) is the
+  next map cluster. Not doprinuse. Not `mplayer_talk`.
+  **Falsify:** `node scripts/csym.mjs` seeall / extcmd table;
+  JS still unknown or INTERNALCMD-only.
+  **Next:** Open `#seeall`. Must-fix **558** shipped D-1604.
+  Do not skip D-1531…D-1604. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   `m_unleash`; clone auto-open yn; floor `query_classes`;
@@ -32,7 +30,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1603.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1604.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +41,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1603 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1604 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1603. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1604. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -56,13 +54,17 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1603 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1604 live in the index. Do not glue
   `#seeall` / `m_unleash` / getline ^P. No `ing_suffix` clone #3.
   Do not poke `beyond_savefile_load` to “prove” InvInUse (D-1603
-  writers are preamble `:71` / `try_restore_save` `:942`).
+  writers are preamble `:71` / `try_restore_save` `:942`). Do not
+  restore zap `bhit` sticky `u.Blind||u.ublind` (D-1604).
 
 ## Landmarks (≤15)
 
+- D-1604: zap `bhit` `show_transient_light` `!Blind` is youprop
+  `(H||E)&&!B` + `uroleplay.blind`, not sticky `u.Blind||u.ublind`
+  (review **558**). Apply camera Blind unchanged. Worm tails named.
 - D-1603: `beyond_savefile_load=1` new-game preamble + restore
   `try_restore_save`; perm_invent `update_inventory` after
   `in_moveloop`. Default Off no-op. tty WIN_INVEN create named.
@@ -80,8 +82,7 @@ Objective/score live in `CURRENT.md`.
 - D-1598: `has_mcorpsenm` `mextra && MCORPSENM != NON_PM`.
   object_detect / `altarmask_at` named.
 - D-1597: `show_transient_light` camera range 0 + thrown lamplit
-  `mtemplit`. **Review 558** QUALITY-RISK: zap `bhit` sticky Blind.
-  Worm tails named.
+  `mtemplit`. **D-1604** zap `bhit` youprop Blind. Worm tails named.
 - D-1596: `create_mplayers` class `rn1` + `goodpos` + `mk_mplayer`.
   `mplayer_talk` / `gain_guardian_angel` named.
 - D-1595: `tamedog` `!has_edog` `newedog`+`initedog(TRUE)`.
@@ -93,4 +94,3 @@ Objective/score live in `CURRENT.md`.
   ggetobj drop / mbag named.
 - D-1591: `display_used_invlets` `#adjust` `?`/`*`.
 - D-1590: wizid unid_cnt>0 PICK_ANY `'_'`/`^I` SKIPINVERT.
-- D-1589: SORTLOOT_INUSE `inuse_classify` + `doprinuse` `*`.

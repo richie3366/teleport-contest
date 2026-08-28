@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `zap.c` `bhit` `show_transient_light` `!Blind` must use youprop `(HBlinded||EBlinded)&&!BBlinded` (`youprop.h:103`), not `zap.js` sticky `u.Blind||u.ublind`. Source: reviews/loop-unattended/558-9244ce75-show-transient-light.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse.

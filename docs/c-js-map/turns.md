@@ -1682,7 +1682,7 @@ endmultishot/drag_ball/drown/trap pass-over/check_special_room/steed
 **throwit ACURRSTR urange D-1316**; zap bhit `THROWN_TETHERED_WEAPON` / isqrt D-1323 (THROWN_WEAPON 
 fly stand-in named); **`bhit` thrown/kicked `shade_miss` D-1383**; 
 **`bhit` M_AP_OBJECT skip D-1392**; **`bhit` WEB stick D-1393** (kick/tether; 
-throwit inline still skips WEB); **boomhit/bhitm `m_respond` D-1314**; 
+throwit inline still skips WEB); **`bhit` `show_transient_light` `!Blind` youprop D-1604** (`youprop.h:103` `(HBlinded||EBlinded)&&!BBlinded` + `uroleplay.blind`; not sticky `u.Blind||u.ublind`; review **558**; apply camera Blind unchanged; worm tails / FLASHED_LIGHT `tmp_at` named); **boomhit/bhitm `m_respond` D-1314**; 
 **thitmonst vanish pline D-1324**; **throwit land snuff_candle D-1333** (candles/candelabrum only, 
 not snuff_lit; mthrowu `:942` D-1334); litter named); **volley pline `xname`/`singular`** (D-0097); 
 **`throw_ok` DOWNPLAY lone' uwep + hand-throw pline/half range; 

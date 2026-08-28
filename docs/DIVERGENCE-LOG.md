@@ -1,4 +1,33 @@
+## D-1604 — zap.c bhit show_transient_light !Blind youprop
+
+- **Status:** fixed (Must-fix review **558**; not a public FAIL)
+- **Symptom:** D-1597 wired `show_transient_light` in zap `bhit`
+  thrown/kicked + FLASHED_LIGHT, but gated on sticky
+  `u.Blind || u.ublind`. Conferral that writes H/E without
+  sticky `u.Blind` flashed when C would not, or skipped when
+  sticky was stale.
+- **C locus:** `youprop.h:103` `Blind ((HBlinded || EBlinded) &&
+  !BBlinded)`. `zap.c` `bhit` `:3901–3917` `obj->lamplit &&
+  !Blind` / FLASHED_LIGHT `!Blind` then `show_transient_light`;
+  cleanup `:4135–4136` thrown/kicked only.
+- **JS was:** `js/zap.js` `Blind()` `game.u.Blind || game.u.ublind`.
+  apply.js camera Blind already youprop + `uroleplay.blind`
+  (D-0716). minion S_ANGEL inlined the same. Not a named omit.
+- **Fix:** zap `Blind()` matches apply.js / `youprop.h:103`.
+  Both `bhit` gates keep calling that helper. No Blind clone in
+  `light.js`. Apply camera Blind unchanged. Worm tails /
+  FLASHED_LIGHT `tmp_at` DISP_BEAM named. Rule #2: no fs.
+- **JS:** `js/zap.js` `Blind` / `bhit`.
+- **Not this iter:** worm tails; FLASHED_LIGHT `tmp_at`;
+  `save_light_sources` discard; apply camera Blind; `#seeall`.
+  show_transient_light body is D-1597.
+- **Verified:** private canary **12**/12 (FLASHED_LIGHT sticky vs
+  H/E/B + uroleplay; thrown shares Blind(); cleanup clears
+  mtemplit so camera `light_base` is the live-gate probe);
+  green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1603 — allmain.c/restore.c beyond_savefile_load (TTY_PERM_INVENT)
+
 
 - **Status:** fixed (Must-fix review **561**; not a public FAIL)
 - **Symptom:** D-1600 copied `sync_perminvent` `:5653`

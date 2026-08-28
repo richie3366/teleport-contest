@@ -646,8 +646,15 @@ export function Reflecting() {
     return (game.youmonst?.data?.mndx | 0) === PM_SILVER_DRAGON;
 }
 
+/**
+ * C youprop.h:103 Blind — (HBlinded || EBlinded) && !BBlinded.
+ * D-0716 uroleplay.blind (same as apply.js). Not sticky u.Blind||u.ublind
+ * (D-1604; review **558** zap bhit show_transient_light).
+ */
 function Blind() {
-    return !!(game.u?.Blind || game.u?.ublind);
+    const u = game.u || {};
+    if (u.uroleplay?.blind) return true;
+    return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
 }
 
 /** C obj.h is_helmet — ARMOR + oc_armcat ARM_HELM (JS oc_skill stand-in). */
@@ -666,13 +673,11 @@ function hard_helmet(obj) {
 }
 
 /**
- * C youprop.h Blind for zapyourself WAN_MAKE_INVISIBLE msg —
- * (HBlinded || EBlinded) && !BBlinded. Sticky Blind() first.
+ * C youprop.h:103 Blind for zapyourself WAN_MAKE_INVISIBLE msg.
+ * Same helper as bhit show_transient_light (D-1604).
  */
 function Blinded_for_invis() {
-    const u = game.u || {};
-    if (Blind()) return true;
-    return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
+    return Blind();
 }
 
 /**
@@ -5417,8 +5422,9 @@ function bhit_xyglyph_known_monster(loc) {
  * callee `zap_map` `:3685–3717` OPENING/LOCKING/STRIKING).
  * Named omit: THROWN_WEAPON fly callers (throwit still inlines those
  * and still skips WEB / shade / mimic-object); FLASHED_LIGHT DISP_BEAM /
- * INVIS_BEAM stop; show_transient_light; shkcatch pick;
- * map_invisible / unmap_object; skiprange rocks.
+ * INVIS_BEAM stop; shkcatch pick; map_invisible / unmap_object;
+ * skiprange rocks. show_transient_light is D-1597; bhit `!Blind`
+ * is youprop.h:103 (D-1604).
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
 async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
@@ -5475,7 +5481,9 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
                 break;
             }
             // C zap.c bhit :3901–3917 — thrown/kicked lamplit +
-            // FLASHED_LIGHT show_transient_light before iron bars (D-1597).
+            // FLASHED_LIGHT show_transient_light before iron bars
+            // (D-1597). !Blind is youprop.h:103, not sticky
+            // u.Blind||u.ublind (D-1604).
             if (weapon === THROWN_WEAPON || weapon === KICKED_WEAPON) {
                 if (obj?.lamplit && !Blind()) {
                     await show_transient_light(obj, x, y);

@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1604 zap.c bhit !Blind youprop
+
+**Objective:** Must-fix **558** zap `bhit` `show_transient_light`
+`!Blind` = youprop `(H||E)&&!B`, not sticky `u.Blind||u.ublind`.
+Not `#seeall`.
+**C locus:** `youprop.h:103`; `zap.c` `bhit` `:3901–3917`.
+**JS locus:** `js/zap.js` `Blind` / `bhit`.
+**Change:** existing Blind clone matches apply.js. No Blind #29
+in light.js. Apply camera Blind unchanged. Worm tails named.
+Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **12**/12; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `#seeall`. Not doprinuse.
+**Blocked:** none.
 ## 2026-08-29 — D-1603 allmain.c beyond_savefile_load
 
 **Objective:** Must-fix **561** `beyond_savefile_load=1` so D-1600

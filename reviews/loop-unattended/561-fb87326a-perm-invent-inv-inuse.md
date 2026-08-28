@@ -132,4 +132,4 @@ Named (map, not Must-fix): `ctrl_nhwindow` `assesstty` geometry; tty WIN_INVEN p
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1603
+**Addressed:** D-1603 `d1a832a1`

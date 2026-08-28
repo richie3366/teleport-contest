@@ -130,3 +130,5 @@ D-log private canary **12**/12; green+strict seed8000/0900; cohort **7**/7 + str
 Named (not Must-fix): worm tails (`:319` comment); FLASHED_LIGHT `tmp_at`; `save_light_sources` discard; `new_light_core` silent vs C `impossible`; light_base append vs C prepend.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1604
