@@ -684,8 +684,7 @@ cantwield ridiculous / full setworn / `#swap` deferred);
 Yname2/body_part/Glib drop polish deferred); 
 **`chwepon` glow/spe + strange_feeling + worm-tooth/crysknife** (D-0435; 
 Magicbane clue, artifact restrict_name, shop costly_alteration/alter_cost, useupall polish 
-deferred); omit `cantwield` poly, `cant_wield_corpse`, bimanual+shield weld pline body, **getobj ALLOWCNT D-1530** (`finish_splitting`/`unsplitobj` after split still named), `Shk_Your` decline, `arti_speak` / setuwep Sunsword begin_burn 
-still named; **`uwepgone` `artifact_light` `end_burn` + Tobjnam + 
+deferred); omit `cantwield` poly, `cant_wield_corpse`, bimanual+shield weld pline body; **getobj ALLOWCNT D-1530**; **`finish_splitting`/`unsplitobj`/`clear_splitobjs` D-1560** (C `wield.c` `:345–351` + `dowield`/`doquiver_core` callers; `mkobj.c` `:554–629`; live local `finish_splitting` + `js/mkobj.js` + invent `freeinv`; ynq split-one/rest; gold partial; JS mergable owornmask dance); `Shk_Your` decline, `arti_speak` / setuwep Sunsword begin_burn; dothrow/apply/pickup/invent `unsplitobj` callers + allmain/mon `clear_splitobjs` still named; **`uwepgone` `artifact_light` `end_burn` + Tobjnam + 
 gone-trio `update_inventory`** (D-1204); full `setworn` props; 
 **`getobj_wield` SUGGEST weapons/weptools + `- ` prefix + compactify when suggested>5** (D-0457; 
 `?`/`*` pickinv still deferred); **`body_part`** via `objnam.js`

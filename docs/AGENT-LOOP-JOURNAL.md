@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1560 wield.c finish_splitting / unsplitobj
+
+**Objective:** Open finish_splitting / unsplitobj. Not CMDQ_INT.
+**C locus:** `wield.c` `finish_splitting` `:345–351`; `dowield` /
+`doquiver_core`; `mkobj.c` `unsplitobj` `:554–622` /
+`clear_splitobjs` `:625–629`; `invent.c` `freeinv` `:1402–1409`.
+**JS locus:** `js/wield.js` (named omit after D-1530); `js/mkobj.js`;
+export `freeinv` from `js/invent.js` (C home).
+**Change:** getobj child own invlet; welded/already/gold unsplit;
+ynq split-one/rest. `Shk_Your` named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1950).
+**Verified:** canary **52**/52; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open stash getobj ALLOWCNT. Not CMDQ_INT.
+**Blocked:** none.
 ## 2026-08-28 — D-1559 invent.c display_pickinv &ctmp
 
 **Objective:** Open pickinv `&ctmp` menu count. Not CMDQ_INT.

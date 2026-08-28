@@ -49,6 +49,7 @@ import {
     ECMD_OK,
     ECMD_CANCEL,
     WIN_ERR,
+    OBJ_FREE,
     OBJ_INVENT,
     OBJ_CONTAINED,
     OBJ_FLOOR,
@@ -3660,6 +3661,28 @@ export function freeinv_core(obj) {
     if ((obj.otyp | 0) === FIGURINE && (obj.timed | 0)) {
         stop_timer(FIG_TRANSFORM, obj);
     }
+}
+
+/**
+ * C ref: invent.c freeinv — extract from invent, pickup_prev=0,
+ * freeinv_core, update_inventory. JS invent is an array; also unlink nobj
+ * (C extract_nobj(&gi.invent)).
+ */
+export function freeinv(obj) {
+    if (!obj) return;
+    const inv = game.invent;
+    if (Array.isArray(inv)) {
+        const idx = inv.indexOf(obj);
+        if (idx >= 0) inv.splice(idx, 1);
+        for (const o of inv) {
+            if (o.nobj === obj) o.nobj = obj.nobj || null;
+        }
+    }
+    obj.nobj = null;
+    obj.pickup_prev = 0;
+    obj.where = OBJ_FREE;
+    freeinv_core(obj);
+    update_inventory();
 }
 
 const GOLD_SYM_ADJ = '$';

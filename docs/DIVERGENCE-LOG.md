@@ -4,6 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1560 — wield.c finish_splitting / unsplitobj
+
+- **Status:** fixed (map-driven Open from D-1559; not a public FAIL)
+- **Symptom:** getobj ALLOWCNT `split_otmp` left the child on invent
+  with the parent’s invlet. Welded / already-wielded / already
+  quivered / gold-partial never called `unsplitobj`. ynq
+  split-one / split-rest never `finish_splitting`. Named omit
+  after D-1530. Not CMDQ_INT.
+- **C locus:** `wield.c` `finish_splitting` `:345–351` (`freeinv` +
+  `addinv_nomerge`). Callers `dowield` `:372–421` (`clear_splitobjs`
+  then getobj; welded child unsplit; parent `uwep` unsplit +
+  already_wielded; else finish then `goto wielding`; uquiver ynq
+  `splitobj(uquiver, 1)`). `doquiver_core` `:529–625` (parent
+  `uquiver` unsplit + already; gold “can't ready only part” +
+  unsplit; else finish then fall through; uwep/uswap ynq
+  `splitobj(..., quan-1)`). `mkobj.c` `unsplitobj` `:554–622` /
+  `clear_splitobjs` `:625–629`. `invent.c` `freeinv` `:1402–1409`.
+- **JS was:** split child shared invlet; no unsplit / finish;
+  ynq confirmed whole stack only.
+- **Fix:** local `finish_splitting`; export `freeinv` at invent
+  home; `unsplitobj`/`clear_splitobjs` in mkobj. JS `mergable`
+  rejects `owornmask` (C does not) — zero masks around `merged`,
+  restore parent. Child o_id 0 never matches after clear.
+  Rule #2: no fs.
+- **JS:** `js/wield.js`; `js/mkobj.js`; `js/invent.js`.
+- **Not this iter:** `Shk_Your` decline; dothrow/apply/pickup/
+  invent `unsplitobj` callers; allmain/mon `clear_splitobjs`;
+  stash getobj ALLOWCNT; `in_doagain` REPEAT; doorganize nobj
+  unsplit. pickinv `&ctmp` is D-1559. canned CMDQ_INT is D-1551.
+- **Verified:** private canary **52**/52 (clear; split oids;
+  getobj splice finish own invlet; welded/already/gold unsplit
+  restores quan; ynq split-one/rest; floor/free refuse; worn
+  mask dance); green+strict seed8000/0900; cohort **7**/7 +
+  strict 1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `pickup.c` stash getobj ALLOWCNT.
+
 ## D-1559 — invent.c display_pickinv &ctmp menu count
 
 - **Status:** fixed (map-driven Open from D-1558; not a public FAIL)

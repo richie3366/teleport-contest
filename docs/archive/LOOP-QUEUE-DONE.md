@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` `display_pickinv` `&ctmp` menu count (named). Not CMDQ_INT. **Addressed:** D-1559
+- [x] `wield.c` `finish_splitting` / `unsplitobj` (named). Not CMDQ_INT. **Addressed:** D-1560
+
+
+- [x] `invent.c` `display_pickinv` `&ctmp` menu count (named). Not CMDQ_INT. **Addressed:** D-1559 `30c83eb9`
 
 
 - [x] `artifact.c` SEARCH/REGEN/XRAY conferral (named). Not cspfx. **Addressed:** D-1558 `599494b3`
