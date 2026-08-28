@@ -1,3 +1,35 @@
+## D-1594 — mon.c normal_shape await newcham NC_SHOW_MSG
+
+- **Status:** fixed (Must-fix review **547**; not a public FAIL)
+- **Symptom:** `normal_shape` passed `NC_SHOW_MSG` into `newcham` but
+  dropped the Promise, so PfSC `rescham`/`restore_cham` and zap
+  `cancel_monst` mutated `cham=NON_PM` / printed clay-golem writing
+  before the shapeshift pline/More finished.
+- **C locus:** `mon.c` `normal_shape` `:4438–4443` after capturing
+  `mcham`/`mcan`: `newcham(mon, &mons[mcham], NC_SHOW_MSG)` then
+  `cham=NON_PM`, restore `mcan`, `newsym`. Callers `rescham`
+  `:4623` `iter_mons(normal_shape)`; `restore_cham` `:4653`;
+  `zap.c` `cancel_monst` `:3199` then clay-golem pline.
+- **JS was:** D-1586 live SHOW_MSG inside `newcham`; `normal_shape`
+  stayed sync and fired the Promise (review **547** QUALITY-RISK).
+- **Fix:** `normal_shape`/`rescham`/`restore_cham` async; await
+  `newcham(..., NC_SHOW_MSG)` before `cham=NON_PM`. Await at
+  `cancel_monst`, `Ring_on`/`eataccessory` `rescham`, dog
+  `mon_arrive_after_you` and zap `montraits` `restore_cham`.
+  Do not pass flags 0 (would un-print C’s message). Rule #2: no fs.
+- **JS:** `js/mon.js`; `js/zap.js` `cancel_monst`/`montraits`;
+  `js/do_wear.js`; `js/eat.js`; `js/dog.js`; `js/trap.js` await
+  `montraits`.
+- **Not this iter:** `new_were`/`finish_meating`; getlev
+  `restore_cham`; wiz_intrinsic `rescham`; stone-cham/genocide/
+  muse/trap SHOW_MSG flags; `m_unleash`. NC_SHOW_MSG body is
+  D-1586. ustuck is D-1593.
+- **Verified:** private canary **17**/17; green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
+
+
 ## D-1593 — dog.c tamedog ustuck expels/unstuck
 
 - **Status:** fixed (map-driven Open from D-1592; not a public FAIL)

@@ -743,7 +743,7 @@ async function mon_arrive_after_you(mtmp) {
         dlevel: mtmp.mtrack?.[2]?.y | 0,
     };
     arrive_track_clear(mtmp);
-    restore_cham(mtmp);
+    await restore_cham(mtmp);
 
     if (mtmp === u.usteed) return;
 

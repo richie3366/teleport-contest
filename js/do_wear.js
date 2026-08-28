@@ -1830,7 +1830,7 @@ export async function Ring_on(obj) {
         u.udaminc = (u.udaminc | 0) + (obj.spe | 0);
         break;
     case RIN_PROTECTION_FROM_SHAPE_CHAN:
-        rescham();
+        await rescham();
         break;
     case RIN_PROTECTION: {
         const observable = (obj.spe | 0) !== 0;

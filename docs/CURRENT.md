@@ -62,18 +62,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1593 audit (seed4500 still PASS). **Next cluster:**
-Must-fix `mon.c` `normal_shape` await `newcham(..., NC_SHOW_MSG)`
-(review **547**). Not has_edog. Not revert D-1574 `seemimic` /
-`dig_point` body.
-**Do not skip D-1531…D-1593 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1594 (seed4500 still PASS). **Next cluster:**
+Open `dog.c` tamedog `initedog` has_edog vs `!mtame` (named). Not
+FULL_MOON. Not `normal_shape` await (D-1594).
+**Do not skip D-1531…D-1594 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1593.** Do not FORCE
+**Do not re-break D-0660…D-1594.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1593 (index). Recent: **D-1593**
+**Keep:** D-0845…D-1594 (index). Recent: **D-1594**
+`mon.c` `normal_shape` await `newcham(..., NC_SHOW_MSG)` (PfSC
+`rescham`/`restore_cham`/zap cancel shapeshift pline before
+`cham=NON_PM`/clay-golem). Prior: **D-1593**
 `dog.c` `tamedog` ustuck expels/unstuck (swallow `expels` else
 `!(Upolyd && sticks)` `unstuck`). Prior: **D-1592**
 `pickup.c` `in_or_out_menu` more_containers `n` (`#loot` Next
@@ -100,11 +102,11 @@ Prior: **D-1588**
 `block_point`/`unblock_point` (seed4500). **D-1575**
 `mk_gen_ok` MAIL + `ndemon` mkclass. **D-1574**
 `unblock_point`. **D-1573** `newcham` cancel. Older
-D-1531…D-1593 live in the index — do not re-paste.
+D-1531…D-1594 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1593 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1594 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -134,6 +136,7 @@ wizid unid_cnt>0 PICK_ANY is D-1590.
 `display_used_invlets` is D-1591.
 more_containers `n` is D-1592.
 ustuck expels/unstuck is D-1593.
+`normal_shape` await NC_SHOW_MSG is D-1594.
 `howmonseen` is D-1562. Do not
 skip `tamedog` `wake_nearto` or glue has_edog.
 Remembered otyp does not beat a displayed mon glyph (D-1547).

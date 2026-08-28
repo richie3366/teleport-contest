@@ -1260,10 +1260,11 @@ async function newcham_show_msg(mtmp, oldname, seenorsensed, mdat) {
  * + vampire cham (D-1573). youprop H||E via uprops like set_mimic_sym
  * (D-1564; not a third named clone of were.js / monmove.js).
  * NC_SHOW_MSG pline_mon/usmellmon/noname_monnam (D-1586). When SHOW_MSG
- * the return is a Promise (await at already-async callers); NO_NC_FLAGS
- * stays a boolean so sync makemon `if (newcham())` is not Promise-truthy.
- * Vampire cham + check_gear run before awaiting More (C does the pline
- * first; cham unused by the message; gear is next-turn).
+ * the return is a Promise (await at decide/digest/zap poly and at
+ * `normal_shape` D-1594); NO_NC_FLAGS stays a boolean so sync makemon
+ * `if (newcham())` is not Promise-truthy. Vampire cham + check_gear
+ * run before awaiting More (C does the pline first; cham unused by
+ * the message; gear is next-turn).
  * Named omissions: NC_VIA_WAND_OR_SPELL possibly_unwield /
  * mon_break_armor / boulder bypass+flooreffects (async / missing);
  * m_unleash (async) + update_inventory leash; ustuck expels/unstuck
@@ -1391,7 +1392,7 @@ export function newcham(mtmp, mdat, ncflags = 0) {
     newsym(mtmp.mx | 0, mtmp.my | 0);
 
     // C: vampire cham after the pline; JS applies it before awaiting More
-    // so sync callers (makemon / normal_shape) keep immediate mutation.
+    // so sync callers (makemon) keep immediate mutation.
     if ((mtmp.cham === NON_PM || mtmp.cham == null)
         && mdat.mlet === 'S_VAMPIRE' && !pfsc) {
         mtmp.cham = pm_to_cham(mdat.mndx ?? NON_PM);

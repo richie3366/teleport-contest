@@ -135,3 +135,5 @@ D-log private canary **17**/17; green+strict seed8000/0900; cohort **7**/7 + str
 Named (not Must-fix): mhitm stone `:3825`; genocide `:5665`; muse/trap/uhitm vis SHOW_MSG; `m_unleash`; ustuck `expels`; break-armor; Elbereth `monflee`; 8 `upstart` clones; `#wizsmell`.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1594

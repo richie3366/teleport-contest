@@ -2683,9 +2683,9 @@ function SYSOPT_SEDUCE_zap() {
  * C ref: zap.c montraits — revive from corpse/statue omonst traits.
  * Used by revive() and animate_statue(). Named omit: full replshk bill_p;
  * worm light-source swap.
- * @returns {object|null}
+ * @returns {Promise<object|null>}
  */
-export function montraits(obj, cc, adjacentok) {
+export async function montraits(obj, cc, adjacentok) {
     let mtmp = null;
     const mtmp2 = has_omonst(obj) ? get_mtraits(obj, true) : null;
     if (!mtmp2) return null;
@@ -2766,7 +2766,7 @@ export function montraits(obj, cc, adjacentok) {
     }
     replmon(mtmp, mtmp2);
     newsym(mtmp2.mx | 0, mtmp2.my | 0);
-    restore_cham(mtmp2);
+    await restore_cham(mtmp2);
     return mtmp2;
 }
 
@@ -2993,7 +2993,7 @@ export async function revive(corpse, by_hero) {
     } else if (has_omonst(corpse)) {
         xy.x = x;
         xy.y = y;
-        mtmp = montraits(corpse, xy, false);
+        mtmp = await montraits(corpse, xy, false);
         if (mtmp && mtmp.mtame && !mtmp.isminion) {
             await wary_dog(mtmp, true);
         }
@@ -3382,7 +3382,7 @@ export async function cancel_monst(
         }
     } else {
         mdef.mcan = 1;
-        normal_shape(mdef);
+        await normal_shape(mdef);
         if (mdef.data === mons(PM_CLAY_GOLEM)
             || (mdef.data?.mndx | 0) === PM_CLAY_GOLEM) {
             if (canseemon(mdef)) {

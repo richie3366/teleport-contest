@@ -5,23 +5,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1593 audit overlay (reviews **546–554**).
-  seed4500 still PASS.
-  **Hypothesis:** Must-fix **547** — `mon.c` `normal_shape` drops
-  `newcham(..., NC_SHOW_MSG)` so PfSC/zap cancel print shapeshift
-  after `cham=NON_PM` / clay-golem. Not has_edog.
-  **Falsify:** await `newcham` in `normal_shape` then a canary that
-  calls `rescham` / zap cancel and checks pline order.
-  **Next:** Must-fix 547. Not has_edog. Not `create_mplayers`.
-  Do not skip D-1531…D-1593. No FORCE / `wildmiss` wrap / trailing
+- **Suite 44/44** after D-1594 (review **547** closed). seed4500 still
+  PASS.
+  **Hypothesis:** Open `dog.c` `tamedog` `initedog` `has_edog` vs
+  `!mtame` (named). Not FULL_MOON. Not `normal_shape` await.
+  **Falsify:** port `initedog` newedog/`has_edog` when `!mtame` then a
+  canary that distinguishes already-tame vs first tame.
+  **Next:** Open has_edog. Not `create_mplayers`.
+  Do not skip D-1531…D-1594. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
-- Named still: `initedog` `has_edog`; sit/pray
-  `eyecount`; Palantir `#if 0`; pit/underwater;
+- Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   `m_unleash` / break-armor / Elbereth; `has_mcorpsenm`;
   show_transient_light; clone auto-open yn; ggetobj takeoff; floor
   `query_classes`; `create_mplayers`; potion/timeout/polyself
   `set_mimic_blocking`; `tty_doprev_message` / restore_msghistory;
-  SORTLOOT_PETRIFY; perm_invent InvInUse; `#seeall` EXT_CMDS.
+  SORTLOOT_PETRIFY; perm_invent InvInUse; `#seeall` EXT_CMDS;
+  getlev `restore_cham`; wiz_intrinsic `rescham`.
 
 ## Don't re-check (≤15)
 
@@ -30,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1593.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1594.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,9 +40,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1593 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1594 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1593. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1594. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -54,17 +53,20 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` bodies or global `recalc` as
-  `vision_reset`. D-1576…D-1593 live in the index (gacc D-1580;
+  `vision_reset`. D-1576…D-1594 live in the index (gacc D-1580;
   inuse_only D-1589; wizid PICK_ANY D-1590; used-invlets D-1591;
-  more_containers `n` D-1592; ustuck expels D-1593).
+  more_containers `n` D-1592; ustuck expels D-1593;
+  `normal_shape` await D-1594).
   Do not glue has_edog / SORTLOOT_PETRIFY /
   `tty_doprev_message` / `m_unleash`. Do not add
   `ing_suffix` clone #3 or `Tobjnam` #8 or `upstart` #9.
 
 ## Landmarks (≤15)
 
-- Review **547** QUALITY-RISK: `normal_shape` must await
-  `newcham(..., NC_SHOW_MSG)`. has_edog waits. D-1593 ustuck live.
+- D-1594: `normal_shape` awaits `newcham(..., NC_SHOW_MSG)` before
+  `cham=NON_PM` / clay-golem (review **547**). has_edog waits.
+  getlev `restore_cham` / wiz_intrinsic `rescham` named. NC_SHOW_MSG
+  is D-1586.
 - D-1593: `tamedog` ustuck swallow `expels` else `!(Upolyd && sticks)`
   `unstuck` (mhitu + engrave sticks). has_edog named. more_containers
   is D-1592. FULL_MOON is D-1585.
@@ -97,4 +99,3 @@ Objective/score live in `CURRENT.md`.
 - D-1581: traditional_loot + askchain INVLET. more_containers is
   D-1592; ggetobj takeoff named.
 - D-1580: pickinv gacc / BALL `'0'`; `def_oc_syms`; getobj gacc 0.
-- D-1579: mime_action typed `'-'` `!allownone`; `ing_suffix`.

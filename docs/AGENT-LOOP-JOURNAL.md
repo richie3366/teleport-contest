@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1594 mon.c normal_shape await newcham NC_SHOW_MSG
+
+**Objective:** Must-fix **547** — `normal_shape` await
+`newcham(..., NC_SHOW_MSG)`. Not has_edog.
+**C locus:** `mon.c` `normal_shape` `:4438–4443`; callers `rescham` /
+`restore_cham` / zap `cancel_monst` `:3199`.
+**JS locus:** dropped Promise after D-1586 (`js/mon.js:902`).
+**Change:** async `normal_shape`/`rescham`/`restore_cham`; await
+SHOW_MSG before `cham=NON_PM` and before clay-golem pline. Rule #2:
+no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **17**/17; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open tamedog `initedog` has_edog. Not `normal_shape`.
+**Blocked:** none.
 ## 2026-08-28 — review D-1585–D-1593 (audit #1990)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **545**;

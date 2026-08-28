@@ -891,15 +891,17 @@ export function seemimic(mtmp) {
 }
 
 /**
- * C ref: mon.c normal_shape — cham revert / were / seemimic.
- * Thin: cham newcham + seemimic; were/meating deferred.
+ * C ref: mon.c normal_shape `:4430–4462` — cham revert / were / seemimic.
+ * Await `newcham(..., NC_SHOW_MSG)` so the shapeshift pline/More
+ * finish before `cham=NON_PM` / `mcan` restore / `newsym` (D-1594;
+ * C `:4438–4443`). Named: `is_were`/`new_were`; `finish_meating`.
  */
-export function normal_shape(mon) {
+export async function normal_shape(mon) {
     if (!mon) return;
     const mcham = mon.cham;
     if (ismnum(mcham)) {
         const mcan = mon.mcan;
-        newcham(mon, mons(mcham), NC_SHOW_MSG);
+        await newcham(mon, mons(mcham), NC_SHOW_MSG);
         mon.cham = NON_PM;
         if (mcan) mon.mcan = 1;
         newsym(mon.mx | 0, mon.my | 0);
@@ -915,12 +917,12 @@ export function normal_shape(mon) {
 }
 
 /**
- * C ref: mon.c rescham — force all mons to normal_shape (PfSC on).
+ * C ref: mon.c rescham — iter_mons(normal_shape) when PfSC turns on.
  */
-export function rescham() {
+export async function rescham() {
     for (const mon of game.fmon || []) {
         if (!mon || (mon.mhp | 0) <= 0) continue;
-        normal_shape(mon);
+        await normal_shape(mon);
     }
 }
 
@@ -2632,16 +2634,17 @@ export function replmon(mtmp, mtmp2) {
 }
 
 /**
- * C ref: mon.c restore_cham — shape-changer vs Protection_from_shape_changers.
+ * C ref: mon.c restore_cham `:4646–4658` — PfSC/`mcan` → normal_shape,
+ * else re-allow cham via pm_to_cham. Await the SHOW_MSG revert (D-1594).
  */
-export function restore_cham(mon) {
+export async function restore_cham(mon) {
     if (!mon) return;
     const u = game.u || {};
     const prot = !!(u.HProtection_from_shape_changers
         || u.EProtection_from_shape_changers
         || u.Protection_from_shape_changers);
     if (prot || mon.mcan) {
-        normal_shape(mon);
+        await normal_shape(mon);
     } else if ((mon.cham | 0) === NON_PM || mon.cham == null) {
         mon.cham = pm_to_cham(mon.data?.mndx ?? mon.mnum ?? NON_PM);
     }
