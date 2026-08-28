@@ -1323,7 +1323,7 @@ function hard_helmet_local(obj) {
 }
 
 // C ref: muse.c rnd_offensive_item — ordinary non-animal path only
-function rnd_offensive_item(mtmp) {
+export function rnd_offensive_item(mtmp) {
     const pm_ = mtmp.data;
     const difficulty = mon_difficulty(pm_.mndx);
     const AT_EXPL = 13;
@@ -1809,7 +1809,7 @@ function attacktype(ptr, aatyp) {
  * C ref: muse.c rnd_defensive_item
  * Named omissions: none for hell-court (via noteleport_level D-0763).
  */
-function rnd_defensive_item(mtmp) {
+export function rnd_defensive_item(mtmp) {
     const pm_ = mtmp.data;
     const difficulty = mon_difficulty(pm_?.mndx);
     const AT_EXPL = 13;
@@ -1863,7 +1863,7 @@ function rnd_defensive_item(mtmp) {
  * C ref: muse.c rnd_misc_item — weak-monster misc inventory.
  * Named omissions: See_invisible on peaceful invis arm (treat as false).
  */
-function rnd_misc_item(mtmp) {
+export function rnd_misc_item(mtmp) {
     const pm_ = mtmp.data;
     const difficulty = pm_?.difficulty ?? 0;
     const AT_EXPL = 13;

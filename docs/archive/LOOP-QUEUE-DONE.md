@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `vision.c` `nv_range` circle (named). Not unblock_point. **Addressed:** D-1583
+- [x] `makemon.c` `mk_mplayer` (named). Not ndemon. **Addressed:** D-1584
+
+
+- [x] `vision.c` `nv_range` circle (named). Not unblock_point. **Addressed:** D-1583 `7843458b`
 
 
 - [x] `cmd.c` PREFIXCMD / `cmdq_shift` (named). Not do_repeat. **Addressed:** D-1582 `6c996e15`

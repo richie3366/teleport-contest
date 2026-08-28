@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1584 mplayer.c mk_mplayer
+
+**Objective:** Open `makemon.c` `mk_mplayer` (named).
+Not ndemon.
+**C locus:** `mplayer.c` `mk_mplayer` `:117–317`;
+`dev_name`/`get_mplname`/`mk_mplayer_armor`;
+`sp_lev.c` `:1985–1986`.
+**JS locus:** named omit after D-1553; no `js/mplayer.js`.
+**Change:** live `mk_mplayer` + splev RANDOM role-id;
+export `rnd_*_item`; `monmightthrowwep`. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **13**/13; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open FULL_MOON S_DOG. Not `mk_mplayer`.
+**Blocked:** none.
 ## 2026-08-28 — D-1583 vision.c nv_range circle
 
 **Objective:** Open `vision.c` `nv_range` circle (named).

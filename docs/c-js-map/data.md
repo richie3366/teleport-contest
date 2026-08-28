@@ -362,7 +362,24 @@ show_transient_light / `transient_light_cleanup` named);
 live `js/steed.js`; `_level_monsters` + `MON_FLOOR`; gulpmm clone retired; 
 `level_mon_at` ignores stale mx/my; `cutworm` / makemon itself calling 
 `place_monster` named); **D-1252 `demonpet` caller** (`uhitm.c`; 
-live `makemon` NO_MM_FLAGS + `tamedog` null FALSE) |
+live `makemon` NO_MM_FLAGS + `tamedog` null FALSE);
+**D-1584 `mk_mplayer`** live `js/mplayer.js` (C `mplayer.c`; not this file) |
+
+### `src/mplayer.c`
+
+JS: `js/mplayer.js` — partial
+
+**D-1584 `mk_mplayer`** (`mplayer.c:117–317`; static `dev_name` `:43–69` /
+`get_mplname` `:71–92` / `mk_mplayer_armor` `:94–115`). Caller
+`sp_lev.c` `create_monster` `:1985–1986` RANDOM `PM_ARCHEOLOGIST..PM_WIZARD`
+`m->id` (not `is_mplayer(pm)` after mines/geno clear). Live
+`js/mplayer.js` + `splev_create_monster`; callees `makemon`/`mongets`/
+`mpickobj`/`mkmonmoney`/`rnd_*_item` (exported) / `mk_artifact` `A_NONE`
+`adjust_spe=FALSE` / `is_art` Magicbane / `m_dowear` / `christen_monst` /
+`rank_of` / `rnd_class` / `weapon.c` `monmightthrowwep` (`rwep[]`).
+Occupied `rloc(RLOC_ERR|RLOC_NOMSG)` fire-and-forget like
+`mk_roamer_splev` (JS `rloc` async). Named: `create_mplayers` (`do.c:2049`
+endgame); `mongets` mplayer-sword `spe=3+rn2(4)`. ndemon is D-1575.
 
 ### `src/worm.c`
 
@@ -547,7 +564,7 @@ locate_first text) + **D-1531 Pri-loca `align=noalign` aligned cleric `mk_roamer
 (`sp_lev.c` `:1983–1984` + `priest.c` `mk_roamer`; live `mk_roamer_splev` `MM_EMIN`
 `min_align=A_NONE`; review **487** misnamed `load_pri_strt`; emin arm is D-1526;
 **D-1553** generic `splev_create_monster` amask dispatch — Pri-loca/sanctum
-noalign now call it; `mk_mplayer` named) + **D-0658 `link_doors_rooms` + eastern hx=39** (D-0645 hx=35 interim retired; 
+noalign now call it; **D-1584 `mk_mplayer`**) + **D-0658 `link_doors_rooms` + eastern hx=39** (D-0645 hx=35 interim retired; 
 D-0657 m_at @35535 cleared) + **D-0668 Pri-loca map lit=FALSE clear** (mines lit-field → dark 
 morgue; global `sel_set_ter(false)`≡C deferred — seed0009) + 
 **D-0673 tower1 map lit=FALSE clear** (solidfill BOOL_RANDOM lit kept by sel_set_ter 

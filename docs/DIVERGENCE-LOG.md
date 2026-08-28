@@ -4,6 +4,33 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1584 — mplayer.c mk_mplayer
+
+- **Status:** fixed (map-driven Open from D-1583; not a public FAIL)
+- **Symptom:** RANDOM special-level `des.monster` with role id
+  Archeologist..Wizard used `makemon` (peace_minded, ordinary invent)
+  instead of C `mk_mplayer` (hostile, role kit, always
+  `rnd_offensive/defensive/misc_item` loops).
+- **C locus:** `mplayer.c` `mk_mplayer` `:117–317`; static `dev_name`
+  `:43–69`, `get_mplname` `:71–92`, `mk_mplayer_armor` `:94–115`.
+  Caller `sp_lev.c` `create_monster` `:1985–1986` (`m->id` range, not
+  resolved `pm`). Callees `makemon`/`mongets`/`mpickobj`/`mkmonmoney`/
+  `rnd_*_item` / `mk_artifact(A_NONE,99,FALSE)` / `is_art` Magicbane /
+  `m_dowear` / `christen_monst` / `rank_of` / `rnd_class` /
+  `weapon.c` `monmightthrowwep` (`rwep[]`).
+- **JS was:** named omit after D-1553 (`splev` amask live; role-id
+  stayed `makemon`). No `js/mplayer.js`.
+- **Fix:** live `mk_mplayer` + helpers; `splev_create_monster` `mid`
+  Archeologist..Wizard. Export `rnd_*_item`; `monmightthrowwep` on
+  `rwep[]`. Rule #2: no fs.
+- **JS:** `js/mplayer.js`; `js/mklev.js` `splev_create_monster`;
+  `js/makemon.js` `rnd_*_item` export; `js/weapon.js` `monmightthrowwep`.
+- **Not this iter:** `create_mplayers` (`do.c:2049`); `mongets`
+  mplayer-sword `spe`. nv_range is D-1583. ndemon is D-1575.
+- **Verified:** private canary **13**/13 (early-out; spawn hostile
+  tourist `m_lev` 1..16; splev `"wizard"` hostile); green+strict
+  seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1583 — vision.c vision_recalc nv_range circle
 
 - **Status:** fixed (map-driven Open from D-1582; not a public FAIL)
