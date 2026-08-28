@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `minion.c` `gain_guardian_angel` (named). Not create_mplayers.
 - [ ] `mon.c` `m_unleash` (named). Not newcham.
 - [ ] `dog.c` `initedog` ogoal `-1` (named). Not has_edog.
 - [ ] `getline.c` getlin ^P `tty_doprev_message` (named). Not command ^P.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `cmd.c` `get_count` historicmsg (named). Not putmsghistory.
 - [ ] `restore.c` `restore_msghistory` (named). Not putmsghistory.
 - [ ] `apply.c` `consume_obj_charge` `update_inventory` (named). Not perm_invent InvInUse.
+- [ ] `mon.c` `reset_hostility` (named). Not gain_guardian_angel.
+- [ ] `dogmove.c` Conflict `lose_guardian_angel` caller (named). Not gain_guardian_angel.
+- [ ] `sounds.c` peaceful MS_HUMANOID (named). Not mplayer_talk.
+- [ ] `do_wear.c` `take_off` occupation (named). Not ggetobj.
+- [ ] `pickup.c` floor `query_classes` (named). Not traditional_loot.
 
 ## Parked (do not pop)
 

@@ -115,6 +115,7 @@ import { dismount_steed } from './steed.js';
 import { onquest, ok_to_quest } from './quest.js';
 import { resurrect } from './wizard.js';
 import { create_mplayers } from './mplayer.js';
+import { gain_guardian_angel } from './minion.js';
 import { bones_include_name } from './bones.js';
 import {
     olfaction, passes_walls, throws_rocks, is_flyer, is_floater,
@@ -1284,8 +1285,9 @@ function getlev_catchup_monsters(elapsed) {
  * Ported: quest-home gate — on qstart && !newdungeon && !ok_to_quest()
  * → "mysterious force prevents you from descending" (D-0798).
  * Deferred: binary NHFILE, Gehennom amulet mysteryforce, quest gate seal
- * RMPORTAL, endgame `final_level` reset_hostility / gain_guardian_angel /
- * ACH_ENDG/ASTR (create_mplayers live D-1596), migrating-Wizard resurrect arm,
+ * RMPORTAL, endgame `final_level` reset_hostility /
+ * ACH_ENDG/ASTR (create_mplayers live D-1596; gain_guardian_angel D-1608),
+ * migrating-Wizard resurrect arm,
  * Punished `ballfall` on trap-door falling, W-tower `u_on_rndspot` bit 2
  * (rndspot itself awaits switch_terrain D-1278; stairs u_on_sstairs
  * fallback is D-1287; cmd.c makemap_prepost amulet|wiztower is D-1288),
@@ -1766,7 +1768,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         if (madeNew && Is_astralevel(u.uz)) {
             // C do.c final_level: iter_mons(reset_hostility) named omit
             create_mplayers(rn1(4, 3), true);
-            // C: gain_guardian_angel(); ACH_ASTR named omit
+            await gain_guardian_angel();
+            // C: record_achievement(ACH_ASTR) named omit
         } else if (newdungeon && (u.uhave?.amulet || u.uhave_amulet)) {
             await resurrect();
         }

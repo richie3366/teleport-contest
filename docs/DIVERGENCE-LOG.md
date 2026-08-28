@@ -1,3 +1,28 @@
+## D-1608 — minion.c gain_guardian_angel
+
+- **Status:** fixed (map-driven Open from D-1607; not a public FAIL)
+- **Symptom:** Astral `final_level` never spawned a guardian angel.
+  C `gain_guardian_angel` after `create_mplayers` either sends
+  Conflict hostiles (`lose_guardian_angel(NULL)`) or, if fervent
+  (`ualign.record > 8`), a named `mk_roamer` angel. JS named the
+  call after D-1596.
+- **C locus:** `minion.c` `:497–565`; callee `lose_guardian_angel`
+  `:467–494`; `priest.c` `mk_roamer` `:723–752`; `eat.c`
+  `Hear_again` `:1800–1809`. Caller `do.c` `final_level` `:2052`.
+- **JS was:** named omit; `create_mplayers` live.
+- **Fix:** live `gain_guardian_angel` / `lose_guardian_angel`.
+  `mtame=10` only when pets conduct is already broken (no
+  `tamedog`/edog). One `mk_roamer` export (existing splev body).
+  `Hear_again` export (no second clone). SetVoice no-op without
+  SND_LIB. Rule #2: no fs.
+- **JS:** `js/minion.js` + `js/do.js` `goto_level`; `js/eat.js`
+  `Hear_again`; `js/mklev.js` `mk_roamer`.
+- **Not this iter:** `reset_hostility`; ACH_ASTR; dogmove.c
+  Conflict `lose_guardian_angel(mtmp)`; Hear_again occupation
+  afternmv. create_mplayers is D-1596. mongets sword is D-1607.
+- **Verified:** private canary **21**/21; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1607 — makemon.c mongets mplayer-sword spe
 
 - **Status:** fixed (map-driven Open from D-1606; not a public FAIL)

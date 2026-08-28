@@ -328,8 +328,8 @@ export function mk_mplayer(ptr, x, y, special) {
  * goodpos cells. Caller do.c final_level (Astral, madeNew) passes
  * rn1(4, 3), TRUE. tryct>50 after the do-while aborts the rest of
  * the loop even if the last roll was goodpos (C `:346–348`).
- * Named omit: final_level reset_hostility / gain_guardian_angel /
- * ACH_ASTR. mplayer_talk is D-1606.
+ * Named omit: final_level reset_hostility / ACH_ASTR.
+ * gain_guardian_angel is D-1608. mplayer_talk is D-1606.
  */
 export function create_mplayers(num, special) {
     const fakemon = { mx: 0, my: 0, wormno: 0, m_id: 0 };
