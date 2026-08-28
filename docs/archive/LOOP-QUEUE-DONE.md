@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` `display_used_invlets` (named). Not gacc. **Addressed:** D-1591
+- [x] `pickup.c` more_containers `n` (named). Not traditional_loot. **Addressed:** D-1592
+
+
+- [x] `invent.c` `display_used_invlets` (named). Not gacc. **Addressed:** D-1591 `92bbf63b`
 
 
 - [x] `invent.c` wizid unid_cnt>0 PICK_ANY (named). Not gacc. **Addressed:** D-1590 `094af60d`

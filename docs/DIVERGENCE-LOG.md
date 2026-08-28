@@ -1,3 +1,37 @@
+## D-1592 — pickup.c in_or_out_menu more_containers `n`
+
+- **Status:** fixed (map-driven Open from D-1591; not a public FAIL)
+- **Symptom:** `#loot` of several floor containers never offered Next;
+  `in_or_out_menu` omitted the `'n'` row and always defaulted `'q'`;
+  `do_loot_cont` did not pass `cindex<ccount`; `doloot` looted only
+  the first container.
+- **C locus:** `pickup.c` `in_or_out_menu` `:3397–3477` (`lootchars`
+  `"_:oibrsnq"`; `more_containers` add_menu `"loot next container"`
+  `MENU_ITEMFLAGS_SELECTED`; `'q'` selected otherwise; PICK_ONE
+  n==0+more → `'n'`; ESC → `'q'`); `use_container` `:3091` pass
+  `more_containers`; `:3128–3131` `'q'` `ga.abort_looting` / `'n'`
+  containerdone without abort; `do_loot_cont` `:2161`
+  `use_container(..., (boolean)(cindex<ccount))`; `doloot_core`
+  `:2217–2273` `container_at` + num_conts>1 `"Loot which
+  containers?"` PICK_ANY then `do_loot_cont(&cobj, i, n)`.
+- **JS was:** named omit after D-1581 (`traditional_loot` live;
+  more_containers `'n'` / multi-cont menu deferred).
+- **Fix:** live `'n'` row + Space/Return default; `abort_looting`
+  `'q'` vs `'n'`; `do_loot_cont` cindex/ccount; `doloot` PICK_ANY
+  multi + `able_to_loot`. Rule #2: no fs.
+- **JS:** `js/pickup.js` `in_or_out_menu` / `use_container` /
+  `do_loot_cont` / `container_at` / `loot_which_containers_menu` /
+  `loot_floor_containers` / `doloot`.
+- **Not this iter:** ggetobj takeoff/identify; floor pickup
+  `query_classes`; mbag explosion body; loot_mon/saddle;
+  `iflags.menu_requested` skip-to-lootmon; lootcont→lootmon after
+  empty multi-pick; PICK_ANY `@` invert / pages / >26; chest trap;
+  AUTOUNLOCK_FORCE; Confusion `reverse_loot`. traditional_loot is
+  D-1581. `display_used_invlets` is D-1591.
+- **Verified:** private canary **11**/11; green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1591 — invent.c display_used_invlets used-letters PICK_ONE
 
 - **Status:** fixed (map-driven Open from D-1590; not a public FAIL)

@@ -1296,13 +1296,18 @@ async function out_container(obj) {
 }
 
 /**
- * C ref: pickup.c in_or_out_menu — NHW_MENU PICK_ONE for bag actions.
+ * C ref: pickup.c in_or_out_menu `:3397–3477` — NHW_MENU PICK_ONE.
  * Branch envelope: look/take-out/put-in/both/reversed/stash/done;
  * flags.lootabc → display a/b/c/d/e else o/i/b/r/s; returns :oibrsnq.
  * 'r'/'d' → lootchars 'r'; use_container loot_in_first (D-1567).
- * Named omissions: more_containers 'n' default.
+ * more_containers: 'n' loot-next row + MENU_ITEMFLAGS_SELECTED default
+ * (Space/Return); 'q' is default when this is the last/only container.
+ * ESC → 'q' (C n<0). Named omissions: n==0 toggle-off default quirk;
+ * n>1 pick_list[1] (letter-immediate already returns the typed char).
  */
-async function in_or_out_menu(prompt, obj, outokay, inokay, alreadyused) {
+async function in_or_out_menu(
+    prompt, obj, outokay, inokay, alreadyused, more_containers,
+) {
     // C: lootchars[] = "_:oibrsnq", abc_chars[] = "_:abcdenq"
     // menuselector = flags.lootabc ? abc_chars : lootchars
     const lootabc = !!(game.flags && game.flags.lootabc);
@@ -1363,9 +1368,16 @@ async function in_or_out_menu(prompt, obj, outokay, inokay, alreadyused) {
     }
     entries.push({ text: '', attr: 0 });
     // C: MENU_ITEMFLAGS_SELECTED on default → process_menu_window paints
-    // '*' at the '-' slot (wintty.c n==2 && selected).
+    // '*' at the '-' slot (wintty.c n==2 && selected). more_containers
+    // selects 'n'; otherwise 'q'.
+    if (more_containers) {
+        entries.push({
+            text: `${accel.next} * loot next container`,
+            attr: 0, sel: accel.next, ret: ret.next,
+        });
+    }
     entries.push({
-        text: `${accel.quit} * ${alreadyused ? 'done' : 'do nothing'}`,
+        text: `${accel.quit} ${more_containers ? '-' : '*'} ${alreadyused ? 'done' : 'do nothing'}`,
         attr: 0, sel: accel.quit, ret: ret.quit,
     });
 
@@ -1386,6 +1398,10 @@ async function in_or_out_menu(prompt, obj, outokay, inokay, alreadyused) {
         await flush_screen(1);
 
         if (key === 27) return 'q';
+        // C select_menu PICK_ONE: Space/Return accepts the preselected default.
+        if (key === 13 || key === 10 || key === 32) {
+            return more_containers ? 'n' : 'q';
+        }
         const ch = String.fromCharCode(key);
         if (bySel.has(ch)) return bySel.get(ch);
     }
@@ -2500,9 +2516,10 @@ async function traditional_loot(put_in) {
  * (lootabc); TRADITIONAL/COMBINATION yn_function (D-1567); ':' look;
  * '?' explain_container_prompt; 'o' take-out; 'i' put-in; 'b' out then
  * in; 'r' in then out (loot_in_first); 's' stash ALLOWCNT (D-1561);
- * 'q' abort; MENU_TRADITIONAL traditional_loot + askchain (D-1581).
- * Named omissions: chest trap; BoT; in_or_out_menu more_containers 'n' row;
- * mbag explosion body; ggetobj askchain takeoff/identify; floor query_classes.
+ * 'q' abort_looting; 'n' next container (more_containers, D-1592);
+ * MENU_TRADITIONAL traditional_loot + askchain (D-1581).
+ * Named omissions: chest trap; BoT; mbag explosion body;
+ * ggetobj askchain takeoff/identify; floor query_classes.
  *
  * @param {object} obj container
  * @param {boolean} [held=false] applied from invent
@@ -2510,6 +2527,9 @@ async function traditional_loot(put_in) {
  */
 export async function use_container(obj, held = false, more_containers = false) {
     if (!obj) return ECMD_OK;
+
+    // C: ga.abort_looting = FALSE at entry.
+    game.abort_looting = false;
 
     // C: if (!u_handsy()) return ECMD_OK;
     if (!(await u_handsy())) return ECMD_OK;
@@ -2563,6 +2583,7 @@ export async function use_container(obj, held = false, more_containers = false) 
             } else {
                 c = await in_or_out_menu(
                     qbuf, obj, outmaybe, inokay, used !== ECMD_OK,
+                    more_containers,
                 );
             }
         } else {
@@ -2582,77 +2603,77 @@ export async function use_container(obj, held = false, more_containers = false) 
         break;
     }
 
-    if (c === 'q' || c === 'n') {
-        game._current_container = null;
-        return used;
-    }
+    // C: 'q' sets ga.abort_looting; 'n' falls through to containerdone
+    // without abort so doloot_core continues to the next selected box.
+    if (c === 'q') game.abort_looting = true;
+    if (c !== 'n' && c !== 'q') {
+        // C pickup.c:3132–3135 — 'r' is both, reversed (put in, then take out).
+        let loot_out = (c === 'o' || c === 'b' || c === 'r');
+        let loot_in = (c === 'i' || c === 'b' || c === 'r');
+        const loot_in_first = (c === 'r');
+        let stash_one = (c === 's');
 
-    // C pickup.c:3132–3135 — 'r' is both, reversed (put in, then take out).
-    let loot_out = (c === 'o' || c === 'b' || c === 'r');
-    let loot_in = (c === 'i' || c === 'b' || c === 'r');
-    const loot_in_first = (c === 'r');
-    let stash_one = (c === 's');
+        // out-only or out before in
+        if (loot_out && !loot_in_first) {
+            if (!Has_contents(obj)) {
+                // C: pline1(emptymsg) — Ysimple_name2 ("The bag is empty.")
+                await pline(emptymsg || `${Ysimple_name2(obj)} is empty.`);
+                if (!obj.cknown) used = ECMD_TIME;
+                obj.cknown = 1;
+            } else {
+                add_valid_menu_class(0);
+                used |= style === MENU_TRADITIONAL
+                    ? await traditional_loot(false)
+                    : await menu_loot_takeout(obj);
+                add_valid_menu_class(0);
+            }
+            inokay = (game.invent || []).some((o) => o && o !== obj);
+        }
 
-    // out-only or out before in
-    if (loot_out && !loot_in_first) {
-        if (!Has_contents(obj)) {
-            // C: pline1(emptymsg) — Ysimple_name2 ("The bag is empty.")
-            await pline(emptymsg || `${Ysimple_name2(obj)} is empty.`);
-            if (!obj.cknown) used = ECMD_TIME;
-            obj.cknown = 1;
-        } else {
+        if ((loot_in || stash_one) && !inokay) {
+            const elsebit = game.invent?.length ? ' else' : '';
+            await pline(
+                `You don't have anything${elsebit} to ${stash_one ? 'stash' : 'put in'}.`,
+            );
+            loot_in = false;
+            stash_one = false;
+        }
+
+        if (loot_in) {
             add_valid_menu_class(0);
             used |= style === MENU_TRADITIONAL
-                ? await traditional_loot(false)
-                : await menu_loot_takeout(obj);
+                ? await traditional_loot(true)
+                : await menu_loot_putin(obj);
             add_valid_menu_class(0);
-        }
-        inokay = (game.invent || []).some((o) => o && o !== obj);
-    }
-
-    if ((loot_in || stash_one) && !inokay) {
-        const elsebit = game.invent?.length ? ' else' : '';
-        await pline(
-            `You don't have anything${elsebit} to ${stash_one ? 'stash' : 'put in'}.`,
-        );
-        loot_in = false;
-        stash_one = false;
-    }
-
-    if (loot_in) {
-        add_valid_menu_class(0);
-        used |= style === MENU_TRADITIONAL
-            ? await traditional_loot(true)
-            : await menu_loot_putin(obj);
-        add_valid_menu_class(0);
-    } else if (stash_one) {
-        // C: getobj("stash", stash_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
-        const otmp = await getobj_stash();
-        if (otmp) {
-            if (await in_container(otmp)) {
-                used = 1;
-            } else {
-                unsplitobj(otmp);
+        } else if (stash_one) {
+            // C: getobj("stash", stash_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
+            const otmp = await getobj_stash();
+            if (otmp) {
+                if (await in_container(otmp)) {
+                    used = 1;
+                } else {
+                    unsplitobj(otmp);
+                }
             }
         }
-    }
-    // C: putting something in might have triggered magic bag explosion
-    if (!game._current_container) loot_out = false;
+        // C: putting something in might have triggered magic bag explosion
+        if (!game._current_container) loot_out = false;
 
-    // out after in
-    if (loot_out && loot_in_first) {
-        const cont = game._current_container;
-        if (!Has_contents(cont)) {
-            await pline(emptymsg || `${Ysimple_name2(cont)} is empty.`);
-            // C: used = 1 (ECMD_TIME) when !cknown, unlike first-out ECMD_TIME
-            if (!cont.cknown) used = 1;
-            cont.cknown = 1;
-        } else {
-            add_valid_menu_class(0);
-            used |= style === MENU_TRADITIONAL
-                ? await traditional_loot(false)
-                : await menu_loot_takeout(cont);
-            add_valid_menu_class(0);
+        // out after in
+        if (loot_out && loot_in_first) {
+            const cont = game._current_container;
+            if (!Has_contents(cont)) {
+                await pline(emptymsg || `${Ysimple_name2(cont)} is empty.`);
+                // C: used = 1 (ECMD_TIME) when !cknown, unlike first-out ECMD_TIME
+                if (!cont.cknown) used = 1;
+                cont.cknown = 1;
+            } else {
+                add_valid_menu_class(0);
+                used |= style === MENU_TRADITIONAL
+                    ? await traditional_loot(false)
+                    : await menu_loot_takeout(cont);
+                add_valid_menu_class(0);
+            }
         }
     }
 
@@ -2668,10 +2689,13 @@ export async function use_container(obj, held = false, more_containers = false) 
 
 /**
  * C ref: pickup.c do_loot_cont — floor container; locked → autounlock.
+ * cindex/ccount (1..N) → use_container more_containers (cindex < ccount).
  * @param {object} cobj
+ * @param {number} [cindex=1]
+ * @param {number} [ccount=1]
  * @returns {Promise<number>} ECMD_*
  */
-async function do_loot_cont(cobj) {
+async function do_loot_cont(cobj, cindex = 1, ccount = 1) {
     if (!cobj) return ECMD_OK;
     if (cobj.olocked) {
         let res = ECMD_OK;
@@ -2700,20 +2724,125 @@ async function do_loot_cont(cobj) {
         }
         return res;
     }
-    return use_container(cobj);
+    // C: use_container(cobjp, FALSE, (boolean) (cindex < ccount))
+    return use_container(cobj, false, cindex < ccount);
+}
+
+/**
+ * C ref: pickup.c container_at `:2023–2038`.
+ * @param {number} x
+ * @param {number} y
+ * @param {boolean} countem false → stop at first
+ * @returns {number}
+ */
+function container_at(x, y, countem) {
+    let container_count = 0;
+    for (let cobj = objects_at(x, y); cobj; cobj = cobj.nexthere) {
+        if (Is_container(cobj)) {
+            container_count++;
+            if (!countem) break;
+        }
+    }
+    return container_count;
+}
+
+/**
+ * C ref: pickup.c doloot_core num_conts>1 — NHW_MENU PICK_ANY
+ * "Loot which containers?" + doname rows (auto a/b/c).
+ * @returns {Promise<{n:number, list:object[]}>} n==-1 ESC, 0 none, >0 picked
+ */
+async function loot_which_containers_menu(x, y) {
+    const conts = [];
+    for (let o = objects_at(x, y); o; o = o.nexthere) {
+        if (Is_container(o)) conts.push(o);
+    }
+    const rows = conts.map((obj, i) => ({
+        obj,
+        sel: i < 26 ? String.fromCharCode('a'.charCodeAt(0) + i) : '',
+        selected: false,
+    }));
+    for (;;) {
+        const entries = [
+            { text: 'Loot which containers?', attr: ATR_INVERSE },
+            { text: '', attr: 0 },
+        ];
+        for (const row of rows) {
+            const mark = row.selected ? '+' : '-';
+            const accel = row.sel ? `${row.sel} ` : '  ';
+            entries.push({
+                text: `${accel}${mark} ${doname(row.obj)}`,
+                attr: 0,
+            });
+        }
+        await paint_corner_nhw_menu(entries, '(end) ');
+        await flush_screen(1);
+        const key = await nhgetch();
+        game._menu_overlay = false;
+        await docrt();
+        await flush_screen(1);
+        if (key === 27) return { n: -1, list: [] };
+        if (key === 13 || key === 10 || key === 32) {
+            const list = rows.filter((r) => r.selected).map((r) => r.obj);
+            return { n: list.length, list };
+        }
+        const ch = String.fromCharCode(key);
+        const hit = rows.find((r) => r.sel && r.sel === ch);
+        if (hit) hit.selected = !hit.selected;
+    }
+}
+
+/**
+ * C ref: pickup.c doloot_core lootcont — count, able_to_loot, then
+ * either PICK_ANY multi or the single-container walk.
+ * @returns {Promise<{timepassed:number, c:string|number, blocked?:boolean, aborted?:boolean}>}
+ */
+async function loot_floor_containers(x, y) {
+    const num_conts = container_at(x, y, true);
+    if (num_conts <= 0) return { timepassed: 0, c: -1 };
+    if (!(await able_to_loot(x, y, true))) {
+        return { timepassed: 0, c: -1, blocked: true };
+    }
+    let timepassed = 0;
+    if (num_conts > 1) {
+        const pick = await loot_which_containers_menu(x, y);
+        if (pick.n > 0) {
+            for (let i = 1; i <= pick.n; i++) {
+                timepassed |= await do_loot_cont(pick.list[i - 1], i, pick.n);
+                if (game.abort_looting) {
+                    return { timepassed, c: 'y', aborted: true };
+                }
+            }
+        }
+        return { timepassed, c: pick.n !== 0 ? 'y' : -1 };
+    }
+    let anyfound = false;
+    for (let o = objects_at(x, y); o; o = o.nexthere) {
+        if (!Is_container(o)) continue;
+        anyfound = true;
+        timepassed |= await do_loot_cont(o, 1, 1);
+        if (game.abort_looting) {
+            return { timepassed, c: 'y', aborted: true };
+        }
+    }
+    return { timepassed, c: anyfound ? 'y' : -1 };
 }
 
 /**
  * C ref: pickup.c doloot / doloot_core — loot container underfoot.
- * Branch envelope: capacity; nohands; single floor container →
- * do_loot_cont (locked autounlock + unlocked use_container).
+ * Branch envelope: capacity; nohands; lootcont (able_to_loot +
+ * num_conts>1 PICK_ANY + do_loot_cont cindex/ccount more_containers);
+ * directional lootmon underfoot → lootcont.
  * Named omissions: capacity pline path; Confusion reverse_loot;
- * multi-cont menu; directional lootmon beyond underfoot; grave;
- * saddle; cockatrice; AUTOUNLOCK_FORCE.
+ * iflags.menu_requested skip-to-lootmon; grave; saddle; cockatrice;
+ * AUTOUNLOCK_FORCE; lootcont→lootmon fallthrough after empty multi-pick;
+ * PICK_ANY @ invert / pages / >26 containers.
  */
 export async function doloot() {
     const u = game.u;
     if (!u) return ECMD_OK;
+
+    // C: ga.abort_looting = FALSE;
+    game.abort_looting = false;
 
     // C: check_capacity(NULL) then nohands → "You have no hands!"
     if (check_capacity(null)) {
@@ -2729,42 +2858,45 @@ export async function doloot() {
         return ECMD_OK;
     }
 
-    let cobj = null;
-    for (let o = objects_at(u.ux, u.uy); o; o = o.nexthere) {
-        if (Is_container(o)) {
-            cobj = o;
-            break;
-        }
-    }
-    if (cobj) {
-        return do_loot_cont(cobj);
-    }
+    const floor = await loot_floor_containers(u.ux, u.uy);
+    if (floor.blocked) return ECMD_OK;
+    if (floor.aborted) return floor.timepassed ? ECMD_TIME : ECMD_OK;
+    let timepassed = floor.timepassed | 0;
+    const c = floor.c;
 
     // C: doloot_core lootmon — get_adjacent_loc when mon_beside
-    if (mon_beside(u.ux, u.uy) || game.flags?.menu_requested) {
+    if (c !== 'y' && (mon_beside(u.ux, u.uy) || game.flags?.menu_requested)) {
         const { getdir_cmdassist } = await import('./dothrow.js');
         const dir = await getdir_cmdassist('Loot in what direction?');
         if (!dir) {
             await pline('Never mind.');
-            return ECMD_OK;
+            return timepassed ? ECMD_TIME : ECMD_OK;
         }
         const cc = { x: u.ux + dir.dx, y: u.uy + dir.dy };
         const underfoot = cc.x === u.ux && cc.y === u.uy;
+        if (underfoot && container_at(cc.x, cc.y, false)) {
+            // C: goto lootcont
+            const again = await loot_floor_containers(cc.x, cc.y);
+            if (again.blocked) return ECMD_OK;
+            timepassed |= again.timepassed;
+            return timepassed ? ECMD_TIME : ECMD_OK;
+        }
         for (let o = objects_at(cc.x, cc.y); o; o = o.nexthere) {
             if (Is_container(o)) {
-                if (underfoot) return do_loot_cont(o);
                 await pline('You have to be at a container to loot it.');
-                return ECMD_OK;
+                return timepassed ? ECMD_TIME : ECMD_OK;
             }
         }
         await pline(
             `You don't find anything ${underfoot ? 'here' : 'there'} to loot.`,
         );
-        return ECMD_OK;
+        return timepassed ? ECMD_TIME : ECMD_OK;
     }
 
-    await pline("You don't find anything here to loot.");
-    return ECMD_OK;
+    if (c !== 'y' && c !== 'n') {
+        await pline("You don't find anything here to loot.");
+    }
+    return timepassed ? ECMD_TIME : ECMD_OK;
 }
 
 /** C ref: pickup.c mon_beside */
