@@ -7,23 +7,23 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1950** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `36+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open `artifact.c` SEARCH/REGEN/XRAY conferral
-  is still named (cspfx W_ART is D-1539). `block_point` is
-  D-1557. DELPHI is D-1556.
-  **Falsify:** `node scripts/csym.mjs` `set_artifact_intrinsic`
-  vs `js/artifact.js` SEARCH/REGEN/XRAY arms.
-  **Next:** Open SEARCH/REGEN/XRAY. Not cspfx. Not Protection.
-  Do not skip D-1531…D-1557. No FORCE / `wildmiss` wrap /
+  **Hypothesis:** Open `invent.c` `display_pickinv` `&ctmp` menu
+  count is still named (canned CMDQ_INT is D-1551). SEARCH/REGEN/
+  XRAY conferral is D-1558.
+  **Falsify:** `node scripts/csym.mjs` `display_pickinv` vs
+  `js/invent.js` `&ctmp` count arm.
+  **Next:** Open pickinv `&ctmp`. Not CMDQ_INT. Not SEARCH.
+  Do not skip D-1531…D-1558. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
 - Named still: `howmonseen`; cutworm; Protection; `made_fruit`;
   Plan-B; Palantir `#if 0`; pickinv `&ctmp`; `finish_splitting`;
   stash getobj; `in_doagain`; eat/read/zap/tin NOFLAGS;
   `mk_mplayer`; FULL_MOON S_DOG / ustuck / `redraw_worm`; other
   mcast; sit/pray `eyecount`; muse loot; escape cat HP; other
-  INTERNALCMD; defn/cary resist; SEARCH/REGEN/XRAY/PROTECT;
-  inv_prop drop; `artitouch`; shk mnearto; ghostfruit age;
-  Ice/Boulder fills; `rndmonst_adj`; `place_monster` 2D;
-  map_monst head glyphs; `unblock_point`/`dig_point`.
+  INTERNALCMD; defn/cary resist; PROTECT; inv_prop drop;
+  `artitouch`; shk mnearto; ghostfruit age; Ice/Boulder fills;
+  `rndmonst_adj`; `place_monster` 2D; map_monst head glyphs;
+  `unblock_point`/`dig_point`; vision_recalc xray IN_SIGHT.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +32,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1557.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1558.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +43,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1557 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1558 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1557. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1558. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -57,12 +57,16 @@ Objective/score live in `CURRENT.md`.
   No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557) or
   use `recalc_block_point` there. `namefloorobj` D-1555;
-  mhidden D-1554. Do not skip D-1544…D-1553 (index). Do not
-  re-clone `call_ok` in iactions. Do not glue `howmonseen` /
+  mhidden D-1554. Do not skip SEARCH/REGEN/XRAY (D-1558) or leave
+  Eyes `setworn` without it. Do not glue `howmonseen` /
   cutworm / `redraw_worm`.
 
 ## Landmarks (≤15)
 
+- D-1558: SEARCH/REGEN/XRAY conferral. Excalibur ESearching;
+  Trollsbane/Staff ERegeneration; Eyes `xray_range` 3/-1 +
+  `setworn` W_TOOL. Not Protection. vision_recalc xray circle
+  named. cspfx is D-1539.
 - D-1557: `set_mimic_sym` `does_block` then `block_point` /
   `fill_point`. Export `does_block` (0/1/2; fmon). Not
   `recalc` (would unblock). Protection / Plan-B / `made_fruit`
@@ -88,5 +92,3 @@ Objective/score live in `CURRENT.md`.
 - D-1546: `tamedog` live `wake_nearto(mx,my,1)`. Not local sleep.
 - D-1545: `detect_wsegs` via `map_monst` `show_glyph` (not newsym).
 - D-1544: `that_is_a_mimic` live `object_from_map` + defsyms.
-- D-1543: furnsyms real S_* ROLL_FROM cmap. Door D-1536.
-  `block_point` is D-1557. DELPHI is D-1556.

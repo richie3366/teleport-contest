@@ -62,16 +62,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1950**. **Next cluster:**
-Open `artifact.c` SEARCH/REGEN/XRAY conferral (named). Not
-cspfx. Not Protection.
-**Do not skip D-1531…D-1557 (index).** Keep mention_map addr.
+Open `invent.c` `display_pickinv` `&ctmp` menu count (named). Not
+CMDQ_INT. Not SEARCH/REGEN/XRAY.
+**Do not skip D-1531…D-1558 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1557.** Do not FORCE
+**Do not re-break D-0660…D-1558.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1557 (index). Recent: **D-1557**
+**Keep:** D-0845…D-1558 (index). Recent: **D-1558**
+`artifact.c` `set_artifact_intrinsic` SEARCH/REGEN/XRAY
+(Excalibur ESearching; Trollsbane/Staff ERegeneration; Eyes
+`xray_range` + `setworn` W_TOOL; not Protection). Prior:
+**D-1557**
 `makemon.c` `set_mimic_sym` `does_block`/`block_point`
 (`fill_point`; not `recalc`/unblock). Prior: **D-1556**
 `makemon.c` `set_mimic_sym` DELPHI `S_fountain=37` (not stub 0;
@@ -116,7 +120,7 @@ D-1533 `o->lit`. D-1532 is_covetous. D-1531 Pri-loca
 **Do not / rejects:** FORCE/RNG;
 HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1557
+spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`; skip D-1229…D-1558
 (index). No `reset_glyphmap` / `notice_all_mons` / `makemap_remove_mons`
 / savelev-freeing / lua `lspo_reset_level` / RANGE_LEVEL /
 `restore_artifacts`. No trailing `confdir` inside
@@ -158,7 +162,9 @@ Do not skip `splev_create_monster` amask (D-1553) or stub
 Do not skip `mhidden_description` (D-1554) or `namefloorobj`
 (D-1555). Do not stub DELPHI `appear=0` (D-1556). Do not skip
 `set_mimic_sym` `block_point`/`fill_point` (D-1557) or use
-`recalc_block_point` there (would unblock).
+`recalc_block_point` there (would unblock). Do not skip
+`set_artifact_intrinsic` SEARCH/REGEN/XRAY (D-1558) or leave
+Eyes `setworn` without it. Do not rewrite `confer_oc_oprop`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

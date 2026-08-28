@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `artifact.c` SEARCH/REGEN/XRAY conferral (named). Not cspfx.
 - [ ] `invent.c` `display_pickinv` `&ctmp` menu count (named). Not CMDQ_INT.
 - [ ] `wield.c` `finish_splitting` / `unsplitobj` (named). Not CMDQ_INT.
 - [ ] `pickup.c` stash getobj ALLOWCNT (named). Not CMDQ_INT.

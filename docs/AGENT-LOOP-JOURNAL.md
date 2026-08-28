@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1558 artifact.c SEARCH/REGEN/XRAY conferral
+
+**Objective:** Open SEARCH/REGEN/XRAY conferral. Not cspfx. Not
+Protection.
+**C locus:** `artifact.c` `set_artifact_intrinsic` `:781–786` /
+`:812–817` / `:859–866`; `worn.c` `setworn` Eyes W_TOOL.
+**JS locus:** `js/artifact.js` (was omit after D-1539); `js/do_wear.js`
+`setworn` (was oc_oprop only).
+**Change:** ESearching / ERegeneration / `u.xray_range` 3/-1 +
+`vision_full_recalc`. Wire `setworn`. Not Protection. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1950).
+**Verified:** canary **33**/33; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `display_pickinv` `&ctmp`. Not CMDQ_INT.
+**Blocked:** none.
 ## 2026-08-26 — review D-1549–D-1557 (audit #1950)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **509**;

@@ -4,6 +4,46 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1558 — artifact.c SEARCH/REGEN/XRAY conferral
+
+- **Status:** fixed (map-driven Open from D-1557; not a public FAIL)
+- **Symptom:** `set_artifact_intrinsic` skipped SPFX_SEARCH /
+  SPFX_REGEN / SPFX_XRAY after cspfx W_ART (D-1539). Wielding
+  Excalibur never set ESearching (EOT `dosearch0`); Trollsbane /
+  Staff of Aesculapius never set ERegeneration (`regen_hp`);
+  wearing Eyes of the Overworld never wrote `u.xray_range` /
+  `vision_full_recalc`. Named omit. Not Protection.
+- **C locus:** `artifact.c` `set_artifact_intrinsic` SEARCH
+  `:781–786`, REGEN `:812–817`, XRAY `:859–866` (`u.xray_range`
+  3/-1 then `gv.vision_full_recalc=1`). Callers `worn.c`
+  `setworn` `:106`/`:130` (Eyes W_TOOL), `wield.c` `setuwep`
+  (Excalibur/Staff/Trollsbane W_WEP), invent W_ART (cspfx only;
+  those three bits are spfx). `artilist.h` Excalibur SEARCH,
+  Trollsbane+Staff REGEN, Eyes XRAY. Palantir `#if 0` REGEN
+  cspfx. Tsurugi is PROTECT not SEARCH.
+- **JS was:** HALRES/ESP/STLTH/TCTRL/WARN/EREGEN/HSPDAM/HPHDAM/
+  REFLECT only. `setworn` conferred `oc_oprop` and skipped
+  `set_artifact_intrinsic`.
+- **Fix:** Port the three arms via `set_spfx_extrinsic` /
+  `u.xray_range`. Wire `setworn` on/off like C. Do not rewrite
+  `confer_oc_oprop`. Rule #2: no fs.
+- **JS:** `js/artifact.js` `set_artifact_intrinsic`;
+  `js/do_wear.js` `setworn`.
+- **Not this iter:** SPFX_PROTECT (Mitre/Tsurugi); defn/cary
+  resist; inv_prop `arti_invoke` on drop; Sunsword EBlnd_resist;
+  `vision_recalc` IN_SIGHT xray circle (`:631–660`). cspfx is
+  D-1539.
+- **Verified:** private canary **33**/33 (C/JS SPFX bits;
+  Excalibur W_WEP ESearching + `Searching()`; carry W_ART no
+  SEARCH; Trollsbane+Staff REGEN; Eyes `setworn` W_TOOL
+  xray_range 3/-1 + `vision_full_recalc`; Mitre no EProtection;
+  Sting none of the three; Tsurugi no SEARCH; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `invent.c` `display_pickinv` `&ctmp`.
+  Not CMDQ_INT.
+- **Files:** `js/artifact.js`, `js/do_wear.js`.
+
 ## D-1557 — makemon.c set_mimic_sym does_block / block_point
 
 - **Status:** fixed (map-driven Open from D-1556; not a public FAIL)

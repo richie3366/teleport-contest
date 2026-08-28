@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-28
+
+- [x] `artifact.c` SEARCH/REGEN/XRAY conferral (named). Not cspfx. **Addressed:** D-1558
+
 ## 2026-08-26
 
 - [x] `makemon.c` `set_mimic_sym` `block_point` (named). Not DELPHI. **Addressed:** D-1557 `0f5e4df5`

@@ -72,8 +72,15 @@ see_it / `display_warning` mon_to_glyph; `see_wsegs` D-1529 / polyd·species pro
 EREGEN/HSPDAM/HPHDAM; MKoT WARN\|TCTRL\|HPHDAM, Orb of Fate WARN\|HSPDAM\|HPHDAM, Heart STLTH, 
 Detection/PYEC ESP\|HSPDAM, Eye EREGEN\|HSPDAM; callers invent `addinv_core1` `:991` / 
 `freeinv_core` `:1383`; extractor A() s2; live `js/artifact.js` + `js/u_init.js` `addinv` + 
-`js/invent.js` `freeinv_core`; defn/cary resist / SPFX_SEARCH/REGEN/XRAY/PROTECT / inv_prop 
+`js/invent.js` `freeinv_core`; defn/cary resist / SPFX_PROTECT / inv_prop 
 `arti_invoke` on drop / questart `artitouch` / zap poly `addinv_core1` named); 
+**`set_artifact_intrinsic` SPFX_SEARCH/REGEN/XRAY D-1558** (C `artifact.c:781–786` 
+ESearching Excalibur wield, `:812–817` ERegeneration Trollsbane/Staff wield, 
+`:859–866` Eyes `u.xray_range` 3/-1 + `gv.vision_full_recalc`; live 
+`js/artifact.js` + `js/do_wear.js` `setworn` W_TOOL; carry W_ART uses cspfx so 
+SEARCH is not a carry bit; Palantir `#if 0` REGEN cspfx; vision_recalc IN_SIGHT 
+xray circle / SPFX_PROTECT / defn/cary / inv_prop drop / Sunsword named; 
+cspfx is D-1539); 
 **defn/cary extract + `defends`/`defends_when_carried` D-1453**; omit cost/gen_spe; 
 **`inv_prop` extract + `arti_invoke` BLINDING_RAY D-1377**; 
 **remaining specials + property toggle D-1488** (C `artifact.c` 
