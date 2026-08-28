@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1572 timeout.c attach_egg_hatch_timeout / obj_split_timers
+
+**Objective:** Open `attach_egg_hatch_timeout`. Not Plan-B.
+**C locus:** `timeout.c` `attach_egg_hatch_timeout` `:980–1005`;
+`obj_split_timers` `:2358–2370`; `splitobj` `:498–499`;
+`poly_obj` `:1756–1779`; `hatch_egg` remainder/`is_pool(mon)` /
+`learn_egg_type`.
+**JS locus:** attach live (D-0533); splitobj timers deferred;
+poly_obj skipped hero eggs; hatch `is_pool(carrier)`.
+**Change:** live `obj_split_timers` + splitobj; poly_obj
+hero-egg `kill_egg`/`set_corpsenm` `rn2(NUMMONS)`; hatch
+hatchling pool + `update_inventory` + `impossible`. SetVoice
+named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1960).
+**Verified:** canary **22**/22; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `newcham` Protection cancel. Not set_mimic_sym
+early-out.
 ## 2026-08-28 — D-1571 vision.c vision_recalc xray IN_SIGHT
 
 **Objective:** Open `vision_recalc` xray IN_SIGHT. Not howmonseen.

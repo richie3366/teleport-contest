@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `timeout.c` `attach_egg_hatch_timeout` (named). Not Plan-B.
 - [ ] `mon.c` `newcham` Protection_from_shape_changers cancel (named). Not set_mimic_sym early-out.
 - [ ] `vision.c` `unblock_point`/`dig_point` (named). Not block_point.
 - [ ] `makemon.c` `ndemon` aligned `mkclass` (named). Not rndmonst_adj.

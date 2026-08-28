@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1572 — timeout.c attach_egg_hatch_timeout / obj_split_timers
+
+- **Status:** fixed (map-driven Open from D-1571; not a public FAIL)
+- **Symptom:** `attach_egg_hatch_timeout` was live (D-0533) but still
+  named. `splitobj` deferred timers so a split egg stack dropped the
+  hatch copy; `poly_obj` skipped C's hero-laid egg re-roll; `hatch_egg`
+  used the carrier's cell for `is_pool` and skipped `update_inventory`
+  / `impossible`.
+- **C locus:** `timeout.c` `attach_egg_hatch_timeout` `:980–1005`
+  (stop HATCH_EGG; `when==0` `rnd(i)>150` for i in 151..200; start).
+  `obj_split_timers` `:2358–2370`. Callers `mkobj.c` `splitobj`
+  `:498–499`; `zap.c` `poly_obj` `:1756–1779` (`kill_egg` /
+  force EGG / `can_be_hatched(random_monster(rn2))` /
+  `set_corpsenm`); `hatch_egg` remainder `:1172` `rnd(12)`;
+  MINVENT `is_pool(mon->mx,mon->my)` `:1147`; `learn_egg_type`
+  `:1192–1199` `update_inventory`; default `impossible`.
+- **JS was:** attach/kill/set_corpsenm/revive_egg/jelly live;
+  splitobj "timers" named omit; poly_obj no hero-egg arm;
+  hatch `is_pool(carrier)`.
+- **Fix:** live `obj_split_timers` + splitobj wire; poly_obj egg
+  arm before charged_objs; hatch hatchling pool +
+  `learn_egg_type` `update_inventory` + `impossible`. Rule #2:
+  no fs.
+- **JS:** `js/mkobj.js` `attach_egg_hatch_timeout` /
+  `obj_split_timers` / `splitobj`; `js/zap.js` `poly_obj`;
+  `js/timeout.js` `hatch_egg` / `learn_egg_type`.
+- **Not this iter:** SetVoice before Gleep; migrating `#if 0`;
+  copy_oextra / `obj_split_light_source` / `obj_move_timers`;
+  splitbill. xray IN_SIGHT is D-1571. `newcham` cancel named.
+- **Verified:** private canary **22**/22 (C/JS locus; when=12 /
+  when=0 rnd; split copy; kill_egg; poly hero-egg; learn flag;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1571 — vision.c vision_recalc xray IN_SIGHT
 
 - **Status:** fixed (map-driven Open from D-1570; not a public FAIL)

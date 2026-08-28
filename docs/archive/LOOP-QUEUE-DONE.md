@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `vision.c` `vision_recalc` xray IN_SIGHT (named). Not howmonseen. **Addressed:** D-1571
+- [x] `timeout.c` `attach_egg_hatch_timeout` (named). Not Plan-B. **Addressed:** D-1572
+
+
+- [x] `vision.c` `vision_recalc` xray IN_SIGHT (named). Not howmonseen. **Addressed:** D-1571 `9772b028`
 
 
 - [x] `worm.c` `cutworm` (named). Not worm_known. **Addressed:** D-1570 `3ace1611`

@@ -129,6 +129,12 @@ Creation/merge/weight subsets; `add_to_buried` (D-0014);
 C `dig.c` verbose Your + `remove_worn_item`/`setmnotwielded` + invent extract; 
 hideunder expose / contents bury still named); 
 **`attach_egg_hatch_timeout`/`stop_timer` + `mksobj` EGG→`set_corpsenm`** (D-0533); 
+**`obj_split_timers` + splitobj wire + `poly_obj` hero-egg + hatch leftover** (D-1572;
+C `timeout.c` `attach_egg_hatch_timeout` `:980–1005` / `obj_split_timers` `:2358–2370`;
+`mkobj.c` `splitobj` `:498–499`; `zap.c` `poly_obj` `:1756–1779` `kill_egg`+`set_corpsenm`
+`random_monster(rn2)`; `hatch_egg` `is_pool(mon)` + `learn_egg_type` `update_inventory`
++ impossible; SetVoice / migrating #if 0 / copy_oextra / light split / `obj_move_timers`
+named); 
 **`hatch_egg`/`learn_egg_type` body + `cry_sound`** (D-1036; dispatch D-1037; 
 **`msound` table D-1053**; **`get_obj_location(0)` CONTAINED/BURIED + 
 restore cobj `where=OBJ_CONTAINED` D-1054**); **REVIVE_MON / ZOMBIFY_MON** (D-1202; 
@@ -142,7 +148,7 @@ mhitm mdamagem around monkilled D-1211; **troll_baned mkcorpstat_norevive D-1223
 glob / doname CXN_ARTICLE|CXN_NOCORPSE prefix-as-adjective still named); melt deferred; 
 **`set_corpsenm` exported** (D-0247); `is_poisonable`≡missiles (D-0012); 
 starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain + 
-`next_ident` (D-0028) + nobj link; **no invent[] splice** (D-0924 — premature splice broke 
+`next_ident` (D-0028) + nobj link + **`obj_split_timers` D-1572**; **no invent[] splice** (D-0924 — premature splice broke 
 seed0002; invent slot via touchfood freeinv+`addinv_nomerge`); 
 **`mergable` FOOD `oeaten`/`orotten`** (D-0923; unpaid/erosion/candle arms still deferred); 
 **`obj_extract_self` preserves ox/oy like C `remove_object`** (D-0911; 
@@ -338,7 +344,7 @@ live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**;
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
 **D-1535 `observe_quantum_cat`** (`pickup.c:2826–2896`; FOOT latebound; use_container/tip TRUE,TRUE; disclose FALSE,FALSE live spe; `Schroedinger's cat!`); muse monster-loot / escape companion HP named;
 `newcham` Protection cancel; `ndemon`/aligned `mkclass` callers unaudited;
-egg `attach_egg_hatch_timeout`; `unblock_point`/`dig_point`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
+`unblock_point`/`dig_point`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
 `GEHENNOM` dnum sites still wrong); **D-0749 `rnd_misc_item` life-saving `!nonliving && 
 !is_vampshifter`** (See_invisible peaceful invis arm deferred); 

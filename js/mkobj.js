@@ -327,7 +327,7 @@ export function next_ident() {
  * C ref: mkobj.c splitobj — reduce obj->quan by num; return new stack of num.
  * nextoid shop-price search omitted: ordinary items take first oid then
  * next_ident() (one rnd(2)), matching non-shop dog_invent / throw paths.
- * Deferred: unpaid/splitbill, copy_oextra, timers, light sources, Lua where.
+ * Deferred: unpaid/splitbill, copy_oextra, light sources, Lua where.
  */
 export function splitobj(obj, num) {
     const quan = obj?.quan || 1;
@@ -367,6 +367,8 @@ export function splitobj(obj, num) {
         otmp.nexthere = obj.nexthere || null;
         obj.nexthere = otmp;
     }
+    // C: if (obj->timed) obj_split_timers(obj, otmp)
+    if (obj.timed) obj_split_timers(obj, otmp);
     return otmp;
 }
 
@@ -982,6 +984,27 @@ export function start_timer(when, kind, action, arg) {
     insert_timer(gnu);
     if (isObj) obj.timed = (obj.timed | 0) + 1;
     return when;
+}
+
+/**
+ * C ref: timeout.c obj_split_timers — duplicate every TIMER_OBJECT on
+ * src onto dest with the same remaining (timeout − moves). Caller
+ * splitobj zeros dest.timed first; start_timer bumps it. Save next
+ * because start_timer inserts into the ordered list.
+ */
+export function obj_split_timers(src, dest) {
+    if (!src || !dest) return;
+    const g = timer_base();
+    const moves = game.moves | 0;
+    let curr = g._timer_base;
+    while (curr) {
+        const next = curr.next;
+        if ((curr.kind | 0) === TIMER_OBJECT && curr.obj === src) {
+            start_timer((curr.timeout | 0) - moves, TIMER_OBJECT,
+                curr.action, dest);
+        }
+        curr = next;
+    }
 }
 
 /**

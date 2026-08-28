@@ -251,9 +251,9 @@ import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
     MR_POISON, MR_ACID, is_undead, is_were, is_vampshifter, monsterNames, mons,
     G_UNIQ, G_NOCORPSE, is_rider, is_swimmer, mindless, MZ_MEDIUM, is_whirly,
-    hides_under, is_golem, vegetarian, carnivorous,
+    hides_under, is_golem, vegetarian, carnivorous, NUMMONS,
 } from './monsters.js';
-import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon } from './mon.js';
+import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon, can_be_hatched } from './mon.js';
 import { find_mac, monkilled, shade_miss } from './mhitm.js';
 import { update_mapseen_for } from './dungeon.js';
 import {
@@ -303,7 +303,7 @@ import {
     mkobj, mksobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
     oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
     eaten_stat, start_timer, spot_stop_timers, spot_time_left, obj_stop_timers,
-    obj_ice_effects, place_object, stackobj, mergable, set_corpsenm,
+    obj_ice_effects, place_object, stackobj, mergable, set_corpsenm, kill_egg,
     get_mtraits, free_omonst, free_omid, is_metallic, is_crackable,
     mksobj_at, is_flammable, is_rottable, is_rustprone, is_corrodeable,
     erosion_matters, is_damageable, fixup_oil,
@@ -4886,6 +4886,28 @@ export async function poly_obj(obj, id) {
     otmp.quan = obj.quan | 0;
     otmp.no_charge = obj.no_charge;
     if (obj_location === OBJ_INVENT) otmp.invlet = obj.invlet;
+
+    /* C zap.c :1756–1779 — avoid abusing eggs laid by you.
+     * random_monster(rn2) is rn2(NUMMONS); set_corpsenm re-arms hatch. */
+    if ((obj.otyp | 0) === EGG && obj.spe) {
+        let tryct = 100;
+        if ((otmp.otyp | 0) === EGG) {
+            kill_egg(otmp);
+        } else {
+            otmp.otyp = EGG;
+            otmp.owt = weight(otmp);
+        }
+        otmp.corpsenm = NON_PM;
+        otmp.spe = 0;
+        while (tryct--) {
+            const mnum = can_be_hatched(rn2(NUMMONS));
+            if (mnum !== NON_PM && !dead_species(mnum, true)) {
+                otmp.spe = 1;
+                set_corpsenm(otmp, mnum);
+                break;
+            }
+        }
+    }
 
     // charged_objs: WAND / WEAPON / ARMOR keep spe
     const oc = otmp.oclass;
