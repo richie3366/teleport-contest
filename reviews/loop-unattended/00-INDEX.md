@@ -556,3 +556,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [543-6c996e15-prefixcmd-cmdq-shift.md](./543-6c996e15-prefixcmd-cmdq-shift.md) | `6c996e15` | D-1582 PREFIXCMD / cmdq_shift | **ACCEPT-WITH-DEBT** |
 | [544-7843458b-nv-range-circle.md](./544-7843458b-nv-range-circle.md) | `7843458b` | D-1583 nv_range circle_ptr | **ACCEPT-WITH-DEBT** |
 | [545-05c69d9b-mk-mplayer.md](./545-05c69d9b-mk-mplayer.md) | `05c69d9b` | D-1584 mk_mplayer splev role-id | **ACCEPT-WITH-DEBT** |
+| [546-d5c9430a-tamedog-full-moon.md](./546-d5c9430a-tamedog-full-moon.md) | `d5c9430a` | D-1585 tamedog FULL_MOON S_DOG rn2(6) | **ACCEPT-WITH-DEBT** |
+| [547-9cdc66f5-newcham-nc-show-msg.md](./547-9cdc66f5-newcham-nc-show-msg.md) | `9cdc66f5` | D-1586 newcham NC_SHOW_MSG pline_mon | **QUALITY-RISK** |
+| [548-5e46f730-mimic-light-blocking.md](./548-5e46f730-mimic-light-blocking.md) | `5e46f730` | D-1587 mimic_light_blocking See_invisible | **ACCEPT-WITH-DEBT** |
+| [549-a3325fe0-putmsghistory.md](./549-a3325fe0-putmsghistory.md) | `a3325fe0` | D-1588 getobj putmsghistory / tty_putmsghistory | **ACCEPT-WITH-DEBT** |
+| [550-7415056f-sortloot-inuse.md](./550-7415056f-sortloot-inuse.md) | `7415056f` | D-1589 sortloot SORTLOOT_INUSE / inuse_only | **ACCEPT-WITH-DEBT** |
+| [551-094af60d-wizid-pick-any.md](./551-094af60d-wizid-pick-any.md) | `094af60d` | D-1590 display_pickinv wizid PICK_ANY | **ACCEPT-WITH-DEBT** |
+| [552-92bbf63b-display-used-invlets.md](./552-92bbf63b-display-used-invlets.md) | `92bbf63b` | D-1591 display_used_invlets | **ACCEPT-WITH-DEBT** |
+| [553-c4be5135-more-containers-n.md](./553-c4be5135-more-containers-n.md) | `c4be5135` | D-1592 in_or_out_menu more_containers n | **ACCEPT-WITH-DEBT** |
+| [554-4b34b340-tamedog-ustuck.md](./554-4b34b340-tamedog-ustuck.md) | `4b34b340` | D-1593 tamedog ustuck expels/unstuck | **ACCEPT-WITH-DEBT** |

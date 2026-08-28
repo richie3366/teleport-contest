@@ -20,12 +20,12 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-28** — full `sessions` at **D-1584**
-(audit overlay `05c69d9b`). **44**/44,
+Score last measured: **2026-08-28** — full `sessions` at **D-1593**
+(audit overlay `4b34b340`). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `38+0.30/turn` (R² 0.85). seed0367 FULL still PASS.
+Speed `38+0.30/turn` (R² 0.86). seed0367 FULL still PASS.
 Prior FAIL seed4500 at **D-1574** `1ba35e31` is PASS again.
-Prior audit **#1970** was 43/44 at `d13bf416`.
+Prior audit **#1980** was 44/44 at `05c69d9b`.
 
 ## Score
 
@@ -34,7 +34,7 @@ Prior audit **#1970** was 43/44 at `d13bf416`.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `38+0.30/turn` (R² 0.85) |
+| Speed label | `38+0.30/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -62,9 +62,9 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1584 audit (seed4500 still PASS). **Next cluster:**
-Open `dog.c` tamedog `initedog` has_edog vs `!mtame` (named). Not FULL_MOON.
-Not ustuck expels. Not more_containers `n`. Not revert D-1574 `seemimic` /
+**Suite 44/44** after D-1593 audit (seed4500 still PASS). **Next cluster:**
+Must-fix `mon.c` `normal_shape` await `newcham(..., NC_SHOW_MSG)`
+(review **547**). Not has_edog. Not revert D-1574 `seemimic` /
 `dig_point` body.
 **Do not skip D-1531…D-1593 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.

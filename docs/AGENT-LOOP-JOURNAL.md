@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — review D-1585–D-1593 (audit #1990)
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **545**;
+cadence score. No `js/` edits.
+**C locus:** tamedog FULL_MOON; newcham NC_SHOW_MSG; mimic_light_blocking;
+putmsghistory; SORTLOOT_INUSE; wizid PICK_ANY; display_used_invlets;
+more_containers `n`; tamedog ustuck.
+**JS locus:** reviews **546–554** (`d5c9430a`…`4b34b340`).
+**Change:** ACCEPT-WITH-DEBT 546, 548–554. **QUALITY-RISK 547**
+(`9cdc66f5`): `normal_shape` fires `newcham(..., NC_SHOW_MSG)`
+without await. Must-fix prepended. Filled archive D-1593 `%h`
+`4b34b340`.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+`38+0.30/turn` (R² 0.86) at `4b34b340`. seed4500 PASS.
+**Verified:** cadence `__RESULTS_JSON__`; `check-hot-docs --review 546-554`.
+**Next:** Must-fix 547 `normal_shape` await. Not has_edog.
+**Blocked:** none.
 ## 2026-08-28 — D-1593 dog.c tamedog ustuck expels/unstuck
 
 **Objective:** Open `dog.c` tamedog ustuck expels/unstuck (named). Not

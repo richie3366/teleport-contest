@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `dog.c` tamedog ustuck expels/unstuck (named). Not FULL_MOON. **Addressed:** D-1593
+- [x] `dog.c` tamedog ustuck expels/unstuck (named). Not FULL_MOON. **Addressed:** D-1593 `4b34b340`
 
 
 - [x] `pickup.c` more_containers `n` (named). Not traditional_loot. **Addressed:** D-1592 `c4be5135`

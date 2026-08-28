@@ -5,11 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1584 audit `05c69d9b`. seed4500 still PASS.
-  **Hypothesis:** Open `dog.c` tamedog `initedog` has_edog vs `!mtame`
-  is next (not ustuck D-1593; not FULL_MOON D-1585).
-  **Falsify:** port has_edog/`newedog` then green + cohort.
-  **Next:** Open has_edog. Not `create_mplayers`.
+- **Suite 44/44** after D-1593 audit overlay (reviews **546–554**).
+  seed4500 still PASS.
+  **Hypothesis:** Must-fix **547** — `mon.c` `normal_shape` drops
+  `newcham(..., NC_SHOW_MSG)` so PfSC/zap cancel print shapeshift
+  after `cham=NON_PM` / clay-golem. Not has_edog.
+  **Falsify:** await `newcham` in `normal_shape` then a canary that
+  calls `rescham` / zap cancel and checks pline order.
+  **Next:** Must-fix 547. Not has_edog. Not `create_mplayers`.
   Do not skip D-1531…D-1593. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: `initedog` `has_edog`; sit/pray
@@ -60,6 +63,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- Review **547** QUALITY-RISK: `normal_shape` must await
+  `newcham(..., NC_SHOW_MSG)`. has_edog waits. D-1593 ustuck live.
 - D-1593: `tamedog` ustuck swallow `expels` else `!(Upolyd && sticks)`
   `unstuck` (mhitu + engrave sticks). has_edog named. more_containers
   is D-1592. FULL_MOON is D-1585.

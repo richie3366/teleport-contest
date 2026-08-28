@@ -32,6 +32,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `mon.c` `normal_shape` must await `newcham(..., NC_SHOW_MSG)` (C `:4438`) so PfSC `rescham`/`restore_cham`/zap cancel print the shapeshift pline before `cham=NON_PM`/`newsym`/clay-golem, not as a dropped Promise. Source: reviews/loop-unattended/547-9cdc66f5-newcham-nc-show-msg.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `dog.c` tamedog `initedog` has_edog vs `!mtame` (named). Not FULL_MOON.
