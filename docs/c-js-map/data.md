@@ -351,7 +351,11 @@ live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**;
 **D-1573 `newcham` Protection cancel**; **D-1575 `mk_gen_ok` MAIL_DAEMON**
 (`:1746–1749` MAIL_STRUCTURES; `ndemon` `minion.c:462` `mkclass_aligned(S_DEMON,0,atyp)`;
 `msummon` is_lminion/`llord`/PM_ANGEL `ndemon`; live export `teleport.js` `is_lminion`;
-show_transient_light / `transient_light_cleanup` named);
+**D-1597 `show_transient_light`/`transient_light_cleanup`** live `js/light.js`
+(`light.c:255–357`; camera range 0 + thrown lamplit `mtemplit`; callers zap `bhit`
+`:3902–3916`/`:4135–4136`, apply `do_blinding_ray` `:73–75`, minion S_ANGEL `:162–187`;
+`new_light_core` range 0; `discard_flashes`; worm tails / FLASHED_LIGHT `tmp_at`
+DISP_BEAM / `save_light_sources` discard named);
 **D-1574 `unblock_point`/`dig_point`**; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
 `GEHENNOM` dnum sites still wrong); **D-0749 `rnd_misc_item` life-saving `!nonliving && 
@@ -699,7 +703,8 @@ callers + `iter_mons` `mon_offmap` named);
 **`Is_rogue_level` → `rogue_vision`** (D-0486; room bounds + adjacent; pit/underwater deferred); 
 **Blind `vision_recalc` COULD_SEE-only + old IN_SIGHT newsym** (D-0579); 
 **`do_light_sources` TEMP_LIT + makemon `emits_light` LS_MONSTER** (D-0569; 
-LS_OBJECT / circle range>1 deferred); **D-0675:** stale gas across levels blocked LOS (not 
+**D-1597 camera range 0** Null-id `LS_OBJECT` + `show_transient_light`;
+circle_ptr exact ring / hero range trim still named); **D-0675:** stale gas across levels blocked LOS (not 
 Algorithm-C TRWALL); **`clear_regions` in `clear_level_structures` + 
 goto_level stash/rest** (binary `save_regions` format / free_region teardown deferred); 
 **D-0773 open:** wizard2 mumak LOS — JS `viz_clear` blocks at ROOM boulder → linedup rn2(3); 

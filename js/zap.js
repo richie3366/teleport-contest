@@ -277,6 +277,7 @@ import {
 import { potionbreathe, make_stunned, speed_up } from './potion.js';
 import { useup, carried, fix_petrification } from './eat.js';
 import { burn_away_slime, get_obj_location } from './timeout.js';
+import { show_transient_light, transient_light_cleanup } from './light.js';
 import { create_gas_cloud } from './region.js';
 import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock, boxlock_invent, doorlock } from './lock.js';
@@ -5463,9 +5464,12 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
                 && (IS_WATERWALL(typ) || typ === LAVAWALL)) {
                 break;
             }
-            // C: iron bars hits_bars for thrown/kicked (D-0990)
+            // C zap.c bhit :3901–3917 — thrown/kicked lamplit +
+            // FLASHED_LIGHT show_transient_light before iron bars (D-1597).
             if (weapon === THROWN_WEAPON || weapon === KICKED_WEAPON) {
-                // show_transient_light deferred
+                if (obj?.lamplit && !Blind()) {
+                    await show_transient_light(obj, x, y);
+                }
                 if (typ === IRONBARS) {
                     const { hits_bars } = await import('./mthrowu.js');
                     if (await hits_bars(
@@ -5478,6 +5482,8 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
                         break;
                     }
                 }
+            } else if (weapon === FLASHED_LIGHT) {
+                if (!Blind()) await show_transient_light(null, x, y);
             }
 
             if (weapon === ZAPPED_WAND) {
@@ -5618,6 +5624,11 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
     if (shopdoor) {
         const { pay_for_damage } = await import('./shk.js');
         await pay_for_damage('destroy', false);
+    }
+    /* C zap.c bhit :4132–4136 — FLASHED_LIGHT cleanup is the caller's;
+     * thrown/kicked always cleanup here (bhit_done). */
+    if (weapon === THROWN_WEAPON || weapon === KICKED_WEAPON) {
+        await transient_light_cleanup();
     }
     return result;
 }

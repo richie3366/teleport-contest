@@ -106,6 +106,7 @@ import {
 } from './trap.js';
 import { begin_burn, end_burn, Is_candle, obj_merge_light_sources,
     get_obj_location } from './timeout.js';
+import { show_transient_light, transient_light_cleanup } from './light.js';
 import { set_occupation, u_wipe_engr } from './engrave.js';
 import { makemon, mkclass } from './makemon.js';
 import { make_familiar } from './dog.js';
@@ -831,8 +832,8 @@ async function use_mirror(obj) {
 /**
  * C zap.c bhit FLASHED_LIGHT — first non-minvis mon stops the beam;
  * minvis calls flash_hits_mon and continues (C zap.c bhit).
- * Named omissions: tmp_at flash glyph; transient_light; iron bars;
- * M_AP_OBJECT skip.
+ * show_transient_light per cell when !Blind (D-1597).
+ * Named omissions: tmp_at flash glyph; iron bars; M_AP_OBJECT skip.
  */
 async function bhit_flashed_light(ddx, ddy, range, obj) {
     const bhitpos = game.bhitpos || (game.bhitpos = { x: 0, y: 0 });
@@ -851,6 +852,8 @@ async function bhit_flashed_light(ddx, ddy, range, obj) {
             break;
         }
         const typ = game.level?.at(x, y)?.typ;
+        // C zap.c bhit :3914–3916 — FLASHED_LIGHT after waterwall
+        if (!Blind()) await show_transient_light(null, x, y);
         const mtmp = m_at(x, y);
         if (mtmp) {
             game.notonhead = (x !== (mtmp.mx | 0) || y !== (mtmp.my | 0));
@@ -890,7 +893,9 @@ export async function do_blinding_ray(obj) {
             await see_monster_closeup(mtmp, true);
         }
     }
-    // transient_light_cleanup deferred
+    /* C apply.c do_blinding_ray :73–75 — bhit skips cleanup for
+     * FLASHED_LIGHT so flash_hits_mon runs first (D-1597). */
+    await transient_light_cleanup();
 }
 
 /**

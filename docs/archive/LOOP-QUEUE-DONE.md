@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `mplayer.c` `create_mplayers` (named). Not mk_mplayer. **Addressed:** D-1596
+- [x] `makemon.c` `show_transient_light` (named). Not ndemon. **Addressed:** D-1597
+
+
+- [x] `mplayer.c` `create_mplayers` (named). Not mk_mplayer. **Addressed:** D-1596 `fa152acc`
 
 
 - [x] `dog.c` tamedog `initedog` has_edog vs `!mtame` (named). Not FULL_MOON. **Addressed:** D-1595 `ab70af21`

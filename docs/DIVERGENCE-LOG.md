@@ -1,4 +1,45 @@
+## D-1597 — light.c show_transient_light / transient_light_cleanup
+
+- **Status:** fixed (map-driven Open from D-1596; not a public FAIL)
+- **Symptom:** `show_transient_light` / `transient_light_cleanup` were
+  named omits after D-1575. Camera flash and thrown/kicked lamplit
+  objects never set `mtemplit` or TEMP_LIT the ray cells; angel
+  summon skipped the flash; `do_blinding_ray` never discarded
+  Null-id flashes.
+- **C locus:** `light.c` `show_transient_light` `:255–324`: Null obj
+  camera `new_light_core(x,y,0,LS_OBJECT,&zeroany)` unless
+  `levl[x][y].lit`; else find LS_OBJECT for `obj` (must be
+  `OBJ_FREE`); `place_object` at `bhitpos`; `vision_recalc(0)` +
+  `flush_screen(0)`; `dist2<=range²` `canseemon` → `mtemplit=1`;
+  thrown `nh_delay_output` + `remove_object`.
+  `transient_light_cleanup` `:327–357`: `discard_flashes` then
+  recalc; clear `mtemplit` and `map_invisible` if `!canspotmon`.
+  `new_light_core` `:68–94` range 0 only for Null LS_OBJECT.
+  `do_light_sources` `:187–190` range 0 short-circuits
+  `get_obj_location`. Callers: `zap.c` `bhit` `:3902–3916` /
+  `:4135–4136`; `apply.c` `do_blinding_ray` `:73–75`; `minion.c`
+  `msummon` `:162–187`.
+- **JS was:** named omit (`light.js` "camera flash deferred"; zap
+  `bhit` / apply `do_blinding_ray` / minion `msummon` comments).
+  `new_light_source` allowed any range 0; `do_light_sources`
+  skipped `range<1` and Null obj.
+- **Fix:** live `new_light_core` + camera range 0 in
+  `do_light_sources`; `show_transient_light` /
+  `transient_light_cleanup` / `discard_flashes`; wired callers.
+  Worm tails / FLASHED_LIGHT `tmp_at` DISP_BEAM /
+  `save_light_sources` discard named. Rule #2: no fs.
+- **JS:** `js/light.js`; `js/zap.js` `bhit`; `js/apply.js`
+  `bhit_flashed_light` / `do_blinding_ray`; `js/minion.js`
+  `msummon`.
+- **Not this iter:** worm tails; FLASHED_LIGHT `tmp_at` glyph;
+  `save_light_sources` panic-save discard; `has_mcorpsenm`.
+  create_mplayers is D-1596.
+- **Verified:** private canary **12**/12; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1596 — mplayer.c create_mplayers
+
 
 - **Status:** fixed (map-driven Open from D-1595; not a public FAIL)
 - **Symptom:** `create_mplayers` was a named omit after D-1584
