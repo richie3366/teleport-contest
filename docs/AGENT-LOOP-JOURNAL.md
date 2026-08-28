@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1576 region.c add_region per-cell block/unblock
+
+**Objective:** Must-fix review **535** `add_region` /
+`remove_region` / `expire_gas_cloud` per-cell `block_point` /
+`unblock_point`. Not `redraw_worm`. Not revert D-1574.
+**C locus:** `region.c` `add_region` `:326–328`; `remove_region`
+`:361–385`; `expire_gas_cloud` `:1071–1072`.
+**JS locus:** one-corner `recalc` after D-1574; expire pass 1 empty.
+**Change:** live `add_region`; per-cell `block_point` /
+`unblock_point` + two-pass `newsym`. Rule #2: no fs.
+**Score:** full `sessions` **44**/44 Scr **11,405**/11,405 RNG
+**792,838**/792,838 `41+0.30/turn` (R² 0.86). seed4500 recovered.
+**Verified:** canary **20**/20; seed4500; green+strict; cohort
+**7**/7 + strict; full `sessions`.
+**Next:** Open `redraw_worm`. Not cutworm.
+**Blocked:** none.
 ## 2026-08-28 — review D-1567–D-1575 (audit #1970)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **527**;

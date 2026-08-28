@@ -20,35 +20,32 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-28** — full `sessions` at **D-1575**
-HEAD `d13bf416` (**audit #1970**). **43**/44,
-Scr **10,649**/11,405, RNG **773,053**/792,838 = **97.5%**.
-Speed `39+0.30/turn` (R² 0.854). seed0367 FULL still PASS.
-**FAIL:** seed4500-knight-coverage first at **D-1574** `1ba35e31`
-(RNG 88490/108275, screens 1058/1814). Parent `423b6b29` still
-108275/108275. Prior audit **#1960** was 44/44 at `72735008`.
+Score last measured: **2026-08-28** — full `sessions` at **D-1576**
+(port iter; recovered seed4500). **44**/44,
+Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
+Speed `41+0.30/turn` (R² 0.86). seed0367 FULL still PASS.
+Prior FAIL seed4500 at **D-1574** `1ba35e31` is PASS again.
+Prior audit **#1970** was 43/44 at `d13bf416`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **43 / 44** |
-| Screens matched | **10,649 / 11,405** |
-| Positional RNG calls matched | **773,053 / 792,838** (97.5%) |
-| Speed label | `39+0.30/turn` (R² 0.854) |
+| Sessions passing | **44 / 44** |
+| Screens matched | **11,405 / 11,405** |
+| Positional RNG calls matched | **792,838 / 792,838** (100%) |
+| Speed label | `41+0.30/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
 
-**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0399, seed0014, seed2600, seed2200, seed0383.
+seed0360, seed0399, seed0014, seed2600, seed2200, seed0383, seed4500.
 
-**Notable non-PASS:** seed4500-knight-coverage (RNG 88490/108275,
-screens 1058/1814) — first FAIL at D-1574 `1ba35e31`
-(review **535** QUALITY-RISK).
+**Notable non-PASS:** none.
 
 ## Green gate
 
@@ -65,28 +62,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 43/44** after audit **#1970**. **Next cluster:**
-Must-fix `region.c` `add_region` / `remove_region` /
-`expire_gas_cloud` per-cell `block_point`/`unblock_point`
-(review **535**; seed4500 first FAIL at `1ba35e31`).
-Not `redraw_worm`. Not revert D-1574 `seemimic` / `dig_point` body.
-**Do not skip D-1531…D-1575 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1576 (seed4500 recovered). **Next cluster:**
+Open `worm.c` `redraw_worm` (named). Not cutworm.
+Not revert D-1574 `seemimic` / `dig_point` body.
+**Do not skip D-1531…D-1576 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1575.** Do not FORCE
+**Do not re-break D-0660…D-1576.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1575 (index). Recent: **D-1575**
+**Keep:** D-0845…D-1576 (index). Recent: **D-1576**
+`region.c` `add_region` / `remove_region` / `expire_gas_cloud`
+per-cell `block_point`/`unblock_point` (seed4500). Prior: **D-1575**
 `makemon.c` `mk_gen_ok` MAIL_DAEMON + `ndemon`
 `mkclass_aligned` + `msummon` is_lminion/`llord`/PM_ANGEL.
-show_transient_light named. Prior: **D-1574**
+show_transient_light named. **D-1574**
 `unblock_point`. **D-1573** `newcham` cancel. Older
-D-1531…D-1574 live in the index — do not re-paste.
+D-1531…D-1575 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-skip D-1229…D-1575 (index). No `reset_glyphmap` /
+skip D-1229…D-1576 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -102,7 +99,8 @@ uhitm→pager. Do not skip `detect_wsegs` show_glyph or compare
 `data === mons()`. Do not skip `worm_known` (D-1548) or trap
 `monkilled` (D-1550). cutworm is D-1570. xray IN_SIGHT is D-1571.
 Hatch timeout is D-1572. `newcham` cancel is D-1573.
-`unblock_point` is D-1574. `ndemon` mkclass is D-1575. Do not glue
+`unblock_point` is D-1574. `ndemon` mkclass is D-1575.
+Region per-cell block/unblock is D-1576. Do not glue
 `redraw_worm` / nv_range circle / `mimic_light_blocking`.
 `howmonseen` is D-1562. Do not
 skip `tamedog` `wake_nearto` or glue FULL_MOON S_DOG / ustuck.
@@ -117,7 +115,7 @@ is D-1566. `'r'` reversed is D-1567. Eat/read/zap/tin
 NOFLAGS is D-1568. Pickinv hands/xtra is D-1569. cutworm is D-1570.
 xray IN_SIGHT is D-1571. Hatch timeout is D-1572.
 `newcham` cancel is D-1573. `unblock_point` is D-1574.
-`ndemon` mkclass is D-1575.
+`ndemon` mkclass is D-1575. Region per-cell block is D-1576.
 Do not glue `redraw_worm` / force_invmenu redo /
 mime_action / gacc.
 Do not rewrite `confer_oc_oprop`.

@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1576 — region.c add_region / remove_region / expire_gas_cloud per-cell block
+
+- **Status:** fixed (Must-fix review **535**; seed4500 FAIL at D-1574)
+- **Symptom:** D-1574 made `recalc_block_point` incremental. JS
+  `make_gas_cloud` / `remove_region` still called it once at
+  `rects[0]`; `expire_gas_cloud` pass 1 was an empty comment. Only
+  the cloud corner fill/dug, so gas LOS was wrong. First public
+  FAIL: seed4500 at `1ba35e31` (RNG 88490/108275).
+- **C locus:** `region.c` `add_region` `:326–328` (`block_point(i,j)`
+  every visible inside cell; `cansee` `newsym` on the bounding box).
+  `remove_region` `:361–385` (drop; `ttl=-2L`; two-pass
+  `!does_block` `unblock_point` then `newsym`; pass 1 `u.uinwater=0`;
+  Blind skip pass 2). `expire_gas_cloud` `:1071–1072` (pass 1
+  `!does_block` `unblock_point` while still listed — gas no-op;
+  `remove_region` unblocks after ttl=-2).
+- **JS was:** one-corner `recalc_block_point`; expire pass 1 empty.
+- **Fix:** live `add_region`; per-cell `block_point` /
+  `unblock_point` + two-pass `newsym`. Rule #2: no fs.
+- **JS:** `js/region.js` `add_region` / `make_gas_cloud` /
+  `remove_region` / `expire_gas_cloud`.
+- **Not this iter:** `create_force_field` (#if 0); `free_region`
+  teardown; `mimic_light_blocking` See_invisible still `recalc`;
+  nv_range circle / pit / underwater. `unblock_point` is D-1574.
+  MAIL `mk_gen_ok` is D-1575.
+- **Verified:** private canary **20**/20 (C/JS locus; 3-cell
+  non-corner block/unblock; m_at scan; closed-door no-unblock;
+  thick-cloud keep; Blind pass 1; Rule #2); seed4500
+  108275/108275 + 1814/1814; green+strict seed8000/0900; cohort
+  **7**/7 + strict; full `sessions` **44**/44.
+
 ## D-1575 — makemon.c ndemon / mkclass_aligned MAIL + msummon arms
 
 - **Status:** fixed (map-driven Open from D-1574; not a public FAIL)

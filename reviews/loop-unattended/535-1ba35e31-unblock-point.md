@@ -138,3 +138,5 @@ D-log private canary **29**/29 (locus; fill/dig inverse; door recalc; boulder/`S
 1. **`recalc_block_point` is no longer a whole-map rebuild, but JS multi-cell C loops still call it once.** Port C `region.c` `add_region` `:326–328` (`block_point` every visible inside cell) and `remove_region` `:375–376` / `expire_gas_cloud` `:1071–1072` (`!does_block` then `unblock_point` per cell). Until those loops are live, a full `vision_reset` at those JS sites is the honest stand-in — not one-corner incremental. Then run `seed4500-knight-coverage` (first FAIL at this SHA: RNG 88490/108275). Do not wrap `vision_reset` into `seemimic`. Do not add `dig_point` #2. Do not invent a frame-align queue.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1576

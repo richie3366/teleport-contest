@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `region.c` `add_region` / `remove_region` / `expire_gas_cloud` per-cell `block_point`/`unblock_point` (C `:326–328` / `:375–376` / `:1071–1072`). D-1574 made `recalc_block_point` incremental; JS still one-corner `recalc` (expire pass 1 empty). First public FAIL: seed4500 at `1ba35e31` (RNG 88490/108275). Source: reviews/loop-unattended/535-1ba35e31-unblock-point.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `worm.c` `redraw_worm` (named). Not cutworm.

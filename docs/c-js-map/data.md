@@ -660,12 +660,14 @@ Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018);
 **off-hero `do_clear_area`/`view_from` vis_func for wantdoor** (D-0211); 
 **`does_block` BOULDER (+ CLOUD/WATERWALL/LAVAWALL)** (D-0242; exported, was `_blocks`) + 
 **`is_lightblocker_mappear` mimic boulder/door/wall/tree** (D-0585) + 
-**`visible_region_at` gas cloud return 2 + `recalc_block_point` on create/expire** (D-0674) + 
+**`visible_region_at` gas cloud return 2** (D-0674) + 
 **D-1557 `block_point`/`fill_point`** (`vision.c:864–891` / `:1050–1128`; caller `set_mimic_sym`; leftover `i`; `vision_reset` `!!does_block`); 
 **D-1574 `unblock_point`/`dig_point`** (`:898–907` / `:967–1048`; `seemimic`
 `:4415–4424` after `M_AP_NOTHING`; `recalc_block_point` `:910–917`); 
-`has_mcorpsenm`/`freemcorpsenm`; other `unblock_point` sites already on
-`recalc`; `display.c` `mimic_light_blocking` still `recalc` not C
+**D-1576 `region.c` `add_region` `:326–328` / `remove_region` `:375–376` /
+`expire_gas_cloud` `:1071–1072`** per-cell `block_point`/`unblock_point`
+(not one-corner `recalc`; seed4500 FAIL at D-1574); 
+`has_mcorpsenm`/`freemcorpsenm`; `display.c` `mimic_light_blocking` still `recalc` not C
 See_invisible `block_point`/`unblock_point`; 
 **detect SCORR/SDOOR uncover uses `recalc_block_point`** (D-0269); 
 **`Is_rogue_level` → `rogue_vision`** (D-0486; room bounds + adjacent; pit/underwater deferred); 
@@ -683,6 +685,7 @@ lit); **D-1562 `howmonseen`** (`vision.c:2151–2186`; callers `apply.c` `use_mi
 **D-1571 `vision_recalc` xray IN_SIGHT** (`:631–668`; `circle_ptr` +
 seenv SVALL + rmin/rmax + newsym before lights; Eyes D-1558 3/−1;
 not rogue/Blind/`control==2`); **D-1574 `unblock_point`/`dig_point`**;
+**D-1576 region per-cell block/unblock**;
 nv_range circle / pit / underwater / `notice_all_mons` named
 
 ### `src/trap.c`
