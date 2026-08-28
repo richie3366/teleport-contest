@@ -90,6 +90,15 @@ export function str_end_is(str, chkstr) {
     return s.length >= c.length && s.slice(s.length - c.length) === c;
 }
 
+/** C hacklib.c highc — ASCII a-z → A-Z. */
+export function highc(c) {
+    if (c == null || c === '') return c;
+    const ch = typeof c === 'string' ? c.charAt(0) : String.fromCharCode(c);
+    const code = ch.charCodeAt(0);
+    if (code >= 97 && code <= 122) return String.fromCharCode(code & ~0x20);
+    return ch;
+}
+
 /**
  * C ref: hacklib.c ing_suffix `:362–396` — gerund. Split trailing
  * " on"/" off"/" with" (strcmpi), then er / CVC doubling / ie→y /

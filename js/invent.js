@@ -295,23 +295,46 @@ function loot_xname(obj) {
 }
 
 /**
+ * C invent.c invletter_value `:390–399` — '$' first, then a-z, A-Z, '#'.
+ * invlet_basic is 52.
+ */
+function invletter_value(c) {
+    const ch = typeof c === 'string' && c.length ? c.charAt(0) : '';
+    if (!ch) return 1 + 52 + 1 + 1;
+    if (ch >= 'a' && ch <= 'z') return ch.charCodeAt(0) - 97 + 2;
+    if (ch >= 'A' && ch <= 'Z') return ch.charCodeAt(0) - 65 + 2 + 26;
+    if (ch === '$') return 1;
+    if (ch === '#') return 1 + 52 + 1;
+    return 1 + 52 + 1 + 1;
+}
+
+/**
  * C ref: invent.c sortloot — build Loot[] sorted view; does not relink.
- * Branch envelope: SORTLOOT_PACK class order + SORTLOOT_LOOT name;
- * named omissions: subclass/disco/BUCX/erosion/INVLET/INUSE/filter/
- * SORTLOOT_PETRIFY; loot_classify armor/weapon/tool detail.
- *
- * @param {object|null} olist head of nobj (or nexthere) chain
+ * Branch envelope: SORTLOOT_PACK class + SORTLOOT_INVLET + SORTLOOT_LOOT.
+ * Invent Array or nobj/nexthere. Named: subclass/disco/BUCX/erosion/INUSE/
+ * filter/SORTLOOT_PETRIFY; loot_classify armor/weapon/tool detail.
+ * @param {object|object[]|null} olist nobj/nexthere head or invent Array
  * @param {number} mode SORTLOOT_* flags
  * @param {boolean} [by_nexthere=false]
- * @returns {{obj: object, indx: number}[]}
  */
 export function sortloot(olist, mode, by_nexthere = false) {
     const items = [];
     let i = 0;
-    for (let o = olist; o; o = by_nexthere ? o.nexthere : o.nobj) {
-        items.push({
-            obj: o, indx: i++, orderclass: 0, subclass: 0, disco: 0, str: null,
-        });
+    if (Array.isArray(olist)) {
+        for (const o of olist) {
+            if (!o) continue;
+            items.push({
+                obj: o, indx: i++, orderclass: 0, subclass: 0, disco: 0,
+                str: null,
+            });
+        }
+    } else {
+        for (let o = olist; o; o = by_nexthere ? o.nexthere : o.nobj) {
+            items.push({
+                obj: o, indx: i++, orderclass: 0, subclass: 0, disco: 0,
+                str: null,
+            });
+        }
     }
     if (!mode || items.length <= 1) return items;
 
@@ -335,6 +358,12 @@ export function sortloot(olist, mode, by_nexthere = false) {
                 return sli1.orderclass - sli2.orderclass;
             }
             // subclass / disco deferred (all ice-box corpses share FOOD/CORPSE)
+        }
+        // C: order by assigned inventory letter when SORTLOOT_INVLET
+        if (mode & SORTLOOT_INVLET) {
+            const v1 = invletter_value(obj1.invlet);
+            const v2 = invletter_value(obj2.invlet);
+            if (v1 !== v2) return v1 - v2;
         }
         if (mode & SORTLOOT_LOOT) {
             if (!sli1.str) sli1.str = loot_xname(obj1);

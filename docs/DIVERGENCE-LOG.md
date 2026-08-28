@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1581 — pickup.c traditional_loot / invent.c askchain
+
+- **Status:** fixed (map-driven Open from D-1580; not a public FAIL)
+- **Symptom:** MENU_TRADITIONAL `#loot` / apply-bag `'o'`/`'i'` used
+  MENU_FULL `menu_loot` pickinv instead of C `query_classes` getlin
+  + `askchain` yn/yna/ynNaq (`traditional_loot`).
+- **C locus:** `pickup.c` `traditional_loot` `:3229–3261`;
+  `query_classes` `:140–262`; `use_container` `:3146` / `:3170` /
+  `:3201` `MENU_TRADITIONAL`. `invent.c` `askchain` `:2376–2541`.
+  Callees `collect_obj_classes`, `add_valid_menu_class`,
+  `allow_category`, `sortloot` `SORTLOOT_INVLET`,
+  `drawing.c` `def_char_to_objclass`, `hacklib.c` `highc`,
+  `topl.c` `yn_number` when resp contains `'#'`.
+- **JS was:** omit after D-1567 (`'r'` live; traditional_loot named).
+  COMBINATION/FULL still `menu_loot_*`.
+- **Fix:** live `query_classes` + `askchain` + `traditional_loot`;
+  MENU_TRADITIONAL take-out/put-in/reversed-out; INVLET sortloot +
+  invent Array; yn `#` count. Rule #2: no fs.
+- **JS:** `js/pickup.js`; `js/invent.js`; `js/getline.js`;
+  `js/objects.js` `def_char_to_objclass` (detect clone retired);
+  `js/hacklib.js` `highc`.
+- **Not this iter:** ggetobj takeoff/identify; floor pickup
+  `query_classes`; in_or_out_menu more_containers `n`; mbag
+  explosion body; worn.c `clear_bypasses`; sortloot inuse_only.
+  gacc is D-1580. `'r'` reversed is D-1567.
+- **Verified:** private canary **16**/16 (C traditional_loot/askchain
+  + TRADITIONAL A+y take-out / )+y put-in / getlin `a` auto-yes +
+  MENU_FULL still menu_loot; Rule #2); green+strict seed8000/0900;
+  cohort **7**/7 + strict (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1580 — invent.c display_pickinv gacc / BALL `'0'`
 
 - **Status:** fixed (map-driven Open from D-1579; not a public FAIL)

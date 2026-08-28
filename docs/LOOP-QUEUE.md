@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pickup.c` traditional_loot askchain (named). Not `'r'` reversed.
 - [ ] `cmd.c` PREFIXCMD / `cmdq_shift` (named). Not do_repeat.
 - [ ] `vision.c` `nv_range` circle (named). Not unblock_point.
 - [ ] `makemon.c` `mk_mplayer` (named). Not ndemon.

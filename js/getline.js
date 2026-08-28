@@ -849,13 +849,14 @@ export async function paranoid_query(be_paranoid, prompt) {
  * (C: TOPLINE_NON_EMPTY / gt.toplines). Silent follow-ups (e.g.
  * dipfountain case 16 curse with no pline) keep the yn text until
  * rhack clears after the next-command nhgetch capture.
- * @returns {string} single-character response
+ * When resp contains '#', digits collect C yn_number and return '#'.
  */
 export async function yn_function(query, resp = 'yn', def = 'n') {
     await flush_topl_more();
     // C tty_yn_function: after optional more(), clear WIN_STOP|WIN_NOSTOP
     // before painting the prompt (topl.c).
     clear_win_stop();
+    game.yn_number = 0;
     // C: char def — '\0' is falsy (no " (c)" suffix). JS '\0' is truthy.
     const hasDef = !!(def && def !== '\0');
     let prompt;
@@ -867,6 +868,7 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
     } else {
         prompt = `${query} `;
     }
+    const allow_num = !!(resp && resp.includes('#'));
     for (;;) {
         // C: custompline(SUPPRESS_HISTORY) → tty_putstr → show_topl →
         // addtopl/putsyms — hard-wrap at CO-1 via topl_putsym (not
@@ -893,7 +895,60 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
             return def;
         }
         if (ch === ' ' || c === 13 || c === 10) return def;
+        const digit_ok = allow_num && ch >= '0' && ch <= '9';
+        if (!resp.includes(ch) && !digit_ok) continue;
+        if (ch === '#' || digit_ok) {
+            const num = await yn_collect_number(prompt, ch, preserve);
+            if (num == null) continue; // abort → retry
+            if (num === 0) return 'n';
+            game.yn_number = num;
+            return '#';
+        }
         if (resp.includes(ch)) return ch;
         // invalid — C tty_nhbell + retry
+    }
+}
+
+/** C topl.c tty_yn_function '#' / digit arm — yn_number. */
+async function yn_collect_number(prompt, firstCh, preserve) {
+    let echo = '#';
+    let value = 0;
+    if (firstCh !== '#') {
+        echo += firstCh;
+        value = firstCh.charCodeAt(0) - 48;
+    }
+    const paint = async () => {
+        const raw = prompt + echo;
+        const { text, col, row } = topl_wrap_echo(raw, raw.length);
+        mark_topline_prompt(text);
+        await flush_screen(1);
+        const disp = game.nhDisplay;
+        if (disp?.setCursor) disp.setCursor(col, row);
+    };
+    await paint();
+    for (;;) {
+        const zc = await nhgetch();
+        let z = String.fromCharCode(zc);
+        if (!preserve) z = z.toLowerCase();
+        if (z >= '0' && z <= '9') {
+            const next = value * 10 + (z.charCodeAt(0) - 48);
+            if (next < 0 || next > 0x7fffffff) return null;
+            value = next;
+            echo += z;
+            await paint();
+            continue;
+        }
+        if (z === 'y' || z === ' ' || zc === 13 || zc === 10) {
+            return value;
+        }
+        if (zc === 27) return null;
+        if (zc === 8 || zc === 127) {
+            if (echo.length <= 1) return null;
+            echo = echo.slice(0, -1);
+            value = Math.trunc(value / 10);
+            await paint();
+            continue;
+        }
+        return null;
     }
 }

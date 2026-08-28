@@ -96,3 +96,15 @@ export const def_oc_syms = [
     { sym: '_', name: 'chains', explain: 'iron chain' },
     { sym: '.', name: 'venoms', explain: 'splash of venom' },
 ];
+
+/**
+ * C drawing.c def_char_to_objclass — first def_oc_syms[].sym; else MAXOCLASSES.
+ */
+export function def_char_to_objclass(ch) {
+    const c = typeof ch === 'string' ? ch.charAt(0) : String.fromCharCode(ch);
+    let i;
+    for (i = 1; i < MAXOCLASSES; i++) {
+        if (def_oc_syms[i].sym === c) break;
+    }
+    return i;
+}

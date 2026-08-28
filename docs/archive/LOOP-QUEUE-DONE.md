@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` gacc / `'0'` ball class (named). Not mime_action. **Addressed:** D-1580
+- [x] `pickup.c` traditional_loot askchain (named). Not `'r'` reversed. **Addressed:** D-1581
+
+
+- [x] `invent.c` gacc / `'0'` ball class (named). Not mime_action. **Addressed:** D-1580 `d7879b7c`
 
 
 - [x] `invent.c` mime_action (named). Not force_invmenu. **Addressed:** D-1579 `51d877a8`

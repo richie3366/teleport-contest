@@ -7,23 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** after D-1576 (Scr **11,405**/11,405 RNG
   **792,838**/792,838 = 100%; `41+0.30/turn`). seed0367 FULL.
-  seed4500 recovered (was FAIL at D-1574 `1ba35e31`).
-  **Hypothesis:** Open traditional_loot askchain is the next named
-  omit (`pickup.c` `use_container` / TRADITIONAL loot; not `'r'`
-  reversed D-1567).
-  **Falsify:** port traditional_loot then green + cohort; do not
-  invent a FAIL peel.
-  **Next:** Open traditional_loot. Not PREFIXCMD.
-  Do not skip D-1531…D-1580. No FORCE / `wildmiss` wrap / trailing
+  seed4500 recovered (D-1574 `1ba35e31` FAIL).
+  **Hypothesis:** Open PREFIXCMD / `cmdq_shift` is the next named
+  omit (`cmd.c`; not do_repeat D-1563; not traditional_loot D-1581).
+  **Falsify:** port PREFIXCMD then green + cohort; no FAIL peel.
+  **Next:** Open PREFIXCMD / `cmdq_shift`. Not nv_range.
+  Do not skip D-1531…D-1581. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
-- Named still: `mk_mplayer`; FULL_MOON S_DOG / ustuck;
-  sit/pray `eyecount`; PREFIXCMD / `cmdq_shift`; Palantir `#if 0`;
-  nv_range circle; `mimic_light_blocking` See_invisible;
-  traditional_loot; more_containers `n`; putmsghistory;
-  sortloot inuse_only; wizid unid_cnt>0; `display_used_invlets`.
-  NC_SHOW_MSG `pline_mon` / `m_unleash` / ustuck / break-armor /
-  Elbereth `monflee`. `has_mcorpsenm`. show_transient_light.
-  flip_worm_segs. clone auto-open yn.
+- Named still: `mk_mplayer`; FULL_MOON S_DOG / ustuck; sit/pray
+  `eyecount`; PREFIXCMD / `cmdq_shift`; Palantir `#if 0`; nv_range
+  circle; `mimic_light_blocking` See_invisible; more_containers `n`;
+  putmsghistory; sortloot inuse_only; wizid unid_cnt>0;
+  `display_used_invlets`. NC_SHOW_MSG `pline_mon` / `m_unleash` /
+  ustuck / break-armor / Elbereth `monflee`. `has_mcorpsenm`.
+  show_transient_light. flip_worm_segs. clone auto-open yn.
+  ggetobj takeoff/identify askchain. floor pickup `query_classes`.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +30,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1580.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1581.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +41,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1580 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1581 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1580. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1581. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -60,70 +58,44 @@ Objective/score live in `CURRENT.md`.
   restore **global** `recalc_block_point` as `vision_reset`.
   Region per-cell is D-1576. `redraw_worm` is D-1577. force_invmenu
   redo is D-1578. mime_action is D-1579. gacc / `'0'` ball is
-  D-1580 (do not glue traditional_loot / nv_range /
-  `mimic_light_blocking`). D-1558…D-1580 live in the index.
-  Do not re-port `dig_point` leftover-`i` or `newcham`
+  D-1580. traditional_loot is D-1581 (do not glue PREFIXCMD /
+  nv_range / `mimic_light_blocking`). D-1558…D-1581 live in the
+  index. Do not re-port `dig_point` leftover-`i` or `newcham`
   Protection cancel. Do not skip MAIL `mk_gen_ok`. Do not add
   `ing_suffix` clone #3 (hacklib export is the C home).
 
 ## Landmarks (≤15)
 
-- D-1580: `invent.c` display_pickinv gacc / BALL `'0'`;
-  `def_oc_syms`; `let_to_name` showsym; tty `!counting &&
-  strchr(gacc,'0')`. Getobj want_reply gacc 0. putmsghistory /
-  wizid unid_cnt>0 / sortloot inuse_only named. mime_action is
-  D-1579.
+- D-1581: `pickup.c` traditional_loot + `invent.c` askchain;
+  MENU_TRADITIONAL `query_classes`/`askchain`; `sortloot` INVLET;
+  yn `#`. more_containers `n` / ggetobj takeoff named. gacc is D-1580.
+- D-1580: `invent.c` display_pickinv gacc / BALL `'0'`; `def_oc_syms`;
+  `let_to_name` showsym; tty `!counting && strchr(gacc,'0')`. Getobj
+  want_reply gacc 0. mime_action is D-1579.
 - D-1579: `invent.c` mime_action typed `'-'` when `!allownone`;
-  `" on the "` / rub-the / dip / `" or "` `rn2(2)`; `ing_suffix`
-  in `hacklib.js` (clones retired). getobj_adjust `'-'`. Pickinv
-  `'-'` still no mime. gacc is D-1580. putmsghistory named.
-  force_invmenu redo is D-1578. Hands is D-1569.
-- D-1578: `invent.c` getobj force_invmenu skip yn auto `?`/`*`
-  oneloop; display_pickinv Special `*`/`?` + end_menu query;
-  getobj_display_pickinv redo_menu. Apply/potion/write/do_name
-  `?`/`*` through helper. mime_action is D-1579. gacc /
-  putmsghistory / clone auto-open yn named. Hands is D-1569.
-  `redraw_worm` is D-1577.
-- D-1577: `worm.c` `redraw_worm` `newsym` every wseg including
-  dummy (unlike `see_wsegs`); `tamedog`/`abuse_dog` callers.
-  save/rest / flip_worm_segs / mondead-dog wormgone named.
-  cutworm is D-1570. `wormgone` is D-1573.
+  `" on the "` / rub-the / dip / `" or "` `rn2(2)`; `ing_suffix` in
+  `hacklib.js`. Pickinv `'-'` still no mime. Hands is D-1569.
+- D-1578: `invent.c` getobj force_invmenu skip yn auto `?`/`*` oneloop;
+  display_pickinv Special `*`/`?` + end_menu query. Hands is D-1569.
+- D-1577: `worm.c` `redraw_worm` `newsym` every wseg including dummy
+  (unlike `see_wsegs`); `tamedog`/`abuse_dog`. cutworm is D-1570.
 - D-1576: `region.c` `add_region` per-cell `block_point` +
-  `remove_region`/`expire_gas_cloud` `unblock_point` (ttl=-2
-  two-pass). seed4500 recovered. `create_force_field` #if 0 /
-  `free_region` / `mimic_light_blocking` named. `unblock_point`
-  is D-1574. MAIL `mk_gen_ok` is D-1575.
+  `remove_region`/`expire_gas_cloud` `unblock_point`. seed4500 recovered.
 - D-1575: `mk_gen_ok` MAIL_DAEMON + `ndemon` `mkclass_aligned`;
-  `msummon` is_lminion/`llord`/PM_ANGEL `ndemon`. Export
-  `is_lminion`. show_transient_light / `mk_mplayer` named.
-  `rndmonst_adj` is D-1566. `unblock_point` is D-1574.
-- D-1574: `unblock_point` + `dig_point` + C `recalc` +
-  `seemimic` capture-then-unblock. Region one-corner was
-  QUALITY-RISK **535**; fixed D-1576. `has_mcorpsenm` /
-  `mimic_light_blocking` See_invisible / nv_range named.
-- D-1573: `newcham` Protection cancel + vampire cham (uprops H||E);
-  rogue `tryct>15`; `set_mon_data`; `wormgone`+place_monster;
-  light/`pm_invisible`/hideunder; long-worm init;
-  `check_gear_next_turn`. NC_SHOW_MSG / `m_unleash` / ustuck /
-  break-armor / Elbereth named. Hatch timeout is D-1572.
-- D-1572: `attach_egg_hatch_timeout` + `obj_split_timers`;
-  poly_obj hero-egg `kill_egg`/`set_corpsenm` `rn2(NUMMONS)`;
-  hatch `is_pool(mon)` + `learn_egg_type` `update_inventory` +
-  impossible. SetVoice / migrating #if 0 named. D-0533 attach
-  body. D-1036 hatch body.
+  `msummon` is_lminion/`llord`/PM_ANGEL `ndemon`.
+- D-1574: `unblock_point` + `dig_point` + C `recalc` + `seemimic`
+  capture-then-unblock. `has_mcorpsenm` / nv_range named.
+- D-1573: `newcham` Protection cancel + vampire cham; `wormgone`.
+  NC_SHOW_MSG / `m_unleash` / ustuck named. Hatch timeout is D-1572.
+- D-1572: `attach_egg_hatch_timeout` + `obj_split_timers`; poly_obj
+  hero-egg; hatch `is_pool(mon)`.
 - D-1571: `vision_recalc` xray IN_SIGHT `circle_ptr` + seenv SVALL
-  before lights; not rogue/Blind. nv_range / pit named.
-  howmonseen D-1562. Eyes conferral D-1558.
-- D-1570: `cutworm` + `place_wsegs`; known_hitum slice_or_chop
-  after Vorpal oldhp; thitmonst chopper. redraw_worm is D-1577.
-  worm_known D-1548. Hands/xtra D-1569.
+  before lights. nv_range named. howmonseen D-1562.
+- D-1570: `cutworm` + `place_wsegs`; known_hitum slice_or_chop;
+  thitmonst chopper. redraw_worm is D-1577.
 - D-1569: pickinv usextra hands/xtra_choice; `getobj_hands_txt`;
-  n==1 `message_menu` HANDS_SYM; sortpack Miscellaneous `'-'`.
-  force_invmenu redo is D-1578. mime_action is D-1579. gacc is
-  D-1580. `&ctmp` D-1559.
-- D-1568: `getobj` eat/read/zap/tin NOFLAGS; read PROMPT
-  DOWNPLAY; eat_ok/`getobj_else`; tinopen. Stash D-1561. `'r'` D-1567.
-- D-1567: `'r'` `loot_in_first` put-in then take-out;
-  TRADITIONAL yn `rs` + help. traditional_loot / mbag named.
-- D-1566: `rndmonst_adj` rogue `monsym_isupper` + elem
-  `wrong_elem_type`. newmonhp ×3 / ndemon mkclass named.
+  n==1 `message_menu` HANDS_SYM. force_invmenu is D-1578.
+- D-1568: `getobj` eat/read/zap/tin NOFLAGS; eat_ok/`getobj_else`.
+  Stash D-1561. `'r'` D-1567.
+- D-1567: `'r'` `loot_in_first` put-in then take-out; TRADITIONAL yn
+  `rs` + help. traditional_loot is D-1581. mbag named.

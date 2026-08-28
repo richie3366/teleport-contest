@@ -14,7 +14,8 @@ import {
     look_here, observe_object, dfeature_at, paint_corner_nhw_menu, sortloot,
     let_to_name, DEF_INV_ORDER, prinv, near_capacity, calc_capacity,
     max_capacity, compactify_invlets, getobj_take_count, getobj_apply_count,
-    getobj_from_cmdq, getobj_display_pickinv, freeinv,
+    getobj_from_cmdq, getobj_display_pickinv, freeinv, display_inventory,
+    splittable,
 } from './invent.js';
 import { nomul, check_special_room, is_pool, is_lava, in_rooms, dosinkfall, SURFACE_AT, switch_terrain } from './hack.js';
 import {
@@ -23,13 +24,13 @@ import {
 } from './display.js';
 import { addinv } from './u_init.js';
 import {
-    an, doname, xname, cxname, cxname_singular,
+    an, doname, xname, cxname, cxname_singular, xprname,
     the as theArt, The, body_part_latebound, vtense,
 } from './objnam.js';
 import { can_reach_floor } from './engrave.js';
 import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
-    OBJ_FREE,
+    OBJ_FREE, OBJ_CONTAINED,
     is_pit, LOST_DROPPED,
     STONE, ICE, MAX_TYPE,
     IS_POOL, IS_LAVA, IS_FURNITURE, IS_WATERWALL, IS_SINK,
@@ -38,7 +39,7 @@ import {
     Never_mind,
     GETOBJ_EXCLUDE, GETOBJ_SUGGEST, GETOBJ_EXCLUDE_SELECTABLE,
     W_ARMOR, W_ACCESSORY,
-    SORTLOOT_PACK, SORTLOOT_LOOT,
+    SORTLOOT_PACK, SORTLOOT_LOOT, SORTLOOT_INVLET,
     ALL_TYPES_SELECTED, BUC_BLESSED, BUC_CURSED, BUC_UNCURSED, BUC_UNKNOWN,
     MENU_INVERT_ALL, MENU_SELECT_ALL, MENU_UNSELECT_ALL,
     MENU_TRADITIONAL, MENU_COMBINATION, MENU_FULL,
@@ -52,15 +53,18 @@ import { t_at, dotrap, NO_TRAP_FLAGS, drown, lava_effects, instapetrify } from '
 import { nhgetch } from './input.js';
 import { m_at } from './mon.js';
 import { oclass_to_sym } from './options.js';
-import { objectNames, COIN_CLASS } from './objects.js';
+import {
+    objectNames, COIN_CLASS, def_oc_syms, def_char_to_objclass,
+} from './objects.js';
 import { ATR_INVERSE } from './terminal.js';
-import { addtobill, costly_spot, check_unpaid_usage } from './shk.js';
+import { addtobill, costly_spot, check_unpaid_usage, is_unpaid } from './shk.js';
 import {
     nohands, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider, mons,
     monsterNames,
 } from './monsters.js';
 import { welded, weldmsg, setuwep, setuswapwep, setuqwep } from './wield.js';
-import { yn_function } from './getline.js';
+import { yn_function, getlin } from './getline.js';
+import { highc } from './hacklib.js';
 import { show_nhw_menu_text } from './pager.js';
 import { cansee } from './vision.js';
 import { touch_artifact, youmonst } from './artifact.js';
@@ -222,6 +226,110 @@ function count_buc(olist, buc) {
         else if (buc === BUC_UNCURSED && !otmp.blessed && !otmp.cursed) cnt++;
     }
     return cnt;
+}
+
+/** Walk invent Array or nobj/nexthere chain. */
+function walk_obj_list(head, here, fn) {
+    if (!head) return;
+    if (Array.isArray(head)) {
+        for (const o of head) if (o) fn(o);
+        return;
+    }
+    for (let o = head; o; o = here ? o.nexthere : o.nobj) fn(o);
+}
+
+/** C pickup.c collect_obj_classes — unique def_oc_syms in list order. */
+function collect_obj_classes(objs, here, filter, itemcount) {
+    let ilets = '';
+    itemcount.n = 0;
+    walk_obj_list(objs, here, (otmp) => {
+        const c = def_oc_syms[otmp.oclass | 0]?.sym || '';
+        if (c && !ilets.includes(c) && (!filter || filter(otmp))) ilets += c;
+        itemcount.n += 1;
+    });
+    return ilets;
+}
+
+/** C pickup.c add_valid_menu_class / menu_class_present. */
+export function add_valid_menu_class(c) {
+    if (c === 0) {
+        game.valid_menu_classes = [];
+        game.class_filter = false;
+        game.bucx_filter = false;
+        game.shop_filter = false;
+        game.picked_filter = false;
+        return;
+    }
+    if (menu_class_present(c)) return;
+    if (!game.valid_menu_classes) game.valid_menu_classes = [];
+    game.valid_menu_classes.push(c);
+    if (c === 'B' || c === 'U' || c === 'C' || c === 'X') {
+        game.bucx_filter = true;
+    } else if (c === 'P') {
+        game.picked_filter = true;
+    } else if (c === 'u') {
+        game.shop_filter = true;
+    } else {
+        game.class_filter = true;
+    }
+}
+
+export function menu_class_present(c) {
+    return !!(c && (game.valid_menu_classes || []).includes(c));
+}
+
+/** C pickup.c allow_category. Priest bknown / ParanoidAutoAll named. */
+export function allow_category(obj) {
+    if (!obj) return false;
+    if (!game.class_filter && !game.shop_filter && !game.bucx_filter
+        && !game.picked_filter) {
+        return false;
+    }
+    const vmc = game.valid_menu_classes || [];
+    if (obj.oclass === COIN_CLASS && game.class_filter) {
+        return vmc.includes(COIN_CLASS);
+    }
+    if (game.class_filter && !vmc.includes(obj.oclass)) return false;
+    if (game.shop_filter && !is_unpaid(obj)) return false;
+    if (game.bucx_filter) {
+        let bucx;
+        if (obj.oclass === COIN_CLASS) {
+            bucx = game.flags?.goldX ? 'X' : 'U';
+        } else {
+            bucx = !obj.bknown ? 'X'
+                : obj.blessed ? 'B'
+                    : obj.cursed ? 'C'
+                        : 'U';
+        }
+        if (!vmc.includes(bucx)) return false;
+    }
+    if (game.picked_filter && !obj.pickup_prev) return false;
+    return true;
+}
+
+function tally_BUCX_list(objs, here) {
+    const t = { b: 0, u: 0, c: 0, x: 0, o: 0, j: 0 };
+    walk_obj_list(objs, here, (list) => {
+        if (list.pickup_prev) t.j++;
+        if (list.oclass === COIN_CLASS) {
+            if (game.flags?.goldX) t.x++;
+            else t.u++;
+            return;
+        }
+        if (!list.bknown) t.x++;
+        else if (list.blessed) t.b++;
+        else if (list.cursed) t.c++;
+        else t.u++;
+    });
+    return t;
+}
+
+function unpaid_in_list(objs, here) {
+    let found = false;
+    walk_obj_list(objs, here, (o) => {
+        if (is_unpaid(o)) found = true;
+    });
+    return found;
 }
 
 /**
@@ -1402,7 +1510,7 @@ async function query_loot_category(olist, prompt) {
  * C ref: pickup.c menu_loot(0, FALSE) — take out via MENU_FULL category
  * then query_objlist(INVORDER_SORT, !USE_INVLET) PICK_ANY.
  * `@` invert-all; Return → out_container.
- * Named omissions: autopick 'A'; MENU_PARTIAL; traditional_loot;
+ * Named omissions: autopick 'A'; MENU_PARTIAL; menu_loot -2/-3;
  * menu_head_objsym; INCLUDE_VENOM; FEEL_COCKATRICE.
  */
 async function menu_loot_takeout(container) {
@@ -2074,18 +2182,327 @@ export async function observe_quantum_cat(box, makecat, givemsg) {
     }
 }
 
+const ynaqchars = 'ynaq';
+const ynNaqchars = 'yn#aq';
+const NOINVSYM = '#';
+
+/** C pickup.c simple_look — NHW_MENU of doname for query_classes ':'. */
+async function simple_look(otmp, here) {
+    if (!otmp) return;
+    if (Array.isArray(otmp)) {
+        if (otmp.length <= 1) {
+            if (otmp[0]) await pline(doname(otmp[0]));
+            return;
+        }
+        const lines = [''];
+        for (const o of otmp) if (o) lines.push(doname(o));
+        await show_nhw_menu_text(lines);
+        return;
+    }
+    if (!(here ? otmp.nexthere : otmp.nobj)) {
+        await pline(doname(otmp));
+        return;
+    }
+    const lines = [''];
+    walk_obj_list(otmp, here, (o) => { lines.push(doname(o)); });
+    await show_nhw_menu_text(lines);
+}
+
+/**
+ * C pickup.c query_classes `:140–262` — Traditional class getlin.
+ */
+async function query_classes(action, objs, here, menu_on_demand) {
+    const itemcount = { n: 0 };
+    let ilets = collect_obj_classes(objs, here, null, itemcount);
+    if (!ilets) return { ok: false, oclasses: [], one_at_a_time: false, everything: false };
+    let oclasses = [];
+    let one_at_a_time = false;
+    let everything = false;
+    let m_seen = false;
+    if (ilets.length === 1) {
+        oclasses = [def_char_to_objclass(ilets.charAt(0))];
+    } else {
+        ilets += ' ';
+        ilets += 'a';
+        ilets += 'A';
+        ilets += (objs === game.invent ? 'i' : ':');
+    }
+    if (itemcount.n && menu_on_demand) ilets += 'm';
+    if (unpaid_in_list(objs, here)) ilets += 'u';
+    const buc = tally_BUCX_list(objs, here);
+    if (buc.b) ilets += 'B';
+    if (buc.u) ilets += 'U';
+    if (buc.c) ilets += 'C';
+    if (buc.x) ilets += 'X';
+    if (buc.j) ilets += 'P';
+
+    if (ilets.length > 1) {
+        for (;;) {
+            oclasses = [];
+            one_at_a_time = false;
+            everything = false;
+            let not_everything = false;
+            let filtered = false;
+            m_seen = false;
+            const qbuf = `What kinds of thing do you want to ${action}? [${ilets}]`;
+            const inbuf = await getlin(qbuf);
+            if (inbuf === '\x1b') {
+                return { ok: false, oclasses: [], one_at_a_time: false, everything: false };
+            }
+            let where = null;
+            let look_again = false;
+            for (const sym of inbuf) {
+                if (sym === ' ') continue;
+                if (sym === 'A') {
+                    one_at_a_time = true;
+                } else if (sym === 'a') {
+                    everything = true;
+                } else if (sym === ':') {
+                    await simple_look(objs, here);
+                    const first = Array.isArray(objs) ? objs[0] : objs;
+                    if (first?.where === OBJ_CONTAINED && first.ocontainer) {
+                        first.ocontainer.cknown = 1;
+                    }
+                    look_again = true;
+                    break;
+                } else if (sym === 'i') {
+                    await display_inventory();
+                    look_again = true;
+                    break;
+                } else if (sym === 'm') {
+                    m_seen = true;
+                } else if ('uBUCXP'.includes(sym)) {
+                    add_valid_menu_class(sym);
+                    filtered = true;
+                } else {
+                    const oc = def_char_to_objclass(sym);
+                    if (ilets.includes(sym)) {
+                        add_valid_menu_class(oc);
+                        if (!oclasses.includes(oc)) oclasses.push(oc);
+                    } else {
+                        if (where == null) {
+                            where = action === 'pick up' ? 'here'
+                                : action === 'take out' ? 'inside' : '';
+                        }
+                        if (where) {
+                            await pline(`There are no ${sym}'s ${where}.`);
+                        } else {
+                            await pline(`You have no ${sym}'s.`);
+                        }
+                        not_everything = true;
+                    }
+                }
+            }
+            if (look_again) continue;
+            if (m_seen && menu_on_demand) {
+                menu_on_demand.n = ((everything || !oclasses.length) && !filtered)
+                    ? -2 : -3;
+                return { ok: false, oclasses, one_at_a_time, everything };
+            }
+            if (!oclasses.length && (!everything || not_everything)) {
+                one_at_a_time = true;
+                everything = false;
+            }
+            break;
+        }
+    }
+    return { ok: true, oclasses, one_at_a_time, everything };
+}
+
+function obj_still_on_list(obj, listhead) {
+    if (!obj || listhead == null) return false;
+    if (Array.isArray(listhead)) return listhead.includes(obj);
+    for (let o = listhead; o; o = o.nobj) {
+        if (o === obj) return true;
+    }
+    return false;
+}
+
+function bypass_objlist_ask(head, on) {
+    walk_obj_list(head, false, (o) => { o.bypass = on ? 1 : 0; });
+}
+
+function nxt_unbypassed_loot(sorted, listhead, cursor) {
+    while (cursor.i < sorted.length) {
+        const obj = sorted[cursor.i].obj;
+        cursor.i++;
+        if (obj_still_on_list(obj, listhead) && !obj.bypass) {
+            obj.bypass = 1;
+            return obj;
+        }
+    }
+    return null;
+}
+
+function container_gone_ask(fn) {
+    return (fn === in_container || fn === out_container)
+        && !game._current_container;
+}
+
+/**
+ * C invent.c askchain `:2376–2541`. Live: put-in/take-out. Named: taking_off /
+ * is_worn / identify / ggetobj drop; worn.c clear_bypasses.
+ */
+export async function askchain(getHead, ininv, olets, allflag, fn, ckfn, mx, word) {
+    const take_out = word === 'take out';
+    const put_in = word === 'put in';
+    const nodot = word === 'nodot' || word === 'drop' || word === 'identify'
+        || take_out || put_in;
+    const bycat = menu_class_present('u') || menu_class_present('B')
+        || menu_class_present('U') || menu_class_present('C')
+        || menu_class_present('X') || menu_class_present('P');
+
+    let oletList = olets && olets.length ? olets.slice() : null;
+    const head0 = getHead();
+    const sorted = sortloot(head0, SORTLOOT_INVLET, false);
+    bypass_objlist_ask(head0, false);
+
+    let cnt = 0;
+    let dud = 0;
+    let first = true;
+    let oletsIdx = 0;
+
+    nextclass: for (;;) {
+        let ilet = 'a'.charCodeAt(0) - 1;
+        const live0 = getHead();
+        bypass_objlist_ask(live0, false);
+        const firstObj = Array.isArray(live0) ? live0[0] : live0;
+        if (firstObj && firstObj.oclass === COIN_CLASS) ilet--;
+        const cursor = { i: 0 };
+        let otmp;
+        while ((otmp = nxt_unbypassed_loot(sorted, getHead(), cursor))) {
+            if (ilet === 'z'.charCodeAt(0)) ilet = 'A'.charCodeAt(0);
+            else if (ilet === 'Z'.charCodeAt(0)) ilet = NOINVSYM.charCodeAt(0);
+            else ilet++;
+            const iletCh = String.fromCharCode(ilet);
+            if (oletList && oletList.length
+                && otmp.oclass !== oletList[oletsIdx]) {
+                continue;
+            }
+            if (ckfn && !ckfn(otmp)) continue;
+            if (bycat && !allow_category(otmp)) continue;
+
+            let sym;
+            if (!allflag) {
+                let qpfx = '';
+                if (first) {
+                    if (take_out || put_in) {
+                        qpfx = `${highc(word.charAt(0))}${word.slice(1)}: `;
+                    }
+                    first = false;
+                }
+                const letch = (ininv && game.flags?.invlet_constant !== false
+                    && otmp.invlet)
+                    ? otmp.invlet : iletCh;
+                const shown = ininv
+                    ? xprname(otmp, letch, !nodot)
+                    : doname(otmp);
+                const qbuf = `${qpfx}${shown}?`;
+                const resp = (otmp.quan < 2) ? ynaqchars : ynNaqchars;
+                sym = await yn_function(qbuf, resp, 'n');
+            } else {
+                sym = 'y';
+            }
+
+            const otmpo = otmp;
+            if (sym === '#') {
+                const yn_number = game.yn_number | 0;
+                if (!yn_number) {
+                    sym = 'n';
+                } else {
+                    sym = 'y';
+                    if (yn_number < (otmp.quan || 1) && splittable(otmp)) {
+                        otmp = splitobj(otmp, yn_number);
+                    }
+                }
+            }
+            switch (sym) {
+            case 'a':
+                allflag = true;
+                // FALLTHROUGH
+            case 'y': {
+                const tmp = await fn(otmp);
+                if (tmp <= 0) {
+                    if (container_gone_ask(fn)) {
+                        otmp = null;
+                    } else if (otmp && otmp !== otmpo) {
+                        unsplitobj(otmp);
+                    }
+                    if (tmp < 0) {
+                        bypass_objlist_ask(getHead(), false);
+                        return cnt;
+                    }
+                }
+                cnt += tmp;
+                if (--mx === 0) {
+                    bypass_objlist_ask(getHead(), false);
+                    return cnt;
+                }
+                // FALLTHROUGH
+            }
+            case 'n':
+                if (nodot) dud++;
+                break;
+            case 'q':
+                bypass_objlist_ask(getHead(), false);
+                return cnt;
+            default:
+                break;
+            }
+        }
+        if (oletList && oletList.length && ++oletsIdx < oletList.length) {
+            continue nextclass;
+        }
+        break;
+    }
+
+    if (dud || cnt) {
+        await pline('That was all.');
+    } else {
+        await pline('No applicable objects.');
+    }
+    bypass_objlist_ask(getHead(), false);
+    return cnt;
+}
+
+/** C pickup.c traditional_loot `:3229–3261`. menu 'm' → existing FULL menu_loot. */
+async function traditional_loot(put_in) {
+    let used = ECMD_OK;
+    const action = put_in ? 'put in' : 'take out';
+    const getHead = put_in
+        ? () => game.invent || []
+        : () => game._current_container?.cobj || null;
+    const actionfunc = put_in ? in_container : out_container;
+    const checkfunc = put_in ? ck_bag : null;
+    if (!put_in) game.pickup_encumbrance = 0;
+
+    const menu_on_request = { n: 0 };
+    const q = await query_classes(action, getHead(), false, menu_on_request);
+    if (q.ok) {
+        const olets = q.one_at_a_time ? null : q.oclasses;
+        const n = await askchain(
+            getHead, put_in, olets, q.everything,
+            actionfunc, checkfunc, 0, action,
+        );
+        if (n) used = ECMD_TIME;
+    } else if (menu_on_request.n < 0) {
+        const n = put_in
+            ? await menu_loot_putin(game._current_container)
+            : await menu_loot_takeout(game._current_container);
+        used = n > 0 ? ECMD_TIME : ECMD_OK;
+    }
+    return used;
+}
+
 /**
  * C ref: pickup.c use_container — held/floor container loot.
  * Branch envelope: u_handsy; unlocked; MENU_FULL/PARTIAL in_or_out_menu
  * (lootabc); TRADITIONAL/COMBINATION yn_function (D-1567); ':' look;
  * '?' explain_container_prompt; 'o' take-out; 'i' put-in; 'b' out then
  * in; 'r' in then out (loot_in_first); 's' stash ALLOWCNT (D-1561);
- * 'q' abort.
- * Named omissions: chest trap; BoT; traditional_loot askchain;
- * yn_function addcmdq; in_or_out_menu more_containers 'n' row; autopick
- * 'A'; cursed-mbag emptymsg "now "; mbag explosion body (null
- * current_container still gates reversed take-out); Confusion
- * reverse_loot.
+ * 'q' abort; MENU_TRADITIONAL traditional_loot + askchain (D-1581).
+ * Named omissions: chest trap; BoT; in_or_out_menu more_containers 'n' row;
+ * mbag explosion body; ggetobj askchain takeoff/identify; floor query_classes.
  *
  * @param {object} obj container
  * @param {boolean} [held=false] applied from invent
@@ -2184,7 +2601,11 @@ export async function use_container(obj, held = false, more_containers = false) 
             if (!obj.cknown) used = ECMD_TIME;
             obj.cknown = 1;
         } else {
-            used |= await menu_loot_takeout(obj);
+            add_valid_menu_class(0);
+            used |= style === MENU_TRADITIONAL
+                ? await traditional_loot(false)
+                : await menu_loot_takeout(obj);
+            add_valid_menu_class(0);
         }
         inokay = (game.invent || []).some((o) => o && o !== obj);
     }
@@ -2199,7 +2620,11 @@ export async function use_container(obj, held = false, more_containers = false) 
     }
 
     if (loot_in) {
-        used |= await menu_loot_putin(obj);
+        add_valid_menu_class(0);
+        used |= style === MENU_TRADITIONAL
+            ? await traditional_loot(true)
+            : await menu_loot_putin(obj);
+        add_valid_menu_class(0);
     } else if (stash_one) {
         // C: getobj("stash", stash_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
         const otmp = await getobj_stash();
@@ -2223,7 +2648,11 @@ export async function use_container(obj, held = false, more_containers = false) 
             if (!cont.cknown) used = 1;
             cont.cknown = 1;
         } else {
-            used |= await menu_loot_takeout(cont);
+            add_valid_menu_class(0);
+            used |= style === MENU_TRADITIONAL
+                ? await traditional_loot(false)
+                : await menu_loot_takeout(cont);
+            add_valid_menu_class(0);
         }
     }
 
