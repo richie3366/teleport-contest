@@ -17,7 +17,7 @@ import {
     MIGR_STAIRS_DOWN, MIGR_LADDER_UP, MIGR_LADDER_DOWN, MIGR_SSTAIRS,
     MIGR_PORTAL, MIGR_WITH_HERO, MIGR_LEFTOVERS, MON_MIGRATING, MON_LIMBO,
     STRAT_ARRIVE, RLOC_NOMSG, MAGIC_PORTAL, In_endgame, isok, MTSZ, MANFOOD,
-    DOGFOOD, ACCFOOD, FULL_MOON, Upolyd, has_edog, EDOG,
+    DOGFOOD, ACCFOOD, FULL_MOON, Upolyd, has_edog, EDOG, LL_CONDUCT,
     DF_ALL, COLNO, ROWNO, ROOMOFFSET, IS_WALL,
 } from './const.js';
 import { SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
@@ -31,7 +31,7 @@ import {
     PM_RANGER,
 } from './generated/monsters_data.js';
 import { acurr, A_CHA } from './attrib.js';
-import { christen_monst, Monnam } from './do_name.js';
+import { christen_monst, Monnam, mon_pmname } from './do_name.js';
 import { monnear, m_at, see_monster_closeup, minliquid, restore_cham, wake_nearto } from './mon.js';
 import { enexto, rloc_to, rloc, rloc_to_flag, goodpos } from './teleport.js';
 import { put_saddle_on_mon } from './steed.js';
@@ -40,7 +40,9 @@ import { redraw_worm } from './worm.js';
 import { hero_conflict } from './mondata.js';
 import { cansee } from './vision.js';
 import { night } from './calendar.js';
-import { Tobjnam, the, xname } from './objnam.js';
+import { Tobjnam, the, xname, an } from './objnam.js';
+import { livelog_printf } from './pline.js';
+import { uhis } from './roles.js';
 import { objectNames } from './generated/objects_data.js';
 import { expels, unstuck } from './mhitu.js';
 import { sticks } from './engrave.js';
@@ -96,7 +98,8 @@ export function initedog(mtmp, everything) {
         // C: ACURR(A_CHA) at makedog — before init_attr, clamps to 3
         edogp.apport = acurr(A_CHA);
         edogp.whistletime = 0;
-        edogp.ogoal = { x: 0, y: 0 }; // C: ogoal.x==-1; JS dog_goal still 0 unset
+        // C: ogoal.x/y = -1 — force error if used before set
+        edogp.ogoal = { x: -1, y: -1 };
         edogp.abuse = 0;
         edogp.revivals = 0;
         edogp.mhpmax_penalty = 0;
@@ -107,9 +110,14 @@ export function initedog(mtmp, everything) {
     if ((edogp.hungrytime || 0) < minhungry) edogp.hungrytime = minhungry;
     // dogmove/sounds still read mtmp.edog
     mtmp.edog = edogp;
-    // C: u.uconduct.pets++ (livelog only when !pets && in_moveloop — deferred)
+    // C: livelog first pet only if !pets && in_moveloop (starting pet
+    // is initialized before in_moveloop); then always u.uconduct.pets++
     if (!game.u) game.u = {};
     if (!game.u.uconduct) game.u.uconduct = {};
+    if (!(game.u.uconduct.pets | 0) && (game.program_state?.in_moveloop | 0)) {
+        livelog_printf(LL_CONDUCT, 'obtained %s first pet (%s)',
+            uhis(), an(mon_pmname(mtmp)));
+    }
     game.u.uconduct.pets = (game.u.uconduct.pets | 0) + 1;
 }
 
@@ -175,7 +183,7 @@ async function pick_familiar_pm(otmp, quietly) {
  * (otmp null). makemon MM_EDOG|MM_IGNOREWATER|NO_MINVENT|MM_NOMSG + gender;
  * figurine shatter / angel free_emin; pool minliquid; rn2(10) then B/U/C
  * 80/10/10 tame·peace·hostile; named christen; initedog; AT_WEAP wield.
- * Spell dispatch is D-1389. Named omit: livelog first pet.
+ * Spell dispatch is D-1389. initedog livelog is D-1610.
  */
 export async function make_familiar(otmp, x, y, quietly) {
     let mtmp = null;

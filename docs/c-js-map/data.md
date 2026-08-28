@@ -855,8 +855,12 @@ AT_HUGS=6; after mflee, before already-tame food);
 **`tamedog` `initedog` `has_edog` vs `!mtame` D-1595** (C `:1253–1259`
 `newedog`+`initedog(TRUE)` else `initedog(FALSE)`; `dog.c` `newedog`
 `:22–32`; `makemon.c` MM_EDOG `:1245–1246`; `initedog` `EDOG(mtmp)`;
-mirrors `mtmp.edog` for dogmove; livelog first pet / ogoal `-1` /
-`free_edog` / restore `newedog` named)
+mirrors `mtmp.edog` for dogmove;
+**`initedog` ogoal `-1` + first-pet livelog D-1610** (C `:63–87`;
+`dog_goal` `ogoal.x` truthy sentinel; live `livelog_printf`/`uhis`/`an`/
+export `mon_pmname`; starting pet skips livelog because `!in_moveloop`);
+`free_edog` (extern only) / restore `newedog` / read.c light-scroll
+`initedog` named)
 
 
 

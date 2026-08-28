@@ -429,7 +429,7 @@ export function pmname(pm, mgender) {
  * C ref: do_name.c Mgender / mon_pmname — gender-aware pmnames[].
  * Preserves table casing (e.g. "Wizard of Yendor", not lowercased PM_).
  */
-function mon_pmname(mtmp) {
+export function mon_pmname(mtmp) {
     const mndx = mtmp?.mnum ?? mtmp?.data?.mndx;
     if (mndx != null && mndx >= 0 && pmnames[mndx]) {
         const g = mtmp?.female ? FEMALE : MALE;

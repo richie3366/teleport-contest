@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `mon.c` `m_unleash` (named). Not newcham. **Addressed:** D-1609
+- [x] `dog.c` `initedog` ogoal `-1` (named). Not has_edog. **Addressed:** D-1610
+
+
+- [x] `mon.c` `m_unleash` (named). Not newcham. **Addressed:** D-1609 `c3d43f93`
 
 
 - [x] `minion.c` `gain_guardian_angel` (named). Not create_mplayers. **Addressed:** D-1608 `43209cfb`

@@ -1,3 +1,25 @@
+## D-1610 — dog.c initedog ogoal -1 / first-pet livelog
+
+- **Status:** fixed (map-driven Open from D-1609; not a public FAIL)
+- **Symptom:** `initedog(everything)` stored `ogoal` as `{x:0,y:0}` so
+  `dog_goal`'s `if (edog->ogoal.x)` treated unset as falsy (skip to
+  wantdoor) instead of C's `-1` sentinel (truthy reuse). First-pet
+  livelog (`!pets && in_moveloop`) was still named after D-1595.
+- **C locus:** `dog.c` `initedog` `:63–87`. Consumer `dogmove.c`
+  `dog_goal` `:617–626` (`ogoal.x` truthy). Callees `livelog_printf`
+  / `uhis` / `an` / `mon_pmname`.
+- **JS was:** named omit after D-1595 (`has_edog` live; ogoal `0,0`
+  + livelog deferred).
+- **Fix:** `ogoal = {x:-1,y:-1}` on the everything arm. Livelog then
+  `pets++`. One `mon_pmname` export (no clone). `dog_goal` still
+  tests truthiness. Rule #2: no fs.
+- **JS:** `js/dog.js` `initedog`; `js/do_name.js` `mon_pmname`.
+- **Not this iter:** `free_edog` (extern only, no src callers);
+  restore `newedog`; read.c light-scroll `initedog`. has_edog is
+  D-1595. `m_unleash` is D-1609. Not D-0006.
+- **Verified:** private canary **11**/11; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1609 — apply.c m_unleash / mon.c m_detach
 
 - **Status:** fixed (map-driven Open from D-1608; not a public FAIL)

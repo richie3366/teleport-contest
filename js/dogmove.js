@@ -529,6 +529,7 @@ function dog_goal(mtmp, edog, after, udist, whappr) {
                 edog.ogoal.x = 0;
             }
         } else if (edog && edog.ogoal?.x
+            // C: edog->ogoal.x — 0 unset; initedog -1 is truthy sentinel
             && (edog.ogoal.x !== omx || edog.ogoal.y !== omy)) {
             gg.gx = edog.ogoal.x;
             gg.gy = edog.ogoal.y;

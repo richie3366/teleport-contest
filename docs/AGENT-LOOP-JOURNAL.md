@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1610 dog.c initedog ogoal -1 / first-pet livelog
+
+**Objective:** Open `dog.c` `initedog` ogoal `-1` (named). Not has_edog.
+**C locus:** `dog.c` `initedog` `:63–87`; consumer `dog_goal` `:617`.
+**JS locus:** `js/dog.js` `initedog`; export `js/do_name.js` `mon_pmname`.
+**Change:** everything-arm `ogoal` `-1,-1`; livelog when `!pets &&
+in_moveloop` then `pets++`. `dog_goal` still tests truthiness.
+`free_edog` / restore `newedog` named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **11**/11; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open getline ^P `tty_doprev_message`. Not command ^P.
+**Blocked:** none.
 ## 2026-08-29 — D-1609 apply.c m_unleash / mon.c m_detach
 
 **Objective:** Open `mon.c` `m_unleash` (named). Not newcham.

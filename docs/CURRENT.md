@@ -62,30 +62,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1609 (seed4500 still PASS). **Next cluster:**
-Open `dog.c` `initedog` ogoal `-1` (named). Not has_edog. Not D-0006.
-**Do not skip D-1531…D-1609 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1610 (seed4500 still PASS). **Next cluster:**
+Open `getline.c` getlin ^P `tty_doprev_message` (named). Not command ^P.
+**Do not skip D-1531…D-1610 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1609.** Do not FORCE
+**Do not re-break D-0660…D-1610.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1609 (index). Recent: **D-1609**
+**Keep:** D-0845…D-1610 (index). Recent: **D-1610**
+`dog.c` `initedog` ogoal `-1` + first-pet livelog (`!pets &&
+in_moveloop`); `dog_goal` still tests `ogoal.x` truthiness;
+`mon_pmname` one export. `free_edog` / restore `newedog` named.
+Prior: **D-1609**
 `apply.c` `m_unleash` (`pline_mon` + `update_inventory`) plus
 `mon.c` `m_detach` FALSE and dogmove ALLOW_U; explmm slack after
-mondead. newcham mleashed named. Prior: **D-1608**
-`minion.c` `gain_guardian_angel` (Astral `final_level` after
-`create_mplayers`; Conflict `lose_guardian_angel` + fervent
-`mk_roamer` angel; `Hear_again` / `mk_roamer` one export each).
-Prior: **D-1607**
-`makemon.c` `mongets` mplayer-sword `spe=3+rn2(4)` plus same-function
-demon/`is_lminion`/candelabrum/Bell/Book arms; obj.h `is_sword` one
-export. Older D-1531…D-1606 live in the index — do not re-paste.
+mondead. newcham mleashed named. Older D-1531…D-1608 live in
+the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1609 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1610 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -94,6 +92,7 @@ Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
 Do not re-port `mongets` sword `spe`. Do not re-port
 `gain_guardian_angel`. Do not re-port `m_unleash`.
+Do not re-port `initedog` ogoal / first-pet livelog.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 
