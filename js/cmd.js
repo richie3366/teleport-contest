@@ -1975,8 +1975,8 @@ export async function rhack(key) {
     // reads it to call doset; ^T→dotelecmd m-prefix menu D-1209; #→doextcmd
     // then the resolved extcmd's own flag, D-1230). Drop only when the next
     // command rejects 'm'.
-    // Named omission: full accept_menu_prefix table — O/,/e/q/a/s/p/>/< /^T /#
-    // + seeweapon/seearmor/seerings/seeamulet/seetools/seeall (D-1589).
+    // Named omission: full rhack-key accept_menu_prefix table.
+    // Typed # uses EXTCMDLIST CMD_M_PREFIX (D-1605 #seeall). Keys )[="(* D-1589.
     const accepts_m_prefix = ch === 'O' || ch === ',' || ch === 'e'
         || ch === 'q' || ch === 'a' || ch === 's' || ch === 'p'
         || ch === '>' || ch === '<'

@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1605 cmd.c #seeall EXT_CMDS
+
+**Objective:** Open `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse.
+**C locus:** `cmd.c` `:1848–1849` `"seeall"` `doprinuse`;
+`doextcmd` `:505–514`; `accept_menu_prefix` `:3507–3512`.
+**JS locus:** `js/getline.js` EXT_CMDS / `doextcmd`.
+**Change:** typed `#seeall` runner; flag `accept_menu_prefix`;
+`can_do_extcmd`; sibling see* live dopr*. `*` key unchanged.
+`doextlist` / BIND= named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `mplayer_talk`. Not create_mplayers.
+**Blocked:** none.
 ## 2026-08-29 — D-1604 zap.c bhit !Blind youprop
 
 **Objective:** Must-fix **558** zap `bhit` `show_transient_light`

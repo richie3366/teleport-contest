@@ -8,6 +8,7 @@ import {
     COLNO, QBUFSZ, PARANOID_CONFIRM,
     ECM_IGNOREAC, ECM_EXACTMATCH, ECM_NO1CHARCMD,
     INTERNALCMD, AUTOCOMPLETE, WIZMODECMD, CMD_NOT_AVAILABLE,
+    CMD_M_PREFIX,
 } from './const.js';
 import { EXTCMDLIST } from './generated/extcmdlist_data.js';
 
@@ -617,6 +618,67 @@ const EXT_CMDS = [
             return doherecmdmenu();
         },
     },
+    {
+        // C: cmd.c "seeall" IFBURIED|GENERALCMD|CMD_M_PREFIX (no AUTOCOMPLETE)
+        // → doprinuse. Key '*'. Body D-0340/D-1589; this is the typed # runner.
+        name: 'seeall',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { doprinuse } = await import('./invent.js');
+            return doprinuse();
+        },
+    },
+    {
+        // C: cmd.c "seeweapon" same flags → doprwep. Key ')'.
+        name: 'seeweapon',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { doprwep } = await import('./invent.js');
+            return doprwep();
+        },
+    },
+    {
+        // C: cmd.c "seearmor" same flags → doprarm. Key '['.
+        name: 'seearmor',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { doprarm } = await import('./invent.js');
+            return doprarm();
+        },
+    },
+    {
+        // C: cmd.c "seerings" same flags → doprring. Key '='.
+        name: 'seerings',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { doprring } = await import('./invent.js');
+            return doprring();
+        },
+    },
+    {
+        // C: cmd.c "seeamulet" same flags → dopramulet. Key '"'.
+        name: 'seeamulet',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { dopramulet } = await import('./invent.js');
+            return dopramulet();
+        },
+    },
+    {
+        // C: cmd.c "seetools" same flags → doprtool. Key '('.
+        name: 'seetools',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { doprtool } = await import('./invent.js');
+            return doprtool();
+        },
+    },
 ];
 
 function wizardMode() {
@@ -659,15 +721,15 @@ export function extcmds_match(findstr, ecmflags) {
 }
 
 /**
- * C ref: cmd.c accept_menu_prefix — CMD_M_PREFIX on the resolved extcmd.
- * Names currently in EXT_CMDS that C marks CMD_M_PREFIX. Expand when a
- * new runner is added with that flag. cmd_from_func(do_reqmenu) named
- * (this port's m-prefix key is always 'm').
+ * C ref: cmd.c accept_menu_prefix `:3507–3512` — CMD_M_PREFIX on the
+ * resolved extcmdlist row (not a name set). cmd_from_func(do_reqmenu)
+ * visctrl named (this port's m-prefix key is always 'm').
+ * @param {{ flags?: number } | null | undefined} extcmd
+ * @returns {boolean}
  */
-const EXTCMD_M_PREFIX = new Set([
-    'annotate', 'dip', 'genocided', 'loot', 'offer', 'overview',
-    'pay', 'teleport', 'tip', 'travel', 'vanquished', 'wizwish',
-]);
+function accept_menu_prefix(extcmd) {
+    return !!(extcmd && ((extcmd.flags | 0) & CMD_M_PREFIX));
+}
 
 /** C ref: cmd.c extcmds_match(ECM_NOFLAGS) — AUTOCOMPLETE + !WIZ unless wizard */
 function availableAcNames() {
@@ -768,17 +830,15 @@ export async function doextcmd() {
     if (idx < 0) return 0; // ECMD_OK
     const ec = availableExtCmds()[idx];
     if (!ec) return 0;
-    if (ec.wiz && !wizardMode()) {
-        await pline(`That is a wizard-mode command.`);
-        return 0;
-    }
-    /* C cmd.c:507–511 — keep m only if the resolved command accepts it. */
-    if (game.iflags?.menu_requested && !EXTCMD_M_PREFIX.has(ec.name)) {
+    /* C cmd.c:505–515 — extcmdlist row, can_do_extcmd, then m-prefix. */
+    const row = EXTCMDLIST.find((e) => e.txt.toLowerCase() === ec.name);
+    const { can_do_extcmd } = await import('./cmd.js');
+    if (!(await can_do_extcmd(row))) return 0;
+    if (game.iflags?.menu_requested && !accept_menu_prefix(row)) {
         await pline(`'m' prefix has no effect for the ${ec.name} command.`);
         game.iflags.menu_requested = false;
     }
     /* C cmd.c:513 — tell rhack() what command is actually executing */
-    const row = EXTCMDLIST.find((e) => e.txt.toLowerCase() === ec.name);
     game.ext_tlist = {
         txt: ec.name,
         run: ec.run,

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `zap.c` `bhit` `show_transient_light` `!Blind` must use youprop `(HBlinded||EBlinded)&&!BBlinded` (`youprop.h:103`), not `zap.js` sticky `u.Blind||u.ublind`. Source: reviews/loop-unattended/558-9244ce75-show-transient-light.md **Addressed:** D-1604
+- [x] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse. **Addressed:** D-1605
+
+
+- [x] `zap.c` `bhit` `show_transient_light` `!Blind` must use youprop `(HBlinded||EBlinded)&&!BBlinded` (`youprop.h:103`), not `zap.js` sticky `u.Blind||u.ublind`. Source: reviews/loop-unattended/558-9244ce75-show-transient-light.md **Addressed:** D-1604 `49933ea8`
 
 
 - [x] `allmain.c` new-game `program_state.beyond_savefile_load = 1` (`:71`, “for TTY_PERM_INVENT”) and `restore.c` `:942` after load. JS `sync_perminvent` gates `pickinv_build_perm` on that field but never sets it, so D-1600 InvInUse filter is dead. Source: reviews/loop-unattended/561-fb87326a-perm-invent-inv-inuse.md **Addressed:** D-1603 `d1a832a1`

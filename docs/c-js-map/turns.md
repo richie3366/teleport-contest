@@ -233,7 +233,12 @@ VERBOSE_TIMER names / `fmt_ptr` heap / save `timer_id` / `wiz_light_sources` /
 `timer_sanity_check` named)/ **INTERNALCMD `#altdip` → `dip_into`** (D-1537; 
 C `cmd.c` `:2063` table + `ext_func_tab_from_func`/`cmdq_add_ec` `CMDQ_EXTCMD` + 
 `extcmds_match` skip + `can_do_extcmd` buried no `IFBURIED`; typed `#altdip` unknown; 
-`cmd_from_ecname` `#altdip`; **Eyes `is_plural` D-1552** (C `obj.h` 
+`cmd_from_ecname` `#altdip`; **`#seeall` EXT_CMDS `doprinuse` D-1605**
+(C `cmd.c` `:1848–1849` `*` / no AUTOCOMPLETE / `IFBURIED|GENERALCMD|CMD_M_PREFIX`;
+typed runner `js/getline.js` EXT_CMDS; `doextcmd` `can_do_extcmd` +
+`accept_menu_prefix` flag not a name set; sibling `#seeweapon`/`#seearmor`/
+`#seerings`/`#seeamulet`/`#seetools` live dopr* callees; `*` key is D-0340;
+`doextlist` / BIND= `seeall` named); **Eyes `is_plural` D-1552** (C `obj.h` 
 `is_plural` + `artifact.c` `undiscovered_artifact` `:1130–1143`; 
 `objnam.c` `otense`/`not_fully_identified`/`obj_is_pname`; 
 `invent.c` `fully_identify_obj` `discover_artifact`; 
@@ -262,7 +267,7 @@ eel hideunder/`rn2(4)` / I_SPECIAL equip deferred);
 omit binary NHFILE/ledger-1 escape yn, mysterious force, quest gate, portals; 
 trap-door fall D-1179; Lua `NHCB_LVL_LEAVE`; 
 full `TEST_TRAV`/`TRAVP_GUESS`/`travelmap`/`#retravel`; **`#wizmakemap` D-1288**; 
-remaining `extcmdlist` bodies; …
+**`#seeall` D-1605**; remaining `extcmdlist` bodies; …
 **`body_part`** exact-name clones import `polyself.js` (wield via
 `objnam.js` `body_part_latebound`; D-1496). `zap.js` appends `body_part`
 to its existing polyself import. **`mcastu` `body_part(HEAD)` +
@@ -1635,13 +1640,15 @@ MENU_PREV/FIRST/LAST + other NHW_MENU callers still single-page);
 **`$`/`doprgold` wallet pline** (D-0338); 
 **`)`/`doprwep` bare-handed / wielded `xprname`** (D-0339; m-prefix inuse menu D-1589); 
 **`[`/`doprarm` + `=`/`"`/`(`/`doprring`/`dopramulet`/`doprtool`/`*` `doprinuse`** (D-0340; 
-**inuse `dispinv` D-1589**; uskin noarmor deferred); 
+**inuse `dispinv` D-1589**; uskin noarmor deferred; **`#seeall` EXT_CMDS D-1605**
+typed runner + sibling `#seeweapon`/`#seearmor`/`#seerings`/`#seeamulet`/`#seetools`;
+`doextlist` named); 
 **`doattributes` Background `In_endgame`/`endgamelevelname` + moves==1 just-started + 
 wizard XP delta** (D-0572; `MAGICENLIGHTENMENT` Attributes for wizard ^X + status `<%d>` + 
 Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; **canned CMDQ_INT D-1551** (`need_more_cq` INT then KEY + split_otmp; apply/grease/jelly/rub KEY); **`display_pickinv` `&ctmp` D-1559** (PICK_ONE digits / n==1 `-1`; ALLOWCNT throw/drop/wield/ready/charge/adjust; **stash D-1561**); **`in_doagain` CQ_REPEAT D-1563**; **eat/read/zap/tin getobj NOFLAGS D-1568** (`js/invent.js` `getobj`; eat_ok/tin_ok/tinopen_ok NOFLAGS; read_ok GETOBJ_PROMPT; zap_ok NOFLAGS; empty !forceprompt; digit reject; pickinv null out_cnt; floorfood `getobj_else`; sacrifice/offer_ok named); **`display_pickinv` hands/xtra_choice D-1569** (`getobj_hands_txt`; usextra n-bump + n==1 `message_menu(HANDS_SYM)`; sortpack Miscellaneous `'-'` row; live getobj `- ` SUGGEST prefix; wield/ready/grease/dip_ok); **force_invmenu `*`/`?` redo D-1578** (`getobj` skip yn auto `?`/`*` oneloop; `display_pickinv` Special `(list everything)`/`(list likely candidates)` + tty_end_menu query; `getobj_display_pickinv` redo_menu); **mime_action D-1579** (`invent.c` `:1677–1706`; typed `'-'` `!allownone`; `hacklib.c` `ing_suffix`; getobj_adjust `'-'`; pickinv `'-'` no mime); **gacc / `'0'` ball D-1580** (`invent.c` `:3323–3325` non-wizid gacc 0; `let_to_name` showsym `"  ('%c')"`; `drawing.c` `def_oc_syms` BALL `'0'`; `wintty.c` collect gacc + `!counting && strchr(gacc,'0')`); **`sortloot` INVLET D-1581** (askchain; invent Array); **ggetobj takeoff/identify D-1602** (`invent.c` `:2199–2369` Traditional getlin class prompt; takeoff `is_worn` / identify `not_fully_identified`; `askchain` `:2376–2541` worn/unid filters + ident `'q'` `-1` + skip takeoff `"That was all."`; callers `identify_pack` MENU_TRADITIONAL + `doddoremarm` `select_off`; `take_off` occupation / `menu_remarm` / ggetobj drop named); **putmsghistory D-1588** (`invent.c` getobj `:1926–1928` `msggiven` + `topl.c` `tty_putmsghistory`/`remember_topl`/`dumplogmsg`; getobj_adjust clone); **`sortloot` inuse_only D-1589** (`invent.c` `inuse_classify` `:70–144` + `sortloot_cmp` SORTLOOT_INUSE + `display_pickinv` `:3186–3317` `is_inuse` filter / fake HANDS_SYM W_WEP / inuse_headers; `dispinv_with_action` `flags.sortloot='i'`; `doprinuse` `*`; CMD_M_PREFIX `)`/`[`/`=`/`"`/`(`/`*`); **perm_invent InvInUse D-1600** (`invent.c` `prepare_perminvent` `:5548–5562` `fromcore.invmode`; `display_pickinv` `:3108–3113` `inuse_only = invmode&InvInUse` / `show_gold = invmode&InvShowGold`; `:3277–3280` `"In use"` vs `"Inventory in use"`; `sync_perminvent` `:5653–5656` `display_inventory(NULL,FALSE)` PICK_NONE; `wintype.h` InvInUse=8; **writers D-1603** `allmain.c:71` / `restore.c:942` `beyond_savefile_load`; tty paint / InvSparse grid / `#perminv` scroll / assesstty named)); **SORTLOOT_PETRIFY D-1599** (`invent.c` `sortloot` `:611–620` filter override keep `touch_petrifies` CORPSE; `will_feel_cockatrice` `:4333–4340` + `feel_cockatrice` `:4342–4361`; `look_here` skip/single/multi feel; `pickup.c` `query_objlist` FEEL abort `look_here(0)`; eat.c / doloot / pray force_touch / engulfer stomach named); **wizid unid_cnt>0 PICK_ANY D-1590** (`invent.c` `:3222–3407` `'_'`/`^I` SKIPINVERT + skip fully ID'd + sortpack headers; `windows.c` `menuitem_invert_test`; `identify_pack` `update_inventory`); **`display_used_invlets` D-1591** (`invent.c` `:3466–3519` sortpack `let_to_name` + `doname` + `obj_to_glyph` PICK_ONE `"Inventory letters used:"`; caller `doorganize_core` `:5146` `?`/`*` n==0 retry / n<0 ESC; live `build_used_invlets_items`; nobj-split avoidlet / gold adjust named); wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
 compactify on other getobj verbs; full magic enlightenment deferred; 
 **`display_pickinv_reply` n==1 + lets → `message_menu` PICK_ONE** (D-0422; 
-menu_requested named; wizid unid_cnt>0 is D-1590; `display_used_invlets` is D-1591; gacc / `'0'` ball is D-1580; force_invmenu redo is D-1578; mime_action is D-1579; usextra hands is D-1569; putmsghistory is D-1588; sortloot inuse_only is D-1589; SORTLOOT_PETRIFY is D-1599; perm_invent InvInUse is D-1600; beyond_savefile_load writers are D-1603; ggetobj takeoff/identify is D-1602)
+menu_requested named; wizid unid_cnt>0 is D-1590; `display_used_invlets` is D-1591; gacc / `'0'` ball is D-1580; force_invmenu redo is D-1578; mime_action is D-1579; usextra hands is D-1569; putmsghistory is D-1588; sortloot inuse_only is D-1589; SORTLOOT_PETRIFY is D-1599; perm_invent InvInUse is D-1600; beyond_savefile_load writers are D-1603; ggetobj takeoff/identify is D-1602; `#seeall` EXT_CMDS is D-1605)
 
 ### `src/dothrow.c`, `src/zap.c:bhit`
 

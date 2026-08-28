@@ -1,4 +1,30 @@
+## D-1605 — cmd.c #seeall EXT_CMDS (doprinuse)
+
+- **Status:** fixed (map-driven Open from D-1604; not a public FAIL)
+- **Symptom:** Typed `#seeall` was unknown. C `extcmdlist` `"seeall"`
+  (`*` / `doprinuse`) is in generated `EXTCMDLIST`, and rhack `*`
+  already called `doprinuse` (D-0340/D-1589), but `EXT_CMDS` had no
+  runner so `get_ext_cmd` exact-match then `availableExtCmds` missed
+  it. `doextcmd` kept m-prefix via a name set that omitted seeall.
+- **C locus:** `cmd.c` `:1848–1849` `"seeall"` `doprinuse`
+  `IFBURIED | GENERALCMD | CMD_M_PREFIX` (no AUTOCOMPLETE).
+  `doextcmd` `:505–514` `can_do_extcmd` then `accept_menu_prefix`
+  (`:3507–3512` `CMD_M_PREFIX` flag). Callee `invent.c` `doprinuse`
+  `:4738–4757` (already live).
+- **JS was:** `*` / REPEAT `seeall` live; typed `#seeall` unknown.
+  `EXTCMD_M_PREFIX` name set (annotate/dip/…/wizwish) not C's flag.
+- **Fix:** EXT_CMDS runners for `#seeall` and sibling see* (live
+  `dopr*` callees). `doextcmd` calls `can_do_extcmd` then flag
+  `accept_menu_prefix`. Not the doprinuse body. Rule #2: no fs.
+- **JS:** `js/getline.js` EXT_CMDS / `doextcmd` / `accept_menu_prefix`.
+- **Not this iter:** `doextlist`; BIND= `seeall`; `cmd_from_func`
+  visctrl for the m-prefix pline; uskin `noarmor`; `#perminv`.
+  doprinuse / inuse_only are D-0340 / D-1589.
+- **Verified:** private canary **21**/21; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1604 — zap.c bhit show_transient_light !Blind youprop
+
 
 - **Status:** fixed (Must-fix review **558**; not a public FAIL)
 - **Symptom:** D-1597 wired `show_transient_light` in zap `bhit`
