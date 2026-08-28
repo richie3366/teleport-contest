@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` mongets mplayer-sword spe (named). Not show_transient_light.
 - [ ] `minion.c` `gain_guardian_angel` (named). Not create_mplayers.
 - [ ] `mon.c` `m_unleash` (named). Not newcham.
 - [ ] `dog.c` `initedog` ogoal `-1` (named). Not has_edog.

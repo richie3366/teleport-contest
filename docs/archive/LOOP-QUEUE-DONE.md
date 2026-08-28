@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `mplayer.c` `mplayer_talk` (named). Not create_mplayers. **Addressed:** D-1606
+- [x] `makemon.c` mongets mplayer-sword spe (named). Not show_transient_light. **Addressed:** D-1607
+
+
+- [x] `mplayer.c` `mplayer_talk` (named). Not create_mplayers. **Addressed:** D-1606 `f9d27e3f`
 
 
 - [x] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse. **Addressed:** D-1605 `44151244`

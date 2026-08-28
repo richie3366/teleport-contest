@@ -108,7 +108,10 @@ import {
     A_LAWFUL, ONAME_RANDOM, EMIN,
     MFAST, MAXMONNO, DF_NONE,
 } from './const.js';
-import { enexto, enexto_core, enexto_gpflags, goodpos, noteleport_level } from './teleport.js';
+import {
+    enexto, enexto_core, enexto_gpflags, goodpos, noteleport_level,
+    is_lminion,
+} from './teleport.js';
 import {
     mksobj, mkobj, mkobj_at, weight, objects_at, curse, bless, is_crackable,
     set_corpsenm, stop_timer, add_to_container, add_to_minv, rnd_class,
@@ -140,7 +143,7 @@ import {
     objectNames, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, WAND_CLASS,
     FOOD_CLASS, COIN_CLASS, SCROLL_CLASS, POTION_CLASS, AMULET_CLASS,
     TOOL_CLASS, ROCK_CLASS, GEM_CLASS, SPBOOK_CLASS, MAXOCLASSES,
-    RANDOM_CLASS, objects,
+    RANDOM_CLASS, objects, is_sword,
 } from './objects.js';
 import { ART_EXCALIBUR, ART_DEMONBANE } from './generated/artifacts_data.js';
 import { cansee, does_block, block_point } from './vision.js';
@@ -1571,17 +1574,48 @@ export function rnd_offensive_item(mtmp) {
     }
 }
 
-// C ref: makemon.c mongets — ordinary weapon/armor path
+// C ref: makemon.c mongets — mksobj then demon / lminion / mplayer-sword /
+// invocation items / prince gear / mpickobj (D-1607).
 export function mongets(mtmp, otyp_) {
     if (!otyp_) return null;
     const otmp = mksobj(otyp_, true, false);
-    if (!otmp) return null;
-    // demon / lawful-minion / mplayer / special artifacts omitted (C-JS-MAP)
-    if (is_prince(mtmp.data)) {
-        if (otmp.oclass === WEAPON_CLASS && (otmp.spe ?? 0) < 1) otmp.spe = 1;
-        else if (otmp.oclass === ARMOR_CLASS && (otmp.spe ?? 0) < 0) otmp.spe = 0;
+    if (otmp) {
+        if (mtmp.data.mlet === 'S_DEMON') {
+            /* demons never get blessed objects */
+            if (otmp.blessed) curse(otmp);
+        } else if (is_lminion(mtmp)) {
+            /* lawful minions don't get cursed, bad, or rusting objects */
+            otmp.cursed = false;
+            if ((otmp.spe | 0) < 0) otmp.spe = 0;
+            otmp.oerodeproof = 1;
+            otmp.oeroded = otmp.oeroded2 = 0;
+        } else if (is_mplayer(mtmp.data) && is_sword(otmp)) {
+            otmp.spe = 3 + rn2(4);
+        }
+
+        if (otmp.otyp === otyp('CANDELABRUM_OF_INVOCATION')) {
+            otmp.spe = 0;
+            otmp.age = 0;
+            otmp.lamplit = false;
+            otmp.blessed = otmp.cursed = false;
+        } else if (otmp.otyp === otyp('BELL_OF_OPENING')) {
+            otmp.blessed = otmp.cursed = false;
+        } else if (otmp.otyp === otyp('SPE_BOOK_OF_THE_DEAD')) {
+            otmp.blessed = false;
+            otmp.cursed = true;
+        }
+
+        /* leaders don't tolerate inferior quality battle gear */
+        if (is_prince(mtmp.data)) {
+            if (otmp.oclass === WEAPON_CLASS && (otmp.spe ?? 0) < 1) otmp.spe = 1;
+            else if (otmp.oclass === ARMOR_CLASS && (otmp.spe ?? 0) < 0) otmp.spe = 0;
+        }
+
+        if (mpickobj(mtmp, otmp)) {
+            /* otmp was freed via merging with something else */
+            return null;
+        }
     }
-    if (mpickobj(mtmp, otmp)) return null;
     return otmp;
 }
 

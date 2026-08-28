@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1607 makemon.c mongets mplayer-sword spe
+
+**Objective:** Open `makemon.c` mongets mplayer-sword spe (named).
+Not show_transient_light.
+**C locus:** `makemon.c` `mongets` `:2180–2230`.
+**JS locus:** `js/makemon.js` `mongets` + `js/objects.js` `is_sword`.
+**Change:** mplayer-sword `spe=3+rn2(4)` plus same-function demon /
+lminion / candelabrum / Bell / Book arms. One `is_sword`.
+Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **31**/31; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `gain_guardian_angel`. Not create_mplayers.
+**Blocked:** none.
 ## 2026-08-29 — D-1606 mplayer.c mplayer_talk
 
 **Objective:** Open `mplayer.c` `mplayer_talk` (named). Not

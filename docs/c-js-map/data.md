@@ -369,6 +369,10 @@ live `js/steed.js`; `_level_monsters` + `MON_FLOOR`; gulpmm clone retired;
 `level_mon_at` ignores stale mx/my; `cutworm` / makemon itself calling 
 `place_monster` named); **D-1252 `demonpet` caller** (`uhitm.c`; 
 live `makemon` NO_MM_FLAGS + `tamedog` null FALSE);
+**D-1607 `mongets` demon/lminion/mplayer-sword/invocation** (`:2189–2214` after
+`mksobj`; `is_mplayer&&is_sword` `spe=3+rn2(4)`; callees `curse` /
+`is_lminion` / obj.h `is_sword` live `js/objects.js` (dothrow clone
+retired); prince/`mpickobj` already live);
 **D-1584 `mk_mplayer`** live `js/mplayer.js` (C `mplayer.c`; not this file) |
 
 ### `src/mplayer.c`
@@ -395,8 +399,8 @@ is_mplayer`). Live `js/mplayer.js` + `js/sounds.js` `domonnoise`
 endgame arm (`ECMD_TIME`); same-class vs other `rn2(3)` once;
 `SetVoice` no-op without SND_LIB; mndx vs `urole.mnum` (`mons()` is
 a fresh object). Named: peaceful MS_HUMANOID / hostile
-`"threatens you."` / MS_BOAST fallthrough; `mongets` mplayer-sword
-`spe=3+rn2(4)`. ndemon is D-1575.
+`"threatens you."` / MS_BOAST fallthrough. `mongets` mplayer-sword
+spe is D-1607. ndemon is D-1575.
 
 ### `src/worm.c`
 

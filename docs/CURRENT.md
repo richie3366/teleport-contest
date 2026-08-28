@@ -62,42 +62,37 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1606 (seed4500 still PASS). **Next cluster:**
-Open `makemon.c` mongets mplayer-sword spe (named). Not
-show_transient_light. Not D-0006.
-**Do not skip D-1531…D-1606 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1607 (seed4500 still PASS). **Next cluster:**
+Open `minion.c` `gain_guardian_angel` (named). Not
+create_mplayers. Not D-0006.
+**Do not skip D-1531…D-1607 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1606.** Do not FORCE
+**Do not re-break D-0660…D-1607.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1606 (index). Recent: **D-1606**
+**Keep:** D-0845…D-1607 (index). Recent: **D-1607**
+`makemon.c` `mongets` mplayer-sword `spe=3+rn2(4)` plus same-function
+demon/`is_lminion`/candelabrum/Bell/Book arms; obj.h `is_sword` one
+export. Prior: **D-1606**
 `mplayer.c` `mplayer_talk` (sounds.c MS_HUMANOID endgame
 `is_mplayer`; SetVoice no-op; peaceful / "threatens you." named).
 Prior: **D-1605**
 `cmd.c` `#seeall` EXT_CMDS `doprinuse` (typed runner +
 `accept_menu_prefix` flag; sibling see*; `*` key is D-0340).
-Prior: **D-1604**
-`youprop.h:103` Blind on zap `bhit` `show_transient_light`
-(review **558**); not sticky `u.Blind||u.ublind`. Apply camera
-Blind unchanged. Prior: **D-1603**
-`allmain.c:71` / `restore.c:942` `beyond_savefile_load=1` so
-D-1600 InvInUse `sync_perminvent` can run; `:107–110` perm_invent
-`update_inventory`. tty WIN_INVEN create / `#perminv` named.
-Prior: **D-1602** `ggetobj` takeoff/identify askchain.
-**D-1601** `tty_doprev_message`. **D-1600** perm_invent InvInUse.
-Older D-1531…D-1599 live in the index — do not re-paste.
+Older D-1531…D-1604 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1606 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1607 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
+Do not re-port `mongets` sword `spe`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

@@ -1,3 +1,26 @@
+## D-1607 — makemon.c mongets mplayer-sword spe
+
+- **Status:** fixed (map-driven Open from D-1606; not a public FAIL)
+- **Symptom:** `mongets` skipped C's mplayer-sword `spe=3+rn2(4)` plus
+  the same-function demon / lawful-minion / invocation-item arms.
+  JS comment grouped them as omitted after prince/`mpickobj`.
+- **C locus:** `makemon.c` `mongets` `:2180–2230`. After `mksobj`:
+  `mlet==S_DEMON` blessed→`curse`; else `is_lminion` uncursed /
+  `spe>=0` / oerodeproof; else `is_mplayer&&is_sword` `spe=3+rn2(4)`.
+  Then candelabrum / Bell of Opening / Book of the Dead; prince gear
+  already live. `is_sword` is `obj.h` (WEAPON `P_SHORT_SWORD..P_SABER`).
+- **JS was:** prince bump + `mpickobj` only.
+- **Fix:** remaining `mongets` body. One `is_sword` in `objects.js`
+  (dothrow local retired). `is_lminion` from live `teleport.js`.
+  Direct cursed/blessed assigns match C (not `uncurse`). Rule #2: no fs.
+- **JS:** `js/makemon.js` `mongets` + `js/objects.js` `is_sword` +
+  `js/dothrow.js` import.
+- **Not this iter:** `gain_guardian_angel`; `m_unleash`; initedog
+  ogoal `-1`. mplayer_talk is D-1606. mk_mplayer weapon path is
+  D-1584 (`mksobj`+`mpickobj`, not `mongets`).
+- **Verified:** private canary **31**/31; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1606 — mplayer.c mplayer_talk
 
 - **Status:** fixed (map-driven Open from D-1605; not a public FAIL)

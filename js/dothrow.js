@@ -21,6 +21,7 @@ import {
 import {
     WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, GEM_CLASS, FOOD_CLASS, ARMOR_CLASS,
     POTION_CLASS, SCROLL_CLASS, RING_CLASS, objectNames, objectNameStrs,
+    is_sword,
 } from './objects.js';
 import {
     COLNO, ROWNO, IS_SOFT, LOST_THROWN, ZAP_POS, IS_DOOR, D_CLOSED, D_LOCKED,
@@ -491,11 +492,6 @@ function is_blade(obj) {
     if (!obj || obj.oclass !== WEAPON_CLASS) return false;
     const sk = game.objects?.[obj.otyp]?.oc_skill | 0;
     return sk >= P_DAGGER && sk <= P_SABER;
-}
-function is_sword(obj) {
-    if (!obj || obj.oclass !== WEAPON_CLASS) return false;
-    const sk = game.objects?.[obj.otyp]?.oc_skill | 0;
-    return sk >= P_SHORT_SWORD && sk <= P_SABER;
 }
 
 /** C ref: wield.c / hack.h uslinging. */
