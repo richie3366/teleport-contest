@@ -1007,6 +1007,7 @@ unconscious skip deferred); **`pickup_object` gold `disp.botl` before pick/prinv
 **`#loot`/`doloot`/`do_loot_cont` locked autounlock + `use_container` `:` look + 
 MENU_FULL take-out** (D-0362/D-0489/D-0490) + **`doloot` capacity+nohands + 
 `use_container` `u_handsy`** (D-0726; **`able_to_loot` freehand `body_part(HAND)` D-1508**; Confusion reverse_loot deferred) + 
+**`use_container` `'r'` reversed put-in then take-out D-1567** (C `pickup.c` `:3132–3210` `loot_in_first`; TRADITIONAL yn_function + `explain_container_prompt`; traditional_loot askchain / in_or_out_menu more_containers `n` / mbag explosion body named) + 
 **`doloot` mon_beside → `getdir_cmdassist` lootmon** (D-0451; loot_mon/saddle/multi-cont deferred); 
 + **`#untrap`/`could_untrap` nohands gate** (D-0726; door force D-1495; floor `untrap()` named); 
 **`domove` diagonal `test_move` intact-doorway ban + `doorless_door`** (D-0219) + 
@@ -1355,8 +1356,7 @@ Mastermind hints** D-0977; `Hero_playnotes`; flees_light; can_blow poly; selftou
 flooreffects full; maketrap shop-hole/DRAWBRIDGE_UP ice named (**set_levltyp D-1280**); 
 sleep defended/shieldeff; set_entity crush still deferred); 
 omit `do_break_wand`/`flip_through_book`/`flip_coin`, adjacent/dz/cursed stethoscope, forcelock 
-shop/erosion polish, `feel_location` mapseen gating, **stash getobj ALLOWCNT D-1561** (`stash_ok`/`ck_bag`/`GETOBJ_PROMPT|GETOBJ_ALLOWCNT` + `in_container` early-outs/`unsplitobj`; `'r'` reversed / traditional_loot / more_containers 
-`n`/lootabc, BUC filter apply / autopick `A` / justpicked shortcut, mbag explosion / icebox age / shop sellobj / snuff_lit named); 
+shop/erosion polish, `feel_location` mapseen gating, **stash getobj ALLOWCNT D-1561** (`stash_ok`/`ck_bag`/`GETOBJ_PROMPT|GETOBJ_ALLOWCNT` + `in_container` early-outs/`unsplitobj`); **`'r'` reversed D-1567** (`loot_in_first` put-in then take-out; TRADITIONAL yn_function + `explain_container_prompt`; traditional_loot askchain / in_or_out_menu more_containers `n`/lootabc Next, BUC filter apply / autopick `A` / justpicked shortcut, mbag explosion / icebox age / shop sellobj / snuff_lit named); 
 door `b_trapped` body / AUTOUNLOCK_KICK / quest-artifact autokey ranking; 
 **`use_leash`/`next_to_u`/`check_leash`/`m_unleash`/`o_unleash`/`get_mleash`/`number_leashed`/`
 leashable`/`mon_has_amulet` + `whimper` + domove/stairs/tele/dig/trap wires** (D-1005; 

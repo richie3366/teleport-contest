@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1567 — pickup.c use_container 'r' reversed put-in then take-out
+
+- **Status:** fixed (map-driven Open from D-1566; not a public FAIL)
+- **Symptom:** `in_or_out_menu` offered `'r'` / lootabc `'d'`
+  ("put in, then take out") but `use_container` only treated
+  `'o'`/`'b'`/`'i'`, so reversed loot was a no-op. Named omit
+  after D-1561 stash. Not stash. Not Confusion `reverse_loot`.
+- **C locus:** `pickup.c` `use_container` `:3132–3210`
+  (`loot_out = o|b|r`; `loot_in = i|b|r`; `loot_in_first = (c=='r')`;
+  take-out only when `loot_out && !loot_in_first`; put-in;
+  `if (!gc.current_container) loot_out = FALSE`; then
+  `loot_out && loot_in_first` take-out). TRADITIONAL/COMBINATION
+  yn_function `:3097–3115` pbuf/xbuf `rs` + `'?'` →
+  `explain_container_prompt` `:2910–2940`. Callers `apply.c:4277`
+  / `do_loot_cont` `:2161`.
+- **JS was:** `loot_out = o|b`; `loot_in = i|b`; comment named
+  `'r'` omit. Always `in_or_out_menu` (FULL).
+- **Fix:** live `loot_in_first`; skip first take-out when
+  reversed; mbag-null gate; reversed take-out after put-in.
+  Unset `menu_style` defaults MENU_FULL (C `options.c:7258`).
+  TRADITIONAL/COMBINATION yn_function + help text. Rule #2: no fs.
+- **JS:** `js/pickup.js` (`use_container`,
+  `use_container_traditional_prompt`, `explain_container_prompt`).
+- **Not this iter:** traditional_loot askchain; in_or_out_menu
+  more_containers `'n'` row; yn_function addcmdq; mbag explosion
+  body; icebox / snuff_lit / shop sellobj; Confusion
+  `reverse_loot`; eat/read/zap/tin NOFLAGS. Stash is D-1561.
+  `rndmonst_adj` is D-1566.
+- **Verified:** private canary **24**/24 (C/JS locus + order;
+  `'b'` empty no take-out after; `'r'` empty round-trip; contents
+  skip first take-out; lootabc `'d'`; TRADITIONAL yn `'r'` + `'?'`
+  help; Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict.
+
 ## D-1566 — makemon.c rndmonst_adj rogue/elem filters
 
 - **Status:** fixed (map-driven Open from D-1565; not a public FAIL)

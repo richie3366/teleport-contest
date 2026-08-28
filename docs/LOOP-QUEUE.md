@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pickup.c` `'r'` reversed put-in then take-out (named). Not stash.
 - [ ] `invent.c` getobj eat/read/zap/tin NOFLAGS (named). Not ALLOWCNT.
 - [ ] `invent.c` pickinv hands/xtra_choice (named). Not `&ctmp`.
 - [ ] `worm.c` `cutworm` (named). Not worm_known.

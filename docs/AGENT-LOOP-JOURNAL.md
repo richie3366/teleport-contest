@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1567 pickup.c use_container 'r' reversed
+
+**Objective:** Open `'r'` reversed put-in then take-out. Not stash.
+**C locus:** `pickup.c` `use_container` `:3132–3210`; yn_function
+`:3097–3115`; `explain_container_prompt` `:2910–2940`.
+**JS locus:** `js/pickup.js` (`'r'` ignored after D-1561).
+**Change:** `loot_in_first`; put-in then take-out; mbag-null
+gate; TRADITIONAL yn `rs` + `'?'` help. traditional_loot /
+more_containers `n` named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1960).
+**Verified:** canary **24**/24; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open eat/read/zap/tin NOFLAGS. Not ALLOWCNT.
+**Blocked:** none.
 ## 2026-08-28 — review D-1558–D-1566 (audit #1960)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **518**;

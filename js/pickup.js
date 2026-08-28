@@ -41,6 +41,7 @@ import {
     SORTLOOT_PACK, SORTLOOT_LOOT,
     ALL_TYPES_SELECTED, BUC_BLESSED, BUC_CURSED, BUC_UNCURSED, BUC_UNKNOWN,
     MENU_INVERT_ALL, MENU_SELECT_ALL, MENU_UNSELECT_ALL,
+    MENU_TRADITIONAL, MENU_COMBINATION, MENU_FULL,
     SHOPBASE,
     SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     AUTOUNLOCK_APPLY_KEY,
@@ -60,6 +61,7 @@ import {
 } from './monsters.js';
 import { welded, weldmsg, setuwep, setuswapwep, setuqwep } from './wield.js';
 import { yn_function } from './getline.js';
+import { show_nhw_menu_text } from './pager.js';
 import { cansee } from './vision.js';
 import { touch_artifact, youmonst } from './artifact.js';
 import { exercise, A_WIS } from './attrib.js';
@@ -1078,8 +1080,6 @@ function Levitation_pe() {
 async function container_contents(box) {
     if (!box) return;
     box.cknown = 1;
-    const { doname, xname, the: theArt } = await import('./objnam.js');
-    const { show_nhw_menu_text } = await import('./pager.js');
     const lines = [`Contents of ${theArt(xname(box))}:`, ''];
     if (box.cobj) {
         if (SchroedingersBox(box)) {
@@ -1099,6 +1099,64 @@ async function container_contents(box) {
         }
     }
     await show_nhw_menu_text(lines);
+}
+
+/**
+ * C ref: pickup.c explain_container_prompt — NHW_TEXT help for ':'/'o'/'i'/
+ * 'b'/'r'/'s'/'n'/'q'/'?'. Skip the Next row unless more_containers.
+ * @param {boolean} more_containers
+ */
+async function explain_container_prompt(more_containers) {
+    const explaintext = [
+        'Container actions:',
+        '',
+        ' : -- Look: examine contents',
+        ' o -- Out: take things out',
+        ' i -- In: put things in',
+        ' b -- Both: first take things out, then put things in',
+        ' r -- Reversed: put things in, then take things out',
+        ' s -- Stash: put one item in',
+        '',
+        ' n -- Next: loot next selected container',
+        ' q -- Quit: finished',
+        ' ? -- Help: display this text.',
+        '',
+    ];
+    const lines = [];
+    for (const txt of explaintext) {
+        if (!more_containers && txt.startsWith(' n ')) continue;
+        lines.push(txt);
+    }
+    await show_nhw_menu_text(lines);
+}
+
+/**
+ * C ref: pickup.c use_container TRADITIONAL/COMBINATION yn_function.
+ * Listed vs extra (after ESC) responses match C pbuf/xbuf. '?' is shown
+ * when iflags.cmdassist (default On), else hidden extra. addcmdq named.
+ * @returns {Promise<string>}
+ */
+async function use_container_traditional_prompt(
+    qbuf, outmaybe, inokay, more_containers,
+) {
+    let pbuf = ':';
+    let xbuf = '';
+    const add = (ok, chars) => {
+        if (ok) pbuf += chars;
+        else xbuf += chars;
+    };
+    add(outmaybe, 'o');
+    add(inokay, 'i');
+    add(outmaybe, 'b');
+    add(inokay, 'rs');
+    pbuf += ' ';
+    add(more_containers, 'n');
+    pbuf += 'q';
+    const cmdassist = game.iflags?.cmdassist !== false;
+    if (cmdassist) pbuf += ' or ?';
+    else xbuf += '?';
+    if (xbuf) pbuf += `\x1b${xbuf}`;
+    return yn_function(qbuf, pbuf, more_containers ? 'n' : 'q');
 }
 
 /**
@@ -1133,6 +1191,7 @@ async function out_container(obj) {
  * C ref: pickup.c in_or_out_menu — NHW_MENU PICK_ONE for bag actions.
  * Branch envelope: look/take-out/put-in/both/reversed/stash/done;
  * flags.lootabc → display a/b/c/d/e else o/i/b/r/s; returns :oibrsnq.
+ * 'r'/'d' → lootchars 'r'; use_container loot_in_first (D-1567).
  * Named omissions: more_containers 'n' default.
  */
 async function in_or_out_menu(prompt, obj, outokay, inokay, alreadyused) {
@@ -2017,17 +2076,22 @@ export async function observe_quantum_cat(box, makecat, givemsg) {
 
 /**
  * C ref: pickup.c use_container — held/floor container loot.
- * Branch envelope: u_handsy; unlocked; in_or_out_menu (lootabc a/b/c);
- * ':' look; 'o'/'a' menu_loot take-out; 'i'/'b' put-in; 's' stash
- * getobj ALLOWCNT (D-1561); 'q' abort.
- * Named omissions: chest trap; BoT; both reversed 'r'; traditional_loot;
- * autopick 'A'; more_containers 'n'; cursed-mbag emptymsg "now ".
+ * Branch envelope: u_handsy; unlocked; MENU_FULL/PARTIAL in_or_out_menu
+ * (lootabc); TRADITIONAL/COMBINATION yn_function (D-1567); ':' look;
+ * '?' explain_container_prompt; 'o' take-out; 'i' put-in; 'b' out then
+ * in; 'r' in then out (loot_in_first); 's' stash ALLOWCNT (D-1561);
+ * 'q' abort.
+ * Named omissions: chest trap; BoT; traditional_loot askchain;
+ * yn_function addcmdq; in_or_out_menu more_containers 'n' row; autopick
+ * 'A'; cursed-mbag emptymsg "now "; mbag explosion body (null
+ * current_container still gates reversed take-out); Confusion
+ * reverse_loot.
  *
  * @param {object} obj container
  * @param {boolean} [held=false] applied from invent
- * @param {boolean} [_more=false] multiple #loot (deferred)
+ * @param {boolean} [more_containers=false] multiple #loot (Next)
  */
-export async function use_container(obj, held = false, _more = false) {
+export async function use_container(obj, held = false, more_containers = false) {
     if (!obj) return ECMD_OK;
 
     // C: if (!u_handsy()) return ECMD_OK;
@@ -2062,6 +2126,11 @@ export async function use_container(obj, held = false, _more = false) {
     if (!outokay) {
         emptymsg = `${Ysimple_name2(obj)} is ${quantum_cat ? 'now ' : ''}empty.`;
     }
+    // C default MENU_FULL (options.c). Unset JS flags must not fall
+    // through to TRADITIONAL (0) yn_function — that would break FULL
+    // sessions. Combination/traditional still take the yn path.
+    const style = game.flags?.menu_style ?? MENU_FULL;
+    const use_menu = !(style === MENU_TRADITIONAL || style === MENU_COMBINATION);
     let c = 'q';
     for (;;) {
         // C: prompt uses outmaybe, not bare outokay (empty+!cknown →
@@ -2070,9 +2139,24 @@ export async function use_container(obj, held = false, _more = false) {
         const qbuf = outmaybe
             ? `Do what with ${yname(obj)}?`
             : `${upstart(yname(obj))} is empty.  Do what with it?`;
-        c = await in_or_out_menu(
-            qbuf, obj, outmaybe, inokay, used !== ECMD_OK,
-        );
+        if (use_menu) {
+            if (!inokay && !outmaybe) {
+                // C: nothing to take out or put in → try both (feedback)
+                c = 'b';
+            } else {
+                c = await in_or_out_menu(
+                    qbuf, obj, outmaybe, inokay, used !== ECMD_OK,
+                );
+            }
+        } else {
+            c = await use_container_traditional_prompt(
+                qbuf, outmaybe, inokay, more_containers,
+            );
+        }
+        if (c === '?') {
+            await explain_container_prompt(more_containers);
+            continue;
+        }
         if (c === ':') {
             if (!obj.cknown) used = ECMD_TIME;
             await container_contents(obj);
@@ -2086,11 +2170,14 @@ export async function use_container(obj, held = false, _more = false) {
         return used;
     }
 
-    const loot_out = (c === 'o' || c === 'b');
-    let loot_in = (c === 'i' || c === 'b');
+    // C pickup.c:3132–3135 — 'r' is both, reversed (put in, then take out).
+    let loot_out = (c === 'o' || c === 'b' || c === 'r');
+    let loot_in = (c === 'i' || c === 'b' || c === 'r');
+    const loot_in_first = (c === 'r');
     let stash_one = (c === 's');
-    // C loot_in_first / 'r' reversed named omit.
-    if (loot_out) {
+
+    // out-only or out before in
+    if (loot_out && !loot_in_first) {
         if (!Has_contents(obj)) {
             // C: pline1(emptymsg) — Ysimple_name2 ("The bag is empty.")
             await pline(emptymsg || `${Ysimple_name2(obj)} is empty.`);
@@ -2124,10 +2211,26 @@ export async function use_container(obj, held = false, _more = false) {
             }
         }
     }
+    // C: putting something in might have triggered magic bag explosion
+    if (!game._current_container) loot_out = false;
+
+    // out after in
+    if (loot_out && loot_in_first) {
+        const cont = game._current_container;
+        if (!Has_contents(cont)) {
+            await pline(emptymsg || `${Ysimple_name2(cont)} is empty.`);
+            // C: used = 1 (ECMD_TIME) when !cknown, unlike first-out ECMD_TIME
+            if (!cont.cknown) used = 1;
+            cont.cknown = 1;
+        } else {
+            used |= await menu_loot_takeout(cont);
+        }
+    }
 
     // C: use_container containerdone — if used, mark contents known
     // (put-in alone does not set cknown in menu_loot; this does).
-    if (used && obj) obj.cknown = 1;
+    // Skip when mbag explosion cleared current_container.
+    if (used && game._current_container) game._current_container.cknown = 1;
 
     game._current_container = null;
     void held;

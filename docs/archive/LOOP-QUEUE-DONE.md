@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
+- [x] `pickup.c` `'r'` reversed put-in then take-out (named). Not stash. **Addressed:** D-1567
+
+
 - [x] `makemon.c` `rndmonst_adj` rogue/elem filters (named). Not mkclass. **Addressed:** D-1566 `72735008`
 
 

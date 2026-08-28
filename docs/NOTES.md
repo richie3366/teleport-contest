@@ -7,25 +7,25 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1960** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `38+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open `pickup.c` `'r'` reversed put-in then
-  take-out is still named (`rndmonst_adj` rogue/elem is D-1566).
-  Not stash.
-  **Falsify:** `node scripts/csym.mjs` the reversed-`'r'`
-  pickup arm vs `js/pickup.js`.
-  **Next:** Open `'r'` reversed. Not stash / ALLOWCNT.
-  Do not skip D-1531…D-1566. No FORCE / `wildmiss` wrap /
+  **Hypothesis:** Open `invent.c` getobj eat/read/zap/tin NOFLAGS
+  is still named (`'r'` reversed is D-1567). Not ALLOWCNT.
+  **Falsify:** `node scripts/csym.mjs` getobj eat/read/zap/tin
+  flags vs `js/invent.js` / `js/eat.js`.
+  **Next:** Open eat/read/zap/tin NOFLAGS. Not ALLOWCNT / stash.
+  Do not skip D-1531…D-1567. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Named still: cutworm; `'r'` reversed; eat/read/zap/tin
-  NOFLAGS; pickinv hands/xtra; `mk_mplayer`; FULL_MOON S_DOG /
-  ustuck / `redraw_worm`; other mcast; sit/pray `eyecount`; muse
-  loot; escape cat HP; other INTERNALCMD; defn/cary resist;
-  PROTECT; inv_prop drop; `artitouch`; shk mnearto; ghostfruit
-  age; Ice/Boulder fills; map_monst head glyphs;
-  `unblock_point`/`dig_point`; `vision_recalc` xray IN_SIGHT;
-  `Shk_Your`; dothrow/apply unsplit callers; PREFIXCMD /
-  movement / doextcmd `cmdq_shift` REPEAT; Palantir `#if 0`;
-  `newcham` Protection cancel; `attach_egg_hatch_timeout`;
-  `ndemon`/aligned mkclass; newmonhp `is_home_elemental` ×3.
+- Named still: cutworm; eat/read/zap/tin NOFLAGS; pickinv
+  hands/xtra; `mk_mplayer`; FULL_MOON S_DOG / ustuck /
+  `redraw_worm`; other mcast; sit/pray `eyecount`; muse loot;
+  escape cat HP; other INTERNALCMD; defn/cary resist; PROTECT;
+  inv_prop drop; `artitouch`; shk mnearto; ghostfruit age;
+  Ice/Boulder fills; map_monst head glyphs; `unblock_point`/
+  `dig_point`; `vision_recalc` xray IN_SIGHT; `Shk_Your`;
+  dothrow/apply unsplit callers; PREFIXCMD / movement /
+  doextcmd `cmdq_shift` REPEAT; Palantir `#if 0`; `newcham`
+  Protection cancel; `attach_egg_hatch_timeout`; `ndemon`/
+  aligned mkclass; newmonhp `is_home_elemental` ×3;
+  traditional_loot; in_or_out_menu more_containers `n`.
 
 ## Don't re-check (≤15)
 
@@ -34,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1566.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1567.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,9 +45,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1566 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1567 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1566. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1567. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -64,11 +64,16 @@ Objective/score live in `CURRENT.md`.
   (D-1559) or `finish_splitting` (D-1560) or stash getobj
   (D-1561) or `howmonseen` (D-1562) or `do_repeat` (D-1563) or
   Protection/`made_fruit`/Plan-B (D-1564). Do not glue cutworm /
-  `'r'` reversed. `place_monster` 2D is D-1565. `rndmonst_adj`
-  rogue/elem is D-1566.
+  eat/read/zap/tin NOFLAGS. `place_monster` 2D is D-1565.
+  `rndmonst_adj` rogue/elem is D-1566. `'r'` reversed is D-1567.
 
 ## Landmarks (≤15)
 
+- D-1567: `use_container` `'r'` `loot_in_first` put-in then
+  take-out; mbag-null `loot_out=FALSE`; TRADITIONAL yn `rs` +
+  `explain_container_prompt`. Unset menu_style = MENU_FULL.
+  traditional_loot / more_containers `n` / mbag body named.
+  Stash is D-1561. Confusion `reverse_loot` named.
 - D-1566: `rndmonst_adj` rogue `Is_rogue_level` `monsym_isupper`
   + elem `In_endgame&&!Is_astralevel` `wrong_elem_type` (home
   elemental / swim / MR_FIRE / air flyer-not-trapper).
@@ -98,8 +103,9 @@ Objective/score live in `CURRENT.md`.
   stash is D-1561. worm_known is D-1548.
 - D-1561: stash getobj ALLOWCNT. `stash_ok`/`ck_bag`; prompt
   `|ALLOWCNT`; `in_container` worn/quest/loadstone/uwep +
-  `unsplitobj` on refuse. `'r'` reversed / traditional_loot /
-  mbag / icebox / snuff_lit named. `finish_splitting` is D-1560.
+  `unsplitobj` on refuse. `'r'` reversed is D-1567.
+  traditional_loot / mbag / icebox / snuff_lit named.
+  `finish_splitting` is D-1560.
 - D-1560: `finish_splitting` / `unsplitobj` / `clear_splitobjs`.
   getobj child own invlet; welded/already/gold unsplit; ynq
   split-one/rest. `Shk_Your` / dothrow/apply unsplit callers
@@ -124,5 +130,3 @@ Objective/score live in `CURRENT.md`.
   look/appear/probe/flash. Memory otyp vs glyph_at.
 - D-1553: `splev_create_monster` amask + non-RANDOM `mk_roamer`.
   `mk_mplayer` / appear_as named.
-- D-1552: Eyes `is_plural` + `undiscovered_artifact`. `otense` /
-  `obj_is_pname` / `discover_artifact`.
