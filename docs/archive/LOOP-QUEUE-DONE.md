@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` getobj eat/read/zap/tin NOFLAGS (named). Not ALLOWCNT. **Addressed:** D-1568
+- [x] `invent.c` pickinv hands/xtra_choice (named). Not `&ctmp`. **Addressed:** D-1569
+
+
+- [x] `invent.c` getobj eat/read/zap/tin NOFLAGS (named). Not ALLOWCNT. **Addressed:** D-1568 `413df120`
 
 
 - [x] `pickup.c` `'r'` reversed put-in then take-out (named). Not stash. **Addressed:** D-1567 `b2827fe2`

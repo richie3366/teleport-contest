@@ -1622,10 +1622,10 @@ MENU_PREV/FIRST/LAST + other NHW_MENU callers still single-page);
 multi/`dispinv`/`doprinuse`/`*`, uskin noarmor deferred); 
 **`doattributes` Background `In_endgame`/`endgamelevelname` + moves==1 just-started + 
 wizard XP delta** (D-0572; `MAGICENLIGHTENMENT` Attributes for wizard ^X + status `<%d>` + 
-Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; **canned CMDQ_INT D-1551** (`need_more_cq` INT then KEY + split_otmp; apply/grease/jelly/rub KEY); **`display_pickinv` `&ctmp` D-1559** (PICK_ONE digits / n==1 `-1`; ALLOWCNT throw/drop/wield/ready/charge/adjust; **stash D-1561**); **`in_doagain` CQ_REPEAT D-1563**; **eat/read/zap/tin getobj NOFLAGS D-1568** (`js/invent.js` `getobj`; eat_ok/tin_ok/tinopen_ok NOFLAGS; read_ok GETOBJ_PROMPT; zap_ok NOFLAGS; empty !forceprompt; digit reject; pickinv null out_cnt; floorfood `getobj_else`; sacrifice/offer_ok named); hands/xtra_choice / force_invmenu `*`/`?` redo / gacc named; `display_used_invlets`/wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
+Is_bigroom deferred); **getobj ALLOWCNT count prefix D-1530**; **canned CMDQ_INT D-1551** (`need_more_cq` INT then KEY + split_otmp; apply/grease/jelly/rub KEY); **`display_pickinv` `&ctmp` D-1559** (PICK_ONE digits / n==1 `-1`; ALLOWCNT throw/drop/wield/ready/charge/adjust; **stash D-1561**); **`in_doagain` CQ_REPEAT D-1563**; **eat/read/zap/tin getobj NOFLAGS D-1568** (`js/invent.js` `getobj`; eat_ok/tin_ok/tinopen_ok NOFLAGS; read_ok GETOBJ_PROMPT; zap_ok NOFLAGS; empty !forceprompt; digit reject; pickinv null out_cnt; floorfood `getobj_else`; sacrifice/offer_ok named); **`display_pickinv` hands/xtra_choice D-1569** (`getobj_hands_txt`; usextra n-bump + n==1 `message_menu(HANDS_SYM)`; sortpack Miscellaneous `'-'` row; live getobj `- ` SUGGEST prefix; wield/ready/grease/dip_ok); force_invmenu `*`/`?` redo / mime_action / gacc named; `display_used_invlets`/wonky-gold/`adjust_split` / doorganize_core nobj-unsplit named; 
 compactify on other getobj verbs; full magic enlightenment deferred; 
 **`display_pickinv_reply` n==1 + lets → `message_menu` PICK_ONE** (D-0422; 
-force_invmenu/menu_requested/wizid/hands deferred)
+force_invmenu/menu_requested/wizid deferred; usextra hands is D-1569)
 
 ### `src/dothrow.c`, `src/zap.c:bhit`
 

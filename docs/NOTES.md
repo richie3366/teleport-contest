@@ -7,19 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1960** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `38+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open pickinv hands/xtra_choice is still named
-  (eat/read/zap/tin NOFLAGS is D-1568). Not `&ctmp`.
-  **Falsify:** `node scripts/csym.mjs` display_pickinv hands /
-  xtra_choice vs `js/invent.js` `display_pickinv_reply`.
-  **Next:** Open pickinv hands/xtra. Not `&ctmp`. Do not skip
-  D-1531…D-1568. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `cutworm` is still named (pickinv hands/xtra
+  is D-1569). Not worm_known.
+  **Falsify:** `node scripts/csym.mjs cutworm` vs `js/worm.js`.
+  **Next:** Open `cutworm`. Not worm_known. Do not skip
+  D-1531…D-1569. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
-- Named still: cutworm; pickinv hands/xtra; `mk_mplayer`;
-  FULL_MOON S_DOG / ustuck / `redraw_worm`; sit/pray `eyecount`;
-  PREFIXCMD / `cmdq_shift`; Palantir `#if 0`; `newcham` Protection
-  cancel; `attach_egg_hatch_timeout`; `ndemon` mkclass;
+- Named still: cutworm; `mk_mplayer`; FULL_MOON S_DOG / ustuck /
+  `redraw_worm`; sit/pray `eyecount`; PREFIXCMD / `cmdq_shift`;
+  Palantir `#if 0`; `newcham` Protection cancel;
+  `attach_egg_hatch_timeout`; `ndemon` mkclass;
   `unblock_point`/`dig_point`; `vision_recalc` xray IN_SIGHT;
-  traditional_loot; more_containers `n`.
+  traditional_loot; more_containers `n`; force_invmenu redo;
+  mime_action; gacc.
 
 ## Don't re-check (≤15)
 
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1568.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1569.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,9 +39,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1568 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1569 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1568. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1569. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -52,14 +52,16 @@ Objective/score live in `CURRENT.md`.
 - Do not import `makemon.js`→`hack.js`/`artifact.js`/`minion.js`.
   No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557) or
-  `recalc` there. Do not glue cutworm / pickinv hands. D-1558…
-  D-1568 live in the index (eat/read/zap/tin NOFLAGS is D-1568).
+  `recalc` there. Do not glue cutworm / force_invmenu redo.
+  D-1558…D-1569 live in the index (hands/xtra is D-1569).
 
 ## Landmarks (≤15)
 
+- D-1569: pickinv usextra hands/xtra_choice; `getobj_hands_txt`;
+  n==1 `message_menu` HANDS_SYM; sortpack Miscellaneous `'-'`.
+  force_invmenu redo / mime_action / gacc named. `&ctmp` D-1559.
 - D-1568: `getobj` eat/read/zap/tin NOFLAGS; read PROMPT
-  DOWNPLAY; eat_ok/`getobj_else`; tinopen. Hands/force_invmenu
-  named. Stash D-1561. `'r'` D-1567.
+  DOWNPLAY; eat_ok/`getobj_else`; tinopen. Stash D-1561. `'r'` D-1567.
 - D-1567: `'r'` `loot_in_first` put-in then take-out;
   TRADITIONAL yn `rs` + help. traditional_loot / mbag named.
 - D-1566: `rndmonst_adj` rogue `monsym_isupper` + elem
@@ -71,9 +73,8 @@ Objective/score live in `CURRENT.md`.
 - D-1562: `howmonseen` bitmask. cutworm / xray IN_SIGHT named.
 - D-1561: stash getobj ALLOWCNT. traditional_loot / mbag named.
 - D-1560: `finish_splitting` / `unsplitobj`. `Shk_Your` named.
-- D-1559: pickinv `&ctmp`. hands/xtra / force_invmenu named.
+- D-1559: pickinv `&ctmp`. Hands/xtra is D-1569.
 - D-1558: SEARCH/REGEN/XRAY conferral. xray circle named.
 - D-1557: `does_block` then `block_point`. `unblock_point` named.
 - D-1556: DELPHI `S_fountain=37`. Not furnsyms.
 - D-1555: `namefloorobj` getpos / `call_ok`. m/o/d named.
-- D-1554: `mhidden_description` PREFIX/ARTICLE/ALTMON/REGION.

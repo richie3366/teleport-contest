@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1569 — invent.c display_pickinv hands/xtra_choice
+
+- **Status:** fixed (map-driven Open from D-1568; not a public FAIL)
+- **Symptom:** `display_pickinv` omitted C `xtra_choice` extra `'-'`
+  (usextra n-bump, n==1 `message_menu` of hands, sortpack
+  Miscellaneous row). getobj did not pass `handsbuf`. Named omit
+  after D-1559 (`&ctmp` live). Not `&ctmp`.
+- **C locus:** `invent.c` `display_pickinv` `:3056–3417`
+  (`usextra` `:3084` / `:3137–3138` / `:3154–3160` / `:3253–3260`);
+  `getobj_hands_txt` `:1718–1736`; getobj redo_menu `:1976–1988`
+  (`*buf==HANDS_SYM` / NULL lets / altlets `'-'`; `allownone`
+  allowxtra; `ilet==HANDS_SYM` → `&hands_obj`). `xprname` txt
+  `:2894–2954`. Callers wield/ready/grease SUGGEST; dip DOWNPLAY
+  (`*` only).
+- **JS was:** pickinv letter-only; n bump only for `!lets`;
+  `getobj_display_pickinv` no handsbuf. Wield/ready/grease
+  accepted `'-'` from pickinv but never received it.
+- **Fix:** `usextra` n-bump + n==1 `message_menu` + extra row;
+  `getobj_hands_txt`; `getobj_pickinv_xtra` (`*` / prompt dash /
+  altlets `'-'`); live `getobj` `- ` SUGGEST prefix + altlets
+  HANDS_SYM; `xprname` txt. Wire wield/ready/grease/dip_ok.
+  Rule #2: no fs.
+- **JS:** `js/invent.js` `display_pickinv_reply` /
+  `getobj_hands_txt` / `getobj_pickinv_xtra` / `getobj`;
+  `js/objnam.js` `xprname`; `js/wield.js`; `js/apply.js` grease;
+  `js/potion.js` `getobj_dip_ok`.
+- **Not this iter:** force_invmenu `*`/`?` redo; mime_action;
+  gacc / `'0'` ball; sortloot inuse_only; wizid; stylus `?`
+  Never_mind. `&ctmp` is D-1559. Eat/read/zap/tin is D-1568.
+- **Verified:** private canary **28**/28 (C locus + hands_txt
+  grease/write/wield/ready/dip; xtra `?`/`*` gates; n==1 empty
+  invent message_menu; one-item+usextra skips n==1; Rule #2);
+  green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1568 — invent.c getobj eat/read/zap/tin NOFLAGS
 
 - **Status:** fixed (map-driven Open from D-1567; not a public FAIL)

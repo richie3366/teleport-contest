@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1569 invent.c pickinv hands/xtra_choice
+
+**Objective:** Open pickinv hands/xtra_choice. Not `&ctmp`.
+**C locus:** `invent.c` `display_pickinv` `:3056–3417` usextra;
+`getobj_hands_txt` `:1718–1736`; getobj `:1976–1988`.
+**JS locus:** `display_pickinv_reply` after D-1559; no extra `'-'`.
+**Change:** usextra n-bump + n==1 `message_menu` + Miscellaneous
+row; `getobj_hands_txt`; live getobj + wield/ready/grease/dip_ok.
+force_invmenu redo / mime_action / gacc named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1960).
+**Verified:** canary **28**/28; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `cutworm`. Not worm_known. Do not skip D-1531…D-1569.
+
 ## 2026-08-28 — D-1568 invent.c getobj eat/read/zap/tin NOFLAGS
 
 **Objective:** Open eat/read/zap/tin getobj NOFLAGS. Not ALLOWCNT.

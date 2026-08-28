@@ -518,8 +518,8 @@ function wield_prompt_lets(raw) {
  * C ref: invent.c getobj("wield", wield_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
  * Hands GETOBJ_SUGGEST → buf prefix "- "; invent SUGGEST letters after;
  * compactify when suggested > 5. Count prefix + split_otmp live.
- * Canned CMDQ_INT/KEY live. `?`/`*` → display_pickinv `&ctmp` (D-1559);
- * hands/xtra_choice still named.
+ * Canned CMDQ_INT/KEY live. `?`/`*` → display_pickinv `&ctmp` (D-1559)
+ * + xtra_choice handsbuf (D-1569).
  */
 async function getobj_wield() {
     const cq = getobj_from_cmdq(wield_ok, true, hands_obj);
@@ -555,7 +555,11 @@ async function getobj_wield() {
             return null; // hands
         }
         if (ch === '?' || ch === '*') {
-            const ilet = await getobj_display_pickinv(ch, rawLets, true, counted);
+            const ilet = await getobj_display_pickinv(ch, rawLets, true, counted, {
+                word: 'wield',
+                allownone: true,
+                promptHasHands: true,
+            });
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline('Never mind.');
                 return undefined;
@@ -719,7 +723,7 @@ function ready_suggest_lets() {
  * C ref: invent.c getobj(verb, ready_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
  * Count prefix + split_otmp live; '-' → hands_obj; DOWNPLAY letters still
  * accepted. Canned CMDQ_INT/KEY live. `?`/`*` → display_pickinv `&ctmp`
- * (D-1559); hands/xtra_choice still named. Coin partial ready is doquiver.
+ * (D-1559) + xtra_choice handsbuf (D-1569). Coin partial ready is doquiver.
  */
 async function getobj_ready(verb) {
     const cq = getobj_from_cmdq(ready_ok, true, hands_obj);
@@ -759,7 +763,11 @@ async function getobj_ready(verb) {
             return hands_obj;
         }
         if (ch === '?' || ch === '*') {
-            const ilet = await getobj_display_pickinv(ch, lets, true, counted);
+            const ilet = await getobj_display_pickinv(ch, lets, true, counted, {
+                word: verb,
+                allownone: true,
+                promptHasHands: ready_ok(null) === GETOBJ_SUGGEST,
+            });
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline('Never mind.');
                 return undefined;

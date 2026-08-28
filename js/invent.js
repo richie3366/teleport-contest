@@ -18,7 +18,7 @@ import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
     endgamelevelname, obj_glyph, suppress_map_output, clear_nhwindow_message,
 } from './display.js';
-import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified } from './objnam.js';
+import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound } from './objnam.js';
 import { yn_function } from './getline.js';
 import { mergable, is_damageable, stop_timer, splitobj } from './mkobj.js';
 import { cansee } from './vision.js';
@@ -74,6 +74,9 @@ import {
     thats_enough_tries,
     LARGEST_INT,
     HANDS_SYM,
+    HAND,
+    FINGER,
+    FINGERTIP,
     GETOBJ_EXCLUDE,
     GETOBJ_SUGGEST,
     GETOBJ_DOWNPLAY,
@@ -984,31 +987,36 @@ function append_long_digit(L, D) {
  * only current-page selectors accepted (C resp).
  * C n==1 && !force_invmenu && !menu_requested && lets set →
  * tty_message_menu(PICK_ONE) topline xprname+--More-- (not corner menu);
- * `*out_cnt = -1` (select all).
+ * `*out_cnt = -1` (select all). usextra (xtra_choice && allowxtra) bumps
+ * n and, when n==1, message_menu(HANDS_SYM, xprname(NULL, txt, '-')).
+ * Full menu: sortpack "Miscellaneous" + extra '-' row (D-1569).
  * PICK_ONE digits: wintty.c process_menu_window count then
  * selected[0].count (D-1559). `out_cnt` is C `long *` (`{ n }`); omitted
  * when getobj !ALLOWCNT.
- * Named omissions: hands/xtra_choice; sortloot inuse_only; wizid;
- * force_invmenu / menu_requested `*`/`?` redo; MENU_PREV/FIRST/LAST;
- * group accelerators (gacc / '0' ball class).
+ * Named omissions: sortloot inuse_only; wizid; force_invmenu /
+ * menu_requested `*`/`?` redo; MENU_PREV/FIRST/LAST; group accelerators
+ * (gacc / '0' ball class).
  * @param {string|null} lets
  * @param {{ n: number }|null} [out_cnt]
+ * @param {{ choice: string, allow: boolean }|null} [xtra] C xtra_choice + allowxtra
  * @returns {string|null} selected invlet, or null if cancelled / no pick
  */
-export async function display_pickinv_reply(lets, out_cnt = null) {
+export async function display_pickinv_reply(lets, out_cnt = null, xtra = null) {
     const allowAll = !lets || lets === '*';
     const inv = game.invent || [];
+    const usextra = !!(xtra?.choice && xtra?.allow);
 
     // C: n = lets ? strlen(lets) : invent 0/1/2+; then
     // if (usextra || (n==1 && (!lets || wizid))) ++n — so bare invent
-    // with one item skips message_menu; getobj "?" with one letter does not.
+    // with one item skips message_menu; getobj "?" with one letter does
+    // not unless usextra (hands extra bumps past the one-item path).
     let n;
     if (!allowAll) {
         n = lets.length;
     } else {
         n = !inv.length ? 0 : inv.length === 1 ? 1 : 2;
-        if (n === 1) n++; // !lets → bump
     }
+    if (usextra || (n === 1 && allowAll)) n++;
 
     if (n === 0) {
         await pline('Not carrying anything appropriate.');
@@ -1022,6 +1030,14 @@ export async function display_pickinv_reply(lets, out_cnt = null) {
     ) {
         // C: if (out_cnt) *out_cnt = -1L; /* select all */ after message_menu
         if (out_cnt) out_cnt.n = -1;
+        if (usextra) {
+            // C: message_menu(HANDS_SYM, PICK_ONE, xprname(NULL, xtra_choice, '-', TRUE, 0, 0))
+            return await message_menu(
+                HANDS_SYM,
+                PICK_ONE,
+                xprname(null, HANDS_SYM, true, 0, xtra.choice),
+            );
+        }
         // C: first invent whose invlet == lets[0] (lets non-null here)
         const want = lets[0];
         const otmp = inv.find((o) => o && o.invlet === want);
@@ -1040,6 +1056,17 @@ export async function display_pickinv_reply(lets, out_cnt = null) {
     const allow = allowAll ? null : new Set([...lets]);
     const entries = [];
     const byLet = new Map();
+    if (usextra) {
+        // C display_pickinv :3253–3260 — wizard ID and xtra_choice exclusive
+        if (game.flags?.sortpack !== false) {
+            entries.push({ text: 'Miscellaneous', attr: ATR_INVERSE });
+        }
+        byLet.set(HANDS_SYM, { _hands: true });
+        entries.push({
+            text: xprname(null, HANDS_SYM, false, 0, xtra.choice),
+            attr: 0,
+        });
+    }
     for (const oclass of DEF_INV_ORDER) {
         const items = inv.filter((o) => {
             if (o.oclass !== oclass) return false;
@@ -4009,6 +4036,51 @@ export function getobj_from_cmdq(obj_ok, allowcnt, hands) {
 }
 
 /**
+ * C invent.c getobj_hands_txt `:1718–1736`. Menu xtra_choice string
+ * (not the yn prompt). grease uses fingers_or_gloves(FALSE) =
+ * makeplural(body_part(FINGER)), not the gloves name.
+ * @param {string} action getobj word
+ * @returns {string}
+ */
+export function getobj_hands_txt(action) {
+    const u = game.u || {};
+    if (action === 'grease') {
+        return `your ${makeplural(body_part_latebound(FINGER))}`;
+    }
+    if (action === 'write with') {
+        return `your ${body_part_latebound(FINGERTIP)}`;
+    }
+    if (action === 'wield') {
+        const gloved = u.uarmg ? 'gloved' : 'bare';
+        const wielded = !u.uwep ? ' (wielded)' : '';
+        return `your ${gloved} ${makeplural(body_part_latebound(HAND))}${wielded}`;
+    }
+    if (action === 'ready') {
+        return `empty quiver${!u.uquiver ? ' (nothing readied)' : ''}`;
+    }
+    return `your ${makeplural(body_part_latebound(HAND))}`;
+}
+
+/**
+ * C invent.c getobj `:1976–1981` — set handsbuf when `*` (NULL lets),
+ * lets starts with HANDS_SYM (altlets), or buf starts with '-' (SUGGEST).
+ * usextra also needs allownone (allowxtra).
+ * @param {string} ch '?' or '*'
+ * @param {string} rawLets
+ * @param {{ word: string, allownone: boolean, promptHasHands: boolean }} ctx
+ * @returns {{ choice: string, allow: boolean }|null}
+ */
+export function getobj_pickinv_xtra(ch, rawLets, ctx) {
+    if (!ctx?.allownone || ctx.word == null) return null;
+    const isStar = ch === '*';
+    const allowed = isStar ? null : (rawLets || '');
+    if (isStar || allowed[0] === HANDS_SYM || ctx.promptHasHands) {
+        return { choice: getobj_hands_txt(ctx.word), allow: true };
+    }
+    return null;
+}
+
+/**
  * C invent.c getobj `:1996–1999` after display_pickinv.
  * Menu `*out_cnt` overrides prompt digits when allowcnt && ctmp >= 0
  * (0 is a given count; -1 from n==1 / no menu digits means select-all).
@@ -4026,19 +4098,22 @@ export function getobj_pickinv_ctmp(allowcnt, ctmp, counted) {
 
 /**
  * C invent.c getobj redo_menu `?`/`*` `:1963–2001`.
- * display_pickinv(lets or NULL, …, allowcnt ? &ctmp : NULL) then
- * allowcnt && ctmp >= 0. force_invmenu `*`/`?` redo named.
+ * display_pickinv(lets or NULL, handsbuf, …, allowcnt ? &ctmp : NULL)
+ * then allowcnt && ctmp >= 0. force_invmenu `*`/`?` redo named.
  * @param {string} ch '?' or '*'
  * @param {string} rawLets non-compacted SUGGEST letters
  * @param {boolean} allowcnt
  * @param {{ cnt: number, cntgiven: boolean }} counted
+ * @param {{ word: string, allownone: boolean, promptHasHands: boolean }|null} [ctx]
  * @returns {Promise<string|null>}
  */
-export async function getobj_display_pickinv(ch, rawLets, allowcnt, counted) {
+export async function getobj_display_pickinv(ch, rawLets, allowcnt, counted, ctx = null) {
     const ctmp = { n: 0 };
+    const xtra = ctx ? getobj_pickinv_xtra(ch, rawLets, ctx) : null;
     const ilet = await display_pickinv_reply(
         ch === '*' ? '*' : (rawLets || '*'),
         allowcnt ? ctmp : null,
+        xtra,
     );
     if (ilet && ilet !== '\x1b' && ilet !== '*' && ilet !== '?') {
         getobj_pickinv_ctmp(allowcnt, ctmp, counted);
@@ -4115,14 +4190,15 @@ function getobj_find_ilet(ch) {
  * C invent.c getobj `:1751–2089`.
  * Canned CMDQ_INT/KEY (D-1551) + CQ_REPEAT (D-1563). Digit prefix
  * ALLOWCNT (D-1530); !ALLOWCNT → "No count allowed" and retry.
- * `?`/`*` → display_pickinv `allowcnt ? &ctmp : NULL` (D-1559).
+ * `?`/`*` → display_pickinv `allowcnt ? &ctmp : NULL` (D-1559) +
+ * xtra_choice/handsbuf when allownone (D-1569).
  * GETOBJ_NOFLAGS + no SUGGEST / hands / DOWNPLAY forceprompt →
  * "don't have anything [else] to WORD" (inaccess from
  * EXCLUDE_NONINVENT / EXCLUDE_INACCESS). GETOBJ_PROMPT still prompts
  * `[*]` when suggested==0.
  * Named omit: force_invmenu oneloop; in_doagain readchar (REPEAT
- * cmdq live); mime_action; getobj_hands_txt; sortloot body (invlet
- * sort); call-Amulet silly_thing.
+ * cmdq live); mime_action; sortloot body (invlet sort);
+ * call-Amulet silly_thing.
  * @param {string} word
  * @param {(obj: object|null) => number} obj_ok
  * @param {number} ctrlflags
@@ -4133,13 +4209,16 @@ export async function getobj(word, obj_ok, ctrlflags) {
     let forceprompt = !!(ctrlflags & GETOBJ_PROMPT);
     let allownone = false;
     let inaccess = 0;
+    let handsSuggest = false;
 
-    const cq = getobj_from_cmdq(obj_ok, allowcnt);
+    const { hands_obj } = await import('./weapon.js');
+    const cq = getobj_from_cmdq(obj_ok, allowcnt, hands_obj);
     if (!cq.skip) return cq.otmp;
 
     const none_rank = obj_ok(null);
     if (none_rank === GETOBJ_SUGGEST) {
         allownone = true;
+        handsSuggest = true;
     } else if (
         none_rank === GETOBJ_DOWNPLAY
         || none_rank === GETOBJ_EXCLUDE_INACCESS
@@ -4153,6 +4232,8 @@ export async function getobj(word, obj_ok, ctrlflags) {
 
     const suggest = [];
     const alt = [];
+    // C: DOWNPLAY/EXCLUDE_* hands go to altlets first (HANDS_SYM)
+    if (allownone && !handsSuggest) alt.push(HANDS_SYM);
     for (const otmp of game.invent || []) {
         if (!otmp?.invlet) continue;
         const v = obj_ok(otmp);
@@ -4175,7 +4256,12 @@ export async function getobj(word, obj_ok, ctrlflags) {
         return null;
     }
 
-    const promptLets = suggested > 5 ? compactify_invlets(rawLets) : rawLets;
+    // C: buf is "- " + letters when SUGGEST hands; strip trailing space
+    // if no letters. compactify(bp) is letters-only (lets, not buf prefix).
+    const compactLets = suggested > 5 ? compactify_invlets(rawLets) : rawLets;
+    const promptLets = handsSuggest
+        ? (compactLets ? `- ${compactLets}` : '-')
+        : compactLets;
 
     for (;;) {
         const query = promptLets
@@ -4191,7 +4277,6 @@ export async function getobj(word, obj_ok, ctrlflags) {
         }
         if (ch === HANDS_SYM) {
             if (!allownone) return null; // mime_action named
-            const { hands_obj } = await import('./weapon.js');
             return hands_obj;
         }
         if (ch === '?' || ch === '*') {
@@ -4199,6 +4284,7 @@ export async function getobj(word, obj_ok, ctrlflags) {
             if (ch === '?' && !allowed && altLets) allowed = altLets;
             const ilet = await getobj_display_pickinv(
                 ch, allowed, allowcnt, counted,
+                { word, allownone, promptHasHands: handsSuggest },
             );
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline(Never_mind);
@@ -4207,7 +4293,6 @@ export async function getobj(word, obj_ok, ctrlflags) {
             if (!ilet) continue;
             if (ilet === HANDS_SYM) {
                 if (!allownone) return null;
-                const { hands_obj } = await import('./weapon.js');
                 return hands_obj;
             }
             const picked = getobj_find_ilet(ilet);

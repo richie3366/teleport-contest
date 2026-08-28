@@ -48,7 +48,7 @@ import {
 import {
     compactify_invlets, makeknown, near_capacity, observe_object, prinv,
     hold_another_object, consume_obj_charge, update_inventory,
-    getobj_from_cmdq, getobj_record_repeat,
+    getobj_from_cmdq, getobj_record_repeat, getobj_display_pickinv,
 } from './invent.js';
 import { rn2, rn1, rnd, d, rnl, shuffle_int_array } from './rng.js';
 import {
@@ -2260,8 +2260,11 @@ async function getobj_grease() {
         }
         if (ch === '-') return hands_obj;
         if (ch === '?' || ch === '*') {
-            const { display_pickinv_reply } = await import('./invent.js');
-            const ilet = await display_pickinv_reply(ch === '*' ? '*' : rawLets);
+            const counted = { cnt: 0, cntgiven: false };
+            const ilet = await getobj_display_pickinv(
+                ch, rawLets, false, counted,
+                { word, allownone: true, promptHasHands: true },
+            );
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline('Never mind.');
                 return null;

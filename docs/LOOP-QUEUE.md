@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` pickinv hands/xtra_choice (named). Not `&ctmp`.
 - [ ] `worm.c` `cutworm` (named). Not worm_known.
 - [ ] `vision.c` `vision_recalc` xray IN_SIGHT (named). Not howmonseen.
 - [ ] `timeout.c` `attach_egg_hatch_timeout` (named). Not Plan-B.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `vision.c` `unblock_point`/`dig_point` (named). Not block_point.
 - [ ] `makemon.c` `ndemon` aligned `mkclass` (named). Not rndmonst_adj.
 - [ ] `worm.c` `redraw_worm` (named). Not cutworm.
+- [ ] `invent.c` force_invmenu `*`/`?` redo (named). Not hands/xtra.
+- [ ] `invent.c` mime_action (named). Not force_invmenu.
+- [ ] `invent.c` gacc / `'0'` ball class (named). Not mime_action.
+- [ ] `pickup.c` traditional_loot askchain (named). Not `'r'` reversed.
+- [ ] `cmd.c` PREFIXCMD / `cmdq_shift` (named). Not do_repeat.
 
 ## Parked (do not pop)
 
