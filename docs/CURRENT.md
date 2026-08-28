@@ -62,25 +62,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1950**. **Next cluster:**
-Open `makemon.c` `rndmonst_adj` rogue/elem filters (named).
-Not mkclass.
-**Do not skip D-1531…D-1565 (index).** Keep mention_map addr.
+Open `pickup.c` `'r'` reversed put-in then take-out (named).
+Not stash.
+**Do not skip D-1531…D-1566 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1565.** Do not FORCE
+**Do not re-break D-0660…D-1566.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1565 (index). Recent: **D-1565**
-`makemon.c` `clone_mon` `place_monster` 2D grid (`steed.c`;
-`_level_monsters`; gulpmm clone retired; not HP split). Prior:
-**D-1564** `set_mimic_sym` Protection / `made_fruit` / Plan-B
-(uprops H\|\|E). **D-1563** `do_repeat` / getobj CQ_REPEAT.
-Older D-1531…D-1562 live in the index — do not re-paste.
+**Keep:** D-0845…D-1566 (index). Recent: **D-1566**
+`makemon.c` `rndmonst_adj` rogue/elem filters (`wrong_elem_type`
+/ `is_home_elemental`; not mkclass). Prior: **D-1565**
+`clone_mon` `place_monster` 2D grid. **D-1564** Protection /
+`made_fruit` / Plan-B. Older D-1531…D-1563 live in the
+index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-skip D-1229…D-1565 (index). No `reset_glyphmap` /
+skip D-1229…D-1566 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -103,8 +103,9 @@ Do not skip canned CMDQ_INT (D-1551), Eyes `is_plural`
 (D-1557; not `recalc`), SEARCH/REGEN/XRAY (D-1558), pickinv
 `&ctmp` (D-1559), `finish_splitting` (D-1560), stash ALLOWCNT
 (D-1561), `do_repeat` CQ_REPEAT (D-1563), Protection/`made_fruit`/Plan-B
-(D-1564). `place_monster` 2D is D-1565. Do not glue `'r'` reversed.
-Do not rewrite `confer_oc_oprop`. Do not skip `rndmonst_adj`.
+(D-1564). `place_monster` 2D is D-1565. `rndmonst_adj` rogue/elem
+is D-1566. Do not glue `'r'` reversed.
+Do not rewrite `confer_oc_oprop`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

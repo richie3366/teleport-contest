@@ -314,6 +314,7 @@ in-body await still deferred); **D-0530 `m_initweap` S_TROLL polearm kit**;
 `_level_monsters`)**; **D-0545 `makemon` MON_AT + 
 `worm_mon_at` (reject worm-seg cells before rndmonst)**; 
 **D-0532 `rndmonst_adj` quest `rn2(7)`→`qt_montype` + roles[] `enemy1/2`**; 
+**D-1566 `rndmonst_adj` rogue/elem filters** (`:1673–1686` `upper=Is_rogue_level` `isupper(monsym)` + `elemlevel=In_endgame&&!Is_astralevel` `wrong_elem_type`; live `is_home_elemental` C home; mon.js/teleport.js cycle clones; newmonhp ×3 / grow_up named); 
 **D-0535 `rnd_offensive_item` case0 FALLTHROUGH→`WAN_STRIKING`**; 
 **D-0536 `makemon` MON_AT + `MM_ADJACENTOK`→`enexto_core`**; 
 **D-0603/D-1088 `m_initweap`/`m_initinv` MS_PRIEST** (`ptr.msound` + 
@@ -336,7 +337,7 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
 **D-1535 `observe_quantum_cat`** (`pickup.c:2826–2896`; FOOT latebound; use_container/tip TRUE,TRUE; disclose FALSE,FALSE live spe; `Schroedinger's cat!`); muse monster-loot / escape companion HP named;
-`newcham` Protection cancel; `ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters;
+`newcham` Protection cancel; `ndemon`/aligned `mkclass` callers unaudited;
 egg `attach_egg_hatch_timeout`; `unblock_point`/`dig_point`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
 `GEHENNOM` dnum sites still wrong); **D-0749 `rnd_misc_item` life-saving `!nonliving && 

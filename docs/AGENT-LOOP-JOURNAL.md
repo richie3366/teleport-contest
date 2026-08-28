@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1566 makemon.c rndmonst_adj rogue/elem filters
+
+**Objective:** Open `rndmonst_adj` rogue/elem filters. Not mkclass.
+**C locus:** `makemon.c` `rndmonst_adj` `:1673–1686`; callees
+`wrong_elem_type` `:55–75`, `is_home_elemental` `:32–50`.
+**JS locus:** `js/makemon.js` (quest+Inhell live; upper/elem deferred).
+**Change:** `upper=Is_rogue_level` `monsym_isupper`; `elemlevel`
+`wrong_elem_type` (home elemental / swim / MR_FIRE / air).
+newmonhp ×3 / grow_up / ndemon mkclass named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1950).
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + seed0013-rogue + strict.
+**Next:** Open `'r'` reversed put-in then take-out. Not stash.
+**Blocked:** none.
 ## 2026-08-28 — D-1565 makemon.c clone_mon place_monster 2D grid
 
 **Objective:** Open `clone_mon` `place_monster` 2D grid. Not HP split.

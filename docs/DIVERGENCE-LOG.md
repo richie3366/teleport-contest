@@ -4,6 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1566 — makemon.c rndmonst_adj rogue/elem filters
+
+- **Status:** fixed (map-driven Open from D-1565; not a public FAIL)
+- **Symptom:** `rndmonst_adj` weighted the difficulty/uncommon/Inhell
+  pool but skipped C's rogue uppercase `monsym` gate and elemental-
+  plane `wrong_elem_type` filter. Named omit after D-0532 quest
+  `qt_montype` and D-0747 Inhell. Not mkclass.
+- **C locus:** `makemon.c` `rndmonst_adj` `:1673–1686`
+  (`upper = Is_rogue_level(&u.uz)`; `elemlevel = In_endgame &&
+  !Is_astralevel`; `if (upper && !isupper(monsym(ptr)))`;
+  `if (elemlevel && wrong_elem_type(ptr))` after difficulty,
+  before `uncommon`). Callees `wrong_elem_type` `:55–75`
+  (S_ELEMENTAL `!is_home_elemental`; water `is_swimmer`; fire
+  `MR_FIRE`; air flyer-not-trapper / floater / amorphous /
+  noncorporeal / whirly; earth no extra) and
+  `is_home_elemental` `:32–50`.
+- **JS was:** comment deferred upper/elemlevel; Inhell hellish
+  live. `monsym_isupper` already existed for `select_newcham_form`.
+- **Fix:** live `upper`/`elemlevel` continues; local
+  `wrong_elem_type` + `is_home_elemental` at C home (mon.js /
+  teleport.js keep cycle clones). Rule #2: no fs.
+- **JS:** `js/makemon.js` (`rndmonst_adj`, helpers).
+- **Not this iter:** `ndemon`/aligned `mkclass`; newmonhp
+  `is_home_elemental` ×3; grow_up; `'r'` reversed. Quest
+  `qt_montype` is D-0532. Inhell is D-0747. `place_monster`
+  2D is D-1565.
+- **Verified:** private canary **21**/21 (C/JS locus + order;
+  ordinary lowercase; rogue uppercase-only; fire/water/earth/air
+  planes; astral not elemlevel; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + seed0013-rogue + strict.
+
 ## D-1565 — makemon.c clone_mon place_monster 2D grid
 
 - **Status:** fixed (map-driven Open from D-1564; not a public FAIL)

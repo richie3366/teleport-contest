@@ -52,6 +52,9 @@ import {
     is_animal,
     mindless,
     is_floater,
+    is_flyer,
+    is_swimmer,
+    is_whirly,
     is_mercenary,
     is_elf,
     is_giant,
@@ -83,6 +86,7 @@ import {
     MM_EMIN, MM_EPRI, MM_ANGRY, MM_ADJACENTOK, MM_NOTAIL, MM_NOWAIT, MM_MALE, MM_FEMALE,
     MM_NOMSG, MM_NOEXCLAM, MM_IGNOREWATER,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, Is_earthlevel,
+    Is_firelevel, Is_airlevel, Is_astralevel,
     In_mines, In_sokoban, In_endgame,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD, G_EXTINCT,
     isok, has_mgivenname, MGIVENNAME, has_emin, MON_FLOOR,
@@ -373,6 +377,51 @@ function temperature_shift(ptr) {
     return pm_resistance(ptr, temp > 0 ? MR_FIRE : MR_COLD) ? 3 : 0;
 }
 
+/**
+ * C ref: makemon.c is_home_elemental — S_ELEMENTAL on matching plane.
+ * C home (mon.js / teleport.js keep cycle clones).
+ * Named omit: newmonhp ×3 / grow_up threshold still unnamed users.
+ */
+function is_home_elemental(ptr) {
+    if (ptr?.mlet !== 'S_ELEMENTAL') return false;
+    switch (ptr.mndx ?? -1) {
+    case pm('AIR_ELEMENTAL'):
+        return Is_airlevel(game.u?.uz);
+    case pm('FIRE_ELEMENTAL'):
+        return Is_firelevel(game.u?.uz);
+    case pm('EARTH_ELEMENTAL'):
+        return Is_earthlevel(game.u?.uz);
+    case pm('WATER_ELEMENTAL'):
+        return Is_waterlevel(game.u?.uz);
+    default:
+        return false;
+    }
+}
+
+/**
+ * C ref: makemon.c wrong_elem_type — static; rndmonst_adj elemlevel filter.
+ * Earth: no extra non-elemental restriction. Water: swimmers.
+ * Fire: MR_FIRE. Air: flyer (not trapper) / floater / amorphous /
+ * noncorporeal / whirly.
+ */
+function wrong_elem_type(ptr) {
+    if (ptr.mlet === 'S_ELEMENTAL') {
+        return !is_home_elemental(ptr);
+    } else if (Is_earthlevel(game.u?.uz)) {
+        /* no restrictions? */
+    } else if (Is_waterlevel(game.u?.uz)) {
+        if (!is_swimmer(ptr)) return true;
+    } else if (Is_firelevel(game.u?.uz)) {
+        if (!pm_resistance(ptr, MR_FIRE)) return true;
+    } else if (Is_airlevel(game.u?.uz)) {
+        if (!(is_flyer(ptr) && ptr.mlet !== 'S_TRAPPER') && !is_floater(ptr)
+            && !amorphous(ptr) && !noncorporeal(ptr) && !is_whirly(ptr)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // C ref: makemon.c rndmonst_adj()
 // C: quest_dnum gate → questpgr.c qt_montype() before ordinary weights
 export function qt_montype() {
@@ -404,8 +453,10 @@ export function rndmonst_adj(minadj = 0, maxadj = 0) {
     const ulevel = game.u?.ulevel ?? 1;
     const minmlev = monmin_difficulty(zlevel) + minadj;
     const maxmlev = monmax_difficulty(zlevel, ulevel) + maxadj;
-    // C: upper / elemlevel filters — rogue uppercase + elemental planes
-    // deferred (valley is neither). Inhell = dungeon hellish flag.
+    // C: upper = Is_rogue_level; elemlevel = In_endgame && !Is_astralevel
+    const upper = Is_rogue_level(game.u?.uz);
+    const elemlevel = In_endgame(game.u?.uz) && !Is_astralevel(game.u?.uz);
+    // Inhell = dungeon hellish flag (D-0747)
     const inhell = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
 
     let totalweight = 0;
@@ -414,6 +465,10 @@ export function rndmonst_adj(minadj = 0, maxadj = 0) {
     for (let mndx = LOW_PM; mndx < SPECIAL_PM; mndx++) {
         const ptr = mons(mndx);
         if (montooweak(mndx, minmlev) || montoostrong(mndx, maxmlev)) continue;
+        // C: if (upper && !isupper(monsym(ptr))) continue;
+        if (upper && !monsym_isupper(ptr)) continue;
+        // C: if (elemlevel && wrong_elem_type(ptr)) continue;
+        if (elemlevel && wrong_elem_type(ptr)) continue;
         if (uncommon(mndx)) continue;
         // C: if (Inhell && (ptr->geno & G_NOHELL)) continue;
         if (inhell && (ptr.geno & G_NOHELL)) continue;
@@ -912,7 +967,8 @@ function validspecmon(mon, mndx) {
 
 /**
  * C: isupper(monsym(ptr)) — def_monsyms A–Z for S_ANGEL..S_ZOMBIE
- * (display.js MLET_CH). Used by select_newcham_form rogue retry gate.
+ * (display.js MLET_CH). Used by rndmonst_adj rogue upper filter
+ * and select_newcham_form rogue retry gate.
  */
 function monsym_isupper(mdat) {
     switch (mdat?.mlet) {
