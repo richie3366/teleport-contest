@@ -29,6 +29,10 @@ const RECORD = path.join(SCRIPT_DIR, 'record-session.mjs');
 const BUILD_DATE_RE = /(built|last build) [A-Z][a-z]{2}\s+\d{1,2} \d{4} \d{2}:\d{2}:\d{2}/g;
 const RC_PATH_RE = /Set options as OPTIONS=<options> in\n[^\n]*\n/g;
 
+function normalizeRng(entry) {
+    return String(entry).replace(/\s*@\s.*$/, '').replace(/^\d+\s+/, '').trim();
+}
+
 function normalize(session) {
     const out = JSON.parse(JSON.stringify(session));
     for (const seg of out.segments || []) {
@@ -44,32 +48,40 @@ function normalize(session) {
 }
 
 function diffSummary(a, b) {
+    let annotationOnly = 0;
     if (a.segments.length !== b.segments.length) {
-        return `segments len ${a.segments.length} vs ${b.segments.length}`;
+        return { fail: `segments len ${a.segments.length} vs ${b.segments.length}`, annotationOnly };
     }
     for (let si = 0; si < a.segments.length; si++) {
         const sa = a.segments[si];
         const sb = b.segments[si];
         const la = (sa.steps || []).length;
         const lb = (sb.steps || []).length;
-        if (la !== lb) return `seg ${si} steps len ${la} vs ${lb}`;
+        if (la !== lb) return { fail: `seg ${si} steps len ${la} vs ${lb}`, annotationOnly };
         for (let i = 0; i < la; i++) {
             const x = sa.steps[i];
             const y = sb.steps[i];
             for (const f of ['key', 'screen', 'cursor']) {
                 if (JSON.stringify(x[f]) !== JSON.stringify(y[f])) {
-                    return `seg ${si} step ${i} ${f}`;
+                    return { fail: `seg ${si} step ${i} ${f}`, annotationOnly };
                 }
             }
             const xr = x.rng || [];
             const yr = y.rng || [];
-            if (xr.length !== yr.length) return `seg ${si} step ${i} rng len ${xr.length} vs ${yr.length}`;
-            for (let j = 0; j < xr.length; j++) {
-                if (xr[j] !== yr[j]) return `seg ${si} step ${i} rng[${j}]`;
+            if (xr.length !== yr.length) {
+                return { fail: `seg ${si} step ${i} rng len ${xr.length} vs ${yr.length}`, annotationOnly };
             }
+            let rawMismatch = false;
+            for (let j = 0; j < xr.length; j++) {
+                if (xr[j] !== yr[j]) rawMismatch = true;
+                if (normalizeRng(xr[j]) !== normalizeRng(yr[j])) {
+                    return { fail: `seg ${si} step ${i} rng[${j}]`, annotationOnly };
+                }
+            }
+            if (rawMismatch) annotationOnly += 1;
         }
     }
-    return null;
+    return { fail: null, annotationOnly };
 }
 
 async function recordOne(input, output) {
@@ -111,6 +123,7 @@ async function main() {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'verify-rerecord-'));
     let pass = 0;
     let fail = 0;
+    let annotationOnlyTotal = 0;
     const failures = [];
     try {
         for (const entry of all) {
@@ -133,12 +146,13 @@ async function main() {
                 const a = normalize(JSON.parse(await fs.readFile(input, 'utf8')));
                 const b = normalize(JSON.parse(await fs.readFile(output, 'utf8')));
                 const d = diffSummary(a, b);
-                if (d) {
-                    process.stdout.write(`FAIL: ${d}\n`);
+                annotationOnlyTotal += d.annotationOnly;
+                if (d.fail) {
+                    process.stdout.write(`FAIL: ${d.fail}\n`);
                     fail += 1;
-                    failures.push({ name: display, reason: d });
+                    failures.push({ name: display, reason: d.fail });
                 } else {
-                    process.stdout.write('OK\n');
+                    process.stdout.write(`OK\n`);
                     pass += 1;
                 }
             } catch (err) {
@@ -148,6 +162,7 @@ async function main() {
             }
         }
         console.log(`\n=== ${pass}/${pass + fail} pass ===`);
+        console.log(`annotation-only mismatched steps: ${annotationOnlyTotal}`);
         if (failures.length) {
             console.log('Failures:');
             for (const f of failures) console.log(`  ${f.name} — ${f.reason}`);

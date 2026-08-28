@@ -4,7 +4,68 @@ Local oracles. **Not** the public contest set. Do not add these files to
 `sessions/manifest.json`. Cadence `node frozen/ps_test_runner.mjs sessions`
 must stay the public 44.
 
-Score one:
+## Public cadence vs this directory
+
+```bash
+node frozen/ps_test_runner.mjs sessions
+```
+
+That command is the scored 44. Files here are an operator/audit corpus
+for the C3 differential session oracle. They are not a second scorer, not
+a sealed holdout, and never a green-path gate. Do not hardcode these
+seeds, recorded coordinates, or RNG indices into `js/`.
+
+## Differential oracle
+
+Document of record: `docs/proposals/2026-08-28-differential-session-fuzzing-oracle.md`
+(C3 + C1). Operator entry point:
+
+```bash
+# Provenance preflight — fail closed at 44/44 before any fuzz batch.
+node scripts/fuzz-oracle.mjs preflight
+# (same as: node scripts/verify-rerecord.mjs)
+
+# First-diff helper locks (public PASS + synthetic screen/RNG FAIL).
+node scripts/fuzz-oracle.mjs compare --self-test
+
+# Generate mutants. Never writes sessions/. Recipes land in .cache/fuzz/
+# (gitignored). Isolated short HACKDIR copies under /tmp/nhfz/wN.
+node scripts/fuzz-oracle.mjs batch --mode explore --n 8 --jobs 4 --seed 20260828
+node scripts/fuzz-oracle.mjs batch --mode random --n 8 --tail 25
+node scripts/fuzz-oracle.mjs batch --mode independent --n 4
+node scripts/fuzz-oracle.mjs batch --first-batch   # 8 explore + 8 random + 4 independent, then minimize
+
+# Bisect the appended suffix of one hit (RNG-divergent → first RNG delta).
+node scripts/fuzz-oracle.mjs minimize <recipe-or-session-or-batch-id>
+
+# Score every private-sessions/*.session.json. Prints transitions only
+# (non-PASS→PASS, PASS→non-PASS, worse-but-still-failing). Unchanged is silent.
+# --check reports without writing the baseline.
+node scripts/fuzz-oracle.mjs corpus
+node scripts/fuzz-oracle.mjs corpus --check
+
+# Re-print the last batch dashboard (severity + queue sorts).
+node scripts/fuzz-oracle.mjs triage
+```
+
+Parallel workers **must not** share HACKDIR. The recorder throws if
+`NETHACK_INSTALL` is longer than 128 characters (`nh_getenv` / `BUFSZ/2`).
+Set `RECORD_MIN_STEPS` (the batch driver does this) so a lock/HACKDIR abort
+cannot score as a vacuous `0/0` PASS.
+
+`corpus-baseline.json` is a snapshot, not a seal. Derived debt (non-PASS
+for N consecutive audits) is printed; the process still exits 0.
+`failStreak` / `audit` increment once per git `HEAD`, not per invocation;
+`node scripts/fuzz-oracle.mjs corpus --check` reports without writing.
+
+Minimized `.session.json` files still embed the unmutated public prefix
+(typically 100–700 KB each). `corpus` is ~300 ms per entry today. That is
+fine at n=5; treat growing the corpus as a cost, not a free log. Mechanical
+coverage (`Unknown command`) is never copied here. Deduped-away batch ids
+are listed on the surviving row's `merged` field in
+`.cache/fuzz/last-batch.json` and can still be passed to `minimize`.
+
+Score one session:
 
 ```bash
 node frozen/ps_test_runner.mjs private-sessions/<name>.session.json

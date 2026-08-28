@@ -1,0 +1,50 @@
+{
+  "defaults": { "trimTail": 12, "minPrefixAfterTrim": 16 },
+  "sessions": [
+    {
+      "file": "sessions/seed0030-ten-diverse-deaths.session.json",
+      "trimTail": 12
+    },
+    {
+      "file": "sessions/seed4500-knight-coverage.session.json",
+      "trimTail": 12
+    },
+    {
+      "file": "sessions/seed0360-wizard-world-tour.session.json",
+      "trimTail": 12
+    },
+    {
+      "file": "sessions/seed0367-priest-quest-tour.session.json",
+      "trimTail": 12
+    },
+    {
+      "file": "sessions/seed0013-friday13-save-then-fullmoon-restore.session.json",
+      "trimTail": 12,
+      "restore": true
+    },
+    { "file": "sessions/seed0014-dequa-fountain-explore.session.json", "trimTail": 12 },
+    { "file": "sessions/seed0015-valk-level2-pit-dog-wait.session.json", "trimTail": 12 },
+    { "file": "sessions/seed0116-wizard-wear-shop.session.json", "trimTail": 12 },
+    { "file": "sessions/seed0700-samurai-explore-descend.session.json", "trimTail": 12 },
+    { "file": "sessions/seed0900-tourist-explore-actions.session.json", "trimTail": 12 },
+    { "file": "sessions/seed1150-caveman-explore-move.session.json", "trimTail": 12 },
+    { "file": "sessions/seed1500-rogue-explore-move.session.json", "trimTail": 12 },
+    { "file": "sessions/seed2200-wizard-quaff-zap-read.session.json", "trimTail": 12 },
+    { "file": "sessions/seed0200-monk-north-search.session.json", "trimTail": 12 }
+  ],
+  "independentRoles": [
+    { "name": "Touristo", "role": "Tourist", "race": "human", "gender": "male", "align": "neutral" },
+    { "name": "Astrid", "role": "Valkyrie", "race": "human", "gender": "female", "align": "neutral" },
+    { "name": "Musashi", "role": "Samurai", "race": "human", "gender": "male", "align": "lawful" },
+    { "name": "Grok", "role": "Caveman", "race": "human", "gender": "male", "align": "neutral" },
+    { "name": "merlin", "role": "Wizard", "race": "elf", "gender": "male", "align": "chaotic" },
+    { "name": "robin", "role": "Rogue", "race": "human", "gender": "male", "align": "chaotic" },
+    { "name": "Caspar", "role": "Priest", "race": "human", "gender": "male", "align": "lawful" },
+    { "name": "Florian", "role": "Knight", "race": "human", "gender": "male", "align": "lawful" },
+    { "name": "ricky", "role": "Ranger", "race": "human", "gender": "female", "align": "chaotic" },
+    { "name": "Kira", "role": "Monk", "race": "human", "gender": "female", "align": "neutral" },
+    { "name": "Indiana", "role": "Archeologist", "race": "human", "gender": "male", "align": "lawful" },
+    { "name": "Conan", "role": "Barbarian", "race": "human", "gender": "male", "align": "neutral" },
+    { "name": "Hippocrates", "role": "Healer", "race": "human", "gender": "male", "align": "neutral" }
+  ]
+}

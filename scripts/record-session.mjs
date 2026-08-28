@@ -13,8 +13,14 @@
 // Env:
 //   NETHACK_BINARY     path to recorder/install/games/lib/nethackdir/nethack
 //                      (defaults to nethack-c/recorder/install/...)
-//   NETHACK_INSTALL    install dir (HACKDIR / NETHACKDIR)
-//   RERECORD_TZ        timezone for the C process (default America/New_York)
+//   NETHACK_INSTALL    install dir (HACKDIR / NETHACKDIR). Must be 128
+//                      chars or fewer (nh_getenv / BUFSZ/2); longer is
+//                      silently ignored by C and yields empty recordings.
+//   RERECORD_TZ        timezone for the C process (default America/New_York).
+//                      Per-segment `timezone` on the recipe overrides this.
+//   RECORD_MIN_STEPS   if set, fail unless the recording has at least this
+//                      many steps (vacuous-recording floor). Parallel
+//                      workers must use isolated NETHACK_INSTALL copies.
 //
 // The recorder binary must be built from the patched submodule.
 // See nethack-c/build-recorder.sh.
@@ -344,13 +350,43 @@ async function ensureScorefiles(installDir) {
     }
 }
 
-async function clearStaleState(installDir) {
-    const saveDir = path.join(installDir, 'save');
-    try {
-        const entries = await fs.readdir(saveDir);
-        await Promise.all(entries.map((e) => fs.unlink(path.join(saveDir, e)).catch(() => {})));
-    } catch {}
-    // Strip lock/bones/wizard files that interfere with deterministic replay.
+function isRngCall(entry) {
+    return typeof entry === 'string' && /^(?:rn2|rnd|rn1|rnl|rne|rnz|d)\(/.test(entry);
+}
+
+/** HACKDIR / NETHACKDIR: nh_getenv drops values with strlen > BUFSZ/2 (128). */
+const HACKDIR_MAX = 128;
+
+/**
+ * Wipe playground residue. Segment 0 wipes save/, scorefiles, bones, and
+ * locks. Later segments wipe playground locks only and keep save/ so a
+ * genuine restore (seed0013) still finds its file, while an interrupted
+ * prior game (seed5002 unanswered Die?) does not block the next
+ * independent segment. Bones and record/xlogfile stay so chained deaths
+ * (seed0030 / seed5006 topten) still match the canonical traces.
+ * @param {string} installDir
+ * @param {{ wipeSave?: boolean }} [opts]
+ */
+function isPlaygroundLock(name) {
+    const lower = name.toLowerCase();
+    if (lower.startsWith('alock') || lower.startsWith('block')) return true;
+    // Unix level/lock files: <uid><player>.<lev> e.g. 501Cleo.0
+    // Intended to match playground residue only — no shipped data file
+    // begins with a digit. A future data file that does would be deleted
+    // on segment 0 (and as a lock on later segments).
+    if (/^\d+.+\.\d+$/.test(name)) return true;
+    return false;
+}
+
+async function clearStaleState(installDir, opts = {}) {
+    const wipeSave = opts.wipeSave !== false;
+    if (wipeSave) {
+        const saveDir = path.join(installDir, 'save');
+        try {
+            const entries = await fs.readdir(saveDir);
+            await Promise.all(entries.map((e) => fs.unlink(path.join(saveDir, e)).catch(() => {})));
+        } catch {}
+    }
     let entries = [];
     try { entries = await fs.readdir(installDir); } catch {}
     const killNames = new Set(['record', 'xlogfile', 'logfile', 'paniclog']);
@@ -361,9 +397,16 @@ async function clearStaleState(installDir) {
         try { st = await fs.stat(full); } catch { continue; }
         if (!st.isFile()) continue;
         if (name.endsWith('.lua')) continue;
+        // Later segments: strip in-progress locks only. Keep save/, bones,
+        // and scorefiles so restore (seed0013) and chained deaths
+        // (seed0030 / seed5006 topten) still match the canonical traces.
+        if (!wipeSave) {
+            if (isPlaygroundLock(name)) await fs.unlink(full).catch(() => {});
+            continue;
+        }
         if (killNames.has(lower)
+            || isPlaygroundLock(name)
             || lower.startsWith('bon')
-            || lower.endsWith('.0')
             || lower.includes('wizard')
             || lower.includes('recorder')
             || lower.includes('agent')) {
@@ -387,12 +430,10 @@ async function recordSegment({
     await fs.writeFile(path.join(homeDir, '.nethackrc'), seg.nethackrc || '');
     // Reset rng log
     await fs.writeFile(rngLogPath, '');
-    // Only wipe state on the first segment.  A multi-segment session
-    // can be a save/restore pair: seg 0 ends with save+quit, seg 1
-    // restarts NetHack and restores from the save file in
-    // <install>/save/.  Clearing between segments would destroy that
-    // save file and turn the restore into a fresh game.
-    if (isFirstSegment) await clearStaleState(installDir);
+    // Segment 0: wipe save/, bones, scorefiles, and locks. Later
+    // segments: playground locks only — keep save/ (restore), bones
+    // and record/xlogfile (chained deaths / topten).
+    await clearStaleState(installDir, { wipeSave: isFirstSegment });
 
     const playerName = parseNethackrcName(seg.nethackrc) ?? '';
     const args = ['-u', playerName];
@@ -586,13 +627,18 @@ async function main() {
 
     const binary = process.env.NETHACK_BINARY || DEFAULT_BINARY;
     const installDir = process.env.NETHACK_INSTALL || DEFAULT_INSTALL;
-    const tz = process.env.RERECORD_TZ || 'America/New_York';
+    const defaultTz = process.env.RERECORD_TZ || 'America/New_York';
 
     if (!await exists(binary)) {
         throw new Error(`recorder binary not found: ${binary}\n  build it via nethack-c/build-recorder.sh`);
     }
     if (!await exists(installDir)) {
         throw new Error(`install dir not found: ${installDir}`);
+    }
+    if (installDir.length > HACKDIR_MAX) {
+        throw new Error(
+            `NETHACK_INSTALL is ${installDir.length} chars; nh_getenv drops HACKDIR longer than ${HACKDIR_MAX}. Use a short path.`,
+        );
     }
 
     const session = await loadSession(inputPath);
@@ -602,8 +648,11 @@ async function main() {
 
     try {
         const newSegments = [];
+        let totalSteps = 0;
+        let totalRng = 0;
         for (let i = 0; i < session.segments.length; i++) {
             const seg = session.segments[i];
+            const tz = seg.timezone || session.timezone || defaultTz;
             console.error(`[seg ${i + 1}/${session.segments.length}] seed=${seg.seed} moves=${(seg.moves || '').length}`);
             const steps = await recordSegment({
                 seg,
@@ -614,6 +663,12 @@ async function main() {
                 homeDir,
                 tz,
             });
+            totalSteps += steps.length;
+            for (const st of steps) {
+                for (const line of st.rng || []) {
+                    if (isRngCall(line)) totalRng += 1;
+                }
+            }
             const out = {
                 seed: seg.seed,
                 datetime: seg.datetime,
@@ -637,8 +692,20 @@ async function main() {
             if (k !== 'version' && k !== 'segments') outDoc[k] = session[k];
         }
 
+        if (totalSteps === 0 || totalRng === 0) {
+            throw new Error(
+                `vacuous recording: steps=${totalSteps} rngCalls=${totalRng}`,
+            );
+        }
+        const minSteps = Number(process.env.RECORD_MIN_STEPS || 0);
+        if (minSteps > 0 && totalSteps < minSteps) {
+            throw new Error(
+                `recording too short: steps=${totalSteps} < RECORD_MIN_STEPS=${minSteps}`,
+            );
+        }
+
         await fs.writeFile(outputPath, JSON.stringify(outDoc));
-        console.error(`[ok] wrote ${outputPath}`);
+        console.error(`[ok] wrote ${outputPath} steps=${totalSteps} rng=${totalRng}`);
     } finally {
         await fs.rm(tmpDir, { recursive: true, force: true }).catch(() => {});
     }

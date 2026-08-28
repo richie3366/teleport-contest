@@ -1,0 +1,80 @@
+{
+  "explore-seed0015-valk-level2-pit-dog-wait-d761459c.session.json": {
+    "rngM": 8558,
+    "rngT": 8558,
+    "scrM": 48,
+    "scrT": 49,
+    "passed": false,
+    "audit": 1,
+    "failStreak": 1,
+    "note": "You fall into a pit! There is a pit here.--More--",
+    "omitId": null,
+    "error": null,
+    "commit": "7131dc25a836bda84e970b305963a67ccdf56e69"
+  },
+  "explore-seed0116-wizard-wear-shop-f96960a6.session.json": {
+    "rngM": 13175,
+    "rngT": 13175,
+    "scrM": 124,
+    "scrT": 125,
+    "passed": false,
+    "audit": 1,
+    "failStreak": 1,
+    "note": "The boulder won't roll diagonally on this floor.",
+    "omitId": null,
+    "error": null,
+    "commit": "7131dc25a836bda84e970b305963a67ccdf56e69"
+  },
+  "explore-seed0700-samurai-explore-descend-058c770e.session.json": {
+    "rngM": 3229,
+    "rngT": 3229,
+    "scrM": 54,
+    "scrT": 83,
+    "passed": false,
+    "audit": 1,
+    "failStreak": 1,
+    "note": "Do what with the wakizashi?",
+    "omitId": null,
+    "error": null,
+    "commit": "7131dc25a836bda84e970b305963a67ccdf56e69"
+  },
+  "explore-seed1150-caveman-explore-move-1f8cefa3.session.json": {
+    "rngM": 3276,
+    "rngT": 3276,
+    "scrM": 61,
+    "scrT": 62,
+    "passed": false,
+    "audit": 1,
+    "failStreak": 1,
+    "note": "Do what with the sling?",
+    "omitId": null,
+    "error": null,
+    "commit": "7131dc25a836bda84e970b305963a67ccdf56e69"
+  },
+  "random-seed1500-rogue-explore-move-2a788f95.session.json": {
+    "rngM": 2658,
+    "rngT": 2658,
+    "scrM": 28,
+    "scrT": 29,
+    "passed": false,
+    "audit": 1,
+    "failStreak": 1,
+    "note": "You have no ammunition readied.--More--",
+    "omitId": null,
+    "error": null,
+    "commit": "7131dc25a836bda84e970b305963a67ccdf56e69"
+  },
+  "seed8243-samurai-tutorial.session.json": {
+    "rngM": 2768,
+    "rngT": 2768,
+    "scrM": 129,
+    "scrT": 129,
+    "passed": true,
+    "audit": 1,
+    "failStreak": 0,
+    "note": "",
+    "omitId": null,
+    "error": null,
+    "commit": "7131dc25a836bda84e970b305963a67ccdf56e69"
+  }
+}
