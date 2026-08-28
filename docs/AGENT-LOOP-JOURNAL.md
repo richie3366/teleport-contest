@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1611 getline.c hooked_tty_getlin ^P
+
+**Objective:** Open `getline.c` getlin ^P `tty_doprev_message` (named).
+Not command ^P.
+**C locus:** `win/tty/getline.c` `hooked_tty_getlin` `:105–141`.
+**JS locus:** `js/getline.js` `getlin` / `get_ext_cmd`; `js/display.js`
+inread / SPECIAL_PROMPT.
+**Change:** zeros `inread` around `tty_doprev_message`; `'s'`/`'c'`
+double-call first then continue; else restore prompt. Same C fn for
+`#` extcmd. yn ^P named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **19**/19; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open yn ^P. Not command ^P.
+**Blocked:** none.
 ## 2026-08-29 — D-1610 dog.c initedog ogoal -1 / first-pet livelog
 
 **Objective:** Open `dog.c` `initedog` ogoal `-1` (named). Not has_edog.

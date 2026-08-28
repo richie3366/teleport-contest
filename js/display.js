@@ -1285,6 +1285,16 @@ let _toplines = '';
 let _toplin = TOPLINE_EMPTY;
 // C wintty.h ttyDisplay->inread — getline/yn set this; command ^P is 0.
 let _tty_inread = 0;
+
+/** C wintty.h ttyDisplay->inread. Getline zeros it around tty_doprev_message. */
+export function get_tty_inread() {
+    return _tty_inread | 0;
+}
+
+/** @param {number} n */
+export function set_tty_inread(n) {
+    _tty_inread = n | 0;
+}
 let _win_stop = false;
 // C ref: wintty.h WIN_NOSTOP — urgent message; one-shot, blocks WIN_STOP
 let _win_nostop = false;
@@ -1298,7 +1308,7 @@ let _morc = 0;
 // C ref: wintty.c tty_create_nhwindow NHW_MESSAGE — circular ^P ring
 // (iflags.msg_history, min 20, max MAX_MSG_HISTORY). maxrow is the write
 // index; rows stays at the ring size. tty_doprev_message is D-1601.
-// restore.c restore_msghistory / getline.c ^P / yn ^P still named.
+// restore.c restore_msghistory / yn ^P still named. getline.c ^P is D-1611.
 const MSG_HISTORY_MIN = 20;
 let _msg_cw = null;
 // C topl.c snapshot_mesgs — shared by tty_getmsghistory / tty_putmsghistory
@@ -1482,6 +1492,15 @@ function prevmsg_step_maxcol(cw) {
 }
 
 /**
+ * C getline.c hooked_tty_getlin `:129` / `:136`: after
+ * tty_clear_nhwindow(WIN_MESSAGE), cw->maxcol = cw->maxrow.
+ */
+export function prevmsg_reset_maxcol() {
+    const cw = ensure_message_win();
+    cw.maxcol = cw.maxrow;
+}
+
+/**
  * C topl.c tty_doprev_message `'f'` / combination-full putstr walk.
  * @param {{ maxcol: number, maxrow: number, rows: number, data: (string|null)[] }} cw
  * @returns {string[]}
@@ -1547,7 +1566,8 @@ async function redotoplin(str) {
  * `'s'` single (TTY default): redotoplin current then older, ^P at
  * --More-- continues. `'f'` full / `'r'` reversed: NHW_MENU text.
  * `'c'` combination: first two as singles, then full. inread skips
- * f/c/r (getline.c zeros it around the call — named). Returns 0.
+ * f/c/r; getline.c zeros it around the call (D-1611). yn still named.
+ * Returns 0.
  * @returns {Promise<number>}
  */
 export async function tty_doprev_message() {
@@ -1631,6 +1651,25 @@ export function mark_topline_prompt(text) {
     _toplines = t.replace(/\n--More--$/, '').replace(/--More--$/, '');
     _toplin = TOPLINE_NON_EMPTY;
     game._pending_message = t;
+}
+
+/**
+ * C getline.c hooked_tty_getlin `:57` / `:82`: toplin SPECIAL_PROMPT
+ * and gt.toplines = query+" "+buf (unwrapped) before each pgetchar.
+ * @param {string|null|undefined} unwrapped
+ */
+export function mark_topline_special_prompt(unwrapped) {
+    _toplines = unwrapped == null ? '' : String(unwrapped);
+    _toplin = TOPLINE_SPECIAL_PROMPT;
+}
+
+/**
+ * C getline.c hooked_tty_getlin `:173–175`: toplin NON_EMPTY then
+ * clear_nhwindow → EMPTY. Drop leftover SPECIAL_PROMPT so a later
+ * redotoplin more() is not skipped (`:137` otoplin != SPECIAL_PROMPT).
+ */
+export function hooked_getlin_release_prompt() {
+    if (_toplin === TOPLINE_SPECIAL_PROMPT) _toplin = TOPLINE_NON_EMPTY;
 }
 
 /**

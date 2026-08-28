@@ -5,18 +5,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1610 (cadence `#2000` at `b9710bcf`).
+- **Suite 44/44** after D-1611 (cadence `#2000` at `b9710bcf`).
   seed4500 still PASS.
-  **Hypothesis:** Open `getline.c` getlin ^P `tty_doprev_message`
-  (named) is the next map cluster. Not command ^P. Not `initedog`.
-  **Falsify:** `node scripts/csym.mjs getlin`;
-  `node scripts/sym.mjs getlin`.
-  **Next:** Open getline ^P. D-1610 shipped `initedog` ogoal `-1`
-  + first-pet livelog. Do not skip D-1531…D-1610. No FORCE /
-  `wildmiss` wrap / trailing `confdir` in shared `getdir`.
+  **Hypothesis:** Open `topl.c` `tty_yn_function` ^P (named) is the
+  next map cluster. Not command ^P. Not getline ^P.
+  **Falsify:** `node scripts/csym.mjs tty_yn_function`;
+  `node scripts/sym.mjs yn_function`.
+  **Next:** Open yn ^P. D-1611 shipped getline `hooked_tty_getlin` ^P
+  zeros `inread` around `tty_doprev_message`. Do not skip
+  D-1531…D-1611. No FORCE / `wildmiss` wrap / trailing `confdir`
+  in shared `getdir`. Do not glue yn ^P to getline.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; floor `query_classes`;
-  getline/yn ^P; restore_msghistory; `restore_cham` / `rescham`;
+  yn ^P; restore_msghistory; `restore_cham` / `rescham`;
   peaceful MS_HUMANOID / `"threatens you."`; `take_off` /
   `menu_remarm`; ggetobj drop; `consume_obj_charge`
   `update_inventory`; get_count historicmsg; tty WIN_INVEN create
@@ -33,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1610.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1611.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -44,9 +45,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1610 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1611 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1610. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1611. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -57,8 +58,8 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1610 live in the index. Do not glue
-  getline ^P / yn ^P. No `ing_suffix`
+  `vision_reset`. D-1576…D-1611 live in the index. Do not glue
+  yn ^P onto getline. No `ing_suffix`
   clone #3. Do not poke `beyond_savefile_load` to “prove” InvInUse
   (D-1603 writers are preamble `:71` / `try_restore_save` `:942`).
   Do not restore zap `bhit` sticky `u.Blind||u.ublind` (D-1604).
@@ -68,9 +69,14 @@ Objective/score live in `CURRENT.md`.
   `gain_guardian_angel` (D-1608; dogmove Conflict caller named).
   Do not re-port `m_unleash` (D-1609; newcham mleashed named).
   Do not re-port `initedog` ogoal / first-pet livelog (D-1610).
+  Do not re-port getline ^P (D-1611).
 
 ## Landmarks (≤15)
 
+- D-1611: getline `hooked_tty_getlin` ^P zeros `inread` around
+  `tty_doprev_message`; `'s'`/`'c'`&&!doprev two calls first then
+  continue; else restore prompt. `get_ext_cmd` same C fn.
+  yn ^P / restore_msghistory named. Command ^P is D-1601.
 - D-1610: `initedog` ogoal `-1,-1` + livelog `!pets && in_moveloop`
   then `pets++`. `dog_goal` `ogoal.x` truthy sentinel. One
   `mon_pmname` export. `free_edog` / restore `newedog` named.
@@ -99,7 +105,7 @@ Objective/score live in `CURRENT.md`.
   takeoff `"That was all."` `take_off`/`menu_remarm`/drop named.
 - D-1601: `tty_doprev_message` WIN_MESSAGE + `gt.toplines`; `'s'`
   `redotoplin` NEED_MORE/`more` iff cury; `'f'`/`'c'`/`'r'` menu.
-  cmd ^P / `#prevmsg`. getline/yn `inread` named.
+  cmd ^P / `#prevmsg`. getline ^P is D-1611; yn `inread` named.
 - D-1600: perm_invent InvInUse helpers; writers D-1603.
   tty paint / `#perminv` named.
 - D-1599: SORTLOOT_PETRIFY keeps `touch_petrifies` CORPSE when
@@ -109,5 +115,3 @@ Objective/score live in `CURRENT.md`.
   object_detect / `altarmask_at` named.
 - D-1597: `show_transient_light` camera range 0 + thrown lamplit
   `mtemplit`. **D-1604** zap `bhit` youprop Blind. Worm tails named.
-- D-1596: `create_mplayers` class `rn1` + `goodpos` + `mk_mplayer`.
-  `gain_guardian_angel` is D-1608. `mplayer_talk` is D-1606.

@@ -1,3 +1,30 @@
+## D-1611 — getline.c hooked_tty_getlin ^P tty_doprev_message
+
+- **Status:** fixed (map-driven Open from D-1610; not a public FAIL)
+- **Symptom:** Ctrl-P during `getlin` / `get_ext_cmd` was ignored
+  (`c < 32`). C `hooked_tty_getlin` zeros `ttyDisplay->inread` and
+  calls `tty_doprev_message` (twice the first time for `'s'` / combo
+  behaving as single). D-1601 shipped command ^P only.
+- **C locus:** `win/tty/getline.c` `hooked_tty_getlin` `:105–141`
+  (plus `:52–58` `inread++` / SPECIAL_PROMPT and `:173–175` exit).
+  Callee `topl.c` `tty_doprev_message` (D-1601). Same C fn for
+  `tty_get_ext_cmd`.
+- **JS was:** named omit after D-1601 (`_tty_inread` stayed 0; getlin
+  dropped Ctrl-P).
+- **Fix:** `inread++` around hooked getlin; SPECIAL_PROMPT + `gt.toplines
+  = query+" "+buf` before each key; ^P zeros inread, `'s'`/`'c'`&&!doprev
+  double-call then continue, else one call + restore prompt; next non-^P
+  after single-mode restores then processes the key. `get_ext_cmd` same
+  helper. Rule #2: no fs.
+- **JS:** `js/getline.js` `getlin` / `get_ext_cmd`; `js/display.js`
+  `inread` accessors / `prevmsg_reset_maxcol` /
+  `mark_topline_special_prompt`.
+- **Not this iter:** yn ^P (`topl.c` `:434–448`); restore_msghistory;
+  get_count historicmsg; EDIT_GETLIN; kill_char / tty_nhbell. Command ^P
+  is D-1601.
+- **Verified:** private canary **19**/19; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1610 — dog.c initedog ogoal -1 / first-pet livelog
 
 - **Status:** fixed (map-driven Open from D-1609; not a public FAIL)

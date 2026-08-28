@@ -1,9 +1,15 @@
 // getline.js — Line input and extended-command entry.
-// C ref: win/tty/getline.c tty_getlin / tty_get_ext_cmd (partial).
+// C ref: win/tty/getline.c tty_getlin / hooked_tty_getlin / tty_get_ext_cmd
+// (partial: EDIT_GETLIN / kill_char / yn ^P named).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, flush_topl_more, pline, mark_topline_prompt, clear_win_stop } from './display.js';
+import {
+    flush_screen, flush_topl_more, pline, mark_topline_prompt, clear_win_stop,
+    clear_nhwindow_message, tty_doprev_message,
+    get_tty_inread, set_tty_inread, prevmsg_reset_maxcol,
+    mark_topline_special_prompt, hooked_getlin_release_prompt,
+} from './display.js';
 import {
     COLNO, QBUFSZ, PARANOID_CONFIRM,
     ECM_IGNOREAC, ECM_EXACTMATCH, ECM_NO1CHARCMD,
@@ -44,52 +50,128 @@ function topl_wrap_echo(str, nChars) {
     return { text, col, row };
 }
 
+// C global.h C('p') — getline.c hooked_tty_getlin does not honor #prevmsg rebind.
+const GETLIN_CTRL_P = 0x10;
+
 /**
- * C ref: windows.c getlin → tty_getlin — prompt + echo until Enter/ESC.
+ * C getline.c hooked_tty_getlin C('p') `:105–141`. Zeros inread around
+ * tty_doprev_message so f/c/r arms run (D-1601 skips them when inread).
+ * `'s'` or (`'c'` && !doprev): two calls the first time, then one; continue.
+ * else: one call, restore prompt, fall through. After a single-mode walk,
+ * the next non-^P restores the prompt then processes that key.
+ * yn ^P (`topl.c` `:434–448`) named — do not glue.
+ * @param {number} c
+ * @param {boolean} doprev
+ * @param {() => Promise<void>} restorePrompt
+ * @returns {Promise<{ skip: boolean, doprev: boolean }>}
+ */
+async function hooked_getlin_ctrl_p(c, doprev, restorePrompt) {
+    if (c === GETLIN_CTRL_P) {
+        const sav = get_tty_inread();
+        set_tty_inread(0);
+        const pm = String(game.iflags?.prevmsg_window || 's').charAt(0).toLowerCase();
+        if (pm === 's' || (pm === 'c' && !doprev)) {
+            if (!doprev) await tty_doprev_message(); /* need two initially */
+            await tty_doprev_message();
+            set_tty_inread(sav);
+            return { skip: true, doprev: true };
+        }
+        await tty_doprev_message();
+        set_tty_inread(sav);
+        await restorePrompt();
+        return { skip: false, doprev: false };
+    }
+    if (doprev) {
+        await restorePrompt();
+        return { skip: false, doprev: false };
+    }
+    return { skip: false, doprev };
+}
+
+/**
+ * C getline.c hooked_tty_getlin `:128–133` / `:135–140`.
+ * tty_clear_nhwindow then maxcol=maxrow then addtopl(query+" "+buf).
+ * *bufp=0 is the existing NUL at the write pointer — buffer kept.
+ * @param {() => Promise<void>} paint
+ */
+async function hooked_getlin_restore_prompt(paint) {
+    clear_nhwindow_message();
+    prevmsg_reset_maxcol();
+    await paint();
+}
+
+/**
+ * C getline.c hooked_tty_getlin `:52–58` + `:175`: more if NEED_MORE,
+ * clear WIN_STOP, SPECIAL_PROMPT, inread++. Exit: inread--, drop SPECIAL.
+ */
+function hooked_getlin_begin() {
+    set_tty_inread(get_tty_inread() + 1);
+}
+
+function hooked_getlin_end() {
+    set_tty_inread(get_tty_inread() - 1);
+    hooked_getlin_release_prompt();
+}
+
+/**
+ * C ref: windows.c getlin → tty_getlin → hooked_tty_getlin.
+ * Prompt + echo until Enter/ESC. ^P walks tty_doprev_message (D-1611).
  * Returns the buffer string ("" on empty Enter, "\033" on ESC with empty buf).
  */
 export async function getlin(query) {
     await flush_topl_more();
+    clear_win_stop();
+    hooked_getlin_begin();
     let buf = '';
+    let doprev = false;
     const paint = async () => {
         const raw = `${query} ${buf}`;
         const { text, col, row } = topl_wrap_echo(
             raw,
             query.length + 1 + buf.length,
         );
+        mark_topline_special_prompt(raw);
         game._pending_message = text;
         await flush_screen(1);
         const disp = game.nhDisplay;
         if (disp?.setCursor) disp.setCursor(col, row);
     };
-    await paint();
-    for (;;) {
-        const c = await nhgetch();
-        if (c === 27) { // ESC
-            if (buf.length > 0) {
-                buf = '';
-                await paint();
+    const restorePrompt = () => hooked_getlin_restore_prompt(paint);
+    try {
+        await paint();
+        for (;;) {
+            const c = await nhgetch();
+            if (c === 27) { // ESC — C handles this before C('p')
+                if (buf.length > 0) {
+                    buf = '';
+                    await paint();
+                    continue;
+                }
+                game._pending_message = '';
+                return '\x1b';
+            }
+            const handled = await hooked_getlin_ctrl_p(c, doprev, restorePrompt);
+            doprev = handled.doprev;
+            if (handled.skip) continue;
+            if (c === 13 || c === 10) { // Enter
+                game._pending_message = '';
+                return buf;
+            }
+            if (c === 8 || c === 127) { // backspace / delete
+                if (buf.length > 0) {
+                    buf = buf.slice(0, -1);
+                    await paint();
+                }
                 continue;
             }
-            game._pending_message = '';
-            return '\x1b';
-        }
-        if (c === 13 || c === 10) { // Enter
-            game._pending_message = '';
-            return buf;
-        }
-        if (c === 8 || c === 127) { // backspace / delete
-            if (buf.length > 0) {
-                buf = buf.slice(0, -1);
+            // C: bufp - obufp < BUFSZ-1 && bufp - obufp < COLNO
+            if (c >= 32 && c < 127 && buf.length < COLNO) {
+                buf += String.fromCharCode(c);
                 await paint();
             }
-            continue;
         }
-        // C: bufp - obufp < BUFSZ-1 && bufp - obufp < COLNO
-        if (c >= 32 && c < 127 && buf.length < COLNO) {
-            buf += String.fromCharCode(c);
-            await paint();
-        }
+    } finally {
+        hooked_getlin_end();
     }
 }
 
@@ -760,49 +842,61 @@ function extCmdAutocomplete(base) {
  */
 export async function get_ext_cmd() {
     await flush_topl_more();
+    clear_win_stop();
+    hooked_getlin_begin();
     let buf = '';
     let cursor = 0; // index after last typed character
+    let doprev = false;
     const paint = async () => {
         // C hooked_tty_getlin("#", …) shows "# " + buffer (expanded name);
         // empty prompt is still "# " (custompline "%s ") with cursor at col 2.
         const raw = `# ${buf}`;
         const { text, col, row } = topl_wrap_echo(raw, 2 + cursor);
+        mark_topline_special_prompt(raw);
         game._pending_message = text;
         await flush_screen(1);
         const disp = game.nhDisplay;
         if (disp?.setCursor) disp.setCursor(col, row);
     };
-    await paint();
-    for (;;) {
-        const c = await nhgetch();
-        if (c === 27) {
-            if (buf.length > 0) {
-                buf = '';
-                cursor = 0;
-                await paint();
+    const restorePrompt = () => hooked_getlin_restore_prompt(paint);
+    try {
+        await paint();
+        for (;;) {
+            const c = await nhgetch();
+            if (c === 27) {
+                if (buf.length > 0) {
+                    buf = '';
+                    cursor = 0;
+                    await paint();
+                    continue;
+                }
+                game._pending_message = '';
+                return -1;
+            }
+            const handled = await hooked_getlin_ctrl_p(c, doprev, restorePrompt);
+            doprev = handled.doprev;
+            if (handled.skip) continue;
+            if (c === 13 || c === 10) break;
+            if (c === 8 || c === 127) {
+                if (cursor > 0) {
+                    buf = buf.slice(0, cursor - 1);
+                    cursor--;
+                    await paint();
+                }
                 continue;
             }
-            game._pending_message = '';
-            return -1;
-        }
-        if (c === 13 || c === 10) break;
-        if (c === 8 || c === 127) {
-            if (cursor > 0) {
-                buf = buf.slice(0, cursor - 1);
-                cursor--;
+            // C: bufp - obufp < BUFSZ-1 && bufp - obufp < COLNO
+            if (c >= 32 && c < 127 && cursor < COLNO) {
+                // C: *bufp = c; bufp[1] = 0; then hook may Strcpy full name
+                buf = buf.slice(0, cursor) + String.fromCharCode(c);
+                cursor++;
+                const expanded = extCmdAutocomplete(buf.slice(0, cursor));
+                if (expanded) buf = expanded;
                 await paint();
             }
-            continue;
         }
-        // C: bufp - obufp < BUFSZ-1 && bufp - obufp < COLNO
-        if (c >= 32 && c < 127 && cursor < COLNO) {
-            // C: *bufp = c; bufp[1] = 0; then hook may Strcpy full name
-            buf = buf.slice(0, cursor) + String.fromCharCode(c);
-            cursor++;
-            const expanded = extCmdAutocomplete(buf.slice(0, cursor));
-            if (expanded) buf = expanded;
-            await paint();
-        }
+    } finally {
+        hooked_getlin_end();
     }
     game._pending_message = '';
     const name = buf.trim().toLowerCase();
