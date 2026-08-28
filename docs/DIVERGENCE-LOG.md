@@ -1,3 +1,36 @@
+## D-1603 — allmain.c/restore.c beyond_savefile_load (TTY_PERM_INVENT)
+
+- **Status:** fixed (Must-fix review **561**; not a public FAIL)
+- **Symptom:** D-1600 copied `sync_perminvent` `:5653`
+  `WIN_INVEN != WIN_ERR && program_state.beyond_savefile_load` but
+  JS never assigned the field. `jsmain.js` starts
+  `program_state = {}`; `allmain.js` set `in_moveloop` only.
+  InvInUse `pickinv_build_perm` was unreachable in a running game.
+- **C locus:** `allmain.c` `moveloop_preamble` `:70–71` `if
+  (!resuming) program_state.beyond_savefile_load = 1` (comment:
+  TTY_PERM_INVENT); `:107–110` after `in_moveloop=1`, `if
+  (iflags.perm_invent) update_inventory()`. `restore.c`
+  `dorecover` `:942` after `restoring=0` / before `docrt()`.
+  Reader: `invent.c` `sync_perminvent` `:5653–5656`.
+- **JS was:** gate live (D-1600); writers missing. Restore
+  `try_restore_save` did not set the field. Preamble(true) must
+  still not set it (C sets it in dorecover, not preamble).
+- **Fix:** new-game preamble store; `try_restore_save` success
+  store; perm_invent `update_inventory` after `in_moveloop`.
+  Default Off still no-ops. tty WIN_INVEN create at window init
+  (`allmain.c:726`) / `#perminv` / `optfn_perminv_mode` /
+  assesstty named. Rule #2: no fs.
+- **JS:** `js/allmain.js` `moveloop_preamble`; `js/save.js`
+  `try_restore_save`.
+- **Not this iter:** tty WIN_INVEN paint; InvSparse; `#perminv`
+  `doperminv`; `optfn_perminv_mode`; `consume_obj_charge`
+  `update_inventory`; Off-toggle `docrt`; zap Blind (review
+  **558**). InvInUse helpers are D-1600. ggetobj is D-1602.
+- **Verified:** private canary **13**/13 (preamble writer, not a
+  poked flag; restore stand-in; InvInUse lists `is_inuse` only);
+  green+strict seed8000/0900; cohort **10**/10 + strict
+  (1500/1800/0012/0004/0007/2200/0383 + restore 0013).
+
 ## D-1602 — invent.c ggetobj takeoff/identify askchain
 
 - **Status:** fixed (map-driven Open from D-1601; not a public FAIL)

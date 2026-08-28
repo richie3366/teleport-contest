@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
+- [x] `allmain.c` new-game `program_state.beyond_savefile_load = 1` (`:71`, “for TTY_PERM_INVENT”) and `restore.c` `:942` after load. JS `sync_perminvent` gates `pickinv_build_perm` on that field but never sets it, so D-1600 InvInUse filter is dead. Source: reviews/loop-unattended/561-fb87326a-perm-invent-inv-inuse.md **Addressed:** D-1603
+
+
 - [x] `pickup.c` ggetobj takeoff/identify askchain (named). Not traditional_loot. **Addressed:** D-1602 `b9710bcf`
 
 

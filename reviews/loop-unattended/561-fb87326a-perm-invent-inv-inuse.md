@@ -131,3 +131,5 @@ D-log private canary **23**/23; green+strict seed8000/0900; cohort **7**/7 + str
 Named (map, not Must-fix): `ctrl_nhwindow` `assesstty` geometry; tty WIN_INVEN paint; InvSparse; `#perminv` `doperminv`; `optfn_perminv_mode`; `consume_obj_charge` `update_inventory`; Off-toggle `docrt`. Do not add `ctrl_nhwindow_perm` #2. Do not restore the Off early-return as the InvInUse “fix.”
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1603

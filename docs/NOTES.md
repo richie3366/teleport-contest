@@ -5,17 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1602 (cadence `#2000` at `b9710bcf`).
+- **Suite 44/44** after D-1603 (cadence `#2000` at `b9710bcf`).
   seed4500 still PASS.
-  **Hypothesis:** Must-fix `allmain.c:71` `beyond_savefile_load=1`
-  (review **561**). JS `sync_perminvent` gates InvInUse on a field
-  it never sets. Not `#seeall`. Not zap Blind (review **558**,
-  second Must-fix).
-  **Falsify:** set the flag where C does (`allmain.c:71` /
-  `restore.c:942`); a perm_invent On InvInUse canary then lists
-  `is_inuse` only.
-  **Next:** Must-fix **561**. Not Open `#seeall`.
-  Do not skip D-1531…D-1602. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Must-fix `zap.c` `bhit` `show_transient_light`
+  `!Blind` must be youprop `(HBlinded||EBlinded)&&!BBlinded`
+  (`youprop.h:103`), not sticky `u.Blind||u.ublind` (review **558**).
+  Not `#seeall`. Not doprinuse.
+  **Falsify:** `node scripts/csym.mjs` Blind / `youprop.h:103`;
+  zap `bhit` camera/`mtemplit` path uses the youprop form.
+  **Next:** Must-fix **558**. Not Open `#seeall`.
+  Do not skip D-1531…D-1603. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   `m_unleash`; clone auto-open yn; floor `query_classes`;
@@ -23,7 +22,8 @@ Objective/score live in `CURRENT.md`.
   `restore_cham` / `rescham`; initedog ogoal `-1`;
   `gain_guardian_angel`; mplayer-sword spe; `take_off` /
   `menu_remarm`; ggetobj drop; `consume_obj_charge`
-  `update_inventory`; get_count historicmsg.
+  `update_inventory`; get_count historicmsg; tty WIN_INVEN create
+  (`allmain.c:726`); `#perminv`; `optfn_perminv_mode`.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +32,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1602.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1603.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +43,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1602 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1603 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1602. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1603. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -56,19 +56,23 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1602 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1603 live in the index. Do not glue
   `#seeall` / `m_unleash` / getline ^P. No `ing_suffix` clone #3.
+  Do not poke `beyond_savefile_load` to “prove” InvInUse (D-1603
+  writers are preamble `:71` / `try_restore_save` `:942`).
 
 ## Landmarks (≤15)
 
+- D-1603: `beyond_savefile_load=1` new-game preamble + restore
+  `try_restore_save`; perm_invent `update_inventory` after
+  `in_moveloop`. Default Off no-op. tty WIN_INVEN create named.
 - D-1602: `ggetobj` Traditional getlin then `askchain` for takeoff
   (`is_worn`/`select_off`) and identify. ident `'q'` `-1`; skip
   takeoff `"That was all."` `take_off`/`menu_remarm`/drop named.
 - D-1601: `tty_doprev_message` WIN_MESSAGE + `gt.toplines`; `'s'`
   `redotoplin` NEED_MORE/`more` iff cury; `'f'`/`'c'`/`'r'` menu.
   cmd ^P / `#prevmsg`. getline/yn `inread` named.
-- D-1600: perm_invent InvInUse helpers live; **review 561**
-  QUALITY-RISK: `beyond_savefile_load` never assigned (`allmain.c:71`).
+- D-1600: perm_invent InvInUse helpers; writers D-1603.
   tty paint / `#perminv` named.
 - D-1599: SORTLOOT_PETRIFY keeps `touch_petrifies` CORPSE when
   filter rejects FOOD; Blind `look_here`/`pickup` feel. eat/doloot
@@ -90,5 +94,3 @@ Objective/score live in `CURRENT.md`.
 - D-1591: `display_used_invlets` `#adjust` `?`/`*`.
 - D-1590: wizid unid_cnt>0 PICK_ANY `'_'`/`^I` SKIPINVERT.
 - D-1589: SORTLOOT_INUSE `inuse_classify` + `doprinuse` `*`.
-- D-1588: getobj `putmsghistory(qbuf,FALSE)`. `tty_doprev_message`
-  is D-1601.

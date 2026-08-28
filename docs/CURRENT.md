@@ -62,31 +62,29 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1602 (seed4500 still PASS). **Next cluster:**
-Must-fix `allmain.c:71` `beyond_savefile_load = 1` so D-1600
-`sync_perminvent` InvInUse can run (review **561**). Not `#seeall`.
-Not doprinuse. Not ggetobj takeoff/identify (D-1602).
-**Do not skip D-1531…D-1602 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1603 (seed4500 still PASS). **Next cluster:**
+Must-fix `zap.c` `bhit` `show_transient_light` `!Blind` must use
+youprop `(HBlinded||EBlinded)&&!BBlinded` (`youprop.h:103`), not
+sticky `u.Blind||u.ublind` (review **558**). Not `#seeall`.
+Not doprinuse. Not `beyond_savefile_load` (D-1603).
+**Do not skip D-1531…D-1603 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1602.** Do not FORCE
+**Do not re-break D-0660…D-1603.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1602 (index). Recent: **D-1602**
-`invent.c` `ggetobj` takeoff/identify `askchain` (MENU_TRADITIONAL
-getlin; `is_worn` / `not_fully_identified`; callers `identify_pack`
-+ `doddoremarm` `select_off`). `take_off` occupation / `menu_remarm`
-/ ggetobj drop named. Prior: **D-1601**
-`topl.c` `tty_doprev_message` (`redotoplin` NEED_MORE/`more` when
-cury; `'s'`/`'f'`/`'c'`/`'r'`; cmd ^P `#prevmsg`; `msg_window`
-first-char TTY `'s'`). getline/yn `inread` named. **D-1600**
-perm_invent InvInUse (WIN_INVEN `invmode`; default Off no-op).
+**Keep:** D-0845…D-1603 (index). Recent: **D-1603**
+`allmain.c:71` / `restore.c:942` `beyond_savefile_load=1` so
+D-1600 InvInUse `sync_perminvent` can run; `:107–110` perm_invent
+`update_inventory`. tty WIN_INVEN create / `#perminv` named.
+Prior: **D-1602** `ggetobj` takeoff/identify askchain.
+**D-1601** `tty_doprev_message`. **D-1600** perm_invent InvInUse.
 Older D-1531…D-1599 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1602 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1603 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.

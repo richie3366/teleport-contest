@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1603 allmain.c beyond_savefile_load
+
+**Objective:** Must-fix **561** `beyond_savefile_load=1` so D-1600
+InvInUse `sync_perminvent` can run. Not `#seeall`.
+**C locus:** `allmain.c` `moveloop_preamble` `:71` / `:107–110`;
+`restore.c` `dorecover` `:942`.
+**JS locus:** `js/allmain.js` `moveloop_preamble`; `js/save.js`
+`try_restore_save`.
+**Change:** set the field where C does; restore preamble still does
+not. Default Off no-op. tty WIN_INVEN create / `#perminv` named.
+Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **13**/13; green+strict seed8000/0900;
+cohort **10**/10 + restore 0013 + strict.
+**Next:** Must-fix **558** zap Blind. Not Open `#seeall`.
+**Blocked:** none.
 ## 2026-08-28 — review D-1594–D-1602 (audit #2000)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **554**;

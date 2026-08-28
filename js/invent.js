@@ -5,6 +5,8 @@
 //        suppress_price dance (D-1126); perm_invent InvInUse D-1600
 //        (prepare_perminvent invmode / display_pickinv WIN_INVEN filter;
 //        tty paint / sparse grid / #perminv scroll named);
+//        D-1603: beyond_savefile_load writers (allmain.c:71 /
+//        restore.c:942) so sync_perminvent :5653 can build;
 //        display_minventory MINV_ALL|PICK_NONE (D-1426; zap.c
 //        probe_monster); display_binventory buried/pool (D-1444;
 //        zap.c zap_updown WAN_PROBING); display_cinventory container
