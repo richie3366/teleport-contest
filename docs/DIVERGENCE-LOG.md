@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1585 — dog.c tamedog FULL_MOON S_DOG
+
+- **Status:** fixed (map-driven Open from D-1584; not a public FAIL)
+- **Symptom:** `tamedog` skipped C full-moon night canine refuse
+  (`rn2(6)`) and approximated already-tame catch plines (`the`+stops
+  vs `Tobjnam`; no big_corpse vice versa).
+- **C locus:** `dog.c` `tamedog` `:1176–1178`
+  (`flags.moonphase == FULL_MOON && night() && rn2(6) && obj &&
+  mtmp->data->mlet == S_DOG` then `return FALSE`). Left-to-right:
+  full-moon night always consumes `rn2(6)` even when `obj` is null
+  or the monster is not a dog. Catch `:1199–1209` `pline_mon` +
+  `big_corpse` / `Tobjnam(obj,"stop")`. Callee `objnam.c` `Tobjnam`
+  `:2289–2299`. `calendar.c` `night` `:214–220`. Setter
+  `allmain.c` `moveloop_preamble` `:57` `flags.moonphase`.
+  Macro `FULL_MOON` 4 (`flag.h`); `S_DOG` `defsym.h` MONSYM idx 4
+  (JS generated mlet `'S_DOG'`).
+- **JS was:** named omit after D-1546/D-1577 (`wake_nearto` /
+  `redraw_worm` live; moon check commented; catch used `pline` +
+  lowercase `the`/`stops`).
+- **Fix:** live short-circuit + catch `pline_mon`/big_corpse;
+  export `Tobjnam` from `objnam.js` (C home; 7 local clones remain).
+  ustuck expels/unstuck and `initedog` `has_edog` vs `!mtame` still
+  named. Rule #2: no fs.
+- **JS:** `js/dog.js` `tamedog`; `js/objnam.js` `Tobjnam`.
+- **Not this iter:** ustuck `expels`/`unstuck`; `has_edog` vs
+  `!mtame`. NC_SHOW_MSG is next Open. wake_nearto is D-1546.
+  `mk_mplayer` is D-1584.
+- **Verified:** private canary (day/new-moon skip `rn2(6)`;
+  full-moon night consumes it; S_DOG refuse iff `rn2!=0`; kitten
+  still rolls); green+strict seed8000/0900; cohort **7**/7 +
+  strict (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1584 — mplayer.c mk_mplayer
 
 - **Status:** fixed (map-driven Open from D-1583; not a public FAIL)

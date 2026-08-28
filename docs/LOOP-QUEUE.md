@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dog.c` FULL_MOON S_DOG `rn2(6)` (named). Not wake_nearto.
 - [ ] `mon.c` `newcham` NC_SHOW_MSG `pline_mon` (named). Not Protection cancel.
 - [ ] `display.c` `mimic_light_blocking` See_invisible block/unblock (named). Not seemimic.
 - [ ] `invent.c` putmsghistory (named). Not gacc.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `invent.c` wizid unid_cnt>0 PICK_ANY (named). Not gacc.
 - [ ] `invent.c` `display_used_invlets` (named). Not gacc.
 - [ ] `pickup.c` more_containers `n` (named). Not traditional_loot.
+- [ ] `dog.c` tamedog ustuck expels/unstuck (named). Not FULL_MOON.
+- [ ] `dog.c` tamedog `initedog` has_edog vs `!mtame` (named). Not FULL_MOON.
+- [ ] `mplayer.c` `create_mplayers` (named). Not mk_mplayer.
+- [ ] `makemon.c` `show_transient_light` (named). Not ndemon.
+- [ ] `makemon.c` `has_mcorpsenm` (named). Not set_mimic_sym.
 
 ## Parked (do not pop)
 

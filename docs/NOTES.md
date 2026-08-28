@@ -8,19 +8,20 @@ Objective/score live in `CURRENT.md`.
 - **Suite 44/44** after D-1584 audit `05c69d9b` (Scr **11,405**/11,405
   RNG **792,838**/792,838 = 100%; `38+0.30/turn`). seed0367 FULL.
   seed4500 still PASS (D-1574 `1ba35e31` was FAIL).
-  **Hypothesis:** Open FULL_MOON S_DOG `rn2(6)` is the next named
-  omit (`dog.c`; not mk_mplayer D-1584; not wake_nearto D-1546).
-  **Falsify:** port FULL_MOON S_DOG then green + cohort; no FAIL peel.
-  **Next:** Open FULL_MOON S_DOG. Not `newcham` NC_SHOW_MSG.
-  Do not skip D-1531…D-1584. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `newcham` NC_SHOW_MSG `pline_mon` is the next
+  named omit (`mon.c`; not FULL_MOON D-1585; not Protection cancel
+  D-1573).
+  **Falsify:** port NC_SHOW_MSG then green + cohort; no FAIL peel.
+  **Next:** Open NC_SHOW_MSG. Not `mimic_light_blocking`.
+  Do not skip D-1531…D-1585. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
-- Named still: FULL_MOON S_DOG / ustuck; sit/pray
+- Named still: ustuck expels/unstuck; `initedog` `has_edog`; sit/pray
   `eyecount`; Palantir `#if 0`; pit/underwater vision;
   `mimic_light_blocking` See_invisible; more_containers `n`;
   putmsghistory; sortloot inuse_only; wizid unid_cnt>0;
   `display_used_invlets`. NC_SHOW_MSG `pline_mon` / `m_unleash` /
   ustuck / break-armor / Elbereth `monflee`. `has_mcorpsenm`.
-  show_transient_light. flip_worm_segs. clone auto-open yn.
+  show_transient_light. clone auto-open yn.
   ggetobj takeoff/identify askchain. floor pickup `query_classes`.
   `create_mplayers`.
 
@@ -32,7 +33,7 @@ Objective/score live in `CURRENT.md`.
   D-1582. Do not skip ParanoidTrap portal yn (D-1187) /
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1584.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1585.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +44,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1584 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1585 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1584. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1585. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -63,13 +64,19 @@ Objective/score live in `CURRENT.md`.
   D-1580. traditional_loot is D-1581. PREFIXCMD / `cmdq_shift` is
   D-1582. nv_range circle is D-1583. `mk_mplayer` is D-1584
   (`create_mplayers` named; do not glue `mimic_light_blocking`).
-  D-1558…D-1584 live in the index. Do not
+  D-1558…D-1585 live in the index. Do not
   re-port `dig_point` leftover-`i` or `newcham` Protection cancel.
   Do not skip MAIL `mk_gen_ok`. Do not add `ing_suffix` clone #3
-  (hacklib export is the C home).
+  (hacklib export is the C home). FULL_MOON S_DOG is D-1585;
+  do not glue ustuck / has_edog. `Tobjnam` lives in `objnam.js`
+  (do not write clone #8).
 
 ## Landmarks (≤15)
 
+- D-1585: `dog.c` `tamedog` FULL_MOON night S_DOG `rn2(6)` + catch
+  `pline_mon`/big_corpse/`Tobjnam` stop. Left-to-right `night()` then
+  `rn2(6)` even if `obj` is null / not a dog. ustuck / has_edog named.
+  `mk_mplayer` is D-1584.
 - D-1584: `mplayer.c` `mk_mplayer` + `dev_name`/`get_mplname`/
   `mk_mplayer_armor`; `splev_create_monster` RANDOM role-id;
   `monmightthrowwep`; `rnd_*_item` export. `create_mplayers` named.
@@ -106,5 +113,3 @@ Objective/score live in `CURRENT.md`.
   hero-egg; hatch `is_pool(mon)`.
 - D-1571: `vision_recalc` xray IN_SIGHT `circle_ptr` + seenv SVALL
   before lights. nv_range is D-1583. howmonseen D-1562.
-- D-1570: `cutworm` + `place_wsegs`; known_hitum slice_or_chop;
-  thitmonst chopper. redraw_worm is D-1577.

@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1585 dog.c tamedog FULL_MOON S_DOG
+
+**Objective:** Open `dog.c` FULL_MOON S_DOG `rn2(6)` (named).
+Not wake_nearto.
+**C locus:** `dog.c` `tamedog` `:1176–1178` + catch `:1199–1209`;
+`objnam.c` `Tobjnam`; `calendar.c` `night`.
+**JS locus:** named omit after D-1546/D-1577.
+**Change:** live moon refuse (left-to-right `rn2(6)`) + catch
+`pline_mon`/big_corpse; export `Tobjnam`. ustuck / has_edog named.
+Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary PASS; green+strict seed8000/0900; cohort
+**7**/7 + strict.
+**Next:** Open `newcham` NC_SHOW_MSG. Not FULL_MOON.
+**Blocked:** none.
 ## 2026-08-28 — review D-1576–D-1584 (audit #1980)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **536**;

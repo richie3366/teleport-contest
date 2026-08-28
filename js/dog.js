@@ -17,6 +17,7 @@ import {
     MIGR_STAIRS_DOWN, MIGR_LADDER_UP, MIGR_LADDER_DOWN, MIGR_SSTAIRS,
     MIGR_PORTAL, MIGR_WITH_HERO, MIGR_LEFTOVERS, MON_MIGRATING, MON_LIMBO,
     STRAT_ARRIVE, RLOC_NOMSG, MAGIC_PORTAL, In_endgame, isok, MTSZ, MANFOOD,
+    DOGFOOD, ACCFOOD, FULL_MOON,
     DF_ALL, COLNO, ROWNO, ROOMOFFSET, IS_WALL,
 } from './const.js';
 import { SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
@@ -34,10 +35,12 @@ import { christen_monst, Monnam } from './do_name.js';
 import { monnear, m_at, see_monster_closeup, minliquid, restore_cham, wake_nearto } from './mon.js';
 import { enexto, rloc_to, rloc, rloc_to_flag, goodpos } from './teleport.js';
 import { put_saddle_on_mon } from './steed.js';
-import { newsym, pline, pline_mon, canspotmon, Hallucination } from './display.js';
+import { newsym, pline, pline_mon, canspotmon, canseemon, Hallucination } from './display.js';
 import { redraw_worm } from './worm.js';
 import { hero_conflict } from './mondata.js';
 import { cansee } from './vision.js';
+import { night } from './calendar.js';
+import { Tobjnam, the, xname } from './objnam.js';
 import { objectNames } from './generated/objects_data.js';
 
 const PM_LITTLE_DOG = monsterNames.indexOf('PM_LITTLE_DOG');
@@ -47,6 +50,7 @@ const PM_NAZGUL = monsterNames.indexOf('PM_NAZGUL');
 const PM_ERINYS = monsterNames.indexOf('PM_ERINYS');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const SPE_CREATE_FAMILIAR = objectNames.indexOf('SPE_CREATE_FAMILIAR');
+const CORPSE = objectNames.indexOf('CORPSE');
 const AT_WEAP = 254;
 
 function Role_if(pm) {
@@ -347,9 +351,10 @@ export function keepdogs(pets_only = false) {
  * Peaceful + edog for ordinary monsters; shop/gd/priest/minion/human/
  * is_covetous / is_demon-vs-hero / quest leader rejected. D-1532.
  * isshk → make_happy_shk D-1540.
- * Named omissions: FULL_MOON night S_DOG;
- * ustuck expels/unstuck (mhitu→uhitm→dog cycle);
- * Tobjnam stop / big_corpse catch; initedog has_edog vs !mtame.
+ * FULL_MOON night S_DOG rn2(6) D-1585 (C :1176–1178; generated mlet
+ * 'S_DOG' ≡ C enum S_DOG). Already-tame catch pline_mon / big_corpse /
+ * Tobjnam stop D-1585 (C :1199–1209).
+ * Named omissions: ustuck expels/unstuck; initedog has_edog vs !mtame.
  * redraw_worm is D-1577.
  */
 export async function tamedog(mtmp, obj, givemsg = true) {
@@ -384,7 +389,12 @@ export async function tamedog(mtmp, obj, givemsg = true) {
     }
     mtmp.mpeaceful = 1;
     set_malign(mtmp);
-    // C :1176–1178 FULL_MOON && night() && rn2(6) && obj && S_DOG named
+    // C :1176–1178 — left-to-right: moonphase, night(), rn2(6), obj, S_DOG.
+    // Full-moon night always consumes rn2(6) even when obj is null / not a dog.
+    if (game.flags?.moonphase === FULL_MOON && night() && rn2(6) && obj
+        && mtmp.data?.mlet === 'S_DOG') {
+        return false;
+    }
 
     mtmp.mflee = 0;
     mtmp.mfleetim = 0;
@@ -393,11 +403,7 @@ export async function tamedog(mtmp, obj, givemsg = true) {
     // C: feeding treats makes already-tame pets tamer (before mtame<10 bump)
     if (mtmp.mtame && obj) {
         const { dogfood, dog_eat } = await import('./dogmove.js');
-        const { DOGFOOD, ACCFOOD } = await import('./const.js');
         const { place_object } = await import('./mkobj.js');
-        const { canseemon } = await import('./display.js');
-        const { xname, the } = await import('./objnam.js');
-        const { cansee } = await import('./vision.js');
 
         const canmove = mtmp.mcanmove !== false && !(mtmp.mfrozen > 0);
         if (canmove && !mtmp.mconf && !mtmp.meating) {
@@ -405,13 +411,19 @@ export async function tamedog(mtmp, obj, givemsg = true) {
             if (tasty === DOGFOOD
                 || (tasty <= ACCFOOD
                     && (mtmp.edog?.hungrytime || 0) <= (game.moves || 1))) {
-                // C: canseemon → catches; else cansee → Tobjnam stop
+                // C :1199–1209 — canseemon pline_mon + big_corpse; else Tobjnam
                 if (canseemon(mtmp)) {
-                    await pline(
-                        `${Monnam(mtmp)} catches ${the(xname(obj))}.`,
+                    const big_corpse =
+                        (obj.otyp | 0) === CORPSE && ismnum(obj.corpsenm)
+                        && (mons(obj.corpsenm)?.msize | 0)
+                            > (mtmp.data?.msize | 0);
+                    await pline_mon(
+                        mtmp,
+                        `${Monnam(mtmp)} catches ${the(xname(obj))}`
+                            + (big_corpse ? ', or vice versa!' : '.'),
                     );
                 } else if (cansee(mtmp.mx, mtmp.my)) {
-                    await pline(`${the(xname(obj))} stops.`);
+                    await pline(`${Tobjnam(obj, 'stop')}.`);
                 }
                 place_object(obj, mtmp.mx, mtmp.my);
                 await dog_eat(mtmp, obj, mtmp.mx, mtmp.my, false);

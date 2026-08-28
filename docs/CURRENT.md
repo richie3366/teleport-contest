@@ -63,19 +63,21 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1584 audit (seed4500 still PASS). **Next cluster:**
-Open `dog.c` FULL_MOON S_DOG `rn2(6)` (named). Not wake_nearto.
-Not `create_mplayers`. Not revert D-1574 `seemimic` / `dig_point` body.
-**Do not skip D-1531…D-1584 (index).** Keep mention_map addr.
+Open `mon.c` `newcham` NC_SHOW_MSG `pline_mon` (named). Not Protection cancel.
+Not FULL_MOON. Not revert D-1574 `seemimic` / `dig_point` body.
+**Do not skip D-1531…D-1585 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1584.** Do not FORCE
+**Do not re-break D-0660…D-1585.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1584 (index). Recent: **D-1584**
-`mplayer.c` `mk_mplayer` (`dev_name`/`get_mplname`/`mk_mplayer_armor`;
+**Keep:** D-0845…D-1585 (index). Recent: **D-1585**
+`dog.c` `tamedog` FULL_MOON S_DOG `rn2(6)` + catch `Tobjnam`/big_corpse.
+Prior: **D-1584** `mplayer.c` `mk_mplayer`
+(`dev_name`/`get_mplname`/`mk_mplayer_armor`;
 `splev_create_monster` RANDOM role-id; `create_mplayers` named).
-Prior: **D-1583** `vision.c` `nv_range` circle.
+**D-1583** `vision.c` `nv_range` circle.
 **D-1582** PREFIXCMD / `cmdq_shift`.
 **D-1581** `pickup.c` traditional_loot + `invent.c` askchain.
 **D-1580** `invent.c` gacc / `'0'` ball class. **D-1579**
@@ -84,11 +86,11 @@ Prior: **D-1583** `vision.c` `nv_range` circle.
 `block_point`/`unblock_point` (seed4500). **D-1575**
 `mk_gen_ok` MAIL + `ndemon` mkclass. **D-1574**
 `unblock_point`. **D-1573** `newcham` cancel. Older
-D-1531…D-1584 live in the index — do not re-paste.
+D-1531…D-1585 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1584 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1585 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -109,10 +111,10 @@ Region per-cell block is D-1576. `redraw_worm` is D-1577.
 force_invmenu redo is D-1578. mime_action is D-1579.
 gacc / `'0'` ball is D-1580. traditional_loot is D-1581.
 PREFIXCMD / `cmdq_shift` is D-1582. `nv_range` circle is D-1583.
-`mk_mplayer` is D-1584.
+`mk_mplayer` is D-1584. FULL_MOON S_DOG is D-1585.
 Do not glue `mimic_light_blocking`.
 `howmonseen` is D-1562. Do not
-skip `tamedog` `wake_nearto` or glue FULL_MOON S_DOG / ustuck.
+skip `tamedog` `wake_nearto` or glue ustuck / has_edog.
 Remembered otyp does not beat a displayed mon glyph (D-1547).
 Do not skip canned CMDQ_INT (D-1551), Eyes `is_plural`
 (D-1552), splev amask (D-1553), DELPHI (D-1556), `block_point`

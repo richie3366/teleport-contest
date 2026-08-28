@@ -806,9 +806,12 @@ not pacify+“calms down” only);
 **`tamedog` `wake_nearto(mx,my,1)` D-1546** (C `:1159–1161`; live `mon.js`
 `wake_nearto_core` wake_msg + STRAT_WAITMASK + disturb; distance==1
 limits to mtmp cell, not `wakeup()` anger);
-**`tamedog`/`abuse_dog` `redraw_worm` D-1577** (C `worm.c:989–998`); named: FULL_MOON night
-S_DOG `rn2(6)`; ustuck expels/unstuck; Tobjnam stop /
-big_corpse catch; `initedog` `has_edog` vs `!mtame`
+**`tamedog`/`abuse_dog` `redraw_worm` D-1577** (C `worm.c:989–998`);
+**`tamedog` FULL_MOON night S_DOG `rn2(6)` + already-tame catch
+`pline_mon` / big_corpse / `Tobjnam` stop D-1585** (C `:1176–1178` /
+`:1199–1209`; `objnam.c` `Tobjnam`; generated mlet `'S_DOG'`;
+left-to-right `night()` then `rn2(6)` even if `obj` is null / not a dog);
+named: ustuck expels/unstuck; `initedog` `has_edog` vs `!mtame`
 
 ### `src/fountain.c`
 
