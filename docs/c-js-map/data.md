@@ -687,8 +687,9 @@ Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018);
 **D-1576 `region.c` `add_region` `:326–328` / `remove_region` `:375–376` /
 `expire_gas_cloud` `:1071–1072`** per-cell `block_point`/`unblock_point`
 (not one-corner `recalc`; seed4500 FAIL at D-1574); 
-`has_mcorpsenm`/`freemcorpsenm`; `display.c` `mimic_light_blocking` still `recalc` not C
-See_invisible `block_point`/`unblock_point`; 
+`has_mcorpsenm`/`freemcorpsenm`; **D-1587 `display.c` `mimic_light_blocking`**
+See_invisible `block_point`/`unblock_point` (not `recalc`; potion/timeout/polyself
+callers + `iter_mons` `mon_offmap` named); 
 **detect SCORR/SDOOR uncover uses `recalc_block_point`** (D-0269); 
 **`Is_rogue_level` → `rogue_vision`** (D-0486; room bounds + adjacent; pit/underwater deferred); 
 **Blind `vision_recalc` COULD_SEE-only + old IN_SIGHT newsym** (D-0579); 

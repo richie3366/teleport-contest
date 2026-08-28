@@ -1472,7 +1472,9 @@ full levitate-arm do_room_glyph/litcorr + usteed reach deferred; MATCH_WARN via 
 `docrt` `in_docrt` (D-1219; default Off; firstmatch via `auto_describe_text`; 
 **`gbuf_show_kind` occupancy/tty not Hallu `mon_glyph`/`obj_glyph`** D-1221; 
 integer glyph IDs / `GLYPH_NOTHING` vs UNEXPLORED / `in_getlev` / await-`newsym` More when On still 
-named)**
+named; **D-1587 `mimic_light_blocking` See_invisible `block_point`/`unblock_point`**
+(C `:1531–1540`; not `recalc_block_point`; `js/vision.js`; potion.c /
+timeout.c / polyself.c callers + `iter_mons` `mon_offmap` named))**
 
 ### `src/questpgr.c` / tty menu
 

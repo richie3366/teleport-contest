@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1587 display.c mimic_light_blocking See_invisible
+
+**Objective:** Open `display.c` `mimic_light_blocking` See_invisible
+block/unblock (named). Not seemimic.
+**C locus:** `display.c` `mimic_light_blocking` `:1531–1540`;
+`set_mimic_blocking` `iter_mons`; `youprop.h` See_invisible.
+**JS locus:** named omit after D-1574 (`recalc_block_point`).
+**Change:** live See_invisible `block_point`/`unblock_point` (not
+`recalc`). potion/timeout/polyself callers named. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open putmsghistory. Not gacc.
+**Blocked:** none.
 ## 2026-08-28 — D-1586 mon.c newcham NC_SHOW_MSG
 
 **Objective:** Open `mon.c` `newcham` NC_SHOW_MSG `pline_mon` (named).

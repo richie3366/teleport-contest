@@ -1,5 +1,6 @@
 // vision.js — C ref: vision.c Algorithm C shadow-casting
 // Partial: pit / underwater view_from named; nv_range circle live (D-1583).
+// mimic_light_blocking See_invisible block/unblock live (D-1587).
 // BOULDER + is_lightblocker_mappear (mimic boulder/door/wall) in does_block.
 
 import { game } from './gstate.js';
@@ -9,7 +10,7 @@ import {
     SV0, SV1, SV2, SV3, SV4, SV5, SV6, SV7, SVALL,
     IS_WALL, IS_WATERWALL, IS_OBSTRUCTED, IS_DOOR,
     ROOMOFFSET, Is_rogue_level,
-    TEMP_LIT, M_AP_OBJECT, M_AP_FURNITURE, M_AP_TYPE,
+    TEMP_LIT, M_AP_OBJECT, M_AP_FURNITURE, M_AP_TYPE, SEE_INVIS,
     MONSEEN_NORMAL, MONSEEN_SEEINVIS, MONSEEN_INFRAVIS, MONSEEN_TELEPAT,
     MONSEEN_XRAYVIS, MONSEEN_DETECT, MONSEEN_WARNMON,
 } from './const.js';
@@ -106,13 +107,24 @@ export function is_lightblocker_mappear(mon) {
 }
 
 /**
- * C ref: display.c mimic_light_blocking — See_invisible toggles light block
- * for invisible lightblocker mimics. JS rebuilds via recalc_block_point.
+ * C ref: display.c mimic_light_blocking — See_invisible toggles light
+ * block for invisible lightblocker mimics. Not does_block/recalc:
+ * when See_invisible, block_point; else unblock_point (C `:1531–1540`).
+ * C youprop.h See_invisible = H || E (uprops[SEE_INVIS]); JS also
+ * reads H/E/sticky flats. Do not add a 7th named See_invisible clone.
  */
 function mimic_light_blocking(mtmp) {
-    if (!mtmp || !mtmp.minvis) return;
-    if (!is_lightblocker_mappear(mtmp)) return;
-    recalc_block_point(mtmp.mx | 0, mtmp.my | 0);
+    if (!mtmp) return;
+    if (mtmp.minvis && is_lightblocker_mappear(mtmp)) {
+        const u = game.u || {};
+        const p = u.uprops?.[SEE_INVIS];
+        if ((p?.intrinsic | 0) || (p?.extrinsic | 0)
+            || (u.HSee_invisible | 0) || (u.ESee_invisible | 0)
+            || u.See_invisible)
+            block_point(mtmp.mx | 0, mtmp.my | 0);
+        else
+            unblock_point(mtmp.mx | 0, mtmp.my | 0);
+    }
 }
 
 /**

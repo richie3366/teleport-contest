@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1587 — display.c mimic_light_blocking See_invisible block/unblock
+
+- **Status:** fixed (map-driven Open from D-1586; not a public FAIL)
+- **Symptom:** `mimic_light_blocking` used `recalc_block_point` /
+  `does_block` instead of C's See_invisible `block_point` /
+  `unblock_point` (invisible lightblocker mimics; toggle when
+  See_invisible changes).
+- **C locus:** `display.c` `mimic_light_blocking` `:1531–1540`
+  (`minvis && is_lightblocker_mappear` then `See_invisible` ?
+  `block_point` : `unblock_point`). Caller `set_mimic_blocking`
+  `:1547–1551` `iter_mons`. Macro `youprop.h` See_invisible
+  `HSee_invisible || ESee_invisible` (`uprops[SEE_INVIS]`).
+  Callers when See_invisible toggles: `do_wear.c` Ring_on/off
+  RIN_SEE_INVISIBLE; `eat.c` eataccessory; `potion.c`
+  `peffect_see_invisible`; `sit.c` fountain; `timeout.c` SEE_INVIS
+  expiry; `polyself.c` polymon.
+- **JS was:** named omit after D-1574 (`unblock_point` / `seemimic`
+  live; this helper still `recalc_block_point`).
+- **Fix:** live C if/else in `js/vision.js` (existing local clone;
+  do not write clone #2). Reads uprops[SEE_INVIS] H||E plus JS
+  H/E/sticky flats (no 7th named `See_invisible`). `set_mimic_blocking`
+  already walks `fmon` (DEADMONSTER `mhp<=0`). potion/timeout/polyself
+  callers and `iter_mons` `mon_offmap` still named. Rule #2: no fs.
+- **JS:** `js/vision.js` `mimic_light_blocking` / `set_mimic_blocking`.
+- **Not this iter:** `potion.c` `peffect_see_invisible`
+  `set_mimic_blocking`; `timeout.c` SEE_INVIS expiry;
+  `polyself.c` polymon toggle; `iter_mons` `mon_offmap`;
+  `does_block` sticky-only See_invisible. seemimic is D-1574.
+  NC_SHOW_MSG is D-1586.
+- **Verified:** private canary **21**/21; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1586 — mon.c newcham NC_SHOW_MSG pline_mon
 
 - **Status:** fixed (map-driven Open from D-1585; not a public FAIL)

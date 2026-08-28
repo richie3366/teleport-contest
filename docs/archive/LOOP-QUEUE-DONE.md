@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `mon.c` `newcham` NC_SHOW_MSG `pline_mon` (named). Not Protection cancel. **Addressed:** D-1586
+- [x] `display.c` `mimic_light_blocking` See_invisible block/unblock (named). Not seemimic. **Addressed:** D-1587
+
+
+- [x] `mon.c` `newcham` NC_SHOW_MSG `pline_mon` (named). Not Protection cancel. **Addressed:** D-1586 `9cdc66f5`
 
 
 - [x] `dog.c` FULL_MOON S_DOG `rn2(6)` (named). Not wake_nearto. **Addressed:** D-1585 `d5c9430a`
