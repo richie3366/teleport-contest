@@ -63,18 +63,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1584 audit (seed4500 still PASS). **Next cluster:**
-Open `invent.c` putmsghistory (named). Not gacc. Not
-`mimic_light_blocking`. Not revert D-1574 `seemimic` / `dig_point` body.
-**Do not skip D-1531…D-1587 (index).** Keep mention_map addr.
+Open `invent.c` sortloot inuse_only (named). Not gacc. Not
+putmsghistory. Not `mimic_light_blocking`. Not revert D-1574 `seemimic` / `dig_point` body.
+**Do not skip D-1531…D-1588 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1587.** Do not FORCE
+**Do not re-break D-0660…D-1588.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1587 (index). Recent: **D-1587**
+**Keep:** D-0845…D-1588 (index). Recent: **D-1588**
+`invent.c` getobj putmsghistory + `topl.c` `tty_putmsghistory`.
+Prior: **D-1587**
 `display.c` `mimic_light_blocking` See_invisible `block_point`/`unblock_point`
-(not `recalc`). Prior: **D-1586**
+(not `recalc`). **D-1586**
 `mon.c` `newcham` NC_SHOW_MSG `pline_mon`/`usmellmon`/`noname_monnam`.
 **D-1585** `dog.c` `tamedog` FULL_MOON S_DOG `rn2(6)` + catch
 `Tobjnam`/big_corpse. **D-1584** `mplayer.c` `mk_mplayer`.
@@ -87,11 +89,11 @@ CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 `block_point`/`unblock_point` (seed4500). **D-1575**
 `mk_gen_ok` MAIL + `ndemon` mkclass. **D-1574**
 `unblock_point`. **D-1573** `newcham` cancel. Older
-D-1531…D-1587 live in the index — do not re-paste.
+D-1531…D-1588 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1587 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1588 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -115,7 +117,7 @@ PREFIXCMD / `cmdq_shift` is D-1582. `nv_range` circle is D-1583.
 `mk_mplayer` is D-1584. FULL_MOON S_DOG is D-1585.
 `newcham` NC_SHOW_MSG is D-1586.
 `mimic_light_blocking` is D-1587.
-Do not glue putmsghistory.
+putmsghistory is D-1588.
 `howmonseen` is D-1562. Do not
 skip `tamedog` `wake_nearto` or glue ustuck / has_edog.
 Remembered otyp does not beat a displayed mon glyph (D-1547).

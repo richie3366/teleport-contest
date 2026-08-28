@@ -14,12 +14,14 @@
 // D-1578: force_invmenu Special `*`/`?` + getobj redo_menu / oneloop.
 // D-1579: getobj mime_action on typed '-' when !allownone.
 // D-1580: pickinv gacc collect + BALL `'0'` vs count; def_oc_syms.
+// D-1588: getobj force_invmenu putmsghistory(qbuf) + topl.c remember_topl.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
     endgamelevelname, obj_glyph, suppress_map_output, clear_nhwindow_message,
+    putmsghistory,
 } from './display.js';
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound } from './objnam.js';
 import { yn_function } from './getline.js';
@@ -1116,7 +1118,7 @@ function append_long_digit(L, D) {
 /**
  * C invent.c getobj `:1923–1927` — force_invmenu first letter:
  * '?' if any SUGGEST lets or altlets, else '*'. Null when the flag
- * is off (caller uses yn_function). putmsghistory named omit.
+ * is off (caller uses yn_function). putmsghistory is D-1588.
  * @param {string} [lets]
  * @param {string} [altlets]
  * @returns {string|null}
@@ -1171,7 +1173,7 @@ export function force_invmenu_special(lets, allowxtra, usextra) {
  * is 0 like C `:3323–3325`.
  * Named omissions: sortloot inuse_only; wizid unid_cnt>0 PICK_ANY;
  * menu_requested n==1 skip (flag read; prefix `m` still named);
- * putmsghistory; MENU_PREV/FIRST/LAST.
+ * MENU_PREV/FIRST/LAST. putmsghistory is D-1588.
  * @param {string|null} lets
  * @param {{ n: number }|null} [out_cnt]
  * @param {{ choice: string, allow: boolean }|null} [xtra] C xtra_choice + allowxtra
@@ -4485,9 +4487,10 @@ async function getobj_typed_hands(word, allownone, hands) {
  * "don't have anything [else] to WORD" (inaccess from
  * EXCLUDE_NONINVENT / EXCLUDE_INACCESS). GETOBJ_PROMPT still prompts
  * `[*]` when suggested==0.
- * Named omit: in_doagain readchar (REPEAT cmdq live); putmsghistory;
+ * Named omit: in_doagain readchar (REPEAT cmdq live);
  * sortloot body (invlet sort); call-Amulet silly_thing. mime_action
  * is D-1579. gacc / `'0'` ball is D-1580 (non-wizid pickinv gacc 0).
+ * putmsghistory is D-1588.
  * @param {string} word
  * @param {(obj: object|null) => number} obj_ok
  * @param {number} ctrlflags
@@ -4553,14 +4556,19 @@ export async function getobj(word, obj_ok, ctrlflags) {
         : compactLets;
 
     let oneloop = false;
+    let msggiven = false;
     let ch = '';
     for (;;) {
         if (game.iflags?.force_invmenu) {
             // C invent.c getobj `:1923–1931` — skip yn_function.
-            // putmsghistory(qbuf) named omit.
+            // putmsghistory(qbuf, FALSE) once (D-1588).
             if (!oneloop) {
                 ch = getobj_force_invmenu_ch(rawLets, altLets) || '*';
             }
+            if (!msggiven) {
+                putmsghistory(`What do you want to ${word}?`, false);
+            }
+            msggiven = true;
             oneloop = true;
         } else {
             const query = promptLets
@@ -4682,6 +4690,7 @@ async function getobj_adjust() {
     const cq = getobj_from_cmdq(adjust_ok, true);
     if (!cq.skip) return cq.otmp;
     let oneloop = false;
+    let msggiven = false;
     let ch = '';
     for (;;) {
         const rawLets = adjust_raw_lets();
@@ -4689,6 +4698,10 @@ async function getobj_adjust() {
             if (!oneloop) {
                 ch = getobj_force_invmenu_ch(rawLets) || '*';
             }
+            if (!msggiven) {
+                putmsghistory('What do you want to adjust?', false);
+            }
+            msggiven = true;
             oneloop = true;
         } else {
             await flush_topl_more();

@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1588 invent.c putmsghistory
+
+**Objective:** Open `invent.c` putmsghistory (named). Not gacc.
+**C locus:** `invent.c` `getobj` `:1926–1928`; `topl.c`
+`tty_putmsghistory` `:676–726`; `remember_topl`; `dumplogmsg`.
+**JS locus:** named omit after D-1578/D-1580.
+**Change:** live `putmsghistory`/`remember_topl`/`dumplogmsg` +
+getobj/getobj_adjust `msggiven`. `tty_doprev_message` /
+restore_msghistory / get_count historicmsg named. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **9**/9; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open sortloot inuse_only. Not putmsghistory.
+**Blocked:** none.
 ## 2026-08-28 — D-1587 display.c mimic_light_blocking See_invisible
 
 **Objective:** Open `display.c` `mimic_light_blocking` See_invisible

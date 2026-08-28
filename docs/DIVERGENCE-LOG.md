@@ -4,6 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1588 — invent.c getobj putmsghistory / topl.c tty_putmsghistory
+
+- **Status:** fixed (map-driven Open from D-1587; not a public FAIL)
+- **Symptom:** `getobj` `force_invmenu` skipped C `putmsghistory(qbuf, FALSE)`
+  so the bare "What do you want to %s?" never entered message history
+  (and NEED_MORE was not cleared to NON_EMPTY).
+- **C locus:** `invent.c` `getobj` `:1926–1928` (`if (!msggiven)
+  putmsghistory(qbuf, FALSE); msggiven = TRUE` under
+  `iflags.force_invmenu`; qbuf is `Sprintf("What do you want to %s?",
+  word)` without `[lets or ?*]`). Window proc `topl.c`
+  `tty_putmsghistory` `:676–726` (NEED_MORE→NON_EMPTY;
+  `remember_topl`; Strcpy `gt.toplines`; DUMPLOG_CORE `dumplogmsg`;
+  restore snapshot replay when msg is null). Callees
+  `remember_topl` `:169–191` (WIN_MESSAGE circular ring,
+  `WIN_LOCKHISTORY`); `msghistory_snapshot` `:557–601`;
+  `free_msghistory_snapshot` `:604–624`; `pline.c` `dumplogmsg`
+  `:21–46`. `update_topl` `:280` also `remember_topl`.
+- **JS was:** named omit after D-1578/D-1580 (`force_invmenu` auto
+  `?`/`*` + redo live; no window-proc history).
+- **Fix:** live `js/display.js` `putmsghistory`/`remember_topl`/
+  `getmsghistory`/`dumplogmsg` + NHW_MESSAGE ring (msg_history min 20).
+  `getobj`/`getobj_adjust` call `putmsghistory(qbuf, false)` once.
+  `pline_after_consume` `dumplogmsg` + `remember_topl` before replace
+  (NEED_MORE `more()` path remembers first because JS `more()` clears
+  `_toplines`). Rule #2: no fs.
+- **JS:** `js/display.js`, `js/invent.js`.
+- **Not this iter:** `tty_doprev_message`; restore.c
+  `restore_msghistory`; save.c `getmsghistory` walk; cmd.c
+  `get_count` historicmsg; files.c tribute; questpgr synopsis;
+  yn ATR_NOHISTORY dumplog; sortloot inuse_only; wizid unid_cnt>0.
+  gacc is D-1580. `mimic_light_blocking` is D-1587.
+- **Verified:** private canary **9**/9; green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1587 — display.c mimic_light_blocking See_invisible block/unblock
 
 - **Status:** fixed (map-driven Open from D-1586; not a public FAIL)
