@@ -283,7 +283,7 @@ import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock, boxlock_invent, doorlock } from './lock.js';
 import { monflee, sticks } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './mhitu.js';
-import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv, set_mimic_sym } from './makemon.js';
+import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv, set_mimic_sym, newmcorpsenm } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
 import { rehumanize, polymon, body_part } from './polyself.js';
@@ -357,6 +357,7 @@ import {
     IS_FURNITURE, IS_GRAVE, SCORR, VAULT, TEMPLE, In_quest, Is_firelevel,
     VIBRATING_SQUARE, MAGIC_PORTAL, HEADSTONE, TRAP_EXPLODE, is_magical_trap,
     GETOBJ_EXCLUDE, GETOBJ_SUGGEST, GETOBJ_NOFLAGS,
+    has_mcorpsenm,
 } from './const.js';
 
 const MZ_HUMAN = MZ_MEDIUM;
@@ -3610,7 +3611,7 @@ async function mimic_hit_msg(mtmp, otyp) {
  * that_is_a_mimic(MIM_REVEAL|MIM_OMIT_WAIT); else wake FALSE),
  * SPE_HEALING/SPE_EXTRA_HEALING (D-1469; healmon + skilled/extra
  * mcureblindness; Pestilence resist TELL; wake FALSE).
- * Named omit: long-worm mcorpsenm polish; Knight questart double
+ * Named omit: Knight questart double
  * on striking; mhurtle petrify/steed; that_is_a_mimic MIM_REVEAL
  * pline (box_or_door+seemimic wired);
  * zap_steed WAN_MAKE_INVISIBLE is D-1473; zap_map engraving
@@ -3749,12 +3750,11 @@ export async function bhitm(mtmp, otmp) {
     case POT_POLYMORPH: {
         // C zap.c bhitm :263–334. SPE_POLYMORPH wand-duplicate
         // weffects is D-1459. zap_steed WAN/SPE_POLYMORPH
-        // routes here (D-1471). long-worm mcorpsenm skip named.
-        if (mtmp.data === mons(PM_LONG_WORM)
-            || (mtmp.data?.mndx | 0) === PM_LONG_WORM) {
-            // long-worm mcorpsenm skip deferred — still allow first hit
-        }
-        if (resists_magm(mtmp)) {
+        // routes here (D-1471). Long-worm has_mcorpsenm skip +
+        // post-poly PM_LONG_WORM flag (D-1598).
+        if ((mtmp.data?.mndx | 0) === PM_LONG_WORM && has_mcorpsenm(mtmp)) {
+            /* already flagged by this zap — skip further poly */
+        } else if (resists_magm(mtmp)) {
             // shieldeff deferred
         } else if (!(await resist(mtmp, otmp.oclass, 0, NOTELL))) {
             const polyspot = otyp !== POT_POLYMORPH;
@@ -3783,6 +3783,16 @@ export async function bhitm(mtmp, otmp) {
                         learn_it = true;
                     }
                 }
+            }
+            // C: even if poly failed — further hits on a new tail
+            // must not transform again this zap.
+            if ((mtmp.mhp | 0) > 0
+                && (mtmp.data?.mndx | 0) === PM_LONG_WORM) {
+                if (!has_mcorpsenm(mtmp))
+                    newmcorpsenm(mtmp);
+                mtmp.mextra.mcorpsenm = PM_LONG_WORM;
+                if (!game.context) game.context = {};
+                game.context.bypasses = true;
             }
         }
         break;

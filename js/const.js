@@ -2942,6 +2942,10 @@ export function has_emin(mtmp) { return !!mtmp?.mextra?.emin; }
 export function has_egd(mtmp) { return !!mtmp?.mextra?.egd; }
 export function has_edog(mtmp) { return !!mtmp?.mextra?.edog; }
 export function has_ebones(mtmp) { return !!mtmp?.mextra?.ebones; }
+/** C mextra.h has_mcorpsenm — mextra && MCORPSENM(mon) != NON_PM. */
+export function has_mcorpsenm(mtmp) {
+    return !!(mtmp?.mextra && MCORPSENM(mtmp) !== NON_PM);
+}
 
 // Object extra accessors
 // C: ONAME(obj) → ((char *)(obj)->oextra->oname)

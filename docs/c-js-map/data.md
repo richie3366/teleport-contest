@@ -271,7 +271,7 @@ assign_sym/`mkobj`** (D-0262); **D-1517 maze/sokoban/`in_town` statue**
 STATUE; callee `hack.c` `in_town` local clone — hack→trap/mon→makemon; shop is D-0262); 
 **D-1525 TEMPLE `S_altar` Align2amask `MCORPSENM`** (`:2458–2460` / `:2538–2546`; 
 `rn2(3)-1` then `(Inhell && rn2(3)) ? AM_NONE : Align2amask`; Inhell dungeon `hellish` — no minion 
-import; `has_mcorpsenm` stale `NON_PM`); 
+import; **D-1598 `has_mcorpsenm`**); 
 **D-1536 door/wall `S_hcdoor`** (`:2420–2438` left-connect HWALL/TLCORNER/TRWALL/BLCORNER/TDWALL/CROSSWALL/TUWALL 
 → `S_hcdoor` else `S_vcdoor`; rogue `S_hwall`/`S_vwall`; `mx!=0` short-circuit; no RNG); 
 **D-1543 furnsyms real `S_*`** (`:2490–2497` `s_sym==MAXOCLASSES` ROLL_FROM `S_upstair×2`/`S_dnstair×2`/`S_altar`/`S_grave`/`S_throne`/`S_sink`; cmap ids not levl.typ; furnsyms `S_altar` takes Align2amask); 
@@ -336,7 +336,8 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **D-1515 `m_initweap` S_KOP** (`:402–409` `!rn2(4)` `m_initthrow(CREAM_PIE,2)` then `!rn2(3)` CLUB\|RUBBER_HOSE; live `m_initthrow`/`mongets`; `rnd_offensive_item` still 0);
 **D-1516 `m_initweap` S_LIZARD non-salamander skip + PM_NINJA** (`:270–272` / `:495–499`; live `is_armed`/`mongets`; newt..crocodile `!AT_WEAP`; ninja `rn2(4)` SHURIKEN\|DART then SHORT_SWORD\|AXE); 
 **D-1517 `set_mimic_sym` maze/sokoban/`in_town`** (`:2439–2443`; JS had `!(In_mines)` so non-town mines never statue; C `in_town(u.ux,u.uy)` not mimic cell; Sokoban already skipped `rn2(2)`); 
-**D-1525 `set_mimic_sym` TEMPLE `S_altar` Align2amask `MCORPSENM`** (`:2458–2460` appear `S_altar`; `:2538–2546` `rn2(3)-1` then hellish `Inhell && rn2(3)` `AM_NONE` else `Align2amask`; `has_mcorpsenm` stale `NON_PM`; no minion `Inhell` import); 
+**D-1525 `set_mimic_sym` TEMPLE `S_altar` Align2amask `MCORPSENM`** (`:2458–2460` appear `S_altar`; `:2538–2546` `rn2(3)-1` then hellish `Inhell && rn2(3)` `AM_NONE` else `Align2amask`; no minion `Inhell` import); 
+**D-1598 `has_mcorpsenm`/`newmcorpsenm`/`freemcorpsenm`** (`mextra.h:234`; `makemon.c:2368–2383`/` :2543–2546`; callers `seemimic` `freemcorpsenm`, `copy_mextra`, zap bhitm long-worm skip+flag, `wormgone`, display `PM_TENGU`, pager `object_from_map`, apply stethoscope slime-mold `simpleonames`; live `js/const.js` + `js/makemon.js`; object_detect cursed-mimic / `altarmask_at` / worn `clear_bypasses` named); 
 **D-1536 `set_mimic_sym` door/wall `S_hcdoor`** (`:2420–2438`; JS had `appear=0`; C left-connect → `S_hcdoor`/`S_vcdoor` or rogue `S_hwall`/`S_vwall`; `mx!=0` short-circuit); 
 **D-1543 `set_mimic_sym` furnsyms real `S_*`** (`:2490–2497`; JS had stub `[0,0,1,1,2,3,4,5]`; C ROLL_FROM real cmap; furnsyms `S_altar` hits existing amask arm); 
 **D-1556 `set_mimic_sym` DELPHI `S_fountain`** (`:2450–2456`; JS had `appear=0`; C `S_fountain=37`; not in furnsyms; door still first); 
@@ -351,6 +352,7 @@ live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**;
 **D-1573 `newcham` Protection cancel**; **D-1575 `mk_gen_ok` MAIL_DAEMON**
 (`:1746–1749` MAIL_STRUCTURES; `ndemon` `minion.c:462` `mkclass_aligned(S_DEMON,0,atyp)`;
 `msummon` is_lminion/`llord`/PM_ANGEL `ndemon`; live export `teleport.js` `is_lminion`;
+**D-1598 `has_mcorpsenm`/`newmcorpsenm`/`freemcorpsenm`** live `js/const.js` + `js/makemon.js`;
 **D-1597 `show_transient_light`/`transient_light_cleanup`** live `js/light.js`
 (`light.c:255–357`; camera range 0 + thrown lamplit `mtemplit`; callers zap `bhit`
 `:3902–3916`/`:4135–4136`, apply `do_blinding_ray` `:73–75`, minion S_ANGEL `:162–187`;
@@ -696,7 +698,7 @@ Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018);
 **D-1576 `region.c` `add_region` `:326–328` / `remove_region` `:375–376` /
 `expire_gas_cloud` `:1071–1072`** per-cell `block_point`/`unblock_point`
 (not one-corner `recalc`; seed4500 FAIL at D-1574); 
-`has_mcorpsenm`/`freemcorpsenm`; **D-1587 `display.c` `mimic_light_blocking`**
+**D-1598 `seemimic` `has_mcorpsenm`/`freemcorpsenm`**; **D-1587 `display.c` `mimic_light_blocking`**
 See_invisible `block_point`/`unblock_point` (not `recalc`; potion/timeout/polyself
 callers + `iter_mons` `mon_offmap` named); 
 **detect SCORR/SDOOR uncover uses `recalc_block_point`** (D-0269); 

@@ -12,7 +12,7 @@ import { game } from './gstate.js';
 import { rn2, rnd, rn1, d, rn2_on_display_rng } from './rng.js';
 import {
     MAX_NUM_WORMS, N_DIRS, xdir, ydir, MHPMAX, MSLOW, MFAST, NORMAL_SPEED,
-    MON_OFFMAP,
+    MON_OFFMAP, has_mcorpsenm,
 } from './const.js';
 import { goodpos } from './teleport.js';
 import { newsym, show_wseg_detect_glyph, Hallucination, pline, canspotmon, impossible } from './display.js';
@@ -175,8 +175,7 @@ export function wormgone(worm) {
     wheads[wnum] = wtails[wnum] = null;
     wgrowtime[wnum] = 0;
     // C: has_mcorpsenm → MCORPSENM = NON_PM (no longer poly-proof)
-    if ((worm.data?.mndx | 0) === PM_LONG_WORM && worm.mextra
-        && (worm.mextra.mcorpsenm ?? NON_PM) !== NON_PM) {
+    if ((worm.data?.mndx | 0) === PM_LONG_WORM && has_mcorpsenm(worm)) {
         worm.mextra.mcorpsenm = NON_PM;
     }
 }

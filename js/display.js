@@ -47,7 +47,7 @@ import {
     DISP_CHANGE, DISP_END, DISP_FREEMEM, BACKTRACK,
     M_AP_OBJECT, M_AP_FURNITURE, M_AP_NOTHING,
     M_AP_TYPE, M_AP_TYPMASK,
-    MCORPSENM,
+    MCORPSENM, has_mcorpsenm,
     isok,
     u_at,
     xytodir, dirtocoord, directionname,
@@ -786,9 +786,7 @@ function mimic_object_appearance_glyph(mtmp) {
     // C: sensed = Protection_from_shape_changers || sensemon(mon)
     // Protection stubbed false; when sensed, caller shows real mon_glyph.
     if (sensemon(mtmp)) return null;
-    const corpsenm = (mtmp.mextra && mtmp.mextra.mcorpsenm != null)
-        ? MCORPSENM(mtmp)
-        : PM_TENGU;
+    const corpsenm = has_mcorpsenm(mtmp) ? MCORPSENM(mtmp) : PM_TENGU;
     return obj_glyph({
         otyp: mtmp.mappearance | 0,
         corpsenm,

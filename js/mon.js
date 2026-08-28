@@ -20,7 +20,7 @@ import {
     FIRE_RES, COLD_RES, SLEEP_RES, DISINT_RES, SHOCK_RES, STONE_RES,
     u_at, TEMPLE, SHOPBASE, MON_FLOOR, MON_OFFMAP, MON_MIGRATING, MON_DETACH,
     MON_LIMBO, MON_OBLITERATE, MON_ENDGAME_MIGR, MIGR_APPROX_XY, MIGR_RANDOM,
-    has_emin, has_epri, has_eshk,
+    has_emin, has_epri, has_eshk, has_mcorpsenm, MCORPSENM,
     Has_contents, RLOC_MSG, RLOC_NOMSG, XKILL_NOMSG,
     NO_MM_FLAGS, NATTK,
 } from './const.js';
@@ -65,7 +65,7 @@ import { visible_region_at, is_poisoncloud_region } from './region.js';
 import { were_change } from './were.js';
 import {
     set_mimic_sym, newcham, pickvampshape, pm_to_cham, neweshk, newegd,
-    newemin, newepri, newedog, mpickobj, makemon, makemon_appear_msg,
+    newemin, newepri, newedog, freemcorpsenm, mpickobj, makemon, makemon_appear_msg,
 } from './makemon.js';
 import { in_your_sanctuary, p_coaligned } from './priest.js';
 import { in_rooms, is_pool, is_lava, disturb_buried_zombies, stop_occupation } from './hack.js';
@@ -871,12 +871,14 @@ export function m_avoid_soko_push_loc(mtmp, nx, ny) {
 /**
  * C ref: mon.c seemimic — clear disguise; capture is_lightblocker_mappear
  * before M_AP_NOTHING so a discovered wall/door/boulder mimic unblocks
- * unless terrain still does_block. has_mcorpsenm / freemcorpsenm named.
+ * unless terrain still does_block. has_mcorpsenm / freemcorpsenm
+ * before M_AP_NOTHING (D-1598).
  */
 export function seemimic(mtmp) {
     if (!mtmp) return;
     const is_blocker_appear = is_lightblocker_mappear(mtmp);
-    // has_mcorpsenm / freemcorpsenm deferred
+    if (has_mcorpsenm(mtmp))
+        freemcorpsenm(mtmp);
     mtmp.m_ap_type = M_AP_NOTHING;
     mtmp.mappearance = 0;
     /*
@@ -2543,9 +2545,8 @@ export function copy_mextra(mtmp2, mtmp1) {
         if (!mtmp2.mextra.ebones) mtmp2.mextra.ebones = {};
         Object.assign(mtmp2.mextra.ebones, srcExtra.ebones);
     }
-    if (srcExtra && Object.prototype.hasOwnProperty.call(srcExtra, 'mcorpsenm')) {
-        mtmp2.mextra.mcorpsenm = srcExtra.mcorpsenm;
-    }
+    if (has_mcorpsenm(mtmp1))
+        mtmp2.mextra.mcorpsenm = MCORPSENM(mtmp1);
 }
 
 /**

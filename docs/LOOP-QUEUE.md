@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `has_mcorpsenm` (named). Not set_mimic_sym.
 - [ ] `invent.c` SORTLOOT_PETRIFY (named). Not inuse_only.
 - [ ] `invent.c` perm_invent InvInUse (named). Not inuse_only.
 - [ ] `topl.c` `tty_doprev_message` (named). Not putmsghistory.

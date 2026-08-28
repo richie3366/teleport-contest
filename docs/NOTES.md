@@ -5,25 +5,26 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1597 (show_transient_light live). seed4500
+- **Suite 44/44** after D-1598 (`has_mcorpsenm` live). seed4500
   still PASS.
-  **Hypothesis:** Open `makemon.c` `has_mcorpsenm` (named). Not
-  set_mimic_sym. Not show_transient_light.
-  **Falsify:** port `has_mcorpsenm` from C (`monst.h`/`mextra`) then a
-  canary that a mimic/statue with stale `MCORPSENM` is treated as
-  having a corpsenm vs `NON_PM` only.
-  **Next:** Open `has_mcorpsenm`. Not SORTLOOT_PETRIFY.
-  Do not skip D-1531…D-1597. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `invent.c` SORTLOOT_PETRIFY (named). Not
+  inuse_only. Not has_mcorpsenm.
+  **Falsify:** port C `sortloot` petrify-class compare then a
+  canary that a cockatrice corpse sorts with petrify items, not
+  as ordinary FOOD.
+  **Next:** Open SORTLOOT_PETRIFY. Not perm_invent InvInUse.
+  Do not skip D-1531…D-1598. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
-  `m_unleash` / break-armor / Elbereth; `has_mcorpsenm`;
-  clone auto-open yn; ggetobj takeoff; floor `query_classes`;
-  `mplayer_talk`; potion/timeout/polyself `set_mimic_blocking`;
+  `m_unleash` / break-armor / Elbereth; clone auto-open yn;
+  ggetobj takeoff; floor `query_classes`; `mplayer_talk`;
+  potion/timeout/polyself `set_mimic_blocking`;
   `tty_doprev_message` / restore_msghistory; SORTLOOT_PETRIFY;
   perm_invent InvInUse; `#seeall` EXT_CMDS; getlev `restore_cham`;
   wiz_intrinsic `rescham`; livelog first pet; initedog ogoal `-1`;
-  `gain_guardian_angel`; mplayer-sword spe; worm tails on
-  show_transient_light.
+  `gain_guardian_angel`; mplayer-sword spe; object_detect
+  cursed-mimic; `altarmask_at`; worn `clear_bypasses`; worm tails
+  on show_transient_light.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +33,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1597.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1598.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +44,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1597 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1598 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1597. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1598. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -56,17 +57,23 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` bodies or global `recalc` as
-  `vision_reset`. D-1576…D-1597 live in the index (gacc D-1580;
+  `vision_reset`. D-1576…D-1598 live in the index (gacc D-1580;
   inuse_only D-1589; wizid PICK_ANY D-1590; used-invlets D-1591;
   more_containers `n` D-1592; ustuck expels D-1593;
   `normal_shape` await D-1594; has_edog D-1595;
-  create_mplayers D-1596; show_transient_light D-1597).
+  create_mplayers D-1596; show_transient_light D-1597;
+  has_mcorpsenm D-1598).
   Do not glue SORTLOOT_PETRIFY /
   `tty_doprev_message` / `m_unleash`. Do not add
   `ing_suffix` clone #3 or `Tobjnam` #8 or `upstart` #9.
 
 ## Landmarks (≤15)
 
+- D-1598: `has_mcorpsenm` `mextra && MCORPSENM != NON_PM` +
+  `newmcorpsenm`/`freemcorpsenm`; `seemimic` free; zap long-worm
+  skip+flag; `copy_mextra`; display `PM_TENGU`; pager clone
+  retired. object_detect / `altarmask_at` / `clear_bypasses`
+  named. show_transient_light is D-1597.
 - D-1597: `show_transient_light` camera range 0 + thrown lamplit
   `mtemplit` + `transient_light_cleanup` `discard_flashes`. Callers
   zap `bhit` / apply `do_blinding_ray` / minion S_ANGEL. Worm tails
@@ -106,5 +113,3 @@ Objective/score live in `CURRENT.md`.
   `Tobjnam`. ustuck is D-1593.
 - D-1584: `mk_mplayer` + `dev_name`/`get_mplname`/`mk_mplayer_armor`.
   create_mplayers is D-1596.
-- D-1583: `nv_range` circle after xray; `circle_ptr`. Pit/underwater
-  named. xray is D-1571.

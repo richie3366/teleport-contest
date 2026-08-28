@@ -92,7 +92,7 @@ import {
     Is_firelevel, Is_airlevel, Is_astralevel,
     In_mines, In_sokoban, In_endgame,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD, G_EXTINCT,
-    isok, has_mgivenname, MGIVENNAME, has_emin, EDOG, MON_FLOOR,
+    isok, has_mgivenname, MGIVENNAME, has_emin, has_mcorpsenm, EDOG, MON_FLOOR,
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
     ARTICLE_A, ARTICLE_THE, ARTICLE_YOUR, SUPPRESS_SADDLE, SUPPRESS_NAME,
     NC_SHOW_MSG, NC_VIA_WAND_OR_SPELL, Upolyd,
@@ -266,6 +266,27 @@ export function newedog(mtmp) {
     }
     mtmp.edog = mtmp.mextra.edog;
     return mtmp.mextra.edog;
+}
+
+/**
+ * C ref: makemon.c newmcorpsenm `:2368–2375` — allocate mextra if
+ * needed and set MCORPSENM = NON_PM (not initialized yet).
+ * Callers: set_mimic_sym statue/corpse/egg/tin / slime-mold / altar;
+ * zap.c bhitm long-worm poly flag.
+ */
+export function newmcorpsenm(mtmp) {
+    if (!mtmp) return;
+    if (!mtmp.mextra) mtmp.mextra = {};
+    mtmp.mextra.mcorpsenm = NON_PM;
+}
+
+/**
+ * C ref: makemon.c freemcorpsenm `:2377–2383` — if has_mcorpsenm,
+ * set MCORPSENM = NON_PM (field stays on mextra). Caller seemimic.
+ */
+export function freemcorpsenm(mtmp) {
+    if (has_mcorpsenm(mtmp))
+        mtmp.mextra.mcorpsenm = NON_PM;
 }
 
 // C ref: makemon.c set_mimic_sym — S_MIMIC_DEF sentinel (MONSYMS_S_ENUM idx 60)
@@ -2885,7 +2906,7 @@ function in_town(x, y) {
  * furnsyms real S_* (D-1543) + DELPHI S_fountain (D-1556) +
  * does_block / block_point (D-1557) + Protection_from_shape_changers
  * early-out (D-1564) + slime-mold flags.made_fruit + nocorpse/hatch/tin
- * Plan-B.
+ * Plan-B + newmcorpsenm / has_mcorpsenm stale NON_PM.
  */
 export function set_mimic_sym(mtmp) {
     // C: if (!mtmp || Protection_from_shape_changers) return;
@@ -3025,10 +3046,10 @@ export function set_mimic_sym(mtmp) {
             // fires only when can_be_hatched returns 0 (PM_GIANT_ANT).
             mndx = NON_PM;
         }
-        if (!mtmp.mextra) mtmp.mextra = {};
+        newmcorpsenm(mtmp);
         mtmp.mextra.mcorpsenm = mndx;
     } else if (ap_type === M_AP_OBJECT && appear === SLIME_MOLD) {
-        if (!mtmp.mextra) mtmp.mextra = {};
+        newmcorpsenm(mtmp);
         mtmp.mextra.mcorpsenm = game.context?.current_fruit ?? 0;
         // C: flags.made_fruit = TRUE (fruitadd may reuse current_fruit)
         if (!game.flags) game.flags = {};
@@ -3039,10 +3060,10 @@ export function set_mimic_sym(mtmp) {
         // (do not import minion.js Inhell — minion → makemon).
         const algn = rn2(3) - 1;
         const inhell = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
-        if (!mtmp.mextra) mtmp.mextra = {};
+        newmcorpsenm(mtmp);
         mtmp.mextra.mcorpsenm = (inhell && rn2(3)) ? AM_NONE : Align2amask(algn);
-    } else if (mtmp.mextra && (mtmp.mextra.mcorpsenm ?? NON_PM) !== NON_PM) {
-        // C: has_mcorpsenm → NON_PM (drop stale statue/figurine shape)
+    } else if (has_mcorpsenm(mtmp)) {
+        // C: don't retain stale value from a previously mimicked shape
         mtmp.mextra.mcorpsenm = NON_PM;
     }
     // C: if (does_block(mx, my, &levl[mx][my])) block_point(mx, my)

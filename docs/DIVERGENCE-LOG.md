@@ -1,4 +1,35 @@
+## D-1598 — mextra.h has_mcorpsenm / makemon.c newmcorpsenm
+
+- **Status:** fixed (map-driven Open from D-1597; not a public FAIL)
+- **Symptom:** `has_mcorpsenm` was a named omit after D-1525/D-1574.
+  JS treated `mcorpsenm != null` (so `NON_PM` counted as set),
+  inlined alloc instead of `newmcorpsenm`, skipped `seemimic`
+  `freemcorpsenm`, copied `NON_PM` in `copy_mextra`, and let a
+  long-worm poly zap hit every segment.
+- **C locus:** `mextra.h` `has_mcorpsenm` `:234`
+  `mextra && MCORPSENM != NON_PM`. `makemon.c` `newmcorpsenm`
+  `:2368–2375` / `freemcorpsenm` `:2377–2383` / `set_mimic_sym`
+  `:2543–2546` stale `NON_PM`. Callers: `mon.c` `seemimic` `:4413–4414`,
+  `copy_mextra` `:2644–2645`; `zap.c` `bhitm` `:266–327`;
+  `worm.c` `wormgone` `:330–331`; `display.c` `:573` `PM_TENGU`;
+  `pager.c` `object_from_map` `:338–345`; `apply.c` stethoscope
+  `:418–420`.
+- **JS was:** pager local clone `| 0`; display `mcorpsenm != null`;
+  seemimic deferred; zap skip empty; `copy_mextra` `hasOwnProperty`.
+- **Fix:** live `has_mcorpsenm` + `newmcorpsenm`/`freemcorpsenm`;
+  wired those callers. object_detect cursed-mimic / `altarmask_at`
+  / worn `clear_bypasses` named. Rule #2: no fs.
+- **JS:** `js/const.js`; `js/makemon.js`; `js/mon.js`; `js/zap.js`;
+  `js/worm.js`; `js/display.js`; `js/pager.js`; `js/apply.js`.
+- **Not this iter:** detect cursed-mimic override; `altarmask_at`;
+  worn `clear_bypasses`; zap `shieldeff`. show_transient_light is
+  D-1597.
+- **Verified:** private canary **18**/18; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1597 — light.c show_transient_light / transient_light_cleanup
+
 
 - **Status:** fixed (map-driven Open from D-1596; not a public FAIL)
 - **Symptom:** `show_transient_light` / `transient_light_cleanup` were

@@ -31,7 +31,7 @@ import {
     KILLED_BY, NO_KILLER_PREFIX, W_WEP, STATUE_TRAP,
     EXPL_MAGICAL, EXPL_FIERY, EXPL_FROSTY, PARANOID_BREAKWAND,
     RLOC_NOMSG, RLOC_MSG, RLOC_NONE, XKILL_NOMSG, ARTICLE_NONE,
-    SUPPRESS_SADDLE, has_mgivenname,
+    SUPPRESS_SADDLE, has_mgivenname, has_mcorpsenm, MCORPSENM,
     PLNMSG_enum, NO_TRAP_FLAGS, Is_airlevel, Is_waterlevel,
     LANDMINE, BEAR_TRAP, FORCEBUNGLE, SHOPBASE, P_RIDING, NO_MM_FLAGS,
     MAX_SPELL_STUDY, HOMEMADE_TIN, G_GONE, NO_MINVENT, MM_NOMSG, TT_BURIEDBALL,
@@ -66,7 +66,7 @@ import {
     obj_extract_self, place_object, stackobj, weight, mksobj, stop_timer,
     start_timer, hornoplenty,
 } from './mkobj.js';
-import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, thesimpleoname, yname, shk_your } from './objnam.js';
+import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, thesimpleoname, simpleonames, yname, shk_your } from './objnam.js';
 import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, A_DEX, A_CON, change_luck, Fumbling } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination, a_monnam, Amonnam } from './do_name.js';
@@ -186,6 +186,7 @@ const FIGURINE = objectNames.indexOf('FIGURINE');
 const UNICORN_HORN = objectNames.indexOf('UNICORN_HORN');
 const HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
 const TIN = objectNames.indexOf('TIN');
+const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
 const ICE_BOX = objectNames.indexOf('ICE_BOX');
@@ -505,7 +506,17 @@ async function use_stethoscope(_obj) {
             const ap = M_AP_TYPE(mtmp);
             if (ap === M_AP_OBJECT) {
                 const otyp = mtmp.mappearance | 0;
-                what = simple_typename_steth(otyp);
+                // C: SLIME_MOLD + has_mcorpsenm → dummy.spe = MCORPSENM
+                // then simpleonames (fruit name, not "slime mold").
+                if (otyp === SLIME_MOLD && has_mcorpsenm(mtmp)) {
+                    what = simpleonames({
+                        otyp,
+                        spe: MCORPSENM(mtmp),
+                        quan: 1,
+                    });
+                } else {
+                    what = simple_typename_steth(otyp);
+                }
                 const on = objectNames[otyp] || '';
                 use_plural = on.includes('BOOTS') || on.includes('GLOVES')
                     || otyp === LENSES;

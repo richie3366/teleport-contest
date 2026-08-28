@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1598 mextra.h has_mcorpsenm
+
+**Objective:** Open `makemon.c` `has_mcorpsenm` (named). Not
+set_mimic_sym. Not show_transient_light.
+**C locus:** `mextra.h` `has_mcorpsenm` `:234`; `makemon.c`
+`newmcorpsenm`/`freemcorpsenm` `:2368–2383`; callers seemimic,
+copy_mextra, zap bhitm, wormgone, display, pager, apply.
+**JS locus:** named omit after D-1525/D-1574 (pager clone;
+display `!= null`; seemimic deferred).
+**Change:** live helper + alloc/free; stale `NON_PM`; wired
+callers. object_detect / `altarmask_at` / `clear_bypasses`
+named. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **18**/18; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open SORTLOOT_PETRIFY. Not has_mcorpsenm.
+**Blocked:** none.
 ## 2026-08-28 — D-1597 light.c show_transient_light
 
 **Objective:** Open `makemon.c` `show_transient_light` (named). Not
