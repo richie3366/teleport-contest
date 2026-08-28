@@ -7,7 +7,7 @@ import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { depth as depth_of_level, level_difficulty as level_difficulty_of } from './hacklib.js';
 import { put_saddle_on_mon, can_saddle, place_monster } from './steed.js';
-import { m_dowear, which_armor } from './worn.js';
+import { m_dowear, which_armor, check_gear_next_turn } from './worn.js';
 import {
     LOW_PM,
     SPECIAL_PM,
@@ -80,7 +80,7 @@ import {
     throws_rocks,
     M3_CLOSE, M3_WAITFORU, M3_WAITMASK, M3_COVETOUS,
 } from './monsters.js';
-import { big_to_little } from './mondata.js';
+import { big_to_little, set_mon_data } from './mondata.js';
 import {
     NO_MINVENT, NO_MM_FLAGS, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD,
     MM_EMIN, MM_EPRI, MM_ANGRY, MM_ADJACENTOK, MM_NOTAIL, MM_NOWAIT, MM_MALE, MM_FEMALE,
@@ -141,17 +141,17 @@ import { ART_EXCALIBUR, ART_DEMONBANE } from './generated/artifacts_data.js';
 import { cansee, does_block, block_point } from './vision.js';
 import { newsym, Norep, canseemon, sensemon } from './display.js';
 import { mhidden_description } from './pager.js';
-import { emits_light, new_light_source } from './light.js';
+import { emits_light, new_light_source, del_light_source } from './light.js';
 import { begin_burn } from './timeout.js';
 import { christen_monst, oname, x_monnam } from './do_name.js';
 import { vtense } from './objnam.js';
 import { get_shop_item, shkname } from './shknam.js';
 import {
     get_wormno, initworm, count_wsegs, place_worm_tail_randomly,
-    worm_mon_at,
+    worm_mon_at, wormgone,
 } from './worm.js';
 import { deliver_obj_to_mon } from './dokick.js';
-import { can_be_hatched, m_at } from './mon.js';
+import { can_be_hatched, m_at, seemimic, hideunder } from './mon.js';
 
 /** C ref: shknam.c neweshk — allocate eshk for MM_ESHK makemon. */
 export function neweshk(mtmp) {
@@ -988,7 +988,7 @@ function monsym_isupper(mdat) {
 /**
  * C ref: mon.c select_newcham_form — sandestin/doppel/cham/vamp + random.
  * Named omissions: dragon-armor ordinary arm (which_armor); wizard
- * mon_polycontrol; newcham outer rogue uppercase reject (tryct>15).
+ * mon_polycontrol. Outer rogue tryct>15 is in newcham (D-1573).
  */
 function select_newcham_form(mon) {
     let mndx = NON_PM;
@@ -1112,49 +1112,127 @@ export async function create_critters(cnt, mptr, neverask) {
 }
 
 /**
- * C ref: mon.c newcham — random form via select_newcham_form/accept.
- * Named omissions: message/polyspot/worm/mimic/leash/light/inventory arms;
- * Protection_from_shape_changers cancel path; endgame mplayer rank strip;
- * cancelled→uncancel before random form.
+ * C ref: mon.c newcham `:5276–5535` — take mtmp into mdat (or a random
+ * accept_newcham_form). Protection_from_shape_changers cancel uncancel
+ * + vampire cham (D-1573). youprop H||E via uprops like set_mimic_sym
+ * (D-1564; not a third named clone of were.js / monmove.js).
+ * Named omissions: NC_SHOW_MSG pline_mon/usmellmon/noname_monnam
+ * (pline_mon async); NC_VIA_WAND_OR_SPELL possibly_unwield /
+ * mon_break_armor / boulder bypass+flooreffects (async / missing);
+ * m_unleash (async) + update_inventory leash; ustuck expels/unstuck
+ * (async); poly_steed; Elbereth set_apparxy/monflee (monflee async).
  * @returns {boolean} true if form changed
  */
-export function newcham(mtmp, mdat, _ncflags = 0) {
+export function newcham(mtmp, mdat, ncflags = 0) {
     if (!mtmp) return false;
     const olddata = mtmp.data;
+    // C youprop.h: H || E ≡ uprops[PROT_FROM_SHAPE_CHANGERS]
+    const prot = game.u?.uprops?.[PROT_FROM_SHAPE_CHANGERS];
+    const pfsc = !!((prot?.intrinsic | 0) || (prot?.extrinsic | 0));
+    // ncflags NC_SHOW_MSG / VIA_WAND_OR_SPELL arms named omit (async)
+
     if (mtmp.cham === NON_PM || mtmp.cham == null) {
         // C: non-shapechanger — riders + mbirth_limit immunes (Nazgul/Erinys);
         // ordinary non-cham may still take random or forced mdat (D-1006).
         if (is_rider(olddata)) return false;
         const omndx = olddata?.mndx ?? olddata?.mnum ?? NON_PM;
         if (mbirth_limit(omndx | 0) < MAXMONNO) return false;
-        // cancelled→uncancel deferred
+        // cancelled shapechangers become uncancelled prior to a new shape
+        if (mtmp.mcan && !pfsc) {
+            mtmp.cham = pm_to_cham(mtmp.data?.mndx ?? mtmp.mnum ?? NON_PM);
+            if (mtmp.cham !== NON_PM) mtmp.mcan = 0;
+        }
     }
-    let target = mdat;
-    if (!target) {
+
+    if (!mdat) {
         let tryct = 20;
         do {
             const mndx = select_newcham_form(mtmp);
-            target = accept_newcham_form(mtmp, mndx);
-            // Rogue uppercase bias on first tries — deferred (monsym)
-            if (target) break;
+            mdat = accept_newcham_form(mtmp, mndx);
+            // C: first several tries require uppercase on the rogue level
+            if (tryct > 15 && Is_rogue_level(game.u?.uz)
+                && mdat && !monsym_isupper(mdat)) {
+                mdat = null;
+            }
+            if (mdat) break;
         } while (--tryct > 0);
-        if (!target) return false;
+        if (!tryct) return false;
     } else {
-        const mndx = target.mndx ?? NON_PM;
+        const mndx = mdat.mndx ?? NON_PM;
         if (((game.mvitals?.[mndx]?.mvflags ?? 0) & G_GENOD) !== 0)
             return false;
     }
-    if ((target?.mndx | 0) === (olddata?.mndx | 0)) return false;
+    if ((mdat?.mndx | 0) === (olddata?.mndx | 0)) return false;
 
-    mgender_from_permonst(mtmp, target);
+    mgender_from_permonst(mtmp, mdat);
+    // C: Endgame mplayers drop " the <rank>" from mgivenname
+    if (In_endgame(game.u?.uz) && is_mplayer(olddata) && has_mgivenname(mtmp)) {
+        const gn = MGIVENNAME(mtmp);
+        const p = gn.indexOf(' the ');
+        if (p >= 0) {
+            const cut = gn.slice(0, p);
+            if (mtmp.mextra && mtmp.mextra.mgivenname != null)
+                mtmp.mextra.mgivenname = cut;
+            if (mtmp.mgivenname != null) mtmp.mgivenname = cut;
+        }
+    }
+
+    if (mtmp.wormno) {
+        const mx = mtmp.mx | 0, my = mtmp.my | 0;
+        wormgone(mtmp);
+        place_monster(mtmp, mx, my);
+    }
+    if (M_AP_TYPE(mtmp) && mdat.mlet !== 'S_MIMIC') seemimic(mtmp);
+
     const hpn = mtmp.mhp | 0;
     const hpd = mtmp.mhpmax | 0;
-    newmonhp(mtmp, target);
+    newmonhp(mtmp, mdat);
     mtmp.mhp = Math.trunc((hpn * mtmp.mhp) / hpd);
     if (mtmp.mhp < 0 || mtmp.mhp > mtmp.mhpmax) mtmp.mhp = mtmp.mhpmax;
     if (!mtmp.mhp) mtmp.mhp = 1;
-    mtmp.data = target;
-    mtmp.mnum = target.mndx;
+
+    set_mon_data(mtmp, mdat);
+
+    // mleashed m_unleash / update_inventory named omit (m_unleash async)
+
+    const old_light = emits_light(olddata);
+    const new_light = emits_light(mtmp.data);
+    if (old_light !== new_light) {
+        if (old_light) del_light_source(LS_MONSTER, mtmp);
+        if (new_light) {
+            new_light_source(mtmp.mx, mtmp.my, new_light, LS_MONSTER, mtmp);
+        }
+    }
+    // C mondata.h pm_invisible — stalker / black light (macro, not a clone)
+    const old_invis = (olddata?.mndx | 0) === pm('STALKER')
+        || (olddata?.mndx | 0) === pm('BLACK_LIGHT');
+    const new_invis = (mdat?.mndx | 0) === pm('STALKER')
+        || (mdat?.mndx | 0) === pm('BLACK_LIGHT');
+    if (!mtmp.perminvis || old_invis) mtmp.perminvis = new_invis ? 1 : 0;
+    mtmp.minvis = mtmp.invis_blkd ? 0 : mtmp.perminvis;
+    if (mtmp.mundetected) hideunder(mtmp);
+
+    // ustuck swallow/unstuck named omit (expels/unstuck async)
+
+    if ((mdat?.mndx | 0) === pm('LONG_WORM')
+        && (mtmp.wormno = get_wormno())) {
+        initworm(mtmp, rn2(5));
+        place_worm_tail_randomly(mtmp, mtmp.mx, mtmp.my);
+    }
+
+    mtmp.meverseen = 0;
+    newsym(mtmp.mx | 0, mtmp.my | 0);
+
+    // NC_SHOW_MSG pline_mon / usmellmon named omit (pline_mon async)
+
+    if ((mtmp.cham === NON_PM || mtmp.cham == null)
+        && mdat.mlet === 'S_VAMPIRE' && !pfsc) {
+        mtmp.cham = pm_to_cham(mdat.mndx ?? NON_PM);
+    }
+
+    // possibly_unwield / mon_break_armor / mselftouch named omit
+    check_gear_next_turn(mtmp);
+    // boulder drop / poly_steed / Elbereth monflee named omit
     return true;
 }
 

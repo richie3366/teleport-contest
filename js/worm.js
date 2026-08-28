@@ -4,8 +4,9 @@
 //   worm_move / shrink_worm / worm_nomove (D-1491), see_wsegs (D-1529),
 //   detect_wsegs (D-1545), worm_known (D-1548), cutworm / place_wsegs
 //   (D-1570).
-// Named omissions: wormgone, save/rest wsegs, redraw_worm;
-//   replmon/restore place_wsegs callers; muse.c / mhitu.c worm_move callers.
+// Named omissions: save/rest wsegs, redraw_worm; mondead/dog
+//   wormgone callers; replmon/restore place_wsegs callers;
+//   muse.c / mhitu.c worm_move callers.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d, rn2_on_display_rng } from './rng.js';
@@ -16,7 +17,7 @@ import {
 import { goodpos } from './teleport.js';
 import { newsym, show_wseg_detect_glyph, Hallucination, pline, canspotmon, impossible } from './display.js';
 import { cansee } from './vision.js';
-import { NUMMONS } from './monsters.js';
+import { NUMMONS, NON_PM, monsterNames } from './monsters.js';
 import { PM_LONG_WORM_TAIL } from './generated/monsters_data.js';
 import { clone_mon } from './makemon.js';
 import { mon_nam, Monnam, s_suffix } from './do_name.js';
@@ -155,6 +156,28 @@ function toss_wsegs(curr, display_update) {
             if (display_update) newsym(curr.wx, curr.wy);
         }
         curr = nxtseg;
+    }
+}
+
+const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
+
+/**
+ * C ref: worm.c wormgone `:307–332` — drop the wseg chain, take the
+ * head off the map, clear wormno. Caller newcham place_monster's the
+ * head back. mondead / dog.c callers still named.
+ */
+export function wormgone(worm) {
+    if (!worm) return;
+    const wnum = worm.wormno | 0;
+    if (!wnum) void impossible('wormgone: wormno is 0');
+    worm.wormno = 0;
+    toss_wsegs(wtails[wnum], true);
+    wheads[wnum] = wtails[wnum] = null;
+    wgrowtime[wnum] = 0;
+    // C: has_mcorpsenm → MCORPSENM = NON_PM (no longer poly-proof)
+    if ((worm.data?.mndx | 0) === PM_LONG_WORM && worm.mextra
+        && (worm.mextra.mcorpsenm ?? NON_PM) !== NON_PM) {
+        worm.mextra.mcorpsenm = NON_PM;
     }
 }
 

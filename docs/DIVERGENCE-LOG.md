@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1573 — mon.c newcham Protection cancel / wormgone
+
+- **Status:** fixed (map-driven Open from D-1572; not a public FAIL)
+- **Symptom:** `newcham` named leftover after D-1006/D-1564: cancelled
+  shapechangers stayed cancelled (`cham` NON_PM) so random form used
+  the ordinary arm; Protection did not block vampire cham; outer
+  rogue `tryct>15` uppercase reject deferred; stub skipped
+  `set_mon_data` / worm tail / light / invis / hideunder.
+- **C locus:** `mon.c` `newcham` `:5276–5535` (`cham==NON_PM` rider +
+  `mbirth_limit` then `mcan && !Protection_from_shape_changers`
+  `pm_to_cham` uncancel; later `S_VAMPIRE` cham unless PfSC).
+  youprop H||E `uprops[PROT_FROM_SHAPE_CHANGERS]`. Callee `worm.c`
+  `wormgone` `:307–332` (`toss_wsegs`, already local).
+- **JS was:** rider/`mbirth_limit` + HP fraction + `data=` only;
+  `// cancelled→uncancel deferred`.
+- **Fix:** live cancel uncancel + vampire cham via uprops (no third
+  named clone of were/monmove); rogue `tryct>15`; `set_mon_data`;
+  `wormgone`+`place_monster`; `seemimic`; light; `pm_invisible`
+  macro; `hideunder`; long-worm `get_wormno`; `check_gear_next_turn`.
+  Rule #2: no fs.
+- **JS:** `js/makemon.js` `newcham`; `js/worm.js` `wormgone`.
+- **Not this iter:** NC_SHOW_MSG `pline_mon`/`usmellmon`; `m_unleash`;
+  ustuck `expels`/`unstuck`; `possibly_unwield`/`mon_break_armor`/
+  `mselftouch`; boulder `flooreffects`; `poly_steed`; Elbereth
+  `monflee`; mondead/dog `wormgone` callers; `ndemon` mkclass;
+  `unblock_point`. Hatch timeout is D-1572.
+- **Verified:** private canary **23**/23 (cancel/PfSC/rider/vamp/
+  stalker invis/wormgone); green+strict seed8000/0900; cohort **7**/7
+  + strict; seed0013-rogue + seed0398 wandpoly + seed4500 PASS.
+
 ## D-1572 — timeout.c attach_egg_hatch_timeout / obj_split_timers
 
 - **Status:** fixed (map-driven Open from D-1571; not a public FAIL)

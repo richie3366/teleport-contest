@@ -305,8 +305,12 @@ was blind `mundetected=1`); **D-0630 inline hideunder non-pit `t_at` blocks** (P
 `extract-monsters.py` `-DMAIL_STRUCTURES` → `PM_MAIL_DAEMON` (SPECIAL_PM=330)** + 
 **D-0928 #1111 random `while` = C (`!validspecmon` only continues under rogue uppercase `monsym` 
 gate; else one `rn1` + outer `newcham`/`accept`)**; 
-omit dragon-armor ordinary arm / wizard mon_polycontrol / RECORD `tt_doppel` entries / `newcham` 
-outer rogue `tryct>15` uppercase reject; omit `set_apparxy` in byyou arm (dochug covers); 
+omit dragon-armor ordinary arm / wizard mon_polycontrol / RECORD `tt_doppel` entries; 
+**D-1573 `newcham` Protection cancel** + outer rogue `tryct>15` + `set_mon_data` / wormgone /
+light / `pm_invisible` / hideunder / long-worm init / vampire cham / `check_gear_next_turn`;
+NC_SHOW_MSG `pline_mon` / `m_unleash` / ustuck / `possibly_unwield` / `mon_break_armor` /
+boulder `flooreffects` / `poly_steed` / Elbereth `monflee` still named (async or missing);
+omit `set_apparxy` in byyou arm (dochug covers); 
 **`makemon_appear_msg` Amonnam/next2u(req x,y)/MM_NOEXCLAM Norep** (D-0928 #1164; 
 sync makemon + async caller; mimic mhidden_description/set_msg_xy/dochugw still omit; 
 in-body await still deferred); **D-0530 `m_initweap` S_TROLL polearm kit**; 
@@ -343,7 +347,7 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
 **D-1535 `observe_quantum_cat`** (`pickup.c:2826–2896`; FOOT latebound; use_container/tip TRUE,TRUE; disclose FALSE,FALSE live spe; `Schroedinger's cat!`); muse monster-loot / escape companion HP named;
-`newcham` Protection cancel; `ndemon`/aligned `mkclass` callers unaudited;
+**D-1573 `newcham` Protection cancel**; `ndemon`/aligned `mkclass` callers unaudited;
 `unblock_point`/`dig_point`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
 `GEHENNOM` dnum sites still wrong); **D-0749 `rnd_misc_item` life-saving `!nonliving && 
@@ -390,7 +394,9 @@ oldhp `*mhit`, `dothrow.c` `thitmonst` `:2206–2207` chopper=`is_axe`;
 `m_lev>=3 && !rn2(3)` then `clone_mon`; `mcloned=0` + Nd8 not
 `newmonhp`; live `js/worm.js` + uhitm/dothrow; restore/replmon
 `place_wsegs` named); 
-omit wormgone, save/rest wsegs, `redraw_worm`, muse/mhitu 
+**D-1573 `wormgone`** (`worm.c:307–332`; callee `toss_wsegs`; caller `mon.c` `newcham`
+`:5359` place_monster head-back; mondead `:2787` / dog `:755` callers still named);
+omit save/rest wsegs, `redraw_worm`, muse/mhitu 
 `worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 
 map_monst head `pet_to_glyph` / `detected_mon_to_glyph` (plain `mon_glyph`); 

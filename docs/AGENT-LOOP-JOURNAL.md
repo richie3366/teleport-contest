@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1573 mon.c newcham Protection cancel / wormgone
+
+**Objective:** Open `newcham` Protection cancel. Not set_mimic_sym
+early-out.
+**C locus:** `mon.c` `newcham` `:5276–5535`; `worm.c` `wormgone`
+`:307–332`; youprop H||E uprops.
+**JS locus:** rider/`mbirth_limit` live; cancel deferred.
+**Change:** live uncancel + vampire cham; rogue `tryct>15`;
+`set_mon_data`; `wormgone`+place_monster; light/`pm_invisible`/
+hideunder; long-worm init; `check_gear_next_turn`. NC_SHOW_MSG /
+`m_unleash` / ustuck / break-armor / Elbereth named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1960).
+**Verified:** canary **23**/23; green+strict seed8000/0900;
+cohort **7**/7 + strict; seed0013-rogue / seed0398 / seed4500.
+**Next:** Open `unblock_point`/`dig_point`. Not block_point.
 ## 2026-08-28 — D-1572 timeout.c attach_egg_hatch_timeout / obj_split_timers
 
 **Objective:** Open `attach_egg_hatch_timeout`. Not Plan-B.

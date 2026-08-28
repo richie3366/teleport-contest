@@ -62,26 +62,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** fortress after audit **#1960**. **Next cluster:**
-Open `mon.c` `newcham` Protection_from_shape_changers cancel
-(named). Not set_mimic_sym early-out.
-**Do not skip D-1531…D-1572 (index).** Keep mention_map addr.
+Open `vision.c` `unblock_point`/`dig_point` (named). Not block_point.
+**Do not skip D-1531…D-1573 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1572.** Do not FORCE
+**Do not re-break D-0660…D-1573.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1572 (index). Recent: **D-1572**
-`timeout.c` `attach_egg_hatch_timeout` + `obj_split_timers`
-(splitobj wire; `poly_obj` hero-egg `kill_egg`/`set_corpsenm`;
-hatch `is_pool(mon)` / `learn_egg_type` `update_inventory` /
-impossible). Prior: **D-1571** xray IN_SIGHT. **D-1570**
-cutworm. Older D-1531…D-1571 live in the
-index — do not re-paste.
+**Keep:** D-0845…D-1573 (index). Recent: **D-1573**
+`mon.c` `newcham` Protection cancel + vampire cham (uprops H||E);
+rogue `tryct>15`; `set_mon_data`; `wormgone`; light/`pm_invisible`/
+hideunder; long-worm init; `check_gear_next_turn`. NC_SHOW_MSG /
+`m_unleash` / ustuck / break-armor / Elbereth named. Prior:
+**D-1572** hatch timeout. **D-1571** xray IN_SIGHT. Older
+D-1531…D-1572 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-skip D-1229…D-1572 (index). No `reset_glyphmap` /
+skip D-1229…D-1573 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. throw keeps
@@ -96,7 +95,7 @@ skip `o->lit` Light source. Do not stub furnsyms 0..5
 uhitm→pager. Do not skip `detect_wsegs` show_glyph or compare
 `data === mons()`. Do not skip `worm_known` (D-1548) or trap
 `monkilled` (D-1550). cutworm is D-1570. xray IN_SIGHT is D-1571.
-Hatch timeout is D-1572. Do not glue `redraw_worm` /
+Hatch timeout is D-1572. `newcham` cancel is D-1573. Do not glue `redraw_worm` /
 nv_range circle / `unblock_point`.
 `howmonseen` is D-1562. Do not
 skip `tamedog` `wake_nearto` or glue FULL_MOON S_DOG / ustuck.
@@ -110,6 +109,7 @@ Do not skip canned CMDQ_INT (D-1551), Eyes `is_plural`
 is D-1566. `'r'` reversed is D-1567. Eat/read/zap/tin
 NOFLAGS is D-1568. Pickinv hands/xtra is D-1569. cutworm is D-1570.
 xray IN_SIGHT is D-1571. Hatch timeout is D-1572.
+`newcham` cancel is D-1573.
 Do not glue `redraw_worm` / force_invmenu redo /
 mime_action / gacc.
 Do not rewrite `confer_oc_oprop`.
