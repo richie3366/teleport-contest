@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1568 invent.c getobj eat/read/zap/tin NOFLAGS
+
+**Objective:** Open eat/read/zap/tin getobj NOFLAGS. Not ALLOWCNT.
+**C locus:** `invent.c` `getobj` `:1751–2089`; eat_ok/tin_ok
+NOFLAGS; read_ok GETOBJ_PROMPT; zap_ok NOFLAGS.
+**JS locus:** clones after D-1561/D-1563.
+**Change:** live `getobj`; eat/read/zap/tinopen callers; eat_ok
++ `getobj_else`. pickinv hands named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1960).
+**Verified:** canary **22**/22; green+strict seed8000/0900;
+cohort **7**/7 + strict (seed1800 eat, seed2200 zap-read).
+**Next:** Open pickinv hands/xtra_choice. Not `&ctmp`.
+**Blocked:** none.
 ## 2026-08-28 — D-1567 pickup.c use_container 'r' reversed
 
 **Objective:** Open `'r'` reversed put-in then take-out. Not stash.

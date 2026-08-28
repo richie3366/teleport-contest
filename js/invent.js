@@ -77,6 +77,11 @@ import {
     GETOBJ_EXCLUDE,
     GETOBJ_SUGGEST,
     GETOBJ_DOWNPLAY,
+    GETOBJ_EXCLUDE_INACCESS,
+    GETOBJ_EXCLUDE_SELECTABLE,
+    GETOBJ_EXCLUDE_NONINVENT,
+    GETOBJ_ALLOWCNT,
+    GETOBJ_PROMPT,
     CMDQ_KEY,
     CMDQ_EXTCMD,
     CMDQ_USER_INPUT,
@@ -4091,6 +4096,160 @@ export async function getobj_apply_count(otmp, word, cntgiven, cnt, ilet) {
         return { retry: true };
     }
     return getobj_split_otmp(otmp, cntgiven, cnt);
+}
+
+function getobj_sort_invlets(lets) {
+    lets.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
+    return lets.join('');
+}
+
+function getobj_find_ilet(ch) {
+    if (ch === GOLD_SYM) {
+        return (game.invent || []).find((o) => o && o.oclass === COIN_CLASS)
+            || null;
+    }
+    return (game.invent || []).find((o) => o && o.invlet === ch) || null;
+}
+
+/**
+ * C invent.c getobj `:1751–2089`.
+ * Canned CMDQ_INT/KEY (D-1551) + CQ_REPEAT (D-1563). Digit prefix
+ * ALLOWCNT (D-1530); !ALLOWCNT → "No count allowed" and retry.
+ * `?`/`*` → display_pickinv `allowcnt ? &ctmp : NULL` (D-1559).
+ * GETOBJ_NOFLAGS + no SUGGEST / hands / DOWNPLAY forceprompt →
+ * "don't have anything [else] to WORD" (inaccess from
+ * EXCLUDE_NONINVENT / EXCLUDE_INACCESS). GETOBJ_PROMPT still prompts
+ * `[*]` when suggested==0.
+ * Named omit: force_invmenu oneloop; in_doagain readchar (REPEAT
+ * cmdq live); mime_action; getobj_hands_txt; sortloot body (invlet
+ * sort); call-Amulet silly_thing.
+ * @param {string} word
+ * @param {(obj: object|null) => number} obj_ok
+ * @param {number} ctrlflags
+ * @returns {Promise<object|null>}
+ */
+export async function getobj(word, obj_ok, ctrlflags) {
+    const allowcnt = !!(ctrlflags & GETOBJ_ALLOWCNT);
+    let forceprompt = !!(ctrlflags & GETOBJ_PROMPT);
+    let allownone = false;
+    let inaccess = 0;
+
+    const cq = getobj_from_cmdq(obj_ok, allowcnt);
+    if (!cq.skip) return cq.otmp;
+
+    const none_rank = obj_ok(null);
+    if (none_rank === GETOBJ_SUGGEST) {
+        allownone = true;
+    } else if (
+        none_rank === GETOBJ_DOWNPLAY
+        || none_rank === GETOBJ_EXCLUDE_INACCESS
+        || none_rank === GETOBJ_EXCLUDE_SELECTABLE
+    ) {
+        allownone = true;
+    } else if (none_rank === GETOBJ_EXCLUDE_NONINVENT) {
+        forceprompt = false;
+        inaccess++;
+    }
+
+    const suggest = [];
+    const alt = [];
+    for (const otmp of game.invent || []) {
+        if (!otmp?.invlet) continue;
+        const v = obj_ok(otmp);
+        if (v === GETOBJ_SUGGEST) {
+            suggest.push(otmp.invlet);
+        } else if (v === GETOBJ_DOWNPLAY) {
+            alt.push(otmp.invlet);
+            forceprompt = true;
+        } else if (v === GETOBJ_EXCLUDE_INACCESS) {
+            inaccess++;
+        }
+    }
+    const rawLets = getobj_sort_invlets(suggest);
+    const altLets = getobj_sort_invlets(alt);
+    const suggested = suggest.length;
+
+    if (suggested === 0 && !forceprompt && !allownone) {
+        const else_ = inaccess ? 'else ' : '';
+        await pline(`You don't have anything ${else_}to ${word}.`);
+        return null;
+    }
+
+    const promptLets = suggested > 5 ? compactify_invlets(rawLets) : rawLets;
+
+    for (;;) {
+        const query = promptLets
+            ? `What do you want to ${word}? [${promptLets} or ?*]`
+            : `What do you want to ${word}? [*]`;
+        let ch = await yn_function(query, null, '\0');
+        const counted = await getobj_take_count(ch, allowcnt);
+        if (counted.retry) continue;
+        ch = counted.ch;
+        if (QUITCHARS.includes(ch) || ch === '\x1b') {
+            if (game.flags?.verbose !== false) await pline(Never_mind);
+            return null;
+        }
+        if (ch === HANDS_SYM) {
+            if (!allownone) return null; // mime_action named
+            const { hands_obj } = await import('./weapon.js');
+            return hands_obj;
+        }
+        if (ch === '?' || ch === '*') {
+            let allowed = rawLets;
+            if (ch === '?' && !allowed && altLets) allowed = altLets;
+            const ilet = await getobj_display_pickinv(
+                ch, allowed, allowcnt, counted,
+            );
+            if (ilet === '\x1b') {
+                if (game.flags?.verbose !== false) await pline(Never_mind);
+                return null;
+            }
+            if (!ilet) continue;
+            if (ilet === HANDS_SYM) {
+                if (!allownone) return null;
+                const { hands_obj } = await import('./weapon.js');
+                return hands_obj;
+            }
+            const picked = getobj_find_ilet(ilet);
+            const used = await getobj_finish_pick(
+                picked, word, obj_ok, counted, ilet,
+            );
+            if (used && used.retry) continue;
+            return used;
+        }
+        const otmp = getobj_find_ilet(ch);
+        const used = await getobj_finish_pick(
+            otmp, word, obj_ok, counted, ch,
+        );
+        if (used && used.retry) continue;
+        return used;
+    }
+}
+
+/**
+ * C invent.c getobj after the letter `:2003–2072` — gold "cannot WORD
+ * gold", silly_thing on EXCLUDE, then getobj_apply_count.
+ * @returns {Promise<null | { retry: true } | object>}
+ */
+async function getobj_finish_pick(otmp, word, obj_ok, counted, ilet) {
+    if (ilet === GOLD_SYM || (otmp && otmp.oclass === COIN_CLASS)) {
+        if (otmp && obj_ok(otmp) === GETOBJ_EXCLUDE) {
+            await pline(`You cannot ${word} gold.`);
+            return null;
+        }
+    }
+    if (otmp && obj_ok(otmp) === GETOBJ_EXCLUDE) {
+        await pline(`That is a silly thing to ${word}.`);
+        return null;
+    }
+    if (!otmp) {
+        await pline("You don't have that object.");
+        if (game.in_doagain) return null;
+        return { retry: true };
+    }
+    return getobj_apply_count(
+        otmp, word, counted.cntgiven, counted.cnt, ilet,
+    );
 }
 
 /** C invent.c adjust_ok `:4916–4923`. */

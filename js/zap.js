@@ -231,7 +231,7 @@ import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
     observe_object, display_minventory, display_binventory, display_cinventory,
-    update_inventory, set_cknown_lknown,
+    update_inventory, set_cknown_lknown, getobj,
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn } from './do.js';
@@ -355,6 +355,7 @@ import {
     P_SHURIKEN, P_BOW,
     IS_FURNITURE, IS_GRAVE, SCORR, VAULT, TEMPLE, In_quest, Is_firelevel,
     VIBRATING_SQUARE, MAGIC_PORTAL, HEADSTONE, TRAP_EXPLODE, is_magical_trap,
+    GETOBJ_EXCLUDE, GETOBJ_SUGGEST, GETOBJ_NOFLAGS,
 } from './const.js';
 
 const MZ_HUMAN = MZ_MEDIUM;
@@ -2297,15 +2298,10 @@ const WAN_SECRET_DOOR_DETECTION =
     objectNames.indexOf('WAN_SECRET_DOOR_DETECTION');
 const SPE_DETECT_UNSEEN = objectNames.indexOf('SPE_DETECT_UNSEEN');
 
-/** Invent letters of zappable wands (C zap_ok → GETOBJ_SUGGEST). */
-function zap_lets() {
-    const inv = game.invent || [];
-    const lets = [];
-    for (const o of inv) {
-        if (o.oclass === WAND_CLASS && o.invlet) lets.push(o.invlet);
-    }
-    lets.sort();
-    return lets.join('');
+/** C ref: zap.c zap_ok — wands SUGGEST; else EXCLUDE (incl. hands). */
+function zap_ok(obj) {
+    if (obj && obj.oclass === WAND_CLASS) return GETOBJ_SUGGEST;
+    return GETOBJ_EXCLUDE;
 }
 
 /**
@@ -2347,62 +2343,9 @@ async function getdir_zap(prompt) {
 
 /**
  * C ref: invent.c getobj("zap", zap_ok, GETOBJ_NOFLAGS)
- * `?`/`*` → display_pickinv_reply (D-0450).
  */
 async function getobj_zap() {
-    const { display_pickinv_reply } = await import('./invent.js');
-    for (;;) {
-        await flush_topl_more();
-        const lets = zap_lets();
-        const query = lets
-            ? `What do you want to zap? [${lets} or ?*]`
-            : 'What do you want to zap? [*]';
-        const prompt = `${query} `;
-
-        game._pending_message = prompt;
-        const disp = game.nhDisplay;
-        await flush_screen(1);
-        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
-
-        const key = await nhgetch();
-        const ch = String.fromCharCode(key);
-
-        if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
-            if (game.flags?.verbose !== false) await pline('Never mind.');
-            return null;
-        }
-        if (ch === '?' || ch === '*') {
-            const picked = await display_pickinv_reply(ch === '*' ? '*' : lets);
-            if (picked === '\x1b') {
-                if (game.flags?.verbose !== false) await pline('Never mind.');
-                return null;
-            }
-            if (!picked) continue;
-            const otmp = (game.invent || []).find(o => o.invlet === picked);
-            if (!otmp) {
-                await pline("You don't have that object.");
-                continue;
-            }
-            if (otmp.oclass !== WAND_CLASS) {
-                await pline("You can't zap that!");
-                return null;
-            }
-            game._pending_message = '';
-            return otmp;
-        }
-
-        const otmp = (game.invent || []).find(o => o.invlet === ch);
-        if (!otmp) {
-            await pline("You don't have that object.");
-            continue;
-        }
-        if (otmp.oclass !== WAND_CLASS) {
-            await pline("You can't zap that!");
-            return null;
-        }
-        game._pending_message = '';
-        return otmp;
-    }
+    return getobj('zap', zap_ok, GETOBJ_NOFLAGS);
 }
 
 /**

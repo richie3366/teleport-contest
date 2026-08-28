@@ -4,6 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1568 — invent.c getobj eat/read/zap/tin NOFLAGS
+
+- **Status:** fixed (map-driven Open from D-1567; not a public FAIL)
+- **Symptom:** eat/read/zap/tin getobj clones omitted C
+  GETOBJ_NOFLAGS empty-return, digit reject, pickinv `out_cnt`
+  NULL, canned INT abort, CQ_REPEAT record, read GETOBJ_PROMPT
+  DOWNPLAY, and floorfood `getobj_else` "else" wording. Named
+  omit after D-1561/D-1563 (stash ALLOWCNT + REPEAT live).
+  Not ALLOWCNT.
+- **C locus:** `invent.c` `getobj` `:1751–2089`; callers
+  `eat.c` `floorfood` `:3712–3716` eat_ok/tin_ok NOFLAGS +
+  `use_tin_opener` `:3121` tinopen_ok; `read.c` `doread` `:358`
+  read_ok GETOBJ_PROMPT; `zap.c` `dozap` `:2638` zap_ok
+  NOFLAGS. Callbacks `eat_ok` `:3516–3534`, `tin_ok`
+  `:3560–3573`, `tinopen_ok` `:3087–3094`, `read_ok`
+  `:314–324`, `zap_ok` `:2617–2623`.
+- **JS was:** per-verb clones; zap/read prompted `[*]` with no
+  SUGGEST; eat `?`/`*` Never mind; tin KEY-only cmdq; no
+  eat_ok ranks / `getobj_else` on floor decline.
+- **Fix:** live `js/invent.js` `getobj` (yn_function; helpers
+  D-1530/D-1551/D-1559/D-1563). Callers pass C flags.
+  floorfood_eat increments `getobj_else`. Rule #2: no fs.
+- **JS:** `js/invent.js` `getobj` / `getobj_finish_pick`;
+  `js/eat.js` eat_ok/tin_ok/tinopen_ok; `js/read.js` read_ok;
+  `js/zap.js` zap_ok.
+- **Not this iter:** pickinv hands/xtra_choice; force_invmenu
+  redo; mime_action / getobj_hands_txt; sacrifice offer_ok;
+  sortloot body. `'r'` reversed is D-1567. Stash is D-1561.
+- **Verified:** private canary **22**/22 (C flags + empty
+  NOFLAGS no-key + read PROMPT waits + digit + DOWNPLAY +
+  gold EXCLUDE + CMDQ_INT abort + KEY); green+strict
+  seed8000/0900; cohort **7**/7 + strict (incl. seed1800 eat
+  + seed2200 zap-read).
+
 ## D-1567 — pickup.c use_container 'r' reversed put-in then take-out
 
 - **Status:** fixed (map-driven Open from D-1566; not a public FAIL)
