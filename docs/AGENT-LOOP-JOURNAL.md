@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1579 invent.c mime_action
+
+**Objective:** Open `invent.c` mime_action (named). Not force_invmenu.
+**C locus:** `invent.c` `mime_action` `:1677–1706`; `getobj`
+`:1946–1949`; `hacklib.c` `ing_suffix` `:362–396`.
+**JS locus:** named omit after D-1578; typed `'-'` returned null.
+**Change:** live mime + getobj/getobj_adjust typed hands; canonical
+`ing_suffix` (clones retired). Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **20**/20; green+strict seed8000/0900; cohort
+**7**/7 + strict.
+**Next:** Open gacc / `'0'` ball class. Not traditional_loot.
+**Blocked:** none.
 ## 2026-08-28 — D-1578 invent.c force_invmenu `*`/`?` redo
 
 **Objective:** Open `invent.c` force_invmenu `*`/`?` redo (named).

@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1579 — invent.c mime_action
+
+- **Status:** fixed (map-driven Open from D-1578; not a public FAIL)
+- **Symptom:** typed `'-'` at getobj when hands/self are not allowed
+  returned null with no pline; C `mime_action` gerunds the verb
+  (`ing_suffix`) and may `rn2(2)` on `" or "`.
+- **C locus:** `invent.c` `mime_action` `:1677–1706` (`" on the "`
+  sfx, `"rub the "`/`"dip "` pfx, `" or "` `rn2(2)`, `You("mime
+  … something")`). Caller `getobj` `:1946–1949` typed HANDS_SYM.
+  Pickinv `:1988–1989` returns `&hands_obj` without mime. Callee
+  `hacklib.c` `ing_suffix` `:362–396`.
+- **JS was:** `if (!allownone) return null; // mime_action named`.
+  `ing_suffix` lived as clones in hack.js / uhitm.js / timeout hatch.
+- **Fix:** live `mime_action` + `getobj_typed_hands` (getobj and
+  getobj_adjust). Canonical `ing_suffix` in `hacklib.js`; clones
+  retired. Pickinv `'-'` still no mime. Rule #2: no fs.
+- **JS:** `js/invent.js` `mime_action`; `js/hacklib.js` `ing_suffix`;
+  hack/uhitm/timeout import.
+- **Not this iter:** gacc / `'0'` ball class; putmsghistory;
+  clone auto-open yn; sortloot inuse_only; pickinv `'-'` when
+  `!allownone` still null (C returns hands_obj). force_invmenu
+  redo is D-1578. hands is D-1569.
+- **Verified:** private canary **20**/20 (C splits + ing_suffix +
+  mime strings + rn2(2) + getobj typed `'-'` vs allownone hands;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1578 — invent.c getobj / display_pickinv force_invmenu `*`/`?` redo
 
 - **Status:** fixed (map-driven Open from D-1577; not a public FAIL)

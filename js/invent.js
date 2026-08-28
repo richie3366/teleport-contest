@@ -12,6 +12,7 @@
 //        insight.c enlightenment (BASIC ^X + MAGIC-only in-progress D-1116).
 // D-0856: display_pickinv / invent_lines obj_to_glyph Hallu display RNG.
 // D-1578: force_invmenu Special `*`/`?` + getobj redo_menu / oneloop.
+// D-1579: getobj mime_action on typed '-' when !allownone.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -97,7 +98,8 @@ import {
     acurr, acurrstr, get_strength_str, exercise, Fumbling,
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
-import { depth } from './hacklib.js';
+import { depth, ing_suffix } from './hacklib.js';
+import { rn2 } from './rng.js';
 import { newuexp } from './exper.js';
 import {
     DOOR, STAIRS, FOUNTAIN, SINK, ALTAR, GRAVE, TREE, IRONBARS,
@@ -4261,6 +4263,50 @@ function getobj_find_ilet(ch) {
 }
 
 /**
+ * C invent.c mime_action `:1677–1706`. Typed '-' when !allownone.
+ * " on the " → sfx (bp+1); "rub the … on" / "dip … into" → pfx at
+ * buf[4] after buf[3]='\0'; " or " → rn2(2) left vs rest. You() via
+ * pline. Menu pickinv HANDS_SYM does not call this (C `:1988–1989`).
+ * @param {string} word
+ */
+export async function mime_action(word) {
+    let buf = String(word ?? '');
+    let pfx = null;
+    let sfx = null;
+    const onThe = buf.indexOf(' on the ');
+    if (onThe >= 0) {
+        sfx = buf.slice(onThe + 1);
+        buf = buf.slice(0, onThe);
+    }
+    if ((buf.startsWith('rub the ') && buf.slice(8).includes(' on'))
+        || (buf.startsWith('dip ') && buf.slice(4).includes(' into'))) {
+        pfx = buf.slice(4);
+        buf = buf.slice(0, 3);
+    }
+    let bp;
+    const orAt = buf.indexOf(' or ');
+    if (orAt >= 0) {
+        bp = rn2(2) ? buf.slice(0, orAt) : buf.slice(orAt + 4);
+    } else {
+        bp = buf;
+    }
+    await pline(
+        `You mime ${ing_suffix(bp)}${pfx ? ' ' : ''}${pfx || ''} something${sfx ? ' ' : ''}${sfx || ''}.`,
+    );
+}
+
+/**
+ * C invent.c getobj `:1946–1949` — typed '-' at yn (not pickinv).
+ * @param {string} word
+ * @param {boolean} allownone
+ * @param {object|null} [hands]
+ */
+async function getobj_typed_hands(word, allownone, hands) {
+    if (!allownone) await mime_action(word);
+    return allownone ? hands : null;
+}
+
+/**
  * C invent.c getobj `:1751–2089`.
  * Canned CMDQ_INT/KEY (D-1551) + CQ_REPEAT (D-1563). Digit prefix
  * ALLOWCNT (D-1530); !ALLOWCNT → "No count allowed" and retry.
@@ -4272,8 +4318,9 @@ function getobj_find_ilet(ch) {
  * "don't have anything [else] to WORD" (inaccess from
  * EXCLUDE_NONINVENT / EXCLUDE_INACCESS). GETOBJ_PROMPT still prompts
  * `[*]` when suggested==0.
- * Named omit: in_doagain readchar (REPEAT cmdq live); mime_action;
- * putmsghistory; sortloot body (invlet sort); call-Amulet silly_thing.
+ * Named omit: in_doagain readchar (REPEAT cmdq live); putmsghistory;
+ * sortloot body (invlet sort); call-Amulet silly_thing; gacc / `'0'`
+ * ball class. mime_action is D-1579.
  * @param {string} word
  * @param {(obj: object|null) => number} obj_ok
  * @param {number} ctrlflags
@@ -4362,8 +4409,7 @@ export async function getobj(word, obj_ok, ctrlflags) {
             return null;
         }
         if (ch === HANDS_SYM) {
-            if (!allownone) return null; // mime_action named
-            return hands_obj;
+            return getobj_typed_hands(word, allownone, hands_obj);
         }
         if (ch === '?' || ch === '*') {
             let allowed = rawLets;
@@ -4384,6 +4430,7 @@ export async function getobj(word, obj_ok, ctrlflags) {
                 continue;
             }
             if (ilet === HANDS_SYM) {
+                // C `:1988–1989` pickinv '-' → hands_obj, no mime_action
                 if (!allownone) return null;
                 return hands_obj;
             }
@@ -4461,7 +4508,8 @@ function adjust_suggest_lets() {
  * C ref: invent.c getobj("adjust", adjust_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
  * Count prefix + split_otmp live. Canned CMDQ_INT/KEY live.
  * `?`/`*` → display_pickinv `&ctmp` (D-1559). force_invmenu auto
- * `?`/`*` + redo_menu (D-1578). doorganize_core nobj-unsplit named.
+ * `?`/`*` + redo_menu (D-1578). Typed '-' mime_action (D-1579).
+ * doorganize_core nobj-unsplit named.
  */
 async function getobj_adjust() {
     const cq = getobj_from_cmdq(adjust_ok, true);
@@ -4496,6 +4544,10 @@ async function getobj_adjust() {
         if (QUITCHARS.includes(ch) || ch === '\x1b') {
             if (game.flags?.verbose !== false) await pline(Never_mind);
             return null;
+        }
+        if (ch === HANDS_SYM) {
+            // C getobj typed '-' ; adjust_ok(NULL) is EXCLUDE → !allownone
+            return getobj_typed_hands('adjust', false, null);
         }
         if (ch === '?' || ch === '*') {
             const ilet = await getobj_display_pickinv(
