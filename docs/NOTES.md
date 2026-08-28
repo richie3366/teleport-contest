@@ -5,17 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1608 (cadence `#2000` at `b9710bcf`).
+- **Suite 44/44** after D-1609 (cadence `#2000` at `b9710bcf`).
   seed4500 still PASS.
-  **Hypothesis:** Open `mon.c` `m_unleash` (named) is the next
-  map cluster. Not newcham. Not `gain_guardian_angel`.
-  **Falsify:** `node scripts/csym.mjs m_unleash`;
-  `node scripts/sym.mjs m_unleash`.
-  **Next:** Open `m_unleash`. D-1608 shipped Astral
-  `gain_guardian_angel`. Do not skip D-1531…D-1608. No FORCE /
+  **Hypothesis:** Open `dog.c` `initedog` ogoal `-1` (named) is the next
+  map cluster. Not has_edog. Not `m_unleash`.
+  **Falsify:** `node scripts/csym.mjs initedog`;
+  `node scripts/sym.mjs initedog`.
+  **Next:** Open `initedog` ogoal `-1`. D-1609 shipped `m_unleash`
+  + `m_detach` FALSE. Do not skip D-1531…D-1609. No FORCE /
   `wildmiss` wrap / trailing `confdir` in shared `getdir`.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
-  `m_unleash`; clone auto-open yn; floor `query_classes`;
+  clone auto-open yn; floor `query_classes`;
   getline/yn ^P; restore_msghistory; `restore_cham` / `rescham`;
   initedog ogoal `-1`;
   peaceful MS_HUMANOID / `"threatens you."`; `take_off` /
@@ -23,7 +23,8 @@ Objective/score live in `CURRENT.md`.
   `update_inventory`; get_count historicmsg; tty WIN_INVEN create
   (`allmain.c:726`); `#perminv`; `optfn_perminv_mode`;
   `doextlist` / BIND= `seeall`; `reset_hostility`; ACH_ASTR;
-  dogmove Conflict `lose_guardian_angel` caller.
+  dogmove Conflict `lose_guardian_angel` caller;
+  newcham mleashed / keepdogs stay-behind / grow_up leash.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +33,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1608.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1609.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +44,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1608 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1609 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1608. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1609. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -56,8 +57,8 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1608 live in the index. Do not glue
-  `m_unleash` / getline ^P / `gain_guardian_angel`. No `ing_suffix`
+  `vision_reset`. D-1576…D-1609 live in the index. Do not glue
+  getline ^P / `initedog` ogoal. No `ing_suffix`
   clone #3. Do not poke `beyond_savefile_load` to “prove” InvInUse
   (D-1603 writers are preamble `:71` / `try_restore_save` `:942`).
   Do not restore zap `bhit` sticky `u.Blind||u.ublind` (D-1604).
@@ -65,9 +66,13 @@ Objective/score live in `CURRENT.md`.
   re-port `mplayer_talk` (D-1606; peaceful / threatens you named).
   Do not re-port `mongets` sword spe (D-1607). Do not re-port
   `gain_guardian_angel` (D-1608; dogmove Conflict caller named).
+  Do not re-port `m_unleash` (D-1609; newcham mleashed named).
 
 ## Landmarks (≤15)
 
+- D-1609: `m_unleash` `pline_mon` + `update_inventory`; `m_detach`
+  FALSE in `mondead`; dogmove ALLOW_U; explmm slack after mondead.
+  newcham mleashed / keepdogs stay-behind named.
 - D-1608: `gain_guardian_angel` Conflict `lose_guardian_angel` +
   fervent `mk_roamer` angel; pets conduct gate; no tamedog.
   `Hear_again` / `mk_roamer` one export. dogmove caller named.
@@ -104,5 +109,3 @@ Objective/score live in `CURRENT.md`.
   `gain_guardian_angel` is D-1608. `mplayer_talk` is D-1606.
 - D-1595: `tamedog` `!has_edog` `newedog`+`initedog(TRUE)`.
   livelog / ogoal `-1` named.
-- D-1594: `normal_shape` awaits `newcham(..., NC_SHOW_MSG)`
-  (review **547**). `restore_cham` / `rescham` named.

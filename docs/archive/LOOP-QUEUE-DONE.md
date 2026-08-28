@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `minion.c` `gain_guardian_angel` (named). Not create_mplayers. **Addressed:** D-1608
+- [x] `mon.c` `m_unleash` (named). Not newcham. **Addressed:** D-1609
+
+
+- [x] `minion.c` `gain_guardian_angel` (named). Not create_mplayers. **Addressed:** D-1608 `43209cfb`
 
 
 - [x] `makemon.c` mongets mplayer-sword spe (named). Not show_transient_light. **Addressed:** D-1607 `233abaea`

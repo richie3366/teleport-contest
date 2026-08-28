@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mon.c` `m_unleash` (named). Not newcham.
 - [ ] `dog.c` `initedog` ogoal `-1` (named). Not has_edog.
 - [ ] `getline.c` getlin ^P `tty_doprev_message` (named). Not command ^P.
 - [ ] `topl.c` `tty_yn_function` ^P (named). Not command ^P.

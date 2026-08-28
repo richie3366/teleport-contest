@@ -1375,8 +1375,11 @@ shop/erosion polish, `feel_location` mapseen gating, **stash getobj ALLOWCNT D-1
 door `b_trapped` body / AUTOUNLOCK_KICK / quest-artifact autokey ranking; 
 **`use_leash`/`next_to_u`/`check_leash`/`m_unleash`/`o_unleash`/`get_mleash`/`number_leashed`/`
 leashable`/`mon_has_amulet` + `whimper` + domove/stairs/tele/dig/trap wires** (D-1005; 
-getdir `<`/`>` steed-dz; update_inventory redraw; artifact.c next_to_u; 
-end.js `unleash_all` still thin); **`use_whistle`/`use_magic_whistle`/`magic_whistled` + 
+**`m_unleash` `pline_mon`+`update_inventory` + `m_detach` FALSE + dogmove ALLOW_U +
+`o_unleash`/`use_leash`/`next_to_u` inventory D-1609**;
+getdir `<`/`>` steed-dz; artifact.c next_to_u; 
+end.js `unleash_all` still thin; newcham mleashed / keepdogs stay-behind /
+grow_up leash / Hallu `mhis` named); **`use_whistle`/`use_magic_whistle`/`magic_whistled` + 
 `can_blow` + `wake_nearby(petcall)` whistletime + `vault_summon_gd` + `tele_to_rnd_pet` + 
 EUCALYPTUS_LEAF whistle arms** (D-1007; Soundeffect; Hallu hcolor eucalyptus brown; 
 mintrap last_msg polish when pline unset; full is_silent msound tables); 
@@ -1787,7 +1790,7 @@ pet `mtrapped`** (D-0169); **`mcalcdistress`/`mon_regen` mfrozen/mblinded/mfleet
 omit howl `You_hear`/`wake_nearto`, `mon_break_armor`/`possibly_unwield`/`monflee` onscary; 
 cham `decide_to_shapeshift` regular+vamp (D-0623/D-0659; minliquid via D-0775); 
 **`newcham` NC_SHOW_MSG `pline_mon`/`usmellmon`/`noname_monnam` D-1586**; **`normal_shape` await `NC_SHOW_MSG` D-1594** (Protection cancel 
-D-1573; `m_unleash`/break-armor/Elbereth `monflee` named; getlev `restore_cham` still deferred); 
+D-1573; newcham mleashed `m_unleash`/break-armor/Elbereth `monflee` named; getlev `restore_cham` still deferred); 
 **open D-0928 #1118:** after getlev, vamp-bat @46,19 `mcalcmove` add 12 vs C 24 (2nd movemon pass 
 missing → early EOT shapeshift @104705; fmon order / lich placement suspect; 
 `restore_cham` on getlev still deferred); 
@@ -2151,7 +2154,7 @@ MS_LEADER/GUARDIAN** (D-1093; string `'MS_LEADER'` was dead after D-1053;
 **`obj_resists` invocation/rider items skip `rn2(100)`** + 
 **`dogfood` `is_quest_artifact` short-circuit** (D-0864; seed0399 **10309→10382**); 
 **`abuse_dog` mtame-- / `rn2(mtame)` → yelp/growl** (D-0836; 
-**`growl`/`yelp` `wake_nearto` mlevel×18/×12** D-0922; `m_unleash` body + dokick kickdmg D-1349; 
+**`growl`/`yelp` `wake_nearto` mlevel×18/×12** D-0922; `abuse_dog` `m_unleash` TRUE live; body is D-1609; dokick kickdmg D-1349; 
 zap/trap/hack callers deferred); **D-0823/D-0824:** `could_reach_item` pool/`is_swimmer` + 
 lava/`likes_lava` + boulder/`throws_rocks` in **both** `dogmove.js` and `monmove.js` (seed0383 
 **9709→10024→10281**); **D-0825…D-0827:** gulp + postmov u_on_newpos + mattacku uswallow gate; 
@@ -2186,7 +2189,7 @@ hero_memory glyph/`distant_name` what-name deferred);
 **`resist_conflict`/`hero_conflict` after dog_goal + `mon_allowflags` ALLOW_U** (D-0406; 
 lose_guardian_angel/dismount_steed bodies + setworn oc_oprop deferred); 
 **`dog_move` newdogpos `ALLOW_U`→`mattacku`/`MMOVE_DONE`** (D-0414; 
-full `m_unleash` + `pet_ranged_attk` youmonst→`mattacku` deferred); 
+**ALLOW_U `m_unleash` FALSE D-1609**; `pet_ranged_attk` youmonst→`mattacku` deferred); 
 **`tamedog` already-tame thrown food → `dogfood`/`dog_eat`** (D-0415; 
 **blessed scroll/spell +2 clamp 10 D-1532**; new-tame food devour polish /
 Tobjnam stop / big_corpse catch named); 

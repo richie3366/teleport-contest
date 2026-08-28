@@ -36,6 +36,7 @@ import { Monnam, noit_Monnam } from './do_name.js';
 import { gettrack } from './track.js';
 import { hero_conflict, resist_conflict } from './mondata.js';
 import { is_pool, is_lava } from './hack.js';
+import { m_unleash } from './apply.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
@@ -982,11 +983,12 @@ export async function dog_move(mtmp, after) {
         // the hero over stepping onto mux/muy (mattacku, then MMOVE_DONE).
         if (chi >= 0 && (mfp.info[chi] & ALLOW_U)) {
             if (mtmp.mleashed) {
-                // C: m_unleash(mtmp, FALSE) — full leash bookkeeping deferred
-                await pline(
+                // C dogmove.c `:1281–1284` pline_mon then m_unleash(FALSE)
+                await pline_mon(
+                    mtmp,
                     `${Monnam(mtmp)} breaks loose of ${mtmp.female ? 'her' : 'his'} leash!`,
                 );
-                mtmp.mleashed = 0;
+                await m_unleash(mtmp, false);
             }
             await mattacku(mtmp);
             return MMOVE_DONE;

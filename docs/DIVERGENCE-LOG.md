@@ -1,3 +1,28 @@
+## D-1609 — apply.c m_unleash / mon.c m_detach
+
+- **Status:** fixed (map-driven Open from D-1608; not a public FAIL)
+- **Symptom:** `m_unleash` skipped C's `pline_mon` / `update_inventory`,
+  and `mondead` never called `m_detach`'s `m_unleash(mtmp, FALSE)`.
+  Dogmove ALLOW_U stubbed `mleashed=0` instead of `m_unleash`.
+- **C locus:** `apply.c` `m_unleash` `:725–742`; `o_unleash` `:710–722`;
+  callers `mon.c` `m_detach` `:2741–2742`, `dogmove.c` `:1281–1284`,
+  `mhitm.c` `explmm` `:993–1004` (slack after mondead). `use_leash_core`
+  `:859`/`:871` and `mleashed_next2u` `:908` also `update_inventory`.
+- **JS was:** named omit after D-1005 (`pline` not `pline_mon`; no
+  inventory; mondead skipped unleash; ALLOW_U local clear).
+- **Fix:** live `m_unleash` body. `mondead` clones call FALSE.
+  ALLOW_U `pline_mon` then `m_unleash(FALSE)`. explmm prints slack
+  after mondead. Sibling leash inventory. SetVoice no-op without
+  SND_LIB. Rule #2: no fs.
+- **JS:** `js/apply.js` + `js/mhitm.js` + `js/trap.js` + `js/uhitm.js`
+  + `js/dogmove.js`.
+- **Not this iter:** newcham mleashed `m_unleash(TRUE)` /
+  `update_inventory`; keepdogs stay-behind; grow_up leash;
+  Hallu `mhis`; `unleash_all` bones. `gain_guardian_angel` is
+  D-1608. initedog ogoal `-1` named.
+- **Verified:** private canary **22**/22; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1608 — minion.c gain_guardian_angel
 
 - **Status:** fixed (map-driven Open from D-1607; not a public FAIL)

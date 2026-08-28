@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1609 apply.c m_unleash / mon.c m_detach
+
+**Objective:** Open `mon.c` `m_unleash` (named). Not newcham.
+**C locus:** `apply.c` `m_unleash` `:725–742`; caller `mon.c`
+`m_detach` `:2741–2742`.
+**JS locus:** `js/apply.js` `m_unleash` + `js/mhitm.js` `mondead`
++ trap/uhitm clones + `js/dogmove.js` ALLOW_U.
+**Change:** `pline_mon` + `update_inventory`; m_detach FALSE;
+ALLOW_U then explmm slack after mondead. SetVoice no-op.
+newcham mleashed named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **22**/22; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `initedog` ogoal `-1`. Not has_edog.
+**Blocked:** none.
 ## 2026-08-29 — D-1608 minion.c gain_guardian_angel
 
 **Objective:** Open `minion.c` `gain_guardian_angel` (named).
