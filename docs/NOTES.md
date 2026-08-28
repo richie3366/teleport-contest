@@ -5,12 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress after audit **#1960** (Scr **11,405**
-  RNG **792,838**/792,838 = 100%; `38+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open `redraw_worm` is still named
-  (`ndemon`/MAIL `mk_gen_ok` is D-1575). Not cutworm.
-  **Falsify:** `node scripts/csym.mjs redraw_worm` vs `js/worm.js`.
-  **Next:** Open `redraw_worm`. Not cutworm.
+- **Suite 43/44** after audit **#1970** (Scr **10,649**/11,405
+  RNG **773,053**/792,838 = 97.5%; `39+0.30/turn`). seed0367 FULL.
+  **Hypothesis:** D-1574 made `recalc_block_point` incremental
+  (C `:910–917`) while JS `region.js` still one-corner `recalc`
+  (C `add_region` `block_point` every cell). First FAIL seed4500
+  at `1ba35e31` (RNG 88490/108275). Not MAIL/`llord` (D-1575).
+  **Falsify:** port per-cell region block/unblock (or
+  `vision_reset` at those sites only) then
+  `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json`.
+  **Next:** Must-fix review **535**. Not `redraw_worm`.
   Do not skip D-1531…D-1575. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: `mk_mplayer`; FULL_MOON S_DOG / ustuck /
@@ -52,11 +56,14 @@ Objective/score live in `CURRENT.md`.
   `body_part` (use `objnam.js` `body_part_latebound`).
 - Do not import `makemon.js`→`hack.js`/`artifact.js`/`minion.js`.
   No fourth town gnome. Do not stub door/furnsyms/DELPHI
-  (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557) or
-  restore `recalc_block_point` as `vision_reset`. Do not glue
+  (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557).
+  Do not revert D-1574 `dig_point`/`seemimic` bodies; do not
+  restore **global** `recalc_block_point` as `vision_reset`.
+  Region create/expire may `vision_reset` until per-cell C
+  loops are live (Must-fix **535**). Do not glue
   `redraw_worm` / force_invmenu redo / nv_range /
-  `mimic_light_blocking`. D-1558…D-1575 live in the index
-  (`unblock_point` is D-1574). Do not re-port `dig_point` leftover-`i`
+  `mimic_light_blocking`. D-1558…D-1575 live in the index.
+  Do not re-port `dig_point` leftover-`i`
   (fill_point only) or `newcham` Protection cancel. Do not skip
   MAIL `mk_gen_ok` or glue `redraw_worm`.
 
@@ -66,11 +73,11 @@ Objective/score live in `CURRENT.md`.
   `msummon` is_lminion/`llord`/PM_ANGEL `ndemon`. Export
   `is_lminion`. show_transient_light / `mk_mplayer` named.
   `rndmonst_adj` is D-1566. `unblock_point` is D-1574.
-- D-1574: `unblock_point` + `dig_point` (viz_clear=1; continue
-  non-end; both-blocked left=col-1 right=col+1); C
-  `recalc_block_point`; `seemimic` capture-then-unblock.
-  `has_mcorpsenm` / `mimic_light_blocking` See_invisible /
-  nv_range named. `block_point` is D-1557.
+- D-1574: `unblock_point` + `dig_point` + C `recalc` +
+  `seemimic` capture-then-unblock. **QUALITY-RISK 535:**
+  JS region still one-corner `recalc`; seed4500 FAIL at
+  `1ba35e31` (parent `423b6b29` PASS). `has_mcorpsenm` /
+  `mimic_light_blocking` See_invisible / nv_range named.
 - D-1573: `newcham` Protection cancel + vampire cham (uprops H||E);
   rogue `tryct>15`; `set_mon_data`; `wormgone`+place_monster;
   light/`pm_invisible`/hideunder; long-worm init;
@@ -102,4 +109,3 @@ Objective/score live in `CURRENT.md`.
 - D-1563: `do_repeat` / getobj CQ_REPEAT. PREFIXCMD named.
 - D-1562: `howmonseen` bitmask. xray IN_SIGHT is D-1571.
 - D-1561: stash getobj ALLOWCNT. traditional_loot / mbag named.
-- D-1560: `finish_splitting` / `unsplitobj`. `Shk_Your` named.

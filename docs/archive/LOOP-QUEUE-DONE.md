@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `makemon.c` `ndemon` aligned `mkclass` (named). Not rndmonst_adj. **Addressed:** D-1575
+- [x] `makemon.c` `ndemon` aligned `mkclass` (named). Not rndmonst_adj. **Addressed:** D-1575 `d13bf416`
 
 
 - [x] `vision.c` `unblock_point`/`dig_point` (named). Not block_point. **Addressed:** D-1574 `1ba35e31`

@@ -538,3 +538,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [525-e8cc4c96-set-mimic-sym-protection.md](./525-e8cc4c96-set-mimic-sym-protection.md) | `e8cc4c96` | D-1564 set_mimic_sym Protection / fruit / Plan-B | **ACCEPT-WITH-DEBT** |
 | [526-224bd3a6-place-monster.md](./526-224bd3a6-place-monster.md) | `224bd3a6` | D-1565 place_monster / clone_mon 2D grid | **ACCEPT-WITH-DEBT** |
 | [527-72735008-rndmonst-adj.md](./527-72735008-rndmonst-adj.md) | `72735008` | D-1566 rndmonst_adj rogue/elem filters | **ACCEPT-WITH-DEBT** |
+| [528-b2827fe2-use-container-reversed.md](./528-b2827fe2-use-container-reversed.md) | `b2827fe2` | D-1567 use_container `'r'` reversed | **ACCEPT-WITH-DEBT** |
+| [529-413df120-getobj-noflags.md](./529-413df120-getobj-noflags.md) | `413df120` | D-1568 getobj eat/read/zap/tin NOFLAGS | **ACCEPT-WITH-DEBT** |
+| [530-934f168b-pickinv-hands.md](./530-934f168b-pickinv-hands.md) | `934f168b` | D-1569 pickinv hands/xtra_choice | **ACCEPT-WITH-DEBT** |
+| [531-3ace1611-cutworm.md](./531-3ace1611-cutworm.md) | `3ace1611` | D-1570 cutworm / place_wsegs | **ACCEPT-WITH-DEBT** |
+| [532-9772b028-xray-in-sight.md](./532-9772b028-xray-in-sight.md) | `9772b028` | D-1571 vision_recalc xray IN_SIGHT | **ACCEPT-WITH-DEBT** |
+| [533-6d7adcc6-egg-hatch-timers.md](./533-6d7adcc6-egg-hatch-timers.md) | `6d7adcc6` | D-1572 attach_egg_hatch_timeout / obj_split_timers | **ACCEPT-WITH-DEBT** |
+| [534-423b6b29-newcham-cancel.md](./534-423b6b29-newcham-cancel.md) | `423b6b29` | D-1573 newcham Protection cancel / wormgone | **ACCEPT-WITH-DEBT** |
+| [535-1ba35e31-unblock-point.md](./535-1ba35e31-unblock-point.md) | `1ba35e31` | D-1574 unblock_point / dig_point | **QUALITY-RISK** |
+| [536-d13bf416-mk-gen-ok-mail.md](./536-d13bf416-mk-gen-ok-mail.md) | `d13bf416` | D-1575 mk_gen_ok MAIL / msummon ndemon arms | **ACCEPT-WITH-DEBT** |

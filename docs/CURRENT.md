@@ -20,31 +20,35 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-28** — full `sessions` at **D-1566**
-HEAD `72735008` (**audit #1960**; next **#1970**). **44**/44,
-Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `38+0.31/turn` (R² 0.847). Fortress held: seed0367 FULL.
-Prior audit **#1950** was 44/44 at `0f5e4df5`.
+Score last measured: **2026-08-28** — full `sessions` at **D-1575**
+HEAD `d13bf416` (**audit #1970**). **43**/44,
+Scr **10,649**/11,405, RNG **773,053**/792,838 = **97.5%**.
+Speed `39+0.30/turn` (R² 0.854). seed0367 FULL still PASS.
+**FAIL:** seed4500-knight-coverage first at **D-1574** `1ba35e31`
+(RNG 88490/108275, screens 1058/1814). Parent `423b6b29` still
+108275/108275. Prior audit **#1960** was 44/44 at `72735008`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **44 / 44** |
-| Screens matched | **11,405 / 11,405** |
-| Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `38+0.31/turn` (R² 0.847) |
+| Sessions passing | **43 / 44** |
+| Screens matched | **10,649 / 11,405** |
+| Positional RNG calls matched | **773,053 / 792,838** (97.5%) |
+| Speed label | `39+0.30/turn` (R² 0.854) |
 | Role-init throws | **0 / 44** |
 
-**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0399, seed0014, seed2600, seed4500, seed2200, seed0383.
+seed0360, seed0399, seed0014, seed2600, seed2200, seed0383.
 
-**Notable non-PASS:** none.
+**Notable non-PASS:** seed4500-knight-coverage (RNG 88490/108275,
+screens 1058/1814) — first FAIL at D-1574 `1ba35e31`
+(review **535** QUALITY-RISK).
 
 ## Green gate
 
@@ -61,8 +65,11 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after audit **#1960**. **Next cluster:**
-Open `worm.c` `redraw_worm` (named). Not cutworm.
+**Suite 43/44** after audit **#1970**. **Next cluster:**
+Must-fix `region.c` `add_region` / `remove_region` /
+`expire_gas_cloud` per-cell `block_point`/`unblock_point`
+(review **535**; seed4500 first FAIL at `1ba35e31`).
+Not `redraw_worm`. Not revert D-1574 `seemimic` / `dig_point` body.
 **Do not skip D-1531…D-1575 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
