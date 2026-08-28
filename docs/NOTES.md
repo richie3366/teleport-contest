@@ -7,17 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1950** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `36+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open `makemon.c` `set_mimic_sym`
-  Protection_from_shape_changers early-out is still named
-  (`do_repeat` / getobj CQ_REPEAT is D-1563). Not DELPHI. Not
-  block_point.
-  **Falsify:** `node scripts/csym.mjs set_mimic_sym` vs
-  `js/makemon.js` Protection_from_shape_changers.
-  **Next:** Open Protection. Not `made_fruit`. Not Plan-B.
-  Do not skip D-1531…D-1563. No FORCE / `wildmiss` wrap /
+  **Hypothesis:** Open `makemon.c` `clone_mon` `place_monster` 2D
+  grid is still named (`set_mimic_sym` Protection / `made_fruit` /
+  Plan-B is D-1564). Not HP split.
+  **Falsify:** `node scripts/csym.mjs clone_mon` vs
+  `js/makemon.js` `place_monster`.
+  **Next:** Open `place_monster` 2D. Not `rndmonst_adj`.
+  Do not skip D-1531…D-1564. No FORCE / `wildmiss` wrap /
   trailing `confdir` in shared `getdir`.
-- Named still: cutworm; Protection; `made_fruit`; Plan-B;
-  Palantir `#if 0`; `'r'` reversed; eat/read/zap/tin
+- Named still: cutworm; `'r'` reversed; eat/read/zap/tin
   NOFLAGS; pickinv hands/xtra; `mk_mplayer`; FULL_MOON S_DOG /
   ustuck / `redraw_worm`; other mcast; sit/pray `eyecount`; muse
   loot; escape cat HP; other INTERNALCMD; defn/cary resist;
@@ -26,7 +24,8 @@ Objective/score live in `CURRENT.md`.
   map_monst head glyphs; `unblock_point`/`dig_point`;
   `vision_recalc` xray IN_SIGHT; `Shk_Your`; dothrow/apply
   unsplitobj callers; PREFIXCMD / movement / doextcmd
-  `cmdq_shift` REPEAT.
+  `cmdq_shift` REPEAT; Palantir `#if 0`; `newcham` Protection
+  cancel; `attach_egg_hatch_timeout`; `ndemon`/aligned mkclass.
 
 ## Don't re-check (≤15)
 
@@ -35,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1563.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1564.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,9 +45,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1563 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1564 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1563. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1564. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -63,11 +62,18 @@ Objective/score live in `CURRENT.md`.
   mhidden D-1554. Do not skip SEARCH/REGEN/XRAY (D-1558) or leave
   Eyes `setworn` without it. Do not skip pickinv `&ctmp`
   (D-1559) or `finish_splitting` (D-1560) or stash getobj
-  (D-1561) or `howmonseen` (D-1562) or `do_repeat` (D-1563). Do not glue cutworm /
+  (D-1561) or `howmonseen` (D-1562) or `do_repeat` (D-1563) or
+  Protection/`made_fruit`/Plan-B (D-1564). Do not glue cutworm /
   `'r'` reversed.
 
 ## Landmarks (≤15)
 
+- D-1564: `set_mimic_sym` Protection uprops H||E early-out +
+  slime-mold `flags.made_fruit` + nocorpse/hatch/tin Plan-B
+  (`can_be_hatched`; CORPSE `rn1` archeologist..wizard). No
+  third named clone. `newcham` cancel / hatch timeout /
+  `unblock_point` named. `block_point` is D-1557. `do_repeat`
+  is D-1563.
 - D-1563: `do_repeat` / getobj CQ_REPEAT. `!in_doagain` INT+KEY
   record; `cmdq_pop` REPEAT; Ctrl-A / `#repeat` copy-restore.
   PREFIXCMD / movement / doextcmd `cmdq_shift` / eat/read/zap/tin
@@ -95,8 +101,8 @@ Objective/score live in `CURRENT.md`.
   named. cspfx is D-1539.
 - D-1557: `set_mimic_sym` `does_block` then `block_point` /
   `fill_point`. Export `does_block` (0/1/2; fmon). Not
-  `recalc` (would unblock). Protection / Plan-B / `made_fruit`
-  / `unblock_point` named. DELPHI is D-1556.
+  `recalc` (would unblock). D-1564 retired Protection /
+  Plan-B / `made_fruit`. `unblock_point` named. DELPHI is D-1556.
 - D-1556: DELPHI `S_fountain=37` not stub 0. `rn2(2)` STATUE
   else cmap. Not furnsyms. Door first. `block_point` is D-1557.
 - D-1555: `namefloorobj` getpos + vobj_at / object_from_map +
@@ -109,7 +115,5 @@ Objective/score live in `CURRENT.md`.
   `obj_is_pname` / `discover_artifact`.
 - D-1551: canned CMDQ_INT then KEY + `split_otmp`. eat/read/zap
   / tin NOFLAGS named. `in_doagain` REPEAT is D-1563.
-- D-1550: trap `monkilled` `wormno ? worm_known : cansee(head)`
-  (**509**). `howmonseen` is D-1562.
 - D-1548: `worm_known` any wseg `cansee`; `_canseemon` skips
   infrared when `wormno`.

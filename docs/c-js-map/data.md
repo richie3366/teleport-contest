@@ -269,7 +269,8 @@ import; `has_mcorpsenm` stale `NON_PM`);
 → `S_hcdoor` else `S_vcdoor`; rogue `S_hwall`/`S_vwall`; `mx!=0` short-circuit; no RNG); 
 **D-1543 furnsyms real `S_*`** (`:2490–2497` `s_sym==MAXOCLASSES` ROLL_FROM `S_upstair×2`/`S_dnstair×2`/`S_altar`/`S_grave`/`S_throne`/`S_sink`; cmap ids not levl.typ; furnsyms `S_altar` takes Align2amask); 
 **D-1556 DELPHI `S_fountain`** (`:2450–2456` `rt==DELPHI` `rn2(2)` STATUE else cmap `S_fountain=37`; not furnsyms; door arm still first); 
-**D-1557 `set_mimic_sym` `does_block`/`block_point`** (`:2548–2549`; callees `vision.c` `does_block`/`fill_point`/`block_point`; live export; occupancy fmon not `m_at`; `recalc_block_point` still full `vision_reset`); 
+**D-1557 `set_mimic_sym` `does_block`/`block_point`** (`:2548–2549`; callees `vision.c` `does_block`/`fill_point`/`block_point`; live export; occupancy fmon not `m_at`; `recalc_block_point` still full `vision_reset`);
+**D-1564 `set_mimic_sym` Protection/`made_fruit`/Plan-B** (`:2401–2402` H\|\|E uprops; `:2516–2545` Plan-B + `made_fruit`; live `can_be_hatched`; no third named clone);
 **D-0619 MS_NEMESIS `nemgend` + 
 `BELL_OF_OPENING`/`Croesus`/`Pestilence` mitem**; 
 **D-1094 `role_init` quest-pm overlay + mitem `ptr.msound == MS_NEMESIS`**; 
@@ -327,16 +328,16 @@ Master/Arch Lich; ice devil spear / Asmodeus wands);
 **D-1536 `set_mimic_sym` door/wall `S_hcdoor`** (`:2420–2438`; JS had `appear=0`; C left-connect → `S_hcdoor`/`S_vcdoor` or rogue `S_hwall`/`S_vwall`; `mx!=0` short-circuit); 
 **D-1543 `set_mimic_sym` furnsyms real `S_*`** (`:2490–2497`; JS had stub `[0,0,1,1,2,3,4,5]`; C ROLL_FROM real cmap; furnsyms `S_altar` hits existing amask arm); 
 **D-1556 `set_mimic_sym` DELPHI `S_fountain`** (`:2450–2456`; JS had `appear=0`; C `S_fountain=37`; not in furnsyms; door still first); 
-**D-1557 `set_mimic_sym` `does_block`/`block_point`** (`:2548–2549`; JS omitted tail; live `js/vision.js` `does_block`/`fill_point`/`block_point`; not `recalc_block_point`); 
+**D-1557 `set_mimic_sym` `does_block`/`block_point`** (`:2548–2549`; JS omitted tail; live `js/vision.js` `does_block`/`fill_point`/`block_point`; not `recalc_block_point`);
+**D-1564 `set_mimic_sym` Protection/`made_fruit`/Plan-B** (`:2401–2402` youprop H\|\|E uprops early-out; `:2516–2536` CORPSE+`G_NOCORPSE` `rn1` archeologist..wizard / EGG `!can_be_hatched` / TIN+nocorpse `NON_PM`; `:2537–2545` slime-mold `flags.made_fruit`; live `can_be_hatched`; no third named clone);
 **D-1518 `makemon` dprince MS_BRIBE / raven `BEC_DE_CORBIN`** (`:1397–1404` after sleep/byyou, before LONG_WORM; `is_dprince` live; local `u_wield_art` clone — artifact→display→mkobj cycle; emin is D-1526); 
 **D-1526 `makemon` emin roaming** (`:1410–1428` after LONG_WORM, before `set_malign`; `ALIGNED_CLERIC`/`HIGH_CLERIC` `!(MM_EPRI|MM_EMIN)` always; `ANGEL` `!(MM_EMIN) && !rn2(3)`; `newemin` + `isminion` + `min_align=rn2(3)-1` + `MM_ANGRY?!rn2(3)` renegade + coalign XOR peaceful; live `newemin`/`EMIN`; `mk_roamer`/`priestini` flags skip; **D-1531** Pri-loca noalign caller); 
 **`add_to_minv` merge D-1492** (`mkobj.c:2648–2665` via invent.c `merged()`; 
 live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**; 
 **D-1519 `mktrap_victim` floor gnome candle `begin_burn`**; 
-**D-1535 `observe_quantum_cat`** (`pickup.c:2826–2896`; FOOT latebound; use_container/tip TRUE,TRUE; disclose FALSE,FALSE live spe; `Schroedinger's cat!`); muse monster-loot / escape companion HP named; 
-`Protection_from_shape_changers` early-out; 
-`ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters; 
-egg `attach_egg_hatch_timeout`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
+**D-1535 `observe_quantum_cat`** (`pickup.c:2826–2896`; FOOT latebound; use_container/tip TRUE,TRUE; disclose FALSE,FALSE live spe; `Schroedinger's cat!`); muse monster-loot / escape companion HP named;
+`newcham` Protection cancel; `ndemon`/aligned `mkclass` callers unaudited; `rndmonst_adj` rogue/elem filters;
+egg `attach_egg_hatch_timeout`; `unblock_point`/`dig_point`; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
 `GEHENNOM` dnum sites still wrong); **D-0749 `rnd_misc_item` life-saving `!nonliving && 
 !is_vampshifter`** (See_invisible peaceful invis arm deferred); 

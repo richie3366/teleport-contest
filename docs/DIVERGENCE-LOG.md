@@ -4,6 +4,45 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1564 — makemon.c set_mimic_sym Protection / made_fruit / Plan-B
+
+- **Status:** fixed (map-driven Open from D-1563; not a public FAIL)
+- **Symptom:** `set_mimic_sym` returned only on `!mtmp`. Wearing
+  PROT_FROM_SHAPE_CHANGERS (amulet via `confer_oc_oprop` uprops)
+  still assigned a mimic appearance. Slime-mold mimics omitted
+  `flags.made_fruit`. Statue/corpse/egg/tin skipped nocorpse /
+  hatch / tin Plan-B. Named omit after D-1557. Not DELPHI. Not
+  `block_point`.
+- **C locus:** `makemon.c` `set_mimic_sym` `:2401–2402`
+  (`!mtmp \|\| Protection_from_shape_changers`; youprop.h H\|\|E
+  ≡ `uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic \|\| .extrinsic`).
+  `:2516–2536` `rndmonnum` then CORPSE+`G_NOCORPSE` →
+  `rn1(PM_WIZARD-PM_ARCHEOLOGIST+1, PM_ARCHEOLOGIST)`; EGG &&
+  `!can_be_hatched` or TIN+nocorpse → `NON_PM` (`!` on NON_PM=-1
+  is C-false). `:2537–2545` slime-mold `MCORPSENM=current_fruit`
+  + `flags.made_fruit=TRUE`. Callee `mon.c` `can_be_hatched`
+  live. `fruitadd` already clears `made_fruit`.
+- **JS was:** `if (!mtmp) return` only; slime-mold set
+  mcorpsenm without the flag; Plan-B commented deferred.
+- **Fix:** uprops H\|\|E early-out (no third named clone of
+  were.js / monmove.js, which miss uprops). `can_be_hatched`
+  import (cycle-safe). `made_fruit=true`. Plan-B short-circuit
+  as C. Rule #2: no fs.
+- **JS:** `js/makemon.js`.
+- **Not this iter:** `newcham` Protection cancel; egg
+  `attach_egg_hatch_timeout`; `unblock_point`/`dig_point`;
+  `clone_mon` `place_monster` 2D; `rndmonst_adj` rogue/elem.
+  `block_point` is D-1557. `do_repeat` is D-1563.
+- **Verified:** private canary **26**/26 (null; extrinsic /
+  intrinsic no RNG; flat-only still assigns; gold assign;
+  maze RNG; slime-mold fruit+flag; CORPSE nocorpse role
+  range; TIN NON_PM; statue/figurine keep mndx; egg sets
+  mcorpsenm; living corpse; Rule #2); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `makemon.c` `clone_mon` `place_monster`
+  2D grid. Not HP split.
+
 ## D-1563 — cmd.c do_repeat / getobj CQ_REPEAT in_doagain
 
 - **Status:** fixed (map-driven Open from D-1562; not a public FAIL)

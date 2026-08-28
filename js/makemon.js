@@ -17,10 +17,13 @@ import {
     G_NOGEN,
     G_HELL,
     G_NOHELL,
+    G_NOCORPSE,
     G_FREQ,
     G_SGROUP,
     G_LGROUP,
     G_IGNORE,
+    PM_ARCHEOLOGIST,
+    PM_WIZARD,
     mons,
     always_hostile,
     always_peaceful,
@@ -90,6 +93,7 @@ import {
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
     ROOMOFFSET, LS_MONSTER,
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT, Align2amask,
+    PROT_FROM_SHAPE_CHANGERS,
     In_quest, W_ARMH, W_SADDLE, P_POLEARMS, ROT_CORPSE, Is_waterlevel,
     STRAT_CLOSE, STRAT_WAITFORU, STRAT_APPEARMSG, is_pit,
     A_LAWFUL, ONAME_RANDOM, EMIN,
@@ -143,6 +147,7 @@ import {
     worm_mon_at,
 } from './worm.js';
 import { deliver_obj_to_mon } from './dokick.js';
+import { can_be_hatched } from './mon.js';
 
 /** C ref: shknam.c neweshk — allocate eshk for MM_ESHK makemon. */
 export function neweshk(mtmp) {
@@ -2545,14 +2550,17 @@ function in_town(x, y) {
  * maze/sokoban/in_town statue (D-1517) + TEMPLE S_altar Align2amask
  * MCORPSENM (D-1525) + door/wall/SDOOR/SCORR S_hcdoor (D-1536) +
  * furnsyms real S_* (D-1543) + DELPHI S_fountain (D-1556) +
- * does_block / block_point (D-1557).
- * Named omissions: Protection_from_shape_changers early-out when
- * hero wears the amulet (stubbed false at mklev), slime-mold
- * flags.made_fruit, nocorpse/hatch/tin Plan-B.
+ * does_block / block_point (D-1557) + Protection_from_shape_changers
+ * early-out (D-1564) + slime-mold flags.made_fruit + nocorpse/hatch/tin
+ * Plan-B.
  */
 export function set_mimic_sym(mtmp) {
-    if (!mtmp) return;
-    // C: Protection_from_shape_changers → return (not active at mklev)
+    // C: if (!mtmp || Protection_from_shape_changers) return;
+    // youprop.h: H || E ≡ uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic
+    // || .extrinsic. confer_oc_oprop writes uprops (not a third named
+    // clone of were.js / monmove.js, which miss uprops).
+    const prot = game.u?.uprops?.[PROT_FROM_SHAPE_CHANGERS];
+    if (!mtmp || (prot?.intrinsic | 0) || (prot?.extrinsic | 0)) return;
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;
     const loc = game.level?.at?.(mx, my);
@@ -2672,13 +2680,26 @@ export function set_mimic_sym(mtmp) {
         && (appear === STATUE || appear === FIGURINE
             || appear === CORPSE || appear === EGG || appear === TIN)) {
         let mndx = rndmonnum();
-        // nocorpse / hatch / tin Plan-B arms deferred
+        // C: nocorpse_ndx = (mvitals[mndx].mvflags & G_NOCORPSE) != 0
+        const nocorpse_ndx = ((game.mvitals?.[mndx]?.mvflags ?? 0)
+            & G_NOCORPSE) !== 0;
+        if (appear === CORPSE && nocorpse_ndx) {
+            // C: rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST)
+            mndx = rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST);
+        } else if ((appear === EGG && !can_be_hatched(mndx))
+            || (appear === TIN && nocorpse_ndx)) {
+            // C: !can_be_hatched — NON_PM (-1) is truthy, so this arm
+            // fires only when can_be_hatched returns 0 (PM_GIANT_ANT).
+            mndx = NON_PM;
+        }
         if (!mtmp.mextra) mtmp.mextra = {};
         mtmp.mextra.mcorpsenm = mndx;
     } else if (ap_type === M_AP_OBJECT && appear === SLIME_MOLD) {
         if (!mtmp.mextra) mtmp.mextra = {};
         mtmp.mextra.mcorpsenm = game.context?.current_fruit ?? 0;
-        // flags.made_fruit named omit
+        // C: flags.made_fruit = TRUE (fruitadd may reuse current_fruit)
+        if (!game.flags) game.flags = {};
+        game.flags.made_fruit = true;
     } else if (ap_type === M_AP_FURNITURE && appear === S_altar) {
         // C: algn = rn2(3)-1; (Inhell && rn2(3)) ? AM_NONE : Align2amask
         // Inhell = dungeon.c In_hell = dungeons[dnum].flags.hellish

@@ -34,9 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `makemon.c` `set_mimic_sym` Protection_from_shape_changers early-out (named). Not DELPHI. Not block_point.
-- [ ] `makemon.c` `set_mimic_sym` slime-mold `flags.made_fruit` (named). Not DELPHI.
-- [ ] `makemon.c` `set_mimic_sym` nocorpse/hatch/tin Plan-B (named). Not DELPHI.
 - [ ] `makemon.c` `clone_mon` `place_monster` 2D grid (named). Not HP split.
 - [ ] `makemon.c` `rndmonst_adj` rogue/elem filters (named). Not mkclass.
 - [ ] `pickup.c` `'r'` reversed put-in then take-out (named). Not stash.
@@ -44,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `invent.c` pickinv hands/xtra_choice (named). Not `&ctmp`.
 - [ ] `worm.c` `cutworm` (named). Not worm_known.
 - [ ] `vision.c` `vision_recalc` xray IN_SIGHT (named). Not howmonseen.
+- [ ] `timeout.c` `attach_egg_hatch_timeout` (named). Not Plan-B.
+- [ ] `mon.c` `newcham` Protection_from_shape_changers cancel (named). Not set_mimic_sym early-out.
+- [ ] `vision.c` `unblock_point`/`dig_point` (named). Not block_point.
+- [ ] `makemon.c` `ndemon` aligned `mkclass` (named). Not rndmonst_adj.
+- [ ] `worm.c` `redraw_worm` (named). Not cutworm.
 
 ## Parked (do not pop)
 

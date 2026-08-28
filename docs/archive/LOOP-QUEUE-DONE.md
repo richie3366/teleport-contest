@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `cmd.c` getobj CQ_REPEAT / `in_doagain` (named). Not canned CMDQ_INT. **Addressed:** D-1563
+- [x] `makemon.c` `set_mimic_sym` Protection_from_shape_changers early-out (named). Not DELPHI. Not block_point. **Addressed:** D-1564
+- [x] `makemon.c` `set_mimic_sym` slime-mold `flags.made_fruit` (named). Not DELPHI. **Addressed:** D-1564
+- [x] `makemon.c` `set_mimic_sym` nocorpse/hatch/tin Plan-B (named). Not DELPHI. **Addressed:** D-1564
+
+
+- [x] `cmd.c` getobj CQ_REPEAT / `in_doagain` (named). Not canned CMDQ_INT. **Addressed:** D-1563 `1504ead1`
 
 
 - [x] `vision.c` `howmonseen` (named). Not worm_known. **Addressed:** D-1562 `a54cb31b`

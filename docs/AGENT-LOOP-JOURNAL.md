@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1564 makemon.c set_mimic_sym Protection / made_fruit / Plan-B
+
+**Objective:** Open `set_mimic_sym` Protection early-out (+ consecutive
+same-fn `made_fruit` + Plan-B). Not DELPHI. Not block_point.
+**C locus:** `makemon.c` `set_mimic_sym` `:2401–2402` youprop H||E;
+`:2516–2545` Plan-B + `flags.made_fruit`. Callee `can_be_hatched`.
+**JS locus:** `js/makemon.js` (`!mtmp` only after D-1557).
+**Change:** uprops early-out (no third named clone); `made_fruit`;
+nocorpse/hatch/tin Plan-B. `place_monster` 2D named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1950).
+**Verified:** canary **26**/26; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `clone_mon` `place_monster` 2D. Not HP split.
+**Blocked:** none.
 ## 2026-08-28 — D-1563 cmd.c do_repeat / getobj CQ_REPEAT
 
 **Objective:** Open getobj CQ_REPEAT / `in_doagain`. Not canned CMDQ_INT.
