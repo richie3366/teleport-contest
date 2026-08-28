@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1602 invent.c ggetobj takeoff/identify askchain
+
+**Objective:** Open `pickup.c` ggetobj takeoff/identify askchain
+(named). Not traditional_loot.
+**C locus:** `invent.c` `ggetobj` `:2199–2369`; `askchain`
+`:2376–2541` takeoff/ident; `identify_pack` TRADITIONAL;
+`do_wear.c` `doddoremarm`/`select_off`.
+**JS locus:** named omit after D-1581 (loot `askchain` live;
+takeoff/identify still menu-only).
+**Change:** live Traditional `ggetobj` + askchain filters;
+`identify_pack` / `A` `select_off`. `take_off` / `menu_remarm`
+/ drop named. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **17**/17; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `#seeall`. Not ggetobj takeoff.
+**Blocked:** none.
 ## 2026-08-28 — D-1601 topl.c tty_doprev_message
 
 **Objective:** Open `topl.c` `tty_doprev_message` (named). Not

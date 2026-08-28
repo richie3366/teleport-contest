@@ -1,3 +1,32 @@
+## D-1602 — invent.c ggetobj takeoff/identify askchain
+
+- **Status:** fixed (map-driven Open from D-1601; not a public FAIL)
+- **Symptom:** Traditional takeoff (`A`) and limited identify walked
+  only the FULL menu path. JS `askchain` served put-in/take-out
+  (D-1581) but skipped C's takeoff `is_worn` / identify
+  `not_fully_identified` filters, ident `'q'` `-1`, and the takeoff
+  skip of `"That was all."` `ggetobj` itself was absent.
+- **C locus:** `invent.c` `ggetobj` `:2199–2369` getlin class prompt
+  (`ilets` + `'i'` inventory peek + takeoff `removeables` checks)
+  then `askchain`. `taking_off` `:1671–1675`. `askchain`
+  `:2376–2541` takeoff/ident arms. Callers `identify_pack`
+  `:2734–2742` MENU_TRADITIONAL; `do_wear.c` `doddoremarm`
+  `:3036–3040` `select_off` `:2694–2821`.
+- **JS was:** named omit after D-1581; `doddoremarm` returned
+  ECMD_OK when worn; `identify_pack` always `menu_identify`.
+- **Fix:** live `ggetobj`; `askchain` takeoff/ident; TRADITIONAL
+  `identify_pack` / `doddoremarm`+`select_off`. `take_off`
+  occupation / `menu_remarm` / ggetobj drop named. Rule #2: no fs.
+- **JS:** `js/invent.js`; `js/pickup.js`; `js/do_wear.js`;
+  `js/shk.js` (`count_unpaid` export home).
+- **Not this iter:** `take_off` occupation; `menu_remarm`;
+  ggetobj drop; `better_not_take_that_off`; floor `query_classes`;
+  `#seeall`. traditional_loot is D-1581. `tty_doprev_message`
+  is D-1601.
+- **Verified:** private canary **17**/17; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1601 — topl.c tty_doprev_message / redotoplin
 
 - **Status:** fixed (map-driven Open from D-1600; not a public FAIL)

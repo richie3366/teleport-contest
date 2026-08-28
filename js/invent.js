@@ -22,6 +22,7 @@
 // D-1591: invent.c display_used_invlets (#adjust ?/* used-letters PICK_ONE).
 // D-1599: sortloot SORTLOOT_PETRIFY filter override + will_feel_cockatrice.
 // D-1600: perm_invent InvInUse (prepare_perminvent invmode + WIN_INVEN filter).
+// D-1602: ggetobj takeoff/identify askchain (MENU_TRADITIONAL).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -31,7 +32,7 @@ import {
     putmsghistory,
 } from './display.js';
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
-import { yn_function } from './getline.js';
+import { yn_function, getlin } from './getline.js';
 import { mergable, is_damageable, stop_timer, splitobj } from './mkobj.js';
 import { cansee } from './vision.js';
 import {
@@ -54,6 +55,7 @@ import {
     ILLOBJ_CLASS,
     MAXOCLASSES,
     def_oc_syms,
+    def_char_to_objclass,
     objectNames,
     objectNameStrs,
     objectDescrs,
@@ -125,6 +127,13 @@ import {
     CMDQ_USER_INPUT,
     CMDQ_INT,
     CQ_REPEAT,
+    ALL_FINISHED,
+    MENU_TRADITIONAL,
+    MENU_FULL,
+    BUC_BLESSED,
+    BUC_UNCURSED,
+    BUC_CURSED,
+    BUC_UNKNOWN,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import {
@@ -186,6 +195,10 @@ import { objects_at } from './mkobj.js';
 import { PM_SAMURAI, PM_MONK } from './generated/monsters_data.js';
 import { humanoid, strongmonst, mons, touch_petrifies, poly_when_stoned } from './monsters.js';
 import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact } from './artifact.js';
+import {
+    askchain, add_valid_menu_class, collect_obj_classes,
+    count_buc, count_justpicked, allow_category,
+} from './pickup.js';
 
 // C monflag.h MZ_HUMAN ≡ MZ_MEDIUM
 const MZ_HUMAN = 2;
@@ -447,6 +460,208 @@ function invletter_value(c) {
 export function is_worn(otmp) {
     return !!((otmp?.owornmask | 0)
         & (W_ARMOR | W_ACCESSORY | W_SADDLE | W_WEAPONS));
+}
+
+/** C invent.c taking_off `:1671–1675`. */
+export function taking_off(action) {
+    return action === 'take off' || action === 'remove';
+}
+
+/**
+ * C invent.c count_unpaid `:3525–3538`.
+ * Invent Array or nobj chain, including container contents.
+ */
+export function count_unpaid(list) {
+    let count = 0;
+    if (Array.isArray(list)) {
+        for (const otmp of list) {
+            if (!otmp) continue;
+            if (otmp.unpaid) count++;
+            if (Has_contents(otmp)) count += count_unpaid(otmp.cobj);
+        }
+        return count;
+    }
+    for (let otmp = list; otmp; otmp = otmp.nobj) {
+        if (otmp.unpaid) count++;
+        if (Has_contents(otmp)) count += count_unpaid(otmp.cobj);
+    }
+    return count;
+}
+
+/** C invent.c ckvalidcat `:2135–2140`. */
+function ckvalidcat(otmp) {
+    return allow_category(otmp) ? 1 : 0;
+}
+
+/** C invent.c ckunpaid `:2142–2146`. */
+function ckunpaid(otmp) {
+    return (otmp?.unpaid || (Has_contents(otmp) && count_unpaid(otmp.cobj)))
+        ? 1 : 0;
+}
+
+/** C invent.c removeables — armor/weapon/ring/amulet/tool. */
+const GGETOBJ_REMOVEABLES = [
+    ARMOR_CLASS, WEAPON_CLASS, RING_CLASS, AMULET_CLASS, TOOL_CLASS,
+];
+
+/**
+ * C invent.c ggetobj `:2199–2369`. Interactive Drop/Identify/Takeoff.
+ * Traditional getlin class prompt then askchain. combo ALL_FINISHED
+ * for Combination menu_remarm is implemented; that caller is named.
+ * display_inventory lets/`i` ESC abort live; cmdq pickinv named.
+ *
+ * @param {string} word
+ * @param {function} fn
+ * @param {number} mx
+ * @param {boolean} combo
+ * @param {{ bits: number }|null} [resultflags]
+ * @returns {Promise<number>}
+ */
+export async function ggetobj(word, fn, mx, combo, resultflags) {
+    const invent = game.invent || [];
+    if (!invent.length) {
+        await pline(`You have nothing to ${word}.`);
+        if (resultflags) resultflags.bits = ALL_FINISHED;
+        return 0;
+    }
+    if (resultflags) resultflags.bits = 0;
+
+    let takeoff = false;
+    let ident = false;
+    let allflag = false;
+    let m_seen = false;
+    let ofilter = null;
+    add_valid_menu_class(0);
+    if (taking_off(word)) {
+        takeoff = true;
+        ofilter = is_worn;
+    } else if (word === 'identify') {
+        ident = true;
+        ofilter = not_fully_identified;
+    }
+
+    const itemcount = { n: 0 };
+    let ilets = collect_obj_classes(invent, false, ofilter, itemcount);
+    const unpaid = count_unpaid(invent);
+
+    if (ident && !ilets.length) {
+        return -1;
+    }
+    ilets += ' ';
+    if (unpaid) ilets += 'u';
+    if (count_buc(invent, BUC_BLESSED, ofilter)) ilets += 'B';
+    if (count_buc(invent, BUC_UNCURSED, ofilter)) ilets += 'U';
+    if (count_buc(invent, BUC_CURSED, ofilter)) ilets += 'C';
+    if (count_buc(invent, BUC_UNKNOWN, ofilter)) ilets += 'X';
+    if (count_justpicked(invent)) ilets += 'P';
+    ilets += 'a';
+    ilets += 'i';
+    if (!combo) ilets += 'm';
+
+    let buf = '';
+    for (;;) {
+        const qbuf = `What kinds of thing do you want to ${word}? [${ilets}]`;
+        buf = await getlin(qbuf);
+        if (buf === '\x1b') return 0;
+        if (buf.includes('i')) {
+            let ailets = '';
+            if (ofilter) {
+                for (const otmp of invent) {
+                    if (!otmp?.invlet) continue;
+                    if (ofilter(otmp) && !ailets.includes(otmp.invlet)) {
+                        ailets += otmp.invlet;
+                    }
+                }
+            }
+            const ch = await display_inventory(ailets, true);
+            if (ch === '\x1b') return 0;
+        } else {
+            break;
+        }
+    }
+
+    const extra_removeables = [];
+    if (takeoff) {
+        const u = game.u || {};
+        if (u.uwep) extra_removeables.push(u.uwep.oclass);
+        if (u.uswapwep) extra_removeables.push(u.uswapwep.oclass);
+        if (u.uquiver) extra_removeables.push(u.uquiver.oclass);
+    }
+
+    const olets = [];
+    let ckfn = null;
+    for (const sym of buf) {
+        if (sym === ' ') continue;
+        const oc_of_sym = def_char_to_objclass(sym);
+        if (takeoff && oc_of_sym !== MAXOCLASSES) {
+            if (extra_removeables.includes(oc_of_sym)) {
+                /* skip rest of takeoff checks */
+            } else if (!GGETOBJ_REMOVEABLES.includes(oc_of_sym)) {
+                await pline('Not applicable.');
+                return 0;
+            } else if (oc_of_sym === ARMOR_CLASS && !wearing_armor()) {
+                await noarmor(false);
+                return 0;
+            } else if (oc_of_sym === WEAPON_CLASS
+                && !game.u?.uwep && !game.u?.uswapwep && !game.u?.uquiver) {
+                await pline('You are not wielding anything.');
+                return 0;
+            } else if (oc_of_sym === RING_CLASS
+                && !game.u?.uright && !game.u?.uleft) {
+                await pline('You are not wearing rings.');
+                return 0;
+            } else if (oc_of_sym === AMULET_CLASS && !game.u?.uamul) {
+                await pline('You are not wearing an amulet.');
+                return 0;
+            } else if (oc_of_sym === TOOL_CLASS && !game.u?.ublindf) {
+                await pline('You are not wearing a blindfold.');
+                return 0;
+            }
+        }
+
+        if (sym === 'a') {
+            allflag = true;
+        } else if (sym === 'A') {
+            /* same as the default */
+        } else if (sym === 'u') {
+            add_valid_menu_class('u');
+            ckfn = ckunpaid;
+        } else if ('BUCXP'.includes(sym)) {
+            add_valid_menu_class(sym);
+            ckfn = ckvalidcat;
+        } else if (sym === 'm') {
+            m_seen = true;
+        } else if (oc_of_sym === MAXOCLASSES) {
+            await pline(`You don't have any ${sym}'s.`);
+        } else if (!olets.includes(oc_of_sym)) {
+            add_valid_menu_class(oc_of_sym);
+            olets.push(oc_of_sym);
+        }
+    }
+
+    if (m_seen) {
+        return (allflag
+            || (!olets.length && ckfn !== ckunpaid && ckfn !== ckvalidcat))
+            ? -2 : -3;
+    }
+    const style = game.flags?.menu_style ?? MENU_FULL;
+    if (style !== MENU_TRADITIONAL && combo && !allflag) {
+        return 0;
+    }
+    const cnt = await askchain(
+        () => game.invent || [],
+        true,
+        olets,
+        allflag,
+        fn,
+        ckfn,
+        mx,
+        word,
+    );
+    if (combo && allflag && resultflags) {
+        resultflags.bits |= ALL_FINISHED;
+    }
+    return cnt;
 }
 
 /**
@@ -1247,8 +1462,8 @@ export function count_unidentified(objchn) {
 /**
  * C ref: invent.c menu_identify — query_objlist USE_INVLET PICK_ANY.
  * Envelope: invent-letter toggle menu of not_fully_identified items.
- * Named omissions: SIGNAL_NOMENU polish; wait_synch between loops;
- * traditional ggetobj path.
+ * Named omissions: SIGNAL_NOMENU polish; wait_synch between loops.
+ * Traditional ggetobj is D-1602 (identify_pack MENU_TRADITIONAL).
  */
 async function menu_identify(id_limit) {
     let first = true;
@@ -1334,7 +1549,7 @@ async function menu_identify(id_limit) {
 /**
  * C ref: invent.c identify_pack(id_limit, learning_id).
  * id_limit 0 = identify all unidentified invent items.
- * Named omissions: MENU_TRADITIONAL ggetobj.
+ * MENU_TRADITIONAL ggetobj("identify") then askchain (D-1602).
  */
 export async function identify_pack(id_limit, learning_id) {
     let unid_cnt = count_unidentified(game.invent);
@@ -1349,8 +1564,17 @@ export async function identify_pack(id_limit, learning_id) {
             if (--unid_cnt < 1) break;
         }
     } else {
-        // flags.menu_style == MENU_TRADITIONAL ggetobj deferred → menu
-        await menu_identify(id_limit);
+        let n = 0;
+        const style = game.flags?.menu_style ?? MENU_FULL;
+        if (style === MENU_TRADITIONAL) {
+            do {
+                n = await ggetobj('identify', identify, id_limit, false, null);
+                if (n < 0) break;
+            } while ((id_limit -= n) > 0);
+        }
+        if (n === 0 || n < -1) {
+            await menu_identify(id_limit);
+        }
     }
     update_inventory();
 }
@@ -1359,13 +1583,15 @@ export async function identify_pack(id_limit, learning_id) {
 set_xname_observe(observe_object);
 set_distant_cansee(cansee);
 
-export function invent_lines() {
+export function invent_lines(lets) {
     const inv = game.invent || [];
     const lines = [];
     // C ref: windows.c add_menu_heading — suppress highlight when gameover
     const headingAttr = game.program_state?.gameover ? 0 : ATR_INVERSE;
+    const filterLets = lets || '';
     for (const oclass of DEF_INV_ORDER) {
-        const items = inv.filter(o => o.oclass === oclass);
+        const items = inv.filter((o) => o.oclass === oclass
+            && (!filterLets || (o.invlet && filterLets.includes(o.invlet))));
         if (!items.length) continue;
         lines.push({ text: let_to_name(oclass, false, false), attr: headingAttr });
         for (const otmp of items) {
@@ -1971,15 +2197,17 @@ async function display_pickinv_wizid() {
  * Shows invent and waits for a dismiss key (Space advances pages).
  * When wizard && iflags.override_ID → wizid Debug Identify path
  * (unid_cnt>0 PICK_ANY is D-1590).
+ * Optional lets (invlets) + want_reply match C display_inventory
+ * (`:3428–3452`); ggetobj `'i'` uses want_reply ESC abort (D-1602).
  */
-export async function display_inventory() {
+export async function display_inventory(lets, want_reply) {
     const wizard = !!(game.flags?.debug || game.flags?.wizard);
     if (wizard && (game.iflags?.override_ID | 0)) {
         await display_pickinv_wizid();
-        return;
+        return 0;
     }
 
-    const lines = invent_lines(); // includes trailing "(end)"
+    const lines = invent_lines(lets); // includes trailing "(end)"
     const menuItems = lines.slice(0, -1);
     const rows = display()?.rows || 24;
     // C ref: wintty.c tty_end_menu lmax = min(52, rows-1)
@@ -1991,7 +2219,7 @@ export async function display_inventory() {
     // select_menu_pick_none already matches that path (D-0122).
     if (npages > 1) {
         await select_menu_pick_none(menuItems);
-        return;
+        return 0;
     }
 
     const morestr = '(end) ';
@@ -2018,10 +2246,15 @@ export async function display_inventory() {
         await paint_corner_nhw_menu(menuItems, morestr);
     }
     await flush_screen(1);
-    await nhgetch(); // dismiss (Esc / space)
+    const key = await nhgetch(); // dismiss (Esc / space)
     // Fullscreen invent sets no corner geom — dismiss → docrt (C).
     if (fullscreen) game._tty_menu_geom = { offx: 0, endRow: menuItems.length };
     await dismiss_nhw_menu();
+    if (want_reply) {
+        if (key === 27) return '\x1b';
+        return typeof key === 'number' ? String.fromCharCode(key) : key;
+    }
+    return 0;
 }
 
 /** C hacklib.c s_suffix — it→its, you→your, *s/*z/*x/*ch/*sh → *', else *'s. */

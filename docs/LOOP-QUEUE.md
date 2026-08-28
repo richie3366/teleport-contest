@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pickup.c` ggetobj takeoff/identify askchain (named). Not traditional_loot.
 - [ ] `cmd.c` `#seeall` EXT_CMDS (named). Not doprinuse.
 - [ ] `mplayer.c` `mplayer_talk` (named). Not create_mplayers.
 - [ ] `makemon.c` mongets mplayer-sword spe (named). Not show_transient_light.

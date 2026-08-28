@@ -15,7 +15,8 @@ import {
     let_to_name, DEF_INV_ORDER, prinv, near_capacity, calc_capacity,
     max_capacity, compactify_invlets, getobj_take_count, getobj_apply_count,
     getobj_from_cmdq, getobj_display_pickinv, freeinv, display_inventory,
-    splittable, will_feel_cockatrice,
+    splittable, will_feel_cockatrice, is_worn, not_fully_identified,
+    taking_off,
 } from './invent.js';
 import { nomul, check_special_room, is_pool, is_lava, in_rooms, dosinkfall, SURFACE_AT, switch_terrain } from './hack.js';
 import {
@@ -193,11 +194,11 @@ function upstart(str) {
 }
 
 /** C ref: pickup.c count_justpicked / find_justpicked. */
-function count_justpicked(olist) {
+export function count_justpicked(olist) {
     let cnt = 0;
-    for (const otmp of olist || []) {
+    walk_obj_list(olist, false, (otmp) => {
         if (otmp?.pickup_prev) cnt++;
-    }
+    });
     return cnt;
 }
 function find_justpicked(olist) {
@@ -207,24 +208,30 @@ function find_justpicked(olist) {
     return null;
 }
 
-/** C ref: pickup.c count_buc subset — bknown blessed/cursed/uncursed/unknown.
+/**
+ * C invent.c count_buc `:3547–3575`. Priest sets bknown (coins false).
+ * Optional filterfunc matches ggetobj ofilter.
  * Coins: flags.goldX → UNKNOWN else UNCURSED.
  */
-function count_buc(olist, buc) {
+export function count_buc(olist, buc, filterfunc) {
     let cnt = 0;
-    for (const otmp of olist || []) {
-        if (!otmp) continue;
+    const clericPm = monsterNames.indexOf('PM_CLERIC');
+    const cleric = clericPm >= 0 && game.urole?.mnum === clericPm;
+    walk_obj_list(olist, false, (otmp) => {
+        if (!otmp) return;
+        if (cleric) otmp.bknown = otmp.oclass !== COIN_CLASS ? 1 : 0;
+        if (filterfunc && !filterfunc(otmp)) return;
         if (otmp.oclass === COIN_CLASS) {
             const coinBuc = game.flags?.goldX ? BUC_UNKNOWN : BUC_UNCURSED;
             if (buc === coinBuc) cnt++;
-            continue;
+            return;
         }
         if (!otmp.bknown) {
             if (buc === BUC_UNKNOWN) cnt++;
         } else if (buc === BUC_BLESSED && otmp.blessed) cnt++;
         else if (buc === BUC_CURSED && otmp.cursed) cnt++;
         else if (buc === BUC_UNCURSED && !otmp.blessed && !otmp.cursed) cnt++;
-    }
+    });
     return cnt;
 }
 
@@ -239,7 +246,7 @@ function walk_obj_list(head, here, fn) {
 }
 
 /** C pickup.c collect_obj_classes — unique def_oc_syms in list order. */
-function collect_obj_classes(objs, here, filter, itemcount) {
+export function collect_obj_classes(objs, here, filter, itemcount) {
     let ilets = '';
     itemcount.n = 0;
     walk_obj_list(objs, here, (otmp) => {
@@ -2365,14 +2372,16 @@ function container_gone_ask(fn) {
 }
 
 /**
- * C invent.c askchain `:2376–2541`. Live: put-in/take-out. Named: taking_off /
- * is_worn / identify / ggetobj drop; worn.c clear_bypasses.
+ * C invent.c askchain `:2376–2541`. Live: put-in/take-out, take off,
+ * identify (D-1602). Named: ggetobj drop; worn.c clear_bypasses.
  */
 export async function askchain(getHead, ininv, olets, allflag, fn, ckfn, mx, word) {
     const take_out = word === 'take out';
     const put_in = word === 'put in';
-    const nodot = word === 'nodot' || word === 'drop' || word === 'identify'
-        || take_out || put_in;
+    const takeoff = taking_off(word);
+    const ident = word === 'identify';
+    const nodot = word === 'nodot' || word === 'drop' || ident
+        || takeoff || take_out || put_in;
     const bycat = menu_class_present('u') || menu_class_present('B')
         || menu_class_present('U') || menu_class_present('C')
         || menu_class_present('X') || menu_class_present('P');
@@ -2404,6 +2413,8 @@ export async function askchain(getHead, ininv, olets, allflag, fn, ckfn, mx, wor
                 && otmp.oclass !== oletList[oletsIdx]) {
                 continue;
             }
+            if (takeoff && !is_worn(otmp)) continue;
+            if (ident && !not_fully_identified(otmp)) continue;
             if (ckfn && !ckfn(otmp)) continue;
             if (bycat && !allow_category(otmp)) continue;
 
@@ -2423,7 +2434,8 @@ export async function askchain(getHead, ininv, olets, allflag, fn, ckfn, mx, wor
                     ? xprname(otmp, letch, !nodot)
                     : doname(otmp);
                 const qbuf = `${qpfx}${shown}?`;
-                const resp = (otmp.quan < 2) ? ynaqchars : ynNaqchars;
+                const resp = (takeoff || ident || otmp.quan < 2)
+                    ? ynaqchars : ynNaqchars;
                 sym = await yn_function(qbuf, resp, 'n');
             } else {
                 sym = 'y';
@@ -2469,6 +2481,7 @@ export async function askchain(getHead, ininv, olets, allflag, fn, ckfn, mx, wor
                 if (nodot) dud++;
                 break;
             case 'q':
+                if (ident) cnt = -1;
                 bypass_objlist_ask(getHead(), false);
                 return cnt;
             default:
@@ -2481,9 +2494,9 @@ export async function askchain(getHead, ininv, olets, allflag, fn, ckfn, mx, wor
         break;
     }
 
-    if (dud || cnt) {
+    if (!takeoff && (dud || cnt)) {
         await pline('That was all.');
-    } else {
+    } else if (!dud && !cnt) {
         await pline('No applicable objects.');
     }
     bypass_objlist_ask(getHead(), false);
@@ -2527,8 +2540,9 @@ async function traditional_loot(put_in) {
  * in; 'r' in then out (loot_in_first); 's' stash ALLOWCNT (D-1561);
  * 'q' abort_looting; 'n' next container (more_containers, D-1592);
  * MENU_TRADITIONAL traditional_loot + askchain (D-1581).
+ * ggetobj takeoff/identify askchain is D-1602.
  * Named omissions: chest trap; BoT; mbag explosion body;
- * ggetobj askchain takeoff/identify; floor query_classes.
+ * ggetobj drop; floor query_classes.
  *
  * @param {object} obj container
  * @param {boolean} [held=false] applied from invent
