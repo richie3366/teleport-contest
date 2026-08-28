@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1574 vision.c unblock_point / dig_point
+
+**Objective:** Open `unblock_point`/`dig_point`. Not block_point.
+**C locus:** `vision.c` `unblock_point` `:898–907`; `dig_point`
+`:967–1048`; `recalc_block_point` `:910–917`; `seemimic` `:4415–4424`.
+**JS locus:** `recalc` was full `vision_reset`; seemimic skipped unblock.
+**Change:** live `dig_point` + `unblock_point`; C `recalc_block_point`;
+`seemimic` capture-then-unblock. `has_mcorpsenm` / mimic_light_blocking
+See_invisible / nv_range named. Rule #2: no fs.
+**Score:** fortress **44**/44 (cadence #1960).
+**Verified:** canary **29**/29; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `ndemon` aligned `mkclass`. Not rndmonst_adj.
 ## 2026-08-28 — D-1573 mon.c newcham Protection cancel / wormgone
 
 **Objective:** Open `newcham` Protection cancel. Not set_mimic_sym

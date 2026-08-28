@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `vision.c` `unblock_point`/`dig_point` (named). Not block_point.
 - [ ] `makemon.c` `ndemon` aligned `mkclass` (named). Not rndmonst_adj.
 - [ ] `worm.c` `redraw_worm` (named). Not cutworm.
 - [ ] `invent.c` force_invmenu `*`/`?` redo (named). Not hands/xtra.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `invent.c` gacc / `'0'` ball class (named). Not mime_action.
 - [ ] `pickup.c` traditional_loot askchain (named). Not `'r'` reversed.
 - [ ] `cmd.c` PREFIXCMD / `cmdq_shift` (named). Not do_repeat.
+- [ ] `vision.c` `nv_range` circle (named). Not unblock_point.
+- [ ] `makemon.c` `mk_mplayer` (named). Not ndemon.
+- [ ] `dog.c` FULL_MOON S_DOG `rn2(6)` (named). Not wake_nearto.
+- [ ] `mon.c` `newcham` NC_SHOW_MSG `pline_mon` (named). Not Protection cancel.
+- [ ] `display.c` `mimic_light_blocking` See_invisible block/unblock (named). Not seemimic.
 
 ## Parked (do not pop)
 

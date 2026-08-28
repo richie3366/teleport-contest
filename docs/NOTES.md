@@ -7,19 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress after audit **#1960** (Scr **11,405**
   RNG **792,838**/792,838 = 100%; `38+0.31/turn`). seed0367 FULL.
-  **Hypothesis:** Open `unblock_point`/`dig_point` is still named
-  (`newcham` Protection cancel is D-1573). Not block_point.
-  **Falsify:** `node scripts/csym.mjs unblock_point` vs `js/vision.js`.
-  **Next:** Open `unblock_point`/`dig_point`. Not block_point.
-  Do not skip D-1531…D-1573. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `ndemon` aligned `mkclass` is still named
+  (`unblock_point`/`dig_point` is D-1574). Not rndmonst_adj.
+  **Falsify:** `node scripts/csym.mjs ndemon` vs `js/makemon.js`.
+  **Next:** Open `ndemon` aligned `mkclass`. Not rndmonst_adj.
+  Do not skip D-1531…D-1574. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: `mk_mplayer`; FULL_MOON S_DOG / ustuck /
   `redraw_worm`; sit/pray `eyecount`; PREFIXCMD / `cmdq_shift`;
   Palantir `#if 0`; `ndemon` mkclass;
-  `unblock_point`/`dig_point`; nv_range circle;
+  nv_range circle; `mimic_light_blocking` See_invisible;
   traditional_loot; more_containers `n`; force_invmenu redo;
   mime_action; gacc. NC_SHOW_MSG `pline_mon` / `m_unleash` /
-  ustuck / break-armor / Elbereth `monflee`.
+  ustuck / break-armor / Elbereth `monflee`. `has_mcorpsenm`.
 
 ## Don't re-check (≤15)
 
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown or inner-`parse` after it (D-1186).
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1573.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1574.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,9 +39,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1573 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1574 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1573. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1574. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -52,13 +52,19 @@ Objective/score live in `CURRENT.md`.
 - Do not import `makemon.js`→`hack.js`/`artifact.js`/`minion.js`.
   No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557) or
-  `recalc` there. Do not glue `redraw_worm` / force_invmenu redo.
-  D-1558…D-1573 live in the index (`newcham` cancel is D-1573).
-  Do not re-port `newcham` Protection cancel / `wormgone` (newcham
-  caller live; mondead/dog callers still named).
+  restore `recalc_block_point` as `vision_reset`. Do not glue
+  `redraw_worm` / force_invmenu redo / nv_range /
+  `mimic_light_blocking`. D-1558…D-1574 live in the index
+  (`unblock_point` is D-1574). Do not re-port `dig_point` leftover-`i`
+  (fill_point only) or `newcham` Protection cancel.
 
 ## Landmarks (≤15)
 
+- D-1574: `unblock_point` + `dig_point` (viz_clear=1; continue
+  non-end; both-blocked left=col-1 right=col+1); C
+  `recalc_block_point`; `seemimic` capture-then-unblock.
+  `has_mcorpsenm` / `mimic_light_blocking` See_invisible /
+  nv_range named. `block_point` is D-1557.
 - D-1573: `newcham` Protection cancel + vampire cham (uprops H||E);
   rogue `tryct>15`; `set_mon_data`; `wormgone`+place_monster;
   light/`pm_invisible`/hideunder; long-worm init;
@@ -91,5 +97,3 @@ Objective/score live in `CURRENT.md`.
 - D-1562: `howmonseen` bitmask. xray IN_SIGHT is D-1571.
 - D-1561: stash getobj ALLOWCNT. traditional_loot / mbag named.
 - D-1560: `finish_splitting` / `unsplitobj`. `Shk_Your` named.
-- D-1559: pickinv `&ctmp`. Hands/xtra is D-1569.
-- D-1558: SEARCH/REGEN/XRAY conferral. xray circle is D-1571.

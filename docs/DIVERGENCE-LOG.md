@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1574 — vision.c unblock_point / dig_point
+
+- **Status:** fixed (map-driven Open from D-1573; not a public FAIL)
+- **Symptom:** `unblock_point`/`dig_point` named leftover after D-1557:
+  `recalc_block_point` was a full `vision_reset`; `seemimic` never
+  incrementally unblocked a discovered lightblocker mimic.
+- **C locus:** `vision.c` `unblock_point` `:898–907` (`dig_point(y, x)`
+  then `gv.viz_array[y][x]` → `vision_full_recalc`). Callee `dig_point`
+  `:967–1048` (set `viz_clear=1`; edge / both-clear with `continue`
+  non-end / one-side / both-blocked `left=col-1` `right=col+1`; no
+  leftover-`i` end-case). `recalc_block_point` `:910–917`. Caller
+  `mon.c` `seemimic` `:4415–4424` (`is_blocker_appear` before
+  `M_AP_NOTHING`; `!does_block` then `unblock_point`).
+- **JS was:** `fill_point`/`block_point` live (D-1557);
+  `recalc_block_point` ignored (x,y) and called `vision_reset`;
+  `seemimic` cleared disguise only.
+- **Fix:** live `dig_point` + `unblock_point`; `recalc_block_point`
+  matches C; `seemimic` captures `is_lightblocker_mappear` then
+  unblocks. Rule #2: no fs.
+- **JS:** `js/vision.js` `dig_point`/`unblock_point`/`recalc_block_point`;
+  `js/mon.js` `seemimic`.
+- **Not this iter:** `has_mcorpsenm`/`freemcorpsenm`; other
+  `unblock_point` sites already on `recalc`; `display.c`
+  `mimic_light_blocking` still `recalc` not C See_invisible
+  `block_point`/`unblock_point`; nv_range circle / pit / underwater.
+  `block_point` is D-1557. `newcham` cancel is D-1573.
+- **Verified:** private canary **29**/29 (C/JS locus; fill/dig inverse;
+  door recalc; boulder/`S_hcdoor` seemimic; closed-door no-unblock;
+  Rule #2); green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1573 — mon.c newcham Protection cancel / wormgone
 
 - **Status:** fixed (map-driven Open from D-1572; not a public FAIL)

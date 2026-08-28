@@ -203,6 +203,94 @@ export function vision_reset() {
 }
 
 /**
+ * C ref: vision.c dig_point — incremental viz_clear / left_ptrs /
+ * right_ptrs when a cell becomes transparent. Inverse of fill_point.
+ * Caller is unblock_point(x,y) → dig_point(y,x). No leftover-`i`
+ * end-case writes (those are fill_point only).
+ */
+function dig_point(row, col) {
+    let i;
+
+    if (!viz_clear[row] || viz_clear[row][col])
+        return; /* already done */
+
+    viz_clear[row][col] = 1;
+
+    /*
+     * Boundary cases first.
+     */
+    if (col === 0) { /* left edge */
+        if (viz_clear[row][1]) {
+            right_ptrs[row][0] = right_ptrs[row][1];
+        } else {
+            right_ptrs[row][0] = 1;
+            for (i = 1; i <= right_ptrs[row][1]; i++)
+                left_ptrs[row][i] = 1;
+        }
+    } else if (col === COLNO - 1) { /* right edge */
+
+        if (viz_clear[row][COLNO - 2]) {
+            left_ptrs[row][COLNO - 1] = left_ptrs[row][COLNO - 2];
+        } else {
+            left_ptrs[row][COLNO - 1] = COLNO - 2;
+            for (i = left_ptrs[row][COLNO - 2]; i < COLNO - 1; i++)
+                right_ptrs[row][i] = COLNO - 2;
+        }
+
+    /*
+     * At this point, we know we aren't on the boundaries.
+     */
+    } else if (viz_clear[row][col - 1] && viz_clear[row][col + 1]) {
+        /* Both sides clear */
+        for (i = left_ptrs[row][col - 1]; i <= col; i++) {
+            if (!viz_clear[row][i])
+                continue; /* catch non-end case */
+            right_ptrs[row][i] = right_ptrs[row][col + 1];
+        }
+        for (i = col; i <= right_ptrs[row][col + 1]; i++) {
+            if (!viz_clear[row][i])
+                continue; /* catch non-end case */
+            left_ptrs[row][i] = left_ptrs[row][col - 1];
+        }
+
+    } else if (viz_clear[row][col - 1]) {
+        /* Left side clear, right side blocked. */
+        for (i = col + 1; i <= right_ptrs[row][col + 1]; i++)
+            left_ptrs[row][i] = col + 1;
+
+        for (i = left_ptrs[row][col - 1]; i <= col; i++) {
+            if (!viz_clear[row][i])
+                continue; /* catch non-end case */
+            right_ptrs[row][i] = col + 1;
+        }
+        left_ptrs[row][col] = left_ptrs[row][col - 1];
+
+    } else if (viz_clear[row][col + 1]) {
+        /* Right side clear, left side blocked. */
+        for (i = left_ptrs[row][col - 1]; i < col; i++)
+            right_ptrs[row][i] = col - 1;
+
+        for (i = col; i <= right_ptrs[row][col + 1]; i++) {
+            if (!viz_clear[row][i])
+                continue; /* catch non-end case */
+            left_ptrs[row][i] = col - 1;
+        }
+        right_ptrs[row][col] = right_ptrs[row][col + 1];
+
+    } else {
+        /* Both sides blocked */
+        for (i = left_ptrs[row][col - 1]; i < col; i++)
+            right_ptrs[row][i] = col - 1;
+
+        for (i = col + 1; i <= right_ptrs[row][col + 1]; i++)
+            left_ptrs[row][i] = col + 1;
+
+        left_ptrs[row][col] = col - 1;
+        right_ptrs[row][col] = col + 1;
+    }
+}
+
+/**
  * C ref: vision.c fill_point — incremental viz_clear / left_ptrs /
  * right_ptrs when a cell becomes opaque. `i` is function-scoped like C
  * (post-loop leftover writes). Caller is block_point(x,y) → fill_point(y,x).
@@ -286,8 +374,7 @@ function fill_point(row, col) {
 
 /**
  * C ref: vision.c block_point — fill_point(y, x) then vision_full_recalc
- * if viz_array[y][x] (could-see). DEBUG seethru omitted. unblock_point /
- * dig_point still named (recalc_block_point keeps full vision_reset).
+ * if viz_array[y][x] (could-see). DEBUG seethru omitted.
  */
 export function block_point(x, y) {
     fill_point(y, x);
@@ -296,15 +383,25 @@ export function block_point(x, y) {
 }
 
 /**
- * C ref: vision.c recalc_block_point — after door open/break, refresh
- * viz_clear so LOS can pass (or block) at (x,y). Incremental dig_point
- * deferred; full vision_reset matches does_block semantics.
+ * C ref: vision.c unblock_point — dig_point(y, x) then vision_full_recalc
+ * if viz_array[y][x] (could-see). Light-source recalc still a C comment.
+ */
+export function unblock_point(x, y) {
+    dig_point(y, x);
+    if (game.viz_array?.[y]?.[x])
+        game.vision_full_recalc = 1;
+}
+
+/**
+ * C ref: vision.c recalc_block_point — does_block then block_point,
+ * else unblock_point. Not a full vision_reset (D-0113 stub retired).
  */
 export function recalc_block_point(x, y) {
-    void x;
-    void y;
-    vision_reset();
-    game.vision_full_recalc = 1;
+    const loc = game.level?.at?.(x, y);
+    if (does_block(x, y, loc))
+        block_point(x, y);
+    else
+        unblock_point(x, y);
 }
 
 // Bresenham quadrant path functions (C ref: vision.c q1-q4_path)

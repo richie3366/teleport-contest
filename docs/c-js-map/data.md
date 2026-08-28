@@ -651,13 +651,18 @@ JS: `js/vision.js` — partial
 
 Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018); 
 **`couldsee` wired into `dog_goal`** (D-0030); **`cansee` used by `makemon_rnd_goodpos`** (D-0034); 
-**`recalc_block_point` → `vision_reset` after door open/break** (D-0113); 
+**`recalc_block_point` D-0113 stub retired in D-1574** (C `does_block` then
+`block_point` else `unblock_point`; not a full `vision_reset`); 
 **off-hero `do_clear_area`/`view_from` vis_func for wantdoor** (D-0211); 
 **`does_block` BOULDER (+ CLOUD/WATERWALL/LAVAWALL)** (D-0242; exported, was `_blocks`) + 
 **`is_lightblocker_mappear` mimic boulder/door/wall/tree** (D-0585) + 
 **`visible_region_at` gas cloud return 2 + `recalc_block_point` on create/expire** (D-0674) + 
 **D-1557 `block_point`/`fill_point`** (`vision.c:864–891` / `:1050–1128`; caller `set_mimic_sym`; leftover `i`; `vision_reset` `!!does_block`); 
-`seemimic` incremental `dig_point` / `unblock_point` deferred (`recalc` still full reset); 
+**D-1574 `unblock_point`/`dig_point`** (`:898–907` / `:967–1048`; `seemimic`
+`:4415–4424` after `M_AP_NOTHING`; `recalc_block_point` `:910–917`); 
+`has_mcorpsenm`/`freemcorpsenm`; other `unblock_point` sites already on
+`recalc`; `display.c` `mimic_light_blocking` still `recalc` not C
+See_invisible `block_point`/`unblock_point`; 
 **detect SCORR/SDOOR uncover uses `recalc_block_point`** (D-0269); 
 **`Is_rogue_level` → `rogue_vision`** (D-0486; room bounds + adjacent; pit/underwater deferred); 
 **Blind `vision_recalc` COULD_SEE-only + old IN_SIGHT newsym** (D-0579); 
@@ -673,8 +678,8 @@ lit); **D-1562 `howmonseen`** (`vision.c:2151–2186`; callers `apply.c` `use_mi
 `[seen:]`; `look_all` NULL; `worm_known` is D-1548; mdistu inlined); 
 **D-1571 `vision_recalc` xray IN_SIGHT** (`:631–668`; `circle_ptr` +
 seenv SVALL + rmin/rmax + newsym before lights; Eyes D-1558 3/−1;
-not rogue/Blind/`control==2`); nv_range circle / pit / underwater /
-`notice_all_mons` named; `unblock_point`/`dig_point` named
+not rogue/Blind/`control==2`); **D-1574 `unblock_point`/`dig_point`**;
+nv_range circle / pit / underwater / `notice_all_mons` named
 
 ### `src/trap.c`
 

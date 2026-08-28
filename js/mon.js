@@ -58,7 +58,7 @@ import { newsym, pline, pline_mon, You_feel, sensemon, canseemon, canspotmon } f
 import { online2, level_difficulty } from './hacklib.js';
 import { worm_cross, level_mon_at } from './worm.js';
 import { Monnam, mon_nam } from './do_name.js';
-import { cansee, couldsee } from './vision.js';
+import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point } from './vision.js';
 import { fightm, mondead, mondied } from './mhitm.js';
 import { engr_at } from './engrave.js';
 import { visible_region_at, is_poisoncloud_region } from './region.js';
@@ -869,16 +869,25 @@ export function m_avoid_soko_push_loc(mtmp, nx, ny) {
 }
 
 /**
- * C ref: mon.c seemimic — clear disguise; freemcorpsenm / light-block deferred.
+ * C ref: mon.c seemimic — clear disguise; capture is_lightblocker_mappear
+ * before M_AP_NOTHING so a discovered wall/door/boulder mimic unblocks
+ * unless terrain still does_block. has_mcorpsenm / freemcorpsenm named.
  */
 export function seemimic(mtmp) {
     if (!mtmp) return;
+    const is_blocker_appear = is_lightblocker_mappear(mtmp);
     // has_mcorpsenm / freemcorpsenm deferred
     mtmp.m_ap_type = M_AP_NOTHING;
     mtmp.mappearance = 0;
-    // is_lightblocker unblock_point on discover deferred (vision_reset covers
-    // does_block; D-0585 ports is_lightblocker_mappear into _blocks)
-    if (mtmp.mx > 0) newsym(mtmp.mx, mtmp.my);
+    /*
+     *  Discovered mimics don't block light.
+     */
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    if (is_blocker_appear
+        && !does_block(mx, my, game.level?.at?.(mx, my)))
+        unblock_point(mx, my);
+    if (mx > 0) newsym(mx, my);
 }
 
 /**
