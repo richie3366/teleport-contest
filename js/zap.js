@@ -3774,9 +3774,9 @@ export async function bhitm(mtmp, otmp) {
                 let ncflags = 0;
                 if (polyspot) ncflags |= NC_VIA_WAND_OR_SPELL;
                 if (give_msg) ncflags |= NC_SHOW_MSG;
-                if (newcham(mtmp, null, ncflags)
+                if (await newcham(mtmp, null, ncflags)
                     || (ismnum(mtmp.cham)
-                        && newcham(mtmp, mons(mtmp.cham), ncflags))) {
+                        && await newcham(mtmp, mons(mtmp.cham), ncflags))) {
                     if (give_msg && (canspotmon(mtmp)
                         || (game.u?.uswallow && game.u?.ustuck === mtmp))) {
                         learn_it = true;

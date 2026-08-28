@@ -619,6 +619,14 @@ export function x_monnam(mtmp, article, adjective, suppress = 0, called = false)
 }
 
 /**
+ * C ref: do_name.c noname_monnam `:1101–1105` — x_monnam with SUPPRESS_NAME
+ * so a named monster still yields "a <type>" (newcham NC_SHOW_MSG).
+ */
+export function noname_monnam(mtmp, article) {
+    return x_monnam(mtmp, article, null, SUPPRESS_NAME, false);
+}
+
+/**
  * C ref: do_name.c mon_nam — ARTICLE_THE; unseen → "it"; named → bare name.
  * Shopkeeper → shkname (D-0307). Hallu → rndmonnam (D-0838).
  * Invis adj / priest / AUGMENT_IT deferred (via x_monnam omissions).

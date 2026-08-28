@@ -1768,6 +1768,8 @@ pet `mtrapped`** (D-0169); **`mcalcdistress`/`mon_regen` mfrozen/mblinded/mfleet
 **`were_change`/`new_were`/`counter_were`** in `js/were.js` from `m_calcdistress` (D-0523; 
 omit howl `You_hear`/`wake_nearto`, `mon_break_armor`/`possibly_unwield`/`monflee` onscary; 
 cham `decide_to_shapeshift` regular+vamp (D-0623/D-0659; minliquid via D-0775); 
+**`newcham` NC_SHOW_MSG `pline_mon`/`usmellmon`/`noname_monnam` D-1586** (Protection cancel 
+D-1573; `m_unleash`/ustuck/break-armor/Elbereth `monflee` named); 
 **open D-0928 #1118:** after getlev, vamp-bat @46,19 `mcalcmove` add 12 vs C 24 (2nd movemon pass 
 missing → early EOT shapeshift @104705; fmon order / lich placement suspect; 
 `restore_cham` on getlev still deferred); 

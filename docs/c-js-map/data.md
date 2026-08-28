@@ -205,7 +205,7 @@ AD_WRAP m_slips_free still named); **passivemm assess_dmg `monkilled(magr)` D-12
 **gulpmm !goodpos return-home D-1243**; **gulpmm AD_DGST eat D-1244** (mhitm_ad_dgst 
 Burrrrp/`damage=mhp`/lifesaver/tame nutrition; `monkilled` AD_DGST `mondead`; 
 post-death cham/slime/wraith/`grow_up(null)`/nurse/`mon_givit`; swallowed AT_BOOM contained; 
-gulpmu invent / digest-Medusa stone / `newcham` NC_SHOW_MSG pline / `grow_up` little_to_big still 
+gulpmu invent / digest-Medusa stone / `newcham` NC_SHOW_MSG D-1586; `grow_up` little_to_big still 
 named)); **`can_be_hatched`/`dead_species`** + BREEDER_EGG (D-0068); 
 **`kill_eggs` after genocide D-1097** (minvent/invent/fobj/migrating/buried + Has_contents; 
 TIN/CORPSE #if 0 not ported; cham `newcham` + 

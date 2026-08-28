@@ -100,6 +100,17 @@ export function highc(c) {
 }
 
 /**
+ * C ref: hacklib.c upstart `:113–119` — highc the first character.
+ * Callers that already have a local clone (do_name/apply/…) keep theirs;
+ * newcham uses this C-home export (do not add clone #9).
+ */
+export function upstart(s) {
+    if (s == null || s === '') return s;
+    const str = String(s);
+    return highc(str.charAt(0)) + str.slice(1);
+}
+
+/**
  * C ref: hacklib.c ing_suffix `:362–396` — gerund. Split trailing
  * " on"/" off"/" with" (strcmpi), then er / CVC doubling / ie→y /
  * trailing e, then "ing" + saved tail. Case-insensitive suffix tests.

@@ -5,7 +5,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
-import { depth as depth_of_level, level_difficulty as level_difficulty_of } from './hacklib.js';
+import { depth as depth_of_level, level_difficulty as level_difficulty_of, upstart } from './hacklib.js';
 import { put_saddle_on_mon, can_saddle, place_monster } from './steed.js';
 import { m_dowear, which_armor, check_gear_next_turn } from './worn.js';
 import {
@@ -76,6 +76,8 @@ import {
     humanoid,
     polyok,
     is_mplayer,
+    olfaction,
+    is_orc,
     hides_under,
     throws_rocks,
     M3_CLOSE, M3_WAITFORU, M3_WAITMASK, M3_COVETOUS,
@@ -91,7 +93,9 @@ import {
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD, G_EXTINCT,
     isok, has_mgivenname, MGIVENNAME, has_emin, MON_FLOOR,
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
-    ARTICLE_A, BOLT_LIM, MHID_ARTICLE, MHID_ALTMON,
+    ARTICLE_A, ARTICLE_THE, ARTICLE_YOUR, SUPPRESS_SADDLE, SUPPRESS_NAME,
+    NC_SHOW_MSG, NC_VIA_WAND_OR_SPELL, Upolyd,
+    BOLT_LIM, MHID_ARTICLE, MHID_ALTMON,
     IS_DOOR, IS_WALL, IS_POOL, IS_LAVA,
     HWALL, TLCORNER, TRWALL, BLCORNER, TDWALL, CROSSWALL, TUWALL,
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
@@ -139,11 +143,11 @@ import {
 } from './objects.js';
 import { ART_EXCALIBUR, ART_DEMONBANE } from './generated/artifacts_data.js';
 import { cansee, does_block, block_point } from './vision.js';
-import { newsym, Norep, canseemon, sensemon } from './display.js';
+import { newsym, Norep, canseemon, sensemon, canspotmon, pline, pline_mon } from './display.js';
 import { mhidden_description } from './pager.js';
 import { emits_light, new_light_source, del_light_source } from './light.js';
 import { begin_burn } from './timeout.js';
-import { christen_monst, oname, x_monnam } from './do_name.js';
+import { christen_monst, oname, x_monnam, noname_monnam } from './do_name.js';
 import { vtense } from './objnam.js';
 import { get_shop_item, shkname } from './shknam.js';
 import {
@@ -1119,16 +1123,153 @@ export async function create_critters(cnt, mptr, neverask) {
 }
 
 /**
+ * C ref: mon.c usmellmon `:5795–5909` — olfaction gate then mndx switch,
+ * else nonspecific mlet (S_DOG/DRAGON/FUNGUS/UNICORN/ZOMBIE/EEL/ORC).
+ * You/pline via display (no You() clone; zap.js already has the one local).
+ * maybe_polyd ≡ Upolyd ? is_orc(youmonst) : Race_if(PM_ORC) (youprop.h).
+ * @returns {Promise<boolean>}
+ */
+export async function usmellmon(mdat) {
+    if (!mdat) return false;
+    if (!olfaction(game.youmonst?.data)) return false;
+    const mndx = mdat.mndx ?? mdat.mnum ?? NON_PM;
+    let nonspecific = false;
+    let msg_given = false;
+    switch (mndx) {
+    case pm('ROTHE'):
+    case pm('MINOTAUR'):
+        await pline('You notice a bovine smell.');
+        msg_given = true;
+        break;
+    case pm('CAVE_DWELLER'):
+    case pm('BARBARIAN'):
+    case pm('NEANDERTHAL'):
+        await pline('You smell body odor.');
+        msg_given = true;
+        break;
+    case pm('HORNED_DEVIL'):
+    case pm('BALROG'):
+    case pm('ASMODEUS'):
+    case pm('DISPATER'):
+    case pm('YEENOGHU'):
+    case pm('ORCUS'):
+        break;
+    case pm('HUMAN_WEREJACKAL'):
+    case pm('HUMAN_WERERAT'):
+    case pm('HUMAN_WEREWOLF'):
+    case pm('WEREJACKAL'):
+    case pm('WERERAT'):
+    case pm('WEREWOLF'):
+    case pm('OWLBEAR'):
+        await pline("You detect an odor reminiscent of an animal's den.");
+        msg_given = true;
+        break;
+    case pm('STEAM_VORTEX'):
+        await pline('You smell steam.');
+        msg_given = true;
+        break;
+    case pm('GREEN_SLIME'):
+        await pline('Something stinks.');
+        msg_given = true;
+        break;
+    case pm('VIOLET_FUNGUS'):
+    case pm('SHRIEKER'):
+        await pline('You smell mushrooms.');
+        msg_given = true;
+        break;
+    case pm('WHITE_UNICORN'):
+    case pm('GRAY_UNICORN'):
+    case pm('BLACK_UNICORN'):
+    case pm('JELLYFISH'):
+        break;
+    default:
+        nonspecific = true;
+        break;
+    }
+    if (nonspecific) {
+        switch (mdat.mlet) {
+        case 'S_DOG':
+            await pline('You notice a dog smell.');
+            msg_given = true;
+            break;
+        case 'S_DRAGON':
+            await pline('You smell a dragon!');
+            msg_given = true;
+            break;
+        case 'S_FUNGUS':
+            await pline('Something smells moldy.');
+            msg_given = true;
+            break;
+        case 'S_UNICORN':
+            await pline(mndx === pm('PONY')
+                ? 'You detect an odor reminiscent of a stable.'
+                : 'You detect a strong odor reminiscent of a stable.');
+            msg_given = true;
+            break;
+        case 'S_ZOMBIE':
+            await pline('You smell rotting flesh.');
+            msg_given = true;
+            break;
+        case 'S_EEL':
+            await pline('You smell fish.');
+            msg_given = true;
+            break;
+        case 'S_ORC':
+            if (Upolyd(game.u) ? is_orc(game.youmonst?.data) : Race_if(pm('ORC'))) {
+                await pline('You notice an attractive smell.');
+            } else {
+                await pline('A foul stench makes you feel a little nauseated.');
+            }
+            msg_given = true;
+            break;
+        default:
+            break;
+        }
+    }
+    return msg_given;
+}
+
+/**
+ * C ref: mon.c newcham `:5458–5478` NC_SHOW_MSG after newsym.
+ * disappears if !canspotmon now && seenorsensed; usmellmon(mdat);
+ * appears if !seenorsensed; else turns into noname_monnam ARTICLE_A.
+ */
+async function newcham_show_msg(mtmp, oldname, seenorsensed, mdat) {
+    if (!canspotmon(mtmp)) {
+        if (seenorsensed) {
+            await pline_mon(mtmp, `${oldname} disappears!`);
+        }
+        await usmellmon(mdat);
+    } else if (!seenorsensed) {
+        const mnm = x_monnam(
+            mtmp, mtmp.mtame ? ARTICLE_YOUR : ARTICLE_A, null, 0, false,
+        );
+        await pline_mon(mtmp, `${upstart(mnm)} appears!`);
+    } else {
+        await pline_mon(
+            mtmp,
+            `${oldname} turns into ${noname_monnam(mtmp, ARTICLE_A)}!`,
+        );
+    }
+    return true;
+}
+
+/**
  * C ref: mon.c newcham `:5276–5535` — take mtmp into mdat (or a random
  * accept_newcham_form). Protection_from_shape_changers cancel uncancel
  * + vampire cham (D-1573). youprop H||E via uprops like set_mimic_sym
  * (D-1564; not a third named clone of were.js / monmove.js).
- * Named omissions: NC_SHOW_MSG pline_mon/usmellmon/noname_monnam
- * (pline_mon async); NC_VIA_WAND_OR_SPELL possibly_unwield /
+ * NC_SHOW_MSG pline_mon/usmellmon/noname_monnam (D-1586). When SHOW_MSG
+ * the return is a Promise (await at already-async callers); NO_NC_FLAGS
+ * stays a boolean so sync makemon `if (newcham())` is not Promise-truthy.
+ * Vampire cham + check_gear run before awaiting More (C does the pline
+ * first; cham unused by the message; gear is next-turn).
+ * Named omissions: NC_VIA_WAND_OR_SPELL possibly_unwield /
  * mon_break_armor / boulder bypass+flooreffects (async / missing);
  * m_unleash (async) + update_inventory leash; ustuck expels/unstuck
- * (async); poly_steed; Elbereth set_apparxy/monflee (monflee async).
- * @returns {boolean} true if form changed
+ * (async; l_oldname still captured for Hallu RNG); poly_steed;
+ * Elbereth set_apparxy/monflee (monflee async).
+ * @returns {boolean|Promise<boolean>} true if form changed
  */
 export function newcham(mtmp, mdat, ncflags = 0) {
     if (!mtmp) return false;
@@ -1136,7 +1277,10 @@ export function newcham(mtmp, mdat, ncflags = 0) {
     // C youprop.h: H || E ≡ uprops[PROT_FROM_SHAPE_CHANGERS]
     const prot = game.u?.uprops?.[PROT_FROM_SHAPE_CHANGERS];
     const pfsc = !!((prot?.intrinsic | 0) || (prot?.extrinsic | 0));
-    // ncflags NC_SHOW_MSG / VIA_WAND_OR_SPELL arms named omit (async)
+    const polyspot = ((ncflags | 0) & NC_VIA_WAND_OR_SPELL) !== 0;
+    const msg = ((ncflags | 0) & NC_SHOW_MSG) !== 0;
+    const seenorsensed = canspotmon(mtmp);
+    void polyspot; // VIA_WAND possibly_unwield / break_armor / boulder named
 
     if (mtmp.cham === NON_PM || mtmp.cham == null) {
         // C: non-shapechanger — riders + mbirth_limit immunes (Nazgul/Erinys);
@@ -1150,6 +1294,22 @@ export function newcham(mtmp, mdat, ncflags = 0) {
             if (mtmp.cham !== NON_PM) mtmp.mcan = 0;
         }
     }
+
+    let oldname = '';
+    if (msg) {
+        // C: like YMonnam() but never mention saddle
+        oldname = x_monnam(
+            mtmp, mtmp.mtame ? ARTICLE_YOUR : ARTICLE_THE,
+            null, SUPPRESS_SADDLE, false,
+        );
+        oldname = upstart(oldname);
+    }
+    // C: always, whether msg — Hallu rndmonnam; ustuck swallow still named
+    const l_oldname = x_monnam(
+        mtmp, ARTICLE_THE, null,
+        has_mgivenname(mtmp) ? SUPPRESS_SADDLE : 0, false,
+    );
+    void l_oldname;
 
     if (!mdat) {
         let tryct = 20;
@@ -1230,8 +1390,8 @@ export function newcham(mtmp, mdat, ncflags = 0) {
     mtmp.meverseen = 0;
     newsym(mtmp.mx | 0, mtmp.my | 0);
 
-    // NC_SHOW_MSG pline_mon / usmellmon named omit (pline_mon async)
-
+    // C: vampire cham after the pline; JS applies it before awaiting More
+    // so sync callers (makemon / normal_shape) keep immediate mutation.
     if ((mtmp.cham === NON_PM || mtmp.cham == null)
         && mdat.mlet === 'S_VAMPIRE' && !pfsc) {
         mtmp.cham = pm_to_cham(mdat.mndx ?? NON_PM);
@@ -1240,6 +1400,8 @@ export function newcham(mtmp, mdat, ncflags = 0) {
     // possibly_unwield / mon_break_armor / mselftouch named omit
     check_gear_next_turn(mtmp);
     // boulder drop / poly_steed / Elbereth monflee named omit
+
+    if (msg) return newcham_show_msg(mtmp, oldname, seenorsensed, mdat);
     return true;
 }
 

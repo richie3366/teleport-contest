@@ -4,6 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1586 — mon.c newcham NC_SHOW_MSG pline_mon
+
+- **Status:** fixed (map-driven Open from D-1585; not a public FAIL)
+- **Symptom:** `newcham` skipped C `NC_SHOW_MSG` shapeshift plines
+  (disappears / appears / turns into) and `usmellmon`.
+- **C locus:** `mon.c` `newcham` `:5458–5478` after `newsym`
+  (`msg = (ncflags & NC_SHOW_MSG)`; `seenorsensed = canspotmon`
+  at entry; oldname `x_monnam` + `highc`; `l_oldname` always).
+  Callees `usmellmon` `:5795–5909`; `do_name.c` `noname_monnam`
+  `:1101–1105`; `hacklib.c` `upstart` `:113–119`. Callers
+  `decide_to_shapeshift` / `mdamagem` digest / zap `bhitm` poly.
+- **JS was:** named omit after D-1573 (Protection cancel / vampire
+  cham / `wormgone` live; NC_SHOW_MSG commented async).
+- **Fix:** live `newcham_show_msg` + `usmellmon`; export
+  `noname_monnam` / `upstart` (C homes; do not add `upstart`
+  clone #9). `NO_NC_FLAGS` still returns a boolean so sync
+  `makemon` `if (newcham())` is not Promise-truthy. Vampire cham
+  + `check_gear` stay immediate (before awaiting More).
+  `m_unleash` / ustuck / break-armor / Elbereth `monflee` still
+  named. Rule #2: no fs.
+- **JS:** `js/makemon.js` `newcham`/`usmellmon`; `js/do_name.js`
+  `noname_monnam`; `js/hacklib.js` `upstart`; await at
+  decide_to_shapeshift / digest / zap poly.
+- **Not this iter:** `m_unleash`; ustuck `expels`/`unstuck`;
+  `possibly_unwield`/`mon_break_armor`; poly_steed; Elbereth
+  `monflee`. Protection cancel is D-1573. FULL_MOON is D-1585.
+- **Verified:** private canary **17**/17; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1585 — dog.c tamedog FULL_MOON S_DOG
 
 - **Status:** fixed (map-driven Open from D-1584; not a public FAIL)

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `dog.c` FULL_MOON S_DOG `rn2(6)` (named). Not wake_nearto. **Addressed:** D-1585
+- [x] `mon.c` `newcham` NC_SHOW_MSG `pline_mon` (named). Not Protection cancel. **Addressed:** D-1586
+
+
+- [x] `dog.c` FULL_MOON S_DOG `rn2(6)` (named). Not wake_nearto. **Addressed:** D-1585 `d5c9430a`
 
 
 - [x] `makemon.c` `mk_mplayer` (named). Not ndemon. **Addressed:** D-1584 `05c69d9b`

@@ -711,8 +711,8 @@ function mon_regen(mon, digest_meal) {
 /**
  * C ref: mon.c decide_to_shapeshift — cham once-per-turn form change.
  * Regular + vampshifter (low-hp revert / fog pickvampshape / vamp shift).
- * Named omissions: mon_has_special Vlad stay in pickvampshape; NC_SHOW_MSG
- * display polish; canseemon uses worm_known when wormno (D-1548).
+ * Named omissions: mon_has_special Vlad stay in pickvampshape;
+ * canseemon uses worm_known when wormno (D-1548). NC_SHOW_MSG is D-1586.
  */
 async function decide_to_shapeshift(mon) {
     let ptr = null;
@@ -764,7 +764,7 @@ async function decide_to_shapeshift(mon) {
         }
     }
     if (dochng) {
-        if (newcham(mon, ptr, NC_SHOW_MSG)) {
+        if (await newcham(mon, ptr, NC_SHOW_MSG)) {
             if (is_vampshifter(mon)) {
                 ptr = mon.data;
                 if (!is_male(ptr) && !is_female(ptr) && !is_neuter(ptr)) {

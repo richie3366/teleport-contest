@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mon.c` `newcham` NC_SHOW_MSG `pline_mon` (named). Not Protection cancel.
 - [ ] `display.c` `mimic_light_blocking` See_invisible block/unblock (named). Not seemimic.
 - [ ] `invent.c` putmsghistory (named). Not gacc.
 - [ ] `invent.c` sortloot inuse_only (named). Not gacc.
