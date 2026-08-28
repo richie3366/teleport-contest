@@ -40,7 +40,7 @@ import { is_hider } from './monsters.js';
 import { vision_recalc, couldsee, cansee } from './vision.js';
 import {
     ddoinv, dodiscovered, doattributes, dolook, doprgold, doprwep, doprarm,
-    doprring, dopramulet, doprtool,
+    doprring, dopramulet, doprtool, doprinuse,
 } from './invent.js';
 import { dovspell, docast, num_spells } from './spell.js';
 import { doeat } from './eat.js';
@@ -1709,6 +1709,7 @@ function rhack_repeat_command(ch, key) {
     case '=': return doprring;
     case '"': return dopramulet;
     case '(': return doprtool;
+    case '*': return doprinuse;
     case '\x7f': return doterrain;
     case ' ': return game.flags?.rest_on_space ? donull : null;
     case 'g': return do_rush;
@@ -1753,6 +1754,7 @@ function rhack_repeat_txt(ch, key) {
         ';': 'glance', '?': 'help', '+': 'showspells', '\\': 'known',
         '@': 'autopickup', O: 'options', $: 'showgold', ')': 'seeweapon',
         '[': 'seearmor', '=': 'seerings', '"': 'seeamulet', '(': 'seetools',
+        '*': 'seeall',
         '\x7f': 'terrain',
         g: 'rush', G: 'run', F: 'fight', m: 'reqmenu',
         h: 'movewest', y: 'movenorthwest', k: 'movenorth', u: 'movenortheast',
@@ -1962,10 +1964,12 @@ export async function rhack(key) {
     // then the resolved extcmd's own flag, D-1230). Drop only when the next
     // command rejects 'm'.
     // Named omission: full accept_menu_prefix table — O/,/e/q/a/s/p/>/< /^T /#
-    // enough for current sessions; expand when m-prefix + other cmds desync.
+    // + seeweapon/seearmor/seerings/seeamulet/seetools/seeall (D-1589).
     const accepts_m_prefix = ch === 'O' || ch === ',' || ch === 'e'
         || ch === 'q' || ch === 'a' || ch === 's' || ch === 'p'
         || ch === '>' || ch === '<'
+        || ch === ')' || ch === '[' || ch === '=' || ch === '"'
+        || ch === '(' || ch === '*'
         || key === 20 // C('t') dotelecmd CMD_M_PREFIX
         || ch === '#'; // doextcmd CMD_M_PREFIX; resolved cmd checked in doextcmd
     if (ch !== 'm' && ch !== 'g' && ch !== 'G' && ch !== 'F'
@@ -2224,6 +2228,10 @@ export async function rhack(key) {
     } else if (ch === '(') {
         // C ref: invent.c doprtool / cmd.c — #seetools (GENERALCMD, TOOL_SYM)
         await doprtool();
+        game.context.move = 0;
+    } else if (ch === '*') {
+        // C ref: invent.c doprinuse / cmd.c — #seeall (GENERALCMD, '*')
+        await doprinuse();
         game.context.move = 0;
     } else if (ch === '\x7f') {
         // C ref: cmd.c doterrain / #terrain — DEL key (\177)

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` putmsghistory (named). Not gacc. **Addressed:** D-1588
+- [x] `invent.c` sortloot inuse_only (named). Not gacc. **Addressed:** D-1589
+
+
+- [x] `invent.c` putmsghistory (named). Not gacc. **Addressed:** D-1588 `a3325fe0`
 
 
 - [x] `display.c` `mimic_light_blocking` See_invisible block/unblock (named). Not seemimic. **Addressed:** D-1587 `5e46f730`

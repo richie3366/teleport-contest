@@ -15,6 +15,7 @@
 // D-1579: getobj mime_action on typed '-' when !allownone.
 // D-1580: pickinv gacc collect + BALL `'0'` vs count; def_oc_syms.
 // D-1588: getobj force_invmenu putmsghistory(qbuf) + topl.c remember_topl.
+// D-1589: sortloot SORTLOOT_INUSE + display_pickinv inuse_only / doprinuse.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -70,6 +71,7 @@ import {
     SORTLOOT_PACK,
     SORTLOOT_LOOT,
     SORTLOOT_INVLET,
+    SORTLOOT_INUSE,
     PICK_ONE,
     PICK_NONE,
     PICK_ANY,
@@ -127,7 +129,10 @@ import {
     P_EXPERT, P_MASTER, P_GRAND_MASTER,
     W_ARMOR, W_AMUL, W_RING, W_TOOL, W_SADDLE,
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU,
-    W_WEP, W_ART, W_ACCESSORY,
+    W_WEP, W_SWAPWEP, W_QUIVER, W_WEAPONS, W_ART, W_ACCESSORY,
+    WORN_SHIRT, WORN_BOOTS, WORN_GLOVES, WORN_HELMET, WORN_SHIELD,
+    WORN_CLOAK, WORN_ARMOR, WORN_BLINDF, WORN_AMUL,
+    LEFT_RING, RIGHT_RING, RIGHT_HANDED, LEFT_HANDED,
     NEW_MOON,
     FULL_MOON,
     Upolyd,
@@ -165,6 +170,26 @@ function Blind() {
     const u = game.u || {};
     if (u.uroleplay?.blind) return true;
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
+}
+
+const OTYP_LEASH = objectNames.indexOf('LEASH');
+
+/**
+ * C invent.c inuse_headers — [4] "Accessories"; dispinv_with_action may
+ * swap that slot for "Amulet" / "Ring" / "Rings".
+ */
+const inuse_headers = [
+    '', 'Miscellaneous', 'Worn Armor', 'Wielded/Readied Weapons', 'Accessories',
+];
+
+/** C invent.c inuse_headers[4] save. */
+export function inuse_headers_accessories() {
+    return inuse_headers[4];
+}
+
+/** C invent.c inuse_headers[4] = alt_label (or restore "Accessories"). */
+export function inuse_headers_set_accessories(label) {
+    inuse_headers[4] = label || 'Accessories';
 }
 
 // C ref: hack.c weight_cap() — STR+CON base; Upolyd msize/cwt scale;
@@ -311,31 +336,129 @@ function invletter_value(c) {
 }
 
 /**
- * C ref: invent.c sortloot — build Loot[] sorted view; does not relink.
- * Branch envelope: SORTLOOT_PACK class + SORTLOOT_INVLET + SORTLOOT_LOOT.
- * Invent Array or nobj/nexthere. Named: subclass/disco/BUCX/erosion/INUSE/
- * filter/SORTLOOT_PETRIFY; loot_classify armor/weapon/tool detail.
+ * C invent.c is_worn `:2155–2161`.
+ * @param {object|null} otmp
+ * @returns {boolean}
+ */
+export function is_worn(otmp) {
+    return !!((otmp?.owornmask | 0)
+        & (W_ARMOR | W_ACCESSORY | W_SADDLE | W_WEAPONS));
+}
+
+/**
+ * C invent.c tool_being_used `:4697–4711`.
+ * @param {object} obj
+ * @returns {boolean}
+ */
+function tool_being_used(obj) {
+    if (((obj.owornmask || 0) & (W_TOOL | W_SADDLE)) !== 0) return true;
+    if (obj.oclass !== TOOL_CLASS) return false;
+    return obj === game.u?.uwep || !!obj.lamplit
+        || ((obj.otyp | 0) === OTYP_LEASH && !!obj.leashmon);
+}
+
+/**
+ * C invent.c is_inuse `:2164–2170` — carried && (worn || tool in use).
+ * Not obj.in_use (finish-using-up). carried ≡ where==OBJ_INVENT.
+ * @param {object|null} obj
+ * @returns {boolean}
+ */
+export function is_inuse(obj) {
+    if (!obj || obj.where !== OBJ_INVENT) return false;
+    return is_worn(obj) || tool_being_used(obj);
+}
+
+/**
+ * C invent.c inuse_classify `:70–144`. USE_RATING least→most; bigger
+ * inuse comes first in sortloot_cmp. orderclass is the heading index.
+ * @param {{ inuse?: number, orderclass?: number, subclass?: number, disco?: number }} sort_item
+ * @param {object} obj
+ */
+function inuse_classify(sort_item, obj) {
+    const w_mask = (obj.owornmask | 0) & (W_ACCESSORY | W_WEAPONS | W_ARMOR);
+    let rating = 0;
+    let altclass = 0;
+    const ulefty = ((game.u?.uhandedness | 0) === LEFT_HANDED);
+
+    const useRating = (test) => {
+        rating++;
+        return !!test;
+    };
+
+    /* "Miscellaneous" */
+    altclass++; /* 1 */
+    if (useRating(!w_mask && (obj.otyp | 0) === OTYP_LEASH && obj.leashmon)) {
+        // assigned below
+    } else if (useRating(!w_mask && obj.oclass === TOOL_CLASS && obj.lamplit)) {
+        // assigned below
+    } else {
+        /* "Armor" */
+        altclass++; /* 2 */
+        if (useRating(w_mask & WORN_SHIRT)
+            || useRating(w_mask & WORN_BOOTS)
+            || useRating(w_mask & WORN_GLOVES)
+            || useRating(w_mask & WORN_HELMET)
+            || useRating(w_mask & WORN_SHIELD)
+            || useRating(w_mask & WORN_CLOAK)
+            || useRating(w_mask & WORN_ARMOR)) {
+            // assigned below
+        } else {
+            /* "Weapons" */
+            altclass++; /* 3 */
+            if (useRating(w_mask & W_QUIVER)
+                || useRating(w_mask & W_SWAPWEP)
+                || useRating(w_mask & W_WEP)) {
+                // assigned below
+            } else {
+                /* "Accessories" */
+                altclass++; /* 4 */
+                if (useRating(w_mask & WORN_BLINDF)
+                    || useRating(w_mask & (ulefty ? RIGHT_RING : LEFT_RING))
+                    || useRating(w_mask & (ulefty ? LEFT_RING : RIGHT_RING))
+                    || useRating(w_mask & WORN_AMUL)) {
+                    // assigned below
+                } else {
+                    rating = 0;
+                    altclass = -1;
+                }
+            }
+        }
+    }
+
+    sort_item.inuse = rating;
+    sort_item.orderclass = altclass;
+    sort_item.subclass = 0;
+    sort_item.disco = 0;
+}
+
+/**
+ * C ref: invent.c sortloot `:592–643` — Loot[] view; does not relink.
+ * Branch envelope: SORTLOOT_PACK class + SORTLOOT_INVLET + SORTLOOT_LOOT
+ * + SORTLOOT_INUSE (inuse_classify; bigger inuse first) + optional
+ * filterfunc (display_pickinv is_inuse). Invent Array or nobj/nexthere.
+ * Named: subclass/disco/BUCX/erosion; loot_classify armor/weapon/tool
+ * detail; SORTLOOT_PETRIFY cockatrice-filter override (pickup FEEL).
  * @param {object|object[]|null} olist nobj/nexthere head or invent Array
  * @param {number} mode SORTLOOT_* flags
  * @param {boolean} [by_nexthere=false]
+ * @param {((obj: object) => boolean)|null} [filterfunc]
  */
-export function sortloot(olist, mode, by_nexthere = false) {
+export function sortloot(olist, mode, by_nexthere = false, filterfunc = null) {
     const items = [];
     let i = 0;
+    const consider = (o) => {
+        if (!o) return;
+        if (filterfunc && !filterfunc(o)) return;
+        items.push({
+            obj: o, indx: i++, orderclass: 0, subclass: 0, disco: 0,
+            inuse: 0, str: null,
+        });
+    };
     if (Array.isArray(olist)) {
-        for (const o of olist) {
-            if (!o) continue;
-            items.push({
-                obj: o, indx: i++, orderclass: 0, subclass: 0, disco: 0,
-                str: null,
-            });
-        }
+        for (const o of olist) consider(o);
     } else {
         for (let o = olist; o; o = by_nexthere ? o.nexthere : o.nobj) {
-            items.push({
-                obj: o, indx: i++, orderclass: 0, subclass: 0, disco: 0,
-                str: null,
-            });
+            consider(o);
         }
     }
     if (!mode || items.length <= 1) return items;
@@ -346,6 +469,15 @@ export function sortloot(olist, mode, by_nexthere = false) {
     items.sort((sli1, sli2) => {
         const obj1 = sli1.obj;
         const obj2 = sli2.obj;
+        // C sortloot_cmp: in-use takes precedence over all others
+        if ((mode & SORTLOOT_INUSE) !== 0) {
+            if (!sli1.orderclass) inuse_classify(sli1, obj1);
+            if (!sli2.orderclass) inuse_classify(sli2, obj2);
+            if (sli1.inuse !== sli2.inuse) {
+                return sli2.inuse - sli1.inuse;
+            }
+            return sli1.indx - sli2.indx;
+        }
         // C: order by class unless SORTLOOT_INVLET alone
         if ((mode & (SORTLOOT_PACK | SORTLOOT_INVLET)) !== SORTLOOT_INVLET) {
             if (!sli1.orderclass) {
@@ -1151,6 +1283,70 @@ export function force_invmenu_special(lets, allowxtra, usextra) {
 }
 
 /**
+ * C invent.c display_pickinv inuse_only `:3186–3317`.
+ * sortloot(SORTLOOT_INUSE, is_inuse); fake '-' W_WEP when !uwep;
+ * "Inventory in use" then inuse_headers[orderclass].
+ * @param {string|null} lets
+ * @param {boolean} wizid
+ */
+function pickinv_build_inuse(lets, wizid) {
+    const allow = (!lets || lets === '*') ? null : new Set([...lets]);
+    const u = game.u || {};
+    const fake = !u.uwep ? {
+        _inuse_fake: true,
+        otyp: 0,
+        oclass: ILLOBJ_CLASS,
+        invlet: HANDS_SYM,
+        owornmask: W_WEP,
+        where: OBJ_INVENT,
+    } : null;
+    const inv = fake ? [fake, ...(game.invent || [])] : (game.invent || []);
+    let sorted = sortloot(inv, SORTLOOT_INUSE, false, is_inuse);
+    if (fake && sorted.length === 1 && sorted[0].obj === fake) {
+        sorted = [];
+    }
+    const entries = [];
+    const byLet = new Map();
+    const pickItems = [];
+    let inusecount = 0;
+    let prevorderclass = 0;
+    for (const srt of sorted) {
+        const otmp = srt.obj;
+        if (!otmp) continue;
+        if (allow && !allow.has(otmp.invlet)) continue;
+        if (!inusecount++) {
+            entries.push({ text: 'Inventory in use', attr: ATR_INVERSE });
+        }
+        if (srt.orderclass !== prevorderclass) {
+            const hdr = inuse_headers[srt.orderclass];
+            if (hdr) entries.push({ text: hdr, attr: ATR_INVERSE });
+            prevorderclass = srt.orderclass;
+        }
+        const letch = otmp.invlet || '?';
+        if (otmp._inuse_fake) {
+            const hands = makeplural(body_part_latebound(HAND));
+            const barehands = `${u.uarmg ? 'gloved' : 'bare'} ${hands} (no weapon)`;
+            byLet.set(letch, { _hands: true, _inuse_fake: true });
+            pickItems.push({ selector: letch, gselector: '' });
+            entries.push({
+                text: xprname(null, HANDS_SYM, false, 0, barehands),
+                attr: 0,
+            });
+            continue;
+        }
+        if (!Blind()) observe_object(otmp);
+        obj_glyph(otmp);
+        byLet.set(letch, otmp);
+        pickItems.push({
+            selector: letch,
+            gselector: pickinv_item_gacc(otmp, wizid),
+        });
+        entries.push({ text: xprname(otmp), attr: 0 });
+    }
+    return { entries, byLet, pickItems };
+}
+
+/**
  * C ref: invent.c display_pickinv(lets, …, want_reply=TRUE, out_cnt) subset
  * for getobj `?`/`*`. Shows invent filtered to `lets` (or all when lets
  * null/'*'), PICK_ONE by invlet; ESC cancels; Space next page or null on
@@ -1171,13 +1367,14 @@ export function force_invmenu_special(lets, allowxtra, usextra) {
  * Group accelerators (D-1580): collect_menu_gacc + `'0'` BALL_CLASS
  * `menu_digit_is_gacc`. getobj want_reply is non-wizid so item gacc
  * is 0 like C `:3323–3325`.
- * Named omissions: sortloot inuse_only; wizid unid_cnt>0 PICK_ANY;
- * menu_requested n==1 skip (flag read; prefix `m` still named);
+ * SORTLOOT_INUSE when flags.sortloot=='i' (dispinv_with_action): is_inuse
+ * filter, inuse_headers, optional fake HANDS_SYM W_WEP (D-1589).
+ * Named omissions: wizid unid_cnt>0 PICK_ANY;
  * MENU_PREV/FIRST/LAST. putmsghistory is D-1588.
  * @param {string|null} lets
  * @param {{ n: number }|null} [out_cnt]
  * @param {{ choice: string, allow: boolean }|null} [xtra] C xtra_choice + allowxtra
- * @param {{ query?: string|null, allowxtra?: boolean }|null} [opts]
+ * @param {{ query?: string|null, allowxtra?: boolean, want_reply?: boolean }|null} [opts]
  * @returns {string|null} selected invlet, or null if cancelled / no pick
  */
 export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, opts = null) {
@@ -1185,6 +1382,8 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
     const inv = game.invent || [];
     const usextra = !!(xtra?.choice && xtra?.allow);
     const allowxtra = !!(opts?.allowxtra ?? xtra?.allow);
+    const want_reply = opts?.want_reply !== false;
+    const inuse_only = game.flags?.sortloot === 'i';
 
     // C: n = lets ? strlen(lets) : invent 0/1/2+; then
     // if (usextra || (n==1 && (!lets || wizid))) ++n — so bare invent
@@ -1225,10 +1424,10 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
             await pline('Not carrying anything appropriate.');
             return null;
         }
-        // C: message_menu(otmp->invlet, PICK_ONE, xprname(..., lets[0], TRUE))
+        // C: message_menu(otmp->invlet, want_reply ? PICK_ONE : PICK_NONE, …)
         return await message_menu(
             otmp.invlet,
-            PICK_ONE,
+            want_reply ? PICK_ONE : PICK_NONE,
             xprname(otmp, want, true),
         );
     }
@@ -1253,30 +1452,37 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
             attr: 0,
         });
     }
-    for (const oclass of DEF_INV_ORDER) {
-        const items = inv.filter((o) => {
-            if (o.oclass !== oclass) return false;
-            if (!allow) return true;
-            return allow.has(o.invlet);
-        });
-        if (!items.length) continue;
-        entries.push({
-            text: let_to_name(oclass, false, withsym),
-            attr: ATR_INVERSE,
-        });
-        for (const otmp of items) {
-            // Prop Blind — sticky u.Blind misses FROMFORM molds (D-0928 #1186).
-            if (!Blind()) observe_object(otmp);
-            // C: invent.c display_pickinv — obj_to_glyph(otmp, rn2_on_display_rng)
-            // then map_glyphinfo + add_menu (Hallu display-RNG burn).
-            obj_glyph(otmp);
-            const letch = otmp.invlet || '?';
-            byLet.set(letch, otmp);
-            pickItems.push({
-                selector: letch,
-                gselector: pickinv_item_gacc(otmp, wizid),
+    if (inuse_only) {
+        const built = pickinv_build_inuse(lets, wizid);
+        entries.push(...built.entries);
+        for (const [k, v] of built.byLet) byLet.set(k, v);
+        pickItems.push(...built.pickItems);
+    } else {
+        for (const oclass of DEF_INV_ORDER) {
+            const items = inv.filter((o) => {
+                if (o.oclass !== oclass) return false;
+                if (!allow) return true;
+                return allow.has(o.invlet);
             });
-            entries.push({ text: xprname(otmp), attr: 0 });
+            if (!items.length) continue;
+            entries.push({
+                text: let_to_name(oclass, false, withsym),
+                attr: ATR_INVERSE,
+            });
+            for (const otmp of items) {
+                // Prop Blind — sticky u.Blind misses FROMFORM molds (D-0928 #1186).
+                if (!Blind()) observe_object(otmp);
+                // C: invent.c display_pickinv — obj_to_glyph(otmp, rn2_on_display_rng)
+                // then map_glyphinfo + add_menu (Hallu display-RNG burn).
+                obj_glyph(otmp);
+                const letch = otmp.invlet || '?';
+                byLet.set(letch, otmp);
+                pickItems.push({
+                    selector: letch,
+                    gselector: pickinv_item_gacc(otmp, wizid),
+                });
+                entries.push({ text: xprname(otmp), attr: 0 });
+            }
         }
     }
     // C display_pickinv `:3345–3366` — after class items, before end_menu
@@ -3431,8 +3637,7 @@ export async function prinv(prefix, obj, quan = 0) {
 
 /**
  * C ref: invent.c doprwep / #seeweapon / ')'.
- * Named omissions: menu_requested → dispinv_with_action(lets) for
- * uwep/uswapwep/uquiver (falls through to prinv until that lands).
+ * !menu_requested → prinv; m-prefix → dispinv_with_action inuse.
  */
 export async function doprwep() {
     const u = game.u || {};
@@ -3441,16 +3646,18 @@ export async function doprwep() {
         await pline(`You are ${empty_handed()}.`);
         return ECMD_OK;
     }
-    if (game.iflags?.menu_requested) {
-        // dispinv_with_action deferred — clear sticky m-prefix
-        game.iflags.menu_requested = false;
+    if (!game.iflags?.menu_requested) {
+        await prinv(null, u.uwep, 0);
+        if (u.twoweap) {
+            await prinv(null, u.uswapwep, 0);
+        }
+        return ECMD_OK;
     }
-    // C: prinv(NULL, uwep, 0L); if (twoweap) prinv(uswapwep)
-    await prinv(null, u.uwep, 0);
-    if (u.twoweap) {
-        await prinv(null, u.uswapwep, 0);
-    }
-    return ECMD_OK;
+    let lets = u.uwep.invlet || '';
+    if (u.uswapwep?.invlet) lets += u.uswapwep.invlet;
+    if (u.uquiver?.invlet) lets += u.uquiver.invlet;
+    const { dispinv_with_action } = await import('./iactions.js');
+    return await dispinv_with_action(lets, true, null);
 }
 
 /** C ref: invent.c wearing_armor */
@@ -3475,9 +3682,8 @@ async function noarmor(report_uskin) {
 
 /**
  * C ref: invent.c doprarm / #seearmor / '['.
- * Single worn piece → display_pickinv n==1 → tty_message_menu(PICK_NONE)
- * → pline(xprname(..., TRUE)). Multi-piece / menu_requested →
- * dispinv_with_action menu deferred (sequential prinv interim).
+ * Always dispinv_with_action(lets, TRUE): n==1 !menu → message_menu
+ * PICK_NONE; else inuse menu (D-1589).
  */
 export async function doprarm() {
     const u = game.u || {};
@@ -3486,30 +3692,21 @@ export async function doprarm() {
         return ECMD_OK;
     }
     // C SORTPACK_INUSE slot order for lets[]
-    const pieces = [];
-    if (u.uarm) pieces.push(u.uarm);
-    if (u.uarmc) pieces.push(u.uarmc);
-    if (u.uarms) pieces.push(u.uarms);
-    if (u.uarmh) pieces.push(u.uarmh);
-    if (u.uarmg) pieces.push(u.uarmg);
-    if (u.uarmf) pieces.push(u.uarmf);
-    if (u.uarmu) pieces.push(u.uarmu);
-
-    if (game.iflags?.menu_requested) {
-        // dispinv_with_action menu deferred — clear sticky m-prefix
-        game.iflags.menu_requested = false;
-    }
-    // len==1 && !menu → message_menu PICK_NONE; else menu (deferred)
-    for (const otmp of pieces) {
-        await pline(xprname(otmp, undefined, true));
-    }
-    return ECMD_OK;
+    let lets = '';
+    if (u.uarm?.invlet) lets += u.uarm.invlet;
+    if (u.uarmc?.invlet) lets += u.uarmc.invlet;
+    if (u.uarms?.invlet) lets += u.uarms.invlet;
+    if (u.uarmh?.invlet) lets += u.uarmh.invlet;
+    if (u.uarmg?.invlet) lets += u.uarmg.invlet;
+    if (u.uarmf?.invlet) lets += u.uarmf.invlet;
+    if (u.uarmu?.invlet) lets += u.uarmu.invlet;
+    const { dispinv_with_action } = await import('./iactions.js');
+    return await dispinv_with_action(lets, true, null);
 }
 
 /**
  * C ref: invent.c doprring / #seerings / '='.
- * Empty → "not wearing any rings."; worn → dispinv path (single-item
- * pline; multi/menu deferred). Meat-ring / Ring header label deferred.
+ * Meat-ring / two rings / menu_requested → inuse "Ring"/"Rings".
  */
 export async function doprring() {
     const u = game.u || {};
@@ -3517,22 +3714,29 @@ export async function doprring() {
         await pline('You are not wearing any rings.');
         return ECMD_OK;
     }
-    const pieces = [];
-    // C: uright then uleft for lets[]
-    if (u.uright) pieces.push(u.uright);
-    if (u.uleft) pieces.push(u.uleft);
-    if (game.iflags?.menu_requested) {
-        game.iflags.menu_requested = false;
+    let lets = '';
+    let use_inuse_mode = false;
+    let ct = 0;
+    if (u.uright) {
+        lets += u.uright.invlet || '';
+        ct++;
+        if (u.uright.oclass !== RING_CLASS) use_inuse_mode = true;
     }
-    for (const otmp of pieces) {
-        await pline(xprname(otmp, undefined, true));
+    if (u.uleft) {
+        lets += u.uleft.invlet || '';
+        ct++;
+        if (u.uleft.oclass !== RING_CLASS) use_inuse_mode = true;
     }
-    return ECMD_OK;
+    if (ct > 1 || game.iflags?.menu_requested) use_inuse_mode = true;
+    const { dispinv_with_action } = await import('./iactions.js');
+    return await dispinv_with_action(
+        lets, use_inuse_mode, ct === 1 ? 'Ring' : 'Rings',
+    );
 }
 
 /**
  * C ref: invent.c dopramulet / #seeamulet / '"'.
- * Named omit: menu_requested / Amulet header via dispinv_with_action.
+ * dispinv_with_action(lets, TRUE, "Amulet").
  */
 export async function dopramulet() {
     const u = game.u || {};
@@ -3540,42 +3744,49 @@ export async function dopramulet() {
         await pline('You are not wearing an amulet.');
         return ECMD_OK;
     }
-    if (game.iflags?.menu_requested) {
-        game.iflags.menu_requested = false;
-    }
-    await pline(xprname(u.uamul, undefined, true));
-    return ECMD_OK;
-}
-
-/** C ref: invent.c tool_being_used */
-function tool_being_used(obj) {
-    if (((obj.owornmask || 0) & (W_TOOL | W_SADDLE)) !== 0) return true;
-    if (obj.oclass !== TOOL_CLASS) return false;
-    const LEASH = objectNames.indexOf('LEASH');
-    return obj === game.u?.uwep || !!obj.lamplit
-        || (obj.otyp === LEASH && !!obj.leashmon);
+    const lets = u.uamul.invlet || '';
+    const { dispinv_with_action } = await import('./iactions.js');
+    return await dispinv_with_action(lets, true, 'Amulet');
 }
 
 /**
  * C ref: invent.c doprtool / #seetools / '('.
- * Named omit: multi-tool dispinv_with_action menu.
+ * tool_being_used letters → dispinv_with_action inuse.
  */
 export async function doprtool() {
-    const pieces = [];
+    const invlet_basic = 52;
+    let lets = '';
     for (const otmp of game.invent || []) {
-        if (tool_being_used(otmp)) pieces.push(otmp);
+        if (!tool_being_used(otmp)) continue;
+        if (lets.length >= invlet_basic) break;
+        if (otmp.invlet) lets += otmp.invlet;
     }
-    if (!pieces.length) {
+    if (!lets) {
         await pline('You are not using any tools.');
         return ECMD_OK;
     }
-    if (game.iflags?.menu_requested) {
-        game.iflags.menu_requested = false;
+    const { dispinv_with_action } = await import('./iactions.js');
+    return await dispinv_with_action(lets, true, null);
+}
+
+/**
+ * C ref: invent.c doprinuse / #seeall / '*'.
+ * Any is_inuse → dispinv_with_action(NULL, TRUE); else You() not wearing.
+ */
+export async function doprinuse() {
+    let ct = 0;
+    for (const otmp of game.invent || []) {
+        if (is_inuse(otmp)) {
+            ct++;
+            break;
+        }
     }
-    for (const otmp of pieces) {
-        await pline(xprname(otmp, undefined, true));
+    if (!ct) {
+        await pline('You are not wearing or wielding anything.');
+        return ECMD_OK;
     }
-    return ECMD_OK;
+    const { dispinv_with_action } = await import('./iactions.js');
+    return await dispinv_with_action(null, true, null);
 }
 
 /**

@@ -4,6 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1589 — invent.c sortloot SORTLOOT_INUSE / display_pickinv inuse_only
+
+- **Status:** fixed (map-driven Open from D-1588; not a public FAIL)
+- **Symptom:** `sortloot` ignored SORTLOOT_INUSE / `inuse_classify`;
+  `display_pickinv` never set `inuse_only`; `)`/`[`/`=`/`"`/`(`/`*`
+  used sequential `prinv` instead of `dispinv_with_action`.
+- **C locus:** `invent.c` `inuse_classify` `:70–144`; `sortloot_cmp`
+  `:413–428` SORTLOOT_INUSE (bigger `inuse` first, then indx
+  tiebreak); `sortloot` `:592–643` optional `filterfunc`;
+  `display_pickinv` `:3186–3317` (`flags.sortloot=='i'` →
+  `SORTLOOT_INUSE` + `is_inuse` + fake HANDS_SYM `W_WEP` +
+  inuse_headers); `dispinv_with_action` `:2976–3002`
+  `flags.sortloot='i'`; `is_inuse` `:2164–2170`; `doprinuse`
+  `:4738–4757`; `doprwep`/`doprarm`/`doprring`/`dopramulet`/
+  `doprtool` `use_inuse_ordering`.
+- **JS was:** named omit after D-1580/D-1581/D-1588 (`sortloot` PACK/
+  INVLET/LOOT live; inuse_only named).
+- **Fix:** live `js/invent.js` `inuse_classify`/`is_inuse`/`is_worn`/
+  `sortloot` filter + INUSE cmp + `pickinv_build_inuse` +
+  `dopr*`/`doprinuse`; `js/iactions.js` `dispinv_with_action`
+  `sortloot='i'` + alt_label; `js/cmd.js` `*` seeall +
+  CMD_M_PREFIX keep for `)`/`[`/`=`/`"`/`(`/`*`. Rule #2: no fs.
+- **JS:** `js/invent.js`, `js/iactions.js`, `js/cmd.js`.
+- **Not this iter:** wizid unid_cnt>0 PICK_ANY; `display_used_invlets`;
+  SORTLOOT_PETRIFY; perm_invent InvInUse; `#seeall` EXT_CMDS;
+  uskin noarmor shorten; loot_classify subclass/disco.
+  putmsghistory is D-1588. gacc is D-1580.
+- **Verified:** inuse sort order unit (amulet 16 / wep 12 / quiver 10
+  / suit 9; junk filtered); green+strict seed8000/0900;
+  cohort **7**/7 + strict
+  (seed1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1588 — invent.c getobj putmsghistory / topl.c tty_putmsghistory
 
 - **Status:** fixed (map-driven Open from D-1587; not a public FAIL)

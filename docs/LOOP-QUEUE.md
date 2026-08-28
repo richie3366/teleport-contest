@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` sortloot inuse_only (named). Not gacc.
 - [ ] `invent.c` wizid unid_cnt>0 PICK_ANY (named). Not gacc.
 - [ ] `invent.c` `display_used_invlets` (named). Not gacc.
 - [ ] `pickup.c` more_containers `n` (named). Not traditional_loot.

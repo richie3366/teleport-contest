@@ -8,21 +8,22 @@ Objective/score live in `CURRENT.md`.
 - **Suite 44/44** after D-1584 audit `05c69d9b` (Scr **11,405**/11,405
   RNG **792,838**/792,838 = 100%; `38+0.30/turn`). seed0367 FULL.
   seed4500 still PASS (D-1574 `1ba35e31` was FAIL).
-  **Hypothesis:** Open `invent.c` sortloot inuse_only is the next named
-  omit (not gacc D-1580; not putmsghistory D-1588).
-  **Falsify:** port sortloot inuse_only then green + cohort; no FAIL peel.
-  **Next:** Open sortloot inuse_only. Not wizid unid_cnt>0.
-  Do not skip D-1531…D-1588. No FORCE / `wildmiss` wrap / trailing
+  **Hypothesis:** Open `invent.c` wizid unid_cnt>0 PICK_ANY is the next
+  named omit (not gacc D-1580; not sortloot inuse_only D-1589).
+  **Falsify:** port wizid unid_cnt>0 PICK_ANY then green + cohort; no
+  FAIL peel.
+  **Next:** Open wizid unid_cnt>0. Not `display_used_invlets`.
+  Do not skip D-1531…D-1589. No FORCE / `wildmiss` wrap / trailing
   `confdir` in shared `getdir`.
 - Named still: ustuck expels/unstuck; `initedog` `has_edog`; sit/pray
   `eyecount`; Palantir `#if 0`; pit/underwater vision;
-  more_containers `n`; sortloot inuse_only;
-  wizid unid_cnt>0; `display_used_invlets`. `m_unleash` / ustuck /
-  break-armor / Elbereth `monflee`. `has_mcorpsenm`.
-  show_transient_light. clone auto-open yn.
+  more_containers `n`; wizid unid_cnt>0; `display_used_invlets`.
+  `m_unleash` / ustuck / break-armor / Elbereth `monflee`.
+  `has_mcorpsenm`. show_transient_light. clone auto-open yn.
   ggetobj takeoff/identify askchain. floor pickup `query_classes`.
   `create_mplayers`. potion/timeout/polyself `set_mimic_blocking`.
   `tty_doprev_message` / restore_msghistory / get_count historicmsg.
+  SORTLOOT_PETRIFY; perm_invent InvInUse; `#seeall` EXT_CMDS.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +33,7 @@ Objective/score live in `CURRENT.md`.
   D-1582. Do not skip ParanoidTrap portal yn (D-1187) /
   `domagicportal` / `undestroyable_trap` / `mktrap` dst /
   `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1588.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1589.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +44,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1588 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1589 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1588. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1589. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -64,19 +65,26 @@ Objective/score live in `CURRENT.md`.
   D-1582. nv_range circle is D-1583. `mk_mplayer` is D-1584
   (`create_mplayers` named; `mimic_light_blocking` is D-1587).
   putmsghistory is D-1588; do not glue `tty_doprev_message` /
-  restore_msghistory / get_count historicmsg. D-1558…D-1588 live
-  in the index. Do not re-port `dig_point` leftover-`i` or
-  `newcham` Protection cancel. Do not skip MAIL `mk_gen_ok`.
-  Do not add `ing_suffix` clone #3 (hacklib export is the C home).
-  FULL_MOON S_DOG is D-1585; do not glue ustuck / has_edog.
-  `Tobjnam` lives in `objnam.js` (do not write clone #8).
-  NC_SHOW_MSG is D-1586; do not add `upstart` clone #9 (hacklib
-  export). Do not glue `m_unleash` / ustuck / break-armor /
-  Elbereth `monflee`. `mimic_light_blocking` is D-1587;
-  potion/timeout/polyself callers still named.
+  restore_msghistory / get_count historicmsg. sortloot inuse_only
+  is D-1589; do not glue wizid unid_cnt>0 / `display_used_invlets`
+  / SORTLOOT_PETRIFY. D-1558…D-1589 live in the index. Do not
+  re-port `dig_point` leftover-`i` or `newcham` Protection cancel.
+  Do not skip MAIL `mk_gen_ok`. Do not add `ing_suffix` clone #3
+  (hacklib export is the C home). FULL_MOON S_DOG is D-1585; do not
+  glue ustuck / has_edog. `Tobjnam` lives in `objnam.js` (do not
+  write clone #8). NC_SHOW_MSG is D-1586; do not add `upstart`
+  clone #9 (hacklib export). Do not glue `m_unleash` / ustuck /
+  break-armor / Elbereth `monflee`. `mimic_light_blocking` is
+  D-1587; potion/timeout/polyself callers still named.
 
 ## Landmarks (≤15)
 
+- D-1589: `invent.c` sortloot SORTLOOT_INUSE `inuse_classify` +
+  `display_pickinv` `is_inuse` filter / fake HANDS_SYM W_WEP /
+  inuse_headers; `dispinv_with_action` `sortloot='i'`; `doprinuse`
+  `*`; CMD_M_PREFIX `)`/`[`/`=`/`"`/`(`/`*`. wizid unid_cnt>0 /
+  `display_used_invlets` / SORTLOOT_PETRIFY named. putmsghistory
+  is D-1588.
 - D-1588: `invent.c` getobj `putmsghistory(qbuf,FALSE)` once
   (`msggiven`) under force_invmenu; `topl.c` `tty_putmsghistory`
   NEED_MORE→NON_EMPTY + `remember_topl` + dumplogmsg. getobj_adjust
@@ -122,5 +130,3 @@ Objective/score live in `CURRENT.md`.
   `remove_region`/`expire_gas_cloud` `unblock_point`. seed4500 recovered.
 - D-1575: `mk_gen_ok` MAIL_DAEMON + `ndemon` `mkclass_aligned`;
   `msummon` is_lminion/`llord`/PM_ANGEL `ndemon`.
-- D-1574: `unblock_point` + `dig_point` + C `recalc` + `seemimic`
-  capture-then-unblock. `has_mcorpsenm` named.
