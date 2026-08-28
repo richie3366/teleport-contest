@@ -13,6 +13,7 @@
 // D-0856: display_pickinv / invent_lines obj_to_glyph Hallu display RNG.
 // D-1578: force_invmenu Special `*`/`?` + getobj redo_menu / oneloop.
 // D-1579: getobj mime_action on typed '-' when !allownone.
+// D-1580: pickinv gacc collect + BALL `'0'` vs count; def_oc_syms.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -41,6 +42,9 @@ import {
     BALL_CLASS,
     CHAIN_CLASS,
     VENOM_CLASS,
+    ILLOBJ_CLASS,
+    MAXOCLASSES,
+    def_oc_syms,
     objectNames,
     objectNameStrs,
     objectDescrs,
@@ -66,6 +70,8 @@ import {
     SORTLOOT_INVLET,
     PICK_ONE,
     PICK_NONE,
+    PICK_ANY,
+    CONTAINED_SYM,
     MINV_ALL,
     MINV_NOLET,
     engulfing_u,
@@ -353,8 +359,9 @@ export const DEF_INV_ORDER = [
     TOOL_CLASS, GEM_CLASS, ROCK_CLASS, BALL_CLASS, CHAIN_CLASS,
 ];
 
-// C ref: invent.c let_to_name names[]
+// C invent.c let_to_name names[] (`:4789–4793`) — index is oclass
 const CLASS_NAMES = {
+    [ILLOBJ_CLASS]: 'Illegal objects',
     [WEAPON_CLASS]: 'Weapons',
     [ARMOR_CLASS]: 'Armor',
     [RING_CLASS]: 'Rings',
@@ -373,17 +380,113 @@ const CLASS_NAMES = {
     [VENOM_CLASS]: 'Venoms',
 };
 
+/** C invent.c oth_symbols / oth_names (`:4794–4795`). */
+const OTH_NAMES = { [CONTAINED_SYM]: 'Bagged/Boxed items' };
+
 /**
- * C ref: invent.c let_to_name — class heading for INVORDER_SORT menus.
- * Named omissions: unpaid prefix; showsym "  ('%c')" padding; CONTAINED_SYM;
- * Illegal objects. Venoms via CLASS_NAMES[VENOM_CLASS] (D-0928 #1142).
+ * C invent.c let_to_name `:4799–4839`.
+ * `let` in 1..MAXOCLASSES-1 is an oclass (flags.inv_order bytes).
+ * showsym → pad to 8 then `"  ('%c')"` via def_oc_syms (BALL `'0'`).
+ * Named omit: unpaid shop prefix callers still rare; gi.invbuf realloc.
  */
-export function let_to_name(letch, unpaid = false, _showsym = false) {
-    const name = CLASS_NAMES[letch] || 'Items';
-    return unpaid ? `Unpaid ${name}` : name;
+export function let_to_name(letch, unpaid = false, showsym = false) {
+    const letv = typeof letch === 'string' ? letch.charCodeAt(0) : (letch | 0);
+    const oclass = (letv >= 1 && letv < MAXOCLASSES) ? letv : 0;
+    let class_name;
+    if (oclass) {
+        class_name = CLASS_NAMES[oclass] || CLASS_NAMES[ILLOBJ_CLASS];
+    } else {
+        const ch = typeof letch === 'string' ? letch : String.fromCharCode(letv);
+        class_name = OTH_NAMES[ch] || CLASS_NAMES[ILLOBJ_CLASS];
+    }
+    let invbuf = unpaid ? `Unpaid ${class_name}` : class_name;
+    if (oclass !== 0 && showsym) {
+        const invbuf_sympadding = 8;
+        let mlen = invbuf_sympadding - class_name.length;
+        let pad = '';
+        while (--mlen > 0) pad += ' ';
+        const ocsym = def_oc_syms[oclass]?.sym || '\0';
+        invbuf += `${pad}  ('${ocsym}')`;
+    }
+    return invbuf;
 }
 
 const GOLD_SYM = '$';
+
+/**
+ * C invent.c display_pickinv `:3323–3325` — add_menu group accelerator.
+ * Non-wizid want_reply (getobj) passes 0; wizid uses def_oc_syms[oclass].sym
+ * including BALL `'0'`.
+ * @param {object|null} otmp
+ * @param {boolean} wizid C `wizard && iflags.override_ID`
+ * @returns {string} one char, or '' for none
+ */
+export function pickinv_item_gacc(otmp, wizid) {
+    if (!wizid || !otmp) return '';
+    const oc = otmp.oclass | 0;
+    const sym = def_oc_syms[oc]?.sym;
+    return (sym && sym !== '\0') ? sym : '';
+}
+
+/**
+ * C wintty.c process_menu_window `:1352–1379` — collect gacc[].
+ * PICK_NONE → empty. PICK_ONE: only gselectors that match exactly one
+ * entry (gselector != selector). PICK_ANY: any distinct gselector.
+ * GOLD_SYM `'$'` may equal selector; included only when n>0.
+ * @param {{ selector: string, gselector: string }[]} items
+ * @param {number} how PICK_NONE / PICK_ONE / PICK_ANY
+ * @returns {string}
+ */
+export function collect_menu_gacc(items, how) {
+    if (how === PICK_NONE || !items?.length) return '';
+    const gcnt = new Array(128).fill(0);
+    let n = 0;
+    for (const it of items) {
+        const g = it.gselector;
+        if (g && g !== it.selector) {
+            n++;
+            gcnt[g.charCodeAt(0) & 127]++;
+        }
+    }
+    if (n === 0) return '';
+    const gold = def_oc_syms[COIN_CLASS]?.sym || GOLD_SYM;
+    let gacc = '';
+    for (const it of items) {
+        const g = it.gselector;
+        if (!g) continue;
+        if (g !== it.selector || g === gold) {
+            if (!gacc.includes(g)
+                && (how === PICK_ANY || gcnt[g.charCodeAt(0) & 127] === 1)) {
+                gacc += g;
+            }
+        }
+    }
+    return gacc;
+}
+
+/**
+ * C wintty.c process_menu_window `'0'..'9'`: `'0'` is also BALL_CLASS.
+ * Group accel wins only when !counting && strchr(gacc, morc).
+ * @param {boolean} counting
+ * @param {string} gacc
+ * @param {string} ch
+ */
+export function menu_digit_is_gacc(counting, gacc, ch) {
+    return !counting && !!(gacc && ch && gacc.includes(ch));
+}
+
+/**
+ * C process_menu_window group_accel — unique PICK_ONE item's selector.
+ * @param {{ selector: string, gselector: string }[]} items
+ * @param {string} gacc
+ * @param {string} ch
+ * @returns {string|null}
+ */
+export function menu_take_gacc(items, gacc, ch) {
+    if (!ch || !gacc?.includes(ch)) return null;
+    const hit = items.find((it) => it.gselector === ch);
+    return hit ? hit.selector : null;
+}
 
 /**
  * C ref: objclass.h OBJ_DESCR(objects[otyp]) —
@@ -953,7 +1056,7 @@ export function invent_lines() {
     for (const oclass of DEF_INV_ORDER) {
         const items = inv.filter(o => o.oclass === oclass);
         if (!items.length) continue;
-        lines.push({ text: CLASS_NAMES[oclass] || 'Items', attr: headingAttr });
+        lines.push({ text: let_to_name(oclass, false, false), attr: headingAttr });
         for (const otmp of items) {
             // C ref: invent.c sortloot_item — observe_object before naming
             // Prop Blind — sticky u.Blind misses FROMFORM molds (D-0928 #1186).
@@ -1034,9 +1137,12 @@ export function force_invmenu_special(lets, allowxtra, usextra) {
  * force_invmenu want_reply: Special `*`/`?` (D-1578) + tty_end_menu
  * query (blank + prompt) when opts.query is set. redo_menu lives in
  * getobj_display_pickinv.
- * Named omissions: sortloot inuse_only; wizid; menu_requested n==1
- * skip (flag read; prefix `m` still named); putmsghistory; MENU_PREV/
- * FIRST/LAST; group accelerators (gacc / '0' ball class).
+ * Group accelerators (D-1580): collect_menu_gacc + `'0'` BALL_CLASS
+ * `menu_digit_is_gacc`. getobj want_reply is non-wizid so item gacc
+ * is 0 like C `:3323–3325`.
+ * Named omissions: sortloot inuse_only; wizid unid_cnt>0 PICK_ANY;
+ * menu_requested n==1 skip (flag read; prefix `m` still named);
+ * putmsghistory; MENU_PREV/FIRST/LAST.
  * @param {string|null} lets
  * @param {{ n: number }|null} [out_cnt]
  * @param {{ choice: string, allow: boolean }|null} [xtra] C xtra_choice + allowxtra
@@ -1099,12 +1205,18 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
     const allow = allowAll ? null : new Set([...lets]);
     const entries = [];
     const byLet = new Map();
+    /** @type {{ selector: string, gselector: string }[]} */
+    const pickItems = [];
+    // C display_pickinv wizid = wizard && override_ID; getobj path is 0
+    const wizid = false;
+    const withsym = !!(game.iflags?.menu_head_objsym);
     if (usextra) {
         // C display_pickinv :3253–3260 — wizard ID and xtra_choice exclusive
         if (game.flags?.sortpack !== false) {
             entries.push({ text: 'Miscellaneous', attr: ATR_INVERSE });
         }
         byLet.set(HANDS_SYM, { _hands: true });
+        pickItems.push({ selector: HANDS_SYM, gselector: '' });
         entries.push({
             text: xprname(null, HANDS_SYM, false, 0, xtra.choice),
             attr: 0,
@@ -1117,7 +1229,10 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
             return allow.has(o.invlet);
         });
         if (!items.length) continue;
-        entries.push({ text: CLASS_NAMES[oclass] || 'Items', attr: ATR_INVERSE });
+        entries.push({
+            text: let_to_name(oclass, false, withsym),
+            attr: ATR_INVERSE,
+        });
         for (const otmp of items) {
             // Prop Blind — sticky u.Blind misses FROMFORM molds (D-0928 #1186).
             if (!Blind()) observe_object(otmp);
@@ -1126,6 +1241,10 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
             obj_glyph(otmp);
             const letch = otmp.invlet || '?';
             byLet.set(letch, otmp);
+            pickItems.push({
+                selector: letch,
+                gselector: pickinv_item_gacc(otmp, wizid),
+            });
             entries.push({ text: xprname(otmp), attr: 0 });
         }
     }
@@ -1134,6 +1253,7 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
     if (special) {
         entries.push({ text: 'Special', attr: ATR_INVERSE });
         byLet.set(special.ch, { _special: special.ch });
+        pickItems.push({ selector: special.ch, gselector: '' });
         entries.push({
             text: `${special.ch} - ${special.text}`,
             attr: 0,
@@ -1143,6 +1263,7 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
         await pline('Not carrying anything appropriate.');
         return null;
     }
+    const gacc = collect_menu_gacc(pickItems, PICK_ONE);
 
     // C wintty.c tty_end_menu `:2680–2690` — reverse then prepend blank
     // + prompt (non-selectable). Query is getobj menuquery when
@@ -1197,8 +1318,17 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
         await flush_screen(1);
         const key = await nhgetch();
 
-        // C process_menu_window '0'..'9': AppendLongDigit; leading 0 ignored
+        // C process_menu_window '0'..'9': ball class gacc before count
         if (key >= 48 && key <= 57) {
+            const dch = String.fromCharCode(key);
+            if (menu_digit_is_gacc(counting, gacc, dch)) {
+                const gsel = menu_take_gacc(pickItems, gacc, dch);
+                if (gsel) {
+                    if (out_cnt) out_cnt.n = -1;
+                    await dismiss_nhw_menu();
+                    return gsel;
+                }
+            }
             const dgt = key - 48;
             const next = append_long_digit(count, dgt);
             if (next < 0) continue; // overflow → reset_count stays True
@@ -1236,6 +1366,13 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
                 out_cnt.n = (counting && count > 0) ? count : -1;
             }
         };
+        // C: gacc before page selectors (group_accel, not only current page)
+        const gsel = menu_take_gacc(pickItems, gacc, ch);
+        if (gsel) {
+            take();
+            await dismiss_nhw_menu();
+            return gsel;
+        }
         // C: only current-page selectors are in resp (PICK_ONE)
         if (npages > 1) {
             const onPage = page.some((e) => {
@@ -1261,8 +1398,9 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
  * Debug Identify title; unid_cnt==0 → "(all items are permanently identified
  * already)" then select_menu PICK_ANY (no selectors → dismiss).
  * Named omissions: unid_cnt>0 PICK_ANY ('_'/^I identify_pack, per-item
- * identify, sortpack class headers, def_oc_syms group accel,
- * MENU_ITEMFLAGS_SKIPINVERT); update_inventory nesting.
+ * identify, sortpack class headers, MENU_ITEMFLAGS_SKIPINVERT);
+ * update_inventory nesting. def_oc_syms gacc collect is D-1580
+ * (helpers live; this menu still PICK_NONE dismiss).
  */
 async function display_pickinv_wizid() {
     const unid_cnt = count_unidentified(game.invent);
@@ -4319,8 +4457,8 @@ async function getobj_typed_hands(word, allownone, hands) {
  * EXCLUDE_NONINVENT / EXCLUDE_INACCESS). GETOBJ_PROMPT still prompts
  * `[*]` when suggested==0.
  * Named omit: in_doagain readchar (REPEAT cmdq live); putmsghistory;
- * sortloot body (invlet sort); call-Amulet silly_thing; gacc / `'0'`
- * ball class. mime_action is D-1579.
+ * sortloot body (invlet sort); call-Amulet silly_thing. mime_action
+ * is D-1579. gacc / `'0'` ball is D-1580 (non-wizid pickinv gacc 0).
  * @param {string} word
  * @param {(obj: object|null) => number} obj_ok
  * @param {number} ctrlflags

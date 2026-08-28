@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-28 — D-1580 invent.c gacc / BALL `'0'`
+
+**Objective:** Open `invent.c` gacc / `'0'` ball class (named).
+Not mime_action.
+**C locus:** `invent.c` `display_pickinv` `:3323–3325`;
+`let_to_name` `:4799–4839`; `drawing.c` `def_oc_syms`;
+`wintty.c` `process_menu_window` gacc collect + `'0'` vs count.
+**JS locus:** named omit after D-1579; digits always counted.
+**Change:** live `def_oc_syms` + collect/take gacc; getobj
+want_reply stays gacc 0. Rule #2: no fs.
+**Score:** fortress **44**/44 (not remeasured; port iter).
+**Verified:** canary **21**/21; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open traditional_loot askchain. Not `'r'` reversed.
+**Blocked:** none.
 ## 2026-08-28 — D-1579 invent.c mime_action
 
 **Objective:** Open `invent.c` mime_action (named). Not force_invmenu.

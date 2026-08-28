@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `invent.c` mime_action (named). Not force_invmenu. **Addressed:** D-1579
+- [x] `invent.c` gacc / `'0'` ball class (named). Not mime_action. **Addressed:** D-1580
+
+
+- [x] `invent.c` mime_action (named). Not force_invmenu. **Addressed:** D-1579 `51d877a8`
 
 
 - [x] `invent.c` force_invmenu `*`/`?` redo (named). Not hands/xtra. **Addressed:** D-1578 `c4019a30`

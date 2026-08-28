@@ -4,6 +4,35 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1580 — invent.c display_pickinv gacc / BALL `'0'`
+
+- **Status:** fixed (map-driven Open from D-1579; not a public FAIL)
+- **Symptom:** pickinv menus treated every digit as a count; C
+  collects group accelerators and, when `!counting`, `'0'` is the
+  BALL_CLASS class symbol rather than a leading-zero count.
+  Non-wizid `display_pickinv` still passes gacc 0 (getobj `?`/`*`).
+- **C locus:** `invent.c` `display_pickinv` `:3323–3325`
+  (`wizid ? def_oc_syms[oclass].sym : 0`). `let_to_name`
+  `:4799–4839` showsym `"  ('%c')"` via `def_oc_syms` (BALL `'0'`).
+  `drawing.c` `def_oc_syms`. Callee `wintty.c` `process_menu_window`
+  `:1352–1379` collect gacc (PICK_ONE unique; GOLD_SYM exception);
+  `:1555–1576` `'0'..'9'` `!counting && strchr(gacc)` → `group_accel`.
+- **JS was:** omit; digits always `AppendLongDigit`; `let_to_name`
+  ignored showsym; no `def_oc_syms`.
+- **Fix:** live `def_oc_syms`; `pickinv_item_gacc` / `collect_menu_gacc`
+  / `menu_digit_is_gacc` / `menu_take_gacc`; pickinv loop gacc before
+  count/selector; `let_to_name` showsym + CONTAINED_SYM / Illegal.
+  Getobj want_reply stays non-wizid gacc 0. Rule #2: no fs.
+- **JS:** `js/objects.js` `def_oc_syms`; `js/invent.js`.
+- **Not this iter:** wizid unid_cnt>0 PICK_ANY (helpers live, menu
+  still dismiss); putmsghistory; sortloot inuse_only;
+  display_used_invlets; MENU_PREV/FIRST/LAST. mime_action is D-1579.
+  force_invmenu redo is D-1578.
+- **Verified:** private canary **21**/21 (C gacc/`'0'` + unique vs
+  two-ball PICK_ONE + let_to_name showsym + non-wizid `'0'` is
+  count; Rule #2); green+strict seed8000/0900; cohort **7**/7 +
+  strict.
+
 ## D-1579 — invent.c mime_action
 
 - **Status:** fixed (map-driven Open from D-1578; not a public FAIL)
@@ -22,7 +51,7 @@ to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
   retired. Pickinv `'-'` still no mime. Rule #2: no fs.
 - **JS:** `js/invent.js` `mime_action`; `js/hacklib.js` `ing_suffix`;
   hack/uhitm/timeout import.
-- **Not this iter:** gacc / `'0'` ball class; putmsghistory;
+- **Not this iter:** gacc / `'0'` ball is D-1580; putmsghistory;
   clone auto-open yn; sortloot inuse_only; pickinv `'-'` when
   `!allownone` still null (C returns hands_obj). force_invmenu
   redo is D-1578. hands is D-1569.
