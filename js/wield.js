@@ -23,7 +23,7 @@ import {
 } from './const.js';
 import { retouch_object, set_artifact_intrinsic, is_art } from './artifact.js';
 import { ART_SNICKERSNEE } from './generated/artifacts_data.js';
-import { makeknown, encumber_msg, compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq } from './invent.js';
+import { makeknown, encumber_msg, compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv } from './invent.js';
 import { uncurse, weight } from './mkobj.js';
 import { trycall } from './do_name.js';
 
@@ -448,7 +448,8 @@ function wield_prompt_lets(raw) {
  * C ref: invent.c getobj("wield", wield_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
  * Hands GETOBJ_SUGGEST → buf prefix "- "; invent SUGGEST letters after;
  * compactify when suggested > 5. Count prefix + split_otmp live.
- * Canned CMDQ_INT/KEY live. finish_splitting / unsplitobj / ?/* named.
+ * Canned CMDQ_INT/KEY live. `?`/`*` → display_pickinv `&ctmp` (D-1559);
+ * hands/xtra_choice still named. finish_splitting / unsplitobj named.
  */
 async function getobj_wield() {
     const cq = getobj_from_cmdq(wield_ok, true, hands_obj);
@@ -484,9 +485,33 @@ async function getobj_wield() {
             return null; // hands
         }
         if (ch === '?' || ch === '*') {
-            // C display_pickinv(lets/altlets) deferred
-            await pline('Never mind.');
-            return undefined;
+            const ilet = await getobj_display_pickinv(ch, rawLets, true, counted);
+            if (ilet === '\x1b') {
+                if (game.flags?.verbose !== false) await pline('Never mind.');
+                return undefined;
+            }
+            if (!ilet) continue;
+            if (ilet === '-') {
+                game._pending_message = '';
+                return null;
+            }
+            const otmp = (game.invent || []).find((o) => o.invlet === ilet);
+            if (!otmp) {
+                await pline("You don't have that object.");
+                continue;
+            }
+            const ok = wield_ok(otmp);
+            if (ok === GETOBJ_EXCLUDE) {
+                await pline('You cannot wield that!');
+                return undefined;
+            }
+            const got = await getobj_apply_count(
+                otmp, 'wield', counted.cntgiven, counted.cnt,
+            );
+            if (!got) return undefined;
+            if (got.retry) continue;
+            game._pending_message = '';
+            return got;
         }
         const otmp = (game.invent || []).find((o) => o.invlet === ch);
         if (!otmp) {
@@ -590,7 +615,8 @@ function ready_suggest_lets() {
 /**
  * C ref: invent.c getobj(verb, ready_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
  * Count prefix + split_otmp live; '-' → hands_obj; DOWNPLAY letters still
- * accepted. Canned CMDQ_INT/KEY live. finish_splitting / unsplitobj /
+ * accepted. Canned CMDQ_INT/KEY live. `?`/`*` → display_pickinv `&ctmp`
+ * (D-1559); hands/xtra_choice still named. finish_splitting / unsplitobj /
  * coin partial named.
  */
 async function getobj_ready(verb) {
@@ -631,8 +657,33 @@ async function getobj_ready(verb) {
             return hands_obj;
         }
         if (ch === '?' || ch === '*') {
-            await pline('Never mind.');
-            return undefined;
+            const ilet = await getobj_display_pickinv(ch, lets, true, counted);
+            if (ilet === '\x1b') {
+                if (game.flags?.verbose !== false) await pline('Never mind.');
+                return undefined;
+            }
+            if (!ilet) continue;
+            if (ilet === '-') {
+                game._pending_message = '';
+                return hands_obj;
+            }
+            const otmp = (game.invent || []).find((o) => o.invlet === ilet);
+            if (!otmp) {
+                await pline("You don't have that object.");
+                continue;
+            }
+            const rank = ready_ok(otmp);
+            if (rank === GETOBJ_EXCLUDE) {
+                await pline(`You cannot ${verb} that!`);
+                return undefined;
+            }
+            const got = await getobj_apply_count(
+                otmp, verb, counted.cntgiven, counted.cnt,
+            );
+            if (!got) return undefined;
+            if (got.retry) continue;
+            game._pending_message = '';
+            return got;
         }
         const otmp = (game.invent || []).find((o) => o.invlet === ch);
         if (!otmp) {

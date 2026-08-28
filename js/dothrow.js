@@ -50,7 +50,7 @@ import {
     setuwep, setuswapwep, setuqwep, set_twoweap,
 } from './wield.js';
 import { acurr, acurrstr, A_CON, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
-import { calc_capacity, fully_identify_obj, encumber_msg, getobj_take_count, getobj_apply_count, getobj_from_cmdq } from './invent.js';
+import { calc_capacity, fully_identify_obj, encumber_msg, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv } from './invent.js';
 import { add_to_minv, mpickobj } from './makemon.js';
 import { finish_quest } from './quest.js';
 import { align_gname } from './roles.js';
@@ -297,8 +297,8 @@ function throwable_lets() {
 /**
  * C ref: invent.c getobj("throw", throw_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT).
  * Count prefix: gold may use a count; other stacks can only throw one
- * (C `:2028–2047`) then split_otmp. `?`/`*` → display_pickinv_reply.
- * Canned CMDQ_INT then KEY (need_more_cq) live; canned skip throw-one.
+ * (C `:2028–2047`) then split_otmp. `?`/`*` → display_pickinv `&ctmp`
+ * (D-1559). Canned CMDQ_INT then KEY (need_more_cq) live; canned skip throw-one.
  */
 async function getobj_throw() {
     const cq = getobj_from_cmdq(throw_ok, true);
@@ -326,8 +326,7 @@ async function getobj_throw() {
             return null;
         }
         if (ch === '?' || ch === '*') {
-            const { display_pickinv_reply } = await import('./invent.js');
-            const ilet = await display_pickinv_reply(ch === '*' ? '*' : lets);
+            const ilet = await getobj_display_pickinv(ch, lets, true, counted);
             if (ilet === '\x1b') {
                 if (game.flags?.verbose !== false) await pline('Never mind.');
                 return null;

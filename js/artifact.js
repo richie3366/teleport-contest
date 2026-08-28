@@ -77,7 +77,7 @@ import {
     flush_screen, flush_topl_more, pline, You_feel, newsym, see_monsters,
     set_sting_effects,
 } from './display.js';
-import { compactify_invlets, display_pickinv_reply, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq } from './invent.js';
+import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv } from './invent.js';
 import { xname, the, vtense, cxname, otense, set_undiscovered_artifact } from './objnam.js';
 import { recalc_telepat_range } from './do_wear.js';
 
@@ -953,7 +953,8 @@ async function getobj_invoke() {
 
 /** C invent.c getobj("charge", charge_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT).
  * SUGGEST in the prompt; DOWNPLAY/EXCLUDE_SELECTABLE selectable.
- * Count prefix + split_otmp live. Canned CMDQ_INT/KEY live. */
+ * Count prefix + split_otmp live. Canned CMDQ_INT/KEY live.
+ * `?`/`*` → display_pickinv `&ctmp` (D-1559). */
 async function getobj_charge() {
     const { charge_ok } = await import('./read.js');
     const cq = getobj_from_cmdq(charge_ok, true);
@@ -989,7 +990,9 @@ async function getobj_charge() {
         ch = counted.ch;
         if (ch.charCodeAt(0) === 27) return null;
         if (ch === '?' || ch === '*') {
-            const ilet = await display_pickinv_reply(ch === '*' ? '*' : (raw || '*'));
+            const ilet = await getobj_display_pickinv(
+                ch, raw || '*', true, counted,
+            );
             if (ilet === '\x1b') return null;
             if (!ilet) continue;
             const picked = (game.invent || []).find((o) => o.invlet === ilet);

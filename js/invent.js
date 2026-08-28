@@ -957,18 +957,39 @@ export function invent_lines() {
 }
 
 /**
- * C ref: invent.c display_pickinv(lets, …, want_reply=TRUE) subset for getobj `?`/`*`.
- * Shows invent filtered to `lets` (or all when lets null/'*'), PICK_ONE by
- * invlet; ESC cancels; Space next page or null on last; Return → null.
+ * C integer.h AppendLongDigit — overflow → -1 (menu counts stay small).
+ * @param {number} L
+ * @param {number} D
+ */
+function append_long_digit(L, D) {
+    const LONG_MAX = Number.MAX_SAFE_INTEGER;
+    const q = Math.trunc(LONG_MAX / 10);
+    const r = LONG_MAX - q * 10;
+    if (L < q || (L === q && D <= r)) return L * 10 + D;
+    return -1;
+}
+
+/**
+ * C ref: invent.c display_pickinv(lets, …, want_reply=TRUE, out_cnt) subset
+ * for getobj `?`/`*`. Shows invent filtered to `lets` (or all when lets
+ * null/'*'), PICK_ONE by invlet; ESC cancels; Space next page or null on
+ * last; Return → null.
  * Multi-page (nitems>lmax): fullscreen "(N of M)" like tty process_menu_window;
  * only current-page selectors accepted (C resp).
  * C n==1 && !force_invmenu && !menu_requested && lets set →
- * tty_message_menu(PICK_ONE) topline xprname+--More-- (not corner menu).
- * Named omissions: hands/xtra_choice; count; sortloot inuse_only; wizid;
- * force_invmenu / menu_requested menu path polish; MENU_PREV/FIRST/LAST.
+ * tty_message_menu(PICK_ONE) topline xprname+--More-- (not corner menu);
+ * `*out_cnt = -1` (select all).
+ * PICK_ONE digits: wintty.c process_menu_window count then
+ * selected[0].count (D-1559). `out_cnt` is C `long *` (`{ n }`); omitted
+ * when getobj !ALLOWCNT.
+ * Named omissions: hands/xtra_choice; sortloot inuse_only; wizid;
+ * force_invmenu / menu_requested `*`/`?` redo; MENU_PREV/FIRST/LAST;
+ * group accelerators (gacc / '0' ball class).
+ * @param {string|null} lets
+ * @param {{ n: number }|null} [out_cnt]
  * @returns {string|null} selected invlet, or null if cancelled / no pick
  */
-export async function display_pickinv_reply(lets) {
+export async function display_pickinv_reply(lets, out_cnt = null) {
     const allowAll = !lets || lets === '*';
     const inv = game.invent || [];
 
@@ -993,6 +1014,8 @@ export async function display_pickinv_reply(lets) {
         && !game.iflags?.force_invmenu
         && !game.iflags?.menu_requested
     ) {
+        // C: if (out_cnt) *out_cnt = -1L; /* select all */ after message_menu
+        if (out_cnt) out_cnt.n = -1;
         // C: first invent whose invlet == lets[0] (lets non-null here)
         const want = lets[0];
         const otmp = inv.find((o) => o && o.invlet === want);
@@ -1042,8 +1065,18 @@ export async function display_pickinv_reply(lets) {
     const lmax = Math.min(52, rows - 1);
     const npages = Math.max(1, Math.floor((entries.length + lmax - 1) / lmax));
     let curr_page = 0;
+    // C wintty.c process_menu_window: counting / count / reset_count
+    let counting = false;
+    let count = 0;
+    let reset_count = true;
 
     for (;;) {
+        if (reset_count) {
+            counting = false;
+            count = 0;
+        } else {
+            reset_count = true;
+        }
         const start = curr_page * lmax;
         const page = entries.slice(start, start + lmax);
         const morestr = npages > 1
@@ -1069,7 +1102,22 @@ export async function display_pickinv_reply(lets) {
         await flush_screen(1);
         const key = await nhgetch();
 
+        // C process_menu_window '0'..'9': AppendLongDigit; leading 0 ignored
+        if (key >= 48 && key <= 57) {
+            const dgt = key - 48;
+            const next = append_long_digit(count, dgt);
+            if (next < 0) continue; // overflow → reset_count stays True
+            count = next;
+            if (count !== 0) {
+                counting = true;
+                reset_count = false;
+            }
+            continue;
+        }
+
         if (key === 27) {
+            // C: counting → stop count only; else WIN_CANCELLED
+            if (counting) continue;
             await dismiss_nhw_menu();
             return '\x1b';
         }
@@ -1087,6 +1135,12 @@ export async function display_pickinv_reply(lets) {
             return null;
         }
         const ch = String.fromCharCode(key);
+        const take = () => {
+            // C tty_select_menu: mi->count = curr->count (-1 if !counting)
+            if (out_cnt) {
+                out_cnt.n = (counting && count > 0) ? count : -1;
+            }
+        };
         // C: only current-page selectors are in resp (PICK_ONE)
         if (npages > 1) {
             const onPage = page.some((e) => {
@@ -1094,10 +1148,12 @@ export async function display_pickinv_reply(lets) {
                 return t.length >= 3 && t[1] === ' ' && t[0] === ch;
             });
             if (onPage && byLet.has(ch)) {
+                take();
                 await dismiss_nhw_menu();
                 return ch;
             }
         } else if (byLet.has(ch)) {
+            take();
             await dismiss_nhw_menu();
             return ch;
         }
@@ -3888,9 +3944,47 @@ export function getobj_from_cmdq(obj_ok, allowcnt, hands) {
 }
 
 /**
+ * C invent.c getobj `:1996–1999` after display_pickinv.
+ * Menu `*out_cnt` overrides prompt digits when allowcnt && ctmp >= 0
+ * (0 is a given count; -1 from n==1 / no menu digits means select-all).
+ * @param {boolean} allowcnt
+ * @param {{ n: number }|null} ctmp
+ * @param {{ cnt: number, cntgiven: boolean }} counted
+ */
+export function getobj_pickinv_ctmp(allowcnt, ctmp, counted) {
+    if (allowcnt && ctmp && ctmp.n >= 0) {
+        counted.cnt = ctmp.n;
+        counted.cntgiven = true;
+    }
+    return counted;
+}
+
+/**
+ * C invent.c getobj redo_menu `?`/`*` `:1963–2001`.
+ * display_pickinv(lets or NULL, …, allowcnt ? &ctmp : NULL) then
+ * allowcnt && ctmp >= 0. force_invmenu `*`/`?` redo named.
+ * @param {string} ch '?' or '*'
+ * @param {string} rawLets non-compacted SUGGEST letters
+ * @param {boolean} allowcnt
+ * @param {{ cnt: number, cntgiven: boolean }} counted
+ * @returns {Promise<string|null>}
+ */
+export async function getobj_display_pickinv(ch, rawLets, allowcnt, counted) {
+    const ctmp = { n: 0 };
+    const ilet = await display_pickinv_reply(
+        ch === '*' ? '*' : (rawLets || '*'),
+        allowcnt ? ctmp : null,
+    );
+    if (ilet && ilet !== '\x1b' && ilet !== '*' && ilet !== '?') {
+        getobj_pickinv_ctmp(allowcnt, ctmp, counted);
+    }
+    return ilet;
+}
+
+/**
  * C invent.c getobj after the letter `:2021–2088` — gold LRS, throw-one,
  * "don't have that many", then split_otmp. CMDQ_REPEAT record /
- * silly_thing / pickinv `&ctmp` named.
+ * silly_thing named. pickinv `&ctmp` is getobj_display_pickinv (D-1559).
  * @returns {Promise<null | { retry: true } | object>}
  */
 export async function getobj_apply_count(otmp, word, cntgiven, cnt) {
@@ -3934,8 +4028,8 @@ function adjust_ok(obj) {
     return GETOBJ_SUGGEST;
 }
 
-/** Suggest letters for #adjust getobj (excludes gold). */
-function adjust_suggest_lets() {
+/** Non-compacted SUGGEST letters for #adjust (excludes gold). */
+function adjust_raw_lets() {
     const lets = [];
     for (const o of game.invent || []) {
         if (!o || o.oclass === COIN_CLASS || !o.invlet) continue;
@@ -3943,15 +4037,20 @@ function adjust_suggest_lets() {
     }
     // C getobj sortloot SORTLOOT_INVLET
     lets.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
-    let s = lets.join('');
-    if (lets.length > 5) s = compactify_invlets(s);
+    return lets.join('');
+}
+
+/** Suggest letters for #adjust getobj prompt (compactify when >5). */
+function adjust_suggest_lets() {
+    const s = adjust_raw_lets();
+    if (s.length > 5) return compactify_invlets(s);
     return s;
 }
 
 /**
  * C ref: invent.c getobj("adjust", adjust_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
  * Count prefix + split_otmp live. Canned CMDQ_INT/KEY live.
- * ?/* invent menus still deferred. doorganize_core nobj-unsplit named.
+ * `?`/`*` → display_pickinv `&ctmp` (D-1559). doorganize_core nobj-unsplit named.
  */
 async function getobj_adjust() {
     const cq = getobj_from_cmdq(adjust_ok, true);
@@ -3979,9 +4078,30 @@ async function getobj_adjust() {
             return null;
         }
         if (ch === '?' || ch === '*') {
-            // display_pickinv deferred
-            if (game.flags?.verbose !== false) await pline(Never_mind);
-            return null;
+            const ilet = await getobj_display_pickinv(
+                ch, adjust_raw_lets(), true, counted,
+            );
+            if (ilet === '\x1b') {
+                if (game.flags?.verbose !== false) await pline(Never_mind);
+                return null;
+            }
+            if (!ilet) continue;
+            const picked = (game.invent || []).find((o) => o.invlet === ilet);
+            if (!picked) {
+                await pline("You don't have that object.");
+                continue;
+            }
+            if (picked.oclass === COIN_CLASS) {
+                await pline('You cannot adjust gold.');
+                return null;
+            }
+            const got = await getobj_apply_count(
+                picked, 'adjust', counted.cntgiven, counted.cnt,
+            );
+            if (!got) return null;
+            if (got.retry) continue;
+            game._pending_message = '';
+            return got;
         }
         const otmp = (game.invent || []).find((o) => o.invlet === ch);
         if (!otmp) {

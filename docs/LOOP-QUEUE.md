@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` `display_pickinv` `&ctmp` menu count (named). Not CMDQ_INT.
 - [ ] `wield.c` `finish_splitting` / `unsplitobj` (named). Not CMDQ_INT.
 - [ ] `pickup.c` stash getobj ALLOWCNT (named). Not CMDQ_INT.
 - [ ] `vision.c` `howmonseen` (named). Not worm_known.

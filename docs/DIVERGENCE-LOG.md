@@ -4,6 +4,44 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here. Index: `DIVERGENCE-INDEX.md`.
 
+## D-1559 — invent.c display_pickinv &ctmp menu count
+
+- **Status:** fixed (map-driven Open from D-1558; not a public FAIL)
+- **Symptom:** `display_pickinv_reply` returned a letter only.
+  C `display_pickinv` writes `*out_cnt` from tty
+  `selected[0].count` (or `-1` on the n==1 `message_menu`
+  path). getobj then `if (allowcnt && ctmp >= 0) cnt=ctmp`.
+  Drop/wield/ready/adjust `?`/`*` still Never_mind. Named omit
+  after D-1551. Not CMDQ_INT.
+- **C locus:** `invent.c` `display_pickinv` `:3057–3417`
+  (`:3171–3172` n==1 `*out_cnt=-1`; `:3410–3411`
+  `selected[0].count`). Caller `getobj` `:1963–1999`
+  (`allowcnt ? &ctmp : NULL`). tty `wintty.c`
+  `process_menu_window` digits + `tty_select_menu` copies
+  `curr->count`.
+- **JS was:** pickinv letter-only; throw/charge ignored menu
+  count; drop/wield/ready/adjust cancelled `?`/`*`.
+- **Fix:** `out_cnt` on `display_pickinv_reply`; PICK_ONE digit
+  count (AppendLongDigit; ESC stops count only); n==1 writes
+  `-1`. `getobj_display_pickinv` applies `ctmp>=0`. Wire
+  ALLOWCNT throw/drop/wield/ready/charge/adjust. NOFLAGS
+  callers still pass null `out_cnt`. Rule #2: no fs.
+- **JS:** `js/invent.js`; `js/do.js`; `js/dothrow.js`;
+  `js/wield.js`; `js/artifact.js`.
+- **Not this iter:** hands/xtra_choice; force_invmenu `*`/`?`
+  redo; gacc; stash getobj ALLOWCNT; `finish_splitting` /
+  `unsplitobj`; `in_doagain` REPEAT record; eat/read/zap/tin
+  remain NOFLAGS. canned CMDQ_INT is D-1551.
+- **Verified:** private canary **20**/20 (C `&ctmp` /
+  `*out_cnt`; JS write; ctmp 5/-1/0; !allowcnt; menu `5a`;
+  n==1 ESC `-1`; ESC-while-count; split); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  1500/1800/0012/0004/0007/2200/0383.
+- **Follow-up:** Open `wield.c` `finish_splitting` /
+  `unsplitobj`. Not CMDQ_INT.
+- **Files:** `js/invent.js`, `js/do.js`, `js/dothrow.js`,
+  `js/wield.js`, `js/artifact.js`.
+
 ## D-1558 — artifact.c SEARCH/REGEN/XRAY conferral
 
 - **Status:** fixed (map-driven Open from D-1557; not a public FAIL)
