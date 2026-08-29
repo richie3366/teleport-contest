@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1655 invent.c invlet_constant / reassign / obj_to_let
+
+**Objective:** Open `invent.c` `invlet_constant` (named). Not
+check_invent_gold.
+**C locus:** `invent.c` `reassign` `:4853–4884` / `obj_to_let`
+`:2860–2868`; getobj/display_pickinv/doorganize/prinv/#see*;
+optfn_boolean `:5353–5361`; xprname use_invlet; `fixinv` On.
+**JS locus:** `js/invent.js` `reassign`/`obj_to_let`; `js/options.js`
+fixinv→`invlet_constant`; `js/objnam.js` xprname; `js/jsmain.js`.
+**Change:** pack a–z/A–Z/`#`, gold `'$'` at head when !fixinv;
+default On so public traces unchanged. dounpaid/wizcmds/wizweight
+named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary gold-head/52+`#`/parse; green+strict
+seed8000/0900; cohort **7**/7 + strict (9/9 with green).
+**Next:** Open `use_grease`. Not consume_obj_charge.
+**Blocked:** none.
 ## 2026-08-29 — D-1654 objnam.c safe_qbuf / pickup prompts
 
 **Objective:** Open `pickup.c` `safe_qbuf` (named). Not floor

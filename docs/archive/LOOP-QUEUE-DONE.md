@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `pickup.c` `safe_qbuf` (named). Not floor query_classes. **Addressed:** D-1654
+- [x] `invent.c` `invlet_constant` (named). Not check_invent_gold. **Addressed:** D-1655
+
+
+- [x] `pickup.c` `safe_qbuf` (named). Not floor query_classes. **Addressed:** D-1654 `e53a5df9`
 
 
 - [x] `sounds.c` Death_quote / `u_have_novel` (named). Not read_tribute. **Addressed:** D-1653 `7e407046`

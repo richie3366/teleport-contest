@@ -45,7 +45,7 @@ import { str_end_is } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt, clear_committed_status } from './display.js';
-import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search } from './invent.js';
+import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, reassign, update_inventory, invlet_constant } from './invent.js';
 import { ATR_INVERSE } from './terminal.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS, TOOL_CLASS,
@@ -513,6 +513,7 @@ export function parseNethackrc(rc) {
                 const value = !negated;
 
                 if (lname === 'autopickup') result.flags.pickup = value;
+                else if (lname === 'fixinv') result.flags.invlet_constant = value;
                 else if (lname === 'color') result.flags.color = value;
                 else if (lname === 'legacy') result.flags.legacy = value;
                 else if (lname === 'tutorial') { result.flags.tutorial = value; result.tutorial_set = true; }
@@ -1439,7 +1440,7 @@ const DOSET_BOOL_ADDR = {
     eight_bit_tty: { obj: 'iflags', key: 'eight_bit_tty' },
     extmenu: { obj: 'iflags', key: 'extmenu' },
     fireassist: { obj: 'flags', key: 'fireassist' }, // C: iflags.fireassist
-    fixinv: { obj: 'flags', key: 'fixinv' },
+    fixinv: { obj: 'flags', key: 'invlet_constant' }, // C: flags.invlet_constant
     force_invmenu: { obj: 'flags', key: 'force_invmenu' },
     goldX: { obj: 'flags', key: 'goldX' },
     help: { obj: 'flags', key: 'help' },
@@ -1577,6 +1578,14 @@ export function optfn_boolean_do_set(name, negated, initial = false) {
         if (!game.a11y.msg_loc) game.a11y.msg_loc = { x: 0, y: 0 };
         game.a11y.msg_loc.x = 0;
         game.a11y.msg_loc.y = 0;
+    }
+    if (name === 'fixinv' || name === 'price_quotes' || name === 'sortpack'
+        || name === 'implicit_uncursed') {
+        // C options.c optfn_boolean `:5353–5361` — opt_fixinv /
+        // price_quotes / sortpack / implicit_uncursed / wizweight.
+        // wizweight not in JS doset (named).
+        if (!invlet_constant()) reassign();
+        update_inventory();
     }
 }
 

@@ -48,6 +48,7 @@ import {
     CXN_NOCORPSE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_RANDOM,
     BURN_OBJECT, HAND, FOOT, FINGER, FINGERTIP, RIGHT_HANDED,
+    CONTAINED_SYM, HANDS_SYM,
 } from './const.js';
 
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
@@ -2521,15 +2522,21 @@ export function paydoname(obj) {
  * partial / merge total_of), then restore.
  * `txt` is C's second arg (hands/xtra_choice, contained, "Total:");
  * when set, doname is skipped. Named omissions: cost/Iu/Ix unpaid
- * columns; CONTAINED_SYM `>` column.
+ * columns (D-1655 use_invlet gate is live on the ordinary path).
  */
-export function xprname(obj, let_, dot = false, quan = 0, txt = null) {
+export function xprname(obj, let_ = undefined, dot = false, quan = 0, txt = null) {
     let savequan = 0;
     if (quan && obj) {
         savequan = obj.quan || 0;
         obj.quan = quan;
     }
-    const ilet = let_ ?? obj?.invlet ?? '?';
+    // C invent.c xprname `:2907–2908` — use_invlet
+    const flagOn = game.flags?.invlet_constant;
+    const use_invlet = (flagOn !== false && flagOn !== 0)
+        && obj
+        && let_ !== CONTAINED_SYM && let_ !== HANDS_SYM;
+    let ilet = let_ ?? obj?.invlet ?? '?';
+    if (use_invlet) ilet = obj.invlet;
     const name = txt != null ? txt : doname(obj);
     const result = `${ilet} - ${name}${dot ? '.' : ''}`;
     if (savequan) obj.quan = savequan;

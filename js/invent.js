@@ -32,7 +32,9 @@
 //        nobj-split). Not get_count (D-1613).
 // D-1641: invent.c check_invent_gold (`adjust_gold_ok` / doorganize
 //        filter / itemactions gold `i` / dest `$`). Not adjust_split.
-//        invlet_constant reassign / wizcmds sanity_check named.
+// D-1655: invent.c flags.invlet_constant / reassign / obj_to_let
+//        (fixinv opt_out On). dounpaid / wizcmds sanity_check /
+//        wizweight doset named.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -2469,6 +2471,10 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
         return null;
     }
 
+    /* C invent.c display_pickinv `:3145–3147` — oxymoron? temporarily
+       assign permanent inventory letters */
+    if (!invlet_constant()) reassign();
+
     if (
         n === 1
         && !game.iflags?.force_invmenu
@@ -2842,6 +2848,9 @@ async function display_pickinv_wizid() {
  */
 export async function display_inventory(lets, want_reply) {
     const wizard = !!(game.flags?.debug || game.flags?.wizard);
+    // C display_pickinv `:3140–3147` — n==0 returns before reassign;
+    // then !invlet_constant reassign before wizid / menu.
+    if ((game.invent || []).length && !invlet_constant()) reassign();
     if (wizard && (game.iflags?.override_ID | 0)) {
         await display_pickinv_wizid();
         return 0;
@@ -4867,8 +4876,8 @@ export async function prinv(prefix, obj, quan = 0) {
     let totalbuf = '';
     if (totalOf) totalbuf = ` (${obj.quan} in total).`;
     const pfx = prefix || '';
-    // C: xprname(..., !total_of, 0L, quan) — no trailing '.' when total_of
-    const body = xprname(obj, undefined, !totalOf, q);
+    // C: xprname(..., obj_to_let(obj), !total_of, 0L, quan)
+    const body = xprname(obj, obj_to_let(obj), !totalOf, q);
     const verb = game.flags?.verbose !== false ? totalbuf : '';
     await pline(`${pfx}${pfx ? ' ' : ''}${body}${verb}`);
 }
@@ -4891,9 +4900,9 @@ export async function doprwep() {
         }
         return ECMD_OK;
     }
-    let lets = u.uwep.invlet || '';
-    if (u.uswapwep?.invlet) lets += u.uswapwep.invlet;
-    if (u.uquiver?.invlet) lets += u.uquiver.invlet;
+    let lets = obj_to_let(u.uwep) || '';
+    if (u.uswapwep) lets += u.uswapwep.invlet || '';
+    if (u.uquiver) lets += u.uquiver.invlet || '';
     const { dispinv_with_action } = await import('./iactions.js');
     return await dispinv_with_action(lets, true, null);
 }
@@ -4929,15 +4938,15 @@ export async function doprarm() {
         await noarmor(true);
         return ECMD_OK;
     }
-    // C SORTPACK_INUSE slot order for lets[]
+    // C SORTPACK_INUSE slot order; obj_to_let once per slot (!fixinv)
     let lets = '';
-    if (u.uarm?.invlet) lets += u.uarm.invlet;
-    if (u.uarmc?.invlet) lets += u.uarmc.invlet;
-    if (u.uarms?.invlet) lets += u.uarms.invlet;
-    if (u.uarmh?.invlet) lets += u.uarmh.invlet;
-    if (u.uarmg?.invlet) lets += u.uarmg.invlet;
-    if (u.uarmf?.invlet) lets += u.uarmf.invlet;
-    if (u.uarmu?.invlet) lets += u.uarmu.invlet;
+    if (u.uarm) lets += obj_to_let(u.uarm);
+    if (u.uarmc) lets += obj_to_let(u.uarmc);
+    if (u.uarms) lets += obj_to_let(u.uarms);
+    if (u.uarmh) lets += obj_to_let(u.uarmh);
+    if (u.uarmg) lets += obj_to_let(u.uarmg);
+    if (u.uarmf) lets += obj_to_let(u.uarmf);
+    if (u.uarmu) lets += obj_to_let(u.uarmu);
     const { dispinv_with_action } = await import('./iactions.js');
     return await dispinv_with_action(lets, true, null);
 }
@@ -4956,12 +4965,12 @@ export async function doprring() {
     let use_inuse_mode = false;
     let ct = 0;
     if (u.uright) {
-        lets += u.uright.invlet || '';
+        lets += obj_to_let(u.uright);
         ct++;
         if (u.uright.oclass !== RING_CLASS) use_inuse_mode = true;
     }
     if (u.uleft) {
-        lets += u.uleft.invlet || '';
+        lets += obj_to_let(u.uleft);
         ct++;
         if (u.uleft.oclass !== RING_CLASS) use_inuse_mode = true;
     }
@@ -4982,7 +4991,7 @@ export async function dopramulet() {
         await pline('You are not wearing an amulet.');
         return ECMD_OK;
     }
-    const lets = u.uamul.invlet || '';
+    const lets = obj_to_let(u.uamul);
     const { dispinv_with_action } = await import('./iactions.js');
     return await dispinv_with_action(lets, true, 'Amulet');
 }
@@ -4997,7 +5006,7 @@ export async function doprtool() {
     for (const otmp of game.invent || []) {
         if (!tool_being_used(otmp)) continue;
         if (lets.length >= invlet_basic) break;
-        if (otmp.invlet) lets += otmp.invlet;
+        lets += obj_to_let(otmp);
     }
     if (!lets) {
         await pline('You are not using any tools.');
@@ -5452,6 +5461,64 @@ const GOLD_SYM_ADJ = '$';
 const NOINVSYM = '#';
 const INVLET_BASIC = 52;
 const QUITCHARS = ' \r\n\x1b';
+
+/**
+ * C flag.h `flags.invlet_constant` — optlist.h NHOPTB fixinv opt_out
+ * default On (`*(addr)=initval`). Missing bag field ≡ C On.
+ */
+export function invlet_constant() {
+    const v = game.flags?.invlet_constant;
+    if (v === undefined) return true;
+    return !!v;
+}
+
+/**
+ * C invent.c reassign `:4853–4884` — unlink first gold, re-letter the
+ * rest a–z then A–Z then NOINVSYM, gold `'$'` at head, lastinvnr =
+ * non-gold count clamped to 51. Callers gate on `!invlet_constant`.
+ */
+export function reassign() {
+    const inv = game.invent;
+    if (!inv) {
+        game._lastinvnr = 0;
+        return;
+    }
+    let goldobj = null;
+    const goldIdx = inv.findIndex((o) => o && o.oclass === COIN_CLASS);
+    if (goldIdx >= 0) {
+        goldobj = inv[goldIdx];
+        inv.splice(goldIdx, 1);
+    }
+    let i = 0;
+    for (; i < inv.length; i++) {
+        const obj = inv[i];
+        obj.invlet = i < 26
+            ? String.fromCharCode(97 + i)
+            : i < 52
+                ? String.fromCharCode(65 + i - 26)
+                : NOINVSYM;
+    }
+    if (goldobj) {
+        goldobj.invlet = GOLD_SYM;
+        inv.unshift(goldobj);
+    }
+    if (i >= 52) i = 51;
+    game._lastinvnr = i;
+}
+
+/**
+ * C invent.c obj_to_let `:2860–2868` — !fixinv sets NOINVSYM then
+ * reassign so prinv / #see* letters match packed invent.
+ * @param {object} obj
+ * @returns {string}
+ */
+function obj_to_let(obj) {
+    if (!invlet_constant()) {
+        obj.invlet = NOINVSYM;
+        reassign();
+    }
+    return obj.invlet;
+}
 
 /** C ref: invent.c compactify — dash runs of consecutive invent letters. */
 export function compactify_invlets(buf) {
@@ -5970,6 +6037,8 @@ export async function getobj(word, obj_ok, ctrlflags) {
         inaccess++;
     }
 
+    if (!invlet_constant()) reassign();
+
     const suggest = [];
     const alt = [];
     // C: DOWNPLAY/EXCLUDE_* hands go to altlets first (HANDS_SYM)
@@ -6175,6 +6244,7 @@ function adjust_suggest_lets(obj_ok = adjust_ok) {
 async function getobj_adjust(obj_ok = adjust_ok) {
     const cq = getobj_from_cmdq(obj_ok, true);
     if (!cq.skip) return cq.otmp;
+    if (!invlet_constant()) reassign();
     let oneloop = false;
     let msggiven = false;
     let ch = '';
@@ -6675,7 +6745,7 @@ export async function adjust_split() {
 /**
  * C ref: invent.c doorganize — #adjust inventory letters.
  * check_invent_gold chooses adjust_gold_ok vs adjust_ok (D-1641).
- * Named: flags.invlet_constant reassign.
+ * `!flags.invlet_constant` → reassign (D-1655).
  * @returns {number} ECMD_OK / ECMD_CANCEL
  */
 export async function doorganize() {
@@ -6690,6 +6760,8 @@ export async function doorganize() {
         );
         return ECMD_OK;
     }
+
+    if (!invlet_constant()) reassign();
 
     const adjust_filter = (await check_invent_gold('adjust'))
         ? adjust_gold_ok : adjust_ok;

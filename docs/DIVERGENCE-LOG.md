@@ -1,3 +1,26 @@
+## D-1655 — invent.c flags.invlet_constant / reassign / obj_to_let
+
+- **Status:** fixed (map-driven Open from D-1641/D-1654; not a public FAIL)
+- **Symptom:** map named `invlet_constant`. C `fixinv` (opt_out On)
+  keeps `flags.invlet_constant`; when off, `reassign` packs letters
+  and pins gold at `'$'` head, and `obj_to_let` forces that before
+  prinv/#see*. JS omitted the helper after D-1641 (`check_invent_gold`).
+- **C locus:** `invent.c` `reassign` `:4853–4884`; `obj_to_let`
+  `:2860–2868`; callers getobj `:1856`, display_pickinv `:3146`,
+  doorganize `:4994`, prinv/dopr*, optfn_boolean `:5353–5361`.
+  `xprname` use_invlet `:2907–2942`. `flag.h` + optlist.h `fixinv`.
+- **JS was:** `assigninvlet` preserved letters; no `reassign`;
+  `DOSET_BOOL_ADDR.fixinv` wrote `flags.fixinv`; xprname always
+  `let_ ?? obj.invlet`.
+- **Fix:** port `reassign`/`obj_to_let`; default On; map OPTIONS=fixinv
+  → `invlet_constant`; wire C call sites; xprname use_invlet.
+- **JS:** `js/invent.js` + `js/options.js` + `js/objnam.js` +
+  `js/jsmain.js`.
+- **Not this iter:** `dounpaid`; wizcmds `sanity_check`; wizweight
+  doset after-change. check_invent_gold is D-1641. safe_qbuf is D-1654.
+- **Verified:** private canary gold-head/abc / 52+`#` / parse !fixinv;
+  green+strict seed8000/0900; cohort **7**/7 + strict (9/9 with green).
+
 ## D-1654 — objnam.c safe_qbuf / pickup.c prompt callers
 
 - **Status:** fixed (map-driven Open from D-1653; not a public FAIL)
