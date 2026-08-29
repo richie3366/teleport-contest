@@ -16,7 +16,6 @@ import { setStorageForTesting } from './storage.js';
 import { pushKey, nhgetch } from './input.js';
 import { newgame, moveloop_core, welcome, moveloop_preamble } from './allmain.js';
 import { try_restore_save } from './save.js';
-import { l_nhcore_init } from './mklev.js';
 import { vision_recalc, init_vision_globals } from './vision.js';
 import { parseNethackrc, set_playmode, init_fruit_chain } from './options.js';
 import { flush_screen, serialize_for_scoring, reset_display_messages, docrt, bot } from './display.js';
@@ -226,8 +225,9 @@ export class NethackGame {
         // C ref: unixmain attempt_restore — try save before player_selection/newgame
         if (try_restore_save()) {
             init_vision_globals();
-            // C welcome → l_nhcore_call(RESTORE) → nhlib.lua shuffle(align)
-            l_nhcore_init();
+            // C unixmain dorecover success: no second l_nhcore_init.
+            // restore_luadata already inited luacore if it was NULL
+            // (nhlua.c `:1357–1358`) then loadstring'd nh_lua_variables.
             vision_recalc(0);
             await docrt();
             await bot();

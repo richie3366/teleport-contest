@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1636 nhlua.c restore_luadata / save_luadata
+
+**Objective:** Open `nhlua.c` `restore_luadata` (named). Not
+restore_gamelog.
+**C locus:** `nhlua.c` `restore_luadata` `:1344–1363` / `save_luadata`
+`:1327–1341` / `get_nh_lua_variables` `:1296–1316`; `dat/nhcore.lua`
+`get_variables_string`; `dat/nhlib.lua` `table_stringify`; callers
+`restore.c` `:722` / `save.c` `:328`.
+**JS locus:** `js/save.js` `restore_luadata` / `save_luadata`;
+`js/mklev.js` `l_nhcore_init`; `js/jsmain.js` unixmain no second init.
+**Change:** JSON lua source round-trip; `!luacore` init then loadstring;
+missing JSON still inits; drop post-restore shuffle.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** canary **22**/22; focused seed0013 restore PASS+strict;
+green+strict seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `mon.c` `restore_cham`. Not normal_shape.
+**Blocked:** none.
 ## 2026-08-29 — D-1635 do.c doddrop / ggetobj drop
 
 **Objective:** Open `invent.c` ggetobj drop (named). Not takeoff/identify.

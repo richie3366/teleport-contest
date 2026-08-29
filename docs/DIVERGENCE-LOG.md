@@ -1,3 +1,35 @@
+## D-1636 — nhlua.c restore_luadata / save_luadata
+
+- **Status:** fixed (map-driven Open from D-1635; not a public FAIL)
+- **Symptom:** map named `restore_luadata`. C `restgamestate` after
+  `restore_gamelog` reads the lua-variable blob, inits `gl.luacore` if
+  NULL (`l_nhcore_init` / nhlib shuffle), then `luaL_loadstring` +
+  `nhl_pcall_handle` NHLpa_panic. JS had no export (named after D-1628);
+  `try_restore_save` skipped the chunk and `jsmain` called a second
+  `l_nhcore_init` after dorecover (unixmain does not).
+- **C locus:** `nhlua.c` `restore_luadata` `:1344–1363`; pair
+  `save_luadata` `:1327–1341`; callee `get_nh_lua_variables`
+  `:1296–1316`; `dat/nhcore.lua` `get_variables_string` /
+  `nh_lua_variables={}`; `dat/nhlib.lua` `table_stringify`. Callers
+  `restore.c` `restgamestate` `:722`; `save.c` `:328`. `l_nhcore_init`
+  `:139–156` already live. Import `--can save.js mklev.js l_nhcore_init`
+  SAFE (hoisted).
+- **JS was:** named omit after D-1628; JSON VFS had no `luadata` field;
+  restore-path shuffle lived in `jsmain` after `try_restore_save`.
+- **Fix:** JSON analogue of Sfo/Sfi length+chars (lua source string);
+  `table_stringify` / `get_variables_string` / `get_nh_lua_variables`;
+  `save_luadata` emptystr if NULL; `restore_luadata` `!luacore` init then
+  loadstring of the assignment chunk; missing JSON field = old save
+  (still init); `l_nhcore_init` sets `luacore` + empty table. unixmain:
+  drop post-restore second init. Rule #2: no fs. No Lua VM.
+- **JS:** `js/save.js`; `js/mklev.js` `l_nhcore_init`; `js/jsmain.js`.
+- **Not this iter:** `nhl_variable`; Lua NHCB `nh_callback_*` /
+  `cmd_before`/`end_turn`; binary NHFILE; SFCTOOL; `nhl_pcall` VM;
+  `l_nhcore_call(RESTORE)` welcome. restore_gamelog is D-1628.
+- **Verified:** private canary **22**/22; focused seed0013-friday13
+  restore PASS+strict; green+strict seed8000/0900; cohort **7**/7 +
+  strict (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1635 — do.c doddrop / ggetobj drop / menu_drop
 
 - **Status:** fixed (map-driven Open from D-1634; not a public FAIL)

@@ -1643,7 +1643,7 @@ BS+DEL; empty erase + else `tty_nhbell`; `:102–105` `intr--` `*bufp=0`;
 wintty MENU_SEARCH / `tty_wait_synch` `intr++` named. Do not
 enable EDIT_GETLIN (would drop the replace prompt).
 
-### `src/restore.c` `restore_msghistory` / `restore_gamelog` / `src/save.c` `save_msghistory` / `save_gamelog`
+### `src/restore.c` `restore_msghistory` / `restore_gamelog` / `src/nhlua.c` `restore_luadata` / `save_luadata` / `src/save.c` `save_msghistory` / `save_gamelog`
 
 JS: `js/save.js` — partial
 
@@ -1659,8 +1659,17 @@ analogue of Sfi_int length + Sfi_char + `Sfi_gamelog_line` then
 missing/non-array = old JSON; present chunk replaces, C `gg.gamelog`
 NULL at process start); **save_gamelog** (`save.c` `:236–262` walk, no
 skip-empty, `-1` sentinel; JSON array `{text,turn,flags}`); callee
-`gamelog_add` D-0124. `dosave0`/`try_restore_save` D-0335/D-1603.
-Binary NHFILE / `restore_luadata` / FREEING `discard_gamelog` named.
+`gamelog_add` D-0124. **restore_luadata D-1636** (`nhlua.c` `:1344–1363`;
+JSON analogue of Sfi_unsigned length + Sfi_char lua source; `!gl.luacore`
+`l_nhcore_init` then `luaL_loadstring` + `nhl_pcall_handle` NHLpa_panic;
+missing JSON = old save, still init; emptystr = empty chunk, nhcore `{}`
+stays); **save_luadata** (`nhlua.c` `:1327–1341` `get_nh_lua_variables`
+/ emptystr; JSON string `nh_lua_variables={…};` via `dat/nhcore.lua`
+`get_variables_string` + `dat/nhlib.lua` `table_stringify`);
+`l_nhcore_init` sets `luacore` + `nh_lua_variables={}`; unixmain restore
+does not second-init. `dosave0`/`try_restore_save` D-0335/D-1603.
+Binary NHFILE / SFCTOOL / `nhl_variable` / Lua NHCB `nh_callback_*` /
+full Lua VM / FREEING `discard_gamelog` named.
 
 ### `src/invent.c` / `src/iactions.c`
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `invent.c` ggetobj drop (named). Not takeoff/identify. **Addressed:** D-1635
+- [x] `nhlua.c` `restore_luadata` (named). Not restore_gamelog. **Addressed:** D-1636
+
+
+- [x] `invent.c` ggetobj drop (named). Not takeoff/identify. **Addressed:** D-1635 `9eb563b8`
 
 
 - [x] `questpgr.c` `convert_line` pronoun `%Xh` (named). Not com_pager_core. **Addressed:** D-1634 `b111beb6`

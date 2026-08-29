@@ -1,6 +1,7 @@
 // save.js — Game save / restore via frozen storage VFS (JSON subset).
-// C ref: save.c dosave / dosave0 / save_msghistory / save_gamelog;
-//        restore.c dorecover / restore_msghistory / restore_gamelog;
+// C ref: save.c dosave / dosave0 / save_msghistory / save_gamelog /
+//        save_luadata; restore.c dorecover / restore_msghistory /
+//        restore_gamelog; nhlua.c restore_luadata / save_luadata;
 //        files.c SAVEF; unixmain attempt_restore; allmain welcome(FALSE).
 
 import { game } from './gstate.js';
@@ -18,6 +19,7 @@ import { mons } from './monsters.js';
 import { restmon_edog, savemon_edog } from './makemon.js';
 import { objects_globals_init } from './objects.js';
 import { nh_terminate_capture } from './topten.js';
+import { l_nhcore_init } from './mklev.js';
 
 const SAVE_VFS_PREFIX = 'save/';
 
@@ -205,8 +207,7 @@ function rebuildObjectsAt(fobj) {
 /**
  * C ref: save.c dosave0 — write current game to VFS (JSON subset of savelev).
  * Named omissions: binary NHFILE format; multi-level ledger files; hangup
- * arms; overwrite yn; compress; looseball/chain when swallowed;
- * save_luadata.
+ * arms; overwrite yn; compress; looseball/chain when swallowed.
  */
 export function dosave0() {
     const u = game.u || {};
@@ -291,9 +292,11 @@ export function dosave0() {
         // level dnum/dlevel
         uz: u.uz ? { ...u.uz } : { dnum: 0, dlevel: 1 },
         // C save.c save_msghistory `:1029–1056` after savenames;
-        // save_gamelog `:236–262` after save_msghistory.
+        // save_gamelog `:236–262` after save_msghistory;
+        // save_luadata nhlua.c `:1327–1341` after save_gamelog.
         msghistory: save_msghistory(),
         gamelog: save_gamelog(),
+        luadata: save_luadata(),
     };
 
     return vfsWriteFile(vfsPath(path), JSON.stringify(payload));
@@ -338,6 +341,78 @@ export function save_gamelog() {
         });
     }
     return out;
+}
+
+/**
+ * C ref: dat/nhlib.lua table_stringify. Persistable Lua table → source
+ * `{["k"]=v,}` for string/boolean/number/table/nil. pairs() order is
+ * JS insertion order. Functions skipped. No escape of `]]` in strings
+ * (C does not either).
+ * @param {object} tbl
+ * @returns {string}
+ */
+export function table_stringify(tbl) {
+    let str = '';
+    if (!tbl || typeof tbl !== 'object' || Array.isArray(tbl)) {
+        return '{}';
+    }
+    for (const key of Object.keys(tbl)) {
+        const value = tbl[key];
+        if (value !== null && typeof value === 'object') {
+            if (Array.isArray(value)) continue;
+            str += `["${key}"]=${table_stringify(value)}`;
+        } else if (typeof value === 'string') {
+            str += `["${key}"]=[[${value}]]`;
+        } else if (typeof value === 'boolean') {
+            str += `["${key}"]=${value}`;
+        } else if (typeof value === 'number' && Number.isFinite(value)) {
+            str += `["${key}"]=${value}`;
+        } else if (value == null) {
+            str += `["${key}"]=nil`;
+        } else {
+            continue;
+        }
+        str += ',';
+    }
+    return `{${str}}`;
+}
+
+/**
+ * C ref: dat/nhcore.lua get_variables_string.
+ * @returns {string}
+ */
+export function get_variables_string() {
+    return `nh_lua_variables=${table_stringify(game.nh_lua_variables || {})};`;
+}
+
+/**
+ * C ref: nhlua.c get_nh_lua_variables `:1296–1316`. Panic if !luacore.
+ * If get_variables_string pcall fails, C returns NULL; JSON analogue
+ * returns null so save_luadata can write emptystr.
+ * @returns {string|null}
+ */
+export function get_nh_lua_variables() {
+    if (!game.luacore) {
+        throw new Error('nh luacore not inited');
+    }
+    try {
+        return get_variables_string();
+    } catch {
+        return null;
+    }
+}
+
+/**
+ * C ref: save.c save_luadata via nhlua.c `:1327–1341`. JSON analogue of
+ * Sfo_unsigned length + Sfo_char lua source (NUL-terminated in C).
+ * get_nh_lua_variables NULL → emptystr. FREEING omitted (JSON VFS
+ * always writes; in-memory table stays).
+ * @returns {string}
+ */
+export function save_luadata() {
+    let lua_data = get_nh_lua_variables();
+    if (!lua_data) lua_data = '';
+    return lua_data;
 }
 
 /** Plain-data hero fields; worn slots omitted (see serWorn). */
@@ -484,10 +559,11 @@ export function try_restore_save() {
     game.lastseentyp = payload.lastseentyp || null;
     rebuildObjectsAt(fobj);
 
-    // C restore.c restgamestate `:720–721` after restnames, before
-    // restore_luadata (named).
+    // C restore.c restgamestate `:720–722` after restnames:
+    // restore_msghistory, restore_gamelog, restore_luadata.
     restore_msghistory(payload);
     restore_gamelog(payload);
+    restore_luadata(payload);
 
     // C restore.c dorecover :942 — after restoring=0 / early_raw_messages,
     // before docrt. Invent sync_perminvent WIN_INVEN gate (D-1603).
@@ -546,6 +622,125 @@ export function restore_gamelog(payload) {
         }
         gamelog_add(rec.flags | 0, rec.turn | 0, msg);
     }
+}
+
+/**
+ * Parse `dat/nhlib.lua` table_stringify output at pos.i. C luaL_loadstring
+ * panics via nhl_pcall_handle(NHLpa_panic) on bad source; JSON analogue
+ * throws.
+ * @param {string} src
+ * @param {{ i: number }} pos
+ * @returns {object}
+ */
+function parse_table_stringify(src, pos) {
+    if (src[pos.i] !== '{') {
+        throw new Error('restore_luadata: Lua error table_stringify');
+    }
+    pos.i++;
+    const out = {};
+    while (pos.i < src.length && src[pos.i] !== '}') {
+        if (src[pos.i] === ',') {
+            pos.i++;
+            continue;
+        }
+        if (src.slice(pos.i, pos.i + 2) !== '["') {
+            throw new Error('restore_luadata: Lua error table key');
+        }
+        pos.i += 2;
+        const kEnd = src.indexOf('"]=', pos.i);
+        if (kEnd < 0) {
+            throw new Error('restore_luadata: Lua error table key');
+        }
+        const key = src.slice(pos.i, kEnd);
+        pos.i = kEnd + 3;
+        out[key] = parse_lua_value(src, pos);
+    }
+    if (src[pos.i] !== '}') {
+        throw new Error('restore_luadata: Lua error table end');
+    }
+    pos.i++;
+    return out;
+}
+
+/**
+ * @param {string} src
+ * @param {{ i: number }} pos
+ * @returns {string|number|boolean|object|null}
+ */
+function parse_lua_value(src, pos) {
+    if (src[pos.i] === '{') return parse_table_stringify(src, pos);
+    if (src.slice(pos.i, pos.i + 2) === '[[') {
+        pos.i += 2;
+        const end = src.indexOf(']]', pos.i);
+        if (end < 0) {
+            throw new Error('restore_luadata: Lua error string');
+        }
+        const s = src.slice(pos.i, end);
+        pos.i = end + 2;
+        return s;
+    }
+    if (src.slice(pos.i, pos.i + 4) === 'true') {
+        pos.i += 4;
+        return true;
+    }
+    if (src.slice(pos.i, pos.i + 5) === 'false') {
+        pos.i += 5;
+        return false;
+    }
+    if (src.slice(pos.i, pos.i + 3) === 'nil') {
+        pos.i += 3;
+        return null;
+    }
+    const m = /^-?\d+(?:\.\d+)?/.exec(src.slice(pos.i));
+    if (m) {
+        pos.i += m[0].length;
+        return Number(m[0]);
+    }
+    throw new Error('restore_luadata: Lua error value');
+}
+
+/**
+ * C ref: nhlua.c restore_luadata `:1344–1363` luaL_loadstring +
+ * nhl_pcall_handle(0, 0, "restore_luadata", NHLpa_panic). JSON analogue
+ * of the get_variables_string assignment chunk. Empty / emptystr = empty
+ * Lua chunk (nh_lua_variables stays the nhcore.lua `{}`).
+ * @param {string} lua_data
+ */
+function nhl_loadstring_luadata(lua_data) {
+    let s = String(lua_data);
+    if (s.endsWith('\0')) s = s.slice(0, -1);
+    if (!s) return;
+    if (!s.startsWith('nh_lua_variables=')) {
+        throw new Error('restore_luadata: Lua error restore_luadata');
+    }
+    const rest = s.slice('nh_lua_variables='.length);
+    const pos = { i: 0 };
+    game.nh_lua_variables = parse_table_stringify(rest, pos);
+    if (rest[pos.i] === ';') pos.i++;
+    if (pos.i !== rest.length) {
+        throw new Error('restore_luadata: Lua error restore_luadata');
+    }
+}
+
+/**
+ * C ref: nhlua.c restore_luadata `:1344–1363`. JSON analogue of
+ * Sfi_unsigned length + Sfi_char then, if !gl.luacore, l_nhcore_init()
+ * and luaL_loadstring + nhl_pcall_handle NHLpa_panic. Missing field =
+ * old JSON save without this chunk (still init; leave nhcore `{}`).
+ * Present empty string = C emptystr. SFCTOOL omitted.
+ * @param {{ luadata?: unknown }} payload
+ */
+export function restore_luadata(payload) {
+    // C restgamestate always reads the chunk; unixmain does not init
+    // luacore before dorecover, so restore_luadata is the restore-path
+    // l_nhcore_init (nhlib shuffle).
+    if (!game.luacore) l_nhcore_init();
+    const lua_data = payload?.luadata;
+    if (lua_data == null) return;
+    if (typeof lua_data !== 'string') {
+        throw new Error('restore_luadata: Lua error restore_luadata');
+    }
+    nhl_loadstring_luadata(lua_data);
 }
 
 /**

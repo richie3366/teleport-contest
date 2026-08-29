@@ -62,26 +62,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1635 (seed4500 still PASS). **Next cluster:**
-Open `nhlua.c` `restore_luadata` (named). Not restore_gamelog.
-**Do not skip D-1531…D-1635 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1636 (seed4500 still PASS). **Next cluster:**
+Open `mon.c` `restore_cham` (named). Not normal_shape.
+**Do not skip D-1531…D-1636 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1635.** Do not FORCE
+**Do not re-break D-0660…D-1636.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1635 (index). Recent: **D-1635**
-`doddrop`/`menu_drop` `ggetobj("drop")`; `'D'`/`#droptype`;
-`bypass_objlist`/`nxt_unbypassed_obj`; `reset_occupations`.
-Not takeoff/identify. Not `better_not_try`. Prior: **D-1634**
-`convert_line` pronoun `%Xh` + `qtext_pronoun`; `genders[]` neuter/group;
-`role_init` `godgend`/`ldrgend`; `%Xt`. Not com_pager_core.
-Older D-1531…D-1633 live in the index — do not re-paste.
+**Keep:** D-0845…D-1636 (index). Recent: **D-1636**
+`restore_luadata` / `save_luadata`; `l_nhcore_init` if `!luacore`;
+`get_nh_lua_variables` / `table_stringify`. Not restore_gamelog.
+Not `nhl_variable`. Prior: **D-1635**
+`doddrop`/`menu_drop` `ggetobj("drop")`; `'D'`/`#droptype`.
+Older D-1531…D-1634 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1635 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1636 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -109,6 +108,7 @@ Do not re-port EDIT_GETLIN (config.h commented).
 Do not re-port `doextlist`.
 Do not re-port `dismount_steed` DISMOUNT_THROWN HP.
 Do not re-port `restore_gamelog`.
+Do not re-port `restore_luadata` / `save_luadata`.
 Do not re-port `free_edog` / restmon `newedog`.
 Do not re-port `menu_remarm`.
 Do not re-port `tty_nhbell` / yn `cw->cury` / `intr`.

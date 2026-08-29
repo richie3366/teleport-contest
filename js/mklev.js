@@ -1218,7 +1218,8 @@ async function getbones() {
 }
 
 // C ref: nhlua.c l_nhcore_init() — nhlib shuffle is the second load;
-// after nhl_loadlua("nhcore.lua") every nhcore_call_available[] is TRUE.
+// after nhl_loadlua("nhcore.lua") every nhcore_call_available[] is TRUE
+// and nh_lua_variables = {} (dat/nhcore.lua). gl.luacore is non-NULL.
 export function l_nhcore_init() {
     const align = [0, 0, 0]; // A_LAWFUL, A_NEUTRAL, A_CHAOTIC
     for (let i = align.length; i > 1; i--) {
@@ -1227,6 +1228,8 @@ export function l_nhcore_init() {
     }
     game.splev_align = align;
     game.nhcore_call_available = new Array(NUM_NHCORE_CALLS).fill(true);
+    game.luacore = {};
+    game.nh_lua_variables = {};
 }
 
 // C ref: mklev.c mklev()
