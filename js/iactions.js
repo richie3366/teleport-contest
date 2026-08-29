@@ -5,10 +5,13 @@
 //
 // Branch envelope: build + show "Do what with …?" PICK_ONE menu; ESC /
 // Return / Space cancel; itemactions_pushkeys throw/drop/apply/read/…
-// + IA_SACRIFICE / IA_TIP_CONTAINER / IA_INVOKE_OBJ (D-1665).
-// Named omissions: remaining pushkeys (unwield/name/eat/engrave/buy/
-// rub/swap/two-weapon/whatis); full apply catalogue; shop pay;
-// offer_corpse / offer_too_soon / offer_fake_amulet bodies.
+// + IA_SACRIFICE / IA_TIP_CONTAINER / IA_INVOKE_OBJ (D-1665) +
+// IA_UNWIELD / IA_NAME_OBJ / IA_NAME_OTYP / IA_EAT_OBJ /
+// IA_ENGRAVE_OBJ (D-1675).
+// Named omissions: remaining pushkeys (buy/rub/swap/two-weapon/whatis);
+// full apply catalogue; shop pay; doengrave non-hands stylus body;
+// `'i'` getobj_name clone (canned KEY live); offer_corpse /
+// offer_too_soon / offer_fake_amulet bodies.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -56,10 +59,58 @@ function cmdq_add_key(ch) {
 /**
  * C ref: iactions.c itemactions_pushkeys — queue CQ_CANNED ec + invlet.
  * IA_SACRIFICE / IA_TIP_CONTAINER / IA_INVOKE_OBJ are D-1665.
- * Named omissions: unwield/name/eat/engrave/buy/rub/swap/two-weapon/whatis.
+ * IA_UNWIELD / IA_NAME_* / IA_EAT_OBJ / IA_ENGRAVE_OBJ are D-1675.
+ * Named omissions: buy/rub/swap/two-weapon/whatis.
  */
 async function itemactions_pushkeys(act, otmp) {
     switch (act) {
+    case IA_UNWIELD: {
+        /* C iactions.c `:150–156` — uwep→dowield, uswapwep→remarm_swapwep
+           (#altunwield), uquiver→dowieldquiver, else donull; then HANDS_SYM. */
+        const u = game.u || {};
+        if (otmp === u.uwep) {
+            const { dowield } = await import('./wield.js');
+            cmdq_add_ec(dowield);
+        } else if (otmp === u.uswapwep) {
+            const { remarm_swapwep } = await import('./do_wear.js');
+            cmdq_add_ec_entry('altunwield', remarm_swapwep);
+        } else if (otmp === u.uquiver) {
+            const { dowieldquiver } = await import('./wield.js');
+            cmdq_add_ec(dowieldquiver);
+        } else {
+            const { donull } = await import('./do.js');
+            cmdq_add_ec(donull);
+        }
+        cmdq_add_key(HANDS_SYM);
+        break;
+    }
+    case IA_NAME_OBJ:
+    case IA_NAME_OTYP: {
+        /* C iactions.c `:167–171` — docallcmd then 'i'/'o' then invlet. */
+        const { docallcmd } = await import('./do_name.js');
+        cmdq_add_ec(docallcmd);
+        cmdq_add_key(act === IA_NAME_OBJ ? 'i' : 'o');
+        cmdq_add_key(otmp.invlet);
+        break;
+    }
+    case IA_EAT_OBJ: {
+        /* C iactions.c `:177–182` — do_reqmenu PREFIXCMD then #eat +
+           invlet (m-prefix skips floor food). */
+        const { do_reqmenu, ext_func_tab_from_txt } = await import('./cmd.js');
+        const { doeat } = await import('./eat.js');
+        const tab = ext_func_tab_from_txt('reqmenu');
+        cmdq_add_ec_entry('reqmenu', do_reqmenu, tab?.flags | 0);
+        cmdq_add_ec(doeat);
+        cmdq_add_key(otmp.invlet);
+        break;
+    }
+    case IA_ENGRAVE_OBJ: {
+        /* C iactions.c `:184–187` — cmdq_add_ec(doengrave) + invlet. */
+        const { doengrave } = await import('./engrave.js');
+        cmdq_add_ec(doengrave);
+        cmdq_add_key(otmp.invlet);
+        break;
+    }
     case IA_THROW_OBJ: {
         const { dothrow } = await import('./dothrow.js');
         cmdq_add_ec(dothrow);
@@ -312,9 +363,9 @@ function is_graystone(obj) {
 
 /**
  * C ref: iactions.c itemactions — NHW_MENU PICK_ONE of context actions.
- * Named omissions: full apply-otyp catalogue polish; eat/is_edible;
- * shop pay; two-weapon; remaining pushkeys (unwield/name/eat/engrave/
- * buy/rub/swap/whatis). O/T/V pushkeys are D-1665.
+ * Named omissions: full apply-otyp catalogue polish; shop pay;
+ * two-weapon; remaining pushkeys (buy/rub/swap/whatis). O/T/V
+ * pushkeys are D-1665. Unwield/name/eat/engrave pushkeys are D-1675.
  */
 export async function itemactions(otmp) {
     if (!otmp) return ECMD_OK;
@@ -381,7 +432,7 @@ export async function itemactions(otmp) {
         add(IA_DROP_OBJ, 'd', `Drop this ${(otmp.quan || 1) > 1 ? 'stack' : 'item'}`);
     }
 
-    // e: eat — tin / is_edible deferred (no entry unless tin)
+    // e: eat — C iactions.c `:417–427` tin then is_edible
     if (otmp.otyp === TIN) {
         const withOpener = u.uwep && u.uwep.otyp === TIN_OPENER
             ? ' with your tin opener' : '';
@@ -390,6 +441,15 @@ export async function itemactions(otmp) {
             'e',
             `Open ${(otmp.quan || 1) > 1 ? 'one of these tins' : 'this tin'}${withOpener} and eat the contents`,
         );
+    } else {
+        const { is_edible } = await import('./eat.js');
+        if (is_edible(otmp)) {
+            add(
+                IA_EAT_OBJ,
+                'e',
+                `Eat ${(otmp.quan || 1) > 1 ? 'one of these' : 'this'}`,
+            );
+        }
     }
 
     // E: engrave

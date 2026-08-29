@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
+- [x] `iactions.c` remaining pushkeys unwield/name/eat/engrave (named). Not offer/tip/invoke. **Addressed:** D-1675
+
+
 - [x] `o_init.c` oc_uses_known extract (named). Not rename_disco. **Addressed:** D-1674 `115570e2`
 
 

@@ -24,7 +24,7 @@ import {
 } from './display.js';
 import {
     paint_corner_nhw_menu, discover_object, compactify_invlets,
-    getobj_display_pickinv, getobj, update_inventory,
+    getobj_display_pickinv, getobj, getobj_from_cmdq, update_inventory,
 } from './invent.js';
 import { rename_disco } from './o_init.js';
 import {
@@ -151,8 +151,12 @@ function name_suggest_lets() {
  * C ref: invent.c getobj("name", name_ok, GETOBJ_PROMPT)
  * Prompt compactify when suggested>5; ?/* → display_pickinv_reply;
  * gold EXCLUDE → "You cannot name gold."; missing letter → continue.
+ * Canned CMDQ_KEY (iactions IA_NAME_OBJ) via getobj_from_cmdq (D-1675).
+ * Interactive clone still named (Open `'i'` getobj_name).
  */
 async function getobj_name() {
+    const cq = getobj_from_cmdq(name_ok, false, null);
+    if (!cq.skip) return cq.otmp;
     for (;;) {
         await flush_topl_more();
         const rawLets = name_suggest_lets();

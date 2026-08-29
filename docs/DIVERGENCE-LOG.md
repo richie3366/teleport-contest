@@ -1,3 +1,41 @@
+# Divergence log
+
+## D-1675 — iactions.c remaining pushkeys unwield/name/eat/engrave
+
+- **Status:** fixed (map-driven Open from D-1674; not a public FAIL)
+- **Symptom:** map named remaining `itemactions_pushkeys` unwield/name/eat/
+  engrave. Menu rows already existed; selecting them default-broke.
+  `remarm_swapwep` (`#altunwield`) was absent. `floorfood("eat")`
+  checked `flags.menu_requested` so m-prefix / IA_EAT did not skip
+  floor food (`iflags` is C).
+- **C locus:** `iactions.c` `itemactions_pushkeys` `:150–187`
+  IA_UNWIELD / IA_NAME_OBJ / IA_NAME_OTYP / IA_EAT_OBJ /
+  IA_ENGRAVE_OBJ; `itemactions` eat `is_edible` `:417–427`;
+  `do_wear.c` `remarm_swapwep` `:3060–3087` (`extcmdlist`
+  `"altunwield"` INTERNALCMD); `eat.c` `floorfood` `:3596`
+  `iflags.menu_requested`; `engrave.c` `stylus_ok` `:480–499`.
+- **JS was:** `itemactions_pushkeys` default-broke those acts after
+  D-1665; no `remarm_swapwep`; eat menu tin-only; `floorfood_eat`
+  `flags.menu_requested`; `getobj_name` / `getobj_stylus` ignored
+  canned KEY (leftover invlet would become the next rhack key).
+- **Fix:** queue C order (uwep `dowield` / uswapwep `#altunwield` /
+  uquiver `dowieldquiver` + HANDS_SYM; `docallcmd` + `i`/`o` +
+  invlet; `do_reqmenu` + `doeat` + invlet; `doengrave` + invlet);
+  port `remarm_swapwep`; eat menu `is_edible`; canned
+  `getobj_from_cmdq` on name/stylus; `iflags` skipfloor. Non-hands
+  stylus still Never mind (named). Rule #2: no fs.
+- **JS:** `js/iactions.js`; `js/do_wear.js` `remarm_swapwep`;
+  `js/eat.js` `is_edible` export + `floorfood_eat`; `js/do_name.js`
+  `getobj_name`; `js/engrave.js` `stylus_ok` / `getobj_stylus`.
+- **Not this iter:** IA_BUY_OBJ / IA_TWOWEAPON / rub/swap/whatis;
+  doengrave non-hands stylus body; `'i'` `getobj_name` interactive
+  clone; offer/tip/invoke is D-1665; `oc_uses_known` is D-1674.
+- **Verified:** private canary (`remarm_swapwep` FAIL/TIME, ration
+  edible, canned name KEY); green+strict seed8000/0900; CURRENT
+  cohort **9**/9 + strict.
+- **Files:** `js/iactions.js`, `js/do_wear.js`, `js/eat.js`,
+  `js/do_name.js`, `js/engrave.js`.
+
 ## D-1674 — objects.h oc_uses_known extract
 
 - **Status:** fixed (map-driven Open from D-1673; not a public FAIL)

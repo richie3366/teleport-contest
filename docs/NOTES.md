@@ -5,12 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1674 (cadence **#2080** at `115570e2`).
-  seed4500 still PASS. **Hypothesis:** remaining pushkeys
-  unwield/name/eat/engrave is the first Open (Must-fix empty).
-  **Falsify:** `node scripts/csym.mjs itemactions_pushkeys`.
-  **Next:** Open `iactions.c` remaining pushkeys unwield/name/eat/engrave.
-  Not offer/tip/invoke. Do not skip D-1531…D-1674.
+- **Suite 44/44** after D-1675 (cadence **#2080** at `115570e2`).
+  seed4500 still PASS. **Hypothesis:** IA_BUY_OBJ shop pay is the
+  first Open (Must-fix empty). **Falsify:**
+  `node scripts/csym.mjs itemactions`. **Next:** Open `iactions.c`
+  IA_BUY_OBJ shop pay. Not offer/tip/invoke. Do not skip D-1531…D-1675.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn
   oc_oprop; keepdogs/grow_up leash; light-scroll `initedog`;
@@ -21,11 +20,12 @@ Objective/score live in `CURRENT.md`.
   `possibly_unwield` / `mon_break_armor`; sync `newcham`; array rn2 /
   pauper_legacy / killed_nemesis; spell dull / zap rider eyecount;
   sit.c grease spray; perm_invent can_set; wizmgender glyph-reset;
-  remaining pushkeys unwield/name/eat/engrave/buy/two-weapon;
+  remaining pushkeys buy/rub/swap/two-weapon/whatis;
   `offer_corpse`; `choose_tip_container_menu`; polyself `uskin=`;
   wield `restrict_name`; `oname` via_naming livelog; `'i'`
-  `getobj_name` clone; `undiscover_object` / `gem_learned`;
-  #if 0 EXCLUDE; steal/muse `unknow_object`; `oc_charged`/`oc_merge`.
+  `getobj_name` clone; doengrave non-hands stylus;
+  `undiscover_object` / `gem_learned`; #if 0 EXCLUDE; steal/muse
+  `unknow_object`; `oc_charged`/`oc_merge`.
 
 ## Don't re-check (≤15)
 
@@ -34,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1674.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1675.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,10 +45,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1674 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1675 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1674. Do not delete emin (**487**). Do not stub
+  D-1520…D-1675. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -59,16 +59,21 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1674 in the index. No yn ^P glue /
+  `vision_reset`. D-1576…D-1675 in the index. No yn ^P glue /
   `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
   `noarmor` uskin / wizweight after-change / do_oname slip /
   cmdq_pop canned / `docall` sink-fluid `safe_qbuf` / astral
-  `distant_monnam` / `oc_uses_known` extract / add `strncmpi` #4.
+  `distant_monnam` / `oc_uses_known` extract / unwield-name-eat-engrave
+  pushkeys / `remarm_swapwep` / add `strncmpi` #4.
 
 ## Landmarks (≤15)
 
+- D-1675: IA_UNWIELD/NAME/EAT/ENGRAVE pushkeys + `remarm_swapwep`
+  `#altunwield`; eat `is_edible` row; canned name/stylus KEY;
+  `floorfood_eat` `iflags.menu_requested`. buy/rub/swap/two-weapon/
+  whatis / non-hands stylus named. D-1674 oc_uses_known.
 - D-1674: `oc_uses_known` extract (BITS uskn) + `unknow_object`
   `known = uskn ? 0 : 1`; `otyp_uses_known` table; `rename_disco`
   dummy. steal/muse / `oc_charged`/`oc_merge` named. D-1673
@@ -105,5 +110,3 @@ Objective/score live in `CURRENT.md`.
   array rn2 / pauper named. convert_arg D-1649.
 - D-1661: `optfn_perminv_mode` do_set + handler PICK_ONE. mO
   compound named. doperminv D-1642.
-- D-1660: `docallcmd` `'o'` live getobj `"call"`. cmdq_pop canned
-  is D-1671; artifact_name slip is D-1670.

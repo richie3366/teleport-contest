@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1675 iactions remaining pushkeys unwield/name/eat/engrave
+
+**Objective:** Open `iactions.c` remaining pushkeys unwield/name/eat/
+engrave (named). Not offer/tip/invoke.
+**C locus:** `iactions.c` `itemactions_pushkeys` `:150–187`;
+`do_wear.c` `remarm_swapwep` `:3060–3087`; `eat.c` `floorfood`
+`iflags.menu_requested`; `engrave.c` `stylus_ok`.
+**JS locus:** `js/iactions.js`; `js/do_wear.js`; `js/eat.js`;
+`js/do_name.js` `getobj_name`; `js/engrave.js` `getobj_stylus`.
+**Change:** live those four pushkey arms + `#altunwield`; eat
+`is_edible` row; canned KEY on name/stylus; floorfood `iflags`.
+buy/rub/swap/two-weapon/whatis named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary; green+strict seed8000/0900; cohort
+**9**/9 + strict.
+**Next:** Open `iactions.c` IA_BUY_OBJ shop pay. Not offer/tip/invoke.
+**Blocked:** none.
 ## 2026-08-29 — audit #2080 reviews 627–635 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **626**

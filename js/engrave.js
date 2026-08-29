@@ -15,7 +15,8 @@
 // random_engraving → getrumor or get_rnd_text(ENGRAVEFILE);
 // mklev graves via make_grave → get_rnd_text(EPITAPHFILE) HEADSTONE;
 // domove smudge via maybe_smudge_engr → wipe_engr_at(rnd(5)).
-// Named omissions: wand/weapon/marker/towel/gem/ring stylus sfx;
+// Named omissions: wand/weapon/marker/towel/gem/ring stylus sfx
+// (canned getobj KEY live D-1675; non-hands body still Never mind);
 // altar/jello/swallow/lava/pool; add-to/overwrite yn; multi-turn
 // dulling occupation; livelog;
 // allmain DEX timeout D-1372; dokick(2) D-1360;
@@ -41,6 +42,7 @@ import { nhgetch } from './input.js';
 import { flush_screen, flush_topl_more, pline, newsym } from './display.js';
 import { getlin } from './getline.js';
 import { HANDS_OBJ } from './readobjnam.js';
+import { getobj_from_cmdq } from './invent.js';
 import { A_WIS, exercise } from './attrib.js';
 import { getrumor, get_rnd_text } from './rumors.js';
 import { ENGRAVE_BUF, MD_PAD_ENGRAVE } from './generated/engrave_data.js';
@@ -54,7 +56,7 @@ import {
     ROOM, GRAVE, IS_GRAVE, MM_NOMSG, COLNO, ROWNO,
     ACCESSIBLE, IS_FOUNTAIN, IS_AIR, IS_POOL, IS_LAVA,
     Never_mind, Is_airlevel, Is_waterlevel, P_RIDING, P_BASIC,
-    FLYING,
+    FLYING, GETOBJ_SUGGEST, GETOBJ_DOWNPLAY,
 } from './const.js';
 import { nomul } from './hack.js';
 import { t_at, uteetering_at_seen_pit, uescaped_shaft } from './trap.js';
@@ -535,20 +537,31 @@ export function make_engr_at(x, y, text, pristine, e_time, e_type) {
     return ep;
 }
 
+/**
+ * C engrave.c stylus_ok `:480–499`. Hands SUGGEST; weapon/wand/gem/ring
+ * and towel/marker SUGGEST; else DOWNPLAY.
+ * @param {object|null} obj
+ * @returns {number}
+ */
+function stylus_ok(obj) {
+    if (!obj) return GETOBJ_SUGGEST;
+    if (obj.oclass === WEAPON_CLASS || obj.oclass === WAND_CLASS
+        || obj.oclass === GEM_CLASS || obj.oclass === RING_CLASS) {
+        return GETOBJ_SUGGEST;
+    }
+    if (obj.oclass === TOOL_CLASS
+        && (obj.otyp === TOWEL || obj.otyp === MAGIC_MARKER)) {
+        return GETOBJ_SUGGEST;
+    }
+    return GETOBJ_DOWNPLAY;
+}
+
 /** Invent-order letters for stylus_ok SUGGEST (C invent walk). */
 function stylus_lets() {
     const lets = [];
     for (const o of game.invent || []) {
         if (!o?.invlet) continue;
-        if (o.oclass === WEAPON_CLASS || o.oclass === WAND_CLASS
-            || o.oclass === GEM_CLASS || o.oclass === RING_CLASS) {
-            lets.push(o.invlet);
-            continue;
-        }
-        if (o.oclass === TOOL_CLASS
-            && (o.otyp === TOWEL || o.otyp === MAGIC_MARKER)) {
-            lets.push(o.invlet);
-        }
+        if (stylus_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
     }
     return lets.join('');
 }
@@ -556,8 +569,17 @@ function stylus_lets() {
 /**
  * C ref: invent.c getobj("write with", stylus_ok, GETOBJ_PROMPT)
  * Hands `-` is SUGGEST (space after `-` in prompt). Loop on missing letter.
+ * Canned CMDQ_KEY (iactions IA_ENGRAVE_OBJ) via getobj_from_cmdq (D-1675).
+ * Non-hands stylus body still named omit (Never mind, not fake DUST).
  */
 async function getobj_stylus() {
+    const cq = getobj_from_cmdq(stylus_ok, false, HANDS_OBJ);
+    if (!cq.skip) {
+        if (!cq.otmp) return null;
+        if (cq.otmp === HANDS_OBJ || cq.otmp._hands) return HANDS_OBJ;
+        if (game.flags?.verbose !== false) await pline(Never_mind);
+        return null;
+    }
     for (;;) {
         await flush_topl_more();
         const lets = stylus_lets();

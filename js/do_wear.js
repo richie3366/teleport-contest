@@ -1,7 +1,8 @@
 // do_wear.js — Wear / take-off / put-on (partial).
 // C ref: do_wear.c — dowear, doputon, canwearobj, accessory_or_armor_on,
 // Amulet_on, Amulet_off, Armor_on, dotakeoff, doddoremarm, take_off,
-// do_takeoff, menu_remarm, armor_or_accessory_off, armoroff, *_off.
+// do_takeoff, remarm_swapwep, menu_remarm, armor_or_accessory_off,
+// armoroff, *_off.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -18,6 +19,7 @@ import {
 import { nomul, unmul, stop_occupation } from './hack.js';
 import { retouch_object, set_artifact_intrinsic } from './artifact.js';
 import { welded, setuwep, setuswapwep, setuqwep, empty_handed } from './wield.js';
+import { cmdq_pop } from './cmd.js';
 import { set_occupation } from './engrave.js';
 import { makeknown, observe_object, ggetobj, is_worn } from './invent.js';
 import {
@@ -29,7 +31,7 @@ import {
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_ARMOR,
     W_RING, W_RINGL, W_RINGR, W_AMUL, W_TOOL, W_WEAPONS, W_WEP, W_SWAPWEP,
     W_QUIVER, W_BALL, W_CHAIN, LEFT_RING, RIGHT_RING, W_ART,
-    ECMD_OK,
+    ECMD_OK, ECMD_FAIL, ECMD_TIME, HANDS_SYM, CMDQ_KEY,
     ERODE_BURN, ERODE_RUST, ERODE_ROT, ERODE_CORRODE, ERODE_CRACK, ERODE_NONE,
     ER_NOTHING, ER_DESTROYED, EF_PAY, EF_DESTROY,
     TIMEOUT, BLINDED, FAST, TELEPAT, STEALTH, SLEEPY, I_SPECIAL,
@@ -1452,6 +1454,40 @@ async function do_takeoff() {
     }
     doff.mask = (doff.mask | 0) & ~I_SPECIAL;
     return otmp;
+}
+
+/**
+ * C do_wear.c remarm_swapwep `:3060–3087`. Caller: iactions.c
+ * itemactions_pushkeys IA_UNWIELD when otmp==uswapwep (`#altunwield`
+ * INTERNALCMD). Pops canned HANDS_SYM; reset_remarm then do_takeoff
+ * W_SWAPWEP. Cursed secondary still comes off; TIME if gone or bknown
+ * flipped.
+ * @returns {Promise<number>}
+ */
+export async function remarm_swapwep() {
+    const cmdq = cmdq_pop();
+    let isKey = false;
+    let keych = '\0';
+    if (cmdq) {
+        isKey = cmdq.typ === CMDQ_KEY || cmdq.typ === 'key';
+        if (isKey) {
+            keych = typeof cmdq.key === 'string'
+                ? cmdq.key.charAt(0)
+                : String.fromCharCode(cmdq.key | 0);
+        }
+    }
+    const u = game.u || {};
+    if (!isKey || keych !== HANDS_SYM || !u.uswapwep) return ECMD_FAIL;
+
+    const oldbknown = u.uswapwep.bknown | 0;
+    reset_remarm();
+    const doff = takeoff_info();
+    doff.what = W_SWAPWEP;
+    doff.mask = W_SWAPWEP;
+    await do_takeoff();
+    return (!u.uswapwep || (u.uswapwep.bknown | 0) !== oldbknown)
+        ? ECMD_TIME
+        : ECMD_OK;
 }
 
 /**
