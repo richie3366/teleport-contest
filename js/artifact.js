@@ -798,7 +798,7 @@ export function exist_artifact(otyp, name) {
  * C ref: artifact.c restrict_name `:574–623`.
  * OBJ_DESCR + shuffle pool for undiscovered same-class; then artilist
  * strcmp after stripping "the ". SPFX_NOGEN|SPFX_RESTR or quan>1.
- * Caller: do_oname slip; wield.c spec_charge still named.
+ * Callers: do_oname slip (D-1670); wield.c chwepon (D-1692).
  */
 export function restrict_name(otmp, name) {
     if (!name) return false;

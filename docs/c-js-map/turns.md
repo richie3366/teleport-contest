@@ -734,9 +734,13 @@ cantwield ridiculous / full setworn / `#swap` deferred);
 **`empty_handed` gloves/humanoid** (D-0194); 
 **`#twoweapon`/`dotwoweapon`/`can_twoweapon`/`set_twoweap`/`untwoweapon`** (D-0344; 
 Yname2/body_part/Glib drop polish deferred); 
-**`chwepon` glow/spe + strange_feeling + worm-tooth/crysknife** (D-0435; 
-Magicbane clue, artifact restrict_name, shop costly_alteration/alter_cost, useupall polish 
-deferred); omit `cantwield` poly, `cant_wield_corpse`, bimanual+shield weld pline body; **getobj ALLOWCNT D-1530**; **`finish_splitting`/`unsplitobj`/`clear_splitobjs` D-1560** (C `wield.c` `:345–351` + `dowield`/`doquiver_core` callers; `mkobj.c` `:554–629`; live local `finish_splitting` + `js/mkobj.js` + invent `freeinv`; ynq split-one/rest; gold partial; JS mergable owornmask dance); `Shk_Your` decline, `arti_speak` / setuwep Sunsword begin_burn; dothrow/apply/pickup/invent `unsplitobj` callers + allmain/mon `clear_splitobjs` still named; **`uwepgone` `artifact_light` `end_burn` + Tobjnam + 
+**`chwepon` glow/spe + strange_feeling + worm-tooth/crysknife** (D-0435) +
+**artifact `restrict_name` faint-glow + Magicbane clue + unpaid `alter_cost` +
+`costly_alteration` COST_DEGRD/DECHNT + weld `update_inventory`** (D-1692;
+C `wield.c` `chwepon` `:991–997` / `:1036–1039` / unpaid+shop; callee
+`artifact.c` `restrict_name` already D-1670; `is_art` not `u_wield_art`
+clone #6; Hallucination `hcolor`; invent.c `useupall` / `obfree`;
+local `Yobjnam2` vs objnam export named); omit `cantwield` poly, `cant_wield_corpse`, bimanual+shield weld pline body; **getobj ALLOWCNT D-1530**; **`finish_splitting`/`unsplitobj`/`clear_splitobjs` D-1560** (C `wield.c` `:345–351` + `dowield`/`doquiver_core` callers; `mkobj.c` `:554–629`; live local `finish_splitting` + `js/mkobj.js` + invent `freeinv`; ynq split-one/rest; gold partial; JS mergable owornmask dance); `Shk_Your` decline, `arti_speak` / setuwep Sunsword begin_burn; dothrow/apply/pickup/invent `unsplitobj` callers + allmain/mon `clear_splitobjs` still named; **`uwepgone` `artifact_light` `end_burn` + Tobjnam + 
 gone-trio `update_inventory`** (D-1204); full `setworn` props; 
 **`getobj_wield` SUGGEST weapons/weptools + `- ` prefix + compactify when suggested>5** (D-0457; 
 `?`/`*` pickinv still deferred); **`body_part`** via `objnam.js`
@@ -966,13 +970,13 @@ Call Amulet / unknown fake `pline_The`; else `silly_thing_to`;
 **artifact_name slip** (D-1670; `artifact.c` `restrict_name` + `do_oname`
 `:331–357` `wipeout_text`/`rnd_on_display_rng` + literate++; canonical
 Sting/Orcrist `otyp==objtyp`; `is_plural`+`safe_qbuf` prompt; wield
-`restrict_name` named; `oname` via_naming livelog is D-1680);
+`restrict_name` is D-1692; `oname` via_naming livelog is D-1680);
 **`oname` via_naming livelog** (D-1680; C `do_name.c` `oname`
 `:371–426`; `literate++` `livelog_printf` LL_CONDUCT|LL_ARTIFACT /
 LL_ARTIFACT; `new_oname`; uwep `set_artifact_intrinsic`; unpaid
 `alter_cost`; `OBJ_INVENT` `update_inventory`; uswapwep `set_twoweap`;
 `untwoweapon` You() named — oname stays sync; wield `restrict_name`
-named);
+is D-1692);
 **`docallcmd` cmdq_pop canned** (D-1671; C `:511–518` KEY skip-menu else
 `cmdq_clear(CQ_CANNED)`; `:508–550` `flags.lootabc` acc + `if (gi.invent)`
 i/o rows; export `cmdq_pop`/`cmdq_clear` `js/cmd.js`; iactions Call

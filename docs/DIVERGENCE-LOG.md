@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1692 — wield.c chwepon restrict_name
+
+- **Status:** fixed (map-driven Open from D-1691; not a public FAIL)
+- **Symptom:** map named wield `restrict_name`. C `chwepon` amount<0
+  named restricted artifact faintly glows and returns without spe
+  change; Magicbane clue; unpaid `alter_cost`; `costly_alteration`
+  COST_DEGRD/DECHNT; weld `update_inventory`. JS skipped those after
+  D-0435 / D-1670 (do_oname slip already live).
+- **C locus:** `wield.c` `chwepon` `:917–1048` (`:991–997` restrict;
+  `:1036–1039` Magicbane; unpaid `:968–969`/`:1027–1028`;
+  `:977` COST_DEGRD; `:1020–1021` COST_DECHNT; `:937` update_inventory);
+  callee `artifact.c` `restrict_name` `:574–623`; `obj.h`
+  `u_wield_art` ≡ `is_art(uwep, art)`.
+- **JS was:** `// artifact restrict_name faint-glow deferred`; Magicbane
+  / shop / weld inventory comments; evaporate splice not `useupall`.
+- **Fix:** `has_oname`/`ONAME` then `restrict_name`; `is_art` ART_MAGICBANE
+  (no `u_wield_art` clone #6); live `alter_cost` / `costly_alteration`;
+  weld `update_inventory`. Rule #2: no fs.
+- **JS:** `js/wield.js` `chwepon`; `js/artifact.js` `restrict_name` comment.
+- **Not this iter:** invent.c `useupall` / `obfree`; Hallucination
+  `hcolor`; local `Yobjnam2` vs objnam export; do_oname slip (D-1670);
+  knox/drawbridge.
+- **Verified:** private canary (restrict_name Sting/Excalibur/Magicbane +
+  Blind chwepon spe unchanged); green+strict seed8000/0900; CURRENT
+  cohort **9**/9 + strict.
+- **Files:** `js/wield.js`, `js/artifact.js`.
+
 ## D-1691 — o_init.c undiscover_object / gem_learned
 
 - **Status:** fixed (map-driven Open from D-1690; not a public FAIL)

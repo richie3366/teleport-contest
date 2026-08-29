@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1692 wield.c chwepon restrict_name
+
+**Objective:** Open `artifact.c` wield restrict_name (named). Not
+do_oname slip.
+**C locus:** `wield.c` `chwepon` `:991–997` / `:1036–1039`; callee
+`artifact.c` `restrict_name` `:574–623`; unpaid `alter_cost`;
+`costly_alteration` COST_DEGRD/DECHNT.
+**JS locus:** `js/wield.js` `chwepon`; `js/artifact.js` `restrict_name`.
+**Change:** named restricted artifact faint-glow no spe; Magicbane
+`is_art`; unpaid shop; weld `update_inventory`. Named: `useupall`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **PASS**; green+strict seed8000/0900;
+cohort **9**/9 + strict.
+**Next:** Open `dungeon.c` print_mapseen knox/drawbridge. Not cemetery
+JSON.
+**Blocked:** none.
 ## 2026-08-29 — D-1691 o_init.c undiscover_object / gem_learned
 
 **Objective:** Open `o_init.c` undiscover_object / gem_learned (named).

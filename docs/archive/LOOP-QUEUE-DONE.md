@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `o_init.c` undiscover_object / gem_learned (named). Not oc_uses_known. **Addressed:** D-1691
+- [x] `artifact.c` wield restrict_name (named). Not do_oname slip. **Addressed:** D-1692
+
+
+- [x] `o_init.c` undiscover_object / gem_learned (named). Not oc_uses_known. **Addressed:** D-1691 `93fcd877`
 
 
 - [x] `objects.h` oc_charged extract (named). Not oc_merge. **Addressed:** D-1690 `0458e7cc`
