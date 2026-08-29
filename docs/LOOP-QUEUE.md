@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `questpgr.c` qt_pager common fallback (named). Not convert_arg.
 - [ ] `invent.c` `dounpaid` (named). Not invlet_constant.
 - [ ] `wizcmds.c` `sanity_check` gold/invlet (named). Not check_invent_gold.
 - [ ] `iactions.c` remaining pushkeys offer/tip/invoke (named). Not use_grease.

@@ -789,10 +789,9 @@ async function deliver_by_window(raw, _how) {
  *
  * Named omissions: lua VM / msg_fallbacks beyond goal_alt; array rn2
  * (angel_cuss/demon_cuss); explicit single-line output=text; NHW_MENU
- * except legacy; common fallback from qt_pager (second nhl_init);
- * other-role bodies; pauper_legacy; rawtext killed_nemesis
- * (stinky_nemesis). convert_arg catalogue is D-1649; convert_line
- * pronoun %Xh is D-1634.
+ * except legacy; other-role bodies; pauper_legacy; rawtext
+ * killed_nemesis (stinky_nemesis). convert_arg catalogue is D-1649;
+ * convert_line pronoun %Xh is D-1634. qt_pager common retry is D-1662.
  *
  * @param {string} section role filecode or "common"
  * @param {string} msgid
@@ -808,7 +807,8 @@ async function com_pager_core(section, msgid, showerror, rawOut) {
     const entry = lookup_quest_entry(section, msgid, false);
     const text = entry?.text || null;
     if (!text) {
-        // C: impossible() when showerror; other-role burn shuffle only
+        // C: impossible() when showerror; miss returns FALSE (qt_pager
+        // then retries section "common", which nhl_init's again).
         void showerror;
         return false;
     }
@@ -848,11 +848,15 @@ export async function com_pager(msgid) {
 }
 
 /**
- * C ref: questpgr.c qt_pager → com_pager_core(filecode) then common.
- * Common fallback (second nhl_init) named omit — other-role firsttime
- * still burns one shuffle only.
+ * C ref: questpgr.c qt_pager `:629–634`.
+ * com_pager_core(filecode, msgid, FALSE) then, on miss,
+ * com_pager_core("common", msgid, TRUE). Each core runs nhl_init
+ * (second shuffle is C). Array rn2 / pauper_legacy / killed_nemesis
+ * rawtext still named.
  */
 export async function qt_pager(msgid) {
     const code = game.urole?.filecode || 'Tou';
-    await com_pager_core(code, msgid, false, null);
+    if (!await com_pager_core(code, msgid, false, null)) {
+        await com_pager_core('common', msgid, true, null);
+    }
 }

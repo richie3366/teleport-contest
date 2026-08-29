@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `options.c` `optfn_perminv_mode` (named). Not doperminv. **Addressed:** D-1661
+- [x] `questpgr.c` qt_pager common fallback (named). Not convert_arg. **Addressed:** D-1662
+
+
+- [x] `options.c` `optfn_perminv_mode` (named). Not doperminv. **Addressed:** D-1661 `536904b4`
 
 
 - [x] `do_name.c` docallcmd `'o'` getobj call (named). Not lookup_novel. **Addressed:** D-1660 `7504982e`

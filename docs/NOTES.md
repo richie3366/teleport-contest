@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1661 (cadence **#2060** at `9ac19d6f`
+- **Suite 44/44** after D-1662 (cadence **#2060** at `9ac19d6f`
   still last full suite). seed4500 still PASS. **Hypothesis:**
-  `questpgr.c` qt_pager common fallback still omitted (not
-  `optfn_perminv_mode` D-1661 / convert_arg D-1649).
-  **Falsify:** `node scripts/csym.mjs qt_pager`.
-  **Next:** Open qt_pager common fallback. Not convert_arg.
-  Do not skip D-1531…D-1661. Not `optfn_perminv_mode`.
+  `invent.c` `dounpaid` still omitted (not `qt_pager` common
+  retry D-1662 / `invlet_constant` D-1655).
+  **Falsify:** `node scripts/csym.mjs dounpaid`.
+  **Next:** Open `dounpaid`. Not invlet_constant.
+  Do not skip D-1531…D-1662. Not `qt_pager` common fallback.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn oc_oprop;
   keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /
@@ -21,11 +21,11 @@ Objective/score live in `CURRENT.md`.
   remaps; Punished float_down; water/lava steed; uhitm `u.dx`;
   map_menu_cmd; `context.novel`; JSON getlev; astral
   `distant_monnam`; walk-key / PREFIXCMD overlay BIND=;
-  `possibly_unwield` / `mon_break_armor`; sync `newcham`; qt_pager
-  fallback / array rn2; spell dull / zap rider eyecount callers;
-  sit.c `special_throne_effect` grease spray; dig/music/pager
-  `altarmask_at`; `oc_uses_known` extract; optfn_boolean perm_invent
-  can_set / wizweight after-change.
+  `possibly_unwield` / `mon_break_armor`; sync `newcham`; array rn2 /
+  pauper_legacy / killed_nemesis rawtext; spell dull / zap rider
+  eyecount callers; sit.c `special_throne_effect` grease spray;
+  dig/music/pager `altarmask_at`; `oc_uses_known` extract;
+  optfn_boolean perm_invent can_set / wizweight after-change.
 
 ## Don't re-check (≤15)
 
@@ -34,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1661.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1662.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,10 +45,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1661 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1662 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1661. Do not delete emin (**487**). Do not stub
+  D-1520…D-1662. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -59,15 +59,18 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1661 in the index (`optfn_perminv_mode` D-1661;
-  `'o'` getobj D-1660; cemetery D-1659; altar-god D-1658). No yn
-  ^P glue / `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap
-  sticky Blind (D-1604). No `dat/tribute` indent=2. No static
+  `vision_reset`. D-1576…D-1662 in the index (`qt_pager` common
+  retry D-1662; `optfn_perminv_mode` D-1661; `'o'` getobj D-1660).
+  No yn ^P glue / `ing_suffix` clone #3 / InvInUse poke (D-1603) /
+  zap sticky Blind (D-1604). No `dat/tribute` indent=2. No static
   `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev catchup
   reads it.
 
 ## Landmarks (≤15)
 
+- D-1662: `qt_pager` role miss → `com_pager_core("common", TRUE)`
+  (second nhl_init). Array rn2 / pauper_legacy / killed_nemesis
+  rawtext named. convert_arg is D-1649; synopsis is D-1622.
 - D-1661: `optfn_perminv_mode` do_set table/digit/`!` + get_val Off
   suffix + `handler_perminv_mode` PICK_ONE + `can_set_perm_invent`.
   mO compound row / optfn_boolean perm_invent gate named.
@@ -103,8 +106,6 @@ Objective/score live in `CURRENT.md`.
 - D-1650: `dooverview` why==-1 PICK_ONE + `query_annotation`; two-pass
   traverse; named-place / `builds_up` / `endgamelevelname`.
 - D-1649: `convert_arg` `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z`;
-  `homebase`/`intermed`/`neminame`; `%o` `artiname`. qt_pager named.
+  `homebase`/`intermed`/`neminame`; `%o` `artiname`. qt_pager is D-1662.
 - D-1648: await `newcham` remaining NO_NC_FLAGS (review **606**).
   Sync makemon/`load_tower1` named. mleashed D-1645.
-- D-1647: `rename_disco` inv_order PICK_ONE + dummy `docall`.
-  `'o'` getobj is D-1660. do_mgivenname D-1638.

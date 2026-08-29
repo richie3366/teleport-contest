@@ -1,3 +1,33 @@
+## D-1662 — questpgr.c qt_pager common fallback
+
+- **Status:** fixed (map-driven Open from D-1661; not a public FAIL)
+- **Symptom:** map named `qt_pager` common fallback. C retries
+  `com_pager_core("common", msgid, TRUE)` when the role filecode
+  table misses. JS returned after the role call only, so a miss
+  never burned the second `nhl_init` or delivered a common msgid.
+- **C locus:** `questpgr.c` `qt_pager` `:629–634`; callee
+  `com_pager_core` `:467–621` (`nhl_init` per call). Callers
+  `quest.c` firsttime/locate/goal/leader/….
+- **JS was:** `qt_pager` awaited `com_pager_core(filecode, …, false)`
+  and stopped. Named omit after D-1622 / D-1649.
+- **Fix:** on role miss, await `com_pager_core('common', msgid, true)`.
+  Common `quest_portal*` already in `QUEST_COMMON`. Recovered the
+  D-1661 `options.js` comment that named a public session. Rule #2:
+  no fs.
+- **JS:** `js/questpgr.js` `qt_pager`.
+- **Not this iter:** array rn2 (`angel_cuss`/`demon_cuss`);
+  `pauper_legacy`; `killed_nemesis` `rawtext` / `stinky_nemesis`;
+  other-role bodies; `showerror` `impossible`; lua VM. convert_arg
+  is D-1649; `com_pager_core` synopsis is D-1622;
+  `optfn_perminv_mode` is D-1661.
+- **Verified:** private canary (role miss = two shuffles; missing
+  common msgid silent; `quest_portal` delivers via common);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict;
+  quest cohort seed0361/0367/0373/4500 **4**/4 + strict
+  (13/13 with green).
+- **Files:** `js/questpgr.js` (+ comment `js/quest.js`);
+  `js/options.js` comment only.
+
 ## D-1661 — options.c optfn_perminv_mode
 
 - **Status:** fixed (map-driven Open from D-1660; not a public FAIL)

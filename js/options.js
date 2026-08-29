@@ -1865,7 +1865,7 @@ function doset_bool_term(name) {
  * Branch envelope: help + nonmod bools + mod bools + compounds + others;
  * apply bool toggles then handlers (pickup_types). Named omissions: full
  * compound getlin arms, WC filters, wizard-only, PREFIXES, help file.
- * mO compound row for perminv_mode named (letter fortress / seed0007);
+ * mO compound row for perminv_mode named (letter fortress);
  * OPTIONS= + handler live. optfn_boolean perm_invent can_set gate named.
  */
 export async function doset() {
