@@ -15,6 +15,7 @@ import {
 } from './const.js';
 import { GameMap } from './game.js';
 import { mons } from './monsters.js';
+import { restmon_edog, savemon_edog } from './makemon.js';
 import { objects_globals_init } from './objects.js';
 import { nh_terminate_capture } from './topten.js';
 
@@ -98,6 +99,8 @@ function serMon(mtmp) {
         out.mtrack.push({ x: c?.x | 0, y: c?.y | 0 });
     }
     out.minvent = serObjChain(mtmp.minvent);
+    // C save.c savemon `:860–869` — EDOG blob when present.
+    savemon_edog(mtmp, out);
     return out;
 }
 
@@ -465,6 +468,8 @@ export function try_restore_save() {
             const c = rawM.mtrack?.[j];
             mtmp.mtrack.push({ x: c?.x | 0, y: c?.y | 0 });
         }
+        // C restore.c restmon `:349–361` — newedog + apport clamp.
+        restmon_edog(mtmp);
         fmon.push(mtmp);
     }
 

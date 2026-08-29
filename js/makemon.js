@@ -272,6 +272,58 @@ export function newedog(mtmp) {
 }
 
 /**
+ * C ref: restore.c restmon `:349–361` — saved edog length > 0:
+ * newedog, Sfi_edog, apport <= 0 → 1. JSON stores absolute
+ * droptime/hungrytime (game.moves is restored first ≡ C
+ * relative_time_to_moves pair). Callers: save.js / bones.js restmon.
+ */
+export function restmon_edog(mtmp) {
+    if (!mtmp) return;
+    const src = mtmp.mextra?.edog || mtmp.edog;
+    if (!src) return;
+    newedog(mtmp);
+    const edog = EDOG(mtmp);
+    if (edog && src !== edog) {
+        Object.assign(edog, src);
+        if (src.ogoal) {
+            edog.ogoal = { x: src.ogoal.x | 0, y: src.ogoal.y | 0 };
+        }
+    }
+    if (edog && (edog.apport | 0) <= 0) edog.apport = 1;
+    mtmp.edog = edog;
+}
+
+/**
+ * C ref: save.c savemon `:860–869` — write edog when EDOG(mtmp).
+ * JSON analogue: ensure mextra.edog is on `out`. Live times are not
+ * mutated (C converts to relative for the file then restores in-memory).
+ */
+export function savemon_edog(mtmp, out) {
+    if (!mtmp || !out) return;
+    const edog = EDOG(mtmp) || mtmp.edog;
+    if (!edog) return;
+    if (!out.mextra) out.mextra = {};
+    if (out.mextra.edog) return;
+    try {
+        out.mextra.edog = JSON.parse(JSON.stringify({
+            parentmid: edog.parentmid | 0,
+            droptime: edog.droptime | 0,
+            dropdist: edog.dropdist | 0,
+            apport: edog.apport | 0,
+            whistletime: edog.whistletime | 0,
+            hungrytime: edog.hungrytime | 0,
+            ogoal: { x: edog.ogoal?.x | 0, y: edog.ogoal?.y | 0 },
+            abuse: edog.abuse | 0,
+            revivals: edog.revivals | 0,
+            mhpmax_penalty: edog.mhpmax_penalty | 0,
+            killed_by_u: edog.killed_by_u | 0,
+        }));
+    } catch {
+        /* omit */
+    }
+}
+
+/**
  * C ref: makemon.c newmcorpsenm `:2368–2375` — allocate mextra if
  * needed and set MCORPSENM = NON_PM (not initialized yet).
  * Callers: set_mimic_sym statue/corpse/egg/tin / slime-mold / altar;

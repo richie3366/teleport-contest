@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1629 dog.c free_edog
+
+**Objective:** Open `dog.c` `free_edog` (named). Not initedog ogoal.
+**C locus:** `dog.c` `free_edog` `:34–42` (extern-only); pair
+`restore.c` `restmon` `:349–361` `newedog`+apport; `save.c`
+`savemon` `:860–869`.
+**JS locus:** `js/dog.js` `free_edog`; `js/makemon.js`
+`restmon_edog`/`savemon_edog`; `js/save.js` / `js/bones.js`.
+**Change:** drop EDOG + JS mirror then mtame=0; restmon remirror +
+apport≤0→1; savemon fills mextra.edog. JSON absolute times.
+Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **13**/13; focused seed0013 restore
+PASS; green+strict seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `do_wear.c` `menu_remarm`. Not take_off occupation.
+**Blocked:** none.
 ## 2026-08-29 — D-1628 restore.c restore_gamelog
 
 **Objective:** Open `restore.c` `restore_gamelog` (named). Not

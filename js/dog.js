@@ -81,6 +81,22 @@ function pet_type() {
     return rn2(2) ? PM_KITTEN : PM_LITTLE_DOG;
 }
 
+/**
+ * C ref: dog.c free_edog `:34–42` — if mextra && EDOG, drop the edog
+ * pointer then mtame=0. C has no in-tree callers (extern.h + sfctool
+ * stub); dealloc_mextra frees edog inline without clearing mtame.
+ * JS also clears the top-level mtmp.edog mirror that dogmove/sounds
+ * still read. Restore newedog is restmon_edog (makemon.js).
+ */
+export function free_edog(mtmp) {
+    if (!mtmp) return;
+    if (mtmp.mextra && EDOG(mtmp)) {
+        mtmp.mextra.edog = null;
+    }
+    mtmp.edog = null;
+    mtmp.mtame = 0;
+}
+
 // C ref: dog.c initedog() — EDOG(mtmp) already allocated (newedog / MM_EDOG).
 export function initedog(mtmp, everything) {
     const edogp = EDOG(mtmp);

@@ -62,27 +62,26 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1628 (seed4500 still PASS). **Next cluster:**
-Open `dog.c` `free_edog` (named). Not initedog ogoal.
-**Do not skip D-1531…D-1628 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1629 (seed4500 still PASS). **Next cluster:**
+Open `do_wear.c` `menu_remarm` (named). Not take_off occupation.
+**Do not skip D-1531…D-1629 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1628.** Do not FORCE
+**Do not re-break D-0660…D-1629.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1628 (index). Recent: **D-1628**
+**Keep:** D-0845…D-1629 (index). Recent: **D-1629**
+`dog.c` `free_edog` drop EDOG then `mtame=0`; pair restore
+`restmon` `newedog`+apport≤0→1 (JSON absolute times).
+read.c light-scroll `initedog` named. Prior: **D-1628**
 `restore.c` `restore_gamelog` JSON Sfi length+chars+turn/flags
-until `-1` then `gamelog_add`; pair `save.c` `save_gamelog` walk
-no skip-empty. `restore_luadata` named. Prior: **D-1627**
-`steed.c` `dismount_steed` DISMOUNT_THROWN `"are thrown"` /
-KNOCKED/FELL HP + wounded-legs. Punished/ustuck / water-lava /
-KNOCKED dir named. Older D-1531…D-1626 live in the index —
-do not re-paste.
+until `-1` then `gamelog_add`. `restore_luadata` named. Older
+D-1531…D-1627 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1628 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1629 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -110,6 +109,7 @@ Do not re-port EDIT_GETLIN (config.h commented).
 Do not re-port `doextlist`.
 Do not re-port `dismount_steed` DISMOUNT_THROWN HP.
 Do not re-port `restore_gamelog`.
+Do not re-port `free_edog` / restmon `newedog`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

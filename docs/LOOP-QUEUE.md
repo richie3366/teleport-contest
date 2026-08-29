@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dog.c` `free_edog` (named). Not initedog ogoal.
 - [ ] `do_wear.c` `menu_remarm` (named). Not take_off occupation.
 - [ ] `topl.c` `tty_yn_function` `tty_nhbell` (named). Not post-answer toplines.
 - [ ] `getline.c` `kill_char` (named). Not EDIT_GETLIN.

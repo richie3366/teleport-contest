@@ -872,8 +872,13 @@ mirrors `mtmp.edog` for dogmove;
 **`initedog` ogoal `-1` + first-pet livelog D-1610** (C `:63–87`;
 `dog_goal` `ogoal.x` truthy sentinel; live `livelog_printf`/`uhis`/`an`/
 export `mon_pmname`; starting pet skips livelog because `!in_moveloop`);
-`free_edog` (extern only) / restore `newedog` / read.c light-scroll
-`initedog` named)
+**`free_edog` + restore `newedog` D-1629** (`dog.c` `:34–42` drop EDOG
+then `mtame=0`, extern-only in C; `restore.c` `restmon` `:349–361`
+`newedog`+apport≤0→1; pair `save.c` `savemon` `:860–869`; JSON
+absolute times, `game.moves` restored first; live `js/dog.js` +
+`js/makemon.js` `restmon_edog`/`savemon_edog` + save/bones restmon);
+read.c light-scroll `initedog` / `dealloc_mextra` / relative_time
+pair named)
 
 
 

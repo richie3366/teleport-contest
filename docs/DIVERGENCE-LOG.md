@@ -1,3 +1,27 @@
+## D-1629 — dog.c free_edog / restore.c restmon newedog
+
+- **Status:** fixed (map-driven Open from D-1628; not a public FAIL)
+- **Symptom:** map named `free_edog`. C drops EDOG then `mtame=0`.
+  JS had no export (named after D-1610). JSON restmon copied
+  `mextra.edog` but skipped the top-level `mtmp.edog` mirror
+  dogmove reads, and skipped the apport≤0→1 clamp.
+- **C locus:** `dog.c` `free_edog` `:34–42` (extern.h; no in-tree
+  callers). Pair `restore.c` `restmon` `:349–361` `newedog` +
+  apport clamp; `save.c` `savemon` `:860–869`. `relative_time_to_moves`
+  / `moves_to_relative_time` named (JSON stores absolute; `game.moves`
+  restored first). initedog ogoal is D-1610. restore_gamelog is D-1628.
+- **JS was:** named omit; restore `{...rawM}` left `mtmp.edog` unset.
+- **Fix:** `free_edog` clears mextra.edog + JS mirror + mtame=0.
+  `restmon_edog` calls live `newedog` then apport clamp; `savemon_edog`
+  ensures the JSON mextra blob. Rule #2: no fs.
+- **JS:** `js/dog.js` `free_edog`; `js/makemon.js` `restmon_edog` /
+  `savemon_edog`; callers `js/save.js` / `js/bones.js` restmon.
+- **Not this iter:** read.c light-scroll confused `initedog`;
+  `dealloc_mextra`; relative_time pair; bones mtame=0 still leaves
+  edog (C does too). initedog ogoal is D-1610.
+- **Verified:** private canary **13**/13; focused seed0013 restore
+  PASS; green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1628 — restore.c restore_gamelog / save.c save_gamelog
 
 - **Status:** fixed (map-driven Open from D-1627; not a public FAIL)

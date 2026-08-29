@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `restore.c` `restore_gamelog` (named). Not restore_msghistory. **Addressed:** D-1628
+- [x] `dog.c` `free_edog` (named). Not initedog ogoal. **Addressed:** D-1629
+
+
+- [x] `restore.c` `restore_gamelog` (named). Not restore_msghistory. **Addressed:** D-1628 `7af8fe5b`
 
 
 - [x] `steed.c` `dismount_steed` DISMOUNT_THROWN (named). Not dog_move Conflict. **Addressed:** D-1627 `15041ea2`
