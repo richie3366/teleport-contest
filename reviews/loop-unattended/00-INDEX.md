@@ -610,3 +610,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [597-7f506ccd-restore-luadata.md](./597-7f506ccd-restore-luadata.md) | `7f506ccd` | D-1636 nhlua.c restore_luadata / save_luadata | **ACCEPT-WITH-DEBT** |
 | [598-f4cae40b-restore-cham.md](./598-f4cae40b-restore-cham.md) | `f4cae40b` | D-1637 mon.c restore_cham getlev + With_you | **ACCEPT-WITH-DEBT** |
 | [599-f9bed6be-do-mgivenname.md](./599-f9bed6be-do-mgivenname.md) | `f9bed6be` | D-1638 do_name.c do_mgivenname / alreadynamed | **ACCEPT-WITH-DEBT** |
+| [600-d5474f87-esc-nonempty-fallthrough.md](./600-d5474f87-esc-nonempty-fallthrough.md) | `d5474f87` | D-1639 getline.c ESC-nonempty fallthrough | **ACCEPT-WITH-DEBT** |
+| [601-78fc5011-landing-spot.md](./601-78fc5011-landing-spot.md) | `78fc5011` | D-1640 steed.c landing_spot KNOCKED + enexto | **ACCEPT-WITH-DEBT** |
+| [602-429ab7b7-check-invent-gold.md](./602-429ab7b7-check-invent-gold.md) | `429ab7b7` | D-1641 invent.c check_invent_gold / adjust_gold_ok | **ACCEPT-WITH-DEBT** |
+| [603-a95b0aa6-doperminv.md](./603-a95b0aa6-doperminv.md) | `a95b0aa6` | D-1642 invent.c doperminv / tty WIN_INVEN assesstty | **ACCEPT-WITH-DEBT** |
+| [604-e1171a1a-cmdbind-m-question.md](./604-e1171a1a-cmdbind-m-question.md) | `e1171a1a` | D-1643 cmd.c BIND= M('?') cmdbind_get doextlist | **ACCEPT-WITH-DEBT** |
+| [605-d48909a2-goto-level-ach.md](./605-d48909a2-goto-level-ach.md) | `d48909a2` | D-1644 goto_level ACH_ENDG/ASTR/BGRM + Knox + entered livelog | **ACCEPT-WITH-DEBT** |
+| [606-cc8a839c-newcham-mleashed.md](./606-cc8a839c-newcham-mleashed.md) | `cc8a839c` | D-1645 newcham mleashed m_unleash + Elbereth monflee | **QUALITY-RISK** |
+| [607-48758020-menu-search-wait-synch.md](./607-48758020-menu-search-wait-synch.md) | `48758020` | D-1646 MENU_SEARCH + tty_wait_synch | **ACCEPT-WITH-DEBT** |
+| [608-69534fd4-rename-disco.md](./608-69534fd4-rename-disco.md) | `69534fd4` | D-1647 o_init.c rename_disco + disco_append_typename | **ACCEPT-WITH-DEBT** |

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `o_init.c` `rename_disco` (named). Not do_mgivenname. **Addressed:** D-1647
+- [x] `o_init.c` `rename_disco` (named). Not do_mgivenname. **Addressed:** D-1647 `69534fd4`
 
 
 - [x] `win/tty/wintty.c` MENU_SEARCH / `tty_wait_synch` (named). Not kill_char. **Addressed:** D-1646 `48758020`

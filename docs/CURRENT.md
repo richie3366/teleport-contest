@@ -20,12 +20,12 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-29** — full `sessions` at **D-1638**
-(`f9bed6be`, cadence **#2040**). **44**/44,
+Score last measured: **2026-08-29** — full `sessions` at **D-1647**
+(`69534fd4`, cadence **#2050**). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `39+0.31/turn` (R² 0.853). seed0367 FULL still PASS.
+Speed `39+0.31/turn` (R² 0.862). seed0367 FULL still PASS.
 Prior FAIL seed4500 at **D-1574** `1ba35e31` is PASS again.
-Prior audit **#2030** was 44/44 at `54c89bcc`.
+Prior audit **#2040** was 44/44 at `f9bed6be`.
 
 ## Score
 
@@ -34,7 +34,7 @@ Prior audit **#2030** was 44/44 at `54c89bcc`.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `39+0.31/turn` (R² 0.853) |
+| Speed label | `39+0.31/turn` (R² 0.862) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -63,7 +63,8 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1647 (seed4500 still PASS). **Next cluster:**
-Open `questpgr.c` `convert_arg` (named). Not convert_line %Xh.
+Must-fix: await `newcham` at remaining sync `NO_NC_FLAGS` sites
+(review **606**). Not `m_unleash` body. Not `convert_arg`.
 **Do not skip D-1531…D-1647 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing

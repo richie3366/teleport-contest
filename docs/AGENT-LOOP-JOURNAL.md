@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — audit #2050 reviews 600–608 + cadence
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **599**
+(`d5474f87`…`69534fd4`, D-1639…D-1647) plus full `sessions`.
+**C locus:** getline ESC; steed `landing_spot`; `check_invent_gold`;
+`doperminv`; BIND= M('?'); `goto_level` ACH; `newcham` mleashed;
+MENU_SEARCH/`tty_wait_synch`; `rename_disco`.
+**Change:** reviews **600–608**; **606 QUALITY-RISK** Must-fix await
+`newcham` at sync sites. No `js/` edits.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `39+0.31/turn` (R² 0.862) at `69534fd4`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Must-fix review **606**. Not `convert_arg`.
+**Blocked:** none.
 ## 2026-08-29 — D-1647 o_init.c rename_disco
 
 **Objective:** Open `o_init.c` `rename_disco` (named). Not do_mgivenname.

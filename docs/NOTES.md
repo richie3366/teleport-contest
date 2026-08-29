@@ -5,12 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1647 (cadence **#2040** at `f9bed6be`).
-  seed4500 still PASS. **Hypothesis:** C `questpgr.c` `convert_arg`
-  (named). Not `convert_line` %Xh (D-1634).
-  **Falsify:** `node scripts/map.mjs convert_arg` + `csym.mjs convert_arg`.
-  **Next:** Open `convert_arg`. Do not skip D-1531…D-1647.
-  Do not glue convert_arg onto convert_line. Do not re-port D-1621…D-1647.
+- **Suite 44/44** after D-1647 (cadence **#2050** at `69534fd4`).
+  seed4500 still PASS. **Hypothesis:** sync `newcham(..., 0)` callers
+  drop the Promise when mleashed `m_unleash` / Elbereth `monflee`
+  run (C `mon.c` `:5386/:5517` finishes before `return 1`).
+  **Falsify:** `node scripts/csym.mjs newcham` + grep `newcham(` in
+  makemon/mhitm/trap/zap/uhitm/mklev without `await`.
+  **Next:** Must-fix review **606**. Not `m_unleash` body. Not
+  `convert_arg`. Do not skip D-1531…D-1647.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; `rescham` wiz_intrinsic;
   `optfn_perminv_mode` / `handler_perminv_mode`; setworn
@@ -85,10 +87,9 @@ Objective/score live in `CURRENT.md`.
   bell; PICK_ONE first match; explicit page/gacc `:` not search.
   `tty_wait_synch` rawprint getret / inmore addtopl / inread intr++.
   map_menu_cmd remaps named. kill_char D-1632. doperminv D-1642.
-- D-1645: `newcham` after `set_mon_data` mleashed `m_unleash` TRUE or
-  `update_inventory`; Elbereth `set_apparxy` + `monflee(rn1(9,2))`.
-  NO_NC_FLAGS stays boolean unless unleash/SHOW_MSG/flee.
-  keepdogs/`grow_up` / break-armor named. restore_cham D-1637.
+- D-1645: `newcham` mleashed `m_unleash` TRUE or `update_inventory`;
+  Elbereth `monflee(rn1(9,2))`. Review **606** QUALITY-RISK: sync
+  callers must await. keepdogs/`grow_up` named. restore_cham D-1637.
 - D-1644: `goto_level` ACH_ENDG `newdungeon`, ACH_ASTR after
   `final_level`, Knox alarm (Croesus died), ACH_BGRM, `new`
   `livelog_printf("entered %s")`; `record_achievement` `achieve_msg`.
