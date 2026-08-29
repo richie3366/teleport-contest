@@ -5,16 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1633 (cadence **#2030** at `54c89bcc`).
+- **Suite 44/44** after D-1634 (cadence **#2030** at `54c89bcc`).
   seed4500 still PASS. Reviews **582–590** ACCEPT-WITH-DEBT (no
-  Must-fix). **Hypothesis:** Open `questpgr.c` `convert_line`
-  pronoun `%Xh` is the next map cluster. Not com_pager_core.
-  **Falsify:** `node scripts/csym.mjs convert_line`;
-  `node scripts/map.mjs questpgr.c`.
-  **Next:** Open convert_line `%Xh`. Do not skip D-1531…D-1633.
+  Must-fix). **Hypothesis:** Open `invent.c` ggetobj drop is the
+  next map cluster. Not takeoff/identify.
+  **Falsify:** `node scripts/csym.mjs ggetobj`;
+  `node scripts/map.mjs invent.c`.
+  **Next:** Open ggetobj drop. Do not skip D-1531…D-1634.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
-  `getdir`. Do not glue onto tribute (D-1633) or kill_char
-  (D-1632). Do not re-port D-1621…D-1633.
+  `getdir`. Do not glue onto convert_line (D-1634) or tribute
+  (D-1633). Do not re-port D-1621…D-1634.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; `restore_cham` / `rescham`; `restore_luadata`;
   ggetobj drop; tty WIN_INVEN / `#perminv` /
@@ -22,7 +22,8 @@ Objective/score live in `CURRENT.md`.
   setworn oc_oprop; newcham mleashed / keepdogs / grow_up leash;
   read.c light-scroll `initedog`; pickup tip-spill / squeaky /
   use_grease; hideunder / `safe_qbuf`; wonky-gold / `invlet_constant`;
-  convert_line `%Xh` / common fallback / array rn2;
+  convert_arg `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z` / common fallback /
+  array rn2;
   do_mgivenname `'m'`;
   overview PICK_ONE; guardian/isshk/gecko remaps; Punished/ustuck
   float_down; water/lava steed death; `landing_spot` KNOCKED
@@ -37,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1633.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1634.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -48,9 +49,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1633 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1634 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1633. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1634. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -61,11 +62,12 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1633 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1634 live in the index. Do not glue
   yn ^P onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603). Do not restore
   zap `bhit` sticky `u.Blind||u.ublind` (D-1604). Do not re-port
-  D-1605…D-1633 (index; tribute is D-1633; kill_char is D-1632;
+  D-1605…D-1634 (index; convert_line %Xh is D-1634; tribute is D-1633;
+  kill_char is D-1632;
   tty_nhbell is D-1631; menu_remarm is D-1630; remaps named).
   Do not dump `dat/tribute` into `dat_text.js` indent=2. Do not
   static-import `files.js` from `spell.js` (TDZ). Do not re-port
@@ -73,6 +75,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1634: `convert_line` pronoun `%Xh` + `qtext_pronoun`; `%Xt`;
+  `genders[]` neuter/group; `role_init` `godgend`/`ldrgend`.
+  convert_arg `%c`/`%G`/… named. com_pager_core is D-1622.
 - D-1633: `read_tribute`/`choose_passage`/`Death_quote`; SPE_NOVEL
   literate/`ACH_NOVL`; Rule #2 embed `dat/tribute`; reservoir
   MAXPASSAGES=30. sounds.c Death_quote / `lookup_novel` /
@@ -107,10 +112,8 @@ Objective/score live in `CURRENT.md`.
 - D-1623: yn clean_up `gt.toplines=prompt+key` + dumplogmsg.
   tty_nhbell is D-1631. yn ^P is D-1612.
 - D-1622: `com_pager_core` synthesize `[text]` then `convert_line`+
-  `putmsghistory`. pronoun / common fallback named.
+  `putmsghistory`. pronoun `%Xh` is D-1634; common fallback named.
 - D-1621: `adjust_split` getobj `"split"` + `get_count`
   GC_ECHOFIRST|CONDHIST. wonky-gold named. get_count is D-1613.
 - D-1620: floor TRADITIONAL `query_classes` + yn/`pickup_object`.
   hideunder/`safe_qbuf` named. traditional_loot is D-1581.
-- D-1619: `take_off` occupation + `do_takeoff` + `Amulet_off` ESP/
-  RESTFUL/GUARDING. menu_remarm is D-1630. ggetobj takeoff D-1602.

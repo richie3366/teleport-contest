@@ -1515,13 +1515,16 @@ other-role locate burn shuffle only); **`quest_chat`/`quest_talk`/`leader_speaks
 encourage/got_thanks/questart/banished/nemesis talk deferred); 
 **`ok_to_quest` + `goto_level` Home in-branch gate** (D-0798; 
 Gehennom amulet mysteryforce deferred); **`convert_arg` `%r`/`%R`→`rank_of` + `%ra`/`%rA`/`%rC` + 
-`%s`/`%S`/`%g` + `%Xp`/`%XP`/`%Xs`/`%XS`** (D-0627/D-0640; pronoun `%Xh` deferred); 
+`%s`/`%S`/`%g` + `%Xp`/`%XP`/`%Xs`/`%XS`** (D-0627/D-0640) + 
+**`convert_line` pronoun `%Xh`/`%XH`/`%Xi`/`%XI`/`%Xj`/`%XJ` + `qtext_pronoun`**
+(D-1634; `strchr("dlno")`; `%o` Eyes/plural they/them/their; `%O` neuter;
+`%Xt` strip `the `; `genders[2]`/`[3]`; `role_init` `godgend`/`ldrgend`); 
 **`on_start` nexttime/othertime** (D-0614; Arc+Bar+**Pri** texts D-0670; 
 other roles burn nhl shuffle only); **`qt_pager` default→pline / newline→NHW_TEXT** (D-0616; 
 Arc nexttime pline; explicit single-line `output=text` deferred) + 
 **`com_pager_core` synopsis `putmsghistory(FALSE)`** (D-1622; howtoput; 
 default+newline synthesize `[text]`; live Arc/Bar/Pri/Wiz/Kni lua 
-synopsis + legacy after NHW_MENU; convert_line pronoun `%Xh` / 
+synopsis + legacy after NHW_MENU; convert_line pronoun `%Xh` is D-1634; 
 `qt_pager` common fallback / array rn2 / pauper_legacy / 
 killed_nemesis `rawtext` named); 
 **`on_goal` goal_first/next/alt + Arc/Bar/Pri/**Kni** texts** (D-0620/D-0670/D-0928 #1193; 
@@ -1530,7 +1533,7 @@ other-role goal bodies; invent/migrating chains deferred) +
 Arc/Bar templates only — other-role questarti still omitted on `roles[]`); 
 **`goto_level` `at_dgn_entrance("The Quest")` → `com_pager(quest_portal*)`** (D-0650) + 
 **`quest_portal` explicit `output=pline` → `deliver_by_pline`** (D-0670; 
-Is_knox/bigroom ACH deferred; Rogue primitive pline D-0805); remaining convert_arg pronoun; 
+Is_knox/bigroom ACH deferred; Rogue primitive pline D-0805); remaining convert_arg `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z`; 
 pauper_legacy; other common com_pager msgids
 
 ### `src/invent.c` `look_here` / `dfeature_at` / `src/stairs.c`

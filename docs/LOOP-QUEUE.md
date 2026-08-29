@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `questpgr.c` `convert_line` pronoun `%Xh` (named). Not com_pager_core.
 - [ ] `invent.c` ggetobj drop (named). Not takeoff/identify.
 - [ ] `nhlua.c` `restore_luadata` (named). Not restore_gamelog.
 - [ ] `mon.c` `restore_cham` (named). Not normal_shape.

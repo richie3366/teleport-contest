@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1634 questpgr.c convert_line pronoun %Xh
+
+**Objective:** Open `questpgr.c` `convert_line` pronoun `%Xh` (named).
+Not com_pager_core.
+**C locus:** `questpgr.c` `qtext_pronoun` `:197–233` / `convert_line`
+`:327–420`; `role.c` `genders[]` `:688–694`; `role_init` `ldrgend` /
+`godgend`.
+**JS locus:** `js/questpgr.js` `convert_line` / `qtext_pronoun`;
+`js/roles.js` `genders[]`; `js/u_init.js`.
+**Change:** `%Xh`/`%Xi`/`%Xj` when X in dlno; `%o` Eyes/plural they;
+`%Xt`; `genders` neuter/group; `godgend`/`ldrgend`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** pronoun canary; green+strict seed8000/0900; cohort **7**/7
++ seed0367/0360 + strict.
+**Next:** Open `invent.c` ggetobj drop. Not takeoff/identify.
+**Blocked:** none.
 ## 2026-08-29 — D-1633 files.c read_tribute / SPE_NOVEL
 
 **Objective:** Open `files.c` tribute (named). Not putmsghistory.

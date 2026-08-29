@@ -1,3 +1,31 @@
+## D-1634 — questpgr.c convert_line qtext_pronoun %Xh
+
+- **Status:** fixed (map-driven Open from D-1633; not a public FAIL)
+- **Symptom:** map named `convert_line` pronoun `%Xh`. C replaces
+  `%dh`/`%lH`/`%ni`/`%oJ` (who in `dlno`) with he/she/it/they pronouns
+  via `qtext_pronoun`. JS skipped the modifier so `%dI` appended a
+  literal `I` after the deity name.
+- **C locus:** `questpgr.c` `qtext_pronoun` `:197–233`; `convert_line`
+  `:327–420` (`case 'h'..'J'` + `%Xt`); `role.c` `genders[]` `:688–694`
+  (neuter+group); `role_init` `ldrgend` `:2036–2041` / `godgend`
+  `:2084–2085`. Callers `deliver_by_pline` / `deliver_by_window` /
+  `com_pager_core` synopsis. `com_pager_core` is D-1622.
+- **JS was:** convert_line handled a/A/C/p/P/s/S only; `genders[]`
+  stopped at female; `role_init` set `nemgend` only.
+- **Fix:** live `qtext_pronoun` (`%o` Eyes/`makesingular` they/them/their;
+  else `genders[godgend/ldrgend/nemgend]`; `%O` default 2). Invalid who
+  `--c` so the letter is literal. `%Xt` strips leading `the `.
+  `genders[2]`/`[3]` (ROLE_GENDERS still 2). `godgend` from
+  `align_gtitle`==goddess; `ldrgend` same pick as C nemesis.
+- **JS:** `js/questpgr.js` `convert_line` / `qtext_pronoun`; `js/roles.js`
+  `genders[]`; `js/u_init.js` `role_init_godgend` / leader `ldrgend`.
+- **Not this iter:** convert_arg `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z`;
+  `qt_pager` common fallback; array rn2; pauper_legacy;
+  killed_nemesis `rawtext`. tribute is D-1633. `com_pager_core` is D-1622.
+- **Verified:** pronoun canary (`%dI` Him/Her, `%ni` him, `%ph` name+h,
+  Nalzok `%ns`/`%nh`); green+strict seed8000/0900; cohort **7**/7 +
+  seed0367/0360 + strict (11/11 with green).
+
 ## D-1633 — files.c read_tribute / choose_passage / Death_quote / SPE_NOVEL
 
 - **Status:** fixed (map-driven Open from D-1632; not a public FAIL)

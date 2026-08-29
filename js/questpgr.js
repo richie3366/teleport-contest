@@ -9,7 +9,8 @@ import {
     status_line_2,
 } from './display.js';
 import { NO_COLOR } from './terminal.js';
-import { align_gname, align_gtitle, rank_of } from './roles.js';
+import { align_gname, align_gtitle, rank_of, genders } from './roles.js';
+import { highc, strstri } from './hacklib.js';
 import {
     A_NEUTRAL, A_LAWFUL, A_CHAOTIC, MIN_QUEST_LEVEL, BUFSZ,
 } from './const.js';
@@ -21,7 +22,7 @@ import { show_text_pages } from './pager.js';
 import { mons, M2_PNAME } from './monsters.js';
 import { NON_PM, pmnames } from './generated/monsters_data.js';
 import { artilistRaw } from './generated/artifacts_data.js';
-import { an, the, makeplural } from './objnam.js';
+import { an, An, the, makeplural, makesingular } from './objnam.js';
 
 /**
  * C ref: quest.lua common.legacy + convert_arg %d/%G/%r.
@@ -347,7 +348,7 @@ const QUEST_MSG_FALLBACKS = {
 
 /**
  * C ref: dat/quest.lua synopsis + output for live role/msgid bodies.
- * Pronoun %Xh/%ni/%oh/%dI still go through convert_line's named omit.
+ * Pronoun %Xh/%ni/%oh/%dI via convert_line + qtext_pronoun (D-1634).
  */
 const QUEST_MSG_META = {
     firsttime: {
@@ -471,8 +472,8 @@ function s_suffix(s) {
 }
 
 /**
- * C ref: questpgr.c convert_arg — subset used by firsttime/goal/leader/assign.
- * Named omission: full convert_arg catalogue + %c pronoun arms.
+ * C ref: questpgr.c convert_arg — firsttime/goal/leader/assign + %Xh who.
+ * Named omission: %c/%G/%A/%D/%C/%N/%L/%Z catalogue.
  */
 function convert_arg(c) {
     const urole = game.urole || {};
@@ -544,48 +545,96 @@ function convert_arg(c) {
 }
 
 /**
- * C ref: questpgr.c convert_line — %X then optional modifier.
- * Covered: %Xa/%XA an/An; %XC capitalize; %Xp/%XP plural; %Xs/%XS possessive.
- * Pronoun %Xh/%Hi/… deferred.
+ * C ref: questpgr.c qtext_pronoun `:197–233`.
+ * who is the convert_arg code ('d'/'l'/'n'/'o'; '%O' is not 'o').
+ * which is h/H he, i/I him, j/J his. Overwrites convert_arg's name.
  */
-function convert_line(inLine) {
+function qtext_pronoun(who, which, cvt_buf) {
+    const lwhich = which === which.toLowerCase() ? which : which.toLowerCase();
+    let pnoun;
+    const buf = cvt_buf == null ? '' : String(cvt_buf);
+    // C: %o + "Eyes " or name ≠ makesingular → they/them/their
+    if (who === 'o'
+        && (strstri(buf, 'Eyes ')
+            || buf.toLowerCase() !== String(makesingular(buf)).toLowerCase())) {
+        pnoun = lwhich === 'h' ? 'they'
+            : lwhich === 'i' ? 'them'
+                : lwhich === 'j' ? 'their' : '?';
+    } else {
+        const qs = game.quest_status || {};
+        const gend = who === 'd' ? (qs.godgend | 0)
+            : who === 'l' ? (qs.ldrgend | 0)
+                : who === 'n' ? (qs.nemgend | 0)
+                    : 2;
+        const g = genders[gend] || genders[2];
+        pnoun = lwhich === 'h' ? g.he
+            : lwhich === 'i' ? g.him
+                : lwhich === 'j' ? g.his : '?';
+    }
+    if (lwhich !== which && pnoun) {
+        pnoun = highc(pnoun.charAt(0)) + pnoun.slice(1);
+    }
+    return pnoun;
+}
+
+/**
+ * C ref: questpgr.c convert_line `:327–420` — %X then optional modifier.
+ * Covered: %Xa/%XA an/An; %XC capitalize; %Xh/%XH/%Xi/%XI/%Xj/%XJ
+ * qtext_pronoun when X in dlno; %Xp/%XP plural; %Xs/%XS possessive;
+ * %Xt strip leading "the ".
+ */
+export function convert_line(inLine) {
     let out = '';
-    for (let i = 0; i < inLine.length; i++) {
-        if (inLine[i] === '%' && i + 1 < inLine.length) {
-            const code = inLine[++i];
+    const s = String(inLine ?? '');
+    for (let i = 0; i < s.length; i++) {
+        const ch = s[i];
+        if (ch === '\r' || ch === '\n') return out;
+        if (ch === '%' && i + 1 < s.length) {
+            const code = s[++i];
             let piece = convert_arg(code);
-            if (i + 1 < inLine.length) {
-                const mod = inLine[i + 1];
+            if (i + 1 < s.length) {
+                i++;
+                const mod = s[i];
+                if (mod === 'A') {
+                    out += An(piece);
+                    continue;
+                }
                 if (mod === 'a') {
-                    i++;
-                    piece = an(piece);
-                } else if (mod === 'A') {
-                    i++;
-                    const withArt = an(piece);
-                    piece = withArt
-                        ? withArt.charAt(0).toUpperCase() + withArt.slice(1)
-                        : withArt;
-                } else if (mod === 'C') {
-                    i++;
-                    if (piece)
-                        piece = piece.charAt(0).toUpperCase() + piece.slice(1);
+                    out += an(piece);
+                    continue;
+                }
+                if (mod === 'C') {
+                    if (piece) piece = highc(piece.charAt(0)) + piece.slice(1);
+                } else if (mod === 'h' || mod === 'H' || mod === 'i'
+                    || mod === 'I' || mod === 'j' || mod === 'J') {
+                    // C: strchr("dlno", lowc(*(c-1))); else --c
+                    if ('dlno'.includes(code.toLowerCase())) {
+                        piece = qtext_pronoun(code, mod, piece);
+                    } else {
+                        i--;
+                    }
                 } else if (mod === 'P' || mod === 'p') {
-                    // C: 'P' capitalizes then makeplural; 'p' just plural
-                    i++;
-                    if (mod === 'P' && piece)
-                        piece = piece.charAt(0).toUpperCase() + piece.slice(1);
+                    if (mod === 'P' && piece) {
+                        piece = highc(piece.charAt(0)) + piece.slice(1);
+                    }
                     piece = makeplural(piece);
                 } else if (mod === 'S' || mod === 's') {
-                    i++;
-                    if (mod === 'S' && piece)
-                        piece = piece.charAt(0).toUpperCase() + piece.slice(1);
+                    if (mod === 'S' && piece) {
+                        piece = highc(piece.charAt(0)) + piece.slice(1);
+                    }
                     piece = s_suffix(piece);
+                } else if (mod === 't') {
+                    if (/^the /i.test(piece)) {
+                        out += piece.slice(4);
+                        continue;
+                    }
+                } else {
+                    i--;
                 }
-                // %Xh/%Hi/… pronoun deferred
             }
             out += piece;
         } else {
-            out += inLine[i];
+            out += ch;
         }
     }
     return out;
@@ -694,8 +743,8 @@ async function deliver_by_window(raw, _how) {
  * Named omissions: lua VM / msg_fallbacks beyond goal_alt; array rn2
  * (angel_cuss/demon_cuss); explicit single-line output=text; NHW_MENU
  * except legacy; common fallback from qt_pager (second nhl_init);
- * convert_line pronoun %Xh; other-role bodies; pauper_legacy; rawtext
- * killed_nemesis (stinky_nemesis).
+ * other-role bodies; pauper_legacy; rawtext killed_nemesis
+ * (stinky_nemesis). convert_line pronoun %Xh is D-1634.
  *
  * @param {string} section role filecode or "common"
  * @param {string} msgid

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `files.c` tribute (named). Not putmsghistory. **Addressed:** D-1633
+- [x] `questpgr.c` `convert_line` pronoun `%Xh` (named). Not com_pager_core. **Addressed:** D-1634
+
+
+- [x] `files.c` tribute (named). Not putmsghistory. **Addressed:** D-1633 `e476fe74`
 
 
 - [x] `getline.c` `kill_char` (named). Not EDIT_GETLIN. **Addressed:** D-1632 `20fa20b3`
