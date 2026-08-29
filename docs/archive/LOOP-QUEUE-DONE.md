@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `dungeon.c` cemetery bones list (named). Not dooverview. **Addressed:** D-1659
+- [x] `do_name.c` docallcmd `'o'` getobj call (named). Not lookup_novel. **Addressed:** D-1660
+
+
+- [x] `dungeon.c` cemetery bones list (named). Not dooverview. **Addressed:** D-1659 `f88e0665`
 
 
 - [x] `dungeon.c` print_mapseen altar-god coalign (named). Not dooverview PICK_ONE. **Addressed:** D-1658 `2ec50652`

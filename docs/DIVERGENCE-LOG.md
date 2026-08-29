@@ -1,3 +1,29 @@
+## D-1660 — do_name.c docallcmd `'o'` live getobj call
+
+- **Status:** fixed (map-driven Open from D-1659; not a public FAIL)
+- **Symptom:** map named `docallcmd` `'o'` getobj `"call"`. C
+  `getobj("call", call_ok, GETOBJ_NOFLAGS)` then `xname` (observe
+  `dknown`) and `You("would never recognize another one.")` or
+  `docall`. JS `'o'`/`'n'` returned without that path after D-1651.
+- **C locus:** `do_name.c` `docallcmd` `:571–589`; callees
+  `invent.c` `getobj` `:1751`; `call_ok` `:479–495`; `objnam.c`
+  `xname_flags` `observe_object`; `docall`.
+- **JS was:** `'o'`/`'n'` empty `return`; `'i'` still uses the
+  `getobj_name` clone.
+- **Fix:** live `getobj('call', call_ok, GETOBJ_NOFLAGS)` then
+  `xname` + `!dknown` pline / `docall`. `#if 0` EXCLUDE arm stays
+  dead. Rule #2: no fs.
+- **JS:** `js/do_name.js` `docallcmd`.
+- **Not this iter:** cmdq_pop canned (iactions Call); flags.lootabc
+  acc; `if (gi.invent)` menu omit of i/o; artifact_name slip
+  (`restrict_name`/`wipeout_text`); `'i'` `getobj_name` clone;
+  `docall` sink-fluid/`safe_qbuf`. lookup_novel is D-1651;
+  rename_disco is D-1647.
+- **Verified:** private canary `docallcmd` source + `call_ok(null)`
+  EXCLUDE; green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+- **Files:** `js/do_name.js`.
+
 ## D-1659 — dungeon.c print_mapseen cemetery bones list
 
 - **Status:** fixed (map-driven Open from D-1658; not a public FAIL)

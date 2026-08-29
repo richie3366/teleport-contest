@@ -350,7 +350,7 @@ function rename_disco_inv_order() {
  * C ref: o_init.c rename_disco `:1130–1206`.
  * Caller: do_name.c docallcmd `'d'` / `'\\'`. Skip unique/artifact
  * sections and venom (packorder omit). Dummy is not observe_object.
- * Named: oc_uses_known extract (dummy known); docallcmd `'o'` getobj call.
+ * Named: oc_uses_known extract (dummy known). `'o'` getobj is D-1660.
  */
 export async function rename_disco() {
     const objects = objs();

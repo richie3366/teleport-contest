@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do_name.c` docallcmd `'o'` getobj call (named). Not lookup_novel.
 - [ ] `options.c` `optfn_perminv_mode` (named). Not doperminv.
 - [ ] `questpgr.c` qt_pager common fallback (named). Not convert_arg.
 - [ ] `invent.c` `dounpaid` (named). Not invlet_constant.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `iactions.c` remaining pushkeys offer/tip/invoke (named). Not use_grease.
 - [ ] `invent.c` `noarmor` uskin (named). Not doprarm.
 - [ ] `options.c` wizweight optfn_boolean after-change (named). Not fixinv.
+- [ ] `do_name.c` do_oname artifact_name slip / restrict_name / wipeout_text (named). Not `'o'` getobj.
+- [ ] `do_name.c` docallcmd cmdq_pop canned (named). Not `'o'` getobj.
+- [ ] `do_name.c` docall sink-fluid / safe_qbuf (named). Not `'o'` getobj.
+- [ ] `do_name.c` distant_monnam astral high-cleric (named). Not do_mgivenname.
+- [ ] `o_init.c` oc_uses_known extract (named). Not rename_disco.
 
 ## Parked (do not pop)
 

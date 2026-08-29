@@ -3,7 +3,8 @@
 //        (D-1555); christen_orc / rndorcname / free_oname (D-1193);
 //        new_oname (D-1363); name_from_player (D-1624, EDIT_GETLIN off);
 //        do_mgivenname / alreadynamed (D-1638); docallcmd `'d'` →
-//        o_init.c rename_disco; lookup_novel (D-1651).
+//        o_init.c rename_disco; lookup_novel (D-1651); `'o'` getobj
+//        `"call"` (D-1660).
 
 import { artifact_exists, exist_artifact } from './artifact.js';
 import { game } from './gstate.js';
@@ -16,7 +17,7 @@ import {
 } from './display.js';
 import {
     paint_corner_nhw_menu, discover_object, compactify_invlets,
-    getobj_display_pickinv,
+    getobj_display_pickinv, getobj,
 } from './invent.js';
 import { rename_disco } from './o_init.js';
 import {
@@ -25,7 +26,7 @@ import {
     ARTICLE_NONE, ARTICLE_THE, ARTICLE_A, ARTICLE_YOUR,
     SUPPRESS_IT, SUPPRESS_INVISIBLE, SUPPRESS_HALLUCINATION,
     SUPPRESS_SADDLE, SUPPRESS_NAME,
-    GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST,
+    GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_NOFLAGS,
     has_oname, ONAME, CLR_MAX, BUFSZ, u_at, OBJ_FREE,
     isok, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPMASK, has_ebones,
 } from './const.js';
@@ -1062,9 +1063,12 @@ export function christen_orc(mtmp, gang, other) {
 }
 
 /**
- * C ref: do_name.c docallcmd — "What do you want to name?" menu.
- * `m` → do_mgivenname; `i` → getobj("name")+do_oname; `f` → namefloorobj;
- * `d`/`\\` → o_init.c rename_disco. `o` getobj("call") still deferred.
+ * C ref: do_name.c docallcmd `:498–601` — "What do you want to name?" menu.
+ * `m` → do_mgivenname; `i` → getobj("name")+do_oname; `o`/`n` →
+ * getobj("call", call_ok, GETOBJ_NOFLAGS) then xname + dknown/docall
+ * (D-1660); `f` → namefloorobj; `d`/`\\` → o_init.c rename_disco.
+ * Named: cmdq_pop canned (iactions Call); flags.lootabc acc; `if (gi.invent)`
+ * menu omit of i/o; #if 0 call_ok EXCLUDE "know those as well".
  */
 export async function docallcmd() {
     await flush_topl_more();
@@ -1112,6 +1116,19 @@ export async function docallcmd() {
             return;
         }
         if (ch === 'o' || ch === 'n') {
+            // C `:571–589` getobj("call", call_ok, GETOBJ_NOFLAGS)
+            const obj = await getobj('call', call_ok, GETOBJ_NOFLAGS);
+            if (obj) {
+                /* behave as if examining it in inventory;
+                   this might set dknown if it was picked up
+                   while blind and the hero can now see */
+                xname(obj);
+                if (!obj.dknown) {
+                    await pline('You would never recognize another one.');
+                } else {
+                    await docall(obj);
+                }
+            }
             return;
         }
     }
