@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `sit.c` special_throne_effect grease spray (named). Not use_grease. **Addressed:** D-1683
+- [x] `sit.c` special_throne_effect grease spray (named). Not use_grease. **Addressed:** D-1683 `d2bcd227`
 
 
 - [x] `do_name.c` docallcmd #if 0 EXCLUDE (named). Not `'i'` getobj_name. **Addressed:** D-1682 `3a2c9f83`

@@ -5,14 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1683 (cadence **#2080** at `115570e2`).
-  seed4500 still PASS. **Hypothesis:** `dungeon.c` `save_mapseen`
-  cemetery JSON (`savecemetery`) is still a named omit (not
-  `print_mapseen` cemetery bones list).
-  **Falsify:** `node scripts/csym.mjs save_mapseen savecemetery`.
-  **Next:** Open `dungeon.c` save_mapseen cemetery JSON (named).
-  Not print_mapseen cemetery. Do not skip D-1531…D-1683. Do not
-  re-port sit grease spray / `make_glib` uarmg / `silly_thing`.
+- **Suite 44/44** after D-1683 (cadence **#2090** at `d2bcd227`).
+  seed4500 still PASS. **Hypothesis:** `pay_take_canned_billed`
+  (`js/shk.js`) is not C — `pay_billed_items` (`shk.c:2042–2097`)
+  never `cmdq_pop`s; leftover KEY is the next `rhack`
+  (`cmd.c:3642–3651`). Review **637** QUALITY-RISK.
+  **Falsify:** `node scripts/csym.mjs pay_billed_items` — no
+  canned invlet arm; `menu_pick_pay_items` letters are not
+  `obj.invlet`.
+  **Next:** Must-fix delete `pay_take_canned_billed`. Not
+  `cheapest_item`. Do not skip D-1531…D-1683. Do not re-port
+  D-1675…D-1683 (unwield/name/eat/engrave, two-weapon, offer_corpse,
+  tip menu, oname livelog, `'i'` getobj, `silly_thing`, sit grease).
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn
   oc_oprop; keepdogs/grow_up leash; light-scroll `initedog`;
@@ -64,10 +68,13 @@ Objective/score live in `CURRENT.md`.
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
   `silly_thing` / sit grease spray / `make_glib` uarmg /
-  add `strncmpi` #4.
+  add `strncmpi` #4. Do not restore `getobj_name`. Do not add
+  `pay_take_canned_billed` #2 — **delete** the one in `shk.js`.
 
 ## Landmarks (≤15)
 
+- Audit **#2090**: reviews **636–644** (D-1675…D-1683). QUALITY-RISK
+  **637** Must-fix `pay_take_canned_billed`. Fortress 44/44.
 - D-1683: case 6 grease spray `update_inventory` + `make_glib` uarmg.
   rndcurse redraw named. D-1682 silly_thing.
 - D-1682: `silly_thing` Call Amulet / unknown fake; #if 0 out.
@@ -77,11 +84,10 @@ Objective/score live in `CURRENT.md`.
 - D-1679: `choose_tip_container_menu` PICK_ONE dummy invent. D-1678.
 - D-1678: `offer_corpse` eval/consume/luck/same-race. D-1677.
 - D-1677: IA_TWOWEAPON `'X'` MAYBETWOWEAPON. D-1676.
-- D-1676: IA_BUY_OBJ unpaid `'p'` + `pay_take_canned_billed`. D-1675.
+- D-1676: IA_BUY_OBJ unpaid `'p'` + invented canned billed consume.
 - D-1675: IA_UNWIELD/NAME/EAT/ENGRAVE pushkeys. D-1674.
 - D-1674: `oc_uses_known` extract + `unknow_object`. D-1673.
 - D-1673: `distant_monnam` astral high-cleric conceal. D-1672.
 - D-1672: `docall` sink-fluid `safe_qbuf`. D-1671.
 - D-1671: `docallcmd` cmdq_pop canned KEY. D-1681 `'i'`.
 - D-1670: `do_oname` artifact_name slip + `restrict_name`. D-1680.
-- D-1669: wizweight after-change + doname `aum`. wizmgender named.

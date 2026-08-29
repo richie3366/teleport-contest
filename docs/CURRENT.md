@@ -20,12 +20,12 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-29** — full `sessions` at **D-1674**
-(`115570e2`, cadence **#2080**). **44**/44,
+Score last measured: **2026-08-29** — full `sessions` at **D-1683**
+(`d2bcd227`, cadence **#2090**). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `39+0.31/turn` (R² 0.858). seed0367 FULL still PASS.
+Speed `39+0.31/turn` (R² 0.862). seed0367 FULL still PASS.
 Prior FAIL seed4500 at **D-1574** `1ba35e31` is PASS again.
-Prior audit **#2070** was 44/44 at `784e3060` (R² 0.862).
+Prior audit **#2080** was 44/44 at `115570e2` (R² 0.858).
 
 ## Score
 
@@ -34,7 +34,7 @@ Prior audit **#2070** was 44/44 at `784e3060` (R² 0.862).
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `39+0.31/turn` (R² 0.858) |
+| Speed label | `39+0.31/turn` (R² 0.862) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -63,8 +63,9 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1683 (seed4500 still PASS). **Next cluster:**
-Open `dungeon.c` save_mapseen cemetery JSON (named). Not
-print_mapseen cemetery.
+Must-fix `pay_billed_items`: delete `pay_take_canned_billed`
+(review **637**). Not `cheapest_item` / Traditional itemize.
+Open cemetery JSON waits.
 **Do not skip D-1531…D-1683 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
@@ -151,8 +152,9 @@ Do not re-port remaining pushkeys unwield/name/eat/engrave /
 Do not re-port remaining pushkeys offer/tip/invoke / `offer_ok` /
 `floorfood("sacrifice")` / `doinvoke` live getobj / `dotip` `tip_ok`.
 Do not re-port remaining pushkeys rub/swap/whatis.
+Do not glue Must-fix to `cheapest_item` / Traditional itemize /
+`buy_container`. Delete `pay_take_canned_billed` only.
 Do not re-port IA_TWOWEAPON `'X'` / MAYBETWOWEAPON / `dotwoweapon`.
-Do not re-port IA_BUY_OBJ shop pay / `pay_take_canned_billed`.
 Do not re-port `can_set_perm_invent` InvOptOn import.
 Do not re-port `dosacrifice` ECMD_TIME / `offer_corpse`.
 Do not re-port `choose_tip_container_menu`.

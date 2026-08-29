@@ -646,3 +646,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [633-1e88c3d3-docall-sink-fluid.md](./633-1e88c3d3-docall-sink-fluid.md) | `1e88c3d3` | D-1672 do_name.c docall sink-fluid / safe_qbuf | **ACCEPT-WITH-DEBT** |
 | [634-39af0ea7-distant-monnam-astral.md](./634-39af0ea7-distant-monnam-astral.md) | `39af0ea7` | D-1673 do_name.c distant_monnam astral high-cleric | **ACCEPT-WITH-DEBT** |
 | [635-115570e2-oc-uses-known.md](./635-115570e2-oc-uses-known.md) | `115570e2` | D-1674 objects.h oc_uses_known extract | **ACCEPT-WITH-DEBT** |
+| [636-9613be3b-iactions-pushkeys-unwield.md](./636-9613be3b-iactions-pushkeys-unwield.md) | `9613be3b` | D-1675 iactions.c remaining pushkeys unwield/name/eat/engrave | **ACCEPT-WITH-DEBT** |
+| [637-6441842f-ia-buy-obj.md](./637-6441842f-ia-buy-obj.md) | `6441842f` | D-1676 iactions.c IA_BUY_OBJ shop pay | **QUALITY-RISK** |
+| [638-478f2710-ia-twoweapon.md](./638-478f2710-ia-twoweapon.md) | `478f2710` | D-1677 iactions.c IA_TWOWEAPON | **ACCEPT-WITH-DEBT** |
+| [639-8a8124d1-offer-corpse.md](./639-8a8124d1-offer-corpse.md) | `8a8124d1` | D-1678 pray.c offer_corpse | **ACCEPT-WITH-DEBT** |
+| [640-1b08a2d9-choose-tip-container-menu.md](./640-1b08a2d9-choose-tip-container-menu.md) | `1b08a2d9` | D-1679 pickup.c choose_tip_container_menu | **ACCEPT-WITH-DEBT** |
+| [641-c8309c01-oname-via-naming.md](./641-c8309c01-oname-via-naming.md) | `c8309c01` | D-1680 do_name.c oname via_naming livelog | **ACCEPT-WITH-DEBT** |
+| [642-86cefef1-docallcmd-live-getobj-name.md](./642-86cefef1-docallcmd-live-getobj-name.md) | `86cefef1` | D-1681 do_name.c docallcmd live getobj name | **ACCEPT-WITH-DEBT** |
+| [643-3a2c9f83-silly-thing-call-amulet.md](./643-3a2c9f83-silly-thing-call-amulet.md) | `3a2c9f83` | D-1682 invent.c silly_thing Call Amulet | **ACCEPT-WITH-DEBT** |
+| [644-d2bcd227-throne-grease-spray.md](./644-d2bcd227-throne-grease-spray.md) | `d2bcd227` | D-1683 sit.c special_throne_effect grease spray | **ACCEPT-WITH-DEBT** |
