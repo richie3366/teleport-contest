@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1689 engrave.c doengrave non-hands stylus
+
+**Objective:** Open `engrave.c` doengrave non-hands stylus (named). Not
+IA_ENGRAVE pushkeys.
+**C locus:** `engrave.c` `doengrave` `:955–1263`;
+`doengrave_sfx_item` `:741–892`; `doengrave_sfx_item_WAN` `:582–738`.
+**JS locus:** `js/engrave.js` `doengrave` / sfx; `is_blade`/`is_boots`;
+`Yobjnam2`.
+**Change:** live getobj write-with; wand/weapon/marker/towel/gem sfx;
+doname You(); type-mismatch wipe. Named: yn add-to; dulling.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **10**/10; green+strict seed8000/0900;
+seed0101; cohort **7**/7 + strict.
+**Next:** Open `objects.h` oc_charged extract. Not oc_merge.
+**Blocked:** none.
+
 ## 2026-08-29 — D-1688 shk.c cheapest_item early return
 
 **Objective:** Open `shk.c` cheapest_item early return (named). Not

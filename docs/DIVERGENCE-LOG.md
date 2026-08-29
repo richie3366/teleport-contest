@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1689 — engrave.c doengrave non-hands stylus
+
+- **Status:** fixed (map-driven Open from D-1688; not a public FAIL)
+- **Symptom:** map named wand/weapon/marker/towel/gem/ring stylus
+  engrave. After D-1675 canned IA_ENGRAVE KEY, JS `getobj_stylus`
+  printed Never mind for any real object and only fingertips reached
+  `doengrave`.
+- **C locus:** `engrave.c` `doengrave` `:955–1263`;
+  `doengrave_sfx_item` `:741–892`; `doengrave_sfx_item_WAN`
+  `:582–738`; `doengrave_ctx_init` `:544–579`;
+  `doengrave_ctx_verb` `:895–925`; `stylus_ok` `:480–499`;
+  `freehand` `:472–477`; `cant_reach_floor` `:217–228`.
+- **JS was:** custom getobj clone; non-hands cancelled (D-1675).
+- **Fix:** live `getobj("write with", stylus_ok, GETOBJ_PROMPT)`;
+  sfx by oclass (wand zappable/backfire/`zapnodir`, blade ENGRAVE,
+  Fire Brand BURN, marker MARK, towel wipe, `oc_tough` gem/ring,
+  boots DUST, large/silly); doname You(); type-mismatch
+  wipe/overwrite without yn. Named: yn add-to; dulling/marker ink
+  occupation; altar/jello; doengrave `disturb_grave`. Rule #2: no fs.
+- **JS:** `js/engrave.js`; export `is_blade`/`is_boots` `js/objects.js`;
+  `Yobjnam2` `js/objnam.js`; `wand_explode` `js/read.js`; `xcrypt`
+  `js/rumors.js`.
+- **Not this iter:** yn add-to prompt; occupation dulling; altar/jello;
+  `oc_charged`; `undiscover_object`.
+- **Verified:** private canary **10**/10; green+strict seed8000/0900;
+  seed0101 engrave; cohort **7**/7 + strict.
+- **Files:** `js/engrave.js`, `js/objects.js`, `js/objnam.js`,
+  `js/read.js`, `js/rumors.js`.
+
 ## D-1688 — shk.c cheapest_item pay_billed_items early return
 
 - **Status:** fixed (map-driven Open from D-1687; not a public FAIL)

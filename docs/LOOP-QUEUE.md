@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `engrave.c` doengrave non-hands stylus (named). Not IA_ENGRAVE pushkeys.
 - [ ] `objects.h` oc_charged extract (named). Not oc_merge.
 - [ ] `o_init.c` undiscover_object / gem_learned (named). Not oc_uses_known.
 - [ ] `artifact.c` wield restrict_name (named). Not do_oname slip.

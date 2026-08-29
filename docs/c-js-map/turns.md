@@ -587,12 +587,17 @@ JS: `js/engrave.js`, `js/write.js`, `js/rumors.js`, `js/generated/engrave_data.j
 clear `domove_attempting` each step** (D-0359; continue_run no `rnd(5)`); 
 **mon `dochug` dust wipe** (D-0369); **`dowrite` MAGIC_MARKER apply → getobj write-on + 
 getlin type + ink/Luck write** (D-0742; known_spell / livelog literate / check_unpaid / Glib 
-Tobjnam polish deferred); omit wand/weapon/marker/towel/gem/ring stylus engrave; 
+Tobjnam polish deferred); **`doengrave` live getobj write-with + non-hands
+stylus `doengrave_sfx_item`/`_WAN`** (D-1689: wand zappable/backfire/NODIR
+`zapnodir` / weapon blade ENGRAVE / Fire Brand BURN / marker MARK / towel
+wipe / gem-ring `oc_tough` / boots DUST / large-silly; canned KEY D-1675); 
 **`u_wipe_engr` body (D-1051 apply pole/grapple)**; **dokick `u_wipe_engr(2)` D-1360**; 
 **allmain DEX timeout `u_wipe_engr(rnd(3))` D-1372**; 
 **uhitm `do_attack` `u_wipe_engr(3)` D-1373**; **dothrow `throw_obj` `u_wipe_engr(2)` D-1374**; 
-dig caller still named; altar/jello; add-to/overwrite; multi-turn dulling; Blind feel; 
-full `surface`/`is_ice`; wipeout seeded path; `disturb_grave`; full `set_levltyp` beyond GRAVE typ; 
+dig caller still named; altar/jello; yn add-to (same-type defaults append);
+multi-turn dulling / marker ink occupation; Blind feel; 
+full `surface`/`is_ice`; wipeout seeded path; `disturb_grave` from doengrave
+(kick callers live); full `set_levltyp` beyond GRAVE typ; 
 can_reach_floor Levitation is C youprop.h (H||E)&&!B (D-1070); 
 **ustuck AT_HUGS + !sticks** (D-1071; local `mondata.c` `sticks`; sit-on-air reachable); 
 **sticks export for dosit lap** (D-1072); 

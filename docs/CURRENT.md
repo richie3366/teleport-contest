@@ -62,24 +62,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1688 (seed4500 still PASS). **Next cluster:**
-Open `engrave.c` doengrave non-hands stylus (named). Not IA_ENGRAVE
-pushkeys. **Do not skip D-1531…D-1688 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1689 (seed4500 still PASS). **Next cluster:**
+Open `objects.h` oc_charged extract (named). Not oc_merge.
+**Do not skip D-1531…D-1689 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1688.** Do not FORCE
+**Do not re-break D-0660…D-1689.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1688 (index). Recent: **D-1688**
-`cheapest_item` + pay_billed_items cash+credit early return.
-D-1687 `dotypeinv` Traditional itemize yn. D-1686 remaining
-pushkeys rub/swap/whatis. D-1685 cemetery JSON. D-1684
-pay via_menu. Named: `buy_container`; knox/drawbridge.
+**Keep:** D-0845…D-1689 (index). Recent: **D-1689**
+`doengrave` live getobj write-with + non-hands `doengrave_sfx_item`/`_WAN`.
+D-1688 `cheapest_item` + pay_billed_items cash+credit early return.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1688 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1689 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -152,7 +150,8 @@ Do not re-port remaining pushkeys unwield/name/eat/engrave /
 Do not re-port remaining pushkeys offer/tip/invoke / `offer_ok` /
 `floorfood("sacrifice")` / `doinvoke` live getobj / `dotip` `tip_ok`.
 Do not restore `pay_take_canned_billed`. Do not re-port
-`cheapest_item` early return. Do not glue Open to `buy_container`.
+`cheapest_item` early return. Do not re-port doengrave non-hands stylus
+sfx. Do not glue Open to `buy_container`.
 Do not re-port Traditional itemize yn / `dotypeinv` / `this_type_only` /
 `tally_BUCX` / `doinvbill` / `query_objlist` this_title.
 Do not re-port remaining pushkeys rub/swap/whatis / `do_look`

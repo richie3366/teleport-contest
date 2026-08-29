@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `shk.c` cheapest_item early return (named). Not Traditional itemize. **Addressed:** D-1688
+- [x] `engrave.c` doengrave non-hands stylus (named). Not IA_ENGRAVE pushkeys. **Addressed:** D-1689
+
+
+- [x] `shk.c` cheapest_item early return (named). Not Traditional itemize. **Addressed:** D-1688 `ac894764`
 
 
 - [x] `invent.c` Traditional itemize yn (named). Not cheapest_item. **Addressed:** D-1687 `bad8cbd6`

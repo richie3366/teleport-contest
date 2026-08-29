@@ -1933,6 +1933,28 @@ export function Yname2(obj) {
     return upstart(yname(obj));
 }
 
+/** C objnam.c aobjnam — cxname + optional otense (quan prefix via xname). */
+export function aobjnam(otmp, verb) {
+    let bp = cxname(otmp);
+    if (verb) bp += ` ${otense(otmp, verb)}`;
+    return bp;
+}
+
+/** C objnam.c yobjnam — aobjnam with shk_your (same pname gate as yname). */
+export function yobjnam(obj, verb) {
+    let s = aobjnam(obj, verb);
+    if (!carried_objnam(obj) || !obj_is_pname(obj)
+        || (obj.oartifact | 0) >= ART_ORB_OF_DETECTION) {
+        s = `${shk_your(obj)}${s}`;
+    }
+    return s;
+}
+
+/** C objnam.c Yobjnam2 — highc(yobjnam). sit.js/wield.js clones stay. */
+export function Yobjnam2(obj, verb) {
+    return upstart(yobjnam(obj, verb));
+}
+
 /**
  * C ref: objnam.c simpleonames ← minimal_xname — type appearance without
  * quan/BUC. Statue/figurine corpsenm suppressed (C bareobj.corpsenm=NON_PM).
