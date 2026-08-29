@@ -1633,7 +1633,7 @@ kill_char / tty_nhbell / `cw->cury` / `intr` / do_mgivenname `'m'` /
 overview PICK_ONE named. Do not enable EDIT_GETLIN (would drop the
 replace prompt).
 
-### `src/restore.c` `restore_msghistory` / `src/save.c` `save_msghistory`
+### `src/restore.c` `restore_msghistory` / `restore_gamelog` / `src/save.c` `save_msghistory` / `save_gamelog`
 
 JS: `js/save.js` — partial
 
@@ -1643,8 +1643,14 @@ Sfi_int length + Sfi_char, `-1` break; `putmsghistory(msg,TRUE)` then
 the chunk; length > BUFSZ-1 throws ≡ C panic); **save_msghistory**
 (`save.c` `:1029–1056` `getmsghistory` walk, skip empty, truncate
 BUFSZ-1; empty walk is `[]`); callees `putmsghistory`/`getmsghistory`
-D-1588; `dosave0`/`try_restore_save` D-0335/D-1603. Binary NHFILE /
-`restore_gamelog` / `restore_luadata` / FREEING `update_file` named.
+D-1588. **restore_gamelog D-1628** (`restore.c` `:1386–1409`; JSON
+analogue of Sfi_int length + Sfi_char + `Sfi_gamelog_line` then
+`gamelog_add(flags, turn, msg)`; length > `BUFSZ*2-1` throws ≡ C panic;
+missing/non-array = old JSON; present chunk replaces, C `gg.gamelog`
+NULL at process start); **save_gamelog** (`save.c` `:236–262` walk, no
+skip-empty, `-1` sentinel; JSON array `{text,turn,flags}`); callee
+`gamelog_add` D-0124. `dosave0`/`try_restore_save` D-0335/D-1603.
+Binary NHFILE / `restore_luadata` / FREEING `discard_gamelog` named.
 
 ### `src/invent.c` / `src/iactions.c`
 

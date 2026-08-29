@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `steed.c` `dismount_steed` DISMOUNT_THROWN (named). Not dog_move Conflict. **Addressed:** D-1627
+- [x] `restore.c` `restore_gamelog` (named). Not restore_msghistory. **Addressed:** D-1628
+
+
+- [x] `steed.c` `dismount_steed` DISMOUNT_THROWN (named). Not dog_move Conflict. **Addressed:** D-1627 `15041ea2`
 
 
 - [x] `sounds.c` MS_BOAST hostile giants (named). Not MS_HUMANOID. **Addressed:** D-1626 `c020e463`

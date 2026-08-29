@@ -5,17 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1627 (green+cohort; cadence #2020 still
+- **Suite 44/44** after D-1628 (green+cohort; cadence #2020 still
   D-1620). seed4500 still PASS. Reviews **573–581** ACCEPT-WITH-DEBT.
-  **Hypothesis:** Open `restore.c` `restore_gamelog` (named) is the
-  next map cluster. Not restore_msghistory.
-  **Falsify:** `node scripts/csym.mjs restore_gamelog`;
-  `node scripts/map.mjs restore.c`.
-  **Next:** Open restore_gamelog. Do not skip D-1531…D-1627. No FORCE
+  **Hypothesis:** Open `dog.c` `free_edog` (named) is the next map
+  cluster. Not initedog ogoal.
+  **Falsify:** `node scripts/csym.mjs free_edog`;
+  `node scripts/map.mjs dog.c`.
+  **Next:** Open free_edog. Do not skip D-1531…D-1628. No FORCE
   / `wildmiss` wrap / trailing `confdir` in shared `getdir`. Do not
-  glue onto DISMOUNT_THROWN (D-1627) or MS_BOAST (D-1626).
+  glue onto restore_gamelog (D-1628) or DISMOUNT_THROWN (D-1627).
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
-  clone auto-open yn; `restore_cham` / `rescham`; `restore_gamelog`;
+  clone auto-open yn; `restore_cham` / `rescham`; `restore_luadata`;
   `menu_remarm`; ggetobj drop; tty WIN_INVEN / `#perminv` /
   `optfn_perminv_mode`; BIND= `seeall` / M('?'); ACH_ASTR;
   setworn oc_oprop; newcham mleashed / keepdogs / grow_up leash;
@@ -33,7 +33,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1627.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1628.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -44,9 +44,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1627 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1628 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1627. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1628. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -57,14 +57,18 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1627 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1628 live in the index. Do not glue
   yn ^P onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603). Do not restore
   zap `bhit` sticky `u.Blind||u.ublind` (D-1604). Do not re-port
-  D-1605…D-1627 (index; DISMOUNT_THROWN is D-1627; remaps named).
+  D-1605…D-1628 (index; restore_gamelog is D-1628; DISMOUNT_THROWN
+  is D-1627; remaps named).
 
 ## Landmarks (≤15)
 
+- D-1628: `restore_gamelog` JSON Sfi length+chars+turn/flags until
+  `-1` then `gamelog_add`; `save_gamelog` walk no skip-empty.
+  `restore_luadata` named. restore_msghistory is D-1614.
 - D-1627: `dismount_steed` DISMOUNT_THROWN `"are thrown"` FALLTHROUGH
   KNOCKED/FELL HP + wounded-legs; usteed-clear Flying/Lev;
   `heal_legs(1)` mounted; `dog_move` Conflict steed + `wary_dog`.
@@ -94,6 +98,4 @@ Objective/score live in `CURRENT.md`.
 - D-1615: `consume_obj_charge` known `update_inventory` after `spe--`.
   Pickup tip-spill / trap squeaky / use_grease named.
 - D-1614: `restore_msghistory` JSON Sfi until `-1`; `save_msghistory`
-  skip-empty. `restore_gamelog` named.
-- D-1613: `get_count` GC_SAVEHIST/CONDHIST putmsghistory Count+key2txt.
-  `adjust_split` is D-1621.
+  skip-empty. restore_gamelog is D-1628.

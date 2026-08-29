@@ -62,31 +62,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1627 (seed4500 still PASS). **Next cluster:**
-Open `restore.c` `restore_gamelog` (named). Not restore_msghistory.
-**Do not skip D-1531…D-1627 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1628 (seed4500 still PASS). **Next cluster:**
+Open `dog.c` `free_edog` (named). Not initedog ogoal.
+**Do not skip D-1531…D-1628 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1627.** Do not FORCE
+**Do not re-break D-0660…D-1628.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1627 (index). Recent: **D-1627**
-`steed.c` `dismount_steed` DISMOUNT_THROWN FALLTHROUGH
-KNOCKED/FELL: `usteed=0` Flying/Lev snapshot, `"are thrown"` /
-u_locomotion verb, `losehp` Maybe_Half_Phys(`rn1(10,10)`) +
-`set_wounded_legs(BOTH_SIDES, HWounded_legs+rn1(5,5))`,
-`heal_legs(1)` while mounted; `dog_move` Conflict steed +
-`wary_dog` callers. Punished/ustuck / water-lava / KNOCKED
-preferred-dir named. Prior: **D-1626** `sounds.c` `domonnoise`
-MS_BOAST hostile `rn2(4)` gem/`mhis` / mutton / Fee-Fie
-`wake_nearto(7*7)`; peaceful FALLTHROUGH MS_HUMANOID.
-Guardian/isshk/gecko remaps named. Older D-1531…D-1625 live
-in the index — do not re-paste.
+**Keep:** D-0845…D-1628 (index). Recent: **D-1628**
+`restore.c` `restore_gamelog` JSON Sfi length+chars+turn/flags
+until `-1` then `gamelog_add`; pair `save.c` `save_gamelog` walk
+no skip-empty. `restore_luadata` named. Prior: **D-1627**
+`steed.c` `dismount_steed` DISMOUNT_THROWN `"are thrown"` /
+KNOCKED/FELL HP + wounded-legs. Punished/ustuck / water-lava /
+KNOCKED dir named. Older D-1531…D-1626 live in the index —
+do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1627 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1628 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -113,6 +109,7 @@ Do not re-port yn post-answer `toplines`.
 Do not re-port EDIT_GETLIN (config.h commented).
 Do not re-port `doextlist`.
 Do not re-port `dismount_steed` DISMOUNT_THROWN HP.
+Do not re-port `restore_gamelog`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

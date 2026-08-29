@@ -1,3 +1,30 @@
+## D-1628 — restore.c restore_gamelog / save.c save_gamelog
+
+- **Status:** fixed (map-driven Open from D-1627; not a public FAIL)
+- **Symptom:** JSON VFS save/restore dropped the `#chronicle`
+  list. C `save_gamelog` walks `gg.gamelog` (Sfo length+text+
+  `Sfo_gamelog_line`, no skip-empty, `-1` sentinel). C
+  `restore_gamelog` reads until `-1`, panics if length >
+  `BUFSZ*2-1`, then `gamelog_add(tmp.flags, tmp.turn, msg)`.
+  D-0124 shipped `gamelog_add` / `show_gamelog`; D-1614 shipped
+  msghistory but named this omit.
+- **C locus:** `restore.c` `restore_gamelog` `:1386–1409` caller
+  `restgamestate` `:721`. Pair `save.c` `save_gamelog` `:236–262`
+  caller savestate `:327`. Callee `pline.c` `gamelog_add` (D-0124).
+- **JS was:** named omit after D-1614 (`dosave0`/`try_restore_save`
+  had no gamelog chunk).
+- **Fix:** JSON array analogue of Sfo/Sfi length+chars+turn/flags;
+  missing field = old save without the chunk; too-big throws ≡ C
+  panic; present chunk replaces (C starts with `gg.gamelog` NULL).
+  Rule #2: no fs (VFS JSON only).
+- **JS:** `js/save.js` `save_gamelog` / `restore_gamelog`. Import
+  `gamelog_add` `js/pline.js`.
+- **Not this iter:** `restore_luadata` / `save_luadata`; binary
+  NHFILE; FREEING `discard_gamelog`; files.c tribute. gamelog_add
+  body is D-0124. restore_msghistory is D-1614.
+- **Verified:** private canary **10**/10; focused seed0013 restore
+  PASS; green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1627 — steed.c dismount_steed DISMOUNT_THROWN/KNOCKED/FELL HP
 
 - **Status:** fixed (map-driven Open from D-1626; not a public FAIL)

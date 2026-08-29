@@ -1,12 +1,13 @@
 // save.js — Game save / restore via frozen storage VFS (JSON subset).
-// C ref: save.c dosave / dosave0 / save_msghistory; restore.c dorecover /
-//        restore_msghistory; files.c SAVEF; unixmain attempt_restore;
-//        allmain welcome(FALSE).
+// C ref: save.c dosave / dosave0 / save_msghistory / save_gamelog;
+//        restore.c dorecover / restore_msghistory / restore_gamelog;
+//        files.c SAVEF; unixmain attempt_restore; allmain welcome(FALSE).
 
 import { game } from './gstate.js';
 import { vfsReadFile, vfsWriteFile, vfsDeleteFile } from './storage.js';
 import { yn_function } from './getline.js';
 import { pline, docrt, getmsghistory, putmsghistory } from './display.js';
+import { gamelog_add } from './pline.js';
 import { change_luck } from './attrib.js';
 import {
     FULL_MOON, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED,
@@ -202,7 +203,7 @@ function rebuildObjectsAt(fobj) {
  * C ref: save.c dosave0 — write current game to VFS (JSON subset of savelev).
  * Named omissions: binary NHFILE format; multi-level ledger files; hangup
  * arms; overwrite yn; compress; looseball/chain when swallowed;
- * save_gamelog / save_luadata.
+ * save_luadata.
  */
 export function dosave0() {
     const u = game.u || {};
@@ -286,8 +287,10 @@ export function dosave0() {
         datetime_saved: game.datetime || null,
         // level dnum/dlevel
         uz: u.uz ? { ...u.uz } : { dnum: 0, dlevel: 1 },
-        // C save.c save_msghistory `:1029–1056` after savenames.
+        // C save.c save_msghistory `:1029–1056` after savenames;
+        // save_gamelog `:236–262` after save_msghistory.
         msghistory: save_msghistory(),
+        gamelog: save_gamelog(),
     };
 
     return vfsWriteFile(vfsPath(path), JSON.stringify(payload));
@@ -310,6 +313,26 @@ export function save_msghistory() {
         if (msglen < 1) continue;
         if (msglen > BUFSZ - 1) msglen = BUFSZ - 1;
         out.push(msg.slice(0, msglen));
+    }
+    return out;
+}
+
+/**
+ * C ref: save.c save_gamelog `:236–262`. JSON analogue of Sfo_int
+ * length + Sfo_char text + Sfo_gamelog_line (turn/flags) then Sfo_int
+ * -1. Walk gg.gamelog in list order; do not skip empty (unlike
+ * save_msghistory). FREEING / discard_gamelog omitted (JSON VFS
+ * always writes; in-memory list stays).
+ * @returns {{ text: string, turn: number, flags: number }[]}
+ */
+export function save_gamelog() {
+    const out = [];
+    for (const tmp of game.gamelog || []) {
+        out.push({
+            text: String(tmp.text ?? ''),
+            turn: tmp.turn | 0,
+            flags: tmp.flags | 0,
+        });
     }
     return out;
 }
@@ -456,9 +479,10 @@ export function try_restore_save() {
     game.lastseentyp = payload.lastseentyp || null;
     rebuildObjectsAt(fobj);
 
-    // C restore.c restgamestate `:720` after restnames, before
-    // restore_gamelog / restore_luadata (those remain named).
+    // C restore.c restgamestate `:720–721` after restnames, before
+    // restore_luadata (named).
     restore_msghistory(payload);
+    restore_gamelog(payload);
 
     // C restore.c dorecover :942 — after restoring=0 / early_raw_messages,
     // before docrt. Invent sync_perminvent WIN_INVEN gate (D-1603).
@@ -492,6 +516,31 @@ export function restore_msghistory(payload) {
         msgcount++;
     }
     if (msgcount) putmsghistory(null, true);
+}
+
+/**
+ * C ref: restore.c restore_gamelog `:1386–1409`. JSON analogue of
+ * Sfi_int length (break on -1) + Sfi_char + Sfi_gamelog_line then
+ * gamelog_add(flags, turn, msg). Missing/non-array field = old JSON
+ * save without this chunk (empty walk; gg.gamelog stays NULL).
+ * Length > BUFSZ*2-1 is C panic; JSON analogue throws. SFCTOOL
+ * omitted. C starts with gg.gamelog NULL; present chunk replaces.
+ * @param {{ gamelog?: unknown }} payload
+ */
+export function restore_gamelog(payload) {
+    const entries = payload?.gamelog;
+    if (!Array.isArray(entries)) return;
+    // C restgamestate starts with gg.gamelog == NULL; gamelog_add
+    // appends. A present JSON chunk is the whole list.
+    game.gamelog = [];
+    for (const raw of entries) {
+        const rec = raw && typeof raw === 'object' ? raw : {};
+        const msg = String(rec.text ?? '');
+        if (msg.length > BUFSZ * 2 - 1) {
+            throw new Error(`restore_gamelog: msg too big (${msg.length})`);
+        }
+        gamelog_add(rec.flags | 0, rec.turn | 0, msg);
+    }
 }
 
 /**

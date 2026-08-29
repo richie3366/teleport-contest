@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1628 restore.c restore_gamelog
+
+**Objective:** Open `restore.c` `restore_gamelog` (named). Not
+restore_msghistory.
+**C locus:** `restore.c` `restore_gamelog` `:1386–1409` caller
+`restgamestate` `:721`; pair `save.c` `save_gamelog` `:236–262`
+caller `:327`; callee `pline.c` `gamelog_add`.
+**JS locus:** `js/save.js` `save_gamelog` / `restore_gamelog`.
+**Change:** JSON analogue of Sfi length+chars+turn/flags until `-1`
+then `gamelog_add`; save walk no skip-empty; missing field = old
+JSON; too-big throws. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **10**/10; focused seed0013 restore
+PASS; green+strict seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `dog.c` `free_edog`. Not initedog ogoal.
+**Blocked:** none.
 ## 2026-08-29 — D-1627 steed.c dismount_steed DISMOUNT_THROWN
 
 **Objective:** Open `steed.c` `dismount_steed` DISMOUNT_THROWN
