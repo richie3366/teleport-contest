@@ -45,7 +45,7 @@ import {
     endgamelevelname, obj_glyph, suppress_map_output,
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
 } from './display.js';
-import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
+import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin } from './getline.js';
 import { get_count, pmatchi } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents } from './mkobj.js';
@@ -171,7 +171,7 @@ import {
     acurr, acurrstr, get_strength_str, exercise, Fumbling,
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
-import { depth, ing_suffix } from './hacklib.js';
+import { depth, ing_suffix, strstri } from './hacklib.js';
 import { visctrl } from './dokeylist.js';
 import { select_menu_pick_any } from './options.js';
 import { rn2 } from './rng.js';
@@ -5148,16 +5148,30 @@ function wearing_armor() {
 }
 
 /**
- * C ref: invent.c noarmor(report_uskin).
- * Named omit: uskin dragon-scale shorten + "embedded in your skin" pline.
+ * C ref: invent.c noarmor(report_uskin) `:4577–4597`.
+ * ggetobj takeoff ARMOR_CLASS → noarmor(FALSE); doprarm → noarmor(TRUE).
+ * polyself.c dragon-merge uskin assignment / scale-mail revert named.
  */
 async function noarmor(report_uskin) {
-    if (!game.u?.uskin || !report_uskin) {
+    const uskin = game.u?.uskin;
+    if (!uskin || !report_uskin) {
         await pline('You are not wearing any armor.');
-    } else {
-        // uskin path deferred — still acknowledge empty armor slots
-        await pline('You are not wearing any armor.');
+        return;
     }
+    // C: strcpy(buf, simpleonames(uskin)); then strncmpi "set of " +
+    // strstri " dragon " in-place (p[1]=p[8]). Do not add strncmpi #4.
+    let uskinname = simpleonames(uskin);
+    if (uskinname.slice(0, 7).toLowerCase() === 'set of ') {
+        uskinname = uskinname.slice(7);
+    }
+    const p = strstri(uskinname, ' dragon ');
+    if (p) {
+        const at = uskinname.length - p.length;
+        uskinname = uskinname.slice(0, at + 1) + p.slice(8);
+    }
+    await pline(
+        `You are not wearing armor but have ${uskinname} embedded in your skin.`,
+    );
 }
 
 /**

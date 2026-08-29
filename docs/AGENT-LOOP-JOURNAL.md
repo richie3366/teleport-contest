@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1668 invent.c noarmor uskin embedded pline
+
+**Objective:** Open `invent.c` `noarmor` uskin (named). Not doprarm.
+**C locus:** `invent.c` `noarmor` `:4577–4597`.
+**JS locus:** `js/invent.js` `noarmor`.
+**Change:** `simpleonames` + `"set of "` fold + `strstri` `" dragon "`
+`p.slice(8)`; embedded-skin pline. C is 21 lines. Polyself `uskin=`
+named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary (scales/mail + `doprarm` message);
+green+strict seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `options.c` wizweight optfn_boolean after-change.
+Not fixinv.
+**Blocked:** none.
 ## 2026-08-29 — D-1667 dosacrifice ECMD_TIME after floorfood pick
 
 **Objective:** Must-fix `dosacrifice` `ECMD_TIME` after floorfood

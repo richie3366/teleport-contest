@@ -62,26 +62,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1667 (seed4500 still PASS). **Next cluster:**
-Open `invent.c` `noarmor` uskin (named). Not doprarm.
-**Do not skip D-1531…D-1667 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1668 (seed4500 still PASS). **Next cluster:**
+Open `options.c` wizweight optfn_boolean after-change (named). Not
+fixinv.
+**Do not skip D-1531…D-1668 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1667.** Do not FORCE
+**Do not re-break D-0660…D-1668.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1667 (index). Recent: **D-1667**
-`dosacrifice` after successful `floorfood` CORPSE / Yendor /
-fake `return ECMD_TIME`. Not `offer_corpse`.
-`can_set_perm_invent` InvOptOn import is D-1666. `iactions.c`
-remaining pushkeys offer/tip/invoke is D-1665. `sanity_check`
-is D-1664. `dounpaid` is D-1663. `qt_pager` common is D-1662.
-Older D-1531…D-1666 live in the index — do not re-paste.
+**Keep:** D-0845…D-1668 (index). Recent: **D-1668**
+`noarmor` uskin `simpleonames` + `" dragon "` shorten + embedded
+pline. Not doprarm. `dosacrifice` ECMD_TIME is D-1667.
+`can_set_perm_invent` InvOptOn is D-1666. Older D-1531…D-1667
+live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1667 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1668 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -151,6 +150,7 @@ Do not re-port remaining pushkeys offer/tip/invoke / `offer_ok` /
 `floorfood("sacrifice")` / `doinvoke` live getobj / `dotip` `tip_ok`.
 Do not re-port `can_set_perm_invent` InvOptOn import.
 Do not re-port `dosacrifice` ECMD_TIME after floorfood pick.
+Do not re-port `noarmor` uskin.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

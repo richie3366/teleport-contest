@@ -136,4 +136,4 @@ Named (map, not Must-fix): `offer_corpse` bodies; `choose_tip_container_menu`; s
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1667
+**Addressed:** D-1667 `0cc9e178`

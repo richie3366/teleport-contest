@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` `noarmor` uskin (named). Not doprarm.
 - [ ] `options.c` wizweight optfn_boolean after-change (named). Not fixinv.
 - [ ] `do_name.c` do_oname artifact_name slip / restrict_name / wipeout_text (named). Not `'o'` getobj.
 - [ ] `do_name.c` docallcmd cmdq_pop canned (named). Not `'o'` getobj.

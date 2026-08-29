@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `dosacrifice` (`pray.c:1874–1892`) after a successful `floorfood` pick of `CORPSE` / `AMULET_OF_YENDOR` / `FAKE_AMULET_OF_YENDOR` must `return ECMD_TIME`, not `ECMD_OK`. Do not port `offer_corpse` in that iter. Source: `reviews/loop-unattended/626-784e3060-iactions-pushkeys.md` **Addressed:** D-1667
+- [x] `invent.c` `noarmor` uskin (named). Not doprarm. **Addressed:** D-1668
+
+
+- [x] `dosacrifice` (`pray.c:1874–1892`) after a successful `floorfood` pick of `CORPSE` / `AMULET_OF_YENDOR` / `FAKE_AMULET_OF_YENDOR` must `return ECMD_TIME`, not `ECMD_OK`. Do not port `offer_corpse` in that iter. Source: `reviews/loop-unattended/626-784e3060-iactions-pushkeys.md` **Addressed:** D-1667 `0cc9e178`
 
 
 - [x] `can_set_perm_invent` (`options.c:5507–5508`) must import `InvOptOn` from `const.js`. Do not rewrite can_set, add `strncmpi` #4, or insert the mO row. Source: `reviews/loop-unattended/622-536904b4-optfn-perminv-mode.md` **Addressed:** D-1666 `3c77e49a`

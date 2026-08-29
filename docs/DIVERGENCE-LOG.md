@@ -1,3 +1,27 @@
+## D-1668 — invent.c noarmor uskin embedded-skin pline
+
+- **Status:** fixed (map-driven Open from D-1667; not a public FAIL)
+- **Symptom:** map named `noarmor` uskin. C `noarmor(TRUE)` with `uskin`
+  shortens `simpleonames(uskin)` (`"set of "` / `" dragon "`) and
+  prints "embedded in your skin". JS always printed "not wearing any
+  armor".
+- **C locus:** `invent.c` `noarmor` `:4577–4597`. Callers `:2310`
+  `ggetobj` `noarmor(FALSE)`; `:4610` `doprarm` `noarmor(TRUE)`.
+  `uskin` is the worn obj* (not in `wearing_armor()`).
+- **JS was:** else arm duplicated the empty-armor pline after D-0340 /
+  D-1589.
+- **Fix:** live `simpleonames` + 7-char `"set of "` fold (not
+  `strncmpi` clone #4) + imported `strstri` `" dragon "` then
+  `p.slice(8)` ≡ C `p[1]=p[8]`. Rule #2: no fs.
+- **JS:** `js/invent.js` `noarmor`.
+- **Not this iter:** `doprarm` body; polyself.c dragon-merge `uskin=`
+  / scale-mail revert `strsubst`; steal skinback. doprarm is D-0340 /
+  D-1589; dosacrifice ECMD_TIME is D-1667.
+- **Verified:** private canary (scales → "gray scales"; mail →
+  "gray scale mail"; `doprarm` `_pending_message`); green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict (9/9 with green).
+- **Files:** `js/invent.js`.
+
 ## D-1667 — pray.c dosacrifice ECMD_TIME after floorfood pick
 
 - **Status:** fixed (Must-fix review **626**; not a public FAIL)
