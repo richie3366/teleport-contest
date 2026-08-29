@@ -14,6 +14,7 @@
 //        shopdig(1) um_dist snatch polarity + setnotworn (D-1016);
 //        sellobj BSS sell_response / robbed precedence (D-1019);
 //        check_unpaid / check_unpaid_usage / cost_per_charge (D-1047).
+//        find_oid / o_on / gem_learned / bp_to_obj billobjs (D-1691).
 // Named omissions: shk_fixes_damage in shk_move; allmain/bones
 // fix_shop_damage callers; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
@@ -93,7 +94,7 @@ import {
 import { nhgetch } from './input.js';
 import {
     paint_corner_nhw_menu, count_contents, observe_object, makeknown,
-    count_unpaid, currency,
+    count_unpaid, currency, o_on,
 } from './invent.js';
 import { ATR_INVERSE } from './terminal.js';
 import { yn_function } from './getline.js';
@@ -122,6 +123,8 @@ const CAN_OF_GREASE = objectNames.indexOf('CAN_OF_GREASE');
 const TINNING_KIT = objectNames.indexOf('TINNING_KIT');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const POT_OIL = objectNames.indexOf('POT_OIL');
+/** C objects.h STRANGE_OBJECT — otyp 0; gem_learned all-gems sentinel. */
+const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 const LAND_MINE = objectNames.indexOf('LAND_MINE');
 const BEARTRAP = objectNames.indexOf('BEARTRAP');
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -3761,22 +3764,87 @@ const UndisclosedContainer = 6;
 const PAY_BUY = 1;
 
 /**
- * C ref: mkobj.c find_oid — invent walk (floor/buried/billobjs deferred).
+ * C shk.c find_oid `:2776–2804` — o_id on invent/fobj/buried/migrating
+ * then fmon/migrating_mons/mydogs minvent. Not billobjs (bp_to_obj
+ * useup walks that). Invent is a JS array; other chains are nobj.
+ * @param {number} id
+ * @returns {object|null}
  */
-function bp_to_obj(bp) {
-    const id = bp?.bo_id | 0;
-    if (!id) return null;
-    for (const o of game.invent || []) {
-        if ((o?.o_id | 0) === id) return o;
+export function find_oid(id) {
+    const want = id | 0;
+    let obj = o_on(want, game.gi?.invent ?? game.invent);
+    if (obj) return obj;
+    obj = o_on(want, game.fobj);
+    if (obj) return obj;
+    obj = o_on(want, game.level?.buriedobjlist);
+    if (obj) return obj;
+    obj = o_on(want, game.migrating_objs);
+    if (obj) return obj;
+
+    const mmtmp = [game.fmon, game.migrating_mons, game.mydogs];
+    for (let i = 0; i < 3; i++) {
+        const list = mmtmp[i];
+        if (!list) continue;
+        if (Array.isArray(list)) {
+            for (const mon of list) {
+                if (!mon) continue;
+                obj = o_on(want, mon.minvent);
+                if (obj) return obj;
+            }
+        } else {
+            for (let mon = list; mon; mon = mon.nmon) {
+                obj = o_on(want, mon.minvent);
+                if (obj) return obj;
+            }
+        }
     }
     return null;
 }
 
 /**
+ * C shk.c gem_learned `:3196–3231` — unpaid gem bill prices after
+ * ID / un-ID. next_shkp(fmon, TRUE) then find_oid + get_cost.
+ * STRANGE_OBJECT → every GEM_CLASS stack on any shk bill.
+ * @param {number} oindx
+ */
+export function gem_learned(oindx) {
+    let { shkp, nextIdx } = next_shkp(0, true);
+    while (shkp) {
+        const eshk = ESHK(shkp);
+        let ct = eshk?.billct | 0;
+        const bill = eshk?.bill_p || eshk?.bill || [];
+        let bpIdx = 0;
+        while (--ct >= 0) {
+            const bp = bill[bpIdx];
+            const obj = find_oid(bp?.bo_id | 0);
+            if (obj) {
+                if (oindx !== STRANGE_OBJECT
+                    ? (obj.otyp | 0) === (oindx | 0)
+                    : (obj.oclass | 0) === GEM_CLASS) {
+                    bp.price = get_cost(obj, shkp);
+                }
+            }
+            bpIdx++;
+        }
+        ({ shkp, nextIdx } = next_shkp(nextIdx, true));
+    }
+}
+
+/**
+ * C shk.c bp_to_obj `:2758–2769` — useup → o_on(billobjs); else find_oid.
+ */
+function bp_to_obj(bp) {
+    const id = bp?.bo_id | 0;
+    if (!id) return null;
+    if (bp.useup) return o_on(id, game.billobjs);
+    return find_oid(id);
+}
+
+/**
  * C shk.c doinvbill `:4196–4271`. mode 0: count used-up bill rows (+
  * debit) so dotypeinv Traditional can offer 'x'. mode 1: NHW_MENU of
- * used-up articles. find_oid / billobjs o_on still invent-only
- * (bp_to_obj). buy_container named.
+ * used-up articles. bp_to_obj is C find_oid / billobjs o_on (D-1691).
+ * buy_container named.
  * @param {number} mode
  * @returns {Promise<number>}
  */

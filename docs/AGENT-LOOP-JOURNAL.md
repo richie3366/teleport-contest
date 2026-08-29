@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1691 o_init.c undiscover_object / gem_learned
+
+**Objective:** Open `o_init.c` undiscover_object / gem_learned (named).
+Not oc_uses_known.
+**C locus:** `o_init.c` `undiscover_object` `:497–523`; `shk.c`
+`gem_learned` `:3196–3231`; `find_oid` `:2776–2804`; `invent.c` `o_on`
+`:1586–1599`; `do_name.c` `docall` `:668–669`.
+**JS locus:** `js/o_init.js`; `js/shk.js`; `js/invent.js`; `js/do_name.js`.
+**Change:** disco shift on empty Call; unpaid gem `get_cost`; `o_on` /
+`find_oid`; `discover_object` moveloop reprice. Named: FIRST_OBJECT
+observe skip.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **PASS**; green+strict seed8000/0900;
+cohort **9**/9 + strict.
+**Next:** Open `artifact.c` wield restrict_name. Not do_oname slip.
+**Blocked:** none.
 ## 2026-08-29 — D-1690 objects.h oc_charged extract
 
 **Objective:** Open `objects.h` oc_charged extract (named). Not oc_merge.

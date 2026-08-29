@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `objects.h` oc_charged extract (named). Not oc_merge. **Addressed:** D-1690
+- [x] `o_init.c` undiscover_object / gem_learned (named). Not oc_uses_known. **Addressed:** D-1691
+
+
+- [x] `objects.h` oc_charged extract (named). Not oc_merge. **Addressed:** D-1690 `0458e7cc`
 
 
 - [x] `engrave.c` doengrave non-hands stylus (named). Not IA_ENGRAVE pushkeys. **Addressed:** D-1689 `658cd53c`

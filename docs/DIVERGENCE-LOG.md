@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1691 — o_init.c undiscover_object / gem_learned
+
+- **Status:** fixed (map-driven Open from D-1690; not a public FAIL)
+- **Symptom:** map named `undiscover_object` / `gem_learned`. C
+  `docall` empty uname purges `disco[]` and GEM_CLASS unpaid bills
+  `get_cost`; identifying a gem in-moveloop does the same. JS skipped
+  both after D-1672; `bp_to_obj` walked only `game.invent`.
+- **C locus:** `o_init.c` `undiscover_object` `:497–523`;
+  `discover_object` `:487–490`; `shk.c` `gem_learned` `:3196–3231`;
+  `find_oid` `:2776–2804`; `bp_to_obj` `:2758–2769`; `invent.c` `o_on`
+  `:1586–1599`; `do_name.c` `docall` `:668–669`.
+- **JS was:** `docall` voided `hadName`; `discover_object` never called
+  `gem_learned` / `update_inventory`; no `o_on` / `find_oid`.
+- **Fix:** live `undiscover_object` disco shift; `gem_learned` via
+  `next_shkp` + `find_oid` + `get_cost`; `o_on` nobj/array + cobj;
+  `bp_to_obj` useup → `billobjs`; `discover_object` FIRST_OBJECT +
+  moveloop GEM reprice. Rule #2: no fs.
+- **JS:** `js/o_init.js`; `js/shk.js`; `js/invent.js`; `js/do_name.js`.
+- **Not this iter:** `observe_object` FIRST_OBJECT skip; wield
+  `restrict_name`; `oc_merge`; `buy_container`.
+- **Verified:** private canary (disco shift, o_on/find_oid, gem
+  reprice, discover_object moveloop); green+strict seed8000/0900;
+  CURRENT cohort **9**/9 + strict.
+- **Files:** `js/o_init.js`, `js/shk.js`, `js/invent.js`, `js/do_name.js`.
+
 ## D-1690 — objects.h oc_charged extract
 
 - **Status:** fixed (map-driven Open from D-1689; not a public FAIL)

@@ -982,7 +982,12 @@ pushkeys D-1675; `'i'` live getobj is D-1681; #if 0 EXCLUDE is D-1682);
 (D-1672;** C `do_name.c` `:635–676` + `docall_xname` `:604–633`;
 `objnam.c` `safe_qbuf` already D-1654; C `fromsink` overlays `corpsenm`;
 invent `update_inventory` when `OBJ_INVENT` or carrying-walk;
-`undiscover_object` / `gem_learned` still named); **`christen_monst` + tame `x_monnam` subset** (D-0079); 
+**`undiscover_object` / `gem_learned` D-1691** (`o_init.c` `:497–523`
+disco shift; `shk.c` `:3196–3231` unpaid gem `get_cost`; callees
+`invent.c` `o_on` `:1586–1599` + `shk.c` `find_oid` `:2776–2804` /
+`bp_to_obj` billobjs; `discover_object` moveloop GEM reprice +
+`update_inventory`; `docall` empty-uname); `observe_object`
+FIRST_OBJECT skip named); **`christen_monst` + tame `x_monnam` subset** (D-0079); 
 **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); 
 **`x_monnam` do_it `!canspotmon`→`it`** (D-0295; saddle adj kept); 
 **`mon_nam` isshk → `shkname`** (D-0307); **`uhitm` imports shared `mon_nam`** (D-0308); 
@@ -1018,7 +1023,7 @@ miss; `SIR_TERRY_NOVELS` export from mkobj `noveltitle` home; callers
 named `oname` ONAME_LEVEL_DEF); artifact_name slip is D-1670; cmdq_pop
 canned is D-1671; sink-fluid/`safe_qbuf` is D-1672; `oname` via_naming
 livelog is D-1680; `'i'` getobj `"name"` is D-1681; #if 0 EXCLUDE /
-`silly_thing` is D-1682.
+`silly_thing` is D-1682; `undiscover_object` / `gem_learned` is D-1691.
 
 ### `src/dokick.c`
 

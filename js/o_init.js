@@ -1,14 +1,15 @@
 // o_init.js — Object initialization / description shuffle / discoveries.
 // C ref: o_init.c — init_objects, shuffle_all, randomize_gem_colors,
-//        interesting_to_discover / disco_append_typename / rename_disco.
+//        interesting_to_discover / disco_append_typename / rename_disco;
+//        undiscover_object / gem_learned (D-1691).
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
-import { pline } from './display.js';
+import { pline, impossible } from './display.js';
 import { BUFSZ } from './const.js';
 import { ATR_INVERSE } from './terminal.js';
 import { disco_typename, Japanese_item_name } from './objnam.js';
-import { append_price_quote } from './shk.js';
+import { append_price_quote, gem_learned } from './shk.js';
 import { let_to_name, DEF_INV_ORDER } from './invent.js';
 import { docall, objtyp_is_callable } from './do_name.js';
 import { select_menu_pick_one } from './options.js';
@@ -313,6 +314,43 @@ export function interesting_to_discover(i) {
     if (!(oc.oc_name_known || oc.oc_encountered)) return false;
     const di = oc.oc_descr_idx ?? i;
     return objectDescrs[di] != null;
+}
+
+/**
+ * C o_init.c undiscover_object `:497–523` — purge oindx from disco[]
+ * when !oc_name_known && !oc_encountered (docall empty uname). Shift
+ * later class slots forward; GEM_CLASS → gem_learned.
+ * @param {number} oindx
+ */
+export function undiscover_object(oindx) {
+    const objects = objs();
+    if (oindx == null || !objects?.[oindx]) return;
+    if (objects[oindx].oc_name_known || objects[oindx].oc_encountered) {
+        return;
+    }
+    if (!game.disco) game.disco = new Array(NUM_OBJECTS).fill(0);
+    const acls = objects[oindx].oc_class;
+    const b = bases();
+    let found = false;
+    let dindx = b[acls] | 0;
+    for (;
+        dindx < NUM_OBJECTS && (game.disco[dindx] | 0) !== 0
+            && objects[dindx]?.oc_class === acls;
+        dindx++) {
+        if (found) {
+            game.disco[dindx - 1] = game.disco[dindx];
+        } else if ((game.disco[dindx] | 0) === (oindx | 0)) {
+            found = true;
+        }
+    }
+    if (found) {
+        game.disco[dindx - 1] = 0;
+    } else {
+        impossible('named object not in disco');
+    }
+    if ((objects[oindx].oc_class | 0) === GEM_CLASS) {
+        gem_learned(oindx);
+    }
 }
 
 /**
