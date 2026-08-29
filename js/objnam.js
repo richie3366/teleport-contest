@@ -28,6 +28,7 @@ import {
     pmnames, MALE, FEMALE, NEUTRAL, NON_PM, NUMMONS, LOW_PM, NUM_MGENDERS,
 } from './monsters.js';
 import { BOGUSMON_BUF } from './generated/bogusmon_data.js';
+import { upstart } from './hacklib.js';
 import {
     PM_SAMURAI, PM_CLERIC, PM_LICHEN, PM_ACID_BLOB, PM_LONG_WORM_TAIL,
 } from './generated/monsters_data.js';
@@ -42,7 +43,7 @@ import {
     P_DART, P_BOOMERANG,
     OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
     ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, ismnum, MV_KNOWS_EGG,
-    ONAME, has_oname,
+    ONAME, has_oname, QBUFSZ,
     CXN_NORMAL, CXN_SINGULAR, CXN_NO_PFX, CXN_PFX_THE, CXN_ARTICLE,
     CXN_NOCORPSE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_RANDOM,
@@ -1923,6 +1924,14 @@ export function yname(obj) {
 }
 
 /**
+ * C ref: objnam.c Yname2 — highc first character of yname.
+ * Pre-existing local clones (do/music/timeout) stay.
+ */
+export function Yname2(obj) {
+    return upstart(yname(obj));
+}
+
+/**
  * C ref: objnam.c simpleonames ← minimal_xname — type appearance without
  * quan/BUC. Statue/figurine corpsenm suppressed (C bareobj.corpsenm=NON_PM).
  * C bareobj = zeroobj (owt 0) → BALL_CLASS never gets "very " via this path
@@ -1964,6 +1973,24 @@ export function ansimpleoname(obj) {
  */
 export function thesimpleoname(obj) {
     return the(simpleonames(obj));
+}
+
+/**
+ * C ref: objnam.c ysimple_name — shk_your + minimal_xname.
+ * JS simpleonames is the live minimal_xname stand-in (D-0881).
+ * Named omit: BUFSZ strncat cap (JS strings); sack→bag aliases.
+ * Pre-existing local clones (attrib/pickup) stay.
+ */
+export function ysimple_name(obj) {
+    return `${shk_your(obj)}${simpleonames(obj)}`;
+}
+
+/**
+ * C ref: objnam.c Ysimple_name2 — highc first character of ysimple_name.
+ * Pre-existing local clones (do_name/pickup) stay.
+ */
+export function Ysimple_name2(obj) {
+    return upstart(ysimple_name(obj));
 }
 
 /**
@@ -2036,6 +2063,61 @@ export function short_oname(obj, func, altfunc, lenlimit) {
     if (save_oname) obj.oextra.oname = save_oname;
     if (save_uname && ocl) ocl.oc_uname = save_uname;
     return outbuf;
+}
+
+/**
+ * C ref: objnam.c safe_qbuf `:5623–5698` — prefix + object name + suffix
+ * guaranteed to fit in QBUFSZ-1. `func` then `altfunc` via short_oname;
+ * lastR when the formatted name still overruns. qprefix null → empty
+ * start. C dest==qprefix means the prefix is already in dest; JS starts
+ * from qprefix (first arg unused except as that dest).
+ * Named omit: impossible() prefix/suffix/filler diagnostics (async
+ * pline; C continues after them).
+ *
+ * @param {string|null} [_qbuf] C dest; ignored when qprefix is given
+ * @param {string|null} qprefix
+ * @param {string|null} qsuffix
+ * @param {object} obj
+ * @param {function} func
+ * @param {function} [altfunc]
+ * @param {string} lastR
+ * @returns {string}
+ */
+export function safe_qbuf(_qbuf, qprefix, qsuffix, obj, func, altfunc, lastR) {
+    const lenlimit = QBUFSZ - 1;
+    const last = lastR == null ? '' : String(lastR);
+    const sfx = qsuffix == null ? '' : String(qsuffix);
+    const len_qsfx = sfx.length;
+    const len_lastR = last.length;
+
+    let buf;
+    if (qprefix == null) {
+        buf = '';
+    } else {
+        // C strncpy(..., lenlimit) then *endp='\0' at qbuf[lenlimit]
+        buf = String(qprefix).slice(0, lenlimit);
+    }
+    let len = buf.length;
+
+    if (len + len_lastR + len_qsfx > lenlimit) {
+        if (len < lenlimit) {
+            buf = (buf + last).slice(0, lenlimit);
+            len = buf.length;
+            if (sfx && len < lenlimit) {
+                buf = (buf + sfx).slice(0, lenlimit);
+            }
+        }
+    } else {
+        len += len_qsfx;
+        const bufp = short_oname(obj, func, altfunc, lenlimit - len);
+        if (len + String(bufp).length <= lenlimit) {
+            buf += bufp;
+        } else {
+            buf += last;
+        }
+        if (sfx) buf += sfx;
+    }
+    return buf;
 }
 
 /**

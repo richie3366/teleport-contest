@@ -28,6 +28,10 @@ import { addinv } from './u_init.js';
 import {
     an, doname, xname, cxname, cxname_singular, xprname,
     the as theArt, The, body_part_latebound, vtense,
+    safe_qbuf, ansimpleoname,
+    yname as yname_objnam, Yname2,
+    ysimple_name as ysimple_name_objnam,
+    Ysimple_name2 as Ysimple_name2_objnam,
 } from './objnam.js';
 import { can_reach_floor } from './engrave.js';
 import {
@@ -52,7 +56,7 @@ import {
     SHOPBASE,
     SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     AUTOUNLOCK_APPLY_KEY,
-    nothing_seems_to_happen, engulfing_u,
+    nothing_seems_to_happen, something, engulfing_u,
     HAND, FOOT, NO_MINVENT, MM_ADJACENTOK, MM_NOMSG, ONAME_NO_FLAGS,
 } from './const.js';
 import { t_at, dotrap, NO_TRAP_FLAGS, drown, lava_effects, instapetrify } from './trap.js';
@@ -1108,7 +1112,11 @@ async function lift_object(obj, cntRef, telekinesis) {
                         : slightloadpfx;
             const savequan = obj.quan;
             obj.quan = cntRef.count;
-            const qbuf = `${pfx} lifting ${doname(obj)}.  Continue?`;
+            // C: Sprintf prefix then safe_qbuf(qbuf, qbuf, ".  Continue?",
+            // doname, ansimpleoname, something). Container "removing" named.
+            let qbuf = `${pfx} lifting `;
+            qbuf = safe_qbuf(qbuf, qbuf, '.  Continue?', obj, doname,
+                ansimpleoname, something);
             obj.quan = savequan;
             const ans = await yn_function(qbuf, 'ynq', 'q');
             if (ans === 'q') result = -1;
@@ -2817,7 +2825,8 @@ async function pickup_traditional_floor(head, count) {
         }
         let lcount = -1;
         if (!all_of_a_type) {
-            const qbuf = `Pick up ${doname(obj)}?`;
+            const qbuf = safe_qbuf(null, 'Pick up ', '?', obj, doname,
+                ansimpleoname, something);
             const resp = (obj.quan || 1) < 2 ? ynaqchars : ynNaqchars;
             const sym = await yn_function(qbuf, resp, 'y');
             if (sym === 'q') break;
@@ -3107,9 +3116,13 @@ export async function use_container(obj, held = false, more_containers = false) 
         // C: prompt uses outmaybe, not bare outokay (empty+!cknown →
         // "Do what with your bag?" still offers take-out).
         const outmaybe = outokay || !obj.cknown;
+        // C pickup.c:3076–3082 — null prefix + Yname2/Ysimple_name2/"This"
+        // when empty; else "Do what with " + yname/ysimple_name/"it".
         const qbuf = outmaybe
-            ? `Do what with ${yname(obj)}?`
-            : `${upstart(yname(obj))} is empty.  Do what with it?`;
+            ? safe_qbuf(null, 'Do what with ', '?', obj, yname_objnam,
+                ysimple_name_objnam, 'it')
+            : safe_qbuf(null, null, ' is empty.  Do what with it?', obj,
+                Yname2, Ysimple_name2_objnam, 'This');
         if (use_menu) {
             if (!inokay && !outmaybe) {
                 // C: nothing to take out or put in → try both (feedback)
@@ -3653,9 +3666,9 @@ export async function dotip() {
             } else {
                 for (let cobj = objects_at(ccx, ccy); cobj; cobj = cobj.nexthere) {
                     if (!Is_container(cobj)) continue;
-                    const { yn_function } = await import('./getline.js');
                     const c = await yn_function(
-                        `There is ${doname(cobj)} here, tip it?`,
+                        safe_qbuf(null, 'There is ', ' here, tip it?',
+                            cobj, doname, ansimpleoname, 'container'),
                         'ynq',
                         'q',
                     );

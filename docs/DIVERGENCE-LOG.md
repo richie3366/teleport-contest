@@ -1,3 +1,27 @@
+## D-1654 — objnam.c safe_qbuf / pickup.c prompt callers
+
+- **Status:** fixed (map-driven Open from D-1653; not a public FAIL)
+- **Symptom:** map named pickup.c `safe_qbuf`. C fits prefix +
+  object name + suffix in QBUFSZ-1 via `short_oname` then lastR
+  (`something` / `it` / `This` / `container`). JS concatenated
+  `doname`/`yname` after D-0881/D-1620 with no length fallback.
+- **C locus:** `objnam.c` `safe_qbuf` `:5623–5698` (csym misses
+  the 7-line prototype). Callers `pickup.c` `:852` Pick up,
+  `:1774` Continue?, `:3077–3082` Do what with / empty Yname2,
+  `:3607` tip ynq. `decl.h` `something`.
+- **JS was:** `Pick up ${doname}?` / lifting Continue? /
+  `Do what with ${yname}?` / tip doname; no `safe_qbuf`.
+- **Fix:** port `safe_qbuf` + `Yname2`/`ysimple_name`/
+  `Ysimple_name2` in objnam; wire the four pickup sites;
+  `something` on `c_common_strings`. First dest arg unused in JS
+  (immutable strings; qprefix is the start).
+- **JS:** `js/objnam.js` + `js/pickup.js` + `js/const.js`.
+- **Not this iter:** lift container `"removing"`; apply/do_name/
+  eat/invent/lock/mhitu/shk/trap callers; floor query_classes
+  (D-1620). Death tribute is D-1653.
+- **Verified:** private canary fit/lastR/empty-prefix/qprefix==dest;
+  green+strict seed8000/0900; cohort **7**/7 + strict (9/9 with green).
+
 ## D-1653 — sounds.c MS_RIDER Death tribute / u_have_novel
 
 - **Status:** fixed (map-driven Open from D-1652; not a public FAIL)

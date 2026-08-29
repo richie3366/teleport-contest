@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `sounds.c` Death_quote / `u_have_novel` (named). Not read_tribute. **Addressed:** D-1653
+- [x] `pickup.c` `safe_qbuf` (named). Not floor query_classes. **Addressed:** D-1654
+
+
+- [x] `sounds.c` Death_quote / `u_have_novel` (named). Not read_tribute. **Addressed:** D-1653 `7e407046`
 
 
 - [x] `sit.c` `eyecount` (named). Not confer_oc_oprop. **Addressed:** D-1652 `105c91aa`
