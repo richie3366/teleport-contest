@@ -37,6 +37,8 @@
 // D-1663: invent.c dounpaid / find_unpaid + mkobj.c
 //        unknwn_contnr_contents + xprname Iu/Ix cost. dotypeinv /
 //        doinvbill named. wizcmds sanity_check is D-1664.
+// D-1682: invent.c silly_thing (Call Amulet / unknown fake; getobj
+//        GETOBJ_EXCLUDE). docallcmd #if 0 EXCLUDE is compiled out.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -82,6 +84,7 @@ import {
 import { interesting_to_discover, disco_append_typename } from './o_init.js';
 import {
     Never_mind,
+    silly_thing_to,
     ECMD_OK,
     ECMD_CANCEL,
     ECMD_FAIL,
@@ -245,6 +248,8 @@ const OTYP_LEASH = objectNames.indexOf('LEASH');
 const OTYP_CORPSE = objectNames.indexOf('CORPSE');
 const OTYP_GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
+const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
+const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
 
 /**
  * C ref: invent.c u_have_novel `:1575–1584` — first SPE_NOVEL on
@@ -6131,8 +6136,8 @@ export async function getobj_display_pickinv(ch, rawLets, allowcnt, counted, ctx
 /**
  * C invent.c getobj after the letter `:2021–2088` — gold LRS, throw-one,
  * botl, CQ_REPEAT record `:2049–2054`, "don't have that many", then
- * split_otmp. silly_thing named. pickinv `&ctmp` is getobj_display_pickinv
- * (D-1559).
+ * split_otmp. silly_thing is getobj_finish_pick (D-1682). pickinv
+ * `&ctmp` is getobj_display_pickinv (D-1559).
  * @param {object|null} otmp
  * @param {string} word
  * @param {boolean} cntgiven
@@ -6249,10 +6254,10 @@ async function getobj_typed_hands(word, allownone, hands) {
  * "don't have anything [else] to WORD" (inaccess from
  * EXCLUDE_NONINVENT / EXCLUDE_INACCESS). GETOBJ_PROMPT still prompts
  * `[*]` when suggested==0.
- * Named omit: in_doagain readchar (REPEAT cmdq live);
- * sortloot body (invlet sort); call-Amulet silly_thing. mime_action
- * is D-1579. gacc / `'0'` ball is D-1580 (non-wizid pickinv gacc 0).
- * putmsghistory is D-1588.
+ * silly_thing on GETOBJ_EXCLUDE is D-1682 (Call Amulet / unknown
+ * fake). Named omit: in_doagain readchar (REPEAT cmdq live);
+ * sortloot body (invlet sort). mime_action is D-1579. gacc / `'0'`
+ * ball is D-1580 (non-wizid pickinv gacc 0). putmsghistory is D-1588.
  * @param {string} word
  * @param {(obj: object|null) => number} obj_ok
  * @param {number} ctrlflags
@@ -6393,6 +6398,31 @@ export async function getobj(word, obj_ok, ctrlflags) {
 }
 
 /**
+ * C invent.c silly_thing `:2093–2131`.
+ * OBSOLETE_HANDLING (P/R vs W/T accessory vs armor verbs) is not
+ * defined in pinned C — compiled out. Live: word "call" on
+ * AMULET_OF_YENDOR or unknown FAKE_AMULET_OF_YENDOR → pline_The
+ * "Amulet doesn't like being called names." (C comment cites
+ * objtyp_is_callable in do_name.c). Else pline(silly_thing_to, word).
+ * Callers: getobj GETOBJ_EXCLUDE; do_wear.c canwearobj noisy else.
+ * docallcmd #if 0 `call_ok==GETOBJ_EXCLUDE` You("know those as well")
+ * is compiled out; getobj never returns EXCLUDE to that switch.
+ * @param {string} word
+ * @param {object} otmp
+ */
+export async function silly_thing(word, otmp) {
+    if (
+        word === 'call'
+        && (otmp.otyp === AMULET_OF_YENDOR
+            || (otmp.otyp === FAKE_AMULET_OF_YENDOR && !otmp.known))
+    ) {
+        await pline("The Amulet doesn't like being called names.");
+        return;
+    }
+    await pline(silly_thing_to.replace('%s', word));
+}
+
+/**
  * C invent.c getobj after the letter `:2003–2072` — gold "cannot WORD
  * gold", silly_thing on EXCLUDE, then getobj_apply_count.
  * @returns {Promise<null | { retry: true } | object>}
@@ -6405,7 +6435,7 @@ async function getobj_finish_pick(otmp, word, obj_ok, counted, ilet) {
         }
     }
     if (otmp && obj_ok(otmp) === GETOBJ_EXCLUDE) {
-        await pline(`That is a silly thing to ${word}.`);
+        await silly_thing(word, otmp);
         return null;
     }
     if (!otmp) {

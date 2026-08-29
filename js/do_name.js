@@ -10,7 +10,9 @@
 //        distant_monnam astral high-cleric conceal (D-1673);
 //        oname via_naming literate livelog (D-1680);
 //        docallcmd `'i'` live getobj("name", name_ok, GETOBJ_PROMPT)
-//        (D-1681).
+//        (D-1681);
+//        docallcmd #if 0 EXCLUDE compiled out; getobj silly_thing
+//        Call Amulet (D-1682).
 
 import {
     artifact_exists, exist_artifact, artifact_name, restrict_name,
@@ -1165,7 +1167,9 @@ async function docallcmd_menu() {
  * then do_oname (D-1681); `o` → getobj("call", call_ok, GETOBJ_NOFLAGS)
  * then xname + dknown/docall (D-1660); `f` → namefloorobj; `d`/`\\` →
  * o_init.c rename_disco.
- * Named: #if 0 call_ok EXCLUDE "know those as well".
+ * C `:581–585` #if 0 `call_ok==GETOBJ_EXCLUDE` You("know those as
+ * well") is compiled out (D-1682). Live EXCLUDE is getobj →
+ * silly_thing (Call Amulet / unknown fake).
  */
 export async function docallcmd() {
     await flush_topl_more();
@@ -1205,6 +1209,7 @@ export async function docallcmd() {
                 if (!obj.dknown) {
                     await pline('You would never recognize another one.');
                 } else {
+                    /* C `:581–585` #if 0 GETOBJ_EXCLUDE arm compiled out. */
                     await docall(obj);
                 }
             }

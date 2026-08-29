@@ -21,7 +21,7 @@ import { retouch_object, set_artifact_intrinsic } from './artifact.js';
 import { welded, setuwep, setuswapwep, setuqwep, empty_handed } from './wield.js';
 import { cmdq_pop } from './cmd.js';
 import { set_occupation } from './engrave.js';
-import { makeknown, observe_object, ggetobj, is_worn } from './invent.js';
+import { makeknown, observe_object, ggetobj, is_worn, silly_thing } from './invent.js';
 import {
     add_valid_menu_class, menu_class_present, query_category, query_objlist,
     is_worn_by_type,
@@ -1667,7 +1667,8 @@ export async function doddoremarm() {
 
 /**
  * C ref: do_wear.c canwearobj — slot/mask for armor; poly/weld/trap gates
- * mostly deferred (human form always ok).
+ * mostly deferred (human form always ok). Noisy else → silly_thing("wear")
+ * (D-1682; C `:2189–2194`).
  * @returns {Promise<number>} 1 ok (mask out), 0 fail
  */
 export async function canwearobj(otmp, maskOut, noisy) {
@@ -1722,7 +1723,9 @@ export async function canwearobj(otmp, maskOut, noisy) {
             err++;
         } else mask = W_ARM;
     } else {
-        if (noisy) await pline("You can't wear that.");
+        /* C `:2189–2194` getobj can't do this after allow_all;
+           extra / covered-slot armor → silly_thing("wear"). */
+        if (noisy) await silly_thing('wear', otmp);
         err++;
     }
 

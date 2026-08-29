@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1681 (cadence **#2080** at `115570e2`).
-  seed4500 still PASS. **Hypothesis:** `docallcmd` `'o'` `#if 0`
-  EXCLUDE is compiled out in C (`You("know those as well…")`).
-  **Falsify:** `node scripts/csym.mjs docallcmd` — the arm is
-  `#if 0`. **Next:** Open `do_name.c` docallcmd #if 0 EXCLUDE
-  (named). Not `'i'` getobj_name. Do not skip D-1531…D-1681.
-  Do not re-port `'i'` live getobj `"name"`.
+- **Suite 44/44** after D-1682 (cadence **#2080** at `115570e2`).
+  seed4500 still PASS. **Hypothesis:** `sit.c` `special_throne_effect`
+  grease spray is still a named omit (not `use_grease`).
+  **Falsify:** `node scripts/csym.mjs special_throne_effect`.
+  **Next:** Open `sit.c` special_throne_effect grease spray (named).
+  Not use_grease. Do not skip D-1531…D-1682. Do not re-port
+  `silly_thing` / #if 0 EXCLUDE / `'i'` getobj `"name"`.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn
   oc_oprop; keepdogs/grow_up leash; light-scroll `initedog`;
@@ -24,7 +24,7 @@ Objective/score live in `CURRENT.md`.
   sit.c grease spray; perm_invent can_set; wizmgender glyph-reset;
   remaining pushkeys rub/swap/whatis;
   polyself `uskin=`; wield `restrict_name`; doengrave non-hands
-  stylus; `undiscover_object` / `gem_learned`; #if 0 EXCLUDE;
+  stylus; `undiscover_object` / `gem_learned`;
   steal/muse `unknow_object`; `oc_charged`/`oc_merge`; Traditional
   itemize yn; `cheapest_item` early return.
 
@@ -35,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1681.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1682.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,10 +46,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1681 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1682 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1681. Do not delete emin (**487**). Do not stub
+  D-1520…D-1682. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -60,7 +60,7 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1681 in the index. No yn ^P glue /
+  `vision_reset`. D-1576…D-1682 in the index. No yn ^P glue /
   `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
@@ -69,13 +69,18 @@ Objective/score live in `CURRENT.md`.
   `distant_monnam` / `oc_uses_known` extract / unwield-name-eat-engrave
   pushkeys / `remarm_swapwep` / IA_BUY_OBJ shop pay / IA_TWOWEAPON /
   `offer_corpse` / `choose_tip_container_menu` / `oname` via_naming
-  livelog / `'i'` getobj `"name"` / add `strncmpi` #4.
+  livelog / `'i'` getobj `"name"` / `silly_thing` / #if 0 EXCLUDE /
+  add `strncmpi` #4.
 
 ## Landmarks (≤15)
 
+- D-1682: `silly_thing` `:2093–2131` Call Amulet / unknown fake
+  `pline_The`; else `silly_thing_to`. `getobj` EXCLUDE; `canwearobj`
+  wear. `docallcmd` `:581–585` #if 0 compiled out. sit grease named.
+  D-1681 `'i'` getobj.
 - D-1681: `docallcmd` `'i'` `:566–569` live
   `getobj("name", name_ok, GETOBJ_PROMPT)` + export `name_ok`
-  `:466–476`; iactions clone retired. Named: #if 0 EXCLUDE.
+  `:466–476`; iactions clone retired. #if 0 EXCLUDE is D-1682.
   D-1680 oname via_naming.
 - D-1680: `oname` `:371–426` via_naming `literate++`
   `livelog_printf` LL_CONDUCT|LL_ARTIFACT / LL_ARTIFACT; `new_oname`;
@@ -116,7 +121,7 @@ Objective/score live in `CURRENT.md`.
   named. cmdq_pop canned is D-1671; `'o'` getobj is D-1660.
 - D-1671: `docallcmd` cmdq_pop KEY skip-menu else `cmdq_clear`;
   lootabc gacc; `!invent` omits i/o; `ECMD_OK`. iactions Call
-  D-1675; `'i'` getobj is D-1681; #if 0 named. `'o'` getobj is D-1660.
+  D-1675; `'i'` getobj is D-1681; #if 0 is D-1682. `'o'` getobj is D-1660.
 - D-1670: `do_oname` artifact_name slip + `restrict_name` +
   `wipeout_text`/`rnd_on_display_rng`; Sting/Orcrist canonical.
   wield restrict named; oname livelog is D-1680.
@@ -124,5 +129,3 @@ Objective/score live in `CURRENT.md`.
   doname `aum` / with_price merge; paydoname save. wizmgender named.
 - D-1668: `noarmor` uskin `simpleonames` + `" dragon "` `p.slice(8)`
   embedded pline. doprarm D-0340/D-1589. ECMD_TIME D-1667.
-- D-1667: `dosacrifice` floorfood CORPSE/Yendor/fake `ECMD_TIME`.
-  `offer_corpse` live D-1678; amulet `offer_*` named. InvOptOn D-1666.

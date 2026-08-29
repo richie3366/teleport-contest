@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do_name.c` docallcmd #if 0 EXCLUDE (named). Not `'i'` getobj_name.
 - [ ] `sit.c` special_throne_effect grease spray (named). Not use_grease.
 - [ ] `dungeon.c` save_mapseen cemetery JSON (named). Not print_mapseen cemetery.
 - [ ] `iactions.c` remaining pushkeys rub/swap/whatis (named). Not two-weapon.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `shk.c` cheapest_item early return (named). Not Traditional itemize.
 - [ ] `engrave.c` doengrave non-hands stylus (named). Not IA_ENGRAVE pushkeys.
 - [ ] `objects.h` oc_charged extract (named). Not oc_merge.
+- [ ] `o_init.c` undiscover_object / gem_learned (named). Not oc_uses_known.
+- [ ] `artifact.c` wield restrict_name (named). Not do_oname slip.
+- [ ] `dungeon.c` print_mapseen knox/drawbridge (named). Not cemetery JSON.
+- [ ] `options.c` mO perminv_mode compound row (named). Not optfn_perminv_mode.
+- [ ] `options.c` wizmgender glyph-reset (named). Not wizweight.
 
 ## Parked (do not pop)
 

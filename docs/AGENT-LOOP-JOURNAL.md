@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1682 do_name.c #if 0 EXCLUDE / silly_thing
+
+**Objective:** Open `do_name.c` docallcmd #if 0 EXCLUDE (named). Not
+`'i'` getobj_name.
+**C locus:** `do_name.c` `docallcmd` `:581–585` #if 0 compiled out;
+`invent.c` `silly_thing` `:2093–2131`; getobj EXCLUDE; `canwearobj`.
+**JS locus:** `js/invent.js` `silly_thing` / `getobj_finish_pick`;
+`js/do_name.js` `docallcmd`; `js/do_wear.js` `canwearobj`;
+`js/const.js` `silly_thing_to`.
+**Change:** live `silly_thing` (Call Amulet / unknown fake); #if 0
+arm stays out. Named: sit grease spray.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **22**/22; green+strict seed8000/0900;
+cohort **9**/9 + strict.
+**Next:** Open `sit.c` special_throne_effect grease spray. Not
+use_grease.
+**Blocked:** none.
 ## 2026-08-29 — D-1681 do_name.c `'i'` live getobj name
 
 **Objective:** Open `do_name.c` `'i'` getobj_name clone (named). Not

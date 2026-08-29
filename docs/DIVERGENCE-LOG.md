@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1682 — do_name.c docallcmd #if 0 EXCLUDE / invent.c silly_thing
+
+- **Status:** fixed (map-driven Open from D-1681; not a public FAIL)
+- **Symptom:** map named `docallcmd` #if 0 EXCLUDE. C compiles out
+  `call_ok==GETOBJ_EXCLUDE` You("know those as well as you ever
+  will."). Live EXCLUDE for Call is `getobj` → `silly_thing`: Amulet
+  of Yendor / unknown fake → `pline_The` "Amulet doesn't like being
+  called names."; else `silly_thing_to`. JS inlined a generic silly
+  pline and omitted the Amulet arm (getobj comment named it).
+- **C locus:** `do_name.c` `docallcmd` `:581–585` (#if 0);
+  `invent.c` `silly_thing` `:2093–2131`; getobj `:2071–2074`;
+  `do_wear.c` `canwearobj` `:2189–2194`; `decl.c` `silly_thing_to`.
+  Caller `objtyp_is_callable` comment in `do_name.c`.
+- **JS was:** `getobj_finish_pick` `That is a silly thing to ${word}`;
+  `canwearobj` else `"You can't wear that."`; no `silly_thing`.
+- **Fix:** export `silly_thing`; Call Amulet / unknown fake; else
+  `silly_thing_to`. Wire getobj EXCLUDE and `canwearobj` noisy else.
+  Keep #if 0 out of `docallcmd`. Named: sit grease spray;
+  OBSOLETE_HANDLING compiled out. Rule #2: no fs.
+- **JS:** `js/invent.js` `silly_thing`; `js/do_name.js` `docallcmd`;
+  `js/do_wear.js` `canwearobj`; `js/const.js` `silly_thing_to`.
+- **Not this iter:** sit.c grease spray; wield `restrict_name`;
+  OBSOLETE_HANDLING P/R vs W/T; `'i'` getobj is D-1681.
+- **Verified:** private canary **22**/22 (C #if 0; Amulet / unknown
+  fake / known fake / sword; NOFLAGS only-Amulet no silly; typed
+  EXCLUDE among SUGGEST; canned KEY EXCLUDE silent; canwearobj wear /
+  plate mail); green+strict seed8000/0900; CURRENT cohort **9**/9 +
+  strict.
+- **Files:** `js/invent.js`, `js/do_name.js`, `js/do_wear.js`,
+  `js/const.js`.
+
 ## D-1681 — do_name.c docallcmd `'i'` live getobj name
 
 - **Status:** fixed (map-driven Open from D-1680; not a public FAIL)
