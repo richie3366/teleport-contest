@@ -5,15 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1629 (green+cohort; cadence #2020 still
-  D-1620). seed4500 still PASS. Reviews **573–581** ACCEPT-WITH-DEBT.
-  **Hypothesis:** Open `do_wear.c` `menu_remarm` (named) is the next
-  map cluster. Not take_off occupation.
+- **Suite 44/44** after D-1629 (cadence **#2030** at `54c89bcc`).
+  seed4500 still PASS. Reviews **582–590** ACCEPT-WITH-DEBT (no
+  Must-fix). **Hypothesis:** Open `do_wear.c` `menu_remarm` (named)
+  is the next map cluster. Not take_off occupation.
   **Falsify:** `node scripts/csym.mjs menu_remarm`;
   `node scripts/map.mjs do_wear.c`.
   **Next:** Open menu_remarm. Do not skip D-1531…D-1629. No FORCE
   / `wildmiss` wrap / trailing `confdir` in shared `getdir`. Do not
-  glue onto free_edog (D-1629) or restore_gamelog (D-1628).
+  glue onto free_edog (D-1629) or restore_gamelog (D-1628). Do not
+  re-port D-1621…D-1629.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; `restore_cham` / `rescham`; `restore_luadata`;
   `menu_remarm`; ggetobj drop; tty WIN_INVEN / `#perminv` /

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `dog.c` `free_edog` (named). Not initedog ogoal. **Addressed:** D-1629
+- [x] `dog.c` `free_edog` (named). Not initedog ogoal. **Addressed:** D-1629 `54c89bcc`
 
 
 - [x] `restore.c` `restore_gamelog` (named). Not restore_msghistory. **Addressed:** D-1628 `7af8fe5b`

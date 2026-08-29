@@ -592,3 +592,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [579-c98a5fab-ms-humanoid.md](./579-c98a5fab-ms-humanoid.md) | `c98a5fab` | D-1618 peaceful MS_HUMANOID / threatens you | **ACCEPT-WITH-DEBT** |
 | [580-597fd9ba-take-off-occupation.md](./580-597fd9ba-take-off-occupation.md) | `597fd9ba` | D-1619 take_off occupation / do_takeoff | **ACCEPT-WITH-DEBT** |
 | [581-cb4d8a91-pickup-traditional-query-classes.md](./581-cb4d8a91-pickup-traditional-query-classes.md) | `cb4d8a91` | D-1620 floor TRADITIONAL query_classes | **ACCEPT-WITH-DEBT** |
+| [582-5f2c5f4d-adjust-split.md](./582-5f2c5f4d-adjust-split.md) | `5f2c5f4d` | D-1621 invent.c adjust_split GC_ECHOFIRST\|CONDHIST | **ACCEPT-WITH-DEBT** |
+| [583-fdb4ed5d-com-pager-core.md](./583-fdb4ed5d-com-pager-core.md) | `fdb4ed5d` | D-1622 questpgr.c com_pager_core synopsis | **ACCEPT-WITH-DEBT** |
+| [584-935c8220-yn-post-answer-toplines.md](./584-935c8220-yn-post-answer-toplines.md) | `935c8220` | D-1623 tty_yn_function post-answer toplines | **ACCEPT-WITH-DEBT** |
+| [585-3e6bf20d-edit-getlin.md](./585-3e6bf20d-edit-getlin.md) | `3e6bf20d` | D-1624 EDIT_GETLIN off / name_from_player | **ACCEPT-WITH-DEBT** |
+| [586-1d6a8b20-doextlist.md](./586-1d6a8b20-doextlist.md) | `1d6a8b20` | D-1625 cmd.c doextlist / doextcmd loop | **ACCEPT-WITH-DEBT** |
+| [587-c020e463-ms-boast.md](./587-c020e463-ms-boast.md) | `c020e463` | D-1626 sounds.c MS_BOAST hostile giants | **ACCEPT-WITH-DEBT** |
+| [588-15041ea2-dismount-thrown.md](./588-15041ea2-dismount-thrown.md) | `15041ea2` | D-1627 steed.c DISMOUNT_THROWN HP | **ACCEPT-WITH-DEBT** |
+| [589-7af8fe5b-restore-gamelog.md](./589-7af8fe5b-restore-gamelog.md) | `7af8fe5b` | D-1628 restore.c restore_gamelog | **ACCEPT-WITH-DEBT** |
+| [590-54c89bcc-free-edog.md](./590-54c89bcc-free-edog.md) | `54c89bcc` | D-1629 dog.c free_edog / restmon newedog | **ACCEPT-WITH-DEBT** |
