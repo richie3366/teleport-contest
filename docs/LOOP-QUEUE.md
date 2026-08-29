@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do.c` ACH_ASTR (named). Not reset_hostility.
 - [ ] `mon.c` newcham mleashed (named). Not restore_cham.
 - [ ] `win/tty/wintty.c` MENU_SEARCH / `tty_wait_synch` (named). Not kill_char.
 - [ ] `o_init.c` `rename_disco` (named). Not do_mgivenname.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist.
 - [ ] `do_name.c` `lookup_novel` (named). Not do_mgivenname.
 - [ ] `sit.c` `eyecount` (named). Not confer_oc_oprop.
+- [ ] `sounds.c` Death_quote / `u_have_novel` (named). Not read_tribute.
+- [ ] `pickup.c` `safe_qbuf` (named). Not floor query_classes.
+- [ ] `invent.c` `invlet_constant` (named). Not check_invent_gold.
+- [ ] `apply.c` `use_grease` (named). Not consume_obj_charge.
+- [ ] `cmd.c` overlay BIND= on if/else keys (named). Not cmdbind_get default.
 
 ## Parked (do not pop)
 

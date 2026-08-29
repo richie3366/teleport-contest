@@ -1,3 +1,29 @@
+## D-1644 — do.c goto_level ACH_ASTR/ENDG/BGRM + Knox + entered livelog
+
+- **Status:** fixed (map-driven Open from D-1643; not a public FAIL)
+- **Symptom:** map named ACH_ASTR after D-1616. C `goto_level` records
+  ACH_ENDG on `newdungeon` endgame, ACH_ASTR after `final_level` on
+  first Astral visit, Knox alarm until Croesus dies, ACH_BGRM on
+  first Big Room, then livelogs `entered %s` after those
+  achievements. JS ran `final_level` but skipped ACH_ASTR/ENDG/BGRM,
+  Knox, and the entered livelog.
+- **C locus:** `do.c` `goto_level` `:1881–1959`. Callers stairs/portal.
+  Callee `insight.c` `record_achievement` `:2406–2472` `achieve_msg[]`.
+  `botl.c` `describe_level` dflgs 2. `dungeon.h` `Is_knox`/`Is_bigroom`.
+- **JS was:** `final_level` live (D-1616); ACH_HELL/MINE/SOKO live
+  (D-0928 #1181); ACH_ENDG/ASTR named omit; Knox/BGRM named omit.
+- **Fix:** record ACH_ENDG/ASTR/BGRM; Knox wake `msleeping=0`;
+  `describe_level(2)` + `livelog_printf`; `record_achievement` writes
+  chronicle via `achieve_msg` and skips when `program_state.gameover`.
+  Rule #2: no fs.
+- **JS:** `js/do.js`; `js/insight.js`; `js/const.js` `Is_bigroom`;
+  `js/pline.js` `%d`/`%ld`; `js/sndprocs.js` `se_alarm`.
+- **Not this iter:** SoundAchievement; MICRO Valley More; prize
+  `context.achieveo` otyp when unset; overlay BIND= (D-0897).
+  reset_hostility is D-1616; gain_guardian_angel is D-1608.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+
 ## D-1643 — cmd.c BIND= M('?') rhack cmdbind_get → doextlist
 
 - **Status:** fixed (map-driven Open from D-1642; not a public FAIL)

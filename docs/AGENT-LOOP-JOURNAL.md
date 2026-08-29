@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1644 do.c goto_level ACH_ASTR/ENDG/BGRM
+
+**Objective:** Open `do.c` ACH_ASTR (named). Not reset_hostility.
+**C locus:** `do.c` `goto_level` `:1881–1959`; callee `insight.c`
+`record_achievement` `achieve_msg`.
+**JS locus:** `js/do.js` `goto_level`; `js/insight.js`
+`record_achievement`; `js/const.js` `Is_bigroom`.
+**Change:** ACH_ENDG on endgame `newdungeon`; ACH_ASTR after
+`final_level`; Knox alarm until Croesus dies; ACH_BGRM; `new`
+`livelog_printf("entered %s")`; `record_achievement` chronicle.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+(9/9 with green).
+**Next:** Open newcham mleashed. Not restore_cham.
+**Blocked:** none.
 ## 2026-08-29 — D-1643 cmd.c BIND= M('?') rhack cmdbind_get
 
 **Objective:** Open `cmd.c` BIND= M('?') (named). Not doextlist.

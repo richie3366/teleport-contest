@@ -192,11 +192,15 @@ Punished `ballfall` / W-tower rndspot bit 2 still named); omit full `selftouch` 
 **Gehennom Valley arrival + hellish_smoke smell/sense** (D-0801; 
 ACH_HELL/`ACH_MINE`/`ACH_SOKO` via `record_achievement` (D-0928 #1181); MICRO More deferred; 
 **`#conduct` `show_achievements` wizard/final + 
-`record_achievement`/`uachieved` ranks·HELL·MINE·TOWN·SHOP·TMPL** (D-0928 #1181; 
-SoundAchievement/livelog/`ACH_ENDG`/`ACH_ASTR`/`ACH_BGRM` still deferred)); 
+`record_achievement`/`uachieved` ranks·HELL·MINE·TOWN·SHOP·TMPL** (D-0928 #1181); 
+**D-1644 `goto_level` ACH_ENDG/ASTR/BGRM + Is_knox alarm + `new` `livelog_printf` entered** 
+(C `do.c` `:1881–1959`; callee `insight.c` `record_achievement` `:2406–2472` `achieve_msg` + 
+gameover skip; `botl.c` `describe_level` dflgs 2; live `js/do.js` + `js/insight.js`; 
+SoundAchievement named; MICRO Valley More still named; prize `context.achieveo` otyp when 
+unset is empty `OBJ_NAME`)); 
 **Rogue first-visit primitive-world pline + 
 `assign_graphics` ROGUESET/`check_gold_symbol`** (D-0805; 
-RogueIBM color sets / full showsyms stairs `%` / Is_knox alarm / Is_bigroom ACH deferred); 
+RogueIBM color sets / full showsyms stairs `%` deferred; Is_knox/ACH_BGRM is D-1644); 
 **`stairway_find_from(uz0)`** (D-0224); **`F`/`do_fight`/`domove_fight_empty`** (D-0225; 
 boulder/pick/I-glyph deferred) + **`rhack` F-prefix + non-gGF cmd → pline + no execute** (D-0927; 
 nested g/G after F / full CMD_gGF table deferred); 
