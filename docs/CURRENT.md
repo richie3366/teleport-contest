@@ -62,33 +62,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1647 (seed4500 still PASS). **Next cluster:**
-Open `questpgr.c` `convert_arg` (named). Not convert_line %Xh.
-**Do not skip D-1531…D-1648 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1649 (seed4500 still PASS). **Next cluster:**
+Open `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist.
+**Do not skip D-1531…D-1649 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1648.** Do not FORCE
+**Do not re-break D-0660…D-1649.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1648 (index). Recent: **D-1648**
+**Keep:** D-0845…D-1649 (index). Recent: **D-1649**
+`questpgr.c` `convert_arg` `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z`
++ `homebase`/`intermed`/`neminame`; `%o` via `artiname`. Not
+convert_line %Xh. Not qt_pager common fallback / array rn2.
+**D-1648**
 await `newcham` at async NO_NC_FLAGS sites (review **606**).
 Not `m_unleash` body. Sync makemon/mklev still named.
-**D-1647**
-`o_init.c` `rename_disco` + `disco_append_typename` + C-home
-`interesting_to_discover`; docallcmd `'d'`/`'\\'`. Not `'o'` getobj
-call. **D-1646**
-MENU_SEARCH `:` getlin+pmatchi+toggle + `tty_wait_synch` inmore/inread/rawprint.
-Not kill_char / map_menu_cmd remaps. **D-1645**
-`newcham` mleashed `m_unleash` TRUE / `update_inventory` + Elbereth
-`set_apparxy`/`monflee`. Not restore_cham. Not keepdogs/`grow_up`.
-**D-1644** `goto_level` ACH_ENDG/ASTR/BGRM + Knox + entered livelog.
-Not SoundAchievement. **D-1643** BIND= M('?') `cmdbind_get`.
-Older D-1531…D-1642 live in the index — do not re-paste.
+Older D-1531…D-1647 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1648 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1649 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -135,6 +129,7 @@ Do not re-port kill_char / getlin empty-erase bell / getline `intr--`.
 Do not re-port ESC-nonempty fallthrough / `hooked_getlin_handle_esc`.
 Do not re-port `read_tribute` / `choose_passage` / `Death_quote` / SPE_NOVEL.
 Do not re-port `convert_line` pronoun `%Xh` / `qtext_pronoun`.
+Do not re-port `convert_arg` catalogue.
 Do not re-port `doddrop` / ggetobj drop / `menu_drop`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

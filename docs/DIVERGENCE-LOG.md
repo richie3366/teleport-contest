@@ -1,3 +1,30 @@
+## D-1649 — questpgr.c convert_arg remaining % codes
+
+- **Status:** fixed (map-driven Open from D-1648; not a public FAIL)
+- **Symptom:** map named `convert_arg` `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z`
+  after D-1634. C fills `gc.cvt_buf` from that switch. JS defaulted
+  those codes to `""` so later quest/lua lines would drop the noun.
+- **C locus:** `questpgr.c` `convert_arg` `:235–325`. Caller
+  `convert_line` `:343`. Callees `homebase` `:141–145`,
+  `intermed` `:60–64`, `neminame` `:123–131`, `pray.c`
+  `align_gtitle`/`align_gname`, `insight.c` `align_str`,
+  `artifact.c` `artiname`.
+- **JS was:** `%p`/`%r`/`%R`/`%s`/`%S`/`%l`/`%i`/`%o`/`%O`/`%n`/`%g`/
+  `%H`/`%a`/`%d`/`%x`/`%%` live after D-0627/D-1634; remaining
+  catalogue named; `%o` read `artilistRaw` not `artiname`.
+- **Fix:** C switch order; `%c` `name.f` when female; `%G`/`%A`/`%D`
+  through existing align helpers; `%C`/`%N`/`%L` literals; `%Z`
+  `dungeons[0].dname`; C-home `homebase`/`intermed`/`neminame`;
+  `%O` `strstri(" of ")`. ualignbase stays JS `.original`. Rule #2:
+  no fs.
+- **JS:** `js/questpgr.js`.
+- **Not this iter:** qt_pager common fallback (second nhl_init);
+  array rn2; pauper_legacy; other common com_pager msgids;
+  `align_str` A_NONE `"unaligned"`. convert_line `%Xh` is D-1634;
+  await `newcham` is D-1648.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+
 ## D-1648 — mon.c newcham await remaining NO_NC_FLAGS
 
 - **Status:** fixed (Must-fix review **606**; not a public FAIL)

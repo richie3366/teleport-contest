@@ -5,21 +5,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1648 (cadence **#2050** at `69534fd4`).
-  seed4500 still PASS. **Hypothesis:** `questpgr.c` `convert_arg`
-  still omits `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z` / common
-  fallback / array rn2 (C `questpgr.c` `convert_arg`).
-  **Falsify:** `node scripts/csym.mjs convert_arg` vs `js/questpgr.js`.
-  **Next:** Open `convert_arg`. Not convert_line %Xh. Do not skip
-  D-1531…D-1648. Not `m_unleash` body.
+- **Suite 44/44** after D-1649 (cadence **#2050** at `69534fd4`).
+  seed4500 still PASS. **Hypothesis:** `dungeon.c` `dooverview`
+  still omits PICK_ONE (C `dungeon.c` `dooverview`).
+  **Falsify:** `node scripts/csym.mjs dooverview` vs `js/dungeon.js`.
+  **Next:** Open `dooverview` PICK_ONE. Not doextlist. Do not skip
+  D-1531…D-1649. Not convert_arg.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; `rescham` wiz_intrinsic;
   `optfn_perminv_mode` / `handler_perminv_mode`; setworn
   oc_oprop; keepdogs stay-behind / grow_up leash; read.c
   light-scroll `initedog`; pickup tip-spill / squeaky / use_grease;
-  hideunder / `safe_qbuf`; `invlet_constant` truncate; convert_arg
-  `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z` / common fallback / array
-  rn2; `lookup_novel`; docallcmd `'o'` getobj call; overview
+  hideunder / `safe_qbuf`; `invlet_constant` truncate;
+  `lookup_novel`; docallcmd `'o'` getobj call; overview
   PICK_ONE; guardian/isshk/gecko remaps; Punished/ustuck float_down;
   water/lava steed death; uhitm DISMOUNT_KNOCKED `u.dx`;
   map_menu_cmd remaps / display_inventory loop `wait_synch`;
@@ -28,7 +26,8 @@ Objective/score live in `CURRENT.md`.
   astral high-cleric `distant_monnam`; overlay BIND= on if/else keys
   (inventory-only D-0897); default meta without EXT_CMDS runner;
   `possibly_unwield` / `mon_break_armor` / ustuck / `poly_steed` /
-  boulder `flooreffects`; sync makemon/`load_tower1` `newcham`.
+  boulder `flooreffects`; sync makemon/`load_tower1` `newcham`;
+  qt_pager common fallback / array rn2 / pauper_legacy.
 
 ## Don't re-check (≤15)
 
@@ -37,7 +36,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1648.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1649.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -48,9 +47,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1648 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1649 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1648. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1649. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -61,11 +60,12 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1648 live in the index. Do not glue yn ^P
+  `vision_reset`. D-1576…D-1649 live in the index. Do not glue yn ^P
   onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603). Do not restore
   zap `bhit` sticky `u.Blind||u.ublind` (D-1604).   Do not re-port
-  D-1605…D-1648 (`rename_disco` is D-1647;
+  D-1605…D-1649 (`convert_arg` is D-1649;
+  `rename_disco` is D-1647;
   MENU_SEARCH/`tty_wait_synch` is D-1646;
   `newcham` mleashed/Elbereth is D-1645; await remaining NO_NC_FLAGS
   is D-1648;
@@ -79,6 +79,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1649: `convert_arg` `%c` role name.f/m, `%G` `align_gtitle`,
+  `%A` `align_str` current, `%D` lawful gname, `%C`/`%N`/`%L`,
+  `%Z` `dungeons[0].dname`; `homebase`/`intermed`/`neminame`;
+  `%o` `artiname`. qt_pager common fallback / array rn2 named.
+  convert_line `%Xh` D-1634.
 - D-1648: await `newcham` at async NO_NC_FLAGS sites (review **606**)
   so mleashed unleash / Elbereth flee finish before C `return 1`.
   Not `m_unleash` body. Sync makemon/`load_tower1` named.
@@ -122,5 +127,3 @@ Objective/score live in `CURRENT.md`.
   `l_nhcore_init`. `nhl_variable` / Lua NHCB named.
 - D-1635: `doddrop`/`menu_drop`; TRADITIONAL `ggetobj("drop")`; FULL
   query_category; COMBINATION; `'D'`/`#droptype`. convert_line D-1634.
-- D-1634: `convert_line` pronoun `%Xh` + `qtext_pronoun`; `genders[]`;
-  `role_init` `godgend`/`ldrgend`. convert_arg named.
