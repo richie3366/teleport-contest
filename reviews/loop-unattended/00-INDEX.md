@@ -601,3 +601,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [588-15041ea2-dismount-thrown.md](./588-15041ea2-dismount-thrown.md) | `15041ea2` | D-1627 steed.c DISMOUNT_THROWN HP | **ACCEPT-WITH-DEBT** |
 | [589-7af8fe5b-restore-gamelog.md](./589-7af8fe5b-restore-gamelog.md) | `7af8fe5b` | D-1628 restore.c restore_gamelog | **ACCEPT-WITH-DEBT** |
 | [590-54c89bcc-free-edog.md](./590-54c89bcc-free-edog.md) | `54c89bcc` | D-1629 dog.c free_edog / restmon newedog | **ACCEPT-WITH-DEBT** |
+| [591-a2992805-menu-remarm.md](./591-a2992805-menu-remarm.md) | `a2992805` | D-1630 do_wear.c menu_remarm / pickup query_category | **ACCEPT-WITH-DEBT** |
+| [592-4b50b2e9-tty-nhbell.md](./592-4b50b2e9-tty-nhbell.md) | `4b50b2e9` | D-1631 termcap.c tty_nhbell / yn cury+intr | **ACCEPT-WITH-DEBT** |
+| [593-20fa20b3-kill-char.md](./593-20fa20b3-kill-char.md) | `20fa20b3` | D-1632 getline.c kill_char / empty-erase bell | **QUALITY-RISK** |
+| [594-e476fe74-read-tribute.md](./594-e476fe74-read-tribute.md) | `e476fe74` | D-1633 files.c read_tribute / SPE_NOVEL | **ACCEPT-WITH-DEBT** |
+| [595-b111beb6-convert-line.md](./595-b111beb6-convert-line.md) | `b111beb6` | D-1634 questpgr.c convert_line qtext_pronoun | **ACCEPT-WITH-DEBT** |
+| [596-9eb563b8-doddrop.md](./596-9eb563b8-doddrop.md) | `9eb563b8` | D-1635 do.c doddrop / menu_drop / bypass_objlist | **ACCEPT-WITH-DEBT** |
+| [597-7f506ccd-restore-luadata.md](./597-7f506ccd-restore-luadata.md) | `7f506ccd` | D-1636 nhlua.c restore_luadata / save_luadata | **ACCEPT-WITH-DEBT** |
+| [598-f4cae40b-restore-cham.md](./598-f4cae40b-restore-cham.md) | `f4cae40b` | D-1637 mon.c restore_cham getlev + With_you | **ACCEPT-WITH-DEBT** |
+| [599-f9bed6be-do-mgivenname.md](./599-f9bed6be-do-mgivenname.md) | `f9bed6be` | D-1638 do_name.c do_mgivenname / alreadynamed | **ACCEPT-WITH-DEBT** |

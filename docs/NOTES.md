@@ -5,16 +5,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1638 (cadence **#2030** at `54c89bcc`).
-  seed4500 still PASS. **Hypothesis:** Open `steed.c`
-  `landing_spot` KNOCKED preferred-dir is the next map cluster.
-  Not DISMOUNT_THROWN.
-  **Falsify:** `node scripts/csym.mjs landing_spot`;
-  `node scripts/map.mjs steed.c`.
-  **Next:** Open landing_spot. Do not skip D-1531…D-1638.
-  No FORCE / `wildmiss` wrap / trailing `confdir` in shared
-  `getdir`. Do not glue onto do_mgivenname (D-1638) or
-  restore_cham (D-1637). Do not re-port D-1621…D-1638.
+- **Suite 44/44** after D-1638 (cadence **#2040** at `f9bed6be`).
+  seed4500 still PASS. **Hypothesis:** C `getline.c` ESC with a
+  nonempty buffer clears then falls through to else `tty_nhbell`
+  (`:85–105` then `:142–211`); JS `continue` after clear is a
+  live-arm skip (review **593** QUALITY-RISK).
+  **Falsify:** `node scripts/csym.mjs hooked_tty_getlin`; type
+  then Esc in getlin — C bells (silent On still no-ops the byte).
+  **Next:** Must-fix ESC-nonempty fallthrough (also `get_ext_cmd`).
+  Do not skip D-1531…D-1638. Do not glue landing_spot onto this.
+  Do not re-port D-1621…D-1638.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; `rescham` wiz_intrinsic;
   tty WIN_INVEN / `#perminv` /

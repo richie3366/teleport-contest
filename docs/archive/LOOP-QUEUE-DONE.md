@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `do_name.c` `do_mgivenname` (named). Not kill_char. **Addressed:** D-1638
+- [x] `do_name.c` `do_mgivenname` (named). Not kill_char. **Addressed:** D-1638 `f9bed6be`
 
 
 - [x] `mon.c` `restore_cham` (named). Not normal_shape. **Addressed:** D-1637 `f4cae40b`

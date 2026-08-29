@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — audit #2040 reviews 591–599 (D-1630…D-1638)
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **590**;
+cadence full `sessions` (no port).
+**C locus:** `do_wear.c` `menu_remarm`; `termcap.c` `tty_nhbell`;
+`getline.c` `kill_char`; `files.c` `read_tribute`; `questpgr.c`
+`convert_line`; `do.c` `doddrop`; `nhlua.c` `restore_luadata`;
+`mon.c` `restore_cham`; `do_name.c` `do_mgivenname`.
+**JS locus:** none this iter (review-only).
+**Change:** reviews **591–599**; Must-fix prepend review **593**
+(`hooked_tty_getlin` ESC-nonempty `continue` vs C fallthrough else
+`tty_nhbell`). 591–592/594–599 ACCEPT-WITH-DEBT. No `js/` edits.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+speed `39+0.31/turn` (R² 0.853) at `f9bed6be`.
+**Verified:** `node scripts/imports.mjs --rulecheck` clean; cadence
+`sessions` 44/44.
+**Next:** Must-fix getline ESC-nonempty fallthrough. Not landing_spot.
+**Blocked:** none.
 ## 2026-08-29 — D-1638 do_name.c do_mgivenname / alreadynamed
 
 **Objective:** Open `do_name.c` `do_mgivenname` (named). Not kill_char.
