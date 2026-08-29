@@ -4,7 +4,7 @@
 //        update_inventory in_moveloop + suppress_map_output +
 //        suppress_price dance (D-1126); perm_invent InvInUse D-1600
 //        (prepare_perminvent invmode / display_pickinv WIN_INVEN filter;
-//        tty WIN_INVEN / #perminv D-1642);
+//        tty WIN_INVEN / #perminv D-1642; tty_wait_synch D-1646);
 //        D-1603: beyond_savefile_load writers (allmain.c:71 /
 //        restore.c:942) so sync_perminvent :5653 can build;
 //        display_minventory MINV_ALL|PICK_NONE (D-1426; zap.c
@@ -39,11 +39,11 @@ import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
     endgamelevelname, obj_glyph, suppress_map_output,
-    putmsghistory, impossible,
+    putmsghistory, impossible, tty_nhbell, tty_wait_synch,
 } from './display.js';
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin } from './getline.js';
-import { get_count } from './cmd.js';
+import { get_count, pmatchi } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs } from './mkobj.js';
 import { inv_cnt } from './steal.js';
 import { assigninvlet } from './u_init.js';
@@ -100,6 +100,7 @@ import {
     PICK_ONE,
     PICK_NONE,
     PICK_ANY,
+    MENU_SEARCH,
     MENU_BEHAVE_PERMINV,
     MENU_ITEMFLAGS_NONE,
     MENU_ITEMFLAGS_SKIPINVERT,
@@ -478,6 +479,7 @@ function ttyinv_create_window() {
         void pline(
             `tty perm_invent needs a terminal that is at least ${needr}x${tty_perminv_mincol}, yours is ${disp.rows}x${disp.cols}.`,
         );
+        void tty_wait_synch();
         return null;
     }
     cw.offx = geo.offx;
@@ -1537,6 +1539,100 @@ export function menu_take_gacc(items, gacc, ch) {
 }
 
 /**
+ * C wintty.c toggle_menu_curr `:1112–1151`.
+ * @param {{ selected?: boolean, count?: number }} curr
+ * @param {boolean} counting
+ * @param {number} count
+ * @returns {boolean}
+ */
+export function toggle_menu_curr(curr, counting, count) {
+    if (curr.selected) {
+        if (counting && count > 0) {
+            curr.count = count;
+            return true;
+        }
+        curr.selected = false;
+        curr.count = -1;
+        return true;
+    }
+    if (counting && count > 0) {
+        curr.count = count;
+        curr.selected = true;
+        return true;
+    }
+    if (!counting) {
+        curr.selected = true;
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C process_menu_window `curr->str` analog for pmatchi.
+ * @param {{ selectable?: boolean, selector?: string, selected?: boolean,
+ *           text?: string, menuStr?: string }} it
+ */
+function menu_search_str(it) {
+    if (it.menuStr != null) return String(it.menuStr);
+    if (!it.selectable) return String(it.text ?? '');
+    const sel = it.selector || '';
+    const mark = it.selected ? '+' : '-';
+    const text = it.text ?? '';
+    if (sel) return `${sel} ${mark} ${text}`;
+    return text;
+}
+
+/**
+ * Selectable rows whose painted `text` starts with the inventory letter.
+ * @param {Map<string, object>} byLet
+ * @param {{ text?: string }[]|string[]} entries
+ */
+function menu_items_from_lets(byLet, entries) {
+    const items = [];
+    for (const [sel, obj] of byLet) {
+        const entry = entries.find((e) => {
+            const t = typeof e === 'string' ? e : e.text;
+            return t && t[0] === sel && t[1] === ' ';
+        });
+        const menuStr = entry
+            ? (typeof entry === 'string' ? entry : entry.text)
+            : sel;
+        items.push({ selectable: true, selector: sel, menuStr, obj });
+    }
+    return items;
+}
+
+/**
+ * C wintty.c process_menu_window MENU_SEARCH `:1698–1731`.
+ * PICK_NONE → tty_nhbell. Else tty_getlin "Search for:"; empty/ESC
+ * noop. pmatchi `*tmp*` on curr->str; toggle_menu_curr; PICK_ONE
+ * finishes on the first match. map_menu_cmd remaps named.
+ * @param {object[]} items mlist analog
+ * @param {number} how PICK_NONE / PICK_ONE / PICK_ANY
+ * @param {boolean} [counting]
+ * @param {number} [count]
+ * @returns {Promise<{ kind: 'bell'|'noop'|'toggled'|'finish', item?: object }>}
+ */
+export async function process_menu_search(
+    items, how, counting = false, count = 0,
+) {
+    if (how === PICK_NONE) {
+        tty_nhbell();
+        return { kind: 'bell' };
+    }
+    const tmpbuf = await getlin('Search for:');
+    if (!tmpbuf || tmpbuf[0] === '\x1b') return { kind: 'noop' };
+    const searchbuf = `*${tmpbuf}*`;
+    for (const curr of items) {
+        if (!curr.selectable) continue;
+        if (!pmatchi(searchbuf, menu_search_str(curr))) continue;
+        toggle_menu_curr(curr, counting, count);
+        if (how === PICK_ONE) return { kind: 'finish', item: curr };
+    }
+    return { kind: 'toggled' };
+}
+
+/**
  * C ref: objclass.h OBJ_DESCR(objects[otyp]) —
  * obj_descr[objects[otyp].oc_descr_idx].oc_descr (post-shuffle for
  * potions/scrolls/wands).
@@ -1826,6 +1922,11 @@ export async function select_menu_pick_none(entries) {
                 continue;
             }
             break;
+        }
+        const ch = String.fromCharCode(key);
+        if (ch === MENU_SEARCH) {
+            await process_menu_search([], PICK_NONE);
+            continue;
         }
         // other keys: re-prompt same page (C xwaitforspace)
     }
@@ -2602,6 +2703,19 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
             await dismiss_nhw_menu();
             return ch;
         }
+        // C: MENU_SEARCH after explicit page/gacc (PICK_ONE resp_len)
+        if (ch === MENU_SEARCH) {
+            const searchItems = menu_items_from_lets(byLet, entries);
+            const res = await process_menu_search(
+                searchItems, PICK_ONE, counting, count,
+            );
+            if (res.kind === 'finish' && res.item?.selector) {
+                take();
+                await dismiss_nhw_menu();
+                return res.item.selector;
+            }
+            continue;
+        }
         // invalid / other-page letter → re-prompt same page
     }
 }
@@ -2693,7 +2807,7 @@ export function build_wizid_pickinv_items() {
  * strings then dismiss. unid_cnt>0 → PICK_ANY (`'_'`/^I identify_pack,
  * per-item identify, sortpack headers, SKIPINVERT). override_ID=0 before
  * identify so nested update_inventory is not wizid. Named omissions:
- * MENU_PREV/FIRST/LAST; MENU_SEARCH; count-prefix digits.
+ * MENU_PREV/FIRST/LAST; count-prefix digits.
  */
 async function display_pickinv_wizid() {
     const inv = game.invent || [];
@@ -3093,7 +3207,7 @@ export function makeknown(otyp) {
  * → return before display. On: request_settings then
  * display_inventory(NULL, FALSE) PICK_NONE (no nhgetch).
  * On: request_settings (assesstty) then display_inventory(NULL, FALSE).
- * too_small: C pline + wait_synch (wait_synch named; messages fit 80 cols).
+ * too_small: C pline + wait_synch (D-1646; messages fit 80 cols).
  */
 export function sync_perminvent() {
     const iflags = game.iflags || (game.iflags = {});
@@ -3145,6 +3259,7 @@ export function sync_perminvent() {
                     void pline(
                         `${wport_id} needs a terminal that is at least ${tc.needrows}x${tc.needcols}, yours is ${tc.haverows}x${tc.havecols}.`,
                     );
+                    void tty_wait_synch();
                     return;
                 }
             }
@@ -6262,7 +6377,7 @@ export function build_used_invlets_items(avoidlet = 0) {
  * `?`/`*`. Empty invent → 0. select_menu PICK_ONE: n>0 letter; n==0
  * retry yn; n<0 ESC noadjust. tty_end_menu prepends blank +
  * "Inventory letters used:".
- * Named omit: MENU_SEARCH; count-prefix; MENU_PREV/FIRST/LAST.
+ * Named omit: count-prefix; MENU_PREV/FIRST/LAST.
  * @param {string|number} [avoidlet]
  * @returns {Promise<string>} letter, '' (n==0), or '\x1b'
  */
@@ -6335,6 +6450,15 @@ export async function display_used_invlets(avoidlet = 0) {
         } else if (byLet.has(ch)) {
             await dismiss_nhw_menu();
             return ch;
+        }
+        if (ch === MENU_SEARCH) {
+            const searchItems = menu_items_from_lets(byLet, entries);
+            const res = await process_menu_search(searchItems, PICK_ONE);
+            if (res.kind === 'finish' && res.item?.selector) {
+                await dismiss_nhw_menu();
+                return res.item.selector;
+            }
+            continue;
         }
         // invalid / other-page letter → re-prompt (C nhbell)
     }

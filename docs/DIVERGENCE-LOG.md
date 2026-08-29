@@ -1,3 +1,30 @@
+## D-1646 — wintty.c MENU_SEARCH + tty_wait_synch
+
+- **Status:** fixed (map-driven Open from D-1645; not a public FAIL)
+- **Symptom:** map named MENU_SEARCH / `tty_wait_synch` after
+  D-1631/D-1632/D-1639/D-1642. C `:` searches the menu via
+  `tty_getlin`+`pmatchi`+`toggle_menu_curr`; wait_synch flushes or
+  recovers inmore/inread. JS treated `:` as invalid re-prompt and
+  skipped wait_synch after too_small perm_invent plines.
+- **C locus:** `wintty.c` `process_menu_window` `:1698–1731`;
+  `toggle_menu_curr` `:1112–1151`; `tty_wait_synch` `:3623–3647`.
+  Callers `invent.c` `sync_perminvent` `:5637`;
+  `ttyinv_create_window` `:2963`. Callees `tty_getlin` / `pmatchi` /
+  `tty_nhbell` / `tty_doprev_message`.
+- **JS was:** pick_any named omit; pick_one/pickinv ignored `:`;
+  too_small `void pline` without wait_synch; `intr++` named.
+- **Fix:** shared `process_menu_search`; PICK_NONE bells; PICK_ONE
+  first match finishes; explicit page/gacc `:` is not search.
+  `tty_wait_synch` rawprint `getret` / inmore addtopl / inread two
+  doprev + `intr++`. `more` inmore recursion guard. Rule #2: no fs.
+- **JS:** `js/invent.js`, `js/options.js`, `js/display.js`;
+  export `pmatchi` `js/cmd.js`.
+- **Not this iter:** `map_menu_cmd` remaps; display_inventory loop
+  `wait_synch`; `tty_raw_print` setter; `optfn_perminv_mode`.
+  kill_char is D-1632; doperminv is D-1642.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+
 ## D-1645 — mon.c newcham mleashed + Elbereth monflee
 
 - **Status:** fixed (map-driven Open from D-1644; not a public FAIL)

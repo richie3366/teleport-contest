@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `mon.c` newcham mleashed (named). Not restore_cham. **Addressed:** D-1645
+- [x] `win/tty/wintty.c` MENU_SEARCH / `tty_wait_synch` (named). Not kill_char. **Addressed:** D-1646
+
+
+- [x] `mon.c` newcham mleashed (named). Not restore_cham. **Addressed:** D-1645 `cc8a839c`
 
 
 - [x] `do.c` ACH_ASTR (named). Not reset_hostility. **Addressed:** D-1644 `d48909a2`

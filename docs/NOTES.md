@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1645 (cadence **#2040** at `f9bed6be`).
-  seed4500 still PASS. **Hypothesis:** C `win/tty/wintty.c`
-  MENU_SEARCH / `tty_wait_synch` (named). Not `kill_char` (D-1632).
-  **Falsify:** `node scripts/map.mjs wintty.c` + `csym.mjs tty_wait_synch`.
-  **Next:** Open MENU_SEARCH / `tty_wait_synch`. Do not skip D-1531…D-1645.
-  Do not glue MENU_SEARCH onto kill_char. Do not re-port D-1621…D-1645.
+- **Suite 44/44** after D-1646 (cadence **#2040** at `f9bed6be`).
+  seed4500 still PASS. **Hypothesis:** C `o_init.c` `rename_disco`
+  (named). Not `do_mgivenname` (D-1638).
+  **Falsify:** `node scripts/map.mjs o_init.c` + `csym.mjs rename_disco`.
+  **Next:** Open `rename_disco`. Do not skip D-1531…D-1646.
+  Do not glue rename_disco onto do_mgivenname. Do not re-port D-1621…D-1646.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; `rescham` wiz_intrinsic;
   `optfn_perminv_mode` / `handler_perminv_mode`; setworn
@@ -20,12 +20,12 @@ Objective/score live in `CURRENT.md`.
   `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z` / common fallback / array
   rn2; `lookup_novel`; `rename_disco` / docallcmd `'o'`; overview
   PICK_ONE; guardian/isshk/gecko remaps; Punished/ustuck float_down;
-  water/lava steed death; uhitm DISMOUNT_KNOCKED `u.dx`; wintty
-  MENU_SEARCH / `tty_wait_synch` `intr++`; sounds.c Death_quote /
-  `u_have_novel`; save/rest `context.novel`; JSON dorecover getlev;
-  getlev ghostly peace / hideunder place; astral high-cleric
-  `distant_monnam`; overlay BIND= on if/else keys (inventory-only
-  D-0897); default meta without EXT_CMDS runner;
+  water/lava steed death; uhitm DISMOUNT_KNOCKED `u.dx`;
+  map_menu_cmd remaps / display_inventory loop `wait_synch`;
+  sounds.c Death_quote / `u_have_novel`; save/rest `context.novel`;
+  JSON dorecover getlev; getlev ghostly peace / hideunder place;
+  astral high-cleric `distant_monnam`; overlay BIND= on if/else keys
+  (inventory-only D-0897); default meta without EXT_CMDS runner;
   `possibly_unwield` / `mon_break_armor` / ustuck / `poly_steed` /
   boulder `flooreffects`.
 
@@ -36,7 +36,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1645.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1646.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -47,9 +47,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1645 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1646 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1645. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1646. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -60,11 +60,12 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1645 live in the index. Do not glue yn ^P
+  `vision_reset`. D-1576…D-1646 live in the index. Do not glue yn ^P
   onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603). Do not restore
   zap `bhit` sticky `u.Blind||u.ublind` (D-1604).   Do not re-port
-  D-1605…D-1645 (`newcham` mleashed/Elbereth is D-1645;
+  D-1605…D-1646 (MENU_SEARCH/`tty_wait_synch` is D-1646;
+  `newcham` mleashed/Elbereth is D-1645;
   `goto_level` ACH_ASTR/ENDG/BGRM is D-1644;
   BIND= M('?') is D-1643; `doperminv` / tty WIN_INVEN `assesstty` is D-1642;
   `check_invent_gold` is D-1641). Do not dump
@@ -75,6 +76,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1646: MENU_SEARCH `:` getlin+pmatchi+toggle_menu_curr; PICK_NONE
+  bell; PICK_ONE first match; explicit page/gacc `:` not search.
+  `tty_wait_synch` rawprint getret / inmore addtopl / inread intr++.
+  map_menu_cmd remaps named. kill_char D-1632. doperminv D-1642.
 - D-1645: `newcham` after `set_mon_data` mleashed `m_unleash` TRUE or
   `update_inventory`; Elbereth `set_apparxy` + `monflee(rn1(9,2))`.
   NO_NC_FLAGS stays boolean unless unleash/SHOW_MSG/flee.
@@ -89,8 +94,8 @@ Objective/score live in `CURRENT.md`.
 - D-1642: `doperminv` `#perminv`/`|` IFBURIED|GENERALCMD|NOFUZZERCMD;
   `assesstty` minrow 28/mincol 79 (need 52x79) too_small RESIZABLE;
   ttyinv InvSparse empty letters + `setCell`. 24x80 refuses.
-  `optfn_perminv_mode` / `cmap_D0walls_to_glyph` / `tty_wait_synch`
-  named. check_invent_gold D-1641.
+  `optfn_perminv_mode` / `cmap_D0walls_to_glyph` named.
+  `tty_wait_synch` is D-1646. check_invent_gold D-1641.
 - D-1641: `check_invent_gold` goldstacks/wrongslot `impossible`;
   `adjust_gold_ok` vs `adjust_ok`; itemactions gold `i` + IA_ADJUST_OBJ
   `doorganize`; dest `$`. `invlet_constant` named. adjust_split D-1621.
@@ -112,6 +117,4 @@ Objective/score live in `CURRENT.md`.
 - D-1633: `read_tribute`/`choose_passage`/`Death_quote`; SPE_NOVEL
   `ACH_NOVL`; Rule #2 embed tribute. `lookup_novel` named.
 - D-1632: `kill_char` POSIX DEL + C('U'); empty erase + invalid
-  `tty_nhbell`; getline `intr--`. MENU_SEARCH named. ESC is D-1639.
-- D-1631: `tty_nhbell` silent On; yn invalid + digit abort; wrap
-  `cw->cury` leftover not `gt.toplines`. kill_char is D-1632.
+  `tty_nhbell`; getline `intr--`. MENU_SEARCH is D-1646. ESC is D-1639.

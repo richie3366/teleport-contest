@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `win/tty/wintty.c` MENU_SEARCH / `tty_wait_synch` (named). Not kill_char.
 - [ ] `o_init.c` `rename_disco` (named). Not do_mgivenname.
 - [ ] `questpgr.c` `convert_arg` (named). Not convert_line %Xh.
 - [ ] `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist.

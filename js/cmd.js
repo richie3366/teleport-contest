@@ -354,7 +354,7 @@ function pmatch_internal(patrn, strng, ci) {
 }
 
 /** C strutil.c pmatchi `:151–155`. */
-function pmatchi(patrn, strng) {
+export function pmatchi(patrn, strng) {
     return pmatch_internal(patrn, strng, true);
 }
 

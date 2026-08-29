@@ -32,7 +32,9 @@ import {
     MENU_PREVIOUS_PAGE,
     MENU_FIRST_PAGE,
     MENU_LAST_PAGE,
+    MENU_SEARCH,
     MENU_ITEMFLAGS_SKIPINVERT,
+    PICK_ONE,
     PICK_ANY,
     WIZKIT_MAX,
     ismnum,
@@ -43,7 +45,7 @@ import { str_end_is } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt, clear_committed_status } from './display.js';
-import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc } from './invent.js';
+import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search } from './invent.js';
 import { ATR_INVERSE } from './terminal.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS, TOOL_CLASS,
@@ -996,7 +998,8 @@ function format_simple_opt_line(opt, nameWidth) {
  * Per-page 'a'..'z' for items without a fixed selector; space → next page
  * or cancel on last; Return/ESC cancel; letter → that item.
  * C wintty.c: '>' MENU_NEXT_PAGE, '<' MENU_PREVIOUS_PAGE, '^' first, '|' last
- * (space alone finishes on last page; '>' does not).
+ * (space alone finishes on last page; '>' does not). MENU_SEARCH D-1646
+ * (`:` is search unless it is an explicit page selector or gacc).
  * Pre-assigned `selector` on selectable items is kept (print_dungeon
  * continuous a..z/A.. letters).
  * @returns {Promise<{kind:'pick'|'cancel', item?:object}>}
@@ -1046,8 +1049,6 @@ export async function select_menu_pick_one(rawItems) {
         await paint_corner_nhw_menu(entries, morestr);
         await flush_screen(1);
         const key = await nhgetch();
-        const wasFullscreen = game._tty_menu_geom?.offx === 0;
-        await dismiss_nhw_menu();
         const ch = String.fromCharCode(key);
         const hit = (key !== 27 && key !== 13 && key !== 10 && key !== 32
             && ch !== '>' && ch !== '<' && ch !== '^' && ch !== '|')
@@ -1060,6 +1061,20 @@ export async function select_menu_pick_one(rawItems) {
             && key !== 27 && key !== 13 && key !== 10 && key !== 32
             ? items.find((it) => it.selectable && it.gselector === ch)
             : null;
+        // C: PICK_ONE resp_len includes gacc so ':' selector/gacc is
+        // explicit, not MENU_SEARCH. Search only when neither hits.
+        if (!hit && !ghit && ch === MENU_SEARCH) {
+            const res = await process_menu_search(items, PICK_ONE);
+            if (res.kind === 'finish' && res.item) {
+                const wasFs = game._tty_menu_geom?.offx === 0;
+                await dismiss_nhw_menu();
+                if (wasFs) clear_committed_status();
+                return { kind: 'pick', item: res.item };
+            }
+            continue;
+        }
+        const wasFullscreen = game._tty_menu_geom?.offx === 0;
+        await dismiss_nhw_menu();
         if (hit && wasFullscreen) {
             // C: fullscreen NHW_MENU clear leaves status blank across the
             // Options → choose_classes submenu; restore on final dismiss.
@@ -1219,7 +1234,7 @@ function invert_pick_any_matching(items, acc) {
  * MENU_SELECT_ALL/PAGE / UNSELECT_* / INVERT_* (D-0928). Group accelerators
  * invert matching gselector (invent.c wizid `'_'`/`^I` / class sym).
  * SKIPINVERT via menuitem_invert_test. Named omissions: count-prefix
- * digits; MENU_SEARCH.
+ * digits. MENU_SEARCH is D-1646.
  * Returns selected selectable items (may be empty).
  */
 export async function select_menu_pick_any(rawItems) {
@@ -1357,8 +1372,13 @@ export async function select_menu_pick_any(rawItems) {
                 invert_pick_any_matching(items, 0);
                 continue;
             }
-            // C: page selector (resp) before group_accel (gacc appended)
+            // C: page selector (resp) before MENU_SEARCH (not mapped when
+            // ':' is an explicit choice). SEARCH before gacc.
             const hit = page.find((it) => it.selectable && it.selector === ch);
+            if (ch === MENU_SEARCH && !hit) {
+                await process_menu_search(items, PICK_ANY);
+                continue;
+            }
             if (hit) {
                 hit.selected = !hit.selected;
                 continue;

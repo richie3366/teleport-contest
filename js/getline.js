@@ -138,7 +138,7 @@ const kill_char = 0x15; /* C('U') */
  * C getline.c hooked_tty_getlin `:102–105`.
  * `if (ttyDisplay->intr) { ttyDisplay->intr--; *bufp = 0; }`
  * Truncates at the write pointer (NEWAUTOCOMP suffix), does not
- * rewind to obufp. Increment is wintty.c tty_wait_synch (named).
+ * rewind to obufp. Increment is wintty.c tty_wait_synch (D-1646).
  * @param {{ buf: string, cursor: number }} st
  */
 function hooked_getlin_apply_intr(st) {
