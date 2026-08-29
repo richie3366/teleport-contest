@@ -62,16 +62,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1650 (seed4500 still PASS). **Next cluster:**
-Open `do_name.c` `lookup_novel` (named). Not do_mgivenname.
-**Do not skip D-1531…D-1650 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1651 (seed4500 still PASS). **Next cluster:**
+Open `sit.c` `eyecount` (named). Not confer_oc_oprop.
+**Do not skip D-1531…D-1651 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1650.** Do not FORCE
+**Do not re-break D-0660…D-1651.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1650 (index). Recent: **D-1650**
+**Keep:** D-0845…D-1651 (index). Recent: **D-1651**
+`do_name.c` `lookup_novel` alias spellings + table walk +
+IndexOk miss; callers `readobjnam` SPE_NOVEL and `create_object`
+named `oname` ONAME_LEVEL_DEF. Not `'o'` getobj call. Not
+Death_quote / `u_have_novel`. **D-1650**
 `dungeon.c` `dooverview` m-prefix PICK_ONE + `query_annotation`;
 `traverse_mapseenchn` two-pass; `print_mapseen` named-place /
 `builds_up` / `endgamelevelname`. Not altar-god / cemetery bones.
@@ -83,7 +87,7 @@ Older D-1531…D-1648 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1650 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1651 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -122,6 +126,7 @@ Do not re-port await `newcham` at async NO_NC_FLAGS sites.
 Do not re-port MENU_SEARCH / `tty_wait_synch`.
 Do not re-port `restore_cham`.
 Do not re-port `do_mgivenname`.
+Do not re-port `lookup_novel`.
 Do not re-port `rename_disco`.
 Do not re-port `free_edog` / restmon `newedog`.
 Do not re-port `menu_remarm`.

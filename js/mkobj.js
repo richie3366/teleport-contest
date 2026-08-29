@@ -1623,8 +1623,9 @@ function mksobj_init(otmp, artif) {
     mkobj_erosions(otmp);
 }
 
-// C ref: do_name.c sir_Terry_novels[] / noveltitle
-const SIR_TERRY_NOVELS = [
+// C ref: do_name.c sir_Terry_novels[] — C-home of the table; lookup_novel
+// lives in do_name.js and imports this (do_name already imports mkobj).
+export const SIR_TERRY_NOVELS = [
     'The Colour of Magic', 'The Light Fantastic', 'Equal Rites', 'Mort',
     'Sourcery', 'Wyrd Sisters', 'Pyramids', 'Guards! Guards!', 'Eric',
     'Moving Pictures', 'Reaper Man', 'Witches Abroad', 'Small Gods',

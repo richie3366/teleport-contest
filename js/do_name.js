@@ -3,7 +3,7 @@
 //        (D-1555); christen_orc / rndorcname / free_oname (D-1193);
 //        new_oname (D-1363); name_from_player (D-1624, EDIT_GETLIN off);
 //        do_mgivenname / alreadynamed (D-1638); docallcmd `'d'` →
-//        o_init.c rename_disco.
+//        o_init.c rename_disco; lookup_novel (D-1651).
 
 import { artifact_exists, exist_artifact } from './artifact.js';
 import { game } from './gstate.js';
@@ -39,7 +39,7 @@ import {
 import { getlin } from './getline.js';
 import { getpos } from './getpos.js';
 import { object_from_map } from './pager.js';
-import { objects_at } from './mkobj.js';
+import { objects_at, SIR_TERRY_NOVELS } from './mkobj.js';
 import { rank_of } from './roles.js';
 import { an, xname, simpleonames, set_y_monnam, set_noit_mon_nam, The } from './objnam.js';
 import {
@@ -944,6 +944,54 @@ export function safe_oname(obj) {
 /** C ref: do_name.c free_oname — drop oname; keep oextra. */
 export function free_oname(obj) {
     if (has_oname(obj)) delete obj.oextra.oname;
+}
+
+/* C ref: do_name.c NVL_* — indices into sir_Terry_novels[] for aliases. */
+const NVL_COLOUR_OF_MAGIC = 0;
+const NVL_SOURCERY = 4;
+const NVL_MASKERADE = 17;
+const NVL_AMAZING_MAURICE = 27;
+const NVL_THUD = 33;
+
+/**
+ * C ref: do_name.c lookup_novel `:1626–1661` — canonical Discworld title
+ * from a player/level name. Alias spellings first, then strcmpi vs the
+ * table or The(lookname). Stores k in *idx (JS otmp.novelidx). Miss
+ * with IndexOk(*idx) returns the already-chosen title (wish after
+ * mksobj SPE_NOVEL). Inline fold, not strcmpi clone #3 (vault/write).
+ * @param {string} lookname
+ * @param {object|null} [otmp] C int *idx; omit skips store / miss fallback
+ * @returns {string|null}
+ */
+export function lookup_novel(lookname, otmp) {
+    let name = lookname == null ? '' : String(lookname);
+    const novels = SIR_TERRY_NOVELS;
+    const eq = (a, b) => String(a).toLowerCase() === String(b).toLowerCase();
+
+    if (eq(The(name), 'The Color of Magic')) {
+        name = novels[NVL_COLOUR_OF_MAGIC];
+    } else if (eq(name, 'Sorcery')) {
+        name = novels[NVL_SOURCERY];
+    } else if (eq(name, 'Masquerade')) {
+        name = novels[NVL_MASKERADE];
+    } else if (eq(The(name), 'The Amazing Maurice')) {
+        name = novels[NVL_AMAZING_MAURICE];
+    } else if (eq(name, 'Thud')) {
+        name = novels[NVL_THUD];
+    }
+
+    for (let k = 0; k < novels.length; ++k) {
+        if (eq(name, novels[k]) || eq(The(name), novels[k])) {
+            if (otmp) otmp.novelidx = k;
+            return novels[k];
+        }
+    }
+    /* name not found; if novelidx is already set, override the name */
+    if (otmp) {
+        const idx = otmp.novelidx | 0;
+        if (idx >= 0 && idx < novels.length) return novels[idx];
+    }
+    return null;
 }
 
 /**

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist. **Addressed:** D-1650
+- [x] `do_name.c` `lookup_novel` (named). Not do_mgivenname. **Addressed:** D-1651
+
+
+- [x] `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist. **Addressed:** D-1650 `f92f0d66`
 
 
 - [x] `questpgr.c` `convert_arg` (named). Not convert_line %Xh. **Addressed:** D-1649 `90077834`

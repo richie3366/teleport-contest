@@ -952,7 +952,11 @@ priest/minion/`mappear`/invis adj/`is_mplayer` rank/`AUGMENT_IT` deferred);
 **`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889; 
 **seemimic/pit/NODIAG/boulder D-1299**; `goodpos` / mintrap aftermath named); 
 **`distant_monnam` ARTICLE_THE via `x_monnam` called** (D-1638);
-omit astral high-cleric `distant_monnam`; `lookup_novel` named
+omit astral high-cleric `distant_monnam`; **`lookup_novel` D-1651**
+(C `do_name.c` `:1626–1661` aliases then table/`The` walk then IndexOk
+miss; `SIR_TERRY_NOVELS` export from mkobj `noveltitle` home; callers
+`readobjnam` SPE_NOVEL before `oname` ONAME_WISH + `create_object`
+named `oname` ONAME_LEVEL_DEF); `'o'` getobj `"call"` still named above
 
 ### `src/dokick.c`
 

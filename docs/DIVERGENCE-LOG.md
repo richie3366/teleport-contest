@@ -1,3 +1,30 @@
+## D-1651 — do_name.c lookup_novel
+
+- **Status:** fixed (map-driven Open from D-1650; not a public FAIL)
+- **Symptom:** map named `lookup_novel`. C canonicalizes Discworld
+  titles (American Color / Sorcery / Masquerade / Amazing Maurice /
+  Thud) then walks `sir_Terry_novels[]`; a miss with a live
+  `novelidx` returns that title. JS had the table only for
+  `noveltitle` and skipped both callers.
+- **C locus:** `do_name.c` `lookup_novel` `:1626–1661`. Table
+  `:1591–1608`. Callers `objnam.c` `readobjnam` `:5355–5358`,
+  `sp_lev.c` `create_object` `:2266–2271`. Callee `objnam.c` `The`.
+- **JS was:** `noveltitle` + `SIR_TERRY_NOVELS` in `mkobj.js` after
+  D-1633; wish `oname` with the raw string; `create_object` omitted
+  named `oname` / `novelidx` after D-1638.
+- **Fix:** C-home `lookup_novel` (inline fold, not strcmpi clone #3);
+  export the existing table; wish SPE_NOVEL replaces `d.name`;
+  `create_object` `oname` ONAME_LEVEL_DEF then void lookup. Rule #2:
+  no fs.
+- **JS:** `js/do_name.js` + `js/mkobj.js` + `js/readobjnam.js` +
+  `js/mklev.js`.
+- **Not this iter:** `'o'` getobj `"call"`; Death_quote /
+  `u_have_novel`; `read_tribute` / SPE_NOVEL spell path (D-1633);
+  mksobj SPE_NOVEL still sets `otmp.oname` not `oname()`.
+  dooverview is D-1650.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+
 ## D-1650 — dungeon.c dooverview PICK_ONE
 
 - **Status:** fixed (map-driven Open from D-1649; not a public FAIL)

@@ -5,29 +5,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1650 (cadence **#2050** at `69534fd4`).
-  seed4500 still PASS. **Hypothesis:** `do_name.c` `lookup_novel`
-  still omitted (C `do_name.c` `lookup_novel`).
-  **Falsify:** `node scripts/csym.mjs lookup_novel` vs `js/do_name.js`.
-  **Next:** Open `lookup_novel`. Not do_mgivenname. Do not skip
-  D-1531…D-1650. Not dooverview PICK_ONE.
-- Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
-  clone auto-open yn; `rescham` wiz_intrinsic;
-  `optfn_perminv_mode` / `handler_perminv_mode`; setworn
-  oc_oprop; keepdogs stay-behind / grow_up leash; read.c
-  light-scroll `initedog`; pickup tip-spill / squeaky / use_grease;
-  hideunder / `safe_qbuf`; `invlet_constant` truncate;
-  `lookup_novel`; docallcmd `'o'` getobj call; altar-god coalign;
-  cemetery bones; guardian/isshk/gecko remaps; Punished/ustuck
-  float_down; water/lava steed death; uhitm DISMOUNT_KNOCKED `u.dx`;
-  map_menu_cmd remaps / display_inventory loop `wait_synch`;
-  sounds.c Death_quote / `u_have_novel`; save/rest `context.novel`;
-  JSON dorecover getlev; getlev ghostly peace / hideunder place;
-  astral high-cleric `distant_monnam`; overlay BIND= on if/else keys
-  (inventory-only D-0897); default meta without EXT_CMDS runner;
-  `possibly_unwield` / `mon_break_armor` / ustuck / `poly_steed` /
-  boulder `flooreffects`; sync makemon/`load_tower1` `newcham`;
-  qt_pager common fallback / array rn2 / pauper_legacy.
+- **Suite 44/44** after D-1651 (cadence **#2050** at `69534fd4`).
+  seed4500 still PASS. **Hypothesis:** sit/pray `eyecount` still
+  omitted (C `sit.c` `eyecount`).
+  **Falsify:** `node scripts/csym.mjs eyecount` vs `js/sit.js`.
+  **Next:** Open `eyecount`. Not confer_oc_oprop. Do not skip
+  D-1531…D-1651. Not `lookup_novel`.
+- Named still: sit `eyecount`; Palantir `#if 0`; pit/underwater;
+  clone auto-open yn; `rescham` wiz_intrinsic; `optfn_perminv_mode`;
+  setworn oc_oprop; keepdogs/grow_up leash; light-scroll `initedog`;
+  tip-spill / squeaky / `use_grease`; hideunder / `safe_qbuf`;
+  `invlet_constant`; `'o'` getobj call; altar-god; cemetery bones;
+  guardian remaps; Punished float_down; water/lava steed; uhitm
+  `u.dx`; map_menu_cmd; Death_quote / `u_have_novel`; `context.novel`;
+  JSON getlev; astral `distant_monnam`; overlay BIND= (D-0897);
+  `possibly_unwield` / `mon_break_armor`; sync `newcham`; qt_pager
+  fallback / array rn2.
 
 ## Don't re-check (≤15)
 
@@ -36,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1650.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1651.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -47,9 +40,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1650 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1651 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1650. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1651. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -60,74 +53,34 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1650 live in the index. Do not glue yn ^P
-  onto getline. No `ing_suffix` clone #3. Do not poke
-  `beyond_savefile_load` to “prove” InvInUse (D-1603). Do not restore
-  zap `bhit` sticky `u.Blind||u.ublind` (D-1604).   Do not re-port
-  D-1605…D-1650 (`dooverview` PICK_ONE is D-1650;
-  `convert_arg` is D-1649;
-  `rename_disco` is D-1647;
-  MENU_SEARCH/`tty_wait_synch` is D-1646;
-  `newcham` mleashed/Elbereth is D-1645; await remaining NO_NC_FLAGS
-  is D-1648;
-  `goto_level` ACH_ASTR/ENDG/BGRM is D-1644;
-  BIND= M('?') is D-1643; `doperminv` / tty WIN_INVEN `assesstty` is D-1642;
-  `check_invent_gold` is D-1641). Do not dump
-  `dat/tribute` into `dat_text.js` indent=2. Do not static-import
-  `files.js` from `spell.js` (TDZ).
-  Do not re-port putmsghistory body (D-1588). REST_LEVELS must be
-  imported where getlev catchup reads it.
+  `vision_reset`. D-1576…D-1651 in the index (`lookup_novel` D-1651;
+  `dooverview` D-1650). No yn ^P glue / `ing_suffix` clone #3 /
+  InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
+  `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
+  REST_LEVELS where getlev catchup reads it.
 
 ## Landmarks (≤15)
 
-- D-1650: `dooverview` m-prefix why==-1 PICK_ONE + ledger
-  `query_annotation`; `donamelevel` keeps `menu_requested`;
-  `traverse_mapseenchn` two-pass; `print_mapseen` named-place /
-  `builds_up` / `endgamelevelname`. Altar-god / cemetery bones named.
-  convert_arg D-1649.
-- D-1649: `convert_arg` `%c` role name.f/m, `%G` `align_gtitle`,
-  `%A` `align_str` current, `%D` lawful gname, `%C`/`%N`/`%L`,
-  `%Z` `dungeons[0].dname`; `homebase`/`intermed`/`neminame`;
-  `%o` `artiname`. qt_pager common fallback / array rn2 named.
-  convert_line `%Xh` D-1634.
-- D-1648: await `newcham` at async NO_NC_FLAGS sites (review **606**)
-  so mleashed unleash / Elbereth flee finish before C `return 1`.
-  Not `m_unleash` body. Sync makemon/`load_tower1` named.
-  mleashed/Elbereth arms D-1645; `normal_shape` D-1594.
-- D-1647: `rename_disco` inv_order PICK_ONE of callable disco then
-  dummy `docall`; `disco_append_typename` BUFSZ + price; C-home
-  `interesting_to_discover`. `'o'` getobj call named. do_mgivenname
-  D-1638.
-- D-1646: MENU_SEARCH `:` getlin+pmatchi+toggle_menu_curr; PICK_NONE
-  bell; PICK_ONE first match; explicit page/gacc `:` not search.
-  `tty_wait_synch` rawprint getret / inmore addtopl / inread intr++.
-  map_menu_cmd remaps named. kill_char D-1632. doperminv D-1642.
-- D-1645: `newcham` mleashed `m_unleash` TRUE or `update_inventory`;
-  Elbereth `monflee(rn1(9,2))`. keepdogs/`grow_up` named.
-  restore_cham D-1637.
-- D-1644: `goto_level` ACH_ENDG `newdungeon`, ACH_ASTR after
-  `final_level`, Knox alarm (Croesus died), ACH_BGRM, `new`
-  `livelog_printf("entered %s")`; `record_achievement` `achieve_msg`.
-  SoundAchievement named. reset_hostility D-1616.
-- D-1643: BIND= M('?') `cmdbind_get` → `"?"` `doextlist`; rhack tlist
-  for if/else-miss keys with EXT_CMDS runner. Overlay if/else keys
-  still inventory (D-0897). doextlist body D-1625. #seeall D-1605.
-- D-1642: `doperminv` `#perminv`/`|` IFBURIED|GENERALCMD|NOFUZZERCMD;
-  `assesstty` minrow 28/mincol 79 (need 52x79) too_small RESIZABLE;
-  ttyinv InvSparse empty letters + `setCell`. 24x80 refuses.
-  `optfn_perminv_mode` / `cmap_D0walls_to_glyph` named.
-  `tty_wait_synch` is D-1646. check_invent_gold D-1641.
-- D-1641: `check_invent_gold` goldstacks/wrongslot `impossible`;
-  `adjust_gold_ok` vs `adjust_ok`; itemactions gold `i` + IA_ADJUST_OBJ
-  `doorganize`; dest `$`. `invlet_constant` named. adjust_split D-1621.
-- D-1640: `landing_spot` KNOCKED `u.dx,u.dy` then `rn2(2)` DIR_RIGHT/LEFT
-  trio + remaining dirs + early break + `throws_rocks` + `enexto`.
-  C NODIAG `(j%1)!=0` as written. uhitm `u.dx` named. THROWN HP D-1627.
-- D-1639: nonempty ESC `hooked_tty_getlin` falls through to `intr` /
-  `doprev` / else `tty_nhbell` (review **593**). kill_char is D-1632.
-- D-1638: `do_mgivenname` / `alreadynamed`; `'m'`/`'C'`; `fuzzymatch`;
-  swallow `disp_kind`. `'o'` getobj call / `lookup_novel` named.
-- D-1637: `restore_cham` getlev catchup + With_you; PfSC H||E+flats.
-  JSON dorecover getlev named. normal_shape D-1594.
-- D-1636: `restore_luadata`/`save_luadata` JSON lua source; `!luacore`
-  `l_nhcore_init`. `nhl_variable` / Lua NHCB named.
+- D-1651: `lookup_novel` aliases + table/`The` + IndexOk miss; wish
+  SPE_NOVEL; `create_object` named `oname`. `'o'` / Death_quote named.
+- D-1650: `dooverview` why==-1 PICK_ONE + `query_annotation`; two-pass
+  traverse; named-place / `builds_up` / `endgamelevelname`.
+- D-1649: `convert_arg` `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z`;
+  `homebase`/`intermed`/`neminame`; `%o` `artiname`. qt_pager named.
+- D-1648: await `newcham` remaining NO_NC_FLAGS (review **606**).
+  Sync makemon/`load_tower1` named. mleashed D-1645.
+- D-1647: `rename_disco` inv_order PICK_ONE + dummy `docall`.
+  `'o'` getobj named. do_mgivenname D-1638.
+- D-1646: MENU_SEARCH `:` pmatchi+toggle; `tty_wait_synch` getret /
+  inmore / inread. map_menu_cmd named.
+- D-1645: `newcham` mleashed `m_unleash` / Elbereth `monflee`.
+  keepdogs/`grow_up` named. restore_cham D-1637.
+- D-1644: `goto_level` ACH_ENDG/ASTR/BGRM + Knox + entered livelog.
+- D-1643: BIND= M('?') `cmdbind_get` → `"?"`. Overlay if/else D-0897.
+- D-1642: `doperminv` / tty WIN_INVEN `assesstty` min 52x79.
+  `optfn_perminv_mode` named.
+- D-1641: `check_invent_gold` + gold `i` adjust. `invlet_constant` named.
+- D-1640: `landing_spot` KNOCKED preferred-dir + `enexto`.
+- D-1639: nonempty ESC getlin fallthrough (review **593**).
+- D-1638: `do_mgivenname` / `alreadynamed`. `lookup_novel` is D-1651.
+- D-1637: `restore_cham` getlev + With_you; PfSC H||E.
