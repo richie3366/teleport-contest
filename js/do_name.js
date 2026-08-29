@@ -4,12 +4,14 @@
 //        new_oname (D-1363); name_from_player (D-1624, EDIT_GETLIN off);
 //        do_mgivenname / alreadynamed (D-1638); docallcmd `'d'` →
 //        o_init.c rename_disco; lookup_novel (D-1651); `'o'` getobj
-//        `"call"` (D-1660); do_oname artifact_name slip (D-1670).
+//        `"call"` (D-1660); do_oname artifact_name slip (D-1670);
+//        docallcmd cmdq_pop canned + lootabc + invent-gated i/o (D-1671).
 
 import {
     artifact_exists, exist_artifact, artifact_name, restrict_name,
 } from './artifact.js';
 import { game } from './gstate.js';
+import { cmdq_pop, cmdq_clear } from './cmd.js';
 import { rn2, rn1, rn2_on_display_rng, rnd_on_display_rng } from './rng.js';
 import { wipeout_text } from './engrave.js';
 import { nhgetch } from './input.js';
@@ -30,6 +32,7 @@ import {
     SUPPRESS_IT, SUPPRESS_INVISIBLE, SUPPRESS_HALLUCINATION,
     SUPPRESS_SADDLE, SUPPRESS_NAME,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_NOFLAGS,
+    ECMD_OK, CMDQ_KEY, CQ_CANNED,
     has_oname, ONAME, CLR_MAX, BUFSZ, u_at, OBJ_FREE, HAND,
     isok, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPMASK, has_ebones,
 } from './const.js';
@@ -498,7 +501,7 @@ async function alreadynamed(mtmp, monnambuf, usrbuf) {
  * Hallu refuse; getpos; self/steed; m_at; swallow glyph_at; visibility;
  * name_from_player; G_UNIQ/shk/priest/ghost/ebones reject; else christen.
  * Named: astral high-cleric distant_monnam; SetVoice SND_LIB (empty
- * macro); christen leash update_inventory; cmdq_pop; lootabc letters.
+ * macro); christen leash update_inventory.
  */
 async function do_mgivenname() {
     if (Hallucination()) {
@@ -1093,24 +1096,43 @@ export function christen_orc(mtmp, gang, other) {
 }
 
 /**
- * C ref: do_name.c docallcmd `:498–601` — "What do you want to name?" menu.
- * `m` → do_mgivenname; `i` → getobj("name")+do_oname; `o`/`n` →
- * getobj("call", call_ok, GETOBJ_NOFLAGS) then xname + dknown/docall
- * (D-1660); `f` → namefloorobj; `d`/`\\` → o_init.c rename_disco.
- * Named: cmdq_pop canned (iactions Call); flags.lootabc acc; `if (gi.invent)`
- * menu omit of i/o; #if 0 call_ok EXCLUDE "know those as well".
+ * C cmd.c `_cmd_queue.key` — invent `cmdq_add_key` stores a string;
+ * iactions/apply canned clones store a char code.
+ * @param {{ key?: string|number }} cq
  */
-export async function docallcmd() {
-    await flush_topl_more();
+function cmdq_key_ch(cq) {
+    if (typeof cq.key === 'string') return cq.key.charAt(0);
+    if (typeof cq.key === 'number') return String.fromCharCode(cq.key);
+    return '';
+}
+
+/**
+ * C do_name.c docallcmd add_menu `:520–550` + select_menu.
+ * acc = lootabc ? 0 : a_char; gacc C/y/n/,/\/l. i/o only when gi.invent.
+ * Interactive analogue keeps the nhgetch loop (C select_menu inner);
+ * Space/Return with no pick re-prompts (existing JS; C n==0 → 'q').
+ * @returns {Promise<string>} item a_char, or 'q'
+ */
+async function docallcmd_menu() {
+    const abc = !!(game.flags && game.flags.lootabc);
+    const hasInvent = !!(game.invent && game.invent.length);
+    const rows = [
+        { acc: 'm', gacc: 'C', text: 'a monster' },
+        ...(hasInvent ? [
+            { acc: 'i', gacc: 'y', text: 'a particular object in inventory' },
+            { acc: 'o', gacc: 'n', text: 'the type of an object in inventory' },
+        ] : []),
+        { acc: 'f', gacc: ',', text: 'the type of an object upon the floor' },
+        { acc: 'd', gacc: '\\', text: 'the type of an object on discoveries list' },
+        { acc: 'a', gacc: 'l', text: 'record an annotation for the current level' },
+    ];
     const entries = [
         { text: 'What do you want to name?', attr: ATR_INVERSE },
         { text: '', attr: 0 },
-        { text: 'm - a monster', attr: 0 },
-        { text: 'i - a particular object in inventory', attr: 0 },
-        { text: 'o - the type of an object in inventory', attr: 0 },
-        { text: 'f - the type of an object upon the floor', attr: 0 },
-        { text: 'd - the type of an object on discoveries list', attr: 0 },
-        { text: 'a - record an annotation for the current level', attr: 0 },
+        ...rows.map((it) => ({
+            text: `${abc ? it.gacc : it.acc} - ${it.text}`,
+            attr: 0,
+        })),
     ];
     for (;;) {
         await paint_corner_nhw_menu(entries, '(end) ');
@@ -1118,35 +1140,54 @@ export async function docallcmd() {
         game._menu_overlay = false;
         await docrt();
         await flush_screen(1);
-        const ch = String.fromCharCode(key);
-        if (key === 27 || ch === 'q') return;
-        // C select_menu: Enter/space with no pick → re-prompt (n==0)
-        if (ch === '\r' || ch === '\n' || ch === ' ') continue;
-        if (ch === 'f' || ch === ',') {
-            await namefloorobj();
-            return;
+        const raw = String.fromCharCode(key);
+        if (key === 27 || raw === 'q') return 'q';
+        if (raw === '\r' || raw === '\n' || raw === ' ') continue;
+        for (const it of rows) {
+            if (raw === it.gacc) return it.acc;
+            if (!abc && raw === it.acc) return it.acc;
         }
-        if (ch === 'i' || ch === 'y') {
-            // C: getobj("name", name_ok, GETOBJ_PROMPT) → do_oname
+    }
+}
+
+/**
+ * C ref: do_name.c docallcmd `:498–601` — cmdq_pop canned then
+ * "What do you want to name?" menu (D-1671).
+ * `m` → do_mgivenname; `i` → getobj("name")+do_oname; `o` →
+ * getobj("call", call_ok, GETOBJ_NOFLAGS) then xname + dknown/docall
+ * (D-1660); `f` → namefloorobj; `d`/`\\` → o_init.c rename_disco.
+ * Named: iactions Call pushkeys; `'i'` getobj_name clone; #if 0
+ * call_ok EXCLUDE "know those as well".
+ */
+export async function docallcmd() {
+    await flush_topl_more();
+    let ch = '';
+    const cmdq = cmdq_pop();
+    if (cmdq) {
+        // C `:511–518` KEY → ch; else cmdq_clear(CQ_CANNED); goto switch
+        if (cmdq.typ === CMDQ_KEY || cmdq.typ === 'key') {
+            ch = cmdq_key_ch(cmdq);
+        } else {
+            cmdq_clear(CQ_CANNED);
+        }
+    } else {
+        ch = await docallcmd_menu();
+    }
+    switch (ch) {
+    default:
+    case 'q':
+        break;
+    case 'm':
+        await do_mgivenname();
+        break;
+    case 'i':
+        {
             const obj = await getobj_name();
             if (obj) await do_oname(obj);
-            return;
         }
-        if (ch === 'm' || ch === 'C') {
-            await do_mgivenname();
-            return;
-        }
-        if (ch === 'a' || ch === 'l') {
-            const { donamelevel } = await import('./dungeon.js');
-            await donamelevel();
-            return;
-        }
-        if (ch === 'd' || ch === '\\') {
-            await rename_disco();
-            return;
-        }
-        if (ch === 'o' || ch === 'n') {
-            // C `:571–589` getobj("call", call_ok, GETOBJ_NOFLAGS)
+        break;
+    case 'o':
+        {
             const obj = await getobj('call', call_ok, GETOBJ_NOFLAGS);
             if (obj) {
                 /* behave as if examining it in inventory;
@@ -1159,9 +1200,22 @@ export async function docallcmd() {
                     await docall(obj);
                 }
             }
-            return;
         }
+        break;
+    case 'f':
+        await namefloorobj();
+        break;
+    case 'd':
+        await rename_disco();
+        break;
+    case 'a':
+        {
+            const { donamelevel } = await import('./dungeon.js');
+            await donamelevel();
+        }
+        break;
     }
+    return ECMD_OK;
 }
 
 /**

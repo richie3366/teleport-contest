@@ -98,14 +98,14 @@ function cmdq_qname(q) {
 }
 
 /** C ref: cmd.c cmdq_clear(q). Callers without q still clear CQ_CANNED. */
-function cmdq_clear(q = CQ_CANNED) {
+export function cmdq_clear(q = CQ_CANNED) {
     game[cmdq_qname(q)] = [];
 }
 
 /**
  * C ref: cmd.c cmdq_pop — CQ_REPEAT when gi.in_doagain, else CQ_CANNED.
  */
-function cmdq_pop() {
+export function cmdq_pop() {
     const q = game[game.in_doagain ? '_cmdq_repeat' : '_cmdq_canned'];
     if (!q || !q.length) return null;
     return q.shift();

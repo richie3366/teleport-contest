@@ -947,11 +947,16 @@ append; `interesting_to_discover` C-home + `disco_append_typename` BUFSZ
 truncate + `append_price_quote`; dummy `dknown`/`!oc_uses_known` then `docall`;
 `oc_uses_known` extract named); 
 **`'o'` getobj `"call"`** (D-1660; live `getobj` + `xname` dknown/`docall`;
-cmdq_pop canned / lootabc / `if (gi.invent)` i/o menu / #if 0 EXCLUDE named);
+#if 0 EXCLUDE / `'i'` `getobj_name` clone named);
 **artifact_name slip** (D-1670; `artifact.c` `restrict_name` + `do_oname`
 `:331–357` `wipeout_text`/`rnd_on_display_rng` + literate++; canonical
 Sting/Orcrist `otyp==objtyp`; `is_plural`+`safe_qbuf` prompt; wield
-`restrict_name` / `oname` via_naming livelog named); **`docall`/`trycall` potion call → `oc_uname`** (D-0430; 
+`restrict_name` / `oname` via_naming livelog named);
+**`docallcmd` cmdq_pop canned** (D-1671; C `:511–518` KEY skip-menu else
+`cmdq_clear(CQ_CANNED)`; `:508–550` `flags.lootabc` acc + `if (gi.invent)`
+i/o rows; export `cmdq_pop`/`cmdq_clear` `js/cmd.js`; iactions Call
+pushkeys / `'i'` `getobj_name` clone / #if 0 EXCLUDE named);
+**`docall`/`trycall` potion call → `oc_uname`** (D-0430; 
 sink-fluid/`safe_qbuf` fallbacks deferred); **`christen_monst` + tame `x_monnam` subset** (D-0079); 
 **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); 
 **`x_monnam` do_it `!canspotmon`→`it`** (D-0295; saddle adj kept); 
@@ -982,7 +987,8 @@ omit astral high-cleric `distant_monnam`; **`lookup_novel` D-1651**
 miss; `SIR_TERRY_NOVELS` export from mkobj `noveltitle` home; callers
 `readobjnam` SPE_NOVEL before `oname` ONAME_WISH + `create_object`
 named `oname` ONAME_LEVEL_DEF); artifact_name slip is D-1670; cmdq_pop
-canned / sink-fluid / distant_monnam still named above
+canned is D-1671; sink-fluid / distant_monnam / iactions Call still
+named above
 
 ### `src/dokick.c`
 

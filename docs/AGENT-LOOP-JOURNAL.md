@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1671 do_name.c docallcmd cmdq_pop canned
+
+**Objective:** Open `do_name.c` docallcmd cmdq_pop canned (named).
+Not `'o'` getobj.
+**C locus:** `do_name.c` `docallcmd` `:511–518` + `:508–550`
+lootabc/`gi.invent`; `cmd.c` `cmdq_pop`/`cmdq_clear`.
+**JS locus:** `js/do_name.js` `docallcmd`; `js/cmd.js` export.
+**Change:** KEY skip-menu else `cmdq_clear`; lootabc gacc; omit i/o
+when `!invent`; `ECMD_OK`. iactions Call / `'i'` clone named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary (canned `q` / non-KEY clear / invent-gate
+/ lootabc `m`); green+strict seed8000/0900; cohort **9**/9 + strict.
+**Next:** Open `docall` sink-fluid / safe_qbuf. Not `'o'` getobj.
+**Blocked:** none.
 ## 2026-08-29 — D-1670 do_name.c do_oname artifact_name slip
 
 **Objective:** Open `do_name.c` do_oname artifact_name slip /

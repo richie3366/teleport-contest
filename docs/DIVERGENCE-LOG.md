@@ -1,3 +1,29 @@
+## D-1671 — do_name.c docallcmd cmdq_pop canned
+
+- **Status:** fixed (map-driven Open from D-1670; not a public FAIL)
+- **Symptom:** map named `docallcmd` `cmdq_pop` canned / lootabc /
+  `if (gi.invent)` i/o menu. C pops CQ_CANNED before the name menu
+  (KEY skips to the switch; non-KEY `cmdq_clear`); JS always painted
+  the menu after D-1660.
+- **C locus:** `do_name.c` `docallcmd` `:511–518` + `:508–550`
+  lootabc/`gi.invent`; `cmd.c` `cmdq_pop` `:409–420` /
+  `cmdq_clear` `:430–442`. Caller: `iactions.c` `itemactions_pushkeys`
+  IA_NAME_OBJ/OTYP still named.
+- **JS was:** `docallcmd` nhgetch loop only; `cmdq_pop` unexported in
+  `cmd.js`; i/o rows always shown; lootabc ignored.
+- **Fix:** export C-home `cmdq_pop`/`cmdq_clear`; KEY → `ch` skip
+  menu else clear canned; lootabc shows gacc and hides primary acc;
+  omit i/o when `!invent`; return `ECMD_OK`. Rule #2: no fs.
+- **JS:** `js/do_name.js` `docallcmd` / `docallcmd_menu`;
+  `js/cmd.js` export.
+- **Not this iter:** iactions Call pushkeys; `'i'` `getobj_name`
+  clone; #if 0 EXCLUDE; `docall` sink-fluid/`safe_qbuf`; `'o'`
+  getobj is D-1660; artifact_name slip is D-1670.
+- **Verified:** private canary (canned KEY `q` no nhgetch; non-KEY
+  clears follow-on KEY; invent-gate `i`; lootabc `m`); green+strict
+  seed8000/0900; CURRENT cohort **9**/9 + strict.
+- **Files:** `js/do_name.js`, `js/cmd.js`.
+
 ## D-1670 — do_name.c do_oname artifact_name slip
 
 - **Status:** fixed (map-driven Open from D-1669; not a public FAIL)
