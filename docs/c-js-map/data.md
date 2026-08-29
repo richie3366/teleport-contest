@@ -1009,7 +1009,9 @@ Underwater/waterlevel cushions/mud; `split_mon`+fountain `dryup`;
 else `rn2(10)` `water_damage(uarm)` twice — pinned C second call is `uarm` not `uarmf`; 
 **D-1056** C `youprop.h` `Underwater` ≡ `u.uinwater` not `u.Underwater`); 
 **IS_THRONE + `special_throne_effect`** (D-1033; 
-grease `COIN_CLASS` skip / wish / drain `losexp` / attrcurse / VS `schedule_goto` / `msummon` / 
+**grease spray `update_inventory` + `make_glib` uarmg D-1683** (C `sit.c:266–279` /
+`potion.c:466–467`; `COIN_CLASS` skip same as `grease_ok`; not `use_grease`) /
+wish / drain `losexp` / attrcurse / VS `schedule_goto` / `msummon` / 
 confused `seffects(SPE_REMOVE_CURSE)` **HConfusion-only D-1048** / poly / acid / shuffle); 
 **ordinary `throne_sit_effect` 1–13** (D-1034; 
 `take_gold` **`remove_worn_item(FALSE)` W_WEAPONS `*gone` D-1049** / `courtmon` / `do_genocide(5)` 
@@ -1070,7 +1072,9 @@ Half_spell_damage sit clone vs uprops still named;
 `throne_sit_effect` Blind case 10 0 HEAD / 1 singular / 2+ plural
 tingle — not always-2 stub; pray TROUBLE_BLIND + potionbreathe sting
 import the same export; spell dull / zap rider / dothrow POT_WATER /
-mthrowu venom / `make_blinded` itch still named).
+mthrowu venom / `make_blinded` itch still named);
+**grease spray D-1683** (case 6 invent `update_inventory` after
+`make_glib(rn1(101,100))`; callee `uarmg` refresh; rndcurse redraw named).
 
 ### runtime `dat/*.lua` + `nhlua.c`/`sp_lev.c`
 

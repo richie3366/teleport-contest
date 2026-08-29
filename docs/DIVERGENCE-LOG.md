@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1683 — sit.c special_throne_effect grease spray update_inventory
+
+- **Status:** fixed (map-driven Open from D-1682; not a public FAIL)
+- **Symptom:** map named Vlad throne grease spray. C `special_throne_effect`
+  case 6 greases non-`COIN_CLASS` invent, `make_glib(rn1(101,100))`,
+  then `update_inventory()`. JS skipped coins and set `greased` but
+  deferred the perm_invent refresh; `make_glib` also skipped
+  `if (uarmg) update_inventory()`.
+- **C locus:** `sit.c` `special_throne_effect` `:266–279`; callee
+  `potion.c` `make_glib` `:460–468`. Caller `throne_sit_effect`
+  `:64–66`. `grease_ok` COIN skip is comment-sync only (`:2591–2592`).
+  Not `use_grease` trailing `:2652` (D-1656).
+- **JS was:** case 6 `// update_inventory deferred`; `make_glib`
+  `uarmg` arm deferred.
+- **Fix:** invent walk (JS array ≡ C nobj) greases non-coins; then
+  `make_glib` + `update_inventory`. `make_glib` refreshes worn gloves.
+  Named: rndcurse redraw; SetVoice. Rule #2: no fs.
+- **JS:** `js/sit.js` `special_throne_effect`; `js/potion.js`
+  `make_glib`; `js/apply.js` comments.
+- **Not this iter:** rndcurse `update_inventory`; `use_grease` is
+  D-1656; save_mapseen cemetery JSON named.
+- **Verified:** private canary **5**/5 (gold skip / weapon+gloves
+  greased; glib 100..200; `make_glib(0)` clears); in_moveloop
+  `update_inventory` no-throw; green+strict seed8000/0900; CURRENT
+  cohort **9**/9 + strict.
+- **Files:** `js/sit.js`, `js/potion.js`, `js/apply.js`.
+
 ## D-1682 — do_name.c docallcmd #if 0 EXCLUDE / invent.c silly_thing
 
 - **Status:** fixed (map-driven Open from D-1681; not a public FAIL)

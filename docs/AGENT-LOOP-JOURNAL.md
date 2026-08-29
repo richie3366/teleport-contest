@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1683 sit.c special_throne_effect grease spray
+
+**Objective:** Open `sit.c` special_throne_effect grease spray
+(named). Not use_grease.
+**C locus:** `sit.c` `special_throne_effect` `:266–279`;
+`potion.c` `make_glib` `:460–468`.
+**JS locus:** `js/sit.js` `special_throne_effect` case 6;
+`js/potion.js` `make_glib`.
+**Change:** invent non-coin `greased=1`; `make_glib(rn1(101,100))`;
+`update_inventory`; gloves `uarmg` refresh. Named: cemetery JSON.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **5**/5; green+strict seed8000/0900;
+cohort **9**/9 + strict.
+**Next:** Open `dungeon.c` save_mapseen cemetery JSON. Not
+print_mapseen cemetery.
+**Blocked:** none.
 ## 2026-08-29 — D-1682 do_name.c #if 0 EXCLUDE / silly_thing
 
 **Objective:** Open `do_name.c` docallcmd #if 0 EXCLUDE (named). Not

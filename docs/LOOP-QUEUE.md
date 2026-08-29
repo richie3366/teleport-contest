@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sit.c` special_throne_effect grease spray (named). Not use_grease.
 - [ ] `dungeon.c` save_mapseen cemetery JSON (named). Not print_mapseen cemetery.
 - [ ] `iactions.c` remaining pushkeys rub/swap/whatis (named). Not two-weapon.
 - [ ] `invent.c` Traditional itemize yn (named). Not cheapest_item.
