@@ -1,3 +1,30 @@
+## D-1656 — apply.c use_grease trailing update_inventory + live getobj
+
+- **Status:** fixed (map-driven Open from D-1655; not a public FAIL)
+- **Symptom:** map named `use_grease`. C always `update_inventory()`
+  before `ECMD_TIME` (`:2652`), including empty-can, and uses live
+  `getobj("grease", grease_ok, GETOBJ_PROMPT)` so pickinv handsbuf /
+  gold `GETOBJ_EXCLUDE` 0 / compactify match invent.c. JS skipped the
+  trailing call and kept a getobj clone (local EXCLUDE -3) after
+  D-1026/D-1569/D-1615. `gloves_simple_name` always `"gloves"`.
+- **C locus:** `apply.c` `use_grease` `:2603–2654` / `grease_ok`
+  `:2584–2601`; `invent.c` `getobj` GETOBJ_PROMPT; `objnam.c`
+  `gloves_simple_name` `:5531–5547`; `do_wear.c` `fingers_or_gloves`.
+- **JS was:** `getobj_grease` clone; no `:2652`; coin exclude -3 vs
+  live 0; `gloves_simple_name_towel` stub.
+- **Fix:** live `getobj` + trailing `update_inventory`; grease_ok
+  uses const.js `GETOBJ_EXCLUDE`; live `Tobjnam`; export
+  `gloves_simple_name`. Rule #2: no fs.
+- **JS:** `js/apply.js` + `js/objnam.js` (`js/invent.js` comment).
+- **Not this iter:** consume_obj_charge (D-1615); sit.c
+  `special_throne_effect` grease spray; shk_owns inaccessible;
+  fountain/trap `gloves_simple_name` clones.
+- **Verified:** private canary **23**/23 (empty known/seem; gold
+  CANCEL; cover dagger; hands glib 5..15; canned `-`; handsbuf
+  fingers; gauntlets strstri); green+strict seed8000/0900; cohort
+  **7**/7 + strict (9/9 with green).
+- **Files:** `js/apply.js`, `js/objnam.js`, `js/invent.js`.
+
 ## D-1655 — invent.c flags.invlet_constant / reassign / obj_to_let
 
 - **Status:** fixed (map-driven Open from D-1641/D-1654; not a public FAIL)

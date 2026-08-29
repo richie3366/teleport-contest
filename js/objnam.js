@@ -983,6 +983,24 @@ function strstri_objnam(hay, needle) {
 }
 
 /**
+ * C ref: objnam.c gloves_simple_name `:5531–5547` — "gauntlets" iff
+ * dknown and (oc_name_known ? OBJ_NAME : OBJ_DESCR) contains
+ * "gauntlets" (strstri). Else "gloves". Callers fingers_or_gloves
+ * (apply use_grease / use_towel) and fountain/trap local clones stay.
+ */
+export function gloves_simple_name(gloves) {
+    if (gloves && gloves.dknown) {
+        const otyp = gloves.otyp | 0;
+        const ocl = game.objects?.[otyp];
+        const actualn = objectNameStrs[otyp] || '';
+        const descrpn = objectDescrs[otyp] || '';
+        const s = ocl?.oc_name_known ? actualn : descrpn;
+        if (strstri_objnam(s, 'gauntlets')) return 'gauntlets';
+    }
+    return 'gloves';
+}
+
+/**
  * C ref: objnam.c bare_artifactname `:2502–2514` — artiname, "The "→"the ".
  * Local copy so objnam does not import artifact.js (invent cycle).
  */

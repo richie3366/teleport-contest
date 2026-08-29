@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `apply.c` `use_grease` (named). Not consume_obj_charge.
 - [ ] `cmd.c` overlay BIND= on if/else keys (named). Not cmdbind_get default.
 - [ ] `dungeon.c` print_mapseen altar-god coalign (named). Not dooverview PICK_ONE.
 - [ ] `dungeon.c` cemetery bones list (named). Not dooverview.

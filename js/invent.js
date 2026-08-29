@@ -3303,8 +3303,8 @@ export function update_inventory() {
  * then spe--, then update_inventory when known so perm_invent sees the
  * new charge (tty_update_inventory → sync_perminvent). Unpaid is D-1047;
  * InvInUse helpers are D-1600; writers are D-1603.
- * Named: pickup tip-spill / trap disarm_squeaky_board callers;
- * use_grease trailing (empty-can) update_inventory.
+ * Named: pickup tip-spill / trap disarm_squeaky_board callers.
+ * use_grease trailing update_inventory is D-1656.
  * @param {object} obj
  * @param {boolean} maybe_unpaid false if caller handles shop billing
  */

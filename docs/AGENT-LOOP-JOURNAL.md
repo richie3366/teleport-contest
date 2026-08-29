@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1656 apply.c use_grease trailing update_inventory
+
+**Objective:** Open `apply.c` `use_grease` (named). Not
+consume_obj_charge.
+**C locus:** `apply.c` `use_grease` `:2603–2654` / `grease_ok`;
+`invent.c` getobj GETOBJ_PROMPT; `objnam.c` `gloves_simple_name`.
+**JS locus:** `js/apply.js` `use_grease`; `js/objnam.js`
+`gloves_simple_name`.
+**Change:** trailing `update_inventory` `:2652`; retire
+`getobj_grease` clone for live `getobj`; coin EXCLUDE 0; gauntlets
+strstri. sit.c grease spray named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary 23/23; green+strict seed8000/0900;
+cohort **7**/7 + strict (9/9 with green).
+**Next:** Open overlay BIND= if/else keys. Not cmdbind_get default.
+**Blocked:** none.
 ## 2026-08-29 — D-1655 invent.c invlet_constant / reassign / obj_to_let
 
 **Objective:** Open `invent.c` `invlet_constant` (named). Not
