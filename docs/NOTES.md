@@ -5,11 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1676 (cadence **#2080** at `115570e2`).
-  seed4500 still PASS. **Hypothesis:** IA_TWOWEAPON is the first Open
-  (Must-fix empty). **Falsify:** `node scripts/csym.mjs itemactions`.
-  **Next:** Open `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke.
-  Do not skip D-1531…D-1676.
+- **Suite 44/44** after D-1677 (cadence **#2080** at `115570e2`).
+  seed4500 still PASS. **Hypothesis:** offer_corpse is the first Open
+  (Must-fix empty). **Falsify:** `node scripts/csym.mjs offer_corpse`.
+  **Next:** Open `pray.c` offer_corpse (named). Not floorfood
+  sacrifice getobj. Do not skip D-1531…D-1677.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn
   oc_oprop; keepdogs/grow_up leash; light-scroll `initedog`;
@@ -20,7 +20,7 @@ Objective/score live in `CURRENT.md`.
   `possibly_unwield` / `mon_break_armor`; sync `newcham`; array rn2 /
   pauper_legacy / killed_nemesis; spell dull / zap rider eyecount;
   sit.c grease spray; perm_invent can_set; wizmgender glyph-reset;
-  remaining pushkeys rub/swap/two-weapon/whatis;
+  remaining pushkeys rub/swap/whatis;
   `offer_corpse`; `choose_tip_container_menu`; polyself `uskin=`;
   wield `restrict_name`; `oname` via_naming livelog; `'i'`
   `getobj_name` clone; doengrave non-hands stylus;
@@ -35,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1676.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1677.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,10 +46,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1676 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1677 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1676. Do not delete emin (**487**). Do not stub
+  D-1520…D-1677. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -60,20 +60,24 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1676 in the index. No yn ^P glue /
+  `vision_reset`. D-1576…D-1677 in the index. No yn ^P glue /
   `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
   `noarmor` uskin / wizweight after-change / do_oname slip /
   cmdq_pop canned / `docall` sink-fluid `safe_qbuf` / astral
   `distant_monnam` / `oc_uses_known` extract / unwield-name-eat-engrave
-  pushkeys / `remarm_swapwep` / IA_BUY_OBJ shop pay / add `strncmpi` #4.
+  pushkeys / `remarm_swapwep` / IA_BUY_OBJ shop pay / IA_TWOWEAPON /
+  add `strncmpi` #4.
 
 ## Landmarks (≤15)
 
+- D-1677: IA_TWOWEAPON `'X'` MAYBETWOWEAPON (`TWOWEAPOK` &&
+  `!bimanual`) + canned `dotwoweapon` no invlet. Export TWOWEAPOK/
+  bimanual. rub/swap/whatis named. D-1676 shop pay.
 - D-1676: IA_BUY_OBJ unpaid `'p'` Buy row (`shop_keeper`/`inhishop`)
   + `dopay`+invlet; `pay_take_canned_billed` skip-menu. Traditional
-  itemize / cheapest_item / rub/swap/two-weapon/whatis named. D-1675
+  itemize / cheapest_item / rub/swap/whatis named. D-1675
   unwield-name-eat-engrave.
 - D-1675: IA_UNWIELD/NAME/EAT/ENGRAVE pushkeys + `remarm_swapwep`
   `#altunwield`; eat `is_edible` row; canned name/stylus KEY;
@@ -111,5 +115,3 @@ Objective/score live in `CURRENT.md`.
   named. D-1641 / dounpaid D-1663.
 - D-1663: `dounpaid` Iu pline / NHW_MENU Total / floor+buried.
   Hallu currency named. invlet_constant D-1655.
-- D-1662: `qt_pager` role miss → `com_pager_core("common", TRUE)`.
-  array rn2 / pauper named. convert_arg D-1649.

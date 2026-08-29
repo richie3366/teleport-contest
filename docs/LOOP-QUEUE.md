@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke.
 - [ ] `pray.c` offer_corpse (named). Not floorfood sacrifice getobj.
 - [ ] `pickup.c` choose_tip_container_menu (named). Not tip getobj.
 - [ ] `do_name.c` oname via_naming livelog (named). Not wield restrict_name.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `do_name.c` docallcmd #if 0 EXCLUDE (named). Not `'i'` getobj_name.
 - [ ] `sit.c` special_throne_effect grease spray (named). Not use_grease.
 - [ ] `dungeon.c` save_mapseen cemetery JSON (named). Not print_mapseen cemetery.
+- [ ] `iactions.c` remaining pushkeys rub/swap/whatis (named). Not two-weapon.
+- [ ] `invent.c` Traditional itemize yn (named). Not cheapest_item.
+- [ ] `shk.c` cheapest_item early return (named). Not Traditional itemize.
+- [ ] `engrave.c` doengrave non-hands stylus (named). Not IA_ENGRAVE pushkeys.
+- [ ] `objects.h` oc_charged extract (named). Not oc_merge.
 
 ## Parked (do not pop)
 

@@ -7,8 +7,9 @@
 // Return / Space cancel; itemactions_pushkeys throw/drop/apply/read/…
 // + IA_SACRIFICE / IA_TIP_CONTAINER / IA_INVOKE_OBJ (D-1665) +
 // IA_UNWIELD / IA_NAME_OBJ / IA_NAME_OTYP / IA_EAT_OBJ /
-// IA_ENGRAVE_OBJ (D-1675) + IA_BUY_OBJ shop pay (D-1676).
-// Named omissions: remaining pushkeys (rub/swap/two-weapon/whatis);
+// IA_ENGRAVE_OBJ (D-1675) + IA_BUY_OBJ shop pay (D-1676) +
+// IA_TWOWEAPON (D-1677).
+// Named omissions: remaining pushkeys (rub/swap/whatis);
 // full apply catalogue; doengrave non-hands stylus body;
 // `'i'` getobj_name clone (canned KEY live); offer_corpse /
 // offer_too_soon / offer_fake_amulet bodies; Traditional itemize yn.
@@ -20,7 +21,7 @@ import { paint_corner_nhw_menu, inuse_headers_accessories, inuse_headers_set_acc
 import { cxname, the, xname, makeplural, singular, is_plural, the_unique_obj } from './objnam.js';
 import { ia_checkfile } from './pager.js';
 import { call_ok } from './do_name.js';
-import { ammo_and_launcher } from './wield.js';
+import { ammo_and_launcher, could_twoweap, TWOWEAPOK, bimanual } from './wield.js';
 import {
     objects, objectNames,
     WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS, TOOL_CLASS,
@@ -60,7 +61,8 @@ function cmdq_add_key(ch) {
  * C ref: iactions.c itemactions_pushkeys — queue CQ_CANNED ec + invlet.
  * IA_SACRIFICE / IA_TIP_CONTAINER / IA_INVOKE_OBJ are D-1665.
  * IA_UNWIELD / IA_NAME_* / IA_EAT_OBJ / IA_ENGRAVE_OBJ are D-1675.
- * IA_BUY_OBJ is D-1676. Named omissions: rub/swap/two-weapon/whatis.
+ * IA_BUY_OBJ is D-1676. IA_TWOWEAPON is D-1677.
+ * Named omissions: rub/swap/whatis.
  */
 async function itemactions_pushkeys(act, otmp) {
     switch (act) {
@@ -231,6 +233,12 @@ async function itemactions_pushkeys(act, otmp) {
         cmdq_add_key(otmp.invlet);
         break;
     }
+    case IA_TWOWEAPON: {
+        /* C iactions.c `:260–262` — cmdq_add_ec(dotwoweapon); no invlet. */
+        const { dotwoweapon } = await import('./wield.js');
+        cmdq_add_ec(dotwoweapon);
+        break;
+    }
     default:
         // remaining arms deferred
         break;
@@ -369,10 +377,19 @@ function is_graystone(obj) {
 }
 
 /**
+ * C ref: iactions.c MAYBETWOWEAPON — TWOWEAPOK && !bimanual.
+ * Local #define in itemactions; do not clone TWOWEAPOK/bimanual.
+ */
+function MAYBETWOWEAPON(obj) {
+    return TWOWEAPOK(obj) && !bimanual(obj);
+}
+
+/**
  * C ref: iactions.c itemactions — NHW_MENU PICK_ONE of context actions.
- * Named omissions: full apply-otyp catalogue polish; two-weapon;
+ * Named omissions: full apply-otyp catalogue polish;
  * remaining pushkeys (rub/swap/whatis). O/T/V pushkeys are D-1665.
  * Unwield/name/eat/engrave pushkeys are D-1675. Shop pay is D-1676.
+ * Two-weapon `'X'` is D-1677.
  */
 export async function itemactions(otmp) {
     if (!otmp) return ECMD_OK;
@@ -656,6 +673,23 @@ export async function itemactions(otmp) {
         add(IA_SWAPWEAPON, 'x', 'Ready this as an alternate weapon');
     } else if (otmp === u.uswapwep) {
         add(IA_SWAPWEAPON, 'x', 'Swap this with your main weapon');
+    }
+
+    /* X: Toggle two-weapon — C iactions.c `:653–682`. Based on
+       TWOWEAPOK; do not call can_twoweapon (verbose). Toggle-off
+       skips the filter. */
+    if (
+        (otmp === u.uwep || otmp === u.uswapwep)
+        && (u.twoweap
+            || (could_twoweap(game.youmonst?.data) && !u.uarms
+                && u.uwep && MAYBETWOWEAPON(u.uwep)
+                && u.uswapwep && MAYBETWOWEAPON(u.uswapwep)))
+    ) {
+        add(
+            IA_TWOWEAPON,
+            'X',
+            `Toggle two-weapon combat ${u.twoweap ? 'off' : 'on'}`,
+        );
     }
 
     // z: zap

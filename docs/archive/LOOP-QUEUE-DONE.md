@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `iactions.c` IA_BUY_OBJ shop pay (named). Not offer/tip/invoke. **Addressed:** D-1676
+- [x] `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke. **Addressed:** D-1677
+
+
+- [x] `iactions.c` IA_BUY_OBJ shop pay (named). Not offer/tip/invoke. **Addressed:** D-1676 `6441842f`
 
 
 - [x] `iactions.c` remaining pushkeys unwield/name/eat/engrave (named). Not offer/tip/invoke. **Addressed:** D-1675 `9613be3b`

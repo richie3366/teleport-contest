@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1677 iactions IA_TWOWEAPON
+
+**Objective:** Open `iactions.c` IA_TWOWEAPON (named). Not
+offer/tip/invoke.
+**C locus:** `iactions.c` `itemactions` `:653–682`;
+`itemactions_pushkeys` `:260–262`; `wield.c` TWOWEAPOK; `obj.h`
+bimanual; `mondata.h` `could_twoweap`.
+**JS locus:** `js/iactions.js`; `js/wield.js` export TWOWEAPOK /
+bimanual.
+**Change:** `'X'` Toggle row from MAYBETWOWEAPON; canned
+`dotwoweapon` no invlet. rub/swap/whatis named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary; green+strict seed8000/0900; cohort
+**9**/9 + strict.
+**Next:** Open `pray.c` offer_corpse. Not floorfood sacrifice getobj.
+**Blocked:** none.
 ## 2026-08-29 — D-1676 iactions IA_BUY_OBJ shop pay
 
 **Objective:** Open `iactions.c` IA_BUY_OBJ shop pay (named). Not

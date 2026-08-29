@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1677 — iactions.c IA_TWOWEAPON
+
+- **Status:** fixed (map-driven Open from D-1676; not a public FAIL)
+- **Symptom:** map named IA_TWOWEAPON. Menu omitted `'X'` Toggle
+  two-weapon. Selecting it would have default-broke.
+- **C locus:** `iactions.c` `itemactions` `:653–682` MAYBETWOWEAPON
+  (`TWOWEAPOK` && `!bimanual`) when `otmp` is `uwep`/`uswapwep` and
+  (`u.twoweap` or `could_twoweap` && `!uarms` && both weapons ok);
+  `itemactions_pushkeys` `:260–262` `cmdq_add_ec(dotwoweapon)` no
+  invlet. `wield.c` TWOWEAPOK; `obj.h` bimanual; `mondata.h`
+  `could_twoweap`.
+- **JS was:** swap/zap/whatis rows only; `itemactions_pushkeys`
+  default after D-1676 for IA_TWOWEAPON.
+- **Fix:** show Toggle on/off from the C filter; queue `dotwoweapon`.
+  Export `TWOWEAPOK`/`bimanual` (no 11th bimanual clone). Remaining
+  rub/swap/whatis still named. Rule #2: no fs.
+- **JS:** `js/iactions.js`; `js/wield.js` export TWOWEAPOK/bimanual.
+- **Not this iter:** IA_RUB_OBJ / IA_SWAPWEAPON / IA_WHATIS_OBJ
+  pushkeys; Traditional itemize yn; `cheapest_item`; offer/tip/invoke
+  is D-1665; shop pay is D-1676.
+- **Verified:** private canary (MAYBETWOWEAPON + form/toggle-off
+  canned `dotwoweapon`; shield/human/bimanual omit `'X'`);
+  green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+- **Files:** `js/iactions.js`, `js/wield.js`.
+
 ## D-1676 — iactions.c IA_BUY_OBJ shop pay
 
 - **Status:** fixed (map-driven Open from D-1675; not a public FAIL)
