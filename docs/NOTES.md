@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1656 (cadence **#2050** at `69534fd4`).
+- **Suite 44/44** after D-1656 (cadence **#2060** at `9ac19d6f`).
   seed4500 still PASS. **Hypothesis:** cmd.c overlay BIND= on if/else
   keys still omitted (D-0897; not `cmdbind_get` default D-1643).
   **Falsify:** `node scripts/csym.mjs` overlay bind vs `js/cmd.js`.
   **Next:** Open overlay BIND= if/else. Not cmdbind_get default.
-  Do not skip D-1531…D-1656. Not `use_grease`.
+  Do not skip D-1531…D-1656. Not `use_grease`. Audit **609–617**
+  all ACCEPT-WITH-DEBT (no Must-fix).
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; `optfn_perminv_mode`; setworn oc_oprop;
   keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /

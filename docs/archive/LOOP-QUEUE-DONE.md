@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `apply.c` `use_grease` (named). Not consume_obj_charge. **Addressed:** D-1656
+- [x] `apply.c` `use_grease` (named). Not consume_obj_charge. **Addressed:** D-1656 `9ac19d6f`
 
 
 - [x] `invent.c` `invlet_constant` (named). Not check_invent_gold. **Addressed:** D-1655 `d34f23ee`

@@ -619,3 +619,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [606-cc8a839c-newcham-mleashed.md](./606-cc8a839c-newcham-mleashed.md) | `cc8a839c` | D-1645 newcham mleashed m_unleash + Elbereth monflee | **QUALITY-RISK** |
 | [607-48758020-menu-search-wait-synch.md](./607-48758020-menu-search-wait-synch.md) | `48758020` | D-1646 MENU_SEARCH + tty_wait_synch | **ACCEPT-WITH-DEBT** |
 | [608-69534fd4-rename-disco.md](./608-69534fd4-rename-disco.md) | `69534fd4` | D-1647 o_init.c rename_disco + disco_append_typename | **ACCEPT-WITH-DEBT** |
+| [609-979dd522-newcham-await.md](./609-979dd522-newcham-await.md) | `979dd522` | D-1648 newcham await remaining NO_NC_FLAGS | **ACCEPT-WITH-DEBT** |
+| [610-90077834-convert-arg.md](./610-90077834-convert-arg.md) | `90077834` | D-1649 questpgr.c convert_arg remaining % codes | **ACCEPT-WITH-DEBT** |
+| [611-f92f0d66-dooverview.md](./611-f92f0d66-dooverview.md) | `f92f0d66` | D-1650 dungeon.c dooverview PICK_ONE + print_mapseen | **ACCEPT-WITH-DEBT** |
+| [612-41ac42ac-lookup-novel.md](./612-41ac42ac-lookup-novel.md) | `41ac42ac` | D-1651 do_name.c lookup_novel | **ACCEPT-WITH-DEBT** |
+| [613-105c91aa-eyecount.md](./613-105c91aa-eyecount.md) | `105c91aa` | D-1652 mondata.h eyecount sit/pray/potionbreathe | **ACCEPT-WITH-DEBT** |
+| [614-7e407046-death-tribute.md](./614-7e407046-death-tribute.md) | `7e407046` | D-1653 sounds.c MS_RIDER Death tribute | **ACCEPT-WITH-DEBT** |
+| [615-e53a5df9-safe-qbuf.md](./615-e53a5df9-safe-qbuf.md) | `e53a5df9` | D-1654 objnam.c safe_qbuf / pickup prompts | **ACCEPT-WITH-DEBT** |
+| [616-d34f23ee-invlet-constant.md](./616-d34f23ee-invlet-constant.md) | `d34f23ee` | D-1655 invent.c flags.invlet_constant / reassign | **ACCEPT-WITH-DEBT** |
+| [617-9ac19d6f-use-grease.md](./617-9ac19d6f-use-grease.md) | `9ac19d6f` | D-1656 apply.c use_grease trailing update_inventory | **ACCEPT-WITH-DEBT** |
