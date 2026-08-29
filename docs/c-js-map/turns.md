@@ -986,12 +986,16 @@ priest/minion/`mappear`/invis adj/`is_mplayer` rank/`AUGMENT_IT` deferred);
 **`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889; 
 **seemimic/pit/NODIAG/boulder D-1299**; `goodpos` / mintrap aftermath named); 
 **`distant_monnam` ARTICLE_THE via `x_monnam` called** (D-1638);
-omit astral high-cleric `distant_monnam`; **`lookup_novel` D-1651**
+**`distant_monnam` astral PM_HIGH_CLERIC conceal D-1673** (C `do_name.c`
+`:1178–1182`; `!Hallucination && Is_astralevel && !m_next2u`;
+ARTICLE_THE `"the "` else bare; `female` priestess; pager
+`look_at_monster` ARTICLE_NONE via `distant_monnam_none`; `mons()` is
+a fresh object so `data.mndx`); **`lookup_novel` D-1651**
 (C `do_name.c` `:1626–1661` aliases then table/`The` walk then IndexOk
 miss; `SIR_TERRY_NOVELS` export from mkobj `noveltitle` home; callers
 `readobjnam` SPE_NOVEL before `oname` ONAME_WISH + `create_object`
 named `oname` ONAME_LEVEL_DEF); artifact_name slip is D-1670; cmdq_pop
-canned is D-1671; sink-fluid/`safe_qbuf` is D-1672; distant_monnam /
+canned is D-1671; sink-fluid/`safe_qbuf` is D-1672; `oc_uses_known` /
 iactions Call still named above
 
 ### `src/dokick.c`

@@ -6,7 +6,8 @@
 //        o_init.c rename_disco; lookup_novel (D-1651); `'o'` getobj
 //        `"call"` (D-1660); do_oname artifact_name slip (D-1670);
 //        docallcmd cmdq_pop canned + lootabc + invent-gated i/o (D-1671);
-//        docall sink-fluid OBJ_DESCR + safe_qbuf Call/:/thing (D-1672).
+//        docall sink-fluid OBJ_DESCR + safe_qbuf Call/:/thing (D-1672);
+//        distant_monnam astral high-cleric conceal (D-1673).
 
 import {
     artifact_exists, exist_artifact, artifact_name, restrict_name,
@@ -36,7 +37,7 @@ import {
     ECMD_OK, CMDQ_KEY, CQ_CANNED,
     has_oname, ONAME, CLR_MAX, BUFSZ, u_at, OBJ_FREE, OBJ_INVENT, HAND,
     isok, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPMASK, has_ebones,
-    NON_PM,
+    NON_PM, Is_astralevel,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import { shkname } from './shknam.js';
@@ -72,6 +73,7 @@ const PL_PSIZ = 32; // C: PL_PSIZ player-name / oname buffer
 const PM_GHOST = monsterNames.indexOf('PM_GHOST');
 const PM_WIZARD_OF_YENDOR = monsterNames.indexOf('PM_WIZARD_OF_YENDOR');
 const PM_SHOPKEEPER = monsterNames.indexOf('PM_SHOPKEEPER');
+const PM_HIGH_CLERIC = monsterNames.indexOf('PM_HIGH_CLERIC');
 const PM_JUIBLEX = monsterNames.indexOf('PM_JUIBLEX');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
@@ -508,8 +510,8 @@ async function alreadynamed(mtmp, monnambuf, usrbuf) {
  * C ref: do_name.c do_mgivenname `:198–282`. Caller: docallcmd `'m'`.
  * Hallu refuse; getpos; self/steed; m_at; swallow glyph_at; visibility;
  * name_from_player; G_UNIQ/shk/priest/ghost/ebones reject; else christen.
- * Named: astral high-cleric distant_monnam; SetVoice SND_LIB (empty
- * macro); christen leash update_inventory.
+ * Named: SetVoice SND_LIB (empty macro); christen leash
+ * update_inventory. Astral high-cleric conceal is D-1673.
  */
 async function do_mgivenname() {
     if (Hallucination()) {
@@ -702,12 +704,36 @@ export function x_monnam_tame(mtmp) {
 }
 
 /**
+ * C ref: do_name.c distant_monnam `:1178–1182` — high priest(ess)
+ * identity concealed on the Astral Plane unless adjacent (hallu does
+ * its own obfuscation). C `mon->data == &mons[PM_HIGH_CLERIC]`; JS
+ * `mons()` is a fresh object so compare `data.mndx`. C `m_next2u` is
+ * a you.h macro (`distu(mx,my) <= 2`); expand here, do not add clone
+ * #6 of the named JS helper.
+ * @returns {string|null}
+ */
+function astral_high_cleric_distant_nam(mon, article) {
+    if (!mon || PM_HIGH_CLERIC < 0) return null;
+    if ((mon.data?.mndx | 0) !== PM_HIGH_CLERIC) return null;
+    if (Hallucination() || !Is_astralevel(game.u?.uz)) return null;
+    const u = game.u || {};
+    const dx = (mon.mx | 0) - (u.ux | 0);
+    const dy = (mon.my | 0) - (u.uy | 0);
+    if (dx * dx + dy * dy <= 2) return null;
+    return (article === ARTICLE_THE ? 'the ' : '')
+        + (mon.female ? 'high priestess' : 'high priest');
+}
+
+/**
  * C ref: do_name.c distant_monnam(ARTICLE_NONE) → x_monnam.
- * Shopkeeper → shkname (same arm as mon_nam / D-0307). Astral high-cleric
- * conceal deferred; hallu / mappear / invis+non-PM_SHOPKEEPER suffix deferred.
+ * Shopkeeper → shkname (same arm as mon_nam / D-0307). C pager.c
+ * `look_at_monster` uses distant_monnam ARTICLE_NONE (astral conceal
+ * first). hallu / mappear / invis+non-PM_SHOPKEEPER suffix deferred.
  */
 export function distant_monnam_none(mtmp) {
     if (!mtmp) return 'it';
+    const hid = astral_high_cleric_distant_nam(mtmp, ARTICLE_NONE);
+    if (hid != null) return hid;
     // C x_monnam: isshk && !hallu && !mappear → shkname
     if (mtmp.isshk) {
         const nam = shkname(mtmp);
@@ -720,10 +746,12 @@ export function distant_monnam_none(mtmp) {
 }
 
 /**
- * C ref: do_name.c distant_monnam `:1168–1186` — ARTICLE_THE/NONE via
- * x_monnam(..., TRUE). Astral PM_HIGH_CLERIC conceal named omit.
+ * C ref: do_name.c distant_monnam `:1168–1186` — ARTICLE_THE/NONE;
+ * astral PM_HIGH_CLERIC conceal else x_monnam(..., TRUE).
  */
 export function distant_monnam(mtmp, article = ARTICLE_THE) {
+    const hid = astral_high_cleric_distant_nam(mtmp, article);
+    if (hid != null) return hid;
     return x_monnam(mtmp, article, null, 0, true);
 }
 

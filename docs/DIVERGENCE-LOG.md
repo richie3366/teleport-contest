@@ -1,3 +1,28 @@
+## D-1673 — do_name.c distant_monnam astral high-cleric
+
+- **Status:** fixed (map-driven Open from D-1672; not a public FAIL)
+- **Symptom:** map named `distant_monnam` astral high-cleric conceal.
+  C hides a non-adjacent Astral `PM_HIGH_CLERIC` as `"the high
+  priest"` / `"high priestess"` (`!Hallucination`); JS always called
+  `x_monnam` after D-1638 (given name / `"called"` leak).
+- **C locus:** `do_name.c` `distant_monnam` `:1168–1186` /
+  `:1178–1182`; `you.h` `m_next2u` / `dungeon.h` `Is_astralevel`;
+  `youprop.h` `Hallucination`. Callers: `do_mgivenname` `:251`
+  ARTICLE_THE (not re-ported); `pager.c` `look_at_monster` `:432`
+  ARTICLE_NONE.
+- **JS was:** `distant_monnam` → `x_monnam(..., TRUE)` only;
+  `distant_monnam_none` omitted the conceal prefix.
+- **Fix:** same `if` order as C; `data.mndx` (JS `mons()` is a fresh
+  object); expand `distu<=2` at the site (no `m_next2u` clone #6);
+  ARTICLE_THE `"the "` else bare; `female` priestess. Rule #2: no fs.
+- **JS:** `js/do_name.js` `distant_monnam` / `distant_monnam_none`.
+- **Not this iter:** `do_mgivenname`; priest.c `priestname` `" of "`
+  god; `oc_uses_known`; sink-fluid is D-1672; cmdq_pop is D-1671.
+- **Verified:** private canary (far THE/NONE/female, given-name
+  leak, adjacent, non-astral, hallu); green+strict seed8000/0900;
+  CURRENT cohort **9**/9 + strict.
+- **Files:** `js/do_name.js`.
+
 ## D-1672 — do_name.c docall sink-fluid / safe_qbuf
 
 - **Status:** fixed (map-driven Open from D-1671; not a public FAIL)
