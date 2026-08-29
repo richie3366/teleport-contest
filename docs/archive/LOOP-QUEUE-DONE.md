@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `artifact.c` wield restrict_name (named). Not do_oname slip. **Addressed:** D-1692
+- [x] `artifact.c` wield restrict_name (named). Not do_oname slip. **Addressed:** D-1692 `ac1199da`
 
 
 - [x] `o_init.c` undiscover_object / gem_learned (named). Not oc_uses_known. **Addressed:** D-1691 `93fcd877`

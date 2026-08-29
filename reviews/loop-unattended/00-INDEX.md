@@ -655,3 +655,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [642-86cefef1-docallcmd-live-getobj-name.md](./642-86cefef1-docallcmd-live-getobj-name.md) | `86cefef1` | D-1681 do_name.c docallcmd live getobj name | **ACCEPT-WITH-DEBT** |
 | [643-3a2c9f83-silly-thing-call-amulet.md](./643-3a2c9f83-silly-thing-call-amulet.md) | `3a2c9f83` | D-1682 invent.c silly_thing Call Amulet | **ACCEPT-WITH-DEBT** |
 | [644-d2bcd227-throne-grease-spray.md](./644-d2bcd227-throne-grease-spray.md) | `d2bcd227` | D-1683 sit.c special_throne_effect grease spray | **ACCEPT-WITH-DEBT** |
+| [645-01f25fda-pay-billed-via-menu.md](./645-01f25fda-pay-billed-via-menu.md) | `01f25fda` | D-1684 shk.c pay_billed_items via_menu | **ACCEPT-WITH-DEBT** |
+| [646-69a1451f-save-mapseen-cemetery.md](./646-69a1451f-save-mapseen-cemetery.md) | `69a1451f` | D-1685 dungeon.c save_mapseen cemetery JSON | **ACCEPT-WITH-DEBT** |
+| [647-300d7098-iactions-rub-swap-whatis.md](./647-300d7098-iactions-rub-swap-whatis.md) | `300d7098` | D-1686 iactions.c remaining pushkeys rub/swap/whatis | **ACCEPT-WITH-DEBT** |
+| [648-bad8cbd6-dotypeinv-traditional.md](./648-bad8cbd6-dotypeinv-traditional.md) | `bad8cbd6` | D-1687 invent.c dotypeinv Traditional itemize yn | **ACCEPT-WITH-DEBT** |
+| [649-ac894764-cheapest-item.md](./649-ac894764-cheapest-item.md) | `ac894764` | D-1688 shk.c cheapest_item early return | **ACCEPT-WITH-DEBT** |
+| [650-658cd53c-doengrave-non-hands-stylus.md](./650-658cd53c-doengrave-non-hands-stylus.md) | `658cd53c` | D-1689 engrave.c doengrave non-hands stylus | **ACCEPT-WITH-DEBT** |
+| [651-0458e7cc-oc-charged-extract.md](./651-0458e7cc-oc-charged-extract.md) | `0458e7cc` | D-1690 objects.h oc_charged extract | **ACCEPT-WITH-DEBT** |
+| [652-93fcd877-undiscover-gem-learned.md](./652-93fcd877-undiscover-gem-learned.md) | `93fcd877` | D-1691 o_init.c undiscover_object / gem_learned | **ACCEPT-WITH-DEBT** |
+| [653-ac1199da-chwepon-restrict-name.md](./653-ac1199da-chwepon-restrict-name.md) | `ac1199da` | D-1692 wield.c chwepon restrict_name | **ACCEPT-WITH-DEBT** |

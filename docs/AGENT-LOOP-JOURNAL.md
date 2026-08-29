@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — audit #2100 reviews 645–653 + cadence
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **644**
+(`01f25fda`…`ac1199da`, D-1684…D-1692) plus full `sessions`.
+**C locus:** pay via_menu; cemetery JSON; rub/swap/whatis; Traditional
+`I`; cheapest_item; doengrave sfx; `oc_charged`; undiscover/gem_learned;
+`chwepon` `restrict_name`.
+**Change:** reviews **645–653**, all ACCEPT-WITH-DEBT. No Must-fix.
+No `js/` edits. Filled archive D-1692 `%h`.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `39+0.32/turn` (R² 0.866) at `ac1199da`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Open `dungeon.c` print_mapseen knox/drawbridge. Not cemetery
+JSON.
+**Blocked:** none.
 ## 2026-08-29 — D-1692 wield.c chwepon restrict_name
 
 **Objective:** Open `artifact.c` wield restrict_name (named). Not

@@ -5,7 +5,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1692 (cadence **#2090** at `d2bcd227`).
+- **Suite 44/44** after D-1692 (cadence **#2100** at `ac1199da`).
   seed4500 still PASS. **Hypothesis:** `dungeon.c` `print_mapseen`
   knox/drawbridge is still a named omit (not cemetery JSON D-1685 /
   cemetery list D-1659).
@@ -108,7 +108,7 @@ Objective/score live in `CURRENT.md`.
 - D-1684: `pay_billed_items` via_menu `menu_pick_pay_items`; deleted
   `pay_take_canned_billed` (review **637**). Leftover KEY is next
   `rhack`. cheapest_item is D-1688. Named: `buy_container`.
-- Audit **#2090**: reviews **636–644** (D-1675…D-1683). Fortress 44/44.
+- Audit **#2100**: reviews **645–653** (D-1684…D-1692). Fortress 44/44.
 - D-1683: case 6 grease spray `update_inventory` + `make_glib` uarmg.
   rndcurse redraw named. D-1682 silly_thing.
 - D-1682: `silly_thing` Call Amulet / unknown fake; #if 0 out.
