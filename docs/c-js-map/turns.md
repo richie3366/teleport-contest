@@ -1010,8 +1010,8 @@ deferred); **`,` → `dopickup`/`pickup_checks`/`pickup_object`/`pick_obj` one-o
 (D-0192) + **multi `query_objlist` PICK_ANY** (D-0365) + **`INVORDER_SORT` class headings + 
 prompt ATR_INVERSE** (D-0384) + **floor `query_objlist` `sortloot(SORTLOOT_LOOT|PACK)`** (D-0405) + 
 **PICK_ANY `@`/`./`-` MENU_INVERT/SELECT/UNSELECT_ALL** (D-0406; 
-SKIPINVERT/page invert/search deferred; traditional query_classes / FEEL_COCKATRICE / loot_classify 
-subclass / count-N deferred) + **`:` `container_contents` `sortloot` + 
+SKIPINVERT/page invert/search deferred; FEEL_COCKATRICE look_here abort is D-1599;
+loot_classify subclass / count-N deferred; **floor TRADITIONAL `query_classes` D-1620**) + **`:` `container_contents` `sortloot` + 
 `add_to_container` merge / corpse `spe` gender** (D-0383; 
 nested/identified discover deferred; **`observe_quantum_cat` D-1535**); 
 **`autopick_testobj` + `O`/`@` doset_simple/dotogglepickup** (D-0368; 
@@ -1023,8 +1023,9 @@ unconscious skip deferred); **`pickup_object` gold `disp.botl` before pick/prinv
 **`#loot`/`doloot`/`do_loot_cont` locked autounlock + `use_container` `:` look + 
 MENU_FULL take-out** (D-0362/D-0489/D-0490) + **`doloot` capacity+nohands + 
 `use_container` `u_handsy`** (D-0726; **`able_to_loot` freehand `body_part(HAND)` D-1508**; Confusion reverse_loot deferred) + 
-**`use_container` `'r'` reversed put-in then take-out D-1567** (C `pickup.c` `:3132–3210` `loot_in_first`; TRADITIONAL yn_function + `explain_container_prompt`) + **MENU_TRADITIONAL `traditional_loot` + `askchain` D-1581** (C `pickup.c` `:3229–3261` `query_classes`/`askchain`/`in_container`/`out_container`/`ck_bag`; `invent.c` `askchain` `:2376–2541`; callees `collect_obj_classes`/`add_valid_menu_class`/`allow_category`/`sortloot` INVLET; `drawing.c` `def_char_to_objclass`; `hacklib.c` `highc`; `topl.c` yn `#`; ggetobj takeoff/identify is D-1602; floor pickup `query_classes` / mbag explosion body named) + 
-**`in_or_out_menu` more_containers `n` D-1592** (C `pickup.c` `in_or_out_menu` `:3397–3477` `'n'` loot-next `MENU_ITEMFLAGS_SELECTED` + Space/Return default; `use_container` `:3091` pass-through; `do_loot_cont` `:2161` `cindex<ccount`; `doloot_core` `:2217–2273` `container_at` + num_conts>1 PICK_ANY `"Loot which containers?"`; `'q'` `abort_looting` vs `'n'` continue; ggetobj takeoff/identify is D-1602; floor `query_classes` / mbag explosion / PICK_ANY @ invert / >26 / lootcont→lootmon empty-pick named) + 
+**`use_container` `'r'` reversed put-in then take-out D-1567** (C `pickup.c` `:3132–3210` `loot_in_first`; TRADITIONAL yn_function + `explain_container_prompt`) + **MENU_TRADITIONAL `traditional_loot` + `askchain` D-1581** (C `pickup.c` `:3229–3261` `query_classes`/`askchain`/`in_container`/`out_container`/`ck_bag`; `invent.c` `askchain` `:2376–2541`; callees `collect_obj_classes`/`add_valid_menu_class`/`allow_category`/`sortloot` INVLET; `drawing.c` `def_char_to_objclass`; `hacklib.c` `highc`; `topl.c` yn `#`; ggetobj takeoff/identify is D-1602; floor pickup `query_classes` is D-1620; mbag explosion body named) + 
+**floor TRADITIONAL `query_classes` D-1620** (C `pickup.c` `pickup` `:793–891` `There` + `query_classes` `:140–262` then yn/pickup_object; `'m'` `query_objlist` allow_all/-3 `allow_category`; ynaq/ynNaq default `'y'`; `count_unpaid` nobj; hideunder/`newsym_force`/engulfer minvent traditional / `safe_qbuf` named) + 
+**`in_or_out_menu` more_containers `n` D-1592** (C `pickup.c` `in_or_out_menu` `:3397–3477` `'n'` loot-next `MENU_ITEMFLAGS_SELECTED` + Space/Return default; `use_container` `:3091` pass-through; `do_loot_cont` `:2161` `cindex<ccount`; `doloot_core` `:2217–2273` `container_at` + num_conts>1 PICK_ANY `"Loot which containers?"`; `'q'` `abort_looting` vs `'n'` continue; ggetobj takeoff/identify is D-1602; floor `query_classes` is D-1620; mbag explosion / PICK_ANY @ invert / >26 / lootcont→lootmon empty-pick named) + 
 **`doloot` mon_beside → `getdir_cmdassist` lootmon** (D-0451; loot_mon/saddle deferred; multi-cont is D-1592); 
 + **`#untrap`/`could_untrap` nohands gate** (D-0726; door force D-1495; floor `untrap()` named); 
 **`domove` diagonal `test_move` intact-doorway ban + `doorless_door`** (D-0219) + 
@@ -1094,7 +1095,7 @@ D-0190); fulll `end_running`/`cmdq_clear`;
 **`waterbody_name` Medusa/juiblex/samurai/ICE/waterlevel** D-0928 #1163; 
 **SURFACE_AT/`db_under_typ` D-1103**; describe_decor waterhere rename still named); 
 Passes_walls/autodig/chew; Blind `feel_location`/`autopick` arms; 
-full `back_to_glyph`/`wall_angle`→S_stone / OOB mention_walls; traditional yn/query_classes; 
+full `back_to_glyph`/`wall_angle`→S_stone / OOB mention_walls; floor TRADITIONAL query_classes is D-1620 (hideunder/newsym_force/engulfer minvent traditional/`safe_qbuf` named); 
 **`pickup_object` telekinesis / `lift_object` / `carry_count` / scare raise-vs-pick / corpse 
 remote** (D-1050); shop bill; **Sokoban boulder `body_part(HAND)` D-1508**; LOADSTONE/giant-boulder weight override / ghostly / container 
 `delta_cwt`; furniture nothing msgs; engulfer loot_mon; Deafness/Hear_again; Rogue `doorless_door`; 

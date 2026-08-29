@@ -1,3 +1,31 @@
+## D-1620 — pickup.c floor TRADITIONAL query_classes
+
+- **Status:** fixed (map-driven Open from D-1619; not a public FAIL)
+- **Symptom:** `,` / `pickup(0)` with `MENU_TRADITIONAL` and two or more
+  floor objects always used `query_objlist` (Full menu). C `pickup`
+  traditional: `There("are several/many objects here.")` then
+  `query_classes("pick up")` getlin, then a live nexthere yn/`pickup_object`
+  loop (`ynaq`/`ynNaq` default `'y'`). `'m'` returns via_menu -2/-3 and
+  `query_objlist` with `allow_all` / `allow_category`. ESC → pickupdone.
+- **C locus:** `pickup.c` `pickup` `:793–891`; callee `query_classes`
+  `:140–262` (already live for `traditional_loot`). `hack.h` `ynaq`/
+  `ynNaq`. `invent.c` `count_unpaid` `:3525–3538` (nobj, including
+  nested) for the `'u'` ilet.
+- **JS was:** named omit after D-1581 (container `traditional_loot` +
+  `askchain` only; floor always `query_objlist_pickup`).
+- **Fix:** `pickup_traditional_floor` when `menu_style==TRADITIONAL` &&
+  `!menu_requested` && ct>=2; `query_classes` `'u'` matches C
+  `count_unpaid`. `'m'` extraAllow on existing `query_objlist_pickup`.
+  Default FULL path unchanged. Rule #2: no fs.
+- **JS:** `js/pickup.js` `pickup` / `pickup_traditional_floor` /
+  `query_classes`.
+- **Not this iter:** hideunder / `newsym_force` after pickup; engulfer
+  minvent traditional; `safe_qbuf` truncation (doname); via_menu
+  FEEL_COCKATRICE from `query_objlist_pickup`. traditional_loot is
+  D-1581. `take_off` occupation is D-1619.
+- **Verified:** private canary **14**/14; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1619 — do_wear.c take_off occupation
 
 - **Status:** fixed (map-driven Open from D-1618; not a public FAIL)

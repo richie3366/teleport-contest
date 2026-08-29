@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1620 pickup.c floor query_classes
+
+**Objective:** Open `pickup.c` floor `query_classes` (named). Not
+traditional_loot.
+**C locus:** `pickup.c` `pickup` `:793–891`; `query_classes`
+`:140–262`; `hack.h` ynaq/ynNaq; `count_unpaid` nobj.
+**JS locus:** `js/pickup.js` `pickup` / `pickup_traditional_floor` /
+`query_classes`.
+**Change:** TRADITIONAL && !menu_requested && ct>=2: There +
+query_classes getlin then yn/`pickup_object` (default `'y'`). `'m'`
+→ query_objlist allow_all/-3. `count_unpaid` for `'u'`. hideunder /
+`safe_qbuf` / engulfer named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **14**/14; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `invent.c` `adjust_split` GC_ECHOFIRST|GC_CONDHIST.
+Not get_count.
+**Blocked:** none.
 ## 2026-08-29 — D-1619 do_wear.c take_off occupation
 
 **Objective:** Open `do_wear.c` `take_off` occupation (named). Not

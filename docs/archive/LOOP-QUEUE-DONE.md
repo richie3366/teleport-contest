@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `do_wear.c` `take_off` occupation (named). Not ggetobj. **Addressed:** D-1619
+- [x] `pickup.c` floor `query_classes` (named). Not traditional_loot. **Addressed:** D-1620
+
+
+- [x] `do_wear.c` `take_off` occupation (named). Not ggetobj. **Addressed:** D-1619 `597fd9ba`
 
 
 - [x] `sounds.c` peaceful MS_HUMANOID (named). Not mplayer_talk. **Addressed:** D-1618 `c98a5fab`

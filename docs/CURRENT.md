@@ -62,29 +62,26 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1619 (seed4500 still PASS). **Next cluster:**
-Open `pickup.c` floor `query_classes` (named). Not traditional_loot.
-**Do not skip D-1531…D-1619 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1620 (seed4500 still PASS). **Next cluster:**
+Open `invent.c` `adjust_split` GC_ECHOFIRST|GC_CONDHIST caller (named). Not get_count.
+**Do not skip D-1531…D-1620 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1619.** Do not FORCE
+**Do not re-break D-0660…D-1620.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1619 (index). Recent: **D-1619**
-`do_wear.c` `take_off` occupation + `do_takeoff` + `Amulet_off`
-ESP/`RESTFUL_SLEEP`. Not ggetobj (D-1602). `menu_remarm` named.
-Prior: **D-1618** `sounds.c` `domonnoise` MS_HUMANOID peaceful +
-hostile `"threatens you."` + MS_ORC remap. Not mplayer_talk
-(D-1606). MS_BOAST named. Prior: **D-1617**
-`dogmove.c` `dog_move` Conflict `!edog` `lose_guardian_angel(mtmp)`
-then `MMOVE_DIED`. Body is D-1608. Not gain_guardian_angel.
-dismount_steed DISMOUNT_THROWN named. Older D-1531…D-1616 live in
+**Keep:** D-0845…D-1620 (index). Recent: **D-1620**
+`pickup.c` floor TRADITIONAL `query_classes` + yn/`pickup_object`.
+Not traditional_loot (D-1581). hideunder/`safe_qbuf`/engulfer named.
+Prior: **D-1619** `do_wear.c` `take_off` occupation + `do_takeoff`
++ `Amulet_off` ESP/`RESTFUL_SLEEP`. Not ggetobj (D-1602).
+`menu_remarm` named. Older D-1531…D-1618 live in
 the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1619 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1620 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -103,6 +100,7 @@ Do not re-port dog_move Conflict `lose_guardian_angel`.
 Do not re-port `mplayer_talk`.
 Do not re-port peaceful MS_HUMANOID / `"threatens you."`.
 Do not re-port `take_off` occupation / `do_takeoff`.
+Do not re-port floor TRADITIONAL `query_classes`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 
