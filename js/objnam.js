@@ -2140,6 +2140,20 @@ export function safe_qbuf(_qbuf, qprefix, qsuffix, obj, func, altfunc, lastR) {
 }
 
 /**
+ * C objnam.c doname_base `:1695–1709` — `wizard && iflags.wizweight`.
+ * `wizard` is `flags.debug`. with_price && last char ')' → ConcatF1
+ * delta 1 `, %u aum)`; else extra ` (%u aum)`.
+ */
+export function append_wizweight_suffix(obj, bp, with_price) {
+    if (!obj || !game.flags?.debug || !game.iflags?.wizweight) return bp;
+    const owt = obj.owt | 0;
+    if (with_price && bp.length > 0 && bp.charAt(bp.length - 1) === ')') {
+        return `${bp.slice(0, -1)}, ${owt} aum)`;
+    }
+    return `${bp} (${owt} aum)`;
+}
+
+/**
  * C ref: objnam.c doname() — invent-kit subset (Tourist/Rogue starter lines).
  * C doname_base starts with xname(obj), which forces cleric bknown before
  * the BUC prefix is read; JS doname uses pretty_base so apply the same force.
@@ -2517,19 +2531,23 @@ export function doname(obj) {
 
     // C doname_base: is_unpaid → unpaid_cost suffix (D-0461); with_price=0
     if (_doname_shop_suffix) bp = _doname_shop_suffix(obj, bp, false);
-    return bp;
+    return append_wizweight_suffix(obj, bp, false);
 }
 
 /**
  * C ref: objnam.c paydoname — doname with invent-style price suppressed
  * (billing menus / shk_names_obj). Named omissions: Has_contents cknown
- * dance; "an unpaid "/"your " container rewrite; wizweight toggle.
+ * dance; "an unpaid "/"your " container rewrite.
  */
 export function paydoname(obj) {
     if (!game.iflags) game.iflags = {};
+    // C paydoname `:2318–2328` — save wizweight, force Off around doname
+    const save_wizweight = game.iflags.wizweight;
+    game.iflags.wizweight = false;
     game.iflags.suppress_price = (game.iflags.suppress_price | 0) + 1;
     const p = doname(obj);
     game.iflags.suppress_price = (game.iflags.suppress_price | 0) - 1;
+    game.iflags.wizweight = save_wizweight;
     return p;
 }
 

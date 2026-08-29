@@ -579,6 +579,12 @@ function parse_a11y_mon_movement(result, value) {
     result.a11y.mon_movement = !!value;
 }
 
+/** C optlist.h NHOPTB wizweight addr &iflags.wizweight (set_wizonly). */
+function parse_iflags_wizweight(result, value) {
+    if (!result.iflags) result.iflags = {};
+    result.iflags.wizweight = !!value;
+}
+
 export function parseNethackrc(rc) {
     const result = {
         name: '', role: -1, race: -1, gender: -1, align: -1,
@@ -688,6 +694,13 @@ export function parseNethackrc(rc) {
                     if (parsed == null) continue;
                     parse_a11y_mon_movement(result, parsed);
                 }
+                else if (key === 'wizweight') {
+                    // C optlist.h NHOPTB wizweight addr &iflags.wizweight
+                    if (negated) continue;
+                    const parsed = optfn_boolean_word(val);
+                    if (parsed == null) continue;
+                    parse_iflags_wizweight(result, parsed);
+                }
                 else if (key === 'perminv_mode') {
                     // C optfn_perminv_mode do_set (opt_initial)
                     optfn_perminv_mode(
@@ -727,6 +740,9 @@ export function parseNethackrc(rc) {
                 }
                 else if (lname === 'mon_movement') {
                     parse_a11y_mon_movement(result, value);
+                }
+                else if (lname === 'wizweight') {
+                    parse_iflags_wizweight(result, value);
                 }
                 else if (lname === 'perminv_mode') {
                     optfn_perminv_mode(
@@ -1756,6 +1772,8 @@ const DOSET_BOOL_ADDR = {
     weaponstatus: { obj: 'iflags', key: 'weaponstatus' },
     whatis_menu: { obj: 'iflags', key: 'whatis_menu' },
     whatis_moveskip: { obj: 'iflags', key: 'whatis_moveskip' },
+    // C optlist.h NHOPTB wizweight set_wizonly &iflags.wizweight (D-1669)
+    wizweight: { obj: 'iflags', key: 'wizweight' },
 };
 
 /**
@@ -1807,6 +1825,16 @@ const DOSET_BOOL_MOD = [
     'whatis_menu', 'whatis_moveskip',
 ];
 
+/**
+ * C options.c doset `:8820` endpass wizard→set_wiznofuz; `:8842–8843`
+ * skip set_wizonly when !wizard (`flags.debug`). Appended after
+ * whatis_moveskip so earlier mO letters stay put. wizmgender named.
+ */
+function doset_bool_mod_list() {
+    if (game.flags?.debug) return [...DOSET_BOOL_MOD, 'wizweight'];
+    return DOSET_BOOL_MOD;
+}
+
 function doset_bool_value(name) {
     const addr = DOSET_BOOL_ADDR[name];
     if (!addr) return DOSET_BOOL_DEFAULT_ON.has(name);
@@ -1823,8 +1851,8 @@ function doset_bool_value(name) {
  * toggle pline). C optlist.h NHOPTB accessiblemsg addr is
  * `&a11y.accessiblemsg` (D-1218); mention_map is `&a11y.glyph_updates`
  * (D-1219); spot_monsters is `&a11y.mon_notices` (D-1235);
- * mon_movement is `&a11y.mon_movement` (D-1236). No
- * optfn_boolean after-change arm for spot_monsters or
+ * mon_movement is `&a11y.mon_movement` (D-1236). wizweight after-change
+ * is D-1669 (`:5353–5361`). No after-change arm for spot_monsters or
  * mon_movement (unlike accessiblemsg msg_loc zero).
  */
 export function optfn_boolean_do_set(name, negated, initial = false) {
@@ -1845,10 +1873,9 @@ export function optfn_boolean_do_set(name, negated, initial = false) {
         game.a11y.msg_loc.y = 0;
     }
     if (name === 'fixinv' || name === 'price_quotes' || name === 'sortpack'
-        || name === 'implicit_uncursed') {
+        || name === 'implicit_uncursed' || name === 'wizweight') {
         // C options.c optfn_boolean `:5353–5361` — opt_fixinv /
         // price_quotes / sortpack / implicit_uncursed / wizweight.
-        // wizweight not in JS doset (named).
         if (!invlet_constant()) reassign();
         update_inventory();
     }
@@ -1866,7 +1893,7 @@ function doset_bool_term(name) {
  * C ref: options.c doset — full options PICK_ANY (mO / menu_requested).
  * Branch envelope: help + nonmod bools + mod bools + compounds + others;
  * apply bool toggles then handlers (pickup_types). Named omissions: full
- * compound getlin arms, WC filters, wizard-only, PREFIXES, help file.
+ * compound getlin arms, WC filters, wizmgender, PREFIXES, help file.
  * mO compound row for perminv_mode named (letter fortress);
  * OPTIONS= + handler live. optfn_boolean perm_invent can_set gate named.
  */
@@ -1916,7 +1943,7 @@ export async function doset() {
             selectable: false,
         });
     }
-    for (const name of DOSET_BOOL_MOD) {
+    for (const name of doset_bool_mod_list()) {
         raw.push({
             text: format_doset_opt_line(name, doset_bool_term(name), ''),
             selectable: true,

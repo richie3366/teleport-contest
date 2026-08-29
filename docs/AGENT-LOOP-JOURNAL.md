@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1669 options.c wizweight optfn_boolean after-change
+
+**Objective:** Open `options.c` wizweight optfn_boolean after-change
+(named). Not fixinv.
+**C locus:** `options.c` `optfn_boolean` `:5353–5361`; doset
+`:8842–8843`; `objnam.c` doname `:1695–1709`.
+**JS locus:** `js/options.js` `optfn_boolean_do_set`; `js/objnam.js`;
+`js/shk.js` `doname_with_price`.
+**Change:** set_wizonly mO when wizard; OPTIONS=`iflags.wizweight`;
+after-change reassign+`update_inventory`; doname `aum`; paydoname
+save/restore; with_price merge. wizmgender named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary (iflags/aum/paydoname); green+strict
+seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `do_name.c` do_oname artifact_name slip /
+restrict_name / wipeout_text. Not `'o'` getobj.
+**Blocked:** none.
 ## 2026-08-29 — D-1668 invent.c noarmor uskin embedded pline
 
 **Objective:** Open `invent.c` `noarmor` uskin (named). Not doprarm.

@@ -5,28 +5,25 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1668 (cadence **#2070** at `784e3060`).
-  seed4500 still PASS. **Hypothesis:** `options.c` wizweight
-  `optfn_boolean` after-change is the first Open (Must-fix empty).
-  **Falsify:** `node scripts/csym.mjs` wizweight / optfn_boolean.
-  **Next:** Open wizweight after-change. Not fixinv. Do not skip
-  D-1531…D-1668.
+- **Suite 44/44** after D-1669 (cadence **#2070** at `784e3060`).
+  seed4500 still PASS. **Hypothesis:** `do_name.c` do_oname
+  artifact_name slip / `restrict_name` / `wipeout_text` is the first
+  Open (Must-fix empty).
+  **Falsify:** `node scripts/csym.mjs` do_oname / artifact_name.
+  **Next:** Open do_oname artifact_name slip. Not `'o'` getobj. Do
+  not skip D-1531…D-1669.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
-  `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn oc_oprop;
-  keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /
-  squeaky; hideunder;
-  artifact_name slip / cmdq_pop canned / docall sink-fluid;
-  knox/drawbridge castle; save_mapseen cemetery JSON; guardian
-  remaps; Punished float_down; water/lava steed; uhitm `u.dx`;
-  map_menu_cmd; `context.novel`; JSON getlev; astral
-  `distant_monnam`; walk-key / PREFIXCMD overlay BIND=;
-  `possibly_unwield` / `mon_break_armor`; sync `newcham`; array rn2 /
-  pauper_legacy / killed_nemesis rawtext; spell dull / zap rider
-  eyecount callers; sit.c `special_throne_effect` grease spray;
-  dig/music/pager `altarmask_at`; `oc_uses_known` extract;
-  optfn_boolean perm_invent can_set / wizweight after-change;
-  wornmask / obj-timer-mon sanity; remaining pushkeys
-  unwield/name/eat/engrave/buy/rub/swap/two-weapon/whatis;
+  `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn
+  oc_oprop; keepdogs/grow_up leash; light-scroll `initedog`;
+  tip-spill/squeaky; hideunder; artifact_name slip / cmdq_pop canned
+  / docall sink-fluid; knox/drawbridge; save_mapseen cemetery JSON;
+  guardian remaps; Punished float_down; water/lava steed; uhitm
+  `u.dx`; map_menu_cmd; `context.novel`; JSON getlev; astral
+  `distant_monnam`; walk-key / PREFIXCMD overlay; `possibly_unwield`
+  / `mon_break_armor`; sync `newcham`; array rn2 / pauper_legacy /
+  killed_nemesis; spell dull / zap rider eyecount; sit.c grease
+  spray; `oc_uses_known`; perm_invent can_set; wizmgender glyph-reset;
+  remaining pushkeys unwield/name/eat/engrave/buy/two-weapon;
   `offer_corpse`; `choose_tip_container_menu`; polyself `uskin=`.
 
 ## Don't re-check (≤15)
@@ -36,7 +33,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1668.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1669.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -47,10 +44,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1668 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1669 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1668. Do not delete emin (**487**). Do not stub
+  D-1520…D-1669. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -61,69 +58,39 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1668 in the index (`noarmor` uskin
-  D-1668; `dosacrifice` ECMD_TIME D-1667; `InvOptOn` D-1666;
-  offer/tip/invoke pushkeys D-1665; `sanity_check` D-1664).
-  No yn ^P glue / `ing_suffix` clone #3 / InvInUse poke (D-1603) /
-  zap sticky Blind (D-1604). No `dat/tribute` indent=2. No static
-  `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev catchup
-  reads it. Do not re-port `noarmor` uskin / add `strncmpi` #4.
+  `vision_reset`. D-1576…D-1669 in the index. No yn ^P glue /
+  `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
+  (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
+  (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
+  `noarmor` uskin / wizweight after-change / add `strncmpi` #4.
 
 ## Landmarks (≤15)
 
-- D-1668: `noarmor` uskin `simpleonames` + `"set of "` + strstri
-  `" dragon "` `p.slice(8)` embedded pline (`invent.c:4577–4597`).
-  ggetobj FALSE unchanged. Polyself merge `uskin=` / scale-mail
-  revert named. doprarm is D-0340/D-1589; ECMD_TIME is D-1667.
-- D-1667: `dosacrifice` after successful `floorfood` CORPSE /
-  Yendor / fake `return ECMD_TIME` (`pray.c:1874–1895`). Empty
-  pick stays `ECMD_OK`. `offer_corpse` / `offer_too_soon` /
-  `offer_real_amulet` / `offer_fake_amulet` named. InvOptOn is
-  D-1666; offer/tip/invoke pushkeys is D-1665.
-- D-1666: `can_set_perm_invent` `InvOptOn` from `const.js`
-  (`options.c:5507–5508`). No can_set rewrite / mO / `strncmpi` #4.
-  mO / optfn_boolean perm_invent gate / check_tty_wincap named.
-  optfn_perminv_mode is D-1661.
-- D-1665: `itemactions_pushkeys` IA_SACRIFICE / IA_TIP_CONTAINER /
-  IA_INVOKE_OBJ + O-row; `offer_ok`/`floorfood("sacrifice")`; live
-  `doinvoke` getobj; `dotip` `tip_ok` getobj. offer_corpse /
-  remaining pushkeys / choose_tip_container_menu named.
-  sanity_check is D-1664.
-- D-1664: `sanity_check`/`you_sanity_check` gold/invlet via
-  `check_invent_gold("invent")`; allmain opt_in Off; ^P
-  `CMD_INSANE` `sanity_no_check`; `GOLD_SYM_ADJ`. Wornmask /
-  other sanity_* named. check_invent_gold is D-1641; dounpaid
-  is D-1663.
-- D-1663: `dounpaid` Iu one-item pline / NHW_MENU + Total /
-  floor+buried; `find_unpaid`; `unknwn_contnr_contents`;
-  `xprname` Iu/Ix cost; `currency` C-home. Hallu ROLL_FROM /
-  `dotypeinv` / `doinvbill` named. invlet_constant is D-1655.
-- D-1662: `qt_pager` role miss → `com_pager_core("common", TRUE)`
-  (second nhl_init). Array rn2 / pauper_legacy / killed_nemesis
-  rawtext named. convert_arg is D-1649; synopsis is D-1622.
-- D-1661: `optfn_perminv_mode` do_set table/digit/`!` + get_val Off
-  suffix + `handler_perminv_mode` PICK_ONE + `can_set_perm_invent`.
-  mO compound row / optfn_boolean perm_invent gate named.
-  doperminv is D-1642; `'o'` getobj is D-1660.
-- D-1660: `docallcmd` `'o'` live `getobj("call", call_ok,
-  GETOBJ_NOFLAGS)` + `xname`/`dknown`/`docall`. cmdq_pop canned /
-  lootabc / invent-gated i/o / artifact_name slip named.
-  lookup_novel is D-1651.
-- D-1659: `print_mapseen` cemetery bones list; `recalc_mapseen`
-  clone `bonesinfo` + lastseentyp bonesknown; kncnt `,`/`.`;
-  savebones formatkiller how. knox-drawbridge / save_mapseen JSON
-  / when[] named. altar-god is D-1658; dooverview PICK_ONE D-1650.
-- D-1658: `print_mapseen` altar-god coalign; `count_feat` `msalign`
-  + `altarmask_at`; `align_gname` A_NONE Moloch.
-- D-1657: overlay BIND= on if/else keys; `rhack_user_overlay_key` +
-  EXT_CMDS runners; nothing unbinds. Walk/PREFIXCMD overlay named.
-  cmdbind_get default M('?') is D-1643.
-- D-1656: `use_grease` trailing `update_inventory` `:2652` + live
-  getobj; grease_ok COIN EXCLUDE 0; `gloves_simple_name` gauntlets.
-  sit.c grease spray named. consume_obj_charge is D-1615.
-- D-1655: `reassign`/`obj_to_let` + `fixinv`→`invlet_constant` On;
-  getobj/display_pickinv/doorganize/prinv/#see*; xprname use_invlet.
-  dounpaid is D-1663; wizcmds is D-1664; wizweight named.
-- D-1654: `safe_qbuf` QBUFSZ-1 + `short_oname` lastR; pickup
-  Pick up / Continue? / Do what with / empty Yname2 / tip.
-  Other-file callers named.
+- D-1669: wizweight after-change `:5353–5361` + set_wizonly mO;
+  doname `aum` / with_price merge; paydoname save. wizmgender named.
+- D-1668: `noarmor` uskin `simpleonames` + `" dragon "` `p.slice(8)`
+  embedded pline. doprarm D-0340/D-1589. ECMD_TIME D-1667.
+- D-1667: `dosacrifice` floorfood CORPSE/Yendor/fake `ECMD_TIME`.
+  `offer_*` named. InvOptOn D-1666; pushkeys D-1665.
+- D-1666: `can_set_perm_invent` `InvOptOn` import. mO / can_set
+  gate named. optfn_perminv_mode D-1661.
+- D-1665: IA_SACRIFICE/TIP/INVOKE pushkeys + live getobj. offer_corpse
+  / remaining pushkeys / tip menu named.
+- D-1664: `sanity_check` gold/invlet `check_invent_gold`. Wornmask
+  named. D-1641 / dounpaid D-1663.
+- D-1663: `dounpaid` Iu pline / NHW_MENU Total / floor+buried.
+  Hallu currency named. invlet_constant D-1655.
+- D-1662: `qt_pager` role miss → `com_pager_core("common", TRUE)`.
+  array rn2 / pauper named. convert_arg D-1649.
+- D-1661: `optfn_perminv_mode` do_set + handler PICK_ONE. mO
+  compound named. doperminv D-1642.
+- D-1660: `docallcmd` `'o'` live getobj `"call"`. cmdq_pop canned /
+  artifact_name slip named.
+- D-1659: cemetery bones list + `recalc_mapseen` clone. knox /
+  save_mapseen JSON named.
+- D-1658: `print_mapseen` altar-god coalign; `altarmask_at`.
+- D-1657: overlay BIND= on if/else keys. Walk/PREFIXCMD overlay named.
+- D-1656: `use_grease` trailing `update_inventory` + live getobj.
+  sit.c grease spray named.
+- D-1655: `reassign`/`obj_to_let` / `invlet_constant` On. wizweight
+  after-change is D-1669.

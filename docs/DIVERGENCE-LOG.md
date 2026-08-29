@@ -1,3 +1,34 @@
+## D-1669 — options.c optfn_boolean wizweight after-change
+
+- **Status:** fixed (map-driven Open from D-1668; not a public FAIL)
+- **Symptom:** map named `wizweight` `optfn_boolean` after-change. C
+  `opt_wizweight` shares `:5353–5361` with fixinv (reassign +
+  `update_inventory`); doset lists it when `wizard` (`set_wizonly`).
+  JS omitted the option from mO/`iflags` after D-1655, so toggling
+  never refreshed invent and `doname` never printed `aum`.
+- **C locus:** `options.c` `optfn_boolean` `:5353–5361`; doset
+  `:8842–8843`; `optlist.h` NHOPTB wizweight `&iflags.wizweight`;
+  `objnam.c` `doname_base` `:1695–1709`; `paydoname` `:2318–2328`.
+  Callers: doset / OPTIONS= / `doname` / `doname_with_price`.
+- **JS was:** after-change comment named wizweight omit; unknown
+  OPTIONS= bools landed on `flags`; `doname` had no aum suffix.
+- **Fix:** set_wizonly mO row when `flags.debug`; OPTIONS= →
+  `iflags.wizweight`; after-change includes wizweight; doname
+  ` (%u aum)`; with_price ConcatF1 merge; paydoname save/restore.
+  Rule #2: no fs.
+- **JS:** `js/options.js` `optfn_boolean_do_set` / `doset`;
+  `js/objnam.js` `append_wizweight_suffix`; `js/shk.js`
+  `doname_with_price`.
+- **Not this iter:** wizmgender glyph-reset; fixinv body (already
+  D-1655); perm_invent `can_set` gate; remaining after-change arms;
+  Has_contents paydoname rewrite. noarmor is D-1668; InvOptOn is
+  D-1666.
+- **Verified:** private canary (OPTIONS= iflags; extra vs merge aum;
+  paydoname suppresses; wizard `a strange object (17 aum)`);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict
+  (9/9 with green).
+- **Files:** `js/options.js`, `js/objnam.js`, `js/shk.js`.
+
 ## D-1668 — invent.c noarmor uskin embedded-skin pline
 
 - **Status:** fixed (map-driven Open from D-1667; not a public FAIL)
