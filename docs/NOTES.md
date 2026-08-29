@@ -5,17 +5,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1620. seed4500 still PASS.
+- **Suite 44/44** after cadence **#2020** at D-1620 `cb4d8a91`.
+  seed4500 still PASS. Reviews **573–581** all
+  **ACCEPT-WITH-DEBT**; Must-fix empty.
   **Hypothesis:** Open `invent.c` `adjust_split`
   GC_ECHOFIRST|GC_CONDHIST caller (named) is the next map
   cluster. Not get_count.
   **Falsify:** `node scripts/csym.mjs --callers adjust_split`;
   `node scripts/map.mjs invent.c`.
-  **Next:** Open `adjust_split`. D-1620 shipped floor
-  TRADITIONAL `query_classes` + yn/`pickup_object`. Do not skip
+  **Next:** Open `adjust_split`. Do not skip
   D-1531…D-1620. No FORCE / `wildmiss` wrap / trailing `confdir`
   in shared `getdir`. Do not glue onto traditional_loot
-  (D-1581) or `take_off` (D-1619).
+  (D-1581), `take_off` (D-1619), or floor `query_classes`
+  (D-1620).
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn;
   `restore_cham` / `rescham`; `restore_gamelog`;

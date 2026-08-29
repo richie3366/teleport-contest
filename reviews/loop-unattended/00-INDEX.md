@@ -583,3 +583,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [570-c3d43f93-m-unleash.md](./570-c3d43f93-m-unleash.md) | `c3d43f93` | D-1609 m_unleash death/ALLOW_U | **ACCEPT-WITH-DEBT** |
 | [571-35d8e512-initedog-ogoal.md](./571-35d8e512-initedog-ogoal.md) | `35d8e512` | D-1610 initedog ogoal -1 / livelog | **ACCEPT-WITH-DEBT** |
 | [572-21441f2e-getline-hooked-ctrl-p.md](./572-21441f2e-getline-hooked-ctrl-p.md) | `21441f2e` | D-1611 hooked_tty_getlin ^P | **ACCEPT-WITH-DEBT** |
+| [573-7012e194-yn-function-ctrl-p.md](./573-7012e194-yn-function-ctrl-p.md) | `7012e194` | D-1612 tty_yn_function ^P | **ACCEPT-WITH-DEBT** |
+| [574-587c52ad-get-count-historicmsg.md](./574-587c52ad-get-count-historicmsg.md) | `587c52ad` | D-1613 get_count historicmsg | **ACCEPT-WITH-DEBT** |
+| [575-68c0f298-restore-msghistory.md](./575-68c0f298-restore-msghistory.md) | `68c0f298` | D-1614 restore_msghistory | **ACCEPT-WITH-DEBT** |
+| [576-6a08939b-consume-obj-charge-known.md](./576-6a08939b-consume-obj-charge-known.md) | `6a08939b` | D-1615 consume_obj_charge known update_inventory | **ACCEPT-WITH-DEBT** |
+| [577-6d7584b0-reset-hostility.md](./577-6d7584b0-reset-hostility.md) | `6d7584b0` | D-1616 reset_hostility / final_level | **ACCEPT-WITH-DEBT** |
+| [578-5c66e2ab-dog-move-lose-guardian.md](./578-5c66e2ab-dog-move-lose-guardian.md) | `5c66e2ab` | D-1617 dog_move Conflict lose_guardian_angel | **ACCEPT-WITH-DEBT** |
+| [579-c98a5fab-ms-humanoid.md](./579-c98a5fab-ms-humanoid.md) | `c98a5fab` | D-1618 peaceful MS_HUMANOID / threatens you | **ACCEPT-WITH-DEBT** |
+| [580-597fd9ba-take-off-occupation.md](./580-597fd9ba-take-off-occupation.md) | `597fd9ba` | D-1619 take_off occupation / do_takeoff | **ACCEPT-WITH-DEBT** |
+| [581-cb4d8a91-pickup-traditional-query-classes.md](./581-cb4d8a91-pickup-traditional-query-classes.md) | `cb4d8a91` | D-1620 floor TRADITIONAL query_classes | **ACCEPT-WITH-DEBT** |

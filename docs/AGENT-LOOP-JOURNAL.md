@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — review D-1612–D-1620 (audit #2020)
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **572**;
+cadence score. No `js/` edits.
+**C locus:** yn ^P; `get_count` historicmsg; `restore_msghistory`;
+`consume_obj_charge` known; `reset_hostility`; dog_move
+`lose_guardian_angel`; MS_HUMANOID; `take_off`; floor
+`query_classes`.
+**JS locus:** reviews **573–581** (`7012e194`…`cb4d8a91`).
+**Change:** ACCEPT-WITH-DEBT 573–581. No QUALITY-RISK / Must-fix.
+Filled archive D-1620 `%h` `cb4d8a91`.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+`39+0.30/turn` (R² 0.853) at `cb4d8a91`. seed4500 PASS.
+**Verified:** cadence `__RESULTS_JSON__`; `check-hot-docs --review 573-581`.
+**Next:** Open `adjust_split`. Not get_count.
+**Blocked:** none.
 ## 2026-08-29 — D-1620 pickup.c floor query_classes
 
 **Objective:** Open `pickup.c` floor `query_classes` (named). Not
