@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1615 invent.c consume_obj_charge known
+
+**Objective:** Open `apply.c` `consume_obj_charge` `update_inventory`
+(named). Not perm_invent InvInUse.
+**C locus:** `invent.c` `consume_obj_charge` `:1336–1346`.
+**JS locus:** `js/invent.js` `consume_obj_charge`.
+**Change:** after `spe--`, `if (obj.known) update_inventory()`.
+C is 11 lines (density exception). Pickup tip-spill / trap
+`disarm_squeaky_board` / use_grease trailing `:2652` named.
+Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **8**/8; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `reset_hostility`. Not gain_guardian_angel.
+**Blocked:** none.
 ## 2026-08-29 — D-1614 restore.c restore_msghistory
 
 **Objective:** Open `restore.c` `restore_msghistory` (named). Not

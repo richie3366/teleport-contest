@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `restore.c` `restore_msghistory` (named). Not putmsghistory. **Addressed:** D-1614
+- [x] `apply.c` `consume_obj_charge` `update_inventory` (named). Not perm_invent InvInUse. **Addressed:** D-1615
+
+
+- [x] `restore.c` `restore_msghistory` (named). Not putmsghistory. **Addressed:** D-1614 `68c0f298`
 
 
 - [x] `cmd.c` `get_count` historicmsg (named). Not putmsghistory. **Addressed:** D-1613 `587c52ad`

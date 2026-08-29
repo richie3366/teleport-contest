@@ -2643,8 +2643,12 @@ export function update_inventory() {
 }
 
 /**
- * C ref: invent.c consume_obj_charge — maybe check_unpaid, then spe--,
- * then update_inventory when known. Named omit: perm_invent redraw.
+ * C ref: invent.c consume_obj_charge `:1336–1346` — maybe check_unpaid,
+ * then spe--, then update_inventory when known so perm_invent sees the
+ * new charge (tty_update_inventory → sync_perminvent). Unpaid is D-1047;
+ * InvInUse helpers are D-1600; writers are D-1603.
+ * Named: pickup tip-spill / trap disarm_squeaky_board callers;
+ * use_grease trailing (empty-can) update_inventory; tty WIN_INVEN paint.
  * @param {object} obj
  * @param {boolean} maybe_unpaid false if caller handles shop billing
  */
@@ -2655,7 +2659,8 @@ export async function consume_obj_charge(obj, maybe_unpaid) {
         await check_unpaid(obj);
     }
     obj.spe = (obj.spe | 0) - 1;
-    // C: if (obj->known) update_inventory(); perm_invent redraw deferred
+    // C invent.c:1344–1345 — skip when !known (charge count still secret).
+    if (obj.known) update_inventory();
 }
 
 /**

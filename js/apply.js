@@ -2357,8 +2357,9 @@ async function getobj_grease() {
 /**
  * C ref: apply.c use_grease — Glib / cursed|Fumbling slip dropx; getobj
  * target; hands make_glib rn1(11,5); object greased + cursed && !nohands
- * glib rn1(6,10); empty known/seem. Named omit: update_inventory;
- * pickinv handsbuf.
+ * glib rn1(6,10); empty known/seem. consume_obj_charge known
+ * update_inventory is D-1615. Named omit: trailing update_inventory
+ * (`:2652`, empty-can path); pickinv handsbuf.
  * @returns {number} ECMD_*
  */
 export async function use_grease(obj) {

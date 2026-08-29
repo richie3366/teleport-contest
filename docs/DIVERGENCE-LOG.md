@@ -1,3 +1,27 @@
+## D-1615 — invent.c consume_obj_charge known update_inventory
+
+- **Status:** fixed (map-driven Open from D-1614; not a public FAIL)
+- **Symptom:** charged tools with `obj->known` did not refresh perm_invent.
+  C `consume_obj_charge` `spe--` then `if (obj->known) update_inventory()`.
+  `tty_update_inventory` → `sync_perminvent`. Default perm_invent Off is a
+  tty no-op; On must see the new `spe`.
+- **C locus:** `invent.c` `consume_obj_charge` `:1336–1346`. Callers
+  `apply.c` camera/grease/tinning/bell; `detect.c` / `music.c` /
+  `mkobj.c` live in JS. Callee `update_inventory` `:2778–2810` (D-1126
+  tty path). Unpaid `check_unpaid` is D-1047.
+- **JS was:** named omit after D-1047 / D-1600 (`spe--` only; comment
+  deferred perm_invent redraw).
+- **Fix:** `if (obj.known) update_inventory()` after `spe--`. Rule #2:
+  no fs.
+- **JS:** `js/invent.js` `consume_obj_charge`. Apply callers already
+  `await consume_obj_charge`.
+- **Not this iter:** perm_invent InvInUse (D-1600); writers (D-1603);
+  tty WIN_INVEN paint / `#perminv` / `optfn_perminv_mode`; pickup
+  tip-spill / trap `disarm_squeaky_board` callers; use_grease trailing
+  `:2652` (empty-can).
+- **Verified:** private canary **8**/8; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1614 — restore.c restore_msghistory / save.c save_msghistory
 
 - **Status:** fixed (map-driven Open from D-1613; not a public FAIL)
