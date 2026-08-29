@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1681 do_name.c `'i'` live getobj name
+
+**Objective:** Open `do_name.c` `'i'` getobj_name clone (named). Not
+#if 0 EXCLUDE.
+**C locus:** `do_name.c` `docallcmd` `:566–569` `getobj("name",
+name_ok, GETOBJ_PROMPT)`; `name_ok` `:466–476`.
+**JS locus:** `js/do_name.js` `docallcmd`; `js/iactions.js` `name_ok`.
+**Change:** live getobj; export `name_ok`; delete `getobj_name` clone.
+Named: #if 0 EXCLUDE.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **24**/24; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `do_name.c` docallcmd #if 0 EXCLUDE. Not `'i'` getobj.
+**Blocked:** none.
 ## 2026-08-29 — D-1680 do_name.c oname via_naming livelog
 
 **Objective:** Open `do_name.c` oname via_naming livelog (named). Not

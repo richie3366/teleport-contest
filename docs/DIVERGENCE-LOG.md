@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1681 — do_name.c docallcmd `'i'` live getobj name
+
+- **Status:** fixed (map-driven Open from D-1680; not a public FAIL)
+- **Symptom:** map named `'i'` `getobj_name` clone. C `docallcmd`
+  `'i'` is `getobj("name", name_ok, GETOBJ_PROMPT)` then `do_oname`.
+  JS kept a local nhgetch/`getobj_from_cmdq` clone after D-1675
+  canned KEY, so DOWNPLAY altlets, `yn_function`, digit reject,
+  `force_invmenu`, and `name_ok` lived in two modules.
+- **C locus:** `do_name.c` `docallcmd` `:566–569`; `name_ok`
+  `:466–476`. Caller `iactions.c` `item_naming_classification`
+  `:60` `name_ok == GETOBJ_SUGGEST`. Callee `invent.c` `getobj`
+  GETOBJ_PROMPT (live).
+- **JS was:** `getobj_name` clone; `name_ok` local in `do_name.js`
+  and cloned in `iactions.js`.
+- **Fix:** live `getobj('name', name_ok, GETOBJ_PROMPT)`; export
+  `name_ok`; delete clone + iactions copy. Named: #if 0 EXCLUDE
+  `"know those as well"` (dead in C). Rule #2: no fs.
+- **JS:** `js/do_name.js` `docallcmd`; `js/iactions.js` import
+  `name_ok`.
+- **Not this iter:** `docallcmd` #if 0 EXCLUDE; wield
+  `restrict_name`; `oname` via_naming is D-1680.
+- **Verified:** private canary **24**/24 (name_ok ranks; empty
+  GETOBJ_PROMPT waits; gold cannot-name; ESC; digit reject;
+  canned KEY; docallcmd i+invlet); green+strict seed8000/0900;
+  CURRENT cohort **7**/7 + strict (9/9 with green).
+- **Files:** `js/do_name.js`, `js/iactions.js`.
+
 ## D-1680 — do_name.c oname via_naming livelog
 
 - **Status:** fixed (map-driven Open from D-1679; not a public FAIL)

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do_name.c` `'i'` getobj_name clone (named). Not #if 0 EXCLUDE.
 - [ ] `do_name.c` docallcmd #if 0 EXCLUDE (named). Not `'i'` getobj_name.
 - [ ] `sit.c` special_throne_effect grease spray (named). Not use_grease.
 - [ ] `dungeon.c` save_mapseen cemetery JSON (named). Not print_mapseen cemetery.

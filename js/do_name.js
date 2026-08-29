@@ -8,7 +8,9 @@
 //        docallcmd cmdq_pop canned + lootabc + invent-gated i/o (D-1671);
 //        docall sink-fluid OBJ_DESCR + safe_qbuf Call/:/thing (D-1672);
 //        distant_monnam astral high-cleric conceal (D-1673);
-//        oname via_naming literate livelog (D-1680).
+//        oname via_naming literate livelog (D-1680);
+//        docallcmd `'i'` live getobj("name", name_ok, GETOBJ_PROMPT)
+//        (D-1681).
 
 import {
     artifact_exists, exist_artifact, artifact_name, restrict_name,
@@ -28,8 +30,8 @@ import {
     verbalize,
 } from './display.js';
 import {
-    paint_corner_nhw_menu, discover_object, compactify_invlets,
-    getobj_display_pickinv, getobj, getobj_from_cmdq, update_inventory,
+    paint_corner_nhw_menu, discover_object,
+    getobj, update_inventory,
 } from './invent.js';
 import { rename_disco } from './o_init.js';
 import {
@@ -41,6 +43,7 @@ import {
     SUPPRESS_IT, SUPPRESS_INVISIBLE, SUPPRESS_HALLUCINATION,
     SUPPRESS_SADDLE, SUPPRESS_NAME,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_NOFLAGS,
+    GETOBJ_PROMPT,
     ECMD_OK, CMDQ_KEY, CQ_CANNED,
     has_oname, ONAME, CLR_MAX, BUFSZ, u_at, OBJ_FREE, OBJ_INVENT, HAND,
     isok, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPMASK, has_ebones,
@@ -93,10 +96,13 @@ const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
 const BOGUSMONSIZE = 100; // C: do_name.c rndmonnam
 const BOGON_CODES = '-_+|=';
-const QUITCHARS = ' \r\n\x1b';
 
-/** C ref: do_name.c name_ok — anything but gold; DOWNPLAY unseen/arti/novel. */
-function name_ok(obj) {
+/**
+ * C ref: do_name.c name_ok `:466–476`.
+ * EXCLUDE gold / hands; DOWNPLAY unseen, artifacts, novels.
+ * Callers: docallcmd `'i'` getobj; iactions.c item_naming_classification.
+ */
+export function name_ok(obj) {
     if (!obj || obj.oclass === COIN_CLASS) return GETOBJ_EXCLUDE;
     if (!obj.dknown || obj.oartifact || obj.otyp === SPE_NOVEL) {
         return GETOBJ_DOWNPLAY;
@@ -141,89 +147,6 @@ export function call_ok(obj) {
         return GETOBJ_DOWNPLAY;
     }
     return GETOBJ_SUGGEST;
-}
-
-/** SUGGEST invent letters only (C getobj `bp` / `lets[]`; DOWNPLAY → altlets). */
-function name_suggest_lets() {
-    const lets = [];
-    for (const o of game.invent || []) {
-        if (o?.invlet && name_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
-    }
-    // C getobj sortloot SORTLOOT_INVLET
-    lets.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
-    return lets.join('');
-}
-
-/**
- * C ref: invent.c getobj("name", name_ok, GETOBJ_PROMPT)
- * Prompt compactify when suggested>5; ?/* → display_pickinv_reply;
- * gold EXCLUDE → "You cannot name gold."; missing letter → continue.
- * Canned CMDQ_KEY (iactions IA_NAME_OBJ) via getobj_from_cmdq (D-1675).
- * Interactive clone still named (Open `'i'` getobj_name).
- */
-async function getobj_name() {
-    const cq = getobj_from_cmdq(name_ok, false, null);
-    if (!cq.skip) return cq.otmp;
-    for (;;) {
-        await flush_topl_more();
-        const rawLets = name_suggest_lets();
-        // C: GETOBJ_PROMPT → forceprompt; empty SUGGEST still prompts [*]
-        const lets = rawLets.length > 5
-            ? compactify_invlets(rawLets)
-            : rawLets;
-        const query = lets
-            ? `What do you want to name? [${lets} or ?*]`
-            : 'What do you want to name? [*]';
-        const prompt = `${query} `;
-        game._pending_message = prompt;
-        await flush_screen(1);
-        const disp = game.nhDisplay;
-        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
-
-        const key = await nhgetch();
-        const ch = String.fromCharCode(key);
-        if (QUITCHARS.includes(ch) || key === 27) {
-            if (game.flags?.verbose !== false) await pline('Never mind.');
-            return null;
-        }
-        if (ch === '?' || ch === '*') {
-            const counted = { cnt: 0, cntgiven: false };
-            const ilet = await getobj_display_pickinv(
-                ch, rawLets, false, counted,
-                { word: 'name', allownone: false, promptHasHands: false },
-            );
-            if (ilet === '\x1b') {
-                if (game.flags?.verbose !== false) await pline('Never mind.');
-                return null;
-            }
-            if (!ilet) {
-                if (game.iflags?.force_invmenu) return null;
-                continue;
-            }
-            const picked = (game.invent || []).find((o) => o.invlet === ilet);
-            if (!picked) {
-                await pline("You don't have that object.");
-                continue;
-            }
-            if (name_ok(picked) === GETOBJ_EXCLUDE) {
-                await pline('You cannot name gold.');
-                return null;
-            }
-            game._pending_message = '';
-            return picked;
-        }
-        const otmp = (game.invent || []).find((o) => o.invlet === ch);
-        if (!otmp) {
-            await pline("You don't have that object.");
-            continue;
-        }
-        if (name_ok(otmp) === GETOBJ_EXCLUDE) {
-            await pline('You cannot name gold.');
-            return null;
-        }
-        game._pending_message = '';
-        return otmp;
-    }
 }
 
 /** C ref: objnam.c Ysimple_name2 — capitalize simpleonames. */
@@ -1238,11 +1161,11 @@ async function docallcmd_menu() {
 /**
  * C ref: do_name.c docallcmd `:498–601` — cmdq_pop canned then
  * "What do you want to name?" menu (D-1671).
- * `m` → do_mgivenname; `i` → getobj("name")+do_oname; `o` →
- * getobj("call", call_ok, GETOBJ_NOFLAGS) then xname + dknown/docall
- * (D-1660); `f` → namefloorobj; `d`/`\\` → o_init.c rename_disco.
- * Named: iactions Call pushkeys; `'i'` getobj_name clone; #if 0
- * call_ok EXCLUDE "know those as well".
+ * `m` → do_mgivenname; `i` → getobj("name", name_ok, GETOBJ_PROMPT)
+ * then do_oname (D-1681); `o` → getobj("call", call_ok, GETOBJ_NOFLAGS)
+ * then xname + dknown/docall (D-1660); `f` → namefloorobj; `d`/`\\` →
+ * o_init.c rename_disco.
+ * Named: #if 0 call_ok EXCLUDE "know those as well".
  */
 export async function docallcmd() {
     await flush_topl_more();
@@ -1267,7 +1190,7 @@ export async function docallcmd() {
         break;
     case 'i':
         {
-            const obj = await getobj_name();
+            const obj = await getobj('name', name_ok, GETOBJ_PROMPT);
             if (obj) await do_oname(obj);
         }
         break;

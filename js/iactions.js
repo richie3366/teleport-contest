@@ -11,8 +11,7 @@
 // IA_TWOWEAPON (D-1677).
 // Named omissions: remaining pushkeys (rub/swap/whatis);
 // full apply catalogue; doengrave non-hands stylus body;
-// `'i'` getobj_name clone (canned KEY live); offer_corpse /
-// offer_too_soon / offer_fake_amulet bodies; Traditional itemize yn.
+// Traditional itemize yn. `'i'` getobj is D-1681.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -20,7 +19,7 @@ import { flush_screen, docrt, clear_committed_status } from './display.js';
 import { paint_corner_nhw_menu, inuse_headers_accessories, inuse_headers_set_accessories, check_invent_gold } from './invent.js';
 import { cxname, the, xname, makeplural, singular, is_plural, the_unique_obj } from './objnam.js';
 import { ia_checkfile } from './pager.js';
-import { call_ok } from './do_name.js';
+import { call_ok, name_ok } from './do_name.js';
 import { ammo_and_launcher, could_twoweap, TWOWEAPOK, bimanual } from './wield.js';
 import {
     objects, objectNames,
@@ -29,7 +28,7 @@ import {
     GEM_CLASS, COIN_CLASS,
 } from './objects.js';
 import {
-    ECMD_OK, GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST,
+    ECMD_OK, GETOBJ_SUGGEST,
     CMDQ_EXTCMD,
     W_ARMOR, W_ACCESSORY, W_AMUL, W_RING, W_TOOL, Is_container,
     Has_contents, has_oname, ONAME, HANDS_SYM, IS_ALTAR, SHOPBASE,
@@ -297,15 +296,6 @@ const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 /** C ref: objnam.c simpleonames — type name without quan/BUC (xname quan=1). */
 function simpleonames(obj) {
     return singular(obj, xname);
-}
-
-/** C ref: do_name.c name_ok */
-function name_ok(obj) {
-    if (!obj || obj.oclass === COIN_CLASS) return GETOBJ_EXCLUDE;
-    if (!obj.dknown || obj.oartifact || obj.otyp === SPE_NOVEL) {
-        return GETOBJ_DOWNPLAY;
-    }
-    return GETOBJ_SUGGEST;
 }
 
 /**
