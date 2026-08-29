@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1674 objects.h oc_uses_known extract
+
+**Objective:** Open `o_init.c` oc_uses_known extract (named). Not
+rename_disco.
+**C locus:** `objclass.h` `oc_uses_known`; `objects.h` BITS uskn;
+`mkobj.c` `unknow_object` `:851–865`; `o_init.c` `rename_disco` dummy.
+**JS locus:** `scripts/extract-objects.py` + `js/generated/objects_data.js`;
+`js/mkobj.js` `unknow_object`; `js/objnam.js` `otyp_uses_known`.
+**Change:** dump table `oc_uses_known`; `unknow_object` sets
+`known = uskn ? 0 : 1`; drop class/name stand-in. steal/muse named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary (uskn polarity + dummy known); green+strict
+seed8000/0900; cohort **9**/9 + strict.
+**Next:** Open `iactions.c` remaining pushkeys unwield/name/eat/engrave.
+Not offer/tip/invoke.
+**Blocked:** none.
 ## 2026-08-29 — D-1673 do_name.c distant_monnam astral high-cleric
 
 **Objective:** Open `do_name.c` distant_monnam astral high-cleric

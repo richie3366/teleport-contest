@@ -1,3 +1,35 @@
+## D-1674 — objects.h oc_uses_known extract
+
+- **Status:** fixed (map-driven Open from D-1673; not a public FAIL)
+- **Symptom:** map named `oc_uses_known` extract. C `objects[].oc_uses_known`
+  (BITS uskn) drives `unknow_object` / `rename_disco` dummy `known` /
+  `ini_inv_adjust_obj` / xname unique leak; JS used a class/name list
+  (`otyp_uses_known`) because the generated table omitted the bit
+  (D-0316 WAND stand-in).
+- **C locus:** `objclass.h` `oc_uses_known`; `objects.h` `BITS(..., uskn, ...)`
+  / class macros; `mkobj.c` `unknow_object` `:851–865` (caller `mksobj`
+  `:1192`); `o_init.c` `rename_disco` `:1200`; `u_init.c`
+  `ini_inv_adjust_obj` `:1215–1216`. steal.c / muse.c callers named.
+- **JS was:** `extract-objects.py` dumped the struct field but dropped it
+  from rows; `uses_known_otyp` OR’d WEAPON/ARMOR/`is_charged_otyp` /
+  TIN/EGG/uniques; `mksobj` inlined that heuristic; `rename_disco`
+  `!ocl?.oc_uses_known` was always true.
+- **Fix:** dump `uses_known` in the objects extract; map `oc_uses_known`;
+  `unknow_object` matches C (`clear_dknown` then known `uskn?0:1`);
+  `otyp_uses_known` reads the table. Rule #2: no fs.
+- **JS:** `scripts/extract-objects.py` + `js/generated/objects_data.js`;
+  `js/mkobj.js` `unknow_object`; `js/objnam.js` `otyp_uses_known`;
+  `js/o_init.js` dummy (already the C assignment).
+- **Not this iter:** `oc_charged` / `oc_merge` extract; steal/muse
+  `unknow_object` callers; `clear_dknown` `oc_merge`; `rename_disco`
+  is D-1647. distant_monnam is D-1673.
+- **Verified:** private canary (WEAPON/WAND/TIN/EGG/Yendor/novel uskn=1;
+  potion/scroll/apple/SPE_DIG/uncharged ring uskn=0; `unknow_object`
+  known polarity); green+strict seed8000/0900; CURRENT cohort **9**/9
+  + strict.
+- **Files:** `scripts/extract-objects.py`, `js/generated/objects_data.js`,
+  `js/mkobj.js`, `js/objnam.js`, `js/o_init.js`.
+
 ## D-1673 — do_name.c distant_monnam astral high-cleric
 
 - **Status:** fixed (map-driven Open from D-1672; not a public FAIL)

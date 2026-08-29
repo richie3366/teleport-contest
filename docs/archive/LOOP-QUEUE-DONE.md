@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `do_name.c` distant_monnam astral high-cleric (named). Not do_mgivenname. **Addressed:** D-1673
+- [x] `o_init.c` oc_uses_known extract (named). Not rename_disco. **Addressed:** D-1674
+
+
+- [x] `do_name.c` distant_monnam astral high-cleric (named). Not do_mgivenname. **Addressed:** D-1673 `39af0ea7`
 
 
 - [x] `do_name.c` docall sink-fluid / safe_qbuf (named). Not `'o'` getobj. **Addressed:** D-1672 `1e88c3d3`

@@ -16,9 +16,12 @@ Hallu `random_object` dim 463)**; **`objectDescrs`/`objectNameStrs`** (D-0040);
 **`oc_skill`/`oc_subtyp`** (D-0041); **`a_ac`/`oc_level`** (D-0042); **`oc_delay`** (D-0066); 
 **`oc_big`/`oc_bimanual`** (D-0086); **`oc_wsdam`/`oc_wldam`** (D-0189); 
 **`oc_cost`** (D-0447 shop bill / candle age units); 
-still no extracted `oc_merge` bitfield (`oc_merge_of` class heuristic: SPELL/WAND mrg=0 — D-0679; 
-D-0094); still no `oc_uses_known`/`oc_charged`/`oc_oprop` ( `mksobj` WAND uskn stand-in D-0316; 
-`is_multigen`/`is_poisonable`/doname charged name-list stand-ins)
+**`oc_uses_known`** (D-1674; `objects.h` BITS uskn; `mkobj.c` `unknow_object`;
+`o_init.c` `rename_disco` dummy `known=!uskn`; `u_init.c` `ini_inv_adjust_obj`;
+`objnam.c` unique known-leak); still no extracted `oc_merge` bitfield
+(`oc_merge_of` class heuristic: SPELL/WAND mrg=0 — D-0679; D-0094);
+still no `oc_charged` (doname charged name-list stand-in); `oc_oprop` already
+extracted; `is_multigen`/`is_poisonable` named
 
 ### `include/monsters.h`
 
@@ -192,9 +195,9 @@ flooreffects / vault-gold / pet `droppables` deferred);
 under-boulder pile** (D-0270); **`clear_dknown` in `mksobj` (dknowns[] + shield-range)** (D-0292); 
 **`Is_pudding`/`globby` mksobj init + `obj_nexto_xy`/`obj_absorb`/`obj_meld`/`pudding_merge_message`
  + thin `shrink_glob`** (D-0993; full `globby_bill_fixup` / shrink ice-eat deferred); 
-**`mksobj` uskn includes WAND → `known=0`** (D-0316; 
-table still lacks `oc_uses_known`/`oc_charged`; 
-charged RING uskn / shared `unknow_object` deferred); 
+**`mksobj` `unknow_object` `known` from `oc_uses_known`** (D-1674;
+was WAND/class-name stand-in D-0316); steal.c / muse.c callers named;
+still no `oc_charged`; `clear_dknown` `oc_merge` named; 
 **`mkbox_cnts` ICE_BOX → `mksobj(CORPSE)` + age=0/timers + `add_to_container`** (D-0361; 
 BoH Is_mbag→SACK / WAN_CANCELLATION re-roll + BoH weight factor deferred); 
 **candle `mksobj` `age=20*oc_cost` D-1308**; 

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `o_init.c` oc_uses_known extract (named). Not rename_disco.
 - [ ] `iactions.c` remaining pushkeys unwield/name/eat/engrave (named). Not offer/tip/invoke.
 - [ ] `iactions.c` IA_BUY_OBJ shop pay (named). Not offer/tip/invoke.
 - [ ] `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke.

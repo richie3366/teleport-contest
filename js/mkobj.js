@@ -1,7 +1,8 @@
 // mkobj.js — Object creation.
 // C ref: mkobj.c — mkobj, mksobj, mkgold, next_ident, mksobj_init (partial),
 //        hornoplenty / fixup_oil (D-1031);
-//        unknwn_contnr_contents (D-1663; caller invent.c dounpaid).
+//        unknwn_contnr_contents (D-1663; caller invent.c dounpaid);
+//        unknow_object (D-1674 oc_uses_known extract).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rne, rnz } from './rng.js';
@@ -26,7 +27,6 @@ import {
     VENOM_CLASS,
     objectNames,
 } from './objects.js';
-// objectNames used for known-flag heuristic (oc_uses_known not in table yet)
 import {
     rndmonnum, rndmonnum_adj,
 } from './makemon.js';
@@ -40,7 +40,7 @@ import {
     G_NOCORPSE, NON_PM as MON_NON_PM,
 } from './monsters.js';
 import { PM_SAMURAI } from './generated/monsters_data.js';
-import { otyp_uses_known, distant_name, doname, cxname, The, vtense, corpse_xname } from './objnam.js';
+import { distant_name, doname, cxname, The, vtense, corpse_xname } from './objnam.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
     ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON,
@@ -1668,13 +1668,23 @@ function clear_dknown(obj) {
     // Is_pudding → dknown=1 set in mksobj_init after clear_dknown
 }
 
+/**
+ * C ref: mkobj.c unknow_object `:851–865`.
+ * Callers: mksobj; steal.c / muse.c still named.
+ * Types that do not use known keep it True for merging (objclass.h).
+ */
+export function unknow_object(obj) {
+    if (!obj) return;
+    clear_dknown(obj);
+    obj.bknown = obj.rknown = 0;
+    obj.cknown = obj.lknown = 0;
+    obj.tknown = 0;
+    obj.known = objs()[obj.otyp]?.oc_uses_known ? 0 : 1;
+}
+
 // C ref: mkobj.c mksobj()
 export function mksobj(otyp, init, artif) {
     const objects = objs();
-    // C ref: mkobj.c unknow_object — known = oc_uses_known ? 0 : 1
-    // Weapons/armor/wands/charged tools/rings use known for +/- / charges;
-    // scrolls/potions start known=1 so ini_inv_use_obj can discover_object.
-    const uskn = otyp_uses_known(otyp);
     const otmp = {
         otyp,
         oclass: objects[otyp]?.oc_class ?? 0,
@@ -1686,14 +1696,13 @@ export function mksobj(otyp, init, artif) {
         spe: 0,
         corpsenm: NON_PM,
         age: Math.max(game.moves ?? 0, 1),
-        known: uskn ? 0 : 1,
         where: OBJ_FREE, // C newobj → OBJ_FREE until place/addinv
         ox: 0,
         oy: 0,
     };
-    // C: unknow_object(otmp) — dknown + known; known heuristic above
-    clear_dknown(otmp);
+    // C: o_id then unknow_object (dknown + known from oc_uses_known)
     otmp.o_id = next_ident();
+    unknow_object(otmp);
     if (init) mksobj_init(otmp, artif);
 
     // Post-init regardless: CORPSE/STATUE/FIGURINE gender + timer; EGG hatch

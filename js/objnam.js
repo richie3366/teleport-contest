@@ -360,25 +360,12 @@ function is_weptool(obj) {
     return n === 'PICK_AXE' || n === 'GRAPPLING_HOOK' || n === 'UNICORN_HORN';
 }
 
-function uses_known_otyp(otyp) {
-    const oc = game.objects?.[otyp];
-    if (oc?.oc_uses_known) return true;
-    const cls = oc?.oc_class ?? 0;
-    if (cls === WEAPON_CLASS || cls === ARMOR_CLASS || is_charged_otyp(otyp))
-        return true;
-    // C objects.h FOOD(..., unk=1, ...) → oc_uses_known; generated table
-    // omits the bit (same debt as D-0316 WAND). Egg/tin contents stay
-    // hidden until obj.known (open/eat / starter ini_inv).
-    const n = objectNames[otyp];
-    if (n === 'TIN' || n === 'EGG') return true;
-    // C objects.h unique/invocation TOOL/AMULET/SPBOOK BITS(..., uskn=1, ...)
-    // — generated table omits oc_uses_known (D-0872). Needed so xname can
-    // clear known before the_unique_obj picks "the "/"a ".
-    if (n === 'BELL_OF_OPENING' || n === 'CANDELABRUM_OF_INVOCATION'
-        || n === 'AMULET_OF_YENDOR' || n === 'FAKE_AMULET_OF_YENDOR'
-        || n === 'SPE_BOOK_OF_THE_DEAD')
-        return true;
-    return false;
+/**
+ * C ref: objclass.h oc_uses_known / objects.h BITS(..., uskn, ...).
+ * Table field from extract-objects.py (D-1674); not a class/name list.
+ */
+export function otyp_uses_known(otyp) {
+    return !!(game.objects?.[otyp]?.oc_uses_known);
 }
 
 /**
@@ -389,13 +376,9 @@ function uses_known_otyp(otyp) {
 function clear_unique_known_leak(obj) {
     if (!obj) return;
     const ocl = game.objects?.[obj.otyp];
-    if (!ocl?.oc_name_known && otyp_uses_known(obj.otyp) && ocl?.oc_unique) {
+    if (!ocl?.oc_name_known && ocl?.oc_uses_known && ocl?.oc_unique) {
         obj.known = 0;
     }
-}
-
-export function otyp_uses_known(otyp) {
-    return uses_known_otyp(otyp);
 }
 
 export function otyp_is_charged(otyp) {
