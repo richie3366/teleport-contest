@@ -83,7 +83,7 @@ import { add_to_minv, mpickobj } from './makemon.js';
 import { acurr, acurrstr, A_CHA, A_WIS, adjalign, exercise, Fast } from './attrib.js';
 import { simpleonames, makeplural, xprname } from './objnam.js';
 import {
-    xname, doname, paydoname, set_doname_shop_suffix, otyp_is_charged,
+    xname, doname, paydoname, set_doname_shop_suffix,
     ansimpleoname, append_wizweight_suffix,
 } from './objnam.js';
 import {
@@ -2853,7 +2853,7 @@ export async function check_unpaid_usage(otmp, altusage) {
     if (!otmp) return;
     const ushops = game.u?.ushops || '';
     const oc = objects()?.[otmp.otyp | 0];
-    const charged = !!(oc?.oc_charged) || otyp_is_charged(otmp.otyp | 0);
+    const charged = !!(oc?.oc_charged);
     if (!otmp.unpaid || !ushops.charCodeAt(0)
         || ((otmp.spe | 0) <= 0 && charged)) {
         return;

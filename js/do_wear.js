@@ -11,7 +11,7 @@ import {
     newsym, see_monsters, urgent_pline, impossible,
 } from './display.js';
 import { yn_function } from './getline.js';
-import { an, doname, the, xname, xprname, vtense, otyp_is_charged, makeplural, body_part_latebound } from './objnam.js';
+import { an, doname, the, xname, xprname, vtense, makeplural, body_part_latebound } from './objnam.js';
 import { find_ac } from './u_init.js';
 import {
     A_STR, A_CON, A_CHA, acurr, extremeattr, change_luck, Fast, Very_fast,
@@ -2243,7 +2243,7 @@ function learnring(ring, observed) {
         else if (ring.dknown) makeknown(ringtype);
     }
     if (ring.dknown && oc?.oc_name_known) {
-        if (otyp_is_charged(ringtype) || oc.oc_charged) ring.known = 1;
+        if (oc?.oc_charged) ring.known = 1;
         // update_inventory deferred
     }
 }

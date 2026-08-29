@@ -313,42 +313,12 @@ const PRETTY = {
     LOCK_PICK: 'lock pick',
 };
 
-// Tools/weapons/wands/charged-rings that use oc_charged-style display.
-// C: objects[].oc_charged — WEAPON() macros set chrg=1; generated table
-// omits the bit, so ring/tool names are listed explicitly (objects.h RING
-// `spec` / TOOL charged).
-function is_charged_otyp(otyp) {
-    const n = objectNames[otyp];
-    const oc = game.objects?.[otyp];
-    if (oc?.oc_charged) return true;
-    // All WEAPON_CLASS entries from objects.h WEAPON/PROJECTILE/BOW are charged
-    if ((oc?.oc_class ?? 0) === WEAPON_CLASS) return true;
-    if (n === 'DART' || n === 'SHURIKEN' || n === 'BOOMERANG'
-        || n === 'EXPENSIVE_CAMERA' || n === 'MAGIC_MARKER'
-        || n === 'CRYSTAL_BALL'
-        // C objects.h TOOL/CONTAINER chg=1 (generated table omits oc_charged)
-        || n === 'TINNING_KIT' || n === 'CAN_OF_GREASE' || n === 'BAG_OF_TRICKS'
-        || n === 'MAGIC_FLUTE' || n === 'FROST_HORN' || n === 'FIRE_HORN'
-        || n === 'HORN_OF_PLENTY' || n === 'MAGIC_HARP'
-        || n === 'DRUM_OF_EARTHQUAKE'
-        // C objects.h BELL_OF_OPENING BITS(..., chrg=1, uniq=1, ...)
-        || n === 'BELL_OF_OPENING'
-        // C WEPTOOL BITS(..., chg=1, ...) — BUC/implicit_uncursed; doname
-        // remaps to WEAPON_CLASS for +spe (not (recharged:spe))
-        || n === 'PICK_AXE' || n === 'GRAPPLING_HOOK' || n === 'UNICORN_HORN')
-        return true;
-    // Wands always show (recharged:spe) when known (C: WAND_CLASS → charges)
-    if (oc?.oc_class === WAND_CLASS) return true;
-    if (n && n.startsWith('WAN_')) return true;
-    // C objects.h RING(..., spec=1, ...) → oc_charged
-    if (n === 'RIN_ADORNMENT'
-        || n === 'RIN_GAIN_STRENGTH'
-        || n === 'RIN_GAIN_CONSTITUTION'
-        || n === 'RIN_INCREASE_ACCURACY'
-        || n === 'RIN_INCREASE_DAMAGE'
-        || n === 'RIN_PROTECTION')
-        return true;
-    return false;
+/**
+ * C ref: objclass.h oc_charged / objects.h BITS(..., chrg, ...).
+ * Table field from extract-objects.py (D-1690); not a name-list stand-in.
+ */
+export function otyp_is_charged(otyp) {
+    return !!(game.objects?.[otyp]?.oc_charged);
 }
 
 /** C ref: obj.h is_weptool — TOOL with oc_skill != P_NONE (named fallback). */
@@ -379,10 +349,6 @@ function clear_unique_known_leak(obj) {
     if (!ocl?.oc_name_known && ocl?.oc_uses_known && ocl?.oc_unique) {
         obj.known = 0;
     }
-}
-
-export function otyp_is_charged(otyp) {
-    return is_charged_otyp(otyp);
 }
 
 function mon_name(mndx) {
@@ -2262,7 +2228,7 @@ export function doname(obj) {
             // C: flags.implicit_uncursed (default) — skip "uncursed" when
             // known && oc_charged && not armor/ring (identified +/- implies BUC),
             // or always for clerics / real|fake Amulet of Yendor.
-            const charged = is_charged_otyp(otyp);
+            const charged = otyp_is_charged(otyp);
             const implicit = game.flags?.implicit_uncursed !== false;
             const showUncursed = !implicit
                 || ((!known || !charged
@@ -2299,7 +2265,7 @@ export function doname(obj) {
     }
 
     if (known && (donameClass === WEAPON_CLASS || donameClass === ARMOR_CLASS
-        || (donameClass === RING_CLASS && is_charged_otyp(otyp)))) {
+        || (donameClass === RING_CLASS && otyp_is_charged(otyp)))) {
         const spe = obj.spe | 0;
         prefix += (spe >= 0 ? `+${spe} ` : `${spe} `);
     }
@@ -2337,7 +2303,7 @@ export function doname(obj) {
         // C doname_base FOOD MEAT_RING goto ring (objnam.c:1536–1538 /
         // :1492–1503): known && oc_charged → "+spe " on prefix after
         // oeaten. objects.h BITS chrg=0 so this is idle for meat rings.
-        if (known && is_charged_otyp(otyp)) {
+        if (known && otyp_is_charged(otyp)) {
             const spe = obj.spe | 0;
             prefix += (spe >= 0 ? `+${spe} ` : `${spe} `);
         }
@@ -2527,7 +2493,7 @@ export function doname(obj) {
     // C TOOL_CLASS charges — weptools remapped to WEAPON so they get +spe.
     // Worn / leash / lamp/candle / candelabrum arms break before charges
     // (objnam.c:1429/1445/1454/1478).
-    if (known && is_charged_otyp(otyp) && donameClass === TOOL_CLASS
+    if (known && otyp_is_charged(otyp) && donameClass === TOOL_CLASS
         && !isLampOrCandle && !isCandelabrum && !toolWorn && !leashArm)
         bp += ` (${obj.recharged | 0}:${obj.spe | 0})`;
     // C ref: objnam.c WAND_CLASS → charges

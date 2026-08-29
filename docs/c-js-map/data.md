@@ -18,10 +18,13 @@ Hallu `random_object` dim 463)**; **`objectDescrs`/`objectNameStrs`** (D-0040);
 **`oc_cost`** (D-0447 shop bill / candle age units); 
 **`oc_uses_known`** (D-1674; `objects.h` BITS uskn; `mkobj.c` `unknow_object`;
 `o_init.c` `rename_disco` dummy `known=!uskn`; `u_init.c` `ini_inv_adjust_obj`;
-`objnam.c` unique known-leak); still no extracted `oc_merge` bitfield
+`objnam.c` unique known-leak); **`oc_charged`** (D-1690; `objects.h` BITS chrg;
+`mkobj.c` RING_CLASS; `u_init.c` `ini_inv_adjust_obj`; `objnam.c` doname /
+`readobjnam` spe clamp; `read.c` `charge_ok`/`recharge`; `zap.c` `drain_item` /
+`maybe_destroy_item`; `eat.c` ring hunger; `do_wear.c` `learnring`;
+`shk.c` `check_unpaid_usage`); still no extracted `oc_merge` bitfield
 (`oc_merge_of` class heuristic: SPELL/WAND mrg=0 — D-0679; D-0094);
-still no `oc_charged` (doname charged name-list stand-in); `oc_oprop` already
-extracted; `is_multigen`/`is_poisonable` named
+`oc_oprop` already extracted; `is_multigen`/`is_poisonable` named
 
 ### `include/monsters.h`
 
@@ -197,7 +200,8 @@ under-boulder pile** (D-0270); **`clear_dknown` in `mksobj` (dknowns[] + shield-
  + thin `shrink_glob`** (D-0993; full `globby_bill_fixup` / shrink ice-eat deferred); 
 **`mksobj` `unknow_object` `known` from `oc_uses_known`** (D-1674;
 was WAND/class-name stand-in D-0316); steal.c / muse.c callers named;
-still no `oc_charged`; `clear_dknown` `oc_merge` named; 
+**RING_CLASS `mksobj_init` `oc_charged`** (D-1690; was RIN_* name-list);
+`clear_dknown` `oc_merge` named; 
 **`mkbox_cnts` ICE_BOX → `mksobj(CORPSE)` + age=0/timers + `add_to_container`** (D-0361; 
 BoH Is_mbag→SACK / WAN_CANCELLATION re-roll + BoH weight factor deferred); 
 **candle `mksobj` `age=20*oc_cost` D-1308**; 

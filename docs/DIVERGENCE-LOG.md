@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1690 — objects.h oc_charged extract
+
+- **Status:** fixed (map-driven Open from D-1689; not a public FAIL)
+- **Symptom:** map named `oc_charged` extract. C `objects[].oc_charged`
+  (BITS chrg) drives doname +spe/(n:spe), RING `mksobj_init`, starting
+  ring spe, `charge_ok`/`recharge`, `drain_item`, wish spe clamp; JS
+  used a class/name list (`is_charged_otyp`) because the generated
+  table omitted the bit.
+- **C locus:** `objclass.h` `oc_charged`; `objects.h` `BITS(..., chrg, ...)`
+  / WEAPON/ARMOR/RING `spec`/TOOL `chg`/WAND macros; `mkobj.c`
+  RING_CLASS `:1128`; `u_init.c` `ini_inv_adjust_obj` `:1239–1241`;
+  `objnam.c` `doname_base` `:1339`/`:1480`/`:1500`; `readobjnam`
+  `:5099–5117`; `read.c` `charge_ok`/`recharge`; `zap.c` `drain_item`
+  `:1388` / `maybe_destroy_item` `:5868`.
+- **JS was:** `extract-objects.py` dumped the struct field but dropped
+  it from rows; `is_charged_otyp` OR’d WEAPON/WAND/named tools/six
+  RIN_*; `mksobj_init`/`ini_inv_adjust_obj` duplicated that list;
+  `eat.c` `!oc_charged` was always true.
+- **Fix:** dump `charged` in the objects extract; map `oc_charged`;
+  `otyp_is_charged` reads the table; RING init and wish spe clamp
+  use `objects[].oc_charged`. Rule #2: no fs.
+- **JS:** `scripts/extract-objects.py` + `js/generated/objects_data.js`;
+  `js/objnam.js` `otyp_is_charged`; `js/mkobj.js`; `js/u_init.js`;
+  `js/readobjnam.js`; `js/zap.js`; `js/shk.js`; `js/do_wear.js`.
+- **Not this iter:** `oc_merge` extract; `readobjnam` quan/`oc_merge`
+  non-wizard; TIN/TOWEL/STATUE spe switch after clamp.
+- **Verified:** private canary (6 charged rings; live WEAPON/ARMOR/WAND
+  chrg=1; lamp/sack/novel/Yendor/food 0; marker/BoT/weptool 1);
+  green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+- **Files:** `scripts/extract-objects.py`, `js/generated/objects_data.js`,
+  `js/objnam.js`, `js/mkobj.js`, `js/u_init.js`, `js/readobjnam.js`,
+  `js/zap.js`, `js/shk.js`, `js/do_wear.js`.
+
 ## D-1689 — engrave.c doengrave non-hands stylus
 
 - **Status:** fixed (map-driven Open from D-1688; not a public FAIL)
