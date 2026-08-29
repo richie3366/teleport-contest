@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `shk.c` cheapest_item early return (named). Not Traditional itemize.
 - [ ] `engrave.c` doengrave non-hands stylus (named). Not IA_ENGRAVE pushkeys.
 - [ ] `objects.h` oc_charged extract (named). Not oc_merge.
 - [ ] `o_init.c` undiscover_object / gem_learned (named). Not oc_uses_known.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dungeon.c` print_mapseen knox/drawbridge (named). Not cemetery JSON.
 - [ ] `options.c` mO perminv_mode compound row (named). Not optfn_perminv_mode.
 - [ ] `options.c` wizmgender glyph-reset (named). Not wizweight.
+- [ ] `shk.c` buy_container (named). Not cheapest_item.
+- [ ] `shk.c` shk_names_obj makeknown (named). Not buy_container.
+- [ ] `shk.c` dopay multi-shk getpos (named). Not shk_names_obj.
+- [ ] `shk.c` bill_box_content (named). Not contained_cost.
+- [ ] `getline.c` yn_function addcmdq (named). Not Traditional itemize.
 
 ## Parked (do not pop)
 

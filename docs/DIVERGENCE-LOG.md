@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1688 — shk.c cheapest_item pay_billed_items early return
+
+- **Status:** fixed (map-driven Open from D-1687; not a public FAIL)
+- **Symptom:** map named `cheapest_item` early return. C
+  `pay_billed_items` refuses the pay menu when wallet+credit cannot
+  cover even the cheapest `ibill[]` entry (and the no-gold You()
+  uses stashed_gold / already-paid `" left"`). JS skipped that
+  compare and always opened `menu_pick_pay_items`.
+- **C locus:** `shk.c` `cheapest_item` `:1521–1539`; caller
+  `pay_billed_items` `:2060–2080` (after `money_cnt`; before
+  `via_menu`).
+- **JS was:** `pay_billed_items` had only a flat no-gold pline, then
+  via_menu (D-1684). `cheapest_item` NOT FOUND.
+- **Fix:** port `cheapest_item`; wire no-gold / cheapest early
+  return with `more_than_one`, stashed_gold, and `*paid_p`. Pass
+  `ibillct` / stashed_gold / live `paid` into `pay_billed_items`.
+  Named: Traditional itemize yn; `buy_container`; `shk_names_obj`
+  makeknown. Rule #2: no fs.
+- **JS:** `js/shk.js` `cheapest_item` / `pay_billed_items` / `dopay`.
+- **Not this iter:** Traditional itemize yn; `buy_container`;
+  doengrave non-hands stylus; yn addcmdq.
+- **Verified:** private canary **15**/15; green+strict seed8000/0900;
+  cohort **7**/7 + green + strict.
+- **Files:** `js/shk.js`.
+
 ## D-1687 — invent.c dotypeinv Traditional itemize yn
 
 - **Status:** fixed (map-driven Open from D-1686; not a public FAIL)

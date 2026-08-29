@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `invent.c` Traditional itemize yn (named). Not cheapest_item. **Addressed:** D-1687
+- [x] `shk.c` cheapest_item early return (named). Not Traditional itemize. **Addressed:** D-1688
+
+
+- [x] `invent.c` Traditional itemize yn (named). Not cheapest_item. **Addressed:** D-1687 `bad8cbd6`
 
 
 - [x] `iactions.c` remaining pushkeys rub/swap/whatis (named). Not two-weapon. **Addressed:** D-1686 `300d7098`

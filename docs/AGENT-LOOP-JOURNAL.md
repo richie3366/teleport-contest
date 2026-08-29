@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1688 shk.c cheapest_item early return
+
+**Objective:** Open `shk.c` cheapest_item early return (named). Not
+Traditional itemize.
+**C locus:** `shk.c` `cheapest_item` `:1521–1539`;
+`pay_billed_items` `:2060–2080`.
+**JS locus:** `js/shk.js` `cheapest_item` / `pay_billed_items` /
+`dopay`.
+**Change:** min `ibill[].cost`; no-gold You() stashed/` left`; refuse
+pay when cash+credit < cheapest. Named: `buy_container`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **15**/15; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `engrave.c` doengrave non-hands stylus. Not IA_ENGRAVE
+pushkeys.
+**Blocked:** none.
+
 ## 2026-08-29 — D-1687 invent.c dotypeinv Traditional itemize yn
 
 **Objective:** Open `invent.c` Traditional itemize yn (named). Not

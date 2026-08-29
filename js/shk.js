@@ -3753,8 +3753,10 @@ export async function paybill(croaked, silently) {
     return taken;
 }
 
-/** C shk.c billitem_status FullyIntact — ordinary unpaid. */
+/** C shk.c enum billitem_status — FullyIntact unpaid; UndisclosedContainer
+ *  for pay_billed_items more_than_one. Other usedup arms named omit. */
 const FullyIntact = 4;
+const UndisclosedContainer = 6;
 /** C shk.c PAY_* dopayobj results. */
 const PAY_BUY = 1;
 
@@ -3774,7 +3776,7 @@ function bp_to_obj(bp) {
  * C shk.c doinvbill `:4196–4271`. mode 0: count used-up bill rows (+
  * debit) so dotypeinv Traditional can offer 'x'. mode 1: NHW_MENU of
  * used-up articles. find_oid / billobjs o_on still invent-only
- * (bp_to_obj). cheapest_item / buy_container named.
+ * (bp_to_obj). buy_container named.
  * @param {number} mode
  * @returns {Promise<number>}
  */
@@ -4004,18 +4006,54 @@ async function dopayobj(shkp, bp, obj, _which, _itemize, unseen) {
 }
 
 /**
- * C ref: shk.c pay_billed_items `:2042–2167` — via_menu arm
- * (`:2084–2098`) always `menu_pick_pay_items`. C never cmdq_pop; queuedpay
- * is set only from sequential menu letters `a`… (not `obj.invlet`).
- * IA_BUY_OBJ leftover CMDQ_KEY is the next rhack (cmd.c `:3642–3651`).
- * Named omissions: cheapest_item early return; Traditional itemize yn /
- * menu_requested toggle; used-up / buy_container.
+ * C ref: shk.c cheapest_item `:1521–1539` — min ibill[].cost.
+ * 5.0 walks the itemized bill (partly-used already split) rather than
+ * bill_p[]. Empty ibill matches C zerosbi terminator (cost 0).
  */
-async function pay_billed_items(shkp, ibill, paidRef) {
+function cheapest_item(ibillct, ibill) {
+    let gmin = ibill[0]?.cost | 0;
+    for (let i = 1; i < ibillct; ++i) {
+        if ((ibill[i].cost | 0) < gmin) gmin = ibill[i].cost | 0;
+    }
+    return gmin;
+}
+
+/**
+ * C ref: shk.c pay_billed_items `:2042–2167` — no-gold / cheapest_item
+ * early return (`:2060–2080`) then via_menu (`:2084–2098`) always
+ * `menu_pick_pay_items`. C never cmdq_pop; queuedpay is set only from
+ * sequential menu letters `a`… (not `obj.invlet`). IA_BUY_OBJ leftover
+ * CMDQ_KEY is the next rhack (cmd.c `:3642–3651`).
+ * Named omissions: Traditional itemize yn / menu_requested toggle;
+ * used-up / buy_container.
+ */
+async function pay_billed_items(shkp, ibillct, ibill, stashed_gold, paidRef) {
     const eshkp = ESHK(shkp);
     const umoney = money_cnt(game.invent);
     if (!umoney && !(eshkp?.credit | 0)) {
-        await pline('You have no gold or credit.');
+        // C You("%shave no gold or credit%s.", seem-to, paid? " left")
+        await pline(
+            `You ${stashed_gold ? 'seem to ' : ''}have no gold or credit${
+                paidRef.paid ? ' left' : ''
+            }.`,
+        );
+        return true;
+    }
+    const bp = (eshkp.bill_p || eshkp.bill || [])[0];
+    const otmp = bp_to_obj(bp);
+    const ebillct = eshkp.billct | 0;
+    const more_than_one = (ebillct > 1
+        || ((otmp?.quan | 0) < (bp?.bquan | 0))
+        || ibill[0]?.usedup === UndisclosedContainer);
+    if ((umoney + (eshkp.credit | 0)) < cheapest_item(ibillct, ibill)) {
+        await pline(
+            `You don't have enough gold to buy${more_than_one ? ' any of' : ''} the item${plur(more_than_one ? 2 : 1)} ${
+                ebillct > 1 ? "you've picked" : 'on your bill'
+            }.`,
+        );
+        if (stashed_gold) {
+            await pline('Maybe you have some gold stashed away?');
+        }
         return true;
     }
 
@@ -4027,7 +4065,7 @@ async function pay_billed_items(shkp, ibill, paidRef) {
     }
     queuedpay = true;
 
-    for (let indx = 0; indx < ibill.length; indx++) {
+    for (let indx = 0; indx < ibillct; indx++) {
         if (queuedpay && !ibill[indx].queuedpay) continue;
         const otmp = ibill[indx].obj;
         const bidx = ibill[indx].bidx | 0;
@@ -4064,9 +4102,10 @@ function Blind_telepat() {
  * peaceful non-resident robbed settle; !bill&&!debit robbed/angry appease;
  * debit pay (credit/money2mon); bill menu → money2mon/splitobj;
  * via_menu `menu_pick_pay_items` (D-1684; leftover IA_BUY_OBJ KEY is
- * next rhack); thank-you verbalize; ECMD_TIME when paid.
- * Deferred: multi-shk getpos; used-up/containers; cheapest_item;
- * traditional itemize; mute/Deaf thank-you nod; SetVoice.
+ * next rhack); cheapest_item early return (D-1688); thank-you
+ * verbalize; ECMD_TIME when paid.
+ * Deferred: multi-shk getpos; used-up/containers; traditional
+ * itemize; mute/Deaf thank-you nod; SetVoice.
  */
 export async function dopay() {
     game.multi = 0;
@@ -4302,8 +4341,12 @@ export async function dopay() {
     let pay_done = true;
     if (eshkp.billct | 0) {
         const ibill = make_itemized_bill(shkp);
-        const paidRef = { paid: false };
-        if (!await pay_billed_items(shkp, ibill, paidRef)) pay_done = false;
+        const paidRef = { paid };
+        if (!await pay_billed_items(
+            shkp, ibill.length, ibill, stashed_gold, paidRef,
+        )) {
+            pay_done = false;
+        }
         paid = paid || paidRef.paid;
     }
 
