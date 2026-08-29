@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1680 — do_name.c oname via_naming livelog
+
+- **Status:** fixed (map-driven Open from D-1679; not a public FAIL)
+- **Symptom:** map named `oname` via_naming livelog. After D-1670
+  `oname` assigned the string and called `artifact_exists` but
+  voided `ONAME_VIA_NAMING`, so Sting/Orcrist never bumped
+  `u.uconduct.literate` or wrote the chronicle.
+- **C locus:** `do_name.c` `oname` `:371–426`. Caller `do_oname`
+  `:367` `ONAME_VIA_NAMING | ONAME_KNOW_ARTI`. Callees
+  `livelog_printf` (`pline.c`), `bare_artifactname` /
+  `ansimpleoname`, `set_artifact_intrinsic`, `alter_cost`,
+  `new_oname`, `update_inventory`. `untwoweapon` You() is async
+  in JS (`pline`); `set_twoweap(false)` still runs.
+- **JS was:** `void (oflgs & ONAME_VIA_NAMING)` after D-1670;
+  dual-wield / intrinsic / shop / literate deferred.
+- **Fix:** via_naming `literate++` then `LL_CONDUCT|LL_ARTIFACT`
+  first-write vs `LL_ARTIFACT` chose-named; uwep intrinsic;
+  unpaid `alter_cost`; `where==OBJ_INVENT` && !SKIP_INVUPD
+  `update_inventory`; `new_oname`. Named: `untwoweapon` You();
+  wield `restrict_name`. Rule #2: no fs.
+- **JS:** `js/do_name.js` `oname`.
+- **Not this iter:** wield `restrict_name`; `'i'` `getobj_name`
+  clone; `docallcmd` #if 0 EXCLUDE; `choose_tip_container_menu`
+  is D-1679.
+- **Verified:** private canary (Sting first-literate; Orcrist
+  chose-named; exist_artifact block; uswapwep `set_twoweap` no
+  livelog without via_naming; SKIP_INVUPD still logs);
+  green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+- **Files:** `js/do_name.js`.
+
 ## D-1679 — pickup.c choose_tip_container_menu
 
 - **Status:** fixed (map-driven Open from D-1678; not a public FAIL)

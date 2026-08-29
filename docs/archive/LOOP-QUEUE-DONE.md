@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `pickup.c` choose_tip_container_menu (named). Not tip getobj. **Addressed:** D-1679
+- [x] `do_name.c` oname via_naming livelog (named). Not wield restrict_name. **Addressed:** D-1680
+
+
+- [x] `pickup.c` choose_tip_container_menu (named). Not tip getobj. **Addressed:** D-1679 `1b08a2d9`
 
 
 - [x] `pray.c` offer_corpse (named). Not floorfood sacrifice getobj. **Addressed:** D-1678 `8a8124d1`

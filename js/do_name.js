@@ -7,12 +7,17 @@
 //        `"call"` (D-1660); do_oname artifact_name slip (D-1670);
 //        docallcmd cmdq_pop canned + lootabc + invent-gated i/o (D-1671);
 //        docall sink-fluid OBJ_DESCR + safe_qbuf Call/:/thing (D-1672);
-//        distant_monnam astral high-cleric conceal (D-1673).
+//        distant_monnam astral high-cleric conceal (D-1673);
+//        oname via_naming literate livelog (D-1680).
 
 import {
     artifact_exists, exist_artifact, artifact_name, restrict_name,
+    bare_artifactname, set_artifact_intrinsic,
 } from './artifact.js';
 import { game } from './gstate.js';
+import { livelog_printf } from './pline.js';
+import { alter_cost } from './shk.js';
+import { set_twoweap } from './wield.js';
 import { cmdq_pop, cmdq_clear } from './cmd.js';
 import { rn2, rn1, rn2_on_display_rng, rnd_on_display_rng } from './rng.js';
 import { wipeout_text } from './engrave.js';
@@ -28,7 +33,9 @@ import {
 } from './invent.js';
 import { rename_disco } from './o_init.js';
 import {
-    ONAME_VIA_NAMING, ONAME_KNOW_ARTI, MGIVENNAME, has_mgivenname,
+    ONAME_VIA_NAMING, ONAME_KNOW_ARTI, ONAME_SKIP_INVUPD,
+    LL_CONDUCT, LL_ARTIFACT, W_WEP,
+    MGIVENNAME, has_mgivenname,
     W_SADDLE, engulfing_u, Upolyd, MD_PAD_BOGONS,
     ARTICLE_NONE, ARTICLE_THE, ARTICLE_A, ARTICLE_YOUR,
     SUPPRESS_IT, SUPPRESS_INVISIBLE, SUPPRESS_HALLUCINATION,
@@ -52,8 +59,8 @@ import { object_from_map } from './pager.js';
 import { objects_at, SIR_TERRY_NOVELS } from './mkobj.js';
 import { rank_of } from './roles.js';
 import {
-    an, xname, simpleonames, set_y_monnam, set_noit_mon_nam, The,
-    is_plural, safe_qbuf, body_part_latebound,
+    an, xname, simpleonames, ansimpleoname, set_y_monnam, set_noit_mon_nam,
+    The, is_plural, safe_qbuf, body_part_latebound,
 } from './objnam.js';
 import {
     POTION_CLASS, COIN_CLASS, AMULET_CLASS, SCROLL_CLASS, WAND_CLASS,
@@ -248,7 +255,7 @@ async function name_from_player(prompt, defres) {
  * C ref: do_name.c do_oname `:289–369`.
  * getlin then artifact_name + restrict_name / exist_artifact slip
  * (wipeout_text + rnd_on_display_rng) or canonical Sting/Orcrist.
- * oname via_naming literate livelog / shop bill still named.
+ * oname via_naming literate livelog is D-1680.
  */
 async function do_oname(obj) {
     if (!obj) return;
@@ -988,26 +995,64 @@ export function noit_mon_nam(mtmp) {
 set_noit_mon_nam(noit_mon_nam);
 
 /**
- * C ref: do_name.c oname — assign name; may create artifact via artifact_exists.
+ * C ref: do_name.c oname `:371–426` — assign name; may create an
+ * artifact via artifact_exists. via_naming literate++ livelog when
+ * naming produces Sting/Orcrist (D-1680).
+ * Named: `untwoweapon` You() (pline is async; oname stays sync).
  */
 export function oname(obj, name, oflgs = 0) {
     if (!obj) return obj;
+    const via_naming = (oflgs & ONAME_VIA_NAMING) !== 0;
+    const skip_inv_update = (oflgs & ONAME_SKIP_INVUPD) !== 0;
     let n = name || '';
     if (n.length >= PL_PSIZ) n = n.slice(0, PL_PSIZ - 1);
 
-    // If already artifact or named artifact exists, keep current
+    /* If named artifact exists in the game, do not create another.
+       Also trying to create an artifact shouldn't de-artifact it. */
     if (obj.oartifact || (n && exist_artifact(obj.otyp, n))) {
         return obj;
     }
 
-    if (!obj.oextra) obj.oextra = {};
-    if (n) obj.oextra.oname = n;
-    else delete obj.oextra.oname;
+    const lth = n ? n.length + 1 : 0;
+    new_oname(obj, lth);
+    if (lth) obj.oextra.oname = n;
 
-    if (n) artifact_exists(obj, n, true, oflgs | 0);
-
-    // Dual-wield / intrinsic / shop / literate paths deferred
-    void (oflgs & ONAME_VIA_NAMING);
+    if (lth) artifact_exists(obj, n, true, oflgs | 0);
+    if (obj.oartifact) {
+        const u = game.u || (game.u = {});
+        /* can't dual-wield with artifact as secondary weapon */
+        if (obj === u.uswapwep && u.twoweap) {
+            set_twoweap(false);
+            update_inventory();
+        }
+        /* activate warning if you've just named your weapon "Sting" */
+        if (obj === u.uwep) set_artifact_intrinsic(obj, true, W_WEP);
+        /* if obj is owned by a shop, increase your bill */
+        if (obj.unpaid) alter_cost(obj, 0);
+        if (via_naming) {
+            /* violate illiteracy since successfully wrote arti-name */
+            if (!u.uconduct) u.uconduct = {};
+            const first = !(u.uconduct.literate | 0);
+            u.uconduct.literate = (u.uconduct.literate | 0) + 1;
+            if (first) {
+                livelog_printf(
+                    LL_CONDUCT | LL_ARTIFACT,
+                    'became literate by naming %s',
+                    bare_artifactname(obj),
+                );
+            } else {
+                livelog_printf(
+                    LL_ARTIFACT,
+                    'chose %s to be named "%s"',
+                    ansimpleoname(obj),
+                    bare_artifactname(obj),
+                );
+            }
+        }
+    }
+    if ((obj.where | 0) === OBJ_INVENT && !skip_inv_update) {
+        update_inventory();
+    }
     return obj;
 }
 

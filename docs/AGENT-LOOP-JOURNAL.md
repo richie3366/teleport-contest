@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1680 do_name.c oname via_naming livelog
+
+**Objective:** Open `do_name.c` oname via_naming livelog (named). Not
+wield restrict_name.
+**C locus:** `do_name.c` `oname` `:371–426`; caller `do_oname` `:367`.
+**JS locus:** `js/do_name.js` `oname`.
+**Change:** via_naming `literate++` `livelog_printf`; uwep
+`set_artifact_intrinsic`; unpaid `alter_cost`; `OBJ_INVENT`
+`update_inventory`; `new_oname`; uswapwep `set_twoweap`. Named:
+`untwoweapon` You() / wield `restrict_name`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary; green+strict seed8000/0900; cohort
+**9**/9 + strict.
+**Next:** Open `do_name.c` `'i'` getobj_name clone. Not #if 0 EXCLUDE.
+**Blocked:** none.
 ## 2026-08-29 — D-1679 pickup.c choose_tip_container_menu
 
 **Objective:** Open `pickup.c` choose_tip_container_menu (named). Not

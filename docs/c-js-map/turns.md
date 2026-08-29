@@ -951,7 +951,13 @@ truncate + `append_price_quote`; dummy `dknown`/`!oc_uses_known` then `docall`;
 **artifact_name slip** (D-1670; `artifact.c` `restrict_name` + `do_oname`
 `:331–357` `wipeout_text`/`rnd_on_display_rng` + literate++; canonical
 Sting/Orcrist `otyp==objtyp`; `is_plural`+`safe_qbuf` prompt; wield
-`restrict_name` / `oname` via_naming livelog named);
+`restrict_name` named; `oname` via_naming livelog is D-1680);
+**`oname` via_naming livelog** (D-1680; C `do_name.c` `oname`
+`:371–426`; `literate++` `livelog_printf` LL_CONDUCT|LL_ARTIFACT /
+LL_ARTIFACT; `new_oname`; uwep `set_artifact_intrinsic`; unpaid
+`alter_cost`; `OBJ_INVENT` `update_inventory`; uswapwep `set_twoweap`;
+`untwoweapon` You() named — oname stays sync; wield `restrict_name`
+named);
 **`docallcmd` cmdq_pop canned** (D-1671; C `:511–518` KEY skip-menu else
 `cmdq_clear(CQ_CANNED)`; `:508–550` `flags.lootabc` acc + `if (gi.invent)`
 i/o rows; export `cmdq_pop`/`cmdq_clear` `js/cmd.js`; iactions Call
@@ -995,8 +1001,8 @@ a fresh object so `data.mndx`); **`lookup_novel` D-1651**
 miss; `SIR_TERRY_NOVELS` export from mkobj `noveltitle` home; callers
 `readobjnam` SPE_NOVEL before `oname` ONAME_WISH + `create_object`
 named `oname` ONAME_LEVEL_DEF); artifact_name slip is D-1670; cmdq_pop
-canned is D-1671; sink-fluid/`safe_qbuf` is D-1672; `oc_uses_known` /
-iactions Call still named above
+canned is D-1671; sink-fluid/`safe_qbuf` is D-1672; `oname` via_naming
+livelog is D-1680; `oc_uses_known` / iactions Call still named above
 
 ### `src/dokick.c`
 
