@@ -1,3 +1,27 @@
+## D-1623 — topl.c tty_yn_function post-answer gt.toplines=prompt+key
+
+- **Status:** fixed (map-driven Open from D-1622; not a public FAIL)
+- **Symptom:** after a valid yn answer, C rewrites `gt.toplines` to
+  prompt+`key2txt(q)` (or `#%ld` when `yn_number`) and `dumplogmsg`,
+  without `addtopl`. JS left `_toplines` as the painted prompt only
+  (named omit after D-1612 / D-0880).
+- **C locus:** `win/tty/topl.c` `tty_yn_function` clean_up `:532–542`
+  (function `:364–551`); callee `cmd.c` `key2txt` `:3224–3240`;
+  `pline.c` `dumplogmsg` DUMPLOG_CORE. `addtopl` is commented out.
+  Windowproc (csym `--callers` 0). yn ^P is D-1612.
+- **JS was:** named omit after D-1612 (`mark_topline_prompt(prompt)`
+  leftover; comment said prompt+key2txt still named).
+- **Fix:** all yn return paths through `tty_yn_clean_up`: `yn_number`
+  → `#N` else `key2txt`; `tty_yn_rewrite_toplines` + dumplogmsg +
+  NON_EMPTY. Leftover `_pending_message` unchanged. Import dokeylist
+  `key2txt` (no pager clone). Rule #2: no fs.
+- **JS:** `js/getline.js` `tty_yn_clean_up`; `js/display.js`
+  `tty_yn_rewrite_toplines`.
+- **Not this iter:** `tty_nhbell` invalid; `cw->cury`
+  `tty_clear_nhwindow`; `ttyDisplay->intr--`; EDIT_GETLIN / kill_char.
+  yn ^P is D-1612. getline ^P is D-1611. `com_pager_core` is D-1622.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1622 — questpgr.c com_pager_core synopsis putmsghistory
 
 - **Status:** fixed (map-driven Open from D-1621; not a public FAIL)

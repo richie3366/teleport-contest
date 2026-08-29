@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1623 topl.c tty_yn_function post-answer toplines
+
+**Objective:** Open `topl.c` `tty_yn_function` post-answer
+`toplines=prompt+key` (named). Not yn ^P.
+**C locus:** `win/tty/topl.c` `tty_yn_function` clean_up `:532–542`;
+`cmd.c` `key2txt`; `pline.c` `dumplogmsg`.
+**JS locus:** `js/getline.js` `tty_yn_clean_up` / `yn_function`;
+`js/display.js` `tty_yn_rewrite_toplines`; `js/dokeylist.js`
+`key2txt` (no clone).
+**Change:** rewrite `gt.toplines` to prompt+key2txt (or `#N`) +
+dumplogmsg. Not addtopl (leftover stays painted). `tty_nhbell` /
+`cw->cury` / `intr` named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `getline.c` EDIT_GETLIN. Not getline ^P.
+**Blocked:** none.
 ## 2026-08-29 — D-1622 questpgr.c com_pager_core synopsis
 
 **Objective:** Open `questpgr.c` `com_pager_core` synopsis (named).

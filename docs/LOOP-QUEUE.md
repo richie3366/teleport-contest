@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `topl.c` `tty_yn_function` post-answer `toplines=prompt+key` (named). Not yn ^P.
 - [ ] `getline.c` EDIT_GETLIN (named). Not getline ^P.
 - [ ] `cmd.c` `doextlist` (named). Not #seeall EXT_CMDS.
 - [ ] `sounds.c` MS_BOAST hostile giants (named). Not MS_HUMANOID.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `restore.c` `restore_gamelog` (named). Not restore_msghistory.
 - [ ] `dog.c` `free_edog` (named). Not initedog ogoal.
 - [ ] `do_wear.c` `menu_remarm` (named). Not take_off occupation.
+- [ ] `topl.c` `tty_yn_function` `tty_nhbell` (named). Not post-answer toplines.
+- [ ] `getline.c` `kill_char` (named). Not EDIT_GETLIN.
+- [ ] `files.c` tribute (named). Not putmsghistory.
+- [ ] `questpgr.c` `convert_line` pronoun `%Xh` (named). Not com_pager_core.
+- [ ] `invent.c` ggetobj drop (named). Not takeoff/identify.
 
 ## Parked (do not pop)
 

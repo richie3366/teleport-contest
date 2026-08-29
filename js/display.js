@@ -1311,7 +1311,8 @@ let _morc = 0;
 // (iflags.msg_history, min 20, max MAX_MSG_HISTORY). maxrow is the write
 // index; rows stays at the ring size. tty_doprev_message is D-1601.
 // restore.c restore_msghistory still named. getline.c ^P is D-1611;
-// yn ^P is D-1612. get_count historicmsg is D-1613.
+// yn ^P is D-1612. get_count historicmsg is D-1613. yn post-answer
+// prompt+key is D-1623.
 const MSG_HISTORY_MIN = 20;
 let _msg_cw = null;
 // C topl.c snapshot_mesgs — shared by tty_getmsghistory / tty_putmsghistory
@@ -1656,6 +1657,20 @@ export function mark_topline_prompt(text) {
     _toplines = t.replace(/\n--More--$/, '').replace(/--More--$/, '');
     _toplin = TOPLINE_NON_EMPTY;
     game._pending_message = t;
+}
+
+/**
+ * C topl.c tty_yn_function clean_up `:532–542`.
+ * `Sprintf(gt.toplines, "%s%s", prompt, rtmp)` then DUMPLOG_CORE
+ * `dumplogmsg`. `addtopl(rtmp)` is commented out — leftover
+ * (`_pending_message`) stays the painted prompt. Does not
+ * `tty_clear_nhwindow` when `cw->cury` (wrap) or `ttyDisplay->intr--`.
+ * @param {string} text prompt+key2txt or prompt+#yn_number
+ */
+export function tty_yn_rewrite_toplines(text) {
+    _toplines = String(text ?? '');
+    dumplogmsg(_toplines);
+    _toplin = TOPLINE_NON_EMPTY;
 }
 
 /**

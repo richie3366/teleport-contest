@@ -1,7 +1,8 @@
 // getline.js — Line input and extended-command entry.
 // C ref: win/tty/getline.c tty_getlin / hooked_tty_getlin / tty_get_ext_cmd
-// plus win/tty/topl.c tty_yn_function (yn ^P is D-1612, not getline ^P).
-// (partial: EDIT_GETLIN / kill_char named).
+// plus win/tty/topl.c tty_yn_function (yn ^P is D-1612; post-answer
+// prompt+key is D-1623, not getline ^P).
+// (partial: EDIT_GETLIN / kill_char / tty_nhbell named).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -10,7 +11,9 @@ import {
     clear_nhwindow_message, tty_doprev_message,
     get_tty_inread, set_tty_inread, prevmsg_reset_maxcol,
     mark_topline_special_prompt, hooked_getlin_release_prompt,
+    tty_yn_rewrite_toplines,
 } from './display.js';
+import { key2txt } from './dokeylist.js';
 import {
     COLNO, QBUFSZ, PARANOID_CONFIRM,
     ECM_IGNOREAC, ECM_EXACTMATCH, ECM_NO1CHARCMD,
@@ -1015,7 +1018,8 @@ export async function paranoid_query(be_paranoid, prompt) {
 /**
  * C topl.c tty_yn_function `:394–396` / `:544–545`: SPECIAL_PROMPT,
  * inread++, then inread-- and NON_EMPTY. Getlin uses the same inread
- * pair (D-1611) but a different ^P dispatcher.
+ * pair (D-1611) but a different ^P dispatcher. Post-answer gt.toplines
+ * rewrite is D-1623 (not this pair).
  */
 function hooked_yn_begin() {
     set_tty_inread(get_tty_inread() + 1);
@@ -1064,6 +1068,28 @@ async function tty_yn_ctrl_p(c, doprev, restorePrompt) {
 }
 
 /**
+ * C topl.c tty_yn_function clean_up `:532–542`.
+ * `if (yn_number) Sprintf(rtmp, "#%ld")` else `key2txt(q, rtmp)`;
+ * rewrite `gt.toplines` to prompt+rtmp (not `addtopl`). DUMPLOG_CORE
+ * `dumplogmsg` lives in `tty_yn_rewrite_toplines`. Leftover stays the
+ * painted prompt. `cw->cury` clear / `ttyDisplay->intr` named.
+ * @param {string} prompt
+ * @param {string} q
+ * @returns {string}
+ */
+function tty_yn_clean_up(prompt, q) {
+    let rtmp;
+    if (game.yn_number) {
+        rtmp = `#${game.yn_number}`;
+    } else {
+        const code = q == null || q === '' ? 0 : q.charCodeAt(0);
+        rtmp = key2txt(code);
+    }
+    tty_yn_rewrite_toplines(`${prompt}${rtmp}`);
+    return q;
+}
+
+/**
  * C ref: win/tty/topl.c tty_yn_function — query + [resp] + (def) + space.
  * Esc → 'q' if in resp else 'n' if in resp else def.
  * Quitchars (space/return) → def. Invalid keys bell and retry.
@@ -1072,10 +1098,10 @@ async function tty_yn_ctrl_p(c, doprev, restorePrompt) {
  * Prompt paint uses show_topl/putsyms hard-wrap (SUPPRESS_HISTORY), not
  * update_topl word-wrap — see topl_wrap_echo.
  *
- * After a valid answer, leave the prompt on the message line
- * (C: TOPLINE_NON_EMPTY / gt.toplines). Silent follow-ups (e.g.
- * dipfountain case 16 curse with no pline) keep the yn text until
- * rhack clears after the next-command nhgetch capture.
+ * After a valid answer, C rewrites gt.toplines to prompt+key2txt (or
+ * #yn_number) without addtopl (D-1623). Silent follow-ups (e.g.
+ * dipfountain case 16 curse with no pline) keep the painted yn text
+ * until rhack clears after the next-command nhgetch capture.
  * When resp contains '#', digits collect C yn_number and return '#'.
  */
 export async function yn_function(query, resp = 'yn', def = 'n') {
@@ -1119,8 +1145,7 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
         await paint();
         if (!resp) {
             const c = await nhgetch();
-            mark_topline_prompt(prompt);
-            return String.fromCharCode(c);
+            return tty_yn_clean_up(prompt, String.fromCharCode(c));
         }
         for (;;) {
             const c = await nhgetch();
@@ -1131,21 +1156,13 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
             doprev = handled.doprev;
             if (handled.skip) continue;
             if (c === 27) {
-                if (resp.includes('q')) {
-                    mark_topline_prompt(prompt);
-                    return 'q';
-                }
-                if (resp.includes('n')) {
-                    mark_topline_prompt(prompt);
-                    return 'n';
-                }
+                if (resp.includes('q')) return tty_yn_clean_up(prompt, 'q');
+                if (resp.includes('n')) return tty_yn_clean_up(prompt, 'n');
                 // C: else q = def (may be '\0', e.g. rightleftchars)
-                mark_topline_prompt(prompt);
-                return def;
+                return tty_yn_clean_up(prompt, def);
             }
             if (ch === ' ' || c === 13 || c === 10) {
-                mark_topline_prompt(prompt);
-                return def;
+                return tty_yn_clean_up(prompt, def);
             }
             const digit_ok = allow_num && ch >= '0' && ch <= '9';
             if (!resp.includes(ch) && !digit_ok) continue;
@@ -1155,15 +1172,12 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
                     await paint();
                     continue;
                 }
-                if (num === 0) return 'n';
+                if (num === 0) return tty_yn_clean_up(prompt, 'n');
                 game.yn_number = num;
-                return '#';
+                return tty_yn_clean_up(prompt, '#');
             }
             if (resp.includes(ch)) {
-                // Leftover gt.toplines is the unwrapped prompt until
-                // parse clear (C clean_up prompt+key2txt still named).
-                mark_topline_prompt(prompt);
-                return ch;
+                return tty_yn_clean_up(prompt, ch);
             }
             // invalid — C tty_nhbell + retry
         }
