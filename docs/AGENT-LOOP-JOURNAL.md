@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — review D-1603–D-1611 (audit #2010)
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **563**;
+cadence score. No `js/` edits.
+**C locus:** `beyond_savefile_load`; zap `Blind`; `#seeall`;
+`mplayer_talk`; `mongets` spe; `gain_guardian_angel`; `m_unleash`;
+`initedog` ogoal; hooked_tty_getlin ^P.
+**JS locus:** reviews **564–572** (`d1a832a1`…`21441f2e`).
+**Change:** ACCEPT-WITH-DEBT 564–572. No QUALITY-RISK / Must-fix.
+Filled archive D-1611 `%h` `21441f2e`.
+**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
+`39+0.31/turn` (R² 0.862) at `21441f2e`. seed4500 PASS.
+**Verified:** cadence `__RESULTS_JSON__`; `check-hot-docs --review 564-572`.
+**Next:** Open yn ^P. Not command ^P.
+**Blocked:** none.
 ## 2026-08-29 — D-1611 getline.c hooked_tty_getlin ^P
 
 **Objective:** Open `getline.c` getlin ^P `tty_doprev_message` (named).

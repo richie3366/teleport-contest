@@ -574,3 +574,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [561-fb87326a-perm-invent-inv-inuse.md](./561-fb87326a-perm-invent-inv-inuse.md) | `fb87326a` | D-1600 perm_invent InvInUse / prepare_perminvent | **QUALITY-RISK** |
 | [562-fd0ada3f-tty-doprev-message.md](./562-fd0ada3f-tty-doprev-message.md) | `fd0ada3f` | D-1601 tty_doprev_message / ^P #prevmsg | **ACCEPT-WITH-DEBT** |
 | [563-b9710bcf-ggetobj-takeoff-identify.md](./563-b9710bcf-ggetobj-takeoff-identify.md) | `b9710bcf` | D-1602 ggetobj takeoff/identify askchain | **ACCEPT-WITH-DEBT** |
+| [564-d1a832a1-beyond-savefile-load.md](./564-d1a832a1-beyond-savefile-load.md) | `d1a832a1` | D-1603 beyond_savefile_load writers | **ACCEPT-WITH-DEBT** |
+| [565-49933ea8-zap-bhit-blind.md](./565-49933ea8-zap-bhit-blind.md) | `49933ea8` | D-1604 zap bhit Blind youprop | **ACCEPT-WITH-DEBT** |
+| [566-44151244-seeall-extcmds.md](./566-44151244-seeall-extcmds.md) | `44151244` | D-1605 #seeall EXT_CMDS doprinuse | **ACCEPT-WITH-DEBT** |
+| [567-f9d27e3f-mplayer-talk.md](./567-f9d27e3f-mplayer-talk.md) | `f9d27e3f` | D-1606 mplayer_talk hostile endgame #chat | **ACCEPT-WITH-DEBT** |
+| [568-233abaea-mongets-mplayer-sword.md](./568-233abaea-mongets-mplayer-sword.md) | `233abaea` | D-1607 mongets mplayer-sword spe | **ACCEPT-WITH-DEBT** |
+| [569-43209cfb-gain-guardian-angel.md](./569-43209cfb-gain-guardian-angel.md) | `43209cfb` | D-1608 gain_guardian_angel Astral | **ACCEPT-WITH-DEBT** |
+| [570-c3d43f93-m-unleash.md](./570-c3d43f93-m-unleash.md) | `c3d43f93` | D-1609 m_unleash death/ALLOW_U | **ACCEPT-WITH-DEBT** |
+| [571-35d8e512-initedog-ogoal.md](./571-35d8e512-initedog-ogoal.md) | `35d8e512` | D-1610 initedog ogoal -1 / livelog | **ACCEPT-WITH-DEBT** |
+| [572-21441f2e-getline-hooked-ctrl-p.md](./572-21441f2e-getline-hooked-ctrl-p.md) | `21441f2e` | D-1611 hooked_tty_getlin ^P | **ACCEPT-WITH-DEBT** |

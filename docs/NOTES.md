@@ -5,8 +5,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1611 (cadence `#2000` at `b9710bcf`).
-  seed4500 still PASS.
+- **Suite 44/44** after D-1611 (cadence `#2010` at `21441f2e`).
+  seed4500 still PASS. Reviews **564–572** ACCEPT-WITH-DEBT
+  (no new Must-fix).
   **Hypothesis:** Open `topl.c` `tty_yn_function` ^P (named) is the
   next map cluster. Not command ^P. Not getline ^P.
   **Falsify:** `node scripts/csym.mjs tty_yn_function`;

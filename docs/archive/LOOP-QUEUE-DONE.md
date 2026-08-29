@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-28
 
-- [x] `getline.c` getlin ^P `tty_doprev_message` (named). Not command ^P. **Addressed:** D-1611
+- [x] `getline.c` getlin ^P `tty_doprev_message` (named). Not command ^P. **Addressed:** D-1611 `21441f2e`
 
 
 - [x] `dog.c` `initedog` ogoal `-1` (named). Not has_edog. **Addressed:** D-1610 `35d8e512`
