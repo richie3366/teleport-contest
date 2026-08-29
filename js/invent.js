@@ -25,6 +25,7 @@
 // D-1599: sortloot SORTLOOT_PETRIFY filter override + will_feel_cockatrice.
 // D-1600: perm_invent InvInUse (prepare_perminvent invmode + WIN_INVEN filter).
 // D-1602: ggetobj takeoff/identify askchain (MENU_TRADITIONAL).
+// D-1635: do.c doddrop / menu_drop ggetobj("drop") (#droptype / 'D').
 // D-1621: invent.c adjust_split GC_ECHOFIRST|GC_CONDHIST
 //        (itemactions IA_ADJUST_STACK / #altadjust; doorganize_core
 //        nobj-split). Not get_count (D-1613).
@@ -521,7 +522,7 @@ const GGETOBJ_REMOVEABLES = [
 /**
  * C invent.c ggetobj `:2199–2369`. Interactive Drop/Identify/Takeoff.
  * Traditional getlin class prompt then askchain. combo ALL_FINISHED
- * for Combination menu_remarm (D-1630).
+ * for Combination menu_remarm (D-1630) and menu_drop (D-1635).
  * display_inventory lets/`i` ESC abort live; cmdq pickinv named.
  *
  * @param {string} word

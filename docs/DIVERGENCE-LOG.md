@@ -1,3 +1,37 @@
+## D-1635 — do.c doddrop / ggetobj drop / menu_drop
+
+- **Status:** fixed (map-driven Open from D-1634; not a public FAIL)
+- **Symptom:** map named ggetobj drop. C `#droptype`/`D` `doddrop` calls
+  `ggetobj("drop", drop)` on MENU_TRADITIONAL (askchain) and
+  `menu_drop` on FULL/COMBINATION. JS had live `ggetobj` (D-1602) and
+  `d` `dodrop`/`getobj`, but `doddrop`/`menu_drop` were absent so `D`
+  was `Unknown command 'D'`.
+- **C locus:** `do.c` `doddrop` `:922–944`; `menudrop_split` `:963–977`;
+  `menu_drop` `:980–1107`. `invent.c` `ggetobj` `:2199–2369` already
+  live. `worn.c` `bypass_objlist` `:1126–1137` /
+  `nxt_unbypassed_obj` `:1140–1152`. `cmd.c` `reset_occupations`
+  `:194–200`; `do_wear.c` `reset_remarm` `:3013–3018`.
+  `pickup.c` `allow_all` `:516–520`. Callers `cmd.c` `'D'` /
+  extcmdlist `"droptype"`.
+- **JS was:** named omit after D-1602; `rhack` `'D'` fell through to
+  unknown.
+- **Fix:** live `doddrop`/`menu_drop`/`menudrop_split`; `'D'` and
+  `#droptype` runners; Array-aware `bypass_objlist`/`nxt_unbypassed_obj`;
+  `reset_occupations` via `reset_remarm`/`reset_pick`/latebound
+  `reset_trapset`. Rule #2: no fs.
+- **JS:** `js/do.js`; `js/worn.js`; `js/pickup.js` `allow_all` /
+  `find_justpicked`; `js/do_wear.js` `reset_remarm`; `js/cmd.js`;
+  `js/getline.js` EXT_CMDS.
+- **Not this iter:** corpse `better_not_try_to_drop_that`; sinks;
+  Heart of Ahriman `finesse_ahriman`; ParanoidAutoAll `'A'`+`'a'`;
+  query_objlist INCLUDE_VENOM display; `clear_bypasses`;
+  `select_menu_pick_any` count-prefix. ggetobj takeoff is D-1602.
+  `menu_remarm` is D-1630. convert_line `%Xh` is D-1634.
+- **Verified:** private canary **8**/8 (empty invent, bypass walk,
+  `reset_remarm`, TRADITIONAL `ggetobj` ESC); green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1634 — questpgr.c convert_line qtext_pronoun %Xh
 
 - **Status:** fixed (map-driven Open from D-1633; not a public FAIL)

@@ -54,7 +54,7 @@ import { doengrave, maybe_smudge_engr, set_occupation, can_reach_floor, engr_at 
 import { dothrow, dofire } from './dothrow.js';
 import { doapply, check_leash } from './apply.js';
 import { dokick } from './dokick.js';
-import { donull, dodown, doup, dodrop } from './do.js';
+import { donull, dodown, doup, dodrop, doddrop } from './do.js';
 import { dosave } from './save.js';
 import { doset_simple, dotogglepickup, select_menu_pick_one } from './options.js';
 import {
@@ -1978,6 +1978,7 @@ function rhack_repeat_command(ch, key) {
     case 'A': return doddoremarm;
     case 'c': return doclose;
     case 'd': return dodrop;
+    case 'D': return doddrop;
     case 'e': return doeat;
     case 'E': return doengrave;
     case 'f': return dofire;
@@ -2053,7 +2054,8 @@ function rhack_repeat_txt(ch, key) {
     if (key === 23) return 'wizwish';
     if (key === 24) return 'attributes';
     const byCh = {
-        a: 'apply', A: 'takeoffall', c: 'close', d: 'drop', e: 'eat',
+        a: 'apply', A: 'takeoffall', c: 'close', d: 'drop', D: 'droptype',
+        e: 'eat',
         E: 'engrave', f: 'fire', i: 'inventory', o: 'open', p: 'pay',
         P: 'puton', q: 'quaff', Q: 'quiver', r: 'read', s: 'search',
         S: 'save', t: 'throw', T: 'takeoff', w: 'wield', W: 'wear',
@@ -2492,6 +2494,11 @@ export async function rhack(key) {
     } else if (ch === 'd') {
         // C ref: do.c dodrop — drop an item
         const dropRes = await dodrop();
+        game.context.move = (dropRes & ECMD_TIME) ? 1 : 0;
+        if (dropRes & ECMD_TIME) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'D') {
+        // C ref: do.c doddrop / cmd.c 'D' droptype
+        const dropRes = await doddrop();
         game.context.move = (dropRes & ECMD_TIME) ? 1 : 0;
         if (dropRes & ECMD_TIME) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'T') {

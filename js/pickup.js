@@ -208,11 +208,17 @@ export function count_justpicked(olist) {
     });
     return cnt;
 }
-function find_justpicked(olist) {
-    for (const otmp of olist || []) {
-        if (otmp?.pickup_prev) return otmp;
-    }
-    return null;
+export function find_justpicked(olist) {
+    let found = null;
+    walk_obj_list(olist, false, (otmp) => {
+        if (!found && otmp?.pickup_prev) found = otmp;
+    });
+    return found;
+}
+
+/** C pickup.c allow_all `:516–520`. */
+export function allow_all(_obj) {
+    return true;
 }
 
 /**
@@ -558,7 +564,8 @@ export async function query_category(qstr, olist, qflags, how) {
         await pline('No relevant items selected.');
         return [];
     }
-    return picked.map((it) => ({ a_int: it.a_int }));
+    /* C menu_item.count: 0 when no digit prefix (select_menu count named). */
+    return picked.map((it) => ({ a_int: it.a_int, count: it.count ?? 0 }));
 }
 
 /**
@@ -2876,7 +2883,7 @@ function container_gone_ask(fn) {
 
 /**
  * C invent.c askchain `:2376–2541`. Live: put-in/take-out, take off,
- * identify (D-1602). Named: ggetobj drop; worn.c clear_bypasses.
+ * identify (D-1602), drop (D-1635). Named: worn.c clear_bypasses.
  */
 export async function askchain(getHead, ininv, olets, allflag, fn, ckfn, mx, word) {
     const take_out = word === 'take out';
@@ -3045,8 +3052,8 @@ async function traditional_loot(put_in) {
  * MENU_TRADITIONAL traditional_loot + askchain (D-1581).
  * Floor TRADITIONAL query_classes is D-1620.
  * ggetobj takeoff/identify askchain is D-1602.
- * Named omissions: chest trap; BoT; mbag explosion body;
- * ggetobj drop.
+ * ggetobj drop / doddrop is D-1635.
+ * Named omissions: chest trap; BoT; mbag explosion body.
  *
  * @param {object} obj container
  * @param {boolean} [held=false] applied from invent

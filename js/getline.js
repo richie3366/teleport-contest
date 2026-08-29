@@ -446,6 +446,16 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c "droptype" → doddrop. Key 'D'. No AUTOCOMPLETE.
+        name: 'droptype',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { doddrop } = await import('./do.js');
+            return doddrop();
+        },
+    },
+    {
         name: 'sit',
         wiz: false,
         autocomplete: true,

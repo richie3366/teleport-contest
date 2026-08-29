@@ -1371,6 +1371,17 @@ function takeoff_info() {
 }
 
 /**
+ * C do_wear.c reset_remarm `:3013–3018`.
+ * Caller: cmd.c reset_occupations (doddrop, D-1635).
+ */
+export function reset_remarm() {
+    const doff = takeoff_info();
+    doff.what = 0;
+    doff.mask = 0;
+    doff.disrobing = '';
+}
+
+/**
  * C do_wear.c do_takeoff `:2823–2896`. Occupation tick actually removes
  * `takeoff.what`. I_SPECIAL covers cancel_doff (named; setworn does not
  * call it yet).
