@@ -1,3 +1,30 @@
+## D-1632 — getline.c hooked_tty_getlin kill_char / empty-erase bell / intr
+
+- **Status:** fixed (map-driven Open from D-1631; not a public FAIL)
+- **Symptom:** map named `kill_char`. C wipes the getlin buffer on
+  `kill_char` or DEL (after erase), bells on empty erase and other
+  rejected keys, and decrements `ttyDisplay->intr` then NULs at
+  `bufp`. JS treated DEL as erase-one, ignored Ctrl-U, and skipped
+  those bells after D-1624/D-1631.
+- **C locus:** `win/tty/getline.c` `hooked_tty_getlin` `:196–209`
+  NEWAUTOCOMP kill; `:142–160` erase / empty `tty_nhbell`; `:210–211`
+  else bell; `:102–105` `intr--`; `sys/share/unixtty.c` `gettty`
+  `:218–219` VERASE/VKILL. Callers `tty_getlin` / `tty_get_ext_cmd`.
+  EDIT_GETLIN is D-1624. yn `tty_nhbell` is D-1631.
+- **JS was:** `c === 8 || c === 127` erase-one; no kill; no empty-erase
+  or invalid-key bell; no getline `intr` consumer.
+- **Fix:** POSIX defaults DEL erase + C('U') kill (no termios —
+  Rule #2). `erase_char||'\\b'` keeps BS and DEL as erase. Shared
+  `hooked_getlin_edit_key` on `getlin` and `get_ext_cmd`. `*bufp=0`
+  at the write pointer. BEL still not an 80x24 cell.
+- **JS:** `js/getline.js` `hooked_getlin_edit_key` /
+  `hooked_getlin_apply_intr`; `js/display.js` `get_tty_intr`.
+- **Not this iter:** wintty MENU_SEARCH / PICK_NONE invalid;
+  `tty_wait_synch` increment; do_mgivenname `'m'`; overview PICK_ONE.
+  EDIT_GETLIN is D-1624. yn bells are D-1631.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+
 ## D-1631 — termcap.c tty_nhbell / topl.c tty_yn_function invalid + cury/intr
 
 - **Status:** fixed (map-driven Open from D-1630; not a public FAIL)
@@ -17,15 +44,14 @@
   call it. Paint records wrap cursor; `cury!=0` blanks leftover
   overlay without wiping `gt.toplines`. `intr--`. `AppendLongDigit`
   overflow retries without a bell. `more`/`help_dir` call sites.
-  `jsmain` silent default On. kill_char / getlin tty_nhbell / wintty
+  `jsmain` silent default On. kill_char is D-1632; wintty
   MENU_SEARCH / `tty_wait_synch` `intr++` named.
 - **JS:** `js/display.js` `tty_nhbell` / `tty_yn_note_msg_cursor` /
   `tty_yn_clean_up_tty`; `js/getline.js` `yn_function` /
   `yn_collect_number`; `js/jsmain.js`; `js/dothrow.js` `help_dir`.
-- **Not this iter:** getline.c `kill_char` / getlin empty-erase bell /
-  hooked_tty_getlin `intr--`; wintty MENU_SEARCH / PICK_NONE invalid;
-  `tty_wait_synch` increment. yn post-answer is D-1623. yn ^P is
-  D-1612. EDIT_GETLIN is D-1624.
+- **Not this iter:** getline.c `kill_char` is D-1632; wintty MENU_SEARCH /
+  PICK_NONE invalid; `tty_wait_synch` increment. yn post-answer is
+  D-1623. yn ^P is D-1612. EDIT_GETLIN is D-1624.
 - **Verified:** leftover/cury canary; green+strict seed8000/0900;
   cohort **7**/7 + strict (9/9 with green).
 

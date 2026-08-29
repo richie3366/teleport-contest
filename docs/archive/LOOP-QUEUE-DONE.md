@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `topl.c` `tty_yn_function` `tty_nhbell` (named). Not post-answer toplines. **Addressed:** D-1631
+- [x] `getline.c` `kill_char` (named). Not EDIT_GETLIN. **Addressed:** D-1632
+
+
+- [x] `topl.c` `tty_yn_function` `tty_nhbell` (named). Not post-answer toplines. **Addressed:** D-1631 `4b50b2e9`
 
 
 - [x] `do_wear.c` `menu_remarm` (named). Not take_off occupation. **Addressed:** D-1630 `a2992805`

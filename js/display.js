@@ -1286,8 +1286,9 @@ let _toplin = TOPLINE_EMPTY;
 // C wintty.h ttyDisplay->inread — getline/yn set this; command ^P is 0.
 let _tty_inread = 0;
 // C wintty.h DisplayDesc.intr — non-zero if inread was interrupted
-// (wintty.c tty_wait_synch `:3643` ++). yn clean_up decrements (D-1631);
-// getline.c hooked_tty_getlin `:102–105` still named.
+// (wintty.c tty_wait_synch `:3643` ++ still named). yn clean_up
+// decrements (D-1631). getline.c hooked_tty_getlin `:102–105` is
+// D-1632 (`hooked_getlin_apply_intr`).
 let _tty_intr = 0;
 
 /** C wintty.h ttyDisplay->inread. Getline always zeros it around
@@ -1302,13 +1303,24 @@ export function set_tty_inread(n) {
     _tty_inread = n | 0;
 }
 
+/** C wintty.h ttyDisplay->intr. Increment is tty_wait_synch (named). */
+export function get_tty_intr() {
+    return _tty_intr | 0;
+}
+
+/** @param {number} n */
+export function set_tty_intr(n) {
+    _tty_intr = n | 0;
+}
+
 /**
  * C win/tty/termcap.c tty_nhbell `:750–757`.
  * `if (flags.silent) return;` then `putchar('\007')` / `fflush(stdout)`
  * (curx unchanged). optlist.h silent is opt_out default On.
  * BEL is not an 80x24 cell; do not write stdout (Rule #2 / Chrome /
  * runner pollution). Callers still invoke this so `!silent` is one
- * branch away. getline.c kill_char / wintty menu MENU_SEARCH still named.
+ * branch away. wintty menu MENU_SEARCH still named; getline
+ * kill_char / empty-erase / invalid-key bells are D-1632.
  */
 export function tty_nhbell() {
     if (game.flags?.silent !== false) return;

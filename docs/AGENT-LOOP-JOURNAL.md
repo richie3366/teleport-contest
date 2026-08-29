@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1632 getline.c kill_char / empty-erase bell / intr
+
+**Objective:** Open `getline.c` `kill_char` (named). Not EDIT_GETLIN.
+**C locus:** `win/tty/getline.c` `hooked_tty_getlin` `:196–209` /
+`:142–160` / `:102–105`; `sys/share/unixtty.c` `gettty` VERASE/VKILL.
+**JS locus:** `js/getline.js` `getlin` / `get_ext_cmd`;
+`js/display.js` `get_tty_intr`.
+**Change:** POSIX DEL erase + C('U') kill; empty erase + invalid
+`tty_nhbell`; getline `intr--` `*bufp=0`. Rule #2: no termios.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `files.c` tribute. Not putmsghistory.
+**Blocked:** none.
 ## 2026-08-29 — D-1631 termcap.c tty_nhbell / yn cury+intr
 
 **Objective:** Open `topl.c` `tty_yn_function` `tty_nhbell` (named).
