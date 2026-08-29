@@ -821,7 +821,7 @@ export function obj_is_local(obj) {
  * C ref: timeout.c timer_is_local — TIMER_LEVEL always; TIMER_OBJECT
  * follows obj_is_local; TIMER_GLOBAL never; TIMER_MONSTER via mon.
  */
-function timer_is_local(timer) {
+export function timer_is_local(timer) {
     if (!timer) return false;
     switch (timer.kind | 0) {
     case TIMER_LEVEL:

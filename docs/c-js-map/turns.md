@@ -1248,7 +1248,8 @@ Punished `ballfall` / W-tower `u_on_rndspot` bit 2 still named);
 peel local object/spot timers so off-level HATCH_EGG/rot/burn/melt do not fire;
 **`save_light_sources(RANGE_LEVEL)` + `billobjs` stash + `update_mlstmv` +
 `forget_temple_entry` on ordinary leave (D-1695)**; pack lamps stay RANGE_GLOBAL;
-bones ghostly timeout+=adjust / JSON `serLevel` deferred) + **`goto_level` `run_timers`** (D-1191;
+**JSON `payload.current` `serLevel`/`deserLevel` per-blob relink (D-1696;
+never `billobjs`; other ledgers Cluster 3)**; bones ghostly timeout+=adjust named) + **`goto_level` `run_timers`** (D-1191;
 C `do.c:1818–1823` after delivery; invent/migrating stay on the live queue — do not peel them); 
 **`goto_level` stair-fall `drag_down`/`ballrelease` via `uball` (≡C `Punished`)** (D-0918; 
 litter `hitfloor`/yname/`Soundeffect`/`ballfall` still deferred); 

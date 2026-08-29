@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1696 save.c savelev JSON serLevel current blob
+
+**Objective:** JSON save/restore ledger Cluster 2 — shared `serLevel`
+codec, `payload.current`, bones callers.
+**C locus:** `save.c` `savelev_core`; `restore.c` getlev `:1299–1300`
+relink; `savemon` mnum / `forget_temple_entry`.
+**JS locus:** `js/lev_json.js`; `js/save.js`; `js/bones.js`.
+**Change:** write `payload.current = serLevel(...)`; restore
+`deserLevel` GameMap + per-blob timer/light relink (no `billobjs`).
+Bones `write_bonesfile` calls `serLevel`. Named: other ledgers.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; seed0013 99/99;
+trap-same-floor 17/17; seed0015/0700/0014; seed0105.
+**Next:** Cluster 3 VFS `levels{}` + `linfo`.
+**Blocked:** none.
 ## 2026-08-30 — D-1695 do.c goto_level savelev stash lights/billobjs
 
 **Objective:** JSON save/restore ledger Cluster 1 — complete in-memory

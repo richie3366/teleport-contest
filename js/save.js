@@ -1,9 +1,10 @@
 // save.js — Game save / restore via frozen storage VFS (JSON subset).
-// C ref: save.c dosave / dosave0 / savetrapchn / save_msghistory /
+// C ref: save.c dosave / dosave0 / savelev / savetrapchn / save_msghistory /
 //        save_gamelog / save_luadata; restore.c dorecover / getlev
 //        trap loop / restore_msghistory / restore_gamelog; nhlua.c
 //        restore_luadata / save_luadata; files.c SAVEF; unixmain
 //        attempt_restore; allmain welcome(FALSE).
+// Level blob codec: js/lev_json.js (shared with bones.js).
 
 import { game } from './gstate.js';
 import { vfsReadFile, vfsWriteFile, vfsDeleteFile } from './storage.js';
@@ -12,21 +13,27 @@ import { pline, docrt, getmsghistory, putmsghistory } from './display.js';
 import { gamelog_add } from './pline.js';
 import { change_luck } from './attrib.js';
 import {
-    FULL_MOON, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED,
-    OBJ_BURIED, ECMD_OK, BUFSZ,
+    FULL_MOON, OBJ_INVENT, OBJ_CONTAINED,
+    ECMD_OK, BUFSZ,
 } from './const.js';
-import { GameMap } from './game.js';
-import { mons } from './monsters.js';
-import { restmon_edog, savemon_edog } from './makemon.js';
 import { objects_globals_init } from './objects.js';
 import { nh_terminate_capture } from './topten.js';
 import { l_nhcore_init } from './mklev.js';
 import {
     save_mapseenchn,
     restore_mapseenchn,
-    savecemetery,
-    restcemetery,
 } from './dungeon.js';
+import { rest_track } from './track.js';
+import { restore_timers, restore_light_sources } from './mkobj.js';
+import {
+    serObj,
+    deserObjChain,
+    serLevel,
+    deserLevel,
+    levelBlobFromPayload,
+} from './lev_json.js';
+
+export { serObj, serMon, serLevel, deserLevel, serTraps, deserTraps } from './lev_json.js';
 
 const SAVE_VFS_PREFIX = 'save/';
 
@@ -40,133 +47,8 @@ function vfsPath(path) {
     return path;
 }
 
-/**
- * C ref: save.c savetrapchn / restore.c getlev trap loop `:1149–1163`.
- * Live list is `level.traps` (`maketrap` / `t_at`); `game.ftrap` is not.
- * JSON stores `dst.dlevel` absolute (C subtracts `u.uz.dlevel` when the
- * destination is the same dungeon). Skip `ntrap` — array order is the chain.
- * @param {object[]|null|undefined} list
- * @returns {object[]}
- */
-export function serTraps(list) {
-    const out = [];
-    for (const t of list || []) {
-        if (!t) continue;
-        out.push(serTrap(t));
-    }
-    return out;
-}
-
-function serTrap(t) {
-    return {
-        ttyp: t.ttyp | 0,
-        tx: t.tx | 0,
-        ty: t.ty | 0,
-        tseen: !!t.tseen,
-        once: t.once | 0,
-        madeby_u: t.madeby_u | 0,
-        tnote: t.tnote | 0,
-        conjoined: t.conjoined | 0,
-        launch: coord2(t.launch),
-        launch2: coord2(t.launch2),
-        teledest: coord2(t.teledest),
-        dst: t.dst
-            ? { dnum: t.dst.dnum | 0, dlevel: t.dst.dlevel | 0 }
-            : { dnum: -1, dlevel: -1 },
-    };
-}
-
-function coord2(p) {
-    return p ? { x: p.x | 0, y: p.y | 0 } : { x: -1, y: -1 };
-}
-
-/**
- * @param {unknown} arr
- * @returns {object[]}
- */
-export function deserTraps(arr) {
-    const out = [];
-    if (!Array.isArray(arr)) return out;
-    for (const raw of arr) {
-        if (!raw || typeof raw !== 'object') continue;
-        const t = serTrap(raw);
-        t.ntrap = null;
-        out.push(t);
-    }
-    return out;
-}
-
-/** Serialize one object; cobj as nobj-order array. Drop live graph. */
-function serObj(otmp) {
-    if (!otmp) return null;
-    const out = {};
-    for (const k of Object.keys(otmp)) {
-        if (k === 'nobj' || k === 'nexthere' || k === 'ocarry'
-            || k === 'ocontainer' || k === 'cobj' || k === 'v') {
-            continue;
-        }
-        const v = otmp[k];
-        if (v != null && typeof v === 'object') {
-            if (k === 'oextra') {
-                try {
-                    out[k] = JSON.parse(JSON.stringify(v));
-                } catch {
-                    /* omit */
-                }
-            }
-            continue;
-        }
-        out[k] = v;
-    }
-    out.cobj = serObjChain(otmp.cobj);
-    return out;
-}
-
-function serObjChain(head) {
-    const arr = [];
-    for (let o = head; o; o = o.nobj) arr.push(serObj(o));
-    return arr;
-}
-
 function serInventArray(invent) {
     return (invent || []).map((o) => serObj(o));
-}
-
-function serMon(mtmp) {
-    if (!mtmp) return null;
-    const out = {};
-    for (const k of Object.keys(mtmp)) {
-        if (k === 'nmon' || k === 'data' || k === 'minvent' || k === 'mtrack') {
-            continue;
-        }
-        const v = mtmp[k];
-        if (v != null && typeof v === 'object') {
-            if (k === 'mextra') {
-                try {
-                    out[k] = JSON.parse(JSON.stringify(v, (_key, val) => {
-                        if (val && typeof val === 'object'
-                            && (val.mnum != null || val.mx != null)) {
-                            return undefined;
-                        }
-                        return val;
-                    }));
-                } catch {
-                    /* omit */
-                }
-            }
-            continue;
-        }
-        out[k] = v;
-    }
-    out.mtrack = [];
-    for (let j = 0; j < 4; j++) {
-        const c = mtmp.mtrack?.[j];
-        out.mtrack.push({ x: c?.x | 0, y: c?.y | 0 });
-    }
-    out.minvent = serObjChain(mtmp.minvent);
-    // C save.c savemon `:860–869` — EDOG blob when present.
-    savemon_edog(mtmp, out);
-    return out;
 }
 
 const WORN_SLOTS = [
@@ -196,35 +78,6 @@ function serObjectsMutable(objects) {
         oc_encountered: oc.oc_encountered | 0,
         oc_uname: oc.oc_uname || null,
     }));
-}
-
-function deserObjChain(arr, where) {
-    let head = null;
-    let prev = null;
-    for (const raw of arr || []) {
-        if (!raw) continue;
-        const otmp = { ...raw };
-        const kids = otmp.cobj;
-        delete otmp.cobj;
-        otmp.nobj = null;
-        otmp.nexthere = null;
-        otmp.ocarry = null;
-        otmp.ocontainer = null;
-        otmp.where = where;
-        // C restobjchn: nested restobj keeps saved where=OBJ_CONTAINED;
-        // only ocontainer pointers are rewritten (restore.c:270-277).
-        // Passing the parent chain's where (FLOOR/INVENT/MINVENT) made
-        // get_obj_location(obj, 0) accept contained eggs as if hatch
-        // had passed CONTAINED_TOO (D-1036 risk 4 / D-1054).
-        otmp.cobj = deserObjChain(kids, OBJ_CONTAINED);
-        if (otmp.cobj) {
-            for (let c = otmp.cobj; c; c = c.nobj) c.ocontainer = otmp;
-        }
-        if (!head) head = otmp;
-        else prev.nobj = otmp;
-        prev = otmp;
-    }
-    return head;
 }
 
 function deserInventArray(arr) {
@@ -281,20 +134,6 @@ export function dosave0() {
     if (game.flags?.friday13) change_luck(1);
 
     const path = set_savefile_name(game.plname);
-    const lvl = game.level;
-    const locations = [];
-    if (lvl?.locations) {
-        for (let x = 0; x < lvl.locations.length; x++) {
-            locations[x] = (lvl.locations[x] || []).map((cell) => {
-                if (!cell) return null;
-                return { ...cell };
-            });
-        }
-    }
-
-    const fmon = [];
-    for (const m of game.fmon || []) fmon.push(serMon(m));
-
     const payload = {
         version: 1,
         plname: game.plname,
@@ -325,31 +164,10 @@ export function dosave0() {
         n_dgns: game.n_dgns | 0,
         branches: game.branches
             ? JSON.parse(JSON.stringify(game.branches)) : null,
-        locations,
-        rooms: lvl?.rooms ? JSON.parse(JSON.stringify(lvl.rooms)) : [],
-        nroom: lvl?.nroom | 0,
-        doors: lvl?.doors ? JSON.parse(JSON.stringify(lvl.doors)) : [],
-        doorindex: lvl?.doorindex | 0,
-        level_flags: lvl?.flags ? { ...lvl.flags } : {},
-        fmon,
-        fobj: serObjChain(game.fobj),
-        buriedobjlist: serObjChain(lvl?.buriedobjlist),
-        billobjs: serObjChain(game.billobjs),
-        // C savetrapchn walks gf.ftrap; JS live list is level.traps (D-1694).
-        traps: serTraps(game.level?.traps),
-        head_engr: game.head_engr
-            ? JSON.parse(JSON.stringify(game.head_engr)) : null,
-        stairs: game.stairs
-            ? JSON.parse(JSON.stringify(game.stairs)) : null,
-        upstair: lvl?.upstair ? { ...lvl.upstair } : null,
-        dnstair: lvl?.dnstair ? { ...lvl.dnstair } : null,
-        lastseentyp: game.lastseentyp
-            ? JSON.parse(JSON.stringify(game.lastseentyp)) : null,
+        // C save.c savelev current; Cluster 3 adds levels{} for others.
+        current: serLevel(null),
         // C save.c save_dungeon → save_mapseen + savecemetery
-        // (dungeon.c :179–187 / :2716). JSON analogue of mapseenchn.
         mapseenchn: save_mapseenchn(),
-        // C save.c savelev `:505` savecemetery(&level.bonesinfo).
-        bonesinfo: savecemetery(lvl?.bonesinfo),
         spl_book: game.spl_book
             ? JSON.parse(JSON.stringify(game.spl_book)) : null,
         spl_orderindx: game.spl_orderindx
@@ -360,7 +178,6 @@ export function dosave0() {
         _goldCount: game._goldCount | 0,
         _lastinvnr: game._lastinvnr | 0,
         datetime_saved: game.datetime || null,
-        // level dnum/dlevel
         uz: u.uz ? { ...u.uz } : { dnum: 0, dlevel: 1 },
         // C save.c save_msghistory `:1029–1056` after savenames;
         // save_gamelog `:236–262` after save_msghistory;
@@ -581,59 +398,28 @@ export function try_restore_save() {
     if (payload.uz) u.uz = { ...payload.uz };
     game.u = u;
 
-    const map = new GameMap();
-    if (payload.locations) {
-        for (let x = 0; x < payload.locations.length; x++) {
-            const col = payload.locations[x];
-            if (!col) continue;
-            for (let y = 0; y < col.length; y++) {
-                if (col[y] && map.locations[x]) {
-                    map.locations[x][y] = { ...map.locations[x][y], ...col[y] };
-                }
-            }
-        }
-    }
-    map.rooms = payload.rooms || [];
-    map.nroom = payload.nroom | 0;
-    map.doors = payload.doors || [];
-    map.doorindex = payload.doorindex | 0;
-    map.flags = { ...map.flags, ...(payload.level_flags || {}) };
-    map.upstair = payload.upstair || null;
-    map.dnstair = payload.dnstair || null;
-    map.buriedobjlist = deserObjChain(payload.buriedobjlist, OBJ_BURIED);
-    map.traps = deserTraps(payload.traps ?? payload.ftrap);
-
-    const fmon = [];
-    for (const rawM of payload.fmon || []) {
-        const mtmp = { ...rawM };
-        mtmp.minvent = deserObjChain(rawM.minvent, OBJ_MINVENT);
-        for (let o = mtmp.minvent; o; o = o.nobj) o.ocarry = mtmp;
-        mtmp.data = mons(mtmp.mnum | 0);
-        mtmp.mtrack = [];
-        for (let j = 0; j < 4; j++) {
-            const c = rawM.mtrack?.[j];
-            mtmp.mtrack.push({ x: c?.x | 0, y: c?.y | 0 });
-        }
-        // C restore.c restmon `:349–361` — newedog + apport clamp.
-        restmon_edog(mtmp);
-        fmon.push(mtmp);
-    }
-
-    const fobj = deserObjChain(payload.fobj, OBJ_FLOOR);
-    game.level = map;
-    game.fmon = fmon;
-    game.fobj = fobj;
-    game.billobjs = deserObjChain(payload.billobjs, OBJ_FLOOR);
-    game.ftrap = map.traps;
-    game.head_engr = payload.head_engr || null;
-    game.stairs = payload.stairs || null;
-    game.lastseentyp = payload.lastseentyp || null;
-    // C restore.c getlev `:1102` restcemetery(&level.bonesinfo).
-    map.bonesinfo = restcemetery(payload.bonesinfo);
+    // C restore.c getlev current. Missing `current` = old scattered keys.
+    const info = deserLevel(levelBlobFromPayload(payload));
+    game.level = info.level;
+    game.fmon = info.fmon;
+    game.fobj = info.fobj;
+    game.billobjs = info.billobjs;
+    game.ftrap = info.level.traps;
+    game.head_engr = info.head_engr;
+    game.stairs = info.stairs;
+    game.lastseentyp = info.lastseentyp;
+    game.regions = info.regions || [];
+    if (info.updest) game.updest = { ...info.updest };
+    if (info.dndest) game.dndest = { ...info.dndest };
     // C restore.c dorecover → restore_dungeon mapseen_count +
     // load_mapseen (dungeon.c :251–262 / :2752). After branches.
     restore_mapseenchn(payload);
-    rebuildObjectsAt(fobj);
+    rebuildObjectsAt(info.fobj);
+    // C getlev rest_track / restore_timers / restore_light_sources
+    // for the current ledger only (M2: other ledgers stay on stash).
+    if (info.track) rest_track(info.track);
+    restore_timers(info.timers);
+    restore_light_sources(info.lights);
 
     // C restore.c restgamestate `:720–722` after restnames:
     // restore_msghistory, restore_gamelog, restore_luadata.

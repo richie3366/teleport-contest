@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1696 — save.c savelev JSON serLevel current blob
+
+- **Status:** fixed (map-driven ledger Cluster 2; not a public FAIL)
+- **Symptom:** JSON `dosave0` wrote scattered top-level map keys
+  (`locations`/`fmon`/`fobj`/traps/…) and omitted RANGE_LEVEL timers,
+  lights, track, regions, dest areas, `omoves`. Bones cloned
+  `serObj`/`serMon`/`deserObjChain`. Restore built a `GameMap` inline
+  instead of the `goto_level` stash shape.
+- **C locus:** `save.c` `savelev_core` `:451–566`; `restore.c` `getlev`
+  `:1299–1300` `relink_timers`/`relink_light_sources`; `savemon`
+  `mnum` + `forget_temple_entry`; `restshk` `bill_p = bill`.
+- **JS was:** Cluster 0 traps on scattered keys; bones local codec;
+  no per-blob relink; no `payload.current`.
+- **Fix:** `js/lev_json.js` `serLevel`/`deserLevel` (export from
+  `js/save.js`); `payload.current`; missing `current` falls back to
+  scattered keys; relink vs fobj/buried/`fmon[].minvent` never
+  `billobjs` (throw ≡ C panic); `mnum` + temple forget + `eshk.bill_p`;
+  bones `write_bonesfile` calls `serLevel`. Named: other `LFILE_EXISTS`
+  ledgers (Cluster 3); RANGE_GLOBAL pack-lamp relink (Cluster 4);
+  `run_timers` last (Cluster 5); binary NHFILE; worms/bubbles.
+- **JS:** `js/lev_json.js`; `js/save.js`; `js/bones.js`; `peek_track`
+  `js/track.js`; `timer_is_local` export `js/mkobj.js`.
+- **Verified:** green+strict seed8000/0900; seed0013 99/99; trap-same-floor
+  17/17; seed0015/0700/0014 stairs; seed0105 lamp.
+- **Files:** `js/lev_json.js`, `js/save.js`, `js/bones.js`, `js/track.js`,
+  `js/mkobj.js`.
+
 ## D-1695 — do.c goto_level savelev stash lights/billobjs/mlstmv
 
 - **Status:** fixed (map-driven ledger Cluster 1; not a public FAIL)
