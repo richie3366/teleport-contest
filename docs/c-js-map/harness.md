@@ -15,5 +15,5 @@ unless this subsystem is in scope.
 | core RNG wrappers | `js/rng.js` | partial | Green paths match; **`rnl` ported** (D-0059; Luck bias + internal `rn2` log); `rn1` is a macro over logged `rn2`; display-stream wrappers still absent |
 | Lua RNG bindings/provenance | — | absent | `nh.rn2`/`nh.random` must consume core; patch 004 adds Lua callsite provenance, not a third ISAAC stream |
 | display/hallucination RNG | — | absent | No hallucination parity |
-| per-segment contestant API | `js/jsmain.js` | partial | Fresh game + shared storage; **`S`/`dosave` + restore segment via VFS JSON** (D-0335); **current-level `savetrapchn` JSON** (D-1694); multi-level ledger / binary savelev deferred |
+| per-segment contestant API | `js/jsmain.js` | partial | Fresh game + shared storage; **`S`/`dosave` + restore segment via VFS JSON** (D-0335); **current-level `savetrapchn` JSON** (D-1694); **in-memory `goto_level` savelev lights/billobjs/mlstmv** (D-1695); multi-level ledger / binary savelev deferred |
 

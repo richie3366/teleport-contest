@@ -56,12 +56,12 @@ import {
     CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
     CXN_NO_PFX,
     Is_rogue_level, isok, ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
-    LS_OBJECT, OMONST, has_omonst, OMID, has_omid, MON_DETACH,
+    LS_OBJECT, LS_MONSTER, OMONST, has_omonst, OMID, has_omid, MON_DETACH,
     IRONBARS, ROOM, IS_ALTAR, Is_airlevel, Is_waterlevel,
-    MAX_OIL_IN_FLASK, nothing_happens,
+    MAX_OIL_IN_FLASK, nothing_happens, EPRI,
 } from './const.js';
 import { recalc_block_point } from './vision.js';
-import { del_light_source } from './light.js';
+import { del_light_source, discard_flashes } from './light.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
@@ -783,7 +783,7 @@ function insert_timer(gnu) {
 /**
  * C ref: timeout.c mon_is_local — not on migrating_mons / mydogs.
  */
-function mon_is_local(mon) {
+export function mon_is_local(mon) {
     if (!mon) return false;
     for (const curr of game.migrating_mons || []) {
         if (curr === mon) return false;
@@ -799,7 +799,7 @@ function mon_is_local(mon) {
  * follow the hero; contained/minvent recurse. OBJ_FREE panics in C;
  * JS treats it as non-local so a stale timer is not saved onto a level.
  */
-function obj_is_local(obj) {
+export function obj_is_local(obj) {
     if (!obj) return false;
     switch (obj.where | 0) {
     case OBJ_INVENT:
@@ -873,6 +873,49 @@ export function restore_timers(list) {
         if (!t) continue;
         t.next = null;
         insert_timer(t);
+    }
+}
+
+function light_is_local(ls) {
+    if (!ls) return false;
+    if ((ls.type | 0) === LS_OBJECT) return obj_is_local(ls.id);
+    if ((ls.type | 0) === LS_MONSTER) return mon_is_local(ls.id);
+    return false;
+}
+
+/**
+ * C ref: light.c save_light_sources — peel RANGE_LEVEL locals (or
+ * RANGE_GLOBAL non-locals) off gl.light_base. Camera flashes discarded.
+ * Uses obj_is_local / mon_is_local (timeout.c), not a cloned test.
+ * @param {number} range RANGE_LEVEL or RANGE_GLOBAL
+ * @returns {object[]}
+ */
+export function save_light_sources(range) {
+    discard_flashes();
+    game.vision_full_recalc = 0;
+    const wantLocal = (range | 0) === RANGE_LEVEL;
+    const saved = [];
+    const kept = [];
+    for (const ls of game.light_base || []) {
+        if (light_is_local(ls) === wantLocal) saved.push(ls);
+        else kept.push(ls);
+    }
+    game.light_base = kept;
+    return saved;
+}
+
+/**
+ * C ref: light.c restore_light_sources — re-insert saved elements.
+ * Relink of id-based JSON records is Cluster 2/4; in-memory stash keeps
+ * live `ls.id` pointers.
+ * @param {object[]|null|undefined} list
+ */
+export function restore_light_sources(list) {
+    if (!list) return;
+    if (!game.light_base) game.light_base = [];
+    for (const ls of list) {
+        if (!ls) continue;
+        game.light_base.push(ls);
     }
 }
 
@@ -2656,11 +2699,17 @@ export function obj_attach_mid(obj, mid) {
 
 /**
  * C ref: mkobj.c save_mtraits — snapshot live monst onto corpse/statue omonst.
- * Named omit: forget_temple_entry for ispriest (EPRI still copied).
  */
 export function save_mtraits(obj, mtmp) {
     if (!obj || !mtmp) return obj;
-    // forget_temple_entry(mtmp) deferred for ispriest
+    // C mkobj.c save_mtraits `:1893` forget_temple_entry before copy.
+    if (mtmp.ispriest) {
+        const epri_p = EPRI(mtmp);
+        if (epri_p) {
+            epri_p.intone_time = epri_p.enter_time =
+                epri_p.peaceful_time = epri_p.hostile_time = 0;
+        }
+    }
     if (!has_omonst(obj)) newomonst(obj);
     if (!has_omonst(obj)) return obj;
 

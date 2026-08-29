@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1695 — do.c goto_level savelev stash lights/billobjs/mlstmv
+
+- **Status:** fixed (map-driven ledger Cluster 1; not a public FAIL)
+- **Symptom:** in-memory `goto_level` stash omitted `billobjs` and
+  RANGE_LEVEL lights (`clear_light_sources` wiped pack lamps too).
+  `update_mlstmv` / `forget_temple_entry` were not called on ordinary
+  leave. JSON ledger (Cluster 3) needs this stash shape.
+- **C locus:** `do.c:1642` `update_mlstmv`; `save.c` `savelev_core`
+  `:538–553` timers/lights/billobjs/savedamage; `savemonchn` `:894`
+  `forget_temple_entry`; `light.c` `save_light_sources`; `dog.c:295`;
+  `priest.c:545`; `bones.c:620`.
+- **JS was:** stash timers/regions/track only; `clear_light_sources` +
+  `relight_monsters`; no billobjs peel; no mlstmv/temple forget.
+- **Fix:** peel RANGE_LEVEL lights via `obj_is_local`/`mon_is_local`;
+  stash+clear `billobjs`; `update_mlstmv` after keepdogs; forget
+  temple on ordinary leave; `save_mtraits` zeros EPRI times;
+  `write_bonesfile` calls `update_mlstmv`. Named: cant_go_back FREEING
+  skip; worms/bubbles/exclusions; JSON `serLevel` is Cluster 2.
+- **JS:** `js/do.js`; `js/mkobj.js` `save_light_sources`; `js/dog.js`;
+  `js/priest.js`; `js/bones.js`; `js/light.js` `discard_flashes` export.
+- **Verified:** green+strict seed8000/0900; seed0013; seed0015/0700/0014
+  stairs; seed0105 lamp; trap-same-floor 17/17.
+- **Files:** `js/do.js`, `js/mkobj.js`, `js/dog.js`, `js/priest.js`,
+  `js/bones.js`, `js/light.js`.
+
 ## D-1694 — save.c savetrapchn current-level JSON traps
 
 - **Status:** fixed (map-driven ledger Cluster 0; not a public FAIL)

@@ -1244,9 +1244,11 @@ Punished `ballfall` / W-tower `u_on_rndspot` bit 2 still named);
 **`goto_level` climb `great_effort` = Punished&&!Levitation + Flying ladder "along" + 
 `u_locomotion`** (D-0928 #1159; poly `locomotion()` / steed-flyer Flying deferred); 
 **`goto_level` savelev/getlev persist `lastseentyp`** (D-0928 #1160); 
-**`goto_level` `save_timers(RANGE_LEVEL)`/`restore_timers`** (D-1037; 
-peel local object/spot timers so off-level HATCH_EGG/rot/burn/melt do not fire; 
-bones ghostly timeout+=adjust / RANGE_GLOBAL deferred) + **`goto_level` `run_timers`** (D-1191; 
+**`goto_level` `save_timers(RANGE_LEVEL)`/`restore_timers`** (D-1037;
+peel local object/spot timers so off-level HATCH_EGG/rot/burn/melt do not fire;
+**`save_light_sources(RANGE_LEVEL)` + `billobjs` stash + `update_mlstmv` +
+`forget_temple_entry` on ordinary leave (D-1695)**; pack lamps stay RANGE_GLOBAL;
+bones ghostly timeout+=adjust / JSON `serLevel` deferred) + **`goto_level` `run_timers`** (D-1191;
 C `do.c:1818–1823` after delivery; invent/migrating stay on the live queue — do not peel them); 
 **`goto_level` stair-fall `drag_down`/`ballrelease` via `uball` (≡C `Punished`)** (D-0918; 
 litter `hitfloor`/yname/`Soundeffect`/`ballfall` still deferred); 

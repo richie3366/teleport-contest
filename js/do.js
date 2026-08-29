@@ -58,7 +58,6 @@ import {
 } from './display.js';
 import { yn_function } from './getline.js';
 import { vision_recalc, vision_reset, recalc_block_point, cansee, couldsee } from './vision.js';
-import { clear_light_sources, relight_monsters } from './light.js';
 import { clear_regions, in_out_region } from './region.js';
 import {
     stairway_at,
@@ -79,7 +78,7 @@ import {
 import { record_achievement } from './insight.js';
 import { livelog_printf } from './pline.js';
 import { com_pager } from './questpgr.js';
-import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
+import { keepdogs, losedogs, mon_catchup_elapsed_time, update_mlstmv } from './dog.js';
 import { save_track, rest_track } from './track.js';
 import { m_at, mnexto, hide_monst, restore_cham, wake_nearto, dist2, kill_genocided_monsters } from './mon.js';
 import { enexto } from './teleport.js';
@@ -92,6 +91,7 @@ import {
 import { place_object, stackobj, weight, delobj, obj_extract_self,
     obj_nexto_xy, obj_meld, pudding_merge_message,
     save_timers, restore_timers, run_timers, splitobj,
+    save_light_sources, restore_light_sources,
 } from './mkobj.js';
 import { ship_object, obj_delivery, container_impact_dmg } from './dokick.js';
 import { doname, xname, the, The, vtense, an, yname, corpse_xname, is_plural, otense } from './objnam.js';
@@ -130,7 +130,7 @@ import { onquest, ok_to_quest } from './quest.js';
 import { resurrect } from './wizard.js';
 import { create_mplayers } from './mplayer.js';
 import { gain_guardian_angel } from './minion.js';
-import { reset_hostility } from './priest.js';
+import { reset_hostility, forget_temple_entry } from './priest.js';
 import { bones_include_name } from './bones.js';
 import {
     olfaction, passes_walls, throws_rocks, is_flyer, is_floater,
@@ -1397,6 +1397,12 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
     // C: if (!iflags.nofollowers) keepdogs(FALSE)
     if (!game.iflags?.nofollowers) keepdogs(false);
+    // C do.c:1642 update_mlstmv immediately before savelev (ordinary leave).
+    update_mlstmv();
+    // C savemonchn forget_temple_entry inside update_file (WRITING|FREEING).
+    for (const mtmp of game.fmon || []) {
+        if (mtmp?.ispriest) forget_temple_entry(mtmp);
+    }
     // C: check_special_room(TRUE) on leave — move_update clears urooms so
     // arrival re-enters temple/shop messages (intemple).
     await check_special_room(true);
@@ -1480,7 +1486,15 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             // local object/spot timers off gt.timer_base so they do not
             // fire while the hero is on another level (D-1037).
             timers: save_timers(RANGE_LEVEL),
+            // C save.c savelev → save_light_sources(RANGE_LEVEL). Pack
+            // lamps stay on light_base (RANGE_GLOBAL / !obj_is_local).
+            lights: save_light_sources(RANGE_LEVEL),
+            // C saveobjchn gb.billobjs; FREEING zeros the live chain.
+            billobjs: game.billobjs,
+            // C savedamage; live GameMap also holds the list.
+            damagelist: game.level?.damagelist || null,
         };
+        game.billobjs = null;
     }
 
     // C: do.c goto_level — Rogue↔Primary showsyms before u.uz reassignment
@@ -1523,9 +1537,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     game.level = null;
     // Regions are per-level (C save_regions/clear_regions/rest_regions).
     // Detach now; mklev clear_level_structures also clear_regions; getlev
-    // restores the stashed array.
+    // restores the stashed array. RANGE_LEVEL lights already peeled;
+    // RANGE_GLOBAL (invent lamps) stay on light_base.
     clear_regions();
-    clear_light_sources();
     // C: memset updest/dndest before getlev/mklev; fixup_special re-fills.
     game.updest = { lx: 0, ly: 0, hx: 0, hy: 0, nlx: 0, nly: 0, nhx: 0, nhy: 0 };
     game.dndest = { lx: 0, ly: 0, hx: 0, hy: 0, nlx: 0, nly: 0, nhx: 0, nhy: 0 };
@@ -1567,7 +1581,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         }
         rebuildObjectsAt(game.fobj);
         restore_timers(info.timers);
-        relight_monsters();
+        restore_light_sources(info.lights);
+        game.billobjs = info.billobjs || null;
         rest_track(info.track);
         // C: Sokoban ≡ level.flags.sokoban_rules — sync JS alias after getlev
         // (clear_level_structures only runs on mklev, not stash restore).

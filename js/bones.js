@@ -18,6 +18,7 @@ import { fruit_from_indx, fruit_from_name } from './objnam.js';
 import { rnd } from './rng.js';
 import { objectNames } from './generated/objects_data.js';
 import { savecemetery, restcemetery } from './dungeon.js';
+import { update_mlstmv } from './dog.js';
 
 const BONES_VFS_PREFIX = 'bones/';
 const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
@@ -211,6 +212,9 @@ export function write_bonesfile(lev) {
     const { filename, bonesid } = set_bonesfile_name(lev);
     // C: open_bonesfile miss required — do not replace existing
     if (vfsReadFile(vfsPath(filename)) != null) return false;
+
+    // C bones.c:620 update_mlstmv before savelev.
+    update_mlstmv();
 
     const lvl = game.level;
     const locations = [];

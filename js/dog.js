@@ -331,6 +331,18 @@ export function levl_follower(mtmp) {
 }
 
 /**
+ * C ref: dog.c update_mlstmv `:292–298` — set mlstmv = moves for every
+ * on-level monster before savelev so mon_arrive can catch up elapsed
+ * time. Call after keepdogs (followers are already on mydogs).
+ */
+export function update_mlstmv() {
+    const moves = game.moves | 0;
+    for (const mtmp of game.fmon || []) {
+        if (mtmp) mtmp.mlstmv = moves;
+    }
+}
+
+/**
  * C ref: dog.c keepdogs — move nearby followers onto mydogs before level leave.
  * pets_only path; migrate_to_level / leash / mon_has_amulet stay_behind deferred.
  */
