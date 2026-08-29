@@ -1,3 +1,29 @@
+## D-1626 — sounds.c domonnoise MS_BOAST hostile giants
+
+- **Status:** fixed (map-driven Open from D-1625; not a public FAIL)
+- **Symptom:** map named MS_BOAST hostile giants. C `#chat` /
+  `domonnoise` on `msound==MS_BOAST` (hill/stone/fire/frost/storm
+  giants) rolls `rn2(4)` when `!mpeaceful`. JS after D-1618 only
+  handled MS_HUMANOID, so hostile giants were silent `ECMD_OK`.
+- **C locus:** `sounds.c` `domonnoise` MS_BOAST `:1006–1023`;
+  epilogue `:1222–1241` always `ECMD_TIME`. Peaceful FALLTHROUGH
+  into MS_HUMANOID `:1025–1104` (D-1618). `you.h` `mhis` →
+  `genders[pronoun_gender(mtmp, PRONOUN_HALLU)].his`. Callers
+  `dochat` / `dogmove` / steed. `doextlist` is D-1625.
+- **JS was:** named omit after D-1618 (`MS_BOAST fallthrough`).
+- **Fix:** hostile `rn2(4)` gem/`mhis` immediate pline (case 0
+  still `ECMD_TIME`), mutton `pline_msg`, Fee-Fie +
+  `wake_nearto(7*7)`; peaceful `|| MS_BOAST` into live HUMANOID.
+  `mhis` one export from fountain `pronoun_gender` (no 5th clone).
+  Rule #2: no fs.
+- **JS:** `js/sounds.js` `domonnoise`; `js/fountain.js` `mhis`.
+- **Not this iter:** guardian / isshk / gecko remaps; SetVoice /
+  Soundeffect; `map_invisible` before talk; other MS_* (vampire /
+  were / djinni / nurse / soldier / …). MS_HUMANOID is D-1618.
+  `doextlist` is D-1625.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 +
+  seed2200/0383 + strict.
+
 ## D-1625 — cmd.c doextlist / doextcmd loop / hmenu_doextlist
 
 - **Status:** fixed (map-driven Open from D-1624; not a public FAIL)

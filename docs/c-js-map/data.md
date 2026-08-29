@@ -420,7 +420,13 @@ a fresh object). **D-1618 `domonnoise` MS_HUMANOID** (`sounds.c:1025–1104`
 peaceful + hostile `"threatens you."`; MS_ORC remap `:705–709`
 `same_race` current/`urace.mnum` then Hallu). Live `js/sounds.js`;
 epilogue `pline_msg` then `verbalize`; gnome `rn2(4)` short-circuit.
-Named: MS_BOAST fallthrough; guardian/isshk/gecko remaps; SetVoice.
+Named: guardian/isshk/gecko remaps; SetVoice.
+**D-1626 `domonnoise` MS_BOAST** (`sounds.c:1006–1023`; hostile
+`rn2(4)` gem `mhis` / mutton / Fee-Fie `wake_nearto(7*7)`;
+peaceful FALLTHROUGH into MS_HUMANOID). Live `js/sounds.js`;
+`mhis` one export `js/fountain.js` (`you.h` `pronoun_gender`
+PRONOUN_HALLU). Case 0 immediate pline then `ECMD_TIME`.
+MS_HUMANOID is D-1618.
 `mongets` mplayer-sword
 spe is D-1607. ndemon is D-1575.
 

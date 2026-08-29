@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `cmd.c` `doextlist` (named). Not #seeall EXT_CMDS. **Addressed:** D-1625
+- [x] `sounds.c` MS_BOAST hostile giants (named). Not MS_HUMANOID. **Addressed:** D-1626
+
+
+- [x] `cmd.c` `doextlist` (named). Not #seeall EXT_CMDS. **Addressed:** D-1625 `1d6a8b20`
 
 
 - [x] `getline.c` EDIT_GETLIN (named). Not getline ^P. **Addressed:** D-1624 `3e6bf20d`

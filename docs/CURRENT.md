@@ -62,27 +62,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1625 (seed4500 still PASS). **Next cluster:**
-Open `sounds.c` MS_BOAST hostile giants (named). Not MS_HUMANOID.
-**Do not skip D-1531…D-1625 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1626 (seed4500 still PASS). **Next cluster:**
+Open `steed.c` `dismount_steed` DISMOUNT_THROWN (named). Not dog_move Conflict.
+**Do not skip D-1531…D-1626 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1625.** Do not FORCE
+**Do not re-break D-0660…D-1626.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1625 (index). Recent: **D-1625**
+**Keep:** D-0845…D-1626 (index). Recent: **D-1626**
+`sounds.c` `domonnoise` MS_BOAST hostile `rn2(4)` gem/`mhis` /
+mutton / Fee-Fie `wake_nearto(7*7)`; peaceful FALLTHROUGH
+MS_HUMANOID. Guardian/isshk/gecko remaps named. Prior: **D-1625**
 `cmd.c` `doextlist` NHW_MENU + `doc_extcmd_flagstr`;
 `doextcmd` loop while doextlist; pager `hmenu_doextlist`;
 typed `#?`. BIND= `seeall` / M('?') keystroke named. Not
-#seeall EXT_CMDS (D-1605). Prior: **D-1624** EDIT_GETLIN
-off. **D-1623** yn post-answer `toplines`. **D-1622**
-`com_pager_core`. Older D-1531…D-1621 live in the index —
+#seeall EXT_CMDS (D-1605). Older D-1531…D-1624 live in the index —
 do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1625 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1626 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -100,6 +101,7 @@ Do not re-port `reset_hostility`.
 Do not re-port dog_move Conflict `lose_guardian_angel`.
 Do not re-port `mplayer_talk`.
 Do not re-port peaceful MS_HUMANOID / `"threatens you."`.
+Do not re-port MS_BOAST hostile giants.
 Do not re-port `take_off` occupation / `do_takeoff`.
 Do not re-port floor TRADITIONAL `query_classes`.
 Do not re-port `adjust_split`.

@@ -1,7 +1,7 @@
 // sounds.js — Ambient sounds and #chat.
 // C ref: sounds.c — dosounds / dotalk / dochat / domonnoise (MS_BARK
-//         subset + MS_HUMANOID D-1618 / mplayer_talk D-1606) + yelp /
-//         growl (pet abuse; D-0836).
+//         subset + MS_HUMANOID D-1618 / mplayer_talk D-1606 /
+//         MS_BOAST D-1626) + yelp / growl (pet abuse; D-0836).
 
 import { game } from './gstate.js';
 import { pline, canseemon, verbalize, Hallucination } from './display.js';
@@ -30,6 +30,7 @@ import { mplayer_talk } from './mplayer.js';
 import { vault_occupied, findgd } from './vault.js';
 import { t_at } from './trap.js';
 import { same_race } from './mondata.js';
+import { mhis } from './fountain.js';
 
 const STATUE = objectNames.indexOf('STATUE');
 const PM_ORACLE = monsterNames.indexOf('PM_ORACLE');
@@ -379,6 +380,7 @@ const MS_ORC = 24;
 const MS_HUMANOID = 25;
 const MS_SEDUCE = 31;
 const MS_LEADER = 36;
+const MS_BOAST = 43;
 const MS_GROAN = 44;
 
 /**
@@ -597,12 +599,12 @@ function poly_gender() {
 /**
  * C ref: sounds.c domonnoise — MS_BARK + MS_SEDUCE + MS_LEADER +
  * MS_HUMANOID (D-1618 peaceful + hostile "threatens you.";
- * D-1606 endgame mplayer_talk). Other MS_* named omitted in
- * C-JS-MAP; unknown → ECMD_OK (silent). FULL_MOON howl needs
- * night() — deferred; falls through to bark. MS_PRIEST
- * priest_talk deferred (non-leader temple priests). MS_SEDUCE
- * doseduce (SYSOPT non-nymph) deferred. MS_BOAST fallthrough
- * into peaceful MS_HUMANOID named omitted.
+ * D-1606 endgame mplayer_talk) + MS_BOAST hostile giants
+ * (D-1626; peaceful FALLTHROUGH into MS_HUMANOID). Other MS_*
+ * named omitted in C-JS-MAP; unknown → ECMD_OK (silent).
+ * FULL_MOON howl needs night() — deferred; falls through to
+ * bark. MS_PRIEST priest_talk deferred (non-leader temple
+ * priests). MS_SEDUCE doseduce (SYSOPT non-nymph) deferred.
  */
 export async function domonnoise(mtmp) {
     if (!mtmp) return ECMD_OK;
@@ -666,10 +668,30 @@ export async function domonnoise(mtmp) {
         if (swval === 2) verbl_msg = 'Hello, sailor.';
         else if (swval === 1) pline_msg = 'comes on to you.';
         else pline_msg = 'cajoles you.';
-    } else if (msound === MS_HUMANOID) {
+    } else if (msound === MS_BOAST && !mtmp.mpeaceful) {
+        // C sounds.c MS_BOAST :1006–1023 (D-1626). Hostile giants
+        // rn2(4): 0 immediate pline gem+mhis (epilogue empty,
+        // still ECMD_TIME); 1 mutton; default Fee-Fie +
+        // wake_nearto(7*7). Peaceful FALLTHROUGH is HUMANOID.
+        switch (rn2(4)) {
+        case 0:
+            await pline(
+                `${Monnam(mtmp)} boasts about ${mhis(mtmp)} gem collection.`,
+            );
+            return ECMD_TIME;
+        case 1:
+            pline_msg = 'complains about a diet of mutton.';
+            break;
+        default:
+            pline_msg = 'shouts "Fee Fie Foe Foo!" and guffaws.';
+            await wake_nearto(mtmp.mx, mtmp.my, 7 * 7);
+            break;
+        }
+    } else if (msound === MS_HUMANOID || msound === MS_BOAST) {
         // C sounds.c MS_HUMANOID :1025–1104 (D-1618). Hostile
         // endgame is_mplayer is D-1606; else "threatens you." then
         // break so hostiles never fall into peaceful chatter.
+        // MS_BOAST peaceful FALLTHROUGH (D-1626).
         if (!mtmp.mpeaceful) {
             if (In_endgame(game.u?.uz) && is_mplayer(ptr)) {
                 await mplayer_talk(mtmp);
@@ -738,7 +760,7 @@ export async function domonnoise(mtmp) {
             }
         }
     }
-    // Other msound cases deferred (MS_BOAST fallthrough named)
+    // Other msound cases deferred (guardian/isshk/gecko remaps named)
 
     // C :1222–1241 pline_msg then mcan verbl_msg_mcan then verbl_msg.
     // verbl_msg_mcan / Death ucase named omitted.

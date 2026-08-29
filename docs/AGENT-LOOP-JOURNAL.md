@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1626 sounds.c MS_BOAST hostile giants
+
+**Objective:** Open `sounds.c` MS_BOAST hostile giants (named).
+Not MS_HUMANOID.
+**C locus:** `sounds.c` `domonnoise` MS_BOAST `:1006–1023`;
+peaceful FALLTHROUGH MS_HUMANOID; `you.h` `mhis`.
+**JS locus:** `js/sounds.js` `domonnoise`; `js/fountain.js` `mhis`.
+**Change:** hostile `rn2(4)` gem/`mhis` / mutton / Fee-Fie +
+`wake_nearto(7*7)`; case 0 immediate pline then ECMD_TIME;
+peaceful FALLTHROUGH into live HUMANOID. Guardian remaps named.
+Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; cohort **7**/7 +
+seed2200/0383 + strict.
+**Next:** Open `steed.c` `dismount_steed` DISMOUNT_THROWN.
+Not dog_move Conflict.
+**Blocked:** none.
 ## 2026-08-29 — D-1625 cmd.c doextlist
 
 **Objective:** Open `cmd.c` `doextlist` (named). Not #seeall EXT_CMDS.

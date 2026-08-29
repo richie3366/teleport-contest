@@ -528,7 +528,8 @@ function pronoun_gender(mtmp) {
 function mhe(mtmp) {
     return ['he', 'she', 'it', 'they'][pronoun_gender(mtmp)];
 }
-function mhis(mtmp) {
+/** C you.h mhis — genders[pronoun_gender(mtmp, PRONOUN_HALLU)].his */
+export function mhis(mtmp) {
     return ['his', 'her', 'its', 'their'][pronoun_gender(mtmp)];
 }
 
