@@ -5,17 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1662 (cadence **#2060** at `9ac19d6f`
+- **Suite 44/44** after D-1663 (cadence **#2060** at `9ac19d6f`
   still last full suite). seed4500 still PASS. **Hypothesis:**
-  `invent.c` `dounpaid` still omitted (not `qt_pager` common
-  retry D-1662 / `invlet_constant` D-1655).
-  **Falsify:** `node scripts/csym.mjs dounpaid`.
-  **Next:** Open `dounpaid`. Not invlet_constant.
-  Do not skip D-1531…D-1662. Not `qt_pager` common fallback.
+  `wizcmds.c` `sanity_check` gold/invlet still omitted (not
+  `dounpaid` D-1663 / `invlet_constant` D-1655).
+  **Falsify:** `node scripts/csym.mjs sanity_check`.
+  **Next:** Open `sanity_check` gold/invlet. Not check_invent_gold.
+  Do not skip D-1531…D-1663. Not `dounpaid`.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn oc_oprop;
   keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /
-  squeaky; hideunder; dounpaid / wizcmds sanity_check;
+  squeaky; hideunder; wizcmds sanity_check;
   artifact_name slip / cmdq_pop canned / docall sink-fluid;
   knox/drawbridge castle; save_mapseen cemetery JSON; guardian
   remaps; Punished float_down; water/lava steed; uhitm `u.dx`;
@@ -34,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1662.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1663.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,10 +45,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1662 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1663 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1662. Do not delete emin (**487**). Do not stub
+  D-1520…D-1663. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -59,7 +59,7 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1662 in the index (`qt_pager` common
+  `vision_reset`. D-1576…D-1663 in the index (`dounpaid` Iu D-1663; `qt_pager` common
   retry D-1662; `optfn_perminv_mode` D-1661; `'o'` getobj D-1660).
   No yn ^P glue / `ing_suffix` clone #3 / InvInUse poke (D-1603) /
   zap sticky Blind (D-1604). No `dat/tribute` indent=2. No static
@@ -68,6 +68,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1663: `dounpaid` Iu one-item pline / NHW_MENU + Total /
+  floor+buried; `find_unpaid`; `unknwn_contnr_contents`;
+  `xprname` Iu/Ix cost; `currency` C-home. Hallu ROLL_FROM /
+  `dotypeinv` / `doinvbill` named. invlet_constant is D-1655.
 - D-1662: `qt_pager` role miss → `com_pager_core("common", TRUE)`
   (second nhl_init). Array rn2 / pauper_legacy / killed_nemesis
   rawtext named. convert_arg is D-1649; synopsis is D-1622.
@@ -93,7 +97,7 @@ Objective/score live in `CURRENT.md`.
   sit.c grease spray named. consume_obj_charge is D-1615.
 - D-1655: `reassign`/`obj_to_let` + `fixinv`→`invlet_constant` On;
   getobj/display_pickinv/doorganize/prinv/#see*; xprname use_invlet.
-  dounpaid / wizcmds / wizweight named.
+  dounpaid is D-1663; wizcmds / wizweight named.
 - D-1654: `safe_qbuf` QBUFSZ-1 + `short_oname` lastR; pickup
   Pick up / Continue? / Do what with / empty Yname2 / tip.
   Other-file callers named.
@@ -107,5 +111,4 @@ Objective/score live in `CURRENT.md`.
   traverse; named-place / `builds_up` / `endgamelevelname`.
 - D-1649: `convert_arg` `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z`;
   `homebase`/`intermed`/`neminame`; `%o` `artiname`. qt_pager is D-1662.
-- D-1648: await `newcham` remaining NO_NC_FLAGS (review **606**).
-  Sync makemon/`load_tower1` named. mleashed D-1645.
+

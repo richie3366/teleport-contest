@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `questpgr.c` qt_pager common fallback (named). Not convert_arg. **Addressed:** D-1662
+- [x] `invent.c` `dounpaid` (named). Not invlet_constant. **Addressed:** D-1663
+
+
+- [x] `questpgr.c` qt_pager common fallback (named). Not convert_arg. **Addressed:** D-1662 `101d9d0b`
 
 
 - [x] `options.c` `optfn_perminv_mode` (named). Not doperminv. **Addressed:** D-1661 `536904b4`

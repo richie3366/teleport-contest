@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1663 invent.c dounpaid Iu listing
+
+**Objective:** Open `invent.c` `dounpaid` (named). Not invlet_constant.
+**C locus:** `invent.c` `dounpaid` `:3653–3789`; `find_unpaid`
+`:3020–3041`; `mkobj.c` `unknwn_contnr_contents` `:682–695`;
+`xprname` `:2928–2938`.
+**JS locus:** `js/invent.js` `dounpaid`; `js/mkobj.js`
+`unknwn_contnr_contents`; `js/objnam.js` `xprname`.
+**Change:** Iu one-item pline / NHW_MENU + Total / floor+buried;
+cost column; C-home `currency`. Caller `dotypeinv` named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary; green+strict seed8000/0900; cohort
+**7**/7 + strict (9/9 with green).
+**Next:** Open `wizcmds.c` `sanity_check` gold/invlet. Not
+check_invent_gold.
+**Blocked:** none.
 ## 2026-08-29 — D-1662 questpgr.c qt_pager common fallback
 
 **Objective:** Open `questpgr.c` qt_pager common fallback (named).

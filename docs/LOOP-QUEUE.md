@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` `dounpaid` (named). Not invlet_constant.
 - [ ] `wizcmds.c` `sanity_check` gold/invlet (named). Not check_invent_gold.
 - [ ] `iactions.c` remaining pushkeys offer/tip/invoke (named). Not use_grease.
 - [ ] `invent.c` `noarmor` uskin (named). Not doprarm.

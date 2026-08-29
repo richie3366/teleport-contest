@@ -1,3 +1,30 @@
+## D-1663 — invent.c dounpaid Iu listing
+
+- **Status:** fixed (map-driven Open from D-1662; not a public FAIL)
+- **Symptom:** map named `dounpaid`. C lists unpaid invent (one-item
+  `pline1`/`xprname`, else NHW_MENU putstr + Total) plus rare
+  floor/buried extras. JS had no export after D-1655
+  `invlet_constant`.
+- **C locus:** `invent.c` `dounpaid` `:3653–3789`; `find_unpaid`
+  `:3020–3041`; `mkobj.c` `unknwn_contnr_contents` `:682–695`;
+  `xprname` `:2928–2938` Iu/Ix cost. Caller `dotypeinv` `:3951–3953`.
+- **JS was:** no `dounpaid` / `find_unpaid` / `unknwn_contnr_contents`;
+  `xprname` omitted the cost column.
+- **Fix:** live listing + marker `find_unpaid` + outermost !cknown
+  container; `xprname` `%-45` cost + `currency`; invent.c `currency`
+  C-home (shk clone retired). Rule #2: no fs.
+- **JS:** `js/invent.js` `dounpaid`/`find_unpaid`/`currency`;
+  `js/mkobj.js` `unknwn_contnr_contents`; `js/objnam.js` `xprname`.
+- **Not this iter:** `dotypeinv`; `doinvbill`; `tally_BUCX`;
+  `currency` Hallu `ROLL_FROM(currencies[])`; wizcmds `sanity_check`;
+  wizweight after-change. invlet_constant is D-1655; qt_pager
+  common is D-1662.
+- **Verified:** private canary (`currency` 1/2; unknwn bag/cknown;
+  `xprname` Total/Iu cost pad; one-item pline); green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict (9/9 with green).
+- **Files:** `js/invent.js`, `js/mkobj.js`, `js/objnam.js`,
+  `js/shk.js`.
+
 ## D-1662 — questpgr.c qt_pager common fallback
 
 - **Status:** fixed (map-driven Open from D-1661; not a public FAIL)

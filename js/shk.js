@@ -93,7 +93,7 @@ import {
 import { nhgetch } from './input.js';
 import {
     paint_corner_nhw_menu, count_contents, observe_object, makeknown,
-    count_unpaid,
+    count_unpaid, currency,
 } from './invent.js';
 import { ATR_INVERSE } from './terminal.js';
 import { yn_function } from './getline.js';
@@ -557,11 +557,6 @@ export function costly_spot(x, y) {
     const eshkp = ESHK(shkp);
     return inside_shop(x, y)
         && !((x | 0) === (eshkp.shk?.x | 0) && (y | 0) === (eshkp.shk?.y | 0));
-}
-
-/** C invent.c currency — Hallu ROLL_FROM deferred → always zorkmid(s). */
-function currency(amount) {
-    return (amount | 0) === 1 ? 'zorkmid' : 'zorkmids';
 }
 
 function Role_if(pm) {

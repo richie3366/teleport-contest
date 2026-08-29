@@ -33,8 +33,10 @@
 // D-1641: invent.c check_invent_gold (`adjust_gold_ok` / doorganize
 //        filter / itemactions gold `i` / dest `$`). Not adjust_split.
 // D-1655: invent.c flags.invlet_constant / reassign / obj_to_let
-//        (fixinv opt_out On). dounpaid / wizcmds sanity_check /
-//        wizweight doset named.
+//        (fixinv opt_out On).
+// D-1663: invent.c dounpaid / find_unpaid + mkobj.c
+//        unknwn_contnr_contents + xprname Iu/Ix cost. dotypeinv /
+//        wizcmds sanity_check / wizweight doset named.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -43,10 +45,12 @@ import {
     endgamelevelname, obj_glyph, suppress_map_output,
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
 } from './display.js';
-import { xprname, an, vtense, doname, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
+import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin } from './getline.js';
 import { get_count, pmatchi } from './cmd.js';
-import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs } from './mkobj.js';
+import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents } from './mkobj.js';
+import { unpaid_cost } from './shk.js';
+import { s_suffix } from './do_name.js';
 import { inv_cnt } from './steal.js';
 import { assigninvlet } from './u_init.js';
 import { cansee } from './vision.js';
@@ -90,6 +94,7 @@ import {
     Has_contents,
     Is_container,
     Is_box,
+    COST_NOCONTENTS,
     has_oname,
     ONAME,
     SORTLOOT_PACK,
@@ -1026,6 +1031,234 @@ export function count_unpaid(list) {
         if (Has_contents(otmp)) count += count_unpaid(otmp.cobj);
     }
     return count;
+}
+
+/**
+ * C invent.c currency `:1545–1554`. Hallu ROLL_FROM(currencies[]) named
+ * omit — always "zorkmid" / makeplural. Callers shk Iu/Ix (D-1663).
+ * @param {number} amount
+ * @returns {string}
+ */
+export function currency(amount) {
+    const res = 'zorkmid';
+    if (Number(amount) !== 1) return makeplural(res);
+    return res;
+}
+
+/**
+ * C invent.c find_unpaid `:3020–3041` (static). last_found is
+ * `{ obj }` in/out like C `struct obj **`. Invent Array or nobj.
+ * @param {object[]|object|null} list
+ * @param {{ obj: object|null }} last_found
+ * @returns {object|null}
+ */
+function find_unpaid(list, last_found) {
+    if (Array.isArray(list)) {
+        for (const obj of list) {
+            if (!obj) continue;
+            const hit = find_unpaid_node(obj, last_found);
+            if (hit) return hit;
+        }
+        return null;
+    }
+    let cur = list;
+    while (cur) {
+        const hit = find_unpaid_node(cur, last_found);
+        if (hit) return hit;
+        cur = cur.nobj;
+    }
+    return null;
+}
+
+/** One nobj node: unpaid marker dance then Has_contents recurse. */
+function find_unpaid_node(obj, last_found) {
+    if (obj.unpaid) {
+        if (last_found.obj) {
+            if (obj === last_found.obj) last_found.obj = null;
+        } else {
+            last_found.obj = obj;
+            return obj;
+        }
+    }
+    if (Has_contents(obj)) {
+        const nested = find_unpaid(obj.cobj, last_found);
+        if (nested) return nested;
+    }
+    return null;
+}
+
+/** C flags.sortpack — optlist default On (`*(addr)=initval`). */
+function sortpack_on() {
+    const v = game.flags?.sortpack;
+    if (v === undefined) return true;
+    return !!v;
+}
+
+/** C flags.inv_order bytes; missing bag ≡ DEF_INV_ORDER. */
+function inv_order_classes() {
+    const raw = game.flags?.inv_order;
+    if (typeof raw === 'string' && raw.length) {
+        const out = [];
+        for (let i = 0; i < raw.length; i++) {
+            const n = raw.charCodeAt(i);
+            if (n) out.push(n);
+        }
+        if (out.length) return out;
+    }
+    if (Array.isArray(raw) && raw.length) return raw;
+    return DEF_INV_ORDER;
+}
+
+function walk_invent_nobj(list) {
+    if (!list) return;
+    if (Array.isArray(list)) {
+        return list.filter(Boolean);
+    }
+    const out = [];
+    for (let o = list; o; o = o.nobj) out.push(o);
+    return out;
+}
+
+function dounpaid_xpr(otmp, letch, dot, cost, txt) {
+    return xprname(otmp, letch, dot, 0, txt, cost);
+}
+
+/**
+ * C invent.c dounpaid `:3653–3789`. Iu unpaid listing: one-item pline,
+ * else NHW_MENU putstr + Total + floor/buried extra. Caller dotypeinv
+ * (still named). Callees find_unpaid / unknwn_contnr_contents live.
+ * @param {number} count unpaid in invent (incl. nested)
+ * @param {number} floorcount unpaid on fobj
+ * @param {number} buriedcount unpaid on buriedobjlist
+ */
+export async function dounpaid(count, floorcount, buriedcount) {
+    let otmp = null;
+    let contnr = null;
+    const xtracount = (floorcount | 0) + (buriedcount | 0);
+
+    if ((count | 0) === 1 && !xtracount) {
+        const marker = { obj: null };
+        otmp = find_unpaid(game.invent, marker);
+        contnr = unknwn_contnr_contents(otmp);
+    }
+    if (otmp && !contnr) {
+        const cost = unpaid_cost(otmp, COST_NOCONTENTS);
+        if (!game.iflags) game.iflags = {};
+        game.iflags.suppress_price = (game.iflags.suppress_price | 0) + 1;
+        const letch = (walk_invent_nobj(game.invent) || []).includes(otmp)
+            ? otmp.invlet
+            : CONTAINED_SYM;
+        await pline(dounpaid_xpr(
+            otmp, letch, true, cost, distant_name(otmp, doname),
+        ));
+        game.iflags.suppress_price = (game.iflags.suppress_price | 0) - 1;
+        return;
+    }
+
+    const lines = [];
+    let totcost = 0;
+    let num_so_far = 0;
+    if (!invlet_constant()) reassign();
+
+    const sortpack = sortpack_on();
+    const classes = inv_order_classes();
+    const invent = walk_invent_nobj(game.invent) || [];
+
+    const emit_unpaid = (obj, letch) => {
+        const cost = unpaid_cost(obj, COST_NOCONTENTS);
+        totcost += cost;
+        if (!game.iflags) game.iflags = {};
+        game.iflags.suppress_price = (game.iflags.suppress_price | 0) + 1;
+        lines.push(dounpaid_xpr(
+            obj, letch, true, cost, distant_name(obj, doname),
+        ));
+        game.iflags.suppress_price = (game.iflags.suppress_price | 0) - 1;
+        num_so_far++;
+    };
+
+    if (sortpack) {
+        for (const oclass of classes) {
+            let classcount = 0;
+            for (const obj of invent) {
+                if (!obj.unpaid) continue;
+                if ((obj.oclass | 0) !== (oclass | 0)) continue;
+                if (!classcount) {
+                    lines.push(let_to_name(oclass, true, false));
+                    classcount++;
+                }
+                emit_unpaid(obj, obj.invlet);
+            }
+        }
+    } else {
+        for (const obj of invent) {
+            if (!obj.unpaid) continue;
+            emit_unpaid(obj, obj.invlet);
+        }
+    }
+
+    if ((count | 0) > num_so_far) {
+        if (sortpack) {
+            lines.push(let_to_name(CONTAINED_SYM, true, false));
+        }
+        for (const box of invent) {
+            if (!Has_contents(box)) continue;
+            let contcost = 0;
+            const marker = { obj: null };
+            let found;
+            while ((found = find_unpaid(box.cobj, marker))) {
+                const cost = unpaid_cost(found, COST_NOCONTENTS);
+                totcost += cost;
+                contcost += cost;
+                if (box.cknown) {
+                    if (!game.iflags) game.iflags = {};
+                    game.iflags.suppress_price =
+                        (game.iflags.suppress_price | 0) + 1;
+                    lines.push(dounpaid_xpr(
+                        found, CONTAINED_SYM, true, cost,
+                        distant_name(found, doname),
+                    ));
+                    game.iflags.suppress_price =
+                        (game.iflags.suppress_price | 0) - 1;
+                }
+            }
+            if (!box.cknown) {
+                const contbuf = `${s_suffix(xname(box))} contents`;
+                lines.push(dounpaid_xpr(
+                    null, CONTAINED_SYM, true, contcost, contbuf,
+                ));
+            }
+        }
+    }
+
+    if ((count | 0) > 0) {
+        lines.push('');
+        lines.push(dounpaid_xpr(null, '*', false, totcost, 'Total:'));
+    }
+
+    if (xtracount > 0) {
+        const floorverb = xtracount > 1 ? 'are' : 'is';
+        const where = (buriedcount | 0) === 0
+            ? 'on the floor'
+            : (floorcount | 0) === 0
+                ? 'under the floor'
+                : 'on or under the floor';
+        if (!(count | 0)) {
+            await pline(
+                `You aren't carrying any unpaid items but there ${floorverb} ${xtracount} ${where}.`,
+            );
+        } else {
+            lines.push('');
+            const plurS = xtracount === 1 ? '' : 's';
+            lines.push(
+                `(There ${floorverb} ${xtracount} more unpaid object${plurS} ${where}.)`,
+            );
+        }
+    }
+
+    if ((count | 0) > 0) {
+        const { show_nhw_menu_text } = await import('./pager.js');
+        await show_nhw_menu_text(lines);
+    }
 }
 
 /** C invent.c ckvalidcat `:2135–2140`. */

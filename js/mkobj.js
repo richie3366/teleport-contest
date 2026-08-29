@@ -1,6 +1,7 @@
 // mkobj.js — Object creation.
 // C ref: mkobj.c — mkobj, mksobj, mkgold, next_ident, mksobj_init (partial),
-//        hornoplenty / fixup_oil (D-1031).
+//        hornoplenty / fixup_oil (D-1031);
+//        unknwn_contnr_contents (D-1663; caller invent.c dounpaid).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rne, rnz } from './rng.js';
@@ -2339,6 +2340,26 @@ export function replace_object(obj, otmp) {
         // invent/minvent/contained — place as free until callers need them
         otmp.where = OBJ_FREE;
     }
+}
+
+/**
+ * C mkobj.c unknwn_contnr_contents `:682–695`. Outermost !cknown
+ * container wrapping obj, or null when obj is not contained.
+ * Caller: invent.c dounpaid (D-1663).
+ * @param {object|null} obj
+ * @returns {object|null}
+ */
+export function unknwn_contnr_contents(obj) {
+    if (!obj) return null;
+    let result = null;
+    let cur = obj;
+    while (cur.where === OBJ_CONTAINED) {
+        const parent = cur.ocontainer;
+        if (!parent) break;
+        if (!parent.cknown) result = parent;
+        cur = parent;
+    }
+    return result;
 }
 
 // C ref: mkobj.c obj_extract_self — floor / invent / minvent / contained /

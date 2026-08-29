@@ -2534,15 +2534,17 @@ export function paydoname(obj) {
 }
 
 /**
- * C ref: invent.c xprname(obj, txt, let, dot, cost, quan)
+ * C ref: invent.c xprname(obj, txt, let, dot, cost, quan) `:2895–2954`.
  * Message/prinv paths pass dot=true (trailing period); invent menus omit it.
  * When quan is non-0, temporarily override obj.quan for doname (pickup
  * partial / merge total_of), then restore.
  * `txt` is C's second arg (hands/xtra_choice, contained, "Total:");
- * when set, doname is skipped. Named omissions: cost/Iu/Ix unpaid
- * columns (D-1655 use_invlet gate is live on the ordinary path).
+ * when set, doname is skipped.
+ * `cost` / `let=='*'` is the Iu/Ix unpaid column (D-1663); Hallu
+ * `currency()` ROLL_FROM named — zorkmid(s) like invent.c currency
+ * without the currencies[] table. menu_tab_sep uses a tab.
  */
-export function xprname(obj, let_ = undefined, dot = false, quan = 0, txt = null) {
+export function xprname(obj, let_ = undefined, dot = false, quan = 0, txt = null, cost = 0) {
     let savequan = 0;
     if (quan && obj) {
         savequan = obj.quan || 0;
@@ -2554,9 +2556,31 @@ export function xprname(obj, let_ = undefined, dot = false, quan = 0, txt = null
         && obj
         && let_ !== CONTAINED_SYM && let_ !== HANDS_SYM;
     let ilet = let_ ?? obj?.invlet ?? '?';
-    if (use_invlet) ilet = obj.invlet;
     const name = txt != null ? txt : doname(obj);
-    const result = `${ilet} - ${name}${dot ? '.' : ''}`;
+    const costn = Number(cost);
+    const costCol = costn !== 0 || ilet === '*';
+    let result;
+    if (costCol) {
+        // C `:2928–2938` — Iu (dot) vs Ix; "%c - %-45.*s" + " %6ld currency"
+        if (dot && use_invlet) ilet = obj.invlet;
+        const curr = costn !== 1 ? makeplural('zorkmid') : 'zorkmid';
+        let suffix;
+        if (game.iflags?.menu_tab_sep) {
+            suffix = `\t${costn} ${curr}`;
+        } else {
+            suffix = ` ${String(costn).padStart(6)} ${curr}`;
+        }
+        let shown = name;
+        if (!game.iflags?.menu_tab_sep && shown.length < 45) {
+            shown += ' '.repeat(45 - shown.length);
+        }
+        const cap = 256 - 1 - (4 + suffix.length);
+        if (shown.length > cap) shown = shown.slice(0, cap);
+        result = `${ilet} - ${shown}${suffix}`;
+    } else {
+        if (use_invlet) ilet = obj.invlet;
+        result = `${ilet} - ${name}${dot ? '.' : ''}`;
+    }
     if (savequan) obj.quan = savequan;
     return result;
 }
