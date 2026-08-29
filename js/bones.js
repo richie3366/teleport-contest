@@ -275,7 +275,8 @@ export function write_bonesfile(lev) {
             ? (lvl.buriedobjlist || []).map((o) => serObj(o))
             : serObjChain(lvl?.buriedobjlist),
         billobjs: serObjChain(game.billobjs),
-        ftrap: (game.ftrap || lvl?.traps || []).map((t) => ({ ...t })),
+        traps: (game.level?.traps || game.ftrap || lvl?.traps || [])
+            .map((t) => ({ ...t, ntrap: null })),
         head_engr: game.head_engr
             ? JSON.parse(JSON.stringify(game.head_engr))
             : null,
@@ -527,7 +528,7 @@ export async function try_load_bones(lev) {
     map.upstair = payload.upstair || null;
     map.dnstair = payload.dnstair || null;
     map.buriedobjlist = null;
-    map.traps = payload.ftrap || [];
+    map.traps = payload.traps || payload.ftrap || [];
 
     const fmon = [];
     for (const rawM of payload.fmon || []) {
@@ -577,7 +578,7 @@ export async function try_load_bones(lev) {
     game.fobj = fobj;
     map.buriedobjlist = buried;
     game.billobjs = billobjs;
-    game.ftrap = payload.ftrap || [];
+    game.ftrap = map.traps;
     game.head_engr = payload.head_engr || null;
     game.stairs = payload.stairs || null;
     // C: restcemetery → level.bonesinfo (bones_include_name / familiar)

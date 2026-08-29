@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1694 save.c savetrapchn current-level JSON traps
+
+**Objective:** JSON save/restore ledger Cluster 0 — persist
+`level.traps` (not empty `game.ftrap`).
+**C locus:** `save.c` `savetrapchn` `:918–942`; `restore.c` getlev
+`:1149–1163`.
+**JS locus:** `js/save.js` `serTraps`/`deserTraps`; `js/bones.js`.
+**Change:** write `payload.traps` from `level.traps`; restore into
+`map.traps`. `dst.dlevel` absolute. Named: multi-level ledger.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private trap-same-floor HEAD red 14/17 then **PASS**
+17/17; green+strict seed8000/0900; seed0013 99/99; seed0015/5006.
+**Next:** Cluster 1 `goto_level` stash (`billobjs`, damagelist,
+lights-by-id, `update_mlstmv`, `forget_temple_entry`).
+**Blocked:** none.
 ## 2026-08-30 — D-1693 dungeon.c count_feat knox/drawbridge
 
 **Objective:** Open `dungeon.c` print_mapseen knox/drawbridge (named).

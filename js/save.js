@@ -1,8 +1,9 @@
 // save.js — Game save / restore via frozen storage VFS (JSON subset).
-// C ref: save.c dosave / dosave0 / save_msghistory / save_gamelog /
-//        save_luadata; restore.c dorecover / restore_msghistory /
-//        restore_gamelog; nhlua.c restore_luadata / save_luadata;
-//        files.c SAVEF; unixmain attempt_restore; allmain welcome(FALSE).
+// C ref: save.c dosave / dosave0 / savetrapchn / save_msghistory /
+//        save_gamelog / save_luadata; restore.c dorecover / getlev
+//        trap loop / restore_msghistory / restore_gamelog; nhlua.c
+//        restore_luadata / save_luadata; files.c SAVEF; unixmain
+//        attempt_restore; allmain welcome(FALSE).
 
 import { game } from './gstate.js';
 import { vfsReadFile, vfsWriteFile, vfsDeleteFile } from './storage.js';
@@ -37,6 +38,62 @@ export function set_savefile_name(plname) {
 
 function vfsPath(path) {
     return path;
+}
+
+/**
+ * C ref: save.c savetrapchn / restore.c getlev trap loop `:1149–1163`.
+ * Live list is `level.traps` (`maketrap` / `t_at`); `game.ftrap` is not.
+ * JSON stores `dst.dlevel` absolute (C subtracts `u.uz.dlevel` when the
+ * destination is the same dungeon). Skip `ntrap` — array order is the chain.
+ * @param {object[]|null|undefined} list
+ * @returns {object[]}
+ */
+export function serTraps(list) {
+    const out = [];
+    for (const t of list || []) {
+        if (!t) continue;
+        out.push(serTrap(t));
+    }
+    return out;
+}
+
+function serTrap(t) {
+    return {
+        ttyp: t.ttyp | 0,
+        tx: t.tx | 0,
+        ty: t.ty | 0,
+        tseen: !!t.tseen,
+        once: t.once | 0,
+        madeby_u: t.madeby_u | 0,
+        tnote: t.tnote | 0,
+        conjoined: t.conjoined | 0,
+        launch: coord2(t.launch),
+        launch2: coord2(t.launch2),
+        teledest: coord2(t.teledest),
+        dst: t.dst
+            ? { dnum: t.dst.dnum | 0, dlevel: t.dst.dlevel | 0 }
+            : { dnum: -1, dlevel: -1 },
+    };
+}
+
+function coord2(p) {
+    return p ? { x: p.x | 0, y: p.y | 0 } : { x: -1, y: -1 };
+}
+
+/**
+ * @param {unknown} arr
+ * @returns {object[]}
+ */
+export function deserTraps(arr) {
+    const out = [];
+    if (!Array.isArray(arr)) return out;
+    for (const raw of arr) {
+        if (!raw || typeof raw !== 'object') continue;
+        const t = serTrap(raw);
+        t.ntrap = null;
+        out.push(t);
+    }
+    return out;
 }
 
 /** Serialize one object; cobj as nobj-order array. Drop live graph. */
@@ -278,7 +335,8 @@ export function dosave0() {
         fobj: serObjChain(game.fobj),
         buriedobjlist: serObjChain(lvl?.buriedobjlist),
         billobjs: serObjChain(game.billobjs),
-        ftrap: (game.ftrap || []).map((t) => ({ ...t })),
+        // C savetrapchn walks gf.ftrap; JS live list is level.traps (D-1694).
+        traps: serTraps(game.level?.traps),
         head_engr: game.head_engr
             ? JSON.parse(JSON.stringify(game.head_engr)) : null,
         stairs: game.stairs
@@ -543,7 +601,7 @@ export function try_restore_save() {
     map.upstair = payload.upstair || null;
     map.dnstair = payload.dnstair || null;
     map.buriedobjlist = deserObjChain(payload.buriedobjlist, OBJ_BURIED);
-    map.traps = payload.ftrap || [];
+    map.traps = deserTraps(payload.traps ?? payload.ftrap);
 
     const fmon = [];
     for (const rawM of payload.fmon || []) {
@@ -566,7 +624,7 @@ export function try_restore_save() {
     game.fmon = fmon;
     game.fobj = fobj;
     game.billobjs = deserObjChain(payload.billobjs, OBJ_FLOOR);
-    game.ftrap = payload.ftrap || [];
+    game.ftrap = map.traps;
     game.head_engr = payload.head_engr || null;
     game.stairs = payload.stairs || null;
     game.lastseentyp = payload.lastseentyp || null;

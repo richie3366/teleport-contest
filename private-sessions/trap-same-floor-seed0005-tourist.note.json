@@ -1,0 +1,14 @@
+{
+  "locus": "save.c savetrapchn / restore.c getlev trap loop",
+  "omitId": "D-1694",
+  "bucket": "fidelity",
+  "cTopline": "You fall into a pit!",
+  "jsTopline": "You fall into a pit!",
+  "from": "trap-same-floor-seed0005-tourist",
+  "headRed": {
+    "sha": "605f0f2e",
+    "rng": "4404/4414",
+    "screen": "14/17",
+    "note": "JS save wrote empty ftrap; restore wiped level.traps; no paranoid pit yn"
+  }
+}

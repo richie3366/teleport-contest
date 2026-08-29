@@ -62,122 +62,32 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1692 (seed4500 still PASS). **Next cluster:**
-Open `options.c` mO perminv_mode compound row (named). Not
-optfn_perminv_mode.
-**Do not skip D-1531…D-1693 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1694 (seed4500 still PASS). **Next cluster:**
+JSON save/restore ledger Cluster 1 — complete `goto_level` stash
+(`billobjs`, damagelist, lights-by-id, `update_mlstmv`,
+`forget_temple_entry` on ordinary leave). Not mO perminv_mode.
+**Do not skip D-1531…D-1694 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1693.** Do not FORCE
+**Do not re-break D-0660…D-1694.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1693 (index). Recent: **D-1693**
-`count_feat_lastseentyp` knox/drawbridge `flags.ludios` /
-`flags.castle`/`castletune`. D-1692 `chwepon` `restrict_name`.
+**Keep:** D-0845…D-1694 (index). Recent: **D-1694**
+`savetrapchn` JSON `level.traps`. D-1693 knox/drawbridge.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1693 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1694 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port `mongets` sword `spe`. Do not re-port
-`gain_guardian_angel`. Do not re-port `m_unleash`.
-Do not re-port `initedog` ogoal / first-pet livelog.
-Do not re-port getline ^P / yn ^P.
-Do not re-port `get_count` historicmsg.
-Do not re-port `restore_msghistory`.
-Do not re-port `consume_obj_charge` known `update_inventory`.
-Do not re-port `reset_hostility`.
-Do not re-port dog_move Conflict `lose_guardian_angel`.
-Do not re-port `mplayer_talk`.
-Do not re-port peaceful MS_HUMANOID / `"threatens you."`.
-Do not re-port MS_BOAST hostile giants.
-Do not re-port `take_off` occupation / `do_takeoff`.
-Do not re-port floor TRADITIONAL `query_classes`.
-Do not re-port `adjust_split`.
-Do not re-port `check_invent_gold`.
-Do not re-port `doperminv` / tty WIN_INVEN `assesstty`.
-Do not re-port `com_pager_core` synopsis.
-Do not re-port yn post-answer `toplines`.
-Do not re-port EDIT_GETLIN (config.h commented).
-Do not re-port `doextlist`.
-Do not re-port BIND= M('?') / rhack `cmdbind_get` default.
-Do not re-port overlay BIND= on if/else keys.
-Do not re-port ACH_ENDG/ASTR/BGRM / Knox alarm / entered livelog.
-Do not re-port `dismount_steed` DISMOUNT_THROWN HP.
-Do not re-port `landing_spot` KNOCKED preferred-dir / enexto.
-Do not re-port `restore_gamelog`.
-Do not re-port `restore_luadata` / `save_luadata`.
-Do not re-port `newcham` mleashed / Elbereth `monflee`.
-Do not re-port await `newcham` at async NO_NC_FLAGS sites.
-Do not re-port MENU_SEARCH / `tty_wait_synch`.
-Do not re-port `restore_cham`.
-Do not re-port `do_mgivenname`.
-Do not re-port `lookup_novel`.
-Do not re-port `'o'` getobj `"call"`.
-Do not re-port `optfn_perminv_mode`.
-Do not re-port `can_set_perm_invent` InvOptOn import.
-Do not re-port `qt_pager` common fallback.
-Do not re-port `dounpaid`.
-Do not re-port `sanity_check` gold/invlet.
-Do not re-port `eyecount`.
-Do not re-port `rename_disco`.
-Do not re-port `free_edog` / restmon `newedog`.
-Do not re-port `menu_remarm`.
-Do not re-port `tty_nhbell` / yn `cw->cury` / `intr`.
-Do not re-port kill_char / getlin empty-erase bell / getline `intr--`.
-Do not re-port ESC-nonempty fallthrough / `hooked_getlin_handle_esc`.
-Do not re-port files.c `read_tribute` / `choose_passage` / SPE_NOVEL.
-Do not re-port `Death_quote` / `u_have_novel`.
-Do not re-port `convert_line` pronoun `%Xh` / `qtext_pronoun`.
-Do not re-port `convert_arg` catalogue.
-Do not re-port `dooverview` PICK_ONE / `show_overview` why==-1.
-Do not re-port `print_mapseen` altar-god coalign / `altarmask_at`.
-Do not re-port `print_mapseen` cemetery bones list.
-Do not re-port `save_mapseen` cemetery JSON.
-Do not re-port `count_feat_lastseentyp` knox/drawbridge
-`flags.ludios`/`castle`/`castletune`.
-Do not re-port `safe_qbuf` / pickup Pick up / Continue? / tip ynq.
-Do not re-port `invlet_constant` / `reassign` / `obj_to_let`.
-Do not re-port `use_grease` / trailing `update_inventory`.
-Do not re-port sit.c grease spray / `make_glib` uarmg.
-Do not re-port `doddrop` / ggetobj drop / `menu_drop`.
-Do not re-port `sanity_check` gold/invlet.
-Do not re-port remaining pushkeys unwield/name/eat/engrave /
-`remarm_swapwep` / floorfood_eat `iflags.menu_requested`.
-Do not re-port remaining pushkeys offer/tip/invoke / `offer_ok` /
-`floorfood("sacrifice")` / `doinvoke` live getobj / `dotip` `tip_ok`.
-Do not restore `pay_take_canned_billed`. Do not re-port
-`cheapest_item` early return. Do not re-port doengrave non-hands stylus
-sfx. Do not glue Open to `buy_container`.
-Do not re-port Traditional itemize yn / `dotypeinv` / `this_type_only` /
-`tally_BUCX` / `doinvbill` / `query_objlist` this_title.
-Do not re-port remaining pushkeys rub/swap/whatis / `do_look`
-cmdq_pop / `display_inventory` canned KEY.
-Do not re-port IA_TWOWEAPON `'X'` / MAYBETWOWEAPON / `dotwoweapon`.
-Do not re-port `can_set_perm_invent` InvOptOn import.
-Do not re-port `dosacrifice` ECMD_TIME / `offer_corpse`.
-Do not re-port `choose_tip_container_menu`.
-Do not re-port `oname` via_naming livelog.
-Do not re-port `'i'` getobj `"name"` / #if 0 EXCLUDE / `silly_thing`.
-Do not re-port `noarmor` uskin.
-Do not re-port wizweight after-change / doname `aum`.
-Do not re-port `do_oname` artifact_name slip / `restrict_name`.
-Do not re-port wield `chwepon` `restrict_name` / Magicbane /
-`alter_cost` / `costly_alteration`.
-Do not re-port `count_feat_lastseentyp` knox door-throne /
-drawbridge castle.
-Do not re-port `docallcmd` cmdq_pop canned / lootabc / invent i/o.
-Do not re-port `docall` sink-fluid / `safe_qbuf` Call/:/thing.
-Do not re-port `distant_monnam` astral high-cleric.
-Do not re-port `oc_uses_known` extract / class-name uskn stand-in.
-Do not re-port `oc_charged` extract / charged name-list.
-Do not re-port `undiscover_object` / `gem_learned` / `o_on` / `find_oid`.
+Do not re-port D-1660…D-1694 (index) — `savetrapchn` traps,
+knox/drawbridge, `chwepon` restrict_name, disco/`find_oid`,
+cemetery JSON, Traditional `I`, cheapest_item, iactions pushkeys.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

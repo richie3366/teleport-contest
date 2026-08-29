@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1694 — save.c savetrapchn current-level JSON traps
+
+- **Status:** fixed (map-driven ledger Cluster 0; not a public FAIL)
+- **Symptom:** `maketrap` / `t_at` use `game.level.traps`; `dosave0`
+  wrote `(game.ftrap || [])` which is never the live list, so JSON
+  save dropped every trap and restore wiped `map.traps`. seed0013
+  never observes a trap after restore. Private trap-same-floor
+  (discover pit, `Sy`, restore, step) was RNG 4404/4414 Screen 14/17
+  on `605f0f2e`.
+- **C locus:** `save.c` `savetrapchn` `:918–942`; `restore.c` getlev
+  trap loop `:1149–1163`; `savelev_core` `:544`. `dst.dlevel` stored
+  absolute in JSON (C relative dance skipped).
+- **JS was:** `ftrap: (game.ftrap || []).map(...)`; restore
+  `map.traps = payload.ftrap || []`.
+- **Fix:** serialize `level.traps` as `payload.traps`; restore
+  `deserTraps(payload.traps ?? payload.ftrap)` into `map.traps` and
+  `game.ftrap`. Bones write/read the same `traps` key. Rule #2: no fs.
+- **JS:** `js/save.js` `serTraps` / `deserTraps`; `js/bones.js`.
+- **Not this iter:** multi-level ledger / other `LFILE_EXISTS` floors;
+  binary NHFILE; `restlevelfile`; RANGE_LEVEL timers in VFS; worms /
+  bubbles / exclusions.
+- **Verified:** private trap-same-floor **PASS** RNG 4414/4414 Screen
+  17/17 (was 14/17); green+strict seed8000/0900; seed0013 99/99.
+- **Files:** `js/save.js`, `js/bones.js`.
+
 ## D-1693 — dungeon.c count_feat knox/drawbridge
 
 - **Status:** fixed (map-driven Open from D-1692; not a public FAIL)

@@ -39,7 +39,7 @@ This is a planning list, not an exhaustive C file inventory:
 - level transitions, branches, quests, and special levels;
 - pure-JS Lua 5.4 runtime plus `nh.*` bindings;
 - save/restore JSON VFS subset (D-0335 — `dosave`/`dosave0`/`try_restore_save`;
-  binary NHFILE / multi-level ledger deferred); record/topten through frozen
+  **current-level traps D-1694**; binary NHFILE / multi-level ledger deferred); record/topten through frozen
   storage; bones VFS JSON subset (D-0274 partial — missing entity deferred);
 - properties, timeout/status effects, polymorph, death/lifesaving;
 - hallucination and display RNG;
