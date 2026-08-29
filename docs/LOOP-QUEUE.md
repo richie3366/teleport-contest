@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `iactions.c` IA_BUY_OBJ shop pay (named). Not offer/tip/invoke.
 - [ ] `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke.
 - [ ] `pray.c` offer_corpse (named). Not floorfood sacrifice getobj.
 - [ ] `pickup.c` choose_tip_container_menu (named). Not tip getobj.

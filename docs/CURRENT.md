@@ -62,24 +62,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1675 (seed4500 still PASS). **Next cluster:**
-Open `iactions.c` IA_BUY_OBJ shop pay (named). Not offer/tip/invoke.
-**Do not skip D-1531…D-1675 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1676 (seed4500 still PASS). **Next cluster:**
+Open `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke.
+**Do not skip D-1531…D-1676 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1675.** Do not FORCE
+**Do not re-break D-0660…D-1676.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1675 (index). Recent: **D-1675**
-`itemactions_pushkeys` IA_UNWIELD/NAME/EAT/ENGRAVE + `remarm_swapwep`.
-Not remaining buy/rub/swap/two-weapon/whatis. `oc_uses_known` is D-1674.
+**Keep:** D-0845…D-1676 (index). Recent: **D-1676**
+`IA_BUY_OBJ` shop pay (`itemactions` unpaid `p` + `dopay` canned
+invlet). Not remaining rub/swap/two-weapon/whatis. Unwield-name-eat-
+engrave is D-1675. `oc_uses_known` is D-1674.
 `distant_monnam` astral is D-1673. `docall` sink-fluid is D-1672.
 cmdq_pop canned is D-1671. artifact_name slip is D-1670.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1675 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1676 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -145,9 +146,12 @@ Do not re-port `invlet_constant` / `reassign` / `obj_to_let`.
 Do not re-port `use_grease` / trailing `update_inventory`.
 Do not re-port `doddrop` / ggetobj drop / `menu_drop`.
 Do not re-port `sanity_check` gold/invlet.
+Do not re-port remaining pushkeys unwield/name/eat/engrave /
+`remarm_swapwep` / floorfood_eat `iflags.menu_requested`.
 Do not re-port remaining pushkeys offer/tip/invoke / `offer_ok` /
 `floorfood("sacrifice")` / `doinvoke` live getobj / `dotip` `tip_ok`.
-Do not re-port remaining pushkeys buy/rub/swap/two-weapon/whatis.
+Do not re-port remaining pushkeys rub/swap/two-weapon/whatis.
+Do not re-port IA_BUY_OBJ shop pay / `pay_take_canned_billed`.
 Do not re-port `can_set_perm_invent` InvOptOn import.
 Do not re-port `dosacrifice` ECMD_TIME after floorfood pick.
 Do not re-port `noarmor` uskin.
@@ -156,8 +160,6 @@ Do not re-port `do_oname` artifact_name slip / `restrict_name`.
 Do not re-port `docallcmd` cmdq_pop canned / lootabc / invent i/o.
 Do not re-port `docall` sink-fluid / `safe_qbuf` Call/:/thing.
 Do not re-port `distant_monnam` astral high-cleric.
-Do not re-port remaining pushkeys unwield/name/eat/engrave /
-`remarm_swapwep` / floorfood_eat `iflags.menu_requested`.
 Do not re-port `oc_uses_known` extract / class-name uskn stand-in.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

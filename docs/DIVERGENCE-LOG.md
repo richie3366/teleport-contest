@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-1676 — iactions.c IA_BUY_OBJ shop pay
+
+- **Status:** fixed (map-driven Open from D-1675; not a public FAIL)
+- **Symptom:** map named IA_BUY_OBJ shop pay. Menu row was
+  `// p: pay unpaid — shop deferred`. Selecting pay default-broke.
+  Canned `dopay`+invlet would leak into the next rhack.
+- **C locus:** `iactions.c` `itemactions` `:485–494` unpaid `p` when
+  `shop_keeper(*in_rooms(..., SHOPBASE))` && `inhishop`; 
+  `itemactions_pushkeys` `:203–206` `cmdq_add_ec(dopay)` + invlet;
+  `shk.c` `dopay` / `pay_billed_items` billed objects.
+- **JS was:** no `'p'` row; `itemactions_pushkeys` default after D-1675;
+  `pay_billed_items` always opened the pay menu (leftover invlet).
+- **Fix:** show Buy when unpaid in a tended shop; queue `dopay`+invlet;
+  consume a canned KEY matching a billed invlet as `queuedpay` (skip
+  menu). Traditional itemize / cheapest_item / used-up containers
+  still named. Rule #2: no fs.
+- **JS:** `js/iactions.js`; `js/shk.js` `pay_take_canned_billed`.
+- **Not this iter:** IA_TWOWEAPON / rub/swap/whatis; Traditional
+  itemize yn; `cheapest_item` early return; offer/tip/invoke is D-1665;
+  unwield-name-eat-engrave is D-1675.
+- **Verified:** private canary (menu predicate + canned billed pay);
+  green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+- **Files:** `js/iactions.js`, `js/shk.js`.
+
 ## D-1675 — iactions.c remaining pushkeys unwield/name/eat/engrave
 
 - **Status:** fixed (map-driven Open from D-1674; not a public FAIL)

@@ -56,7 +56,7 @@ import {
     COST_CONTENTS, COST_SINGLEOBJ, COST_UNBLSS, COST_UNCURS, TELEPAT,
     W_SWAPWEP, W_QUIVER, TT_PIT, MIGR_APPROX_XY, MON_FLOOR,
     SELL_NORMAL, SELL_DELIBERATE, SELL_DONTSELL, CANDLESHOP,
-    ARTICLE_THE,
+    ARTICLE_THE, CMDQ_KEY,
 } from './const.js';
 import { hero_conflict, resist_conflict, m_canseeu } from './mondata.js';
 import { mon_nam, x_monnam, y_monnam } from './do_name.js';
@@ -3759,6 +3759,27 @@ const FullyIntact = 4;
 const PAY_BUY = 1;
 
 /**
+ * C iactions.c IA_BUY_OBJ `:203–206` queues dopay + invlet. dopay has no
+ * getobj; consume a canned KEY that matches a billed invlet so it does
+ * not leak into the next rhack (D-1675 leftover). Miss leaves the queue.
+ */
+function pay_take_canned_billed(ibill) {
+    const name = game.in_doagain ? '_cmdq_repeat' : '_cmdq_canned';
+    const q = game[name];
+    const head = q?.[0];
+    if (!head || typeof head !== 'object') return null;
+    const isKey = head.typ === 'key' || head.typ === CMDQ_KEY;
+    if (!isKey) return null;
+    const ch = typeof head.key === 'string'
+        ? head.key
+        : String.fromCharCode(head.key | 0);
+    const hit = ibill.find((e) => e.obj && e.obj.invlet === ch);
+    if (!hit) return null;
+    q.shift();
+    return hit;
+}
+
+/**
  * C ref: mkobj.c find_oid — invent walk (floor/buried/billobjs deferred).
  */
 function bp_to_obj(bp) {
@@ -3930,8 +3951,8 @@ async function dopayobj(shkp, bp, obj, _which, _itemize, unseen) {
 }
 
 /**
- * C ref: shk.c pay_billed_items — menu path only (via_menu).
- * Traditional itemize / 'm' toggle deferred; always menu like non-Traditional.
+ * C ref: shk.c pay_billed_items — menu path (via_menu) plus IA_BUY_OBJ
+ * canned invlet. Traditional itemize / 'm' toggle named.
  */
 async function pay_billed_items(shkp, ibill, paidRef) {
     const eshkp = ESHK(shkp);
@@ -3940,10 +3961,20 @@ async function pay_billed_items(shkp, ibill, paidRef) {
         await pline('You have no gold or credit.');
         return true;
     }
-    if (!await menu_pick_pay_items(ibill)) return true;
+
+    let queuedpay = false;
+    const canned = pay_take_canned_billed(ibill);
+    if (canned) {
+        canned.queuedpay = true;
+        queuedpay = true;
+    } else if (!await menu_pick_pay_items(ibill)) {
+        return true;
+    } else {
+        queuedpay = true;
+    }
 
     for (let indx = 0; indx < ibill.length; indx++) {
-        if (!ibill[indx].queuedpay) continue;
+        if (queuedpay && !ibill[indx].queuedpay) continue;
         const otmp = ibill[indx].obj;
         const bidx = ibill[indx].bidx | 0;
         const bp = (eshkp.bill_p || eshkp.bill)[bidx];
@@ -3978,7 +4009,8 @@ function Blind_telepat() {
  * single resident / single-seen nearness; rouse when owing;
  * peaceful non-resident robbed settle; !bill&&!debit robbed/angry appease;
  * debit pay (credit/money2mon); bill menu → money2mon/splitobj;
- * thank-you verbalize; ECMD_TIME when paid.
+ * IA_BUY_OBJ canned invlet (D-1676); thank-you verbalize; ECMD_TIME
+ * when paid.
  * Deferred: multi-shk getpos; used-up/containers; traditional itemize;
  * mute/Deaf thank-you nod; SetVoice.
  */
