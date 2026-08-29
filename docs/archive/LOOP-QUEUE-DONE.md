@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
+- [x] `pay_billed_items` (`shk.c:2042–2097`): delete `pay_take_canned_billed`. After IA_BUY_OBJ, take the C `via_menu` arm into `menu_pick_pay_items`; do not skip that menu because a canned KEY equals `obj.invlet`. Leftover `CMDQ_KEY` after `dopay` is C `rhack` `:3642–3651`. Do not port `cheapest_item` / Traditional itemize / `buy_container`. Source: `reviews/loop-unattended/637-6441842f-ia-buy-obj.md` **Addressed:** D-1684
+
+
 - [x] `sit.c` special_throne_effect grease spray (named). Not use_grease. **Addressed:** D-1683 `d2bcd227`
 
 

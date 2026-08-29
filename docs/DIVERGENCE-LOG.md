@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1684 — shk.c pay_billed_items via_menu; delete pay_take_canned_billed
+
+- **Status:** fixed (Must-fix review **637** QUALITY-RISK; not a public FAIL)
+- **Symptom:** D-1676 invented `pay_take_canned_billed`: if a canned KEY
+  equaled a billed `obj.invlet`, it `cmdq_pop`ped, set `queuedpay`, and
+  **skipped** `menu_pick_pay_items`. C `pay_billed_items` never pops
+  cmdq; via_menu always calls the pay menu (letters `a`…, not invlets).
+  Leftover IA_BUY_OBJ KEY is the next `rhack` keystroke.
+- **C locus:** `shk.c` `pay_billed_items` `:2042–2097` via_menu
+  `:2084–2098`; callee `menu_pick_pay_items` `:1666–1739`
+  `add_menu(..., 0, 0, ...)`. Caller `dopay` `:2006`. `cmd.c` `rhack`
+  `:3642–3651` leftover KEY. IA_BUY_OBJ queue is D-1676 (`:203–206`).
+- **JS was:** `pay_take_canned_billed` in live `pay_billed_items`.
+- **Fix:** delete the helper; via_menu arm always
+  `menu_pick_pay_items`. Named: `cheapest_item`; Traditional itemize
+  yn / `menu_requested` toggle; used-up / `buy_container`. Rule #2:
+  no fs.
+- **JS:** `js/shk.js` `pay_billed_items`.
+- **Not this iter:** `cheapest_item` / Traditional itemize /
+  `buy_container` (Open); remaining pushkeys rub/swap/whatis;
+  `inhishop` `on_level`.
+- **Verified:** private canary **11**/11 (menu letter `a` pays first
+  billed item not invlet `l`; leftover KEY stays; ESC does not
+  auto-pay; `'p'` still queues `dopay`+invlet); green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict.
+- **Files:** `js/shk.js`.
+
 ## D-1683 — sit.c special_throne_effect grease spray update_inventory
 
 - **Status:** fixed (map-driven Open from D-1682; not a public FAIL)

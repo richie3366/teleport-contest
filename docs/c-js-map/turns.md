@@ -2732,8 +2732,11 @@ cmd `p`; **D-0928 #1182:** `dopay` `canspotmon` seensk + Blind/`Blind_telepat` +
 **D-0462:** `money2mon` decrements `game._goldCount` (JS botl `$:` cache; C `money_cnt`); 
 **D-0460:** `get_cost_of_shop_item`/`doname_with_price` + C-shaped `inside_shop` roomno; 
 **D-0461:** `is_unpaid`/`unpaid_cost`/`count_unpaid` + doname unpaid + 
-`paydoname` in pay menu/`dopayobj`; deferred debit/robbed/angry appease, used-up/container bill, 
-traditional itemize, `makeknown`/`observe_object` in shk_names_obj, multi-shk getpos; 
+`paydoname` in pay menu/`dopayobj`; **D-1684:** `pay_billed_items`
+via_menu always `menu_pick_pay_items` (deleted invented
+`pay_take_canned_billed`; leftover IA_BUY_OBJ KEY is next `rhack`
+`cmd.c:3642–3651`); deferred debit/robbed/angry appease, used-up/container bill,
+traditional itemize / `cheapest_item` early return, `makeknown`/`observe_object` in shk_names_obj, multi-shk getpos;
 deferred container `bill_box_content`/`contained_cost`, `remote_burglary`, gem glass pseudo-ID, 
 `arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`

@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `pay_billed_items` (`shk.c:2042–2097`): delete `pay_take_canned_billed`. After IA_BUY_OBJ, take the C `via_menu` arm into `menu_pick_pay_items`; do not skip that menu because a canned KEY equals `obj.invlet`. Leftover `CMDQ_KEY` after `dopay` is C `rhack` `:3642–3651`. Do not port `cheapest_item` / Traditional itemize / `buy_container`. Source: `reviews/loop-unattended/637-6441842f-ia-buy-obj.md`
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `dungeon.c` save_mapseen cemetery JSON (named). Not print_mapseen cemetery.
