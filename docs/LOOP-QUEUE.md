@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sounds.c` peaceful MS_HUMANOID (named). Not mplayer_talk.
 - [ ] `do_wear.c` `take_off` occupation (named). Not ggetobj.
 - [ ] `pickup.c` floor `query_classes` (named). Not traditional_loot.
 - [ ] `invent.c` `adjust_split` GC_ECHOFIRST|GC_CONDHIST caller (named). Not get_count.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `topl.c` `tty_yn_function` post-answer `toplines=prompt+key` (named). Not yn ^P.
 - [ ] `getline.c` EDIT_GETLIN (named). Not getline ^P.
 - [ ] `cmd.c` `doextlist` (named). Not #seeall EXT_CMDS.
+- [ ] `sounds.c` MS_BOAST hostile giants (named). Not MS_HUMANOID.
+- [ ] `steed.c` `dismount_steed` DISMOUNT_THROWN (named). Not dog_move Conflict.
+- [ ] `restore.c` `restore_gamelog` (named). Not restore_msghistory.
+- [ ] `dog.c` `free_edog` (named). Not initedog ogoal.
+- [ ] `do_wear.c` `menu_remarm` (named). Not take_off occupation.
 
 ## Parked (do not pop)
 

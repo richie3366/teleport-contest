@@ -416,8 +416,12 @@ aborts. **D-1606 `mplayer_talk`** (`mplayer.c:355–377`; caller
 is_mplayer`). Live `js/mplayer.js` + `js/sounds.js` `domonnoise`
 endgame arm (`ECMD_TIME`); same-class vs other `rn2(3)` once;
 `SetVoice` no-op without SND_LIB; mndx vs `urole.mnum` (`mons()` is
-a fresh object). Named: peaceful MS_HUMANOID / hostile
-`"threatens you."` / MS_BOAST fallthrough. `mongets` mplayer-sword
+a fresh object). **D-1618 `domonnoise` MS_HUMANOID** (`sounds.c:1025–1104`
+peaceful + hostile `"threatens you."`; MS_ORC remap `:705–709`
+`same_race` current/`urace.mnum` then Hallu). Live `js/sounds.js`;
+epilogue `pline_msg` then `verbalize`; gnome `rn2(4)` short-circuit.
+Named: MS_BOAST fallthrough; guardian/isshk/gecko remaps; SetVoice.
+`mongets` mplayer-sword
 spe is D-1607. ndemon is D-1575.
 
 ### `src/worm.c`

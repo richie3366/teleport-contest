@@ -5,20 +5,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1617. seed4500 still PASS.
-  **Hypothesis:** Open `sounds.c` peaceful MS_HUMANOID
-  (named) is the next map cluster. Not mplayer_talk.
-  **Falsify:** `node scripts/csym.mjs --callers mplayer_talk`;
-  `node scripts/map.mjs sounds.c`.
-  **Next:** Open sounds peaceful MS_HUMANOID. D-1617 shipped
-  `dog_move` Conflict `lose_guardian_angel(mtmp)`.
-  Do not skip D-1531…D-1617. No FORCE / `wildmiss` wrap /
-  trailing `confdir` in shared `getdir`. Do not glue onto
-  mplayer_talk (D-1606) or gain_guardian_angel (D-1608).
+- **Suite 44/44** after D-1618. seed4500 still PASS.
+  **Hypothesis:** Open `do_wear.c` `take_off` occupation
+  (named) is the next map cluster. Not ggetobj.
+  **Falsify:** `node scripts/csym.mjs --callers take_off`;
+  `node scripts/map.mjs do_wear.c`.
+  **Next:** Open take_off occupation. D-1618 shipped
+  `domonnoise` MS_HUMANOID peaceful + `"threatens you."`
+  + MS_ORC remap. Do not skip D-1531…D-1618. No FORCE /
+  `wildmiss` wrap / trailing `confdir` in shared `getdir`.
+  Do not glue onto mplayer_talk (D-1606) or peaceful
+  MS_HUMANOID (D-1618).
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; floor `query_classes`;
   `restore_cham` / `rescham`; `restore_gamelog`;
-  peaceful MS_HUMANOID / `"threatens you."`; `take_off` /
+  MS_BOAST fallthrough; `take_off` /
   `menu_remarm`; ggetobj drop;
   tty WIN_INVEN create (`allmain.c:726`); `#perminv`;
   `optfn_perminv_mode`; `doextlist` / BIND= `seeall`;
@@ -37,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1617.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1618.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -48,9 +49,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1617 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1618 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1617. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1618. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -61,22 +62,25 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1617 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1618 live in the index. Do not glue
   yn ^P onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603 writers are
   preamble `:71` / `try_restore_save` `:942`). Do not restore zap
   `bhit` sticky `u.Blind||u.ublind` (D-1604). Do not re-port
-  `doprinuse` `#seeall` (D-1605), `mplayer_talk` (D-1606; peaceful
-  named), `mongets` sword spe (D-1607), `gain_guardian_angel`
-  (D-1608), `m_unleash` (D-1609), `initedog` ogoal (D-1610),
-  getline ^P (D-1611), yn ^P (D-1612), `get_count` historicmsg
-  (D-1613), `restore_msghistory` (D-1614), `consume_obj_charge`
-  known `update_inventory` (D-1615), `reset_hostility` (D-1616),
-  dog_move Conflict `lose_guardian_angel` (D-1617; dismount_steed
-  DISMOUNT_THROWN / setworn oc_oprop named).
+  `doprinuse` `#seeall` (D-1605), `mplayer_talk` (D-1606), `mongets`
+  sword spe (D-1607), `gain_guardian_angel` (D-1608), `m_unleash`
+  (D-1609), `initedog` ogoal (D-1610), getline ^P (D-1611), yn ^P
+  (D-1612), `get_count` historicmsg (D-1613), `restore_msghistory`
+  (D-1614), `consume_obj_charge` known `update_inventory` (D-1615),
+  `reset_hostility` (D-1616), dog_move Conflict
+  `lose_guardian_angel` (D-1617), peaceful MS_HUMANOID /
+  `"threatens you."` / MS_ORC remap (D-1618; MS_BOAST named).
 
 ## Landmarks (≤15)
 
+- D-1618: `domonnoise` MS_HUMANOID peaceful + hostile
+  `"threatens you."` + MS_ORC `same_race`/Hallu remap. Gnome
+  `rn2(4)` short-circuit. mplayer_talk is D-1606. MS_BOAST named.
 - D-1617: `dog_move` Conflict `!edog` `lose_guardian_angel(mtmp)`
   then `MMOVE_DIED`. Body D-1608. dismount_steed named.
 - D-1616: `reset_hostility` isminion cleric/angel emin vs ualign
@@ -101,10 +105,8 @@ Objective/score live in `CURRENT.md`.
 - D-1607: `mongets` mplayer-sword `spe=3+rn2(4)` plus demon/lminion
   / invocation. One obj.h `is_sword`.
 - D-1606: `mplayer_talk` hostile endgame `is_mplayer` `#chat`.
-  Peaceful MS_HUMANOID named.
+  Peaceful MS_HUMANOID is D-1618.
 - D-1605: `#seeall` EXT_CMDS `doprinuse` + `accept_menu_prefix`.
   `doextlist` / BIND= named.
 - D-1604: zap `bhit` `show_transient_light` `!Blind` is youprop
   `(H||E)&&!B`. Review **558**.
-- D-1603: `beyond_savefile_load=1` preamble + restore. tty WIN_INVEN
-  create named.

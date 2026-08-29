@@ -361,7 +361,7 @@ export function create_mplayers(num, special) {
  * Caller sounds.c MS_HUMANOID: !mpeaceful && In_endgame && is_mplayer.
  * SetVoice is a no-op without SND_LIB (sndprocs.h). Peaceful returns
  * without speech (C comment: drop to humanoid talk at the caller;
- * peaceful MS_HUMANOID remains named omitted).
+ * peaceful MS_HUMANOID is D-1618 in sounds.js).
  * C `mtmp->data == &mons[gu.urole.mnum]` is mndx: JS `mons()` is a
  * fresh object each call, so pointer equality would never match.
  */

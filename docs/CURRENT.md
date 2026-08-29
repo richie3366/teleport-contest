@@ -62,33 +62,31 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1617 (seed4500 still PASS). **Next cluster:**
-Open `sounds.c` peaceful MS_HUMANOID (named). Not mplayer_talk.
-**Do not skip D-1531…D-1617 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1618 (seed4500 still PASS). **Next cluster:**
+Open `do_wear.c` `take_off` occupation (named). Not ggetobj.
+**Do not skip D-1531…D-1618 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1617.** Do not FORCE
+**Do not re-break D-0660…D-1618.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1617 (index). Recent: **D-1617**
+**Keep:** D-0845…D-1618 (index). Recent: **D-1618**
+`sounds.c` `domonnoise` MS_HUMANOID peaceful + hostile
+`"threatens you."` + MS_ORC remap. Not mplayer_talk (D-1606).
+MS_BOAST fallthrough named. Prior: **D-1617**
 `dogmove.c` `dog_move` Conflict `!edog` `lose_guardian_angel(mtmp)`
 then `MMOVE_DIED`. Body is D-1608. Not gain_guardian_angel.
 dismount_steed DISMOUNT_THROWN named. Prior: **D-1616**
 `priest.c` `reset_hostility` via `do.c` `final_level` `iter_mons`.
 Not ACH_ASTR. Prior: **D-1615**
 `invent.c` `consume_obj_charge` `if (obj->known)`
-`update_inventory` after `spe--`. Not perm_invent InvInUse
-(D-1600). Pickup tip-spill / trap `disarm_squeaky_board`
-callers named. use_grease trailing `:2652` named.
-Prior: **D-1614** `restore_msghistory` / `save_msghistory`
-JSON VFS. Prior: **D-1613** `get_count` historicmsg.
-Older D-1531…D-1612 live in
+`update_inventory` after `spe--`. Older D-1531…D-1614 live in
 the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1617 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1618 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -104,6 +102,8 @@ Do not re-port `restore_msghistory`.
 Do not re-port `consume_obj_charge` known `update_inventory`.
 Do not re-port `reset_hostility`.
 Do not re-port dog_move Conflict `lose_guardian_angel`.
+Do not re-port `mplayer_talk`.
+Do not re-port peaceful MS_HUMANOID / `"threatens you."`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

@@ -1,3 +1,36 @@
+## D-1618 — sounds.c domonnoise peaceful MS_HUMANOID
+
+- **Status:** fixed (map-driven Open from D-1617; not a public FAIL)
+- **Symptom:** `#chat` with a peaceful MS_HUMANOID was silent, and
+  hostile non-endgame humanoids returned `ECMD_OK` instead of
+  `"threatens you."`. C `domonnoise` MS_HUMANOID: `!mpeaceful` →
+  endgame `is_mplayer` `mplayer_talk` else `"threatens you."` then
+  `break`; peaceful flee/moan/Huh/blind/trapped/hungry then
+  elf/dwarf/`likes_magic`/centaur/gnome/hobbit/archeologist/tourist
+  default. Gnomes are `MS_ORC` until `:705–709` remaps when
+  `same_race` (current or `Race_switch`/`urace.mnum`) or
+  `Hallucination`.
+- **C locus:** `sounds.c` `domonnoise` `:1025–1104` (epilogue
+  `:1222–1241` `verbalize1`). Remap `:705–709`. Caller `dochat`
+  `:1408`. Callees `t_at` / `is_elf` / `is_dwarf` / `likes_magic` /
+  `is_gnome` / `Hallucination` / `same_race` live. `mplayer_talk` is
+  D-1606.
+- **JS was:** named omit after D-1606 (endgame `mplayer_talk` only;
+  other hostiles and peaceful fell through silent `ECMD_OK`;
+  invented `Monnam says:` for `verbl_msg`).
+- **Fix:** port the hostile else + peaceful arm; MS_ORC remap so the
+  gnome Hallu gag is reachable; epilogue `pline_msg` then
+  `verbalize(verbl_msg)` like C `verbalize1`. `monsndx` is mndx
+  (`mons()` is a fresh object). Integer `mhpmax/4` and `/2`.
+  Conf/stun `!rn2(3)` then `rn2(2)`; gnome `Hallucination() &&
+  (gnomeplan = rn2(4)) % 2` short-circuits. Rule #2: no fs.
+- **JS:** `js/sounds.js` `domonnoise`. Comment in `js/mplayer.js`.
+- **Not this iter:** mplayer_talk (D-1606); MS_BOAST fallthrough;
+  guardian/isshk/gecko remaps; SetVoice; `verbl_msg_mcan`; Death
+  ucase; other MS_*.
+- **Verified:** private canary **34**/34; green+strict seed8000/0900;
+  cohort **9**/9 + strict.
+
 ## D-1617 — dogmove.c dog_move Conflict lose_guardian_angel
 
 - **Status:** fixed (map-driven Open from D-1616; not a public FAIL)

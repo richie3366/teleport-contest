@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1618 sounds.c peaceful MS_HUMANOID
+
+**Objective:** Open `sounds.c` peaceful MS_HUMANOID (named). Not
+mplayer_talk.
+**C locus:** `sounds.c` `domonnoise` MS_HUMANOID `:1025–1104`;
+MS_ORC remap `:705–709`; epilogue `:1222–1241`.
+**JS locus:** `js/sounds.js` `domonnoise`.
+**Change:** hostile else `"threatens you."` then peaceful
+flee/moan/Huh/blind/trapped/hungry/race switch; MS_ORC `same_race`
+or Hallu remaps so gnome gag is reachable. Epilogue `verbalize`
+not invented `says:`. MS_BOAST named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **34**/34; green+strict seed8000/0900;
+cohort **9**/9 + strict.
+**Next:** Open `do_wear.c` `take_off` occupation. Not ggetobj.
+**Blocked:** none.
 ## 2026-08-29 — D-1617 dogmove.c Conflict lose_guardian_angel
 
 **Objective:** Open `dogmove.c` Conflict `lose_guardian_angel` caller
