@@ -321,8 +321,8 @@ gate; else one `rn1` + outer `newcham`/`accept`)**;
 omit dragon-armor ordinary arm / wizard mon_polycontrol / RECORD `tt_doppel` entries; 
 **D-1573 `newcham` Protection cancel** + outer rogue `tryct>15` + `set_mon_data` / wormgone /
 light / `pm_invisible` / hideunder / long-worm init / vampire cham / `check_gear_next_turn`;
-NC_SHOW_MSG `pline_mon` / newcham mleashed `m_unleash` / ustuck / `possibly_unwield` / `mon_break_armor` /
-boulder `flooreffects` / `poly_steed` / Elbereth `monflee` still named (async or missing);
+NC_SHOW_MSG `pline_mon` D-1586; **newcham mleashed `m_unleash` TRUE / `update_inventory` + Elbereth `monflee` D-1645**;
+ustuck / `possibly_unwield` / `mon_break_armor` / boulder `flooreffects` / `poly_steed` still named (async or missing);
 omit `set_apparxy` in byyou arm (dochug covers); 
 **`makemon_appear_msg` Amonnam/next2u(req x,y)/MM_NOEXCLAM Norep** (D-0928 #1164; 
 sync makemon + async caller; mimic mhidden_description/set_msg_xy/dochugw still omit; 

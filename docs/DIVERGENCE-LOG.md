@@ -1,3 +1,28 @@
+## D-1645 — mon.c newcham mleashed + Elbereth monflee
+
+- **Status:** fixed (map-driven Open from D-1644; not a public FAIL)
+- **Symptom:** map named `newcham` mleashed after D-1609/D-1637. C
+  after `set_mon_data` unleashes a leashed pet whose new form cannot
+  keep a leash, else refreshes perm_invent; at the end of a
+  monster-turn poly, hostile Elbereth/`onscary` can `monflee`. JS
+  skipped both arms (async `m_unleash`/`monflee`).
+- **C locus:** `mon.c` `newcham` `:5386–5398` and `:5517–5532`.
+  Callees `apply.c` `m_unleash`/`leashable` (D-1609),
+  `invent.c` `update_inventory`, `monmove.c` `set_apparxy`/`monflee`,
+  `mon.c` `onscary`/`monnear`.
+- **JS was:** named omit after `set_mon_data`; NC_SHOW_MSG live
+  (D-1586); `restore_cham` live (D-1637).
+- **Fix:** `newcham_mleashed` then light/invis/worm/gear; SHOW_MSG;
+  then Elbereth. Unleash/`monflee` Promises only on those arms so
+  sync makemon `if (newcham())` stays boolean. Rule #2: no fs.
+- **JS:** `js/makemon.js`.
+- **Not this iter:** `possibly_unwield` / `mon_break_armor` /
+  `mselftouch`; boulder `flooreffects`; `poly_steed`; ustuck
+  expels/unstuck; keepdogs stay-behind; `grow_up` leash.
+  restore_cham is D-1637; `m_unleash` body is D-1609.
+- **Verified:** canary **23**/23 (source 18 + runtime leashable 5);
+  green+strict seed8000/0900; cohort **7**/7 + strict (9/9 with green).
+
 ## D-1644 — do.c goto_level ACH_ASTR/ENDG/BGRM + Knox + entered livelog
 
 - **Status:** fixed (map-driven Open from D-1643; not a public FAIL)

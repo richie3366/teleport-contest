@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `do.c` ACH_ASTR (named). Not reset_hostility. **Addressed:** D-1644
+- [x] `mon.c` newcham mleashed (named). Not restore_cham. **Addressed:** D-1645
+
+
+- [x] `do.c` ACH_ASTR (named). Not reset_hostility. **Addressed:** D-1644 `d48909a2`
 
 
 - [x] `cmd.c` BIND= M('?') (named). Not doextlist. **Addressed:** D-1643 `e1171a1a`
