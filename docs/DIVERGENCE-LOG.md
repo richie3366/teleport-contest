@@ -1,3 +1,28 @@
+## D-1633 — files.c read_tribute / choose_passage / Death_quote / SPE_NOVEL
+
+- **Status:** fixed (map-driven Open from D-1632; not a public FAIL)
+- **Symptom:** map named `files.c` tribute. C `study_book` SPE_NOVEL calls
+  `noveltitle` then `read_tribute("books", …, 0, NULL, 0, o_id)` and on
+  success increments literate, `check_unpaid`, `makeknown`, first-time
+  `ACH_NOVL` + 20 XP. JS stubbed `"That novel is not implemented yet."`
+  / `return 0`.
+- **C locus:** `files.c` `choose_passage` `:3429–3470`; `read_tribute`
+  `:3473–3645`; `Death_quote` `:3647–3653`; `spell.c` `study_book`
+  SPE_NOVEL `:512–534`. `MAXPASSAGES` is `pasg[30]` (`context.h`); the
+  C comment `/* 20 */` is stale. Death Quotes has 31 passages.
+- **JS was:** wizkit-only `js/files.js`; SPE_NOVEL stub in `study_book`.
+- **Fix:** embed `dat/tribute` (`extract-tribute.py`, Rule #2). Window
+  path NHW_MENU + `putmsghistory`; nowin_buf copies the first line.
+  Reservoir when passagecnt > 30. Latebound `files.js` from spell
+  (files → u_init → spell TDZ). Always `return 1` on SPE_NOVEL.
+- **JS:** `js/files.js`; `js/generated/tribute_data.js`; `js/spell.js`
+  `study_book`; `noveltitle` export `js/mkobj.js`.
+- **Not this iter:** sounds.c Death_quote / `u_have_novel`; `lookup_novel`;
+  save/rest `context.novel`; dlb. putmsghistory body is D-1588.
+- **Verified:** tribute canary (Colour of Magic / Death Quotes / miss /
+  reservoir count 29→28); `allmain`/`spell` load; green+strict
+  seed8000/0900; cohort **7**/7 + strict (9/9 with green).
+
 ## D-1632 — getline.c hooked_tty_getlin kill_char / empty-erase bell / intr
 
 - **Status:** fixed (map-driven Open from D-1631; not a public FAIL)

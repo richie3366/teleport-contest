@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1633 files.c read_tribute / SPE_NOVEL
+
+**Objective:** Open `files.c` tribute (named). Not putmsghistory.
+**C locus:** `files.c` `choose_passage` `:3429–3470` / `read_tribute`
+`:3473–3645` / `Death_quote` `:3647–3653`; `spell.c` SPE_NOVEL `:512–534`.
+**JS locus:** `js/files.js`; `js/generated/tribute_data.js`;
+`js/spell.js` `study_book`; `noveltitle` `js/mkobj.js`.
+**Change:** embed `dat/tribute` (Rule #2); reservoir MAXPASSAGES=30;
+NHW_MENU + `putmsghistory`; SPE_NOVEL literate/`ACH_NOVL`; latebound
+files (TDZ). sounds.c Death_quote named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** tribute canary; green+strict seed8000/0900; cohort **7**/7
++ strict.
+**Next:** Open `questpgr.c` `convert_line` pronoun `%Xh`. Not
+com_pager_core.
+**Blocked:** none.
 ## 2026-08-29 — D-1632 getline.c kill_char / empty-erase bell / intr
 
 **Objective:** Open `getline.c` `kill_char` (named). Not EDIT_GETLIN.

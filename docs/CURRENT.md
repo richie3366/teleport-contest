@@ -62,29 +62,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1632 (seed4500 still PASS). **Next cluster:**
-Open `files.c` tribute (named). Not putmsghistory.
-**Do not skip D-1531…D-1632 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1633 (seed4500 still PASS). **Next cluster:**
+Open `questpgr.c` `convert_line` pronoun `%Xh` (named). Not com_pager_core.
+**Do not skip D-1531…D-1633 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1632.** Do not FORCE
+**Do not re-break D-0660…D-1633.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1632 (index). Recent: **D-1632**
+**Keep:** D-0845…D-1633 (index). Recent: **D-1633**
+`read_tribute`/`choose_passage`/`Death_quote`; SPE_NOVEL literate/
+`ACH_NOVL`; Rule #2 embed `dat/tribute`. sounds.c Death_quote /
+`lookup_novel` / save `context.novel` named. Prior: **D-1632**
 `kill_char` POSIX VERASE=DEL / VKILL=C('U'); empty erase + invalid
-`tty_nhbell`; getline `intr--` `*bufp=0`. MENU_SEARCH /
-`tty_wait_synch` named. Prior: **D-1631**
+`tty_nhbell`; getline `intr--` `*bufp=0`. **D-1631**
 `tty_nhbell` silent On; yn invalid + digit abort; wrap `cw->cury`
-clear keeps `gt.toplines`. **D-1630**
-`menu_remarm` MENU_FULL `query_category` then invent
-`query_objlist` PICK_ANY; COMBINATION `ggetobj` combo.
-`obj_to_glyph` named. Older
-D-1531…D-1629 live in the index — do not re-paste.
+clear keeps `gt.toplines`. Older
+D-1531…D-1630 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1632 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1633 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -116,6 +115,7 @@ Do not re-port `free_edog` / restmon `newedog`.
 Do not re-port `menu_remarm`.
 Do not re-port `tty_nhbell` / yn `cw->cury` / `intr`.
 Do not re-port kill_char / getlin empty-erase bell / getline `intr--`.
+Do not re-port `read_tribute` / `choose_passage` / `Death_quote` / SPE_NOVEL.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

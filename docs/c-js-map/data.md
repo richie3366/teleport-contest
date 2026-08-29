@@ -43,6 +43,18 @@ JS: extractor + generated rumors — partial
 
 Fortune path exercised
 
+### `src/files.c` `read_tribute` / `choose_passage` / `Death_quote`
+
+JS: `js/files.js` + `js/generated/tribute_data.js` + `js/spell.js` study_book — partial
+
+**tribute D-1633** (`files.c` `:3429–3653`; Rule #2 embed `dat/tribute` via
+`extract-tribute.py`, not dlb disk; `choose_passage` MAXPASSAGES=30 reservoir
+when passagecnt>30; tribpassage 0; NHW_MENU + `putmsghistory` lastline
+`; passage #N]`; `Death_quote` oid 1 nowin_buf first line; `spell.c` SPE_NOVEL
+literate/`ACH_NOVL`/`check_unpaid`, always return 1). Named: sounds.c
+Death_quote / `u_have_novel` Deathnotice; `lookup_novel`; save/rest
+`context.novel`; dlb. putmsghistory body is D-1588.
+
 ### `include/artilist.h`
 
 JS: extractor + `js/generated/artifacts_data.js` + `js/artifact.js` — partial

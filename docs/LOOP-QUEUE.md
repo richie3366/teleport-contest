@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `files.c` tribute (named). Not putmsghistory.
 - [ ] `questpgr.c` `convert_line` pronoun `%Xh` (named). Not com_pager_core.
 - [ ] `invent.c` ggetobj drop (named). Not takeoff/identify.
 - [ ] `nhlua.c` `restore_luadata` (named). Not restore_gamelog.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `do_name.c` `do_mgivenname` (named). Not kill_char.
 - [ ] `steed.c` `landing_spot` KNOCKED preferred-dir (named). Not DISMOUNT_THROWN.
 - [ ] `invent.c` `check_invent_gold` (named). Not adjust_split.
+- [ ] `invent.c` tty WIN_INVEN / `#perminv` (named). Not consume_obj_charge.
+- [ ] `cmd.c` BIND= M('?') (named). Not doextlist.
+- [ ] `do.c` ACH_ASTR (named). Not reset_hostility.
+- [ ] `mon.c` newcham mleashed (named). Not restore_cham.
+- [ ] `win/tty/wintty.c` MENU_SEARCH / `tty_wait_synch` (named). Not kill_char.
 
 ## Parked (do not pop)
 
