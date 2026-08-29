@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `o_init.c` oc_uses_known extract (named). Not rename_disco. **Addressed:** D-1674
+- [x] `o_init.c` oc_uses_known extract (named). Not rename_disco. **Addressed:** D-1674 `115570e2`
 
 
 - [x] `do_name.c` distant_monnam astral high-cleric (named). Not do_mgivenname. **Addressed:** D-1673 `39af0ea7`

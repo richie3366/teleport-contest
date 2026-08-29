@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — audit #2080 reviews 627–635 + cadence
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **626**
+(`3c77e49a`…`115570e2`, D-1666…D-1674) plus full `sessions`.
+**C locus:** InvOptOn import; `dosacrifice` ECMD_TIME; `noarmor`
+uskin; wizweight after-change; `do_oname` slip; cmdq_pop canned;
+`docall` sink-fluid; `distant_monnam` astral; `oc_uses_known`.
+**Change:** reviews **627–635**, all **ACCEPT-WITH-DEBT**. No
+Must-fix. No `js/` edits. Filled archive D-1674 `%h`.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `39+0.31/turn` (R² 0.858) at `115570e2`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Open `iactions.c` remaining pushkeys unwield/name/eat/engrave.
+Not offer/tip/invoke.
+**Blocked:** none.
 ## 2026-08-29 — D-1674 objects.h oc_uses_known extract
 
 **Objective:** Open `o_init.c` oc_uses_known extract (named). Not

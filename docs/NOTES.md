@@ -5,7 +5,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1674 (cadence **#2070** at `784e3060`).
+- **Suite 44/44** after D-1674 (cadence **#2080** at `115570e2`).
   seed4500 still PASS. **Hypothesis:** remaining pushkeys
   unwield/name/eat/engrave is the first Open (Must-fix empty).
   **Falsify:** `node scripts/csym.mjs itemactions_pushkeys`.

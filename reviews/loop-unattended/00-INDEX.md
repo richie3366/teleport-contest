@@ -637,3 +637,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [624-c1e99a17-dounpaid.md](./624-c1e99a17-dounpaid.md) | `c1e99a17` | D-1663 invent.c dounpaid Iu listing | **ACCEPT-WITH-DEBT** |
 | [625-88a989f0-sanity-check.md](./625-88a989f0-sanity-check.md) | `88a989f0` | D-1664 wizcmds.c sanity_check gold/invlet | **ACCEPT-WITH-DEBT** |
 | [626-784e3060-iactions-pushkeys.md](./626-784e3060-iactions-pushkeys.md) | `784e3060` | D-1665 iactions.c remaining pushkeys offer/tip/invoke | **QUALITY-RISK** |
+| [627-3c77e49a-invopton-import.md](./627-3c77e49a-invopton-import.md) | `3c77e49a` | D-1666 options.c can_set_perm_invent InvOptOn import | **ACCEPT-WITH-DEBT** |
+| [628-0cc9e178-dosacrifice-ecmd-time.md](./628-0cc9e178-dosacrifice-ecmd-time.md) | `0cc9e178` | D-1667 pray.c dosacrifice ECMD_TIME after floorfood pick | **ACCEPT-WITH-DEBT** |
+| [629-81f571d0-noarmor-uskin.md](./629-81f571d0-noarmor-uskin.md) | `81f571d0` | D-1668 invent.c noarmor uskin embedded-skin pline | **ACCEPT-WITH-DEBT** |
+| [630-1de9cec2-wizweight.md](./630-1de9cec2-wizweight.md) | `1de9cec2` | D-1669 options.c optfn_boolean wizweight after-change | **ACCEPT-WITH-DEBT** |
+| [631-6453e043-do-oname-slip.md](./631-6453e043-do-oname-slip.md) | `6453e043` | D-1670 do_name.c do_oname artifact_name slip | **ACCEPT-WITH-DEBT** |
+| [632-16fd4cbc-docallcmd-cmdq.md](./632-16fd4cbc-docallcmd-cmdq.md) | `16fd4cbc` | D-1671 do_name.c docallcmd cmdq_pop canned | **ACCEPT-WITH-DEBT** |
+| [633-1e88c3d3-docall-sink-fluid.md](./633-1e88c3d3-docall-sink-fluid.md) | `1e88c3d3` | D-1672 do_name.c docall sink-fluid / safe_qbuf | **ACCEPT-WITH-DEBT** |
+| [634-39af0ea7-distant-monnam-astral.md](./634-39af0ea7-distant-monnam-astral.md) | `39af0ea7` | D-1673 do_name.c distant_monnam astral high-cleric | **ACCEPT-WITH-DEBT** |
+| [635-115570e2-oc-uses-known.md](./635-115570e2-oc-uses-known.md) | `115570e2` | D-1674 objects.h oc_uses_known extract | **ACCEPT-WITH-DEBT** |
