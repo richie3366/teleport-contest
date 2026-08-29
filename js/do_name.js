@@ -4,11 +4,14 @@
 //        new_oname (D-1363); name_from_player (D-1624, EDIT_GETLIN off);
 //        do_mgivenname / alreadynamed (D-1638); docallcmd `'d'` →
 //        o_init.c rename_disco; lookup_novel (D-1651); `'o'` getobj
-//        `"call"` (D-1660).
+//        `"call"` (D-1660); do_oname artifact_name slip (D-1670).
 
-import { artifact_exists, exist_artifact } from './artifact.js';
+import {
+    artifact_exists, exist_artifact, artifact_name, restrict_name,
+} from './artifact.js';
 import { game } from './gstate.js';
-import { rn2, rn1, rn2_on_display_rng } from './rng.js';
+import { rn2, rn1, rn2_on_display_rng, rnd_on_display_rng } from './rng.js';
+import { wipeout_text } from './engrave.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, docrt, canspotmon, pline,
@@ -27,7 +30,7 @@ import {
     SUPPRESS_IT, SUPPRESS_INVISIBLE, SUPPRESS_HALLUCINATION,
     SUPPRESS_SADDLE, SUPPRESS_NAME,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_NOFLAGS,
-    has_oname, ONAME, CLR_MAX, BUFSZ, u_at, OBJ_FREE,
+    has_oname, ONAME, CLR_MAX, BUFSZ, u_at, OBJ_FREE, HAND,
     isok, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPMASK, has_ebones,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
@@ -42,7 +45,10 @@ import { getpos } from './getpos.js';
 import { object_from_map } from './pager.js';
 import { objects_at, SIR_TERRY_NOVELS } from './mkobj.js';
 import { rank_of } from './roles.js';
-import { an, xname, simpleonames, set_y_monnam, set_noit_mon_nam, The } from './objnam.js';
+import {
+    an, xname, simpleonames, set_y_monnam, set_noit_mon_nam, The,
+    is_plural, safe_qbuf, body_part_latebound,
+} from './objnam.js';
 import {
     POTION_CLASS, COIN_CLASS, AMULET_CLASS, SCROLL_CLASS, WAND_CLASS,
     RING_CLASS, GEM_CLASS, SPBOOK_CLASS, ARMOR_CLASS, TOOL_CLASS,
@@ -222,8 +228,10 @@ async function name_from_player(prompt, defres) {
 }
 
 /**
- * C ref: do_name.c do_oname — getlin name then oname.
- * Artifact_name slip / wipeout_text / literate conduct deferred.
+ * C ref: do_name.c do_oname `:289–369`.
+ * getlin then artifact_name + restrict_name / exist_artifact slip
+ * (wipeout_text + rnd_on_display_rng) or canonical Sting/Orcrist.
+ * oname via_naming literate livelog / shop bill still named.
  */
 async function do_oname(obj) {
     if (!obj) return;
@@ -231,10 +239,9 @@ async function do_oname(obj) {
         await pline(`${Ysimple_name2(obj)} already has a published name.`);
         return;
     }
-    const which = (obj.quan || 1) !== 1 ? 'these' : 'this';
-    // C: safe_qbuf(qbuf, qbuf, "?", obj, xname, simpleonames, "item")
-    const qbuf = `What do you want to name ${which} ${xname(obj)}?`;
-    const buf = await name_from_player(qbuf, safe_oname(obj));
+    const qprefix = `What do you want to name ${is_plural(obj) ? 'these' : 'this'} `;
+    const qbuf = safe_qbuf(qprefix, qprefix, '?', obj, xname, simpleonames, 'item');
+    let buf = await name_from_player(qbuf, safe_oname(obj));
     if (buf == null) return;
 
     if (obj.oartifact) {
@@ -244,7 +251,30 @@ async function do_oname(obj) {
         return;
     }
 
-    // artifact_name / restrict_name / wipeout_text slip deferred
+    const typOut = { otyp: STRANGE_OBJECT };
+    const aname = artifact_name(buf, typOut, true);
+    const objtyp = typOut.otyp;
+    if (aname
+        && (restrict_name(obj, aname) || exist_artifact(obj.otyp, aname))) {
+        buf = aname;
+        const bufcpy = buf;
+        do {
+            const prefix = buf.length >= 4
+                && buf.slice(0, 4).toLowerCase() === 'the ' ? 4 : 0;
+            buf = buf.slice(0, prefix)
+                + wipeout_text(buf.slice(prefix), rnd_on_display_rng(2), 0);
+        } while (buf === bufcpy);
+        await pline(`While engraving, your ${body_part_latebound(HAND)} slips.`);
+        await flush_topl_more();
+        await pline(`You engrave: "${buf}".`);
+        const u = game.u || (game.u = {});
+        if (!u.uconduct) u.uconduct = {};
+        u.uconduct.literate = (u.uconduct.literate | 0) + 1;
+    } else if (obj.otyp === objtyp) {
+        /* artifact_name() always returns non-Null when it sets objtyp */
+        buf = aname;
+    }
+
     oname(obj, buf, ONAME_VIA_NAMING | ONAME_KNOW_ARTI);
 }
 

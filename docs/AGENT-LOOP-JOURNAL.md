@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1670 do_name.c do_oname artifact_name slip
+
+**Objective:** Open `do_name.c` do_oname artifact_name slip /
+restrict_name / wipeout_text (named). Not `'o'` getobj.
+**C locus:** `do_name.c` `do_oname` `:331–357`; `artifact.c`
+`restrict_name` `:574–623`; `wipeout_text`; `rnd_on_display_rng`.
+**JS locus:** `js/do_name.js` `do_oname`; `js/artifact.js`
+`restrict_name`; `js/rng.js` `rnd_on_display_rng`.
+**Change:** port `restrict_name`; slip `wipeout_text` + literate++;
+canonical Sting/Orcrist; `is_plural`+`safe_qbuf`. wield restrict /
+oname livelog named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary (Sting quan/Excalibur/Orb prefix);
+green+strict seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `do_name.c` docallcmd cmdq_pop canned. Not `'o'`
+getobj.
+**Blocked:** none.
 ## 2026-08-29 — D-1669 options.c wizweight optfn_boolean after-change
 
 **Objective:** Open `options.c` wizweight optfn_boolean after-change

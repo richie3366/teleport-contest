@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `options.c` wizweight optfn_boolean after-change (named). Not fixinv. **Addressed:** D-1669
+- [x] `do_name.c` do_oname artifact_name slip / restrict_name / wipeout_text (named). Not `'o'` getobj. **Addressed:** D-1670
+
+
+- [x] `options.c` wizweight optfn_boolean after-change (named). Not fixinv. **Addressed:** D-1669 `1de9cec2`
 
 
 - [x] `invent.c` `noarmor` uskin (named). Not doprarm. **Addressed:** D-1668 `81f571d0`

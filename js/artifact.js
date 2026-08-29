@@ -7,7 +7,8 @@ import {
     NROFARTIFACTS,
     artilistRaw,
 } from './generated/artifacts_data.js';
-import { objectNames } from './objects.js';
+import { objectNames, NUM_OBJECTS, objectDescrs } from './objects.js';
+import { obj_shuffle_range } from './o_init.js';
 import { monsterNames, NON_PM, M2_UNDEAD, is_demon, is_dprince, is_dlord } from './monsters.js';
 import {
     A_NONE,
@@ -789,6 +790,52 @@ export function exist_artifact(otyp, name) {
     for (let i = 1; i < list.length; i++) {
         const a = list[i];
         if (a.otyp === otyp && a.name === name) return !!ax[i]?.exists;
+    }
+    return false;
+}
+
+/**
+ * C ref: artifact.c restrict_name `:574–623`.
+ * OBJ_DESCR + shuffle pool for undiscovered same-class; then artilist
+ * strcmp after stripping "the ". SPFX_NOGEN|SPFX_RESTR or quan>1.
+ * Caller: do_oname slip; wield.c spec_charge still named.
+ */
+export function restrict_name(otmp, name) {
+    if (!name) return false;
+    let n = name;
+    if (n.length >= 4 && n.slice(0, 4).toLowerCase() === 'the ') n = n.slice(4);
+
+    const objects = game.objects;
+    const otyp = otmp.otyp | 0;
+    const ocls = objects[otyp].oc_class;
+    const sametype = new Array(NUM_OBJECTS).fill(false);
+    sametype[otyp] = true;
+    const odesc = objectDescrs[objects[otyp].oc_descr_idx ?? otyp];
+    if (!objects[otyp].oc_name_known && odesc) {
+        const [lo, hi] = obj_shuffle_range(otyp);
+        const b = game.bases || [];
+        for (let i = b[ocls] | 0; i < NUM_OBJECTS; i++) {
+            if (objects[i].oc_class !== ocls) break;
+            const other = objectDescrs[objects[i].oc_descr_idx ?? i];
+            if (!objects[i].oc_name_known && other
+                && (odesc === other || (i >= lo && i <= hi))) {
+                sametype[i] = true;
+            }
+        }
+    }
+
+    const list = artilist();
+    for (let i = 1; i < list.length; i++) {
+        const a = list[i];
+        if (!a || !sametype[a.otyp]) continue;
+        let aname = a.name;
+        if (aname.length >= 4 && aname.slice(0, 4).toLowerCase() === 'the ') {
+            aname = aname.slice(4);
+        }
+        if (aname === n) {
+            return ((a.spfx & (SPFX_NOGEN | SPFX_RESTR)) !== 0)
+                || ((otmp.quan | 0) > 1);
+        }
     }
     return false;
 }

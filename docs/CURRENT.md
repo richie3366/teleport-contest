@@ -62,25 +62,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1669 (seed4500 still PASS). **Next cluster:**
-Open `do_name.c` do_oname artifact_name slip / restrict_name /
-wipeout_text (named). Not `'o'` getobj.
-**Do not skip D-1531…D-1669 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1670 (seed4500 still PASS). **Next cluster:**
+Open `do_name.c` docallcmd cmdq_pop canned (named). Not `'o'` getobj.
+**Do not skip D-1531…D-1670 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1669.** Do not FORCE
+**Do not re-break D-0660…D-1670.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1669 (index). Recent: **D-1669**
-`optfn_boolean` wizweight after-change + doname `aum`. Not fixinv.
-`noarmor` uskin is D-1668. `dosacrifice` ECMD_TIME is D-1667.
-`can_set_perm_invent` InvOptOn is D-1666. Older D-1531…D-1668
+**Keep:** D-0845…D-1670 (index). Recent: **D-1670**
+`do_oname` artifact_name slip / `restrict_name` / `wipeout_text`.
+Not `'o'` getobj. wizweight after-change is D-1669. `noarmor` uskin
+is D-1668. `dosacrifice` ECMD_TIME is D-1667.
+`can_set_perm_invent` InvOptOn is D-1666. Older D-1531…D-1669
 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1669 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1670 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -152,6 +152,7 @@ Do not re-port `can_set_perm_invent` InvOptOn import.
 Do not re-port `dosacrifice` ECMD_TIME after floorfood pick.
 Do not re-port `noarmor` uskin.
 Do not re-port wizweight after-change / doname `aum`.
+Do not re-port `do_oname` artifact_name slip / `restrict_name`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

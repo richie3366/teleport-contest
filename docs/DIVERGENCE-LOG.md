@@ -1,3 +1,34 @@
+## D-1670 — do_name.c do_oname artifact_name slip
+
+- **Status:** fixed (map-driven Open from D-1669; not a public FAIL)
+- **Symptom:** map named `do_oname` artifact_name slip /
+  `restrict_name` / `wipeout_text`. C names a matching restricted
+  (or already-existing) artifact then scuffs the canonical string
+  with display-rng `wipeout_text`; JS skipped that arm after D-1660
+  and wrote the typed name through `oname`.
+- **C locus:** `do_name.c` `do_oname` `:331–357`; `artifact.c`
+  `restrict_name` `:574–623`; `artifact_name` `:328–353`;
+  `exist_artifact` `:355–366`; `engrave.c` `wipeout_text` `:119–183`;
+  `rnd.c` `rnd_on_display_rng` `:167–171`. Callers: `docallcmd`
+  `:569`; wield `restrict_name` still named.
+- **JS was:** `do_oname` commented the slip deferred; `restrict_name`
+  missing; `wipeout_text` already live for engrave.
+- **Fix:** port `restrict_name` (OBJ_DESCR + shuffle pool;
+  SPFX_NOGEN\|SPFX_RESTR or quan>1); `do_oname` short-circuit slip
+  (`rnd_on_display_rng(2)` count, `the ` skip, literate++) else
+  canonical `otyp==objtyp`; `is_plural`+`safe_qbuf` prompt.
+  Rule #2: no fs.
+- **JS:** `js/do_name.js` `do_oname`; `js/artifact.js`
+  `restrict_name`; `js/rng.js` `rnd_on_display_rng`.
+- **Not this iter:** wield.c `restrict_name`; `oname` via_naming
+  literate livelog / dual-wield / shop bill; `docallcmd` cmdq_pop
+  canned; sink-fluid `docall`; `'o'` getobj is D-1660; wizweight is
+  D-1669.
+- **Verified:** private canary (Sting quan 1/2, Orcrist, Excalibur
+  slip, Orb `the ` prefix wipe); green+strict seed8000/0900; CURRENT
+  cohort **7**/7 + strict (9/9 with green).
+- **Files:** `js/do_name.js`, `js/artifact.js`, `js/rng.js`.
+
 ## D-1669 — options.c optfn_boolean wizweight after-change
 
 - **Status:** fixed (map-driven Open from D-1668; not a public FAIL)
