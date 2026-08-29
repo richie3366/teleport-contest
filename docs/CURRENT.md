@@ -63,21 +63,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1692 (seed4500 still PASS). **Next cluster:**
-Open `dungeon.c` print_mapseen knox/drawbridge (named). Not cemetery JSON.
-**Do not skip D-1531…D-1692 (index).** Keep mention_map addr.
+Open `options.c` mO perminv_mode compound row (named). Not
+optfn_perminv_mode.
+**Do not skip D-1531…D-1693 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1692.** Do not FORCE
+**Do not re-break D-0660…D-1693.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1692 (index). Recent: **D-1692**
-`chwepon` `restrict_name` faint-glow + Magicbane + `alter_cost` /
-`costly_alteration`. D-1691 `undiscover_object` / `gem_learned`.
+**Keep:** D-0845…D-1693 (index). Recent: **D-1693**
+`count_feat_lastseentyp` knox/drawbridge `flags.ludios` /
+`flags.castle`/`castletune`. D-1692 `chwepon` `restrict_name`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1692 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1693 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -139,6 +140,8 @@ Do not re-port `dooverview` PICK_ONE / `show_overview` why==-1.
 Do not re-port `print_mapseen` altar-god coalign / `altarmask_at`.
 Do not re-port `print_mapseen` cemetery bones list.
 Do not re-port `save_mapseen` cemetery JSON.
+Do not re-port `count_feat_lastseentyp` knox/drawbridge
+`flags.ludios`/`castle`/`castletune`.
 Do not re-port `safe_qbuf` / pickup Pick up / Continue? / tip ynq.
 Do not re-port `invlet_constant` / `reassign` / `obj_to_let`.
 Do not re-port `use_grease` / trailing `update_inventory`.
@@ -167,6 +170,8 @@ Do not re-port wizweight after-change / doname `aum`.
 Do not re-port `do_oname` artifact_name slip / `restrict_name`.
 Do not re-port wield `chwepon` `restrict_name` / Magicbane /
 `alter_cost` / `costly_alteration`.
+Do not re-port `count_feat_lastseentyp` knox door-throne /
+drawbridge castle.
 Do not re-port `docallcmd` cmdq_pop canned / lootabc / invent i/o.
 Do not re-port `docall` sink-fluid / `safe_qbuf` Call/:/thing.
 Do not re-port `distant_monnam` astral high-cleric.

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
+- [x] `dungeon.c` print_mapseen knox/drawbridge (named). Not cemetery JSON. **Addressed:** D-1693
+
+
 - [x] `artifact.c` wield restrict_name (named). Not do_oname slip. **Addressed:** D-1692 `ac1199da`
 
 

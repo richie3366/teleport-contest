@@ -40,6 +40,9 @@ import {
     SINK,
     GRAVE,
     ALTAR,
+    DOOR,
+    DBWALL,
+    DRAWBRIDGE_DOWN,
     ASCENDED,
     ESCAPED,
     In_endgame,
@@ -54,11 +57,16 @@ import {
     Amask2align,
     MSA_NONE,
     Is_astralevel,
+    Is_knox,
+    Is_stronghold,
+    IS_THRONE,
+    isok,
     SVALL,
 } from './const.js';
 import { builds_up } from './hacklib.js';
 import { align_gname } from './roles.js';
 import { altarmask_at } from './pray.js';
+import { is_drawbridge_wall } from './dbridge.js';
 
 const FLAG_MAP = {
     town: TOWN,
@@ -932,7 +940,11 @@ export function update_lastseentyp(x, y) {
 /**
  * C ref: dungeon.c count_feat_lastseentyp — bump mapseen.feat from lastseentyp.
  * Cap at 3 ("many"). Altar msalign via Amask2msa(altarmask_at); astral
- * incomplete seenv → MSA_NONE. Knox / drawbridge castle flags deferred.
+ * incomplete seenv → MSA_NONE. DOOR on Knox with throne four columns
+ * left → flags.ludios; DOOR that is a drawbridge wall, DBWALL, or
+ * DRAWBRIDGE_DOWN on the stronghold → flags.castle + flags.castletune
+ * (print_mapseen Fort Ludios / The castle + tunesuffix). Named omit:
+ * #if 0 water/lava/ice.
  */
 function count_feat_lastseentyp(mptr, x, y) {
     const typ = game.lastseentyp?.[x]?.[y] | 0;
@@ -973,6 +985,36 @@ function count_feat_lastseentyp(mptr, x, y) {
         if (count <= 3) mptr.feat.naltar = count;
         break;
     }
+    /* C `:3026–3068` — automatic annotation once the Fort / Castle
+       entrance has been seen (in person or via magic mapping).
+       DOOR: lowered drawbridge portcullis or Knox secret door.
+       Throne is four columns left, same row or ±1, and need not
+       have been seen yet (live levl[], not lastseentyp).
+       DBWALL: raised drawbridge closed door; DRAWBRIDGE_DOWN: span.
+       DRAWBRIDGE_UP is not this switch (moat unless adjacent DBWALL). */
+    case DOOR:
+        if (Is_knox(game.u?.uz)) {
+            const tx = x - 4;
+            for (let ty = y - 1; ty <= y + 1; ty++) {
+                if (isok(tx, ty)
+                    && IS_THRONE(game.level?.at(tx, ty)?.typ | 0)) {
+                    if (!mptr.flags) mptr.flags = {};
+                    mptr.flags.ludios = 1;
+                    break;
+                }
+            }
+            break;
+        }
+        if (is_drawbridge_wall(x, y) < 0) break;
+        /* FALLTHROUGH — C dungeon.c :3059–3065 */
+    case DBWALL:
+    case DRAWBRIDGE_DOWN:
+        if (Is_stronghold(game.u?.uz)) {
+            if (!mptr.flags) mptr.flags = {};
+            mptr.flags.castle = 1;
+            mptr.flags.castletune = 1;
+        }
+        break;
     default:
         break;
     }
@@ -1212,8 +1254,10 @@ function clone_cemetery_chain(head) {
 /**
  * C ref: dungeon.c recalc_mapseen — reset current-level feat counts from
  * msrooms (shops/temples) + lastseentyp. Cemetery clone + bonesknown
- * from lastseentyp[frpx][frpy] (D-1659). Valley/sanctum/oracle/Blind
- * bigroom/drawbridge castle still deferred (named in C-JS-MAP).
+ * from lastseentyp[frpx][frpy] (D-1659). flags.castletune cleared each
+ * pass then restored by count_feat if the drawbridge is still seen;
+ * flags.castle / flags.ludios stick. Valley/sanctum/oracle/Blind
+ * bigroom still deferred (named in C-JS-MAP).
  */
 export function recalc_mapseen() {
     const mptr = ensure_mapseen(null);
@@ -1222,6 +1266,9 @@ export function recalc_mapseen() {
         mptr.msrooms = Array.from({ length: nrooms }, () => ({ seen: 0, untended: 0 }));
     }
     mptr.feat = empty_feat();
+    if (!mptr.flags) mptr.flags = {};
+    /* C `:3122` — destroyed drawbridge → tunesuffix empty */
+    mptr.flags.castletune = 0;
     const u = game.u;
     const rooms = game.level?.rooms || [];
 
@@ -1602,6 +1649,7 @@ export function mapseen_cemetery_lines(mptr, why, reason, ctx) {
  * C ref: dungeon.c print_mapseen :3515–3728.
  * why==-1: level row selectable with identifier ledger_no+1 (ch=0).
  * Headings / feat / named-place / branch / cemetery are add_menu_str.
+ * Knox / castle+tunesuffix flags from count_feat_lastseentyp (D-1693).
  * Named omit: #if 0 water/lava/ice.
  * @param {object[]} entries
  * @param {object} mptr

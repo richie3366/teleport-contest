@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1693 — dungeon.c count_feat knox/drawbridge
+
+- **Status:** fixed (map-driven Open from D-1692; not a public FAIL)
+- **Symptom:** map named `print_mapseen` knox/drawbridge. C
+  `count_feat_lastseentyp` sets `flags.ludios` when a seen Knox door
+  has a throne four columns left, and `flags.castle`/`castletune`
+  when a seen stronghold DOOR-that-is-a-drawbridge-wall, DBWALL, or
+  DRAWBRIDGE_DOWN is mapped; `#overview` then prints Fort Ludios /
+  The castle (+ tune hint). JS printed those lines if flags were
+  already set (D-1650) but never set the flags after D-1685.
+- **C locus:** `dungeon.c` `count_feat_lastseentyp` `:2950–3071`
+  (`:3026–3068` DOOR/DBWALL/DRAWBRIDGE_DOWN); `recalc_mapseen`
+  `:3122` `castletune=0`; `print_mapseen` `:3657–3665` ludios/castle
+  + `tunesuffix` `:3458–3476`; `is_drawbridge_wall` `dbridge.c`
+  `:136–162`; `Is_knox` / `Is_stronghold` `dungeon.h`.
+- **JS was:** `// Knox / drawbridge castle flags deferred` in
+  `count_feat_lastseentyp`; recalc never cleared `castletune`.
+- **Fix:** C switch arms; live throne via `levl[]` not lastseentyp;
+  Knox always `break`s (no castle fallthrough); recalc zeros
+  `castletune` before the lastseentyp walk. Rule #2: no fs.
+- **JS:** `js/dungeon.js` `count_feat_lastseentyp` / `recalc_mapseen`;
+  import `is_drawbridge_wall` `js/dbridge.js` (hoisted, cycle-safe).
+- **Not this iter:** DRAWBRIDGE_UP under-typ / furniture-mimic
+  `update_lastseentyp`; Blind bigroom / oracle / valley / sanctum;
+  `#if 0` water/lava/ice; yyyymmddhhmmss when[]; cemetery JSON
+  (D-1685).
+- **Verified:** private canary (knox door+throne / y-1 / wrong
+  column; DRAWBRIDGE_DOWN castle+tune then destroy keeps castle /
+  clears tune; DBWALL; DOOR drawbridge-wall; plain DOOR; off-level
+  span; DRAWBRIDGE_UP silent); green+strict seed8000/0900; CURRENT
+  cohort **9**/9 + strict.
+- **Files:** `js/dungeon.js`.
+
 ## D-1692 — wield.c chwepon restrict_name
 
 - **Status:** fixed (map-driven Open from D-1691; not a public FAIL)

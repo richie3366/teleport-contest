@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dungeon.c` print_mapseen knox/drawbridge (named). Not cemetery JSON.
 - [ ] `options.c` mO perminv_mode compound row (named). Not optfn_perminv_mode.
 - [ ] `options.c` wizmgender glyph-reset (named). Not wizweight.
 - [ ] `shk.c` buy_container (named). Not cheapest_item.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `shk.c` dopay multi-shk getpos (named). Not shk_names_obj.
 - [ ] `shk.c` bill_box_content (named). Not contained_cost.
 - [ ] `getline.c` yn_function addcmdq (named). Not Traditional itemize.
+- [ ] `dungeon.c` recalc_mapseen Blind bigroom / oracle / valley / sanctum (named). Not knox/drawbridge.
+- [ ] `dungeon.c` cemetery yyyymmddhhmmss when[] (named). Not cemetery JSON.
+- [ ] `dungeon.c` update_lastseentyp DRAWBRIDGE_UP / furniture-mimic (named). Not knox/drawbridge.
+- [ ] `objects.h` oc_merge extract (named). Not oc_charged.
+- [ ] `invent.c` observe_object FIRST_OBJECT skip (named). Not undiscover_object.
 
 ## Parked (do not pop)
 

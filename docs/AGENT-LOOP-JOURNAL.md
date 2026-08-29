@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1693 dungeon.c count_feat knox/drawbridge
+
+**Objective:** Open `dungeon.c` print_mapseen knox/drawbridge (named).
+Not cemetery JSON.
+**C locus:** `dungeon.c` `count_feat_lastseentyp` `:3026–3068`;
+`recalc_mapseen` `castletune=0`; `is_drawbridge_wall`; print_mapseen
+ludios/castle already D-1650.
+**JS locus:** `js/dungeon.js` `count_feat_lastseentyp` /
+`recalc_mapseen`; `js/dbridge.js` `is_drawbridge_wall`.
+**Change:** Knox door+throne → `flags.ludios`; stronghold
+DOOR-wall/DBWALL/DRAWBRIDGE_DOWN → castle+tune; recalc zeros tune.
+Named: DRAWBRIDGE_UP/mimic lastseentyp; Blind bigroom/oracle/valley/
+sanctum; when[].
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **PASS**; green+strict seed8000/0900;
+cohort **9**/9 + strict.
+**Next:** Open `options.c` mO perminv_mode compound row. Not
+optfn_perminv_mode.
+**Blocked:** none.
 ## 2026-08-29 — audit #2100 reviews 645–653 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **644**
