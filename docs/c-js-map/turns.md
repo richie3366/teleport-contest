@@ -249,8 +249,11 @@ typed runner `js/getline.js` EXT_CMDS; `doextcmd` `can_do_extcmd` +
 `M('?')` `"?"` `doextlist`; `commands_init` `:2754–2756` `cmdbind_add`;
 `rhack` `:3678–3686` `cmdbind_get`; live `js/dokeylist.js` `cmdbind_get` +
 `js/cmd.js` `rhack_dispatch_bound` + `js/getline.js` `extcmd_run_by_txt`;
-not the doextlist body; overlay BIND= on if/else keys still inventory-only
-D-0897; default meta without an EXT_CMDS runner still Unknown); **Eyes `is_plural` D-1552** (C `obj.h` 
+not the doextlist body; **overlay BIND= on if/else keys D-1657**
+(C `cmd.c` `rhack` `:3678` cmdbind_get first; `bind_key` nothing
+`cmdbind_remove`; live `rhack_user_overlay_key` + EXT_CMDS if/else
+runners; walk keys / PREFIXCMD overlay targets / `f_text` occupation
+named); default meta without an EXT_CMDS runner still Unknown); **Eyes `is_plural` D-1552** (C `obj.h` 
 `is_plural` + `artifact.c` `undiscovered_artifact` `:1130–1143`; 
 `objnam.c` `otense`/`not_fully_identified`/`obj_is_pname`; 
 `invent.c` `fully_identify_obj` `discover_artifact`; 

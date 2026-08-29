@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `cmd.c` overlay BIND= on if/else keys (named). Not cmdbind_get default.
 - [ ] `dungeon.c` print_mapseen altar-god coalign (named). Not dooverview PICK_ONE.
 - [ ] `dungeon.c` cemetery bones list (named). Not dooverview.
 - [ ] `do_name.c` docallcmd `'o'` getobj call (named). Not lookup_novel.

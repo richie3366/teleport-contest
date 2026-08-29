@@ -5,23 +5,24 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1656 (cadence **#2060** at `9ac19d6f`).
-  seed4500 still PASS. **Hypothesis:** cmd.c overlay BIND= on if/else
-  keys still omitted (D-0897; not `cmdbind_get` default D-1643).
-  **Falsify:** `node scripts/csym.mjs` overlay bind vs `js/cmd.js`.
-  **Next:** Open overlay BIND= if/else. Not cmdbind_get default.
-  Do not skip D-1531…D-1656. Not `use_grease`. Audit **609–617**
-  all ACCEPT-WITH-DEBT (no Must-fix).
+- **Suite 44/44** after D-1657 (cadence **#2060** at `9ac19d6f`
+  still last full suite). seed4500 still PASS. **Hypothesis:**
+  `dungeon.c` `print_mapseen` altar-god coalign still omitted
+  (not `dooverview` PICK_ONE D-1650).
+  **Falsify:** `node scripts/csym.mjs print_mapseen`.
+  **Next:** Open altar-god coalign. Not dooverview PICK_ONE.
+  Do not skip D-1531…D-1657. Not overlay BIND= if/else.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; `optfn_perminv_mode`; setworn oc_oprop;
   keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /
   squeaky; hideunder; dounpaid / wizcmds sanity_check;
-  `'o'` getobj call; altar-god; cemetery bones; guardian remaps;
+  `'o'` getobj call; cemetery bones; guardian remaps;
   Punished float_down; water/lava steed; uhitm `u.dx`; map_menu_cmd;
-  `context.novel`; JSON getlev; astral `distant_monnam`; overlay
-  BIND= (D-0897); `possibly_unwield` / `mon_break_armor`; sync
-  `newcham`; qt_pager fallback / array rn2; spell dull / zap rider
-  eyecount callers; sit.c `special_throne_effect` grease spray.
+  `context.novel`; JSON getlev; astral `distant_monnam`;
+  walk-key / PREFIXCMD overlay BIND=; `possibly_unwield` /
+  `mon_break_armor`; sync `newcham`; qt_pager fallback / array rn2;
+  spell dull / zap rider eyecount callers; sit.c
+  `special_throne_effect` grease spray.
 
 ## Don't re-check (≤15)
 
@@ -30,7 +31,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1656.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1657.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -41,10 +42,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1656 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1657 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1656. Do not delete emin (**487**). Do not stub
+  D-1520…D-1657. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -55,8 +56,8 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1656 in the index (`use_grease` D-1656;
-  `reassign` D-1655; `safe_qbuf` D-1654). No yn
+  `vision_reset`. D-1576…D-1657 in the index (overlay BIND= D-1657;
+  `use_grease` D-1656; `reassign` D-1655). No yn
   ^P glue / `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap
   sticky Blind (D-1604). No `dat/tribute` indent=2. No static
   `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev catchup
@@ -64,6 +65,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1657: overlay BIND= on if/else keys; `rhack_user_overlay_key` +
+  EXT_CMDS runners; nothing unbinds. Walk/PREFIXCMD overlay named.
+  cmdbind_get default M('?') is D-1643.
 - D-1656: `use_grease` trailing `update_inventory` `:2652` + live
   getobj; grease_ok COIN EXCLUDE 0; `gloves_simple_name` gauntlets.
   sit.c grease spray named. consume_obj_charge is D-1615.
@@ -92,6 +96,4 @@ Objective/score live in `CURRENT.md`.
 - D-1645: `newcham` mleashed `m_unleash` / Elbereth `monflee`.
   keepdogs/`grow_up` named. restore_cham D-1637.
 - D-1644: `goto_level` ACH_ENDG/ASTR/BGRM + Knox + entered livelog.
-- D-1643: BIND= M('?') `cmdbind_get` → `"?"`. Overlay if/else D-0897.
-- D-1642: `doperminv` / tty WIN_INVEN `assesstty` min 52x79.
-  `optfn_perminv_mode` named.
+- D-1643: BIND= M('?') `cmdbind_get` → `"?"`. Overlay if/else D-1657.

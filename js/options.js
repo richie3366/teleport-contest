@@ -306,7 +306,7 @@ export function txt2key(txt) {
  * C ref: options.c parsebindings — after BIND=/BINDINGS= prefix stripped.
  * Fills outMap: keyCode → command name (lowercase). "nothing" deletes.
  * Named omissions: mouse1/mouse2; menu-cmd aliases; CMD_PARAM (...);
- * escaped-comma key tokens (\,:cmd).
+ * escaped-comma key tokens (\,:cmd). "nothing" unbinds (Map null).
  */
 export function parsebindings(bindings, outMap) {
     if (!bindings || !outMap) return false;
@@ -329,7 +329,9 @@ export function parsebindings(bindings, outMap) {
             continue;
         }
         if (cmdTok.toLowerCase() === 'nothing') {
-            outMap.delete(key);
+            // C bind_key "nothing" → cmdbind_remove (key stays unbound).
+            // Keep the Map entry so rhack skips if/else (D-1657).
+            outMap.set(key, null);
             continue;
         }
         // Strip optional (param) — CMD_PARAM body deferred; name must match.

@@ -4,10 +4,10 @@
 //
 // Builds NHW_TEXT lines from extracted extcmdlist[] + default !num_pad
 // bindings (commands_init + reset_commands). rhack cmdbind_get of those
-// defaults (M('?') → "?" / doextlist) is D-1643. Named omissions: number_pad
-// layouts, swap_yz, rest_on_space wait binding, menu_shift, CMD_PARAM
-// bound-key param display. Overlay BIND= on keys the rhack if/else already
-// handles still only inventory (D-0897).
+// defaults (M('?') → "?" / doextlist) is D-1643. Overlay BIND= on if/else
+// keys is D-1657 (`rhack_user_overlay_key` + EXT_CMDS runners). Named
+// omissions: number_pad layouts, swap_yz, rest_on_space wait binding,
+// menu_shift, CMD_PARAM bound-key param display, overlay on walk keys.
 
 import {
     EXTCMDLIST,
@@ -212,15 +212,16 @@ function build_default_cmdbinds() {
 /**
  * Default cmdbinds plus BIND=/BINDINGS= overlays from parsebindings.
  * C ref: cmd.c commands_init + reset_commands(!num_pad) + bind_key.
- * Named omissions: number_pad/phone/swap_yz/pcHack dir layouts;
- * rest_on_space; initoptions_finish rebinding dirchars after RC
- * (C overwrites hjkl BIND=; this overlay can stick).
+ * null overlay value is bind_key "nothing" (unbind). Named omissions:
+ * number_pad/phone/swap_yz/pcHack dir layouts; rest_on_space;
+ * initoptions_finish rebinding dirchars after RC (C overwrites hjkl
+ * BIND=; this overlay can stick on walk keys).
  */
 function cmdbinds_live() {
     const binds = build_default_cmdbinds();
     const overlay = game.Cmd?.binds;
     if (overlay instanceof Map) {
-        const byTxt = new Map(EXTCMDLIST.map((e) => [e.txt, e]));
+        const byTxt = new Map(EXTCMDLIST.map((e) => [e.txt.toLowerCase(), e]));
         for (const [key, name] of overlay) {
             const k = Number(key) & 0xff;
             if (!k) continue;
@@ -228,7 +229,7 @@ function cmdbinds_live() {
                 binds[k] = null;
                 continue;
             }
-            const entry = byTxt.get(String(name));
+            const entry = byTxt.get(String(name).toLowerCase());
             if (entry) binds[k] = entry;
         }
     }

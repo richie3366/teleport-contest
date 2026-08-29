@@ -1,3 +1,30 @@
+## D-1657 — cmd.c overlay BIND= on if/else keys
+
+- **Status:** fixed (map-driven Open from D-1656; not a public FAIL)
+- **Symptom:** map named overlay BIND= on if/else keys. C `rhack`
+  `cmdbind_get` is first, and `bind_key("nothing")` unbinds. JS
+  if/else ran before overlay except inventory (`try_rc_keybind`)
+  after D-0897/D-1643, and `parsebindings` deleted "nothing" so the
+  default bind stuck.
+- **C locus:** `cmd.c` `rhack` `:3678–3686` `cmdbind_get`; `bind_key`
+  `:2669–2671` nothing `cmdbind_remove`; `cmdbind_get` `:2109–2123`;
+  `options.c` `parsebindings` `:7668`.
+- **JS was:** inventory-only overlay; other BIND= on `d`/`i`/… still
+  the if/else; "nothing" `Map.delete`.
+- **Fix:** `rhack_user_overlay_key` skips if/else (and early REPEAT)
+  when BIND= owns the key; `rhack_dispatch_bound` tlist path; EXT_CMDS
+  runners for if/else names; nothing stores null. Rule #2: no fs.
+- **JS:** `js/cmd.js` + `js/getline.js` + `js/options.js` +
+  `js/dokeylist.js`.
+- **Not this iter:** walk-key overlay; PREFIXCMD fight/reqmenu/rush/run
+  overlay targets; `f_text` occupation on overlay; mouse/menu-cmd
+  parsebindings. cmdbind_get default M('?') is D-1643.
+- **Verified:** private canary **50**/50 (default/overlay/nothing/
+  runners/rc); green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+- **Files:** `js/cmd.js`, `js/getline.js`, `js/options.js`,
+  `js/dokeylist.js`.
+
 ## D-1656 — apply.c use_grease trailing update_inventory + live getobj
 
 - **Status:** fixed (map-driven Open from D-1655; not a public FAIL)

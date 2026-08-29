@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1657 cmd.c overlay BIND= on if/else keys
+
+**Objective:** Open `cmd.c` overlay BIND= on if/else keys (named).
+Not cmdbind_get default.
+**C locus:** `cmd.c` `rhack` `:3678` `cmdbind_get`; `bind_key`
+`:2669` nothing `cmdbind_remove`.
+**JS locus:** `js/cmd.js` `rhack_user_overlay_key`; `js/getline.js`
+EXT_CMDS if/else runners; `js/options.js` parsebindings nothing.
+**Change:** BIND= skips if/else (not inventory-only); nothing
+unbinds; same tlist path as D-1643. Walk/PREFIXCMD overlay named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary 50/50; green+strict seed8000/0900;
+cohort **7**/7 + strict (9/9 with green).
+**Next:** Open altar-god coalign. Not dooverview PICK_ONE.
+**Blocked:** none.
 ## 2026-08-29 — audit #2060 reviews 609–617 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **608**

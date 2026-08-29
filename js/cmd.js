@@ -576,34 +576,28 @@ async function run_cmdq_extcmd(cq) {
 }
 
 /**
- * C ref: cmd.c rhack → cmdbind_get — BIND=/BINDINGS= overlays from
- * parsebindings. Dispatches known ported commands; returns true if handled.
- * Default extcmdlist keys (M('?') "?" / doextlist) are rhack_dispatch_bound
- * after the if/else (D-1643). Overlay on a key the if/else already handles
- * is still inventory-only (D-0897). CMD_PARAM named.
+ * User BIND=/BINDINGS= overlay occupies this key (including "nothing").
+ * C rhack `:3678` cmdbind_get is first; JS if/else is the default table.
+ * Overlay must skip that if/else (D-1657; D-0897 was inventory-only).
+ * Movement keys still take the walk arm first (named). Default
+ * cmdbind_get without overlay is D-1643. CMD_PARAM named.
+ * @param {number} key
+ * @returns {boolean}
  */
-async function try_rc_keybind(key) {
-    const binds = game.Cmd?.binds;
-    if (!binds || !(binds instanceof Map)) return false;
-    const cmd = binds.get(key & 0xff);
-    if (!cmd) return false;
-    if (cmd === 'inventory') {
-        // C: extcmdlist "inventory" → ddoinv
-        await ddoinv();
-        game.context.move = 0;
-        return true;
-    }
-    // Unknown-to-JS bind target: leave for hardcoded path / cmdbind_get
-    return false;
+function rhack_user_overlay_key(key) {
+    const overlay = game.Cmd?.binds;
+    return overlay instanceof Map && overlay.has(key & 0xff);
 }
 
 /**
  * C rhack `:3678–3828` tlist path: cmdbind_get then can_do_extcmd /
  * prefix gate / REPEAT / ef_funct / PREFIXCMD / ECMD_TIME.
  * Used for keys the if/else does not handle (default M('?') → doextlist,
- * other meta binds with a live EXT_CMDS runner). MOVEMENTCMD walk/rush
- * still the early isMovementKey / isRunKey arms. No runner → skip so
- * Unknown command still fires.
+ * other meta binds with a live EXT_CMDS runner) and for user BIND=
+ * overlay on if/else keys (D-1657). MOVEMENTCMD walk/rush still the
+ * early isMovementKey / isRunKey arms unless BIND= owns the key (run
+ * keys sit after overlay). No runner → skip so Unknown command still
+ * fires.
  * @param {number} key
  * @param {typeof EXTCMDLIST[number] | null} prefix_seen
  * @param {boolean} was_m_prefix
@@ -2400,14 +2394,16 @@ export async function rhack(key) {
     // C rhack `:3732–3740`: !in_doagain && func != do_repeat && != doextcmd
     // → cmdq_clear(CQ_REPEAT) unless prefix_seen, then cmdq_add_ec(CQ_REPEAT).
     // doextcmd clears REPEAT; cmdq_shift after ext_tlist (below).
-    if (!game.in_doagain && key !== 1 && ch !== '#') {
+    // Overlay keys use rhack_dispatch_bound REPEAT (cmdbind_get tlist).
+    const overlay_key = rhack_user_overlay_key(key);
+    if (!overlay_key && !game.in_doagain && key !== 1 && ch !== '#') {
         if (!prefix_seen) cmdq_clear(CQ_REPEAT);
         const fn = rhack_repeat_command(ch, key);
         if (fn && fn !== do_repeat) {
             const txt = rhack_repeat_txt(ch, key);
             cmdq_add_ec(CQ_REPEAT, fn, ext_func_tab_from_txt(txt) || { txt, flags: 0 });
         }
-    } else if (!game.in_doagain && ch === '#') {
+    } else if (!overlay_key && !game.in_doagain && ch === '#') {
         cmdq_clear(CQ_REPEAT);
     }
 
@@ -2433,9 +2429,26 @@ export async function rhack(key) {
         if (game.context) game.context.forcefight = 0;
         // domove sets context.move = 0 if blocked; else leave as 1 (allmain preset)
         if (game.context.move !== 0) game.context.move = 1;
-    } else if (await try_rc_keybind(key)) {
-        // C: cmdbind_get → extcmd — BIND= overlays (e.g. v:inventory)
-        // handled; move already set by try_rc_keybind
+    } else if (overlay_key) {
+        // C rhack cmdbind_get user overlay before the default key table.
+        // JS if/else is that table; skip it when BIND= owns the key.
+        const bound = await rhack_dispatch_bound(key, prefix_seen, was_m_prefix);
+        if (bound.prefix) {
+            prefix_seen = bound.prefix;
+            if (bound.prefix.txt === 'reqmenu') was_m_prefix = true;
+            key = 0;
+            continue;
+        }
+        if (!bound.done) {
+            // C tlist NULL ("nothing") or overlay target with no EXT_CMDS
+            // runner — Unknown, do not fall through to if/else.
+            if (game.context?.forcefight) game.context.forcefight = 0;
+            if (game.context?.run || (game.multi || 0) > 0) end_running();
+            if (game.context) game.context.command_count = 0;
+            game._repeat_search = false;
+            game.context.move = 0;
+            await pline(`Unknown command '${visctrl(key)}'.`);
+        }
     } else if (isRunKey(ch) || rushDir) {
         // C ref: cmd.c do_run_* → run=1; do_rush_* (C(dir)) → run=3
         const low = rushDir || ch.toLowerCase();
