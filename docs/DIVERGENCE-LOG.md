@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1678 — pray.c offer_corpse
+
+- **Status:** fixed (map-driven Open from D-1677; not a public FAIL)
+- **Symptom:** map named `offer_corpse`. After D-1667 a CORPSE pick
+  returned `ECMD_TIME` without the sacrifice body (nothing_happens
+  skipped; corpse stayed).
+- **C locus:** `pray.c` `offer_corpse` `:1958–2120`; callee
+  `eval_offering` `:1898–1956`, `consume_offering` `:1445–1475`,
+  `sacrifice_your_race` `:1697–1778`, `sacrifice_value` `:1838–1850`,
+  `offer_negative_valued` `:1591–1599`, `a_gname` `:2506–2520`;
+  caller `dosacrifice` `:1890`. `pickup.c` `rider_corpse_revival`
+  (touch, remotely FALSE).
+- **JS was:** `offer_corpse` named omit after D-1667; CORPSE arm
+  returned TIME with no body.
+- **Fix:** live `offer_corpse` + same-file helpers; wire from
+  `dosacrifice`. Wraith via `ptr.mndx === PM_WRAITH` (not `mons()`
+  identity). Export `rider_corpse_revival`. Named:
+  `offer_different_alignment_altar` (`uchangealign`); `bestow_artifact`
+  (`mk_artifact` by_align already named); `angry_priest`; amulet
+  offers. Rule #2: no fs.
+- **JS:** `js/pray.js`; `js/pickup.js` export `rider_corpse_revival`.
+- **Not this iter:** `offer_too_soon` / `offer_real_amulet` /
+  `offer_fake_amulet`; `floorfood("sacrifice")` getobj is D-1665;
+  IA_TWOWEAPON is D-1677; `choose_tip_container_menu`.
+- **Verified:** private canary (jackal/blob value, rider false,
+  luck trunc, swallowed `ECMD_OK`); green+strict seed8000/0900;
+  CURRENT cohort **7**/7 + strict.
+- **Files:** `js/pray.js`, `js/pickup.js`.
+
 ## D-1677 — iactions.c IA_TWOWEAPON
 
 - **Status:** fixed (map-driven Open from D-1676; not a public FAIL)

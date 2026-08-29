@@ -973,8 +973,9 @@ async function fatal_corpse_mistake(obj, remotely) {
 /**
  * C ref: pickup.c rider_corpse_revival — still revives when remotely;
  * message is "attempted acquisition" vs "touch".
+ * Caller: pray.c offer_corpse (touch, remotely FALSE).
  */
-async function rider_corpse_revival(obj, remotely) {
+export async function rider_corpse_revival(obj, remotely) {
     if (!obj || (obj.otyp | 0) !== CORPSE
         || !is_rider(mons(obj.corpsenm))) {
         return false;

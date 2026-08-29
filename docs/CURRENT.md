@@ -62,23 +62,24 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1677 (seed4500 still PASS). **Next cluster:**
-Open `pray.c` offer_corpse (named). Not floorfood sacrifice getobj.
-**Do not skip D-1531…D-1677 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1678 (seed4500 still PASS). **Next cluster:**
+Open `pickup.c` choose_tip_container_menu (named). Not tip getobj.
+**Do not skip D-1531…D-1678 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1677.** Do not FORCE
+**Do not re-break D-0660…D-1678.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1677 (index). Recent: **D-1677**
-`IA_TWOWEAPON` `'X'` MAYBETWOWEAPON + canned `dotwoweapon`.
-Not remaining rub/swap/whatis. Shop pay is D-1676.
-Unwield-name-eat-engrave is D-1675. `oc_uses_known` is D-1674.
+**Keep:** D-0845…D-1678 (index). Recent: **D-1678**
+`offer_corpse` + `eval_offering`/`consume_offering`/`sacrifice_your_race`.
+Named: `offer_different_alignment_altar` / `bestow_artifact` /
+`angry_priest` / amulet offers. IA_TWOWEAPON is D-1677.
+Shop pay is D-1676. Unwield-name-eat-engrave is D-1675.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1677 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1678 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -152,7 +153,7 @@ Do not re-port remaining pushkeys rub/swap/whatis.
 Do not re-port IA_TWOWEAPON `'X'` / MAYBETWOWEAPON / `dotwoweapon`.
 Do not re-port IA_BUY_OBJ shop pay / `pay_take_canned_billed`.
 Do not re-port `can_set_perm_invent` InvOptOn import.
-Do not re-port `dosacrifice` ECMD_TIME after floorfood pick.
+Do not re-port `dosacrifice` ECMD_TIME / `offer_corpse`.
 Do not re-port `noarmor` uskin.
 Do not re-port wizweight after-change / doname `aum`.
 Do not re-port `do_oname` artifact_name slip / `restrict_name`.

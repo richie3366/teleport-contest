@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pray.c` offer_corpse (named). Not floorfood sacrifice getobj.
 - [ ] `pickup.c` choose_tip_container_menu (named). Not tip getobj.
 - [ ] `do_name.c` oname via_naming livelog (named). Not wield restrict_name.
 - [ ] `do_name.c` `'i'` getobj_name clone (named). Not #if 0 EXCLUDE.

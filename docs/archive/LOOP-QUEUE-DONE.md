@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke. **Addressed:** D-1677
+- [x] `pray.c` offer_corpse (named). Not floorfood sacrifice getobj. **Addressed:** D-1678
+
+
+- [x] `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke. **Addressed:** D-1677 `478f2710`
 
 
 - [x] `iactions.c` IA_BUY_OBJ shop pay (named). Not offer/tip/invoke. **Addressed:** D-1676 `6441842f`
