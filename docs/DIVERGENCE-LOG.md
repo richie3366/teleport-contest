@@ -1,3 +1,31 @@
+## D-1641 — invent.c check_invent_gold + adjust_gold_ok
+
+- **Status:** fixed (map-driven Open from D-1640; not a public FAIL)
+- **Symptom:** map named `check_invent_gold`. C walks invent: at most
+  one `COIN_CLASS` stack, and only in `GOLD_SYM` `'$'`. Else
+  `impossible` and return TRUE so gold may be #adjusted. JS had no
+  walk after D-1621: `getobj_adjust` always EXCLUDEd gold, itemactions
+  never offered `i` on coins, dest pick always prompted.
+- **C locus:** `invent.c` `check_invent_gold` `:4887–4913`. Callee
+  `adjust_gold_ok` `:4926–4933`. Callers `doorganize` `:4998`
+  (`adjust_gold_ok` vs `adjust_ok`); `iactions.c` `:464` (`i` menu) /
+  `:191–194` IA_ADJUST_OBJ `doorganize`; `doorganize_core` `:5143`
+  gold dest `GOLD_SYM`. `wizcmds.c` `sanity_check` `:1440` named.
+- **JS was:** gold always `"You cannot adjust gold."`; no
+  `adjust_gold_ok`; itemactions `oclass !== COIN_CLASS` only.
+- **Fix:** live `check_invent_gold` + `adjust_gold_ok`. doorganize
+  picks the filter. getobj_adjust uses `obj_ok` / `getobj_finish_pick`.
+  Gold `from` forces dest `'$'`. itemactions gold `i` + IA_ADJUST_OBJ
+  pushkeys. Rule #2: no fs.
+- **JS:** `js/invent.js`; `js/iactions.js`.
+- **Not this iter:** `flags.invlet_constant` `reassign`; wizcmds
+  `sanity_check`; getobj_adjust still a getobj clone (D-1588);
+  remaining pushkeys (offer/tip/invoke). adjust_split is D-1621.
+  landing_spot is D-1640.
+- **Verified:** canary **14**/14 (source + FALSE/TRUE gold walks +
+  wonky dest `$` + sane canned `$` EXCLUDE + IA_ADJUST_OBJ / sane no
+  `i`); green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1640 — steed.c landing_spot KNOCKED preferred-dir + enexto
 
 - **Status:** fixed (map-driven Open from D-1639; not a public FAIL)

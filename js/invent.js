@@ -29,13 +29,16 @@
 // D-1621: invent.c adjust_split GC_ECHOFIRST|GC_CONDHIST
 //        (itemactions IA_ADJUST_STACK / #altadjust; doorganize_core
 //        nobj-split). Not get_count (D-1613).
+// D-1641: invent.c check_invent_gold (`adjust_gold_ok` / doorganize
+//        filter / itemactions gold `i` / dest `$`). Not adjust_split.
+//        invlet_constant reassign / wizcmds sanity_check named.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
     endgamelevelname, obj_glyph, suppress_map_output,
-    putmsghistory,
+    putmsghistory, impossible,
 } from './display.js';
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin } from './getline.js';
@@ -5441,17 +5444,54 @@ async function getobj_finish_pick(otmp, word, obj_ok, counted, ilet) {
     );
 }
 
+/**
+ * C invent.c check_invent_gold `:4887–4913` — at most one gold stack
+ * in '$'. TRUE → gold may be #adjusted (wonky). Callers: doorganize
+ * filter, iactions item-action menu. wizcmds sanity_check named.
+ * @param {string} why C caller tag for impossible()
+ * @returns {Promise<boolean>}
+ */
+export async function check_invent_gold(why) {
+    let goldstacks = 0;
+    let wrongslot = 0;
+    for (const otmp of game.invent || []) {
+        if (otmp.oclass === COIN_CLASS) {
+            goldstacks++;
+            if (otmp.invlet !== GOLD_SYM) wrongslot++;
+        }
+    }
+    if (goldstacks > 1 || wrongslot > 0) {
+        await impossible(
+            '%s: %s%s%s',
+            why,
+            wrongslot > 1 ? 'gold in wrong slots'
+                : wrongslot > 0 ? 'gold in wrong slot' : '',
+            (wrongslot > 0 && goldstacks > 1) ? ' and ' : '',
+            goldstacks > 1 ? 'multiple gold stacks' : '',
+        );
+        return true;
+    }
+    return false;
+}
+
 /** C invent.c adjust_ok `:4916–4923`. */
 function adjust_ok(obj) {
     if (!obj || obj.oclass === COIN_CLASS) return GETOBJ_EXCLUDE;
     return GETOBJ_SUGGEST;
 }
 
-/** Non-compacted SUGGEST letters for #adjust (excludes gold). */
-function adjust_raw_lets() {
+/** C invent.c adjust_gold_ok `:4926–4933` — wonky gold may be #adjusted. */
+function adjust_gold_ok(obj) {
+    if (!obj) return GETOBJ_EXCLUDE;
+    return GETOBJ_SUGGEST;
+}
+
+/** Non-compacted SUGGEST letters for #adjust (filter from doorganize). */
+function adjust_raw_lets(obj_ok = adjust_ok) {
     const lets = [];
     for (const o of game.invent || []) {
-        if (!o || o.oclass === COIN_CLASS || !o.invlet) continue;
+        if (!o || !o.invlet) continue;
+        if (obj_ok(o) !== GETOBJ_SUGGEST) continue;
         lets.push(o.invlet);
     }
     // C getobj sortloot SORTLOOT_INVLET
@@ -5460,27 +5500,28 @@ function adjust_raw_lets() {
 }
 
 /** Suggest letters for #adjust getobj prompt (compactify when >5). */
-function adjust_suggest_lets() {
-    const s = adjust_raw_lets();
+function adjust_suggest_lets(obj_ok = adjust_ok) {
+    const s = adjust_raw_lets(obj_ok);
     if (s.length > 5) return compactify_invlets(s);
     return s;
 }
 
 /**
- * C ref: invent.c getobj("adjust", adjust_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
+ * C ref: invent.c getobj("adjust", adjust_filter, GETOBJ_PROMPT|GETOBJ_ALLOWCNT)
  * Count prefix + split_otmp live. Canned CMDQ_INT/KEY live.
  * `?`/`*` → display_pickinv `&ctmp` (D-1559). force_invmenu auto
  * `?`/`*` + redo_menu (D-1578). Typed '-' mime_action (D-1579).
- * doorganize_core nobj-split is D-1621; wonky-gold named.
+ * doorganize_core nobj-split is D-1621; check_invent_gold filter D-1641.
+ * @param {(obj: object|null) => number} [obj_ok]
  */
-async function getobj_adjust() {
-    const cq = getobj_from_cmdq(adjust_ok, true);
+async function getobj_adjust(obj_ok = adjust_ok) {
+    const cq = getobj_from_cmdq(obj_ok, true);
     if (!cq.skip) return cq.otmp;
     let oneloop = false;
     let msggiven = false;
     let ch = '';
     for (;;) {
-        const rawLets = adjust_raw_lets();
+        const rawLets = adjust_raw_lets(obj_ok);
         if (game.iflags?.force_invmenu) {
             if (!oneloop) {
                 ch = getobj_force_invmenu_ch(rawLets) || '*';
@@ -5492,7 +5533,7 @@ async function getobj_adjust() {
             oneloop = true;
         } else {
             await flush_topl_more();
-            const lets = adjust_suggest_lets();
+            const lets = adjust_suggest_lets(obj_ok);
             const query = lets
                 ? `What do you want to adjust? [${lets} or ?*]`
                 : 'What do you want to adjust? [*]';
@@ -5530,17 +5571,8 @@ async function getobj_adjust() {
                 continue;
             }
             const picked = (game.invent || []).find((o) => o.invlet === ilet);
-            if (!picked) {
-                await pline("You don't have that object.");
-                ch = ilet;
-                continue;
-            }
-            if (picked.oclass === COIN_CLASS) {
-                await pline('You cannot adjust gold.');
-                return null;
-            }
-            const got = await getobj_apply_count(
-                picked, 'adjust', counted.cntgiven, counted.cnt, ilet,
+            const got = await getobj_finish_pick(
+                picked, 'adjust', obj_ok, counted, ilet,
             );
             if (!got) return null;
             if (got.retry) {
@@ -5551,22 +5583,13 @@ async function getobj_adjust() {
             return got;
         }
         const otmp = (game.invent || []).find((o) => o.invlet === ch);
-        if (!otmp) {
-            await pline("You don't have that object.");
-            continue;
-        }
-        if (otmp.oclass === COIN_CLASS) {
-            // C: adjust_ok → GETOBJ_EXCLUDE → "You cannot adjust gold."
-            await pline('You cannot adjust gold.');
-            return null;
-        }
-        const got = await getobj_apply_count(
-            otmp, 'adjust', counted.cntgiven, counted.cnt, ch,
+        const used = await getobj_finish_pick(
+            otmp, 'adjust', obj_ok, counted, ch,
         );
-        if (!got) return null;
-        if (got.retry) continue;
+        if (!used) return null;
+        if (used.retry) continue;
         game._pending_message = '';
-        return got;
+        return used;
     }
 }
 
@@ -5768,10 +5791,13 @@ export async function display_used_invlets(avoidlet = 0) {
  * C invent.c doorganize_core `:5067–5286` — destination pick +
  * move/collect/swap/merge, plus nobj split from splitobj (adjust_split
  * / getobj ALLOWCNT). display_used_invlets is D-1591.
- * Named: wonky-gold / invlet_constant truncate / check_invent_gold.
+ * check_invent_gold dest `$` is D-1641. Named: invlet_constant truncate.
  */
 async function doorganize_core(obj) {
     if (!obj) return ECMD_CANCEL;
+
+    // C `:5089` — gold 'from' only when check_invent_gold found a problem
+    const isgold = obj.oclass === COIN_CLASS;
 
     // C `:5089–5096` — splitobj left parent.nobj==child, same invlet.
     let splitting = null;
@@ -5817,7 +5843,8 @@ async function doorganize_core(obj) {
         return ECMD_OK;
     };
     for (let trycnt = 1; ; ++trycnt) {
-        let_ = await yn_function(qbuf, null, '\0');
+        // C `:5143` — gold 'from' forces dest '$' (no yn_function)
+        let_ = !isgold ? await yn_function(qbuf, null, '\0') : GOLD_SYM_ADJ;
         if (let_ === '?' || let_ === '*') {
             // C `:5144–5150` — splitting ? obj->invlet : 0
             let_ = await display_used_invlets(splitting ? obj.invlet : 0);
@@ -5980,6 +6007,8 @@ export async function adjust_split() {
 
 /**
  * C ref: invent.c doorganize — #adjust inventory letters.
+ * check_invent_gold chooses adjust_gold_ok vs adjust_ok (D-1641).
+ * Named: flags.invlet_constant reassign.
  * @returns {number} ECMD_OK / ECMD_CANCEL
  */
 export async function doorganize() {
@@ -5995,6 +6024,8 @@ export async function doorganize() {
         return ECMD_OK;
     }
 
-    const obj = await getobj_adjust();
+    const adjust_filter = (await check_invent_gold('adjust'))
+        ? adjust_gold_ok : adjust_ok;
+    const obj = await getobj_adjust(adjust_filter);
     return doorganize_core(obj);
 }

@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1641 invent.c check_invent_gold + adjust_gold_ok
+
+**Objective:** Open `check_invent_gold` (named). Not adjust_split.
+**C locus:** `invent.c` `check_invent_gold` `:4887–4913`. Callers
+`doorganize` `:4998` / `iactions.c` `:464` / `wizcmds.c` `:1440`
+(named). `adjust_gold_ok` `:4926–4933`; dest `GOLD_SYM` `:5143`.
+**JS locus:** `js/invent.js` `check_invent_gold` / `doorganize` /
+`getobj_adjust`; `js/iactions.js` itemactions `i` + IA_ADJUST_OBJ.
+**Change:** gold-slot sanity; wonky gold may be #adjusted and dest
+is `$`. Sane gold still EXCLUDE. IA_ADJUST_OBJ queues doorganize.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** canary **14**/14; green+strict seed8000/0900; cohort
+**7**/7 + strict (9/9 with green).
+**Next:** Open tty WIN_INVEN / `#perminv`. Not consume_obj_charge.
+**Blocked:** none.
 ## 2026-08-29 — D-1640 steed.c landing_spot KNOCKED preferred-dir + enexto
 
 **Objective:** Open `landing_spot` KNOCKED preferred-dir. Not

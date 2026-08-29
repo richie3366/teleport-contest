@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` `check_invent_gold` (named). Not adjust_split.
 - [ ] `invent.c` tty WIN_INVEN / `#perminv` (named). Not consume_obj_charge.
 - [ ] `cmd.c` BIND= M('?') (named). Not doextlist.
 - [ ] `do.c` ACH_ASTR (named). Not reset_hostility.

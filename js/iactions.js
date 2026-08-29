@@ -6,12 +6,12 @@
 // Branch envelope: build + show "Do what with …?" PICK_ONE menu; ESC /
 // Return / Space cancel; itemactions_pushkeys for throw (and selected arms).
 // Named omissions: full pushkeys catalogue (offer/tip/invoke/…);
-// shop pay; tip/invoke/two-weapon edge cases.
+// shop pay; tip/invoke/two-weapon edge cases. IA_ADJUST_OBJ is D-1641.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, docrt, clear_committed_status } from './display.js';
-import { paint_corner_nhw_menu, inuse_headers_accessories, inuse_headers_set_accessories } from './invent.js';
+import { paint_corner_nhw_menu, inuse_headers_accessories, inuse_headers_set_accessories, check_invent_gold } from './invent.js';
 import { cxname, the, xname, makeplural, singular, is_plural, the_unique_obj } from './objnam.js';
 import { ia_checkfile } from './pager.js';
 import { call_ok } from './do_name.js';
@@ -54,7 +54,8 @@ function cmdq_add_key(ch) {
 /**
  * C ref: iactions.c itemactions_pushkeys — queue CQ_CANNED ec + invlet.
  * Named omissions: most arms beyond throw/drop/apply/read/quaff/wield/
- * wear/takeoff/zap/quiver/fire/dip/adjust-stack (offer/tip/invoke still named).
+ * wear/takeoff/zap/quiver/fire/dip/adjust-obj/adjust-stack (offer/tip/
+ * invoke still named).
  */
 async function itemactions_pushkeys(act, otmp) {
     switch (act) {
@@ -129,6 +130,13 @@ async function itemactions_pushkeys(act, otmp) {
     case IA_FIRE_OBJ: {
         const { dofire } = await import('./dothrow.js');
         cmdq_add_ec(dofire);
+        break;
+    }
+    case IA_ADJUST_OBJ: {
+        /* C iactions.c `:191–194` — cmdq_add_ec(doorganize) #adjust. */
+        const { doorganize } = await import('./invent.js');
+        cmdq_add_ec(doorganize);
+        cmdq_add_key(otmp.invlet);
         break;
     }
     case IA_ADJUST_STACK: {
@@ -277,7 +285,8 @@ function is_graystone(obj) {
 /**
  * C ref: iactions.c itemactions — NHW_MENU PICK_ONE of context actions.
  * Named omissions: full apply-otyp catalogue polish; eat/is_edible; altar
- * offer; shop pay; tip/invoke/two-weapon edge cases; remaining pushkeys.
+ * offer; shop pay; tip/invoke/two-weapon edge cases; remaining pushkeys
+ * (IA_ADJUST_OBJ is D-1641).
  */
 export async function itemactions(otmp) {
     if (!otmp) return ECMD_OK;
@@ -381,8 +390,8 @@ export async function itemactions(otmp) {
         add(IA_FIRE_OBJ, 'f', buf);
     }
 
-    // i / I: adjust
-    if (otmp.oclass !== COIN_CLASS) {
+    // i / I: adjust — gold only when check_invent_gold (C `:462–470`)
+    if (otmp.oclass !== COIN_CLASS || await check_invent_gold('item-action')) {
         add(IA_ADJUST_OBJ, 'i', 'Adjust inventory by assigning new letter');
     }
     if ((otmp.quan || 1) > 1 && otmp.oclass !== COIN_CLASS) {
