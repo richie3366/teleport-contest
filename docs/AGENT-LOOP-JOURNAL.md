@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1652 sit.c eyecount / mondata.h
+
+**Objective:** Open `sit.c` `eyecount` (named). Not confer_oc_oprop.
+**C locus:** `include/mondata.h` `eyecount` `:48–51`; callers
+`sit.c` `throne_sit_effect` `:160–179` / `pray.c` TROUBLE_BLIND
+`:562` / `potion.c` `potionbreathe` `:1958`.
+**JS locus:** `js/monsters.js` `eyecount`; sit Blind case 10;
+pray TROUBLE_BLIND; potionbreathe sting.
+**Change:** drop sit/pray always-2 stubs and potion `eyecount_pot`
+clone; import the C-home export. Spell dull / zap rider named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary 2/1/0; green+strict seed8000/0900;
+cohort **7**/7 + strict (9/9 with green).
+**Next:** Open Death_quote / `u_have_novel`. Not read_tribute.
+**Blocked:** none.
 ## 2026-08-29 — D-1651 do_name.c lookup_novel
 
 **Objective:** Open `do_name.c` `lookup_novel` (named). Not do_mgivenname.

@@ -1,4 +1,33 @@
+## D-1652 — sit.c eyecount / mondata.h
+
+- **Status:** fixed (map-driven Open from D-1651; not a public FAIL)
+- **Symptom:** map named sit/pray `eyecount` always-2 stubs. C
+  `mondata.h` returns 0 without eyes, 1 for cyclops/floating eye,
+  else 2. Sit Blind throne case 10 used that count for HEAD vs
+  tingle grammar; pray TROUBLE_BLIND and potionbreathe sting used
+  `!= 1` for plural. JS stubs always returned 2; potion kept a
+  local clone.
+- **C locus:** `include/mondata.h` `eyecount` `:48–51`. Callers
+  `sit.c` `throne_sit_effect` `:160–179`, `pray.c`
+  `fix_worst_trouble` TROUBLE_BLIND `:562`, `potion.c`
+  `potionbreathe` `:1958`. Shared helper already live as
+  `js/monsters.js` `eyecount` (D-1534 `mcast_blind_you`).
+- **JS was:** `js/sit.js` / `js/pray.js` `return 2`; `js/potion.js`
+  `eyecount_pot` clone after D-1534.
+- **Fix:** import the `monsters.js` export; delete the stubs and
+  potion clone. JS compares `mndx` because `mons()` allocates.
+  Rule #2: no fs.
+- **JS:** `js/sit.js` + `js/pray.js` + `js/potion.js` (helper
+  remains `js/monsters.js`).
+- **Not this iter:** `spell.c` study_book dull; zap rider
+  reintegrate; dothrow POT_WATER; mthrowu venom; `make_blinded`
+  itch/twitch. confer_oc_oprop. lookup_novel is D-1651.
+- **Verified:** private canary human 2 / cyclops+eye 1 / blob 0;
+  green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+
 ## D-1651 — do_name.c lookup_novel
+
 
 - **Status:** fixed (map-driven Open from D-1650; not a public FAIL)
 - **Symptom:** map named `lookup_novel`. C canonicalizes Discworld

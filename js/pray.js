@@ -56,7 +56,7 @@ import {
     is_undead as mon_is_undead,
     is_demon as mon_is_demon,
     is_vampshifter,
-    nohands, throws_rocks,
+    nohands, throws_rocks, eyecount,
     MR_ELEC, MR_DISINT,
     monsterNames,
 } from './monsters.js';
@@ -290,11 +290,6 @@ function freehand() {
     if (!uwep || !welded(uwep)) return true;
     if (!bimanual(uwep) && (!u.uarms || !u.uarms.cursed)) return true;
     return false;
-}
-
-/** C: mondata.c eyecount — poly forms deferred (humanoid 2). */
-function eyecount(_data) {
-    return 2;
 }
 
 /**
@@ -709,6 +704,7 @@ async function fix_worst_trouble(trouble) {
         let eyes = body_part(EYE);
         const cure_deaf = !!((u.HDeaf | 0) & TIMEOUT);
         if (BlindedProp() || BlindedTimeout()) {
+            /* C pray.c:562 mondata.h eyecount != 1 → plural EYE */
             if (eyecount(game.youmonst?.data) !== 1) eyes = makeplural(eyes);
             msgbuf = `Your ${eyes} ${vtense(eyes, 'feel')} better`;
             u.ucreamed = 0;

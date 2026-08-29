@@ -125,10 +125,12 @@ omit buried `m_canseeu`/other M_SEEN_* muse gates/`monstunseesu_prop`);
 **`hates_silver`/`mon_hates_silver` D-1254** (`js/monsters.js`; 
 C `mondata.c:524–528`/`517–519` were / S_VAMPIRE / demon / PM_SHADE / S_IMP except tengu + 
 `is_vampshifter`; `special_dmgval`/`select_hwep`/`muse` whip-yank; 
-`dmgval` silver/blessed/axe still named); **`eyecount` D-1534**
+`dmgval` silver/blessed/axe still named); **`eyecount` D-1534/D-1652**
 (`js/monsters.js`; C `mondata.h` noeyes 0 / cyclops|floating eye 1 /
-else 2; `mcastu.c` `mcast_blind_you`); sit/pray always-2 stubs +
-potion `eyecount_pot` local name still; omit full alt_spl/rank titles/plural edge cases
+else 2; `mcastu.c` `mcast_blind_you`; sit Blind case 10 + pray
+TROUBLE_BLIND + potionbreathe sting import the export); spell.c
+study_book dull / zap rider / dothrow POT_WATER / mthrowu venom /
+`make_blinded` itch still named; omit full alt_spl/rank titles/plural edge cases
 
 ### `src/mkobj.c`
 
@@ -1053,7 +1055,12 @@ named); **D-1089** sit `Antimagic()` ≡ `youprop.h` `uprops[ANTIMAGIC]` intrins
 Half_spell_damage sit clone vs uprops still named; 
 `update_inventory` / Hallucination `hcolor` still named on rndcurse; donning/`cancel_don`; 
 `in_use`; uskin `skinback`; `Amulet_off`; `Ring_gone`/`Blindf_off` still setworn;
-**`body_part`** imports `polyself.js` (exact-name clone retired).
+**`body_part`** imports `polyself.js` (exact-name clone retired);
+**`eyecount` D-1652** (C `mondata.h` via `js/monsters.js`;
+`throne_sit_effect` Blind case 10 0 HEAD / 1 singular / 2+ plural
+tingle — not always-2 stub; pray TROUBLE_BLIND + potionbreathe sting
+import the same export; spell dull / zap rider / dothrow POT_WATER /
+mthrowu venom / `make_blinded` itch still named).
 
 ### runtime `dat/*.lua` + `nhlua.c`/`sp_lev.c`
 

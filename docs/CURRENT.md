@@ -62,32 +62,33 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1651 (seed4500 still PASS). **Next cluster:**
-Open `sit.c` `eyecount` (named). Not confer_oc_oprop.
-**Do not skip D-1531…D-1651 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1652 (seed4500 still PASS). **Next cluster:**
+Open `sounds.c` Death_quote / `u_have_novel` (named). Not
+read_tribute.
+**Do not skip D-1531…D-1652 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1651.** Do not FORCE
+**Do not re-break D-0660…D-1652.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1651 (index). Recent: **D-1651**
+**Keep:** D-0845…D-1652 (index). Recent: **D-1652**
+`sit.c` `throne_sit_effect` Blind case 10 `eyecount` via
+`monsters.js` (C `mondata.h`); pray TROUBLE_BLIND + potionbreathe
+sting import the export. Not confer_oc_oprop. Not study_book dull.
+**D-1651**
 `do_name.c` `lookup_novel` alias spellings + table walk +
 IndexOk miss; callers `readobjnam` SPE_NOVEL and `create_object`
-named `oname` ONAME_LEVEL_DEF. Not `'o'` getobj call. Not
-Death_quote / `u_have_novel`. **D-1650**
+named `oname` ONAME_LEVEL_DEF. Not `'o'` getobj call.
+**D-1650**
 `dungeon.c` `dooverview` m-prefix PICK_ONE + `query_annotation`;
 `traverse_mapseenchn` two-pass; `print_mapseen` named-place /
 `builds_up` / `endgamelevelname`. Not altar-god / cemetery bones.
-**D-1649**
-`questpgr.c` `convert_arg` `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z`
-+ `homebase`/`intermed`/`neminame`; `%o` via `artiname`. Not
-convert_line %Xh. Not qt_pager common fallback / array rn2.
-Older D-1531…D-1648 live in the index — do not re-paste.
+Older D-1531…D-1649 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1651 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1652 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -127,13 +128,14 @@ Do not re-port MENU_SEARCH / `tty_wait_synch`.
 Do not re-port `restore_cham`.
 Do not re-port `do_mgivenname`.
 Do not re-port `lookup_novel`.
+Do not re-port `eyecount`.
 Do not re-port `rename_disco`.
 Do not re-port `free_edog` / restmon `newedog`.
 Do not re-port `menu_remarm`.
 Do not re-port `tty_nhbell` / yn `cw->cury` / `intr`.
 Do not re-port kill_char / getlin empty-erase bell / getline `intr--`.
 Do not re-port ESC-nonempty fallthrough / `hooked_getlin_handle_esc`.
-Do not re-port `read_tribute` / `choose_passage` / `Death_quote` / SPE_NOVEL.
+Do not re-port files.c `read_tribute` / `choose_passage` / SPE_NOVEL.
 Do not re-port `convert_line` pronoun `%Xh` / `qtext_pronoun`.
 Do not re-port `convert_arg` catalogue.
 Do not re-port `dooverview` PICK_ONE / `show_overview` why==-1.
