@@ -15,7 +15,8 @@
 // (punish/attrcurse/rndcurse/summon_minion/god_zaps_you).
 // Named omissions: pleased pat_on_head gifts / crown / give_spell;
 // p_type -2/-1/1/2 outcome bodies beyond water_prayer scan;
-// pray_revive; floorfood sacrifice; known_spell SPE_TURN_UNDEAD /
+// pray_revive; offer_corpse / offer_too_soon / offer_fake_amulet /
+// offer_real_amulet; known_spell SPE_TURN_UNDEAD /
 // spelleffects fallback for non-Knight/Cleric; resist TELL pline polish;
 // other livelog paths; poly silent/headless can_chant; Fixed_abil/Dunce
 // adjattrib; Unaware You_feel dream prefix; music.c do_earthquake altar
@@ -71,7 +72,7 @@ import {
     make_confused, make_stunned, make_hallucinated,
     make_glib, make_deaf,
 } from './potion.js';
-import { init_uhunger } from './eat.js';
+import { init_uhunger, floorfood } from './eat.js';
 import { region_danger, region_safety } from './region.js';
 import { safe_teleds } from './teleport.js';
 import { reset_utrap, rescued_from_terrain, heal_legs } from './trap.js';
@@ -94,8 +95,12 @@ import {
     XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
     EXT_ENCUMBER, HVY_ENCUMBER, TIMEOUT, isok, IS_OBSTRUCTED,
     SDOOR, SCORR, W_SADDLE, EYE, STOMACH,
+    nothing_happens,
 } from './const.js';
 
+const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
+const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
+const CORPSE = objectNames.indexOf('CORPSE');
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
 const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
 const SILVER_DRAGON_SCALES = objectNames.indexOf('SILVER_DRAGON_SCALES');
@@ -1459,9 +1464,10 @@ export async function dopray() {
 }
 
 /**
- * C ref: pray.c dosacrifice (#offer).
- * Branch envelope: not-on-altar / impaired early returns (ECMD_OK, 0 RNG).
- * floorfood sacrifice / amulet / corpse / nothing_happens deferred.
+ * C ref: pray.c dosacrifice `#offer` `:1853–1896`.
+ * Branch envelope: not-on-altar / impaired early returns (ECMD_OK);
+ * floorfood("sacrifice", 1) (D-1665). Named omissions: offer_too_soon /
+ * offer_real_amulet / offer_fake_amulet / offer_corpse bodies.
  */
 export async function dosacrifice() {
     const u = game.u || {};
@@ -1474,8 +1480,17 @@ export async function dosacrifice() {
         await pline('You are too impaired to perform the rite.');
         return ECMD_OK;
     }
-    // floorfood("sacrifice", 1) + offering body deferred (C-JS-MAP)
-    return ECMD_OK;
+    const otmp = await floorfood('sacrifice', 1);
+    if (!otmp) return ECMD_OK;
+    if ((otmp.otyp | 0) === AMULET_OF_YENDOR
+        || (otmp.otyp | 0) === FAKE_AMULET_OF_YENDOR
+        || (otmp.otyp | 0) === CORPSE) {
+        /* offer_too_soon / offer_real_amulet / offer_fake_amulet /
+           offer_corpse named */
+        return ECMD_OK;
+    }
+    await pline(nothing_happens);
+    return ECMD_TIME;
 }
 
 function Role_if(pm) {

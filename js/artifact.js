@@ -51,6 +51,7 @@ import {
     ECMD_CANCEL,
     GETOBJ_EXCLUDE,
     GETOBJ_SUGGEST,
+    GETOBJ_PROMPT,
     LAST_PROP,
     HALLUC,
     TIMEOUT,
@@ -77,7 +78,7 @@ import {
     flush_screen, flush_topl_more, pline, You_feel, newsym, see_monsters,
     set_sting_effects,
 } from './display.js';
-import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv } from './invent.js';
+import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv, getobj } from './invent.js';
 import { xname, the, vtense, cxname, otense, set_undiscovered_artifact } from './objnam.js';
 import { recalc_telepat_range } from './do_wear.js';
 
@@ -912,45 +913,6 @@ function invoke_ok(obj) {
     return GETOBJ_EXCLUDE;
 }
 
-function invoke_suggest_lets() {
-    const lets = [];
-    for (const o of game.invent || []) {
-        if (o?.invlet && invoke_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
-    }
-    lets.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
-    return lets.join('');
-}
-
-/**
- * C ref: invent.c getobj("invoke", invoke_ok, GETOBJ_PROMPT)
- */
-async function getobj_invoke() {
-    const raw = invoke_suggest_lets();
-    if (!raw) {
-        await pline("You don't have anything to invoke.");
-        return null;
-    }
-    for (;;) {
-        await flush_topl_more();
-        const lets = raw.length > 5 ? compactify_invlets(raw) : raw;
-        const query = `What do you want to invoke? [${lets} or ?*]`;
-        const prompt = `${query} `;
-        game._pending_message = prompt;
-        await flush_screen(1);
-        const disp = game.nhDisplay;
-        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
-
-        const key = await nhgetch();
-        if (key === 27) return null;
-        const ch = String.fromCharCode(key);
-        if (ch === '?' || ch === '*') continue;
-        for (const o of game.invent || []) {
-            if (o.invlet === ch && invoke_ok(o) === GETOBJ_SUGGEST) return o;
-        }
-        await pline(`You don't have that object.`);
-    }
-}
-
 /** C invent.c getobj("charge", charge_ok, GETOBJ_PROMPT|GETOBJ_ALLOWCNT).
  * SUGGEST in the prompt; DOWNPLAY/EXCLUDE_SELECTABLE selectable.
  * Count prefix + split_otmp live. Canned CMDQ_INT/KEY live.
@@ -1594,10 +1556,11 @@ export async function arti_invoke(obj) {
 
 /**
  * C ref: artifact.c doinvoke — #invoke command.
+ * getobj("invoke", invoke_ok, GETOBJ_PROMPT) is D-1665 (canned invlet).
  * @returns {number} ECMD_*
  */
 export async function doinvoke() {
-    const obj = await getobj_invoke();
+    const obj = await getobj('invoke', invoke_ok, GETOBJ_PROMPT);
     if (!obj) return ECMD_CANCEL;
     if (!retouch_object(obj, false)) return ECMD_TIME;
     return arti_invoke(obj);

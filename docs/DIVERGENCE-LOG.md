@@ -1,3 +1,34 @@
+## D-1665 — iactions.c remaining pushkeys offer/tip/invoke
+
+- **Status:** fixed (map-driven Open from D-1664; not a public FAIL)
+- **Symptom:** map named remaining `itemactions_pushkeys` offer/tip/invoke.
+  C queues `dosacrifice` / `do_reqmenu`+`dotip` / `doinvoke` plus invlet.
+  JS default-broke those acts; `#offer` skipped `floorfood`; `#invoke`
+  used a getobj clone that ignored CQ_CANNED; `#tip` stubbed invent
+  getobj with `"Tip what?"`.
+- **C locus:** `iactions.c` `itemactions_pushkeys` `:198–201` /
+  `:233–248`; `itemactions` O-row `:472–483`; `eat.c` `offer_ok`
+  `:3538–3557` + `floorfood("sacrifice",1)` `:3706–3711`;
+  `artifact.c` `doinvoke` `:1748–1759` live `getobj`; `pickup.c`
+  `tip_ok` `:3480–3497` + `dotip` getobj `:3624–3632`.
+- **JS was:** silent default; `dosacrifice` returned after altar checks;
+  `getobj_invoke` nhgetch clone; `dotip` invent path deferred.
+- **Fix:** three pushkeys arms (reqmenu PREFIXCMD flags); O-row; live
+  `getobj("sacrifice"/"invoke"/"tip")`. Rule #2: no fs.
+- **JS:** `js/iactions.js`; `js/eat.js` `offer_ok`/`floorfood_sacrifice`;
+  `js/pray.js` `dosacrifice`; `js/artifact.js` `doinvoke`; `js/pickup.js`
+  `tip_ok`/`dotip`.
+- **Not this iter:** remaining pushkeys unwield/name/eat/engrave/buy/
+  rub/swap/two-weapon/whatis; `offer_corpse` / `offer_too_soon` /
+  `offer_fake_amulet`; `choose_tip_container_menu`; tip spill/tiphat;
+  full apply catalogue; shop pay. use_grease is D-1656;
+  `sanity_check` is D-1664.
+- **Verified:** private canary (canned corpse/amulet/invoke/tip invlet);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict (9/9
+  with green).
+- **Files:** `js/iactions.js`, `js/eat.js`, `js/pray.js`,
+  `js/artifact.js`, `js/pickup.js`.
+
 ## D-1664 — wizcmds.c sanity_check gold/invlet
 
 - **Status:** fixed (map-driven Open from D-1663; not a public FAIL)

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `iactions.c` remaining pushkeys offer/tip/invoke (named). Not use_grease.
 - [ ] `invent.c` `noarmor` uskin (named). Not doprarm.
 - [ ] `options.c` wizweight optfn_boolean after-change (named). Not fixinv.
 - [ ] `do_name.c` do_oname artifact_name slip / restrict_name / wipeout_text (named). Not `'o'` getobj.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `do_name.c` docall sink-fluid / safe_qbuf (named). Not `'o'` getobj.
 - [ ] `do_name.c` distant_monnam astral high-cleric (named). Not do_mgivenname.
 - [ ] `o_init.c` oc_uses_known extract (named). Not rename_disco.
+- [ ] `iactions.c` remaining pushkeys unwield/name/eat/engrave (named). Not offer/tip/invoke.
+- [ ] `iactions.c` IA_BUY_OBJ shop pay (named). Not offer/tip/invoke.
+- [ ] `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke.
+- [ ] `pray.c` offer_corpse (named). Not floorfood sacrifice getobj.
+- [ ] `pickup.c` choose_tip_container_menu (named). Not tip getobj.
 
 ## Parked (do not pop)
 

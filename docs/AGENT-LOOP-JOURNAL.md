@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1665 iactions remaining pushkeys offer/tip/invoke
+
+**Objective:** Open `iactions.c` remaining pushkeys offer/tip/invoke
+(named). Not use_grease.
+**C locus:** `iactions.c` `itemactions_pushkeys` IA_SACRIFICE /
+IA_TIP_CONTAINER / IA_INVOKE_OBJ; O-row `:472–483`; `eat.c`
+`offer_ok`/`floorfood("sacrifice")`; `artifact.c` `doinvoke`;
+`pickup.c` `tip_ok`/`dotip` getobj.
+**JS locus:** `js/iactions.js`; `js/eat.js`; `js/pray.js`;
+`js/artifact.js`; `js/pickup.js`.
+**Change:** three canned arms (reqmenu PREFIXCMD); live getobj for
+sacrifice/invoke/tip; O-row. offer_corpse / remaining pushkeys named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary; green+strict seed8000/0900; cohort
+**7**/7 + strict (9/9 with green).
+**Next:** Open `invent.c` `noarmor` uskin. Not doprarm.
+**Blocked:** none.
 ## 2026-08-29 — D-1664 wizcmds.c sanity_check gold/invlet
 
 **Objective:** Open `wizcmds.c` `sanity_check` gold/invlet (named).

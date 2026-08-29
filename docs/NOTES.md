@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1664 (cadence **#2060** at `9ac19d6f`
+- **Suite 44/44** after D-1665 (cadence **#2060** at `9ac19d6f`
   still last full suite). seed4500 still PASS. **Hypothesis:**
-  `iactions.c` remaining pushkeys offer/tip/invoke still omitted
-  (not `sanity_check` D-1664 / `use_grease` D-1656).
-  **Falsify:** `node scripts/csym.mjs itemactions_pushkeys`.
-  **Next:** Open remaining pushkeys offer/tip/invoke. Not use_grease.
-  Do not skip D-1531…D-1664. Not `sanity_check`.
+  `invent.c` `noarmor` uskin still omitted (not offer/tip/invoke
+  D-1665 / `sanity_check` D-1664).
+  **Falsify:** `node scripts/csym.mjs noarmor`.
+  **Next:** Open `invent.c` `noarmor` uskin. Not doprarm.
+  Do not skip D-1531…D-1665. Not offer/tip/invoke pushkeys.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn oc_oprop;
   keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /
@@ -26,7 +26,9 @@ Objective/score live in `CURRENT.md`.
   eyecount callers; sit.c `special_throne_effect` grease spray;
   dig/music/pager `altarmask_at`; `oc_uses_known` extract;
   optfn_boolean perm_invent can_set / wizweight after-change;
-  wornmask / obj-timer-mon sanity.
+  wornmask / obj-timer-mon sanity; remaining pushkeys
+  unwield/name/eat/engrave/buy/rub/swap/two-weapon/whatis;
+  `offer_corpse`; `choose_tip_container_menu`; uskin noarmor.
 
 ## Don't re-check (≤15)
 
@@ -35,7 +37,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1664.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1665.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,10 +48,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1664 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1665 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1664. Do not delete emin (**487**). Do not stub
+  D-1520…D-1665. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -60,7 +62,8 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1664 in the index (`sanity_check` gold/invlet
+  `vision_reset`. D-1576…D-1665 in the index (offer/tip/invoke
+  pushkeys D-1665; `sanity_check` gold/invlet
   D-1664; `dounpaid` Iu D-1663; `qt_pager` common
   retry D-1662; `optfn_perminv_mode` D-1661; `'o'` getobj D-1660).
   No yn ^P glue / `ing_suffix` clone #3 / InvInUse poke (D-1603) /
@@ -70,6 +73,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1665: `itemactions_pushkeys` IA_SACRIFICE / IA_TIP_CONTAINER /
+  IA_INVOKE_OBJ + O-row; `offer_ok`/`floorfood("sacrifice")`; live
+  `doinvoke` getobj; `dotip` `tip_ok` getobj. offer_corpse /
+  remaining pushkeys / choose_tip_container_menu named.
+  sanity_check is D-1664.
 - D-1664: `sanity_check`/`you_sanity_check` gold/invlet via
   `check_invent_gold("invent")`; allmain opt_in Off; ^P
   `CMD_INSANE` `sanity_no_check`; `GOLD_SYM_ADJ`. Wornmask /
@@ -114,6 +122,4 @@ Objective/score live in `CURRENT.md`.
   (0/1/2). Spell dull / zap rider / dothrow / mthrowu named.
 - D-1651: `lookup_novel` aliases + table/`The` + IndexOk miss; wish
   SPE_NOVEL; `create_object` named `oname`. `'o'` getobj is D-1660.
-- D-1650: `dooverview` why==-1 PICK_ONE + `query_annotation`; two-pass
-  traverse; named-place / `builds_up` / `endgamelevelname`.
 

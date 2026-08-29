@@ -62,27 +62,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1664 (seed4500 still PASS). **Next cluster:**
-Open `iactions.c` remaining pushkeys offer/tip/invoke (named). Not
-use_grease.
-**Do not skip D-1531…D-1664 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1665 (seed4500 still PASS). **Next cluster:**
+Open `invent.c` `noarmor` uskin (named). Not doprarm.
+**Do not skip D-1531…D-1665 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1664.** Do not FORCE
+**Do not re-break D-0660…D-1665.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1664 (index). Recent: **D-1664**
-`wizcmds.c` `sanity_check` + `you_sanity_check` gold/invlet via
-`check_invent_gold("invent")` + allmain caller + ^P `CMD_INSANE`.
-Not check_invent_gold body. `dounpaid` is D-1663. `qt_pager` common is
+**Keep:** D-0845…D-1665 (index). Recent: **D-1665**
+`iactions.c` remaining pushkeys offer/tip/invoke + O-row;
+`floorfood("sacrifice")`/`offer_ok`; live `doinvoke` getobj;
+`dotip` `tip_ok` getobj. Not `offer_corpse`. `sanity_check` is
+D-1664. `dounpaid` is D-1663. `qt_pager` common is
 D-1662. `optfn_perminv_mode` is D-1661. cmdq_pop canned /
 lootabc / invent-gated i/o / artifact_name slip named. Older
-D-1531…D-1663 live in the index — do not re-paste.
+D-1531…D-1664 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1664 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1665 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -146,6 +146,9 @@ Do not re-port `safe_qbuf` / pickup Pick up / Continue? / tip ynq.
 Do not re-port `invlet_constant` / `reassign` / `obj_to_let`.
 Do not re-port `use_grease` / trailing `update_inventory`.
 Do not re-port `doddrop` / ggetobj drop / `menu_drop`.
+Do not re-port `sanity_check` gold/invlet.
+Do not re-port remaining pushkeys offer/tip/invoke / `offer_ok` /
+`floorfood("sacrifice")` / `doinvoke` live getobj / `dotip` `tip_ok`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `wizcmds.c` `sanity_check` gold/invlet (named). Not check_invent_gold. **Addressed:** D-1664
+- [x] `iactions.c` remaining pushkeys offer/tip/invoke (named). Not use_grease. **Addressed:** D-1665
+
+
+- [x] `wizcmds.c` `sanity_check` gold/invlet (named). Not check_invent_gold. **Addressed:** D-1664 `88a989f0`
 
 
 - [x] `invent.c` `dounpaid` (named). Not invlet_constant. **Addressed:** D-1663 `c1e99a17`
