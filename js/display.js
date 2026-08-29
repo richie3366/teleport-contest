@@ -1311,7 +1311,7 @@ let _morc = 0;
 // (iflags.msg_history, min 20, max MAX_MSG_HISTORY). maxrow is the write
 // index; rows stays at the ring size. tty_doprev_message is D-1601.
 // restore.c restore_msghistory still named. getline.c ^P is D-1611;
-// yn ^P is D-1612.
+// yn ^P is D-1612. get_count historicmsg is D-1613.
 const MSG_HISTORY_MIN = 20;
 let _msg_cw = null;
 // C topl.c snapshot_mesgs — shared by tty_getmsghistory / tty_putmsghistory

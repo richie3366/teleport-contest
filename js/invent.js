@@ -30,11 +30,12 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
-    endgamelevelname, obj_glyph, suppress_map_output, clear_nhwindow_message,
+    endgamelevelname, obj_glyph, suppress_map_output,
     putmsghistory,
 } from './display.js';
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin } from './getline.js';
+import { get_count } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj } from './mkobj.js';
 import { cansee } from './vision.js';
 import {
@@ -100,6 +101,7 @@ import {
     Is_rogue_level,
     thats_enough_tries,
     LARGEST_INT,
+    GC_SAVEHIST,
     HANDS_SYM,
     InvInUse,
     InvShowGold,
@@ -4844,62 +4846,9 @@ export function splittable(obj) {
 }
 
 /**
- * C cmd.c get_count with inkey = first digit, maxcount LARGEST_INT,
- * GC_SAVEHIST (`invent.c` getobj `:1944`). Echo "Count: N" after the
- * second digit or a backspace. putmsghistory at GC_SAVEHIST named.
- * @returns {Promise<{ ch: string, cnt: number }>}
- */
-async function getobj_get_count(inkey) {
-    let cnt = 0;
-    let keych = inkey;
-    let first = true;
-    let backspaced = false;
-    let showzero = true;
-    const maxcount = LARGEST_INT;
-    for (;;) {
-        let key;
-        let ch;
-        if (first) {
-            ch = keych;
-            key = ch.charCodeAt(0);
-            first = false;
-            keych = '';
-        } else {
-            key = await nhgetch();
-            ch = String.fromCharCode(key);
-        }
-        if (ch >= '0' && ch <= '9') {
-            const dgt = key - 48;
-            cnt = cnt * 10 + dgt;
-            if (cnt < 0) cnt = 0;
-            else if (maxcount > 0 && cnt > maxcount) cnt = maxcount;
-            showzero = (ch === '0');
-        } else if (key === 8 || key === 127) {
-            if (!cnt) return { ch, cnt: 0 };
-            showzero = false;
-            cnt = Math.trunc(cnt / 10);
-            backspaced = true;
-        } else if (key === 27) {
-            return { ch, cnt: 0 };
-        } else {
-            return { ch, cnt };
-        }
-        if (cnt > 9 || backspaced) {
-            clear_nhwindow_message();
-            const qbuf = (backspaced && !cnt && !showzero)
-                ? 'Count: '
-                : `Count: ${cnt}`;
-            game._pending_message = qbuf;
-            await flush_screen(1);
-            game.nhDisplay?.setCursor?.(qbuf.length, 0);
-            backspaced = false;
-        }
-    }
-}
-
-/**
  * C invent.c getobj digit arm `:1937–1948`.
- * !ALLOWCNT → "No count allowed" and retry. Digit + ALLOWCNT → get_count.
+ * !ALLOWCNT → "No count allowed" and retry. Digit + ALLOWCNT →
+ * get_count(NULL, ilet, LARGEST_INT, &tmpcnt, GC_SAVEHIST) (D-1613).
  * @returns {Promise<{ retry?: boolean, ch: string, cnt: number, cntgiven: boolean }>}
  */
 export async function getobj_take_count(ch, allowcnt) {
@@ -4911,11 +4860,12 @@ export async function getobj_take_count(ch, allowcnt) {
         await pline('No count allowed with this command.');
         return { retry: true, ch, cnt: 0, cntgiven: false };
     }
-    const got = await getobj_get_count(ch);
+    const box = { n: 0 };
+    const key = await get_count(null, ch, LARGEST_INT, box, GC_SAVEHIST);
     return {
-        ch: got.ch,
-        cnt: got.cnt,
-        cntgiven: got.cnt !== 0,
+        ch: String.fromCharCode(key),
+        cnt: box.n,
+        cntgiven: box.n !== 0,
     };
 }
 

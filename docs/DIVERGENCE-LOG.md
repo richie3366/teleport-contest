@@ -1,3 +1,28 @@
+## D-1613 — cmd.c get_count historicmsg putmsghistory
+
+- **Status:** fixed (map-driven Open from D-1612; not a public FAIL)
+- **Symptom:** getobj digit counts never entered the ^P ring.
+  C `get_count` with `GC_SAVEHIST` (getobj) or `GC_CONDHIST`
+  (count ≠ first inkey digit) `putmsghistory("Count: N "+key2txt)`.
+  parse uses `GC_NOFLAGS` and must not. D-1588 shipped
+  `putmsghistory` itself.
+- **C locus:** `cmd.c` `get_count` `:5009–5090`. Callers `parse`
+  `GC_NOFLAGS`; `invent.c` getobj `:1944` `GC_SAVEHIST`;
+  `adjust_split` `GC_ECHOFIRST|GC_CONDHIST` named. Callees
+  `key2txt` / `putmsghistory` (D-1588).
+- **JS was:** named omit after D-1588 (`getobj_get_count` clone
+  echoed `_pending_message` only).
+- **Fix:** one `get_count` matching C flags + historicmsg tail;
+  parse writes `command_count` from the out-param; getobj
+  retires the clone. `custompline(SUPPRESS_HISTORY)` still
+  `_pending_message`. Rule #2: no fs.
+- **JS:** `js/cmd.js` `get_count`; `js/invent.js` `getobj_take_count`.
+- **Not this iter:** restore_msghistory; `adjust_split` caller;
+  custompline; altmeta `input_state`; num_pad `NHKF_COUNT`;
+  kill_char. putmsghistory body is D-1588. yn ^P is D-1612.
+- **Verified:** private canary **18**/18; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1612 — topl.c tty_yn_function ^P tty_doprev_message
 
 - **Status:** fixed (map-driven Open from D-1611; not a public FAIL)

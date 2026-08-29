@@ -12,7 +12,7 @@ import {
     see_nearby_objects,
     clear_nhwindow_message,
     mon_visible, sensemon, glyph_is_invisible, unmap_object, map_object,
-    look_shown_at, Norep, tty_doprev_message,
+    look_shown_at, Norep, tty_doprev_message, putmsghistory,
 } from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN, SCORR, LAVAWALL,
@@ -28,6 +28,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          GFILTER_VIEW, GLOC_INTERESTING,
          M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT, VIBRATING_SQUARE,
          PARANOID_TRAP,
+         LARGEST_INT, GC_NOFLAGS, GC_SAVEHIST, GC_CONDHIST, GC_ECHOFIRST,
          } from './const.js';
 import { FOOD_CLASS, objectNames } from './objects.js';
 import { EXTCMDLIST } from './generated/extcmdlist_data.js';
@@ -66,7 +67,7 @@ import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
 import { dotelecmd } from './teleport.js';
 import { dowield, dowieldquiver, doswapweapon } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp } from './pager.js';
-import { visctrl } from './dokeylist.js';
+import { visctrl, key2txt } from './dokeylist.js';
 import { an, doname } from './objnam.js';
 import { spoteffects, dopickup, doloot, dotip } from './pickup.js';
 import { objects_at } from './mkobj.js';
@@ -1601,52 +1602,110 @@ export async function continue_search() {
 }
 
 /**
- * C ref: cmd.c get_count — accumulate digit prefix; return next non-digit.
- * Does not clear the message window between digits (parse clears once after).
- * Echo "Count: N" when cnt > 9 (second digit), matching C clear+custompline.
+ * C integer.h AppendLongDigit — L*10+D, or -1 on overflow.
+ * @param {number} L
+ * @param {number} D
+ * @returns {number}
  */
-async function get_count() {
-    if (!game.context) game.context = {};
+function append_long_digit(L, D) {
+    const LONG_MAX = Number.MAX_SAFE_INTEGER;
+    if (L < Math.trunc(LONG_MAX / 10)
+        || (L === Math.trunc(LONG_MAX / 10) && D <= (LONG_MAX % 10))) {
+        return L * 10 + D;
+    }
+    return -1;
+}
+
+/**
+ * C cmd.c get_count inkey: NUL / 0 means read the first key.
+ * @param {string|number|null|undefined} inkey
+ * @returns {number}
+ */
+function get_count_inkey_code(inkey) {
+    if (inkey == null || inkey === '' || inkey === '\0') return 0;
+    if (typeof inkey === 'string') return inkey.charCodeAt(0) & 0xff;
+    return inkey & 0xff;
+}
+
+/**
+ * C cmd.c get_count `:5009–5090`. Digits then a terminator; echo
+ * "Count: N" via _pending_message (custompline SUPPRESS_HISTORY named).
+ * GC_SAVEHIST / GC_CONDHIST put "Count: N "+key2txt in putmsghistory
+ * (D-1588). parse uses GC_NOFLAGS; getobj uses GC_SAVEHIST.
+ * altmeta input_state / num_pad NHKF_COUNT named.
+ * @param {string|null} [allowchars]
+ * @param {string|number} [inkey]
+ * @param {number} [maxcount]
+ * @param {{ n: number }} [countOut]
+ * @param {number} [gc_flags]
+ * @returns {Promise<number>} terminating key
+ */
+export async function get_count(
+    allowchars = null,
+    inkey = 0,
+    maxcount = LARGEST_INT,
+    countOut = null,
+    gc_flags = GC_NOFLAGS,
+) {
+    const box = countOut || { n: 0 };
+    box.n = 0;
     let cnt = 0;
-    let showzero = false;
+    let pending = get_count_inkey_code(inkey);
+    const first = pending ? (pending - 48) : 0;
+    const historicmsg = (gc_flags & GC_SAVEHIST) !== 0;
+    const conditionalmsg = (gc_flags & GC_CONDHIST) !== 0;
+    const echoalways = (gc_flags & GC_ECHOFIRST) !== 0;
     let backspaced = false;
+    let showzero = true;
+    let key = 0;
+
     for (;;) {
-        const key = await nhgetch();
-        const ch = String.fromCharCode(key);
-        if (ch >= '0' && ch <= '9') {
-            cnt = cnt * 10 + (key - 48);
-            if (cnt > 500) cnt = 500;
-            showzero = (ch === '0');
-            backspaced = false;
+        if (pending) {
+            key = pending;
+            pending = 0;
+        } else {
+            key = await nhgetch();
+        }
+
+        if (key >= 48 && key <= 57) {
+            const dgt = key - 48;
+            cnt = append_long_digit(cnt, dgt);
+            if (cnt < 0) cnt = 0;
+            else if (maxcount > 0 && cnt > maxcount) cnt = maxcount;
+            showzero = (key === 48);
         } else if (key === 8 || key === 127) {
-            if (!cnt) {
-                game.context.command_count = 0;
-                return key;
-            }
+            if (!cnt && !echoalways) break;
             showzero = false;
             cnt = Math.trunc(cnt / 10);
             backspaced = true;
         } else if (key === 27) {
-            game.context.command_count = 0;
-            return key;
-        } else {
-            game.context.command_count = cnt;
-            return key;
+            break;
+        } else if (!allowchars
+                   || allowchars.includes(String.fromCharCode(key))) {
+            box.n = cnt;
+            break;
         }
 
-        // C: cnt > 9 || backspaced → clear + "Count: N"
-        if (cnt > 9 || backspaced) {
+        if (cnt > 9 || backspaced || echoalways) {
             clear_nhwindow_message();
-            const qbuf = (backspaced && !cnt && !showzero)
-                ? 'Count: '
-                : `Count: ${cnt}`;
+            let qbuf;
+            if (backspaced && !cnt && !showzero) {
+                qbuf = 'Count: ';
+            } else {
+                qbuf = `Count: ${cnt}`;
+                backspaced = false;
+            }
             game._pending_message = qbuf;
             await flush_screen(1);
-            const disp = game.nhDisplay;
-            if (disp?.setCursor) disp.setCursor(qbuf.length, 0);
-            backspaced = false;
+            game.nhDisplay?.setCursor?.(qbuf.length, 0);
         }
     }
+
+    if (historicmsg || (conditionalmsg && box.n !== first)) {
+        putmsghistory(`Count: ${box.n} ${key2txt(key)}`, false);
+    }
+
+    return key;
 }
 
 /**
@@ -1897,7 +1956,10 @@ export async function rhack(key) {
         await flush_screen(1);
         if (!game.context) game.context = {};
         game.context.command_count = 0;
-        key = await get_count();
+        // C parse: get_count(NULL, '\0', LARGEST_INT, &gc.command_count, GC_NOFLAGS)
+        const cntbox = { n: 0 };
+        key = await get_count(null, 0, LARGEST_INT, cntbox, GC_NOFLAGS);
+        game.context.command_count = cntbox.n;
         clear_nhwindow_message();
         if (key === 27) {
             // C: ESC → reset_cmd_vars(TRUE) (PREFIXCMD cancel via Esc)

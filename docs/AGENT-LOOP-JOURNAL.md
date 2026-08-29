@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1613 cmd.c get_count historicmsg
+
+**Objective:** Open `cmd.c` `get_count` historicmsg (named). Not
+putmsghistory.
+**C locus:** `cmd.c` `get_count` `:5009–5090`.
+**JS locus:** `js/cmd.js` `get_count`; `js/invent.js`
+`getobj_take_count`.
+**Change:** GC_SAVEHIST/CONDHIST/ECHOFIRST; parse GC_NOFLAGS;
+getobj SAVEHIST putmsghistory Count+key2txt. Clone retired.
+`adjust_split` / restore_msghistory named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **18**/18; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `restore_msghistory`. Not putmsghistory.
+**Blocked:** none.
 ## 2026-08-29 — D-1612 topl.c tty_yn_function ^P
 
 **Objective:** Open `topl.c` `tty_yn_function` ^P (named). Not
@@ -139,103 +154,4 @@ cohort **7**/7 + strict.
 **Verified:** private canary **21**/21; green+strict seed8000/0900;
 cohort **7**/7 + strict.
 **Next:** Open `mplayer_talk`. Not create_mplayers.
-**Blocked:** none.
-## 2026-08-29 — D-1604 zap.c bhit !Blind youprop
-
-**Objective:** Must-fix **558** zap `bhit` `show_transient_light`
-`!Blind` = youprop `(H||E)&&!B`, not sticky `u.Blind||u.ublind`.
-Not `#seeall`.
-**C locus:** `youprop.h:103`; `zap.c` `bhit` `:3901–3917`.
-**JS locus:** `js/zap.js` `Blind` / `bhit`.
-**Change:** existing Blind clone matches apply.js. No Blind #29
-in light.js. Apply camera Blind unchanged. Worm tails named.
-Rule #2: no fs.
-**Score:** fortress held (not a full-suite iter).
-**Verified:** private canary **12**/12; green+strict seed8000/0900;
-cohort **7**/7 + strict.
-**Next:** Open `#seeall`. Not doprinuse.
-**Blocked:** none.
-## 2026-08-29 — D-1603 allmain.c beyond_savefile_load
-
-**Objective:** Must-fix **561** `beyond_savefile_load=1` so D-1600
-InvInUse `sync_perminvent` can run. Not `#seeall`.
-**C locus:** `allmain.c` `moveloop_preamble` `:71` / `:107–110`;
-`restore.c` `dorecover` `:942`.
-**JS locus:** `js/allmain.js` `moveloop_preamble`; `js/save.js`
-`try_restore_save`.
-**Change:** set the field where C does; restore preamble still does
-not. Default Off no-op. tty WIN_INVEN create / `#perminv` named.
-Rule #2: no fs.
-**Score:** fortress held (not a full-suite iter).
-**Verified:** private canary **13**/13; green+strict seed8000/0900;
-cohort **10**/10 + restore 0013 + strict.
-**Next:** Must-fix **558** zap Blind. Not Open `#seeall`.
-**Blocked:** none.
-## 2026-08-28 — review D-1594–D-1602 (audit #2000)
-
-**Objective:** C-fidelity review of nine `js/` SHAs since **554**;
-cadence score. No `js/` edits.
-**C locus:** `normal_shape` await; tamedog `has_edog`; `create_mplayers`;
-`show_transient_light`; `has_mcorpsenm`; SORTLOOT_PETRIFY;
-perm_invent InvInUse; `tty_doprev_message`; `ggetobj` takeoff/identify.
-**JS locus:** reviews **555–563** (`dc1d6d94`…`b9710bcf`).
-**Change:** ACCEPT-WITH-DEBT 555–557, 559–560, 562–563.
-**QUALITY-RISK 558** (`9244ce75`): zap `bhit` sticky `u.Blind`.
-**QUALITY-RISK 561** (`fb87326a`): `beyond_savefile_load` never set
-(`allmain.c:71`). Must-fix prepended (561 first). Filled archive
-D-1602 `%h` `b9710bcf`.
-**Score:** **44**/44 Scr **11,405**/11,405 RNG **792,838**/792,838
-`38+0.30/turn` (R² 0.856) at `b9710bcf`. seed4500 PASS.
-**Verified:** cadence `__RESULTS_JSON__`; `check-hot-docs --review 555-563`.
-**Next:** Must-fix 561 `beyond_savefile_load`. Not `#seeall`.
-**Blocked:** none.
-## 2026-08-28 — D-1602 invent.c ggetobj takeoff/identify askchain
-
-**Objective:** Open `pickup.c` ggetobj takeoff/identify askchain
-(named). Not traditional_loot.
-**C locus:** `invent.c` `ggetobj` `:2199–2369`; `askchain`
-`:2376–2541` takeoff/ident; `identify_pack` TRADITIONAL;
-`do_wear.c` `doddoremarm`/`select_off`.
-**JS locus:** named omit after D-1581 (loot `askchain` live;
-takeoff/identify still menu-only).
-**Change:** live Traditional `ggetobj` + askchain filters;
-`identify_pack` / `A` `select_off`. `take_off` / `menu_remarm`
-/ drop named. Rule #2: no fs.
-**Score:** fortress **44**/44 (not remeasured; port iter).
-**Verified:** canary **17**/17; green+strict seed8000/0900;
-cohort **7**/7 + strict.
-**Next:** Open `#seeall`. Not ggetobj takeoff.
-**Blocked:** none.
-## 2026-08-28 — D-1601 topl.c tty_doprev_message
-
-**Objective:** Open `topl.c` `tty_doprev_message` (named). Not
-putmsghistory.
-**C locus:** `topl.c` `tty_doprev_message` `:19–119`;
-`redotoplin` `:121–141`; `cmd.c` `doprev_message` `:163–168`;
-`options.c` TTY `'s'` + `optfn_msg_window`.
-**JS locus:** named omit after D-1588 (ring live; ^P unknown).
-**Change:** live single/full/combo/reversed walk + cmd ^P /
-`#prevmsg`. getline/yn `inread` named. Rule #2: no fs.
-**Score:** fortress **44**/44 (not remeasured; port iter).
-**Verified:** canary **23**/23; green+strict seed8000/0900;
-cohort **7**/7 + strict.
-**Next:** Open ggetobj takeoff. Not `tty_doprev_message`.
-**Blocked:** none.
-## 2026-08-28 — D-1600 invent.c perm_invent InvInUse
-
-**Objective:** Open `invent.c` perm_invent InvInUse (named). Not
-inuse_only.
-**C locus:** `invent.c` `prepare_perminvent` `:5548–5562`;
-`display_pickinv` `:3108–3113` WIN_INVEN `InvInUse` /
-`InvShowGold`; `:3277–3280` `"In use"`; `sync_perminvent`
-`:5653–5656` `display_inventory(NULL,FALSE)`; `wintype.h`
-InvInUse=8.
-**JS locus:** named omit after D-1589 (`sync_perminvent`
-early-return; inuse only via `sortloot=='i'`).
-**Change:** live invmode filter; default Off still no-op.
-tty paint / InvSparse / `#perminv` named. Rule #2: no fs.
-**Score:** fortress **44**/44 (not remeasured; port iter).
-**Verified:** canary **23**/23; green+strict seed8000/0900;
-cohort **7**/7 + strict.
-**Next:** Open `tty_doprev_message`. Not putmsghistory.
 **Blocked:** none.

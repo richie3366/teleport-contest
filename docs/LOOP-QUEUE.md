@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `cmd.c` `get_count` historicmsg (named). Not putmsghistory.
 - [ ] `restore.c` `restore_msghistory` (named). Not putmsghistory.
 - [ ] `apply.c` `consume_obj_charge` `update_inventory` (named). Not perm_invent InvInUse.
 - [ ] `mon.c` `reset_hostility` (named). Not gain_guardian_angel.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `sounds.c` peaceful MS_HUMANOID (named). Not mplayer_talk.
 - [ ] `do_wear.c` `take_off` occupation (named). Not ggetobj.
 - [ ] `pickup.c` floor `query_classes` (named). Not traditional_loot.
+- [ ] `invent.c` `adjust_split` GC_ECHOFIRST|GC_CONDHIST caller (named). Not get_count.
+- [ ] `questpgr.c` `com_pager_core` synopsis (named). Not restore_msghistory.
+- [ ] `topl.c` `tty_yn_function` post-answer `toplines=prompt+key` (named). Not yn ^P.
+- [ ] `getline.c` EDIT_GETLIN (named). Not getline ^P.
+- [ ] `cmd.c` `doextlist` (named). Not #seeall EXT_CMDS.
 
 ## Parked (do not pop)
 
