@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `getline.c` EDIT_GETLIN (named). Not getline ^P.
 - [ ] `cmd.c` `doextlist` (named). Not #seeall EXT_CMDS.
 - [ ] `sounds.c` MS_BOAST hostile giants (named). Not MS_HUMANOID.
 - [ ] `steed.c` `dismount_steed` DISMOUNT_THROWN (named). Not dog_move Conflict.

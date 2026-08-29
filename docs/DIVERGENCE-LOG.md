@@ -1,3 +1,34 @@
+## D-1624 — getline.c EDIT_GETLIN off / name_from_player / query_annotation
+
+- **Status:** fixed (map-driven Open from D-1623; not a public FAIL)
+- **Symptom:** map named EDIT_GETLIN. Contest C `config.h:655`
+  comments it out, so live `hooked_tty_getlin` zeros `bufp`. JS
+  already started empty but had no two-arg getlin, no
+  `name_from_player`, and `query_annotation` used `ensure_mapseen`
+  plus a current-level-only prompt (other-level `describe_level`
+  deferred). Exit skipped C dumplogmsg / extcmd `suppress_history`.
+- **C locus:** `include/config.h:655`; `win/tty/getline.c`
+  `hooked_tty_getlin` `:70–78` and `:173–186`; `do_name.c`
+  `name_from_player` `:105–128`; `dungeon.c` `query_annotation`
+  `:2499–2567`. getline ^P is D-1611.
+- **JS was:** `getlin(query)` always `buf=''`; do_oname/docall
+  inlined mung/PL_PSIZ; annotate `ensure_mapseen`; no epilogue
+  dumplogmsg.
+- **Fix:** two-arg `getlin` with EDIT_GETLIN const false (`#else
+  *bufp='\0'`). `name_from_player` `nhUse(defres)` then getlin +
+  mung + PL_PSIZ. `query_annotation` `find_mapseen` early-out,
+  replace prompt when custom, else `What do you want to call`
+  + other-level `describe_level` (dflgs 0/2). hooked epilogue
+  dumplogmsg; `#` extcmd suppress_history. Rule #2: no fs.
+- **JS:** `js/getline.js` `getlin` / `get_ext_cmd`;
+  `js/display.js` `hooked_getlin_epilogue`; `js/do_name.js`
+  `name_from_player`; `js/dungeon.js` `query_annotation`.
+- **Not this iter:** kill_char / tty_nhbell / `cw->cury` / `intr`;
+  do_mgivenname `'m'`; overview PICK_ONE (`why==-1`); enabling
+  EDIT_GETLIN (would drop the replace prompt). yn post-answer is
+  D-1623. getline ^P is D-1611.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1623 — topl.c tty_yn_function post-answer gt.toplines=prompt+key
 
 - **Status:** fixed (map-driven Open from D-1622; not a public FAIL)

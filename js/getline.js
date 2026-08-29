@@ -2,7 +2,8 @@
 // C ref: win/tty/getline.c tty_getlin / hooked_tty_getlin / tty_get_ext_cmd
 // plus win/tty/topl.c tty_yn_function (yn ^P is D-1612; post-answer
 // prompt+key is D-1623, not getline ^P).
-// (partial: EDIT_GETLIN / kill_char / tty_nhbell named).
+// EDIT_GETLIN is D-1624 (`config.h` commented out — live `#else`).
+// (partial: kill_char / tty_nhbell named).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -11,7 +12,7 @@ import {
     clear_nhwindow_message, tty_doprev_message,
     get_tty_inread, set_tty_inread, prevmsg_reset_maxcol,
     mark_topline_special_prompt, hooked_getlin_release_prompt,
-    tty_yn_rewrite_toplines,
+    hooked_getlin_epilogue, tty_yn_rewrite_toplines,
 } from './display.js';
 import { key2txt } from './dokeylist.js';
 import {
@@ -119,15 +120,31 @@ function hooked_getlin_end() {
 }
 
 /**
+ * C include/config.h:655 EDIT_GETLIN is commented out — contest C does
+ * not compile the preload arm. hooked_tty_getlin :70-78 live path is
+ * `*bufp = '\0'` (the #else). The #ifdef would addtopl(obufp) then
+ * bufp = eos(obufp) so a caller-supplied default is editable.
+ * do_name.c name_from_player and dungeon.c query_annotation have
+ * matching #ifdefs (D-1624).
+ */
+const EDIT_GETLIN = false;
+
+/**
  * C ref: windows.c getlin → tty_getlin → hooked_tty_getlin.
  * Prompt + echo until Enter/ESC. ^P walks tty_doprev_message (D-1611).
+ * `bufp` is C's in/out buffer; ignored unless EDIT_GETLIN (off here).
  * Returns the buffer string ("" on empty Enter, "\033" on ESC with empty buf).
+ * @param {string} query
+ * @param {string} [bufp]
  */
-export async function getlin(query) {
+export async function getlin(query, bufp) {
     await flush_topl_more();
     clear_win_stop();
     hooked_getlin_begin();
-    let buf = '';
+    /* C hooked_tty_getlin `:70–78` — `#else *bufp='\0'` when
+     * EDIT_GETLIN is commented out (`config.h:655`). */
+    const preload = String(bufp ?? '');
+    let buf = EDIT_GETLIN ? preload : '';
     let doprev = false;
     const paint = async () => {
         const raw = `${query} ${buf}`;
@@ -152,14 +169,12 @@ export async function getlin(query) {
                     await paint();
                     continue;
                 }
-                game._pending_message = '';
                 return '\x1b';
             }
             const handled = await hooked_getlin_ctrl_p(c, doprev, restorePrompt);
             doprev = handled.doprev;
             if (handled.skip) continue;
             if (c === 13 || c === 10) { // Enter
-                game._pending_message = '';
                 return buf;
             }
             if (c === 8 || c === 127) { // backspace / delete
@@ -176,7 +191,10 @@ export async function getlin(query) {
             }
         }
     } finally {
+        /* C tty_getlin: suppress_history = FALSE → dumplogmsg */
+        hooked_getlin_epilogue(false);
         hooked_getlin_end();
+        game._pending_message = '';
     }
 }
 
@@ -875,7 +893,6 @@ export async function get_ext_cmd() {
                     await paint();
                     continue;
                 }
-                game._pending_message = '';
                 return -1;
             }
             const handled = await hooked_getlin_ctrl_p(c, doprev, restorePrompt);
@@ -901,9 +918,11 @@ export async function get_ext_cmd() {
             }
         }
     } finally {
+        /* C tty_get_ext_cmd: suppress_history = TRUE → *gt.toplines = 0 */
+        hooked_getlin_epilogue(true);
         hooked_getlin_end();
+        game._pending_message = '';
     }
-    game._pending_message = '';
     const name = buf.trim().toLowerCase();
     if (!name) return -1;
     /* C tty_get_ext_cmd: extcmds_match(buf, ECM_IGNOREAC|ECM_EXACTMATCH).

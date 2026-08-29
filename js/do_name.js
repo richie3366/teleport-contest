@@ -1,7 +1,7 @@
 // do_name.js — Object naming helpers (partial).
 // C ref: do_name.c oname / artifact naming / docallcmd / namefloorobj
 //        (D-1555); christen_orc / rndorcname / free_oname (D-1193);
-//        new_oname (D-1363).
+//        new_oname (D-1363); name_from_player (D-1624, EDIT_GETLIN off).
 
 import { artifact_exists, exist_artifact } from './artifact.js';
 import { game } from './gstate.js';
@@ -191,6 +191,25 @@ function Ysimple_name2(obj) {
 }
 
 /**
+ * C do_name.c name_from_player `:105–128`.
+ * `defres` is copied into the getlin buffer only when EDIT_GETLIN
+ * (`config.h:655` is commented out — C `nhUse(defres)`). Truncate
+ * at PL_PSIZ after mungspaces. ESC or empty getlin → null.
+ * @param {string} prompt
+ * @param {string|null|undefined} defres
+ * @returns {Promise<string|null>}
+ */
+async function name_from_player(prompt, defres) {
+    /* C #else nhUse(defres); EDIT_GETLIN would Strcpy(outbuf, defres). */
+    void defres;
+    const outbuf = await getlin(prompt);
+    if (!outbuf || outbuf === '\x1b') return null;
+    let s = outbuf.trim().replace(/\s+/g, ' ');
+    if (s.length >= PL_PSIZ) s = s.slice(0, PL_PSIZ - 1);
+    return s;
+}
+
+/**
  * C ref: do_name.c do_oname — getlin name then oname.
  * Artifact_name slip / wipeout_text / literate conduct deferred.
  */
@@ -203,14 +222,8 @@ async function do_oname(obj) {
     const which = (obj.quan || 1) !== 1 ? 'these' : 'this';
     // C: safe_qbuf(qbuf, qbuf, "?", obj, xname, simpleonames, "item")
     const qbuf = `What do you want to name ${which} ${xname(obj)}?`;
-    const buf = await getlin(qbuf);
-    if (!buf || buf === '\x1b') return;
-
-    const name = buf.trim().replace(/\s+/g, ' ');
-    if (!name) return;
-    const truncated = name.length >= PL_PSIZ
-        ? name.slice(0, PL_PSIZ - 1)
-        : name;
+    const buf = await name_from_player(qbuf, safe_oname(obj));
+    if (buf == null) return;
 
     if (obj.oartifact) {
         await pline(
@@ -220,7 +233,7 @@ async function do_oname(obj) {
     }
 
     // artifact_name / restrict_name / wipeout_text slip deferred
-    oname(obj, truncated, ONAME_VIA_NAMING | ONAME_KNOW_ARTI);
+    oname(obj, buf, ONAME_VIA_NAMING | ONAME_KNOW_ARTI);
 }
 
 /** C ref: youprop.h Hallucination — HHallucination && !Halluc_resistance. */
@@ -988,20 +1001,19 @@ export async function docall(obj) {
     } else {
         qbuf = `Call ${docall_xname(obj)}:`;
     }
-    const buf = await getlin(qbuf);
-    if (!buf || buf === '\x1b') return;
-
     const ocl = game.objects?.[obj.otyp];
     if (!ocl) return;
+    const buf = await name_from_player(qbuf, ocl.oc_uname);
+    if (buf == null) return;
+
     const hadName = !!ocl.oc_uname;
     ocl.oc_uname = null;
 
-    const name = buf.trim().replace(/\s+/g, ' ');
-    if (!name) {
+    if (!buf) {
         // undiscover_object deferred when clearing a prior call name
         void hadName;
     } else {
-        ocl.oc_uname = name.length >= PL_PSIZ ? name.slice(0, PL_PSIZ - 1) : name;
+        ocl.oc_uname = buf;
         // C: discover_object(otyp, FALSE, TRUE, TRUE)
         discover_object(obj.otyp, false, true, true);
     }

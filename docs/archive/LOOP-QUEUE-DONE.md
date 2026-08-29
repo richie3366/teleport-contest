@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `topl.c` `tty_yn_function` post-answer `toplines=prompt+key` (named). Not yn ^P. **Addressed:** D-1623
+- [x] `getline.c` EDIT_GETLIN (named). Not getline ^P. **Addressed:** D-1624
+
+
+- [x] `topl.c` `tty_yn_function` post-answer `toplines=prompt+key` (named). Not yn ^P. **Addressed:** D-1623 `935c8220`
 
 
 - [x] `questpgr.c` `com_pager_core` synopsis (named). Not restore_msghistory. **Addressed:** D-1622 `fdb4ed5d`

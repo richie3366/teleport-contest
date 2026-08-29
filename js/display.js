@@ -1693,6 +1693,25 @@ export function hooked_getlin_release_prompt() {
 }
 
 /**
+ * C getline.c hooked_tty_getlin `:173–186` after the input loop.
+ * `toplin = NON_EMPTY`; `clear_nhwindow` blanks the window but does
+ * not wipe `gt.toplines`. Then `suppress_history` (tty_get_ext_cmd)
+ * zeros `gt.toplines` so the next pline does not push `# cmd` into
+ * ^P history; else DUMPLOG_CORE `dumplogmsg(gt.toplines)`.
+ * JS `clear_nhwindow_message` would wipe `_toplines` — call this
+ * first. yn post-answer rewrite is D-1623, not this path.
+ * @param {boolean} suppress_history
+ */
+export function hooked_getlin_epilogue(suppress_history) {
+    hooked_getlin_release_prompt();
+    if (suppress_history) {
+        _toplines = '';
+    } else if (_toplines) {
+        dumplogmsg(_toplines);
+    }
+}
+
+/**
  * C ref: wintty.c tty_clear_nhwindow(WIN_MESSAGE) — blank topline when
  * toplin != EMPTY. Used by cmd.c parse() after get_count returns.
  * Also clear when only `_pending_message` is set (yn/getobj painted
