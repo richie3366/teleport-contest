@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1638 do_name.c do_mgivenname / alreadynamed
+
+**Objective:** Open `do_name.c` `do_mgivenname` (named). Not kill_char.
+**C locus:** `do_name.c` `do_mgivenname` `:198–282`; `alreadynamed`
+`:155–195`; `distant_monnam` `:1168–1186`; caller `docallcmd` `:564`;
+`hacklib.c` `fuzzymatch`; `apply.c` `beautiful`.
+**JS locus:** `js/do_name.js`; `js/hacklib.js` `fuzzymatch`;
+`js/display.js` `glyph_is_swallow_at`; `js/apply.js` `beautiful`;
+`js/fountain.js` `mhe`.
+**Change:** `'m'`/`'C'` call do_mgivenname (getpos + christen /
+alreadynamed reject) instead of returning.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** fuzzymatch unit; green+strict seed8000/0900; cohort
+**7**/7 + strict.
+**Next:** Open `landing_spot` KNOCKED preferred-dir. Not
+DISMOUNT_THROWN.
+**Blocked:** none.
 ## 2026-08-29 — D-1637 mon.c restore_cham getlev + With_you
 
 **Objective:** Open `mon.c` `restore_cham` (named). Not normal_shape.

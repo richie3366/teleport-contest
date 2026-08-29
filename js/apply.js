@@ -590,9 +590,10 @@ function poly_gender() {
 }
 
 /**
- * C apply.c beautiful — CHA adjective for mirror self-look.
+ * C apply.c beautiful — CHA adjective for mirror self-look
+ * and do_name.c do_mgivenname hero-cell refuse.
  */
-function beautiful() {
+export function beautiful() {
     const cha = acurr(A_CHA);
     if (cha >= 25) return 'sublime';
     if (cha >= 19) return 'splendorous';

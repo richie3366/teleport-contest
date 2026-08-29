@@ -909,8 +909,11 @@ quiver-prefer / worn-slot / oname / globby / `#adjust` `invent_merged` compare m
 JS: `js/do_name.js` — partial
 
 **artifact oname/`artifact_exists`** (D-0064); 
-**`docallcmd` menu + `i`→getobj name_ok/do_oname** (D-0069/D-0928 #1147; 
-call/disco/monster + artifact_name slip deferred); 
+**`docallcmd` menu + `i`→getobj name_ok/do_oname** (D-0069/D-0928 #1147) +
+**`'m'`/`'C'` `do_mgivenname`** (D-1638; getpos + visibility + `alreadynamed` +
+`christen_monst`; `hacklib.c` `fuzzymatch`; swallow `disp_kind`; `apply.c`
+`beautiful` export; `mhe` from fountain; SetVoice empty without SND_LIB;
+call `'o'` / `o_init.c` `rename_disco` + artifact_name slip deferred); 
 **`docall`/`trycall` potion call → `oc_uname`** (D-0430; 
 sink-fluid/`safe_qbuf` fallbacks deferred); **`christen_monst` + tame `x_monnam` subset** (D-0079); 
 **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); 
@@ -936,7 +939,8 @@ priest/minion/`mappear`/invis adj/`is_mplayer` rank/`AUGMENT_IT` deferred);
 **`uhitm` live `a_monnam` D-1544**; **`namefloorobj` getpos + vobj_at / object_from_map + Hallu unames + call_ok D-1555**; 
 **`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889; 
 **seemimic/pit/NODIAG/boulder D-1299**; `goodpos` / mintrap aftermath named); 
-omit astral high-cleric `distant_monnam`
+**`distant_monnam` ARTICLE_THE via `x_monnam` called** (D-1638);
+omit astral high-cleric `distant_monnam`; `lookup_novel` named
 
 ### `src/dokick.c`
 

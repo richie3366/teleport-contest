@@ -756,6 +756,16 @@ export function glyph_to_obj_at(x, y) {
     return -1;
 }
 
+/**
+ * C display.h glyph_is_swallow(glyph_at(x,y)). JS has no integer glyph
+ * ids; swallowed() stores disp_kind 'swallow' on the 3x3 stomach cells
+ * (not the hero). Caller: do_name.c do_mgivenname.
+ */
+export function glyph_is_swallow_at(x, y) {
+    const loc = game.level?.at?.(x, y);
+    return loc?.disp_kind === 'swallow';
+}
+
 // C ref: display.c map_glyph / mon_color / pet_color — per-species mcolor.
 // C ref: display.h mon_to_glyph / what_mon — Hallu → random_monster(display rng).
 export function mon_glyph(mtmp) {
@@ -2355,6 +2365,13 @@ function cell_shows_displayed_monster(mtmp, x, y) {
  */
 function gbuf_show_kind(x, y, ch, color, decgfx, loc) {
     if (ch === 'I' && !decgfx) return 'invisible';
+    /* C: swallow_to_glyph in gbuf around the hero, not the hero cell. */
+    const usw = game.u || {};
+    if (usw.uswallow && usw.ustuck) {
+        const dx = Math.abs((x | 0) - (usw.ux | 0));
+        const dy = Math.abs((y | 0) - (usw.uy | 0));
+        if (dx <= 1 && dy <= 1 && (dx || dy)) return 'swallow';
+    }
     // C show_glyph classifies the already-chosen id; region overlay is
     // cmap S_cloud / S_poisoncloud, not the occupant under the cloud.
     const reg = visible_region_at(x, y);

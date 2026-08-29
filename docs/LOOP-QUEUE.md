@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do_name.c` `do_mgivenname` (named). Not kill_char.
 - [ ] `steed.c` `landing_spot` KNOCKED preferred-dir (named). Not DISMOUNT_THROWN.
 - [ ] `invent.c` `check_invent_gold` (named). Not adjust_split.
 - [ ] `invent.c` tty WIN_INVEN / `#perminv` (named). Not consume_obj_charge.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `do.c` ACH_ASTR (named). Not reset_hostility.
 - [ ] `mon.c` newcham mleashed (named). Not restore_cham.
 - [ ] `win/tty/wintty.c` MENU_SEARCH / `tty_wait_synch` (named). Not kill_char.
+- [ ] `o_init.c` `rename_disco` (named). Not do_mgivenname.
+- [ ] `questpgr.c` `convert_arg` (named). Not convert_line %Xh.
+- [ ] `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist.
+- [ ] `do_name.c` `lookup_novel` (named). Not do_mgivenname.
+- [ ] `sit.c` `eyecount` (named). Not confer_oc_oprop.
 
 ## Parked (do not pop)
 

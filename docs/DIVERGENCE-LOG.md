@@ -1,3 +1,32 @@
+## D-1638 — do_name.c do_mgivenname / alreadynamed
+
+- **Status:** fixed (map-driven Open from D-1637; not a public FAIL)
+- **Symptom:** map named `do_mgivenname`. C `docallcmd` `'m'` calls
+  `do_mgivenname` (Hallu refuse, getpos, self/steed, `m_at`, swallow
+  `glyph_is_swallow(glyph_at)`, visibility, `name_from_player`, then
+  G_UNIQ/shk/priest/ghost/ebones `alreadynamed` or `christen_monst`).
+  JS `docallcmd` returned on `'m'`/`'C'` without that call.
+- **C locus:** `do_name.c` `do_mgivenname` `:198–282`; callee
+  `alreadynamed` `:155–195`; `distant_monnam` `:1168–1186`;
+  `hacklib.c` `fuzzymatch` `:783–808`; `apply.c` `beautiful`;
+  `display.h` `glyph_is_swallow`. Caller `docallcmd` `:564`.
+- **JS was:** `'m'`/`'C'` no-op after D-0069/D-1555/D-1624;
+  `name_from_player`/`christen_monst` already live.
+- **Fix:** wire `'m'`/`'C'` to `do_mgivenname`. JS swallow analogue
+  is `disp_kind === 'swallow'` (no integer glyph ids). Export
+  `beautiful` / `mhe`; C-home `fuzzymatch`. `mons()` is a fresh
+  object so Juiblex/ghost compare mndx. Rule #2: no fs.
+- **JS:** `js/do_name.js`; `js/hacklib.js` `fuzzymatch`;
+  `js/display.js` `glyph_is_swallow_at`; `js/apply.js` `beautiful`;
+  `js/fountain.js` `mhe`; `js/monsters.js` `MS_ANIMAL`.
+- **Not this iter:** astral high-cleric `distant_monnam`; cmdq_pop;
+  lootabc letters; `'o'`/`rename_disco`; `lookup_novel`; christen
+  leash `update_inventory`; EDIT_GETLIN. kill_char is D-1632.
+  restore_cham is D-1637.
+- **Verified:** fuzzymatch unit; module load; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1637 — mon.c restore_cham getlev catchup + With_you
 
 - **Status:** fixed (map-driven Open from D-1636; not a public FAIL)
