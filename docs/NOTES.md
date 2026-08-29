@@ -5,22 +5,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1624 (green+cohort; cadence #2020 still
+- **Suite 44/44** after D-1625 (green+cohort; cadence #2020 still
   D-1620). seed4500 still PASS. Reviews **573–581** ACCEPT-WITH-DEBT.
-  **Hypothesis:** Open `cmd.c` `doextlist` (named) is the next
-  map cluster. Not #seeall EXT_CMDS.
-  **Falsify:** `node scripts/csym.mjs doextlist`;
-  `node scripts/map.mjs cmd.c`.
-  **Next:** Open `doextlist`. Do not skip D-1531…D-1624. No FORCE
+  **Hypothesis:** Open `sounds.c` MS_BOAST hostile giants (named) is
+  the next map cluster. Not MS_HUMANOID.
+  **Falsify:** `node scripts/csym.mjs` the MS_BOAST arm;
+  `node scripts/map.mjs sounds.c`.
+  **Next:** Open MS_BOAST. Do not skip D-1531…D-1625. No FORCE
   / `wildmiss` wrap / trailing `confdir` in shared `getdir`. Do not
-  glue onto EDIT_GETLIN (D-1624), yn post-answer (D-1623), or
-  `com_pager_core` (D-1622).
+  glue onto `doextlist` (D-1625), EDIT_GETLIN (D-1624), or yn
+  post-answer (D-1623).
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn;
   `restore_cham` / `rescham`; `restore_gamelog`;
   MS_BOAST fallthrough; `menu_remarm`; ggetobj drop;
   tty WIN_INVEN create (`allmain.c:726`); `#perminv`;
-  `optfn_perminv_mode`; `doextlist` / BIND= `seeall`;
+  `optfn_perminv_mode`; BIND= `seeall` / M('?') keystroke;
   ACH_ASTR;
   dog_move dismount_steed DISMOUNT_THROWN / setworn oc_oprop;
   newcham mleashed / keepdogs stay-behind / grow_up leash;
@@ -40,7 +40,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1624.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1625.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -51,9 +51,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1624 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1625 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1624. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1625. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -64,7 +64,7 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1624 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1625 live in the index. Do not glue
   yn ^P onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603 writers are
   preamble `:71` / `try_restore_save` `:942`). Do not restore zap
@@ -83,10 +83,14 @@ Objective/score live in `CURRENT.md`.
   wonky-gold named), `com_pager_core` synopsis (D-1622; convert_line
   pronoun / common fallback / array rn2 named), yn post-answer
   `toplines` (D-1623; `tty_nhbell` / `cw->cury` / `intr` named),
-  EDIT_GETLIN (D-1624; `config.h` commented; kill_char named).
+  EDIT_GETLIN (D-1624; `config.h` commented; kill_char named),
+  `doextlist` (D-1625; BIND= `seeall` / M('?') keystroke named).
 
 ## Landmarks (≤15)
 
+- D-1625: `doextlist` NHW_MENU + `doc_extcmd_flagstr`; `doextcmd`
+  loop while doextlist; pager `hmenu_doextlist`; typed `#?`.
+  #seeall is D-1605. BIND= `seeall` named.
 - D-1624: EDIT_GETLIN off (`config.h:655`); getlin `#else *bufp=0`;
   `name_from_player` nhUse(defres); `query_annotation` replace
   prompt + other-level `describe_level`; epilogue dumplogmsg /
@@ -126,5 +130,3 @@ Objective/score live in `CURRENT.md`.
   calls then discard. Not getline. Command ^P is D-1601.
 - D-1611: getline `hooked_tty_getlin` ^P zeros `inread` around
   `tty_doprev_message`. yn ^P is D-1612.
-- D-1610: `initedog` ogoal `-1,-1` + first-pet livelog. `free_edog`
-  / restore `newedog` named.

@@ -147,4 +147,38 @@ export function ing_suffix(s) {
     return `${buf}ing${onoff}`;
 }
 
+/**
+ * C ref: hacklib.c strstri `:739–779` — case-insensitive substring.
+ * Empty sub returns `str` (C `return (char *) str`). Else the first
+ * matching tail, or null. ASCII fold only (C `lowc`).
+ * @param {string | null | undefined} str
+ * @param {string | null | undefined} sub
+ * @returns {string | null}
+ */
+export function strstri(str, sub) {
+    if (sub == null || sub === '') return str == null ? '' : String(str);
+    if (str == null || str === '') return null;
+    const s = String(str);
+    const n = String(sub);
+    const i = s.toLowerCase().indexOf(n.toLowerCase());
+    return i >= 0 ? s.slice(i) : null;
+}
+
+/**
+ * C ref: hacklib.c strsubst `:534–551` — replace the first `strstr`
+ * (case-sensitive) occurrence of `orig` in `bp`.
+ * @param {string} bp
+ * @param {string} orig
+ * @param {string} replacement
+ * @returns {string}
+ */
+export function strsubst(bp, orig, replacement) {
+    const s = String(bp ?? '');
+    const o = String(orig ?? '');
+    if (!o) return s;
+    const i = s.indexOf(o);
+    if (i < 0) return s;
+    return s.slice(0, i) + String(replacement ?? '') + s.slice(i + o.length);
+}
+
 // C ref: rn2(x) already in rng.js — re-export not needed

@@ -23,6 +23,8 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, DOMOVE_RUSH, DOMOVE_WALK,
          CMDQ_EXTCMD, CMDQ_KEY, CQ_CANNED, CQ_REPEAT,
          IFBURIED, WIZMODECMD, NOFUZZERCMD, PREFIXCMD, MOVEMENTCMD,
+         AUTOCOMPLETE, CMD_NOT_AVAILABLE, INTERNALCMD, GENERALCMD,
+         CMD_M_PREFIX, QBUFSZ,
          xdir, ydir, zdir, xytodir, N_DIRS, DIR_W, DIR_N, DIR_E, DIR_S,
          DIR_NW, DIR_NE, DIR_SE, DIR_SW,
          GFILTER_VIEW, GLOC_INTERESTING,
@@ -60,7 +62,8 @@ import {
 } from './uhitm.js';
 import { rehumanize } from './polyself.js';
 import { doopen, doopen_indir, doclose } from './lock.js';
-import { doextcmd } from './getline.js';
+import { doextcmd, getlin, mungspaces } from './getline.js';
+import { strstri, strsubst } from './hacklib.js';
 import { dosearch, doterrain } from './detect.js';
 import { dotakeoff, doddoremarm, dowear, doputon } from './do_wear.js';
 import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
@@ -311,6 +314,250 @@ export async function can_do_extcmd(extcmd) {
         return false;
     }
     return true;
+}
+
+/**
+ * C strutil.c pmatch_internal `:103–141` — '*' / '?' (ci via lowc).
+ * doextlist search uses pmatchi (ci true, no skip-set).
+ * @param {string} patrn
+ * @param {string} strng
+ * @param {boolean} ci
+ * @returns {boolean}
+ */
+function pmatch_internal(patrn, strng, ci) {
+    const pstr = String(patrn ?? '');
+    const sstr = String(strng ?? '');
+    const fold = (ch) => {
+        if (!ci || !ch) return ch;
+        const c = ch.charCodeAt(0);
+        return (c >= 65 && c <= 90) ? String.fromCharCode(c + 32) : ch;
+    };
+    const rec = (pi, si) => {
+        for (;;) {
+            const s = si < sstr.length ? sstr[si] : '';
+            const p = pi < pstr.length ? pstr[pi] : '';
+            si++;
+            pi++;
+            if (!p) return s === '';
+            if (p === '*') {
+                if (!(pi < pstr.length ? pstr[pi] : '') || rec(pi, si - 1)) {
+                    return true;
+                }
+                return s ? rec(pi - 1, si) : false;
+            }
+            if ((ci ? fold(p) !== fold(s) : p !== s) && (p !== '?' || !s)) {
+                return false;
+            }
+        }
+    };
+    return rec(0, 0);
+}
+
+/** C strutil.c pmatchi `:151–155`. */
+function pmatchi(patrn, strng) {
+    return pmatch_internal(patrn, strng, true);
+}
+
+/**
+ * C ref: cmd.c accept_menu_prefix `:3507–3512` — CMD_M_PREFIX.
+ * @param {{ flags?: number } | null | undefined} efp
+ * @returns {boolean}
+ */
+function accept_menu_prefix_tab(efp) {
+    return !!(efp && ((efp.flags | 0) & CMD_M_PREFIX));
+}
+
+/**
+ * C ref: cmd.c doc_extcmd_flagstr `:523–557`.
+ * efp null → footnote strings; else "" / "[m]" / "[A]" / "[mA]".
+ * cmd_from_func(do_reqmenu) visctrl named (m-prefix key is 'm').
+ * @param {{ flags?: number } | null} efp
+ * @returns {{ footnote: string[] } | { flagstr: string }}
+ */
+function doc_extcmd_flagstr(efp) {
+    if (!efp) {
+        return {
+            footnote: [
+                '[A] Command autocompletes',
+                `[m] Command accepts '${visctrl('m')}' prefix`,
+            ],
+        };
+    }
+    const mprefix = accept_menu_prefix_tab(efp);
+    const autocomplete = ((efp.flags | 0) & AUTOCOMPLETE) !== 0;
+    let flagstr = '';
+    if (mprefix || autocomplete) {
+        flagstr = '[';
+        if (mprefix) flagstr += 'm';
+        if (autocomplete) flagstr += 'A';
+        flagstr += ']';
+    }
+    return { flagstr };
+}
+
+const DOEXTLIST_HEADINGS = [
+    'Extended Commands',
+    'Debugging Extended Commands',
+];
+
+/**
+ * C ref: cmd.c doextlist `:560–734` — NHW_MENU PICK_ONE of extcmdlist.
+ * Meta rows: 'a' menumode, ':'/'s' search, 'z' wizard onelist.
+ * Callers: doextcmd loop (`#?`) and pager.c hmenu_doextlist.
+ * BIND= / M('?') keystroke named.
+ * @returns {Promise<number>} ECMD_OK
+ */
+export async function doextlist() {
+    const wizard = !!(game.flags?.debug || game.flags?.wizard || game.wizard);
+    const discover = !!(game.flags?.explore || game.flags?.discover);
+    let menumode = 0;
+    let onelist = 0;
+    let redisplay = true;
+    let search = false;
+    let searchbuf = '';
+
+    while (redisplay) {
+        redisplay = false;
+        const raw = [];
+        raw.push({ text: 'Extended Commands List', attr: 0, selectable: false });
+        raw.push({ text: '', attr: 0, selectable: false });
+
+        raw.push({
+            text: `Switch to ${menumode ? 'including' : 'excluding'} commands that don't autocomplete`,
+            attr: 0,
+            selectable: true,
+            selector: 'a',
+            a_int: 1,
+        });
+        if (!searchbuf) {
+            raw.push({
+                text: 'Search extended commands',
+                attr: 0,
+                selectable: true,
+                selector: ':',
+                gselector: 's',
+                a_int: 2,
+            });
+        } else {
+            let back = 'Switch back from search';
+            if (back.length + searchbuf.length + ' ("")'.length < QBUFSZ) {
+                back += ` ("${searchbuf}")`;
+            }
+            raw.push({
+                text: back,
+                attr: 0,
+                selectable: true,
+                selector: 's',
+                gselector: ':',
+                a_int: 3,
+            });
+        }
+        if (wizard) {
+            raw.push({
+                text: onelist
+                    ? 'Switch to showing debugging commands in separate section'
+                    : 'Switch to showing all alphabetically, including debugging commands',
+                attr: 0,
+                selectable: true,
+                selector: 'z',
+                a_int: 4,
+            });
+        }
+        raw.push({ text: '', attr: 0, selectable: false });
+
+        const menushown = [0, 0];
+        let n = 0;
+        for (let pass = 0; pass <= 1; ++pass) {
+            if (pass === 1 && (onelist || !wizard)) break;
+            for (const efp of EXTCMDLIST) {
+                if (!efp?.txt) continue;
+                if (((efp.flags | 0) & (CMD_NOT_AVAILABLE | INTERNALCMD)) !== 0) {
+                    continue;
+                }
+                if (menumode === 1 && ((efp.flags | 0) & AUTOCOMPLETE) === 0) {
+                    continue;
+                }
+                const wizc = ((efp.flags | 0) & WIZMODECMD) !== 0 ? 1 : 0;
+                if (wizc && !wizard) continue;
+                if (!onelist && pass !== wizc) continue;
+                let cmd_desc = efp.desc || '';
+                if (!wizard && !discover
+                    && ((efp.flags | 0) & GENERALCMD) !== 0
+                    && strstri(cmd_desc, 'extinct')) {
+                    cmd_desc = strsubst(
+                        cmd_desc,
+                        ' been genocided or become extinct',
+                        ' been genocided',
+                    );
+                }
+                if (searchbuf
+                    && !strstri(efp.txt, searchbuf)
+                    && !strstri(cmd_desc, searchbuf)
+                    && !pmatchi(searchbuf, efp.txt)
+                    && !pmatchi(searchbuf, cmd_desc)) {
+                    continue;
+                }
+                if (!menushown[pass]) {
+                    raw.push({
+                        text: DOEXTLIST_HEADINGS[pass],
+                        attr: ATR_INVERSE,
+                        selectable: false,
+                    });
+                    menushown[pass] = 1;
+                }
+                const flagstr = doc_extcmd_flagstr(efp).flagstr || '';
+                const line = ` ${String(efp.txt).padEnd(14)} ${flagstr.padStart(4)} ${cmd_desc}`;
+                raw.push({ text: line, attr: 0, selectable: false });
+                ++n;
+            }
+            if (n) raw.push({ text: '', attr: 0, selectable: false });
+        }
+        if (searchbuf && !n) {
+            raw.push({ text: 'no matches', attr: 0, selectable: false });
+        } else {
+            for (const line of doc_extcmd_flagstr(null).footnote) {
+                raw.push({ text: line, attr: 0, selectable: false });
+            }
+        }
+
+        const picked = await select_menu_pick_one(raw);
+        if (picked.kind === 'pick' && (picked.item?.a_int | 0) > 0) {
+            switch (picked.item.a_int | 0) {
+            case 1:
+                menumode = 1 - menumode;
+                redisplay = true;
+                break;
+            case 2:
+                search = true;
+                break;
+            case 3:
+                search = false;
+                searchbuf = '';
+                redisplay = true;
+                break;
+            case 4:
+                search = false;
+                searchbuf = '';
+                onelist = 1 - onelist;
+                redisplay = true;
+                break;
+            }
+        } else {
+            search = false;
+            searchbuf = '';
+        }
+        if (search) {
+            let phrase = await getlin('Extended command list search phrase?');
+            if (phrase === '\x1b') phrase = '';
+            else phrase = mungspaces(phrase);
+            if (phrase) {
+                searchbuf = phrase;
+                redisplay = true;
+            }
+            search = false;
+        }
+    }
+    return ECMD_OK;
 }
 
 /**

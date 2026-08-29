@@ -266,6 +266,17 @@ const EXT_CMD_AC = [
  */
 const EXT_CMDS = [
     {
+        // C: cmd.c "?" IFBURIED|AUTOCOMPLETE|GENERALCMD|CMD_M_PREFIX →
+        // doextlist. Key M('?'). Body D-1625; BIND= named.
+        name: '?',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { doextlist } = await import('./cmd.js');
+            return doextlist();
+        },
+    },
+    {
         name: 'name',
         wiz: false,
         autocomplete: true,
@@ -941,33 +952,42 @@ export async function get_ext_cmd() {
     return idx;
 }
 
-/** C ref: cmd.c doextcmd — returns callee ECMD_* (pray → ECMD_TIME). */
+/**
+ * C ref: cmd.c doextcmd `:492–520` — keep repeating until the callee
+ * is not doextlist (`#?` help then another extended command).
+ * Returns callee ECMD_* (pray → ECMD_TIME).
+ */
 export async function doextcmd() {
-    game.ext_tlist = null;
-    const idx = await get_ext_cmd();
-    if (idx < 0) return 0; // ECMD_OK
-    const ec = availableExtCmds()[idx];
-    if (!ec) return 0;
-    /* C cmd.c:505–515 — extcmdlist row, can_do_extcmd, then m-prefix. */
-    const row = EXTCMDLIST.find((e) => e.txt.toLowerCase() === ec.name);
-    const { can_do_extcmd } = await import('./cmd.js');
-    if (!(await can_do_extcmd(row))) return 0;
-    if (game.iflags?.menu_requested && !accept_menu_prefix(row)) {
-        await pline(`'m' prefix has no effect for the ${ec.name} command.`);
-        game.iflags.menu_requested = false;
-    }
-    /* C cmd.c:513 — tell rhack() what command is actually executing */
-    game.ext_tlist = {
-        txt: ec.name,
-        run: ec.run,
-        flags: row ? (row.flags | 0) : 0,
-    };
-    const res = await ec.run();
-    return res | 0;
+    let funcIsDoextlist = false;
+    let retval = 0;
+    do {
+        const idx = await get_ext_cmd();
+        if (idx < 0) return 0; // ECMD_OK
+        const ec = availableExtCmds()[idx];
+        if (!ec) return 0;
+        /* C cmd.c:505–515 — extcmdlist row, can_do_extcmd, then m-prefix. */
+        const row = EXTCMDLIST.find((e) => e.txt.toLowerCase() === ec.name);
+        const { can_do_extcmd } = await import('./cmd.js');
+        if (!(await can_do_extcmd(row))) return 0;
+        if (game.iflags?.menu_requested && !accept_menu_prefix(row)) {
+            await pline(`'m' prefix has no effect for the ${ec.name} command.`);
+            game.iflags.menu_requested = false;
+        }
+        /* C cmd.c:513 — tell rhack() what command is actually executing */
+        game.ext_tlist = {
+            txt: ec.name,
+            run: ec.run,
+            flags: row ? (row.flags | 0) : 0,
+        };
+        /* C: while (func == doextlist) — table txt "?" is doextlist. */
+        funcIsDoextlist = ec.name === '?';
+        retval = (await ec.run()) | 0;
+    } while (funcIsDoextlist);
+    return retval;
 }
 
 /** C ref: hacklib.c mungspaces — collapse runs of whitespace to one space. */
-function mungspaces(s) {
+export function mungspaces(s) {
     return String(s ?? '').replace(/\s+/g, ' ').trim();
 }
 

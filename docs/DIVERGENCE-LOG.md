@@ -1,3 +1,32 @@
+## D-1625 — cmd.c doextlist / doextcmd loop / hmenu_doextlist
+
+- **Status:** fixed (map-driven Open from D-1624; not a public FAIL)
+- **Symptom:** map named `doextlist`. C `#?` (`M('?')` table txt `"?"`)
+  lists extcmdlist in an NHW_MENU (autocomplete toggle, search,
+  wizard onelist) and `doextcmd` loops until the callee is not
+  `doextlist`. Help menu "List of extended commands" calls it.
+  JS had the EXTCMDLIST row and EXT_CMD_AC `"?"` but no runner, so
+  typed `#?` was unknown; help `k` showed embedded `cmdhelp`.
+- **C locus:** `cmd.c` `doextlist` `:560–734`;
+  `doc_extcmd_flagstr` `:523–557`; `doextcmd` `:492–520`
+  (`while (func == doextlist)`); pager.c `hmenu_doextlist`
+  `:2813–2816`. Callees `pmatchi` / `strstri` / `strsubst` /
+  `mungspaces` / `getlin`. #seeall EXT_CMDS is D-1605.
+- **JS was:** named omit after D-1605 (`doextlist` / BIND= `seeall`).
+- **Fix:** live menu from EXTCMDLIST; `#?` runner; `doextcmd` loop;
+  help `k` → `doextlist`. Group accel `:`/`s`. Non-wizard
+  genocided desc drops "or become extinct". Rule #2: no fs.
+- **JS:** `js/cmd.js` `doextlist` / `doc_extcmd_flagstr`;
+  `js/getline.js` EXT_CMDS `?` + `doextcmd`; `js/pager.js` `dohelp`;
+  `js/options.js` `gselector`; `js/hacklib.js` `strstri`/`strsubst`
+  (C home; attrib/write clones not retired).
+- **Not this iter:** BIND= `seeall` / M('?') default keystroke /
+  `cmd_from_func`; `pmatch` case-sensitive / fuzzy skip-set;
+  remaining `extcmdlist` bodies. #seeall is D-1605.
+  EDIT_GETLIN is D-1624.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 +
+  seed2200/0383 + strict.
+
 ## D-1624 — getline.c EDIT_GETLIN off / name_from_player / query_annotation
 
 - **Status:** fixed (map-driven Open from D-1623; not a public FAIL)

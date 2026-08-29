@@ -62,28 +62,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1624 (seed4500 still PASS). **Next cluster:**
-Open `cmd.c` `doextlist` (named). Not #seeall EXT_CMDS.
-**Do not skip D-1531…D-1624 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1625 (seed4500 still PASS). **Next cluster:**
+Open `sounds.c` MS_BOAST hostile giants (named). Not MS_HUMANOID.
+**Do not skip D-1531…D-1625 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1624.** Do not FORCE
+**Do not re-break D-0660…D-1625.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1624 (index). Recent: **D-1624**
-`getline.c` EDIT_GETLIN off (`config.h:655` commented);
-live `#else *bufp='\0'` + `name_from_player` + `query_annotation`
-replace prompt + hooked epilogue dumplogmsg / extcmd
-suppress_history. Not getline ^P (D-1611). `kill_char` /
-`tty_nhbell` named. Prior: **D-1623** yn post-answer
-`toplines`. **D-1622** `com_pager_core`. **D-1621**
-`adjust_split`. Older D-1531…D-1620 live in the index —
+**Keep:** D-0845…D-1625 (index). Recent: **D-1625**
+`cmd.c` `doextlist` NHW_MENU + `doc_extcmd_flagstr`;
+`doextcmd` loop while doextlist; pager `hmenu_doextlist`;
+typed `#?`. BIND= `seeall` / M('?') keystroke named. Not
+#seeall EXT_CMDS (D-1605). Prior: **D-1624** EDIT_GETLIN
+off. **D-1623** yn post-answer `toplines`. **D-1622**
+`com_pager_core`. Older D-1531…D-1621 live in the index —
 do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1624 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1625 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -107,6 +106,7 @@ Do not re-port `adjust_split`.
 Do not re-port `com_pager_core` synopsis.
 Do not re-port yn post-answer `toplines`.
 Do not re-port EDIT_GETLIN (config.h commented).
+Do not re-port `doextlist`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

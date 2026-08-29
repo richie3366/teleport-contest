@@ -238,7 +238,10 @@ C `cmd.c` `:2063` table + `ext_func_tab_from_func`/`cmdq_add_ec` `CMDQ_EXTCMD` +
 typed runner `js/getline.js` EXT_CMDS; `doextcmd` `can_do_extcmd` +
 `accept_menu_prefix` flag not a name set; sibling `#seeweapon`/`#seearmor`/
 `#seerings`/`#seeamulet`/`#seetools` live dopr* callees; `*` key is D-0340;
-`doextlist` / BIND= `seeall` named); **Eyes `is_plural` D-1552** (C `obj.h` 
+**`#?` `doextlist` D-1625** (C `cmd.c` `:560–734` + `doc_extcmd_flagstr`
+`:523–557`; `doextcmd` `:516–517` loop while `doextlist`; pager.c
+`hmenu_doextlist`; typed runner EXT_CMDS `?`; help menu `k`; BIND=
+`seeall` / M('?') keystroke named); **Eyes `is_plural` D-1552** (C `obj.h` 
 `is_plural` + `artifact.c` `undiscovered_artifact` `:1130–1143`; 
 `objnam.c` `otense`/`not_fully_identified`/`obj_is_pname`; 
 `invent.c` `fully_identify_obj` `discover_artifact`; 
@@ -267,7 +270,7 @@ eel hideunder/`rn2(4)` / I_SPECIAL equip deferred);
 omit binary NHFILE/ledger-1 escape yn, mysterious force, quest gate, portals; 
 trap-door fall D-1179; Lua `NHCB_LVL_LEAVE`; 
 full `TEST_TRAV`/`TRAVP_GUESS`/`travelmap`/`#retravel`; **`#wizmakemap` D-1288**; 
-**`#seeall` D-1605**; remaining `extcmdlist` bodies; …
+**`#seeall` D-1605**; **`#?` D-1625**; remaining `extcmdlist` bodies; …
 **`body_part`** exact-name clones import `polyself.js` (wield via
 `objnam.js` `body_part_latebound`; D-1496). `zap.js` appends `body_part`
 to its existing polyself import. **`mcastu` `body_part(HEAD)` +

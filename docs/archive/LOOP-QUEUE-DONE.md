@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `getline.c` EDIT_GETLIN (named). Not getline ^P. **Addressed:** D-1624
+- [x] `cmd.c` `doextlist` (named). Not #seeall EXT_CMDS. **Addressed:** D-1625
+
+
+- [x] `getline.c` EDIT_GETLIN (named). Not getline ^P. **Addressed:** D-1624 `3e6bf20d`
 
 
 - [x] `topl.c` `tty_yn_function` post-answer `toplines=prompt+key` (named). Not yn ^P. **Addressed:** D-1623 `935c8220`
