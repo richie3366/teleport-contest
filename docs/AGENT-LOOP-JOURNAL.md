@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1685 dungeon.c save_mapseen cemetery JSON
+
+**Objective:** Open `dungeon.c` save_mapseen cemetery JSON (named).
+Not print_mapseen cemetery.
+**C locus:** `dungeon.c` `save_mapseen` `:2694–2717`;
+`load_mapseen` `:2720–2754`; `save.c` `savecemetery` `:616–637`;
+`restore.c` `restcemetery` `:987–1017`.
+**JS locus:** `js/dungeon.js` `save_mapseen`/`savecemetery`;
+`js/save.js` `dosave0`/`try_restore_save`; `js/bones.js`.
+**Change:** persist mapseenchn cemetery + savelev bonesinfo JSON;
+bones.js uses live helpers. Named: knox/drawbridge / when[].
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **20**/20; green+strict seed8000/0900;
+cohort **7**/7 + restore seed0013 + strict.
+**Next:** Open `iactions.c` remaining pushkeys rub/swap/whatis. Not
+two-weapon.
+**Blocked:** none.
 ## 2026-08-29 — D-1684 shk.c pay_billed_items via_menu (review 637)
 
 **Objective:** Must-fix `pay_billed_items`: delete

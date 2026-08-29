@@ -62,25 +62,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1684 (seed4500 still PASS). **Next cluster:**
-Open `dungeon.c` save_mapseen cemetery JSON (named). Not
-print_mapseen cemetery.
-**Do not skip D-1531…D-1684 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1685 (seed4500 still PASS). **Next cluster:**
+Open `iactions.c` remaining pushkeys rub/swap/whatis (named). Not
+two-weapon.
+**Do not skip D-1531…D-1685 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1684.** Do not FORCE
+**Do not re-break D-0660…D-1685.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1684 (index). Recent: **D-1684**
-`pay_billed_items` via_menu `menu_pick_pay_items`; deleted invented
-`pay_take_canned_billed` (review **637**). Leftover IA_BUY_OBJ KEY
-is next `rhack`. Named: cheapest_item / Traditional itemize /
-`buy_container`; cemetery JSON. D-1683 sit grease.
+**Keep:** D-0845…D-1685 (index). Recent: **D-1685**
+`save_mapseen`/`load_mapseen` cemetery JSON + `savecemetery`/
+`restcemetery` (dosave0 mapseenchn + savelev bonesinfo). D-1684
+pay via_menu. Named: cheapest_item / Traditional itemize /
+`buy_container`; knox/drawbridge.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1684 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1685 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -141,6 +141,7 @@ Do not re-port `convert_arg` catalogue.
 Do not re-port `dooverview` PICK_ONE / `show_overview` why==-1.
 Do not re-port `print_mapseen` altar-god coalign / `altarmask_at`.
 Do not re-port `print_mapseen` cemetery bones list.
+Do not re-port `save_mapseen` cemetery JSON.
 Do not re-port `safe_qbuf` / pickup Pick up / Continue? / tip ynq.
 Do not re-port `invlet_constant` / `reassign` / `obj_to_let`.
 Do not re-port `use_grease` / trailing `update_inventory`.
@@ -151,7 +152,6 @@ Do not re-port remaining pushkeys unwield/name/eat/engrave /
 `remarm_swapwep` / floorfood_eat `iflags.menu_requested`.
 Do not re-port remaining pushkeys offer/tip/invoke / `offer_ok` /
 `floorfood("sacrifice")` / `doinvoke` live getobj / `dotip` `tip_ok`.
-Do not re-port remaining pushkeys rub/swap/whatis.
 Do not restore `pay_take_canned_billed`. Do not glue Open to
 `cheapest_item` / Traditional itemize / `buy_container`.
 Do not re-port IA_TWOWEAPON `'X'` / MAYBETWOWEAPON / `dotwoweapon`.

@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-1685 — dungeon.c save_mapseen cemetery JSON persist
+
+- **Status:** fixed (map-driven Open from D-1684; not a public FAIL)
+- **Symptom:** map named `save_mapseen`/`load_mapseen` cemetery JSON
+  persist. C writes `final_resting_place` via `savecemetery` on each
+  mapseen and restores it in `load_mapseen`, so `#overview` cemetery
+  survives save/restore off-level. JS cloned cemetery in-memory
+  (D-1659) but `dosave0` never persisted `mapseenchn` or
+  `level.bonesinfo`.
+- **C locus:** `dungeon.c` `save_mapseen` `:2694–2717`;
+  `load_mapseen` `:2720–2754`; `save_dungeon` mapseen walk
+  `:179–187`; `restore_dungeon` `:251–262`; `save.c`
+  `savecemetery` `:616–637` (also savelev `:505`); `restore.c`
+  `restcemetery` `:987–1017` (also getlev `:1102`); `rm.h`
+  cemetery who/how/when sizes.
+- **JS was:** no `save_mapseen`; bones.js local `serCemetery` clone
+  for bones files only.
+- **Fix:** JSON analogue of branch_index + feat/flags/custom/msrooms
+  + `savecemetery`; restore after branches; savelev `bonesinfo`;
+  bones.js uses the live helpers. Rule #2: no fs.
+- **JS:** `js/dungeon.js` `save_mapseen`/`load_mapseen`/
+  `savecemetery`/`restcemetery`; `js/save.js` `dosave0`/
+  `try_restore_save`; `js/bones.js`.
+- **Not this iter:** knox/drawbridge castle flags;
+  `yyyymmddhhmmss` when[]; `save_dungeon` tune/level_info/inv_pos;
+  print_mapseen cemetery is D-1659.
+- **Verified:** private canary **20**/20 (round-trip who/how/frpx/
+  brindx/custom; empty flag -1; old-save leave-chain; clone-once
+  after restore); green+strict seed8000/0900; CURRENT cohort
+  **7**/7 + restore seed0013 + strict (10/10 with green).
+- **Files:** `js/dungeon.js`, `js/save.js`, `js/bones.js`.
+
 ## D-1684 — shk.c pay_billed_items via_menu; delete pay_take_canned_billed
 
 - **Status:** fixed (Must-fix review **637** QUALITY-RISK; not a public FAIL)
