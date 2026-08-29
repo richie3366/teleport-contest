@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `topl.c` `tty_yn_function` `tty_nhbell` (named). Not post-answer toplines.
 - [ ] `getline.c` `kill_char` (named). Not EDIT_GETLIN.
 - [ ] `files.c` tribute (named). Not putmsghistory.
 - [ ] `questpgr.c` `convert_line` pronoun `%Xh` (named). Not com_pager_core.

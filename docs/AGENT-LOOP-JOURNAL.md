@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1631 termcap.c tty_nhbell / yn cury+intr
+
+**Objective:** Open `topl.c` `tty_yn_function` `tty_nhbell` (named).
+Not post-answer toplines.
+**C locus:** `win/tty/termcap.c` `tty_nhbell` `:750–757`;
+`topl.c` `tty_yn_function` `:475–478`/`:518`/`:544–548`;
+optlist silent On; `AppendLongDigit`.
+**JS locus:** `js/display.js` `tty_nhbell` / `tty_yn_clean_up_tty`;
+`js/getline.js` `yn_function`; `js/jsmain.js` silent; `help_dir`.
+**Change:** silent default On; yn invalid + digit abort bell;
+wrap `cw->cury` clears leftover not `gt.toplines`; `intr--`.
+kill_char named. Rule #2: no stdout BEL.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** leftover/cury canary; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `getline.c` `kill_char`. Not EDIT_GETLIN.
+**Blocked:** none.
 ## 2026-08-29 — D-1630 do_wear.c menu_remarm
 
 **Objective:** Open `do_wear.c` `menu_remarm` (named). Not take_off

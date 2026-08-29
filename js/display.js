@@ -1285,6 +1285,10 @@ let _toplines = '';
 let _toplin = TOPLINE_EMPTY;
 // C wintty.h ttyDisplay->inread — getline/yn set this; command ^P is 0.
 let _tty_inread = 0;
+// C wintty.h DisplayDesc.intr — non-zero if inread was interrupted
+// (wintty.c tty_wait_synch `:3643` ++). yn clean_up decrements (D-1631);
+// getline.c hooked_tty_getlin `:102–105` still named.
+let _tty_intr = 0;
 
 /** C wintty.h ttyDisplay->inread. Getline always zeros it around
  *  tty_doprev_message (D-1611). yn zeros it only when prevmsg_window!='s'
@@ -1297,6 +1301,51 @@ export function get_tty_inread() {
 export function set_tty_inread(n) {
     _tty_inread = n | 0;
 }
+
+/**
+ * C win/tty/termcap.c tty_nhbell `:750–757`.
+ * `if (flags.silent) return;` then `putchar('\007')` / `fflush(stdout)`
+ * (curx unchanged). optlist.h silent is opt_out default On.
+ * BEL is not an 80x24 cell; do not write stdout (Rule #2 / Chrome /
+ * runner pollution). Callers still invoke this so `!silent` is one
+ * branch away. getline.c kill_char / wintty menu MENU_SEARCH still named.
+ */
+export function tty_nhbell() {
+    if (game.flags?.silent !== false) return;
+}
+
+/**
+ * C topl.c topl_putsym after putsyms: `cw->curx = ttyDisplay->curx`
+ * and wrap `\n` copies `cw->cury = ttyDisplay->cury`. yn paint records
+ * the wrap cursor so clean_up `if (cw->cury)` matches C.
+ * @param {number} curx
+ * @param {number} cury
+ */
+export function tty_yn_note_msg_cursor(curx, cury) {
+    const cw = ensure_message_win();
+    cw.curx = curx | 0;
+    cw.cury = cury | 0;
+}
+
+/**
+ * C topl.c tty_yn_function `:544–548`.
+ * `if (ttyDisplay->intr) ttyDisplay->intr--;`
+ * `if (wins[WIN_MESSAGE]->cury) tty_clear_nhwindow(WIN_MESSAGE)`.
+ * NHW_MESSAGE clear blanks the window + toplin EMPTY + zeros cury;
+ * it does not wipe gt.toplines (D-1623 rewrite stays). Unwrapped
+ * prompts keep leftover (`cury==0` skips the call).
+ */
+export function tty_yn_clean_up_tty() {
+    if (_tty_intr) _tty_intr--;
+    const cw = _msg_cw;
+    if (cw && cw.cury) {
+        game._pending_message = '';
+        _toplin = TOPLINE_EMPTY;
+        cw.curx = 0;
+        cw.cury = 0;
+    }
+}
+
 let _win_stop = false;
 // C ref: wintty.h WIN_NOSTOP — urgent message; one-shot, blocks WIN_STOP
 let _win_nostop = false;
@@ -1312,7 +1361,7 @@ let _morc = 0;
 // index; rows stays at the ring size. tty_doprev_message is D-1601.
 // restore.c restore_msghistory still named. getline.c ^P is D-1611;
 // yn ^P is D-1612. get_count historicmsg is D-1613. yn post-answer
-// prompt+key is D-1623.
+// prompt+key is D-1623. tty_nhbell / cw->cury / intr is D-1631.
 const MSG_HISTORY_MIN = 20;
 let _msg_cw = null;
 // C topl.c snapshot_mesgs — shared by tty_getmsghistory / tty_putmsghistory
@@ -1326,7 +1375,7 @@ let _saved_pline_index = 0;
 /**
  * C wintty.c tty_create_nhwindow NHW_MESSAGE `:885–954`.
  * Clamp msg_history then allocate `rows` slots; maxrow starts at 0.
- * @returns {{ flags: number, rows: number, maxrow: number, maxcol: number, data: (string|null)[], datlen: number[] }}
+ * @returns {{ flags: number, rows: number, maxrow: number, maxcol: number, curx: number, cury: number, data: (string|null)[], datlen: number[] }}
  */
 function ensure_message_win() {
     if (_msg_cw) return _msg_cw;
@@ -1338,6 +1387,8 @@ function ensure_message_win() {
         rows,
         maxrow: 0,
         maxcol: 0,
+        curx: 0,
+        cury: 0,
         data: new Array(rows).fill(null),
         datlen: new Array(rows).fill(0),
     };
@@ -1639,6 +1690,7 @@ export function reset_display_messages() {
     _dismiss_more = 0;
     _morc = 0;
     _tty_inread = 0;
+    _tty_intr = 0;
     _msg_cw = null;
     _snapshot_mesgs = null;
     _putmsghistory_initd = false;
@@ -1663,8 +1715,8 @@ export function mark_topline_prompt(text) {
  * C topl.c tty_yn_function clean_up `:532–542`.
  * `Sprintf(gt.toplines, "%s%s", prompt, rtmp)` then DUMPLOG_CORE
  * `dumplogmsg`. `addtopl(rtmp)` is commented out — leftover
- * (`_pending_message`) stays the painted prompt. Does not
- * `tty_clear_nhwindow` when `cw->cury` (wrap) or `ttyDisplay->intr--`.
+ * (`_pending_message`) stays the painted prompt unless wrap set
+ * `cw->cury` (D-1631 `tty_yn_clean_up_tty`).
  * @param {string} text prompt+key2txt or prompt+#yn_number
  */
 export function tty_yn_rewrite_toplines(text) {
@@ -1718,10 +1770,20 @@ export function hooked_getlin_epilogue(suppress_history) {
  * without going through pline's NEED_MORE path).
  */
 export function clear_nhwindow_message() {
-    if (_toplin === TOPLINE_EMPTY && !(game._pending_message)) return;
+    if (_toplin === TOPLINE_EMPTY && !(game._pending_message)) {
+        if (_msg_cw) {
+            _msg_cw.curx = 0;
+            _msg_cw.cury = 0;
+        }
+        return;
+    }
     _toplines = '';
     _toplin = TOPLINE_EMPTY;
     game._pending_message = '';
+    if (_msg_cw) {
+        _msg_cw.curx = 0;
+        _msg_cw.cury = 0;
+    }
 }
 
 // ── ANSI color codes ──
@@ -4446,7 +4508,7 @@ export async function more() {
             _morc = c;
             break;
         }
-        // tty_nhbell(); discard
+        tty_nhbell();
     }
 
     _toplines = '';

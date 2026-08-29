@@ -1,3 +1,34 @@
+## D-1631 — termcap.c tty_nhbell / topl.c tty_yn_function invalid + cury/intr
+
+- **Status:** fixed (map-driven Open from D-1630; not a public FAIL)
+- **Symptom:** map named `tty_nhbell`. C rings the terminal bell on
+  invalid yn keys and on digit-arm abort, then at clean_up decrements
+  `ttyDisplay->intr` and clears WIN_MESSAGE when `cw->cury` (wrap).
+  JS retried invalid keys with no call, skipped the window tail, and
+  never initialized `flags.silent` (opt_out default On).
+- **C locus:** `win/tty/termcap.c` `tty_nhbell` `:750–757`;
+  `win/tty/topl.c` `tty_yn_function` `:475–478` / `:515–518` /
+  `:544–548`; `include/optlist.h` silent On; `include/integer.h`
+  `AppendLongDigit`. Windowproc `nhbell`. yn post-answer is D-1623.
+- **JS was:** named omit after D-1623 (`tty_yn_clean_up` rewrite only;
+  comment said `tty_nhbell` + retry). `more`/`help_dir` had comments.
+- **Fix:** live `tty_nhbell` (`flags.silent !== false` returns; no
+  stdout BEL — Rule #2 / Chrome / 80x24). yn invalid + digit abort
+  call it. Paint records wrap cursor; `cury!=0` blanks leftover
+  overlay without wiping `gt.toplines`. `intr--`. `AppendLongDigit`
+  overflow retries without a bell. `more`/`help_dir` call sites.
+  `jsmain` silent default On. kill_char / getlin tty_nhbell / wintty
+  MENU_SEARCH / `tty_wait_synch` `intr++` named.
+- **JS:** `js/display.js` `tty_nhbell` / `tty_yn_note_msg_cursor` /
+  `tty_yn_clean_up_tty`; `js/getline.js` `yn_function` /
+  `yn_collect_number`; `js/jsmain.js`; `js/dothrow.js` `help_dir`.
+- **Not this iter:** getline.c `kill_char` / getlin empty-erase bell /
+  hooked_tty_getlin `intr--`; wintty MENU_SEARCH / PICK_NONE invalid;
+  `tty_wait_synch` increment. yn post-answer is D-1623. yn ^P is
+  D-1612. EDIT_GETLIN is D-1624.
+- **Verified:** leftover/cury canary; green+strict seed8000/0900;
+  cohort **7**/7 + strict (9/9 with green).
+
 ## D-1630 — do_wear.c menu_remarm / pickup.c query_category query_objlist
 
 - **Status:** fixed (map-driven Open from D-1629; not a public FAIL)

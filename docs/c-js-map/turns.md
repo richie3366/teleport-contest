@@ -1589,7 +1589,8 @@ optlist addr named); run>=2 boulder `pline_dir` D-1226; **`dolookaround` D-1217*
 #1132; ≡C tty_yn_function); **`yn_function` `'\0'` def skips `(c)` + 
 returns def on ESC/quitchars** (D-0421; matches tty `if (def)`); 
 **`yn_function` SUPPRESS_HISTORY `show_topl` hard-wrap via `topl_wrap_echo` (cursor after CO-1 
-wrap)** (D-0880); **post-answer `gt.toplines=prompt+key2txt`/`#N` D-1623** (`topl.c` `:532–542` rewrite + dumplogmsg, not addtopl; leftover painted prompt; `cw->cury` clear / `ttyDisplay->intr` / `tty_nhbell` named); 
+wrap)** (D-0880); **post-answer `gt.toplines=prompt+key2txt`/`#N` D-1623** (`topl.c` `:532–542` rewrite + dumplogmsg, not addtopl; leftover painted prompt); 
+**`tty_nhbell` / `cw->cury` / `intr` D-1631** (`termcap.c` `:750–757` + `topl.c` `:475–478`/`:518`/`:544–548`; optlist silent default On; unwrapped `cury==0` keeps leftover; wrapped clear does not wipe `gt.toplines`; `more`/`help_dir` call sites; getline kill_char / wintty MENU_SEARCH / `tty_wait_synch` `intr++` named); 
 **`message_menu` PICK_ONE + `more` dismiss_more** (D-0422); 
 **`Norep` vs `gp.prevmsg` (last shown pline)** (D-0402; msgtype regex table deferred); 
 **botl `_statusLine1` `rank_of(ulevel)` via `xlev_to_rank` + full `roles[].title[9]`** (D-0562; 
@@ -1616,7 +1617,7 @@ livelog addbranch); **insight ^X endgame dungeon via shared `endgamelevelname`**
 `cls` `botlx`; spell `uen` `botl`** (D-0314); omit livelog file write; 
 full `update_topl` NON_EMPTY cury/docorner; backspace-across-wrap; 
 **putmsghistory D-1588** (`topl.c` `tty_putmsghistory` + `remember_topl`/`msghistory_snapshot`/`dumplogmsg`; getobj force_invmenu qbuf); 
-**tty_doprev_message D-1601** (`topl.c` `:19–119` + `redotoplin` `:121–141`; TTY `'s'` single ring walk / `'f'` full / `'c'` combo / `'r'` reversed NHW_MENU; `cmd.c` `doprev_message` ^P/`#prevmsg`; `options.c` `msg_window` first-char); **getline.c ^P D-1611** (`hooked_tty_getlin` `:105–141` zeros `inread` around callee; `'s'`/`'c'`&&!doprev two calls first then continue; else restore prompt; `get_ext_cmd` same C fn; SPECIAL_PROMPT + `gt.toplines`); **yn ^P D-1612** (`topl.c` `tty_yn_function` `:434–463` + `:394–396` inread++/SPECIAL + `:544–545` inread--; non-`'s'` zeros inread then restore; `'s'` two calls first then discards next key; not getline `hooked_getlin_ctrl_p`); **get_count historicmsg D-1613** (`cmd.c` `:5009–5090` + getobj `:1944` `GC_SAVEHIST`; not putmsghistory body); **restore_msghistory D-1614**; **yn post-answer prompt+key D-1623** (`topl.c` `:532–542`; leftover not addtopl; yn ^P is D-1612); files.c tribute / kill_char / `tty_nhbell` / `cw->cury` clear / `ttyDisplay->intr` named; **EDIT_GETLIN D-1624** (`config.h:655` commented; live `#else *bufp='\0'` + `name_from_player` + `query_annotation` replace/`describe_level` + epilogue dumplogmsg/suppress_history); 
+**tty_doprev_message D-1601** (`topl.c` `:19–119` + `redotoplin` `:121–141`; TTY `'s'` single ring walk / `'f'` full / `'c'` combo / `'r'` reversed NHW_MENU; `cmd.c` `doprev_message` ^P/`#prevmsg`; `options.c` `msg_window` first-char); **getline.c ^P D-1611** (`hooked_tty_getlin` `:105–141` zeros `inread` around callee; `'s'`/`'c'`&&!doprev two calls first then continue; else restore prompt; `get_ext_cmd` same C fn; SPECIAL_PROMPT + `gt.toplines`); **yn ^P D-1612** (`topl.c` `tty_yn_function` `:434–463` + `:394–396` inread++/SPECIAL + `:544–545` inread--; non-`'s'` zeros inread then restore; `'s'` two calls first then discards next key; not getline `hooked_getlin_ctrl_p`); **get_count historicmsg D-1613** (`cmd.c` `:5009–5090` + getobj `:1944` `GC_SAVEHIST`; not putmsghistory body); **restore_msghistory D-1614**; **yn post-answer prompt+key D-1623** (`topl.c` `:532–542`; leftover not addtopl; yn ^P is D-1612); **tty_nhbell / `cw->cury` / `intr` D-1631**; files.c tribute / kill_char / getlin tty_nhbell / getline.c `intr--` named; **EDIT_GETLIN D-1624** (`config.h:655` commented; live `#else *bufp='\0'` + `name_from_player` + `query_annotation` replace/`describe_level` + epilogue dumplogmsg/suppress_history); 
 full message/window policy incomplete; `%-2d` pad; Upolyd mh botl; 
 **`timebot` via `flags.time_botl` on `moves++`** (D-0928 #1179; tty→`bot()`; 
 VIA_WINDOWPORT `stat_update_time` / `bot_disabled` / `suppress_map_output` deferred)
@@ -1631,10 +1632,10 @@ JS: `js/getline.js`, `js/do_name.js`, `js/dungeon.js` — partial
 `query_annotation` `:2508–2545` `#else` replace prompt + other-level
 `describe_level` dflgs 0/2; epilogue `:173–186` dumplogmsg unless
 extcmd `suppress_history`; two-arg `getlin`; `find_mapseen` early-out);
-**getline ^P D-1611**; yn post-answer D-1623; yn ^P D-1612.
-kill_char / tty_nhbell / `cw->cury` / `intr` / do_mgivenname `'m'` /
-overview PICK_ONE named. Do not enable EDIT_GETLIN (would drop the
-replace prompt).
+**getline ^P D-1611**; yn post-answer D-1623; yn ^P D-1612;
+**tty_nhbell yn D-1631**. kill_char / getlin tty_nhbell / getline.c
+`intr--` / do_mgivenname `'m'` / overview PICK_ONE named. Do not
+enable EDIT_GETLIN (would drop the replace prompt).
 
 ### `src/restore.c` `restore_msghistory` / `restore_gamelog` / `src/save.c` `save_msghistory` / `save_gamelog`
 
@@ -1721,7 +1722,7 @@ canletgo/Mjollnir/too-heavy/welded/wet-towel / petrify `:139–148`; dig is D-13
 **`hurtle_step` dest-typ `switch_terrain` after flush** D-1277; 
 endmultishot/drag_ball/drown/trap pass-over/check_special_room/steed 
 `u_on_newpos`/petrify/`place_monster` vs rloc deferred)**; 
-**`help_dir` More = `xwaitforspace(quitchars)` only** (D-0451; non-quitchar bells+retry); 
+**`help_dir` More = `xwaitforspace(quitchars)` only** (D-0451; non-quitchar `tty_nhbell` D-1631); 
 **`getdir_cmdassist` `flush_topl_more` before prompt** (D-0093); 
 **`throw_obj` multishot + `multishot_class_bonus` + `rnd(multishot)`** (D-0093); 
 **`throwit`→`stackobj`** (D-0094); **`throwit` land `cansee`→`newsym`** (D-0427; 

@@ -109,6 +109,8 @@ export class NethackGame {
         g.plname = opts.name || '';
         g.flags = {
             verbose: true,
+            // C optlist.h NHOPTB silent — opt_out default On
+            silent: true,
             // C options.c initoptions_base — disclose default 'n'*6; tombstone on
             end_disclose: 'n'.repeat(6),
             tombstone: true,
@@ -130,6 +132,7 @@ export class NethackGame {
         }
         if (g.flags.tips == null) g.flags.tips = true;
         if (g.flags.confirm == null) g.flags.confirm = true;
+        if (g.flags.silent == null) g.flags.silent = true;
         if (!g.flags.end_disclose || typeof g.flags.end_disclose !== 'string') {
             g.flags.end_disclose = 'n'.repeat(6);
         }

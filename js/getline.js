@@ -1,9 +1,9 @@
 // getline.js — Line input and extended-command entry.
 // C ref: win/tty/getline.c tty_getlin / hooked_tty_getlin / tty_get_ext_cmd
 // plus win/tty/topl.c tty_yn_function (yn ^P is D-1612; post-answer
-// prompt+key is D-1623, not getline ^P).
+// prompt+key is D-1623; tty_nhbell / cw->cury / intr is D-1631).
 // EDIT_GETLIN is D-1624 (`config.h` commented out — live `#else`).
-// (partial: kill_char / tty_nhbell named).
+// (partial: kill_char named; getlin tty_nhbell still named).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -12,7 +12,8 @@ import {
     clear_nhwindow_message, tty_doprev_message,
     get_tty_inread, set_tty_inread, prevmsg_reset_maxcol,
     mark_topline_special_prompt, hooked_getlin_release_prompt,
-    hooked_getlin_epilogue, tty_yn_rewrite_toplines,
+    hooked_getlin_epilogue, tty_yn_rewrite_toplines, tty_nhbell,
+    tty_yn_note_msg_cursor, tty_yn_clean_up_tty,
 } from './display.js';
 import { key2txt } from './dokeylist.js';
 import {
@@ -1058,7 +1059,8 @@ export async function paranoid_query(be_paranoid, prompt) {
  * C topl.c tty_yn_function `:394–396` / `:544–545`: SPECIAL_PROMPT,
  * inread++, then inread-- and NON_EMPTY. Getlin uses the same inread
  * pair (D-1611) but a different ^P dispatcher. Post-answer gt.toplines
- * rewrite is D-1623 (not this pair).
+ * rewrite is D-1623 (not this pair). tty_nhbell / cw->cury / intr is
+ * D-1631 (not post-answer toplines).
  */
 function hooked_yn_begin() {
     set_tty_inread(get_tty_inread() + 1);
@@ -1111,7 +1113,8 @@ async function tty_yn_ctrl_p(c, doprev, restorePrompt) {
  * `if (yn_number) Sprintf(rtmp, "#%ld")` else `key2txt(q, rtmp)`;
  * rewrite `gt.toplines` to prompt+rtmp (not `addtopl`). DUMPLOG_CORE
  * `dumplogmsg` lives in `tty_yn_rewrite_toplines`. Leftover stays the
- * painted prompt. `cw->cury` clear / `ttyDisplay->intr` named.
+ * painted prompt. `cw->cury` clear / `ttyDisplay->intr` is D-1631
+ * (`tty_yn_clean_up_tty`).
  * @param {string} prompt
  * @param {string} q
  * @returns {string}
@@ -1125,6 +1128,7 @@ function tty_yn_clean_up(prompt, q) {
         rtmp = key2txt(code);
     }
     tty_yn_rewrite_toplines(`${prompt}${rtmp}`);
+    tty_yn_clean_up_tty();
     return q;
 }
 
@@ -1138,9 +1142,10 @@ function tty_yn_clean_up(prompt, q) {
  * update_topl word-wrap — see topl_wrap_echo.
  *
  * After a valid answer, C rewrites gt.toplines to prompt+key2txt (or
- * #yn_number) without addtopl (D-1623). Silent follow-ups (e.g.
- * dipfountain case 16 curse with no pline) keep the painted yn text
- * until rhack clears after the next-command nhgetch capture.
+ * #yn_number) without addtopl (D-1623). Unwrapped leftover stays
+ * painted (`cw->cury==0` skips clear). Wrapped prompts (`cury!=0`)
+ * run tty_clear_nhwindow and drop leftover (D-1631). Silent
+ * follow-ups keep the unwrapped leftover until rhack's parse clear.
  * When resp contains '#', digits collect C yn_number and return '#'.
  */
 export async function yn_function(query, resp = 'yn', def = 'n') {
@@ -1174,6 +1179,7 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
         await flush_screen(1);
         const disp = game.nhDisplay;
         if (disp?.setCursor) disp.setCursor(col, row);
+        tty_yn_note_msg_cursor(col, row);
         // Capture leftover is the unwrapped prompt (D-0512); keep SPECIAL
         // so redotoplin more() is skipped during ^P (C otoplin).
         game._pending_message = prompt;
@@ -1204,7 +1210,11 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
                 return tty_yn_clean_up(prompt, def);
             }
             const digit_ok = allow_num && ch >= '0' && ch <= '9';
-            if (!resp.includes(ch) && !digit_ok) continue;
+            if (!resp.includes(ch) && !digit_ok) {
+                // C topl.c tty_yn_function `:475–478` tty_nhbell + q=0 retry
+                tty_nhbell();
+                continue;
+            }
             if (ch === '#' || digit_ok) {
                 const num = await yn_collect_number(prompt, ch, preserve);
                 if (num == null) {
@@ -1218,11 +1228,28 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
             if (resp.includes(ch)) {
                 return tty_yn_clean_up(prompt, ch);
             }
-            // invalid — C tty_nhbell + retry
+            tty_nhbell();
         }
     } finally {
         hooked_yn_end();
     }
+}
+
+/**
+ * C include/integer.h AppendLongDigit `:120–124`.
+ * Contest hosts are LP64; JS Number is exact through 2^53. yn_number
+ * gameplay stays below that; overflow still yields -1 and retries
+ * without a bell (C `value < 0` break).
+ * @param {number} L
+ * @param {number} D
+ * @returns {number}
+ */
+function AppendLongDigit(L, D) {
+    const longMax = Number.MAX_SAFE_INTEGER;
+    const q = Math.trunc(longMax / 10);
+    const r = longMax % 10;
+    if (L < q || (L === q && D <= r)) return L * 10 + D;
+    return -1;
 }
 
 /** C topl.c tty_yn_function '#' / digit arm — yn_number. */
@@ -1240,6 +1267,7 @@ async function yn_collect_number(prompt, firstCh, preserve) {
         await flush_screen(1);
         const disp = game.nhDisplay;
         if (disp?.setCursor) disp.setCursor(col, row);
+        tty_yn_note_msg_cursor(col, row);
     };
     await paint();
     for (;;) {
@@ -1247,8 +1275,8 @@ async function yn_collect_number(prompt, firstCh, preserve) {
         let z = String.fromCharCode(zc);
         if (!preserve) z = z.toLowerCase();
         if (z >= '0' && z <= '9') {
-            const next = value * 10 + (z.charCodeAt(0) - 48);
-            if (next < 0 || next > 0x7fffffff) return null;
+            const next = AppendLongDigit(value, z.charCodeAt(0) - 48);
+            if (next < 0) return null;
             value = next;
             echo += z;
             await paint();
@@ -1265,6 +1293,8 @@ async function yn_collect_number(prompt, firstCh, preserve) {
             await paint();
             continue;
         }
+        // C `:515–518` abort + tty_nhbell then removetopl retry
+        tty_nhbell();
         return null;
     }
 }

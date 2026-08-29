@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `do_wear.c` `menu_remarm` (named). Not take_off occupation. **Addressed:** D-1630
+- [x] `topl.c` `tty_yn_function` `tty_nhbell` (named). Not post-answer toplines. **Addressed:** D-1631
+
+
+- [x] `do_wear.c` `menu_remarm` (named). Not take_off occupation. **Addressed:** D-1630 `a2992805`
 
 
 - [x] `dog.c` `free_edog` (named). Not initedog ogoal. **Addressed:** D-1629 `54c89bcc`

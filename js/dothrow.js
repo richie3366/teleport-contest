@@ -8,6 +8,7 @@ import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, newsym, mark_topline_seen,
     canseemon, canspotmon, nh_delay_output, tmp_at, obj_glyph, verbalize,
+    tty_nhbell,
 } from './display.js';
 import { cansee, vision_recalc } from './vision.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -2477,7 +2478,7 @@ async function help_dir(msg) {
     for (;;) {
         const k = await nhgetch();
         if (k === 27 || k === 32 || k === 13 || k === 10) break;
-        // tty_nhbell — no-op in this port
+        tty_nhbell();
     }
     game._menu_overlay = false;
     await docrt();
