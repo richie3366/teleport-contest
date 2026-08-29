@@ -821,7 +821,7 @@ function ini_inv_adjust_obj(trop, obj) {
 // C ref: invent.c assigninvlet() — keep existing a-z/A-Z letter when free
 // (e.g. steal → freeinv → later addinv of the same obj). Named omissions:
 // display_used_invlets; NOINVSYM edge polish when pack full.
-function assigninvlet(otmp) {
+export function assigninvlet(otmp) {
     if (otmp.oclass === COIN_CLASS) {
         otmp.invlet = GOLD_SYM;
         return;

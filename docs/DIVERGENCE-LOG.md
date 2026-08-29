@@ -1,3 +1,31 @@
+## D-1621 — invent.c adjust_split GC_ECHOFIRST|GC_CONDHIST
+
+- **Status:** fixed (map-driven Open from D-1620; not a public FAIL)
+- **Symptom:** itemactions `'I'` / `#altadjust` had no `adjust_split`. C
+  `getobj("split")` then, for quan>2, yn first digit + `get_count` with
+  `GC_ECHOFIRST|GC_CONDHIST`, `splitobj`, `doorganize_core`. JS `get_count`
+  already had those flags (D-1613) but no caller, and `doorganize_core`
+  did not detect nobj splits so cancel would drop the split-off stack.
+- **C locus:** `invent.c` `adjust_split` `:5007–5065`; callee
+  `doorganize_core` `:5067–5286` (nobj parent, `"Split %ld"`, unsplit
+  `merged` on cancel, bump `assigninvlet`). Caller `iactions.c`
+  `itemactions_pushkeys` `:194–197` `cmdq_add_ec(adjust_split)`
+  INTERNALCMD `"altadjust"` + invlet. `get_count` `:5009–5090` is D-1613.
+- **JS was:** named omit after D-1613 (flags live; `adjust_split` absent;
+  nobj-unsplit named).
+- **Fix:** `adjust_split` + splice child like `getobj_split_otmp` (D-0924
+  splitobj still does not invent[]-insert). `doorganize_core` nobj detect,
+  unsplit cancel, occupied bump. IA_ADJUST_STACK queues `altadjust`.
+  Export existing `assigninvlet` (no clone). Rule #2: no fs.
+- **JS:** `js/invent.js` `adjust_split` / `doorganize_core`; `js/iactions.js`
+  pushkeys; `js/u_init.js` `assigninvlet` export.
+- **Not this iter:** wonky-gold / `check_invent_gold` / `adjust_gold_ok`;
+  `invlet_constant` lets truncate; IA_ADJUST_OBJ pushkeys; typed `#altadjust`
+  (INTERNALCMD skipped). get_count body is D-1613. floor `query_classes`
+  is D-1620.
+- **Verified:** private canary **12**/12; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1620 — pickup.c floor TRADITIONAL query_classes
 
 - **Status:** fixed (map-driven Open from D-1619; not a public FAIL)

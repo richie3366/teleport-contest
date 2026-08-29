@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1621 invent.c adjust_split
+
+**Objective:** Open `invent.c` `adjust_split` GC_ECHOFIRST|GC_CONDHIST
+(named). Not get_count.
+**C locus:** `invent.c` `adjust_split` `:5007–5065`; `doorganize_core`
+nobj `:5089–5239`; caller `iactions.c` `itemactions_pushkeys`
+IA_ADJUST_STACK.
+**JS locus:** `js/invent.js` `adjust_split` / `doorganize_core`;
+`js/iactions.js` pushkeys; `js/u_init.js` `assigninvlet` export.
+**Change:** getobj `"split"` + yn digit + `get_count` flags then
+`splitobj`+core. Cancel unsplit. Occupied bump. `#altadjust`
+INTERNALCMD canned. wonky-gold named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **12**/12; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `questpgr.c` `com_pager_core` synopsis. Not
+restore_msghistory.
+**Blocked:** none.
 ## 2026-08-29 — review D-1612–D-1620 (audit #2020)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **572**;

@@ -25,6 +25,9 @@
 // D-1599: sortloot SORTLOOT_PETRIFY filter override + will_feel_cockatrice.
 // D-1600: perm_invent InvInUse (prepare_perminvent invmode + WIN_INVEN filter).
 // D-1602: ggetobj takeoff/identify askchain (MENU_TRADITIONAL).
+// D-1621: invent.c adjust_split GC_ECHOFIRST|GC_CONDHIST
+//        (itemactions IA_ADJUST_STACK / #altadjust; doorganize_core
+//        nobj-split). Not get_count (D-1613).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -36,7 +39,9 @@ import {
 import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin } from './getline.js';
 import { get_count } from './cmd.js';
-import { mergable, is_damageable, stop_timer, splitobj } from './mkobj.js';
+import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs } from './mkobj.js';
+import { inv_cnt } from './steal.js';
+import { assigninvlet } from './u_init.js';
 import { cansee } from './vision.js';
 import {
     WEAPON_CLASS,
@@ -68,6 +73,7 @@ import {
     Never_mind,
     ECMD_OK,
     ECMD_CANCEL,
+    ECMD_FAIL,
     WIN_ERR,
     OBJ_FREE,
     OBJ_INVENT,
@@ -102,6 +108,8 @@ import {
     thats_enough_tries,
     LARGEST_INT,
     GC_SAVEHIST,
+    GC_ECHOFIRST,
+    GC_CONDHIST,
     HANDS_SYM,
     InvInUse,
     InvShowGold,
@@ -126,6 +134,7 @@ import {
     GETOBJ_EXCLUDE_NONINVENT,
     GETOBJ_ALLOWCNT,
     GETOBJ_PROMPT,
+    GETOBJ_NOFLAGS,
     CMDQ_KEY,
     CMDQ_EXTCMD,
     CMDQ_USER_INPUT,
@@ -216,6 +225,7 @@ function Blind() {
 
 const OTYP_LEASH = objectNames.indexOf('LEASH');
 const OTYP_CORPSE = objectNames.indexOf('CORPSE');
+const OTYP_GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 
 /**
  * C invent.c inuse_headers — [4] "Accessories"; dispinv_with_action may
@@ -5460,7 +5470,7 @@ function adjust_suggest_lets() {
  * Count prefix + split_otmp live. Canned CMDQ_INT/KEY live.
  * `?`/`*` → display_pickinv `&ctmp` (D-1559). force_invmenu auto
  * `?`/`*` + redo_menu (D-1578). Typed '-' mime_action (D-1579).
- * doorganize_core nobj-unsplit named.
+ * doorganize_core nobj-split is D-1621; wonky-gold named.
  */
 async function getobj_adjust() {
     const cq = getobj_from_cmdq(adjust_ok, true);
@@ -5573,6 +5583,9 @@ function extract_invent(obj) {
     const inv = game.invent || [];
     const i = inv.indexOf(obj);
     if (i >= 0) inv.splice(i, 1);
+    for (const o of inv) {
+        if (o.nobj === obj) o.nobj = obj.nobj || null;
+    }
 }
 
 /** C ref: invent.c reorder_invent — bubble by invlet ^ 040. */
@@ -5751,12 +5764,22 @@ export async function display_used_invlets(avoidlet = 0) {
 }
 
 /**
- * C ref: invent.c doorganize_core — destination pick + move/collect/swap/merge.
- * Deferred: gold adjust, pack-full bump. display_used_invlets is D-1591.
- * getobj count-split is live; nobj splitting / unsplitobj on cancel named.
+ * C invent.c doorganize_core `:5067–5286` — destination pick +
+ * move/collect/swap/merge, plus nobj split from splitobj (adjust_split
+ * / getobj ALLOWCNT). display_used_invlets is D-1591.
+ * Named: wonky-gold / invlet_constant truncate / check_invent_gold.
  */
 async function doorganize_core(obj) {
     if (!obj) return ECMD_CANCEL;
+
+    // C `:5089–5096` — splitobj left parent.nobj==child, same invlet.
+    let splitting = null;
+    for (const otmp of game.invent || []) {
+        if (otmp.nobj === obj && otmp.invlet === obj.invlet) {
+            splitting = otmp;
+            break;
+        }
+    }
 
     // Build candidate destination letters (C lets[] then blank used + compactify)
     const letsArr = new Array(1 + INVLET_BASIC + 1).fill(' ');
@@ -5777,43 +5800,48 @@ async function doorganize_core(obj) {
     let lets = letsArr.filter((c) => c !== ' ').join('');
     if (lets.length > 5) lets = compactify_invlets(lets);
 
-    let qbuf = `Adjust letter to what [${lets}]`;
+    // C `:5137–5142` — "Split N" when nobj-split, else "Adjust letter"
+    let qbuf = splitting
+        ? `Split ${obj.quan}`
+        : 'Adjust letter';
+    qbuf += ` to what [${lets}]`;
     if (game.invent?.length) qbuf += ' (? see used letters)';
     qbuf += '?';
 
     let ever_mind = false;
     let let_;
+    const noadjust = async () => {
+        if (splitting) unsplitobj(obj);
+        if (!ever_mind) await pline(Never_mind);
+        return ECMD_OK;
+    };
     for (let trycnt = 1; ; ++trycnt) {
         let_ = await yn_function(qbuf, null, '\0');
         if (let_ === '?' || let_ === '*') {
-            // C `:5144–5150` — splitting ? obj->invlet : 0 (nobj-split named)
-            let_ = await display_used_invlets(0);
+            // C `:5144–5150` — splitting ? obj->invlet : 0
+            let_ = await display_used_invlets(splitting ? obj.invlet : 0);
             if (!let_) continue;
-            if (let_ === '\x1b') {
-                if (!ever_mind) await pline(Never_mind);
-                return ECMD_OK;
-            }
+            if (let_ === '\x1b') return noadjust();
         }
-        if (QUITCHARS.includes(let_)) {
-            if (!ever_mind) await pline(Never_mind);
-            return ECMD_OK;
+        if (QUITCHARS.includes(let_)
+            || (splitting && let_ === obj.invlet)) {
+            return noadjust();
         }
         if (let_ === GOLD_SYM_ADJ && obj.oclass !== COIN_CLASS) {
             await pline(`Only gold coins may be moved into the '${GOLD_SYM_ADJ}' slot.`);
-            // C: ever_mind → noadjust skips Never_mind
-            return ECMD_OK;
+            ever_mind = true;
+            return noadjust();
         }
         const isLetter = /[a-zA-Z]/.test(let_) && let_ !== '@';
         if (isLetter || (lets.includes(let_) && let_ !== '-')) break;
-        if (trycnt === 5) {
-            if (!ever_mind) await pline(Never_mind);
-            return ECMD_OK;
-        }
+        if (trycnt === 5) return noadjust();
         await pline('Select an inventory slot letter.');
     }
 
     const collect = let_ === obj.invlet;
-    let adj_type = collect ? 'Collecting:' : 'Moving:';
+    let adj_type = collect ? 'Collecting:'
+        : !splitting ? 'Moving:'
+            : 'Splitting:';
     let bumped = null;
 
     extract_invent(obj);
@@ -5842,8 +5870,35 @@ async function doorganize_core(obj) {
                 extract_invent(obj);
                 break;
             }
-            adj_type = 'Swapping:';
-            otmp.invlet = obj.invlet;
+            if (!splitting) {
+                adj_type = 'Swapping:';
+                otmp.invlet = obj.invlet;
+            } else {
+                // C `:5205–5239` — strip from-name, merge or bump / pack-full
+                const objname = invent_obj_name(obj);
+                if (objname && !obj.oartifact) {
+                    if (!obj.oextra) obj.oextra = {};
+                    obj.oextra.oname = '';
+                }
+                if (!mergable(otmp, obj)) {
+                    if (objname) {
+                        if (!obj.oextra) obj.oextra = {};
+                        obj.oextra.oname = objname;
+                    }
+                }
+                if (invent_merged(otmp, obj)) {
+                    adj_type = 'Splitting and merging:';
+                    obj = otmp;
+                    extract_invent(obj);
+                } else if (inv_cnt(false) >= INVLET_BASIC) {
+                    unsplitobj(obj);
+                    await pline('Your pack is too full.');
+                    return ECMD_OK;
+                } else {
+                    bumped = otmp;
+                    extract_invent(bumped);
+                }
+            }
             break;
         }
         i++;
@@ -5855,12 +5910,71 @@ async function doorganize_core(obj) {
     game.invent.unshift(obj);
     reorder_invent_adjust();
     if (bumped) {
-        // pack-full bump path deferred
-        void bumped;
+        assigninvlet(bumped);
+        bumped.where = OBJ_INVENT;
+        game.invent.unshift(bumped);
+        reorder_invent_adjust();
     }
 
     await prinv_adjust(adj_type, obj);
+    if (bumped) await prinv_adjust('Moving:', bumped);
+    if (splitting) clear_splitobjs();
+    update_inventory();
     return ECMD_OK;
+}
+
+/**
+ * C invent.c adjust_split `:5007–5065` — itemactions IA_ADJUST_STACK
+ * (#altadjust). Queued invlet answers getobj("split"); quan==2 splits
+ * 1 without a prompt; else yn first digit then get_count
+ * GC_ECHOFIRST|GC_CONDHIST. Not get_count itself (D-1613).
+ * @returns {Promise<number>} ECMD_FAIL / ECMD_CANCEL / doorganize_core
+ */
+export async function adjust_split() {
+    const obj0 = await getobj('split', adjust_ok, GETOBJ_NOFLAGS);
+    if (!obj0 || (obj0.quan || 1) < 2 || obj0.otyp === OTYP_GOLD_PIECE) {
+        return ECMD_FAIL;
+    }
+
+    let splitamount = 0;
+    if ((obj0.quan || 1) === 2) {
+        splitamount = 1;
+    } else {
+        const dig = await yn_function('Split off how many?', null, '\0');
+        if (dig < '0' || dig > '9') {
+            await pline(Never_mind);
+            return ECMD_CANCEL;
+        }
+        const box = { n: 0 };
+        const letCode = await get_count(
+            null, dig, 0, box, GC_ECHOFIRST | GC_CONDHIST,
+        );
+        const let_ = String.fromCharCode(letCode & 0xff);
+        // \033 is in quitchars; treat as cancel rather than accept
+        if (!let_ || let_ === '\x1b' || !QUITCHARS.includes(let_)) {
+            await pline(Never_mind);
+            return ECMD_CANCEL;
+        }
+        splitamount = box.n;
+    }
+    if (splitamount < 1 || splitamount >= (obj0.quan || 1)) {
+        const Amount = 'Amount to split from current stack must be';
+        if (splitamount < 1) await pline(`${Amount} at least 1.`);
+        else await pline(`${Amount} less than ${obj0.quan}.`);
+        return ECMD_CANCEL;
+    }
+
+    // C splitobj threads child onto nobj (= invent). JS splitobj leaves
+    // invent[] unspliced (D-0924); splice like getobj_split_otmp.
+    const child = splitobj(obj0, splitamount);
+    if (!child) return ECMD_FAIL;
+    const inv = game.invent;
+    if (inv) {
+        const i = inv.indexOf(obj0);
+        if (i >= 0) inv.splice(i + 1, 0, child);
+    }
+    child.where = OBJ_INVENT;
+    return doorganize_core(child);
 }
 
 /**

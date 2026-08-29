@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` `adjust_split` GC_ECHOFIRST|GC_CONDHIST caller (named). Not get_count.
 - [ ] `questpgr.c` `com_pager_core` synopsis (named). Not restore_msghistory.
 - [ ] `topl.c` `tty_yn_function` post-answer `toplines=prompt+key` (named). Not yn ^P.
 - [ ] `getline.c` EDIT_GETLIN (named). Not getline ^P.
