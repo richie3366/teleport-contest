@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1630 do_wear.c menu_remarm
+
+**Objective:** Open `do_wear.c` `menu_remarm` (named). Not take_off
+occupation.
+**C locus:** `do_wear.c` `menu_remarm` `:3089–3138`; callees
+`pickup.c` `query_category` / `query_objlist` / `is_worn_by_type`.
+**JS locus:** `js/do_wear.js` `menu_remarm`; `js/pickup.js` exports.
+**Change:** MENU_FULL category then invent USE_INVLET PICK_ANY;
+COMBINATION ggetobj combo; TRADITIONAL `'m'` retry. `obj_to_glyph`
+named.
+**Score:** fortress 44/44 (cadence #2030). Green+cohort PASS.
+**Verified:** single-class skip canary; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `tty_nhbell`. Not post-answer toplines.
+**Blocked:** none.
 ## 2026-08-29 — review D-1621–D-1629 (audit #2030)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **581**;

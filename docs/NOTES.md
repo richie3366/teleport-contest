@@ -5,19 +5,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1629 (cadence **#2030** at `54c89bcc`).
+- **Suite 44/44** after D-1630 (cadence **#2030** at `54c89bcc`).
   seed4500 still PASS. Reviews **582–590** ACCEPT-WITH-DEBT (no
-  Must-fix). **Hypothesis:** Open `do_wear.c` `menu_remarm` (named)
-  is the next map cluster. Not take_off occupation.
-  **Falsify:** `node scripts/csym.mjs menu_remarm`;
-  `node scripts/map.mjs do_wear.c`.
-  **Next:** Open menu_remarm. Do not skip D-1531…D-1629. No FORCE
+  Must-fix). **Hypothesis:** Open `topl.c` `tty_yn_function`
+  `tty_nhbell` (named) is the next map cluster. Not post-answer
+  toplines.
+  **Falsify:** `node scripts/csym.mjs tty_nhbell`;
+  `node scripts/map.mjs topl.c`.
+  **Next:** Open tty_nhbell. Do not skip D-1531…D-1630. No FORCE
   / `wildmiss` wrap / trailing `confdir` in shared `getdir`. Do not
-  glue onto free_edog (D-1629) or restore_gamelog (D-1628). Do not
-  re-port D-1621…D-1629.
+  glue onto menu_remarm (D-1630) or free_edog (D-1629). Do not
+  re-port D-1621…D-1630.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; `restore_cham` / `rescham`; `restore_luadata`;
-  `menu_remarm`; ggetobj drop; tty WIN_INVEN / `#perminv` /
+  ggetobj drop; tty WIN_INVEN / `#perminv` /
   `optfn_perminv_mode`; BIND= `seeall` / M('?'); ACH_ASTR;
   setworn oc_oprop; newcham mleashed / keepdogs / grow_up leash;
   read.c light-scroll `initedog`; pickup tip-spill / squeaky /
@@ -34,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1629.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1630.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,9 +46,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1629 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1630 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1629. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1630. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -58,15 +59,20 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1629 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1630 live in the index. Do not glue
   yn ^P onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603). Do not restore
   zap `bhit` sticky `u.Blind||u.ublind` (D-1604). Do not re-port
-  D-1605…D-1629 (index; free_edog is D-1629; restore_gamelog is
-  D-1628; DISMOUNT_THROWN is D-1627; remaps named).
+  D-1605…D-1630 (index; menu_remarm is D-1630; free_edog is D-1629;
+  restore_gamelog is D-1628; DISMOUNT_THROWN is D-1627; remaps named).
 
 ## Landmarks (≤15)
 
+- D-1630: `menu_remarm` MENU_FULL `query_category` then invent
+  `query_objlist` PICK_ANY `is_worn`/`is_worn_by_type`; COMBINATION
+  `ggetobj` combo ALL_FINISHED; TRADITIONAL `'m'` retry.
+  `obj_to_glyph` / INCLUDE_HERO / ParanoidAutoAll named. take_off
+  occupation is D-1619.
 - D-1629: `free_edog` drop EDOG then `mtame=0`; restmon `newedog` +
   apport≤0→1; savemon fills mextra.edog. JSON absolute times.
   read.c light-scroll `initedog` named. initedog ogoal is D-1610.
@@ -92,12 +98,10 @@ Objective/score live in `CURRENT.md`.
 - D-1620: floor TRADITIONAL `query_classes` + yn/`pickup_object`.
   hideunder/`safe_qbuf` named. traditional_loot is D-1581.
 - D-1619: `take_off` occupation + `do_takeoff` + `Amulet_off` ESP/
-  RESTFUL/GUARDING. `menu_remarm` named. ggetobj takeoff D-1602.
+  RESTFUL/GUARDING. menu_remarm is D-1630. ggetobj takeoff D-1602.
 - D-1618: MS_HUMANOID peaceful + `"threatens you."` + MS_ORC remap.
   Gnome `rn2(4)`. mplayer_talk D-1606. MS_BOAST is D-1626.
 - D-1617: `dog_move` Conflict `!edog` `lose_guardian_angel` then
   `MMOVE_DIED`. Body D-1608. DISMOUNT_THROWN is D-1627.
 - D-1616: `reset_hostility` isminion emin vs ualign → hostile
   `set_malign`/`newsym`. `final_level` `iter_mons`. ACH_ASTR named.
-- D-1615: `consume_obj_charge` known `update_inventory` after `spe--`.
-  Pickup tip-spill / trap squeaky / use_grease named.

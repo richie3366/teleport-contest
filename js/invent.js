@@ -521,7 +521,7 @@ const GGETOBJ_REMOVEABLES = [
 /**
  * C invent.c ggetobj `:2199–2369`. Interactive Drop/Identify/Takeoff.
  * Traditional getlin class prompt then askchain. combo ALL_FINISHED
- * for Combination menu_remarm is implemented; that caller is named.
+ * for Combination menu_remarm (D-1630).
  * display_inventory lets/`i` ESC abort live; cmdq pickinv named.
  *
  * @param {string} word

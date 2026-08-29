@@ -766,7 +766,10 @@ fedora, weld/trap gates; **`doddoremarm`/`A` empty-worn You are not wearing anyt
 **ggetobj takeoff D-1602** (`doddoremarm` TRADITIONAL `select_off` + `askchain`) + 
 **`take_off` occupation D-1619** (`do_takeoff` + `takeoff_order` + `oc_delay`; 
 cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fly named; 
-`cancel_doff` named) / **`menu_remarm` FULL/COMBINATION named**; 
+`cancel_doff` named) / **`menu_remarm` D-1630** (C `do_wear.c` `:3089–3138` MENU_FULL 
+`query_category(WORN|ALL|UNPAID|BUCX)` then `query_objlist(SIGNAL_NOMENU|USE_INVLET|INVORDER_SORT)` 
+PICK_ANY `is_worn`/`is_worn_by_type`; COMBINATION `ggetobj` combo; TRADITIONAL `'m'` retry -2/-3; 
+callees `js/pickup.js`; `obj_to_glyph` display RNG / INCLUDE_HERO / ParanoidAutoAll named); 
 full cloak/helm simple-name variants; **other `*_on` still call `find_ac` (C often does not — 
 named)**
 

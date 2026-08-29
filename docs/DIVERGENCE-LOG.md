@@ -1,3 +1,28 @@
+## D-1630 — do_wear.c menu_remarm / pickup.c query_category query_objlist
+
+- **Status:** fixed (map-driven Open from D-1629; not a public FAIL)
+- **Symptom:** map named `menu_remarm`. C `'A'` / `#takeoffall` MENU_FULL
+  shows worn-type `query_category` then `query_objlist` PICK_ANY then
+  `select_off`. JS `doddoremarm` skipped that arm after D-1619.
+- **C locus:** `do_wear.c` `menu_remarm` `:3089–3138` caller
+  `doddoremarm` `:3037–3040`. Callees `pickup.c` `query_category`
+  `:1225–1508`, `query_objlist` `:1024–1216`, `is_worn_by_type`
+  `:608–612`, `count_categories` `:1510–1536`.
+- **JS was:** named omit after D-1619 (`doddoremarm` empty if
+  `menu_style != TRADITIONAL` or ggetobj `'m'`).
+- **Fix:** live `menu_remarm`; MENU_FULL category then invent
+  USE_INVLET object list; COMBINATION `ggetobj` combo +
+  ALL_FINISHED; TRADITIONAL `'m'` retry. Rule #2: no fs.
+- **JS:** `js/do_wear.js` `menu_remarm`; `js/pickup.js` exports;
+  `js/invent.js` ggetobj combo comment.
+- **Not this iter:** `obj_to_glyph` display RNG; INCLUDE_HERO;
+  ParanoidAutoAll; floor `query_objlist_pickup` / loot
+  `query_loot_category` clones remain. take_off occupation is
+  D-1619; ggetobj takeoff is D-1602.
+- **Verified:** single-class `query_category` skip +
+  `is_worn_by_type` class filter; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1629 — dog.c free_edog / restore.c restmon newedog
 
 - **Status:** fixed (map-driven Open from D-1628; not a public FAIL)

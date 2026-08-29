@@ -1,7 +1,7 @@
 // do_wear.js — Wear / take-off / put-on (partial).
 // C ref: do_wear.c — dowear, doputon, canwearobj, accessory_or_armor_on,
 // Amulet_on, Amulet_off, Armor_on, dotakeoff, doddoremarm, take_off,
-// do_takeoff, armor_or_accessory_off, armoroff, *_off.
+// do_takeoff, menu_remarm, armor_or_accessory_off, armoroff, *_off.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -19,8 +19,11 @@ import { nomul, unmul, stop_occupation } from './hack.js';
 import { retouch_object, set_artifact_intrinsic } from './artifact.js';
 import { welded, setuwep, setuswapwep, setuqwep, empty_handed } from './wield.js';
 import { set_occupation } from './engrave.js';
-import { makeknown, observe_object, ggetobj } from './invent.js';
-import { add_valid_menu_class } from './pickup.js';
+import { makeknown, observe_object, ggetobj, is_worn } from './invent.js';
+import {
+    add_valid_menu_class, menu_class_present, query_category, query_objlist,
+    is_worn_by_type,
+} from './pickup.js';
 import { obj_resists } from './dogmove.js';
 import {
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_ARMOR,
@@ -36,7 +39,9 @@ import {
     DRAIN_RES, SICK_RES, INFRAVISION, STONE_RES, SLOW_DIGESTION, FREE_ACTION,
     BOLT_LIM, LEFT_HANDED, GLIB, FROMOUTSIDE,
     ARTICLE_YOUR, SUPPRESS_SADDLE, SUPPRESS_HALLUCINATION,
-    MENU_TRADITIONAL, MENU_FULL,
+    MENU_TRADITIONAL, MENU_COMBINATION, MENU_FULL,
+    ALL_FINISHED, ALL_TYPES_SELECTED, ALL_TYPES, WORN_TYPES, UNPAID_TYPES,
+    BUCX_TYPES, SIGNAL_NOMENU, USE_INVLET, INVORDER_SORT, PICK_ANY,
     HAND, FOOT, TT_BEARTRAP, TT_INFLOOR, P_SHORT_SWORD, P_SABER,
 } from './const.js';
 import { x_monnam } from './do_name.js';
@@ -1441,7 +1446,7 @@ async function do_takeoff() {
 /**
  * C do_wear.c take_off `:2899–2987`. Occupation for 'A' / #takeoffall.
  * Delay uses oc_delay; cloak/suit extra when taking armor or shirt;
- * occupation start subtracts 1. menu_remarm FULL/COMBINATION named.
+ * occupation start subtracts 1. menu_remarm is D-1630.
  * @returns {Promise<number>} 1 still busy, 0 finished
  */
 async function take_off() {
@@ -1518,11 +1523,69 @@ async function take_off() {
 }
 
 /**
+ * C do_wear.c menu_remarm `:3089–3138`.
+ * MENU_FULL: query_category then query_objlist PICK_ANY.
+ * MENU_COMBINATION: ggetobj combo then the same object list.
+ * retry from TRADITIONAL `'m'` (ggetobj -2/-3).
+ * Named omit: obj_to_glyph in query_objlist; ParanoidAutoAll (not passed).
+ * @param {number} retry
+ * @returns {Promise<number>} 0
+ */
+async function menu_remarm(retry) {
+    let all_worn_categories = true;
+
+    if (retry) {
+        all_worn_categories = (retry === -2);
+    } else if ((game.flags?.menu_style ?? MENU_FULL) === MENU_FULL) {
+        all_worn_categories = false;
+        const cats = await query_category(
+            'What type of things do you want to take off?',
+            game.invent,
+            WORN_TYPES | ALL_TYPES | UNPAID_TYPES | BUCX_TYPES,
+            PICK_ANY,
+        );
+        if (!cats.length) return 0;
+        for (const pick of cats) {
+            if (pick.a_int === ALL_TYPES_SELECTED) all_worn_categories = true;
+            else add_valid_menu_class(pick.a_int);
+        }
+    } else if ((game.flags?.menu_style ?? MENU_FULL) === MENU_COMBINATION) {
+        const ggofeedback = { bits: 0 };
+        const i = await ggetobj('take off', select_off, 0, true, ggofeedback);
+        if (ggofeedback.bits & ALL_FINISHED) return 0;
+        all_worn_categories = (i === -2);
+    }
+    if (menu_class_present('u')
+        || menu_class_present('B') || menu_class_present('U')
+        || menu_class_present('C') || menu_class_present('X')) {
+        all_worn_categories = false;
+    }
+
+    const allow = all_worn_categories ? is_worn : is_worn_by_type;
+    const { n, pick_list } = await query_objlist(
+        'What do you want to take off?',
+        game.invent,
+        SIGNAL_NOMENU | USE_INVLET | INVORDER_SORT,
+        PICK_ANY,
+        allow,
+    );
+    if (n > 0) {
+        for (const pick of pick_list) {
+            await select_off(pick.obj);
+        }
+    } else if (n < 0
+        && (game.flags?.menu_style ?? MENU_FULL) !== MENU_COMBINATION) {
+        await pline('There is nothing else you can remove or unwield.');
+    }
+    return 0;
+}
+
+/**
  * C ref: do_wear.c doddoremarm — #takeoffall / 'A'.
  * Empty-worn: You("are not wearing anything.") ECMD_OK.
  * MENU_TRADITIONAL ggetobj("take off", select_off) + askchain (D-1602).
- * take_off occupation after mask (D-1619). Named omit: menu_remarm
- * when not traditional or `'m'`.
+ * take_off occupation after mask (D-1619). menu_remarm FULL/COMBINATION
+ * + TRADITIONAL `'m'` (D-1630).
  */
 export async function doddoremarm() {
     const u = game.u || {};
@@ -1541,9 +1604,11 @@ export async function doddoremarm() {
 
     add_valid_menu_class(0);
     const style = game.flags?.menu_style ?? MENU_FULL;
+    let result = 0;
     if (style !== MENU_TRADITIONAL
-        || (await ggetobj('take off', select_off, 0, false, null)) < -1) {
-        /* menu_remarm named omit */
+        || (result = await ggetobj('take off', select_off, 0, false, null))
+            < -1) {
+        await menu_remarm(result);
     }
     if (to.mask) {
         to.disrobing = ((to.mask & ~W_WEAPONS) !== 0)
