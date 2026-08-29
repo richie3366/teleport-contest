@@ -8,7 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
-## 2026-08-29 — D-1685 dungeon.c save_mapseen cemetery JSON
+## 2026-08-29 — D-1686 iactions.c remaining pushkeys rub/swap/whatis
+
+**Objective:** Open `iactions.c` remaining pushkeys rub/swap/whatis
+(named). Not two-weapon.
+**C locus:** `iactions.c` `itemactions_pushkeys` IA_RUB_OBJ `:221–224`
+/ IA_SWAPWEAPON `:257–258` / IA_WHATIS_OBJ `:267–271`; `pager.c`
+`do_look` `:1692–1700`; `invent.c` `display_inventory` `:3427–3452`.
+**JS locus:** `js/iactions.js` `itemactions_pushkeys`; `js/pager.js`
+`do_look`; `js/invent.js` `display_inventory`.
+**Change:** queue `dorub`+invlet, `doswapweapon`, `dowhatis` `'i'`+
+invlet; `do_look` cmdq_pop KEY skip-menu; `display_inventory` canned KEY;
+deleted `pick_inventory_letter`. Named: Traditional itemize / full apply.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **17**/17; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `invent.c` Traditional itemize yn. Not cheapest_item.
+**Blocked:** none.
+
 
 **Objective:** Open `dungeon.c` save_mapseen cemetery JSON (named).
 Not print_mapseen cemetery.

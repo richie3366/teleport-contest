@@ -8,10 +8,10 @@
 // + IA_SACRIFICE / IA_TIP_CONTAINER / IA_INVOKE_OBJ (D-1665) +
 // IA_UNWIELD / IA_NAME_OBJ / IA_NAME_OTYP / IA_EAT_OBJ /
 // IA_ENGRAVE_OBJ (D-1675) + IA_BUY_OBJ shop pay (D-1676) +
-// IA_TWOWEAPON (D-1677).
-// Named omissions: remaining pushkeys (rub/swap/whatis);
-// full apply catalogue; doengrave non-hands stylus body;
-// Traditional itemize yn. `'i'` getobj is D-1681.
+// IA_TWOWEAPON (D-1677) + IA_RUB_OBJ / IA_SWAPWEAPON / IA_WHATIS_OBJ
+// (D-1686).
+// Named omissions: full apply catalogue; doengrave non-hands stylus
+// body; Traditional itemize yn. `'i'` getobj is D-1681.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -61,7 +61,7 @@ function cmdq_add_key(ch) {
  * IA_SACRIFICE / IA_TIP_CONTAINER / IA_INVOKE_OBJ are D-1665.
  * IA_UNWIELD / IA_NAME_* / IA_EAT_OBJ / IA_ENGRAVE_OBJ are D-1675.
  * IA_BUY_OBJ is D-1676. IA_TWOWEAPON is D-1677.
- * Named omissions: rub/swap/whatis.
+ * IA_RUB_OBJ / IA_SWAPWEAPON / IA_WHATIS_OBJ are D-1686.
  */
 async function itemactions_pushkeys(act, otmp) {
     switch (act) {
@@ -238,6 +238,29 @@ async function itemactions_pushkeys(act, otmp) {
         cmdq_add_ec(dotwoweapon);
         break;
     }
+    case IA_RUB_OBJ: {
+        /* C iactions.c `:221–224` — cmdq_add_ec(dorub) + invlet. */
+        const { dorub } = await import('./apply.js');
+        cmdq_add_ec(dorub);
+        cmdq_add_key(otmp.invlet);
+        break;
+    }
+    case IA_SWAPWEAPON: {
+        /* C iactions.c `:257–258` — cmdq_add_ec(doswapweapon); no invlet. */
+        const { doswapweapon } = await import('./wield.js');
+        cmdq_add_ec(doswapweapon);
+        break;
+    }
+    case IA_WHATIS_OBJ: {
+        /* C iactions.c `:267–271` — cmdq_add_ec(dowhatis) then 'i'
+           (inventory look) then invlet. do_look pops the 'i';
+           display_inventory pops the invlet (D-1686). */
+        const { dowhatis } = await import('./pager.js');
+        cmdq_add_ec(dowhatis);
+        cmdq_add_key('i');
+        cmdq_add_key(otmp.invlet);
+        break;
+    }
     default:
         // remaining arms deferred
         break;
@@ -376,10 +399,10 @@ function MAYBETWOWEAPON(obj) {
 
 /**
  * C ref: iactions.c itemactions — NHW_MENU PICK_ONE of context actions.
- * Named omissions: full apply-otyp catalogue polish;
- * remaining pushkeys (rub/swap/whatis). O/T/V pushkeys are D-1665.
- * Unwield/name/eat/engrave pushkeys are D-1675. Shop pay is D-1676.
- * Two-weapon `'X'` is D-1677.
+ * Named omissions: full apply-otyp catalogue polish.
+ * O/T/V pushkeys are D-1665. Unwield/name/eat/engrave are D-1675.
+ * Shop pay is D-1676. Two-weapon `'X'` is D-1677. Rub/swap/whatis
+ * pushkeys are D-1686.
  */
 export async function itemactions(otmp) {
     if (!otmp) return ECMD_OK;

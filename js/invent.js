@@ -49,7 +49,7 @@ import {
 } from './display.js';
 import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin } from './getline.js';
-import { get_count, pmatchi } from './cmd.js';
+import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents } from './mkobj.js';
 import { unpaid_cost } from './shk.js';
 import { s_suffix } from './do_name.js';
@@ -3083,8 +3083,31 @@ async function display_pickinv_wizid() {
  * (unid_cnt>0 PICK_ANY is D-1590).
  * Optional lets (invlets) + want_reply match C display_inventory
  * (`:3428–3452`); ggetobj `'i'` uses want_reply ESC abort (D-1602).
+ * Canned CMDQ_KEY (D-1686): cmdq_pop before display_pickinv; matching
+ * invent invlet (optional class-sym filter) returns that letter.
  */
 export async function display_inventory(lets, want_reply) {
+    /* C invent.c `:3427–3452` — cmdq_pop before display_pickinv. */
+    const cmdq = cmdq_pop();
+    if (cmdq) {
+        const isKey = cmdq.typ === CMDQ_KEY || cmdq.typ === 'key';
+        if (isKey) {
+            const keych = typeof cmdq.key === 'string'
+                ? cmdq.key
+                : String.fromCharCode(cmdq.key | 0);
+            const letsStr = lets == null ? '' : String(lets);
+            for (const otmp of game.invent || []) {
+                if (!otmp || otmp.invlet !== keych) continue;
+                if (!letsStr.length) return otmp.invlet;
+                const ocsym = def_oc_syms[otmp.oclass]?.sym;
+                if (ocsym && letsStr.includes(ocsym)) return otmp.invlet;
+            }
+        }
+        /* not a key, or no matching object — abort remaining canned */
+        cmdq_clear();
+        return '';
+    }
+
     const wizard = !!(game.flags?.debug || game.flags?.wizard);
     // C display_pickinv `:3140–3147` — n==0 returns before reassign;
     // then !invlet_constant reassign before wizid / menu.

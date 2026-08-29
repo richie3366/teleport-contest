@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1686 — iactions.c remaining pushkeys rub/swap/whatis
+
+- **Status:** fixed (map-driven Open from D-1685; not a public FAIL)
+- **Symptom:** map named remaining `itemactions_pushkeys` rub/swap/whatis.
+  C queues `dorub`+invlet, `doswapweapon` (no invlet), and `dowhatis`
+  then `'i'` then invlet. JS already offered the menu rows but
+  default-broke those acts after D-1677. `do_look` always painted the
+  look-at menu; `display_inventory` ignored canned KEY so the whatis
+  follow-up leaked into `rhack` or hung on a second menu.
+- **C locus:** `iactions.c` `itemactions_pushkeys` IA_RUB_OBJ `:221–224`,
+  IA_SWAPWEAPON `:257–258`, IA_WHATIS_OBJ `:267–271`; caller
+  `itemactions` `:707`. Callees: `pager.c` `do_look` `:1692–1700`
+  cmdq_pop KEY skip-menu, `:1822–1840` case `'i'`
+  `display_inventory(NULL, TRUE)` + `singular(xname)`; `invent.c`
+  `display_inventory` `:3427–3452` cmdq_pop KEY. `dorub`/`doswapweapon`
+  already live (D-1144 / `'x'`).
+- **JS was:** those three `itemactions_pushkeys` cases fell to silent
+  `default`; `do_look` always `whatis_menu_choice`; local
+  `pick_inventory_letter` clone instead of `display_inventory`.
+- **Fix:** three pushkeys; `do_look` cmdq_pop KEY (else `cmdq_clear`);
+  live `display_inventory` canned KEY; lookup `singular(xname)`;
+  deleted `pick_inventory_letter`. Named: Traditional itemize; full
+  apply catalogue; `doswapweapon` cantwield. Rule #2: no fs.
+- **JS:** `js/iactions.js` `itemactions_pushkeys`; `js/pager.js`
+  `do_look`; `js/invent.js` `display_inventory`.
+- **Not this iter:** Traditional itemize yn; `cheapest_item`;
+  doengrave non-hands stylus; `doswapweapon` cantwield; lootabc true;
+  full apply catalogue. Two-weapon is D-1677.
+- **Verified:** private canary **17**/17 (C queue text; itemactions
+  R/x/ queues; `display_inventory` canned hit/miss; `do_look` canned
+  `q`; `dorub` canned lantern; `dowhatis` canned `i`+invlet);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+- **Files:** `js/iactions.js`, `js/pager.js`, `js/invent.js`.
+
 ## D-1685 — dungeon.c save_mapseen cemetery JSON persist
 
 - **Status:** fixed (map-driven Open from D-1684; not a public FAIL)

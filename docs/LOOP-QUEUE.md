@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `iactions.c` remaining pushkeys rub/swap/whatis (named). Not two-weapon.
 - [ ] `invent.c` Traditional itemize yn (named). Not cheapest_item.
 - [ ] `shk.c` cheapest_item early return (named). Not Traditional itemize.
 - [ ] `engrave.c` doengrave non-hands stylus (named). Not IA_ENGRAVE pushkeys.
