@@ -4,7 +4,8 @@
 // prompt+key is D-1623; tty_nhbell / cw->cury / intr is D-1631).
 // EDIT_GETLIN is D-1624 (`config.h` commented out — live `#else`).
 // kill_char / empty-erase bell / invalid-key bell / getline `intr--`
-// are D-1632.
+// are D-1632. ESC-nonempty fallthrough (else tty_nhbell / doprev) is
+// D-1639.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -147,13 +148,36 @@ function hooked_getlin_apply_intr(st) {
 }
 
 /**
+ * C getline.c hooked_tty_getlin `:85–91` then fall through `:102–211`.
+ * Nonempty ESC clears `obufp`, redraws the prompt, and does **not**
+ * `continue` — C then runs `intr`, `doprev` restore, and else
+ * `tty_nhbell()` because `'\033'` is not erase/enter/printable/kill.
+ * Empty ESC (`:92–99`) is cancel (`obufp[0]='\033'; break`).
+ * @param {number} c
+ * @param {{ buf: string, cursor: number }} st
+ * @param {() => Promise<void>} paint
+ * @returns {Promise<'cancel'|'fallthrough'>}
+ */
+async function hooked_getlin_handle_esc(c, st, paint) {
+    if (c !== 27) return 'fallthrough';
+    if (st.buf.length > 0) {
+        st.buf = '';
+        st.cursor = 0;
+        await paint();
+        return 'fallthrough';
+    }
+    return 'cancel';
+}
+
+/**
  * C getline.c hooked_tty_getlin `:142–211` after ESC and C('p').
  * NEWAUTOCOMP (`:11`) is on except MACOS9 — erase NULs at the new
  * cursor (drops autocomplete suffix); kill spaces the suffix then
  * `\b \b` back to obufp and NULs. Empty erase bells; empty kill does
  * not. Printable that fails the length test falls through to kill,
  * then else tty_nhbell. `@` as kill_char is last so it can still
- * insert when the buffer accepts it.
+ * insert when the buffer accepts it. ESC after a nonempty clear
+ * lands here (not erase/enter/insert/kill) → else `tty_nhbell`.
  * @param {number} c
  * @param {{ buf: string, cursor: number }} st
  * @returns {'enter'|'insert'|'loop'}
@@ -198,8 +222,9 @@ const EDIT_GETLIN = false;
  * C ref: windows.c getlin → tty_getlin → hooked_tty_getlin.
  * Prompt + echo until Enter/ESC. ^P walks tty_doprev_message (D-1611).
  * kill_char / `\177` wipe the buffer (D-1632); empty erase and other
- * rejected keys tty_nhbell. `bufp` is C's in/out buffer; ignored unless
- * EDIT_GETLIN (off here).
+ * rejected keys tty_nhbell. Nonempty ESC clears then falls through
+ * (D-1639) so else `tty_nhbell` / `doprev` still run. `bufp` is C's
+ * in/out buffer; ignored unless EDIT_GETLIN (off here).
  * Returns the buffer string ("" on empty Enter, "\033" on ESC with empty buf).
  * @param {string} query
  * @param {string} [bufp]
@@ -233,13 +258,9 @@ export async function getlin(query, bufp) {
         await paint();
         for (;;) {
             const c = await nhgetch();
-            if (c === 27) { // ESC — C handles this before C('p')
-                if (st.buf.length > 0) {
-                    st.buf = '';
-                    st.cursor = 0;
-                    await paint();
-                    continue;
-                }
+            /* C hooked_tty_getlin `:85–91` nonempty ESC: clear+redraw,
+             * then fall through (no continue). Empty ESC cancels. */
+            if (await hooked_getlin_handle_esc(c, st, paint) === 'cancel') {
                 return '\x1b';
             }
             hooked_getlin_apply_intr(st);
@@ -970,13 +991,9 @@ export async function get_ext_cmd() {
         await paint();
         for (;;) {
             const c = await nhgetch();
-            if (c === 27) {
-                if (st.buf.length > 0) {
-                    st.buf = '';
-                    st.cursor = 0;
-                    await paint();
-                    continue;
-                }
+            /* Same C hooked_tty_getlin as getlin — nonempty ESC falls
+             * through to intr / doprev / else tty_nhbell (D-1639). */
+            if (await hooked_getlin_handle_esc(c, st, paint) === 'cancel') {
                 return -1;
             }
             hooked_getlin_apply_intr(st);

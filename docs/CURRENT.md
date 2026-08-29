@@ -62,27 +62,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1638 (seed4500 still PASS). **Next cluster:**
-Must-fix `getline.c` `hooked_tty_getlin` ESC-nonempty must fall
-through to else `tty_nhbell` (and `intr`/`doprev`), not `continue`
-after clear. Same in `get_ext_cmd`. Source: reviews **593**.
-**Do not skip D-1531…D-1638 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1639 (seed4500 still PASS). **Next cluster:**
+Open `steed.c` `landing_spot` KNOCKED preferred-dir (named). Not
+DISMOUNT_THROWN.
+**Do not skip D-1531…D-1639 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1638.** Do not FORCE
+**Do not re-break D-0660…D-1639.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1638 (index). Recent: **D-1638**
+**Keep:** D-0845…D-1639 (index). Recent: **D-1639**
+`hooked_tty_getlin` ESC-nonempty fallthrough (`intr`/`doprev`/else
+`tty_nhbell`). Not kill_char. Not MENU_SEARCH. Prior: **D-1638**
 `do_mgivenname` / `alreadynamed` + `fuzzymatch` / swallow
 `disp_kind`. Not `'o'`/`rename_disco`. Not `lookup_novel`.
-Prior: **D-1637** `restore_cham` getlev catchup + With_you; PfSC
-uprops. Not normal_shape. Not newcham mleashed. Older D-1531…D-1636
-live in the index — do not re-paste.
+**D-1637** `restore_cham` getlev catchup + With_you. Older
+D-1531…D-1636 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1638 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1639 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -117,6 +117,7 @@ Do not re-port `free_edog` / restmon `newedog`.
 Do not re-port `menu_remarm`.
 Do not re-port `tty_nhbell` / yn `cw->cury` / `intr`.
 Do not re-port kill_char / getlin empty-erase bell / getline `intr--`.
+Do not re-port ESC-nonempty fallthrough / `hooked_getlin_handle_esc`.
 Do not re-port `read_tribute` / `choose_passage` / `Death_quote` / SPE_NOVEL.
 Do not re-port `convert_line` pronoun `%Xh` / `qtext_pronoun`.
 Do not re-port `doddrop` / ggetobj drop / `menu_drop`.

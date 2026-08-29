@@ -10,6 +10,8 @@
 - JS / map: `getline.js` `hooked_getlin_edit_key` / `hooked_getlin_apply_intr`. `c-js-map/turns.md`.
 - Prior reviews this SHA claims to close: **585** named `kill_char` / `tty_nhbell`; **592** named getline `:160`/`:211`.
 
+**Addressed:** D-1639
+
 ## Intent vs deliverable
 
 Git subject promises: `kill_char` (POSIX C('U')) wipes the buffer, empty erase and rejected keys `tty_nhbell`, and getline decrements `ttyDisplay->intr` then NULs at `bufp`, instead of treating DEL as erase-one and dropping Ctrl-U after D-1631.

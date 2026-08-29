@@ -1643,9 +1643,11 @@ extcmd `suppress_history`; two-arg `getlin`; `find_mapseen` early-out);
 **tty_nhbell yn D-1631**. **kill_char D-1632** (`:196–209` NEWAUTOCOMP
 wipe; POSIX VERASE=DEL / VKILL=C('U') so `erase_char||'\\b'` covers
 BS+DEL; empty erase + else `tty_nhbell`; `:102–105` `intr--` `*bufp=0`;
-`getlin`/`get_ext_cmd`). do_mgivenname `'m'` / overview PICK_ONE /
-wintty MENU_SEARCH / `tty_wait_synch` `intr++` named. Do not
-enable EDIT_GETLIN (would drop the replace prompt).
+`getlin`/`get_ext_cmd`). **ESC-nonempty D-1639** (`:85–91` clear then
+fall through `:102–211` `intr`/`doprev`/else `tty_nhbell`; JS had
+`continue` after clear; `hooked_getlin_handle_esc` on both callers).
+wintty MENU_SEARCH / `tty_wait_synch` `intr++` / `gettty` termios
+named. Do not enable EDIT_GETLIN (would drop the replace prompt).
 
 ### `src/restore.c` `restore_msghistory` / `restore_gamelog` / `src/nhlua.c` `restore_luadata` / `save_luadata` / `src/save.c` `save_msghistory` / `save_gamelog`
 

@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `getline.c` `hooked_tty_getlin` ESC-nonempty must fall through to else `tty_nhbell` (and `intr`/`doprev`), not `continue` after clear. Same in `get_ext_cmd`. Source: reviews/loop-unattended/593-20fa20b3-kill-char.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `steed.c` `landing_spot` KNOCKED preferred-dir (named). Not DISMOUNT_THROWN.

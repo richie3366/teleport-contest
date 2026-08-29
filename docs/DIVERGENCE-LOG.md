@@ -1,3 +1,28 @@
+## D-1639 — getline.c hooked_tty_getlin ESC-nonempty fallthrough
+
+- **Status:** fixed (Must-fix review **593**; not a public FAIL)
+- **Symptom:** C `hooked_tty_getlin` nonempty ESC clears `obufp` and
+  redraws, then falls through to `intr`, `doprev` restore, and else
+  `tty_nhbell()` (`'\033'` is not erase/enter/printable/kill). JS
+  `continue`d after clear (review **593** QUALITY-RISK), skipping
+  those arms on `getlin` and `get_ext_cmd`.
+- **C locus:** `win/tty/getline.c` `hooked_tty_getlin` `:85–91` then
+  `:102–211`. Callers `tty_getlin` `:39` / `tty_get_ext_cmd` `:312`.
+  kill_char / empty-erase is D-1632. yn `tty_nhbell` is D-1631.
+- **JS was:** `if (c === 27) { clear; paint; continue; }` after D-1632.
+- **Fix:** shared `hooked_getlin_handle_esc` — nonempty returns
+  `fallthrough` so `apply_intr` / `ctrl_p` / `edit_key` else bell
+  run. Empty ESC still cancel (`"\033"` / extcmd `-1`). Silent On
+  still no-ops the BEL byte (Rule #2 / 80x24).
+- **JS:** `js/getline.js` `hooked_getlin_handle_esc` on `getlin` /
+  `get_ext_cmd`; `js/display.js` `tty_nhbell` comment.
+- **Not this iter:** `gettty` termios; `tty_wait_synch` `intr++`;
+  MENU_SEARCH; stdout BEL; EDIT_GETLIN (D-1624). kill_char is
+  D-1632. yn bells are D-1631. landing_spot named.
+- **Verified:** canary **11**/11 (source + getlin type/ESC/Enter
+  `intr` consume + `tty_nhbell` call); green+strict seed8000/0900;
+  cohort **7**/7 + strict (9/9 with green).
+
 ## D-1638 — do_name.c do_mgivenname / alreadynamed
 
 - **Status:** fixed (map-driven Open from D-1637; not a public FAIL)

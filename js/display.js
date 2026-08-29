@@ -1330,7 +1330,8 @@ export function set_tty_intr(n) {
  * BEL is not an 80x24 cell; do not write stdout (Rule #2 / Chrome /
  * runner pollution). Callers still invoke this so `!silent` is one
  * branch away. wintty menu MENU_SEARCH still named; getline
- * kill_char / empty-erase / invalid-key bells are D-1632.
+ * kill_char / empty-erase / invalid-key bells are D-1632;
+ * ESC-nonempty fallthrough else bell is D-1639.
  */
 export function tty_nhbell() {
     if (game.flags?.silent !== false) return;
