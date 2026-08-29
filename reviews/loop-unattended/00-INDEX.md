@@ -628,3 +628,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [615-e53a5df9-safe-qbuf.md](./615-e53a5df9-safe-qbuf.md) | `e53a5df9` | D-1654 objnam.c safe_qbuf / pickup prompts | **ACCEPT-WITH-DEBT** |
 | [616-d34f23ee-invlet-constant.md](./616-d34f23ee-invlet-constant.md) | `d34f23ee` | D-1655 invent.c flags.invlet_constant / reassign | **ACCEPT-WITH-DEBT** |
 | [617-9ac19d6f-use-grease.md](./617-9ac19d6f-use-grease.md) | `9ac19d6f` | D-1656 apply.c use_grease trailing update_inventory | **ACCEPT-WITH-DEBT** |
+| [618-ee4f922a-overlay-bind.md](./618-ee4f922a-overlay-bind.md) | `ee4f922a` | D-1657 cmd.c overlay BIND= on if/else keys | **ACCEPT-WITH-DEBT** |
+| [619-2ec50652-altar-god.md](./619-2ec50652-altar-god.md) | `2ec50652` | D-1658 dungeon.c print_mapseen altar-god coalign | **ACCEPT-WITH-DEBT** |
+| [620-f88e0665-cemetery-bones.md](./620-f88e0665-cemetery-bones.md) | `f88e0665` | D-1659 dungeon.c print_mapseen cemetery bones list | **ACCEPT-WITH-DEBT** |
+| [621-7504982e-docallcmd-o.md](./621-7504982e-docallcmd-o.md) | `7504982e` | D-1660 do_name.c docallcmd 'o' live getobj call | **ACCEPT-WITH-DEBT** |
+| [622-536904b4-optfn-perminv-mode.md](./622-536904b4-optfn-perminv-mode.md) | `536904b4` | D-1661 options.c optfn_perminv_mode | **QUALITY-RISK** |
+| [623-101d9d0b-qt-pager.md](./623-101d9d0b-qt-pager.md) | `101d9d0b` | D-1662 questpgr.c qt_pager common fallback | **ACCEPT-WITH-DEBT** |
+| [624-c1e99a17-dounpaid.md](./624-c1e99a17-dounpaid.md) | `c1e99a17` | D-1663 invent.c dounpaid Iu listing | **ACCEPT-WITH-DEBT** |
+| [625-88a989f0-sanity-check.md](./625-88a989f0-sanity-check.md) | `88a989f0` | D-1664 wizcmds.c sanity_check gold/invlet | **ACCEPT-WITH-DEBT** |
+| [626-784e3060-iactions-pushkeys.md](./626-784e3060-iactions-pushkeys.md) | `784e3060` | D-1665 iactions.c remaining pushkeys offer/tip/invoke | **QUALITY-RISK** |

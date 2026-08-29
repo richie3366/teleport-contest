@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — audit #2070 reviews 618–626 + cadence
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **617**
+(`ee4f922a`…`784e3060`, D-1657…D-1665) plus full `sessions`.
+**C locus:** overlay BIND=; altar-god; cemetery; `'o'` getobj;
+`optfn_perminv_mode`; `qt_pager` common; `dounpaid`; `sanity_check`
+gold/invlet; iactions offer/tip/invoke.
+**Change:** reviews **618–626**. QUALITY-RISK **622** (InvOptOn
+import) and **626** (`dosacrifice` ECMD_TIME). Must-fix prepended.
+No `js/` edits. Filled archive D-1665 `%h`.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `39+0.31/turn` (R² 0.862) at `784e3060`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Must-fix `can_set_perm_invent` import `InvOptOn`. Not
+can_set rewrite / mO / `strncmpi` #4.
+**Blocked:** none.
 ## 2026-08-29 — D-1665 iactions remaining pushkeys offer/tip/invoke
 
 **Objective:** Open `iactions.c` remaining pushkeys offer/tip/invoke

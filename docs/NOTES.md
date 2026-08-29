@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1665 (cadence **#2060** at `9ac19d6f`
-  still last full suite). seed4500 still PASS. **Hypothesis:**
-  `invent.c` `noarmor` uskin still omitted (not offer/tip/invoke
-  D-1665 / `sanity_check` D-1664).
-  **Falsify:** `node scripts/csym.mjs noarmor`.
-  **Next:** Open `invent.c` `noarmor` uskin. Not doprarm.
-  Do not skip D-1531…D-1665. Not offer/tip/invoke pushkeys.
+- **Suite 44/44** after D-1665 (cadence **#2070** at `784e3060`).
+  seed4500 still PASS. **Hypothesis:** `can_set_perm_invent`
+  (`options.c:5507–5508`) assigns `InvOptOn` without importing it
+  (review **622**). **Falsify:** `node scripts/sym.mjs InvOptOn` then
+  confirm `js/options.js` imports it. **Next:** Must-fix InvOptOn
+  import. Do not rewrite can_set / mO / `strncmpi` #4. Do not skip
+  D-1531…D-1665. Not `noarmor` until Must-fix is empty.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn oc_oprop;
   keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /

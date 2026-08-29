@@ -20,12 +20,12 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-29** — full `sessions` at **D-1656**
-(`9ac19d6f`, cadence **#2060**). **44**/44,
+Score last measured: **2026-08-29** — full `sessions` at **D-1665**
+(`784e3060`, cadence **#2070**). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `39+0.31/turn` (R² 0.861). seed0367 FULL still PASS.
+Speed `39+0.31/turn` (R² 0.862). seed0367 FULL still PASS.
 Prior FAIL seed4500 at **D-1574** `1ba35e31` is PASS again.
-Prior audit **#2050** was 44/44 at `69534fd4`.
+Prior audit **#2060** was 44/44 at `9ac19d6f`.
 
 ## Score
 
@@ -34,7 +34,7 @@ Prior audit **#2050** was 44/44 at `69534fd4`.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `39+0.31/turn` (R² 0.861) |
+| Speed label | `39+0.31/turn` (R² 0.862) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -63,7 +63,10 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1665 (seed4500 still PASS). **Next cluster:**
-Open `invent.c` `noarmor` uskin (named). Not doprarm.
+Must-fix `can_set_perm_invent` (`options.c:5507–5508`) import
+`InvOptOn` from `const.js`. Do not rewrite can_set, add
+`strncmpi` #4, or insert the mO row. Not `noarmor` uskin until
+Must-fix is empty.
 **Do not skip D-1531…D-1665 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
