@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `o_init.c` `rename_disco` (named). Not do_mgivenname.
 - [ ] `questpgr.c` `convert_arg` (named). Not convert_line %Xh.
 - [ ] `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist.
 - [ ] `do_name.c` `lookup_novel` (named). Not do_mgivenname.

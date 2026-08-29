@@ -921,9 +921,12 @@ JS: `js/do_name.js` — partial
 **`docallcmd` menu + `i`→getobj name_ok/do_oname** (D-0069/D-0928 #1147) +
 **`'m'`/`'C'` `do_mgivenname`** (D-1638; getpos + visibility + `alreadynamed` +
 `christen_monst`; `hacklib.c` `fuzzymatch`; swallow `disp_kind`; `apply.c`
-`beautiful` export; `mhe` from fountain; SetVoice empty without SND_LIB;
-call `'o'` / `o_init.c` `rename_disco` + artifact_name slip deferred); 
-**`docall`/`trycall` potion call → `oc_uname`** (D-0430; 
+`beautiful` export; `mhe` from fountain; SetVoice empty without SND_LIB) +
+**`'d'`/`'\\'` `o_init.c` `rename_disco`** (D-1647; inv_order pack, no venom
+append; `interesting_to_discover` C-home + `disco_append_typename` BUFSZ
+truncate + `append_price_quote`; dummy `dknown`/`!oc_uses_known` then `docall`;
+`oc_uses_known` extract named); 
+**`'o'` getobj `"call"` / artifact_name slip deferred**; **`docall`/`trycall` potion call → `oc_uname`** (D-0430; 
 sink-fluid/`safe_qbuf` fallbacks deferred); **`christen_monst` + tame `x_monnam` subset** (D-0079); 
 **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); 
 **`x_monnam` do_it `!canspotmon`→`it`** (D-0295; saddle adj kept); 

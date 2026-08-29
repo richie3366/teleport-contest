@@ -41,7 +41,7 @@ import {
     endgamelevelname, obj_glyph, suppress_map_output,
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
 } from './display.js';
-import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
+import { xprname, an, vtense, doname, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin } from './getline.js';
 import { get_count, pmatchi } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs } from './mkobj.js';
@@ -71,9 +71,9 @@ import {
     def_char_to_objclass,
     objectNames,
     objectNameStrs,
-    objectDescrs,
     objects,
 } from './objects.js';
+import { interesting_to_discover, disco_append_typename } from './o_init.js';
 import {
     Never_mind,
     ECMD_OK,
@@ -1630,30 +1630,6 @@ export async function process_menu_search(
         if (how === PICK_ONE) return { kind: 'finish', item: curr };
     }
     return { kind: 'toggled' };
-}
-
-/**
- * C ref: objclass.h OBJ_DESCR(objects[otyp]) —
- * obj_descr[objects[otyp].oc_descr_idx].oc_descr (post-shuffle for
- * potions/scrolls/wands).
- */
-function appearance_of(otyp) {
-    const oc = game.objects?.[otyp];
-    if (!oc) return null;
-    const idx = oc.oc_descr_idx ?? otyp;
-    return objectDescrs[idx] ?? null;
-}
-
-/** C ref: o_init.c interesting_to_discover — needs OBJ_DESCR (or uname). */
-function interesting_to_discover(otyp) {
-    // C: Samurai Japanese items always disclosed by '\'
-    if (game.urole?.mnum === PM_SAMURAI && Japanese_item_name(otyp, null))
-        return true;
-    const oc = game.objects?.[otyp];
-    if (!oc) return false;
-    if (oc.oc_uname) return true;
-    if (!(oc.oc_name_known || oc.oc_encountered)) return false;
-    return appearance_of(otyp) != null;
 }
 
 function display() {
@@ -3337,7 +3313,6 @@ export async function dodiscovered() {
     const classes = DEF_INV_ORDER.includes(VENOM_CLASS)
         ? [...DEF_INV_ORDER]
         : [...DEF_INV_ORDER, VENOM_CLASS];
-    const { append_price_quote } = await import('./shk.js');
     let ct = 0;
     for (const oclass of classes) {
         const found = [];
@@ -3356,10 +3331,11 @@ export async function dodiscovered() {
             ct++;
             const enc = !!game.objects?.[otyp]?.oc_encountered;
             const prefix = enc ? '  ' : '* ';
-            // C: disco_append_typename → disco_typename + append_price_quote
-            let buf = prefix + disco_typename(otyp);
-            buf = append_price_quote(buf, otyp);
-            lines.push({ text: buf, attr: 0 });
+            // C: Strcpy(buf, prefix); disco_append_typename(buf, dis)
+            lines.push({
+                text: disco_append_typename(prefix, otyp),
+                attr: 0,
+            });
         }
     }
     if (ct === 0) {

@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1646 (cadence **#2040** at `f9bed6be`).
-  seed4500 still PASS. **Hypothesis:** C `o_init.c` `rename_disco`
-  (named). Not `do_mgivenname` (D-1638).
-  **Falsify:** `node scripts/map.mjs o_init.c` + `csym.mjs rename_disco`.
-  **Next:** Open `rename_disco`. Do not skip D-1531…D-1646.
-  Do not glue rename_disco onto do_mgivenname. Do not re-port D-1621…D-1646.
+- **Suite 44/44** after D-1647 (cadence **#2040** at `f9bed6be`).
+  seed4500 still PASS. **Hypothesis:** C `questpgr.c` `convert_arg`
+  (named). Not `convert_line` %Xh (D-1634).
+  **Falsify:** `node scripts/map.mjs convert_arg` + `csym.mjs convert_arg`.
+  **Next:** Open `convert_arg`. Do not skip D-1531…D-1647.
+  Do not glue convert_arg onto convert_line. Do not re-port D-1621…D-1647.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; `rescham` wiz_intrinsic;
   `optfn_perminv_mode` / `handler_perminv_mode`; setworn
@@ -18,7 +18,7 @@ Objective/score live in `CURRENT.md`.
   light-scroll `initedog`; pickup tip-spill / squeaky / use_grease;
   hideunder / `safe_qbuf`; `invlet_constant` truncate; convert_arg
   `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z` / common fallback / array
-  rn2; `lookup_novel`; `rename_disco` / docallcmd `'o'`; overview
+  rn2; `lookup_novel`; docallcmd `'o'` getobj call; overview
   PICK_ONE; guardian/isshk/gecko remaps; Punished/ustuck float_down;
   water/lava steed death; uhitm DISMOUNT_KNOCKED `u.dx`;
   map_menu_cmd remaps / display_inventory loop `wait_synch`;
@@ -36,7 +36,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1646.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1647.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -47,9 +47,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1646 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1647 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1646. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1647. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -60,11 +60,12 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1646 live in the index. Do not glue yn ^P
+  `vision_reset`. D-1576…D-1647 live in the index. Do not glue yn ^P
   onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603). Do not restore
   zap `bhit` sticky `u.Blind||u.ublind` (D-1604).   Do not re-port
-  D-1605…D-1646 (MENU_SEARCH/`tty_wait_synch` is D-1646;
+  D-1605…D-1647 (`rename_disco` is D-1647;
+  MENU_SEARCH/`tty_wait_synch` is D-1646;
   `newcham` mleashed/Elbereth is D-1645;
   `goto_level` ACH_ASTR/ENDG/BGRM is D-1644;
   BIND= M('?') is D-1643; `doperminv` / tty WIN_INVEN `assesstty` is D-1642;
@@ -76,6 +77,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1647: `rename_disco` inv_order PICK_ONE of callable disco then
+  dummy `docall`; `disco_append_typename` BUFSZ + price; C-home
+  `interesting_to_discover`. `'o'` getobj call named. do_mgivenname
+  D-1638.
 - D-1646: MENU_SEARCH `:` getlin+pmatchi+toggle_menu_curr; PICK_NONE
   bell; PICK_ONE first match; explicit page/gacc `:` not search.
   `tty_wait_synch` rawprint getret / inmore addtopl / inread intr++.
@@ -105,7 +110,7 @@ Objective/score live in `CURRENT.md`.
 - D-1639: nonempty ESC `hooked_tty_getlin` falls through to `intr` /
   `doprev` / else `tty_nhbell` (review **593**). kill_char is D-1632.
 - D-1638: `do_mgivenname` / `alreadynamed`; `'m'`/`'C'`; `fuzzymatch`;
-  swallow `disp_kind`. `'o'`/`rename_disco` / `lookup_novel` named.
+  swallow `disp_kind`. `'o'` getobj call / `lookup_novel` named.
 - D-1637: `restore_cham` getlev catchup + With_you; PfSC H||E+flats.
   JSON dorecover getlev named. normal_shape D-1594.
 - D-1636: `restore_luadata`/`save_luadata` JSON lua source; `!luacore`
@@ -116,5 +121,3 @@ Objective/score live in `CURRENT.md`.
   `role_init` `godgend`/`ldrgend`. convert_arg named.
 - D-1633: `read_tribute`/`choose_passage`/`Death_quote`; SPE_NOVEL
   `ACH_NOVL`; Rule #2 embed tribute. `lookup_novel` named.
-- D-1632: `kill_char` POSIX DEL + C('U'); empty erase + invalid
-  `tty_nhbell`; getline `intr--`. MENU_SEARCH is D-1646. ESC is D-1639.

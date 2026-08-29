@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `win/tty/wintty.c` MENU_SEARCH / `tty_wait_synch` (named). Not kill_char. **Addressed:** D-1646
+- [x] `o_init.c` `rename_disco` (named). Not do_mgivenname. **Addressed:** D-1647
+
+
+- [x] `win/tty/wintty.c` MENU_SEARCH / `tty_wait_synch` (named). Not kill_char. **Addressed:** D-1646 `48758020`
 
 
 - [x] `mon.c` newcham mleashed (named). Not restore_cham. **Addressed:** D-1645 `cc8a839c`

@@ -2,7 +2,8 @@
 // C ref: do_name.c oname / artifact naming / docallcmd / namefloorobj
 //        (D-1555); christen_orc / rndorcname / free_oname (D-1193);
 //        new_oname (D-1363); name_from_player (D-1624, EDIT_GETLIN off);
-//        do_mgivenname / alreadynamed (D-1638).
+//        do_mgivenname / alreadynamed (D-1638); docallcmd `'d'` →
+//        o_init.c rename_disco.
 
 import { artifact_exists, exist_artifact } from './artifact.js';
 import { game } from './gstate.js';
@@ -17,6 +18,7 @@ import {
     paint_corner_nhw_menu, discover_object, compactify_invlets,
     getobj_display_pickinv,
 } from './invent.js';
+import { rename_disco } from './o_init.js';
 import {
     ONAME_VIA_NAMING, ONAME_KNOW_ARTI, MGIVENNAME, has_mgivenname,
     W_SADDLE, engulfing_u, Upolyd, MD_PAD_BOGONS,
@@ -1013,8 +1015,8 @@ export function christen_orc(mtmp, gang, other) {
 
 /**
  * C ref: do_name.c docallcmd — "What do you want to name?" menu.
- * `m` → do_mgivenname; `i` → getobj("name")+do_oname; `f` → namefloorobj.
- * `o`/`d` still deferred.
+ * `m` → do_mgivenname; `i` → getobj("name")+do_oname; `f` → namefloorobj;
+ * `d`/`\\` → o_init.c rename_disco. `o` getobj("call") still deferred.
  */
 export async function docallcmd() {
     await flush_topl_more();
@@ -1057,8 +1059,11 @@ export async function docallcmd() {
             await donamelevel();
             return;
         }
-        if (ch === 'o' || ch === 'n'
-            || ch === 'd' || ch === '\\') {
+        if (ch === 'd' || ch === '\\') {
+            await rename_disco();
+            return;
+        }
+        if (ch === 'o' || ch === 'n') {
             return;
         }
     }

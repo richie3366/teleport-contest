@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1647 o_init.c rename_disco
+
+**Objective:** Open `o_init.c` `rename_disco` (named). Not do_mgivenname.
+**C locus:** `o_init.c` `rename_disco` `:1130–1206`;
+`disco_append_typename` `:692–720`; `interesting_to_discover`
+`:525–540`. Caller `do_name.c` `docallcmd` `'d'`.
+**JS locus:** `js/o_init.js`; `js/do_name.js` `docallcmd`;
+`js/invent.js` dodiscovered.
+**Change:** `'d'`/`'\\'` lists callable discoveries by inv_order
+and `docall`s a dummy; typename helper C-home (was invent clone).
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+(9/9 with green).
+**Next:** Open `convert_arg`. Not convert_line %Xh.
+**Blocked:** none.
 ## 2026-08-29 — D-1646 wintty.c MENU_SEARCH + tty_wait_synch
 
 **Objective:** Open `win/tty/wintty.c` MENU_SEARCH / `tty_wait_synch`

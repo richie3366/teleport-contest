@@ -1,3 +1,26 @@
+## D-1647 — o_init.c rename_disco + disco_append_typename
+
+- **Status:** fixed (map-driven Open from D-1646; not a public FAIL)
+- **Symptom:** map named `rename_disco` after D-1638. C `docallcmd`
+  `'d'`/`'\\'` builds a packorder PICK_ONE of callable discoveries
+  and `docall`s a dummy. JS returned without opening that menu.
+- **C locus:** `o_init.c` `rename_disco` `:1130–1206`; callee
+  `disco_append_typename` `:692–720` + `interesting_to_discover`
+  `:525–540`. Caller `do_name.c` `docallcmd` `:593–595`.
+- **JS was:** `'d'`/`'\\'` early return after D-0069/D-1638;
+  `interesting_to_discover` lived as an invent.js clone;
+  dodiscovered inlined typename+price.
+- **Fix:** C-home helpers; inv_order walk (no venom append); empty
+  / none-callable plines; PICK_ONE then dummy `dknown`/`quan=1`
+  `docall`. Rule #2: no fs.
+- **JS:** `js/o_init.js`; `js/do_name.js`; `js/invent.js` dodiscovered
+  uses `disco_append_typename`.
+- **Not this iter:** `'o'` getobj `"call"`; `oc_uses_known` extract;
+  discosort / unique+artifact `\ ` sections. do_mgivenname is D-1638;
+  MENU_SEARCH is D-1646.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+
 ## D-1646 — wintty.c MENU_SEARCH + tty_wait_synch
 
 - **Status:** fixed (map-driven Open from D-1645; not a public FAIL)
