@@ -237,6 +237,20 @@ function Blind() {
 const OTYP_LEASH = objectNames.indexOf('LEASH');
 const OTYP_CORPSE = objectNames.indexOf('CORPSE');
 const OTYP_GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
+const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
+
+/**
+ * C ref: invent.c u_have_novel `:1575–1584` — first SPE_NOVEL on
+ * gi.invent (nobj only, not cobj). Caller sounds.c MS_RIDER Death
+ * tribute (D-1653).
+ */
+export function u_have_novel() {
+    if (SPE_NOVEL < 0) return null;
+    for (const otmp of game.invent || []) {
+        if ((otmp?.otyp | 0) === SPE_NOVEL) return otmp;
+    }
+    return null;
+}
 
 /**
  * C invent.c inuse_headers — [4] "Accessories"; dispinv_with_action may

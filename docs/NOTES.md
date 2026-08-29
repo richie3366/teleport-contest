@@ -5,22 +5,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1652 (cadence **#2050** at `69534fd4`).
-  seed4500 still PASS. **Hypothesis:** sounds.c Death_quote /
-  `u_have_novel` still omitted (C `sounds.c` / `files.c`).
-  **Falsify:** `node scripts/csym.mjs Death_quote` vs `js/sounds.js`.
-  **Next:** Open Death_quote / `u_have_novel`. Not read_tribute.
-  Do not skip D-1531…D-1652. Not `eyecount`.
+- **Suite 44/44** after D-1653 (cadence **#2050** at `69534fd4`).
+  seed4500 still PASS. **Hypothesis:** pickup.c `safe_qbuf` still
+  omitted (C `pickup.c`).
+  **Falsify:** `node scripts/csym.mjs safe_qbuf` vs `js/pickup.js`.
+  **Next:** Open `safe_qbuf`. Not floor query_classes.
+  Do not skip D-1531…D-1653. Not Death_quote / `u_have_novel`.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; `optfn_perminv_mode`; setworn oc_oprop;
   keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /
   squeaky / `use_grease`; hideunder / `safe_qbuf`; `invlet_constant`;
   `'o'` getobj call; altar-god; cemetery bones; guardian remaps;
   Punished float_down; water/lava steed; uhitm `u.dx`; map_menu_cmd;
-  Death_quote / `u_have_novel`; `context.novel`; JSON getlev; astral
-  `distant_monnam`; overlay BIND= (D-0897); `possibly_unwield` /
-  `mon_break_armor`; sync `newcham`; qt_pager fallback / array rn2;
-  spell dull / zap rider eyecount callers.
+  `context.novel`; JSON getlev; astral `distant_monnam`; overlay
+  BIND= (D-0897); `possibly_unwield` / `mon_break_armor`; sync
+  `newcham`; qt_pager fallback / array rn2; spell dull / zap rider
+  eyecount callers.
 
 ## Don't re-check (≤15)
 
@@ -29,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1652.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1653.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -40,10 +40,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1652 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1653 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1652. Do not delete emin (**487**). Do not stub
+  D-1520…D-1653. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -54,18 +54,21 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1652 in the index (`eyecount` D-1652;
-  `lookup_novel` D-1651). No yn ^P glue / `ing_suffix` clone #3 /
-  InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
-  `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
-  REST_LEVELS where getlev catchup reads it.
+  `vision_reset`. D-1576…D-1653 in the index (`eyecount` D-1652;
+  `lookup_novel` D-1651; Death_quote/`u_have_novel` D-1653). No yn
+  ^P glue / `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap
+  sticky Blind (D-1604). No `dat/tribute` indent=2. No static
+  `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev catchup
+  reads it.
 
 ## Landmarks (≤15)
 
+- D-1653: `domonnoise` MS_RIDER Death tribute; `u_have_novel` +
+  `Death_quote` + `ucase` pline. save/rest `context.novel` named.
 - D-1652: sit/pray/potionbreathe import `monsters.js` `eyecount`
   (0/1/2). Spell dull / zap rider / dothrow / mthrowu named.
 - D-1651: `lookup_novel` aliases + table/`The` + IndexOk miss; wish
-  SPE_NOVEL; `create_object` named `oname`. `'o'` / Death_quote named.
+  SPE_NOVEL; `create_object` named `oname`. `'o'` getobj named.
 - D-1650: `dooverview` why==-1 PICK_ONE + `query_annotation`; two-pass
   traverse; named-place / `builds_up` / `endgamelevelname`.
 - D-1649: `convert_arg` `%c`/`%G`/`%A`/`%D`/`%C`/`%N`/`%L`/`%Z`;
@@ -85,4 +88,3 @@ Objective/score live in `CURRENT.md`.
 - D-1641: `check_invent_gold` + gold `i` adjust. `invlet_constant` named.
 - D-1640: `landing_spot` KNOCKED preferred-dir + `enexto`.
 - D-1639: nonempty ESC getlin fallthrough (review **593**).
-- D-1638: `do_mgivenname` / `alreadynamed`. `lookup_novel` is D-1651.

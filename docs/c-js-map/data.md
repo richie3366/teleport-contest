@@ -51,9 +51,16 @@ JS: `js/files.js` + `js/generated/tribute_data.js` + `js/spell.js` study_book �
 `extract-tribute.py`, not dlb disk; `choose_passage` MAXPASSAGES=30 reservoir
 when passagecnt>30; tribpassage 0; NHW_MENU + `putmsghistory` lastline
 `; passage #N]`; `Death_quote` oid 1 nowin_buf first line; `spell.c` SPE_NOVEL
-literate/`ACH_NOVL`/`check_unpaid`, always return 1). Named: sounds.c
-Death_quote / `u_have_novel` Deathnotice; `lookup_novel`; save/rest
-`context.novel`; dlb. putmsghistory body is D-1588.
+literate/`ACH_NOVL`/`check_unpaid`, always return 1). **D-1653
+`domonnoise` MS_RIDER Death tribute** (`sounds.c` `:1193–1236`;
+`invent.c` `u_have_novel` `:1575–1584`; `hacklib.c` `ucase`
+`:101–110`). Live `js/sounds.js` + `js/invent.js` `u_have_novel` +
+`js/hacklib.js` `ucase`; `Death_quote` already D-1633.
+`!Deathnotice` + novel → title + maybe misquoted (not Snuff /
+Wee Free Men); else `rn2(3)` && `Death_quote`; else `!rn2(10)`
+Sandman; else War. Death `pline(ucase)` no quotes; other riders
+`verbalize`. Named: save/rest `context.novel`; dlb; SetVoice /
+sound_speak. lookup_novel is D-1651. putmsghistory body is D-1588.
 
 ### `include/artilist.h`
 

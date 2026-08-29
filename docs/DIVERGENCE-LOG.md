@@ -1,4 +1,31 @@
-## D-1652 — sit.c eyecount / mondata.h
+## D-1653 — sounds.c MS_RIDER Death tribute / u_have_novel
+
+- **Status:** fixed (map-driven Open from D-1652; not a public FAIL)
+- **Symptom:** map named sounds.c Death_quote / `u_have_novel`. C
+  `domonnoise` MS_RIDER Death chats about a carried novel once
+  (`Deathnotice`), else `Death_quote` / Sandman / War, and speaks
+  in CAPITAL LETTERS without quotes. JS omitted the case after
+  D-1633 (Death_quote existed, no caller; no invent walk).
+- **C locus:** `sounds.c` `domonnoise` MS_RIDER `:1193–1236`.
+  `invent.c` `u_have_novel` `:1575–1584`. `hacklib.c` `ucase`
+  `:101–110`. `files.c` `Death_quote` `:3647–3653` already D-1633.
+  Caller `#chat` `dochat` → `domonnoise`.
+- **JS was:** `domonnoise` unknown msound → `ECMD_OK`;
+  `u_have_novel` / `ucase` missing; `Deathnotice` unset.
+- **Fix:** export `u_have_novel` (nobj/invent array, not cobj);
+  MS_RIDER short-circuit `rn2(3) && Death_quote`; Snuff / Wee
+  Free Men skip misquoted (inline fold, not strcmpi clone #3);
+  Death `pline(ucase)` vs other riders `verbalize`. Rule #2: no fs.
+- **JS:** `js/sounds.js` + `js/invent.js` + `js/hacklib.js`
+  (`js/files.js` comment only).
+- **Not this iter:** save/rest `context.novel`; dlb; SetVoice /
+  sound_speak; `read_tribute` body (D-1633); `safe_qbuf`.
+  lookup_novel is D-1651. eyecount is D-1652.
+- **Verified:** private canary Mort misquoted / Snuff+Wee no
+  suffix / noticed quote / Famine quoted War; green+strict
+  seed8000/0900; cohort **7**/7 + strict (9/9 with green).
+
+
 
 - **Status:** fixed (map-driven Open from D-1651; not a public FAIL)
 - **Symptom:** map named sit/pray `eyecount` always-2 stubs. C

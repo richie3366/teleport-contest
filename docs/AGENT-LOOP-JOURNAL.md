@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1653 sounds.c MS_RIDER Death tribute / u_have_novel
+
+**Objective:** Open `sounds.c` Death_quote / `u_have_novel` (named).
+Not read_tribute.
+**C locus:** `sounds.c` `domonnoise` MS_RIDER `:1193–1236`;
+`invent.c` `u_have_novel` `:1575–1584`; `hacklib.c` `ucase`
+`:101–110`; `files.c` `Death_quote` already D-1633.
+**JS locus:** `js/sounds.js` `domonnoise`; `js/invent.js`
+`u_have_novel`; `js/hacklib.js` `ucase`.
+**Change:** Death novel/`Death_quote`/Sandman/War; `pline(ucase)`
+no quotes; other riders `verbalize`. save/rest `context.novel`
+named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary Mort/Snuff/Wee/quote/Famine;
+green+strict seed8000/0900; cohort **7**/7 + strict (9/9 with green).
+**Next:** Open `safe_qbuf`. Not floor query_classes.
+**Blocked:** none.
 ## 2026-08-29 — D-1652 sit.c eyecount / mondata.h
 
 **Objective:** Open `sit.c` `eyecount` (named). Not confer_oc_oprop.
