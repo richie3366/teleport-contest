@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1637 mon.c restore_cham getlev + With_you
+
+**Objective:** Open `mon.c` `restore_cham` (named). Not normal_shape.
+**C locus:** `mon.c` `restore_cham` `:4646–4658`; callers
+`restore.c` `getlev` `:1217`; `dog.c` `mon_arrive` `:464`;
+zap `montraits` `:824` already live.
+**JS locus:** `js/mon.js` `restore_cham`; `js/do.js`
+`getlev_catchup_monsters`; `js/dog.js` `mon_arrive_with_you`.
+**Change:** await restore_cham on getlev catchup (before hide_monst
+rnd(10), after REST_LEVELS continue) and With_you before usteed;
+PfSC reads uprops H||E plus flats.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** canary **18**/18; green+strict seed8000/0900; cohort
+**7**/7 + strict.
+**Next:** Open `do_name.c` `do_mgivenname`. Not kill_char.
+**Blocked:** none.
 ## 2026-08-29 — D-1636 nhlua.c restore_luadata / save_luadata
 
 **Objective:** Open `nhlua.c` `restore_luadata` (named). Not

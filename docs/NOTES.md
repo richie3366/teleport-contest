@@ -5,18 +5,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1636 (cadence **#2030** at `54c89bcc`).
-  seed4500 still PASS. Reviews **582–590** ACCEPT-WITH-DEBT (no
-  Must-fix). **Hypothesis:** Open `mon.c` `restore_cham` is the
-  next map cluster. Not normal_shape.
-  **Falsify:** `node scripts/csym.mjs restore_cham`;
-  `node scripts/map.mjs mon.c`.
-  **Next:** Open restore_cham. Do not skip D-1531…D-1636.
+- **Suite 44/44** after D-1637 (cadence **#2030** at `54c89bcc`).
+  seed4500 still PASS. **Hypothesis:** Open `do_name.c`
+  `do_mgivenname` is the next map cluster. Not kill_char.
+  **Falsify:** `node scripts/csym.mjs do_mgivenname`;
+  `node scripts/map.mjs do_name.c`.
+  **Next:** Open do_mgivenname. Do not skip D-1531…D-1637.
   No FORCE / `wildmiss` wrap / trailing `confdir` in shared
-  `getdir`. Do not glue onto restore_luadata (D-1636) or doddrop
-  (D-1635). Do not re-port D-1621…D-1636.
+  `getdir`. Do not glue onto restore_cham (D-1637) or
+  restore_luadata (D-1636). Do not re-port D-1621…D-1637.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
-  clone auto-open yn; `restore_cham` / `rescham`;
+  clone auto-open yn; `rescham` wiz_intrinsic;
   tty WIN_INVEN / `#perminv` /
   `optfn_perminv_mode`; BIND= `seeall` / M('?'); ACH_ASTR;
   setworn oc_oprop; newcham mleashed / keepdogs / grow_up leash;
@@ -29,7 +28,8 @@ Objective/score live in `CURRENT.md`.
   float_down; water/lava steed death; `landing_spot` KNOCKED
   preferred-dir; wintty MENU_SEARCH / `tty_wait_synch` `intr++`;
   sounds.c Death_quote / `u_have_novel`; `lookup_novel`;
-  save/rest `context.novel`.
+  save/rest `context.novel`; JSON dorecover getlev `restore_cham`
+  (`try_restore_save`); getlev ghostly peace / hideunder place.
 
 ## Don't re-check (≤15)
 
@@ -38,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1636.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1637.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -49,9 +49,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1636 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1637 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1636. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1637. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -62,19 +62,25 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1636 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1637 live in the index. Do not glue
   yn ^P onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603). Do not restore
   zap `bhit` sticky `u.Blind||u.ublind` (D-1604). Do not re-port
-  D-1605…D-1636 (index; restore_luadata is D-1636; doddrop is D-1635;
-  convert_line %Xh is D-1634; tribute is D-1633; kill_char is D-1632;
-  tty_nhbell is D-1631; menu_remarm is D-1630).
-  Do not dump `dat/tribute` into `dat_text.js` indent=2. Do not
-  static-import `files.js` from `spell.js` (TDZ). Do not re-port
-  putmsghistory body (D-1588).
+  D-1605…D-1637 (index; restore_cham is D-1637; restore_luadata is
+  D-1636; doddrop is D-1635; convert_line %Xh is D-1634; tribute is
+  D-1633; kill_char is D-1632; tty_nhbell is D-1631; menu_remarm is
+  D-1630). Do not dump `dat/tribute` into `dat_text.js` indent=2.
+  Do not static-import `files.js` from `spell.js` (TDZ). Do not
+  re-port putmsghistory body (D-1588). REST_LEVELS must be imported
+  where getlev catchup reads it.
 
 ## Landmarks (≤15)
 
+- D-1637: `restore_cham` getlev catchup + With_you await; PfSC
+  uprops H||E plus flats; REST_LEVELS continue then unconditional
+  restore_cham before hide_monst rnd(10). JSON dorecover getlev /
+  ghostly peace / hideunder place named. normal_shape is D-1594.
+  restore_luadata is D-1636.
 - D-1636: `restore_luadata`/`save_luadata` JSON lua source
   (`get_variables_string`/`table_stringify`); `!luacore`
   `l_nhcore_init` then loadstring; unixmain no second init.
@@ -119,5 +125,3 @@ Objective/score live in `CURRENT.md`.
   `query_annotation` replace + `describe_level`. kill_char is D-1632.
 - D-1623: yn clean_up `gt.toplines=prompt+key` + dumplogmsg.
   tty_nhbell is D-1631. yn ^P is D-1612.
-- D-1622: `com_pager_core` synthesize `[text]` then `convert_line`+
-  `putmsghistory`. pronoun `%Xh` is D-1634; common fallback named.

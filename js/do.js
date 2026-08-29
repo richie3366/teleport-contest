@@ -19,7 +19,7 @@ import {
     W_ACCESSORY, W_SADDLE, W_BALL, W_CHAIN, INVIS, CLAIRVOYANT, LOST_DROPPED,
     UTOTYPE_NONE, UTOTYPE_ATSTAIRS, UTOTYPE_FALLING, UTOTYPE_PORTAL,
     UTOTYPE_RMPORTAL, UTOTYPE_DEFERRED,
-    VISITED, LFILE_EXISTS, RANGE_LEVEL,
+    VISITED, LFILE_EXISTS, RANGE_LEVEL, REST_LEVELS,
     UNENCUMBERED, KILLED_BY, DISMOUNT_FELL, NO_KILLER_PREFIX,
     MAGIC_PORTAL, TIMEOUT, BLINDED, RLOC_NOMSG,
     ACH_HELL, ACH_MINE, ACH_SOKO,
@@ -79,7 +79,7 @@ import { record_achievement } from './insight.js';
 import { com_pager } from './questpgr.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
 import { save_track, rest_track } from './track.js';
-import { m_at, mnexto, hide_monst, wake_nearto, dist2, kill_genocided_monsters } from './mon.js';
+import { m_at, mnexto, hide_monst, restore_cham, wake_nearto, dist2, kill_genocided_monsters } from './mon.js';
 import { enexto } from './teleport.js';
 import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
@@ -1267,18 +1267,22 @@ function rebuildObjectsAt(fobj) {
 }
 
 /**
- * C ref: restore.c getlev — non-bones monster catchup + hide_monst rnd(10).
- * In-memory stash path (no NHFILE). Named omissions: ghostly peace remap,
- * restore_cham, worm/timer/region restore, steed/ustuck mid remap.
+ * C ref: restore.c getlev `:1181–1220` — non-bones monster catchup then
+ * restore_cham then hide_monst rnd(10). In-memory stash path (no NHFILE).
+ * restore_cham is unconditional after the REST_LEVELS continue (C `:1217`).
+ * Named omissions: ghostly peace remap / set_malign; hideunder at
+ * place_monster; worm place_wsegs; steed/ustuck mid remap; JSON
+ * dorecover getlev restore_cham (try_restore_save).
  */
-function getlev_catchup_monsters(elapsed) {
+async function getlev_catchup_monsters(elapsed) {
     const u = game.u;
     const list = game.fmon || [];
+    const restoring = game.program_state?.restoring | 0;
     for (const mtmp of list) {
         // C: if (!u.uz.dlevel || restoring==REST_LEVELS) continue
-        if (!(u?.uz?.dlevel | 0)) continue;
+        if (!(u?.uz?.dlevel | 0) || restoring === REST_LEVELS) continue;
         if (elapsed > 0) mon_catchup_elapsed_time(mtmp, elapsed);
-        // restore_cham deferred
+        await restore_cham(mtmp);
         if (elapsed > 0 && elapsed > rnd(10)) hide_monst(mtmp);
     }
 }
@@ -1287,7 +1291,7 @@ function getlev_catchup_monsters(elapsed) {
  * C ref: do.c goto_level — ordinary stairs + in-memory savelev/getlev.
  *
  * Ported: keepdogs → stash (VISITED|LFILE_EXISTS + omoves + track) →
- * assign uz → mklev or restore stash + getlev catchup + rest_track →
+ * assign uz → mklev or restore stash + getlev catchup/restore_cham + rest_track →
  * stairway_find_from → climb/descend pline (Flying / encumber|Punished|
  * Fumbling fall `rnd(3)` losehp / ordinary) → losedogs →
  * kill_genocided_monsters (D-1190) → run_timers (D-1191) →
@@ -1539,7 +1543,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         // C: familiar = bones_include_name(plname) after first-time mklev
         familiar = bones_include_name(game.plname || '');
     } else {
-        // C: getlev — restore in-memory stash + catchup/hide_monst + rest_track
+        // C: getlev — restore in-memory stash + catchup/restore_cham/hide_monst + rest_track
         // C restore.c Sfi_dest_area updest/dndest after rest_stairs.
         game.level = info.level;
         game.fmon = info.fmon || [];
@@ -1568,7 +1572,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         game.Sokoban = !!(game.level?.flags?.sokoban_rules
             || game.level?.flags?.sokoban);
         const elapsed = (game.moves | 0) - (info.omoves | 0);
-        getlev_catchup_monsters(elapsed);
+        await getlev_catchup_monsters(elapsed);
     }
 
     await set_uinwater(0); /* C do.c:1716 — after getlev/mklev, before vision_reset */

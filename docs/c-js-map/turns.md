@@ -1854,10 +1854,10 @@ pet `mtrapped`** (D-0169); **`mcalcdistress`/`mon_regen` mfrozen/mblinded/mfleet
 omit howl `You_hear`/`wake_nearto`, `mon_break_armor`/`possibly_unwield`/`monflee` onscary; 
 cham `decide_to_shapeshift` regular+vamp (D-0623/D-0659; minliquid via D-0775); 
 **`newcham` NC_SHOW_MSG `pline_mon`/`usmellmon`/`noname_monnam` D-1586**; **`normal_shape` await `NC_SHOW_MSG` D-1594** (Protection cancel 
-D-1573; newcham mleashed `m_unleash`/break-armor/Elbereth `monflee` named; getlev `restore_cham` still deferred); 
+D-1573; **getlev `restore_cham` D-1637**; newcham mleashed `m_unleash`/break-armor/Elbereth `monflee` named); 
 **open D-0928 #1118:** after getlev, vamp-bat @46,19 `mcalcmove` add 12 vs C 24 (2nd movemon pass 
 missing → early EOT shapeshift @104705; fmon order / lich placement suspect; 
-`restore_cham` on getlev still deferred); 
+`restore_cham` on getlev is D-1637); 
 **`tunnels`/`needspick` + `ALLOW_DIG` mfndpos rockok/treeok/thrudoor + 
 `postmov`→`mdig_tunnel`** (D-0178); **`m_digweapon_check` + hero-square MMOVE_NOTHING** (D-0180); 
 **`haseyes`/`can_track`; hostile `should_see`+`gettrack` (D-0181)**; 
@@ -2234,7 +2234,8 @@ next trailing exercise / seg1. **seed0367 @1946 getobj_takeoff (D-0634);
 @3438 Pri-loca (D-0642–45); @15172 Pri-goal (D-0646; next @17449 minetn-2)**; 
 **`makedog` role petnames + `christen_monst`** (D-0079); 
 **`makedog` pony → `put_saddle_on_mon`** (D-0212); **`initedog` `u.uconduct.pets++`** (D-0125); 
-**`keepdogs`/`losedogs`/`levl_follower`/`mon_arrive` With_you** (D-0149); 
+**`keepdogs`/`losedogs`/`levl_follower`/`mon_arrive` With_you** (D-0149; 
+**With_you `restore_cham` D-1637**); 
 **`migrate_to_level` `In_W_tower` xyflags bit 2 (D-1198)**; 
 **`mon_arrive` After_you `my=xyflags` before rloc (D-1199)**; 
 **`mon_arrive` After_you `MIGR_LEFTOVERS` `deliver_obj_to_mon` DF_ALL (D-1505)**; 

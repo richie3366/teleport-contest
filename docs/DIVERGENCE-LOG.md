@@ -1,3 +1,36 @@
+## D-1637 — mon.c restore_cham getlev catchup + With_you
+
+- **Status:** fixed (map-driven Open from D-1636; not a public FAIL)
+- **Symptom:** map named `restore_cham`. C `getlev` always calls
+  `restore_cham` after catchup (and `mon_arrive` always calls it
+  before With_you/usteed place) so PfSC/`mcan` can force
+  `normal_shape` or `cham==NON_PM` re-allows `pm_to_cham`. JS had
+  the body (D-1594) and After_you/montraits callers, but
+  `getlev_catchup_monsters` skipped the call (`// restore_cham
+  deferred`) and With_you never awaited it. PfSC also missed
+  uprops that `confer_oc_oprop` writes.
+- **C locus:** `mon.c` `restore_cham` `:4646–4658`; youprop.h
+  Protection_from_shape_changers H||E. Callers `restore.c`
+  `getlev` `:1215–1220`; `dog.c` `mon_arrive` `:459–464`;
+  `zap.c` `montraits` `:822–824` already live.
+- **JS was:** named omit after D-1594; catchup only
+  `mon_catchup_elapsed_time` + `hide_monst` rnd(10); With_you
+  placed without `restore_cham`.
+- **Fix:** await `restore_cham` in getlev catchup (unconditional
+  after REST_LEVELS continue, before hide_monst) and in With_you
+  before usteed return. PfSC checks uprops intrinsic/extrinsic
+  plus H/E flats. Rule #2: no fs.
+- **JS:** `js/mon.js` `restore_cham`; `js/do.js`
+  `getlev_catchup_monsters`; `js/dog.js` `mon_arrive_with_you`.
+- **Not this iter:** ghostly peace/`set_malign`; hideunder at
+  `place_monster`; worm `place_wsegs`; steed/ustuck mid remap;
+  JSON `try_restore_save` getlev; `new_were`/`finish_meating` in
+  `normal_shape`; newcham mleashed. normal_shape is D-1594.
+  restore_luadata is D-1636.
+- **Verified:** private canary **18**/18; green+strict
+  seed8000/0900; cohort **7**/7 + strict
+  (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1636 — nhlua.c restore_luadata / save_luadata
 
 - **Status:** fixed (map-driven Open from D-1635; not a public FAIL)

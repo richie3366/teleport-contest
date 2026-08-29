@@ -544,14 +544,17 @@ export async function tamedog(mtmp, obj, givemsg = true) {
 
 /**
  * C ref: dog.c mon_arrive(With_you) — place accompanying pet near hero.
- * C returns here before MIGR_LEFTOVERS (D-1505 After_you).
+ * C restore_cham `:464` before usteed return / With_you place (PfSC
+ * may differ from when the pet left). C returns here before
+ * MIGR_LEFTOVERS (D-1505 After_you).
  */
-function mon_arrive_with_you(mtmp) {
+async function mon_arrive_with_you(mtmp) {
     const u = game.u;
     if (!game.fmon) game.fmon = [];
     game.fmon.unshift(mtmp);
     mtmp.mux = u.ux;
     mtmp.muy = u.uy;
+    await restore_cham(mtmp);
     if (mtmp === u.usteed) return;
 
     const onSpot = m_at(u.ux, u.uy);
@@ -876,14 +879,15 @@ async function mon_arrive_after_you(mtmp) {
 
 /**
  * C ref: dog.c losedogs — mydogs With_you then migrating_mons After_you
- * (mux/muy match u.uz, xyloc != MIGR_EXACT_XY). Named omissions:
+ * (mux/muy match u.uz, xyloc != MIGR_EXACT_XY). Both arms await
+ * restore_cham (C mon_arrive `:464`). Named omissions:
  * kops dismiss; MIGR_EXACT_XY Before_you; failed_arrivals / m_into_limbo.
  */
 export async function losedogs() {
     const dogs = game.mydogs || [];
     game.mydogs = [];
     for (const mtmp of dogs) {
-        mon_arrive_with_you(mtmp);
+        await mon_arrive_with_you(mtmp);
     }
 
     const uz = game.u?.uz || {};

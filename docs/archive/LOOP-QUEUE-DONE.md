@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `nhlua.c` `restore_luadata` (named). Not restore_gamelog. **Addressed:** D-1636
+- [x] `mon.c` `restore_cham` (named). Not normal_shape. **Addressed:** D-1637
+
+
+- [x] `nhlua.c` `restore_luadata` (named). Not restore_gamelog. **Addressed:** D-1636 `7f506ccd`
 
 
 - [x] `invent.c` ggetobj drop (named). Not takeoff/identify. **Addressed:** D-1635 `9eb563b8`
