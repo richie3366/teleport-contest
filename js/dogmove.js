@@ -37,6 +37,7 @@ import { gettrack } from './track.js';
 import { hero_conflict, resist_conflict } from './mondata.js';
 import { is_pool, is_lava } from './hack.js';
 import { m_unleash } from './apply.js';
+import { lose_guardian_angel } from './minion.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
@@ -825,11 +826,15 @@ export async function dog_move(mtmp, after) {
     const appr = dog_goal(mtmp, edog, after, udist, whappr);
     if (appr === -2) return MMOVE_NOTHING;
 
-    // C: Conflict && !resist_conflict — edog falls through; !edog lose_guardian
+    // C: Conflict && !resist_conflict — edog falls through; !edog
+    // lose_guardian_angel(mtmp) then MMOVE_DIED (D-1617; body D-1608).
     if (hero_conflict() && !resist_conflict(mtmp)) {
         if (!edog) {
-            // lose_guardian_angel deferred
-            return MMOVE_DIED;
+            /* Guardian angel refuses to be conflicted; rather,
+             * it disappears, angrily, and sends in some nasties
+             */
+            await lose_guardian_angel(mtmp);
+            return MMOVE_DIED; /* current monster is gone */
         }
     }
 

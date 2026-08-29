@@ -385,11 +385,12 @@ JS: `js/minion.js` — partial
 (`:467–494`) + `priest.c` `mk_roamer` (one export `js/mklev.js`;
 splev D-1553) + `eat.c` `Hear_again` export. `SetVoice` no-op
 without SND_LIB. `mtame=10` only if `u.uconduct.pets` already
-non-zero (no `tamedog`/edog). **D-1616 `reset_hostility`**
+non-zero (no `tamedog`/edog). **D-1617 `dog_move` Conflict
+`lose_guardian_angel(mtmp)`** (`dogmove.c:1046–1053`; live
+`js/dogmove.js`; body D-1608). **D-1616 `reset_hostility`**
 (`priest.c:754–768`; caller `do.c` `final_level` `:2046`
 `iter_mons`; live `js/priest.js` + `js/do.js` `final_level`).
-Named: ACH_ASTR; dogmove.c Conflict `lose_guardian_angel(mtmp)`;
-Hear_again occupation afternmv. ndemon is D-1575; msummon S_ANGEL
+Named: ACH_ASTR; Hear_again occupation afternmv. ndemon is D-1575; msummon S_ANGEL
 flash is D-1597; create_mplayers is D-1596.
 
 ### `src/mplayer.c`

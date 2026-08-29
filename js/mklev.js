@@ -14881,9 +14881,9 @@ function load_wizard3() {
 /**
  * C ref: priest.c mk_roamer — aligned cleric/angel with emin.
  * Callers: splev_create_monster when sp_amask != RANDOM (D-1553);
- * minion.c lose/gain_guardian_angel (D-1608). Lives here to avoid
- * mklev↔priest. Occupied rloc is fire-and-forget (JS rloc async).
- * reset_hostility is D-1616.
+ * minion.c lose/gain_guardian_angel (D-1608); dog_move Conflict
+ * !edog (D-1617). Lives here to avoid mklev↔priest. Occupied rloc
+ * is fire-and-forget (JS rloc async). reset_hostility is D-1616.
  */
 export function mk_roamer(ptr, alignment, x, y, peaceful) {
     if (m_at(x, y)) rloc(m_at(x, y), RLOC_NOMSG);

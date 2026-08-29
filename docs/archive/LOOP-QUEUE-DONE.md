@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `mon.c` `reset_hostility` (named). Not gain_guardian_angel. **Addressed:** D-1616
+- [x] `dogmove.c` Conflict `lose_guardian_angel` caller (named). Not gain_guardian_angel. **Addressed:** D-1617
+
+
+- [x] `mon.c` `reset_hostility` (named). Not gain_guardian_angel. **Addressed:** D-1616 `6d7584b0`
 
 
 - [x] `apply.c` `consume_obj_charge` `update_inventory` (named). Not perm_invent InvInUse. **Addressed:** D-1615 `6a08939b`

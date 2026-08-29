@@ -414,9 +414,9 @@ export async function msummon(mon) {
 /**
  * C ref: minion.c lose_guardian_angel `:467–494`.
  * If `mon` is live, rebuke (or Deaf vanish) then mongone. Then 2–4
- * hostile `mk_roamer` angels (`rn1(3, 2)`). Caller
- * `gain_guardian_angel` Conflict passes null; dogmove.c Conflict
- * `lose_guardian_angel(mtmp)` still named.
+ * hostile `mk_roamer` angels (`rn1(3, 2)`). Callers:
+ * `gain_guardian_angel` Conflict passes null (D-1608);
+ * `dogmove.c` `dog_move` Conflict `!edog` (D-1617).
  * @param {object|null} mon
  */
 export async function lose_guardian_angel(mon) {
@@ -451,8 +451,8 @@ export async function lose_guardian_angel(mon) {
  * madeNew). Hear_again first; Conflict → hostiles; else fervent
  * (ualign.record > 8) named angel. mtame=10 only if pets conduct
  * already broken — C does not call tamedog (no edog).
- * Named: SetVoice pitch; dogmove Conflict caller; ACH_ASTR.
- * reset_hostility is D-1616.
+ * Named: SetVoice pitch; ACH_ASTR.
+ * dog_move Conflict caller is D-1617. reset_hostility is D-1616.
  */
 export async function gain_guardian_angel() {
     Hear_again(); /* attempt to cure any deafness now (divine

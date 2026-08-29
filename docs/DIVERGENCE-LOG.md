@@ -1,3 +1,27 @@
+## D-1617 — dogmove.c dog_move Conflict lose_guardian_angel
+
+- **Status:** fixed (map-driven Open from D-1616; not a public FAIL)
+- **Symptom:** a Conflicted isminion guardian (no edog) returned
+  `MMOVE_DIED` without `lose_guardian_angel(mtmp)`, so the angel
+  stayed on the map and no hostile replacements spawned. C
+  `dog_move` after `dog_goal`: `Conflict && !resist_conflict &&
+  !edog` → `lose_guardian_angel(mtmp)` then `MMOVE_DIED`.
+- **C locus:** `dogmove.c` `dog_move` `:1046–1053`. Callee
+  `minion.c` `lose_guardian_angel` `:467–494` (D-1608). Other
+  caller is `gain_guardian_angel` NULL (D-1608).
+- **JS was:** named omit after D-1608 (`if (!edog) return
+  MMOVE_DIED` with deferred comment). Body already live in
+  `js/minion.js`.
+- **Fix:** `await lose_guardian_angel(mtmp)` then `MMOVE_DIED`.
+  Import from `minion.js` (hoisted; `imports.mjs --can` SAFE).
+  C is 8 lines (density exception). Rule #2: no fs.
+- **JS:** `js/dogmove.js` `dog_move`; body `js/minion.js`.
+- **Not this iter:** gain_guardian_angel (D-1608);
+  dismount_steed DISMOUNT_THROWN; setworn oc_oprop;
+  Hear_again occupation afternmv; ACH_ASTR.
+- **Verified:** private canary **17**/17; green+strict seed8000/0900;
+  cohort **7**/7 + strict (incl. seed0004 Conflict).
+
 ## D-1616 — priest.c reset_hostility / do.c final_level iter_mons
 
 - **Status:** fixed (map-driven Open from D-1615; not a public FAIL)
