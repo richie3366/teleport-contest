@@ -29,6 +29,7 @@ import { game } from './gstate.js';
 import { rn2, rn1, rnl, rnz, rnd, d } from './rng.js';
 import { pline, verbalize, You_feel } from './display.js';
 import { nomul } from './hack.js';
+import { m_at } from './mon.js';
 import { A_WIS, A_STR, A_MAX, change_luck, adjattrib, adjalign, exercise } from './attrib.js';
 import { align_gname, xlev_to_rank, uhim } from './roles.js';
 import { objects_at, uncurse } from './mkobj.js';
@@ -84,6 +85,7 @@ import {
     IS_ALTAR, Amask2align, AM_MASK, AM_SHRINE, A_NONE, A_LAWFUL, A_NEUTRAL,
     A_CHAOTIC, GEHENNOM, ECMD_OK, ECMD_TIME, PARANOID_PRAY, PARANOID_CONFIRM,
     LL_CONDUCT,
+    M_AP_TYPE, M_AP_FURNITURE, has_mcorpsenm, MCORPSENM,
     LL_MINORAC, BOLT_LIM, MAXULEV, TELL, NOTELL, Upolyd, ismnum,
     DIED, KILLED_BY, Is_astralevel, M_SEEN_REFL, M_SEEN_ELEC, M_SEEN_DISINT,
     W_ARMS, W_ARMC, W_ARM, W_AMUL, OBJ_FREE, SICK_ALL,
@@ -111,6 +113,8 @@ const SADDLE = objectNames.indexOf('SADDLE');
 const BOULDER = objectNames.indexOf('BOULDER');
 
 const MOLOCH = 'Moloch';
+// C ref: defsym.h PCHAR S_altar — furniture mimic mappearance
+const S_altar = 33;
 
 const STRIDENT = 4; // pray.c
 const DEVOUT = 14; // pray.c
@@ -190,6 +194,28 @@ function on_shrine() {
     if (!loc) return false;
     const mask = (loc.altarmask != null ? loc.altarmask : loc.flags) | 0;
     return (mask & AM_SHRINE) !== 0;
+}
+
+/**
+ * C ref: pray.c altarmask_at :2489–2504.
+ * Furniture-mimic altar uses MCORPSENM; else rm.altarmask.
+ * Callers: dungeon.c count_feat_lastseentyp; dig.c / music.c / pager.c named.
+ */
+export function altarmask_at(x, y) {
+    let res = 0;
+    if (isok(x, y)) {
+        const mon = m_at(x, y);
+        if (mon && M_AP_TYPE(mon) === M_AP_FURNITURE
+            && (mon.mappearance | 0) === S_altar) {
+            res = has_mcorpsenm(mon) ? (MCORPSENM(mon) | 0) : 0;
+        } else {
+            const loc = game.level?.at(x, y);
+            if (loc && IS_ALTAR(loc.typ)) {
+                res = (loc.altarmask != null ? loc.altarmask : loc.flags) | 0;
+            }
+        }
+    }
+    return res;
 }
 
 /** C: pray.c a_align — altarmask overlays rm.flags in C; JS mkaltar uses flags */

@@ -194,6 +194,14 @@ export function Amask2align(x) {
     if (masked === AM_LAWFUL) return A_LAWFUL;
     return masked - 2; // 2->0 (NEUTRAL), 1->-1 (CHAOTIC)
 }
+// C ref: align.h Amask2msa / Msa2amask — 2-bit mapseen altar align
+// (1,2,4) ↔ (1,2,3); shrine bit stripped. MSA_NONE is 0.
+export function Amask2msa(x) {
+    return ((x & AM_MASK) === 4) ? 3 : (x & AM_MASK);
+}
+export function Msa2amask(x) {
+    return (x === 3) ? 4 : x;
+}
 
 // Gender
 export const MALE = 0;

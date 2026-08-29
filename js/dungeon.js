@@ -48,8 +48,16 @@ import {
     TEMPLE,
     ROOMOFFSET,
     MAXNROFROOMS,
+    Amask2msa,
+    Msa2amask,
+    Amask2align,
+    MSA_NONE,
+    Is_astralevel,
+    SVALL,
 } from './const.js';
 import { builds_up } from './hacklib.js';
+import { align_gname } from './roles.js';
+import { altarmask_at } from './pray.js';
 
 const FLAG_MAP = {
     town: TOWN,
@@ -921,7 +929,8 @@ export function update_lastseentyp(x, y) {
 
 /**
  * C ref: dungeon.c count_feat_lastseentyp — bump mapseen.feat from lastseentyp.
- * Cap at 3 ("many"); altar msalign / knox / drawbridge castle flags deferred.
+ * Cap at 3 ("many"). Altar msalign via Amask2msa(altarmask_at); astral
+ * incomplete seenv → MSA_NONE. Knox / drawbridge castle flags deferred.
  */
 function count_feat_lastseentyp(mptr, x, y) {
     const typ = game.lastseentyp?.[x]?.[y] | 0;
@@ -947,11 +956,21 @@ function count_feat_lastseentyp(mptr, x, y) {
         count = (mptr.feat.ngrave | 0) + 1;
         if (count <= 3) mptr.feat.ngrave = count;
         break;
-    case ALTAR:
+    case ALTAR: {
+        /* C: get the altarmask; might be a mimic. Astral not-fully-seen
+           → MSA_NONE so #overview does not name a god yet. */
+        let atmp = altarmask_at(x, y);
+        const loc = game.level?.at(x, y);
+        atmp = (Is_astralevel(game.u?.uz)
+            && ((loc?.seenv | 0) & SVALL) !== SVALL)
+            ? MSA_NONE
+            : Amask2msa(atmp);
+        if (!(mptr.feat.naltar | 0)) mptr.feat.msalign = atmp;
+        else if ((mptr.feat.msalign | 0) !== atmp) mptr.feat.msalign = MSA_NONE;
         count = (mptr.feat.naltar | 0) + 1;
         if (count <= 3) mptr.feat.naltar = count;
-        // msalign / Amask2msa deferred
         break;
+    }
     default:
         break;
     }
@@ -1140,7 +1159,8 @@ function an_shop(str) {
 
 /**
  * C ref: dungeon.c print_mapseen OF_INTEREST feature sentence (PREFIX +
- * ADDNTOBUF). Altar-to-god when all coaligned still deferred.
+ * ADDNTOBUF). Altar-to-god when Amask2align(Msa2amask(msalign)) matches
+ * u.ualign.type (all seen altars coaligned to the hero's god).
  */
 function mapseen_feat_line(mptr) {
     const feat = mptr.feat || empty_feat();
@@ -1165,7 +1185,13 @@ function mapseen_feat_line(mptr) {
             buf += `${COMMA()}${seen_string(nt, 'temple')} temple${plur(nt)} and ${seen_string(na, 'altar')} altar${plur(na)}`;
         } else if (nt) ADDNTOBUF('temple', nt);
         else ADDNTOBUF('altar', na);
-        // " to <god>" when all altars coaligned deferred
+        /* only print out altar's god if they are all to your god */
+        let atmp = feat.msalign | 0;
+        atmp = Msa2amask(atmp);
+        const ualign = game.u?.ualign?.type;
+        if (Amask2align(atmp) === ualign) {
+            buf += ` to ${align_gname(game.urole, ualign)}`;
+        }
     }
     ADDNTOBUF('throne', feat.nthrone);
     ADDNTOBUF('fountain', feat.nfount);
@@ -1290,8 +1316,8 @@ function mapseen_named_place_lines(mptr, ldrnameFn) {
  * C ref: dungeon.c print_mapseen :3515–3728.
  * why==-1: level row selectable with identifier ledger_no+1 (ch=0).
  * Headings / feat / named-place / branch / cemetery are add_menu_str.
- * Named omit: altar-god coalign suffix; cemetery bones list beyond
- * the dead hero; #if 0 water/lava/ice.
+ * Named omit: cemetery bones list beyond the dead hero;
+ * #if 0 water/lava/ice.
  * @param {object[]} entries
  * @param {object} mptr
  * @param {number} why
@@ -1493,8 +1519,8 @@ export async function donamelevel() {
  * C ref: dungeon.c show_overview :3304–3340.
  * why: 0 #overview PICK_NONE; -1 m-prefix PICK_ONE then query_annotation;
  * 1/2 end disclosure PICK_NONE. Two-pass traverse_mapseenchn when
- * In_endgame (Planes above DoD). Named omit: altar-god coalign;
- * cemetery bones beyond the dead hero.
+ * In_endgame (Planes above DoD). Named omit: cemetery bones beyond
+ * the dead hero.
  * @param {number} why
  * @param {number} reason how-died when why>0
  */

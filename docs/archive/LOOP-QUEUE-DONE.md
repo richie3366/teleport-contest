@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `cmd.c` overlay BIND= on if/else keys (named). Not cmdbind_get default. **Addressed:** D-1657
+- [x] `dungeon.c` print_mapseen altar-god coalign (named). Not dooverview PICK_ONE. **Addressed:** D-1658
+
+
+- [x] `cmd.c` overlay BIND= on if/else keys (named). Not cmdbind_get default. **Addressed:** D-1657 `ee4f922a`
 
 
 - [x] `apply.c` `use_grease` (named). Not consume_obj_charge. **Addressed:** D-1656 `9ac19d6f`

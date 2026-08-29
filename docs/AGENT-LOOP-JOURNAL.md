@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1658 dungeon.c print_mapseen altar-god coalign
+
+**Objective:** Open `dungeon.c` print_mapseen altar-god coalign
+(named). Not dooverview PICK_ONE.
+**C locus:** `dungeon.c` `print_mapseen` `:3613–3619`;
+`count_feat_lastseentyp` ALTAR `:3012–3025`; `pray.c`
+`altarmask_at` `:2489–2504`; `align.h` `Amask2msa`/`Msa2amask`.
+**JS locus:** `js/dungeon.js` `mapseen_feat_line` /
+`count_feat_lastseentyp`; `js/pray.js` `altarmask_at`;
+`js/const.js`; `js/roles.js` `align_gname`.
+**Change:** record `feat.msalign`; suffix `" to <god>"` when
+coaligned; A_NONE → Moloch. Cemetery / knox-drawbridge named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary msalign + gname; green+strict
+seed8000/0900; cohort **7**/7 + strict (9/9 with green).
+**Next:** Open cemetery bones list. Not dooverview.
+**Blocked:** none.
 ## 2026-08-29 — D-1657 cmd.c overlay BIND= on if/else keys
 
 **Objective:** Open `cmd.c` overlay BIND= on if/else keys (named).

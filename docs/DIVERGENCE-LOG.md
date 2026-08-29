@@ -1,3 +1,32 @@
+## D-1658 — dungeon.c print_mapseen altar-god coalign
+
+- **Status:** fixed (map-driven Open from D-1657; not a public FAIL)
+- **Symptom:** map named `print_mapseen` altar-god coalign. C appends
+  `" to %s"` with `align_gname(u.ualign.type)` only when
+  `Amask2align(Msa2amask(feat.msalign))` equals the hero's alignment
+  (all remembered altars coaligned). JS never recorded `feat.msalign`
+  in `count_feat_lastseentyp` and never printed the suffix after
+  D-1650.
+- **C locus:** `dungeon.c` `print_mapseen` `:3613–3619`;
+  `count_feat_lastseentyp` ALTAR `:3012–3025`; `align.h`
+  `Amask2msa`/`Msa2amask`/`MSA_NONE`; callee `pray.c`
+  `altarmask_at` `:2489–2504`; `pray.c` `align_gname` A_NONE Moloch.
+- **JS was:** `feat.msalign` stayed 0; feat line stopped after
+  temple/altar counts; `align_gname` had no A_NONE arm.
+- **Fix:** record `msalign` via `Amask2msa(altarmask_at)` (astral
+  incomplete `seenv` → `MSA_NONE`); suffix when coaligned;
+  `align_gname(A_NONE)` `"Moloch"`. Rule #2: no fs.
+- **JS:** `js/dungeon.js` + `js/pray.js` `altarmask_at` +
+  `js/const.js` `Amask2msa`/`Msa2amask` + `js/roles.js` `align_gname`.
+- **Not this iter:** cemetery bones list beyond the dead hero;
+  knox/drawbridge castle flags in `count_feat_lastseentyp`; `#if 0`
+  water/lava/ice; dig.c / music.c / pager.c `altarmask_at` callers.
+  dooverview PICK_ONE is D-1650; overlay BIND= is D-1657.
+- **Verified:** private canary msalign coalign/mixed + `align_gname`
+  Moloch/strip; green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+- **Files:** `js/dungeon.js`, `js/pray.js`, `js/const.js`, `js/roles.js`.
+
 ## D-1657 — cmd.c overlay BIND= on if/else keys
 
 - **Status:** fixed (map-driven Open from D-1656; not a public FAIL)
