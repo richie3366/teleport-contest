@@ -1,6 +1,38 @@
 # Divergence log
 
+## D-1687 — invent.c dotypeinv Traditional itemize yn
+
+- **Status:** fixed (map-driven Open from D-1686; not a public FAIL)
+- **Symptom:** map named Traditional itemize yn (`I` / #inventtype).
+  C `dotypeinv` prompts with yn_function for MENU_TRADITIONAL (or
+  query_category PICK_ONE for FULL/PARTIAL), filters invent via
+  `this_type_only`, then `query_objlist` PICK_ONE + `itemactions`.
+  JS had no `dotypeinv`; `'I'` was Unknown / unbound inventtype.
+- **C locus:** `invent.c` `dotypeinv` `:3826–4032`; `this_type_only`
+  `:3792–3823`; `tally_BUCX` `:3578–3616`; callee `shk.c` `doinvbill`
+  `:4196–4271`; `pickup.c` `query_objlist` this_title `:1091–1096`
+  / PICK_ONE `select_menu`; `cmd.c` inventtype key `'I'`.
+- **JS was:** `dotypeinv` / `this_type_only` / `tally_BUCX` / `doinvbill`
+  missing; `query_objlist` always PICK_ANY and omitted this_title /
+  null qstr heading; EXT_CMDS had inventory but not inventtype.
+- **Fix:** port those C functions; `query_objlist`/`query_category`
+  honor PICK_ONE; this_title header; cmd `'I'` / #inventtype.
+  Named: yn_function addcmdq; Hallu `obj_to_glyph`; `find_oid` /
+  billobjs in `bp_to_obj`; cheapest_item; `buy_container`; full apply.
+  Rule #2: no fs.
+- **JS:** `js/invent.js` `dotypeinv`/`tally_BUCX`/`this_type_only`;
+  `js/pickup.js` `query_objlist`/`query_category`; `js/shk.js`
+  `doinvbill`; `js/cmd.js` `'I'`; `js/getline.js` inventtype.
+- **Not this iter:** `cheapest_item`; `buy_container`; doengrave
+  non-hands stylus; yn addcmdq; `obj_to_glyph` display RNG.
+- **Verified:** private canary **10**/10 (tally BUC/goldX; empty
+  invent; doinvbill no-shop; this_type B/oclass/P); green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict.
+- **Files:** `js/invent.js`, `js/pickup.js`, `js/shk.js`, `js/cmd.js`,
+  `js/getline.js`.
+
 ## D-1686 — iactions.c remaining pushkeys rub/swap/whatis
+
 
 - **Status:** fixed (map-driven Open from D-1685; not a public FAIL)
 - **Symptom:** map named remaining `itemactions_pushkeys` rub/swap/whatis.

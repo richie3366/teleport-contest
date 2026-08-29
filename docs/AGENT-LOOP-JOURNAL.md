@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1687 invent.c dotypeinv Traditional itemize yn
+
+**Objective:** Open `invent.c` Traditional itemize yn (named). Not
+cheapest_item.
+**C locus:** `invent.c` `dotypeinv` `:3826–4032`; `this_type_only`
+`:3792–3823`; `tally_BUCX` `:3578–3616`; `shk.c` `doinvbill`
+`:4196–4271`; `pickup.c` `query_objlist` this_title / PICK_ONE.
+**JS locus:** `js/invent.js` `dotypeinv`; `js/pickup.js`; `js/shk.js`
+`doinvbill`; `js/cmd.js` `'I'`; `js/getline.js` inventtype.
+**Change:** Traditional yn_function class prompt + FULL query_category
+PICK_ONE; this_type_only filter; doinvbill Ix; query_objlist this_title.
+Named: cheapest_item / `buy_container` / yn addcmdq.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **10**/10; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `shk.c` cheapest_item early return. Not Traditional
+itemize.
+**Blocked:** none.
+
 ## 2026-08-29 — D-1686 iactions.c remaining pushkeys rub/swap/whatis
 
 **Objective:** Open `iactions.c` remaining pushkeys rub/swap/whatis

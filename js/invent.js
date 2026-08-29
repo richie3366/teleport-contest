@@ -35,8 +35,9 @@
 // D-1655: invent.c flags.invlet_constant / reassign / obj_to_let
 //        (fixinv opt_out On).
 // D-1663: invent.c dounpaid / find_unpaid + mkobj.c
-//        unknwn_contnr_contents + xprname Iu/Ix cost. dotypeinv /
-//        doinvbill named. wizcmds sanity_check is D-1664.
+//        unknwn_contnr_contents + xprname Iu/Ix cost. D-1687:
+//        dotypeinv Traditional itemize yn + this_type_only /
+//        tally_BUCX; callee doinvbill. wizcmds sanity_check is D-1664.
 // D-1682: invent.c silly_thing (Call Amulet / unknown fake; getobj
 //        GETOBJ_EXCLUDE). docallcmd #if 0 EXCLUDE is compiled out.
 
@@ -46,12 +47,13 @@ import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
     endgamelevelname, obj_glyph, suppress_map_output,
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
+    clear_nhwindow_message,
 } from './display.js';
 import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
-import { yn_function, getlin } from './getline.js';
+import { yn_function, getlin, mungspaces } from './getline.js';
 import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents } from './mkobj.js';
-import { unpaid_cost } from './shk.js';
+import { unpaid_cost, doinvbill } from './shk.js';
 import { s_suffix } from './do_name.js';
 import { inv_cnt } from './steal.js';
 import { assigninvlet } from './u_init.js';
@@ -164,10 +166,17 @@ import {
     ALL_FINISHED,
     MENU_TRADITIONAL,
     MENU_FULL,
+    MENU_PARTIAL,
     BUC_BLESSED,
     BUC_UNCURSED,
     BUC_CURSED,
     BUC_UNKNOWN,
+    UNPAID_TYPES,
+    BILLED_TYPES,
+    JUSTPICKED,
+    INCLUDE_VENOM,
+    USE_INVLET,
+    INVORDER_SORT,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import {
@@ -226,12 +235,13 @@ import {
 } from './const.js';
 import { stairway_at, stairs_description } from './mklev.js';
 import { objects_at } from './mkobj.js';
-import { PM_SAMURAI, PM_MONK } from './generated/monsters_data.js';
+import { PM_SAMURAI, PM_MONK, PM_CLERIC } from './generated/monsters_data.js';
 import { humanoid, strongmonst, mons, touch_petrifies, poly_when_stoned } from './monsters.js';
 import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact } from './artifact.js';
 import {
     askchain, add_valid_menu_class, collect_obj_classes,
     count_buc, count_justpicked, allow_category,
+    query_category, query_objlist,
 } from './pickup.js';
 
 // C monflag.h MZ_HUMAN ≡ MZ_MEDIUM
@@ -1039,6 +1049,42 @@ export function count_unpaid(list) {
 }
 
 /**
+ * C invent.c tally_BUCX `:3578–3616`. Priest Role_if(PM_CLERIC) sets
+ * bknown (coins stay unknown). Coins: flags.goldX → X else U.
+ * ocp is zeroed and unused (C comment: gold is no longer skipped).
+ * Caller dotypeinv (D-1687); pickup.c still has a local tally clone.
+ * @param {object[]|object|null} list
+ * @param {boolean} by_nexthere
+ * @returns {{ b: number, u: number, c: number, x: number, o: number, j: number }}
+ */
+export function tally_BUCX(list, by_nexthere = false) {
+    const t = { b: 0, u: 0, c: 0, x: 0, o: 0, j: 0 };
+    const cleric = (game.urole?.mnum | 0) === PM_CLERIC;
+    const walk = (obj) => {
+        if (!obj) return;
+        if (cleric) obj.bknown = obj.oclass !== COIN_CLASS ? 1 : 0;
+        if (obj.pickup_prev) t.j++;
+        if (obj.oclass === COIN_CLASS) {
+            if (game.flags?.goldX) t.x++;
+            else t.u++;
+            return;
+        }
+        if (!obj.bknown) t.x++;
+        else if (obj.blessed) t.b++;
+        else if (obj.cursed) t.c++;
+        else t.u++;
+    };
+    if (Array.isArray(list)) {
+        for (const obj of list) walk(obj);
+        return t;
+    }
+    for (let obj = list; obj; obj = by_nexthere ? obj.nexthere : obj.nobj) {
+        walk(obj);
+    }
+    return t;
+}
+
+/**
  * C invent.c currency `:1545–1554`. Hallu ROLL_FROM(currencies[]) named
  * omit — always "zorkmid" / makeplural. Callers shk Iu/Ix (D-1663).
  * @param {number} amount
@@ -1131,7 +1177,7 @@ function dounpaid_xpr(otmp, letch, dot, cost, txt) {
 /**
  * C invent.c dounpaid `:3653–3789`. Iu unpaid listing: one-item pline,
  * else NHW_MENU putstr + Total + floor/buried extra. Caller dotypeinv
- * (still named). Callees find_unpaid / unknwn_contnr_contents live.
+ * (D-1687). Callees find_unpaid / unknwn_contnr_contents live.
  * @param {number} count unpaid in invent (incl. nested)
  * @param {number} floorcount unpaid on fobj
  * @param {number} buriedcount unpaid on buriedobjlist
@@ -1264,6 +1310,256 @@ export async function dounpaid(count, floorcount, buriedcount) {
         const { show_nhw_menu_text } = await import('./pager.js');
         await show_nhw_menu_text(lines);
     }
+}
+
+/** yn / query_category a_int may be a letter or its charCode. */
+function dotypeinv_eq(c, ch) {
+    return c === ch || c === ch.charCodeAt(0);
+}
+
+function dotypeinv_in(letters, c) {
+    if (c == null || c === '' || c === '\0') return false;
+    if (typeof c === 'string') return letters.includes(c);
+    return letters.includes(String.fromCharCode(c | 0));
+}
+
+/**
+ * C invent.c this_type_only `:3792–3823` (static). Allow filter for
+ * dotypeinv → query_objlist. gt.this_type is oclass or B/U/C/X/P.
+ */
+function this_type_only(obj) {
+    if (!obj) return false;
+    const t = game.this_type;
+    let res = obj.oclass === t;
+    if (dotypeinv_eq(t, 'P')) {
+        res = !!obj.pickup_prev;
+    } else if (obj.oclass === COIN_CLASS) {
+        if (t && dotypeinv_in('BUCX', t)) {
+            res = dotypeinv_eq(t, game.flags?.goldX ? 'X' : 'U');
+        }
+    } else if (dotypeinv_eq(t, 'B')) {
+        res = !!(obj.bknown && obj.blessed);
+    } else if (dotypeinv_eq(t, 'U')) {
+        res = !!(obj.bknown && !(obj.blessed || obj.cursed));
+    } else if (dotypeinv_eq(t, 'C')) {
+        res = !!(obj.bknown && obj.cursed);
+    } else if (dotypeinv_eq(t, 'X')) {
+        res = !obj.bknown;
+    }
+    return res;
+}
+
+/**
+ * C invent.c dotypeinv `:3826–4032`. `I` / #inventtype. Traditional
+ * yn_function class prompt (class_count==1 skips yn — "only one thing
+ * to itemize"); FULL/PARTIAL query_category PICK_ONE. Then Iu / Ix /
+ * BUCXP this_title + query_objlist PICK_ONE this_type_only +
+ * itemactions. yn_function addcmdq named. Hallu obj_to_glyph named.
+ * @returns {Promise<number>} ECMD_OK
+ */
+export async function dotypeinv() {
+    const prompt = 'What type of object do you want an inventory of?';
+    let c = '\0';
+    let traditional = true;
+    game.this_type = 0;
+    game.this_title = null;
+
+    const ushops = game.u?.ushops || '';
+    const billx = !!(ushops.charCodeAt(0)) && ((await doinvbill(0)) | 0) !== 0;
+    if (!(game.invent || []).length && !billx) {
+        await pline("You aren't carrying anything.");
+        game.this_type = 0;
+        game.this_title = null;
+        return ECMD_OK;
+    }
+
+    const u_carried = count_unpaid(game.invent);
+    const u_floor = count_unpaid(game.fobj);
+    const u_buried = count_unpaid(game.level?.buriedobjlist);
+    const any_unpaid = u_carried + u_floor + u_buried;
+    const buc = tally_BUCX(game.invent, false);
+    const bcnt = buc.b;
+    const ucnt = buc.u;
+    const ccnt = buc.c;
+    const xcnt = buc.x;
+    const jcnt = buc.j;
+
+    const style = game.flags?.menu_style;
+    if (style !== MENU_TRADITIONAL
+        && (style === MENU_FULL || style === MENU_PARTIAL)) {
+        traditional = false;
+        let i = UNPAID_TYPES;
+        if (billx) i |= BILLED_TYPES;
+        if (bcnt) i |= BUC_BLESSED;
+        if (ucnt) i |= BUC_UNCURSED;
+        if (ccnt) i |= BUC_CURSED;
+        if (xcnt) i |= BUC_UNKNOWN;
+        if (jcnt) i |= JUSTPICKED;
+        i |= INCLUDE_VENOM;
+        const pick_list = await query_category(
+            prompt, game.invent, i, PICK_ONE,
+        );
+        if (!pick_list.length) {
+            game.this_type = 0;
+            game.this_title = null;
+            return ECMD_OK;
+        }
+        c = pick_list[0].a_int;
+        game.this_type = c;
+    }
+
+    let types = '';
+    if (traditional) {
+        const itemcount = { n: 0 };
+        types = collect_obj_classes(game.invent, false, null, itemcount) || '';
+        let class_count = types.length;
+        if (any_unpaid || billx || (bcnt + ccnt + ucnt + xcnt) !== 0 || jcnt) {
+            types += ' ';
+            class_count++;
+        }
+        if (any_unpaid) {
+            types += 'u';
+            class_count++;
+        }
+        if (billx) {
+            types += 'x';
+            class_count++;
+        }
+        if (bcnt) {
+            types += 'B';
+            class_count++;
+        }
+        if (ucnt) {
+            types += 'U';
+            class_count++;
+        }
+        if (ccnt) {
+            types += 'C';
+            class_count++;
+        }
+        if (xcnt) {
+            types += 'X';
+            class_count++;
+        }
+        if (jcnt) {
+            types += 'P';
+            class_count++;
+        }
+        types += '\x1b';
+        if (!any_unpaid) types += 'u';
+        if (!billx) types += 'x';
+        if (!bcnt) types += 'B';
+        if (!ucnt) types += 'U';
+        if (!ccnt) types += 'C';
+        if (!xcnt) types += 'X';
+        if (!jcnt) types += 'P';
+        for (let i = 0; i < MAXOCLASSES; i++) {
+            const s = def_oc_syms[i]?.sym;
+            if (!s || types.includes(s)) continue;
+            types += s;
+        }
+
+        if (class_count > 1) {
+            /* C yn_function(..., '\\0', TRUE); addcmdq named omit. */
+            c = await yn_function(prompt, types, '\0');
+            if (!c || c === '\0') {
+                clear_nhwindow_message();
+                game.this_type = 0;
+                game.this_title = null;
+                return ECMD_OK;
+            }
+        } else if (any_unpaid) {
+            c = 'u';
+        } else if (billx) {
+            c = 'x';
+        } else {
+            c = types.charAt(0) || '\0';
+        }
+    }
+
+    if (dotypeinv_eq(c, 'x')
+        || (dotypeinv_eq(c, 'X') && billx && !xcnt)) {
+        if (billx) {
+            await doinvbill(1);
+        } else {
+            await pline(`No used-up objects${
+                any_unpaid ? ' on your shopping bill' : ''}.`);
+        }
+        game.this_type = 0;
+        game.this_title = null;
+        return ECMD_OK;
+    }
+    if (dotypeinv_eq(c, 'u')
+        || (dotypeinv_eq(c, 'U') && any_unpaid && !ucnt)) {
+        if (any_unpaid) {
+            await dounpaid(u_carried, u_floor, u_buried);
+        } else {
+            await pline('You are not carrying any unpaid objects.');
+        }
+        game.this_type = 0;
+        game.this_title = null;
+        return ECMD_OK;
+    }
+
+    let oclass;
+    if (dotypeinv_in('BUCXP', c)) {
+        oclass = c;
+    } else if (typeof c === 'number' && c > 0 && c < MAXOCLASSES) {
+        /* FULL query_category a_int is already oclass. */
+        oclass = c;
+    } else {
+        oclass = def_char_to_objclass(c);
+    }
+
+    let before = '';
+    let after = '';
+    if (dotypeinv_eq(c, 'B')) {
+        before = 'known to be blessed ';
+    } else if (dotypeinv_eq(c, 'U')) {
+        before = 'known to be uncursed ';
+    } else if (dotypeinv_eq(c, 'C')) {
+        before = 'known to be cursed ';
+    } else if (dotypeinv_eq(c, 'X')) {
+        after = ' whose blessed/uncursed/cursed status is unknown';
+    } else if (dotypeinv_eq(c, 'P')) {
+        after = ' that were just picked up';
+    } else {
+        before = 'such ';
+    }
+
+    if (traditional) {
+        const esc = types.indexOf('\x1b');
+        const ch = typeof c === 'string' ? c : String.fromCharCode(c | 0);
+        const pos = types.indexOf(ch);
+        if (esc >= 0 && pos > esc) {
+            await pline(`You have no ${before}objects${after}.`);
+            game.this_type = 0;
+            game.this_title = null;
+            return ECMD_OK;
+        }
+        game.this_type = oclass;
+    }
+    if (dotypeinv_in('BUCXP', c)) {
+        let title = `Items ${(before && before.length) ? before : after}`;
+        title = mungspaces(title);
+        title += ':';
+        game.this_title = title;
+    }
+
+    const qflags = ((invlet_constant() ? USE_INVLET : 0)
+        | INVORDER_SORT | INCLUDE_VENOM);
+    const { n, pick_list } = await query_objlist(
+        null, game.invent, qflags, PICK_ONE, this_type_only,
+    );
+    if (n > 0) {
+        const otmp = pick_list[0].obj;
+        const { itemactions } = await import('./iactions.js');
+        await itemactions(otmp);
+    }
+
+    game.this_type = 0;
+    game.this_title = null;
+    return ECMD_OK;
 }
 
 /** C invent.c ckvalidcat `:2135–2140`. */

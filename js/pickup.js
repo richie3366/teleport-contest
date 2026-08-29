@@ -53,7 +53,7 @@ import {
     BY_NEXTHERE, USE_INVLET, INVORDER_SORT, SIGNAL_NOMENU, SIGNAL_ESCAPE,
     AUTOSELECT_SINGLE, FEEL_COCKATRICE, INCLUDE_VENOM,
     MENU_INVERT_ALL, MENU_SELECT_ALL, MENU_UNSELECT_ALL,
-    MENU_ITEMFLAGS_NONE, MENU_ITEMFLAGS_SKIPINVERT, PICK_NONE,
+    MENU_ITEMFLAGS_NONE, MENU_ITEMFLAGS_SKIPINVERT, PICK_NONE, PICK_ONE,
     MENU_TRADITIONAL, MENU_COMBINATION, MENU_FULL,
     SHOPBASE,
     SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
@@ -64,7 +64,7 @@ import {
 import { t_at, dotrap, NO_TRAP_FLAGS, drown, lava_effects, instapetrify } from './trap.js';
 import { nhgetch } from './input.js';
 import { m_at } from './mon.js';
-import { oclass_to_sym, select_menu_pick_any } from './options.js';
+import { oclass_to_sym, select_menu_pick_any, select_menu_pick_one } from './options.js';
 import {
     objectNames, COIN_CLASS, VENOM_CLASS, POTION_CLASS,
     def_oc_syms, def_char_to_objclass,
@@ -384,7 +384,8 @@ function count_categories(olist, qflags) {
  * Branch envelope for menu_remarm: WORN_TYPES | ALL_TYPES | UNPAID_TYPES
  * | BUCX_TYPES, PICK_ANY. Single-class skip via count_categories.
  * CHOOSE_ALL rows when the flag is set; ParanoidAutoAll yn named omit
- * (verify_All stays false). INCLUDE_VENOM / menu_head_objsym named.
+ * (verify_All stays false). INCLUDE_VENOM via inv_order_pack; menu_head_objsym
+ * live. PICK_ONE (dotypeinv D-1687) uses select_menu_pick_one.
  *
  * @returns {Promise<{ a_int: number|string }[]>} empty if cancelled
  */
@@ -563,7 +564,19 @@ export async function query_category(qstr, olist, qflags, how) {
         { selectable: false, text: '' },
         ...items,
     ];
-    const picked = await select_menu_pick_any(raw);
+    const pickedAny = how === PICK_ONE
+        ? null
+        : await select_menu_pick_any(raw);
+    if (how === PICK_ONE) {
+        const one = await select_menu_pick_one(raw);
+        if (one.kind !== 'pick' || !one.item) return [];
+        if (one.item.a_int === 'A') {
+            await pline('No relevant items selected.');
+            return [];
+        }
+        return [{ a_int: one.item.a_int, count: one.item.count ?? 0 }];
+    }
+    const picked = pickedAny;
     if (!picked.length) return [];
 
     /* C: 'A' by itself without ParanoidAutoAll is rejected. */
@@ -579,8 +592,9 @@ export async function query_category(qstr, olist, qflags, how) {
  * C pickup.c query_objlist `:1024–1216`.
  * menu_remarm live flags: SIGNAL_NOMENU | USE_INVLET | INVORDER_SORT,
  * PICK_ANY, allow is_worn / is_worn_by_type, invent Array.
+ * this_title / PICK_ONE / INCLUDE_VENOM pack (dotypeinv D-1687).
  * Named omit: INCLUDE_HERO fake-you; obj_to_glyph display RNG;
- * INCLUDE_VENOM; count-prefix; this_title. Floor pickup keeps the
+ * count-prefix. Floor pickup keeps the
  * existing query_objlist_pickup clone (D-0365/D-0405/D-1599).
  *
  * @returns {Promise<{ n: number, pick_list: { obj: object, count: number }[] }>}
@@ -703,11 +717,42 @@ export async function query_objlist(qstr, olist, qflags, how, allow) {
         }
     }
 
-    const raw = [
-        { selectable: false, text: qstr, attr: ATR_INVERSE },
-        { selectable: false, text: '' },
-        ...items,
-    ];
+    const raw = [];
+    /* C query_objlist: add_menu_str(gt.this_title) without heading attr. */
+    if (game.this_title) {
+        raw.push({ selectable: false, text: game.this_title });
+    }
+    if (qstr) {
+        raw.push({ selectable: false, text: qstr, attr: ATR_INVERSE });
+        raw.push({ selectable: false, text: '' });
+    }
+    raw.push(...items);
+
+    const finish_picks = (pickedItems) => {
+        const pick_list = [];
+        for (const it of pickedItems) {
+            const curr = it.obj;
+            if (!curr) continue;
+            let count = it.count;
+            if (count == null || count === -1 || count > (curr.quan || 1)) {
+                count = curr.quan || 1;
+            }
+            pick_list.push({ obj: curr, count });
+        }
+        return { n: pick_list.length, pick_list };
+    };
+
+    if (how === PICK_ONE) {
+        const one = await select_menu_pick_one(raw);
+        if (one.kind !== 'pick' || !one.item) {
+            return {
+                n: (qflags & SIGNAL_ESCAPE) ? -2 : 0,
+                pick_list: [],
+            };
+        }
+        return finish_picks([one.item]);
+    }
+
     const picked = await select_menu_pick_any(raw);
     if (!picked.length) {
         /* C: ESC n<0 → SIGNAL_ESCAPE ? -2 : 0. Empty confirm is 0. */
@@ -716,17 +761,7 @@ export async function query_objlist(qstr, olist, qflags, how, allow) {
             pick_list: [],
         };
     }
-    const pick_list = [];
-    for (const it of picked) {
-        const curr = it.obj;
-        if (!curr) continue;
-        let count = it.count;
-        if (count == null || count === -1 || count > (curr.quan || 1)) {
-            count = curr.quan || 1;
-        }
-        pick_list.push({ obj: curr, count });
-    }
-    return { n: pick_list.length, pick_list };
+    return finish_picks(picked);
 }
 
 function tally_BUCX_list(objs, here) {

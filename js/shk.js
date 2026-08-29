@@ -67,7 +67,7 @@ import {
 } from './objects.js';
 import {
     newsym, pline, Norep, verbalize, You_feel, docrt, flush_screen,
-    canspotmon, canseemon, sensemon,
+    canspotmon, canseemon, sensemon, impossible,
 } from './display.js';
 import { cansee, recalc_block_point } from './vision.js';
 import { objectNames } from './generated/objects_data.js';
@@ -81,7 +81,7 @@ import {
 } from './mkobj.js';
 import { add_to_minv, mpickobj } from './makemon.js';
 import { acurr, acurrstr, A_CHA, A_WIS, adjalign, exercise, Fast } from './attrib.js';
-import { simpleonames, makeplural } from './objnam.js';
+import { simpleonames, makeplural, xprname } from './objnam.js';
 import {
     xname, doname, paydoname, set_doname_shop_suffix, otyp_is_charged,
     ansimpleoname, append_wizweight_suffix,
@@ -3768,6 +3768,80 @@ function bp_to_obj(bp) {
         if ((o?.o_id | 0) === id) return o;
     }
     return null;
+}
+
+/**
+ * C shk.c doinvbill `:4196–4271`. mode 0: count used-up bill rows (+
+ * debit) so dotypeinv Traditional can offer 'x'. mode 1: NHW_MENU of
+ * used-up articles. find_oid / billobjs o_on still invent-only
+ * (bp_to_obj). cheapest_item / buy_container named.
+ * @param {number} mode
+ * @returns {Promise<number>}
+ */
+export async function doinvbill(mode) {
+    const ushops = game.u?.ushops || '';
+    const shkp = shop_keeper(ushops.charCodeAt(0));
+    if (!shkp || !inhishop(shkp)) {
+        if (mode !== 0) await impossible('doinvbill: no shopkeeper?');
+        return 0;
+    }
+    const eshkp = ESHK(shkp);
+    const bill = eshkp?.bill_p || eshkp?.bill || [];
+    const billct = eshkp?.billct | 0;
+
+    if (mode === 0) {
+        let cnt = eshkp?.debit ? 1 : 0;
+        for (let i = 0; i < billct; i++) {
+            const bp = bill[i];
+            if (!bp) continue;
+            if (bp.useup) {
+                cnt++;
+                continue;
+            }
+            const obj = bp_to_obj(bp);
+            if (obj && (obj.quan | 0) < (bp.bquan | 0)) cnt++;
+        }
+        return cnt;
+    }
+
+    const lines = ['Unpaid articles already used up:', ''];
+    let totused = 0;
+    let ok = true;
+    for (let i = 0; i < billct && ok; i++) {
+        const bp = bill[i];
+        if (!bp) continue;
+        const obj = bp_to_obj(bp);
+        if (!obj) {
+            await impossible('Bad shopkeeper administration.');
+            ok = false;
+            break;
+        }
+        if (bp.useup || (bp.bquan | 0) > (obj.quan | 0)) {
+            const oquan = obj.quan | 0;
+            const uquan = bp.useup ? (bp.bquan | 0) : ((bp.bquan | 0) - oquan);
+            const thisused = (bp.price | 0) * uquan;
+            totused += thisused;
+            if (!game.iflags) game.iflags = {};
+            game.iflags.suppress_price = (game.iflags.suppress_price | 0) + 1;
+            lines.push(xprname(obj, 'x', false, uquan, null, thisused));
+            game.iflags.suppress_price = (game.iflags.suppress_price | 0) - 1;
+        }
+    }
+    if (ok && eshkp?.debit) {
+        if (totused) lines.push('');
+        totused += eshkp.debit | 0;
+        lines.push(xprname(
+            null, '$', false, 0,
+            'usage charges and/or other fees', eshkp.debit | 0,
+        ));
+    }
+    if (ok) {
+        lines.push('');
+        lines.push(xprname(null, '*', false, 0, 'Total:', totused));
+        const { show_nhw_menu_text } = await import('./pager.js');
+        await show_nhw_menu_text(lines);
+    }
+    return 0;
 }
 
 /**
