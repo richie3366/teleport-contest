@@ -1,3 +1,31 @@
+## D-1666 — options.c can_set_perm_invent InvOptOn import
+
+- **Status:** fixed (Must-fix review **622**; not a public FAIL)
+- **Symptom:** live `can_set_perm_invent` assigned C’s `InvOptOn`
+  (`options.c:5507–5508`) without importing it from `const.js`.
+  Reaching that arm is a ReferenceError. Handler sets mode before
+  can_set so the public `'all'` path skipped the line; `optfn_boolean`
+  perm_invent is the C caller that can still have mode None.
+- **C locus:** `options.c` `can_set_perm_invent` `:5487–5527`
+  (`:5507–5508` None→`InvOptOn`). Callers `:5266` `optfn_boolean`
+  perm_invent (named omit), `:6065` `handler_perminv_mode` (mode
+  already set), `:5536` `check_perm_invent_again` (named omit).
+  `wintype.h` `InvOptOn = InvNormal`.
+- **JS was:** `js/options.js` imported `InvOptNone`/`InvOptInUse`/
+  `InvSparse` only; `InvOptOn` unbound in the live callee after
+  D-1661.
+- **Fix:** import `InvOptOn` from `const.js`. Did not rewrite
+  can_set, add `strncmpi` #4, or insert the mO row. Rule #2: no fs.
+- **JS:** `js/options.js` const import.
+- **Not this iter:** mO compound row; `optfn_boolean` perm_invent
+  `can_set` gate; `check_tty_wincap`; `config_error_add`; TTYINV
+  `#if 0`; handler n>1 / n==0 pline; wizweight after-change.
+  `optfn_perminv_mode` is D-1661; `doperminv` is D-1642.
+- **Verified:** private canary (import block + assignment + module
+  load; `InvOptOn===1`); green+strict seed8000/0900; CURRENT cohort
+  **7**/7 + strict (9/9 with green).
+- **Files:** `js/options.js`.
+
 ## D-1665 — iactions.c remaining pushkeys offer/tip/invoke
 
 - **Status:** fixed (map-driven Open from D-1664; not a public FAIL)

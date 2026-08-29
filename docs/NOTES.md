@@ -5,13 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1665 (cadence **#2070** at `784e3060`).
-  seed4500 still PASS. **Hypothesis:** `can_set_perm_invent`
-  (`options.c:5507–5508`) assigns `InvOptOn` without importing it
-  (review **622**). **Falsify:** `node scripts/sym.mjs InvOptOn` then
-  confirm `js/options.js` imports it. **Next:** Must-fix InvOptOn
-  import. Do not rewrite can_set / mO / `strncmpi` #4. Do not skip
-  D-1531…D-1665. Not `noarmor` until Must-fix is empty.
+- **Suite 44/44** after D-1666 (cadence **#2070** at `784e3060`).
+  seed4500 still PASS. **Hypothesis:** `dosacrifice`
+  (`pray.c:1874–1892`) returns `ECMD_OK` after a successful
+  `floorfood` pick of `CORPSE` / amulet (review **626**).
+  **Falsify:** `node scripts/csym.mjs dosacrifice` then the
+  post-`floorfood` return. **Next:** Must-fix `ECMD_TIME`. Do
+  not port `offer_corpse`. Do not skip D-1531…D-1666. Not
+  `noarmor` until Must-fix is empty.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn oc_oprop;
   keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /
@@ -37,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1665.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1666.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -48,10 +49,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1665 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1666 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1665. Do not delete emin (**487**). Do not stub
+  D-1520…D-1666. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -62,9 +63,9 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1665 in the index (offer/tip/invoke
-  pushkeys D-1665; `sanity_check` gold/invlet
-  D-1664; `dounpaid` Iu D-1663; `qt_pager` common
+  `vision_reset`. D-1576…D-1666 in the index (`InvOptOn` import
+  D-1666; offer/tip/invoke pushkeys D-1665; `sanity_check`
+  gold/invlet D-1664; `dounpaid` Iu D-1663; `qt_pager` common
   retry D-1662; `optfn_perminv_mode` D-1661; `'o'` getobj D-1660).
   No yn ^P glue / `ing_suffix` clone #3 / InvInUse poke (D-1603) /
   zap sticky Blind (D-1604). No `dat/tribute` indent=2. No static
@@ -73,6 +74,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1666: `can_set_perm_invent` `InvOptOn` from `const.js`
+  (`options.c:5507–5508`). No can_set rewrite / mO / `strncmpi` #4.
+  mO / optfn_boolean perm_invent gate / check_tty_wincap named.
+  optfn_perminv_mode is D-1661.
 - D-1665: `itemactions_pushkeys` IA_SACRIFICE / IA_TIP_CONTAINER /
   IA_INVOKE_OBJ + O-row; `offer_ok`/`floorfood("sacrifice")`; live
   `doinvoke` getobj; `dotip` `tip_ok` getobj. offer_corpse /
@@ -120,6 +125,5 @@ Objective/score live in `CURRENT.md`.
   `Death_quote` + `ucase` pline. save/rest `context.novel` named.
 - D-1652: sit/pray/potionbreathe import `monsters.js` `eyecount`
   (0/1/2). Spell dull / zap rider / dothrow / mthrowu named.
-- D-1651: `lookup_novel` aliases + table/`The` + IndexOk miss; wish
-  SPE_NOVEL; `create_object` named `oname`. `'o'` getobj is D-1660.
+  lookup_novel is D-1651. `'o'` getobj is D-1660.
 

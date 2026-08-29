@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1666 can_set_perm_invent InvOptOn import
+
+**Objective:** Must-fix `can_set_perm_invent` import `InvOptOn`.
+Not can_set rewrite / mO / `strncmpi` #4.
+**C locus:** `options.c` `can_set_perm_invent` `:5507–5508`.
+**JS locus:** `js/options.js` const import.
+**Change:** import `InvOptOn` from `const.js` so None→On is bound.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary (import+load); green+strict
+seed8000/0900; cohort **7**/7 + strict.
+**Next:** Must-fix `dosacrifice` `ECMD_TIME` after floorfood
+CORPSE/amulet pick. Not `offer_corpse`.
+**Blocked:** none.
 ## 2026-08-29 — audit #2070 reviews 618–626 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **617**

@@ -133,3 +133,5 @@ D-log private canary table/digit/`!`/get_val Off; green+strict seed8000/0900; co
 Named (map, not Must-fix): mO `#optionsfull` compound row; `optfn_boolean` perm_invent `can_set` gate; `check_tty_wincap`; `config_error_add`; TTYINV `#if 0`; handler n>1 / n==0 pline; wizweight after-change. Do **not** add `handler_perminv_mode` #2. Do **not** add `strncmpi` #4. Do **not** re-port `doperminv` (D-1642). Do **not** re-port `'o'` getobj (D-1660).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1666

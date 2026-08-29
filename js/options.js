@@ -39,6 +39,7 @@ import {
     WIZKIT_MAX,
     ismnum,
     InvOptNone,
+    InvOptOn,
     InvOptInUse,
     InvSparse,
     WIN_ERR,
@@ -439,6 +440,7 @@ function mark_opt_need_redraw() {
 
 /**
  * C options.c can_set_perm_invent `:5487–5527`.
+ * InvOptOn from const.js (D-1666; C `:5507–5508`).
  * Named omissions: check_tty_wincap body; optfn_boolean perm_invent
  * gate; check_perm_invent_again pending retry.
  * @param {object} [iflags]

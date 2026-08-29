@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
+- [x] `can_set_perm_invent` (`options.c:5507–5508`) must import `InvOptOn` from `const.js`. Do not rewrite can_set, add `strncmpi` #4, or insert the mO row. Source: `reviews/loop-unattended/622-536904b4-optfn-perminv-mode.md` **Addressed:** D-1666
+
+
 - [x] `iactions.c` remaining pushkeys offer/tip/invoke (named). Not use_grease. **Addressed:** D-1665 `784e3060`
 
 

@@ -62,30 +62,30 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1665 (seed4500 still PASS). **Next cluster:**
-Must-fix `can_set_perm_invent` (`options.c:5507–5508`) import
-`InvOptOn` from `const.js`. Do not rewrite can_set, add
-`strncmpi` #4, or insert the mO row. Not `noarmor` uskin until
-Must-fix is empty.
-**Do not skip D-1531…D-1665 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1666 (seed4500 still PASS). **Next cluster:**
+Must-fix `dosacrifice` (`pray.c:1874–1892`) after a successful
+`floorfood` pick of `CORPSE` / `AMULET_OF_YENDOR` /
+`FAKE_AMULET_OF_YENDOR` must `return ECMD_TIME`, not `ECMD_OK`.
+Do not port `offer_corpse`. Not `noarmor` uskin until Must-fix
+is empty.
+**Do not skip D-1531…D-1666 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1665.** Do not FORCE
+**Do not re-break D-0660…D-1666.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1665 (index). Recent: **D-1665**
-`iactions.c` remaining pushkeys offer/tip/invoke + O-row;
-`floorfood("sacrifice")`/`offer_ok`; live `doinvoke` getobj;
-`dotip` `tip_ok` getobj. Not `offer_corpse`. `sanity_check` is
-D-1664. `dounpaid` is D-1663. `qt_pager` common is
-D-1662. `optfn_perminv_mode` is D-1661. cmdq_pop canned /
-lootabc / invent-gated i/o / artifact_name slip named. Older
-D-1531…D-1664 live in the index — do not re-paste.
+**Keep:** D-0845…D-1666 (index). Recent: **D-1666**
+`can_set_perm_invent` `InvOptOn` import from `const.js`. Not
+can_set rewrite / mO / `strncmpi` #4. `optfn_perminv_mode` is
+D-1661. `iactions.c` remaining pushkeys offer/tip/invoke is
+D-1665. `sanity_check` is D-1664. `dounpaid` is D-1663.
+`qt_pager` common is D-1662. Older D-1531…D-1665 live in the
+index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1665 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1666 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -128,6 +128,7 @@ Do not re-port `do_mgivenname`.
 Do not re-port `lookup_novel`.
 Do not re-port `'o'` getobj `"call"`.
 Do not re-port `optfn_perminv_mode`.
+Do not re-port `can_set_perm_invent` InvOptOn import.
 Do not re-port `qt_pager` common fallback.
 Do not re-port `dounpaid`.
 Do not re-port `sanity_check` gold/invlet.
