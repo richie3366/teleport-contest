@@ -1,3 +1,40 @@
+## D-1627 — steed.c dismount_steed DISMOUNT_THROWN/KNOCKED/FELL HP
+
+- **Status:** fixed (map-driven Open from D-1626; not a public FAIL)
+- **Symptom:** map named DISMOUNT_THROWN. C `dismount_steed` THROWN
+  sets verb `"are thrown"` then FALLTHROUGH KNOCKED/FELL: You off
+  the steed, retry `landing_spot`, and if the hero cannot Lev/Fly
+  without the steed, `losehp` riding-accident + `set_wounded_legs`
+  and skip `heal_legs`. JS after D-0213/D-1362 always printed
+  `"You fall off"` and skipped HP/timeout.
+- **C locus:** `steed.c` `dismount_steed` `:575–822` (THROWN
+  `:603–618`; usteed-clear Flying/Lev `:593–598`; `heal_legs(1)`
+  `:655–657` while still mounted). `youprop.h` Flying/Levitation.
+  Callers `kick_steed` `:443` (already live D-1362), `dogmove.c`
+  `:1016–1019`, `dog.c` `wary_dog` `:1342–1343`. `hack.c` `losehp`
+  / `Maybe_Half_Phys` / `u_locomotion`; `do.c` `set_wounded_legs`
+  / `heal_legs`. MS_BOAST is D-1626. dog_move Conflict angel is
+  D-1617.
+- **JS was:** THROWN/KNOCKED/FELL one `"fall off"` pline; no
+  Flying snapshot; no `losehp`/`set_wounded_legs`; `heal_legs`
+  deferred; `dog_move` Conflict steed skipped dismount; `wary_dog`
+  nulled `usteed`.
+- **Fix:** snapshot Flying/Lev with `usteed` cleared (uprops
+  conferral, not a 9th `Flying()` clone); THROWN verb + FELL/KNOCKED
+  u_locomotion float/fly/fall; HP + wounded-legs + `heal_legs(1)`
+  before release; wire Conflict steed and `wary_dog`. Rule #2: no fs.
+- **JS:** `js/steed.js` `dismount_steed`; `js/dogmove.js`
+  `dog_move`; `js/dog.js` `wary_dog`. Callees `set_wounded_legs` /
+  `heal_legs` live `js/trap.js`.
+- **Not this iter:** Punished/ustuck `float_down` arms; water/lava
+  grounded steed death; `landing_spot` KNOCKED preferred-dir /
+  enexto forceit; encumber_msg / polearm unweapon; artifact saddle
+  `untouchable`; `update_mon_extrinsics`; BYCHOICE Hallu rain;
+  setworn oc_oprop. kick_steed is D-1362. dog_move Conflict
+  `lose_guardian_angel` is D-1617. MS_BOAST is D-1626.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 +
+  seed2200/0383 + seed0103/0104 ride + strict.
+
 ## D-1626 — sounds.c domonnoise MS_BOAST hostile giants
 
 - **Status:** fixed (map-driven Open from D-1625; not a public FAIL)

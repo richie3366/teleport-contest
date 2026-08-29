@@ -2227,7 +2227,7 @@ CORPSE age→POISON + `cursed_object_at` in `dog_goal` (D-0015);
 hero_memory glyph/`distant_name` what-name deferred); 
 **`resist_conflict`/`hero_conflict` after dog_goal + `mon_allowflags` ALLOW_U** (D-0406; 
 **D-1617 `dog_move` Conflict `!edog` `lose_guardian_angel(mtmp)`** body D-1608; 
-dismount_steed DISMOUNT_THROWN / setworn oc_oprop named); 
+**DISMOUNT_THROWN steed throw D-1627**; setworn oc_oprop named); 
 **`dog_move` newdogpos `ALLOW_U`→`mattacku`/`MMOVE_DONE`** (D-0414; 
 **ALLOW_U `m_unleash` FALSE D-1609**; `pet_ranged_attk` youmonst→`mattacku` deferred); 
 **`tamedog` already-tame thrown food → `dogfood`/`dog_eat`** (D-0415; 
@@ -2272,8 +2272,15 @@ JS: `js/steed.js` — partial
 **`test_move_ok` diagonal intact-doorway ban** (D-0219); 
 **dismount `in_steed_dismounting` + `float_down(0,W_SADDLE)`** (D-0220/D-0966); 
 **`kick_steed` D-1362** (`:402–449`; dokick yn + apply whip; 
-`monverbself` vtense/makeplural named); omit `update_mon_extrinsics`, thrown/fell dismount HP, 
-Punished/ustuck float_down arms, map-grid remove_monster; tutorial/disclosure done D-0215/16
+`monverbself` vtense/makeplural named); 
+**`dismount_steed` DISMOUNT_THROWN/KNOCKED/FELL HP D-1627**
+(`:603–618`; usteed-clear Flying/Lev; `"are thrown"` FALLTHROUGH
+`losehp`/`set_wounded_legs`/`heal_legs(1)`; `dog_move` Conflict
+steed + `wary_dog` callers); omit `update_mon_extrinsics`,
+Punished/ustuck float_down arms, water/lava grounded steed death,
+`landing_spot` KNOCKED preferred-dir / enexto forceit, encumber_msg /
+polearm unweapon, BYCHOICE Hallu rain, map-grid remove_monster,
+artifact saddle `untouchable`; tutorial/disclosure done D-0215/16
 
 ### `src/uhitm.c`, `src/mhitm.c`, `src/explode.c`
 

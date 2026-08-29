@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `steed.c` `dismount_steed` DISMOUNT_THROWN (named). Not dog_move Conflict.
 - [ ] `restore.c` `restore_gamelog` (named). Not restore_msghistory.
 - [ ] `dog.c` `free_edog` (named). Not initedog ogoal.
 - [ ] `do_wear.c` `menu_remarm` (named). Not take_off occupation.

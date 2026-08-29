@@ -24,6 +24,7 @@ import {
     M_ATTK_HIT, M_ATTK_DEF_DIED, M_ATTK_AGR_DIED,
     IS_OBSTRUCTED, IS_DOOR, D_CLOSED, D_LOCKED, ALLOW_MDISP,
     MAGIC_PORTAL,
+    DISMOUNT_THROWN,
 } from './const.js';
 import { FOOD_CLASS, BALL_CLASS, CHAIN_CLASS, ROCK_CLASS, COIN_CLASS, objectNames } from './objects.js';
 import {
@@ -38,6 +39,7 @@ import { hero_conflict, resist_conflict } from './mondata.js';
 import { is_pool, is_lava } from './hack.js';
 import { m_unleash } from './apply.js';
 import { lose_guardian_angel } from './minion.js';
+import { dismount_steed } from './steed.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
@@ -796,10 +798,10 @@ export async function dog_move(mtmp, after) {
 
     const omx = mtmp.mx, omy = mtmp.my;
     let udist = dist2(omx, omy, game.u.ux, game.u.uy);
-    // C: steed may throw rider under Conflict; dismount_steed body deferred
+    // C dogmove.c `:1015–1021`: steed may throw rider under Conflict.
     if (mtmp === game.u?.usteed) {
         if (hero_conflict() && !resist_conflict(mtmp)) {
-            // dismount_steed(DISMOUNT_THROWN) deferred — still consume rnd(20)
+            await dismount_steed(DISMOUNT_THROWN);
             return MMOVE_MOVED;
         }
         udist = 1;

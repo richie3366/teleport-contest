@@ -5,25 +5,26 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1626 (green+cohort; cadence #2020 still
+- **Suite 44/44** after D-1627 (green+cohort; cadence #2020 still
   D-1620). seed4500 still PASS. Reviews **573–581** ACCEPT-WITH-DEBT.
-  **Hypothesis:** Open `steed.c` `dismount_steed` DISMOUNT_THROWN
-  (named) is the next map cluster. Not dog_move Conflict.
-  **Falsify:** `node scripts/csym.mjs dismount_steed`;
-  `node scripts/map.mjs steed.c`.
-  **Next:** Open DISMOUNT_THROWN. Do not skip D-1531…D-1626. No FORCE
+  **Hypothesis:** Open `restore.c` `restore_gamelog` (named) is the
+  next map cluster. Not restore_msghistory.
+  **Falsify:** `node scripts/csym.mjs restore_gamelog`;
+  `node scripts/map.mjs restore.c`.
+  **Next:** Open restore_gamelog. Do not skip D-1531…D-1627. No FORCE
   / `wildmiss` wrap / trailing `confdir` in shared `getdir`. Do not
-  glue onto MS_BOAST (D-1626) or `doextlist` (D-1625).
+  glue onto DISMOUNT_THROWN (D-1627) or MS_BOAST (D-1626).
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; `restore_cham` / `rescham`; `restore_gamelog`;
   `menu_remarm`; ggetobj drop; tty WIN_INVEN / `#perminv` /
   `optfn_perminv_mode`; BIND= `seeall` / M('?'); ACH_ASTR;
-  dismount_steed DISMOUNT_THROWN / setworn oc_oprop; newcham mleashed /
-  keepdogs / grow_up leash; `free_edog` / restore `newedog`; pickup
-  tip-spill / squeaky / use_grease; hideunder / `safe_qbuf`;
-  wonky-gold / `invlet_constant`; convert_line `%Xh` / common fallback /
-  array rn2; kill_char / `tty_nhbell` / `cw->cury` / `intr`;
-  do_mgivenname `'m'`; overview PICK_ONE; guardian/isshk/gecko remaps.
+  setworn oc_oprop; newcham mleashed / keepdogs / grow_up leash;
+  `free_edog` / restore `newedog`; pickup tip-spill / squeaky /
+  use_grease; hideunder / `safe_qbuf`; wonky-gold / `invlet_constant`;
+  convert_line `%Xh` / common fallback / array rn2; kill_char /
+  `tty_nhbell` / `cw->cury` / `intr`; do_mgivenname `'m'`; overview
+  PICK_ONE; guardian/isshk/gecko remaps; Punished/ustuck float_down;
+  water/lava steed death; `landing_spot` KNOCKED preferred-dir.
 
 ## Don't re-check (≤15)
 
@@ -32,7 +33,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1626.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1627.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -43,9 +44,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1626 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1627 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1626. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1627. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -56,14 +57,18 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1626 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1627 live in the index. Do not glue
   yn ^P onto getline. No `ing_suffix` clone #3. Do not poke
   `beyond_savefile_load` to “prove” InvInUse (D-1603). Do not restore
   zap `bhit` sticky `u.Blind||u.ublind` (D-1604). Do not re-port
-  D-1605…D-1626 (index; MS_BOAST is D-1626; remaps named).
+  D-1605…D-1627 (index; DISMOUNT_THROWN is D-1627; remaps named).
 
 ## Landmarks (≤15)
 
+- D-1627: `dismount_steed` DISMOUNT_THROWN `"are thrown"` FALLTHROUGH
+  KNOCKED/FELL HP + wounded-legs; usteed-clear Flying/Lev;
+  `heal_legs(1)` mounted; `dog_move` Conflict steed + `wary_dog`.
+  Punished/ustuck / water-lava / KNOCKED dir named.
 - D-1626: MS_BOAST hostile `rn2(4)` gem/`mhis` / mutton / Fee-Fie
   `wake_nearto(7*7)`; peaceful FALLTHROUGH HUMANOID. Remaps named.
 - D-1625: `doextlist` NHW_MENU + `doc_extcmd_flagstr`; `#?` runner;
@@ -83,7 +88,7 @@ Objective/score live in `CURRENT.md`.
 - D-1618: MS_HUMANOID peaceful + `"threatens you."` + MS_ORC remap.
   Gnome `rn2(4)`. mplayer_talk D-1606. MS_BOAST is D-1626.
 - D-1617: `dog_move` Conflict `!edog` `lose_guardian_angel` then
-  `MMOVE_DIED`. Body D-1608. dismount_steed named.
+  `MMOVE_DIED`. Body D-1608. DISMOUNT_THROWN is D-1627.
 - D-1616: `reset_hostility` isminion emin vs ualign → hostile
   `set_malign`/`newsym`. `final_level` `iter_mons`. ACH_ASTR named.
 - D-1615: `consume_obj_charge` known `update_inventory` after `spe--`.
@@ -92,5 +97,3 @@ Objective/score live in `CURRENT.md`.
   skip-empty. `restore_gamelog` named.
 - D-1613: `get_count` GC_SAVEHIST/CONDHIST putmsghistory Count+key2txt.
   `adjust_split` is D-1621.
-- D-1612: yn `tty_yn_function` ^P `tty_doprev_message`; `'s'` two
-  calls then discard. Not getline. Command ^P is D-1601.

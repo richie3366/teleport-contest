@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1627 steed.c dismount_steed DISMOUNT_THROWN
+
+**Objective:** Open `steed.c` `dismount_steed` DISMOUNT_THROWN
+(named). Not dog_move Conflict.
+**C locus:** `steed.c` `dismount_steed` `:603–618` THROWN
+FALLTHROUGH KNOCKED/FELL; Flying/Lev `:593–598`; `heal_legs(1)`
+`:655–657`; callers `dogmove.c` `:1016–1019`, `dog.c` `wary_dog`
+`:1342–1343`.
+**JS locus:** `js/steed.js` `dismount_steed`; `js/dogmove.js`;
+`js/dog.js` `wary_dog`.
+**Change:** usteed-clear Flying/Lev snapshot; `"are thrown"` /
+u_locomotion verb; `losehp` Maybe_Half_Phys(`rn1(10,10)`) +
+`set_wounded_legs` + skip `heal_legs` when grounded; `heal_legs(1)`
+while mounted; wire Conflict steed + `wary_dog`. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; cohort **7**/7 +
+seed2200/0383 + seed0103/0104 + strict.
+**Next:** Open `restore.c` `restore_gamelog`. Not restore_msghistory.
+**Blocked:** none.
 ## 2026-08-29 — D-1626 sounds.c MS_BOAST hostile giants
 
 **Objective:** Open `sounds.c` MS_BOAST hostile giants (named).

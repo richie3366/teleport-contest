@@ -19,6 +19,7 @@ import {
     STRAT_ARRIVE, RLOC_NOMSG, MAGIC_PORTAL, In_endgame, isok, MTSZ, MANFOOD,
     DOGFOOD, ACCFOOD, FULL_MOON, Upolyd, has_edog, EDOG, LL_CONDUCT,
     DF_ALL, COLNO, ROWNO, ROOMOFFSET, IS_WALL,
+    DISMOUNT_THROWN,
 } from './const.js';
 import { SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
 import { is_pool, in_rooms } from './hack.js';
@@ -34,7 +35,7 @@ import { acurr, A_CHA } from './attrib.js';
 import { christen_monst, Monnam, mon_pmname } from './do_name.js';
 import { monnear, m_at, see_monster_closeup, minliquid, restore_cham, wake_nearto } from './mon.js';
 import { enexto, rloc_to, rloc, rloc_to_flag, goodpos } from './teleport.js';
-import { put_saddle_on_mon } from './steed.js';
+import { put_saddle_on_mon, dismount_steed } from './steed.js';
 import { newsym, pline, pline_mon, canspotmon, canseemon, Hallucination } from './display.js';
 import { redraw_worm } from './worm.js';
 import { hero_conflict } from './mondata.js';
@@ -945,7 +946,7 @@ export function mon_catchup_elapsed_time(mtmp, nmv) {
 
 /**
  * C ref: dog.c wary_dog — pet revive / lifesave tameness gate.
- * Named omit: dismount_steed DISMOUNT_THROWN; pline_mon SetVoice.
+ * Named omit: pline_mon SetVoice.
  */
 export async function wary_dog(mtmp, was_dead) {
     if (!mtmp) return;
@@ -994,7 +995,9 @@ export async function wary_dog(mtmp, was_dead) {
             const { m_unleash } = await import('./apply.js');
             await m_unleash(mtmp, true);
         }
-        if (game.u?.usteed === mtmp) game.u.usteed = null; // dismount deferred
+        if (game.u?.usteed === mtmp) {
+            await dismount_steed(DISMOUNT_THROWN);
+        }
     } else if (edog) {
         edog.revivals = (edog.revivals | 0) + 1;
         edog.killed_by_u = 0;
