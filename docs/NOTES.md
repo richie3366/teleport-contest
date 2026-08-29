@@ -5,19 +5,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1613. seed4500 still PASS.
-  **Hypothesis:** Open `restore.c` `restore_msghistory` (named) is the
-  next map cluster. Not putmsghistory. Not get_count historicmsg.
-  **Falsify:** `node scripts/csym.mjs restore_msghistory`;
-  `node scripts/sym.mjs restore_msghistory`.
-  **Next:** Open restore_msghistory. D-1613 shipped `get_count`
-  GC_SAVEHIST/CONDHIST/ECHOFIRST + getobj SAVEHIST `putmsghistory`.
-  parse stays GC_NOFLAGS. Do not skip D-1531…D-1613. No FORCE /
-  `wildmiss` wrap / trailing `confdir` in shared `getdir`. Do not
-  glue restore onto putmsghistory body (D-1588).
+- **Suite 44/44** after D-1614. seed4500 still PASS.
+  **Hypothesis:** Open `apply.c` `consume_obj_charge`
+  `update_inventory` (named) is the next map cluster. Not
+  perm_invent InvInUse. Not restore_msghistory.
+  **Falsify:** `node scripts/csym.mjs consume_obj_charge`;
+  `node scripts/sym.mjs consume_obj_charge`.
+  **Next:** Open consume_obj_charge. D-1614 shipped
+  `restore_msghistory` + `save_msghistory` JSON VFS walk.
+  Do not skip D-1531…D-1614. No FORCE / `wildmiss` wrap /
+  trailing `confdir` in shared `getdir`. Do not glue onto
+  putmsghistory body (D-1588).
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; floor `query_classes`;
-  restore_msghistory; `restore_cham` / `rescham`;
+  `restore_cham` / `rescham`; `restore_gamelog`;
   peaceful MS_HUMANOID / `"threatens you."`; `take_off` /
   `menu_remarm`; ggetobj drop; `consume_obj_charge`
   `update_inventory`; tty WIN_INVEN create
@@ -35,7 +36,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1613.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1614.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,9 +47,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1613 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1614 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1613. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1614. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -59,7 +60,7 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1613 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1614 live in the index. Do not glue
   yn ^P onto getline. No `ing_suffix`
   clone #3. Do not poke `beyond_savefile_load` to “prove” InvInUse
   (D-1603 writers are preamble `:71` / `try_restore_save` `:942`).
@@ -72,14 +73,19 @@ Objective/score live in `CURRENT.md`.
   Do not re-port `initedog` ogoal / first-pet livelog (D-1610).
   Do not re-port getline ^P (D-1611). Do not re-port yn ^P (D-1612).
   Do not re-port `get_count` historicmsg (D-1613; `adjust_split`
-  caller named).
+  caller named). Do not re-port `restore_msghistory` (D-1614;
+  `restore_gamelog` named).
 
 ## Landmarks (≤15)
 
+- D-1614: `restore_msghistory` JSON Sfi length+chars until `-1`;
+  `putmsghistory(msg,TRUE)` then `NULL` if any; `save_msghistory`
+  `getmsghistory` skip-empty truncate BUFSZ-1. Missing field =
+  old save. `restore_gamelog` named. putmsghistory body is D-1588.
 - D-1613: `get_count` GC_SAVEHIST/CONDHIST/ECHOFIRST; parse
   GC_NOFLAGS; getobj SAVEHIST `putmsghistory("Count: N "+key2txt)`.
-  One export; `getobj_get_count` clone retired. `adjust_split` /
-  restore_msghistory named. putmsghistory body is D-1588.
+  One export; `getobj_get_count` clone retired. `adjust_split`
+  named. putmsghistory body is D-1588.
 - D-1612: yn `tty_yn_function` ^P `tty_doprev_message`; non-`'s'`
   zeros `inread` then restore; `'s'` two calls first then discards
   next key. Not getline `hooked_getlin_ctrl_p`. Command ^P is
@@ -119,6 +125,3 @@ Objective/score live in `CURRENT.md`.
   cmd ^P / `#prevmsg`. getline ^P is D-1611; yn ^P is D-1612.
 - D-1600: perm_invent InvInUse helpers; writers D-1603.
   tty paint / `#perminv` named.
-- D-1599: SORTLOOT_PETRIFY keeps `touch_petrifies` CORPSE when
-  filter rejects FOOD; Blind `look_here`/`pickup` feel. eat/doloot
-  named.

@@ -1,3 +1,27 @@
+## D-1614 — restore.c restore_msghistory / save.c save_msghistory
+
+- **Status:** fixed (map-driven Open from D-1613; not a public FAIL)
+- **Symptom:** JSON VFS save/restore dropped the ^P ring.
+  C `save_msghistory` walks `getmsghistory` (skip empty, truncate
+  BUFSZ-1, `-1` sentinel). C `restore_msghistory` reads length/chars
+  until `-1`, `putmsghistory(msg,TRUE)`, then `putmsghistory(NULL,TRUE)`
+  if any. D-1588 shipped `putmsghistory` itself.
+- **C locus:** `restore.c` `restore_msghistory` `:1411–1441` caller
+  `restgamestate` `:720`. Pair `save.c` `save_msghistory` `:1029–1056`
+  caller savestate `:326`. Callees `getmsghistory`/`putmsghistory`
+  (D-1588).
+- **JS was:** named omit after D-1588 (`dosave0`/`try_restore_save`
+  had no msghistory chunk).
+- **Fix:** JSON array analogue of Sfo/Sfi length+chars; missing field
+  = old save without the chunk; too-big throws ≡ C panic. Rule #2:
+  no fs (VFS JSON only).
+- **JS:** `js/save.js` `save_msghistory` / `restore_msghistory`.
+- **Not this iter:** `restore_gamelog` / `restore_luadata`; binary
+  NHFILE; FREEING `update_file`; files.c tribute; questpgr synopsis.
+  putmsghistory body is D-1588. `get_count` historicmsg is D-1613.
+- **Verified:** private canary **11**/11; focused seed0013 restore
+  PASS; green+strict seed8000/0900; cohort **7**/7 + strict.
+
 ## D-1613 — cmd.c get_count historicmsg putmsghistory
 
 - **Status:** fixed (map-driven Open from D-1612; not a public FAIL)

@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1614 restore.c restore_msghistory
+
+**Objective:** Open `restore.c` `restore_msghistory` (named). Not
+putmsghistory.
+**C locus:** `restore.c` `restore_msghistory` `:1411–1441`; pair
+`save.c` `save_msghistory` `:1029–1056`.
+**JS locus:** `js/save.js` `restore_msghistory` / `save_msghistory`.
+**Change:** JSON VFS array analogue of Sfo/Sfi length+chars; restore
+`putmsghistory(msg,TRUE)` then `NULL` if any; save `getmsghistory`
+skip-empty truncate BUFSZ-1. `restore_gamelog` named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **11**/11; focused seed0013 restore
+PASS; green+strict seed8000/0900; cohort **7**/7 + strict.
+**Next:** Open `consume_obj_charge` `update_inventory`. Not
+perm_invent InvInUse.
+**Blocked:** none.
 ## 2026-08-29 — D-1613 cmd.c get_count historicmsg
 
 **Objective:** Open `cmd.c` `get_count` historicmsg (named). Not

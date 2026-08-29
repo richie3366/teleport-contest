@@ -1602,10 +1602,23 @@ livelog addbranch); **insight ^X endgame dungeon via shared `endgamelevelname`**
 `cls` `botlx`; spell `uen` `botl`** (D-0314); omit livelog file write; 
 full `update_topl` NON_EMPTY cury/docorner; backspace-across-wrap / EDIT_GETLIN; 
 **putmsghistory D-1588** (`topl.c` `tty_putmsghistory` + `remember_topl`/`msghistory_snapshot`/`dumplogmsg`; getobj force_invmenu qbuf); 
-**tty_doprev_message D-1601** (`topl.c` `:19–119` + `redotoplin` `:121–141`; TTY `'s'` single ring walk / `'f'` full / `'c'` combo / `'r'` reversed NHW_MENU; `cmd.c` `doprev_message` ^P/`#prevmsg`; `options.c` `msg_window` first-char); **getline.c ^P D-1611** (`hooked_tty_getlin` `:105–141` zeros `inread` around callee; `'s'`/`'c'`&&!doprev two calls first then continue; else restore prompt; `get_ext_cmd` same C fn; SPECIAL_PROMPT + `gt.toplines`); **yn ^P D-1612** (`topl.c` `tty_yn_function` `:434–463` + `:394–396` inread++/SPECIAL + `:544–545` inread--; non-`'s'` zeros inread then restore; `'s'` two calls first then discards next key; not getline `hooked_getlin_ctrl_p`); **get_count historicmsg D-1613** (`cmd.c` `:5009–5090` + getobj `:1944` `GC_SAVEHIST`; not putmsghistory body); restore.c `restore_msghistory` / files.c tribute / questpgr synopsis / EDIT_GETLIN / kill_char / post-answer `toplines=prompt+key` / `adjust_split` named; 
+**tty_doprev_message D-1601** (`topl.c` `:19–119` + `redotoplin` `:121–141`; TTY `'s'` single ring walk / `'f'` full / `'c'` combo / `'r'` reversed NHW_MENU; `cmd.c` `doprev_message` ^P/`#prevmsg`; `options.c` `msg_window` first-char); **getline.c ^P D-1611** (`hooked_tty_getlin` `:105–141` zeros `inread` around callee; `'s'`/`'c'`&&!doprev two calls first then continue; else restore prompt; `get_ext_cmd` same C fn; SPECIAL_PROMPT + `gt.toplines`); **yn ^P D-1612** (`topl.c` `tty_yn_function` `:434–463` + `:394–396` inread++/SPECIAL + `:544–545` inread--; non-`'s'` zeros inread then restore; `'s'` two calls first then discards next key; not getline `hooked_getlin_ctrl_p`); **get_count historicmsg D-1613** (`cmd.c` `:5009–5090` + getobj `:1944` `GC_SAVEHIST`; not putmsghistory body); **restore_msghistory D-1614**; files.c tribute / questpgr synopsis / EDIT_GETLIN / kill_char / post-answer `toplines=prompt+key` / `adjust_split` named; 
 full message/window policy incomplete; `%-2d` pad; Upolyd mh botl; 
 **`timebot` via `flags.time_botl` on `moves++`** (D-0928 #1179; tty→`bot()`; 
 VIA_WINDOWPORT `stat_update_time` / `bot_disabled` / `suppress_map_output` deferred)
+
+### `src/restore.c` `restore_msghistory` / `src/save.c` `save_msghistory`
+
+JS: `js/save.js` — partial
+
+**restore_msghistory D-1614** (`restore.c` `:1411–1441`; JSON analogue of
+Sfi_int length + Sfi_char, `-1` break; `putmsghistory(msg,TRUE)` then
+`putmsghistory(NULL,TRUE)` if any; missing/non-array = old JSON without
+the chunk; length > BUFSZ-1 throws ≡ C panic); **save_msghistory**
+(`save.c` `:1029–1056` `getmsghistory` walk, skip empty, truncate
+BUFSZ-1; empty walk is `[]`); callees `putmsghistory`/`getmsghistory`
+D-1588; `dosave0`/`try_restore_save` D-0335/D-1603. Binary NHFILE /
+`restore_gamelog` / `restore_luadata` / FREEING `update_file` named.
 
 ### `src/invent.c` / `src/iactions.c`
 

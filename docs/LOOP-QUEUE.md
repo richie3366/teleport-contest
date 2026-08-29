@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `restore.c` `restore_msghistory` (named). Not putmsghistory.
 - [ ] `apply.c` `consume_obj_charge` `update_inventory` (named). Not perm_invent InvInUse.
 - [ ] `mon.c` `reset_hostility` (named). Not gain_guardian_angel.
 - [ ] `dogmove.c` Conflict `lose_guardian_angel` caller (named). Not gain_guardian_angel.

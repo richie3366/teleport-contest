@@ -1,15 +1,16 @@
 // save.js — Game save / restore via frozen storage VFS (JSON subset).
-// C ref: save.c dosave / dosave0; restore.c dorecover; files.c SAVEF;
-//        unixmain attempt_restore; allmain welcome(FALSE).
+// C ref: save.c dosave / dosave0 / save_msghistory; restore.c dorecover /
+//        restore_msghistory; files.c SAVEF; unixmain attempt_restore;
+//        allmain welcome(FALSE).
 
 import { game } from './gstate.js';
 import { vfsReadFile, vfsWriteFile, vfsDeleteFile } from './storage.js';
 import { yn_function } from './getline.js';
-import { pline, docrt } from './display.js';
+import { pline, docrt, getmsghistory, putmsghistory } from './display.js';
 import { change_luck } from './attrib.js';
 import {
     FULL_MOON, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED,
-    OBJ_BURIED, ECMD_OK,
+    OBJ_BURIED, ECMD_OK, BUFSZ,
 } from './const.js';
 import { GameMap } from './game.js';
 import { mons } from './monsters.js';
@@ -200,7 +201,8 @@ function rebuildObjectsAt(fobj) {
 /**
  * C ref: save.c dosave0 — write current game to VFS (JSON subset of savelev).
  * Named omissions: binary NHFILE format; multi-level ledger files; hangup
- * arms; overwrite yn; compress; looseball/chain when swallowed.
+ * arms; overwrite yn; compress; looseball/chain when swallowed;
+ * save_gamelog / save_luadata.
  */
 export function dosave0() {
     const u = game.u || {};
@@ -284,9 +286,32 @@ export function dosave0() {
         datetime_saved: game.datetime || null,
         // level dnum/dlevel
         uz: u.uz ? { ...u.uz } : { dnum: 0, dlevel: 1 },
+        // C save.c save_msghistory `:1029–1056` after savenames.
+        msghistory: save_msghistory(),
     };
 
     return vfsWriteFile(vfsPath(path), JSON.stringify(payload));
+}
+
+/**
+ * C ref: save.c save_msghistory `:1029–1056`. JSON analogue of
+ * Sfo_int length + Sfo_char then Sfo_int -1. Skip empty; truncate
+ * BUFSZ-1. getmsghistory snapshots with WIN_LOCKHISTORY then unlocks.
+ * update_file/FREEING / debugpline1 omitted (JSON VFS always writes).
+ * @returns {string[]}
+ */
+export function save_msghistory() {
+    const out = [];
+    let init = true;
+    let msg;
+    while ((msg = getmsghistory(init))) {
+        init = false;
+        let msglen = msg.length;
+        if (msglen < 1) continue;
+        if (msglen > BUFSZ - 1) msglen = BUFSZ - 1;
+        out.push(msg.slice(0, msglen));
+    }
+    return out;
 }
 
 /** Plain-data hero fields; worn slots omitted (see serWorn). */
@@ -431,6 +456,10 @@ export function try_restore_save() {
     game.lastseentyp = payload.lastseentyp || null;
     rebuildObjectsAt(fobj);
 
+    // C restore.c restgamestate `:720` after restnames, before
+    // restore_gamelog / restore_luadata (those remain named).
+    restore_msghistory(payload);
+
     // C restore.c dorecover :942 — after restoring=0 / early_raw_messages,
     // before docrt. Invent sync_perminvent WIN_INVEN gate (D-1603).
     if (!game.program_state) game.program_state = {};
@@ -439,6 +468,30 @@ export function try_restore_save() {
     // C: delete save after successful restore
     vfsDeleteFile(vfsPath(path));
     return true;
+}
+
+/**
+ * C ref: restore.c restore_msghistory `:1411–1441`. JSON analogue of
+ * Sfi_int length (break on -1) + Sfi_char. Each msg
+ * putmsghistory(msg, TRUE); if any, putmsghistory(NULL, TRUE).
+ * Missing/non-array field = old JSON save without this chunk (empty
+ * walk). Length > BUFSZ-1 is C panic; JSON analogue throws.
+ * SFCTOOL / debugpline1 omitted.
+ * @param {{ msghistory?: unknown }} payload
+ */
+export function restore_msghistory(payload) {
+    const msgs = payload?.msghistory;
+    if (!Array.isArray(msgs)) return;
+    let msgcount = 0;
+    for (const raw of msgs) {
+        const s = String(raw ?? '');
+        if (s.length > BUFSZ - 1) {
+            throw new Error(`restore_msghistory: msg too big (${s.length})`);
+        }
+        putmsghistory(s, true);
+        msgcount++;
+    }
+    if (msgcount) putmsghistory(null, true);
 }
 
 /**

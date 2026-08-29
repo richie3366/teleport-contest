@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `cmd.c` `get_count` historicmsg (named). Not putmsghistory. **Addressed:** D-1613
+- [x] `restore.c` `restore_msghistory` (named). Not putmsghistory. **Addressed:** D-1614
+
+
+- [x] `cmd.c` `get_count` historicmsg (named). Not putmsghistory. **Addressed:** D-1613 `587c52ad`
 
 
 - [x] `topl.c` `tty_yn_function` ^P (named). Not command ^P. **Addressed:** D-1612 `7012e194`
