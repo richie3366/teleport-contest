@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `dosacrifice` (`pray.c:1874–1892`) after a successful `floorfood` pick of `CORPSE` / `AMULET_OF_YENDOR` / `FAKE_AMULET_OF_YENDOR` must `return ECMD_TIME`, not `ECMD_OK`. Do not port `offer_corpse` in that iter. Source: `reviews/loop-unattended/626-784e3060-iactions-pushkeys.md`
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `invent.c` `noarmor` uskin (named). Not doprarm.

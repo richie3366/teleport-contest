@@ -1,3 +1,29 @@
+## D-1667 — pray.c dosacrifice ECMD_TIME after floorfood pick
+
+- **Status:** fixed (Must-fix review **626**; not a public FAIL)
+- **Symptom:** after a successful `floorfood("sacrifice", 1)` pick of
+  `CORPSE` / `AMULET_OF_YENDOR` / `FAKE_AMULET_OF_YENDOR`, JS
+  `return ECMD_OK`. C `return ECMD_TIME` (empty pick is the only
+  `ECMD_OK`). Itemactions O then canned invlet then getobj succeeded
+  with no turn.
+- **C locus:** `pray.c` `dosacrifice` `:1853–1896` (`:1874–1895`
+  the three otyp arms + `nothing_happens`). Caller `cmd.c` prototype;
+  `iactions.c` `itemactions_pushkeys` IA_SACRIFICE queues it.
+- **JS was:** those three otyps `return ECMD_OK` after D-1665 while
+  `offer_*` bodies stayed named.
+- **Fix:** each live otyp `return ECMD_TIME`. Did not port
+  `offer_corpse` / `offer_too_soon` / `offer_real_amulet` /
+  `offer_fake_amulet`. Rule #2: no fs.
+- **JS:** `js/pray.js` `dosacrifice`.
+- **Not this iter:** `offer_corpse` bodies; remaining pushkeys
+  unwield/name/eat/engrave/buy/rub/swap/two-weapon/whatis;
+  `choose_tip_container_menu`; tip spill/tiphat. offer/tip/invoke
+  pushkeys is D-1665; InvOptOn import is D-1666.
+- **Verified:** private canary (canned corpse/Yendor/fake →
+  `ECMD_TIME`; miss → `ECMD_OK`); green+strict seed8000/0900;
+  CURRENT cohort **7**/7 + strict (9/9 with green).
+- **Files:** `js/pray.js`.
+
 ## D-1666 — options.c can_set_perm_invent InvOptOn import
 
 - **Status:** fixed (Must-fix review **622**; not a public FAIL)

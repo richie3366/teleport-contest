@@ -16,7 +16,8 @@
 // Named omissions: pleased pat_on_head gifts / crown / give_spell;
 // p_type -2/-1/1/2 outcome bodies beyond water_prayer scan;
 // pray_revive; offer_corpse / offer_too_soon / offer_fake_amulet /
-// offer_real_amulet; known_spell SPE_TURN_UNDEAD /
+// offer_real_amulet (dosacrifice ECMD_TIME after pick is D-1667);
+// known_spell SPE_TURN_UNDEAD /
 // spelleffects fallback for non-Knight/Cleric; resist TELL pline polish;
 // other livelog paths; poly silent/headless can_chant; Fixed_abil/Dunce
 // adjattrib; Unaware You_feel dream prefix; music.c do_earthquake altar
@@ -1465,9 +1466,9 @@ export async function dopray() {
 
 /**
  * C ref: pray.c dosacrifice `#offer` `:1853–1896`.
- * Branch envelope: not-on-altar / impaired early returns (ECMD_OK);
- * floorfood("sacrifice", 1) (D-1665). Named omissions: offer_too_soon /
- * offer_real_amulet / offer_fake_amulet / offer_corpse bodies.
+ * Branch envelope: not-on-altar / impaired / empty floorfood → ECMD_OK;
+ * successful CORPSE / Yendor / fake pick → ECMD_TIME (D-1667) even
+ * while offer_* bodies stay named. nothing_happens is TIME.
  */
 export async function dosacrifice() {
     const u = game.u || {};
@@ -1482,12 +1483,18 @@ export async function dosacrifice() {
     }
     const otmp = await floorfood('sacrifice', 1);
     if (!otmp) return ECMD_OK;
-    if ((otmp.otyp | 0) === AMULET_OF_YENDOR
-        || (otmp.otyp | 0) === FAKE_AMULET_OF_YENDOR
-        || (otmp.otyp | 0) === CORPSE) {
-        /* offer_too_soon / offer_real_amulet / offer_fake_amulet /
-           offer_corpse named */
-        return ECMD_OK;
+    /* C pray.c `:1874–1895` — each live otyp spends the turn. */
+    if ((otmp.otyp | 0) === AMULET_OF_YENDOR) {
+        /* offer_too_soon / offer_real_amulet named */
+        return ECMD_TIME;
+    }
+    if ((otmp.otyp | 0) === FAKE_AMULET_OF_YENDOR) {
+        /* offer_fake_amulet named */
+        return ECMD_TIME;
+    }
+    if ((otmp.otyp | 0) === CORPSE) {
+        /* offer_corpse named */
+        return ECMD_TIME;
     }
     await pline(nothing_happens);
     return ECMD_TIME;

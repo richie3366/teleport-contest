@@ -135,3 +135,5 @@ Wired: cmdq + invlet; live getobj on three verbs; tip container/horn. Unwired C:
 Named (map, not Must-fix): `offer_corpse` bodies; `choose_tip_container_menu`; spill/tiphat/statue; remaining pushkeys (unwield/name/eat/engrave/buy/rub/swap/two-weapon/whatis); floorfood `safe_qbuf` / cockatrice. Do **not** restore `getobj_invoke`. Do **not** add `cmdq_add_ec` #6. Do **not** add `container_at` #2. Do **not** add `offer_ok` export/`#2`.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1667

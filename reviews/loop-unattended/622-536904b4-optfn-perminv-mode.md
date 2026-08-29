@@ -134,4 +134,4 @@ Named (map, not Must-fix): mO `#optionsfull` compound row; `optfn_boolean` perm_
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1666
+**Addressed:** D-1666 `3c77e49a`
