@@ -1,3 +1,35 @@
+## D-1661 — options.c optfn_perminv_mode
+
+- **Status:** fixed (map-driven Open from D-1660; not a public FAIL)
+- **Symptom:** map named `optfn_perminv_mode`. C parses
+  `OPTIONS=perminv_mode:…` / `=` / digit / `!perminv_mode` onto
+  `iflags.perminv_mode` + `perm_invent`, shows get_val text (Off
+  suffix when mode set but perm_invent Off), and `O` handler menu
+  (`handler_perminv_mode` / `can_set_perm_invent`). JS had no
+  function after D-1642 doperminv; colon values fell through to
+  `flags.perminv_mode` string.
+- **C locus:** `options.c` `optfn_perminv_mode` `:3045–3135`;
+  `perminv_modes[]` `:225–240`; `handler_perminv_mode` `:6010–6083`;
+  `can_set_perm_invent` `:5487–5527`. Caller `parseoptions` do_set;
+  handler get_val with `op==NULL`.
+- **JS was:** no export; rc `perminv_mode:full` stored as a flags
+  string; no handler.
+- **Fix:** table + do_init/do_set/get_val/get_cnf_val; OPTIONS=
+  colon/`=`/bare `!`; handler PICK_ONE letters/gacc; can_set tty
+  `perm_invent_toggled`. mO compound row not inserted (shifts
+  pickup_types letters; seed0007). Rule #2: no fs.
+- **JS:** `js/options.js` `optfn_perminv_mode` /
+  `handler_perminv_mode` / `can_set_perm_invent`.
+- **Not this iter:** mO `#optionsfull` compound row; optfn_boolean
+  perm_invent can_set gate; `check_perm_invent_again`;
+  `check_tty_wincap`; `set_option_mod_status`; TTYINV getenv `#if 0`;
+  wizweight after-change. doperminv is D-1642; `'o'` getobj is
+  D-1660.
+- **Verified:** private canary table/digit/`!`/get_val Off suffix;
+  green+strict seed8000/0900; cohort **7**/7 + strict (9/9 with
+  green). Inserting the mO row failed seed0007 (reverted that row).
+- **Files:** `js/options.js`.
+
 ## D-1660 — do_name.c docallcmd `'o'` live getobj call
 
 - **Status:** fixed (map-driven Open from D-1659; not a public FAIL)

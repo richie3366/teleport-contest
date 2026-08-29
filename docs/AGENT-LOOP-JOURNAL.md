@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1661 options.c optfn_perminv_mode
+
+**Objective:** Open `options.c` `optfn_perminv_mode` (named). Not
+doperminv.
+**C locus:** `options.c` `optfn_perminv_mode` `:3045–3135`;
+`handler_perminv_mode` `:6010–6083`; `can_set_perm_invent`
+`:5487–5527`; `perminv_modes[]`.
+**JS locus:** `js/options.js` `optfn_perminv_mode`.
+**Change:** OPTIONS= do_set table/digit/`!`; get_val Off suffix;
+handler PICK_ONE + can_set tty. mO compound row named (seed0007
+letter fortress). Not doperminv.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary; green+strict seed8000/0900; cohort
+**7**/7 + strict (9/9 with green).
+**Next:** Open qt_pager common fallback. Not convert_arg.
+**Blocked:** none.
 ## 2026-08-29 — D-1660 do_name.c docallcmd `'o'` live getobj call
 
 **Objective:** Open `do_name.c` docallcmd `'o'` getobj call (named).

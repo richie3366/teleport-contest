@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `options.c` `optfn_perminv_mode` (named). Not doperminv.
 - [ ] `questpgr.c` qt_pager common fallback (named). Not convert_arg.
 - [ ] `invent.c` `dounpaid` (named). Not invlet_constant.
 - [ ] `wizcmds.c` `sanity_check` gold/invlet (named). Not check_invent_gold.

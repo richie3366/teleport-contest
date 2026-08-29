@@ -38,14 +38,19 @@ import {
     PICK_ANY,
     WIZKIT_MAX,
     ismnum,
+    InvOptNone,
+    InvOptInUse,
+    InvSparse,
+    WIN_ERR,
+    WC_PERM_INVENT,
 } from './const.js';
 import { game } from './gstate.js';
 import { rnd } from './rng.js';
-import { str_end_is } from './hacklib.js';
+import { str_end_is, highc, strstri, strsubst } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt, clear_committed_status } from './display.js';
-import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, reassign, update_inventory, invlet_constant } from './invent.js';
+import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, reassign, update_inventory, invlet_constant, perm_invent_toggled } from './invent.js';
 import { ATR_INVERSE } from './terminal.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS, TOOL_CLASS,
@@ -379,6 +384,179 @@ function optfn_boolean_word(op) {
     return null;
 }
 
+/* C options.c enum optn_result / requests — optfn_perminv_mode. */
+const optn_silenterr = -1;
+const optn_ok = 1;
+const do_init = 1;
+const do_set = 2;
+const get_val = 4;
+const get_cnf_val = 5;
+
+/**
+ * C options.c perminv_modes[][3] `:225–240` — name, alias, get_val text.
+ * TTY_PERM_INVENT: indices 5/6 are +grid; 3/4/7 stay NULL.
+ */
+const perminv_modes = [
+    ['none', 'off', 'no permanent inventory window'],
+    ['all', 'on', 'all inventory except for gold'],
+    ['full', 'gold', 'full inventory including gold'],
+    [null, null, null],
+    [null, null, null],
+    ['on+grid', 'all+grid', 'all except gold, plus unused letters'],
+    ['gold+grid', 'full+grid', 'full inventory, plus unused letters'],
+    [null, null, null],
+    ['in-use', 'inuse-only', 'subset: items currently in use'],
+];
+
+/** C WINDOWPORT(tty) — scored port is tty. */
+function windowport_tty() {
+    return true;
+}
+
+function perminv_iflags(bag) {
+    if (bag) return bag;
+    if (!game.iflags) game.iflags = {};
+    return game.iflags;
+}
+
+/**
+ * C strncmpi(op, name, ln) with ln = strlen(op): name must start with op.
+ * Inline so this file does not add strncmpi clone #4.
+ * @param {string} op
+ * @param {string|null} name
+ * @param {number} ln
+ */
+function perminv_name_prefixi(op, name, ln) {
+    if (!name) return false;
+    if (name.length < ln) return false;
+    return op.slice(0, ln).toLowerCase() === name.slice(0, ln).toLowerCase();
+}
+
+function mark_opt_need_redraw() {
+    if (!game.go) game.go = {};
+    game.go.opt_need_redraw = true;
+}
+
+/**
+ * C options.c can_set_perm_invent `:5487–5527`.
+ * Named omissions: check_tty_wincap body; optfn_boolean perm_invent
+ * gate; check_perm_invent_again pending retry.
+ * @param {object} [iflags]
+ * @param {boolean} [optInitial]
+ * @returns {boolean}
+ */
+function can_set_perm_invent(iflags, optInitial) {
+    const bag = perminv_iflags(iflags);
+    const old_perminv_mode = bag.perminv_mode | 0;
+    const wincap = game.windowprocs?.wincap | 0;
+    if (!(wincap & WC_PERM_INVENT) && !windowport_tty()) return false;
+
+    if ((bag.perminv_mode | 0) === InvOptNone) bag.perminv_mode = InvOptOn;
+
+    if (windowport_tty() && !optInitial) {
+        perm_invent_toggled(false);
+        if ((game.WIN_INVEN ?? WIN_ERR) === WIN_ERR) {
+            bag.perminv_mode = old_perminv_mode;
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * C options.c optfn_perminv_mode `:3045–3135`.
+ * do_handler is handler_perminv_mode (async; doset calls it directly).
+ * TTYINV getenv do_init is C `#if 0`.
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string} [op]
+ * @param {{ buf: string }|null} [optsOut]
+ * @param {object|null} [iflagsBag]
+ * @param {boolean} [optInitial]
+ * @param {*|null} [getValOp] C `op`: null from handler; non-null for 'O'
+ * @returns {number}
+ */
+export function optfn_perminv_mode(
+    req, negated, op, optsOut, iflagsBag, optInitial, getValOp,
+) {
+    const iflags = perminv_iflags(iflagsBag);
+    const old_perm_invent = !!iflags.perm_invent;
+    const old_perminv_mode = iflags.perminv_mode | 0;
+    let retval = optn_ok;
+
+    if (req === do_init) {
+        return optn_ok;
+    }
+    if (req === do_set) {
+        const val = String(op ?? '');
+        if (val && negated) {
+            // C bad_negation — reject "!perminv_mode=foo"
+            retval = optn_silenterr;
+        } else if (val) {
+            const ln = val.length;
+            let i = 0;
+            for (; i < perminv_modes.length; i++) {
+                const pi0 = perminv_modes[i][0];
+                if (!pi0) continue;
+                const pi1 = perminv_modes[i][1];
+                if (perminv_name_prefixi(val, pi0, ln)
+                    || perminv_name_prefixi(val, pi1, ln)
+                    || val.charAt(0) === String(i)) {
+                    let use = i;
+                    if (strstri(pi0, '+grid') && !windowport_tty()) {
+                        use &= ~InvSparse;
+                    }
+                    iflags.perminv_mode = use;
+                    iflags.perm_invent = true;
+                    break;
+                }
+            }
+            if (i === perminv_modes.length) {
+                iflags.perminv_mode = InvOptNone;
+                iflags.perm_invent = false;
+                retval = optn_silenterr;
+            }
+        } else if (negated) {
+            iflags.perminv_mode = InvOptNone;
+            iflags.perm_invent = false;
+        }
+        if (!optInitial) {
+            if ((iflags.perminv_mode | 0) !== old_perminv_mode
+                || !!iflags.perm_invent !== old_perm_invent) {
+                mark_opt_need_redraw();
+            }
+        }
+        return retval;
+    }
+    if (req === get_val) {
+        const mode = iflags.perminv_mode | 0;
+        const row = perminv_modes[mode];
+        let s = (row && row[2]) ? row[2] : '';
+        if (mode !== InvOptNone && !iflags.perm_invent && getValOp != null) {
+            if (mode === InvOptInUse) s = strsubst(s, ' currently', '');
+            else s = strsubst(s, ' inventory', ' invent');
+            s += ((mode & InvSparse) !== 0)
+                ? ' (Off)'
+                : " ('perm_invent' is Off)";
+        }
+        if (optsOut) optsOut.buf = s;
+        return optn_ok;
+    }
+    if (req === get_cnf_val) {
+        const mode = iflags.perminv_mode | 0;
+        const row = perminv_modes[mode];
+        if (optsOut) optsOut.buf = (row && row[0]) ? row[0] : '';
+        return optn_ok;
+    }
+    return retval;
+}
+
+function optfn_perminv_mode_get_val_display() {
+    const out = { buf: '' };
+    optfn_perminv_mode(get_val, false, '', out, null, false, true);
+    return out.buf || 'no permanent inventory window';
+}
+
 function parse_a11y_accessiblemsg(result, value) {
     if (!result.a11y) result.a11y = {};
     result.a11y.accessiblemsg = !!value;
@@ -508,6 +686,12 @@ export function parseNethackrc(rc) {
                     if (parsed == null) continue;
                     parse_a11y_mon_movement(result, parsed);
                 }
+                else if (key === 'perminv_mode') {
+                    // C optfn_perminv_mode do_set (opt_initial)
+                    optfn_perminv_mode(
+                        do_set, negated, val, null, result.iflags, true, null,
+                    );
+                }
                 else result.flags[key] = val;
             } else {
                 // Boolean flag
@@ -542,7 +726,23 @@ export function parseNethackrc(rc) {
                 else if (lname === 'mon_movement') {
                     parse_a11y_mon_movement(result, value);
                 }
-                else result.flags[lname] = value;
+                else if (lname === 'perminv_mode') {
+                    optfn_perminv_mode(
+                        do_set, negated, '', null, result.iflags, true, null,
+                    );
+                } else {
+                    const eqIdx = stripped.indexOf('=');
+                    if (eqIdx >= 0
+                        && stripped.slice(0, eqIdx).trim().toLowerCase()
+                            === 'perminv_mode') {
+                        optfn_perminv_mode(
+                            do_set, negated,
+                            stripped.slice(eqIdx + 1).trim(),
+                            null, result.iflags, true, null,
+                        );
+                    }
+                    else result.flags[lname] = value;
+                }
             }
         }
     }
@@ -696,6 +896,70 @@ async function handler_pickup_types() {
     const prior = String(game.flags.pickup_types || '');
     const next = await choose_classes_menu('Autopickup what?', prior);
     game.flags.pickup_types = next;
+}
+
+/**
+ * C options.c handler_perminv_mode `:6010–6083` — optfn do_handler.
+ * PICK_ONE letters: pi0[0] or highc(pi1[0]) when InvSparse; gacc '0'+i.
+ * ESC (n<0) leaves flags; else pline + maybe can_set_perm_invent.
+ */
+async function handler_perminv_mode() {
+    const iflags = perminv_iflags();
+    const old_perm_invent = !!iflags.perm_invent;
+    const old_pi = iflags.perminv_mode | 0;
+    let new_pi = old_pi;
+    const widest = windowport_tty() ? 11 : 8;
+    const tab = !!iflags.menu_tab_sep;
+    const raw = [
+        {
+            text: 'Choose permanent inventory mode:',
+            selectable: false,
+            attr: ATR_INVERSE,
+        },
+        { text: '', selectable: false },
+    ];
+    for (let i = 0; i < perminv_modes.length; i++) {
+        const pi0 = perminv_modes[i][0];
+        if (!pi0) continue;
+        if (strstri(pi0, '+grid') && !windowport_tty()) continue;
+        const pi1 = perminv_modes[i][1];
+        const sep = tab
+            ? '\t'
+            : ' '.repeat(Math.max(widest - pi0.length, 1));
+        const letch = ((i & InvSparse) !== 0)
+            ? highc(pi1.charAt(0))
+            : pi0.charAt(0);
+        raw.push({
+            text: `${pi0}${sep}${perminv_modes[i][2]}`,
+            selectable: true,
+            selector: letch,
+            gselector: String.fromCharCode(48 + i),
+            mode: i,
+            selected: i === old_pi,
+        });
+    }
+    const res = await select_menu_pick_one(raw);
+    if (res.kind !== 'pick') return optn_ok;
+    new_pi = res.item.mode | 0;
+    iflags.perminv_mode = new_pi;
+    const buf = { buf: '' };
+    optfn_perminv_mode(get_val, false, '', buf, iflags, false, null);
+    await pline(
+        `'perminv_mode' ${new_pi !== old_pi ? 'changed to' : 'is still'} '${perminv_modes[new_pi][0]}' (${buf.buf}).`,
+    );
+    if (new_pi !== InvOptNone && !old_perm_invent) {
+        iflags.perm_invent = can_set_perm_invent(iflags, false);
+    } else if (new_pi === InvOptNone && old_perm_invent) {
+        iflags.perm_invent = false;
+    }
+    if (new_pi !== old_pi || !!iflags.perm_invent !== old_perm_invent) {
+        if (windowport_tty() && iflags.perm_invent && old_perm_invent) {
+            perm_invent_toggled(true);
+            perm_invent_toggled(false);
+        }
+        mark_opt_need_redraw();
+    }
+    return optn_ok;
 }
 
 /** C ref: hacklib.c mungspaces — trim ends, compress internal spaces. */
@@ -868,6 +1132,8 @@ async function doset_compound_via_getlin(opt) {
     if (opt.hasHandler) {
         if (name === 'pickup_types') {
             await handler_pickup_types();
+        } else if (name === 'perminv_mode') {
+            await handler_perminv_mode();
         }
         // Other hasHandler compounds deferred (number_pad/symset/…).
         return;
@@ -931,6 +1197,7 @@ function simple_opt_get_val(opt) {
         return parts.length ? parts.join(' + ') : 'apply-key';
     }
     if (name === 'pickup_types') return pickup_types_display();
+    if (name === 'perminv_mode') return optfn_perminv_mode_get_val_display();
     if (name === 'autopickup exceptions') {
         return currently_set_val(game.flags?.ape_count ?? 0);
     }
@@ -1185,15 +1452,9 @@ async function doset_simple_menu() {
             return 1;
         }
         // C: compound/othr — has_handler → optfn(do_handler); else getlin
-        if (opt?.opttyp === 'Comp' || opt?.opttyp === 'Othr' || opt?.name) {
-            if (opt?.name === 'pickup_types' && opt.hasHandler) {
-                await handler_pickup_types();
-                return 1;
-            }
-            if (opt?.opttyp === 'Comp' || opt?.opttyp === 'Othr') {
-                await doset_compound_via_getlin(opt);
-                return 1;
-            }
+        if (opt?.opttyp === 'Comp' || opt?.opttyp === 'Othr') {
+            await doset_compound_via_getlin(opt);
+            return 1;
         }
         // Unknown row — still count as a pick (C loops)
         return 1;
@@ -1604,6 +1865,8 @@ function doset_bool_term(name) {
  * Branch envelope: help + nonmod bools + mod bools + compounds + others;
  * apply bool toggles then handlers (pickup_types). Named omissions: full
  * compound getlin arms, WC filters, wizard-only, PREFIXES, help file.
+ * mO compound row for perminv_mode named (letter fortress / seed0007);
+ * OPTIONS= + handler live. optfn_boolean perm_invent can_set gate named.
  */
 export async function doset() {
     if (!game.flags) game.flags = {};
@@ -1776,6 +2039,8 @@ export async function doset() {
     for (const name of handlerPicks) {
         if (name === 'pickup_types') {
             await handler_pickup_types();
+        } else if (name === 'perminv_mode') {
+            await handler_perminv_mode();
         }
     }
     return ECMD_OK;

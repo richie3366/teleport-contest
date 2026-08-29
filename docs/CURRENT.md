@@ -62,24 +62,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1660 (seed4500 still PASS). **Next cluster:**
-Open `options.c` `optfn_perminv_mode` (named). Not doperminv.
-**Do not skip D-1531…D-1660 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1661 (seed4500 still PASS). **Next cluster:**
+Open `questpgr.c` qt_pager common fallback (named). Not convert_arg.
+**Do not skip D-1531…D-1661 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1660.** Do not FORCE
+**Do not re-break D-0660…D-1661.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1660 (index). Recent: **D-1660**
-`do_name.c` `docallcmd` `'o'` live `getobj("call", call_ok,
-GETOBJ_NOFLAGS)` + `xname`/`dknown`/`docall`. Not lookup_novel.
+**Keep:** D-0845…D-1661 (index). Recent: **D-1661**
+`options.c` `optfn_perminv_mode` do_set/get_val/`handler_perminv_mode`
++ `can_set_perm_invent`. Not doperminv. mO compound row named
+(letter fortress). `'o'` getobj is D-1660.
 cmdq_pop canned / lootabc / invent-gated i/o / artifact_name slip
-named. Older D-1531…D-1659 live in the index — do not re-paste.
+named. Older D-1531…D-1660 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1660 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1661 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -121,6 +122,7 @@ Do not re-port `restore_cham`.
 Do not re-port `do_mgivenname`.
 Do not re-port `lookup_novel`.
 Do not re-port `'o'` getobj `"call"`.
+Do not re-port `optfn_perminv_mode`.
 Do not re-port `eyecount`.
 Do not re-port `rename_disco`.
 Do not re-port `free_edog` / restmon `newedog`.
