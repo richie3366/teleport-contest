@@ -5,26 +5,25 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1658 (cadence **#2060** at `9ac19d6f`
+- **Suite 44/44** after D-1659 (cadence **#2060** at `9ac19d6f`
   still last full suite). seed4500 still PASS. **Hypothesis:**
-  `dungeon.c` `print_mapseen` cemetery bones list still omitted
-  (`final_resting_place` / `bonesknown` beyond the dead hero; not
-  altar-god D-1658 / dooverview PICK_ONE D-1650).
-  **Falsify:** `node scripts/csym.mjs print_mapseen`.
-  **Next:** Open cemetery bones. Not dooverview PICK_ONE.
-  Do not skip D-1531…D-1658. Not altar-god coalign.
+  `do_name.c` `docallcmd` `'o'` getobj call still omitted (not
+  lookup_novel D-1651 / cemetery D-1659).
+  **Falsify:** `node scripts/csym.mjs docallcmd`.
+  **Next:** Open `'o'` getobj. Not lookup_novel.
+  Do not skip D-1531…D-1659. Not cemetery bones.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; `optfn_perminv_mode`; setworn oc_oprop;
   keepdogs/grow_up leash; light-scroll `initedog`; tip-spill /
   squeaky; hideunder; dounpaid / wizcmds sanity_check;
-  `'o'` getobj call; cemetery bones; guardian remaps;
-  Punished float_down; water/lava steed; uhitm `u.dx`; map_menu_cmd;
-  `context.novel`; JSON getlev; astral `distant_monnam`;
-  walk-key / PREFIXCMD overlay BIND=; `possibly_unwield` /
-  `mon_break_armor`; sync `newcham`; qt_pager fallback / array rn2;
-  spell dull / zap rider eyecount callers; sit.c
-  `special_throne_effect` grease spray; knox/drawbridge castle
-  `count_feat_lastseentyp`; dig/music/pager `altarmask_at`.
+  `'o'` getobj call; knox/drawbridge castle; save_mapseen cemetery
+  JSON; guardian remaps; Punished float_down; water/lava steed;
+  uhitm `u.dx`; map_menu_cmd; `context.novel`; JSON getlev; astral
+  `distant_monnam`; walk-key / PREFIXCMD overlay BIND=;
+  `possibly_unwield` / `mon_break_armor`; sync `newcham`; qt_pager
+  fallback / array rn2; spell dull / zap rider eyecount callers;
+  sit.c `special_throne_effect` grease spray; dig/music/pager
+  `altarmask_at`.
 
 ## Don't re-check (≤15)
 
@@ -33,7 +32,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1658.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1659.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -44,10 +43,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1658 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1659 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1658. Do not delete emin (**487**). Do not stub
+  D-1520…D-1659. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -58,8 +57,8 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1658 in the index (altar-god D-1658;
-  overlay BIND= D-1657; `use_grease` D-1656). No yn
+  `vision_reset`. D-1576…D-1659 in the index (cemetery D-1659;
+  altar-god D-1658; overlay BIND= D-1657). No yn
   ^P glue / `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap
   sticky Blind (D-1604). No `dat/tribute` indent=2. No static
   `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev catchup
@@ -67,9 +66,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1659: `print_mapseen` cemetery bones list; `recalc_mapseen`
+  clone `bonesinfo` + lastseentyp bonesknown; kncnt `,`/`.`;
+  savebones formatkiller how. knox-drawbridge / save_mapseen JSON
+  / when[] named. altar-god is D-1658; dooverview PICK_ONE D-1650.
 - D-1658: `print_mapseen` altar-god coalign; `count_feat` `msalign`
-  + `altarmask_at`; `align_gname` A_NONE Moloch. Cemetery /
-  knox-drawbridge named. dooverview PICK_ONE is D-1650.
+  + `altarmask_at`; `align_gname` A_NONE Moloch.
 - D-1657: overlay BIND= on if/else keys; `rhack_user_overlay_key` +
   EXT_CMDS runners; nothing unbinds. Walk/PREFIXCMD overlay named.
   cmdbind_get default M('?') is D-1643.
@@ -100,4 +102,3 @@ Objective/score live in `CURRENT.md`.
   inmore / inread. map_menu_cmd named.
 - D-1645: `newcham` mleashed `m_unleash` / Elbereth `monflee`.
   keepdogs/`grow_up` named. restore_cham D-1637.
-- D-1644: `goto_level` ACH_ENDG/ASTR/BGRM + Knox + entered livelog.

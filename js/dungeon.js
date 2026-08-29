@@ -878,8 +878,9 @@ function on_level(a, b) {
 
 /**
  * C ref: dungeon.c interest_mapseen — which mapseen nodes appear in
- * #overview (why==0). Named omissions: full auto-annotation flag set
- * beyond the common ones; bones knownbones branch detail.
+ * #overview (why==0). Cemetery: final_resting_place && (knownbones
+ * || wizard) after recalc clone (D-1659). Named omissions: full
+ * auto-annotation flag set beyond the common ones.
  */
 function interest_mapseen(mptr) {
     const u = game.u || {};
@@ -986,9 +987,36 @@ export function update_mapseen_for(x, y) {
 }
 
 /**
+ * C ref: dungeon.c cemetery chain copy — recalc clones bonesinfo onto
+ * mapseen so #overview does not require the level to stay in memory.
+ * @param {object|null} head
+ * @returns {object|null}
+ */
+function clone_cemetery_chain(head) {
+    let out = null;
+    let tail = null;
+    for (let bp = head; bp; bp = bp.next) {
+        const copy = {
+            who: String(bp.who || ''),
+            how: String(bp.how || ''),
+            when: String(bp.when || ''),
+            frpx: bp.frpx | 0,
+            frpy: bp.frpy | 0,
+            bonesknown: !!bp.bonesknown,
+            next: null,
+        };
+        if (!out) out = copy;
+        else tail.next = copy;
+        tail = copy;
+    }
+    return out;
+}
+
+/**
  * C ref: dungeon.c recalc_mapseen — reset current-level feat counts from
- * msrooms (shops/temples) + lastseentyp. Bones/valley/sanctum/oracle/
- * Blind bigroom/drawbridge castle still deferred (named in C-JS-MAP).
+ * msrooms (shops/temples) + lastseentyp. Cemetery clone + bonesknown
+ * from lastseentyp[frpx][frpy] (D-1659). Valley/sanctum/oracle/Blind
+ * bigroom/drawbridge castle still deferred (named in C-JS-MAP).
  */
 export function recalc_mapseen() {
     const mptr = ensure_mapseen(null);
@@ -1057,6 +1085,22 @@ export function recalc_mapseen() {
     for (let x = 1; x < COLNO; x++) {
         for (let y = 0; y < ROWNO; y++) {
             count_feat_lastseentyp(mptr, x, y);
+        }
+    }
+
+    // C `:3247–3260` — clone once; then bonesknown if the death cell
+    // has been seen. knownbones is re-derived every recalc.
+    if (!mptr.flags) mptr.flags = {};
+    mptr.flags.knownbones = 0;
+    const bonesinfo = game.level?.bonesinfo;
+    if (bonesinfo && !mptr.final_resting_place) {
+        mptr.final_resting_place = clone_cemetery_chain(bonesinfo);
+    }
+    const lst = game.lastseentyp;
+    for (let bp = mptr.final_resting_place; bp; bp = bp.next) {
+        if (lst?.[bp.frpx | 0]?.[bp.frpy | 0]) {
+            bp.bonesknown = true;
+            mptr.flags.knownbones = 1;
         }
     }
     return mptr;
@@ -1313,11 +1357,55 @@ function mapseen_named_place_lines(mptr, ldrnameFn) {
 }
 
 /**
+ * C ref: dungeon.c print_mapseen cemetery `:3696–3726`.
+ * Header + optional dead-hero line (final==2 on this level) + known
+ * cemetery who/how. kncnt drives trailing ',' vs '.'.
+ * @param {object} mptr
+ * @param {number} why  C final
+ * @param {number} reason  C how
+ * @param {{ formatkiller?: Function }} ctx
+ * @returns {string[]}
+ */
+export function mapseen_cemetery_lines(mptr, why, reason, ctx) {
+    const TAB = '   ';
+    const PREFIX = '      ';
+    const u = game.u || {};
+    const wizard = !!(game.flags?.wizard || game.flags?.debug);
+    const onHere = on_level(u.uz, mptr.lev);
+    const died_here = why === 2 && onHere;
+    if (!(mptr.final_resting_place || why > 0)) return [];
+    let kncnt = died_here ? 1 : 0;
+    for (let bp = mptr.final_resting_place; bp; bp = bp.next) {
+        if (bp.bonesknown || wizard || why > 0) kncnt++;
+    }
+    if (!kncnt) return [];
+    const lines = [`${PREFIX}Final resting place for`];
+    if (died_here) {
+        let killer = ctx?.formatkiller ? ctx.formatkiller(reason, true) : '';
+        // C strsubst first occurrence only (hacklib.c :534–551)
+        killer = killer.replace(' himself', ' yourself')
+            .replace(' herself', ' yourself')
+            .replace(' his ', ' your ')
+            .replace(' her ', ' your ');
+        kncnt--;
+        const punct = kncnt ? ',' : '.';
+        lines.push(`${PREFIX}${TAB}you, ${killer}${punct}`);
+    }
+    for (let bp = mptr.final_resting_place; bp; bp = bp.next) {
+        if (bp.bonesknown || wizard || why > 0) {
+            kncnt--;
+            const punct = kncnt ? ',' : '.';
+            lines.push(`${PREFIX}${TAB}${bp.who}, ${bp.how}${punct}`);
+        }
+    }
+    return lines;
+}
+
+/**
  * C ref: dungeon.c print_mapseen :3515–3728.
  * why==-1: level row selectable with identifier ledger_no+1 (ch=0).
  * Headings / feat / named-place / branch / cemetery are add_menu_str.
- * Named omit: cemetery bones list beyond the dead hero;
- * #if 0 water/lava/ice.
+ * Named omit: #if 0 water/lava/ice.
  * @param {object[]} entries
  * @param {object} mptr
  * @param {number} why
@@ -1327,7 +1415,6 @@ function mapseen_named_place_lines(mptr, ldrnameFn) {
  */
 function print_mapseen(entries, mptr, why, reason, printdun, ctx) {
     const TAB = '   ';
-    const PREFIX = '      ';
     const u = game.u || {};
     const wizard = !!(game.flags?.wizard || game.flags?.debug);
     const dnum = mptr.lev?.dnum | 0;
@@ -1395,15 +1482,8 @@ function print_mapseen(entries, mptr, why, reason, printdun, ctx) {
         add_overview_str(entries, line);
     }
     add_overview_str(entries, mapseen_branch_line(mptr));
-
-    if (why > 0 && onHere) {
-        add_overview_str(entries, `${PREFIX}Final resting place for`);
-        let killer = ctx.formatkiller(reason, true);
-        killer = killer.replace(/ himself/g, ' yourself')
-            .replace(/ herself/g, ' yourself')
-            .replace(/ his /g, ' your ')
-            .replace(/ her /g, ' your ');
-        add_overview_str(entries, `${PREFIX}${TAB}you, ${killer}.`);
+    for (const line of mapseen_cemetery_lines(mptr, why, reason, ctx)) {
+        add_overview_str(entries, line);
     }
 }
 
@@ -1519,8 +1599,8 @@ export async function donamelevel() {
  * C ref: dungeon.c show_overview :3304–3340.
  * why: 0 #overview PICK_NONE; -1 m-prefix PICK_ONE then query_annotation;
  * 1/2 end disclosure PICK_NONE. Two-pass traverse_mapseenchn when
- * In_endgame (Planes above DoD). Named omit: cemetery bones beyond
- * the dead hero.
+ * In_endgame (Planes above DoD). Cemetery list is print_mapseen
+ * `:3696–3726` (D-1659).
  * @param {number} why
  * @param {number} reason how-died when why>0
  */

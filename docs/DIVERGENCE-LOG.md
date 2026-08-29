@@ -1,3 +1,35 @@
+## D-1659 — dungeon.c print_mapseen cemetery bones list
+
+- **Status:** fixed (map-driven Open from D-1658; not a public FAIL)
+- **Symptom:** map named `print_mapseen` cemetery bones list. C lists
+  known `final_resting_place` who/how after cloning `level.bonesinfo`
+  in `recalc_mapseen` and marking `bonesknown` when
+  `lastseentyp[frpx][frpy]` is set. JS only printed a dead-hero
+  "you, killer." line when `why>0` on the current level after
+  D-1650/D-1658, never cloned cemetery, and used bitwise-OR death
+  coordinates on savebones.
+- **C locus:** `dungeon.c` `print_mapseen` `:3696–3726`;
+  `recalc_mapseen` `:3247–3260`; `interest_mapseen` knownbones;
+  `bones.c` `savebones` cemetery attach `:572–581`; `hacklib.c`
+  `strsubst` first occurrence.
+- **JS was:** no `final_resting_place` clone; overview skip unless
+  `why>0`; `frpx: u.ux0 | u.ux` bitwise OR; empty `how`.
+- **Fix:** clone `bonesinfo` once; `bonesknown` from lastseentyp;
+  kncnt `,`/`.` listing including wizard/`final>0`; dead hero only
+  when `why===2`; `formatkiller` into cemetery.how; frpx/frpy from
+  death `ux`/`uy`. Rule #2: no fs.
+- **JS:** `js/dungeon.js` `mapseen_cemetery_lines` / `recalc_mapseen`;
+  `js/end.js` `savebones`.
+- **Not this iter:** knox/drawbridge castle flags in
+  `count_feat_lastseentyp`; `save_mapseen`/`load_mapseen` cemetery
+  JSON persist; `yyyymmddhhmmss` when[]; `#if 0` water/lava/ice;
+  Blind bigroom/oracle/valley/sanctum auto-flags. altar-god is
+  D-1658; dooverview PICK_ONE is D-1650.
+- **Verified:** private canary clone/bonesknown/kncnt/died_here/
+  wizard; green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+- **Files:** `js/dungeon.js`, `js/end.js`.
+
 ## D-1658 — dungeon.c print_mapseen altar-god coalign
 
 - **Status:** fixed (map-driven Open from D-1657; not a public FAIL)
