@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mon.c` `reset_hostility` (named). Not gain_guardian_angel.
 - [ ] `dogmove.c` Conflict `lose_guardian_angel` caller (named). Not gain_guardian_angel.
 - [ ] `sounds.c` peaceful MS_HUMANOID (named). Not mplayer_talk.
 - [ ] `do_wear.c` `take_off` occupation (named). Not ggetobj.

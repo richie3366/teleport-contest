@@ -451,8 +451,8 @@ export async function lose_guardian_angel(mon) {
  * madeNew). Hear_again first; Conflict → hostiles; else fervent
  * (ualign.record > 8) named angel. mtame=10 only if pets conduct
  * already broken — C does not call tamedog (no edog).
- * Named: SetVoice pitch; dogmove Conflict caller; reset_hostility;
- * ACH_ASTR.
+ * Named: SetVoice pitch; dogmove Conflict caller; ACH_ASTR.
+ * reset_hostility is D-1616.
  */
 export async function gain_guardian_angel() {
     Hear_again(); /* attempt to cure any deafness now (divine

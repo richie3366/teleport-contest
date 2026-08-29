@@ -62,16 +62,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1615 (seed4500 still PASS). **Next cluster:**
-Open `mon.c` `reset_hostility` (named). Not gain_guardian_angel.
-**Do not skip D-1531…D-1615 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1616 (seed4500 still PASS). **Next cluster:**
+Open `dogmove.c` Conflict `lose_guardian_angel` caller (named). Not
+gain_guardian_angel.
+**Do not skip D-1531…D-1616 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1615.** Do not FORCE
+**Do not re-break D-0660…D-1616.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1615 (index). Recent: **D-1615**
+**Keep:** D-0845…D-1616 (index). Recent: **D-1616**
+`priest.c` `reset_hostility` via `do.c` `final_level` `iter_mons`.
+Not ACH_ASTR. Not gain_guardian_angel (D-1608). Prior: **D-1615**
 `invent.c` `consume_obj_charge` `if (obj->known)`
 `update_inventory` after `spe--`. Not perm_invent InvInUse
 (D-1600). Pickup tip-spill / trap `disarm_squeaky_board`
@@ -83,7 +86,7 @@ the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1615 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1616 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -97,6 +100,7 @@ Do not re-port getline ^P / yn ^P.
 Do not re-port `get_count` historicmsg.
 Do not re-port `restore_msghistory`.
 Do not re-port `consume_obj_charge` known `update_inventory`.
+Do not re-port `reset_hostility`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

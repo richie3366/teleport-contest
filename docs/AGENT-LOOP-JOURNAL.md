@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1616 priest.c reset_hostility
+
+**Objective:** Open `mon.c` `reset_hostility` (named). Not
+gain_guardian_angel. (C is `priest.c`; caller `do.c` `final_level`.)
+**C locus:** `priest.c` `reset_hostility` `:754–768`; caller
+`do.c` `final_level` `:2046` `iter_mons`.
+**JS locus:** `js/priest.js` `reset_hostility`; `js/do.js`
+`final_level`.
+**Change:** isminion aligned cleric/angel whose emin.min_align
+differs from hero align becomes hostile then set_malign; always
+newsym after those checks. Astral `madeNew` walks fmon first.
+ACH_ASTR named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **18**/18; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open dogmove Conflict `lose_guardian_angel` caller. Not
+gain_guardian_angel.
+**Blocked:** none.
 ## 2026-08-29 — D-1615 invent.c consume_obj_charge known
 
 **Objective:** Open `apply.c` `consume_obj_charge` `update_inventory`

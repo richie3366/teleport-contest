@@ -385,10 +385,12 @@ JS: `js/minion.js` — partial
 (`:467–494`) + `priest.c` `mk_roamer` (one export `js/mklev.js`;
 splev D-1553) + `eat.c` `Hear_again` export. `SetVoice` no-op
 without SND_LIB. `mtame=10` only if `u.uconduct.pets` already
-non-zero (no `tamedog`/edog). Named: `reset_hostility`; ACH_ASTR;
-dogmove.c Conflict `lose_guardian_angel(mtmp)`; Hear_again
-occupation afternmv. ndemon is D-1575; msummon S_ANGEL flash is
-D-1597; create_mplayers is D-1596.
+non-zero (no `tamedog`/edog). **D-1616 `reset_hostility`**
+(`priest.c:754–768`; caller `do.c` `final_level` `:2046`
+`iter_mons`; live `js/priest.js` + `js/do.js` `final_level`).
+Named: ACH_ASTR; dogmove.c Conflict `lose_guardian_angel(mtmp)`;
+Hear_again occupation afternmv. ndemon is D-1575; msummon S_ANGEL
+flash is D-1597; create_mplayers is D-1596.
 
 ### `src/mplayer.c`
 
@@ -406,7 +408,7 @@ Occupied `rloc(RLOC_ERR|RLOC_NOMSG)` fire-and-forget like
 `mk_roamer_splev` (JS `rloc` async). **D-1596 `create_mplayers`**
 (`mplayer.c:326–353`; caller `do.c` `final_level` `:2049` Astral
 `madeNew` `rn1(4,3), TRUE`). Live `js/mplayer.js` + `goto_level`
-`Is_astralevel` (reset_hostility / ACH_ASTR named;
+`Is_astralevel` (ACH_ASTR named; reset_hostility is D-1616;
 gain_guardian_angel is D-1608). Callees `set_mon_data`/`goodpos`/`mk_mplayer`; tryct>50
 aborts. **D-1606 `mplayer_talk`** (`mplayer.c:355–377`; caller
 `sounds.c` MS_HUMANOID `:1026–1031` `!mpeaceful && In_endgame &&

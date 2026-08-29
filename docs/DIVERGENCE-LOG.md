@@ -1,3 +1,26 @@
+## D-1616 — priest.c reset_hostility / do.c final_level iter_mons
+
+- **Status:** fixed (map-driven Open from D-1615; not a public FAIL)
+- **Symptom:** first Astral visit never walked fmon through
+  `reset_hostility`, so misaligned minion clerics/angels kept
+  `mpeaceful`/`mtame`. C `final_level` `iter_mons(reset_hostility)`
+  before `create_mplayers` / `gain_guardian_angel`.
+- **C locus:** `priest.c` `reset_hostility` `:754–768`. Caller
+  `do.c` `final_level` `:2042–2053` via `mon.c` `iter_mons`
+  `:4526–4538` (skip `DEADMONSTER` / `mon_offmap`). Callees
+  `set_malign` / `newsym` live. `mons()` allocates so mndx/mnum
+  not pointer equality.
+- **JS was:** named omit after D-1608 (`goto_level` Astral ran
+  create_mplayers + gain_guardian_angel only).
+- **Fix:** port `reset_hostility`; `final_level` walks fmon then
+  the two live callees. ACH_ASTR still named. Rule #2: no fs.
+- **JS:** `js/priest.js` `reset_hostility`; `js/do.js` `final_level`.
+- **Not this iter:** ACH_ASTR; dogmove Conflict `lose_guardian_angel`
+  caller; Hear_again occupation afternmv. gain_guardian_angel is
+  D-1608; create_mplayers is D-1596.
+- **Verified:** private canary **18**/18; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1615 — invent.c consume_obj_charge known update_inventory
 
 - **Status:** fixed (map-driven Open from D-1614; not a public FAIL)

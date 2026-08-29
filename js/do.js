@@ -31,7 +31,7 @@ import {
     IS_WATERWALL, IS_ALTAR, is_pit, is_hole, u_at, Has_contents,
     Is_container, Is_waterlevel, Is_airlevel,
     In_quest, In_endgame, In_mines, In_sokoban, Is_rogue_level,
-    Is_astralevel,
+    Is_astralevel, MON_FLOOR,
     PRIMARYSET, ROGUESET,
     ERODE_BURN, EF_DESTROY,
     NHCORE_GETPOS_TIP, NHCORE_ENTER_TUTORIAL, NHCORE_LEAVE_TUTORIAL,
@@ -116,6 +116,7 @@ import { onquest, ok_to_quest } from './quest.js';
 import { resurrect } from './wizard.js';
 import { create_mplayers } from './mplayer.js';
 import { gain_guardian_angel } from './minion.js';
+import { reset_hostility } from './priest.js';
 import { bones_include_name } from './bones.js';
 import {
     olfaction, passes_walls, throws_rocks, is_flyer, is_floater,
@@ -1285,8 +1286,8 @@ function getlev_catchup_monsters(elapsed) {
  * Ported: quest-home gate — on qstart && !newdungeon && !ok_to_quest()
  * → "mysterious force prevents you from descending" (D-0798).
  * Deferred: binary NHFILE, Gehennom amulet mysteryforce, quest gate seal
- * RMPORTAL, endgame `final_level` reset_hostility /
- * ACH_ENDG/ASTR (create_mplayers live D-1596; gain_guardian_angel D-1608),
+ * RMPORTAL, endgame ACH_ENDG/ASTR (`final_level` reset_hostility D-1616;
+ * create_mplayers live D-1596; gain_guardian_angel D-1608),
  * migrating-Wizard resurrect arm,
  * Punished `ballfall` on trap-door falling, W-tower `u_on_rndspot` bit 2
  * (rndspot itself awaits switch_terrain D-1278; stairs u_on_sstairs
@@ -1313,6 +1314,25 @@ function getlev_catchup_monsters(elapsed) {
  * hellish_smoke smell/sense smoke + heat/smoke gone (D-0801);
  * temperature_change_msg hot/cold (D-0559).
  */
+
+/**
+ * C ref: do.c final_level `:2042–2053`.
+ * Caller goto_level when `new && on_level(&u.uz, &astral_level)`.
+ * `iter_mons(reset_hostility)` (DEADMONSTER / mon_offmap skip) then
+ * create_mplayers then gain_guardian_angel. Named: ACH_ASTR (C records
+ * it after this returns).
+ */
+async function final_level() {
+    const live = [...(game.fmon || [])];
+    for (const mtmp of live) {
+        if ((mtmp.mhp | 0) < 1) continue; /* DEADMONSTER */
+        if ((mtmp.mstate | 0) !== MON_FLOOR) continue; /* mon_offmap */
+        reset_hostility(mtmp);
+    }
+    create_mplayers(rn1(4, 3), true);
+    await gain_guardian_angel();
+}
+
 export async function goto_level(newlevel, at_stairs, falling, portal) {
     const u = game.u;
     if (!u?.uz) return;
@@ -1766,9 +1786,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     if (In_endgame(u.uz)) {
         // ACH_ENDG named omit
         if (madeNew && Is_astralevel(u.uz)) {
-            // C do.c final_level: iter_mons(reset_hostility) named omit
-            create_mplayers(rn1(4, 3), true);
-            await gain_guardian_angel();
+            await final_level();
             // C: record_achievement(ACH_ASTR) named omit
         } else if (newdungeon && (u.uhave?.amulet || u.uhave_amulet)) {
             await resurrect();
