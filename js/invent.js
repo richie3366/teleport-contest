@@ -4,7 +4,7 @@
 //        update_inventory in_moveloop + suppress_map_output +
 //        suppress_price dance (D-1126); perm_invent InvInUse D-1600
 //        (prepare_perminvent invmode / display_pickinv WIN_INVEN filter;
-//        tty paint / sparse grid / #perminv scroll named);
+//        tty WIN_INVEN / #perminv D-1642);
 //        D-1603: beyond_savefile_load writers (allmain.c:71 /
 //        restore.c:942) so sync_perminvent :5653 can build;
 //        display_minventory MINV_ALL|PICK_NONE (D-1426; zap.c
@@ -24,6 +24,7 @@
 // D-1591: invent.c display_used_invlets (#adjust ?/* used-letters PICK_ONE).
 // D-1599: sortloot SORTLOOT_PETRIFY filter override + will_feel_cockatrice.
 // D-1600: perm_invent InvInUse (prepare_perminvent invmode + WIN_INVEN filter).
+// D-1642: invent.c doperminv / wintty.c assesstty + ttyinv grid.
 // D-1602: ggetobj takeoff/identify askchain (MENU_TRADITIONAL).
 // D-1635: do.c doddrop / menu_drop ggetobj("drop") (#droptype / 'D').
 // D-1621: invent.c adjust_split GC_ECHOFIRST|GC_CONDHIST
@@ -99,6 +100,7 @@ import {
     PICK_ONE,
     PICK_NONE,
     PICK_ANY,
+    MENU_BEHAVE_PERMINV,
     MENU_ITEMFLAGS_NONE,
     MENU_ITEMFLAGS_SKIPINVERT,
     CONTAINED_SYM,
@@ -117,8 +119,12 @@ import {
     HANDS_SYM,
     InvInUse,
     InvShowGold,
+    InvSparse,
     InvOptNone,
     InvOptOn,
+    ROWNO,
+    COLNO,
+    WC_PERM_INVENT,
     toggling_off,
     toggling_not,
     toggling_on,
@@ -261,26 +267,524 @@ let wri_info = {
 /** C invent.c sync_perminvent static win_request_info *wri. */
 let sync_wri = null;
 
+/* C wintty.h tty_perminv_minrow/mincol; wintty.c tty_slots = 54. */
+const tty_perminv_minrow = 28;
+const tty_perminv_mincol = 79;
+const MAX_STATUS_ROWS = 3;
+const tty_slots = 54;
+const border_left = 0;
+const border_middle = 1;
+const border_right = 2;
+/** C wintty.c emptyttycell — color is NO_COLOR+1. */
+function emptyttycell() {
+    return { refresh: 0, text: 0, glyph: 0, ttychar: '\0', color: NO_COLOR + 1 };
+}
+let ttyinvmode = InvOptOn; /* C static ttyinvmode = InvNormal */
+let inuse_only_start = 0;
+let ttyinv_slots_used = 0;
+const slot_tracker = new Array(tty_slots).fill(false);
+const bordercol = [0, 0, 0];
+/** C WinDesc for WIN_INVEN (cells + offx/offy/maxrow/maxcol). */
+let win_inven = null;
+
 /**
- * C wintty.c tty_ctrl_nhwindow set_mode / request_settings subset.
- * maxslot is a stub (assesstty too_small/prohibited/too_early named).
+ * C wintty.c StatusRows — wc2_statuslines<=2 → 2 else MAX_STATUS_ROWS.
+ * @returns {number}
+ */
+function StatusRows() {
+    const n = game.iflags?.wc2_statuslines | 0;
+    return n <= 2 ? 2 : MAX_STATUS_ROWS;
+}
+
+/**
+ * C ttyDisplay->rows/cols. Missing display is too_early (0,0).
+ * @returns {{ rows: number, cols: number }}
+ */
+function ttyDisplay_size() {
+    const d = game.nhDisplay;
+    if (!d) return { rows: 0, cols: 0 };
+    return { rows: d.rows | 0, cols: (d.cols | 0) || COLNO };
+}
+
+/**
+ * C wintty.c tty_procs.name / wincap WC_PERM_INVENT (TTY_PERM_INVENT).
+ * @returns {{ name: string, wincap: number }}
+ */
+function tty_windowprocs() {
+    const wp = game.windowprocs;
+    if (wp && typeof wp === 'object') {
+        return {
+            name: wp.name || 'tty',
+            wincap: 'wincap' in wp ? (wp.wincap | 0) : WC_PERM_INVENT,
+        };
+    }
+    return { name: 'tty', wincap: WC_PERM_INVENT };
+}
+
+/**
+ * C wintty.c assesstty `:3557–3599`. SMALL_INUSE_WINDOW on → inuse minrow 10.
+ * @param {number} invmode
+ * @param {{ offx: number, offy: number, rows: number, cols: number,
+ *           maxcol: number, minrow: number, maxrow: number }} geo
+ * @returns {boolean} TRUE if rows/cols are enough
+ */
+function assesstty(invmode, geo) {
+    const inuse_only = ((invmode | 0) & InvInUse) !== 0;
+    const show_gold = ((invmode | 0) & InvShowGold) !== 0 && !inuse_only;
+    let perminv_minrow = tty_perminv_minrow + (show_gold ? 1 : 0);
+    const disp = ttyDisplay_size();
+
+    if (!game.nhDisplay) {
+        geo.offx = geo.offy = geo.rows = geo.cols = 0;
+        geo.maxcol = 0;
+        geo.minrow = geo.maxrow = 0;
+        return !(geo.rows < perminv_minrow || geo.cols < tty_perminv_mincol);
+    }
+
+    geo.offx = 0;
+    geo.offy = 1 + ROWNO + StatusRows();
+    geo.rows = disp.rows - geo.offy;
+    geo.cols = disp.cols;
+    geo.minrow = perminv_minrow;
+    /* C SMALL_INUSE_WINDOW defined then immediately #undef — live arm is 1+8+1 */
+    if (inuse_only) geo.minrow = 1 + 8 + 1;
+    geo.maxrow = Math.min(geo.rows, perminv_minrow);
+    geo.maxcol = geo.cols;
+    return !(geo.rows < geo.minrow || geo.cols < tty_perminv_mincol);
+}
+
+/**
+ * C wintty.c tty_ctrl_nhwindow set_mode / request_settings `:2849–2911`.
+ * RESIZABLE (SIGWINCH) → too_small, not prohibited.
  * @param {number} _window
  * @param {number} request
  * @param {object|null} wri
  */
 function ctrl_nhwindow_perm(_window, request, wri) {
     if (!wri) return null;
-    if (request === fromcore_set_mode) return wri;
-    if (request === fromcore_request_settings) {
-        const invmode = wri.fromcore.invmode | 0;
-        const inuse_only = (invmode & InvInUse) !== 0;
-        wri.tocore = {
-            tocore_flags: 0,
-            maxslot: inuse_only ? 16 : 32,
-        };
+    if (request !== fromcore_set_mode && request !== fromcore_request_settings) {
         return wri;
     }
+    ttyinvmode = wri.fromcore.invmode | 0;
+    if (request === fromcore_set_mode) return wri;
+
+    const inuse_only = (ttyinvmode & InvInUse) !== 0;
+    const geo = {
+        offx: 0, offy: 0, rows: 0, cols: 0, maxcol: 0, minrow: 0, maxrow: 0,
+    };
+    const disp = ttyDisplay_size();
+    wri.tocore = {
+        tocore_flags: 0,
+        maxslot: 0,
+        needrows: 0,
+        needcols: 0,
+        haverows: 0,
+        havecols: 0,
+    };
+    const tty_ok = assesstty(ttyinvmode, geo);
+    if (!tty_ok && geo.rows === 0 && geo.cols === 0) {
+        wri.tocore.tocore_flags |= TOCORE_TOO_EARLY;
+    } else {
+        wri.tocore.needrows = (geo.minrow + 1 + ROWNO + StatusRows()) | 0;
+        wri.tocore.needcols = tty_perminv_mincol | 0;
+        wri.tocore.haverows = disp.rows | 0;
+        wri.tocore.havecols = disp.cols | 0;
+        if (!tty_ok) {
+            wri.tocore.tocore_flags |= TOCORE_TOO_SMALL;
+        } else {
+            wri.tocore.maxslot = ((geo.maxrow - 2) * (!inuse_only ? 2 : 1)) | 0;
+        }
+    }
     return wri;
+}
+
+function ttyinv_destroy() {
+    win_inven = null;
+    game.WIN_INVEN = WIN_ERR;
+    ttyinv_slots_used = 0;
+    slot_tracker.fill(false);
+}
+
+/**
+ * C wintty.c tty_invent_box_glyph_init `:3478–3552`.
+ * Border cells use ASCII box (cmap_D0walls_to_glyph / tty_print_glyph named).
+ * @param {object} cw
+ */
+function tty_invent_box_glyph_init(cw) {
+    if (!cw || !cw.active) return;
+    const inuse_only = (ttyinvmode & InvInUse) !== 0;
+    const show_gold = (ttyinvmode & InvShowGold) !== 0 && !inuse_only;
+    const rows_per_side = inuse_only ? (cw.maxrow - 2)
+        : !show_gold ? 26 : 27;
+    const bottomrow = rows_per_side + 1;
+    for (let row = 0; row < cw.maxrow; row++) {
+        for (let col = 0; col < cw.maxcol; col++) {
+            const cell = cw.cells[row][col];
+            let ch = null;
+            if (row === 0) {
+                ch = col === bordercol[border_left] ? '+'
+                    : col === bordercol[border_right] ? '+'
+                    : col === bordercol[border_middle] ? '+'
+                    : '-';
+            } else if (row < bottomrow) {
+                if (col === bordercol[border_left]
+                    || col === bordercol[border_middle]
+                    || col === bordercol[border_right]) {
+                    ch = '|';
+                }
+            } else if (row === bottomrow) {
+                ch = col === bordercol[border_left] ? '+'
+                    : col === bordercol[border_right] ? '+'
+                    : col === bordercol[border_middle] ? '+'
+                    : '-';
+            }
+            if (ch == null) {
+                if (cell.glyph) {
+                    Object.assign(cell, emptyttycell());
+                    cell.ttychar = ' ';
+                    cell.text = 1;
+                    cell.refresh = 1;
+                }
+                continue;
+            }
+            cell.glyph = 1;
+            cell.text = 0;
+            cell.ttychar = ch;
+            cell.refresh = 1;
+            cell.color = NO_COLOR + 1;
+        }
+    }
+}
+
+/**
+ * C wintty.c ttyinv_create_window `:2915–2999`.
+ * @returns {object|null}
+ */
+function ttyinv_create_window() {
+    const geo = {
+        offx: 0, offy: 0, rows: 0, cols: 0, maxcol: 0, minrow: 0, maxrow: 0,
+    };
+    const cw = {
+        offx: 0, offy: 0, rows: 0, cols: 0, maxcol: 0, maxrow: 0,
+        cells: null, active: 0, mbehavior: 0, curx: 0, cury: 0,
+    };
+    if (!assesstty(ttyinvmode, geo)) {
+        ttyinv_destroy();
+        const iflags = game.iflags || (game.iflags = {});
+        iflags.perm_invent = false;
+        const disp = ttyDisplay_size();
+        const needr = (geo.minrow + 1 + ROWNO + StatusRows()) | 0;
+        void pline('tty perm_invent could not be enabled.');
+        void pline(
+            `tty perm_invent needs a terminal that is at least ${needr}x${tty_perminv_mincol}, yours is ${disp.rows}x${disp.cols}.`,
+        );
+        return null;
+    }
+    cw.offx = geo.offx;
+    cw.offy = geo.offy;
+    cw.rows = geo.rows;
+    cw.cols = geo.cols;
+    cw.maxrow = geo.maxrow;
+    cw.maxcol = geo.cols;
+    bordercol[border_left] = 0;
+    bordercol[border_middle] = Math.trunc((cw.maxcol + 1) / 2);
+    bordercol[border_right] = cw.maxcol - 1;
+    if ((ttyinvmode & InvInUse) !== 0) {
+        bordercol[border_middle] = bordercol[border_right];
+    }
+    ttyinv_slots_used = 0;
+    cw.cells = [];
+    for (let r = 0; r < cw.maxrow; r++) {
+        const row = [];
+        for (let c = 0; c < cw.maxcol; c++) row.push(emptyttycell());
+        cw.cells.push(row);
+    }
+    cw.active = 1;
+    tty_invent_box_glyph_init(cw);
+    return cw;
+}
+
+/**
+ * C wintty.c tty_start_menu MENU_BEHAVE_PERMINV `:2518–2547`.
+ */
+function tty_start_menu_perminv() {
+    if (win_inven?.mbehavior === MENU_BEHAVE_PERMINV) {
+        inuse_only_start = 0;
+        return;
+    }
+    const cw = ttyinv_create_window();
+    if (!cw) return;
+    cw.mbehavior = MENU_BEHAVE_PERMINV;
+    win_inven = cw;
+    game.WIN_INVEN = WIN_INVEN_ID;
+}
+
+/**
+ * C wintty.c selector_to_slot `:3119–3179`.
+ * @param {string} ch
+ * @param {number} invflags
+ * @returns {{ slot: number, ignore: boolean }}
+ */
+function selector_to_slot(ch, invflags) {
+    let slot = 0;
+    let ignore = false;
+    const show_gold = (invflags & InvShowGold) !== 0;
+    const inuse_only = (invflags & InvInUse) !== 0;
+    const c = ch || '';
+    if (inuse_only) {
+        if (!c) ignore = true;
+        else slot = inuse_only_start++;
+    } else {
+        switch (c) {
+        case GOLD_SYM:
+            if (!show_gold) ignore = true;
+            else slot = 0;
+            break;
+        case '#':
+            if (!show_gold) ignore = true;
+            else slot = 0 + 52 + 1;
+            break;
+        case '':
+            ignore = true;
+            break;
+        default:
+            if (c >= 'a' && c <= 'z') {
+                slot = (c.charCodeAt(0) - 97) + (show_gold ? 1 : 0);
+            } else if (c >= 'A' && c <= 'Z') {
+                slot = (c.charCodeAt(0) - 65) + (show_gold ? 1 : 0) + 26;
+            }
+            break;
+        }
+    }
+    return { slot, ignore };
+}
+
+/**
+ * C wintty.c slot_to_invlet `:3181–3203`.
+ * @param {number} slot
+ * @param {boolean} incl_gold
+ * @returns {string}
+ */
+function slot_to_invlet(slot, incl_gold) {
+    let s = slot | 0;
+    if (s === 0) return incl_gold ? GOLD_SYM : 'a';
+    if (s === 53) return '#';
+    if (incl_gold) s--;
+    if (s < 26) return String.fromCharCode(97 + s);
+    if (s < 52) return String.fromCharCode(65 + s - 26);
+    return '?';
+}
+
+/**
+ * C wintty.c ttyinv_populate_slot `:3375–3426`.
+ * @param {object} cw
+ * @param {number} row
+ * @param {number} side
+ * @param {string} text
+ * @param {number} color
+ * @param {number} clroffset
+ */
+function ttyinv_populate_slot(cw, row, side, text, color, clroffset) {
+    const inuse_only = (ttyinvmode & InvInUse) !== 0;
+    const oops = row < 0 || row >= cw.maxrow || side < 0;
+    if (inuse_only && side > 1 && !oops) return;
+    if (oops || side > 1) {
+        impossible('ttyinv_populate_slot row=%d, side=%d', row, side);
+        return;
+    }
+    const col0 = bordercol[side] + 1;
+    const endcol = bordercol[side + 1] - 1;
+    let t = 0;
+    const src = String(text ?? '');
+    for (let ccnt = col0; ccnt <= endcol; ccnt++) {
+        const cell = cw.cells[row][ccnt];
+        if (cell.glyph) Object.assign(cell, emptyttycell());
+        let c;
+        if (t < src.length) {
+            c = src[t];
+            t++;
+        } else {
+            c = ' ';
+        }
+        if (cell.ttychar !== c) {
+            cell.ttychar = c;
+            cell.refresh = 1;
+        }
+        if (cell.color !== color + 1) {
+            if (ccnt >= col0 + clroffset) cell.color = color + 1;
+            else cell.color = NO_COLOR + 1;
+            cell.refresh = 1;
+        }
+        cell.text = 1;
+        cell.glyph = 0;
+    }
+}
+
+/**
+ * C wintty.c ttyinv_add_menu `:3048–3116` — skip a/an/the; "%c - %s".
+ * @param {string} ch
+ * @param {number} clr
+ * @param {string} str
+ */
+function ttyinv_add_menu(ch, clr, str) {
+    const cw = win_inven;
+    if (!cw || !(game.program_state?.in_moveloop | 0)) return;
+    const show_gold = (ttyinvmode & InvShowGold) !== 0;
+    const inuse_only = (ttyinvmode & InvInUse) !== 0;
+    const rows_per_side = inuse_only ? (cw.maxrow - 2)
+        : !show_gold ? 26 : 27;
+    const sel = selector_to_slot(ch, ttyinvmode);
+    let ignore = sel.ignore;
+    const slot = sel.slot;
+    if (inuse_only && slot > 2 * rows_per_side) ignore = true;
+    if (ignore) return;
+    slot_tracker[slot] = true;
+    if (inuse_only && slot === rows_per_side
+        && ttyinv_slots_used % rows_per_side === 0) {
+        ttyinv_inuse_twosides(cw, rows_per_side);
+    }
+    let text = String(str ?? '');
+    if (text[0] === 'a') {
+        if (text[1] === ' ') text = text.slice(2);
+        else if (text[1] === 'n' && text[2] === ' ') text = text.slice(3);
+    } else if (text[0] === 't') {
+        if (text[1] === 'h' && text[2] === 'e' && text[3] === ' ') {
+            text = text.slice(4);
+        }
+    }
+    const invbuf = `${ch} - ${text}`;
+    const startcolor_at = 4; /* sizeof "a - " - 1 */
+    const row = (slot % rows_per_side) + 1;
+    const side = Math.trunc(slot / rows_per_side);
+    ttyinv_populate_slot(cw, row, side, invbuf, clr | 0, startcolor_at);
+}
+
+function ttyinv_inuse_fulllines(cw, _rows_per_side) {
+    bordercol[border_middle] = bordercol[border_right];
+    tty_invent_box_glyph_init(cw);
+}
+
+function ttyinv_inuse_twosides(cw, rows_per_side) {
+    bordercol[border_middle] = Math.trunc((cw.maxcol + 1) / 2);
+    tty_invent_box_glyph_init(cw);
+    const col = bordercol[border_middle];
+    for (let row = 0; row <= rows_per_side; row++) {
+        tty_refresh_inventory(col, col, row);
+    }
+}
+
+/**
+ * C wintty.c tty_refresh_inventory `:3428–3476` — one row onto the tty.
+ * @param {number} start
+ * @param {number} stop
+ * @param {number} y
+ */
+function tty_refresh_inventory(start, stop, y) {
+    const cw = win_inven;
+    if (!cw || (game.WIN_INVEN ?? WIN_ERR) === WIN_ERR) return;
+    if (!game.iflags?.perm_invent) return;
+    if ((game.gp?.perm_invent_toggling_direction | 0) === toggling_off) return;
+    let col_limit = stop;
+    if (col_limit > cw.maxcol) col_limit = cw.maxcol;
+    const disp = game.nhDisplay;
+    const row = y | 0;
+    for (let col = start - 1; col < col_limit; col++) {
+        const cell = cw.cells[row]?.[col];
+        if (!cell) continue;
+        cell.refresh = 0;
+        if (!disp?.setCell) continue;
+        const sy = (cw.offy | 0) + row;
+        const sx = (cw.offx | 0) + col;
+        const ch = cell.ttychar || ' ';
+        const color = cell.color ? cell.color - 1 : NO_COLOR;
+        disp.setCell(sx, sy, ch === '\0' ? ' ' : ch, color);
+    }
+}
+
+/**
+ * C hack.c money_cnt `:4513–4522` — first COIN_CLASS quan (inline, not clone #7).
+ * @returns {number}
+ */
+function perminv_money_quan() {
+    for (const otmp of game.invent || []) {
+        if (otmp?.oclass === COIN_CLASS) return otmp.quan || 0;
+    }
+    return 0;
+}
+
+/**
+ * C wintty.c ttyinv_render `:3263–3371` + InvSparse empty-letter slots.
+ * @param {object} cw
+ */
+function ttyinv_render(cw) {
+    const inuse_only = (ttyinvmode & InvInUse) !== 0;
+    const show_gold = (ttyinvmode & InvShowGold) !== 0 && !inuse_only;
+    const sparse = (ttyinvmode & InvSparse) !== 0 && !inuse_only;
+    const rows_per_side = inuse_only ? (cw.maxrow - 2)
+        : !show_gold ? 26 : 27;
+    let slot_limit = tty_slots;
+    if (inuse_only) {
+        slot_limit = rows_per_side;
+        if (ttyinv_slots_used === 0 || ttyinv_slots_used >= rows_per_side) {
+            slot_limit *= 2;
+        }
+    } else if (!show_gold) {
+        slot_limit -= 2;
+    }
+    let filled_count = 0;
+    for (let slot = 0; slot < slot_limit; slot++) {
+        if (slot_tracker[slot]) filled_count++;
+    }
+    for (let slot = 0; slot < slot_limit; slot++) {
+        if (slot_tracker[slot]) continue;
+        let invbuf;
+        if (slot === 0 && !filled_count) {
+            const why = inuse_only ? 'no items are in use'
+                : (!show_gold && perminv_money_quan()) ? 'only gold'
+                : 'empty';
+            invbuf = `    [${why}]`;
+        } else if (sparse && filled_count) {
+            invbuf = slot_to_invlet(slot, show_gold);
+        } else {
+            invbuf = '';
+        }
+        const row = (slot % rows_per_side) + 1;
+        const side = Math.trunc(slot / rows_per_side);
+        ttyinv_populate_slot(cw, row, side, invbuf, NO_COLOR, 0);
+    }
+    if (inuse_only && filled_count !== ttyinv_slots_used) {
+        if (filled_count <= rows_per_side
+            && ttyinv_slots_used > rows_per_side) {
+            ttyinv_inuse_fulllines(cw, rows_per_side);
+        }
+        ttyinv_slots_used = filled_count;
+    }
+    for (let row = 0; row < cw.maxrow; row++) {
+        tty_refresh_inventory(1, cw.maxcol, row);
+    }
+    for (let slot = 0; slot < tty_slots; slot++) slot_tracker[slot] = false;
+}
+
+/**
+ * C wintty.c ttyinv_end_menu `:3236–3260`.
+ */
+function ttyinv_end_menu() {
+    const cw = win_inven;
+    if (!cw) return;
+    const iflags = game.iflags || {};
+    if (!iflags.perm_invent
+        && (game.gp?.perm_invent_toggling_direction | 0) !== toggling_on) {
+        return;
+    }
+    if (!(game.program_state?.in_moveloop | 0)) return;
+    const inuse_only = (ttyinvmode & InvInUse) !== 0;
+    const rows_per_side = inuse_only ? cw.maxrow - 2 : 0;
+    const old_slots_used = ttyinv_slots_used;
+    ttyinv_render(cw);
+    if (inuse_only && old_slots_used > rows_per_side
+        && ttyinv_slots_used <= rows_per_side) {
+        sync_perminvent();
+    }
 }
 
 /**
@@ -311,7 +815,7 @@ export function perm_invent_toggled(negated) {
     if (!game.gi) game.gi = {};
     if (negated) {
         game.gp.perm_invent_toggling_direction = toggling_off;
-        game.WIN_INVEN = WIN_ERR;
+        ttyinv_destroy();
         game.gc.core_invent_state = 0;
         game.gi.perminvent_entries = [];
         game.gi.perminvent_listed = [];
@@ -1728,6 +2232,7 @@ function pickinv_build_inuse(lets, wizid, opts = null) {
             const barehands = `${u.uarmg ? 'gloved' : 'bare'} ${hands} (no weapon)`;
             byLet.set(letch, { _hands: true, _inuse_fake: true });
             pickItems.push({ selector: letch, gselector: '' });
+            if (doing_perm_invent) ttyinv_add_menu(letch, NO_COLOR, barehands);
             entries.push({
                 text: xprname(null, HANDS_SYM, false, 0, barehands),
                 attr: 0,
@@ -1742,7 +2247,14 @@ function pickinv_build_inuse(lets, wizid, opts = null) {
             selector: letch,
             gselector: pickinv_item_gacc(otmp, wizid),
         });
-        entries.push({ text: xprname(otmp), attr: 0 });
+        let desc;
+        if (doing_perm_invent) {
+            desc = doname(otmp);
+            ttyinv_add_menu(letch, NO_COLOR, desc);
+        } else {
+            desc = xprname(otmp);
+        }
+        entries.push({ text: desc, attr: 0 });
     }
     if (doing_perm_invent && !inusecount) {
         entries.push({ text: 'Not using any items', attr: 0 });
@@ -1754,15 +2266,18 @@ function pickinv_build_inuse(lets, wizid, opts = null) {
  * C invent.c display_pickinv WIN_INVEN branch `:3108–3113` +
  * `:3186–3376` (PICK_NONE; tty select_menu PERMINV returns 0).
  * inuse_only = invmode & InvInUse; show_gold = invmode & InvShowGold.
- * Named: tty slot paint / InvSparse grid / #perminv scroll.
+ * tty start/add/end MENU_BEHAVE_PERMINV (assesstty / InvSparse / paint).
  */
 function pickinv_build_perm() {
     prepare_perminvent(game.WIN_INVEN ?? WIN_ERR);
     const invmode = wri_info.fromcore.invmode | 0;
     const show_gold = (invmode & InvShowGold) !== 0;
     const inuse_only = (invmode & InvInUse) !== 0;
+    tty_start_menu_perminv();
     if (inuse_only) {
-        return pickinv_build_inuse(null, false, { doing_perm_invent: true });
+        const built = pickinv_build_inuse(null, false, { doing_perm_invent: true });
+        ttyinv_end_menu();
+        return built;
     }
     const entries = [];
     const listed = [];
@@ -1780,7 +2295,9 @@ function pickinv_build_perm() {
         if (!Blind()) observe_object(otmp);
         obj_glyph(otmp);
         listed.push(otmp);
-        entries.push({ text: xprname(otmp), attr: 0 });
+        const desc = doname(otmp);
+        ttyinv_add_menu(otmp.invlet || '?', NO_COLOR, desc);
+        entries.push({ text: desc, attr: 0 });
     }
     if (!listed.length) {
         entries.push({
@@ -1790,6 +2307,7 @@ function pickinv_build_perm() {
             attr: 0,
         });
     }
+    ttyinv_end_menu();
     return { entries, listed, show_gold, skipped_gold };
 }
 
@@ -2574,19 +3092,20 @@ export function makeknown(otyp) {
  * Default Off: WIN_INVEN WIN_ERR, core_invent_state 0, static wri null
  * → return before display. On: request_settings then
  * display_inventory(NULL, FALSE) PICK_NONE (no nhgetch).
- * Named: assesstty too_small/prohibited pline; tty WIN_INVEN paint.
+ * On: request_settings (assesstty) then display_inventory(NULL, FALSE).
+ * too_small: C pline + wait_synch (wait_synch named; messages fit 80 cols).
  */
 export function sync_perminvent() {
     const iflags = game.iflags || (game.iflags = {});
     if (!game.gc) game.gc = {};
     if (!game.gi) game.gi = {};
     if (!game.gp) game.gp = {};
-    const win_inven = game.WIN_INVEN ?? WIN_ERR;
+    const win_inven_id = game.WIN_INVEN ?? WIN_ERR;
     const prohibited = (wri_info.tocore.tocore_flags | 0) & TOCORE_PROHIBITED;
     const togglingOn = in_perm_invent_toggled
         && (game.gp.perm_invent_toggling_direction | 0) === toggling_on;
 
-    if (win_inven === WIN_ERR) {
+    if (win_inven_id === WIN_ERR) {
         if (((game.gc.core_invent_state | 0) || prohibited) && !togglingOn) {
             return;
         }
@@ -2595,7 +3114,7 @@ export function sync_perminvent() {
 
     if (!iflags.perm_invent && (game.gc.core_invent_state | 0)) {
         perm_invent_toggled(true);
-        // C: docrt(); tty erase of WIN_INVEN named
+        // C: docrt();
         return;
     }
 
@@ -2615,8 +3134,17 @@ export function sync_perminvent() {
                     return;
                 }
                 if (tflags & (TOCORE_TOO_SMALL | TOCORE_PROHIBITED)) {
+                    if (tflags & TOCORE_PROHIBITED) {
+                        /* C set_option_mod_status perm_invent/perminv_mode named */
+                    }
                     iflags.perm_invent = false;
-                    game.WIN_INVEN = WIN_ERR;
+                    ttyinv_destroy();
+                    const wport_id = 'tty perm_invent';
+                    const tc = sync_wri.tocore;
+                    void pline(`${wport_id} could not be enabled.`);
+                    void pline(
+                        `${wport_id} needs a terminal that is at least ${tc.needrows}x${tc.needcols}, yours is ${tc.haverows}x${tc.havecols}.`,
+                    );
                     return;
                 }
             }
@@ -2662,7 +3190,7 @@ export function update_inventory() {
  * new charge (tty_update_inventory → sync_perminvent). Unpaid is D-1047;
  * InvInUse helpers are D-1600; writers are D-1603.
  * Named: pickup tip-spill / trap disarm_squeaky_board callers;
- * use_grease trailing (empty-can) update_inventory; tty WIN_INVEN paint.
+ * use_grease trailing (empty-can) update_inventory.
  * @param {object} obj
  * @param {boolean} maybe_unpaid false if caller handles shop billing
  */
@@ -4372,6 +4900,31 @@ export async function doprtool() {
     }
     const { dispinv_with_action } = await import('./iactions.js');
     return await dispinv_with_action(lets, true, null);
+}
+
+/**
+ * C invent.c doperminv `:2813–2857` / cmd.c "perminv" `|`.
+ * IFBURIED|GENERALCMD|NOFUZZERCMD (no AUTOCOMPLETE, no CMD_M_PREFIX).
+ * TTY_PERM_INVENT: tty_update_inventory(1) arg UNUSED → sync_perminvent.
+ * @returns {Promise<number>}
+ */
+export async function doperminv() {
+    const wp = tty_windowprocs();
+    const iflags = game.iflags || {};
+    if ((wp.wincap & WC_PERM_INVENT) === 0) {
+        await pline(
+            `Persistent inventory display is not supported by '${wp.name}'.`,
+        );
+    } else if (!iflags.perm_invent) {
+        await pline(
+            "Persistent inventory ('perm_invent' option) is not presently enabled.",
+        );
+    } else if (!(game.invent && game.invent.length)) {
+        await pline('Persistent inventory display is empty.');
+    } else {
+        update_inventory();
+    }
+    return ECMD_OK;
 }
 
 /**

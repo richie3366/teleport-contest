@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `invent.c` `check_invent_gold` (named). Not adjust_split. **Addressed:** D-1641
+- [x] `invent.c` tty WIN_INVEN / `#perminv` (named). Not consume_obj_charge. **Addressed:** D-1642
+
+
+- [x] `invent.c` `check_invent_gold` (named). Not adjust_split. **Addressed:** D-1641 `429ab7b7`
 
 
 - [x] `steed.c` `landing_spot` KNOCKED preferred-dir (named). Not DISMOUNT_THROWN. **Addressed:** D-1640 `78fc5011`

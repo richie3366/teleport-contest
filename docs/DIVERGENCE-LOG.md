@@ -1,3 +1,30 @@
+## D-1642 — invent.c doperminv + tty WIN_INVEN assesstty / InvSparse
+
+- **Status:** fixed (map-driven Open from D-1641; not a public FAIL)
+- **Symptom:** map named tty WIN_INVEN / `#perminv`. C `doperminv`
+  (`|` / `#perminv`) plines unsupported / option-off / empty else
+  `tty_update_inventory(1)` (arg UNUSED → `sync_perminvent`). JS had
+  no runner; `ctrl_nhwindow_perm` stubbed maxslot 32 so a 24x80 tty
+  would have faked enable. `assesstty` needs 28 extra rows (52x79).
+- **C locus:** `invent.c` `doperminv` `:2813–2857`. Callers
+  `cmd.c` extcmdlist `"perminv"` key 124. `wintty.c` `assesstty`
+  `:3557–3599`; `tty_ctrl_nhwindow` `:2849–2911`; `ttyinv_*`
+  create/add/slot/render/refresh `:2915–3476`. InvSparse empty
+  letters in `ttyinv_render`.
+- **JS was:** `#perminv` unknown; `|` Unknown command; request_settings
+  always maxslot 16/32 (D-1600/D-1603).
+- **Fix:** live `doperminv` + `|` + EXT_CMDS (no AUTOCOMPLETE).
+  `assesstty` + too_small pline (need 52x79). WIN_INVEN cell grid,
+  InvSparse letters, `setCell` when rows allow. Rule #2: no fs.
+- **JS:** `js/invent.js`; `js/cmd.js`; `js/getline.js`.
+- **Not this iter:** `optfn_perminv_mode` / `handler_perminv_mode`;
+  `cmap_D0walls_to_glyph` (ASCII box); `tty_wait_synch`;
+  `set_option_mod_status`; toggle-off `docrt`. check_invent_gold
+  is D-1641.
+- **Verified:** canary **28**/28 (strings + 24x80 too_small + 53x80
+  create/paint); green+strict seed8000/0900; cohort **7**/7 +
+  strict (9/9 with green).
+
 ## D-1641 — invent.c check_invent_gold + adjust_gold_ok
 
 - **Status:** fixed (map-driven Open from D-1640; not a public FAIL)

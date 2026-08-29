@@ -890,6 +890,17 @@ const EXT_CMDS = [
             return doprtool();
         },
     },
+    {
+        // C: cmd.c "perminv" IFBURIED|GENERALCMD|NOFUZZERCMD (no AUTOCOMPLETE)
+        // → doperminv. Key '|'. tty_update_inventory(1) arg unused.
+        name: 'perminv',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { doperminv } = await import('./invent.js');
+            return doperminv();
+        },
+    },
 ];
 
 function wizardMode() {

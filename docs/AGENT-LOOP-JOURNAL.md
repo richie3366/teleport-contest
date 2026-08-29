@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1642 invent.c doperminv + tty WIN_INVEN / #perminv
+
+**Objective:** Open tty WIN_INVEN / `#perminv` (named). Not
+consume_obj_charge.
+**C locus:** `invent.c` `doperminv` `:2813–2857`; `wintty.c`
+`assesstty` / `ttyinv_*`. Callers cmd.c `"perminv"` `|`.
+**JS locus:** `js/invent.js`; `js/cmd.js` `|`; `js/getline.js`
+`#perminv`.
+**Change:** `#perminv`/`|` plines; 24x80 too_small (need 52x79);
+InvSparse grid paint when tall enough.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** canary **28**/28; green+strict seed8000/0900; cohort
+**7**/7 + strict (9/9 with green).
+**Next:** Open BIND= M('?'). Not doextlist.
+**Blocked:** none.
 ## 2026-08-29 — D-1641 invent.c check_invent_gold + adjust_gold_ok
 
 **Objective:** Open `check_invent_gold` (named). Not adjust_split.

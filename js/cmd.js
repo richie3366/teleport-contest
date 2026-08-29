@@ -43,7 +43,7 @@ import { is_hider } from './monsters.js';
 import { vision_recalc, couldsee, cansee } from './vision.js';
 import {
     ddoinv, dodiscovered, doattributes, dolook, doprgold, doprwep, doprarm,
-    doprring, dopramulet, doprtool, doprinuse,
+    doprring, dopramulet, doprtool, doprinuse, doperminv,
 } from './invent.js';
 import { dovspell, docast, num_spells } from './spell.js';
 import { doeat } from './eat.js';
@@ -2018,6 +2018,7 @@ function rhack_repeat_command(ch, key) {
     case '"': return dopramulet;
     case '(': return doprtool;
     case '*': return doprinuse;
+    case '|': return doperminv;
     case '\x7f': return doterrain;
     case ' ': return game.flags?.rest_on_space ? donull : null;
     case 'g': return do_rush;
@@ -2065,6 +2066,7 @@ function rhack_repeat_txt(ch, key) {
         '@': 'autopickup', O: 'options', $: 'showgold', ')': 'seeweapon',
         '[': 'seearmor', '=': 'seerings', '"': 'seeamulet', '(': 'seetools',
         '*': 'seeall',
+        '|': 'perminv',
         '\x7f': 'terrain',
         g: 'rush', G: 'run', F: 'fight', m: 'reqmenu',
         h: 'movewest', y: 'movenorthwest', k: 'movenorth', u: 'movenortheast',
@@ -2560,6 +2562,10 @@ export async function rhack(key) {
     } else if (ch === '*') {
         // C ref: invent.c doprinuse / cmd.c — #seeall (GENERALCMD, '*')
         await doprinuse();
+        game.context.move = 0;
+    } else if (ch === '|') {
+        // C ref: invent.c doperminv / cmd.c — #perminv (GENERALCMD, '|')
+        await doperminv();
         game.context.move = 0;
     } else if (ch === '\x7f') {
         // C ref: cmd.c doterrain / #terrain — DEL key (\177)
