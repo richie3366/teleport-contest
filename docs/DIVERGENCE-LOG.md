@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1679 — pickup.c choose_tip_container_menu
+
+- **Status:** fixed (map-driven Open from D-1678; not a public FAIL)
+- **Symptom:** map named `choose_tip_container_menu`. After D-1665
+  `dotip` with `boxes>1` skipped the floor PICK_ONE and fell through
+  to invent getobj (no dummy row, no ESC vs Space distinction).
+- **C locus:** `pickup.c` `choose_tip_container_menu` `:3500–3558`;
+  caller `dotip` `:3598`. `wintty.c` `tty_select_menu` /
+  `process_menu_window` PICK_ONE preselected quirk (n==0/1/2/-1).
+- **JS was:** `boxes>1` empty arm after D-1665; getobj invent live.
+- **Fix:** live menu of floor `Is_container` + preselected dummy
+  `"tip something being carried"` (`'i'` unless lootabc or
+  `i>'i'-'a'`); Space/Return accept dummy → `ECMD_OK` getobj; letter
+  tips that box (`ECMD_TIME`); ESC `ECMD_CANCEL`. Empty `invent[]`
+  is not C `gi.invent`. Named: MENU_SEARCH, map_menu_cmd remaps,
+  multi-page, tty_nhbell. Rule #2: no fs.
+- **JS:** `js/pickup.js` `choose_tip_container_menu` + `dotip`.
+- **Not this iter:** tip spill / tiphat / statue;
+  `tipcontainer_gettarget`; getobj invent is D-1665; `offer_corpse`
+  is D-1678.
+- **Verified:** private canary (letter `'a'` TIME; ESC CANCEL; Space
+  and `'i'` dummy skip floor); green+strict seed8000/0900; CURRENT
+  cohort **9**/9 + strict.
+- **Files:** `js/pickup.js`.
+
 ## D-1678 — pray.c offer_corpse
 
 - **Status:** fixed (map-driven Open from D-1677; not a public FAIL)

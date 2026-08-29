@@ -12,7 +12,8 @@ import {
     unsplitobj,
 } from './mkobj.js';
 import {
-    look_here, observe_object, dfeature_at, paint_corner_nhw_menu, sortloot,
+    look_here, observe_object, dfeature_at, paint_corner_nhw_menu,
+    dismiss_nhw_menu, sortloot,
     let_to_name, DEF_INV_ORDER, prinv, near_capacity, calc_capacity,
     max_capacity, compactify_invlets, getobj_take_count, getobj_apply_count,
     getobj_from_cmdq, getobj_display_pickinv, freeinv, display_inventory,
@@ -3637,6 +3638,105 @@ export async function tipcontainer(box) {
 }
 
 /**
+ * C ref: pickup.c choose_tip_container_menu `:3500–3558` — NHW_MENU
+ * PICK_ONE of floor containers plus a preselected dummy invent row.
+ * tty_select_menu n: 0 toggle-off preselected; 1 Space/Return accept;
+ * 2 picked something else (if pick_list[0] is dummy, use [1]);
+ * -1 ESC. Named omissions: MENU_SEARCH, map_menu_cmd remaps,
+ * multi-page, tty_nhbell.
+ * @returns {Promise<number>} ECMD_*
+ */
+async function choose_tip_container_menu() {
+    const dummyobj = {};
+    const u = game.u;
+    const rows = [];
+    let i = 0;
+    for (let otmp = objects_at(u.ux | 0, u.uy | 0); otmp;
+        otmp = otmp.nexthere) {
+        if (!Is_container(otmp)) continue;
+        ++i;
+        rows.push({
+            obj: otmp,
+            selected: false,
+            selector: '',
+            text: doname(otmp),
+        });
+    }
+    // C: gi.invent — empty chain is NULL, not a zero-length array.
+    const hasInvent = !!(game.invent && game.invent.length);
+    if (hasInvent) {
+        rows.push({ kind: 'blank' });
+        // C: 'i' unless so many containers that 'i' is already used
+        // (i > 'i'-'a') or flags.lootabc.
+        const ch = (i <= ('i'.charCodeAt(0) - 'a'.charCodeAt(0))
+            && !game.flags?.lootabc) ? 'i' : '';
+        rows.push({
+            obj: dummyobj,
+            selected: true, // MENU_ITEMFLAGS_SELECTED
+            selector: ch,
+            text: 'tip something being carried',
+        });
+    }
+    // C tty_end_menu: auto a..z/A.. for identifier && !selector.
+    let menuCh = 'a';
+    for (const row of rows) {
+        if (row.kind === 'blank' || row.selector) continue;
+        row.selector = menuCh;
+        menuCh = menuCh === 'z' ? 'A'
+            : String.fromCharCode(menuCh.charCodeAt(0) + 1);
+    }
+
+    let cancelled = false;
+    for (;;) {
+        const entries = [
+            { text: 'Tip which container?', attr: ATR_INVERSE },
+            { text: '', attr: 0 },
+        ];
+        for (const row of rows) {
+            if (row.kind === 'blank') {
+                entries.push({ text: '', attr: 0 });
+                continue;
+            }
+            // C process_menu_window: str[2] '-' becomes '*' when selected.
+            const mark = row.selected ? '*' : '-';
+            entries.push({
+                text: `${row.selector} ${mark} ${row.text}`,
+                attr: 0,
+            });
+        }
+        await paint_corner_nhw_menu(entries, '(end) ');
+        await flush_screen(1);
+        const key = await nhgetch();
+        await dismiss_nhw_menu();
+
+        if (key === 27) {
+            cancelled = true;
+            break;
+        }
+        // C: \n \r space on last page finish without toggling.
+        if (key === 13 || key === 10 || key === 32) break;
+        const ch = String.fromCharCode(key);
+        const hit = rows.find((r) => r.obj && r.selector === ch);
+        if (!hit) continue; // C nhbell; stay
+        hit.selected = !hit.selected;
+        // C PICK_ONE: letter toggles then finished (other selected stay).
+        break;
+    }
+
+    if (cancelled) return ECMD_CANCEL;
+
+    const pick_list = rows.filter((r) => r.obj && r.selected);
+    const n = pick_list.length;
+    let otmp = n <= 0 ? null : pick_list[0].obj;
+    if (n > 1 && otmp === dummyobj) otmp = pick_list[1].obj;
+    if (otmp && otmp !== dummyobj) {
+        await tipcontainer(otmp);
+        return ECMD_TIME;
+    }
+    return ECMD_OK;
+}
+
+/**
  * C ref: pickup.c tip_ok `:3480–3497` — COIN EXCLUDE; container / known
  * horn of plenty SUGGEST; else DOWNPLAY.
  */
@@ -3654,8 +3754,9 @@ function tip_ok(obj) {
  * C ref: pickup.c dotip — #tip empty container onto floor.
  * Ported: floor ynq (D-1654); m-prefix skip / TRADITIONAL boxes>1 gate;
  * getobj("tip", tip_ok, GETOBJ_PROMPT) + container/horn tipcontainer
- * (D-1665). Named omissions: choose_tip_container_menu; candle/oil/
- * grease/food/venom spill; tiphat; statue; tipcontainer_gettarget.
+ * (D-1665); choose_tip_container_menu when boxes>1 (D-1679).
+ * Named omissions: candle/oil/grease/food/venom spill; tiphat; statue;
+ * tipcontainer_gettarget.
  * @returns {Promise<number>} ECMD_*
  */
 export async function dotip() {
@@ -3680,7 +3781,9 @@ export async function dotip() {
             game._check_capacity_msg = null;
         } else if (await able_to_loot(ccx, ccy, false)) {
             if (boxes > 1) {
-                // choose_tip_container_menu deferred → invent getobj path
+                const res = await choose_tip_container_menu();
+                if (res !== ECMD_OK) return res;
+                /* else pick-from-gi.invent below */
             } else {
                 for (let cobj = objects_at(ccx, ccy); cobj; cobj = cobj.nexthere) {
                     if (!Is_container(cobj)) continue;

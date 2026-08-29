@@ -1411,9 +1411,12 @@ loot-at-feet open / pit "Open where?" / mimic / AUTOUNLOCK_KICK deferred);
 **`#herecmdmenu`/`doherecmdmenu` self menu** (D-0728; 
 `#therecmdmenu` / next2u/far / K==0 travel / CMDQ_KEY·DIR follow-ups / glyph≠hero Look deferred); 
 **`#tip`/`dotip` floor ynq (def q) + basic floor `tipcontainer`** (D-0719; 
-**highdrop `hitfloor(TRUE)` D-1273**; tipcontainer_gettarget menu / multi-box / getobj invent / 
-altarizing `doaltarobj` / ice-box / cursed mbag / shop / toss_up / candle·oil spill / tiphat 
-deferred); **`use_stethoscope` self + `ustatusline`/`piousness` + 
+**highdrop `hitfloor(TRUE)` D-1273**; **getobj invent tip D-1665**; 
+**`choose_tip_container_menu` boxes>1 PICK_ONE D-1679** (C `pickup.c` `:3500–3558` dummy 
+`"tip something being carried"` `MENU_ITEMFLAGS_SELECTED` + `'i'` unless lootabc/`i>'i'-'a'`; 
+n==0/1/2/-1 quirk; Space/Return accept dummy → getobj; ESC `ECMD_CANCEL`); 
+tipcontainer_gettarget menu / altarizing `doaltarobj` / ice-box / cursed mbag / shop / toss_up / 
+candle·oil spill / tiphat / MENU_SEARCH·map_menu_cmd·multi-page named); **`use_stethoscope` self + `ustatusline`/`piousness` + 
 free first `hero_seq`** (D-0155) + **adjacent isok/`m_at`/empty return `res` TIME** (D-0735) + 
 **`mundetected`/`mappearance` `seemimic` + `mstatusline` align/size/AC** (D-0738; 
 SDOOR/SCORR/`its_dead`/defsyms furniture/`map_invisible`/ailment flags deferred) + 

@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1679 pickup.c choose_tip_container_menu
+
+**Objective:** Open `pickup.c` choose_tip_container_menu (named). Not
+tip getobj.
+**C locus:** `pickup.c` `choose_tip_container_menu` `:3500–3558`;
+caller `dotip` `:3598`.
+**JS locus:** `js/pickup.js`.
+**Change:** boxes>1 PICK_ONE of floor containers + preselected dummy
+invent row (`'i'` unless lootabc). Letter tips that box; Space/`'i'`
+→ getobj; ESC cancel. Named: MENU_SEARCH / spill / tiphat /
+`tipcontainer_gettarget`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary; green+strict seed8000/0900; cohort
+**9**/9 + strict.
+**Next:** Open `do_name.c` oname via_naming livelog. Not wield
+restrict_name.
+**Blocked:** none.
 ## 2026-08-29 — D-1678 pray.c offer_corpse
 
 **Objective:** Open `pray.c` offer_corpse (named). Not floorfood

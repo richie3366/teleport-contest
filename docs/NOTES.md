@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1678 (cadence **#2080** at `115570e2`).
-  seed4500 still PASS. **Hypothesis:** `choose_tip_container_menu` is
+- **Suite 44/44** after D-1679 (cadence **#2080** at `115570e2`).
+  seed4500 still PASS. **Hypothesis:** `oname` via_naming livelog is
   the first Open (Must-fix empty). **Falsify:**
-  `node scripts/csym.mjs choose_tip_container_menu`.
-  **Next:** Open `pickup.c` choose_tip_container_menu (named). Not tip
-  getobj. Do not skip D-1531…D-1678. Do not re-port `offer_corpse`.
+  `node scripts/csym.mjs oname`.
+  **Next:** Open `do_name.c` oname via_naming livelog (named). Not
+  wield restrict_name. Do not skip D-1531…D-1679. Do not re-port
+  `choose_tip_container_menu`.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn
   oc_oprop; keepdogs/grow_up leash; light-scroll `initedog`;
@@ -22,9 +23,8 @@ Objective/score live in `CURRENT.md`.
   pauper_legacy / killed_nemesis; spell dull / zap rider eyecount;
   sit.c grease spray; perm_invent can_set; wizmgender glyph-reset;
   remaining pushkeys rub/swap/whatis;
-  `choose_tip_container_menu`; polyself `uskin=`;
-  wield `restrict_name`; `oname` via_naming livelog; `'i'`
-  `getobj_name` clone; doengrave non-hands stylus;
+  polyself `uskin=`; wield `restrict_name`; `oname` via_naming
+  livelog; `'i'` `getobj_name` clone; doengrave non-hands stylus;
   `undiscover_object` / `gem_learned`; #if 0 EXCLUDE; steal/muse
   `unknow_object`; `oc_charged`/`oc_merge`; Traditional itemize yn;
   `cheapest_item` early return.
@@ -36,7 +36,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1678.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1679.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -47,10 +47,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1678 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1679 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1678. Do not delete emin (**487**). Do not stub
+  D-1520…D-1679. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -61,7 +61,7 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1678 in the index. No yn ^P glue /
+  `vision_reset`. D-1576…D-1679 in the index. No yn ^P glue /
   `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
@@ -69,10 +69,14 @@ Objective/score live in `CURRENT.md`.
   cmdq_pop canned / `docall` sink-fluid `safe_qbuf` / astral
   `distant_monnam` / `oc_uses_known` extract / unwield-name-eat-engrave
   pushkeys / `remarm_swapwep` / IA_BUY_OBJ shop pay / IA_TWOWEAPON /
-  `offer_corpse` / add `strncmpi` #4.
+  `offer_corpse` / `choose_tip_container_menu` / add `strncmpi` #4.
 
 ## Landmarks (≤15)
 
+- D-1679: `choose_tip_container_menu` `:3500–3558` + `dotip`
+  boxes>1 PICK_ONE dummy invent (`'i'` unless lootabc). Space/`'i'`
+  getobj; ESC cancel. MENU_SEARCH / spill / tiphat /
+  `tipcontainer_gettarget` named. D-1678 `offer_corpse`.
 - D-1678: `offer_corpse` `:1958–2120` + `eval_offering` /
   `consume_offering` / `sacrifice_your_race` / `sacrifice_value`.
   Export `rider_corpse_revival`. Named: `offer_different_alignment_altar`
@@ -116,6 +120,4 @@ Objective/score live in `CURRENT.md`.
 - D-1666: `can_set_perm_invent` `InvOptOn` import. mO / can_set
   gate named. optfn_perminv_mode D-1661.
 - D-1665: IA_SACRIFICE/TIP/INVOKE pushkeys + live getobj.
-  remaining pushkeys / tip menu named.
-- D-1664: `sanity_check` gold/invlet `check_invent_gold`. Wornmask
-  named. D-1641 / dounpaid D-1663.
+  remaining pushkeys named. tip menu is D-1679.
