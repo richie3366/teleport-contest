@@ -1,3 +1,29 @@
+## D-1619 — do_wear.c take_off occupation
+
+- **Status:** fixed (map-driven Open from D-1618; not a public FAIL)
+- **Symptom:** `'A'` / `#takeoffall` after TRADITIONAL `ggetobj`+`select_off`
+  set `takeoff.mask` but never ran the occupation, so selected worn
+  items stayed on. C `doddoremarm` copies disrobing/disarming then
+  calls `take_off()`, which walks `takeoff_order`, waits `oc_delay`
+  (cloak/suit extra, occupation-start `--`), then `do_takeoff` +
+  `off_msg`. Continue `'A'` re-`set_occupation`. Return is `ECMD_OK`.
+- **C locus:** `do_wear.c` `take_off` `:2899–2987`; callee
+  `do_takeoff` `:2823–2896`; `takeoff_order` `:17–21`; caller
+  `doddoremarm` `:3026–3056`. `Amulet_off` `:1089–1189` from the
+  WORN_AMUL arm. `cursed` `:1892–1917` via existing `cursed_check`.
+- **JS was:** named omit after D-1602 (mask + verb only).
+- **Fix:** port `take_off` / `do_takeoff` / `takeoff_order`; wire
+  continue `set_occupation` and `await take_off()` when mask is set.
+  `Amulet_off` ESP `see_monsters`, RESTFUL_SLEEP `HSleepy` TIMEOUT,
+  GUARDING `find_ac`; drown/strangle/fly named. I_SPECIAL around
+  `do_takeoff` (cancel_doff still named). Rule #2: no fs.
+- **JS:** `js/do_wear.js` `take_off` / `do_takeoff` / `Amulet_off`.
+- **Not this iter:** `menu_remarm` FULL/COMBINATION; `cancel_doff`;
+  Glib `fingers_or_gloves`; MAGICAL_BREATHING/STRANGULATION/FLYING
+  bodies. ggetobj takeoff is D-1602.
+- **Verified:** private canary **19**/19; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1618 — sounds.c domonnoise peaceful MS_HUMANOID
 
 - **Status:** fixed (map-driven Open from D-1617; not a public FAIL)

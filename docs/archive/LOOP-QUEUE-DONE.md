@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `sounds.c` peaceful MS_HUMANOID (named). Not mplayer_talk. **Addressed:** D-1618
+- [x] `do_wear.c` `take_off` occupation (named). Not ggetobj. **Addressed:** D-1619
+
+
+- [x] `sounds.c` peaceful MS_HUMANOID (named). Not mplayer_talk. **Addressed:** D-1618 `c98a5fab`
 
 
 - [x] `dogmove.c` Conflict `lose_guardian_angel` caller (named). Not gain_guardian_angel. **Addressed:** D-1617 `5c66e2ab`

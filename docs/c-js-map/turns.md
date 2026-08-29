@@ -760,8 +760,10 @@ FAST `EFast` mirror / `Very_fast` uprops** (D-0636;
 gold `make_hallucinated`, red `see_monsters`, yellow `wielding_corpse`, arti_light burn deferred); 
 omit amulet change/strangle/flying/breathing, ring Glib/cursed-gloves/weld, magic helms beyond 
 fedora, weld/trap gates; **`doddoremarm`/`A` empty-worn You are not wearing anything (D-1185)**; 
-**ggetobj takeoff D-1602** (`doddoremarm` TRADITIONAL `select_off` + `askchain`; 
-`take_off` occupation delay / `menu_remarm` FULL/COMBINATION named); 
+**ggetobj takeoff D-1602** (`doddoremarm` TRADITIONAL `select_off` + `askchain`) + 
+**`take_off` occupation D-1619** (`do_takeoff` + `takeoff_order` + `oc_delay`; 
+cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fly named; 
+`cancel_doff` named) / **`menu_remarm` FULL/COMBINATION named**; 
 full cloak/helm simple-name variants; **other `*_on` still call `find_ac` (C often does not — 
 named)**
 

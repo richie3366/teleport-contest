@@ -1,6 +1,7 @@
 // do_wear.js — Wear / take-off / put-on (partial).
 // C ref: do_wear.c — dowear, doputon, canwearobj, accessory_or_armor_on,
-// Amulet_on, Armor_on, dotakeoff, doddoremarm, armor_or_accessory_off, armoroff, *_off.
+// Amulet_on, Amulet_off, Armor_on, dotakeoff, doddoremarm, take_off,
+// do_takeoff, armor_or_accessory_off, armoroff, *_off.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -16,7 +17,8 @@ import {
 } from './attrib.js';
 import { nomul, unmul, stop_occupation } from './hack.js';
 import { retouch_object, set_artifact_intrinsic } from './artifact.js';
-import { welded, setuwep, setuswapwep, setuqwep } from './wield.js';
+import { welded, setuwep, setuswapwep, setuqwep, empty_handed } from './wield.js';
+import { set_occupation } from './engrave.js';
 import { makeknown, observe_object, ggetobj } from './invent.js';
 import { add_valid_menu_class } from './pickup.js';
 import { obj_resists } from './dogmove.js';
@@ -27,7 +29,8 @@ import {
     ECMD_OK,
     ERODE_BURN, ERODE_RUST, ERODE_ROT, ERODE_CORRODE, ERODE_CRACK, ERODE_NONE,
     ER_NOTHING, ER_DESTROYED, EF_PAY, EF_DESTROY,
-    TIMEOUT, BLINDED, FAST, TELEPAT, STEALTH, WORN_BOOTS, WORN_CLOAK, WORN_GLOVES,
+    TIMEOUT, BLINDED, FAST, TELEPAT, STEALTH, SLEEPY, I_SPECIAL,
+    WORN_BOOTS, WORN_CLOAK, WORN_GLOVES,
     WORN_HELMET, WORN_SHIELD, WORN_SHIRT, WORN_ARMOR, WORN_BLINDF, WORN_AMUL,
     DISPLACED, INVIS, SEE_INVIS, LEVITATION, PROT_FROM_SHAPE_CHANGERS,
     DRAIN_RES, SICK_RES, INFRAVISION, STONE_RES, SLOW_DIGESTION, FREE_ACTION,
@@ -70,6 +73,10 @@ const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const AMULET_OF_UNCHANGING = objectNames.indexOf('AMULET_OF_UNCHANGING');
 const AMULET_OF_GUARDING = objectNames.indexOf('AMULET_OF_GUARDING');
 const AMULET_OF_RESTFUL_SLEEP = objectNames.indexOf('AMULET_OF_RESTFUL_SLEEP');
+const AMULET_OF_CHANGE = objectNames.indexOf('AMULET_OF_CHANGE');
+const AMULET_OF_STRANGULATION = objectNames.indexOf('AMULET_OF_STRANGULATION');
+const AMULET_OF_FLYING = objectNames.indexOf('AMULET_OF_FLYING');
+const AMULET_OF_MAGICAL_BREATHING = objectNames.indexOf('AMULET_OF_MAGICAL_BREATHING');
 const FUMBLE_BOOTS = objectNames.indexOf('FUMBLE_BOOTS');
 const SPEED_BOOTS = objectNames.indexOf('SPEED_BOOTS');
 const ELVEN_BOOTS = objectNames.indexOf('ELVEN_BOOTS');
@@ -115,6 +122,13 @@ const ARM_CLOAK = 5;
 const ARM_SHIRT = 6;
 
 const W_ACCESSORY = W_RING | W_AMUL | W_TOOL;
+
+/* C do_wear.c takeoff_order — 'A' occupation walks this, not wear order. */
+const takeoff_order = [
+    WORN_BLINDF, W_WEP, WORN_SHIELD, WORN_GLOVES, LEFT_RING,
+    RIGHT_RING, WORN_CLOAK, WORN_HELMET, WORN_AMUL, WORN_ARMOR,
+    WORN_SHIRT, WORN_BOOTS, W_SWAPWEP, W_QUIVER, 0,
+];
 
 let Narmorpieces = 0;
 let Naccessories = 0;
@@ -1103,10 +1117,7 @@ async function armor_or_accessory_off(obj) {
         return 1;
     }
     if (obj === u.uamul) {
-        confer_oc_oprop(obj, W_AMUL, false);
-        obj.owornmask = (obj.owornmask || 0) & ~W_AMUL;
-        u.uamul = null;
-        await off_msg(obj);
+        await Amulet_off(); /* C: does its own off_msg */
         return 1;
     }
     if (obj === u.ublindf) {
@@ -1200,7 +1211,7 @@ function wearing_armor() {
 
 /**
  * C do_wear.c select_off `:2694–2821`. Sets takeoff.mask; does not
- * remove the item (take_off occupation is named).
+ * remove the item (`take_off` occupation is D-1619).
  * Named omit: better_not_take_that_off stoning-corpse gloves yn;
  * gloves_simple_name gauntlets; cloak_simple_name robe; surface()
  * infloor noun (uses "floor").
@@ -1322,21 +1333,204 @@ async function select_off(otmp) {
 }
 
 /**
+ * C do_wear.c cursed — message + bknown when stuck (do_takeoff).
+ * Body is cursed_check; Glib fingers_or_gloves retry pline named.
+ * @param {object|null} otmp
+ * @returns {Promise<boolean>} true when the item stays on
+ */
+async function cursed_blocks(otmp) {
+    if (!otmp) {
+        await impossible('cursed without otmp');
+        return false;
+    }
+    if (cursed_check(otmp)) {
+        await pline(game._cursed_takeoff_msg || "You can't.  It is cursed.");
+        return true;
+    }
+    return false;
+}
+
+function oc_delay_of(obj) {
+    if (!obj) return 0;
+    return game.objects?.[obj.otyp]?.oc_delay | 0;
+}
+
+function takeoff_info() {
+    if (!game.context) game.context = {};
+    if (!game.context.takeoff) game.context.takeoff = {};
+    const doff = game.context.takeoff;
+    if (doff.mask == null) doff.mask = 0;
+    if (doff.what == null) doff.what = 0;
+    if (doff.delay == null) doff.delay = 0;
+    return doff;
+}
+
+/**
+ * C do_wear.c do_takeoff `:2823–2896`. Occupation tick actually removes
+ * `takeoff.what`. I_SPECIAL covers cancel_doff (named; setworn does not
+ * call it yet).
+ * @returns {Promise<object|null>}
+ */
+async function do_takeoff() {
+    const u = game.u || {};
+    let otmp = null;
+    const was_twoweap = !!u.twoweap;
+    const doff = takeoff_info();
+
+    doff.mask = (doff.mask | 0) | I_SPECIAL;
+    if (doff.what === W_WEP) {
+        if (!(await cursed_blocks(u.uwep))) {
+            setuwep(null);
+            if (was_twoweap) {
+                await pline('You are no longer wielding either weapon.');
+            } else {
+                await pline(`You are ${empty_handed()}.`);
+            }
+        }
+    } else if (doff.what === W_SWAPWEP) {
+        setuswapwep(null);
+        await pline(
+            `You ${was_twoweap ? 'are ' : ''}no longer ${
+                was_twoweap
+                    ? 'wielding two weapons at once'
+                    : 'have a second weapon readied'
+            }.`,
+        );
+    } else if (doff.what === W_QUIVER) {
+        setuqwep(null);
+        await pline('You no longer have ammunition readied.');
+    } else if (doff.what === WORN_ARMOR) {
+        otmp = u.uarm;
+        if (!(await cursed_blocks(otmp))) await Armor_off();
+    } else if (doff.what === WORN_CLOAK) {
+        otmp = u.uarmc;
+        if (!(await cursed_blocks(otmp))) await Cloak_off();
+    } else if (doff.what === WORN_BOOTS) {
+        otmp = u.uarmf;
+        if (!(await cursed_blocks(otmp))) await Boots_off();
+    } else if (doff.what === WORN_GLOVES) {
+        otmp = u.uarmg;
+        if (!(await cursed_blocks(otmp))) Gloves_off();
+    } else if (doff.what === WORN_HELMET) {
+        otmp = u.uarmh;
+        if (!(await cursed_blocks(otmp))) Helmet_off();
+    } else if (doff.what === WORN_SHIELD) {
+        otmp = u.uarms;
+        if (!(await cursed_blocks(otmp))) Shield_off();
+    } else if (doff.what === WORN_SHIRT) {
+        otmp = u.uarmu;
+        if (!(await cursed_blocks(otmp))) Shirt_off();
+    } else if (doff.what === WORN_AMUL) {
+        otmp = u.uamul;
+        if (!(await cursed_blocks(otmp))) await Amulet_off();
+    } else if (doff.what === LEFT_RING) {
+        otmp = u.uleft;
+        if (!(await cursed_blocks(otmp))) await Ring_off(u.uleft);
+    } else if (doff.what === RIGHT_RING) {
+        otmp = u.uright;
+        if (!(await cursed_blocks(otmp))) await Ring_off(u.uright);
+    } else if (doff.what === WORN_BLINDF) {
+        if (!(await cursed_blocks(u.ublindf))) await Blindf_off(u.ublindf);
+    } else {
+        await impossible(`do_takeoff: taking off ${doff.what}`);
+    }
+    doff.mask = (doff.mask | 0) & ~I_SPECIAL;
+    return otmp;
+}
+
+/**
+ * C do_wear.c take_off `:2899–2987`. Occupation for 'A' / #takeoffall.
+ * Delay uses oc_delay; cloak/suit extra when taking armor or shirt;
+ * occupation start subtracts 1. menu_remarm FULL/COMBINATION named.
+ * @returns {Promise<number>} 1 still busy, 0 finished
+ */
+async function take_off() {
+    const u = game.u || {};
+    const doff = takeoff_info();
+
+    if (doff.what) {
+        if ((doff.delay | 0) > 0) {
+            doff.delay = (doff.delay | 0) - 1;
+            return 1;
+        }
+        const otmpDone = await do_takeoff();
+        if (otmpDone) await off_msg(otmpDone);
+        doff.mask = (doff.mask | 0) & ~(doff.what | 0);
+        doff.what = 0;
+    }
+
+    let i;
+    for (i = 0; takeoff_order[i]; i++) {
+        if ((doff.mask | 0) & takeoff_order[i]) {
+            doff.what = takeoff_order[i];
+            break;
+        }
+    }
+
+    let otmp = null;
+    doff.delay = 0;
+
+    if ((doff.what | 0) === 0) {
+        await pline(`You finish ${doff.disrobing || 'disrobing'}.`);
+        return 0;
+    } else if (doff.what === W_WEP) {
+        doff.delay = 1;
+    } else if (doff.what === W_SWAPWEP) {
+        doff.delay = 1;
+    } else if (doff.what === W_QUIVER) {
+        doff.delay = 1;
+    } else if (doff.what === WORN_ARMOR) {
+        otmp = u.uarm;
+        /* cloak on: 2×cloak delay + 1 (C kludge; cloaks are delay 0) */
+        if (u.uarmc) doff.delay += 2 * oc_delay_of(u.uarmc) + 1;
+    } else if (doff.what === WORN_CLOAK) {
+        otmp = u.uarmc;
+    } else if (doff.what === WORN_BOOTS) {
+        otmp = u.uarmf;
+    } else if (doff.what === WORN_GLOVES) {
+        otmp = u.uarmg;
+    } else if (doff.what === WORN_HELMET) {
+        otmp = u.uarmh;
+    } else if (doff.what === WORN_SHIELD) {
+        otmp = u.uarms;
+    } else if (doff.what === WORN_SHIRT) {
+        otmp = u.uarmu;
+        if (u.uarm) doff.delay += 2 * oc_delay_of(u.uarm);
+        if (u.uarmc) doff.delay += 2 * oc_delay_of(u.uarmc) + 1;
+    } else if (doff.what === WORN_AMUL) {
+        doff.delay = 1;
+    } else if (doff.what === LEFT_RING) {
+        doff.delay = 1;
+    } else if (doff.what === RIGHT_RING) {
+        doff.delay = 1;
+    } else if (doff.what === WORN_BLINDF) {
+        doff.delay = 1;
+    } else {
+        await impossible(`take_off: taking off ${doff.what}`);
+        return 0;
+    }
+
+    if (otmp) doff.delay += oc_delay_of(otmp);
+    if ((doff.delay | 0) > 0) doff.delay = (doff.delay | 0) - 1;
+
+    set_occupation(take_off, doff.disrobing || 'disrobing', 0);
+    return 1;
+}
+
+/**
  * C ref: do_wear.c doddoremarm — #takeoffall / 'A'.
  * Empty-worn: You("are not wearing anything.") ECMD_OK.
  * MENU_TRADITIONAL ggetobj("take off", select_off) + askchain (D-1602).
- * Named omit: menu_remarm when not traditional or `'m'`; take_off
- * occupation delay after mask is set.
+ * take_off occupation after mask (D-1619). Named omit: menu_remarm
+ * when not traditional or `'m'`.
  */
 export async function doddoremarm() {
     const u = game.u || {};
-    if (!game.context) game.context = {};
-    if (!game.context.takeoff) game.context.takeoff = {};
-    const to = game.context.takeoff;
+    const to = takeoff_info();
     if (to.what || to.mask) {
         const verb = to.disrobing || 'disrobing';
         await pline(`You continue ${verb}.`);
-        // take_off occupation deferred
+        set_occupation(take_off, verb, 0);
         return ECMD_OK;
     }
     if (!u.uwep && !u.uswapwep && !u.uquiver && !u.uamul && !u.ublindf
@@ -1354,7 +1548,7 @@ export async function doddoremarm() {
     if (to.mask) {
         to.disrobing = ((to.mask & ~W_WEAPONS) !== 0)
             ? 'disrobing' : 'disarming';
-        /* take_off occupation named omit */
+        await take_off();
     }
     return ECMD_OK;
 }
@@ -1534,7 +1728,7 @@ async function getobj_puton() {
 /**
  * C ref: do_wear.c Amulet_on — setworn + on_msg; RESTFUL_SLEEP sets HSleepy.
  * Deferred: change/strangle/flying/breathing bodies; ESP see_monsters;
- * Guarding makeknown; Amulet_off RESTFUL clear; nh_timeout SLEEPY dialogue.
+ * Guarding makeknown; nh_timeout SLEEPY dialogue.
  */
 async function Amulet_on(amul) {
     remove_worn_item(amul);
@@ -1568,6 +1762,67 @@ async function Amulet_on(amul) {
     }
     // C: if (!on_msg_done) on_msg(uamul);
     if (!on_msg_done) await on_msg(amul);
+}
+
+/**
+ * C do_wear.c Amulet_off `:1089–1189`. setworn + off_msg; ESP
+ * see_monsters; RESTFUL_SLEEP clear HSleepy TIMEOUT; GUARDING find_ac.
+ * Named omit: MAGICAL_BREATHING drown/region_danger; STRANGULATION
+ * Breathless; FLYING land/spoteffects; CHANGE.
+ */
+export async function Amulet_off() {
+    const u = game.u || {};
+    const amul = u.uamul;
+    if (!amul) return;
+    let mkn = false;
+    let early_off_msg = false;
+    const doff = takeoff_info();
+    doff.mask = (doff.mask | 0) & ~W_AMUL;
+    const otyp = amul.otyp | 0;
+
+    switch (otyp) {
+    case AMULET_OF_ESP:
+        setworn(null, W_AMUL);
+        await off_msg(amul);
+        early_off_msg = true;
+        see_monsters();
+        break;
+    case AMULET_OF_LIFE_SAVING:
+    case AMULET_VERSUS_POISON:
+    case AMULET_OF_REFLECTION:
+    case AMULET_OF_CHANGE:
+    case AMULET_OF_UNCHANGING:
+    case FAKE_AMULET_OF_YENDOR:
+        break;
+    case AMULET_OF_MAGICAL_BREATHING:
+        /* drown / region_danger named omit — still setworn below */
+        break;
+    case AMULET_OF_STRANGULATION:
+        /* Strangled / Breathless named omit — still setworn below */
+        break;
+    case AMULET_OF_RESTFUL_SLEEP:
+        setworn(null, W_AMUL);
+        /* HSleepy = 0L would clobber FROMOUTSIDE */
+        if (!((u.ESleepy | 0) || (u.uprops?.[SLEEPY]?.extrinsic | 0))
+            && !((u.HSleepy | 0) & ~TIMEOUT)) {
+            u.HSleepy = (u.HSleepy | 0) & ~TIMEOUT;
+        }
+        break;
+    case AMULET_OF_FLYING:
+        /* float_vs_flight / land / spoteffects named omit */
+        break;
+    case AMULET_OF_GUARDING:
+        find_ac();
+        break;
+    case AMULET_OF_YENDOR:
+        break;
+    default:
+        break;
+    }
+
+    setworn(null, W_AMUL);
+    if (!early_off_msg) await off_msg(amul);
+    if (mkn) makeknown(amul.otyp);
 }
 
 /**
