@@ -1448,7 +1448,13 @@ function newcham_after_unleash(
     newcham_post_set_mon_data(mtmp, olddata, mdat, pfsc);
     const after_msg = () => {
         const ep = newcham_elbereth(mtmp);
-        if (ep) return ep.then(() => true);
+        // C :5517–5532 monflee is void; JS async — await at callers.
+        if (ep) {
+            return (async () => {
+                await ep;
+                return true;
+            })();
+        }
         return true;
     };
     if (msg) return newcham_show_msg(mtmp, oldname, seenorsensed, mdat).then(after_msg);
@@ -1463,11 +1469,14 @@ function newcham_after_unleash(
  * NC_SHOW_MSG pline_mon/usmellmon/noname_monnam (D-1586). mleashed
  * m_unleash TRUE / update_inventory + Elbereth set_apparxy/monflee
  * (D-1645). When SHOW_MSG, unleash feedback, or Elbereth flee the
- * return is a Promise (await at decide/digest/zap poly and at
- * `normal_shape` D-1594); NO_NC_FLAGS without those stays a boolean so
- * sync makemon `if (newcham())` is not Promise-truthy. Vampire cham +
- * check_gear run before awaiting More (C does the pline first; cham
- * unused by the message; gear is next-turn).
+ * return is a Promise — await so C `:5386`/`:5517` finish before
+ * `return 1` (D-1648: mon_poly / mon_to_stone / vamp_stone / gulpmm /
+ * gulpum / animate_statue / revive / bhitm stone-to-flesh /
+ * stone_to_flesh_obj; D-1594 `normal_shape`; D-1586 decide/digest/zap
+ * poly). NO_NC_FLAGS without those stays a boolean so sync makemon
+ * `if (newcham())` is not Promise-truthy. Vampire cham + check_gear
+ * run before awaiting More (C does the pline first; cham unused by
+ * the message; gear is next-turn).
  * Named omissions: NC_VIA_WAND_OR_SPELL possibly_unwield /
  * mon_break_armor / boulder bypass+flooreffects (async / missing);
  * ustuck expels/unstuck (async; l_oldname still captured for Hallu
@@ -1565,9 +1574,14 @@ export function newcham(mtmp, mdat, ncflags = 0) {
 
     const unleash_p = newcham_mleashed(mtmp);
     if (unleash_p) {
-        return unleash_p.then(() => newcham_after_unleash(
-            mtmp, olddata, mdat, msg, oldname, seenorsensed, pfsc,
-        ));
+        // C :5386–5398 finishes (including TRUE-feedback pline) before
+        // light / SHOW_MSG / Elbereth / return 1. Async callers await.
+        return (async () => {
+            await unleash_p;
+            return await Promise.resolve(newcham_after_unleash(
+                mtmp, olddata, mdat, msg, oldname, seenorsensed, pfsc,
+            ));
+        })();
     }
     return newcham_after_unleash(
         mtmp, olddata, mdat, msg, oldname, seenorsensed, pfsc,
@@ -2852,7 +2866,12 @@ export function makemon(mdat, x, y, mmflags = 0) {
         const mcham = pm_to_cham(ptr.mndx);
         if (mcham !== NON_PM) {
             mtmp.cham = mcham;
-            // Vlad stays in normal shape to carry the Candelabrum
+            // C makemon.c:1367 — newcham NO_NC_FLAGS finishes before
+            // allow_minvent=FALSE. Sync makemon cannot await (134
+            // call sites stay boolean-returning). Birth is not
+            // mleashed; in_mklev is not mon_moving. D-1648 awaits the
+            // combat/trap/zap sites that can hit unleash/Elbereth.
+            // Monster-turn summon Elbereth still named.
             if (ptr.mndx !== PM_VLAD && newcham(mtmp, null, 0))
                 allow_minvent_local = false;
         }

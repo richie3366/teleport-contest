@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
+- [x] Await `newcham` at remaining sync `NO_NC_FLAGS` sites when mleashed `m_unleash` or Elbereth `monflee` returns a Promise (C `mon.c` `newcham` `:5386–5398` / `:5517–5532` finishes before `return 1`). Not `m_unleash` body. Source: reviews/loop-unattended/606-cc8a839c-newcham-mleashed.md **Addressed:** D-1648
+
+
 - [x] `o_init.c` `rename_disco` (named). Not do_mgivenname. **Addressed:** D-1647 `69534fd4`
 
 

@@ -63,16 +63,18 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** after D-1647 (seed4500 still PASS). **Next cluster:**
-Must-fix: await `newcham` at remaining sync `NO_NC_FLAGS` sites
-(review **606**). Not `m_unleash` body. Not `convert_arg`.
-**Do not skip D-1531…D-1647 (index).** Keep mention_map addr.
+Open `questpgr.c` `convert_arg` (named). Not convert_line %Xh.
+**Do not skip D-1531…D-1648 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1647.** Do not FORCE
+**Do not re-break D-0660…D-1648.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1647 (index). Recent: **D-1647**
+**Keep:** D-0845…D-1648 (index). Recent: **D-1648**
+await `newcham` at async NO_NC_FLAGS sites (review **606**).
+Not `m_unleash` body. Sync makemon/mklev still named.
+**D-1647**
 `o_init.c` `rename_disco` + `disco_append_typename` + C-home
 `interesting_to_discover`; docallcmd `'d'`/`'\\'`. Not `'o'` getobj
 call. **D-1646**
@@ -86,7 +88,7 @@ Older D-1531…D-1642 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1647 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1648 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -121,6 +123,7 @@ Do not re-port `landing_spot` KNOCKED preferred-dir / enexto.
 Do not re-port `restore_gamelog`.
 Do not re-port `restore_luadata` / `save_luadata`.
 Do not re-port `newcham` mleashed / Elbereth `monflee`.
+Do not re-port await `newcham` at async NO_NC_FLAGS sites.
 Do not re-port MENU_SEARCH / `tty_wait_synch`.
 Do not re-port `restore_cham`.
 Do not re-port `do_mgivenname`.

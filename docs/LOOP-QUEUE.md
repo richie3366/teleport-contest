@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] Await `newcham` at remaining sync `NO_NC_FLAGS` sites when mleashed `m_unleash` or Elbereth `monflee` returns a Promise (C `mon.c` `newcham` `:5386–5398` / `:5517–5532` finishes before `return 1`). Not `m_unleash` body. Source: reviews/loop-unattended/606-cc8a839c-newcham-mleashed.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `questpgr.c` `convert_arg` (named). Not convert_line %Xh.

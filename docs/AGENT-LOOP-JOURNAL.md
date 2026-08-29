@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1648 mon.c newcham await remaining NO_NC_FLAGS
+
+**Objective:** Must-fix review **606** await `newcham` at remaining
+sync `NO_NC_FLAGS` sites. Not `m_unleash` body. Not `convert_arg`.
+**C locus:** `mon.c` `newcham` `:5386–5398` / `:5517–5532`.
+**JS locus:** `js/mhitm.js` `mon_poly`/`mon_to_stone`/`vamp_stone`/
+`gulpmm`; `js/uhitm.js` `gulpum`; `js/trap.js` `animate_statue`;
+`js/zap.js` `revive`/`bhitm`/figurine.
+**Change:** await so unleash/Elbereth finish before the caller
+continues (C `return 1`). Sync makemon/`load_tower1` named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+(9/9 with green).
+**Next:** Open `convert_arg`. Not convert_line %Xh.
+**Blocked:** none.
 ## 2026-08-29 — audit #2050 reviews 600–608 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **599**

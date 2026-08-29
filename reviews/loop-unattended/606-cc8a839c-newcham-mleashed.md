@@ -113,3 +113,5 @@ D-log canary **23**/23; green+strict seed8000/0900; cohort **7**/7 + strict. **P
 1. Await `newcham` at remaining sync `newcham(..., 0)` / `NO_NC_FLAGS` sites that can hit mleashed `m_unleash` or Elbereth `monflee` (`makemon.js:2856`, `mhitm.js`, `trap.js`, `zap.js`, `uhitm.js`, `mklev.js`), or keep those arms from returning a Promise until every C `void newcham` analogue awaits. C `mon.c` `:5386–5398` / `:5517–5532` finishes before `return 1`. Do **not** re-port `m_unleash` / `monflee` bodies. Do **not** add `monflee` clone #3.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1648

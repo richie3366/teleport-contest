@@ -1,3 +1,32 @@
+## D-1648 — mon.c newcham await remaining NO_NC_FLAGS
+
+- **Status:** fixed (Must-fix review **606**; not a public FAIL)
+- **Symptom:** D-1645 made mleashed `m_unleash` and Elbereth `monflee`
+  return a Promise from `newcham`. C finishes those arms before
+  `return 1`. Sync `if (newcham(..., 0))` / `(void) newcham` sites
+  dropped the Promise so unleash/light/flee ran as a microtask after
+  the caller continued.
+- **C locus:** `mon.c` `newcham` `:5386–5398` / `:5517–5532`. Callers
+  `mhitm.c` `mon_poly` `:1174` / `gulpmm` `:874`; `mon.c` `mon_to_stone`
+  `:3754` / `vamp_stone` `:3804`; `uhitm.c` `gulpum` `:4992`; `trap.c`
+  `animate_statue` `:785`; `zap.c` `revive` `:994` / `bhitm` `:497` /
+  figurine `:2056`.
+- **JS was:** Promise only when those arms ran; decide/digest/zap poly
+  and `normal_shape` already awaited (D-1586/D-1594); remaining
+  NO_NC_FLAGS sites did not.
+- **Fix:** `await newcham` at those async callers so C order holds.
+  Keep mixed boolean/Promise so sync `makemon` `if (newcham())` stays
+  honest when the arms do not run. Rule #2: no fs.
+- **JS:** `js/mhitm.js`, `js/uhitm.js`, `js/trap.js`, `js/zap.js`;
+  comments `js/makemon.js` / `js/mklev.js`.
+- **Not this iter:** `m_unleash` / `monflee` bodies; `monflee` clone #3;
+  sync makemon birth / `load_tower1` (not mleashed / not mon_moving;
+  making `makemon` async is 134 call sites); vamp_stone NC_SHOW_MSG
+  still flags 0; poly-trap SHOW_MSG; `possibly_unwield` / armor /
+  ustuck / `poly_steed` / boulder. mleashed/Elbereth arms are D-1645.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green).
+
 ## D-1647 — o_init.c rename_disco + disco_append_typename
 
 - **Status:** fixed (map-driven Open from D-1646; not a public FAIL)

@@ -5265,6 +5265,9 @@ function load_tower1() {
             mtmp.mstrategy = (mtmp.mstrategy || 0) | STRAT_WAITFORU;
             if (mtmp.cham != null && mtmp.cham !== NON_PM
                 && mtmp.data?.mlet !== 'S_VAMPIRE') {
+                // C sp_lev waiting vampshifted → newcham back to cham.
+                // Sync load_tower1 cannot await; mklev is not
+                // mleashed / not mon_moving (D-1648).
                 newcham(mtmp, mons(mtmp.cham), 0);
             }
         }
