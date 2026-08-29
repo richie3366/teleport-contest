@@ -3,9 +3,11 @@
 //        options.c show_menu_controls.
 //
 // Builds NHW_TEXT lines from extracted extcmdlist[] + default !num_pad
-// bindings (commands_init + reset_commands). Named omissions: custom BIND=,
-// number_pad layouts, swap_yz, rest_on_space wait binding, menu_shift,
-// CMD_PARAM bound-key param display.
+// bindings (commands_init + reset_commands). rhack cmdbind_get of those
+// defaults (M('?') → "?" / doextlist) is D-1643. Named omissions: number_pad
+// layouts, swap_yz, rest_on_space wait binding, menu_shift, CMD_PARAM
+// bound-key param display. Overlay BIND= on keys the rhack if/else already
+// handles still only inventory (D-0897).
 
 import {
     EXTCMDLIST,
@@ -231,6 +233,19 @@ function cmdbinds_live() {
         }
     }
     return binds;
+}
+
+/**
+ * C ref: cmd.c cmdbind_get `:2109–2123` — first Cmd.cmdbinds node whose
+ * key matches. JS walks the default commands_init + reset_commands table
+ * plus BIND= overlay (cmdbinds_live), not a linked list. key 0 is unbound.
+ * @param {number} key
+ * @returns {typeof EXTCMDLIST[number] | null}
+ */
+export function cmdbind_get(key) {
+    const k = key & 0xff;
+    if (!k) return null;
+    return cmdbinds_live()[k] || null;
 }
 
 /**

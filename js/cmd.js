@@ -24,7 +24,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          CMDQ_EXTCMD, CMDQ_KEY, CQ_CANNED, CQ_REPEAT,
          IFBURIED, WIZMODECMD, NOFUZZERCMD, PREFIXCMD, MOVEMENTCMD,
          AUTOCOMPLETE, CMD_NOT_AVAILABLE, INTERNALCMD, GENERALCMD,
-         CMD_M_PREFIX, QBUFSZ,
+         CMD_M_PREFIX, CMD_gGF_PREFIX, CMD_INSANE, QBUFSZ,
          xdir, ydir, zdir, xytodir, N_DIRS, DIR_W, DIR_N, DIR_E, DIR_S,
          DIR_NW, DIR_NE, DIR_SE, DIR_SW,
          GFILTER_VIEW, GLOC_INTERESTING,
@@ -62,7 +62,7 @@ import {
 } from './uhitm.js';
 import { rehumanize } from './polyself.js';
 import { doopen, doopen_indir, doclose } from './lock.js';
-import { doextcmd, getlin, mungspaces } from './getline.js';
+import { doextcmd, getlin, mungspaces, extcmd_run_by_txt } from './getline.js';
 import { strstri, strsubst } from './hacklib.js';
 import { dosearch, doterrain } from './detect.js';
 import { dotakeoff, doddoremarm, dowear, doputon } from './do_wear.js';
@@ -70,7 +70,7 @@ import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
 import { dotelecmd } from './teleport.js';
 import { dowield, dowieldquiver, doswapweapon } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp } from './pager.js';
-import { visctrl, key2txt } from './dokeylist.js';
+import { visctrl, key2txt, cmdbind_get } from './dokeylist.js';
 import { an, doname } from './objnam.js';
 import { spoteffects, dopickup, doloot, dotip } from './pickup.js';
 import { objects_at } from './mkobj.js';
@@ -404,7 +404,7 @@ const DOEXTLIST_HEADINGS = [
  * C ref: cmd.c doextlist `:560–734` — NHW_MENU PICK_ONE of extcmdlist.
  * Meta rows: 'a' menumode, ':'/'s' search, 'z' wizard onelist.
  * Callers: doextcmd loop (`#?`) and pager.c hmenu_doextlist.
- * BIND= / M('?') keystroke named.
+ * Keystroke M('?') is rhack cmdbind_get (D-1643), not this body.
  * @returns {Promise<number>} ECMD_OK
  */
 export async function doextlist() {
@@ -578,8 +578,9 @@ async function run_cmdq_extcmd(cq) {
 /**
  * C ref: cmd.c rhack → cmdbind_get — BIND=/BINDINGS= overlays from
  * parsebindings. Dispatches known ported commands; returns true if handled.
- * Named omissions: full Cmd.cmdbinds table (defaults still via if/else);
- * CMD_PARAM; chronicle/history/… until ported.
+ * Default extcmdlist keys (M('?') "?" / doextlist) are rhack_dispatch_bound
+ * after the if/else (D-1643). Overlay on a key the if/else already handles
+ * is still inventory-only (D-0897). CMD_PARAM named.
  */
 async function try_rc_keybind(key) {
     const binds = game.Cmd?.binds;
@@ -592,8 +593,98 @@ async function try_rc_keybind(key) {
         game.context.move = 0;
         return true;
     }
-    // Unknown-to-JS bind target: leave for hardcoded path / unknown pline
+    // Unknown-to-JS bind target: leave for hardcoded path / cmdbind_get
     return false;
+}
+
+/**
+ * C rhack `:3678–3828` tlist path: cmdbind_get then can_do_extcmd /
+ * prefix gate / REPEAT / ef_funct / PREFIXCMD / ECMD_TIME.
+ * Used for keys the if/else does not handle (default M('?') → doextlist,
+ * other meta binds with a live EXT_CMDS runner). MOVEMENTCMD walk/rush
+ * still the early isMovementKey / isRunKey arms. No runner → skip so
+ * Unknown command still fires.
+ * @param {number} key
+ * @param {typeof EXTCMDLIST[number] | null} prefix_seen
+ * @param {boolean} was_m_prefix
+ * @returns {Promise<{ done?: boolean, prefix?: typeof EXTCMDLIST[number] }>}
+ */
+async function rhack_dispatch_bound(key, prefix_seen, was_m_prefix) {
+    const tlist = cmdbind_get(key);
+    if (!tlist) return {};
+    const run = extcmd_run_by_txt(tlist.txt);
+    if (!run) return {};
+
+    if (!(await can_do_extcmd(tlist))) {
+        reset_cmd_vars(true);
+        return { done: true };
+    }
+
+    if (prefix_seen && !(tlist.flags & PREFIXCMD)
+        && !(tlist.flags & (was_m_prefix ? CMD_M_PREFIX : CMD_gGF_PREFIX))) {
+        const which = prefix_seen.txt === 'reqmenu'
+            ? visctrl('m'.charCodeAt(0))
+            : (prefix_seen.txt || '?');
+        if (was_m_prefix) {
+            await pline(
+                `The ${tlist.txt} command does not accept '${which}' prefix.`,
+            );
+        } else {
+            const ch = tlist.key | 0;
+            const upDown = ch === 60 || ch === 62
+                || tlist.txt === 'up' || tlist.txt === 'down';
+            await pline(
+                `The '${which}' prefix should be followed by a movement command${
+                    upDown ? ' other than up or down' : ''}.`,
+            );
+        }
+        reset_cmd_vars(true);
+        return { done: true };
+    }
+
+    if (tlist.f_text && !game.occupation && (game.multi | 0)) {
+        set_occupation(run, tlist.f_text, game.multi);
+    }
+
+    if (!game.in_doagain && tlist.txt !== '#' && tlist.txt !== 'repeat') {
+        if (!prefix_seen) cmdq_clear(CQ_REPEAT);
+        cmdq_add_ec(CQ_REPEAT, run, tlist);
+    } else if (!game.in_doagain && tlist.txt === '#') {
+        cmdq_clear(CQ_REPEAT);
+    }
+
+    if ((tlist.flags & CMD_INSANE) !== 0 && game.iflags) {
+        game.iflags.sanity_no_check = game.iflags.sanity_check;
+    }
+
+    const res = (await run()) | 0;
+
+    if (tlist.txt === '#' && game.ext_tlist) {
+        const extTab = game.ext_tlist;
+        game.ext_tlist = null;
+        cmdq_add_ec(CQ_REPEAT, extTab.run, extTab);
+        cmdq_shift(CQ_REPEAT);
+    }
+
+    if ((tlist.flags & PREFIXCMD) !== 0) {
+        if ((res & ECMD_CANCEL) !== 0) {
+            reset_cmd_vars(true);
+            return { done: true };
+        }
+        return { prefix: tlist };
+    }
+
+    if ((res & (ECMD_CANCEL | ECMD_FAIL)) !== 0) {
+        reset_cmd_vars(true);
+    } else if ((res & ECMD_TIME) === 0) {
+        reset_cmd_vars((game.multi | 0) < 0);
+    }
+    if ((res & ECMD_TIME) !== 0) {
+        if (!game.context) game.context = {};
+        game.context.move = 1;
+        if (tlist.txt !== 'kick') game.kickedloc = { x: 0, y: 0 };
+    }
+    return { done: true };
 }
 
 /* C ref: cmd.c enum menucmd — [t]herecmdmenu action ids */
@@ -2290,13 +2381,16 @@ export async function rhack(key) {
     // command rejects 'm'.
     // Named omission: full rhack-key accept_menu_prefix table.
     // Typed # uses EXTCMDLIST CMD_M_PREFIX (D-1605 #seeall). Keys )[="(* D-1589.
+    // cmdbind_get covers default M('?') "?" and other CMD_M_PREFIX binds (D-1643).
+    const bindTab = cmdbind_get(key);
     const accepts_m_prefix = ch === 'O' || ch === ',' || ch === 'e'
         || ch === 'q' || ch === 'a' || ch === 's' || ch === 'p'
         || ch === '>' || ch === '<'
         || ch === ')' || ch === '[' || ch === '=' || ch === '"'
         || ch === '(' || ch === '*'
         || key === 20 // C('t') dotelecmd CMD_M_PREFIX
-        || ch === '#'; // doextcmd CMD_M_PREFIX; resolved cmd checked in doextcmd
+        || ch === '#' // doextcmd CMD_M_PREFIX; resolved cmd checked in doextcmd
+        || accept_menu_prefix_tab(bindTab);
     if (ch !== 'm' && ch !== 'g' && ch !== 'G' && ch !== 'F'
         && !accepts_m_prefix && !isMovementKey(ch) && !isRunKey(ch)
         && !rushDir && game.iflags?.menu_requested) {
@@ -2718,15 +2812,26 @@ export async function rhack(key) {
         game._repeat_search = false;
         game.context.move = 0;
     } else {
-        // Unknown command (includes unbound space when !rest_on_space)
-        // C rhack: custompline(SUPPRESS_HISTORY, "Unknown command '%s'.",
-        // visctrl(key)) — Ctrl-C is "^C", not raw ETX (D-1189).
-        if (game.context?.forcefight) game.context.forcefight = 0;
-        if (game.context?.run || (game.multi || 0) > 0) end_running();
-        if (game.context) game.context.command_count = 0;
-        game._repeat_search = false;
-        game.context.move = 0;
-        await pline(`Unknown command '${visctrl(key)}'.`);
+        // C rhack cmdbind_get tlist path for keys the if/else missed
+        // (M('?') → doextlist; other default meta binds with EXT_CMDS).
+        const bound = await rhack_dispatch_bound(key, prefix_seen, was_m_prefix);
+        if (bound.prefix) {
+            prefix_seen = bound.prefix;
+            if (bound.prefix.txt === 'reqmenu') was_m_prefix = true;
+            key = 0;
+            continue;
+        }
+        if (!bound.done) {
+            // Unknown command (includes unbound space when !rest_on_space)
+            // C rhack: custompline(SUPPRESS_HISTORY, "Unknown command '%s'.",
+            // visctrl(key)) — Ctrl-C is "^C", not raw ETX (D-1189).
+            if (game.context?.forcefight) game.context.forcefight = 0;
+            if (game.context?.run || (game.multi || 0) > 0) end_running();
+            if (game.context) game.context.command_count = 0;
+            game._repeat_search = false;
+            game.context.move = 0;
+            await pline(`Unknown command '${visctrl(key)}'.`);
+        }
     }
     return;
     } // C got_prefix_input

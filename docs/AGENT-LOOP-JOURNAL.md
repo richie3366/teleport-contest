@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1643 cmd.c BIND= M('?') rhack cmdbind_get
+
+**Objective:** Open `cmd.c` BIND= M('?') (named). Not doextlist.
+**C locus:** `cmd.c` extcmdlist `M('?')` `"?"` `doextlist` `:1670–1672`;
+`commands_init` `cmdbind_add`; `rhack` `cmdbind_get`.
+**JS locus:** `js/dokeylist.js` `cmdbind_get`; `js/cmd.js`
+`rhack_dispatch_bound`; `js/getline.js` `extcmd_run_by_txt`.
+**Change:** default M('?') runs `doextlist` (not Unknown `M-?`); other
+default meta binds with an EXT_CMDS runner share the tlist path.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** canary **14**/14; green+strict seed8000/0900; cohort
+**7**/7 + strict (9/9 with green).
+**Next:** Open ACH_ASTR. Not reset_hostility.
+**Blocked:** none.
 ## 2026-08-29 — D-1642 invent.c doperminv + tty WIN_INVEN / #perminv
 
 **Objective:** Open tty WIN_INVEN / `#perminv` (named). Not

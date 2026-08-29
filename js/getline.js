@@ -352,7 +352,7 @@ const EXT_CMD_AC = [
 const EXT_CMDS = [
     {
         // C: cmd.c "?" IFBURIED|AUTOCOMPLETE|GENERALCMD|CMD_M_PREFIX →
-        // doextlist. Key M('?'). Body D-1625; BIND= named.
+        // doextlist. Key M('?') (D-1643 rhack cmdbind_get). Body D-1625.
         name: '?',
         wiz: false,
         autocomplete: true,
@@ -909,6 +909,24 @@ function wizardMode() {
 
 function availableExtCmds() {
     return EXT_CMDS.filter((ec) => !ec.internal && (!ec.wiz || wizardMode()));
+}
+
+/**
+ * C extcmdlist ef_funct by ef_txt for rhack cmdbind_get (D-1643).
+ * Same EXT_CMDS bodies as typed # — not a second table. INTERNALCMD
+ * skipped (bind_key does too). Wizard rows returned; can_do_extcmd
+ * refuses WIZMODECMD when !wizard.
+ * @param {string | null | undefined} txt
+ * @returns {(() => Promise<number>) | null}
+ */
+export function extcmd_run_by_txt(txt) {
+    if (txt == null || txt === '') return null;
+    const want = String(txt).toLowerCase();
+    for (const ec of EXT_CMDS) {
+        if (ec.internal) continue;
+        if (ec.name === want) return ec.run;
+    }
+    return null;
 }
 
 /**

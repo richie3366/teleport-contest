@@ -240,8 +240,13 @@ typed runner `js/getline.js` EXT_CMDS; `doextcmd` `can_do_extcmd` +
 `#seerings`/`#seeamulet`/`#seetools` live dopr* callees; `*` key is D-0340;
 **`#?` `doextlist` D-1625** (C `cmd.c` `:560–734` + `doc_extcmd_flagstr`
 `:523–557`; `doextcmd` `:516–517` loop while `doextlist`; pager.c
-`hmenu_doextlist`; typed runner EXT_CMDS `?`; help menu `k`; BIND=
-`seeall` / M('?') keystroke named); **Eyes `is_plural` D-1552** (C `obj.h` 
+`hmenu_doextlist`; typed runner EXT_CMDS `?`; help menu `k`;
+**BIND= M('?') `cmdbind_get` D-1643** (C `cmd.c` extcmdlist `:1670–1672`
+`M('?')` `"?"` `doextlist`; `commands_init` `:2754–2756` `cmdbind_add`;
+`rhack` `:3678–3686` `cmdbind_get`; live `js/dokeylist.js` `cmdbind_get` +
+`js/cmd.js` `rhack_dispatch_bound` + `js/getline.js` `extcmd_run_by_txt`;
+not the doextlist body; overlay BIND= on if/else keys still inventory-only
+D-0897; default meta without an EXT_CMDS runner still Unknown); **Eyes `is_plural` D-1552** (C `obj.h` 
 `is_plural` + `artifact.c` `undiscovered_artifact` `:1130–1143`; 
 `objnam.c` `otense`/`not_fully_identified`/`obj_is_pname`; 
 `invent.c` `fully_identify_obj` `discover_artifact`; 
@@ -270,7 +275,7 @@ eel hideunder/`rn2(4)` / I_SPECIAL equip deferred);
 omit binary NHFILE/ledger-1 escape yn, mysterious force, quest gate, portals; 
 trap-door fall D-1179; Lua `NHCB_LVL_LEAVE`; 
 full `TEST_TRAV`/`TRAVP_GUESS`/`travelmap`/`#retravel`; **`#wizmakemap` D-1288**; 
-**`#seeall` D-1605**; **`#?` D-1625**; remaining `extcmdlist` bodies; …
+**`#seeall` D-1605**; **`#?` D-1625**; **BIND= M('?') D-1643**; remaining `extcmdlist` bodies; …
 **`body_part`** exact-name clones import `polyself.js` (wield via
 `objnam.js` `body_part_latebound`; D-1496). `zap.js` appends `body_part`
 to its existing polyself import. **`mcastu` `body_part(HEAD)` +

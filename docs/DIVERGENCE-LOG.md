@@ -1,3 +1,25 @@
+## D-1643 — cmd.c BIND= M('?') rhack cmdbind_get → doextlist
+
+- **Status:** fixed (map-driven Open from D-1642; not a public FAIL)
+- **Symptom:** map named BIND= M('?') after D-1625. C extcmdlist
+  `"?"` key is `M('?')` (191); `commands_init` `cmdbind_add`; rhack
+  `cmdbind_get` runs `doextlist`. JS `#?` / help `k` were live but
+  keystroke 191 said Unknown command `M-?`.
+- **C locus:** `cmd.c` extcmdlist `:1670–1672`; `commands_init`
+  `:2754–2756`; `cmdbind_get` `:2109–2123`; `rhack` `:3678–3828`.
+- **JS was:** `try_rc_keybind` overlay-only (inventory); rhack if/else
+  had `?` help and `*` seeall, not M('?').
+- **Fix:** export `cmdbind_get` from default+overlay table; rhack
+  tlist path for keys the if/else misses; `extcmd_run_by_txt` reuses
+  EXT_CMDS. `m`-prefix keeps CMD_M_PREFIX binds. Overlay M-?:seeall
+  works. Rule #2: no fs.
+- **JS:** `js/dokeylist.js`; `js/cmd.js`; `js/getline.js`.
+- **Not this iter:** overlay BIND= on if/else keys (still inventory
+  D-0897); default meta without an EXT_CMDS runner; number_pad
+  layouts. doextlist body is D-1625; #seeall is D-1605.
+- **Verified:** canary **14**/14; green+strict seed8000/0900; cohort
+  **7**/7 + strict (9/9 with green).
+
 ## D-1642 — invent.c doperminv + tty WIN_INVEN assesstty / InvSparse
 
 - **Status:** fixed (map-driven Open from D-1641; not a public FAIL)

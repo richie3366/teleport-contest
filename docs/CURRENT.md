@@ -62,33 +62,34 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1642 (seed4500 still PASS). **Next cluster:**
-Open `cmd.c` BIND= M('?') (named). Not doextlist.
-**Do not skip D-1531…D-1642 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1643 (seed4500 still PASS). **Next cluster:**
+Open `do.c` ACH_ASTR (named). Not reset_hostility.
+**Do not skip D-1531…D-1643 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1642.** Do not FORCE
+**Do not re-break D-0660…D-1643.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1642 (index). Recent: **D-1642**
+**Keep:** D-0845…D-1643 (index). Recent: **D-1643**
+`cmd.c` BIND= M('?') `cmdbind_get` → `"?"` `doextlist`.
+Not doextlist body. Not overlay BIND= on if/else keys.
+**D-1642**
 `doperminv` `#perminv`/`|` + tty `assesstty`/InvSparse grid.
 Not `optfn_perminv_mode`. Not `consume_obj_charge`. **D-1641**
 `check_invent_gold` `adjust_gold_ok` + doorganize filter +
 itemactions gold `i` + dest `$`. Not adjust_split. Not
-`invlet_constant` reassign. **D-1640**
+`invlet_constant` reassign. Prior: **D-1640**
 `landing_spot` KNOCKED preferred-dir + `enexto` forceit
 (`xytodir(u.dx,u.dy)` then `rn2(2)` DIR_RIGHT/DIR_LEFT). Not
-DISMOUNT_THROWN. Not uhitm knock `u.dx` setter. Prior: **D-1639**
+DISMOUNT_THROWN. Not uhitm knock `u.dx` setter. **D-1639**
 `hooked_tty_getlin` ESC-nonempty fallthrough (`intr`/`doprev`/else
-`tty_nhbell`). Not kill_char. Not MENU_SEARCH. **D-1638**
-`do_mgivenname` / `alreadynamed` + `fuzzymatch` / swallow
-`disp_kind`. Not `'o'`/`rename_disco`. Not `lookup_novel`.
-Older D-1531…D-1637 live in the index — do not re-paste.
+`tty_nhbell`). Not kill_char. Not MENU_SEARCH.
+Older D-1531…D-1638 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1642 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1643 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -116,6 +117,7 @@ Do not re-port `com_pager_core` synopsis.
 Do not re-port yn post-answer `toplines`.
 Do not re-port EDIT_GETLIN (config.h commented).
 Do not re-port `doextlist`.
+Do not re-port BIND= M('?') / rhack `cmdbind_get` default.
 Do not re-port `dismount_steed` DISMOUNT_THROWN HP.
 Do not re-port `landing_spot` KNOCKED preferred-dir / enexto.
 Do not re-port `restore_gamelog`.
