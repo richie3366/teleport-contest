@@ -138,6 +138,18 @@ export function cmdq_shift(q) {
 }
 
 /**
+ * C rhack `:3745–3746` — CMD_INSANE (^P prevmsg / ^R redraw) copies
+ * iflags.sanity_check onto sanity_no_check so the next moveloop
+ * sanity_check returns without re-firing impossible() (D-1664).
+ * @param {number} flags ext_func_tab flags
+ */
+function rhack_cmd_insane(flags) {
+    if ((flags & CMD_INSANE) !== 0 && game.iflags) {
+        game.iflags.sanity_no_check = game.iflags.sanity_check;
+    }
+}
+
+/**
  * C ref: cmd.c cmdq_add_ec(q, fn) `:253–270` — typ CMDQ_EXTCMD,
  * ec_entry from ext_func_tab_from_func. herecmdmenu still queues
  * run-only nodes (txt empty; not a sixth clone of apply/dig/iactions).
@@ -647,9 +659,7 @@ async function rhack_dispatch_bound(key, prefix_seen, was_m_prefix) {
         cmdq_clear(CQ_REPEAT);
     }
 
-    if ((tlist.flags & CMD_INSANE) !== 0 && game.iflags) {
-        game.iflags.sanity_no_check = game.iflags.sanity_check;
-    }
+    rhack_cmd_insane(tlist.flags);
 
     const res = (await run()) | 0;
 
@@ -2232,6 +2242,7 @@ export async function rhack(key) {
                 } else if (typeof canned === 'object'
                            && canned.typ === CMDQ_EXTCMD) {
                     flags = canned.flags | 0;
+                    rhack_cmd_insane(flags);
                     res = canned.txt
                         ? await run_cmdq_extcmd(canned)
                         : await canned.run();
@@ -2754,6 +2765,8 @@ export async function rhack(key) {
         game.context.move = 0;
     } else if (key === 16) { // ^P — C('p') doprev_message
         // C ref: cmd.c doprev_message / topl.c tty_doprev_message (D-1601)
+        // CMD_INSANE — skip the following sanity_check (D-1664).
+        rhack_cmd_insane(CMD_INSANE);
         await doprev_message();
         game.context.move = 0;
     } else if (key === 20) { // ^T — C('t') dotelecmd

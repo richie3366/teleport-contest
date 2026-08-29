@@ -1,3 +1,33 @@
+## D-1664 — wizcmds.c sanity_check gold/invlet
+
+- **Status:** fixed (map-driven Open from D-1663; not a public FAIL)
+- **Symptom:** map named wizcmds `sanity_check` gold/invlet. C
+  `moveloop_core` calls `sanity_check()` when `iflags.sanity_check`
+  (opt_in Off) or debug_fuzzer; `you_sanity_check` walks invent via
+  `check_invent_gold("invent")`. JS had no export after D-1641/D-1655.
+- **C locus:** `wizcmds.c` `sanity_check` `:1459–1481`;
+  `you_sanity_check` `:1401–1441`; caller `allmain.c:197–198`;
+  `cmd.c` `CMD_INSANE` `:3745–3746` (^P/^R). Callee
+  `check_invent_gold` is D-1641.
+- **JS was:** no `sanity_check`; `impossible` already skipped extra
+  lines when `in_sanity_check`; `check_invent_gold` used undeclared
+  `GOLD_SYM` (wrong-slot always).
+- **Fix:** live dispatcher + you-path gold/invlet; allmain caller;
+  ^P/bound/canned `sanity_no_check`; `GOLD_SYM_ADJ` `'$'`. Rule #2:
+  no fs.
+- **JS:** `js/wizcmds.js` `sanity_check`/`you_sanity_check`;
+  `js/allmain.js` `moveloop_core`; `js/cmd.js` `rhack_cmd_insane`;
+  `js/invent.js` gold letter.
+- **Not this iter:** `check_wornmask_slots`; obj/timer/mon/light/bc/
+  trap/engraving/`levl_sanity_check`; OPTIONS=`sanity_check`;
+  `doredraw` body; wizweight. check_invent_gold body is D-1641;
+  dounpaid is D-1663.
+- **Verified:** private canary (opt-off skip; `$` silent; `'a'` wrong
+  slot; two stacks + multiple; `sanity_no_check`); green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict (9/9 with green).
+- **Files:** `js/wizcmds.js`, `js/allmain.js`, `js/cmd.js`,
+  `js/invent.js`.
+
 ## D-1663 — invent.c dounpaid Iu listing
 
 - **Status:** fixed (map-driven Open from D-1662; not a public FAIL)

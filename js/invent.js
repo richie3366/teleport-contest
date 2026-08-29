@@ -36,7 +36,7 @@
 //        (fixinv opt_out On).
 // D-1663: invent.c dounpaid / find_unpaid + mkobj.c
 //        unknwn_contnr_contents + xprname Iu/Ix cost. dotypeinv /
-//        wizcmds sanity_check / wizweight doset named.
+//        doinvbill named. wizcmds sanity_check is D-1664.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -6407,7 +6407,7 @@ async function getobj_finish_pick(otmp, word, obj_ok, counted, ilet) {
 /**
  * C invent.c check_invent_gold `:4887–4913` — at most one gold stack
  * in '$'. TRUE → gold may be #adjusted (wonky). Callers: doorganize
- * filter, iactions item-action menu. wizcmds sanity_check named.
+ * filter, iactions item-action menu. wizcmds sanity_check is D-1664.
  * @param {string} why C caller tag for impossible()
  * @returns {Promise<boolean>}
  */
@@ -6417,7 +6417,7 @@ export async function check_invent_gold(why) {
     for (const otmp of game.invent || []) {
         if (otmp.oclass === COIN_CLASS) {
             goldstacks++;
-            if (otmp.invlet !== GOLD_SYM) wrongslot++;
+            if (otmp.invlet !== GOLD_SYM_ADJ) wrongslot++;
         }
     }
     if (goldstacks > 1 || wrongslot > 0) {
