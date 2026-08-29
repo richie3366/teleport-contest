@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `questpgr.c` `convert_arg` (named). Not convert_line %Xh. **Addressed:** D-1649
+- [x] `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist. **Addressed:** D-1650
+
+
+- [x] `questpgr.c` `convert_arg` (named). Not convert_line %Xh. **Addressed:** D-1649 `90077834`
 
 
 - [x] Await `newcham` at remaining sync `NO_NC_FLAGS` sites when mleashed `m_unleash` or Elbereth `monflee` returns a Promise (C `mon.c` `newcham` `:5386–5398` / `:5517–5532` finishes before `return 1`). Not `m_unleash` body. Source: reviews/loop-unattended/606-cc8a839c-newcham-mleashed.md **Addressed:** D-1648 `979dd522`

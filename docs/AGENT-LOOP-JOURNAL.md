@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1650 dungeon.c dooverview PICK_ONE
+
+**Objective:** Open `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist.
+**C locus:** `dungeon.c` `dooverview` `:3293–3301` / `show_overview`
+`:3304–3340` / `traverse_mapseenchn` `:3343–3365` / `print_mapseen`
+`:3515–3728`; callees `ledger_to_dnum`/`ledger_to_dlev` /
+`query_annotation`; caller `donamelevel`.
+**JS locus:** `js/dungeon.js` `dooverview`/`show_overview`.
+**Change:** m-prefix why==-1 `select_menu` PICK_ONE with
+`ledger_no+1` then `query_annotation`; `donamelevel` keeps
+`menu_requested`; two-pass traverse; named-place/`builds_up`/
+`endgamelevelname`. Altar-god / cemetery bones named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+(9/9 with green); seed4500 PASS.
+**Next:** Open `lookup_novel`. Not do_mgivenname.
+**Blocked:** none.
 ## 2026-08-29 — D-1649 questpgr.c convert_arg remaining % codes
 
 **Objective:** Open `questpgr.c` `convert_arg` (named). Not convert_line %Xh.

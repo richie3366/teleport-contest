@@ -49,6 +49,7 @@ import {
     ROOMOFFSET,
     MAXNROFROOMS,
 } from './const.js';
+import { builds_up } from './hacklib.js';
 
 const FLAG_MAP = {
     town: TOWN,
@@ -575,6 +576,32 @@ export function dunlevs_in_dungeon(lev) {
 export function ledger_no(lev) {
     const dun = game.dungeons?.[lev?.dnum | 0];
     return ((dun?.ledger_start | 0) + (lev?.dlevel | 0)) | 0;
+}
+
+/**
+ * C ref: dungeon.c ledger_to_dnum :1401–1416 —
+ * ledger_start < ledgerno ≤ ledger_start + num_dunlevs.
+ */
+export function ledger_to_dnum(ledgerno) {
+    const n = game.n_dgns | 0;
+    const want = ledgerno | 0;
+    for (let i = 0; i < n; i++) {
+        const d = game.dungeons?.[i];
+        if (!d) continue;
+        const start = d.ledger_start | 0;
+        const count = d.num_dunlevs | 0;
+        if (start < want && want <= start + count) return i;
+    }
+    return 0;
+}
+
+/**
+ * C ref: dungeon.c ledger_to_dlev :1421–1426.
+ */
+export function ledger_to_dlev(ledgerno) {
+    const want = ledgerno | 0;
+    const dnum = ledger_to_dnum(want);
+    return (want - (game.dungeons?.[dnum]?.ledger_start | 0)) | 0;
 }
 
 export function find_level(name) {
@@ -1196,6 +1223,186 @@ function mapseen_branch_line(mptr) {
     return `${buf}.`;
 }
 
+function add_overview_str(entries, text) {
+    if (!text) return;
+    entries.push({ text, attr: 0, selectable: false });
+}
+
+/**
+ * C ref: dungeon.c tunesuffix :3458–3476 — castle drawbridge tune hint.
+ * uheard_tune==2 → notes "tune"; else "5-note tune". Missing
+ * flags.castletune or uheard_tune → empty.
+ */
+function tunesuffix(mptr) {
+    if (!(mptr.flags?.castletune) || !(game.u?.uevent?.uheard_tune)) return '';
+    const tmp = (game.u.uevent.uheard_tune | 0) === 2
+        ? `notes "${game.tune || ''}"`
+        : '5-note tune';
+    return ` (play ${tmp} to open or close drawbridge)`;
+}
+
+/**
+ * C ref: dungeon.c print_mapseen named-place mutually-exclusive arms
+ * + quest_summons extra line. ldrname via ctx (questpgr.c).
+ * @param {object} mptr
+ * @param {() => string} ldrnameFn
+ * @returns {string[]}
+ */
+function mapseen_named_place_lines(mptr, ldrnameFn) {
+    const PREFIX = '      ';
+    const fl = mptr.flags || {};
+    const lines = [];
+    let buf = '';
+    if (fl.oracle) {
+        buf = `${PREFIX}Oracle of Delphi.`;
+    } else if (In_sokoban(mptr.lev)) {
+        buf = `${PREFIX}${fl.sokosolved ? 'Solved' : 'Unsolved'}.`;
+    } else if (fl.bigroom) {
+        buf = `${PREFIX}A very big room.`;
+    } else if (fl.roguelevel) {
+        buf = `${PREFIX}A primitive area.`;
+    } else if (on_level(mptr.lev, game.qstart_level)) {
+        buf = `${PREFIX}Home${fl.notreachable ? ' (no way back...)' : ''}.`;
+        if (game.u?.uevent?.qcompleted) {
+            buf = `${PREFIX}Completed quest for ${ldrnameFn()}.`;
+        } else if (fl.questing) {
+            buf = `${PREFIX}Given quest by ${ldrnameFn()}.`;
+        }
+    } else if (fl.ludios) {
+        buf = `${PREFIX}Fort Ludios.`;
+    } else if (fl.castle) {
+        buf = `${PREFIX}The castle${tunesuffix(mptr)}.`;
+    } else if (fl.valley) {
+        buf = `${PREFIX}Valley of the Dead.`;
+    } else if (fl.vibrating_square) {
+        buf = `${PREFIX}Gateway to Moloch's Sanctum.`;
+    } else if (fl.msanctum) {
+        buf = `${PREFIX}Moloch's Sanctum.`;
+    }
+    if (buf) lines.push(buf);
+    if (fl.quest_summons) {
+        lines.push(`${PREFIX}Summoned by ${ldrnameFn()}.`);
+    }
+    return lines;
+}
+
+/**
+ * C ref: dungeon.c print_mapseen :3515–3728.
+ * why==-1: level row selectable with identifier ledger_no+1 (ch=0).
+ * Headings / feat / named-place / branch / cemetery are add_menu_str.
+ * Named omit: altar-god coalign suffix; cemetery bones list beyond
+ * the dead hero; #if 0 water/lava/ice.
+ * @param {object[]} entries
+ * @param {object} mptr
+ * @param {number} why
+ * @param {number} reason
+ * @param {boolean} printdun
+ * @param {{ ATR_INVERSE: number, endgamelevelname: Function, ldrname: Function, formatkiller: Function }} ctx
+ */
+function print_mapseen(entries, mptr, why, reason, printdun, ctx) {
+    const TAB = '   ';
+    const PREFIX = '      ';
+    const u = game.u || {};
+    const wizard = !!(game.flags?.wizard || game.flags?.debug);
+    const dnum = mptr.lev?.dnum | 0;
+    const dun = game.dungeons?.[dnum];
+    const dname = dun?.dname || 'The Dungeons of Doom';
+    const knox_dnum = game.knox_level?.dnum;
+    let depthstart;
+    if (dnum === (game.quest_dnum | 0)
+        || (knox_dnum != null && dnum === (knox_dnum | 0))) {
+        depthstart = 1;
+    } else {
+        depthstart = dun?.depth_start | 0;
+    }
+
+    if (printdun) {
+        const ureached = dun?.dunlev_ureached | 0;
+        const entry = dun?.entry_lev | 0;
+        let hdr;
+        if (ureached === entry || In_endgame(mptr.lev)) {
+            hdr = `${dname}:`;
+        } else if (builds_up(mptr.lev)) {
+            hdr = `${dname}: levels ${depthstart + entry - 1} up to ${depthstart + ureached - 1}`;
+        } else {
+            hdr = `${dname}: levels ${depthstart} to ${depthstart + ureached - 1}`;
+        }
+        entries.push({
+            text: hdr,
+            attr: why > 0 ? 0 : ctx.ATR_INVERSE,
+            selectable: false,
+        });
+    }
+
+    const levnum = depthstart + (mptr.lev?.dlevel | 0) - 1;
+    let levLine = why !== -1 ? TAB : '';
+    if (In_endgame(mptr.lev)) {
+        levLine += `${ctx.endgamelevelname(levnum)}:`;
+    } else {
+        levLine += `Level ${levnum}:`;
+    }
+    if (wizard) {
+        const slev = Is_special(mptr.lev);
+        if (slev?.proto) levLine += ` [${slev.proto}]`;
+    }
+    if (mptr.custom) levLine += ` "${mptr.custom}"`;
+    const onHere = on_level(u.uz, mptr.lev);
+    if (onHere) {
+        const verb = (why <= 0 || (why === 1 && reason === ASCENDED))
+            ? 'are'
+            : (why === 1 && reason === ESCAPED)
+                ? 'left from'
+                : 'were';
+        levLine += ` <- You ${verb} here.`;
+    }
+    const levRow = { text: levLine, attr: 0, selectable: false };
+    if (why === -1) {
+        levRow.selectable = true;
+        levRow.a_int = ledger_no(mptr.lev) + 1;
+    }
+    entries.push(levRow);
+
+    if (mptr.flags?.forgot) return;
+
+    add_overview_str(entries, mapseen_feat_line(mptr));
+    for (const line of mapseen_named_place_lines(mptr, ctx.ldrname)) {
+        add_overview_str(entries, line);
+    }
+    add_overview_str(entries, mapseen_branch_line(mptr));
+
+    if (why > 0 && onHere) {
+        add_overview_str(entries, `${PREFIX}Final resting place for`);
+        let killer = ctx.formatkiller(reason, true);
+        killer = killer.replace(/ himself/g, ' yourself')
+            .replace(/ herself/g, ' yourself')
+            .replace(/ his /g, ' your ')
+            .replace(/ her /g, ' your ');
+        add_overview_str(entries, `${PREFIX}${TAB}you, ${killer}.`);
+    }
+}
+
+/**
+ * C ref: dungeon.c traverse_mapseenchn :3343–3365.
+ * viewendgame XOR In_endgame skips the other half; why==0 still
+ * requires interest_mapseen.
+ * @param {number} viewendgame 1: Planes; 0: rest
+ * @param {number} why
+ * @param {number} reason
+ * @param {{ v: number }} lastdun
+ * @param {object[]} entries
+ * @param {object} ctx
+ */
+function traverse_mapseenchn(viewendgame, why, reason, lastdun, entries, ctx) {
+    for (const mptr of game.mapseenchn || []) {
+        if (!!viewendgame !== !!In_endgame(mptr.lev)) continue;
+        if (why !== 0 || interest_mapseen(mptr)) {
+            const showheader = (mptr.lev?.dnum | 0) !== lastdun.v;
+            print_mapseen(entries, mptr, why, reason, showheader, ctx);
+            lastdun.v = mptr.lev?.dnum | 0;
+        }
+    }
+}
+
 /**
  * C ref: dungeon.c get_annotation — mapseen.custom for lev, or null.
  */
@@ -1228,7 +1435,7 @@ export async function print_level_annotation() {
  * this dungeon level or describe_level (other-level, dflgs 0 or 2).
  * The #ifdef would strncpy custom into nbuf and skip the replace prompt.
  * find_mapseen miss → return (not init_mapseen). PICK_ONE overview
- * caller (show_overview why==-1) still named.
+ * caller is show_overview why==-1 (dooverview m-prefix / m#annotate).
  */
 async function query_annotation(lev) {
     const { getlin } = await import('./getline.js');
@@ -1273,27 +1480,21 @@ async function query_annotation(lev) {
 }
 
 /**
- * C ref: dungeon.c donamelevel (#annotate).
- * menu_requested → dooverview deferred (no 'm' prefix path here).
+ * C ref: dungeon.c donamelevel :2570–2577 (#annotate).
+ * menu_requested stays set so dooverview can pass why==-1.
  */
 export async function donamelevel() {
-    if (game.iflags?.menu_requested) {
-        game.iflags.menu_requested = false;
-        return dooverview();
-    }
+    if (game.iflags?.menu_requested) return dooverview();
     await query_annotation(null);
     return ECMD_OK;
 }
 
 /**
- * C ref: dungeon.c show_overview / print_mapseen / traverse_mapseenchn
- * (subset).
- * why: 0 #overview; 1/2 end disclosure (lived/died); -1 menu deferred.
- * End disclosure uses select_menu PICK_NONE → corner "(end)", not
- * display_nhwindow --More-- (unlike enlightenment putstr path).
- * Named omissions: builds_up range headers; altar-god coalign suffix;
- * cemetery bones list beyond dead hero; PICK_ONE annotation menu
- * (why==-1); endgame-first traverse when In_endgame (Planes above DoD).
+ * C ref: dungeon.c show_overview :3304–3340.
+ * why: 0 #overview PICK_NONE; -1 m-prefix PICK_ONE then query_annotation;
+ * 1/2 end disclosure PICK_NONE. Two-pass traverse_mapseenchn when
+ * In_endgame (Planes above DoD). Named omit: altar-god coalign;
+ * cemetery bones beyond the dead hero.
  * @param {number} why
  * @param {number} reason how-died when why>0
  */
@@ -1301,115 +1502,53 @@ export async function show_overview(why = 0, reason = 0) {
     const { formatkiller } = await import('./end.js');
     const { ATR_INVERSE } = await import('./terminal.js');
     const { nhgetch } = await import('./input.js');
-    const { flush_topl_more } = await import('./display.js');
+    const { flush_topl_more, endgamelevelname } = await import('./display.js');
     const { paint_corner_nhw_menu, dismiss_nhw_menu } = await import('./invent.js');
+    const { ldrname } = await import('./questpgr.js');
 
     recalc_mapseen();
-    const u = game.u || {};
+    const ctx = { ATR_INVERSE, endgamelevelname, ldrname, formatkiller };
     const entries = [];
-    let lastdun = -1;
-    const wizard = !!(game.flags?.wizard || game.flags?.debug);
-
-    // C traverse_mapseenchn(viewendgame=0) + interest_mapseen for why==0.
-    // Endgame-first pass (Planes above DoD) deferred when In_endgame.
-    const chain = game.mapseenchn || [];
-    const heroInEnd = In_endgame(u.uz);
-    for (const mptr of chain) {
-        if (why === 0) {
-            const mInEnd = In_endgame(mptr.lev);
-            if (mInEnd !== heroInEnd) continue;
-            if (!interest_mapseen(mptr)) continue;
-        }
-        const dnum = mptr.lev?.dnum | 0;
-        const printdun = dnum !== lastdun;
-        lastdun = dnum;
-        const dun = game.dungeons?.[dnum];
-        const dname = dun?.dname || 'The Dungeons of Doom';
-        // C: quest / Knox appear as level 1
-        const knox_dnum = game.knox_level?.dnum;
-        let depthstart;
-        if (dnum === (game.quest_dnum | 0)
-            || (knox_dnum != null && dnum === (knox_dnum | 0))) {
-            depthstart = 1;
-        } else {
-            depthstart = (dun?.depth_start | 0) || 1;
-        }
-        if (printdun) {
-            // C print_mapseen: entry-only → "Name:"; else "Name: levels A to B"
-            const ureached = dun?.dunlev_ureached | 0;
-            const entry = dun?.entry_lev | 0;
-            let hdr = `${dname}:`;
-            if (ureached && entry && ureached !== entry
-                && !In_endgame(mptr.lev)) {
-                // builds_up deferred — ordinary descending DoD/Gehennom
-                hdr = `${dname}: levels ${depthstart} to ${depthstart + ureached - 1}`;
-            }
-            // C end disclosure: menu heading highlight suppressed (ATR_NONE);
-            // in-progress #overview uses menu_headings (inverse).
-            entries.push({
-                text: hdr,
-                attr: why > 0 ? 0 : ATR_INVERSE,
-            });
-        }
-        const levnum = depthstart + (mptr.lev?.dlevel | 0) - 1;
-        const TAB = '   ';
-        let levLine = `${why !== -1 ? TAB : ''}Level ${levnum}:`;
-        // C wizard: Is_special → " [proto]"
-        if (wizard) {
-            const slev = Is_special(mptr.lev);
-            if (slev?.proto) levLine += ` [${slev.proto}]`;
-        }
-        if (mptr.custom) levLine += ` "${mptr.custom}"`;
-        const onHere = on_level(u.uz, mptr.lev);
-        if (onHere) {
-            const verb = (why <= 0 || (why === 1 && reason === ASCENDED))
-                ? 'are'
-                : (why === 1 && reason === ESCAPED)
-                    ? 'left from'
-                    : 'were';
-            levLine += ` <- You ${verb} here.`;
-        }
-        entries.push({ text: levLine, attr: 0 });
-
-        if (why > 0 && onHere) {
-            const PREFIX = '      ';
-            entries.push({ text: `${PREFIX}Final resting place for`, attr: 0 });
-            let killer = formatkiller(reason, true);
-            killer = killer.replace(/ himself/g, ' yourself')
-                .replace(/ herself/g, ' yourself')
-                .replace(/ his /g, ' your ')
-                .replace(/ her /g, ' your ');
-            entries.push({ text: `${PREFIX}${TAB}you, ${killer}.`, attr: 0 });
-        } else if (why === 0) {
-            const featLine = mapseen_feat_line(mptr);
-            if (featLine) entries.push({ text: featLine, attr: 0 });
-            const brLine = mapseen_branch_line(mptr);
-            if (brLine) entries.push({ text: brLine, attr: 0 });
-        }
+    const lastdun = { v: -1 };
+    const u = game.u || {};
+    if (In_endgame(u.uz)) {
+        traverse_mapseenchn(1, why, reason, lastdun, entries, ctx);
+    }
+    if (why > 0 || !In_endgame(u.uz)) {
+        traverse_mapseenchn(0, why, reason, lastdun, entries, ctx);
     }
 
     await flush_topl_more();
-    // C select_menu PICK_NONE + destroy_nhwindow → erase_menu_or_text:
-    // corner (offx!=0) docorner/gbuf only; fullscreen docrt. Never force
-    // docrt on corner dismiss (seed4500 @1252 gbuf `"` vs see_monsters `s`).
+    // C select_menu (why != -1) PICK_NONE else PICK_ONE; destroy_nhwindow
+    // → erase_menu_or_text: corner docorner/gbuf; fullscreen docrt.
+    if (why === -1) {
+        const { select_menu_pick_one } = await import('./options.js');
+        const res = await select_menu_pick_one(entries);
+        if (res.kind === 'pick' && (res.item?.a_int | 0) > 0) {
+            const ledger = (res.item.a_int | 0) - 1;
+            await query_annotation({
+                dnum: ledger_to_dnum(ledger),
+                dlevel: ledger_to_dlev(ledger),
+            });
+        }
+        return;
+    }
     for (;;) {
         await paint_corner_nhw_menu(entries, '(end) ');
         const key = await nhgetch();
         await dismiss_nhw_menu();
         if (key === 27 || key === 32 || key === 13 || key === 10) break;
     }
-    if (game.iflags) game.iflags.menu_requested = false;
 }
 
 /**
- * C ref: dungeon.c dooverview / show_overview (#overview).
- * Branch envelope: why=0 PICK_NONE via interest_mapseen + feature
- * sentence (print_mapseen OF_INTEREST) + shop_string + branch lines
- * + wizard Is_special proto + ESC/space dismiss.
- * altar-god / endgame-first order / builds_up deferred.
+ * C ref: dungeon.c dooverview :3293–3301 (#overview / ^O).
+ * menu_requested → why==-1 PICK_ONE; then clear the flag.
  */
 export async function dooverview() {
-    await show_overview(0, 0);
+    const why = game.iflags?.menu_requested ? -1 : 0;
+    await show_overview(why, 0);
+    if (game.iflags) game.iflags.menu_requested = false;
     return ECMD_OK;
 }
 

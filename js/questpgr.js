@@ -444,7 +444,7 @@ const QUEST_ROLE_TEXT = {
 };
 
 /** C ref: questpgr.c ldrname */
-function ldrname() {
+export function ldrname() {
     const i = game.urole?.ldrnum ?? NON_PM;
     if (i === NON_PM || i == null) return '';
     const ptr = mons(i);

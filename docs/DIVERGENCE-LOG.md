@@ -1,3 +1,32 @@
+## D-1650 — dungeon.c dooverview PICK_ONE
+
+- **Status:** fixed (map-driven Open from D-1649; not a public FAIL)
+- **Symptom:** map named `#overview` PICK_ONE (`why==-1`). C
+  `dooverview` passes `menu_requested ? -1 : 0` into `show_overview`,
+  which `select_menu`s PICK_ONE and `query_annotation`s the picked
+  ledger. JS always called `show_overview(0,0)` (PICK_NONE) and
+  `donamelevel` cleared `menu_requested` before `dooverview`.
+- **C locus:** `dungeon.c` `dooverview` `:3293–3301`.
+  `show_overview` `:3304–3340`. `traverse_mapseenchn` `:3343–3365`.
+  `print_mapseen` `:3515–3728`. Callees `ledger_to_dnum` `:1401–1416`,
+  `ledger_to_dlev` `:1421–1426`, `query_annotation` `:2498–2567`.
+  Caller `donamelevel` `:2570–2577`.
+- **JS was:** PICK_NONE nhgetch loop; `dooverview` ignored
+  `menu_requested`; `donamelevel` cleared the flag first; endgame
+  two-pass / `builds_up` headers / named-place lines / plane names
+  deferred after D-0110/D-1624.
+- **Fix:** keep `menu_requested` through `donamelevel`; why==-1
+  `select_menu_pick_one` with `a_int = ledger_no+1`; convert via
+  C-home `ledger_to_dnum`/`ledger_to_dlev` then `query_annotation`;
+  two-pass `traverse_mapseenchn`; `print_mapseen` named-place /
+  `builds_up` / `endgamelevelname`; export `ldrname`. Rule #2: no fs.
+- **JS:** `js/dungeon.js` + `js/questpgr.js` `ldrname`.
+- **Not this iter:** altar-god coalign suffix; cemetery bones list
+  beyond the dead hero; `#if 0` water/lava/ice; teleport.js ledger
+  clones. convert_arg is D-1649; doextlist is D-1625.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 + strict
+  (9/9 with green); seed4500 PASS.
+
 ## D-1649 — questpgr.c convert_arg remaining % codes
 
 - **Status:** fixed (map-driven Open from D-1648; not a public FAIL)

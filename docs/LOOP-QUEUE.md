@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dungeon.c` `dooverview` PICK_ONE (named). Not doextlist.
 - [ ] `do_name.c` `lookup_novel` (named). Not do_mgivenname.
 - [ ] `sit.c` `eyecount` (named). Not confer_oc_oprop.
 - [ ] `sounds.c` Death_quote / `u_have_novel` (named). Not read_tribute.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `invent.c` `invlet_constant` (named). Not check_invent_gold.
 - [ ] `apply.c` `use_grease` (named). Not consume_obj_charge.
 - [ ] `cmd.c` overlay BIND= on if/else keys (named). Not cmdbind_get default.
+- [ ] `dungeon.c` print_mapseen altar-god coalign (named). Not dooverview PICK_ONE.
+- [ ] `dungeon.c` cemetery bones list (named). Not dooverview.
+- [ ] `do_name.c` docallcmd `'o'` getobj call (named). Not lookup_novel.
+- [ ] `options.c` `optfn_perminv_mode` (named). Not doperminv.
+- [ ] `questpgr.c` qt_pager common fallback (named). Not convert_arg.
 
 ## Parked (do not pop)
 
