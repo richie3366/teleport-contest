@@ -1512,7 +1512,12 @@ Gehennom amulet mysteryforce deferred); **`convert_arg` `%r`/`%R`→`rank_of` + 
 `%s`/`%S`/`%g` + `%Xp`/`%XP`/`%Xs`/`%XS`** (D-0627/D-0640; pronoun `%Xh` deferred); 
 **`on_start` nexttime/othertime** (D-0614; Arc+Bar+**Pri** texts D-0670; 
 other roles burn nhl shuffle only); **`qt_pager` default→pline / newline→NHW_TEXT** (D-0616; 
-Arc nexttime pline; explicit single-line `output=text` deferred); 
+Arc nexttime pline; explicit single-line `output=text` deferred) + 
+**`com_pager_core` synopsis `putmsghistory(FALSE)`** (D-1622; howtoput; 
+default+newline synthesize `[text]`; live Arc/Bar/Pri/Wiz/Kni lua 
+synopsis + legacy after NHW_MENU; convert_line pronoun `%Xh` / 
+`qt_pager` common fallback / array rn2 / pauper_legacy / 
+killed_nemesis `rawtext` named); 
 **`on_goal` goal_first/next/alt + Arc/Bar/Pri/**Kni** texts** (D-0620/D-0670/D-0928 #1193; 
 other-role goal bodies; invent/migrating chains deferred) + 
 **`setup_role_race_from_rc` installs `questarti` for `%o`/`%O`** (D-0629; 

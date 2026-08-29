@@ -1,3 +1,31 @@
+## D-1622 — questpgr.c com_pager_core synopsis putmsghistory
+
+- **Status:** fixed (map-driven Open from D-1621; not a public FAIL)
+- **Symptom:** after quest/legacy pager text, C stores a lua `synopsis`
+  (or a synthesized `[text]` when default output is promoted to a
+  window) via `convert_line` + `putmsghistory(FALSE)` for `^P` recall
+  without painting. JS delivered bodies only.
+- **C locus:** `questpgr.c` `com_pager_core` `:467–621`; wrappers
+  `com_pager` `:623–627`, `qt_pager` `:629–634`; `skip_pager`
+  `:458–465`; `deliver_by_pline`/`deliver_by_window`. `topl.c`
+  `tty_putmsghistory` is D-1588. convert_line pronoun is named.
+- **JS was:** named omit after D-0616 (`qt_pager`/`com_pager` deliver;
+  no `com_pager_core`, no synopsis history).
+- **Fix:** live `com_pager_core`: howtoput, default+newline promote +
+  synthesize, lua synopsis for live Arc/Bar/Pri/Wiz/Kni msgids, then
+  `putmsghistory`. Legacy NHW_MENU after `docrt`. `goal_alt` fallback.
+  `qt_pager` common second `nhl_init` named (other-role one shuffle).
+  Rule #2: no fs.
+- **JS:** `js/questpgr.js` `com_pager_core` / `qt_pager` / `com_pager`
+  / `com_pager_legacy`.
+- **Not this iter:** convert_line `%Xh` pronoun; `qt_pager` common
+  fallback; array `rn2` (angel/demon_cuss); explicit single-line
+  `output=text`; pauper_legacy; killed_nemesis `rawtext` /
+  `stinky_nemesis`; other-role bodies. restore_msghistory is D-1614.
+  `adjust_split` is D-1621.
+- **Verified:** green+strict seed8000/0900; cohort **7**/7 +
+  seed0367/0360/0361/4500 + strict.
+
 ## D-1621 — invent.c adjust_split GC_ECHOFIRST|GC_CONDHIST
 
 - **Status:** fixed (map-driven Open from D-1620; not a public FAIL)

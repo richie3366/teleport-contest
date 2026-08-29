@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `invent.c` `adjust_split` GC_ECHOFIRST|GC_CONDHIST caller (named). Not get_count. **Addressed:** D-1621
+- [x] `questpgr.c` `com_pager_core` synopsis (named). Not restore_msghistory. **Addressed:** D-1622
+
+
+- [x] `invent.c` `adjust_split` GC_ECHOFIRST|GC_CONDHIST caller (named). Not get_count. **Addressed:** D-1621 `5f2c5f4d`
 
 
 - [x] `pickup.c` floor `query_classes` (named). Not traditional_loot. **Addressed:** D-1620 `cb4d8a91`

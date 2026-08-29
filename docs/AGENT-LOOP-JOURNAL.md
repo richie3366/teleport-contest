@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1622 questpgr.c com_pager_core synopsis
+
+**Objective:** Open `questpgr.c` `com_pager_core` synopsis (named).
+Not restore_msghistory.
+**C locus:** `questpgr.c` `com_pager_core` `:467–621`; wrappers
+`com_pager`/`qt_pager`; `skip_pager`.
+**JS locus:** `js/questpgr.js` `com_pager_core` / `qt_pager` /
+`com_pager` / `com_pager_legacy`.
+**Change:** howtoput + default+newline synthesize `[text]` then
+`convert_line`+`putmsghistory(FALSE)`. Live lua synopsis + legacy
+NHW_MENU. pronoun / common fallback / array rn2 named. Rule #2:
+no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict seed8000/0900; cohort **7**/7 +
+seed0367/0360/0361/4500 + strict.
+**Next:** Open `topl.c` `tty_yn_function` post-answer
+`toplines=prompt+key`. Not yn ^P.
+**Blocked:** none.
 ## 2026-08-29 — D-1621 invent.c adjust_split
 
 **Objective:** Open `invent.c` `adjust_split` GC_ECHOFIRST|GC_CONDHIST
