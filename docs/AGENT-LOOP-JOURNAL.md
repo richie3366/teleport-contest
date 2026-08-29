@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1672 do_name.c docall sink-fluid / safe_qbuf
+
+**Objective:** Open `do_name.c` docall sink-fluid / safe_qbuf (named).
+Not `'o'` getobj.
+**C locus:** `do_name.c` `docall` `:635–676` + `docall_xname`
+`:604–633`; `objnam.c` `safe_qbuf` (D-1654); `OBJ_DESCR`.
+**JS locus:** `js/do_name.js` `docall` / `docall_xname`.
+**Change:** sink `objectDescrs[oc_descr_idx]` fluid prompt; else
+`safe_qbuf` Call/:/thing; class/otyp xname fixups;
+`update_inventory` OBJ_INVENT/carrying-walk. `undiscover_object`
+named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary (booze/water OBJ_DESCR, shuffled idx,
+lastR `thing`); green+strict seed8000/0900; cohort **9**/9 + strict.
+**Next:** Open `distant_monnam` astral high-cleric. Not do_mgivenname.
+**Blocked:** none.
 ## 2026-08-29 — D-1671 do_name.c docallcmd cmdq_pop canned
 
 **Objective:** Open `do_name.c` docallcmd cmdq_pop canned (named).

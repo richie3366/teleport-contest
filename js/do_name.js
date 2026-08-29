@@ -5,7 +5,8 @@
 //        do_mgivenname / alreadynamed (D-1638); docallcmd `'d'` →
 //        o_init.c rename_disco; lookup_novel (D-1651); `'o'` getobj
 //        `"call"` (D-1660); do_oname artifact_name slip (D-1670);
-//        docallcmd cmdq_pop canned + lootabc + invent-gated i/o (D-1671).
+//        docallcmd cmdq_pop canned + lootabc + invent-gated i/o (D-1671);
+//        docall sink-fluid OBJ_DESCR + safe_qbuf Call/:/thing (D-1672).
 
 import {
     artifact_exists, exist_artifact, artifact_name, restrict_name,
@@ -22,7 +23,7 @@ import {
 } from './display.js';
 import {
     paint_corner_nhw_menu, discover_object, compactify_invlets,
-    getobj_display_pickinv, getobj,
+    getobj_display_pickinv, getobj, update_inventory,
 } from './invent.js';
 import { rename_disco } from './o_init.js';
 import {
@@ -33,8 +34,9 @@ import {
     SUPPRESS_SADDLE, SUPPRESS_NAME,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_NOFLAGS,
     ECMD_OK, CMDQ_KEY, CQ_CANNED,
-    has_oname, ONAME, CLR_MAX, BUFSZ, u_at, OBJ_FREE, HAND,
+    has_oname, ONAME, CLR_MAX, BUFSZ, u_at, OBJ_FREE, OBJ_INVENT, HAND,
     isok, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPMASK, has_ebones,
+    NON_PM,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import { shkname } from './shknam.js';
@@ -55,7 +57,8 @@ import {
 import {
     POTION_CLASS, COIN_CLASS, AMULET_CLASS, SCROLL_CLASS, WAND_CLASS,
     RING_CLASS, GEM_CLASS, SPBOOK_CLASS, ARMOR_CLASS, TOOL_CLASS,
-    VENOM_CLASS, objectNames, objectNameStrs, objectDescrs,
+    VENOM_CLASS, WEAPON_CLASS, FOOD_CLASS,
+    objectNames, objectNameStrs, objectDescrs,
 } from './objects.js';
 import { get_rnd_text } from './rumors.js';
 import { BOGUSMON_BUF } from './generated/bogusmon_data.js';
@@ -72,6 +75,11 @@ const PM_SHOPKEEPER = monsterNames.indexOf('PM_SHOPKEEPER');
 const PM_JUIBLEX = monsterNames.indexOf('PM_JUIBLEX');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
+const TOWEL = objectNames.indexOf('TOWEL');
+const STATUE = objectNames.indexOf('STATUE');
+const TIN = objectNames.indexOf('TIN');
+const FIGURINE = objectNames.indexOf('FIGURINE');
+const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
 const BOGUSMONSIZE = 100; // C: do_name.c rndmonnam
@@ -1290,17 +1298,33 @@ async function namefloorobj() {
 }
 
 /**
- * C ref: do_name.c docall_xname — quan=1, clear b/c/odiluted for potions.
+ * C do_name.c docall_xname `:604–633` — copy, quan=1, drop oextra, clear
+ * BUC; then class/otyp fixups so xname is callable-type caliber (not
+ * doname). C odiluted overlays oeroded; JS keeps a separate field.
  */
 function docall_xname(obj) {
     const otemp = {
         ...obj,
+        oextra: null,
         quan: 1,
         blessed: 0,
         cursed: 0,
-        odiluted: 0,
-        oextra: null,
     };
+    if (otemp.oclass === WEAPON_CLASS) {
+        otemp.opoisoned = 0; /* not poisoned */
+    } else if (otemp.oclass === POTION_CLASS) {
+        otemp.odiluted = 0; /* not diluted */
+    } else if (otemp.otyp === TOWEL || otemp.otyp === STATUE) {
+        otemp.spe = 0; /* not wet or historic */
+    } else if (otemp.otyp === TIN) {
+        otemp.known = 0; /* suppress tin type (homemade, &c) and mon type */
+    } else if (otemp.otyp === FIGURINE) {
+        otemp.corpsenm = NON_PM; /* suppress mon type */
+    } else if (otemp.otyp === HEAVY_IRON_BALL) {
+        otemp.owt = game.objects?.[HEAVY_IRON_BALL]?.oc_weight | 0;
+    } else if (otemp.oclass === FOOD_CLASS && otemp.globby) {
+        otemp.owt = 120; /* 6*20, neither a small glob nor a large one */
+    }
     return an(xname(otemp));
 }
 
@@ -1312,36 +1336,65 @@ export async function trycall(obj) {
 }
 
 /**
- * C ref: do_name.c docall — prompt "Call <xname>:" then getlin → oc_uname.
- * Sink-fluid prompt and safe_qbuf fallbacks deferred.
+ * C do_name.c docall `:635–676` — dknown then flush_screen(1); sink
+ * potion uses OBJ_DESCR fluid prompt, else safe_qbuf Call/:/thing.
+ * C fromsink overlays corpsenm; fountain.js also sets .fromsink.
  */
 export async function docall(obj) {
-    if (!obj?.dknown) return;
-    await flush_screen(1);
+    if (!obj?.dknown) return; /* probably blind; Blind || Hallucination for 'fromsink' */
+    await flush_screen(1); /* buffered updates might matter to player's response */
+
     let qbuf;
-    if (obj.oclass === POTION_CLASS && obj.fromsink) {
-        const descr = game.objects?.[obj.otyp]?.oc_descr
-            || game.objects?.[obj.otyp]?.descr
-            || 'clear';
+    const fromsink = !!(obj.fromsink || (obj.corpsenm | 0) === 1);
+    if (obj.oclass === POTION_CLASS && fromsink) {
+        /* fromsink: kludge, meaning it's sink water */
+        const oclObj = game.objects?.[obj.otyp];
+        const descr = objectDescrs[oclObj?.oc_descr_idx ?? obj.otyp] || '';
         qbuf = `Call a stream of ${descr} fluid:`;
     } else {
-        qbuf = `Call ${docall_xname(obj)}:`;
+        qbuf = safe_qbuf(
+            null, 'Call ', ':', obj,
+            docall_xname, simpleonames, 'thing',
+        );
     }
     const ocl = game.objects?.[obj.otyp];
     if (!ocl) return;
+    /* pointer to old name */
     const buf = await name_from_player(qbuf, ocl.oc_uname);
     if (buf == null) return;
 
     const hadName = !!ocl.oc_uname;
-    ocl.oc_uname = null;
+    ocl.oc_uname = null; /* clear oc_uname */
 
+    /* name_from_player already mungspaces; empty uncalls */
     if (!buf) {
-        // undiscover_object deferred when clearing a prior call name
+        // C: undiscover_object(otyp) when had_name — named omit
+        // (o_init.c gem_learned GEM_CLASS still absent)
         void hadName;
     } else {
         ocl.oc_uname = buf;
-        // C: discover_object(otyp, FALSE, TRUE, TRUE)
-        discover_object(obj.otyp, false, true, true);
+        discover_object(obj.otyp, false, true, true); /* possibly add to disco[] */
     }
-    // update_inventory deferred
+    /* C: obj->where == OBJ_INVENT || carrying(obj->otyp). invent.c
+       carrying stays the 4 existing clones — inline the || walk. */
+    let same = obj.where === OBJ_INVENT;
+    if (!same) {
+        const inv = game.gi?.invent ?? game.invent;
+        if (Array.isArray(inv)) {
+            for (const otmp of inv) {
+                if (otmp && otmp.otyp === obj.otyp) {
+                    same = true;
+                    break;
+                }
+            }
+        } else {
+            for (let otmp = inv; otmp; otmp = otmp.nobj) {
+                if (otmp.otyp === obj.otyp) {
+                    same = true;
+                    break;
+                }
+            }
+        }
+    }
+    if (same) update_inventory();
 }

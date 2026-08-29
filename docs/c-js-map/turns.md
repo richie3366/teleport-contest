@@ -956,8 +956,12 @@ Sting/Orcrist `otyp==objtyp`; `is_plural`+`safe_qbuf` prompt; wield
 `cmdq_clear(CQ_CANNED)`; `:508–550` `flags.lootabc` acc + `if (gi.invent)`
 i/o rows; export `cmdq_pop`/`cmdq_clear` `js/cmd.js`; iactions Call
 pushkeys / `'i'` `getobj_name` clone / #if 0 EXCLUDE named);
-**`docall`/`trycall` potion call → `oc_uname`** (D-0430; 
-sink-fluid/`safe_qbuf` fallbacks deferred); **`christen_monst` + tame `x_monnam` subset** (D-0079); 
+**`docall`/`trycall` potion call → `oc_uname`** (D-0430) + **sink-fluid
+`OBJ_DESCR` / `safe_qbuf` Call `docall_xname` `simpleonames` `"thing"`
+(D-1672;** C `do_name.c` `:635–676` + `docall_xname` `:604–633`;
+`objnam.c` `safe_qbuf` already D-1654; C `fromsink` overlays `corpsenm`;
+invent `update_inventory` when `OBJ_INVENT` or carrying-walk;
+`undiscover_object` / `gem_learned` still named); **`christen_monst` + tame `x_monnam` subset** (D-0079); 
 **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); 
 **`x_monnam` do_it `!canspotmon`→`it`** (D-0295; saddle adj kept); 
 **`mon_nam` isshk → `shkname`** (D-0307); **`uhitm` imports shared `mon_nam`** (D-0308); 
@@ -987,8 +991,8 @@ omit astral high-cleric `distant_monnam`; **`lookup_novel` D-1651**
 miss; `SIR_TERRY_NOVELS` export from mkobj `noveltitle` home; callers
 `readobjnam` SPE_NOVEL before `oname` ONAME_WISH + `create_object`
 named `oname` ONAME_LEVEL_DEF); artifact_name slip is D-1670; cmdq_pop
-canned is D-1671; sink-fluid / distant_monnam / iactions Call still
-named above
+canned is D-1671; sink-fluid/`safe_qbuf` is D-1672; distant_monnam /
+iactions Call still named above
 
 ### `src/dokick.c`
 

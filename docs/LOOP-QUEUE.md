@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `do_name.c` docall sink-fluid / safe_qbuf (named). Not `'o'` getobj.
 - [ ] `do_name.c` distant_monnam astral high-cleric (named). Not do_mgivenname.
 - [ ] `o_init.c` oc_uses_known extract (named). Not rename_disco.
 - [ ] `iactions.c` remaining pushkeys unwield/name/eat/engrave (named). Not offer/tip/invoke.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `iactions.c` IA_TWOWEAPON (named). Not offer/tip/invoke.
 - [ ] `pray.c` offer_corpse (named). Not floorfood sacrifice getobj.
 - [ ] `pickup.c` choose_tip_container_menu (named). Not tip getobj.
+- [ ] `do_name.c` oname via_naming livelog (named). Not wield restrict_name.
+- [ ] `do_name.c` `'i'` getobj_name clone (named). Not #if 0 EXCLUDE.
+- [ ] `do_name.c` docallcmd #if 0 EXCLUDE (named). Not `'i'` getobj_name.
+- [ ] `sit.c` special_throne_effect grease spray (named). Not use_grease.
+- [ ] `dungeon.c` save_mapseen cemetery JSON (named). Not print_mapseen cemetery.
 
 ## Parked (do not pop)
 

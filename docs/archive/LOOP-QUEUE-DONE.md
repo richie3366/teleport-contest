@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `do_name.c` docallcmd cmdq_pop canned (named). Not `'o'` getobj. **Addressed:** D-1671
+- [x] `do_name.c` docall sink-fluid / safe_qbuf (named). Not `'o'` getobj. **Addressed:** D-1672
+
+
+- [x] `do_name.c` docallcmd cmdq_pop canned (named). Not `'o'` getobj. **Addressed:** D-1671 `16fd4cbc`
 
 
 - [x] `do_name.c` do_oname artifact_name slip / restrict_name / wipeout_text (named). Not `'o'` getobj. **Addressed:** D-1670 `6453e043`

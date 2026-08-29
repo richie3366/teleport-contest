@@ -1,3 +1,30 @@
+## D-1672 — do_name.c docall sink-fluid / safe_qbuf
+
+- **Status:** fixed (map-driven Open from D-1671; not a public FAIL)
+- **Symptom:** map named `docall` sink-fluid / `safe_qbuf`. C prompts
+  sink potions with `OBJ_DESCR` `"Call a stream of %s fluid:"` else
+  `safe_qbuf("Call ", ":", docall_xname, simpleonames, "thing")`; JS
+  concatenated `Call ${docall_xname}:` and invented a `'clear'`
+  descr fallback after D-0430.
+- **C locus:** `do_name.c` `docall` `:635–676`; `docall_xname`
+  `:604–633`; `objnam.c` `safe_qbuf` `:5623–5698` (D-1654);
+  `objclass.h` `OBJ_DESCR`; `obj.h` `fromsink` overlays `corpsenm`.
+  Callers: `trycall` / `dopotion` / fountain `drinksink` case 4.
+- **JS was:** `docall` string-built the Call prompt; sink branch used
+  `oc_descr \|\| descr \|\| 'clear'`; `docall_xname` only cleared
+  BUC/`odiluted`; `update_inventory` deferred.
+- **Fix:** `OBJ_DESCR` via `objectDescrs[oc_descr_idx]`; `safe_qbuf`
+  Call/:/thing; `docall_xname` class/otyp fixups; `update_inventory`
+  when `OBJ_INVENT` or invent carrying-walk. Rule #2: no fs.
+- **JS:** `js/do_name.js` `docall` / `docall_xname`.
+- **Not this iter:** `undiscover_object` / `gem_learned`; pickup
+  Pick up / Continue? / tip ynq (D-1654); `'o'` getobj is D-1660;
+  cmdq_pop canned is D-1671; distant_monnam still named.
+- **Verified:** private canary (booze/water OBJ_DESCR, shuffled
+  `oc_descr_idx`, lastR `thing`, no invented `clear`); green+strict
+  seed8000/0900; CURRENT cohort **9**/9 + strict.
+- **Files:** `js/do_name.js`.
+
 ## D-1671 — do_name.c docallcmd cmdq_pop canned
 
 - **Status:** fixed (map-driven Open from D-1670; not a public FAIL)
