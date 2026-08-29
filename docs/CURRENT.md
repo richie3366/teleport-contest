@@ -62,19 +62,21 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1639 (seed4500 still PASS). **Next cluster:**
-Open `steed.c` `landing_spot` KNOCKED preferred-dir (named). Not
-DISMOUNT_THROWN.
-**Do not skip D-1531…D-1639 (index).** Keep mention_map addr.
+**Suite 44/44** after D-1640 (seed4500 still PASS). **Next cluster:**
+Open `invent.c` `check_invent_gold` (named). Not adjust_split.
+**Do not skip D-1531…D-1640 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1639.** Do not FORCE
+**Do not re-break D-0660…D-1640.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1639 (index). Recent: **D-1639**
+**Keep:** D-0845…D-1640 (index). Recent: **D-1640**
+`landing_spot` KNOCKED preferred-dir + `enexto` forceit
+(`xytodir(u.dx,u.dy)` then `rn2(2)` DIR_RIGHT/DIR_LEFT). Not
+DISMOUNT_THROWN. Not uhitm knock `u.dx` setter. Prior: **D-1639**
 `hooked_tty_getlin` ESC-nonempty fallthrough (`intr`/`doprev`/else
-`tty_nhbell`). Not kill_char. Not MENU_SEARCH. Prior: **D-1638**
+`tty_nhbell`). Not kill_char. Not MENU_SEARCH. **D-1638**
 `do_mgivenname` / `alreadynamed` + `fuzzymatch` / swallow
 `disp_kind`. Not `'o'`/`rename_disco`. Not `lookup_novel`.
 **D-1637** `restore_cham` getlev catchup + With_you. Older
@@ -82,7 +84,7 @@ D-1531…D-1636 live in the index — do not re-paste.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1639 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1640 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / `restore_artifacts`.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
@@ -109,6 +111,7 @@ Do not re-port yn post-answer `toplines`.
 Do not re-port EDIT_GETLIN (config.h commented).
 Do not re-port `doextlist`.
 Do not re-port `dismount_steed` DISMOUNT_THROWN HP.
+Do not re-port `landing_spot` KNOCKED preferred-dir / enexto.
 Do not re-port `restore_gamelog`.
 Do not re-port `restore_luadata` / `save_luadata`.
 Do not re-port `restore_cham`.

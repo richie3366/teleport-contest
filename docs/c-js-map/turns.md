@@ -2308,11 +2308,17 @@ JS: `js/steed.js` — partial
 **`dismount_steed` DISMOUNT_THROWN/KNOCKED/FELL HP D-1627**
 (`:603–618`; usteed-clear Flying/Lev; `"are thrown"` FALLTHROUGH
 `losehp`/`set_wounded_legs`/`heal_legs(1)`; `dog_move` Conflict
-steed + `wary_dog` callers); omit `update_mon_extrinsics`,
+steed + `wary_dog` callers);
+**`landing_spot` KNOCKED preferred-dir + enexto forceit D-1640**
+(`:459–572`; `xytodir(u.dx,u.dy)` then `rn2(2)` DIR_RIGHT/DIR_LEFT
+trio, remaining dirs, early break `j<3`, `throws_rocks` boulder,
+`enexto` when forceit; C NODIAG `(j%1)!=0` never skips);
+omit `update_mon_extrinsics`,
 Punished/ustuck float_down arms, water/lava grounded steed death,
-`landing_spot` KNOCKED preferred-dir / enexto forceit, encumber_msg /
+encumber_msg /
 polearm unweapon, BYCHOICE Hallu rain, map-grid remove_monster,
-artifact saddle `untouchable`; tutorial/disclosure done D-0215/16
+artifact saddle `untouchable`, uhitm DISMOUNT_KNOCKED `u.dx`/`u.dy`
+caller; tutorial/disclosure done D-0215/16
 
 ### `src/uhitm.c`, `src/mhitm.c`, `src/explode.c`
 

@@ -121,6 +121,9 @@ export const DIR_DOWN = 9;
 export const N_DIRS = 8;
 export const N_DIRS_Z = 10;
 export function DIR_180(dir) { return (dir + 4) % N_DIRS; }
+/** C hack.h DIR_LEFT / DIR_RIGHT — 8-dir wrap. */
+export function DIR_LEFT(dir) { return ((dir) + 7) % N_DIRS; }
+export function DIR_RIGHT(dir) { return ((dir) + 1) % N_DIRS; }
 // DIR_ERR lives with other error sentinels below; xytodir uses -1.
 
 /** C ref: cmd.c xytodir — map (dx,dy) to DIR_* or DIR_ERR (-1). */

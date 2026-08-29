@@ -1,3 +1,31 @@
+## D-1640 — steed.c landing_spot KNOCKED preferred-dir + enexto
+
+- **Status:** fixed (map-driven Open from D-1639; not a public FAIL)
+- **Symptom:** map named `landing_spot` KNOCKED preferred-dir. C
+  `xytodir(u.dx,u.dy)` then `rn2(2)` fills clockwise/counterclockwise
+  as try[1]/try[2], remaining dirs skip that trio, first viable of
+  the three breaks, `throws_rocks` allows boulders, `enexto` when
+  forceit && !found. JS filled all 8 dirs in W…SW order with
+  `best_j=-1` and returned false on forceit (D-0213/D-1627).
+- **C locus:** `steed.c` `landing_spot` `:459–572`. Callers
+  `dismount_steed` `:586` (forceit 0) / `:610` / `:621` (forceit 1).
+  uhitm `:5384–5391` sets `u.dx`/`u.dy` for DISMOUNT_KNOCKED only.
+  Macros `hack.h` DIR_LEFT/DIR_RIGHT; `cmd.c` `xytodir`/`dirtocoord`.
+- **JS was:** 8-dir fill; KNOCKED arm deferred; enexto deferred.
+- **Fix:** C try[] fill + early break + `throws_rocks(you_data())` +
+  `enexto`. C-home `DIR_LEFT`/`DIR_RIGHT` next to `DIR_180`. C
+  NODIAG `(j % 1) != 0` never skips (ported as written). Rule #2:
+  no fs.
+- **JS:** `js/steed.js` `landing_spot`; `js/const.js` DIR_LEFT/RIGHT.
+- **Not this iter:** uhitm DISMOUNT_KNOCKED `u.dx` setter; Punished/
+  ustuck float_down; water/lava steed death; encumber_msg; polearm;
+  Hallu rain; `update_mon_extrinsics`; artifact saddle. DISMOUNT_THROWN
+  HP is D-1627. ESC-nonempty is D-1639.
+- **Verified:** canary **15**/15 (source + west prefer + blocked
+  `rn2(2)` clockwise/counterclk + BYCHOICE no preferred `rn2(2)` +
+  DIR_ERR + forceit 0/1); green+strict seed8000/0900; cohort **7**/7
+  + strict (1500/1800/0012/0004/0007/2200/0383).
+
 ## D-1639 — getline.c hooked_tty_getlin ESC-nonempty fallthrough
 
 - **Status:** fixed (Must-fix review **593**; not a public FAIL)

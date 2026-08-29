@@ -10,7 +10,7 @@
 - JS / map: `getline.js` `hooked_getlin_edit_key` / `hooked_getlin_apply_intr`. `c-js-map/turns.md`.
 - Prior reviews this SHA claims to close: **585** named `kill_char` / `tty_nhbell`; **592** named getline `:160`/`:211`.
 
-**Addressed:** D-1639
+**Addressed:** D-1639 `d5474f87`
 
 ## Intent vs deliverable
 

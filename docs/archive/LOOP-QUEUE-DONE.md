@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-29
 
-- [x] `getline.c` `hooked_tty_getlin` ESC-nonempty must fall through to else `tty_nhbell` (and `intr`/`doprev`), not `continue` after clear. Same in `get_ext_cmd`. Source: reviews/loop-unattended/593-20fa20b3-kill-char.md **Addressed:** D-1639
+- [x] `steed.c` `landing_spot` KNOCKED preferred-dir (named). Not DISMOUNT_THROWN. **Addressed:** D-1640
+
+
+- [x] `getline.c` `hooked_tty_getlin` ESC-nonempty must fall through to else `tty_nhbell` (and `intr`/`doprev`), not `continue` after clear. Same in `get_ext_cmd`. Source: reviews/loop-unattended/593-20fa20b3-kill-char.md **Addressed:** D-1639 `d5474f87`
 
 
 - [x] `do_name.c` `do_mgivenname` (named). Not kill_char. **Addressed:** D-1638 `f9bed6be`
