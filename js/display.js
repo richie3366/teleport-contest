@@ -1286,7 +1286,9 @@ let _toplin = TOPLINE_EMPTY;
 // C wintty.h ttyDisplay->inread — getline/yn set this; command ^P is 0.
 let _tty_inread = 0;
 
-/** C wintty.h ttyDisplay->inread. Getline zeros it around tty_doprev_message. */
+/** C wintty.h ttyDisplay->inread. Getline always zeros it around
+ *  tty_doprev_message (D-1611). yn zeros it only when prevmsg_window!='s'
+ *  (D-1612). */
 export function get_tty_inread() {
     return _tty_inread | 0;
 }
@@ -1308,7 +1310,8 @@ let _morc = 0;
 // C ref: wintty.c tty_create_nhwindow NHW_MESSAGE — circular ^P ring
 // (iflags.msg_history, min 20, max MAX_MSG_HISTORY). maxrow is the write
 // index; rows stays at the ring size. tty_doprev_message is D-1601.
-// restore.c restore_msghistory / yn ^P still named. getline.c ^P is D-1611.
+// restore.c restore_msghistory still named. getline.c ^P is D-1611;
+// yn ^P is D-1612.
 const MSG_HISTORY_MIN = 20;
 let _msg_cw = null;
 // C topl.c snapshot_mesgs — shared by tty_getmsghistory / tty_putmsghistory
@@ -1492,8 +1495,9 @@ function prevmsg_step_maxcol(cw) {
 }
 
 /**
- * C getline.c hooked_tty_getlin `:129` / `:136`: after
- * tty_clear_nhwindow(WIN_MESSAGE), cw->maxcol = cw->maxrow.
+ * C getline.c hooked_tty_getlin `:129` / `:136` and topl.c
+ * tty_yn_function `:443` / `:459`: after tty_clear_nhwindow(WIN_MESSAGE),
+ * cw->maxcol = cw->maxrow.
  */
 export function prevmsg_reset_maxcol() {
     const cw = ensure_message_win();
@@ -1566,7 +1570,8 @@ async function redotoplin(str) {
  * `'s'` single (TTY default): redotoplin current then older, ^P at
  * --More-- continues. `'f'` full / `'r'` reversed: NHW_MENU text.
  * `'c'` combination: first two as singles, then full. inread skips
- * f/c/r; getline.c zeros it around the call (D-1611). yn still named.
+ * f/c/r; getline.c zeros it around every call (D-1611). yn zeros it
+ * only when prevmsg_window != 's' (D-1612).
  * Returns 0.
  * @returns {Promise<number>}
  */

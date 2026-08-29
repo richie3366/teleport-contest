@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-29 — D-1612 topl.c tty_yn_function ^P
+
+**Objective:** Open `topl.c` `tty_yn_function` ^P (named). Not
+command ^P. Not getline ^P.
+**C locus:** `win/tty/topl.c` `tty_yn_function` `:434–463`.
+**JS locus:** `js/getline.js` `yn_function` / `tty_yn_ctrl_p`.
+**Change:** inread++/SPECIAL around yn; non-`'s'` zeros inread then
+restore; `'s'` double-call then discards next key. Not
+`hooked_getlin_ctrl_p`. restore_msghistory / get_count historicmsg
+named. Rule #2: no fs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** private canary **14**/14; green+strict seed8000/0900;
+cohort **7**/7 + strict.
+**Next:** Open `get_count` historicmsg. Not putmsghistory.
+**Blocked:** none.
 ## 2026-08-29 — review D-1603–D-1611 (audit #2010)
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **563**;

@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-08-29
+
+- [x] `topl.c` `tty_yn_function` ^P (named). Not command ^P. **Addressed:** D-1612
+
 ## 2026-08-28
 
 - [x] `getline.c` getlin ^P `tty_doprev_message` (named). Not command ^P. **Addressed:** D-1611 `21441f2e`

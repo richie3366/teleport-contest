@@ -5,23 +5,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1611 (cadence `#2010` at `21441f2e`).
-  seed4500 still PASS. Reviews **564–572** ACCEPT-WITH-DEBT
-  (no new Must-fix).
-  **Hypothesis:** Open `topl.c` `tty_yn_function` ^P (named) is the
-  next map cluster. Not command ^P. Not getline ^P.
-  **Falsify:** `node scripts/csym.mjs tty_yn_function`;
-  `node scripts/sym.mjs yn_function`.
-  **Next:** Open yn ^P. D-1611 shipped getline `hooked_tty_getlin` ^P
-  zeros `inread` around `tty_doprev_message`. Do not skip
-  D-1531…D-1611. No FORCE / `wildmiss` wrap / trailing `confdir`
-  in shared `getdir`. Do not glue yn ^P to getline.
+- **Suite 44/44** after D-1612. seed4500 still PASS. Reviews **564–572**
+  ACCEPT-WITH-DEBT (no new Must-fix).
+  **Hypothesis:** Open `cmd.c` `get_count` historicmsg (named) is the
+  next map cluster. Not putmsghistory. Not yn ^P.
+  **Falsify:** `node scripts/csym.mjs get_count`;
+  `node scripts/sym.mjs get_count`.
+  **Next:** Open get_count historicmsg. D-1612 shipped yn
+  `tty_yn_function` ^P (non-`'s'` zeros `inread`; `'s'` discards next
+  key). Do not skip D-1531…D-1612. No FORCE / `wildmiss` wrap /
+  trailing `confdir` in shared `getdir`. Do not glue yn ^P to getline.
 - Named still: sit/pray `eyecount`; Palantir `#if 0`; pit/underwater;
   clone auto-open yn; floor `query_classes`;
-  yn ^P; restore_msghistory; `restore_cham` / `rescham`;
+  restore_msghistory; get_count historicmsg; `restore_cham` / `rescham`;
   peaceful MS_HUMANOID / `"threatens you."`; `take_off` /
   `menu_remarm`; ggetobj drop; `consume_obj_charge`
-  `update_inventory`; get_count historicmsg; tty WIN_INVEN create
+  `update_inventory`; tty WIN_INVEN create
   (`allmain.c:726`); `#perminv`; `optfn_perminv_mode`;
   `doextlist` / BIND= `seeall`; `reset_hostility`; ACH_ASTR;
   dogmove Conflict `lose_guardian_angel` caller;
@@ -35,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1611.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1612.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,9 +45,9 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1611 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1612 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
-  `confer_oc_oprop`. Do not skip D-1520…D-1611. Do not delete emin
+  `confer_oc_oprop`. Do not skip D-1520…D-1612. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540).
   Do not import bones→options for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -59,7 +58,7 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1611 live in the index. Do not glue
+  `vision_reset`. D-1576…D-1612 live in the index. Do not glue
   yn ^P onto getline. No `ing_suffix`
   clone #3. Do not poke `beyond_savefile_load` to “prove” InvInUse
   (D-1603 writers are preamble `:71` / `try_restore_save` `:942`).
@@ -70,14 +69,19 @@ Objective/score live in `CURRENT.md`.
   `gain_guardian_angel` (D-1608; dogmove Conflict caller named).
   Do not re-port `m_unleash` (D-1609; newcham mleashed named).
   Do not re-port `initedog` ogoal / first-pet livelog (D-1610).
-  Do not re-port getline ^P (D-1611).
+  Do not re-port getline ^P (D-1611). Do not re-port yn ^P (D-1612).
 
 ## Landmarks (≤15)
 
+- D-1612: yn `tty_yn_function` ^P `tty_doprev_message`; non-`'s'`
+  zeros `inread` then restore; `'s'` two calls first then discards
+  next key. Not getline `hooked_getlin_ctrl_p`. Command ^P is
+  D-1601; getline ^P is D-1611. restore_msghistory / get_count
+  historicmsg named.
 - D-1611: getline `hooked_tty_getlin` ^P zeros `inread` around
   `tty_doprev_message`; `'s'`/`'c'`&&!doprev two calls first then
   continue; else restore prompt. `get_ext_cmd` same C fn.
-  yn ^P / restore_msghistory named. Command ^P is D-1601.
+  yn ^P is D-1612. Command ^P is D-1601.
 - D-1610: `initedog` ogoal `-1,-1` + livelog `!pets && in_moveloop`
   then `pets++`. `dog_goal` `ogoal.x` truthy sentinel. One
   `mon_pmname` export. `free_edog` / restore `newedog` named.
@@ -106,7 +110,7 @@ Objective/score live in `CURRENT.md`.
   takeoff `"That was all."` `take_off`/`menu_remarm`/drop named.
 - D-1601: `tty_doprev_message` WIN_MESSAGE + `gt.toplines`; `'s'`
   `redotoplin` NEED_MORE/`more` iff cury; `'f'`/`'c'`/`'r'` menu.
-  cmd ^P / `#prevmsg`. getline ^P is D-1611; yn `inread` named.
+  cmd ^P / `#prevmsg`. getline ^P is D-1611; yn ^P is D-1612.
 - D-1600: perm_invent InvInUse helpers; writers D-1603.
   tty paint / `#perminv` named.
 - D-1599: SORTLOOT_PETRIFY keeps `touch_petrifies` CORPSE when
@@ -114,5 +118,3 @@ Objective/score live in `CURRENT.md`.
   named.
 - D-1598: `has_mcorpsenm` `mextra && MCORPSENM != NON_PM`.
   object_detect / `altarmask_at` named.
-- D-1597: `show_transient_light` camera range 0 + thrown lamplit
-  `mtemplit`. **D-1604** zap `bhit` youprop Blind. Worm tails named.

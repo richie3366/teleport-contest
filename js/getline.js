@@ -1,6 +1,7 @@
 // getline.js — Line input and extended-command entry.
 // C ref: win/tty/getline.c tty_getlin / hooked_tty_getlin / tty_get_ext_cmd
-// (partial: EDIT_GETLIN / kill_char / yn ^P named).
+// plus win/tty/topl.c tty_yn_function (yn ^P is D-1612, not getline ^P).
+// (partial: EDIT_GETLIN / kill_char named).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -50,7 +51,8 @@ function topl_wrap_echo(str, nChars) {
     return { text, col, row };
 }
 
-// C global.h C('p') — getline.c hooked_tty_getlin does not honor #prevmsg rebind.
+// C global.h C('p') — getline.c hooked_tty_getlin and topl.c tty_yn_function
+// do not honor #prevmsg rebind (cmd.c doprev_message is D-1601).
 const GETLIN_CTRL_P = 0x10;
 
 /**
@@ -59,7 +61,7 @@ const GETLIN_CTRL_P = 0x10;
  * `'s'` or (`'c'` && !doprev): two calls the first time, then one; continue.
  * else: one call, restore prompt, fall through. After a single-mode walk,
  * the next non-^P restores the prompt then processes that key.
- * yn ^P (`topl.c` `:434–448`) named — do not glue.
+ * yn ^P (`topl.c` `:434–463`) is D-1612 — do not glue.
  * @param {number} c
  * @param {boolean} doprev
  * @param {() => Promise<void>} restorePrompt
@@ -1011,9 +1013,61 @@ export async function paranoid_query(be_paranoid, prompt) {
 }
 
 /**
+ * C topl.c tty_yn_function `:394–396` / `:544–545`: SPECIAL_PROMPT,
+ * inread++, then inread-- and NON_EMPTY. Getlin uses the same inread
+ * pair (D-1611) but a different ^P dispatcher.
+ */
+function hooked_yn_begin() {
+    set_tty_inread(get_tty_inread() + 1);
+}
+
+function hooked_yn_end() {
+    set_tty_inread(get_tty_inread() - 1);
+    hooked_getlin_release_prompt();
+}
+
+/**
+ * C topl.c tty_yn_function C('p') `:434–463`. Not getline.c
+ * hooked_tty_getlin (`:105–141`, D-1611) and not command ^P (D-1601).
+ *
+ * non-'s' (full/combo/reversed): zero inread around one
+ * tty_doprev_message, then clear + maxcol=maxrow + addtopl(prompt).
+ * 's': do not zero inread; two calls the first time, then one; leave
+ * the walk on screen. The next non-^P restores the prompt and is
+ * discarded (C BUG comment — do not consume it as the yn answer).
+ *
+ * @param {number} c
+ * @param {boolean} doprev
+ * @param {() => Promise<void>} restorePrompt
+ * @returns {Promise<{ skip: boolean, doprev: boolean }>}
+ */
+async function tty_yn_ctrl_p(c, doprev, restorePrompt) {
+    if (c === GETLIN_CTRL_P) {
+        const pm = String(game.iflags?.prevmsg_window || 's').charAt(0).toLowerCase();
+        if (pm !== 's') {
+            const sav = get_tty_inread();
+            set_tty_inread(0);
+            await tty_doprev_message();
+            set_tty_inread(sav);
+            await restorePrompt();
+            return { skip: true, doprev: false };
+        }
+        if (!doprev) await tty_doprev_message(); /* need two initially */
+        await tty_doprev_message();
+        return { skip: true, doprev: true };
+    }
+    if (doprev) {
+        await restorePrompt();
+        return { skip: true, doprev: false };
+    }
+    return { skip: false, doprev };
+}
+
+/**
  * C ref: win/tty/topl.c tty_yn_function — query + [resp] + (def) + space.
  * Esc → 'q' if in resp else 'n' if in resp else def.
  * Quitchars (space/return) → def. Invalid keys bell and retry.
+ * Ctrl-P walks tty_doprev_message (D-1612); do not glue onto getline ^P.
  *
  * Prompt paint uses show_topl/putsyms hard-wrap (SUPPRESS_HISTORY), not
  * update_topl word-wrap — see topl_wrap_echo.
@@ -1042,43 +1096,79 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
         prompt = `${query} `;
     }
     const allow_num = !!(resp && resp.includes('#'));
-    for (;;) {
+    const preserve = !!(resp && /[A-Z]/.test(resp));
+    let doprev = false;
+    const paint = async () => {
         // C: custompline(SUPPRESS_HISTORY) → tty_putstr → show_topl →
         // addtopl/putsyms — hard-wrap at CO-1 via topl_putsym (not
         // update_topl's word-wrap). An 80-char prompt ends with the
         // trailing space on row 1 and cursor at (1,1).
         const { text, col, row } = topl_wrap_echo(prompt, prompt.length);
-        mark_topline_prompt(text);
+        mark_topline_special_prompt(prompt);
+        game._pending_message = text;
         await flush_screen(1);
-        // Leftover gt.toplines after answer is the unwrapped prompt
-        // (tty_yn_function clean_up Sprintf); keep that for parse clear.
-        mark_topline_prompt(prompt);
         const disp = game.nhDisplay;
         if (disp?.setCursor) disp.setCursor(col, row);
-        const c = await nhgetch();
-        let ch = String.fromCharCode(c);
-        // Do not clear _pending_message here — C leaves the yn prompt.
-        if (!resp) return ch;
-        const preserve = /[A-Z]/.test(resp);
-        if (!preserve) ch = ch.toLowerCase();
-        if (c === 27) {
-            if (resp.includes('q')) return 'q';
-            if (resp.includes('n')) return 'n';
-            // C: else q = def (may be '\0', e.g. rightleftchars)
-            return def;
+        // Capture leftover is the unwrapped prompt (D-0512); keep SPECIAL
+        // so redotoplin more() is skipped during ^P (C otoplin).
+        game._pending_message = prompt;
+    };
+    const restorePrompt = () => hooked_getlin_restore_prompt(paint);
+    hooked_yn_begin();
+    try {
+        await paint();
+        if (!resp) {
+            const c = await nhgetch();
+            mark_topline_prompt(prompt);
+            return String.fromCharCode(c);
         }
-        if (ch === ' ' || c === 13 || c === 10) return def;
-        const digit_ok = allow_num && ch >= '0' && ch <= '9';
-        if (!resp.includes(ch) && !digit_ok) continue;
-        if (ch === '#' || digit_ok) {
-            const num = await yn_collect_number(prompt, ch, preserve);
-            if (num == null) continue; // abort → retry
-            if (num === 0) return 'n';
-            game.yn_number = num;
-            return '#';
+        for (;;) {
+            const c = await nhgetch();
+            let ch = String.fromCharCode(c);
+            // Do not clear _pending_message here — C leaves the yn prompt.
+            if (!preserve) ch = ch.toLowerCase();
+            const handled = await tty_yn_ctrl_p(c, doprev, restorePrompt);
+            doprev = handled.doprev;
+            if (handled.skip) continue;
+            if (c === 27) {
+                if (resp.includes('q')) {
+                    mark_topline_prompt(prompt);
+                    return 'q';
+                }
+                if (resp.includes('n')) {
+                    mark_topline_prompt(prompt);
+                    return 'n';
+                }
+                // C: else q = def (may be '\0', e.g. rightleftchars)
+                mark_topline_prompt(prompt);
+                return def;
+            }
+            if (ch === ' ' || c === 13 || c === 10) {
+                mark_topline_prompt(prompt);
+                return def;
+            }
+            const digit_ok = allow_num && ch >= '0' && ch <= '9';
+            if (!resp.includes(ch) && !digit_ok) continue;
+            if (ch === '#' || digit_ok) {
+                const num = await yn_collect_number(prompt, ch, preserve);
+                if (num == null) {
+                    await paint();
+                    continue;
+                }
+                if (num === 0) return 'n';
+                game.yn_number = num;
+                return '#';
+            }
+            if (resp.includes(ch)) {
+                // Leftover gt.toplines is the unwrapped prompt until
+                // parse clear (C clean_up prompt+key2txt still named).
+                mark_topline_prompt(prompt);
+                return ch;
+            }
+            // invalid — C tty_nhbell + retry
         }
-        if (resp.includes(ch)) return ch;
-        // invalid — C tty_nhbell + retry
+    } finally {
+        hooked_yn_end();
     }
 }
 

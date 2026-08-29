@@ -1,3 +1,27 @@
+## D-1612 — topl.c tty_yn_function ^P tty_doprev_message
+
+- **Status:** fixed (map-driven Open from D-1611; not a public FAIL)
+- **Symptom:** Ctrl-P during `yn_function` was an invalid retry. C
+  `tty_yn_function` walks `tty_doprev_message` (zeros `inread` only
+  when `prevmsg_window != 's'`; `'s'` double-calls then discards the
+  next key). D-1611 shipped getline ^P; command ^P is D-1601.
+- **C locus:** `win/tty/topl.c` `tty_yn_function` `:434–463` (plus
+  `:394–396` `inread++` / SPECIAL_PROMPT and `:544–545` exit).
+  Callee `tty_doprev_message` (D-1601). Not `getline.c` `:105–141`.
+- **JS was:** named omit after D-1611 (`^P` fell through to
+  `!resp.includes` continue).
+- **Fix:** `inread++` around yn; SPECIAL_PROMPT while waiting; ^P
+  dispatcher is not `hooked_getlin_ctrl_p`. non-'s': zero inread, one
+  call, restore prompt. `'s'`: two calls first, then discard the next
+  key (C BUG comment). Rule #2: no fs.
+- **JS:** `js/getline.js` `yn_function` / `tty_yn_ctrl_p`;
+  `js/display.js` inread comments.
+- **Not this iter:** restore_msghistory; get_count historicmsg;
+  post-answer `toplines=prompt+key`; tty_nhbell; EDIT_GETLIN.
+  Getline ^P is D-1611. Command ^P is D-1601.
+- **Verified:** private canary **14**/14; green+strict seed8000/0900;
+  cohort **7**/7 + strict.
+
 ## D-1611 — getline.c hooked_tty_getlin ^P tty_doprev_message
 
 - **Status:** fixed (map-driven Open from D-1610; not a public FAIL)
