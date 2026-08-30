@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1725 | fixed | calendar.c hhmmss | map-driven Open from D-1724; C `hhmmss` `:79–92` hour*10000+min*100+sec (`date==0` getlt); JS missing after D-1710 `yyyymmddhhmmss`; live `js/calendar.js` `lt_for_date`; dump_fmtstr / paniclog / `getyear` named; cemetery `when[]` is D-1710 |
 | D-1724 | fixed | dungeon.c recalc_mapseen sokoban/rogue/quest flags | map-driven Open from D-1723; C `recalc_mapseen` `:3099–3134` sokosolved / roguelevel / quest_summons / questing / notreachable; JS unset after D-1707; live `js/dungeon.js`; print/interest already D-1650; named: display_monster furniture lastseentyp; DRAWBRIDGE_UP lastseentyp is D-1711 |
 | D-1723 | fixed | sp_lev.c lspo_object non-merge quan | map-driven Open from D-1722; C `lspo_object` `:3725–3740` do-while `quancnt` + `!oc_merge`; JS one `create_object`; live `js/mklev.js` `l_create_object` + `find_objtype` + argc string/coord + class-letter `def_char_to_objclass`/`mkgold`; named: other load_* `des.object`; oc_merge extract is D-1712 |
 | D-1722 | fixed | do.c/dog.c cant_go_back FREEING | map-driven Open from D-1721; C `goto_level` `:1640–1664` `cant_go_back` FREEING vs WRITING\|FREEING then `delete_levelfile`/`remdun_mapseen`/`discard_migrations`; JS always stashed; live `js/do.js` + `js/files.js` + `js/dungeon.js` + `js/dog.js`; JSON analogue not binary NHFILE; named: `free_luathemes`, full obfree; getdir is D-1721 |

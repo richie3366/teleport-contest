@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-1725 — calendar.c hhmmss
+
+- **Status:** fixed (map-driven Open from D-1724; not a public FAIL)
+- **Symptom:** map named `hhmmss`. C `:79–92` returns
+  `hour*10000L + min*100L + sec` (`date==0` → `getlt()`, else
+  `localtime(&date)`). JS had `yyyymmdd` / `yyyymmddhhmmss` (D-1710)
+  but no `hhmmss`. C callers are `paniclog` fprintf `%06ld` and
+  dump_fmtstr `%d`/`%D` `"%08ld%06ld"` — neither is live in JS
+  (Rule #2 no dump/panic files).
+- **C locus:** `calendar.c` `hhmmss` `:79–92`; `files.c:2824`;
+  `windows.c:1178–1185`. Cemetery `when[]` is `yyyymmddhhmmss`
+  (D-1710), not this function.
+- **JS was:** `hhmmss` NOT FOUND; `lt_for_date` already shared.
+- **Fix:** export `hhmmss` via `lt_for_date` (contest UTC-4 inverse,
+  same as `yyyymmdd`). Returns the unpadded long; padding is the
+  caller's `%06ld`. Not dump_fmtstr / paniclog / `getyear`.
+- **JS:** `js/calendar.js` `hhmmss`.
+- **Not this iter:** `dump_fmtstr` `%d`/`%D`; `paniclog`; `getyear`
+  (`mhitu.c` `ld()`); dump_everything datetimebuf (already
+  `yyyymmddhhmmss`).
+- **Verified:** save-oracle probe skip (untagged
+  `calendar.c:hhmmss`); node `datetime=20260830090105` → `90105`;
+  `time_from_*('19991231235959')` → `235959`; green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict. Rule #2 clean.
+- **Files:** `js/calendar.js`.
+
 ## D-1724 — dungeon.c recalc_mapseen sokosolved / roguelevel / quest flags
 
 - **Status:** fixed (map-driven Open from D-1723; not a public FAIL)

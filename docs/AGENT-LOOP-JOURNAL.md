@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1725 calendar.c hhmmss
+
+**Objective:** Open `calendar.c` hhmmss (named). Not yyyymmddhhmmss.
+**C locus:** `calendar.c` `hhmmss` `:79–92`; callers `files.c`
+paniclog `:2822–2824`; `windows.c` dump_fmtstr `%d`/`%D` `:1176–1185`.
+**JS locus:** `js/calendar.js` `hhmmss` (new); shares `lt_for_date`.
+**Change:** `hour*10000 + min*100 + sec`; `date==0` → getlt. C callers
+are dump filename / paniclog file — named (Rule #2). Not cemetery
+`when[]` (D-1710). Named: dump_fmtstr, paniclog, `getyear`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `calendar.c:hhmmss`; node civil
+stamp `90105` / date≠0 `235959`; green+strict seed8000/0900; CURRENT
+cohort **7**/7 + strict. Rule #2 clean.
+**Next:** Open `display.c` display_monster M_AP_FURNITURE lastseentyp.
+**Blocked:** none.
 ## 2026-08-30 — D-1724 dungeon.c recalc_mapseen sokoban/rogue/quest flags
 
 **Objective:** Open `dungeon.c` recalc_mapseen sokosolved /

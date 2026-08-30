@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `dungeon.c` recalc_mapseen sokosolved / roguelevel / quest flags (named). Not DRAWBRIDGE_UP lastseentyp. **Addressed:** D-1724
+- [x] `calendar.c` hhmmss (named). Not yyyymmddhhmmss. **Addressed:** D-1725
+
+
+- [x] `dungeon.c` recalc_mapseen sokosolved / roguelevel / quest flags (named). Not DRAWBRIDGE_UP lastseentyp. **Addressed:** D-1724 `7ee8ad1d`
 
 
 - [x] `sp_lev.c` lspo_object non-merge quan repeat (named). Not oc_merge. **Addressed:** D-1723 `a9697aa8`

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `calendar.c` hhmmss (named). Not yyyymmddhhmmss.
 - [ ] `display.c` display_monster M_AP_FURNITURE cmap_to_glyph lastseentyp (named). Not update_lastseentyp.
 - [ ] `invent.c` useupall / obfree (named). Not observe_object FIRST_OBJECT skip.
 - [ ] `cmd.c` yn_function_menu query_menu (named). Not yn_function addcmdq.
