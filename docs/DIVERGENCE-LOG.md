@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1708 — light.c save_light_sources LS_MONSTER mx > 0
+
+- **Status:** fixed (Must-fix review **656**; not a public FAIL)
+- **Symptom:** D-1695 peeled RANGE_LEVEL lights with timeout.c
+  `mon_is_local` (migrating/mydogs). C `light.c:373` is
+  `#define mon_is_local(mon) ((mon)->mx > 0)`. A mydogs follower
+  with `mx > 0` is local in C (peeled onto the left level) and was
+  kept on `light_base` in JS. Same wrong test in JSON
+  `snapshotLocalLights` / `snapshotGlobalLights`.
+- **C locus:** `light.c` `save_light_sources` `:449–454` /
+  `maybe_write_ls` `:582–586`; macro `:373`. LS_OBJECT still
+  timeout.c `obj_is_local` (`extern.h`). Callers `save.c:297`
+  RANGE_GLOBAL / `:540` RANGE_LEVEL.
+- **JS was:** `light_is_local` LS_MONSTER → timeout `mon_is_local`
+  in `js/mkobj.js` and a clone in `js/lev_json.js`.
+- **Fix:** LS_MONSTER `(id.mx | 0) > 0`; missing id C `is_global=0`
+  (local). Export one `light_is_local`; JSON snapshots import it
+  (no clone #3). Keep timeout helpers for timers and LS_OBJECT.
+  Do not restore `clear_light_sources` on `goto_level`.
+- **JS:** `js/mkobj.js` `light_is_local`; `js/lev_json.js` snapshots.
+- **Not this iter:** `update_mlstmv` `iter_mons` skip (next Must-fix
+  **656**); `cant_go_back` FREEING; worms/bubbles/exclusions;
+  RANGE_LEVEL timers (D-1037); savetrapchn (D-1694).
+- **Verified:** save-oracle probe skip (untagged); predicate smoke
+  (mydogs `mx>0` local, pack lamp global); focused seed0105 lamp
+  + seed0013 restore + seed0015/0700/0014 stairs; green+strict
+  seed8000/0900; CURRENT cohort 7/7 + strict (seed0007 302/302,
+  seed2200 230/230).
+- **Files:** `js/mkobj.js`, `js/lev_json.js`.
+
 ## D-1707 — dungeon.c recalc_mapseen Blind bigroom / oracle / valley / sanctum
 
 - **Status:** fixed (map-driven Open from D-1706; not a public FAIL)

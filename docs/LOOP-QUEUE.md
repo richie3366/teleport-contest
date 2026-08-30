@@ -32,7 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `light.c` `save_light_sources` LS_MONSTER: `light_is_local` must be `mx > 0` (`light.c:373` / `:453` / `maybe_write_ls` `:586`), not timeout.c `mon_is_local` migrating/mydogs. Same predicate in `js/lev_json.js` `snapshotLocalLights` / `snapshotGlobalLights` (D-1696/D-1698). Keep timeout.c helpers for timers and LS_OBJECT. Do not restore `clear_light_sources` on `goto_level`. Source: `reviews/loop-unattended/656-c33608ff-savelev-stash-lights-billobjs.md`
 - [ ] `dog.c` `update_mlstmv`: skip `DEADMONSTER` / `mon_offmap` like `iter_mons` (`mon.c:4531–4535`). Not cant_go_back FREEING. Source: `reviews/loop-unattended/656-c33608ff-savelev-stash-lights-billobjs.md`
 
 ## Open (map-driven, after Must-fix is empty)

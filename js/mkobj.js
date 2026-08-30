@@ -782,6 +782,8 @@ function insert_timer(gnu) {
 
 /**
  * C ref: timeout.c mon_is_local — not on migrating_mons / mydogs.
+ * Timers and OBJ_MINVENT only. Light sources use light.c `mx > 0`
+ * (`light_is_local`), not this helper.
  */
 export function mon_is_local(mon) {
     if (!mon) return false;
@@ -876,17 +878,30 @@ export function restore_timers(list) {
     }
 }
 
-function light_is_local(ls) {
+/**
+ * C ref: light.c save_light_sources `:449–454` / maybe_write_ls `:582–586`.
+ * LS_OBJECT: timeout.c `obj_is_local` (pack lamps RANGE_GLOBAL).
+ * LS_MONSTER: light.c `#define mon_is_local(mon) ((mon)->mx > 0)`
+ * (`:373`) — not timeout.c migrating/mydogs. Missing id: C
+ * `is_global = 0` (local). Keep timeout `mon_is_local` for timers
+ * and OBJ_MINVENT.
+ */
+export function light_is_local(ls) {
     if (!ls) return false;
     if ((ls.type | 0) === LS_OBJECT) return obj_is_local(ls.id);
-    if ((ls.type | 0) === LS_MONSTER) return mon_is_local(ls.id);
+    if ((ls.type | 0) === LS_MONSTER) {
+        const mon = ls.id;
+        if (!mon) return true;
+        return (mon.mx | 0) > 0;
+    }
     return false;
 }
 
 /**
  * C ref: light.c save_light_sources — peel RANGE_LEVEL locals (or
  * RANGE_GLOBAL non-locals) off gl.light_base. Camera flashes discarded.
- * Uses obj_is_local / mon_is_local (timeout.c), not a cloned test.
+ * LS_MONSTER locality is `mx > 0` (D-1708); LS_OBJECT stays
+ * timeout.c `obj_is_local`.
  * @param {number} range RANGE_LEVEL or RANGE_GLOBAL
  * @returns {object[]}
  */

@@ -1248,6 +1248,9 @@ Punished `ballfall` / W-tower `u_on_rndspot` bit 2 still named);
 peel local object/spot timers so off-level HATCH_EGG/rot/burn/melt do not fire;
 **`save_light_sources(RANGE_LEVEL)` + `billobjs` stash + `update_mlstmv` +
 `forget_temple_entry` on ordinary leave (D-1695)**; pack lamps stay RANGE_GLOBAL;
+**LS_MONSTER locality is light.c `mx > 0` not timeout.c migrating/mydogs
+(D-1708; same predicate in JSON `snapshotLocalLights` /
+`snapshotGlobalLights`)**; `update_mlstmv` `iter_mons` skip still named;
 **JSON `payload.current` `serLevel`/`deserLevel` per-blob relink (D-1696;
 never `billobjs`; **other `LFILE_EXISTS` `payload.levels` D-1697 M2**;
 **RANGE_GLOBAL pack-lamp relink D-1698 — JSON gamestate-before-current

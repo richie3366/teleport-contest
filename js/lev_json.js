@@ -21,7 +21,7 @@ import { restmon_edog, savemon_edog } from './makemon.js';
 import { savecemetery, restcemetery } from './dungeon.js';
 import { forget_temple_entry } from './priest.js';
 import { peek_track } from './track.js';
-import { obj_is_local, mon_is_local, timer_is_local } from './mkobj.js';
+import { timer_is_local, light_is_local } from './mkobj.js';
 
 /**
  * C ref: save.c savetrapchn / restore.c getlev trap loop `:1149–1163`.
@@ -315,19 +315,6 @@ function lightIdNumber(ls) {
     return id.o_id | 0;
 }
 
-function light_is_local(ls) {
-    if (!ls) return false;
-    if ((ls.type | 0) === LS_OBJECT) {
-        if (!ls.id || typeof ls.id === 'number') return true;
-        return obj_is_local(ls.id);
-    }
-    if ((ls.type | 0) === LS_MONSTER) {
-        if (!ls.id || typeof ls.id === 'number') return true;
-        return mon_is_local(ls.id);
-    }
-    return false;
-}
-
 function serLight(ls) {
     return {
         type: ls.type | 0,
@@ -353,6 +340,7 @@ function snapshotLocalLights() {
         if (!ls) continue;
         // C save_light_sources discard_flashes: LS_OBJECT && !id
         if ((ls.type | 0) === LS_OBJECT && !ls.id) continue;
+        // C maybe_write_ls RANGE_LEVEL: light_is_local (mx > 0)
         if (!light_is_local(ls)) continue;
         out.push(serLight(ls));
     }
@@ -529,8 +517,8 @@ export function findMidInRoots(id, roots) {
 }
 
 /**
- * C timeout.c save_timers(RANGE_GLOBAL) / light.c save_light_sources.
- * Snapshot; do not peel (C peels because FREEING; JSON Game dies after S).
+ * C timeout.c save_timers(RANGE_GLOBAL). Snapshot; do not peel
+ * (C peels because FREEING; JSON Game dies after S).
  * @returns {object[]}
  */
 export function snapshotGlobalTimers() {
@@ -542,6 +530,11 @@ export function snapshotGlobalTimers() {
     return out;
 }
 
+/**
+ * C ref: light.c save_light_sources(RANGE_GLOBAL) / maybe_write_ls.
+ * Same `light_is_local` as the in-memory peel (LS_MONSTER `mx > 0`).
+ * @returns {object[]}
+ */
 export function snapshotGlobalLights() {
     const out = [];
     for (const ls of game.light_base || []) {

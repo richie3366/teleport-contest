@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1708 light.c save_light_sources LS_MONSTER mx>0
+
+**Objective:** Must-fix review **656** `light.c` `save_light_sources`
+LS_MONSTER `mx > 0`. Not timeout.c `mon_is_local`.
+**C locus:** `light.c:373` macro; `save_light_sources` `:453`;
+`maybe_write_ls` `:586`.
+**JS locus:** `js/mkobj.js` `light_is_local` (exported); snapshots
+`js/lev_json.js` (clone retired).
+**Change:** LS_MONSTER `(id.mx | 0) > 0`; missing id local; keep
+timeout helpers for timers/LS_OBJECT; no `clear_light_sources` on
+leave. Named: `update_mlstmv` skip (next Must-fix).
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; predicate smoke; focused
+seed0105/0013/0015/0700/0014; green+strict; cohort 7/7.
+**Next:** Must-fix `dog.c` `update_mlstmv` skip dead/offmap.
+**Blocked:** none.
 ## 2026-08-30 — audit #2110 reviews 654–668 + cadence
 
 **Objective:** C-fidelity review of fifteen `js/` SHAs since **653**

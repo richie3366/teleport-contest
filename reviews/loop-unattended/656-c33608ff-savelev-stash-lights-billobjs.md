@@ -100,6 +100,7 @@ Journal: green+strict seed8000/0900; seed0013 restore; seed0015/0700/0014 stairs
 ## Actionable C-wrongs
 
 1. **`save_light_sources` LS_MONSTER `mx > 0`** — `light.c:373` / `:453` / `maybe_write_ls` `:586`. One port: `light_is_local` for `LS_MONSTER` is `(ls.id.mx | 0) > 0`. Keep timeout.c `obj_is_local` / `mon_is_local` for **timers** and `LS_OBJECT`. Do **not** delete the timeout.c helpers. Do **not** restore `clear_light_sources` on `goto_level`.
+   **Addressed:** D-1708
 2. **`update_mlstmv` `iter_mons` filter** — `mon.c:4531–4535` skip `DEADMONSTER` (`mhp<1`) and `mon_offmap` (`mstate != MON_FLOOR`). One port: same skip in `dog.js` `update_mlstmv`.
 3. Named / clone: `save_mtraits` should `forget_temple_entry(mtmp)` not inline; `cant_go_back` skip; C `impossible` on non-priest; JSON `serLevel`; worms/bubbles/exclusions. Do **not** add `forget_temple_entry` #3. Do **not** re-port RANGE_LEVEL timers (D-1037). Do **not** re-port savetrapchn (D-1694).
 
