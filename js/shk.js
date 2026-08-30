@@ -30,9 +30,9 @@
 // pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease (D-0998);
-// traditional itemize ynq; multi-shk getpos pay-whom (D-1704);
+// mute/Deaf thank-you nod; multi-shk getpos pay-whom (D-1704);
 // container bill_box_content (D-1705);
-// FullyUsedUp/PartlyUsedUp (D-1714);
+// traditional itemize ynq (D-1715); FullyUsedUp/PartlyUsedUp (D-1714);
 // SetVoice; Izchak candle special_stock polish; safe_qbuf sell prompt;
 // money2u invent-full dropy; break_seq simultaneous shop shatter;
 // nextoid shop-price
@@ -44,7 +44,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rn1 } from './rng.js';
-import { dist2, highc, online2 } from './hacklib.js';
+import { dist2, highc, online2, upstart } from './hacklib.js';
 import { in_rooms, stop_occupation } from './hack.js';
 import {
     ESHK, EPRI, IS_ROOM, IS_DOOR, IS_WALL, ZAP_POS, NOTONL, u_at, isok,
@@ -57,6 +57,7 @@ import {
     DISPLACED, LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME, ECMD_CANCEL,
     EYE, M_AP_NOTHING, M_AP_MONSTER, M_AP_TYPE,
     COST_CONTENTS, COST_SINGLEOBJ, COST_UNBLSS, COST_UNCURS, TELEPAT,
+    MENU_TRADITIONAL, MENU_FULL,
     W_SWAPWEP, W_QUIVER, TT_PIT, MIGR_APPROX_XY, MON_FLOOR,
     SELL_NORMAL, SELL_DELIBERATE, SELL_DONTSELL, CANDLESHOP,
     ARTICLE_THE,
@@ -88,7 +89,7 @@ import { simpleonames, makeplural, xprname } from './objnam.js';
 import {
     xname, doname, paydoname, set_doname_shop_suffix,
     ansimpleoname, thesimpleoname, append_wizweight_suffix,
-    the, The,
+    the, The, safe_qbuf,
 } from './objnam.js';
 import {
     is_human, is_demon, is_watch, nolimbs, is_floater, is_flyer, amorphous,
@@ -4314,7 +4315,8 @@ async function reject_purchase(shkp, obj, billed_quan) {
 
 /**
  * C ref: shk.c dopayobj `:2219–2302` — which 0 used-up / 1 unpaid.
- * Named omit: itemize yn_function / safe_qbuf (Traditional Open).
+ * itemize → y_n Pay? (`:2259–2275`; C y_n ≡ yn_function ynchars 'n').
+ * Doname2 is upstart(doname) — do not add clone #4. Named omit: SetVoice.
  */
 async function dopayobj(shkp, bp, obj, which, itemize, unseen) {
     if (!obj?.unpaid && !bp?.useup
@@ -4339,7 +4341,19 @@ async function dopayobj(shkp, bp, obj, which, itemize, unseen) {
     if (!game.iflags) game.iflags = {};
     game.iflags.suppress_price = (game.iflags.suppress_price | 0) + 1;
     let buy = PAY_BUY;
-    // itemize yn named omit — Traditional Open row
+    if (itemize) {
+        // C `:2268–2274` — qsfx + safe_qbuf(Doname2/doname, ansimpleoname)
+        const qsfx = ` for ${ltmp} ${currency(ltmp)}.  Pay?`;
+        const qbuf = safe_qbuf(
+            null, null, qsfx, obj,
+            (quan === 1) ? (o) => upstart(doname(o)) : doname,
+            ansimpleoname,
+            (quan === 1) ? 'that' : 'those',
+        );
+        if ((await yn_function(qbuf, 'yn', 'n', true)) === 'n') {
+            buy = PAY_SKIP;
+        }
+    }
     if (quan < (bp.bquan | 0) && !consumed) {
         await reject_purchase(shkp, obj, bp.bquan | 0);
         buy = PAY_SKIP;
@@ -4479,11 +4493,12 @@ function cheapest_item(ibillct, ibill) {
 
 /**
  * C ref: shk.c pay_billed_items `:2042–2167` — no-gold / cheapest_item
- * early return (`:2060–2080`) then via_menu (`:2084–2098`) always
- * `menu_pick_pay_items`. C never cmdq_pop; queuedpay is set only from
- * sequential menu letters `a`… (not `obj.invlet`). IA_BUY_OBJ leftover
- * CMDQ_KEY is the next rhack (cmd.c `:3642–3651`).
- * Named omissions: Traditional itemize yn / menu_requested toggle.
+ * early return (`:2060–2080`) then via_menu (`:2082–2109`).
+ * `via_menu = (menu_style != TRADITIONAL)` then `menu_requested` toggle;
+ * Traditional `yn_function("Itemized billing?", "ynq m", 'q', TRUE)`
+ * (`'m'` loops into the menu; `!more_than_one` auto `'y'`).
+ * Menu letters `a`… not `obj.invlet`. C never cmdq_pop here; leftover
+ * IA_BUY_OBJ KEY is the next rhack (cmd.c `:3642–3651`).
  */
 async function pay_billed_items(shkp, ibillct, ibill, stashed_gold, paidRef) {
     const eshkp = ESHK(shkp);
@@ -4515,13 +4530,29 @@ async function pay_billed_items(shkp, ibillct, ibill, stashed_gold, paidRef) {
         return true;
     }
 
-    // C: via_menu = (flags.menu_style != MENU_TRADITIONAL); Traditional
-    // itemize named omit — live path is the menu arm (D-0448 / D-1684).
+    // C `:2082–2109` — Traditional ynq; other styles + `m p` toggle menu.
+    // Unset JS menu_style matches options.c `:7258` MENU_FULL, not 0.
+    let via_menu = ((game.flags?.menu_style ?? MENU_FULL) !== MENU_TRADITIONAL);
+    if (game.iflags?.menu_requested) via_menu = !via_menu;
     let queuedpay = false;
-    if (!await menu_pick_pay_items(ibill)) {
-        return true;
-    }
-    queuedpay = true;
+    let itemize = false;
+    do {
+        if (via_menu) {
+            if (!await menu_pick_pay_items(ibill)) {
+                return true;
+            }
+            queuedpay = true;
+            itemize = false;
+            via_menu = false;
+        } else {
+            const iprompt = !more_than_one
+                ? 'y'
+                : await yn_function('Itemized billing?', 'ynq m', 'q', true);
+            if (iprompt === 'q') return true;
+            itemize = (iprompt === 'y');
+            via_menu = (iprompt === 'm');
+        }
+    } while (via_menu);
 
     for (let indx = 0; indx < ibillct; indx++) {
         if (queuedpay && !ibill[indx].queuedpay) continue;
@@ -4546,7 +4577,7 @@ async function pay_billed_items(shkp, ibillct, ibill, stashed_gold, paidRef) {
             const bp = (eshkp.bill_p || eshkp.bill)[bidx];
             if (!bp || !otmp) continue;
             const pass = ((ibill[indx].usedup | 0) <= PartlyUsedUp) ? 0 : 1;
-            buy = await dopayobj(shkp, bp, otmp, pass, false, false);
+            buy = await dopayobj(shkp, bp, otmp, pass, itemize, false);
             if (buy === PAY_BUY) {
                 update_bill(indx, ibillct, ibill, eshkp, bp, otmp);
             }
@@ -4561,7 +4592,7 @@ async function pay_billed_items(shkp, ibillct, ibill, stashed_gold, paidRef) {
             continue;
         case PAY_BUY:
             paidRef.paid = true;
-            if (queuedpay) {
+            if (itemize || queuedpay) {
                 update_inventory();
                 await bot();
             }
@@ -4595,9 +4626,9 @@ function Blind_telepat() {
  * via_menu `menu_pick_pay_items` (D-1684; leftover IA_BUY_OBJ KEY is
  * next rhack); cheapest_item early return (D-1688); buy_container
  * (D-1702); multi-shk getpos pay-whom (D-1704); thank-you verbalize;
- * ECMD_TIME when paid; FullyUsedUp/PartlyUsedUp (D-1714).
- * Deferred: traditional itemize;
- * mute/Deaf thank-you nod; SetVoice.
+ * ECMD_TIME when paid; FullyUsedUp/PartlyUsedUp (D-1714);
+ * Traditional itemize ynq (D-1715).
+ * Deferred: mute/Deaf thank-you nod; SetVoice.
  */
 export async function dopay() {
     game.multi = 0;

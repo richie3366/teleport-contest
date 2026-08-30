@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `shk.c` FullyUsedUp/PartlyUsedUp (named). Not bill_box_content. **Addressed:** D-1714
+- [x] `shk.c` pay_billed_items traditional itemize ynq (named). Not FullyUsedUp. **Addressed:** D-1715
+
+
+- [x] `shk.c` FullyUsedUp/PartlyUsedUp (named). Not bill_box_content. **Addressed:** D-1714 `33cc30c0`
 
 
 - [x] `invent.c` observe_object FIRST_OBJECT skip (named). Not undiscover_object. **Addressed:** D-1713 `4f0957ff`

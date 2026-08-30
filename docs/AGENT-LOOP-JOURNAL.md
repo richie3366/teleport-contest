@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1715 shk.c pay_billed_items Traditional itemize ynq
+
+**Objective:** Open `shk.c` pay_billed_items traditional itemize ynq
+(named). Not FullyUsedUp.
+**C locus:** `shk.c` `pay_billed_items` `:2082–2109`; callee
+`dopayobj` `:2259–2275` y_n Pay?; `options.c` `:7258` MENU_FULL.
+**JS locus:** `js/shk.js` `pay_billed_items` / `dopayobj`.
+**Change:** Traditional ynq + `menu_requested` toggle; `dopayobj`
+itemize `safe_qbuf`/`upstart(doname)`; unset style stays FULL.
+Named: mute/Deaf nod; `remote_burglary`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; canary 17/17; green+strict;
+focused seed0383; cohort 9/9 + strict.
+**Next:** Open `shk.c` dopay mute/Deaf thank-you nod.
+**Blocked:** none.
 ## 2026-08-30 — D-1714 shk.c FullyUsedUp/PartlyUsedUp
 
 **Objective:** Open `shk.c` FullyUsedUp/PartlyUsedUp (named). Not

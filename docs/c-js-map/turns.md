@@ -2795,8 +2795,10 @@ coins skip; recurse `Has_contents`); `picked_container` coin skip;
 `OBJ_ONBILL` + `add_one_tobill` bill-full You / OBJ_FREE dealloc /
 globby `newomid`/`OMID` + `sub_one_frombill` residual + menu
 used-up/unpaid headings + `update_bill` ONBILL extract +
-`obj_extract_self` ONBILL; named: traditional itemize ynq,
-mute/Deaf thank-you nod;
+`obj_extract_self` ONBILL; **D-1715:** `pay_billed_items`
+`:2082–2109` Traditional itemize `yn_function("Itemized billing?",
+"ynq m", 'q')` + `menu_requested` toggle + `dopayobj` `:2259–2275`
+y_n Pay? (`upstart(doname)`); named: mute/Deaf thank-you nod;
 `remote_burglary`, gem glass pseudo-ID, 
 `arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`

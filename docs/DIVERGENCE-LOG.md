@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1715 — shk.c pay_billed_items Traditional itemize ynq
+
+- **Status:** fixed (map-driven Open from D-1714; not a public FAIL)
+- **Symptom:** map named Traditional itemize ynq. After D-1684 JS
+  `pay_billed_items` always called `menu_pick_pay_items` and passed
+  `itemize=false` into `dopayobj`, so MENU_TRADITIONAL and `m p`
+  never asked `Itemized billing?` / per-item Pay?.
+- **C locus:** `shk.c` `pay_billed_items` `:2082–2109`
+  `via_menu = (flags.menu_style != MENU_TRADITIONAL)` then
+  `iflags.menu_requested` toggle; `!more_than_one` auto `'y'`; else
+  `yn_function("Itemized billing?", "ynq m", 'q', TRUE)`; `'m'`
+  loops into the menu. `dopayobj` `:2259–2275` itemize `y_n`
+  (`hack.h` y_n ≡ `yn_function(ynchars, 'n', TRUE)`) via
+  `safe_qbuf` Doname2/doname. PAY_BUY `itemize || queuedpay`
+  `update_inventory`+`bot`. `options.c` `:7258` default MENU_FULL.
+- **JS was:** always menu (D-1684); `dopayobj` skipped the Pay? yn;
+  comment named Traditional Open.
+- **Fix:** live via_menu/ynq loop; unset `menu_style` defaults
+  MENU_FULL (not `| 0` Traditional); pass `itemize` into
+  `dopayobj`; Doname2 as `upstart(doname)` (no clone #4). Rule #2:
+  no fs. `--can` ALREADY for `safe_qbuf` / MENU_*.
+- **JS:** `js/shk.js` `pay_billed_items` / `dopayobj`.
+- **Not this iter:** mute/Deaf thank-you nod; `remote_burglary`;
+  gem glass pseudo-ID; SetVoice; `yn_function_menu`.
+- **Verified:** save-oracle probe skip (untagged
+  `shk.c:pay_billed_items`); canary **17**/17 (q cancel; n pays all;
+  y/n/y skip-first; single auto-y Pay?; FULL leftover canned q;
+  unset FULL; `menu_requested` toggle); green+strict seed8000/0900;
+  focused seed0383; CURRENT cohort **9**/9 + strict.
+- **Files:** `js/shk.js`.
+
 ## D-1714 — shk.c FullyUsedUp / PartlyUsedUp
 
 - **Status:** fixed (map-driven Open from D-1713; not a public FAIL)
