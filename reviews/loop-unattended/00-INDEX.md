@@ -697,3 +697,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [684-a9697aa8-lspo-object-quan.md](./684-a9697aa8-lspo-object-quan.md) | `a9697aa8` | D-1723 sp_lev.c lspo_object quan | **ACCEPT-WITH-DEBT** |
 | [685-7ee8ad1d-recalc-mapseen-flags.md](./685-7ee8ad1d-recalc-mapseen-flags.md) | `7ee8ad1d` | D-1724 dungeon.c recalc_mapseen flags | **ACCEPT-WITH-DEBT** |
 | [686-32c02560-hhmmss.md](./686-32c02560-hhmmss.md) | `32c02560` | D-1725 calendar.c hhmmss | **ACCEPT-WITH-DEBT** |
+| [687-a0c81cc6-display-monster-furniture.md](./687-a0c81cc6-display-monster-furniture.md) | `a0c81cc6` | D-1726 display.c furniture lastseentyp | **ACCEPT-WITH-DEBT** |
+| [688-a6d468cc-useupall-obfree.md](./688-a6d468cc-useupall-obfree.md) | `a6d468cc` | D-1727 invent.c useupall / shk.c obfree | **QUALITY-RISK** |
+| [689-aad60753-yn-function-menu.md](./689-aad60753-yn-function-menu.md) | `aad60753` | D-1728 cmd.c yn_function_menu | **ACCEPT-WITH-DEBT** |
+| [690-578b7088-getdir-cq-repeat.md](./690-578b7088-getdir-cq-repeat.md) | `578b7088` | D-1729 cmd.c getdir CQ_REPEAT | **ACCEPT-WITH-DEBT** |
+| [691-02c2d6e0-artifact-score.md](./691-02c2d6e0-artifact-score.md) | `02c2d6e0` | D-1730 end.c artifact_score | **ACCEPT-WITH-DEBT** |
+| [692-fbce2b1c-doprgold-hidden-gold.md](./692-fbce2b1c-doprgold-hidden-gold.md) | `fbce2b1c` | D-1731 invent.c doprgold hidden_gold | **ACCEPT-WITH-DEBT** |
+| [693-438c0380-is-multigen-poisonable.md](./693-438c0380-is-multigen-poisonable.md) | `438c0380` | D-1732 obj.h is_multigen / is_poisonable | **ACCEPT-WITH-DEBT** |
+| [694-9f6de017-u-left-shop-choose-stairs.md](./694-9f6de017-u-left-shop-choose-stairs.md) | `9f6de017` | D-1733 shk.c u_left_shop / wizard.c choose_stairs | **ACCEPT-WITH-DEBT** |
+| [695-4bc17535-display-monster-what-mon.md](./695-4bc17535-display-monster-what-mon.md) | `4bc17535` | D-1734 display.c M_AP_MONSTER what_mon | **ACCEPT-WITH-DEBT** |

@@ -21,6 +21,8 @@ not enqueue parked D-0006.
 
 ## Must-fix (from reviews) — pop first
 
+- [ ] `write.c` dowrite `useup(paper)` still invent-splice; C invent.c `useup` `:1320–1333` → `useupall`. Not full `dealloc_obj`. Source: reviews/loop-unattended/688-a6d468cc-useupall-obfree.md.
+
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
 contradicts C, not a named omit). After shipping: stamp the cited review
 `**Addressed:** D-NNNN` (D-id only), mark the queue line `- [x]`, then

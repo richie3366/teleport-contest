@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `display.c` display_monster M_AP_MONSTER what_mon (named). Not M_AP_FURNITURE lastseentyp. **Addressed:** D-1734
+- [x] `display.c` display_monster M_AP_MONSTER what_mon (named). Not M_AP_FURNITURE lastseentyp. **Addressed:** D-1734 `4bc17535`
 
 
 - [x] `shk.c` choose_stairs / u_left_shop leave verbalize (named). Not remote_burglary. **Addressed:** D-1733 `9f6de017`

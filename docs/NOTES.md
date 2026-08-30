@@ -5,33 +5,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress (cadence **#2130** at `32c02560`). Save-oracle
-  required for tagged restore Open. Private B0: trap-same-floor 17/17;
-  ledger 26/26; wait-save catchup 30/30; catchup-after-restore 26/30
-  red; trap-ledger 38/38; shop template 35/35 (no unpaid). Reviews
-  **678–686** ACCEPT-WITH-DEBT (no Must-fix). **Next:** Open
-  `display.c` display_monster Protection_from_shape_changers sensed
-  (named). Not M_AP_FURNITURE. Do not skip D-1531…D-1734. Do not
-  re-port D-1675…D-1734. Falsify: Protection_from_shape_changers ||
-  sensemon, not what_mon (D-1734) or furniture lastseentyp.
+- **Suite 44/44** fortress (cadence **#2140** at `4bc17535`, R² 0.863).
+  Save-oracle for tagged restore Open. Private B0 unchanged (catchup
+  26/30 red; shop 35/35 no unpaid). Reviews **687–695**: **688**
+  QUALITY-RISK; rest ACCEPT-WITH-DEBT. **Next:** Must-fix `write.c`
+  dowrite `useup(paper)` still invent-splice; C `useup` → `useupall`.
+  Source: review **688**. Not Protection sensed (Open after Must-fix).
+  Falsify: `write.js` `useup` calls invent `useupall`, not splice.
+  Do not skip D-1531…D-1734. Do not re-port D-1675…D-1734.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
-  `rescham` wiz_intrinsic; setworn oc_oprop; keepdogs/grow_up leash;
-  light-scroll `initedog`; tip-spill/squeaky; hideunder;
-  Protection_from_shape_changers sensed; Detect_monsters cansee;
-  mimic map_object observe; guardian remaps; Punished
-  float_down; water/lava steed; uhitm `u.dx`; map_menu_cmd;
-  `context.novel`; walk-key / PREFIXCMD overlay;
-  `possibly_unwield` / `mon_break_armor`; sync `newcham`; array rn2
-  / pauper_legacy / killed_nemesis; spell dull / zap rider eyecount;
-  perm_invent can_set; polyself `uskin=`; steal/muse
-  `unknow_object`; Hallu `obj_to_glyph` query;
-  interned `'yn'` yn_function sites; hide+web `hidespinchars`;
-  mouse getpos; shopper_financial_report / `shop_debt`; dokick
-  `hidden_gold_kick`; `free_luathemes`; other load_* `des.object`;
-  dump_fmtstr / paniclog / `getyear`; full `dealloc_obj`; `delobj`
-  extract; get_valuables / pet HP / DUMPLOG `artifact_score` list;
-  mthrowu/uhitm poison combat; SetVoice; heaven `u_left_shop`;
-  STRAT_HEAL rloc/healmon.
+  `rescham`; setworn oc_oprop; keepdogs leash; `initedog`; tip-spill;
+  hideunder; Protection sensed; Detect_monsters cansee; mimic
+  `map_object`; Punished float_down; water/lava steed; interned `'yn'`;
+  shopper_financial_report; dokick `hidden_gold_kick`; `dealloc_obj`;
+  get_valuables; mthrowu/uhitm poison; SetVoice; heaven `u_left_shop`;
+  STRAT_HEAL; `swallow_cell` sticky Hallu.
 
 ## Don't re-check (≤15)
 
@@ -68,59 +56,33 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1734 in the index. No yn ^P glue /
-  `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
-  (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
-  (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1734 (index). D-1734 is display_monster M_AP_MONSTER
-  what_mon (not Protection sensed / furniture lastseentyp).
-  D-1733 is `u_left_shop` leave verbalize + `choose_stairs` (not
-  remote_burglary / furniture lastseentyp).
-  D-1732 is `is_multigen`/`is_poisonable` oc_skill window + Grimtooth
-  (not oc_merge / mthrowu poison / hidden_gold). D-1731 is doprgold
-  `hidden_gold(FALSE)` (not shopper_financial_report / currency /
-  get_valuables). D-1730 is artifact_score (not hidden_gold). D-1729
-  is getdir CQ_REPEAT (not trailing confdir / yn_function_menu).
-  D-1728 is yn_function_menu query_menu (not interned `'yn'` /
-  addcmdq). D-1727 is useupall/obfree (not FIRST_OBJECT skip /
-  furniture lastseentyp). D-1726 is display_monster furniture
-  lastseentyp (not `update_lastseentyp` DRAWBRIDGE_UP).
+  `vision_reset`. No yn ^P glue / `ing_suffix` clone #3 / InvInUse
+  poke (D-1603) / zap sticky Blind (D-1604). No `dat/tribute` indent=2.
+  No static `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev
+  catchup reads it. Do not re-port D-1682…D-1734. D-1734 is
+  `what_mon` (not Protection). D-1733 is `u_left_shop`/`choose_stairs`
+  (not remote_burglary). D-1732 is skill-window+Grimtooth (not
+  oc_merge). D-1727 is useupall/obfree (not write.c `useup` splice —
+  that is Must-fix **688**). Do not add trailing `confdir` in shared
+  `getdir`.
 
 ## Landmarks (≤15)
 
-- D-1734: `display_monster` `:579–584` + `what_mon`/`random_monster`.
-  Live `js/display.js`. Named: Protection sensed; Detect_monsters
-  cansee; pet/detected glyphs.
-- D-1733: `u_left_shop` `:578–625` + `choose_stairs` `:330–364` +
-  `stairway_find_type_dir` `:88–96`. Live `js/shk.js` + `js/wizard.js`
-  + `js/mklev.js`. Named: SetVoice; heaven caller; STRAT_HEAL.
-- D-1732: `obj.h` `:260–268` + `permapoisoned` `:2836–2840`. Live
-  `js/objects.js` + `js/artifact.js`. Named: mthrowu/uhitm poison;
-  nhlobj lua.
-- D-1731: `doprgold` `:4502–4546` + `hidden_gold` `:1256–1268`.
-  Live `js/invent.js` + export `js/vault.js`. Named: shopper
-  report / shop_debt; dokick clone; botl/detect/insight callers.
-- D-1730: `artifact_score` `:906–940` count+list. Live `js/end.js`.
-  Named: get_valuables / pet HP / DUMPLOG list.
-- D-1729: `getdir` `:3962–4019` `cmdq_pop` + REPEAT record.
-  Live `js/lock.js` `getdir_read_dirsym`. Named: mouse getpos;
-  help_dir in shared; dxdy_moveok.
-- D-1728: `yn_function_menu` `:5416–5463` + identity tables.
-  Live `js/getline.js` + `js/const.js`. Named: interned `'yn'`
-  callers; hide+web `hidespinchars`.
-- D-1727: `useupall` `:1311–1317` + `obfree` `:1186–1275`. Live
-  `js/invent.js` + `js/shk.js`. Named: full `dealloc_obj` / `delobj`.
-- D-1726: `display_monster` `:545–562` M_AP_FURNITURE cmap + lastseentyp.
-  Live `js/display.js`. Named: Protection sensed.
-- D-1725: `hhmmss` `:79–92` hour*10000+min*100+sec. Live
-  `js/calendar.js`. Named: dump_fmtstr / paniclog / `getyear`.
-- D-1724: `recalc_mapseen` `:3099–3134` sokosolved / roguelevel /
-  quest_summons / questing / notreachable. Live `js/dungeon.js`.
-- D-1723: `lspo_object` `:3725–3740` non-merge quan do-while. Live
-  `js/mklev.js`. Named: other load_* `des.object`.
-- D-1722: `goto_level` `:1640–1664` `cant_go_back` FREEING. Live
-  `js/do.js` + `delete_levelfile` / `remdun_mapseen` /
-  `discard_migrations`. Named: `free_luathemes`.
-- D-1721: `getdir` `:3987–4011` yn_function then clear. Live
-  `js/lock.js`. CQ_REPEAT is D-1729.
-- D-1720: `currency` Hallu `ROLL_FROM`. Live `js/invent.js`.
+- D-1734: `display_monster` `:579–584` `what_mon`. Live `display.js`.
+  Named: Protection sensed; Detect_monsters cansee.
+- D-1733: `u_left_shop` `:578–625` + `choose_stairs` `:330–364`.
+  Named: SetVoice; heaven caller; STRAT_HEAL.
+- D-1732: `obj.h` `:260–268` + `permapoisoned`. Named: mthrowu/uhitm.
+- D-1731: `doprgold` + `hidden_gold(FALSE)`. Named: shopper report.
+- D-1730: `artifact_score` count+list. Named: get_valuables.
+- D-1729: `getdir` CQ_REPEAT. Named: mouse; no trailing `confdir`.
+- D-1728: `yn_function_menu`. Named: interned `'yn'`.
+- D-1727: `useupall`/`obfree`. Named: `dealloc_obj`; write.c splice
+  is review **688** Must-fix.
+- D-1726: furniture lastseentyp. Named: Protection sensed.
+- D-1725: `hhmmss`. Named: dump_fmtstr / paniclog / `getyear`.
+- D-1724: `recalc_mapseen` sokoban/rogue/quest flags.
+- D-1723: `lspo_object` non-merge quan. Named: other `des.object`.
+- D-1722: `cant_go_back` FREEING. Named: `free_luathemes`.
+- D-1721: `getdir` yn_function then clear. CQ_REPEAT is D-1729.
+- D-1720: `currency` Hallu `ROLL_FROM`.

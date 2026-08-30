@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — audit #2140 reviews 687–695 + cadence
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **686**
+(`a0c81cc6`…`4bc17535`, D-1726…D-1734) plus full `sessions`.
+**C locus:** furniture lastseentyp; `useupall`/`obfree`; `yn_function_menu`;
+`getdir` CQ_REPEAT; `artifact_score`; `doprgold`/`hidden_gold`;
+`is_multigen`/`is_poisonable`; `u_left_shop`/`choose_stairs`;
+M_AP_MONSTER `what_mon`.
+**Change:** reviews **687–695**. **688** QUALITY-RISK (Must-fix:
+`write.c` `useup(paper)` still invent-splice). Others ACCEPT-WITH-DEBT.
+No `js/` edits. Filled archive D-1734 `%h`.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `41+0.33/turn` (R² 0.863) at `4bc17535`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Must-fix `write.c` dowrite `useup(paper)` → `useupall`.
+**Blocked:** none.
 ## 2026-08-30 — D-1734 display.c display_monster M_AP_MONSTER what_mon
 
 **Objective:** Open `display.c` display_monster M_AP_MONSTER what_mon

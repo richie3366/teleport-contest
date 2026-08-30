@@ -20,12 +20,12 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-30** — full `sessions` at **D-1725**
-(`32c02560`, cadence **#2130**). **44**/44,
+Score last measured: **2026-08-30** — full `sessions` at **D-1734**
+(`4bc17535`, cadence **#2140**). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `41+0.33/turn` (R² 0.862). seed0367 FULL still PASS.
+Speed `41+0.33/turn` (R² 0.863). seed0367 FULL still PASS.
 Prior FAIL seed4500 at **D-1574** `1ba35e31` is PASS again.
-Prior audit **#2120** was 44/44 at `0c720b98` (R² 0.853).
+Prior audit **#2130** was 44/44 at `32c02560` (R² 0.862).
 
 ## Score
 
@@ -34,7 +34,7 @@ Prior audit **#2120** was 44/44 at `0c720b98` (R² 0.853).
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `41+0.33/turn` (R² 0.862) |
+| Speed label | `41+0.33/turn` (R² 0.863) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -68,7 +68,7 @@ picks work; do not shop the fork dashboard. Private B0 (not in
 `sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
 wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
 trap-ledger **38/38**; shop template **35/35** (no unpaid).
-**Next cluster:** Open `display.c` display_monster Protection_from_shape_changers sensed (named). Not M_AP_FURNITURE.
+**Next cluster:** Must-fix `write.c` dowrite `useup(paper)` still invent-splice; C invent.c `useup` → `useupall`. Source: review **688**.
 **Do not skip D-1531…D-1734 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
