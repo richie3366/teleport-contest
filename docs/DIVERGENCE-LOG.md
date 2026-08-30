@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-1706 — cmd.c yn_function addcmdq
+
+- **Status:** fixed (map-driven Open from D-1705; not a public FAIL)
+- **Symptom:** map named `yn_function` addcmdq. C `cmd.c` wrapper
+  pops canned/repeat KEY (else clears CQ_CANNED, ESC), then records
+  `cmdq_add_key(CQ_REPEAT)` when the 4th arg is TRUE (`y_n`/`ynq`).
+  JS `yn_function` was only `tty_yn_function` (always prompt, never
+  record), so do-again could not replay yn answers.
+- **C locus:** `cmd.c` `yn_function` `:5470–5583`; callees
+  `cmdq_pop` `:409–420`, `cmdq_add_key` `:273–290`, `cmdq_clear`
+  `:430–442`; windowport `topl.c` `tty_yn_function`. Callers
+  `y_n` TRUE; getobj / paranoid_ynq / askchain FALSE.
+- **JS was:** 3-arg tty prompt; addcmdq named omit (D-1687).
+- **Fix:** core wrapper default TRUE; pop KEY (JS `typ:'key'` clone
+  nodes too); REPEAT record after user input; `last_msg` clobber;
+  QBUFSZ `...` truncate; resp-mismatch remap after record. FALSE at
+  getobj / paranoid_ynq / askchain. Named: `yn_function_menu`;
+  fuzzer; SND_SPEECH; DUMPLOG; paniclog/impossible; `input_state`;
+  getdir yn_function.
+- **JS:** `js/getline.js` (+ FALSE at `invent.js` getobj,
+  `do.js`/`do_wear.js`/`pickup.js` getobj clones, `pickup.js`
+  askchain).
+- **Verified:** save-oracle probe skip (untagged); green+strict
+  seed8000/0900; focused seed0116 127/127; CURRENT cohort 10/10
+  + strict (incl. seed0007 302/302, seed2200 230/230).
+- **Files:** `js/getline.js`, `js/invent.js`, `js/pickup.js`,
+  `js/do.js`, `js/do_wear.js`.
+
 ## D-1705 — shk.c bill_box_content
 
 - **Status:** fixed (map-driven Open from D-1704; not a public FAIL)

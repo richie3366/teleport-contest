@@ -1710,7 +1710,7 @@ async function explain_container_prompt(more_containers) {
 /**
  * C ref: pickup.c use_container TRADITIONAL/COMBINATION yn_function.
  * Listed vs extra (after ESC) responses match C pbuf/xbuf. '?' is shown
- * when iflags.cmdassist (default On), else hidden extra. addcmdq named.
+ * when iflags.cmdassist (default On), else hidden extra. addcmdq TRUE.
  * @returns {Promise<string>}
  */
 async function use_container_traditional_prompt(
@@ -2193,7 +2193,7 @@ async function getobj_stash() {
         const query = lets
             ? `What do you want to stash? [${lets} or ?*]`
             : 'What do you want to stash? [*]';
-        let ch = await yn_function(query, null, '\0');
+        let ch = await yn_function(query, null, '\0', false);
         const counted = await getobj_take_count(ch, true);
         if (counted.retry) continue;
         ch = counted.ch;
@@ -2994,7 +2994,8 @@ export async function askchain(getHead, ininv, olets, allflag, fn, ckfn, mx, wor
                 const qbuf = `${qpfx}${shown}?`;
                 const resp = (takeoff || ident || otmp.quan < 2)
                     ? ynaqchars : ynNaqchars;
-                sym = await yn_function(qbuf, resp, 'n');
+                /* C invent.c askchain `:2466–2470` FALSE — not ^A canned. */
+                sym = await yn_function(qbuf, resp, 'n', false);
             } else {
                 sym = 'y';
             }

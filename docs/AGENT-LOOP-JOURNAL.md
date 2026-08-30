@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1706 cmd.c yn_function addcmdq
+
+**Objective:** Open `getline.c` yn_function addcmdq. Not Traditional itemize.
+**C locus:** `cmd.c` `yn_function` `:5470–5583`; `cmdq_pop` /
+`cmdq_add_key` / `cmdq_clear`; windowport `tty_yn_function`.
+**JS locus:** `js/getline.js` `yn_function` wrapping `tty_yn_function`.
+**Change:** default TRUE pop KEY + CQ_REPEAT record; FALSE at getobj /
+paranoid_ynq / askchain. Named `yn_function_menu` / getdir yn.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; green+strict; seed0116 127/127;
+cohort 10/10 incl. seed0007 302/302 seed2200 230/230.
+**Next:** Open `dungeon.c` recalc_mapseen Blind bigroom / oracle /
+valley / sanctum. Not knox/drawbridge.
+**Blocked:** none.
 ## 2026-08-30 — D-1705 shk.c bill_box_content
 
 **Objective:** Open `shk.c` bill_box_content. Not contained_cost.

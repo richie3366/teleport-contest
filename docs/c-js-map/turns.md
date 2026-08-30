@@ -1752,7 +1752,14 @@ BS+DEL; empty erase + else `tty_nhbell`; `:102–105` `intr--` `*bufp=0`;
 `getlin`/`get_ext_cmd`). **ESC-nonempty D-1639** (`:85–91` clear then
 fall through `:102–211` `intr`/`doprev`/else `tty_nhbell`; JS had
 `continue` after clear; `hooked_getlin_handle_esc` on both callers).
-**MENU_SEARCH / `tty_wait_synch` D-1646**. `gettty` termios named.
+**MENU_SEARCH / `tty_wait_synch` D-1646**. **yn addcmdq D-1706** (`cmd.c`
+`yn_function` `:5470–5583` 4th arg; pop KEY / else `cmdq_clear(CQ_CANNED)`
+then `cmdq_add_key(CQ_REPEAT)` when TRUE; `iflags.last_msg` PLNMSG_UNKNOWN;
+query `QBUFSZ` `...` truncate; resp-mismatch remap after record;
+`tty_yn_function` windowport; getobj / paranoid_ynq / askchain FALSE).
+Named: `yn_function_menu` (`query_menu`); fuzzer; SND_SPEECH; DUMPLOG;
+paniclog/impossible; `input_state`; getdir yn_function (lock.js nhgetch).
+`gettty` termios named.
 Do not enable EDIT_GETLIN (would drop the replace prompt).
 
 ### `src/restore.c` `restore_msghistory` / `restore_gamelog` / `src/nhlua.c` `restore_luadata` / `save_luadata` / `src/save.c` `save_msghistory` / `save_gamelog`

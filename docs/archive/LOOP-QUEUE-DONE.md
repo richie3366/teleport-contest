@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `shk.c` bill_box_content (named). Not contained_cost. **Addressed:** D-1705
+- [x] `getline.c` yn_function addcmdq (named). Not Traditional itemize. **Addressed:** D-1706
+
+
+- [x] `shk.c` bill_box_content (named). Not contained_cost. **Addressed:** D-1705 `7d0a0ddc`
 
 
 - [x] `shk.c` dopay multi-shk getpos (named). Not shk_names_obj. **Addressed:** D-1704 `68f8585b`

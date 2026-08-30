@@ -2287,7 +2287,7 @@ async function getobj_drop() {
             ? `What do you want to drop? [${lets} or ?*]`
             : 'What do you want to drop? [*]';
         // C invent.c getobj → yn_function(qbuf, (char *)0, '\0', FALSE)
-        let ch = await yn_function(query, null, '\0');
+        let ch = await yn_function(query, null, '\0', false);
         const counted = await getobj_take_count(ch, true);
         if (counted.retry) continue;
         ch = counted.ch;

@@ -1492,7 +1492,7 @@ export async function dotypeinv() {
         }
 
         if (class_count > 1) {
-            /* C yn_function(..., '\\0', TRUE); addcmdq named omit. */
+            /* C yn_function(..., '\\0', TRUE) — addcmdq default. */
             c = await yn_function(prompt, types, '\0');
             if (!c || c === '\0') {
                 clear_nhwindow_message();
@@ -6702,7 +6702,7 @@ export async function getobj(word, obj_ok, ctrlflags) {
             const query = promptLets
                 ? `What do you want to ${word}? [${promptLets} or ?*]`
                 : `What do you want to ${word}? [*]`;
-            ch = await yn_function(query, null, '\0');
+            ch = await yn_function(query, null, '\0', false); // C getobj FALSE
         }
         const counted = await getobj_take_count(ch, allowcnt);
         if (counted.retry) continue;
