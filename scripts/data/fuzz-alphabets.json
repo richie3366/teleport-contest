@@ -76,5 +76,16 @@
   ],
   "wizardKeys": [
     { "ch": "\u0017", "weight": 1 }
+  ],
+  "fork": [
+    { "ch": "<", "weight": 4 },
+    { "ch": ">", "weight": 4 },
+    { "ch": ".", "weight": 6 },
+    { "ch": "s", "weight": 4 },
+    { "ch": ",", "weight": 3 },
+    { "ch": "a", "weight": 2 },
+    { "ch": "o", "weight": 2 },
+    { "ch": "i", "weight": 2 },
+    { "ch": " ", "weight": 3 }
   ]
 }
