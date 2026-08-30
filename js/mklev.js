@@ -342,6 +342,16 @@ function stairway_find_dir(up) {
     return null;
 }
 
+/** C ref: stairs.c stairway_find_type_dir `:88–96` — isladder and up. */
+export function stairway_find_type_dir(isladder, up) {
+    const wantLadder = !!isladder;
+    const wantUp = !!up;
+    for (let s = game.stairs; s; s = s.next) {
+        if (!!s.isladder === wantLadder && !!s.up === wantUp) return s;
+    }
+    return null;
+}
+
 /** C ref: stairs.c stairway_find_from */
 export function stairway_find_from(fromdlev, isladder) {
     const dnum = fromdlev?.dnum | 0;

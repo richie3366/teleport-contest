@@ -19,12 +19,13 @@
 //        get_cost glass-gem pseudo-ID (D-1718).
 //        getprice arti_cost (D-1719).
 //        obfree / delete_contents (D-1727).
+//        u_left_shop leave verbalize + choose_stairs (D-1733).
 // Named omissions: shk_fixes_damage in shk_move; allmain/bones
 // fix_shop_damage callers; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
 // m_break_boulder; m_move_aggress; inhistemple callers; mapseen_temple;
 // m_canseeu for angry chase; ACH_SHOP mapseen; Hallu shkname;
-// SetVoice / Soundeffect robbed mutter; leave-bill verbalize;
+// SetVoice / Soundeffect robbed mutter;
 // shk_move Fast + sobj_at pickaxe (u_entered_shop doorway is D-1080);
 // mongone full;
 // mnearto full (door yank uses enexto/rloc; home_shk still coord set);
@@ -47,6 +48,7 @@
 import { game } from './gstate.js';
 import { rn2, rn1, rnd } from './rng.js';
 import { dist2, highc, online2, upstart, depth } from './hacklib.js';
+import { choose_stairs } from './wizard.js';
 import { in_rooms, stop_occupation } from './hack.js';
 import {
     ESHK, EPRI, IS_ROOM, IS_DOOR, IS_WALL, ZAP_POS, NOTONL, u_at, isok,
@@ -273,12 +275,13 @@ export function set_residency(shkp, zero_out) {
 }
 
 /**
- * C ref: shk.c u_left_shop — leave/boundary bill prompts.
- * Named omissions: leave-boundary verbalize (`!*leavestring && !muteshk`)
- * then rob_shop; caller still deferred so stepping onto the door does
- * not skip C's pay-before-leaving return. remote_burglary is D-1717.
+ * C ref: shk.c u_left_shop `:578–625` — leave/boundary bill prompts.
+ * Boundary unpaid: verbalize (or Deaf/mute pline) then return so the
+ * pay-before-leaving warning is not skipped. Outright leave: rob_shop
+ * then call_kops. remote_burglary is D-1717. Named: SetVoice; heaven
+ * teleport.c caller.
  */
-export async function u_left_shop(leavestring, _newlev) {
+export async function u_left_shop(leavestring, newlev) {
     const u = game.u;
     if (!u) return;
     const leave = leavestring || '';
@@ -294,8 +297,27 @@ export async function u_left_shop(leavestring, _newlev) {
     const eshkp = ESHK(shkp);
     if (!((eshkp?.billct | 0) || (eshkp?.debit | 0))) return;
 
-    // bill unpaid arms (verbalize then rob_shop) deferred — do not
-    // rob_shop here or the boundary warning return is skipped.
+    if (!leave && !muteshk(shkp)) {
+        const not_upset = !eshkp.surcharge;
+        const plname = game.plname || '';
+        if (!hero_deaf() && !muteshk(shkp)) {
+            // SetVoice deferred
+            await verbalize(
+                not_upset
+                    ? `${plname}!  Please pay before leaving.`
+                    : `${plname}!  Don't you leave without paying!`,
+            );
+        } else {
+            await pline(
+                `${Shknam(shkp)} ${not_upset ? 'points out' : 'makes it clear'} that you need to pay before leaving${not_upset ? '.' : '!'}`,
+            );
+        }
+        return;
+    }
+
+    if (await rob_shop(shkp)) {
+        await call_kops(shkp, !newlev && !!loc0?.edge);
+    }
 }
 
 /**
@@ -330,8 +352,7 @@ function makekops(mm) {
 
 /**
  * C ref: shk.c call_kops `:509–564` — alarm, angry_guards, then makekops.
- * Named omit: choose_stairs / stairway_find_type_dir (sx,sy stay 0 so
- * the down-stair swarm is skipped; shk swarm still runs).
+ * choose_stairs (D-1733) fills the down-stair swarm when !nearshop.
  */
 async function call_kops(shkp, nearshop) {
     if (!shkp) return;
@@ -356,9 +377,8 @@ async function call_kops(shkp, nearshop) {
     }
     if (nokops) return;
 
-    const sx = 0;
-    const sy = 0;
-    // choose_stairs(&sx, &sy, TRUE) named omit — isok(0,0) is false.
+    const stair = { sx: 0, sy: 0 };
+    choose_stairs(stair, true);
 
     if (nearshop) {
         if (game.flags?.verbose !== false) {
@@ -370,8 +390,8 @@ async function call_kops(shkp, nearshop) {
     if (game.flags?.verbose !== false) {
         await pline('The Keystone Kops are after you!');
     }
-    if (isok(sx, sy)) {
-        makekops({ x: sx, y: sy });
+    if (isok(stair.sx, stair.sy)) {
+        makekops({ x: stair.sx, y: stair.sy });
     }
     makekops({ x: shkp.mx | 0, y: shkp.my | 0 });
 }

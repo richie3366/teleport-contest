@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1733 shk.c u_left_shop / wizard.c choose_stairs
+
+**Objective:** Open `shk.c` choose_stairs / u_left_shop leave verbalize
+(named). Not remote_burglary.
+**C locus:** `shk.c` `u_left_shop` `:578–625`; `wizard.c` `choose_stairs`
+`:330–364`; `stairs.c` `stairway_find_type_dir` `:88–96`.
+**JS locus:** `js/shk.js` `u_left_shop` / `call_kops`; `js/wizard.js`
+`choose_stairs`; `js/mklev.js` `stairway_find_type_dir`.
+**Change:** unpaid door-edge verbalize then return; outright leave
+`rob_shop` + `call_kops`; stair swarm via `choose_stairs`. Named:
+SetVoice; heaven teleport.c caller; STRAT_HEAL rloc/healmon.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `shk.c:u_left_shop`; node
+dir/ladder/branch/opposite/portal/`builds_up` + boundary no-steal;
+green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+Rule #2 clean.
+**Next:** Open `display.c` display_monster M_AP_MONSTER what_mon.
+**Blocked:** none.
 ## 2026-08-30 — D-1732 obj.h is_multigen / is_poisonable
 
 **Objective:** Open `objects.h` is_multigen / is_poisonable (named). Not oc_merge.

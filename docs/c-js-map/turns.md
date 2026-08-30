@@ -2857,8 +2857,13 @@ skips); **D-1719:** `artifact.c` `arti_cost` `:2308–2317` +
 unchanged); **D-1720:** `invent.c` `currency` `:1545–1554` Hallu
 `ROLL_FROM(currencies[])` (`hack.h` `rn2(SIZE)`; `amount!=1L`
 `makeplural`; live `js/invent.js` + `xprname` + wallet +
-dokick/dig/lock/trap clones); named: choose_stairs / `u_left_shop` leave verbalize then
-rob_shop, `costly_gold`; `end.c` `artifact_score` is D-1730; botl live
+dokick/dig/lock/trap clones); **D-1733:** `u_left_shop` `:578–625`
+leave-boundary verbalize then `rob_shop`/`call_kops`; `wizard.c`
+`choose_stairs` `:330–364` + `stairs.c` `stairway_find_type_dir`
+`:88–96` stair swarm (`builds_up` / ladder / branch / opposite);
+live `js/shk.js` + `js/wizard.js` + `js/mklev.js`; named: SetVoice;
+teleport.c heaven caller; STRAT_HEAL still rloc/healmon; `costly_gold`;
+`end.c` `artifact_score` is D-1730; botl live
 `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 

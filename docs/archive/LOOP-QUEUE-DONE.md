@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `objects.h` is_multigen / is_poisonable (named). Not oc_merge. **Addressed:** D-1732
+- [x] `shk.c` choose_stairs / u_left_shop leave verbalize (named). Not remote_burglary. **Addressed:** D-1733
+
+
+- [x] `objects.h` is_multigen / is_poisonable (named). Not oc_merge. **Addressed:** D-1732 `438c0380`
 
 
 - [x] `invent.c` doprgold hidden_gold (named). Not currency. **Addressed:** D-1731 `fbce2b1c`

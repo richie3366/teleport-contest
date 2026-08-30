@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1733 — shk.c u_left_shop leave verbalize / wizard.c choose_stairs
+
+- **Status:** fixed (map-driven Open from D-1732; not a public FAIL)
+- **Symptom:** map named `choose_stairs` / `u_left_shop` leave verbalize.
+  C unpaid shop-boundary warns then returns; outright leave runs
+  `rob_shop` then `call_kops`. `call_kops` uses `choose_stairs` so Kops
+  can swarm the down stair. JS returned after the bill check (no
+  verbalize, no `rob_shop` from leave) and left `sx,sy` at 0 so
+  `isok` skipped the stair swarm.
+- **C locus:** `shk.c` `u_left_shop` `:578–625`; `wizard.c`
+  `choose_stairs` `:330–364`; `stairs.c` `stairway_find_type_dir`
+  `:88–96`; `call_kops` `:540`.
+- **JS was:** empty unpaid arms in `u_left_shop`; `call_kops` named-omit
+  `choose_stairs` (D-1717 stair swarm skipped).
+- **Fix:** boundary `!*leavestring && !muteshk` verbalize (Deaf/mute
+  pline else) then return; leave `rob_shop` + `call_kops`; export
+  `stairway_find_type_dir`; `choose_stairs` walks stairs/ladder/branch/
+  opposite with `builds_up`.
+- **JS:** `js/shk.js` `u_left_shop` / `call_kops`; `js/wizard.js`
+  `choose_stairs`; `js/mklev.js` `stairway_find_type_dir`.
+- **Not this iter:** SetVoice; teleport.c heaven `u_left_shop`;
+  STRAT_HEAL rloc/healmon/FALLTHROUGH; `costly_gold`;
+  `shopper_financial_report`. remote_burglary is D-1717.
+- **Verified:** save-oracle probe skip (untagged `shk.c:u_left_shop`);
+  node `choose_stairs` dir/ladder/branch/opposite/portal/`builds_up` +
+  boundary billct unchanged; green+strict seed8000/0900; CURRENT
+  cohort **7**/7 + strict. Rule #2 clean.
+- **Files:** `js/shk.js`, `js/wizard.js`, `js/mklev.js`.
+
 ## D-1732 — obj.h is_multigen / is_poisonable
 
 - **Status:** fixed (map-driven Open from D-1731; not a public FAIL)
