@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-1707 — dungeon.c recalc_mapseen Blind bigroom / oracle / valley / sanctum
+
+- **Status:** fixed (map-driven Open from D-1706; not a public FAIL)
+- **Symptom:** map named `recalc_mapseen` Blind bigroom / oracle /
+  valley / sanctum. C sets `#overview` auto-annotation flags:
+  `bigroom` when sighted (retained while Blind unless `forgot`),
+  `oracle` from a seen room whose `orig_rtype` is DELPHI, `valley` /
+  `msanctum` when a mapped altar is on those levels, and
+  `vibrating_square` from the invocation-level trap (or its absence
+  vs sanctum). JS printed those lines if flags were already set
+  (D-1650) but never set them after D-1693.
+- **C locus:** `dungeon.c` `recalc_mapseen` `:3074–3261`
+  (`:3115–3124` Blind/`oracle=0`/`castletune`/`forgot=0`;
+  `:3171` `orig_rtype==DELPHI`; `:3205–3238` valley/sanctum/
+  Invocation_lev); `Invocation_lev` `:2016–2021`; `dungeon.h`
+  `Is_bigroom` / `Is_valley` / `Is_sanctum`; `youprop.h` `Blind`.
+- **JS was:** `// DELPHI → flags.oracle deferred` and comment
+  `Valley/sanctum/oracle/Blind bigroom still deferred`.
+- **Fix:** Blind retain vs forgot wipe; live `orig_rtype` (rtype
+  fallback only when unset); naltar stick; sanctum clears the
+  invocation level's gateway flag; trap walk `level.traps` then
+  `ftrap`. Rule #2: no fs.
+- **JS:** `js/dungeon.js` `recalc_mapseen` / `Invocation_lev`;
+  `Is_valley` / `Is_sanctum` `js/const.js`.
+- **Not this iter:** sokosolved / roguelevel / quest_summons /
+  questing / notreachable; DRAWBRIDGE_UP under-typ / furniture-mimic
+  `update_lastseentyp`; yyyymmddhhmmss when[]; knox/drawbridge
+  (D-1693); `hack.js` local `Invocation_lev` clone.
+- **Verified:** private canary 21/21 (Blind retain/forgot; DELPHI
+  orig_rtype vs unseen/`Is_oracle_level`; valley stick; sanctum
+  clears invoc; tseen / no-trap vs msanctum); save-oracle probe
+  skip (untagged); green+strict seed8000/0900; CURRENT cohort 7/7
+  + strict (incl. seed0007 302/302, seed2200 230/230).
+- **Files:** `js/dungeon.js`, `js/const.js`.
+
 ## D-1706 — cmd.c yn_function addcmdq
 
 - **Status:** fixed (map-driven Open from D-1705; not a public FAIL)

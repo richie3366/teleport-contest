@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1707 dungeon.c recalc_mapseen Blind/oracle/valley/sanctum
+
+**Objective:** Open `dungeon.c` recalc_mapseen Blind bigroom / oracle /
+valley / sanctum. Not knox/drawbridge.
+**C locus:** `dungeon.c` `recalc_mapseen` `:3115–3238`;
+`Invocation_lev` `:2016–2021`; `dungeon.h` Is_valley/Is_sanctum.
+**JS locus:** `js/dungeon.js` `recalc_mapseen` + `Invocation_lev`;
+`Is_valley`/`Is_sanctum` `js/const.js`.
+**Change:** Blind retain/`forgot` wipe; `orig_rtype` DELPHI; naltar
+valley+msanctum; invoc tseen vs sanctum gateway. Named sokosolved /
+quest flags / DRAWBRIDGE_UP lastseentyp / yyyymmddhhmmss.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; canary 21/21; green+strict;
+cohort 7/7 incl. seed0007 302/302 seed2200 230/230.
+**Next:** Open `dungeon.c` cemetery yyyymmddhhmmss when[]. Not
+cemetery JSON.
+**Blocked:** none.
 ## 2026-08-30 — D-1706 cmd.c yn_function addcmdq
 
 **Objective:** Open `getline.c` yn_function addcmdq. Not Traditional itemize.

@@ -56,9 +56,14 @@ import {
     Msa2amask,
     Amask2align,
     MSA_NONE,
+    DELPHI,
+    VIBRATING_SQUARE,
     Is_astralevel,
     Is_knox,
     Is_stronghold,
+    Is_bigroom,
+    Is_valley,
+    Is_sanctum,
     IS_THRONE,
     isok,
     SVALL,
@@ -901,8 +906,8 @@ function on_level(a, b) {
 /**
  * C ref: dungeon.c interest_mapseen — which mapseen nodes appear in
  * #overview (why==0). Cemetery: final_resting_place && (knownbones
- * || wizard) after recalc clone (D-1659). Named omissions: full
- * auto-annotation flag set beyond the common ones.
+ * || wizard) after recalc clone (D-1659). Auto-flags oracle/bigroom/
+ * valley/msanctum/vibrating_square from recalc_mapseen (D-1707).
  */
 function interest_mapseen(mptr) {
     const u = game.u || {};
@@ -1239,6 +1244,47 @@ export function restore_mapseenchn(payload) {
 }
 
 /**
+ * C youprop.h Blind — (H||E) && !B; roleplay OPTIONS:blind.
+ * Local youprop clone (not a C function).
+ */
+function Blind() {
+    const u = game.u || {};
+    if (u.uroleplay?.blind) return true;
+    return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
+}
+
+/**
+ * C dungeon.c Invocation_lev `:2016–2021` — In_hell && deepest-1.
+ * Canonical export (hack.js / apply.js still have local clones).
+ * @param {{ dnum?: number, dlevel?: number }|null|undefined} lev
+ * @returns {boolean}
+ */
+export function Invocation_lev(lev) {
+    if (!lev) return false;
+    const dun = game.dungeons?.[lev.dnum | 0];
+    if (!dun?.flags?.hellish) return false;
+    return (lev.dlevel | 0) === ((dun.num_dunlevs | 0) - 1);
+}
+
+/**
+ * C gf.ftrap walk in recalc_mapseen Invocation_lev arm. Live JS list
+ * is level.traps (D-1694); ftrap ntrap is the C-shaped fallback.
+ * @returns {object|null}
+ */
+function vibrating_square_trap() {
+    const list = game.level?.traps;
+    if (Array.isArray(list)) {
+        for (const t of list) {
+            if (t && (t.ttyp | 0) === VIBRATING_SQUARE) return t;
+        }
+    }
+    for (let t = game.ftrap; t; t = t.ntrap) {
+        if ((t.ttyp | 0) === VIBRATING_SQUARE) return t;
+    }
+    return null;
+}
+
+/**
  * C ref: dungeon.c cemetery chain copy — recalc clones bonesinfo onto
  * mapseen so #overview does not require the level to stay in memory.
  * @param {object|null} head
@@ -1269,8 +1315,10 @@ function clone_cemetery_chain(head) {
  * msrooms (shops/temples) + lastseentyp. Cemetery clone + bonesknown
  * from lastseentyp[frpx][frpy] (D-1659). flags.castletune cleared each
  * pass then restored by count_feat if the drawbridge is still seen;
- * flags.castle / flags.ludios stick. Valley/sanctum/oracle/Blind
- * bigroom still deferred (named in C-JS-MAP).
+ * flags.castle / flags.ludios stick. Blind bigroom / oracle DELPHI /
+ * valley / sanctum / vibrating_square (D-1707). Named: sokosolved /
+ * roguelevel / quest_summons / questing / notreachable; DRAWBRIDGE_UP
+ * lastseentyp; yyyymmddhhmmss when[].
  */
 export function recalc_mapseen() {
     const mptr = ensure_mapseen(null);
@@ -1280,10 +1328,19 @@ export function recalc_mapseen() {
     }
     mptr.feat = empty_feat();
     if (!mptr.flags) mptr.flags = {};
-    /* C `:3122` — destroyed drawbridge → tunesuffix empty */
-    mptr.flags.castletune = 0;
     const u = game.u;
     const rooms = game.level?.rooms || [];
+    /* C `:3115–3124` — bigroom retains when Blind; oracle reset;
+       destroyed drawbridge → tunesuffix empty. forgot=0 after the
+       Blind test so a one-shot forget does not keep wiping bigroom. */
+    if (!Blind()) {
+        mptr.flags.bigroom = Is_bigroom(u?.uz) ? 1 : 0;
+    } else if (mptr.flags.forgot) {
+        mptr.flags.bigroom = 0;
+    }
+    mptr.flags.oracle = 0;
+    mptr.flags.castletune = 0;
+    mptr.flags.forgot = 0;
 
     // C: track rooms the hero is in → msrooms[].seen / untended
     const urooms = u?.urooms || '';
@@ -1313,7 +1370,7 @@ export function recalc_mapseen() {
         }
     }
 
-    // C: recalculate room knowledge — shops and temples
+    // C: recalculate room knowledge — shops and temples + DELPHI oracle
     for (let i = 0; i < mptr.msrooms.length; i++) {
         if (!mptr.msrooms[i].seen) continue;
         const rt = rooms[i]?.rtype | 0;
@@ -1330,8 +1387,9 @@ export function recalc_mapseen() {
         } else if (rt === TEMPLE) {
             const count = (mptr.feat.ntemple | 0) + 1;
             if (count <= 3) mptr.feat.ntemple = count;
+        } else if (((rooms[i]?.orig_rtype ?? rooms[i]?.rtype) | 0) === DELPHI) {
+            mptr.flags.oracle = 1;
         }
-        // DELPHI → flags.oracle deferred
     }
 
     // C: if (!Levitation) update_lastseentyp(u.ux, u.uy);
@@ -1342,6 +1400,35 @@ export function recalc_mapseen() {
     for (let x = 1; x < COLNO; x++) {
         for (let y = 0; y < ROWNO; y++) {
             count_feat_lastseentyp(mptr, x, y);
+        }
+    }
+
+    /* C `:3205–3238` — valley/sanctum stick if naltar later drops;
+       sanctum clears vibrating_square on the invocation level;
+       Invocation_lev uses tseen or (no trap && sanctum not mapped). */
+    if (Is_valley(u?.uz)) {
+        if ((mptr.feat.naltar | 0) > 0) mptr.flags.valley = 1;
+    } else if (Is_sanctum(u?.uz)) {
+        if ((mptr.feat.naltar | 0) > 0) mptr.flags.msanctum = 1;
+        if (mptr.flags.msanctum) {
+            const invocat_lvl = {
+                dnum: u?.uz?.dnum | 0,
+                dlevel: (u?.uz?.dlevel | 0) - 1,
+            };
+            const oth = find_mapseen(invocat_lvl);
+            if (oth) {
+                if (!oth.flags) oth.flags = {};
+                oth.flags.vibrating_square = 0;
+            }
+        }
+    } else if (Invocation_lev(u?.uz)) {
+        const t = vibrating_square_trap();
+        if (t) {
+            mptr.flags.vibrating_square = t.tseen ? 1 : 0;
+        } else {
+            const sanctum = game.sanctum_level;
+            const oth = sanctum ? find_mapseen(sanctum) : null;
+            mptr.flags.vibrating_square = (!oth || !oth.flags?.msanctum) ? 1 : 0;
         }
     }
 
@@ -1663,7 +1750,8 @@ export function mapseen_cemetery_lines(mptr, why, reason, ctx) {
  * why==-1: level row selectable with identifier ledger_no+1 (ch=0).
  * Headings / feat / named-place / branch / cemetery are add_menu_str.
  * Knox / castle+tunesuffix flags from count_feat_lastseentyp (D-1693).
- * Named omit: #if 0 water/lava/ice.
+ * Blind bigroom / oracle / valley / msanctum / vibrating_square from
+ * recalc_mapseen (D-1707). Named omit: #if 0 water/lava/ice.
  * @param {object[]} entries
  * @param {object} mptr
  * @param {number} why

@@ -3073,6 +3073,20 @@ export function Is_bigroom(uz) {
         && (uz ?? g?.u?.uz)?.dnum === g.bigroom_level.dnum
         && (uz ?? g?.u?.uz)?.dlevel === g.bigroom_level.dlevel;
 }
+/** C ref: dungeon.h Is_valley — Lcheck(&valley_level). */
+export function Is_valley(uz) {
+    const g = game;
+    return !!g?.valley_level
+        && (uz ?? g?.u?.uz)?.dnum === g.valley_level.dnum
+        && (uz ?? g?.u?.uz)?.dlevel === g.valley_level.dlevel;
+}
+/** C ref: dungeon.h Is_sanctum — Lcheck(&sanctum_level). */
+export function Is_sanctum(uz) {
+    const g = game;
+    return !!g?.sanctum_level
+        && (uz ?? g?.u?.uz)?.dnum === g.sanctum_level.dnum
+        && (uz ?? g?.u?.uz)?.dlevel === g.sanctum_level.dlevel;
+}
 export function Is_juiblex_level(uz) {
     const g = game;
     return g?.juiblex_level
