@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1705 — shk.c bill_box_content
+
+- **Status:** fixed (map-driven Open from D-1704; not a public FAIL)
+- **Symptom:** map named `bill_box_content`. C `addtobill` prices
+  nested contents (`contained_cost`) then bills each non-gold
+  child (`bill_box_content` → `add_one_tobill`) so pickup of a
+  filled shop container puts contents on the bill. JS skipped
+  both calls (`cltmp` stayed 0) so only the outer box was billed.
+- **C locus:** `shk.c` `bill_box_content` `:3386–3407`; caller
+  `addtobill` `:3526–3534`; callees `add_one_tobill`,
+  `SchroedingersBox`, `Has_contents`. `picked_container`
+  `:3084–3100` coin skip in the same container arm.
+- **JS was:** container arm billed the outer object only;
+  `contained_cost` / `bill_box_content` commented deferred.
+- **Fix:** live `contained_cost` then `bill_box_content` when
+  `cltmp`; skip SchroedingersBox and coins; recurse
+  `Has_contents`; `picked_container` skip `COIN_CLASS`;
+  `add_one_tobill` `record_price_quote`; Deaf list-price
+  `the_contents_of` / `and_its_contents` + `the()`/`The()`.
+  Named: dummy→`add_to_billobjs`; bill-full You(); OBJ_FREE
+  dealloc; globby OMID; FullyUsedUp; `remote_burglary`.
+- **JS:** `js/shk.js` (import `SchroedingersBox` from `pickup.js`).
+- **Verified:** save-oracle probe skip (untagged); green+strict
+  seed8000/0900; focused seed0116 127/127; CURRENT cohort 10/10
+  + strict (incl. seed0007 302/302, seed2200 230/230).
+- **Files:** `js/shk.js`.
+
 ## D-1704 — shk.c dopay multi-shk getpos
 
 - **Status:** fixed (map-driven Open from D-1703; not a public FAIL)

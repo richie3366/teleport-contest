@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `shk.c` bill_box_content (named). Not contained_cost.
 - [ ] `getline.c` yn_function addcmdq (named). Not Traditional itemize.
 - [ ] `dungeon.c` recalc_mapseen Blind bigroom / oracle / valley / sanctum (named). Not knox/drawbridge.
 - [ ] `dungeon.c` cemetery yyyymmddhhmmss when[] (named). Not cemetery JSON.

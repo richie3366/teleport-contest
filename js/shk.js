@@ -26,11 +26,12 @@
 // mnearto full (door yank uses enexto/rloc; home_shk still coord set);
 // after_shk_move occupancy check_special_room (bill_p==-1000 producer);
 // losedogs make_happy_shoppers; paygd; M1_NOHEAD has_head;
-// container bill_box_content; remote_burglary; gem glass
+// remote_burglary; gem glass
 // pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease (D-0998); used-up FullyUsedUp/PartlyUsedUp;
 // traditional itemize ynq; multi-shk getpos pay-whom (D-1704);
+// container bill_box_content (D-1705);
 // SetVoice; Izchak candle special_stock polish; safe_qbuf sell prompt;
 // money2u invent-full dropy; break_seq simultaneous shop shatter;
 // billobjs residual when sub_one_frombill partial quan; nextoid shop-price
@@ -86,6 +87,7 @@ import { simpleonames, makeplural, xprname } from './objnam.js';
 import {
     xname, doname, paydoname, set_doname_shop_suffix,
     ansimpleoname, thesimpleoname, append_wizweight_suffix,
+    the, The,
 } from './objnam.js';
 import {
     is_human, is_demon, is_watch, nolimbs, is_floater, is_flyer, amorphous,
@@ -104,6 +106,7 @@ import { enexto, rloc_to_flag, migrate_to_level } from './teleport.js';
 import { ledger_no } from './dungeon.js';
 import { Is_candle } from './timeout.js';
 import { addinv } from './u_init.js';
+import { SchroedingersBox } from './pickup.js';
 
 const PICK_AXE = objectNames.indexOf('PICK_AXE');
 const DWARVISH_MATTOCK = objectNames.indexOf('DWARVISH_MATTOCK');
@@ -2413,11 +2416,12 @@ export async function check_shop_obj(obj, x, y, broken) {
 }
 
 /**
- * C ref: shk.c picked_container — clear no_charge on all nested contents.
+ * C ref: shk.c picked_container — clear no_charge on nested non-gold.
  */
 export function picked_container(obj) {
     for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
-        otmp.no_charge = 0;
+        if ((otmp.oclass | 0) === COIN_CLASS) continue;
+        if (otmp.no_charge) otmp.no_charge = 0;
         if (Has_contents(otmp)) picked_container(otmp);
     }
 }
@@ -2965,7 +2969,8 @@ export function billable(shkHolder, obj, roomno, reset_nocharge) {
 
 /**
  * C ref: shk.c add_one_tobill.
- * Named omissions: dummy→billobjs; globby OMID.
+ * Named omissions: dummy→add_to_billobjs; bill-full You();
+ * OBJ_FREE dealloc; globby newomid/OMID.
  */
 function add_one_tobill(obj, dummy, shkp) {
     const eshkp = ESHK(shkp);
@@ -2992,6 +2997,22 @@ function add_one_tobill(obj, dummy, shkp) {
     eshkp.bill_p[bct] = bp;
     eshkp.billct = bct + 1;
     obj.unpaid = 1;
+    record_price_quote(obj.otyp, bp.price, true);
+}
+
+/**
+ * C ref: shk.c bill_box_content `:3386–3407` — bill nested contents.
+ * Top box is addtobill; skip coins and SchroedingersBox. Recurse
+ * even when the child itself was no_charge. Named: add_one_tobill
+ * dummy→billobjs / bill-full You / OBJ_FREE dealloc / globby OMID.
+ */
+function bill_box_content(obj, ininv, dummy, shkp) {
+    if (SchroedingersBox(obj)) return;
+    for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
+        if ((otmp.oclass | 0) === COIN_CLASS) continue;
+        if (!otmp.no_charge) add_one_tobill(otmp, dummy, shkp);
+        if (Has_contents(otmp)) bill_box_content(otmp, ininv, dummy, shkp);
+    }
 }
 
 /**
@@ -3015,9 +3036,9 @@ function append_honorific(bufRef) {
 /**
  * C ref: shk.c addtobill — unpaid pickup quote path.
  * Covered: non-container ininv `"For you,"` + append_honorific;
- * COIN_CLASS / container contained_gold → costly_gold (D-0991).
- * Deferred: container bill_box_content / contained_cost; remote silent;
- * Deaf list-price arm fully; Angry "scum" still wired.
+ * COIN_CLASS / container contained_gold → costly_gold (D-0991);
+ * container contained_cost + bill_box_content (D-1705).
+ * Named: remote silent; SetVoice; add_one_tobill dummy→billobjs.
  */
 export async function addtobill(obj, ininv, dummy, silent) {
     const holder = { shkp: null };
@@ -3049,10 +3070,10 @@ export async function addtobill(obj, ininv, dummy, silent) {
 
     let contentscount = 0;
     if (container) {
-        // bill_box_content / contained_cost deferred — still bill outer if priced
+        cltmp = contained_cost(obj, shkp, cltmp, false, false);
         gltmp = contained_gold(obj, true);
         if (ltmp) add_one_tobill(obj, dummy, shkp);
-        // bill_box_content deferred
+        if (cltmp) bill_box_content(obj, ininv, dummy, shkp);
         picked_container(obj);
         ltmp += cltmp;
 
@@ -3067,17 +3088,16 @@ export async function addtobill(obj, ininv, dummy, silent) {
         add_one_tobill(obj, dummy, shkp);
     }
 
-    const u = game.u;
-    const deaf = !!(u?.Deaf || (u?.HDeaf | 0) || (u?.EDeaf | 0)
-        || u?.uroleplay?.deaf);
-    if (!deaf && !muteshk(shkp) && !silent) {
+    if (!hero_deaf() && !muteshk(shkp) && !silent) {
         if (!ltmp) {
-            await pline(`${Shknam(shkp)} has no interest in ${xname(obj)}.`);
+            await pline(
+                `${Shknam(shkp)} has no interest in ${the(xname(obj))}.`,
+            );
             return;
         }
         if (!ininv) {
             await pline(
-                `${xname(obj)} will cost you ${ltmp} ${currency(ltmp)}${(obj.quan | 0) > 1 ? ' each' : ''}.`,
+                `${The(xname(obj))} will cost you ${ltmp} ${currency(ltmp)}${(obj.quan | 0) > 1 ? ' each' : ''}.`,
             );
         } else {
             const buf = { s: '"For you,' };
@@ -3095,7 +3115,8 @@ export async function addtobill(obj, ininv, dummy, silent) {
                 : (contentscount && !obj.unpaid)
                     ? 'for the contents of this'
                     : 'for this';
-            const contents = (contentscount && obj.unpaid) ? ' and its contents' : '';
+            const contents = (contentscount && obj.unpaid)
+                ? ' and its contents' : '';
             await pline(
                 `${buf.s} ${ltmp} ${currency(ltmp)} ${forWhat} ${xname(obj)}${contents}."`,
             );
@@ -3103,8 +3124,12 @@ export async function addtobill(obj, ininv, dummy, silent) {
         }
     } else if (!silent) {
         if (ltmp) {
+            const contentsonly = contentscount && !obj.unpaid
+                ? 'the contents of ' : '';
+            const andContents = contentscount && obj.unpaid
+                ? ' and its contents' : '';
             await pline(
-                `The list price of ${xname(obj)} is ${ltmp} ${currency(ltmp)}${(obj.quan | 0) > 1 ? ' each' : ''}.`,
+                `The list price of ${contentsonly}${the(xname(obj))}${andContents} is ${ltmp} ${currency(ltmp)}${(obj.quan | 0) > 1 ? ' each' : ''}.`,
             );
         } else {
             await pline(`${Shknam(shkp)} does not notice.`);

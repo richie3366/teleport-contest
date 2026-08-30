@@ -2769,9 +2769,15 @@ Has_contents rewrite; `unpaid_cost` COST_CONTENTS → `contained_cost`;
 or MIRROR; `highc` unknown announce vs `You(fmt)`; `plur(amt)`;
 **D-1704:** `dopay` `:1814–1856` multi-shk `getpos` pay-whom (ESC
 `ECMD_CANCEL`; `cx<0` / self / `!cansee` / empty / `!isshk` / too-far);
+**D-1705:** `bill_box_content` `:3386–3407` + `addtobill` `:3526–3534`
+`contained_cost` then bill nested contents (`SchroedingersBox` skip;
+coins skip; recurse `Has_contents`); `picked_container` coin skip;
+`add_one_tobill` `record_price_quote`; list-price `the_contents_of` /
+`and_its_contents`; named: dummy→`add_to_billobjs` / bill-full You /
+OBJ_FREE dealloc / globby OMID;
 deferred used-up FullyUsedUp/PartlyUsedUp, traditional itemize ynq,
 mute/Deaf thank-you nod; `observe_object` FIRST_OBJECT skip;
-deferred container `bill_box_content`, `remote_burglary`, gem glass pseudo-ID, 
+`remote_burglary`, gem glass pseudo-ID, 
 `arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 
