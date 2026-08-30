@@ -16,6 +16,7 @@
 //        check_unpaid / check_unpaid_usage / cost_per_charge (D-1047).
 //        find_oid / o_on / gem_learned / bp_to_obj billobjs (D-1691).
 //        remote_burglary / rob_shop / call_kops / makekops (D-1717).
+//        get_cost glass-gem pseudo-ID (D-1718).
 // Named omissions: shk_fixes_damage in shk_move; allmain/bones
 // fix_shop_damage callers; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
@@ -27,8 +28,7 @@
 // mnearto full (door yank uses enexto/rloc; home_shk still coord set);
 // after_shk_move occupancy check_special_room (bill_p==-1000 producer);
 // losedogs make_happy_shoppers; paygd; M1_NOHEAD has_head;
-// gem glass
-// pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM;
+// arti_cost; Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease (D-0998);
 // multi-shk getpos pay-whom (D-1704); mute/Deaf nod is D-1716;
@@ -68,7 +68,8 @@ import { mon_nam, x_monnam, y_monnam, Monnam } from './do_name.js';
 import {
     COIN_CLASS, FOOD_CLASS, WAND_CLASS, POTION_CLASS, ARMOR_CLASS,
     WEAPON_CLASS, TOOL_CLASS, GEM_CLASS, SCROLL_CLASS, SPBOOK_CLASS,
-    BALL_CLASS, CHAIN_CLASS, FIRST_REAL_GEM, objects, POT_WATER,
+    BALL_CLASS, CHAIN_CLASS, FIRST_REAL_GEM, LAST_REAL_GEM, objects,
+    POT_WATER,
 } from './objects.js';
 import {
     newsym, pline, Norep, verbalize, You_feel, docrt, flush_screen,
@@ -135,6 +136,27 @@ const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const POT_OIL = objectNames.indexOf('POT_OIL');
 /** C objects.h STRANGE_OBJECT — otyp 0; gem_learned all-gems sentinel. */
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
+/** C objects.h MARKER FIRST_GLASS_GEM = WORTHLESS_WHITE_GLASS (after JADE). */
+const FIRST_GLASS_GEM = LAST_REAL_GEM + 1;
+/** C objects.h GEM names used by get_cost glass pseudo-ID. */
+const DIAMOND = objectNames.indexOf('DIAMOND');
+const OPAL = objectNames.indexOf('OPAL');
+const SAPPHIRE = objectNames.indexOf('SAPPHIRE');
+const AQUAMARINE = objectNames.indexOf('AQUAMARINE');
+const RUBY = objectNames.indexOf('RUBY');
+const JASPER = objectNames.indexOf('JASPER');
+const AMBER = objectNames.indexOf('AMBER');
+const TOPAZ = objectNames.indexOf('TOPAZ');
+const JACINTH = objectNames.indexOf('JACINTH');
+const AGATE = objectNames.indexOf('AGATE');
+const CITRINE = objectNames.indexOf('CITRINE');
+const CHRYSOBERYL = objectNames.indexOf('CHRYSOBERYL');
+const BLACK_OPAL = objectNames.indexOf('BLACK_OPAL');
+const JET = objectNames.indexOf('JET');
+const EMERALD = objectNames.indexOf('EMERALD');
+const JADE = objectNames.indexOf('JADE');
+const AMETHYST = objectNames.indexOf('AMETHYST');
+const FLUORITE = objectNames.indexOf('FLUORITE');
 const LAND_MINE = objectNames.indexOf('LAND_MINE');
 const BEARTRAP = objectNames.indexOf('BEARTRAP');
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -2938,7 +2960,7 @@ function getprice(obj, shk_buying) {
 
 /**
  * C ref: shk.c get_cost — charge for one unit.
- * Named omissions: glass-gem pseudo-ID table; bill-price reuse FIXME.
+ * Named omissions: bill-price reuse FIXME; arti_cost (getprice).
  */
 function get_cost(obj, shkp) {
     let tmp = getprice(obj, false);
@@ -2949,7 +2971,45 @@ function get_cost(obj, shkp) {
     const oc = objects()?.[obj?.otyp | 0];
     if (!obj?.dknown || !oc?.oc_name_known) {
         if ((obj?.oclass | 0) === GEM_CLASS && (oc?.oc_material | 0) === GLASS) {
-            // glass gem pseudo-ID → objects[i].oc_cost deferred; keep tmp
+            /* C shk.c get_cost :2897–2941 — ubirthday-stable color table */
+            const otyp = obj.otyp | 0;
+            const pseudorand =
+                ((game.ubirthday | 0) % otyp) >= Math.trunc(otyp / 2);
+            let i;
+            switch (otyp - FIRST_GLASS_GEM) {
+            case 0: /* white */
+                i = pseudorand ? DIAMOND : OPAL;
+                break;
+            case 1: /* blue */
+                i = pseudorand ? SAPPHIRE : AQUAMARINE;
+                break;
+            case 2: /* red */
+                i = pseudorand ? RUBY : JASPER;
+                break;
+            case 3: /* yellowish brown */
+                i = pseudorand ? AMBER : TOPAZ;
+                break;
+            case 4: /* orange */
+                i = pseudorand ? JACINTH : AGATE;
+                break;
+            case 5: /* yellow */
+                i = pseudorand ? CITRINE : CHRYSOBERYL;
+                break;
+            case 6: /* black */
+                i = pseudorand ? BLACK_OPAL : JET;
+                break;
+            case 7: /* green */
+                i = pseudorand ? EMERALD : JADE;
+                break;
+            case 8: /* violet */
+                i = pseudorand ? AMETHYST : FLUORITE;
+                break;
+            default:
+                impossible(`bad glass gem ${otyp}?`);
+                i = STRANGE_OBJECT;
+                break;
+            }
+            tmp = objects()?.[i]?.oc_cost | 0;
         } else if (oid_price_adjustment(obj, obj?.o_id | 0) > 0) {
             multiplier *= 4;
             divisor *= 3;

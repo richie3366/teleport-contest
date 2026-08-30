@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1718 — shk.c get_cost gem glass pseudo-ID
+
+- **Status:** fixed (map-driven Open from D-1717; not a public FAIL)
+- **Symptom:** map named glass-gem pseudo-ID. Unidentified shop glass
+  used `getprice` 0 then `tmp = 5` instead of the real-gem `oc_cost`
+  C assigns from a birthday-stable color table.
+- **C locus:** `shk.c` `get_cost` `:2897–2941`
+  `!dknown || !oc_name_known` then `GEM_CLASS && oc_material == GLASS`
+  then `pseudorand = ((int) ubirthday % otyp) >= otyp / 2` then
+  `switch (otyp - FIRST_GLASS_GEM)` cases 0–8 (white…violet) else
+  `impossible` + `STRANGE_OBJECT`; `tmp = objects[i].oc_cost`.
+  `oid_price_adjustment` `:2862–2873` already skips that glass arm.
+  `u_init.c` `u_init_misc` already sets `ubirthday = getnow()`.
+- **JS was:** empty glass branch; keep `tmp` (5).
+- **Fix:** live switch + `LAST_REAL_GEM+1` `FIRST_GLASS_GEM` + gem
+  otyps via `objectNames`. Identified glass still 5. Tourist/CHA
+  roundoff still runs on the gem `tmp`. Rule #2: no fs.
+- **JS:** `js/shk.js` `get_cost`.
+- **Not this iter:** `arti_cost`; Hallu currency; bill-price reuse
+  FIXME; `set_cost` gemstone/glass buy table; `costly_gold`.
+- **Verified:** save-oracle probe skip (untagged `shk.c:get_cost`);
+  private canary **12**/12; green+strict seed8000/0900; focused
+  seed0383 + seed0116; CURRENT cohort **7**/7 + strict.
+- **Files:** `js/shk.js`.
+
 ## D-1717 — shk.c remote_burglary unpaid steal-from-outside-shop
 
 - **Status:** fixed (map-driven Open from D-1716; not a public FAIL)

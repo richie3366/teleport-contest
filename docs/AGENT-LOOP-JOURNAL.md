@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1718 shk.c get_cost gem glass pseudo-ID
+
+**Objective:** Open `shk.c` get_cost gem glass pseudo-ID (named). Not
+remote_burglary.
+**C locus:** `shk.c` `get_cost` `:2897–2941`; `oid_price_adjustment`
+`:2862–2873`; `objects.h` `FIRST_GLASS_GEM`.
+**JS locus:** `js/shk.js` `get_cost`.
+**Change:** unidentified glass uses `ubirthday` color table
+`oc_cost` instead of tmp=5. Named: `arti_cost`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; canary 12/12; green+strict;
+focused seed0383/0116; cohort 7/7 + strict.
+**Next:** Open `shk.c` arti_cost.
+**Blocked:** none.
 ## 2026-08-30 — D-1717 shk.c remote_burglary unpaid steal
 
 **Objective:** Open `shk.c` remote_burglary (named). Not

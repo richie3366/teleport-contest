@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `shk.c` remote_burglary (named). Not bill_box_content. **Addressed:** D-1717
+- [x] `shk.c` get_cost gem glass pseudo-ID (named). Not remote_burglary. **Addressed:** D-1718
+
+
+- [x] `shk.c` remote_burglary (named). Not bill_box_content. **Addressed:** D-1717 `ed4800ed`
 
 
 - [x] `shk.c` dopay mute/Deaf thank-you nod (named). Not getpos. **Addressed:** D-1716 `0c720b98`

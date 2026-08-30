@@ -2804,10 +2804,12 @@ mute/Deaf thank-you nod (`hero_deaf`/`muteshk` else
 **D-1717:** `remote_burglary` `:664–682` + `rob_shop` `:685–719` +
 `call_kops` `:509–564` + `makekops` `:5112–5135` + `addupbill`
 `:495–507` + `setpaid` `clear_unpaid` walks; `pick_obj` `:1936–1939`
-awaits after addinv when unpaid from outside the shop; named:
-choose_stairs / `u_left_shop` leave verbalize then rob_shop, gem glass
-pseudo-ID, 
-`arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
+awaits after addinv when unpaid from outside the shop; **D-1718:**
+`get_cost` `:2897–2941` glass GEM_CLASS + GLASS `ubirthday` color
+table (`otyp - FIRST_GLASS_GEM` → real-gem `oc_cost`; identified
+skips); named: choose_stairs / `u_left_shop` leave verbalize then
+rob_shop, `arti_cost`, Hallu currency, `costly_gold`; botl live
+`money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 
 ### `src/mon.c` `mnexto`
