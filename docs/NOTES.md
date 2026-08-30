@@ -6,11 +6,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Suite 44/44** after D-1699 (cadence **#2100** at `ac1199da`).
-  seed4500 still PASS. **Hypothesis:** none live — ledger 26/26 and
-  catchup 30/30 after dorecover envelope + restlevelfile omoves
-  restamp. **Next:** Cluster 6 B0 table / remaining map notes.
-  Not mO perminv. Do not skip D-1531…D-1699.
-  Do not re-port D-1675…D-1699.
+  seed4500 still PASS. JSON ledger take done. Private B0:
+  trap-same-floor 17/17; ledger 26/26; catchup 30/30; shop/trap-ledger
+  unrecorded. **Next:** map-driven named omissions. Not mO perminv.
+  Do not skip D-1531…D-1699. Do not re-port D-1675…D-1699.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn
   oc_oprop; keepdogs/grow_up leash; light-scroll `initedog`;

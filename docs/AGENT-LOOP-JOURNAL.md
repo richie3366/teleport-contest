@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — ledger Cluster 6 B0 table / remaining map notes
+
+**Objective:** Close JSON save/restore ledger take — B0 numbers +
+named remainders. No JS.
+**C locus:** n/a (docs).
+**JS locus:** n/a.
+**Change:** CURRENT/NOTES B0: trap-same-floor 17/17; ledger 26/26;
+catchup 30/30; shop/trap-ledger unrecorded. Maps already name binary
+NHFILE, both relink sites, M2/M6, absolute dst, dropped iflags/worn.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** Cluster 5 commit `736b74ec` already green.
+**Next:** map-driven named omissions. Not shop/trap-ledger until recorded.
+**Blocked:** none.
 ## 2026-08-30 — D-1699 restore.c dorecover getlev place / omoves restamp
 
 **Objective:** JSON save/restore ledger Cluster 5 — getlev place,
