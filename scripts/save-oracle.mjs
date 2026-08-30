@@ -7,11 +7,13 @@
 //   node scripts/save-oracle.mjs fork --snapshot <id> --n 8 --seed N
 //   node scripts/save-oracle.mjs minimize --snapshot <id> --moves "<suffix>"
 //   node scripts/save-oracle.mjs prefix-gen --mode explore --n 4
+//   node scripts/save-oracle.mjs probe --omit '<C file>:<fn>'
+//   node scripts/save-oracle.mjs corpus [--check]
 //
 // C save/ is NHFILE; JS is frozen VFS JSON. Never copy one into the other.
 // Snapshot after prefix Sy, before any restore. Fork only from a green prefix.
 
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import {
     existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync,
@@ -48,7 +50,9 @@ function usage() {
   node scripts/save-oracle.mjs replay --snapshot <id> --moves "<moves>"
   node scripts/save-oracle.mjs fork --snapshot <id> --n 8 --seed N [--tail 6] [--emit-private]
   node scripts/save-oracle.mjs minimize --snapshot <id> --moves "<suffix>" [--emit-private]
-  node scripts/save-oracle.mjs prefix-gen --mode explore --n 4 [--seed N] [--tail 80]`);
+  node scripts/save-oracle.mjs prefix-gen --mode explore --n 4 [--seed N] [--tail 80]
+  node scripts/save-oracle.mjs probe --omit '<C file>:<fn>' [--n 4] [--seed N]
+  node scripts/save-oracle.mjs corpus [--check]`);
 }
 
 function argFlag(args, name) {
@@ -844,6 +848,130 @@ async function cmdPrefixGen(args) {
     dumpJson(path.join(CACHE, 'last-prefix-gen.json'), { seed, n, results });
 }
 
+function gitHead() {
+    const out = spawnSync('git', ['rev-parse', 'HEAD'], {
+        cwd: ROOT, encoding: 'utf8',
+    });
+    return (out.stdout || '').trim();
+}
+
+function loadPrefixLibrary() {
+    if (!existsSync(PREFIX_LIB)) {
+        throw new Error(`missing ${PREFIX_LIB}`);
+    }
+    return loadJson(PREFIX_LIB);
+}
+
+function tagsMatch(tags, omit) {
+    const lower = String(omit).trim().toLowerCase();
+    const fn = lower.includes(':') ? lower.split(':').pop() : lower;
+    const file = lower.includes(':') ? lower.split(':')[0] : '';
+    for (const t of tags || []) {
+        const x = String(t).toLowerCase();
+        if (x === lower || x === fn) return true;
+        if (file && x === `${file}:${fn}`) return true;
+        if (x.endsWith(`:${fn}`) && (!file || x.startsWith(file))) return true;
+    }
+    return false;
+}
+
+async function cmdProbe(args) {
+    const omit = argVal(args, 'omit');
+    if (!omit) {
+        usage();
+        process.exit(2);
+    }
+    const n = Number(argVal(args, 'n', '4'));
+    const seed = Number(argVal(args, 'seed', '20260830'));
+    const lib = loadPrefixLibrary();
+    const hits = (lib.prefixes || []).filter((p) => tagsMatch(p.tags, omit));
+    if (!hits.length) {
+        console.log(`probe skip: omit ${JSON.stringify(omit)} is untagged (no prefix library row)`);
+        return;
+    }
+    console.log(`probe --omit ${JSON.stringify(omit)} → ${hits.map((h) => h.id).join(', ')}`);
+    console.log('Do not copy this output into LOOP-QUEUE.md.');
+    for (const row of hits) {
+        const recipe = path.join(ROOT, row.recipe);
+        const session = row.session ? path.join(ROOT, row.session) : null;
+        console.log(`  ${row.id} status=${row.status} recipe=${row.recipe}`);
+        if (row.status === 'red') {
+            console.log(`  prefix red — not forking. Use the two-segment recipe as focused verify.`);
+            if (session && existsSync(session)) {
+                const scored = scoreSession(session);
+                const diff = await firstDiff(session);
+                console.log(`  ${fmtMetrics(scored)} firstDiff step=${diff.firstAny} rng=${diff.firstRng} screen=${diff.firstScreen}`);
+                console.log(`  C: ${diff.cTopline}`);
+                console.log(`  JS: ${diff.jsTopline}`);
+            }
+            continue;
+        }
+        const snapId = row.snapshotId;
+        if (!snapId || !existsSync(path.join(snapshotDir(snapId), 'meta.json'))) {
+            console.log(`  no green snapshot (${snapId || 'none'}); run snapshot --prefix ${row.recipe} before fork`);
+            continue;
+        }
+        const meta = loadJson(path.join(snapshotDir(snapId), 'meta.json'));
+        if (!meta.prefixPass) {
+            console.log(`  snapshot ${snapId} prefix is red — not forking`);
+            continue;
+        }
+        console.log(`  snapshot ${snapId} green — fork n=${n}`);
+        await cmdFork(['--snapshot', snapId, '--n', String(n), '--seed', String(seed)]);
+    }
+}
+
+async function cmdCorpus(args) {
+    const checkOnly = argFlag(args, 'check');
+    const lib = loadPrefixLibrary();
+    const baselinePath = path.join(CACHE, 'corpus-baseline.json');
+    const prev = existsSync(baselinePath) ? loadJson(baselinePath) : {};
+    const commit = gitHead();
+    const next = {};
+    const transitions = [];
+    for (const row of lib.prefixes || []) {
+        if (!row.session) continue;
+        const full = path.join(ROOT, row.session);
+        if (!existsSync(full)) {
+            transitions.push(`MISSING ${row.id} ${row.session}`);
+            continue;
+        }
+        const result = scoreSession(full);
+        const m = metricsShape(result);
+        const passed = !!result.passed;
+        const old = prev[row.id];
+        const sameAudit = !!(old && old.commit && old.commit === commit);
+        const audit = sameAudit ? (old.audit | 0) : (old?.audit | 0) + 1;
+        const failStreak = passed
+            ? 0
+            : (sameAudit ? (old.failStreak | 0) : (old?.failStreak | 0) + 1);
+        next[row.id] = {
+            rngM: m.rngM, rngT: m.rngT, scrM: m.scrM, scrT: m.scrT,
+            passed, audit, failStreak, status: row.status,
+            error: result.error || null,
+            commit,
+        };
+        if (!old) {
+            transitions.push(`NEW ${row.id} ${passed ? 'PASS' : 'non-PASS'} rng ${m.rngM}/${m.rngT} scr ${m.scrM}/${m.scrT} lib=${row.status}`);
+            continue;
+        }
+        if (!old.passed && passed) transitions.push(`non-PASS→PASS ${row.id}`);
+        else if (old.passed && !passed) transitions.push(`PASS→non-PASS ${row.id}`);
+        else if (!passed && m.scrM < (old.scrM | 0)) {
+            transitions.push(`worse-but-still-failing ${row.id} scr ${old.scrM}→${m.scrM}`);
+        }
+    }
+    if (!checkOnly) dumpJson(baselinePath, next);
+    else console.log('(corpus --check: not writing .cache/save-oracle/corpus-baseline.json)');
+    if (transitions.length) {
+        console.log('save-oracle corpus transitions:');
+        for (const t of transitions) console.log('  ' + t);
+    } else {
+        console.log('save-oracle corpus transitions: (none; unchanged silent)');
+    }
+    void commit;
+}
+
 async function main() {
     const argv = process.argv.slice(2);
     const cmd = argv[0];
@@ -857,6 +985,8 @@ async function main() {
     else if (cmd === 'fork') await cmdFork(rest);
     else if (cmd === 'minimize') await cmdMinimize(rest);
     else if (cmd === 'prefix-gen') await cmdPrefixGen(rest);
+    else if (cmd === 'probe') await cmdProbe(rest);
+    else if (cmd === 'corpus') await cmdCorpus(rest);
     else {
         usage();
         process.exit(2);
