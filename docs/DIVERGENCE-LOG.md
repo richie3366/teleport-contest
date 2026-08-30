@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-1727 — invent.c useupall / shk.c obfree
+
+- **Status:** fixed (map-driven Open from D-1726; not a public FAIL)
+- **Symptom:** map named `useupall` / `obfree`. C `useupall` is
+  setnotworn + freeinv + `obfree(obj, NULL)`. C `obfree` walks leash /
+  food / book / contents / pick / boulder, then shop bill (unpaid
+  `!merge` → `add_to_billobjs` return; merge combines `bquan`) or
+  `oid_price_adjustment` o_id donate, then worn sanity + `dealloc_obj`.
+  JS eat.js spliced invent only; write.js was a no-op; zap/apply/potion/
+  timeout had setnotworn+splice subsets; `merged` never called obfree.
+- **C locus:** `invent.c` `useupall` `:1311–1317`; callers `useup`
+  `:1320–1333`, eat gold, zap `backfire`, apply candelabrum, potion mix,
+  timeout burn. `shk.c` `obfree` `:1186–1275`; callers `merged`
+  `:944`, `delete_contents` `:1174–1183`, write.c dry-marker.
+- **JS was:** eat.js local `useupall` splice; write.js `void obj`;
+  `useupall_invent` / `_apply` / `_pot` / `_burn` subsets; `merged`
+  extract + `OBJ_FREE` without bill merge.
+- **Fix:** canonical `useupall` in `js/invent.js`; `obfree` +
+  `delete_contents` in `js/shk.js` matching C order. Callees
+  `food_disappears` / `book_disappears` / `maybe_reset_pick` live as
+  obfree helpers (`reset_pick` / `o_unleash` / `setnotworn` imported;
+  `--can` SAFE). `dealloc_obj_free` subset at the end. Not FIRST_OBJECT
+  skip (D-1713).
+- **JS:** `js/invent.js` `useupall`; `js/shk.js` `obfree` /
+  `delete_contents`; `js/eat.js` `useup` quan==1; `js/write.js`;
+  `js/mkobj.js` `merged`; `js/zap.js` / `apply.js` / `potion.js` /
+  `timeout.js` clones retired; `litter_scatter` boulder.
+- **Not this iter:** full `dealloc_obj` (lua_ref / `objs_deleted` /
+  LS_OBJECT / thrownobj); `delobj` still extract-only; zap.js
+  `delete_contents` clone; nhl_gamestate leftover obfree; eat.c /
+  spell.c 1:1 exports of food/book_disappears; `yn_function_menu`.
+- **Verified:** save-oracle probe skip (untagged `invent.c:useupall`);
+  node unpaid → `OBJ_ONBILL` + merge `billct`; green+strict
+  seed8000/0900; CURRENT cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/invent.js`, `js/shk.js`, `js/eat.js`, `js/write.js`,
+  `js/mkobj.js`, `js/zap.js`, `js/apply.js`, `js/potion.js`,
+  `js/timeout.js`.
+
 ## D-1726 — display.c display_monster M_AP_FURNITURE lastseentyp
 
 - **Status:** fixed (map-driven Open from D-1725; not a public FAIL)

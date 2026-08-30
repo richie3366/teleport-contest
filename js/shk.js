@@ -18,6 +18,7 @@
 //        remote_burglary / rob_shop / call_kops / makekops (D-1717).
 //        get_cost glass-gem pseudo-ID (D-1718).
 //        getprice arti_cost (D-1719).
+//        obfree / delete_contents (D-1727).
 // Named omissions: shk_fixes_damage in shk_move; allmain/bones
 // fix_shop_damage callers; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
@@ -55,7 +56,7 @@ import {
     OBJ_MINVENT, OBJ_FLOOR, OBJ_CONTAINED, OBJ_INVENT, OBJ_FREE, OBJ_DELETED,
     OBJ_ONBILL,
     NO_ROOM, TEMPLE, RLOC_MSG, RLOC_NOMSG,
-    DISPLACED, LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME, ECMD_CANCEL,
+    DISPLACED, LOW_PM, Has_contents, Is_container, has_omid, OMID, MAXULEV, ECMD_OK, ECMD_TIME, ECMD_CANCEL,
     EYE, M_AP_NOTHING, M_AP_MONSTER, M_AP_TYPE,
     COST_CONTENTS, COST_SINGLEOBJ, COST_UNBLSS, COST_UNCURS, TELEPAT,
     MENU_TRADITIONAL, MENU_FULL,
@@ -114,6 +115,9 @@ import { Is_candle } from './timeout.js';
 import { addinv } from './u_init.js';
 import { SchroedingersBox } from './pickup.js';
 import { arti_cost } from './artifact.js';
+import { o_unleash } from './apply.js';
+import { setnotworn } from './do.js';
+import { reset_pick } from './lock.js';
 
 const PICK_AXE = objectNames.indexOf('PICK_AXE');
 const DWARVISH_MATTOCK = objectNames.indexOf('DWARVISH_MATTOCK');
@@ -1115,8 +1119,7 @@ async function litter_scatter(litter, x, y, shkp) {
         if ((otmp.otyp | 0) === BOULDER || (otmp.otyp | 0) === ROCK) {
             // C obj_extract_self + obfree — not delobj (no obj_resists rn2).
             obj_extract_self(otmp);
-            otmp.quan = 0;
-            otmp.where = OBJ_FREE;
+            obfree(otmp, null);
             continue;
         }
         let trylimit = 10;
@@ -3245,9 +3248,142 @@ function add_to_billobjs(obj) {
 }
 
 /**
+ * C ref: eat.c food_disappears `:395–403` — clear victual if this food
+ * was being eaten, then stop timers. First JS body lives here as an
+ * obfree callee (eat.js export still named).
+ */
+function food_disappears(obj) {
+    const vic = game.context?.victual;
+    if (vic && obj === vic.piece) {
+        game.context.victual = {};
+    }
+    if (obj.timed) obj_stop_timers(obj);
+}
+
+/**
+ * C ref: spell.c book_disappears `:644–652` — drop spbook.book / o_id
+ * when the studied book is destroyed. First JS body lives here as an
+ * obfree callee (spell.js export still named).
+ */
+function book_disappears(obj) {
+    const sp = game.context?.spbook;
+    if (sp && obj === sp.book) {
+        sp.book = null;
+        sp.o_id = 0;
+    }
+}
+
+/**
+ * C ref: lock.c maybe_reset_pick `:268–285` — clear xlock when this
+ * container is gx.xlock.box, or when container is Null and the box is
+ * not carried (level change). Callee reset_pick is live in lock.js.
+ */
+function maybe_reset_pick(container) {
+    const box = game.xlock?.box || null;
+    if (container ? container === box
+        : (!box || !(game.invent || []).includes(box))) {
+        reset_pick();
+    }
+}
+
+/**
+ * C ref: shk.c delete_contents `:1174–1183` — extract + obfree each
+ * cobj (recursive via obfree Has_contents). No obj_resists.
+ */
+export function delete_contents(obj) {
+    if (!obj) return;
+    while (obj.cobj) {
+        const curr = obj.cobj;
+        obj_extract_self(curr);
+        obfree(curr, null);
+    }
+}
+
+/**
+ * C ref: shk.c obfree `:1186–1275` — release an already-extracted
+ * object. Leash / food / book / contents / pick / boulder; unpaid bill
+ * useup→billobjs or merge bquan; else oid_price_adjustment may donate
+ * o_id to merge; worn sanity; dealloc_obj subset (timers + OBJ_DELETED).
+ * Named: full mkobj.c dealloc_obj (lua_ref, objs_deleted, LS_OBJECT,
+ * thrownobj/kickedobj/tin/splitobjs); delobj still extract-only.
+ */
+export function obfree(obj, merge) {
+    if (!obj) return;
+
+    if ((obj.otyp | 0) === LEASH && (obj.leashmon | 0)) {
+        o_unleash(obj);
+    }
+    if ((obj.oclass | 0) === FOOD_CLASS) food_disappears(obj);
+    if ((obj.oclass | 0) === SPBOOK_CLASS) book_disappears(obj);
+    if (Has_contents(obj)) delete_contents(obj);
+    if (Is_container(obj)) maybe_reset_pick(obj);
+    if ((obj.otyp | 0) === BOULDER) obj.next_boulder = 0;
+
+    let shkp = null;
+    if (obj.unpaid) {
+        let idx = 0;
+        for (;;) {
+            const nxt = next_shkp(idx, true);
+            if (!nxt.shkp) break;
+            if (onbill(obj, nxt.shkp, true)) {
+                shkp = nxt.shkp;
+                break;
+            }
+            idx = nxt.nextIdx;
+        }
+    }
+    if (!shkp) shkp = shop_keeper(game.u?.ushops);
+
+    const bp = onbill(obj, shkp, false);
+    if (bp) {
+        if (!merge) {
+            bp.useup = true;
+            obj.unpaid = 0;
+            if (obj.globby && !obj.owt && has_omid(obj)) {
+                obj.owt = OMID(obj);
+            }
+            add_to_billobjs(obj);
+            return;
+        }
+        const bpm = onbill(merge, shkp, false);
+        if (!bpm) {
+            impossible(
+                'obfree: not on bill, otyp,where,quan,unpaid = (%d,%d,%d,%d) (%d,%d,%d,%d)?',
+                obj.otyp | 0, obj.where | 0, obj.quan | 0, obj.unpaid ? 1 : 0,
+                merge.otyp | 0, merge.where | 0, merge.quan | 0,
+                merge.unpaid ? 1 : 0,
+            );
+            return;
+        }
+        const eshkp = ESHK(shkp);
+        bpm.bquan = (bpm.bquan | 0) + (bp.bquan | 0);
+        eshkp.billct = (eshkp.billct | 0) - 1;
+        const bill = eshkp.bill_p || eshkp.bill;
+        if (bill) {
+            const i = bill.indexOf(bp);
+            if (i >= 0) bill[i] = bill[eshkp.billct | 0];
+        }
+    } else if (merge
+        && oid_price_adjustment(obj, obj.o_id)
+            > oid_price_adjustment(merge, merge.o_id)) {
+        merge.o_id = obj.o_id | 0;
+    }
+
+    if (obj.owornmask) {
+        impossible(
+            'obfree: deleting worn obj (%d: %d)',
+            obj.otyp | 0, obj.owornmask | 0,
+        );
+        setnotworn(obj);
+    }
+    dealloc_obj_free(obj);
+}
+
+/**
  * C ref: shk.c add_one_tobill `:3308–3363`.
  * dummy TRUE → useup + add_to_billobjs (FullyUsedUp). Bill-full You();
- * OBJ_FREE dealloc; globby newomid/OMID. Full dealloc_obj is obfree Open.
+ * OBJ_FREE dealloc; globby newomid/OMID. Full dealloc_obj (lua/lights)
+ * still named on obfree.
  */
 async function add_one_tobill(obj, dummy, shkp) {
     const eshkp = ESHK(shkp);

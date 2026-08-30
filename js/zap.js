@@ -231,7 +231,7 @@ import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
     observe_object, display_minventory, display_binventory, display_cinventory,
-    update_inventory, set_cknown_lknown, getobj,
+    update_inventory, set_cknown_lknown, getobj, useupall,
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn } from './do.js';
@@ -6332,22 +6332,6 @@ export async function weffects(obj) {
 }
 
 /**
- * C ref: invent.c useupall `:1312–1317` — setnotworn + freeinv + obfree.
- * Named omit: obfree contents/oextra; update_inventory (C dozap
- * backfire returns before the trailing update_inventory).
- */
-function useupall_invent(obj) {
-    if (!obj) return;
-    setnotworn(obj);
-    const inv = game.invent || [];
-    const idx = inv.indexOf(obj);
-    if (idx >= 0) inv.splice(idx, 1);
-    freeinv_core(obj);
-    obj.quan = 0;
-    obj.where = OBJ_FREE;
-}
-
-/**
  * C ref: zap.c backfire `:2605–2614` — cursed-wand explode.
  * in_use before losehp so a fatal done() still sees the wand;
  * C done() is noreturn so skip useupall when JS losehp is fatal.
@@ -6361,7 +6345,7 @@ async function backfire(otmp) {
         await finish_losehp_done();
         return;
     }
-    useupall_invent(otmp);
+    useupall(otmp);
 }
 
 /**

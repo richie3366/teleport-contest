@@ -63,6 +63,7 @@ import {
 } from './const.js';
 import { recalc_block_point } from './vision.js';
 import { del_light_source, discard_flashes } from './light.js';
+import { obfree } from './shk.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
@@ -1991,7 +1992,7 @@ function merged(potmp, pobj) {
     if (obj.bknown !== otmp.bknown) otmp.bknown = 1;
     if (obj.rknown !== otmp.rknown) otmp.rknown = 1;
     if (obj.bypass) otmp.bypass = 1;
-    obj.where = OBJ_FREE;
+    obfree(obj, otmp);
     potmp.obj = otmp;
     pobj.obj = null;
     return true;

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `display.c` display_monster M_AP_FURNITURE cmap_to_glyph lastseentyp (named). Not update_lastseentyp. **Addressed:** D-1726
+- [x] `invent.c` useupall / obfree (named). Not observe_object FIRST_OBJECT skip. **Addressed:** D-1727
+
+
+- [x] `display.c` display_monster M_AP_FURNITURE cmap_to_glyph lastseentyp (named). Not update_lastseentyp. **Addressed:** D-1726 `a0c81cc6`
 
 
 - [x] `calendar.c` hhmmss (named). Not yyyymmddhhmmss. **Addressed:** D-1725 `32c02560`

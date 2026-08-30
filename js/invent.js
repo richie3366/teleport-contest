@@ -55,7 +55,8 @@ import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, c
 import { yn_function, getlin, mungspaces } from './getline.js';
 import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents } from './mkobj.js';
-import { unpaid_cost, doinvbill, gem_learned } from './shk.js';
+import { unpaid_cost, doinvbill, gem_learned, obfree } from './shk.js';
+import { setnotworn } from './do.js';
 import { s_suffix } from './do_name.js';
 import { inv_cnt } from './steal.js';
 import { assigninvlet } from './u_init.js';
@@ -3934,6 +3935,19 @@ export function update_inventory() {
 }
 
 /**
+ * C ref: invent.c useupall `:1311–1317` — setnotworn, freeinv, then
+ * obfree(obj, NULL) (contents + shop bill). Callee shk.c obfree is
+ * D-1727. Named: nhl_gamestate leftover (do.js tutorial stash);
+ * delobj still extract-only.
+ */
+export function useupall(obj) {
+    if (!obj) return;
+    setnotworn(obj);
+    freeinv(obj);
+    obfree(obj, null);
+}
+
+/**
  * C ref: invent.c consume_obj_charge `:1336–1346` — maybe check_unpaid,
  * then spe--, then update_inventory when known so perm_invent sees the
  * new charge (tty_update_inventory → sync_perminvent). Unpaid is D-1047;
@@ -7050,6 +7064,9 @@ function invent_merged(otmp, obj) {
     if (obj.bknown) otmp.bknown = 1;
     if (obj.rknown) otmp.rknown = 1;
     extract_invent(obj);
+    obj.nobj = null;
+    obj.where = OBJ_FREE;
+    obfree(obj, otmp);
     return otmp;
 }
 

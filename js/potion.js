@@ -111,7 +111,7 @@ import {
 import {
     makeknown, compactify_invlets, enlightenment, observe_object,
     hold_another_object, update_inventory, near_capacity, freeinv_core,
-    prinv, getobj_display_pickinv,
+    prinv, getobj_display_pickinv, useupall,
 } from './invent.js';
 import { yn_function } from './getline.js';
 import {
@@ -3109,22 +3109,11 @@ async function dip_potion_explosion(obj, dmg) {
         exercise(A_STR, false);
         const yd = game.youmonst?.data;
         if (!breathless(yd) || haseyes(yd)) await potionbreathe(obj);
-        useupall_pot(obj);
+        useupall(obj);
         losehp(dmg, 'alchemic blast', KILLED_BY_AN);
         return true;
     }
     return false;
-}
-
-/** C invent.c useupall subset — whole stack; setnotworn named. */
-function useupall_pot(obj) {
-    if (!obj) return;
-    const inv = game.invent || [];
-    const idx = inv.indexOf(obj);
-    if (idx >= 0) inv.splice(idx, 1);
-    freeinv_core(obj);
-    obj.quan = 0;
-    obj.where = OBJ_FREE;
 }
 
 /** C invent.c freeinv — extract invent[] then freeinv_core. */
@@ -3337,7 +3326,7 @@ async function potion_dip(obj, potion) {
                 break;
             }
             default:
-                useupall_pot(obj);
+                useupall(obj);
                 await pline(`The mixture ${!Blind() ? 'glows brightly and ' : ''}evaporates.`);
                 return ECMD_TIME;
             }

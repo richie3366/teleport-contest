@@ -19,6 +19,7 @@ import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, MAXULEV,
 } from './const.js';
 import { compactify_invlets, makeknown, observe_object, hold_another_object, getobj_display_pickinv } from './invent.js';
+import { obfree } from './shk.js';
 import { getlin } from './getline.js';
 import { rn2, rn1, rnl } from './rng.js';
 import { nohands } from './monsters.js';
@@ -248,12 +249,6 @@ function useup(otmp) {
     const inv = game.invent || [];
     const idx = inv.indexOf(otmp);
     if (idx >= 0) inv.splice(idx, 1);
-}
-
-/** Discard temporary mksobj product (C obfree). */
-function obfree(obj) {
-    // Not in invent — just drop reference
-    void obj;
 }
 
 /**

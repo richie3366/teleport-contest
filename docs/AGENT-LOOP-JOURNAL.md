@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1727 invent.c useupall / shk.c obfree
+
+**Objective:** Open `invent.c` useupall / obfree (named). Not
+observe_object FIRST_OBJECT skip.
+**C locus:** `invent.c` `useupall` `:1311–1317`; `shk.c` `obfree`
+`:1186–1275`; callers `useup`, `merged` `:944`, eat gold, zap
+`backfire`, write.c dry-marker.
+**JS locus:** `js/invent.js` `useupall`; `js/shk.js` `obfree` /
+`delete_contents`.
+**Change:** setnotworn+freeinv+obfree; unpaid `!merge` → billobjs;
+merge combines `bquan`; oid_price_adjustment donate; eat/write/zap/
+apply/potion/timeout clones retired. Named: full `dealloc_obj`,
+`delobj` extract, zap `delete_contents` clone.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `invent.c:useupall`; node unpaid
+ONBILL + merge billct; green+strict seed8000/0900; CURRENT cohort
+**9**/9 + strict. Rule #2 clean.
+**Next:** Open `cmd.c` yn_function_menu query_menu.
+**Blocked:** none.
 ## 2026-08-30 — D-1726 display.c display_monster furniture lastseentyp
 
 **Objective:** Open `display.c` display_monster M_AP_FURNITURE

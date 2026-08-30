@@ -936,7 +936,14 @@ fatal wished corpse / artifact `dropy`+wasUpolyd+crysknife / perm_invent WIN_INV
 **prinv `xprname(..., dot)`** (D-0070); **`observe_object` in invent_lines** (D-0079); 
 **`observe_object` FIRST_OBJECT skip** (D-1713; C `o_init.c:441–451`;
 generic/STRANGE_OBJECT `otyp < FIRST_OBJECT`; Hallu `youprop.h` not sticky
-`u.Hallucination`; `discover_object` credit_hero FALSE; useupall/obfree named); 
+`u.Hallucination`; `discover_object` credit_hero FALSE); 
+**`useupall` / `obfree`** (D-1727; C `invent.c` `:1311–1317` + `shk.c`
+`:1186–1275`; live `js/invent.js` `useupall` + `js/shk.js` `obfree` /
+`delete_contents`; eat.js / write.js clones retired; `merged` +
+`litter_scatter` wired; named: full `dealloc_obj` lua/lights/`objs_deleted`,
+`delobj` still extract, zap.js `delete_contents` clone, nhl_gamestate
+leftover, eat.c `food_disappears` / spell.c `book_disappears` 1:1
+exports); 
 **`prinv` total_of + `xprname` quan + `(N in total)`** (D-0388); 
 **`count_contents`** nested/quan/everything (D-0395; shoppy `costly_spot` deferred); 
 xname-path observe beyond invent; **`pickup_prinv` slight/moderate/near/overload + 
