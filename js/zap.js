@@ -219,14 +219,14 @@
 
 import { game } from './gstate.js';
 import { rn1, rn2, rnd, d } from './rng.js';
-import { getlin } from './getline.js';
+import { getlin, yn_function } from './getline.js';
 import {
     flush_screen, flush_topl_more, pline, pline_dir, pline_mon, Norep, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon, shieldeff,
     obj_glyph, glyph_is_invisible, map_invisible, bot, set_msg_xy,
+    clear_nhwindow_message,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
-import { nhgetch } from './input.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
@@ -2312,23 +2312,21 @@ function zap_ok(obj) {
 }
 
 /**
- * C ref: cmd.c getdir for zap — '.' is self (dx=dy=dz=0, success).
- * Esc/space/return cancel. lock.js getdir still treats '.' as cancel.
- */
-/**
  * C ref: cmd.c getdir — direction for zap; '.' / 's' = self.
- * After a successful horizontal dir (including self dz==0), C always
- * calls confdir(FALSE) which may roll u_maybe_impaired.
+ * Interactive path is yn_function(NULL resp, '\0', FALSE) then
+ * clear_nhwindow(WIN_MESSAGE). After a successful horizontal dir
+ * (including self dz==0), C always calls confdir(FALSE) which may
+ * roll u_maybe_impaired — stay local; do not add trailing confdir
+ * to shared lock.js getdir.
  */
 async function getdir_zap(prompt) {
-    const msg = prompt || 'In what direction?';
-    game._pending_message = `${msg} `;
-    await flush_screen(1);
-    const disp = game.nhDisplay;
-    if (disp?.setCursor) disp.setCursor(game._pending_message.length, 0);
-    const key = await nhgetch();
-    const ch = String.fromCharCode(key);
-    game._pending_message = '';
+    // C `:3987–3988` — '^' is a help_dir marker, not the prompt text
+    const query = (prompt && prompt.charAt(0) !== '^')
+        ? prompt : 'In what direction?';
+    const dirsym = await yn_function(query, null, '\0', false);
+    clear_nhwindow_message();
+    const ch = dirsym;
+    const key = dirsym.charCodeAt(0);
     if (!game.u) game.u = {};
     if (ch === '.' || ch === 's') {
         game.u.dx = game.u.dy = game.u.dz = 0;

@@ -9,10 +9,10 @@ Objective/score live in `CURRENT.md`.
   required for tagged restore Open. Private B0: trap-same-floor 17/17;
   ledger 26/26; wait-save catchup 30/30; catchup-after-restore 26/30
   red; trap-ledger 38/38; shop template 35/35 (no unpaid). Reviews
-  **669–677** ACCEPT-WITH-DEBT (no Must-fix). **Next:** Open `cmd.c`
-  getdir yn_function (named). Not yn_function_menu.
-  Do not skip D-1531…D-1720. Do not re-port D-1675…D-1720.
-  Falsify: getdir `yn_function`, not `yn_function_menu`.
+  **669–677** ACCEPT-WITH-DEBT (no Must-fix). **Next:** Open `dog.c`
+  cant_go_back FREEING (named). Not update_mlstmv.
+  Do not skip D-1531…D-1721. Do not re-port D-1675…D-1721.
+  Falsify: `cant_go_back` FREEING, not `update_mlstmv`.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; setworn oc_oprop; keepdogs/grow_up leash;
   light-scroll `initedog`; tip-spill/squeaky; hideunder;
@@ -23,7 +23,8 @@ Objective/score live in `CURRENT.md`.
   / pauper_legacy / killed_nemesis; spell dull / zap rider eyecount;
   perm_invent can_set; polyself `uskin=`; steal/muse
   `unknow_object`; Hallu `obj_to_glyph` query; invent.c `useupall` /
-  `obfree`; `yn_function_menu` (`query_menu`); getdir yn_function;
+  `obfree`; `yn_function_menu` (`query_menu`); getdir CQ_REPEAT /
+  mouse getpos / help_dir in shared / dxdy_moveok;
   sokosolved/roguelevel/quest recalc flags;
   cant_go_back FREEING; `hhmmss`;
   lspo_object non-merge quan repeat; `is_multigen`/`is_poisonable`;
@@ -38,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1720.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1721.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -49,10 +50,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1720 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1721 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1720. Do not delete emin (**487**). Do not stub
+  D-1520…D-1721. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -65,11 +66,14 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1720 in the index. No yn ^P glue /
+  `vision_reset`. D-1576…D-1721 in the index. No yn ^P glue /
   `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1720 (index). D-1720 `currency` is Hallu
+  D-1682…D-1721 (index). D-1721 `getdir` is
+  `yn_function(query, null, '\0', false)` then
+  `clear_nhwindow_message` (lock.js + throw/zap/dig clones; no
+  trailing confdir). D-1720 `currency` is Hallu
   `ROLL_FROM(currencies[])` else zorkmid; `xprname`/wallet/dokick
   clones retired; shk_names_obj fmt stays C `zorkmid%s`. D-1719
   `arti_cost` is `artilist.cost` else `100*oc_cost`; getprice `/4`
@@ -82,6 +86,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1721: `cmd.c` `getdir` `:3987–4011` yn_function NULL/`'\0'`/FALSE
+  then `clear_nhwindow(WIN_MESSAGE)`. Live `js/lock.js` +
+  `getdir_cmdassist` / `getdir_zap` / `dig_getdir`. Named: CQ_REPEAT;
+  mouse getpos; help_dir in shared; dxdy_moveok; `yn_function_menu`.
 - D-1720: `invent.c` `currency` `:1545–1554` + `currencies[]`
   `:1521–1543` Hallu `ROLL_FROM`. Live `js/invent.js` + `xprname` +
   dokick/dig/lock/trap. Named: `artifact_score`; hidden_gold.
@@ -116,5 +124,3 @@ Objective/score live in `CURRENT.md`.
   `mon_is_local` stays for timers/LS_OBJECT.
 - D-1707: `recalc_mapseen` Blind/oracle/valley/sanctum. Named:
   sokosolved/roguelevel/quest flags.
-- D-1706: `yn_function` addcmdq KEY/CQ_REPEAT. Named:
-  `yn_function_menu`; getdir yn_function.

@@ -3,8 +3,8 @@
 //        boxlock / doorlock (subset).
 
 import { game } from './gstate.js';
-import { nhgetch } from './input.js';
-import { flush_screen, pline, newsym, canseemon, pline_mon } from './display.js';
+import { pline, newsym, canseemon, pline_mon, clear_nhwindow_message } from './display.js';
+import { yn_function } from './getline.js';
 import { vision_recalc, recalc_block_point, cansee } from './vision.js';
 import { stop_occupation, in_rooms } from './hack.js';
 import {
@@ -322,12 +322,15 @@ async function picklock() {
 }
 
 /**
- * C ref: cmd.c getdir — cmdq DIR/KEY then yn_function; self ./s; <>;
- * movecmd walk/run/rush; optional numpad when number_pad on.
- * Named omit: mouse `_` getpos; help_dir / cmdassist / "strange direction"
- * (NEED_MORE key-eating; throw path keeps getdir_cmdassist); trailing
- * confdir(FALSE) (use_whip already confdirs; adding it here would double
- * confuse-whip); CQ_REPEAT; fuzzer; dxdy_moveok.
+ * C ref: cmd.c getdir `:3956–4119` — cmdq DIR/KEY then
+ * yn_function((s && *s != '^') ? s : "In what direction?", NULL, '\0',
+ * FALSE) and clear_nhwindow(WIN_MESSAGE). Self ./s; <>; movecmd
+ * walk/run/rush; optional numpad when number_pad on.
+ * Named omit: mouse `_` getpos; help_dir / cmdassist / "strange
+ * direction" (NEED_MORE key-eating; throw path keeps
+ * getdir_cmdassist); trailing confdir(FALSE) (use_whip already
+ * confdirs; adding it here would double confuse-whip); CQ_REPEAT;
+ * fuzzer; dxdy_moveok; yn_function_menu; input_state.
  */
 export async function getdir(prompt) {
     const q = game._cmdq_canned;
@@ -358,17 +361,14 @@ export async function getdir(prompt) {
         }
     }
 
-    const msg = prompt || 'In what direction?';
+    // C `:3987–3988` — '^' is a help_dir marker, not the prompt text
+    const query = (prompt && prompt.charAt(0) !== '^')
+        ? prompt : 'In what direction?';
     for (;;) {
-        game._pending_message = `${msg} `;
-        await flush_screen(1);
-        const disp = game.nhDisplay;
-        if (disp?.setCursor) {
-            disp.setCursor(game._pending_message.length, 0);
-        }
-        const key = await nhgetch();
-        const ch = String.fromCharCode(key);
-        game._pending_message = '';
+        const dirsym = await yn_function(query, null, '\0', false);
+        clear_nhwindow_message();
+        const ch = dirsym;
+        const key = dirsym.charCodeAt(0);
         // C: redraw_cmd (^R) → docrt then retry
         if (key === 18) continue;
         if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {

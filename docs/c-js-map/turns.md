@@ -413,9 +413,10 @@ JS: `js/zap.js` — partial
 
 **`dozap`/`zappable`/`backfire`/`weffects`/`zapnodir`/`learnwand`** NODIR 
 `WAN_SECRET_DOOR_DETECTION` → `findit` (D-0074); 
-**directional getdir `.`=self + `confdir` + 
+**directional getdir `.`=self + `confdir` + getdir_zap yn_function D-1721**
+(confdir stays local; do not add to shared `getdir`) +
 `zapyourself` SPE_HEALING/`WAN_SLEEP`/`SPE_SLEEP`/`WAN_DEATH`/`SPE_FINGER_OF_DEATH`/`WAN_POLYMORPH`/
-`SPE_POLYMORPH`** (D-0156/D-0576/D-0928 #1103); **getobj `?`/`*` → `display_pickinv_reply`; 
+`SPE_POLYMORPH` (D-0156/D-0576/D-0928 #1103); **getobj `?`/`*` → `display_pickinv_reply`; 
 RAY `weffects` → `ubuzz`/`dobuzz` for `WAN_MAGIC_MISSILE`..`WAN_LIGHTNING` (range/`zap_hit`/`zhitm` 
 damagetypes + cold `destroy_items`/`resist`/`Reflecting` shield)** (D-0450/D-0682); 
 **`ureflects` shield `makeknown`→`exercise(A_WIS)`** (D-0452); 
@@ -1429,7 +1430,12 @@ Blind_telepat/Infravision/Sting `see_monsters` / Eyes / Punished deferred;
 costly_alteration COST_SPLAT / quan>1 invent-split deferred); exported `getdir` for kick/apply; 
 **`getdir` `'.'` = SELF** (D-0780; was cancel) + 
 **D-1038 `lock.js` `getdir` cmdq DIR/KEY, `s` self, `<>`, movecmd HJKL/Ctrl, optional numpad, `^R` 
-retry** (no trailing `confdir`; help_dir/cmdassist still `getdir_cmdassist` for throw); 
+retry** (no trailing `confdir`; help_dir/cmdassist still `getdir_cmdassist` for throw) + 
+**D-1721 `getdir` yn_function** (C `cmd.c` `:3987–4011` `yn_function(query, NULL, '\0', FALSE)` then 
+`clear_nhwindow(WIN_MESSAGE)`; `(s && *s != '^')` query; live `js/lock.js` + 
+`getdir_cmdassist` / `getdir_zap` / `dig_getdir`; unused dothrow clone deleted; 
+CQ_REPEAT / mouse `_` getpos / help_dir in shared getdir / dxdy_moveok / fuzzer / 
+`yn_function_menu` named); 
 getobj missing-letter `continue`+`flush_topl_more` (D-0025); 
 **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); 
 **`doclose`/`c` getdir cmdassist + close envelope** (D-0740; 
@@ -1764,8 +1770,9 @@ fall through `:102–211` `intr`/`doprev`/else `tty_nhbell`; JS had
 then `cmdq_add_key(CQ_REPEAT)` when TRUE; `iflags.last_msg` PLNMSG_UNKNOWN;
 query `QBUFSZ` `...` truncate; resp-mismatch remap after record;
 `tty_yn_function` windowport; getobj / paranoid_ynq / askchain FALSE).
+**getdir yn_function D-1721** (`cmd.c` `:3987–4011`; lock.js + throw/zap/dig clones).
 Named: `yn_function_menu` (`query_menu`); fuzzer; SND_SPEECH; DUMPLOG;
-paniclog/impossible; `input_state`; getdir yn_function (lock.js nhgetch).
+paniclog/impossible; `input_state`; getdir CQ_REPEAT.
 `gettty` termios named.
 Do not enable EDIT_GETLIN (would drop the replace prompt).
 
@@ -1855,7 +1862,8 @@ half+hand pline / air-lev recoil hurtle / boulder / Mjollnir / underwater;
 `throw_obj` self refuse pline** (D-0720; `throw_gold` self / confdir-on-self deferred); 
 **`throw_obj` `u_wipe_engr(2)` D-1374** (C `:138` after self refuse before petrify; callee D-1051; 
 canletgo/Mjollnir/too-heavy/welded/wet-towel / petrify `:139–148`; dig is D-1375); 
-**`dothrow` → `getdir_cmdassist` + getobj CMDQ_KEY** (D-0742); 
+**`dothrow` → `getdir_cmdassist` + getobj CMDQ_KEY** (D-0742) + 
+**`getdir_cmdassist` yn_function** (D-1721; tty_yn_function `flush_topl_more` is D-0093); 
 **`hurtle`/`hurtle_step` Punished tug + trap-anchor + nomul(-range) + wall/`m_at` stop + 
 `u_on_newpos` (D-1038; not `teleds`; **`hurtle_step` `in_out_region` after isok before 
 `*range==0`** D-1165; **`mhurtle_step` `will_hurtle && m_in_out_region` before place** D-1176; 
@@ -1863,7 +1871,6 @@ canletgo/Mjollnir/too-heavy/welded/wet-towel / petrify `:139–148`; dig is D-13
 endmultishot/drag_ball/drown/trap pass-over/check_special_room/steed 
 `u_on_newpos`/petrify/`place_monster` vs rloc deferred)**; 
 **`help_dir` More = `xwaitforspace(quitchars)` only** (D-0451; non-quitchar `tty_nhbell` D-1631); 
-**`getdir_cmdassist` `flush_topl_more` before prompt** (D-0093); 
 **`throw_obj` multishot + `multishot_class_bonus` + `rnd(multishot)`** (D-0093); 
 **`throwit`→`stackobj`** (D-0094); **`throwit` land `cansee`→`newsym`** (D-0427; 
 **`flooreffects` pool/lava/pit/shaft + Splash/Plop** D-0987; 

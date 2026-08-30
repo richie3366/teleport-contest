@@ -21,7 +21,9 @@ import { rn1, rn2, rnd } from './rng.js';
 import {
     newsym, pline, You_feel, tmp_at, nh_delay_output, verbalize,
     feel_newsym, flush_screen, flush_topl_more, pline_mon,
+    clear_nhwindow_message,
 } from './display.js';
+import { yn_function } from './getline.js';
 import { cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { cvt_sdoor_to_door } from './detect.js';
 import {
@@ -52,7 +54,6 @@ import {
     delfloortrap, trapname, mintrap, b_trapped, conjoined_pits,
     activate_statue_trap,
 } from './trap.js';
-import { nhgetch } from './input.js';
 import { set_occupation, can_reach_floor, del_engr_at, u_wipe_engr } from './engrave.js';
 import { wield_tool, welded } from './wield.js';
 import {
@@ -2054,16 +2055,18 @@ function otense_dig(_obj, verb) {
     return verb;
 }
 
-/** C ref: cmd.c getdir subset — hjkl/yubn + . self + <> vertical. */
+/**
+ * C ref: cmd.c getdir subset — yn_function then hjkl/yubn + . self +
+ * <> vertical. Named: SELF2 's'; cmdq; CQ_REPEAT; help_dir.
+ */
 async function dig_getdir(prompt) {
-    const msg = prompt || 'In what direction?';
-    game._pending_message = `${msg} `;
-    await flush_screen(1);
-    const disp = game.nhDisplay;
-    if (disp?.setCursor) disp.setCursor(game._pending_message.length, 0);
-    const key = await nhgetch();
-    const ch = String.fromCharCode(key);
-    game._pending_message = '';
+    // C `:3987–3988` — '^' is a help_dir marker, not the prompt text
+    const query = (prompt && prompt.charAt(0) !== '^')
+        ? prompt : 'In what direction?';
+    const dirsym = await yn_function(query, null, '\0', false);
+    clear_nhwindow_message();
+    const ch = dirsym;
+    const key = dirsym.charCodeAt(0);
     if (!game.u) game.u = {};
     if (ch === '.') {
         game.u.dx = game.u.dy = game.u.dz = 0;

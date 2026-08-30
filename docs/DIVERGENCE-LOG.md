@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1721 — cmd.c getdir yn_function
+
+- **Status:** fixed (map-driven Open from D-1720; not a public FAIL)
+- **Symptom:** map named getdir `yn_function`. JS `lock.js` `getdir`
+  (and `getdir_cmdassist` / `getdir_zap` / `dig_getdir`) painted
+  `_pending_message` and `nhgetch`, skipping C `yn_function` (NULL
+  resp, `'\0'`, FALSE) then `clear_nhwindow(WIN_MESSAGE)`.
+- **C locus:** `cmd.c` `getdir` `:3987–4011` (`:3956–4119` full);
+  callee `yn_function` `:5470–5583` 4th arg FALSE; `tty_yn_function`
+  resp-NULL one-key arm. Callers apply/kick/throw/zap/dig/open/loot.
+- **JS was:** lock.js paint+nhgetch; dothrow `getdir_cmdassist` same;
+  zap `getdir_zap`; dig `dig_getdir`; unused dothrow local `getdir`.
+- **Fix:** `yn_function(query, null, '\0', false)` then
+  `clear_nhwindow_message`. Query `(s && *s != '^') ? s : "In what
+  direction?"`. Keep cmdq DIR/KEY, `apply_dirsym`, throw help_dir,
+  zap local confdir. Delete unused dothrow clone.
+  `imports.mjs --can` lock/dothrow/dig → getline `yn_function` SAFE;
+  zap already imported getline.
+- **JS:** `js/lock.js` `getdir`; `js/dothrow.js` `getdir_cmdassist`;
+  `js/zap.js` `getdir_zap`; `js/dig.js` `dig_getdir`; `js/getline.js`
+  comment.
+- **Not this iter:** CQ_REPEAT; mouse getpos; help_dir in shared
+  getdir; trailing confdir (banned); dxdy_moveok; fuzzer;
+  `yn_function_menu`; `input_state`.
+- **Verified:** save-oracle probe skip (untagged `cmd.c:getdir`);
+  focused seed1800 throw + seed2200 zap; green+strict seed8000/0900;
+  CURRENT cohort **9**/9 + strict (incl. seed0014/0116).
+- **Files:** `js/lock.js`, `js/dothrow.js`, `js/zap.js`, `js/dig.js`,
+  `js/getline.js`.
+
 ## D-1720 — invent.c currency Hallu ROLL_FROM
 
 - **Status:** fixed (map-driven Open from D-1719; not a public FAIL)

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `cmd.c` getdir yn_function (named). Not yn_function_menu.
 - [ ] `dog.c` cant_go_back FREEING (named). Not update_mlstmv.
 - [ ] `sp_lev.c` lspo_object non-merge quan repeat (named). Not oc_merge.
 - [ ] `dungeon.c` recalc_mapseen sokosolved / roguelevel / quest flags (named). Not DRAWBRIDGE_UP lastseentyp.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `display.c` display_monster M_AP_FURNITURE cmap_to_glyph lastseentyp (named). Not update_lastseentyp.
 - [ ] `invent.c` useupall / obfree (named). Not observe_object FIRST_OBJECT skip.
 - [ ] `cmd.c` yn_function_menu query_menu (named). Not yn_function addcmdq.
+- [ ] `cmd.c` getdir CQ_REPEAT (named). Not yn_function_menu.
+- [ ] `end.c` artifact_score (named). Not hidden_gold.
+- [ ] `invent.c` doprgold hidden_gold (named). Not currency.
+- [ ] `objects.h` is_multigen / is_poisonable (named). Not oc_merge.
+- [ ] `shk.c` choose_stairs / u_left_shop leave verbalize (named). Not remote_burglary.
 
 ## Parked (do not pop)
 

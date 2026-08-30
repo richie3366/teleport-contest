@@ -1426,6 +1426,8 @@ function yn_cmdq_key(cq) {
  * C ref: cmd.c yn_function `:5470–5583` — addcmdq pops canned/repeat
  * then records CQ_REPEAT. Default TRUE matches y_n / ynq / ynaq.
  * YN / getobj / getdir / paranoid_ynq / askchain pass FALSE.
+ * getdir (lock.js + getdir_cmdassist / getdir_zap / dig_getdir) calls
+ * this with NULL resp / '\0' def / FALSE (D-1721).
  * Windowport is tty_yn_function. Named: yn_function_menu (query_menu),
  * debug_fuzzer, SND_SPEECH, DUMPLOG_CORE, paniclog/impossible on
  * resp-mismatch, program_state.input_state = otherInp.
