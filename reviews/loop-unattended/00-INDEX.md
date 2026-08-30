@@ -664,3 +664,18 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [651-0458e7cc-oc-charged-extract.md](./651-0458e7cc-oc-charged-extract.md) | `0458e7cc` | D-1690 objects.h oc_charged extract | **ACCEPT-WITH-DEBT** |
 | [652-93fcd877-undiscover-gem-learned.md](./652-93fcd877-undiscover-gem-learned.md) | `93fcd877` | D-1691 o_init.c undiscover_object / gem_learned | **ACCEPT-WITH-DEBT** |
 | [653-ac1199da-chwepon-restrict-name.md](./653-ac1199da-chwepon-restrict-name.md) | `ac1199da` | D-1692 wield.c chwepon restrict_name | **ACCEPT-WITH-DEBT** |
+| [654-605f0f2e-count-feat-knox-drawbridge.md](./654-605f0f2e-count-feat-knox-drawbridge.md) | `605f0f2e` | D-1693 dungeon.c count_feat knox/drawbridge | **ACCEPT-WITH-DEBT** |
+| [655-23e4c80a-savetrapchn-json-traps.md](./655-23e4c80a-savetrapchn-json-traps.md) | `23e4c80a` | D-1694 save.c savetrapchn JSON traps | **ACCEPT-WITH-DEBT** |
+| [656-c33608ff-savelev-stash-lights-billobjs.md](./656-c33608ff-savelev-stash-lights-billobjs.md) | `c33608ff` | D-1695 do.c savelev stash lights/billobjs | **QUALITY-RISK** |
+| [657-bfdadc33-serlevel-current-blob.md](./657-bfdadc33-serlevel-current-blob.md) | `bfdadc33` | D-1696 save.c savelev JSON serLevel | **ACCEPT-WITH-DEBT** |
+| [658-c0395a16-dosave0-other-ledgers.md](./658-c0395a16-dosave0-other-ledgers.md) | `c0395a16` | D-1697 save.c dosave0 other ledgers | **ACCEPT-WITH-DEBT** |
+| [659-e32e222d-savegamestate-worn-rangeglobal.md](./659-e32e222d-savegamestate-worn-rangeglobal.md) | `e32e222d` | D-1698 save.c savegamestate RANGE_GLOBAL | **ACCEPT-WITH-DEBT** |
+| [660-736b74ec-getlev-place-omoves-envelope.md](./660-736b74ec-getlev-place-omoves-envelope.md) | `736b74ec` | D-1699 restore.c getlev place/omoves | **ACCEPT-WITH-DEBT** |
+| [661-3ab2697c-doset-perminv-mode-wc.md](./661-3ab2697c-doset-perminv-mode-wc.md) | `3ab2697c` | D-1700 options.c doset perminv_mode | **ACCEPT-WITH-DEBT** |
+| [662-f7a10b6f-optfn-boolean-wizmgender.md](./662-f7a10b6f-optfn-boolean-wizmgender.md) | `f7a10b6f` | D-1701 options.c wizmgender | **ACCEPT-WITH-DEBT** |
+| [663-c7648ccf-buy-container.md](./663-c7648ccf-buy-container.md) | `c7648ccf` | D-1702 shk.c buy_container | **ACCEPT-WITH-DEBT** |
+| [664-3d728adf-shk-names-obj.md](./664-3d728adf-shk-names-obj.md) | `3d728adf` | D-1703 shk.c shk_names_obj | **ACCEPT-WITH-DEBT** |
+| [665-68f8585b-dopay-getpos.md](./665-68f8585b-dopay-getpos.md) | `68f8585b` | D-1704 shk.c dopay getpos | **ACCEPT-WITH-DEBT** |
+| [666-7d0a0ddc-bill-box-content.md](./666-7d0a0ddc-bill-box-content.md) | `7d0a0ddc` | D-1705 shk.c bill_box_content | **ACCEPT-WITH-DEBT** |
+| [667-1567e9bf-yn-function-addcmdq.md](./667-1567e9bf-yn-function-addcmdq.md) | `1567e9bf` | D-1706 cmd.c yn_function addcmdq | **ACCEPT-WITH-DEBT** |
+| [668-7b26f699-recalc-mapseen-overview.md](./668-7b26f699-recalc-mapseen-overview.md) | `7b26f699` | D-1707 dungeon.c recalc_mapseen | **ACCEPT-WITH-DEBT** |

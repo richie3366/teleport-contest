@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `dungeon.c` recalc_mapseen Blind bigroom / oracle / valley / sanctum (named). Not knox/drawbridge. **Addressed:** D-1707
+- [x] `dungeon.c` recalc_mapseen Blind bigroom / oracle / valley / sanctum (named). Not knox/drawbridge. **Addressed:** D-1707 `7b26f699`
 
 
 - [x] `getline.c` yn_function addcmdq (named). Not Traditional itemize. **Addressed:** D-1706 `1567e9bf`

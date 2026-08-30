@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — audit #2110 reviews 654–668 + cadence
+
+**Objective:** C-fidelity review of fifteen `js/` SHAs since **653**
+(`605f0f2e`…`7b26f699`, D-1693…D-1707) plus full `sessions`.
+**C locus:** knox/drawbridge; savetrapchn; savelev lights; serLevel;
+other ledgers; RANGE_GLOBAL; getlev place; doset perminv; wizmgender;
+buy_container; shk_names_obj; dopay getpos; bill_box_content; yn
+addcmdq; recalc_mapseen flags.
+**Change:** reviews **654–668**. **656** QUALITY-RISK Must-fix
+`light.c` `mx > 0` + `update_mlstmv` skip dead/offmap. Rest
+ACCEPT-WITH-DEBT. No `js/` edits. Filled archive D-1707 `%h`.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `40+0.32/turn` (R² 0.861) at `7b26f699`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Must-fix `light.c` `save_light_sources` LS_MONSTER `mx > 0`.
+**Blocked:** none.
 ## 2026-08-30 — D-1707 dungeon.c recalc_mapseen Blind/oracle/valley/sanctum
 
 **Objective:** Open `dungeon.c` recalc_mapseen Blind bigroom / oracle /

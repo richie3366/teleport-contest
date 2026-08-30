@@ -8,9 +8,10 @@ Objective/score live in `CURRENT.md`.
 - **Suite 44/44** fortress. Save-oracle required for tagged restore
   Open. Private B0: trap-same-floor 17/17; ledger 26/26; wait-save
   catchup 30/30; catchup-after-restore 26/30 red; trap-ledger 38/38;
-  shop template 35/35 (no unpaid). **Next:** Open `dungeon.c`
-  cemetery yyyymmddhhmmss when[]. Do not skip D-1531…D-1707. Do
-  not re-port D-1675…D-1707.
+  shop template 35/35 (no unpaid). **Next:** Must-fix `light.c`
+  `save_light_sources` LS_MONSTER `mx > 0` (review **656**). Not
+  timeout.c `mon_is_local`. Do not skip D-1531…D-1707. Do not
+  re-port D-1675…D-1707.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; setworn oc_oprop; keepdogs/grow_up leash;
   light-scroll `initedog`; tip-spill/squeaky; hideunder;
@@ -52,6 +53,7 @@ Objective/score live in `CURRENT.md`.
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`.
   JSON `restore_artifacts` is D-1698. Default `spot_monsters` Off.
+  Do not keep timeout.c `mon_is_local` for LS_MONSTER lights (656).
 - Do not import `wield.js`/`pickup.js`→`polyself.js` for `body_part`
   (`objnam.js` `body_part_latebound`). No makemon→hack/`artifact`/
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
@@ -95,4 +97,5 @@ Objective/score live in `CURRENT.md`.
   Ledger 26/26; catchup-after-restore 26/30 red.
 - D-1698: RANGE_GLOBAL relink. D-1697 other ledgers. D-1696
   `serLevel` current. D-1695 stash lights/billobjs. D-1694 traps.
-  D-1693 knox/drawbridge. Audit **#2100**.
+  D-1693 knox/drawbridge. Audit **#2110** (reviews 654–668;
+  **656** QUALITY-RISK Must-fix `mx > 0`).

@@ -20,12 +20,12 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-08-29** — full `sessions` at **D-1692**
-(`ac1199da`, cadence **#2100**). **44**/44,
+Score last measured: **2026-08-30** — full `sessions` at **D-1707**
+(`7b26f699`, cadence **#2110**). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `39+0.32/turn` (R² 0.866). seed0367 FULL still PASS.
+Speed `40+0.32/turn` (R² 0.861). seed0367 FULL still PASS.
 Prior FAIL seed4500 at **D-1574** `1ba35e31` is PASS again.
-Prior audit **#2090** was 44/44 at `d2bcd227` (R² 0.862).
+Prior audit **#2100** was 44/44 at `ac1199da` (R² 0.866).
 
 ## Score
 
@@ -34,7 +34,7 @@ Prior audit **#2090** was 44/44 at `d2bcd227` (R² 0.862).
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `39+0.32/turn` (R² 0.866) |
+| Speed label | `40+0.32/turn` (R² 0.861) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -68,7 +68,7 @@ picks work; do not shop the fork dashboard. Private B0 (not in
 `sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
 wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
 trap-ledger **38/38**; shop template **35/35** (no unpaid).
-**Next cluster:** `dungeon.c` cemetery yyyymmddhhmmss when[] (named). Not cemetery JSON.
+**Next cluster:** Must-fix `light.c` `save_light_sources` LS_MONSTER `mx > 0` (`light.c:373`). Not timeout.c `mon_is_local`. Source: review **656**.
 **Do not skip D-1531…D-1707 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
