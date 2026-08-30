@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `invent.c` doprgold hidden_gold (named). Not currency. **Addressed:** D-1731
+- [x] `objects.h` is_multigen / is_poisonable (named). Not oc_merge. **Addressed:** D-1732
+
+
+- [x] `invent.c` doprgold hidden_gold (named). Not currency. **Addressed:** D-1731 `fbce2b1c`
 
 
 - [x] `end.c` artifact_score (named). Not hidden_gold. **Addressed:** D-1730 `02c2d6e0`

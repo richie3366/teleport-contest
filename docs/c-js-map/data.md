@@ -29,8 +29,13 @@ readobjnam quan; `sp_lev.c` create_object quan; `read.c` quiver wornmask;
 **`lspo_object` non-merge quan repeat** (D-1723; `sp_lev.c:3725–3740`
 do-while `!oc_merge`; find_objtype + argc string/coord; class-letter
 `def_char_to_objclass`/`mkgold`; live `js/mklev.js` `l_create_object`);
-`oc_oprop` already extracted; `is_multigen`/`is_poisonable` named;
-detect `sense_trap` quan named
+`oc_oprop` already extracted; **`is_multigen`/`is_poisonable`** (D-1732;
+C `obj.h` `:260–268` WEAPON_CLASS `oc_skill` `-P_SHURIKEN`..`-P_BOW`, or
+`permapoisoned` Grimtooth; live `js/objects.js` + `artifact.c`
+`permapoisoned` `js/artifact.js`; `mksobj_init` quan/`opoisoned` + end
+force; xname prefix; potion_dip; poly_obj keep; readobjnam `"poisoned "`
++ FOOD age=1 + post-oname Grimtooth; clones retired); detect
+`sense_trap` quan named; mthrowu/uhitm poison combat / nhlobj lua named
 
 ### `include/monsters.h`
 
@@ -182,7 +187,8 @@ mhitm mdamagem around monkilled D-1211; **troll_baned mkcorpstat_norevive D-1223
 **Soundeffect(se_scratching, 50) before nearby You_hear D-1222**; 
 **unique/pname corpse_xname adjective + rot CXN_NO_PFX D-1234**; 
 glob / doname CXN_ARTICLE|CXN_NOCORPSE prefix-as-adjective still named); melt deferred; 
-**`set_corpsenm` exported** (D-0247); `is_poisonable`≡missiles (D-0012); 
+**`set_corpsenm` exported** (D-0247); **`is_multigen`/`is_poisonable` oc_skill
+window + `permapoisoned`** (D-1732; was name-list missiles D-0012); 
 starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain + 
 `next_ident` (D-0028) + nobj link + **`obj_split_timers` D-1572**; **no invent[] splice** (D-0924 — premature splice broke 
 seed0002; invent slot via touchfood freeinv+`addinv_nomerge`); 
@@ -194,7 +200,7 @@ was zeroing → false `drag_ball` cause_delay); **`obj_extract_self` MINVENT** (
 **EGG `can_be_hatched` multi-retry** (D-0068); **Samurai lacquered `SPLINT_MAIL`** (D-0079); 
 **`mksobj_init` WEAPON/ARMOR artif `rn2(20|40+10*nartifact_exist())`** (D-0588) + 
 **`mk_artifact` A_NONE eligible/`rn2(n)`** (D-0759; 
-by_align/gift_value/gen_spe/permapoisoned deferred); 
+by_align/gift_value/gen_spe deferred; mksobj_init `permapoisoned` is D-1732); 
 **floor `stackobj`/`merged`/`mergable`** (D-0094) + **`add_to_minv` merge D-1492** + 
 **`oc_merge_of` from `objects[].oc_merge`** (D-1712; was class heuristic
 D-0679); **`delobj`→`obj_resists(0,0)`** (D-0105); 

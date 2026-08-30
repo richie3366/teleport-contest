@@ -1732,6 +1732,15 @@ export function is_art(otmp, art) {
 }
 
 /**
+ * C ref: artifact.c permapoisoned :2836–2840 — currently only Grimtooth.
+ * Callers: obj.h is_poisonable; mkobj.c mksobj_init; objnam.c readobjnam;
+ * potion.c potion_dip; uhitm leftover / mhitm_ad_phys.
+ */
+export function permapoisoned(obj) {
+    return !!(obj && is_art(obj, ART_GRIMTOOTH));
+}
+
+/**
  * C ref: artifact.c is_magic_key :2774–2786 — Master Key bless/curse.
  * Rogue: non-cursed. Non-rogue: must be blessed. Other objects false.
  * @param {object|null} mon

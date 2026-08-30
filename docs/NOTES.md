@@ -10,10 +10,10 @@ Objective/score live in `CURRENT.md`.
   ledger 26/26; wait-save catchup 30/30; catchup-after-restore 26/30
   red; trap-ledger 38/38; shop template 35/35 (no unpaid). Reviews
   **678–686** ACCEPT-WITH-DEBT (no Must-fix). **Next:** Open
-  `objects.h` is_multigen / is_poisonable (named). Not oc_merge.
-  Do not skip D-1531…D-1731. Do not re-port D-1675…D-1731.
-  Falsify: is_multigen / is_poisonable extract, not hidden_gold
-  (D-1731) or shopper_financial_report.
+  `shk.c` choose_stairs / u_left_shop leave verbalize (named). Not
+  remote_burglary. Do not skip D-1531…D-1732. Do not re-port
+  D-1675…D-1732. Falsify: choose_stairs / u_left_shop verbalize, not
+  is_multigen (D-1732) or remote_burglary.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; setworn oc_oprop; keepdogs/grow_up leash;
   light-scroll `initedog`; tip-spill/squeaky; hideunder;
@@ -26,12 +26,11 @@ Objective/score live in `CURRENT.md`.
   perm_invent can_set; polyself `uskin=`; steal/muse
   `unknow_object`; Hallu `obj_to_glyph` query;
   interned `'yn'` yn_function sites; hide+web `hidespinchars`;
-  mouse getpos; `is_multigen`/`is_poisonable`;
-  choose_stairs / `u_left_shop`; shopper_financial_report /
-  `shop_debt`; dokick `hidden_gold_kick`;
+  mouse getpos; choose_stairs / `u_left_shop`;
+  shopper_financial_report / `shop_debt`; dokick `hidden_gold_kick`;
   `free_luathemes`; other load_* `des.object`; dump_fmtstr / paniclog
   / `getyear`; full `dealloc_obj`; `delobj` extract; get_valuables /
-  pet HP / DUMPLOG `artifact_score` list.
+  pet HP / DUMPLOG `artifact_score` list; mthrowu/uhitm poison combat.
 
 ## Don't re-check (≤15)
 
@@ -40,7 +39,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1731.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1732.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -51,10 +50,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1731 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1732 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1731. Do not delete emin (**487**). Do not stub
+  D-1520…D-1732. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -68,11 +67,13 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1731 in the index. No yn ^P glue /
+  `vision_reset`. D-1576…D-1732 in the index. No yn ^P glue /
   `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1731 (index). D-1731 is doprgold `hidden_gold(FALSE)` (not
+  D-1682…D-1732 (index). D-1732 is `is_multigen`/`is_poisonable`
+  oc_skill window + Grimtooth (not oc_merge / mthrowu poison /
+  hidden_gold). D-1731 is doprgold `hidden_gold(FALSE)` (not
   shopper_financial_report / currency / get_valuables). D-1730 is
   artifact_score (not hidden_gold). D-1729 is getdir CQ_REPEAT (not
   trailing confdir / yn_function_menu). D-1728 is yn_function_menu
@@ -84,6 +85,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1732: `obj.h` `:260–268` + `permapoisoned` `:2836–2840`. Live
+  `js/objects.js` + `js/artifact.js`. Named: mthrowu/uhitm poison;
+  nhlobj lua.
 - D-1731: `doprgold` `:4502–4546` + `hidden_gold` `:1256–1268`.
   Live `js/invent.js` + export `js/vault.js`. Named: shopper
   report / shop_debt; dokick clone; botl/detect/insight callers.
@@ -113,4 +117,3 @@ Objective/score live in `CURRENT.md`.
 - D-1720: `currency` Hallu `ROLL_FROM`. Live `js/invent.js`.
 - D-1719: `arti_cost` + `artilist.cost`. Live `js/artifact.js`.
 - D-1718: glass `get_cost` `ubirthday` table. Live `js/shk.js`.
-- D-1717: `remote_burglary` + `rob_shop`/`call_kops`. Live `js/shk.js`.

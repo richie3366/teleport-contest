@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1732 — obj.h is_multigen / is_poisonable
+
+- **Status:** fixed (map-driven Open from D-1731; not a public FAIL)
+- **Symptom:** map named `is_multigen`/`is_poisonable`. C uses WEAPON_CLASS
+  `oc_skill` in `-P_SHURIKEN`..`-P_BOW`, and `is_poisonable` also
+  `permapoisoned` (Grimtooth). JS mkobj used a missile name-list and
+  aliased poisonable to that list; objnam/potion/zap/mhitm kept clones;
+  `mksobj_init` skipped the post-erosion Grimtooth force; wish skipped
+  `"poisoned "`.
+- **C locus:** `obj.h` `is_multigen`/`is_poisonable` `:260–268`;
+  `artifact.c` `permapoisoned` `:2836–2840`; `mkobj.c` `mksobj_init`
+  `:877` / `:886` / `:1173–1174`; `objnam.c` xname `:686`, wish
+  `:4034–4035` / `:5298–5305` / `:5368–5369`; `potion.c` `potion_dip`
+  `:2615–2636`; `zap.c` `poly_obj` `:1801–1802`.
+- **JS was:** name-list `is_multigen` (D-0012); `is_poisonable`≡that list;
+  local skill-window clones without Grimtooth in objnam; dip/poly already
+  matched C but cloned.
+- **Fix:** export C-home macros from `objects.js` (Grimtooth via
+  `ART_GRIMTOOTH` so objects.js does not import artifact.js); export
+  `permapoisoned` from `artifact.js`; `mksobj_init` end force; retire
+  clones; wish parse/apply + FOOD age=1.
+- **JS:** `js/objects.js`; `js/artifact.js`; `js/mkobj.js`; `js/objnam.js`;
+  `js/potion.js`; `js/zap.js`; `js/mhitm.js`; `js/readobjnam.js`.
+- **Not this iter:** mthrowu thitmon/thitu poison; uhitm
+  `hmon_hitmon_poison`; nhlobj lua; `oc_merge` is D-1712.
+- **Verified:** save-oracle probe skip (untagged `objects.h:is_multigen`);
+  node skill-window + Grimtooth + wish dart/food/Grimtooth/dagger +
+  mksobj quan; green+strict seed8000/0900; CURRENT cohort **9**/9 +
+  strict. Rule #2 clean.
+- **Files:** `js/objects.js`, `js/artifact.js`, `js/mkobj.js`,
+  `js/objnam.js`, `js/potion.js`, `js/zap.js`, `js/mhitm.js`,
+  `js/readobjnam.js`.
+
 ## D-1731 — invent.c doprgold / vault.c hidden_gold
 
 - **Status:** fixed (map-driven Open from D-1730; not a public FAIL)

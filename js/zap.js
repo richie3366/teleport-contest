@@ -291,8 +291,7 @@ import { dryup } from './fountain.js';
 import { explode } from './explode.js';
 import { unpunish, litroom } from './read.js';
 import { engr_at, del_engr, make_engr_at, wipe_engr_at, random_engraving, rloc_engr } from './engrave.js';
-import { bare_artifactname, defends, defends_when_carried, is_art } from './artifact.js';
-import { ART_GRIMTOOTH } from './generated/artifacts_data.js';
+import { bare_artifactname, defends, defends_when_carried } from './artifact.js';
 import { Ring_gone, Ring_off, Ring_on, setworn, set_wear } from './do_wear.js';
 import { which_armor, mon_set_minvis, check_gear_next_turn, wearslot, wearmask_to_obj } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
@@ -311,7 +310,7 @@ import {
 import {
     WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, ARMOR_CLASS, POTION_CLASS,
     TOOL_CLASS, GEM_CLASS, SCROLL_CLASS, RING_CLASS, FOOD_CLASS, COIN_CLASS,
-    ROCK_CLASS, NODIR, IMMEDIATE, objectNames,
+    ROCK_CLASS, NODIR, IMMEDIATE, objectNames, is_poisonable,
 } from './objects.js';
 import {
     WAND_BACKFIRE_CHANCE, WAND_WREST_CHANCE, nothing_happens,
@@ -4922,14 +4921,8 @@ export async function poly_obj(obj, id) {
     }
 
     if (obj.otrapped && Is_box(otmp)) otmp.otrapped = 1;
-    if (obj.opoisoned) {
-        const sk = game.objects?.[otmp.otyp]?.oc_skill ?? 0;
-        if (((otmp.oclass | 0) === WEAPON_CLASS
-                && sk >= -P_SHURIKEN && sk <= -P_BOW)
-            || is_art(otmp, ART_GRIMTOOTH)) {
-            otmp.opoisoned = 1;
-        }
-    }
+    // C zap.c poly_obj `:1801–1802` — keep poison on is_poisonable result.
+    if (obj.opoisoned && is_poisonable(otmp)) otmp.opoisoned = 1;
 
     if (id === STRANGE_OBJECT && (obj.otyp | 0) === CORPSE
         && (obj.corpsenm | 0) === PM_CROCODILE) {

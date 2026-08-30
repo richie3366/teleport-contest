@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objects.h` is_multigen / is_poisonable (named). Not oc_merge.
 - [ ] `shk.c` choose_stairs / u_left_shop leave verbalize (named). Not remote_burglary.
 - [ ] `display.c` display_monster M_AP_MONSTER what_mon (named). Not M_AP_FURNITURE lastseentyp.
 - [ ] `display.c` display_monster Protection_from_shape_changers sensed (named). Not M_AP_FURNITURE.

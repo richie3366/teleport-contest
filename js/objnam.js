@@ -22,6 +22,7 @@ import {
     objectNameStrs,
     objectDescrs,
     objects,
+    is_poisonable,
 } from './objects.js';
 import {
     monsterNames, mons, vegetarian, is_rider, M2_PNAME, G_UNIQ,
@@ -39,7 +40,7 @@ import {
 import {
     W_ARMOR, W_AMUL, W_RING, W_RINGL, W_RINGR, W_QUIVER, W_WEP, W_SWAPWEP,
     W_ARM, W_BALL, W_CHAIN, W_TOOL, W_SADDLE, WARN_OF_MON,
-    Has_contents, Is_container, Is_box, P_NONE, P_BOW, P_CROSSBOW, P_SHURIKEN,
+    Has_contents, Is_container, Is_box, P_NONE, P_BOW, P_CROSSBOW,
     P_DART, P_BOOMERANG,
     OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
     ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, ismnum, MV_KNOWS_EGG,
@@ -152,15 +153,6 @@ function is_missile_obj(obj) {
     if (obj.oclass !== WEAPON_CLASS && obj.oclass !== TOOL_CLASS) return false;
     const sk = game.objects?.[obj.otyp]?.oc_skill ?? 0;
     return sk >= -P_BOOMERANG && sk <= -P_DART;
-}
-
-/**
- * C ref: obj.h is_poisonable — missile skill window (permapoisoned deferred).
- */
-function is_poisonable_obj(obj) {
-    if (!obj || obj.oclass !== WEAPON_CLASS) return false;
-    const sk = game.objects?.[obj.otyp]?.oc_skill ?? 0;
-    return sk >= -P_SHURIKEN && sk <= -P_BOW;
 }
 
 // C ref: objclass.h enum obj_material_types (subset for erosion naming)
@@ -618,9 +610,9 @@ function pretty_base(obj) {
         // C: WEAPON_CLASS only — is_poisonable && opoisoned → "poisoned "
         // before VENOM/TOOL fallthrough (lenses/towel would overwrite).
         // Named omission: wet-towel moist/wet; figurine " of <pm>";
-        // ConcUpdate; permapoisoned.
+        // ConcUpdate.
         if (obj.oclass === WEAPON_CLASS
-            && is_poisonable_obj(obj) && obj.opoisoned) {
+            && is_poisonable(obj) && obj.opoisoned) {
             buf = 'poisoned ';
         }
         if (n === 'LENSES') buf = 'pair of ';
