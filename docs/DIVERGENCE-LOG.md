@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-1700 — options.c doset CompOpt perminv_mode + wc_supported skip
+
+- **Status:** fixed (map-driven Open from D-1699; not a public FAIL)
+- **Symptom:** map named mO `perminv_mode` compound row. C `doset`
+  walks CompOpt `perminv_mode` (`optlist.h` set_in_game, after
+  paranoid_confirmation) then `doset_add_menu` get_val / has_handler.
+  `is_wc_option` + `!wc_supported` skips it when
+  `windowprocs.wincap` lacks `WC_PERM_INVENT`. Contest tty_procs
+  (`!TTY_PERM_INVENT`) does not set that bit, so C never shows the
+  row. D-1661 omitted the row as “letter fortress seed0007” after an
+  ungated insert shifted pickup_types letters.
+- **C locus:** `options.c` `doset` `:8865–8877`; `doset_add_menu`
+  `:9016–9065`; `wc_options[]` `:9787–9822`; `is_wc_option` /
+  `wc_supported` `:9898–9921`; `optfn_perminv_mode` get_val
+  `:3114–3132`; `wintty.c` tty_procs.wincap `:98–110`.
+- **JS was:** hardcoded mO compounds without `perminv_mode`; handler
+  already wired if selected. No `wc_supported` skip.
+- **Fix:** C-order CompOpt row with live get_val + handler;
+  `doset_add_menu`; `wc_options` / `wc_supported`; contest tty wincap
+  default without `WC_PERM_INVENT` so the row stays hidden (seed0007
+  letters unchanged). Named: wc2_supported skip; perm_invent can_set
+  gate; wizmgender glyph-reset.
+- **JS:** `js/options.js`.
+- **Verified:** save-oracle probe skip (untagged); green+strict
+  seed8000/0900; cohort seed1500/1800/0012/0004/0007/2200/0383 +
+  strict (9/9). seed0007 302/302.
+- **Files:** `js/options.js`.
+
 ## D-1699 — restore.c dorecover getlev place / envelope / omoves restamp
 
 - **Status:** fixed (map-driven ledger Cluster 5; not a public FAIL)

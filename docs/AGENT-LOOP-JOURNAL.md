@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1700 options.c doset CompOpt perminv_mode wc skip
+
+**Objective:** Open `options.c` mO perminv_mode compound row. Not
+optfn_perminv_mode.
+**C locus:** `options.c` doset `:8865–8877`; doset_add_menu
+`:9016–9065`; wc_supported `:9911–9921`; tty_procs.wincap `:98–110`.
+**JS locus:** `js/options.js` doset.
+**Change:** C-order CompOpt row + live get_val/handler; skip when
+!wc_supported (contest tty lacks WC_PERM_INVENT). Ungated insert was
+D-1661 seed0007 miss.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; green+strict; cohort 9/9 incl.
+seed0007 302/302.
+**Next:** Open `options.c` wizmgender glyph-reset. Not wizweight.
+**Blocked:** none.
 ## 2026-08-30 — save-oracle loop Cluster 6 CURRENT/NOTES
 
 **Objective:** Close save-prefixed oracle take — hot docs. No JS.

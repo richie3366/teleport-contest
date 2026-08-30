@@ -43,7 +43,38 @@ import {
     InvOptInUse,
     InvSparse,
     WIN_ERR,
+    WC_ASCII_MAP,
+    WC_COLOR,
+    WC_TILED_MAP,
+    WC_PRELOAD_TILES,
+    WC_TILE_WIDTH,
+    WC_TILE_HEIGHT,
+    WC_TILE_FILE,
+    WC_INVERSE,
+    WC_ALIGN_MESSAGE,
+    WC_ALIGN_STATUS,
+    WC_VARY_MSGCOUNT,
+    WC_FONT_MAP,
+    WC_FONT_MESSAGE,
+    WC_FONT_STATUS,
+    WC_FONT_MENU,
+    WC_FONT_TEXT,
+    WC_FONTSIZ_MAP,
+    WC_FONTSIZ_MESSAGE,
+    WC_FONTSIZ_STATUS,
+    WC_FONTSIZ_MENU,
+    WC_FONTSIZ_TEXT,
+    WC_SCROLL_MARGIN,
+    WC_SPLASH_SCREEN,
+    WC_POPUP_DIALOG,
+    WC_SCROLL_AMOUNT,
+    WC_EIGHT_BIT_IN,
     WC_PERM_INVENT,
+    WC_MAP_MODE,
+    WC_WINDOWCOLORS,
+    WC_PLAYER_SELECTION,
+    WC_HILITE_PET,
+    WC_MOUSE_SUPPORT,
 } from './const.js';
 import { game } from './gstate.js';
 import { rnd } from './rng.js';
@@ -412,6 +443,89 @@ const perminv_modes = [
 /** C WINDOWPORT(tty) — scored port is tty. */
 function windowport_tty() {
     return true;
+}
+
+/**
+ * C wintty.c tty_procs.wincap `:98–110` contest `!TTY_PERM_INVENT`.
+ * Public tty is WC_COLOR|HILITE_PET|INVERSE|EIGHT_BIT_IN only.
+ */
+function tty_procs_wincap() {
+    return WC_COLOR | WC_HILITE_PET | WC_INVERSE | WC_EIGHT_BIT_IN;
+}
+
+/** C `windowprocs.wincap`; unset bag → contest tty_procs. */
+function windowprocs_wincap() {
+    const wp = game.windowprocs;
+    if (wp && typeof wp === 'object' && Object.hasOwn(wp, 'wincap')) {
+        return wp.wincap | 0;
+    }
+    return tty_procs_wincap();
+}
+
+/**
+ * C options.c wc_options[] `:9787–9822`.
+ * perminv_mode shares WC_PERM_INVENT with perm_invent.
+ */
+const wc_options = [
+    { wc_name: 'ascii_map', wc_bit: WC_ASCII_MAP },
+    { wc_name: 'color', wc_bit: WC_COLOR },
+    { wc_name: 'eight_bit_tty', wc_bit: WC_EIGHT_BIT_IN },
+    { wc_name: 'hilite_pet', wc_bit: WC_HILITE_PET },
+    { wc_name: 'perm_invent', wc_bit: WC_PERM_INVENT },
+    { wc_name: 'perminv_mode', wc_bit: WC_PERM_INVENT },
+    { wc_name: 'popup_dialog', wc_bit: WC_POPUP_DIALOG },
+    { wc_name: 'player_selection', wc_bit: WC_PLAYER_SELECTION },
+    { wc_name: 'preload_tiles', wc_bit: WC_PRELOAD_TILES },
+    { wc_name: 'tiled_map', wc_bit: WC_TILED_MAP },
+    { wc_name: 'tile_file', wc_bit: WC_TILE_FILE },
+    { wc_name: 'tile_width', wc_bit: WC_TILE_WIDTH },
+    { wc_name: 'tile_height', wc_bit: WC_TILE_HEIGHT },
+    { wc_name: 'align_message', wc_bit: WC_ALIGN_MESSAGE },
+    { wc_name: 'align_status', wc_bit: WC_ALIGN_STATUS },
+    { wc_name: 'font_map', wc_bit: WC_FONT_MAP },
+    { wc_name: 'font_menu', wc_bit: WC_FONT_MENU },
+    { wc_name: 'font_message', wc_bit: WC_FONT_MESSAGE },
+    { wc_name: 'font_size_map', wc_bit: WC_FONTSIZ_MAP },
+    { wc_name: 'font_size_menu', wc_bit: WC_FONTSIZ_MENU },
+    { wc_name: 'font_size_message', wc_bit: WC_FONTSIZ_MESSAGE },
+    { wc_name: 'font_size_status', wc_bit: WC_FONTSIZ_STATUS },
+    { wc_name: 'font_size_text', wc_bit: WC_FONTSIZ_TEXT },
+    { wc_name: 'font_status', wc_bit: WC_FONT_STATUS },
+    { wc_name: 'font_text', wc_bit: WC_FONT_TEXT },
+    { wc_name: 'map_mode', wc_bit: WC_MAP_MODE },
+    { wc_name: 'scroll_amount', wc_bit: WC_SCROLL_AMOUNT },
+    { wc_name: 'scroll_margin', wc_bit: WC_SCROLL_MARGIN },
+    { wc_name: 'splash_screen', wc_bit: WC_SPLASH_SCREEN },
+    { wc_name: 'use_inverse', wc_bit: WC_INVERSE },
+    { wc_name: 'vary_msgcount', wc_bit: WC_VARY_MSGCOUNT },
+    { wc_name: 'windowcolors', wc_bit: WC_WINDOWCOLORS },
+    { wc_name: 'mouse_support', wc_bit: WC_MOUSE_SUPPORT },
+];
+
+/** C options.c is_wc_option `:9898–9909`. */
+function is_wc_option(optnam) {
+    for (let k = 0; k < wc_options.length; k++) {
+        if (wc_options[k].wc_name === optnam) return true;
+    }
+    return false;
+}
+
+/** C options.c wc_supported `:9911–9921`. */
+function wc_supported(optnam) {
+    for (let k = 0; k < wc_options.length; k++) {
+        if (wc_options[k].wc_name === optnam) {
+            return (windowprocs_wincap() & wc_options[k].wc_bit) !== 0;
+        }
+    }
+    return false;
+}
+
+/**
+ * C options.c doset `:8869–8872` / `:8846–8848` WC skip.
+ * wc2_supported named (petattr/statushilites already in the contest list).
+ */
+function doset_skip_unsupported(name) {
+    return is_wc_option(name) && !wc_supported(name);
 }
 
 function perminv_iflags(bag) {
@@ -1796,6 +1910,22 @@ function format_doset_opt_line(name, value, indent = '') {
     return `${indent}${String(name).padEnd(dosetSimpleNameWidth)} [${value}]`;
 }
 
+/**
+ * C options.c doset_add_menu `:9016–9065`.
+ * indexoffset 0 → non-selectable (indent replaces "a - ").
+ * Caller supplies get_val text (optfn get_val / empty_optstr).
+ */
+function doset_add_menu(name, value, indexoffset, extra = {}) {
+    const indent = indexoffset === 0 ? '    ' : '';
+    return {
+        text: format_doset_opt_line(name, value, indent),
+        selectable: indexoffset !== 0,
+        kind: 'comp',
+        name,
+        ...extra,
+    };
+}
+
 /** Non-modifiable (pass-0) bools shown on doset page 1. */
 const DOSET_BOOL_NONMOD = [
     'blind', 'bones', 'deaf', 'legacy', 'news', 'nudist', 'pauper', 'reroll',
@@ -1892,10 +2022,12 @@ function doset_bool_term(name) {
 /**
  * C ref: options.c doset — full options PICK_ANY (mO / menu_requested).
  * Branch envelope: help + nonmod bools + mod bools + compounds + others;
- * apply bool toggles then handlers (pickup_types). Named omissions: full
- * compound getlin arms, WC filters, wizmgender, PREFIXES, help file.
- * mO compound row for perminv_mode named (letter fortress);
- * OPTIONS= + handler live. optfn_boolean perm_invent can_set gate named.
+ * apply bool toggles then handlers (pickup_types / perminv_mode).
+ * CompOpt perminv_mode is in C allopt order; doset skips it when
+ * !wc_supported (contest tty !TTY_PERM_INVENT). Named omissions: full
+ * compound getlin arms, wc2_supported skip, wizmgender, PREFIXES, help
+ * file. OPTIONS= + handler live. optfn_boolean perm_invent can_set gate
+ * named.
  */
 export async function doset() {
     if (!game.flags) game.flags = {};
@@ -1938,12 +2070,14 @@ export async function doset() {
         attr: ATR_INVERSE,
     });
     for (const name of DOSET_BOOL_NONMOD) {
+        if (doset_skip_unsupported(name)) continue;
         raw.push({
             text: format_doset_opt_line(name, doset_bool_term(name), '    '),
             selectable: false,
         });
     }
     for (const name of doset_bool_mod_list()) {
+        if (doset_skip_unsupported(name)) continue;
         raw.push({
             text: format_doset_opt_line(name, doset_bool_term(name), ''),
             selectable: true,
@@ -1973,10 +2107,8 @@ export async function doset() {
         ['pettype', 'random'],
         ['soundlib', 'nosound'],
     ]) {
-        raw.push({
-            text: format_doset_opt_line(name, val, '    '),
-            selectable: false,
-        });
+        if (doset_skip_unsupported(name)) continue;
+        raw.push(doset_add_menu(name, val, 0));
     }
     const compounds = [
         { name: 'autounlock', val: 'apply-key' },
@@ -1996,6 +2128,9 @@ export async function doset() {
         { name: 'number_pad', val: '0=off' },
         { name: 'packorder', val: '$")[%?+!=/(*`0_' },
         { name: 'paranoid_confirmation', val: 'pray trap swim' },
+        // C optlist.h NHOPTC perminv_mode set_in_game before petattr.
+        // doset_skip_unsupported when !WC_PERM_INVENT (contest tty).
+        { name: 'perminv_mode', get_val: optfn_perminv_mode_get_val_display, handler: true },
         { name: 'petattr', val: 'inverse' },
         { name: 'pickup_burden', val: 'stressed' },
         { name: 'pickup_types', val: pickup_types_display(), handler: true },
@@ -2015,13 +2150,9 @@ export async function doset() {
         { name: 'whatis_filter', val: 'none' },
     ];
     for (const c of compounds) {
-        raw.push({
-            text: format_doset_opt_line(c.name, c.val, ''),
-            selectable: true,
-            kind: 'comp',
-            name: c.name,
-            handler: !!c.handler,
-        });
+        if (doset_skip_unsupported(c.name)) continue;
+        const val = c.get_val ? c.get_val() : c.val;
+        raw.push(doset_add_menu(c.name, val, 1, { handler: !!c.handler }));
     }
     raw.push({ text: '', selectable: false });
     raw.push({
