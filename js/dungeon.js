@@ -1316,9 +1316,9 @@ function clone_cemetery_chain(head) {
  * from lastseentyp[frpx][frpy] (D-1659). flags.castletune cleared each
  * pass then restored by count_feat if the drawbridge is still seen;
  * flags.castle / flags.ludios stick. Blind bigroom / oracle DELPHI /
- * valley / sanctum / vibrating_square (D-1707). Named: sokosolved /
- * roguelevel / quest_summons / questing / notreachable; DRAWBRIDGE_UP
- * lastseentyp; yyyymmddhhmmss when[].
+ * valley / sanctum / vibrating_square (D-1707). Cemetery when[] is
+ * yyyymmddhhmmss (D-1710). Named: sokosolved / roguelevel /
+ * quest_summons / questing / notreachable; DRAWBRIDGE_UP lastseentyp.
  */
 export function recalc_mapseen() {
     const mptr = ensure_mapseen(null);

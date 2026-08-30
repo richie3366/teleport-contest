@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1710 — calendar.c yyyymmddhhmmss cemetery when[]
+
+- **Status:** fixed (map-driven Open from D-1709; not a public FAIL)
+- **Symptom:** map named cemetery `when[]` as C `yyyymmddhhmmss`,
+  not a leftover JSON date string. JS `savebones` stored `when: ''`.
+  Overview still lists who/how only (C `print_mapseen`).
+- **C locus:** `calendar.c` `yyyymmddhhmmss` `:94–117` (date==0
+  `getlt()` else `localtime`); `yyyymmdd` `:55–77` same date gate.
+  `bones.c` `savebones` `:586` `Strcpy(newbones->when,
+  yyyymmddhhmmss(when))`. Caller `end.c` `really_done` `:1165–1170`
+  `endtime = getnow()` then `:1365` `savebones(how, endtime, corpse)`
+  / `:1394` `outrip` / `:1448` `topten`. `rm.h` `when[15]`
+  `"YYYYMMDDhhmmss\\0"`.
+- **JS was:** `when: '' // yyyymmddhhmmss named`; `yyyymmdd` ignored
+  its `date` arg (`void date`).
+- **Fix:** live `yyyymmddhhmmss`; `yyyymmdd(date)` uses the same
+  `lt_for_date` (contest UTC-4 inverse of `time_from_*`).
+  `really_done` one `getnow()`; `savebones(how, when, corpse)`
+  fills `when[]`; topten/outrip take that `endtime`. JSON persist
+  already D-1685. Do not print `when[]` on `#overview`.
+- **JS:** `js/calendar.js`; `js/end.js` `really_done`/`savebones`;
+  `js/topten.js` comment.
+- **Not this iter:** `hhmmss`; DRAWBRIDGE_UP / furniture-mimic
+  lastseentyp; dump_everything datetime; ubirthday save; `urealtime`;
+  cemetery JSON (D-1685); print_mapseen who/how (D-1659).
+- **Verified:** save-oracle probe skip (untagged
+  `calendar.c:yyyymmddhhmmss` / `bones.c:savebones`); roundtrip
+  smoke `yyyymmddhhmmss(getnow())` recovers `game.datetime`;
+  focused seed0006/0007/5006 + green+strict seed8000/0900;
+  CURRENT cohort 7/7 + strict (seed0007 302/302, seed2200 230/230).
+- **Files:** `js/calendar.js`, `js/end.js`, `js/topten.js`,
+  `js/dungeon.js` (comment).
+
 ## D-1709 — dog.c update_mlstmv iter_mons skip DEADMONSTER / mon_offmap
 
 - **Status:** fixed (Must-fix review **656**; not a public FAIL)

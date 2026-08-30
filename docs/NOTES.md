@@ -9,10 +9,11 @@ Objective/score live in `CURRENT.md`.
   Open. Private B0: trap-same-floor 17/17; ledger 26/26; wait-save
   catchup 30/30; catchup-after-restore 26/30 red; trap-ledger 38/38;
   shop template 35/35 (no unpaid). **Next:** Open `dungeon.c`
-  cemetery yyyymmddhhmmss when[] (named). Not cemetery JSON. Do not
-  skip D-1531…D-1709. Do not re-port D-1675…D-1709. Falsify:
-  `js/dungeon.js` cemetery `when[]` must be C `yyyymmddhhmmss`
-  (named), not a leftover JSON date string.
+  update_lastseentyp DRAWBRIDGE_UP / furniture-mimic (named). Not
+  knox/drawbridge. Do not skip D-1531…D-1710. Do not re-port
+  D-1675…D-1710. Falsify: `update_lastseentyp` must treat
+  DRAWBRIDGE_UP and furniture-mimics like C (named), not skip them
+  after D-1693 knox/drawbridge.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; setworn oc_oprop; keepdogs/grow_up leash;
   light-scroll `initedog`; tip-spill/squeaky; hideunder;
@@ -26,7 +27,7 @@ Objective/score live in `CURRENT.md`.
   Hallu `obj_to_glyph` query; invent.c `useupall` / `obfree`;
   `yn_function_menu` (`query_menu`); getdir yn_function;
   sokosolved/roguelevel/quest recalc flags; FullyUsedUp;
-  `remote_burglary`; cant_go_back FREEING.
+  `remote_burglary`; cant_go_back FREEING; `hhmmss`.
 
 ## Don't re-check (≤15)
 
@@ -35,7 +36,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1709.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1710.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -46,10 +47,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1709 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1710 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1709. Do not delete emin (**487**). Do not stub
+  D-1520…D-1710. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -62,11 +63,13 @@ Objective/score live in `CURRENT.md`.
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1709 in the index. No yn ^P glue /
+  `vision_reset`. D-1576…D-1710 in the index. No yn ^P glue /
   `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1709 (index). D-1709 `iter_mons` skip (not cant_go_back).
+  D-1682…D-1710 (index). D-1710 cemetery `when[]` is
+  `yyyymmddhhmmss(endtime)` (not JSON date; overview still who/how).
+  D-1709 `iter_mons` skip (not cant_go_back).
   D-1708 LS_MONSTER `mx > 0` (not timeout migrating/mydogs; keep
   timeout helpers for timers/LS_OBJECT). D-1707 Blind/oracle/valley/
   sanctum (not knox/drawbridge). D-1706 yn addcmdq (getobj/paranoid/
@@ -75,6 +78,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1710: `calendar.c` `yyyymmddhhmmss` `:94–117` + `yyyymmdd`
+  `:55–77` `lt_for_date`; `bones.c` savebones `:586`; `end.c`
+  really_done one `getnow()`. Live `js/calendar.js` + `js/end.js`.
+  Named: `hhmmss`; DRAWBRIDGE_UP lastseentyp.
 - D-1709: `dog.c` `update_mlstmv` `:293–298` via `iter_mons`
   `mon.c:4531–4535` skip `DEADMONSTER` (`mhp<1`) / `mon_offmap`;
   live `js/dog.js` + `mon_offmap` `js/monmove.js`. Named:
@@ -86,8 +93,7 @@ Objective/score live in `CURRENT.md`.
   `forgot` wipe `flags.bigroom`; `oracle=0` then `orig_rtype==DELPHI`;
   valley/msanctum naltar stick; sanctum clears invoc
   `vibrating_square`; Invocation_lev tseen vs no-trap/`msanctum`.
-  Named: sokosolved/roguelevel/quest flags; DRAWBRIDGE_UP lastseentyp;
-  yyyymmddhhmmss when[].
+  Named: sokosolved/roguelevel/quest flags; DRAWBRIDGE_UP lastseentyp.
 - D-1706: `cmd.c` `yn_function` `:5470–5583` addcmdq pop KEY /
   CQ_REPEAT record; tty windowport; getobj/paranoid_ynq/askchain
   FALSE. Named: `yn_function_menu`; getdir yn_function.

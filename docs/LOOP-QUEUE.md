@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dungeon.c` cemetery yyyymmddhhmmss when[] (named). Not cemetery JSON.
 - [ ] `dungeon.c` update_lastseentyp DRAWBRIDGE_UP / furniture-mimic (named). Not knox/drawbridge.
 - [ ] `objects.h` oc_merge extract (named). Not oc_charged.
 - [ ] `invent.c` observe_object FIRST_OBJECT skip (named). Not undiscover_object.

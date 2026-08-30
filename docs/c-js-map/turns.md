@@ -1295,7 +1295,7 @@ C `savemon`/`restmon`; seg9 16635→16683);
 **ghostly `peace_minded`/`set_malign` + savebones pet untame** (D-0277; C `restore.c` getlev; 
 seg9 16683→16836); **`savebones` clear seenv/waslit/glyph + load strip remembered/disp (D-0328)**; 
 **`savebones` cemetery `bonesinfo` + `bones_include_name` / `familiar_level_msg`** (D-0577; 
-formatkiller/when stubs); **`no_bones_level` (special/dungeon boneid, botlevel, branch dlevel>1, 
+formatkiller; **`when[]` = `yyyymmddhhmmss(endtime)` D-1710**); **`no_bones_level` (special/dungeon boneid, botlevel, branch dlevel>1, 
 Gehennom invocation) + non-branch MAGIC_PORTAL + `getbones` gate** (D-0279; seg4 FULL); 
 **`#quit`→`done2` yn→`done(QUIT)` + EXT_CMDS** (D-0281; GENERALCMD/ECMD_OK); 
 **`really_done`→`paybill` before flush + `finish_paybill` before bones** (D-0311); 
