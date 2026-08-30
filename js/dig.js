@@ -21,9 +21,7 @@ import { rn1, rn2, rnd } from './rng.js';
 import {
     newsym, pline, You_feel, tmp_at, nh_delay_output, verbalize,
     feel_newsym, flush_screen, flush_topl_more, pline_mon,
-    clear_nhwindow_message,
 } from './display.js';
-import { yn_function } from './getline.js';
 import { cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { cvt_sdoor_to_door } from './detect.js';
 import {
@@ -72,6 +70,7 @@ import {
 } from './dbridge.js';
 import { obj_resists } from './dogmove.js';
 import { unpunish, punish } from './read.js';
+import { getdir } from './lock.js';
 import {
     IS_STWALL, IS_TREE, IS_WALL, IS_OBSTRUCTED, IS_DOOR, IS_FOUNTAIN,
     IS_THRONE, IS_ALTAR, IS_ROOM, IS_SINK, IS_FURNITURE, IS_GRAVE,
@@ -2055,42 +2054,6 @@ function otense_dig(_obj, verb) {
     return verb;
 }
 
-/**
- * C ref: cmd.c getdir subset — yn_function then hjkl/yubn + . self +
- * <> vertical. Named: SELF2 's'; cmdq; CQ_REPEAT; help_dir.
- */
-async function dig_getdir(prompt) {
-    // C `:3987–3988` — '^' is a help_dir marker, not the prompt text
-    const query = (prompt && prompt.charAt(0) !== '^')
-        ? prompt : 'In what direction?';
-    const dirsym = await yn_function(query, null, '\0', false);
-    clear_nhwindow_message();
-    const ch = dirsym;
-    const key = dirsym.charCodeAt(0);
-    if (!game.u) game.u = {};
-    if (ch === '.') {
-        game.u.dx = game.u.dy = game.u.dz = 0;
-        return true;
-    }
-    if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') return false;
-    if (ch === '<') {
-        game.u.dx = game.u.dy = 0;
-        game.u.dz = -1;
-        return true;
-    }
-    if (ch === '>') {
-        game.u.dx = game.u.dy = 0;
-        game.u.dz = 1;
-        return true;
-    }
-    const ent = DIG_DIR_CHARS.find((d) => d.ch === ch && d.dz === 0);
-    if (!ent) return false;
-    game.u.dx = ent.dx;
-    game.u.dy = ent.dy;
-    game.u.dz = 0;
-    return true;
-}
-
 /** C ref: cmd.c cmdq_add_ec — rhack(0) awaits the function (D-1018). */
 function cmdq_add_ec(fn) {
     if (!game._cmdq_canned) game._cmdq_canned = [];
@@ -2151,7 +2114,7 @@ export async function use_pick_axe(obj) {
         }
     }
     const qbuf = `In what direction do you want to ${verb}? [${dirsyms}]`;
-    if (!(await dig_getdir(qbuf))) return res | ECMD_CANCEL;
+    if (!(await getdir(qbuf))) return res | ECMD_CANCEL;
     return use_pick_axe2(obj);
 }
 

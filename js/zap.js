@@ -224,7 +224,6 @@ import {
     flush_screen, flush_topl_more, pline, pline_dir, pline_mon, Norep, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon, shieldeff,
     obj_glyph, glyph_is_invisible, map_invisible, bot, set_msg_xy,
-    clear_nhwindow_message,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
@@ -280,7 +279,7 @@ import { burn_away_slime, get_obj_location } from './timeout.js';
 import { show_transient_light, transient_light_cleanup } from './light.js';
 import { create_gas_cloud } from './region.js';
 import { recalc_block_point } from './vision.js';
-import { picking_at, reset_pick, boxlock, boxlock_invent, doorlock } from './lock.js';
+import { picking_at, reset_pick, boxlock, boxlock_invent, doorlock, getdir } from './lock.js';
 import { monflee, sticks } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './mhitu.js';
 import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv, set_mimic_sym, newmcorpsenm } from './makemon.js';
@@ -517,9 +516,6 @@ const AD_ELEC = 6;
 const AD_DRLI = 15;
 const DMG_DESTROY_SCALE = 5;
 const MAX_ITEMS_DESTROYED = 20;
-
-const DIR_DX = { h: -1, l: 1, j: 0, k: 0, y: -1, u: 1, b: -1, n: 1 };
-const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
 
 /** C ref: youprop.h Sleep_resistance */
 function Sleep_resistance() {
@@ -2313,37 +2309,16 @@ function zap_ok(obj) {
 
 /**
  * C ref: cmd.c getdir — direction for zap; '.' / 's' = self.
- * Interactive path is yn_function(NULL resp, '\0', FALSE) then
- * clear_nhwindow(WIN_MESSAGE). After a successful horizontal dir
- * (including self dz==0), C always calls confdir(FALSE) which may
- * roll u_maybe_impaired — stay local; do not add trailing confdir
- * to shared lock.js getdir.
+ * Shared lock.js getdir owns cmdq_pop / CQ_REPEAT / yn_function.
+ * After a successful horizontal dir (including self dz==0), C always
+ * calls confdir(FALSE) which may roll u_maybe_impaired — stay local;
+ * do not add trailing confdir to shared lock.js getdir.
  */
 async function getdir_zap(prompt) {
-    // C `:3987–3988` — '^' is a help_dir marker, not the prompt text
-    const query = (prompt && prompt.charAt(0) !== '^')
-        ? prompt : 'In what direction?';
-    const dirsym = await yn_function(query, null, '\0', false);
-    clear_nhwindow_message();
-    const ch = dirsym;
-    const key = dirsym.charCodeAt(0);
-    if (!game.u) game.u = {};
-    if (ch === '.' || ch === 's') {
-        game.u.dx = game.u.dy = game.u.dz = 0;
-    } else if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
-        game.u.dx = game.u.dy = game.u.dz = 0;
-        return false;
-    } else if (!(ch in DIR_DX)) {
-        game.u.dx = game.u.dy = game.u.dz = 0;
-        return false;
-    } else {
-        game.u.dx = DIR_DX[ch];
-        game.u.dy = DIR_DY[ch];
-        game.u.dz = 0;
-    }
+    const ok = await getdir(prompt);
     // C getdir: if (!u.dz) confdir(FALSE);
-    if (!game.u.dz) confdir(false);
-    return true;
+    if (ok && !(game.u?.dz | 0)) confdir(false);
+    return ok;
 }
 
 /**

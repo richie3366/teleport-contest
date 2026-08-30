@@ -413,7 +413,8 @@ JS: `js/zap.js` — partial
 
 **`dozap`/`zappable`/`backfire`/`weffects`/`zapnodir`/`learnwand`** NODIR 
 `WAN_SECRET_DOOR_DETECTION` → `findit` (D-0074); 
-**directional getdir `.`=self + `confdir` + getdir_zap yn_function D-1721**
+**directional getdir `.`=self + `confdir` + getdir_zap yn_function D-1721 /
+CQ_REPEAT D-1729**
 (confdir stays local; do not add to shared `getdir`) +
 `zapyourself` SPE_HEALING/`WAN_SLEEP`/`SPE_SLEEP`/`WAN_DEATH`/`SPE_FINGER_OF_DEATH`/`WAN_POLYMORPH`/
 `SPE_POLYMORPH` (D-0156/D-0576/D-0928 #1103); **getobj `?`/`*` → `display_pickinv_reply`; 
@@ -1443,8 +1444,11 @@ costly_alteration COST_SPLAT / quan>1 invent-split deferred); exported `getdir` 
 retry** (no trailing `confdir`; help_dir/cmdassist still `getdir_cmdassist` for throw) + 
 **D-1721 `getdir` yn_function** (C `cmd.c` `:3987–4011` `yn_function(query, NULL, '\0', FALSE)` then 
 `clear_nhwindow(WIN_MESSAGE)`; `(s && *s != '^')` query; live `js/lock.js` + 
-`getdir_cmdassist` / `getdir_zap` / `dig_getdir`; unused dothrow clone deleted; 
-CQ_REPEAT / mouse `_` getpos / help_dir in shared getdir / dxdy_moveok / fuzzer named;
+`getdir_cmdassist` / `getdir_zap`; unused dothrow clone deleted) + 
+**D-1729 `getdir` CQ_REPEAT** (C `:3962–4019` `cmdq_pop` DIR/KEY + `cmdq_add_key(CQ_REPEAT)` 
+when `!in_doagain`; `in_doagain` `nhgetch`; live `getdir_read_dirsym`; `getdir_zap` 
+calls shared `getdir` then local `confdir`; dig `use_pick_axe` calls `getdir`; 
+mouse `_` getpos / help_dir in shared getdir / dxdy_moveok / fuzzer named;
 `yn_function_menu` is D-1728); 
 getobj missing-letter `continue`+`flush_topl_more` (D-0025); 
 **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); 
@@ -1783,6 +1787,8 @@ then `cmdq_add_key(CQ_REPEAT)` when TRUE; `iflags.last_msg` PLNMSG_UNKNOWN;
 query `QBUFSZ` `...` truncate; resp-mismatch remap after record;
 `tty_yn_function` windowport; getobj / paranoid_ynq / askchain FALSE).
 **getdir yn_function D-1721** (`cmd.c` `:3987–4011`; lock.js + throw/zap/dig clones).
+**getdir CQ_REPEAT D-1729** (`cmd.c` `:3962–4019`; `getdir_read_dirsym`;
+throw `getdir_cmdassist`; zap local confdir; dig `use_pick_axe` `getdir`).
 **yn_function_menu D-1728** (`cmd.c` `:5393–5463` `yn_menuable_resp` /
 `yn_func_menu_opt` / menu; `decl.c` unique tables; `optlist.h`
 `iflags.query_menu`; `window_inited`; `hack.h` y_n/ynq/ynaq/nyaq/YN;
@@ -1790,7 +1796,7 @@ paranoid_ynq + `choose_ring_hand` identity; live `js/getline.js` +
 `js/const.js` + `js/options.js` + `js/jsmain.js` + `js/do_wear.js`).
 Named: remaining interned `'yn'`/`'ynq'` callers; hide+web
 `hidespinchars` in `domonability`; fuzzer; SND_SPEECH; DUMPLOG;
-paniclog/impossible; `input_state`; getdir CQ_REPEAT.
+paniclog/impossible; `input_state`; mouse `_` getpos.
 `gettty` termios named.
 Do not enable EDIT_GETLIN (would drop the replace prompt).
 
@@ -1881,7 +1887,8 @@ half+hand pline / air-lev recoil hurtle / boulder / Mjollnir / underwater;
 **`throw_obj` `u_wipe_engr(2)` D-1374** (C `:138` after self refuse before petrify; callee D-1051; 
 canletgo/Mjollnir/too-heavy/welded/wet-towel / petrify `:139–148`; dig is D-1375); 
 **`dothrow` → `getdir_cmdassist` + getobj CMDQ_KEY** (D-0742) + 
-**`getdir_cmdassist` yn_function** (D-1721; tty_yn_function `flush_topl_more` is D-0093); 
+**`getdir_cmdassist` yn_function** (D-1721; tty_yn_function `flush_topl_more` is D-0093) +
+**`getdir_cmdassist` CQ_REPEAT** (D-1729; shared `getdir_read_dirsym`); 
 **`hurtle`/`hurtle_step` Punished tug + trap-anchor + nomul(-range) + wall/`m_at` stop + 
 `u_on_newpos` (D-1038; not `teleds`; **`hurtle_step` `in_out_region` after isok before 
 `*range==0`** D-1165; **`mhurtle_step` `will_hurtle && m_in_out_region` before place** D-1176; 

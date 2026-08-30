@@ -8,9 +8,8 @@ import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, newsym, mark_topline_seen,
     canseemon, canspotmon, nh_delay_output, tmp_at, obj_glyph, verbalize,
-    tty_nhbell, clear_nhwindow_message,
+    tty_nhbell,
 } from './display.js';
-import { yn_function } from './getline.js';
 import { cansee, vision_recalc } from './vision.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import {
@@ -92,6 +91,7 @@ import {
 } from './trap.js';
 import { in_out_region, m_in_out_region } from './region.js';
 import { u_wipe_engr } from './engrave.js';
+import { getdir_read_dirsym } from './lock.js';
 
 const GLASS = 19;
 const POT_WATER = objectNames.indexOf('POT_WATER');
@@ -2459,19 +2459,15 @@ async function help_dir(msg) {
 }
 
 /**
- * C ref: cmd.c getdir via yn_function + help_dir.
+ * C ref: cmd.c getdir via yn_function + help_dir + CQ_REPEAT.
  * Esc / '.' / space / return cancel. '?' shows help and retries.
  * Other invalid keys: cmdassist NHW_TEXT then return cancel (no retry).
  * Returns {dx,dy,dz} or null. '<' / '>' set dz (C movecmd).
  * tty_yn_function already flush_topl_more (D-0093).
  */
 export async function getdir_cmdassist(prompt) {
-    // C `:3987–3988` — '^' is a help_dir marker, not the prompt text
-    const query = (prompt && prompt.charAt(0) !== '^')
-        ? prompt : 'In what direction?';
     for (;;) {
-        const dirsym = await yn_function(query, null, '\0', false);
-        clear_nhwindow_message();
+        const dirsym = await getdir_read_dirsym(prompt);
         const ch = dirsym;
         const key = dirsym.charCodeAt(0);
         // C: NHKF_GETDIR_SELF / SELF2 → dx=dy=dz=0, success (not cancel)

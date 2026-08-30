@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1729 cmd.c getdir CQ_REPEAT
+
+**Objective:** Open `cmd.c` getdir CQ_REPEAT (named). Not
+yn_function_menu.
+**C locus:** `cmd.c` `getdir` `:3962–4019`; `cmdq_pop` `:409–420`;
+`cmdq_add_key` `:273–290`.
+**JS locus:** `js/lock.js` `getdir_read_dirsym` / `getdir`.
+**Change:** `cmdq_pop` DIR/KEY; yn_function FALSE then
+`cmdq_add_key(CQ_REPEAT)` when `!in_doagain`; `in_doagain` nhgetch.
+`getdir_cmdassist` uses helper; `getdir_zap` + local confdir; dig
+`use_pick_axe` calls `getdir`. Named: mouse getpos; help_dir in
+shared; dxdy_moveok.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `cmd.c:getdir`; node KEY/DIR/
+`in_doagain`/REPEAT; green+strict seed8000/0900; CURRENT cohort
+**9**/9 + strict. Rule #2 clean.
+**Next:** Open `end.c` artifact_score.
+**Blocked:** none.
 ## 2026-08-30 — D-1728 cmd.c yn_function_menu query_menu
 
 **Objective:** Open `cmd.c` yn_function_menu query_menu (named). Not

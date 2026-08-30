@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1729 — cmd.c getdir CQ_REPEAT
+
+- **Status:** fixed (map-driven Open from D-1728; not a public FAIL)
+- **Symptom:** map named `getdir` `CQ_REPEAT`. C `getdir` `:4017–4018`
+  records `cmdq_add_key(CQ_REPEAT, dirsym)` after yn_function when
+  `!gi.in_doagain`, and `:3962–3979` `cmdq_pop` (REPEAT when
+  `in_doagain`) feeds DIR/KEY into `got_dirsym` without re-recording.
+  yn_function 4th arg is FALSE so addcmdq does not record. JS peeked
+  canned-only and never appended REPEAT, so `#repeat`/Ctrl-A could not
+  replay the direction.
+- **C locus:** `cmd.c` `getdir` `:3962–4019`; `cmdq_pop` `:409–420`;
+  `cmdq_add_key` `:273–290`; `do_repeat` `:1637–1660`. Caller
+  `yn_function` `:3987` FALSE.
+- **JS was:** canned peek `typ==='key'|'dir'`; no REPEAT record;
+  `getdir_zap` / `dig_getdir` local yn clones; `getdir_cmdassist`
+  yn-only (D-1721).
+- **Fix:** `getdir_read_dirsym` pops via `cmdq_pop`, DIR→walk/'<>'
+  keys, KEY→dirsym; interactive yn_function then REPEAT record;
+  `in_doagain` uses `nhgetch` (C readchar). Shared `getdir` applies
+  dirsym. `getdir_cmdassist` uses the helper (help_dir stays local).
+  `getdir_zap` calls `getdir` then local `confdir(FALSE)`. `dig.js`
+  `use_pick_axe` calls `getdir` (clone retired). No trailing confdir
+  on shared getdir.
+- **JS:** `js/lock.js` `getdir_read_dirsym` / `getdir`;
+  `js/dothrow.js` `getdir_cmdassist`; `js/zap.js` `getdir_zap`;
+  `js/dig.js` `use_pick_axe`.
+- **Not this iter:** mouse `_` getpos; help_dir in shared getdir;
+  dxdy_moveok; fuzzer; full `redraw_cmd` bind; `readchar_queue`;
+  `input_state`; `yn_function_menu` is D-1728.
+- **Verified:** save-oracle probe skip (untagged `cmd.c:getdir`);
+  node KEY/DIR/`in_doagain`/interactive REPEAT; green+strict
+  seed8000/0900; CURRENT cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/lock.js`, `js/dothrow.js`, `js/zap.js`, `js/dig.js`.
+
 ## D-1728 — cmd.c yn_function_menu query_menu
 
 - **Status:** fixed (map-driven Open from D-1727; not a public FAIL)
