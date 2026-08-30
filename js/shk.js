@@ -15,6 +15,7 @@
 //        sellobj BSS sell_response / robbed precedence (D-1019);
 //        check_unpaid / check_unpaid_usage / cost_per_charge (D-1047).
 //        find_oid / o_on / gem_learned / bp_to_obj billobjs (D-1691).
+//        remote_burglary / rob_shop / call_kops / makekops (D-1717).
 // Named omissions: shk_fixes_damage in shk_move; allmain/bones
 // fix_shop_damage callers; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
@@ -22,11 +23,11 @@
 // m_canseeu for angry chase; ACH_SHOP mapseen; Hallu shkname;
 // SetVoice / Soundeffect robbed mutter; leave-bill verbalize;
 // shk_move Fast + sobj_at pickaxe (u_entered_shop doorway is D-1080);
-// addupbill body; clear_unpaid walks in setpaid; mongone full;
+// mongone full;
 // mnearto full (door yank uses enexto/rloc; home_shk still coord set);
 // after_shk_move occupancy check_special_room (bill_p==-1000 producer);
 // losedogs make_happy_shoppers; paygd; M1_NOHEAD has_head;
-// remote_burglary; gem glass
+// gem glass
 // pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease (D-0998);
@@ -43,8 +44,8 @@
 // mbodypart/body_part lunge text; sleep(1) door-yank pause.
 
 import { game } from './gstate.js';
-import { rn2, rn1 } from './rng.js';
-import { dist2, highc, online2, upstart } from './hacklib.js';
+import { rn2, rn1, rnd } from './rng.js';
+import { dist2, highc, online2, upstart, depth } from './hacklib.js';
 import { in_rooms, stop_occupation } from './hack.js';
 import {
     ESHK, EPRI, IS_ROOM, IS_DOOR, IS_WALL, ZAP_POS, NOTONL, u_at, isok,
@@ -60,7 +61,7 @@ import {
     MENU_TRADITIONAL, MENU_FULL,
     W_SWAPWEP, W_QUIVER, TT_PIT, MIGR_APPROX_XY, MON_FLOOR,
     SELL_NORMAL, SELL_DELIBERATE, SELL_DONTSELL, CANDLESHOP,
-    ARTICLE_THE,
+    ARTICLE_THE, G_GONE, LL_ACHIEVE, MM_NOMSG,
 } from './const.js';
 import { hero_conflict, resist_conflict, m_canseeu } from './mondata.js';
 import { mon_nam, x_monnam, y_monnam, Monnam } from './do_name.js';
@@ -83,7 +84,7 @@ import {
     splitobj, next_ident, obj_extract_self, objects_at, place_object,
     mksobj, weight, newomid, obj_stop_timers,
 } from './mkobj.js';
-import { add_to_minv, mpickobj } from './makemon.js';
+import { add_to_minv, mpickobj, makemon } from './makemon.js';
 import { acurr, acurrstr, A_CHA, A_WIS, adjalign, exercise, Fast } from './attrib.js';
 import { simpleonames, makeplural, xprname } from './objnam.js';
 import {
@@ -93,7 +94,7 @@ import {
 } from './objnam.js';
 import {
     is_human, is_demon, is_watch, nolimbs, is_floater, is_flyer, amorphous,
-    M1_SLITHY, passes_walls,
+    M1_SLITHY, passes_walls, mons, monsterNames,
 } from './monsters.js';
 import { nhgetch } from './input.js';
 import {
@@ -103,7 +104,9 @@ import {
 import { ATR_INVERSE } from './terminal.js';
 import { yn_function } from './getline.js';
 import { getpos } from './getpos.js';
-import { m_at } from './mon.js';
+import { m_at, angry_guards } from './mon.js';
+import { Soundeffect, se_alarm } from './sndprocs.js';
+import { livelog_printf } from './pline.js';
 import { enexto, rloc_to_flag, migrate_to_level } from './teleport.js';
 import { ledger_no } from './dungeon.js';
 import { Is_candle } from './timeout.js';
@@ -136,6 +139,11 @@ const LAND_MINE = objectNames.indexOf('LAND_MINE');
 const BEARTRAP = objectNames.indexOf('BEARTRAP');
 const BOULDER = objectNames.indexOf('BOULDER');
 const ROCK = objectNames.indexOf('ROCK');
+/** C monsters.h Keystone Kops — makekops / call_kops G_GONE. */
+const PM_KEYSTONE_KOP = monsterNames.indexOf('PM_KEYSTONE_KOP');
+const PM_KOP_SERGEANT = monsterNames.indexOf('PM_KOP_SERGEANT');
+const PM_KOP_LIEUTENANT = monsterNames.indexOf('PM_KOP_LIEUTENANT');
+const PM_KOP_KAPTAIN = monsterNames.indexOf('PM_KOP_KAPTAIN');
 /** C monflag.h MS_SILENT / MS_ANIMAL / MS_HUMANOID. */
 const MS_SILENT = 0;
 const MS_ANIMAL = 17;
@@ -253,7 +261,9 @@ export function set_residency(shkp, zero_out) {
 
 /**
  * C ref: shk.c u_left_shop — leave/boundary bill prompts.
- * Named omissions: rob_shop / call_kops; leave verbalize when billct/debit.
+ * Named omissions: leave-boundary verbalize (`!*leavestring && !muteshk`)
+ * then rob_shop; caller still deferred so stepping onto the door does
+ * not skip C's pay-before-leaving return. remote_burglary is D-1717.
  */
 export async function u_left_shop(leavestring, _newlev) {
     const u = game.u;
@@ -271,7 +281,147 @@ export async function u_left_shop(leavestring, _newlev) {
     const eshkp = ESHK(shkp);
     if (!((eshkp?.billct | 0) || (eshkp?.debit | 0))) return;
 
-    // bill unpaid arms (verbalize / rob_shop) deferred
+    // bill unpaid arms (verbalize then rob_shop) deferred — do not
+    // rob_shop here or the boundary warning return is skipped.
+}
+
+/**
+ * C ref: shk.c makekops `:5112–5135` — spawn Kops at mm via enexto.
+ * G_GONE skip per rank; cnt/3 sarge, /6 lieut, /9 kaptain.
+ */
+function makekops(mm) {
+    if (!mm) return;
+    const k_mndx = [
+        PM_KEYSTONE_KOP, PM_KOP_SERGEANT, PM_KOP_LIEUTENANT, PM_KOP_KAPTAIN,
+    ];
+    let cnt = Math.abs(depth(game.u?.uz) | 0) + rnd(5);
+    const k_cnt = [
+        cnt,
+        Math.trunc(cnt / 3) + 1,
+        Math.trunc(cnt / 6),
+        Math.trunc(cnt / 9),
+    ];
+    for (let k = 0; k < 4; k++) {
+        cnt = k_cnt[k];
+        if (cnt === 0) break;
+        const mndx = k_mndx[k];
+        if (((game.mvitals?.[mndx]?.mvflags ?? 0) & G_GONE) !== 0) continue;
+        const ptr = mons(mndx);
+        while (cnt--) {
+            if (enexto(mm, mm.x, mm.y, ptr)) {
+                makemon(ptr, mm.x, mm.y, MM_NOMSG);
+            }
+        }
+    }
+}
+
+/**
+ * C ref: shk.c call_kops `:509–564` — alarm, angry_guards, then makekops.
+ * Named omit: choose_stairs / stairway_find_type_dir (sx,sy stay 0 so
+ * the down-stair swarm is skipped; shk swarm still runs).
+ */
+async function call_kops(shkp, nearshop) {
+    if (!shkp) return;
+
+    Soundeffect(se_alarm, 80);
+    if (!hero_deaf()) await pline('An alarm sounds!');
+
+    const nokops = (
+        ((game.mvitals?.[PM_KEYSTONE_KOP]?.mvflags ?? 0) & G_GONE) !== 0
+        && ((game.mvitals?.[PM_KOP_SERGEANT]?.mvflags ?? 0) & G_GONE) !== 0
+        && ((game.mvitals?.[PM_KOP_LIEUTENANT]?.mvflags ?? 0) & G_GONE) !== 0
+        && ((game.mvitals?.[PM_KOP_KAPTAIN]?.mvflags ?? 0) & G_GONE) !== 0
+    );
+
+    // C: angry_guards(!!Deaf) always runs (wake watch) then && nokops.
+    const ag = await angry_guards(!!hero_deaf());
+    if (!ag && nokops) {
+        if (game.flags?.verbose !== false && !hero_deaf()) {
+            await pline('But no one seems to respond to it.');
+        }
+        return;
+    }
+    if (nokops) return;
+
+    const sx = 0;
+    const sy = 0;
+    // choose_stairs(&sx, &sy, TRUE) named omit — isok(0,0) is false.
+
+    if (nearshop) {
+        if (game.flags?.verbose !== false) {
+            await pline('The Keystone Kops appear!');
+        }
+        makekops({ x: game.u?.ux | 0, y: game.u?.uy | 0 });
+        return;
+    }
+    if (game.flags?.verbose !== false) {
+        await pline('The Keystone Kops are after you!');
+    }
+    if (isok(sx, sy)) {
+        makekops({ x: sx, y: sy });
+    }
+    makekops({ x: shkp.mx | 0, y: shkp.my | 0 });
+}
+
+/**
+ * C ref: shk.c rob_shop `:685–719` — credit cover or steal, then hot_pursuit.
+ * setpaid moves the bill into robbed; Rogue skips adjalign.
+ */
+async function rob_shop(shkp) {
+    const eshkp = ESHK(shkp);
+    if (!eshkp) return false;
+    rouse_shk(shkp, true);
+    let total = addupbill(shkp) + (eshkp.debit | 0);
+    if ((eshkp.credit | 0) >= total) {
+        await pline(
+            `Your credit of ${eshkp.credit} ${currency(eshkp.credit)} is used to cover your shopping bill.`,
+        );
+        total = 0;
+    } else {
+        await pline('You escaped the shop without paying!');
+        total -= eshkp.credit | 0;
+    }
+    setpaid(shkp);
+    if (!total) return false;
+
+    eshkp.robbed = (eshkp.robbed | 0) + total;
+    await pline(
+        `You stole ${total} ${currency(total)} worth of merchandise.`,
+    );
+    const shopnm = shtypes[(eshkp.shoptype | 0) - SHOPBASE]?.name || 'shop';
+    livelog_printf(
+        LL_ACHIEVE,
+        'stole %ld %s worth of merchandise from %s %s',
+        total,
+        currency(total),
+        s_suffix(shkname(shkp)),
+        shopnm,
+    );
+
+    if (!Role_if(PM_ROGUE)) {
+        adjalign(-sgn(game.u?.ualign?.type | 0));
+    }
+
+    hot_pursuit(shkp);
+    return true;
+}
+
+/**
+ * C ref: shk.c remote_burglary `:664–682` — unpaid pickup from outside
+ * the shop (grappling hook / telekinesis). pick_obj is the caller.
+ * call_kops nearshop is FALSE.
+ */
+export async function remote_burglary(x, y) {
+    const rooms = in_rooms(x, y, SHOPBASE);
+    const shkp = shop_keeper(rooms ? rooms.charCodeAt(0) : 0);
+    if (!shkp || !inhishop(shkp)) return;
+
+    const eshkp = ESHK(shkp);
+    if (!((eshkp?.billct | 0) || (eshkp?.debit | 0))) return;
+
+    if (await rob_shop(shkp)) {
+        await call_kops(shkp, false);
+    }
 }
 
 /** C shk.c empty_shops[5] — latch so deserted_shop does not re-pline. */
@@ -1257,7 +1407,6 @@ export function hot_pursuit(shkp) {
 
 /**
  * C ref: shk.c make_angry_shk — fold bill into robbed, then hot_pursuit.
- * Named omit: full bill_p addupbill (stub 0 until bill walk).
  */
 export async function make_angry_shk(shkp, _ox, _oy) {
     if (!shkp?.isshk) return;
@@ -2952,6 +3101,32 @@ function onbill(obj, shkp, _silent) {
 }
 
 /**
+ * C ref: shk.c clear_unpaid_obj `:308–315` — recurse contents; unpaid=0
+ * when on this shk's bill. silent TRUE (no impossible).
+ */
+function clear_unpaid_obj(shkp, otmp) {
+    if (!otmp) return;
+    if (Has_contents(otmp)) clear_unpaid(shkp, otmp.cobj);
+    if (onbill(otmp, shkp, true)) otmp.unpaid = 0;
+}
+
+/**
+ * C ref: shk.c clear_unpaid `:318–325` — walk nobj (or invent Array).
+ */
+function clear_unpaid(shkp, list) {
+    if (!list) return;
+    if (Array.isArray(list)) {
+        for (const head of list) clear_unpaid(shkp, head);
+        return;
+    }
+    let otmp = list;
+    while (otmp) {
+        clear_unpaid_obj(shkp, otmp);
+        otmp = otmp.nobj;
+    }
+}
+
+/**
  * C ref: shk.c billable — shk thinks item is hers.
  */
 export function billable(shkHolder, obj, roomno, reset_nocharge) {
@@ -3553,17 +3728,46 @@ export function money2mon(mon, amount) {
 }
 
 /**
- * C ref: shk.c setpaid — clear bill counters (unpaid/no_charge walks deferred).
+ * C ref: shk.c setpaid `:399–434` — clear unpaid on invent/fobj/minvent
+ * / buried / thrown / kicked / migrating, shop no_charge, then free
+ * billobjs and zero billct/credit/debit/loan.
  */
 function setpaid(shkp) {
-    // clear_unpaid / clear_no_charge / billobjs deferred
-    if (!shkp) return;
-    const eshk = ESHK(shkp);
-    if (!eshk) return;
-    eshk.billct = 0;
-    eshk.credit = 0;
-    eshk.debit = 0;
-    eshk.loan = 0;
+    clear_unpaid(shkp, game.invent);
+    clear_unpaid(shkp, game.fobj);
+    if (game.level?.buriedobjlist) {
+        clear_unpaid(shkp, game.level.buriedobjlist);
+    }
+    if (game.thrownobj) clear_unpaid_obj(shkp, game.thrownobj);
+    if (game.kickedobj) clear_unpaid_obj(shkp, game.kickedobj);
+    for (const mtmp of game.fmon || []) {
+        if (mtmp?.minvent) clear_unpaid(shkp, mtmp.minvent);
+    }
+    const migrating = game.migrating_mons;
+    if (Array.isArray(migrating)) {
+        for (const mtmp of migrating) {
+            if (mtmp?.minvent) clear_unpaid(shkp, mtmp.minvent);
+        }
+    } else {
+        for (let mtmp = migrating; mtmp; mtmp = mtmp.nmon) {
+            if (mtmp.minvent) clear_unpaid(shkp, mtmp.minvent);
+        }
+    }
+    clear_no_charge(shkp, game.fobj);
+    clear_no_charge(shkp, game.level?.buriedobjlist);
+    let obj;
+    while ((obj = game.billobjs) != null) {
+        obj_extract_self(obj);
+        dealloc_obj_free(obj);
+    }
+    if (shkp) {
+        const eshk = ESHK(shkp);
+        if (!eshk) return;
+        eshk.billct = 0;
+        eshk.credit = 0;
+        eshk.debit = 0;
+        eshk.loan = 0;
+    }
 }
 
 /** C ref: shk.c rile_shk — angry + surcharge on bill (bill walk deferred). */
@@ -3596,9 +3800,19 @@ function next_shkp(startIdx, withbill) {
     return { shkp: null, nextIdx: fmon.length };
 }
 
-/** C ref: shk.c addupbill — stub 0 until bill_p walk ported. */
-function addupbill(_shkp) {
-    return 0;
+/** C ref: shk.c addupbill `:495–507` — sum bill_p[i].price * bquan. */
+function addupbill(shkp) {
+    const eshkp = ESHK(shkp);
+    if (!eshkp) return 0;
+    const bp = eshkp.bill_p || eshkp.bill;
+    let total = 0;
+    let ct = eshkp.billct | 0;
+    for (let i = 0; ct--; i++) {
+        const e = bp?.[i];
+        if (!e) continue;
+        total += (e.price | 0) * (e.bquan | 0);
+    }
+    return total;
 }
 
 /**

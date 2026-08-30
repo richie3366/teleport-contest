@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1717 shk.c remote_burglary unpaid steal
+
+**Objective:** Open `shk.c` remote_burglary (named). Not
+bill_box_content.
+**C locus:** `shk.c` `remote_burglary` `:664–682`; `rob_shop`
+`:685–719`; `call_kops` `:509–564`; `makekops` `:5112–5135`;
+`addupbill` `:495–507`; `clear_unpaid` `:308–325`; caller
+`pickup.c` `pick_obj` `:1936–1939`.
+**JS locus:** `js/shk.js` + `js/pickup.js` `pick_obj`.
+**Change:** unpaid-from-outside steal runs `rob_shop`/`call_kops`
+instead of a deferred empty arm after D-0447 bill. Named:
+choose_stairs; `u_left_shop` leave verbalize.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; canary 18/18; green+strict;
+focused seed0383/0116; cohort 7/7 + strict.
+**Next:** Open `shk.c` get_cost gem glass pseudo-ID.
+**Blocked:** none.
 ## 2026-08-30 — audit #2120 reviews 669–677 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **668**

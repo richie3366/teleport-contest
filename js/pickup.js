@@ -72,6 +72,7 @@ import {
 import { ATR_INVERSE } from './terminal.js';
 import {
     addtobill, costly_spot, check_unpaid_usage, is_unpaid, doname_with_price,
+    remote_burglary,
 } from './shk.js';
 import {
     nohands, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider, mons,
@@ -870,8 +871,9 @@ export async function check_here(picked_some) {
 
 /**
  * C ref: pickup.c pick_obj — extract from floor/minvent, addinv.
- * Shop robshop: temporary ushops → addtobill → restore; remote_burglary deferred.
- * Named omissions: engulfer minvent path; remote_burglary body.
+ * Shop robshop: temporary ushops → addtobill → restore; remote_burglary
+ * when unpaid from outside the shop (D-1717).
+ * Named omissions: engulfer minvent path (get_obj_location swallow).
  */
 export async function pick_obj(otmp) {
     if (!otmp) return otmp;
@@ -894,9 +896,7 @@ export async function pick_obj(otmp) {
     }
 
     const result = await addinv(otmp);
-    if (robshop) {
-        // remote_burglary(ox, oy) deferred
-    }
+    if (robshop) await remote_burglary(ox, oy);
     return result;
 }
 

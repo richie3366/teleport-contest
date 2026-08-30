@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1717 — shk.c remote_burglary unpaid steal-from-outside-shop
+
+- **Status:** fixed (map-driven Open from D-1716; not a public FAIL)
+- **Symptom:** map named `remote_burglary`. After D-0447 `pick_obj`
+  already fake-`ushops` billed the steal, but the unpaid-from-outside
+  arm was an empty deferral, so C never ran `rob_shop` / `call_kops`.
+- **C locus:** `shk.c` `remote_burglary` `:664–682` (`shop_keeper` +
+  `inhishop`; billct/debit then `rob_shop` then `call_kops(FALSE)`);
+  `rob_shop` `:685–719` (credit cover vs steal; `setpaid`;
+  `robbed += total`; livelog; `!Role_if(PM_ROGUE)` `adjalign`;
+  `hot_pursuit`); `call_kops` `:509–564` (`Soundeffect(se_alarm)`;
+  `!Deaf` alarm; `angry_guards(!!Deaf)` always then `nokops`;
+  `choose_stairs` then shk swarm); `makekops` `:5112–5135`
+  (`abs(depth)+rnd(5)`; G_GONE skip; `enexto`+`makemon` MM_NOMSG);
+  `addupbill` `:495–507`; `clear_unpaid` `:308–325`. Caller
+  `pickup.c` `pick_obj` `:1936–1939`.
+- **JS was:** `pick_obj` robshop billed then skipped remote steal;
+  `addupbill` stub-0; `setpaid` did not walk unpaid / billobjs.
+- **Fix:** live family; Kop PMs via `monsterNames.indexOf`; named omit
+  `choose_stairs` (`sx,sy` stay 0 so `isok(0,0)` skips stair swarm;
+  shk swarm still runs). Do not call `rob_shop` from `u_left_shop`
+  without C's pay-before-leaving verbalize return. Rule #2: no fs.
+- **JS:** `js/shk.js` + `js/pickup.js` `pick_obj`.
+- **Not this iter:** gem glass pseudo-ID; `arti_cost`; Hallu
+  currency; `u_left_shop` leave verbalize; `costly_gold`.
+- **Verified:** save-oracle probe skip (untagged
+  `shk.c:remote_burglary`); private canary **18**/18; green+strict
+  seed8000/0900; focused seed0383 + seed0116; CURRENT cohort **7**/7
+  + strict (seed1500/1800/0012/0004/0007/2200/0383).
+- **Files:** `js/shk.js`, `js/pickup.js`.
+
 ## D-1716 — shk.c dopay mute/Deaf thank-you nod
 
 - **Status:** fixed (map-driven Open from D-1715; not a public FAIL)

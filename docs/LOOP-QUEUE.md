@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `shk.c` remote_burglary (named). Not bill_box_content.
 - [ ] `shk.c` get_cost gem glass pseudo-ID (named). Not remote_burglary.
 - [ ] `shk.c` arti_cost (named). Not gem glass pseudo-ID.
 - [ ] `shk.c` Hallu currency ROLL_FROM (named). Not arti_cost.

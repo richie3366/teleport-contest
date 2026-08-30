@@ -2801,7 +2801,12 @@ used-up/unpaid headings + `update_bill` ONBILL extract +
 y_n Pay? (`upstart(doname)`); **D-1716:** `dopay` `:2011–2025`
 mute/Deaf thank-you nod (`hero_deaf`/`muteshk` else
 `Shknam` nods; surcharge bang/period; `paid` `update_inventory`);
-named: `remote_burglary`, gem glass pseudo-ID, 
+**D-1717:** `remote_burglary` `:664–682` + `rob_shop` `:685–719` +
+`call_kops` `:509–564` + `makekops` `:5112–5135` + `addupbill`
+`:495–507` + `setpaid` `clear_unpaid` walks; `pick_obj` `:1936–1939`
+awaits after addinv when unpaid from outside the shop; named:
+choose_stairs / `u_left_shop` leave verbalize then rob_shop, gem glass
+pseudo-ID, 
 `arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 
