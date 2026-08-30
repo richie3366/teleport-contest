@@ -43,6 +43,7 @@ import { topten, nh_terminate_capture, raw_print_blanks } from './topten.js';
 import { objectNames } from './generated/objects_data.js';
 import { monsterNames, pmnames, PM_TOURIST } from './generated/monsters_data.js';
 import { paybill, money2mon } from './shk.js';
+import { hidden_gold } from './vault.js';
 import { shkname, shkname_is_pname } from './shknam.js';
 import {
     enlightenment, display_inventory, discover_object, makeknown, sortloot,
@@ -196,36 +197,6 @@ function money_cnt(invent) {
         if (o.oclass === COIN_CLASS) sum += o.quan | 0;
     }
     return sum;
-}
-
-/**
- * C ref: shk.c contained_gold — recurse cobj for COIN_CLASS.
- * @param {object} obj container
- * @param {boolean} even_if_unknown
- */
-function contained_gold(obj, even_if_unknown) {
-    let value = 0;
-    for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
-        if (otmp.oclass === COIN_CLASS) value += otmp.quan | 0;
-        else if (Has_contents(otmp) && (otmp.cknown || even_if_unknown)) {
-            value += contained_gold(otmp, even_if_unknown);
-        }
-    }
-    return value;
-}
-
-/**
- * C ref: vault.c hidden_gold — invent containers' gold.
- * @param {boolean} even_if_unknown
- */
-function hidden_gold(even_if_unknown) {
-    let value = 0;
-    for (const obj of game.invent || []) {
-        if (Has_contents(obj) && (obj.cknown || even_if_unknown)) {
-            value += contained_gold(obj, even_if_unknown);
-        }
-    }
-    return value;
 }
 
 /**

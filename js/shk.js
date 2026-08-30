@@ -210,20 +210,6 @@ function noit_mhis(mtmp) {
 }
 
 /**
- * C vault.c / invent.c hidden_gold — gold inside carried containers.
- * @param {boolean} even_if_unknown
- */
-function hidden_gold(even_if_unknown) {
-    let value = 0;
-    for (const obj of game.invent || []) {
-        if (Has_contents(obj) && (obj.cknown || even_if_unknown)) {
-            value += contained_gold(obj, even_if_unknown);
-        }
-    }
-    return value;
-}
-
-/**
  * C: muteshk — helpless or msound <= MS_ANIMAL.
  * Generated tables often omit msound; isshk → MS_SELL.
  */
@@ -3772,7 +3758,7 @@ export async function shk_move(shkp) {
     return z;
 }
 
-import { gd_move as vault_gd_move } from './vault.js';
+import { gd_move as vault_gd_move, hidden_gold } from './vault.js';
 
 /**
  * C ref: vault.c gd_move — re-export peaceful escort subset from vault.js.

@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1731 — invent.c doprgold / vault.c hidden_gold
+
+- **Status:** fixed (map-driven Open from D-1730; not a public FAIL)
+- **Symptom:** map named `doprgold` `hidden_gold`. C `doprgold` counts
+  `money_cnt` plus `hidden_gold(FALSE)` and appends a stash clause
+  (`and`/`but` … `stashed away in your pack`) or a non-verbose pack
+  total; m-prefix `$` opens gold `dispinv`. JS summed wallet gold only
+  and never walked carried containers; `hidden_gold` existed as local
+  clones in vault/end/shk, unused by `$`.
+- **C locus:** `invent.c` `doprgold` `:4502–4546`; `vault.c`
+  `hidden_gold` `:1256–1268` (calls `contained_gold`).
+- **JS was:** verbose empty/wallet pline (D-0338/D-1720); no stash
+  text; non-verbose total ignored container gold; no m-prefix dispinv.
+- **Fix:** export C-home `hidden_gold` from `vault.js`; `doprgold`
+  uses `hidden_gold(false)` and C message arms; `umoney &&
+  menu_requested` → `dispinv_with_action("$", false)`. Retire end.js /
+  shk.js clones (import the export).
+- **JS:** `js/invent.js` `doprgold`; `js/vault.js` `hidden_gold`;
+  `js/end.js` / `js/shk.js` imports.
+- **Not this iter:** `shopper_financial_report` / `shop_debt`; dokick
+  `hidden_gold_kick` clone; botl/detect/insight/topten/u_init callers;
+  `get_valuables`.
+- **Verified:** save-oracle probe skip (untagged `invent.c:doprgold`);
+  node known/unknown/nested `hidden_gold`; green+strict seed8000/0900;
+  CURRENT cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/invent.js`, `js/vault.js`, `js/end.js`, `js/shk.js`.
+
 ## D-1730 — end.c artifact_score
 
 - **Status:** fixed (map-driven Open from D-1729; not a public FAIL)

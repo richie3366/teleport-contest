@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `end.c` artifact_score (named). Not hidden_gold. **Addressed:** D-1730
+- [x] `invent.c` doprgold hidden_gold (named). Not currency. **Addressed:** D-1731
+
+
+- [x] `end.c` artifact_score (named). Not hidden_gold. **Addressed:** D-1730 `02c2d6e0`
 
 
 - [x] `cmd.c` getdir CQ_REPEAT (named). Not yn_function_menu. **Addressed:** D-1729 `578b7088`

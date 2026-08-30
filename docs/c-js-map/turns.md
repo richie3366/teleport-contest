@@ -1337,7 +1337,7 @@ multi_reason; enlightenment poly/remaining resistance catalogue; set_uasmon FROM
 **`artifact_score` D-1730** (C `end.c:906–940`; ESCAPED/ASCENDED `really_done`
 `:1449` count + `:1482` list; `arti_cost*5/2` + `nowrap_add`; recurse
 `Has_contents`; live `js/end.js`; get_valuables / pet HP / DUMPLOG list
-named; hidden_gold is Open); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
+named; hidden_gold is D-1731); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
 savelife Sick/endmultishot/curs_on_u/uswallow; 
 ordinary `vision_recalc(2)` gbuf newsym loop / `notice_all_mons`
 
@@ -1864,7 +1864,10 @@ MENU_PREV/FIRST/LAST + other NHW_MENU callers still single-page);
 **`paint_corner_nhw_menu`/`select_menu_pick_none` flush NEED_MORE** (D-0195); 
 **drop getobj `compactify` when suggested>5** (D-0332); 
 **friday13 `doattributes` two-space body indent** (D-0333); 
-**`$`/`doprgold` wallet pline** (D-0338; **D-1720** `currency(umoney)`); 
+**`$`/`doprgold` wallet pline** (D-0338; **D-1720** `currency`; **D-1731**
+`hidden_gold(FALSE)` `:4502–4546` stash `eos` / non-verbose total +
+m-prefix `dispinv_with_action("$", FALSE)`; live `js/invent.js`;
+shopper_financial_report / `shop_debt` named); 
 **`)`/`doprwep` bare-handed / wielded `xprname`** (D-0339; m-prefix inuse menu D-1589); 
 **`[`/`doprarm` + `=`/`"`/`(`/`doprring`/`dopramulet`/`doprtool`/`*` `doprinuse`** (D-0340; 
 **inuse `dispinv` D-1589**; **uskin noarmor D-1668** (`simpleonames` + `"set of "` + strstri `" dragon "`; polyself merge `uskin=` / scale-mail revert named); **`#seeall` EXT_CMDS D-1605**
@@ -2770,7 +2773,10 @@ JS: `js/vault.js` — partial
 
 **`vault_occupied`/`findgd`/`newegd`/`invault`** (D-0374; 
 timer + `makemon(PM_GUARD)` + getlin + fakecorr door); 
-**`hidden_gold`/`contained_gold` + peaceful `gd_move` corridor step** (D-0375); 
+**`hidden_gold`/`contained_gold` + peaceful `gd_move` corridor step** (D-0375);
+**`hidden_gold` export D-1731** (C `vault.c:1256–1268`; live `js/vault.js`;
+doprgold FALSE; end/shk clones retired; dokick `hidden_gold_kick` /
+botl/detect/insight/topten/u_init callers named); 
 **`gd_move` dig while-loop wall→DOOR/ortho-redirect/STONE→CORR + `find_guard_dest` incr_radius + 
 um_dist `rn2(10)`** (D-0377); **`clear_fcorr`/`restfakecorr` + 
 `blackout`/`map_location`/`deltrap`/`del_engr_at`** (D-0378/D-0380 side); 

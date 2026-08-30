@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1731 invent.c doprgold / vault.c hidden_gold
+
+**Objective:** Open `invent.c` doprgold hidden_gold (named). Not currency.
+**C locus:** `invent.c` `doprgold` `:4502–4546`; `vault.c` `hidden_gold`
+`:1256–1268`.
+**JS locus:** `js/invent.js` `doprgold`; `js/vault.js` `hidden_gold`.
+**Change:** `$` counts known container gold; verbose stash `eos` /
+non-verbose pack total; m-prefix `dispinv("$", FALSE)`. Export C-home
+`hidden_gold`; retire end/shk clones. Named: shopper_financial_report /
+shop_debt; dokick `hidden_gold_kick`; botl/detect/insight/topten/u_init.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `invent.c:doprgold`; node
+known/unknown/nested; green+strict seed8000/0900; CURRENT cohort **9**/9
++ strict. Rule #2 clean.
+**Next:** Open `objects.h` is_multigen / is_poisonable.
+**Blocked:** none.
 ## 2026-08-30 — D-1730 end.c artifact_score
 
 **Objective:** Open `end.c` artifact_score (named). Not hidden_gold.

@@ -56,6 +56,7 @@ import { yn_function, getlin, mungspaces } from './getline.js';
 import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents } from './mkobj.js';
 import { unpaid_cost, doinvbill, gem_learned, obfree } from './shk.js';
+import { hidden_gold } from './vault.js';
 import { setnotworn } from './do.js';
 import { s_suffix } from './do_name.js';
 import { inv_cnt } from './steal.js';
@@ -5494,23 +5495,57 @@ export async function doattributes(enl_mode = null) {
 }
 
 /**
- * C ref: invent.c doprgold / #showgold / '$'.
- * Named omissions: hidden_gold stashed message; shopper_financial_report;
- * menu_requested dispinv; non-verbose "no money" / total arms.
+ * C ref: invent.c doprgold `:4502–4546` / #showgold / '$' (D-1731).
+ * money_cnt first COIN_CLASS + hidden_gold(FALSE). Verbose wallet/stash
+ * one pline (`eos` append); else umoney+hmoney total. m-prefix `$`
+ * dispinv_with_action("$", FALSE) when umoney.
+ * Named: shopper_financial_report (shop_debt missing); botl/detect/
+ * insight/topten/u_init hidden_gold callers; dokick hidden_gold_kick clone.
  */
 export async function doprgold() {
+    // C: money_cnt(gi.invent) — first COIN_CLASS quan (gold merges)
     let umoney = 0;
     for (const o of game.invent || []) {
-        if (o.oclass === COIN_CLASS) umoney += o.quan | 0;
+        if (o.oclass === COIN_CLASS) {
+            umoney = o.quan | 0;
+            break;
+        }
     }
+    // C: hidden_gold(FALSE) — known container gold only
+    const hmoney = hidden_gold(false);
+
     if (game.flags?.verbose !== false) {
-        if (!umoney) await pline('Your wallet is empty.');
-        else await pline(`Your wallet contains ${umoney} ${currency(umoney)}.`);
-    } else if (umoney) {
-        await pline(`You are carrying a total of ${umoney} ${currency(umoney)}.`);
+        let buf;
+        if (!umoney) {
+            buf = 'Your wallet is empty';
+        } else {
+            buf = `Your wallet contains ${umoney} ${currency(umoney)}`;
+        }
+        if (hmoney) {
+            // C: Sprintf(eos(buf), ", %s you have %ld %s stashed...")
+            buf += `, ${umoney ? 'and' : 'but'} you have ${hmoney} ${
+                umoney ? 'more' : currency(hmoney)
+            } stashed away in your pack`;
+        }
+        await pline(`${buf}.`);
     } else {
-        await pline('You have no money.');
+        const total = umoney + hmoney;
+        if (total) {
+            await pline(
+                `You are carrying a total of ${total} ${currency(total)}.`,
+            );
+        } else {
+            await pline('You have no money.');
+        }
     }
+    // C: shopper_financial_report() — named omit (shop_debt not live)
+
+    if (umoney && game.iflags?.menu_requested) {
+        const { dispinv_with_action } = await import('./iactions.js');
+        // C: mustn't use TRUE or gold wouldn't show unless quivered
+        await dispinv_with_action('$', false, null);
+    }
+
     return ECMD_OK;
 }
 
