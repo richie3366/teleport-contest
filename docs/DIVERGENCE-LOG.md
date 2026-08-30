@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-1728 — cmd.c yn_function_menu query_menu
+
+- **Status:** fixed (map-driven Open from D-1727; not a public FAIL)
+- **Symptom:** map named `yn_function_menu` (`query_menu`). C
+  `yn_function` `:5538–5540` tries `yn_function_menu` before the
+  windowport. The menu fires only when `iflags.query_menu` &&
+  `window_inited` && `resp` is one of the `decl.c` tables (pointer
+  identity). JS always used `tty_yn_function`; `query_menu` was
+  wired to `flags` not `iflags`; `window_inited` was unset.
+- **C locus:** `cmd.c` `yn_menuable_resp` `:5393–5399`;
+  `yn_func_menu_opt` `:5401–5413`; `yn_function_menu` `:5416–5463`;
+  caller `yn_function` `:5538`. Tables `decl.c` `:113–118`. Option
+  `optlist.h` `:604–606` `&iflags.query_menu` (opt_in Off).
+  `window_inited` `wintty.c` `:1882–1883`. Macros `hack.h` y_n/ynq.
+- **JS was:** `yn_function` always `tty_yn_function` (D-1706);
+  `DOSET_BOOL_ADDR.query_menu` → `flags.query_menu`; no
+  `window_inited`.
+- **Fix:** unique `String` tables so `===` matches C pointer
+  identity (interned `'yn'` is not `ynchars` — insight vanquished
+  `allow_yn` copy stays a primitive). Menu via
+  `select_menu_pick_one`; pline query+key2txt then
+  `clear_nhwindow_message`. Option addr `iflags.query_menu`.
+  `window_inited` when the display is installed. paranoid_ynq and
+  `choose_ring_hand` pass the named tables. y_n/ynq/ynaq/nyaq/YN
+  wrappers. Default `yn_function` resp is `ynchars`. Named:
+  remaining interned `'yn'`/`'ynq'` callers; hide+web
+  `hidespinchars` in `domonability`; getdir CQ_REPEAT. Not addcmdq
+  (D-1706).
+- **JS:** `js/getline.js` `yn_function_menu`; `js/const.js` tables;
+  `js/options.js` addr; `js/jsmain.js` `window_inited`; `js/do_wear.js`
+  `rightleftchars`.
+- **Not this iter:** interned `'yn'` sites; `domonability` hide+web;
+  getdir CQ_REPEAT; fuzzer / SND_SPEECH / DUMPLOG.
+- **Verified:** save-oracle probe skip (untagged
+  `cmd.c:yn_function_menu`); node unique-table identity + gate
+  (`query_menu` Off / interned miss / `ynchars` hit); green+strict
+  seed8000/0900; CURRENT cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/getline.js`, `js/const.js`, `js/options.js`,
+  `js/jsmain.js`, `js/do_wear.js`.
+
 ## D-1727 — invent.c useupall / shk.c obfree
 
 - **Status:** fixed (map-driven Open from D-1726; not a public FAIL)

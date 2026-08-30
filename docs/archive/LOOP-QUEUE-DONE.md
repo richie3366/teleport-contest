@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `invent.c` useupall / obfree (named). Not observe_object FIRST_OBJECT skip. **Addressed:** D-1727
+- [x] `cmd.c` yn_function_menu query_menu (named). Not yn_function addcmdq. **Addressed:** D-1728
+
+
+- [x] `invent.c` useupall / obfree (named). Not observe_object FIRST_OBJECT skip. **Addressed:** D-1727 `a6d468cc`
 
 
 - [x] `display.c` display_monster M_AP_FURNITURE cmap_to_glyph lastseentyp (named). Not update_lastseentyp. **Addressed:** D-1726 `a0c81cc6`

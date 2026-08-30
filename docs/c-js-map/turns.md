@@ -778,7 +778,7 @@ amulet/eyewear put-on; GUARDING `makeknown`+`find_ac`** (D-0067/D-0810) +
 `Amulet_off` clear + `nh_timeout` SLEEPY/fall_asleep deferred) + 
 **`choose_ring_hand` → `yn_function(…, rightleftchars, '\0')` `[rl]`** (D-0421) + 
 **`accessory_or_armor_on` ring `nolimbs`→cannot-stick ECMD_OK** (D-0928 #1104; 
-poly/`body_part` wording / `query_menu` deferred) + 
+poly/`body_part` wording; **query_menu `rightleftchars` D-1728**) + 
 **`armoroff` `oc_delay`/`nomul`/`afternmv`/`suit_simple_name` mail** (D-0259) + 
 **delay-0 no `find_ac` (≡C; stale botl until allmain — D-0883)**; 
 **`destroy_arm`/`some_armor`/`obj_erode_type`** (D-0491); 
@@ -1444,8 +1444,8 @@ retry** (no trailing `confdir`; help_dir/cmdassist still `getdir_cmdassist` for 
 **D-1721 `getdir` yn_function** (C `cmd.c` `:3987–4011` `yn_function(query, NULL, '\0', FALSE)` then 
 `clear_nhwindow(WIN_MESSAGE)`; `(s && *s != '^')` query; live `js/lock.js` + 
 `getdir_cmdassist` / `getdir_zap` / `dig_getdir`; unused dothrow clone deleted; 
-CQ_REPEAT / mouse `_` getpos / help_dir in shared getdir / dxdy_moveok / fuzzer / 
-`yn_function_menu` named); 
+CQ_REPEAT / mouse `_` getpos / help_dir in shared getdir / dxdy_moveok / fuzzer named;
+`yn_function_menu` is D-1728); 
 getobj missing-letter `continue`+`flush_topl_more` (D-0025); 
 **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); 
 **`doclose`/`c` getdir cmdassist + close envelope** (D-0740; 
@@ -1783,7 +1783,13 @@ then `cmdq_add_key(CQ_REPEAT)` when TRUE; `iflags.last_msg` PLNMSG_UNKNOWN;
 query `QBUFSZ` `...` truncate; resp-mismatch remap after record;
 `tty_yn_function` windowport; getobj / paranoid_ynq / askchain FALSE).
 **getdir yn_function D-1721** (`cmd.c` `:3987–4011`; lock.js + throw/zap/dig clones).
-Named: `yn_function_menu` (`query_menu`); fuzzer; SND_SPEECH; DUMPLOG;
+**yn_function_menu D-1728** (`cmd.c` `:5393–5463` `yn_menuable_resp` /
+`yn_func_menu_opt` / menu; `decl.c` unique tables; `optlist.h`
+`iflags.query_menu`; `window_inited`; `hack.h` y_n/ynq/ynaq/nyaq/YN;
+paranoid_ynq + `choose_ring_hand` identity; live `js/getline.js` +
+`js/const.js` + `js/options.js` + `js/jsmain.js` + `js/do_wear.js`).
+Named: remaining interned `'yn'`/`'ynq'` callers; hide+web
+`hidespinchars` in `domonability`; fuzzer; SND_SPEECH; DUMPLOG;
 paniclog/impossible; `input_state`; getdir CQ_REPEAT.
 `gettty` termios named.
 Do not enable EDIT_GETLIN (would drop the replace prompt).

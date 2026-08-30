@@ -10,10 +10,10 @@ Objective/score live in `CURRENT.md`.
   ledger 26/26; wait-save catchup 30/30; catchup-after-restore 26/30
   red; trap-ledger 38/38; shop template 35/35 (no unpaid). Reviews
   **678–686** ACCEPT-WITH-DEBT (no Must-fix). **Next:** Open
-  `cmd.c` yn_function_menu query_menu (named). Not yn_function addcmdq.
-  Do not skip D-1531…D-1727. Do not re-port D-1675…D-1727.
-  Falsify: yn_function_menu, not useupall/obfree (D-1727) or
-  display_monster furniture lastseentyp (D-1726).
+  `cmd.c` getdir CQ_REPEAT (named). Not yn_function_menu.
+  Do not skip D-1531…D-1728. Do not re-port D-1675…D-1728.
+  Falsify: getdir CQ_REPEAT, not yn_function_menu (D-1728) or
+  useupall/obfree (D-1727).
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; setworn oc_oprop; keepdogs/grow_up leash;
   light-scroll `initedog`; tip-spill/squeaky; hideunder;
@@ -24,7 +24,8 @@ Objective/score live in `CURRENT.md`.
   `possibly_unwield` / `mon_break_armor`; sync `newcham`; array rn2
   / pauper_legacy / killed_nemesis; spell dull / zap rider eyecount;
   perm_invent can_set; polyself `uskin=`; steal/muse
-  `unknow_object`; Hallu `obj_to_glyph` query; `yn_function_menu`;
+  `unknow_object`; Hallu `obj_to_glyph` query;
+  interned `'yn'` yn_function sites; hide+web `hidespinchars`;
   getdir CQ_REPEAT / mouse getpos; `is_multigen`/`is_poisonable`;
   choose_stairs / `u_left_shop`; `artifact_score`; hidden_gold;
   `free_luathemes`; other load_* `des.object`; dump_fmtstr / paniclog
@@ -37,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1727.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1728.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -69,15 +70,19 @@ Objective/score live in `CURRENT.md`.
   `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1727 (index). D-1727 is useupall/obfree (not FIRST_OBJECT
-  skip / furniture lastseentyp). D-1726 is display_monster furniture
-  lastseentyp (not `update_lastseentyp` DRAWBRIDGE_UP). D-1725 is
-  `hhmmss` (not cemetery `yyyymmddhhmmss` / dump_fmtstr). D-1724 is
-  recalc sokosolved/rogue/quest flags. D-1723 is non-merge quan
-  do-while.
+  D-1682…D-1728 (index). D-1728 is yn_function_menu query_menu (not
+  interned `'yn'` / addcmdq). D-1727 is useupall/obfree (not
+  FIRST_OBJECT skip / furniture lastseentyp). D-1726 is
+  display_monster furniture lastseentyp (not `update_lastseentyp`
+  DRAWBRIDGE_UP). D-1725 is `hhmmss` (not cemetery
+  `yyyymmddhhmmss` / dump_fmtstr). D-1724 is recalc
+  sokosolved/rogue/quest flags. D-1723 is non-merge quan do-while.
 
 ## Landmarks (≤15)
 
+- D-1728: `yn_function_menu` `:5416–5463` + identity tables.
+  Live `js/getline.js` + `js/const.js`. Named: interned `'yn'`
+  callers; hide+web `hidespinchars`; getdir CQ_REPEAT.
 - D-1727: `useupall` `:1311–1317` + `obfree` `:1186–1275`. Live
   `js/invent.js` + `js/shk.js`. Named: full `dealloc_obj` / `delobj`.
 - D-1726: `display_monster` `:545–562` M_AP_FURNITURE cmap + lastseentyp.
@@ -100,4 +105,3 @@ Objective/score live in `CURRENT.md`.
 - D-1716: mute/Deaf nod `hero_deaf`/`muteshk`. Live `js/shk.js`.
 - D-1715: Traditional itemize ynq + dopayobj y_n. Live `js/shk.js`.
 - D-1714: FullyUsedUp/PartlyUsedUp dummy billobjs. Live `js/shk.js`.
-- D-1713: `observe_object` FIRST_OBJECT skip. Live `js/invent.js`.

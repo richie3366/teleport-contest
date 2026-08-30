@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1728 cmd.c yn_function_menu query_menu
+
+**Objective:** Open `cmd.c` yn_function_menu query_menu (named). Not
+yn_function addcmdq.
+**C locus:** `cmd.c` `yn_function_menu` `:5416–5463`;
+`yn_menuable_resp` `:5393–5399`; `yn_func_menu_opt` `:5401–5413`;
+caller `yn_function` `:5538`; tables `decl.c` `:113–118`.
+**JS locus:** `js/getline.js` `yn_function_menu`; tables `js/const.js`.
+**Change:** unique String tables + `===` identity; menu via
+`select_menu_pick_one`; `iflags.query_menu`; `window_inited`;
+paranoid_ynq / `choose_ring_hand`; y_n wrappers. Named: interned
+`'yn'` callers; hide+web `hidespinchars`; getdir CQ_REPEAT.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `cmd.c:yn_function_menu`; node
+identity + gate; green+strict seed8000/0900; CURRENT cohort **9**/9
++ strict. Rule #2 clean.
+**Next:** Open `cmd.c` getdir CQ_REPEAT.
+**Blocked:** none.
 ## 2026-08-30 — D-1727 invent.c useupall / shk.c obfree
 
 **Objective:** Open `invent.c` useupall / obfree (named). Not
