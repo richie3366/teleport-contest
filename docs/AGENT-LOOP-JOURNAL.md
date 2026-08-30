@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1697 save.c dosave0 JSON other LFILE_EXISTS ledgers
+
+**Objective:** JSON save/restore ledger Cluster 3 — `levels{}` +
+`linfo` + M2.
+**C locus:** `save.c` `dosave0` `:185–215`; `dungeon.c` `save_dungeon`
+linfo `i < maxledgerno()`.
+**JS locus:** `js/save.js`; `maxledgerno` `js/dungeon.js`.
+**Change:** persist other `LFILE_EXISTS` blobs; hydrate into
+`level_info` without inserting timers. Ledger geometry restored;
+dog 1-cell miss is Cluster 5 getlev post.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict; seed0013; seed0015; trap-same-floor;
+ledger 25/26 (was mklev).
+**Next:** Cluster 4 RANGE_GLOBAL relink; Cluster 5 getlev post.
+**Blocked:** none.
 ## 2026-08-30 — D-1696 save.c savelev JSON serLevel current blob
 
 **Objective:** JSON save/restore ledger Cluster 2 — shared `serLevel`

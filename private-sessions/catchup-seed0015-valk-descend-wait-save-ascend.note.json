@@ -1,0 +1,12 @@
+{
+  "locus": "restore.c getlev elapsed catchup then <",
+  "omitId": "D-1697",
+  "bucket": "fidelity",
+  "from": "catchup-seed0015-valk-descend-wait-save-ascend",
+  "headRed": {
+    "sha": "bfdadc33",
+    "rng": "8485/8549",
+    "screen": "29/30",
+    "note": "elapsed>0 then <; greens Cluster 3–5 (catchup/restore_cham)"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "locus": "save.c dosave0 other LFILE_EXISTS / restore.c restlevelfile",
+  "omitId": "D-1697",
+  "bucket": "fidelity",
+  "cTopline": "You climb up the stairs.",
+  "jsTopline": "You climb up the stairs.",
+  "from": "ledger-seed0015-valk-descend-save-ascend",
+  "headRed": {
+    "sha": "bfdadc33",
+    "rng": "8408/8472",
+    "screen": "25/26",
+    "note": "No levels{} in JSON; after restore-then-< JS mklevs dlvl 1"
+  },
+  "afterCluster3": {
+    "sha": "pending",
+    "rng": "8412/8472",
+    "screen": "25/26",
+    "note": "Map geometry restored (same walls/stairs); 2 cells = little dog one step off. Remaining getlev place_monster/hideunder/restore_cham (Cluster 5)."
+  }
+}

@@ -14,6 +14,7 @@ import { let_to_name, DEF_INV_ORDER } from './invent.js';
 import { docall, objtyp_is_callable } from './do_name.js';
 import { select_menu_pick_one } from './options.js';
 import { PM_SAMURAI } from './generated/monsters_data.js';
+import { ledger_no, maxledgerno } from './dungeon.js';
 import {
     objects_globals_init,
     NUM_OBJECTS,
@@ -65,28 +66,6 @@ function bases() {
 function copy_obj_descr(dst, src) {
     dst.oc_descr_idx = src.oc_descr_idx;
     dst.oc_color = src.oc_color;
-}
-
-/**
- * C ref: dungeon.c ledger_no — dlevel + dungeons[dnum].ledger_start.
- * Local to avoid invent/do import cycles from o_init.
- */
-function ledger_no(lev) {
-    const dnum = lev?.dnum | 0;
-    const dlevel = lev?.dlevel | 0;
-    const dun = game.dungeons?.[dnum];
-    return ((dun?.ledger_start | 0) + dlevel) | 0;
-}
-
-/**
- * C ref: dungeon.c maxledgerno — last dungeon ledger_start + num_dunlevs.
- */
-function maxledgerno() {
-    const n = game.n_dgns | 0;
-    const duns = game.dungeons || [];
-    if (n <= 0 || !duns.length) return 0;
-    const last = duns[n - 1] || duns[duns.length - 1];
-    return ((last?.ledger_start | 0) + (last?.num_dunlevs | 0)) | 0;
 }
 
 // C ref: o_init.c setgemprobs — level-dependent gem oc_prob (ledger_no).

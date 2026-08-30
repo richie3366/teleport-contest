@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-1697 — save.c dosave0 JSON other LFILE_EXISTS ledgers
+
+- **Status:** fixed (map-driven ledger Cluster 3; not a public FAIL)
+- **Symptom:** JSON `dosave0` wrote only the live floor. After restore
+  then `<`, JS `mklev`'d a new dlvl 1. Private ledger on `bfdadc33`
+  was RNG 8408/8472 Screen 25/26.
+- **C locus:** `save.c` `dosave0` `:185–215` other `LFILE_EXISTS`;
+  `dungeon.c` `save_dungeon` `:172–176` `linfo` `i < maxledgerno()`;
+  `restore.c` dorecover other-level loop `:869–888`.
+- **JS was:** Cluster 2 `payload.current` only; `o_init.js` cloned
+  `maxledgerno`.
+- **Fix:** `payload.levels` + `linfo` + `current_ledger`; synthesize
+  current flags/`omoves`; persist `tune`/`inv_pos`/`dungeon_topology`;
+  `maxledgerno` from `dungeon.js`. Hydrate others into `level_info`
+  with per-blob relink, not into `_timer_base` (M2). Missing `levels`
+  = old save (seed0013). Named: shop/trap-ledger recipes; getlev
+  `place_monster`/`hideunder`/`restore_cham` (Cluster 5) — ledger
+  geometry restored, little dog still one cell off (25/26).
+- **JS:** `js/save.js`; `js/dungeon.js` `maxledgerno`; `js/o_init.js`.
+- **Verified:** green+strict seed8000/0900; seed0013 99/99; seed0015
+  in-session stairs; trap-same-floor 17/17. Ledger 25/26 (geometry).
+- **Files:** `js/save.js`, `js/dungeon.js`, `js/o_init.js`.
+
 ## D-1696 — save.c savelev JSON serLevel current blob
 
 - **Status:** fixed (map-driven ledger Cluster 2; not a public FAIL)

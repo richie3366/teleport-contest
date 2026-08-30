@@ -14,7 +14,7 @@ import { gamelog_add } from './pline.js';
 import { change_luck } from './attrib.js';
 import {
     FULL_MOON, OBJ_INVENT, OBJ_CONTAINED,
-    ECMD_OK, BUFSZ,
+    ECMD_OK, BUFSZ, VISITED, LFILE_EXISTS,
 } from './const.js';
 import { objects_globals_init } from './objects.js';
 import { nh_terminate_capture } from './topten.js';
@@ -22,6 +22,8 @@ import { l_nhcore_init } from './mklev.js';
 import {
     save_mapseenchn,
     restore_mapseenchn,
+    ledger_no,
+    maxledgerno,
 } from './dungeon.js';
 import { rest_track } from './track.js';
 import { restore_timers, restore_light_sources } from './mkobj.js';
@@ -121,6 +123,65 @@ function rebuildObjectsAt(fobj) {
 }
 
 /**
+ * C save.c dosave0 `:185–215` — other LFILE_EXISTS ledgers, skip current.
+ * serLevel of the in-memory stash; relink stays on the blob (M2).
+ * @param {number} currentLedger
+ * @returns {Record<string, object>}
+ */
+function serOtherLevels(currentLedger) {
+    const levels = {};
+    const maxL = maxledgerno();
+    for (let ltmp = 1; ltmp <= maxL; ltmp++) {
+        if (ltmp === currentLedger) continue;
+        const info = game.level_info?.[ltmp];
+        if (!info || !((info.flags | 0) & LFILE_EXISTS)) continue;
+        levels[String(ltmp)] = serLevel(info);
+    }
+    return levels;
+}
+
+/**
+ * C dungeon.c save_dungeon `:172–176` — count = maxledgerno(); i < count.
+ * @returns {{ flags: number }[]}
+ */
+function serLinfo() {
+    const count = maxledgerno();
+    const out = [];
+    for (let i = 0; i < count; i++) {
+        out.push({ flags: game.level_info?.[i]?.flags | 0 });
+    }
+    return out;
+}
+
+/**
+ * C restore.c dorecover other-level loop `:869–888` + getlev relink
+ * `:1299–1300`. Bodies stay on `level_info` (M2: do not insert timers
+ * or lights into `_timer_base` / `light_base`).
+ * @param {object} payload
+ */
+function restoreOtherLedgers(payload) {
+    if (!game.level_info) game.level_info = [];
+    if (Array.isArray(payload.linfo)) {
+        for (let i = 0; i < payload.linfo.length; i++) {
+            const flags = payload.linfo[i]?.flags | 0;
+            const prev = game.level_info[i] || {};
+            game.level_info[i] = { ...prev, flags };
+        }
+    }
+    const levels = payload.levels;
+    if (!levels || typeof levels !== 'object' || Array.isArray(levels)) return;
+    for (const key of Object.keys(levels)) {
+        const i = Number(key);
+        if (!Number.isFinite(i) || i < 1) continue;
+        const blob = levels[key];
+        if (!blob || typeof blob !== 'object') continue;
+        const info = deserLevel(blob);
+        const flags = (game.level_info[i]?.flags | 0) | LFILE_EXISTS | VISITED;
+        game.level_info[i] = { ...info, flags };
+    }
+}
+
+/**
  * C ref: save.c dosave0 — write current game to VFS (JSON subset of savelev).
  * Named omissions: binary NHFILE format; multi-level ledger files; hangup
  * arms; overwrite yn; compress; looseball/chain when swallowed.
@@ -134,6 +195,16 @@ export function dosave0() {
     if (game.flags?.friday13) change_luck(1);
 
     const path = set_savefile_name(game.plname);
+    const currentLedger = ledger_no(u.uz);
+    // goto_level only writes level_info[old] on leave; synthesize current
+    // linfo flags + omoves (C savelev of the live floor).
+    if (!game.level_info) game.level_info = [];
+    const prevCur = game.level_info[currentLedger] || { flags: 0 };
+    game.level_info[currentLedger] = {
+        ...prevCur,
+        flags: (prevCur.flags | 0) | VISITED | LFILE_EXISTS,
+        omoves: game.moves | 0,
+    };
     const payload = {
         version: 1,
         plname: game.plname,
@@ -164,8 +235,19 @@ export function dosave0() {
         n_dgns: game.n_dgns | 0,
         branches: game.branches
             ? JSON.parse(JSON.stringify(game.branches)) : null,
-        // C save.c savelev current; Cluster 3 adds levels{} for others.
+        // C save.c savelev current then other LFILE_EXISTS (D-1697).
         current: serLevel(null),
+        current_ledger: currentLedger,
+        levels: serOtherLevels(currentLedger),
+        linfo: serLinfo(),
+        dungeon_topology: game.dungeon_topology
+            ? JSON.parse(JSON.stringify(game.dungeon_topology)) : null,
+        tune: game.tune || null,
+        inv_pos: game.svi?.inv_pos
+            ? { x: game.svi.inv_pos.x | 0, y: game.svi.inv_pos.y | 0 }
+            : (game.inv_pos
+                ? { x: game.inv_pos.x | 0, y: game.inv_pos.y | 0 }
+                : null),
         // C save.c save_dungeon → save_mapseen + savecemetery
         mapseenchn: save_mapseenchn(),
         spl_book: game.spl_book
@@ -381,6 +463,18 @@ export function try_restore_save() {
     game.dungeons = payload.dungeons || game.dungeons;
     game.n_dgns = payload.n_dgns | 0;
     game.branches = payload.branches || game.branches;
+    if (payload.dungeon_topology) {
+        game.dungeon_topology = payload.dungeon_topology;
+    }
+    if (payload.tune != null) game.tune = payload.tune;
+    if (payload.inv_pos) {
+        if (!game.svi) game.svi = {};
+        game.svi.inv_pos = {
+            x: payload.inv_pos.x | 0,
+            y: payload.inv_pos.y | 0,
+        };
+        game.inv_pos = game.svi.inv_pos;
+    }
     game.spl_book = payload.spl_book;
     game.spl_orderindx = payload.spl_orderindx;
     game.artiexist = payload.artiexist;
@@ -397,6 +491,11 @@ export function try_restore_save() {
     }
     if (payload.uz) u.uz = { ...payload.uz };
     game.u = u;
+
+    // C restore.c restlevelfile others then getlev current. JSON hydrates
+    // others into level_info without tearing down the live map (no FREEING).
+    // Missing `levels` = old save, current-only (seed0013).
+    restoreOtherLedgers(payload);
 
     // C restore.c getlev current. Missing `current` = old scattered keys.
     const info = deserLevel(levelBlobFromPayload(payload));

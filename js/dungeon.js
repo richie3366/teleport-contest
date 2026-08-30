@@ -596,6 +596,19 @@ export function ledger_no(lev) {
 }
 
 /**
+ * C ref: dungeon.c maxledgerno — last dungeon ledger_start + num_dunlevs.
+ * save_dungeon linfo count is this value; the array loop is `i < count`
+ * so index maxledgerno() itself is not persisted.
+ */
+export function maxledgerno() {
+    const n = game.n_dgns | 0;
+    const duns = game.dungeons || [];
+    if (n <= 0 || !duns.length) return 0;
+    const last = duns[n - 1] || duns[duns.length - 1];
+    return ((last?.ledger_start | 0) + (last?.num_dunlevs | 0)) | 0;
+}
+
+/**
  * C ref: dungeon.c ledger_to_dnum :1401–1416 —
  * ledger_start < ledgerno ≤ ledger_start + num_dunlevs.
  */
