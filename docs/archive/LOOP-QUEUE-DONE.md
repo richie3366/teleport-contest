@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `dungeon.c` update_lastseentyp DRAWBRIDGE_UP / furniture-mimic (named). Not knox/drawbridge. **Addressed:** D-1711
+- [x] `objects.h` oc_merge extract (named). Not oc_charged. **Addressed:** D-1712
+
+
+- [x] `dungeon.c` update_lastseentyp DRAWBRIDGE_UP / furniture-mimic (named). Not knox/drawbridge. **Addressed:** D-1711 `f187612b`
 
 
 - [x] `dungeon.c` cemetery yyyymmddhhmmss when[] (named). Not cemetery JSON. **Addressed:** D-1710 `b5cb56e6`

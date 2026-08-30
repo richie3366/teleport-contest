@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1712 objects.h oc_merge extract
+
+**Objective:** Open `objects.h` oc_merge extract (named). Not
+oc_charged.
+**C locus:** `objclass.h` `oc_merge`; `objects.h` BITS mrg;
+`invent.c` `mergable` `:4388`; `mkobj.c` `clear_dknown` `:842`;
+`objnam.c` `:5071–5083`; `sp_lev.c` create_object `:2298–2301`.
+**JS locus:** extractor + `js/generated/objects_data.js`;
+`js/mkobj.js` `oc_merge_of` / `clear_dknown`; `js/read.js`;
+`js/readobjnam.js`; `js/mklev.js`.
+**Change:** dump BITS mrg; table reader not WEAPON/FOOD class
+heuristic; candles/boomerang/venom merge; swords do not;
+`clear_dknown` OR; wish quan non-wizard; create_object quan.
+Named: lspo_object non-merge repeat; `is_multigen`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; canary LONG_SWORD 0 /
+TALLOW_CANDLE 1; green+strict; focused seed1150/0014/0101;
+cohort 7/7 + strict.
+**Next:** Open `invent.c` observe_object FIRST_OBJECT skip.
+**Blocked:** none.
 ## 2026-08-30 — D-1711 dungeon.c update_lastseentyp DRAWBRIDGE_UP / mimic
 
 **Objective:** Open `dungeon.c` update_lastseentyp DRAWBRIDGE_UP /

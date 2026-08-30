@@ -1,6 +1,45 @@
 # Divergence log
 
+## D-1712 — objects.h oc_merge extract
+
+- **Status:** fixed (map-driven Open from D-1711; not a public FAIL)
+- **Symptom:** map named `oc_merge` extract. C `objects[].oc_merge`
+  (BITS mrg) drives `mergable`, `clear_dknown`, wish quan, lua
+  `create_object` quan, quiver wornmask, wearslot W_QUIVER, poly
+  fuse, mplayer thrown stacks. JS used a class heuristic
+  (`WEAPON/GEM/FOOD/POTION/SCROLL/COIN`, SPELL/WAND mrg=0) that
+  stacked non-stack swords and skipped candles/boomerang/venom.
+- **C locus:** `objclass.h` `oc_merge`; `objects.h`
+  `BITS(..., mrg, ...)` / WEAPON `mg` / PROJECTILE 1 / BOW 0 /
+  TOOL `mrg` / FOOD/POTION/SCROLL/GEM/COIN 1 / SPELL/WAND 0;
+  `invent.c` `mergable` `:4388`; `mkobj.c` `clear_dknown` `:842`;
+  `objnam.c` readobjnam `:5071–5083`; `sp_lev.c` create_object
+  `:2298–2301`; `read.c` `:1535`; `worn.c` `:323`; `zap.c`
+  `:1832`; `mplayer.c` `:268`.
+- **JS was:** extractor dumped the struct field but dropped it from
+  rows; `oc_merge_of` class list + BOULDER/STATUE/BOOMERANG false;
+  `read.js` local clone defaulted true; `clear_dknown` skipped
+  the merge arm; wish quan wizard-only; create_object ignored quan.
+- **Fix:** dump `merge` in the objects extract; map `oc_merge`;
+  `oc_merge_of` reads the table; `clear_dknown` ORs the bit;
+  retire `read.js` clone; non-wizard wish quan `rnd(6)` / candle
+  ≤7 / ROCK|FLINT|missile|ammo ≤20; create_object quan when
+  mergeable. Rule #2: no fs.
+- **JS:** `scripts/extract-objects.py` + `js/generated/objects_data.js`;
+  `js/mkobj.js` `oc_merge_of` / `clear_dknown`; `js/read.js`;
+  `js/readobjnam.js`; `js/mklev.js` `create_object`.
+- **Not this iter:** lspo_object non-merge quan repeat loop;
+  detect `sense_trap` Hallu quan; glob wish gsize; `is_multigen` /
+  `is_poisonable`; `observe_object` FIRST_OBJECT skip.
+- **Verified:** save-oracle probe skip (untagged `objects.h:oc_merge`);
+  canary LONG_SWORD 0 / DAGGER 1 / TALLOW_CANDLE 1 / WAN_LIGHT 0 /
+  BOOMERANG 1; green+strict seed8000/0900; focused seed1150/0014/0101;
+  CURRENT cohort **7**/7 + strict.
+- **Files:** `scripts/extract-objects.py`, `js/generated/objects_data.js`,
+  `js/mkobj.js`, `js/read.js`, `js/readobjnam.js`, `js/mklev.js`.
+
 ## D-1711 — dungeon.c update_lastseentyp DRAWBRIDGE_UP / furniture-mimic
+
 
 - **Status:** fixed (map-driven Open from D-1710; not a public FAIL)
 - **Symptom:** map named `update_lastseentyp` DRAWBRIDGE_UP under-typ

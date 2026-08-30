@@ -3,7 +3,8 @@
 //        hornoplenty / fixup_oil (D-1031);
 //        unknwn_contnr_contents (D-1663; caller invent.c dounpaid);
 //        unknow_object (D-1674 oc_uses_known extract);
-//        RING_CLASS mksobj_init from objects[].oc_charged (D-1690).
+//        RING_CLASS mksobj_init from objects[].oc_charged (D-1690);
+//        objects[].oc_merge from objects.h BITS mrg (D-1712).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rne, rnz } from './rng.js';
@@ -1710,16 +1711,16 @@ export function noveltitle(otmp) {
     return SIR_TERRY_NOVELS[j];
 }
 
-// C ref: mkobj.c clear_dknown — amulets/food/armor start dknown=1 unless
-// shield-range / oc_merge. oc_merge not extracted yet → deferred (food and
-// other mergeables may keep dknown=1 where C clears it).
+// C ref: mkobj.c clear_dknown `:835–848` — dknowns[] then shield-range /
+// objects[].oc_merge (BITS mrg) force dknown=0; pudding later sets 1.
 function clear_dknown(obj) {
     if (!obj) return;
     const cls = obj.oclass ?? 0;
     obj.dknown = DKNOWN_CLEAR_CLASSES.has(cls) ? 0 : 1;
     const otyp = obj.otyp ?? 0;
     if ((ELVEN_SHIELD >= 0 && otyp >= ELVEN_SHIELD && otyp <= ORCISH_SHIELD)
-        || otyp === SHIELD_OF_REFLECTION) {
+        || otyp === SHIELD_OF_REFLECTION
+        || oc_merge_of(otyp)) {
         obj.dknown = 0;
     }
     // Is_pudding → dknown=1 set in mksobj_init after clear_dknown
@@ -1913,19 +1914,11 @@ export function relobj_on_death(mtmp) {
 }
 
 /**
- * C ref: invent.c objects[].oc_merge — table field not yet extracted;
- * approximate from C BITS defaults. SPELL() uses mrg=0 — spellbooks
- * never stack (D-0679). Wands similarly non-merge in C BITS.
+ * C ref: objclass.h oc_merge / objects.h BITS(..., mrg, ...).
+ * Table field from extract-objects.py (D-1712); not a class heuristic.
  */
 export function oc_merge_of(otyp) {
-    const od = game.objects?.[otyp];
-    if (od && typeof od.oc_merge === 'number') return od.oc_merge !== 0;
-    if (otyp === BOULDER || otyp === STATUE || otyp === BOOMERANG) return false;
-    const oc = od?.oc_class ?? 0;
-    // C SPELL()/WAND BITS mrg=0 — do not treat SPBOOK/WAND as mergeable
-    return oc === WEAPON_CLASS || oc === GEM_CLASS || oc === FOOD_CLASS
-        || oc === POTION_CLASS || oc === SCROLL_CLASS
-        || oc === COIN_CLASS;
+    return !!(game.objects?.[otyp]?.oc_merge);
 }
 
 /**

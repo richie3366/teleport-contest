@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `objects.h` oc_merge extract (named). Not oc_charged.
 - [ ] `invent.c` observe_object FIRST_OBJECT skip (named). Not undiscover_object.
 - [ ] `shk.c` FullyUsedUp/PartlyUsedUp (named). Not bill_box_content.
 - [ ] `shk.c` pay_billed_items traditional itemize ynq (named). Not FullyUsedUp.

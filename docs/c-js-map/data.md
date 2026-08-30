@@ -22,9 +22,12 @@ Hallu `random_object` dim 463)**; **`objectDescrs`/`objectNameStrs`** (D-0040);
 `mkobj.c` RING_CLASS; `u_init.c` `ini_inv_adjust_obj`; `objnam.c` doname /
 `readobjnam` spe clamp; `read.c` `charge_ok`/`recharge`; `zap.c` `drain_item` /
 `maybe_destroy_item`; `eat.c` ring hunger; `do_wear.c` `learnring`;
-`shk.c` `check_unpaid_usage`); still no extracted `oc_merge` bitfield
-(`oc_merge_of` class heuristic: SPELL/WAND mrg=0 — D-0679; D-0094);
-`oc_oprop` already extracted; `is_multigen`/`is_poisonable` named
+`shk.c` `check_unpaid_usage`); **`oc_merge`** (D-1712; `objects.h` BITS mrg;
+`objclass.h`; `invent.c` `mergable`; `mkobj.c` `clear_dknown`; `objnam.c`
+readobjnam quan; `sp_lev.c` create_object quan; `read.c` quiver wornmask;
+`worn.c` wearslot; `zap.c` poly fuse; `mplayer.c` thrown stack);
+`oc_oprop` already extracted; `is_multigen`/`is_poisonable` named;
+lspo_object non-merge quan repeat / detect `sense_trap` quan named
 
 ### `include/monsters.h`
 
@@ -187,7 +190,8 @@ was zeroing → false `drag_ball` cause_delay); **`obj_extract_self` MINVENT** (
 **`mk_artifact` A_NONE eligible/`rn2(n)`** (D-0759; 
 by_align/gift_value/gen_spe/permapoisoned deferred); 
 **floor `stackobj`/`merged`/`mergable`** (D-0094) + **`add_to_minv` merge D-1492** + 
-**`oc_merge_of` excludes SPBOOK/WAND** (D-0679); **`delobj`→`obj_resists(0,0)`** (D-0105); 
+**`oc_merge_of` from `objects[].oc_merge`** (D-1712; was class heuristic
+D-0679); **`delobj`→`obj_resists(0,0)`** (D-0105); 
 **`relobj_on_death` + `mdrop_obj` `distant_name` observe** (D-0108/D-0632; 
 flooreffects / vault-gold / pet `droppables` deferred); 
 **TOOL lamps `rn1(500,1000)` + grease/crystal/horn/bag/bell/instruments** (D-0146); 
@@ -201,7 +205,9 @@ under-boulder pile** (D-0270); **`clear_dknown` in `mksobj` (dknowns[] + shield-
 **`mksobj` `unknow_object` `known` from `oc_uses_known`** (D-1674;
 was WAND/class-name stand-in D-0316); steal.c / muse.c callers named;
 **RING_CLASS `mksobj_init` `oc_charged`** (D-1690; was RIN_* name-list);
-`clear_dknown` `oc_merge` named; 
+**`clear_dknown` `objects[].oc_merge`** (D-1712; was class heuristic
+`oc_merge_of` SPELL/WAND mrg=0 D-0679; food/candle/boomerang/venom vs
+non-stack swords); 
 **`mkbox_cnts` ICE_BOX → `mksobj(CORPSE)` + age=0/timers + `add_to_container`** (D-0361; 
 BoH Is_mbag→SACK / WAN_CANCELLATION re-roll + BoH weight factor deferred); 
 **candle `mksobj` `age=20*oc_cost` D-1308**; 
