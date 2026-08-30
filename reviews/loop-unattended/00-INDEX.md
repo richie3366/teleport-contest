@@ -679,3 +679,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [666-7d0a0ddc-bill-box-content.md](./666-7d0a0ddc-bill-box-content.md) | `7d0a0ddc` | D-1705 shk.c bill_box_content | **ACCEPT-WITH-DEBT** |
 | [667-1567e9bf-yn-function-addcmdq.md](./667-1567e9bf-yn-function-addcmdq.md) | `1567e9bf` | D-1706 cmd.c yn_function addcmdq | **ACCEPT-WITH-DEBT** |
 | [668-7b26f699-recalc-mapseen-overview.md](./668-7b26f699-recalc-mapseen-overview.md) | `7b26f699` | D-1707 dungeon.c recalc_mapseen | **ACCEPT-WITH-DEBT** |
+| [669-0c0f29fe-save-light-sources-mx.md](./669-0c0f29fe-save-light-sources-mx.md) | `0c0f29fe` | D-1708 light.c LS_MONSTER mx>0 | **ACCEPT-WITH-DEBT** |
+| [670-2353e6fb-update-mlstmv-skip.md](./670-2353e6fb-update-mlstmv-skip.md) | `2353e6fb` | D-1709 dog.c update_mlstmv skip | **ACCEPT-WITH-DEBT** |
+| [671-b5cb56e6-yyyymmddhhmmss.md](./671-b5cb56e6-yyyymmddhhmmss.md) | `b5cb56e6` | D-1710 calendar.c yyyymmddhhmmss | **ACCEPT-WITH-DEBT** |
+| [672-f187612b-update-lastseentyp.md](./672-f187612b-update-lastseentyp.md) | `f187612b` | D-1711 dungeon.c lastseentyp | **ACCEPT-WITH-DEBT** |
+| [673-00f70d3d-oc-merge.md](./673-00f70d3d-oc-merge.md) | `00f70d3d` | D-1712 objects.h oc_merge | **ACCEPT-WITH-DEBT** |
+| [674-4f0957ff-observe-object.md](./674-4f0957ff-observe-object.md) | `4f0957ff` | D-1713 o_init.c observe_object | **ACCEPT-WITH-DEBT** |
+| [675-33cc30c0-fully-used-up.md](./675-33cc30c0-fully-used-up.md) | `33cc30c0` | D-1714 shk.c FullyUsedUp | **ACCEPT-WITH-DEBT** |
+| [676-a197ef44-itemize-ynq.md](./676-a197ef44-itemize-ynq.md) | `a197ef44` | D-1715 shk.c itemize ynq | **ACCEPT-WITH-DEBT** |
+| [677-0c720b98-dopay-mute-deaf-nod.md](./677-0c720b98-dopay-mute-deaf-nod.md) | `0c720b98` | D-1716 shk.c mute/Deaf nod | **ACCEPT-WITH-DEBT** |

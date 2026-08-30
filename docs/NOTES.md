@@ -5,10 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress. Save-oracle required for tagged restore
-  Open. Private B0: trap-same-floor 17/17; ledger 26/26; wait-save
-  catchup 30/30; catchup-after-restore 26/30 red; trap-ledger 38/38;
-  shop template 35/35 (no unpaid). **Next:** Open `shk.c`
+- **Suite 44/44** fortress (cadence **#2120** at `0c720b98`). Save-oracle
+  required for tagged restore Open. Private B0: trap-same-floor 17/17;
+  ledger 26/26; wait-save catchup 30/30; catchup-after-restore 26/30
+  red; trap-ledger 38/38; shop template 35/35 (no unpaid). Reviews
+  **669–677** ACCEPT-WITH-DEBT (no Must-fix). **Next:** Open `shk.c`
   `remote_burglary` (named). Not bill_box_content.
   Do not skip D-1531…D-1716. Do not re-port D-1675…D-1716.
   Falsify: `remote_burglary` unpaid steal path, not getpos/nod.

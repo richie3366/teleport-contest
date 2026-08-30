@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `shk.c` dopay mute/Deaf thank-you nod (named). Not getpos. **Addressed:** D-1716
+- [x] `shk.c` dopay mute/Deaf thank-you nod (named). Not getpos. **Addressed:** D-1716 `0c720b98`
 
 
 - [x] `shk.c` pay_billed_items traditional itemize ynq (named). Not FullyUsedUp. **Addressed:** D-1715 `a197ef44`

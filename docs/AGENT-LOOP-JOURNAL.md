@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — audit #2120 reviews 669–677 + cadence
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **668**
+(`0c0f29fe`…`0c720b98`, D-1708…D-1716) plus full `sessions`.
+**C locus:** `save_light_sources` mx>0; `update_mlstmv` skip;
+`yyyymmddhhmmss`; `update_lastseentyp`; `oc_merge`; `observe_object`;
+FullyUsedUp; itemize ynq; `dopay` mute/Deaf nod.
+**Change:** reviews **669–677**, all ACCEPT-WITH-DEBT. No Must-fix.
+No `js/` edits. Filled archive D-1716 `%h`.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `40+0.32/turn` (R² 0.853) at `0c720b98`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Open `shk.c` `remote_burglary`.
+**Blocked:** none.
 ## 2026-08-30 — D-1716 shk.c dopay mute/Deaf thank-you nod
 
 **Objective:** Open `shk.c` dopay mute/Deaf thank-you nod (named).
