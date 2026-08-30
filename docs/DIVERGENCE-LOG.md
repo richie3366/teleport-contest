@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-1735 — invent.c useup / write.c dowrite paper
+
+- **Status:** fixed (Must-fix review **688**; not a public FAIL)
+- **Symptom:** C `write.c` `dowrite` calls invent.c `useup(paper)`
+  (`:231` / `:278` / `:335` / `:349` / `:355`). C `useup` `:1320–1333`
+  decrements a stack (`in_use=FALSE`, `quan--`, `weight`,
+  `update_inventory`) or `useupall` → `obfree`. JS `write.js` spliced
+  `game.invent` at quan==1 (no `setnotworn` / `freeinv` / `obfree`), so
+  unpaid blank paper never became a bill dummy.
+- **C locus:** `invent.c` `useup` `:1320–1333`; callers `write.c`
+  `dowrite` as above. `useupall` `:1311–1317` is D-1727.
+- **JS was:** `js/write.js` local `useup` decrement-or-splice; D-1727
+  re-pointed write `obfree(new_obj)` but left paper `useup` as splice.
+- **Fix:** export C-home `useup` next to `useupall` in `js/invent.js`;
+  `write.js` imports it. quan>1 keeps `weight` + `update_inventory`.
+- **JS:** `js/invent.js` `useup`; `js/write.js` import (local splice
+  deleted).
+- **Not this iter:** full `dealloc_obj`; eat.js hybrid still
+  useup+useupf; detect/potion/read/spell local clones; zap
+  `delete_contents` clone; `useupall_gamestate`.
+- **Verified:** save-oracle probe skip (untagged `invent.c:useup`);
+  node quan>1 decrement+`in_use` + unpaid quan==1 → `OBJ_ONBILL`;
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+  Rule #2 clean.
+- **Files:** `js/invent.js`, `js/write.js`.
+
 ## D-1734 — display.c display_monster M_AP_MONSTER what_mon
 
 - **Status:** fixed (map-driven Open from D-1733; not a public FAIL)

@@ -54,7 +54,7 @@ import {
 import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin, mungspaces } from './getline.js';
 import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
-import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents } from './mkobj.js';
+import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents, weight } from './mkobj.js';
 import { unpaid_cost, doinvbill, gem_learned, obfree } from './shk.js';
 import { hidden_gold } from './vault.js';
 import { setnotworn } from './do.js';
@@ -3946,6 +3946,23 @@ export function useupall(obj) {
     setnotworn(obj);
     freeinv(obj);
     obfree(obj, null);
+}
+
+/**
+ * C ref: invent.c useup `:1320–1333` — quan>1: in_use=FALSE, quan--,
+ * weight, update_inventory; else useupall. write.c dowrite paper
+ * (D-1735). Named: eat.js hybrid still useup+useupf; detect/potion/
+ * read/spell local clones; full dealloc_obj.
+ */
+export function useup(obj) {
+    if (obj.quan > 1) {
+        obj.in_use = false;
+        obj.quan--;
+        obj.owt = weight(obj);
+        update_inventory();
+    } else {
+        useupall(obj);
+    }
 }
 
 /**

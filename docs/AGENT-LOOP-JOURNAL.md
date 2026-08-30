@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1735 invent.c useup / write.c dowrite paper
+
+**Objective:** Must-fix `write.c` dowrite `useup(paper)` still
+invent-splice; C invent.c `useup` → `useupall`. Source: review **688**.
+**C locus:** `invent.c` `useup` `:1320–1333`; callers `write.c`
+`:231`/`:278`/`:335`/`:349`/`:355`.
+**JS locus:** `js/invent.js` `useup`; `js/write.js` import.
+**Change:** C-home `useup` next to `useupall`; write.js drops splice.
+quan>1 keeps `in_use`+`weight`+`update_inventory`. Named: eat.js
+hybrid; detect/potion/read/spell clones; full `dealloc_obj`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `invent.c:useup`; node quan>1 +
+unpaid → `OBJ_ONBILL`; green+strict seed8000/0900; cohort **7**/7
++ strict. Rule #2 clean.
+**Next:** Open `display.c` display_monster Protection sensed.
+**Blocked:** none.
 ## 2026-08-30 — audit #2140 reviews 687–695 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **686**

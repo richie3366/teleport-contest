@@ -9,6 +9,7 @@
 - Claims to close: Open `useupall` / `obfree` after D-1713 / review **674** FIRST_OBJECT skip. Not `observe_object`. Not full `dealloc_obj`. `reviews/loop-2026-08-15/` has no unpaid useupall Must-fix. Review **675** billed `billobjs` dummies — this SHA feeds that chain from `obfree(!merge)`.
 - JS / map: `invent.js` `useupall`; `shk.js` `obfree` / `delete_contents`. `c-js-map/turns.md`.
 - Prior: none written that Keep’d a useupall C-wrong; map-driven after splice clones.
+- **Addressed:** D-1735
 
 ## Intent vs deliverable
 
