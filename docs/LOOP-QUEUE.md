@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sp_lev.c` lspo_object non-merge quan repeat (named). Not oc_merge.
 - [ ] `dungeon.c` recalc_mapseen sokosolved / roguelevel / quest flags (named). Not DRAWBRIDGE_UP lastseentyp.
 - [ ] `calendar.c` hhmmss (named). Not yyyymmddhhmmss.
 - [ ] `display.c` display_monster M_AP_FURNITURE cmap_to_glyph lastseentyp (named). Not update_lastseentyp.

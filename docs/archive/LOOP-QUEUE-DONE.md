@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `dog.c` cant_go_back FREEING (named). Not update_mlstmv. **Addressed:** D-1722
+- [x] `sp_lev.c` lspo_object non-merge quan repeat (named). Not oc_merge. **Addressed:** D-1723
+
+
+- [x] `dog.c` cant_go_back FREEING (named). Not update_mlstmv. **Addressed:** D-1722 `55932af9`
 
 
 - [x] `cmd.c` getdir yn_function (named). Not yn_function_menu. **Addressed:** D-1721 `48ddbfc8`

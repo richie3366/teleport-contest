@@ -62,121 +62,40 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1722. Save-oracle required for tagged
+**Suite 44/44** fortress after D-1723. Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`). Map still
 picks work; do not shop the fork dashboard. Private B0 (not in
 `sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
 wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
 trap-ledger **38/38**; shop template **35/35** (no unpaid).
-**Next cluster:** Open `sp_lev.c` lspo_object non-merge quan repeat
-(named). Not oc_merge.
-**Do not skip D-1531…D-1722 (index).** Keep mention_map addr.
+**Next cluster:** Open `dungeon.c` recalc_mapseen sokosolved /
+roguelevel / quest flags (named). Not DRAWBRIDGE_UP lastseentyp.
+**Do not skip D-1531…D-1723 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1722.** Do not FORCE
+**Do not re-break D-0660…D-1723.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1722 (index). Recent: **D-1722**
-`goto_level` `cant_go_back` FREEING vs WRITING|FREEING (`delete_levelfile`
-JSON stash drop; `remdun_mapseen` notreachable; `discard_migrations`).
-Named: `free_luathemes`; full migrating `obfree`. **D-1721**
-`cmd.c` `getdir` yn_function NULL/`'\0'`/FALSE then
-`clear_nhwindow(WIN_MESSAGE)` (`js/lock.js` + `getdir_cmdassist` /
-`getdir_zap` / `dig_getdir`; no trailing confdir). Named: CQ_REPEAT;
-mouse getpos; help_dir in shared; dxdy_moveok; `yn_function_menu`.
-**D-1720**
-`invent.c` `currency` Hallu `ROLL_FROM(currencies[])` (`youprop`
-`Hallucination`; `amount!=1L` `makeplural`; `xprname` + wallet +
-dokick/dig/lock/trap clones). Named: `end.c` `artifact_score`;
-doprgold `hidden_gold`; `costly_gold`. **D-1719**
-`artifact.c` `arti_cost` + `artilist.cost` extract + `getprice`
-(`/4` when shk_buying). **D-1718**
-`shk.c` `get_cost` glass-gem pseudo-ID (`ubirthday` color table;
-`FIRST_GLASS_GEM`; bill-price FIXME). **D-1717**
-`shk.c` `remote_burglary` + `rob_shop` + `call_kops`/`makekops` +
-`addupbill`/`clear_unpaid` (`pick_obj` unpaid-from-outside; choose_stairs
-/ u_left_shop leave named). **D-1716**
-`shk.c` `dopay` mute/Deaf thank-you nod + `paid` `update_inventory`
-(SetVoice still named). **D-1715**
-`pay_billed_items` Traditional itemize ynq + `dopayobj` y_n Pay?
-(`upstart(doname)` not Doname2 clone). **D-1714**
-`shk.c` FullyUsedUp/PartlyUsedUp (dummy `add_to_billobjs` + itemize
-split + ONBILL extract). **D-1713**
-`o_init.c` `observe_object` FIRST_OBJECT skip (not sticky
-`u.Hallucination`). **D-1712**
-`objects.h` oc_merge BITS mrg (not class heuristic). **D-1711**
-`update_lastseentyp` DRAWBRIDGE_UP / furniture-mimic. **D-1710**
-`yyyymmddhhmmss` cemetery `when[]`. **D-1709**
-`update_mlstmv` `iter_mons` skip DEADMONSTER/`mon_offmap`.
-**D-1708**
-`save_light_sources` LS_MONSTER `mx > 0` (not timeout.c
-`mon_is_local`). **D-1707**
-`recalc_mapseen` Blind bigroom / oracle / valley / sanctum.
-**D-1706**
-`yn_function` addcmdq pop/record. **D-1705**
-`bill_box_content` + addtobill `contained_cost`. **D-1704**
-`dopay` multi-shk getpos pay-whom. **D-1703**
-`shk_names_obj` makeknown + `highc`/`plur`. **D-1702**
-`buy_container` + KnownContainer coalesce + paydoname rewrite.
-**D-1701**
-`optfn_boolean` wizmgender glyph-reset + `reset_needed_visuals`
-subset. **D-1700**
-`doset` CompOpt `perminv_mode` + `wc_supported` skip. **D-1699**
-dorecover getlev place/`restore_cham`/`run_timers` + restlevelfile
-omoves restamp. **D-1698**
-`savegamestate` RANGE_GLOBAL relink. **D-1697**
-`payload.levels` other ledgers. **D-1696**
-`payload.current` `serLevel`. **D-1695**
-`goto_level` stash lights/billobjs/`update_mlstmv`. **D-1694**
-`savetrapchn` JSON `level.traps`.
+**Keep:** D-0845…D-1723 (index). Recent: **D-1723** `lspo_object`
+non-merge `quantity` do-while (`!oc_merge`; find_objtype + argc
+string/coord; class-letter `def_char_to_objclass`/`mkgold`; other
+load_* `des.object` named). **D-1722** `cant_go_back` FREEING JSON
+analogue (`delete_levelfile` / `remdun_mapseen` /
+`discard_migrations`; not binary NHFILE). **D-1721** getdir
+`yn_function` then clear (no trailing confdir).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1722 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1723 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1722 (index) — cant_go_back FREEING
-JSON analogue (`delete_levelfile` stash drop / remdun notreachable /
-discard_migrations; not binary NHFILE; `free_luathemes` named),
-getdir yn_function
-(NULL/`'\0'`/FALSE + clear; not `yn_function_menu`; no trailing
-confdir), Hallu `currency`
-`ROLL_FROM(currencies[])` (`xprname`/wallet/dokick clones; shk_names_obj
-fmt stays C `zorkmid%s`), `arti_cost` /
-`artilist.cost` (getprice `/4`; get_cost still `*4` shop inflate),
-glass-gem `get_cost`
-pseudo-ID (`ubirthday` / `FIRST_GLASS_GEM`), `remote_burglary` unpaid
-steal (`rob_shop`/`call_kops`/`makekops`; `pick_obj` after addinv;
-choose_stairs / u_left_shop leave named), mute/Deaf thank-you nod
-(hero_deaf/`muteshk` else pline; hearing verbalize), Traditional
-itemize ynq + dopayobj y_n Pay? (not Doname2 clone #4),
-FullyUsedUp/PartlyUsedUp
-dummy billobjs / itemize split,
-`observe_object`
-FIRST_OBJECT skip / youprop Hallucination,
-lastseentyp
-DRAWBRIDGE_UP/`cmap_to_type`, cemetery `when[]`
-`yyyymmddhhmmss`, `update_mlstmv` skip,
-LS_MONSTER `mx > 0`,
-Blind bigroom/oracle/valley/sanctum,
-yn addcmdq,
-bill_box_content,
-dopay multi-shk getpos,
-shk_names_obj makeknown,
-buy_container,
-wizmgender glyph-reset,
-mO `perminv_mode` wc skip,
-dorecover envelope,
-RANGE_GLOBAL relink,
-other-ledger JSON, `serLevel` current blob, `goto_level` stash lights,
-`savetrapchn` traps, knox/drawbridge,
-`oc_merge` BITS (not SPELL/WAND class heuristic).
-No generic `dknown` on `otyp < FIRST_OBJECT`.
+Do not re-port D-1660…D-1723 (index). No generic `dknown` on
+`otyp < FIRST_OBJECT`.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

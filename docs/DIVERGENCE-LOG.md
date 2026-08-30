@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-1723 — sp_lev.c lspo_object non-merge quan repeat
+
+- **Status:** fixed (map-driven Open from D-1722; not a public FAIL)
+- **Symptom:** map named `lspo_object` non-merge `quantity` repeat.
+  C `do { create_object; quancnt--; } while (quancnt > 0 && id >
+  STRANGE_OBJECT && !objects[id].oc_merge)` places N separate
+  non-merge objects. JS `l_create_object` called `create_object`
+  once (merge stacks already set quan in D-1712). minetn-1
+  `placeObj` then force-set `otmp.quan` even for non-merge.
+- **C locus:** `sp_lev.c` `lspo_object` `:3725–3740` (body
+  `:3556–3755`); callees `find_objtype` `:3467–3536`,
+  `get_table_objtype`/`get_table_objclass`, argc string/coord
+  overloads `:3595–3631`; `create_object` `:2220–2232`
+  `def_char_to_objclass` / `COIN_CLASS` `mkgold`; quan-when-merge
+  `:2298–2301` (D-1712).
+- **JS was:** single `create_object`; class inferred `oc_class||1`;
+  no string argc; class-letter `mkobj_at(c)` not `def_char_to_objclass`.
+- **Fix:** unpacked `l_create_object` matches C quancnt loop, class/id
+  rewrite, find_objtype (name then descr, ` of ` prefixes), argc
+  string / string+coord / string+x,y, class-letter TOOL `'('`.
+  minetn-1 `placeObj` is just `l_create_object`; tut-1 rock quantity
+  uses the same path. Rule #2: no fs.
+- **JS:** `js/mklev.js` `l_create_object` / `find_objtype` /
+  `create_object`.
+- **Not this iter:** other load_* `des.object` still hand-rolled;
+  `is_multigen`/`is_poisonable`; detect `sense_trap` Hallu quan;
+  recharged/tknown/buried/Medusa statue/achievement in
+  `create_object`.
+- **Verified:** save-oracle probe skip (untagged
+  `sp_lev.c:lspo_object`); private canary 16/16 (LONG_SWORD×3 /
+  WAN_LIGHT×2 / candle+dagger+rock stacks / `"oil lamp"` / `'('`
+  TOOL); focused seed0009 tut-1 rocks; green+strict seed8000/0900;
+  CURRENT cohort **8**/8 + seed0360 minetn-1 + strict.
+- **Files:** `js/mklev.js`.
+
 ## D-1722 — do.c/dog.c cant_go_back FREEING
 
 - **Status:** fixed (map-driven Open from D-1721; not a public FAIL)

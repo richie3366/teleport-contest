@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1723 sp_lev.c lspo_object non-merge quan
+
+**Objective:** Open `sp_lev.c` lspo_object non-merge quan repeat
+(named). Not oc_merge.
+**C locus:** `sp_lev.c` `lspo_object` `:3725–3740`; `find_objtype`;
+`create_object` class-letter `:2220–2232`.
+**JS locus:** `js/mklev.js` `l_create_object` / `find_objtype` /
+`create_object`.
+**Change:** Non-merge `quantity` repeats `create_object`; merge still
+one stack. find_objtype + argc string/coord; `'('` TOOL. minetn-1
+placeObj no longer force-sets quan; tut-1 rocks use the loop.
+Named: other load_* `des.object`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `sp_lev.c:lspo_object`; canary
+16/16; focused seed0009; green+strict; cohort 8/8 + seed0360 +
+strict.
+**Next:** Open `dungeon.c` recalc_mapseen sokosolved / roguelevel /
+quest flags.
+**Blocked:** none.
 ## 2026-08-30 — D-1722 do.c/dog.c cant_go_back FREEING
 
 **Objective:** Open `dog.c` cant_go_back FREEING (named). Not

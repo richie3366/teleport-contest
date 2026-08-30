@@ -26,8 +26,11 @@ Hallu `random_object` dim 463)**; **`objectDescrs`/`objectNameStrs`** (D-0040);
 `objclass.h`; `invent.c` `mergable`; `mkobj.c` `clear_dknown`; `objnam.c`
 readobjnam quan; `sp_lev.c` create_object quan; `read.c` quiver wornmask;
 `worn.c` wearslot; `zap.c` poly fuse; `mplayer.c` thrown stack);
+**`lspo_object` non-merge quan repeat** (D-1723; `sp_lev.c:3725–3740`
+do-while `!oc_merge`; find_objtype + argc string/coord; class-letter
+`def_char_to_objclass`/`mkgold`; live `js/mklev.js` `l_create_object`);
 `oc_oprop` already extracted; `is_multigen`/`is_poisonable` named;
-lspo_object non-merge quan repeat / detect `sense_trap` quan named
+detect `sense_trap` quan named
 
 ### `include/monsters.h`
 
@@ -566,7 +569,7 @@ C `sokoban_rules=0`); **`fill_lvl`→`makemaz(minefill)` +
 tut_key/eckey/Knight jump/leave-invent/`map_location` tseen/`add_to_container` merge deferred); 
 **occupied invocation_pos** (D-1154); omit other fill *bodies*, nested `des.room` bodies beyond 
 Nesting/Fake Delphi/Huge/… outer sizes, `join` arboreal→ROOM, Lua `post_level_generate` postprocess 
-queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; **D-1542** themerms Light source fill); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
+queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; **D-1542** themerms Light source fill); **D-1723 `lspo_object` non-merge quan do-while** (`sp_lev.c:3725–3740` `!objects[id].oc_merge`; find_objtype + argc string/coord; class-letter `def_char_to_objclass`/`mkgold`; other load_* `des.object` still hand-rolled); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
 **D-0906 `hellfill`+`create_maze`/`LVLINIT_MAZE`** (seed4500 **32538→49776** Scr **459**; 
 **hellfill Invocation_lev VS** (D-1154 `pick_vibrasquare_location`+`maketrap`); 
 rnd_hell_prefab/`makemaz("")`/fakewiz deferred); empty `makemaz("")`; Is_special/quest fill; 
