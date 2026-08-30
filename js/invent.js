@@ -36,7 +36,8 @@
 // D-1655: invent.c flags.invlet_constant / reassign / obj_to_let
 //        (fixinv opt_out On).
 // D-1663: invent.c dounpaid / find_unpaid + mkobj.c
-//        unknwn_contnr_contents + xprname Iu/Ix cost. D-1687:
+//        unknwn_contnr_contents + xprname Iu/Ix cost. D-1720:
+//        currency Hallu ROLL_FROM(currencies). D-1687:
 //        dotypeinv Traditional itemize yn + this_type_only /
 //        tally_BUCX; callee doinvbill. wizcmds sanity_check is D-1664.
 // D-1682: invent.c silly_thing (Call Amulet / unknown fake; getobj
@@ -1117,14 +1118,45 @@ export function tally_BUCX(list, by_nexthere = false) {
 }
 
 /**
- * C invent.c currency `:1545–1554`. Hallu ROLL_FROM(currencies[]) named
- * omit — always "zorkmid" / makeplural. Callers shk Iu/Ix (D-1663).
+ * C invent.c currencies[] `:1521–1543` — Hallu ROLL_FROM pool
+ * (hack.h `array[rn2(SIZE(array))]`). Fictional units + trailing zorkmid.
+ */
+const CURRENCIES = [
+    'Altarian Dollar',
+    'Ankh-Morpork Dollar',
+    'auric',
+    'buckazoid',
+    'cirbozoid',
+    'credit chit',
+    'cubit',
+    'Flanian Pobble Bead',
+    'fretzer',
+    'imperial credit',
+    'Hong Kong Luna Dollar',
+    'kongbuck',
+    'nanite',
+    'quatloo',
+    'simoleon',
+    'solari',
+    'spacebuck',
+    'sporebuck',
+    'Triganic Pu',
+    'woolong',
+    'zorkmid',
+];
+
+/**
+ * C invent.c currency `:1545–1554`. Hallu → ROLL_FROM(currencies);
+ * else "zorkmid". amount != 1L → makeplural. Callers shk Iu/Ix xprname
+ * (D-1663). shk_names_obj traded/relinquish fmt still C's hardcoded
+ * "zorkmid%s" + plur(amt), not this.
  * @param {number} amount
  * @returns {string}
  */
 export function currency(amount) {
-    const res = 'zorkmid';
-    if (Number(amount) !== 1) return makeplural(res);
+    // C: Hallucination ? ROLL_FROM(currencies) : "zorkmid"
+    let res = Hallucination() ? CURRENCIES[rn2(CURRENCIES.length)] : 'zorkmid';
+    if (Number(amount) !== 1) res = makeplural(res);
     return res;
 }
 
@@ -4789,8 +4821,9 @@ export async function enlightenment(mode, final = 0) {
         if (!umoney) {
             lines.push(` Your wallet ${final ? 'was' : 'is'} empty.`);
         } else {
+            // C insight.c `:787–788` currency(umoney)
             lines.push(
-                ` Your wallet contain${final ? 'ed' : 's'} ${umoney} zorkmid${umoney === 1 ? '' : 's'}.`,
+                ` Your wallet contain${final ? 'ed' : 's'} ${umoney} ${currency(umoney)}.`,
             );
         }
         lines.push(autopickup_enlightenment_line_final(!!final));
@@ -5024,7 +5057,7 @@ export async function doattributes(enl_mode = null) {
     opposed += '.';
 
     const wallet = gold
-        ? `  Your wallet contains ${gold} zorkmids.`
+        ? `  Your wallet contains ${gold} ${currency(gold)}.`
         : '  Your wallet is empty.';
 
     const hp = u.uhp | 0;
@@ -5458,9 +5491,9 @@ export async function doprgold() {
     }
     if (game.flags?.verbose !== false) {
         if (!umoney) await pline('Your wallet is empty.');
-        else await pline(`Your wallet contains ${umoney} zorkmid${umoney === 1 ? '' : 's'}.`);
+        else await pline(`Your wallet contains ${umoney} ${currency(umoney)}.`);
     } else if (umoney) {
-        await pline(`You are carrying a total of ${umoney} zorkmid${umoney === 1 ? '' : 's'}.`);
+        await pline(`You are carrying a total of ${umoney} ${currency(umoney)}.`);
     } else {
         await pline('You have no money.');
     }

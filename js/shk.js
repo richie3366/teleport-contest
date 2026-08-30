@@ -29,7 +29,6 @@
 // mnearto full (door yank uses enexto/rloc; home_shk still coord set);
 // after_shk_move occupancy check_special_room (bill_p==-1000 producer);
 // losedogs make_happy_shoppers; paygd; M1_NOHEAD has_head;
-// Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease (D-0998);
 // multi-shk getpos pay-whom (D-1704); mute/Deaf nod is D-1716;

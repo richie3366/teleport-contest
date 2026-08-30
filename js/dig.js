@@ -33,6 +33,7 @@ import {
     in_rooms, in_town, stop_occupation, is_pool, is_lava, is_moat,
     confdir, losehp, maybe_half_phys, nomul, switch_terrain,
 } from './hack.js';
+import { currency } from './invent.js';
 import { objectNames } from './generated/objects_data.js';
 import { WEAPON_CLASS, TOOL_CLASS, GEM_CLASS, POTION_CLASS, COIN_CLASS } from './objects.js';
 import { CLR_WHITE } from './terminal.js';
@@ -435,7 +436,6 @@ export async function bury_objs(x, y) {
     const shkp = shop_keeper(rooms ? rooms.charCodeAt(0) : 0);
     const costly = !!(shkp && costly_spot(x, y));
     let loss = 0;
-    const currency = (amt) => ((amt | 0) === 1 ? 'zorkmid' : 'zorkmids');
 
     for (let otmp = objects_at(x, y); otmp; ) {
         if (costly && !game.context?.mon_moving) {

@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-1720 — invent.c currency Hallu ROLL_FROM
+
+- **Status:** fixed (map-driven Open from D-1719; not a public FAIL)
+- **Symptom:** map named Hallu `currency()` ROLL_FROM. JS always
+  `"zorkmid"` / `makeplural`, so Hallu shop/Iu/wallet text never
+  rolled `currencies[]` and never burned `rn2(SIZE)`.
+- **C locus:** `invent.c` `currency` `:1545–1554`;
+  `currencies[]` `:1521–1543`; `hack.h` `ROLL_FROM` `array[rn2(SIZE)]`.
+  Callers `xprname` `:2932–2933`; `doprgold` `:4519–4532`;
+  `insight.c` wallet `:787–799`; `dokick.c`/`dig.c`/`lock.c`/`trap.c`
+  owe/credit plines. `shk_names_obj` traded/relinquish fmt stays C's
+  hardcoded `zorkmid%s` + `plur(amt)`.
+- **JS was:** `currency()` stub; `xprname` and dokick/dig/lock/trap
+  local zorkmid clones.
+- **Fix:** live `CURRENCIES` + `Hallucination() ? ROLL_FROM : "zorkmid"`
+  then `amount != 1` `makeplural`. Wire C callers; drop clones.
+  `imports.mjs --can` objnam/dig/lock → invent `currency` SAFE.
+- **JS:** `js/invent.js` `currency`; `js/objnam.js` `xprname`;
+  `js/dokick.js`; `js/dig.js`; `js/lock.js`; `js/trap.js`.
+- **Not this iter:** `end.c` `artifact_score`; doprgold
+  `hidden_gold` / `shopper_financial_report`; gen_spe/gift_value;
+  `costly_gold`; choose_stairs / `u_left_shop` leave verbalize.
+- **Verified:** save-oracle probe skip (untagged `shk.c:currency`);
+  focused seed0116 + seed0383; green+strict seed8000/0900; CURRENT
+  cohort **9**/9 + strict (incl. seed0116).
+- **Files:** `js/invent.js`, `js/objnam.js`, `js/dokick.js`,
+  `js/dig.js`, `js/lock.js`, `js/trap.js`, `js/shk.js` (omit comment).
+
 ## D-1719 — artifact.c arti_cost + shk.c getprice
 
 - **Status:** fixed (map-driven Open from D-1718; not a public FAIL)

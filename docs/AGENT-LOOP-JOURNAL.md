@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1720 invent.c currency Hallu ROLL_FROM
+
+**Objective:** Open `shk.c` Hallu currency ROLL_FROM (named). Not
+arti_cost.
+**C locus:** `invent.c` `currency` `:1545–1554`; `currencies[]`
+`:1521–1543`; `hack.h` `ROLL_FROM`.
+**JS locus:** `js/invent.js` `currency`; `js/objnam.js` `xprname`;
+dokick/dig/lock/trap clones retired.
+**Change:** Hallu `currency()` is `ROLL_FROM(currencies[])` instead of
+always zorkmid. Named: `artifact_score`; hidden_gold; `costly_gold`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; focused seed0116/0383; green+strict;
+cohort 9/9 + strict.
+**Next:** Open `cmd.c` getdir yn_function.
+**Blocked:** none.
 ## 2026-08-30 — D-1719 artifact.c arti_cost + getprice
 
 **Objective:** Open `shk.c` arti_cost (named). Not gem glass

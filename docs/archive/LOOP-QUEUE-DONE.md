@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `shk.c` arti_cost (named). Not gem glass pseudo-ID. **Addressed:** D-1719
+- [x] `shk.c` Hallu currency ROLL_FROM (named). Not arti_cost. **Addressed:** D-1720
+
+
+- [x] `shk.c` arti_cost (named). Not gem glass pseudo-ID. **Addressed:** D-1719 `7466d184`
 
 
 - [x] `shk.c` get_cost gem glass pseudo-ID (named). Not remote_burglary. **Addressed:** D-1718 `ee797b68`

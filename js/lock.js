@@ -33,6 +33,7 @@ import { PM_ROGUE, PM_WIZARD } from './generated/monsters_data.js';
 import { m_at, wake_nearto } from './mon.js';
 import { getdir_cmdassist } from './dothrow.js';
 import { b_trapped, t_at } from './trap.js';
+import { currency } from './invent.js';
 
 const DIR_DX = { h: -1, l: 1, j: 0, k: 0, y: -1, u: 1, b: -1, n: 1 };
 const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
@@ -1269,7 +1270,6 @@ export async function breakchestlock(box, destroyit) {
     const costly = !!shkp;
     const peaceful_shk = !!(costly && shkp.mpeaceful);
     let loss = 0;
-    const currency = (amt) => ((amt | 0) === 1 ? 'zorkmid' : 'zorkmids');
 
     await pline(`In fact, you've totally destroyed ${the(xname(box))}.`);
     while (box.cobj) {

@@ -50,6 +50,7 @@ import {
     BURN_OBJECT, HAND, FOOT, FINGER, FINGERTIP, RIGHT_HANDED,
     CONTAINED_SYM, HANDS_SYM,
 } from './const.js';
+import { currency } from './invent.js';
 
 const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -2572,8 +2573,8 @@ export function paydoname(obj) {
  * `txt` is C's second arg (hands/xtra_choice, contained, "Total:");
  * when set, doname is skipped.
  * `cost` / `let=='*'` is the Iu/Ix unpaid column (D-1663); Hallu
- * `currency()` ROLL_FROM named — zorkmid(s) like invent.c currency
- * without the currencies[] table. menu_tab_sep uses a tab.
+ * `currency()` ROLL_FROM is invent.c currency (D-1720). menu_tab_sep
+ * uses a tab.
  */
 export function xprname(obj, let_ = undefined, dot = false, quan = 0, txt = null, cost = 0) {
     let savequan = 0;
@@ -2594,7 +2595,7 @@ export function xprname(obj, let_ = undefined, dot = false, quan = 0, txt = null
     if (costCol) {
         // C `:2928–2938` — Iu (dot) vs Ix; "%c - %-45.*s" + " %6ld currency"
         if (dot && use_invlet) ilet = obj.invlet;
-        const curr = costn !== 1 ? makeplural('zorkmid') : 'zorkmid';
+        const curr = currency(costn);
         let suffix;
         if (game.iflags?.menu_tab_sep) {
             suffix = `\t${costn} ${curr}`;
