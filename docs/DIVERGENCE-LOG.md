@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1709 — dog.c update_mlstmv iter_mons skip DEADMONSTER / mon_offmap
+
+- **Status:** fixed (Must-fix review **656**; not a public FAIL)
+- **Symptom:** D-1695 `update_mlstmv` stamped `mlstmv = moves` for
+  every truthy `fmon` pointer. C is `iter_mons(set_mon_lastmove)`
+  which skips `DEADMONSTER` (`mhp < 1`) and `mon_offmap`
+  (`mstate != MON_FLOOR`). Dead or off-map monsters would get a
+  fresh last-move stamp and catch up as if they had been active.
+- **C locus:** `dog.c` `update_mlstmv` `:293–298`;
+  `set_mon_lastmove` `:287–290`; `iter_mons` `mon.c:4526–4538`
+  (`:4531–4535` skip). Macros `monst.h` `DEADMONSTER` /
+  `mon_offmap`. Callers `do.c:1642` after keepdogs; `bones.c:620`.
+- **JS was:** `js/dog.js` `update_mlstmv` `if (mtmp) mtmp.mlstmv = moves`.
+- **Fix:** skip `(mhp | 0) < 1` and live `mon_offmap` (import
+  `js/monmove.js`; `--can` SAFE hoisted). No `iter_mons` /
+  `DEADMONSTER` clone. Do not gate `cant_go_back` FREEING.
+- **JS:** `js/dog.js` `update_mlstmv`.
+- **Not this iter:** `cant_go_back` FREEING; worms/bubbles/exclusions;
+  cemetery yyyymmddhhmmss; RANGE_LEVEL timers (D-1037);
+  savetrapchn (D-1694); LS_MONSTER `mx > 0` (D-1708).
+- **Verified:** save-oracle probe skip (untagged); predicate smoke
+  (live stamped; dead/offmap/dying skipped); focused seed0015/0700/
+  0014 stairs + seed0013 restore + seed0105 lamp; green+strict
+  seed8000/0900; CURRENT cohort 7/7 + strict (seed0007 302/302,
+  seed2200 230/230).
+- **Files:** `js/dog.js`.
+
 ## D-1708 — light.c save_light_sources LS_MONSTER mx > 0
 
 - **Status:** fixed (Must-fix review **656**; not a public FAIL)
@@ -20,8 +47,8 @@
   (no clone #3). Keep timeout helpers for timers and LS_OBJECT.
   Do not restore `clear_light_sources` on `goto_level`.
 - **JS:** `js/mkobj.js` `light_is_local`; `js/lev_json.js` snapshots.
-- **Not this iter:** `update_mlstmv` `iter_mons` skip (next Must-fix
-  **656**); `cant_go_back` FREEING; worms/bubbles/exclusions;
+- **Not this iter:** `update_mlstmv` `iter_mons` skip (D-1709);
+  `cant_go_back` FREEING; worms/bubbles/exclusions;
   RANGE_LEVEL timers (D-1037); savetrapchn (D-1694).
 - **Verified:** save-oracle probe skip (untagged); predicate smoke
   (mydogs `mx>0` local, pack lamp global); focused seed0105 lamp

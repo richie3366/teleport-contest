@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `dog.c` `update_mlstmv`: skip `DEADMONSTER` / `mon_offmap` like `iter_mons` (`mon.c:4531–4535`). Not cant_go_back FREEING. Source: `reviews/loop-unattended/656-c33608ff-savelev-stash-lights-billobjs.md`
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `dungeon.c` cemetery yyyymmddhhmmss when[] (named). Not cemetery JSON.

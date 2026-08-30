@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1709 dog.c update_mlstmv iter_mons skip
+
+**Objective:** Must-fix review **656** `dog.c` `update_mlstmv` skip
+`DEADMONSTER` / `mon_offmap` like `iter_mons`. Not cant_go_back
+FREEING.
+**C locus:** `dog.c:293–298`; `iter_mons` `mon.c:4531–4535`;
+macros `monst.h` `DEADMONSTER` / `mon_offmap`.
+**JS locus:** `js/dog.js` `update_mlstmv`; live `mon_offmap`
+`js/monmove.js`.
+**Change:** skip `(mhp|0)<1` and `mon_offmap`; no `iter_mons`
+clone. Named: cant_go_back FREEING.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; predicate smoke; focused
+seed0015/0700/0014/0013/0105; green+strict; cohort 7/7.
+**Next:** Open `dungeon.c` cemetery yyyymmddhhmmss when[].
+**Blocked:** none.
 ## 2026-08-30 — D-1708 light.c save_light_sources LS_MONSTER mx>0
 
 **Objective:** Must-fix review **656** `light.c` `save_light_sources`
