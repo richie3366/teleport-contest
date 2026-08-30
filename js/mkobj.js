@@ -2422,7 +2422,7 @@ export function unknwn_contnr_contents(obj) {
 }
 
 // C ref: mkobj.c obj_extract_self — floor / invent / minvent / contained /
-// migrating / buried. OBJ_ONBILL / LUAFREE / DELETED panic named omit.
+// migrating / buried / ONBILL. LUAFREE / DELETED panic named omit.
 export function obj_extract_self(obj) {
     if (!obj) return;
     // Floor: also accept legacy objs with coords but unset where
@@ -2536,6 +2536,18 @@ export function obj_extract_self(obj) {
                         p.nobj = obj.nobj || null;
                         break;
                     }
+                }
+            }
+        }
+    } else if (obj.where === OBJ_ONBILL) {
+        // C mkobj.c obj_extract_self `:2585–2586` extract_nobj(&gb.billobjs)
+        if (game.billobjs === obj) {
+            game.billobjs = obj.nobj || null;
+        } else {
+            for (let p = game.billobjs; p; p = p.nobj) {
+                if (p.nobj === obj) {
+                    p.nobj = obj.nobj || null;
+                    break;
                 }
             }
         }

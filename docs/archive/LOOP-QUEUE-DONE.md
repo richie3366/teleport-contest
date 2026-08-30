@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `invent.c` observe_object FIRST_OBJECT skip (named). Not undiscover_object. **Addressed:** D-1713
+- [x] `shk.c` FullyUsedUp/PartlyUsedUp (named). Not bill_box_content. **Addressed:** D-1714
+
+
+- [x] `invent.c` observe_object FIRST_OBJECT skip (named). Not undiscover_object. **Addressed:** D-1713 `4f0957ff`
 
 
 - [x] `objects.h` oc_merge extract (named). Not oc_charged. **Addressed:** D-1712 `00f70d3d`

@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1714 — shk.c FullyUsedUp / PartlyUsedUp
+
+- **Status:** fixed (map-driven Open from D-1713; not a public FAIL)
+- **Symptom:** map named used-up `FullyUsedUp`/`PartlyUsedUp`. Dummy
+  objects never reached `gb.billobjs`, so `bp_to_obj(useup)` missed
+  them; `make_itemized_bill` forced every non-container row
+  `FullyIntact` and skipped the `quan < bquan` split.
+- **C locus:** `shk.c` enum `billitem_status` `:22–29`;
+  `make_itemized_bill` `:1543–1663` (`quan==0`/`OBJ_ONBILL` →
+  `FullyUsedUp`; `quan < bquan` → `PartlyUsedUp` then
+  `PartlyIntact`); `add_to_billobjs` `:3365–3383`;
+  `add_one_tobill` dummy `:3347–3350` + bill-full You + OBJ_FREE
+  dealloc + globby `newomid`/`OMID`; `sub_one_frombill` residual
+  `:3671–3680`; `menu_pick_pay_items` used-up/unpaid headings
+  `:1696–1708`; `update_bill` OBJ_ONBILL extract+dealloc
+  `:2198–2201`; `mkobj.c` `obj_extract_self` OBJ_ONBILL `:2585–2586`.
+- **JS was:** `useup:!!dummy` without `add_to_billobjs`; partial
+  `sub_one_frombill` shrank `bquan` in place; itemize always
+  `FullyIntact`; no used-up menu headings; extract skipped ONBILL.
+- **Fix:** dummy/residual onto `game.billobjs` `OBJ_ONBILL`;
+  itemize split + headings + `paydoname` quan; pay extract+mark
+  `OBJ_DELETED`. Rule #2: no fs. `newomid`/`obj_stop_timers`
+  already imported (`--can` ALREADY).
+- **JS:** `js/shk.js`; `js/mkobj.js` `obj_extract_self`.
+- **Not this iter:** Traditional itemize ynq; mute/Deaf nod;
+  `remote_burglary`; gem glass pseudo-ID; full `dealloc_obj`
+  lights/lua/`objs_deleted` (obfree Open); `nextoid`; `copy_oextra`.
+- **Verified:** save-oracle probe skip (untagged
+  `shk.c:make_itemized_bill`); canary residual dummy on billobjs
+  + `obj_extract_self` ONBILL; green+strict seed8000/0900; focused
+  seed0383; CURRENT cohort **9**/9 + strict.
+- **Files:** `js/shk.js`, `js/mkobj.js`.
+
 ## D-1713 — o_init.c observe_object FIRST_OBJECT skip
 
 - **Status:** fixed (map-driven Open from D-1712; not a public FAIL)

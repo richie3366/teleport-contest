@@ -62,22 +62,24 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1713. Save-oracle required for tagged
+**Suite 44/44** fortress after D-1714. Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`). Map still
 picks work; do not shop the fork dashboard. Private B0 (not in
 `sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
 wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
 trap-ledger **38/38**; shop template **35/35** (no unpaid).
-**Next cluster:** Open `shk.c` FullyUsedUp/PartlyUsedUp (named). Not
-bill_box_content.
-**Do not skip D-1531…D-1713 (index).** Keep mention_map addr.
+**Next cluster:** Open `shk.c` pay_billed_items traditional itemize ynq
+(named). Not FullyUsedUp.
+**Do not skip D-1531…D-1714 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1713.** Do not FORCE
+**Do not re-break D-0660…D-1714.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1713 (index). Recent: **D-1713**
+**Keep:** D-0845…D-1714 (index). Recent: **D-1714**
+`shk.c` FullyUsedUp/PartlyUsedUp (dummy `add_to_billobjs` + itemize
+split + ONBILL extract). **D-1713**
 `o_init.c` `observe_object` FIRST_OBJECT skip (not sticky
 `u.Hallucination`). **D-1712**
 `objects.h` oc_merge BITS mrg (not class heuristic). **D-1711**
@@ -108,14 +110,16 @@ omoves restamp. **D-1698**
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1713 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1714 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1713 (index) — `observe_object`
+Do not re-port D-1660…D-1714 (index) — FullyUsedUp/PartlyUsedUp
+dummy billobjs / itemize split,
+`observe_object`
 FIRST_OBJECT skip / youprop Hallucination,
 lastseentyp
 DRAWBRIDGE_UP/`cmap_to_type`, cemetery `when[]`

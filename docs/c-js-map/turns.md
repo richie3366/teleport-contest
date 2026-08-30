@@ -2789,10 +2789,14 @@ or MIRROR; `highc` unknown announce vs `You(fmt)`; `plur(amt)`;
 `contained_cost` then bill nested contents (`SchroedingersBox` skip;
 coins skip; recurse `Has_contents`); `picked_container` coin skip;
 `add_one_tobill` `record_price_quote`; list-price `the_contents_of` /
-`and_its_contents`; named: dummy→`add_to_billobjs` / bill-full You /
-OBJ_FREE dealloc / globby OMID;
-deferred used-up FullyUsedUp/PartlyUsedUp, traditional itemize ynq,
-mute/Deaf thank-you nod; `observe_object` FIRST_OBJECT skip;
+`and_its_contents`;
+**D-1714:** `FullyUsedUp`/`PartlyUsedUp` `make_itemized_bill`
+`:1543–1663` + `add_to_billobjs` `:3365–3383` dummy/residual
+`OBJ_ONBILL` + `add_one_tobill` bill-full You / OBJ_FREE dealloc /
+globby `newomid`/`OMID` + `sub_one_frombill` residual + menu
+used-up/unpaid headings + `update_bill` ONBILL extract +
+`obj_extract_self` ONBILL; named: traditional itemize ynq,
+mute/Deaf thank-you nod;
 `remote_burglary`, gem glass pseudo-ID, 
 `arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `shk.c` FullyUsedUp/PartlyUsedUp (named). Not bill_box_content.
 - [ ] `shk.c` pay_billed_items traditional itemize ynq (named). Not FullyUsedUp.
 - [ ] `shk.c` dopay mute/Deaf thank-you nod (named). Not getpos.
 - [ ] `shk.c` remote_burglary (named). Not bill_box_content.

@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1714 shk.c FullyUsedUp/PartlyUsedUp
+
+**Objective:** Open `shk.c` FullyUsedUp/PartlyUsedUp (named). Not
+bill_box_content.
+**C locus:** `shk.c` `make_itemized_bill` `:1543–1663`;
+`add_to_billobjs` `:3365–3383`; `add_one_tobill` dummy; 
+`sub_one_frombill` residual; `menu_pick_pay_items` headings;
+`update_bill` ONBILL; `mkobj.c` `obj_extract_self` ONBILL.
+**JS locus:** `js/shk.js`; `js/mkobj.js` `obj_extract_self`.
+**Change:** dummy/residual onto `billobjs` `OBJ_ONBILL`; itemize
+FullyUsedUp/PartlyUsedUp split; used-up menu headings; pay extract
+`OBJ_DELETED`. Named: Traditional itemize ynq.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; canary residual dummy + ONBILL
+extract; green+strict; focused seed0383; cohort 9/9 + strict.
+**Next:** Open `shk.c` pay_billed_items traditional itemize ynq.
+**Blocked:** none.
 ## 2026-08-30 — D-1713 o_init.c observe_object FIRST_OBJECT skip
 
 **Objective:** Open `invent.c` observe_object FIRST_OBJECT skip
