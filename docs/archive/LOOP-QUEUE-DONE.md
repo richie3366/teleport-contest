@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `shk.c` buy_container (named). Not cheapest_item. **Addressed:** D-1702
+- [x] `shk.c` shk_names_obj makeknown (named). Not buy_container. **Addressed:** D-1703
+
+
+- [x] `shk.c` buy_container (named). Not cheapest_item. **Addressed:** D-1702 `c7648ccf`
 
 
 - [x] `options.c` wizmgender glyph-reset (named). Not wizweight. **Addressed:** D-1701 `f7a10b6f`

@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1703 — shk.c shk_names_obj makeknown
+
+- **Status:** fixed (map-driven Open from D-1702; not a public FAIL)
+- **Symptom:** map named `shk_names_obj` makeknown. C identifies
+  non-magic saleable weapons/armor and spell-less scrolls/books
+  (blank/mail) plus mirrors when announcing a shop buy/sell.
+  JS already called `observe_object`/`makeknown` but
+  `!oc?.oc_magic` treated a missing class row as non-magic,
+  `toUpperCase` instead of `highc`, and `|0` on amt/quan/`plur`.
+- **C locus:** `shk.c` `shk_names_obj` `:3412–3445`; callers
+  `dopayobj` `:2290`, `buy_container` `:2404`, `sellobj` `:4068`
+  / `:4182`. Callees `observe_object` (`o_init.c` `:441–451`),
+  `makeknown` → `discover_object(..., TRUE, TRUE, TRUE)`,
+  `saleable`, `paydoname`, `highc`, `plur`.
+- **JS was:** makeknown arm on `!oc?.oc_magic`; invented
+  `toUpperCase` + `amt|0` plur; `quan|0`.
+- **Fix:** require live `objects()[otyp]` before `oc_magic`;
+  `was_unknown || !oc.oc_name_known`; `makeknown(obj.otyp)`;
+  `highc` + `plur(amt)`; long amt/`quan` in the announce.
+  Named: `observe_object` FIRST_OBJECT skip; dopay multi-shk
+  getpos; `bill_box_content`.
+- **JS:** `js/shk.js`.
+- **Verified:** save-oracle probe skip (untagged); green+strict
+  seed8000/0900; focused seed0116 127/127; CURRENT cohort 9/9
+  + strict (incl. seed0007 302/302, seed2200 230/230).
+- **Files:** `js/shk.js`.
+
 ## D-1702 — shk.c buy_container named-container pay
 
 - **Status:** fixed (map-driven Open from D-1701; not a public FAIL)

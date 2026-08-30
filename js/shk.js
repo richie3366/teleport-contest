@@ -42,7 +42,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rn1 } from './rng.js';
-import { dist2, online2 } from './hacklib.js';
+import { dist2, highc, online2 } from './hacklib.js';
 import { in_rooms, stop_occupation } from './hack.js';
 import {
     ESHK, EPRI, IS_ROOM, IS_DOOR, IS_WALL, ZAP_POS, NOTONL, u_at, isok,
@@ -2112,37 +2112,40 @@ async function special_stock(obj, shkp, quietly) {
 }
 
 /**
- * C ref: shk.c shk_names_obj — sold/bought announce (+ observe/makeknown).
- * fmt is a You()/pline body with %s / %ld slots like C.
+ * C ref: shk.c shk_names_obj `:3412–3445` — sold/bought announce.
+ * observe_object, then makeknown when !oc_magic && saleable &&
+ * (WEAPON/ARMOR/SCROLL/SPBOOK or MIRROR) — blank/mail and ordinary
+ * gear in the shk's stock. was_unknown is !dknown at entry, or
+ * !oc_name_known when that makeknown arm runs. Unknown: highc name
+ * + "you "+fmt with it/them; else You(fmt). FIRST_OBJECT skip stays
+ * on observe_object (Open invent.c row).
  */
 async function shk_names_obj(shkp, obj, fmt, amt, arg) {
     let was_unknown = !obj.dknown;
     observe_object(obj);
-    const oc = objects()?.[obj.otyp | 0];
-    if (!oc?.oc_magic && saleable(shkp, obj)
+    const oc = objects()?.[obj.otyp];
+    if (oc && !oc.oc_magic && saleable(shkp, obj)
         && ((obj.oclass | 0) === WEAPON_CLASS
             || (obj.oclass | 0) === ARMOR_CLASS
             || (obj.oclass | 0) === SCROLL_CLASS
             || (obj.oclass | 0) === SPBOOK_CLASS
             || (obj.otyp | 0) === MIRROR)) {
-        was_unknown = was_unknown || !oc?.oc_name_known;
+        was_unknown = was_unknown || !oc.oc_name_known;
         makeknown(obj.otyp);
     }
     let obj_name = paydoname(obj);
-    const plurAmt = (amt | 0) === 1 ? '' : 's';
-    const argStr = arg || '';
-    // Fill fmt: first %s = name-or-them, %ld = amt, then plur, then arg
+    const argStr = arg ?? '';
     const fill = (nameOrThem) => {
         let si = 0;
-        const sSlots = [nameOrThem, plurAmt, argStr];
+        const sSlots = [nameOrThem, plur(amt), argStr];
         return fmt.replace(/%s|%ld/g, (tok) => {
-            if (tok === '%ld') return String(amt | 0);
+            if (tok === '%ld') return String(amt);
             return sSlots[si++] ?? '';
         });
     };
     if (was_unknown) {
-        obj_name = obj_name.charAt(0).toUpperCase() + obj_name.slice(1);
-        const them = ((obj.quan | 0) > 1) ? 'them' : 'it';
+        obj_name = highc(obj_name) + obj_name.slice(1);
+        const them = obj.quan > 1 ? 'them' : 'it';
         await pline(`${obj_name}; you ${fill(them)}`);
     } else {
         await pline(`You ${fill(obj_name)}`);

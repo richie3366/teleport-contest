@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1703 shk.c shk_names_obj makeknown
+
+**Objective:** Open `shk.c` shk_names_obj makeknown. Not buy_container.
+**C locus:** `shk.c` `shk_names_obj` `:3412–3445`; callers
+`dopayobj` `:2290`, `buy_container` `:2404`, `sellobj` `:4068`/`:4182`.
+**JS locus:** `js/shk.js` `shk_names_obj`.
+**Change:** live `objects()[otyp]` before `oc_magic`; makeknown
+blank/mail + ordinary saleable gear; `highc`/`plur(amt)`.
+FIRST_OBJECT skip stays on observe_object.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; green+strict; seed0116 127/127;
+cohort 9/9 incl. seed0007 302/302 seed2200 230/230.
+**Next:** Open `shk.c` dopay multi-shk getpos. Not shk_names_obj.
+**Blocked:** none.
 ## 2026-08-30 — D-1702 shk.c buy_container named-container pay
 
 **Objective:** Open `shk.c` buy_container. Not cheapest_item.

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `shk.c` shk_names_obj makeknown (named). Not buy_container.
 - [ ] `shk.c` dopay multi-shk getpos (named). Not shk_names_obj.
 - [ ] `shk.c` bill_box_content (named). Not contained_cost.
 - [ ] `getline.c` yn_function addcmdq (named). Not Traditional itemize.

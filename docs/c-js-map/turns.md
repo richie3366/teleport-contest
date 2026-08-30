@@ -2764,8 +2764,11 @@ return (stashed_gold / `*paid_p` `" left"` / `more_than_one`);
 `reject_purchase` / `update_bill` + `make_itemized_bill` container
 coalesce (`KnownContainer` / `UndisclosedContainer`) + `paydoname`
 Has_contents rewrite; `unpaid_cost` COST_CONTENTS → `contained_cost`;
+**D-1703:** `shk_names_obj` `:3412–3445` `observe_object` then
+`makeknown` for `!oc_magic` && `saleable` WEAPON/ARMOR/SCROLL/SPBOOK
+or MIRROR; `highc` unknown announce vs `You(fmt)`; `plur(amt)`;
 deferred debit/robbed/angry appease, used-up FullyUsedUp/PartlyUsedUp,
-traditional itemize, `makeknown`/`observe_object` in shk_names_obj, multi-shk getpos;
+traditional itemize, multi-shk getpos; `observe_object` FIRST_OBJECT skip;
 deferred container `bill_box_content`, `remote_burglary`, gem glass pseudo-ID, 
 `arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
