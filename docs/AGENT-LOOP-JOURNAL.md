@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1724 dungeon.c recalc_mapseen sokoban/rogue/quest flags
+
+**Objective:** Open `dungeon.c` recalc_mapseen sokosolved /
+roguelevel / quest flags (named). Not DRAWBRIDGE_UP lastseentyp.
+**C locus:** `dungeon.c` `recalc_mapseen` `:3099–3134`; `rm.h`
+Sokoban; `at_dgn_entrance` / `qstart_level` / uevent / quest_status.
+**JS locus:** `js/dungeon.js` `recalc_mapseen`.
+**Change:** C-order flags: notreachable clear (quest dnum chain);
+sokosolved; roguelevel; quest_summons; questing. Print/interest
+already consumed them. Named: display_monster furniture lastseentyp.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `dungeon.c:recalc_mapseen`; canary
+10/10; focused seed0013-rogue + restore + rng-diff --all-segments;
+green+strict; cohort 7/7 + strict.
+**Next:** Open `calendar.c` hhmmss.
+**Blocked:** none.
 ## 2026-08-30 — D-1723 sp_lev.c lspo_object non-merge quan
 
 **Objective:** Open `sp_lev.c` lspo_object non-merge quan repeat

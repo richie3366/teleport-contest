@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1724 — dungeon.c recalc_mapseen sokosolved / roguelevel / quest flags
+
+- **Status:** fixed (map-driven Open from D-1723; not a public FAIL)
+- **Symptom:** map named `recalc_mapseen` sokosolved / roguelevel /
+  quest flags. C `:3099–3134` writes those flags (and clears
+  `notreachable` on reach, quest-dnum chain). JS `print_mapseen` /
+  `interest_mapseen` already consumed them after D-1650/D-1707 but
+  recalc never set them, so #overview stayed Unsolved / no primitive
+  area / no quest summons or Home questing / stuck "no way back".
+- **C locus:** `dungeon.c` `recalc_mapseen` `:3099–3134`; `rm.h:538`
+  `Sokoban` ≡ `sokoban_rules`; `at_dgn_entrance("The Quest")`;
+  `u.uevent.qcalled` / `qcompleted` / `qexpelled`;
+  `quest_status.got_quest` / `leader_is_dead`; `on_level(qstart_level)`.
+  Print arms already D-1650. DRAWBRIDGE_UP lastseentyp is D-1711.
+- **JS was:** feat/Blind/oracle/valley/sanctum/cemetery only
+  (D-1707/D-1659); named omit after review **668**.
+- **Fix:** C-order flag reset: notreachable clear (+ quest dnum
+  walk); `sokosolved = In_sokoban && !Sokoban`; `roguelevel =
+  Is_rogue_level`; `quest_summons` / `questing`. Local `Sokoban()`
+  matches `sokoban_rules` + getlev alias. Not DRAWBRIDGE_UP.
+- **JS:** `js/dungeon.js` `recalc_mapseen`.
+- **Not this iter:** display_monster M_AP_FURNITURE lastseentyp;
+  map_background `update_lastseentyp` caller; `hhmmss`.
+- **Verified:** save-oracle probe skip (untagged
+  `dungeon.c:recalc_mapseen`); canary 10/10; focused seed0013-rogue +
+  seed0013 restore + rng-diff --all-segments; green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + focused + strict.
+- **Files:** `js/dungeon.js`.
+
 ## D-1723 — sp_lev.c lspo_object non-merge quan repeat
 
 - **Status:** fixed (map-driven Open from D-1722; not a public FAIL)
