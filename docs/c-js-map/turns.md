@@ -1581,8 +1581,11 @@ next C ~drn2 dim diff; **`newsym` `show_region` + `mon_overrides_region` D-1528*
 **`map_invisible` + `canspotmon`/`canseemon`/`sensemon` + `newsym` keep `I`** (D-0296; 
 tp_sensemon/warn/worm deferred); **`display_monster` M_AP_OBJECT → `obj_glyph(mappearance)` in 
 `newsym`** (D-0297); **M_AP_FURNITURE `cmap_to_glyph` + lastseentyp** (D-1726;
-`js/display.js` `display_monster`; not `update_lastseentyp`; M_AP_MONSTER
-what_mon + Protection_from_shape_changers sensed still named); 
+`js/display.js` `display_monster`; not `update_lastseentyp`);
+**M_AP_MONSTER `what_mon(mappearance, rn2_on_display_rng)` +
+`monnum_to_glyph`** (D-1734; `display.h` `what_mon`/`random_monster`;
+live `js/display.js`; not live `mon_glyph`; Protection_from_shape_changers
+sensed still named); 
 **`obj_is_generic` + tty CLR_GRAY/BLACK→NO_COLOR** (D-0118); 
 **`map_object`/`see_nearby_objects` neardist `observe_object`** (D-0299; 
 upgrades generic gem/potion/spellbook to per-otyp color); 

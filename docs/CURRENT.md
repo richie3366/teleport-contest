@@ -62,39 +62,39 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1733. Save-oracle required for tagged
+**Suite 44/44** fortress after D-1734. Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`). Map still
 picks work; do not shop the fork dashboard. Private B0 (not in
 `sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
 wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
 trap-ledger **38/38**; shop template **35/35** (no unpaid).
-**Next cluster:** Open `display.c` display_monster M_AP_MONSTER what_mon (named). Not M_AP_FURNITURE lastseentyp.
-**Do not skip D-1531…D-1733 (index).** Keep mention_map addr.
+**Next cluster:** Open `display.c` display_monster Protection_from_shape_changers sensed (named). Not M_AP_FURNITURE.
+**Do not skip D-1531…D-1734 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1733.** Do not FORCE
+**Do not re-break D-0660…D-1734.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1733 (index). Recent: **D-1733** `u_left_shop`
-leave verbalize + `choose_stairs` (`shk.c` `:578–625`; `wizard.c`
-`:330–364`; `stairs.c` `stairway_find_type_dir` `:88–96`; live
-`js/shk.js` + `js/wizard.js` + `js/mklev.js`; not remote_burglary).
-**D-1732** `is_multigen` / `is_poisonable` (`obj.h` `:260–268`;
-`artifact.c` `permapoisoned` `:2836–2840`; live `js/objects.js` +
-`js/artifact.js`; not oc_merge / mthrowu poison). **D-1731** `doprgold`
-`hidden_gold(FALSE)` (`invent.c` `:4502–4546`; `vault.c` `:1256–1268`).
+**Keep:** D-0845…D-1734 (index). Recent: **D-1734** `display_monster`
+M_AP_MONSTER `what_mon` (`display.c` `:579–584`; `display.h`
+`what_mon`/`random_monster`; live `js/display.js`; not furniture
+lastseentyp / Protection sensed). **D-1733** `u_left_shop` leave
+verbalize + `choose_stairs` (`shk.c` `:578–625`; `wizard.c`
+`:330–364`; live `js/shk.js` + `js/wizard.js` + `js/mklev.js`; not
+remote_burglary). **D-1732** `is_multigen` / `is_poisonable` (`obj.h`
+`:260–268`; live `js/objects.js` + `js/artifact.js`; not oc_merge).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1733 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1734 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1733 (index). No generic `dknown` on
+Do not re-port D-1660…D-1734 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

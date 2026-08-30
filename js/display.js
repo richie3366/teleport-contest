@@ -295,8 +295,7 @@ function is_worm_tail(mon, x, y) {
  * rn2_on_display_rng). petnum_to_glyph is the same mlet + mon_map_attr.
  */
 function worm_tail_glyph() {
-    let mnum = PM_LONG_WORM_TAIL;
-    if (game.u?.Hallucination) mnum = rn2_on_display_rng(NUMMONS);
+    const mnum = what_mon(PM_LONG_WORM_TAIL, rn2_on_display_rng);
     const ptr = mons(mnum);
     const ch = MLET_CH[ptr?.mlet] || '~';
     const color = (mnum != null && mnum >= 0)
@@ -792,14 +791,25 @@ export function glyph_is_swallow_at(x, y) {
     return loc?.disp_kind === 'swallow';
 }
 
+/**
+ * C ref: display.h random_monster — (*rng)(NUMMONS).
+ */
+function random_monster(rng = rn2_on_display_rng) {
+    return rng(NUMMONS);
+}
+
+/**
+ * C ref: display.h what_mon — Hallucination youprop (not sticky
+ * u.Hallucination) → random_monster(rng), else the given mndx.
+ */
+export function what_mon(mon, rng = rn2_on_display_rng) {
+    return Hallucination() ? random_monster(rng) : (mon | 0);
+}
+
 // C ref: display.c map_glyph / mon_color / pet_color — per-species mcolor.
-// C ref: display.h mon_to_glyph / what_mon — Hallu → random_monster(display rng).
+// C ref: display.h mon_to_glyph — what_mon(monsndx(mon->data), rng).
 export function mon_glyph(mtmp) {
-    let mnum = mtmp.mnum ?? mtmp.data?.mndx;
-    // C: what_mon(monsndx(mon->data), rn2_on_display_rng)
-    if (game.u?.Hallucination) {
-        mnum = rn2_on_display_rng(NUMMONS);
-    }
+    const mnum = what_mon((mtmp.mnum ?? mtmp.data?.mndx) | 0, rn2_on_display_rng);
     const ptr = (mnum != null && mnum >= 0) ? mons(mnum) : mtmp.data;
     const mlet = ptr?.mlet || mtmp.data?.mlet || mtmp.mlet;
     const ch = MLET_CH[mlet] || '?';
@@ -813,8 +823,8 @@ export function mon_glyph(mtmp) {
  * C ref: display.c display_monster — M_AP_OBJECT fake obj → map_object.
  * When a mimic is PHYSICALLY_SEEN and not sensed as a monster, show the
  * disguised object glyph (and remember it) instead of the mlet letter.
- * Furniture lastseentyp is display_monster (D-1726). Named: M_AP_MONSTER
- * what_mon + rn2_on_display_rng; Protection_from_shape_changers; Hallu
+ * Furniture lastseentyp is display_monster (D-1726). M_AP_MONSTER
+ * what_mon is D-1734. Named: Protection_from_shape_changers; Hallu
  * statue random_obj.
  */
 function mimic_object_appearance_glyph(mtmp) {
@@ -936,11 +946,13 @@ const PHYSICALLY_SEEN = 1;
  * C ref: display.c display_monster `:513–622`. Mimic check first when
  * PHYSICALLY_SEEN. M_AP_FURNITURE: cmap_to_glyph into memory; if !sensed,
  * show_glyph and lastseentyp = cmap_to_type(mappearance) — not
- * update_lastseentyp (D-1711). M_AP_OBJECT: obj_glyph (D-0297). Then
- * if !mimic || sensed, show the real monster.
- * Named: M_AP_MONSTER what_mon + rn2_on_display_rng; Protection_from_shape_changers
- * (sensed is sensemon only); pet/detected worm_tail glyph variants;
- * meverseen; show_mon_or_warn unmap_object when I-glyph.
+ * update_lastseentyp (D-1711). M_AP_OBJECT: obj_glyph (D-0297).
+ * M_AP_MONSTER: what_mon(mappearance, rn2_on_display_rng) then
+ * monnum_to_glyph (D-1734) — not live mon_glyph. Then if !mimic ||
+ * sensed, show the real monster.
+ * Named: Protection_from_shape_changers (sensed is sensemon only);
+ * male/fem glyph offsets (same mlet on tty); pet/detected worm_tail
+ * glyph variants; show_mon_or_warn unmap_object when I-glyph.
  */
 function display_monster(x, y, mon, sightflags, worm_tail) {
     const ap = (mon.m_ap_type | 0) & M_AP_TYPMASK;
@@ -987,9 +999,11 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
             break;
         }
         case M_AP_MONSTER: {
-            // Named omit: what_mon(mappearance, rn2_on_display_rng)
-            const mg = worm_tail ? worm_tail_glyph() : mon_glyph(mon);
-            show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mon));
+            // C `:579–584` — appearance mndx, not the live species.
+            // monnum_to_glyph(mndx, mgendercode); tty mlet ignores gnd.
+            const mndx = what_mon(mon.mappearance | 0, rn2_on_display_rng);
+            const mg = monnum_to_display_glyph(mndx);
+            show_glyph_cell(x, y, mg.ch, mg.color, false);
             break;
         }
         }

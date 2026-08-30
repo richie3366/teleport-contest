@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1734 display.c display_monster M_AP_MONSTER what_mon
+
+**Objective:** Open `display.c` display_monster M_AP_MONSTER what_mon
+(named). Not M_AP_FURNITURE lastseentyp.
+**C locus:** `display.c` `display_monster` `:579–584`; `display.h`
+`what_mon` / `random_monster`.
+**JS locus:** `js/display.js` `display_monster` / `what_mon` /
+`mon_glyph` / `worm_tail_glyph`.
+**Change:** PHYSICALLY_SEEN mimic-as-monster uses
+`what_mon(mappearance)` then `monnum_to_glyph`, not live `mon_glyph`.
+Helper is youprop Hallu. Named: Protection sensed; Detect_monsters
+cansee; pet/detected glyphs.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `display.c:display_monster`; node
+kobold appearance vs blob; green+strict seed8000/0900; CURRENT
+cohort **7**/7 + strict. Rule #2 clean.
+**Next:** Open `display.c` display_monster Protection_from_shape_changers
+sensed.
+**Blocked:** none.
 ## 2026-08-30 — D-1733 shk.c u_left_shop / wizard.c choose_stairs
 
 **Objective:** Open `shk.c` choose_stairs / u_left_shop leave verbalize

@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1734 — display.c display_monster M_AP_MONSTER what_mon
+
+- **Status:** fixed (map-driven Open from D-1733; not a public FAIL)
+- **Symptom:** map named `display_monster` M_AP_MONSTER `what_mon`.
+  C PHYSICALLY_SEEN mimic-as-monster paints `what_mon(mappearance,
+  rn2_on_display_rng)` then `monnum_to_glyph`. JS showed the live
+  species via `mon_glyph` / worm tail (D-1726 furniture only).
+- **C locus:** `display.c` `display_monster` `:579–584`; `display.h`
+  `what_mon` `:197` / `random_monster` `:186`; `Hallucination` youprop
+  (`youprop.h` `:120`); callers `newsym` `:904` / `:1027` / `:1053`.
+- **JS was:** M_AP_MONSTER used `worm_tail ? worm_tail_glyph() :
+  mon_glyph(mon)` plus `mon_map_attr`; `mon_glyph` Hallu via sticky
+  `u.Hallucination`.
+- **Fix:** `what_mon` / `random_monster`; M_AP_MONSTER paints
+  `monnum_to_display_glyph(what_mon(mappearance))` without pet attr;
+  `mon_glyph` and `worm_tail_glyph` share `what_mon` (youprop, not
+  sticky).
+- **JS:** `js/display.js` `display_monster` / `what_mon` /
+  `mon_glyph` / `worm_tail_glyph`.
+- **Not this iter:** Protection_from_shape_changers sensed;
+  Detect_monsters cansee; male/fem glyph offsets; pet/detected
+  worm_tail variants; `show_mon_or_warn` I-glyph; furniture
+  lastseentyp is D-1726.
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:display_monster`); node appearance `k` vs live blob
+  `b` + Hallu/resist/`Detect_monsters` overwrite; green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict (incl. seed0383
+  hallu). Rule #2 clean.
+- **Files:** `js/display.js`.
+
 ## D-1733 — shk.c u_left_shop leave verbalize / wizard.c choose_stairs
 
 - **Status:** fixed (map-driven Open from D-1732; not a public FAIL)
