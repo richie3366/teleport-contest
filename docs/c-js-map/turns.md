@@ -2807,8 +2807,11 @@ mute/Deaf thank-you nod (`hero_deaf`/`muteshk` else
 awaits after addinv when unpaid from outside the shop; **D-1718:**
 `get_cost` `:2897–2941` glass GEM_CLASS + GLASS `ubirthday` color
 table (`otyp - FIRST_GLASS_GEM` → real-gem `oc_cost`; identified
-skips); named: choose_stairs / `u_left_shop` leave verbalize then
-rob_shop, `arti_cost`, Hallu currency, `costly_gold`; botl live
+skips); **D-1719:** `artifact.c` `arti_cost` `:2308–2317` +
+`getprice` `:4324–4327` (`artilist.cost` else `100*oc_cost`;
+`/4` when shk_buying; extractor A() cost; get_cost shop `*4`
+unchanged); named: choose_stairs / `u_left_shop` leave verbalize then
+rob_shop, Hallu currency, `costly_gold`, `end.c` `artifact_score`; botl live
 `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 

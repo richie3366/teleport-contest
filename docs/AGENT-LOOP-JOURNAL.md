@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1719 artifact.c arti_cost + getprice
+
+**Objective:** Open `shk.c` arti_cost (named). Not gem glass
+pseudo-ID.
+**C locus:** `artifact.c` `arti_cost` `:2308–2317`; `shk.c`
+`getprice` `:4324–4327`; `artilist.h` A() cost.
+**JS locus:** `js/artifact.js` `arti_cost`; `js/shk.js` `getprice`;
+extractor + `js/generated/artifacts_data.js`.
+**Change:** artifact shop/base price is `artilist.cost` (else
+`100*oc_cost`) instead of table `oc_cost`. Named: Hallu currency;
+`artifact_score`; gen_spe/gift_value.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; canary 16/16; green+strict;
+focused seed0116; cohort 7/7 + strict.
+**Next:** Open `shk.c` Hallu currency ROLL_FROM.
+**Blocked:** none.
 ## 2026-08-30 — D-1718 shk.c get_cost gem glass pseudo-ID
 
 **Objective:** Open `shk.c` get_cost gem glass pseudo-ID (named). Not

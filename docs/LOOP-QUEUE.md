@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `shk.c` arti_cost (named). Not gem glass pseudo-ID.
 - [ ] `shk.c` Hallu currency ROLL_FROM (named). Not arti_cost.
 - [ ] `cmd.c` getdir yn_function (named). Not yn_function_menu.
 - [ ] `dog.c` cant_go_back FREEING (named). Not update_mlstmv.

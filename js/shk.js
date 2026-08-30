@@ -17,6 +17,7 @@
 //        find_oid / o_on / gem_learned / bp_to_obj billobjs (D-1691).
 //        remote_burglary / rob_shop / call_kops / makekops (D-1717).
 //        get_cost glass-gem pseudo-ID (D-1718).
+//        getprice arti_cost (D-1719).
 // Named omissions: shk_fixes_damage in shk_move; allmain/bones
 // fix_shop_damage callers; holetime dig follow; angry
 // Displaced pline (shk path); following verbalize;
@@ -28,7 +29,7 @@
 // mnearto full (door yank uses enexto/rloc; home_shk still coord set);
 // after_shk_move occupancy check_special_room (bill_p==-1000 producer);
 // losedogs make_happy_shoppers; paygd; M1_NOHEAD has_head;
-// arti_cost; Hallu currency ROLL_FROM;
+// Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease (D-0998);
 // multi-shk getpos pay-whom (D-1704); mute/Deaf nod is D-1716;
@@ -113,6 +114,7 @@ import { ledger_no } from './dungeon.js';
 import { Is_candle } from './timeout.js';
 import { addinv } from './u_init.js';
 import { SchroedingersBox } from './pickup.js';
+import { arti_cost } from './artifact.js';
 
 const PICK_AXE = objectNames.indexOf('PICK_AXE');
 const DWARVISH_MATTOCK = objectNames.indexOf('DWARVISH_MATTOCK');
@@ -2921,13 +2923,13 @@ set_doname_shop_suffix(append_doname_unpaid_suffix);
 
 /**
  * C ref: shk.c getprice — base oc_cost + class tweaks.
- * Named omissions: arti_cost; corpsenm_price_adj; full candle Is_candle.
+ * Named omissions: corpsenm_price_adj; full candle Is_candle.
  */
 function getprice(obj, shk_buying) {
     const oc = objects()?.[obj?.otyp | 0];
     let tmp = (oc?.oc_cost | 0);
     if (obj?.oartifact) {
-        // arti_cost deferred — leave table cost; get_cost still *4 later
+        tmp = arti_cost(obj);
         if (shk_buying) tmp = Math.trunc(tmp / 4);
     }
     switch (obj?.oclass | 0) {
@@ -2960,7 +2962,7 @@ function getprice(obj, shk_buying) {
 
 /**
  * C ref: shk.c get_cost — charge for one unit.
- * Named omissions: bill-price reuse FIXME; arti_cost (getprice).
+ * Named omissions: bill-price reuse FIXME.
  */
 function get_cost(obj, shkp) {
     let tmp = getprice(obj, false);

@@ -363,6 +363,13 @@ def main() -> int:
         align_tok = args[9].strip()
         role_tok = args[10].strip()
         race_tok = args[11].strip()
+        # A() gs/gv (gen_spe/gift_value) still named; cost is arti_cost.
+        cost_raw = strip_c_comments(args[14]).strip()
+        m_cost = re.match(r"^(\d+)[Ll]?$", cost_raw)
+        if not m_cost:
+            print("bad cost", name, args[14], file=sys.stderr)
+            continue
+        cost = int(m_cost.group(1))
         clr_tok = strip_c_comments(args[15]).strip()
         bn = args[16].strip()
         if clr_tok not in CLR:
@@ -398,6 +405,7 @@ def main() -> int:
                 "alignment": ALIGN[align_tok],
                 "roleName": role_tok,
                 "raceName": race_tok,
+                "cost": cost,
                 "acolor": CLR[clr_tok],
                 "bn": bn if bn != "NONARTIFACT" else "NONARTIFACT",
             }
@@ -449,6 +457,7 @@ def main() -> int:
             f' alignment: {e["alignment"]},'
             f' roleName: {e["roleName"]!r},'
             f' raceName: {e["raceName"]!r},'
+            f' cost: {e["cost"]},'
             f' acolor: {e["acolor"]},'
             f' bn: {e["bn"]!r}'
             " },"

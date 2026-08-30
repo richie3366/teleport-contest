@@ -109,7 +109,10 @@ ESearching Excalibur wield, `:812–817` ERegeneration Trollsbane/Staff wield,
 SEARCH is not a carry bit; Palantir `#if 0` REGEN cspfx; vision_recalc IN_SIGHT 
 xray circle / SPFX_PROTECT / defn/cary / inv_prop drop / Sunsword named; 
 cspfx is D-1539); 
-**defn/cary extract + `defends`/`defends_when_carried` D-1453**; omit cost/gen_spe; 
+**defn/cary extract + `defends`/`defends_when_carried` D-1453**;
+**`artilist.cost` extract + `arti_cost` D-1719** (C
+`artifact.c:2308–2317`; `getprice` `/4`; shop `get_cost` still `*4`);
+omit gen_spe/gift_value; `end.c` `artifact_score` named; 
 **`inv_prop` extract + `arti_invoke` BLINDING_RAY D-1377**; 
 **remaining specials + property toggle D-1488** (C `artifact.c` 
 `invoke_healing`/`energy_boost`/`untrap`/`create_ammo`/`fling_poison`/`storm_spell` `:1779–2051` + 

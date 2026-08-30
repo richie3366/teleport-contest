@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-1719 — artifact.c arti_cost + shk.c getprice
+
+- **Status:** fixed (map-driven Open from D-1718; not a public FAIL)
+- **Symptom:** map named `arti_cost`. Shop `getprice` left table
+  `oc_cost` for artifacts (and still `/4` when the shk buys) instead
+  of `artilist[].cost`, else `100 * oc_cost`.
+- **C locus:** `artifact.c` `arti_cost` `:2308–2317`; caller
+  `shk.c` `getprice` `:4324–4327`. `artilist.h` A() `cost` /
+  `artifact.h` `long cost`. `get_cost` `:2980–2981` still `*4`
+  shop inflate after getprice (score uses raw `arti_cost`).
+- **JS was:** `getprice` `oartifact` arm kept `objects[otyp].oc_cost`;
+  generated `artilistRaw` omitted cost.
+- **Fix:** extract A() cost; resolve onto artilist; live `arti_cost`;
+  `getprice` assigns it then `/4` when `shk_buying`. Rule #2: no fs.
+- **JS:** `js/artifact.js` `arti_cost`; `js/shk.js` `getprice`;
+  `scripts/extract-artifacts.py` + `js/generated/artifacts_data.js`.
+- **Not this iter:** Hallu currency ROLL_FROM; `end.c`
+  `artifact_score`; gen_spe/gift_value; corpsenm_price_adj;
+  Is_candle; bill-price reuse FIXME; `costly_gold`.
+- **Verified:** save-oracle probe skip (untagged
+  `artifact.c:arti_cost` / `shk.c:getprice`); private canary
+  **16**/16; green+strict seed8000/0900; focused seed0116;
+  CURRENT cohort **7**/7 + strict.
+- **Files:** `js/artifact.js`, `js/shk.js`,
+  `js/generated/artifacts_data.js`, `scripts/extract-artifacts.py`.
+
 ## D-1718 — shk.c get_cost gem glass pseudo-ID
 
 - **Status:** fixed (map-driven Open from D-1717; not a public FAIL)
