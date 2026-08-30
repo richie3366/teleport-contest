@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1699 restore.c dorecover getlev place / omoves restamp
+
+**Objective:** JSON save/restore ledger Cluster 5 — getlev place,
+dorecover envelope, restlevelfile omoves analogue.
+**C locus:** `restore.c` getlev `:1177–1220`; dorecover `:922–949`;
+`save.c` savelev `:515–516` `svm.moves` timestamp.
+**JS locus:** `js/do.js` `getlev_place_monsters`; `js/save.js`
+`restampOtherLedgerOmoves` + async `try_restore_save`; `js/shk.js`
+`set_residency`; `js/jsmain.js`.
+**Change:** occupancy place + one `restore_cham` per current fmon;
+restamp other `omoves` to restore-time moves (C elapsed==0 on `<`);
+`run_timers` last; `check_special_room` after welcome.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict; seed0013; seed0105; stairs; trap-same-floor;
+cohort. Ledger **26/26**; catchup **30/30**.
+**Next:** Cluster 6 B0 table / remaining map notes.
+**Blocked:** none.
 ## 2026-08-30 — D-1698 save.c savegamestate JSON worn/RANGE_GLOBAL relink
 
 **Objective:** JSON save/restore ledger Cluster 4 — worn, drop iflags,

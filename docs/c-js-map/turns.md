@@ -1251,7 +1251,10 @@ peel local object/spot timers so off-level HATCH_EGG/rot/burn/melt do not fire;
 **JSON `payload.current` `serLevel`/`deserLevel` per-blob relink (D-1696;
 never `billobjs`; **other `LFILE_EXISTS` `payload.levels` D-1697 M2**;
 **RANGE_GLOBAL pack-lamp relink D-1698 — JSON gamestate-before-current
-is a no-op because those objects are never on fobj**)**; bones ghostly timeout+=adjust named) + **`goto_level` `run_timers`** (D-1191;
+is a no-op because those objects are never on fobj**; **dorecover
+getlev `place_monster`/`set_residency`/`hideunder`/steed-ustuck + one
+`restore_cham` per current fmon (M6) + restlevelfile omoves restamp
+(`savelev` writes `svm.moves`) + `run_timers` last D-1699**)**; bones ghostly timeout+=adjust named) + **`goto_level` `run_timers`** (D-1191;
 C `do.c:1818–1823` after delivery; invent/migrating stay on the live queue — do not peel them); 
 **`goto_level` stair-fall `drag_down`/`ballrelease` via `uball` (≡C `Punished`)** (D-0918; 
 litter `hitfloor`/yname/`Soundeffect`/`ballfall` still deferred); 

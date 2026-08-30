@@ -1,7 +1,8 @@
 // save.js — Game save / restore via frozen storage VFS (JSON subset).
 // C ref: save.c dosave / dosave0 / savelev / savetrapchn / save_msghistory /
 //        save_gamelog / save_luadata; restore.c dorecover / getlev
-//        trap loop / restore_msghistory / restore_gamelog; nhlua.c
+//        trap loop / place_monster / restore_cham / inven_inuse /
+//        restore_msghistory / restore_gamelog; nhlua.c
 //        restore_luadata / save_luadata; files.c SAVEF; unixmain
 //        attempt_restore; allmain welcome(FALSE).
 // Level blob codec: js/lev_json.js (shared with bones.js).
@@ -14,7 +15,7 @@ import { gamelog_add } from './pline.js';
 import { change_luck } from './attrib.js';
 import {
     FULL_MOON, OBJ_INVENT, OBJ_CONTAINED, OBJ_MIGRATING,
-    ECMD_OK, BUFSZ, VISITED, LFILE_EXISTS,
+    ECMD_OK, BUFSZ, VISITED, LFILE_EXISTS, REST_CURRENT_LEVEL,
     W_WEP, W_SWAPWEP, W_QUIVER,
 } from './const.js';
 import { objects_globals_init, objectNames } from './objects.js';
@@ -27,7 +28,8 @@ import {
     maxledgerno,
 } from './dungeon.js';
 import { rest_track } from './track.js';
-import { restore_timers, restore_light_sources } from './mkobj.js';
+import { restore_timers, restore_light_sources, run_timers } from './mkobj.js';
+import { vision_reset } from './vision.js';
 import { setworn } from './do_wear.js';
 import { setuwep, setuswapwep, setuqwep } from './wield.js';
 import { restore_artifacts } from './artifact.js';
@@ -188,6 +190,27 @@ function restoreOtherLedgers(payload) {
 }
 
 /**
+ * C save.c savelev_core `:515–516` writes `svm.moves` as lev-timestmp
+ * (read back as `svo.omoves`). dorecover `restlevelfile` of every
+ * other ledger therefore restamps omoves to restore-time moves, so the
+ * next `goto_level` getlev sees elapsed==0 and skips hide_monst rnd(10).
+ * JSON does not rewrite blobs through FREEING; this is the timestamp
+ * analogue only (not teardown). Current ledger keeps save-time omoves
+ * (C second getlev rereads the original current savelev).
+ * @param {number} currentLedger
+ */
+function restampOtherLedgerOmoves(currentLedger) {
+    const moves = game.moves | 0;
+    const maxL = maxledgerno();
+    for (let i = 1; i <= maxL; i++) {
+        if (i === currentLedger) continue;
+        const info = game.level_info?.[i];
+        if (!info || !((info.flags | 0) & LFILE_EXISTS)) continue;
+        info.omoves = moves;
+    }
+}
+
+/**
  * C save.c savegamestate Sfo_context_info. Stamp o_id/m_id from live
  * pointers; drop piece/tin/book/hitmon/stylus so stringify cannot cycle.
  * @param {object|null|undefined} ctx
@@ -338,6 +361,9 @@ function restWornFromInvent(invent) {
  */
 export function dosave0() {
     const u = game.u || {};
+    // C save.c savemonchn `:904–907` — stamp m_id from live pointers.
+    u.usteed_mid = (u.usteed && (u.usteed.m_id | 0)) ? (u.usteed.m_id | 0) : 0;
+    u.ustuck_mid = (u.ustuck && (u.ustuck.m_id | 0)) ? (u.ustuck.m_id | 0) : 0;
     // C: undo date-dependent luck before persisting
     if (game.flags?.moonphase === FULL_MOON) change_luck(-1);
     if (game.flags?.friday13) change_luck(1);
@@ -565,10 +591,27 @@ function serHero(u) {
 }
 
 /**
- * C ref: restore.c dorecover + getlev/restgamestate subset.
- * @returns {boolean} true if a save was loaded
+ * C ref: restore.c inven_inuse `:112–125` — objects marked in_use at
+ * save (HUP cheat) get used up after invent + current level exist.
+ * Named omit on done_object_cleanup (end.c) stays; this is dorecover.
+ * @param {boolean} quietly
  */
-export function try_restore_save() {
+async function inven_inuse(quietly) {
+    const { useup } = await import('./eat.js');
+    const { xname } = await import('./objnam.js');
+    for (const otmp of [...(game.invent || [])]) {
+        if (!otmp?.in_use) continue;
+        if (!quietly) await pline(`Finishing off ${xname(otmp)}...`);
+        useup(otmp);
+    }
+}
+
+/**
+ * C ref: restore.c dorecover + getlev/restgamestate subset.
+ * Async for restore_cham / inven_inuse / run_timers (C `:922–931`).
+ * @returns {Promise<boolean>} true if a save was loaded
+ */
+export async function try_restore_save() {
     const path = set_savefile_name(game.plname);
     const raw = vfsReadFile(vfsPath(path));
     if (raw == null) return false;
@@ -662,6 +705,7 @@ export function try_restore_save() {
     // others into level_info without tearing down the live map (no FREEING).
     // Missing `levels` = old save, current-only (seed0013).
     restoreOtherLedgers(payload);
+    restampOtherLedgerOmoves(ledger_no(u.uz));
 
     // C restore.c getlev current. Missing `current` = old scattered keys.
     const info = deserLevel(levelBlobFromPayload(payload));
@@ -722,9 +766,27 @@ export function try_restore_save() {
     restore_gamelog(payload);
     restore_luadata(payload);
 
-    // C restore.c dorecover :942 — after restoring=0 / early_raw_messages,
-    // before docrt. Invent sync_perminvent WIN_INVEN gate (D-1603).
+    // C restore.c second getlev REST_CURRENT_LEVEL `:896–898` then
+    // envelope `:922–942`. JSON has one install of current: place
+    // occupancy, one restore_cham per current fmon (M6; elapsed 0 so
+    // no hide_monst rnd(10)), then inven_inuse / vision_reset /
+    // vision_full_recalc=1 / run_timers last. Other ledgers stay on
+    // stash — zero restore_cham until goto_level.
     if (!game.program_state) game.program_state = {};
+    game.program_state.restoring = REST_CURRENT_LEVEL;
+    const { getlev_place_monsters, getlev_catchup_monsters } =
+        await import('./do.js');
+    getlev_place_monsters();
+    await getlev_catchup_monsters(0);
+
+    await inven_inuse(false);
+    // C: reglyph_darkroom named omit — no JS analogue.
+    vision_reset();
+    game.vision_full_recalc = 1;
+    await run_timers();
+    game.program_state.restoring = 0;
+    u.usteed_mid = 0;
+    u.ustuck_mid = 0;
     game.program_state.beyond_savefile_load = 1;
 
     // C: delete save after successful restore

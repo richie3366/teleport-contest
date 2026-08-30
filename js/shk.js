@@ -230,6 +230,21 @@ export function shop_keeper(rmno) {
 }
 
 /**
+ * C ref: shk.c set_residency `:271–277` — rooms[shoproom-ROOMOFFSET].resident
+ * when the shopkeeper's shoplevel is the hero's uz. getlev always calls
+ * this before place_monster (restore.c `:1182–1183`).
+ */
+export function set_residency(shkp, zero_out) {
+    const eshk = ESHK(shkp);
+    if (!eshk) return;
+    if (!on_level(eshk.shoplevel, game.u?.uz)) return;
+    const rooms = game.level?.rooms;
+    const idx = (eshk.shoproom | 0) - ROOMOFFSET;
+    if (!rooms || idx < 0 || idx >= rooms.length) return;
+    rooms[idx].resident = zero_out ? null : shkp;
+}
+
+/**
  * C ref: shk.c u_left_shop — leave/boundary bill prompts.
  * Named omissions: rob_shop / call_kops; leave verbalize when billct/debit.
  */

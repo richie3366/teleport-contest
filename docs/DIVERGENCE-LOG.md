@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1699 — restore.c dorecover getlev place / envelope / omoves restamp
+
+- **Status:** fixed (map-driven ledger Cluster 5; not a public FAIL)
+- **Symptom:** After JSON restore then `<`, JS rolled getlev `hide_monst`
+  `rnd(10)` that C skipped; little dog one cell off. Private ledger on
+  `e32e222d` was RNG 8412/8472 Screen 25/26. First miss: C
+  `rn2(10)` `mon_arrive` vs JS `rnd(10)` hide_monst.
+- **C locus:** `restore.c` getlev `:1177–1220`; dorecover envelope
+  `:922–949`; `save.c` savelev_core `:515–516` writes `svm.moves` as
+  lev-timestmp; `restlevelfile` restamps other ledgers so later getlev
+  elapsed==0; `shk.c` `set_residency` `:271–277`; `save.c` `savemonchn`
+  usteed/ustuck mid `:904–907`.
+- **JS was:** no occupancy place on getlev; no `restore_cham` on JSON
+  restore; other-ledger `omoves` kept leave-time so elapsed>0 after
+  restore; no `run_timers` / `inven_inuse` / `check_special_room`.
+- **Fix:** `getlev_place_monsters` (residency, steed/ustuck, `place_monster`,
+  `hideunder`) before catchup; one `restore_cham` per current fmon (M6);
+  restamp other `omoves` to restore-time `moves`; async envelope
+  `inven_inuse` / `vision_reset` / `vision_full_recalc=1` / `run_timers`
+  last / `restoring=0` / `beyond_savefile_load`; `check_special_room`
+  after welcome. Named: worms/`reglyph_darkroom`/shop+trap-ledger recipes.
+- **JS:** `js/do.js` `getlev_place_monsters`; `js/save.js` `try_restore_save`
+  async + `restampOtherLedgerOmoves`; `js/shk.js` `set_residency`;
+  `js/jsmain.js` await restore + `check_special_room`.
+- **Verified:** green+strict seed8000/0900; seed0013 99/99; seed0105
+  lamp; seed0015/0700/0014 stairs; trap-same-floor 17/17; cohort
+  1500/1800/0012/0004/0007/2200/0383. Ledger **26/26**; catchup **30/30**.
+- **Files:** `js/do.js`, `js/save.js`, `js/shk.js`, `js/jsmain.js`.
+
 ## D-1698 — save.c savegamestate JSON worn / RANGE_GLOBAL relink
 
 - **Status:** fixed (map-driven ledger Cluster 4; not a public FAIL)
