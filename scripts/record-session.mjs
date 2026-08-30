@@ -433,7 +433,13 @@ async function recordSegment({
     // Segment 0: wipe save/, bones, scorefiles, and locks. Later
     // segments: playground locks only — keep save/ (restore), bones
     // and record/xlogfile (chained deaths / topten).
-    await clearStaleState(installDir, { wipeSave: isFirstSegment });
+    // RECORD_WIPE_SAVE=0: keep a planted save/ (save-oracle restore
+    // segment). RECORD_WIPE_SAVE=1: force wipe even on later segments.
+    let wipeSave = isFirstSegment;
+    const envWipe = process.env.RECORD_WIPE_SAVE;
+    if (envWipe === '0' || envWipe === 'false') wipeSave = false;
+    else if (envWipe === '1' || envWipe === 'true') wipeSave = true;
+    await clearStaleState(installDir, { wipeSave });
 
     const playerName = parseNethackrcName(seg.nethackrc) ?? '';
     const args = ['-u', playerName];

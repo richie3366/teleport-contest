@@ -121,8 +121,7 @@ export function scoreSession(sessionPath, opts = {}) {
     }
 }
 
-function makeStorageHandle() {
-    const storage = new Map();
+export function makeStorageHandle(storage = new Map()) {
     return {
         getItem(k) { return storage.has(k) ? storage.get(k) : null; },
         setItem(k, v) { storage.set(k, String(v)); },
@@ -152,13 +151,16 @@ function flattenCanonical(segments) {
     return { cScreens, cCursors, cRngByStep, cSteps };
 }
 
-async function runJs(segments) {
+async function runJs(segments, storageEntries) {
     const { runSegment } = await import(pathToFileURL(path.join(ROOT, 'js', 'jsmain.js')).href);
-    const storage = makeStorageHandle();
+    const map = storageEntries ? new Map(storageEntries) : new Map();
+    const storage = makeStorageHandle(map);
     const jsScreens = [];
     const jsCursors = [];
     const jsRngByStep = [];
+    const jsRngFlat = [];
     let error = null;
+    let lastGame = null;
     try {
         for (const seg of segments) {
             const game = await runSegment({
@@ -168,6 +170,11 @@ async function runJs(segments) {
                 moves: seg.moves,
                 storage,
             });
+            lastGame = game;
+            const flat = (game.getRngLog?.() || []).map((e) => (
+                typeof e === 'string' ? e.replace(/^\d+\s+/, '') : String(e)
+            )).filter(isRngCall);
+            jsRngFlat.push(...flat);
             const screens = game.getScreens?.() || [];
             const cursors = game.getCursors?.() || [];
             const slices = game.getRngSlices?.() || [];
@@ -183,7 +190,7 @@ async function runJs(segments) {
     } catch (e) {
         error = e.message || String(e);
     }
-    return { jsScreens, jsCursors, jsRngByStep, error };
+    return { jsScreens, jsCursors, jsRngByStep, jsRngFlat, error, lastGame, map };
 }
 
 function rngStepEqual(cArr, jArr) {
@@ -201,13 +208,13 @@ function rngStepEqual(cArr, jArr) {
  * whose per-step normalized RNG disagrees. Loop bound is C's count
  * (C1): a missing JS screen is a divergence at that index.
  */
-export async function firstDiff(sessionPathOrData) {
+export async function firstDiff(sessionPathOrData, opts = {}) {
     const raw = typeof sessionPathOrData === 'string'
         ? JSON.parse(readFileSync(sessionPathOrData, 'utf8'))
         : sessionPathOrData;
     const segments = normalizeSession(raw).segments;
     const { cScreens, cCursors, cRngByStep } = flattenCanonical(segments);
-    const js = await runJs(segments);
+    const js = await runJs(segments, opts.storageEntries);
 
     let firstScreen = null;
     let firstRng = null;
@@ -233,6 +240,57 @@ export async function firstDiff(sessionPathOrData) {
         cTopline: toplineOf(cScreens[idx] || ''),
         jsTopline: toplineOf(js.jsScreens[idx] || ''),
         jsError: js.error,
+        lastGame: js.lastGame,
+    };
+}
+
+/**
+ * Score a recorded session against JS, optionally preloading VFS Map
+ * entries so a restore-only segment can dorecover without replaying the
+ * prefix. Same passed rule as the frozen runner (RNG + screen+cursor).
+ */
+export async function scoreWithStorage(sessionPathOrData, opts = {}) {
+    const raw = typeof sessionPathOrData === 'string'
+        ? JSON.parse(readFileSync(sessionPathOrData, 'utf8'))
+        : sessionPathOrData;
+    const sessionName = typeof sessionPathOrData === 'string'
+        ? path.basename(sessionPathOrData)
+        : (raw.name || 'session');
+    const segments = normalizeSession(raw).segments;
+    const { cScreens, cCursors, cRngByStep } = flattenCanonical(segments);
+    const cRng = [];
+    for (const stepRng of cRngByStep) cRng.push(...stepRng);
+    const js = await runJs(segments, opts.storageEntries);
+
+    let rngMatched = 0;
+    const rngTotal = cRng.length;
+    const jsFlatNorm = (js.jsRngFlat || []).map(normalizeRng);
+    for (let i = 0; i < rngTotal; i++) {
+        if ((jsFlatNorm[i] || '') === (cRng[i] || '')) rngMatched++;
+    }
+    const screenTotal = cScreens.length;
+    let screenMatched = 0;
+    let cellsOnlyMatched = 0;
+    let cursorsMatched = 0;
+    for (let i = 0; i < screenTotal; i++) {
+        const cellsOk = screensVisuallyEqual(js.jsScreens[i] || '', cScreens[i] || '');
+        const cursorOk = cursorsEqual(cCursors[i], js.jsCursors[i]);
+        if (cellsOk) cellsOnlyMatched++;
+        if (cursorOk) cursorsMatched++;
+        if (cellsOk && cursorOk) screenMatched++;
+    }
+    return {
+        session: sessionName,
+        passed: !js.error && rngMatched === rngTotal && screenMatched === screenTotal,
+        metrics: {
+            rngCalls: { matched: rngMatched, total: rngTotal },
+            screens: { matched: screenMatched, total: screenTotal },
+            cellsOnly: { matched: cellsOnlyMatched, total: screenTotal },
+            cursors: { matched: cursorsMatched, total: screenTotal },
+        },
+        error: js.error,
+        lastGame: js.lastGame,
+        vfsMap: js.map,
     };
 }
 
