@@ -1565,7 +1565,9 @@ next C ~drn2 dim diff; **`newsym` `show_region` + `mon_overrides_region` D-1528*
 **DECgraphics `S_altar` meta-`{` (ASCII `_`); scoring grid keeps raw `{`** (D-0293); 
 **`map_invisible` + `canspotmon`/`canseemon`/`sensemon` + `newsym` keep `I`** (D-0296; 
 tp_sensemon/warn/worm deferred); **`display_monster` M_AP_OBJECT → `obj_glyph(mappearance)` in 
-`newsym`** (D-0297; furniture/monster AP + Protection sensed deferred); 
+`newsym`** (D-0297); **M_AP_FURNITURE `cmap_to_glyph` + lastseentyp** (D-1726;
+`js/display.js` `display_monster`; not `update_lastseentyp`; M_AP_MONSTER
+what_mon + Protection_from_shape_changers sensed still named); 
 **`obj_is_generic` + tty CLR_GRAY/BLACK→NO_COLOR** (D-0118); 
 **`map_object`/`see_nearby_objects` neardist `observe_object`** (D-0299; 
 upgrades generic gem/potion/spellbook to per-otyp color); 
@@ -1604,7 +1606,7 @@ telepathy/`Detect_monsters`; MATCH_WARN overlay D-1514 (`see_wsegs` / `is_worm_t
 **IRONBARS `terrain_glyph` + scoring keeps raw DEC `|`** (D-0566; Primary `#`/HI_METAL); 
 **AIR/CLOUD `terrain_glyph` S_air/S_cloud** (D-0571); DRAWBRIDGE_UP under-typ still default `?`; 
 ASCII `|`/`-` open-door when not DEC; ROOM→DARKROOMSYM memory arm in `newsym`; 
-DRAWBRIDGE_UP/furniture-mimic lastseentyp; 
+DRAWBRIDGE_UP lastseentyp is D-1711; furniture lastseentyp is D-1726; 
 **Sokoban `wall_glyph` CLR_BLUE iff DECgraphics** (D-0567/D-0729; ASCII→GRAY/NO_COLOR; 
 knox + why DEC recorder SGR 34 vs source `wallcolors[]` GRAY deferred); 
 DISP_TETHER BACKTRACK / ALL nest; other DEC remaps (ladder); 

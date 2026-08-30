@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `display.c` display_monster M_AP_FURNITURE cmap_to_glyph lastseentyp (named). Not update_lastseentyp.
 - [ ] `invent.c` useupall / obfree (named). Not observe_object FIRST_OBJECT skip.
 - [ ] `cmd.c` yn_function_menu query_menu (named). Not yn_function addcmdq.
 - [ ] `cmd.c` getdir CQ_REPEAT (named). Not yn_function_menu.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `invent.c` doprgold hidden_gold (named). Not currency.
 - [ ] `objects.h` is_multigen / is_poisonable (named). Not oc_merge.
 - [ ] `shk.c` choose_stairs / u_left_shop leave verbalize (named). Not remote_burglary.
+- [ ] `display.c` display_monster M_AP_MONSTER what_mon (named). Not M_AP_FURNITURE lastseentyp.
+- [ ] `display.c` display_monster Protection_from_shape_changers sensed (named). Not M_AP_FURNITURE.
+- [ ] `display.c` newsym Detect_monsters cansee arm (named). Not display_monster furniture.
+- [ ] `display.c` cmap_to_glyph trap/zap/expl (named). Not furniture lastseentyp.
+- [ ] `display.c` mimic map_object observe (named). Not M_AP_OBJECT glyph.
 
 ## Parked (do not pop)
 

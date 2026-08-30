@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-1726 — display.c display_monster M_AP_FURNITURE lastseentyp
+
+- **Status:** fixed (map-driven Open from D-1725; not a public FAIL)
+- **Symptom:** map named `display_monster` furniture `lastseentyp`.
+  C `:545–562` PHYSICALLY_SEEN M_AP_FURNITURE writes `levl.glyph =
+  cmap_to_glyph(mappearance)` and, when !sensed, `show_glyph` plus
+  `svl.lastseentyp = cmap_to_type(sym)`. JS `newsym` only special-cased
+  M_AP_OBJECT (D-0297) and showed the mlet; `update_lastseentyp`
+  (D-1711) is a different caller (`canseemon`).
+- **C locus:** `display.c` `display_monster` `:513–622`; `newsym`
+  `:1027–1029`; `feel_location` `:904–908`. `cmap_to_glyph` in
+  `display.h`; `cmap_to_type` `mkroom.c:910–1030`.
+- **JS was:** inlined object-mimic glyph in `newsym`; no furniture
+  memory/lastseentyp override.
+- **Fix:** `display_monster` matching C order. Furniture uses
+  `cmap_idx_to_glyph` + `ensure_lastseentyp`/`cmap_to_type`. `gbuf_show_kind`
+  classifies unsensed furniture as cmap. Not DRAWBRIDGE_UP lastseentyp.
+- **JS:** `js/display.js` `display_monster`; `js/dungeon.js`
+  `ensure_lastseentyp` export.
+- **Not this iter:** M_AP_MONSTER `what_mon`; Protection_from_shape_changers
+  sensed; Detect_monsters cansee; mimic `map_object` observe; pet/detected
+  worm_tail glyph variants.
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:display_monster`); node S_fountain mimic → lastseentyp
+  FOUNTAIN + `{` cmap; green+strict seed8000/0900; CURRENT cohort
+  **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/display.js`, `js/dungeon.js`.
+
 ## D-1725 — calendar.c hhmmss
 
 - **Status:** fixed (map-driven Open from D-1724; not a public FAIL)

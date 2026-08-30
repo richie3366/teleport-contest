@@ -1012,7 +1012,7 @@ function interest_mapseen(mptr) {
 }
 
 /** Ensure lastseentyp[COLNO][ROWNO]; C svl.lastseentyp. */
-function ensure_lastseentyp() {
+export function ensure_lastseentyp() {
     if (!game.lastseentyp) {
         const a = new Array(COLNO);
         for (let x = 0; x < COLNO; x++) a[x] = new Array(ROWNO).fill(0);
