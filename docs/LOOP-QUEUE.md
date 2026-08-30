@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `shk.c` dopay multi-shk getpos (named). Not shk_names_obj.
 - [ ] `shk.c` bill_box_content (named). Not contained_cost.
 - [ ] `getline.c` yn_function addcmdq (named). Not Traditional itemize.
 - [ ] `dungeon.c` recalc_mapseen Blind bigroom / oracle / valley / sanctum (named). Not knox/drawbridge.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dungeon.c` update_lastseentyp DRAWBRIDGE_UP / furniture-mimic (named). Not knox/drawbridge.
 - [ ] `objects.h` oc_merge extract (named). Not oc_charged.
 - [ ] `invent.c` observe_object FIRST_OBJECT skip (named). Not undiscover_object.
+- [ ] `shk.c` FullyUsedUp/PartlyUsedUp (named). Not bill_box_content.
+- [ ] `shk.c` pay_billed_items traditional itemize ynq (named). Not FullyUsedUp.
+- [ ] `shk.c` dopay mute/Deaf thank-you nod (named). Not getpos.
+- [ ] `shk.c` remote_burglary (named). Not bill_box_content.
+- [ ] `shk.c` get_cost gem glass pseudo-ID (named). Not remote_burglary.
 
 ## Parked (do not pop)
 

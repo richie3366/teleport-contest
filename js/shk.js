@@ -30,7 +30,7 @@
 // pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease (D-0998); used-up FullyUsedUp/PartlyUsedUp;
-// traditional itemize ynq; getpos pay-whom;
+// traditional itemize ynq; multi-shk getpos pay-whom (D-1704);
 // SetVoice; Izchak candle special_stock polish; safe_qbuf sell prompt;
 // money2u invent-full dropy; break_seq simultaneous shop shatter;
 // billobjs residual when sub_one_frombill partial quan; nextoid shop-price
@@ -52,7 +52,7 @@ import {
     OBJ_MINVENT, OBJ_FLOOR, OBJ_CONTAINED, OBJ_INVENT, OBJ_FREE, OBJ_DELETED,
     OBJ_ONBILL,
     NO_ROOM, TEMPLE, RLOC_MSG, RLOC_NOMSG,
-    DISPLACED, LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME,
+    DISPLACED, LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME, ECMD_CANCEL,
     EYE, M_AP_NOTHING, M_AP_MONSTER, M_AP_TYPE,
     COST_CONTENTS, COST_SINGLEOBJ, COST_UNBLSS, COST_UNCURS, TELEPAT,
     W_SWAPWEP, W_QUIVER, TT_PIT, MIGR_APPROX_XY, MON_FLOOR,
@@ -60,7 +60,7 @@ import {
     ARTICLE_THE,
 } from './const.js';
 import { hero_conflict, resist_conflict, m_canseeu } from './mondata.js';
-import { mon_nam, x_monnam, y_monnam } from './do_name.js';
+import { mon_nam, x_monnam, y_monnam, Monnam } from './do_name.js';
 import {
     COIN_CLASS, FOOD_CLASS, WAND_CLASS, POTION_CLASS, ARMOR_CLASS,
     WEAPON_CLASS, TOOL_CLASS, GEM_CLASS, SCROLL_CLASS, SPBOOK_CLASS,
@@ -98,6 +98,8 @@ import {
 } from './invent.js';
 import { ATR_INVERSE } from './terminal.js';
 import { yn_function } from './getline.js';
+import { getpos } from './getpos.js';
+import { m_at } from './mon.js';
 import { enexto, rloc_to_flag, migrate_to_level } from './teleport.js';
 import { ledger_no } from './dungeon.js';
 import { Is_candle } from './timeout.js';
@@ -4474,9 +4476,10 @@ function Blind_telepat() {
  * debit pay (credit/money2mon); bill menu → money2mon/splitobj;
  * via_menu `menu_pick_pay_items` (D-1684; leftover IA_BUY_OBJ KEY is
  * next rhack); cheapest_item early return (D-1688); buy_container
- * (D-1702); thank-you verbalize; ECMD_TIME when paid.
- * Deferred: multi-shk getpos; used-up FullyUsedUp/PartlyUsedUp;
- * traditional itemize; mute/Deaf thank-you nod; SetVoice.
+ * (D-1702); multi-shk getpos pay-whom (D-1704); thank-you verbalize;
+ * ECMD_TIME when paid.
+ * Deferred: used-up FullyUsedUp/PartlyUsedUp; traditional itemize;
+ * mute/Deaf thank-you nod; SetVoice.
  */
 export async function dopay() {
     game.multi = 0;
@@ -4534,13 +4537,45 @@ export async function dopay() {
             return ECMD_OK;
         }
     } else {
-        // multi-shk getpos deferred — prefer resident
-        shkp = resident;
-        if (!shkp) {
-            await pline('There appears to be no shopkeeper here to receive your payment.');
+        // C: seensk > 1 — getpos "the creature you want to pay" (`:1814–1856`)
+        await pline('Pay whom?');
+        const u = game.u || {};
+        const cc = { x: u.ux | 0, y: u.uy | 0 };
+        if ((await getpos(cc, true, 'the creature you want to pay')) < 0) {
+            return ECMD_CANCEL;
+        }
+        const cx = cc.x | 0;
+        const cy = cc.y | 0;
+        if (cx < 0) {
+            await pline('Try again...');
             return ECMD_OK;
         }
+        if (u_at(cx, cy)) {
+            await pline('You are generous to yourself.');
+            return ECMD_OK;
+        }
+        const mtmp = m_at(cx, cy);
+        if (!cansee(cx, cy) && (!mtmp || !canspotmon(mtmp))) {
+            await pline(`You can't ${!Blind() ? 'see' : 'sense'} anyone there.`);
+            return ECMD_OK;
+        }
+        if (!mtmp) {
+            await pline('There is no one there to receive your payment.');
+            return ECMD_OK;
+        }
+        if (!mtmp.isshk) {
+            await pline(`${Monnam(mtmp)} is not interested in your payment.`);
+            return ECMD_OK;
+        }
+        if (mtmp !== resident && !m_next2u(mtmp)) {
+            await pline(`${Shknam(mtmp)} is too far to receive your payment.`);
+            return ECMD_OK;
+        }
+        shkp = mtmp;
     }
+
+    // C: if (!shkp) debugpline0; return ECMD_OK — then proceed
+    if (!shkp) return ECMD_OK;
 
     const eshkp = ESHK(shkp);
     if (!eshkp) return ECMD_OK;

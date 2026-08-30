@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `shk.c` shk_names_obj makeknown (named). Not buy_container. **Addressed:** D-1703
+- [x] `shk.c` dopay multi-shk getpos (named). Not shk_names_obj. **Addressed:** D-1704
+
+
+- [x] `shk.c` shk_names_obj makeknown (named). Not buy_container. **Addressed:** D-1703 `3d728adf`
 
 
 - [x] `shk.c` buy_container (named). Not cheapest_item. **Addressed:** D-1702 `c7648ccf`

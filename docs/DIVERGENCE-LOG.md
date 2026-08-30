@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-1704 — shk.c dopay multi-shk getpos
+
+- **Status:** fixed (map-driven Open from D-1703; not a public FAIL)
+- **Symptom:** map named `dopay` multi-shk getpos. C when
+  `seensk > 1` prompts "Pay whom?" then `getpos` for the payee
+  (ESC cancel, self, unseen, empty cell, non-shk, too-far). JS
+  silently preferred the resident shopkeeper and skipped input.
+- **C locus:** `shk.c` `dopay` `:1814–1856`; callees `getpos`
+  (`getpos.c`), `m_at`, `cansee`, `canspotmon`, `m_next2u`,
+  `Monnam`/`Shknam`. Caller `cmd.c` `'p'` / `uhitm.c` `:494`.
+- **JS was:** `shkp = resident` in the `else` of `seensk === 1`;
+  invented "no shopkeeper" when `!resident`.
+- **Fix:** live getpos pay-whom with C branch order and messages;
+  `ECMD_CANCEL` on ESC; null-shkp return before proceed. Named:
+  FullyUsedUp/PartlyUsedUp; traditional itemize ynq; mute/Deaf
+  nod; `bill_box_content`.
+- **JS:** `js/shk.js`.
+- **Verified:** save-oracle probe skip (untagged); green+strict
+  seed8000/0900; focused seed0116 127/127; CURRENT cohort 10/10
+  + strict (incl. seed0007 302/302, seed2200 230/230).
+- **Files:** `js/shk.js`.
+
 ## D-1703 — shk.c shk_names_obj makeknown
 
 - **Status:** fixed (map-driven Open from D-1702; not a public FAIL)

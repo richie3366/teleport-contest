@@ -2767,8 +2767,10 @@ Has_contents rewrite; `unpaid_cost` COST_CONTENTS → `contained_cost`;
 **D-1703:** `shk_names_obj` `:3412–3445` `observe_object` then
 `makeknown` for `!oc_magic` && `saleable` WEAPON/ARMOR/SCROLL/SPBOOK
 or MIRROR; `highc` unknown announce vs `You(fmt)`; `plur(amt)`;
-deferred debit/robbed/angry appease, used-up FullyUsedUp/PartlyUsedUp,
-traditional itemize, multi-shk getpos; `observe_object` FIRST_OBJECT skip;
+**D-1704:** `dopay` `:1814–1856` multi-shk `getpos` pay-whom (ESC
+`ECMD_CANCEL`; `cx<0` / self / `!cansee` / empty / `!isshk` / too-far);
+deferred used-up FullyUsedUp/PartlyUsedUp, traditional itemize ynq,
+mute/Deaf thank-you nod; `observe_object` FIRST_OBJECT skip;
 deferred container `bill_box_content`, `remote_burglary`, gem glass pseudo-ID, 
 `arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`

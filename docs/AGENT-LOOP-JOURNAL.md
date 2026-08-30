@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1704 shk.c dopay multi-shk getpos
+
+**Objective:** Open `shk.c` dopay multi-shk getpos. Not shk_names_obj.
+**C locus:** `shk.c` `dopay` `:1814–1856`; callees `getpos` / `m_at` /
+`cansee` / `canspotmon` / `m_next2u`.
+**JS locus:** `js/shk.js` `dopay`.
+**Change:** seensk>1 live getpos pay-whom (ESC cancel; self / unseen /
+empty / !isshk / too-far). No silent resident stub.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; green+strict; seed0116 127/127;
+cohort 10/10 incl. seed0007 302/302 seed2200 230/230.
+**Next:** Open `shk.c` bill_box_content. Not contained_cost.
+**Blocked:** none.
 ## 2026-08-30 — D-1703 shk.c shk_names_obj makeknown
 
 **Objective:** Open `shk.c` shk_names_obj makeknown. Not buy_container.
