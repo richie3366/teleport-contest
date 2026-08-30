@@ -1255,7 +1255,10 @@ peel local object/spot timers so off-level HATCH_EGG/rot/burn/melt do not fire;
 **LS_MONSTER locality is light.c `mx > 0` not timeout.c migrating/mydogs
 (D-1708; same predicate in JSON `snapshotLocalLights` /
 `snapshotGlobalLights`)**; **`update_mlstmv` `iter_mons` skip
-DEADMONSTER/`mon_offmap` (D-1709)**; cant_go_back FREEING still named;
+DEADMONSTER/`mon_offmap` (D-1709)**; **`cant_go_back` FREEING vs
+WRITING|FREEING (D-1722; JSON `delete_levelfile` stash drop +
+`remdun_mapseen` notreachable + `discard_migrations`; not binary
+NHFILE)**; `free_luathemes` / full migrating `obfree` named;
 **JSON `payload.current` `serLevel`/`deserLevel` per-blob relink (D-1696;
 never `billobjs`; **other `LFILE_EXISTS` `payload.levels` D-1697 M2**;
 **RANGE_GLOBAL pack-lamp relink D-1698 — JSON gamestate-before-current
@@ -2368,8 +2371,10 @@ next trailing exercise / seg1. **seed0367 @1946 getobj_takeoff (D-0634);
 **`makedog` pony → `put_saddle_on_mon`** (D-0212); **`initedog` `u.uconduct.pets++`** (D-0125); 
 **`keepdogs`/`losedogs`/`levl_follower`/`mon_arrive` With_you** (D-0149; 
 **With_you `restore_cham` D-1637**);
-**`update_mlstmv` `iter_mons` skip DEADMONSTER/`mon_offmap` (D-1709)**; 
-cant_go_back FREEING named; 
+**`update_mlstmv` `iter_mons` skip DEADMONSTER/`mon_offmap` (D-1709)**;
+**`cant_go_back` FREEING vs WRITING|FREEING (D-1722; `do.c:1640–1664`
++ `delete_levelfile` / `remdun_mapseen` / `discard_migrations`; JSON
+analogue)**; `free_luathemes` / full migrating `obfree` named; 
 **`migrate_to_level` `In_W_tower` xyflags bit 2 (D-1198)**; 
 **`mon_arrive` After_you `my=xyflags` before rloc (D-1199)**; 
 **`mon_arrive` After_you `MIGR_LEFTOVERS` `deliver_obj_to_mon` DF_ALL (D-1505)**; 

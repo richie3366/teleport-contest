@@ -1,5 +1,41 @@
 # Divergence log
 
+## D-1722 — do.c/dog.c cant_go_back FREEING
+
+- **Status:** fixed (map-driven Open from D-1721; not a public FAIL)
+- **Symptom:** map named `cant_go_back` FREEING. JS always
+  `update_mlstmv` and always WRITING-stashed `level_info` on leave,
+  so endgame/tutorial leave never skipped persist, never marked
+  overview `notreachable`, and never discarded migrating mons/objs.
+- **C locus:** `do.c` `goto_level` `:1640–1664`
+  `cant_go_back = (newdungeon && In_endgame) || leaving_tutorial`;
+  `nhfp->mode = cant_go_back ? FREEING : (WRITING | FREEING)`;
+  then `delete_levelfile` / `remdun_mapseen` / `discard_migrations`.
+  Callees `files.c:718–730`, `dungeon.c:2810–2832`, `dog.c:935–990`.
+  `update_file` = COUNTING|WRITING; savemonchn `forget_temple_entry`
+  only when WRITING.
+- **JS was:** unconditional `update_mlstmv` + priest forget + stash
+  VISITED|LFILE_EXISTS after keepdogs; no `leaving_tutorial`.
+- **Fix:** JSON analogue (not binary NHFILE `savelev_core` dealloc).
+  Ordinary leave still WRITING|FREEING stash. FREEING-only peels
+  RANGE_LEVEL timers/lights without persist. Then delete_levelfile
+  (drop stash, clear LFILE_EXISTS), remdun_mapseen (`notreachable`),
+  discard_migrations (keep Wizard / endgame dest). Export existing
+  `discard_minvent` clone.
+- **JS:** `js/do.js` `goto_level`; `js/files.js` `delete_levelfile`;
+  `js/dungeon.js` `remdun_mapseen`; `js/dog.js` `discard_migrations`;
+  `js/mon.js` export `discard_minvent`.
+- **Not this iter:** `free_luathemes`; binary savelev_core fmon
+  `dealloc_monst`; full `obfree` (timers/LS_OBJECT/contents) on
+  migrating objs; `update_mlstmv` skip (D-1709).
+- **Verified:** save-oracle probe skip untagged `dog.c:cant_go_back`;
+  tagged `do.c:goto_level` → ledger-seed0015 (private 8472/8472);
+  focused seed0015/0700/0014 stairs + seed0013 restore + seed0105
+  lamp; rng-diff --all-segments seed0013; green+strict; cohort 9/9
+  + strict.
+- **Files:** `js/do.js`, `js/files.js`, `js/dungeon.js`, `js/dog.js`,
+  `js/mon.js`.
+
 ## D-1721 — cmd.c getdir yn_function
 
 - **Status:** fixed (map-driven Open from D-1720; not a public FAIL)

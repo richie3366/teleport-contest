@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `cmd.c` getdir yn_function (named). Not yn_function_menu. **Addressed:** D-1721
+- [x] `dog.c` cant_go_back FREEING (named). Not update_mlstmv. **Addressed:** D-1722
+
+
+- [x] `cmd.c` getdir yn_function (named). Not yn_function_menu. **Addressed:** D-1721 `48ddbfc8`
 
 
 - [x] `shk.c` Hallu currency ROLL_FROM (named). Not arti_cost. **Addressed:** D-1720 `7381e463`

@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1722 do.c/dog.c cant_go_back FREEING
+
+**Objective:** Open `dog.c` cant_go_back FREEING (named). Not
+update_mlstmv.
+**C locus:** `do.c` `goto_level` `:1640–1664`; `files.c`
+`delete_levelfile`; `dungeon.c` `remdun_mapseen`; `dog.c`
+`discard_migrations`.
+**JS locus:** `js/do.js` `goto_level`; `js/files.js`; `js/dungeon.js`;
+`js/dog.js`; `js/mon.js` export `discard_minvent`.
+**Change:** Endgame/tutorial leave is FREEING-only (no VISITED stash);
+ordinary leave still WRITING|FREEING. Then delete_levelfile /
+remdun_mapseen / discard_migrations. JSON analogue, not binary NHFILE.
+Named: `free_luathemes`; full migrating `obfree`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `dog.c:cant_go_back`; tagged
+`do.c:goto_level` ledger-seed0015 private 8472/8472; focused
+seed0015/0700/0014 + seed0013 restore + seed0105; rng-diff
+--all-segments seed0013; green+strict; cohort 9/9 + strict.
+**Next:** Open `sp_lev.c` lspo_object non-merge quan repeat.
+**Blocked:** none.
 ## 2026-08-30 — D-1721 cmd.c getdir yn_function
 
 **Objective:** Open `cmd.c` getdir yn_function (named). Not

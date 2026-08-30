@@ -1699,6 +1699,21 @@ export function recbranch_mapseen(source, dest) {
     mptr.br = br;
 }
 
+/**
+ * C ref: dungeon.c remdun_mapseen `:2810–2832` — mark overview nodes
+ * for dungeon `dnum` notreachable (C `#if 1`; does not unlink).
+ * @param {number} dnum
+ */
+export function remdun_mapseen(dnum) {
+    const want = dnum | 0;
+    for (const mptr of game.mapseenchn || []) {
+        if ((mptr?.lev?.dnum | 0) === want) {
+            if (!mptr.flags) mptr.flags = {};
+            mptr.flags.notreachable = 1;
+        }
+    }
+}
+
 /** C ref: dungeon.c seen_string — 0/1/2/3 → no/a|an/some/many */
 function seen_string(n, obj) {
     switch (n | 0) {
