@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `options.c` wizmgender glyph-reset (named). Not wizweight. **Addressed:** D-1701
+- [x] `shk.c` buy_container (named). Not cheapest_item. **Addressed:** D-1702
+
+
+- [x] `options.c` wizmgender glyph-reset (named). Not wizweight. **Addressed:** D-1701 `f7a10b6f`
 
 
 - [x] `options.c` mO perminv_mode compound row (named). Not optfn_perminv_mode. **Addressed:** D-1700 `3ab2697c`

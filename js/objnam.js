@@ -2531,19 +2531,36 @@ export function doname(obj) {
 }
 
 /**
- * C ref: objnam.c paydoname — doname with invent-style price suppressed
- * (billing menus / shk_names_obj). Named omissions: Has_contents cknown
- * dance; "an unpaid "/"your " container rewrite.
+ * C ref: objnam.c paydoname `:2311–2355` — doname with invent-style
+ * price suppressed (billing menus / shk_names_obj). Has_contents zeros
+ * cknown around doname then "an unpaid "/"your " + contents phrasing.
+ * buy_container sets no_charge so the just-bought box stays "a/an"
+ * rather than "your".
  */
 export function paydoname(obj) {
+    if (!obj) return '';
     if (!game.iflags) game.iflags = {};
-    // C paydoname `:2318–2328` — save wizweight, force Off around doname
+    const save_cknown = obj.cknown;
     const save_wizweight = game.iflags.wizweight;
+    if (Has_contents(obj)) obj.cknown = 0;
     game.iflags.wizweight = false;
     game.iflags.suppress_price = (game.iflags.suppress_price | 0) + 1;
-    const p = doname(obj);
+    let p = doname(obj);
     game.iflags.suppress_price = (game.iflags.suppress_price | 0) - 1;
     game.iflags.wizweight = save_wizweight;
+
+    if (Has_contents(obj)) {
+        if (!obj.no_charge) {
+            if (p.startsWith('a ')) p = p.slice(2);
+            else if (p.startsWith('an ')) p = p.slice(3);
+            p = `${obj.unpaid ? 'an unpaid ' : 'your '}${p}`;
+        }
+        if (!obj.cknown) {
+            if (obj.unpaid) p += ' and its contents';
+            else p = `the contents of ${p}`;
+        }
+    }
+    obj.cknown = save_cknown;
     return p;
 }
 

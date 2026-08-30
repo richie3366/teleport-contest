@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1702 shk.c buy_container named-container pay
+
+**Objective:** Open `shk.c` buy_container. Not cheapest_item.
+**C locus:** `shk.c` `buy_container` `:2307–2411`;
+`insufficient_funds` `:2454–2481`; `reject_purchase` `:2417–2451`;
+`update_bill` `:2169–2211`; `make_itemized_bill` `:1606–1645`;
+`objnam.c` `paydoname` `:2330–2354`.
+**JS locus:** `js/shk.js`, `js/objnam.js`.
+**Change:** Known/UndisclosedContainer coalesce; pay contents then
+box; COST_CONTENTS → `contained_cost`; paydoname no_charge rewrite.
+No FullyUsedUp / `bill_box_content`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe tagged shop-unpaid template 35/35; green+strict;
+cohort 9/9 incl. seed0007 302/302 seed2200 230/230 seed0116 127/127.
+**Next:** Open `shk.c` shk_names_obj makeknown. Not buy_container.
+**Blocked:** none.
 ## 2026-08-30 — D-1701 options.c optfn_boolean wizmgender glyph-reset
 
 **Objective:** Open `options.c` wizmgender glyph-reset. Not wizweight.

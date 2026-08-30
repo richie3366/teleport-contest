@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1702 — shk.c buy_container named-container pay
+
+- **Status:** fixed (map-driven Open from D-1701; not a public FAIL)
+- **Symptom:** map named `buy_container`. C `pay_billed_items` routes
+  `ibill[].usedup >= KnownContainer` through `buy_container` (pay
+  unpaid contents then the box, one combined `shk_names_obj` when
+  sight-unseen). JS skipped `Has_contents` in `make_itemized_bill`
+  and paid contained unpaid as ordinary `FullyIntact` via `dopayobj`.
+- **C locus:** `shk.c` `buy_container` `:2307–2411`; callers
+  `pay_billed_items` `:2124–2138`; callees `insufficient_funds`
+  `:2454–2481`, `reject_purchase` `:2417–2451`, `update_bill`
+  `:2169–2211`, `dopayobj` `:2219–2302`; feeder `make_itemized_bill`
+  container arm `:1606–1645`; `objnam.c` `paydoname` `:2330–2354`.
+- **JS was:** no `buy_container`; `make_itemized_bill` skipped bags;
+  `update_bill_simple` no ibill bidx remap; `unpaid_cost` ignored
+  COST_CONTENTS; `paydoname` no container rewrite.
+- **Fix:** live `buy_container` + helpers; container coalesce to
+  Known/UndisclosedContainer; COST_CONTENTS → existing
+  `contained_cost`; paydoname Has_contents / no_charge phrasing.
+  Named: FullyUsedUp/PartlyUsedUp; `bill_box_content`; Traditional
+  itemize; SetVoice; OBJ_ONBILL dealloc.
+- **JS:** `js/shk.js`, `js/objnam.js`.
+- **Verified:** save-oracle probe tagged shop-unpaid-seed0116
+  (template 35/35, no unpaid — not a red billing falsifier);
+  private session 2904/2904 35/35; green+strict seed8000/0900;
+  CURRENT cohort 9/9 + strict (incl. seed0007 302/302, seed2200
+  230/230, seed0116 shop 127/127).
+- **Files:** `js/shk.js`, `js/objnam.js`.
+
 ## D-1701 — options.c optfn_boolean wizmgender glyph-reset
 
 - **Status:** fixed (map-driven Open from D-1700; not a public FAIL)

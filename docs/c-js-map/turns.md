@@ -910,7 +910,7 @@ SCR_MAIL/amulet uncursed exclusions; blanket `observe_object` in `xname`/`doname
 D-0928 #1180 / D-0716) + **`distant_name`** (D-0469; 
 monmove callers / gameover o_id wipe deferred); 
 **`doname` unpaid suffix + `paydoname` suppress_price** (D-0461; 
-container paydoname rewrite / `contained_cost` deferred); 
+container paydoname rewrite D-1702 / `contained_cost` via unpaid_cost COST_CONTENTS); 
 `doname_with_price` for-sale + **`record_price_quote`** (D-0460/D-0469); 
 **box `locked`/`unlocked`/`broken`/`trapped` prefixes** (D-0464; `greased` prefix deferred); 
 **`short_oname` + `simpleonames`/`thesimpleoname`** (D-0881; 
@@ -2759,9 +2759,14 @@ via_menu always `menu_pick_pay_items` (deleted invented
 `pay_take_canned_billed`; leftover IA_BUY_OBJ KEY is next `rhack`
 `cmd.c:3642–3651`); **D-1688:** `cheapest_item` `:1521–1539` min
 `ibill[].cost` + `pay_billed_items` `:2060–2080` cash+credit early
-return (stashed_gold / `*paid_p` `" left"` / `more_than_one`); deferred debit/robbed/angry appease, used-up/container bill,
-traditional itemize, `makeknown`/`observe_object` in shk_names_obj, multi-shk getpos; `buy_container`;
-deferred container `bill_box_content`/`contained_cost`, `remote_burglary`, gem glass pseudo-ID, 
+return (stashed_gold / `*paid_p` `" left"` / `more_than_one`);
+**D-1702:** `buy_container` `:2307–2411` + `insufficient_funds` /
+`reject_purchase` / `update_bill` + `make_itemized_bill` container
+coalesce (`KnownContainer` / `UndisclosedContainer`) + `paydoname`
+Has_contents rewrite; `unpaid_cost` COST_CONTENTS → `contained_cost`;
+deferred debit/robbed/angry appease, used-up FullyUsedUp/PartlyUsedUp,
+traditional itemize, `makeknown`/`observe_object` in shk_names_obj, multi-shk getpos;
+deferred container `bill_box_content`, `remote_burglary`, gem glass pseudo-ID, 
 `arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 
