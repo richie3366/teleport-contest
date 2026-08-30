@@ -2798,8 +2798,10 @@ used-up/unpaid headings + `update_bill` ONBILL extract +
 `obj_extract_self` ONBILL; **D-1715:** `pay_billed_items`
 `:2082–2109` Traditional itemize `yn_function("Itemized billing?",
 "ynq m", 'q')` + `menu_requested` toggle + `dopayobj` `:2259–2275`
-y_n Pay? (`upstart(doname)`); named: mute/Deaf thank-you nod;
-`remote_burglary`, gem glass pseudo-ID, 
+y_n Pay? (`upstart(doname)`); **D-1716:** `dopay` `:2011–2025`
+mute/Deaf thank-you nod (`hero_deaf`/`muteshk` else
+`Shknam` nods; surcharge bang/period; `paid` `update_inventory`);
+named: `remote_burglary`, gem glass pseudo-ID, 
 `arti_cost`, Hallu currency, `costly_gold`; botl live `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 

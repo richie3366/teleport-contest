@@ -30,7 +30,7 @@
 // pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM;
 // get_obj_location buried (minvent via distant_name); sell-side quotes partial;
 // dopay: debit/robbed/angry appease (D-0998);
-// mute/Deaf thank-you nod; multi-shk getpos pay-whom (D-1704);
+// multi-shk getpos pay-whom (D-1704); mute/Deaf nod is D-1716;
 // container bill_box_content (D-1705);
 // traditional itemize ynq (D-1715); FullyUsedUp/PartlyUsedUp (D-1714);
 // SetVoice; Izchak candle special_stock polish; safe_qbuf sell prompt;
@@ -4628,7 +4628,7 @@ function Blind_telepat() {
  * (D-1702); multi-shk getpos pay-whom (D-1704); thank-you verbalize;
  * ECMD_TIME when paid; FullyUsedUp/PartlyUsedUp (D-1714);
  * Traditional itemize ynq (D-1715).
- * Deferred: mute/Deaf thank-you nod; SetVoice.
+ * mute/Deaf thank-you nod (D-1716). SetVoice still named.
  */
 export async function dopay() {
     game.multi = 0;
@@ -4905,20 +4905,25 @@ export async function dopay() {
         paid = paid || paidRef.paid;
     }
 
+    // C: {mute shk,deaf hero}-aware thank you (`:2011–2025`)
     if (pay_done && !ANGRY(shkp) && paid) {
-        const u = game.u;
-        const deaf = !!(u?.Deaf || (u?.HDeaf | 0) || (u?.EDeaf | 0));
-        if (!deaf && !muteshk(shkp)) {
-            const st = shtypes[(eshkp.shoptype | 0) - SHOPBASE];
-            const shopNm = st?.name || 'shop';
-            const bang = eshkp.surcharge ? '.' : '!';
+        const st = shtypes[(eshkp.shoptype | 0) - SHOPBASE];
+        const shopNm = st?.name || 'shop';
+        const bang = eshkp.surcharge ? '.' : '!';
+        if (!hero_deaf() && !muteshk(shkp)) {
+            // SetVoice(shkp, 0, 80, 0) — no-op without SOUNDLIB
             await verbalize(
                 `Thank you for shopping in ${s_suffix(shkname(shkp))} ${shopNm}${bang}`,
             );
+        } else {
+            const nods = eshkp.surcharge ? '' : ' appreciatively';
+            await pline(
+                `${Shknam(shkp)} nods${nods} at you for shopping in ${noit_mhis(shkp)} ${shopNm}${bang}`,
+            );
         }
-        // mute/Deaf nod deferred
     }
 
+    if (paid) update_inventory();
     if (game.iflags) game.iflags.menu_requested = false;
     return paid ? ECMD_TIME : ECMD_OK;
 }

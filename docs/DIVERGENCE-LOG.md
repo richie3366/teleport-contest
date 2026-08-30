@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1716 — shk.c dopay mute/Deaf thank-you nod
+
+- **Status:** fixed (map-driven Open from D-1715; not a public FAIL)
+- **Symptom:** map named mute/Deaf thank-you nod. After a successful
+  pay, C speaks `"Thank you for shopping in …"` only when the hero
+  hears and the shk can talk; otherwise `Shknam` nods. JS verbalized
+  the hearing path and skipped the else, and its Deaf check missed
+  `u.uroleplay.deaf`.
+- **C locus:** `shk.c` `dopay` `:2011–2025`
+  `if (pay_done && !ANGRY(shkp) && paid)` then
+  `if (!Deaf && !muteshk(shkp))` `verbalize` else
+  `pline("%s nods%s at you for shopping in %s %s%s", Shknam,
+  !surcharge ? " appreciatively" : "", noit_mhis, shtypes[shoptype
+  - SHOPBASE].name, !surcharge ? "!" : ".")`. `youprop.h` Deaf is
+  `HDeaf || EDeaf || u.uroleplay.deaf`. `muteshk` is helpless or
+  `msound <= MS_ANIMAL` (helpless already returned earlier). Then
+  `if (paid) update_inventory()`.
+- **JS was:** hearing verbalize only; `u.Deaf || HDeaf || EDeaf`
+  (no roleplay); no `update_inventory` at dopay tail; comment
+  named the nod Open.
+- **Fix:** else nod via existing `hero_deaf()`/`muteshk`; surcharge
+  appreciatively/bang; `paid` `update_inventory`. SetVoice remains
+  named (no-op without SOUNDLIB). Rule #2: no fs.
+- **JS:** `js/shk.js` `dopay`.
+- **Not this iter:** `remote_burglary`; gem glass pseudo-ID;
+  SetVoice; `arti_cost`; Hallu currency.
+- **Verified:** save-oracle probe skip (untagged `shk.c:dopay`);
+  canary **8**/8 (hearing verbalize; HDeaf / uroleplay.deaf /
+  sticky `u.Deaf` / `MS_ANIMAL` nod; surcharge period; female
+  `her`; angry no thank-you); green+strict seed8000/0900;
+  focused seed0383 + seed0116 shop; CURRENT cohort **8**/8 +
+  strict.
+- **Files:** `js/shk.js`.
+
 ## D-1715 — shk.c pay_billed_items Traditional itemize ynq
 
 - **Status:** fixed (map-driven Open from D-1714; not a public FAIL)
