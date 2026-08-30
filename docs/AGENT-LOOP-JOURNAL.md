@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1713 o_init.c observe_object FIRST_OBJECT skip
+
+**Objective:** Open `invent.c` observe_object FIRST_OBJECT skip
+(named). Not undiscover_object.
+**C locus:** `o_init.c` `observe_object` `:441–451`;
+`youprop.h` `Hallucination`; callers `invent.c` `:171` / `:1039`
+/ `:1217`.
+**JS locus:** `js/invent.js` `observe_object`.
+**Change:** skip `otyp < FIRST_OBJECT` (generic/STRANGE_OBJECT);
+Hallu via `Hallucination()` not sticky `u.Hallucination`;
+`discover_object(..., FALSE, TRUE, FALSE)`. Named: useupall/obfree.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; canary STRANGE/LAST_GENERIC
+skip + FIRST_OBJECT / Halluc_resistance sees; green+strict;
+focused seed0383; cohort 7/7 + strict.
+**Next:** Open `shk.c` FullyUsedUp/PartlyUsedUp.
+**Blocked:** none.
 ## 2026-08-30 — D-1712 objects.h oc_merge extract
 
 **Objective:** Open `objects.h` oc_merge extract (named). Not

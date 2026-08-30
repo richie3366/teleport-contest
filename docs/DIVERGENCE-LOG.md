@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1713 — o_init.c observe_object FIRST_OBJECT skip
+
+- **Status:** fixed (map-driven Open from D-1712; not a public FAIL)
+- **Symptom:** map named `observe_object` FIRST_OBJECT skip. C skips
+  generic objects and STRANGE_OBJECT (`otyp < FIRST_OBJECT`) and
+  Hallucination, so those objects keep `dknown==0` and never enter
+  `discover_object`. JS set `dknown=1` for every live obj unless sticky
+  `u.Hallucination`.
+- **C locus:** `o_init.c` `observe_object` `:441–451`
+  `if (oindx >= FIRST_OBJECT && !Hallucination)` then `obj->dknown = 1`
+  and `discover_object(oindx, FALSE, TRUE, FALSE)`.
+  `youprop.h` `Hallucination` is `HHallucination && !Halluc_resistance`.
+  `discover_object` `:453` also returns on `oindx < FIRST_OBJECT`.
+  Callers include `invent.c` `inuse_classify` `:171`, `addinv_core2`
+  `:1039`, `hold_another_object` `:1217`.
+- **JS was:** `if (!obj || game.u?.Hallucination) return` then always
+  `dknown=1`; comment deferred FIRST_OBJECT / generic skip.
+- **Fix:** match C `if`; `Hallucination()` from `display.js` (D-1493);
+  pass `credit_hero` FALSE. Rule #2: no fs. Already imported
+  `FIRST_OBJECT`.
+- **JS:** `js/invent.js` `observe_object`.
+- **Not this iter:** `useupall` / `obfree`; Hallu `obj_to_glyph` query;
+  steal/muse `unknow_object`; `yn_function_menu`.
+- **Verified:** save-oracle probe skip (untagged `o_init.c:observe_object`);
+  canary STRANGE_OBJECT/LAST_GENERIC skip, FIRST_OBJECT sees, Hallu
+  skip, Halluc_resistance sees; green+strict seed8000/0900; focused
+  seed0383; CURRENT cohort **7**/7 + strict.
+- **Files:** `js/invent.js`.
+
 ## D-1712 — objects.h oc_merge extract
 
 - **Status:** fixed (map-driven Open from D-1711; not a public FAIL)

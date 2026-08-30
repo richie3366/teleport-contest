@@ -933,6 +933,9 @@ flushes prinv `--More--` before makewish `ublesscnt`) +
 `hitfloor(FALSE)`** (D-1272; autoquiver on stay; cursed LOADSTONE skips burden drop; 
 fatal wished corpse / artifact `dropy`+wasUpolyd+crysknife / perm_invent WIN_INVEN still named); 
 **prinv `xprname(..., dot)`** (D-0070); **`observe_object` in invent_lines** (D-0079); 
+**`observe_object` FIRST_OBJECT skip** (D-1713; C `o_init.c:441–451`;
+generic/STRANGE_OBJECT `otyp < FIRST_OBJECT`; Hallu `youprop.h` not sticky
+`u.Hallucination`; `discover_object` credit_hero FALSE; useupall/obfree named); 
 **`prinv` total_of + `xprname` quan + `(N in total)`** (D-0388); 
 **`count_contents`** nested/quan/everything (D-0395; shoppy `costly_spot` deferred); 
 xname-path observe beyond invent; **`pickup_prinv` slight/moderate/near/overload + 

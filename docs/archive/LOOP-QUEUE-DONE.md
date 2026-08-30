@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `objects.h` oc_merge extract (named). Not oc_charged. **Addressed:** D-1712
+- [x] `invent.c` observe_object FIRST_OBJECT skip (named). Not undiscover_object. **Addressed:** D-1713
+
+
+- [x] `objects.h` oc_merge extract (named). Not oc_charged. **Addressed:** D-1712 `00f70d3d`
 
 
 - [x] `dungeon.c` update_lastseentyp DRAWBRIDGE_UP / furniture-mimic (named). Not knox/drawbridge. **Addressed:** D-1711 `f187612b`

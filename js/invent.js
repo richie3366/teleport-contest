@@ -48,7 +48,7 @@ import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
     endgamelevelname, obj_glyph, suppress_map_output,
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
-    clear_nhwindow_message,
+    clear_nhwindow_message, Hallucination,
 } from './display.js';
 import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin, mungspaces } from './getline.js';
@@ -2522,13 +2522,19 @@ export function count_contents(container, nested, quantity, everything, newdrop)
 }
 
 /**
- * C ref: o_init.c observe_object — dknown + discover_object(..., FALSE, TRUE).
+ * C ref: o_init.c observe_object `:441–451`.
+ * Skip generic objects and STRANGE_OBJECT (otyp < FIRST_OBJECT) and
+ * Hallucination (`youprop.h`); else dknown + discover_object(..., FALSE,
+ * TRUE, FALSE).
  */
 export function observe_object(obj) {
-    if (!obj || game.u?.Hallucination) return;
-    // FIRST_OBJECT / generic skip deferred
-    obj.dknown = 1;
-    discover_object(obj.otyp, false, true);
+    if (!obj) return;
+    const oindx = obj.otyp;
+    /* skip for generic objects and for STRANGE_OBJECT */
+    if (oindx >= FIRST_OBJECT && !Hallucination()) {
+        obj.dknown = 1;
+        discover_object(oindx, false, true, false);
+    }
 }
 
 /**
