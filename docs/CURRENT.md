@@ -62,10 +62,12 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** after D-1699 (seed4500 still PASS). JSON ledger take
-done (D-1694…D-1699). Private B0 (not in `sessions/manifest.json`):
-trap-same-floor 14/17→**17/17**; ledger 25/26→**26/26**;
-catchup 29/30→**30/30**; shop/trap-ledger unrecorded.
+**Suite 44/44** fortress after D-1699. Save-oracle required for tagged
+restore/other-floor Open (`save-oracle.mjs probe --omit`). Map still
+picks work; do not shop the fork dashboard. Private B0 (not in
+`sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
+wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
+trap-ledger **38/38**; shop template **35/35** (no unpaid).
 **Next:** map-driven named omissions (`docs/c-js-map/`). Not mO perminv.
 **Do not skip D-1531…D-1699 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.

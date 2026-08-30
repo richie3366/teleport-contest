@@ -5,10 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1699 (cadence **#2100** at `ac1199da`).
-  seed4500 still PASS. JSON ledger take done. Private B0:
-  trap-same-floor 17/17; ledger 26/26; catchup 30/30; shop/trap-ledger
-  unrecorded. **Next:** map-driven named omissions. Not mO perminv.
+- **Suite 44/44** fortress. Save-oracle required for tagged restore
+  Open. Private B0: trap-same-floor 17/17; ledger 26/26; wait-save
+  catchup 30/30; catchup-after-restore 26/30 red; trap-ledger 38/38;
+  shop template 35/35 (no unpaid). **Next:** map-driven named omissions.
   Do not skip D-1531…D-1699. Do not re-port D-1675…D-1699.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn
@@ -16,8 +16,7 @@ Objective/score live in `CURRENT.md`.
   tip-spill/squeaky; hideunder; yyyymmddhhmmss when[]; Blind
   bigroom/oracle/valley/sanctum; DRAWBRIDGE_UP/mimic lastseentyp;
   guardian remaps; Punished float_down; water/lava steed; uhitm
-  `u.dx`; map_menu_cmd; `context.novel`; shop/trap-ledger recipes;
-  walk-key /
+  `u.dx`; map_menu_cmd; `context.novel`; walk-key /
   PREFIXCMD overlay; `possibly_unwield` / `mon_break_armor`; sync
   `newcham`; array rn2 / pauper_legacy / killed_nemesis; spell dull /
   zap rider eyecount; perm_invent can_set; wizmgender glyph-reset;
@@ -85,8 +84,8 @@ Objective/score live in `CURRENT.md`.
 
 - D-1699: getlev place/residency/hideunder/steed-ustuck; M6 one
   `restore_cham` per current fmon; `run_timers` last; restlevelfile
-  omoves restamp (`svm.moves`). Ledger 26/26; catchup 30/30. Named:
-  worms/`reglyph_darkroom`/shop recipes. D-1698 RANGE_GLOBAL.
+  omoves restamp (`svm.moves`). Ledger 26/26; wait-save catchup 30/30;
+  catchup-after-restore 26/30 red. Named: worms/`reglyph_darkroom`.
 - D-1698: JSON `savegamestate` drop `worn`/`iflags`; `owornmask`+
   `setworn`+`setuwep`; RANGE_GLOBAL timers/lights/`timer_id`;
   migrating/fruit/quest/`artidisco`; restgamestate relink. Pack lamp.
