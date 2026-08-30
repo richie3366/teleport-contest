@@ -34,6 +34,18 @@ import {
     ECMD_OK,
     COLNO,
     ROWNO,
+    STONE,
+    VWALL,
+    HWALL,
+    TLCORNER,
+    TRCORNER,
+    BLCORNER,
+    BRCORNER,
+    CROSSWALL,
+    TUWALL,
+    TDWALL,
+    TLWALL,
+    TRWALL,
     TREE,
     FOUNTAIN,
     THRONE,
@@ -42,7 +54,65 @@ import {
     ALTAR,
     DOOR,
     DBWALL,
+    IRONBARS,
+    ROOM,
+    CORR,
+    STAIRS,
+    LADDER,
+    POOL,
+    ICE,
+    LAVAPOOL,
+    LAVAWALL,
+    AIR,
+    CLOUD,
+    WATER,
+    DRAWBRIDGE_UP,
     DRAWBRIDGE_DOWN,
+    S_stone,
+    S_vwall,
+    S_hwall,
+    S_tlcorn,
+    S_trcorn,
+    S_blcorn,
+    S_brcorn,
+    S_crwall,
+    S_tuwall,
+    S_tdwall,
+    S_tlwall,
+    S_trwall,
+    S_ndoor,
+    S_vodoor,
+    S_hodoor,
+    S_vcdoor,
+    S_hcdoor,
+    S_bars,
+    S_tree,
+    S_room,
+    S_darkroom,
+    S_corr,
+    S_litcorr,
+    S_upstair,
+    S_dnstair,
+    S_upladder,
+    S_dnladder,
+    S_altar,
+    S_grave,
+    S_throne,
+    S_sink,
+    S_fountain,
+    S_pool,
+    S_ice,
+    S_lava,
+    S_lavawall,
+    S_vodbridge,
+    S_hodbridge,
+    S_vcdbridge,
+    S_hcdbridge,
+    S_air,
+    S_cloud,
+    S_water,
+    M_AP_FURNITURE,
+    M_AP_TYPE,
     ASCENDED,
     ESCAPED,
     In_endgame,
@@ -72,6 +142,9 @@ import { builds_up } from './hacklib.js';
 import { align_gname } from './roles.js';
 import { altarmask_at } from './pray.js';
 import { is_drawbridge_wall } from './dbridge.js';
+import { db_under_typ } from './hack.js';
+import { m_at } from './mon.js';
+import { canseemon } from './display.js';
 
 const FLAG_MAP = {
     town: TOWN,
@@ -945,14 +1018,144 @@ function ensure_lastseentyp() {
 }
 
 /**
- * C ref: dungeon.c update_lastseentyp — remember terrain typ when mapped.
- * DRAWBRIDGE_UP under-typ and furniture-mimic cmap_to_type deferred.
+ * C ref: mkroom.c cmap_to_type `:910–1030` — cmap S_* → levl.typ.
+ * Used for remembered terrain when mimics pose as furniture.
+ * Unknown / trap / beam / branch-stair cmap → STONE catchall.
+ */
+export function cmap_to_type(sym) {
+    let typ = STONE;
+    switch (sym | 0) {
+    case S_stone:
+        typ = STONE;
+        break;
+    case S_vwall:
+        typ = VWALL;
+        break;
+    case S_hwall:
+        typ = HWALL;
+        break;
+    case S_tlcorn:
+        typ = TLCORNER;
+        break;
+    case S_trcorn:
+        typ = TRCORNER;
+        break;
+    case S_blcorn:
+        typ = BLCORNER;
+        break;
+    case S_brcorn:
+        typ = BRCORNER;
+        break;
+    case S_crwall:
+        typ = CROSSWALL;
+        break;
+    case S_tuwall:
+        typ = TUWALL;
+        break;
+    case S_tdwall:
+        typ = TDWALL;
+        break;
+    case S_tlwall:
+        typ = TLWALL;
+        break;
+    case S_trwall:
+        typ = TRWALL;
+        break;
+    case S_ndoor:  /* no door (empty doorway) */
+    case S_vodoor: /* open door in vertical wall */
+    case S_hodoor: /* open door in horizontal wall */
+    case S_vcdoor: /* closed door in vertical wall */
+    case S_hcdoor:
+        typ = DOOR;
+        break;
+    case S_bars:
+        typ = IRONBARS;
+        break;
+    case S_tree:
+        typ = TREE;
+        break;
+    case S_room:
+    case S_darkroom:
+        typ = ROOM;
+        break;
+    case S_corr:
+    case S_litcorr:
+        typ = CORR;
+        break;
+    case S_upstair:
+    case S_dnstair:
+        typ = STAIRS;
+        break;
+    case S_upladder:
+    case S_dnladder:
+        typ = LADDER;
+        break;
+    case S_altar:
+        typ = ALTAR;
+        break;
+    case S_grave:
+        typ = GRAVE;
+        break;
+    case S_throne:
+        typ = THRONE;
+        break;
+    case S_sink:
+        typ = SINK;
+        break;
+    case S_fountain:
+        typ = FOUNTAIN;
+        break;
+    case S_pool:
+        typ = POOL;
+        break;
+    case S_ice:
+        typ = ICE;
+        break;
+    case S_lava:
+        typ = LAVAPOOL;
+        break;
+    case S_vodbridge: /* open drawbridge spanning north/south */
+    case S_hodbridge:
+        typ = DRAWBRIDGE_DOWN;
+        break;        /* east/west */
+    case S_vcdbridge: /* closed drawbridge in vertical wall */
+    case S_hcdbridge:
+        typ = DBWALL;
+        break;
+    case S_air:
+        typ = AIR;
+        break;
+    case S_cloud:
+        typ = CLOUD;
+        break;
+    case S_water:
+        typ = WATER;
+        break;
+    case S_lavawall:
+        typ = LAVAWALL;
+        break;
+    default:
+        break; /* not a cmap symbol? */
+    }
+    return typ;
+}
+
+/**
+ * C ref: dungeon.c update_lastseentyp `:2926–2938` — remember terrain
+ * typ when mapped. DRAWBRIDGE_UP → db_under_typ(drawbridgemask);
+ * visible furniture mimic → cmap_to_type(mappearance).
  */
 export function update_lastseentyp(x, y) {
     const loc = game.level?.at(x, y);
     if (!loc) return;
+    let ltyp = loc.typ | 0;
+    if (ltyp === DRAWBRIDGE_UP)
+        ltyp = db_under_typ(loc.drawbridgemask);
+    const mtmp = m_at(x, y);
+    if (mtmp && M_AP_TYPE(mtmp) === M_AP_FURNITURE && canseemon(mtmp))
+        ltyp = cmap_to_type(mtmp.mappearance);
     const lst = ensure_lastseentyp();
-    lst[x][y] = loc.typ | 0;
+    lst[x][y] = ltyp;
 }
 
 /**

@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1711 — dungeon.c update_lastseentyp DRAWBRIDGE_UP / furniture-mimic
+
+- **Status:** fixed (map-driven Open from D-1710; not a public FAIL)
+- **Symptom:** map named `update_lastseentyp` DRAWBRIDGE_UP under-typ
+  and visible furniture-mimic `cmap_to_type`. JS stored raw
+  `levl.typ` (DRAWBRIDGE_UP=19) and ignored `m_at` disguises.
+- **C locus:** `dungeon.c` `update_lastseentyp` `:2926–2938`.
+  DRAWBRIDGE_UP → `db_under_typ(drawbridgemask)` (`dbridge.c`
+  `:115–128`, live `js/hack.js`). Then `m_at` &&
+  `M_AP_TYPE==M_AP_FURNITURE` && `canseemon` →
+  `cmap_to_type(mappearance)` (`mkroom.c:910–1030`). Callers
+  `display.c` `map_background` `:257` / `_map_location` `:469`;
+  `dungeon.c` recalc `:3192`; `trap.c` float_down `:5053`.
+- **JS was:** `lst[x][y] = loc.typ`; comment deferred both arms.
+- **Fix:** live `cmap_to_type` (STONE catchall; door/stair/ladder
+  cmap groups as C). `defsym.h` S_* for those arms in `const.js`.
+  Import hoisted `db_under_typ` / `m_at` / `canseemon` (`--can`
+  SAFE). Do not clone S_* already local in makemon/vision.
+- **JS:** `js/dungeon.js` `update_lastseentyp` + `cmap_to_type`;
+  `js/const.js` cmap `S_*`.
+- **Not this iter:** `display.c` `display_monster` M_AP_FURNITURE
+  `cmap_to_glyph` lastseentyp override; `map_background` caller
+  of `update_lastseentyp`; sokosolved/roguelevel/quest recalc
+  flags; knox/drawbridge (D-1693); `hhmmss`.
+- **Verified:** save-oracle probe skip (untagged
+  `dungeon.c:update_lastseentyp`); cmap_to_type 26/26 +
+  DRAWBRIDGE_UP lastseentyp MOAT/ICE smoke; green+strict
+  seed8000/0900; CURRENT cohort 7/7 + seed0106 overview +
+  strict (seed0007 302/302, seed2200 230/230).
+- **Files:** `js/dungeon.js`, `js/const.js`.
+
 ## D-1710 — calendar.c yyyymmddhhmmss cemetery when[]
 
 - **Status:** fixed (map-driven Open from D-1709; not a public FAIL)

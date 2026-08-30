@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1711 dungeon.c update_lastseentyp DRAWBRIDGE_UP / mimic
+
+**Objective:** Open `dungeon.c` update_lastseentyp DRAWBRIDGE_UP /
+furniture-mimic. Not knox/drawbridge.
+**C locus:** `dungeon.c:2926–2938`; callee `mkroom.c` `cmap_to_type`
+`:910–1030`; `dbridge.c` `db_under_typ` `:115–128`.
+**JS locus:** `js/dungeon.js` `update_lastseentyp` + `cmap_to_type`;
+`js/const.js` `S_*`.
+**Change:** DRAWBRIDGE_UP → `db_under_typ`; visible furniture
+mimic → `cmap_to_type(mappearance)`. Named: display_monster
+furniture lastseentyp; map_background caller; sokosolved flags.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; cmap 26/26 + lastseentyp
+MOAT/ICE smoke; green+strict; cohort 7/7 + seed0106.
+**Next:** Open `objects.h` oc_merge extract.
+**Blocked:** none.
 ## 2026-08-30 — D-1710 calendar.c yyyymmddhhmmss cemetery when[]
 
 **Objective:** Open `dungeon.c` cemetery `yyyymmddhhmmss` `when[]`.

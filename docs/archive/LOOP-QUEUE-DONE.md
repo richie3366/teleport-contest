@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `dungeon.c` cemetery yyyymmddhhmmss when[] (named). Not cemetery JSON. **Addressed:** D-1710
+- [x] `dungeon.c` update_lastseentyp DRAWBRIDGE_UP / furniture-mimic (named). Not knox/drawbridge. **Addressed:** D-1711
+
+
+- [x] `dungeon.c` cemetery yyyymmddhhmmss when[] (named). Not cemetery JSON. **Addressed:** D-1710 `b5cb56e6`
 
 
 - [x] `dog.c` `update_mlstmv`: skip `DEADMONSTER` / `mon_offmap` like `iter_mons` (`mon.c:4531–4535`). Not cant_go_back FREEING. Source: `reviews/loop-unattended/656-c33608ff-savelev-stash-lights-billobjs.md` **Addressed:** D-1709 `2353e6fb`

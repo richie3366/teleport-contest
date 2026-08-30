@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dungeon.c` update_lastseentyp DRAWBRIDGE_UP / furniture-mimic (named). Not knox/drawbridge.
 - [ ] `objects.h` oc_merge extract (named). Not oc_charged.
 - [ ] `invent.c` observe_object FIRST_OBJECT skip (named). Not undiscover_object.
 - [ ] `shk.c` FullyUsedUp/PartlyUsedUp (named). Not bill_box_content.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `shk.c` dopay mute/Deaf thank-you nod (named). Not getpos.
 - [ ] `shk.c` remote_burglary (named). Not bill_box_content.
 - [ ] `shk.c` get_cost gem glass pseudo-ID (named). Not remote_burglary.
+- [ ] `dungeon.c` recalc_mapseen sokosolved / roguelevel / quest flags (named). Not DRAWBRIDGE_UP lastseentyp.
+- [ ] `calendar.c` hhmmss (named). Not yyyymmddhhmmss.
+- [ ] `display.c` display_monster M_AP_FURNITURE cmap_to_glyph lastseentyp (named). Not update_lastseentyp.
+- [ ] `invent.c` useupall / obfree (named). Not observe_object FIRST_OBJECT skip.
+- [ ] `cmd.c` yn_function_menu query_menu (named). Not yn_function addcmdq.
 
 ## Parked (do not pop)
 
