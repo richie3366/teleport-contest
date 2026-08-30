@@ -999,7 +999,7 @@ export function obj_has_timer(obj, action) {
  * TIMER_OBJECT: arg is obj (duplicate same obj+action aborted).
  * TIMER_LEVEL: arg is packed a_long (or `{ a_long }`); used for
  * MELT_ICE_AWAY spot timers (D-0965). tid = svt.timer_id++ (D-1527
- * #timeout print_queue). save/rest timer_id named.
+ * #timeout print_queue). JSON save/rest timer_id is D-1698.
  */
 export function start_timer(when, kind, action, arg) {
     const isObj = (kind | 0) === TIMER_OBJECT;

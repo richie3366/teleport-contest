@@ -4,7 +4,10 @@
 // getbones. In-session goto_level keeps live pointers in level_info
 // (no JSON mid-game). Bones ghostly extras stay in bones.js (D-0274).
 // Named: binary NHFILE; worms; bubbles; exclusions; C dst relative dance
-// (JSON stores stairs/trap dst.dlevel absolute).
+// (JSON stores stairs/trap dst.dlevel absolute). Two relink sites:
+// deserLevel RANGE_LEVEL (never billobjs); restgamestate RANGE_GLOBAL
+// against invent + migrating (D-1698). JSON gamestate-before-current is
+// a no-op for RANGE_GLOBAL (those objects are never on fobj).
 
 import { game } from './gstate.js';
 import { GameMap } from './game.js';
@@ -450,6 +453,184 @@ export function relinkLevelTimersLights(info) {
             ls.id = obj;
         } else if (type === LS_MONSTER) {
             const mon = find_mid_in_blob(nid, roots.fmon);
+            if (!mon) {
+                throw new Error(`relink_light_sources: no monster ${nid}`);
+            }
+            ls.id = mon;
+        }
+    }
+}
+
+function o_on_invent(id, invent) {
+    const want = id | 0;
+    if (!want || !invent) return null;
+    if (Array.isArray(invent)) {
+        for (const o of invent) {
+            if (!o) continue;
+            if ((o.o_id | 0) === want) return o;
+            const c = o_on_chain(want, o.cobj);
+            if (c) return c;
+        }
+        return null;
+    }
+    return o_on_chain(id, invent);
+}
+
+function walkMons(list, fn) {
+    if (!list) return;
+    if (Array.isArray(list)) {
+        for (const m of list) {
+            if (m) fn(m);
+        }
+        return;
+    }
+    for (let m = list; m; m = m.nmon) fn(m);
+}
+
+/**
+ * C shk.c find_oid subset: invent / fobj / buried / migrating_objs then
+ * fmon / migrating_mons / mydogs minvent. Never billobjs.
+ * @param {number} id
+ * @param {object} roots
+ * @returns {object|null}
+ */
+export function findOidInRoots(id, roots) {
+    const o = o_on_invent(id, roots.invent)
+        || o_on_chain(id, roots.fobj)
+        || o_on_chain(id, roots.buried)
+        || o_on_chain(id, roots.migrating_objs);
+    if (o) return o;
+    let found = null;
+    const scan = (m) => {
+        if (found || !m) return;
+        found = o_on_chain(id, m.minvent);
+    };
+    walkMons(roots.fmon, scan);
+    if (found) return found;
+    walkMons(roots.migrating_mons, scan);
+    if (found) return found;
+    walkMons(roots.mydogs, scan);
+    return found;
+}
+
+export function findMidInRoots(id, roots) {
+    const want = id | 0;
+    if (!want) return null;
+    let found = null;
+    const scan = (m) => {
+        if (!found && m && (m.m_id | 0) === want) found = m;
+    };
+    walkMons(roots.fmon, scan);
+    if (found) return found;
+    walkMons(roots.migrating_mons, scan);
+    if (found) return found;
+    walkMons(roots.mydogs, scan);
+    return found;
+}
+
+/**
+ * C timeout.c save_timers(RANGE_GLOBAL) / light.c save_light_sources.
+ * Snapshot; do not peel (C peels because FREEING; JSON Game dies after S).
+ * @returns {object[]}
+ */
+export function snapshotGlobalTimers() {
+    const out = [];
+    for (let t = game._timer_base; t; t = t.next) {
+        if (timer_is_local(t)) continue;
+        out.push(serTimer(t));
+    }
+    return out;
+}
+
+export function snapshotGlobalLights() {
+    const out = [];
+    for (const ls of game.light_base || []) {
+        if (!ls) continue;
+        if ((ls.type | 0) === LS_OBJECT && !ls.id) continue;
+        if (light_is_local(ls)) continue;
+        out.push(serLight(ls));
+    }
+    return out;
+}
+
+export function deserTimerList(arr) {
+    return (arr || []).map(deserTimer);
+}
+
+export function deserLightList(arr) {
+    const out = [];
+    for (const raw of arr || []) {
+        if (!raw) continue;
+        out.push({
+            type: raw.type | 0,
+            x: raw.x | 0,
+            y: raw.y | 0,
+            range: raw.range | 0,
+            id: raw.id | 0,
+        });
+    }
+    return out;
+}
+
+export function serMonList(list) {
+    const out = [];
+    walkMons(list, (m) => out.push(serMon(m)));
+    return out;
+}
+
+export function deserMonList(arr) {
+    const out = [];
+    for (const raw of arr || []) {
+        if (raw) out.push(deserMon(raw));
+    }
+    return out;
+}
+
+/**
+ * C restore.c restgamestate `:725–726` relink_timers(FALSE) /
+ * relink_light_sources(FALSE). RANGE_GLOBAL only: invent +
+ * migrating_objs + migrating_mons/mydogs minvent. Never billobjs.
+ * Failed lookup throws (≡ C panic). Skip already-relinked current-level
+ * entries (obj pointer / non-numeric light id).
+ * @param {object[]} timers
+ * @param {object[]} lights
+ * @param {{ invent?: object[], migrating_objs?: object, migrating_mons?: object[]|object, mydogs?: object[]|object }} roots
+ */
+export function relinkGlobalTimersLights(timers, lights, roots) {
+    const gRoots = {
+        invent: roots.invent,
+        migrating_objs: roots.migrating_objs,
+        migrating_mons: roots.migrating_mons,
+        mydogs: roots.mydogs,
+    };
+    for (const t of timers || []) {
+        if (!t || t.obj) continue;
+        const kind = t.kind | 0;
+        if (kind === TIMER_LEVEL || kind === TIMER_GLOBAL) continue;
+        if (kind === TIMER_MONSTER) {
+            throw new Error('relink_timers: TIMER_MONSTER');
+        }
+        if (kind !== TIMER_OBJECT) continue;
+        const oid = t.arg_id | 0;
+        const obj = findOidInRoots(oid, gRoots);
+        if (!obj) {
+            throw new Error(`relink_timers: no object ${oid}`);
+        }
+        t.obj = obj;
+    }
+    for (const ls of lights || []) {
+        if (!ls) continue;
+        if (typeof ls.id !== 'number') continue;
+        const type = ls.type | 0;
+        const nid = ls.id | 0;
+        if (type === LS_OBJECT) {
+            const obj = findOidInRoots(nid, gRoots);
+            if (!obj) {
+                throw new Error(`relink_light_sources: no object ${nid}`);
+            }
+            ls.id = obj;
+        } else if (type === LS_MONSTER) {
+            const mon = findMidInRoots(nid, gRoots);
             if (!mon) {
                 throw new Error(`relink_light_sources: no monster ${nid}`);
             }

@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1698 save.c savegamestate JSON worn/RANGE_GLOBAL relink
+
+**Objective:** JSON save/restore ledger Cluster 4 — worn, drop iflags,
+RANGE_GLOBAL timers/lights, restgamestate relink.
+**C locus:** `save.c` `savegamestate` `:264–332`; `restore.c`
+`restgamestate` `:687–699` / `:725–726`.
+**JS locus:** `js/save.js`; `relinkGlobalTimersLights` `js/lev_json.js`.
+**Change:** `owornmask`+`setworn`+`setuwep`; strip context pointers;
+global timers/lights/`timer_id`; migrating/fruit/quest/`artidisco`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** green+strict; seed0013; seed0105; stairs; trap-same-floor;
+cohort. Ledger 25/26 (Cluster 5).
+**Next:** Cluster 5 getlev `place_monster`/`restore_cham`.
+**Blocked:** none.
 ## 2026-08-30 — D-1697 save.c dosave0 JSON other LFILE_EXISTS ledgers
 
 **Objective:** JSON save/restore ledger Cluster 3 — `levels{}` +

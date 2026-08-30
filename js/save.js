@@ -13,10 +13,11 @@ import { pline, docrt, getmsghistory, putmsghistory } from './display.js';
 import { gamelog_add } from './pline.js';
 import { change_luck } from './attrib.js';
 import {
-    FULL_MOON, OBJ_INVENT, OBJ_CONTAINED,
+    FULL_MOON, OBJ_INVENT, OBJ_CONTAINED, OBJ_MIGRATING,
     ECMD_OK, BUFSZ, VISITED, LFILE_EXISTS,
+    W_WEP, W_SWAPWEP, W_QUIVER,
 } from './const.js';
-import { objects_globals_init } from './objects.js';
+import { objects_globals_init, objectNames } from './objects.js';
 import { nh_terminate_capture } from './topten.js';
 import { l_nhcore_init } from './mklev.js';
 import {
@@ -27,12 +28,25 @@ import {
 } from './dungeon.js';
 import { rest_track } from './track.js';
 import { restore_timers, restore_light_sources } from './mkobj.js';
+import { setworn } from './do_wear.js';
+import { setuwep, setuswapwep, setuqwep } from './wield.js';
+import { restore_artifacts } from './artifact.js';
 import {
     serObj,
+    serObjChain,
     deserObjChain,
     serLevel,
     deserLevel,
     levelBlobFromPayload,
+    snapshotGlobalTimers,
+    snapshotGlobalLights,
+    deserTimerList,
+    deserLightList,
+    serMonList,
+    deserMonList,
+    relinkGlobalTimersLights,
+    findOidInRoots,
+    findMidInRoots,
 } from './lev_json.js';
 
 export { serObj, serMon, serLevel, deserLevel, serTraps, deserTraps } from './lev_json.js';
@@ -56,17 +70,14 @@ function serInventArray(invent) {
 const WORN_SLOTS = [
     'uwep', 'uswapwep', 'uquiver',
     'uarm', 'uarmc', 'uarmh', 'uarms', 'uarmg', 'uarmf', 'uarmu',
-    'uleft', 'uright', 'uchain', 'uball',
+    'uleft', 'uright', 'uchain', 'uball', 'uamul', 'ublindf',
 ];
 
-function serWorn(u) {
-    const worn = {};
-    for (const slot of WORN_SLOTS) {
-        const obj = u?.[slot];
-        worn[slot] = obj?.invlet ?? null;
-    }
-    return worn;
-}
+const PICK_AXE = objectNames.indexOf('PICK_AXE');
+const GRAPPLING_HOOK = objectNames.indexOf('GRAPPLING_HOOK');
+
+/** Live obj/mon pointers that JSON.stringify cannot cycle through. */
+const CONTEXT_LIVE_KEYS = new Set(['piece', 'tin', 'book', 'hitmon', 'stylus']);
 
 function serObjectsMutable(objects) {
     if (!objects) return [];
@@ -101,11 +112,6 @@ function deserInventArray(arr) {
         invent.push(otmp);
     }
     return invent;
-}
-
-function findByInvlet(invent, invlet) {
-    if (invlet == null) return null;
-    return (invent || []).find((o) => o.invlet === invlet) || null;
 }
 
 function rebuildObjectsAt(fobj) {
@@ -182,9 +188,151 @@ function restoreOtherLedgers(payload) {
 }
 
 /**
+ * C save.c savegamestate Sfo_context_info. Stamp o_id/m_id from live
+ * pointers; drop piece/tin/book/hitmon/stylus so stringify cannot cycle.
+ * @param {object|null|undefined} ctx
+ * @returns {object}
+ */
+function serContext(ctx) {
+    if (!ctx || typeof ctx !== 'object') return {};
+    let out;
+    try {
+        out = JSON.parse(JSON.stringify(ctx, (k, v) => {
+            if (typeof v === 'function') return undefined;
+            if (CONTEXT_LIVE_KEYS.has(k)) return undefined;
+            if (v != null && typeof v === 'object' && !Array.isArray(v)
+                && (v.otyp != null || v.mnum != null || v.mx != null
+                    || v.data != null)) {
+                return undefined;
+            }
+            return v;
+        }));
+    } catch {
+        out = {};
+    }
+    if (ctx.victual) {
+        if (!out.victual) out.victual = {};
+        out.victual.o_id = (ctx.victual.o_id | 0)
+            || (ctx.victual.piece?.o_id | 0);
+        delete out.victual.piece;
+    }
+    if (ctx.tin) {
+        if (!out.tin) out.tin = {};
+        out.tin.o_id = (ctx.tin.o_id | 0) || (ctx.tin.tin?.o_id | 0);
+        delete out.tin.tin;
+    }
+    if (ctx.spbook) {
+        if (!out.spbook) out.spbook = {};
+        out.spbook.o_id = (ctx.spbook.o_id | 0) || (ctx.spbook.book?.o_id | 0);
+        delete out.spbook.book;
+    }
+    if (ctx.polearm) {
+        if (!out.polearm) out.polearm = {};
+        out.polearm.m_id = (ctx.polearm.m_id | 0)
+            || (ctx.polearm.hitmon?.m_id | 0);
+        delete out.polearm.hitmon;
+    }
+    return out;
+}
+
+/**
+ * C restore.c restobjchn `:283–290` / restmonchn `:451–453`.
+ * Missing o_id/m_id leaves the pointer null (old save / not in progress).
+ * @param {object} ctx
+ * @param {object} objRoots
+ * @param {object} monRoots
+ */
+function rebindContextIds(ctx, objRoots, monRoots) {
+    if (!ctx) return;
+    if (ctx.victual) {
+        const id = ctx.victual.o_id | 0;
+        ctx.victual.piece = id ? findOidInRoots(id, objRoots) : null;
+    }
+    if (ctx.tin) {
+        const id = ctx.tin.o_id | 0;
+        ctx.tin.tin = id ? findOidInRoots(id, objRoots) : null;
+    }
+    if (ctx.spbook) {
+        const id = ctx.spbook.o_id | 0;
+        ctx.spbook.book = id ? findOidInRoots(id, objRoots) : null;
+    }
+    if (ctx.polearm) {
+        const id = ctx.polearm.m_id | 0;
+        ctx.polearm.hitmon = id ? findMidInRoots(id, monRoots) : null;
+    }
+}
+
+/**
+ * C save.c savefruitchn `:950–971` fid>=0. Preserve JS nextf order
+ * (fruitadd newest-first); do not emulate C load prepend-reverse.
+ * @returns {{ fname: string, fid: number }[]}
+ */
+function serFruitchn() {
+    const out = [];
+    for (let f = game.ffruit; f; f = f.nextf) {
+        if ((f.fid | 0) < 0) continue;
+        out.push({ fname: String(f.fname || ''), fid: f.fid | 0 });
+    }
+    return out;
+}
+
+/**
+ * C restore.c loadfruitchn. Missing/non-array = old save (keep init fruit).
+ * @param {unknown} arr
+ */
+function loadFruitchn(arr) {
+    if (!Array.isArray(arr)) return;
+    let head = null;
+    let prev = null;
+    for (const raw of arr) {
+        if (!raw || typeof raw !== 'object') continue;
+        const node = {
+            fname: String(raw.fname || ''),
+            fid: raw.fid | 0,
+            nextf: null,
+        };
+        if (!head) head = node;
+        else prev.nextf = node;
+        prev = node;
+    }
+    game.ffruit = head;
+}
+
+/**
+ * C restore.c restgamestate `:687–699` setworn walk then setuwep so
+ * unweapon recomputes. JS setworn does not place W_WEP/SWAP/QUIVER;
+ * those slots use wield helpers, then C's pick-axe/grapple override.
+ * @param {object[]} invent
+ */
+function restWornFromInvent(invent) {
+    const u = game.u || (game.u = {});
+    let wep = null;
+    let swap = null;
+    let quiver = null;
+    for (const otmp of invent || []) {
+        const mask = otmp?.owornmask | 0;
+        if (!mask) continue;
+        setworn(otmp, mask);
+        if (mask & W_WEP) wep = otmp;
+        if (mask & W_SWAPWEP) swap = otmp;
+        if (mask & W_QUIVER) quiver = otmp;
+    }
+    if (swap) setuswapwep(swap);
+    if (quiver) setuqwep(quiver);
+    const otmp = wep || u.uwep || null;
+    u.uwep = null;
+    setuwep(otmp);
+    if (!u.uwep || u.uwep.otyp === PICK_AXE || u.uwep.otyp === GRAPPLING_HOOK) {
+        if (!game.gu) game.gu = {};
+        game.gu.unweapon = true;
+    }
+}
+
+/**
  * C ref: save.c dosave0 — write current game to VFS (JSON subset of savelev).
- * Named omissions: binary NHFILE format; multi-level ledger files; hangup
- * arms; overwrite yn; compress; looseball/chain when swallowed.
+ * Named omissions: binary NHFILE format; hangup arms; overwrite yn;
+ * compress; uid/nhuuid/urealtime/wreserve; save_oracles/save_killers;
+ * save_bc loose ball when swallowed.
  * mapseenchn cemetery JSON is save_dungeon/save_mapseen (D-1685);
  * current-level bonesinfo is savelev savecemetery.
  */
@@ -209,7 +357,6 @@ export function dosave0() {
         version: 1,
         plname: game.plname,
         u: serHero(u),
-        worn: serWorn(u),
         invent: serInventArray(game.invent),
         objects: serObjectsMutable(game.objects),
         bases: game.bases ? [...game.bases] : null,
@@ -217,11 +364,8 @@ export function dosave0() {
             ? [...game.oclass_prob_totals] : null,
         disco: game.disco ? [...game.disco] : [],
         flags: game.flags ? { ...game.flags } : {},
-        iflags: game.iflags ? { ...game.iflags } : {},
-        context: game.context
-            ? JSON.parse(JSON.stringify(game.context, (_k, v) =>
-                (typeof v === 'function' ? undefined : v)))
-            : {},
+        // C restore.c ~576–580: iflags (perm_invent) is not in the save.
+        context: serContext(game.context),
         moves: game.moves | 0,
         multi: game.multi | 0,
         urole: game.urole
@@ -256,6 +400,18 @@ export function dosave0() {
             ? [...game.spl_orderindx] : null,
         artiexist: game.artiexist
             ? [...game.artiexist] : null,
+        // C save.c save_artifacts artidisco; restore_artifacts hack_artifacts
+        artidisco: game.artidisco ? [...game.artidisco] : null,
+        quest_status: game.quest_status
+            ? JSON.parse(JSON.stringify(game.quest_status)) : null,
+        pl_fruit: game.pl_fruit || null,
+        ffruit: serFruitchn(),
+        migrating_objs: serObjChain(game.migrating_objs),
+        migrating_mons: serMonList(game.migrating_mons),
+        // C savegamestate save_timers(RANGE_GLOBAL) + timer_id + lights
+        timer_id: game.timer_id | 0,
+        timer_global: snapshotGlobalTimers(),
+        lights_global: snapshotGlobalLights(),
         preferred_pet: game.preferred_pet || null,
         _goldCount: game._goldCount | 0,
         _lastinvnr: game._lastinvnr | 0,
@@ -385,7 +541,7 @@ export function save_luadata() {
     return lua_data;
 }
 
-/** Plain-data hero fields; worn slots omitted (see serWorn). */
+/** Plain-data hero fields; worn slots omitted (owornmask + setworn). */
 function serHero(u) {
     if (!u) return {};
     const out = {};
@@ -453,7 +609,7 @@ export function try_restore_save() {
     game.plname = payload.plname || game.plname;
     game.disco = payload.disco || [];
     game.flags = { ...(game.flags || {}), ...(payload.flags || {}) };
-    game.iflags = { ...(game.iflags || {}), ...(payload.iflags || {}) };
+    // C: iflags (perm_invent, graphics) stay from nethackrc; not in save.
     game.context = { ...(payload.context || {}) };
     game.moves = payload.moves | 0;
     game.multi = payload.multi | 0;
@@ -481,16 +637,26 @@ export function try_restore_save() {
     game.preferred_pet = payload.preferred_pet;
     game._goldCount = payload._goldCount | 0;
     game._lastinvnr = payload._lastinvnr | 0;
+    if (payload.timer_id != null) game.timer_id = payload.timer_id | 0;
+    if (payload.quest_status) game.quest_status = payload.quest_status;
+    if (payload.pl_fruit != null) game.pl_fruit = payload.pl_fruit;
+    loadFruitchn(payload.ffruit);
+    restore_artifacts(payload.artidisco);
 
     const invent = deserInventArray(payload.invent);
     game.invent = invent;
 
     const u = { ...(payload.u || {}) };
-    for (const slot of WORN_SLOTS) {
-        u[slot] = findByInvlet(invent, payload.worn?.[slot]);
-    }
+    for (const slot of WORN_SLOTS) u[slot] = null;
     if (payload.uz) u.uz = { ...payload.uz };
     game.u = u;
+
+    if (payload.migrating_objs) {
+        game.migrating_objs = deserObjChain(payload.migrating_objs, OBJ_MIGRATING);
+    }
+    if (payload.migrating_mons) {
+        game.migrating_mons = deserMonList(payload.migrating_mons);
+    }
 
     // C restore.c restlevelfile others then getlev current. JSON hydrates
     // others into level_info without tearing down the live map (no FREEING).
@@ -514,6 +680,36 @@ export function try_restore_save() {
     // load_mapseen (dungeon.c :251–262 / :2752). After branches.
     restore_mapseenchn(payload);
     rebuildObjectsAt(info.fobj);
+
+    // C restgamestate `:687–699` after invent.
+    restWornFromInvent(invent);
+
+    // C restgamestate restore_timers(RANGE_GLOBAL) then invent then
+    // relink `:725–726`. JSON hydrates invent first (ids only), then
+    // inserts globals and relinks. Current-level timers already have
+    // obj from deserLevel; M2: only those plus RANGE_GLOBAL go on
+    // `_timer_base`.
+    const globalTimers = deserTimerList(payload.timer_global);
+    const globalLights = deserLightList(payload.lights_global);
+    restore_timers(globalTimers);
+    restore_light_sources(globalLights);
+    const idRoots = {
+        invent,
+        fobj: game.fobj,
+        buried: game.level?.buriedobjlist,
+        migrating_objs: game.migrating_objs,
+        fmon: game.fmon,
+        migrating_mons: game.migrating_mons,
+        mydogs: game.mydogs,
+    };
+    rebindContextIds(game.context, idRoots, idRoots);
+    relinkGlobalTimersLights(globalTimers, globalLights, {
+        invent,
+        migrating_objs: game.migrating_objs,
+        migrating_mons: game.migrating_mons,
+        mydogs: game.mydogs,
+    });
+
     // C getlev rest_track / restore_timers / restore_light_sources
     // for the current ledger only (M2: other ledgers stay on stash).
     if (info.track) rest_track(info.track);

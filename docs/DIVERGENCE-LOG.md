@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-1698 — save.c savegamestate JSON worn / RANGE_GLOBAL relink
+
+- **Status:** fixed (map-driven ledger Cluster 4; not a public FAIL)
+- **Symptom:** JSON `dosave0` kept a `worn` invlet table and `iflags`,
+  omitted RANGE_GLOBAL timers/lights/`timer_id`, migrating chains,
+  fruit, `quest_status`, `artidisco`. Pack-lamp timers would hold a
+  bare `o_id` when Cluster 5 `run_timers` fires. `JSON.stringify(context)`
+  could cycle on live `victual.piece`.
+- **C locus:** `save.c` `savegamestate` `:264–332`; `restore.c`
+  `restgamestate` `:525–735` (`setworn` `:687–699`, relink `:725–726`);
+  `eat.c` o_id at use; `save.c` `savemonchn` polearm `m_id`.
+- **JS was:** invlet `worn`; merged `payload.iflags`; no global relink.
+- **Fix:** drop `worn`/`iflags`; `owornmask` + `setworn` + `setuwep`;
+  stamp `victual.o_id` / `polearm.m_id`; strip live context pointers;
+  `timer_global`/`lights_global`/`timer_id`; migrating; fruit;
+  `quest_status`; `artidisco` + `hack_artifacts`. Relink vs invent +
+  migrating, never `billobjs`. Missing keys = old save (seed0013).
+  Named: uid/nhuuid/urealtime/wreserve/killers/oracles/`save_bc`.
+- **JS:** `js/save.js`; `js/lev_json.js` `relinkGlobalTimersLights`;
+  `js/eat.js`; `js/apply.js`; `js/artifact.js` `restore_artifacts`.
+- **Verified:** green+strict seed8000/0900; seed0013 99/99; seed0105
+  lamp; seed0015/0700/0014 stairs; trap-same-floor 17/17; cohort
+  1500/1800/0012/0004/0007/2200/0383. Ledger still 25/26 (Cluster 5).
+- **Files:** `js/save.js`, `js/lev_json.js`, `js/eat.js`, `js/apply.js`,
+  `js/artifact.js`, `js/mon.js`, `js/mkobj.js`.
+
 ## D-1697 — save.c dosave0 JSON other LFILE_EXISTS ledgers
 
 - **Status:** fixed (map-driven ledger Cluster 3; not a public FAIL)

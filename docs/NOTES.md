@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** after D-1697 (cadence **#2100** at `ac1199da`).
+- **Suite 44/44** after D-1698 (cadence **#2100** at `ac1199da`).
   seed4500 still PASS. **Hypothesis:** ledger dog 1-cell miss is
   getlev `place_monster`/`restore_cham` (Cluster 5). **Falsify:**
-  ledger recipe after Cluster 5. **Next:** Cluster 4 RANGE_GLOBAL
-  relink. Not mO perminv. Do not skip D-1531…D-1697.
-  Do not re-port D-1675…D-1697.
+  ledger recipe after Cluster 5. **Next:** Cluster 5 getlev post.
+  Not mO perminv. Do not skip D-1531…D-1698.
+  Do not re-port D-1675…D-1698.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham` wiz_intrinsic; mO `perminv_mode` compound row; setworn
   oc_oprop; keepdogs/grow_up leash; light-scroll `initedog`;
@@ -34,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1697.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1698.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,21 +45,21 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1697 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1698 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1697. Do not delete emin (**487**). Do not stub
+  D-1520…D-1698. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
-  `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level` /
-  `restore_artifacts`. Default `spot_monsters` Off.
+  `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`.
+  JSON `restore_artifacts` is D-1698. Default `spot_monsters` Off.
 - Do not import `wield.js`/`pickup.js`→`polyself.js` for `body_part`
   (`objnam.js` `body_part_latebound`). No makemon→hack/`artifact`/
   `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
-  `vision_reset`. D-1576…D-1697 in the index. No yn ^P glue /
+  `vision_reset`. D-1576…D-1698 in the index. No yn ^P glue /
   `ing_suffix` clone #3 / InvInUse poke (D-1603) / zap sticky Blind
   (D-1604). No `dat/tribute` indent=2. No static `files.js`←`spell.js`
   (TDZ). REST_LEVELS where getlev catchup reads it. Do not re-port
@@ -79,12 +79,14 @@ Objective/score live in `CURRENT.md`.
   (D-1694). Do not re-port `goto_level` savelev lights/billobjs
   (D-1695). Do not re-port `serLevel` `payload.current` (D-1696).
   Do not re-port other-ledger `payload.levels` (D-1697).
+  Do not re-port RANGE_GLOBAL `savegamestate` relink (D-1698).
 
 ## Landmarks (≤15)
 
-- D-1697: JSON `payload.levels` + `linfo` for other `LFILE_EXISTS`.
-  M2 stash timers. Ledger geometry restored; dog 1-cell off is
-  Cluster 5 getlev post. Named: shop/trap-ledger. D-1696 current.
+- D-1698: JSON `savegamestate` drop `worn`/`iflags`; `owornmask`+
+  `setworn`+`setuwep`; RANGE_GLOBAL timers/lights/`timer_id`;
+  migrating/fruit/quest/`artidisco`; restgamestate relink. Pack lamp.
+  Ledger dog is Cluster 5. D-1697 other ledgers.
 - D-1696: JSON `payload.current = serLevel(...)`; `deserLevel`
   GameMap + per-blob relink (no `billobjs`). Bones `write_bonesfile`
   calls `serLevel`. Missing `current` = old scattered keys. Named:
@@ -124,9 +126,5 @@ Objective/score live in `CURRENT.md`.
 - D-1686: IA_RUB_OBJ / IA_SWAPWEAPON / IA_WHATIS_OBJ pushkeys;
   `do_look` cmdq_pop KEY; `display_inventory` canned KEY. Traditional
   itemize is D-1687. D-1685 cemetery JSON.
-- D-1685: `save_mapseen`/`load_mapseen` cemetery JSON +
-  `savecemetery`/`restcemetery`; dosave0 mapseenchn + savelev
-  bonesinfo. when[] named. knox/drawbridge is D-1693. D-1684 pay
-  via_menu.
 - Audit **#2100**: reviews **645–653** (D-1684…D-1692). Fortress 44/44.
 
