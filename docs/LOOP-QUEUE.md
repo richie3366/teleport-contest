@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `end.c` artifact_score (named). Not hidden_gold.
 - [ ] `invent.c` doprgold hidden_gold (named). Not currency.
 - [ ] `objects.h` is_multigen / is_poisonable (named). Not oc_merge.
 - [ ] `shk.c` choose_stairs / u_left_shop leave verbalize (named). Not remote_burglary.

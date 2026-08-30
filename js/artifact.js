@@ -386,7 +386,7 @@ set_undiscovered_artifact(undiscovered_artifact);
  * C ref: artifact.c arti_cost `:2308–2317` — zorkmid value.
  * !oartifact → objects[otyp].oc_cost; else artilist[oartifact].cost if
  * nonzero, else 100 * oc_cost. Caller shk.c getprice `/4` when buying.
- * end.c artifact_score still named.
+ * end.c artifact_score is D-1730.
  */
 export function arti_cost(otmp) {
     const oc_cost = objects()?.[otmp?.otyp | 0]?.oc_cost | 0;

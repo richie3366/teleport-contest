@@ -1333,7 +1333,11 @@ inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace;
 `hide_monst` after ghostly; `paygd`/`clearpriests`; `unleash_all` in finish_paybill; 
 `done_in_by` G_UNIQ/ghost/mimicker/vampshifter/priest|minion/minvis/hallu/monhealthdescr/
 multi_reason; enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
-**`observe_quantum_cat` disclose D-1535** (live-cat contents line; escape/ascend companion HP named); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
+**`observe_quantum_cat` disclose D-1535** (live-cat contents line; escape/ascend companion HP named); 
+**`artifact_score` D-1730** (C `end.c:906–940`; ESCAPED/ASCENDED `really_done`
+`:1449` count + `:1482` list; `arti_cost*5/2` + `nowrap_add`; recurse
+`Has_contents`; live `js/end.js`; get_valuables / pet HP / DUMPLOG list
+named; hidden_gold is Open); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
 savelife Sick/endmultishot/curs_on_u/uswallow; 
 ordinary `vision_recalc(2)` gbuf newsym loop / `notice_all_mons`
 
@@ -2848,7 +2852,7 @@ unchanged); **D-1720:** `invent.c` `currency` `:1545–1554` Hallu
 `ROLL_FROM(currencies[])` (`hack.h` `rn2(SIZE)`; `amount!=1L`
 `makeplural`; live `js/invent.js` + `xprname` + wallet +
 dokick/dig/lock/trap clones); named: choose_stairs / `u_left_shop` leave verbalize then
-rob_shop, `costly_gold`, `end.c` `artifact_score`; botl live
+rob_shop, `costly_gold`; `end.c` `artifact_score` is D-1730; botl live
 `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 

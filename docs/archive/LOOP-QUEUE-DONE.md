@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `cmd.c` getdir CQ_REPEAT (named). Not yn_function_menu. **Addressed:** D-1729
+- [x] `end.c` artifact_score (named). Not hidden_gold. **Addressed:** D-1730
+
+
+- [x] `cmd.c` getdir CQ_REPEAT (named). Not yn_function_menu. **Addressed:** D-1729 `578b7088`
 
 
 - [x] `cmd.c` yn_function_menu query_menu (named). Not yn_function addcmdq. **Addressed:** D-1728 `aad60753`

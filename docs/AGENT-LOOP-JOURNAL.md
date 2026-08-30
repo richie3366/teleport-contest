@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1730 end.c artifact_score
+
+**Objective:** Open `end.c` artifact_score (named). Not hidden_gold.
+**C locus:** `end.c` `artifact_score` `:906–940`; `really_done`
+`:1449`/`:1482`; `integer.h` `nowrap_add`.
+**JS locus:** `js/end.js` `artifact_score` / `really_done` /
+`show_death_rip_and_summary`.
+**Change:** unique/invocation `arti_cost*5/2` into `urexp` when
+ESCAPED/ASCENDED; list worth lines after reward/escape sentence;
+cobj recurse; ASCENDED Demigod title. Named: get_valuables / pet HP /
+DUMPLOG list; hidden_gold Open.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `end.c:artifact_score`; node
+count+list+cobj; green+strict seed8000/0900; CURRENT cohort **9**/9
++ strict. Rule #2 clean.
+**Next:** Open `invent.c` doprgold hidden_gold.
+**Blocked:** none.
 ## 2026-08-30 — D-1729 cmd.c getdir CQ_REPEAT
 
 **Objective:** Open `cmd.c` getdir CQ_REPEAT (named). Not

@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1730 — end.c artifact_score
+
+- **Status:** fixed (map-driven Open from D-1729; not a public FAIL)
+- **Symptom:** map named `end.c` `artifact_score`. C walks invent/cobj
+  for `oartifact` or Bell/Book/Candelabrum, adds `arti_cost*5/2` via
+  `nowrap_add` when counting, else discover+known flags+putstr worth
+  line. JS had no function; escape/ascend summary always used the
+  death sentence.
+- **C locus:** `end.c` `artifact_score` `:906–940`; callers
+  `really_done` `:1449` TRUE, `:1482` FALSE when `!done_stopprint`,
+  DUMPLOG `:1486`. `integer.h` `nowrap_add`.
+- **JS was:** gold/depth `urexp` only; `show_death_rip_and_summary`
+  always “You died in …”; no unique-item score or list.
+- **Fix:** `artifact_score` walks invent array or nobj chain, recurse
+  `Has_contents`. Counting on ESCAPED/ASCENDED after bones. Listing
+  after “went to your reward” / “escaped from the dungeon”. ASCENDED
+  Demigod title. DUMPLOG second walk named omit.
+- **JS:** `js/end.js` `artifact_score` / `nowrap_add` / `really_done`
+  / `show_death_rip_and_summary`.
+- **Not this iter:** `get_valuables` / pet HP / Schroedinger score;
+  hidden_gold Open; DUMPLOG; gold/depth ascend-align bonus.
+- **Verified:** save-oracle probe skip (untagged `end.c:artifact_score`);
+  node count+list+cobj (Excalibur 10000, Bell 12500, nested);
+  green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+  Rule #2 clean.
+- **Files:** `js/end.js`.
+
 ## D-1729 — cmd.c getdir CQ_REPEAT
 
 - **Status:** fixed (map-driven Open from D-1728; not a public FAIL)

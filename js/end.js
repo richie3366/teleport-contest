@@ -12,8 +12,9 @@ import { yn_function, paranoid_query } from './getline.js';
 import { show_text_pages, show_nhw_menu_text } from './pager.js';
 import { genl_outrip_lines } from './rip.js';
 import { Goodbye } from './roles.js';
-import { an, doname, xname, the as theArt } from './objnam.js';
-import { COIN_CLASS } from './objects.js';
+import { an, doname, xname, the as theArt, the_unique_obj } from './objnam.js';
+import { COIN_CLASS, objectNameStrs } from './objects.js';
+import { arti_cost, artiname } from './artifact.js';
 import {
     DIED, GENOCIDED, STONING, QUIT, ESCAPED, ASCENDED, STARVING, BURNING,
     CHOKING, NON_PM, CORPSTAT_INIT, CORPSTAT_NONE,
@@ -45,6 +46,7 @@ import { paybill, money2mon } from './shk.js';
 import { shkname, shkname_is_pname } from './shknam.js';
 import {
     enlightenment, display_inventory, discover_object, makeknown, sortloot,
+    currency,
 } from './invent.js';
 import {
     list_vanquished, list_genocided, show_conduct,
@@ -62,7 +64,66 @@ const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
 const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const AMULET_OF_LIFE_SAVING = objectNames.indexOf('AMULET_OF_LIFE_SAVING');
+const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
+const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
+const CANDELABRUM_OF_INVOCATION =
+    objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const PM_GHOST = monsterNames.indexOf('PM_GHOST');
+
+/** C ref: integer.h nowrap_add — saturate at LONG_MAX (JS Number analogue). */
+function nowrap_add(a, b) {
+    const LONG_MAX = Number.MAX_SAFE_INTEGER;
+    const aa = Number(a) || 0;
+    const bb = Number(b) || 0;
+    return aa <= LONG_MAX - bb ? aa + bb : LONG_MAX;
+}
+
+/**
+ * C ref: end.c artifact_score `:906–940`. Walk invent or a cobj nobj
+ * chain. Unique/invocation items: zorkmid value via arti_cost, score
+ * value * 5 / 2. counting → nowrap_add into u.urexp; else discover,
+ * mark known, putstr the worth line. Recurse Has_contents.
+ * DUMPLOG listing (endwin 0) remains named omit.
+ * @param {object[]|object|null} list
+ * @param {boolean} counting
+ * @param {string[]|null} [lines] NHW_TEXT stand-in when !counting
+ */
+export function artifact_score(list, counting, lines = null) {
+    if (!list) return;
+    const walk = Array.isArray(list)
+        ? list.filter(Boolean)
+        : (() => {
+            const out = [];
+            for (let otmp = list; otmp; otmp = otmp.nobj) out.push(otmp);
+            return out;
+        })();
+    for (const otmp of walk) {
+        if (otmp.oartifact
+            || otmp.otyp === BELL_OF_OPENING
+            || otmp.otyp === SPE_BOOK_OF_THE_DEAD
+            || otmp.otyp === CANDELABRUM_OF_INVOCATION) {
+            const value = arti_cost(otmp);
+            const points = Math.trunc((value * 5) / 2);
+            if (counting) {
+                const u = game.u || (game.u = {});
+                u.urexp = nowrap_add(u.urexp | 0, points);
+            } else {
+                discover_object(otmp.otyp, true, true, false);
+                otmp.known = otmp.dknown = otmp.bknown = otmp.rknown = 1;
+                const name = otmp.oartifact
+                    ? artiname(otmp.oartifact)
+                    : (objectNameStrs[otmp.otyp] || '');
+                const pbuf =
+                    `${the_unique_obj(otmp) ? 'The ' : ''}${name}`
+                    + ` (worth ${value} ${currency(value)} and ${points} points)`;
+                if (lines) lines.push(pbuf);
+            }
+        }
+        if (Has_contents(otmp)) {
+            artifact_score(otmp.cobj, counting, lines);
+        }
+    }
+}
 
 /** C ref: youprop.h Lifesaved — uprops[LIFESAVED].extrinsic. */
 function Lifesaved(u = game.u || {}) {
@@ -597,7 +658,8 @@ async function disclose(how, taken) {
  * C ref: end.c really_done death summary + rip — NHW_TEXT via
  * display_nhwindow; wintty process_text_window paginates at rows-1.
  * Named omissions: paybill; discover_object invent walk; arise pline;
- * quit/escape/ascend score arms; In_endgame/quest depth text.
+ * get_valuables / pet-HP / Schroedinger score; In_endgame/quest depth;
+ * DUMPLOG second artifact_score; amulet killer suffix.
  */
 async function show_death_rip_and_summary(how, umoney, endtime = 0) {
     const flags = game.flags || {};
@@ -617,18 +679,31 @@ async function show_death_rip_and_summary(how, umoney, endtime = 0) {
 
     const u = game.u || {};
     const plname = game.plname || 'Player';
-    const roleName = (flags.female && game.urole?.name?.f)
-        ? game.urole.name.f
-        : (game.urole?.name?.m || 'Adventurer');
+    // C really_done `:1428–1434` — ASCENDED → Demigod/Demigoddess
+    const roleName = how === ASCENDED
+        ? (flags.female ? 'Demigoddess' : 'Demigod')
+        : ((flags.female && game.urole?.name?.f)
+            ? game.urole.name.f
+            : (game.urole?.name?.m || 'Adventurer'));
     lines.push(`${Goodbye()} ${plname} the ${roleName}...`);
     lines.push('');
 
-    const where = game.dungeons?.[u.uz?.dnum | 0]?.dname || 'The Dungeons of Doom';
-    const dlev = depth(u.uz);
     const pts = u.urexp | 0;
-    lines.push(
-        `You ${ENDS[how] || 'died'} in ${where} on dungeon level ${dlev} with ${pts} point${plur(pts)},`,
-    );
+    if (how === ESCAPED || how === ASCENDED) {
+        // C `:1475–1482` after artifact_score counting; pets named omit
+        const verb = how === ASCENDED
+            ? 'went to your reward'
+            : 'escaped from the dungeon';
+        lines.push(`You ${verb} with ${pts} point${plur(pts)},`);
+        artifact_score(game.invent, false, lines);
+    } else {
+        const where = game.dungeons?.[u.uz?.dnum | 0]?.dname
+            || 'The Dungeons of Doom';
+        const dlev = depth(u.uz);
+        lines.push(
+            `You ${ENDS[how] || 'died'} in ${where} on dungeon level ${dlev} with ${pts} point${plur(pts)},`,
+        );
+    }
     lines.push(
         `and ${umoney} piece${plur(umoney)} of gold, after ${game.moves | 0} move${plur(game.moves | 0)}.`,
     );
@@ -645,8 +720,8 @@ async function show_death_rip_and_summary(how, umoney, endtime = 0) {
 
 /**
  * C ref: end.c really_done — gameover; paybill; disclose; score; bones; rip; topten.
- * Named omissions: clearpriests/paygd; SchroedingersBox; dump/livelog;
- * logfile/xlogfile; toptenwin NHW_TEXT; arise pline;
+ * Named omissions: clearpriests/paygd; get_valuables / pet-HP score;
+ * dump/livelog; logfile/xlogfile; toptenwin NHW_TEXT; arise pline;
  * inven_inuse / ball-chain arms of done_object_cleanup; unleash_all
  * in finish_paybill; launch_in_progress abort; ParanoidBones getlin.
  */
@@ -716,7 +791,7 @@ async function really_done(how) {
     const deepest = deepest_lev_reached(false);
     tmp += 50 * (deepest - 1);
     if (deepest > 20) tmp += 1000 * ((deepest > 30) ? 10 : deepest - 20);
-    u.urexp = (u.urexp | 0) + tmp;
+    u.urexp = nowrap_add(u.urexp | 0, tmp);
     game._done_money = umoney;
 
     let corpse = null;
@@ -743,6 +818,13 @@ async function really_done(how) {
         if (!wizard || (await paranoid_query(paranoidBones, 'Save bones?'))) {
             await savebones(how, endtime, corpse);
         }
+    }
+
+    // C really_done `:1449` — count unique items after gold/depth, only
+    // on ESCAPED/ASCENDED (bones_ok is false for those hows). Listing is
+    // `:1482` inside the NHW_TEXT arm. get_valuables / pet HP named.
+    if (how === ESCAPED || how === ASCENDED) {
+        artifact_score(game.invent, true);
     }
 
     // C: outrip + goodbye into NHW_TEXT then display_nhwindow(TRUE)
