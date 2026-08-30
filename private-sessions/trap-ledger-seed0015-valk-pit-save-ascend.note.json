@@ -1,0 +1,14 @@
+{
+  "locus": "save.c savetrapchn / restore.c getlev",
+  "omitId": "D-1694",
+  "bucket": "pass",
+  "cTopline": "You climb up the stairs.",
+  "jsTopline": "You climb up the stairs.",
+  "from": "trap-ledger-seed0015-valk-pit-save-ascend",
+  "headRed": {
+    "sha": "d5570a11",
+    "rng": "8549/8549",
+    "screen": "38/38",
+    "note": "Directed trap-then-save path PASSed on HEAD. Pit is discovered on the save floor (current-level JSON traps), not an other-floor trap ledger miss. Still a useful getlev-after-pit canary; not a red buy_container/trap-other-floor peel."
+  }
+}

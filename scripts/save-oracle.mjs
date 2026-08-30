@@ -6,6 +6,7 @@
 //   node scripts/save-oracle.mjs replay --snapshot <id> --moves "< "
 //   node scripts/save-oracle.mjs fork --snapshot <id> --n 8 --seed N
 //   node scripts/save-oracle.mjs minimize --snapshot <id> --moves "<suffix>"
+//   node scripts/save-oracle.mjs prefix-gen --mode explore --n 4
 //
 // C save/ is NHFILE; JS is frozen VFS JSON. Never copy one into the other.
 // Snapshot after prefix Sy, before any restore. Fork only from a green prefix.
@@ -37,13 +38,17 @@ const DATA = path.join(SCRIPT_DIR, 'data');
 const PRIVATE = path.join(ROOT, 'private-sessions');
 const OMIT_PATTERNS = path.join(DATA, 'fuzz-omit-patterns.json');
 const ALPHABETS = path.join(DATA, 'fuzz-alphabets.json');
+const BASES = path.join(DATA, 'fuzz-bases.json');
+const PREFIX_LIB = path.join(DATA, 'save-oracle-prefixes.json');
+const MIN_AUTOGEN_PREFIX = 80;
 
 function usage() {
     console.error(`Usage:
   node scripts/save-oracle.mjs snapshot --prefix <recipe.json> [--id ID] [--restore-seed N]
   node scripts/save-oracle.mjs replay --snapshot <id> --moves "<moves>"
   node scripts/save-oracle.mjs fork --snapshot <id> --n 8 --seed N [--tail 6] [--emit-private]
-  node scripts/save-oracle.mjs minimize --snapshot <id> --moves "<suffix>" [--emit-private]`);
+  node scripts/save-oracle.mjs minimize --snapshot <id> --moves "<suffix>" [--emit-private]
+  node scripts/save-oracle.mjs prefix-gen --mode explore --n 4 [--seed N] [--tail 80]`);
 }
 
 function argFlag(args, name) {
@@ -724,6 +729,121 @@ async function cmdMinimize(args) {
     if (emitPrivateFlag) await emitPrivate(meta, kept, row);
 }
 
+function synthesizeNethackrc(role) {
+    return [
+        `OPTIONS=name:${role.name},role:${role.role},race:${role.race},gender:${role.gender},align:${role.align}`,
+        'OPTIONS=!legacy,!splash_screen,!tutorial',
+        'OPTIONS=suppress_alert:3.4.3',
+        'OPTIONS=symset:DECgraphics',
+        '',
+    ].join('\n');
+}
+
+async function cmdPrefixGen(args) {
+    const mode = argVal(args, 'mode', 'explore');
+    if (mode !== 'explore') {
+        console.error('prefix-gen --mode explore is the only supported mode (explore has > but no S)');
+        process.exit(2);
+    }
+    const n = Number(argVal(args, 'n', '4'));
+    const seed = Number(argVal(args, 'seed', '20260830'));
+    const tail = Number(argVal(args, 'tail', String(MIN_AUTOGEN_PREFIX)));
+    const alphabets = loadJson(ALPHABETS);
+    const explore = alphabets.explore;
+    if (!explore?.length) {
+        console.error('missing explore alphabet');
+        process.exit(1);
+    }
+    if (explore.some((r) => r.ch === 'S')) {
+        console.error('explore alphabet must not include S; prefix-gen appends Sy');
+        process.exit(1);
+    }
+    const bases = loadJson(BASES);
+    const roles = bases.independentRoles || [];
+    const rng = mulberry32(seed);
+    const genDir = path.join(CACHE, 'prefix-gen');
+    mkdirSync(genDir, { recursive: true });
+    console.error(`prefix-gen mode=${mode} n=${n} seed=${seed} tail=${tail} (append Sy)`);
+    const results = [];
+    for (let i = 0; i < n; i++) {
+        const spec = roles[i % Math.max(1, roles.length)] || {
+            name: 'Hero', role: 'Tourist', race: 'human', gender: 'male', align: 'neutral',
+        };
+        const walk = sampleKeys(rng, explore, tail);
+        const moves = `${walk} Sy`;
+        const gameSeed = (Math.floor(rng() * 0x7fffffff) % 999_999_937) + 1;
+        const restoreSeed = 99999;
+        const recipe = {
+            version: 5,
+            timezone: PIN_TZ,
+            segments: [{
+                seed: gameSeed,
+                datetime: '20000110090000',
+                nethackrc: synthesizeNethackrc(spec),
+                moves,
+                timezone: PIN_TZ,
+            }],
+        };
+        const id = `pgen-${spec.role || 'role'}-${gameSeed}-${hashSuffix(moves)}`;
+        const outDir = path.join(genDir, id);
+        mkdirSync(outDir, { recursive: true });
+        const recipePath = path.join(outDir, 'prefix.recipe.json');
+        dumpJson(recipePath, recipe);
+        if (moves.length < MIN_AUTOGEN_PREFIX) {
+            console.error(`${id}: skip snapshot, moves.length=${moves.length} < ${MIN_AUTOGEN_PREFIX} (use a two-segment hand recipe)`);
+            results.push({ id, skip: 'short-prefix', moves: moves.length });
+            continue;
+        }
+        const worker = prepareWorker(i % 4);
+        const sessionPath = path.join(outDir, 'prefix.session.json');
+        const rec = await recordRecipe(recipePath, sessionPath, {
+            installDir: worker.installDir,
+            binary: worker.binary,
+            minSteps: moves.length + 1,
+            timezone: PIN_TZ,
+            wipeSave: true,
+        });
+        if (!rec.ok) {
+            console.error(`${id}: record failed — prefix-debt\n${rec.stderr}`);
+            results.push({ id, skip: 'record-failed', error: rec.stderr });
+            continue;
+        }
+        const scored = scoreSession(sessionPath);
+        const row = {
+            id,
+            passed: !!scored.passed,
+            metrics: metricsShape(scored),
+            recipePath,
+            sessionPath,
+            restoreSeed,
+        };
+        dumpJson(path.join(outDir, 'score.json'), row);
+        console.log(`prefix-gen ${id}: ${fmtMetrics(scored)} role=${spec.role}`);
+        if (!scored.passed) {
+            console.error(`${id}: prefix-debt (JS does not PASS) — not snapshotting, not forking`);
+            results.push({ ...row, skip: 'prefix-debt' });
+            continue;
+        }
+        const saveFiles = listSaveFiles(path.join(worker.installDir, 'save'));
+        if (!saveFiles.length) {
+            console.error(`${id}: PASS but no C save/ — not a real Sy prefix, skip snapshot`);
+            results.push({ ...row, skip: 'no-save' });
+            continue;
+        }
+        const snapArgs = [
+            '--prefix', recipePath, '--id', id, '--restore-seed', String(restoreSeed),
+        ];
+        try {
+            await cmdSnapshot(snapArgs);
+            results.push({ ...row, snapshot: id });
+        } catch (e) {
+            console.error(`${id}: snapshot failed ${e.message || e}`);
+            results.push({ ...row, skip: 'snapshot-failed' });
+        }
+    }
+    dumpJson(path.join(CACHE, 'last-prefix-gen.json'), { seed, n, results });
+}
+
 async function main() {
     const argv = process.argv.slice(2);
     const cmd = argv[0];
@@ -736,6 +856,7 @@ async function main() {
     else if (cmd === 'replay') await cmdReplay(rest);
     else if (cmd === 'fork') await cmdFork(rest);
     else if (cmd === 'minimize') await cmdMinimize(rest);
+    else if (cmd === 'prefix-gen') await cmdPrefixGen(rest);
     else {
         usage();
         process.exit(2);

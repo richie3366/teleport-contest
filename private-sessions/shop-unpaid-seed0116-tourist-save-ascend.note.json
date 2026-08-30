@@ -1,0 +1,14 @@
+{
+  "locus": "shk.c buy_container / billobjs",
+  "omitId": null,
+  "bucket": "pass",
+  "cTopline": "",
+  "jsTopline": "",
+  "from": "shop-unpaid-seed0116-tourist-save-ascend",
+  "headRed": {
+    "sha": "d5570a11",
+    "rng": "2904/2904",
+    "screen": "35/35",
+    "note": "Directed shop-attempt PASSed on HEAD — this walk did not exercise unpaid pickup / buy_container. Keep as library template; do not treat as a red shop billing falsifier until a recording actually bills."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "segments": [
+    {
+      "seed": 116,
+      "datetime": "20000110090000",
+      "nethackrc": "OPTIONS=name:Shopper,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!autopickup,!legacy,!tutorial,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "  nllllllllkkkkjjjjhhhh,,,,> Sy",
+      "timezone": "America/New_York"
+    },
+    {
+      "seed": 99999,
+      "datetime": "20000110090000",
+      "nethackrc": "OPTIONS=name:Shopper,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!autopickup,!legacy,!tutorial,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "< ",
+      "timezone": "America/New_York"
+    }
+  ]
+}

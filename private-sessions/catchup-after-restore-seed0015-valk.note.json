@@ -1,0 +1,14 @@
+{
+  "locus": "restore.c restlevelfile / allmain.c maybe_generate_rnd_mon after restore wait",
+  "omitId": null,
+  "bucket": "fidelity",
+  "cTopline": "",
+  "jsTopline": "",
+  "from": "catchup-after-restore-seed0015-valk",
+  "headRed": {
+    "sha": "d5570a11",
+    "rng": "8448/8599",
+    "screen": "26/30",
+    "note": "Restore then wait then <. First RNG miss C seg1 local 14: C rn2(70) maybe_generate_rnd_mon vs JS rn2(50). Wait-then-save-then-< is a different recipe and stays 30/30 after D-1699 restamp."
+  }
+}

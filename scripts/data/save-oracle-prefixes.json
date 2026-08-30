@@ -1,0 +1,78 @@
+{
+  "restoreSeedDefault": 99999,
+  "prefixes": [
+    {
+      "id": "ledger-seed0015",
+      "recipe": "private-sessions/ledger-seed0015-valk-descend-save-ascend.recipe.json",
+      "session": "private-sessions/ledger-seed0015-valk-descend-save-ascend.session.json",
+      "tags": [
+        "getlev",
+        "stairs",
+        "pet",
+        "restore.c:getlev",
+        "save.c:dosave0",
+        "do.c:goto_level"
+      ],
+      "restoreSeed": 99999,
+      "status": "green",
+      "snapshotId": "ledger-seed0015-prefix",
+      "note": "Seg0 ends Sy after dlvl2. Forkable. Replay \"< \" is 66/66 rng, 3/3 screens."
+    },
+    {
+      "id": "trap-same-floor-seed0005",
+      "recipe": "private-sessions/trap-same-floor-seed0005-tourist.recipe.json",
+      "session": "private-sessions/trap-same-floor-seed0005-tourist.session.json",
+      "tags": [
+        "trap",
+        "same-dlvl",
+        "save.c:savetrapchn",
+        "restore.c:getlev"
+      ],
+      "restoreSeed": 99999,
+      "status": "green",
+      "note": "Same-dlvl restore after pit search. 17/17 after D-1694."
+    },
+    {
+      "id": "catchup-after-restore-seed0015",
+      "recipe": "private-sessions/catchup-after-restore-seed0015-valk.recipe.json",
+      "session": "private-sessions/catchup-after-restore-seed0015-valk.session.json",
+      "tags": [
+        "catchup",
+        "restlevelfile",
+        "omoves",
+        "restore.c:restlevelfile",
+        "allmain.c:maybe_generate_rnd_mon"
+      ],
+      "restoreSeed": 99999,
+      "status": "red",
+      "note": "Restore, then wait, then <. Red on HEAD (8448/8599, 26/30). Do not fork until prefix+restore wait is green. Wait-then-save-then-< is a different recipe."
+    },
+    {
+      "id": "trap-ledger-seed0015",
+      "recipe": "private-sessions/trap-ledger-seed0015-valk-pit-save-ascend.recipe.json",
+      "session": "private-sessions/trap-ledger-seed0015-valk-pit-save-ascend.session.json",
+      "tags": [
+        "trap-ledger",
+        "getlev",
+        "save.c:savetrapchn"
+      ],
+      "restoreSeed": 99999,
+      "status": "green",
+      "note": "Directed pit-then-Sy path PASSed (8549/8549). Pit is on the save floor. Not a red other-floor trap peel."
+    },
+    {
+      "id": "shop-unpaid-seed0116",
+      "recipe": "private-sessions/shop-unpaid-seed0116-tourist-save-ascend.recipe.json",
+      "session": "private-sessions/shop-unpaid-seed0116-tourist-save-ascend.session.json",
+      "tags": [
+        "shop",
+        "buy_container",
+        "shk.c:buy_container",
+        "billobjs"
+      ],
+      "restoreSeed": 99999,
+      "status": "green",
+      "note": "Directed shop-attempt PASSed (2904/2904) — did not bill. buy_container Open rows should keep looking for a red unpaid recipe; this is a template, not a billing falsifier."
+    }
+  ]
+}
