@@ -688,3 +688,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [675-33cc30c0-fully-used-up.md](./675-33cc30c0-fully-used-up.md) | `33cc30c0` | D-1714 shk.c FullyUsedUp | **ACCEPT-WITH-DEBT** |
 | [676-a197ef44-itemize-ynq.md](./676-a197ef44-itemize-ynq.md) | `a197ef44` | D-1715 shk.c itemize ynq | **ACCEPT-WITH-DEBT** |
 | [677-0c720b98-dopay-mute-deaf-nod.md](./677-0c720b98-dopay-mute-deaf-nod.md) | `0c720b98` | D-1716 shk.c mute/Deaf nod | **ACCEPT-WITH-DEBT** |
+| [678-ed4800ed-remote-burglary.md](./678-ed4800ed-remote-burglary.md) | `ed4800ed` | D-1717 shk.c remote_burglary | **ACCEPT-WITH-DEBT** |
+| [679-ee797b68-gem-glass-pseudo-id.md](./679-ee797b68-gem-glass-pseudo-id.md) | `ee797b68` | D-1718 shk.c get_cost glass | **ACCEPT-WITH-DEBT** |
+| [680-7466d184-arti-cost.md](./680-7466d184-arti-cost.md) | `7466d184` | D-1719 artifact.c arti_cost | **ACCEPT-WITH-DEBT** |
+| [681-7381e463-currency-hallu.md](./681-7381e463-currency-hallu.md) | `7381e463` | D-1720 invent.c currency Hallu | **ACCEPT-WITH-DEBT** |
+| [682-48ddbfc8-getdir-yn-function.md](./682-48ddbfc8-getdir-yn-function.md) | `48ddbfc8` | D-1721 cmd.c getdir yn_function | **ACCEPT-WITH-DEBT** |
+| [683-55932af9-cant-go-back-freeing.md](./683-55932af9-cant-go-back-freeing.md) | `55932af9` | D-1722 do.c cant_go_back FREEING | **ACCEPT-WITH-DEBT** |
+| [684-a9697aa8-lspo-object-quan.md](./684-a9697aa8-lspo-object-quan.md) | `a9697aa8` | D-1723 sp_lev.c lspo_object quan | **ACCEPT-WITH-DEBT** |
+| [685-7ee8ad1d-recalc-mapseen-flags.md](./685-7ee8ad1d-recalc-mapseen-flags.md) | `7ee8ad1d` | D-1724 dungeon.c recalc_mapseen flags | **ACCEPT-WITH-DEBT** |
+| [686-32c02560-hhmmss.md](./686-32c02560-hhmmss.md) | `32c02560` | D-1725 calendar.c hhmmss | **ACCEPT-WITH-DEBT** |

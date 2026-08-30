@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `calendar.c` hhmmss (named). Not yyyymmddhhmmss. **Addressed:** D-1725
+- [x] `calendar.c` hhmmss (named). Not yyyymmddhhmmss. **Addressed:** D-1725 `32c02560`
 
 
 - [x] `dungeon.c` recalc_mapseen sokosolved / roguelevel / quest flags (named). Not DRAWBRIDGE_UP lastseentyp. **Addressed:** D-1724 `7ee8ad1d`
