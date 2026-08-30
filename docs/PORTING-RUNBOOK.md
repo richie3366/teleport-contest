@@ -87,7 +87,7 @@ Operational detail for agents: `GROK-PLAYBOOK.md` §2a–2b.
 
 **If the local public suite is already PASS:** do not invent FAIL peels.
 Use the map-driven order above (fortress → named debt/absent cluster →
-optional private canary). Items 1–6 below apply only when they name a
+save-oracle canary when tagged). Items 1–6 below apply only when they name a
 *real* remaining scaffold, throw, or completeness gap — not as excuses
 to chase public-screen deltas.
 
@@ -161,7 +161,7 @@ touched to `ported` or `parity`.
 4. If primary work is a FAIL peel: reproduce the focused divergence with the
    command in `CURRENT.md`. If primary is map-driven (suite already PASS):
    confirm the named map omission / C cluster and its falsifier (focused
-   or private canary + green + cohort) — do not invent a FAIL.
+   or save-oracle probe + green + cohort) — do not invent a FAIL.
 
 ### B. Build a work packet before editing
 
@@ -174,7 +174,7 @@ Write down:
   the branch envelope to retire;
 - one falsifiable hypothesis;
 - expected side effects, list ordering, and RNG calls;
-- focused or private-canary command, green-gate command, and cohort command;
+- focused or save-oracle command, green-gate command, and cohort command;
 - deferred dependencies that would make a faithful change impossible.
 
 Read slices around functions and callers. Do not consume the context window by
@@ -239,8 +239,19 @@ node scripts/strict-output-check.mjs \
 node frozen/ps_test_runner.mjs sessions
 ```
 
-`scripts/rng-diff.mjs` currently runs only segment 0; never use it as proof for
-a multi-segment session. The session runner is authoritative.
+`scripts/rng-diff.mjs` defaults to segment 0; pass `--all-segments` for
+save-prefixed two-segment recipes (shared VFS; owning segment + local index).
+The session runner is still authoritative.
+
+When the omit is tagged restore / other-floor, the private save oracle
+(`scripts/save-oracle.mjs`) is the canary: probe the omit, replay or fork
+only from a green prefix ending `Sy`. C `save/` is NHFILE; JS is VFS JSON —
+never copy one into the other. Wait-then-save-then-`<` does **not** test
+elapsed catchup (`savelev` writes `svm.moves`; restamp zeros elapsed).
+Catchup-after-restore = restore, then wait, then `<`. Shop billing recipes
+may stay red until `buy_container` and friends land; use the red
+two-segment recipe as focused verify until the prefix is green enough to
+fork. Do not add private recipes to `sessions/manifest.json`.
 
 The frozen runner counts matches only across canonical output lengths. It can
 report `PASS` when JS has trailing RNG/screens/cursors. Treat `PASS` as green

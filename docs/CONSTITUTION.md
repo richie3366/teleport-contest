@@ -39,6 +39,12 @@ Category: **agentic**. No shipping a transpiled C engine.
    `readFileSync` / `existsSync` from scored code. Dat/help texts and similar
    assets belong in `js/generated/` (checked-in extractors), not runtime disk
    reads. Offline PASS does not excuse Chrome/Session-Viewer breakage.
+6. **Save-prefixed private recordings are observations, not specs.** A tagged
+   restore / other-floor omit may be scored against a private C-recorded
+   prefix ending `Sy` plus restore-segment mutants (`scripts/save-oracle.mjs`).
+   Never copy C NHFILE `save/` into JS VFS JSON or the reverse. Fork only from
+   a prefix JS already PASSes. Never add these recipes to `sessions/manifest.json`.
+   The session is evidence of a bug; the fix still cites pinned C.
 
 ---
 
@@ -197,7 +203,10 @@ clearly marked temporary and scheduled for deletion.
    A cluster may retire several *related* map deferrals that share one
    C locus family and one falsifier; it must not mix unrelated
    subsystems. Prefer denser clusters over one-bullet peels once the
-   public suite is PASS (see runbook / playbook).
+   public suite is PASS (see runbook / playbook). When the omit is tagged
+   restore / other-floor or has a prefix id in
+   `scripts/data/save-oracle-prefixes.json`, the port packet names the
+   `save-oracle.mjs` probe/replay/fork command used as the falsifier.
 3. **Cite C** in the change (file + function). Fixes that cannot point
    at C are suspect.
 4. **Auditor > Porter** on architecture. Porters do not redefine the

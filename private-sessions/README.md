@@ -69,8 +69,32 @@ Score one session:
 
 ```bash
 node frozen/ps_test_runner.mjs private-sessions/<name>.session.json
-node scripts/rng-diff.mjs private-sessions/<name>.session.json
+node scripts/rng-diff.mjs --all-segments private-sessions/<name>.session.json
 ```
+
+Default `rng-diff` is still segment 0; save-prefixed two-segment recipes need
+`--all-segments`.
+
+## Save-prefixed oracle
+
+Operator entry: `scripts/save-oracle.mjs`. Directed prefix library:
+`scripts/data/save-oracle-prefixes.json` (tags → recipe). Snapshot C `save/`
+and JS VFS **separately** after a green prefix ending `Sy`. Never copy NHFILE
+into VFS JSON. Fork restore-segment mutants only from a green prefix.
+Recipes land under `.cache/save-oracle/` until optionally minimized into
+this directory. Never `sessions/manifest.json`.
+
+```bash
+node scripts/save-oracle.mjs snapshot --prefix private-sessions/ledger-seed0015-valk-descend-save-ascend.recipe.json --id ledger-seed0015-prefix
+node scripts/save-oracle.mjs replay --snapshot ledger-seed0015-prefix --moves "< "
+node scripts/save-oracle.mjs fork --snapshot ledger-seed0015-prefix --n 8 --seed 20260830
+node scripts/save-oracle.mjs probe --omit 'shk.c:buy_container'
+node scripts/save-oracle.mjs corpus --check
+```
+
+Wait-then-save-then-`<` does not test catchup. Catchup-after-restore is
+restore, then wait, then `<`
+(`private-sessions/catchup-after-restore-seed0015-valk`).
 
 Banner `built <date>` differs between the C binary and JS; that is not a
 port bug. Elide it before treating a screen miss as gameplay.

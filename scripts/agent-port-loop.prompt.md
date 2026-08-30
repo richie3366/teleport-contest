@@ -18,6 +18,9 @@ When the local public suite is already PASS: **map-driven mode**
 (`GROK-PLAYBOOK.md` §2a–2b) — pop the **first unchecked Must-fix** item
 in `docs/LOOP-QUEUE.md` (review C-wrongs) if any, else the first Open
 item. Copy it into `CURRENT.md` **Next cluster**. One C family only.
+Then run `node scripts/save-oracle.mjs probe --omit '<C file>:<fn>'`
+(no-op with a skip reason if untagged). Include that output in focused
+verify. Do not copy fork dashboards into Must-fix.
 If the item cites `Source: reviews/…`, **read that review** (Actionable /
 Disposition) before coding. Reviews exist to force a C-faithful fix, not
 to sit unread while you pop tut-1.
@@ -87,7 +90,8 @@ Mark temporary DIAG distinctly; remove before exit.
 
 ## Verify before finishing
 
-1. syntax/lints; 2. focused runner (+ rng-diff if applicable); 3. green gate;
+1. syntax/lints; 2. focused runner (+ rng-diff --all-segments if multi-segment;
+   save-oracle probe/replay when tagged); 3. green gate;
 4. subsystem cohort if shared; 5. strict lengths; 6. full `sessions` after
 shared startup/RNG/display or foundation milestones.
 

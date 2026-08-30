@@ -65,14 +65,14 @@ treat that score as a **regression fortress**, not a work picker.
 |----|--------|
 | Retire named omissions / debt from one `c-js-map/*.md` section | Invent FAIL peels, ALIGN/FORCE, or seed-shaped gates |
 | Prefer `debt.md` scenario-shaped code, then `absent.md` thin systems | Chase public leaderboard / cron / hub CDN drift in-loop |
-| Optional private C-recorder canaries on thin spots | Memorize or hardcode public traces |
+| Save-oracle probe when omit is tagged restore/other-floor | Shop the fork dashboard for a peel |
 | Keep green + cohort + cadence full `sessions` PASS | “Improve” already-matching public paths without a C citation |
 | Pop `LOOP-QUEUE.md` **Must-fix** (written-review C-wrongs) before Open | Leave QUALITY-RISK reviews unread and keep map-dumping |
 | Keep 8–12 open queue rows; refill Open from the map when below 8 | Halt and wait for a human because the queue ran dry |
 
 Sessions still measure progress; they are **not** the specification.
 Held-out / summer escalation can exercise branches the public set never
-hits — map debt is the signal.
+hits — map debt is the signal. Tagged restore: save-oracle probe.
 
 ### 2b. Iteration density (token vs quality)
 
@@ -144,7 +144,7 @@ Hypothesis:       <one falsifiable sentence>
 C reads done:     <function body + N callers + 1 branch predicate>
 Branch envelope:  <covered this iteration; deferred>
 Falsifier:        <exact command + expected observation if wrong>
-Focused verify:   <runner + rng-diff if single-segment; or private canary>
+Focused verify:   <runner; rng-diff [--all-segments]; save-oracle if tagged>
 Green gate:       from CURRENT.md
 Cohort:           <distinct session sharing this code>
 ```
@@ -166,7 +166,7 @@ diverging RNG. Do not patch from `rng-diff` output alone.
 | roles / u_init / mkobj / mon | cohort + full `sessions` before claiming milestone |
 | Display/cursor/menus | green + viewer smoke if available |
 
-**`rng-diff`:** segment 0 only; first mismatch is a clue, not proof.
+**`rng-diff`:** default segment 0; `--all-segments` for save recipes.
 **`PASS`:** inspect `__RESULTS_JSON__` / per-session lines — runner exit code
 can be 0 when sessions fail. Always `strict-output-check` on green sessions.
 

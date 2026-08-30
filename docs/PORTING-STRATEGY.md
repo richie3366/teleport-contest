@@ -568,6 +568,10 @@ The writeup *is* part of the product.
 
 Navigation aid ≠ porting engine.
 
+**Save-prefixed private oracles** (procedure in playbook §2a / runbook):
+`scripts/save-oracle.mjs` plus `scripts/data/save-oracle-prefixes.json`.
+Do not duplicate that workflow here. Never copy C NHFILE into JS VFS.
+
 ---
 
 ## 13. What “done” looks like

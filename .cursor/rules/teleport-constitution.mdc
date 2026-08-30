@@ -58,13 +58,19 @@ Treat local full-suite PASS as a **regression fortress**. Work comes from
 named map omissions / debt (`docs/c-js-map/`), not invented FAIL peels or
 leaderboard chasing. One **semantic cluster** per iteration (related
 deferrals OK); denser than one-bullet peels; see `GROK-PLAYBOOK.md` §2a–2b.
+For tagged restore/other-floor omits run
+`node scripts/save-oracle.mjs probe --omit '<C file>:<fn>'` (no-op if
+untagged). Do not shop the fork dashboard for a new peel. This rule's
+constitution/playbook/runbook/prompt edits were a one-shot process take;
+ordinary later loop iters follow that text and must not rewrite it.
 
 ## When fixing divergence
 
 1. Cite the C function (`nethack-c/upstream/src/…`).
 2. Fix call order / logic to match C — do not “align” tests.
 3. Run the focused session, the green gate in `docs/CURRENT.md`, and a
-   distinct subsystem cohort when shared behavior changed.
+   distinct subsystem cohort when shared behavior changed. Tagged restore
+   omits: include save-oracle probe/replay output.
 4. Remove DIAG/FORCE code, raw-index gates, and debug prints before handoff.
 5. Update `CURRENT.md` / NOTES / divergence / one map section / journal tail.
 
