@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-08-30
 
-- [x] `options.c` mO perminv_mode compound row (named). Not optfn_perminv_mode. **Addressed:** D-1700
+- [x] `options.c` wizmgender glyph-reset (named). Not wizweight. **Addressed:** D-1701
+
+
+- [x] `options.c` mO perminv_mode compound row (named). Not optfn_perminv_mode. **Addressed:** D-1700 `3ab2697c`
 
 ## 2026-08-29
 

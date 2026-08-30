@@ -2125,6 +2125,29 @@ export function append_wizweight_suffix(obj, bp, with_price) {
 }
 
 /**
+ * C objnam.c doname_base `:1549–1559` — STATUE/CORPSE/FIGURINE when
+ * `wizard && iflags.wizmgender`. `genders[mgend].adj` or
+ * "unspecified gender" for CORPSTAT_RANDOM.
+ */
+export function append_wizmgender_suffix(obj, bp) {
+    if (!obj || !game.flags?.debug || !game.iflags?.wizmgender) return bp;
+    const oname = objectNames[obj.otyp];
+    if (oname !== 'STATUE' && oname !== 'CORPSE' && oname !== 'FIGURINE') {
+        return bp;
+    }
+    const cgend = (obj.spe | 0) & CORPSTAT_GENDER;
+    const mgend = cgend === CORPSTAT_MALE ? MALE
+        : cgend === CORPSTAT_FEMALE ? FEMALE
+            : NEUTRAL;
+    // C role.c genders[].adj — male / female / neuter
+    const adj = mgend === MALE ? 'male'
+        : mgend === FEMALE ? 'female'
+            : 'neuter';
+    const label = cgend !== CORPSTAT_RANDOM ? adj : 'unspecified gender';
+    return `${bp} (${label})`;
+}
+
+/**
  * C ref: objnam.c doname() — invent-kit subset (Tourist/Rogue starter lines).
  * C doname_base starts with xname(obj), which forces cleric bknown before
  * the BUC prefix is read; JS doname uses pretty_base so apply the same force.
@@ -2420,6 +2443,8 @@ export function doname(obj) {
     if (obj.owornmask & (W_BALL | W_CHAIN)) {
         bp += ` (${(obj.owornmask & W_BALL) ? 'chained' : 'attached'} to you)`;
     }
+    // C objnam.c doname_base `:1549–1559` — after class switch, before W_WEP.
+    bp = append_wizmgender_suffix(obj, bp);
     // C ref: objnam.c doname_base W_WEP (objnam.c:1561–1609) — skip when
     // gm.mrg_to_wielded (pickup.c pickup_prinv merge into uwep). Stack/ammo/
     // missile/non-weptool → "(wielded)"; else ConcatF2 " (%s %s)" how-arm

@@ -81,7 +81,7 @@ import { rnd } from './rng.js';
 import { str_end_is, highc, strstri, strsubst } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, docrt, clear_committed_status } from './display.js';
+import { flush_screen, pline, docrt, check_gold_symbol, clear_committed_status } from './display.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, reassign, update_inventory, invlet_constant, perm_invent_toggled } from './invent.js';
 import { ATR_INVERSE } from './terminal.js';
 import {
@@ -552,6 +552,20 @@ function mark_opt_need_redraw() {
     game.go.opt_need_redraw = true;
 }
 
+function mark_opt_need_glyph_reset() {
+    if (!game.go) game.go = {};
+    game.go.opt_need_glyph_reset = true;
+}
+
+/**
+ * C options.c optfn_boolean `:5376–5385` — in-game after-change sets
+ * both `go.opt_need_redraw` and `go.opt_need_glyph_reset`.
+ */
+const OPT_GLYPH_RESET = new Set([
+    'wizmgender', 'showrace', 'use_inverse', 'hilite_pile',
+    'perm_invent', 'ascii_map', 'tiled_map',
+]);
+
 /**
  * C options.c can_set_perm_invent `:5487–5527`.
  * InvOptOn from const.js (D-1666; C `:5507–5508`).
@@ -699,6 +713,12 @@ function parse_iflags_wizweight(result, value) {
     result.iflags.wizweight = !!value;
 }
 
+/** C optlist.h NHOPTB wizmgender addr &iflags.wizmgender (set_wizonly). */
+function parse_iflags_wizmgender(result, value) {
+    if (!result.iflags) result.iflags = {};
+    result.iflags.wizmgender = !!value;
+}
+
 export function parseNethackrc(rc) {
     const result = {
         name: '', role: -1, race: -1, gender: -1, align: -1,
@@ -815,6 +835,13 @@ export function parseNethackrc(rc) {
                     if (parsed == null) continue;
                     parse_iflags_wizweight(result, parsed);
                 }
+                else if (key === 'wizmgender') {
+                    // C optlist.h NHOPTB wizmgender addr &iflags.wizmgender
+                    if (negated) continue;
+                    const parsed = optfn_boolean_word(val);
+                    if (parsed == null) continue;
+                    parse_iflags_wizmgender(result, parsed);
+                }
                 else if (key === 'perminv_mode') {
                     // C optfn_perminv_mode do_set (opt_initial)
                     optfn_perminv_mode(
@@ -857,6 +884,9 @@ export function parseNethackrc(rc) {
                 }
                 else if (lname === 'wizweight') {
                     parse_iflags_wizweight(result, value);
+                }
+                else if (lname === 'wizmgender') {
+                    parse_iflags_wizmgender(result, value);
                 }
                 else if (lname === 'perminv_mode') {
                     optfn_perminv_mode(
@@ -1379,6 +1409,11 @@ function simple_bool_toggle(opt) {
     if (opt.name === 'hilite_pet' && bag[opt.addr.key] && !bag.wc2_petattr) {
         bag.wc2_petattr = ATR_INVERSE;
     }
+    // C optfn_boolean `:5376–5385` then doset_simple reset_needed_visuals.
+    if (OPT_GLYPH_RESET.has(opt.name)) {
+        mark_opt_need_redraw();
+        mark_opt_need_glyph_reset();
+    }
 }
 
 function format_simple_opt_line(opt, nameWidth) {
@@ -1570,6 +1605,9 @@ async function doset_simple_menu() {
             }
         }
 
+        if (!game.go) game.go = {};
+        game.go.opt_need_redraw = false;
+        game.go.opt_need_glyph_reset = false;
         const res = await select_menu_pick_one(raw);
         if (res.kind !== 'pick') return 0;
 
@@ -1886,6 +1924,8 @@ const DOSET_BOOL_ADDR = {
     weaponstatus: { obj: 'iflags', key: 'weaponstatus' },
     whatis_menu: { obj: 'iflags', key: 'whatis_menu' },
     whatis_moveskip: { obj: 'iflags', key: 'whatis_moveskip' },
+    // C optlist.h NHOPTB wizmgender set_wizonly &iflags.wizmgender (D-1701)
+    wizmgender: { obj: 'iflags', key: 'wizmgender' },
     // C optlist.h NHOPTB wizweight set_wizonly &iflags.wizweight (D-1669)
     wizweight: { obj: 'iflags', key: 'wizweight' },
 };
@@ -1958,10 +1998,11 @@ const DOSET_BOOL_MOD = [
 /**
  * C options.c doset `:8820` endpass wizard→set_wiznofuz; `:8842–8843`
  * skip set_wizonly when !wizard (`flags.debug`). Appended after
- * whatis_moveskip so earlier mO letters stay put. wizmgender named.
+ * whatis_moveskip so earlier mO letters stay put. allopt order:
+ * wizmgender then wizweight.
  */
 function doset_bool_mod_list() {
-    if (game.flags?.debug) return [...DOSET_BOOL_MOD, 'wizweight'];
+    if (game.flags?.debug) return [...DOSET_BOOL_MOD, 'wizmgender', 'wizweight'];
     return DOSET_BOOL_MOD;
 }
 
@@ -1982,7 +2023,8 @@ function doset_bool_value(name) {
  * `&a11y.accessiblemsg` (D-1218); mention_map is `&a11y.glyph_updates`
  * (D-1219); spot_monsters is `&a11y.mon_notices` (D-1235);
  * mon_movement is `&a11y.mon_movement` (D-1236). wizweight after-change
- * is D-1669 (`:5353–5361`). No after-change arm for spot_monsters or
+ * is D-1669 (`:5353–5361`). Glyph-reset after-change is D-1701
+ * (`:5376–5385`). No after-change arm for spot_monsters or
  * mon_movement (unlike accessiblemsg msg_loc zero).
  */
 export function optfn_boolean_do_set(name, negated, initial = false) {
@@ -1992,7 +2034,7 @@ export function optfn_boolean_do_set(name, negated, initial = false) {
     game[addr.obj][addr.key] = !negated;
     if (initial) return;
     if (name === 'showexp' || name === 'time' || name === 'showscore'
-        || name === 'showvers' || name === 'showrace') {
+        || name === 'showvers') {
         if (!game.flags) game.flags = {};
         game.flags.botl = true;
     }
@@ -2009,6 +2051,31 @@ export function optfn_boolean_do_set(name, negated, initial = false) {
         if (!invlet_constant()) reassign();
         update_inventory();
     }
+    if (OPT_GLYPH_RESET.has(name)) {
+        // C options.c optfn_boolean `:5376–5385` — wizmgender / showrace
+        // / use_inverse / hilite_pile / perm_invent / ascii_map / tiled_map.
+        mark_opt_need_redraw();
+        mark_opt_need_glyph_reset();
+    }
+}
+
+/**
+ * C options.c reset_needed_visuals `:8979–9014`.
+ * Named omit: full `reset_glyphmap(gm_optionchange)` MAX_GLYPH table
+ * (CURRENT ban); `reglyph_darkroom`; customcolors / customsymbols /
+ * palette. Glyph-reset + redraw still `check_gold_symbol` + `docrt`
+ * so tty attrs (MG_FEMALE / pile) recompute from live iflags.
+ */
+async function reset_needed_visuals() {
+    if (!game.go) game.go = {};
+    const go = game.go;
+    const needRedraw = !!go.opt_need_redraw;
+    if (needRedraw) {
+        check_gold_symbol();
+        await docrt();
+    }
+    go.opt_need_redraw = false;
+    go.opt_need_glyph_reset = false;
 }
 
 function doset_bool_term(name) {
@@ -2025,9 +2092,9 @@ function doset_bool_term(name) {
  * apply bool toggles then handlers (pickup_types / perminv_mode).
  * CompOpt perminv_mode is in C allopt order; doset skips it when
  * !wc_supported (contest tty !TTY_PERM_INVENT). Named omissions: full
- * compound getlin arms, wc2_supported skip, wizmgender, PREFIXES, help
- * file. OPTIONS= + handler live. optfn_boolean perm_invent can_set gate
- * named.
+ * compound getlin arms, wc2_supported skip, PREFIXES, help file.
+ * OPTIONS= + handler live. optfn_boolean perm_invent can_set gate
+ * named. reset_needed_visuals subset is D-1701 (no reset_glyphmap).
  */
 export async function doset() {
     if (!game.flags) game.flags = {};
@@ -2177,6 +2244,9 @@ export async function doset() {
         });
     }
 
+    if (!game.go) game.go = {};
+    game.go.opt_need_redraw = false;
+    game.go.opt_need_glyph_reset = false;
     const selected = await select_menu_pick_any(raw);
     const boolPicks = [];
     const handlerPicks = [];
@@ -2203,6 +2273,8 @@ export async function doset() {
             await handler_perminv_mode();
         }
     }
+    // C options.c doset `:8973` reset_needed_visuals after picks.
+    await reset_needed_visuals();
     return ECMD_OK;
 }
 
@@ -2226,6 +2298,9 @@ export async function doset_simple() {
     try {
         do {
             const picked = await doset_simple_menu();
+            const flush = !!game.go?.opt_need_redraw;
+            await reset_needed_visuals();
+            if (flush) await flush_screen(1);
             if (picked <= 0) break;
         } while (true);
     } finally {

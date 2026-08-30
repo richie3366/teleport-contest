@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-08-30 — D-1701 options.c optfn_boolean wizmgender glyph-reset
+
+**Objective:** Open `options.c` wizmgender glyph-reset. Not wizweight.
+**C locus:** `options.c` `optfn_boolean` `:5376–5385`;
+`reset_needed_visuals` `:8979–9014`; `objnam.c` `:1549–1559`;
+`wintty.c` `:3930–3936`.
+**JS locus:** `js/options.js`, `js/display.js`, `js/objnam.js`.
+**Change:** set_wizonly `&iflags.wizmgender`; after-change both
+flags; `reset_needed_visuals` subset `check_gold_symbol`+`docrt`;
+MG_FEMALE inverse; doname gender suffix. No full `reset_glyphmap`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; green+strict; cohort 9/9 incl.
+seed0007 302/302 seed2200 230/230.
+**Next:** Open `shk.c` buy_container. Not cheapest_item.
+**Blocked:** none.
 ## 2026-08-30 — D-1700 options.c doset CompOpt perminv_mode wc skip
 
 **Objective:** Open `options.c` mO perminv_mode compound row. Not

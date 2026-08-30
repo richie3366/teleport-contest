@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `options.c` wizmgender glyph-reset (named). Not wizweight.
 - [ ] `shk.c` buy_container (named). Not cheapest_item.
 - [ ] `shk.c` shk_names_obj makeknown (named). Not buy_container.
 - [ ] `shk.c` dopay multi-shk getpos (named). Not shk_names_obj.

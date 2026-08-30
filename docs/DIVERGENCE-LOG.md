@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-1701 — options.c optfn_boolean wizmgender glyph-reset
+
+- **Status:** fixed (map-driven Open from D-1700; not a public FAIL)
+- **Symptom:** map named `wizmgender` glyph-reset. C `opt_wizmgender`
+  is set_wizonly `&iflags.wizmgender`; in-game after-change sets
+  `opt_need_redraw` + `opt_need_glyph_reset` (shared with showrace /
+  use_inverse / hilite_pile); `doset`/`doset_simple` then
+  `reset_needed_visuals`. tty inverse on MG_FEMALE; doname gender
+  suffix on statue/corpse/figurine. JS omitted the option after
+  D-1669 (wizweight only).
+- **C locus:** `options.c` `optfn_boolean` `:5376–5385`;
+  `reset_needed_visuals` `:8979–9014`; `doset` `:8906–8907` /
+  `:8973`; `optlist.h` NHOPTB wizmgender; `objnam.c` doname_base
+  `:1549–1559`; `wintty.c` `tty_print_glyph` `:3930–3936`.
+  Callers: doset / doset_simple / OPTIONS=.
+- **JS was:** no `iflags.wizmgender`; unknown OPTIONS= bools landed
+  on `flags`; showrace wrongly set `botl`; no glyph-reset flags /
+  `docrt`; no MG_FEMALE inverse; no doname gender suffix.
+- **Fix:** set_wizonly mO row (allopt order before wizweight);
+  OPTIONS= → `iflags.wizmgender`; after-change sets both flags;
+  `reset_needed_visuals` subset `check_gold_symbol` + `docrt` (no
+  full `reset_glyphmap` / `reglyph_darkroom`); tty MG_FEMALE
+  inverse; doname ` (male|female|neuter|unspecified gender)`.
+  Rule #2: no fs.
+- **JS:** `js/options.js` `optfn_boolean_do_set` / `doset`;
+  `js/display.js` `wizmgender_inverse`; `js/objnam.js`
+  `append_wizmgender_suffix`.
+- **Not this iter:** full `reset_glyphmap`; `reglyph_darkroom`;
+  remaining after-change (color / lit_corridor / menucolors / …);
+  perm_invent `can_set` gate; MG_DETECT / BW_*.
+- **Verified:** OPTIONS=/do_set/doname canary; save-oracle probe
+  skip (untagged); green+strict seed8000/0900; CURRENT cohort
+  **9**/9 + strict (incl. seed0007 302/302, seed2200 230/230).
+- **Files:** `js/options.js`, `js/display.js`, `js/objnam.js`.
+
 ## D-1700 — options.c doset CompOpt perminv_mode + wc_supported skip
 
 - **Status:** fixed (map-driven Open from D-1699; not a public FAIL)
