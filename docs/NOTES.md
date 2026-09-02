@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress (cadence **#2140** at `4bc17535`, R² 0.863).
+- **Suite 44/44** fortress (cadence **#2150** at `3c4dafe8`, R² 0.856).
   Save-oracle for tagged restore Open. Private B0 unchanged (catchup
   26/30 red; shop 35/35 no unpaid). **Next:** Open `shk.c`
   shopper_financial_report / shop_debt. Not hidden_gold. Falsify:
   unpaid shop debt in the report, not wallet-only. Do not skip
-  D-1531…D-1739. Do not re-port D-1675…D-1739.
+  D-1531…D-1739. Do not re-port D-1675…D-1739. Reviews **696–700**
+  ACCEPT-WITH-DEBT; no Must-fix.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham`; setworn oc_oprop; keepdogs leash; `initedog`; tip-spill;
   hideunder; newsym !cansee DETECTED; Punished float_down; water/lava

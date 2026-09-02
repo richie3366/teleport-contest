@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — audit #2150 reviews 696–700 + cadence
+
+**Objective:** C-fidelity review of five `js/` SHAs since **695**
+(`8b2be954`…`3c4dafe8`, D-1735…D-1739) plus full `sessions`.
+**C locus:** invent.c `useup`; Protection sensed; `newsym`
+Detect_monsters cansee; `cmap_to_glyph` trap/zap/expl; M_AP_OBJECT
+`map_object`.
+**Change:** reviews **696–700**, all ACCEPT-WITH-DEBT. No Must-fix.
+No `js/` edits. Filled archive D-1739 `%h`.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `42+0.33/turn` (R² 0.856) at `3c4dafe8`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Open `shk.c` shopper_financial_report / shop_debt.
+**Blocked:** none.
 ## 2026-09-02 — D-1739 display.c mimic map_object observe
 
 **Objective:** Open `display.c` mimic map_object observe (named).

@@ -706,3 +706,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [693-438c0380-is-multigen-poisonable.md](./693-438c0380-is-multigen-poisonable.md) | `438c0380` | D-1732 obj.h is_multigen / is_poisonable | **ACCEPT-WITH-DEBT** |
 | [694-9f6de017-u-left-shop-choose-stairs.md](./694-9f6de017-u-left-shop-choose-stairs.md) | `9f6de017` | D-1733 shk.c u_left_shop / wizard.c choose_stairs | **ACCEPT-WITH-DEBT** |
 | [695-4bc17535-display-monster-what-mon.md](./695-4bc17535-display-monster-what-mon.md) | `4bc17535` | D-1734 display.c M_AP_MONSTER what_mon | **ACCEPT-WITH-DEBT** |
+| [696-8b2be954-useup-write.md](./696-8b2be954-useup-write.md) | `8b2be954` | D-1735 invent.c useup / write.c paper | **ACCEPT-WITH-DEBT** |
+| [697-3afed6b0-protection-sensed.md](./697-3afed6b0-protection-sensed.md) | `3afed6b0` | D-1736 display.c Protection sensed | **ACCEPT-WITH-DEBT** |
+| [698-5d1f9fb6-newsym-detect-monsters.md](./698-5d1f9fb6-newsym-detect-monsters.md) | `5d1f9fb6` | D-1737 display.c newsym Detect_monsters | **ACCEPT-WITH-DEBT** |
+| [699-8a58906e-cmap-to-glyph.md](./699-8a58906e-cmap-to-glyph.md) | `8a58906e` | D-1738 display.h cmap_to_glyph trap/zap/expl | **ACCEPT-WITH-DEBT** |
+| [700-3c4dafe8-map-object-observe.md](./700-3c4dafe8-map-object-observe.md) | `3c4dafe8` | D-1739 display.c M_AP_OBJECT map_object | **ACCEPT-WITH-DEBT** |
