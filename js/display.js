@@ -33,8 +33,16 @@ import {
     WM_MASK, WM_C_OUTER, WM_C_INNER,
     WM_W_LEFT, WM_W_RIGHT, WM_W_TOP, WM_W_BOTTOM, WM_T_LONG, WM_T_BL, WM_T_BR,
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
-    HI_GOLD, HI_METAL, HI_ZAP,
-    WEB, VIBRATING_SQUARE, TRAPNUM, BEAR_TRAP, NO_TRAP, is_pit,
+    HI_GOLD, HI_METAL, HI_ZAP, HI_WOOD,
+    WEB, TRAPNUM, BEAR_TRAP, NO_TRAP, is_pit,
+    trap_to_defsym, MAXTCHARS, explodecolors, NUM_ZAP,
+    S_arrow_trap, S_web, S_vibrating_square,
+    S_vbeam, S_hbeam, S_lslant, S_rslant,
+    S_digbeam, S_flashbeam, S_boomleft, S_boomright,
+    S_ss1, S_ss2, S_ss3, S_ss4, S_poisoncloud, S_goodpos,
+    S_expl_tl, S_expl_tc, S_expl_tr, S_expl_ml, S_expl_mc, S_expl_mr,
+    S_expl_bl, S_expl_bc, S_expl_br,
+    EXPL_NOXIOUS, EXPL_MUDDY, EXPL_WET, EXPL_MAGICAL, EXPL_FIERY, EXPL_FROSTY,
     In_mines,
     In_sokoban,
     In_quest,
@@ -872,9 +880,10 @@ function mimic_object_appearance_glyph(mtmp) {
  * C ref: display.h cmap_to_glyph(cmap_idx). Walls → cmap_walls_to_glyph
  * branch colors. S_altar → altar_to_glyph(AM_NEUTRAL) (no
  * USE_GENERAL_ALTAR_COLORS). DEC remaps match terrain_glyph.
- * Named: trap/zap/expl cmap; drawbridge cmap 42–45.
+ * Trap/zap/cmap-C (S_arrow_trap..S_goodpos) via defsym.h PCHAR.
+ * Named: drawbridge cmap 42–45; swallow cmap; integer glyph IDs.
  */
-function cmap_idx_to_glyph(cmap_idx) {
+export function cmap_idx_to_glyph(cmap_idx) {
     const idx = cmap_idx | 0;
     const dec = use_decgraphics();
     if (idx >= S_STONE && idx <= S_TRWALL) {
@@ -963,8 +972,88 @@ function cmap_idx_to_glyph(cmap_idx) {
         return dec ? { ch: '`', color: CLR_BRIGHT_BLUE, dec: true }
             : { ch: '}', color: CLR_BRIGHT_BLUE, dec: false };
     default:
+        return cmap_trap_zap_expl_glyph(idx, dec);
+    }
+}
+
+/**
+ * C defsym.h PCHAR 49–87: traps, zap beams, cmap C (dig/flash/boom/
+ * shield/poisoncloud/goodpos). cmap_to_glyph uses cmap_b then cmap_c.
+ * idx > S_goodpos is NO_GLYPH in C (swallow/expl use other macros).
+ */
+function cmap_trap_zap_expl_glyph(idx, dec) {
+    if (idx >= S_arrow_trap && idx < S_arrow_trap + MAXTCHARS) {
+        let ch = '^';
+        if (idx === S_web) ch = '"';
+        else if (idx === S_vibrating_square) ch = '~';
+        const trapcolors = [
+            HI_METAL, HI_METAL, CLR_GRAY, CLR_BROWN, HI_METAL,
+            CLR_RED, CLR_GRAY, HI_ZAP, CLR_BLUE, CLR_ORANGE,
+            CLR_BLACK, CLR_BLACK, CLR_BROWN, CLR_BROWN, CLR_MAGENTA,
+            CLR_MAGENTA, CLR_BRIGHT_MAGENTA, CLR_GRAY, CLR_GRAY, HI_ZAP,
+            HI_ZAP, CLR_BRIGHT_GREEN, CLR_MAGENTA, CLR_ORANGE, CLR_ORANGE,
+        ];
+        const color = trapcolors[idx - S_arrow_trap] ?? HI_METAL;
+        return { ch, color, dec: false };
+    }
+    if (idx >= S_vbeam && idx <= S_rslant) {
+        const ascii = ['|', '-', '\\', '/'][idx - S_vbeam];
+        if (dec && idx === S_vbeam) return { ch: 'x', color: CLR_GRAY, dec: true };
+        if (dec && idx === S_hbeam) return { ch: 'q', color: CLR_GRAY, dec: true };
+        return { ch: ascii, color: CLR_GRAY, dec: false };
+    }
+    switch (idx) {
+    case S_digbeam:
+        return { ch: '*', color: CLR_WHITE, dec: false };
+    case S_flashbeam:
+        return { ch: '!', color: CLR_WHITE, dec: false };
+    case S_boomleft:
+        return { ch: ')', color: HI_WOOD, dec: false };
+    case S_boomright:
+        return { ch: '(', color: HI_WOOD, dec: false };
+    case S_ss1:
+        return { ch: '0', color: HI_ZAP, dec: false };
+    case S_ss2:
+        return { ch: '#', color: HI_ZAP, dec: false };
+    case S_ss3:
+        return { ch: '@', color: HI_ZAP, dec: false };
+    case S_ss4:
+        return { ch: '*', color: HI_ZAP, dec: false };
+    case S_poisoncloud:
+        return { ch: '#', color: CLR_BRIGHT_GREEN, dec: false };
+    case S_goodpos:
+        return { ch: '$', color: HI_ZAP, dec: false };
+    default:
         return { ch: '?', color: NO_COLOR, dec: false };
     }
+}
+
+/**
+ * C display.h explosion_to_glyph(expltyp, idx). Offset from S_expl_tl;
+ * unknown expltyp (incl. EXPL_DARK) uses FIERY like the C ternary.
+ * DEC: S_expl_tc/ml/mr/bc (dat/symbols). Named: reset_glyphmap explodecolors
+ * vs defsym orange when integer glyph ids land.
+ */
+export function explosion_to_glyph(expltyp, idx) {
+    const eidx = (idx | 0) - S_expl_tl;
+    const chs = ['/', '-', '\\', '|', ' ', '|', '\\', '-', '/'];
+    let ch = chs[eidx] ?? '/';
+    const et = expltyp | 0;
+    let color = CLR_ORANGE;
+    if (et === EXPL_FROSTY) color = CLR_WHITE;
+    else if (et === EXPL_MAGICAL) color = CLR_MAGENTA;
+    else if (et === EXPL_WET) color = CLR_BLUE;
+    else if (et === EXPL_MUDDY) color = CLR_BROWN;
+    else if (et === EXPL_NOXIOUS) color = CLR_GREEN;
+    else color = explodecolors[EXPL_FIERY] ?? CLR_ORANGE;
+    if (use_decgraphics()) {
+        if ((idx | 0) === S_expl_tc) return { ch: 'o', color, dec: true };
+        if ((idx | 0) === S_expl_ml || (idx | 0) === S_expl_mr) {
+            return { ch: 'x', color, dec: true };
+        }
+        if ((idx | 0) === S_expl_bc) return { ch: 's', color, dec: true };
+    }
+    return { ch, color, dec: false };
 }
 
 /** C display.c display_monster `:498–499`. */
@@ -1150,40 +1239,10 @@ function t_at_display(x, y) {
  */
 function trap_glyph(trap) {
     const ttyp = trap?.ttyp | 0;
-    // Indexed by trap_types; NO_TRAP=0 unused. ch '^' except WEB '"' / VS '~'.
-    const colors = [
-        NO_COLOR,           // NO_TRAP
-        HI_METAL,           // ARROW_TRAP
-        HI_METAL,           // DART_TRAP
-        CLR_GRAY,           // ROCKTRAP
-        CLR_BROWN,           // SQKY_BOARD
-        HI_METAL,           // BEAR_TRAP
-        CLR_RED,            // LANDMINE
-        CLR_GRAY,            // ROLLING_BOULDER_TRAP
-        HI_ZAP,             // SLP_GAS_TRAP
-        CLR_BLUE,           // RUST_TRAP
-        CLR_ORANGE,          // FIRE_TRAP
-        CLR_BLACK,           // PIT
-        CLR_BLACK,           // SPIKED_PIT
-        CLR_BROWN,          // HOLE
-        CLR_BROWN,          // TRAPDOOR
-        CLR_MAGENTA,         // TELEP_TRAP
-        CLR_MAGENTA,         // LEVEL_TELEP
-        CLR_BRIGHT_MAGENTA,  // MAGIC_PORTAL
-        CLR_GRAY,            // WEB
-        CLR_GRAY,            // STATUE_TRAP
-        HI_ZAP,             // MAGIC_TRAP
-        HI_ZAP,             // ANTI_MAGIC
-        CLR_BRIGHT_GREEN,   // POLY_TRAP
-        CLR_MAGENTA,         // VIBRATING_SQUARE
-        CLR_ORANGE,          // TRAPPED_DOOR
-        CLR_ORANGE,          // TRAPPED_CHEST
-    ];
-    let ch = '^';
-    if (ttyp === WEB) ch = '"';
-    else if (ttyp === VIBRATING_SQUARE) ch = '~';
-    const color = (ttyp > 0 && ttyp < TRAPNUM) ? colors[ttyp] : HI_METAL;
-    return { ch, color, dec: false };
+    if (ttyp <= NO_TRAP || ttyp >= TRAPNUM) {
+        return { ch: '^', color: HI_METAL, dec: false };
+    }
+    return cmap_idx_to_glyph(trap_to_defsym(ttyp));
 }
 
 /**
@@ -2960,7 +3019,7 @@ async function tmp_at_tether_backtrack(tglyph) {
  */
 export function zapdir_to_glyph(dx0, dy0, beam_type) {
     let bt = beam_type | 0;
-    if (bt < 0 || bt >= 8) bt = 0;
+    if (bt < 0 || bt >= NUM_ZAP) bt = 0;
     const dx = dx0 | 0;
     const dy = dy0 | 0;
     // C: dx = (dx == dy) ? 2 : (dx && dy) ? 3 : dx ? 1 : 0
@@ -3102,42 +3161,112 @@ export async function nh_delay_output() {
 const SHIELD_COUNT = 21;
 
 /**
- * C defsym.h S_ss1..S_ss4 Primary ASCII ('0' '#' '@' '*' / HI_ZAP).
- * Full showsyms / DECgraphics S_ss* remap named (dat/symbols).
- */
-const SHIELD_SS1 = { ch: '0', color: HI_ZAP, dec: false };
-const SHIELD_SS2 = { ch: '#', color: HI_ZAP, dec: false };
-const SHIELD_SS3 = { ch: '@', color: HI_ZAP, dec: false };
-const SHIELD_SS4 = { ch: '*', color: HI_ZAP, dec: false };
-
-/**
  * C decl.c shield_static[SHIELD_COUNT] — S_ss1, S_ss2, S_ss3, S_ss2,
- * S_ss1, S_ss2, S_ss4 (7 per row × 3).
+ * S_ss1, S_ss2, S_ss4 (7 per row × 3). cmap_to_glyph at show time.
  */
 const shield_static = [
-    SHIELD_SS1, SHIELD_SS2, SHIELD_SS3, SHIELD_SS2, SHIELD_SS1, SHIELD_SS2, SHIELD_SS4,
-    SHIELD_SS1, SHIELD_SS2, SHIELD_SS3, SHIELD_SS2, SHIELD_SS1, SHIELD_SS2, SHIELD_SS4,
-    SHIELD_SS1, SHIELD_SS2, SHIELD_SS3, SHIELD_SS2, SHIELD_SS1, SHIELD_SS2, SHIELD_SS4,
+    S_ss1, S_ss2, S_ss3, S_ss2, S_ss1, S_ss2, S_ss4,
+    S_ss1, S_ss2, S_ss3, S_ss2, S_ss1, S_ss2, S_ss4,
+    S_ss1, S_ss2, S_ss3, S_ss2, S_ss1, S_ss2, S_ss4,
 ];
 
 /**
  * C ref: display.c shieldeff — magic shield pyrotechnics at (x, y).
  * flags.sparkle is optlist.h opt_out default On; missing JS field ≡ On.
- * Named omissions: DEC/showsyms S_ss* remap; explode.c inline sparkle
- * loop; shieldeff_mon (mon.c wrapper); other callers still unwired.
+ * Named omissions: DEC/showsyms S_ss* remap; shieldeff_mon (mon.c
+ * wrapper); other callers still unwired.
  */
 export async function shieldeff(x, y) {
     // C: if (!flags.sparkle) return;
     if (game.flags?.sparkle === false) return;
     if (cansee(x, y)) {
         for (let i = 0; i < SHIELD_COUNT; i++) {
-            const g = shield_static[i];
-            show_glyph_cell(x, y, g.ch, g.color, g.dec);
+            const g = cmap_idx_to_glyph(shield_static[i]);
+            void show_glyph_cell(x, y, g.ch, g.color, !!g.dec);
             await flush_screen(1); /* make sure the glyph shows up */
             await nh_delay_output();
         }
         newsym(x, y); /* restore the old information */
     }
+}
+
+/** C explode.c explode_action bits used by the visible blast painter. */
+const EXPL_SHOW_MON = 1;
+const EXPL_SHOW_HERO = 2;
+const EXPL_SHOW_SKIP = 4;
+
+/**
+ * C explode.c `:388–438` — tmp_at DISP_BEAM/CHANGE of
+ * explosion_to_glyph, optional cmap_to_glyph(shield_static) sparkle,
+ * then DISP_END. Caller still owns Boom!/You_hear.
+ * explosion[i][j] is column-first (C).
+ */
+export async function explode_show_visible(x, y, expltype, explmask) {
+    const explosion = [
+        [S_expl_tl, S_expl_ml, S_expl_bl],
+        [S_expl_tc, S_expl_mc, S_expl_bc],
+        [S_expl_tr, S_expl_mr, S_expl_br],
+    ];
+    let visible = false;
+    let any_shield = false;
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            const mask = explmask?.[i]?.[j] | 0;
+            if (mask === EXPL_SHOW_SKIP) continue;
+            const xx = (x | 0) + i - 1;
+            const yy = (y | 0) + j - 1;
+            if (cansee(xx, yy)) visible = true;
+            if ((mask & (EXPL_SHOW_MON | EXPL_SHOW_HERO)) !== 0) {
+                any_shield = true;
+            }
+        }
+    }
+    if (!visible) return;
+    let starting = 1;
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if ((explmask[i][j] | 0) === EXPL_SHOW_SKIP) continue;
+            const g = explosion_to_glyph(expltype, explosion[i][j]);
+            tmp_at(starting ? DISP_BEAM : DISP_CHANGE, g);
+            tmp_at((x | 0) + i - 1, (y | 0) + j - 1);
+            starting = 0;
+        }
+    }
+    void flush_screen(0);
+    if (any_shield && game.flags?.sparkle !== false) {
+        for (let k = 0; k < SHIELD_COUNT; k++) {
+            const sg = cmap_idx_to_glyph(shield_static[k]);
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    const mask = explmask[i][j] | 0;
+                    if ((mask & (EXPL_SHOW_MON | EXPL_SHOW_HERO)) === 0) {
+                        continue;
+                    }
+                    void show_glyph_cell(
+                        (x | 0) + i - 1, (y | 0) + j - 1,
+                        sg.ch, sg.color, !!sg.dec,
+                    );
+                }
+            }
+            await flush_screen(1);
+            await nh_delay_output();
+        }
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                const mask = explmask[i][j] | 0;
+                if ((mask & (EXPL_SHOW_MON | EXPL_SHOW_HERO)) === 0) continue;
+                const g = explosion_to_glyph(expltype, explosion[i][j]);
+                void show_glyph_cell(
+                    (x | 0) + i - 1, (y | 0) + j - 1,
+                    g.ch, g.color, !!g.dec,
+                );
+            }
+        }
+    } else {
+        await nh_delay_output();
+        await nh_delay_output();
+    }
+    tmp_at(DISP_END, 0);
 }
 
 /**

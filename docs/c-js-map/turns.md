@@ -1623,7 +1623,17 @@ MG_DETECT/BW_* deferred); **`mon_map_attr` hilite_pet/`wc2_petattr` ATR_INVERSE 
 **`unmap_object` ≡ C trap/engraving/`map_background` (not `map_location`)** (D-0928 #1166; 
 Blind `set_bc`/`move_bc` glyph / `feel_location` still deferred); omit ladder glyphs; 
 infrared `_map_location`, Hallucination `random_trap_to_glyph`/`see_objects`; 
-**`map_trap`/`trap_glyph` tseen in `_map_location`/`newsym`** (D-0419; hallu trap glyphs deferred); 
+**`map_trap`/`trap_glyph` tseen in `_map_location`/`newsym`** (D-0419; hallu trap glyphs deferred);
+**`cmap_to_glyph` trap/zap/cmap-C + `explosion_to_glyph`** (D-1738;
+`display.h` `:621–628`/`:587–594`; `rm.h` `trap_to_defsym`; explode.c
+`:388–438`; live `js/display.js` `cmap_idx_to_glyph` /
+`explode_show_visible` + `js/explode.js` + `js/const.js` S_* 49–87 /
+96–104; WEB `"` / VS `~`; DEC v/h beam + expl tc/ml/mr/bc;
+`shield_static` cmap indices; named: drawbridge 42–45, swallow cmap,
+integer glyph IDs, hallu `random_trap_to_glyph`, getpos/`apply`
+`S_goodpos` tmp_at, region `'S_poisoncloud'`/`'S_cloud'` strings,
+You_hear vs Boom! when !visible, explode `map_invisible` !canspotmon;
+furniture lastseentyp is D-1726); 
 hallu/`random_monster` statue; pile-top/gender statue glyph offsets; 
 telepathy/`Detect_monsters`; MATCH_WARN overlay D-1514 (`see_wsegs` / `is_worm_tail` D-1529); full `set_uasmon`/uprops; 
 **TREE `terrain_glyph` + scoring grid keeps raw DEC `g`** (D-0565; Primary `#`/CLR_GREEN); 

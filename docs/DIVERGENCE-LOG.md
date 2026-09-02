@@ -1,5 +1,42 @@
 # Divergence log
 
+## D-1738 — display.h cmap_to_glyph trap/zap/cmap-C + explosion_to_glyph
+
+- **Status:** fixed (map-driven Open from D-1737; not a public FAIL)
+- **Symptom:** map named `cmap_to_glyph` trap/zap/expl. C
+  `cmap_to_glyph` cmap_b then cmap_c for `S_arrow_trap`..`S_goodpos`;
+  `trap_to_glyph` is `cmap_to_glyph(trap_to_defsym(ttyp))`;
+  `explosion_to_glyph` is a separate macro (unknown expltyp including
+  `EXPL_DARK` → FIERY). JS `cmap_idx_to_glyph` fell through to `{ ch:
+  '?' }` for those ids; `trap_glyph` kept a parallel color table;
+  `explode` voided `expltype` and skipped the visible blast.
+- **C locus:** `display.h` `cmap_to_glyph` `:621–628`,
+  `trap_to_glyph` `:630–631`, `explosion_to_glyph` `:587–594`;
+  `rm.h` `trap_to_defsym`; `defsym.h` PCHAR 49–87 / 96–104;
+  `explode.c` `:388–438`; `decl.c` `shield_static`.
+- **JS was:** furniture/terrain switch then `'?'`; trap colors by
+  `ttyp`; `shieldeff` used inline `{ch,color}` not cmap indices;
+  `explode(..., _expltype)` `void`.
+- **Fix:** `cmap_trap_zap_expl_glyph` PCHAR 49–87 (WEB `"`, VS `~`,
+  DEC v/h beam); `trap_glyph` via `trap_to_defsym`;
+  `explosion_to_glyph` ternary + DEC expl remaps; `shield_static`
+  cmap indices; `explode_show_visible` tmp_at BEAM/CHANGE then
+  sparkle/`DISP_END`. Boom! kept when !visible (You_hear named).
+- **JS:** `js/display.js` `cmap_idx_to_glyph` / `explosion_to_glyph`
+  / `explode_show_visible`; `js/explode.js`; `js/const.js` S_* +
+  `trap_to_defsym` / `explodecolors`.
+- **Not this iter:** drawbridge cmap 42–45; swallow cmap; integer
+  glyph IDs; hallu `random_trap_to_glyph`; getpos/`apply` `S_goodpos`
+  tmp_at; region `'S_poisoncloud'`/`'S_cloud'` strings; You_hear vs
+  Boom!; explode `map_invisible` when mtmp && !canspotmon. Furniture
+  lastseentyp is D-1726; Detect_monsters cansee is D-1737.
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:cmap_to_glyph`); node trap `^`/`"`/`~`, `S_goodpos` `$`,
+  `S_poisoncloud` `#`/bright green, `explosion_to_glyph(EXPL_FIERY,
+  S_expl_tl).ch === '/'`, EXPL_DARK→FIERY, drawbridge still `?`; green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + seed2200/0383 **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/const.js`, `js/display.js`, `js/explode.js`.
+
 ## D-1737 — display.c newsym Detect_monsters cansee
 
 - **Status:** fixed (map-driven Open from D-1736; not a public FAIL)

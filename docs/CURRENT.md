@@ -62,37 +62,40 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1737. Save-oracle required for tagged
+**Suite 44/44** fortress after D-1738. Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`). Map still
 picks work; do not shop the fork dashboard. Private B0 (not in
 `sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
 wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
 trap-ledger **38/38**; shop template **35/35** (no unpaid).
-**Next cluster:** Open `display.c` cmap_to_glyph trap/zap/expl (named). Not furniture lastseentyp.
-**Do not skip D-1531…D-1737 (index).** Keep mention_map addr.
+**Next cluster:** Open `display.c` mimic map_object observe (named). Not M_AP_OBJECT glyph.
+**Do not skip D-1531…D-1738 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1737.** Do not FORCE
+**Do not re-break D-0660…D-1738.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1737 (index). Recent: **D-1737** `newsym` Detect_monsters
-cansee (`display.c` `:1013–1029`; live `js/display.js`; not !cansee
+**Keep:** D-0845…D-1738 (index). Recent: **D-1738** `cmap_to_glyph`
+trap/zap/cmap-C + `explosion_to_glyph` (`display.h`; explode.c
+`:388–438`; live `js/display.js` + `js/explode.js`; not furniture
+lastseentyp). **D-1737** `newsym` Detect_monsters cansee
+(`display.c` `:1013–1029`; live `js/display.js`; not !cansee
 `display_monster`). **D-1736** `display_monster` Protection sensed
 (`display.c` `:518–519`; live `js/display.js`). **D-1735** `useup`
 (`invent.c` `:1320–1333`; live `js/invent.js`; write.js import; not
-eat.js useupf / `dealloc_obj`). **D-1734** `what_mon` (not Protection).
+eat.js useupf / `dealloc_obj`).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1737 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1738 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1737 (index). No generic `dknown` on
+Do not re-port D-1660…D-1738 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

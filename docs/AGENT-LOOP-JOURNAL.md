@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1738 display.h cmap_to_glyph trap/zap/expl
+
+**Objective:** Open `display.c` cmap_to_glyph trap/zap/expl (named).
+Not furniture lastseentyp.
+Continue-unfinished of #2147 (`resource_exhausted` before commit).
+**C locus:** `display.h` `cmap_to_glyph` `:621–628` /
+`trap_to_glyph` / `explosion_to_glyph`; explode.c `:388–438`.
+**JS locus:** `js/display.js` `cmap_idx_to_glyph` /
+`explode_show_visible`; `js/explode.js`; `js/const.js` S_*.
+**Change:** PCHAR 49–87 via cmap_b/c; `trap_glyph` =
+`cmap_to_glyph(trap_to_defsym)`; `explosion_to_glyph` (DARK→FIERY);
+visible blast tmp_at. Named: drawbridge 42–45; You_hear vs Boom!.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `display.c:cmap_to_glyph`; node
+`^`/`"`/`~`/`$`/`#` + expl `/` + DARK→FIERY; green+strict seed8000/0900;
+CURRENT cohort **7**/7 + seed2200/0383 **9**/9 + strict. Rule #2 clean.
+**Next:** Open `display.c` mimic map_object observe.
+**Blocked:** none.
 ## 2026-09-02 — D-1737 display.c newsym Detect_monsters cansee
 
 **Objective:** Open `display.c` newsym Detect_monsters cansee arm
