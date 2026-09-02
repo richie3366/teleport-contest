@@ -1886,8 +1886,10 @@ MENU_PREV/FIRST/LAST + other NHW_MENU callers still single-page);
 **friday13 `doattributes` two-space body indent** (D-0333); 
 **`$`/`doprgold` wallet pline** (D-0338; **D-1720** `currency`; **D-1731**
 `hidden_gold(FALSE)` `:4502–4546` stash `eos` / non-verbose total +
-m-prefix `dispinv_with_action("$", FALSE)`; live `js/invent.js`;
-shopper_financial_report / `shop_debt` named); 
+m-prefix `dispinv_with_action("$", FALSE)`; **D-1740**
+`shopper_financial_report` / `shop_debt` `:989–1035` two-pass
+`next_shkp` xor + debit+bill; live `js/invent.js` + `js/shk.js`;
+dokick `hidden_gold_kick` / botl hidden_gold callers named); 
 **`)`/`doprwep` bare-handed / wielded `xprname`** (D-0339; m-prefix inuse menu D-1589); 
 **`[`/`doprarm` + `=`/`"`/`(`/`doprring`/`dopramulet`/`doprtool`/`*` `doprinuse`** (D-0340; 
 **inuse `dispinv` D-1589**; **uskin noarmor D-1668** (`simpleonames` + `"set of "` + strstri `" dragon "`; polyself merge `uskin=` / scale-mail revert named); **`#seeall` EXT_CMDS D-1605**
@@ -2883,7 +2885,10 @@ leave-boundary verbalize then `rob_shop`/`call_kops`; `wizard.c`
 `:88–96` stair swarm (`builds_up` / ladder / branch / opposite);
 live `js/shk.js` + `js/wizard.js` + `js/mklev.js`; named: SetVoice;
 teleport.c heaven caller; STRAT_HEAL still rloc/healmon; `costly_gold`;
-`end.c` `artifact_score` is D-1730; botl live
+**D-1740:** `shop_debt` `:989–999` + `shopper_financial_report`
+`:1002–1035` two-pass `next_shkp(fmon, FALSE)` xor; `doprgold`
+awaits after wallet (D-1731); live `js/shk.js`; named: get_valuables /
+dokick `hidden_gold_kick`; `end.c` `artifact_score` is D-1730; botl live
 `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 

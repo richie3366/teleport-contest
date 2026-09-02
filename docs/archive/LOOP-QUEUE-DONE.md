@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-02
 
+- [x] `shk.c` shopper_financial_report / shop_debt (named). Not hidden_gold. **Addressed:** D-1740
+
+
 - [x] `display.c` mimic map_object observe (named). Not M_AP_OBJECT glyph. **Addressed:** D-1739 `3c4dafe8`
 
 

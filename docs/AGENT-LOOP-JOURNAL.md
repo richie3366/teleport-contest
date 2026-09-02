@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1740 shk.c shopper_financial_report / shop_debt
+
+**Objective:** Open `shk.c` shopper_financial_report / shop_debt
+(named). Not hidden_gold.
+**C locus:** `shk.c` `shop_debt` `:989–999` /
+`shopper_financial_report` `:1002–1035`; `invent.c` `doprgold`
+`:4536`.
+**JS locus:** `js/shk.js` `shop_debt` / `shopper_financial_report`;
+`js/invent.js` `doprgold`.
+**Change:** debit+bill debt and two-pass `next_shkp` xor report
+(empty current shop skips pass 0). `$` awaits it after wallet.
+Named: get_valuables; dokick `hidden_gold_kick`; `costly_gold`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `shk.c:shopper_financial_report`;
+node 14/14 (empty / 110 owe / credit suffix / other pass 1 / outside
+billed / pass order / dead skip / `$` wallet then owe); green+strict
+seed8000/0900; CURRENT cohort **9**/9 + strict. Rule #2 clean.
+**Next:** Open `end.c` get_valuables.
+**Blocked:** none.
 ## 2026-09-02 — audit #2150 reviews 696–700 + cadence
 
 **Objective:** C-fidelity review of five `js/` SHAs since **695**

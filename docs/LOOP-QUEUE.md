@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `shk.c` shopper_financial_report / shop_debt (named). Not hidden_gold.
 - [ ] `end.c` get_valuables (named). Not artifact_score.
 - [ ] `calendar.c` getyear (named). Not hhmmss.
 - [ ] `invent.c` dealloc_obj (named). Not useupall.

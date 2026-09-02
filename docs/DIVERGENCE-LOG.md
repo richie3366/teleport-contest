@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1740 — shk.c shopper_financial_report / shop_debt
+
+- **Status:** fixed (map-driven Open from D-1739; not a public FAIL)
+- **Symptom:** map named `shopper_financial_report` / `shop_debt`. C
+  `doprgold` always calls `shopper_financial_report` after wallet/stash.
+  `shop_debt` is `debit` plus billed `price*bquan`. Two-pass
+  `next_shkp(fmon, FALSE)`: pass 0 current shop
+  (`inside_shop`/`shop_keeper`), pass 1 other shops on the level;
+  `(shkp != this_shkp) ^ pass`. Empty current shop: "no credit or debt"
+  then `this_shkp=0`. JS `doprgold` (D-1731) stopped at wallet/stash.
+- **C locus:** `shk.c` `shop_debt` `:989–999`;
+  `shopper_financial_report` `:1002–1035`; `invent.c` `doprgold`
+  `:4536`.
+- **JS was:** named omit in `doprgold`; no `shop_debt`.
+- **Fix:** live `shop_debt` + async `shopper_financial_report`;
+  `doprgold` awaits it. Callees already live (`shop_keeper`,
+  `inside_shop`, `next_shkp`, `currency`, `s_suffix`, `shkname`,
+  `shtypes`).
+- **JS:** `js/shk.js` `shop_debt` / `shopper_financial_report`;
+  `js/invent.js` `doprgold`.
+- **Not this iter:** `end.c` `get_valuables`; dokick
+  `hidden_gold_kick`; `costly_gold`; botl/detect/insight/topten/u_init
+  `hidden_gold` callers. `hidden_gold` is D-1731; `artifact_score` is
+  D-1730.
+- **Verified:** save-oracle probe skip (untagged
+  `shk.c:shopper_financial_report`); node empty / debit+bill 110 /
+  credit `s_suffix` shoptype / other-shop pass 1 / outside billed /
+  pass order / DEADMONSTER skip / `doprgold` wallet then owe; green+strict
+  seed8000/0900; CURRENT cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/shk.js`, `js/invent.js`.
+
 ## D-1739 — display.c display_monster M_AP_OBJECT map_object observe
 
 - **Status:** fixed (map-driven Open from D-1738; not a public FAIL)
