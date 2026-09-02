@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1737 — display.c newsym Detect_monsters cansee
+
+- **Status:** fixed (map-driven Open from D-1736; not a public FAIL)
+- **Symptom:** map named `newsym` Detect_monsters cansee. C
+  `if (mon && (see_it || (!worm_tail && Detect_monsters)))` then
+  mtrapped physical-trap `tseen` and `display_monster(..., see_it ?
+  PHYSICALLY_SEEN : DETECTED)`. JS entered only on `see_it` and always
+  passed PHYSICALLY_SEEN, so an invisible monster on a seen square
+  stayed terrain under monster detection.
+- **C locus:** `display.c` `newsym` `:1013–1029`; youprop.h
+  `:187–190` H||E. `PHYSICALLY_SEEN`/`DETECTED` `:498–499`.
+  `cell_shows_displayed_monster` matches the same predicate.
+- **JS was:** cansee `if (see_it)` + `display_monster(..., PHYSICALLY_SEEN)`;
+  no mtrapped `tseen`.
+- **Fix:** youprop H||E (flats + `uprops[DETECT_MONSTERS]` + sticky
+  fallback). Detected-not-seen paints DETECTED (skips mimic
+  PHYSICALLY_SEEN disguise). Bear/pit/web under a trapped mon become
+  `tseen` before `_map_location(…, FALSE)`.
+- **JS:** `js/display.js` `Detect_monsters` / `newsym` / `sensemon` /
+  `cell_shows_displayed_monster`.
+- **Not this iter:** !cansee `display_monster` (`see_it ? 0 : DETECTED`
+  still `show_glyph_cell`); pet/detected worm_tail glyph ids;
+  `show_mon_or_warn` I-glyph; map_object observe. Protection sensed is
+  D-1736; furniture lastseentyp is D-1726; `what_mon` is D-1734.
+- **Verified:** save-oracle probe skip (untagged `display.c:newsym`);
+  node goblin `o` vs ROOM `.` on H/E/uprops + bear/pit/web `tseen`;
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict (incl.
+  seed0383 hallu). Rule #2 clean.
+- **Files:** `js/display.js`.
+
 ## D-1736 — display.c display_monster Protection_from_shape_changers sensed
 
 - **Status:** fixed (map-driven Open from D-1735; not a public FAIL)

@@ -34,7 +34,7 @@ import {
     WM_W_LEFT, WM_W_RIGHT, WM_W_TOP, WM_W_BOTTOM, WM_T_LONG, WM_T_BL, WM_T_BR,
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
     HI_GOLD, HI_METAL, HI_ZAP,
-    WEB, VIBRATING_SQUARE, TRAPNUM,
+    WEB, VIBRATING_SQUARE, TRAPNUM, BEAR_TRAP, NO_TRAP, is_pit,
     In_mines,
     In_sokoban,
     In_quest,
@@ -65,6 +65,7 @@ import {
     HALLUC_RES,
     WARN_OF_MON,
     PROT_FROM_SHAPE_CHANGERS,
+    DETECT_MONSTERS,
     BOLT_LIM,
     Upolyd,
     MALE,
@@ -406,6 +407,20 @@ function Protection_from_shape_changers() {
         || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
 
+/**
+ * C ref: youprop.h Detect_monsters — HDetect_monsters || EDetect_monsters.
+ * Flat H/E mirrors are potion/timeout copies; sticky `u.Detect_monsters`
+ * is a JS fallback (same as `sensemon` / restore).
+ */
+function Detect_monsters() {
+    const u = game.u || {};
+    const p = u.uprops?.[DETECT_MONSTERS];
+    return !!((u.HDetect_monsters | 0)
+        || (u.EDetect_monsters | 0)
+        || u.Detect_monsters
+        || (p?.intrinsic | 0) || (p?.extrinsic | 0));
+}
+
 // artifact.js imports display.js; Sting_effects registers here at load.
 let _Sting_effects = null;
 /** Late-bind artifact.c Sting_effects (avoid display↔artifact ESM cycle). */
@@ -464,8 +479,7 @@ export function sensemon(mon) {
     if (!mon) return false;
     const u = game.u || {};
     if (u.uswallow && mon !== u.ustuck) return false;
-    if (u.Detect_monsters
-        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0)) {
+    if (Detect_monsters()) {
         return true;
     }
     return tp_sensemon(mon) || MATCH_WARN_OF_MON(mon);
@@ -965,10 +979,11 @@ const PHYSICALLY_SEEN = 1;
  * M_AP_MONSTER: what_mon(mappearance, rn2_on_display_rng) then
  * monnum_to_glyph (D-1734) — not live mon_glyph. Then if !mimic ||
  * sensed, show the real monster. sensed is Protection_from_shape_changers
- * || sensemon (D-1736) — not Detect_monsters cansee (that is newsym).
- * Named: male/fem glyph offsets (same mlet on tty); pet/detected worm_tail
- * glyph variants; show_mon_or_warn unmap_object when I-glyph;
- * map_object observe (memory still written in C when sensed).
+ * || sensemon (D-1736). newsym cansee Detect_monsters is D-1737
+ * (sightflags DETECTED when !see_it). Named: male/fem glyph offsets
+ * (same mlet on tty); pet/detected worm_tail glyph variants;
+ * show_mon_or_warn unmap_object when I-glyph; map_object observe
+ * (memory still written in C when sensed).
  */
 function display_monster(x, y, mon, sightflags, worm_tail) {
     const ap = (mon.m_ap_type | 0) & M_AP_TYPMASK;
@@ -2482,18 +2497,17 @@ function cell_shows_displayed_monster(mtmp, x, y) {
     if (game.u?.uswallow) return false;
     const worm_tail = is_worm_tail(mtmp, x, y);
     if (cansee(x, y)) {
-        // C: see_it = mon_visible || (!worm_tail && (tp || MATCH_WARN))
-        // Detect_monsters cansee arm still named.
-        return !!(mon_visible(mtmp) || (!worm_tail && tp_sensemon(mtmp)));
+        // C newsym `:1013–1028` — see_it || (!worm_tail && Detect_monsters)
+        const see_it = !!(mon_visible(mtmp)
+            || (!worm_tail && (tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp))));
+        return !!(see_it || (!worm_tail && Detect_monsters()));
     }
     if (tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp)
         || (mon_visible(mtmp) && see_with_infrared(mtmp))) {
         return true;
     }
     if (worm_tail) return false;
-    const u = game.u || {};
-    return !!(u.Detect_monsters
-        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0));
+    return Detect_monsters();
 }
 
 /**
@@ -3202,8 +3216,7 @@ function canseeself() {
 function senseself() {
     const u = game.u || {};
     // Unblind_telepat = ETelepat; Detect_monsters = H|E
-    return !!(u.ETelepat || u.Unblind_telepat || u.Detect_monsters
-        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0));
+    return !!(u.ETelepat || u.Unblind_telepat || Detect_monsters());
 }
 function canspotself() {
     return canseeself() || senseself();
@@ -3491,10 +3504,18 @@ export function newsym(x, y) {
         // C: accessible / pool-lava visible region before monster/map
         if (newsym_try_show_region(x, y, loc, mtmp)) return;
         // C: see_it = mon_visible || (!worm_tail && (tp || MATCH_WARN))
-        // Detect_monsters cansee arm still named.
         const see_it = mtmp && (mon_visible(mtmp)
             || (!worm_tail && (tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp))));
-        if (see_it) {
+        // C `:1016–1031` — Detect_monsters paints DETECTED when !see_it
+        if (mtmp && (see_it || (!worm_tail && Detect_monsters()))) {
+            // C: if monster is in a physical trap, you see trap too
+            if (mtmp.mtrapped) {
+                const trap = t_at_display(x, y);
+                const tt = trap ? (trap.ttyp | 0) : NO_TRAP;
+                if (tt === BEAR_TRAP || is_pit(tt) || tt === WEB) {
+                    trap.tseen = 1;
+                }
+            }
             // C: _map_location(x, y, FALSE) then display_monster — memory
             // keeps object under the monster so leaving sight does not
             // replace ) with remembered corridor.
@@ -3505,9 +3526,8 @@ export function newsym(x, y) {
             } else {
                 map_location_memory(x, y);
             }
-            // C: display_monster(..., see_it ? PHYSICALLY_SEEN : DETECTED)
-            // Detect_monsters cansee arm still named (see_it only here).
-            display_monster(x, y, mtmp, PHYSICALLY_SEEN, worm_tail);
+            display_monster(x, y, mtmp,
+                see_it ? PHYSICALLY_SEEN : DETECTED, worm_tail);
             return;
         }
         // C: else if (mon && mon_warning(mon) && !worm_tail) display_warning
@@ -3535,14 +3555,10 @@ export function newsym(x, y) {
         show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mtmp));
         return;
     }
-    {
-        const u = game.u || {};
-        if (mtmp && !worm_tail && (u.Detect_monsters
-            || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0))) {
-            const mg = mon_glyph(mtmp);
-            show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mtmp));
-            return;
-        }
+    if (mtmp && !worm_tail && Detect_monsters()) {
+        const mg = mon_glyph(mtmp);
+        show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mtmp));
+        return;
     }
     if (mtmp && mon_warning(mtmp) && !worm_tail) {
         display_warning(mtmp);
@@ -3695,7 +3711,8 @@ export function swallowed(first = 0) {
  * Warn_of_mon counts warntype.obj & mflags2 then Sting_effects (D-1493).
  * MATCH_WARN overlay is newsym see_it (D-1514).
  * see_wsegs refreshes tail cells (D-1529).
- * Named omissions: MON_STILL_ARRIVING skip; Detect_monsters cansee.
+ * Named omissions: MON_STILL_ARRIVING skip.
+ * Detect_monsters cansee is newsym (D-1737).
  */
 export function see_monsters() {
     if (game.defer_see_monsters) return;

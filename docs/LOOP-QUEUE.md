@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `display.c` newsym Detect_monsters cansee arm (named). Not display_monster furniture.
 - [ ] `display.c` cmap_to_glyph trap/zap/expl (named). Not furniture lastseentyp.
 - [ ] `display.c` mimic map_object observe (named). Not M_AP_OBJECT glyph.
 - [ ] `shk.c` shopper_financial_report / shop_debt (named). Not hidden_gold.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `calendar.c` getyear (named). Not hhmmss.
 - [ ] `invent.c` dealloc_obj (named). Not useupall.
 - [ ] `worn.c` possibly_unwield (named). Not setworn oc_oprop.
+- [ ] `display.c` newsym !cansee display_monster DETECTED (named). Not cansee Detect_monsters.
+- [ ] `display.c` see_monsters MON_STILL_ARRIVING skip (named). Not newsym Detect_monsters.
+- [ ] `display.c` show_mon_or_warn I-glyph unmap_object (named). Not map_object observe.
+- [ ] `display.c` display_monster pet_to_glyph / detected_mon_to_glyph (named). Not Protection sensed.
+- [ ] `display.c` feel_location is_worm_tail (named). Not Blind levitate-arm.
 
 ## Parked (do not pop)
 

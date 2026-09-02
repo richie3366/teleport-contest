@@ -1557,7 +1557,7 @@ no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667;
 DRAWBRIDGE_UP under-typ / C FIXME hero-inside-cloud still named); 
 **SPFX_WARN conferral + MATCH_WARN see_it D-1514**; 
 MON_STILL_ARRIVING / make_blinded 
-Sting(-1) / Detect_monsters cansee / feel_location `is_worm_tail` deferred); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
+Sting(-1) / feel_location `is_worm_tail` deferred); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
 **docrt memory=`show_memory_glyph` + gulpmu `swallowed(1)`** (D-0838; underwater/buried deferred); 
 **DECgfx swallow `S_sw_tc/ml/mr/bc` meta-o/x/x/s** (D-0842; Primary corners `/\\`); 
 **swallow DEC `o`/`s` keep SO-form for scoring + `HI_METAL`≡CLR_CYAN in `mcolors`** (D-0843; 
@@ -1585,8 +1585,13 @@ tp_sensemon/warn/worm deferred); **`display_monster` M_AP_OBJECT → `obj_glyph(
 `monnum_to_glyph`** (D-1734; `display.h` `what_mon`/`random_monster`;
 live `js/display.js`; not live `mon_glyph`);
 **`display_monster` sensed = Protection_from_shape_changers ||
-`sensemon`** (D-1736; youprop.h H||E; live `js/display.js`; not
-Detect_monsters cansee; map_object observe still named); 
+`sensemon`** (D-1736; youprop.h H||E; live `js/display.js`;
+map_object observe still named);
+**`newsym` cansee Detect_monsters** (D-1737; C `:1013–1029`
+`see_it || (!worm_tail && Detect_monsters)` then mtrapped
+BEAR_TRAP/`is_pit`/WEB `tseen` + `display_monster` DETECTED;
+youprop.h H||E; live `js/display.js` + `cell_shows_displayed_monster`;
+not !cansee `display_monster`; pet/detected glyph ids still named); 
 **`obj_is_generic` + tty CLR_GRAY/BLACK→NO_COLOR** (D-0118); 
 **`map_object`/`see_nearby_objects` neardist `observe_object`** (D-0299; 
 upgrades generic gem/potion/spellbook to per-otyp color); 
@@ -1630,7 +1635,7 @@ DRAWBRIDGE_UP lastseentyp is D-1711; furniture lastseentyp is D-1726;
 knox + why DEC recorder SGR 34 vs source `wallcolors[]` GRAY deferred); 
 DISP_TETHER BACKTRACK / ALL nest; other DEC remaps (ladder); 
 glyph_is_generic remembered-only newsym_force arm; full lev->glyph vs remembered-only memory; 
-Detect_monsters/tp_sensemon/warn !cansee arms; mimic map_object observe; 
+Detect_monsters/tp_sensemon/warn !cansee `display_monster` arms (cansee is D-1737); mimic map_object observe; 
 Rogue-level litcorr/room darkening; **`feel_location` + Blind `newsym` u_at** (D-0928 #1169; 
 reachable `_map_location` + Punished `bc_felt` + `feel_newsym`; 
 full levitate-arm do_room_glyph/litcorr + usteed reach deferred; MATCH_WARN via `sensemon` is D-1514); 
