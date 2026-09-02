@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1739 — display.c display_monster M_AP_OBJECT map_object observe
+
+- **Status:** fixed (map-driven Open from D-1738; not a public FAIL)
+- **Symptom:** map named mimic `map_object` observe. C
+  `display_monster` builds a stack `zeroobj` (`ox`/`oy`/`otyp`/
+  `corpsenm`) and calls `map_object(&obj, !sensed)`. Hero memory and
+  `observe_object` (generic + cansee + neardist) run even when
+  Protection/`sensemon` sees through the disguise; `show_glyph` only
+  if `!sensed`. JS skipped the object arm when sensed (D-1736 helper
+  returned null) and otherwise painted `obj_glyph` without
+  `map_object`.
+- **C locus:** `display.c` `display_monster` `:564–575`;
+  `map_object` `:332–366`; `o_init.c` `observe_object` `:441–451`.
+  Default `corpsenm` `PM_TENGU` when `!has_mcorpsenm`.
+- **JS was:** `mimic_object_appearance_glyph` null on sensed; parallel
+  `show_glyph_cell` + `remembered_glyph` when !sensed.
+- **Fix:** fake obj → live `map_object(obj, !sensed)`. Sensed still
+  writes object memory then paints the monster. Generic potion/gem/
+  spell nearby still `observe_object`. Helper kept for
+  `reveal_terrain_getglyph` displayed layer only.
+- **JS:** `js/display.js` `display_monster`.
+- **Not this iter:** pet/detected worm_tail glyphs; `show_mon_or_warn`
+  I-glyph unmap; !cansee `display_monster` DETECTED;
+  `see_monsters` MON_STILL_ARRIVING; `feel_location` `is_worm_tail`.
+  Protection sensed is D-1736; Detect_monsters cansee is D-1737;
+  furniture lastseentyp is D-1726.
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:display_monster`); node gold `$` memory vs mimic `m`
+  display under PfSC, `$`/`$` without, potion `!` + `oc_encountered`
+  when sensed; green+strict seed8000/0900; CURRENT cohort **9**/9 +
+  strict (incl. seed2200/0383). Rule #2 clean.
+- **Files:** `js/display.js`.
+
 ## D-1738 — display.h cmap_to_glyph trap/zap/cmap-C + explosion_to_glyph
 
 - **Status:** fixed (map-driven Open from D-1737; not a public FAIL)

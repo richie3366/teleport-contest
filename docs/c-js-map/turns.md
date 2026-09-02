@@ -1578,15 +1578,16 @@ next C ~drn2 dim diff; **`newsym` `show_region` + `mon_overrides_region` D-1528*
 **Primary ASCII vs `symset:DECgraphics` walls/floors/ndoor/open-door `horizontal`** (D-0115); 
 **DECgraphics `S_altar` meta-`{` (ASCII `_`); scoring grid keeps raw `{`** (D-0293); 
 **`map_invisible` + `canspotmon`/`canseemon`/`sensemon` + `newsym` keep `I`** (D-0296; 
-tp_sensemon/warn/worm deferred); **`display_monster` M_AP_OBJECT → `obj_glyph(mappearance)` in 
-`newsym`** (D-0297); **M_AP_FURNITURE `cmap_to_glyph` + lastseentyp** (D-1726;
+tp_sensemon/warn/worm deferred); **`display_monster` M_AP_OBJECT fake obj → `map_object(&obj, !sensed)`**
+(D-1739; C `:564–575`; memory+`observe_object` even when sensed;
+D-0297 paint); **M_AP_FURNITURE `cmap_to_glyph` + lastseentyp** (D-1726;
 `js/display.js` `display_monster`; not `update_lastseentyp`);
 **M_AP_MONSTER `what_mon(mappearance, rn2_on_display_rng)` +
 `monnum_to_glyph`** (D-1734; `display.h` `what_mon`/`random_monster`;
 live `js/display.js`; not live `mon_glyph`);
 **`display_monster` sensed = Protection_from_shape_changers ||
 `sensemon`** (D-1736; youprop.h H||E; live `js/display.js`;
-map_object observe still named);
+map_object observe is D-1739);
 **`newsym` cansee Detect_monsters** (D-1737; C `:1013–1029`
 `see_it || (!worm_tail && Detect_monsters)` then mtrapped
 BEAR_TRAP/`is_pit`/WEB `tseen` + `display_monster` DETECTED;
@@ -1645,7 +1646,7 @@ DRAWBRIDGE_UP lastseentyp is D-1711; furniture lastseentyp is D-1726;
 knox + why DEC recorder SGR 34 vs source `wallcolors[]` GRAY deferred); 
 DISP_TETHER BACKTRACK / ALL nest; other DEC remaps (ladder); 
 glyph_is_generic remembered-only newsym_force arm; full lev->glyph vs remembered-only memory; 
-Detect_monsters/tp_sensemon/warn !cansee `display_monster` arms (cansee is D-1737); mimic map_object observe; 
+Detect_monsters/tp_sensemon/warn !cansee `display_monster` arms (cansee is D-1737); 
 Rogue-level litcorr/room darkening; **`feel_location` + Blind `newsym` u_at** (D-0928 #1169; 
 reachable `_map_location` + Punished `bc_felt` + `feel_newsym`; 
 full levitate-arm do_room_glyph/litcorr + usteed reach deferred; MATCH_WARN via `sensemon` is D-1514); 

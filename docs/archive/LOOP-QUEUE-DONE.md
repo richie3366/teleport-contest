@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-02
 
-- [x] `display.c` cmap_to_glyph trap/zap/expl (named). Not furniture lastseentyp. **Addressed:** D-1738
+- [x] `display.c` mimic map_object observe (named). Not M_AP_OBJECT glyph. **Addressed:** D-1739
+
+
+- [x] `display.c` cmap_to_glyph trap/zap/expl (named). Not furniture lastseentyp. **Addressed:** D-1738 `8a58906e`
 
 
 - [x] `display.c` newsym Detect_monsters cansee arm (named). Not display_monster furniture. **Addressed:** D-1737 `5d1f9fb6`

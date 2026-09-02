@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1739 display.c mimic map_object observe
+
+**Objective:** Open `display.c` mimic map_object observe (named).
+Not M_AP_OBJECT glyph.
+**C locus:** `display.c` `display_monster` `:564–575` /
+`map_object` `:332–366`.
+**JS locus:** `js/display.js` `display_monster`.
+**Change:** fake `zeroobj` → `map_object(obj, !sensed)` so sensed
+object-mimics still write memory and `observe_object`. Named:
+pet/detected glyphs; `show_mon_or_warn` I-glyph.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `display.c:display_monster`; node
+gold `$` mem vs `m` disp under PfSC; potion `oc_encountered`;
+green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+Rule #2 clean.
+**Next:** Open `shk.c` shopper_financial_report / shop_debt.
+**Blocked:** none.
 ## 2026-09-02 — D-1738 display.h cmap_to_glyph trap/zap/expl
 
 **Objective:** Open `display.c` cmap_to_glyph trap/zap/expl (named).

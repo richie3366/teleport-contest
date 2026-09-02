@@ -858,16 +858,15 @@ export function mon_glyph(mtmp) {
 }
 
 /**
- * C ref: display.c display_monster — M_AP_OBJECT fake obj → map_object.
- * When a mimic is PHYSICALLY_SEEN and not sensed as a monster, show the
- * disguised object glyph (and remember it) instead of the mlet letter.
- * Furniture lastseentyp is display_monster (D-1726). M_AP_MONSTER
- * what_mon is D-1734. Protection sensed is D-1736. Named: Hallu
- * statue random_obj; map_object observe.
+ * C ref: display.c display_monster — displayed M_AP_OBJECT glyph for
+ * reveal_terrain_getglyph (not memory). display_monster itself sends a
+ * fake obj to map_object (D-1739). When sensed, C gbuf is the monster.
+ * Furniture lastseentyp is D-1726. M_AP_MONSTER what_mon is D-1734.
+ * Protection sensed is D-1736.
  */
 function mimic_object_appearance_glyph(mtmp) {
     if (((mtmp.m_ap_type | 0) & M_AP_TYPMASK) !== M_AP_OBJECT) return null;
-    // C display_monster `:518–519` + map_object show=!sensed.
+    // C display_monster `:518–519` — sensed paints the monster, not obj.
     if (Protection_from_shape_changers() || sensemon(mtmp)) return null;
     const corpsenm = has_mcorpsenm(mtmp) ? MCORPSENM(mtmp) : PM_TENGU;
     return obj_glyph({
@@ -1064,15 +1063,15 @@ const PHYSICALLY_SEEN = 1;
  * C ref: display.c display_monster `:513–622`. Mimic check first when
  * PHYSICALLY_SEEN. M_AP_FURNITURE: cmap_to_glyph into memory; if !sensed,
  * show_glyph and lastseentyp = cmap_to_type(mappearance) — not
- * update_lastseentyp (D-1711). M_AP_OBJECT: obj_glyph (D-0297).
- * M_AP_MONSTER: what_mon(mappearance, rn2_on_display_rng) then
- * monnum_to_glyph (D-1734) — not live mon_glyph. Then if !mimic ||
- * sensed, show the real monster. sensed is Protection_from_shape_changers
- * || sensemon (D-1736). newsym cansee Detect_monsters is D-1737
- * (sightflags DETECTED when !see_it). Named: male/fem glyph offsets
- * (same mlet on tty); pet/detected worm_tail glyph variants;
- * show_mon_or_warn unmap_object when I-glyph; map_object observe
- * (memory still written in C when sensed).
+ * update_lastseentyp (D-1711). M_AP_OBJECT: fake obj → map_object(&obj,
+ * !sensed) (D-1739) — memory + observe_object even when sensed; show
+ * only when !sensed. M_AP_MONSTER: what_mon(mappearance,
+ * rn2_on_display_rng) then monnum_to_glyph (D-1734) — not live
+ * mon_glyph. Then if !mimic || sensed, show the real monster. sensed
+ * is Protection_from_shape_changers || sensemon (D-1736). newsym
+ * cansee Detect_monsters is D-1737 (sightflags DETECTED when !see_it).
+ * Named: male/fem glyph offsets (same mlet on tty); pet/detected
+ * worm_tail glyph variants; show_mon_or_warn unmap_object when I-glyph.
  */
 function display_monster(x, y, mon, sightflags, worm_tail) {
     const ap = (mon.m_ap_type | 0) & M_AP_TYPMASK;
@@ -1105,18 +1104,17 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
             break;
         }
         case M_AP_OBJECT: {
-            const apg = mimic_object_appearance_glyph(mon);
-            if (apg) {
-                show_glyph_cell(x, y, apg.ch, apg.color, !!apg.dec);
-                if (loc && game.level?.flags?.hero_memory) {
-                    loc.remembered_glyph = {
-                        ch: apg.ch, color: apg.color, decgfx: !!apg.dec,
-                        statue: (mon.mappearance | 0) === STATUE_OTYP,
-                        boulder: (mon.mappearance | 0) === BOULDER_OTYP,
-                        otyp: mon.mappearance | 0,
-                    };
-                }
-            }
+            // C `:564–575` — cg.zeroobj + ox/oy/otyp/corpsenm.
+            // map_object(&obj, !sensed): hero_memory even when sensed;
+            // observe_object when generic+cansee+neardist; show_glyph
+            // only if !sensed. Default corpsenm is PM_TENGU.
+            const obj = {
+                ox: x,
+                oy: y,
+                otyp: mon.mappearance | 0,
+                corpsenm: has_mcorpsenm(mon) ? MCORPSENM(mon) : PM_TENGU,
+            };
+            map_object(obj, !sensed);
             break;
         }
         case M_AP_MONSTER: {
