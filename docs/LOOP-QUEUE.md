@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `calendar.c` getyear (named). Not hhmmss.
 - [ ] `invent.c` dealloc_obj (named). Not useupall.
 - [ ] `worn.c` possibly_unwield (named). Not setworn oc_oprop.
 - [ ] `display.c` newsym !cansee display_monster DETECTED (named). Not cansee Detect_monsters.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `display.c` show_mon_or_warn I-glyph unmap_object (named). Not map_object observe.
 - [ ] `display.c` display_monster pet_to_glyph / detected_mon_to_glyph (named). Not Protection sensed.
 - [ ] `display.c` feel_location is_worm_tail (named). Not Blind levitate-arm.
+- [ ] `mhitu.c` doseduce (named). Not getyear.
+- [ ] `dokick.c` hidden_gold(TRUE) kick (named). Not vault hidden_gold.
+- [ ] `sounds.c` set_voice / SetVoice (named). Not doseduce.
+- [ ] `detect.c` sense_trap (named). Not monster_detect.
+- [ ] `end.c` companion pet HP score (named). Not get_valuables.
 
 ## Parked (do not pop)
 

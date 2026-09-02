@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-1742 — calendar.c getyear
+
+- **Status:** fixed (map-driven Open from D-1741; not a public FAIL)
+- **Symptom:** map named `getyear` after D-1725 `hhmmss`. C is
+  `1900 + getlt()->tm_year` (void; current stamp). `yyyymmdd` /
+  `yyyymmddhhmmss` use a `tm_year < 70` → +2000 fallback; `getyear`
+  does not. Sole C caller is `mhitu.c` `ld()` (`doseduce` leap-day
+  `0xe5`). JS had no helper.
+- **C locus:** `calendar.c` `getyear` `:48–52`; `getlt` `:40–46`;
+  `yyyymmdd` year arm `:66–70`; `mhitu.c` `ld()` `:25` /
+  `doseduce` `:2141`.
+- **JS was:** named omit in the calendar row after D-1725.
+- **Fix:** export `getyear` from live `getlt`. Tombstone year stays
+  `yyyymmdd(when)/10000` (`genl_outrip`); dump_fmtstr / paniclog stay
+  named (Rule #2 files).
+- **JS:** `js/calendar.js` `getyear`.
+- **Not this iter:** `doseduce` / `ld()`; dump_fmtstr `%d`/`%D`;
+  paniclog. `hhmmss` is D-1725; cemetery `when[]` is D-1710.
+- **Verified:** save-oracle probe skip (untagged `calendar.c:getyear`);
+  node 10/10 (2015 year field; 1969 no +2000 vs yyyymmdd 2069;
+  leap-day `0xe5`; non-leap 228); green+strict seed8000/0900;
+  CURRENT cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/calendar.js`.
+
 ## D-1741 — end.c get_valuables / sort_valuables
 
 - **Status:** fixed (map-driven Open from D-1740; not a public FAIL)

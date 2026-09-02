@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-02
 
-- [x] `end.c` get_valuables (named). Not artifact_score. **Addressed:** D-1741
+- [x] `calendar.c` getyear (named). Not hhmmss. **Addressed:** D-1742
+
+
+- [x] `end.c` get_valuables (named). Not artifact_score. **Addressed:** D-1741 `522aeec1`
 
 
 - [x] `shk.c` shopper_financial_report / shop_debt (named). Not hidden_gold. **Addressed:** D-1740 `b712f3b6`
