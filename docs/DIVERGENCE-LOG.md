@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1736 — display.c display_monster Protection_from_shape_changers sensed
+
+- **Status:** fixed (map-driven Open from D-1735; not a public FAIL)
+- **Symptom:** map named `display_monster` Protection_from_shape_changers
+  sensed. C `sensed = mon_mimic && (Protection_from_shape_changers ||
+  sensemon(mon))`. JS was `sensemon` only, so a visible furniture/object
+  mimic stayed disguised when the hero had PfSC and not Detect_monsters
+  / telepathy.
+- **C locus:** `display.c` `display_monster` `:518–519`; furniture
+  `!sensed` `:551–555`; `map_object(&obj, !sensed)` `:564–575`;
+  `!mon_mimic || sensed` `:589`. youprop.h `:355–360` H||E.
+  Callers `newsym` `:904` / `:1027` / `:1053`.
+- **JS was:** `sensed = mon_mimic && sensemon(mon)`;
+  `mimic_object_appearance_glyph` and `gbuf_show_kind` stubbed
+  Protection false.
+- **Fix:** youprop H||E (flats + `uprops[PROT_FROM_SHAPE_CHANGERS]` +
+  sticky fallback). Furniture skips show/lastseentyp when sensed;
+  object disguise returns null; classifier paints `monster`.
+- **JS:** `js/display.js` `Protection_from_shape_changers` /
+  `display_monster` / `mimic_object_appearance_glyph` / `gbuf_show_kind`.
+- **Not this iter:** Detect_monsters cansee; map_object observe
+  (C still writes object memory when sensed); pet/detected worm_tail
+  glyphs; male/fem offsets; `show_mon_or_warn` I-glyph. Furniture
+  lastseentyp is D-1726; `what_mon` is D-1734.
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:display_monster`); node fountain `{` vs mimic `m` on H/E/
+  sticky/uprops + object/kobold appearance overwrite; Detect_monsters
+  still senses; green+strict seed8000/0900; CURRENT cohort **7**/7 +
+  strict (incl. seed0383 hallu). Rule #2 clean.
+- **Files:** `js/display.js`.
+
 ## D-1735 — invent.c useup / write.c dowrite paper
 
 - **Status:** fixed (Must-fix review **688**; not a public FAIL)

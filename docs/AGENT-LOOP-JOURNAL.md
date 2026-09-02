@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1736 display.c display_monster Protection sensed
+
+**Objective:** Open `display.c` display_monster
+Protection_from_shape_changers sensed (named). Not M_AP_FURNITURE.
+Continue-unfinished of #2142 (auth death, clean tree).
+**C locus:** `display.c` `display_monster` `:518–519`; youprop.h
+`:355–360`. Callers `newsym` `:904`/`:1027`/`:1053`.
+**JS locus:** `js/display.js` `display_monster` /
+`mimic_object_appearance_glyph` / `gbuf_show_kind`.
+**Change:** sensed is Protection H||E || `sensemon`, not `sensemon`
+only. Furniture skips show/lastseentyp; object disguise null; kind
+`monster`. Named: Detect_monsters cansee; map_object observe.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `display.c:display_monster`; node
+fountain `{` vs mimic `m`; green+strict seed8000/0900; cohort **7**/7
++ strict. Rule #2 clean.
+**Next:** Open `display.c` newsym Detect_monsters cansee.
+**Blocked:** none.
 ## 2026-08-30 — D-1735 invent.c useup / write.c dowrite paper
 
 **Objective:** Must-fix `write.c` dowrite `useup(paper)` still

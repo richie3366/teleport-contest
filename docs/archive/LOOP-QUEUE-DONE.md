@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-02
+
+- [x] `display.c` display_monster Protection_from_shape_changers sensed (named). Not M_AP_FURNITURE. **Addressed:** D-1736
+
 ## 2026-08-30
 
-- [x] `write.c` dowrite `useup(paper)` still invent-splice; C invent.c `useup` `:1320–1333` → `useupall`. Not full `dealloc_obj`. Source: reviews/loop-unattended/688-a6d468cc-useupall-obfree.md. **Addressed:** D-1735
+- [x] `write.c` dowrite `useup(paper)` still invent-splice; C invent.c `useup` `:1320–1333` → `useupall`. Not full `dealloc_obj`. Source: reviews/loop-unattended/688-a6d468cc-useupall-obfree.md. **Addressed:** D-1735 `8b2be954`
 
 
 - [x] `display.c` display_monster M_AP_MONSTER what_mon (named). Not M_AP_FURNITURE lastseentyp. **Addressed:** D-1734 `4bc17535`

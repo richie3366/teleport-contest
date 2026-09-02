@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `display.c` display_monster Protection_from_shape_changers sensed (named). Not M_AP_FURNITURE.
 - [ ] `display.c` newsym Detect_monsters cansee arm (named). Not display_monster furniture.
 - [ ] `display.c` cmap_to_glyph trap/zap/expl (named). Not furniture lastseentyp.
 - [ ] `display.c` mimic map_object observe (named). Not M_AP_OBJECT glyph.

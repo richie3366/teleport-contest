@@ -64,6 +64,7 @@ import {
     HALLUC,
     HALLUC_RES,
     WARN_OF_MON,
+    PROT_FROM_SHAPE_CHANGERS,
     BOLT_LIM,
     Upolyd,
     MALE,
@@ -387,6 +388,21 @@ export function Warn_of_mon() {
     const u = game.u || {};
     const p = u.uprops?.[WARN_OF_MON];
     return !!((u.HWarn_of_mon | 0) || (u.EWarn_of_mon | 0)
+        || (p?.intrinsic | 0) || (p?.extrinsic | 0));
+}
+
+/**
+ * C ref: youprop.h Protection_from_shape_changers — H || E
+ * (`uprops[PROT_FROM_SHAPE_CHANGERS]`). Flat H/E mirrors are eat/wear
+ * copies; sticky `u.Protection_from_shape_changers` is a JS fallback
+ * (same as do_wear / restore_cham).
+ */
+function Protection_from_shape_changers() {
+    const u = game.u || {};
+    const p = u.uprops?.[PROT_FROM_SHAPE_CHANGERS];
+    return !!(u.HProtection_from_shape_changers
+        || u.EProtection_from_shape_changers
+        || u.Protection_from_shape_changers
         || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
 
@@ -824,14 +840,13 @@ export function mon_glyph(mtmp) {
  * When a mimic is PHYSICALLY_SEEN and not sensed as a monster, show the
  * disguised object glyph (and remember it) instead of the mlet letter.
  * Furniture lastseentyp is display_monster (D-1726). M_AP_MONSTER
- * what_mon is D-1734. Named: Protection_from_shape_changers; Hallu
- * statue random_obj.
+ * what_mon is D-1734. Protection sensed is D-1736. Named: Hallu
+ * statue random_obj; map_object observe.
  */
 function mimic_object_appearance_glyph(mtmp) {
     if (((mtmp.m_ap_type | 0) & M_AP_TYPMASK) !== M_AP_OBJECT) return null;
-    // C: sensed = Protection_from_shape_changers || sensemon(mon)
-    // Protection stubbed false; when sensed, caller shows real mon_glyph.
-    if (sensemon(mtmp)) return null;
+    // C display_monster `:518–519` + map_object show=!sensed.
+    if (Protection_from_shape_changers() || sensemon(mtmp)) return null;
     const corpsenm = has_mcorpsenm(mtmp) ? MCORPSENM(mtmp) : PM_TENGU;
     return obj_glyph({
         otyp: mtmp.mappearance | 0,
@@ -949,15 +964,17 @@ const PHYSICALLY_SEEN = 1;
  * update_lastseentyp (D-1711). M_AP_OBJECT: obj_glyph (D-0297).
  * M_AP_MONSTER: what_mon(mappearance, rn2_on_display_rng) then
  * monnum_to_glyph (D-1734) — not live mon_glyph. Then if !mimic ||
- * sensed, show the real monster.
- * Named: Protection_from_shape_changers (sensed is sensemon only);
- * male/fem glyph offsets (same mlet on tty); pet/detected worm_tail
- * glyph variants; show_mon_or_warn unmap_object when I-glyph.
+ * sensed, show the real monster. sensed is Protection_from_shape_changers
+ * || sensemon (D-1736) — not Detect_monsters cansee (that is newsym).
+ * Named: male/fem glyph offsets (same mlet on tty); pet/detected worm_tail
+ * glyph variants; show_mon_or_warn unmap_object when I-glyph;
+ * map_object observe (memory still written in C when sensed).
  */
 function display_monster(x, y, mon, sightflags, worm_tail) {
     const ap = (mon.m_ap_type | 0) & M_AP_TYPMASK;
     const mon_mimic = ap !== M_AP_NOTHING;
-    const sensed = mon_mimic && sensemon(mon);
+    const sensed = mon_mimic && (Protection_from_shape_changers()
+        || sensemon(mon));
     const loc = game.level?.at(x, y);
 
     if (mon_mimic && sightflags === PHYSICALLY_SEEN) {
@@ -2507,8 +2524,9 @@ function gbuf_show_kind(x, y, ch, color, decgfx, loc) {
     if (mtmp && cell_shows_displayed_monster(mtmp, x, y)) {
         // Mimic object/furniture: M_AP_TYPE, not a second Hallu roll.
         const ap = (mtmp.m_ap_type | 0) & M_AP_TYPMASK;
-        if (ap === M_AP_OBJECT && !sensemon(mtmp)) return 'object';
-        if (ap === M_AP_FURNITURE && !sensemon(mtmp)) return 'cmap';
+        const sensed = Protection_from_shape_changers() || sensemon(mtmp);
+        if (ap === M_AP_OBJECT && !sensed) return 'object';
+        if (ap === M_AP_FURNITURE && !sensed) return 'cmap';
         return 'monster';
     }
     const trap = t_at_display(x, y);
