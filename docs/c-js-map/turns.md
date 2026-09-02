@@ -1565,8 +1565,8 @@ no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667;
 **`detect_wsegs` D-1545**; 
 DRAWBRIDGE_UP under-typ / C FIXME hero-inside-cloud still named); 
 **SPFX_WARN conferral + MATCH_WARN see_it D-1514**; 
-**`see_monsters` MON_STILL_ARRIVING skip D-1746**; make_blinded 
-Sting(-1) / feel_location `is_worm_tail` deferred); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
+**`see_monsters` MON_STILL_ARRIVING skip D-1746**; **feel_location `is_worm_tail` D-1749**; make_blinded 
+Sting(-1) deferred); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
 **docrt memory=`show_memory_glyph` + gulpmu `swallowed(1)`** (D-0838; underwater/buried deferred); 
 **DECgfx swallow `S_sw_tc/ml/mr/bc` meta-o/x/x/s** (D-0842; Primary corners `/\\`); 
 **swallow DEC `o`/`s` keep SO-form for scoring + `HI_METAL`≡CLR_CYAN in `mcolors`** (D-0843; 
@@ -1610,8 +1610,8 @@ D-1748; `show_mon_or_warn` I-glyph is D-1747);
 `:479` With_you clear, `:622` After_you clear, usteed return leaves
 the bit; live `js/display.js` + `js/const.js` + `js/dog.js`
 With_you/After_you; pet/detected glyphs are D-1748;
-`show_mon_or_warn` is D-1747; make_blinded Sting(-1) /
-`feel_location` `is_worm_tail` still named);
+`show_mon_or_warn` is D-1747; feel_location `is_worm_tail` is D-1749;
+make_blinded Sting(-1) still named);
 **`show_mon_or_warn` I-glyph `unmap_object`** (D-1747; C `:481–496`;
 callers `display_monster` `:619` / `display_warning` `:650`;
 `vobj_at` then `map_object(o, FALSE)` when `cansee`; live
@@ -1624,7 +1624,17 @@ C `:587–618`; `display.h` `pet_to_glyph` `:563–565` /
 !Hallucination prefers pet over DETECTED; tty `wintty.c`
 `:3927–3936` MG_PET hilite then MG_DETECT `use_inverse`; live
 `js/display.js`; named: integer `GLYPH_*_OFF` ids, male/fem
-offsets, `detect.c` `map_monst`, `ridden_mon_to_glyph`); 
+offsets, `detect.c` `map_monst`, `ridden_mon_to_glyph`;
+feel_location `is_worm_tail` is D-1749); 
+**`feel_location` `is_worm_tail` overlay** (D-1749; C `:901–908`
+`!u_at && m_at && sensemon` then `display_monster(..., is_worm_tail)`
+— Detect_monsters still paints tails, unlike `newsym`; `_suppress_map_output`
+`:754–755`; `engr_can_be_felt`; Underwater `is_pool_or_lava`/`is_ice`;
+ROOM/CORR darken via `cmap_to_glyph` identity; callers hack.c `dopush`
+`:210–215` / `cannot_push_msg` `:257–258` / monster-behind `:459–460`;
+live `js/display.js` + `js/hack.js`; named: levitate-arm do_room_glyph/
+litcorr, usteed reach, Levitation/verysmall/Sokoban/test_move/lock
+Blind feel); 
 **`obj_is_generic` + tty CLR_GRAY/BLACK→NO_COLOR** (D-0118); 
 **`map_object`/`see_nearby_objects` neardist `observe_object`** (D-0299; 
 upgrades generic gem/potion/spellbook to per-otyp color); 
@@ -1678,10 +1688,10 @@ DRAWBRIDGE_UP lastseentyp is D-1711; furniture lastseentyp is D-1726;
 knox + why DEC recorder SGR 34 vs source `wallcolors[]` GRAY deferred); 
 DISP_TETHER BACKTRACK / ALL nest; other DEC remaps (ladder); 
 glyph_is_generic remembered-only newsym_force arm; full lev->glyph vs remembered-only memory; 
-!cansee `display_monster` is D-1745 (cansee Detect is D-1737); **`see_monsters` MON_STILL_ARRIVING skip is D-1746**; **`show_mon_or_warn` I-glyph is D-1747**; **pet/detected glyphs are D-1748** (integer `GLYPH_*_OFF` / `map_monst` / ridden still named); 
+!cansee `display_monster` is D-1745 (cansee Detect is D-1737); **`see_monsters` MON_STILL_ARRIVING skip is D-1746**; **`show_mon_or_warn` I-glyph is D-1747**; **pet/detected glyphs are D-1748**; **feel_location `is_worm_tail` is D-1749** (integer `GLYPH_*_OFF` / `map_monst` / ridden still named); 
 Rogue-level litcorr/room darkening; **`feel_location` + Blind `newsym` u_at** (D-0928 #1169; 
 reachable `_map_location` + Punished `bc_felt` + `feel_newsym`; 
-full levitate-arm do_room_glyph/litcorr + usteed reach deferred; MATCH_WARN via `sensemon` is D-1514); 
+`is_worm_tail` overlay D-1749; full levitate-arm do_room_glyph/litcorr + usteed reach deferred; MATCH_WARN via `sensemon` is D-1514); 
 **`show_glyph` `show_glyph_change` + `mention_map`→`a11y.glyph_updates` + 
 `docrt` `in_docrt` (D-1219; default Off; firstmatch via `auto_describe_text`; 
 **`gbuf_show_kind` occupancy/tty not Hallu `mon_glyph`/`obj_glyph`** D-1221; 

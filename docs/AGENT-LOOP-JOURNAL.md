@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1749 display.c feel_location is_worm_tail overlay
+
+**Objective:** Open `display.c` feel_location is_worm_tail (named).
+Not Blind levitate-arm.
+**C locus:** `display.c` `feel_location` `:745–909` overlay `:901–908`;
+`hack.c` `dopush` `:210–215` / `cannot_push_msg` `:257–258` /
+monster-behind `:459–460`.
+**JS locus:** `js/display.js` `feel_location`; `js/hack.js` `dopush`.
+**Change:** suppress gate; `engr_can_be_felt`; cmap darken identity;
+Blind boulder feel dest+source so Detect tails paint `PM_LONG_WORM_TAIL`.
+Levitate-arm still named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `display.c:feel_location`; node
+21/21; green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+Rule #2 clean.
+**Next:** Open `mhitu.c` doseduce.
+**Blocked:** none.
 ## 2026-09-03 — audit #2160 reviews 701–709 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **700**

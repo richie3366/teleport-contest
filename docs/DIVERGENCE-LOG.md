@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-1749 — display.c feel_location is_worm_tail overlay
+
+- **Status:** fixed (map-driven Open from D-1748; not a public FAIL)
+- **Symptom:** map named `feel_location` `is_worm_tail`. C paints a
+  sensed monster on an adjacent felt cell with
+  `display_monster(..., is_worm_tail(mon))` so worm body segs use
+  `PM_LONG_WORM_TAIL` (Detect_monsters still shows tails here;
+  `newsym` skips them). JS already passed `is_worm_tail` into
+  `display_monster` but skipped `_suppress_map_output`, inlined
+  `engr_can_be_felt`, darken-matched `~`/`.` by character (ice/worm
+  memory), and Blind `dopush` always `newsym`'d the vacated cell
+  instead of `feel_location` dest+source.
+- **C locus:** `display.c` `feel_location` `:745–909` (overlay
+  `:901–908`; `_suppress_map_output` `:754–755`; `engr_can_be_felt`
+  via `engrave.c` `:296–315`; Underwater `:769–772`; ROOM/CORR darken
+  `:894–901`). Callers `hack.c` `dopush` `:210–215`,
+  `cannot_push_msg` `:257–258`, monster-behind `:459–460`. Macro
+  `is_worm_tail` `:500`.
+- **JS was:** overlay present; no mklev/save/restore gate; `dopush`
+  always `newsym(sx,sy)`.
+- **Fix:** suppress gate; `engr_can_be_felt`; Underwater
+  `is_pool_or_lava`/`is_ice`; cmap identity for S_room/S_litcorr
+  darken; `u_at` overlay; Blind `dopush`/`cannot_push_msg`/
+  monster-behind `feel_location`. Levitate-arm do_room_glyph/litcorr
+  still named.
+- **JS:** `js/display.js` `feel_location`; `js/hack.js` `dopush` /
+  `cannot_push_msg` / `moverock_core`.
+- **Not this iter:** levitate-arm do_room_glyph/litcorr; usteed
+  `can_reach_floor`; Levitation/verysmall/Sokoban/test_move/lock
+  Blind feel; integer `GLYPH_*_OFF`; `map_monst`; make_blinded
+  Sting(-1). Pet/detected glyphs are D-1748.
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:feel_location`); node 21/21 (mklev/save/restore skip;
+  Underwater ice vs stone; ENGRAVE vs DUST; Detect tail `~`+inverse;
+  Detect head not `~`; tame tail pet inverse; `u_at` no overlay; I+mon
+  keep I); green+strict seed8000/0900; CURRENT cohort **9**/9 + strict
+  (incl. seed0004 pony + seed0383 hallu). Rule #2 clean.
+- **Files:** `js/display.js`, `js/hack.js`.
+
 ## D-1748 — display.c display_monster pet_to_glyph / detected_mon_to_glyph
 
 - **Status:** fixed (map-driven Open from D-1747; not a public FAIL)

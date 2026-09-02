@@ -2,7 +2,8 @@
 // C ref: display.c — newsym, show_glyph (glyph_updates / show_glyph_change
 // D-1219; Hallu classifier D-1221), docrt (in_docrt), cls, flush_screen,
 // suppress_map_output (D-1126), show_region overlay (D-1528),
-// see_wsegs / is_worm_tail (D-1529), detect_wsegs show_wseg_detect_glyph
+// see_wsegs / is_worm_tail (D-1529), feel_location is_worm_tail overlay
+// (D-1749), detect_wsegs show_wseg_detect_glyph
 // (D-1545), worm_known in canseemon (D-1548),
 // shieldeff (D-1087; sparkle opt_out default On; sit rndcurse caller).
 
@@ -631,6 +632,23 @@ function is_pool_or_lava_disp(x, y) {
     if (t === LAVAPOOL || t === LAVAWALL) return true;
     if (t === POOL || t === MOAT || t === WATER) return true;
     return false;
+}
+
+/** C hack.h is_ice — typ==ICE. DRAWBRIDGE_UP DB_ICE named with is_pool_or_lava. */
+function is_ice_disp(x, y) {
+    return (game.level?.at(x, y)?.typ | 0) === ICE;
+}
+
+/**
+ * C display.c feel_location lev->glyph == cmap_to_glyph(idx).
+ * JS remembered {ch,color,decgfx} vs cmap_idx_to_glyph.
+ */
+function remembered_matches_cmap(mem, cmapIdx) {
+    if (!mem) return false;
+    const g = cmap_idx_to_glyph(cmapIdx);
+    return mem.ch === g.ch
+        && (mem.color ?? NO_COLOR) === (g.color ?? NO_COLOR)
+        && !!mem.decgfx === !!g.dec;
 }
 
 /**
@@ -3510,6 +3528,16 @@ export function unset_seenv(lev, x0, y0, x1, y1) {
 }
 
 /**
+ * C engrave.c engr_can_be_felt `:296–315` — ENGRAVE/HEADSTONE/BURN only.
+ * Local: engrave.js imports newsym from this module.
+ */
+function engr_can_be_felt(ep) {
+    if (!ep) return false;
+    const t = ep.engr_type | 0;
+    return t === ENGRAVE || t === HEADSTONE || t === BURN;
+}
+
+/**
  * Inline can_reach_floor(FALSE) for feel_location — avoid engrave↔display
  * import cycle (engrave.js imports newsym from display).
  * Named omission: usteed P_RIDING < P_BASIC; ustuck hugs; ceiling hider.
@@ -3536,14 +3564,18 @@ export function suppress_map_output() {
 }
 
 /**
- * C ref: display.c feel_location — Blind map update for hero cell or
- * adjacent (boulder-push). Reachable arm: engr_can_be_felt →
- * _map_location(show) → Punished bc_felt → ROOM/CORR dark adjust;
- * sensed mon overlay when !u_at (sensemon includes MATCH_WARN D-1514).
- * Named omissions: full levitate-arm boulder/do_room_glyph litcorr
- * polish.
+ * C ref: display.c feel_location `:745–909` — Blind map update for the
+ * hero cell or an adjacent square (boulder-push). Reachable arm:
+ * engr_can_be_felt → _map_location(show) → Punished bc_felt → ROOM/CORR
+ * dark adjust; then `:901–908` sensed mon overlay when !u_at (sensemon
+ * includes MATCH_WARN D-1514) with is_worm_tail (D-1749). newsym
+ * Detect_monsters skips tails; this overlay does not.
+ * Named omissions: full levitate-arm do_room_glyph / litcorr /
+ * remembered-boulder polish; usteed P_RIDING in can_reach_floor.
  */
 export function feel_location(x, y) {
+    // C `:754–758` — same mklev/save/restore gate as newsym/show_glyph.
+    if (suppress_map_output()) return;
     if (!isok(x, y)) return;
     const loc = game.level?.at(x, y);
     if (!loc) return;
@@ -3551,12 +3583,10 @@ export function feel_location(x, y) {
     if (glyph_is_invisible(loc) && mon_at_display(x, y)) return;
 
     const u = game.u || {};
-    // C: Underwater — only pool/lava/ice (waterlevel exempt)
-    if ((u.Underwater | 0) && !Is_waterlevel(u.uz)) {
-        const t = loc.typ | 0;
-        if (!IS_POOL(t) && t !== LAVAPOOL && t !== LAVAWALL && t !== ICE) {
-            return;
-        }
+    // C `:769–772` — Underwater: only pool/lava/ice (waterlevel exempt)
+    if ((u.Underwater | 0) && !Is_waterlevel(u.uz)
+        && !is_pool_or_lava_disp(x, y) && !is_ice_disp(x, y)) {
+        return;
     }
 
     set_seenv(loc, u.ux | 0, u.uy | 0, x, y);
@@ -3578,14 +3608,9 @@ export function feel_location(x, y) {
             }
         }
     } else {
-        // C: engr_can_be_felt → erevealed (ENGRAVE/HEADSTONE/BURN)
+        // C `:860–861` — engr_can_be_felt → erevealed
         const ep = engr_at(x, y);
-        if (ep) {
-            const et = ep.engr_type | 0;
-            if (et === ENGRAVE || et === HEADSTONE || et === BURN) {
-                ep.erevealed = 1;
-            }
-        }
+        if (ep && engr_can_be_felt(ep)) ep.erevealed = 1;
         map_location(x, y, true);
 
         // C: Punished bc_felt — only when ball/chain is first on floor pile
@@ -3609,33 +3634,37 @@ export function feel_location(x, y) {
             }
         }
 
-        // C: unlit ROOM/CORR memory darken after map_location
+        // C `:894–901` — unlit ROOM/CORR after map_location. S_darkroom
+        // paints as S_room (same ch, tty BLACK→NO_COLOR); keep ch.
         const mem = loc.remembered_glyph;
         const darkRoomColor = game.flags?.dark_room !== false
             && game.iflags?.use_color !== false;
-        if (mem && (loc.typ | 0) === ROOM
-            && (mem.ch === '~' || mem.ch === '.')
+        if ((loc.typ | 0) === ROOM
+            && remembered_matches_cmap(mem, S_ROOM_CMAP)
             && (!loc.waslit || darkRoomColor)) {
-            // C: S_darkroom / S_stone — JS darkroom paints as S_room
             const dark = {
-                ch: mem.ch === '~' ? '~' : '.',
+                ch: mem.ch,
                 color: NO_COLOR,
                 decgfx: !!mem.decgfx,
             };
             loc.remembered_glyph = dark;
             show_glyph_cell(x, y, dark.ch, dark.color, !!dark.decgfx);
-        } else if (mem && (loc.typ | 0) === CORR
-            && mem.ch === '#' && mem.color === CLR_WHITE && !loc.waslit) {
-            const dark = { ch: '#', color: NO_COLOR, decgfx: false };
-            loc.remembered_glyph = dark;
-            show_glyph_cell(x, y, dark.ch, dark.color, false);
+        } else if ((loc.typ | 0) === CORR
+            && remembered_matches_cmap(mem, S_LITCORR)
+            && !loc.waslit) {
+            const dark = cmap_idx_to_glyph(S_CORR);
+            loc.remembered_glyph = {
+                ch: dark.ch, color: dark.color, decgfx: !!dark.dec,
+            };
+            show_glyph_cell(x, y, dark.ch, dark.color, !!dark.dec);
         }
     }
 
-    // C: display_monster when !u_at && sensemon — PHYSICALLY_SEEN iff
-    // tp_sensemon || MATCH_WARN, else DETECTED. Furniture lastseentyp
-    // needs PHYSICALLY_SEEN && !sensed, so this arm shows the monster.
-    if ((u.ux | 0) !== (x | 0) || (u.uy | 0) !== (y | 0)) {
+    // C `:901–908` — display_monster when !u_at && m_at && sensemon.
+    // PHYSICALLY_SEEN iff tp_sensemon || MATCH_WARN, else DETECTED.
+    // is_worm_tail: display pos ≠ head (PM_LONG_WORM_TAIL glyphs in
+    // display_monster D-1748). Detect_monsters still paints tails here.
+    if (!u_at(x, y)) {
         const mon = mon_at_display(x, y);
         if (mon && sensemon(mon)) {
             const seen = (tp_sensemon(mon) || MATCH_WARN_OF_MON(mon))
