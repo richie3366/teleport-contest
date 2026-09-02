@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `display.c` show_mon_or_warn I-glyph unmap_object (named). Not map_object observe.
 - [ ] `display.c` display_monster pet_to_glyph / detected_mon_to_glyph (named). Not Protection sensed.
 - [ ] `display.c` feel_location is_worm_tail (named). Not Blind levitate-arm.
 - [ ] `mhitu.c` doseduce (named). Not getyear.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `sounds.c` set_voice / SetVoice (named). Not doseduce.
 - [ ] `detect.c` sense_trap (named). Not monster_detect.
 - [ ] `end.c` companion pet HP score (named). Not get_valuables.
+- [ ] `potion.c` make_blinded Sting_effects(-1) (named). Not see_monsters MON_STILL_ARRIVING.
+- [ ] `mkobj.c` delobj extract (named). Not dealloc_obj.
+- [ ] `worn.c` setworn oc_oprop (named). Not possibly_unwield.
+- [ ] `display.h` random_trap_to_glyph (named). Not cmap_to_glyph trap.
+- [ ] `explode.c` map_invisible !canspotmon (named). Not explosion_to_glyph.
 
 ## Parked (do not pop)
 

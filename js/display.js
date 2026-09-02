@@ -589,10 +589,12 @@ function maybe_overlay_visible_region(x, y, show) {
 
 /**
  * C ref: display.c display_warning — float warnsym, else MATCH_WARN
- * mon_to_glyph. newsym callers still skip worm tails.
+ * mon_to_glyph, then show_mon_or_warn. newsym callers still skip
+ * worm tails.
  */
 function display_warning(mon) {
     if (!mon) return;
+    let ch, color, attr = 0;
     if (mon_warning(mon)) {
         // C: Hallucination ? rn2_on_display_rng(WARNCOUNT-1)+1 : warning_of(mon)
         const wl = game.u?.Hallucination
@@ -600,15 +602,18 @@ function display_warning(mon) {
             : warning_of(mon);
         const sym = def_warnsyms[wl] || def_warnsyms[0];
         if (!sym) return;
-        show_glyph_cell(mon.mx, mon.my, sym.ch, sym.color, false);
-        return;
-    }
-    if (MATCH_WARN_OF_MON(mon)) {
+        ch = sym.ch;
+        color = sym.color;
+    } else if (MATCH_WARN_OF_MON(mon)) {
         const mg = mon_glyph(mon);
-        show_glyph_cell(mon.mx, mon.my, mg.ch, mg.color, false, mon_map_attr(mon));
+        ch = mg.ch;
+        color = mg.color;
+        attr = mon_map_attr(mon);
+    } else {
+        // C: impossible("display_warning did not match warning type?");
         return;
     }
-    // C: impossible("display_warning did not match warning type?");
+    show_mon_or_warn(mon.mx, mon.my, ch, color, false, attr);
 }
 
 /** C ref: display.h canspotmon — canseemon || sensemon. */
@@ -706,6 +711,28 @@ export function unmap_invisible(x, y) {
     unmap_object(x, y);
     newsym(x, y);
     return true;
+}
+
+/**
+ * C ref: display.c show_mon_or_warn `:481–496` — monster/warning layer.
+ * Remembered I is the object-layer "unseen monster" marker; putting a
+ * live glyph on the monster layer stops remembering it. If the cell is
+ * in view and vobj_at, remember that object (show=FALSE) instead.
+ * Callers: display_monster (real mon, not mimic PHYSICALLY_SEEN) and
+ * display_warning. Mimic furniture/object/monster arms use
+ * show_glyph / map_object directly.
+ */
+function show_mon_or_warn(x, y, ch, color, decgfx = false, attr = 0) {
+    const loc = game.level?.at(x, y);
+    if (glyph_is_invisible(loc)) {
+        unmap_object(x, y);
+        // C vobj_at ≡ level.objects[x][y] (JS objects_at)
+        if (cansee(x, y)) {
+            const o = objects_at(x, y);
+            if (o) map_object(o, false);
+        }
+    }
+    show_glyph_cell(x, y, ch, color, decgfx, attr);
 }
 
 // C ref: youprop.h Infravision — race intrinsic via set_uasmon/mons[urace]
@@ -1072,9 +1099,9 @@ const PHYSICALLY_SEEN = 1;
  * is Protection_from_shape_changers || sensemon (D-1736). newsym
  * cansee Detect_monsters is D-1737 (sightflags DETECTED when !see_it).
  * !cansee newsym is D-1745 (`see_it ? 0 : DETECTED` — 0 is not
- * PHYSICALLY_SEEN). Named: male/fem glyph offsets (same mlet on tty);
- * pet/detected worm_tail glyph variants; show_mon_or_warn unmap_object
- * when I-glyph.
+ * PHYSICALLY_SEEN). Real-monster arm uses show_mon_or_warn (D-1747)
+ * so I-glyph memory is unmapped. Named: male/fem glyph offsets (same
+ * mlet on tty); pet/detected worm_tail glyph variants.
  */
 function display_monster(x, y, mon, sightflags, worm_tail) {
     const ap = (mon.m_ap_type | 0) & M_AP_TYPMASK;
@@ -1133,7 +1160,7 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
 
     if (!mon_mimic || sensed) {
         const mg = worm_tail ? worm_tail_glyph() : mon_glyph(mon);
-        show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mon));
+        show_mon_or_warn(x, y, mg.ch, mg.color, false, mon_map_attr(mon));
         mon.meverseen = 1;
     }
 }
@@ -3652,14 +3679,9 @@ export function newsym(x, y) {
             }
             // C: _map_location(x, y, FALSE) then display_monster — memory
             // keeps object under the monster so leaving sight does not
-            // replace ) with remembered corridor.
-            // show_mon_or_warn clears invisible memory when showing mon
-            if (glyph_is_invisible(loc)) {
-                loc.remembered_glyph = null;
-                map_location_memory(x, y);
-            } else {
-                map_location_memory(x, y);
-            }
+            // replace ) with remembered corridor. leftover I is cleared
+            // in show_mon_or_warn (usually already remapped here).
+            map_location_memory(x, y);
             display_monster(x, y, mtmp,
                 see_it ? PHYSICALLY_SEEN : DETECTED, worm_tail);
             return;
@@ -3681,8 +3703,8 @@ export function newsym(x, y) {
     }
 
     // C `:1046–1054` — !cansee display_monster(see_it ? 0 : DETECTED).
-    // This also gets rid of any invisibility glyph in C via
-    // show_mon_or_warn (named). pet/detected glyph ids named.
+    // show_mon_or_warn unmaps leftover I (D-1747). pet/detected glyph
+    // ids named.
     let see_it = 0;
     if (mtmp && ((see_it = (tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp)
             || (see_with_infrared(mtmp) && mon_visible(mtmp))))

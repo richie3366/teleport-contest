@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1747 display.c show_mon_or_warn I-glyph unmap_object
+
+**Objective:** Open `display.c` show_mon_or_warn I-glyph unmap_object
+(named). Not map_object observe.
+**C locus:** `display.c` `show_mon_or_warn` `:481–496`; callers
+`display_monster` `:619` / `display_warning` `:650`.
+**JS locus:** `js/display.js` `show_mon_or_warn` / `display_monster` /
+`display_warning` / `newsym`.
+**Change:** unmap remembered I then cansee `vobj_at` `map_object(o,
+FALSE)` before `show_glyph`. Mimic PHYSICALLY_SEEN arms unchanged.
+Named: pet/detected glyphs; `feel_location` `is_worm_tail`;
+make_blinded Sting(-1).
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `display.c:show_mon_or_warn`; node
+24/24; green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+Rule #2 clean.
+**Next:** Open `display.c` display_monster pet_to_glyph /
+detected_mon_to_glyph.
+**Blocked:** none.
 ## 2026-09-02 — D-1746 display.c see_monsters MON_STILL_ARRIVING skip
 
 **Objective:** Open `display.c` see_monsters MON_STILL_ARRIVING skip

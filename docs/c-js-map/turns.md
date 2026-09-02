@@ -1604,13 +1604,18 @@ youprop.h H||E; live `js/display.js` + `cell_shows_displayed_monster`);
 **`newsym` !cansee `display_monster` DETECTED** (D-1745; C `:1046–1054`
 `see_it ? 0 : DETECTED` — 0 is not PHYSICALLY_SEEN; occupancy
 `!mimic || sensed`; live `js/display.js`; not pet/detected glyph ids;
-`show_mon_or_warn` I-glyph still named);
+`show_mon_or_warn` I-glyph is D-1747);
 **`see_monsters` MON_STILL_ARRIVING skip** (D-1746; C `:1508–1509`
 `continue`; `monst.h` `:67` 0x100; `dog.c` `mon_arrive` `:430` set,
 `:479` With_you clear, `:622` After_you clear, usteed return leaves
 the bit; live `js/display.js` + `js/const.js` + `js/dog.js`
-With_you/After_you; not pet/detected glyphs / `show_mon_or_warn`;
-make_blinded Sting(-1) / `feel_location` `is_worm_tail` still named); 
+With_you/After_you; not pet/detected glyphs; `show_mon_or_warn` is
+D-1747; make_blinded Sting(-1) / `feel_location` `is_worm_tail`
+still named);
+**`show_mon_or_warn` I-glyph `unmap_object`** (D-1747; C `:481–496`;
+callers `display_monster` `:619` / `display_warning` `:650`;
+`vobj_at` then `map_object(o, FALSE)` when `cansee`; live
+`js/display.js`; not pet/detected glyphs / map_object observe); 
 **`obj_is_generic` + tty CLR_GRAY/BLACK→NO_COLOR** (D-0118); 
 **`map_object`/`see_nearby_objects` neardist `observe_object`** (D-0299; 
 upgrades generic gem/potion/spellbook to per-otyp color); 
@@ -1664,7 +1669,7 @@ DRAWBRIDGE_UP lastseentyp is D-1711; furniture lastseentyp is D-1726;
 knox + why DEC recorder SGR 34 vs source `wallcolors[]` GRAY deferred); 
 DISP_TETHER BACKTRACK / ALL nest; other DEC remaps (ladder); 
 glyph_is_generic remembered-only newsym_force arm; full lev->glyph vs remembered-only memory; 
-!cansee `display_monster` is D-1745 (cansee Detect is D-1737); **`see_monsters` MON_STILL_ARRIVING skip is D-1746**; pet/detected glyph ids / `show_mon_or_warn` I-glyph still named; 
+!cansee `display_monster` is D-1745 (cansee Detect is D-1737); **`see_monsters` MON_STILL_ARRIVING skip is D-1746**; **`show_mon_or_warn` I-glyph is D-1747**; pet/detected glyph ids still named; 
 Rogue-level litcorr/room darkening; **`feel_location` + Blind `newsym` u_at** (D-0928 #1169; 
 reachable `_map_location` + Punished `bc_felt` + `feel_newsym`; 
 full levitate-arm do_room_glyph/litcorr + usteed reach deferred; MATCH_WARN via `sensemon` is D-1514); 

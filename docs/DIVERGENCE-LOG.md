@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1747 — display.c show_mon_or_warn I-glyph unmap_object
+
+- **Status:** fixed (map-driven Open from D-1746; not a public FAIL)
+- **Symptom:** map named `show_mon_or_warn` I-glyph `unmap_object`.
+  C `display_monster` / `display_warning` paint via `show_mon_or_warn`,
+  which unmaps remembered `GLYPH_INVISIBLE` then, if `cansee` and
+  `vobj_at`, `map_object(o, FALSE)` before `show_glyph`. JS painted
+  `show_glyph_cell` and left I in memory (!cansee Detect / warning).
+- **C locus:** `display.c` `show_mon_or_warn` `:481–496`; callers
+  `display_monster` `:619`, `display_warning` `:650`. `glyph_is_invisible`
+  `display.h` `:773`. `vobj_at` `display.h` `:22`.
+- **JS was:** real-monster and warning arms called `show_glyph_cell`.
+  cansee `newsym` nulled I then `map_location_memory` as a stand-in.
+- **Fix:** live helper. Real-monster arm + `display_warning` use it.
+  cansee `newsym` is C `_map_location` only. Mimic PHYSICALLY_SEEN
+  arms stay `show_glyph` / `map_object`. Not pet/detected glyph ids.
+- **JS:** `js/display.js` `show_mon_or_warn` / `display_monster` /
+  `display_warning` / `newsym`.
+- **Not this iter:** pet/detected worm_tail glyph ids;
+  `feel_location` `is_worm_tail`; make_blinded `Sting_effects(-1)`.
+  map_object observe is D-1739; !cansee DETECTED is D-1745;
+  `see_monsters` MON_STILL_ARRIVING is D-1746.
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:show_mon_or_warn`); node 24/24 (Detect I→room+`o`;
+  Detect I+gold no `$` when !cansee; Warning I+gold `$`+`1`; no-I
+  room kept; cansee visible gold+`o`; Warning I→room; !cansee
+  Warning I→room); green+strict seed8000/0900; CURRENT cohort
+  **9**/9 + strict (incl. seed0383 hallu). Rule #2 clean.
+- **Files:** `js/display.js`.
+
 ## D-1746 — display.c see_monsters MON_STILL_ARRIVING skip
 
 - **Status:** fixed (map-driven Open from D-1745; not a public FAIL)

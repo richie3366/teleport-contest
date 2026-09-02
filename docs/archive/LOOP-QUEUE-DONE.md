@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-02
 
-- [x] `display.c` see_monsters MON_STILL_ARRIVING skip (named). Not newsym Detect_monsters. **Addressed:** D-1746
+- [x] `display.c` show_mon_or_warn I-glyph unmap_object (named). Not map_object observe. **Addressed:** D-1747
+
+
+- [x] `display.c` see_monsters MON_STILL_ARRIVING skip (named). Not newsym Detect_monsters. **Addressed:** D-1746 `df2bec69`
 
 
 - [x] `display.c` newsym !cansee display_monster DETECTED (named). Not cansee Detect_monsters. **Addressed:** D-1745 `20426583`
