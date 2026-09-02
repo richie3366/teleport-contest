@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-02
 
-- [x] `calendar.c` getyear (named). Not hhmmss. **Addressed:** D-1742
+- [x] `invent.c` dealloc_obj (named). Not useupall. **Addressed:** D-1743
+
+
+- [x] `calendar.c` getyear (named). Not hhmmss. **Addressed:** D-1742 `3f9a8e48`
 
 
 - [x] `end.c` get_valuables (named). Not artifact_score. **Addressed:** D-1741 `522aeec1`

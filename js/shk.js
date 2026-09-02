@@ -18,7 +18,8 @@
 //        remote_burglary / rob_shop / call_kops / makekops (D-1717).
 //        get_cost glass-gem pseudo-ID (D-1718).
 //        getprice arti_cost (D-1719).
-//        obfree / delete_contents (D-1727).
+//        obfree / delete_contents (D-1727);
+//        mkobj.c dealloc_obj via obfree (D-1743).
 //        u_left_shop leave verbalize + choose_stairs (D-1733).
 //        shopper_financial_report / shop_debt (D-1740).
 // Named omissions: shk_fixes_damage in shk_move; allmain/bones
@@ -87,7 +88,7 @@ import { Hello } from './roles.js';
 import { shtypes, shkname, Shknam, saleable } from './shknam.js';
 import {
     splitobj, next_ident, obj_extract_self, objects_at, place_object,
-    mksobj, weight, newomid, obj_stop_timers,
+    mksobj, weight, newomid, obj_stop_timers, dealloc_obj,
 } from './mkobj.js';
 import { add_to_minv, mpickobj, makemon } from './makemon.js';
 import { acurr, acurrstr, A_CHA, A_WIS, adjalign, exercise, Fast } from './attrib.js';
@@ -3227,17 +3228,6 @@ export function billable(shkHolder, obj, roomno, reset_nocharge) {
 }
 
 /**
- * C mkobj.c dealloc_obj subset for shop dummy already OBJ_FREE.
- * Full lights / lua_ref / objs_deleted queue is invent.c obfree Open.
- */
-function dealloc_obj_free(obj) {
-    if (!obj) return;
-    if (obj.timed) obj_stop_timers(obj);
-    obj.where = OBJ_DELETED;
-    obj.nobj = null;
-}
-
-/**
  * C ref: shk.c add_to_billobjs `:3365–3383` — prepend gb.billobjs,
  * OBJ_ONBILL. Dummy used-up items live here so bp_to_obj(useup) finds them.
  */
@@ -3310,9 +3300,8 @@ export function delete_contents(obj) {
  * C ref: shk.c obfree `:1186–1275` — release an already-extracted
  * object. Leash / food / book / contents / pick / boulder; unpaid bill
  * useup→billobjs or merge bquan; else oid_price_adjustment may donate
- * o_id to merge; worn sanity; dealloc_obj subset (timers + OBJ_DELETED).
- * Named: full mkobj.c dealloc_obj (lua_ref, objs_deleted, LS_OBJECT,
- * thrownobj/kickedobj/tin/splitobjs); delobj still extract-only.
+ * o_id to merge; worn sanity; mkobj.c dealloc_obj (D-1743).
+ * Named: delobj still extract-only; zap.js delete_contents clone.
  */
 export function obfree(obj, merge) {
     if (!obj) return;
@@ -3383,14 +3372,13 @@ export function obfree(obj, merge) {
         );
         setnotworn(obj);
     }
-    dealloc_obj_free(obj);
+    dealloc_obj(obj);
 }
 
 /**
  * C ref: shk.c add_one_tobill `:3308–3363`.
  * dummy TRUE → useup + add_to_billobjs (FullyUsedUp). Bill-full You();
- * OBJ_FREE dealloc; globby newomid/OMID. Full dealloc_obj (lua/lights)
- * still named on obfree.
+ * OBJ_FREE dealloc_obj; globby newomid/OMID.
  */
 async function add_one_tobill(obj, dummy, shkp) {
     const eshkp = ESHK(shkp);
@@ -3408,7 +3396,7 @@ async function add_one_tobill(obj, dummy, shkp) {
         unbilled = true;
     }
     if (unbilled) {
-        if ((obj.where | 0) === OBJ_FREE) dealloc_obj_free(obj);
+        if ((obj.where | 0) === OBJ_FREE) dealloc_obj(obj);
         return;
     }
 
@@ -3962,7 +3950,7 @@ function setpaid(shkp) {
     let obj;
     while ((obj = game.billobjs) != null) {
         obj_extract_self(obj);
-        dealloc_obj_free(obj);
+        dealloc_obj(obj);
     }
     if (shkp) {
         const eshk = ESHK(shkp);
@@ -4728,7 +4716,7 @@ function update_bill(indx, ibillct, ibill, eshkp, bp, paiditem) {
     paiditem.unpaid = 0;
     if ((paiditem.where | 0) === OBJ_ONBILL) {
         obj_extract_self(paiditem);
-        dealloc_obj_free(paiditem);
+        dealloc_obj(paiditem);
     }
     const newebillct = (eshkp.billct | 0) - 1;
     const bpIdx = bill.indexOf(bp);

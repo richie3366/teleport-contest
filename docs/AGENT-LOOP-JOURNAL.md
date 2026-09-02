@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1743 mkobj.c dealloc_obj / dobjsfree
+
+**Objective:** Open `invent.c` dealloc_obj (named). Not useupall.
+**C locus:** `mkobj.c` `dealloc_obj` `:2744–2811` /
+`dealloc_obj_real` `:2814–2827` / `dobjsfree` `:2830–2843` /
+`dealloc_oextra` `:95–111`; `light.c` `obj_sheds_light` /
+`obj_is_burning`.
+**JS locus:** `js/mkobj.js` `dealloc_obj` + `dobjsfree`; `js/light.js`;
+`js/shk.js` `obfree`; `js/allmain.js` `moveloop_core`.
+**Change:** timers + LS_OBJECT + thrown/kicked/tin/split + lua_ref /
+`objs_deleted` queue; mklev ROCK/book/`mktrap_victim` discards.
+Named: `delobj` extract; zap `delete_contents` clone; nhl leftover;
+makemap_prepost.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `mkobj.c:dealloc_obj`; node 26/26;
+green+strict seed8000/0900; CURRENT cohort **9**/9 + strict. Rule #2
+clean.
+**Next:** Open `worn.c` possibly_unwield.
+**Blocked:** none.
 ## 2026-09-02 — D-1742 calendar.c getyear
 
 **Objective:** Open `calendar.c` getyear (named). Not hhmmss.

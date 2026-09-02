@@ -1,5 +1,41 @@
 # Divergence log
 
+## D-1743 — mkobj.c dealloc_obj / dobjsfree
+
+- **Status:** fixed (map-driven Open from D-1742; not a public FAIL)
+- **Symptom:** map named `dealloc_obj` after D-1727 `useupall`/`obfree`
+  and D-1735 `useup`. C `mkobj.c` `dealloc_obj` stops timers, drops
+  `LS_OBJECT` when `obj_sheds_light`, clears thrownobj/kickedobj/tin/
+  split oids, then `lua_ref_cnt` → `OBJ_LUAFREE` or queues
+  `OBJ_DELETED` for `dobjsfree` (`dealloc_obj_real` poisons + free).
+  JS `obfree` ended in a `dealloc_obj_free` subset (timers + DELETED,
+  no queue/lights/globals); mklev discarded rocks/books with a stub.
+- **C locus:** `mkobj.c` `dealloc_obj` `:2744–2811`;
+  `dealloc_obj_real` `:2814–2827`; `dobjsfree` `:2830–2843`;
+  `dealloc_oextra` `:95–111`; `light.c` `obj_sheds_light` `:762–767` /
+  `obj_is_burning` `:770–775`. Callers `shk.c` `obfree` `:1274`;
+  `allmain.c` `:192`; `save.c` `:491`; mklev ROCK/book/`mktrap_victim`.
+- **JS was:** `dealloc_obj_free` in `shk.js`; mklev `function dealloc_obj
+  (_otmp) { /* stub */ }`; `obj_sheds_light` NOT FOUND.
+- **Fix:** export `dealloc_obj`/`dobjsfree`/`dealloc_oextra` from
+  `js/mkobj.js`; `obj_is_burning`/`obj_sheds_light` in `js/light.js`
+  (import ignitable/artifact_light; `--can` hoisted SAFE). `obfree` +
+  bill paths call it; `moveloop_core` + WRITING savelev/`dosave0` drain
+  the queue. `obj_extract_self` LUAFREE/DELETED no-op. Not `delobj`.
+- **JS:** `js/mkobj.js`, `js/light.js`, `js/shk.js`, `js/allmain.js`,
+  `js/do.js`, `js/save.js`, `js/mklev.js`.
+- **Not this iter:** `delobj` still extract-only; zap.js
+  `delete_contents` clone; nhl_gamestate leftover; wizard
+  `makemap_prepost` dobjsfree; zap.c `dealloc_oextra` poly;
+  bypasses / resume_wish. useupall/obfree is D-1727; useup is D-1735.
+- **Verified:** save-oracle probe skip (untagged `mkobj.c:dealloc_obj`
+  and `invent.c:dealloc_obj`); node 26/26 (lights, thrown/kicked/tin/
+  split, lua_ref, hands_obj, oextra, obfree, freeingdata);
+  green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+  Rule #2 clean.
+- **Files:** `js/mkobj.js`, `js/light.js`, `js/shk.js`, `js/allmain.js`,
+  `js/do.js`, `js/save.js`, `js/mklev.js`, `js/invent.js`.
+
 ## D-1742 — calendar.c getyear
 
 - **Status:** fixed (map-driven Open from D-1741; not a public FAIL)

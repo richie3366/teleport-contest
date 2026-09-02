@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress (cadence **#2150** at `3c4dafe8`, R² 0.856).
   Save-oracle for tagged restore Open. Private B0 unchanged (catchup
-  26/30 red; shop 35/35 no unpaid). **Next:** Open `invent.c`
-  dealloc_obj. Not useupall. Falsify: C `useupall` vs leftover
-  `dealloc_obj` extract/timer/bill. Do not skip D-1531…D-1742.
-  Do not re-port D-1675…D-1742.
+  26/30 red; shop 35/35 no unpaid). **Next:** Open `worn.c`
+  possibly_unwield. Not setworn oc_oprop. Falsify: C `possibly_unwield`
+  vs leftover oc_oprop `setworn`. Do not skip D-1531…D-1743.
+  Do not re-port D-1675…D-1743.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham`; setworn oc_oprop; keepdogs leash; `initedog`; tip-spill;
   hideunder; newsym !cansee DETECTED; Punished float_down; water/lava
-  steed; interned `'yn'`; dokick `hidden_gold_kick`; `dealloc_obj`;
+  steed; interned `'yn'`; dokick `hidden_gold_kick`; `delobj` extract;
   mthrowu/uhitm poison; SetVoice; heaven `u_left_shop`;
   STRAT_HEAL; `swallow_cell` sticky Hallu; eat.js useup+useupf hybrid;
   `doseduce`/`ld()`.
@@ -26,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1742.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1743.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -37,10 +37,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1742 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1743 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1742. Do not delete emin (**487**). Do not stub
+  D-1520…D-1743. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -57,7 +57,8 @@ Objective/score live in `CURRENT.md`.
   `vision_reset`.   No yn ^P glue / `ing_suffix` clone #3 / InvInUse
   poke (D-1603) / zap sticky Blind (D-1604).   No `dat/tribute` indent=2.
   No static `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev
-  catchup reads it. Do not re-port D-1682…D-1742. D-1742 is
+  catchup reads it. Do not re-port D-1682…D-1743. D-1743 is
+  `dealloc_obj`/`dobjsfree` (not `delobj` / useupall). D-1742 is
   `getyear` (not hhmmss / `doseduce` `ld()`). D-1741 is
   `get_valuables` / `sort_valuables` (not artifact_score / pet HP).
   D-1740 is
@@ -74,6 +75,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1743: `dealloc_obj` `:2744–2811` + `dobjsfree` `:2830–2843`.
+  Live `mkobj.js`/`light.js`. Named: `delobj` extract; zap
+  `delete_contents` clone; nhl leftover; makemap_prepost.
 - D-1742: `getyear` `:48–52` `1900+getlt()->tm_year`. Live
   `calendar.js`. Named: `doseduce`/`ld()`; dump_fmtstr / paniclog.
 - D-1741: `get_valuables` `:762–791` + `sort_valuables` `:797–818`
@@ -93,7 +97,8 @@ Objective/score live in `CURRENT.md`.
 - D-1736: `display_monster` `:518–519` Protection || sensemon. Live
   `display.js`. Named: pet/detected glyphs.
 - D-1735: `useup` `:1320–1333`. Live `invent.js`; write.js import.
-  Named: eat.js hybrid; detect/potion/read/spell clones; `dealloc_obj`.
+  Named: eat.js hybrid; detect/potion/read/spell clones. dealloc_obj
+  is D-1743.
 - D-1734: `display_monster` `:579–584` `what_mon`. Live `display.js`.
   Named: pet/detected glyphs.
 - D-1733: `u_left_shop` `:578–625` + `choose_stairs` `:330–364`.
@@ -103,4 +108,3 @@ Objective/score live in `CURRENT.md`.
   is D-1740.
 - D-1730: `artifact_score` count+list. Named: get_valuables is D-1741.
 - D-1729: `getdir` CQ_REPEAT. Named: mouse; no trailing `confdir`.
-- D-1728: `yn_function_menu`. Named: interned `'yn'`.

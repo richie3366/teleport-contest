@@ -93,7 +93,7 @@ import {
 import { place_object, stackobj, weight, delobj, obj_extract_self,
     obj_nexto_xy, obj_meld, pudding_merge_message,
     save_timers, restore_timers, run_timers, splitobj,
-    save_light_sources, restore_light_sources,
+    save_light_sources, restore_light_sources, dobjsfree,
 } from './mkobj.js';
 import { ship_object, obj_delivery, container_impact_dmg } from './dokick.js';
 import { doname, xname, the, The, vtense, an, yname, corpse_xname, is_plural, otense } from './objnam.js';
@@ -1492,6 +1492,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // Named omit: else free_luathemes(tut_themes / most_themes).
 
     // C: savelev — in-memory stash + VISITED|LFILE_EXISTS + omoves timestamp
+    // C save.c:490–491 — dobjsfree before writing when objs_deleted.
+    if (save_mode & WRITING) dobjsfree();
     // C: save_track before release/initrack (track.c) — per-level utrack.
     if (!game.level_info) game.level_info = [];
     const old_ledger = ledger_no(u.uz);

@@ -81,7 +81,8 @@ allmain **`moveloop` EOT `Is_waterlevel||Is_airlevel` `movebubbles` else `flags.
 **`moveloop` EOT `u_wipe_engr(rnd(3))` DEX `!rn2(40+ACURR(A_DEX)*3)` D-1372** (callee D-1051; 
 dokick(2) D-1360; uhitm do_attack(3) D-1373; dothrow/dig still named); 
 **`moveloop_core` `sanity_check` D-1664** (`allmain.c:197–198` `iflags.sanity_check\|\|debug_fuzzer` 
-before `context.move`; opt_in Off; callee `wizcmds.c`; dobjsfree / bypasses / resume_wish named)
+before `context.move`; opt_in Off; callee `wizcmds.c`; **`dobjsfree` D-1743**
+`allmain.c:192`; bypasses / resume_wish named)
 
 ### `src/wizcmds.c`
 
@@ -940,10 +941,15 @@ generic/STRANGE_OBJECT `otyp < FIRST_OBJECT`; Hallu `youprop.h` not sticky
 `u.Hallucination`; `discover_object` credit_hero FALSE); 
 **`useup` / `useupall` / `obfree`** (D-1727 `useupall`/`obfree`;
 D-1735 `useup` C `invent.c` `:1320–1333`; live `js/invent.js`;
-`write.js` imports (no invent-splice); named: eat.js hybrid still
-useup+useupf, detect/potion/read/spell local clones, full
-`dealloc_obj` lua/lights/`objs_deleted`, `delobj` still extract, zap.js
-`delete_contents` clone, nhl_gamestate leftover); 
+`write.js` imports (no invent-splice); **`dealloc_obj` D-1743**
+C `mkobj.c` `:2744–2811` / `dealloc_obj_real` `:2814–2827` /
+`dobjsfree` `:2830–2843` / `dealloc_oextra` `:95–111`; callees
+`light.c` `obj_sheds_light`/`obj_is_burning`; live `js/mkobj.js` +
+`js/light.js`; `obfree`/`moveloop_core`/`savelev` JSON/`dosave0` +
+mklev ROCK/book/mktrap_victim discards; named: eat.js hybrid still
+useup+useupf, detect/potion/read/spell local clones, `delobj` still
+extract, zap.js `delete_contents` clone, nhl_gamestate leftover,
+wizard `makemap_prepost` dobjsfree); 
 **`prinv` total_of + `xprname` quan + `(N in total)`** (D-0388); 
 **`count_contents`** nested/quan/everything (D-0395; shoppy `costly_spot` deferred); 
 xname-path observe beyond invent; **`pickup_prinv` slight/moderate/near/overload + 

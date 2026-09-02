@@ -3938,8 +3938,8 @@ export function update_inventory() {
 /**
  * C ref: invent.c useupall `:1311–1317` — setnotworn, freeinv, then
  * obfree(obj, NULL) (contents + shop bill). Callee shk.c obfree is
- * D-1727. Named: nhl_gamestate leftover (do.js tutorial stash);
- * delobj still extract-only.
+ * D-1727; mkobj.c dealloc_obj is D-1743. Named: nhl_gamestate leftover
+ * (do.js tutorial stash); delobj still extract-only.
  */
 export function useupall(obj) {
     if (!obj) return;
@@ -3952,7 +3952,7 @@ export function useupall(obj) {
  * C ref: invent.c useup `:1320–1333` — quan>1: in_use=FALSE, quan--,
  * weight, update_inventory; else useupall. write.c dowrite paper
  * (D-1735). Named: eat.js hybrid still useup+useupf; detect/potion/
- * read/spell local clones; full dealloc_obj.
+ * read/spell local clones. dealloc_obj is D-1743.
  */
 export function useup(obj) {
     if (obj.quan > 1) {

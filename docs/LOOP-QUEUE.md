@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `invent.c` dealloc_obj (named). Not useupall.
 - [ ] `worn.c` possibly_unwield (named). Not setworn oc_oprop.
 - [ ] `display.c` newsym !cansee display_monster DETECTED (named). Not cansee Detect_monsters.
 - [ ] `display.c` see_monsters MON_STILL_ARRIVING skip (named). Not newsym Detect_monsters.

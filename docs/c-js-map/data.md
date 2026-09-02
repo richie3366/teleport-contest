@@ -225,8 +225,13 @@ BoH Is_mbag→SACK / WAN_CANCELLATION re-roll + BoH weight factor deferred);
 **candle `mksobj` `age=20*oc_cost` D-1308**; 
 **`mksobj_migr_to_species` D-1363** (`:253–265` `add_to_migration` + `MIGR_TO_SPECIES` + 
 `migr_species` overlay; caller `mkmaze.c` `stolen_booty`); 
+**`dealloc_obj` / `dobjsfree` D-1743** (`:2744–2843` + `dealloc_oextra` `:95–111`;
+`light.c` `obj_sheds_light`/`obj_is_burning`; `obj_extract_self`
+LUAFREE/DELETED no-op; `obfree` + moveloop + JSON savelev/`dosave0`;
+mklev ROCK/book/`mktrap_victim` discards); 
 omit FIGURINE transform/timeout, `nextoid` shop-price search, unpaid/`splitbill`, 
-timers/light/`copy_oextra`, invent extract, `oeaten`/`eaten_stat`, statue weight arms
+timers/light/`copy_oextra`, invent extract, `oeaten`/`eaten_stat`, statue weight arms,
+zap.c `dealloc_oextra` poly, wizard `makemap_prepost` dobjsfree
 
 ### `src/mon.c` `undead_to_corpse`/`can_be_hatched`/`mondead`/`corpse_chance`
 
