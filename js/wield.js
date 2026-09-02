@@ -164,6 +164,15 @@ function will_weld(obj) {
     return n === 'HEAVY_IRON_BALL' || n === 'IRON_CHAIN' || n === 'TIN_OPENER';
 }
 
+/**
+ * C ref: wield.c mwelded `:1077–1084` — monster's cursed welded weapon.
+ * Caller must pass a monster's item. monmove.js still has a local clone.
+ */
+export function mwelded(obj) {
+    if (obj && ((obj.owornmask || 0) & W_WEP) && will_weld(obj)) return true;
+    return false;
+}
+
 /** C ref: wield.c welded */
 export function welded(obj) {
     const uwep = game.u?.uwep;

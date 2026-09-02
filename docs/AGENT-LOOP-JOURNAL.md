@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1744 weapon.c possibly_unwield / setmnotwielded
+
+**Objective:** Open `worn.c` possibly_unwield (named). Not setworn oc_oprop.
+**C locus:** `weapon.c` `possibly_unwield` `:746–795` /
+`setmnotwielded` `:1813–1828` / `mwepgone` `:937–946`;
+`worn.c` `bypass_obj`; `wield.c` `mwelded`.
+**JS locus:** `js/weapon.js` + newcham/were/`mattackm`/`use_whip`.
+**Change:** stolen MON_NOWEP; !AT_WEAP drop+`flooreffects`+polyspot
+`bypass_obj`; NEED_WEAPON unless mwelded+NO_WEAPON_WANTED.
+Named: steal_it / mhitm_ad_sitm; m_throw setmnotwielded;
+mon_break_armor; extract mwepgone inline.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged; node 13/13; green+strict
+seed8000/0900; CURRENT cohort **9**/9 + strict. Rule #2 clean.
+**Next:** Open `display.c` newsym !cansee DETECTED.
+**Blocked:** none.
 ## 2026-09-02 — D-1743 mkobj.c dealloc_obj / dobjsfree
 
 **Objective:** Open `invent.c` dealloc_obj (named). Not useupall.

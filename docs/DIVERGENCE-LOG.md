@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-1744 — weapon.c possibly_unwield / setmnotwielded
+
+- **Status:** fixed (map-driven Open from D-1743; not a public FAIL)
+- **Symptom:** map named `possibly_unwield` (queue `worn.c` — C is
+  `weapon.c`; `bypass_obj` lives in `worn.c`). C drops a monster
+  weapon when the new form has no `AT_WEAP`, clears stolen `mw`, or
+  sets `NEED_WEAPON` unless `mwelded`+`NO_WEAPON_WANTED`. JS omitted
+  the helper (apply.js had a stolen-only stub; newcham/were/`mattackm`
+  named the omit).
+- **C locus:** `weapon.c` `possibly_unwield` `:746–795`;
+  `setmnotwielded` `:1813–1828`; `mwepgone` `:937–946`;
+  `worn.c` `bypass_obj` `:1118–1123`; `wield.c` `mwelded`
+  `:1077–1084`. Callers `mon.c` `newcham` `:5484` (polyspot);
+  `were.c` `new_were` `:130`; `mhitm.c` `mattackm` `:411`;
+  `apply.c` `use_whip` `:3176–3177`.
+- **JS was:** named omit after D-0180 `mon_wield_item`; apply.js
+  `possibly_unwield_apply` only handled missing minvent.
+- **Fix:** live `possibly_unwield` (drop path async for
+  `pline_mon`/`flooreffects`; stolen/AT_WEAP stay sync for newcham
+  boolean). `setmnotwielded` includes artifact_light `end_burn`.
+  Export `mwelded`/`bypass_obj`. Wire newcham (after SHOW_MSG),
+  `new_were`/`were_change`, `mattackm`, `use_whip`. Not setworn
+  `oc_oprop`.
+- **JS:** `js/weapon.js`, `js/worn.js`, `js/wield.js`,
+  `js/makemon.js`, `js/were.js`, `js/mhitm.js`, `js/apply.js`,
+  `js/mon.js`, `js/potion.js`.
+- **Not this iter:** steal_it / mhitm_ad_sitm; m_throw still inlines
+  setmnotwielded (C `:604–607` not possibly_unwield);
+  mon_break_armor; extract_from_minvent mwepgone inline; zap.js
+  bypass_obj clone; monmove.js mwelded clone; setworn oc_oprop.
+- **Verified:** save-oracle probe skip (untagged `weapon.c:possibly_unwield`
+  and `worn.c:possibly_unwield`); node 13/13 (no-mw, stolen, AT_WEAP
+  sync, mwelded keep, !AT_WEAP Promise+bypass, mwepgone, bypass_obj);
+  green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+  Rule #2 clean.
+- **Files:** `js/weapon.js`, `js/worn.js`, `js/wield.js`,
+  `js/makemon.js`, `js/were.js`, `js/mhitm.js`, `js/apply.js`,
+  `js/mon.js`, `js/potion.js`.
+
 ## D-1743 — mkobj.c dealloc_obj / dobjsfree
 
 - **Status:** fixed (map-driven Open from D-1742; not a public FAIL)

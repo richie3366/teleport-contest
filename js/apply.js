@@ -61,7 +61,7 @@ import {
     touch_petrifies, poly_when_stoned, is_rider,
 } from './monsters.js';
 import { can_blow, little_to_big, big_to_little, hero_conflict } from './mondata.js';
-import { wield_tool, welded, is_pole } from './wield.js';
+import { wield_tool, welded, is_pole, mwelded } from './wield.js';
 import {
     splitobj, delobj, objects_at, unbless, attach_egg_hatch_timeout, kill_egg,
     obj_extract_self, place_object, stackobj, weight, mksobj, stop_timer,
@@ -78,7 +78,7 @@ import { walk_path, thitmonst, hurtle } from './dothrow.js';
 import { uhim, uhis } from './roles.js';
 import { is_art } from './artifact.js';
 import { ART_SNICKERSNEE } from './generated/artifacts_data.js';
-import { P_SKILL, weapon_type, dbon, MON_WEP, is_wet_towel, dry_a_towel, hands_obj } from './weapon.js';
+import { P_SKILL, weapon_type, dbon, MON_WEP, is_wet_towel, dry_a_towel, hands_obj, possibly_unwield, setmnotwielded } from './weapon.js';
 import { pickup_object, spoteffects } from './pickup.js';
 import { select_menu_pick_one } from './options.js';
 import { teleds, tele_to_rnd_pet, noteleport_level, enexto, rloc_to } from './teleport.js';
@@ -3368,40 +3368,6 @@ function bimanual_apply(obj) {
     return !!(oc?.oc_bimanual || oc?.oc_big);
 }
 
-/** C ref: wield.c mwelded — monster wielded cursed wep (owornmask & W_WEP). */
-function mwelded_apply(obj) {
-    if (!obj) return false;
-    if (!((obj.owornmask || 0) & W_WEP)) return false;
-    if (!obj.cursed) return false;
-    if (obj.oclass === WEAPON_CLASS) return true;
-    return obj.oclass === TOOL_CLASS
-        && ((game.objects?.[obj.otyp]?.oc_skill | 0) !== P_NONE);
-}
-
-/** C ref: weapon.c setmnotwielded — artifact_light end_burn deferred. */
-function setmnotwielded_apply(mon, obj) {
-    if (!obj) return;
-    if (MON_WEP(mon) === obj) mon.mw = null;
-    obj.owornmask = (obj.owornmask || 0) & ~W_WEP;
-}
-
-/**
- * C ref: weapon.c possibly_unwield — after extract, wep is gone from minvent.
- */
-function possibly_unwield_apply(mon) {
-    const mw_tmp = MON_WEP(mon);
-    if (!mw_tmp) return;
-    let obj = mon.minvent;
-    while (obj) {
-        if (obj === mw_tmp) break;
-        obj = obj.nobj;
-    }
-    if (!obj) {
-        mon.mw = null;
-        mon.weapon_check = NEED_WEAPON;
-    }
-}
-
 /** C ref: do.c obj_no_longer_held — recurse contents; CRYSKNIFE → worm tooth. */
 async function obj_no_longer_held_apply(obj) {
     if (!obj) return;
@@ -3439,8 +3405,7 @@ async function kick_steed_apply() {
 
 /**
  * C ref: apply.c use_whip — lash, pit yank, disarm, force_attack.
- * Named omit: #if 0 snatch-to-face thitu; artifact_light on setmnotwielded;
- * wipe_engr_at body.
+ * Named omit: #if 0 snatch-to-face thitu; wipe_engr_at body.
  */
 async function use_whip(obj) {
     const u = game.u || (game.u = {});
@@ -3612,7 +3577,7 @@ async function whip_attack(obj, mtmp, rx, ry, proficient) {
             if (bimanual_apply(otmp)) mon_hand = makeplural(mon_hand);
         }
         await pline(`You wrap your bullwhip around ${yname(otmp)}.`);
-        if (gotit && mwelded_apply(otmp)) {
+        if (gotit && mwelded(otmp)) {
             await pline(
                 `${(otmp.quan | 0) === 1 ? 'It is' : 'They are'} welded to ${mhis_apply(mtmp)} ${mon_hand}${
                     !otmp.bknown ? '!' : '.'
@@ -3623,8 +3588,8 @@ async function whip_attack(obj, mtmp, rx, ry, proficient) {
         }
         if (gotit) {
             obj_extract_self(otmp);
-            possibly_unwield_apply(mtmp);
-            setmnotwielded_apply(mtmp, otmp);
+            await possibly_unwield(mtmp, false);
+            await setmnotwielded(mtmp, otmp);
             switch (rn2(proficient + 1)) {
             case 2:
                 await pline(

@@ -353,10 +353,20 @@ export function check_gear_next_turn(mon) {
 }
 
 /**
+ * C ref: worn.c bypass_obj `:1118–1123` — mark so this-turn pile zaps skip.
+ * Caller: weapon.c possibly_unwield polyspot. zap.js still has a local clone.
+ */
+export function bypass_obj(obj) {
+    obj.bypass = 1;
+    if (!game.context) game.context = {};
+    game.context.bypasses = true;
+}
+
+/**
  * C ref: worn.c extract_from_minvent — unlink minvent obj; worn extras
  * when owornmask. Named omit: artifact_light end_burn; obj_no_longer_held
  * (crysknife); setmnotwielded light polish (mwepgone core inlined to
- * avoid worn↔weapon).
+ * avoid worn↔weapon). possibly_unwield is weapon.c D-1744.
  */
 export function extract_from_minvent(mon, obj, do_extrinsics, silently) {
     if (!mon || !obj) return;

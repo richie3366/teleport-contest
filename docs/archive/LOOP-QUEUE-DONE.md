@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-02
 
-- [x] `invent.c` dealloc_obj (named). Not useupall. **Addressed:** D-1743
+- [x] `worn.c` possibly_unwield (named). Not setworn oc_oprop. **Addressed:** D-1744
+
+
+- [x] `invent.c` dealloc_obj (named). Not useupall. **Addressed:** D-1743 `5a8392de`
 
 
 - [x] `calendar.c` getyear (named). Not hhmmss. **Addressed:** D-1742 `3f9a8e48`
