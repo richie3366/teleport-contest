@@ -3524,7 +3524,7 @@ async function miss_msg(str, mtmp) {
  * Death/vampshifter, else defended(AD_DRLI). First caller: zap.c
  * bhitm SPE_DRAIN_LIFE (D-1436). Named omit: defended worn-item walk.
  */
-function resists_drli(mon) {
+export function resists_drli(mon) {
     const ptr = mon?.data;
     if (!ptr) return false;
     if (is_undead(ptr) || is_demon(ptr) || is_were(ptr)

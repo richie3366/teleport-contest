@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `mhitu.c` doseduce (named). Not getyear.
 - [ ] `dokick.c` hidden_gold(TRUE) kick (named). Not vault hidden_gold.
 - [ ] `sounds.c` set_voice / SetVoice (named). Not doseduce.
 - [ ] `detect.c` sense_trap (named). Not monster_detect.

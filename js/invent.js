@@ -2572,6 +2572,30 @@ export function observe_object(obj) {
 }
 
 /**
+ * C ref: invent.c u_carried_gloves `:1556–1571`.
+ * Worn gloves first, else first invent gloves (ARM_GLOVES via oc_skill).
+ * Caller: mhitu.c doseduce leap-day succubus verbalize.
+ */
+export function u_carried_gloves() {
+    const u = game.u || {};
+    if (u.uarmg) return u.uarmg;
+    const ARM_GLOVES = 3;
+    const isGloves = (otmp) => otmp?.oclass === ARMOR_CLASS
+        && (game.objects?.[otmp.otyp]?.oc_skill | 0) === ARM_GLOVES;
+    const inv = game.invent;
+    if (Array.isArray(inv)) {
+        for (const otmp of inv) {
+            if (isGloves(otmp)) return otmp;
+        }
+    } else {
+        for (let otmp = inv; otmp; otmp = otmp.nobj) {
+            if (isGloves(otmp)) return otmp;
+        }
+    }
+    return null;
+}
+
+/**
  * C ref: invent.c learn_unseen_invent — on regaining sight, mark invent
  * picked up while Blind as seen (xname/observe). addinv_core2 /
  * update_inventory / cleric bknown / archeologist scroll polish deferred.

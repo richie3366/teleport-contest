@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-02
 
-- [x] `display.c` feel_location is_worm_tail (named). Not Blind levitate-arm. **Addressed:** D-1749
+- [x] `mhitu.c` doseduce (named). Not getyear. **Addressed:** D-1750
+
+
+- [x] `display.c` feel_location is_worm_tail (named). Not Blind levitate-arm. **Addressed:** D-1749 `d17e4f35`
 
 
 - [x] `display.c` display_monster pet_to_glyph / detected_mon_to_glyph (named). Not Protection sensed. **Addressed:** D-1748 `1f6d5487`

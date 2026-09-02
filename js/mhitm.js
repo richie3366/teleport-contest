@@ -1055,9 +1055,11 @@ function See_invisible() {
     return !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0) || u.See_invisible);
 }
 
-/** C ref: sys.h SYSOPT_SEDUCE — runtime seduce option. */
-function SYSOPT_SEDUCE() {
-    return !!(game.sysopt?.seduce);
+/** C ref: sys.h SYSOPT_SEDUCE — runtime seduce option (sys.c default 1). */
+export function SYSOPT_SEDUCE() {
+    const v = game.sysopt?.seduce;
+    if (v == null) return true;
+    return !!v;
 }
 
 /**

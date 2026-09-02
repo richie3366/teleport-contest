@@ -1713,7 +1713,7 @@ other-role locate burn shuffle only); **`quest_chat`/`quest_talk`/`leader_speaks
  + Arc/Pri `leader_first` + Pri `assignquest` + Arc `badalign` + 
 `is_pure` wizard≡`flags.debug` adjust** (D-0590/D-0627/D-0640; `#chat`→`domonnoise` MS_LEADER; 
 **`mon_msound` S_NYMPH→MS_SEDUCE + cajoles/comes-on/`Hello sailor` ECMD_TIME** (D-0687; 
-`doseduce` non-nymph / other MS_* deferred); **finish_quest throw/kick D-1312**; 
+**`doseduce` AMOROUS_DEMON SYSOPT non-nymph D-1750**; other MS_* deferred); **finish_quest throw/kick D-1312**; 
 encourage/got_thanks/questart/banished/nemesis talk deferred); 
 **`ok_to_quest` + `goto_level` Home in-branch gate** (D-0798; 
 Gehennom amulet mysteryforce deferred); **`convert_arg` `%r`/`%R`→`rank_of` + `%ra`/`%rA`/`%rC` + 
@@ -2398,7 +2398,11 @@ name_to_mon G_UNIQ / Half_gas_damage / trap·throw callers deferred) +
 **AD_SITM/AD_SEDU→`mhitm_ad_sedu`→`steal`** (D-0686; brag `pline_mon` D-1240; 
 **`worn_item_removal` on→from + nymph `She stole` D-0884**; 
 **post-steal `rloc(RLOC_MSG)` vanish D-0885**; 
-monkey cant_take / stealarm afternmv / doseduce SSEX deferred); 
+monkey cant_take / stealarm afternmv deferred; 
+**`doseduce` / `mayberem` / `ld()` AD_SSEX D-1750** (`mhitu.c` `:1984–2305` / `:2308–2352` / `:25`; 
+`uhitm.c` `mhitm_ad_ssex` mhitu arm; `sounds.c` MS_SEDUCE; extractor `SEDUCTION_ATTACKS_YES`; 
+SYSOPT default on; SetVoice empty without SND_LIB; named: uhitm hero-as-seducer, mhitm mon-mon AD_SSEX, 
+SEDUCE=0 `c_sa_no` subst, steal.c monkey_business `unresponsive` site)); 
 **`mswings`/`mswings_verb` + `hitval` on AT_WEAP melee** (D-0286); 
 **`missmu` nearmiss `"just "` + unseen `map_invisible`** (D-0301; 
 seduce/`stop_occupation` deferred) + **`hitmsg` consecutive `" again"`** (D-0840) + **`pline_mon` + 
@@ -2564,7 +2568,7 @@ dothrow is D-1374 / dig is D-1375); **`do_attack` leprechaun evade D-1381** (`S_
 **dmgval shade/`shade_glare` D-1354**; **hitmm silver sear D-1351**; 
 **mdamagem AD_STON leftover D-1352**; **mdamagem AD_CONF leftover D-1385**; 
 **mdamagem AD_STUN leftover D-1396**; **mdamagem AD_FIRE leftover D-1405**; 
-**mhitm AD_WRAP brush D-1406**; artifact wep/`doseduce`; **mthrowu m_throw shade_miss D-1382**; 
+**mhitm AD_WRAP brush D-1406**; artifact wep; **mthrowu m_throw shade_miss D-1382**; 
 **zap `bhit` shade_miss D-1383**; **hmon shade_miss D-1384**; **mhitm_ad_phys shade_miss D-1394**; 
 **mhitm_ad_phys mwep dmgval D-1402** (mhitm arm `:4142–4157` corpse `do_stone_mon` then `dmgval` + 
 GOP `rn1(4,3)` + min 1); **mhitm_ad_phys AT_KICK thick_skinned D-1403** (mhitm arm `:4138–4141` 

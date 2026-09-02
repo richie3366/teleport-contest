@@ -292,6 +292,18 @@ AD_MAP = {
 
 def parse_mattk(atks: str) -> list[dict[str, int]]:
     """Parse A(ATTK(...), ...) / NO_ATTK into NATTK=6 slots for experience()."""
+    # C monsters.h SEDUCTION_ATTACKS_YES/NO — AMOROUS_DEMON uses YES (default).
+    # getmattk substitutes c_sa_no when !SYSOPT_SEDUCE (named in mhitm.js).
+    atks = atks.replace(
+        "SEDUCTION_ATTACKS_YES",
+        "A(ATTK(AT_BITE, AD_SSEX, 0, 0), ATTK(AT_CLAW, AD_PHYS, 1, 3), "
+        "ATTK(AT_CLAW, AD_PHYS, 1, 3), NO_ATTK, NO_ATTK, NO_ATTK)",
+    )
+    atks = atks.replace(
+        "SEDUCTION_ATTACKS_NO",
+        "A(ATTK(AT_CLAW, AD_PHYS, 1, 3), ATTK(AT_CLAW, AD_PHYS, 1, 3), "
+        "ATTK(AT_BITE, AD_DRLI, 2, 6), NO_ATTK, NO_ATTK, NO_ATTK)",
+    )
     slots: list[dict[str, int]] = []
     # NO_ATTK expands to ATTK(0,0,0,0) in C
     for m in re.finditer(

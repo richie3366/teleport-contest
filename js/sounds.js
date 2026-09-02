@@ -34,6 +34,8 @@ import { vault_occupied, findgd } from './vault.js';
 import { t_at } from './trap.js';
 import { same_race } from './mondata.js';
 import { mhis } from './fountain.js';
+import { could_seduce, SYSOPT_SEDUCE } from './mhitm.js';
+import { doseduce } from './mhitu.js';
 
 const STATUE = objectNames.indexOf('STATUE');
 const PM_ORACLE = monsterNames.indexOf('PM_ORACLE');
@@ -621,8 +623,7 @@ function tribute_info() {
  * pline). Other MS_* named omitted in C-JS-MAP; unknown →
  * ECMD_OK (silent). FULL_MOON howl needs night() — deferred;
  * falls through to bark. MS_PRIEST priest_talk deferred
- * (non-leader temple priests). MS_SEDUCE doseduce (SYSOPT
- * non-nymph) deferred.
+ * (non-leader temple priests).
  */
 export async function domonnoise(mtmp) {
     if (!mtmp) return ECMD_OK;
@@ -672,13 +673,15 @@ export async function domonnoise(mtmp) {
             pline_msg = 'growls.';
         }
     } else if (msound === MS_SEDUCE) {
-        // C sounds.c MS_SEDUCE — nymph chat; doseduce non-nymph deferred.
-        // SYSOPT_SEDUCE: opposite-gender rn2(3); else male-only rn2(3).
-        // Same-gender / female under !SEDUCE → swval 0 → "cajoles you."
+        // C sounds.c MS_SEDUCE :1106–1128 — SYSOPT default on;
+        // non-nymph could_seduce==1 → doseduce then break (ECMD_TIME).
         let swval;
-        const seduce = !!(game.sysopt?.seduce);
-        if (seduce) {
-            // could_seduce + doseduce for non-nymph deferred
+        if (SYSOPT_SEDUCE()) {
+            if (ptr?.mlet !== 'S_NYMPH'
+                && could_seduce(mtmp, game.youmonst, null) === 1) {
+                await doseduce(mtmp);
+                return ECMD_TIME;
+            }
             swval = (poly_gender() !== (mtmp.female | 0)) ? rn2(3) : 0;
         } else {
             swval = (poly_gender() === 0) ? rn2(3) : 0;

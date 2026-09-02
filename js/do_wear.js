@@ -934,7 +934,7 @@ export async function set_wear(obj = null) {
 /**
  * C ref: objnam.c suit_simple_name — "mail"/"jacket"/"suit" (dragon deferred).
  */
-function suit_simple_name(suit) {
+export function suit_simple_name(suit) {
     if (!suit) return 'suit';
     const suitnm = objectNameStrs[suit.otyp] || '';
     if (suitnm.length > 5 && suitnm.endsWith(' mail')) return 'mail';

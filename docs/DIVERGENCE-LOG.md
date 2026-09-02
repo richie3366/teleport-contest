@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-1750 — mhitu.c doseduce / mayberem / ld() AD_SSEX
+
+- **Status:** fixed (map-driven Open from D-1742/D-1749; not a public FAIL)
+- **Symptom:** map named `doseduce`. C `doseduce` is the SYSOPT_SEDUCE
+  succubus/incubus envelope (rings, undress, Cha+Int outcome, gold,
+  rloc). JS had no function; `mhitm_adtyping_u` dropped AD_SSEX to
+  damage 0; `domonnoise` MS_SEDUCE skipped the non-nymph call;
+  `SYSOPT_SEDUCE` treated unset as off (C `sys.c` default 1);
+  extractor left `SEDUCTION_ATTACKS_YES` as empty `mattk[]` so combat
+  never saw AD_SSEX=35.
+- **C locus:** `mhitu.c` `doseduce` `:1984–2305`; `mayberem` `:2308–2352`;
+  `ld()` `:25`; callers `uhitm.c` `mhitm_ad_ssex` `:4750–4778` mhitu
+  arm and `sounds.c` MS_SEDUCE `:1106–1113`; `steal.c` `unresponsive`
+  `:131–142`; `invent.c` `u_carried_gloves` `:1556–1571`;
+  `monsters.h` `SEDUCTION_ATTACKS_YES`.
+- **JS was:** AD_SSEX default-zero; chat sailor/cajoles only; getyear
+  live without `ld()`.
+- **Fix:** port `doseduce`/`mayberem`/`ld()`; mhitu `mhitm_ad_ssex`;
+  MS_SEDUCE non-nymph `doseduce` then ECMD_TIME; SYSOPT unset/null →
+  on, explicit 0 off; extractor expands YES (bite AD_SSEX + 2×claw
+  1d3). SetVoice remains empty without SND_LIB.
+- **JS:** `js/mhitu.js` `doseduce` / `mayberem` / `ld`; `js/sounds.js`;
+  `js/steal.js` `unresponsive`; `js/invent.js` `u_carried_gloves`;
+  `js/mhitm.js` `SYSOPT_SEDUCE`; `js/generated/monsters_data.js`;
+  `scripts/extract-monsters.py`.
+- **Not this iter:** uhitm hero-as-seducer; mhitm mon-mon AD_SSEX;
+  SEDUCE=0 `c_sa_no` in `get_mattk`; steal.c monkey_business
+  `unresponsive` site; SetVoice/`set_voice`. `getyear` is D-1742.
+- **Verified:** save-oracle probe skip (untagged `mhitu.c:doseduce`);
+  node 21/21 (SYSOPT default/0; leap `ld` 0xe5; `unresponsive`;
+  `could_seduce` 1 vs same-gender 0; mcan/mspec/unresponsive return 0;
+  extracted AD_SSEX bite); green+strict seed8000/0900; CURRENT cohort
+  **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/mhitu.js`, `js/sounds.js`, `js/steal.js`,
+  `js/invent.js`, `js/mhitm.js`, `js/do_wear.js`, `js/zap.js`,
+  `js/calendar.js`, `js/generated/monsters_data.js`,
+  `scripts/extract-monsters.py`.
+
 ## D-1749 — display.c feel_location is_worm_tail overlay
 
 - **Status:** fixed (map-driven Open from D-1748; not a public FAIL)

@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1750 mhitu.c doseduce / mayberem / ld() AD_SSEX
+
+**Objective:** Open `mhitu.c` doseduce (named). Not getyear.
+**C locus:** `mhitu.c` `doseduce` `:1984–2305` / `mayberem` `:2308–2352`
+/ `ld()` `:25`; `mhitm_ad_ssex` mhitu arm; `sounds.c` MS_SEDUCE.
+**JS locus:** `js/mhitu.js` `doseduce`; `js/sounds.js`; extractor YES.
+**Change:** port seduction envelope; SYSOPT default on; expand
+`SEDUCTION_ATTACKS_YES` so AMOROUS_DEMON has AD_SSEX. SetVoice named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `mhitu.c:doseduce`; node 21/21;
+green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+Rule #2 clean.
+**Next:** Open `dokick.c` hidden_gold(TRUE) kick.
+**Blocked:** none.
 ## 2026-09-03 — D-1749 display.c feel_location is_worm_tail overlay
 
 **Objective:** Open `display.c` feel_location is_worm_tail (named).
