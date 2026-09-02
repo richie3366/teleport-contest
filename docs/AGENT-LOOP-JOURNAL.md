@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1741 end.c get_valuables / sort_valuables
+
+**Objective:** Open `end.c` get_valuables (named). Not artifact_score.
+**C locus:** `end.c` `get_valuables` `:762–791` /
+`sort_valuables` `:797–818`; `really_done` `:1433–1446` / `:1490–1519`.
+**JS locus:** `js/end.js` `get_valuables` + ESCAPED/ASCENDED score/list.
+**Change:** invent+container amulet/gem tally (skip oartifact; glass
+one slot); `oc_cost` into `urexp`; disclose lines after unique items.
+Named: pet HP / Schroedinger / DUMPLOG.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `end.c:get_valuables`; node 10/10 +
+listing smoke; green+strict seed8000/0900; CURRENT cohort **9**/9 +
+strict. Rule #2 clean.
+**Next:** Open `calendar.c` getyear.
+**Blocked:** none.
 ## 2026-09-02 — D-1740 shk.c shopper_financial_report / shop_debt
 
 **Objective:** Open `shk.c` shopper_financial_report / shop_debt

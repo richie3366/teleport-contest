@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `end.c` get_valuables (named). Not artifact_score.
 - [ ] `calendar.c` getyear (named). Not hhmmss.
 - [ ] `invent.c` dealloc_obj (named). Not useupall.
 - [ ] `worn.c` possibly_unwield (named). Not setworn oc_oprop.

@@ -1335,8 +1335,11 @@ multi_reason; enlightenment poly/remaining resistance catalogue; set_uasmon FROM
 **`observe_quantum_cat` disclose D-1535** (live-cat contents line; escape/ascend companion HP named); 
 **`artifact_score` D-1730** (C `end.c:906–940`; ESCAPED/ASCENDED `really_done`
 `:1449` count + `:1482` list; `arti_cost*5/2` + `nowrap_add`; recurse
-`Has_contents`; live `js/end.js`; get_valuables / pet HP / DUMPLOG list
-named; hidden_gold is D-1731); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
+`Has_contents`; live `js/end.js`; **`get_valuables` D-1741**; pet HP / DUMPLOG list
+named; hidden_gold is D-1731); **`get_valuables` D-1741** (C `end.c:762–791` +
+`sort_valuables` `:797–818`; `really_done` `:1433–1446` `count*oc_cost` +
+`:1490–1519` list; glass slot; skip `oartifact`; live `js/end.js`; pet HP /
+Schroedinger / DUMPLOG named); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
 savelife Sick/endmultishot/curs_on_u/uswallow; 
 ordinary `vision_recalc(2)` gbuf newsym loop / `notice_all_mons`
 
@@ -2887,8 +2890,8 @@ live `js/shk.js` + `js/wizard.js` + `js/mklev.js`; named: SetVoice;
 teleport.c heaven caller; STRAT_HEAL still rloc/healmon; `costly_gold`;
 **D-1740:** `shop_debt` `:989–999` + `shopper_financial_report`
 `:1002–1035` two-pass `next_shkp(fmon, FALSE)` xor; `doprgold`
-awaits after wallet (D-1731); live `js/shk.js`; named: get_valuables /
-dokick `hidden_gold_kick`; `end.c` `artifact_score` is D-1730; botl live
+awaits after wallet (D-1731); live `js/shk.js`; named: dokick
+`hidden_gold_kick`; `end.c` `get_valuables` is D-1741; `artifact_score` is D-1730; botl live
 `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
 

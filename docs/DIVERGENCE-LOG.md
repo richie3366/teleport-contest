@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1741 — end.c get_valuables / sort_valuables
+
+- **Status:** fixed (map-driven Open from D-1740; not a public FAIL)
+- **Symptom:** map named `get_valuables`. C ESCAPED/ASCENDED
+  `really_done` zeros `gv.valuables`, walks invent+containers for
+  non-artifact amulets and gems through `LAST_GLASS_GEM` (glass
+  collapsed to one slot), adds `count * oc_cost` to `urexp`, then
+  lists after `artifact_score`. JS had unique-item score (D-1730)
+  only.
+- **C locus:** `end.c` `get_valuables` `:762–791`;
+  `sort_valuables` `:797–818`; `really_done` `:1433–1446` score +
+  `:1490–1519` list; `decl.c` `ga.amulets` / `gg.gems` /
+  `gv.valuables`.
+- **JS was:** named omit after D-1730 `artifact_score`.
+- **Fix:** walk Array or `nobj`; `Has_contents` recurse first
+  (artifact bags still scanned); skip `oartifact`; glass
+  `min(otyp, LAST_REAL_GEM+1)`. Score then list (`mksobj` FALSE,FALSE
+  + `xname` for real gems/amulets; worthless-glass line). Insertion
+  sort by count descending. Recreate slot arrays each collect so
+  otyp-index identity survives a second game in one process.
+- **JS:** `js/end.js` `get_valuables` / `sort_valuables` /
+  `score_collected_valuables` / `list_valuables`.
+- **Not this iter:** pet HP / Schroedinger cat score; DUMPLOG second
+  `artifact_score` / valuables dump; luckstones (C excludes them).
+  `artifact_score` is D-1730; `hidden_gold` is D-1731.
+- **Verified:** save-oracle probe skip (untagged
+  `end.c:get_valuables`); node 10/10 (empty; ESP/FLY quan; diamond;
+  glass combine first-typ; luckstone skip; artifact amulet skip +
+  artifact-sack recurse; nobj chain; oc_cost 12300) + listing smoke
+  (pad 8, gems-before-amulets, glass plural, diamond/ESP worth
+  lines); green+strict seed8000/0900; CURRENT cohort **9**/9 +
+  strict. Rule #2 clean.
+- **Files:** `js/end.js`.
+
 ## D-1740 — shk.c shopper_financial_report / shop_debt
 
 - **Status:** fixed (map-driven Open from D-1739; not a public FAIL)
