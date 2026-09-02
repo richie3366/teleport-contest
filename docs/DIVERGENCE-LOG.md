@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1748 — display.c display_monster pet_to_glyph / detected_mon_to_glyph
+
+- **Status:** fixed (map-driven Open from D-1747; not a public FAIL)
+- **Symptom:** map named `display_monster` pet/detected glyphs. C
+  real-monster arm chooses `pet_to_glyph` when tame && !Hallucination
+  (tame worm tails use `petnum_to_glyph` with no `what_mon`), else
+  DETECTED `detected_mon_to_glyph` / `detected_monnum_to_glyph`, else
+  `mon_to_glyph`. tty `map_glyphinfo` MG_PET vs MG_DETECT: hilite_pet
+  then `use_inverse`. JS always painted `mon_glyph` +
+  `mon_map_attr(mtame)`, so Hallu pets kept pet hilite and DETECTED
+  sightflags never got MG_DETECT inverse.
+- **C locus:** `display.c` `display_monster` `:587–618`; `display.h`
+  `pet_to_glyph` `:563–565`, `detected_mon_to_glyph` `:557–559`,
+  `petnum_to_glyph` `:648–650`, `detected_monnum_to_glyph` `:642–644`;
+  `wintty.c` `tty_print_glyph` `:3927–3936`. Callers `newsym` cansee
+  Detect (D-1737) / !cansee DETECTED (D-1745).
+- **JS was:** `worm_tail ? worm_tail_glyph() : mon_glyph` then
+  `mon_map_attr(mon)` through `show_mon_or_warn`.
+- **Fix:** C three-way arm. `glyph_tty_attr` from glyph kind, not live
+  `mtame`. Integer `GLYPH_*_OFF` ids still named (tty mlet+color).
+- **JS:** `js/display.js` `display_monster` / `pet_to_glyph` /
+  `detected_mon_to_glyph` / `petnum_to_glyph` /
+  `detected_monnum_to_glyph` / `glyph_tty_attr`.
+- **Not this iter:** integer glyph ids; `detect.c` `map_monst`;
+  `ridden_mon_to_glyph`; `feel_location` `is_worm_tail`; make_blinded
+  Sting(-1). I-glyph unmap is D-1747.
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:display_monster`); node 25/25 (kinds; petnum no Hallu rng;
+  tame inverse; Hallu tame no pet attr; DETECTED inverse; tame prefers
+  pet; `use_inverse`/hilite_pet off; !cansee Detect); green+strict
+  seed8000/0900; CURRENT cohort **9**/9 + strict (incl. seed0004 pony
+  + seed0383 hallu). Rule #2 clean.
+- **Files:** `js/display.js`.
+
 ## D-1747 — display.c show_mon_or_warn I-glyph unmap_object
 
 - **Status:** fixed (map-driven Open from D-1746; not a public FAIL)

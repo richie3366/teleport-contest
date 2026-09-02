@@ -188,6 +188,21 @@ function mon_map_attr(mtmp) {
     return wizmgender_inverse(!!mtmp?.female);
 }
 
+/**
+ * C ref: wintty.c tty_print_glyph `:3927–3936` after map_glyphinfo
+ * glyphflags from reset_glyphmap (MG_PET / MG_DETECT / MG_FEMALE).
+ * Pet hilite wins; else MG_DETECT && use_inverse → ATR_INVERSE; else
+ * wizard wizmgender female. Integer GLYPH_*_OFF ids still named.
+ */
+function glyph_tty_attr(mtmp, kind) {
+    if (kind === 'pet' && hilite_pet_opt()) {
+        const a = game.iflags?.wc2_petattr;
+        return (a == null || a === 0) ? ATR_INVERSE : (a | 0);
+    }
+    if (kind === 'detect' && use_inverse_opt()) return ATR_INVERSE;
+    return wizmgender_inverse(!!mtmp?.female);
+}
+
 function hero_map_attr() {
     // C display.h Ugender ≡ (Upolyd ? u.mfemale : flags.female)
     const u = game.u || {};
@@ -302,17 +317,76 @@ function is_worm_tail(mon, x, y) {
 }
 
 /**
- * C ref: display.c display_monster worm_tail — what_mon(PM_LONG_WORM_TAIL,
- * rn2_on_display_rng). petnum_to_glyph is the same mlet + mon_map_attr.
+ * C ref: display.h monnum_to_glyph / petnum_to_glyph /
+ * detected_monnum_to_glyph tty: same mlet + mcolors (pet_color ≡
+ * mon_color). Male/fem GLYPH_*_OFF still named (same letter on tty).
+ */
+function glyph_from_mnum(mnum) {
+    const n = mnum | 0;
+    const ptr = n >= 0 ? mons(n) : null;
+    const ch = MLET_CH[ptr?.mlet] || '?';
+    const color = n >= 0 ? (mcolors[n] ?? CLR_GRAY) : CLR_GRAY;
+    return { ch, color, dec: false };
+}
+
+/**
+ * C display.h monsndx((mon)->data) — JS mnum / data.mndx.
+ */
+function monsndx_mon(mon) {
+    return (mon?.mnum ?? mon?.data?.mndx) | 0;
+}
+
+/**
+ * C ref: display.h mon_to_glyph — what_mon(monsndx, rng) + GLYPH_MON_*_OFF.
+ */
+export function mon_to_glyph(mon, rng = rn2_on_display_rng) {
+    return { ...glyph_from_mnum(what_mon(monsndx_mon(mon), rng)), kind: 'mon' };
+}
+
+/**
+ * C ref: display.h pet_to_glyph — what_mon + GLYPH_PET_*_OFF. Callers:
+ * display.c display_monster `:603`; detect.c map_monst `:127`.
+ */
+export function pet_to_glyph(mon, rng = rn2_on_display_rng) {
+    return { ...glyph_from_mnum(what_mon(monsndx_mon(mon), rng)), kind: 'pet' };
+}
+
+/**
+ * C ref: display.h detected_mon_to_glyph — what_mon + GLYPH_DETECT_*_OFF.
+ * Callers: display.c display_monster `:610`; detect.c map_monst `:125`.
+ */
+export function detected_mon_to_glyph(mon, rng = rn2_on_display_rng) {
+    return {
+        ...glyph_from_mnum(what_mon(monsndx_mon(mon), rng)),
+        kind: 'detect',
+    };
+}
+
+/**
+ * C ref: display.h petnum_to_glyph(mnum, gnd) — no what_mon (display_monster
+ * tame worm_tail `:601`). gnd selects PET_MALE/FEM_OFF; tty mlet ignores it.
+ */
+export function petnum_to_glyph(mnum, gnd) {
+    void gnd;
+    return { ...glyph_from_mnum(mnum), kind: 'pet' };
+}
+
+/**
+ * C ref: display.h detected_monnum_to_glyph(mnum, gnd) — display_monster
+ * DETECTED worm_tail `:606–608` after what_mon(PM_LONG_WORM_TAIL).
+ */
+export function detected_monnum_to_glyph(mnum, gnd) {
+    void gnd;
+    return { ...glyph_from_mnum(mnum), kind: 'detect' };
+}
+
+/**
+ * C ref: display.c display_monster else-arm worm_tail — what_mon
+ * (PM_LONG_WORM_TAIL, rn2_on_display_rng) then monnum_to_glyph.
+ * Pet tails use petnum_to_glyph (no what_mon) in the tame arm.
  */
 function worm_tail_glyph() {
-    const mnum = what_mon(PM_LONG_WORM_TAIL, rn2_on_display_rng);
-    const ptr = mons(mnum);
-    const ch = MLET_CH[ptr?.mlet] || '~';
-    const color = (mnum != null && mnum >= 0)
-        ? (mcolors[mnum] ?? CLR_GRAY)
-        : CLR_GRAY;
-    return { ch, color };
+    return glyph_from_mnum(what_mon(PM_LONG_WORM_TAIL, rn2_on_display_rng));
 }
 
 /**
@@ -875,14 +949,8 @@ export function what_mon(mon, rng = rn2_on_display_rng) {
 // C ref: display.c map_glyph / mon_color / pet_color — per-species mcolor.
 // C ref: display.h mon_to_glyph — what_mon(monsndx(mon->data), rng).
 export function mon_glyph(mtmp) {
-    const mnum = what_mon((mtmp.mnum ?? mtmp.data?.mndx) | 0, rn2_on_display_rng);
-    const ptr = (mnum != null && mnum >= 0) ? mons(mnum) : mtmp.data;
-    const mlet = ptr?.mlet || mtmp.data?.mlet || mtmp.mlet;
-    const ch = MLET_CH[mlet] || '?';
-    const color = (mnum != null && mnum >= 0)
-        ? (mcolors[mnum] ?? CLR_GRAY)
-        : CLR_GRAY;
-    return { ch, color };
+    const g = mon_to_glyph(mtmp, rn2_on_display_rng);
+    return { ch: g.ch, color: g.color };
 }
 
 /**
@@ -1099,9 +1167,14 @@ const PHYSICALLY_SEEN = 1;
  * is Protection_from_shape_changers || sensemon (D-1736). newsym
  * cansee Detect_monsters is D-1737 (sightflags DETECTED when !see_it).
  * !cansee newsym is D-1745 (`see_it ? 0 : DETECTED` — 0 is not
- * PHYSICALLY_SEEN). Real-monster arm uses show_mon_or_warn (D-1747)
- * so I-glyph memory is unmapped. Named: male/fem glyph offsets (same
- * mlet on tty); pet/detected worm_tail glyph variants.
+ * PHYSICALLY_SEEN). Real-monster arm uses show_mon_or_warn (D-1747) then
+ * C `:587–618` pet / detected / mon glyphs (D-1748): tame &&
+ * !Hallucination → pet_to_glyph / petnum_to_glyph (no what_mon on tails);
+ * else DETECTED → detected_mon_to_glyph / detected_monnum_to_glyph
+ * (what_mon tail); else mon_to_glyph / worm_tail what_mon. tty MG_PET
+ * vs MG_DETECT via glyph_tty_attr. Named: integer GLYPH_*_OFF ids;
+ * male/fem offsets (same mlet on tty); detect.c map_monst;
+ * ridden_mon_to_glyph.
  */
 function display_monster(x, y, mon, sightflags, worm_tail) {
     const ap = (mon.m_ap_type | 0) & M_AP_TYPMASK;
@@ -1109,13 +1182,16 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
     const sensed = mon_mimic && (Protection_from_shape_changers()
         || sensemon(mon));
     const loc = game.level?.at(x, y);
+    const mgendercode = mon.female ? FEMALE : MALE;
 
     if (mon_mimic && sightflags === PHYSICALLY_SEEN) {
         switch (ap) {
         default:
         case M_AP_NOTHING: {
-            const mg = worm_tail ? worm_tail_glyph() : mon_glyph(mon);
-            show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mon));
+            // C `:539–540` — mon_to_glyph(mon, newsym_rn2), not worm_tail.
+            const mg = mon_to_glyph(mon, rn2_on_display_rng);
+            show_glyph_cell(x, y, mg.ch, mg.color, false,
+                glyph_tty_attr(mon, mg.kind));
             break;
         }
         case M_AP_FURNITURE: {
@@ -1159,8 +1235,25 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
     }
 
     if (!mon_mimic || sensed) {
-        const mg = worm_tail ? worm_tail_glyph() : mon_glyph(mon);
-        show_mon_or_warn(x, y, mg.ch, mg.color, false, mon_map_attr(mon));
+        // C `:590–618` — no detected-pet glyphs; tame wins unless Hallu.
+        let mg;
+        if (mon.mtame && !Hallucination()) {
+            mg = worm_tail
+                ? petnum_to_glyph(PM_LONG_WORM_TAIL, mgendercode)
+                : pet_to_glyph(mon, rn2_on_display_rng);
+        } else if (sightflags === DETECTED) {
+            mg = worm_tail
+                ? detected_monnum_to_glyph(
+                    what_mon(PM_LONG_WORM_TAIL, rn2_on_display_rng),
+                    mgendercode)
+                : detected_mon_to_glyph(mon, rn2_on_display_rng);
+        } else if (worm_tail) {
+            mg = { ...worm_tail_glyph(), kind: 'mon' };
+        } else {
+            mg = mon_to_glyph(mon, rn2_on_display_rng);
+        }
+        show_mon_or_warn(x, y, mg.ch, mg.color, false,
+            glyph_tty_attr(mon, mg.kind));
         mon.meverseen = 1;
     }
 }
@@ -1183,11 +1276,7 @@ function objnum_to_display_glyph(onum) {
  * Named: male/fem glyph offsets (same mlet on tty).
  */
 function monnum_to_display_glyph(mnum) {
-    const n = mnum | 0;
-    const ptr = n >= 0 ? mons(n) : null;
-    const ch = MLET_CH[ptr?.mlet] || '?';
-    const color = n >= 0 ? (mcolors[n] ?? CLR_GRAY) : CLR_GRAY;
-    return { ch, color, dec: false };
+    return glyph_from_mnum(mnum);
 }
 
 /**
@@ -3703,8 +3792,8 @@ export function newsym(x, y) {
     }
 
     // C `:1046–1054` — !cansee display_monster(see_it ? 0 : DETECTED).
-    // show_mon_or_warn unmaps leftover I (D-1747). pet/detected glyph
-    // ids named.
+    // show_mon_or_warn unmaps leftover I (D-1747). pet/detected glyphs
+    // are D-1748.
     let see_it = 0;
     if (mtmp && ((see_it = (tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp)
             || (see_with_infrared(mtmp) && mon_visible(mtmp))))
