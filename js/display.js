@@ -1070,8 +1070,10 @@ const PHYSICALLY_SEEN = 1;
  * mon_glyph. Then if !mimic || sensed, show the real monster. sensed
  * is Protection_from_shape_changers || sensemon (D-1736). newsym
  * cansee Detect_monsters is D-1737 (sightflags DETECTED when !see_it).
- * Named: male/fem glyph offsets (same mlet on tty); pet/detected
- * worm_tail glyph variants; show_mon_or_warn unmap_object when I-glyph.
+ * !cansee newsym is D-1745 (`see_it ? 0 : DETECTED` — 0 is not
+ * PHYSICALLY_SEEN). Named: male/fem glyph offsets (same mlet on tty);
+ * pet/detected worm_tail glyph variants; show_mon_or_warn unmap_object
+ * when I-glyph.
  */
 function display_monster(x, y, mon, sightflags, worm_tail) {
     const ap = (mon.m_ap_type | 0) & M_AP_TYPMASK;
@@ -2559,12 +2561,16 @@ function cell_shows_displayed_monster(mtmp, x, y) {
             || (!worm_tail && (tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp))));
         return !!(see_it || (!worm_tail && Detect_monsters()));
     }
-    if (tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp)
-        || (mon_visible(mtmp) && see_with_infrared(mtmp))) {
-        return true;
-    }
-    if (worm_tail) return false;
-    return Detect_monsters();
+    // C `:1046–1054` — display_monster(see_it ? 0 : DETECTED). 0/DETECTED
+    // skip PHYSICALLY_SEEN mimic disguise; show only if !mimic || sensed.
+    const see_it = !!(tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp)
+        || (see_with_infrared(mtmp) && mon_visible(mtmp)));
+    if (!(see_it || (!worm_tail && Detect_monsters()))) return false;
+    const ap = (mtmp.m_ap_type | 0) & M_AP_TYPMASK;
+    const mon_mimic = ap !== M_AP_NOTHING;
+    const sensed = mon_mimic && (Protection_from_shape_changers()
+        || sensemon(mtmp));
+    return !mon_mimic || sensed;
 }
 
 /**
@@ -3673,18 +3679,14 @@ export function newsym(x, y) {
         return;
     }
 
-    // C: !cansee — still show sensed monsters (infrared / telepathy / MATCH_WARN)
-    // C order: see_it (tp_sensemon / MATCH_WARN / infrared+visible) then
-    // Detect_monsters && !worm_tail, then mon_warning && !worm_tail.
-    if (mtmp && (tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp)
-        || (mon_visible(mtmp) && see_with_infrared(mtmp)))) {
-        const mg = worm_tail ? worm_tail_glyph() : mon_glyph(mtmp);
-        show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mtmp));
-        return;
-    }
-    if (mtmp && !worm_tail && Detect_monsters()) {
-        const mg = mon_glyph(mtmp);
-        show_glyph_cell(x, y, mg.ch, mg.color, false, mon_map_attr(mtmp));
+    // C `:1046–1054` — !cansee display_monster(see_it ? 0 : DETECTED).
+    // This also gets rid of any invisibility glyph in C via
+    // show_mon_or_warn (named). pet/detected glyph ids named.
+    let see_it = 0;
+    if (mtmp && ((see_it = (tp_sensemon(mtmp) || MATCH_WARN_OF_MON(mtmp)
+            || (see_with_infrared(mtmp) && mon_visible(mtmp))))
+            || (!worm_tail && Detect_monsters()))) {
+        display_monster(x, y, mtmp, see_it ? 0 : DETECTED, worm_tail);
         return;
     }
     if (mtmp && mon_warning(mtmp) && !worm_tail) {
@@ -3839,7 +3841,7 @@ export function swallowed(first = 0) {
  * MATCH_WARN overlay is newsym see_it (D-1514).
  * see_wsegs refreshes tail cells (D-1529).
  * Named omissions: MON_STILL_ARRIVING skip.
- * Detect_monsters cansee is newsym (D-1737).
+ * Detect_monsters cansee is newsym D-1737; !cansee DETECTED is D-1745.
  */
 export function see_monsters() {
     if (game.defer_see_monsters) return;

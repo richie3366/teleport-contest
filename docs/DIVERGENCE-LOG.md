@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-1745 — display.c newsym !cansee display_monster DETECTED
+
+- **Status:** fixed (map-driven Open from D-1737; not a public FAIL)
+- **Symptom:** map named `newsym` !cansee `display_monster` DETECTED.
+  C `display_monster(x, y, mon, see_it ? 0 : DETECTED, is_worm_tail)`.
+  JS painted `mon_glyph` via `show_glyph_cell`, so an unsensed
+  furniture mimic seen only by infrared showed the live letter, and
+  `meverseen` was never set on dark sensed monsters.
+- **C locus:** `display.c` `newsym` `:1046–1054`; `display_monster`
+  `:532` PHYSICALLY_SEEN mimic then `:589` `!mon_mimic || sensed`.
+  `PHYSICALLY_SEEN`/`DETECTED` `:498–499`.
+- **JS was:** two `show_glyph_cell` arms (see_it then Detect_monsters);
+  occupancy treated every infrared occupant as a monster glyph.
+- **Fix:** one C condition; `display_monster` with `see_it ? 0 :
+  DETECTED`. Occupancy matches the second `if` (unsensed mimic on a
+  dark square is not a monster glyph). tty mlet still `mon_glyph`.
+- **JS:** `js/display.js` `newsym` / `cell_shows_displayed_monster`.
+- **Not this iter:** pet/detected worm_tail glyph ids;
+  `show_mon_or_warn` I-glyph; `see_monsters` MON_STILL_ARRIVING.
+  cansee Detect is D-1737; Protection sensed is D-1736.
+- **Verified:** save-oracle probe skip (untagged `display.c:newsym`);
+  node 12/12 (dark Detect `o`+meverseen; unsensed `.`; infra mimic
+  keeps `.`; Detect mimic `o` not `{`; infra goblin `o`; cansee
+  Detect minvis; Detect worm_tail memory); green+strict
+  seed8000/0900; CURRENT cohort **9**/9 + strict (incl. seed0383
+  hallu). Rule #2 clean.
+- **Files:** `js/display.js`.
+
 ## D-1744 — weapon.c possibly_unwield / setmnotwielded
 
 - **Status:** fixed (map-driven Open from D-1743; not a public FAIL)

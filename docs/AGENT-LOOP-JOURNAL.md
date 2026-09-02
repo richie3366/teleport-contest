@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1745 display.c newsym !cansee display_monster DETECTED
+
+**Objective:** Open `display.c` newsym !cansee display_monster DETECTED
+(named). Not cansee Detect_monsters.
+**C locus:** `display.c` `newsym` `:1046–1054`; `display_monster`
+`:532`/`:589`.
+**JS locus:** `js/display.js` `newsym` / `cell_shows_displayed_monster`.
+**Change:** !cansee `display_monster(see_it ? 0 : DETECTED)` instead
+of `mon_glyph`+`show_glyph_cell`. Occupancy `!mimic || sensed`.
+Named: pet/detected glyphs; `show_mon_or_warn` I-glyph;
+`see_monsters` MON_STILL_ARRIVING.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `display.c:newsym`; node 12/12;
+green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+Rule #2 clean.
+**Next:** Open `display.c` see_monsters MON_STILL_ARRIVING skip.
+**Blocked:** none.
 ## 2026-09-02 — D-1744 weapon.c possibly_unwield / setmnotwielded
 
 **Objective:** Open `worn.c` possibly_unwield (named). Not setworn oc_oprop.
