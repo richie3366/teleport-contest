@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-02 — D-1746 display.c see_monsters MON_STILL_ARRIVING skip
+
+**Objective:** Open `display.c` see_monsters MON_STILL_ARRIVING skip
+(named). Not newsym Detect_monsters.
+**C locus:** `display.c` `see_monsters` `:1508–1509`; `monst.h`
+`:67`; `dog.c` `mon_arrive` `:430`/`:479`/`:622`.
+**JS locus:** `js/display.js` `see_monsters`; `js/const.js`;
+`js/dog.js` With_you/After_you.
+**Change:** skip fmon `newsym`/`see_wsegs`/Sting count while
+`mstate & 0x100`. Set/clear on `mon_arrive` clones (usteed return
+leaves the bit). Named: pet/detected glyphs; `show_mon_or_warn`
+I-glyph; make_blinded Sting(-1).
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `display.c:see_monsters`; node
+14/14; green+strict seed8000/0900; CURRENT cohort **9**/9 + strict;
+seed0013-friday13-restore PASS+strict. Rule #2 clean.
+**Next:** Open `display.c` show_mon_or_warn I-glyph unmap_object.
+**Blocked:** none.
 ## 2026-09-02 — D-1745 display.c newsym !cansee display_monster DETECTED
 
 **Objective:** Open `display.c` newsym !cansee display_monster DETECTED

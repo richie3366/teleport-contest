@@ -55,6 +55,7 @@ import {
     DISP_CHANGE, DISP_END, DISP_FREEMEM, BACKTRACK,
     M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_NOTHING,
     M_AP_TYPE, M_AP_TYPMASK,
+    MON_STILL_ARRIVING,
     MCORPSENM, has_mcorpsenm,
     isok,
     u_at,
@@ -3840,8 +3841,9 @@ export function swallowed(first = 0) {
  * Warn_of_mon counts warntype.obj & mflags2 then Sting_effects (D-1493).
  * MATCH_WARN overlay is newsym see_it (D-1514).
  * see_wsegs refreshes tail cells (D-1529).
- * Named omissions: MON_STILL_ARRIVING skip.
- * Detect_monsters cansee is newsym D-1737; !cansee DETECTED is D-1745.
+ * MON_STILL_ARRIVING skip (D-1746; C `:1508–1509`; flag from
+ * `dog.c` `mon_arrive`). Detect_monsters cansee is newsym D-1737;
+ * !cansee DETECTED is D-1745.
  */
 export function see_monsters() {
     if (game.defer_see_monsters) return;
@@ -3853,6 +3855,7 @@ export function see_monsters() {
     const warn_of_mon = Warn_of_mon();
     for (const mon of game.fmon || []) {
         if (!mon || (mon.mhp != null && mon.mhp <= 0)) continue;
+        if (((mon.mstate | 0) & MON_STILL_ARRIVING) !== 0) continue;
         if (!mon.mx) continue;
         newsym(mon.mx, mon.my);
         if (mon.wormno) see_wsegs(mon);

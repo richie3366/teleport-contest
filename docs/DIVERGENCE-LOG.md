@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1746 — display.c see_monsters MON_STILL_ARRIVING skip
+
+- **Status:** fixed (map-driven Open from D-1745; not a public FAIL)
+- **Symptom:** map named `see_monsters` `MON_STILL_ARRIVING` skip.
+  C continues the fmon loop (no `newsym` / `see_wsegs` / Sting count)
+  while `mon->mstate & MON_STILL_ARRIVING`. JS refreshed every live
+  `mx` cell. The flag was missing from `const.js`; `mon_arrive` clones
+  never set it.
+- **C locus:** `display.c` `see_monsters` `:1508–1509`; `monst.h`
+  `:67` `0x100`; `dog.c` `mon_arrive` `:430` set, `:479` With_you
+  clear, `:622` After_you clear; usteed return leaves the bit.
+- **JS was:** `see_monsters` had DEADMONSTER + `!mx` only; no 0x100.
+- **Fix:** export `MON_STILL_ARRIVING`; skip before `newsym`. Set the
+  bit at the start of With_you/After_you; clear after place (not on
+  usteed return). Extra JS `!mx` continue kept. Not
+  `show_mon_or_warn` / pet-detected glyphs.
+- **JS:** `js/display.js` `see_monsters`; `js/const.js`; `js/dog.js`
+  `mon_arrive_with_you` / `mon_arrive_after_you`.
+- **Not this iter:** pet/detected worm_tail glyph ids;
+  `show_mon_or_warn` I-glyph; make_blinded `Sting_effects(-1)`;
+  `feel_location` `is_worm_tail`; Wiz_arrive / failed_arrivals.
+  !cansee DETECTED is D-1745.
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:see_monsters`); node 14/14 (flag 0x100; arriving skip;
+  live+hero newsym; dead; `|MON_MIGRATING`; mx0; usteed meverseen
+  no cell; defer; arriving omitted from Sting count; cleared flag
+  newsyms); green+strict seed8000/0900; CURRENT cohort **9**/9 +
+  strict; seed0013-friday13-restore PASS+strict (losedogs). Rule #2
+  clean.
+- **Files:** `js/display.js`, `js/const.js`, `js/dog.js`.
+
 ## D-1745 — display.c newsym !cansee display_monster DETECTED
 
 - **Status:** fixed (map-driven Open from D-1737; not a public FAIL)
