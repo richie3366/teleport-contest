@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — audit #2160 reviews 701–709 + cadence
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **700**
+(`b712f3b6`…`1f6d5487`, D-1740…D-1748) plus full `sessions`.
+**C locus:** shk.c `shop_debt`; end.c `get_valuables`; calendar.c
+`getyear`; invent.c `dealloc_obj`; weapon.c `possibly_unwield`;
+display.c `newsym` dark DETECTED; `see_monsters` MON_STILL_ARRIVING;
+`show_mon_or_warn`; `display_monster` pet/detected glyphs.
+**Change:** reviews **701–709**, all ACCEPT-WITH-DEBT. No Must-fix.
+No `js/` edits. Filled archive D-1748 `%h`.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `40+0.31/turn` (R² 0.859) at `1f6d5487`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Open `display.c` feel_location is_worm_tail.
+**Blocked:** none.
 ## 2026-09-03 — D-1748 display.c display_monster pet/detected glyphs
 
 **Objective:** Open `display.c` display_monster pet_to_glyph /

@@ -711,3 +711,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [698-5d1f9fb6-newsym-detect-monsters.md](./698-5d1f9fb6-newsym-detect-monsters.md) | `5d1f9fb6` | D-1737 display.c newsym Detect_monsters | **ACCEPT-WITH-DEBT** |
 | [699-8a58906e-cmap-to-glyph.md](./699-8a58906e-cmap-to-glyph.md) | `8a58906e` | D-1738 display.h cmap_to_glyph trap/zap/expl | **ACCEPT-WITH-DEBT** |
 | [700-3c4dafe8-map-object-observe.md](./700-3c4dafe8-map-object-observe.md) | `3c4dafe8` | D-1739 display.c M_AP_OBJECT map_object | **ACCEPT-WITH-DEBT** |
+| [701-b712f3b6-shopper-financial-report.md](./701-b712f3b6-shopper-financial-report.md) | `b712f3b6` | D-1740 shk.c shopper_financial_report / shop_debt | **ACCEPT-WITH-DEBT** |
+| [702-522aeec1-get-valuables.md](./702-522aeec1-get-valuables.md) | `522aeec1` | D-1741 end.c get_valuables / sort_valuables | **ACCEPT-WITH-DEBT** |
+| [703-3f9a8e48-getyear.md](./703-3f9a8e48-getyear.md) | `3f9a8e48` | D-1742 calendar.c getyear | **ACCEPT-WITH-DEBT** |
+| [704-5a8392de-dealloc-obj.md](./704-5a8392de-dealloc-obj.md) | `5a8392de` | D-1743 mkobj.c dealloc_obj / dobjsfree | **ACCEPT-WITH-DEBT** |
+| [705-a2be8560-possibly-unwield.md](./705-a2be8560-possibly-unwield.md) | `a2be8560` | D-1744 weapon.c possibly_unwield / setmnotwielded | **ACCEPT-WITH-DEBT** |
+| [706-20426583-newsym-dark-detected.md](./706-20426583-newsym-dark-detected.md) | `20426583` | D-1745 display.c newsym !cansee DETECTED | **ACCEPT-WITH-DEBT** |
+| [707-df2bec69-see-monsters-arriving.md](./707-df2bec69-see-monsters-arriving.md) | `df2bec69` | D-1746 display.c see_monsters MON_STILL_ARRIVING | **ACCEPT-WITH-DEBT** |
+| [708-a85a8aac-show-mon-or-warn.md](./708-a85a8aac-show-mon-or-warn.md) | `a85a8aac` | D-1747 display.c show_mon_or_warn I-unmap | **ACCEPT-WITH-DEBT** |
+| [709-1f6d5487-display-monster-pet-detected.md](./709-1f6d5487-display-monster-pet-detected.md) | `1f6d5487` | D-1748 display.c display_monster pet/detected | **ACCEPT-WITH-DEBT** |

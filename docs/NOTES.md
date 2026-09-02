@@ -5,7 +5,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress (cadence **#2150** at `3c4dafe8`, R² 0.856).
+- **Suite 44/44** fortress (cadence **#2160** at `1f6d5487`, R² 0.859).
   Save-oracle for tagged restore Open. Private B0 unchanged (catchup
   26/30 red; shop 35/35 no unpaid). **Next:** Open `display.c`
   `feel_location` `is_worm_tail`. Not Blind levitate-arm. Falsify: C

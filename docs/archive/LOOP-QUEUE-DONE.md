@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-02
 
-- [x] `display.c` display_monster pet_to_glyph / detected_mon_to_glyph (named). Not Protection sensed. **Addressed:** D-1748
+- [x] `display.c` display_monster pet_to_glyph / detected_mon_to_glyph (named). Not Protection sensed. **Addressed:** D-1748 `1f6d5487`
 
 
 - [x] `display.c` show_mon_or_warn I-glyph unmap_object (named). Not map_object observe. **Addressed:** D-1747 `a85a8aac`
