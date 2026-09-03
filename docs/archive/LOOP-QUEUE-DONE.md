@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-03
+
+- [x] `dokick.c` hidden_gold(TRUE) kick (named). Not vault hidden_gold. **Addressed:** D-1751
+
 ## 2026-09-02
 
-- [x] `mhitu.c` doseduce (named). Not getyear. **Addressed:** D-1750
+- [x] `mhitu.c` doseduce (named). Not getyear. **Addressed:** D-1750 `b6c42dd0`
 
 
 - [x] `display.c` feel_location is_worm_tail (named). Not Blind levitate-arm. **Addressed:** D-1749 `d17e4f35`

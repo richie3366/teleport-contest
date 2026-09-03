@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-1751 — dokick.c ghitm hidden_gold(TRUE) kick
+
+- **Status:** fixed (map-driven Open from D-1740/D-1731; not a public FAIL)
+- **Symptom:** map named dokick `hidden_gold_kick`. C `ghitm` isgd arm
+  uses `hidden_gold(TRUE)` so nested container gold counts. JS walked
+  only immediate `cobj` coins (no `contained_gold` recurse).
+  `throw_gold` returned 0 after swallow and never called `ghitm`.
+- **C locus:** `dokick.c` `ghitm` `:294–407` (`hidden_gold(TRUE)` `:361`);
+  callers `really_kick_object` `:747`, `throw_gold` `:2712`; `vault.c`
+  `hidden_gold` `:1256–1268`; `zap.c` `miss` `:3570–3576`.
+- **JS was:** local `hidden_gold_kick` clone; `throw_gold` stub after
+  swallow.
+- **Fix:** import vault `hidden_gold`; export `ghitm`; `miss` from
+  mthrowu; robbed `mhis`; `throw_gold` dz / `bhit` THROWN_WEAPON /
+  `ghitm` / `ship_object` / `flooreffects` / `sellobj`. SetVoice named.
+- **JS:** `js/dokick.js` `ghitm`; `js/dothrow.js` `throw_gold`;
+  `js/mthrowu.js` `miss`; `js/vault.js` `hidden_gold`.
+- **Not this iter:** SetVoice/`set_voice`; unsplitobj; quivered gold via
+  throwit; dungeon.c ceiling vault/temple/shop/water/fire/quest labels;
+  full `surface()`. Vault `hidden_gold` itself is D-1731.
+- **Verified:** save-oracle probe skip (untagged `dokick.c:hidden_gold`);
+  node 21/21 (nested TRUE vs unknown FALSE; guard stash/wallet/empty
+  verbalize; throw self/swallow/down place); green+strict seed8000/0900;
+  CURRENT cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/dokick.js`, `js/dothrow.js`, `js/mthrowu.js`.
+
 ## D-1750 — mhitu.c doseduce / mayberem / ld() AD_SSEX
 
 - **Status:** fixed (map-driven Open from D-1742/D-1749; not a public FAIL)

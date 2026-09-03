@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1751 dokick.c ghitm hidden_gold(TRUE) kick
+
+**Objective:** Open `dokick.c` hidden_gold(TRUE) kick (named). Not vault
+hidden_gold.
+**C locus:** `dokick.c` `ghitm` `:294–407` `:361`; `throw_gold` `:2712`;
+`vault.c` `hidden_gold`; `zap.c` `miss`.
+**JS locus:** `js/dokick.js` `ghitm`; `js/dothrow.js` `throw_gold`;
+`js/mthrowu.js` `miss`.
+**Change:** retire non-recursive `hidden_gold_kick`; vault helper +
+export `ghitm`; `throw_gold` dz/bhit/ghitm/ship/floor. SetVoice named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `dokick.c:hidden_gold`; node 21/21;
+green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+Rule #2 clean.
+**Next:** Open `sounds.c` set_voice / SetVoice.
+**Blocked:** none.
 ## 2026-09-03 — D-1750 mhitu.c doseduce / mayberem / ld() AD_SSEX
 
 **Objective:** Open `mhitu.c` doseduce (named). Not getyear.

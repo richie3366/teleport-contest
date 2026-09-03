@@ -16,7 +16,8 @@
 // kickstr (D-1343);
 // kick_ouch drawbridge find_drawbridge remap (D-1361);
 // kick_ouch/kick_dumb airlevel/Levitation hurtle (D-1370);
-// Is_box container_impact/lock/lid/chest_trap + ghitm (D-0989).
+// Is_box container_impact/lock/lid/chest_trap + ghitm (D-0989);
+// ghitm hidden_gold(TRUE) kick (D-1751; vault.c helper, not a dokick clone).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rnl, rn1 } from './rng.js';
@@ -112,7 +113,9 @@ import { cvt_sdoor_to_door } from './detect.js';
 import { find_drawbridge, is_drawbridge_wall } from './dbridge.js';
 import { altar_wrath } from './pray.js';
 import { del_engr_at, disturb_grave, u_wipe_engr } from './engrave.js';
-import { sink_backs_up } from './fountain.js';
+import { sink_backs_up, mhis } from './fountain.js';
+import { hidden_gold } from './vault.js';
+import { miss } from './mthrowu.js';
 import { makemon, mpickobj, add_to_minv } from './makemon.js';
 import { scatter } from './explode.js';
 import { enexto, rloco, noteleport_level, goodpos } from './teleport.js';
@@ -1118,26 +1121,30 @@ export async function container_impact_dmg(obj, x, y) {
 }
 
 /**
- * C ref: dokick.c ghitm — gold hits monster; TRUE if caught.
- * Named omit: SetVoice pitch; hidden_gold invent-container detail beyond
- * money_cnt; priest/guard/merc verbalize polish.
+ * C ref: dokick.c ghitm `:294–407` — gold hits monster; TRUE if caught.
+ * hidden_gold(TRUE) at `:361` (vault.c helper; D-1751). Callers
+ * really_kick_object `:747` and throw_gold `:2712`.
+ * Named omit: SetVoice pitch (sounds.c Open).
  */
-async function ghitm(mtmp, gold) {
+export async function ghitm(mtmp, gold) {
     let msg_given = false;
     if (!likes_gold(mtmp.data) && !mtmp.isshk && !mtmp.ispriest
         && !mtmp.isgd && !is_mercenary(mtmp.data)) {
         await wakeup(mtmp, true);
     } else if (!mtmp.mcanmove) {
         if (canseemon(mtmp)) {
+            // C pline_The("%s harmlessly %s %s.", xname, otense "hit", mon_nam)
             await pline(
-                `The ${xname(gold)} harmlessly ${otense(gold, 'hit')} ${mon_nam(mtmp)}.`,
+                `${The(xname(gold))} harmlessly ${otense(gold, 'hit')} ${
+                    mon_nam(mtmp)
+                }.`,
             );
             msg_given = true;
         }
     } else {
         const was_sleeping = mtmp.msleeping | 0;
         const oc = game.objects?.[gold.otyp | 0];
-        const value = (gold.quan | 0) * ((oc?.oc_cost | 0) || 1);
+        const value = (gold.quan | 0) * (oc?.oc_cost | 0);
         mtmp.msleeping = 0;
         finish_meating(mtmp);
         if (!mtmp.isgd && !rn2(4)) setmangry(mtmp, true);
@@ -1147,7 +1154,7 @@ async function ghitm(mtmp, gold) {
             );
         }
         mpickobj(mtmp, gold);
-        // gold freed into minvent
+        gold = null; /* C: obj has been freed into minvent */
         if (mtmp.isshk) {
             const eshk = ESHK(mtmp);
             let robbed = eshk?.robbed | 0;
@@ -1156,12 +1163,13 @@ async function ghitm(mtmp, gold) {
                 if (robbed < 0) robbed = 0;
                 await pline(
                     `The amount ${!robbed ? '' : 'partially '}covers ${
-                        mtmp.female ? 'her' : 'his'
+                        mhis(mtmp)
                     } recent losses.`,
                 );
                 if (eshk) eshk.robbed = robbed;
                 if (!robbed) await make_happy_shk(mtmp, false);
             } else if (mtmp.mpeaceful) {
+                // C SetVoice then credit; SetVoice named
                 if (eshk) eshk.credit = (eshk.credit | 0) + value;
                 const credit = eshk?.credit | 0;
                 await pline(
@@ -1178,9 +1186,10 @@ async function ghitm(mtmp, gold) {
             }
         } else if (mtmp.isgd) {
             const umoney = money_cnt_kick(game.invent);
+            // C dokick.c:361 hidden_gold(TRUE) — nested contained_gold
             await verbalize(
                 umoney ? 'Drop the rest and follow me.'
-                    : hidden_gold_kick(true)
+                    : hidden_gold(true)
                         ? 'You still have hidden gold.  Drop it now.'
                         : mtmp.mpeaceful
                             ? "I'll take care of that; please move along."
@@ -1208,7 +1217,8 @@ async function ghitm(mtmp, gold) {
             } else if (was_angry) {
                 await verbalize('That should do.  Now beat it!');
             } else {
-                const female = !!(game.flags?.female || game.u?.female);
+                // C flags.female (hero), not the monster
+                const female = !!game.flags?.female;
                 await verbalize(
                     `Thanks for the tip, ${female ? 'lady' : 'buddy'}.`,
                 );
@@ -1217,35 +1227,19 @@ async function ghitm(mtmp, gold) {
         return true;
     }
     if (!msg_given) {
-        await pline(
-            `${The(xname(gold))} ${otense(gold, 'miss')} ${
-                canseemon(mtmp) ? mon_nam(mtmp) : 'it'
-            }.`,
-        );
+        // C dokick.c:405 miss(xname(gold), mtmp) — zap.c :3570–3576
+        await miss(xname(gold), mtmp);
     }
     return false;
 }
 
-/** C ref: invent.c money_cnt — invent is a JS array. */
+/** C ref: hack.c money_cnt — first COIN_CLASS quan (JS invent is an Array). */
 function money_cnt_kick(invent) {
     let sum = 0;
     for (const otmp of invent || []) {
         if ((otmp?.oclass | 0) === COIN_CLASS) sum += otmp.quan | 0;
     }
     return sum;
-}
-
-/** C ref: invent.c / vault.c hidden_gold — gold in carried containers. */
-function hidden_gold_kick(even_if_unknown) {
-    let value = 0;
-    for (const otmp of game.invent || []) {
-        if (Has_contents(otmp) && (otmp.cknown || even_if_unknown)) {
-            for (let c = otmp.cobj; c; c = c.nobj) {
-                if ((c.oclass | 0) === COIN_CLASS) value += c.quan | 0;
-            }
-        }
-    }
-    return value;
 }
 
 /**

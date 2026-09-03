@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress (cadence **#2160** at `1f6d5487`, R² 0.859).
   Save-oracle for tagged restore Open. Private B0 unchanged (catchup
-  26/30 red; shop 35/35 no unpaid). **Next:** Open `dokick.c`
-  `hidden_gold(TRUE)` kick. Not vault hidden_gold. Falsify: C
-  `hidden_gold` kick site vs D-1740 `shop_debt` / D-1750 `doseduce`.
-  Do not skip D-1531…D-1750. Do not re-port D-1675…D-1750.
+  26/30 red; shop 35/35 no unpaid). **Next:** Open `sounds.c`
+  `set_voice` / SetVoice. Not doseduce. Falsify: C `SetVoice` sites vs
+  D-1751 `ghitm` / D-1750 `doseduce`. Do not skip D-1531…D-1751. Do not
+  re-port D-1675…D-1751.
 - Named still: Palantir `#if 0`; pit/underwater; clone auto-open yn;
   `rescham`; setworn oc_oprop; keepdogs leash; `initedog`; tip-spill;
   hideunder; Punished float_down; water/lava
-  steed; interned `'yn'`; dokick `hidden_gold_kick`; `delobj` extract;
+  steed; interned `'yn'`; `delobj` extract;
   mthrowu/uhitm poison; SetVoice; heaven `u_left_shop`;
   STRAT_HEAL; `swallow_cell` sticky Hallu; eat.js useup+useupf hybrid;
   make_blinded Sting(-1);
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1750.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1751.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,10 +39,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1750 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1751 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`.   Do not skip
-  D-1520…D-1750. Do not delete emin (**487**). Do not stub
+  D-1520…D-1751. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -59,7 +59,8 @@ Objective/score live in `CURRENT.md`.
   `vision_reset`.   No yn ^P glue / `ing_suffix` clone #3 / InvInUse
   poke (D-1603) / zap sticky Blind (D-1604).   No `dat/tribute` indent=2.
   No static `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev
-  catchup reads it. Do not re-port D-1682…D-1750. D-1750 is
+  catchup reads it. Do not re-port D-1682…D-1751. D-1751 is `ghitm`
+  `hidden_gold(TRUE)` kick (not vault helper / SetVoice). D-1750 is
   `doseduce`/`mayberem`/`ld()` AD_SSEX (not getyear / feel_location /
   vault hidden_gold / SetVoice). D-1749 is feel_location
   `is_worm_tail` + Blind dopush (not levitate-arm / Sting(-1)).
@@ -71,6 +72,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1751: `ghitm` `:294–407` `hidden_gold(TRUE)` `:361`. Callers
+  `really_kick_object` `:747` / `throw_gold` `:2712`. Vault helper
+  D-1731. zap.c `miss`. Live `dokick.js` + `dothrow.js` + export
+  `miss`. Named: SetVoice; unsplitobj; quivered gold; ceiling labels.
 - D-1750: `doseduce` `:1984–2305` / `mayberem` `:2308–2352` / `ld()`
   `:25`. mhitu `mhitm_ad_ssex`; MS_SEDUCE; extractor
   `SEDUCTION_ATTACKS_YES`; SYSOPT default on. Live `mhitu.js` +
@@ -109,8 +114,7 @@ Objective/score live in `CURRENT.md`.
   + ESCAPED/ASCENDED score/list. Live `end.js`. Named: pet HP;
   Schroedinger score; DUMPLOG.
 - D-1740: `shop_debt` `:989–999` + `shopper_financial_report`
-  `:1002–1035`. Live `shk.js` + `doprgold`. Named: dokick
-  `hidden_gold_kick`; `costly_gold`.
+  `:1002–1035`. Live `shk.js` + `doprgold`. Named: `costly_gold`.
 - D-1739: `display_monster` `:564–575` fake obj → `map_object(&obj,
   !sensed)`. Live `display.js`. Pet/detected glyphs are D-1748.
 - D-1738: `cmap_to_glyph` trap/zap/cmap-C + `explosion_to_glyph`.
@@ -119,5 +123,4 @@ Objective/score live in `CURRENT.md`.
 - D-1737: `newsym` `:1013–1029` Detect_monsters cansee. Live
   `display.js`. Pet/detected glyphs are D-1748 (!cansee DETECTED is
   D-1745).
-- D-1736: `display_monster` `:518–519` Protection || sensemon. Live
-  `display.js`. Pet/detected glyphs are D-1748.
+

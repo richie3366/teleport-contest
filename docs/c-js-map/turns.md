@@ -1080,6 +1080,8 @@ throwit D-1346; throw_obj `:147` / pickup remaining callers named;
 kickstr is D-1343) + **`impact_disturbs_zombies` TRUE after place** (D-1229; 
 obstructed-loose + land); **Is_box `container_impact_dmg`/lock/lid/`chest_trap` + 
 `ghitm`** (D-0989; **gas `Blind`/`rndcolor` D-1147**) + 
+**`ghitm` `hidden_gold(TRUE)` D-1751** (`dokick.c` `:361` vault.c helper not a kick clone; 
+caller `throw_gold` `:2712`; zap.c `miss`; SetVoice named) + 
 **`dropz`/`throwit` `container_impact_dmg`** (D-1249); **`hits_bars`/`hit_bars`** (D-0990; 
 costly_gold, barefoot petrify, tmp_at flash deferred)
 
@@ -1977,7 +1979,8 @@ endmultishot/drag_ball/drown/trap pass-over/check_special_room/steed
 **pickup highdrop `hitfloor(TRUE)` D-1273**; **'toss_up D-1274**; 
 **throwit returning_missile D-1282**; **throwit losehp `killer_xname` D-1346** (C `:1747`); 
 **throwit swallowit D-1283**; **throwit slip D-1292**; **throwit stamina D-1293**; 
-**throwit steed potionhit D-1297**; **boomhit D-1301**; **throw_gold swallow D-1302**; 
+**throwit steed potionhit D-1297**; **boomhit D-1301**; **throw_gold swallow D-1302**; **throw_gold `ghitm`/bhit/dz/ship/floor D-1751** 
+(unsplitobj D-0720 / quivered gold / dungeon.c ceiling vault-temple-shop labels named); 
 **sho_obj_return_to_u D-1303**; **tethered DISP_TETHER/BACKTRACK D-1311**; 
 **thitmonst leader catch / finish_quest D-1312**; 
 **throwit_mon_hit snuff_candle / hot_pursuit D-1313; throwit caller D-1315**; 
