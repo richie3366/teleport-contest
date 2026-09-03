@@ -8,6 +8,37 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1777 ball.c Blind move_bc / unplacebc glyph restore
+
+**Objective:** queue rows `ball.c` unplacebc Blind glyph restore and
+`ball.c` move_bc Blind glyph — one `bc_felt`/`bglyph`/`cglyph` cluster,
+shipped together. Checked first that the state is actually fed:
+`feel_location` (`js/display.js:4262`) maintains `u.bc_felt` and `set_bc`
+(D-1769) takes the snapshots, so these arms are reachable, not dead.
+**C locus:** `ball.c` `move_bc` `:436-556` (Blind arm `:437-532`),
+`unplacebc` `:211-219` → `unplacebc_core` `:146-177`, `hack.c` `movobj`
+`:824-833`.
+**JS locus:** `js/ball.js`; `js/hack.js` (export `movobj` only).
+**Change:** both Blind arms ported statement-for-statement — drop the
+felt piece's saved glyph, consult `bc_order` so the top of a shared pile
+`map_object`s its sibling instead of restoring terrain, clear the felt
+bit, pick up the destination glyph, `movobj`. `unplacebc` gained the
+`Is_waterlevel` swallow arm and the per-piece restore. `u.bglyph` /
+`u.cglyph` now hold remembered **cells** (`levl_glyph_at` snapshot +
+new `set_levl_glyph` write side) because this port's map memory stores
+rendered cells, not int glyph ids.
+**Verify:** green gate + strict lengths PASS; full `sessions` 44/44
+(63+0.49/turn); per-session strict lengths PASS on all six ball&chain
+sessions. save-oracle probes skipped (both omits untagged).
+No public session is Punished **and** Blind, so the suite is only a
+no-regression signal — the new arms were exercised directly in a
+scratchpad probe with a blind vision state and matched C on glyph
+restore, felt-bit clearing, pickup and movobj.
+**Harness note:** `strict-output-check.mjs` leaks state across sessions
+in one process (pre-existing, reproduced on HEAD) — seed0012/seed0014
+fail when batched after seed4500, pass alone.
+**Next:** `ball.c` ballfall (named). Not set_bc.
+
 ## 2026-09-03 — D-1776 pronoun_gender single home / DUMPLOG retired
 
 **Objective:** queue head was `end.c` DUMPLOG. Checked the build first:

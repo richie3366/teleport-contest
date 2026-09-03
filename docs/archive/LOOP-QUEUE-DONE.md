@@ -5,8 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `end.c` DUMPLOG (named). Not companion pet HP. **RETIRED — false omission:** `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c` `#ifdef DUMPLOG` block is compiled out of the scored build; the surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only reader is `report.c` crash path) and `dump_everything` needs the banned filesystem. **Addressed:** D-1776
-- [x] `mhitu.c` noit_mhim Hallu (named). Not hero_Deaf. **Addressed:** D-1776
+- [x] `ball.c` unplacebc Blind glyph restore (named). Not set_bc. **Addressed:** D-1777
+- [x] `ball.c` move_bc Blind glyph (named). Not set_bc. **Addressed:** D-1777
+
+
+- [x] `end.c` DUMPLOG (named). Not companion pet HP. **RETIRED — false omission:** `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c` `#ifdef DUMPLOG` block is compiled out of the scored build; the surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only reader is `report.c` crash path) and `dump_everything` needs the banned filesystem. **Addressed:** D-1776 `24ced3ef`
+- [x] `mhitu.c` noit_mhim Hallu (named). Not hero_Deaf. **Addressed:** D-1776 `24ced3ef`
 
 
 - [x] `detect.c` findone (named). Not gold_detect. **Addressed:** D-1775 `b4d526e9`

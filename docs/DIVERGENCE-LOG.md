@@ -1,5 +1,75 @@
 # Divergence log
 
+## D-1777 — ball.c move_bc / unplacebc_core Blind bc_felt + glyph restore
+
+- **Status:** fixed (map-driven Open rows `ball.c` unplacebc Blind glyph
+  restore and `ball.c` move_bc Blind glyph — one helper cluster; suite
+  was 44/44)
+- **Symptom:** the Blind ball&chain bookkeeping was a stub. `set_bc`
+  (D-1769) already snapshotted the under-glyphs into `u.bglyph` /
+  `u.cglyph` and `feel_location` already maintained `u.bc_felt`
+  (`js/display.js` `:4262–4280`), but nothing ever *used* them:
+  `move_bc`'s Blind arm just relocated the objects and reset
+  `bc_order`, and `unplacebc` extracted without restoring. So a blind
+  hero who had felt the ball or chain kept a stale felt marker on the
+  map after the pair moved or the level was left — the remembered cell
+  under the ball/chain was never given back, and `u.bc_felt` bits were
+  never cleared per-piece.
+- **C locus:** `ball.c` `move_bc` `:436–556` (Blind arm `:437–532`:
+  both-moved drops both felt glyphs then picks up the destination
+  glyphs; the BC_BALL / BC_CHAIN singles consult `u.bc_order` —
+  `BCPOS_DIFFER` restores terrain, `BCPOS_BALL`/`BCPOS_CHAIN`
+  `map_object` the *other* piece when it is also felt, since the top
+  one owns the pair's glyph — then clear that felt bit, pick up the new
+  glyph (or inherit the sibling's when both share a cell) and
+  `movobj`); `unplacebc` `:211–219` → `unplacebc_core` `:146–177`
+  (`Is_waterlevel` swallow arm, then per-piece
+  `if (Blind && (u.bc_felt & BC_*)) levl[..].glyph = u.bglyph/cglyph`,
+  then `u.bc_felt = 0`); `hack.c` `movobj` `:824–833`.
+- **JS was:** `move_bc` Blind arm = extract + place + `newsym`, no
+  `bc_felt`/glyph work at all; `unplacebc` = extract + `newsym`, with
+  `// Blind bglyph / maybe_unhide_at deferred` and no swallow arm.
+  `u.bglyph`/`u.cglyph` held **integer glyph ids**, which cannot be
+  written back into this port's map memory — `remembered_glyph` stores
+  a rendered cell, so an id alone would not repaint.
+- **Fix:** `levl_glyph_at` now snapshots the remembered **cell**
+  (`{...mem}`, keeping D-1767's gbuf-stamp fallback for memory that has
+  no id) and a new `set_levl_glyph` is the write side of C's
+  `levl[x][y].glyph = u.bglyph`; a null snapshot clears memory, which
+  is what assigning an unexplored glyph does in C. Both Blind arms
+  ported statement-for-statement. `movobj` is now **exported** from
+  `js/hack.js` and imported rather than open-coded a second time (C has
+  one `movobj`). `unplacebc` gained the `Is_waterlevel` swallow arm.
+- **JS:** `js/ball.js`, `js/hack.js` (export only). 139 insertions /
+  39 deletions.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `63+0.49/turn` (R² 0.852).
+  Per-session strict lengths PASS on the six ball&chain sessions
+  (seed0006, seed0007, seed0012, seed0014, seed2200, seed4500).
+  `save-oracle.mjs probe --omit 'ball.c:unplacebc'` and `:move_bc` →
+  skip, both untagged (no prefix library row).
+  The suite alone is only a no-regression signal — no public session
+  reaches Punished **and** Blind together — so the new arms were also
+  exercised directly in a scratchpad probe with a true blind vision
+  state (`viz_array` all zero, as `vision_recalc` produces when Blind):
+  both-moved restores `u.cglyph` at the vacated cell (chain last,
+  matching C's order), clears `u.bc_felt` to 0, picks up the
+  destination cell's glyph, and `movobj`s the pair; `unplacebc` with
+  only BC_CHAIN felt drops `u.cglyph` back at the chain's cell and
+  clears `bc_felt`. All matched C.
+- **Harness note (pre-existing, not this change):**
+  `scripts/strict-output-check.mjs` leaks state between sessions when
+  several are passed in one process — seed0012 / seed0014 report a
+  mid-run RNG mismatch when batched after seed4500 and PASS when run
+  alone. Reproduced on the HEAD baseline before this commit. Check
+  those sessions individually.
+- **Not this iter:** `ballfall` / `drop_ball` (next queue row);
+  `maybe_unhide_at` inside `movobj`, `unplacebc` and `set_bc` — it is
+  async in this port and all 15 `move_bc`/`unplacebc` call sites are
+  sync, so wiring it is its own cluster; `bcrestriction` /
+  `Unplacebc(__FUNCTION__,__LINE__)` breadcrumbs; `flooreffects` rust
+  in `placebc`; `litter` / `unpunish`.
+
 ## D-1776 — mondata.c pronoun_gender / you.h mhe·mhim·mhis·noit_* (8 clones)
 
 - **Status:** fixed (map-driven Open row `mhitu.c` noit_mhim Hallu;

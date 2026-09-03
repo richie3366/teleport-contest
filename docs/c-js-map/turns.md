@@ -392,7 +392,14 @@ talk=FALSE D-1768** (C `:275–276` / `youprop.h` `:399`
 `unconscious`/`is_fainted`; live `js/eat.js` `is_fainted`; **Punished
 `set_bc(0)` D-1769** C `ball.c` `:379–424` / `potion.c` `:309`;
 live `js/ball.js` + callers `make_blinded`/`Blindf_on`/`Blindf_off`/
-`punish`; named: Blind `move_bc` glyph, `unplacebc` Blind restore);
+`punish`; **Blind `move_bc` felt/glyph arms + `unplacebc` restore
+D-1777** — C `move_bc` `:436–556` / `unplacebc_core` `:146–177`;
+`u.bglyph`/`u.cglyph` are remembered **cells** here, not int ids, so
+`levl_glyph_at` snapshots and `set_levl_glyph` writes back
+(`levl[x][y].glyph = u.bglyph`); `movobj` exported from `js/hack.js`
+(C `hack.c:824`) instead of a second inline extract+place;
+`Is_waterlevel` swallow arm live; named: `maybe_unhide_at`
+(sync callers), `bcrestriction`);
 potionhit/potionbreathe named); 
 **`peffect_sleeping` POT_SLEEPING** (D-1437; 
 Sleep_resistance||Free_action `monstseesu(M_SEEN_SLEEP)` + 
@@ -583,12 +590,12 @@ confused p_glow2, cursed vibrate/disintegrate_arm, blessed choice/disintegrate_c
 (D-0678; SPE_IDENTIFY cast, traditional ggetobj, `discover_artifact`/`learn_egg_type` deferred); 
 **SCR_PUNISHMENT → `seffect_punishment`/`punish` + `setworn` W_BALL/CHAIN + `placebc`** (D-0908) +
 **`punish` Blind `set_bc(1)` D-1769** (C `read.c` `:3059` / `ball.c` `:379–424`;
-live `js/ball.js`; named: Blind `move_bc` glyph / `unplacebc` restore) + 
+live `js/ball.js`; Blind `move_bc` / `unplacebc` restore is **D-1777**) + 
 **SCR_GENOCIDE → `seffect_genocide`/`do_class_genocide` + `name_to_monclass`** (D-1098; 
 livelog / Hallu names / vampshifted POLY_REVERT / cham `newcham` / `update_inventory` still named; 
 `create_particular` class-letter still named) + 
 **`domove` Punished `drag_ball`/`move_bc`/`cause_delay`→`nomul(-2)`** (D-0909; 
-Blind move_bc felt/glyph, jerked-back hmon/miss, 
+Blind move_bc felt/glyph is **D-1777**; jerked-back hmon/miss, 
 ballrelease/ballfall/drop_ball/litter/unpunish deferred; **`set_bc` is D-1769**); 
 **`create_particular` named `name_to_mon` + `makemon(..., MM_NOEXCLAM)` + 
 `makemon_appear_msg` for `#wizgenesis`/`^G`** (D-0510/D-0928 #1164; 

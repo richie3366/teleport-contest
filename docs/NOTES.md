@@ -6,9 +6,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Suite 44/44.** Map-driven: named omissions / cluster density, not
-  FAIL peels. **Next:** `ball.c` unplacebc Blind glyph restore (named).
-  Falsify: C `unplacebc` body vs JS omit. Not set_bc. Do not invent a
-  FAIL.
+  FAIL peels. **Next:** `ball.c` ballfall (named). Falsify: C
+  `ballfall` body vs JS omit. Not set_bc. Do not invent a FAIL.
+- **`strict-output-check.mjs` leaks state across sessions in one
+  process** (pre-existing; reproduced on HEAD). seed0012 / seed0014
+  report a bogus mid-run RNG mismatch when batched after seed4500 and
+  PASS alone. Run it per session, or trust `ps_test_runner sessions`.
+- Blind ball&chain glyph arms are live (D-1777). `u.bglyph`/`u.cglyph`
+  hold remembered **cells**, not int ids — use `levl_glyph_at` /
+  `set_levl_glyph` in `js/ball.js`. No public session is Punished **and**
+  Blind, so the suite cannot regress-test them; probe directly.
 - **`end.c` DUMPLOG is retired (D-1776), not deferred — do not
   re-enqueue.** `nethack-c/macosx-minimal` passes no `-DDUMPLOG`
   (only `hints/linux.500` does; `hints/macOS.500` has it commented
@@ -49,7 +56,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1776.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1777.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -60,7 +67,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1776 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1777 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do

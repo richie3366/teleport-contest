@@ -34,9 +34,7 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `ball.c` unplacebc Blind glyph restore (named). Not set_bc.
 - [ ] `ball.c` ballfall (named). Not set_bc.
-- [ ] `ball.c` move_bc Blind glyph (named). Not set_bc.
 - [ ] `pager.c` trap_description (named). Not trapname Hallu.
 - [ ] `teleport.c` lev_by_name (named). Not heaven u_left_shop.
 - [ ] `detect.c` food_detect (named). Not object_detect.
@@ -46,6 +44,8 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee.
 - [ ] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender.
 - [ ] `apply.c` corpse gender PRONOUN_NO_IT arm `:230–248` (named). Not pronoun_gender.
+- [ ] `mon.c` maybe_unhide_at wiring into hack.c movobj / ball.c (named). Not hideunder.
+- [ ] `ball.c` drop_ball (named). Not ballfall.
 
 ## Parked (do not pop)
 
