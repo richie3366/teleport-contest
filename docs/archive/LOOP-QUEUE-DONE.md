@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `spell.c` `SPE_DETECT_FOOD` must call `seffects(pseudo)` (skilled bless FALLTHROUGH). Source: reviews/loop-unattended/750-28f02a82-food-detect.md **Addressed:** D-1788
+- [x] `dog.c` keepdogs must not `for-of` live `fmon` while `migrate_to_level` splices it. Source: reviews/loop-unattended/752-22730962-keepdogs.md **Addressed:** D-1789
+
+
+- [x] `spell.c` `SPE_DETECT_FOOD` must call `seffects(pseudo)` (skilled bless FALLTHROUGH). Source: reviews/loop-unattended/750-28f02a82-food-detect.md **Addressed:** D-1788 `09159ed0`
 
 
 - [x] `pager.c` lookat trap tnum = `glyph_to_trap(glyph_at)`, not `t_at&&tseen`. Source: reviews/loop-unattended/748-e8515402-trap-description.md **Addressed:** D-1787 `01562c50`

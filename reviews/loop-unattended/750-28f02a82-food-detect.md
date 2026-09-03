@@ -10,7 +10,7 @@
 - JS / map: `detect.js` `food_detect`; `read.js` `seffect_food_detection` + `seffects` cases + `doread` gate. `c-js-map/turns.md`.
 - Archive **Addressed:** D-1781 `28f02a82` — scroll path; spell path is dead.
 
-**Addressed:** D-1788
+**Addressed:** D-1788 `09159ed0`
 
 ## Intent vs deliverable
 

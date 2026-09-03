@@ -2682,7 +2682,26 @@ non-candidate instead gets "leash goes slack". **`keep_mon_accessible`
 for the Wizard and for an off-home shk/priest/guard; `on_level`
 exported from `js/dungeon.js` for it (13 other clones still named).
 `keepdogs` is async now — `js/do.js` `goto_level` and `js/end.js`
-await it. Named: `mon_leave` `:725–763` minvent `no_charge` /
+await it. **The walk is C's `for (mtmp = fmon; mtmp; mtmp = mtmp2)`
+with `mtmp2 = mtmp->nmon` saved first (D-1789)** — C reads the next
+pointer *before* the body because both departure arms unlink `mtmp`
+from `fmon`: `relmon(mtmp, &gm.mydogs)` `:863` for a follower and
+`migrate_to_level` `:906` (itself `relmon(..., &gm.migrating_mons)`)
+for one kept accessible. So `js/dog.js` walks
+`[...(game.fmon || [])]` and unlinks departers from the **live**
+array in place — the follower arm splices `game.fmon` before
+`game.mydogs.unshift`, the accessible arm splices inside
+`migrate_to_level`, and an ordinary monster is left where it is.
+There is no survivors-list rebuild: a `game.fmon = stay` tail would
+delete whatever a mid-walk splice skipped past (one accessible
+Wizard / off-home shk/priest/guard not last in `fmon` is enough)
+and whatever a callee appended. Named: `relmon` `mon.c:2559–2594`
+itself, hence no `mon_leaving_level` `:2694–2730`
+(`unstuck` / `remove_monster` / `remove_worm` / `seemimic` /
+`fill_pit` / `newsym` / `polearm.hitmon`) on the follower arm — JS
+`unstuck` is async, so a real `relmon` would make
+`migrate_to_level` async at every caller. Named: `mon_leave`
+`:725–763` minvent `no_charge` /
 `picked_container` / shk `set_residency` / worm-segment `wormno`);
 **`update_mlstmv` `iter_mons` skip DEADMONSTER/`mon_offmap` (D-1709)**;
 **`cant_go_back` FREEING vs WRITING|FREEING (D-1722; `do.c:1640–1664`

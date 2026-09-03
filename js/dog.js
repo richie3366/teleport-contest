@@ -402,28 +402,36 @@ function keep_mon_accessible(mon) {
  * behind snaps any leash ("suddenly comes loose"), and a leashed pet
  * that was never a candidate gets the gentler "leash goes slack".
  *
+ * The walk itself is C's `for (mtmp = fmon; mtmp; mtmp = mtmp2)` with
+ * `mtmp2` saved first: both departure arms unlink `mtmp` from `fmon`
+ * while the walk is still running (D-1789).
+ *
  * Named omissions: `mon_leave` `:725–763` — minvent `no_charge` /
  * `picked_container`, shk `set_residency`, and the worm-segment count
- * that C stores in `wormno` during migration; this port's fmon→mydogs
- * move stands in for `relmon`.
+ * that C stores in `wormno` during migration; `relmon` `mon.c:2559`
+ * itself, so the follower arm splices `fmon` inline and never runs
+ * `mon_leaving_level`'s take-off-map (`remove_monster` / `seemimic` /
+ * `fill_pit` / `newsym`).
  * @param {boolean} pets_only true for ascension or final escape
  */
 export async function keepdogs(pets_only = false) {
     const u = game.u;
-    const list = game.fmon || [];
-    const stay = [];
+    /* C `:793–794` saves `mtmp2 = mtmp->nmon` *before* the body runs,
+       because both departure arms unlink `mtmp` from `fmon` underneath
+       the walk: `relmon(mtmp, &gm.mydogs)` for a follower, and
+       `migrate_to_level` (which calls `relmon(mtmp, &gm.migrating_mons)`)
+       for one kept accessible. A JS array carries no `nmon` links, so the
+       walk order is a snapshot and departers are unlinked from the live
+       `game.fmon` in place. Rebuilding `fmon` from a survivors list
+       instead would drop every monster a mid-walk splice skipped past, and
+       every monster a callee appended. */
+    const list = [...(game.fmon || [])];
     if (!game.mydogs) game.mydogs = [];
 
     for (const mtmp of list) {
-        if (mtmp.mhp != null && mtmp.mhp <= 0) {
-            stay.push(mtmp);
-            continue;
-        }
+        if (mtmp.mhp != null && mtmp.mhp <= 0) continue;
         if (pets_only) {
-            if (!mtmp.mtame) {
-                stay.push(mtmp); /* reject non-pets */
-                continue;
-            }
+            if (!mtmp.mtame) continue; /* reject non-pets */
             // C `:799–809` — mundane trifles must not block escape/ascend
             mtmp.mtrapped = 0;
             finish_meating(mtmp);
@@ -476,12 +484,16 @@ export async function keepdogs(pets_only = false) {
                     await impossible('steed left behind?');
                     await dismount_steed(DISMOUNT_GENERIC);
                 }
-                stay.push(mtmp);
                 continue;
             }
 
-            // C: relmon(mtmp, &mydogs) prepends — LIFO so last kept arrives
-            // first. mon_leave's wormno/no_charge/set_residency named.
+            // C `:862–863` relmon(mtmp, &gm.mydogs) — unlink from fmon,
+            // then prepend (LIFO, so the last kept arrives first).
+            // Named omissions: relmon's mon_leaving_level take-off-map
+            // (remove_monster / seemimic / fill_pit / newsym) and
+            // mon_leave's wormno / no_charge / set_residency.
+            const gone = (game.fmon || []).indexOf(mtmp);
+            if (gone >= 0) game.fmon.splice(gone, 1);
             game.mydogs.unshift(mtmp);
             mtmp.mx = 0; /* mx==0 implies migrating */
             mtmp.my = 0;
@@ -495,10 +507,9 @@ export async function keepdogs(pets_only = false) {
                 await pline(`${s_suffix(Monnam(mtmp))} leash goes slack.`);
                 await m_unleash(mtmp, false);
             }
-            stay.push(mtmp);
+            /* C leaves an ordinary monster on fmon — no relmon here. */
         }
     }
-    game.fmon = stay;
 }
 
 /**

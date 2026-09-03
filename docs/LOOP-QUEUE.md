@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `dog.c` keepdogs must not `for-of` live `fmon` while `migrate_to_level` splices it. Source: reviews/loop-unattended/752-22730962-keepdogs.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender.

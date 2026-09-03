@@ -5,15 +5,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44.** **D-1788** closed review **750**: `#cast`
-  `SPE_DETECT_FOOD` now `seffects(pseudo)` after skilled bless
-  FALLTHROUGH. Helper was D-1781. Must-fix pops first.
-  Falsify next: `keepdogs` `for-of` live `fmon` while
-  `migrate_to_level` splices it (review **752**).
-  Do not invent a FAIL.
-- **Next cluster:** `dog.c` keepdogs must not `for-of` live `fmon`
-  while `migrate_to_level` splices it. Source: review **752**.
-  Not `mon_leave`. Not `losedogs`.
+- **Suite 44/44.** **D-1789** closed review **752**: `keepdogs` walks a
+  snapshot and departers unlink `game.fmon` in place; the
+  `game.fmon = stay` rebuild is gone. Must-fix is now **empty** — pop
+  the first Open. Do not invent a FAIL.
+- **Next cluster:** first Open — `do_name.c` `mon_nam_too` +
+  `monverbself` (named; `mhitm.js` clone). Not `pronoun_gender`.
+- **Never rebuild a C list from a survivors array.** C walks `fmon` /
+  `migrating_mons` with `mtmp2 = mtmp->nmon` saved *before* the body,
+  because `relmon` / `migrate_to_level` unlink mid-walk. Rebuilding
+  deletes whatever a splice skipped past and whatever a callee
+  appended. `losedogs` (`js/dog.js:1030`) still has that shape over
+  `migrating_mons` — different C function, not yet queued.
 - **`do_clear_area` is one async export in `js/vision.js`** (D-1785).
   `openit`/`findit` must pass `openone`/`findone` **by identity** —
   `detecting()` is what turns on `override_vision`. `dog_goal` is
@@ -21,7 +24,7 @@ Objective/score live in `CURRENT.md`.
 - **Traps in the recent ports** (full detail in the D-log):
   lookat tnum is the gbuf glyph (D-1787). A ridden steed uses
   `ridden_mon_to_glyph` (D-1784). `keepdogs` is **async** (D-1783)
-  — the `fmon` walk is still C-wrong. `food_detect` scroll **and**
+  and its `fmon` walk is fixed (D-1789). `food_detect` scroll **and**
   `#cast` are live (D-1781 / D-1788). `on_level` is exported; 12
   clones remain. Ballfall callers are D-1786.
 - **RNG order traps.** `pronoun_gender` draws `rn2(4)` *before* either
@@ -52,7 +55,9 @@ Objective/score live in `CURRENT.md`.
 - Do not treat reviews **728–736** as unpaid Must-fix (those AWD
   held). Review **737** AWD was **wrong**; **747** is **D-1786**;
   **748** lookat `t_at` is **D-1787**; **750** food-spell is
-  **D-1788** — do not re-gate on `tseen` / ftrap, and do not claim
+  **D-1788**; **752** keepdogs `fmon` walk is **D-1789** — do not
+  re-add a `stay` rebuild there. Do not re-gate on `tseen` / ftrap,
+  and do not claim
   `#cast` DETECT_FOOD still prints `Nothing happens.` Do not
   rubber-stamp “fortress held” as Match C. Do not assign
   `u.Punished`. Do not invent `rn2(20)` on ordinary pit farlook.
@@ -64,7 +69,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1788.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1789.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -75,7 +80,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1788 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1789 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -95,11 +100,13 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1788 — read the index row before assuming a function is
+  D-1682…D-1789 — read the index row before assuming a function is
   unported. No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
 
+- D-1789: `keepdogs` walks `[...fmon]`, departers splice in place;
+  named `relmon` / `mon_leaving_level` (async `unstuck`).
 - D-1788: `#cast` SPE_DETECT_FOOD `seffects(pseudo)` skilled bless;
   helper D-1781. Remaining scroll-duplicate `#cast` otyps named.
 - D-1787: lookat tnum `glyph_to_trap(glyph_at)`; helpers D-1779.
@@ -119,4 +126,3 @@ Objective/score live in `CURRENT.md`.
 - D-1766: `cancel_doff` `:1643–1659`. Named: setnotworn `monstunseesu_prop`.
 - D-1765: integer `GLYPH_*_OFF` / `map_monst`. gbuf stamp is D-1767.
 - D-1764: heaven `u_left_shop`+Cloud 9/`done(DIED)`. Named: `lev_by_name`.
-- D-1763: `beg` `:518–542`. Named: `dog_hunger` wire. Halt is D-1772.

@@ -8,6 +8,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1789 keepdogs walks a snapshot of fmon
+
+**Objective:** Must-fix review **752** — `dog.c` `keepdogs` must not
+`for-of` live `fmon` while `migrate_to_level` splices it. Not
+`mon_leave`. Not `losedogs`.
+**C locus:** `dog.c` `keepdogs` `:793–794` (`mtmp2 = mtmp->nmon`
+saved before the body); departure arms `relmon(&gm.mydogs)` `:863`
+and `migrate_to_level` `:906`.
+**JS locus:** `js/dog.js` `keepdogs`.
+**Change:** walk `[...(game.fmon || [])]` instead of aliasing the
+live array, and unlink departers in place — the follower arm splices
+`game.fmon` before `mydogs.unshift` (C `relmon`), the accessible arm
+already splices inside `migrate_to_level`. Dropped the `stay` array
+and the `game.fmon = stay` rebuild, which deleted whatever a
+mid-walk splice skipped past.
+**Verify:** falsifier probe `[wizard,B,C]` — HEAD `fmon=[C]` (B
+vanished) vs patched `fmon=[B,C]`; parity probe `[pet,B,C]` identical
+either way, which is why the fortress never saw it. green+strict per
+session; cohort 7/7; full `sessions` **44/44**. save-oracle
+`dog.c:keepdogs` untagged skip. Rule #2 clean. 28 ins / 17 del.
+**Next:** Must-fix empty — first Open `do_name.c` `mon_nam_too` +
+`monverbself`.
 ## 2026-09-03 — D-1788 spell.c SPE_DETECT_FOOD seffects(pseudo)
 
 **Objective:** Must-fix review **750** — `spell.c` `SPE_DETECT_FOOD`

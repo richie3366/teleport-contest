@@ -1,5 +1,55 @@
 # Divergence log
 
+## D-1789 — keepdogs walks live fmon while migrate_to_level splices it
+
+- **Status:** fixed (Must-fix review **752**; suite was 44/44)
+- **Symptom:** D-1783 gave `keepdogs` a second departure arm —
+  `keep_mon_accessible(mtmp)` → `migrate_to_level`, which removes `mtmp`
+  from `game.fmon` with `splice`. The walk was a `for-of` over that same
+  live array, so the monster sliding into the freed slot was **skipped**,
+  and the trailing `game.fmon = stay` rebuild then **dropped** it: not on
+  `mydogs`, not on `migrating_mons`, not on `fmon`. One accessible Wizard
+  (or an off-home shopkeeper / temple priest / vault guard) anywhere but
+  last in `fmon` deleted the monster behind it on every level change.
+- **C locus:** `dog.c` `keepdogs` `:793–794` —
+  `for (mtmp = fmon; mtmp; mtmp = mtmp2) { mtmp2 = mtmp->nmon;`. C saves
+  the next pointer **before** the body precisely because both departure
+  arms unlink `mtmp`: `relmon(mtmp, &gm.mydogs)` `:863` for a follower and
+  `migrate_to_level` `:906` (itself `relmon(mtmp, &gm.migrating_mons)`)
+  for one kept accessible. Nothing else in `fmon` moves, and C never
+  rebuilds the list.
+- **JS was:** `const list = game.fmon || []` (an alias) walked with
+  `for-of`; every non-departing monster pushed onto a `stay` array;
+  `game.fmon = stay` at the end.
+- **Fix:** snapshot the walk order (`[...(game.fmon || [])]`, the array
+  stand-in for C reading `nmon` ahead of the body) and unlink departers
+  from the live `game.fmon` in place — the follower arm splices before
+  `mydogs.unshift` (C `relmon`), the accessible arm already splices inside
+  `migrate_to_level`, and an ordinary monster is simply left alone. `stay`
+  and the `game.fmon = stay` rebuild are gone, so a monster a callee
+  appends to `fmon` mid-walk also survives, as in C where new monsters are
+  prepended past the cursor.
+- **JS:** `js/dog.js`. 28 insertions / 17 deletions.
+- **Verify:** falsifier probe (fmon `[wizard, B, C]`, wizard far from the
+  hero so `keep_mon_accessible` migrates him): HEAD left `fmon=[C]` —
+  **B vanished**; patched leaves `fmon=[B, C]`. Parity probe (fmon
+  `[adjacent tame pet, B, C]`, the ordinary public path): HEAD and patched
+  both give `fmon=[B,C] mydogs=[pet]`, which is why the fortress could not
+  see the defect. Green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths per session); cohort seed1500 / 1800 / 0012 / 0004 / 0007 /
+  2200 / 0383 7/7 PASS; full `sessions` **44/44**.
+  `save-oracle.mjs probe --omit dog.c:keepdogs` → skip (untagged, no
+  prefix library row).
+- **Named omissions:** `relmon` `mon.c:2559–2594` itself — the follower arm
+  splices inline and so never runs `mon_leaving_level` `:2694–2730`
+  (`unstuck` / `remove_monster` / `remove_worm` / `seemimic` / `fill_pit` /
+  `newsym` / `polearm.hitmon`); JS `unstuck` is async, so a real `relmon`
+  would make `migrate_to_level` async across every caller. `mon_leave`
+  `:725–763` (no_charge / `set_residency` / `wormno`) stays the separate
+  Open row. The `stay` rebuild in `losedogs` over `migrating_mons`
+  (`js/dog.js:1030`) is a different C function — not touched here.
+- **Next:** Open `do_name.c` `mon_nam_too` + `monverbself`.
+
 ## D-1788 — spell.c SPE_DETECT_FOOD calls seffects(pseudo) after skilled bless
 
 - **Status:** fixed (Must-fix review **750**; suite was 44/44)
