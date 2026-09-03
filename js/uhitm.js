@@ -622,7 +622,7 @@ export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
                 && !game.u?.uwep
                 && zombie_maker(game.youmonst)
                 && zombie_form(mtmp.data) !== NON_PM);
-            make_corpse(mtmp);
+            await make_corpse(mtmp);
             game.zombify = false;
         }
     }

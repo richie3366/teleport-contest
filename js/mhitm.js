@@ -2,7 +2,7 @@
 // C ref: mhitm.c — mdisplacem, mattackm, gazemm, explmm, gulpmm, passivemm,
 //         mdamagem; worn.c find_mac (re-export); uhitm.c mhitm_knockback.
 
-import { rn2, rnd, rn1, d } from './rng.js';
+import { rn2, rnd, rn1, d, rnl } from './rng.js';
 import {
     distmin, m_at, record_mvitals_died, undead_to_corpse, monnear, seemimic,
     zombie_maker, zombie_form, minliquid, healmon, wake_nearto, mon_givit,
@@ -15,7 +15,7 @@ import { dist2 } from './hacklib.js';
 import { resist_conflict, set_mon_data, on_fire } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval, possibly_unwield } from './weapon.js';
 import { arti_reflects, artifact_hit, permapoisoned } from './artifact.js';
-import { find_mac, which_armor } from './worn.js';
+import { find_mac, which_armor, bypass_obj } from './worn.js';
 import { update_monster_region } from './region.js';
 import { remove_worm, place_worm_tail_randomly, worm_known } from './worm.js';
 import { place_monster, remove_monster } from './steed.js';
@@ -28,7 +28,9 @@ import {
     CORPSTAT_FEMALE,
     CORPSTAT_MALE,
     CORPSTAT_NONE,
+    CORPSTAT_BURIED,
     CORPSTAT_HISTORIC,
+    LEAVESTATUE,
     W_ARMOR,
     W_ARMG,
     TAINT_AGE,
@@ -87,7 +89,7 @@ import {
 } from './const.js';
 import {
     verysmall, G_FREQ, G_NOCORPSE, G_UNIQ, is_neuter, nonliving,
-    bigmonst, is_golem, is_mplayer, is_rider, monsterNames, mons,
+    bigmonst, is_golem, is_mplayer, is_rider, monsterNames, mons, NUMMONS,
     is_animal, M1_SEE_INVIS, is_vampshifter, MZ_TINY, MZ_SMALL, MZ_HUGE, amorphous,
     is_flyer, is_floater, slithy, nolimbs, MR_STONE, MALE, FEMALE, NEUTRAL, can_teleport,
     touch_petrifies, poly_when_stoned, resists_ston, humanoid,
@@ -101,9 +103,9 @@ import { ART_TROLLSBANE } from './generated/artifacts_data.js';
 import {
     relobj_on_death, mkcorpstat, stackobj, mksobj_at, obj_nexto,
     obj_meld, pudding_merge_message, place_object, add_to_container,
-    weight, mksobj, set_corpsenm, obj_stop_timers,
+    weight, mksobj, set_corpsenm, obj_stop_timers, mkgold, clear_dknown,
 } from './mkobj.js';
-import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam } from './do_name.js';
+import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam, s_suffix, free_mgivenname } from './do_name.js';
 import { an, xname, makeplural, cxname, vtense, The, simpleonames } from './objnam.js';
 import { mon_explodes } from './explode.js';
 import { newcham, pm_to_cham } from './makemon.js';
@@ -111,6 +113,7 @@ import { polyself } from './polyself.js';
 import { you_were, you_unwere } from './were.js';
 import { rloc, tele_restrict, tele, goodpos } from './teleport.js';
 import { m_unleash } from './apply.js';
+import { bury_an_obj } from './dig.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
 const GAUNTLETS_OF_POWER = objectNames.indexOf('GAUNTLETS_OF_POWER');
@@ -153,6 +156,43 @@ const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
 const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
 const SILVER_DRAGON_SCALES = objectNames.indexOf('SILVER_DRAGON_SCALES');
 const SILVER_DRAGON_SCALE_MAIL = objectNames.indexOf('SILVER_DRAGON_SCALE_MAIL');
+const GRAY_DRAGON_SCALES = objectNames.indexOf('GRAY_DRAGON_SCALES');
+const UNICORN_HORN = objectNames.indexOf('UNICORN_HORN');
+const WORM_TOOTH = objectNames.indexOf('WORM_TOOTH');
+const FIRST_GLASS_GEM = objectNames.indexOf('WORTHLESS_WHITE_GLASS');
+const LAST_GLASS_GEM = objectNames.indexOf('WORTHLESS_VIOLET_GLASS');
+const NUM_GLASS_GEMS = LAST_GLASS_GEM - FIRST_GLASS_GEM + 1;
+const QUARTERSTAFF = objectNames.indexOf('QUARTERSTAFF');
+const SMALL_SHIELD = objectNames.indexOf('SMALL_SHIELD');
+const CLUB = objectNames.indexOf('CLUB');
+const ELVEN_SPEAR = objectNames.indexOf('ELVEN_SPEAR');
+const BOOMERANG = objectNames.indexOf('BOOMERANG');
+const LEASH = objectNames.indexOf('LEASH');
+const BULLWHIP = objectNames.indexOf('BULLWHIP');
+const GRAPPLING_HOOK = objectNames.indexOf('GRAPPLING_HOOK');
+const LEATHER_ARMOR = objectNames.indexOf('LEATHER_ARMOR');
+const LEATHER_CLOAK = objectNames.indexOf('LEATHER_CLOAK');
+const SADDLE = objectNames.indexOf('SADDLE');
+const SCR_BLANK_PAPER = objectNames.indexOf('SCR_BLANK_PAPER');
+const PM_GRAY_DRAGON = monsterNames.indexOf('PM_GRAY_DRAGON');
+const PM_GOLD_DRAGON = monsterNames.indexOf('PM_GOLD_DRAGON');
+const PM_RED_DRAGON = monsterNames.indexOf('PM_RED_DRAGON');
+const PM_ORANGE_DRAGON = monsterNames.indexOf('PM_ORANGE_DRAGON');
+const PM_WHITE_DRAGON = monsterNames.indexOf('PM_WHITE_DRAGON');
+const PM_BLACK_DRAGON = monsterNames.indexOf('PM_BLACK_DRAGON');
+const PM_BLUE_DRAGON = monsterNames.indexOf('PM_BLUE_DRAGON');
+const PM_GREEN_DRAGON = monsterNames.indexOf('PM_GREEN_DRAGON');
+const PM_YELLOW_DRAGON = monsterNames.indexOf('PM_YELLOW_DRAGON');
+const PM_WHITE_UNICORN = monsterNames.indexOf('PM_WHITE_UNICORN');
+const PM_GRAY_UNICORN = monsterNames.indexOf('PM_GRAY_UNICORN');
+const PM_BLACK_UNICORN = monsterNames.indexOf('PM_BLACK_UNICORN');
+const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
+const PM_GLASS_GOLEM = monsterNames.indexOf('PM_GLASS_GOLEM');
+const PM_CLAY_GOLEM = monsterNames.indexOf('PM_CLAY_GOLEM');
+const PM_WOOD_GOLEM = monsterNames.indexOf('PM_WOOD_GOLEM');
+const PM_ROPE_GOLEM = monsterNames.indexOf('PM_ROPE_GOLEM');
+const PM_LEATHER_GOLEM = monsterNames.indexOf('PM_LEATHER_GOLEM');
+const PM_GOLD_GOLEM = monsterNames.indexOf('PM_GOLD_GOLEM');
 
 const NATTK = 6;
 // C ref: monattk.h — AT_SPIT is 10; AT_WEAP/AT_MAGC are 254/255 (not 10).
@@ -1761,72 +1801,241 @@ async function corpse_chance(mon, magr = null, was_swallowed = false) {
     return !rn2(tmp);
 }
 
-// C ref: mon.c make_corpse — undead specials before G_NOCORPSE; pudding globs;
-// else default_1. gz.zombify / mkcorpstat_norevive are set by callers around
-// this call, not inside it: xkilled D-1210; mhitm mdamagem D-1211/D-1223;
-// uhitm hmon_hitmon D-1232 / hmonas damageum D-1233 / AT_HUGS D-1250.
-// Named omission: dragon scales, unicorn horn, worm tooth,
-// golem drops, lich dust, and other pre-G_NOCORPSE switch arms (D-0271
-// undead; D-0993 pudding merge).
-export function make_corpse(mtmp) {
+/**
+ * C ref: mon.c KEEPTRAITS — shk / tame / G_UNIQ / rider-or-troll /
+ * quest leader_m_id / AD_SEDU|AD_SSEX. unique_corpstat and is_reviver
+ * are mondata.h macros; do not add named clones.
+ */
+function keeptraits(mon) {
+    const ptr = mon?.data;
+    return !!(mon?.isshk || mon?.mtame
+        || ((ptr?.geno | 0) & G_UNIQ)
+        || (ptr && (is_rider(ptr) || ptr.mlet === 'S_TROLL'))
+        || ((mon?.m_id | 0) === (game.quest_status?.leader_m_id | 0))
+        || dmgtype(ptr, AD_SEDU) || dmgtype(ptr, AD_SSEX));
+}
+
+// C ref: mon.c make_corpse `:563–941` — special-corpse table then
+// default_1 G_NOCORPSE / mkcorpstat, then bypass / oname / Blind
+// clear_dknown / stackobj. gz.zombify / mkcorpstat_norevive are set
+// by callers around this call, not inside it: xkilled D-1210; mhitm
+// mdamagem D-1211/D-1223; uhitm hmon_hitmon D-1232 / hmonas damageum
+// D-1233 / AT_HUGS D-1250. Named: cham/were restore before monsndx
+// (mondead, not this function).
+export async function make_corpse(mtmp, corpseflags = CORPSTAT_NONE) {
     const mdat = mtmp.data;
-    const mndx = mtmp.mnum ?? mdat?.mndx;
+    // C: monsndx(mdat), not mtmp->mnum
+    const mndx = mdat?.mndx ?? mtmp.mnum;
     const x = mtmp.mx, y = mtmp.my;
     if (mndx == null || mndx < 0) return null;
 
-    let corpstatflags = CORPSTAT_NONE;
+    let obj = null;
+    let corpstatflags = corpseflags | 0;
+    const burythem = (corpstatflags & CORPSTAT_BURIED) !== 0;
     if (mtmp.female) corpstatflags |= CORPSTAT_FEMALE;
     else if (!is_neuter(mdat)) corpstatflags |= CORPSTAT_MALE;
 
+    const default_1 = async () => {
+        if ((game.mvitals?.[mndx]?.mvflags ?? 0) & G_NOCORPSE) {
+            return { done: true, val: null };
+        }
+        corpstatflags |= CORPSTAT_INIT;
+        obj = mkcorpstat(CORPSE, keeptraits(mtmp) ? mtmp : null,
+            mdat, x, y, corpstatflags);
+        if (burythem) {
+            if (!obj) return { done: true, val: null };
+            const dealloc = { v: false };
+            await bury_an_obj(obj, dealloc);
+            newsym(x, y);
+            return { done: true, val: dealloc.v ? null : obj };
+        }
+        return { done: false };
+    };
+
     // C: zombie/mummy/vampire arms precede G_NOCORPSE (geno has G_NOCORPSE
     // so wishes cannot create those corpses, but kills still leave a mapped
-    // living-species corpse via undead_to_corpse).
+    // living-species corpse via undead_to_corpse). Always pass mtmp.
     const living = undead_to_corpse(mndx);
     if (living !== mndx) {
         corpstatflags |= CORPSTAT_INIT;
-        // C: always pass mtmp for undead (not KEEPTRAITS)
-        const obj = mkcorpstat(CORPSE, mtmp, living, x, y, corpstatflags);
-        if (obj) {
-            obj.age = (obj.age | 0) - (TAINT_AGE + 1);
-            stackobj(obj);
+        obj = mkcorpstat(CORPSE, mtmp, living, x, y, corpstatflags);
+        if (obj) obj.age = (obj.age | 0) - (TAINT_AGE + 1);
+    } else {
+        switch (mndx) {
+        case PM_GRAY_DRAGON:
+        case PM_GOLD_DRAGON:
+        case PM_SILVER_DRAGON:
+        case PM_RED_DRAGON:
+        case PM_ORANGE_DRAGON:
+        case PM_WHITE_DRAGON:
+        case PM_BLACK_DRAGON:
+        case PM_BLUE_DRAGON:
+        case PM_GREEN_DRAGON:
+        case PM_YELLOW_DRAGON:
+            // C: GRAY_DRAGON_SCALES + monsndx(mdat) - PM_GRAY_DRAGON
+            if (!rn2(mtmp.mrevived ? 20 : 3)) {
+                const num = GRAY_DRAGON_SCALES + mndx - PM_GRAY_DRAGON;
+                obj = mksobj_at(num, x, y, false, false);
+                if (obj) {
+                    obj.spe = 0;
+                    obj.cursed = false;
+                    obj.blessed = false;
+                }
+            }
+            {
+                const r = await default_1();
+                if (r.done) return r.val;
+            }
+            break;
+        case PM_WHITE_UNICORN:
+        case PM_GRAY_UNICORN:
+        case PM_BLACK_UNICORN:
+            if (mtmp.mrevived && rn2(2)) {
+                if (canseemon(mtmp)) {
+                    await pline_mon(mtmp,
+                        `${s_suffix(Monnam(mtmp))} recently regrown horn crumbles to dust.`);
+                }
+            } else {
+                obj = mksobj_at(UNICORN_HORN, x, y, true, false);
+                if (obj && mtmp.mrevived) obj.degraded_horn = 1;
+            }
+            {
+                const r = await default_1();
+                if (r.done) return r.val;
+            }
+            break;
+        case PM_LONG_WORM:
+            mksobj_at(WORM_TOOTH, x, y, true, false);
+            {
+                const r = await default_1();
+                if (r.done) return r.val;
+            }
+            break;
+        case PM_IRON_GOLEM: {
+            let num = d(2, 6);
+            while (num--) {
+                obj = mksobj_at(IRON_CHAIN, x, y, true, false);
+            }
+            free_mgivenname(mtmp);
+            break;
+        }
+        case PM_GLASS_GOLEM: {
+            let num = d(2, 4);
+            while (num--) {
+                obj = mksobj_at(FIRST_GLASS_GEM + rn2(NUM_GLASS_GEMS),
+                    x, y, true, false);
+            }
+            free_mgivenname(mtmp);
+            break;
+        }
+        case PM_CLAY_GOLEM:
+            obj = mksobj_at(ROCK, x, y, false, false);
+            if (obj) {
+                obj.quan = rn2(20) + 50;
+                obj.owt = weight(obj);
+            }
+            free_mgivenname(mtmp);
+            break;
+        case PM_STONE_GOLEM:
+            corpstatflags &= ~CORPSTAT_INIT;
+            obj = mkcorpstat(STATUE, null, mdat, x, y, corpstatflags);
+            break;
+        case PM_WOOD_GOLEM: {
+            let num = d(2, 4);
+            while (num--) {
+                // C ternary short-circuit: rn2(2)? staff : rn2(3)? shield : …
+                const otyp = rn2(2) ? QUARTERSTAFF
+                    : rn2(3) ? SMALL_SHIELD
+                    : rn2(3) ? CLUB
+                    : rn2(3) ? ELVEN_SPEAR : BOOMERANG;
+                obj = mksobj_at(otyp, x, y, true, false);
+            }
+            free_mgivenname(mtmp);
+            break;
+        }
+        case PM_ROPE_GOLEM: {
+            let num = rn2(3);
+            while (num-- > 0) {
+                const otyp = rn2(2) ? LEASH
+                    : rn2(3) ? BULLWHIP : GRAPPLING_HOOK;
+                obj = mksobj_at(otyp, x, y, true, false);
+            }
+            free_mgivenname(mtmp);
+            break;
+        }
+        case PM_LEATHER_GOLEM: {
+            let num = d(2, 4);
+            while (num--) {
+                const otyp = rn2(4) ? LEATHER_ARMOR
+                    : rn2(3) ? LEATHER_CLOAK : SADDLE;
+                obj = mksobj_at(otyp, x, y, true, false);
+            }
+            free_mgivenname(mtmp);
+            break;
+        }
+        case PM_GOLD_GOLEM:
+            obj = mkgold(200 - rnl(101), x, y);
+            free_mgivenname(mtmp);
+            break;
+        case PM_PAPER_GOLEM: {
+            let num = rnd(4);
+            while (num--) {
+                obj = mksobj_at(SCR_BLANK_PAPER, x, y, true, false);
+            }
+            free_mgivenname(mtmp);
+            break;
+        }
+        case PM_GRAY_OOZE:
+        case PM_BROWN_PUDDING:
+        case PM_GREEN_SLIME:
+        case PM_BLACK_PUDDING: {
+            // C: GLOB_OF_BLACK_PUDDING - (PM_BLACK_PUDDING - mndx)
+            const gtyp = GLOB_OF_BLACK_PUDDING - (PM_BLACK_PUDDING - mndx);
+            obj = mksobj_at(gtyp, x, y, true, false);
+            while (obj) {
+                const otmp = obj_nexto(obj);
+                if (!otmp) break;
+                await pudding_merge_message(obj, otmp);
+                const r1 = { obj };
+                const r2 = { obj: otmp };
+                obj = obj_meld(r1, r2);
+            }
+            free_mgivenname(mtmp);
             newsym(x, y);
+            return obj;
         }
-        return obj;
+        case NON_PM:
+        case LEAVESTATUE:
+        case NUMMONS:
+            break;
+        default: {
+            const r = await default_1();
+            if (r.done) return r.val;
+            break;
+        }
+        }
     }
 
-    // C: gray ooze / brown pudding / green slime / black pudding → GLOB
-    if (mndx === PM_GRAY_OOZE || mndx === PM_BROWN_PUDDING
-        || mndx === PM_GREEN_SLIME || mndx === PM_BLACK_PUDDING) {
-        // C: GLOB_OF_BLACK_PUDDING - (PM_BLACK_PUDDING - mndx)
-        const gtyp = GLOB_OF_BLACK_PUDDING - (PM_BLACK_PUDDING - mndx);
-        let obj = mksobj_at(gtyp, x, y, true, false);
-        while (obj) {
-            const otmp = obj_nexto(obj);
-            if (!otmp) break;
-            void pudding_merge_message(obj, otmp);
-            const r1 = { obj };
-            const r2 = { obj: otmp };
-            obj = obj_meld(r1, r2);
-        }
-        // free_mgivenname deferred
-        newsym(x, y);
-        return obj;
+    if (!obj) return null;
+
+    // C: svc.context.bypasses — zap/muse poly or undead-turning
+    if (game.context?.bypasses) bypass_obj(obj);
+
+    if (has_mgivenname(mtmp)) {
+        obj = oname(obj, MGIVENNAME(mtmp), ONAME_NO_FLAGS);
     }
 
-    if ((game.mvitals?.[mndx]?.mvflags ?? 0) & G_NOCORPSE) return null;
+    // C youprop.h Blind: (HBlinded || EBlinded) && !BBlinded
+    const u = game.u || {};
+    if ((((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0))
+        && !sensemon(mtmp)) {
+        clear_dknown(obj);
+    }
 
-    corpstatflags |= CORPSTAT_INIT;
-    // C: KEEPTRAITS — shk/tame/unique/reviver/quest-leader/seduce
-    const keep = !!(mtmp.isshk || mtmp.mtame
-        || ((mdat?.geno | 0) & G_UNIQ)
-        || (mdat && (is_rider(mdat) || mdat.mlet === 'S_TROLL'))
-        || ((mtmp.m_id | 0) === (game.quest_status?.leader_m_id | 0)
-            && (game.quest_status?.leader_m_id | 0))
-        || dmgtype(mdat, AD_SEDU) || dmgtype(mdat, AD_SSEX));
-    const obj = mkcorpstat(CORPSE, keep ? mtmp : null, mdat, x, y, corpstatflags);
-    if (obj) {
-        stackobj(obj);
-        newsym(x, y);
+    stackobj(obj);
+    newsym(x, y);
+    if ((obj.ox | 0) !== x || (obj.oy | 0) !== y) {
+        newsym(obj.ox, obj.oy);
     }
     return obj;
 }
@@ -2005,7 +2214,7 @@ export function mondead(mtmp) {
 export async function mondied(mdef) {
     mondead(mdef);
     if ((mdef.mhp | 0) > 0) return; /* lifesaved */
-    if (await corpse_chance(mdef)) make_corpse(mdef);
+    if (await corpse_chance(mdef)) await make_corpse(mdef);
 }
 
 /**

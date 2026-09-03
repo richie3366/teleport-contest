@@ -306,10 +306,14 @@ polyself `learn_egg_type` `TRUE` still named); **`record_mvitals_died`** (D-0126
 quest/nemesis/guardian/priest/tame specials + peaceful luck rn2 deferred); 
 **`make_corpse` undead specials before `G_NOCORPSE`** (D-0271; trap shares `mhitm` export); 
 **`make_corpse` pudding→GLOB + `obj_nexto`/`obj_meld`** (D-0993); 
+**`make_corpse` special-corpse table** (D-1794; dragon scales `rn2(mrevived?20:3)`, 
+unicorn horn / dust, worm tooth, iron/glass/clay/stone/wood/rope/leather/gold/paper 
+golem drops, `CORPSTAT_BURIED` `bury_an_obj`, bypass/oname/Blind `clear_dknown`; 
+`do_name.c` `free_mgivenname`; async for `pline_mon` / pudding merge / bury); 
 **`corpse_chance` AT_BOOM → `mon_explodes`** (D-0273) + 
 **always-TRUE `bigmonst`/lizard/golem/mplayer/rider/isshk** (D-0707; 
 Vlad/lich dust, youmonst stomach boom, `LEVEL_SPECIFIC_NOCORPSE` deferred); 
-omit cham/were restore before monsndx, golem/dragon/unicorn/worm corpse specials, 
+omit cham/were restore before monsndx (`mondead`, not `make_corpse`), 
 `accessible`/`is_pool` / `LEVEL_SPECIFIC_NOCORPSE` gates, flooreffects non-floor arms, genus/other 
 mon.c helpers
 

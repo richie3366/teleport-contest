@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `weapon.c` dmgval blessed/axe/silver/artifact_light bonus rnd() + greatest_erosion (RNG). Not spec_abon. **Addressed:** D-1793
+- [x] `mon.c` make_corpse special-corpse table (dragon scales / unicorn horn / worm tooth) — 19 C draws. Not mondied. **Addressed:** D-1794
+
+
+- [x] `weapon.c` dmgval blessed/axe/silver/artifact_light bonus rnd() + greatest_erosion (RNG). Not spec_abon. **Addressed:** D-1793 `07fb471c`
 
 
 - [x] `timeout.c` nh_timeout property dialogues: stoned/slime/vomiting/choke/sickness/levitation/phaze + stone_luck. Not make_blinded. **Addressed:** D-1792 `9c160502`

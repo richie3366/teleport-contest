@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1794 — make_corpse special-corpse table (dragon / unicorn / worm / golems)
+
+- **Status:** fixed (map-driven Open row; suite was 44/44)
+- **Symptom:** JS `make_corpse` only did undead (D-0271) and pudding
+  globs (D-0993) then `default_1`. Adult dragons never rolled scales
+  (`rn2(mrevived ? 20 : 3)`), unicorns never dropped a horn, long
+  worms never dropped a tooth, and golem deaths left a flesh corpse
+  instead of chains/glass/rocks/statue/wood/rope/leather/gold/paper.
+  Those 19 C-body draws desynchronise any kill that hits the table.
+- **C locus:** `mon.c` `make_corpse` `:563–941`. Switch before
+  `G_NOCORPSE`; dragon/unicorn/worm `goto default_1`; golems `break`;
+  puddings return. Post-switch: `context.bypasses` `bypass_obj`,
+  `oname(MGIVENNAME)`, Blind `clear_dknown`, `stackobj`, `newsym`.
+  Callees `mksobj_at` / `mkcorpstat` / `mkgold` / `d` / `rnl` /
+  `free_mgivenname` (`do_name.c:50`) / `bury_an_obj` (`CORPSTAT_BURIED`).
+  Callers `mondied` `:3262` `CORPSTAT_NONE`; `xkilled` `:3622` bury
+  flag. Not `mondied` itself.
+- **JS was:** undead + pudding + default corpse. No special table;
+  no bury/bypass/oname/Blind tail; pudding `free_mgivenname` deferred;
+  undead returned before the common tail.
+- **Fix:** remaining C body in `js/mhitm.js` (async for `pline_mon` /
+  pudding merge / bury). `free_mgivenname` from `js/do_name.js`;
+  `clear_dknown` exported from `js/mkobj.js`. Probe 20/20 (jackal
+  corpse, dragon `rn2(3)`/`rn2(20)` + scales formula, unicorn
+  short-circuit vs revived `rn2(2)`, worm tooth, iron `d(2,6)`
+  chain, clay `rn2(20)+50`, wood `d(2,4)`, paper `rnd(4)`, gold
+  `rnl(101)`, stone statue, Blind dknown, named golem not christened).
+- **Named omissions:** cham/were restore before `monsndx` (`mondead`,
+  not this function). `LEVEL_SPECIFIC_NOCORPSE` / `accessible||is_pool`
+  are `xkilled` (next Open). NH_DEVEL exhaustive `default` case list
+  is compiled out of the release build.
+- **Next:** Open `mhitu.c` `mattacku` remaining attack-type arms.
+  Not `hitmu`.
+
 ## D-1793 — dmgval vs-monster bonus rnd() + greatest_erosion
 
 - **Status:** fixed (map-driven Open row; suite was 44/44)

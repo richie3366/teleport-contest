@@ -381,6 +381,16 @@ function named_ghost_monnam(mtmp) {
 }
 
 /**
+ * C ref: do_name.c free_mgivenname `:50–57` — drop MGIVENNAME so
+ * make_corpse does not christen golem/pudding drops.
+ */
+export function free_mgivenname(mon) {
+    if (!has_mgivenname(mon)) return;
+    if (mon.mextra) delete mon.mextra.mgivenname;
+    if (mon.mgivenname != null) delete mon.mgivenname;
+}
+
+/**
  * C ref: do_name.c christen_monst — assign MGIVENNAME (pet / #name).
  */
 export function christen_monst(mtmp, name) {

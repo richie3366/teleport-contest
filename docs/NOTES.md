@@ -5,15 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44.** **D-1793** shipped the first Open: `weapon.c`
-  `dmgval` vs-mon bonus `rnd()` + `greatest_erosion`. Must-fix is
-  still **empty** — pop the first Open. Do not invent a FAIL.
+- **Suite 44/44.** **D-1794** shipped the first Open: `mon.c`
+  `make_corpse` special-corpse table. Must-fix is still **empty** —
+  pop the first Open. Do not invent a FAIL.
 - **Open is hidden-score ordered now** (`docs/PORT-GAP-TOP30.md`,
   rebuilt by `node scripts/port-coverage.mjs`). Pop rows in order; do
   not re-derive a different priority from the map.
-- **Next cluster:** first Open — `mon.c` `make_corpse` special-corpse
-  table (dragon scales / unicorn horn / worm tooth) — 19 C draws.
-  Not mondied.
+- **Next cluster:** first Open — `mhitu.c` `mattacku` remaining
+  attack-type arms `:491–952`. Not hitmu. Audit the switch arm by
+  arm; do not glue `hitmu`.
 - **Luck still runs when invulnerable.** Dialogues do not. C
   `timeout.c:597–621` then `:623` `if (u.uinvulnerable) return`.
 - **STONED/SLIMED expiry is still a silent clear.** `done_timeout` /
@@ -37,7 +37,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not treat `dmgval` as missing blessed/axe/silver/`artifact_light`
+- Do not treat `make_corpse` as missing dragon scales, unicorn horn,
+  worm tooth, or golem drops (D-1794). Do not write a second
+  `free_mgivenname` (C `do_name.c`; live export is `do_name.js`) or
+  `clear_dknown` (C `mkobj.c`; live export is `mkobj.js`). Do not
+  treat `dmgval` as missing blessed/axe/silver/`artifact_light`
   `rnd()`, large switch, thick-skin, iron ball, or erosion (D-1793).
   Do not write a second `is_axe` (C `obj.h`; live export is
   `objects.js`). Do not treat `hitval` blessed/spear as this cluster
@@ -63,7 +67,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1793.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1794.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -74,7 +78,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1793 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1794 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -94,11 +98,14 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1793 — read the index row before assuming a function is
+  D-1682…D-1794 — read the index row before assuming a function is
   unported. No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
 
+- D-1794: `make_corpse` special-corpse table (dragon/unicorn/worm/
+  golems) + bury/bypass/oname/Blind tail; `free_mgivenname`. Named:
+  cham/were restore (`mondead`); xkilled pool/`NOCORPSE` gates.
 - D-1793: `dmgval` vs-mon bonus `rnd()` + large switch + erosion;
   `is_axe` one export. Named: `hitval` blessed/spear.
 - D-1792: `nh_timeout` dialogues + `stone_luck` + `Popeye`; luck still
@@ -124,4 +131,3 @@ Objective/score live in `CURRENT.md`.
 - D-1770: `delete_contents` `:1174–1183`; zap `poly_obj`. Named: trap.js
   chest; mklev.js `create_object_delete_contents`.
 - D-1769: `set_bc` `:379–424`. Named: Blind `move_bc`/`unplacebc`/ballfall.
-- D-1768: `make_blinded` Unaware talk=FALSE. Punished `set_bc` is D-1769.

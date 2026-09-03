@@ -1114,7 +1114,7 @@ function mondead(mtmp) {
 async function mondied(mdef) {
     mondead(mdef);
     if ((mdef.mhp | 0) > 0) return; /* lifesaved */
-    if (await corpse_chance(mdef)) make_corpse(mdef);
+    if (await corpse_chance(mdef)) await make_corpse(mdef);
 }
 
 // C ref: mon.c monkilled :3384–3385 — trap fltxt path (D-1550).

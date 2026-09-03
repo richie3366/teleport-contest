@@ -8,6 +8,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1794 mon.c make_corpse special-corpse table
+
+**Objective:** Open `mon.c` `make_corpse` dragon/unicorn/worm/golem
+table (19 C draws). Not mondied.
+**C:** `mon.c:563–941`.
+**JS was:** undead + pudding + default_1 only.
+**Fix:** rest of C switch + bury/bypass/oname/Blind tail;
+`free_mgivenname`; `clear_dknown` export.
+**Verify:** canary 20/20; green + strict; cohort 7/7. save-oracle
+skip (untagged).
+**Next:** Open `mhitu.c` `mattacku` remaining attack-type arms.
+Not hitmu.
 ## 2026-09-03 — D-1793 weapon.c dmgval bonus rnd() + erosion
 
 **Objective:** Open `weapon.c` `dmgval` blessed/axe/silver/
