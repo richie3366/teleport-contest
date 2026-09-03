@@ -7,14 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44.** Map-driven: named omissions / cluster density, not
   FAIL peels. Audit 728–737: ten ACCEPT-WITH-DEBT, Must-fix empty.
-  **Next:** `detect.c` object_detect `clear_stale_map` caller (named).
-  Falsify: C caller vs JS omit. Not food_detect. Do not invent a FAIL.
+  **Next:** `dog.c` keepdogs leash (named). Falsify: C `keepdogs` body
+  vs JS omit. Not losedogs. Do not invent a FAIL.
+- `object_detect` is whole now (D-1782). C's gate is
+  `!clear_stale_map(...) && !ct`, so a stale map redraws even with
+  nothing found, and `ctu` splits "lack of something" (return 1) from
+  "You sense ... nearby" (return 0). Its `findgold` gold stand-in draws
+  **`rnd(10)`**. Anything past `cls()` cannot be probed headless.
 - `food_detect` is live (D-1781). Confused **or cursed** searches
   POTION_CLASS, not FOOD_CLASS. `u.uedibility` is set but **never
   read** — `eat.c` `edibility_prompts` and `insight.c` are unported
   (Open row), so do not assume the warning works.
 - **Recent ports — do not re-clone or re-order** (detail in the D-log):
-  `food_detect` (D-1781); `lev_by_name` + `find_branch` `pd == NULL`
+  `object_detect` (D-1782); `food_detect` (D-1781); `lev_by_name` + `find_branch` `pd == NULL`
   (D-1780, `js/dungeon.js`);
   `trap_description` + `trapped_chest_at`/`trapped_door_at` (D-1779);
   `ballfall` + `hard_helmet`/`is_helmet` exports in `js/do_wear.js`
@@ -35,8 +40,9 @@ Objective/score live in `CURRENT.md`.
   PASS alone. Run it per session, or trust `ps_test_runner sessions`.
 - **No public session** is Punished+Blind (D-1777), Punished-while-
   falling (D-1778), farlooking a trapped chest/door (D-1779), or
-  level-porting by name (D-1780), or reading food detection (D-1781).
-  The suite cannot regress-test those arms — probe directly.
+  level-porting by name (D-1780), reading food detection (D-1781), or
+  detecting objects (D-1782). The suite cannot regress-test those arms
+  — probe directly, and note anything past `cls()` blocks headless.
 - **`end.c` DUMPLOG is retired (D-1776), not deferred — do not
   re-enqueue.** `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so
   all `end.c` `#ifdef DUMPLOG` blocks are compiled out of the scored
@@ -63,7 +69,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1781.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1782.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -74,7 +80,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1781 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1782 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do

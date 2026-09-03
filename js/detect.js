@@ -86,7 +86,7 @@ import {
     AMULET_CLASS, TOOL_CLASS, FOOD_CLASS, POTION_CLASS, SCROLL_CLASS,
     SPBOOK_CLASS, WAND_CLASS, COIN_CLASS, GEM_CLASS, ROCK_CLASS,
     BALL_CLASS, CHAIN_CLASS, VENOM_CLASS, ILLOBJ_CLASS,
-    def_char_to_objclass,
+    def_char_to_objclass, def_oc_syms,
 } from './objects.js';
 import { objects_at, weight } from './mkobj.js';
 import { makeknown, consume_obj_charge, observe_object, currency } from './invent.js';
@@ -107,7 +107,8 @@ import {
     SVALL, IS_FURNITURE, STONE, W_NONDIGGABLE, W_NONPASSWALL,
     S_hcdoor, S_vcdoor, S_corr, COULD_SEE,
     TER_MAP, TER_TRP, TER_OBJ, TER_MON, TER_FULL, TER_DETECT, ECMD_OK,
-    I_SPECIAL, M_AP_TYPE, ARTICLE_A, ROOMOFFSET,
+    I_SPECIAL, M_AP_TYPE, M_AP_OBJECT, has_mcorpsenm, MCORPSENM,
+    ARTICLE_A, ROOMOFFSET,
     TIMEOUT, Never_mind, KILLED_BY_AN, TOE, NOSE, SYM_BOULDER,
     IN_SIGHT, CLAIRVOYANT, LAVAPOOL, LAVAWALL, Has_contents,
     BEAR_TRAP, TRAPPED_DOOR, TRAPPED_CHEST,
@@ -144,6 +145,7 @@ const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const CHEST = objectNames.indexOf('CHEST');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const PM_GOLD_GOLEM = monsterNames.indexOf('PM_GOLD_GOLEM');
+const PM_TENGU = monsterNames.indexOf('PM_TENGU');
 /** C objclass.h GOLD — materials enum (Au). */
 const GOLD = 15;
 /** C objclass.h ALL_CLASSES — MAXOCLASSES, not RANDOM_CLASS 0. */
@@ -1973,24 +1975,64 @@ export async function gold_detect(sobj) {
 }
 
 /**
- * C ref: detect.c object_detect — crystal-ball / scroll / potion path.
- * Returns 1 if nothing detected, 0 if something was.
- * Branch envelope: floor objects of class (0 = all); cls + map_object +
- * You detect + browse_map(TER_DETECT|TER_OBJ); map_redisplay.
- * Detector (D-1417): blessed potion/spellbook do_dknown observe_recursively
- * on invent + floor; nothing-found → strange_feeling then return 1.
- * Named omissions: buried/minvent/cursed-mimic/findgold; clear_stale_map
- * caller (helper is D-1773 gold_detect); boulder dual-class;
- * absence-underfoot.
+ * C ref: detect.c object_detect `:602–789` — crystal ball / scroll of
+ * gold detection when confused / blessed potion or spellbook.
+ * `class` 0 means "everything".
+ *
+ * Two things drive the shape. First the **boulder dual-class**: if the
+ * requested class's symbol happens to equal the user's boulder symbol
+ * we cannot tell which they meant, so C detects ROCK_CLASS as well and
+ * says "and/or large stones". Second the **stale-map gate** — C's
+ * `if (!clear_stale_map(...) && !ct)` means a map that still holds
+ * stale detected objects is redrawn even when nothing is found now;
+ * only a clean map with nothing found short-circuits, and then `ctu`
+ * (matches underfoot) picks "lack of something" (return 1, caller
+ * useups) versus "You sense ... nearby" (return 0).
+ *
+ * Counting walks floor, buried and monster inventories; note C counts
+ * *every* matching object in a monster's pack, then a cursed detector
+ * lets a mimic, or any gold, add one more and break the monster loop.
+ * Mapping then runs in override order: buried first, floor over buried,
+ * monster inventory over floor, and finally the cursed-mimic or gold
+ * stand-in over that. The gold stand-in's `rnd(10)` quantity is a real
+ * RNG draw, not decoration.
+ *
+ * Named omissions: `observe_recursively` still stops at the top level
+ * of a container (helper is a local clone); `display_nhwindow(WIN_MAP)`
+ * for the absence case is a flush here.
+ * @returns {Promise<number>} 1 = nothing detected (caller strange_feeling'd)
  */
 export async function object_detect(detector, oclass) {
+    const u = game.u || {};
     let class_ = oclass | 0;
     if (class_ < 0 || class_ >= MAXOCLASSES) class_ = 0;
 
+    const is_cursed = !!(detector && detector.cursed);
     const do_dknown = !!(detector
         && ((detector.oclass | 0) === POTION_CLASS
             || (detector.oclass | 0) === SPBOOK_CLASS)
         && detector.blessed);
+    let ct = 0;
+    let ctu = 0;
+    let boulder = 0;
+    let ter_typ = TER_DETECT | TER_OBJ;
+
+    /*
+     * Special boulder symbol check — if the class symbol happens to be
+     * the user's boulder symbol we aren't sure what they wanted, so
+     * show both possibilities. Buried boulders are excluded below.
+     */
+    const sym = class_ ? def_oc_syms[class_]?.sym : 0;
+    if (sym && sym === game.gs?.showsyms?.[SYM_BOULDER]) boulder = ROCK_CLASS;
+
+    let stuff;
+    if (Hallucination()
+        || ((u.HConfusion || u.Confusion) && class_ === SCROLL_CLASS)) {
+        stuff = 'something';
+    } else {
+        stuff = class_ ? (def_oc_syms[class_]?.name || 'objects') : 'objects';
+    }
+    if (boulder && class_ !== ROCK_CLASS) stuff += ' and/or large stones';
 
     if (do_dknown) {
         for (const obj of game.invent || []) {
@@ -1998,48 +2040,155 @@ export async function object_detect(detector, oclass) {
         }
     }
 
-    let ct = 0;
-    let ctu = 0;
-    const ux = game.u?.ux | 0;
-    const uy = game.u?.uy | 0;
-    for (let x = 1; x < COLNO; x++) {
-        for (let y = 0; y < ROWNO; y++) {
-            for (let obj = objects_at(x, y); obj; obj = obj.nexthere) {
-                if (!class_ || (obj.oclass | 0) === class_) {
-                    if (x === ux && y === uy) ctu++;
-                    else ct++;
+    for (const obj of floor_objects()) {
+        if ((!class_ && !boulder) || o_in(obj, class_) || o_in(obj, boulder)) {
+            if (u_at(obj.ox | 0, obj.oy | 0)) ctu++;
+            else ct++;
+        }
+        if (do_dknown) observe_recursively(obj);
+    }
+
+    for (const obj of iter_objs(game.level?.buriedobjlist)) {
+        if (!class_ || o_in(obj, class_)) {
+            if (u_at(obj.ox | 0, obj.oy | 0)) ctu++;
+            else ct++;
+        }
+        if (do_dknown) observe_recursively(obj);
+    }
+
+    if (u.usteed) {
+        u.usteed.mx = u.ux | 0;
+        u.usteed.my = u.uy | 0;
+    }
+
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) < 1 || (mtmp.isgd && !(mtmp.mx | 0))) {
+            continue;
+        }
+        for (const obj of iter_objs(mtmp.minvent)) {
+            if ((!class_ && !boulder)
+                || o_in(obj, class_) || o_in(obj, boulder)) {
+                ct++;
+            }
+            if (do_dknown) observe_recursively(obj);
+        }
+        if ((is_cursed && M_AP_TYPE(mtmp) === M_AP_OBJECT
+             && (!class_
+                 || class_ === (game.objects?.[mtmp.mappearance]?.oc_class | 0)))
+            || (findgold(mtmp.minvent) && (!class_ || class_ === COIN_CLASS))) {
+            ct++;
+            break;
+        }
+    }
+
+    if (!clear_stale_map(!class_ ? ALL_CLASSES : class_, 0) && !ct) {
+        if (!ctu) {
+            if (detector) {
+                await strange_feeling(detector, 'You feel a lack of something.');
+            }
+            return 1;
+        }
+        await pline(`You sense ${stuff} nearby.`);
+        return 0;
+    }
+
+    await cls();
+    unconstrain_map();
+
+    /* Map all buried objects first. */
+    for (const obj of iter_objs(game.level?.buriedobjlist)) {
+        const otmp = class_ ? o_in(obj, class_) : obj;
+        if (!class_ || otmp) {
+            if (class_) {
+                if (otmp !== obj) {
+                    otmp.ox = obj.ox;
+                    otmp.oy = obj.oy;
                 }
-                if (do_dknown) observe_recursively(obj);
+                map_object(otmp, 1);
+            } else {
+                map_object(obj, 1);
             }
         }
     }
-    if (!ct && !ctu) {
-        if (detector) {
-            await strange_feeling(detector, 'You feel a lack of something.');
-        }
-        return 1;
-    }
-
-    const { cls, flush_topl_more } = await import('./display.js');
-    await cls();
+    /*
+     * Mapping all objects shows only the top of a pile / the first
+     * object in a monster's pack; a class search shows the first match
+     * at each location. Floor objects override buried ones.
+     */
     for (let x = 1; x < COLNO; x++) {
         for (let y = 0; y < ROWNO; y++) {
             for (let obj = objects_at(x, y); obj; obj = obj.nexthere) {
-                if (!class_ || (obj.oclass | 0) === class_) {
-                    map_object(obj, 1);
+                const otmp = o_in(obj, class_) || o_in(obj, boulder);
+                if ((!class_ && !boulder) || otmp) {
+                    if (class_ || boulder) {
+                        if (otmp !== obj) {
+                            otmp.ox = obj.ox;
+                            otmp.oy = obj.oy;
+                        }
+                        map_object(otmp, 1);
+                    } else {
+                        map_object(obj, 1);
+                    }
                     break;
                 }
             }
         }
     }
-    const stuff = class_ ? (DEF_OC_SYMS[class_] ? 'objects' : 'objects') : 'objects';
-    // C: def_oc_syms[class].name — class name polish deferred
+
+    /* Objects in a monster's inventory override floor objects. */
+    for (const mtmp of game.fmon || []) {
+        if (!mtmp || (mtmp.mhp | 0) < 1 || (mtmp.isgd && !(mtmp.mx | 0))) {
+            continue;
+        }
+        for (const obj of iter_objs(mtmp.minvent)) {
+            let otmp = o_in(obj, class_) || o_in(obj, boulder);
+            if ((!class_ && !boulder) || otmp) {
+                if (!class_ && !boulder) otmp = obj;
+                otmp.ox = mtmp.mx; /* at monster location */
+                otmp.oy = mtmp.my;
+                map_object(otmp, 1);
+                break;
+            }
+        }
+        /* Allow a mimic to override the detected objects it carries. */
+        if (is_cursed && M_AP_TYPE(mtmp) === M_AP_OBJECT
+            && (!class_
+                || class_ === (game.objects?.[mtmp.mappearance]?.oc_class | 0))) {
+            const temp = {
+                otyp: mtmp.mappearance | 0, /* needed for obj_to_glyph() */
+                oclass: game.objects?.[mtmp.mappearance]?.oc_class | 0,
+                quan: 1,
+                ox: mtmp.mx,
+                oy: mtmp.my,
+                /* used for mimicking a corpse or statue */
+                corpsenm: has_mcorpsenm(mtmp) ? MCORPSENM(mtmp) : PM_TENGU,
+            };
+            map_object(temp, 1);
+        } else if (findgold(mtmp.minvent)
+                   && (!class_ || class_ === COIN_CLASS)) {
+            const gold = {
+                otyp: GOLD_PIECE,
+                oclass: COIN_CLASS,
+                quan: rnd(10), /* usually more than 1 */
+                ox: mtmp.mx,
+                oy: mtmp.my,
+            };
+            map_object(gold, 1);
+        }
+    }
+
+    if (!glyph_is_object(glyph_at_gbuf(u.ux | 0, u.uy | 0))) {
+        newsym(u.ux | 0, u.uy | 0);
+        ter_typ |= TER_MON;
+    }
     await pline(`You detect the ${ct ? 'presence' : 'absence'} of ${stuff}.`);
     await flush_topl_more();
+
     if (!ct) {
-        // C: display_nhwindow(WIN_MAP) — flush only
+        // C: display_nhwindow(WIN_MAP, TRUE) — flush only (named)
+        await flush_screen(1);
     } else {
-        await browse_map(TER_DETECT | TER_OBJ, 'object');
+        await browse_map(ter_typ, 'object');
     }
     await map_redisplay();
     return 0;

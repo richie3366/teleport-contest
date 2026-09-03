@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `detect.c` object_detect clear_stale_map caller (named). Not food_detect.
 - [ ] `dog.c` keepdogs leash (named). Not losedogs.
 - [ ] `display.c` ridden_mon_to_glyph usteed (named). Not map_monst.
 - [ ] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee.
@@ -46,6 +45,7 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `pager.c` lookat glyph_to_trap(glyph_at) vs live t_at ttyp (named). Not trap_description.
 - [ ] `teleport.c` level_tele Nowhere ynq + deepest clamp (named). Not lev_by_name.
 - [ ] `eat.c` doeat edibility_prompts u.uedibility consumer (named). Not food_detect.
+- [ ] `detect.c` observe_recursively container recursion (named). Not object_detect.
 
 ## Parked (do not pop)
 

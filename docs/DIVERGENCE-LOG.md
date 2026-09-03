@@ -1,5 +1,64 @@
 # Divergence log
 
+## D-1782 — detect.c object_detect clear_stale_map gate + buried/minvent/mimic/gold
+
+- **Status:** fixed (map-driven Open row `detect.c` object_detect
+  clear_stale_map caller; suite was 44/44, Must-fix empty)
+- **Symptom:** `object_detect` was a simplification that only ever
+  looked at floor piles, and only by a raw `obj.oclass === class`
+  compare. Consequences, all C-wrong:
+  * **No `clear_stale_map` gate.** C's
+    `if (!clear_stale_map(...) && !ct)` means a map still holding stale
+    detected objects gets redrawn even when nothing is found now. JS
+    used `if (!ct && !ctu)`, so a stale map was never cleared and the
+    detector reported "a lack of something" over it.
+  * **No `ctu` split.** C, when nothing is elsewhere but something is
+    underfoot, prints "You sense ... nearby" and returns 0. JS returned
+    1 for that, i.e. the caller used the item up as a failure.
+  * **No container search.** C uses `o_in`, which recurses into
+    containers; a ring inside a sack was invisible to JS.
+  * **No buried objects, no monster inventories**, so neither counted
+    nor mapped; no cursed-mimic `M_AP_OBJECT` override; and no
+    `findgold` gold stand-in — whose `rnd(10)` quantity is a real RNG
+    draw that was simply never made.
+  * No boulder dual-class, no real `def_oc_syms[class].name` (the
+    message always said "objects"), no Hallucination/Confusion
+    "something", no steed stale-coord fixup, no `unconstrain_map`, and
+    no `glyph_is_object(glyph_at())` → `newsym` + `TER_MON` arm.
+- **C locus:** `detect.c` `object_detect` `:602–789`; helpers `o_in`
+  `:200–223`, `clear_stale_map`, `unconstrain_map`, `browse_map`,
+  `map_redisplay` (all already file-local here, C `staticfn`).
+- **Fix:** ported whole. The order is load-bearing and preserved:
+  counting walks floor, then buried, then monster inventories — C
+  counts *every* matching object in a pack, and only then does a cursed
+  detector let a mimic, or any gold, add one more and `break` the
+  monster loop. Mapping then runs in override order — buried first,
+  floor over buried, monster inventory over floor, and the cursed-mimic
+  or gold stand-in over that. The gold stand-in draws `rnd(10)`.
+- **JS:** `js/detect.js`. 183 insertions / 34 deletions.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `63+0.49/turn` (R² 0.856).
+  Per-session strict lengths PASS on seed2200, seed0501, seed0116,
+  seed4500, seed0030, seed0360.
+  No public session detects objects, so the suite is a no-regression
+  signal only. The counting and gate logic — the row's substance — was
+  probed directly: an empty clean map returns **1** with no RNG draws;
+  something underfoot returns **0** (the "sense nearby" arm the old
+  code did not have); a **buried** ring underfoot returns 0, proving
+  the buried chain is now counted; a ring **inside a sack** underfoot
+  returns 0, proving `o_in`'s container search; and a sack alone with
+  RING_CLASS asked for returns **1**.
+  (Two earlier probe runs were wrong on my side, not the port's: the
+  first read class constants from `const.js` when they live in
+  `objects.js`, so every case silently ran as class 0.)
+- **Not probe-covered:** everything after `cls()` — the buried/floor/
+  minvent mapping loops, the mimic and gold stand-ins including the
+  `rnd(10)` draw, and `browse_map` — needs a real display and blocks
+  headless. Those arms rest on the C read alone.
+- **Not this iter:** `observe_recursively` still stops at a container's
+  top level (it is a local clone); `display_nhwindow(WIN_MAP, TRUE)`
+  for the absence case is a `flush_screen` here.
+
 ## D-1781 — detect.c food_detect + read.c seffect_food_detection
 
 - **Status:** fixed (map-driven Open row `detect.c` food_detect; suite

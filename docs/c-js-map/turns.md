@@ -158,8 +158,24 @@ findone FOUND_FLASH_COUNT==0 tmp_at path (D-1775 ported the flash/foundone/mimic
 unconstrain underwater/buried/swallow (display_trap_map unconstrain+reconstrain D-1753); wiz_map_levltyp/legend; 
 oldglyph trap/object restore after furniture; **`do_vicinity_map` clairvoyance 9×5 (D-1391; 
 SPE_CLAIRVOYANCE caller; unconstrain/reconstrain in this callee; allmain seer_turn still named)**; 
-**`object_detect` detector do_dknown invent+floor + empty `strange_feeling` (D-1417; 
-caller `peffect_object_detection`; buried/minvent/cursed-mimic/`clear_stale_map` caller still named; gold_detect is D-1773)**; 
+**`object_detect` D-1417 + D-1782** (C `detect.c:602–789`; caller
+`peffect_object_detection`; **D-1782** added the `clear_stale_map`
+gate — C's `if (!clear_stale_map(!class ? ALL_CLASSES : class, 0) && !ct)`
+so a stale map redraws even with nothing found, and `ctu` then splits
+"lack of something" (return 1) from "You sense ... nearby" (return 0) —
+plus `o_in` container search instead of a raw `oclass` compare, the
+buried chain, monster `minvent` (C counts *every* match, then a cursed
+mimic or any gold adds one and breaks), the steed stale-coord fixup,
+`unconstrain_map`, the boulder dual-class via
+`showsyms[SYM_BOULDER]` → ROCK_CLASS + "and/or large stones",
+`def_oc_syms[class].name` / Hallu·Confusion "something",
+override-order mapping (buried, then floor, then minvent, then the
+cursed-mimic `M_AP_OBJECT` stand-in or `findgold` gold whose
+**`rnd(10)`** quan is a real draw), and the
+`glyph_is_object(glyph_at(u.ux,u.uy))` → `newsym` + `TER_MON` arm.
+Named: `observe_recursively` stops at a container's top level;
+`display_nhwindow(WIN_MAP)` for the absence case is a flush;
+gold_detect is D-1773)**; 
 **`monster_detect` empty+otmp `strange_feeling` threatened / hallu heebie jeebies (D-1418; 
 caller `peffect_monster_detection`; **`detect_wsegs` D-1545** via `map_monst` 
 showtail; cursed wake / blessed WIN_MAP / pet_to_glyph still named)**; 

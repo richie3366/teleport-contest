@@ -8,6 +8,38 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1782 detect.c object_detect (gate + missing arms)
+
+**Objective:** queue Open row `detect.c` object_detect clear_stale_map
+caller. Must-fix empty.
+**C locus:** `detect.c` `object_detect` `:602-789`; `o_in` `:200-223`.
+**JS locus:** `js/detect.js`.
+**Change:** the JS was a floor-only simplification with a raw
+`obj.oclass === class` compare. Missing and now ported: C's
+`!clear_stale_map(...) && !ct` gate (a stale map redraws even when
+nothing is found now); the `ctu` split that prints "You sense ...
+nearby" and returns 0 instead of returning 1 and letting the caller
+consume the item; `o_in`'s container recursion; the buried chain;
+monster inventories (C counts *every* match, then a cursed mimic or any
+gold adds one and breaks); the cursed-mimic `M_AP_OBJECT` and
+`findgold` stand-ins, the latter drawing a real `rnd(10)`; the boulder
+dual-class; `def_oc_syms[].name` and Hallu/Confusion "something"; the
+steed fixup; `unconstrain_map`; and the
+`glyph_is_object(glyph_at())` -> newsym + TER_MON arm.
+**Verify:** green gate + strict lengths PASS; full `sessions` 44/44
+(63+0.49/turn); per-session strict PASS on seed2200/0501/0116/4500/
+0030/0360. Probed the counting and gate: empty clean map -> 1 with 0
+RNG draws; underfoot -> 0; buried-underfoot -> 0 (buried chain counted);
+ring-inside-a-sack -> 0 (o_in recursion); sack alone vs RING_CLASS -> 1.
+Two earlier probe runs were my bug, not the port's — I read class
+constants from const.js when they live in objects.js, so every case ran
+as class 0.
+**Not probe-covered:** everything past `cls()` (mapping loops, mimic and
+gold stand-ins incl. the rnd(10), browse_map) needs a real display and
+blocks headless; recorded in the D-log rather than implied.
+183 ins / 34 del in 1 js file.
+**Next:** `dog.c` keepdogs leash (named). Not losedogs.
+
 ## 2026-09-03 — D-1781 detect.c food_detect + read.c caller
 
 **Objective:** queue Open row `detect.c` food_detect. Must-fix empty.
