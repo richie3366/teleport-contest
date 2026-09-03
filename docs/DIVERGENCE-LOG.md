@@ -1,5 +1,41 @@
 # Divergence log
 
+## D-1774 — display.c newsym I-arm lev->glyph / fight_empty glyph_at
+
+- **Status:** fixed (seed0014 public FAIL @43789)
+- **Symptom:** C `eat.c` `eatcorpse` `:1887` `rn2(20)` vs JS `rn2(5)`
+  (`distfleeck`). JS rot arm was live; the hero never ate. After
+  killing an unseen bugbear, JS `newsym` treated leftover gbuf
+  `disp_glyph===I` as memory I (`unmap_object` show=0 clears memory
+  only), re-painted I, then `domove` `fight_empty` wasted the walk
+  onto the corpse tile.
+- **C locus:** `display.c` `newsym` `:1032–1033`
+  `glyph_is_invisible(lev->glyph)`; `unmap_invisible` `:387–396`
+  levl.glyph; `show_mon_or_warn` `:489`; `feel_location` `:764`;
+  `mon_overrides_region` `:699`. `hack.c` `domove_fight_empty`
+  `:2242–2245` `glyph_at`; `:2813` `unmap_invisible` after empty.
+  `uhitm.c` `do_attack` atk_done `:577–580`. `mon.c` `mondead`
+  `:3170`. `display.h` `:773` glyph id only.
+- **JS was:** `glyph_is_invisible(loc)` ORed `disp_glyph` with sticky
+  `.invisible`; `newsym` cansee I-arm used that helper; fight_empty
+  used the loc helper; no atk_done `map_invisible`.
+- **Fix:** `memory_glyph_is_invisible` (lev->glyph). `newsym` /
+  `unmap_invisible` / `show_mon_or_warn` / `feel_location` /
+  `mon_overrides_region` / mondead clones use memory. fight_empty
+  and `attack_checks` use `glyph_is_invisible_id(disp_glyph)`.
+  `unmap_invisible` after fight_empty when !mtmp. `do_attack`
+  atk_done plants I only on living unseen forcefight.
+- **JS:** `js/display.js`, `js/cmd.js`, `js/uhitm.js`, `js/mhitm.js`.
+- **Not this iter:** findone flash; `ridden_mon_to_glyph` usteed;
+  swallow cmap; food_detect; Blind `move_bc`/`unplacebc`/ballfall;
+  DUMPLOG; `noit_mhim` Hallu; `lev_by_name`; pager
+  `trap_description`.
+- **Verified:** save-oracle probe skip (untagged `eat.c:eatcorpse`);
+  seed0014 **PASS** RNG 59178/59178 Scr 714/714; green+strict
+  seed8000/0900; cohort **7**/7 + strict; full `sessions` **44**/44
+  RNG 792838/792838 Scr 11405/11405. Rule #2 clean.
+- **Files:** `js/display.js`, `js/cmd.js`, `js/uhitm.js`, `js/mhitm.js`.
+
 ## D-1773 — detect.c gold_detect / o_in o_material
 
 - **Status:** fixed (map-driven Open from D-1753; not a public FAIL)

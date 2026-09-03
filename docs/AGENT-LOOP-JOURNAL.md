@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1774 display.c newsym I-arm lev->glyph
+
+**Objective:** seed0014 @43789 eatcorpse `rn2(20)` vs JS `rn2(5)`.
+**C locus:** `display.c` `newsym` `:1032`; `unmap_invisible`;
+`hack.c` fight_empty `glyph_at`; `do_attack` atk_done; `mondead`.
+**JS locus:** `js/display.js` `memory_glyph_is_invisible`; `js/cmd.js`;
+`js/uhitm.js`; `js/mhitm.js`.
+**Change:** newsym/unmap/mondead use memory I, not leftover gbuf;
+fight_empty uses `glyph_at`; atk_done plants I only if still alive.
+eat.c rot arm was already live.
+**Score:** **44**/44 (full `sessions`; seed0014 PASS).
+**Verified:** probe skip untagged `eat.c:eatcorpse`; seed0014
+59178/59178 + 714/714; green+strict; cohort **7**/7 + strict.
+**Next:** Open `detect.c` findone (named). Not gold_detect.
+**Blocked:** none.
 ## 2026-09-03 — human: seed0014 eatcorpse first-diff next
 
 **Objective:** seed0014 leftover (not findone). Not a 44/44 peel.

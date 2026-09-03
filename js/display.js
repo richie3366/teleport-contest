@@ -960,7 +960,8 @@ function mon_overrides_region(mon, mx, my) {
         }
     }
     const loc = game.level?.at(mx, my);
-    return glyph_is_invisible(loc);
+    // C `:699` — glyph_is_invisible(levl[mx][my].glyph)
+    return memory_glyph_is_invisible(loc);
 }
 
 /**
@@ -1075,10 +1076,24 @@ export function map_invisible(x, y) {
     show_glyph_cell(x, y, 'I', NO_COLOR, false, 0, GLYPH_INVISIBLE);
 }
 
-/** C ref: display.h glyph_is_invisible — gbuf id or remembered I marker. */
+/**
+ * C display.h glyph_is_invisible(levl[x][y].glyph) — hero_memory id,
+ * not gbuf. mondead unmap_object(show=0) clears memory I while leaving
+ * disp_glyph; treating gbuf as memory re-paints I (seed0014 @43789).
+ */
+export function memory_glyph_is_invisible(loc) {
+    return (loc?.remembered_glyph?.glyph | 0) === GLYPH_INVISIBLE;
+}
+
+/**
+ * C display.h glyph_is_invisible — loc helper. Prefer
+ * memory_glyph_is_invisible (lev->glyph) or glyph_is_invisible_id
+ * (glyph_at / disp_glyph) at C-cited sites.
+ */
 export function glyph_is_invisible(loc) {
-    if (loc?.disp_glyph === GLYPH_INVISIBLE) return true;
-    return !!loc?.remembered_glyph?.invisible;
+    if (memory_glyph_is_invisible(loc)) return true;
+    return loc?.disp_glyph === GLYPH_INVISIBLE
+        || !!loc?.remembered_glyph?.invisible;
 }
 
 /**
@@ -1144,8 +1159,10 @@ export function unmap_object(x, y) {
  * Returns true when an invisible glyph was present.
  */
 export function unmap_invisible(x, y) {
+    // C display.c unmap_invisible `:387–396` — levl.glyph, not gbuf
+    if (!isok(x, y)) return false;
     const loc = game.level?.at(x, y);
-    if (!loc || !glyph_is_invisible(loc)) return false;
+    if (!loc || !memory_glyph_is_invisible(loc)) return false;
     unmap_object(x, y);
     newsym(x, y);
     return true;
@@ -1162,7 +1179,8 @@ export function unmap_invisible(x, y) {
  */
 function show_mon_or_warn(x, y, ch, color, decgfx = false, attr = 0, glyph) {
     const loc = game.level?.at(x, y);
-    if (glyph_is_invisible(loc)) {
+    // C `:489` — glyph_is_invisible(levl[x][y].glyph)
+    if (memory_glyph_is_invisible(loc)) {
         unmap_object(x, y);
         // C vobj_at ≡ level.objects[x][y] (JS objects_at)
         if (cansee(x, y)) {
@@ -4163,8 +4181,8 @@ export function feel_location(x, y) {
     if (!isok(x, y)) return;
     const loc = game.level?.at(x, y);
     if (!loc) return;
-    // C: keep accurate I memory when mon still present
-    if (glyph_is_invisible(loc) && mon_at_display(x, y)) return;
+    // C `:764` — glyph_is_invisible(lev->glyph) && m_at
+    if (memory_glyph_is_invisible(loc) && mon_at_display(x, y)) return;
 
     const u = game.u || {};
     // C `:769–772` — Underwater: only pool/lava/ice (waterlevel exempt)
@@ -4390,8 +4408,12 @@ export function newsym(x, y) {
             display_warning(mtmp);
             return;
         }
-        // C: newsym cansee — keep remembered I when !displayable mon
-        if (glyph_is_invisible(loc)) {
+        // C display.c newsym `:1032–1033` — glyph_is_invisible(lev->glyph)
+        // (hero_memory), not gbuf. mondead unmap_object(..., show=0) clears
+        // memory I but leaves disp_glyph; checking gbuf here re-paints I so
+        // the next walk fight_empty's the corpse tile (eat.c eatcorpse never
+        // runs; seed0014 @43789).
+        if (memory_glyph_is_invisible(loc)) {
             map_invisible(x, y);
             return;
         }

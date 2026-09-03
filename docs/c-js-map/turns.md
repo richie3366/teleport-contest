@@ -1140,6 +1140,7 @@ air-level exempt) (D-0928 #1117); **`domove` `u_maybe_impaired`/`impaired_moveme
 (D-0437; Confusion `!rn2(5)` + Stunned; tunnels/`passes_walls` in bad_rock deferred); 
 **`domove_fight_empty` always `unmap_object` + optional boulder/statue `map_object` + 
 `newsym`** (D-0928 #1166; was I-glyph-only; **fight_empty explum(null) D-1265**; 
+**fight_empty `glyph_at` + `unmap_invisible` after empty D-1774**; 
 dig-with-pick/Underwater/Hallu statue/ansimpleoname deferred); 
 **`domove` run-into-visible non-safemon stop** (`context.run` + 
 `mon_visible`/`sensemon`/`M_AP_*` → `nomul`+`move=0` before attack) (D-0440; 
@@ -1443,7 +1444,9 @@ seed0361 **PASS**) + **`uinvulnerable` early-return skips accessorytime** (D-051
 **`init_uhunger`/`newuhs` field thresholds + u_init `uhs=NOT_HUNGRY`** (D-0438; 
 hunger messages / faint / ATEMP WEAK / occupation `force_save_hs` deferred); 
 **getobj missing-letter `continue` + empty early-return** (D-0142); 
-**CORPSE `eatcorpse`/`start_eating`/`eatfood` occupation + extracted `cwt`/`cnutrit`** (D-0193); 
+**CORPSE `eatcorpse`/`start_eating`/`eatfood` occupation + extracted `cwt`/`cnutrit`** (D-0193;
+**rot `(moves-age)/(10+rn2(20))` live — seed0014 @43789 was D-1774 I-glyph
+fight_empty, not skipped `nonrotting_corpse`**); 
 **`eatcorpse` palatable/yummy via `hero_form_data` when `youmonst` unset** (D-0409; 
 full `set_uasmon` FROMFORM props deferred); 
 **`eatcorpse` acid/sick inline `losehp` via `rnd(15)`/`rnd(8)` not `1+rn2`** (D-0428; 
@@ -1693,8 +1696,17 @@ On);
 `glyph_is_trap(_glyph_at)` only; `back_to_glyph` `:2286–2427`;
 `do_vicinity_map` `:1528` `!glyph_is_monster` without kind hybrid;
 live `js/display.js` + `js/detect.js` import `map_background`;
-named: usteed, swallow cmap, `map_glyphinfo`; seed0014 still FAIL;
+named: usteed, swallow cmap, `map_glyphinfo`;
 DRAWBRIDGE tty `?` while integer `back_to_glyph` is live);
+**`newsym` cansee I-arm uses `lev->glyph` not gbuf** (D-1774; C
+`:1032–1033` `glyph_is_invisible(lev->glyph)`; `unmap_invisible`
+`:387–396` levl.glyph; `hack.c` `domove_fight_empty` `:2242–2245`
+`glyph_at`; `do_attack` atk_done `:577–580`; `mon.c` `mondead`
+`:3170`; live `js/display.js` `memory_glyph_is_invisible` +
+`js/cmd.js` + `js/uhitm.js`/`js/mhitm.js` mondead; eat.c
+`eatcorpse` rot `rn2(20)` was already live — skipped because
+fight_empty punched stale I instead of walking onto the corpse;
+named: `ridden_mon_to_glyph` usteed, swallow cmap);
  
 **`feel_location` `is_worm_tail` overlay** (D-1749; C `:901–908`
 `!u_at && m_at && sensemon` then `display_monster(..., is_worm_tail)`
@@ -1765,7 +1777,7 @@ DRAWBRIDGE_UP lastseentyp is D-1711; furniture lastseentyp is D-1726;
 knox + why DEC recorder SGR 34 vs source `wallcolors[]` GRAY deferred); 
 DISP_TETHER BACKTRACK / ALL nest; other DEC remaps (ladder); 
 glyph_is_generic remembered-only newsym_force arm; full lev->glyph vs remembered-only memory; 
-!cansee `display_monster` is D-1745 (cansee Detect is D-1737); **`see_monsters` MON_STILL_ARRIVING skip is D-1746**; **`show_mon_or_warn` I-glyph is D-1747**; **pet/detected glyphs are D-1748**; **feel_location `is_worm_tail` is D-1749**; **integer `GLYPH_*_OFF` / `map_monst` is D-1765**; **`show_glyph` always stamp gbuf is D-1767** (`ridden_mon_to_glyph` usteed still named); 
+!cansee `display_monster` is D-1745 (cansee Detect is D-1737); **`see_monsters` MON_STILL_ARRIVING skip is D-1746**; **`show_mon_or_warn` I-glyph is D-1747**; **pet/detected glyphs are D-1748**; **feel_location `is_worm_tail` is D-1749**; **integer `GLYPH_*_OFF` / `map_monst` is D-1765**; **`show_glyph` always stamp gbuf is D-1767**; **`newsym` cansee I-arm `lev->glyph` is D-1774** (`ridden_mon_to_glyph` usteed still named); 
 Rogue-level litcorr/room darkening; **`feel_location` + Blind `newsym` u_at** (D-0928 #1169; 
 reachable `_map_location` + Punished `bc_felt` + `feel_newsym`; 
 `is_worm_tail` overlay D-1749; full levitate-arm do_room_glyph/litcorr + usteed reach deferred; MATCH_WARN via `sensemon` is D-1514); 

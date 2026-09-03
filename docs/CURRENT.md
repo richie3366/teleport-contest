@@ -20,35 +20,32 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-03** — full `sessions` at **D-1767**
-(display gbuf stamp). **43**/44,
-Scr **11,320**/11,405, RNG **777,491**/792,838 = **98.1%**.
-Speed `41+0.31/turn` (R² 0.863). seed0367 FULL still PASS.
-Recovered D-1765 FAILs seed0006/0030/4500; seed0014 still FAIL
-(same prefix as D-1765). Prior audit **#2180** was 40/44 at
-`bb71f9ff`.
+Score last measured: **2026-09-03** — full `sessions` at **D-1774**
+(I-glyph `newsym` / fight_empty). **44**/44,
+Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
+Speed `63+0.50/turn` (R² 0.861). seed0014 recovered (was
+@43789 eatcorpse vs distfleeck). Prior **43**/44 at D-1767.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **43 / 44** |
-| Screens matched | **11,320 / 11,405** |
-| Positional RNG calls matched | **777,491 / 792,838** (98.1%) |
-| Speed label | `41+0.31/turn` (R² 0.863) |
+| Sessions passing | **44 / 44** |
+| Screens matched | **11,405 / 11,405** |
+| Positional RNG calls matched | **792,838 / 792,838** (100%) |
+| Speed label | `63+0.50/turn` (R² 0.861) |
 | Role-init throws | **0 / 44** |
 
-**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0013-rogue, seed0013-friday13-restore, seed0107,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0399, seed2600, seed2200, seed0383, seed0030, seed4500.
+seed0360, seed0399, seed2600, seed2200, seed0383, seed0030, seed4500,
+seed0014-dequa-fountain-explore.
 
-**Notable non-PASS:** seed0014-dequa-fountain-explore RNG 43831/59178
-Screen 629/714. First RNG miss @43789 C `eat.c` `eatcorpse`
-`:1887` `rn2(20)` vs JS `rn2(5)` (gbuf did not move this prefix).
+**Notable non-PASS:** none (local public fortress).
 
 ## Green gate
 
@@ -65,42 +62,38 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 43/44** after D-1767 (recovered seed0006/0030/4500).
+**Suite 44/44** after D-1774 (recovered seed0014). Map-driven
+fortress: named omissions, not invented FAIL peels.
 Save-oracle required for tagged restore/other-floor Open
 (`save-oracle.mjs probe --omit`).
-**Next cluster:** seed0014 first-diff — `eat.c` `eatcorpse`
-`:1884–1887` (`!nonrotting_corpse` then `(moves-age)/(10+rn2(20))`).
-JS already has that `rn2(20)` arm; dump why it skipped (mnum /
-`nonrotting_corpse` / not in `eatcorpse`). Do not FORCE. Do not
-re-check gbuf. Not findone (named; next if this is blocked).
-**Do not skip D-1531…D-1773 (index).** Keep mention_map addr.
+**Next cluster:** `detect.c` findone (named). Not gold_detect.
+**Do not skip D-1531…D-1774 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1773.** Do not FORCE
+**Do not re-break D-0660…D-1774.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1773 (index). Recent: **D-1773**
-`detect.c` `gold_detect` `:334–475` (`o_in`/`o_material`/
-`check_map_spot`/`clear_stale_map`; caller `seffect_gold_detection`;
-steal.c `findgold` export; `glyph_is_object`/`glyph_to_obj`).
-Named: food_detect; object_detect `clear_stale_map` caller;
-findone flash. **D-1772** `peacefuls_respond` Halt. **D-1771**
-invent `useupf`. **D-1770** zap `delete_contents`. **D-1769**
-Punished `set_bc`. **D-1768** Unaware talk=FALSE. **D-1767**
-`show_glyph` gbuf stamp (seed0014 still FAIL).
+**Keep:** D-0845…D-1774 (index). Recent: **D-1774**
+`display.c` `newsym` `:1032` I-arm `lev->glyph` (not gbuf);
+`unmap_invisible`; `hack.c` fight_empty `glyph_at`; `do_attack`
+atk_done; mondead. eat.c `eatcorpse` rot was live. Named:
+`ridden_mon_to_glyph` usteed. **D-1773** `gold_detect`.
+**D-1772** `peacefuls_respond` Halt. **D-1771** invent `useupf`.
+**D-1770** zap `delete_contents`. **D-1769** Punished `set_bc`.
+**D-1768** Unaware talk=FALSE. **D-1767** `show_glyph` gbuf stamp.
 D-1766…D-1755 (index).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1773 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1774 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1773 (index). No generic `dknown` on
+Do not re-port D-1660…D-1774 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
