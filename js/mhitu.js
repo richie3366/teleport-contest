@@ -87,6 +87,7 @@ import { rehumanize, polymon, body_part } from './polyself.js';
 import { set_wounded_legs, burnarmor, ignite_items } from './trap.js';
 import { mon_explodes } from './explode.js';
 import { make_hallucinated, make_confused, make_stunned } from './potion.js';
+import { SetVoice } from './sndprocs.js';
 
 /** C ref: monattk.h — passiveum damage types beyond mhitm export set. */
 const AD_STUN = 12;
@@ -960,7 +961,7 @@ function money_cnt_invent() {
 
 /**
  * C ref: mhitu.c mayberem `:2308–2352` — static, only doseduce.
- * SetVoice is empty without SND_LIB_INTEGRATED (contest sndprocs.h).
+ * SetVoice is empty without SND_LIB_INTEGRATED (contest sndprocs.h; D-1752).
  */
 async function mayberem(mon, seducer, obj, str) {
     if (!obj || !obj.owornmask) return;
@@ -970,6 +971,7 @@ async function mayberem(mon, seducer, obj, str) {
     if (hero_Deaf()) {
         await pline(`${seducer} takes off your ${str}.`);
     } else if (rn2(20) < acurr(A_CHA)) {
+        SetVoice(mon, 0, 80, 0); /* C: y_n is set up for this */
         const qbuf = `"Shall I remove your ${str}, ${
             !rn2(2) ? 'lover' : !rn2(2) ? 'dear' : 'sweetheart'
         }?"`;
@@ -983,6 +985,7 @@ async function mayberem(mon, seducer, obj, str) {
         else if (obj === u.uarmg) why = "they're too clumsy";
         else if (obj === u.uarmu) why = 'let me massage you';
         else why = hairbuf;
+        SetVoice(mon, 0, 80, 0);
         await verbalize(`Take off your ${str}; ${why}.`);
     }
     await remove_worn_item(obj, true);
@@ -991,7 +994,7 @@ async function mayberem(mon, seducer, obj, str) {
 /**
  * C ref: mhitu.c doseduce `:1984–2305`.
  * Callers: uhitm.c mhitm_ad_ssex (monster→you) and sounds.c MS_SEDUCE.
- * SetVoice empty without SND_LIB. Named: uhitm hero-as-seducer;
+ * SetVoice via sndprocs.h empty without SND_LIB (D-1752). Named: uhitm hero-as-seducer;
  * mhitm mon-mon AD_SSEX; steal.c unresponsive monkey_business site.
  */
 export async function doseduce(mon) {
@@ -1039,6 +1042,7 @@ export async function doseduce(mon) {
                     ring, xname, simpleonames, 'ring',
                 );
                 makeknown(RIN_ADORNMENT);
+                SetVoice(mon, 0, 80, 0);
                 if ((await y_n(qbuf)) === 'n') continue;
             } else {
                 await pline(
@@ -1069,6 +1073,7 @@ export async function doseduce(mon) {
                     ring, xname, simpleonames, 'ring',
                 );
                 makeknown(RIN_ADORNMENT);
+                SetVoice(mon, 0, 80, 0);
                 if ((await y_n(qbuf)) === 'n') continue;
             } else {
                 await pline(
@@ -1135,6 +1140,7 @@ export async function doseduce(mon) {
     if (u.uarm || u.uarmc) {
         if (!hero_Deaf()) {
             if (!(ld() && mon.female)) {
+                SetVoice(mon, 0, 80, 0);
                 await verbalize(
                     `You're such a ${
                         game.flags?.female ? 'sweet lady' : 'nice guy'
@@ -1281,8 +1287,12 @@ export async function doseduce(mon) {
         }
         if (cost > umoney) cost = umoney;
         if (!cost) {
-            if (!hero_Deaf()) await verbalize("It's on the house!");
-            else await pline('No charge.');
+            if (!hero_Deaf()) {
+                SetVoice(mon, 0, 80, 0);
+                await verbalize("It's on the house!");
+            } else {
+                await pline('No charge.');
+            }
         } else {
             await pline_mon(
                 mon,

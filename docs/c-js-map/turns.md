@@ -1081,7 +1081,7 @@ kickstr is D-1343) + **`impact_disturbs_zombies` TRUE after place** (D-1229;
 obstructed-loose + land); **Is_box `container_impact_dmg`/lock/lid/`chest_trap` + 
 `ghitm`** (D-0989; **gas `Blind`/`rndcolor` D-1147**) + 
 **`ghitm` `hidden_gold(TRUE)` D-1751** (`dokick.c` `:361` vault.c helper not a kick clone; 
-caller `throw_gold` `:2712`; zap.c `miss`; SetVoice named) + 
+caller `throw_gold` `:2712`; zap.c `miss`; **SetVoice D-1752** shk/priest/gd/merc) + 
 **`dropz`/`throwit` `container_impact_dmg`** (D-1249); **`hits_bars`/`hit_bars`** (D-0990; 
 costly_gold, barefoot petrify, tmp_at flash deferred)
 
@@ -2404,7 +2404,9 @@ name_to_mon G_UNIQ / Half_gas_damage / trap·throw callers deferred) +
 monkey cant_take / stealarm afternmv deferred; 
 **`doseduce` / `mayberem` / `ld()` AD_SSEX D-1750** (`mhitu.c` `:1984–2305` / `:2308–2352` / `:25`; 
 `uhitm.c` `mhitm_ad_ssex` mhitu arm; `sounds.c` MS_SEDUCE; extractor `SEDUCTION_ATTACKS_YES`; 
-SYSOPT default on; SetVoice empty without SND_LIB; named: uhitm hero-as-seducer, mhitm mon-mon AD_SSEX, 
+SYSOPT default on; **SetVoice D-1752** (empty without SND_LIB; live
+`doseduce`/`mayberem` y_n+verbalize; leap-day gloves verbalize has no
+C SetVoice); named: uhitm hero-as-seducer, mhitm mon-mon AD_SSEX, 
 SEDUCE=0 `c_sa_no` subst, steal.c monkey_business `unresponsive` site)); 
 **`mswings`/`mswings_verb` + `hitval` on AT_WEAP melee** (D-0286); 
 **`missmu` nearmiss `"just "` + unseen `map_invisible`** (D-0301; 
@@ -2933,7 +2935,9 @@ dokick/dig/lock/trap clones); **D-1733:** `u_left_shop` `:578–625`
 leave-boundary verbalize then `rob_shop`/`call_kops`; `wizard.c`
 `choose_stairs` `:330–364` + `stairs.c` `stairway_find_type_dir`
 `:88–96` stair swarm (`builds_up` / ladder / branch / opposite);
-live `js/shk.js` + `js/wizard.js` + `js/mklev.js`; named: SetVoice;
+live `js/shk.js` + `js/wizard.js` + `js/mklev.js`; **SetVoice D-1752**
+(`u_entered_shop` / `u_left_shop` / `addtobill` `set_voice` / `dopay`);
+named: remaining shk `pick_pick` / kops / pay-bill SetVoice;
 teleport.c heaven caller; STRAT_HEAL still rloc/healmon; `costly_gold`;
 **D-1740:** `shop_debt` `:989–999` + `shopper_financial_report`
 `:1002–1035` two-pass `next_shkp(fmon, FALSE)` xor; `doprgold`

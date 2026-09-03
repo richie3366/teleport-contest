@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1752 — sounds.c set_voice / sndprocs.h SetVoice
+
+- **Status:** fixed (map-driven Open from D-1751/D-1750; not a public FAIL)
+- **Symptom:** map named `set_voice` / SetVoice. Contest C compiles
+  `set_voice` with `#ifdef SND_SPEECH` compiled out and `SetVoice` as
+  the empty `sndprocs.h` macro (`!SND_LIB_INTEGRATED`; no SND_LIB_*).
+  JS had neither symbol; live verbalize/y_n sites skipped the C calls.
+- **C locus:** `sounds.c` `set_voice` `:2160–2182`; `sndprocs.h`
+  `SetVoice` `:249–252` / empty `:276`; `enum voice_moreinfo`
+  `:159–167`. Direct `set_voice` in `shk.c` `:843` / `:3577` / `:3589`.
+  `SetVoice` at `domonnoise` epilogue `:1225–1237`, `doseduce`/`mayberem`,
+  `ghitm`, `u_entered_shop` / `u_left_shop` / `dopay`.
+- **JS was:** no `set_voice` / `SetVoice`; comments deferred the macro.
+- **Fix:** empty `set_voice` (sounds.c) + empty `SetVoice` + voice bits
+  (sndprocs.h, same pattern as `Soundeffect`). Wire live C sites;
+  Death `SetVoice(null, …, voice_death)` after `ucase` pline. `sound_speak`
+  still named. Remaining shk `pick_pick` / kops / pay-bill SetVoice named.
+- **JS:** `js/sounds.js` `set_voice` + `domonnoise` epilogue;
+  `js/sndprocs.js` `SetVoice`; `js/mhitu.js` `doseduce`/`mayberem`;
+  `js/dokick.js` `ghitm`; `js/shk.js` enter/leave/addtobill/dopay.
+- **Not this iter:** `sound_speak`; `beg` / `maybe_gasp` / MS_ARREST;
+  vault/priest/sit/apply/pray SetVoice; heaven `u_left_shop` caller.
+  `doseduce` body is D-1750; `ghitm` `hidden_gold(TRUE)` is D-1751.
+- **Verified:** save-oracle probe skip (untagged `sounds.c:set_voice`);
+  node 11/11 (exports, voice_moreinfo bits, no-throw);
+  green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+  Rule #2 clean.
+- **Files:** `js/sounds.js`, `js/sndprocs.js`, `js/mhitu.js`,
+  `js/dokick.js`, `js/shk.js`.
+
 ## D-1751 — dokick.c ghitm hidden_gold(TRUE) kick
 
 - **Status:** fixed (map-driven Open from D-1740/D-1731; not a public FAIL)

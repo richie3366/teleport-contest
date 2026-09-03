@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sounds.c` set_voice / SetVoice (named). Not doseduce.
 - [ ] `detect.c` sense_trap (named). Not monster_detect.
 - [ ] `end.c` companion pet HP score (named). Not get_valuables.
 - [ ] `potion.c` make_blinded Sting_effects(-1) (named). Not see_monsters MON_STILL_ARRIVING.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `worn.c` setworn oc_oprop (named). Not possibly_unwield.
 - [ ] `display.h` random_trap_to_glyph (named). Not cmap_to_glyph trap.
 - [ ] `explode.c` map_invisible !canspotmon (named). Not explosion_to_glyph.
+- [ ] `sounds.c` sound_speak (named). Not set_voice.
+- [ ] `sounds.c` maybe_gasp (named). Not sound_speak.
+- [ ] `sounds.c` beg (named). Not maybe_gasp.
+- [ ] `teleport.c` heaven u_left_shop caller (named). Not SetVoice.
+- [ ] `display.h` integer GLYPH_*_OFF / map_monst (named). Not pet_to_glyph.
 
 ## Parked (do not pop)
 

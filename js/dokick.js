@@ -116,6 +116,7 @@ import { del_engr_at, disturb_grave, u_wipe_engr } from './engrave.js';
 import { sink_backs_up, mhis } from './fountain.js';
 import { hidden_gold } from './vault.js';
 import { miss } from './mthrowu.js';
+import { SetVoice } from './sndprocs.js';
 import { makemon, mpickobj, add_to_minv } from './makemon.js';
 import { scatter } from './explode.js';
 import { enexto, rloco, noteleport_level, goodpos } from './teleport.js';
@@ -1124,7 +1125,7 @@ export async function container_impact_dmg(obj, x, y) {
  * C ref: dokick.c ghitm `:294–407` — gold hits monster; TRUE if caught.
  * hidden_gold(TRUE) at `:361` (vault.c helper; D-1751). Callers
  * really_kick_object `:747` and throw_gold `:2712`.
- * Named omit: SetVoice pitch (sounds.c Open).
+ * Named omit: remaining vault/priest SetVoice sites outside ghitm.
  */
 export async function ghitm(mtmp, gold) {
     let msg_given = false;
@@ -1168,17 +1169,20 @@ export async function ghitm(mtmp, gold) {
                 );
                 if (eshk) eshk.robbed = robbed;
                 if (!robbed) await make_happy_shk(mtmp, false);
-            } else if (mtmp.mpeaceful) {
-                // C SetVoice then credit; SetVoice named
-                if (eshk) eshk.credit = (eshk.credit | 0) + value;
-                const credit = eshk?.credit | 0;
-                await pline(
-                    `You have ${credit} ${currency(credit)} in credit.`,
-                );
             } else {
-                await verbalize('Thanks, scum!');
+                SetVoice(mtmp, 0, 80, 0);
+                if (mtmp.mpeaceful) {
+                    if (eshk) eshk.credit = (eshk.credit | 0) + value;
+                    const credit = eshk?.credit | 0;
+                    await pline(
+                        `You have ${credit} ${currency(credit)} in credit.`,
+                    );
+                } else {
+                    await verbalize('Thanks, scum!');
+                }
             }
         } else if (mtmp.ispriest) {
+            SetVoice(mtmp, 0, 80, 0);
             if (mtmp.mpeaceful) {
                 await verbalize('Thank you for your contribution.');
             } else {
@@ -1187,6 +1191,7 @@ export async function ghitm(mtmp, gold) {
         } else if (mtmp.isgd) {
             const umoney = money_cnt_kick(game.invent);
             // C dokick.c:361 hidden_gold(TRUE) — nested contained_gold
+            SetVoice(mtmp, 0, 80, 0);
             await verbalize(
                 umoney ? 'Drop the rest and follow me.'
                     : hidden_gold(true)
@@ -1212,11 +1217,14 @@ export async function ghitm(mtmp, gold) {
                 if (value > goldreqd) mtmp.mpeaceful = true;
             }
             if (!mtmp.mpeaceful) {
+                SetVoice(mtmp, 0, 80, 0);
                 if (goldreqd) await verbalize("That's not enough, coward!");
                 else await verbalize("I don't take bribes from scum like you!");
             } else if (was_angry) {
+                SetVoice(mtmp, 0, 80, 0);
                 await verbalize('That should do.  Now beat it!');
             } else {
+                SetVoice(mtmp, 0, 80, 0);
                 // C flags.female (hero), not the monster
                 const female = !!game.flags?.female;
                 await verbalize(

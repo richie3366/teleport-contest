@@ -76,8 +76,11 @@ literate/`ACH_NOVL`/`check_unpaid`, always return 1). **D-1653
 `!Deathnotice` + novel → title + maybe misquoted (not Snuff /
 Wee Free Men); else `rn2(3)` && `Death_quote`; else `!rn2(10)`
 Sandman; else War. Death `pline(ucase)` no quotes; other riders
-`verbalize`. Named: save/rest `context.novel`; dlb; SetVoice /
-sound_speak. lookup_novel is D-1651. putmsghistory body is D-1588.
+`verbalize`. **D-1752 `set_voice` / SetVoice** (`sounds.c` `:2160–2182`;
+`sndprocs.h` empty without SND_LIB; `voice_death` after Death pline;
+live `js/sounds.js` + `js/sndprocs.js`). Named: save/rest
+`context.novel`; dlb; `sound_speak`; `beg` / `maybe_gasp` / MS_ARREST.
+lookup_novel is D-1651. putmsghistory body is D-1588.
 
 ### `include/artilist.h`
 

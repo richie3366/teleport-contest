@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `dokick.c` hidden_gold(TRUE) kick (named). Not vault hidden_gold. **Addressed:** D-1751
+- [x] `sounds.c` set_voice / SetVoice (named). Not doseduce. **Addressed:** D-1752
+
+
+- [x] `dokick.c` hidden_gold(TRUE) kick (named). Not vault hidden_gold. **Addressed:** D-1751 `97f49d11`
 
 ## 2026-09-02
 

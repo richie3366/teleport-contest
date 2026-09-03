@@ -2,7 +2,8 @@
 // C ref: sounds.c — dosounds / dotalk / dochat / domonnoise (MS_BARK
 //         subset + MS_HUMANOID D-1618 / mplayer_talk D-1606 /
 //         MS_BOAST D-1626 / MS_RIDER Death tribute D-1653) + yelp /
-//         growl (pet abuse; D-0836).
+//         growl (pet abuse; D-0836);
+//         set_voice (D-1752; !SND_SPEECH no-op). SetVoice is sndprocs.h.
 
 import { game } from './gstate.js';
 import { pline, canseemon, verbalize, Hallucination } from './display.js';
@@ -36,6 +37,20 @@ import { same_race } from './mondata.js';
 import { mhis } from './fountain.js';
 import { could_seduce, SYSOPT_SEDUCE } from './mhitm.js';
 import { doseduce } from './mhitu.js';
+import { SetVoice, voice_death } from './sndprocs.js';
+
+/**
+ * C ref: sounds.c set_voice `:2160–2182`. Body is `#ifdef SND_SPEECH`;
+ * contest C has no SND_SPEECH (`SPEECHONLY UNUSED`), so this is a
+ * no-op. Direct callers: shk.c `u_entered_shop` welcome / `addtobill`
+ * quotes. `SetVoice` (sndprocs.h) does not call this without SND_LIB.
+ */
+export function set_voice(mtmp, tone, volume, moreinfo) {
+    void mtmp;
+    void tone;
+    void volume;
+    void moreinfo;
+}
 
 const STATUE = objectNames.indexOf('STATUE');
 const PM_ORACLE = monsterNames.indexOf('PM_ORACLE');
@@ -812,7 +827,7 @@ export async function domonnoise(mtmp) {
     // Other msound cases deferred (guardian/isshk/gecko remaps named)
 
     // C :1222–1241 pline_msg then mcan verbl_msg_mcan then verbl_msg.
-    // verbl_msg_mcan / SetVoice / sound_speak named omitted.
+    // verbl_msg_mcan still named (no cancelled-speech arm).
     if (pline_msg) {
         await pline(`${Monnam(mtmp)} ${pline_msg}`);
         return ECMD_TIME;
@@ -821,7 +836,10 @@ export async function domonnoise(mtmp) {
         // C: PM_DEATH talks in CAPITAL LETTERS without quotation marks.
         if ((ptr?.mndx | 0) === PM_DEATH) {
             await pline(ucase(verbl_msg));
+            SetVoice(null, 0, 80, voice_death);
+            // sound_speak named omit (!SND_SPEECH empty in C)
         } else {
+            SetVoice(mtmp, 0, 80, 0);
             await verbalize(verbl_msg);
         }
         return ECMD_TIME;

@@ -8,7 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
-## 2026-09-03 — D-1751 dokick.c ghitm hidden_gold(TRUE) kick
+## 2026-09-03 — D-1752 sounds.c set_voice / sndprocs.h SetVoice
+
+**Objective:** Open `sounds.c` set_voice / SetVoice (named). Not
+doseduce.
+**C locus:** `sounds.c` `set_voice` `:2160–2182`; `sndprocs.h`
+`SetVoice` empty without SND_LIB; `voice_moreinfo`; shk direct
+`set_voice`; live verbalize sites.
+**JS locus:** `js/sounds.js` `set_voice` + `domonnoise`;
+`js/sndprocs.js` `SetVoice`; `js/mhitu.js`; `js/dokick.js`;
+`js/shk.js`.
+**Change:** empty macros matching contest compile; wire C call
+sites; Death `voice_death` after ucase. `sound_speak` named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `sounds.c:set_voice`; node 11/11;
+green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+Rule #2 clean.
+**Next:** Open `detect.c` sense_trap.
+**Blocked:** none.
 
 **Objective:** Open `dokick.c` hidden_gold(TRUE) kick (named). Not vault
 hidden_gold.
