@@ -7,19 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress (cadence **#2170** at `2d66f69e`, R² 0.846).
   Save-oracle for tagged restore Open. B0: catchup 26/30 red; shop
-  35/35 no unpaid. **Next:** Open `sounds.c` `beg`. Not `maybe_gasp`.
-  Falsify: C sounds.c `beg`. Do not skip D-1531…D-1762. Do not
-  rewrite `confer_oc_oprop`. Do not invent 3.6 `random_trap_to_glyph`.
+  35/35 no unpaid. **Next:** Open `teleport.c` heaven `u_left_shop`.
+  Not `beg`. Falsify: C `u_left_shop` heaven caller. Do not skip
+  D-1531…D-1763. Do not rewrite `confer_oc_oprop`. Do not invent
+  3.6 `random_trap_to_glyph`.
 - Named still: Palantir `#if 0`; pit/underwater; clone yn; keepdogs
   leash/`mon_has_amulet`; tip-spill; hideunder; Punished float_down;
-  water/lava steed; interned `'yn'`; mthrowu/uhitm poison; `beg`;
-  `peacefuls_respond` / MS_ARREST Halt; remaining vault/priest/sit
-  SetVoice; heaven `u_left_shop`; STRAT_HEAL; `swallow_cell` sticky
-  Hallu; eat.js useup+useupf; Unaware make_blinded talk=FALSE;
-  Punished `set_bc`; `cancel_doff`; pager `trap_description`; hallu
-  explode `rndmonnam`; integer `GLYPH_*_OFF` / `map_monst`; findone
-  flash/`foundone`/mimic; `gold_detect`; DUMPLOG; zap
-  `delete_contents` clone; invent Array vs nobj; `noit_mhim` Hallu.
+  water/lava steed; interned `'yn'`; mthrowu/uhitm poison;
+  `dog_hunger`/`dog_move` wire; `peacefuls_respond` / MS_ARREST Halt;
+  remaining vault/priest/sit SetVoice; heaven `u_left_shop`; STRAT_HEAL;
+  `swallow_cell` sticky Hallu; eat.js useup+useupf; Unaware
+  make_blinded talk=FALSE; Punished `set_bc`; `cancel_doff`; pager
+  `trap_description`; hallu explode `rndmonnam`; integer `GLYPH_*_OFF`
+  / `map_monst`; findone flash/`foundone`/mimic; `gold_detect`; DUMPLOG;
+  zap `delete_contents` clone; invent Array vs nobj; `noit_mhim` Hallu.
 
 ## Don't re-check (≤15)
 
@@ -28,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1762.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1763.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,7 +40,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1762 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1763 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -59,15 +60,18 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1762. D-1762 is `maybe_gasp` (not `beg` /
-  `peacefuls_respond`). D-1761 is `sound_speak` (not `beg`). No
-  trailing `confdir` in shared `getdir`.
+  D-1682…D-1763. D-1763 is `beg` (not `dog_hunger` /
+  `peacefuls_respond`). D-1762 is `maybe_gasp`. D-1761 is
+  `sound_speak`. No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
 
+- D-1763: `beg` `:518–542` helpless/diet; animal `domonnoise`;
+  humanoid I-glyph+SetVoice+verbalize; middle famished. Live
+  `sounds.js`. Named: `dog_hunger` wire; `peacefuls_respond`.
 - D-1762: `maybe_gasp` `:545–610` Exclam `ROLL_FROM`/`NULL`; other-role
   GUARDIAN / cross priest → SILENT; CUSS+emin → HUMANOID; always-gasp
-  vs same-`mlet`. Live `sounds.js`. Named: `beg`; `peacefuls_respond`.
+  vs same-`mlet`. Live `sounds.js`. Named: `peacefuls_respond`.
 - D-1761: `sound_speak` `:2184–2220` !SND_SPEECH no-op; Death `:1235`
   `sound_speak(tmpbuf)`; empty `SoundSpeak`. Live `sounds.js`.
 - D-1760: `explode` `:378–452` 3x3 `map_invisible` when

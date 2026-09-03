@@ -86,8 +86,12 @@ out; `sndprocs.h` `:275` empty without SND_LIB; Death `:1235`
 `#ifdef SND_SPEECH` compiled out). **D-1762 `maybe_gasp`**
 (`sounds.c` `:545–610` Exclam `ROLL_FROM`/`NULL`; guardian/priest
 rewrite + CUSS emin; live `js/sounds.js`; `p_coaligned` priest.js;
-mndx for `mons[guardnum]`). Named: save/rest
-`context.novel`; dlb; `beg`; `peacefuls_respond` / MS_ARREST Halt;
+mndx for `mons[guardnum]`). **D-1763 `beg`**
+(`sounds.c` `:518–542` helpless/diet gate then animal `domonnoise` /
+humanoid `map_invisible`+SetVoice+`verbalize("I'm hungry.")` /
+middle famished `pline`; live `js/sounds.js`; caller `dog_hunger`
+`:383` still named). Named: save/rest
+`context.novel`; dlb; `dog_hunger`/`dog_move` wire; `peacefuls_respond` / MS_ARREST Halt;
 SND_SPEECH/`sound_verbal` body; remaining vault/priest/sit SetVoice.
 lookup_novel is D-1651. putmsghistory body is D-1588.
 

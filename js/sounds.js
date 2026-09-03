@@ -5,10 +5,12 @@
 //         growl (pet abuse; D-0836);
 //         set_voice (D-1752; !SND_SPEECH no-op). SetVoice is sndprocs.h.
 //         sound_speak (D-1761; !SND_SPEECH no-op). SoundSpeak is sndprocs.h.
-//         maybe_gasp (D-1762).
+//         maybe_gasp (D-1762); beg (D-1763).
 
 import { game } from './gstate.js';
-import { pline, canseemon, verbalize, Hallucination } from './display.js';
+import {
+    pline, canseemon, canspotmon, verbalize, Hallucination, map_invisible,
+} from './display.js';
 import { getdir } from './lock.js';
 import { mon_at } from './uhitm.js';
 import { Monnam } from './do_name.js';
@@ -24,7 +26,7 @@ import { nomul } from './hack.js';
 import {
     is_animal, is_flyer, is_lord, is_prince, is_mercenary, is_undead,
     is_mplayer, is_elf, is_dwarf, is_gnome, likes_magic, monsterNames,
-    mons, G_UNIQ,
+    mons, G_UNIQ, carnivorous, herbivorous,
 } from './monsters.js';
 import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, isok, IS_WALL, SDOOR, SIZE,
@@ -450,6 +452,40 @@ const H_SOUNDS = [
     'moo', 'boom', 'murmur', 'oink', 'quack', 'rumble',
     'twang', 'toot', 'gargle', 'hoot', 'warble',
 ];
+
+/**
+ * C ref: sounds.c beg `:518–542`. Hungry-pet noise after helpless /
+ * diet gate. Caller `dog_hunger` (`dogmove.c` `:383`) is still named
+ * omitted from `dog_move`. `is_silent` is the mondata.h one-liner
+ * (`msound == MS_SILENT`); do not add a named clone (region.js).
+ */
+export async function beg(mtmp) {
+    if (helpless(mtmp)
+        || !(carnivorous(mtmp.data) || herbivorous(mtmp.data))) {
+        return;
+    }
+
+    /* presumably nearness and soundok checks have already been made */
+    const msound = mtmp.data.msound | 0;
+    if (msound !== MS_SILENT && msound <= MS_ANIMAL) {
+        await domonnoise(mtmp);
+    } else if (msound >= MS_HUMANOID) {
+        if (!canspotmon(mtmp)) {
+            map_invisible(mtmp.mx, mtmp.my);
+        }
+        SetVoice(mtmp, 0, 80, 0);
+        await verbalize("I'm hungry.");
+    } else {
+        /* this is pretty lame but is better than leaving out the block
+           of speech types between animal and humanoid; this covers
+           MS_SILENT too (if caller lets that get this far) since it's
+           excluded by the first two cases */
+        if (canspotmon(mtmp)) {
+            await pline(`${Monnam(mtmp)} seems famished.`);
+        }
+        /* looking famished will be a good trick for a tame skeleton... */
+    }
+}
 
 /**
  * C ref: sounds.c maybe_gasp `:545–610`. Returns ROLL_FROM(Exclam) or

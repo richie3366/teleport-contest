@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1763 — sounds.c beg
+
+- **Status:** fixed (map-driven Open from D-1762; not a public FAIL)
+- **Symptom:** JS had no `beg`. C hungry-pet helper after helpless /
+  carnivore|herbivore gate: animal `msound` → `domonnoise`; humanoid
+  → `map_invisible` when `!canspotmon`, `SetVoice`, `verbalize("I'm
+  hungry.")`; else (incl. `MS_SILENT`) famished `pline` if spotted.
+- **C locus:** `sounds.c` `beg` `:518–542`. Sole caller
+  `dogmove.c` `dog_hunger` `:383` (`couldsee` && `!cansee`). Macros
+  `helpless` / `is_silent` / `carnivorous` / `herbivorous`.
+- **JS was:** missing export; `dog_move` still omits `dog_hunger`.
+- **Fix:** port the C body. Reuse local `helpless`; inline
+  `msound !== MS_SILENT` (no `is_silent` clone). Did not wire
+  `dog_hunger` into `dog_move` (starvation HP/conf plines).
+- **JS:** `js/sounds.js` `beg`.
+- **Not this iter:** `dog_hunger` / `dog_starve`; `peacefuls_respond`
+  / MS_ARREST Halt; SND_SPEECH body; remaining vault/priest/sit
+  SetVoice. maybe_gasp is D-1762.
+- **Verified:** save-oracle probe skip (untagged `sounds.c:beg`);
+  node canary (helpless / no-diet / SILENT+laugh unseen / Deaf
+  animal `domonnoise` / humanoid verbalize); green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict (9/9 with green).
+  Rule #2 clean.
+- **Files:** `js/sounds.js`.
+
 ## D-1762 — sounds.c maybe_gasp
 
 - **Status:** fixed (map-driven Open from D-1761; not a public FAIL)

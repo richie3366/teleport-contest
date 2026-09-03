@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1763 sounds.c beg
+
+**Objective:** Open `sounds.c` beg. Not maybe_gasp.
+**C locus:** `sounds.c` `beg` `:518–542`; caller `dog_hunger` `:383`
+(not wired).
+**JS locus:** `js/sounds.js` `beg`.
+**Change:** C body; diet/helpless gate; animal `domonnoise`;
+humanoid I-glyph+SetVoice+verbalize; middle famished. Did not port
+`dog_hunger`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `sounds.c:beg`; node canary
+(helpless/diet/unseen middle/Deaf animal/humanoid); green+strict
+seed8000/0900; CURRENT cohort **7**/7 + strict. Rule #2 clean.
+**Next:** Open `teleport.c` heaven u_left_shop.
+**Blocked:** none.
 ## 2026-09-03 — D-1762 sounds.c maybe_gasp
 
 **Objective:** Open `sounds.c` maybe_gasp. Not sound_speak.

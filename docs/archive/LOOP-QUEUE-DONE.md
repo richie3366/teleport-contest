@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `sounds.c` maybe_gasp (named). Not sound_speak. **Addressed:** D-1762
+- [x] `sounds.c` beg (named). Not maybe_gasp. **Addressed:** D-1763
+
+
+- [x] `sounds.c` maybe_gasp (named). Not sound_speak. **Addressed:** D-1762 `ac94ec34`
 
 
 - [x] `sounds.c` sound_speak (named). Not set_voice. **Addressed:** D-1761 `45bb8ff3`

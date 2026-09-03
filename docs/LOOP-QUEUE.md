@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sounds.c` beg (named). Not maybe_gasp.
 - [ ] `teleport.c` heaven u_left_shop caller (named). Not SetVoice.
 - [ ] `display.h` integer GLYPH_*_OFF / map_monst (named). Not pet_to_glyph.
 - [ ] `do_wear.c` cancel_doff (named). Not setworn oc_oprop.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `ball.c` Punished set_bc (named). Not Unaware talk.
 - [ ] `zap.c` delete_contents clone (named). Not delobj extract.
 - [ ] `eat.c` useup+useupf hybrid (named). Not delete_contents.
+- [ ] `mon.c` peacefuls_respond / MS_ARREST Halt (named). Not beg.
+- [ ] `detect.c` gold_detect (named). Not sense_trap.
+- [ ] `detect.c` findone (named). Not gold_detect.
+- [ ] `end.c` DUMPLOG (named). Not companion pet HP.
+- [ ] `mhitu.c` noit_mhim Hallu (named). Not hero_Deaf.
 
 ## Parked (do not pop)
 
