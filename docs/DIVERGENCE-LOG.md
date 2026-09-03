@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-1771 — invent.c useupf + eat.c carried hybrid
+
+- **Status:** fixed (map-driven Open from D-1735; not a public FAIL)
+- **Symptom:** `js/eat.js` exported a hybrid `useup` that did both
+  invent decrement and floor `splitobj`+`delobj`, so eat.c sites
+  that C splits with `carried()?useup:useupf` could not call
+  invent-only `useup`. Floor `useupf` lived as an eat.js clone
+  without `hideunder`.
+- **C locus:** `invent.c` `useup` `:1320–1333`; `useupf`
+  `:4762–4783`; callers `eat.c` `done_eating` `:567–570`,
+  `use_up_tin` `:1518–1521`, `eatcorpse` `:1918–1921`/`:1962–1965`,
+  `eatspecial` `:2425–2428`/`:2482–2485`. `obj.h` `carried`
+  `:332`.
+- **JS was:** eat.js hybrid `where`/invent[]/`objects_at` then
+  invent path or `useupf`; `use_up_tin` both arms called hybrid
+  `useup`; invent.js `useup` already C-shaped (D-1735).
+- **Fix:** Port `useupf` (at_u snapshot, split, `delobj`,
+  `hideunder`); eat.c sites `carried()?useup:useupf`; retarget
+  apply/engrave/fountain/pray/zap imports to invent.js. Named:
+  shop `addtobill`/`stolen_value`, `mon_moving`, zap.js useupf
+  clone, detect/potion/read/spell useup clones, fprefx pyrolisk.
+- **JS:** `js/invent.js` export; `js/eat.js` import (hybrid
+  deleted); apply/engrave/fountain/pray/zap imports.
+- **Not this iter:** zap.js `useupf` clone; detect/potion/read/spell
+  `useup` clones; shop bill; `peacefuls_respond`.
+- **Verified:** save-oracle probe skip (untagged
+  `invent.c:useupf`); load invent.js+eat.js; green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict (incl.
+  seed1800 eat-throw). Rule #2 clean.
+- **Files:** `js/invent.js`, `js/eat.js`, `js/apply.js`,
+  `js/engrave.js`, `js/fountain.js`, `js/pray.js`, `js/zap.js`.
+
 ## D-1770 — shk.c delete_contents extract+obfree (zap clone retired)
 
 - **Status:** fixed (map-driven Open from D-1756; not a public FAIL)

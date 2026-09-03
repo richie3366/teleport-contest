@@ -967,8 +967,9 @@ fatal wished corpse / artifact `dropy`+wasUpolyd+crysknife / perm_invent WIN_INV
 **`observe_object` FIRST_OBJECT skip** (D-1713; C `o_init.c:441–451`;
 generic/STRANGE_OBJECT `otyp < FIRST_OBJECT`; Hallu `youprop.h` not sticky
 `u.Hallucination`; `discover_object` credit_hero FALSE); 
-**`useup` / `useupall` / `obfree`** (D-1727 `useupall`/`obfree`;
-D-1735 `useup` C `invent.c` `:1320–1333`; live `js/invent.js`;
+**`useup` / `useupall` / `obfree` / `useupf`** (D-1727 `useupall`/`obfree`;
+D-1735 `useup` C `invent.c` `:1320–1333`; **D-1771** `useupf`
+`:4762–4783` + eat.c `carried` hybrid; live `js/invent.js`;
 `write.js` imports (no invent-splice); **`dealloc_obj` D-1743**
 C `mkobj.c` `:2744–2811` / `dealloc_obj_real` `:2814–2827` /
 `dobjsfree` `:2830–2843` / `dealloc_oextra` `:95–111`; callees
@@ -977,9 +978,9 @@ C `mkobj.c` `:2744–2811` / `dealloc_obj_real` `:2814–2827` /
 mklev ROCK/book/mktrap_victim discards; **`delobj`/`delobj_core` D-1756**
 C `invent.c` `:1429–1462` + `extract_nobj`/`container_weight` +
 revive `delobj_core(,TRUE)`; **zap `delete_contents` D-1770**;
-named: eat.js hybrid still useup+useupf, detect/potion/read/spell
-local clones, trap.js `delete_contents_chest` / mklev.js
-`create_object_delete_contents`, nhl_gamestate leftover,
+named: detect/potion/read/spell local useup clones, zap.js useupf
+clone, shop addtobill/stolen_value, trap.js `delete_contents_chest` /
+mklev.js `create_object_delete_contents`, nhl_gamestate leftover,
 wizard `makemap_prepost` dobjsfree, invent Array vs nobj); 
 **`prinv` total_of + `xprname` quan + `(N in total)`** (D-0388); 
 **`count_contents`** nested/quan/everything (D-0395; shoppy `costly_spot` deferred); 
@@ -1444,7 +1445,12 @@ full `set_uasmon` FROMFORM props deferred);
 **`eatcorpse` acid/sick inline `losehp` via `rnd(15)`/`rnd(8)` not `1+rn2`** (D-0428; 
 real `losehp`/`make_sick` deferred); **`floorfood` feeding yn + 
 `poison_strdmg(rnd(4),rnd(15))`** (D-0221); 
-**floor `useup`→`useupf`/`delobj`/`obj_resists(0,0)`** (D-0222); 
+**floor `useup`→`useupf`/`delobj`/`obj_resists(0,0)`** (D-0222;
+**D-1771** eat.c `carried`? `useup`:`useupf` — C `invent.c` `useupf`
+`:4762–4783` split+`delobj`+`hideunder`; live `js/invent.js` export;
+eat.js hybrid retired; apply/engrave/fountain/pray/zap import the
+C-locus; named: shop addtobill/stolen_value, `mon_moving`, zap.js
+useupf clone, detect/potion/read/spell useup clones, fprefx pyrolisk); 
 **`vomit` `nomul(-2)` + You_can_move_again** (D-0371) + 
 **cantvomit/Sick/FAINTING/acid poly** (D-1127; `mondata.c` `cantvomit`; 
 `zap.c` `ubreatheu`/`zhitu` ZT_ACID resist+hliquid+d(nd,6)+rn2 gates; altar_wrath; 

@@ -9,21 +9,22 @@ Objective/score live in `CURRENT.md`.
   Recovered seed0006/0030/4500. **Hypothesis:** seed0014 is not stale
   `disp_glyph` (same 43831/59178 prefix as D-1765 after the stamp).
   Falsify: do not re-check gbuf overwrite. **Next:** Open
-  `eat.c` useup+useupf hybrid. Not delete_contents. Do not invent a
-  seed0014 FAIL peel. Do not skip D-1531…D-1770.
+  `mon.c` peacefuls_respond / MS_ARREST Halt. Not beg. Do not invent a
+  seed0014 FAIL peel. Do not skip D-1531…D-1771.
 - Named still: Palantir `#if 0`; pit/underwater; clone yn; keepdogs
   leash/`mon_has_amulet`; tip-spill; hideunder; Punished float_down;
   water/lava steed; interned `'yn'`; mthrowu/uhitm poison;
   `dog_hunger`/`dog_move` wire; `peacefuls_respond` / MS_ARREST Halt;
   remaining vault/priest/sit SetVoice; STRAT_HEAL;
-  `swallow_cell` sticky Hallu; eat.js useup+useupf; Blind `move_bc`
+  `swallow_cell` sticky Hallu; Blind `move_bc`
   glyph; `unplacebc` Blind restore; ballfall; pager `trap_description`;
   hallu explode `rndmonnam`; findone flash/`foundone`/mimic;
   `gold_detect`; DUMPLOG; trap.js `delete_contents_chest`; mklev.js
   `create_object_delete_contents`; invent Array vs nobj; `noit_mhim`
   Hallu; `lev_by_name`; Nowhere yn; Quest·mines·sanctum clamp;
   `ridden_mon_to_glyph` usteed; swallow cmap; `map_glyphinfo`;
-  setnotworn `monstunseesu_prop`/`update_inventory`.
+  setnotworn `monstunseesu_prop`/`update_inventory`; zap.js useupf
+  clone; detect/potion/read/spell useup clones; useupf shop bill.
 
 ## Don't re-check (≤15)
 
@@ -34,7 +35,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1770.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1771.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,7 +46,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1770 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1771 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -65,7 +66,9 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1770. D-1770 is zap `delete_contents` import (not trap.js
+  D-1682…D-1771. D-1771 is invent.c `useupf` + eat.c `carried`
+  hybrid (not zap.js useupf clone / detect/potion/read/spell useup
+  clones / shop bill). D-1770 is zap `delete_contents` import (not trap.js
   `delete_contents_chest` / mklev.js `create_object_delete_contents`).
   D-1769 is Punished `set_bc` (not Blind `move_bc`
   glyph / `unplacebc` restore). D-1768 is Unaware talk=FALSE (not
@@ -79,6 +82,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1771: `invent.c` `useupf` `:4762–4783`; eat.c `carried()?useup:useupf`.
+  Live `js/invent.js` export; eat.js hybrid retired. Named: shop
+  bill; zap.js useupf clone; detect/potion/read/spell useup clones.
 - D-1770: `shk.c` `delete_contents` `:1174–1183`; caller `zap.c`
   `poly_obj` `:1827–1829`. Live `js/shk.js` export + `js/zap.js`
   import. Named: trap.js `delete_contents_chest`; mklev.js
@@ -120,5 +126,3 @@ Objective/score live in `CURRENT.md`.
 - D-1758: `hero_Deaf` youprop in doseduce/mayberem. Named: `noit_mhim`.
 - D-1757: `setworn` oc_oprop/`w_blocks`/weapon gate; `setuwep` calls
   `setworn`. `cancel_doff` is D-1766.
-- D-1756: `delobj`/`delobj_core` extract+`obfree`. zap
-  `delete_contents` is D-1770.

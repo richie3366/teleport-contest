@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1771 invent.c useupf + eat.c carried hybrid
+
+**Objective:** Open `eat.c` useup+useupf hybrid. Not delete_contents.
+**C locus:** `invent.c` `useupf` `:4762–4783`; `useup` `:1320–1333`;
+eat.c `done_eating`/`use_up_tin`/`eatcorpse`/`eatspecial`.
+**JS locus:** `js/invent.js` `useupf`; `js/eat.js` hybrid retired.
+**Change:** Port `useupf` (split+`delobj`+`hideunder`); eat.c
+`carried()?useup:useupf`; retarget apply/engrave/fountain/pray/zap.
+Named: shop bill, zap.js useupf clone, detect/potion/read/spell
+useup clones.
+**Score:** unchanged fortress **43**/44 (no full `sessions` this
+port iter).
+**Verified:** probe skip untagged `invent.c:useupf`; load ok;
+green+strict; cohort **7**/7 + strict (seed1800 eat-throw).
+**Next:** Open `mon.c` peacefuls_respond / MS_ARREST Halt.
+**Blocked:** none.
 ## 2026-09-03 — D-1770 shk.c delete_contents (zap clone retired)
 
 **Objective:** Open `zap.c` delete_contents clone. Not delobj extract.

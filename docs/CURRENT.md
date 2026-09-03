@@ -68,94 +68,34 @@ Both must remain full RNG + screen PASS with exact lengths.
 seed0006/0030/4500). seed0014 still FAIL — do not invent a peel;
 map still picks work. Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`).
-**Next cluster:** Open `eat.c` useup+useupf hybrid (named). Not delete_contents.
-**Do not skip D-1531…D-1770 (index).** Keep mention_map addr.
+**Next cluster:** Open `mon.c` peacefuls_respond / MS_ARREST Halt (named). Not beg.
+**Do not skip D-1531…D-1771 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1770.** Do not FORCE
+**Do not re-break D-0660…D-1771.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1770 (index). Recent: **D-1770**
-`shk.c` `delete_contents` extract+`obfree` (`shk.c` `:1174–1183`;
-caller `zap.c` `poly_obj` `:1827–1829`; live `js/shk.js` export;
-zap.js unlink clone retired; named: trap.js `delete_contents_chest`,
-mklev.js `create_object_delete_contents`, objnam empty). **D-1769**
-`ball.c` `set_bc` Punished blind snapshot (`ball.c` `:379–424`;
-callers `potion.c` `:309`, `do_wear.c` `:1476`/`:1523`,
-`read.c` `:3059`; live `js/ball.js`+`js/do.js`+`js/do_wear.js`+
-`js/read.js`; named: Blind `move_bc` glyph, `unplacebc` restore).
-**D-1768**
-`potion.c` `make_blinded` Unaware talk=FALSE (`youprop.h`
-`unconscious`/`is_fainted`; live `js/do.js`+`js/eat.js`;
-Punished `set_bc` is D-1769). **D-1767**
-`display.c` `show_glyph` always overwrite `gbuf.glyph`;
-`back_to_glyph` integer; `see_traps` `glyph_is_trap` only
-(`display.c` `:2039` / `:1610–1621` / `:2286–2427`; live
-`js/display.js`+`js/detect.js`; named: usteed / swallow /
-`map_glyphinfo`; seed0014). **D-1766**
-`do_wear.c` `cancel_doff` I_SPECIAL skip + takeoff.mask slot clear;
-`setworn`/`setnotworn` callers; `doffing` accessory/wep `takeoff.what`
-(`do_wear.c` `:1643–1659` / `:1600–1640`; `worn.c` `:110`/`:164`; live
-`js/do_wear.js`+`js/do.js`; named: setnotworn `monstunseesu_prop` /
-`update_inventory`). **D-1765**
-`display.h` integer `GLYPH_*_OFF` + `detect.c` `map_monst` monsym/`mtame`
-ternary (`display.h` `:497–546`; `detect.c` `:124–128`; live
-`js/display.js`+`js/detect.js`; named: `ridden_mon_to_glyph` usteed,
-swallow cmap, `map_glyphinfo`). **D-1764**
-`level_tele` heaven `u_left_shop(ushops0,TRUE)` + Cloud 9 / fly-or-plummet
-/`done(DIED)` / escape dlevel 0 + `goto_level` `done(ESCAPED)`
-(`teleport.c` `:1321–1385`; `do.c` `:1517–1519`; live `js/teleport.js`+
-`js/do.js`; named: `lev_by_name`, Nowhere yn, Quest·mines·sanctum clamp,
-invoked gate). **D-1763**
-`beg` helpless/diet then animal `domonnoise` / humanoid
-`map_invisible`+SetVoice+`verbalize("I'm hungry.")` / middle famished
-(`sounds.c` `:518–542`; live `js/sounds.js`; named: `dog_hunger`
-wire, `peacefuls_respond`/MS_ARREST Halt). **D-1762**
-`maybe_gasp` Exclam `ROLL_FROM`/`NULL` after guardian/priest/angel
-rewrite + msound switch (`sounds.c` `:545–610`; live `js/sounds.js`;
-named: `peacefuls_respond`/MS_ARREST Halt). **D-1761**
-`sound_speak` !SND_SPEECH no-op + Death `sound_speak(tmpbuf)` after
-SetVoice/`pline1(ucase)`; `SoundSpeak` empty without SND_LIB
-(`putmesg`; live `js/sounds.js`+`sndprocs.js`+`display.js`; named:
-SND_SPEECH body). **D-1760**
-`explode` 3x3 `map_invisible` when `cansee && !canspotmon`; `You_hear`
-vs Boom! / generic `"explosion"`; `engulfer_explosion_msg` (`explode.c`
-`:378–452` / `:117–179`; live `js/explode.js`; named: hallu
-`rndmonnam`, You_hear Underwater/Unaware, TRAP_EXPLODE killer).
-**D-1759**
-`trapname` Hallu `trap.c:7098` display rng + 62 names; C `trap_to_glyph`
-has no Hallu (no `random_trap_to_glyph`); `see_traps` `glyph_is_trap`
-(live `js/trap.js`+`display.js`; named: pager `trap_description`).
-**D-1758**
-`hero_Deaf` `youprop.h:125` `EDeaf`/`uroleplay.deaf` so doseduce/mayberem
-skip Cha `rn2`/`y_n` (hitmsg/You_hear/sedu/ston same local; named:
-`noit_mhim` Hallu). **D-1757**
-`setworn` worn[] `oc_oprop` + `w_blocks` blocked + SWAPWEP/QUIVER skip
-+ W_WEP weapon-class gate + `monstunseesu_prop`; `setuwep` calls
-`setworn` (`worn.c` `:72–145`; `wield.c` `:99–135`; live `js/do_wear.js`
-+ `js/worn.js` `w_blocks`; named: `cancel_doff`). **D-1756**
-`delobj`/`delobj_core` extract then `obfree` (`invent.c`
-`:1429–1462`; `mkobj.c` `extract_nobj` `:2595–2614` /
-`container_weight` `:2731–2738`; `zap.c` revive floor
-`delobj_core(,TRUE)`; live `obj_resists`; zap `delete_contents` is
-D-1770; named: invent Array vs nobj, youmonst
-`maybe_unhide_at`, `shrinking_glob_gone`). **D-1755**
-`toggle_blindness` `Sting_effects(-1)` (`potion.c` `:334–364`
-Stinging see_monsters then `-1`; `make_blinded` `:260–331` Hallu
-talk + Eyes vismsg/itch; Blindf_on/off; clones retired;
-Punished `set_bc` is D-1769; Unaware talk=FALSE is D-1768).
+**Keep:** D-0845…D-1771 (index). Recent: **D-1771**
+`invent.c` `useupf` + eat.c `carried()?useup:useupf`
+(`invent.c` `:4762–4783` / `:1320–1333`; eat.c `done_eating`
+`:567–570`; live `js/invent.js` export; eat.js hybrid retired;
+named: shop bill, zap.js useupf clone, detect/potion/read/spell
+useup clones). **D-1770** zap `delete_contents` import.
+**D-1769** Punished `set_bc`. **D-1768** Unaware talk=FALSE.
+**D-1767** `show_glyph` gbuf stamp (seed0014 still FAIL).
+D-1766…D-1755 (index).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1770 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1771 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1770 (index). No generic `dknown` on
+Do not re-port D-1660…D-1771 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

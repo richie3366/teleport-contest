@@ -8,7 +8,8 @@
 //         (metabolic uhunger-- + accessorytime Regen/encumb/Hunger/Conflict);
 //         doeat_nonfood / eatspecial / foodword;
 //         start_tin / opentin / consume_tin / tin_variety / use_up_tin;
-//         invent.c getobj; attrib.c poison_strdmg / gainstr;
+//         invent.c getobj / useup / useupf (D-1771 carried hybrid);
+//         attrib.c poison_strdmg / gainstr;
 //         potion.c make_vomiting / make_glib;
 //         costly_tin → shk costly_alteration; use_tin_opener (D-0940).
 // Named omissions: floorfood cockatrice-feel; hallu AD_STUN covered
@@ -43,7 +44,7 @@ import {
     objectNames, objects, objectDescrs,
 } from './objects.js';
 import {
-    weight, splitobj, objects_at, delobj, stackobj,
+    weight, splitobj, objects_at, stackobj,
     g_at, is_metallic, is_organic, is_flammable, is_rustprone,
     mksobj, obj_extract_self,
 } from './mkobj.js';
@@ -69,7 +70,7 @@ import { monflee } from './monmove.js';
 import { dist2, rescham } from './mon.js';
 import { set_occupation, can_reach_floor } from './engrave.js';
 import {
-    OBJ_FLOOR, OBJ_FREE, OBJ_INVENT,
+    OBJ_FREE, OBJ_INVENT,
     SLT_ENCUMBER, EXT_ENCUMBER, FROMFORM, W_ARTI, W_WEP, W_RINGL, W_RINGR,
     W_ARMOR, W_TOOL, W_AMUL, W_SADDLE, W_BALL, W_CHAIN,
     HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION, PROTECTION,
@@ -99,7 +100,7 @@ import {
 } from './attrib.js';
 import { nomul, losehp, still_chewing, is_pool, is_lava, stop_occupation } from './hack.js';
 import { near_capacity, observe_object, makeknown, getobj,
-    encumber_msg, update_inventory, useupall } from './invent.js';
+    encumber_msg, update_inventory, useupall, useup, useupf } from './invent.js';
 import {
     make_confused, make_vomiting, make_glib, make_stoned, make_slimed,
     make_stunned, make_hallucinated, make_sick,
@@ -1034,42 +1035,6 @@ async function floorfood_eat() {
 }
 
 /**
- * C ref: invent.c useup / useupf — consume one; invent or floor.
- * Floor path matches useupf(obj,1): maybe splitobj then delobj →
- * obj_resists(0,0) always rolls rn2(100). Invent useup never rolls.
- *
- * Detect floor via where===OBJ_FLOOR or presence on the floor pile —
- * invent-split children may copy where or be OBJ_FREE without addinv
- * (touchfood freeinv/addinv_nomerge still deferred).
- */
-export function useup(otmp) {
-    if (!otmp) return;
-    const inInvent = otmp.where === OBJ_INVENT
-        || (game.invent || []).includes(otmp);
-    let onFloor = otmp.where === OBJ_FLOOR;
-    if (!onFloor && !inInvent && otmp.ox != null && otmp.oy != null) {
-        for (let o = objects_at(otmp.ox, otmp.oy); o; o = o.nexthere) {
-            if (o === otmp) { onFloor = true; break; }
-        }
-    }
-    if (!onFloor) {
-        if ((otmp.quan || 1) > 1) {
-            otmp.quan--;
-            otmp.owt = weight(otmp);
-            return;
-        }
-        useupall(otmp);
-        return;
-    }
-    // Floor: invent.c useupf(otmp, 1L)
-    let victim = otmp;
-    if ((otmp.quan || 1) > 1) {
-        victim = splitobj(otmp, 1) || otmp;
-    }
-    delobj(victim);
-}
-
-/**
  * C invent.c freeinv subset — splice from game.invent[]; clear nobj link.
  */
 function freeinv_touchfood(obj) {
@@ -1698,7 +1663,8 @@ async function done_eating(message) {
         game.occupation = null;
         return;
     }
-    // C: occupation = 0 early so newuhs knows we're done
+    // C eat.c:548–549 — in_use then occupation=0 so newuhs sees done
+    piece.in_use = true;
     game.occupation = null;
     newuhs(false);
     if (message) {
@@ -1716,7 +1682,8 @@ async function done_eating(message) {
             await you_unwere(true);
         }
     }
-    useup(piece);
+    if (carried(piece)) useup(piece);
+    else useupf(piece, 1);
     if (game.context) game.context.victual = {};
 }
 
@@ -1874,7 +1841,8 @@ async function eatcorpse(otmp) {
                     : vegetarian(ptr) ? 'protoplasm' : 'meat'
             } was tainted!`,
         );
-        useup(otmp);
+        if (carried(otmp)) useup(otmp);
+        else useupf(otmp, 1);
         return 2;
     } else if (acidic(ptr) && !(game.u?.HAcid_resistance || game.u?.EAcid_resistance
         || game.u?.Acid_resistance)) {
@@ -1934,7 +1902,8 @@ async function eatcorpse(otmp) {
         const cm = mons(otmp.corpsenm);
         if (!(cm?.cnutrit)) {
             if (!retcode) await pline('The corpse rots away completely.');
-            useup(otmp);
+            if (carried(otmp)) useup(otmp);
+            else useupf(otmp, 1);
             return 2;
         }
         if (!retcode) consume_oeaten(otmp, 2); /* oeaten >>= 2 */
@@ -1984,9 +1953,13 @@ function cantwield(ptr) {
     return nohands(ptr) || verysmall(ptr);
 }
 
-/** C invent.c carried — object is in invent[]. */
+/**
+ * C obj.h `:332` carried(o) — where==OBJ_INVENT. JS also treats invent[]
+ * membership because addinv often omits where=OBJ_INVENT (named).
+ */
 export function carried(obj) {
     if (!obj) return false;
+    if ((obj.where | 0) === OBJ_INVENT) return true;
     return (game.invent || []).includes(obj);
 }
 
@@ -2114,22 +2087,9 @@ async function costly_tin(alter_type) {
 /** C ref: eat.c use_up_tin — invent useup or floor useupf; clear tin ctx. */
 function use_up_tin(tin) {
     if (carried(tin)) useup(tin);
-    else useup(tin); // floor path via useup's OBJ_FLOOR arm
+    else useupf(tin, 1);
     if (!game.context) game.context = {};
     game.context.tin = { tin: null, o_id: 0, reqtime: 0, usedtime: 0 };
-}
-
-/**
- * C ref: invent.c useupf — consume numused from floor pile (shop bill deferred).
- */
-export function useupf(otmp, numused) {
-    if (!otmp) return;
-    let victim = otmp;
-    const n = numused | 0;
-    if ((otmp.quan || 1) > n) {
-        victim = splitobj(otmp, n) || otmp;
-    }
-    delobj(victim);
 }
 
 /**

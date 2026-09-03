@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `zap.c` delete_contents clone (named). Not delobj extract. **Addressed:** D-1770
+- [x] `eat.c` useup+useupf hybrid (named). Not delete_contents. **Addressed:** D-1771
+
+
+- [x] `zap.c` delete_contents clone (named). Not delobj extract. **Addressed:** D-1770 `1fbbe0c0`
 
 
 - [x] `ball.c` Punished set_bc (named). Not Unaware talk. **Addressed:** D-1769 `3baada67`

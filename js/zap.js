@@ -232,7 +232,7 @@ import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
     observe_object, display_minventory, display_binventory, display_cinventory,
-    update_inventory, set_cknown_lknown, getobj, useupall,
+    update_inventory, set_cknown_lknown, getobj, useupall, useup,
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn } from './do.js';
@@ -276,7 +276,7 @@ import {
     openfallingtrap, self_invis_message, trapname, animate_statue,
 } from './trap.js';
 import { potionbreathe, make_stunned, speed_up } from './potion.js';
-import { useup, carried, fix_petrification } from './eat.js';
+import { carried, fix_petrification } from './eat.js';
 import { burn_away_slime, get_obj_location } from './timeout.js';
 import { show_transient_light, transient_light_cleanup } from './light.js';
 import { create_gas_cloud } from './region.js';

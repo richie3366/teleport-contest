@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `eat.c` useup+useupf hybrid (named). Not delete_contents.
 - [ ] `mon.c` peacefuls_respond / MS_ARREST Halt (named). Not beg.
 - [ ] `detect.c` gold_detect (named). Not sense_trap.
 - [ ] `detect.c` findone (named). Not gold_detect.
