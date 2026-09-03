@@ -134,6 +134,7 @@ import { unpunish } from './read.js';
 import { create_gas_cloud } from './region.js';
 import { polymon, body_part, mbodypart } from './polyself.js';
 import { done } from './end.js';
+import { make_blinded } from './do.js';
 import { mon_adjust_speed } from './muse.js';
 import { m_dowear } from './worn.js';
 import { m_unleash } from './apply.js';
@@ -3834,24 +3835,6 @@ function incr_itimeout_prop(key, incr) {
     const cur = u[key] | 0;
     set_itimeout_prop(key, (cur & TIMEOUT) + (incr | 0));
 }
-/**
- * C ref: potion.c make_blinded — talk=FALSE envelope for domagictrap.
- * Named omission: Eyes override probe detail; toggle_blindness vision recalc;
- * Punished set_bc; talk messages (always FALSE here).
- */
-function make_blinded(xtime, _talk) {
-    const u = game.u || (game.u = {});
-    const old = (u.HBlinded | 0) & TIMEOUT;
-    const u_could_see = !Blind();
-    set_itimeout_prop('HBlinded', xtime ? 1 : 0);
-    const can_see_now = !Blind();
-    set_itimeout_prop('HBlinded', old);
-    set_itimeout_prop('HBlinded', xtime);
-    if (u_could_see !== can_see_now) {
-        u.Blind = !can_see_now;
-        if (game.flags) game.flags.botl = true;
-    }
-}
 /** C mondata.c resists_blnd — hero Blind/Unaware gate; arti/expl deferred. */
 function resists_blnd(mon) {
     if (is_youmonst(mon)) return Blind() || Unaware();
@@ -3944,7 +3927,7 @@ async function domagictrap() {
         let cnt = rnd(4);
         if (!resists_blnd(game.youmonst || { _youmonst: true })) {
             await pline('You are momentarily blinded by a flash of light!');
-            make_blinded(rn1(5, 10), false);
+            await make_blinded(rn1(5, 10), false);
             if (!Blind()) await pline(`Your ${VISION_CLEARS}`);
         } else if (!Blind()) {
             await pline('You see a flash of light!');

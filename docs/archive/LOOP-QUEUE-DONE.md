@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `end.c` companion pet HP score (named). Not get_valuables. **Addressed:** D-1754
+- [x] `potion.c` make_blinded Sting_effects(-1) (named). Not see_monsters MON_STILL_ARRIVING. **Addressed:** D-1755
+
+
+- [x] `end.c` companion pet HP score (named). Not get_valuables. **Addressed:** D-1754 `7d76ad12`
 
 
 - [x] `detect.c` sense_trap (named). Not monster_detect. **Addressed:** D-1753 `088de957`

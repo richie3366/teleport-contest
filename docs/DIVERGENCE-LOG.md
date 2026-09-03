@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1755 — potion.c toggle_blindness Sting_effects(-1)
+
+- **Status:** fixed (map-driven Open from D-1746/D-1747; not a public FAIL)
+- **Symptom:** map named `make_blinded` `Sting_effects(-1)`. C
+  `toggle_blindness` (called when `make_blinded` XOR-toggles Blind,
+  and from `Blindf_on`/`Blindf_off`) recounts `see_monsters` for
+  telepat/infra/Sting then `Sting_effects(-1)` so later stop-glow
+  matches. JS inlined botl+`vision_recalc` only; `-1` arm in
+  `Sting_effects` was never called. Four local `make_blinded` clones
+  skipped the same path.
+- **C locus:** `potion.c` `toggle_blindness` `:334–364`;
+  `make_blinded` `:260–331`; `artifact.c` `Sting_effects` `:2465–2502`
+  (`orc_count == -1`). Callers `Blindf_on` `:1490` / `Blindf_off`
+  `:1532`.
+- **JS was:** `do.js` `make_blinded` subset; clones in apply/mhitu/
+  spell/trap; Blindf_* botl+recalc only.
+- **Fix:** export `toggle_blindness`; `Sting_effects(-1)` when
+  `uwep && (EWarn_of_mon & W_WEP)`; `see_monsters` when
+  Blind_telepat/Infravision/Stinging; Hallu talk + Eyes vismsg/itch/
+  `strange_feeling` notoggle arms. Retire clones; Blindf_* await
+  toggle. Unaware talk=FALSE / Punished `set_bc` named.
+- **JS:** `js/do.js` `toggle_blindness` / `make_blinded`;
+  `js/do_wear.js`; export `strange_feeling`; apply/mhitu/spell/trap
+  import.
+- **Not this iter:** Unaware (`unconscious`/`is_fainted`); Punished
+  `set_bc`; `see_monsters` MON_STILL_ARRIVING is D-1746.
+- **Verified:** save-oracle probe skip (untagged `potion.c:make_blinded`);
+  node 13/13 (sighted glimmering / blind quivering / not-Stinging;
+  go-blind; Hallu cosmic; Eyes dim; Blindfolded itch; no-eyes
+  strange_feeling); green+strict seed8000/0900; CURRENT cohort **7**/7
+  + strict. Rule #2 clean.
+- **Files:** `js/do.js`, `js/do_wear.js`, `js/detect.js`, `js/artifact.js`,
+  `js/apply.js`, `js/mhitu.js`, `js/spell.js`, `js/trap.js`.
+
 ## D-1754 — end.c really_done companion pet HP / Schroedinger d()
 
 - **Status:** fixed (map-driven Open from D-1741; not a public FAIL)

@@ -58,6 +58,7 @@ import {
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
 } from './monsters.js';
 import { done_in_by, done, finish_losehp_done } from './end.js';
+import { make_blinded } from './do.js';
 import { msummon, Inhell } from './minion.js';
 import { monsterNames } from './generated/monsters_data.js';
 import {
@@ -607,25 +608,6 @@ function Flying() {
 }
 
 /**
- * C ref: potion.c make_blinded — TIMEOUT set + Blind mirror + vision_recalc.
- * Eyes override / Punished set_bc / talk messages deferred (talk unused).
- */
-function make_blinded(xtime, _talk) {
-    const u = game.u || (game.u = {});
-    const wasBlind = Blind();
-    u.HBlinded = ((u.HBlinded | 0) & ~TIMEOUT)
-        | (xtime ? ((xtime | 0) & TIMEOUT) : 0);
-    const nowBlind = Blind();
-    u.Blind = nowBlind;
-    u.ublind = false;
-    if (wasBlind !== nowBlind) {
-        if (game.flags) game.flags.botl = true;
-        game.vision_full_recalc = 1;
-        vision_recalc(0);
-    }
-}
-
-/**
  * C ref: mondata.c can_blnd — mhitu AD_BLND subset (AT_CLAW raven).
  * Named omissions: cream-pie/venom obj arms; Blindfolded ublindf; visor;
  * raven-vs-raven; resists_blnd light aatyps; mon_perma_blind.
@@ -658,7 +640,7 @@ async function mhitm_ad_blnd_u(mtmp, mattk, mhm) {
         if (!Blind()) {
             await pline(`${Monnam(mtmp)} blinds you!`);
         }
-        make_blinded(BlindedTimeout() + (mhm.damage | 0), false);
+        await make_blinded(BlindedTimeout() + (mhm.damage | 0), false);
         if (!Blind()) {
             // Eyes of the Overworld — vision_clears deferred
         }
@@ -2621,7 +2603,7 @@ export async function gazemu(mtmp, mattk) {
                 await pline(
                     `You are blinded by ${s_suffix_hitmsg(mon_nam(mtmp))} radiance!`,
                 );
-                make_blinded(blnd, false);
+                await make_blinded(blnd, false);
                 await stop_occupation();
                 if (!Blind()) {
                     await pline('Your vision clears.');
@@ -2734,7 +2716,7 @@ export async function explmu(mtmp, mattk, ufound) {
             if (mon_visible(mtmp)
                 || (rnd(tmp = Math.trunc(tmp / 2)) > (u.ulevel | 0))) {
                 await pline('You are blinded by a blast of light!');
-                make_blinded(tmp, false);
+                await make_blinded(tmp, false);
                 if (!Blind()) await pline('Your vision clears.');
             } else if (game.flags?.verbose !== false) {
                 await pline(

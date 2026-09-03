@@ -27,6 +27,7 @@ import {
     is_worn_by_type,
 } from './pickup.js';
 import { obj_resists } from './dogmove.js';
+import { toggle_blindness } from './do.js';
 import {
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_ARMOR,
     W_RING, W_RINGL, W_RINGR, W_AMUL, W_TOOL, W_WEAPONS, W_WEP, W_SWAPWEP,
@@ -59,7 +60,7 @@ import {
 } from './mkobj.js';
 import { erode_obj, selftouch } from './trap.js';
 import { rn2, rnd } from './rng.js';
-import { vision_recalc, set_mimic_blocking } from './vision.js';
+import { set_mimic_blocking } from './vision.js';
 import { restartcham, rescham } from './mon.js';
 
 const FEDORA = objectNames.indexOf('FEDORA');
@@ -1012,8 +1013,8 @@ function Blind() {
 
 /**
  * C ref: do_wear.c Blindf_on — setworn + on_msg + see-any-more / toggle.
- * Named omissions: Punished set_bc; Eyes of Overworld birth-blind clear;
- * full toggle_blindness see_monsters / Sting / learn_unseen_invent.
+ * Named omissions: Punished set_bc; Eyes of Overworld birth-blind clear
+ * is live; gulp_blnd_check is Blindf_off.
  */
 export async function Blindf_on(otmp) {
     const already_blind = Blind();
@@ -1037,16 +1038,13 @@ export async function Blindf_on(otmp) {
         }
     }
     if (changed) {
-        if (game.flags) game.flags.botl = true;
-        // C toggle_blindness → vision_recalc(0) immediately
-        vision_recalc(0);
+        await toggle_blindness();
     }
 }
 
 /**
  * C ref: do_wear.c Blindf_off — clear eyewear + see-again / still-blind.
- * Named omissions: gulp_blnd_check; Punished set_bc; full toggle_blindness
- * see_monsters / Sting / learn_unseen_invent.
+ * Named omissions: gulp_blnd_check; Punished set_bc.
  */
 export async function Blindf_off(otmp) {
     const u = game.u || (game.u = {});
@@ -1072,8 +1070,7 @@ export async function Blindf_off(otmp) {
         await pline('You can see again.');
     }
     if (changed) {
-        if (game.flags) game.flags.botl = true;
-        vision_recalc(0);
+        await toggle_blindness();
     }
 }
 
@@ -1977,7 +1974,7 @@ function hero_glib() {
 /**
  * C ref: do_wear.c accessory_or_armor_on — armor delay + accessory put-on.
  * Exotic amulet side effects deferred. Blindf_on / Blindf_off ported
- * (Punished set_bc / full toggle_blindness see_monsters still deferred).
+ * (Punished set_bc still named).
  * @returns {number} 0 = no turn / fail, 1 = took time
  */
 async function accessory_or_armor_on(obj) {

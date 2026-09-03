@@ -9,7 +9,7 @@ import {
     verbalize, mon_visible, tp_sensemon, see_with_infrared, tmp_at,
     set_msg_xy,
 } from './display.js';
-import { vision_recalc, cansee, couldsee, howmonseen } from './vision.js';
+import { cansee, couldsee, howmonseen } from './vision.js';
 import {
     TOOL_CLASS, WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, POTION_CLASS,
     COIN_CLASS, GEM_CLASS, FOOD_CLASS, RING_CLASS, RANDOM_CLASS,
@@ -119,8 +119,7 @@ import {
 } from './potion.js';
 import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
 import {
-    dropx, setnotworn, fire_damage, make_blinded as potion_make_blinded,
-    revive_corpse,
+    dropx, setnotworn, fire_damage, make_blinded, revive_corpse,
 } from './do.js';
 import { polymon, mbodypart, body_part } from './polyself.js';
 import { unpunish } from './read.js';
@@ -962,40 +961,6 @@ function BlindedTimeout() {
 }
 
 /**
- * C ref: potion.c make_blinded + toggle_blindness subset.
- * Sets HBlinded TIMEOUT; on sight toggle → botl + vision_recalc(0).
- * Eyes override / Punished set_bc / Blind_telepat see_monsters / talk deferred.
- */
-function make_blinded(xtime, _talk) {
-    const u = game.u || (game.u = {});
-    const old = BlindedTimeout();
-    // C probes Blind via props before committing xtime
-    const u_could_see = !Blind();
-    u.HBlinded = ((u.HBlinded | 0) & ~TIMEOUT) | (xtime ? 1 : 0);
-    const can_see_now = !Blind();
-    u.HBlinded = ((u.HBlinded | 0) & ~TIMEOUT) | (old & TIMEOUT);
-
-    const next = ((u.HBlinded | 0) & ~TIMEOUT)
-        | (xtime ? (xtime & TIMEOUT) : 0);
-    u.HBlinded = next;
-    // C: HBlinded ≡ uprops[BLINDED].intrinsic — keep in sync (D-0928 #1171)
-    if (!u.uprops) u.uprops = {};
-    if (!u.uprops[BLINDED]) {
-        u.uprops[BLINDED] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
-    }
-    u.uprops[BLINDED].intrinsic =
-        ((u.uprops[BLINDED].intrinsic | 0) & ~TIMEOUT) | (next & TIMEOUT);
-    u.Blind = Blind();
-    if (u_could_see !== can_see_now) {
-        // C: toggle_blindness — botl + vision_full_recalc + vision_recalc(0)
-        if (game.flags) game.flags.botl = true;
-        game.vision_full_recalc = 1;
-        vision_recalc(0);
-        // Blind_telepat / Infravision / Sting see_monsters deferred
-    }
-}
-
-/**
  * C ref: mondata.c can_blnd(NULL, &youmonst, AT_WEAP, cream_pie) subset.
  * Named omissions: visored helmet; mon_perma_blind; raven-vs-raven.
  */
@@ -1057,7 +1022,7 @@ async function use_cream_pie(obj) {
     if (can_blnd_cream_self(pie)) {
         const blindinc = rnd(25);
         u.ucreamed = (u.ucreamed | 0) + blindinc;
-        make_blinded(BlindedTimeout() + blindinc, false);
+        await make_blinded(BlindedTimeout() + blindinc, false);
         if (!Blind() || (Blind() && wasblind)) {
             await pline(
                 `There's ${wascreamed ? 'more ' : ''}sticky goop all over your ${
@@ -1974,7 +1939,7 @@ async function use_towel(obj) {
                         old ? 'has more' : 'now has'
                     } gunk on it!`,
                 );
-                make_blinded(BlindedTimeout() + ((u.ucreamed | 0) - old), true);
+                await make_blinded(BlindedTimeout() + ((u.ucreamed | 0) - old), true);
             } else {
                 const bf = u.ublindf;
                 let what;
@@ -2023,13 +1988,13 @@ async function use_towel(obj) {
     if (u.ucreamed | 0) {
         const cream = u.ucreamed | 0;
         // C: incr_itimeout(&HBlinded, -ucreamed)
-        make_blinded(BlindedTimeout() - cream, false);
+        await make_blinded(BlindedTimeout() - cream, false);
         u.ucreamed = 0;
         if (!Blind()) {
             await pline("You've got the glop off.");
             // gulp_blnd_check deferred → always false
-            make_blinded(1, false);
-            make_blinded(0, true);
+            await make_blinded(1, false);
+            await make_blinded(0, true);
         } else {
             await pline(`Your ${body_part(FACE)} feels clean now.`);
         }
@@ -4718,7 +4683,7 @@ export async function use_unicorn_horn(obj) {
             );
             break;
         case 1:
-            await potion_make_blinded(BlindedTimeout() + lcount, true);
+            await make_blinded(BlindedTimeout() + lcount, true);
             break;
         case 2:
             if (!(u.HConfusion | 0)) {
@@ -4782,7 +4747,7 @@ export async function use_unicorn_horn(obj) {
             did_prop++;
             break;
         case BLINDED:
-            await potion_make_blinded(u.ucreamed | 0, true);
+            await make_blinded(u.ucreamed | 0, true);
             did_prop++;
             break;
         case HALLUC:

@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` make_blinded Sting_effects(-1) (named). Not see_monsters MON_STILL_ARRIVING.
 - [ ] `mkobj.c` delobj extract (named). Not dealloc_obj.
 - [ ] `worn.c` setworn oc_oprop (named). Not possibly_unwield.
 - [ ] `display.h` random_trap_to_glyph (named). Not cmap_to_glyph trap.

@@ -200,7 +200,7 @@ function useup(otmp) {
  * text, else txt; trycall if dknown; useup. Crystal-ball callers
  * pass a null detector and skip this.
  */
-async function strange_feeling(obj, txt) {
+export async function strange_feeling(obj, txt) {
     const beginner = !!(game.flags?.beginner);
     const Hallucination = !!(game.u?.Hallucination || game.u?.HHallucination);
     if (beginner || !txt) {

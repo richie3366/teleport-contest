@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1755 potion.c toggle_blindness Sting_effects(-1)
+
+**Objective:** Open `potion.c` make_blinded Sting_effects(-1) (named).
+Not see_monsters MON_STILL_ARRIVING.
+**C locus:** `potion.c` `toggle_blindness` `:334–364`; `make_blinded`
+`:260–331`; `artifact.c` `Sting_effects` `-1`.
+**JS locus:** `js/do.js` `toggle_blindness`/`make_blinded`;
+`js/do_wear.js` Blindf_on/off; clones retired.
+**Change:** Stinging `see_monsters` then `Sting_effects(-1)`; Hallu
+talk; Eyes vismsg/itch/`strange_feeling`. Unaware/`set_bc` named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `potion.c:make_blinded`; node 13/13;
+green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+Rule #2 clean.
+**Next:** Open `mkobj.c` delobj extract.
+**Blocked:** none.
 ## 2026-09-03 — D-1754 end.c companion pet HP / Schroedinger d()
 
 **Objective:** Open `end.c` companion pet HP score (named). Not

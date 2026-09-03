@@ -370,7 +370,11 @@ same-level "It tasted bad"; else You rise through ceiling + `goto_level` else un
 ceiling vault/temple/shop named); **`peffect_blindness` POT_BLINDNESS** (D-1432; 
 already Blind or (H||E)&&BBlinded `potion_nothing++`; 
 `make_blinded(itimeout_incr(BlindedTimeout, rn1(200, 250-125*bcsign)), !Blind)`; 
-callee `do.js` `make_blinded`; potionhit/potionbreathe named); 
+callee `do.js` `make_blinded`; **`toggle_blindness` `Sting_effects(-1)` D-1755**
+(C `potion.c` `:334–364` Blind_telepat/Infravision/Stinging `see_monsters`
+then `-1`; Hallu talk; Eyes vismsg/itch/`strange_feeling`; clones
+retired; Blindf_on/off await toggle; Unaware talk=FALSE / Punished
+`set_bc` named); potionhit/potionbreathe named); 
 **`peffect_sleeping` POT_SLEEPING** (D-1437; 
 Sleep_resistance||Free_action `monstseesu(M_SEEN_SLEEP)` + 
 yawn else `fall_asleep(-rn1(10, 25-12*bcsign), TRUE)` + `monstunseesu`; 
@@ -797,8 +801,8 @@ full HProtection wiring deferred); **`setworn`/`takeoff` `oc_oprop` → `uprops[
 Ring_off`+`float_down`** (D-0966; **`toggle_stealth`** D-0970; 
 **`dosinkfall`/`stop_donning`** D-0976) + **BLINDED→`EBlinded` mirror** (D-0579); 
 **`equip_ok` SUGGEST-only puton/wear/takeoff prompts + `cursed` boots/gloves/lenses plural + 
-`Blindf_on`/`Blindf_off`** (D-0579; `inaccessible_equipment` / R remove_ok / Punished set_bc / full 
-toggle_blindness see_monsters deferred) + **empty wear/puton getobj prompt `[*]` not `[*?]`** 
+`Blindf_on`/`Blindf_off`** (D-0579; `inaccessible_equipment` / R remove_ok / Punished set_bc named;
+`toggle_blindness` `Sting_effects(-1)` D-1755) + **empty wear/puton getobj prompt `[*]` not `[*?]`** 
 (D-0584; C `invent.c` `!buf[0]` → `" [*]"`) + 
 **`set_wear` from `moveloop_preamble` → `Helmet_on` fedora Archeologist `change_luck(1)`** (D-0596; 
 `Ring_on` body / initial `pickup(1)` deferred; **`poly_obj` `set_wear(obj)`** D-1510); 
@@ -1577,8 +1581,8 @@ no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667;
 **`detect_wsegs` D-1545**; 
 DRAWBRIDGE_UP under-typ / C FIXME hero-inside-cloud still named); 
 **SPFX_WARN conferral + MATCH_WARN see_it D-1514**; 
-**`see_monsters` MON_STILL_ARRIVING skip D-1746**; **feel_location `is_worm_tail` D-1749**; make_blinded 
-Sting(-1) deferred); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
+**`see_monsters` MON_STILL_ARRIVING skip D-1746**; **feel_location `is_worm_tail` D-1749**; **make_blinded
+`Sting_effects(-1)` D-1755**); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
 **docrt memory=`show_memory_glyph` + gulpmu `swallowed(1)`** (D-0838; underwater/buried deferred); 
 **DECgfx swallow `S_sw_tc/ml/mr/bc` meta-o/x/x/s** (D-0842; Primary corners `/\\`); 
 **swallow DEC `o`/`s` keep SO-form for scoring + `HI_METAL`≡CLR_CYAN in `mcolors`** (D-0843; 
@@ -1623,7 +1627,7 @@ D-1748; `show_mon_or_warn` I-glyph is D-1747);
 the bit; live `js/display.js` + `js/const.js` + `js/dog.js`
 With_you/After_you; pet/detected glyphs are D-1748;
 `show_mon_or_warn` is D-1747; feel_location `is_worm_tail` is D-1749;
-make_blinded Sting(-1) still named);
+make_blinded `Sting_effects(-1)` is D-1755);
 **`show_mon_or_warn` I-glyph `unmap_object`** (D-1747; C `:481–496`;
 callers `display_monster` `:619` / `display_warning` `:650`;
 `vobj_at` then `map_object(o, FALSE)` when `cansee`; live
