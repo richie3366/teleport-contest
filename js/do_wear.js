@@ -490,7 +490,7 @@ function apply_w_blocks(obj, mask, slotMask, on) {
  * Does **not** call find_ac (C worn.c); allmain once-per-input and a few
  * explicit callers (Ring_on protection, Amulet_on guarding) update uac.
  * opts.skip_find_ac retained as a no-op for D-0722 polyself callers.
- * Named omit: cancel_doff.
+ * cancel_doff is D-1766 (I_SPECIAL skip in do_takeoff).
  * @param {object|null} obj
  * @param {number} mask
  */
@@ -520,7 +520,8 @@ export function setworn(obj, mask, opts = null) {
                     apply_w_blocks(oobj, mask, wmask, false);
                     if (oobj.oartifact) set_artifact_intrinsic(oobj, false, mask);
                 }
-                // cancel_doff named omit
+                // wearing or removal in progress / 'A' pending
+                cancel_doff(oobj, wmask);
             }
             u[slot] = obj || null;
             if (obj) {
@@ -1381,8 +1382,8 @@ export function reset_remarm() {
 
 /**
  * C do_wear.c do_takeoff `:2823–2896`. Occupation tick actually removes
- * `takeoff.what`. I_SPECIAL covers cancel_doff (named; setworn does not
- * call it yet).
+ * `takeoff.what`. I_SPECIAL so setworn→cancel_doff does not cancel_don
+ * mid-'A' (D-1766).
  * @returns {Promise<object|null>}
  */
 async function do_takeoff() {
@@ -2461,6 +2462,21 @@ export async function Ring_gone(obj) {
 }
 
 /**
+ * C do_wear.c cancel_doff `:1643–1659`. setworn old slot item /
+ * setnotworn. Skip cancel_don when I_SPECIAL (do_takeoff 'A'
+ * continuation). Always clear slotmask from takeoff.mask.
+ * @param {object} obj
+ * @param {number} slotmask
+ */
+export function cancel_doff(obj, slotmask) {
+    const doff = takeoff_info();
+    if (!((doff.mask | 0) & I_SPECIAL) && donning(obj)) {
+        cancel_don(); /* applies to doffing too */
+    }
+    doff.mask = (doff.mask | 0) & ~slotmask;
+}
+
+/**
  * C ref: do_wear.c cancel_don — clear afternmv / multi / takeoff delay.
  * Applies to donning and doffing (C comment).
  */
@@ -2483,21 +2499,28 @@ function cancel_don() {
 }
 
 /**
- * C ref: do_wear.c doffing — armor currently being taken off via afternmv
- * or takeoff.what. Accessory takeoff.what arms deferred.
+ * C ref: do_wear.c doffing `:1600–1640` — armor via afternmv or
+ * takeoff.what; 1-turn accessories/weapons via takeoff.what only.
  */
 function doffing(otmp) {
     if (!otmp) return false;
     const u = game.u || {};
     const what = game.context?.takeoff?.what | 0;
     const af = game.afternmv;
-    if (otmp === u.uarm) return af === Armor_off || what === W_ARM;
-    if (otmp === u.uarmu) return af === Shirt_off || what === W_ARMU;
-    if (otmp === u.uarmc) return af === Cloak_off || what === W_ARMC;
-    if (otmp === u.uarmf) return af === Boots_off || what === W_ARMF;
-    if (otmp === u.uarmh) return af === Helmet_off || what === W_ARMH;
-    if (otmp === u.uarmg) return af === Gloves_off || what === W_ARMG;
-    if (otmp === u.uarms) return af === Shield_off || what === W_ARMS;
+    if (otmp === u.uarm) return af === Armor_off || what === WORN_ARMOR;
+    if (otmp === u.uarmu) return af === Shirt_off || what === WORN_SHIRT;
+    if (otmp === u.uarmc) return af === Cloak_off || what === WORN_CLOAK;
+    if (otmp === u.uarmf) return af === Boots_off || what === WORN_BOOTS;
+    if (otmp === u.uarmh) return af === Helmet_off || what === WORN_HELMET;
+    if (otmp === u.uarmg) return af === Gloves_off || what === WORN_GLOVES;
+    if (otmp === u.uarms) return af === Shield_off || what === WORN_SHIELD;
+    if (otmp === u.uamul) return what === WORN_AMUL;
+    if (otmp === u.uleft) return what === LEFT_RING;
+    if (otmp === u.uright) return what === RIGHT_RING;
+    if (otmp === u.ublindf) return what === WORN_BLINDF;
+    if (otmp === u.uwep) return what === W_WEP;
+    if (otmp === u.uswapwep) return what === W_SWAPWEP;
+    if (otmp === u.uquiver) return what === W_QUIVER;
     return false;
 }
 

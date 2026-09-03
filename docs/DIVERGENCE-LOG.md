@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1766 — do_wear.c cancel_doff / doffing accessory takeoff.what
+
+- **Status:** fixed (map-driven Open from D-1765; not a public FAIL)
+- **Symptom:** JS had no `cancel_doff`. `setworn`/`setnotworn` never
+  aborted in-progress don/doff via `cancel_don` or cleared
+  `takeoff.mask` slot bits. `doffing` skipped accessory/weapon
+  `takeoff.what` arms, so `donning()` was false for 'A' rings/amulets.
+- **C locus:** `do_wear.c` `cancel_doff` `:1643–1659`, `doffing`
+  `:1600–1640`, `do_takeoff` I_SPECIAL `:2830`/`:2893`. Callers
+  `worn.c` `setworn` `:110`, `setnotworn` `:164`.
+- **JS was:** named omit at `setworn` oobj; `setnotworn` skipped the
+  helper; `doffing` armor-only; `do_takeoff` already set I_SPECIAL.
+- **Fix:** Port `cancel_doff` (skip `cancel_don` when I_SPECIAL, always
+  `takeoff.mask &= ~slotmask`); call from `setworn` after old-item
+  props and from `setnotworn` before clearing the slot; `doffing`
+  amulet/ring/blindf/wep/swap/quiver `takeoff.what` like C.
+- **JS:** `js/do_wear.js` `cancel_doff`/`doffing`/`setworn`;
+  `js/do.js` `setnotworn`.
+- **Not this iter:** setnotworn `monstunseesu_prop` / `update_inventory`;
+  Cloak_off mummy/invis/alchemy; Boots_off SPEED/water/levitation;
+  `inaccessible_equipment`.
+- **Verified:** save-oracle probe skip (untagged `do_wear.c:cancel_doff`);
+  node canary (I_SPECIAL skip, donning `cancel_don`, idle mask-only,
+  amulet arm, setworn/setnotworn callers); green+strict seed8000/0900;
+  CURRENT cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/do_wear.js`, `js/do.js`.
+
 ## D-1765 — display.h integer GLYPH_*_OFF / detect.c map_monst
 
 - **Status:** fixed (map-driven Open from D-1764; not a public FAIL)

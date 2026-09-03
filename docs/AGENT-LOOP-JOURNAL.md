@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1766 do_wear.c cancel_doff
+
+**Objective:** Open `do_wear.c` cancel_doff (named). Not setworn oc_oprop.
+**C locus:** `do_wear.c` `cancel_doff` `:1643–1659`; `doffing` `:1600–1640`;
+callers `worn.c` `setworn` `:110` / `setnotworn` `:164`.
+**JS locus:** `js/do_wear.js` `cancel_doff`/`setworn`/`doffing`;
+`js/do.js` `setnotworn`.
+**Change:** C `cancel_doff` (I_SPECIAL skip `cancel_don`, always clear
+slotmask); `setworn`/`setnotworn` callers; `doffing` accessory/wep
+`takeoff.what`. Did not add setnotworn `monstunseesu_prop` /
+`update_inventory`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `do_wear.c:cancel_doff`; node canary
+(I_SPECIAL / donning / idle / amulet / callers); green+strict
+seed8000/0900; CURRENT cohort **9**/9 + strict. Rule #2 clean.
+**Next:** Open `potion.c` make_blinded Unaware talk=FALSE.
+**Blocked:** none.
 ## 2026-09-03 — D-1765 display.h GLYPH_*_OFF / map_monst
 
 **Objective:** Open `display.h` integer GLYPH_*_OFF / map_monst. Not

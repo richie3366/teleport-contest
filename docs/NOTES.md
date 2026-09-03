@@ -7,10 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress (cadence **#2170** at `2d66f69e`, R² 0.846).
   Save-oracle for tagged restore Open. B0: catchup 26/30 red; shop
-  35/35 no unpaid. **Next:** Open `do_wear.c` `cancel_doff`. Not
-  `setworn` oc_oprop. Falsify: C `cancel_doff` vs JS doff abort.
-  Do not skip D-1531…D-1765. Do not rewrite `confer_oc_oprop`.
-  Do not invent 3.6 `random_trap_to_glyph`.
+  35/35 no unpaid. **Next:** Open `potion.c` `make_blinded` Unaware
+  talk=FALSE. Not Sting(-1). Falsify: C Unaware `talk=FALSE` vs JS
+  talk path. Do not skip D-1531…D-1766. Do not rewrite
+  `confer_oc_oprop`. Do not invent 3.6 `random_trap_to_glyph`.
 - Named still: Palantir `#if 0`; pit/underwater; clone yn; keepdogs
   leash/`mon_has_amulet`; tip-spill; hideunder; Punished float_down;
   water/lava steed; interned `'yn'`; mthrowu/uhitm poison;
@@ -22,7 +22,8 @@ Objective/score live in `CURRENT.md`.
   flash/`foundone`/mimic; `gold_detect`; DUMPLOG; zap
   `delete_contents` clone; invent Array vs nobj; `noit_mhim` Hallu;
   `lev_by_name`; Nowhere yn; Quest·mines·sanctum clamp;
-  `ridden_mon_to_glyph` usteed; swallow cmap; `map_glyphinfo`.
+  `ridden_mon_to_glyph` usteed; swallow cmap; `map_glyphinfo`;
+  setnotworn `monstunseesu_prop`/`update_inventory`.
 
 ## Don't re-check (≤15)
 
@@ -31,7 +32,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1765.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1766.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -42,7 +43,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1765 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1766 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -62,14 +63,19 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1765. D-1765 is integer `GLYPH_*_OFF` / `map_monst` (not
-  `pet_to_glyph` tty D-1748, not `ridden_mon_to_glyph` usteed).
+  D-1682…D-1766. D-1766 is `cancel_doff` (not setnotworn
+  `monstunseesu_prop`). D-1765 is integer `GLYPH_*_OFF` / `map_monst`
+  (not `pet_to_glyph` tty D-1748, not `ridden_mon_to_glyph` usteed).
   D-1764 is heaven `u_left_shop` (not `lev_by_name` / Nowhere yn).
   D-1763 is `beg`. D-1762 is `maybe_gasp`. D-1761 is `sound_speak`.
   No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
 
+- D-1766: `do_wear.c` `cancel_doff` `:1643–1659` I_SPECIAL skip
+  `cancel_don` then `takeoff.mask &= ~slotmask`; `setworn`/`setnotworn`
+  callers; `doffing` accessory/wep `takeoff.what`. Live `do_wear.js`+
+  `do.js`. Named: setnotworn `monstunseesu_prop`/`update_inventory`.
 - D-1765: `display.h` `:497–546` integer `GLYPH_*_OFF`; `detect.c`
   `map_monst` `:124–128` monsym/`mtame` ternary; `loc.disp_glyph`.
   Live `display.js`+`detect.js`. Named: `ridden_mon_to_glyph` usteed;
@@ -92,11 +98,10 @@ Objective/score live in `CURRENT.md`.
   no Hallu; `see_traps` `glyph_is_trap`. Named: pager `trap_description`.
 - D-1758: `hero_Deaf` youprop in doseduce/mayberem. Named: `noit_mhim`.
 - D-1757: `setworn` oc_oprop/`w_blocks`/weapon gate; `setuwep` calls
-  `setworn`. Named: `cancel_doff`.
+  `setworn`. `cancel_doff` is D-1766.
 - D-1756: `delobj`/`delobj_core` extract+`obfree`. Named: zap
   `delete_contents` clone.
 - D-1755: `toggle_blindness` Sting(-1). Named: Unaware/`set_bc`.
 - D-1754: companion pet HP / live-cat `d()`. Named: DUMPLOG.
 - D-1753: `sense_trap` Hallu/cursed GOLD. Named: `gold_detect`.
 - D-1752: `set_voice` / SetVoice empty without SND_LIB.
-- D-1751: `ghitm` `hidden_gold(TRUE)`. Named: unsplitobj.

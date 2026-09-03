@@ -120,6 +120,7 @@ import {
 } from './wield.js';
 import {
     setworn, confer_oc_oprop, recalc_telepat_range, reset_remarm,
+    cancel_doff,
 } from './do_wear.js';
 import { bypass_objlist, nxt_unbypassed_obj, w_blocks } from './worn.js';
 import { reset_pick } from './lock.js';
@@ -432,7 +433,7 @@ async function There(line) {
  * C worn.c setnotworn — pointer-walk worn[]; does not call setworn.
  * Clears oc_oprop extrinsic only for slots that currently point at obj.
  * Leaves owornmask bits when obj is not in the slot (tutorial restore flag).
- * Named omit: cancel_doff; monstunseesu_prop; update_inventory.
+ * Named omit: monstunseesu_prop; update_inventory.
  * Exported for shopdig snatch (D-1016); tutorial stash/restore (D-1015/D-1020).
  */
 export function setnotworn(obj) {
@@ -444,6 +445,7 @@ export function setnotworn(obj) {
     let unworn = 0;
     for (const [slot, mask] of WORN_SLOTS) {
         if (u[slot] !== obj) continue;
+        cancel_doff(obj, mask);
         u[slot] = null;
         unworn |= mask;
         confer_oc_oprop(obj, mask, false);

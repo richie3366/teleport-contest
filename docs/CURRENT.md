@@ -62,21 +62,26 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1765 / audit **#2170**. Save-oracle required for tagged
+**Suite 44/44** fortress after D-1766 / audit **#2170**. Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`). Map still
 picks work; do not shop the fork dashboard. Private B0 (not in
 `sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
 wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
 trap-ledger **38/38**; shop template **35/35** (no unpaid).
-**Next cluster:** Open `do_wear.c` cancel_doff (named). Not setworn oc_oprop.
-**Do not skip D-1531…D-1765 (index).** Keep mention_map addr.
+**Next cluster:** Open `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1).
+**Do not skip D-1531…D-1766 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1765.** Do not FORCE
+**Do not re-break D-0660…D-1766.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1765 (index). Recent: **D-1765**
+**Keep:** D-0845…D-1766 (index). Recent: **D-1766**
+`do_wear.c` `cancel_doff` I_SPECIAL skip + takeoff.mask slot clear;
+`setworn`/`setnotworn` callers; `doffing` accessory/wep `takeoff.what`
+(`do_wear.c` `:1643–1659` / `:1600–1640`; `worn.c` `:110`/`:164`; live
+`js/do_wear.js`+`js/do.js`; named: setnotworn `monstunseesu_prop` /
+`update_inventory`). **D-1765**
 `display.h` integer `GLYPH_*_OFF` + `detect.c` `map_monst` monsym/`mtame`
 ternary (`display.h` `:497–546`; `detect.c` `:124–128`; live
 `js/display.js`+`js/detect.js`; named: `ridden_mon_to_glyph` usteed,
@@ -135,14 +140,14 @@ gold_detect).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1765 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1766 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1765 (index). No generic `dknown` on
+Do not re-port D-1660…D-1766 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

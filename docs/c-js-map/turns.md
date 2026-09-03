@@ -801,7 +801,7 @@ call `setworn`** (D-1757; C `worn.c` `:72–145` / `w_blocks` `:38–44`;
 `mondata.c` `cvt_prop_to_mseenres`; `wield.c` `:99–135`/`:275–289`;
 Eyes `BBlinded`, mummy wrapping `BInvis`, cornuthaum `BClairvoyant`;
 skin `W_ARM|I_SPECIAL`, nudist, tux_penalty, botl, `update_inventory`;
-`cancel_doff` named) +
+`cancel_doff` D-1766) +
 **`setworn`/`takeoff` `oc_oprop` → `uprops[].extrinsic`** 
 (D-0574; `u_can_regen` reads REGENERATION; artifact intrinsics D-1558);
 **`Ring_on`/`learnring`/`adjust_attrib`/`Ring_off`+`float_down`** (D-0966; **`toggle_stealth`** D-0970; 
@@ -819,8 +819,11 @@ omit amulet change/strangle/flying/breathing, ring Glib/cursed-gloves/weld, magi
 fedora, weld/trap gates; **`doddoremarm`/`A` empty-worn You are not wearing anything (D-1185)**; 
 **ggetobj takeoff D-1602** (`doddoremarm` TRADITIONAL `select_off` + `askchain`) + 
 **`take_off` occupation D-1619** (`do_takeoff` + `takeoff_order` + `oc_delay`; 
-cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fly named; 
-`cancel_doff` named) / **`menu_remarm` D-1630** (C `do_wear.c` `:3089–3138` MENU_FULL 
+cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fly named) +
+**`cancel_doff`** (D-1766; C `do_wear.c` `:1643–1659` skip `cancel_don` when
+`I_SPECIAL` then `takeoff.mask &= ~slotmask`; `setworn`/`setnotworn` callers;
+`doffing` `:1600–1640` accessory/wep `takeoff.what`; named: setnotworn
+`monstunseesu_prop`/`update_inventory`) / **`menu_remarm` D-1630** (C `do_wear.c` `:3089–3138` MENU_FULL 
 `query_category(WORN|ALL|UNPAID|BUCX)` then `query_objlist(SIGNAL_NOMENU|USE_INVLET|INVORDER_SORT)` 
 PICK_ANY `is_worn`/`is_worn_by_type`; COMBINATION `ggetobj` combo; TRADITIONAL `'m'` retry -2/-3; 
 callees `js/pickup.js`; `obj_to_glyph` display RNG / INCLUDE_HERO / ParanoidAutoAll named); 
