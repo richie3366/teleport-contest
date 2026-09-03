@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `mon.c` xkilled LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool gate + artifact un-create. Not make_corpse. **Addressed:** D-1796
+- [x] Match C `hack.c` `nomul` `:4160–4173` / `unmul` `:4177–4198` so `u.usleep = 0` and `nomul`’s `u.uinvulnerable = FALSE` actually run, instead of leaving those fields sticky so D-1795 `mattacku` sleep-wakeup `rn2(10)` (`mhitu.c:939–943`) fires on every hit after the first sleep. Source: reviews/loop-unattended/764-efcb3fd4-mattacku.md. **Addressed:** D-1797
+
+
+- [x] `mon.c` xkilled LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool gate + artifact un-create. Not make_corpse. **Addressed:** D-1796 `b14236d6`
 
 
 - [x] `mhitu.c` mattacku remaining attack-type arms `:491–952`. Not hitmu. **Addressed:** D-1795 `efcb3fd4`

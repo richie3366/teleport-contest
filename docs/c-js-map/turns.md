@@ -1260,7 +1260,8 @@ WEB/PIT/LAVA/INFLOOR partial; steed/Sting/`climb_pit`/buried-ball deferred);
 **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); 
 **fatal `losehp` → `_losehp_needs_done` + noreturn contract via `finish_losehp_done`** (D-0255); 
 **fatal `losehp` leaves negative `uhp` (no clamp); `done` zeros after `bot`** (D-0320); 
-**`nomul`/`unmul` + afternmv** (D-0066) + **`nomul` clears `_cmdq_canned`** (D-0710; 
+**`nomul`/`unmul` + afternmv** (D-0066) + **`nomul`/`unmul` `usleep=0` + nomul `uinvulnerable=FALSE`** (D-1797;
+C `hack.c:4166–4167` / `:4197`; `fall_asleep` restamps after `nomul`; named: Upolyd `"You survived that "` form `:4192–4194`) + **`nomul` clears `_cmdq_canned`** (D-0710; 
 ≡C `cmdq_clear`) + **`unmul` treats `nomovemsg==""` as no pline (not default)** (D-0695; 
 fumbling `timeout.c`); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156); 
 **`overexertion`→`gethungry`+`overexert_hp`** (D-0107/D-1003); 
@@ -2558,7 +2559,7 @@ AD_DREN / cancelled AT_WEAP→PHYS / home-elem `damn*2` / Snickersnee
 `hitval(youmonst)` / AT_ENGL `flush_screen(1)`+`pline_mon` / `bot()` /
 sleep `rn2(10)`; `m_monnam`; `simple_typename`/`mimic_obj_name`; named:
 `hitmu`, SEDUCE=0 `c_sa_no`, ceiling `in_rooms`, uhitm `prev_result`,
-lock.js `simple_typename` clone);
+lock.js `simple_typename` clone; **`nomul`/`unmul` `usleep` is D-1797**);
 **`getmattk` lich cold-resist touch→PHYS + damn=(damn+1)/2** (D-0928 #1121; 
 seed4500 **106531→106536** RNG **106546** Scr **937**; needs poly `COLD_RES` FROMFORM; 
 AD_DREN energy / cancelled AT_WEAP→PHYS / home-elemental damn*2 / DISE→STUN live D-1795); 

@@ -5,13 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Must-fix 764:** `nomul`/`unmul` never clear `u.usleep` (C
-  `hack.c:4167`/`:4197`). D-1795 `mattacku` sleep `rn2(10)` now
-  fires on every hit after the first sleep. Falsify: `seed0030`
-  RNG 105529/105529 after those two assignments (not a seed peel).
-  Do not invent a seed4500 FAIL peel (D-1792 leftover).
-- **D-1796** shipped `xkilled` LEVEL_SPECIFIC + pool gate (AWD).
-  Hidden-score Open waits until Must-fix is empty (`dochug` first).
+- **Open `dochug` next** (Must-fix empty after D-1797). Not a
+  seed0030 peel. Do not invent a seed4500 FAIL peel (D-1792 leftover).
+- **seed0030** still 39912/105529 after D-1797. First all-segments
+  miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
+  (seg0 RNG OK 14300). Falsify that with `rng-diff --all-segments`
+  on seed0030 — not by re-clearing `usleep`.
 - **Luck still runs when invulnerable.** Dialogues do not
   (`timeout.c:623` return). STONED/SLIMED expiry stays silent
   (`done_timeout` omitted).
@@ -23,17 +22,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not re-port `xkilled` LEVEL_SPECIFIC / pool gate / artifact
-  un-create / bury `m_carrying` / murder luck-2 / unicorn luck-5
-  (D-1796). No second `accessible` export (teleport clone stays).
-  Floor-boulder `sobj_at` nocorpse / MAIL / wasinside `spoteffects`
-  / Blind_telepat `see_monsters` / quest adjalign still named.
+- Do not re-port `nomul`/`unmul` `usleep=0` / nomul
+  `uinvulnerable` (D-1797) or `xkilled` LEVEL_SPECIFIC / pool /
+  artifact un-create (D-1796). Do not treat usleep as seed0030’s
+  first token. No second `accessible` export. Floor-boulder
+  `sobj_at` / MAIL / wasinside / Blind_telepat / quest adjalign
+  named. Upolyd survived-that still named.
 - Do not re-port `mattacku` Underwater/undetected/mimic/Invis/eel/
   invulnerable/DISE/DREN/cancelled-WEAP/home-elem/Snickersnee/`bot()`/
-  sleep `rn2(10)` (D-1795). The C-wrong is **`nomul`/`unmul` `usleep=0`**
-  (Must-fix 764), not deleting that arm. No second `m_monnam` /
-  `simple_typename` (`lock.js` clone stays) / `ceiling` /
-  `is_home_elemental`. Do not glue `hitmu`. Do not omit
+  sleep `rn2(10)` (D-1795). Do not delete that sleep arm. No second
+  `m_monnam` / `simple_typename` (`lock.js` clone stays) / `ceiling`
+  / `is_home_elemental`. Do not glue `hitmu`. Do not omit
   `flush_screen(1)` for seed4500: that 13-cell `#wizintrinsic` DEAF
   `[2]` is D-1792 (RNG full).
 - Do not re-port `make_corpse` special table (D-1794) / `dmgval`
@@ -50,7 +49,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse D-1582.
   ParanoidTrap portal yn / `domagicportal` / `undestroyable_trap`
   / `mktrap` dst / `goto_level` uz0 are D-1187/1188.
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1796.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1797.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -60,7 +59,7 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask`
   (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) /
   omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()`
-  (D-1066). Do not skip D-1067…D-1796.
+  (D-1066). Do not skip D-1067…D-1797.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / re-port `eyecount` / delete emin / stub
   `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541).
@@ -68,10 +67,12 @@ Objective/score live in `CURRENT.md`.
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static
   `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. No trailing
-  `confdir` in shared `getdir`. Do not re-port D-1682…D-1796.
+  `confdir` in shared `getdir`. Do not re-port D-1682…D-1797.
 
 ## Landmarks (≤15)
 
+- D-1797: `nomul`/`unmul` `usleep=0` + nomul `uinvulnerable=FALSE`.
+  Named: Upolyd survived-that form. seed0030 first miss is not this.
 - D-1796: `xkilled` LEVEL_SPECIFIC + pool gate + artifact un-create.
   Named: flooreffects; `sobj_at` boulder; MAIL; wasinside; quest align.
 - D-1795: `mattacku` remaining + `getmattk` DISE/DREN/WEAP/home-elem.
@@ -88,4 +89,3 @@ Objective/score live in `CURRENT.md`.
 - D-1774: `newsym` I-arm `lev->glyph`; fight_empty `glyph_at`.
 - D-1773: `gold_detect`; `o_in`/`o_material`/`clear_stale_map`.
 - D-1772: `peacefuls_respond`; named `qst_guardians_respond`.
-- D-1771: invent.c `useupf`; eat.c `carried()?useup:useupf`.

@@ -22,12 +22,12 @@ notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1796**
 (`b14236d6`; audit overlay reviews **755–765**). **42**/44.
-**seed0030** RNG **39912**/105529 / Screen **989**/1953 from **D-1795**
-(`mattacku` sleep `rn2(10)` vs sticky `usleep` — Must-fix **764**).
+**seed0030** RNG **39912**/105529 / Screen **989**/1953 since **D-1795**
+(D-1797 `nomul`/`usleep` did not move the first miss).
 **seed4500** Screen **1801**/1814 (RNG full) since **D-1792**
 (`#wizintrinsic` DEAF `[2]`). Scr **10,428**/11,405, RNG
 **727,221**/792,838 = **91.7%**. Speed `41+0.32/turn` (R² 0.861).
-Must-fix is **not** empty — next port pops that row, not Open `dochug`.
+Must-fix is empty — next port pops Open `dochug`.
 
 ## Score
 
@@ -49,7 +49,7 @@ seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore.
 
 **Notable non-PASS:** seed0030 RNG 39912/105529 Screen 989/1953 since
-D-1795 (Must-fix **764** `nomul`/`usleep`). seed4500 Screen 1801/1814
+D-1795 (D-1797 `nomul`/`usleep` did not move first token). seed4500 Screen 1801/1814
 since D-1792 (`#wizintrinsic` `j - deafness [2]`; RNG 108275/108275).
 
 ## Green gate
@@ -67,35 +67,36 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 42/44** at D-1796 (audit 755–765). **D-1796** shipped Open
-`xkilled` LEVEL_SPECIFIC + pool gate; that SHA is ACCEPT-WITH-DEBT.
-Must-fix is **not** empty — pop it first. Save-oracle required for
-tagged restore/other-floor Open (`save-oracle.mjs probe --omit`).
-**Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`) after
-Must-fix.
-**Next cluster:** Match C `hack.c` `nomul` `:4160–4173` / `unmul`
-`:4177–4198` so `u.usleep = 0` and `nomul`’s `u.uinvulnerable = FALSE`
-actually run (review **764** / D-1795). Not Open `dochug`. Not a
-seed0030 peel.
+**Suite 42/44** at D-1797. Must-fix **764** shipped: `nomul`/`unmul`
+clear `usleep` (and nomul `uinvulnerable`). seed0030 still
+**39912**/105529 — first all-segments miss is C seg4
+`randomize_gem_colors` vs JS still in seg3 combat, **not** sleep
+`rn2(10)` (seg0 RNG OK 14300). Save-oracle required for tagged
+restore/other-floor Open (`save-oracle.mjs probe --omit`).
+**Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
+**Next cluster:** `monmove.c` dochug remaining arms + wormhitu
+callee. Not m_move.
 **`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
 `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
 `#ifdef DUMPLOG` block is compiled out of the scored build, and the
 surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only
 reader is `report.c` crash path).
-**Do not skip D-1531…D-1796 (index).** Keep mention_map addr.
+**Do not skip D-1531…D-1797 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1796.** Do not FORCE
+**Do not re-break D-0660…D-1797.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1796 (index). Recent: **D-1796**
-`mon.c` `xkilled` `:3476` LEVEL_SPECIFIC_NOCORPSE +
+**Keep:** D-0845…D-1797 (index). Recent: **D-1797**
+`hack.c` `nomul` `:4166` `uinvulnerable=FALSE`+`usleep=0` /
+`unmul` `:4197` `usleep=0`; named: Upolyd survived-that form.
+**D-1796** `mon.c` `xkilled` `:3476` LEVEL_SPECIFIC_NOCORPSE +
 accessible||is_pool + artifact un-create; `accessible` export;
 named: flooreffects / MAIL / wasinside `spoteffects` / quest adjalign.
 **D-1795** `mhitu.c` `mattacku` `:490` remaining body + `getmattk`
 `:309` DISE/DREN/cancelled-WEAP/home-elem; `m_monnam`; named: `hitmu`,
-SEDUCE=0. **D-1794** `mon.c` `make_corpse` `:563` special table +
+SEDUCE=0. `nomul`/`usleep` is D-1797. **D-1794** `mon.c` `make_corpse` `:563` special table +
 epilogue; `free_mgivenname`; named: cham/were `mondead`. **D-1793**
 `weapon.c` `dmgval` `:215` vs-mon bonus `rnd()` + erosion;
 `is_axe` one export; named: `hitval` blessed/spear. **D-1792**
@@ -116,14 +117,14 @@ no `stay` rebuild. **D-1788** `#cast` DETECT_FOOD `seffects`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1796 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1797 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1796 (index). No generic `dknown` on
+Do not re-port D-1660…D-1797 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem. DUMPLOG retired (D-1776).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

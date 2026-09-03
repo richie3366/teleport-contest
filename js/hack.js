@@ -967,6 +967,11 @@ export function nomul(nval) {
     if ((game.multi || 0) < nval) return;
     if (!game.flags) game.flags = {};
     if ((game.multi || 0) >= 0) game.flags.botl = true;
+    /* C hack.c nomul `:4166–4167` — always, before replacing multi.
+       fall_asleep restamps usleep after. */
+    if (!game.u) game.u = {};
+    game.u.uinvulnerable = false;
+    game.u.usleep = 0;
     game.multi = nval;
     if (nval === 0) {
         game.multi_reason = null;
@@ -1033,6 +1038,9 @@ export async function unmul(msg_override) {
         await pline(game.nomovemsg);
     }
     game.nomovemsg = null;
+    /* C hack.c unmul `:4197` — trap.c notes unmul clears usleep */
+    if (!game.u) game.u = {};
+    game.u.usleep = 0;
     game.multi_reason = null;
     const f = game.afternmv;
     game.afternmv = null;

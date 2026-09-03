@@ -87,3 +87,5 @@ D-log probes: PEST→STUN, DREN dice, ENGL `mspec_used`, cancelled wight, mimic 
 Named (not Must-fix): `hitmu` remaining ads; SEDUCE=0; ceiling `in_rooms`; `uhitm` `prev_result`; lock.js `simple_typename`; `is_home_elemental` clones; `hitval` vs-mon bonuses.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1797

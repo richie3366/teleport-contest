@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1797 — hack.c nomul/unmul usleep=0 + nomul uinvulnerable=FALSE
+
+- **Status:** fixed (Must-fix review **764**; green + combat cohort hold)
+- **Symptom:** JS `nomul`/`unmul` never assigned `u.usleep = 0` or
+  nomul's `u.uinvulnerable = FALSE`. After `fall_asleep` stamped
+  `usleep = moves`, that past timestamp stuck. D-1795 `mattacku`
+  `:939–943` then drew `rn2(10)` on every `M_ATTK_HIT` once awake
+  (`nomul(0)` at `:512` is a no-op for those fields in JS). Prayer
+  `:743` could also see leftover `uinvulnerable`.
+- **C locus:** `hack.c` `nomul` `:4160–4173` (`:4166–4167`); `unmul`
+  `:4177–4198` (`:4197`). Callers include `mhitu.c` `mattacku` `:513`
+  `nomul(0)`; `timeout.c` `fall_asleep` `:954` then restamps `:973`;
+  `trap.c:5144` notes `unmul` clears `usleep`. Not `mattacku` itself.
+- **JS was:** `nomul` botl/multi/`end_running`/`_cmdq_canned` only;
+  `unmul` pline/`afternmv` only. Sole `usleep =` write was
+  `fall_asleep`.
+- **Fix:** `js/hack.js` `nomul` sets `uinvulnerable = false` and
+  `usleep = 0` before replacing `multi`; `unmul` sets `usleep = 0`
+  after clearing `nomovemsg`. `fall_asleep` still restamps after
+  `nomul`. Early-return `multi < nval` unchanged (asleep hero keeps
+  the stamp so the C sleep arm can still fire).
+- **Named omissions:** `unmul` Upolyd `"You survived that "` form
+  reminder (`:4192–4194`); `multireasonbuf`; `nomul(0)` still also
+  clears JS `nomovemsg` (C only `multi_reason`).
+- **Next:** Open `monmove.c` `dochug` remaining arms + `wormhitu`.
+  Not `m_move`. seed0030 first all-segments miss is C seg4
+  `randomize_gem_colors` vs JS still in seg3 combat — do not re-peel
+  `usleep` for that token.
+
 ## D-1796 — xkilled LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool + artifact un-create
 
 - **Status:** fixed (map-driven Open row; green + combat cohort hold)

@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1797 hack.c nomul/unmul usleep + uinvulnerable
+
+**Objective:** Must-fix **764** — Match C `hack.c` `nomul` `:4166–4167` /
+`unmul` `:4197` so `usleep=0` and nomul `uinvulnerable=FALSE` run.
+**C:** `hack.c:4160–4173` / `:4177–4198`. Callers `mattacku:513`,
+`fall_asleep` restamp, `trap.c` notes unmul clears usleep.
+**JS was:** only `fall_asleep` wrote `usleep`.
+**Fix:** those two assignments in `js/hack.js`. Named: Upolyd
+survived-that form. Probe: nomul(0) awake clears; multi<0 early-return
+keeps stamp; fall_asleep restamps; unmul clears. save-oracle skip
+(untagged `hack.c:nomul`).
+**Verify:** green + strict; cohort 9/9. seed0030 still 39912/105529 —
+seg0 RNG OK 14300; first all-seg miss C seg4 `randomize_gem_colors`
+vs JS seg3 combat (not sleep `rn2(10)`).
+**Next:** Open `monmove.c` `dochug` remaining + `wormhitu`. Not `m_move`.
 ## 2026-09-04 — audit overlay 755–765 + cadence 42/44
 
 **Objective:** review JS SHAs since `0c2e880a` against pinned C; cadence
