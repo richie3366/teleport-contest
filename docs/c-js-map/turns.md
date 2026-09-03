@@ -740,12 +740,18 @@ dungeon.c surface ice/pool/altar named); `namefloorobj` still named; **`trap_des
 semi-real trapped chests and doors — real ttyp, not on `ftrap`; both
 gates burn `rn2(20)` under Hallucination and `trapped_door_at` re-enters
 `trapped_chest_at` for a doorless doorway, so chest-first order is RNG
-order; live `js/detect.js` exports + `js/pager.js` local
-`trap_description` at both `lookat` arms); Hallu 
-random_obj otyp / glyph_is_body|statue 
-corpsenm / buried-embedded suffixes named; `trap_description` callers
-still pass the live `t_at` ttyp rather than
-`glyph_to_trap(glyph_at(x, y))` — named)
+order; live `js/detect.js` exports + `js/pager.js` `trap_description`)
+then **lookat tnum = `glyph_to_trap(glyph_at)` D-1787** (`pager.c:718–721`
+/ `display.h:671–674` / `display.c:2477`; dummytrap chest/door is a
+trap glyph with no `ftrap`, so `t_at&&tseen` never entered the helper;
+`brief_at` / `describe_looked` / `auto_describe_text` enter on
+`glyph_is_trap` and pass that tnum; floor objects no longer beat a
+trap glyph; `glyph_at_gbuf` clone deleted); Hallu
+random_obj otyp / glyph_is_body|statue
+corpsenm / buried-embedded suffixes named; **`look_traps` still
+prints `trap at (x,y)`** (C `:2093–2094` uses `glyph_to_trap` +
+`trap_description`); `doidtrap` unported; C TODO recursive/buried
+containers named)
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 
@@ -775,7 +781,7 @@ S_goodpos hilite glyphs / whatis multi-pick / **mMoOdDxX `gather_locs` cycle** D
 **GLOC_INTERESTING / GLOC_VALID FALLTHROUGH D-1217** — `aA` cycle keys still named); 
 **stairs terrain match requires `seenv`** (D-0779; blank `disp_ch` is not known); 
 **`iflags.autodescribe` default On + stairs/ladder firstmatch** (D-0423); 
-**tseen trap `trapname` in `auto_describe_text`** (D-0424); 
+**lookat trap tnum `glyph_to_trap(glyph_at)` in `auto_describe_text`** (D-1787; was tseen `trapname` D-0424); 
 **`auto_describe_text` ROOM/CORR/wall/STONE + `waterbody_name` moat/pool/lava/ice + 
 Medusa/juiblex/samurai/waterlevel (D-0626/D-0928 #1163; 
 **waterbody_name SURFACE_AT/`db_under_typ` D-1103**; 

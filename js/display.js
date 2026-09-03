@@ -38,8 +38,8 @@ import {
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
     HI_GOLD, HI_METAL, HI_ZAP, HI_WOOD,
     WEB, TRAPNUM, BEAR_TRAP, NO_TRAP, is_pit,
-    trap_to_defsym, MAXTCHARS, explodecolors, NUM_ZAP, MAXEXPCHARS,
-    S_stone, S_vwall, S_trwall, S_ndoor, S_brdnladder, S_grave, S_altar,
+    trap_to_defsym, defsym_to_trap, MAXTCHARS, explodecolors, NUM_ZAP, MAXEXPCHARS,
+    S_stone, S_vwall, S_trwall, S_ndoor, S_brdnladder, S_grave, S_altar, S_room,
     S_arrow_trap, S_web, S_vibrating_square,
     S_vbeam, S_hbeam, S_lslant, S_rslant,
     S_digbeam, S_flashbeam, S_boomleft, S_boomright,
@@ -653,6 +653,32 @@ export function glyph_is_trap(glyph) {
     const g = glyph_id(glyph);
     return g != null && g >= GLYPH_TRAP_OFF && g < GLYPH_TRAP_OFF + MAXTCHARS;
 }
+
+/**
+ * C display.h glyph_to_trap `:671–674` — peel GLYPH_TRAP_OFF through
+ * defsym_to_trap. A non-trap glyph is NO_GLYPH, not a ttyp (lookat
+ * never calls this unless glyph_is_trap was true).
+ */
+export function glyph_to_trap(glyph) {
+    if (!glyph_is_trap(glyph)) return NO_GLYPH;
+    const g = glyph_id(glyph);
+    return defsym_to_trap((g - GLYPH_TRAP_OFF) + S_arrow_trap);
+}
+
+/**
+ * C display.c glyph_at `:2477–2483` — gg.gbuf[y][x].glyphinfo.glyph.
+ * JS gbuf is loc.disp_glyph (D-1767). OOB returns cmap S_room (C XXX).
+ */
+export function glyph_at(x, y) {
+    const xx = x | 0;
+    const yy = y | 0;
+    if (xx < 0 || yy < 0 || xx >= COLNO || yy >= ROWNO) {
+        return cmap_to_glyph(S_room); /* XXX */
+    }
+    const loc = game.level?.at?.(xx, yy);
+    return typeof loc?.disp_glyph === 'number' ? (loc.disp_glyph | 0) : NO_GLYPH;
+}
+
 export function glyph_is_warning(glyph) {
     const g = glyph_id(glyph);
     return g != null && g >= GLYPH_WARNING_OFF && g < GLYPH_WARNING_OFF + WARNCOUNT;

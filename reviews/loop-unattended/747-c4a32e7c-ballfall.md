@@ -10,7 +10,7 @@
 - JS / map: `ball.js` `ballfall`; `do_wear.js` `hard_helmet`/`is_helmet`; callers `do.js`/`trap.js`. `c-js-map/turns.md`.
 - Archive **Addressed:** D-1778 `c4a32e7c` — stamp is the helper; the **callers** contradict C.
 
-**Addressed:** D-1786
+**Addressed:** D-1786 `be1cef1a`
 
 ## Intent vs deliverable
 

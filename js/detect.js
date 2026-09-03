@@ -57,7 +57,7 @@ import {
     map_invisible, glyph_is_invisible, glyph_is_monster, warning_of, You_feel,
     feel_location, feel_newsym, unmap_invisible, map_object, Norep,
     see_monsters, flush_screen, docrt, cls, unmap_object, flush_topl_more,
-    glyph_is_object, glyph_to_obj, glyph_is_trap,
+    glyph_is_object, glyph_to_obj, glyph_is_trap, glyph_at,
     Hallucination, random_object, random_monster,
     pet_to_glyph, detected_mon_to_glyph, mon_to_glyph, monsym, glyph_tty_attr,
     flash_glyph_at, invisible_glyph_cell, memory_glyph_is_invisible,
@@ -1490,12 +1490,6 @@ export function o_material(obj, material) {
     return null;
 }
 
-/** C display.c glyph_at / gbuf[y][x].glyph — JS loc.disp_glyph (D-1767). */
-function glyph_at_gbuf(x, y) {
-    const loc = game.level?.at(x, y);
-    return loc?.disp_glyph;
-}
-
 /**
  * C ref: detect.c trapped_chest_at `:135–177` — this asks whether a
  * trap *symbol* on the map is standing in for a trapped container, not
@@ -1511,7 +1505,7 @@ function glyph_at_gbuf(x, y) {
  * containers for farlook.
  */
 export function trapped_chest_at(ttyp, x, y) {
-    if (!glyph_is_trap(glyph_at_gbuf(x, y))) return false;
+    if (!glyph_is_trap(glyph_at(x, y))) return false;
     if (ttyp !== TRAPPED_CHEST || (Hallucination() && rn2(20))) return false;
 
     /* on map, presence of any trappable container will do */
@@ -1545,7 +1539,7 @@ export function trapped_chest_at(ttyp, x, y) {
  * `rn2(20)` while hallucinating — C calls it a second time here).
  */
 export function trapped_door_at(ttyp, x, y) {
-    if (!glyph_is_trap(glyph_at_gbuf(x, y))) return false;
+    if (!glyph_is_trap(glyph_at(x, y))) return false;
     if (ttyp !== TRAPPED_DOOR || (Hallucination() && rn2(20))) return false;
     const lev = game.level?.at(x, y);
     if (!lev || !IS_DOOR(lev.typ)) return false;
@@ -1561,7 +1555,7 @@ export function trapped_door_at(ttyp, x, y) {
  * / minvent. The material arm always searches GOLD (C, not `material`).
  */
 function check_map_spot(x, y, oclass, material) {
-    const glyph = glyph_at_gbuf(x, y);
+    const glyph = glyph_at(x, y);
     if (!glyph_is_object(glyph)) return false;
     const objects = game.objects || [];
     const shown = glyph_to_obj(glyph);
@@ -2145,7 +2139,7 @@ export async function object_detect(detector, oclass) {
         }
     }
 
-    if (!glyph_is_object(glyph_at_gbuf(u.ux | 0, u.uy | 0))) {
+    if (!glyph_is_object(glyph_at(u.ux | 0, u.uy | 0))) {
         newsym(u.ux | 0, u.uy | 0);
         ter_typ |= TER_MON;
     }

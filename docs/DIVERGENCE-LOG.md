@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-1787 — pager.c lookat trap tnum is glyph_to_trap(glyph_at)
+
+- **Status:** fixed (Must-fix review **748**; suite was 44/44)
+- **Symptom:** D-1779 ported `trap_description` / `trapped_chest_at` /
+  `trapped_door_at` but both lookat clones still gated on
+  `t_at && tseen`. `maketrap` returns null for `TRAPPED_CHEST` /
+  `TRAPPED_DOOR`; detection paints via dummytrap + `map_trap`, so
+  nothing is on `ftrap`. `glyph_to_trap` was NOT FOUND. A detected
+  trapped chest or door could not be named and could not burn
+  Hallucination `rn2(20)`. `describe_looked` also ranked floor
+  `loc.objects` before the trap arm, so a gbuf trap over a chest
+  pile printed `doname`. `getpos.js` `auto_describe_text` still used
+  `trapname`.
+- **C locus:** `pager.c` `lookat` `:718–721`; `display.h`
+  `glyph_to_trap` `:671–674`; `display.c` `glyph_at` `:2477–2483`;
+  callers `auto_describe` → `do_screen_description` → `lookat`.
+- **JS was:** `brief_at` / `describe_looked`: `t_at && trap.tseen` →
+  `trap_description(trap.ttyp)`; `auto_describe_text`: same gate →
+  `trapname`.
+- **Fix:** port `glyph_to_trap` and export `glyph_at` (`loc.disp_glyph`).
+  `brief_at`, `describe_looked`, and `auto_describe_text` enter on
+  `glyph_is_trap(glyph_at)` and pass `glyph_to_trap(glyph)` into
+  `trap_description` (exported; C `staticfn`). Floor objects no
+  longer beat a trap glyph. `detect.js` local `glyph_at_gbuf` deleted
+  (one C `glyph_at`).
+- **JS:** `js/display.js`, `js/pager.js`, `js/getpos.js`, `js/detect.js`.
+  64 insertions / 38 deletions.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths); cohort seed1500 / 1800 / 0012 / 0004 / 0007 / 2200 /
+  0383 (hallu) PASS + per-session strict on 0383/0012; probe:
+  `glyph_to_trap` round-trip PIT/CHEST/DOOR/BEAR; dummytrap chest
+  with floor pile and `disp_kind==='object'` → `"trapped chest"`;
+  hallu pit draws no core `rn2(20)`; hallu chest draws one
+  `rn2(20)`. save-oracle `pager.c:lookat` untagged skip. Rule #2
+  clean.
+- **Not this iter:** `look_traps` `:2093–2094`; `doidtrap`; C TODO
+  recursive/buried containers. Do not invent `rn2(20)` on ordinary
+  pit farlook. Do not add `sobj_at` clone #13.
+
 ## D-1786 — do.c/trap.c ballfall callers gate on uball (C Punished)
 
 - **Status:** fixed (Must-fix review **747**; suite was 44/44)

@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1787 lookat trap tnum = glyph_to_trap(glyph_at)
+
+**Objective:** Must-fix review **748** — `pager.c` lookat trap tnum =
+`glyph_to_trap(glyph_at)`, not `t_at&&tseen`. Not `trapname` Hallu.
+Not `look_traps`.
+**C locus:** `pager.c` `lookat` `:718–721`; `display.h` `glyph_to_trap`
+`:671–674`; `display.c` `glyph_at` `:2477–2483`.
+**JS locus:** `js/display.js` `glyph_to_trap`/`glyph_at`; `js/pager.js`
+`brief_at`/`describe_looked`; `js/getpos.js` `auto_describe_text`.
+**Change:** D-1779 helpers were live behind `t_at&&tseen`. Dummytrap
+chest/door is a trap glyph with no `ftrap`. Three lookat clones now
+enter on `glyph_is_trap(glyph_at)` and pass `glyph_to_trap`. Floor
+objects no longer beat a trap glyph. `glyph_at_gbuf` clone deleted.
+**Verify:** green+strict PASS; cohort incl. seed0383 hallu PASS;
+probe dummytrap chest+pile → `"trapped chest"`; hallu pit 0×
+`rn2(20)`; hallu chest 1×. save-oracle `pager.c:lookat` untagged skip.
+Rule #2 clean. 64 ins / 38 del.
+**Next:** Must-fix `spell.c` `SPE_DETECT_FOOD` must call `seffects(pseudo)`.
 ## 2026-09-03 — D-1786 do.c/trap.c ballfall callers gate on u.uball
 
 **Objective:** Must-fix review **747** — `do.c`/`trap.c` ballfall

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `do.c`/`trap.c` ballfall callers: gate on `u.uball` (C `Punished` ≡ `uball != 0`), not sticky `u.Punished` which is never set. Source: reviews/loop-unattended/747-c4a32e7c-ballfall.md **Addressed:** D-1786
+- [x] `pager.c` lookat trap tnum = `glyph_to_trap(glyph_at)`, not `t_at&&tseen`. Source: reviews/loop-unattended/748-e8515402-trap-description.md **Addressed:** D-1787
+
+
+- [x] `do.c`/`trap.c` ballfall callers: gate on `u.uball` (C `Punished` ≡ `uball != 0`), not sticky `u.Punished` which is never set. Source: reviews/loop-unattended/747-c4a32e7c-ballfall.md **Addressed:** D-1786 `be1cef1a`
 
 
 - [x] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee. **Addressed:** D-1785 `da520eda`

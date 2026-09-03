@@ -10,6 +10,8 @@
 - JS / map: `pager.js` `trap_description`; `detect.js` `trapped_chest_at`/`trapped_door_at`. `c-js-map/turns.md`.
 - Archive **Addressed:** D-1779 `e8515402` — helper bodies; lookat tnum is **not** fixed.
 
+**Addressed:** D-1787
+
 ## Intent vs deliverable
 
 Git subject promises: Match C `pager.c` `trap_description` so a **detected trapped chest or door is named as one** and **burns its Hallucination `rn2(20)`**, instead of every trap glyph answering with `trapname`.
