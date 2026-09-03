@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `detect.c` findone (named). Not gold_detect. **Addressed:** D-1775
+- [x] `end.c` DUMPLOG (named). Not companion pet HP. **RETIRED — false omission:** `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c` `#ifdef DUMPLOG` block is compiled out of the scored build; the surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only reader is `report.c` crash path) and `dump_everything` needs the banned filesystem. **Addressed:** D-1776
+- [x] `mhitu.c` noit_mhim Hallu (named). Not hero_Deaf. **Addressed:** D-1776
+
+
+- [x] `detect.c` findone (named). Not gold_detect. **Addressed:** D-1775 `b4d526e9`
 
 
 - [x] `eat.c` eatcorpse rot age `rn2(20)` (`:1884–1887`; seed0014 @43789 C vs JS `rn2(5)`). Diagnose skipped `!nonrotting_corpse` / corpsenm; JS arm exists. No FORCE / gbuf. Not findone. **Addressed:** D-1774 `1f5d551a`

@@ -57,7 +57,7 @@ import {
     is_demon, NON_PM, NUMMONS, has_head, mindless, unsolid, breathless, mons,
     flaming, touch_petrifies, is_vampshifter, is_animal, amphibious,
     is_swimmer, slithy,
-    is_whirly, passes_walls, hates_silver, humanoid, is_neuter, G_UNIQ,
+    is_whirly, passes_walls, hates_silver, humanoid,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
 } from './monsters.js';
 import {
@@ -86,6 +86,7 @@ import { which_armor } from './worn.js';
 import { u_wipe_engr } from './engrave.js';
 import { cutworm } from './worm.js';
 import { m_unleash } from './apply.js';
+import { mhis } from './mondata.js';
 
 /** Live pager.c object_from_map / mhidden_description; bound on first use
  * (pager.js imports mon_at from this file — static import cycles). */
@@ -1032,22 +1033,6 @@ function cloak_simple_name(cloak) {
         }
     }
     return 'cloak';
-}
-
-/**
- * C ref: you.h mhis → genders[pronoun_gender(mtmp, PRONOUN_HALLU)].his.
- * Hallu rn2(4) live; canspotmon→its named on the C macro.
- */
-function mhis(mtmp) {
-    if (game.u?.Hallucination) {
-        return ['his', 'her', 'its', 'their'][rn2(4)];
-    }
-    const ptr = mtmp?.data;
-    if (is_neuter(ptr)) return 'its';
-    if (humanoid(ptr) || ((ptr?.geno | 0) & G_UNIQ)) {
-        return mtmp?.female ? 'her' : 'his';
-    }
-    return 'its';
 }
 
 /**

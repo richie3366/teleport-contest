@@ -68,6 +68,7 @@ import {
 import { xkilled, killed } from './uhitm.js';
 import {
     m_seenres, cvt_adtyp_to_mseenres, monstseesu, monstunseesu, m_canseeu,
+    mhis,
 } from './mondata.js';
 import { which_armor } from './worn.js';
 import {
@@ -226,19 +227,6 @@ function dist2u(mtmp) {
     const dx = mtmp.mx - u.ux;
     const dy = mtmp.my - u.uy;
     return dx * dx + dy * dy;
-}
-
-/**
- * C ref: you.h mhis → genders[pronoun_gender(mtmp, PRONOUN_HALLU)].his.
- * Hallucination rn2(4) wired; canspotmon→its / is_neuter / non-humanoid→its
- * deferred (mswings already requires mon_visible).
- */
-function mhis(mtmp) {
-    if (game.u?.Hallucination) {
-        return ['his', 'her', 'its', 'their'][rn2(4)];
-    }
-    if (mtmp?.female) return 'her';
-    return 'his';
 }
 
 /**

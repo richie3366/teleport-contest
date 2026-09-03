@@ -1,5 +1,89 @@
 # Divergence log
 
+## D-1776 — mondata.c pronoun_gender / you.h mhe·mhim·mhis·noit_* (8 clones)
+
+- **Status:** fixed (map-driven Open row `mhitu.c` noit_mhim Hallu;
+  suite was 44/44). Also **retires** the `end.c` DUMPLOG Open row as a
+  false omission — see "Retired" below.
+- **Symptom:** the `you.h` pronoun macros existed as **eight** divergent
+  local clones and no shared port. Three were RNG-wrong: C
+  `pronoun_gender` burns `rn2(4)` **first** when hallucinating, before
+  either gate, so any `mhe`/`mhim`/`mhis`/`noit_*` under Hallucination
+  is an RNG-visible call. `js/shk.js` `noit_mhe`/`noit_mhim`/`noit_mhis`
+  were a bare `female ? 'she' : 'he'`, `js/mthrowu.js` `mhim` returned
+  the constant `'it'`, and `js/vault.js` `mhe` had no Hallu arm at all —
+  all three would desync the stream the first time a hallucinating hero
+  reached them. Two more were text-wrong: `js/mhitu.js` `mhis` skipped
+  the `canspotmon` / `is_neuter` / humanoid gates and `js/uhitm.js`
+  `mhis` skipped `canspotmon` and `type_is_pname`. `js/fountain.js` and
+  `js/steed.js` held C-matched `pronoun_gender` copies, but with the
+  HALLU flag hardcoded so neither could express `PRONOUN_NO_IT`.
+- **C locus:** `mondata.c` `pronoun_gender` `:1188–1207`;
+  `you.h` `:317–331` (`PRONOUN_NORMAL`/`NO_IT`/`HALLU`,
+  `mhe`/`mhim`/`mhis`, `noit_mhe`/`noit_mhim`/`noit_mhis`);
+  `role.c` `genders[]` `:688–694` (4 rows — the "group" row exists
+  precisely for the hallucinating `rn2(4)==3` case).
+  Consumers: `shk.c` `getcad` `:5137–5171` and the partial-payment
+  pline `:2657–2661`; `apply.c:238` `PRONOUN_NO_IT`;
+  `do_name.c:1199` `mon_nam_too`.
+- **JS was:** 8 clones, 0 shared exports (`scripts/sym.mjs` reported
+  `pronoun_gender` clone×2, `noit_mh*` clone×1 each, plus five local
+  `mhe`/`mhim`/`mhis`). `PRONOUN_NO_IT` had no representation anywhere,
+  so the "override visibility but still say 'it' for neuters" rule was
+  unexpressible.
+- **Fix:** one port of `pronoun_gender(mtmp, pg_flags)` in
+  `js/mondata.js` with the real flag masks, reading the existing
+  `roles.js` `genders[]` table, plus the six `you.h` macros as thin
+  exports over it. All eight clones deleted; `fountain.js` re-exports
+  `mhe`/`mhis` from `mondata.js` so its call sites keep their import
+  path. `steed.js`'s surviving `pronoun_gender(steed)` call now passes
+  `PRONOUN_HALLU` explicitly. Imports that only the deleted clones used
+  (`is_neuter`, `humanoid`, `G_UNIQ`, `type_is_pname`) were dropped from
+  `sit.js` / `steed.js` / `fountain.js` / `uhitm.js`.
+  Two `shk.c` consumers wired at the same time: `getcad`'s two Deaf arms
+  now use `noit_mhis(shkp)` instead of a hardcoded `'his'`, and the
+  partial-payment pline now matches C `:2657–2661` in full —
+  `currency(loss)` rather than a literal "gold pieces", the `"you "`
+  prefix when `eshk->customer` matches `plname`, and `noit_mhim(shkp)`.
+- **JS:** `js/mondata.js` (new home), `js/shk.js`, `js/mhitu.js`,
+  `js/uhitm.js`, `js/sit.js`, `js/vault.js`, `js/mthrowu.js`,
+  `js/fountain.js`, `js/steed.js`. 103 insertions / 134 deletions —
+  net smaller with eight clones gone.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `62+0.49/turn` (R² 0.86);
+  strict lengths also checked on the two hallucination sessions
+  (seed0383, seed0399) and the shop session (seed0116) since those are
+  the ones the Hallu `rn2(4)` and `getcad`/`dopay` arms could reach.
+  `scripts/sym.mjs` now reports all seven names with **0** clones.
+- **Retired (not deferred):** the `end.c` DUMPLOG Open row is falsified
+  by the build config, not merely unported. `nethack-c/build-recorder.sh`
+  builds the reference with `sys/unix/hints/macosx-minimal`
+  (`nethack-c/macosx-minimal`), which passes **no** `-DDUMPLOG`; only
+  `hints/linux.500` does, and `hints/macOS.500` has it commented out.
+  So every `end.c` `#ifdef DUMPLOG` block — `dump_plines` `:517–538`,
+  the body of `dump_everything`, the `genl_outrip` `:1398` and
+  `artifact_score` `:1483` redirects — is compiled out of the scored
+  binary, as are `detect.c:2292` `dump_map` and the `insight.c` dump
+  paths. `DUMPLOG_CORE` *is* on (macOS defines `CRASHREPORT`, and
+  `config.h:269` turns on `DUMPLOG_CORE` for it), but the
+  `gs.saved_plines[]` ring it maintains is **write-only** in normal
+  play: `dumplogmsg` is called from `pline.c:234`, `cmd.c:5552`,
+  `pager.c:1936` and the tty `topl.c`/`getline.c` sites, and the only
+  compiled-in reader is `report.c:579` on the crash-report path. It
+  never touches the screen or the RNG. Porting it would add work to the
+  hottest message path for zero fidelity, and `dump_everything` itself
+  needs the filesystem, which Contest Rule #2 and CURRENT's
+  "No dump_fmtstr / paniclog filesystem" both forbid.
+- **Not this iter:** `apply.c:238` `pronoun_gender(mtmp, PRONOUN_NO_IT)`
+  corpse-gender arm (the JS tin/corpse site still has its own default);
+  `do_name.c` `mon_nam_too` `:1192–1216` (still a clone in
+  `js/mhitm.js:1069`) and `monverbself` vtense/makeplural — `steed.js`
+  keeps its thin "themselves" stand-in; C's unspecified printf
+  argument-evaluation order in `getcad` (ROLL_FROM vs `noit_mhis`,
+  observable only when Hallucinating **and** Deaf — kept left-to-right,
+  matching the already-live `shk.js` angry-return site);
+  `type_is_pname` clone in `js/insight.js:650`.
+
 ## D-1775 — detect.c findone flash_glyph_at / foundone / mimic / hider / invis
 
 - **Status:** fixed (map-driven Open row from D-1774; suite was 44/44)

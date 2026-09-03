@@ -173,7 +173,18 @@ C `mondata.c:524–528`/`517–519` were / S_VAMPIRE / demon / PM_SHADE / S_IMP 
 else 2; `mcastu.c` `mcast_blind_you`; sit Blind case 10 + pray
 TROUBLE_BLIND + potionbreathe sting import the export); spell.c
 study_book dull / zap rider / dothrow POT_WATER / mthrowu venom /
-`make_blinded` itch still named; omit full alt_spl/rank titles/plural edge cases
+`make_blinded` itch still named; **`pronoun_gender` + `you.h`
+`mhe`/`mhim`/`mhis` + `noit_mhe`/`noit_mhim`/`noit_mhis` D-1776**
+(C `mondata.c:1188–1207` + `you.h:317–331` + `role.c` `genders[]`
+`:688–694`; Hallu `rn2(4)` is drawn **first**, before either gate, so
+these are RNG-visible; `PRONOUN_NO_IT` overrides only the `canspotmon`
+test — neuter / non-humanoid still index 2. Single home in
+`js/mondata.js`; eight local clones deleted from `shk`/`mhitu`/`uhitm`/
+`sit`/`vault`/`mthrowu`/`fountain`/`steed`, `fountain.js` re-exports
+`mhe`/`mhis`. Named: `apply.c:238` `PRONOUN_NO_IT` corpse arm,
+`do_name.c` `mon_nam_too` `:1192` (still a `js/mhitm.js` clone),
+`monverbself` vtense/makeplural, `type_is_pname` `insight.js` clone);
+omit full alt_spl/rank titles/plural edge cases
 
 ### `src/mkobj.c`
 
@@ -499,8 +510,9 @@ Named: guardian/isshk/gecko remaps; SetVoice.
 **D-1626 `domonnoise` MS_BOAST** (`sounds.c:1006–1023`; hostile
 `rn2(4)` gem `mhis` / mutton / Fee-Fie `wake_nearto(7*7)`;
 peaceful FALLTHROUGH into MS_HUMANOID). Live `js/sounds.js`;
-`mhis` one export `js/fountain.js` (`you.h` `pronoun_gender`
-PRONOUN_HALLU). Case 0 immediate pline then `ECMD_TIME`.
+`mhis` one export, now `js/mondata.js` (`you.h` `pronoun_gender`
+PRONOUN_HALLU; D-1776 — `fountain.js` re-exports it).
+Case 0 immediate pline then `ECMD_TIME`.
 MS_HUMANOID is D-1618.
 `mongets` mplayer-sword
 spe is D-1607. ndemon is D-1575.

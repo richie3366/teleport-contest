@@ -2506,7 +2506,10 @@ monkey cant_take / stealarm afternmv deferred;
 `uhitm.c` `mhitm_ad_ssex` mhitu arm; `sounds.c` MS_SEDUCE; extractor `SEDUCTION_ATTACKS_YES`; 
 SYSOPT default on; **SetVoice D-1752**; **`hero_Deaf` D-1758** `youprop.h:125`
 `HDeaf\|\|EDeaf\|\|uroleplay.deaf` — Cha `rn2`/`y_n` skip; hitmsg/You_hear/sedu/ston
-use the same local); named: `noit_mhim` Hallu (`you.h:328`; shk clone drops Hallu),
+use the same local); **`noit_mhim`/`noit_mhis` Hallu D-1776**
+(`you.h:326–331` via the single `mondata.c` `pronoun_gender` port —
+the shk clone that dropped Hallu is gone; `shk.c` `getcad` `:5137` and
+partial-pay `:2657` wired); named:
 uhitm hero-as-seducer, mhitm mon-mon AD_SSEX, 
 SEDUCE=0 `c_sa_no` subst, steal.c monkey_business `unresponsive` site)); 
 **`mswings`/`mswings_verb` + `hitval` on AT_WEAP melee** (D-0286); 
@@ -2537,7 +2540,7 @@ deferred); **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:193
 flash/`make_blinded`/`spe--`/return 1; callee D-1366); omit muse ray-wand/horn/scroll/SCR_EARTH; 
 mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named); 
 other `getmattk` substitutions; `hitval` blessed/spear/trident/pick/silver (artifact `spec_abon` 
-D-0611), Snickersnee bash exemption, full `pronoun_gender` canspotmon/neuter, 
+D-0611), Snickersnee bash exemption (`pronoun_gender` canspotmon/neuter is live, D-1776), 
 polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot, HTH `select_hwep`, 
 weld/artifact_light wield msgs, large-monster `dmgval` switch / thick-skin/silver/blessed/axe 
 bonuses, knockback hurtle; `mshot_xname` Nth; `obj_is_pname`/`the()`; 

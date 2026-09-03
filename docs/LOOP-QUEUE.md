@@ -34,8 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `end.c` DUMPLOG (named). Not companion pet HP.
-- [ ] `mhitu.c` noit_mhim Hallu (named). Not hero_Deaf.
 - [ ] `ball.c` unplacebc Blind glyph restore (named). Not set_bc.
 - [ ] `ball.c` ballfall (named). Not set_bc.
 - [ ] `ball.c` move_bc Blind glyph (named). Not set_bc.
@@ -46,6 +44,8 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `dog.c` keepdogs leash (named). Not losedogs.
 - [ ] `display.c` ridden_mon_to_glyph usteed (named). Not map_monst.
 - [ ] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee.
+- [ ] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender.
+- [ ] `apply.c` corpse gender PRONOUN_NO_IT arm `:230–248` (named). Not pronoun_gender.
 
 ## Parked (do not pop)
 

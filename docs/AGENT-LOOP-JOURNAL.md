@@ -8,6 +8,33 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1776 pronoun_gender single home / DUMPLOG retired
+
+**Objective:** queue head was `end.c` DUMPLOG. Checked the build first:
+`nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
+`#ifdef DUMPLOG` block is compiled out of the scored binary, and the
+`DUMPLOG_CORE` `saved_plines[]` ring that *is* compiled in is write-only
+(sole reader `report.c:579`, crash path). Retired that row with the
+evidence rather than porting dead, filesystem-bound code, and took the
+next row: `mhitu.c` noit_mhim Hallu.
+**C locus:** `mondata.c` `pronoun_gender` `:1188-1207`; `you.h:317-331`;
+`role.c` `genders[]` `:688-694`; `shk.c` `getcad` `:5137-5171` and
+partial-pay `:2657-2661`.
+**JS locus:** new home `js/mondata.js`; clones deleted from `shk`,
+`mhitu`, `uhitm`, `sit`, `vault`, `mthrowu`, `fountain`, `steed`.
+**Change:** eight divergent clones of the you.h pronoun macros collapsed
+into one C-faithful `pronoun_gender(mtmp, pg_flags)`. Three were
+RNG-wrong (shk `noit_*`, mthrowu `mhim` = constant 'it', vault `mhe`)
+because C draws `rn2(4)` first under Hallucination; two more skipped the
+canspotmon / neuter / pname gates. `PRONOUN_NO_IT` now exists at all.
+shk `getcad` and the partial-payment pline wired to `noit_mhis` /
+`noit_mhim` + `currency` + the "you " customer prefix.
+**Verify:** green gate + strict lengths PASS; full `sessions` 44/44
+(62+0.49/turn); strict lengths also on seed0383/seed0399 (hallu) and
+seed0116 (shop). `sym.mjs` now reports 0 clones for all seven names.
+103 ins / 134 del across 9 js files — net smaller.
+**Next:** `ball.c` unplacebc Blind glyph restore (named). Not set_bc.
+
 ## 2026-09-03 — D-1775 detect.c findone flash/foundone/mimic/hider/invis
 
 **Objective:** queue Open `detect.c` findone (named); suite already 44/44.
