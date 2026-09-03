@@ -74,8 +74,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 dropped the reflexive). Must-fix is **empty** — pop the first **Open**
 row. Save-oracle required for tagged restore/other-floor Open
 (`save-oracle.mjs probe --omit`).
-**Next cluster:** `apply.c` corpse gender PRONOUN_NO_IT arm
-`:230–248` (named). Not `pronoun_gender`.
+**Open is now hidden-score ordered** — `docs/PORT-GAP-TOP30.md` ranks
+the 30 C functions a session we cannot see is most likely to hit
+(reach from the turn loop x call breadth x RNG/message loudness x
+coverage gap; `node scripts/port-coverage.mjs`). Queue Open = rows
+1–12 of that file, in order.
+**Next cluster:** `eat.c` `newuhs` `:3362` — hunger messages,
+`end_running`, ATEMP WEAK crossover, faint/starve. JS is a
+field-update stub. Not `gethungry`.
 **`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
 `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
 `#ifdef DUMPLOG` block is compiled out of the scored build, and the
@@ -117,20 +123,14 @@ enter on `glyph_is_trap`; floor objects do not beat a trap glyph.
 `:246` — ridden steed uses `ridden_mon_to_glyph`, and `display_self`'s
 wizmgender attr follows the **steed's** gender. **D-1783** `keepdogs` `:786` stay_behind + both leash arms + `mintrap`
 escape + steed `mdrop_special_objs` + `keep_mon_accessible`; async at
-both callers; `on_level` exported. **D-1782** `object_detect` `:602` — `clear_stale_map` gate, `ctu`
-"sense nearby", `o_in`, buried+minvent+cursed-mimic, `findgold`
-**`rnd(10)`**, boulder dual-class. **D-1781** `food_detect` `:478` +
-`seffect_food_detection`: confused **or cursed** searches POTION_CLASS,
-nothing-found returns `!stale`, blessed sets `u.uedibility`.
-**D-1780** `lev_by_name` `:2096` + `find_branch` `pd == NULL` — gates
-are `dlev_in_current_branch` and wizard-or-VISITED; keep the
-gehennom·hell→valley alias.
-**D-1779** `trap_description` hallu `rn2(20)` chest-then-door.
-**D-1778** `ballfall` `gets_hit` `rn2(5)` before `ballrelease`;
-`hard_helmet` one export. **D-1777** Blind `move_bc`; `u.bglyph`/
-`u.cglyph` are remembered **cells**, not int ids. **D-1776**
-`pronoun_gender` one home, hallu `rn2(4)` **first**; DUMPLOG retired.
-**D-1775** `findone` flash+`foundone` tail is live.
+both callers; `on_level` exported. **D-1782** `object_detect` `:602` · **D-1781** `food_detect` `:478`
+(confused **or cursed** → POTION_CLASS) · **D-1780** `lev_by_name`
+`:2096` (keep the gehennom·hell→valley alias). Index has the detail.
+**D-1779** `trap_description` hallu `rn2(20)` chest-then-door ·
+**D-1778** `ballfall` `rn2(5)` before `ballrelease` · **D-1777**
+`u.bglyph`/`u.cglyph` are remembered **cells** · **D-1776**
+`pronoun_gender` one home, hallu `rn2(4)` **first**; DUMPLOG retired ·
+**D-1775** `findone` tail is live.
 **D-1774** `newsym` `:1032` I-arm `lev->glyph` (not gbuf); fight_empty
 `glyph_at`. **D-1773** `gold_detect`.
 **D-1772** `peacefuls_respond` Halt. **D-1771** invent `useupf`.
@@ -160,7 +160,8 @@ Do not re-port D-1660…D-1790 (index). No generic `dknown` on
 
 ## Pointers
 
-`NOTES.md` · `LOOP-QUEUE.md` · `DIVERGENCE-INDEX.md` · `C-JS-MAP.md` ·
+`NOTES.md` · `LOOP-QUEUE.md` · `PORT-GAP-TOP30.md` ·
+`DIVERGENCE-INDEX.md` · `C-JS-MAP.md` ·
 journal tail · `archive/PROGRESS-HISTORY.md`.
 
 ## Handoff rule

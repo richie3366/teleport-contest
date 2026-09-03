@@ -9,8 +9,12 @@ Objective/score live in `CURRENT.md`.
   `monverbself` have one home in `js/do_name.js` and `makeplural` grew
   C’s pronoun block. Must-fix is still **empty** — pop the first Open.
   Do not invent a FAIL.
-- **Next cluster:** first Open — `apply.c` corpse gender PRONOUN_NO_IT
-  arm `:230–248` (named). Not `pronoun_gender`.
+- **Open is hidden-score ordered now** (`docs/PORT-GAP-TOP30.md`,
+  rebuilt by `node scripts/port-coverage.mjs`). Pop rows in order; do
+  not re-derive a different priority from the map.
+- **Next cluster:** first Open — `eat.c` `newuhs` `:3362` hunger
+  messages / `end_running` / faint / starve. JS is a field-update stub,
+  so any session that gets Hungry diverges. Not `gethungry`.
 - **`monverbself` prints what C writes, not what C’s comment says.**
   makeplural("It") is "They" (genders[2].he beats .him), and
   `do_name.c:1240` rewrites that to genders[3].him, so a hallucinated
@@ -41,16 +45,11 @@ Objective/score live in `CURRENT.md`.
   process** (pre-existing). seed0012 / seed0014 report a bogus mid-run
   RNG mismatch when batched after seed4500 and PASS alone. Run it per
   session, or trust `ps_test_runner sessions`.
-- **No public session** is Punished+Blind, Punished-while-falling,
-  farlooking a trapped chest/door, level-porting by name, food/object
-  detect, `#cast` food-detect, or leaving a level with a stuck
-  leashed pet. Probe those.
 - **`end.c` DUMPLOG is retired (D-1776) — do not re-enqueue.** Open
   work lives in `LOOP-QUEUE.md`, not here; do not re-port from a list
   in this file.
-- Still unqueued clone drift worth folding when you touch it:
-  `zap.js` useupf; detect/potion/read/spell `useup`;
-  `qst_guardians_respond`; Elbereth.
+- Clone drift to fold when you touch it: `zap.js` useupf;
+  detect/potion/read/spell `useup`; `qst_guardians_respond`; Elbereth.
 
 ## Don't re-check (≤15)
 

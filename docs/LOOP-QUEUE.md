@@ -34,15 +34,21 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `apply.c` corpse gender PRONOUN_NO_IT arm `:230–248` (named). Not pronoun_gender.
-- [ ] `mon.c` maybe_unhide_at wiring into hack.c movobj / ball.c (named). Not hideunder.
-- [ ] `ball.c` drop_ball (named). Not ballfall.
-- [ ] `obj.h` is_helmet clones in u_init.js / worn.js (named). Not hard_helmet.
-- [ ] `teleport.c` level_tele Nowhere ynq + deepest clamp (named). Not lev_by_name.
-- [ ] `eat.c` doeat edibility_prompts u.uedibility consumer (named). Not food_detect.
-- [ ] `dog.c` mon_leave no_charge / set_residency / wormno (named). Not keepdogs.
-- [ ] `display.c` map_glyphinfo has_rogue_color colour sets (named). Not ridden bank.
-- [ ] `dungeon.c` on_level 13 clones → one export (named). Not lev_by_name.
+Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
+order; rows 13–30 of that file refill this list.
+
+- [ ] `eat.c` newuhs hunger messages + faint/starve + end_running (JS is a field-update stub). Not gethungry.
+- [ ] `timeout.c` nh_timeout property dialogues: stoned/slime/vomiting/choke/sickness/levitation/phaze + stone_luck. Not make_blinded.
+- [ ] `weapon.c` dmgval blessed/axe/silver/artifact_light bonus rnd() + greatest_erosion (RNG). Not spec_abon.
+- [ ] `mon.c` make_corpse special-corpse table (dragon scales / unicorn horn / worm tooth) — 19 C draws. Not mondied.
+- [ ] `mhitu.c` mattacku remaining attack-type arms `:491–952`. Not hitmu.
+- [ ] `mon.c` xkilled LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool gate + artifact un-create. Not make_corpse.
+- [ ] `monmove.c` dochug remaining arms + wormhitu callee. Not m_move.
+- [ ] `hack.c` spoteffects recursion guards / levitation timeout / Warning ice `:3312–3462`. Not dotrap.
+- [ ] `hack.c` test_move + domove_core: water_friction, avoid_running_into_trap_or_liquid, domove_fight_ironbars/web, mention_walls. Not lookaround.
+- [ ] `allmain.c` moveloop_core per-turn callees: do_storms, glibr, mkot_trap_warn, end_of_input. Not nh_timeout.
+- [ ] `objnam.c` xname_flags tshirt_text / apron_text / hawaiian_motif / xcalled. Not xname article arms.
+- [ ] `do_name.c` x_monnam saddle / ARTICLE_* / M2_PNAME / Wizard article + nextmbuf. Not mon_nam_too.
 
 ## Parked (do not pop)
 
