@@ -5,65 +5,57 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44.** Map-driven: named omissions / cluster density, not
-  FAIL peels. Audit 728–737: ten ACCEPT-WITH-DEBT, Must-fix empty.
-  **Next:** `do_name.c` `mon_nam_too` + `monverbself` (named; mhitm.js
-  clone). Falsify: C body vs JS clone. Not pronoun_gender. Do not
-  invent a FAIL.
+- **Suite 44/44.** Re-audit **738–754** (`3baada67`…HEAD): four
+  QUALITY-RISK. Must-fix pops first. Falsify next: `rg 'Punished\s*=' js/`
+  stays empty while `js/do.js:1801` / `js/trap.js:1909` still read
+  `u.Punished`. Do not invent a FAIL.
+- **Next cluster:** `do.c`/`trap.c` ballfall callers gate on `u.uball`
+  (C `Punished` ≡ `uball != 0`, `youprop.h:77`), not sticky
+  `u.Punished`. Same `goto_level` already uses `u.uball` at `:1759`.
+  Not `drop_ball`. Not `hard_helmet`.
+- **Three more Must-fix after that:** lookat trap tnum =
+  `glyph_to_trap(glyph_at)` not `t_at&&tseen` (maketrap returns null for
+  chest/door); `spell.c` `SPE_DETECT_FOOD` must `seffects(pseudo)`;
+  `keepdogs` must not `for-of` live `fmon` while `migrate_to_level`
+  splices it. Do not re-enqueue `observe_recursively` (already
+  recurses `cobj`).
 - **`do_clear_area` is one async export in `js/vision.js`** (D-1785).
   `openit`/`findit` must pass `openone`/`findone` **by identity** —
-  `detecting()` is what turns on `override_vision`, which is the only
-  reason detection works on the water and air levels. `dog_goal` is
-  async now; `dog_move` awaits it.
+  `detecting()` is what turns on `override_vision`. `dog_goal` is
+  async; `dog_move` awaits it.
 - **Traps in the recent ports** (full detail in the D-log):
-  a ridden steed uses `ridden_mon_to_glyph`, so the hero cell carries a
-  GLYPH_RIDDEN_* id with the *same* ch/colour — invisible to the suite —
-  and `display_self`'s wizmgender attr follows the **steed's** gender
-  (D-1784). `keepdogs` is **async**; `do.js`/`end.js` await it, and a
-  trapped follower's `mintrap` clears `mtrapped` so it usually *does*
-  follow (D-1783). `object_detect`'s gate is
-  `!clear_stale_map(...) && !ct`, `ctu` splits return 1 from return 0,
-  and its `findgold` stand-in draws `rnd(10)` (D-1782). `food_detect`
-  searches POTION_CLASS when confused **or cursed**, and `u.uedibility`
-  is set but never read (D-1781). `on_level` is exported from
-  `js/dungeon.js`; 13 clones remain.
-- **RNG order traps in those ports.** `pronoun_gender` draws `rn2(4)`
-  *before* either gate; `ballfall` computes `gets_hit`'s `rn2(5)`
-  *before* `ballrelease` and draws nothing when the ball is on the
-  hero's spot or is `uwep`; `trap_description` runs the chest gate
-  before the door gate and each draws `rn2(20)` under Hallucination.
-- `u.bglyph`/`u.cglyph` hold remembered **cells**, not int glyph ids —
-  `levl_glyph_at` / `set_levl_glyph` in `js/ball.js`.
+  a ridden steed uses `ridden_mon_to_glyph` (D-1784). `keepdogs` is
+  **async**; `do.js`/`end.js` await it (D-1783) — the walk is still
+  C-wrong. `object_detect` gate/`rnd(10)` is D-1782. `food_detect`
+  scroll is live; `#cast` is not (D-1781). `on_level` is exported;
+  12 clones remain.
+- **RNG order traps.** `pronoun_gender` draws `rn2(4)` *before* either
+  gate; `ballfall` computes `gets_hit` `rn2(5)` *before* `ballrelease`;
+  `trap_description` chest gate then door (one tnum can draw at most
+  one `rn2(20)`).
+- `u.bglyph`/`u.cglyph` hold remembered **cells**, not int glyph ids.
 - The gehennom/hell → `valley` rewrite in `lev_by_name` is
   load-bearing: the bare branch name lands on the castle.
 - **`strict-output-check.mjs` leaks state across sessions in one
-  process** (pre-existing; reproduced on HEAD). seed0012 / seed0014
-  report a bogus mid-run RNG mismatch when batched after seed4500 and
-  PASS alone. Run it per session, or trust `ps_test_runner sessions`.
-- **No public session** is Punished+Blind (D-1777), Punished-while-
-  falling (D-1778), farlooking a trapped chest/door (D-1779), or
-  level-porting by name (D-1780), reading food detection (D-1781), or
-  detecting objects (D-1782), or leaving a level with a stuck leashed
-  pet (D-1783). The suite cannot regress-test those arms
-  — probe directly, and note anything past `cls()` blocks headless.
+  process** (pre-existing). seed0012 / seed0014 report a bogus mid-run
+  RNG mismatch when batched after seed4500 and PASS alone. Run it per
+  session, or trust `ps_test_runner sessions`.
+- **No public session** is Punished+Blind, Punished-while-falling,
+  farlooking a trapped chest/door, level-porting by name, food/object
+  detect, or leaving a level with a stuck leashed pet. Probe those.
 - **`end.c` DUMPLOG is retired (D-1776), not deferred — do not
-  re-enqueue.** `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so
-  all `end.c` `#ifdef DUMPLOG` blocks are compiled out of the scored
-  build. `DUMPLOG_CORE` is on via macOS `CRASHREPORT`, but its
-  `saved_plines[]` ring is write-only — the sole compiled-in reader is
-  `report.c:579`. No screen, no RNG.
-- **Open work lives in `LOOP-QUEUE.md`, not here.** The old "named
-  still" list had gone stale — it still listed food_detect,
-  object_detect, DUMPLOG, `noit_mhim`, Blind `move_bc`/`unplacebc`/
-  ballfall, `trap_description`, `lev_by_name` and keepdogs leash, all
-  of which are shipped. Do not re-port from a list in this file.
-- Still unqueued clone drift worth folding into a nearby port when you
-  touch it: `zap.js` useupf; detect/potion/read/spell `useup`;
+  re-enqueue.**
+- **Open work lives in `LOOP-QUEUE.md`, not here.** Do not re-port
+  from a list in this file.
+- Still unqueued clone drift worth folding when you touch it:
+  `zap.js` useupf; detect/potion/read/spell `useup`;
   `qst_guardians_respond`; Elbereth.
 
 ## Don't re-check (≤15)
 
-- Stamp `D-NNNN` in the fix; next commit fills `%h`. Same-commit archive.
+- Do not treat reviews **728–736** as unpaid Must-fix (those AWD
+  held). Review **737** AWD was **wrong** — both ballfall callers are
+  dead; see **747**. Do not rubber-stamp “fortress held” as Match C.
 - Do not re-check 40/44 at D-1765 / D-1766; D-1767 recovered three
   FAILs; seed0014 leftover was I-glyph `newsym` (D-1774), not gbuf
   and not skipped `nonrotting_corpse`. findone's tail is live
@@ -108,6 +100,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1778 callers: `u.Punished` never written; gate on `u.uball`.
 - D-1774: `newsym` `:1032` I-arm `lev->glyph`; fight_empty `glyph_at`.
 - D-1773: `gold_detect`; `o_in`/`o_material`/`clear_stale_map`.
 - D-1772: `peacefuls_respond` `:4162–4257`; `setmangry` `:4317`;
@@ -126,4 +119,3 @@ Objective/score live in `CURRENT.md`.
 - D-1763: `beg` `:518–542`. Named: `dog_hunger` wire. Halt is D-1772.
 - D-1762: `maybe_gasp` `:545–610`. Halt is D-1772.
 - D-1761: `sound_speak` `:2184–2220` !SND_SPEECH no-op.
-- D-1760: `explode` `:378–452` `map_invisible` / You_hear vs Boom!.

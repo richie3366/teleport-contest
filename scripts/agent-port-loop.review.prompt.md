@@ -70,9 +70,10 @@ This is an audit against **pinned C**, not against the commit message.
    open the next SHA.
 
 Write in **English**. Length is `check-hot-docs.mjs --review NN`
-(JS-touching 150–350; >250 `js/` insertions raise the ceiling to 450.
-200-floor only for **new** reviews, id >454 — do **not** pad older
-files. docs-only 40–80; +33% is still `ok`). No full-diff paste.
+(JS-touching 80–350; FAIL is below ~53, not a padding target.
+>250 `js/` insertions raise the **ceiling** to 450 only — do not
+write a longer review just because the diff is large. docs-only
+40–80; +33% is still `ok`). No full-diff paste. Do **not** pad.
 Short C/JS citations (≤30 lines).
 
 ## Required output (this SHA — write now, not after the last SHA)

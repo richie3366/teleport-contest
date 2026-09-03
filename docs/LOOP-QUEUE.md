@@ -32,6 +32,11 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `do.c`/`trap.c` ballfall callers: gate on `u.uball` (C `Punished` ≡ `uball != 0`), not sticky `u.Punished` which is never set. Source: reviews/loop-unattended/747-c4a32e7c-ballfall.md
+- [ ] `pager.c` lookat trap tnum = `glyph_to_trap(glyph_at)`, not `t_at&&tseen`. Source: reviews/loop-unattended/748-e8515402-trap-description.md
+- [ ] `spell.c` `SPE_DETECT_FOOD` must call `seffects(pseudo)` (skilled bless FALLTHROUGH). Source: reviews/loop-unattended/750-28f02a82-food-detect.md
+- [ ] `dog.c` keepdogs must not `for-of` live `fmon` while `migrate_to_level` splices it. Source: reviews/loop-unattended/752-22730962-keepdogs.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender.
@@ -39,10 +44,8 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `mon.c` maybe_unhide_at wiring into hack.c movobj / ball.c (named). Not hideunder.
 - [ ] `ball.c` drop_ball (named). Not ballfall.
 - [ ] `obj.h` is_helmet clones in u_init.js / worn.js (named). Not hard_helmet.
-- [ ] `pager.c` lookat glyph_to_trap(glyph_at) vs live t_at ttyp (named). Not trap_description.
 - [ ] `teleport.c` level_tele Nowhere ynq + deepest clamp (named). Not lev_by_name.
 - [ ] `eat.c` doeat edibility_prompts u.uedibility consumer (named). Not food_detect.
-- [ ] `detect.c` observe_recursively container recursion (named). Not object_detect.
 - [ ] `dog.c` mon_leave no_charge / set_residency / wormno (named). Not keepdogs.
 - [ ] `display.c` map_glyphinfo has_rogue_color colour sets (named). Not ridden bank.
 - [ ] `dungeon.c` on_level 13 clones → one export (named). Not lev_by_name.

@@ -49,14 +49,14 @@ const HOT_SUM_MAX = 40_000;
 const QUEUE_MIN = 8;
 const QUEUE_TARGET = 12;
 const NOTES_SECTION_TARGET = 15;
-/** Default JS review 150–350. >250 js/ insertions raise the ceiling to
- *  450. The 200-floor applies only to review ids after
- *  REVIEW_GRANDFATHER_ID (do not FAIL historical reviews). */
-const REVIEW_JS = { lo: 150, hi: 350 };
-const REVIEW_JS_LARGE = { lo: 200, hi: 450 };
+/** Default JS review 80–350. Required headings + a real C walk fit
+ *  in ~80 lines; FAIL is below floorTol(80) ≈ 53, not a padding
+ *  target. >250 js/ insertions raise the *ceiling* to 450 only —
+ *  a larger diff does not demand a longer write-up. */
+const REVIEW_JS = { lo: 80, hi: 350 };
+const REVIEW_JS_LARGE = { lo: 80, hi: 450 };
 const REVIEW_DOCS = { lo: 40, hi: 80 };
 const REVIEW_LARGE_INS = 250;
-const REVIEW_GRANDFATHER_ID = 454;
 const MAP_DIR = 'docs/c-js-map';
 
 function lineCount(text) {
@@ -281,10 +281,6 @@ function reviewBandFor(hit, docsOnly) {
   if (docsOnly) return REVIEW_DOCS;
   const ins = jsInsertions(hit.sha);
   if (ins <= REVIEW_LARGE_INS) return REVIEW_JS;
-  const id = hit.id ?? idFromRel(hit.rel);
-  if (id == null || id <= REVIEW_GRANDFATHER_ID) {
-    return { lo: REVIEW_JS.lo, hi: REVIEW_JS_LARGE.hi };
-  }
   return REVIEW_JS_LARGE;
 }
 
@@ -296,8 +292,8 @@ function main() {
 Run this yourself and read the statuses. Do not wc/count.
 
   --fix         rotate journal if over cap, then report
-  --docs-only   review band 40–80 (default 150–350; >250 js/ ins →
-                ceiling 450; 200-floor only if review id >454)
+  --docs-only   review band 40–80 (default 80–350; >250 js/ ins →
+                ceiling 450, same floor)
   IDs           187 | 183-187 | 183,184 | path | SHA
 
 ok = in target or within +33% — no edit required.

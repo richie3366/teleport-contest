@@ -176,8 +176,10 @@ override-order mapping (buried, then floor, then minvent, then the
 cursed-mimic `M_AP_OBJECT` stand-in or `findgold` gold whose
 **`rnd(10)`** quan is a real draw), and the
 `glyph_is_object(glyph_at(u.ux,u.uy))` → `newsym` + `TER_MON` arm.
-Named: `observe_recursively` stops at a container's top level;
-`display_nhwindow(WIN_MAP)` for the absence case is a flush;
+Named: `display_nhwindow(WIN_MAP)` for the absence case is a flush
+(the local `observe_recursively` already recurses `cobj`/`nobj` — do
+not re-enqueue it); leftover map text that said "stops at top" was
+false;
 gold_detect is D-1773)**; 
 **`monster_detect` empty+otmp `strange_feeling` threatened / hallu heebie jeebies (D-1418; 
 caller `peffect_monster_detection`; **`detect_wsegs` D-1545** via `map_monst` 

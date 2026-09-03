@@ -748,3 +748,20 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [735-24ced3ef-pronoun-gender.md](./735-24ced3ef-pronoun-gender.md) | `24ced3ef` | D-1776 mondata.c pronoun_gender / you.h mhe | **ACCEPT-WITH-DEBT** |
 | [736-cd3e1091-move-bc-blind.md](./736-cd3e1091-move-bc-blind.md) | `cd3e1091` | D-1777 ball.c Blind move_bc / unplacebc glyph restore | **ACCEPT-WITH-DEBT** |
 | [737-c4a32e7c-ballfall.md](./737-c4a32e7c-ballfall.md) | `c4a32e7c` | D-1778 ball.c ballfall + do_wear.c hard_helmet | **ACCEPT-WITH-DEBT** |
+| [738-3baada67-set-bc.md](./738-3baada67-set-bc.md) | `3baada67` | D-1769 ball.c set_bc Punished blind snapshot (re-audit) | **ACCEPT-WITH-DEBT** |
+| [739-1fbbe0c0-delete-contents.md](./739-1fbbe0c0-delete-contents.md) | `1fbbe0c0` | D-1770 shk.c delete_contents zap poly_obj import (re-audit) | **ACCEPT-WITH-DEBT** |
+| [740-dd090eaf-useupf.md](./740-dd090eaf-useupf.md) | `dd090eaf` | D-1771 invent.c useupf + eat.c carried hybrid (re-audit) | **ACCEPT-WITH-DEBT** |
+| [741-81276343-peacefuls-respond.md](./741-81276343-peacefuls-respond.md) | `81276343` | D-1772 mon.c peacefuls_respond / setmangry Halt (re-audit) | **ACCEPT-WITH-DEBT** |
+| [742-c206da54-gold-detect.md](./742-c206da54-gold-detect.md) | `c206da54` | D-1773 detect.c gold_detect / o_in o_material (re-audit) | **ACCEPT-WITH-DEBT** |
+| [743-1f5d551a-newsym-i-arm.md](./743-1f5d551a-newsym-i-arm.md) | `1f5d551a` | D-1774 display.c newsym I-arm lev->glyph (re-audit) | **ACCEPT-WITH-DEBT** |
+| [744-b4d526e9-findone.md](./744-b4d526e9-findone.md) | `b4d526e9` | D-1775 detect.c findone flash / foundone / mimic tail (re-audit) | **ACCEPT-WITH-DEBT** |
+| [745-24ced3ef-pronoun-gender.md](./745-24ced3ef-pronoun-gender.md) | `24ced3ef` | D-1776 mondata.c pronoun_gender / you.h mhe (re-audit) | **ACCEPT-WITH-DEBT** |
+| [746-cd3e1091-move-bc-blind.md](./746-cd3e1091-move-bc-blind.md) | `cd3e1091` | D-1777 ball.c Blind move_bc / unplacebc glyph restore (re-audit) | **ACCEPT-WITH-DEBT** |
+| [747-c4a32e7c-ballfall.md](./747-c4a32e7c-ballfall.md) | `c4a32e7c` | D-1778 ball.c ballfall callers sticky u.Punished (re-audit) | **QUALITY-RISK** |
+| [748-e8515402-trap-description.md](./748-e8515402-trap-description.md) | `e8515402` | D-1779 pager.c trap_description lookat still t_at | **QUALITY-RISK** |
+| [749-45f35a52-lev-by-name.md](./749-45f35a52-lev-by-name.md) | `45f35a52` | D-1780 dungeon.c lev_by_name | **ACCEPT-WITH-DEBT** |
+| [750-28f02a82-food-detect.md](./750-28f02a82-food-detect.md) | `28f02a82` | D-1781 detect.c food_detect spell.c SPE_DETECT_FOOD unwired | **QUALITY-RISK** |
+| [751-fe542a1d-object-detect.md](./751-fe542a1d-object-detect.md) | `fe542a1d` | D-1782 detect.c object_detect | **ACCEPT-WITH-DEBT** |
+| [752-22730962-keepdogs.md](./752-22730962-keepdogs.md) | `22730962` | D-1783 dog.c keepdogs fmon splice during migrate | **QUALITY-RISK** |
+| [753-7870c5c6-maybe-display-usteed.md](./753-7870c5c6-maybe-display-usteed.md) | `7870c5c6` | D-1784 display.h maybe_display_usteed ridden bank | **ACCEPT-WITH-DEBT** |
+| [754-da520eda-do-clear-area.md](./754-da520eda-do-clear-area.md) | `da520eda` | D-1785 vision.c do_clear_area override_vision | **ACCEPT-WITH-DEBT** |

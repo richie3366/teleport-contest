@@ -23,15 +23,13 @@ notable non-PASS. Do not invent suite totals from one focused session.
 Score last measured: **2026-09-03** — full `sessions` at **D-1785**
 (`do_clear_area`). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `66+0.50/turn` (R² 0.853). Fortress held. Audit **728–737**:
-all ten SHAs **ACCEPT-WITH-DEBT**; Must-fix empty. No public session
-is Punished+Blind (D-1777), Punished-while-falling (D-1778),
-farlooking a trapped chest/door (D-1779), level-porting by name
-(D-1780), reading food detection (D-1781), or detecting objects
-(D-1782), or leaving a level with a stuck leashed pet (D-1783) —
-those arms are verified by direct probes, not the suite;
-`object_detect`'s post-`cls()` mapping needs a real display and rests
-on the C read alone.
+Speed `44+0.34/turn` (R² 0.855). Fortress held. Re-audit **738–754**
+(`3baada67`…HEAD): four **QUALITY-RISK** (747 ballfall `u.Punished`
+never set; 748 lookat still `t_at`; 750 `SPE_DETECT_FOOD` unwired;
+752 keepdogs `fmon` splice). Must-fix has those four. No public
+session is Punished+Blind, Punished-while-falling, farlooking a
+trapped chest/door, level-porting by name, food/object detect, or
+leaving a level with a stuck leashed pet — probes, not the suite.
 
 ## Score
 
@@ -40,7 +38,7 @@ on the C read alone.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `66+0.50/turn` (R² 0.853) |
+| Speed label | `44+0.34/turn` (R² 0.855) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -69,12 +67,13 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** held at D-1775. Map-driven fortress: named
-omissions, not invented FAIL peels.
+**Suite 44/44** held at D-1785. Re-audit 738–754 found four
+C-wrongs; Must-fix pops first.
 Save-oracle required for tagged restore/other-floor Open
-(`save-oracle.mjs probe --omit`; `detect.c:findone` was untagged).
-**Next cluster:** `do_name.c` mon_nam_too + monverbself (named;
-mhitm.js clone). Not pronoun_gender.
+(`save-oracle.mjs probe --omit`).
+**Next cluster:** `do.c`/`trap.c` ballfall callers gate on
+`u.uball` (C `Punished`), not sticky `u.Punished` which is never
+set. Source: review **747**. Not `drop_ball`. Not `hard_helmet`.
 **`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
 `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
 `#ifdef DUMPLOG` block is compiled out of the scored build, and the
