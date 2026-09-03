@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `teleport.c` lev_by_name (named). Not heaven u_left_shop. **Addressed:** D-1780
+- [x] `detect.c` food_detect (named). Not object_detect. **Addressed:** D-1781
+
+
+- [x] `teleport.c` lev_by_name (named). Not heaven u_left_shop. **Addressed:** D-1780 `45f35a52`
 
 
 - [x] `pager.c` trap_description (named). Not trapname Hallu. **Addressed:** D-1779 `e8515402`

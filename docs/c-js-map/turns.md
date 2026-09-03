@@ -119,7 +119,25 @@ as is the `detect.js` vs `vision.js` `do_clear_area` clone);
 **`gold_detect` blessed GOLD/`o_in` COIN + `clear_stale_map`/`check_map_spot` +
 mon/floor/`rnd(10)` golem map + strange_feeling poor/worried/steed** (D-1773;
 caller `seffect_gold_detection`; `o_in`/`o_material` exported; steal.c
-`findgold` live; food_detect / object_detect `clear_stale_map` caller still named); 
+`findgold` live; object_detect `clear_stale_map` caller still named); 
+**`food_detect` D-1781** (C `detect.c:478–594`; caller `read.c`
+`seffect_food_detection` `:2045–2053`, dispatch `seffects` `:2252–2253`
+**SCR_FOOD_DETECTION + SPE_DETECT_FOOD** — was the "not implemented"
+default. Confused **or cursed** swaps FOOD_CLASS→POTION_CLASS and
+"food"→"something"; `ctu` counts matches at the hero's spot and `ct`
+elsewhere, and C's monster loop runs only while `(!ct || !ctu)`;
+nothing-found returns `!stale` so `strange_feeling` useups the scroll,
+and `gk.known` is `stale && !confused` there but TRUE in both other
+arms. Blessed sets `u.uedibility` and picks "starts"/"continues" to
+tingle; C's `flags.beginner = FALSE` around `strange_feeling` is
+deliberate (force the custom message). Map arm: cls + `unconstrain_map`
++ `map_object` per floor match and one per monster inventory, `TER_MON`
+added when `!ctu`, then `browse_map(TER_DETECT|TER_OBJ[|TER_MON])` +
+`map_redisplay`. Live `js/detect.js` `food_detect` export (out-param
+stands in for C's `gk.known` global) + `js/read.js`
+`seffect_food_detection`. Named: `u.uedibility` consumers —
+`eat.c` `doeat` `:2834` `edibility_prompts` and `insight.c:1562`
+enlightenment — are not ported, so the flag is set but never read); 
 **`do_mapping`/`show_map_spot` hero_memory + `magic_map_background`** (D-0075) + 
 **`show_map_spot` tseen → `map_trap(t,1)` not `newsym`** (D-0814) + 
 **`show_map_spot` `engr_at` → `map_engraving` when !furniture && !tseen trap** (D-0928 #1158; 

@@ -1,5 +1,74 @@
 # Divergence log
 
+## D-1781 — detect.c food_detect + read.c seffect_food_detection
+
+- **Status:** fixed (map-driven Open row `detect.c` food_detect; suite
+  was 44/44, Must-fix empty)
+- **Symptom:** SCR_FOOD_DETECTION and SPE_DETECT_FOOD fell through
+  `seffects` to the unported default and printed "That scroll is not
+  implemented yet." — the scroll was not even used up. Same shape
+  `gold_detect` had before D-1773.
+- **C locus:** `detect.c` `food_detect` `:478–594`; caller `read.c`
+  `seffect_food_detection` `:2045–2053`; dispatch `seffects`
+  `:2252–2253` (both the scroll and the spell).
+- **JS was:** no `food_detect` at all; `js/read.js` had no
+  SCR_FOOD_DETECTION case and the otyp was excluded from the
+  "implemented" gate. `u.uedibility` did not exist anywhere in `js/`.
+- **Fix:** `food_detect` ported whole into `js/detect.js` over the
+  file's existing `clear_stale_map`, `o_in`, `floor_objects`,
+  `unconstrain_map`, `browse_map` and `map_redisplay` (all `staticfn`
+  in C, all already file-local here). The details that matter:
+  * Confused **or cursed** swaps the search class to POTION_CLASS and
+    the noun to "something" — one decision made once at the top, so
+    both the counting and the mapping arms agree.
+  * `ctu` counts matches at the hero's own square, `ct` matches
+    elsewhere; C's monster loop is guarded by `(!ct || !ctu)`, i.e. it
+    stops as soon as both counters are non-zero, and takes at most one
+    match per monster.
+  * Nothing found returns `!stale`, which is what tells `read.c` the
+    `strange_feeling` already used the scroll up. `gk.known` there is
+    `stale && !confused`, but TRUE in both other arms.
+  * The blessed arm sets `u.uedibility` and chooses "starts" vs
+    "continues" to tingle from its prior value. C's
+    `flags.beginner = FALSE` around that `strange_feeling` is
+    deliberate — it forces the custom message past the beginner
+    default — so it is preserved, save/restore included.
+  * Map arm: `cls`, `unconstrain_map`, `map_object` for every floor
+    match and one per monster inventory, `TER_MON` added when `!ctu`
+    (for autodescribe of self), then `browse_map` and `map_redisplay`.
+  `read.c` `seffect_food_detection` added beside `seffect_gold_detection`
+  and wired for **both** `SCR_FOOD_DETECTION` and `SPE_DETECT_FOOD`,
+  and the otyp removed from the unported-scroll gate. `gk.known` is a
+  global in C; this port keeps `known` module-local in `read.js`, so
+  `food_detect` reports it through an out-param — the same device
+  `print_dungeon` already uses.
+- **JS:** `js/detect.js`, `js/read.js`. 187 insertions / 4 deletions.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `63+0.49/turn` (R² 0.855).
+  Per-session strict lengths PASS on seed2200, seed0501, seed5006,
+  seed4500, seed0030, seed0108 — the scroll/spell-reading sessions.
+  No public session reads this scroll, so the suite is a no-regression
+  signal only; the branches were probed directly:
+  * nothing found → returns **1** with `known` false; a blessed scroll
+    still sets `u.uedibility`.
+  * only under the hero → returns **0**, `known` true.
+  * food away from the hero → `known` true and the ration mapped at its
+    real square (`20,9` → `%`).
+  * class switch both directions: a **cursed** scroll with only a food
+    ration present reports nothing (it is looking for potions), and a
+    sober scroll with only a potion present likewise reports nothing;
+    a cursed scroll with a potion under the hero returns 0/known.
+  * a monster carrying food while standing on the hero counts as `ctu`
+    (C's "steed or an engulfer"), and a dead monster is skipped.
+  The map arm's `browse_map`/`getpos` is interactive and shared with
+  the already-shipped `object_detect`/`monster_detect`; it is **not**
+  covered by these probes.
+- **Not this iter:** `u.uedibility` is now set but never read — its two
+  C consumers, `eat.c` `doeat` `:2834` → `edibility_prompts` (the
+  "would be a bad idea" warning, which also clears the flag) and
+  `insight.c:1562` enlightenment, are unported and now an Open row.
+  `object_detect`'s `clear_stale_map` caller stays the next row.
+
 ## D-1780 — dungeon.c lev_by_name + find_branch pd==NULL arm
 
 - **Status:** fixed (map-driven Open row `teleport.c` lev_by_name; suite

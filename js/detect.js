@@ -108,7 +108,7 @@ import {
     S_hcdoor, S_vcdoor, S_corr, COULD_SEE,
     TER_MAP, TER_TRP, TER_OBJ, TER_MON, TER_FULL, TER_DETECT, ECMD_OK,
     I_SPECIAL, M_AP_TYPE, ARTICLE_A, ROOMOFFSET,
-    TIMEOUT, Never_mind, KILLED_BY_AN, TOE, SYM_BOULDER,
+    TIMEOUT, Never_mind, KILLED_BY_AN, TOE, NOSE, SYM_BOULDER,
     IN_SIGHT, CLAIRVOYANT, LAVAPOOL, LAVAWALL, Has_contents,
     BEAR_TRAP, TRAPPED_DOOR, TRAPPED_CHEST,
     BURIED_TOO, CONTAINED_TOO, FOOT,
@@ -1645,6 +1645,163 @@ function clear_stale_map(oclass, material) {
 
 function mtmp_is_gold_golem(mtmp) {
     return ((mtmp?.data?.mndx ?? mtmp?.mnum) | 0) === PM_GOLD_GOLEM;
+}
+
+/**
+ * C ref: detect.c food_detect `:478–594` — SCR_FOOD_DETECTION /
+ * SPE_DETECT_FOOD. Confused **or cursed** detects POTION_CLASS instead
+ * of FOOD_CLASS and calls it "something", which is why `oclass` and
+ * `what` are computed together up front.
+ *
+ * Three outcomes, and C picks them from two counters: `ctu` counts
+ * matches at the hero's own spot, `ct` matches elsewhere.
+ *  - nothing at all → `gk.known` only when the map had stale memory to
+ *    clear and we were not confused; `strange_feeling` (nose twitches)
+ *    when there is a scroll, so the caller uses it up.
+ *  - only under the hero → "You smell/sense food nearby", no map.
+ *  - anything elsewhere → cls, unconstrain, map every match (including
+ *    one per monster's inventory — C `break`s after the first), then
+ *    `browse_map(TER_DETECT|TER_OBJ[|TER_MON])`.
+ *
+ * The blessed arm sets `u.uedibility` and says the nose "starts" or
+ * "continues" to tingle depending on whether it was already set.
+ * C's `flags.beginner = FALSE` around `strange_feeling` is deliberate:
+ * it forces the custom message through instead of the beginner default.
+ *
+ * `out` is this port's stand-in for C's `gk.known` global (read.c keeps
+ * `known` module-local); same device as `print_dungeon`'s out-param.
+ * @param {object|null} sobj scroll (null when cast as a spell)
+ * @param {{known?: boolean}} [out] receives C's gk.known
+ * @returns {Promise<number>} C's return: 1 = nothing found and nothing
+ *   stale, so the caller strange_feeling'd and must useup
+ */
+export async function food_detect(sobj, out = {}) {
+    const u = game.u || {};
+    let ct = 0;
+    let ctu = 0;
+    const confused = !!(u.HConfusion || u.Confusion || (sobj && sobj.cursed));
+    const oclass = confused ? POTION_CLASS : FOOD_CLASS;
+    const what = confused ? 'something' : 'food';
+
+    const stale = clear_stale_map(oclass, 0);
+    if (u.usteed) {
+        /* some situations leave steed with stale coordinates */
+        u.usteed.mx = u.ux | 0;
+        u.usteed.my = u.uy | 0;
+    }
+
+    for (const obj of floor_objects()) {
+        if (o_in(obj, oclass)) {
+            if (u_at(obj.ox | 0, obj.oy | 0)) ctu++;
+            else ct++;
+        }
+    }
+    for (const mtmp of game.fmon || []) {
+        if (ct && ctu) break; /* C loop condition: (!ct || !ctu) */
+        if (!mtmp || (mtmp.mhp | 0) < 1 || (mtmp.isgd && !(mtmp.mx | 0))) {
+            continue;
+        }
+        for (const obj of iter_objs(mtmp.minvent)) {
+            if (o_in(obj, oclass)) {
+                /* steed or an engulfer with inventory */
+                if (u_at(mtmp.mx | 0, mtmp.my | 0)) ctu++;
+                else ct++;
+                break;
+            }
+        }
+    }
+
+    if (!ct && !ctu) {
+        out.known = stale && !confused;
+        if (stale) {
+            await docrt();
+            await pline(`You sense a lack of ${what} nearby.`);
+            if (sobj && sobj.blessed) {
+                if (!u.uedibility) {
+                    await pline(`Your ${body_part(NOSE)} starts to tingle.`);
+                }
+                u.uedibility = 1;
+            }
+        } else if (sobj) {
+            const tingle = (sobj.blessed && !u.uedibility)
+                ? ' then starts to tingle' : '';
+            const buf = `Your ${body_part(NOSE)} twitches${tingle}.`;
+            if (sobj.blessed && !u.uedibility) {
+                // C: force delivery past the beginner default
+                const savebeginner = game.flags?.beginner;
+                if (game.flags) game.flags.beginner = false;
+                await strange_feeling(sobj, buf);
+                if (game.flags) game.flags.beginner = savebeginner;
+                u.uedibility = 1;
+            } else {
+                await strange_feeling(sobj, buf);
+            }
+        }
+        return stale ? 0 : 1;
+    } else if (!ct) {
+        out.known = true;
+        await pline(`You ${sobj ? 'smell' : 'sense'} ${what} nearby.`);
+        if (sobj && sobj.blessed) {
+            if (!u.uedibility) {
+                await pline(`Your ${body_part(NOSE)} starts to tingle.`);
+            }
+            u.uedibility = 1;
+        }
+    } else {
+        let ter_typ = TER_DETECT | TER_OBJ;
+
+        out.known = true;
+        await cls();
+        unconstrain_map();
+        for (const obj of floor_objects()) {
+            const temp = o_in(obj, oclass);
+            if (temp) {
+                if (temp !== obj) {
+                    temp.ox = obj.ox;
+                    temp.oy = obj.oy;
+                }
+                map_object(temp, 1);
+            }
+        }
+        for (const mtmp of game.fmon || []) {
+            if (!mtmp || (mtmp.mhp | 0) < 1 || (mtmp.isgd && !(mtmp.mx | 0))) {
+                continue;
+            }
+            for (const obj of iter_objs(mtmp.minvent)) {
+                const temp = o_in(obj, oclass);
+                if (temp) {
+                    temp.ox = mtmp.mx;
+                    temp.oy = mtmp.my;
+                    map_object(temp, 1);
+                    break; /* skip rest of this monster's inventory */
+                }
+            }
+        }
+        if (!ctu) {
+            newsym(u.ux | 0, u.uy | 0);
+            ter_typ |= TER_MON; /* for autodescribe of self */
+        }
+        if (sobj) {
+            if (sobj.blessed) {
+                await pline(`Your ${body_part(NOSE)} ${
+                    u.uedibility ? 'continues' : 'starts'
+                } to tingle and you smell ${what}.`);
+                u.uedibility = 1;
+            } else {
+                await pline(
+                    `Your ${body_part(NOSE)} tingles and you smell ${what}.`,
+                );
+            }
+        } else {
+            await pline(`You sense ${what}.`);
+        }
+        exercise(A_WIS, true);
+
+        await browse_map(ter_typ, 'food');
+
+        await map_redisplay();
+    }
+    return 0;
 }
 
 /**

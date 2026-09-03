@@ -8,6 +8,38 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1781 detect.c food_detect + read.c caller
+
+**Objective:** queue Open row `detect.c` food_detect. Must-fix empty.
+**C locus:** `detect.c` `food_detect` `:478-594`; `read.c`
+`seffect_food_detection` `:2045-2053`; `seffects` `:2252-2253`
+(SCR_FOOD_DETECTION + SPE_DETECT_FOOD).
+**JS locus:** `js/detect.js` (new export), `js/read.js` (caller +
+dispatch + unported-scroll gate).
+**Change:** the scroll and the spell both hit the "not implemented yet"
+default and were not even used up. Ported whole over detect.js's
+existing staticfn helpers. Load-bearing details kept: confused **or
+cursed** swaps FOOD_CLASS→POTION_CLASS and "food"→"something"; `ctu`
+counts matches under the hero and `ct` elsewhere with C's
+`(!ct || !ctu)` monster-loop guard and one match per monster;
+nothing-found returns `!stale`, which is what tells read.c the
+strange_feeling already useup'd; `gk.known` is `stale && !confused`
+there but TRUE in the other two arms; blessed sets `u.uedibility` and
+C's `flags.beginner = FALSE` around strange_feeling is preserved.
+`gk.known` is a C global, so food_detect reports it via an out-param
+(read.js keeps `known` module-local) — same device as print_dungeon.
+**Verify:** green gate + strict lengths PASS; full `sessions` 44/44
+(63+0.49/turn); per-session strict PASS on seed2200/0501/5006/4500/
+0030/0108. No public session reads this scroll, so probed directly:
+nothing-found → 1 with known false (blessed still sets uedibility);
+under-hero-only → 0/known; food away → known + ration mapped at its
+square; class switch verified both ways (cursed ignores food, sober
+ignores potions); monster-carrying-food-on-hero counts as ctu; dead
+monster skipped. browse_map/getpos is interactive and shared with
+object_detect — not probe-covered, said so in the D-log.
+187 ins / 4 del across 2 js files.
+**Next:** `detect.c` object_detect clear_stale_map caller (named).
+
 ## 2026-09-03 — D-1780 dungeon.c lev_by_name / find_branch pd==NULL
 
 **Objective:** queue Open row `teleport.c` lev_by_name. The function
