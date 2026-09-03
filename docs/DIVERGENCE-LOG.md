@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1791 — newuhs: hunger messages, faint/starve, end_running
+
+- **Status:** fixed (map-driven Open row; suite was 44/44)
+- **Symptom:** JS `newuhs` was a 14-line field-update stub. Crossing
+  Hungry/Weak printed nothing, did not stop a run, did not apply
+  `ATEMP(A_STR)` ±1, and never set `FAINTED` or starved. Any session
+  long enough to get Hungry diverges.
+- **C locus:** `eat.c` `newuhs` `:3362–3512` — thresholds, occupation
+  `eatfood` / `gf.force_save_hs` stash, `rn2(20 - uhunger_div_by_10)`
+  faint roll (short-circuit when `u.uhs <= WEAK`), starve
+  `uhunger < -(100+10*ACURR(A_CON))`, ATEMP WEAK crossover, HUNGRY/WEAK
+  `You`/`pline` + `end_running(TRUE)`. Callee `unfaint` `:3335–3344`.
+  `hack.c` `end_running` `:4129–4158` (C home; cmd.js clone deleted).
+  Callers: `gethungry`/`morehungry`/`lesshungry`/`done_eating`/
+  `do_reset_eat` plus fountain/potion/uhitm; `allmain`/`overexertion`
+  await `gethungry`.
+- **JS was:** `u.uhs = newhs` and a botl flag. `end_running` lived as a
+  cmd.js local that always zeroed `multi` (C only when `multi > 0`).
+- **Fix:** C body in `js/eat.js`; `unfaint` as `afternmv`; `gethungry`/
+  `morehungry` async; `end_running` exported from `js/hack.js` and
+  `nomul` calls it. Probe 25/25 (thresholds, ATEMP, `force_save_hs`
+  stash, faint without rn2, already-fainted rn2, `end_running` clears
+  run/travel). Green + cohort 8/8 incl. seed1800 eat + seed0361
+  gethungry. `save-oracle` skip (untagged).
+- **Named omissions:** `sit.js` lay-egg `morehungry` still not awaited;
+  `polyself.c:431/:436` and `cant_finish_meal` have no JS caller;
+  `findtravelpath` `end_running(FALSE)`; `gt.travelmap` `selection_free`.
+- **Next:** Open `timeout.c` `nh_timeout` property dialogues.
+
 ## D-1790 — mon_nam_too / monverbself: a monster never named itself
 
 - **Status:** fixed (map-driven Open row; suite was 44/44)

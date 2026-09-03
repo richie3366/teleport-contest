@@ -69,9 +69,10 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** held at D-1790. **D-1790** shipped the first Open
-(`mon_nam_too` + `monverbself`; the mirror / wand / steed arms had each
-dropped the reflexive). Must-fix is **empty** — pop the first **Open**
+**Suite 44/44** held at D-1791. **D-1791** shipped the first Open
+(`eat.c` `newuhs`: hunger messages, `end_running`, ATEMP WEAK,
+faint/starve, `unfaint` afternmv; JS was a field-update stub).
+Must-fix is **empty** — pop the first **Open**
 row. Save-oracle required for tagged restore/other-floor Open
 (`save-oracle.mjs probe --omit`).
 **Open is now hidden-score ordered** — `docs/PORT-GAP-TOP30.md` ranks
@@ -79,22 +80,26 @@ the 30 C functions a session we cannot see is most likely to hit
 (reach from the turn loop x call breadth x RNG/message loudness x
 coverage gap; `node scripts/port-coverage.mjs`). Queue Open = rows
 1–12 of that file, in order.
-**Next cluster:** `eat.c` `newuhs` `:3362` — hunger messages,
-`end_running`, ATEMP WEAK crossover, faint/starve. JS is a
-field-update stub. Not `gethungry`.
+**Next cluster:** `timeout.c` `nh_timeout` property dialogues:
+stoned/slime/vomiting/choke/sickness/levitation/phaze + `stone_luck`.
+Not `make_blinded`.
 **`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
 `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
 `#ifdef DUMPLOG` block is compiled out of the scored build, and the
 surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only
 reader is `report.c` crash path).
-**Do not skip D-1531…D-1790 (index).** Keep mention_map addr.
+**Do not skip D-1531…D-1791 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1790.** Do not FORCE
+**Do not re-break D-0660…D-1791.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1790 (index). Recent: **D-1790**
+**Keep:** D-0845…D-1791 (index). Recent: **D-1791**
+`eat.c` `newuhs` `:3362` — messages / faint / starve / ATEMP /
+`end_running`; `unfaint` afternmv; `gethungry` async. Named: sit.js
+lay-egg `morehungry` still not awaited; `polyself.c` / `cant_finish_meal`
+callers; `findtravelpath` `end_running(FALSE)`. **D-1790**
 `do_name.c` `mon_nam_too` `:1189` + `monverbself` `:1219` — one home in
 `js/do_name.js`, `mhitm.js` clone deleted, `makeplural` pronoun block
 `objnam.c:2853` ported. `monverbself`’s genders[3] arm is C **as
@@ -140,14 +145,14 @@ D-1766…D-1755 (index).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1790 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1791 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1790 (index). No generic `dknown` on
+Do not re-port D-1660…D-1791 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem. DUMPLOG retired (D-1776).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

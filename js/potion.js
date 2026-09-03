@@ -472,7 +472,7 @@ async function peffect_see_invisible(otmp) {
     if (otmp.otyp === POT_FRUIT_JUICE) {
         u.uhunger = (u.uhunger || 0)
             + (otmp.odiluted ? 5 : 10) * (2 + bcsign(otmp));
-        newuhs(false);
+        await newuhs(false);
         return;
     }
     // POT_SEE_INVISIBLE — make_blinded(0) deferred
@@ -1432,7 +1432,6 @@ async function peffect_invisibility(otmp) {
  * C ref: potion.c peffect_booze
  * potion_unkn + taste pline; !blessed → make_confused(d(2+uhs,8));
  * !odiluted → healup(1); hunger + newuhs; exercise WIS; cursed pass-out.
- * newuhs hunger messages / faint deferred (field update only).
  */
 async function peffect_booze(otmp) {
     potion_unkn++;
@@ -1450,7 +1449,7 @@ async function peffect_booze(otmp) {
     }
     if (!otmp.odiluted) await healup(1, 0, false, false);
     u.uhunger = (u.uhunger ?? 900) + 10 * (2 + bcsign(otmp));
-    newuhs(false);
+    await newuhs(false);
     exercise(A_WIS, false);
     if (otmp.cursed) {
         await pline('You pass out.');
@@ -1470,7 +1469,7 @@ async function peffect_water(otmp) {
     if (!otmp.blessed && !otmp.cursed) {
         await pline(`This tastes like ${hliquid('water')}.`);
         u.uhunger = (u.uhunger | 0) + rnd(10);
-        newuhs(false);
+        await newuhs(false);
         return;
     }
     potion_unkn++;

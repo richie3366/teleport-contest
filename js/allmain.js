@@ -910,7 +910,7 @@ export async function moveloop_core() {
                 // C: if (Warning) warnreveal();
                 if (Warning(g.u)) await warnreveal();
                 await dosounds();
-                gethungry();
+                await gethungry();
                 age_spells();
                 await exerchk();
                 // C: invault() before wipe_engr / amulet

@@ -5673,7 +5673,7 @@ export async function jump(magic) {
     nomul(-1);
     if (!game.multi_reason) game.multi_reason = 'jumping around';
     game.nomovemsg = '';
-    morehungry(rnd(25));
+    await morehungry(rnd(25));
     return ECMD_TIME;
 }
 

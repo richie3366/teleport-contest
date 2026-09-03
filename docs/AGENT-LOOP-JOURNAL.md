@@ -8,6 +8,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1791 eat.c newuhs hunger / faint / end_running
+
+**Objective:** Open `eat.c` `newuhs` (not `gethungry`).
+**C:** `eat.c:3362–3512` + `unfaint` `:3335–3344` + `hack.c`
+`end_running` `:4129–4158`.
+**JS was:** 14-line field stub; cmd.js `end_running` always zeroed
+`multi`.
+**Fix:** C body; `unfaint` afternmv; `gethungry`/`morehungry` async;
+`end_running` in `hack.js`; cmd clone deleted. Probe 25/25.
+**Verify:** green + strict; cohort 8/8 incl. seed1800/0361. save-oracle
+skip (untagged).
+**Next:** Open `timeout.c` `nh_timeout` property dialogues.
 ## 2026-09-03 — hidden-score gap ranking; Open queue re-pointed
 
 **Objective:** user request (not a port iteration) — rank the C

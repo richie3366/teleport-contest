@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender. **Addressed:** D-1790
+- [x] `eat.c` newuhs hunger messages + faint/starve + end_running (JS is a field-update stub). Not gethungry. **Addressed:** D-1791
+
+
+- [x] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender. **Addressed:** D-1790 `31181641`
 
 
 - [x] `dog.c` keepdogs must not `for-of` live `fmon` while `migrate_to_level` splices it. Source: reviews/loop-unattended/752-22730962-keepdogs.md **Addressed:** D-1789 `3cb13f27`

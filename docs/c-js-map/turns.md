@@ -1542,14 +1542,20 @@ doeat_nonfood still deferred); **`fprefx` CLOVE_OF_GARLIC →
 `garlic_breath`/`olfaction`/`monflee(0)`** (D-0635; undead `make_vomiting` deferred); 
 **`gethungry` accessorytime `rn2(20)`** (D-0107); 
 **Unaware metabolic `rn2(10)` before accessorytime** (D-0156;
-`is_fainted` / Unaware `talk=FALSE` D-1768; newuhs still does not
-set FAINTED); 
+`is_fainted` / Unaware `talk=FALSE` D-1768; **D-1791** `newuhs` sets
+FAINTED on faint); 
 **`gethungry` ordinary `uhunger--` via `hero_form_data` diet + 
 odd/even Regen/encumb/Hunger/Conflict burns** (D-0410) + 
 **accessorytime even cases 0/4/8/12/16 (amulet/rings)** (D-0633; 
 seed0361 **PASS**) + **`uinvulnerable` early-return skips accessorytime** (D-0517 prayer); 
-**`init_uhunger`/`newuhs` field thresholds + u_init `uhs=NOT_HUNGRY`** (D-0438; 
-hunger messages / faint / ATEMP WEAK / occupation `force_save_hs` deferred); 
+**`init_uhunger`/`newuhs` field thresholds + u_init `uhs=NOT_HUNGRY`** (D-0438) +
+**`newuhs` hunger messages / `end_running` / ATEMP WEAK / faint/starve /
+occupation `force_save_hs` + `unfaint` afternmv** (D-1791; C `eat.c:3362–3512` /
+`unfaint` `:3335–3344` / `hack.c` `end_running` `:4129–4158`; JS was a
+14-line field stub; `gethungry`/`morehungry` are async so they can await
+it; named: `sit.js` lay-egg `morehungry` still not awaited, `polyself.c:431/:436`
+and `cant_finish_meal` have no JS caller, `findtravelpath` `end_running(FALSE)`,
+`gt.travelmap` `selection_free`); 
 **getobj missing-letter `continue` + empty early-return** (D-0142); 
 **CORPSE `eatcorpse`/`start_eating`/`eatfood` occupation + extracted `cwt`/`cnutrit`** (D-0193;
 **rot `(moves-age)/(10+rn2(20))` live — seed0014 @43789 was D-1774 I-glyph

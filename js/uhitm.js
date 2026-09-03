@@ -2059,7 +2059,7 @@ export async function gulpum(mdef, mattk) {
                 const saver = mlifesaver_you(mdef);
                 if (saver) m_useup_you(mdef, saver);
                 const { newuhs } = await import('./eat.js');
-                newuhs(false);
+                await newuhs(false);
                 game.mswallower = ym;
                 await xkilled(mdef, XKILL_GIVEMSG | XKILL_NOCORPSE);
                 if ((mdef.mhp | 0) >= 1) {

@@ -12,7 +12,7 @@ import {
     LEPREHALL, COCKNEST, ANTHOLE, DELPHI,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, DRAWBRIDGE_UP, DB_UNDER, DB_MOAT,
     DB_LAVA, DB_ICE, STONE,
-    ROOM, CORR, DOOR, SDOOR, TREE, ICE,
+    ROOM, CORR, DOOR, SDOOR, TREE, ICE, MAX_TYPE,
     xFLOOR, xGROUND, xOPENDOOR, xSHUTDOOR, xSWAMP, xSUBMERGED, xSEA,
     xWATERWALL,
     W_NONDIGGABLE, SHOP_DOOR_COST,
@@ -914,7 +914,7 @@ export async function overexert_hp() {
  * When moves%3 != 0 and near_capacity >= HVY_ENCUMBER → overexert_hp.
  */
 export async function overexertion() {
-    gethungry();
+    await gethungry();
     if (((game.moves | 0) % 3) !== 0 && near_capacity() >= HVY_ENCUMBER) {
         await overexert_hp();
     }
@@ -933,8 +933,35 @@ export function maybe_half_phys(dmg) {
 }
 
 /**
+ * C hack.c end_running `:4129–4158` — stop run; optional travel/mv.
+ * Named omit: gt.travelmap selection_free (travelmap not allocated).
+ * @param {boolean} and_travel also clear travel / travel1 / mv
+ */
+export function end_running(and_travel) {
+    if (!game.context) game.context = {};
+    if (game.context.run) {
+        game.context.run = 0;
+        if (game.flags?.time) {
+            game.flags.time_botl = true;
+            if (game.disp) game.disp.time_botl = true;
+        }
+        if (game.flags?.terrainstatus) {
+            if (!game.iflags) game.iflags = {};
+            game.iflags.terrain_typ = MAX_TYPE;
+            classify_terrain();
+        }
+    }
+    if (and_travel) {
+        game.context.travel = 0;
+        game.context.travel1 = 0;
+        game.context.mv = 0;
+    }
+    if ((game.multi | 0) > 0) game.multi = 0;
+}
+
+/**
  * C ref: hack.c nomul — start/replace multi-turn inactivity (negative = occupation).
- * end_running deferred; cmdq_clear(CQ_CANNED) via game._cmdq_canned.
+ * cmdq_clear(CQ_CANNED) via game._cmdq_canned.
  */
 export function nomul(nval) {
     if ((game.multi || 0) < nval) return;
@@ -945,11 +972,7 @@ export function nomul(nval) {
         game.multi_reason = null;
         game.nomovemsg = null;
     }
-    if (game.context) {
-        game.context.run = 0;
-        game.context.mv = 0;
-    }
-    // C: end_running(TRUE); cmdq_clear(CQ_CANNED)
+    end_running(true);
     if (game._cmdq_canned) game._cmdq_canned = [];
 }
 
@@ -2040,7 +2063,7 @@ function Flying_st() {
  * WATER→xWATERWALL off the water level). Request disp.botl when
  * flags.terrainstatus && !context.run. C youprop.h Underwater ≡
  * u.uinwater. Named omit: botl terrain_descr[] paint; options.c
- * toggle; end_running MAX_TYPE reset; dungeon.c u_on_newpos
+ * toggle; dungeon.c u_on_newpos
  * MAX_TYPE; **dothrow hurtle_step D-1277**; **u_on_rndspot D-1278**;
  * **objnam wish D-1279**. **maketrap PIT/HOLE set_levltyp D-1280**.
  * digactualhole PIT/HOLE is D-1269.
@@ -2565,7 +2588,7 @@ export async function still_chewing(x, y) {
     } else if (lev.typ === IRONBARS) {
         if (metallivorous(youData)) {
             const nut = (game.objects?.[HEAVY_IRON_BALL]?.oc_weight | 0);
-            morehungry(-nut);
+            await morehungry(-nut);
         }
         digtxt = ((u.ux | 0) === (x | 0) && (u.uy | 0) === (y | 0))
             ? 'devour the iron bars.'
