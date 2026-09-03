@@ -121,16 +121,15 @@ import {
 import {
     setworn, confer_oc_oprop, recalc_telepat_range, reset_remarm,
 } from './do_wear.js';
-import { bypass_objlist, nxt_unbypassed_obj } from './worn.js';
+import { bypass_objlist, nxt_unbypassed_obj, w_blocks } from './worn.js';
 import { reset_pick } from './lock.js';
 import { addinv_nomerge } from './u_init.js';
 import {
-    is_art, set_artifact_intrinsic, Sting_effects,
+    set_artifact_intrinsic, Sting_effects,
 } from './artifact.js';
-import { ART_EYES_OF_THE_OVERWORLD } from './generated/artifacts_data.js';
 import { more_experienced, newexplevel } from './exper.js';
 import {
-    PM_TOURIST, PM_ROGUE, PM_WIZARD, monsterNames,
+    PM_TOURIST, PM_ROGUE, monsterNames,
 } from './generated/monsters_data.js';
 import { dismount_steed, place_monster } from './steed.js';
 import { set_residency } from './shk.js';
@@ -167,8 +166,6 @@ const ICE_BOX = objectNames.indexOf('ICE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const STATUE = objectNames.indexOf('STATUE');
-const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
-const CORNUTHAUM = objectNames.indexOf('CORNUTHAUM');
 /** C worn.c worn[] — hero slot pointer + mask (setnotworn). */
 const WORN_SLOTS = [
     ['uarm', W_ARM],
@@ -432,22 +429,6 @@ async function There(line) {
     await pline(`There ${line}`);
 }
 /**
- * C worn.c w_blocks — mummy wrapping / cornuthaum / Eyes of the Overworld.
- */
-function w_blocks_hero(o, m) {
-    if (!o) return 0;
-    if ((o.otyp | 0) === MUMMY_WRAPPING && (m & W_ARMC) !== 0) return INVIS;
-    if ((o.otyp | 0) === CORNUTHAUM && (m & W_ARMH) !== 0
-        && game.urole?.mnum !== PM_WIZARD) {
-        return CLAIRVOYANT;
-    }
-    if (is_art(o, ART_EYES_OF_THE_OVERWORLD) && (m & W_TOOL) !== 0) {
-        return BLINDED;
-    }
-    return 0;
-}
-
-/**
  * C worn.c setnotworn — pointer-walk worn[]; does not call setworn.
  * Clears oc_oprop extrinsic only for slots that currently point at obj.
  * Leaves owornmask bits when obj is not in the slot (tutorial restore flag).
@@ -468,7 +449,7 @@ export function setnotworn(obj) {
         confer_oc_oprop(obj, mask, false);
         obj.owornmask = (obj.owornmask || 0) & ~mask;
         if (obj.oartifact) set_artifact_intrinsic(obj, false, mask);
-        const blocked = w_blocks_hero(obj, mask);
+        const blocked = w_blocks(obj, mask);
         if (blocked) {
             if (!u.uprops) u.uprops = {};
             if (!u.uprops[blocked]) {
@@ -476,6 +457,13 @@ export function setnotworn(obj) {
             }
             u.uprops[blocked].blocked =
                 (u.uprops[blocked].blocked | 0) & ~mask;
+            if (blocked === BLINDED) {
+                u.BBlinded = (u.BBlinded | 0) & ~mask;
+            } else if (blocked === INVIS) {
+                u.BInvis = (u.BInvis | 0) & ~mask;
+            } else if (blocked === CLAIRVOYANT) {
+                u.BClairvoyant = (u.BClairvoyant | 0) & ~mask;
+            }
         }
     }
     if (!u.uarm && game.iflags) game.iflags.tux_penalty = false;

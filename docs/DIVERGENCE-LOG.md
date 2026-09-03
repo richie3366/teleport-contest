@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1757 — worn.c setworn oc_oprop / w_blocks / weapon-class gate
+
+- **Status:** fixed (map-driven Open from D-1756; not a public FAIL)
+- **Symptom:** map named `setworn` `oc_oprop`. C `setworn` walks `worn[]`,
+  skips SWAPWEP/QUIVER for properties, confers `oc_oprop` only when
+  `WEAPON_CLASS || is_weptool || mask != W_WEP`, writes `w_blocks`
+  into `uprops[].blocked`, and calls `monstunseesu_prop`. JS conferred
+  via `confer_oc_oprop` on armor/accessory slots only; `setuwep`
+  inlined the W_WEP pointer without `setworn`.
+- **C locus:** `worn.c` `setworn` `:72–145`; `w_blocks` `:38–44`;
+  `mondata.c` `cvt_prop_to_mseenres` `:1539–1554`; `wield.c` `setuwep`
+  `:99–135` / `setuqwep` `:275–282` / `setuswapwep` `:284–289`.
+  Callers `*_off`/`*_on`, restore, `u_init`, steal, zap `poly_obj`.
+- **JS was:** `do_wear.js` `setworn` if-else slots (no W_WEP); no
+  `w_blocks`; no SWAPWEP skip; `wield.js` `setuwep` slot+artifact
+  inline. `worn.js` `w_blocks` mummy wrapping only; `do.js` full clone
+  for `setnotworn`.
+- **Fix:** one `w_blocks` (wrapping/cornuthaum/Eyes); `cvt_prop_to_mseenres`
+  + `monstunseesu_prop`; `setworn` worn[] walk + blocked flats
+  (`BBlinded`/`BInvis`/`BClairvoyant`); `setuwep`/`setuswapwep`/`setuqwep`
+  call `setworn`. Did not rewrite `confer_oc_oprop`. `cancel_doff` named.
+- **JS:** `js/do_wear.js` `setworn`; `js/worn.js` `w_blocks`; `js/wield.js`;
+  `js/mondata.js`; `js/do.js` `setnotworn` uses exported `w_blocks`.
+- **Not this iter:** `cancel_doff`; Ogresmasher/Sunsword in `setuwep`;
+  `setnotworn` `monstunseesu_prop`; possibly_unwield is D-1744.
+- **Verified:** save-oracle probe skip (untagged `worn.c:setworn`);
+  node 32/32 (wrapping INVIS block; cornuthaum tourist vs wizard;
+  Eyes BLINDED; ring regen; SWAPWEP/QUIVER skip; wield-ring no confer;
+  wield-weapon confer; skin I_SPECIAL; nudist; monk tux); green+strict
+  seed8000/0900; CURRENT cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/do_wear.js`, `js/worn.js`, `js/wield.js`, `js/mondata.js`,
+  `js/do.js`.
+
 ## D-1756 — invent.c delobj / delobj_core extract then obfree
 
 - **Status:** fixed (map-driven Open from D-1743; not a public FAIL)

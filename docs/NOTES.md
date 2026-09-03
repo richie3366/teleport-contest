@@ -7,22 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress (cadence **#2160** at `1f6d5487`, R² 0.859).
   Save-oracle for tagged restore Open. B0: catchup 26/30 red; shop
-  35/35 no unpaid. **Next:** Open `worn.c` setworn oc_oprop. Not
-  possibly_unwield. Falsify: C `setworn` oc_oprop vs D-1756 delobj /
-  D-1744 possibly_unwield. Do not skip D-1531…D-1756. Do not re-port
-  D-1675…D-1756.
-- Named still: Palantir `#if 0`; pit/underwater; clone yn; `rescham`;
-  setworn oc_oprop; keepdogs leash/`mon_has_amulet`; `initedog`;
-  tip-spill; hideunder; Punished float_down; water/lava steed;
-  interned `'yn'`; mthrowu/uhitm poison;
+  35/35 no unpaid. **Next:** Open `display.h` random_trap_to_glyph.
+  Not cmap_to_glyph trap. Falsify: C `random_trap_to_glyph` vs D-1757
+  setworn oc_oprop / D-1738 cmap trap. Do not skip D-1531…D-1757.
+  Do not re-port D-1675…D-1757. Do not rewrite `confer_oc_oprop`.
+- Named still: Palantir `#if 0`; pit/underwater; clone yn;
+  keepdogs leash/`mon_has_amulet`; tip-spill; hideunder; Punished
+  float_down; water/lava steed; interned `'yn'`; mthrowu/uhitm poison;
   `sound_speak`; `beg`/`maybe_gasp`/MS_ARREST; remaining
   vault/priest/sit SetVoice; heaven `u_left_shop`; STRAT_HEAL;
   `swallow_cell` sticky Hallu; eat.js useup+useupf; Unaware
-  make_blinded talk=FALSE; Punished `set_bc`;
+  make_blinded talk=FALSE; Punished `set_bc`; `cancel_doff`;
   `random_trap_to_glyph`; integer `GLYPH_*_OFF` /
   `map_monst`; findone flash/`foundone`/mimic; `gold_detect`; DUMPLOG;
-  zap `delete_contents` clone; invent Array vs nobj; youmonst
-  `maybe_unhide_at`.
+  zap `delete_contents` clone; invent Array vs nobj.
 
 ## Don't re-check (≤15)
 
@@ -31,7 +29,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1756.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1757.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -42,10 +40,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1756 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1757 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1756. Do not delete emin (**487**). Do not stub
+  D-1520…D-1757. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -63,24 +61,28 @@ Objective/score live in `CURRENT.md`.
   `vision_reset`.   No yn ^P glue / `ing_suffix` clone #3 / InvInUse
   poke (D-1603) / zap sticky Blind (D-1604). No `dat/tribute` indent=2.
   No static `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev
-  catchup reads it. Do not re-port D-1682…D-1756. D-1756 is
-  `delobj`/`delobj_core` extract+`obfree` (not zap `delete_contents`
-  clone / invent Array nobj / youmonst `maybe_unhide_at`). D-1755 is
-  `toggle_blindness` Sting(-1) (not Unaware/`set_bc` / MON_STILL_ARRIVING).
-  D-1754 is companion pet HP / live-cat `d()` (not `get_valuables` /
-  DUMPLOG). D-1753 is `sense_trap` (not `gold_detect` / findone flash).
-  D-1752 is SetVoice empty without SND_LIB (not `sound_speak`/`beg`).
-  D-1751 is `ghitm` `hidden_gold(TRUE)` (not vault helper). D-1750
-  `doseduce`. D-1749 feel_location. D-1748 pet/detected glyphs.
-  D-1741 get_valuables. No trailing `confdir` in shared `getdir`.
+  catchup reads it. Do not re-port D-1682…D-1757. D-1757 is
+  `setworn` oc_oprop/`w_blocks`/weapon gate (`setuwep` calls `setworn`;
+  not `cancel_doff`). D-1756 is `delobj`/`delobj_core` extract+`obfree`
+  (not zap `delete_contents` clone / invent Array nobj). D-1755 is
+  `toggle_blindness` Sting(-1) (not Unaware/`set_bc`). D-1754 is
+  companion pet HP / live-cat `d()` (not DUMPLOG). D-1753 is
+  `sense_trap` (not `gold_detect` / findone flash). D-1752 is SetVoice
+  empty without SND_LIB (not `sound_speak`/`beg`). D-1751 is `ghitm`
+  `hidden_gold(TRUE)`. D-1750 `doseduce`. D-1749 feel_location.
+  D-1748 pet/detected glyphs. D-1744 possibly_unwield. No trailing
+  `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
 
+- D-1757: `setworn` `:72–145` worn[] + SWAPWEP/QUIVER skip +
+  `WEAPON_CLASS||is_weptool||mask!=W_WEP` + `w_blocks` blocked +
+  `monstunseesu_prop`; `setuwep` calls `setworn`. Live `do_wear.js`+
+  `worn.js` `w_blocks`+`wield.js`+`mondata.js`. Named: `cancel_doff`.
 - D-1756: `delobj`/`delobj_core` `:1429–1462` `obj_resists` then extract
   + floor maybe_unhide/`newsym` + `obfree`; `extract_nobj` /
   `container_weight`; revive `delobj_core(,TRUE)`. Live `mkobj.js`+
-  `zap.js`. Named: zap `delete_contents` clone; invent Array vs nobj;
-  youmonst `maybe_unhide_at`.
+  `zap.js`. Named: zap `delete_contents` clone; invent Array vs nobj.
 - D-1755: `toggle_blindness` `:334–364` Stinging `see_monsters` then
   `Sting_effects(-1)`; `make_blinded` Hallu talk + Eyes vismsg/itch;
   Blindf_on/off; clones retired. Live `do.js`+`do_wear.js`. Named:
@@ -112,5 +114,3 @@ Objective/score live in `CURRENT.md`.
   Live `weapon.js`. Named: steal_it; m_throw; mon_break_armor.
 - D-1743: `dealloc_obj` `:2744–2811` + `dobjsfree`. Live `mkobj.js`.
   `delobj` extract is D-1756. Named: zap `delete_contents` clone.
-- D-1742: `getyear` `:48–52` `1900+getlt()->tm_year`. Live `calendar.js`.
-  `ld()`/`doseduce` is D-1750. Named: dump_fmtstr / paniclog.

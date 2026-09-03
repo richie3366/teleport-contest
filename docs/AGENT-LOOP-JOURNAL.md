@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1757 worn.c setworn oc_oprop / w_blocks / weapon gate
+
+**Objective:** Open `worn.c` setworn oc_oprop (named). Not possibly_unwield.
+**C locus:** `worn.c` `setworn` `:72–145`; `w_blocks` `:38–44`;
+`mondata.c` `cvt_prop_to_mseenres`; `wield.c` `setuwep` `:99–135`.
+**JS locus:** `js/do_wear.js` `setworn`; `js/worn.js` `w_blocks`;
+`js/wield.js` `setuwep`; `js/mondata.js`.
+**Change:** worn[] walk + SWAPWEP/QUIVER skip + weapon-class conferral
++ `w_blocks` blocked flats; `setuwep` calls `setworn`. `cancel_doff` named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `worn.c:setworn`; node 32/32;
+green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+Rule #2 clean.
+**Next:** Open `display.h` random_trap_to_glyph.
+**Blocked:** none.
 ## 2026-09-03 — D-1756 invent.c delobj / delobj_core extract then obfree
 
 **Objective:** Open `mkobj.c` delobj extract (named). Not dealloc_obj.

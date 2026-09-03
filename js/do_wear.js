@@ -18,10 +18,17 @@ import {
 } from './attrib.js';
 import { nomul, unmul, stop_occupation } from './hack.js';
 import { retouch_object, set_artifact_intrinsic } from './artifact.js';
-import { welded, setuwep, setuswapwep, setuqwep, empty_handed } from './wield.js';
+import {
+    welded, setuwep, setuswapwep, setuqwep, empty_handed, is_weptool,
+    set_twoweap,
+} from './wield.js';
 import { cmdq_pop } from './cmd.js';
 import { set_occupation } from './engrave.js';
-import { makeknown, observe_object, ggetobj, is_worn, silly_thing } from './invent.js';
+import {
+    makeknown, observe_object, ggetobj, is_worn, silly_thing, update_inventory,
+} from './invent.js';
+import { w_blocks } from './worn.js';
+import { monstunseesu_prop } from './mondata.js';
 import {
     add_valid_menu_class, menu_class_present, query_category, query_objlist,
     is_worn_by_type,
@@ -38,7 +45,8 @@ import {
     TIMEOUT, BLINDED, FAST, TELEPAT, STEALTH, SLEEPY, I_SPECIAL,
     WORN_BOOTS, WORN_CLOAK, WORN_GLOVES,
     WORN_HELMET, WORN_SHIELD, WORN_SHIRT, WORN_ARMOR, WORN_BLINDF, WORN_AMUL,
-    DISPLACED, INVIS, SEE_INVIS, LEVITATION, PROT_FROM_SHAPE_CHANGERS,
+    DISPLACED, INVIS, SEE_INVIS, CLAIRVOYANT, LEVITATION,
+    PROT_FROM_SHAPE_CHANGERS,
     DRAIN_RES, SICK_RES, INFRAVISION, STONE_RES, SLOW_DIGESTION, FREE_ACTION,
     BOLT_LIM, LEFT_HANDED, GLIB, FROMOUTSIDE,
     ARTICLE_YOUR, SUPPRESS_SADDLE, SUPPRESS_HALLUCINATION,
@@ -53,7 +61,7 @@ import {
     ARMOR_CLASS, RING_CLASS, AMULET_CLASS, WEAPON_CLASS, TOOL_CLASS,
     objectNames, objectNameStrs,
 } from './objects.js';
-import { PM_ARCHEOLOGIST, nolimbs, nohands, verysmall } from './monsters.js';
+import { PM_ARCHEOLOGIST, PM_MONK, nolimbs, nohands, verysmall } from './monsters.js';
 import {
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, is_damageable,
@@ -285,9 +293,9 @@ function count_worn_stuff(accessorizing) {
 /**
  * C ref: worn.c setworn — confer/clear objects[].oc_oprop extrinsic bit.
  * Artifact spfx is `set_artifact_intrinsic` (D-1558), not this helper.
- * Named omissions: w_blocks, monstunseesu_prop, SWAPWEP/QUIVER skip
- * (not in this setworn path), skin/nudist/tux; mirror of most E*
- * flat fields (BLINDED→EBlinded only so far).
+ * SWAPWEP/QUIVER skip, w_blocks, and monstunseesu_prop live in setworn
+ * (D-1757), not here. Named: mirror of most E* flats (BLINDED/FAST/
+ * TELEPAT/STEALTH/LEVITATION only so far).
  */
 export function confer_oc_oprop(obj, mask, on) {
     if (!obj) return;
@@ -432,128 +440,118 @@ async function dragon_armor_handling(otmp, puton, _on_purpose = true) {
     }
 }
 
+/** C worn.c worn[] — hero slot pointer name + mask. */
+const WORN = [
+    ['uarm', W_ARM],
+    ['uarmc', W_ARMC],
+    ['uarmh', W_ARMH],
+    ['uarms', W_ARMS],
+    ['uarmg', W_ARMG],
+    ['uarmf', W_ARMF],
+    ['uarmu', W_ARMU],
+    ['uleft', W_RINGL],
+    ['uright', W_RINGR],
+    ['uwep', W_WEP],
+    ['uswapwep', W_SWAPWEP],
+    ['uquiver', W_QUIVER],
+    ['uamul', W_AMUL],
+    ['ublindf', W_TOOL],
+    ['uball', W_BALL],
+    ['uchain', W_CHAIN],
+];
+
 /**
- * C ref: worn.c setworn — slot pointer + owornmask + oc_oprop extrinsic
+ * C youprop.h B* ≡ uprops[].blocked. JS Blind/Invis clones still read
+ * the flat mirrors confer_oc_oprop uses for E*.
+ */
+function apply_w_blocks(obj, mask, slotMask, on) {
+    const p = w_blocks(obj, mask);
+    if (!p) return;
+    const u = game.u || (game.u = {});
+    if (!u.uprops) u.uprops = {};
+    if (!u.uprops[p]) u.uprops[p] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+    if (on) u.uprops[p].blocked = (u.uprops[p].blocked | 0) | slotMask;
+    else u.uprops[p].blocked = (u.uprops[p].blocked | 0) & ~slotMask;
+    if (p === BLINDED) {
+        u.BBlinded = on ? (u.BBlinded | 0) | slotMask : (u.BBlinded | 0) & ~slotMask;
+    } else if (p === INVIS) {
+        u.BInvis = on ? (u.BInvis | 0) | slotMask : (u.BInvis | 0) & ~slotMask;
+    } else if (p === CLAIRVOYANT) {
+        u.BClairvoyant = on
+            ? (u.BClairvoyant | 0) | slotMask
+            : (u.BClairvoyant | 0) & ~slotMask;
+    }
+}
+
+/**
+ * C ref: worn.c setworn `:72–145` — worn[] walk + oc_oprop extrinsic
+ * + w_blocks blocked + SWAPWEP/QUIVER skip + weapon-class gate
  * + oartifact `set_artifact_intrinsic` (D-1558; Eyes XRAY W_TOOL).
  * Does **not** call find_ac (C worn.c); allmain once-per-input and a few
  * explicit callers (Ring_on protection, Amulet_on guarding) update uac.
  * opts.skip_find_ac retained as a no-op for D-0722 polyself callers.
+ * Named omit: cancel_doff.
  * @param {object|null} obj
  * @param {number} mask
  */
 export function setworn(obj, mask, opts = null) {
     const u = game.u || (game.u = {});
     void opts; // skip_find_ac no-op — setworn never find_ac (D-0810)
-    const clearOne = (slot, bit) => {
-        if (!(mask & bit)) return;
-        const old = u[slot];
-        if (old) {
-            confer_oc_oprop(old, bit, false);
-            // C worn.c setworn `:106` — oartifact after oc_oprop
-            if (old.oartifact) set_artifact_intrinsic(old, false, bit);
-            old.owornmask = (old.owornmask || 0) & ~bit;
+    mask = mask | 0;
+
+    if ((mask & (W_ARM | I_SPECIAL)) === (W_ARM | I_SPECIAL)) {
+        u.uskin = obj || null;
+    } else {
+        for (const [slot, wmask] of WORN) {
+            if (!(wmask & mask)) continue;
+            const oobj = u[slot] || null;
+            if (oobj && !((oobj.owornmask | 0) & wmask)) {
+                const hex = (wmask >>> 0).toString(16).padStart(8, '0');
+                impossible(`Setworn: mask=0x${hex}.`);
+            }
+            if (oobj) {
+                if (u.twoweap && ((oobj.owornmask | 0) & (W_WEP | W_SWAPWEP))) {
+                    set_twoweap(false);
+                }
+                oobj.owornmask = (oobj.owornmask | 0) & ~wmask;
+                if (wmask & ~(W_SWAPWEP | W_QUIVER)) {
+                    confer_oc_oprop(oobj, wmask, false);
+                    monstunseesu_prop(game.objects?.[oobj.otyp]?.oc_oprop | 0);
+                    apply_w_blocks(oobj, mask, wmask, false);
+                    if (oobj.oartifact) set_artifact_intrinsic(oobj, false, mask);
+                }
+                // cancel_doff named omit
+            }
+            u[slot] = obj || null;
+            if (obj) {
+                obj.owornmask = (obj.owornmask | 0) | wmask;
+                if (wmask & ~(W_SWAPWEP | W_QUIVER)) {
+                    if (obj.oclass === WEAPON_CLASS || is_weptool(obj)
+                        || mask !== W_WEP) {
+                        confer_oc_oprop(obj, wmask, true);
+                        apply_w_blocks(obj, mask, wmask, true);
+                    }
+                    if (obj.oartifact) set_artifact_intrinsic(obj, true, mask);
+                }
+            }
         }
-        u[slot] = null;
-    };
-
-    if (!obj) {
-        clearOne('uarm', W_ARM);
-        clearOne('uarmc', W_ARMC);
-        clearOne('uarmh', W_ARMH);
-        clearOne('uarms', W_ARMS);
-        clearOne('uarmg', W_ARMG);
-        clearOne('uarmf', W_ARMF);
-        clearOne('uarmu', W_ARMU);
-        // C worn.c setworn — clear left/right independently (D-0699).
-        // Prior JS only cleared when mask==W_RING (both bits), so
-        // setworn(null, W_RINGL|R) from steal left u.uright dangling.
-        if (mask & W_RINGL) clearOne('uleft', W_RINGL);
-        if (mask & W_RINGR) clearOne('uright', W_RINGR);
-        clearOne('uamul', W_AMUL);
-        clearOne('ublindf', W_TOOL);
-        clearOne('uball', W_BALL);
-        clearOne('uchain', W_CHAIN);
-        // C worn.c setworn — no find_ac (D-0810 / D-0722)
-        recalc_telepat_range();
-        return;
+        if (obj && ((obj.owornmask | 0) & W_ARMOR) !== 0) {
+            if (!u.uroleplay) u.uroleplay = {};
+            u.uroleplay.nudist = false;
+        }
+        if (!game.iflags) game.iflags = {};
+        game.iflags.tux_penalty = !!(u.uarm
+            && (game.urole?.mnum | 0) === PM_MONK
+            && game.urole?.spelarmr);
     }
-
-    // Place into the matching armor/accessory slot for this mask.
-    let slotBit = 0;
-    if (mask & W_ARM) {
-        clearOne('uarm', W_ARM);
-        slotBit = W_ARM;
-        obj.owornmask = (obj.owornmask || 0) | W_ARM;
-        u.uarm = obj;
-    } else if (mask & W_ARMC) {
-        clearOne('uarmc', W_ARMC);
-        slotBit = W_ARMC;
-        obj.owornmask = (obj.owornmask || 0) | W_ARMC;
-        u.uarmc = obj;
-    } else if (mask & W_ARMH) {
-        clearOne('uarmh', W_ARMH);
-        slotBit = W_ARMH;
-        obj.owornmask = (obj.owornmask || 0) | W_ARMH;
-        u.uarmh = obj;
-    } else if (mask & W_ARMS) {
-        clearOne('uarms', W_ARMS);
-        slotBit = W_ARMS;
-        obj.owornmask = (obj.owornmask || 0) | W_ARMS;
-        u.uarms = obj;
-    } else if (mask & W_ARMG) {
-        clearOne('uarmg', W_ARMG);
-        slotBit = W_ARMG;
-        obj.owornmask = (obj.owornmask || 0) | W_ARMG;
-        u.uarmg = obj;
-    } else if (mask & W_ARMF) {
-        clearOne('uarmf', W_ARMF);
-        slotBit = W_ARMF;
-        obj.owornmask = (obj.owornmask || 0) | W_ARMF;
-        u.uarmf = obj;
-    } else if (mask & W_ARMU) {
-        clearOne('uarmu', W_ARMU);
-        slotBit = W_ARMU;
-        obj.owornmask = (obj.owornmask || 0) | W_ARMU;
-        u.uarmu = obj;
-    } else if (mask & W_AMUL) {
-        clearOne('uamul', W_AMUL);
-        slotBit = W_AMUL;
-        obj.owornmask = (obj.owornmask || 0) | W_AMUL;
-        u.uamul = obj;
-    } else if (mask & W_RINGL) {
-        clearOne('uleft', W_RINGL);
-        slotBit = W_RINGL;
-        obj.owornmask = (obj.owornmask || 0) | W_RINGL;
-        u.uleft = obj;
-    } else if (mask & W_RINGR) {
-        clearOne('uright', W_RINGR);
-        slotBit = W_RINGR;
-        obj.owornmask = (obj.owornmask || 0) | W_RINGR;
-        u.uright = obj;
-    } else if (mask & W_TOOL) {
-        clearOne('ublindf', W_TOOL);
-        slotBit = W_TOOL;
-        obj.owornmask = (obj.owornmask || 0) | W_TOOL;
-        u.ublindf = obj;
-    } else if (mask & W_BALL) {
-        // C worn[] W_BALL → uball (punish / ball.c)
-        clearOne('uball', W_BALL);
-        slotBit = W_BALL;
-        obj.owornmask = (obj.owornmask || 0) | W_BALL;
-        u.uball = obj;
-    } else if (mask & W_CHAIN) {
-        // C worn[] W_CHAIN → uchain
-        clearOne('uchain', W_CHAIN);
-        slotBit = W_CHAIN;
-        obj.owornmask = (obj.owornmask || 0) | W_CHAIN;
-        u.uchain = obj;
+    if ((game.flags?.weaponstatus && (mask & W_WEP) !== 0)
+        || (game.flags?.armorstatus && (mask & W_ARMOR) !== 0)) {
+        if (!game.disp) game.disp = {};
+        game.disp.botl = true;
     }
-    if (slotBit) confer_oc_oprop(obj, slotBit, true);
-    // C worn.c setworn `:130` — Eyes XRAY via W_TOOL; Mitre PROTECT named
-    if (slotBit && obj.oartifact) set_artifact_intrinsic(obj, true, slotBit);
     // C worn.c setworn — no find_ac (D-0810); delay-0 Cloak_on More
     // must paint stale u.uac until allmain find_ac.
-    // C worn.c setworn — recalc_telepat_range after prop updates
+    update_inventory();
     recalc_telepat_range();
 }
 

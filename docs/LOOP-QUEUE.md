@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `worn.c` setworn oc_oprop (named). Not possibly_unwield.
 - [ ] `display.h` random_trap_to_glyph (named). Not cmap_to_glyph trap.
 - [ ] `explode.c` map_invisible !canspotmon (named). Not explosion_to_glyph.
 - [ ] `sounds.c` sound_speak (named). Not set_voice.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `sounds.c` beg (named). Not maybe_gasp.
 - [ ] `teleport.c` heaven u_left_shop caller (named). Not SetVoice.
 - [ ] `display.h` integer GLYPH_*_OFF / map_monst (named). Not pet_to_glyph.
+- [ ] `do_wear.c` cancel_doff (named). Not setworn oc_oprop.
+- [ ] `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1).
+- [ ] `ball.c` Punished set_bc (named). Not Unaware talk.
+- [ ] `zap.c` delete_contents clone (named). Not delobj extract.
+- [ ] `eat.c` useup+useupf hybrid (named). Not delete_contents.
 
 ## Parked (do not pop)
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `mkobj.c` delobj extract (named). Not dealloc_obj. **Addressed:** D-1756
+- [x] `worn.c` setworn oc_oprop (named). Not possibly_unwield. **Addressed:** D-1757
+
+
+- [x] `mkobj.c` delobj extract (named). Not dealloc_obj. **Addressed:** D-1756 `d07fc56a`
 
 
 - [x] `potion.c` make_blinded Sting_effects(-1) (named). Not see_monsters MON_STILL_ARRIVING. **Addressed:** D-1755 `5455d0cb`

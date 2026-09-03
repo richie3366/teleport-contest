@@ -795,10 +795,16 @@ poly/`body_part` wording; **query_menu `rightleftchars` D-1728**) +
 **`find_ac` in `u_init.js` — ARM_BONUS erosion + 
 RIN_PROTECTION/AMULET_OF_GUARDING/HProtection/uspellprot** (D-0502; 
 monster `find_mac` minvent worn ARM_BONUS/amulet of guarding + AC_MAX (D-1042, `worn.js`) + 
-full HProtection wiring deferred); **`setworn`/`takeoff` `oc_oprop` → `uprops[].extrinsic`** 
-(D-0574; `u_can_regen` reads REGENERATION; 
-`w_blocks`/artifact intrinsics/`monstunseesu_prop`/**`Ring_on`/`learnring`/`adjust_attrib`/`
-Ring_off`+`float_down`** (D-0966; **`toggle_stealth`** D-0970; 
+full HProtection wiring deferred); **`setworn` worn[] walk `oc_oprop` + `w_blocks` blocked + SWAPWEP/QUIVER skip
++ W_WEP weapon-class/`is_weptool` gate + `monstunseesu_prop` + `setuwep`/`setuswapwep`/`setuqwep`
+call `setworn`** (D-1757; C `worn.c` `:72–145` / `w_blocks` `:38–44`;
+`mondata.c` `cvt_prop_to_mseenres`; `wield.c` `:99–135`/`:275–289`;
+Eyes `BBlinded`, mummy wrapping `BInvis`, cornuthaum `BClairvoyant`;
+skin `W_ARM|I_SPECIAL`, nudist, tux_penalty, botl, `update_inventory`;
+`cancel_doff` named) +
+**`setworn`/`takeoff` `oc_oprop` → `uprops[].extrinsic`** 
+(D-0574; `u_can_regen` reads REGENERATION; artifact intrinsics D-1558);
+**`Ring_on`/`learnring`/`adjust_attrib`/`Ring_off`+`float_down`** (D-0966; **`toggle_stealth`** D-0970; 
 **`dosinkfall`/`stop_donning`** D-0976) + **BLINDED→`EBlinded` mirror** (D-0579); 
 **`equip_ok` SUGGEST-only puton/wear/takeoff prompts + `cursed` boots/gloves/lenses plural + 
 `Blindf_on`/`Blindf_off`** (D-0579; `inaccessible_equipment` / R remove_ok / Punished set_bc named;
