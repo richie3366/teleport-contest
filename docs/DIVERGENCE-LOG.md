@@ -1,5 +1,45 @@
 # Divergence log
 
+## D-1788 — spell.c SPE_DETECT_FOOD calls seffects(pseudo) after skilled bless
+
+- **Status:** fixed (Must-fix review **750**; suite was 44/44)
+- **Symptom:** D-1781 ported `food_detect` and wired
+  `seffects` `case SPE_DETECT_FOOD`, but `spelleffects` only
+  handed `pseudo` to `seffects` for `SPE_MAGIC_MAPPING` /
+  `SPE_CREATE_MONSTER`. `#cast` of food detection spent energy,
+  exercised Wisdom, allocated a temporary spellbook, then printed
+  `Nothing happens.` Skilled bless never ran, so `u.uedibility`
+  was unreachable from the spell path.
+- **C locus:** `spell.c` `spelleffects` `:1517–1531` —
+  `SPE_DETECT_FOOD` is in the skilled-bless FALLTHROUGH group
+  (`REMOVE_CURSE` through `CHARM_MONSTER`) then
+  `(void) seffects(pseudo)` with mapping/create-monster.
+  Callee `read.c` `seffects` `:2252–2253` +
+  `seffect_food_detection` `:2045–2053` → `detect.c`
+  `food_detect` `:478–594` (D-1781).
+- **JS was:** `otyp === SPE_MAGIC_MAPPING || otyp === SPE_CREATE_MONSTER`
+  only; DETECT_FOOD fell through to the else-arm `Nothing happens.`
+- **Fix:** add `SPE_DETECT_FOOD` to that `seffects(pseudo)` arm.
+  Bless `pseudo` only when the otyp is DETECT_FOOD **and**
+  `role_skill >= P_SKILLED`. Mapping/create still skip the bless.
+  Remaining scroll-duplicate `#cast` otyps stay named.
+- **JS:** `js/spell.js`. 25 insertions / 6 deletions.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths); cohort seed1500 / 1800 / 0012 / 0004 / 0007 / 2200 /
+  0383 PASS + per-session strict on 2200/0383/0012; probe (13/13):
+  C FALLTHROUGH present; JS arm includes DETECT_FOOD; unskilled
+  food-underfoot → `"You smell food nearby."` no tingle / no
+  `uedibility`; skilled underfoot → tingle + `uedibility=1`;
+  skilled nothing-found → `uedibility=1`; `SPE_REMOVE_CURSE`
+  still `Nothing happens.` save-oracle `spell.c:spelleffects`
+  untagged skip. Rule #2 clean.
+- **Not this iter:** remaining scroll-duplicate `#cast` otyps
+  (`SPE_REMOVE_CURSE` / `SPE_CONFUSE_MONSTER` / `SPE_CAUSE_FEAR` /
+  `SPE_IDENTIFY` / `SPE_CHARM_MONSTER`). `u.uedibility` consumers
+  (`eat.c` `edibility_prompts`, `insight.c` enlightenment) stay
+  named. Do not search buried in `food_detect`. Do not restore
+  the unimplemented food-scroll gate.
+
 ## D-1787 — pager.c lookat trap tnum is glyph_to_trap(glyph_at)
 
 - **Status:** fixed (Must-fix review **748**; suite was 44/44)

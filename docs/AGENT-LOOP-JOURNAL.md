@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1788 spell.c SPE_DETECT_FOOD seffects(pseudo)
+
+**Objective:** Must-fix review **750** — `spell.c` `SPE_DETECT_FOOD`
+must call `seffects(pseudo)` (skilled bless FALLTHROUGH). Not
+`food_detect` scroll. Not `look_traps`.
+**C locus:** `spell.c` `spelleffects` `:1517–1531`.
+**JS locus:** `js/spell.js` `spelleffects`.
+**Change:** D-1781 wired the helper + `seffects` switch. `#cast`
+only handed `pseudo` to `seffects` for MAGIC_MAPPING/CREATE_MONSTER.
+DETECT_FOOD is now in that arm; bless when `role_skill >= P_SKILLED`.
+Remaining scroll-duplicate otyps still named.
+**Verify:** green+strict PASS; cohort incl. seed2200 wizard
+quaff-zap-read PASS; probe 13/13 (unskilled smell, skilled
+tingle+uedibility, REMOVE_CURSE still Nothing happens). save-oracle
+`spell.c:spelleffects` untagged skip. Rule #2 clean. 25 ins / 6 del.
+**Next:** Must-fix `dog.c` keepdogs must not `for-of` live `fmon`
+while `migrate_to_level` splices it.
 ## 2026-09-03 — D-1787 lookat trap tnum = glyph_to_trap(glyph_at)
 
 **Objective:** Must-fix review **748** — `pager.c` lookat trap tnum =

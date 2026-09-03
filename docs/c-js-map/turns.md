@@ -138,9 +138,13 @@ deliberate (force the custom message). Map arm: cls + `unconstrain_map`
 added when `!ctu`, then `browse_map(TER_DETECT|TER_OBJ[|TER_MON])` +
 `map_redisplay`. Live `js/detect.js` `food_detect` export (out-param
 stands in for C's `gk.known` global) + `js/read.js`
-`seffect_food_detection`. Named: `u.uedibility` consumers —
+`seffect_food_detection`. **`#cast` `SPE_DETECT_FOOD` → `seffects(pseudo)`
+D-1788** (C `spell.c:1517–1531` skilled bless FALLTHROUGH; helper was
+D-1781). Named: `u.uedibility` consumers —
 `eat.c` `doeat` `:2834` `edibility_prompts` and `insight.c:1562`
-enlightenment — are not ported, so the flag is set but never read); 
+enlightenment — are not ported, so the flag is set but never read;
+remaining scroll-duplicate `#cast` otyps REMOVE_CURSE / CONFUSE_MONSTER /
+CAUSE_FEAR / IDENTIFY / CHARM_MONSTER still named); 
 **`do_mapping`/`show_map_spot` hero_memory + `magic_map_background`** (D-0075) + 
 **`show_map_spot` tseen → `map_trap(t,1)` not `newsym`** (D-0814) + 
 **`show_map_spot` `engr_at` → `map_engraving` when !furniture && !tseen trap** (D-0928 #1158; 
@@ -2431,7 +2435,10 @@ callee `zap.c` `zhitm` `BZ_U_SPELL(AD_ELEC-1)` nd=2; peaceful skip; swallow TODO
 C `:1528–1531`; no skilled bless; callee `read.c` `seffect_create_monster` `:1608–1624` → 
 `create_critters`)**; **SPE_MAGIC_MAPPING `seffects` (D-1407; same C `:1528–1531`; 
 callee `read.c` `seffect_magic_mapping` `:2102–2153`; nommap `make_confused` + `notice_mon_off/on`; 
-SCR D-0075)**; **SPE_HASTE_SELF `peffects` (D-1408; 
+SCR D-0075)**; **SPE_DETECT_FOOD `seffects` (D-1788; C `:1517–1531` skilled bless
+then FALLTHROUGH `seffects(pseudo)`; callee `read.c` `seffect_food_detection` →
+`detect.c` `food_detect` D-1781; remaining scroll-duplicate otyps
+REMOVE_CURSE / CONFUSE_MONSTER / CAUSE_FEAR / IDENTIFY / CHARM_MONSTER named)**; **SPE_HASTE_SELF `peffects` (D-1408; 
 C `:1534–1546` skilled bless then `peffects(pseudo)`; callee `potion.c` `peffect_speed`/`speed_up`; 
 **SPE_DETECT_TREASURE `peffects` (D-1417; same C `:1534–1546` skilled bless then `peffects`; 
 callee `potion.c` `peffect_object_detection` → `detect.c` `object_detect` 
@@ -2472,7 +2479,9 @@ bhitm `u_teleport_mon`; zapyourself `tele()`; bhito `rloco`; zap_steed D-1455)**
 C `:1475–1514` skilled bless then getdir + zapyourself/`weffects`; callee zap.c `:3440–3451`; 
 bhitm `:433–473` `healmon` + skilled/extra `mcureblindness`; zapyourself healup D-0135; 
 zap_steed via bhitm)**; omit swap/sort, other `spelleffects` otyps (remaining peffects 
-mix/potionhit/potionbreathe; SPE_DRAIN_LIFE bhitm D-1436 / self-dir zapyourself D-1446), 
+mix/potionhit/potionbreathe; remaining scroll-duplicate REMOVE_CURSE /
+CONFUSE_MONSTER / CAUSE_FEAR / IDENTIFY / CHARM_MONSTER — DETECT_FOOD is D-1788;
+SPE_DRAIN_LIFE bhitm D-1436 / self-dir zapyourself D-1446), 
 doorlock/zap_updown/steed, traditional getspell yn, CQ_REPEAT/amulet drain
 
 ### `src/mhitu.c` / `src/mthrowu.c` / `src/weapon.c` / `src/muse.c` / `src/potion.c`

@@ -10,7 +10,7 @@
 - JS / map: `pager.js` `trap_description`; `detect.js` `trapped_chest_at`/`trapped_door_at`. `c-js-map/turns.md`.
 - Archive **Addressed:** D-1779 `e8515402` — helper bodies; lookat tnum is **not** fixed.
 
-**Addressed:** D-1787
+**Addressed:** D-1787 `01562c50`
 
 ## Intent vs deliverable
 

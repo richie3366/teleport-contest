@@ -10,6 +10,8 @@
 - JS / map: `detect.js` `food_detect`; `read.js` `seffect_food_detection` + `seffects` cases + `doread` gate. `c-js-map/turns.md`.
 - Archive **Addressed:** D-1781 `28f02a82` — scroll path; spell path is dead.
 
+**Addressed:** D-1788
+
 ## Intent vs deliverable
 
 Git subject promises: Match C `detect.c` `food_detect` so **scroll and spell** of food detection actually work, instead of printing “not implemented yet” without even using the scroll up.

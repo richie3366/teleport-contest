@@ -32,7 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `spell.c` `SPE_DETECT_FOOD` must call `seffects(pseudo)` (skilled bless FALLTHROUGH). Source: reviews/loop-unattended/750-28f02a82-food-detect.md
 - [ ] `dog.c` keepdogs must not `for-of` live `fmon` while `migrate_to_level` splices it. Source: reviews/loop-unattended/752-22730962-keepdogs.md
 
 ## Open (map-driven, after Must-fix is empty)
