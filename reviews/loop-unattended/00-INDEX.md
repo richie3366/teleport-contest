@@ -765,3 +765,14 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [752-22730962-keepdogs.md](./752-22730962-keepdogs.md) | `22730962` | D-1783 dog.c keepdogs fmon splice during migrate | **QUALITY-RISK** |
 | [753-7870c5c6-maybe-display-usteed.md](./753-7870c5c6-maybe-display-usteed.md) | `7870c5c6` | D-1784 display.h maybe_display_usteed ridden bank | **ACCEPT-WITH-DEBT** |
 | [754-da520eda-do-clear-area.md](./754-da520eda-do-clear-area.md) | `da520eda` | D-1785 vision.c do_clear_area override_vision | **ACCEPT-WITH-DEBT** |
+| [755-be1cef1a-ballfall-callers.md](./755-be1cef1a-ballfall-callers.md) | `be1cef1a` | D-1786 do.c/trap.c ballfall callers gate on uball | **ACCEPT-WITH-DEBT** |
+| [756-01562c50-lookat-glyph-to-trap.md](./756-01562c50-lookat-glyph-to-trap.md) | `01562c50` | D-1787 pager.c lookat trap tnum glyph_to_trap(glyph_at) | **ACCEPT-WITH-DEBT** |
+| [757-09159ed0-detect-food-cast.md](./757-09159ed0-detect-food-cast.md) | `09159ed0` | D-1788 spell.c SPE_DETECT_FOOD seffects(pseudo) | **ACCEPT-WITH-DEBT** |
+| [758-3cb13f27-keepdogs-snapshot.md](./758-3cb13f27-keepdogs-snapshot.md) | `3cb13f27` | D-1789 dog.c keepdogs fmon snapshot walk | **ACCEPT-WITH-DEBT** |
+| [759-31181641-monverbself.md](./759-31181641-monverbself.md) | `31181641` | D-1790 do_name.c mon_nam_too / monverbself | **ACCEPT-WITH-DEBT** |
+| [760-2619827e-newuhs.md](./760-2619827e-newuhs.md) | `2619827e` | D-1791 eat.c newuhs hunger / faint / end_running | **ACCEPT-WITH-DEBT** |
+| [761-9c160502-nh-timeout.md](./761-9c160502-nh-timeout.md) | `9c160502` | D-1792 timeout.c nh_timeout dialogues + stone_luck | **ACCEPT-WITH-DEBT** |
+| [762-07fb471c-dmgval.md](./762-07fb471c-dmgval.md) | `07fb471c` | D-1793 weapon.c dmgval bonus rnd() + erosion | **ACCEPT-WITH-DEBT** |
+| [763-22bc5c1e-make-corpse.md](./763-22bc5c1e-make-corpse.md) | `22bc5c1e` | D-1794 mon.c make_corpse special-corpse table | **ACCEPT-WITH-DEBT** |
+| [764-efcb3fd4-mattacku.md](./764-efcb3fd4-mattacku.md) | `efcb3fd4` | D-1795 mhitu.c mattacku remaining + getmattk | **QUALITY-RISK** |
+| [765-b14236d6-xkilled.md](./765-b14236d6-xkilled.md) | `b14236d6` | D-1796 mon.c xkilled LEVEL_SPECIFIC + pool gate | **ACCEPT-WITH-DEBT** |

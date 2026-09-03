@@ -5,10 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-1796** shipped `xkilled` LEVEL_SPECIFIC_NOCORPSE +
-  accessible||is_pool + artifact un-create. Must-fix empty — pop first
-  Open (`dochug` + `wormhitu`). Do not invent a seed4500 FAIL peel
-  (D-1792 leftover). Hidden-score Open: `PORT-GAP-TOP30.md`.
+- **Must-fix 764:** `nomul`/`unmul` never clear `u.usleep` (C
+  `hack.c:4167`/`:4197`). D-1795 `mattacku` sleep `rn2(10)` now
+  fires on every hit after the first sleep. Falsify: `seed0030`
+  RNG 105529/105529 after those two assignments (not a seed peel).
+  Do not invent a seed4500 FAIL peel (D-1792 leftover).
+- **D-1796** shipped `xkilled` LEVEL_SPECIFIC + pool gate (AWD).
+  Hidden-score Open waits until Must-fix is empty (`dochug` first).
 - **Luck still runs when invulnerable.** Dialogues do not
   (`timeout.c:623` return). STONED/SLIMED expiry stays silent
   (`done_timeout` omitted).
@@ -27,10 +30,12 @@ Objective/score live in `CURRENT.md`.
   / Blind_telepat `see_monsters` / quest adjalign still named.
 - Do not re-port `mattacku` Underwater/undetected/mimic/Invis/eel/
   invulnerable/DISE/DREN/cancelled-WEAP/home-elem/Snickersnee/`bot()`/
-  sleep `rn2(10)` (D-1795). No second `m_monnam` / `simple_typename`
-  (`lock.js` clone stays) / `ceiling` / `is_home_elemental`. Do not
-  glue `hitmu`. Do not omit `flush_screen(1)` for seed4500: that
-  13-cell `#wizintrinsic` DEAF `[2]` is D-1792 (RNG full).
+  sleep `rn2(10)` (D-1795). The C-wrong is **`nomul`/`unmul` `usleep=0`**
+  (Must-fix 764), not deleting that arm. No second `m_monnam` /
+  `simple_typename` (`lock.js` clone stays) / `ceiling` /
+  `is_home_elemental`. Do not glue `hitmu`. Do not omit
+  `flush_screen(1)` for seed4500: that 13-cell `#wizintrinsic` DEAF
+  `[2]` is D-1792 (RNG full).
 - Do not re-port `make_corpse` special table (D-1794) / `dmgval`
   bonus `rnd()` (D-1793) / `nh_timeout` dialogues+luck (D-1792) /
   `newuhs` (D-1791) / `monverbself` genders[3] (D-1790). No second

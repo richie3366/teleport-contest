@@ -8,6 +8,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — audit overlay 755–765 + cadence 42/44
+
+**Objective:** review JS SHAs since `0c2e880a` against pinned C; cadence
+full `sessions` (no `js/` port).
+**SHAs:** 755–763 AWD (D-1786…D-1794). **764 QUALITY-RISK** D-1795
+`mattacku` sleep `rn2(10)` vs JS `nomul`/`unmul` that never clear
+`usleep` (`hack.c:4167`/`:4197`) — seed0030 39912/105529 at that SHA.
+**765 AWD** D-1796 `xkilled`.
+**Cadence:** 42/44; scr 10428/11405; RNG 727221/792838 (91.7%);
+`41+0.32/turn`. seed4500 1801/1814 is D-1792 leftover.
+**Next:** Must-fix 764 `nomul`/`usleep`. Not Open `dochug`. Not a
+seed0030 peel.
 ## 2026-09-04 — D-1796 mon.c xkilled LEVEL_SPECIFIC + pool gate
 
 **Objective:** Open `mon.c` `xkilled` LEVEL_SPECIFIC_NOCORPSE +

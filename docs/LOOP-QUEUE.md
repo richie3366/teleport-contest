@@ -32,6 +32,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] Match C `hack.c` `nomul` `:4160–4173` / `unmul` `:4177–4198` so `u.usleep = 0` and `nomul`’s `u.uinvulnerable = FALSE` actually run, instead of leaving those fields sticky so D-1795 `mattacku` sleep-wakeup `rn2(10)` (`mhitu.c:939–943`) fires on every hit after the first sleep. Source: reviews/loop-unattended/764-efcb3fd4-mattacku.md.
+
 ## Open (map-driven, after Must-fix is empty)
 
 Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in

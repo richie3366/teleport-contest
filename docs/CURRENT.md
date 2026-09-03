@@ -20,38 +20,37 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-03** — full `sessions` at **D-1790**
-(`monverbself`; fortress held through **D-1796**). **44**/44 at that
-audit. **seed4500** has been Screen **1801**/1814 (RNG full) since
-**D-1792** (`#wizintrinsic` DEAF timeout `[2]`) — not this peel.
-Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%** at D-1790.
-Speed `41+0.33/turn` (R² 0.855). Must-fix is **empty**; pop the first Open.
-No public session is Punished-while-falling,
-farlooking a trapped chest/door, level-porting by name, food/object
-detect, `#cast` food-detect, or leaving a level with a stuck leashed
-pet — probes, not the suite.
+Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1796**
+(`b14236d6`; audit overlay reviews **755–765**). **42**/44.
+**seed0030** RNG **39912**/105529 / Screen **989**/1953 from **D-1795**
+(`mattacku` sleep `rn2(10)` vs sticky `usleep` — Must-fix **764**).
+**seed4500** Screen **1801**/1814 (RNG full) since **D-1792**
+(`#wizintrinsic` DEAF `[2]`). Scr **10,428**/11,405, RNG
+**727,221**/792,838 = **91.7%**. Speed `41+0.32/turn` (R² 0.861).
+Must-fix is **not** empty — next port pops that row, not Open `dochug`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **44 / 44** |
-| Screens matched | **11,405 / 11,405** |
-| Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `41+0.33/turn` (R² 0.855) |
+| Sessions passing | **42 / 44** |
+| Screens matched | **10,428 / 11,405** |
+| Positional RNG calls matched | **727,221 / 792,838** (91.7%) |
+| Speed label | `41+0.32/turn` (R² 0.861) |
 | Role-init throws | **0 / 44** |
 
-**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0013-rogue, seed0013-friday13-restore, seed0107,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0399, seed2600, seed2200, seed0383, seed0030, seed4500,
+seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore.
 
-**Notable non-PASS:** seed4500 Screen 1801/1814 since D-1792
-(`#wizintrinsic` `j - deafness [2]`; RNG 108275/108275). Not D-1795.
+**Notable non-PASS:** seed0030 RNG 39912/105529 Screen 989/1953 since
+D-1795 (Must-fix **764** `nomul`/`usleep`). seed4500 Screen 1801/1814
+since D-1792 (`#wizintrinsic` `j - deafness [2]`; RNG 108275/108275).
 
 ## Green gate
 
@@ -68,18 +67,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** last full-measured at D-1790. **D-1796** shipped the
-first Open (`mon.c` `xkilled` LEVEL_SPECIFIC_NOCORPSE +
-accessible||is_pool + artifact un-create). Must-fix is **empty** —
-pop the first **Open** row. Save-oracle required for tagged
-restore/other-floor Open (`save-oracle.mjs probe --omit`).
-**Open is now hidden-score ordered** — `docs/PORT-GAP-TOP30.md` ranks
-the 30 C functions a session we cannot see is most likely to hit
-(reach from the turn loop x call breadth x RNG/message loudness x
-coverage gap; `node scripts/port-coverage.mjs`). Queue Open = rows
-1–12 of that file, in order.
-**Next cluster:** `monmove.c` `dochug` remaining arms + wormhitu
-callee. Not m_move.
+**Suite 42/44** at D-1796 (audit 755–765). **D-1796** shipped Open
+`xkilled` LEVEL_SPECIFIC + pool gate; that SHA is ACCEPT-WITH-DEBT.
+Must-fix is **not** empty — pop it first. Save-oracle required for
+tagged restore/other-floor Open (`save-oracle.mjs probe --omit`).
+**Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`) after
+Must-fix.
+**Next cluster:** Match C `hack.c` `nomul` `:4160–4173` / `unmul`
+`:4177–4198` so `u.usleep = 0` and `nomul`’s `u.uinvulnerable = FALSE`
+actually run (review **764** / D-1795). Not Open `dochug`. Not a
+seed0030 peel.
 **`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
 `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
 `#ifdef DUMPLOG` block is compiled out of the scored build, and the
