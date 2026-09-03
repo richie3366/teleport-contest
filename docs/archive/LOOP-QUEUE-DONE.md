@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `dog.c` keepdogs must not `for-of` live `fmon` while `migrate_to_level` splices it. Source: reviews/loop-unattended/752-22730962-keepdogs.md **Addressed:** D-1789
+- [x] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender. **Addressed:** D-1790
+
+
+- [x] `dog.c` keepdogs must not `for-of` live `fmon` while `migrate_to_level` splices it. Source: reviews/loop-unattended/752-22730962-keepdogs.md **Addressed:** D-1789 `3cb13f27`
 
 
 - [x] `spell.c` `SPE_DETECT_FOOD` must call `seffects(pseudo)` (skilled bless FALLTHROUGH). Source: reviews/loop-unattended/750-28f02a82-food-detect.md **Addressed:** D-1788 `09159ed0`

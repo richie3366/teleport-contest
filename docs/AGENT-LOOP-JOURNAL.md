@@ -8,6 +8,32 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1790 mon_nam_too / monverbself one home
+
+**Objective:** first Open — `do_name.c` `mon_nam_too` + `monverbself`
+(named; `mhitm.js` clone). Not `pronoun_gender`. Must-fix empty.
+**C locus:** `do_name.c` `:1189–1216` / `:1219–1249`; live callers
+`apply.c:1126` + `:1158`, `muse.c:184`, `steed.c:429`; callee
+`objnam.c` `makeplural` pronoun block `:2853–2869`.
+**JS locus:** `js/do_name.js` (both exports), `js/objnam.js`
+(makeplural), `js/mhitm.js` (clone deleted, 6 uses rebound),
+`js/apply.js`, `js/muse.js`, `js/steed.js`.
+**Change:** `monverbself` did not exist; each caller had invented a
+stand-in that dropped the reflexive — "too far away to see **in the
+dark**" instead of "to see itself in the dark", "<mon> zaps <wand>!"
+instead of "<mon> zaps himself with <wand>!", and a hand-rolled
+they/themselves table in `kick_steed`. `mon_nam_too` was an
+`is_neuter`/`female` clone that never drew C's `rn2(4)`.
+**The genders[3] arm is ported as C writes it, not as C's comment
+reads:** makeplural("It") = "They" (genders[2].he beats .him), and
+`:1240` rewrites that to genders[3].him, so a hallucinated steed reads
+"Them rouse themselves!" and "They" → "Theys". Do not correct it.
+**Verify:** probe **29/29** (makeplural pronouns, vtense plural test,
+mon_nam_too genders, all five live caller strings, three hallucination
+shapes). Green+strict incl. seed0383 hallucinate; full `sessions`
+**44/44**. save-oracle `do_name.c:monverbself` untagged skip. Rule #2
+clean. 116 ins / 39 del across 6 files.
+**Next:** Open `apply.c` corpse gender PRONOUN_NO_IT arm `:230–248`.
 ## 2026-09-03 — D-1789 keepdogs walks a snapshot of fmon
 
 **Objective:** Must-fix review **752** — `dog.c` `keepdogs` must not

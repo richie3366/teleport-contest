@@ -1145,6 +1145,32 @@ priest/minion/`mappear`/invis adj/`is_mplayer` rank/`AUGMENT_IT` deferred);
 **`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889; 
 **seemimic/pit/NODIAG/boulder D-1299**; `goodpos` / mintrap aftermath named); 
 **`distant_monnam` ARTICLE_THE via `x_monnam` called** (D-1638);
+**`mon_nam_too` `:1189–1216` + `monverbself` `:1219–1249` D-1790** — one
+home each in `js/do_name.js`; the `js/mhitm.js` `is_neuter`/`female`
+clone is deleted and its six uses rebound. `mon_nam_too` is `mon_nam`
+for anyone but the monster itself, else the reflexive that
+`pronoun_gender(mon, PRONOUN_HALLU)` picks — so it draws **`rn2(4)`**
+while hallucinating (D-1776), and index 3 is the only way to reach
+"themselves". `monverbself` builds
+"<monnamtext> <verb> <othertext> <self>"; `vtense(selfbuf, verb)`
+returning the verb **unchanged** is C's test that the reflexive stayed
+plural, and only then is the subject run through `makeplural`. That
+made C's `makeplural` pronoun block `objnam.c:2853–2869` a live callee,
+so it is ported too (he/him/his of genders[0..2] → they/them/their,
+first match wins — "it" hits `genders[2].he` before `.him`, "her" hits
+`genders[1].him` — capitalised when the input was). **The genders[3]
+arm `:1236–1244` is ported as C writes it, not as C's comment reads
+it:** the comment expects "them" and wants "they", but makeplural
+already returned "they" and this arm rewrites it to `genders[3].him`,
+so a hallucinated steed reads "Them rouse themselves!" and a subject
+that was already "They" becomes "Theys" (makeplural default `s`). Do
+not "fix" either to "they". Live callers wired: `apply.c:1126` mirror
+infravision ("… too far away to see **itself** in the dark.") and
+`:1158` nymph admire, `muse.c:184` zap-self ("<mon> zaps himself with
+<wand>!"), `steed.c:429` `kick_steed` rouse. Named: `muse.c` `mplayhorn`
+`:218` self arm and fire-breath-on-self `:3145`, `uhitm.c:4168`
+`pline_mon("%s hits %s.")` — no JS sites for those yet.
+
 **`distant_monnam` astral PM_HIGH_CLERIC conceal D-1673** (C `do_name.c`
 `:1178–1182`; `!Hallucination && Is_astralevel && !m_next2u`;
 ARTICLE_THE `"the "` else bare; `female` priestess; pager

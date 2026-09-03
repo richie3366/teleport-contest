@@ -1,5 +1,64 @@
 # Divergence log
 
+## D-1790 — mon_nam_too / monverbself: a monster never named itself
+
+- **Status:** fixed (map-driven Open row; suite was 44/44)
+- **Symptom:** `monverbself` was **NOT FOUND** in `js/`, and its three
+  live callers had each invented a stand-in that dropped the reflexive:
+  the mirror infravision arm printed "<mon> is too far away to see in
+  the dark." (C: "… to see **itself** in the dark."), the wand-zapping
+  monster printed "<mon> zaps <wand>!" (C: "<mon> **zaps himself with**
+  <wand>!"), and `kick_steed` hand-rolled a they/themselves table.
+  `mon_nam_too` existed only as a clone in `js/mhitm.js` that tested
+  `is_neuter`/`female` directly, so it never drew C's `rn2(4)` and could
+  not produce "themselves".
+- **C locus:** `do_name.c` `mon_nam_too` `:1189–1216` — `mon_nam` unless
+  `mon == other_mon`, else `pronoun_gender(mon, PRONOUN_HALLU)` picks
+  himself / herself / itself / themselves. `monverbself` `:1219–1249`
+  builds "<monnamtext> <verb> <othertext> <self>": `vtense(selfbuf, verb)`
+  returns the verb **unchanged** only when the reflexive stayed plural,
+  and that is C's test for pluralising the subject with `makeplural`.
+  Callers: `apply.c:1126` + `:1158`, `muse.c:184`, `steed.c:429` (live);
+  `muse.c:218` + `:3145`, `uhitm.c:4168` (unported, named).
+- **JS was:** six `mon_nam_too` uses in `mhitm.js` bound to the clone;
+  `objnam.js` `makeplural` carried "Named omissions: pronoun genders",
+  so the C pronoun block that `monverbself` depends on was missing.
+- **Fix:** one home for both functions in `js/do_name.js`, clone deleted,
+  and `makeplural`'s pronoun block ported (`:2853–2869`: he/him/his of
+  genders[0..2] → they/them/their, first match wins, capitalised when the
+  input was). Wired `apply.js` (both mirror arms), `muse.js` (zap-self),
+  `steed.js` (`kick_steed` rouse).
+- **The genders[3] arm is ported as C writes it, not as C's comment reads.**
+  C `:1236–1244` says makeplural turns "it" into "them" and it wants
+  "they", but `makeplural` matches `genders[2].he` first and returns
+  "they", and this arm then rewrites that to `genders[3].him` = "them".
+  So a hallucinated steed is roused as "**Them** rouse themselves!", and
+  a subject that was already "They" comes out "**Theys**" (makeplural's
+  default `s`, since "they" matches none of genders[0..2]). Do not
+  "correct" either — the scored comparison is the C build's output.
+- **JS:** `js/do_name.js` +70/−3, `js/objnam.js` +26/−3, `js/steed.js`
+  +25/−16, `js/mhitm.js` +12/−11, `js/apply.js` +11/−3, `js/muse.js`
+  +11/−3. 116 insertions across 6 files.
+- **Verify:** probe **29/29** — makeplural he/He/she/She/it/It → they/They
+  (genders[2].he beats .him for "it"), him/her → them, his/its → their,
+  "They" → "Theys", "the gnome lord" untouched; `vtense("themselves",
+  "rouse")` stays plural while "himself" gives "rouses"; `mon_nam_too`
+  male/female/animal + the `mon != other_mon` early return; all four live
+  caller strings ("The jackal is too far away to see itself", "The gnome
+  lord admires himself", "The gnome lord zaps himself", "The jackal
+  breaths fire on itself", "He rouses himself"); and, hallucinating,
+  "Them rouse themselves", "The gnome lords zap themselves", "Theys
+  rouse themselves". Green gate + strict lengths (incl.
+  seed0383-wizard-hallucinate and seed2200); full `sessions` **44/44**.
+  `save-oracle.mjs probe --omit do_name.c:monverbself` → skip (untagged).
+- **Named omissions:** `muse.c` `mplayhorn` `:218` self arm and the
+  fire-breath-on-self `:3145` arm (neither JS site exists yet);
+  `uhitm.c:4168` `pline_mon("%s hits %s.")` (no JS site); the mirror
+  nymph steal/rloc and Medusa/`mon_reflects` arms stay as they were;
+  `vtense`'s `len == 2` guard on a trailing "o"; `makeplural`'s
+  already_plural / man→men / ae-eaux omissions are unchanged.
+- **Next:** Open `apply.c` corpse gender PRONOUN_NO_IT arm `:230–248`.
+
 ## D-1789 — keepdogs walks live fmon while migrate_to_level splices it
 
 - **Status:** fixed (Must-fix review **752**; suite was 44/44)
