@@ -20,12 +20,12 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-03** — full `sessions` at **D-1777**
-(ball.c Blind bc glyph arms). **44**/44,
+Score last measured: **2026-09-03** — full `sessions` at **D-1778**
+(ballfall + hard_helmet export). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `63+0.49/turn` (R² 0.852). Fortress held across D-1777;
-no public session is Punished+Blind, so those arms were verified by
-a direct scratchpad probe, not by the suite.
+Speed `69+0.50/turn` (R² 0.846). Fortress held across D-1778.
+No public session is Punished+Blind (D-1777) or Punished-while-falling
+(D-1778), so those arms are verified by direct probes, not the suite.
 
 ## Score
 
@@ -34,7 +34,7 @@ a direct scratchpad probe, not by the suite.
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `63+0.49/turn` (R² 0.852) |
+| Speed label | `69+0.50/turn` (R² 0.846) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -67,20 +67,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 omissions, not invented FAIL peels.
 Save-oracle required for tagged restore/other-floor Open
 (`save-oracle.mjs probe --omit`; `detect.c:findone` was untagged).
-**Next cluster:** `ball.c` ballfall (named). Not set_bc.
+**Next cluster:** `pager.c` trap_description (named). Not trapname Hallu.
 **`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
 `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
 `#ifdef DUMPLOG` block is compiled out of the scored build, and the
 surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only
 reader is `report.c` crash path).
-**Do not skip D-1531…D-1777 (index).** Keep mention_map addr.
+**Do not skip D-1531…D-1778 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1777.** Do not FORCE
+**Do not re-break D-0660…D-1778.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1777 (index). Recent: **D-1777**
+**Keep:** D-0845…D-1778 (index). Recent: **D-1778**
+`ball.c` `ballfall` `:42` — `gets_hit` `rn2(5)` is drawn **before**
+`ballrelease` and short-circuits (no draw) when the ball is on the
+hero's spot or is `uwep`; callers `do.c:1805` + `trap.c:1955`.
+`do_wear.c` `hard_helmet` `:567` is one export (`js/do_wear.js`,
+with `is_helmet`); six clones deleted. **D-1777**
 `ball.c` Blind `move_bc` `:436` felt/glyph arms + `unplacebc_core`
 `:146` restore + `Is_waterlevel` swallow. `u.bglyph`/`u.cglyph` are
 remembered **cells** now (`levl_glyph_at` / `set_levl_glyph`), not int
@@ -106,14 +111,14 @@ D-1766…D-1755 (index).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1777 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1778 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1777 (index). No generic `dknown` on
+Do not re-port D-1660…D-1778 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem. DUMPLOG retired (D-1776).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

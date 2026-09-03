@@ -6,8 +6,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Suite 44/44.** Map-driven: named omissions / cluster density, not
-  FAIL peels. **Next:** `ball.c` ballfall (named). Falsify: C
-  `ballfall` body vs JS omit. Not set_bc. Do not invent a FAIL.
+  FAIL peels. **Next:** `pager.c` trap_description (named). Falsify: C
+  `trap_description` body vs JS omit. Not trapname Hallu. Do not invent
+  a FAIL.
+- `ballfall` is live (D-1778). C draws `gets_hit`'s `rn2(5)` **before**
+  `ballrelease`, and draws nothing when the ball is on the hero's spot
+  or is `uwep` — keep that order. `hard_helmet`/`is_helmet` are exports
+  of `js/do_wear.js`; do not re-clone them.
 - **`strict-output-check.mjs` leaks state across sessions in one
   process** (pre-existing; reproduced on HEAD). seed0012 / seed0014
   report a bogus mid-run RNG mismatch when batched after seed4500 and
@@ -56,7 +61,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1777.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1778.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -67,7 +72,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1777 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1778 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do

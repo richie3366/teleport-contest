@@ -221,7 +221,8 @@ shops/sinks/`better_not_try` named; **`#droptype`/`D` `doddrop` D-1635** (C `do.
 `flush_screen(-1)` descend `--More--` + clear `_objects_at`/`head_engr`** (D-0149/D-0160/D-0161); 
 **`goto_level` descend Flying / encumber|Punished|Fumbling fall `rnd(3)` `losehp`** (D-0445; 
 **`Fumbling()` ≡ H\|\|E not sticky `u.Fumbling`** D-0691; **trap-door `do_fall_dmg`** (D-1179; 
-Punished `ballfall` / W-tower rndspot bit 2 still named); omit full `selftouch` petrify); 
+Punished `ballfall` is **D-1778**; W-tower rndspot bit 2 still named); 
+omit full `selftouch` petrify); 
 **`goto_level` `familiar_level_msg` via `bones_include_name`** (D-0577); 
 **Gehennom Valley arrival + hellish_smoke smell/sense** (D-0801; 
 ACH_HELL/`ACH_MINE`/`ACH_SOKO` via `record_achievement` (D-0928 #1181); MICRO More deferred; 
@@ -595,8 +596,8 @@ live `js/ball.js`; Blind `move_bc` / `unplacebc` restore is **D-1777**) +
 livelog / Hallu names / vampshifted POLY_REVERT / cham `newcham` / `update_inventory` still named; 
 `create_particular` class-letter still named) + 
 **`domove` Punished `drag_ball`/`move_bc`/`cause_delay`→`nomul(-2)`** (D-0909; 
-Blind move_bc felt/glyph is **D-1777**; jerked-back hmon/miss, 
-ballrelease/ballfall/drop_ball/litter/unpunish deferred; **`set_bc` is D-1769**); 
+Blind move_bc felt/glyph is **D-1777**, `ballfall` is **D-1778**; jerked-back hmon/miss, 
+drop_ball/litter/unpunish deferred; **`set_bc` is D-1769**); 
 **`create_particular` named `name_to_mon` + `makemon(..., MM_NOEXCLAM)` + 
 `makemon_appear_msg` for `#wizgenesis`/`^G`** (D-0510/D-0928 #1164; 
 class-letter/* random/cant_revive yn/tame·peaceful prefixes deferred; 
@@ -1313,7 +1314,9 @@ C `dokick.c` 1769–1851 / `do.c:1815` FALSE + `:1978` TRUE; XOR WITH_HERO;
 callee `shk.c` 4849–4874 / `repair_damage` catchup; 
 `shk_fixes_damage` / allmain/bones still named); **`goto_level` `do_fall_dmg`** (D-1179; 
 C `do.c:1805–1809` falling + `:1988–1994` `d(max(dist,1),6)` after shop repair before pickup; 
-Punished `ballfall` / W-tower `u_on_rndspot` bit 2 still named); 
+Punished `ballfall` is **D-1778** (C `ball.c:42–67`: `gets_hit` `rn2(5)` is drawn 
+**before** `ballrelease`, and short-circuits when the ball is on the hero's spot or wielded; 
+`rn1(7,25)` capped to 3 by `hard_helmet`); W-tower `u_on_rndspot` bit 2 still named); 
 **`goto_level` climb `great_effort` = Punished&&!Levitation + Flying ladder "along" + 
 `u_locomotion`** (D-0928 #1159; poly `locomotion()` / steed-flyer Flying deferred); 
 **`goto_level` savelev/getlev persist `lastseentyp`** (D-0928 #1160); 
@@ -1337,7 +1340,7 @@ getlev `place_monster`/`set_residency`/`hideunder`/steed-ustuck + one
 (`savelev` writes `svm.moves`) + `run_timers` last D-1699**)**; bones ghostly timeout+=adjust named) + **`goto_level` `run_timers`** (D-1191;
 C `do.c:1818–1823` after delivery; invent/migrating stay on the live queue — do not peel them); 
 **`goto_level` stair-fall `drag_down`/`ballrelease` via `uball` (≡C `Punished`)** (D-0918; 
-litter `hitfloor`/yname/`Soundeffect`/`ballfall` still deferred); 
+litter `hitfloor`/yname/`Soundeffect` still deferred; `ballfall` is **D-1778**); 
 **seed0383 Scr 209/219 RNG FULL after D-0852…D-0855 (#1000 suite); first cell miss past @199; 
 wear/invis plines deferred**; **`goto_level` stash/restore `updest`/`dndest`** (D-0656; 
 C `Sfo`/`Sfi_dest_area`; **`set_uinwater(0)` leave+after-getlev D-1267**; 
@@ -2488,7 +2491,11 @@ candles/candelabrum only, not `snuff_lit`; `thrwmu` always_toss/polearm named);
 **mbhit doorlock** WAN_OPENING/LOCKING/STRIKING + zap_oseen makeknown + 
 shop D_BROKEN add_damage(0) D-1484 (hero bhit is D-1482); 
 omit other offense wands/horns/`fhito_loc`/drawbridge; `find_misc`/`find_defensive` nomore; 
-`rnd_offensive_item` case0 hard_helmet FALLTHROUGH); 
+`rnd_offensive_item` case0 hard_helmet FALLTHROUGH; **`do_wear.c` `hard_helmet` `:567–573` 
+is one export D-1778** — `js/do_wear.js` with `is_helmet` (C `obj.h:283`) exported beside it; 
+the six local copies in dothrow/mhitu/potion/trap/uhitm/zap are gone, and the dothrow/trap 
+pair were C-wrong: no `is_helmet` gate and an inlined IRON..MITHRIL/GLASS range instead of 
+`is_metallic`/`is_crackable`. `is_helmet` clones in `u_init.js`/`worn.js` still named); 
 **`dochug` `find_defensive` gates + `find_misc`/`use_misc` WAN/POT_SPEED + 
 gain-level/invis/bullwhip `rn2(5)`/`rn2(4)` yank + 
 `mon_adjust_speed`/`mcalcmove` MFAST** (D-0232/D-0704; 

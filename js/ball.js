@@ -7,7 +7,8 @@
 // remembered *cells* here, not int ids, because this port's map memory
 // stores rendered cells). Named omissions: maybe_unhide_at (sync
 // callers, same deferral as hack.c movobj);
-// flooreffects rust; bcrestriction / breadcrumbs; ballfall /
+// flooreffects rust; bcrestriction / breadcrumbs; **ballfall D-1778**
+// (C `:42–67`; `hard_helmet` is one export now, `js/do_wear.js`);
 // drop_ball; litter hitfloor/shop/impact (place at feet); Soundeffect
 // in drag_down; jerked-back hmon/miss body (rnd(20) still burned);
 // unpunish.
@@ -19,19 +20,20 @@ import {
     OBJ_FREE, BC_BALL, BC_CHAIN, IS_OBSTRUCTED, IS_DOOR,
     D_CLOSED, D_LOCKED, POOL, is_pit, is_hole, SLT_ENCUMBER,
     W_ARMOR, W_ACCESSORY, W_SADDLE, A_STR, NO_KILLER_PREFIX, KILLED_BY_AN,
-    Is_waterlevel,
+    Is_waterlevel, HEAD,
 } from './const.js';
 import { dist2, distmin } from './hacklib.js';
 import {
     is_pool, nomul, losehp, finish_maybe_wail, maybe_half_phys, movobj,
 } from './hack.js';
 import { near_capacity, weight_cap, encumber_msg } from './invent.js';
-import { rn2, rnd } from './rng.js';
+import { rn2, rnd, rn1 } from './rng.js';
 import { t_at } from './trap.js';
 import { mon_at } from './uhitm.js';
+import { hard_helmet } from './do_wear.js';
 import { welded, setuwep, setuswapwep, setuqwep } from './wield.js';
 import { exercise } from './attrib.js';
-import { xname } from './objnam.js';
+import { xname, Yname2, body_part_latebound } from './objnam.js';
 
 /** C ref: ball.c BCPOS_* — stacking order when ball&chain share a cell. */
 const BCPOS_DIFFER = 0;
@@ -81,6 +83,49 @@ export async function ballrelease(showmsg) {
     if (u.uquiver === uball) setuqwep(null);
     freeinv_ball(uball);
     await encumber_msg();
+}
+
+/**
+ * C ref: ball.c ballfall `:42–67` — the hero falls to a new level with
+ * the iron ball loose. The ball only lands on the hero's head when it
+ * was *not* at the hero's spot and is not the wielded weapon, and even
+ * then only `rn2(5)` of the time; note C evaluates that roll **before**
+ * `ballrelease` so the RNG draw happens while the ball is still held.
+ * A hard helmet caps the `rn1(7, 25)` damage at 3; a soft one only
+ * earns a verbose "does not protect you" line.
+ * Named omissions: none for this arm — `ballrelease` (D-0918),
+ * `hard_helmet` (D-1778 export) and `losehp` are all live.
+ */
+export async function ballfall() {
+    const u = game.u || {};
+    const uball = u.uball;
+    if (!uball || (carried(uball) && welded(uball))) return;
+
+    const gets_hit = (((uball.ox | 0) !== (u.ux | 0)
+                       || (uball.oy | 0) !== (u.uy | 0))
+                      && (u.uwep === uball ? false : !!rn2(5)));
+    await ballrelease(true);
+    if (gets_hit) {
+        let dmg = rn1(7, 25);
+
+        await pline(`The iron ball falls on your ${body_part_latebound(HEAD)}.`);
+        const uarmh = u.uarmh;
+        if (uarmh) {
+            if (hard_helmet(uarmh)) {
+                await pline('Fortunately, you are wearing a hard helmet.');
+                dmg = 3;
+            } else if (game.flags?.verbose) {
+                await pline(`${Yname2(uarmh)} does not protect you.`);
+            }
+        }
+        // C: losehp → maybe_wail (You_hear --More--)
+        losehp(
+            maybe_half_phys(dmg),
+            'crunched in the head by an iron ball',
+            NO_KILLER_PREFIX,
+        );
+        await finish_maybe_wail();
+    }
 }
 
 /**

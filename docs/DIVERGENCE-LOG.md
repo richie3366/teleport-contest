@@ -1,5 +1,76 @@
 # Divergence log
 
+## D-1778 — ball.c ballfall + do_wear.c hard_helmet single export (6 clones)
+
+- **Status:** fixed (map-driven Open row `ball.c` ballfall; suite was
+  44/44)
+- **Symptom:** `ballfall` did not exist in `js/`. A Punished hero who
+  fell through a trap door / level-teleported while falling, or fell
+  into a pit with the ball on the floor, never had the iron ball land
+  on their head: both call sites carried a `// deferred` comment
+  instead. Its C callee `hard_helmet` existed only as **six** local
+  copies, two of which were C-wrong.
+- **C locus:** `ball.c` `ballfall` `:42–67`; callers `do.c:1805–1809`
+  (`Punished && !welded(uball)` on the falling / non-stairs arm) and
+  `trap.c:1955–1958` (`Punished && !carried(uball)` →
+  `unplacebc(); ballfall(); placebc();`). `do_wear.c` `hard_helmet`
+  `:567–573`; `obj.h` `is_helmet` `:283–284`; `objclass.h`
+  `is_metallic` `:194–196` / `is_crackable` `:201–203`.
+- **JS was:** no `ballfall`; `js/do.js` `goto_level` and `js/trap.js`
+  pit-fall each had a named-omission comment where the call belongs.
+  `hard_helmet` was cloned in `dothrow.js`, `mhitu.js`, `potion.js`,
+  `trap.js`, `uhitm.js` and `zap.js`. Four matched C's shape (each over
+  its own private `is_helmet*` copy); `dothrow.js` and `trap.js` were
+  **C-wrong** — they skipped the `is_helmet` gate entirely and inlined
+  a material range (`mat >= IRON && mat <= MITHRIL`, plus GLASS +
+  ARMOR_CLASS) rather than `is_metallic` / `is_crackable`. Both are
+  only ever called with `uarmh`, so the missing gate was inert at every
+  live call site — but it was one careless caller away from reporting a
+  metallic non-helmet as head protection.
+- **Fix:** `hard_helmet` and `is_helmet` are now exports of
+  `js/do_wear.js` (its C home), over the existing `mkobj.js`
+  `is_metallic` / `is_crackable` exports; all six clones and the five
+  private `is_helmet*` helpers they depended on are deleted, along with
+  the `IRON`/`MITHRIL` constants in `dothrow.js` that only fed one.
+  `ballfall` ported into `js/ball.js` preserving C's evaluation order:
+  `gets_hit` is computed **before** `ballrelease(TRUE)`, so the
+  `rn2(5)` draw happens while the ball is still held, and it
+  short-circuits with no draw at all when the ball is already on the
+  hero's spot or is the wielded weapon. `rn1(7, 25)` damage, capped to
+  3 by a hard helmet, with the verbose "does not protect you" line for
+  a soft one; `losehp(maybe_half_phys(dmg), ..., NO_KILLER_PREFIX)`
+  then `finish_maybe_wail` (this port's `maybe_wail` --More-- split).
+  Both callers wired.
+- **JS:** `js/do_wear.js`, `js/ball.js`, `js/do.js`, `js/trap.js`,
+  `js/dothrow.js`, `js/mhitu.js`, `js/potion.js`, `js/uhitm.js`,
+  `js/zap.js`. 88 insertions / 95 deletions — net smaller.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `69+0.50/turn` (R² 0.846).
+  Per-session strict lengths PASS on seed4500, seed0030, seed0012,
+  seed0014, seed0360. `sym.mjs` now reports `hard_helmet` with **0**
+  clones.
+  No public session is Punished **while falling**, so the suite is a
+  no-regression signal only; both new pieces were exercised directly:
+  * `ballfall` RNG short-circuit, counted on the rng log — ball off the
+    hero's spot and not wielded draws (2 calls: the `rn2(5)` plus
+    `rn1`'s `rn2(7)`); ball at the hero's spot draws **0**; ball off
+    the spot but wielded draws **0**; a carried *welded* HEAVY_IRON_BALL
+    draws 0 and stays in inventory (early return). All match C.
+    (A first run showed case 4 releasing the ball — that was the probe
+    using `otyp: 0`, for which `will_weld` is correctly false, not a
+    port defect.)
+  * `hard_helmet` over the real object table: dwarvish iron helm /
+    orcish helm / helmet → true; elven leather helm / cornuthaum /
+    dunce cap → false; **long sword and iron shoes → false** despite
+    being metallic, and crystal plate mail → false despite being
+    crackable — exactly the `is_helmet` gate the two bad clones lacked.
+- **Not this iter:** `drop_ball`; `litter` hitfloor/shop/impact;
+  `unpunish`; `maybe_unhide_at` (already queued); the `is_helmet`
+  clones remaining in `js/u_init.js` and `js/worn.js`; the `carried`
+  clones in `artifact.js` / `ball.js` / `timeout.js` (`js/trap.js`'s
+  new call imports the `eat.js` export rather than adding clone #5);
+  `Yname2` clones in `do.js` / `music.js` / `timeout.js`.
+
 ## D-1777 — ball.c move_bc / unplacebc_core Blind bc_felt + glyph restore
 
 - **Status:** fixed (map-driven Open rows `ball.c` unplacebc Blind glyph

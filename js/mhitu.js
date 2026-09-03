@@ -37,10 +37,10 @@ import { arti_reflects } from './artifact.js';
 import { is_pole, welded } from './wield.js';
 import { xname, doname, an, yname, the, simpleonames, safe_qbuf } from './objnam.js';
 import { objectNames, ARMOR_CLASS, COIN_CLASS } from './objects.js';
-import { objects_at, is_metallic, is_crackable } from './mkobj.js';
+import { objects_at } from './mkobj.js';
 import { steal, unresponsive, remove_worn_item } from './steal.js';
 import {
-    stop_donning, setworn, Ring_on, Ring_gone, suit_simple_name,
+    stop_donning, setworn, Ring_on, Ring_gone, suit_simple_name, hard_helmet,
 } from './do_wear.js';
 import { mpickobj } from './makemon.js';
 import { money2mon } from './shk.js';
@@ -875,19 +875,6 @@ function cloak_simple_name(cloak) {
 }
 
 /**
- * C ref: obj.h is_helmet — ARMOR + oc_armcat ARM_HELM (JS oc_skill stand-in).
- */
-function is_helmet_mhitu(obj) {
-    return obj?.oclass === ARMOR_CLASS
-        && (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_HELM;
-}
-
-/** C ref: do_wear.c hard_helmet `:567–573` — metallic or glass helm. */
-function hard_helmet(obj) {
-    if (!obj || !is_helmet_mhitu(obj)) return false;
-    return is_metallic(obj) || is_crackable(obj);
-}
-
 /** C ref: objnam.c helm_simple_name `:5513–5528` — hat vs helm. */
 function helm_simple_name(helmet) {
     return !hard_helmet(helmet) ? 'hat' : 'helm';

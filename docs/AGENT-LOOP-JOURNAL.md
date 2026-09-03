@@ -8,6 +8,32 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1778 ball.c ballfall + hard_helmet single export
+
+**Objective:** queue row `ball.c` ballfall (named).
+**C locus:** `ball.c` `ballfall` `:42-67`; callers `do.c:1805-1809` and
+`trap.c:1955-1958`; callee `do_wear.c` `hard_helmet` `:567-573` over
+`obj.h` `is_helmet` `:283` and `objclass.h` `is_metallic`/`is_crackable`.
+**JS locus:** `js/ball.js` (ballfall), `js/do_wear.js` (new exports),
+callers `js/do.js` + `js/trap.js`, clones removed from `dothrow`,
+`mhitu`, `potion`, `trap`, `uhitm`, `zap`.
+**Change:** ballfall ported with C's evaluation order — `gets_hit` is
+computed before `ballrelease`, so the `rn2(5)` is drawn while the ball
+is still held, and no draw happens at all when the ball sits on the
+hero's spot or is the wielded weapon. Both `// deferred` call sites
+wired. Its callee `hard_helmet` had six clones; two (`dothrow`, `trap`)
+were C-wrong — no `is_helmet` gate and an inlined IRON..MITHRIL/GLASS
+range instead of `is_metallic`/`is_crackable`. One export now.
+**Verify:** green gate + strict lengths PASS; full `sessions` 44/44
+(69+0.50/turn); per-session strict PASS on seed4500/0030/0012/0014/0360.
+No public session is Punished while falling, so both pieces were probed
+directly: rng-log counts confirm the short-circuit (0 draws when the
+ball is on the hero's spot or wielded; 0 and still carried when welded),
+and `hard_helmet` over the real object table returns false for long
+sword and iron shoes — the gate the bad clones lacked.
+88 ins / 95 del across 9 js files.
+**Next:** `pager.c` trap_description (named). Not trapname Hallu.
+
 ## 2026-09-03 — D-1777 ball.c Blind move_bc / unplacebc glyph restore
 
 **Objective:** queue rows `ball.c` unplacebc Blind glyph restore and

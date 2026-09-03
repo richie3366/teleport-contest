@@ -62,7 +62,6 @@ import {
 } from './monsters.js';
 import {
     mkobj, place_object, stackobj, delobj, relobj_on_death,
-    is_metallic, is_crackable,
 } from './mkobj.js';
 import {
     monnear, record_mvitals_died, seemimic, wakeup, setmangry, dist2,
@@ -87,6 +86,7 @@ import { u_wipe_engr } from './engrave.js';
 import { cutworm } from './worm.js';
 import { m_unleash } from './apply.js';
 import { mhis } from './mondata.js';
+import { hard_helmet } from './do_wear.js';
 
 /** Live pager.c object_from_map / mhidden_description; bound on first use
  * (pager.js imports mon_at from this file — static import cycles). */
@@ -997,20 +997,6 @@ function damageum_ad_phys(mdef, mattk, mhm) {
             if (mhm.damage < 1) mhm.damage = 1;
         }
     }
-}
-
-/** C ref: obj.h is_helmet — ARMOR + oc_armcat ARM_HELM. */
-function is_helmet_uhitm(obj) {
-    return obj?.oclass === ARMOR_CLASS
-        && (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_HELM;
-}
-
-/**
- * C ref: do_wear.c hard_helmet `:567–573` — metallic or glass helm.
- */
-function hard_helmet(obj) {
-    if (!obj || !is_helmet_uhitm(obj)) return false;
-    return is_metallic(obj) || is_crackable(obj);
 }
 
 /** C ref: objnam.c helm_simple_name `:5513–5528` — hat vs helm. */
