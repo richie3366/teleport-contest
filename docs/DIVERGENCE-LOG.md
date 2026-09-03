@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-1767 — display.c show_glyph always overwrite gbuf.glyph
+
+- **Status:** fixed (Must-fix review **726**; public 43/44)
+- **Symptom:** After D-1765, `show_glyph_cell` stored `loc.disp_glyph`
+  only when the caller passed an integer. Tty-only
+  `map_background` / `magic_map_background` / `map_engraving` /
+  memory paints left a stale trap/I/monster id. `see_traps` then
+  extra-`newsym` (`tseen` / `erevealed`); `glyph_is_invisible` and
+  `do_vicinity_map` extra-or-skip. Broke seed0006/0030/4500 (and
+  left seed0014 FAIL).
+- **C locus:** `display.c` `show_glyph` `:1876–2072` (assign
+  `gbuf.glyph` `:2039`); `see_traps` `:1610–1621`
+  `glyph_is_trap(_glyph_at)`; `map_background` `:278–287`
+  `back_to_glyph` then `show_glyph`; `magic_map_background`
+  `:232–258`; `map_engraving` `:312–322`; `_map_location`
+  `:448–472`; `do_vicinity_map` `:1526–1531`
+  `!glyph_is_monster(oldglyph)`.
+- **JS was:** `if (glyph != null) loc.disp_glyph = …` else keep
+  previous; `see_traps` hybrid `disp_glyph` else `disp_kind`;
+  vicinity AND `kind !== 'monster'`.
+- **Fix:** Always stamp `disp_glyph` (id, `GLYPH_INVISIBLE`, or
+  `NO_GLYPH`). Port `back_to_glyph` integer; pass cmap/obj/trap
+  ids from map_* / memory / zap / explode / shield. `see_traps`
+  is `glyph_is_trap` only. Vicinity drops the kind hybrid. Detect
+  `map_background` clone uses the export.
+- **JS:** `js/display.js`; `js/detect.js` import `map_background`.
+- **Not this iter:** `ridden_mon_to_glyph` usteed; swallow cmap;
+  `map_glyphinfo` / `reset_glyphmap`; terrain_glyph DRAWBRIDGE
+  tty `?` (integer `back_to_glyph` live); seed0014 (same prefix
+  as D-1765 after this stamp).
+- **Verified:** save-oracle probe skip (untagged
+  `display.c:show_glyph`); node canary (tty-only overwrite to
+  `NO_GLYPH`; room cmap stamp; I paint; `see_traps` predicate);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict;
+  seed0006/0030/4500 PASS; full `sessions` **43**/44 (seed0014
+  still 43831/59178 Scr 629/714). Rule #2 clean.
+- **Files:** `js/display.js`, `js/detect.js`.
+
 ## D-1766 — do_wear.c cancel_doff / doffing accessory takeoff.what
 
 - **Status:** fixed (map-driven Open from D-1765; not a public FAIL)

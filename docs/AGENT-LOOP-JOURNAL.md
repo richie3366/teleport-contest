@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1767 display.c show_glyph gbuf stamp
+
+**Objective:** Must-fix `display.c` `show_glyph` always overwrite
+`gbuf.glyph` (stale `disp_glyph` / `see_traps`). Not usteed.
+Source: reviews/loop-unattended/726-3b34b789-glyph-offsets.md
+**C locus:** `display.c` `show_glyph` `:2039`; `see_traps`
+`:1610–1621`; `back_to_glyph` `:2286–2427`; `do_vicinity_map`
+`:1528`.
+**JS locus:** `js/display.js` `show_glyph_cell`/`see_traps`/
+`back_to_glyph`; `js/detect.js` import `map_background`.
+**Change:** Always stamp `loc.disp_glyph`; pass cmap ids from
+map_* / memory / zap / explode; `see_traps` `glyph_is_trap` only;
+vicinity drops kind hybrid. Not usteed / swallow / `map_glyphinfo`.
+**Score:** **43**/44, Scr **11,320**/11,405, RNG **777,491**/792,838
+(98.1%). Speed `41+0.31/turn` (R² 0.863). Recovered seed0006/0030/4500;
+seed0014 still FAIL.
+**Verified:** probe skip untagged `display.c:show_glyph`; node canary;
+green+strict; cohort **7**/7 + strict; full `sessions` 43/44.
+**Next:** Open `potion.c` make_blinded Unaware talk=FALSE.
+**Blocked:** none.
 ## 2026-09-03 — audit #2180 reviews 719–727 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **718**

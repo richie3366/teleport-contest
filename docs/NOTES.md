@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 40/44** (cadence **#2180** at `bb71f9ff`, R² 0.857). Broke at
-  D-1765 `3b34b789` (not D-1766). **Hypothesis:** `show_glyph_cell`
-  leaves stale `loc.disp_glyph`; `see_traps` extra `newsym` (`tseen`).
-  Falsify: stamp `disp_glyph` on every `show_glyph` like C `gbuf`.
-  **Next:** Must-fix `display.c` `show_glyph`. Not usteed. Do not skip
-  D-1531…D-1766. Do not invent 3.6 `random_trap_to_glyph`.
+- **Suite 43/44** after D-1767 `show_glyph` gbuf stamp (full `sessions`).
+  Recovered seed0006/0030/4500. **Hypothesis:** seed0014 is not stale
+  `disp_glyph` (same 43831/59178 prefix as D-1765 after the stamp).
+  Falsify: do not re-check gbuf overwrite. **Next:** Open
+  `potion.c` make_blinded Unaware talk=FALSE. Not Sting(-1). Do not
+  invent a seed0014 FAIL peel. Do not skip D-1531…D-1767.
 - Named still: Palantir `#if 0`; pit/underwater; clone yn; keepdogs
   leash/`mon_has_amulet`; tip-spill; hideunder; Punished float_down;
   water/lava steed; interned `'yn'`; mthrowu/uhitm poison;
@@ -28,13 +28,13 @@ Objective/score live in `CURRENT.md`.
 ## Don't re-check (≤15)
 
 - Stamp `D-NNNN` in the fix; next commit fills `%h`. Same-commit archive.
-- Do not re-check 44/44 at D-1757 `2d66f69e` or D-1764 `8f3f4280`; the
-  four public FAILs start at D-1765.
+- Do not re-check 40/44 at D-1765 `3b34b789` or D-1766 `bb71f9ff`;
+  D-1767 recovered three of those four FAILs. seed0014 unchanged.
 - Do not revert D-0078 H2344 or hardcode offx 72 (D-1185).
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1766.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1767.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -45,7 +45,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1766 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1767 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -65,7 +65,8 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1766. D-1766 is `cancel_doff` (not setnotworn
+  D-1682…D-1767. D-1767 is `show_glyph` gbuf stamp (not usteed /
+  `map_glyphinfo`). D-1766 is `cancel_doff` (not setnotworn
   `monstunseesu_prop`). D-1765 is integer `GLYPH_*_OFF` / `map_monst`
   (not `pet_to_glyph` tty D-1748, not `ridden_mon_to_glyph` usteed).
   D-1764 is heaven `u_left_shop` (not `lev_by_name` / Nowhere yn).
@@ -74,13 +75,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1767: `display.c` `show_glyph` `:2039` always overwrite gbuf;
+  `back_to_glyph` `:2286–2427`; `see_traps` `glyph_is_trap` only;
+  vicinity `!glyph_is_monster` without kind hybrid. Live
+  `display.js`+`detect.js`. Named: usteed / swallow /
+  `map_glyphinfo`; seed0014.
 - D-1766: `do_wear.c` `cancel_doff` `:1643–1659` I_SPECIAL skip
   `cancel_don` then `takeoff.mask &= ~slotmask`; `setworn`/`setnotworn`
   callers; `doffing` accessory/wep `takeoff.what`. Live `do_wear.js`+
   `do.js`. Named: setnotworn `monstunseesu_prop`/`update_inventory`.
-- D-1765: integer `GLYPH_*_OFF` / `map_monst` ternary **and** stale
-  `disp_glyph` (`show_glyph_cell` tty-only). Fortress 40/44. Must-fix
-  review **726**. Named: usteed / swallow / `map_glyphinfo`.
+- D-1765: integer `GLYPH_*_OFF` / `map_monst` ternary. gbuf stamp
+  is D-1767. Named: usteed / swallow / `map_glyphinfo`.
 - D-1764: `level_tele` `:1321–1385` heaven `u_left_shop`+Cloud 9/
   fly-or-plummet/`done(DIED)`/dlevel 0; `goto_level` `done(ESCAPED)`;
   buried ball before next_to_u. Live `teleport.js`+`do.js`. Named:
@@ -105,4 +110,3 @@ Objective/score live in `CURRENT.md`.
 - D-1755: `toggle_blindness` Sting(-1). Named: Unaware/`set_bc`.
 - D-1754: companion pet HP / live-cat `d()`. Named: DUMPLOG.
 - D-1753: `sense_trap` Hallu/cursed GOLD. Named: `gold_detect`.
-- D-1752: `set_voice` / SetVoice empty without SND_LIB.

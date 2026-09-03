@@ -48,7 +48,7 @@
 import { game } from './gstate.js';
 import { rnl, rn2, rnd } from './rng.js';
 import {
-    newsym, pline, magic_map_background, terrain_glyph, obj_glyph,
+    newsym, pline, magic_map_background, map_background, obj_glyph,
     show_glyph_cell, display_self, map_trap, map_engraving, canspotmon, sensemon,
     map_invisible, glyph_is_invisible, glyph_is_monster, warning_of, You_feel,
     feel_location, feel_newsym, unmap_invisible, map_object, Norep,
@@ -738,21 +738,6 @@ function skip_premap_detect(x, y) {
 }
 
 /**
- * C ref: display.c map_background — remember real terrain; show if directed.
- */
-function map_background(x, y, show) {
-    const lev = game.level?.at(x, y);
-    if (!lev) return;
-    const tg = terrain_glyph(lev, x, y);
-    if (game.level?.flags?.hero_memory) {
-        lev.remembered_glyph = {
-            ch: tg.ch, color: tg.color, decgfx: !!tg.dec,
-        };
-    }
-    if (show) show_glyph_cell(x, y, tg.ch, tg.color, !!tg.dec);
-}
-
-/**
  * C ref: display.c map_object — remember boulder glyph for premap path.
  */
 function map_object_premap(obj, show) {
@@ -767,9 +752,10 @@ function map_object_premap(obj, show) {
             ch: og.ch, color: og.color, decgfx: !!og.dec,
             otyp: obj.otyp | 0,
             boulder: true,
+            glyph: typeof og.glyph === 'number' ? og.glyph : undefined,
         };
     }
-    if (show) show_glyph_cell(x, y, og.ch, og.color, !!og.dec);
+    if (show) show_glyph_cell(x, y, og.ch, og.color, !!og.dec, 0, og.glyph);
 }
 
 /**
@@ -1023,7 +1009,6 @@ export async function do_vicinity_map(sobj) {
             if (mtmp && (mtmp.mx | 0) === zx && (mtmp.my | 0) === zy) {
                 if ((unconstrained || !hero_memory)
                     && !extended && (zx !== ux || zy !== uy)
-                    && oldglyph.kind !== 'monster'
                     && !glyph_is_monster(oldglyph.glyph)) {
                     map_invisible(zx, zy);
                 } else {

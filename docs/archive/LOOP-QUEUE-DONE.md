@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
+- [x] `display.c` `show_glyph` always overwrites `gbuf.glyph`; JS `show_glyph_cell` leaves stale `loc.disp_glyph` on tty-only paints, so `see_traps` / `glyph_is_invisible` / `do_vicinity_map` extra-or-skip `newsym` (`tseen`/`erevealed`/I-keep). Not usteed. Source: reviews/loop-unattended/726-3b34b789-glyph-offsets.md **Addressed:** D-1767
+
+
 - [x] `do_wear.c` cancel_doff (named). Not setworn oc_oprop. **Addressed:** D-1766 `bb71f9ff`
 
 

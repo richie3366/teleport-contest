@@ -157,3 +157,5 @@ D-log: save-oracle skip (untagged `detect.c:map_monst` / `display.h:GLYPH_MON_OF
 Named (map, not Must-fix): `ridden_mon_to_glyph` usteed; swallow cmap; `map_glyphinfo` / `reset_glyphmap`. Do **not** add `newsym_rn2`. Do **not** shift existing S_* ids. Do **not** restore `map_monst` always-`mon_glyph`. Do **not** invent 3.6 `random_trap_to_glyph`. Do **not** restore `see_traps` `tseen` walk (D-1759).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1767
