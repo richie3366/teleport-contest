@@ -13,7 +13,7 @@ import { cansee, couldsee, howmonseen } from './vision.js';
 import {
     TOOL_CLASS, WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, POTION_CLASS,
     COIN_CLASS, GEM_CLASS, FOOD_CLASS, RING_CLASS, RANDOM_CLASS,
-    objectNames, objectNameStrs, objectDescrs,
+    objectNames, objectNameStrs, objectDescrs, is_axe,
 } from './objects.js';
 import {
     P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE, P_NONE, P_BASIC, P_SKILLED,
@@ -267,13 +267,6 @@ const GETOBJ_EXCLUDE_SELECTABLE = 0;
 const GETOBJ_DOWNPLAY = 1;
 const GETOBJ_SUGGEST = 2;
 const GETOBJ_EXCLUDE_INACCESS = 3;
-
-/** C ref: obj.h is_axe — WEAPON/TOOL with P_AXE skill. */
-function is_axe(obj) {
-    if (!obj) return false;
-    if (obj.oclass !== WEAPON_CLASS && obj.oclass !== TOOL_CLASS) return false;
-    return (game.objects?.[obj.otyp]?.oc_skill ?? 0) === P_AXE;
-}
 
 /** C ref: obj.h is_pick — WEAPON/TOOL with P_PICK_AXE skill. */
 function is_pick(obj) {

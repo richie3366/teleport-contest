@@ -8,6 +8,16 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1793 weapon.c dmgval bonus rnd() + erosion
+
+**Objective:** Open `weapon.c` `dmgval` blessed/axe/silver/
+`artifact_light` bonus `rnd()` + `greatest_erosion`. Not `spec_abon`.
+**C:** `weapon.c:215–356`.
+**JS was:** small switch + shade only; bonus draws and erosion skipped.
+**Fix:** rest of C body; `is_axe` one export; `is_wooden`/`hates_light`.
+**Verify:** probe (blessed/silver/axe/erosion/ball/large switch);
+green + strict; cohort 7/7. save-oracle skip (untagged).
+**Next:** Open `mon.c` `make_corpse` special-corpse table. Not mondied.
 ## 2026-09-03 — D-1792 timeout.c nh_timeout dialogues + stone_luck
 
 **Objective:** Open `timeout.c` `nh_timeout` property dialogues +

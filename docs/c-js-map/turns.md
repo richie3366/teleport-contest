@@ -2622,6 +2622,9 @@ poly trap/wand/potion/bag/`you_aggravate` deferred);
 **await `mzapwand`/`mbhit`/`mbhitm`/hurl plines + await `use_misc`** (D-0261; 
 unawaited wand `--More--` raced input); **`dmgval` via extracted `oc_wsdam`/`oc_wldam` + 
 small-monster otyp switch** (D-0189); **`dmgval` shade/`shade_glare` D-1354**; 
+**`dmgval` large switch / thick-skin / iron ball / blessed·axe·silver·`artifact_light` `rnd()` / `spec_dbon` half / `greatest_erosion` D-1793** 
+(`weapon.c` `:215–356`; `obj.h` `is_axe` one export in `objects.js`; `mondata.h` `is_wooden`/`hates_light`; 
+named: `hitval` blessed/spear/trident/pick/silver still deferred, `spec_abon` is D-0611); 
 **`skill_init` + `#enhance`/`add_skills_to_menu` PICK_NONE paged** (D-0122); 
 **spelspec `unrestrict_weapon_skill` + `skill_based_spellbook_id`** (D-0132); 
 **`weapon_hit_bonus` (b.h. unskilled +1; martial/twoweapon/riding)** (D-0187); 
@@ -2674,8 +2677,7 @@ mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named);
 other `getmattk` substitutions; `hitval` blessed/spear/trident/pick/silver (artifact `spec_abon` 
 D-0611), Snickersnee bash exemption (`pronoun_gender` canspotmon/neuter is live, D-1776), 
 polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot, HTH `select_hwep`, 
-weld/artifact_light wield msgs, large-monster `dmgval` switch / thick-skin/silver/blessed/axe 
-bonuses, knockback hurtle; `mshot_xname` Nth; `obj_is_pname`/`the()`; 
+weld/artifact_light wield msgs, knockback hurtle; `mshot_xname` Nth; `obj_is_pname`/`the()`; 
 enhance `add_weapon_skill`/`lose_weapon_skill`/`use_skill` may-advance; 
 other `mhitm_ad_*` (AD_FIRE hero); potionbreathe/were destroy_items deferrals; 
 `mswingsm` mon-mon  **`wildmiss` Displaced/Invis/Underwater + `!foundyou` skipnonmagc** (D-0816; 

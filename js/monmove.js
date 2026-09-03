@@ -51,7 +51,7 @@ import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
     GEM_CLASS, FOOD_CLASS, AMULET_CLASS, POTION_CLASS, SCROLL_CLASS,
     WAND_CLASS, RING_CLASS, SPBOOK_CLASS, ROCK_CLASS, BALL_CLASS,
-    objectNames,
+    objectNames, is_axe,
 } from './objects.js';
 import {
     Monnam, y_monnam, Adjmonnam, mon_nam, Amonnam, Hallucination,
@@ -460,14 +460,10 @@ function m_search_items(mtmp, gg) {
     return false;
 }
 
-/** C ref: obj.h is_pick / is_axe — dig-tool skill predicates. */
+/** C ref: obj.h is_pick — dig-tool skill predicate. */
 function is_pick(obj) {
     if (!obj) return false;
     return (game.objects?.[obj.otyp]?.oc_skill ?? 0) === P_PICK_AXE;
-}
-function is_axe(obj) {
-    if (!obj) return false;
-    return (game.objects?.[obj.otyp]?.oc_skill ?? 0) === P_AXE;
 }
 
 function closed_door_at(x, y) {

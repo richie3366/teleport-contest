@@ -323,6 +323,19 @@ export function thick_skinned(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_THICK_HIDE);
 }
 
+const PM_WOOD_GOLEM = monsterNames.indexOf('PM_WOOD_GOLEM');
+const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
+
+/** C ref: mondata.h is_wooden — ptr == &mons[PM_WOOD_GOLEM] */
+export function is_wooden(ptr) {
+    return (ptr?.mndx | 0) === PM_WOOD_GOLEM;
+}
+
+/** C ref: mondata.h hates_light — ptr == &mons[PM_GREMLIN] */
+export function hates_light(ptr) {
+    return (ptr?.mndx | 0) === PM_GREMLIN;
+}
+
 // C ref: mondata.h nohands()
 export function nohands(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_NOHANDS);

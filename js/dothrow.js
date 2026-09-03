@@ -23,7 +23,7 @@ import {
 import {
     WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, GEM_CLASS, FOOD_CLASS, ARMOR_CLASS,
     POTION_CLASS, SCROLL_CLASS, RING_CLASS, objectNames, objectNameStrs,
-    is_sword,
+    is_sword, is_axe,
 } from './objects.js';
 import {
     COLNO, ROWNO, IS_SOFT, LOST_THROWN, ZAP_POS, IS_DOOR, D_CLOSED, D_LOCKED,
@@ -448,13 +448,6 @@ function is_weptool(obj) {
     const n = objectNames[obj.otyp];
     return n === 'PICK_AXE' || n === 'GRAPPLING_HOOK' || n === 'UNICORN_HORN'
         || n === 'AKLYS' || n === 'BULLWHIP';
-}
-
-/** C ref: obj.h is_axe. */
-function is_axe(obj) {
-    if (!obj) return false;
-    if (obj.oclass !== WEAPON_CLASS && obj.oclass !== TOOL_CLASS) return false;
-    return (game.objects?.[obj.otyp]?.oc_skill | 0) === P_AXE;
 }
 
 /** C ref: obj.h is_spear / is_blade / is_sword. */

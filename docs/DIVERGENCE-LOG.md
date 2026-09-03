@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-1793 — dmgval vs-monster bonus rnd() + greatest_erosion
+
+- **Status:** fixed (map-driven Open row; suite was 44/44)
+- **Symptom:** JS `dmgval` stopped after the small-monster otyp switch
+  and shade zero. Blessed-vs-hater `rnd(4)`, axe-vs-wooden `rnd(4)`,
+  silver `rnd(20)`, `artifact_light` `rnd(8)`, `spec_dbon` double-damage
+  half, and `greatest_erosion` never ran. Every qualifying weapon hit
+  desynchronises the RNG stream.
+- **C locus:** `weapon.c` `dmgval` `:215–356`. Callees: `obj.h`
+  `greatest_erosion` / `is_axe` / `is_weptool`; `mondata.h`
+  `thick_skinned` / `is_wooden` / `hates_light` / `bigmonst`;
+  `mondata.c` `mon_hates_blessings` / `mon_hates_silver`; `artifact.c`
+  `spec_dbon` `:1090–1109` / `shade_glare`; `artifact.c`
+  `artifact_light`. Callers: `uhitm.c` / `mthrowu.c` / `dothrow.c` /
+  `trap.c` / `apply.c` / `dig.c` / `do.c` / `explode.c` / `read.c` /
+  `zap.c` (26 sites). Not `hitval` `spec_abon` (D-0611).
+- **JS was:** `oc_wsdam`/`oc_wldam` + small switch + spe + shade
+  (D-0189 / D-1354). Large switch, thick-skin, iron ball, bonuses,
+  erosion deferred. `is_weptool` was an unimported local that only
+  survived because `WEAPON_CLASS` short-circuited it.
+- **Fix:** remaining C body in `js/weapon.js`. `is_axe` exported from
+  `js/objects.js` (apply/dig/dothrow/monmove clones deleted).
+  `is_wooden` / `hates_light` in `js/monsters.js`. `is_weptool` imported
+  from `wield.js`. Probe: cream pie 0 draws; blessed sword vs vampire
+  `rnd(4)`; silver saber vs werewolf `rnd(20)`; axe vs wood golem extra
+  `rnd(4)`; broadsword-vs-giant `tmp++`; erosion 2−3 clamped to 1;
+  heavy ball `rnd(4*wt)`; leather whip vs thick-skin zeros.
+- **Named omissions:** `hitval` blessed/spear/trident/pick/silver
+  vs-mon (artifact `spec_abon` is D-0611). `greatest_erosion` stays a
+  2-line `obj.h` macro clone in dig/lock/u_init (not a fifth copy).
+- **Next:** Open `mon.c` `make_corpse` special-corpse table. Not mondied.
+
 ## D-1792 — nh_timeout property dialogues + stone_luck
 
 - **Status:** fixed (map-driven Open row; suite was 44/44)

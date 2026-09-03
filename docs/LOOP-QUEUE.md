@@ -37,7 +37,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
 order; rows 13–30 of that file refill this list.
 
-- [ ] `weapon.c` dmgval blessed/axe/silver/artifact_light bonus rnd() + greatest_erosion (RNG). Not spec_abon.
 - [ ] `mon.c` make_corpse special-corpse table (dragon scales / unicorn horn / worm tooth) — 19 C draws. Not mondied.
 - [ ] `mhitu.c` mattacku remaining attack-type arms `:491–952`. Not hitmu.
 - [ ] `mon.c` xkilled LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool gate + artifact un-create. Not make_corpse.

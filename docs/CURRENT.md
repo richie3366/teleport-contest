@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-03** — full `sessions` at **D-1790**
-(`monverbself`; fortress held through **D-1792**). **44**/44,
+(`monverbself`; fortress held through **D-1793**). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
 Speed `41+0.33/turn` (R² 0.855). Fortress held. Re-audit **738–754**
 is **paid off**: **D-1786** closed 747 (`u.uball` ballfall callers),
@@ -69,10 +69,10 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** held at D-1792. **D-1792** shipped the first Open
-(`timeout.c` `nh_timeout` property dialogues + `attrib.c` `stone_luck`
-+ `eat.c` `Popeye`; JS skipped the countdown plines and luck timeout).
-Must-fix is **empty** — pop the first **Open**
+**Suite 44/44** held at D-1793. **D-1793** shipped the first Open
+(`weapon.c` `dmgval` blessed/axe/silver/`artifact_light` bonus `rnd()`
++ `greatest_erosion`; large switch / thick-skin / iron ball /
+`spec_dbon` half). Must-fix is **empty** — pop the first **Open**
 row. Save-oracle required for tagged restore/other-floor Open
 (`save-oracle.mjs probe --omit`).
 **Open is now hidden-score ordered** — `docs/PORT-GAP-TOP30.md` ranks
@@ -80,21 +80,23 @@ the 30 C functions a session we cannot see is most likely to hit
 (reach from the turn loop x call breadth x RNG/message loudness x
 coverage gap; `node scripts/port-coverage.mjs`). Queue Open = rows
 1–12 of that file, in order.
-**Next cluster:** `weapon.c` `dmgval` blessed/axe/silver/`artifact_light`
-bonus `rnd()` + `greatest_erosion` (RNG). Not `spec_abon`.
+**Next cluster:** `mon.c` `make_corpse` special-corpse table
+(dragon scales / unicorn horn / worm tooth) — 19 C draws. Not mondied.
 **`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
 `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
 `#ifdef DUMPLOG` block is compiled out of the scored build, and the
 surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only
 reader is `report.c` crash path).
-**Do not skip D-1531…D-1792 (index).** Keep mention_map addr.
+**Do not skip D-1531…D-1793 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1792.** Do not FORCE
+**Do not re-break D-0660…D-1793.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1792 (index). Recent: **D-1792**
+**Keep:** D-0845…D-1793 (index). Recent: **D-1793**
+`weapon.c` `dmgval` `:215` vs-mon bonus `rnd()` + erosion;
+`is_axe` one export; named: `hitval` blessed/spear. **D-1792**
 `timeout.c` `nh_timeout` `:588` dialogues + `attrib.c` `stone_luck`
 `:421` + `eat.c` `Popeye` `:3915` — luck still runs when invulnerable;
 stoned/slime/vomiting/choke/sickness/levitation/phaze before uprops `--`.
@@ -112,14 +114,14 @@ no `stay` rebuild. **D-1788** `#cast` DETECT_FOOD `seffects`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1792 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1793 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1792 (index). No generic `dknown` on
+Do not re-port D-1660…D-1793 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem. DUMPLOG retired (D-1776).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
