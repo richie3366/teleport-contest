@@ -1,5 +1,55 @@
 # Divergence log
 
+## D-1784 — display.h maybe_display_usteed ridden glyph bank
+
+- **Status:** fixed (map-driven Open row `display.c` ridden_mon_to_glyph
+  usteed; suite was 44/44, Must-fix empty)
+- **Symptom:** while riding, `display_self` painted the steed with
+  `mon_to_glyph`, so the hero's square carried a **GLYPH_MON_\*** id
+  where C emits **GLYPH_RIDDEN_\***. The tty character and colour are
+  identical either way, which is why nothing on screen moved — but the
+  id is what downstream code reads, so `glyph_is_ridden_monster` was
+  never true anywhere in the port and `glyph_to_mon`'s two ridden arms
+  were unreachable. The tty attribute was wrong too: C's
+  `map_glyphinfo` sets `MG_FEMALE` from the **steed's** gender for a
+  ridden glyph, while `display_self` used `hero_map_attr()`, i.e. the
+  hero's, so the wizmgender inverse could disagree with C whenever the
+  rider and mount differ in gender.
+- **C locus:** `display.h` `maybe_display_usteed` `:246–249` and
+  `display_self` `:251–259`; `ridden_mon_to_glyph` `:560–562`;
+  `map_glyphinfo` `:2986–2997` (the ridden arms that set
+  `MG_RIDDEN | MG_FEMALE` / `MG_MALE`); glyph banks
+  `display.h:509–512`.
+- **JS was:** `hero_display_glyph()` returned `mon_glyph(steed)`;
+  `display_self()` always used `hero_map_attr()`. `display_monster`
+  even carried a stale `Named: ridden_mon_to_glyph display_self/usteed
+  wire` note, although C has no steed arm there at all — the steed is
+  display_self's business.
+- **Fix:** `hero_display_glyph()` now returns
+  `ridden_mon_to_glyph(steed)`, and `display_self()` takes its
+  attribute from the glyph C actually emits — the steed's gender when
+  the ridden bank is in play, the hero's otherwise. The stale
+  `display_monster` note is corrected to say C has no steed arm there.
+- **JS:** `js/display.js`. 22 insertions / 3 deletions.
+- **Size:** small on purpose. The C is a two-line macro plus one
+  `map_glyphinfo` arm; there is no more of this function to port, and
+  padding it with unrelated work would break the one-C-function rule.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `63+0.48/turn` (R² 0.856).
+  Per-session strict lengths PASS on the riding sessions seed0103 and
+  seed0104, plus seed0004 and seed4500 — those *do* exercise mounted
+  play, so an unchanged screen is the expected and observed result.
+  Probed directly against a real module init with a female pony:
+  `mon_to_glyph` → id 483, `glyph_is_ridden_monster` **false**;
+  `ridden_mon_to_glyph` → id 3165, `glyph_is_ridden_monster` **true**
+  and still `glyph_is_monster`; both share ch `u` and colour, which is
+  why the suite cannot see the difference; `glyph_to_mon(3165)`
+  resolves to PM_PONY, so the previously dead ridden arm now works;
+  and `display_self()` while mounted stamps 3165 on the hero's cell.
+- **Not this iter:** `map_glyphinfo`'s `has_rogue_color` arm, which
+  makes a ridden glyph NO_COLOR on the Rogue level — that belongs to
+  the wider ROGUESET colour-set deferral, not to this row.
+
 ## D-1783 — dog.c keepdogs stay_behind + leash arms + keep_mon_accessible
 
 - **Status:** fixed (map-driven Open row `dog.c` keepdogs leash; suite

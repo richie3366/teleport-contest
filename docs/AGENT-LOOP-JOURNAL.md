@@ -8,6 +8,33 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1784 display.h maybe_display_usteed ridden bank
+
+**Objective:** queue Open row `display.c` ridden_mon_to_glyph usteed.
+Must-fix empty.
+**C locus:** `display.h` `maybe_display_usteed` `:246-249` /
+`display_self` `:251-259` / `ridden_mon_to_glyph` `:560-562`;
+`map_glyphinfo` `:2986-2997` ridden arms.
+**JS locus:** `js/display.js` `hero_display_glyph` + `display_self`.
+**Change:** while riding, the hero's square used `mon_glyph(steed)`, so
+it carried a GLYPH_MON_* id where C emits GLYPH_RIDDEN_*. Same ch and
+colour, so nothing on screen moved — but the id is what downstream reads,
+so `glyph_is_ridden_monster` was never true and `glyph_to_mon`'s two
+ridden arms were dead code. `display_self` also took its wizmgender attr
+from the hero when C's map_glyphinfo sets MG_FEMALE from the *steed*.
+Both fixed; the stale "named: ridden_mon_to_glyph display_self/usteed
+wire" note on `display_monster` corrected — C has no steed arm there.
+**Size:** 22 ins / 3 del, deliberately small. C is a two-line macro plus
+one map_glyphinfo arm; there is nothing more of this function to port and
+padding would break the one-C-function rule.
+**Verify:** green gate + strict lengths PASS; full `sessions` 44/44
+(63+0.48/turn); strict PASS on the riding sessions 0103/0104 plus 0004
+and 4500 — those do ride, so an unchanged screen is the expected result.
+Probed with a female pony: mon id 483 (is_ridden false) vs ridden id 3165
+(is_ridden true, still is_monster), same ch `u`, `glyph_to_mon(3165)` →
+PM_PONY, and `display_self()` mounted stamps 3165 on the hero cell.
+**Next:** `vision.c` do_clear_area off-hero view_from + detect.js clone.
+
 ## 2026-09-03 — D-1783 dog.c keepdogs stay_behind + leash arms
 
 **Objective:** queue Open row `dog.c` keepdogs leash. Must-fix empty.

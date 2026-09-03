@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `dog.c` keepdogs leash (named). Not losedogs. **Addressed:** D-1783
+- [x] `display.c` ridden_mon_to_glyph usteed (named). Not map_monst. **Addressed:** D-1784
+
+
+- [x] `dog.c` keepdogs leash (named). Not losedogs. **Addressed:** D-1783 `22730962`
 
 
 - [x] `detect.c` object_detect clear_stale_map caller (named). Not food_detect. **Addressed:** D-1782 `fe542a1d`

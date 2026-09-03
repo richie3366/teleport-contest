@@ -1588,7 +1588,8 @@ const PHYSICALLY_SEEN = 1;
  * (what_mon tail); else mon_to_glyph / worm_tail what_mon. tty MG_PET
  * vs MG_DETECT via glyph_tty_attr. Integer GLYPH_*_OFF + male/fem
  * banks (D-1765; same mlet on tty). detect.c map_monst is D-1765.
- * Named: ridden_mon_to_glyph display_self/usteed wire.
+ * C has no steed arm here — a ridden steed is painted by
+ * `display_self` / `maybe_display_usteed` instead (D-1784).
  */
 function display_monster(x, y, mon, sightflags, worm_tail) {
     const ap = (mon.m_ap_type | 0) & M_AP_TYPMASK;
@@ -1716,9 +1717,21 @@ function hero_glyph() {
  * NOTHING → hero_glyph; FURNITURE → cmap_to_glyph(mappearance);
  * OBJECT → objnum_to_glyph(mappearance); else monnum_to_glyph(..., Ugender).
  */
+/**
+ * C ref: display.h `maybe_display_usteed` `:246–249` — while riding a
+ * visible steed, the hero's square shows the **steed**, and C picks it
+ * with `ridden_mon_to_glyph`, not `mon_to_glyph`: the id lands in the
+ * GLYPH_RIDDEN_* bank rather than GLYPH_MON_*. That matters downstream
+ * because `map_glyphinfo` `:2986–2997` reads the bank to set
+ * `MG_RIDDEN | MG_FEMALE`/`MG_MALE` from the **steed's** gender, and
+ * `glyph_to_mon` / `glyph_is_ridden_monster` key off it too.
+ * Named omission: `map_glyphinfo`'s `has_rogue_color` arm, which makes
+ * a ridden glyph NO_COLOR on the Rogue level — part of the wider
+ * ROGUESET colour deferral, not this row.
+ */
 function hero_display_glyph() {
     const steed = game.u?.usteed;
-    if (steed && mon_visible(steed)) return mon_glyph(steed);
+    if (steed && mon_visible(steed)) return ridden_mon_to_glyph(steed);
     const you = game.youmonst;
     const ap = (you?.m_ap_type | 0) & M_AP_TYPMASK;
     if (ap === M_AP_NOTHING) return hero_glyph();
@@ -1735,13 +1748,19 @@ function hero_display_glyph() {
 
 /**
  * C ref: display.h display_self — show_glyph(u.ux, u.uy, …).
+ * The tty attribute follows the glyph C actually emits: on a ridden
+ * steed `map_glyphinfo` sets MG_FEMALE from the steed, so the
+ * wizmgender inverse is the steed's gender, not the hero's.
  * Named: find_trap cls wait; muse.c display_self.
  */
 export function display_self() {
     const u = game.u;
     if (!u) return;
     const hg = hero_display_glyph();
-    show_glyph_cell(u.ux | 0, u.uy | 0, hg.ch, hg.color, !!hg.dec, hero_map_attr(),
+    const attr = (hg.kind === 'ridden')
+        ? wizmgender_inverse(!!u.usteed?.female)
+        : hero_map_attr();
+    show_glyph_cell(u.ux | 0, u.uy | 0, hg.ch, hg.color, !!hg.dec, attr,
         hg.glyph);
 }
 

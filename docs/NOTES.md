@@ -7,26 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44.** Map-driven: named omissions / cluster density, not
   FAIL peels. Audit 728–737: ten ACCEPT-WITH-DEBT, Must-fix empty.
-  **Next:** `display.c` `ridden_mon_to_glyph` usteed (named). Falsify:
-  C macro vs JS omit. Not map_monst. Do not invent a FAIL.
-- **Recent ports — do not re-clone or re-order** (detail in the D-log):
-  `keepdogs` (D-1783), `object_detect` (D-1782), `food_detect`
-  (D-1781), `lev_by_name` + `find_branch` `pd == NULL` (D-1780),
-  `trap_description` + the two `detect.c` gates (D-1779), `ballfall` +
-  `hard_helmet`/`is_helmet` in `js/do_wear.js` (D-1778), Blind bc
-  glyph arms (D-1777), pronoun helpers in `js/mondata.js` (D-1776).
-- **`keepdogs` is async** (D-1783): `do.js` `goto_level` and `end.js`
-  await it; unawaited it rebuilds `fmon` after the caller moved on.
-  A trapped follower gets a `mintrap` escape first and C's `!trap` arm
-  clears `mtrapped`, so it usually *does* follow. `on_level` is
-  exported from `js/dungeon.js` (13 clones remain).
-- `object_detect`'s gate is `!clear_stale_map(...) && !ct`, so a stale
-  map redraws even with nothing found; `ctu` splits "lack of something"
-  (return 1) from "You sense ... nearby" (return 0); its `findgold`
-  stand-in draws `rnd(10)`. Nothing past `cls()` probes headless.
-- `food_detect`: confused **or cursed** searches POTION_CLASS.
-  `u.uedibility` is set but **never read** — the `eat.c`/`insight.c`
-  consumers are unported (Open row).
+  **Next:** `vision.c` `do_clear_area` off-hero `view_from` +
+  `detect.js` clone (named). Falsify: C off-hero arm vs JS omit. Not
+  couldsee. Do not invent a FAIL.
+- **Traps in the recent ports** (full detail in the D-log):
+  a ridden steed uses `ridden_mon_to_glyph`, so the hero cell carries a
+  GLYPH_RIDDEN_* id with the *same* ch/colour — invisible to the suite —
+  and `display_self`'s wizmgender attr follows the **steed's** gender
+  (D-1784). `keepdogs` is **async**; `do.js`/`end.js` await it, and a
+  trapped follower's `mintrap` clears `mtrapped` so it usually *does*
+  follow (D-1783). `object_detect`'s gate is
+  `!clear_stale_map(...) && !ct`, `ctu` splits return 1 from return 0,
+  and its `findgold` stand-in draws `rnd(10)` (D-1782). `food_detect`
+  searches POTION_CLASS when confused **or cursed**, and `u.uedibility`
+  is set but never read (D-1781). `on_level` is exported from
+  `js/dungeon.js`; 13 clones remain.
 - **RNG order traps in those ports.** `pronoun_gender` draws `rn2(4)`
   *before* either gate; `ballfall` computes `gets_hit`'s `rn2(5)`
   *before* `ballrelease` and draws nothing when the ball is on the
@@ -72,7 +67,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1783.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1784.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -83,7 +78,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1783 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1784 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -103,7 +98,7 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1783 — read the index row before assuming a function is
+  D-1682…D-1784 — read the index row before assuming a function is
   unported. No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
