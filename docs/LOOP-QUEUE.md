@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `pager.c` trap_description (named). Not trapname Hallu.
 - [ ] `teleport.c` lev_by_name (named). Not heaven u_left_shop.
 - [ ] `detect.c` food_detect (named). Not object_detect.
 - [ ] `detect.c` object_detect clear_stale_map caller (named). Not food_detect.
@@ -46,6 +45,7 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `mon.c` maybe_unhide_at wiring into hack.c movobj / ball.c (named). Not hideunder.
 - [ ] `ball.c` drop_ball (named). Not ballfall.
 - [ ] `obj.h` is_helmet clones in u_init.js / worn.js (named). Not hard_helmet.
+- [ ] `pager.c` lookat glyph_to_trap(glyph_at) vs live t_at ttyp (named). Not trap_description.
 
 ## Parked (do not pop)
 

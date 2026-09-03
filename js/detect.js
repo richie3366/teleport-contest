@@ -56,7 +56,7 @@ import {
     map_invisible, glyph_is_invisible, glyph_is_monster, warning_of, You_feel,
     feel_location, feel_newsym, unmap_invisible, map_object, Norep,
     see_monsters, flush_screen, docrt, cls, unmap_object, flush_topl_more,
-    glyph_is_object, glyph_to_obj,
+    glyph_is_object, glyph_to_obj, glyph_is_trap,
     Hallucination, random_object, random_monster,
     pet_to_glyph, detected_mon_to_glyph, mon_to_glyph, monsym, glyph_tty_attr,
     flash_glyph_at, invisible_glyph_cell, memory_glyph_is_invisible,
@@ -101,6 +101,7 @@ import { PM_LONG_WORM_TAIL, monsterNames } from './generated/monsters_data.js';
 import { depth, dist2 } from './hacklib.js';
 import {
     isok, SDOOR, SCORR, DOOR, CORR, D_NODOOR, D_CLOSED, D_LOCKED, D_ISOPEN,
+    D_BROKEN, IS_DOOR,
     D_TRAPPED, WM_MASK, Is_box, NO_PART, u_at,
     STATUE_TRAP, NO_TRAP, TRAPNUM, Is_rogue_level, BOLT_LIM, COLNO, ROWNO,
     SVALL, IS_FURNITURE, STONE, W_NONDIGGABLE, W_NONPASSWALL,
@@ -140,6 +141,8 @@ function distu_detect(x, y) {
 const BOULDER = objectNames.indexOf('BOULDER');
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
+const CHEST = objectNames.indexOf('CHEST');
+const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const PM_GOLD_GOLEM = monsterNames.indexOf('PM_GOLD_GOLEM');
 /** C objclass.h GOLD — materials enum (Au). */
 const GOLD = 15;
@@ -1521,6 +1524,66 @@ export function o_material(obj, material) {
 function glyph_at_gbuf(x, y) {
     const loc = game.level?.at(x, y);
     return loc?.disp_glyph;
+}
+
+/**
+ * C ref: detect.c trapped_chest_at `:135–177` — this asks whether a
+ * trap *symbol* on the map is standing in for a trapped container, not
+ * whether a trapped chest is really there. Trap detection paints a
+ * bear-trap glyph over trapped doors and containers, which are
+ * semi-real traps (defined ttyp, but not on the `ftrap` chain).
+ * Note the Hallucination arm burns `rn2(20)`, so this is RNG-visible
+ * from farlook, not just wording.
+ * C order: floor containers (any trappable one will do), then the
+ * hero's own pack and steed when standing here, then a monster's
+ * `minvent`.
+ * Named omission: C's own TODO — recursive containers and buried
+ * containers for farlook.
+ */
+export function trapped_chest_at(ttyp, x, y) {
+    if (!glyph_is_trap(glyph_at_gbuf(x, y))) return false;
+    if (ttyp !== TRAPPED_CHEST || (Hallucination() && rn2(20))) return false;
+
+    /* on map, presence of any trappable container will do */
+    if (sobj_at(CHEST, x, y) || sobj_at(LARGE_BOX, x, y)) return true;
+    /* in inventory, we need to find one which is actually trapped */
+    if (u_at(x, y)) {
+        for (const otmp of iter_objs(game.invent)) {
+            if (Is_box(otmp) && otmp.otrapped) return true;
+        }
+        const steed = game.u?.usteed;
+        if (steed) { /* steed isn't on map so won't be found by m_at() */
+            for (const otmp of iter_objs(steed.minvent)) {
+                if (Is_box(otmp) && otmp.otrapped) return true;
+            }
+        }
+    }
+    const mtmp = m_at(x, y);
+    if (mtmp) {
+        for (const otmp of iter_objs(mtmp.minvent)) {
+            if (Is_box(otmp) && otmp.otrapped) return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * C ref: detect.c trapped_door_at `:178–197` — whether a trap symbol
+ * represents a trapped door, not whether the door here is really
+ * trapped. A doorway with no closed door can still carry the glyph, so
+ * that case defers to `trapped_chest_at` (which may draw its own
+ * `rn2(20)` while hallucinating — C calls it a second time here).
+ */
+export function trapped_door_at(ttyp, x, y) {
+    if (!glyph_is_trap(glyph_at_gbuf(x, y))) return false;
+    if (ttyp !== TRAPPED_DOOR || (Hallucination() && rn2(20))) return false;
+    const lev = game.level?.at(x, y);
+    if (!lev || !IS_DOOR(lev.typ)) return false;
+    if (((lev.doormask | 0) & (D_NODOOR | D_BROKEN | D_ISOPEN)) !== 0
+        && trapped_chest_at(ttyp, x, y)) {
+        return false;
+    }
+    return true;
 }
 
 /**

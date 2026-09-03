@@ -8,6 +8,33 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1779 pager.c trap_description + detect.c gates
+
+**Objective:** queue Open row `pager.c` trap_description. Must-fix was
+empty after the 728–737 audit (ten ACCEPT-WITH-DEBT, no C-wrongs).
+**C locus:** `pager.c` `trap_description` `:164-181`; `detect.c`
+`trapped_chest_at` `:135-177` / `trapped_door_at` `:178-197`; call sites
+`pager.c:721` `lookat` and `:2094` `look_traps`.
+**JS locus:** `js/detect.js` (both gates, exported), `js/pager.js`
+(local `trap_description`, C is `staticfn`) at both `lookat` arms.
+**Change:** farlook used to answer every trap glyph with `trapname`, so
+a detected trapped chest or trapped door read as "bear trap" — and,
+because both C gates draw `rn2(20)` while hallucinating, that was an
+RNG-visible divergence, not just wording. Ported with C's order intact:
+chest gate first, then door, and `trapped_door_at` re-enters
+`trapped_chest_at` for a doorless doorway, so a hallucinating farlook
+can draw up to three times. Kept C's asymmetry — any floor container
+satisfies the chest gate, but an invent/minvent box must be `otrapped`.
+**Verify:** green gate + strict lengths PASS; full `sessions` 44/44
+(42+0.32/turn); per-session strict PASS on seed0383/0399 (hallu),
+seed0106, seed4500, seed0030. No public session farlooks a trapped
+chest or door, so the gates were probed directly: 0 draws on a wrong
+ttyp, floor chest/large-box true vs rock false, pack box true only when
+otrapped, closed trapped door true vs non-door false, and over 400
+hallucinating seeds exactly 400 draws with 19 suppressions (~1/20).
+92 ins / 6 del across 2 js files.
+**Next:** `teleport.c` lev_by_name (named). Not heaven u_left_shop.
+
 ## 2026-09-03 — Audit reviews 728–737 (D-1769…D-1778)
 
 **Objective:** C-fidelity review of every JS-touching SHA since the last

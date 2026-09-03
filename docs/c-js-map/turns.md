@@ -688,16 +688,24 @@ look_at_monster hallu/health/stuck/leashed/trapped; **howmonseen D-1562**;
 **`object_from_map` / `look_at_object` D-1524** (`pager.c:284–399`; fake SLIME_MOLD 
 `spe = current_fruit` then mimic `MCORPSENM`; glyphotyp not integer glyph; 
 `brief_at`/`look_all` live; doname_with_price/`doname_vague_quan` named — doname 
-stand-in; cmap trapped-chest CHEST|LARGE_BOX / glyph_is_body|statue corpsenm 
-named; **`that_is_a_mimic` D-1544** (`uhitm.c:6201–6276`; live `object_from_map` 
+stand-in; cmap trapped-chest CHEST|LARGE_BOX is **D-1779**;
+glyph_is_body|statue corpsenm named; **`that_is_a_mimic` D-1544** (`uhitm.c:6201–6276`; live `object_from_map` 
 + defsyms PCHAR desc + `MIM_OMIT_WAIT`; dynamic pager import); **getpos fakeobj 
 D-1547** (`lookat` `glyph_is_object` → `look_at_object`; `map_object` stores 
 otyp; gbuf monster wins over memory); **`mhidden_description` D-1554** 
 (`pager.c:184–280`; PREFIX/ARTICLE/ALTMON/REGION; memory otyp vs glyph_at; 
 self_lookat / look_at_monster / mstatusline / makemon appear / flash_hits_mon; 
-dungeon.c surface ice/pool/altar named); `namefloorobj` still named; Hallu 
-random_obj otyp / cmap trapped-chest / glyph_is_body|statue 
-corpsenm / buried-embedded suffixes named)
+dungeon.c surface ice/pool/altar named); `namefloorobj` still named; **`trap_description` + `trapped_chest_at`/`trapped_door_at` D-1779**
+(`pager.c:164–181` / `detect.c:135–197`; the trap glyph stands in for
+semi-real trapped chests and doors — real ttyp, not on `ftrap`; both
+gates burn `rn2(20)` under Hallucination and `trapped_door_at` re-enters
+`trapped_chest_at` for a doorless doorway, so chest-first order is RNG
+order; live `js/detect.js` exports + `js/pager.js` local
+`trap_description` at both `lookat` arms); Hallu 
+random_obj otyp / glyph_is_body|statue 
+corpsenm / buried-embedded suffixes named; `trap_description` callers
+still pass the live `t_at` ttyp rather than
+`glyph_to_trap(glyph_at(x, y))` — named)
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 
@@ -1775,7 +1783,7 @@ C `trap.c` `:7098–7155` `rn2_on_display_rng(TRAPNUM+SIZE+1)` /
 `random_trap_to_glyph`; `display.c` `see_traps` `:1610–1621`;
 live `js/trap.js` + `js/display.js` `trap_to_glyph`/`see_traps`
 `glyph_is_trap(_glyph_at)` only (D-1767; no `disp_kind` hybrid);
-detect clone retired; named: pager `trap_description`);
+detect clone retired; pager `trap_description` is **D-1779**);
 **`cmap_to_glyph` trap/zap/cmap-C + `explosion_to_glyph`** (D-1738;
 `display.h` `:621–628`/`:587–594`; `rm.h` `trap_to_defsym`; explode.c
 `:388–438`; live `js/display.js` `cmap_idx_to_glyph` /

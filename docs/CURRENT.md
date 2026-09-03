@@ -67,20 +67,25 @@ Both must remain full RNG + screen PASS with exact lengths.
 omissions, not invented FAIL peels.
 Save-oracle required for tagged restore/other-floor Open
 (`save-oracle.mjs probe --omit`; `detect.c:findone` was untagged).
-**Next cluster:** `pager.c` trap_description (named). Not trapname Hallu.
+**Next cluster:** `teleport.c` lev_by_name (named). Not heaven
+u_left_shop.
 **`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
 `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
 `#ifdef DUMPLOG` block is compiled out of the scored build, and the
 surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only
 reader is `report.c` crash path).
-**Do not skip D-1531…D-1778 (index).** Keep mention_map addr.
+**Do not skip D-1531…D-1779 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1778.** Do not FORCE
+**Do not re-break D-0660…D-1779.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1778 (index). Recent: **D-1778**
+**Keep:** D-0845…D-1779 (index). Recent: **D-1779**
+`pager.c` `trap_description` `:164` over `detect.c`
+`trapped_chest_at` `:135` / `trapped_door_at` `:178` — both draw
+`rn2(20)` under Hallucination, so chest-before-door is RNG order.
+**D-1778**
 `ball.c` `ballfall` `:42` — `gets_hit` `rn2(5)` is drawn **before**
 `ballrelease` and short-circuits (no draw) when the ball is on the
 hero's spot or is `uwep`; callers `do.c:1805` + `trap.c:1955`.
@@ -111,14 +116,14 @@ D-1766…D-1755 (index).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1778 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1779 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1778 (index). No generic `dknown` on
+Do not re-port D-1660…D-1779 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem. DUMPLOG retired (D-1776).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

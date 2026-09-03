@@ -47,6 +47,7 @@ import { engr_at } from './engrave.js';
 import { option_help_lines } from './options.js';
 import { dokeylist_lines, domenucontrols_lines } from './dokeylist.js';
 import { t_at, trapname } from './trap.js';
+import { trapped_chest_at, trapped_door_at } from './detect.js';
 import { costly_spot } from './shk.js';
 import { cmdq_pop, cmdq_clear } from './cmd.js';
 import {
@@ -209,6 +210,29 @@ export async function show_text_pages(lines, { moreAtEnd = true } = {}) {
  * C ref: getpos.c coord_desc GPCOORDS_MAP — "<x,y>"; y<10 gets trailing
  * space so %8s columns line up (pager.c look_all).
  */
+/**
+ * C ref: pager.c trap_description `:164–181` — name the thing a trap
+ * glyph stands for. Trap detection used to draw a bear trap over
+ * trapped doors and trapped containers; those are semi-real traps now
+ * (real ttyp, but not on the `ftrap` chain), so the two `detect.c`
+ * gates get first refusal before falling back to `trapname`.
+ * C order matters beyond wording: each gate draws `rn2(20)` while the
+ * hero is hallucinating, and `trapped_door_at` can call
+ * `trapped_chest_at` again — keep chest first, then door.
+ * Named omission (pre-existing): callers hand us the live `t_at`
+ * ttyp rather than `glyph_to_trap(glyph_at(x, y))`, so a remembered
+ * trap glyph with no live trap still falls through to the cmap arm.
+ */
+function trap_description(tnum, x, y) {
+    if (trapped_chest_at(tnum, x, y)) {
+        return 'trapped chest'; /* might actually be a large box */
+    }
+    if (trapped_door_at(tnum, x, y)) {
+        return 'trapped door'; /* not "trap door"... */
+    }
+    return trapname(tnum, false);
+}
+
 function coord_desc(x, y, cmode = GPCOORDS_MAP) {
     if (cmode === GPCOORDS_SCREEN) {
         return `[${String(y + 2).padStart(2, '0')},${String(x).padStart(2, '0')}]`;
@@ -958,11 +982,10 @@ function brief_at(x, y) {
         return look_at_monster_buf(mtmp);
     }
     if (objTyp >= 0) return look_at_object(x, y, objTyp);
-    // C lookat glyph_is_trap → trap_description (seen map_trap glyph)
+    // C lookat `:719–721` glyph_is_trap → trap_description
     const trap = t_at(x, y);
     if (trap && trap.tseen) {
-        // Named omit: trapped_chest_at / trapped_door_at; Hallucination
-        return trapname(trap.ttyp, false);
+        return trap_description(trap.ttyp, x, y);
     }
     // C do_screen_description: lookat stairs then blocked rewrite
     if (is_stair_spot(x, y)) {
@@ -1093,10 +1116,10 @@ function describe_looked(x, y) {
         const nm = doname(pile[0]);
         return { out: `?        ${nm}`, first: simplify_for_db(nm), found: 1 };
     }
-    // C lookat glyph_is_trap → trap_description before cmap
+    // C lookat `:719–721` glyph_is_trap → trap_description before cmap
     const trap = t_at(x, y);
     if (trap && trap.tseen) {
-        const nm = trapname(trap.ttyp, false);
+        const nm = trap_description(trap.ttyp, x, y);
         return { out: `^        ${an(nm)}`, first: nm, found: 1 };
     }
     if (is_stair_spot(x, y)) return describe_stairs_looked(x, y);

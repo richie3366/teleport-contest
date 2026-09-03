@@ -857,7 +857,14 @@ JS: `js/trap.js` — partial
 
 **`trapname` Hallu (D-1759;** C `:7098–7155` display rng + 62
 `halu_trapnames` + role/rank `" trap"`; `trap_to_glyph` is not Hallu;
-detect clone retired; pager `trap_description` named); 
+detect clone retired; **pager `trap_description` D-1779** — C
+`pager.c:164–181` chest-then-door-then-`trapname`, over `detect.c`
+`trapped_chest_at` `:135–177` / `trapped_door_at` `:178–197`, both of
+which draw `rn2(20)` while Hallucinating (RNG-visible from farlook);
+live `js/detect.js` exports + `js/pager.js` local (C `staticfn`);
+named: callers still pass the live `t_at` ttyp, not
+`glyph_to_trap(glyph_at())`, and C's own TODO on recursive/buried
+containers); 
 Monster dart path: `t_at`/`t_missile`/`thitm` miss pline/`mintrap`/`seetrap` (D-0018–D-0019); 
 **`maketrap` + `choose_trapnote` + `hole_destination`/`dng_bottom`** (D-0054) + 
 **D-0782 MAGIC_PORTAL mon migrate** + **D-0777 terrain gates** 

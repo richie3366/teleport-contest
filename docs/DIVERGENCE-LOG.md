@@ -1,5 +1,67 @@
 # Divergence log
 
+## D-1779 — pager.c trap_description + detect.c trapped_chest_at / trapped_door_at
+
+- **Status:** fixed (map-driven Open row `pager.c` trap_description;
+  suite was 44/44, Must-fix empty after the 728–737 audit)
+- **Symptom:** farlook on a trap always answered with `trapname()`.
+  Trap detection paints a bear-trap glyph over trapped doors and
+  trapped containers — those are *semi-real* traps in 5.0 (they have a
+  real ttyp but are not on the `ftrap` chain) — so a detected trapped
+  chest or trapped door was described as "bear trap" instead of
+  "trapped chest" / "trapped door". Worse than wording: both C gates
+  draw `rn2(20)` when the hero is hallucinating, so every farlook at a
+  trap glyph under Hallucination was an **RNG-visible** divergence.
+- **C locus:** `pager.c` `trap_description` `:164–181` (chest, then
+  door, then `trapname(tnum, FALSE)`); `detect.c` `trapped_chest_at`
+  `:135–177` and `trapped_door_at` `:178–197`. Call sites
+  `pager.c:721` (`lookat`) and `pager.c:2094` (`look_traps`).
+- **JS was:** no `trap_description`, no `trapped_chest_at`, no
+  `trapped_door_at`. Both `js/pager.js` `lookat` arms went straight to
+  `trapname(trap.ttyp, false)`, one of them under an explicit
+  `// Named omit: trapped_chest_at / trapped_door_at; Hallucination`.
+- **Fix:** both gates ported into `js/detect.js` (their C home) as
+  exports, over the file's existing `glyph_at_gbuf` (C `glyph_at` ≡
+  `loc.disp_glyph`, D-1767), `sobj_at` and `iter_objs`.
+  `trap_description` is a local in `js/pager.js` because C declares it
+  `staticfn` in pager.c — one function, one file, matching C.
+  Both `lookat` arms now call it. C's ordering is preserved because it
+  is RNG order, not just wording: chest gate first, then door, and
+  `trapped_door_at` re-enters `trapped_chest_at` for a doorway with no
+  closed door, so a hallucinating farlook can draw `rn2(20)` up to
+  three times. C's asymmetry between the arms is kept too — any
+  trappable container on the *floor* satisfies the chest gate, but an
+  inventory or `minvent` box must actually be `otrapped`.
+- **JS:** `js/detect.js`, `js/pager.js`. 92 insertions / 6 deletions.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `42+0.32/turn` (R² 0.858).
+  Per-session strict lengths PASS on seed0383 and seed0399 (the two
+  hallucination sessions), seed0106 (extcmd/farlook sweep), seed4500
+  and seed0030.
+  No public session farlooks a trapped chest or door, so the suite is a
+  no-regression signal only; the gates were probed directly:
+  no trap glyph → false with **0** draws; trap glyph but wrong ttyp →
+  false with **0** draws (C tests ttyp before the Hallu roll); floor
+  chest and floor large box → true; a rock on the floor → false;
+  a trapped box in the hero's pack → true and an untrapped one →
+  false; a closed trapped door → true and a non-door cell → false.
+  Over 400 seeds while hallucinating the chest gate drew exactly
+  **400** times and was suppressed 19 times (≈1/20), matching
+  `rn2(20)`.
+  (A first probe run showed the floor-chest case false — the probe was
+  writing a `loc.objects` array while the port keeps floor piles in
+  `game._objects_at`; not a port defect.)
+- **Not this iter:** the pre-existing deferral that both callers hand
+  `trap_description` the live `t_at` ttyp rather than
+  `glyph_to_trap(glyph_at(x, y))`, so a remembered trap glyph with no
+  live trap still falls through to the cmap arm — that is a `glyph_at`
+  plumbing change, not this row, and is now an Open row.
+  `look_traps` (`pager.c:2077–2110`, the `/^` listing) is not ported at
+  all, so its `trap_description` call site does not exist yet.
+  C's own TODO in `trapped_chest_at`: recursive containers and buried
+  containers for farlook. `sobj_at` still has 12 clones (this port used
+  `detect.js`'s existing one rather than adding a 13th).
+
 ## D-1778 — ball.c ballfall + do_wear.c hard_helmet single export (6 clones)
 
 - **Status:** fixed (map-driven Open row `ball.c` ballfall; suite was
