@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `potion.c` make_blinded Sting_effects(-1) (named). Not see_monsters MON_STILL_ARRIVING. **Addressed:** D-1755
+- [x] `mkobj.c` delobj extract (named). Not dealloc_obj. **Addressed:** D-1756
+
+
+- [x] `potion.c` make_blinded Sting_effects(-1) (named). Not see_monsters MON_STILL_ARRIVING. **Addressed:** D-1755 `5455d0cb`
 
 
 - [x] `end.c` companion pet HP score (named). Not get_valuables. **Addressed:** D-1754 `7d76ad12`

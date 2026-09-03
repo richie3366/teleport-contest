@@ -6,7 +6,8 @@
 //        RING_CLASS mksobj_init from objects[].oc_charged (D-1690);
 //        objects[].oc_merge from objects.h BITS mrg (D-1712);
 //        obj.h is_multigen / is_poisonable + permapoisoned (D-1732);
-//        dealloc_obj / dealloc_obj_real / dobjsfree (D-1743).
+//        dealloc_obj / dealloc_obj_real / dobjsfree (D-1743);
+//        extract_nobj / container_weight; invent.c delobj / delobj_core (D-1756).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rne, rnz } from './rng.js';
@@ -69,6 +70,9 @@ import { recalc_block_point } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light } from './light.js';
 import { obfree } from './shk.js';
 import { hands_obj } from './weapon.js';
+import { obj_resists } from './dogmove.js';
+import { newsym } from './display.js';
+import { maybe_unhide_at } from './monmove.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
@@ -2416,6 +2420,42 @@ export function unknwn_contnr_contents(obj) {
     return result;
 }
 
+/**
+ * C ref: mkobj.c extract_nobj `:2595–2614` — unlink obj from an nobj
+ * chain. Returns the new head. Panic if obj is not on the list.
+ * Callers: obj_extract_self MINVENT/CONTAINED/MIGRATING/BURIED/ONBILL
+ * (floor is remove_object / invent is freeinv).
+ */
+export function extract_nobj(obj, head) {
+    let curr = head || null;
+    let prev = null;
+    for (; curr; prev = curr, curr = curr.nobj) {
+        if (curr === obj) {
+            if (prev) prev.nobj = curr.nobj || null;
+            else head = curr.nobj || null;
+            break;
+        }
+    }
+    if (!curr) {
+        throw new Error('extract_nobj: object lost');
+    }
+    obj.where = OBJ_FREE;
+    obj.nobj = null;
+    return head;
+}
+
+/**
+ * C ref: mkobj.c container_weight `:2731–2738` — owt = weight(object),
+ * then recurse while OBJ_CONTAINED.
+ */
+export function container_weight(object) {
+    if (!object) return;
+    object.owt = weight(object);
+    if ((object.where | 0) === OBJ_CONTAINED) {
+        container_weight(object.ocontainer);
+    }
+}
+
 // C ref: mkobj.c obj_extract_self — floor / invent / minvent / contained /
 // migrating / buried / ONBILL. OBJ_FREE / LUAFREE / DELETED are C no-ops.
 export function obj_extract_self(obj) {
@@ -2480,74 +2520,29 @@ export function obj_extract_self(obj) {
         // C: extract_nobj(obj, &obj->ocarry->minvent); clear ocarry
         const mon = obj.ocarry;
         if (mon) {
-            if (mon.minvent === obj) {
-                mon.minvent = obj.nobj || null;
-            } else {
-                for (let p = mon.minvent; p; p = p.nobj) {
-                    if (p.nobj === obj) {
-                        p.nobj = obj.nobj || null;
-                        break;
-                    }
-                }
-            }
+            mon.minvent = extract_nobj(obj, mon.minvent);
         }
         obj.ocarry = null;
     } else if (obj.where === OBJ_CONTAINED) {
         // C: extract_nobj(obj, &obj->ocontainer->cobj); container_weight
         const cont = obj.ocontainer;
         if (cont) {
-            if (cont.cobj === obj) {
-                cont.cobj = obj.nobj || null;
-            } else {
-                for (let p = cont.cobj; p; p = p.nobj) {
-                    if (p.nobj === obj) {
-                        p.nobj = obj.nobj || null;
-                        break;
-                    }
-                }
-            }
-            cont.owt = weight(cont);
+            cont.cobj = extract_nobj(obj, cont.cobj);
+            container_weight(cont);
         }
         obj.ocontainer = null;
     } else if (obj.where === OBJ_MIGRATING) {
         // C mkobj.c obj_extract_self OBJ_MIGRATING → extract_nobj(&migrating_objs)
-        if (game.migrating_objs === obj) {
-            game.migrating_objs = obj.nobj || null;
-        } else {
-            for (let p = game.migrating_objs; p; p = p.nobj) {
-                if (p.nobj === obj) {
-                    p.nobj = obj.nobj || null;
-                    break;
-                }
-            }
-        }
+        game.migrating_objs = extract_nobj(obj, game.migrating_objs);
     } else if (obj.where === OBJ_BURIED) {
         // C: extract_nobj(obj, &svl.level.buriedobjlist)
         const lvl = game.level;
         if (lvl) {
-            if (lvl.buriedobjlist === obj) {
-                lvl.buriedobjlist = obj.nobj || null;
-            } else {
-                for (let p = lvl.buriedobjlist; p; p = p.nobj) {
-                    if (p.nobj === obj) {
-                        p.nobj = obj.nobj || null;
-                        break;
-                    }
-                }
-            }
+            lvl.buriedobjlist = extract_nobj(obj, lvl.buriedobjlist);
         }
     } else if (obj.where === OBJ_ONBILL) {
         // C mkobj.c obj_extract_self `:2585–2586` extract_nobj(&gb.billobjs)
-        if (game.billobjs === obj) {
-            game.billobjs = obj.nobj || null;
-        } else {
-            for (let p = game.billobjs; p; p = p.nobj) {
-                if (p.nobj === obj) {
-                    p.nobj = obj.nobj || null;
-                    break;
-                }
-            }
-        }
+        game.billobjs = extract_nobj(obj, game.billobjs);
     }
     obj.nobj = null;
     obj.nexthere = null;
@@ -2585,7 +2580,7 @@ function dealloc_obj_real(obj) {
  * obj_sheds_light → del_light_source; thrownobj/kickedobj/tin/split;
  * lua_ref_cnt → OBJ_LUAFREE; else queue OBJ_DELETED (or real-free when
  * program_state.freeingdata). Named: wizard makemap_prepost dobjsfree;
- * zap.c dealloc_oextra poly; delobj still extract-only.
+ * zap.c dealloc_oextra poly. delobj_core → obfree is D-1756.
  */
 export function dealloc_obj(obj) {
     if (!obj) return;
@@ -2667,24 +2662,33 @@ export function dobjsfree() {
 }
 
 /**
- * C ref: invent.c delobj / delobj_core — obj_resists(0,0) then extract+free.
- * Invocation-item protection deferred; always rolls rn2(100) like C.
+ * C ref: invent.c delobj_core `:1436–1462`. force==TRUE skips
+ * obj_resists (zap.c revive floor Rider corpses). Floor extract then
+ * maybe_unhide_at + newsym, then obfree (contents too).
+ * Named: maybe_unhide_at youmonst; zap.js delete_contents clone.
  */
-export function delobj(obj) {
+export function delobj_core(obj, force) {
     if (!obj) return;
-    // C: obj_resists(obj, 0, 0) — rolls rn2(100); returns true only for
-    // Amulet / Book / Candelabrum / Bell / Rider corpse
-    const n = objectNames[obj.otyp];
-    const special = n === 'AMULET_OF_YENDOR'
-        || n === 'SPE_BOOK_OF_THE_DEAD'
-        || n === 'CANDELABRUM_OF_INVOCATION'
-        || n === 'BELL_OF_OPENING';
-    if (special) return;
-    rn2(100); // ochance 0 → never resists, but always consumes
+    if (!force && obj_resists(obj, 0, 0)) {
+        obj.in_use = 0;
+        return;
+    }
+    const update_map = (obj.where | 0) === OBJ_FLOOR;
+    const ox = obj.ox | 0;
+    const oy = obj.oy | 0;
     obj_extract_self(obj);
-    // C delobj_core → obfree; named omit (extract-only). dealloc_obj is D-1743.
-    obj.quan = 0;
-    obj.where = OBJ_FREE;
+    if (update_map) {
+        // C maybe_unhide_at is sync. JS is async only for hideunder
+        // You_see (hide-success); empty-pile unhide does not await.
+        maybe_unhide_at(ox, oy);
+        newsym(ox, oy);
+    }
+    obfree(obj, null);
+}
+
+/** C ref: invent.c delobj `:1429–1433` — delobj_core(obj, FALSE). */
+export function delobj(obj) {
+    delobj_core(obj, false);
 }
 
 /** C ref: invent.c g_at — first COIN_CLASS on pile. */

@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1756 — invent.c delobj / delobj_core extract then obfree
+
+- **Status:** fixed (map-driven Open from D-1743; not a public FAIL)
+- **Symptom:** map named `delobj` extract-only. C `delobj` is
+  `delobj_core(obj, FALSE)`: `obj_resists(0,0)` (invocation + Rider
+  corpse, else `rn2(100)` vs ochance 0), then `obj_extract_self`,
+  floor `maybe_unhide_at`+`newsym`, then `obfree`. JS inlined a
+  name-list resist (no Rider), extracted, and zeroed `quan` without
+  `obfree` / floor redraw. `zap.c` revive floor needs
+  `delobj_core(,TRUE)` so Rider corpses actually go away.
+- **C locus:** `invent.c` `delobj` `:1429–1433`; `delobj_core`
+  `:1436–1462`; `zap.c` `obj_resists` `:1457–1473`; `mkobj.c`
+  `extract_nobj` `:2595–2614` / `container_weight` `:2731–2738`;
+  `zap.c` revive `:1110–1113` / CONTAINED `:1118–1121` / BURIED
+  zombie `:1124–1127`. Callers `delobj` throughout; force only revive.
+- **JS was:** `mkobj.js` `delobj` extract+`quan=0`; no `delobj_core`;
+  `obj_extract_self` inlined nobj unlinks (no panic, no nested
+  container_weight); zap `obfree_corpse` clone; revive floor `delobj`.
+- **Fix:** export `delobj_core` / `extract_nobj` / `container_weight`;
+  live `obj_resists`; floor maybe_unhide+newsym then `obfree`; revive
+  floor force + CONTAINED/BURIED live `obfree`. Invent Array extract
+  and zap `delete_contents` clone named.
+- **JS:** `js/mkobj.js` `delobj`/`delobj_core`; `js/zap.js` revive;
+  `js/shk.js` comment.
+- **Not this iter:** zap.js `delete_contents` clone; invent Array vs
+  nobj `extract_nobj`; `maybe_unhide_at` youmonst; `shrinking_glob_gone`
+  vs delobj; eat.js hybrid useup+useupf; detect/potion/read/spell
+  useup clones; `makemap_prepost` dobjsfree. dealloc_obj is D-1743.
+- **Verified:** save-oracle probe skip (untagged `mkobj.c:delobj`);
+  node 18/18 (DELETED queue; Amulet/Rider resist no rn2; force Rider;
+  extract_nobj unlink+lost panic; floor unlink); green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict. Rule #2 clean.
+- **Files:** `js/mkobj.js`, `js/zap.js`, `js/shk.js`.
+
 ## D-1755 — potion.c toggle_blindness Sting_effects(-1)
 
 - **Status:** fixed (map-driven Open from D-1746/D-1747; not a public FAIL)

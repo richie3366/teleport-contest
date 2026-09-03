@@ -205,7 +205,7 @@ was zeroing → false `drag_ball` cause_delay); **`obj_extract_self` MINVENT** (
 by_align/gift_value/gen_spe deferred; mksobj_init `permapoisoned` is D-1732); 
 **floor `stackobj`/`merged`/`mergable`** (D-0094) + **`add_to_minv` merge D-1492** + 
 **`oc_merge_of` from `objects[].oc_merge`** (D-1712; was class heuristic
-D-0679); **`delobj`→`obj_resists(0,0)`** (D-0105); 
+D-0679); **`delobj`→`obj_resists(0,0)`** (D-0105) + **`delobj_core` D-1756**; 
 **`relobj_on_death` + `mdrop_obj` `distant_name` observe** (D-0108/D-0632; 
 flooreffects / vault-gold / pet `droppables` deferred); 
 **TOOL lamps `rn1(500,1000)` + grease/crystal/horn/bag/bell/instruments** (D-0146); 
@@ -231,9 +231,15 @@ BoH Is_mbag→SACK / WAN_CANCELLATION re-roll + BoH weight factor deferred);
 `light.c` `obj_sheds_light`/`obj_is_burning`; `obj_extract_self`
 LUAFREE/DELETED no-op; `obfree` + moveloop + JSON savelev/`dosave0`;
 mklev ROCK/book/`mktrap_victim` discards); 
+**`delobj` / `delobj_core` D-1756** (C `invent.c` `:1429–1462`;
+`mkobj.c` `extract_nobj` `:2595–2614` / `container_weight` `:2731–2738`;
+`zap.c` revive floor `delobj_core(,TRUE)` `:1110–1113`; live `obj_resists`;
+floor `maybe_unhide_at`+`newsym` then `obfree`; CONTAINED/BURIED revive
+`obfree`; live `js/mkobj.js` + `js/zap.js`); 
 omit FIGURINE transform/timeout, `nextoid` shop-price search, unpaid/`splitbill`, 
-timers/light/`copy_oextra`, invent extract, `oeaten`/`eaten_stat`, statue weight arms,
-zap.c `dealloc_oextra` poly, wizard `makemap_prepost` dobjsfree
+timers/light/`copy_oextra`, invent Array vs nobj `extract_nobj`, `oeaten`/`eaten_stat`, statue weight arms,
+zap.c `dealloc_oextra` poly / `delete_contents` clone, wizard `makemap_prepost` dobjsfree,
+`maybe_unhide_at` youmonst, `shrinking_glob_gone` vs delobj
 
 ### `src/mon.c` `undead_to_corpse`/`can_be_hatched`/`mondead`/`corpse_chance`
 

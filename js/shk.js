@@ -3307,7 +3307,8 @@ export function delete_contents(obj) {
  * object. Leash / food / book / contents / pick / boulder; unpaid bill
  * useup→billobjs or merge bquan; else oid_price_adjustment may donate
  * o_id to merge; worn sanity; mkobj.c dealloc_obj (D-1743).
- * Named: delobj still extract-only; zap.js delete_contents clone.
+ * Callers include invent.c delobj_core (D-1756). Named: zap.js
+ * delete_contents clone.
  */
 export function obfree(obj, merge) {
     if (!obj) return;

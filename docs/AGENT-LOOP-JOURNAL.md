@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1756 invent.c delobj / delobj_core extract then obfree
+
+**Objective:** Open `mkobj.c` delobj extract (named). Not dealloc_obj.
+**C locus:** `invent.c` `delobj` `:1429–1433` / `delobj_core`
+`:1436–1462`; `mkobj.c` `extract_nobj` / `container_weight`;
+`zap.c` revive floor `delobj_core(,TRUE)`.
+**JS locus:** `js/mkobj.js` `delobj`/`delobj_core`; `js/zap.js` revive.
+**Change:** live `obj_resists` then extract + floor maybe_unhide/newsym
++ `obfree`; Rider force; nested `container_weight`. zap
+`delete_contents` clone named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `mkobj.c:delobj`; node 18/18;
+green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+Rule #2 clean.
+**Next:** Open `worn.c` setworn oc_oprop.
+**Blocked:** none.
 ## 2026-09-03 — D-1755 potion.c toggle_blindness Sting_effects(-1)
 
 **Objective:** Open `potion.c` make_blinded Sting_effects(-1) (named).

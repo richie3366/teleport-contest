@@ -954,10 +954,12 @@ C `mkobj.c` `:2744–2811` / `dealloc_obj_real` `:2814–2827` /
 `dobjsfree` `:2830–2843` / `dealloc_oextra` `:95–111`; callees
 `light.c` `obj_sheds_light`/`obj_is_burning`; live `js/mkobj.js` +
 `js/light.js`; `obfree`/`moveloop_core`/`savelev` JSON/`dosave0` +
-mklev ROCK/book/mktrap_victim discards; named: eat.js hybrid still
-useup+useupf, detect/potion/read/spell local clones, `delobj` still
-extract, zap.js `delete_contents` clone, nhl_gamestate leftover,
-wizard `makemap_prepost` dobjsfree); 
+mklev ROCK/book/mktrap_victim discards; **`delobj`/`delobj_core` D-1756**
+C `invent.c` `:1429–1462` + `extract_nobj`/`container_weight` +
+revive `delobj_core(,TRUE)`; named: eat.js hybrid still
+useup+useupf, detect/potion/read/spell local clones,
+zap.js `delete_contents` clone, nhl_gamestate leftover,
+wizard `makemap_prepost` dobjsfree, invent Array vs nobj); 
 **`prinv` total_of + `xprname` quan + `(N in total)`** (D-0388); 
 **`count_contents`** nested/quan/everything (D-0395; shoppy `costly_spot` deferred); 
 xname-path observe beyond invent; **`pickup_prinv` slight/moderate/near/overload + 
