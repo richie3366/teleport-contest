@@ -21,7 +21,7 @@ import {
     UTOTYPE_RMPORTAL, UTOTYPE_DEFERRED,
     VISITED, LFILE_EXISTS, RANGE_LEVEL, REST_LEVELS,
     WRITING, FREEING,
-    UNENCUMBERED, KILLED_BY, DISMOUNT_FELL, NO_KILLER_PREFIX,
+    UNENCUMBERED, KILLED_BY, DISMOUNT_FELL, NO_KILLER_PREFIX, ESCAPED,
     MAGIC_PORTAL, TIMEOUT, BLINDED, RLOC_NOMSG, EYE, FROMOUTSIDE,
     WARN_OF_MON, TELEPAT, INFRAVISION,
     ACH_HELL, ACH_MINE, ACH_SOKO, ACH_ENDG, ACH_ASTR, ACH_BGRM,
@@ -1332,6 +1332,8 @@ export async function getlev_catchup_monsters(elapsed) {
  * Ported: quest entrance `com_pager(quest_portal*)` (D-0650).
  * Ported: quest-home gate — on qstart && !newdungeon && !ok_to_quest()
  * → "mysterious force prevents you from descending" (D-0798).
+ * Ported: `ledger_no <= 0` → `done(ESCAPED)` after tutorial (D-1764;
+ * C `:1517–1519`; heaven escape dlevel 0).
  * Deferred: binary NHFILE, Gehennom amulet mysteryforce, quest gate seal
  * RMPORTAL, migrating-Wizard resurrect arm,
  * Punished `ballfall` on trap-door falling, W-tower `u_on_rndspot` bit 2
@@ -1392,8 +1394,6 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     let do_fall_dmg = false;
     const newdungeon = (u.uz.dnum | 0) !== (newlevel.dnum | 0);
     let leaving_tutorial = false;
-    const new_ledger = ledger_no(newlevel);
-    if (new_ledger <= 0) return; // C: done(ESCAPED)
 
     // C: do.c — tutorial(TRUE/FALSE) via nhcore when crossing tutorial branch.
     if (newdungeon) {
@@ -1407,6 +1407,14 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             up = false; // C: re-enter level 1 as if starting new game
             leaving_tutorial = true;
         }
+    }
+    // C do.c :1517–1519 — after tutorial; ledger_no <= 0 is done(ESCAPED)
+    // (noreturn). JS done() returns after really_done so stop here.
+    const new_ledger = ledger_no(newlevel);
+    if (new_ledger <= 0) {
+        const { done } = await import('./end.js');
+        await done(ESCAPED);
+        return;
     }
 
     // C: prevent leaving quest Home deeper in-branch until ok_to_quest

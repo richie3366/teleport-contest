@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1764 teleport.c heaven u_left_shop / escape
+
+**Objective:** Open `teleport.c` heaven u_left_shop caller. Not SetVoice.
+**C locus:** `teleport.c` `level_tele` `:1321–1385`; `do.c`
+`goto_level` `:1517–1519`; callee `u_left_shop`.
+**JS locus:** `js/teleport.js` `level_tele`; `js/do.js` `goto_level`.
+**Change:** C heaven envelope (`u_left_shop`+in_mklev, Cloud 9,
+fly/lev/plummet, `done(DIED)`, dlevel 0); buried ball before
+`next_to_u`; `ledger_no<=0` `done(ESCAPED)`. Did not port
+`lev_by_name` / Nowhere yn / branch clamp.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `teleport.c:level_tele`; node canary
+(ushops0 Cloud 9 Levitation; Flying `-3`; wizard `-10` survive;
+`goto_level` dlevel 0 → ESCAPED); green+strict seed8000/0900;
+CURRENT cohort **7**/7 + seed0373 + strict. Rule #2 clean.
+**Next:** Open `display.h` integer GLYPH_*_OFF / map_monst.
+**Blocked:** none.
 ## 2026-09-03 — D-1763 sounds.c beg
 
 **Objective:** Open `sounds.c` beg. Not maybe_gasp.

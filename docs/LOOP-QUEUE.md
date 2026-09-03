@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` heaven u_left_shop caller (named). Not SetVoice.
 - [ ] `display.h` integer GLYPH_*_OFF / map_monst (named). Not pet_to_glyph.
 - [ ] `do_wear.c` cancel_doff (named). Not setworn oc_oprop.
 - [ ] `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1).

@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1764 — teleport.c level_tele heaven u_left_shop / escape
+
+- **Status:** fixed (map-driven Open from D-1763; not a public FAIL)
+- **Symptom:** JS `level_tele` stubbed `newlev < 0` as shudder-return.
+  C `:1325–1385` calls `u_left_shop(u.ushops0, TRUE)` under `in_mklev`
+  (unpaid bills), then heaven / Cloud 9 / clouds, Levitation/Flying
+  escape or plummet `done(DIED)`, then `schedule_goto` dlevel 0.
+  `goto_level` `:1517–1519` `ledger_no <= 0` is `done(ESCAPED)`.
+- **C locus:** `teleport.c` `level_tele` `:1321–1385` (buried ball
+  `:1301–1302`); callee `shk.c` `u_left_shop`; `do.c` `goto_level`
+  `:1517–1519`. Callers `^V` / `level_tele_trap`.
+- **JS was:** shudder stub; `goto_level` silent return; no
+  `level_tele` buried-ball punish.
+- **Fix:** C heaven envelope + `u_left_shop` caller; Cloud 9
+  `flush_topl_more`; fly/lev/plummet; `done(DIED)` then survive
+  surface escape; `schedule_goto` `{0,0}`; `goto_level` after
+  tutorial `done(ESCAPED)`. Import `DISCLOSE_PROMPT_DEFAULT_NO` so
+  the live ESCAPED disclose arm does not throw when `end_disclose`
+  lacks a category char. Did not port `lev_by_name` / Nowhere yn /
+  branch deepest clamp / invoked gate / debug_fuzzer.
+- **JS:** `js/teleport.js` `level_tele`; `js/do.js` `goto_level`;
+  `js/end.js` disclose const.
+- **Not this iter:** `lev_by_name`; Nowhere suicide yn; Quest/mines/
+  sanctum deepest clamp; invoked Gehennom gate; debug_fuzzer random
+  retry; remaining vault/priest/sit SetVoice. `u_left_shop` body is
+  D-1733; SetVoice is D-1752.
+- **Verified:** save-oracle probe skip (untagged
+  `teleport.c:level_tele`); node canary (ushops0+in_mklev Cloud 9
+  Levitation escape; Flying `-3`; wizard `-10` Die? n → surface;
+  `goto_level` dlevel 0 enters `done(ESCAPED)`); green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + seed0373 `^V` + strict
+  (10/10 with green). Rule #2 clean.
+- **Files:** `js/teleport.js`, `js/do.js`, `js/end.js`.
+
 ## D-1763 — sounds.c beg
 
 - **Status:** fixed (map-driven Open from D-1762; not a public FAIL)

@@ -2808,11 +2808,16 @@ moveloop `deferred_goto` + `^V` bind** (D-0515) +
 **endgame dest `AMULET_OF_YENDOR` `mksobj`+`addinv`+`prinv`** (D-0549; 
 seed0373 30061→30065) + **In_endgame negative dest `dlevel=llimit+newlev`** (D-0560; 
 seed0373 `^V-2` Fire→Air) + **confused/`*`/involuntary `random_teleport_level`** (D-0575; 
-seed5006 8473→10953) + **past-main-dungeon `find_hell`→valley** (D-0904; seed4500 ^V30); 
+seed5006 8473→10953) + **past-main-dungeon `find_hell`→valley** (D-0904; seed4500 ^V30) +
+**heaven `u_left_shop(ushops0,TRUE)` + Cloud 9 / fly-or-plummet / `done(DIED)` /
+escape dlevel 0 + `goto_level` `ledger_no<=0` `done(ESCAPED)`** (D-1764;
+`teleport.c` `:1321–1385` / `do.c` `:1517–1519`; buried ball before `next_to_u`;
+live `js/teleport.js` + `js/do.js`; named: `lev_by_name`, Nowhere yn,
+Quest·mines·sanctum clamp, invoked gate, debug_fuzzer); 
 **`goto_level` delivers `dfr_post_msg` via pline before `onquest`** (C `maybe_lvltport_feedback`); 
 **Pri firsttime flushes materialize `--More--`** (D-0662); 
 **D-0615/D-0616:** Home→Dlvl:37 was qt_pager NHW_TEXT stealing keys (fixed); 
-omit `lev_by_name`/heaven-outside-endgame/Quest·mines·sanctum deepest clamp/invoked 
+omit `lev_by_name`/Quest·mines·sanctum deepest clamp/invoked 
 gate/bymenu=FALSE; Nowhere yn; water/earth/astral `load_special`; `SURFACE_AT` drawbridge; 
 **`goodpos_onscary` altar S_VAMPIRE / SCR_SCARE_MONSTER / strict Elbereth (D-1102; 
 local `sengr_at` HEADSTONE/time; Inhell/endgame Elbereth off; vampshifter altar is onscary-only)**; 
@@ -2859,7 +2864,7 @@ C `mon.c` hideunder youmonst `u.uundetected`+newsym when flag changes;
 can_hide_under_obj/cockatrice/cursed_object/You_see named)** + 
 **`teleds` TT_BURIEDBALL `buried_ball_to_punishment` before ball_active (D-1132; 
 C `dig.c` extract+`punish` reuse+`reset_utrap(FALSE)`; 
-trapmove/unearth_objs/digactualhole/`level_tele` still named)** + **`teleds` `set_ustuck(Null)` + 
+trapmove/unearth_objs/digactualhole named; `level_tele` buried ball is D-1764)** + **`teleds` `set_ustuck(Null)` + 
 swallow `docrt` (D-1139; snapshot uswallow; Punished force ball_active/no-drag; 
 not unstuck)** — **`classify_terrain` in `switch_terrain` D-1151**; 
 **`dissolve_bars` `u_at` D-1259**; other callers 
@@ -2976,7 +2981,7 @@ leave-boundary verbalize then `rob_shop`/`call_kops`; `wizard.c`
 live `js/shk.js` + `js/wizard.js` + `js/mklev.js`; **SetVoice D-1752**
 (`u_entered_shop` / `u_left_shop` / `addtobill` `set_voice` / `dopay`);
 named: remaining shk `pick_pick` / kops / pay-bill SetVoice;
-teleport.c heaven caller; STRAT_HEAL still rloc/healmon; `costly_gold`;
+STRAT_HEAL still rloc/healmon; `costly_gold`; heaven caller is D-1764;
 **D-1740:** `shop_debt` `:989–999` + `shopper_financial_report`
 `:1002–1035` two-pass `next_shkp(fmon, FALSE)` xor; `doprgold`
 awaits after wallet (D-1731); live `js/shk.js`; named: dokick
