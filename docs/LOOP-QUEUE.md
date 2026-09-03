@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `sounds.c` maybe_gasp (named). Not sound_speak.
 - [ ] `sounds.c` beg (named). Not maybe_gasp.
 - [ ] `teleport.c` heaven u_left_shop caller (named). Not SetVoice.
 - [ ] `display.h` integer GLYPH_*_OFF / map_monst (named). Not pet_to_glyph.

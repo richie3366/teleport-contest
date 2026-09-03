@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1762 — sounds.c maybe_gasp
+
+- **Status:** fixed (map-driven Open from D-1761; not a public FAIL)
+- **Symptom:** JS had no `maybe_gasp`. C returns `ROLL_FROM(Exclam)`
+  or NULL after rewriting other-role `MS_GUARDIAN` / cross-aligned
+  `MS_PRIEST` to silent and coaligned-angel `MS_CUSS`+emin to
+  humanoid, then the msound switch (always-gasp vs same-`mlet`).
+- **C locus:** `sounds.c` `maybe_gasp` `:545–610`. Sole caller
+  `mon.c` `peacefuls_respond` `:4188` (from `setmangry` `:4317`).
+  Callees `p_coaligned` / `has_emin` / `EMIN` / `ROLL_FROM`.
+- **JS was:** missing export; `setmangry` named-omits
+  `peacefuls_respond`.
+- **Fix:** port the C body. JS `mons()` is a fresh permonst so
+  `mptr != &mons[gu.urole.guardnum]` is mndx. Live `p_coaligned`
+  (priest.js). Did not wire `peacefuls_respond` into `setmangry`
+  (would add attack RNG). Did not port `beg`.
+- **JS:** `js/sounds.js` `maybe_gasp` + remaining `monflag.h`
+  `MS_*` used by the switch.
+- **Not this iter:** `beg`; `peacefuls_respond` / MS_ARREST Halt
+  verbalize; SND_SPEECH body; remaining vault/priest/sit SetVoice.
+  sound_speak is D-1761.
+- **Verified:** save-oracle probe skip (untagged
+  `sounds.c:maybe_gasp`); node canary (HUMANOID/`MS_*` gasp
+  `rn2(5)`; SILENT/RIDER/BRIBE null; own vs other GUARDIAN;
+  priest EPRI co/cross; CUSS emin renegade; same-mlet vs not);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict
+  (9/9 with green). Rule #2 clean.
+- **Files:** `js/sounds.js`.
+
 ## D-1761 — sounds.c sound_speak / sndprocs.h SoundSpeak
 
 - **Status:** fixed (map-driven Open from D-1760; not a public FAIL)

@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1762 sounds.c maybe_gasp
+
+**Objective:** Open `sounds.c` maybe_gasp. Not sound_speak.
+**C locus:** `sounds.c` `maybe_gasp` `:545–610`; caller
+`peacefuls_respond` `:4188` (not wired).
+**JS locus:** `js/sounds.js` `maybe_gasp`.
+**Change:** C body + remaining `MS_*` for the switch; mndx vs
+`urole.guardnum`; live `p_coaligned`. Did not port `beg` or
+`peacefuls_respond`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `sounds.c:maybe_gasp`; node canary
+(`rn2(5)` / null arms); green+strict seed8000/0900; CURRENT cohort
+**7**/7 + strict. Rule #2 clean.
+**Next:** Open `sounds.c` beg.
+**Blocked:** none.
 ## 2026-09-03 — D-1761 sounds.c sound_speak / sndprocs.h SoundSpeak
 
 **Objective:** Open `sounds.c` sound_speak. Not set_voice.

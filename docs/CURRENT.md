@@ -62,25 +62,28 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1761 / audit **#2170**. Save-oracle required for tagged
+**Suite 44/44** fortress after D-1762 / audit **#2170**. Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`). Map still
 picks work; do not shop the fork dashboard. Private B0 (not in
 `sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
 wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
 trap-ledger **38/38**; shop template **35/35** (no unpaid).
-**Next cluster:** Open `sounds.c` maybe_gasp (named). Not sound_speak.
-**Do not skip D-1531…D-1761 (index).** Keep mention_map addr.
+**Next cluster:** Open `sounds.c` beg (named). Not maybe_gasp.
+**Do not skip D-1531…D-1762 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1761.** Do not FORCE
+**Do not re-break D-0660…D-1762.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1761 (index). Recent: **D-1761**
+**Keep:** D-0845…D-1762 (index). Recent: **D-1762**
+`maybe_gasp` Exclam `ROLL_FROM`/`NULL` after guardian/priest/angel
+rewrite + msound switch (`sounds.c` `:545–610`; live `js/sounds.js`;
+named: `beg`, `peacefuls_respond`/MS_ARREST Halt). **D-1761**
 `sound_speak` !SND_SPEECH no-op + Death `sound_speak(tmpbuf)` after
 SetVoice/`pline1(ucase)`; `SoundSpeak` empty without SND_LIB
 (`putmesg`; live `js/sounds.js`+`sndprocs.js`+`display.js`; named:
-`beg`/`maybe_gasp`/MS_ARREST, SND_SPEECH body). **D-1760**
+SND_SPEECH body). **D-1760**
 `explode` 3x3 `map_invisible` when `cansee && !canspotmon`; `You_hear`
 vs Boom! / generic `"explosion"`; `engulfer_explosion_msg` (`explode.c`
 `:378–452` / `:117–179`; live `js/explode.js`; named: hallu
@@ -122,14 +125,14 @@ without SND_LIB; `voice_moreinfo`; live `js/sounds.js` + `js/sndprocs.js`
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1761 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1762 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1761 (index). No generic `dknown` on
+Do not re-port D-1660…D-1762 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

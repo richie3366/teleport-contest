@@ -83,8 +83,11 @@ out; `sndprocs.h` `:275` empty without SND_LIB; Death `:1235`
 `sound_speak(tmpbuf)` after `SetVoice`/`pline1(ucase)`; `pline.c`
 `putmesg` `:79` `SoundSpeak`; live `js/sounds.js` + `js/sndprocs.js` +
 `js/display.js` `pline_after_consume`; `cmd.c` yn `sound_speak` is
-`#ifdef SND_SPEECH` compiled out). Named: save/rest
-`context.novel`; dlb; `beg` / `maybe_gasp` / MS_ARREST;
+`#ifdef SND_SPEECH` compiled out). **D-1762 `maybe_gasp`**
+(`sounds.c` `:545–610` Exclam `ROLL_FROM`/`NULL`; guardian/priest
+rewrite + CUSS emin; live `js/sounds.js`; `p_coaligned` priest.js;
+mndx for `mons[guardnum]`). Named: save/rest
+`context.novel`; dlb; `beg`; `peacefuls_respond` / MS_ARREST Halt;
 SND_SPEECH/`sound_verbal` body; remaining vault/priest/sit SetVoice.
 lookup_novel is D-1651. putmsghistory body is D-1588.
 
