@@ -1439,7 +1439,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     } catch { /* apply optional */ }
 
     // C: if (!iflags.nofollowers) keepdogs(FALSE)
-    if (!game.iflags?.nofollowers) keepdogs(false);
+    if (!game.iflags?.nofollowers) await keepdogs(false);
     // C: check_special_room(TRUE) on leave — move_update clears urooms so
     // arrival re-enters temple/shop messages (intemple).
     await check_special_room(true);

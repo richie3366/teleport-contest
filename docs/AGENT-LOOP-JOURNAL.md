@@ -8,6 +8,39 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1783 dog.c keepdogs stay_behind + leash arms
+
+**Objective:** queue Open row `dog.c` keepdogs leash. Must-fix empty.
+**C locus:** `dog.c` `keepdogs` `:786-884`, `keep_mon_accessible`
+`:764-785`, `mon_leave` `:725-763`; `trap.c` `mintrap` `:3739`.
+**JS locus:** `js/dog.js`; `js/dungeon.js` (export `on_level`);
+`js/do.js` + `js/end.js` (await the now-async keepdogs).
+**Change:** keepdogs decided follow-or-stay on distance alone and left
+leashes silently intact in both directions. C snaps a held-back pet's
+leash ("suddenly comes loose") and slackens an out-of-range one ("goes
+slack"), calling m_unleash each time. Also ported: the mintrap escape
+attempt for a trapped follower (an RNG draw), the steed trap/meal clear
+plus mdrop_special_objs so the steed drops the Amulet, the
+mon_has_amulet "very disoriented" hold-back, the left-behind-steed
+impossible guard, and the keep_mon_accessible -> migrate_to_level arm
+that keeps the Wizard and an off-home shk/priest/guard reachable.
+`on_level` had 13 clones and no export; exported from dungeon.js rather
+than adding a 14th. keepdogs became async, so both callers await it —
+unawaited it would have rebuilt fmon after the caller moved on.
+**Verify:** green gate + strict lengths PASS; full `sessions` 44/44
+(61+0.49/turn); per-session strict PASS on the pet/steed/shop/vault/
+level-change sessions (0004, 0103, 0104, 0012, 0116, 0360, 0367, 0030,
+4500, 0015). No public session leaves a level with a stuck leashed pet,
+so probed directly: adjacent pet follows; still-eating leashed pet stays
+with leash released; trapped leashed pet follows with leash intact,
+which is C-correct because mintrap's !trap arm clears mtrapped before
+the "still trapped" test; out-of-range leashed pet stays with leash
+slack.
+**Pre-existing:** importing dog.js as the first module TDZ-fails on
+`_body_part` — reproduced on the HEAD baseline; game order is fine.
+122 ins / 21 del across 4 js files.
+**Next:** `display.c` ridden_mon_to_glyph usteed (named).
+
 ## 2026-09-03 — D-1782 detect.c object_detect (gate + missing arms)
 
 **Objective:** queue Open row `detect.c` object_detect clear_stale_map

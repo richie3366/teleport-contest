@@ -1109,8 +1109,12 @@ function OF_INTEREST(feat) {
         || feat.ngrave || feat.ntree || feat.nshop || feat.ntemple);
 }
 
-/** C ref: dungeon.c on_level — same dnum/dlevel. */
-function on_level(a, b) {
+/**
+ * C ref: dungeon.c on_level `:1438–1443` — same dnum/dlevel.
+ * Exported so `dog.c` `keep_mon_accessible` uses the real one instead
+ * of a fourteenth copy; the other 13 local clones are their own row.
+ */
+export function on_level(a, b) {
     return (a?.dnum | 0) === (b?.dnum | 0)
         && (a?.dlevel | 0) === (b?.dlevel | 0);
 }

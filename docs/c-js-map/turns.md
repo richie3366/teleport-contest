@@ -1452,7 +1452,7 @@ D-1754; DUMPLOG named); **companion pet HP D-1754** (C `really_done`
 `Schroedingers_cat` `d(adj_lev(housecat),8)`; two-line "You and NAME" /
 verb+points; `dog.c` keepdogs `:799–809` pets_only wakeup; live `js/end.js`
 `score_escape_companions` + `js/dog.js` + exported `adj_lev`; DUMPLOG /
-keepdogs migrate/leash/`mon_has_amulet` named); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
+keepdogs migrate/leash/`mon_has_amulet` is **D-1783**); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
 savelife Sick/endmultishot/curs_on_u/uswallow; 
 ordinary `vision_recalc(2)` gbuf newsym loop / `notice_all_mons`
 
@@ -1645,8 +1645,9 @@ leashable`/`mon_has_amulet` + `whimper` + domove/stairs/tele/dig/trap wires** (D
 **`m_unleash` `pline_mon`+`update_inventory` + `m_detach` FALSE + dogmove ALLOW_U +
 `o_unleash`/`use_leash`/`next_to_u` inventory D-1609**;
 getdir `<`/`>` steed-dz; artifact.c next_to_u; 
-end.js `unleash_all` still thin; **newcham mleashed D-1645**; keepdogs stay-behind /
-grow_up leash / Hallu `mhis` named); **`use_whistle`/`use_magic_whistle`/`magic_whistled` + 
+end.js `unleash_all` still thin; **newcham mleashed D-1645**;
+keepdogs stay-behind + leash is **D-1783**; grow_up leash / Hallu
+`mhis` named); **`use_whistle`/`use_magic_whistle`/`magic_whistled` + 
 `can_blow` + `wake_nearby(petcall)` whistletime + `vault_summon_gd` + `tele_to_rnd_pet` + 
 EUCALYPTUS_LEAF whistle arms** (D-1007; Soundeffect; Hallu hcolor eucalyptus brown; 
 mintrap last_msg polish when pline unset; full is_silent msound tables); 
@@ -2633,7 +2634,21 @@ next trailing exercise / seg1. **seed0367 @1946 getobj_takeoff (D-0634);
 **`makedog` role petnames + `christen_monst`** (D-0079); 
 **`makedog` pony → `put_saddle_on_mon`** (D-0212); **`initedog` `u.uconduct.pets++`** (D-0125); 
 **`keepdogs`/`losedogs`/`levl_follower`/`mon_arrive` With_you** (D-0149; 
-**With_you `restore_cham` D-1637**);
+**With_you `restore_cham` D-1637**; **keepdogs stay_behind + both leash
+arms D-1783** — C `dog.c:786–884`: trapped follower gets a `mintrap`
+escape attempt (**RNG**, and C's `!trap` arm clears `mtrapped` so it
+usually follows), steed clears trap/meal and `mdrop_special_objs`,
+then still-eating / still-trapped `pline_mon` and `mon_has_amulet`
+"very disoriented" set stay_behind, which snaps a leash
+("suddenly comes loose" + `m_unleash`, His/Her/Its by
+`humanoid`+`female`) and `impossible`s a left-behind steed; a leashed
+non-candidate instead gets "leash goes slack". **`keep_mon_accessible`
+`:764–785`** → `migrate_to_level(..., ledger_no(u.uz), MIGR_EXACT_XY)`
+for the Wizard and for an off-home shk/priest/guard; `on_level`
+exported from `js/dungeon.js` for it (13 other clones still named).
+`keepdogs` is async now — `js/do.js` `goto_level` and `js/end.js`
+await it. Named: `mon_leave` `:725–763` minvent `no_charge` /
+`picked_container` / shk `set_residency` / worm-segment `wormno`);
 **`update_mlstmv` `iter_mons` skip DEADMONSTER/`mon_offmap` (D-1709)**;
 **`cant_go_back` FREEING vs WRITING|FREEING (D-1722; `do.c:1640–1664`
 + `delete_levelfile` / `remdun_mapseen` / `discard_migrations`; JSON

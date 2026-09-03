@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `detect.c` object_detect clear_stale_map caller (named). Not food_detect. **Addressed:** D-1782
+- [x] `dog.c` keepdogs leash (named). Not losedogs. **Addressed:** D-1783
+
+
+- [x] `detect.c` object_detect clear_stale_map caller (named). Not food_detect. **Addressed:** D-1782 `fe542a1d`
 
 
 - [x] `detect.c` food_detect (named). Not object_detect. **Addressed:** D-1781 `28f02a82`

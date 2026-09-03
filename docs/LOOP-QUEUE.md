@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `dog.c` keepdogs leash (named). Not losedogs.
 - [ ] `display.c` ridden_mon_to_glyph usteed (named). Not map_monst.
 - [ ] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee.
 - [ ] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender.
@@ -46,6 +45,7 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `teleport.c` level_tele Nowhere ynq + deepest clamp (named). Not lev_by_name.
 - [ ] `eat.c` doeat edibility_prompts u.uedibility consumer (named). Not food_detect.
 - [ ] `detect.c` observe_recursively container recursion (named). Not object_detect.
+- [ ] `dog.c` mon_leave no_charge / set_residency / wormno (named). Not keepdogs.
 
 ## Parked (do not pop)
 

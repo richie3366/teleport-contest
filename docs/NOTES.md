@@ -7,24 +7,26 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44.** Map-driven: named omissions / cluster density, not
   FAIL peels. Audit 728–737: ten ACCEPT-WITH-DEBT, Must-fix empty.
-  **Next:** `dog.c` keepdogs leash (named). Falsify: C `keepdogs` body
-  vs JS omit. Not losedogs. Do not invent a FAIL.
-- `object_detect` is whole now (D-1782). C's gate is
-  `!clear_stale_map(...) && !ct`, so a stale map redraws even with
-  nothing found, and `ctu` splits "lack of something" (return 1) from
-  "You sense ... nearby" (return 0). Its `findgold` gold stand-in draws
-  **`rnd(10)`**. Anything past `cls()` cannot be probed headless.
-- `food_detect` is live (D-1781). Confused **or cursed** searches
-  POTION_CLASS, not FOOD_CLASS. `u.uedibility` is set but **never
-  read** — `eat.c` `edibility_prompts` and `insight.c` are unported
-  (Open row), so do not assume the warning works.
+  **Next:** `display.c` `ridden_mon_to_glyph` usteed (named). Falsify:
+  C macro vs JS omit. Not map_monst. Do not invent a FAIL.
 - **Recent ports — do not re-clone or re-order** (detail in the D-log):
-  `object_detect` (D-1782); `food_detect` (D-1781); `lev_by_name` + `find_branch` `pd == NULL`
-  (D-1780, `js/dungeon.js`);
-  `trap_description` + `trapped_chest_at`/`trapped_door_at` (D-1779);
-  `ballfall` + `hard_helmet`/`is_helmet` exports in `js/do_wear.js`
-  (D-1778); Blind bc glyph arms (D-1777); pronoun helpers in
-  `js/mondata.js` (D-1776).
+  `keepdogs` (D-1783), `object_detect` (D-1782), `food_detect`
+  (D-1781), `lev_by_name` + `find_branch` `pd == NULL` (D-1780),
+  `trap_description` + the two `detect.c` gates (D-1779), `ballfall` +
+  `hard_helmet`/`is_helmet` in `js/do_wear.js` (D-1778), Blind bc
+  glyph arms (D-1777), pronoun helpers in `js/mondata.js` (D-1776).
+- **`keepdogs` is async** (D-1783): `do.js` `goto_level` and `end.js`
+  await it; unawaited it rebuilds `fmon` after the caller moved on.
+  A trapped follower gets a `mintrap` escape first and C's `!trap` arm
+  clears `mtrapped`, so it usually *does* follow. `on_level` is
+  exported from `js/dungeon.js` (13 clones remain).
+- `object_detect`'s gate is `!clear_stale_map(...) && !ct`, so a stale
+  map redraws even with nothing found; `ctu` splits "lack of something"
+  (return 1) from "You sense ... nearby" (return 0); its `findgold`
+  stand-in draws `rnd(10)`. Nothing past `cls()` probes headless.
+- `food_detect`: confused **or cursed** searches POTION_CLASS.
+  `u.uedibility` is set but **never read** — the `eat.c`/`insight.c`
+  consumers are unported (Open row).
 - **RNG order traps in those ports.** `pronoun_gender` draws `rn2(4)`
   *before* either gate; `ballfall` computes `gets_hit`'s `rn2(5)`
   *before* `ballrelease` and draws nothing when the ball is on the
@@ -41,7 +43,8 @@ Objective/score live in `CURRENT.md`.
 - **No public session** is Punished+Blind (D-1777), Punished-while-
   falling (D-1778), farlooking a trapped chest/door (D-1779), or
   level-porting by name (D-1780), reading food detection (D-1781), or
-  detecting objects (D-1782). The suite cannot regress-test those arms
+  detecting objects (D-1782), or leaving a level with a stuck leashed
+  pet (D-1783). The suite cannot regress-test those arms
   — probe directly, and note anything past `cls()` blocks headless.
 - **`end.c` DUMPLOG is retired (D-1776), not deferred — do not
   re-enqueue.** `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so
@@ -49,14 +52,14 @@ Objective/score live in `CURRENT.md`.
   build. `DUMPLOG_CORE` is on via macOS `CRASHREPORT`, but its
   `saved_plines[]` ring is write-only — the sole compiled-in reader is
   `report.c:579`. No screen, no RNG.
-- Named still: `mon_nam_too`/`monverbself` (mhitm clone); `apply.c`
-  corpse NO_IT arm; `type_is_pname` insight clone;
-  FOUND_FLASH_COUNT==0 `tmp_at` path; food_detect;
-  object_detect `clear_stale_map` caller; DUMPLOG; `noit_mhim` Hallu;
-  Blind `move_bc`/`unplacebc`/ballfall; pager `trap_description`;
-  `lev_by_name`; keepdogs leash; `qst_guardians_respond`; Elbereth;
-  zap.js useupf clone; detect/potion/read/spell useup clones;
-  `ridden_mon_to_glyph` usteed.
+- **Open work lives in `LOOP-QUEUE.md`, not here.** The old "named
+  still" list had gone stale — it still listed food_detect,
+  object_detect, DUMPLOG, `noit_mhim`, Blind `move_bc`/`unplacebc`/
+  ballfall, `trap_description`, `lev_by_name` and keepdogs leash, all
+  of which are shipped. Do not re-port from a list in this file.
+- Still unqueued clone drift worth folding into a nearby port when you
+  touch it: `zap.js` useupf; detect/potion/read/spell `useup`;
+  `qst_guardians_respond`; Elbereth.
 
 ## Don't re-check (≤15)
 
@@ -69,7 +72,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1782.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1783.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -80,7 +83,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1782 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1783 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -100,20 +103,13 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1774. D-1774 is I-glyph `newsym` (not findone /
-  eatcorpse rot). D-1773 is `gold_detect` (not findone /
-  food_detect / object_detect `clear_stale_map` caller /
-  sense_trap D-1753). D-1772 Halt. D-1771 `useupf`. D-1770 zap
-  `delete_contents`. D-1769 `set_bc`. D-1768 Unaware talk. D-1767
-  gbuf stamp. No trailing `confdir` in shared `getdir`.
+  D-1682…D-1783 — read the index row before assuming a function is
+  unported. No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
 
-- D-1774: `newsym` `:1032` I-arm `lev->glyph`; fight_empty `glyph_at`;
-  atk_done; mondead. Named: findone; usteed ridden glyph.
-- D-1773: `gold_detect` `:334–475`; `o_in`/`o_material`/`clear_stale_map`;
-  `seffect_gold_detection`; steal.c `findgold`. Named: food_detect;
-  object_detect `clear_stale_map` caller; findone flash.
+- D-1774: `newsym` `:1032` I-arm `lev->glyph`; fight_empty `glyph_at`.
+- D-1773: `gold_detect`; `o_in`/`o_material`/`clear_stale_map`.
 - D-1772: `peacefuls_respond` `:4162–4257`; `setmangry` `:4317`;
   `big_little_match`. Named: `qst_guardians_respond`; Elbereth.
 - D-1771: invent.c `useupf` `:4762–4783`; eat.c `carried()?useup:useupf`.

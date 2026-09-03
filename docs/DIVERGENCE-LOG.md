@@ -1,5 +1,64 @@
 # Divergence log
 
+## D-1783 — dog.c keepdogs stay_behind + leash arms + keep_mon_accessible
+
+- **Status:** fixed (map-driven Open row `dog.c` keepdogs leash; suite
+  was 44/44, Must-fix empty)
+- **Symptom:** `keepdogs` decided follow-or-stay on distance alone. A
+  pet that was still eating or still trapped was pushed back onto the
+  map with **its leash silently intact**, and a leashed pet that was
+  simply too far away kept its leash too — C snaps the first
+  ("leash suddenly comes loose") and slackens the second
+  ("leash goes slack"), calling `m_unleash` both times. Nothing else in
+  the follower path existed either: no `mintrap` escape attempt for a
+  trapped follower (**an RNG draw**), no steed
+  trap/meal clear + `mdrop_special_objs` so the steed drops the Amulet,
+  no `mon_has_amulet` "very disoriented" hold-back, no
+  `impossible("steed left behind?")` guard, and no
+  `keep_mon_accessible` arm, so the Wizard and an off-home shopkeeper /
+  priest / vault guard went into the level save file instead of onto
+  `migrating_mons`.
+- **C locus:** `dog.c` `keepdogs` `:786–884`; `keep_mon_accessible`
+  `:764–785`; `mon_leave` `:725–763`; `trap.c` `mintrap` `:3735–3741`
+  (its `!trap` arm clears `mtrapped`, which is why a trapped follower
+  usually does escape and follow).
+- **JS was:** a single `if (mtmp.meating || mtmp.mtrapped) { stay; }`
+  with no message, no leash handling, and an `else { stay; }` that
+  ignored `keep_mon_accessible` entirely.
+- **Fix:** ported the whole follower path in C's order — `mintrap`
+  first, then the steed arm, then the two stay_behind tests, then the
+  leash release, then the `relmon`-equivalent move to `mydogs`; and the
+  two `else if` arms after it. `keep_mon_accessible` added as a local
+  (C `staticfn`), which needed `on_level` — that had **13** local
+  clones and no export, so it is now exported from `js/dungeon.js`
+  rather than becoming a fourteenth. `keepdogs` had to become `async`
+  for `mintrap` / `pline_mon` / `m_unleash` / `dismount_steed`, so both
+  callers (`js/do.js` `goto_level`, `js/end.js` escape/ascend) now
+  await it — previously the function would have suspended mid-loop and
+  rebuilt `fmon` after its caller had moved on.
+- **JS:** `js/dog.js`, `js/dungeon.js` (export only), `js/do.js`,
+  `js/end.js`. 122 insertions / 21 deletions.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `61+0.49/turn` (R² 0.864).
+  Per-session strict lengths PASS on the pet / steed / shop / vault /
+  level-change sessions: seed0004, seed0103, seed0104, seed0012,
+  seed0116, seed0360, seed0367, seed0030, seed4500, seed0015.
+  No public session leaves a level with a leashed pet that cannot
+  follow, so the new arms were probed directly against a real module
+  init: an adjacent tame pet follows (moves to `mydogs`, off `fmon`); a
+  **still-eating leashed** pet stays on the map with its leash
+  **released**; a **trapped leashed** pet follows with its leash intact,
+  which is C-correct because `mintrap`'s `!trap` arm clears `mtrapped`
+  before the "still trapped" test; and a leashed pet **out of range**
+  stays with its leash released by the "goes slack" arm.
+- **Not this iter:** `mon_leave` `:725–763` — minvent `no_charge` /
+  `picked_container`, shopkeeper `set_residency`, and the worm-segment
+  count C stashes in `wormno` during migration; this port's fmon→mydogs
+  rebuild still stands in for `relmon`. The other 13 `on_level` clones.
+- **Pre-existing, not this change:** importing `js/dog.js` as the very
+  first module TDZ-fails on `_body_part`; reproduced on the HEAD
+  baseline. Real game order (`allmain.js` first) loads fine.
+
 ## D-1782 — detect.c object_detect clear_stale_map gate + buried/minvent/mimic/gold
 
 - **Status:** fixed (map-driven Open row `detect.c` object_detect
