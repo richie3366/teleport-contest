@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `do_wear.c` cancel_doff (named). Not setworn oc_oprop. **Addressed:** D-1766
+- [x] `do_wear.c` cancel_doff (named). Not setworn oc_oprop. **Addressed:** D-1766 `bb71f9ff`
 
 
 - [x] `display.h` integer GLYPH_*_OFF / map_monst (named). Not pet_to_glyph. **Addressed:** D-1765 `3b34b789`

@@ -32,6 +32,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `display.c` `show_glyph` always overwrites `gbuf.glyph`; JS `show_glyph_cell` leaves stale `loc.disp_glyph` on tty-only paints, so `see_traps` / `glyph_is_invisible` / `do_vicinity_map` extra-or-skip `newsym` (`tseen`/`erevealed`/I-keep). Not usteed. Source: reviews/loop-unattended/726-3b34b789-glyph-offsets.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1).

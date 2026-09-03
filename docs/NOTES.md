@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress (cadence **#2170** at `2d66f69e`, R² 0.846).
-  Save-oracle for tagged restore Open. B0: catchup 26/30 red; shop
-  35/35 no unpaid. **Next:** Open `potion.c` `make_blinded` Unaware
-  talk=FALSE. Not Sting(-1). Falsify: C Unaware `talk=FALSE` vs JS
-  talk path. Do not skip D-1531…D-1766. Do not rewrite
-  `confer_oc_oprop`. Do not invent 3.6 `random_trap_to_glyph`.
+- **Suite 40/44** (cadence **#2180** at `bb71f9ff`, R² 0.857). Broke at
+  D-1765 `3b34b789` (not D-1766). **Hypothesis:** `show_glyph_cell`
+  leaves stale `loc.disp_glyph`; `see_traps` extra `newsym` (`tseen`).
+  Falsify: stamp `disp_glyph` on every `show_glyph` like C `gbuf`.
+  **Next:** Must-fix `display.c` `show_glyph`. Not usteed. Do not skip
+  D-1531…D-1766. Do not invent 3.6 `random_trap_to_glyph`.
 - Named still: Palantir `#if 0`; pit/underwater; clone yn; keepdogs
   leash/`mon_has_amulet`; tip-spill; hideunder; Punished float_down;
   water/lava steed; interned `'yn'`; mthrowu/uhitm poison;
@@ -28,6 +28,8 @@ Objective/score live in `CURRENT.md`.
 ## Don't re-check (≤15)
 
 - Stamp `D-NNNN` in the fix; next commit fills `%h`. Same-commit archive.
+- Do not re-check 44/44 at D-1757 `2d66f69e` or D-1764 `8f3f4280`; the
+  four public FAILs start at D-1765.
 - Do not revert D-0078 H2344 or hardcode offx 72 (D-1185).
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
@@ -76,10 +78,9 @@ Objective/score live in `CURRENT.md`.
   `cancel_don` then `takeoff.mask &= ~slotmask`; `setworn`/`setnotworn`
   callers; `doffing` accessory/wep `takeoff.what`. Live `do_wear.js`+
   `do.js`. Named: setnotworn `monstunseesu_prop`/`update_inventory`.
-- D-1765: `display.h` `:497–546` integer `GLYPH_*_OFF`; `detect.c`
-  `map_monst` `:124–128` monsym/`mtame` ternary; `loc.disp_glyph`.
-  Live `display.js`+`detect.js`. Named: `ridden_mon_to_glyph` usteed;
-  swallow cmap; `map_glyphinfo`.
+- D-1765: integer `GLYPH_*_OFF` / `map_monst` ternary **and** stale
+  `disp_glyph` (`show_glyph_cell` tty-only). Fortress 40/44. Must-fix
+  review **726**. Named: usteed / swallow / `map_glyphinfo`.
 - D-1764: `level_tele` `:1321–1385` heaven `u_left_shop`+Cloud 9/
   fly-or-plummet/`done(DIED)`/dlevel 0; `goto_level` `done(ESCAPED)`;
   buried ball before next_to_u. Live `teleport.js`+`do.js`. Named:

@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — audit #2180 reviews 719–727 + cadence
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **718**
+(`0b5f451a`…`bb71f9ff`, D-1758…D-1766) plus full `sessions`.
+**C locus:** youprop.h `Deaf`; trap.c `trapname`; explode.c
+`map_invisible`; sounds.c `sound_speak`/`maybe_gasp`/`beg`;
+teleport.c `level_tele`; display.h `GLYPH_*_OFF` / detect.c
+`map_monst`; do_wear.c `cancel_doff`.
+**Change:** reviews **719–727**. **726 QUALITY-RISK** (stale
+`loc.disp_glyph` / `see_traps`) prepended Must-fix. Rest
+ACCEPT-WITH-DEBT. No `js/` edits. Filled archive D-1766 `%h`.
+**Score:** **40**/44, Scr **10,422**/11,405, RNG **702,843**/792,838
+(88.6%). Speed `41+0.32/turn` (R² 0.857) at `bb71f9ff`. Break at
+D-1765 (seed0006/0014/0030/4500).
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Must-fix `display.c` `show_glyph` always overwrite gbuf.
+**Blocked:** none.
 ## 2026-09-03 — D-1766 do_wear.c cancel_doff
 
 **Objective:** Open `do_wear.c` cancel_doff (named). Not setworn oc_oprop.

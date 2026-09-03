@@ -20,32 +20,36 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-03** — full `sessions` at **D-1757**
-(`2d66f69e`, cadence **#2170**). **44**/44,
-Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `42+0.31/turn` (R² 0.846). seed0367 FULL still PASS.
-Prior FAIL seed4500 at **D-1574** `1ba35e31` is PASS again.
-Prior audit **#2160** was 44/44 at `1f6d5487` (R² 0.859).
+Score last measured: **2026-09-03** — full `sessions` at **D-1766**
+(`bb71f9ff`, cadence **#2180**). **40**/44,
+Scr **10,422**/11,405, RNG **702,843**/792,838 = **88.6%**.
+Speed `41+0.32/turn` (R² 0.857). seed0367 FULL still PASS.
+Fortress broke at **D-1765** `3b34b789` (same four FAILs at HEAD).
+Prior audit **#2170** was 44/44 at `2d66f69e` (R² 0.846).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **44 / 44** |
-| Screens matched | **11,405 / 11,405** |
-| Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `42+0.31/turn` (R² 0.846) |
+| Sessions passing | **40 / 44** |
+| Screens matched | **10,422 / 11,405** |
+| Positional RNG calls matched | **702,843 / 792,838** (88.6%) |
+| Speed label | `41+0.32/turn` (R² 0.857) |
 | Role-init throws | **0 / 44** |
 
-**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (40):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
-seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107,
-seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
+seed0013-rogue, seed0013-friday13-restore, seed0107,
+seed0012, seed0004, seed0002, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
-seed0360, seed0399, seed0014, seed2600, seed2200, seed0383, seed4500.
+seed0360, seed0399, seed2600, seed2200, seed0383.
 
-**Notable non-PASS:** none.
+**Notable non-PASS:** seed0006-wizard-water-demon RNG 3608/6736
+Screen 88/123; seed0014-dequa-fountain-explore RNG 43831/59178
+Screen 629/714; seed0030-ten-diverse-deaths RNG 51583/105529
+Screen 1795/1953; seed4500-knight-coverage RNG 90701/108275
+Screen 1109/1814. First FAIL SHA: D-1765.
 
 ## Green gate
 
@@ -62,13 +66,13 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** fortress after D-1766 / audit **#2170**. Save-oracle required for tagged
+**Suite 40/44** after D-1765 gbuf C-wrong (cadence **#2180**). Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`). Map still
 picks work; do not shop the fork dashboard. Private B0 (not in
 `sessions/manifest.json`): trap-same-floor **17/17**; ledger **26/26**;
 wait-save catchup **30/30**; catchup-after-restore **26/30 red**;
 trap-ledger **38/38**; shop template **35/35** (no unpaid).
-**Next cluster:** Open `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1).
+**Next cluster:** Must-fix `display.c` `show_glyph` always overwrites `gbuf.glyph` (stale `loc.disp_glyph` / `see_traps`). Not usteed. Source: reviews/loop-unattended/726-3b34b789-glyph-offsets.md
 **Do not skip D-1531…D-1766 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing

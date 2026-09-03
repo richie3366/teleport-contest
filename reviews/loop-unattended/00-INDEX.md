@@ -729,3 +729,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [716-5455d0cb-toggle-blindness.md](./716-5455d0cb-toggle-blindness.md) | `5455d0cb` | D-1755 potion.c toggle_blindness Sting_effects(-1) | **ACCEPT-WITH-DEBT** |
 | [717-d07fc56a-delobj.md](./717-d07fc56a-delobj.md) | `d07fc56a` | D-1756 invent.c delobj / delobj_core extract then obfree | **ACCEPT-WITH-DEBT** |
 | [718-2d66f69e-setworn.md](./718-2d66f69e-setworn.md) | `2d66f69e` | D-1757 worn.c setworn oc_oprop / w_blocks / W_WEP gate | **ACCEPT-WITH-DEBT** |
+| [719-0b5f451a-hero-deaf.md](./719-0b5f451a-hero-deaf.md) | `0b5f451a` | D-1758 youprop.h Deaf in mhitu doseduce/mayberem | **ACCEPT-WITH-DEBT** |
+| [720-01499c3f-trapname.md](./720-01499c3f-trapname.md) | `01499c3f` | D-1759 trap.c trapname Hallu / trap_to_glyph no Hallu | **ACCEPT-WITH-DEBT** |
+| [721-a23a8ec8-explode.md](./721-a23a8ec8-explode.md) | `a23a8ec8` | D-1760 explode.c map_invisible / You_hear vs Boom! / engulfer | **ACCEPT-WITH-DEBT** |
+| [722-45bb8ff3-sound-speak.md](./722-45bb8ff3-sound-speak.md) | `45bb8ff3` | D-1761 sounds.c sound_speak / sndprocs.h SoundSpeak | **ACCEPT-WITH-DEBT** |
+| [723-ac94ec34-maybe-gasp.md](./723-ac94ec34-maybe-gasp.md) | `ac94ec34` | D-1762 sounds.c maybe_gasp Exclam ROLL_FROM | **ACCEPT-WITH-DEBT** |
+| [724-70493bec-beg.md](./724-70493bec-beg.md) | `70493bec` | D-1763 sounds.c beg hungry-pet | **ACCEPT-WITH-DEBT** |
+| [725-8f3f4280-level-tele.md](./725-8f3f4280-level-tele.md) | `8f3f4280` | D-1764 teleport.c heaven u_left_shop / escape | **ACCEPT-WITH-DEBT** |
+| [726-3b34b789-glyph-offsets.md](./726-3b34b789-glyph-offsets.md) | `3b34b789` | D-1765 display.h GLYPH_*_OFF / detect.c map_monst | **QUALITY-RISK** |
+| [727-bb71f9ff-cancel-doff.md](./727-bb71f9ff-cancel-doff.md) | `bb71f9ff` | D-1766 do_wear.c cancel_doff / doffing accessory | **ACCEPT-WITH-DEBT** |
