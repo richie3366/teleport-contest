@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `ball.c` ballfall (named). Not set_bc. **Addressed:** D-1778
+- [x] `ball.c` ballfall (named). Not set_bc. **Addressed:** D-1778 `c4a32e7c`
 
 
 - [x] `ball.c` unplacebc Blind glyph restore (named). Not set_bc. **Addressed:** D-1777 `cd3e1091`

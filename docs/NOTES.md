@@ -6,7 +6,8 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Suite 44/44.** Map-driven: named omissions / cluster density, not
-  FAIL peels. **Next:** `pager.c` trap_description (named). Falsify: C
+  FAIL peels. Audit 728–737: ten ACCEPT-WITH-DEBT, Must-fix empty.
+  **Next:** `pager.c` trap_description (named). Falsify: C
   `trap_description` body vs JS omit. Not trapname Hallu. Do not invent
   a FAIL.
 - `ballfall` is live (D-1778). C draws `gets_hit`'s `rn2(5)` **before**

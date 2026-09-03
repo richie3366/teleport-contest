@@ -738,3 +738,13 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [725-8f3f4280-level-tele.md](./725-8f3f4280-level-tele.md) | `8f3f4280` | D-1764 teleport.c heaven u_left_shop / escape | **ACCEPT-WITH-DEBT** |
 | [726-3b34b789-glyph-offsets.md](./726-3b34b789-glyph-offsets.md) | `3b34b789` | D-1765 display.h GLYPH_*_OFF / detect.c map_monst | **QUALITY-RISK** |
 | [727-bb71f9ff-cancel-doff.md](./727-bb71f9ff-cancel-doff.md) | `bb71f9ff` | D-1766 do_wear.c cancel_doff / doffing accessory | **ACCEPT-WITH-DEBT** |
+| [728-3baada67-set-bc.md](./728-3baada67-set-bc.md) | `3baada67` | D-1769 ball.c set_bc Punished blind snapshot | **ACCEPT-WITH-DEBT** |
+| [729-1fbbe0c0-delete-contents.md](./729-1fbbe0c0-delete-contents.md) | `1fbbe0c0` | D-1770 shk.c delete_contents zap poly_obj import | **ACCEPT-WITH-DEBT** |
+| [730-dd090eaf-useupf.md](./730-dd090eaf-useupf.md) | `dd090eaf` | D-1771 invent.c useupf + eat.c carried hybrid | **ACCEPT-WITH-DEBT** |
+| [731-81276343-peacefuls-respond.md](./731-81276343-peacefuls-respond.md) | `81276343` | D-1772 mon.c peacefuls_respond / setmangry Halt | **ACCEPT-WITH-DEBT** |
+| [732-c206da54-gold-detect.md](./732-c206da54-gold-detect.md) | `c206da54` | D-1773 detect.c gold_detect / o_in o_material | **ACCEPT-WITH-DEBT** |
+| [733-1f5d551a-newsym-i-arm.md](./733-1f5d551a-newsym-i-arm.md) | `1f5d551a` | D-1774 display.c newsym I-arm lev->glyph | **ACCEPT-WITH-DEBT** |
+| [734-b4d526e9-findone.md](./734-b4d526e9-findone.md) | `b4d526e9` | D-1775 detect.c findone flash / foundone / mimic tail | **ACCEPT-WITH-DEBT** |
+| [735-24ced3ef-pronoun-gender.md](./735-24ced3ef-pronoun-gender.md) | `24ced3ef` | D-1776 mondata.c pronoun_gender / you.h mhe | **ACCEPT-WITH-DEBT** |
+| [736-cd3e1091-move-bc-blind.md](./736-cd3e1091-move-bc-blind.md) | `cd3e1091` | D-1777 ball.c Blind move_bc / unplacebc glyph restore | **ACCEPT-WITH-DEBT** |
+| [737-c4a32e7c-ballfall.md](./737-c4a32e7c-ballfall.md) | `c4a32e7c` | D-1778 ball.c ballfall + do_wear.c hard_helmet | **ACCEPT-WITH-DEBT** |

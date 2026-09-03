@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — Audit reviews 728–737 (D-1769…D-1778)
+
+**Objective:** C-fidelity review of every JS-touching SHA since the last
+`reviews/loop-unattended/` file; cadence full `sessions`. No `js/` edits.
+**Reviewed:** `3baada67` D-1769 `set_bc`; `1fbbe0c0` D-1770
+`delete_contents`; `dd090eaf` D-1771 `useupf`; `81276343` D-1772
+`peacefuls_respond`; `c206da54` D-1773 `gold_detect`; `1f5d551a`
+D-1774 newsym I-arm; `b4d526e9` D-1775 `findone`; `24ced3ef`
+D-1776 `pronoun_gender`; `cd3e1091` D-1777 Blind `move_bc`;
+`c4a32e7c` D-1778 `ballfall`. Ten **ACCEPT-WITH-DEBT**. No Must-fix.
+**Score:** 44/44, Scr 11405/11405, RNG 792838/792838,
+speed `42+0.32/turn` (R² 0.859). Fortress held.
+**Next:** `pager.c` trap_description (named). Not trapname Hallu.
+
 ## 2026-09-03 — D-1778 ball.c ballfall + hard_helmet single export
 
 **Objective:** queue row `ball.c` ballfall (named).

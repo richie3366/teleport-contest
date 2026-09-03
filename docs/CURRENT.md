@@ -20,12 +20,12 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-03** — full `sessions` at **D-1778**
-(ballfall + hard_helmet export). **44**/44,
+Score last measured: **2026-09-03** — full `sessions` at audit of
+**D-1769…D-1778** (reviews **728–737**). **44**/44,
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%**.
-Speed `69+0.50/turn` (R² 0.846). Fortress held across D-1778.
-No public session is Punished+Blind (D-1777) or Punished-while-falling
-(D-1778), so those arms are verified by direct probes, not the suite.
+Speed `42+0.32/turn` (R² 0.859). Fortress held. All ten SHAs
+**ACCEPT-WITH-DEBT**; Must-fix empty. No public session is
+Punished+Blind (D-1777) or Punished-while-falling (D-1778).
 
 ## Score
 
@@ -34,7 +34,7 @@ No public session is Punished+Blind (D-1777) or Punished-while-falling
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** (100%) |
-| Speed label | `69+0.50/turn` (R² 0.846) |
+| Speed label | `42+0.32/turn` (R² 0.859) |
 | Role-init throws | **0 / 44** |
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
