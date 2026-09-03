@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `worn.c` setworn oc_oprop (named). Not possibly_unwield. **Addressed:** D-1757
+- [x] `worn.c` setworn oc_oprop (named). Not possibly_unwield. **Addressed:** D-1757 `2d66f69e`
 
 
 - [x] `mkobj.c` delobj extract (named). Not dealloc_obj. **Addressed:** D-1756 `d07fc56a`

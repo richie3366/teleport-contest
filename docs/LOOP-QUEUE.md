@@ -32,6 +32,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `mhitu.c` doseduce/mayberem `hero_Deaf` drops `EDeaf` and `uroleplay.deaf` (C `youprop.h:125`), so Cha `rn2`/`y_n` fire on C’s Deaf arms. Source: reviews/loop-unattended/711-b6c42dd0-doseduce.md.
+
 ## Open (map-driven, after Must-fix is empty)
 
 - [ ] `display.h` random_trap_to_glyph (named). Not cmap_to_glyph trap.

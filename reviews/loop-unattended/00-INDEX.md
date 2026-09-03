@@ -720,3 +720,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [707-df2bec69-see-monsters-arriving.md](./707-df2bec69-see-monsters-arriving.md) | `df2bec69` | D-1746 display.c see_monsters MON_STILL_ARRIVING | **ACCEPT-WITH-DEBT** |
 | [708-a85a8aac-show-mon-or-warn.md](./708-a85a8aac-show-mon-or-warn.md) | `a85a8aac` | D-1747 display.c show_mon_or_warn I-unmap | **ACCEPT-WITH-DEBT** |
 | [709-1f6d5487-display-monster-pet-detected.md](./709-1f6d5487-display-monster-pet-detected.md) | `1f6d5487` | D-1748 display.c display_monster pet/detected | **ACCEPT-WITH-DEBT** |
+| [710-d17e4f35-feel-location-worm-tail.md](./710-d17e4f35-feel-location-worm-tail.md) | `d17e4f35` | D-1749 display.c feel_location is_worm_tail / Blind dopush | **ACCEPT-WITH-DEBT** |
+| [711-b6c42dd0-doseduce.md](./711-b6c42dd0-doseduce.md) | `b6c42dd0` | D-1750 mhitu.c doseduce / mayberem / ld AD_SSEX | **QUALITY-RISK** |
+| [712-97f49d11-ghitm-hidden-gold.md](./712-97f49d11-ghitm-hidden-gold.md) | `97f49d11` | D-1751 dokick.c ghitm hidden_gold(TRUE) / throw_gold | **ACCEPT-WITH-DEBT** |
+| [713-1e18143c-set-voice.md](./713-1e18143c-set-voice.md) | `1e18143c` | D-1752 sounds.c set_voice / sndprocs.h SetVoice | **ACCEPT-WITH-DEBT** |
+| [714-088de957-sense-trap.md](./714-088de957-sense-trap.md) | `088de957` | D-1753 detect.c sense_trap / display_trap_map | **ACCEPT-WITH-DEBT** |
+| [715-7d76ad12-really-done-keepdogs.md](./715-7d76ad12-really-done-keepdogs.md) | `7d76ad12` | D-1754 end.c really_done keepdogs(TRUE) / mydogs HP | **ACCEPT-WITH-DEBT** |
+| [716-5455d0cb-toggle-blindness.md](./716-5455d0cb-toggle-blindness.md) | `5455d0cb` | D-1755 potion.c toggle_blindness Sting_effects(-1) | **ACCEPT-WITH-DEBT** |
+| [717-d07fc56a-delobj.md](./717-d07fc56a-delobj.md) | `d07fc56a` | D-1756 invent.c delobj / delobj_core extract then obfree | **ACCEPT-WITH-DEBT** |
+| [718-2d66f69e-setworn.md](./718-2d66f69e-setworn.md) | `2d66f69e` | D-1757 worn.c setworn oc_oprop / w_blocks / W_WEP gate | **ACCEPT-WITH-DEBT** |

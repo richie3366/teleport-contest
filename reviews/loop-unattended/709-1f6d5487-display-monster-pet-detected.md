@@ -2,7 +2,7 @@
 
 ## Metadata
 - Full / short hash: `1f6d54877a381c0797799cefc2a6722b89841952` / `1f6d5487`
-- Parent: `a85a8aac` (D-1747). This file audits **this SHA only** (ninth of nine `js/` commits since review **700**). Archive **Addressed:** D-1748 (hash filled this review commit).
+- Parent: `a85a8aac` (D-1747). This file audits **this SHA only** (ninth of nine `js/` commits since review **700**). Archive **Addressed:** D-1748 `1f6d5487`.
 - Author, date: Raphaël Hervier (Co-authored-by Cursor), 2026-09-03 00:36:48 +0200
 - D-id: **D-1748**
 - Stats: `js/display.js` +120/−31. Total `js/` insertions **120** <250. Band **150–350**.

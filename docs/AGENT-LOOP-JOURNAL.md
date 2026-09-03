@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — audit #2170 reviews 710–718 + cadence
+
+**Objective:** C-fidelity review of nine `js/` SHAs since **709**
+(`d17e4f35`…`2d66f69e`, D-1749…D-1757) plus full `sessions`.
+**C locus:** display.c `feel_location`; mhitu.c `doseduce`; dokick.c
+`ghitm`; sounds.c `set_voice`; detect.c `sense_trap`; end.c
+`keepdogs(TRUE)`; potion.c `toggle_blindness`; invent.c `delobj_core`;
+worn.c `setworn`.
+**Change:** reviews **710–718**. **711 QUALITY-RISK** (`hero_Deaf`
+drops EDeaf/`uroleplay.deaf`) prepended Must-fix. Rest
+ACCEPT-WITH-DEBT. No `js/` edits. Filled archive D-1748 / D-1757 `%h`.
+**Score:** **44**/44, Scr **11,405**/11,405, RNG **792,838**/792,838.
+Speed `42+0.31/turn` (R² 0.846) at `2d66f69e`.
+**Verified:** `node frozen/ps_test_runner.mjs sessions`.
+**Next:** Must-fix `mhitu.c` doseduce `hero_Deaf`.
+**Blocked:** none.
 ## 2026-09-03 — D-1757 worn.c setworn oc_oprop / w_blocks / weapon gate
 
 **Objective:** Open `worn.c` setworn oc_oprop (named). Not possibly_unwield.

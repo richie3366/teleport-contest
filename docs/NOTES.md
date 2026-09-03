@@ -5,12 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44** fortress (cadence **#2160** at `1f6d5487`, R² 0.859).
+- **Suite 44/44** fortress (cadence **#2170** at `2d66f69e`, R² 0.846).
   Save-oracle for tagged restore Open. B0: catchup 26/30 red; shop
-  35/35 no unpaid. **Next:** Open `display.h` random_trap_to_glyph.
-  Not cmap_to_glyph trap. Falsify: C `random_trap_to_glyph` vs D-1757
-  setworn oc_oprop / D-1738 cmap trap. Do not skip D-1531…D-1757.
-  Do not re-port D-1675…D-1757. Do not rewrite `confer_oc_oprop`.
+  35/35 no unpaid. **Next:** Must-fix `mhitu.c` doseduce `hero_Deaf`
+  (`youprop.h:125` EDeaf/`uroleplay.deaf`). Not Open
+  `display.h` random_trap_to_glyph. Falsify: C Deaf vs Cha `rn2`/`y_n`.
+  Do not skip D-1531…D-1757. Do not re-port D-1675…D-1757.
+  Do not rewrite `confer_oc_oprop`.
 - Named still: Palantir `#if 0`; pit/underwater; clone yn;
   keepdogs leash/`mon_has_amulet`; tip-spill; hideunder; Punished
   float_down; water/lava steed; interned `'yn'`; mthrowu/uhitm poison;
