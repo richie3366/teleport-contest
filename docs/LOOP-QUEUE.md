@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `detect.c` gold_detect (named). Not sense_trap.
 - [ ] `detect.c` findone (named). Not gold_detect.
 - [ ] `end.c` DUMPLOG (named). Not companion pet HP.
 - [ ] `mhitu.c` noit_mhim Hallu (named). Not hero_Deaf.

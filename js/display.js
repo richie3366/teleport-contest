@@ -669,6 +669,65 @@ export function glyph_is_cmap(glyph) {
         && g < (GLYPH_CMAP_C_OFF + ((S_goodpos - S_digbeam) + 1));
 }
 
+/** C display.h glyph_is_normal_object — GLYPH_OBJ_OFF bank. */
+export function glyph_is_normal_object(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_OBJ_OFF && g < GLYPH_OBJ_OFF + NUM_OBJECTS;
+}
+
+/** C display.h glyph_is_piletop generic obj — GLYPH_OBJ_PILETOP_OFF. */
+export function glyph_is_piletop_generic_obj(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_OBJ_PILETOP_OFF
+        && g < GLYPH_OBJ_PILETOP_OFF + NUM_OBJECTS;
+}
+
+/** C display.h glyph_is_body — BODY + BODY_PILETOP. */
+export function glyph_is_body(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && (
+        (g >= GLYPH_BODY_OFF && g < GLYPH_BODY_OFF + NUMMONS)
+        || (g >= GLYPH_BODY_PILETOP_OFF
+            && g < GLYPH_BODY_PILETOP_OFF + NUMMONS)
+    );
+}
+
+/** C display.h glyph_is_statue — male/fem ± piletop banks. */
+export function glyph_is_statue(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && (
+        (g >= GLYPH_STATUE_MALE_OFF && g < GLYPH_STATUE_MALE_OFF + NUMMONS)
+        || (g >= GLYPH_STATUE_FEM_OFF && g < GLYPH_STATUE_FEM_OFF + NUMMONS)
+        || (g >= GLYPH_STATUE_MALE_PILETOP_OFF
+            && g < GLYPH_STATUE_MALE_PILETOP_OFF + NUMMONS)
+        || (g >= GLYPH_STATUE_FEM_PILETOP_OFF
+            && g < GLYPH_STATUE_FEM_PILETOP_OFF + NUMMONS)
+    );
+}
+
+/**
+ * C display.h glyph_is_object `:858–875` — obj / piletop / statue / body.
+ */
+export function glyph_is_object(glyph) {
+    return glyph_is_normal_object(glyph)
+        || glyph_is_piletop_generic_obj(glyph)
+        || glyph_is_statue(glyph)
+        || glyph_is_body(glyph);
+}
+
+/**
+ * C display.h glyph_to_obj `:902–913` — CORPSE / STATUE / peel obj banks.
+ */
+export function glyph_to_obj(glyph) {
+    if (glyph_is_body(glyph)) return CORPSE_OTYP;
+    if (glyph_is_statue(glyph)) return STATUE_OTYP;
+    const g = glyph_id(glyph);
+    if (g == null) return NUM_OBJECTS;
+    if (glyph_is_piletop_generic_obj(glyph)) return g - GLYPH_OBJ_PILETOP_OFF;
+    if (glyph_is_normal_object(glyph)) return g - GLYPH_OBJ_OFF;
+    return NUM_OBJECTS;
+}
+
 /**
  * C display.h glyph_to_mon — peel the bank; NUMMONS if not a monster id.
  */

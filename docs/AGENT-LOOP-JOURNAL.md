@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1773 detect.c gold_detect / o_in o_material
+
+**Objective:** Open `detect.c` gold_detect (named). Not sense_trap.
+**C locus:** `detect.c` `gold_detect` `:334–475`; `o_in` `:200–223`;
+`o_material` `:228–246`; `clear_stale_map` `:317–331`; caller
+`seffect_gold_detection` `:2034–2043`; steal.c `findgold` `:44–52`.
+**JS locus:** `js/detect.js` `gold_detect`; `js/read.js`
+`seffect_gold_detection`; `js/steal.js` `findgold`;
+`js/display.js` `glyph_is_object`/`glyph_to_obj`.
+**Change:** Port gold map / underfoot / strange_feeling; blessed
+GOLD vs COIN; export steal.c `findgold`. Named: food_detect;
+object_detect `clear_stale_map` caller; findone flash.
+**Score:** unchanged fortress **43**/44 (no full `sessions` this
+port iter).
+**Verified:** probe skip untagged `detect.c:gold_detect`;
+green+strict; cohort **9**/9 + strict.
+**Next:** Open `detect.c` findone (named). Not gold_detect.
+**Blocked:** none.
 ## 2026-09-03 — D-1772 mon.c peacefuls_respond / MS_ARREST Halt
 
 **Objective:** Open `mon.c` peacefuls_respond / MS_ARREST Halt. Not beg.

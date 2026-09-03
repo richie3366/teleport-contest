@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `mon.c` peacefuls_respond / MS_ARREST Halt (named). Not beg. **Addressed:** D-1772
+- [x] `detect.c` gold_detect (named). Not sense_trap. **Addressed:** D-1773
+
+
+- [x] `mon.c` peacefuls_respond / MS_ARREST Halt (named). Not beg. **Addressed:** D-1772 `81276343`
 
 
 - [x] `eat.c` useup+useupf hybrid (named). Not delete_contents. **Addressed:** D-1771 `dd090eaf`

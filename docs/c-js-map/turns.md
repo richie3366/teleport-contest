@@ -106,6 +106,10 @@ JS: `js/detect.js` — partial
 `detect_obj_traps` / `trap_detect` strange_feeling** (D-1753;
 `findone` trap/door/chest `sense_trap`; `level.traps` as `ftrap`;
 flash/`foundone`/mimic/hider still named); 
+**`gold_detect` blessed GOLD/`o_in` COIN + `clear_stale_map`/`check_map_spot` +
+mon/floor/`rnd(10)` golem map + strange_feeling poor/worried/steed** (D-1773;
+caller `seffect_gold_detection`; `o_in`/`o_material` exported; steal.c
+`findgold` live; food_detect / object_detect `clear_stale_map` caller still named); 
 **`do_mapping`/`show_map_spot` hero_memory + `magic_map_background`** (D-0075) + 
 **`show_map_spot` tseen → `map_trap(t,1)` not `newsym`** (D-0814) + 
 **`show_map_spot` `engr_at` → `map_engraving` when !furniture && !tseen trap** (D-0928 #1158; 
@@ -127,7 +131,7 @@ unconstrain underwater/buried/swallow (display_trap_map unconstrain+reconstrain 
 oldglyph trap/object restore after furniture; **`do_vicinity_map` clairvoyance 9×5 (D-1391; 
 SPE_CLAIRVOYANCE caller; unconstrain/reconstrain in this callee; allmain seer_turn still named)**; 
 **`object_detect` detector do_dknown invent+floor + empty `strange_feeling` (D-1417; 
-caller `peffect_object_detection`; buried/minvent/cursed-mimic/gold/clear_stale_map still named)**; 
+caller `peffect_object_detection`; buried/minvent/cursed-mimic/`clear_stale_map` caller still named; gold_detect is D-1773)**; 
 **`monster_detect` empty+otmp `strange_feeling` threatened / hallu heebie jeebies (D-1418; 
 caller `peffect_monster_detection`; **`detect_wsegs` D-1545** via `map_monst` 
 showtail; cursed wake / blessed WIN_MAP / pet_to_glyph still named)**; 

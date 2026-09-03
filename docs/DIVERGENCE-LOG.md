@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1773 — detect.c gold_detect / o_in o_material
+
+- **Status:** fixed (map-driven Open from D-1753; not a public FAIL)
+- **Symptom:** JS had no `gold_detect`. `SCR_GOLD_DETECTION` hit the
+  doread “not implemented” gate instead of mapping floor/minvent
+  coins (blessed: GOLD material) or strange_feeling when none.
+- **C locus:** `detect.c` `gold_detect` `:334–475`; helpers `o_in`
+  `:200–223`, `o_material` `:228–246`, `check_map_spot` `:261–309`,
+  `clear_stale_map` `:317–331`. Caller `read.c`
+  `seffect_gold_detection` `:2034–2043` (`confused||scursed` →
+  `trap_detect`, else `gold_detect`; return 1 → `*sobjp=0`).
+  `steal.c` `findgold` `:44–52`. `display.h` `glyph_is_object`
+  `:858–875` / `glyph_to_obj` `:902–913`.
+- **JS was:** scroll otyp gated unimplemented; `findgold` only as
+  makemon/monmove clones; no `o_in`/`o_material`/`clear_stale_map`.
+- **Fix:** Port `gold_detect` (stale map, fmon `findgold`/gold golem/
+  blessed GOLD/`o_in` COIN, floor underfoot vs map, `rnd(10)` fake
+  golem obj, strange_feeling poor/worried/steed). Export steal.c
+  `findgold` (no third clone). Invent coins inlined, not `money_cnt`
+  clone. `gk.known` on return 0 via seffect (not trap_detect).
+- **JS:** `js/detect.js` `gold_detect`/`o_in`/`o_material`;
+  `js/read.js` `seffect_gold_detection`; `js/steal.js` `findgold`;
+  `js/display.js` `glyph_is_object`/`glyph_to_obj`.
+- **Not this iter:** `food_detect`; object_detect `clear_stale_map`
+  caller; findone flash/`foundone`/mimic; Blind `move_bc` /
+  `unplacebc` / ballfall; DUMPLOG; `noit_mhim` Hallu; `lev_by_name`;
+  pager `trap_description`.
+- **Verified:** save-oracle probe skip (untagged
+  `detect.c:gold_detect`); green+strict seed8000/0900; CURRENT
+  cohort **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/detect.js`, `js/display.js`, `js/read.js`,
+  `js/steal.js`.
+
 ## D-1772 — mon.c peacefuls_respond / MS_ARREST Halt
 
 - **Status:** fixed (map-driven Open from D-1763; not a public FAIL)

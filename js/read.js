@@ -3,7 +3,7 @@
 // seffect_light / litroom / set_lit, seffect_remove_curse,
 // seffect_enchant_weapon, seffect_punishment / punish, seffect_genocide,
 // seffect_create_monster, do_class_genocide, do_genocide; mondata.c name_to_monclass;
-// invent.c getobj; detect.c do_mapping; spell.c study_book (via spell.js);
+// invent.c getobj; detect.c do_mapping / gold_detect; spell.c study_book (via spell.js);
 // teleport.c scrolltele/safe_teleds; zap.c lightdamage (D-1366);
 // do_name.c trycall; mkobj.c uncurse/blessorcurse; wield.c chwepon;
 // ball.c placebc / set_bc.
@@ -17,7 +17,8 @@
 // (throne sit case 8, D-1034) + seffects SCR_GENOCIDE / do_class_genocide
 // (D-1098) + seffect_create_monster SCR/SPE_CREATE_MONSTER (D-1401) +
 // SPE_MAGIC_MAPPING seffects (D-1407; callee seffect_magic_mapping) +
-// seffect_taming SCR_TAMING/SPE_CHARM_MONSTER + recharge/charge_ok (D-1502).
+// seffect_taming SCR_TAMING/SPE_CHARM_MONSTER + recharge/charge_ok (D-1502) +
+// seffect_gold_detection SCR_GOLD_DETECTION (D-1773).
 // Named omissions: fortune/shirt/credit-card/marker/coin/orb/candy/Braille
 // Blind gates; study_book novel / dull sleep (occupation learn D-0907);
 // other seffect_*; SCR_IDENTIFY SPE_IDENTIFY cast; menu_identify traditional
@@ -85,7 +86,7 @@ import {
     makeknown, getobj, identify_pack, near_capacity,
 } from './invent.js';
 import { more_experienced } from './exper.js';
-import { do_mapping, cvt_sdoor_to_door } from './detect.js';
+import { do_mapping, cvt_sdoor_to_door, gold_detect, trap_detect } from './detect.js';
 import { study_book, can_chant } from './spell.js';
 import { scrolltele, level_tele } from './teleport.js';
 import { trycall, hcolor } from './do_name.js';
@@ -130,6 +131,7 @@ const SCR_PUNISHMENT = objectNames.indexOf('SCR_PUNISHMENT');
 const SCR_GENOCIDE = objectNames.indexOf('SCR_GENOCIDE');
 const SCR_CREATE_MONSTER = objectNames.indexOf('SCR_CREATE_MONSTER');
 const SPE_CREATE_MONSTER = objectNames.indexOf('SPE_CREATE_MONSTER');
+const SCR_GOLD_DETECTION = objectNames.indexOf('SCR_GOLD_DETECTION');
 const SCR_BLANK_PAPER = objectNames.indexOf('SCR_BLANK_PAPER');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
@@ -1037,6 +1039,23 @@ async function seffect_destroy_armor(sobj) {
 }
 
 /**
+ * C ref: read.c seffect_gold_detection `:2034–2043`.
+ * Confused/cursed → trap_detect; else gold_detect. Return null when
+ * strange_feeling already useup'd sobj (seffects returns 1).
+ */
+async function seffect_gold_detection(sobj) {
+    const scursed = !!sobj.cursed;
+    const confused = !!(game.u?.HConfusion || game.u?.Confusion);
+    const usedUp = (confused || scursed)
+        ? await trap_detect(sobj)
+        : await gold_detect(sobj);
+    if (usedUp) return null;
+    // C gold_detect sets gk.known TRUE whenever it returns 0
+    if (!(confused || scursed)) known = true;
+    return sobj;
+}
+
+/**
  * C ref: read.c seffect_identify.
  * Scroll: useup first, self-ID messages, learnscrolltyp, then
  * identify_pack(cval). SPE_IDENTIFY cast path deferred (wired if seffects).
@@ -1260,6 +1279,11 @@ export async function seffects(sobj) {
     case SPE_CHARM_MONSTER:
         await seffect_taming(sobj);
         break;
+    case SCR_GOLD_DETECTION: {
+        const kept = await seffect_gold_detection(sobj);
+        if (!kept) return 1;
+        break;
+    }
     default:
         // Other seffect_* deferred — do not useup
         await pline('That scroll is not implemented yet.');
@@ -1314,7 +1338,7 @@ export async function doread() {
         && otyp !== SCR_REMOVE_CURSE && otyp !== SCR_ENCHANT_WEAPON
         && otyp !== SCR_DESTROY_ARMOR && otyp !== SCR_IDENTIFY
         && otyp !== SCR_PUNISHMENT && otyp !== SCR_GENOCIDE
-        && otyp !== SCR_CREATE_MONSTER) {
+        && otyp !== SCR_CREATE_MONSTER && otyp !== SCR_GOLD_DETECTION) {
         await pline('That scroll is not implemented yet.');
         return 0;
     }
