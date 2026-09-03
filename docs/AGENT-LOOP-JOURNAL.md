@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1758 mhitu.c hero_Deaf youprop.h:125
+
+**Objective:** Must-fix `mhitu.c` doseduce/mayberem `hero_Deaf`.
+Not Open `display.h` random_trap_to_glyph.
+**C locus:** `youprop.h:125` Deaf; `mhitu.c` `mayberem` `:2322`;
+`doseduce` Deaf arms; `hitmsg` `:40`.
+**JS locus:** `js/mhitu.js` `hero_Deaf`.
+**Change:** local matches invent/do/monmove (`HDeaf||EDeaf||uroleplay.deaf`);
+hitmsg/You_hear/sedu/ston. Named `noit_mhim` Hallu.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `mhitu.c:doseduce`; node 21/21
+(EDeaf/roleplay/HDeaf first rng `rn2(35)` not `rn2(20)`); green+strict
+seed8000/0900; CURRENT cohort **7**/7 + strict. Rule #2 clean.
+**Next:** Open `display.h` random_trap_to_glyph.
+**Blocked:** none.
 ## 2026-09-03 — audit #2170 reviews 710–718 + cadence
 
 **Objective:** C-fidelity review of nine `js/` SHAs since **709**

@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1758 — mhitu.c doseduce/mayberem hero_Deaf youprop.h:125
+
+- **Status:** fixed (Must-fix review **711**; not a public FAIL)
+- **Symptom:** D-1750 `hero_Deaf` was `u.Deaf || u.HDeaf`. C `Deaf`
+  (`youprop.h:125`) is `HDeaf || EDeaf || u.uroleplay.deaf`. With only
+  `EDeaf` or roleplay deaf, JS burned Cha `rn2(20)` / `y_n` that C
+  skips (`mayberem` take-off; ring prompts; leftover verbalize vs sigh;
+  house “It's on the house!” vs “No charge.”).
+- **C locus:** `youprop.h:125`; `mhitu.c` `mayberem` `:2322–2349`;
+  `doseduce` Deaf arms `:2027`/`:2058`/`:2114`/`:2139`/`:2268`;
+  `hitmsg` `:40`. Callers: `doseduce` / `mayberem` only for the queue
+  item; same-file hitmsg / You_hear / sedu brag / ston cough use C Deaf.
+- **JS was:** `js/mhitu.js:918` `u.Deaf || u.HDeaf`. `invent.js:4367`
+  and `do.js:394` already matched C.
+- **Fix:** local `hero_Deaf` matches invent/do/monmove (`HDeaf || EDeaf
+  || uroleplay.deaf || u.Deaf`). Same helper in hitmsg, You_hear,
+  `mhitm_ad_sedu`, `mhitm_ad_ston_u`. Did not add Deaf clone #12 or
+  import `do.js` Deaf. Named: `noit_mhim` Hallu (`you.h:328`; shk
+  clone drops Hallu — do not write #2).
+- **JS:** `js/mhitu.js` `hero_Deaf`.
+- **Not this iter:** `noit_mhim` Hallu; uhitm hero-as-seducer; mhitm
+  mon-mon AD_SSEX; SEDUCE=0 `c_sa_no`; steal.c `:517`. doseduce is
+  D-1750; SetVoice is D-1752.
+- **Verified:** save-oracle probe skip (untagged `mhitu.c:doseduce`);
+  node 21/21 (SYSOPT; ld; unresponsive; `could_seduce` 1 vs 0;
+  extracted AD_SSEX; mcan/mspec/unresponsive return 0; **EDeaf /
+  uroleplay.deaf / HDeaf first rng `rn2(35)` not `rn2(20)`**);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+  Rule #2 clean.
+- **Files:** `js/mhitu.js`.
+
 ## D-1757 — worn.c setworn oc_oprop / w_blocks / weapon-class gate
 
 - **Status:** fixed (map-driven Open from D-1756; not a public FAIL)

@@ -312,8 +312,7 @@ export async function hitmsg(mtmp, mattk) {
         const Blind = !!(game.u?.Blind || game.u?.ublind
             || (((game.u?.HBlinded | 0) || (game.u?.EBlinded | 0))
                 && !(game.u?.BBlinded | 0)));
-        const Deaf = !!(game.u?.Deaf || game.u?.HDeaf);
-        const how = Blind ? (Deaf ? 'touches' : 'talks to') : 'smiles at';
+        const how = Blind ? (hero_Deaf() ? 'touches' : 'talks to') : 'smiles at';
         const adv = (compat === 2) ? 'engagingly' : 'seductively';
         await pline_mon(mtmp, `${Monst_name} ${how} you ${adv}.`);
     } else {
@@ -915,8 +914,16 @@ export function ld() {
     return (yyyymmdd(0) - (getyear() * 10000)) === 0xe5;
 }
 
+/**
+ * C youprop.h:125 Deaf ≡ HDeaf || EDeaf || u.uroleplay.deaf
+ * (plus u.Deaf flag, matching invent.js / do.js / monmove.js).
+ * Do not drop EDeaf / roleplay deaf: mayberem and doseduce Cha rn2/y_n
+ * sit behind this (review 711).
+ */
 function hero_Deaf() {
-    return !!(game.u?.Deaf || game.u?.HDeaf);
+    const u = game.u || {};
+    return !!((u.HDeaf | 0) || (u.EDeaf | 0)
+        || u.uroleplay?.deaf || u.Deaf);
 }
 
 function botl_mark() {
@@ -1639,7 +1646,7 @@ async function mhitm_ad_sedu(mtmp, mattk, mhm) {
     } else {
         const youdat = game.youmonst?.data;
         if (dmgtype(youdat, AD_SEDU) || dmgtype(youdat, AD_SSEX)) {
-            const Deaf = !!(game.u?.Deaf || game.u?.HDeaf);
+            const Deaf = hero_Deaf();
             // C uhitm.c mhitm_ad_sedu :4647 — pline_mon(magr); charm-fail stays pline
             await pline_mon(
                 mtmp,
@@ -1714,8 +1721,7 @@ async function mhitm_ad_ssex(mtmp, mattk, mhm) {
  * C ref: pline.c You_hear — acoustics/Deaf gate (local for mhitu).
  */
 async function You_hear(line) {
-    const u = game.u || {};
-    if (u.Deaf || u.HDeaf || game.flags?.acoustics === false) return;
+    if (hero_Deaf() || game.flags?.acoustics === false) return;
     await pline(`You hear ${line}`);
 }
 
@@ -1746,7 +1752,7 @@ function do_stone_u(mtmp) {
 async function mhitm_ad_ston_u(mtmp, mattk, mhm) {
     await hitmsg(mtmp, mattk);
     if (!rn2(3)) {
-        const Deaf = !!(game.u?.Deaf || game.u?.HDeaf);
+        const Deaf = hero_Deaf();
         if (mtmp.mcan) {
             if (!Deaf) await You_hear(`a cough from ${mon_nam(mtmp)}!`);
         } else {

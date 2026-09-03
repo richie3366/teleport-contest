@@ -2426,9 +2426,10 @@ name_to_mon G_UNIQ / Half_gas_damage / trap·throw callers deferred) +
 monkey cant_take / stealarm afternmv deferred; 
 **`doseduce` / `mayberem` / `ld()` AD_SSEX D-1750** (`mhitu.c` `:1984–2305` / `:2308–2352` / `:25`; 
 `uhitm.c` `mhitm_ad_ssex` mhitu arm; `sounds.c` MS_SEDUCE; extractor `SEDUCTION_ATTACKS_YES`; 
-SYSOPT default on; **SetVoice D-1752** (empty without SND_LIB; live
-`doseduce`/`mayberem` y_n+verbalize; leap-day gloves verbalize has no
-C SetVoice); named: uhitm hero-as-seducer, mhitm mon-mon AD_SSEX, 
+SYSOPT default on; **SetVoice D-1752**; **`hero_Deaf` D-1758** `youprop.h:125`
+`HDeaf\|\|EDeaf\|\|uroleplay.deaf` — Cha `rn2`/`y_n` skip; hitmsg/You_hear/sedu/ston
+use the same local); named: `noit_mhim` Hallu (`you.h:328`; shk clone drops Hallu),
+uhitm hero-as-seducer, mhitm mon-mon AD_SSEX, 
 SEDUCE=0 `c_sa_no` subst, steal.c monkey_business `unresponsive` site)); 
 **`mswings`/`mswings_verb` + `hitval` on AT_WEAP melee** (D-0286); 
 **`missmu` nearmiss `"just "` + unseen `map_invisible`** (D-0301; 

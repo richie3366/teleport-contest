@@ -199,3 +199,5 @@ D-log: save-oracle skip (untagged `mhitu.c:doseduce`); node 21/21; green+strict 
 Named (map, not Must-fix): uhitm hero-as-seducer; mhitm mon-mon AD_SSEX; `c_sa_no`; steal `:517`; SetVoice source calls (D-1752). `money_cnt_invent` sums like `end.js:369` (C first gold `quan`; merge makes them equal). Do **not** add `mayberem` #2. Do **not** add `cloak_simple_name` #4. Do **not** treat unset SYSOPT as off again. Do **not** re-port D-1742 `getyear`. Do **not** wrap `doseduce` as `pline_mon`.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1758
