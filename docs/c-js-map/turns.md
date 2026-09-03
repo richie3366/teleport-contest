@@ -183,7 +183,7 @@ leftover `_` travel must not rewrite dx on `H`);
 **`cmd_safety_prevention` reads `iflags.cmdassist` (optlist default On; 
 Options toggle)** (D-0928 #1192); **`<space>` → `donull` when `flags.rest_on_space`** (D-0715); 
 **`#wipe`/`make_blinded` Blind ≡ props not sticky + `vision_recalc(0)` on toggle** (D-0716; 
-Eyes/Punished/`set_bc`/Hallu talk/Sting deferred); 
+Eyes/Hallu talk deferred; **Unaware talk=FALSE is D-1768**; **Punished `set_bc` is D-1769**; Sting is D-1755); 
 **`set_uasmon`→`set_mon_data` prorates `u.umovement` when new form slower** (D-0717; 
 **`set_uasmon` resist_from_form MR_* FIRE…STONE + FLYING/BLINDED** D-0928 #1121; 
 DRAIN_RES/ANTIMAGIC/SICK_RES/STUNNED/…/BLND_RES/`#monster`/`dobreathe` deferred; 
@@ -375,8 +375,11 @@ callee `do.js` `make_blinded`; **`toggle_blindness` `Sting_effects(-1)` D-1755**
 then `-1`; Hallu talk; Eyes vismsg/itch/`strange_feeling`; clones
 retired; Blindf_on/off await toggle); **`make_blinded` Unaware
 talk=FALSE D-1768** (C `:275–276` / `youprop.h` `:399`
-`unconscious`/`is_fainted`; live `js/eat.js` `is_fainted`; Punished
-`set_bc` named); potionhit/potionbreathe named); 
+`unconscious`/`is_fainted`; live `js/eat.js` `is_fainted`; **Punished
+`set_bc(0)` D-1769** C `ball.c` `:379–424` / `potion.c` `:309`;
+live `js/ball.js` + callers `make_blinded`/`Blindf_on`/`Blindf_off`/
+`punish`; named: Blind `move_bc` glyph, `unplacebc` Blind restore);
+potionhit/potionbreathe named); 
 **`peffect_sleeping` POT_SLEEPING** (D-1437; 
 Sleep_resistance||Free_action `monstseesu(M_SEEN_SLEEP)` + 
 yawn else `fall_asleep(-rn1(10, 25-12*bcsign), TRUE)` + `monstunseesu`; 
@@ -560,13 +563,15 @@ deferred); **SCR_DESTROY_ARMOR → `seffect_destroy_armor`/`destroy_arm`** (D-04
 confused p_glow2, cursed vibrate/disintegrate_arm, blessed choice/disintegrate_cursed deferred); 
 **SCR_IDENTIFY → `seffect_identify` + invent `identify_pack`/`not_fully_identified`/`identify`** 
 (D-0678; SPE_IDENTIFY cast, traditional ggetobj, `discover_artifact`/`learn_egg_type` deferred); 
-**SCR_PUNISHMENT → `seffect_punishment`/`punish` + `setworn` W_BALL/CHAIN + `placebc`** (D-0908) + 
+**SCR_PUNISHMENT → `seffect_punishment`/`punish` + `setworn` W_BALL/CHAIN + `placebc`** (D-0908) +
+**`punish` Blind `set_bc(1)` D-1769** (C `read.c` `:3059` / `ball.c` `:379–424`;
+live `js/ball.js`; named: Blind `move_bc` glyph / `unplacebc` restore) + 
 **SCR_GENOCIDE → `seffect_genocide`/`do_class_genocide` + `name_to_monclass`** (D-1098; 
 livelog / Hallu names / vampshifted POLY_REVERT / cham `newcham` / `update_inventory` still named; 
 `create_particular` class-letter still named) + 
 **`domove` Punished `drag_ball`/`move_bc`/`cause_delay`→`nomul(-2)`** (D-0909; 
 Blind move_bc felt/glyph, jerked-back hmon/miss, 
-ballrelease/ballfall/drop_ball/litter/unpunish/set_bc deferred); 
+ballrelease/ballfall/drop_ball/litter/unpunish deferred; **`set_bc` is D-1769**); 
 **`create_particular` named `name_to_mon` + `makemon(..., MM_NOEXCLAM)` + 
 `makemon_appear_msg` for `#wizgenesis`/`^G`** (D-0510/D-0928 #1164; 
 class-letter/* random/cant_revive yn/tame·peaceful prefixes deferred; 
@@ -809,7 +814,7 @@ skin `W_ARM|I_SPECIAL`, nudist, tux_penalty, botl, `update_inventory`;
 **`Ring_on`/`learnring`/`adjust_attrib`/`Ring_off`+`float_down`** (D-0966; **`toggle_stealth`** D-0970; 
 **`dosinkfall`/`stop_donning`** D-0976) + **BLINDED→`EBlinded` mirror** (D-0579); 
 **`equip_ok` SUGGEST-only puton/wear/takeoff prompts + `cursed` boots/gloves/lenses plural + 
-`Blindf_on`/`Blindf_off`** (D-0579; `inaccessible_equipment` / R remove_ok / Punished set_bc named;
+`Blindf_on`/`Blindf_off`** (D-0579; `inaccessible_equipment` / R remove_ok / **Punished `set_bc` D-1769**;
 `toggle_blindness` `Sting_effects(-1)` D-1755) + **empty wear/puton getobj prompt `[*]` not `[*?]`** 
 (D-0584; C `invent.c` `!buf[0]` → `" [*]"`) + 
 **`set_wear` from `moveloop_preamble` → `Helmet_on` fedora Archeologist `change_luck(1)`** (D-0596; 
@@ -1480,7 +1485,7 @@ S_goodpos tmp_at D-1051)**; **`#rub`/`dorub`/`wield_tool` re-queue** (D-0710;
 **`use_stone` graystone** D-1014; jelly deferred; **`djinni_from_bottle`** MAGIC_LAMP (D-1144)); 
 **`splash_lit` D-1337**; **`use_cream_pie`** immerse+`rnd(25)`+ucreamed/`make_blinded`+delobj 
 (D-0711) + **`make_blinded` toggle → `vision_recalc(0)`** (D-0721; 
-Blind_telepat/Infravision/Sting `see_monsters` / Eyes / Punished deferred; 
+Blind_telepat/Infravision/Sting `see_monsters` D-1755 / Eyes / **Punished `set_bc` D-1769**; 
 costly_alteration COST_SPLAT / quan>1 invent-split deferred); exported `getdir` for kick/apply; 
 **`getdir` `'.'` = SELF** (D-0780; was cancel) + 
 **D-1038 `lock.js` `getdir` cmdq DIR/KEY, `s` self, `<>`, movecmd HJKL/Ctrl, optional numpad, `^R` 
@@ -1714,7 +1719,7 @@ MG_DETECT/BW_* deferred); **`mon_map_attr` hilite_pet/`wc2_petattr` ATR_INVERSE 
 (D-0478; accessibility SYM_PET_OVERRIDE + remembered MG_PET when pet left deferred); 
 **`unmap_object`/`unmap_invisible` + `mondead` clears remembered `I`** (D-0479) + 
 **`unmap_object` ≡ C trap/engraving/`map_background` (not `map_location`)** (D-0928 #1166; 
-Blind `set_bc`/`move_bc` glyph / `feel_location` still deferred); omit ladder glyphs; 
+**`set_bc` is D-1769**; Blind `move_bc` glyph / `feel_location` still deferred); omit ladder glyphs; 
 infrared `_map_location`; 
 **`map_trap`/`trap_glyph` tseen in `_map_location`/`newsym`** (D-0419);
 **`trapname` Hallu + `see_traps` glyph_is_trap (D-1759;**

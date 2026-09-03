@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1). **Addressed:** D-1768
+- [x] `ball.c` Punished set_bc (named). Not Unaware talk. **Addressed:** D-1769
+
+
+- [x] `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1). **Addressed:** D-1768 `566ab3d4`
 
 
 - [x] `display.c` `show_glyph` always overwrites `gbuf.glyph`; JS `show_glyph_cell` leaves stale `loc.disp_glyph` on tty-only paints, so `see_traps` / `glyph_is_invisible` / `do_vicinity_map` extra-or-skip `newsym` (`tseen`/`erevealed`/I-keep). Not usteed. Source: reviews/loop-unattended/726-3b34b789-glyph-offsets.md **Addressed:** D-1767 `148dc4da`

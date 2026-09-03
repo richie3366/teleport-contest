@@ -6,7 +6,7 @@
 // invent.c getobj; detect.c do_mapping; spell.c study_book (via spell.js);
 // teleport.c scrolltele/safe_teleds; zap.c lightdamage (D-1366);
 // do_name.c trycall; mkobj.c uncurse/blessorcurse; wield.c chwepon;
-// ball.c placebc.
+// ball.c placebc / set_bc.
 //
 // Branch envelope: getobj read loop (scrolls/spellbooks + ?/* pickinv) +
 // SCROLL_CLASS path for SCR_MAGIC_MAPPING / SCR_TELEPORTATION / SCR_LIGHT /
@@ -38,7 +38,7 @@
 // tame|peaceful|hostile|saddled|sleeping|invisible|hidden prefixes /
 // create_particular → makemon_appear_msg (makemon in-body still deferred;
 // mimic mhidden_description / set_msg_xy / dochugw omit);
-// punish Blind set_bc; flooreffects on placebc; HEAVY_IRON_BALL reuse
+// punish Blind set_bc is D-1769; flooreffects on placebc; HEAVY_IRON_BALL reuse
 // from angrygods; do_genocide livelog / Hallucination names /
 // vampshifted POLY_REVERT / chameleon newcham; update_inventory.
 //
@@ -68,7 +68,7 @@
 // tame|peaceful|hostile|saddled|sleeping|invisible|hidden prefixes /
 // create_particular → makemon_appear_msg (makemon in-body still deferred;
 // mimic mhidden_description / set_msg_xy / dochugw omit);
-// punish Blind set_bc; flooreffects on placebc; HEAVY_IRON_BALL reuse
+// punish Blind set_bc is D-1769; flooreffects on placebc; HEAVY_IRON_BALL reuse
 // from angrygods.
 
 import { game } from './gstate.js';
@@ -92,7 +92,7 @@ import { trycall, hcolor } from './do_name.js';
 import { chwepon, is_weptool } from './wield.js';
 import { destroy_arm, some_armor, setworn } from './do_wear.js';
 import { dropy } from './do.js';
-import { placebc } from './ball.js';
+import { placebc, set_bc } from './ball.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import {
     COLNO, ROWNO, SDOOR, CORR, ROOMOFFSET, Is_rogue_level, Is_waterlevel,
@@ -1096,8 +1096,8 @@ export function unpunish() {
 
 /**
  * C ref: read.c punish — attach ball & chain (or weight existing ball).
- * Named omissions: Blind set_bc; flooreffects via placebc; angrygods
- * HEAVY_IRON_BALL reuse when sobj is already the ball.
+ * Blind set_bc(1) is D-1769. Named omissions: flooreffects via placebc;
+ * angrygods HEAVY_IRON_BALL reuse when sobj is already the ball.
  */
 export async function punish(sobj) {
     const u = game.u || (game.u = {});
@@ -1135,7 +1135,8 @@ export async function punish(sobj) {
 
     if (!u.uswallow) {
         placebc();
-        // Blind set_bc deferred
+        // C read.c:3059 — already Blind: set up ball and chain variables
+        if (Blind_read()) set_bc(1);
         newsym(u.ux | 0, u.uy | 0);
     }
 }

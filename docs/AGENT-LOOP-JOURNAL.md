@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1769 ball.c set_bc Punished blind snapshot
+
+**Objective:** Open `ball.c` Punished set_bc. Not Unaware talk.
+**C locus:** `ball.c` `set_bc` `:379–424`; callers `potion.c` `:309`,
+`do_wear.c` `:1476`/`:1523`, `read.c` `:3059`.
+**JS locus:** `js/ball.js` `set_bc`; `js/do.js` `make_blinded`;
+`js/do_wear.js` `Blindf_on`/`Blindf_off`; `js/read.js` `punish`.
+**Change:** Port `set_bc`; wire four Punished-blind sites. Named:
+Blind `move_bc` glyph, `unplacebc` Blind restore.
+**Score:** unchanged fortress **43**/44 (no full `sessions` this
+port iter).
+**Verified:** probe skip untagged `ball.c:set_bc`; node canary 6/6
++ sighted DIFFER peek; green+strict; cohort **7**/7 + strict.
+**Next:** Open `zap.c` delete_contents clone.
+**Blocked:** none.
 ## 2026-09-03 — D-1768 potion.c make_blinded Unaware talk=FALSE
 
 **Objective:** Open `potion.c` make_blinded Unaware talk=FALSE.

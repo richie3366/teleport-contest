@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `ball.c` Punished set_bc (named). Not Unaware talk.
 - [ ] `zap.c` delete_contents clone (named). Not delobj extract.
 - [ ] `eat.c` useup+useupf hybrid (named). Not delete_contents.
 - [ ] `mon.c` peacefuls_respond / MS_ARREST Halt (named). Not beg.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `detect.c` findone (named). Not gold_detect.
 - [ ] `end.c` DUMPLOG (named). Not companion pet HP.
 - [ ] `mhitu.c` noit_mhim Hallu (named). Not hero_Deaf.
+- [ ] `ball.c` unplacebc Blind glyph restore (named). Not set_bc.
+- [ ] `ball.c` ballfall (named). Not set_bc.
+- [ ] `ball.c` move_bc Blind glyph (named). Not set_bc.
+- [ ] `pager.c` trap_description (named). Not trapname Hallu.
+- [ ] `teleport.c` lev_by_name (named). Not heaven u_left_shop.
 
 ## Parked (do not pop)
 

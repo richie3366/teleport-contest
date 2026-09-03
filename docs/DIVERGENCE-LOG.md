@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1769 — ball.c set_bc Punished blind snapshot
+
+- **Status:** fixed (map-driven Open from D-1768; not a public FAIL)
+- **Symptom:** JS had no `set_bc`. Going blind while Punished
+  (`make_blinded` / `Blindf_on` / `Blindf_off`) and `punish` while
+  already Blind never stored `bc_order` / `bc_felt` / `cglyph` /
+  `bglyph` under the ball and chain.
+- **C locus:** `ball.c` `set_bc` `:379–424`; callers `potion.c`
+  `:309`, `do_wear.c` `:1476`/`:1523`, `read.c` `:3059`.
+- **JS was:** named omit after D-1768 / D-1755; `punish` `placebc`
+  then `newsym` only.
+- **Fix:** Port `set_bc` (already-blind/swallow copies hero
+  `levl.glyph`; sighted path `remove_object`/`newsym` peek then
+  `place_object` restore). Wire the four C sites. `levl.glyph` is
+  `remembered_glyph.glyph` (disp_glyph fallback).
+- **JS:** `js/ball.js` `set_bc`; `js/do.js` `make_blinded`;
+  `js/do_wear.js` `Blindf_on`/`Blindf_off`; `js/read.js` `punish`.
+- **Not this iter:** Blind `move_bc` glyph/felt restore;
+  `unplacebc` Blind `levl.glyph = bglyph/cglyph`; ballfall /
+  drop_ball / unpunish.
+- **Verified:** save-oracle probe skip (untagged `ball.c:set_bc`);
+  node canary (already-blind/carried/swallow/no-uball 6/6 +
+  sighted DIFFER peek `cglyph`/`bglyph` under chain/ball);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+  Rule #2 clean.
+- **Files:** `js/ball.js`, `js/do.js`, `js/do_wear.js`, `js/read.js`.
+
 ## D-1768 — potion.c make_blinded Unaware talk=FALSE
 
 - **Status:** fixed (map-driven Open from D-1767; not a public FAIL)

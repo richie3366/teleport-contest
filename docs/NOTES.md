@@ -9,20 +9,21 @@ Objective/score live in `CURRENT.md`.
   Recovered seed0006/0030/4500. **Hypothesis:** seed0014 is not stale
   `disp_glyph` (same 43831/59178 prefix as D-1765 after the stamp).
   Falsify: do not re-check gbuf overwrite. **Next:** Open
-  `ball.c` Punished set_bc. Not Unaware talk. Do not invent a
-  seed0014 FAIL peel. Do not skip D-1531…D-1768.
+  `zap.c` delete_contents clone. Not delobj extract. Do not invent a
+  seed0014 FAIL peel. Do not skip D-1531…D-1769.
 - Named still: Palantir `#if 0`; pit/underwater; clone yn; keepdogs
   leash/`mon_has_amulet`; tip-spill; hideunder; Punished float_down;
   water/lava steed; interned `'yn'`; mthrowu/uhitm poison;
   `dog_hunger`/`dog_move` wire; `peacefuls_respond` / MS_ARREST Halt;
   remaining vault/priest/sit SetVoice; STRAT_HEAL;
-  `swallow_cell` sticky Hallu; eat.js useup+useupf; Punished
-  `set_bc`; pager `trap_description`; hallu explode `rndmonnam`;
-  findone flash/`foundone`/mimic; `gold_detect`; DUMPLOG; zap
-  `delete_contents` clone; invent Array vs nobj; `noit_mhim` Hallu;
-  `lev_by_name`; Nowhere yn; Quest·mines·sanctum clamp;
-  `ridden_mon_to_glyph` usteed; swallow cmap; `map_glyphinfo`;
-  setnotworn `monstunseesu_prop`/`update_inventory`.
+  `swallow_cell` sticky Hallu; eat.js useup+useupf; Blind `move_bc`
+  glyph; `unplacebc` Blind restore; ballfall; pager `trap_description`;
+  hallu explode `rndmonnam`; findone flash/`foundone`/mimic;
+  `gold_detect`; DUMPLOG; zap `delete_contents` clone; invent Array
+  vs nobj; `noit_mhim` Hallu; `lev_by_name`; Nowhere yn;
+  Quest·mines·sanctum clamp; `ridden_mon_to_glyph` usteed; swallow
+  cmap; `map_glyphinfo`; setnotworn `monstunseesu_prop`/
+  `update_inventory`.
 
 ## Don't re-check (≤15)
 
@@ -33,7 +34,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1768.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1769.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -44,7 +45,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1768 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1769 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -64,8 +65,9 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1768. D-1768 is Unaware talk=FALSE (not Punished
-  `set_bc`). D-1767 is `show_glyph` gbuf stamp (not usteed /
+  D-1682…D-1769. D-1769 is Punished `set_bc` (not Blind `move_bc`
+  glyph / `unplacebc` restore). D-1768 is Unaware talk=FALSE (not
+  Punished `set_bc`). D-1767 is `show_glyph` gbuf stamp (not usteed /
   `map_glyphinfo`). D-1766 is `cancel_doff` (not setnotworn
   `monstunseesu_prop`). D-1765 is integer `GLYPH_*_OFF` / `map_monst`
   (not `pet_to_glyph` tty D-1748, not `ridden_mon_to_glyph` usteed).
@@ -75,9 +77,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1769: `ball.c` `set_bc` `:379–424`; callers `potion.c` `:309`,
+  `do_wear.c` `:1476`/`:1523`, `read.c` `:3059`. Live `ball.js`+
+  `do.js`+`do_wear.js`+`read.js`. Named: Blind `move_bc` glyph,
+  `unplacebc` Blind restore, ballfall.
 - D-1768: `potion.c` `make_blinded` `:275–276` Unaware talk=FALSE;
-  `eat.c` `is_fainted`; live `do.js`+`eat.js`. Named: Punished
-  `set_bc`. Sting(-1) is D-1755.
+  `eat.c` `is_fainted`; live `do.js`+`eat.js`. Punished `set_bc`
+  is D-1769. Sting(-1) is D-1755.
 - D-1767: `display.c` `show_glyph` `:2039` always overwrite gbuf;
   `back_to_glyph` `:2286–2427`; `see_traps` `glyph_is_trap` only;
   vicinity `!glyph_is_monster` without kind hybrid. Live
@@ -111,5 +117,4 @@ Objective/score live in `CURRENT.md`.
 - D-1756: `delobj`/`delobj_core` extract+`obfree`. Named: zap
   `delete_contents` clone.
 - D-1755: `toggle_blindness` Sting(-1). Unaware talk is D-1768.
-  Named: Punished `set_bc`.
-- D-1754: companion pet HP / live-cat `d()`. Named: DUMPLOG.
+  Punished `set_bc` is D-1769.
