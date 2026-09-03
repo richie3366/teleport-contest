@@ -44,7 +44,7 @@ import {
     W_SADDLE, engulfing_u, Upolyd, MD_PAD_BOGONS,
     ARTICLE_NONE, ARTICLE_THE, ARTICLE_A, ARTICLE_YOUR,
     SUPPRESS_IT, SUPPRESS_INVISIBLE, SUPPRESS_HALLUCINATION,
-    SUPPRESS_SADDLE, SUPPRESS_NAME,
+    SUPPRESS_SADDLE, SUPPRESS_NAME, EXACT_NAME,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_NOFLAGS,
     GETOBJ_PROMPT,
     ECMD_OK, CMDQ_KEY, CQ_CANNED,
@@ -691,6 +691,15 @@ export function distant_monnam_none(mtmp) {
     if (ghost) return ghost;
     if (has_mgivenname(mtmp)) return MGIVENNAME(mtmp);
     return `${saddle_adj(mtmp)}${mon_plain_name(mtmp)}`;
+}
+
+/**
+ * C ref: do_name.c m_monnam `:1108–1113` — x_monnam(ARTICLE_NONE,
+ * EXACT_NAME). Suppresses hallu / invis / it / given-name so the
+ * message is from the monster's perspective.
+ */
+export function m_monnam(mtmp) {
+    return x_monnam(mtmp, ARTICLE_NONE, null, EXACT_NAME, false);
 }
 
 /**

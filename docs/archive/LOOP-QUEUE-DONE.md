@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `mon.c` make_corpse special-corpse table (dragon scales / unicorn horn / worm tooth) — 19 C draws. Not mondied. **Addressed:** D-1794
+- [x] `mhitu.c` mattacku remaining attack-type arms `:491–952`. Not hitmu. **Addressed:** D-1795
+
+
+- [x] `mon.c` make_corpse special-corpse table (dragon scales / unicorn horn / worm tooth) — 19 C draws. Not mondied. **Addressed:** D-1794 `22bc5c1e`
 
 
 - [x] `weapon.c` dmgval blessed/axe/silver/artifact_light bonus rnd() + greatest_erosion (RNG). Not spec_abon. **Addressed:** D-1793 `07fb471c`

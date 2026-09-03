@@ -51,6 +51,7 @@ import {
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_RANDOM,
     BURN_OBJECT, HAND, FOOT, FINGER, FINGERTIP, RIGHT_HANDED,
     CONTAINED_SYM, HANDS_SYM,
+    M_AP_OBJECT,
 } from './const.js';
 import { currency } from './invent.js';
 
@@ -63,6 +64,8 @@ const CORPSE = objectNames.indexOf('CORPSE');
 const AKLYS = objectNames.indexOf('AKLYS');
 const GOLD_DRAGON_SCALE_MAIL = objectNames.indexOf('GOLD_DRAGON_SCALE_MAIL');
 const GOLD_DRAGON_SCALES = objectNames.indexOf('GOLD_DRAGON_SCALES');
+const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
+const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 
 /** C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (D-0716: no sticky u.Blind). */
 function Blind() {
@@ -2748,6 +2751,35 @@ export function obj_typename(otyp) {
     if (un) buf += ` called ${un}`;
     if (dn) buf += ` (${dn})`;
     return buf;
+}
+
+/**
+ * C ref: objnam.c simple_typename `:296–308` — obj_typename with
+ * oc_uname suppressed and the " (description)" tail stripped.
+ */
+export function simple_typename(otyp) {
+    const ocl = game.objects?.[otyp];
+    const save = ocl ? ocl.oc_uname : undefined;
+    if (ocl) ocl.oc_uname = null;
+    let buf = obj_typename(otyp | 0);
+    if (ocl) ocl.oc_uname = save;
+    const pp = buf.indexOf(' (');
+    if (pp >= 0) buf = buf.slice(0, pp);
+    return buf;
+}
+
+/**
+ * C ref: objnam.c mimic_obj_name `:5605–5615` — gold / simple_typename
+ * / "whatcha-may-callit".
+ */
+export function mimic_obj_name(mtmp) {
+    if ((mtmp?.m_ap_type | 0) === M_AP_OBJECT) {
+        if ((mtmp.mappearance | 0) === GOLD_PIECE) return 'gold';
+        if ((mtmp.mappearance | 0) !== STRANGE_OBJECT) {
+            return simple_typename(mtmp.mappearance | 0);
+        }
+    }
+    return 'whatcha-may-callit';
 }
 
 /**

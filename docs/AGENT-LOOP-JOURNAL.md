@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1795 mhitu.c mattacku remaining arms + getmattk
+
+**Objective:** Open `mhitu.c` `mattacku` remaining attack-type body
+`:491–952`. Not `hitmu`.
+**C:** `mhitu.c` `mattacku` `:490–952`; `getmattk` `:309–444`.
+**JS was:** switch without Underwater / hidden / mimic / Invis tmp /
+eel vis / invulnerable / getmattk DISE·DREN·cancelled-WEAP·home-elem /
+Snickersnee `hitval(youmonst)` / AT_ENGL flush+pline_mon / `bot()` /
+sleep `rn2(10)`.
+**Fix:** those arms; `m_monnam`; `simple_typename`/`mimic_obj_name`;
+`ceiling` + `is_home_elemental` exports. Named: `hitmu`; SEDUCE=0;
+ceiling `in_rooms`; uhitm `prev_result`; lock.js `simple_typename`
+clone.
+**Verify:** getmattk probe (PEST/DREN/ENGL/wight/mimic); green +
+strict; cohort 8/8. save-oracle skip (untagged). seed4500 still
+1801/1814 as at D-1792 (not this peel).
+**Next:** Open `mon.c` `xkilled` LEVEL_SPECIFIC_NOCORPSE + pool gate.
+Not `make_corpse`.
 ## 2026-09-04 — D-1794 mon.c make_corpse special-corpse table
 
 **Objective:** Open `mon.c` `make_corpse` dragon/unicorn/worm/golem

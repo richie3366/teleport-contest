@@ -2974,7 +2974,7 @@ async function trapeffect_bear_trap(mtmp, trap, trflags) {
  * C ref: dungeon.c ceiling — room/air/cavern labels for trap plines.
  * Named omissions: vault/temple/shop in_rooms; water/fire/quest/Underwater.
  */
-function ceiling(x, y) {
+export function ceiling(x, y) {
     const typ = game.level?.at(x, y)?.typ ?? 0;
     if (IS_AIR(typ)) return 'sky';
     if (IS_ROOM(typ) || IS_WALL(typ) || IS_DOOR(typ) || typ === SDOOR)

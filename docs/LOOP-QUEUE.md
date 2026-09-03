@@ -37,7 +37,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
 order; rows 13–30 of that file refill this list.
 
-- [ ] `mhitu.c` mattacku remaining attack-type arms `:491–952`. Not hitmu.
 - [ ] `mon.c` xkilled LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool gate + artifact un-create. Not make_corpse.
 - [ ] `monmove.c` dochug remaining arms + wormhitu callee. Not m_move.
 - [ ] `hack.c` spoteffects recursion guards / levitation timeout / Warning ice `:3312–3462`. Not dotrap.
@@ -45,6 +44,11 @@ order; rows 13–30 of that file refill this list.
 - [ ] `allmain.c` moveloop_core per-turn callees: do_storms, glibr, mkot_trap_warn, end_of_input. Not nh_timeout.
 - [ ] `objnam.c` xname_flags tshirt_text / apron_text / hawaiian_motif / xcalled. Not xname article arms.
 - [ ] `do_name.c` x_monnam saddle / ARTICLE_* / M2_PNAME / Wizard article + nextmbuf. Not mon_nam_too.
+- [ ] `invent.c` getobj in_doagain / prompt+filter machinery. Not display_pickinv.
+- [ ] `cmd.c` yn_function remaining body including RNG arms. Not getlin.
+- [ ] `cmd.c` getdir help_dir / cmdassist / strange-direction NEED_MORE / dxdy_moveok. Not confdir.
+- [ ] `pline.c` vpline msgtype_type / execplinehandler / maybe_play_sound. Not pline wrapper.
+- [ ] `sounds.c` domonnoise remaining: genus / mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg.
 
 ## Parked (do not pop)
 

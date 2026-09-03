@@ -14,7 +14,7 @@ import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
 import { resist_conflict, set_mon_data, on_fire } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval, possibly_unwield } from './weapon.js';
-import { arti_reflects, artifact_hit, permapoisoned } from './artifact.js';
+import { arti_reflects, artifact_hit, permapoisoned, is_art } from './artifact.js';
 import { find_mac, which_armor, bypass_obj } from './worn.js';
 import { update_monster_region } from './region.js';
 import { remove_worm, place_worm_tail_randomly, worm_known } from './worm.js';
@@ -99,7 +99,7 @@ import {
     noncorporeal, MR_POISON,
 } from './monsters.js';
 import { objectNames } from './objects.js';
-import { ART_TROLLSBANE } from './generated/artifacts_data.js';
+import { ART_TROLLSBANE, ART_STORMBRINGER, ART_VORPAL_BLADE } from './generated/artifacts_data.js';
 import {
     relobj_on_death, mkcorpstat, stackobj, mksobj_at, obj_nexto,
     obj_meld, pudding_merge_message, place_object, add_to_container,
@@ -108,7 +108,7 @@ import {
 import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam, s_suffix, free_mgivenname } from './do_name.js';
 import { an, xname, makeplural, cxname, vtense, The, simpleonames } from './objnam.js';
 import { mon_explodes } from './explode.js';
-import { newcham, pm_to_cham } from './makemon.js';
+import { newcham, pm_to_cham, is_home_elemental } from './makemon.js';
 import { polyself } from './polyself.js';
 import { you_were, you_unwere } from './were.js';
 import { rloc, tele_restrict, tele, goodpos } from './teleport.js';
@@ -238,6 +238,11 @@ const AD_PLYS = 14; /* paralyzes — monattk.h */
 const AD_ENCH = 41; /* remove enchantment (disenchanter) — monattk.h */
 const AD_CORR = 42; /* corrode armor (black pudding) — monattk.h */
 const AD_POLY = 43; /* polymorph target (genetic engineer) — monattk.h */
+const AD_DRLI = 15; /* drains life levels — monattk.h */
+const AD_DREN = 16; /* drains magic energy — monattk.h */
+const AD_DISE = 33; /* confers diseases — monattk.h */
+const AD_PEST = 38; /* Pestilence only — monattk.h */
+const AD_FAMN = 39; /* Famine only — monattk.h */
 const MR_FIRE = 0x01;
 const MR_COLD = 0x02;
 const MR_ELEC = 0x10;
@@ -323,15 +328,15 @@ function is_you_defender(mdef) {
 }
 
 /**
- * C ref: mhitu.c getmattk — base mptr->mattk[indx] + live substitutions.
- * Uses extracted monsters_data mattks (mons().mattk), not a hand table.
- * Optional mdef enables defender-dependent arms (lich cold→PHYS). Omit mdef
- * to skip those (aatyp-only scans).
- * Named omissions: SEDUCE=0 SSEX→c_sa_no/DRLI; consecutive DISE/PEST/FAMN→STUN;
- * AD_DREN energy scaling; cancelled/artifact AT_WEAP→PHYS;
- * home-elemental damn*2; prev_result disease-stun chain.
+ * C ref: mhitu.c getmattk `:309–444` — base mptr->mattk[indx] + live
+ * substitutions. Uses extracted monsters_data mattks (mons().mattk).
+ * Optional mdef enables defender-dependent arms (DREN / lich cold→PHYS).
+ * Omit mdef to skip those (aatyp-only scans). Optional prev_result is
+ * C's prev_result[] (mattacku sum / mattackm res).
+ * Named omit: SEDUCE=0 SSEX→c_sa_no[] / lone SSEX→DRLI (`c_sa_no` is
+ * not in js/). uhitm.hmonas callers still omit prev_result.
  */
-export function get_mattk(magr, i, mdef = undefined) {
+export function get_mattk(magr, i, mdef = undefined, prev_result = null) {
     if (i < 0 || i >= NATTK) return { ...NO_ATTK };
     const slots = magr?.data?.mattk;
     if (!slots || !slots[i]) return { ...NO_ATTK };
@@ -341,17 +346,50 @@ export function get_mattk(magr, i, mdef = undefined) {
         adtyp: a.adtyp | 0,
         damn: a.damn | 0,
         damd: a.damd | 0,
-        // C getmattk returns &mptr->mattk[indx] when unsubstitued — hitmsg
-        // uses pointer+1 for "again" (D-0840).
+        // C: uses pointer+1 for "again" (D-0840).
         _slot: a,
         _indx: i,
     };
+    const mptr = magr.data;
+    const youmonst = game.youmonst;
+    const udefend = mdef !== undefined && is_you_defender(mdef);
+    const weap = (magr === youmonst || magr?._youmonst)
+        ? (game.u?.uwep || null)
+        : MON_WEP(magr);
+    let substituted = false;
+    const subst = () => {
+        substituted = true;
+        attk._slot = null;
+    };
 
-    // C: holders/engulfers with mspec_used cannot re-hold; switch to simpler attack
-    if ((magr.mspec_used | 0)
+    /* C: honor SEDUCE=0 — c_sa_no table / lone SSEX→DRLI named omit. */
+
+    /* consecutive DISE/PEST/FAMN → STUN */
+    if (prev_result && i > 0 && (prev_result[i - 1] | 0) > M_ATTK_MISS
+        && (attk.adtyp === AD_DISE || attk.adtyp === AD_PEST
+            || attk.adtyp === AD_FAMN)
+        && attk.adtyp === (mptr.mattk[i - 1]?.adtyp | 0)) {
+        subst();
+        attk.adtyp = AD_STUN;
+    } else if (attk.adtyp === AD_DREN && udefend) {
+        const u = game.u || {};
+        const ulev = Math.max(u.ulevel | 0, 6);
+        subst();
+        if ((u.uen | 0) <= 5 * ulev && attk.damn > 1) {
+            attk.damn -= 1;
+            if ((u.uenmax | 0) <= 2 * ulev && attk.damd > 3) {
+                attk.damd -= 3;
+            }
+        } else if ((u.uen | 0) > 12 * ulev) {
+            attk.damn += 1;
+            if ((u.uenmax | 0) > 20 * ulev) attk.damd += 3;
+        }
+    } else if ((magr.mspec_used | 0)
         && (attk.aatyp === AT_ENGL || attk.aatyp === AT_HUGS
             || attk.adtyp === AD_STCK || attk.adtyp === AD_POLY)) {
-        const wimpy = attk.damd === 0; // lichen, violet fungus
+        /* holders/engulfers cannot re-hold; switch to simpler attack */
+        subst();
+        const wimpy = attk.damd === 0; /* lichen, violet fungus */
         if (attk.adtyp === AD_ACID || attk.adtyp === AD_ELEC
             || attk.adtyp === AD_COLD || attk.adtyp === AD_FIRE) {
             attk.aatyp = AT_TUCH;
@@ -366,21 +404,34 @@ export function get_mattk(magr, i, mdef = undefined) {
             attk.damn = 0;
             attk.damd = 0;
         }
-        // C: alt_attk_buf — not &mattk[indx]; "again" pointer+1 must fail
-        attk._slot = null;
-    } else if (mdef !== undefined && i === 0
-        && attk.aatyp === AT_TUCH && attk.adtyp === AD_COLD) {
-        // C: lich cold touch vs cold-resistant target → weaker PHYS
-        // master 3d6→2d6; arch 5d6→3d6; lich 1d10→1d6; demi 3d4→2d4
-        const udefend = is_you_defender(mdef);
+    } else if (i === 0 && magr !== youmonst && !magr?._youmonst
+        && attk.aatyp === AT_WEAP && attk.adtyp !== AD_PHYS
+        && !((mptr.mattk[1]?.aatyp | 0) === AT_WEAP
+            && (mptr.mattk[1]?.adtyp | 0) === AD_PHYS)
+        && (magr.mcan
+            || (weap && (((weap.otyp | 0) === CORPSE
+                && touch_petrifies(mons(weap.corpsenm | 0)))
+                || is_art(weap, ART_STORMBRINGER)
+                || is_art(weap, ART_VORPAL_BLADE))))) {
+        subst();
+        attk.adtyp = AD_PHYS;
+    } else if (i === 0 && attk.aatyp === AT_TUCH && attk.adtyp === AD_COLD
+        && mdef !== undefined) {
+        /* lich cold touch vs cold-resistant target → weaker PHYS */
         const cold_ok = udefend ? Cold_resistance() : resists_cold(mdef);
         const mndx = mdef?.data?.mndx ?? mdef?.mnum ?? -1;
         if (cold_ok && mndx !== PM_SHADE) {
+            subst();
             attk.adtyp = AD_PHYS;
             attk.damn = ((attk.damn | 0) + 1) >> 1;
             if (attk.damd === 10) attk.damd = 6;
-            attk._slot = null;
         }
+    }
+
+    /* elementals on their home plane do double damage (only if unsubstituted) */
+    if (!substituted && is_home_elemental(mptr)) {
+        subst();
+        attk.damn *= 2;
     }
 
     return attk;
@@ -3317,7 +3368,7 @@ export async function mattackm(magr, mdef) {
             continue;
         }
 
-        const mattk = get_mattk(magr, i, mdef);
+        const mattk = get_mattk(magr, i, mdef, res);
         // C mhitm.c mattackm `:387` — skip remaining AT_TENT+AD_DRIN
         if (game.skipdrin && (mattk.aatyp | 0) === AT_TENT
             && (mattk.adtyp | 0) === AD_DRIN) {

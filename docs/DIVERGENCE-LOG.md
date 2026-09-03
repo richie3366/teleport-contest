@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1795 — mattacku remaining body + getmattk substitutions
+
+- **Status:** fixed (map-driven Open row; green + combat cohort hold)
+- **Symptom:** `mattacku` had the attack-type switch but skipped C's
+  Underwater non-swimmer out, `u.uundetected` / `#monster` / object-mimic
+  reveals, Invis/blind AC `tmp -= 2`, eel `minvis` reveal, post-summon
+  prayer `u.uinvulnerable` block, `getmattk` DISE/PEST/FAMN→STUN +
+  AD_DREN scaling + cancelled/Stormbringer/Vorpal AT_WEAP→PHYS +
+  home-elemental `damn*2`, AT_WEAP Snickersnee bash + `hitval(..., youmonst)`,
+  AT_ENGL `flush_screen(1)` / `pline_mon` / `You_hear`, per-slot `bot()`,
+  and sleep-wakeup `rn2(10)`.
+- **C locus:** `mhitu.c` `mattacku` `:490–952`; `getmattk` `:309–444`;
+  `calc_mattacku_vars` `:448–463`. Callers: `dochug` / `mattackm` (getmattk).
+  Not `hitmu`.
+- **JS was:** switch arms without those gates; `get_mattk` only
+  `mspec_used` holders + lich cold→PHYS; `hitval(wep, null)`.
+- **Fix:** remaining C body in `js/mhitu.js`; `get_mattk(magr, i, mdef,
+  prev_result)` else-if order in `js/mhitm.js` (`mattacku` passes
+  `game.youmonst` + `sum`; `mattackm` passes `res`). Helpers at C homes:
+  `m_monnam` (`do_name.js`), `simple_typename` / `mimic_obj_name`
+  (`objnam.js`), `ceiling` export (`trap.js`), `is_home_elemental`
+  export (`makemon.js`). Probe: PEST→STUN, DREN 1d3/3d9, ENGL
+  `mspec_used` 1d6 PHYS, cancelled wight WEAP→PHYS, mimic gold/strange.
+- **Named omissions:** `hitmu`; SEDUCE=0 `c_sa_no[]` / lone SSEX→DRLI
+  (`c_sa_no` not in `js/`); ceiling vault/temple/shop `in_rooms`;
+  `uhitm` `hmonas` still omits `prev_result`; `lock.js` `simple_typename`
+  clone; `is_home_elemental` clones in `mon.js` / `teleport.js`.
+- **Next:** Open `mon.c` `xkilled` LEVEL_SPECIFIC_NOCORPSE +
+  accessible||is_pool + artifact un-create. Not `make_corpse`.
+
 ## D-1794 — make_corpse special-corpse table (dragon / unicorn / worm / golems)
 
 - **Status:** fixed (map-driven Open row; suite was 44/44)

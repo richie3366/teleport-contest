@@ -2551,9 +2551,17 @@ force-ignore Unchanging → **106838**; invent/Put-on letter vs C deferred);
 **`mattacku` AT_MAGC→`castmu`/`buzzmu` + castmu dmg dice** (D-0928 #1122; 
 seed4500 **106536→106540** RNG **106559** Scr **937**; 
 was omitted AT_MAGC so choose_monster_spell skipped; real buzzmu zap deferred); 
+**`getmattk` remaining substitutions + `mattacku` remaining body** (D-1795;
+`mhitu.c` `:490–952` / `:309–444`; Underwater / `u.uundetected` / `#monster`
++ object-mimic / Invis `tmp-=2` / eel vis / `uinvulnerable` / DISE→STUN /
+AD_DREN / cancelled AT_WEAP→PHYS / home-elem `damn*2` / Snickersnee
+`hitval(youmonst)` / AT_ENGL `flush_screen(1)`+`pline_mon` / `bot()` /
+sleep `rn2(10)`; `m_monnam`; `simple_typename`/`mimic_obj_name`; named:
+`hitmu`, SEDUCE=0 `c_sa_no`, ceiling `in_rooms`, uhitm `prev_result`,
+lock.js `simple_typename` clone);
 **`getmattk` lich cold-resist touch→PHYS + damn=(damn+1)/2** (D-0928 #1121; 
 seed4500 **106531→106536** RNG **106546** Scr **937**; needs poly `COLD_RES` FROMFORM; 
-AD_DREN energy / cancelled AT_WEAP→PHYS / home-elemental damn*2 / DISE→STUN deferred); 
+AD_DREN energy / cancelled AT_WEAP→PHYS / home-elemental damn*2 / DISE→STUN live D-1795); 
 **`hitmu` mundetected hides_under/eel “was hidden under” pline** (D-0928 #1114; 
 seed4500 **103155→104217** RNG **104364** Scr **928**; `something` Blind/`It`→`Something`; 
 pool-water what deferred detail matches C); 
@@ -2569,13 +2577,13 @@ seed4500 **87218→87803** RNG **88082** Scr **794**;
 Eyes `vision_clears` / full `can_blnd` ublindf·visor / uhitm·mhitm AD_BLND arms deferred); 
 **`mattacku` AC_VALUE** live (`hack.h` neg→`-rnd(-AC)`); 
 **`getmattk` mspec_used→AT_TUCH/CLAW** + **`mhitm_ad_cold` hero + `destroy_items`** (D-0837; 
-SSEX/DISE/DREN/WEAP/lich/home-elem subst + AD_FIRE hero deferred); 
+SSEX named (SEDUCE=0 `c_sa_no`); D-1795 shipped DISE/DREN/WEAP/lich/home-elem; AD_FIRE hero deferred); 
 **`unstuck`→`docrt` on swallow exit** (D-0838; Punished placebc deferred); 
 **`initedog` `set_malign`** (D-0839; seed0383 RNG FULL); 
 **`mpickstuff` `distant_name` + `hitmsg` consecutive `" again"`** (D-0840; Scr 146→148); 
 **gulpmu `flush_topl_more`+Hallu `vision_off` together** (D-0852 #996 Scr196→201; 
 alone falsified D-0841/#993/#994); **DECgfx swallow** (D-0842) + **HI_METAL mcolors** (D-0843); 
-**`mattacku` uswallow only-`ustuck` early-out** (D-0827; Underwater non-swimmer deferred); 
+**`mattacku` uswallow only-`ustuck` early-out** (D-0827; Underwater non-swimmer live D-1795); 
 **`mattacku` AT_ENGL + `gulpmu` first-swallow / AD_COLD·FIRE·ELEC·PHYS·DGST** (D-0825; 
 snuff_lit / steed dismount deferred; **`postmov` engulfer `u_on_newpos` (D-0826)** — `swallowed(1)` 
 on first engulf via D-0838); **`dochug` MMOVE_MOVED `engulfing_u`→`mattacku`** (D-0825); 
@@ -2674,12 +2682,11 @@ hitmm tentacles suck); `defended` / `resists_blnd_by_arti` named;
 deferred); **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:1938–1955` `!rn2(6)` + 
 flash/`make_blinded`/`spe--`/return 1; callee D-1366); omit muse ray-wand/horn/scroll/SCR_EARTH; 
 mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named); 
-other `getmattk` substitutions; `hitval` blessed/spear/trident/pick/silver (artifact `spec_abon` 
-D-0611), Snickersnee bash exemption (`pronoun_gender` canspotmon/neuter is live, D-1776), 
-polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot, HTH `select_hwep`, 
-weld/artifact_light wield msgs, knockback hurtle; `mshot_xname` Nth; `obj_is_pname`/`the()`; 
-enhance `add_weapon_skill`/`lose_weapon_skill`/`use_skill` may-advance; 
-other `mhitm_ad_*` (AD_FIRE hero); potionbreathe/were destroy_items deferrals; 
+`hitval` blessed/spear/trident/pick/silver (artifact `spec_abon` D-0611);
+polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot, HTH `select_hwep`,
+weld/artifact_light wield msgs, knockback hurtle; `mshot_xname` Nth; `obj_is_pname`/`the()`;
+enhance `add_weapon_skill`/`lose_weapon_skill`/`use_skill` may-advance;
+other `mhitm_ad_*` (AD_FIRE hero); potionbreathe/were destroy_items deferrals;
 `mswingsm` mon-mon  **`wildmiss` Displaced/Invis/Underwater + `!foundyou` skipnonmagc** (D-0816; 
 could_seduce SEDU smile live; **nolimbs lunge + set_msg_xy D-1291**; Some_Monnam impossible named)
 
