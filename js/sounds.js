@@ -4,6 +4,7 @@
 //         MS_BOAST D-1626 / MS_RIDER Death tribute D-1653) + yelp /
 //         growl (pet abuse; D-0836);
 //         set_voice (D-1752; !SND_SPEECH no-op). SetVoice is sndprocs.h.
+//         sound_speak (D-1761; !SND_SPEECH no-op). SoundSpeak is sndprocs.h.
 
 import { game } from './gstate.js';
 import { pline, canseemon, verbalize, Hallucination } from './display.js';
@@ -50,6 +51,18 @@ export function set_voice(mtmp, tone, volume, moreinfo) {
     void tone;
     void volume;
     void moreinfo;
+}
+
+/**
+ * C ref: sounds.c sound_speak `:2184–2220`. Body is `#ifdef SND_SPEECH`;
+ * contest C has no SND_SPEECH, so this is a no-op. Direct caller:
+ * `domonnoise` MS_RIDER Death after `SetVoice` (`:1235`; tmpbuf is the
+ * ucased line already passed to `pline1`). `cmd.c` yn_function
+ * `sound_speak(query)` is `#ifdef SND_SPEECH` (compiled out).
+ * `SoundSpeak` (sndprocs.h `:275`) does not call this without SND_LIB.
+ */
+export function sound_speak(text) {
+    void text;
 }
 
 const STATUE = objectNames.indexOf('STATUE');
@@ -835,9 +848,12 @@ export async function domonnoise(mtmp) {
     if (verbl_msg) {
         // C: PM_DEATH talks in CAPITAL LETTERS without quotation marks.
         if ((ptr?.mndx | 0) === PM_DEATH) {
-            await pline(ucase(verbl_msg));
+            // C: pline1(ucase(strcpy(tmpbuf, verbl_msg))); then
+            // SetVoice(0,0,80,voice_death); sound_speak(tmpbuf).
+            const tmpbuf = ucase(verbl_msg);
+            await pline(tmpbuf);
             SetVoice(null, 0, 80, voice_death);
-            // sound_speak named omit (!SND_SPEECH empty in C)
+            sound_speak(tmpbuf);
         } else {
             SetVoice(mtmp, 0, 80, 0);
             await verbalize(verbl_msg);

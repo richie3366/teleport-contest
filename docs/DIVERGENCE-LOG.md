@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-1761 — sounds.c sound_speak / sndprocs.h SoundSpeak
+
+- **Status:** fixed (map-driven Open from D-1760; not a public FAIL)
+- **Symptom:** JS had no `sound_speak`. C function exists; body is
+  `#ifdef SND_SPEECH` (contest has none) so it is a no-op. Death
+  `domonnoise` still calls `sound_speak(tmpbuf)` after `SetVoice`.
+  `SoundSpeak` is empty without SND_LIB (`putmesg` still expands it).
+- **C locus:** `sounds.c` `sound_speak` `:2184–2220`; Death caller
+  `:1229–1235`. `sndprocs.h` `SoundSpeak` `:240–246` (SND_LIB) /
+  `:275` (empty). `pline.c` `putmesg` `:79`. `cmd.c` yn `:5532–5536`
+  is `#ifdef SND_SPEECH` (compiled out).
+- **JS was:** Death `SetVoice` then omit comment; no `SoundSpeak` on
+  `pline`.
+- **Fix:** empty `sound_speak` (`void text`); Death `tmpbuf = ucase`
+  then `pline` / `SetVoice` / `sound_speak(tmpbuf)`; empty `SoundSpeak`
+  (does **not** call `sound_speak`); `pline_after_consume` after
+  flush like `putmesg`. Did not implement the SND_SPEECH /
+  `sound_verbal` body. Did not wire yn_function (compiled out).
+- **JS:** `js/sounds.js` `sound_speak` / Death epilogue;
+  `js/sndprocs.js` `SoundSpeak`; `js/display.js` `pline_after_consume`.
+- **Not this iter:** `beg` / `maybe_gasp` / MS_ARREST; SND_SPEECH
+  body; remaining vault/priest/sit SetVoice. set_voice is D-1752.
+- **Verified:** save-oracle probe skip (untagged `sounds.c:sound_speak`);
+  node canary (null/empty/ucase tmpbuf; no RNG; `voice_death` 0x20);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict (9/9 with
+  green). Rule #2 clean.
+- **Files:** `js/sounds.js`, `js/sndprocs.js`, `js/display.js`.
+
 ## D-1760 — explode.c map_invisible !canspotmon / You_hear vs Boom!
 
 - **Status:** fixed (map-driven Open from D-1759; not a public FAIL)

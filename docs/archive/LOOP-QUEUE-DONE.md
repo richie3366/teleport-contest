@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `explode.c` map_invisible !canspotmon (named). Not explosion_to_glyph. **Addressed:** D-1760
+- [x] `sounds.c` sound_speak (named). Not set_voice. **Addressed:** D-1761
+
+
+- [x] `explode.c` map_invisible !canspotmon (named). Not explosion_to_glyph. **Addressed:** D-1760 `a23a8ec8`
 
 
 - [x] `display.h` random_trap_to_glyph (named). Not cmap_to_glyph trap. **Addressed:** D-1759 `01499c3f`

@@ -77,8 +77,15 @@ Wee Free Men); else `rn2(3)` && `Death_quote`; else `!rn2(10)`
 Sandman; else War. Death `pline(ucase)` no quotes; other riders
 `verbalize`. **D-1752 `set_voice` / SetVoice** (`sounds.c` `:2160–2182`;
 `sndprocs.h` empty without SND_LIB; `voice_death` after Death pline;
-live `js/sounds.js` + `js/sndprocs.js`). Named: save/rest
-`context.novel`; dlb; `sound_speak`; `beg` / `maybe_gasp` / MS_ARREST.
+live `js/sounds.js` + `js/sndprocs.js`). **D-1761 `sound_speak` /
+SoundSpeak** (`sounds.c` `:2184–2220` body `#ifdef SND_SPEECH` compiled
+out; `sndprocs.h` `:275` empty without SND_LIB; Death `:1235`
+`sound_speak(tmpbuf)` after `SetVoice`/`pline1(ucase)`; `pline.c`
+`putmesg` `:79` `SoundSpeak`; live `js/sounds.js` + `js/sndprocs.js` +
+`js/display.js` `pline_after_consume`; `cmd.c` yn `sound_speak` is
+`#ifdef SND_SPEECH` compiled out). Named: save/rest
+`context.novel`; dlb; `beg` / `maybe_gasp` / MS_ARREST;
+SND_SPEECH/`sound_verbal` body; remaining vault/priest/sit SetVoice.
 lookup_novel is D-1651. putmsghistory body is D-1588.
 
 ### `include/artilist.h`

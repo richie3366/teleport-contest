@@ -109,6 +109,7 @@ import { monsterNames } from './generated/monsters_data.js';
 import { observe_object, near_capacity } from './invent.js';
 import { visible_region_at, show_region } from './region.js';
 import { see_wsegs, worm_known, level_mon_at } from './worm.js';
+import { SoundSpeak } from './sndprocs.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -5314,6 +5315,8 @@ async function pline_after_consume(msg) {
     }
     // C: if (u.ux) flush_screen(...) before putmesg — botl update first
     if (game.u?.ux) await flush_screen(1);
+    // C pline.c putmesg `:79` SoundSpeak after putstr; empty without SND_LIB.
+    SoundSpeak(line);
 
     // Capture skip before more(); C still paints the new line with the
     // pre-more skip flag even if ESC sets WIN_STOP during more().

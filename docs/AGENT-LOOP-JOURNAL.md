@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1761 sounds.c sound_speak / sndprocs.h SoundSpeak
+
+**Objective:** Open `sounds.c` sound_speak. Not set_voice.
+**C locus:** `sounds.c` `sound_speak` `:2184–2220`; Death `:1235`;
+`sndprocs.h` `SoundSpeak` `:275`; `pline.c` `putmesg` `:79`.
+**JS locus:** `js/sounds.js` `sound_speak`; `js/sndprocs.js` `SoundSpeak`;
+`js/display.js` `pline_after_consume`.
+**Change:** empty `sound_speak`; Death `tmpbuf=ucase` then pline/SetVoice/
+`sound_speak`; empty `SoundSpeak` (does not call `sound_speak`); putmesg
+after flush. Did not port SND_SPEECH body or yn `#ifdef`.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `sounds.c:sound_speak`; node canary
+(no RNG); green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+Rule #2 clean.
+**Next:** Open `sounds.c` maybe_gasp.
+**Blocked:** none.
 ## 2026-09-03 — D-1760 explode.c map_invisible !canspotmon / You_hear
 
 **Objective:** Open `explode.c` map_invisible !canspotmon. Not

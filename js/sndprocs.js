@@ -1,8 +1,10 @@
-// sndprocs.js — sound_effect enum + Soundeffect / SetVoice from sndprocs.h.
-// C ref: include/sndprocs.h Soundeffect / SetVoice; include/seffects.h
-// X-macro. Contest recorder: no SND_LIB_* (extract-optlist
-// SND_LIB_PORTAUDIO false) so those C macros are empty. Call sites
-// still pass seid/vol / mon/tone/vol/moreinfo.
+// sndprocs.js — sound_effect enum + Soundeffect / SetVoice / SoundSpeak
+// from sndprocs.h.
+// C ref: include/sndprocs.h Soundeffect / SetVoice / SoundSpeak;
+// include/seffects.h X-macro. Contest recorder: no SND_LIB_*
+// (extract-optlist SND_LIB_PORTAUDIO false) so those C macros are
+// empty. Call sites still pass seid/vol / mon/tone/vol/moreinfo /
+// spoken text.
 
 export {
     se_scratching,
@@ -50,4 +52,16 @@ export function SetVoice(mon, tone, vol, moreinfo) {
     void tone;
     void vol;
     void moreinfo;
+}
+
+/**
+ * C ref: sndprocs.h `#define SoundSpeak(text)` when
+ * !SND_LIB_INTEGRATED — empty (`:275`). The SND_LIB arm (`:240–246`)
+ * would call `sound_speak` (sounds.c) when PLINE_VERBALIZE|PLINE_SPEECH
+ * and `iflags.voices`; this build has no SND_LIB_*. Caller:
+ * `pline.c` `putmesg` `:79`.
+ * @param {string|null|undefined} text
+ */
+export function SoundSpeak(text) {
+    void text;
 }
