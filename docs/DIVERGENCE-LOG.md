@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1765 — display.h integer GLYPH_*_OFF / detect.c map_monst
+
+- **Status:** fixed (map-driven Open from D-1764; not a public FAIL)
+- **Symptom:** JS had no C `enum glyph_offsets` integer ids; `map_monst`
+  always used `mon_glyph`. C `detect.c` `:124–128` is `monsym==' '`
+  `detected_mon_to_glyph` else `mtame` `pet_to_glyph` else
+  `mon_to_glyph` (tame ghosts stay detected).
+- **C locus:** `include/display.h` `:497–546` offsets, `:553–650`
+  conversion macros, `:737–773` / `:970–979` `glyph_is_*`;
+  `detect.c` `map_monst` `:121–134`. Callers `monster_detect` `:834`,
+  `do_vicinity_map` `:1531`.
+- **JS was:** `{ch,color,kind}` only; `map_monst` plain `mon_glyph`;
+  missing S_engroom / S_brdnladder in `const.js`.
+- **Fix:** Port offset enum + `*_to_glyph` integer ids (male/fem banks);
+  `glyph_is_*` / `glyph_to_mon` / `cmap_to_glyph` / `altar_to_glyph`;
+  store `loc.disp_glyph`; `map_monst` C ternary + `glyph_tty_attr`.
+  Did not wire `ridden_mon_to_glyph` into display_self/usteed or
+  `map_glyphinfo`/`reset_glyphmap`.
+- **JS:** `js/display.js`; `js/detect.js` `map_monst`; `js/const.js`
+  S_engroom..S_brdnladder.
+- **Not this iter:** `ridden_mon_to_glyph` usteed; swallow cmap;
+  `map_glyphinfo` / `reset_glyphmap`; `in_getlev` / await-`newsym` More
+  when mention_map On; pager `trap_description`; `cancel_doff`.
+- **Verified:** save-oracle probe skip (untagged `detect.c:map_monst` /
+  `display.h:GLYPH_MON_OFF`); node canary (offset identities;
+  `map_monst` ghost→detect including tame, wild/pet/fem pet banks);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+  Rule #2 clean.
+- **Files:** `js/display.js`, `js/detect.js`, `js/const.js`.
+
 ## D-1764 — teleport.c level_tele heaven u_left_shop / escape
 
 - **Status:** fixed (map-driven Open from D-1763; not a public FAIL)

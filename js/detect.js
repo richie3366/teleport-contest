@@ -38,7 +38,7 @@
 // M_AP_FURNITURE; wiz_map_levltyp / wiz_levltyp_legend;
 // TER_FULL explore-only map body; arboreal default tree;
 // monster_detect cursed wake / blessed WIN_MAP /
-// pet_to_glyph / TER_DETECT autodescribe;
+// TER_DETECT autodescribe; map_monst pet/detect/monsym is D-1765;
 // mfind0 set_msg_xy / display_nhwindow flush;
 // object_detect buried/minvent/cursed-mimic/gold/clear_stale_map;
 // observe_recursively on buried/minvent (invent+floor do_dknown D-1417);
@@ -50,10 +50,11 @@ import { rnl, rn2, rnd } from './rng.js';
 import {
     newsym, pline, magic_map_background, terrain_glyph, obj_glyph,
     show_glyph_cell, display_self, map_trap, map_engraving, canspotmon, sensemon,
-    map_invisible, glyph_is_invisible, warning_of, You_feel,
+    map_invisible, glyph_is_invisible, glyph_is_monster, warning_of, You_feel,
     feel_location, feel_newsym, unmap_invisible, map_object, Norep,
-    see_monsters, flush_screen, docrt, mon_glyph,
+    see_monsters, flush_screen, docrt,
     Hallucination, random_object, random_monster,
+    pet_to_glyph, detected_mon_to_glyph, mon_to_glyph, monsym, glyph_tty_attr,
 } from './display.js';
 import { vision_recalc, couldsee, recalc_block_point, cansee } from './vision.js';
 import { visible_region_at } from './region.js';
@@ -944,7 +945,7 @@ function reconstrain_map() {
 }
 
 /**
- * JS has no integer glyph ids. Snapshot gbuf-like disp_* for C glyph_at.
+ * JS gbuf analogue: loc.disp_* plus integer loc.disp_glyph when set.
  * C ref: display.c glyph_at / gbuf[y][x].glyph.
  */
 function glyph_at_disp(x, y) {
@@ -959,6 +960,7 @@ function glyph_at_disp(x, y) {
         color: loc.disp_color ?? null,
         kind: loc.disp_kind ?? '',
         invisible,
+        glyph: loc.disp_glyph,
     };
 }
 
@@ -973,9 +975,9 @@ function glyph_disp_changed(a, b) {
  * map_monst / map_invisible; skilled/blessed/Clairvoyant observe_object +
  * mdetected browse; random_farsight quick_farsight skip; post-loop I-replace
  * + see_monsters; browse_map then docrt.
- * Named omissions: pet_to_glyph / detected_mon_to_glyph (plain
- * mon_glyph); allmain seer_turn caller still named. detect_wsegs is
- * D-1545 (map_monst FALSE here, like C `:1531`).
+ * Named omissions: allmain seer_turn caller still named. detect_wsegs is
+ * D-1545 (map_monst FALSE here, like C `:1531`). map_monst
+ * pet/detected/monsym is D-1765.
  * @param {object|null} sobj fake spellbook (null = random farsight)
  */
 export async function do_vicinity_map(sobj) {
@@ -1021,7 +1023,8 @@ export async function do_vicinity_map(sobj) {
             if (mtmp && (mtmp.mx | 0) === zx && (mtmp.my | 0) === zy) {
                 if ((unconstrained || !hero_memory)
                     && !extended && (zx !== ux || zy !== uy)
-                    && oldglyph.kind !== 'monster') {
+                    && oldglyph.kind !== 'monster'
+                    && !glyph_is_monster(oldglyph.glyph)) {
                     map_invisible(zx, zy);
                 } else {
                     map_monst(mtmp, false);
@@ -1086,12 +1089,19 @@ function mtmp_is_long_worm(mtmp) {
 /**
  * C ref: detect.c map_monst :120–134 — show_glyph head; showtail &&
  * PM_LONG_WORM → detect_wsegs(mtmp, 0) (D-1545; identity D-1549).
- * Named: monsym==' ' detected_mon_to_glyph; pet_to_glyph (plain
- * mon_glyph).
+ * monsym==' ' → detected_mon_to_glyph (ghosts); else mtame →
+ * pet_to_glyph else mon_to_glyph. Integer GLYPH_*_OFF on `.glyph`.
  */
 export function map_monst(mtmp, showtail) {
-    const g = mon_glyph(mtmp);
-    show_glyph_cell(mtmp.mx, mtmp.my, g.ch, g.color, false);
+    const g = (monsym(mtmp.data) === ' ')
+        ? detected_mon_to_glyph(mtmp)
+        : mtmp.mtame
+            ? pet_to_glyph(mtmp)
+            : mon_to_glyph(mtmp);
+    show_glyph_cell(
+        mtmp.mx, mtmp.my, g.ch, g.color, false,
+        glyph_tty_attr(mtmp, g.kind), g.glyph,
+    );
     if (showtail && mtmp_is_long_worm(mtmp)) {
         detect_wsegs(mtmp, false);
     }
@@ -1105,8 +1115,8 @@ export function map_monst(mtmp, showtail) {
  * Empty + otmp → strange_feeling (D-1418; hallu heebie jeebies else
  * threatened). Crystal-ball / fountain pass null and skip that.
  * Named omissions: cursed-otmp wake; blessed persistent
- * display_nhwindow; unconstrain underwater/buried/swallow;
- * pet_to_glyph / detected_mon_to_glyph (plain mon_glyph).
+ * display_nhwindow; unconstrain underwater/buried/swallow.
+ * map_monst pet/detected/monsym is D-1765.
  * detect_wsegs is D-1545 (map_monst TRUE). Long-worm identity is
  * D-1549 (mnum/mndx, not mons() ptr).
  */

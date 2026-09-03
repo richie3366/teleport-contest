@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `teleport.c` heaven u_left_shop caller (named). Not SetVoice. **Addressed:** D-1764
+- [x] `display.h` integer GLYPH_*_OFF / map_monst (named). Not pet_to_glyph. **Addressed:** D-1765
+
+
+- [x] `teleport.c` heaven u_left_shop caller (named). Not SetVoice. **Addressed:** D-1764 `8f3f4280`
 
 
 - [x] `sounds.c` beg (named). Not maybe_gasp. **Addressed:** D-1763 `70493bec`

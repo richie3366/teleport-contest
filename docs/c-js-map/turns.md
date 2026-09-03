@@ -1650,9 +1650,17 @@ C `:587–618`; `display.h` `pet_to_glyph` `:563–565` /
 `what_mon` on tame tails) / `detected_monnum_to_glyph`; tame &&
 !Hallucination prefers pet over DETECTED; tty `wintty.c`
 `:3927–3936` MG_PET hilite then MG_DETECT `use_inverse`; live
-`js/display.js`; named: integer `GLYPH_*_OFF` ids, male/fem
-offsets, `detect.c` `map_monst`, `ridden_mon_to_glyph`;
+`js/display.js`; named: `ridden_mon_to_glyph` display_self/usteed
+wire; integer `GLYPH_*_OFF` / `map_monst` are D-1765;
 feel_location `is_worm_tail` is D-1749); 
+**`display.h` integer `GLYPH_*_OFF` / `detect.c` `map_monst`** (D-1765;
+C `display.h` `:497–546` enum + `:553–650`/`970–979` `*_to_glyph` /
+`glyph_is_*`; `detect.c` `map_monst` `:124–128` `monsym==' '`
+detected else `mtame` pet else mon; live `js/display.js` +
+`js/detect.js` `map_monst`; `js/const.js` S_engroom/S_brdnladder;
+named: `ridden_mon_to_glyph` usteed wire, swallow cmap, `map_glyphinfo`
+/`reset_glyphmap`, `in_getlev` / await-`newsym` More when mention_map
+On); 
 **`feel_location` `is_worm_tail` overlay** (D-1749; C `:901–908`
 `!u_at && m_at && sensemon` then `display_monster(..., is_worm_tail)`
 — Detect_monsters still paints tails, unlike `newsym`; `_suppress_map_output`
@@ -1699,18 +1707,18 @@ C `trap.c` `:7098–7155` `rn2_on_display_rng(TRAPNUM+SIZE+1)` /
 `display.h` `trap_to_glyph` `:630` **no** Hallu — 5.0 dropped
 `random_trap_to_glyph`; `display.c` `see_traps` `:1610–1621`;
 live `js/trap.js` + `js/display.js` `trap_to_glyph`/`see_traps`
-`disp_kind`; detect clone retired; named: pager `trap_description`,
-integer `GLYPH_*_OFF`);
+`disp_kind` + integer `glyph_is_trap` when `disp_glyph` set (D-1765);
+detect clone retired; named: pager `trap_description`);
 **`cmap_to_glyph` trap/zap/cmap-C + `explosion_to_glyph`** (D-1738;
 `display.h` `:621–628`/`:587–594`; `rm.h` `trap_to_defsym`; explode.c
 `:388–438`; live `js/display.js` `cmap_idx_to_glyph` /
 `explode_show_visible` + `js/explode.js` + `js/const.js` S_* 49–87 /
 96–104; WEB `"` / VS `~`; DEC v/h beam + expl tc/ml/mr/bc;
 `shield_static` cmap indices; named: drawbridge 42–45, swallow cmap,
-integer glyph IDs, getpos/`apply`
+getpos/`apply`
 `S_goodpos` tmp_at, region `'S_poisoncloud'`/`'S_cloud'` strings,
 You_hear vs Boom! when !visible, explode `map_invisible` !canspotmon;
-furniture lastseentyp is D-1726; hallu trap names are D-1759); 
+integer glyph IDs are D-1765; furniture lastseentyp is D-1726; hallu trap names are D-1759); 
 hallu/`random_monster` statue; pile-top/gender statue glyph offsets; 
 telepathy/`Detect_monsters`; MATCH_WARN overlay D-1514 (`see_wsegs` / `is_worm_tail` D-1529); full `set_uasmon`/uprops; 
 **TREE `terrain_glyph` + scoring grid keeps raw DEC `g`** (D-0565; Primary `#`/CLR_GREEN); 
@@ -1722,15 +1730,16 @@ DRAWBRIDGE_UP lastseentyp is D-1711; furniture lastseentyp is D-1726;
 knox + why DEC recorder SGR 34 vs source `wallcolors[]` GRAY deferred); 
 DISP_TETHER BACKTRACK / ALL nest; other DEC remaps (ladder); 
 glyph_is_generic remembered-only newsym_force arm; full lev->glyph vs remembered-only memory; 
-!cansee `display_monster` is D-1745 (cansee Detect is D-1737); **`see_monsters` MON_STILL_ARRIVING skip is D-1746**; **`show_mon_or_warn` I-glyph is D-1747**; **pet/detected glyphs are D-1748**; **feel_location `is_worm_tail` is D-1749** (integer `GLYPH_*_OFF` / `map_monst` / ridden still named); 
+!cansee `display_monster` is D-1745 (cansee Detect is D-1737); **`see_monsters` MON_STILL_ARRIVING skip is D-1746**; **`show_mon_or_warn` I-glyph is D-1747**; **pet/detected glyphs are D-1748**; **feel_location `is_worm_tail` is D-1749**; **integer `GLYPH_*_OFF` / `map_monst` is D-1765** (`ridden_mon_to_glyph` usteed still named); 
 Rogue-level litcorr/room darkening; **`feel_location` + Blind `newsym` u_at** (D-0928 #1169; 
 reachable `_map_location` + Punished `bc_felt` + `feel_newsym`; 
 `is_worm_tail` overlay D-1749; full levitate-arm do_room_glyph/litcorr + usteed reach deferred; MATCH_WARN via `sensemon` is D-1514); 
 **`show_glyph` `show_glyph_change` + `mention_map`→`a11y.glyph_updates` + 
 `docrt` `in_docrt` (D-1219; default Off; firstmatch via `auto_describe_text`; 
 **`gbuf_show_kind` occupancy/tty not Hallu `mon_glyph`/`obj_glyph`** D-1221; 
-integer glyph IDs / `GLYPH_NOTHING` vs UNEXPLORED / `in_getlev` / await-`newsym` More when On still 
-named; **D-1587 `mimic_light_blocking` See_invisible `block_point`/`unblock_point`**
+integer `GLYPH_*_OFF` / `map_monst` are D-1765; `GLYPH_NOTHING` vs
+UNEXPLORED on `clear_glyph_buffer`; `in_getlev` / await-`newsym` More when On /
+full gbuf-id classifier still named; **D-1587 `mimic_light_blocking` See_invisible `block_point`/`unblock_point`**
 (C `:1531–1540`; not `recalc_block_point`; `js/vision.js`; potion.c /
 timeout.c / polyself.c callers + `iter_mons` `mon_offmap` named))**
 

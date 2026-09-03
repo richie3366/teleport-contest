@@ -36,7 +36,8 @@ import {
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
     HI_GOLD, HI_METAL, HI_ZAP, HI_WOOD,
     WEB, TRAPNUM, BEAR_TRAP, NO_TRAP, is_pit,
-    trap_to_defsym, MAXTCHARS, explodecolors, NUM_ZAP,
+    trap_to_defsym, MAXTCHARS, explodecolors, NUM_ZAP, MAXEXPCHARS,
+    S_stone, S_vwall, S_trwall, S_ndoor, S_brdnladder, S_grave, S_altar,
     S_arrow_trap, S_web, S_vibrating_square,
     S_vbeam, S_hbeam, S_lslant, S_rslant,
     S_digbeam, S_flashbeam, S_boomleft, S_boomright,
@@ -49,6 +50,7 @@ import {
     In_quest,
     In_endgame,
     Is_knox_level,
+    Is_knox,
     Is_rogue_level,
     PRIMARYSET,
     ROGUESET,
@@ -123,6 +125,74 @@ const LAST_GLASS_GEM_OTYP = objectNames.indexOf('WORTHLESS_VIOLET_GLASS');
 const FIRST_SPELL_OTYP = objectNames.indexOf('SPE_DIG');
 const LAST_SPELL_OTYP = objectNames.indexOf('SPE_BLANK_PAPER');
 
+/*
+ * C display.h enum glyph_offsets `:497–546` + altar_types `:346–352`.
+ * Integer ids are the C gbuf encoding; tty still uses ch/color.
+ * Wall bank width is (S_trwall - S_vwall) + 1. cmap A is
+ * S_ndoor..S_brdnladder. Explosion banks are MAXEXPCHARS each.
+ */
+export const GLYPH_MON_OFF = 0;
+export const GLYPH_MON_MALE_OFF = GLYPH_MON_OFF;
+export const GLYPH_MON_FEM_OFF = NUMMONS + GLYPH_MON_MALE_OFF;
+export const GLYPH_PET_OFF = NUMMONS + GLYPH_MON_FEM_OFF;
+export const GLYPH_PET_MALE_OFF = GLYPH_PET_OFF;
+export const GLYPH_PET_FEM_OFF = NUMMONS + GLYPH_PET_MALE_OFF;
+export const GLYPH_INVIS_OFF = NUMMONS + GLYPH_PET_FEM_OFF;
+export const GLYPH_DETECT_OFF = 1 + GLYPH_INVIS_OFF;
+export const GLYPH_DETECT_MALE_OFF = GLYPH_DETECT_OFF;
+export const GLYPH_DETECT_FEM_OFF = NUMMONS + GLYPH_DETECT_MALE_OFF;
+export const GLYPH_BODY_OFF = NUMMONS + GLYPH_DETECT_FEM_OFF;
+export const GLYPH_RIDDEN_OFF = NUMMONS + GLYPH_BODY_OFF;
+export const GLYPH_RIDDEN_MALE_OFF = GLYPH_RIDDEN_OFF;
+export const GLYPH_RIDDEN_FEM_OFF = NUMMONS + GLYPH_RIDDEN_MALE_OFF;
+export const GLYPH_OBJ_OFF = NUMMONS + GLYPH_RIDDEN_FEM_OFF;
+export const GLYPH_CMAP_OFF = NUM_OBJECTS + GLYPH_OBJ_OFF;
+export const GLYPH_CMAP_STONE_OFF = GLYPH_CMAP_OFF;
+export const GLYPH_CMAP_MAIN_OFF = 1 + GLYPH_CMAP_STONE_OFF;
+const _GLYPH_WALL_SPAN = (S_trwall - S_vwall) + 1;
+export const GLYPH_CMAP_MINES_OFF = _GLYPH_WALL_SPAN + GLYPH_CMAP_MAIN_OFF;
+export const GLYPH_CMAP_GEH_OFF = _GLYPH_WALL_SPAN + GLYPH_CMAP_MINES_OFF;
+export const GLYPH_CMAP_KNOX_OFF = _GLYPH_WALL_SPAN + GLYPH_CMAP_GEH_OFF;
+export const GLYPH_CMAP_SOKO_OFF = _GLYPH_WALL_SPAN + GLYPH_CMAP_KNOX_OFF;
+export const GLYPH_CMAP_A_OFF = _GLYPH_WALL_SPAN + GLYPH_CMAP_SOKO_OFF;
+export const GLYPH_ALTAR_OFF = ((S_brdnladder - S_ndoor) + 1) + GLYPH_CMAP_A_OFF;
+export const GLYPH_CMAP_B_OFF = 5 + GLYPH_ALTAR_OFF;
+export const GLYPH_ZAP_OFF = (S_arrow_trap + MAXTCHARS - S_grave) + GLYPH_CMAP_B_OFF;
+export const GLYPH_CMAP_C_OFF = (NUM_ZAP << 2) + GLYPH_ZAP_OFF;
+export const GLYPH_SWALLOW_OFF = ((S_goodpos - S_digbeam) + 1) + GLYPH_CMAP_C_OFF;
+export const GLYPH_EXPLODE_OFF = (NUMMONS << 3) + GLYPH_SWALLOW_OFF;
+export const GLYPH_EXPLODE_DARK_OFF = GLYPH_EXPLODE_OFF;
+export const GLYPH_EXPLODE_NOXIOUS_OFF = MAXEXPCHARS + GLYPH_EXPLODE_DARK_OFF;
+export const GLYPH_EXPLODE_MUDDY_OFF = MAXEXPCHARS + GLYPH_EXPLODE_NOXIOUS_OFF;
+export const GLYPH_EXPLODE_WET_OFF = MAXEXPCHARS + GLYPH_EXPLODE_MUDDY_OFF;
+export const GLYPH_EXPLODE_MAGICAL_OFF = MAXEXPCHARS + GLYPH_EXPLODE_WET_OFF;
+export const GLYPH_EXPLODE_FIERY_OFF = MAXEXPCHARS + GLYPH_EXPLODE_MAGICAL_OFF;
+export const GLYPH_EXPLODE_FROSTY_OFF = MAXEXPCHARS + GLYPH_EXPLODE_FIERY_OFF;
+export const GLYPH_WARNING_OFF = MAXEXPCHARS + GLYPH_EXPLODE_FROSTY_OFF;
+export const GLYPH_STATUE_OFF = WARNCOUNT + GLYPH_WARNING_OFF;
+export const GLYPH_STATUE_MALE_OFF = GLYPH_STATUE_OFF;
+export const GLYPH_STATUE_FEM_OFF = NUMMONS + GLYPH_STATUE_MALE_OFF;
+export const GLYPH_PILETOP_OFF = NUMMONS + GLYPH_STATUE_FEM_OFF;
+export const GLYPH_OBJ_PILETOP_OFF = GLYPH_PILETOP_OFF;
+export const GLYPH_BODY_PILETOP_OFF = NUM_OBJECTS + GLYPH_OBJ_PILETOP_OFF;
+export const GLYPH_STATUE_MALE_PILETOP_OFF = NUMMONS + GLYPH_BODY_PILETOP_OFF;
+export const GLYPH_STATUE_FEM_PILETOP_OFF = NUMMONS + GLYPH_STATUE_MALE_PILETOP_OFF;
+export const GLYPH_UNEXPLORED_OFF = NUMMONS + GLYPH_STATUE_FEM_PILETOP_OFF;
+export const GLYPH_NOTHING_OFF = GLYPH_UNEXPLORED_OFF + 1;
+export const MAX_GLYPH = GLYPH_NOTHING_OFF + 1;
+export const NO_GLYPH = MAX_GLYPH;
+export const GLYPH_INVISIBLE = GLYPH_INVIS_OFF;
+export const GLYPH_UNEXPLORED = GLYPH_UNEXPLORED_OFF;
+export const GLYPH_NOTHING = GLYPH_NOTHING_OFF;
+export const GLYPH_TRAP_OFF = GLYPH_CMAP_B_OFF + (S_arrow_trap - S_grave);
+
+/* C display.h altar_types — unaligned, chaotic, neutral, lawful, other. */
+const altar_unaligned = 0;
+const altar_chaotic = 1;
+const altar_neutral = 2;
+const altar_lawful = 3;
+const altar_other = 4;
+
 /**
  * C ref: display.h obj_is_piletop — floor top with nexthere (boulder
  * exception: boulder hides pile unless next is also boulder).
@@ -196,7 +266,7 @@ function mon_map_attr(mtmp) {
  * Pet hilite wins; else MG_DETECT && use_inverse → ATR_INVERSE; else
  * wizard wizmgender female. Integer GLYPH_*_OFF ids still named.
  */
-function glyph_tty_attr(mtmp, kind) {
+export function glyph_tty_attr(mtmp, kind) {
     if (kind === 'pet' && hilite_pet_opt()) {
         const a = game.iflags?.wc2_petattr;
         return (a == null || a === 0) ? ATR_INVERSE : (a | 0);
@@ -321,14 +391,16 @@ function is_worm_tail(mon, x, y) {
 /**
  * C ref: display.h monnum_to_glyph / petnum_to_glyph /
  * detected_monnum_to_glyph tty: same mlet + mcolors (pet_color ≡
- * mon_color). Male/fem GLYPH_*_OFF still named (same letter on tty).
+ * mon_color). Male/fem GLYPH_*_OFF select the integer id (same letter
+ * on tty).
  */
-function glyph_from_mnum(mnum) {
+function glyph_from_mnum(mnum, offset, kind) {
     const n = mnum | 0;
     const ptr = n >= 0 ? mons(n) : null;
     const ch = MLET_CH[ptr?.mlet] || '?';
     const color = n >= 0 ? (mcolors[n] ?? CLR_GRAY) : CLR_GRAY;
-    return { ch, color, dec: false };
+    const off = offset | 0;
+    return { ch, color, dec: false, kind, glyph: n + off };
 }
 
 /**
@@ -338,11 +410,26 @@ function monsndx_mon(mon) {
     return (mon?.mnum ?? mon?.data?.mndx) | 0;
 }
 
+/** C display.h (mon)->female == 0 → male bank, else female. */
+function mon_glyph_female(mon) {
+    return (mon?.female | 0) !== 0;
+}
+
+/**
+ * C ref: mondata.h monsym — def_monsyms[mlet].sym. JS mlet is the
+ * MLET_CH key (S_GHOST → ' ').
+ */
+export function monsym(ptr) {
+    return MLET_CH[ptr?.mlet] || '?';
+}
+
 /**
  * C ref: display.h mon_to_glyph — what_mon(monsndx, rng) + GLYPH_MON_*_OFF.
  */
 export function mon_to_glyph(mon, rng = rn2_on_display_rng) {
-    return { ...glyph_from_mnum(what_mon(monsndx_mon(mon), rng)), kind: 'mon' };
+    const mnum = what_mon(monsndx_mon(mon), rng);
+    const off = mon_glyph_female(mon) ? GLYPH_MON_FEM_OFF : GLYPH_MON_MALE_OFF;
+    return glyph_from_mnum(mnum, off, 'mon');
 }
 
 /**
@@ -350,7 +437,9 @@ export function mon_to_glyph(mon, rng = rn2_on_display_rng) {
  * display.c display_monster `:603`; detect.c map_monst `:127`.
  */
 export function pet_to_glyph(mon, rng = rn2_on_display_rng) {
-    return { ...glyph_from_mnum(what_mon(monsndx_mon(mon), rng)), kind: 'pet' };
+    const mnum = what_mon(monsndx_mon(mon), rng);
+    const off = mon_glyph_female(mon) ? GLYPH_PET_FEM_OFF : GLYPH_PET_MALE_OFF;
+    return glyph_from_mnum(mnum, off, 'pet');
 }
 
 /**
@@ -358,10 +447,19 @@ export function pet_to_glyph(mon, rng = rn2_on_display_rng) {
  * Callers: display.c display_monster `:610`; detect.c map_monst `:125`.
  */
 export function detected_mon_to_glyph(mon, rng = rn2_on_display_rng) {
-    return {
-        ...glyph_from_mnum(what_mon(monsndx_mon(mon), rng)),
-        kind: 'detect',
-    };
+    const mnum = what_mon(monsndx_mon(mon), rng);
+    const off = mon_glyph_female(mon) ? GLYPH_DETECT_FEM_OFF : GLYPH_DETECT_MALE_OFF;
+    return glyph_from_mnum(mnum, off, 'detect');
+}
+
+/**
+ * C ref: display.h ridden_mon_to_glyph — what_mon + GLYPH_RIDDEN_*_OFF.
+ * display_self / maybe_display_usteed still named for the caller wire.
+ */
+export function ridden_mon_to_glyph(mon, rng = rn2_on_display_rng) {
+    const mnum = what_mon(monsndx_mon(mon), rng);
+    const off = mon_glyph_female(mon) ? GLYPH_RIDDEN_FEM_OFF : GLYPH_RIDDEN_MALE_OFF;
+    return glyph_from_mnum(mnum, off, 'ridden');
 }
 
 /**
@@ -369,8 +467,8 @@ export function detected_mon_to_glyph(mon, rng = rn2_on_display_rng) {
  * tame worm_tail `:601`). gnd selects PET_MALE/FEM_OFF; tty mlet ignores it.
  */
 export function petnum_to_glyph(mnum, gnd) {
-    void gnd;
-    return { ...glyph_from_mnum(mnum), kind: 'pet' };
+    const off = (gnd === FEMALE) ? GLYPH_PET_FEM_OFF : GLYPH_PET_MALE_OFF;
+    return glyph_from_mnum(mnum, off, 'pet');
 }
 
 /**
@@ -378,8 +476,24 @@ export function petnum_to_glyph(mnum, gnd) {
  * DETECTED worm_tail `:606–608` after what_mon(PM_LONG_WORM_TAIL).
  */
 export function detected_monnum_to_glyph(mnum, gnd) {
-    void gnd;
-    return { ...glyph_from_mnum(mnum), kind: 'detect' };
+    const off = (gnd === FEMALE) ? GLYPH_DETECT_FEM_OFF : GLYPH_DETECT_MALE_OFF;
+    return glyph_from_mnum(mnum, off, 'detect');
+}
+
+/**
+ * C ref: display.h monnum_to_glyph(mnum, gnd). Not what_mon / Hallu.
+ */
+export function monnum_to_glyph(mnum, gnd) {
+    const off = (gnd === FEMALE) ? GLYPH_MON_FEM_OFF : GLYPH_MON_MALE_OFF;
+    return glyph_from_mnum(mnum, off, 'mon');
+}
+
+/**
+ * C ref: display.h ridden_monnum_to_glyph(mnum, gnd).
+ */
+export function ridden_monnum_to_glyph(mnum, gnd) {
+    const off = (gnd === FEMALE) ? GLYPH_RIDDEN_FEM_OFF : GLYPH_RIDDEN_MALE_OFF;
+    return glyph_from_mnum(mnum, off, 'ridden');
 }
 
 /**
@@ -387,26 +501,192 @@ export function detected_monnum_to_glyph(mnum, gnd) {
  * (PM_LONG_WORM_TAIL, rn2_on_display_rng) then monnum_to_glyph.
  * Pet tails use petnum_to_glyph (no what_mon) in the tame arm.
  */
-function worm_tail_glyph() {
-    return glyph_from_mnum(what_mon(PM_LONG_WORM_TAIL, rn2_on_display_rng));
+function worm_tail_glyph(gnd) {
+    const mnum = what_mon(PM_LONG_WORM_TAIL, rn2_on_display_rng);
+    return monnum_to_glyph(mnum, gnd);
 }
 
 /**
  * C ref: display.h detected_monnum_to_glyph / petnum_to_glyph /
  * monnum_to_glyph then display.c show_glyph. Caller worm.c detect_wsegs
  * `:509–516`. tty: MG_PET + hilite_pet → mon_map_attr; MG_DETECT +
- * use_inverse → ATR_INVERSE. Named: male/fem glyph offsets (same mlet
- * on tty).
+ * use_inverse → ATR_INVERSE.
  */
 export function show_wseg_detect_glyph(x, y, mnum, worm, use_detection_glyph) {
-    const g = monnum_to_display_glyph(mnum);
+    const gnd = worm?.female ? FEMALE : MALE;
+    let g;
     let attr = 0;
     if (use_detection_glyph) {
+        g = detected_monnum_to_glyph(mnum, gnd);
         if (use_inverse_opt()) attr = ATR_INVERSE;
     } else if (worm?.mtame) {
+        g = petnum_to_glyph(mnum, gnd);
         attr = mon_map_attr(worm);
+    } else {
+        g = monnum_to_glyph(mnum, gnd);
     }
-    show_glyph_cell(x, y, g.ch, g.color, false, attr);
+    show_glyph_cell(x, y, g.ch, g.color, false, attr, g.glyph);
+}
+
+/**
+ * C display.h cmap_walls_to_glyph — bank by dungeon branch. In_hell is
+ * the hellish dungeon flag (no third In_hell clone).
+ */
+function cmap_walls_to_glyph(cmap_idx) {
+    const uz = game.u?.uz;
+    let off = GLYPH_CMAP_MAIN_OFF;
+    if (In_mines(uz)) off = GLYPH_CMAP_MINES_OFF;
+    else if (game.dungeons?.[uz?.dnum | 0]?.flags?.hellish) off = GLYPH_CMAP_GEH_OFF;
+    else if (Is_knox(uz)) off = GLYPH_CMAP_KNOX_OFF;
+    else if (In_sokoban(uz)) off = GLYPH_CMAP_SOKO_OFF;
+    return ((cmap_idx | 0) - S_vwall) + off;
+}
+
+/**
+ * C display.h altar_to_glyph(amsk) — SANCTUM other, else AM_MASK.
+ */
+export function altar_to_glyph(amsk) {
+    const mask = amsk | 0;
+    let idx = altar_unaligned;
+    if ((mask & AM_SANCTUM) === AM_SANCTUM) idx = altar_other;
+    else if ((mask & AM_MASK) === AM_LAWFUL) idx = altar_lawful;
+    else if ((mask & AM_MASK) === AM_NEUTRAL) idx = altar_neutral;
+    else if ((mask & AM_MASK) === AM_CHAOTIC) idx = altar_chaotic;
+    return GLYPH_ALTAR_OFF + idx;
+}
+
+/**
+ * C display.h cmap_to_glyph(cmap_idx). Swallow/expl idx > S_goodpos is
+ * NO_GLYPH (those use swallow_to_glyph / explosion_to_glyph).
+ */
+export function cmap_to_glyph(cmap_idx) {
+    const idx = cmap_idx | 0;
+    if (idx === S_stone) return GLYPH_CMAP_STONE_OFF;
+    if (idx <= S_trwall) return cmap_walls_to_glyph(idx);
+    if (idx < S_altar) return (idx - S_ndoor) + GLYPH_CMAP_A_OFF;
+    if (idx === S_altar) return altar_to_glyph(AM_NEUTRAL);
+    if (idx < S_arrow_trap + MAXTCHARS) return (idx - S_grave) + GLYPH_CMAP_B_OFF;
+    if (idx <= S_goodpos) return (idx - S_digbeam) + GLYPH_CMAP_C_OFF;
+    return NO_GLYPH;
+}
+
+/** C display.h warning_to_glyph. */
+export function warning_to_glyph(mwarnlev) {
+    return (mwarnlev | 0) + GLYPH_WARNING_OFF;
+}
+
+/** C display.h objnum_to_glyph — otyp + GLYPH_OBJ_OFF, not Hallu. */
+export function objnum_to_glyph(onum) {
+    return (onum | 0) + GLYPH_OBJ_OFF;
+}
+
+function explosion_glyph_off(expltyp) {
+    const et = expltyp | 0;
+    if (et === EXPL_FROSTY) return GLYPH_EXPLODE_FROSTY_OFF;
+    if (et === EXPL_MAGICAL) return GLYPH_EXPLODE_MAGICAL_OFF;
+    if (et === EXPL_WET) return GLYPH_EXPLODE_WET_OFF;
+    if (et === EXPL_MUDDY) return GLYPH_EXPLODE_MUDDY_OFF;
+    if (et === EXPL_NOXIOUS) return GLYPH_EXPLODE_NOXIOUS_OFF;
+    return GLYPH_EXPLODE_FIERY_OFF;
+}
+
+function glyph_id(glyph) {
+    return typeof glyph === 'number' ? (glyph | 0) : null;
+}
+
+/* C display.h glyph_is_* — integer gbuf ids. Missing JS id is not 0. */
+export function glyph_is_normal_male_monster(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_MON_MALE_OFF && g < GLYPH_MON_MALE_OFF + NUMMONS;
+}
+export function glyph_is_normal_female_monster(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_MON_FEM_OFF && g < GLYPH_MON_FEM_OFF + NUMMONS;
+}
+export function glyph_is_normal_monster(glyph) {
+    return glyph_is_normal_male_monster(glyph) || glyph_is_normal_female_monster(glyph);
+}
+export function glyph_is_male_pet(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_PET_MALE_OFF && g < GLYPH_PET_MALE_OFF + NUMMONS;
+}
+export function glyph_is_female_pet(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_PET_FEM_OFF && g < GLYPH_PET_FEM_OFF + NUMMONS;
+}
+export function glyph_is_pet(glyph) {
+    return glyph_is_male_pet(glyph) || glyph_is_female_pet(glyph);
+}
+export function glyph_is_ridden_male_monster(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_RIDDEN_MALE_OFF && g < GLYPH_RIDDEN_MALE_OFF + NUMMONS;
+}
+export function glyph_is_ridden_female_monster(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_RIDDEN_FEM_OFF && g < GLYPH_RIDDEN_FEM_OFF + NUMMONS;
+}
+export function glyph_is_ridden_monster(glyph) {
+    return glyph_is_ridden_male_monster(glyph) || glyph_is_ridden_female_monster(glyph);
+}
+export function glyph_is_detected_male_monster(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_DETECT_MALE_OFF && g < GLYPH_DETECT_MALE_OFF + NUMMONS;
+}
+export function glyph_is_detected_female_monster(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_DETECT_FEM_OFF && g < GLYPH_DETECT_FEM_OFF + NUMMONS;
+}
+export function glyph_is_detected_monster(glyph) {
+    return glyph_is_detected_male_monster(glyph)
+        || glyph_is_detected_female_monster(glyph);
+}
+export function glyph_is_monster(glyph) {
+    return glyph_is_normal_monster(glyph) || glyph_is_pet(glyph)
+        || glyph_is_ridden_monster(glyph) || glyph_is_detected_monster(glyph);
+}
+export function glyph_is_invisible_id(glyph) {
+    return typeof glyph === 'number' && (glyph | 0) === GLYPH_INVISIBLE;
+}
+export function glyph_is_trap(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_TRAP_OFF && g < GLYPH_TRAP_OFF + MAXTCHARS;
+}
+export function glyph_is_warning(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_WARNING_OFF && g < GLYPH_WARNING_OFF + WARNCOUNT;
+}
+export function glyph_is_unexplored(glyph) {
+    return typeof glyph === 'number' && (glyph | 0) === GLYPH_UNEXPLORED;
+}
+export function glyph_is_nothing(glyph) {
+    return typeof glyph === 'number' && (glyph | 0) === GLYPH_NOTHING;
+}
+export function glyph_is_cmap(glyph) {
+    const g = glyph_id(glyph);
+    return g != null && g >= GLYPH_CMAP_STONE_OFF
+        && g < (GLYPH_CMAP_C_OFF + ((S_goodpos - S_digbeam) + 1));
+}
+
+/**
+ * C display.h glyph_to_mon — peel the bank; NUMMONS if not a monster id.
+ */
+export function glyph_to_mon(glyph) {
+    const g = glyph_id(glyph);
+    if (g == null) return NUMMONS;
+    if (glyph_is_normal_female_monster(g)) return g - GLYPH_MON_FEM_OFF;
+    if (glyph_is_normal_male_monster(g)) return g - GLYPH_MON_MALE_OFF;
+    if (glyph_is_female_pet(g)) return g - GLYPH_PET_FEM_OFF;
+    if (glyph_is_male_pet(g)) return g - GLYPH_PET_MALE_OFF;
+    if (glyph_is_detected_female_monster(g)) return g - GLYPH_DETECT_FEM_OFF;
+    if (glyph_is_detected_male_monster(g)) return g - GLYPH_DETECT_MALE_OFF;
+    if (glyph_is_ridden_female_monster(g)) return g - GLYPH_RIDDEN_FEM_OFF;
+    if (glyph_is_ridden_male_monster(g)) return g - GLYPH_RIDDEN_MALE_OFF;
+    return NUMMONS;
+}
+
+function attach_glyph(g, glyph) {
+    if (g) g.glyph = glyph | 0;
+    return g;
 }
 
 // C ref: display.h _mon_visible — invis/undetected only (caller handles sight)
@@ -688,6 +968,7 @@ function maybe_overlay_visible_region(x, y, show) {
 function display_warning(mon) {
     if (!mon) return;
     let ch, color, attr = 0;
+    let glyph;
     if (mon_warning(mon)) {
         // C: Hallucination ? rn2_on_display_rng(WARNCOUNT-1)+1 : warning_of(mon)
         const wl = game.u?.Hallucination
@@ -697,16 +978,18 @@ function display_warning(mon) {
         if (!sym) return;
         ch = sym.ch;
         color = sym.color;
+        glyph = warning_to_glyph(wl);
     } else if (MATCH_WARN_OF_MON(mon)) {
-        const mg = mon_glyph(mon);
+        const mg = mon_to_glyph(mon);
         ch = mg.ch;
         color = mg.color;
         attr = mon_map_attr(mon);
+        glyph = mg.glyph;
     } else {
         // C: impossible("display_warning did not match warning type?");
         return;
     }
-    show_mon_or_warn(mon.mx, mon.my, ch, color, false, attr);
+    show_mon_or_warn(mon.mx, mon.my, ch, color, false, attr, glyph);
 }
 
 /** C ref: display.h canspotmon — canseemon || sensemon. */
@@ -727,11 +1010,12 @@ export function map_invisible(x, y) {
     if (game.level?.flags?.hero_memory) {
         loc.remembered_glyph = g;
     }
-    show_glyph_cell(x, y, 'I', NO_COLOR, false);
+    show_glyph_cell(x, y, 'I', NO_COLOR, false, 0, GLYPH_INVISIBLE);
 }
 
-/** C ref: display.h glyph_is_invisible — remembered unseen-monster marker. */
+/** C ref: display.h glyph_is_invisible — gbuf id or remembered I marker. */
 export function glyph_is_invisible(loc) {
+    if (loc?.disp_glyph === GLYPH_INVISIBLE) return true;
     return !!loc?.remembered_glyph?.invisible;
 }
 
@@ -815,7 +1099,7 @@ export function unmap_invisible(x, y) {
  * display_warning. Mimic furniture/object/monster arms use
  * show_glyph / map_object directly.
  */
-function show_mon_or_warn(x, y, ch, color, decgfx = false, attr = 0) {
+function show_mon_or_warn(x, y, ch, color, decgfx = false, attr = 0, glyph) {
     const loc = game.level?.at(x, y);
     if (glyph_is_invisible(loc)) {
         unmap_object(x, y);
@@ -825,7 +1109,7 @@ function show_mon_or_warn(x, y, ch, color, decgfx = false, attr = 0) {
             if (o) map_object(o, false);
         }
     }
-    show_glyph_cell(x, y, ch, color, decgfx, attr);
+    show_glyph_cell(x, y, ch, color, decgfx, attr, glyph);
 }
 
 // C ref: youprop.h Infravision — race intrinsic via set_uasmon/mons[urace]
@@ -977,8 +1261,7 @@ export function what_mon(mon, rng = rn2_on_display_rng) {
 // C ref: display.c map_glyph / mon_color / pet_color — per-species mcolor.
 // C ref: display.h mon_to_glyph — what_mon(monsndx(mon->data), rng).
 export function mon_glyph(mtmp) {
-    const g = mon_to_glyph(mtmp, rn2_on_display_rng);
-    return { ch: g.ch, color: g.color };
+    return mon_to_glyph(mtmp, rn2_on_display_rng);
 }
 
 /**
@@ -1006,7 +1289,7 @@ function mimic_object_appearance_glyph(mtmp) {
  * Trap/zap/cmap-C (S_arrow_trap..S_goodpos) via defsym.h PCHAR.
  * Named: drawbridge cmap 42–45; swallow cmap; integer glyph IDs.
  */
-export function cmap_idx_to_glyph(cmap_idx) {
+function cmap_idx_to_tty(cmap_idx) {
     const idx = cmap_idx | 0;
     const dec = use_decgraphics();
     if (idx >= S_STONE && idx <= S_TRWALL) {
@@ -1100,6 +1383,14 @@ export function cmap_idx_to_glyph(cmap_idx) {
 }
 
 /**
+ * C display.h cmap_to_glyph tty + integer id on `.glyph`.
+ */
+export function cmap_idx_to_glyph(cmap_idx) {
+    const idx = cmap_idx | 0;
+    return attach_glyph(cmap_idx_to_tty(idx), cmap_to_glyph(idx));
+}
+
+/**
  * C defsym.h PCHAR 49–87: traps, zap beams, cmap C (dig/flash/boom/
  * shield/poisoncloud/goodpos). cmap_to_glyph uses cmap_b then cmap_c.
  * idx > S_goodpos is NO_GLYPH in C (swallow/expl use other macros).
@@ -1169,14 +1460,19 @@ export function explosion_to_glyph(expltyp, idx) {
     else if (et === EXPL_MUDDY) color = CLR_BROWN;
     else if (et === EXPL_NOXIOUS) color = CLR_GREEN;
     else color = explodecolors[EXPL_FIERY] ?? CLR_ORANGE;
+    const glyph = (idx | 0) - S_expl_tl + explosion_glyph_off(et);
     if (use_decgraphics()) {
-        if ((idx | 0) === S_expl_tc) return { ch: 'o', color, dec: true };
-        if ((idx | 0) === S_expl_ml || (idx | 0) === S_expl_mr) {
-            return { ch: 'x', color, dec: true };
+        if ((idx | 0) === S_expl_tc) {
+            return { ch: 'o', color, dec: true, glyph };
         }
-        if ((idx | 0) === S_expl_bc) return { ch: 's', color, dec: true };
+        if ((idx | 0) === S_expl_ml || (idx | 0) === S_expl_mr) {
+            return { ch: 'x', color, dec: true, glyph };
+        }
+        if ((idx | 0) === S_expl_bc) {
+            return { ch: 's', color, dec: true, glyph };
+        }
     }
-    return { ch, color, dec: false };
+    return { ch, color, dec: false, glyph };
 }
 
 /** C display.c display_monster `:498–499`. */
@@ -1200,9 +1496,9 @@ const PHYSICALLY_SEEN = 1;
  * !Hallucination → pet_to_glyph / petnum_to_glyph (no what_mon on tails);
  * else DETECTED → detected_mon_to_glyph / detected_monnum_to_glyph
  * (what_mon tail); else mon_to_glyph / worm_tail what_mon. tty MG_PET
- * vs MG_DETECT via glyph_tty_attr. Named: integer GLYPH_*_OFF ids;
- * male/fem offsets (same mlet on tty); detect.c map_monst;
- * ridden_mon_to_glyph.
+ * vs MG_DETECT via glyph_tty_attr. Integer GLYPH_*_OFF + male/fem
+ * banks (D-1765; same mlet on tty). detect.c map_monst is D-1765.
+ * Named: ridden_mon_to_glyph display_self/usteed wire.
  */
 function display_monster(x, y, mon, sightflags, worm_tail) {
     const ap = (mon.m_ap_type | 0) & M_AP_TYPMASK;
@@ -1219,7 +1515,7 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
             // C `:539–540` — mon_to_glyph(mon, newsym_rn2), not worm_tail.
             const mg = mon_to_glyph(mon, rn2_on_display_rng);
             show_glyph_cell(x, y, mg.ch, mg.color, false,
-                glyph_tty_attr(mon, mg.kind));
+                glyph_tty_attr(mon, mg.kind), mg.glyph);
             break;
         }
         case M_AP_FURNITURE: {
@@ -1231,7 +1527,7 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
                 };
             }
             if (!sensed) {
-                show_glyph_cell(x, y, g.ch, g.color, !!g.dec);
+                show_glyph_cell(x, y, g.ch, g.color, !!g.dec, 0, g.glyph);
                 const lst = ensure_lastseentyp();
                 lst[x][y] = cmap_to_type(sym);
             }
@@ -1255,8 +1551,8 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
             // C `:579–584` — appearance mndx, not the live species.
             // monnum_to_glyph(mndx, mgendercode); tty mlet ignores gnd.
             const mndx = what_mon(mon.mappearance | 0, rn2_on_display_rng);
-            const mg = monnum_to_display_glyph(mndx);
-            show_glyph_cell(x, y, mg.ch, mg.color, false);
+            const mg = monnum_to_glyph(mndx, mgendercode);
+            show_glyph_cell(x, y, mg.ch, mg.color, false, 0, mg.glyph);
             break;
         }
         }
@@ -1276,12 +1572,12 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
                     mgendercode)
                 : detected_mon_to_glyph(mon, rn2_on_display_rng);
         } else if (worm_tail) {
-            mg = { ...worm_tail_glyph(), kind: 'mon' };
+            mg = worm_tail_glyph(mgendercode);
         } else {
             mg = mon_to_glyph(mon, rn2_on_display_rng);
         }
         show_mon_or_warn(x, y, mg.ch, mg.color, false,
-            glyph_tty_attr(mon, mg.kind));
+            glyph_tty_attr(mon, mg.kind), mg.glyph);
         mon.meverseen = 1;
     }
 }
@@ -1296,15 +1592,14 @@ function objnum_to_display_glyph(onum) {
     let ch = DEF_OC_SYM[oclass] || ']';
     if (oclass === COIN_CLASS) ch = game._goldsym || ch;
     const color = def?.oc_color ?? NO_COLOR;
-    return { ch, color, dec: false };
+    return { ch, color, dec: false, glyph: objnum_to_glyph(onum) };
 }
 
 /**
  * C ref: display.h monnum_to_glyph(mnum, Ugender). Not what_mon / Hallu.
- * Named: male/fem glyph offsets (same mlet on tty).
  */
-function monnum_to_display_glyph(mnum) {
-    return glyph_from_mnum(mnum);
+function monnum_to_display_glyph(mnum, gnd = MALE) {
+    return monnum_to_glyph(mnum, gnd);
 }
 
 /**
@@ -1320,7 +1615,8 @@ function hero_glyph() {
     const ptr = mons(mnum);
     const ch = MLET_CH[ptr?.mlet] || '@';
     const color = (mnum >= 0) ? (mcolors[mnum] ?? CLR_GRAY) : CLR_WHITE;
-    return { ch, color, dec: false };
+    const gnd = (Upolyd(u) ? !!u.mfemale : !!flags.female) ? FEMALE : MALE;
+    return { ...monnum_to_glyph(mnum, gnd), ch, color, dec: false };
 }
 
 /**
@@ -1337,7 +1633,12 @@ function hero_display_glyph() {
     if (ap === M_AP_NOTHING) return hero_glyph();
     if (ap === M_AP_FURNITURE) return cmap_idx_to_glyph(you.mappearance | 0);
     if (ap === M_AP_OBJECT) return objnum_to_display_glyph(you.mappearance | 0);
-    // else M_AP_MONSTER
+    if (ap === M_AP_MONSTER) {
+        const u = game.u || {};
+        const gnd = (Upolyd(u) ? !!u.mfemale : !!game.flags?.female)
+            ? FEMALE : MALE;
+        return monnum_to_display_glyph(you.mappearance | 0, gnd);
+    }
     return monnum_to_display_glyph(you.mappearance | 0);
 }
 
@@ -1349,7 +1650,8 @@ export function display_self() {
     const u = game.u;
     if (!u) return;
     const hg = hero_display_glyph();
-    show_glyph_cell(u.ux | 0, u.uy | 0, hg.ch, hg.color, !!hg.dec, hero_map_attr());
+    show_glyph_cell(u.ux | 0, u.uy | 0, hg.ch, hg.color, !!hg.dec, hero_map_attr(),
+        hg.glyph);
 }
 
 // C ref: display.h covers_objects — is_pool && !Underwater, or lava.
@@ -1411,7 +1713,7 @@ export function map_trap(trap, show) {
     if (game.level?.flags?.hero_memory) {
         loc.remembered_glyph = { ch: g.ch, color: g.color, decgfx: g.decgfx };
     }
-    if (show) show_glyph_cell(x, y, g.ch, g.color, g.decgfx);
+    if (show) show_glyph_cell(x, y, g.ch, g.color, g.decgfx, 0, tg.glyph);
 }
 
 /**
@@ -1552,7 +1854,7 @@ export function map_object(obj, show) {
             loc.remembered_glyph = mem;
         }
     }
-    if (show) show_glyph_cell(x, y, og.ch, og.color, !!og.dec, attr);
+    if (show) show_glyph_cell(x, y, og.ch, og.color, !!og.dec, attr, og.glyph);
 }
 
 /**
@@ -1589,6 +1891,9 @@ function tty_map_color(color) {
 // C ref: display.c map_object / display.h obj_to_glyph + mon_color for corpses
 // C ref: display.h statue_to_glyph / Hallucination → random_obj_to_glyph
 export function obj_glyph(obj) {
+    const pile = obj_is_piletop(obj);
+    const objOff = pile ? GLYPH_OBJ_PILETOP_OFF : GLYPH_OBJ_OFF;
+    const bodyOff = pile ? GLYPH_BODY_PILETOP_OFF : GLYPH_BODY_OFF;
     // C display.h: obj_to_glyph Hallu → random_obj_to_glyph (statue separate)
     if (game.u?.Hallucination && obj?.otyp !== STATUE_OTYP) {
         // random_object: rn2(NUM_OBJECTS - FIRST_OBJECT) + FIRST_OBJECT
@@ -1599,12 +1904,15 @@ export function obj_glyph(obj) {
             const ptr = mons(mnum);
             const ch = MLET_CH[ptr?.mlet] || '%';
             const color = mcolors[mnum] ?? NO_COLOR;
-            return { ch, color, dec: false };
+            return { ch, color, dec: false, glyph: mnum + GLYPH_BODY_OFF };
         }
         const def = game.objects?.[otyp];
         const oclass = def?.oc_class ?? ILLOBJ_CLASS;
         const ch = DEF_OC_SYM[oclass] || ']';
-        return { ch, color: def?.oc_color ?? NO_COLOR, dec: false };
+        return {
+            ch, color: def?.oc_color ?? NO_COLOR, dec: false,
+            glyph: otyp + GLYPH_OBJ_OFF,
+        };
     }
     const def = game.objects?.[obj.otyp];
     const oclass = obj.oclass ?? def?.oc_class ?? ILLOBJ_CLASS;
@@ -1615,30 +1923,39 @@ export function obj_glyph(obj) {
             const mnum = rn2_on_display_rng(NUMMONS);
             const ptr = mons(mnum);
             const ch = MLET_CH[ptr?.mlet] || '?';
-            rn2_on_display_rng(2); // C: gender glyph pick (male/fem offset)
+            // C: (!(rng)(2)) ? MON_MALE_OFF : MON_FEM_OFF
+            const off = rn2_on_display_rng(2)
+                ? GLYPH_MON_FEM_OFF : GLYPH_MON_MALE_OFF;
             const color = def?.oc_color ?? CLR_WHITE;
-            return { ch, color, dec: false };
+            return { ch, color, dec: false, glyph: mnum + off };
         }
         if (obj.corpsenm != null && obj.corpsenm >= 0) {
             const ptr = mons(obj.corpsenm);
             const ch = MLET_CH[ptr?.mlet] || '?';
             const color = def?.oc_color ?? CLR_WHITE;
-            return { ch, color, dec: false };
+            const fem = ((obj.spe | 0) & CORPSTAT_GENDER) === CORPSTAT_FEMALE;
+            const off = fem
+                ? (pile ? GLYPH_STATUE_FEM_PILETOP_OFF : GLYPH_STATUE_FEM_OFF)
+                : (pile ? GLYPH_STATUE_MALE_PILETOP_OFF : GLYPH_STATUE_MALE_OFF);
+            return { ch, color, dec: false, glyph: (obj.corpsenm | 0) + off };
         }
     }
     const ch = DEF_OC_SYM[oclass] || ']';
     // C: body glyphs use mon_color(corpsenm), not objects[CORPSE].oc_color
     if (obj.otyp === CORPSE_OTYP && obj.corpsenm != null && obj.corpsenm >= 0) {
         const color = mcolors[obj.corpsenm] ?? def?.oc_color ?? NO_COLOR;
-        return { ch, color, dec: false };
+        return { ch, color, dec: false, glyph: (obj.corpsenm | 0) + bodyOff };
     }
     // C: generic_obj_to_glyph → objects[oclass] (GENERIC_POTION etc.)
     if (obj_is_generic(obj)) {
         const gen = game.objects?.[oclass];
-        return { ch, color: gen?.oc_color ?? NO_COLOR, dec: false };
+        return {
+            ch, color: gen?.oc_color ?? NO_COLOR, dec: false,
+            glyph: (oclass | 0) + objOff,
+        };
     }
     const color = def?.oc_color ?? NO_COLOR;
-    return { ch, color, dec: false };
+    return { ch, color, dec: false, glyph: (obj.otyp | 0) + objOff };
 }
 
 // C ref: wintty.h / topl.c — topline --More-- state
@@ -2728,9 +3045,9 @@ function cell_shows_displayed_monster(mtmp, x, y) {
 /**
  * C display.c show_glyph — glyph_is_* / glyph_to_cmap inspect the
  * already-chosen glyph id (what_mon / random_obj already ran in newsym).
- * JS has no integer IDs. Classify occupancy + tty without re-calling
- * mon_glyph / obj_glyph (Hallu rn2_on_display_rng; D-1221 / review 181).
- * Named: full cmap_to_glyph / GLYPH_NOTHING vs UNEXPLORED IDs.
+ * Integer ids live on loc.disp_glyph (D-1765); kind still occupancy + tty
+ * without re-calling mon_glyph / obj_glyph (Hallu; D-1221).
+ * Named: full gbuf-id classifier / in_getlev More.
  */
 function gbuf_show_kind(x, y, ch, color, decgfx, loc) {
     if (ch === 'I' && !decgfx) return 'invisible';
@@ -2866,7 +3183,7 @@ async function emit_show_glyph_change(x, y) {
  * Async only yields when mention_map/glyph_updates fires (default Off).
  * Classifier does not re-roll Hallu (D-1221).
  */
-export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false, attr = 0) {
+export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false, attr = 0, glyph) {
     const loc = game.level?.at(x, y);
     if (!loc) return;
     // C reset_glyphmap: (GMAP_ROGUELEVEL && !has_rogue_color) → NO_COLOR
@@ -2883,6 +3200,8 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     loc.disp_decgfx = !!decgfx;
     loc.disp_attr = attr | 0;
     loc.disp_kind = kind;
+    if (glyph != null) loc.disp_glyph = glyph | 0;
+    else if (ch === 'I' && !decgfx) loc.disp_glyph = GLYPH_INVISIBLE;
     loc.gnew = 1;
     if (announce) await emit_show_glyph_change(x, y);
 }
@@ -4057,7 +4376,11 @@ export function see_traps() {
         const y = trap.ty | 0;
         const loc = game.level?.at(x, y);
         // C: if (glyph_is_trap(_glyph_at(tx, ty))) newsym(...)
-        if (loc?.disp_kind !== 'trap') return;
+        if (loc?.disp_glyph != null) {
+            if (!glyph_is_trap(loc.disp_glyph)) return;
+        } else if (loc?.disp_kind !== 'trap') {
+            return;
+        }
         newsym(x, y);
     }
     for (let trap = game.ftrap; trap; trap = trap.ntrap) maybe_redraw(trap);
@@ -4855,6 +5178,7 @@ export function clear_glyph_buffer() {
             loc.disp_decgfx = false;
             loc.disp_attr = 0;
             loc.disp_kind = 'unexplored';
+            loc.disp_glyph = GLYPH_UNEXPLORED;
             loc.gnew = 0;
         }
     }

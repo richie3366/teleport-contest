@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1765 | fixed | display.h GLYPH_*_OFF / detect.c map_monst | map-driven Open from D-1764; C `display.h` `:497–546` integer offsets + `detect.c` `map_monst` `:124–128` monsym/`mtame` ternary; JS `{ch,color}` + always `mon_glyph`; live `js/display.js`+`js/detect.js`; named: `ridden_mon_to_glyph` usteed, swallow cmap, `map_glyphinfo`; pet/detected tty is D-1748 |
 | D-1764 | fixed | teleport.c level_tele heaven u_left_shop / escape | map-driven Open from D-1763; C `:1321–1385` `u_left_shop(ushops0,TRUE)` then heaven/Cloud 9/fly-or-plummet/`done(DIED)`/dlevel 0; `goto_level` `:1517–1519` `done(ESCAPED)`; JS shudder stub + silent ledger return; live `js/teleport.js`+`js/do.js`; named: `lev_by_name`, Nowhere yn, Quest·mines·sanctum clamp, invoked gate; u_left_shop body is D-1733 |
 | D-1763 | fixed | sounds.c beg | map-driven Open from D-1762; C `beg` `:518–542` helpless/diet then animal `domonnoise` / humanoid I-glyph+SetVoice+verbalize / middle famished; JS missing; live `js/sounds.js`; named: `dog_hunger` wire, `peacefuls_respond`/MS_ARREST Halt; maybe_gasp is D-1762 |
 | D-1762 | fixed | sounds.c maybe_gasp | map-driven Open from D-1761; C `maybe_gasp` `:545–610` Exclam `ROLL_FROM` / NULL after guardian/priest/angel rewrite + msound switch; JS missing; live `js/sounds.js`; named: `beg`, `peacefuls_respond`/MS_ARREST Halt, SND_SPEECH body; sound_speak is D-1761 |
