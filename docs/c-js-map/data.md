@@ -34,8 +34,7 @@ C `obj.h` `:260–268` WEAPON_CLASS `oc_skill` `-P_SHURIKEN`..`-P_BOW`, or
 `permapoisoned` Grimtooth; live `js/objects.js` + `artifact.c`
 `permapoisoned` `js/artifact.js`; `mksobj_init` quan/`opoisoned` + end
 force; xname prefix; potion_dip; poly_obj keep; readobjnam `"poisoned "`
-+ FOOD age=1 + post-oname Grimtooth; clones retired); detect
-`sense_trap` quan named; mthrowu/uhitm poison combat / nhlobj lua named
++ FOOD age=1 + post-oname Grimtooth; clones retired); mthrowu/uhitm poison combat / nhlobj lua named
 
 ### `include/monsters.h`
 

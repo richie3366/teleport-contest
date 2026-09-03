@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1753 detect.c sense_trap / display_trap_map
+
+**Objective:** Open `detect.c` sense_trap (named). Not monster_detect.
+**C locus:** `detect.c` `sense_trap` `:864–897`; `detect_obj_traps`
+`:904–953`; `display_trap_map` `:955–1003`; `trap_detect` `:1010–1088`;
+`findone` `:1674`/`:1683`. `display.h` `random_object`/`random_monster`.
+**JS locus:** `js/detect.js`; `js/display.js` `random_object`;
+`js/hack.js` `closed_door` export.
+**Change:** Hallu/cursed fake GOLD/`random_object(rn2)` quan +
+`corpsenm`; `display_trap_map` unconstrain/reconstrain; chests/doors/
+`strange_feeling`; findone trap/door/chest. flash/`foundone` named.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `detect.c:sense_trap`; node 13/13;
+green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+Rule #2 clean.
+**Next:** Open `end.c` companion pet HP score.
+**Blocked:** none.
+
 ## 2026-09-03 — D-1752 sounds.c set_voice / sndprocs.h SetVoice
 
 **Objective:** Open `sounds.c` set_voice / SetVoice (named). Not

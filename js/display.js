@@ -951,9 +951,18 @@ export function glyph_is_swallow_at(x, y) {
 
 /**
  * C ref: display.h random_monster — (*rng)(NUMMONS).
+ * sense_trap / obj_to_glyph pass gameplay rn2 or display rng.
  */
-function random_monster(rng = rn2_on_display_rng) {
+export function random_monster(rng = rn2_on_display_rng) {
     return rng(NUMMONS);
+}
+
+/**
+ * C ref: display.h random_object — (*rng)(NUM_OBJECTS - FIRST_OBJECT)
+ * + FIRST_OBJECT. Caller passes rn2 (sense_trap) or display rng.
+ */
+export function random_object(rng = rn2_on_display_rng) {
+    return rng(NUM_OBJECTS - FIRST_OBJECT) + FIRST_OBJECT;
 }
 
 /**

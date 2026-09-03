@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `sounds.c` set_voice / SetVoice (named). Not doseduce. **Addressed:** D-1752
+- [x] `detect.c` sense_trap (named). Not monster_detect. **Addressed:** D-1753
+
+
+- [x] `sounds.c` set_voice / SetVoice (named). Not doseduce. **Addressed:** D-1752 `1e18143c`
 
 
 - [x] `dokick.c` hidden_gold(TRUE) kick (named). Not vault hidden_gold. **Addressed:** D-1751 `97f49d11`

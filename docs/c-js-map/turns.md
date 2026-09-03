@@ -101,7 +101,11 @@ optfn_boolean `sanity_check` OPTIONS=; `doredraw` body; wizweight.
 JS: `js/detect.js` — partial
 
 **8-neighbour SDOOR/SCORR/trap find + fund (lenses)** + `find_trap` message (D-0062); 
-**`findit`/`findone` SDOOR/SCORR/unseen traps + hero `do_clear_area`** (D-0074); 
+**`findit`/`findone` SDOOR/SCORR/unseen traps + hero `do_clear_area`** (D-0074) +
+**`sense_trap` Hallu/cursed GOLD/`random_object` quan + `display_trap_map` /
+`detect_obj_traps` / `trap_detect` strange_feeling** (D-1753;
+`findone` trap/door/chest `sense_trap`; `level.traps` as `ftrap`;
+flash/`foundone`/mimic/hider still named); 
 **`do_mapping`/`show_map_spot` hero_memory + `magic_map_background`** (D-0075) + 
 **`show_map_spot` tseen → `map_trap(t,1)` not `newsym`** (D-0814) + 
 **`show_map_spot` `engr_at` → `map_engraving` when !furniture && !tseen trap** (D-0928 #1158; 
@@ -118,8 +122,8 @@ set_msg_xy / via_warning flush deferred);
 **`dosearch0` Blind/`visible_region_at` → `feel_location` + 
 SDOOR `feel_location` / SCORR `feel_newsym` + `!Blind` `unmap_invisible`** (D-0928 #1184; 
 prop Blind not sticky); omit Hallucination/cls wait, activate_statue_trap, artifact SPFX_SEARCH; 
-findone flash/mimic/hider/invis/chest-trap/trapped-door; region/gascloud; M_AP_FURNITURE; 
-unconstrain underwater/buried/swallow; wiz_map_levltyp/legend; 
+findone flash/mimic/hider/invis/foundone; region/gascloud; M_AP_FURNITURE; 
+unconstrain underwater/buried/swallow (display_trap_map unconstrain+reconstrain D-1753); wiz_map_levltyp/legend; 
 oldglyph trap/object restore after furniture; **`do_vicinity_map` clairvoyance 9×5 (D-1391; 
 SPE_CLAIRVOYANCE caller; unconstrain/reconstrain in this callee; allmain seer_turn still named)**; 
 **`object_detect` detector do_dknown invent+floor + empty `strange_feeling` (D-1417; 

@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1753 — detect.c sense_trap / display_trap_map
+
+- **Status:** fixed (map-driven Open from D-1752; not a public FAIL)
+- **Symptom:** map named `sense_trap` quan. C `sense_trap` paints
+  Hallu/cursed traps as a fake object (`GOLD_PIECE` / `random_object(rn2)`
+  + quan/`corpsenm`) else `map_trap`+`tseen`. JS had no helper;
+  `trap_detect` inlined `map_trap` over empty `game.ftrap` (maketrap
+  pushes `level.traps`) and skipped chests/doors/`strange_feeling`.
+- **C locus:** `detect.c` `sense_trap` `:864–897`; `detect_obj_traps`
+  `:904–953`; `display_trap_map` `:955–1003`; `trap_detect` `:1010–1088`;
+  `findone` `:1674` / `:1683`. `display.h` `random_object` / `random_monster`.
+- **JS was:** no `sense_trap`; trap_detect floor-only `map_trap`;
+  findone `newsym` after tseen.
+- **Fix:** port `sense_trap` (youprop `Hallucination()`, gameplay rn2
+  quan); `detect_obj_traps` + `display_trap_map` (unconstrain/reconstrain);
+  `trap_detect` chest/door/strange_feeling; findone trap/door/chest
+  via `sense_trap`. `random_object` exported from display.h locus.
+  flash/`foundone`/mimic named.
+- **JS:** `js/detect.js` `sense_trap` / `detect_obj_traps` /
+  `display_trap_map` / `trap_detect` / `findone`; `js/display.js`
+  `random_object`; `js/hack.js` export `closed_door`.
+- **Not this iter:** findone flash/`foundone`/mimic/hider/invis;
+  `gold_detect`; `under_water`/`under_ground` after reconstrain;
+  `sound_speak`. SetVoice is D-1752.
+- **Verified:** save-oracle probe skip (untagged `detect.c:sense_trap`);
+  node 13/13 (cursed GOLD `rnd(10)`; uncursed tseen; Hallu `rn2` object
+  + merge quan + `random_monster`; empty trap_detect returns 1);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+  Rule #2 clean.
+- **Files:** `js/detect.js`, `js/display.js`, `js/hack.js`.
+
 ## D-1752 — sounds.c set_voice / sndprocs.h SetVoice
 
 - **Status:** fixed (map-driven Open from D-1751/D-1750; not a public FAIL)

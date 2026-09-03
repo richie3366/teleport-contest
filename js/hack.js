@@ -100,7 +100,7 @@ function doorless_door(x, y) {
 }
 
 /** C ref: hack.c closed_door — D_CLOSED | D_LOCKED. */
-function closed_door(x, y) {
+export function closed_door(x, y) {
     const loc = game.level?.at(x, y);
     if (!loc || !IS_DOOR(loc.typ)) return false;
     return !!((loc.doormask || 0) & (D_CLOSED | D_LOCKED));
