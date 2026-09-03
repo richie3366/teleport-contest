@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `detect.c` findone (named). Not gold_detect.
 - [ ] `end.c` DUMPLOG (named). Not companion pet HP.
 - [ ] `mhitu.c` noit_mhim Hallu (named). Not hero_Deaf.
 - [ ] `ball.c` unplacebc Blind glyph restore (named). Not set_bc.
@@ -42,6 +41,11 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `ball.c` move_bc Blind glyph (named). Not set_bc.
 - [ ] `pager.c` trap_description (named). Not trapname Hallu.
 - [ ] `teleport.c` lev_by_name (named). Not heaven u_left_shop.
+- [ ] `detect.c` food_detect (named). Not object_detect.
+- [ ] `detect.c` object_detect clear_stale_map caller (named). Not food_detect.
+- [ ] `dog.c` keepdogs leash (named). Not losedogs.
+- [ ] `display.c` ridden_mon_to_glyph usteed (named). Not map_monst.
+- [ ] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee.
 
 ## Parked (do not pop)
 

@@ -1,5 +1,77 @@
 # Divergence log
 
+## D-1775 — detect.c findone flash_glyph_at / foundone / mimic / hider / invis
+
+- **Status:** fixed (map-driven Open row from D-1774; suite was 44/44)
+- **Symptom:** `findit()` reported only secret doors, corridors and
+  traps. A found SDOOR/SCORR/trap never flashed, never got C's
+  `foundone` visibility pulse (so an out-of-sight discovery could stay
+  unpainted, and a cmap discovery never set `seenv = SVALL`), and the
+  whole monster tail of `findone` was absent: mimics were not
+  `seemimic`'d, hiders/eels kept `mundetected`, unseen monsters left no
+  `I` marker, and a stale `I` was never cleared. `found.num_mons` was
+  only ever incremented by nothing, and `num_invis` /
+  `num_cleared_invis` / `num_kept_invis` stayed 0, so
+  "You detect an unseen monster!" and "You feel less paranoid." could
+  not fire.
+- **C locus:** `detect.c` `findone` `:1637–1726` (SDOOR
+  `recalc_block_point` vs SCORR `unblock_point`, both then
+  `magic_map_background(zx, zy, 0)` + `foundone`; trap and
+  `D_TRAPPED` dummytrap arms flash before `tseen`; `M_AP_TYPE` →
+  `seemimic`; `mundetected && (is_hider || hides_under || mlet ==
+  S_EEL)` → `mundetected = 0` + `newsym`; `!glyph_is_invisible(lev->glyph)`
+  → `map_invisible` else `num_kept_invis++`; else
+  `unmap_invisible()` → `num_cleared_invis++`).
+  `foundone` `:1607–1634` (cmap/unexplored → `seenv = SVALL`; save
+  `viz_array[zy][zx]`, set `COULD_SEE|IN_SIGHT` when `!Blind`,
+  `newsym`, restore). `findit` `:1791–1898` invis/cleared_invis
+  message tail. `FOUND_FLASH_COUNT` `:19` = 6.
+  `display.c` `flash_glyph_at` `:1304–1321`.
+- **JS was:** `findone` did `newsym` directly in both terrain arms (and
+  used `recalc_block_point` for SCORR where C uses `unblock_point`),
+  set `dummytrap.tseen` before the flash point, read `m_at` after
+  mutating the level, and stopped at `detect_obj_traps`. `findit` had
+  a `// invis / cleared_invis messages deferred (counts stay 0 here)`
+  comment in place of C's two message blocks. No `flash_glyph_at` and
+  no `foundone` existed anywhere in `js/`.
+- **Fix:** ported `flash_glyph_at` into `js/display.js` — C alternates
+  `tg` with `levl[x][y].glyph` (hero_memory) or `back_to_glyph()`
+  for `rpt * 2` iterations, `show_glyph` + `flush_screen(1)` +
+  `nh_delay_output()` each pass, no `newsym`; this port stores the tty
+  cell on `remembered_glyph`, so the memory arm copies that cell and
+  the `!hero_memory` arm rebuilds `terrain_glyph` + `back_to_glyph`.
+  Added `invisible_glyph_cell()` beside `map_invisible` so
+  `GLYPH_INVISIBLE`-as-a-cell has one constructor instead of two
+  inline literals. `js/detect.js` gained `FOUND_FLASH_COUNT` and
+  `foundone`, and `findone` now follows C statement order: `t_at` /
+  `m_at` + DEADMONSTER-or-vault-guard filter first, then flash +
+  `foundone` on every arm, `unblock_point` for SCORR, dummytrap
+  `tseen` after its flash, then the mimic / hider / invisible tail.
+  D-1774 applies inside that tail: `glyph_is_invisible(lev->glyph)` is
+  the hero-memory id, so it uses `memory_glyph_is_invisible(lev)`, not
+  the gbuf cell. `findit` now prints C's `You detect %s!` (with the
+  `other` / `another` wording driven by `num_kept_invis`) and
+  `You feel [somewhat ]less paranoid.`; `num_kept_invis` stays out of
+  the returned count as C notes. `do_clear_area` in `js/detect.js` is
+  now `async` and awaits `func` so the per-cell flash ordering matches
+  C's inline call; `openit`'s cell-collecting arrow awaits harmlessly.
+- **JS:** `js/display.js`, `js/detect.js`.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), cohort seed1500/1800/0012/0004/0007/2200/0383 7/7, full
+  `sessions` 44/44 (shared `display.js`).
+  `save-oracle.mjs probe --omit 'detect.c:findone'` → skip, untagged
+  (no prefix library row).
+- **Not this iter:** the `FOUND_FLASH_COUNT == 0` `tmp_at`/`--More--`
+  path in `findit`/`foundone` (C compiles it out at 6); the two
+  commented-out `foundone(... mon_to_glyph ...)` calls C also leaves
+  out; `do_clear_area` off-hero `view_from` (still the local
+  hero-centred clone, and still a second copy of the `vision.js`
+  export); `detect.js` `do_clear_area` vs `vision.js` `do_clear_area`
+  clone drift; food_detect; `object_detect` `clear_stale_map` caller;
+  `ridden_mon_to_glyph` usteed; DUMPLOG; `noit_mhim` Hallu; Blind
+  `move_bc` / `unplacebc` / ballfall; pager `trap_description`;
+  `lev_by_name`.
+
 ## D-1774 — display.c newsym I-arm lev->glyph / fight_empty glyph_at
 
 - **Status:** fixed (seed0014 public FAIL @43789)

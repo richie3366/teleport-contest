@@ -6,11 +6,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Suite 44/44.** Map-driven: named omissions / cluster density, not
-  FAIL peels. **Next:** `detect.c` findone (named). Falsify: C
-  `findone` body vs JS omit; save-oracle probe if tagged. Do not
-  re-port eatcorpse rot `rn2(20)` (live; D-1774). Do not invent a
-  FAIL. Not gold_detect.
-- Named still: findone flash/`foundone`/mimic; food_detect;
+  FAIL peels. **Next:** `end.c` DUMPLOG (named). Falsify: C `dump_*`
+  body vs JS omit; save-oracle probe if tagged. Not companion pet HP.
+  Do not invent a FAIL.
+- `flash_glyph_at` (D-1775) takes this port's `{ch,color,dec,glyph}`
+  cell, the same shape `tmp_at` uses — there is no glyph→char decoder
+  (`mapglyph` is not ported); the display buffer stores rendered cells.
+  Build cells with `cmap_idx_to_glyph` / `trap_to_glyph` /
+  `mon_to_glyph` / `invisible_glyph_cell`, not bare int ids.
+- `detect.js` has its **own** `do_clear_area` (hero-centred, now async)
+  separate from the `vision.js` export. Real clone drift, queued as an
+  Open row — do not add a third.
+- Named still: FOUND_FLASH_COUNT==0 `tmp_at` path; food_detect;
   object_detect `clear_stale_map` caller; DUMPLOG; `noit_mhim` Hallu;
   Blind `move_bc`/`unplacebc`/ballfall; pager `trap_description`;
   `lev_by_name`; keepdogs leash; `qst_guardians_respond`; Elbereth;
@@ -22,12 +29,13 @@ Objective/score live in `CURRENT.md`.
 - Stamp `D-NNNN` in the fix; next commit fills `%h`. Same-commit archive.
 - Do not re-check 40/44 at D-1765 / D-1766; D-1767 recovered three
   FAILs; seed0014 leftover was I-glyph `newsym` (D-1774), not gbuf
-  and not skipped `nonrotting_corpse`.
+  and not skipped `nonrotting_corpse`. findone's tail is live
+  (D-1775) — do not re-port flash/foundone/mimic/hider/invis.
 - Do not revert D-0078 H2344 or hardcode offx 72 (D-1185).
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1774.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1775.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -38,7 +46,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1774 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1775 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do

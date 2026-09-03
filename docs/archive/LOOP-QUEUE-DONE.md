@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `eat.c` eatcorpse rot age `rn2(20)` (`:1884–1887`; seed0014 @43789 C vs JS `rn2(5)`). Diagnose skipped `!nonrotting_corpse` / corpsenm; JS arm exists. No FORCE / gbuf. Not findone. **Addressed:** D-1774
+- [x] `detect.c` findone (named). Not gold_detect. **Addressed:** D-1775
+
+
+- [x] `eat.c` eatcorpse rot age `rn2(20)` (`:1884–1887`; seed0014 @43789 C vs JS `rn2(5)`). Diagnose skipped `!nonrotting_corpse` / corpsenm; JS arm exists. No FORCE / gbuf. Not findone. **Addressed:** D-1774 `1f5d551a`
 
 
 - [x] `detect.c` gold_detect (named). Not sense_trap. **Addressed:** D-1773 `c206da54`

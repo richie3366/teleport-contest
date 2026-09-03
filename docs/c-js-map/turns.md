@@ -104,8 +104,18 @@ JS: `js/detect.js` — partial
 **`findit`/`findone` SDOOR/SCORR/unseen traps + hero `do_clear_area`** (D-0074) +
 **`sense_trap` Hallu/cursed GOLD/`random_object` quan + `display_trap_map` /
 `detect_obj_traps` / `trap_detect` strange_feeling** (D-1753;
-`findone` trap/door/chest `sense_trap`; `level.traps` as `ftrap`;
-flash/`foundone`/mimic/hider still named); 
+`findone` trap/door/chest `sense_trap`; `level.traps` as `ftrap`) +
+**`findone` `flash_glyph_at`/`foundone` + mimic/hider/invis tail**
+(D-1775; `display.c` `flash_glyph_at` `:1304–1321` live in
+`js/display.js` with `invisible_glyph_cell`; `foundone` `:1607–1634`
+seenv SVALL + `COULD_SEE|IN_SIGHT` viz pulse around `newsym`;
+SDOOR `recalc_block_point` vs SCORR `unblock_point`;
+`M_AP_TYPE`→`seemimic`, `is_hider`/`hides_under`/S_EEL→`mundetected=0`;
+`map_invisible` / `num_kept_invis` / `unmap_invisible` use D-1774
+`memory_glyph_is_invisible`; `findit` detect/paranoid message tail;
+`do_clear_area` now async in `detect.js`; FOUND_FLASH_COUNT==0
+`tmp_at`/`--More--` path and off-hero `do_clear_area` still named,
+as is the `detect.js` vs `vision.js` `do_clear_area` clone); 
 **`gold_detect` blessed GOLD/`o_in` COIN + `clear_stale_map`/`check_map_spot` +
 mon/floor/`rnd(10)` golem map + strange_feeling poor/worried/steed** (D-1773;
 caller `seffect_gold_detection`; `o_in`/`o_material` exported; steal.c
@@ -126,7 +136,7 @@ set_msg_xy / via_warning flush deferred);
 **`dosearch0` Blind/`visible_region_at` → `feel_location` + 
 SDOOR `feel_location` / SCORR `feel_newsym` + `!Blind` `unmap_invisible`** (D-0928 #1184; 
 prop Blind not sticky); omit Hallucination/cls wait, activate_statue_trap, artifact SPFX_SEARCH; 
-findone flash/mimic/hider/invis/foundone; region/gascloud; M_AP_FURNITURE; 
+findone FOUND_FLASH_COUNT==0 tmp_at path (D-1775 ported the flash/foundone/mimic/hider/invis tail); region/gascloud; M_AP_FURNITURE; 
 unconstrain underwater/buried/swallow (display_trap_map unconstrain+reconstrain D-1753); wiz_map_levltyp/legend; 
 oldglyph trap/object restore after furniture; **`do_vicinity_map` clairvoyance 9×5 (D-1391; 
 SPE_CLAIRVOYANCE caller; unconstrain/reconstrain in this callee; allmain seer_turn still named)**; 
