@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `detect.c` sense_trap (named). Not monster_detect. **Addressed:** D-1753
+- [x] `end.c` companion pet HP score (named). Not get_valuables. **Addressed:** D-1754
+
+
+- [x] `detect.c` sense_trap (named). Not monster_detect. **Addressed:** D-1753 `088de957`
 
 
 - [x] `sounds.c` set_voice / SetVoice (named). Not doseduce. **Addressed:** D-1752 `1e18143c`

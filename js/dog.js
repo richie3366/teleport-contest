@@ -49,6 +49,7 @@ import { livelog_printf } from './pline.js';
 import { uhis } from './roles.js';
 import { objectNames } from './generated/objects_data.js';
 import { expels, unstuck } from './mhitu.js';
+import { finish_meating } from './dogmove.js';
 import { sticks } from './engrave.js';
 import { emits_light, del_light_source } from './light.js';
 
@@ -352,7 +353,9 @@ export function update_mlstmv() {
 
 /**
  * C ref: dog.c keepdogs — move nearby followers onto mydogs before level leave.
- * pets_only path; migrate_to_level / leash / mon_has_amulet stay_behind deferred.
+ * pets_only (`:799–809`) wakes/untraps so escape/ascend companions are
+ * not left for meals or traps. migrate_to_level / leash /
+ * mon_has_amulet stay_behind still named.
  */
 export function keepdogs(pets_only = false) {
     const u = game.u;
@@ -365,9 +368,17 @@ export function keepdogs(pets_only = false) {
             stay.push(mtmp);
             continue;
         }
-        if (pets_only && !mtmp.mtame) {
-            stay.push(mtmp);
-            continue;
+        if (pets_only) {
+            if (!mtmp.mtame) {
+                stay.push(mtmp);
+                continue;
+            }
+            // C `:799–809` — mundane trifles must not block escape/ascend
+            mtmp.mtrapped = 0;
+            finish_meating(mtmp);
+            mtmp.msleeping = 0;
+            mtmp.mfrozen = 0;
+            mtmp.mcanmove = 1;
         }
         const near = monnear(mtmp, u.ux, u.uy);
         const follow = levl_follower(mtmp);

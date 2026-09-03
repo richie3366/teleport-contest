@@ -819,7 +819,7 @@ export function mkclass_aligned(mletClass, spc = 0, atyp = A_NONE) {
 }
 
 // C ref: makemon.c adj_lev() — no RNG
-function adj_lev(ptr) {
+export function adj_lev(ptr) {
     // C: Wizard level = base + times killed (capped 49); independent of depth
     if ((ptr?.mndx | 0) === pm('WIZARD_OF_YENDOR')) {
         let tmp = (ptr.mlevel | 0)

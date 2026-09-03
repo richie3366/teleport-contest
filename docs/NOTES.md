@@ -7,19 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress (cadence **#2160** at `1f6d5487`, R² 0.859).
   Save-oracle for tagged restore Open. B0: catchup 26/30 red; shop
-  35/35 no unpaid. **Next:** Open `end.c` companion pet HP. Not
-  get_valuables. Falsify: C pet HP in `really_done` vs D-1753
-  `sense_trap` / D-1741. Do not skip D-1531…D-1753. Do not re-port
-  D-1675…D-1753.
+  35/35 no unpaid. **Next:** Open `potion.c` make_blinded
+  Sting_effects(-1). Not see_monsters MON_STILL_ARRIVING. Falsify: C
+  `make_blinded` Sting(-1) vs D-1754 companion HP / D-1747 I-glyph.
+  Do not skip D-1531…D-1754. Do not re-port D-1675…D-1754.
 - Named still: Palantir `#if 0`; pit/underwater; clone yn; `rescham`;
-  setworn oc_oprop; keepdogs leash; `initedog`; tip-spill; hideunder;
-  Punished float_down; water/lava steed; interned `'yn'`; `delobj`
-  extract; mthrowu/uhitm poison; `sound_speak`; `beg`/`maybe_gasp`/
-  MS_ARREST; remaining vault/priest/sit SetVoice; heaven
-  `u_left_shop`; STRAT_HEAL; `swallow_cell` sticky Hallu; eat.js
-  useup+useupf; make_blinded Sting(-1); `random_trap_to_glyph`;
-  integer `GLYPH_*_OFF` / `map_monst`; findone flash/`foundone`/
-  mimic; `gold_detect`.
+  setworn oc_oprop; keepdogs leash/`mon_has_amulet`; `initedog`;
+  tip-spill; hideunder; Punished float_down; water/lava steed;
+  interned `'yn'`; `delobj` extract; mthrowu/uhitm poison;
+  `sound_speak`; `beg`/`maybe_gasp`/MS_ARREST; remaining
+  vault/priest/sit SetVoice; heaven `u_left_shop`; STRAT_HEAL;
+  `swallow_cell` sticky Hallu; eat.js useup+useupf; make_blinded
+  Sting(-1); `random_trap_to_glyph`; integer `GLYPH_*_OFF` /
+  `map_monst`; findone flash/`foundone`/mimic; `gold_detect`; DUMPLOG.
 
 ## Don't re-check (≤15)
 
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1753.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1754.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -39,10 +39,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1753 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1754 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1753. Do not delete emin (**487**). Do not stub
+  D-1520…D-1754. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -52,25 +52,28 @@ Objective/score live in `CURRENT.md`.
   `mon_is_local` for LS_MONSTER lights (D-1708). Do not stamp every
   `fmon` in `update_mlstmv` (D-1709).
 - Do not import `wield.js`/`pickup.js`→`polyself.js` for `body_part`
-  (`objnam.js` `body_part_latebound`). No makemon→hack/`artifact`/
-  `minion`. No fourth town gnome. Do not stub door/furnsyms/DELPHI
+  (`objnam.js` `body_part_latebound`). No static `end.js`←`dog.js`
+  (`keepdogs` dynamic import). No makemon→hack/`artifact`/`minion`.
+  No fourth town gnome. Do not stub door/furnsyms/DELPHI
   (D-1536/D-1543/D-1556). Do not skip `block_point` (D-1557). Do not
   revert D-1574 `dig_point`/`seemimic` or global `recalc` as
   `vision_reset`. No yn ^P glue / `ing_suffix` clone #3 / InvInUse
   poke (D-1603) / zap sticky Blind (D-1604). No `dat/tribute` indent=2.
   No static `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev
-  catchup reads it. Do not re-port D-1682…D-1753. D-1753 is
+  catchup reads it. Do not re-port D-1682…D-1754. D-1754 is companion
+  pet HP / live-cat `d()` (not `get_valuables` / DUMPLOG). D-1753 is
   `sense_trap` (not `gold_detect` / findone flash). D-1752 is
   SetVoice empty without SND_LIB (not `sound_speak`/`beg`). D-1751
   is `ghitm` `hidden_gold(TRUE)` (not vault helper). D-1750
   `doseduce`. D-1749 feel_location. D-1748 pet/detected glyphs.
-  D-1747 I-glyph. D-1746 MON_STILL_ARRIVING. D-1745 DETECTED.
-  D-1744 `possibly_unwield`. D-1743 `dealloc_obj`. D-1742 `getyear`.
-  D-1741 get_valuables. D-1740 shop_debt. No trailing `confdir` in
-  shared `getdir`.
+  D-1741 get_valuables. No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
 
+- D-1754: `really_done` `:1293–1295` `keepdogs(TRUE)`; `:1453–1476`
+  mydogs `mtame` `mhp` + live-cat `d(adj_lev,8)`; two-line putstr;
+  pets_only `:799–809`. Live `end.js`+`dog.js`+`adj_lev`. Named:
+  DUMPLOG; keepdogs migrate/leash/`mon_has_amulet`.
 - D-1753: `sense_trap` `:864–897` Hallu/cursed GOLD/`random_object(rn2)`
   quan; `display_trap_map`/`trap_detect`; findone trap/door/chest. Live
   `detect.js`. Named: flash/`foundone`/mimic; `gold_detect`.
@@ -97,8 +100,6 @@ Objective/score live in `CURRENT.md`.
 - D-1742: `getyear` `:48–52` `1900+getlt()->tm_year`. Live `calendar.js`.
   `ld()`/`doseduce` is D-1750. Named: dump_fmtstr / paniclog.
 - D-1741: `get_valuables` `:762–791` + `sort_valuables`. Live `end.js`.
-  Named: pet HP; Schroedinger score; DUMPLOG.
+  Companion HP is D-1754. Named: DUMPLOG.
 - D-1740: `shop_debt` `:989–999` + `shopper_financial_report`. Live
   `shk.js` + `doprgold`. Named: `costly_gold`.
-- D-1739: `display_monster` `:564–575` fake obj → `map_object`. Live
-  `display.js`. Pet/detected glyphs are D-1748.

@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-1754 — end.c really_done companion pet HP / Schroedinger d()
+
+- **Status:** fixed (map-driven Open from D-1741; not a public FAIL)
+- **Symptom:** map named companion pet HP after `get_valuables`. C
+  ESCAPED/ASCENDED `keepdogs(TRUE)` then walks `gm.mydogs` adding
+  `mtame` `mhp` and live-cat `d(adj_lev(&mons[PM_HOUSECAT]), 8)`. JS
+  skipped keepdogs at death, left `Schroedingers_cat` function-local,
+  and printed a single "You went… with N" line without companion HP.
+  `keepdogs(true)` also left sleeping/trapped pets behind.
+- **C locus:** `end.c` `really_done` `:1293–1295` `keepdogs(TRUE)`;
+  `:1453–1476` mydogs + `Schroedingers_cat`; `dog.c` `keepdogs`
+  `:799–809` pets_only wakeup; `makemon.c` `adj_lev`.
+- **JS was:** omit comments; local `Schroedingers_cat`; pets_only only
+  skipped `!mtame` (no untrap/wake/`finish_meating`).
+- **Fix:** persist `game.Schroedingers_cat` from the disclose invent
+  walk; `keepdogs(true)` after disclose via dynamic import (static
+  `end.js`→`dog.js` TDZ on objnam `_body_part`); pets_only untrap/
+  `finish_meating`/wake; `score_escape_companions` `nowrap_add` mhp /
+  `d()`; two-line putstr when companions exist. Export `adj_lev` (no
+  clone). DUMPLOG second `artifact_score` still named.
+- **JS:** `js/end.js` `score_escape_companions`; `js/dog.js` keepdogs;
+  `js/makemon.js` `adj_lev`; `js/pickup.js` comment.
+- **Not this iter:** DUMPLOG listing; `viz_array[0][0] |= IN_SIGHT`
+  (JS `x_monnam` already skips `do_it` when `gameover`); keepdogs
+  `migrate_to_level` / leash / `mon_has_amulet` stay_behind.
+  `get_valuables` is D-1741. `sense_trap` is D-1753.
+- **Verified:** save-oracle probe skip (untagged `end.c:really_done`);
+  node 15/15 (pets_only wakeup; tame mhp; non-tame named-only;
+  Schroedinger `d(m_lev,8)`; named pet `Fido`); green+strict
+  seed8000/0900; CURRENT cohort **7**/7 + strict. Rule #2 clean.
+- **Files:** `js/end.js`, `js/dog.js`, `js/makemon.js`, `js/pickup.js`.
+
 ## D-1753 — detect.c sense_trap / display_trap_map
 
 - **Status:** fixed (map-driven Open from D-1752; not a public FAIL)

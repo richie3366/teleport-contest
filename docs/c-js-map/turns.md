@@ -1344,14 +1344,20 @@ inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace;
 `hide_monst` after ghostly; `paygd`/`clearpriests`; `unleash_all` in finish_paybill; 
 `done_in_by` G_UNIQ/ghost/mimicker/vampshifter/priest|minion/minvis/hallu/monhealthdescr/
 multi_reason; enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
-**`observe_quantum_cat` disclose D-1535** (live-cat contents line; escape/ascend companion HP named); 
+**`observe_quantum_cat` disclose D-1535** (live-cat contents line; 
+**companion HP D-1754**); 
 **`artifact_score` D-1730** (C `end.c:906–940`; ESCAPED/ASCENDED `really_done`
 `:1449` count + `:1482` list; `arti_cost*5/2` + `nowrap_add`; recurse
-`Has_contents`; live `js/end.js`; **`get_valuables` D-1741**; pet HP / DUMPLOG list
-named; hidden_gold is D-1731); **`get_valuables` D-1741** (C `end.c:762–791` +
+`Has_contents`; live `js/end.js`; **`get_valuables` D-1741**; companion HP is
+D-1754; DUMPLOG list named; hidden_gold is D-1731); **`get_valuables` D-1741** (C `end.c:762–791` +
 `sort_valuables` `:797–818`; `really_done` `:1433–1446` `count*oc_cost` +
-`:1490–1519` list; glass slot; skip `oartifact`; live `js/end.js`; pet HP /
-Schroedinger / DUMPLOG named); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
+`:1490–1519` list; glass slot; skip `oartifact`; live `js/end.js`; companion HP is
+D-1754; DUMPLOG named); **companion pet HP D-1754** (C `really_done`
+`:1293–1295` `keepdogs(TRUE)`; `:1453–1476` mydogs `mtame` `mhp` + live
+`Schroedingers_cat` `d(adj_lev(housecat),8)`; two-line "You and NAME" /
+verb+points; `dog.c` keepdogs `:799–809` pets_only wakeup; live `js/end.js`
+`score_escape_companions` + `js/dog.js` + exported `adj_lev`; DUMPLOG /
+keepdogs migrate/leash/`mon_has_amulet` named); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
 savelife Sick/endmultishot/curs_on_u/uswallow; 
 ordinary `vision_recalc(2)` gbuf newsym loop / `notice_all_mons`
 

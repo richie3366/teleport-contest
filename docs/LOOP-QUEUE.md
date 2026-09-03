@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `end.c` companion pet HP score (named). Not get_valuables.
 - [ ] `potion.c` make_blinded Sting_effects(-1) (named). Not see_monsters MON_STILL_ARRIVING.
 - [ ] `mkobj.c` delobj extract (named). Not dealloc_obj.
 - [ ] `worn.c` setworn oc_oprop (named). Not possibly_unwield.
