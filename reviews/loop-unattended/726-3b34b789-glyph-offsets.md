@@ -158,4 +158,4 @@ Named (map, not Must-fix): `ridden_mon_to_glyph` usteed; swallow cmap; `map_glyp
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1767
+**Addressed:** D-1767 `148dc4da`

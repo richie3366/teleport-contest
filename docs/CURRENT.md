@@ -68,15 +68,18 @@ Both must remain full RNG + screen PASS with exact lengths.
 seed0006/0030/4500). seed0014 still FAIL — do not invent a peel;
 map still picks work. Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`).
-**Next cluster:** Open `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1).
-**Do not skip D-1531…D-1767 (index).** Keep mention_map addr.
+**Next cluster:** Open `ball.c` Punished set_bc (named). Not Unaware talk.
+**Do not skip D-1531…D-1768 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1767.** Do not FORCE
+**Do not re-break D-0660…D-1768.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1767 (index). Recent: **D-1767**
+**Keep:** D-0845…D-1768 (index). Recent: **D-1768**
+`potion.c` `make_blinded` Unaware talk=FALSE (`youprop.h`
+`unconscious`/`is_fainted`; live `js/do.js`+`js/eat.js`;
+named: Punished `set_bc`). **D-1767**
 `display.c` `show_glyph` always overwrite `gbuf.glyph`;
 `back_to_glyph` integer; `see_traps` `glyph_is_trap` only
 (`display.c` `:2039` / `:1610–1621` / `:2286–2427`; live
@@ -132,7 +135,7 @@ skip Cha `rn2`/`y_n` (hitmsg/You_hear/sedu/ston same local; named:
 `toggle_blindness` `Sting_effects(-1)` (`potion.c` `:334–364`
 Stinging see_monsters then `-1`; `make_blinded` `:260–331` Hallu
 talk + Eyes vismsg/itch; Blindf_on/off; clones retired; named:
-Unaware talk=FALSE, Punished `set_bc`). **D-1754**
+Punished `set_bc`; Unaware talk=FALSE is D-1768). **D-1754**
 `really_done` companion pet HP (`end.c` `:1293–1295` `keepdogs(TRUE)`;
 `:1453–1476` mydogs `mtame` `mhp` + live-cat `d(adj_lev,8)`; two-line
 putstr; `dog.c` `:799–809` pets_only wakeup; live `js/end.js` +
@@ -145,14 +148,14 @@ gold_detect).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1767 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1768 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1767 (index). No generic `dknown` on
+Do not re-port D-1660…D-1768 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

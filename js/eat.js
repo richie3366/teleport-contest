@@ -73,7 +73,7 @@ import {
     SLT_ENCUMBER, EXT_ENCUMBER, FROMFORM, W_ARTI, W_WEP, W_RINGL, W_RINGR,
     W_ARMOR, W_TOOL, W_AMUL, W_SADDLE, W_BALL, W_CHAIN,
     HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION, PROTECTION,
-    SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING, STOMACH, SICK_VOMITABLE,
+    SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING, FAINTED, STOMACH, SICK_VOMITABLE,
     IS_ALTAR,
     TIMEOUT, NON_PM, ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, HEALTHY_TIN,
     ismnum,
@@ -404,11 +404,19 @@ function unconscious() {
 }
 
 /**
- * C ref: youprop.h Unaware — multi < 0 && (unconscious || fainted).
- * Fainted (uhs == FAINTED) deferred as always-false until newuhs ports it.
+ * C eat.c is_fainted `:3346–3350` — u.uhs == FAINTED.
+ * newuhs still does not set FAINTED (hunger messages / faint named).
  */
-function Unaware() {
-    return (game.multi || 0) < 0 && unconscious();
+export function is_fainted() {
+    return (game.u?.uhs | 0) === FAINTED;
+}
+
+/**
+ * C youprop.h Unaware — gm.multi < 0 && (unconscious() || is_fainted()).
+ * multi test skips the callees when the hero can act.
+ */
+export function Unaware() {
+    return (game.multi | 0) < 0 && (unconscious() || is_fainted());
 }
 
 /** C ref: youprop.h Slow_digestion */

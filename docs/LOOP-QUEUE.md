@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1).
 - [ ] `ball.c` Punished set_bc (named). Not Unaware talk.
 - [ ] `zap.c` delete_contents clone (named). Not delobj extract.
 - [ ] `eat.c` useup+useupf hybrid (named). Not delete_contents.

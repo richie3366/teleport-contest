@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1768 potion.c make_blinded Unaware talk=FALSE
+
+**Objective:** Open `potion.c` make_blinded Unaware talk=FALSE.
+Not Sting(-1).
+**C locus:** `potion.c` `make_blinded` `:275–276`; `youprop.h`
+Unaware `:399`; `eat.c` `is_fainted` `:3346–3350`; `trap.c`
+`unconscious` `:6775–6786`.
+**JS locus:** `js/do.js` `make_blinded`; `js/eat.js`
+`is_fainted`/`Unaware` (import, no clone #9).
+**Change:** Port `is_fainted`; Unaware ORs faint after unconscious;
+`make_blinded` clears talk. Punished `set_bc` still named.
+**Score:** unchanged fortress **43**/44 (no full `sessions` this
+port iter).
+**Verified:** probe skip untagged `potion.c:make_blinded`; node
+canary 16/16; green+strict; cohort **9**/9 + strict.
+**Next:** Open `ball.c` Punished set_bc.
+**Blocked:** none.
 ## 2026-09-03 — D-1767 display.c show_glyph gbuf stamp
 
 **Objective:** Must-fix `display.c` `show_glyph` always overwrite

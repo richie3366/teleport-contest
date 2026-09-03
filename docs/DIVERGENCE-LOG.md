@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-1768 — potion.c make_blinded Unaware talk=FALSE
+
+- **Status:** fixed (map-driven Open from D-1767; not a public FAIL)
+- **Symptom:** JS `make_blinded` talked whenever the caller passed
+  `talk`. C `:275–276` forces `talk = FALSE` when Unaware
+  (`gm.multi < 0 && (unconscious() || is_fainted())`). eat.js Unaware
+  skipped `is_fainted`.
+- **C locus:** `potion.c` `make_blinded` `:260–331` (`Unaware`
+  `:275–276`); `youprop.h` `:399`; `trap.c` `unconscious`
+  `:6775–6786`; `eat.c` `is_fainted` `:3346–3350`.
+- **JS was:** named omit after D-1755; eat.js Unaware was
+  `multi < 0 && unconscious()` only.
+- **Fix:** Port `is_fainted`; Unaware ORs it after unconscious; import
+  that helper into `make_blinded` and clear talk. No Unaware clone #9.
+- **JS:** `js/do.js` `make_blinded`; `js/eat.js` `is_fainted`/`Unaware`.
+- **Not this iter:** Punished `set_bc`; newuhs faint setter; other
+  Unaware local clones (dig/lock/mhitu/muse/trap/were/zap).
+- **Verified:** save-oracle probe skip (untagged
+  `potion.c:make_blinded`); node canary (usleep/faint/nomovemsg
+  prefixes; aware talks; Unaware suppresses "You can see again.");
+  green+strict seed8000/0900; CURRENT cohort **9**/9 + strict.
+  Rule #2 clean.
+- **Files:** `js/do.js`, `js/eat.js`.
+
 ## D-1767 — display.c show_glyph always overwrite gbuf.glyph
 
 - **Status:** fixed (Must-fix review **726**; public 43/44)

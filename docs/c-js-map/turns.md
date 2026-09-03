@@ -373,7 +373,9 @@ already Blind or (H||E)&&BBlinded `potion_nothing++`;
 callee `do.js` `make_blinded`; **`toggle_blindness` `Sting_effects(-1)` D-1755**
 (C `potion.c` `:334–364` Blind_telepat/Infravision/Stinging `see_monsters`
 then `-1`; Hallu talk; Eyes vismsg/itch/`strange_feeling`; clones
-retired; Blindf_on/off await toggle; Unaware talk=FALSE / Punished
+retired; Blindf_on/off await toggle); **`make_blinded` Unaware
+talk=FALSE D-1768** (C `:275–276` / `youprop.h` `:399`
+`unconscious`/`is_fainted`; live `js/eat.js` `is_fainted`; Punished
 `set_bc` named); potionhit/potionbreathe named); 
 **`peffect_sleeping` POT_SLEEPING** (D-1437; 
 Sleep_resistance||Free_action `monstseesu(M_SEEN_SLEEP)` + 
@@ -1416,7 +1418,9 @@ Strangled / uedibility / hands_obj / worn-armor eat / metallic rust-monster / RI
 doeat_nonfood still deferred); **`fprefx` CLOVE_OF_GARLIC → 
 `garlic_breath`/`olfaction`/`monflee(0)`** (D-0635; undead `make_vomiting` deferred); 
 **`gethungry` accessorytime `rn2(20)`** (D-0107); 
-**Unaware metabolic `rn2(10)` before accessorytime** (D-0156); 
+**Unaware metabolic `rn2(10)` before accessorytime** (D-0156;
+`is_fainted` / Unaware `talk=FALSE` D-1768; newuhs still does not
+set FAINTED); 
 **`gethungry` ordinary `uhunger--` via `hero_form_data` diet + 
 odd/even Regen/encumb/Hunger/Conflict burns** (D-0410) + 
 **accessorytime even cases 0/4/8/12/16 (amulet/rings)** (D-0633; 
