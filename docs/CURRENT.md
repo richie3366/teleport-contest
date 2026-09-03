@@ -47,7 +47,8 @@ seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
 seed0360, seed0399, seed2600, seed2200, seed0383, seed0030, seed4500.
 
 **Notable non-PASS:** seed0014-dequa-fountain-explore RNG 43831/59178
-Screen 629/714 (same prefix as D-1765 after gbuf stamp).
+Screen 629/714. First RNG miss @43789 C `eat.c` `eatcorpse`
+`:1887` `rn2(20)` vs JS `rn2(5)` (gbuf did not move this prefix).
 
 ## Green gate
 
@@ -64,11 +65,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 43/44** after D-1767 `show_glyph` gbuf stamp (recovered
-seed0006/0030/4500). seed0014 still FAIL — do not invent a peel;
-map still picks work. Save-oracle required for tagged
-restore/other-floor Open (`save-oracle.mjs probe --omit`).
-**Next cluster:** Open `detect.c` findone (named). Not gold_detect.
+**Suite 43/44** after D-1767 (recovered seed0006/0030/4500).
+Save-oracle required for tagged restore/other-floor Open
+(`save-oracle.mjs probe --omit`).
+**Next cluster:** seed0014 first-diff — `eat.c` `eatcorpse`
+`:1884–1887` (`!nonrotting_corpse` then `(moves-age)/(10+rn2(20))`).
+JS already has that `rn2(20)` arm; dump why it skipped (mnum /
+`nonrotting_corpse` / not in `eatcorpse`). Do not FORCE. Do not
+re-check gbuf. Not findone (named; next if this is blocked).
 **Do not skip D-1531…D-1773 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing

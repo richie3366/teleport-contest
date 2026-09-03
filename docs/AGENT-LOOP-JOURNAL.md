@@ -8,6 +8,17 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — human: seed0014 eatcorpse first-diff next
+
+**Objective:** seed0014 leftover (not findone). Not a 44/44 peel.
+**C locus:** `eat.c` `eatcorpse` `:1884–1887`.
+**JS locus:** `js/eat.js` `eatcorpse` / `nonrotting_corpse`.
+**Change:** docs only — CURRENT/NOTES/QUEUE retarget.
+**Score:** **43**/44 reconfirmed `c206da54`.
+**Verified:** `rng-diff --all-segments` seed0014 @43789 C
+`rn2(20)` vs JS `rn2(5)` after matching regen/gethungry/moveloop.
+**Next:** dump why JS skipped the rot roll; no FORCE; no gbuf.
+**Blocked:** none.
 ## 2026-09-03 — D-1773 detect.c gold_detect / o_in o_material
 
 **Objective:** Open `detect.c` gold_detect (named). Not sense_trap.

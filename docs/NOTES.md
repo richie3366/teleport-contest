@@ -5,10 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 43/44** after D-1767 gbuf stamp. **Hypothesis:** seed0014
-  is not stale `disp_glyph` (same prefix as D-1765). Falsify: do not
-  re-check gbuf. **Next:** Open `detect.c` findone. Not gold_detect.
-  Do not invent a seed0014 FAIL peel. Do not skip D-1531…D-1773.
+- **Suite 43/44.** **Hypothesis:** seed0014 @43789 skipped
+  `eatcorpse` rot `rn2(20)` (`eat.c:1884–1887`) — JS `nonrotting`
+  true, wrong `corpsenm`, or not in `eatcorpse` (JS already has the
+  arm; predicate matches C lizard/lichen/rider/acid blob). Falsify:
+  dump JS `mnum`/`nonrotting` at that call; if it *does* `rn2(20)`,
+  this first-diff is stale. Do not re-check gbuf. Not findone.
 - Named still: findone flash/`foundone`/mimic; food_detect;
   object_detect `clear_stale_map` caller; DUMPLOG; `noit_mhim` Hallu;
   Blind `move_bc`/`unplacebc`/ballfall; pager `trap_description`;
@@ -19,7 +21,8 @@ Objective/score live in `CURRENT.md`.
 
 - Stamp `D-NNNN` in the fix; next commit fills `%h`. Same-commit archive.
 - Do not re-check 40/44 at D-1765 `3b34b789` or D-1766 `bb71f9ff`;
-  D-1767 recovered three of those four FAILs. seed0014 unchanged.
+  D-1767 recovered three FAILs. seed0014 leftover is eatcorpse
+  @43789, not gbuf.
 - Do not revert D-0078 H2344 or hardcode offx 72 (D-1185).
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
@@ -83,4 +86,4 @@ Objective/score live in `CURRENT.md`.
 - D-1762: `maybe_gasp` `:545–610`. Halt is D-1772.
 - D-1761: `sound_speak` `:2184–2220` !SND_SPEECH no-op.
 - D-1760: `explode` `:378–452` `map_invisible` / You_hear vs Boom!.
-- D-1759: `trapname` Hallu display rng. Named: pager `trap_description`.
+- seed0014 @43789: C `eatcorpse` `:1887` `rn2(20)` vs JS `rn2(5)`.

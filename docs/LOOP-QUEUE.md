@@ -34,6 +34,7 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
+- [ ] `eat.c` eatcorpse rot age `rn2(20)` (`:1884–1887`; seed0014 @43789 C vs JS `rn2(5)`). Diagnose skipped `!nonrotting_corpse` / corpsenm; JS arm exists. No FORCE / gbuf. Not findone.
 - [ ] `detect.c` findone (named). Not gold_detect.
 - [ ] `end.c` DUMPLOG (named). Not companion pet HP.
 - [ ] `mhitu.c` noit_mhim Hallu (named). Not hero_Deaf.
