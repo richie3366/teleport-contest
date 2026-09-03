@@ -62,7 +62,7 @@ import {
     is_clinger, breathless, is_flyer,
     PM_LICHEN, PM_ACID_BLOB, PM_MONK, monsterNames, pmnames, G_UNIQ,
     MR_FIRE, MR_COLD, MR_SLEEP, MR_DISINT, MR_ELEC, MR_POISON, MR_ACID, MR_STONE,
-    M1_SEE_INVIS, is_were,
+    M1_SEE_INVIS, M2_SHAPESHIFTER, is_were,
 } from './monsters.js';
 import { same_race, cantvomit } from './mondata.js';
 import { were_beastie, set_ulycn, you_unwere } from './were.js';
@@ -75,8 +75,9 @@ import {
     W_ARMOR, W_TOOL, W_AMUL, W_SADDLE, W_BALL, W_CHAIN,
     HUNGER, CONFLICT, REGENERATION, SLOW_DIGESTION, PROTECTION,
     SATIATED, NOT_HUNGRY, HUNGRY, WEAK, FAINTING, FAINTED, STOMACH, SICK_VOMITABLE,
+    STONED, SICK, VOMITING,
     IS_ALTAR,
-    TIMEOUT, NON_PM, ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, HEALTHY_TIN,
+    TIMEOUT, NON_PM, LOW_PM, ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, HEALTHY_TIN,
     ismnum,
     KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX, Has_contents, NO_PART,
     IRONBARS, W_NONDIGGABLE, BEAR_TRAP, TT_BEARTRAP,
@@ -358,6 +359,31 @@ function dmgtype(ptr, adtyp) {
         if (slots[i]?.adtyp === adtyp) return true;
     }
     return false;
+}
+
+/** C monattk.h AD_POLY — genetic-engineer tin/corpse for Popeye(SLIMED). */
+const AD_POLY = 43;
+
+/** C obj.h ofood — corpse, egg, or tin. */
+function ofood(o) {
+    if (!o) return false;
+    const t = o.otyp | 0;
+    return t === CORPSE || t === EGG || t === TIN;
+}
+
+/**
+ * C obj.h polyfood — ofood with a chameleon species or AD_POLY attack.
+ * Inlined here so Popeye does not import makemon.js pm_to_cham
+ * (M2_SHAPESHIFTER is C pm_to_cham's test).
+ */
+function polyfood(obj) {
+    if (!ofood(obj)) return false;
+    const mndx = obj.corpsenm | 0;
+    if (mndx < LOW_PM) return false;
+    const ptr = mons(mndx);
+    if (!ptr) return false;
+    return (((ptr.mflags2 | 0) & M2_SHAPESHIFTER) !== 0)
+        || dmgtype(ptr, AD_POLY);
 }
 
 /** C timeout.h set_itimeout — replace TIMEOUT bits on a long prop. */
@@ -3280,6 +3306,41 @@ async function opentin() {
     }
     await consume_tin('You succeed in opening the tin.');
     return 0;
+}
+
+/**
+ * C ref: eat.c Popeye `:3915–3956` — occupation is opentin and the tin
+ * would save the hero from `threat` (STONED lizard/acid, SLIMED polyfood,
+ * unknown tin assumed helpful). timeout.c stoned/slime/vomiting
+ * dialogues skip stop_occupation while this is true. Named omit: the
+ * HUNGER arm is unused (hunger bypasses stop_occupation).
+ * @param {number} threat prop index (STONED / SLIMED / VOMITING / …)
+ * @returns {boolean}
+ */
+export function Popeye(threat) {
+    if (game.occupation !== opentin) return false;
+    const otin = game.context?.tin?.tin;
+    const u = game.u || {};
+    if (!carried(otin)
+        && (!obj_here(otin, u.ux | 0, u.uy | 0) || !can_reach_floor(true))) {
+        return false;
+    }
+    if (!otin.known) return true;
+    const mndx = otin.corpsenm | 0;
+    switch (threat) {
+    case HUNGER:
+        return mndx !== NON_PM || (otin.spe | 0) === 1;
+    case STONED:
+        return ismnum(mndx) && (mndx === PM_LIZARD || acidic(mons(mndx)));
+    case SLIMED:
+        return polyfood(otin);
+    case SICK:
+    case VOMITING:
+        break;
+    default:
+        break;
+    }
+    return false;
 }
 
 /**

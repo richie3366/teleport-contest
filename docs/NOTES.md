@@ -5,21 +5,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44.** **D-1791** shipped the first Open: `eat.c` `newuhs`
-  hunger messages / faint / starve / ATEMP / `end_running`, plus
-  `unfaint` as `afternmv`. Must-fix is still **empty** — pop the first
-  Open. Do not invent a FAIL.
+- **Suite 44/44.** **D-1792** shipped the first Open: `timeout.c`
+  `nh_timeout` property dialogues + `attrib.c` `stone_luck` +
+  `eat.c` `Popeye`. Must-fix is still **empty** — pop the first Open.
+  Do not invent a FAIL.
 - **Open is hidden-score ordered now** (`docs/PORT-GAP-TOP30.md`,
   rebuilt by `node scripts/port-coverage.mjs`). Pop rows in order; do
   not re-derive a different priority from the map.
-- **Next cluster:** first Open — `timeout.c` `nh_timeout` property
-  dialogues (stoned/slime/vomiting/choke/sickness/levitation/phaze +
-  `stone_luck`). Not `make_blinded`.
-- **`newuhs` faint roll short-circuits.** `u.uhs <= WEAK` skips
-  `rn2(20 - uhunger_div_by_10)`; already-FAINTED draws it every call.
-  Occupation `eatfood` / `force_save_hs` stashes the first `uhs` and
-  returns; `done_eating` zeros occupation first so the meal-end
-  message uses the saved status.
+- **Next cluster:** first Open — `weapon.c` `dmgval` blessed/axe/
+  silver/`artifact_light` bonus `rnd()` + `greatest_erosion` (RNG).
+  Not `spec_abon`.
+- **Luck still runs when invulnerable.** Dialogues do not. C
+  `timeout.c:597–621` then `:623` `if (u.uinvulnerable) return`.
+- **STONED/SLIMED expiry is still a silent clear.** `done_timeout` /
+  `slimed_to_death` are named omissions — do not "fix" that by
+  inventing a death message.
 - **`sit.js` lay-egg `morehungry` is still not awaited.** Making
   `morehungry` async left that one caller fire-and-forget (file-count
   cap). Await it when you next touch sit.
@@ -38,8 +38,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not treat `newuhs` as a field-update stub (D-1791). Do not write
-  a second `end_running` (C home is `hack.js`). Do not "correct"
+- Do not treat `nh_timeout` as missing stoned/slime/vomiting/choke/
+  sickness/levitation/phaze or luck (D-1792). Do not write a second
+  `carrying` (C invent.c; live export is `hack.js`). Do not "correct"
+  silent STONED/SLIMED expiry (`done_timeout` still omitted). Do not
+  treat `newuhs` as a field-update stub (D-1791). Do not write a
+  second `end_running` (C home is `hack.js`). Do not "correct"
   `monverbself`'s genders[3] arm to "they" (D-1790). Do not treat
   reviews **728–736** as unpaid Must-fix (those AWD held). Review
   **737** AWD was **wrong**; **747** is **D-1786**; **748** lookat
@@ -56,7 +60,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1791.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1792.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -67,7 +71,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1791 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1792 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -87,11 +91,14 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1791 — read the index row before assuming a function is
+  D-1682…D-1792 — read the index row before assuming a function is
   unported. No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
 
+- D-1792: `nh_timeout` dialogues + `stone_luck` + `Popeye`; luck still
+  runs when invulnerable. Named: `region_dialogue` / `sleep_dialogue`;
+  STONED/SLIMED `done_timeout` / `slimed_to_death`.
 - D-1791: `newuhs` messages / faint / starve / ATEMP / `end_running`;
   `unfaint` afternmv; `gethungry` async. sit.js egg `morehungry` still
   not awaited.
@@ -115,4 +122,3 @@ Objective/score live in `CURRENT.md`.
 - D-1768: `make_blinded` Unaware talk=FALSE. Punished `set_bc` is D-1769.
 - D-1767: `show_glyph` `:2039` always overwrite gbuf. Named: usteed;
   `map_glyphinfo`.
-- D-1766: `cancel_doff` `:1643–1659`. Named: setnotworn `monstunseesu_prop`.

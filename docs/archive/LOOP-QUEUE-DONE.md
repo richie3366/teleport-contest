@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `eat.c` newuhs hunger messages + faint/starve + end_running (JS is a field-update stub). Not gethungry. **Addressed:** D-1791
+- [x] `timeout.c` nh_timeout property dialogues: stoned/slime/vomiting/choke/sickness/levitation/phaze + stone_luck. Not make_blinded. **Addressed:** D-1792
+
+
+- [x] `eat.c` newuhs hunger messages + faint/starve + end_running (JS is a field-update stub). Not gethungry. **Addressed:** D-1791 `2619827e`
 
 
 - [x] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender. **Addressed:** D-1790 `31181641`

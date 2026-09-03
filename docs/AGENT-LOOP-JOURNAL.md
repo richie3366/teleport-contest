@@ -8,6 +8,20 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1792 timeout.c nh_timeout dialogues + stone_luck
+
+**Objective:** Open `timeout.c` `nh_timeout` property dialogues +
+`stone_luck` (not `make_blinded`).
+**C:** `timeout.c:588–637` + stoned `:136` / slime `:388` / vomiting
+`:196` / choke `:294` / sickness `:322` / levitation `:352` / phaze
+`:533` + `attrib.c` `stone_luck` `:421` + `eat.c` `Popeye` `:3915`.
+**JS was:** no luck timeout; no countdown plines; those TIMEOUT flats
+skipped the generic `--`.
+**Fix:** luck before invulnerable; dialogues before `--`;
+`TIMEOUT_FLAT` includes STONED/SLIMED/VOMITING/SICK/STRANGLED/
+PASSES_WALLS; `Popeye` + inlined `polyfood`.
+**Verify:** green + strict; cohort 7/7. save-oracle skip (untagged).
+**Next:** Open `weapon.c` `dmgval` blessed/axe/silver/`artifact_light`.
 ## 2026-09-03 — D-1791 eat.c newuhs hunger / faint / end_running
 
 **Objective:** Open `eat.c` `newuhs` (not `gethungry`).

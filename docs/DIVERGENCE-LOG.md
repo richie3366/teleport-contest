@@ -1,5 +1,41 @@
 # Divergence log
 
+## D-1792 — nh_timeout property dialogues + stone_luck
+
+- **Status:** fixed (map-driven Open row; suite was 44/44)
+- **Symptom:** JS `nh_timeout` skipped C's countdown plines and luck
+  timeout. Stoned/Slimed/Vomiting/Strangled/Sick/HLevitation/
+  HPasses_walls never spoke; `u.uluck` never stepped toward
+  baseluck. Any session that starts those timers, or lasts 300/600
+  moves, diverges.
+- **C locus:** `timeout.c` `nh_timeout` `:588–637` — luck
+  (`:597–621`) still runs when `uinvulnerable`; dialogues
+  (`:623–637`) before uprops `--`. Callees `stoned_dialogue` `:136–185`,
+  `slime_dialogue` `:388–443`, `vomiting_dialogue` `:196–265`,
+  `choke_dialogue` `:294–314`, `sickness_dialogue` `:322–345`,
+  `levitation_dialogue` `:352–378`, `phaze_dialogue` `:533–543`.
+  `attrib.c` `stone_luck` `:421–437`; `eat.c` `Popeye` `:3915–3956`.
+  Caller `allmain.c:273`.
+- **JS was:** dedicated TIMEOUT arms (wounded/confused/blind/fumbling/…)
+  plus generic uprops `--`; no luck block; no property dialogues;
+  STONED/SLIMED/VOMITING/SICK/STRANGLED/PASSES_WALLS flats never
+  entered the generic loop.
+- **Fix:** luck helper before the invulnerable return; dialogues after
+  it and before `--`; `TIMEOUT_FLAT` now includes those props so
+  `sync_timeout_flats` feeds the generic decrement. `stone_luck` in
+  `js/attrib.js`; `Popeye` + inlined `polyfood` in `js/eat.js`;
+  existing `hack.js` `carrying` exported (no fifth clone). Probe:
+  stone_luck signs, stoned 5/4/3 texts + HFast/nomul, slime t=9/t=1
+  mimic, vomit/choke/sick/levi/phaze strings, luck ± at moves 600 vs
+  599, blessed luckstone keeps good luck, invulnerable skips
+  dialogues but still times luck, Stoned 5→4 after dialogue.
+- **Named omissions:** `region_dialogue` / `sleep_dialogue`;
+  STONED/SLIMED `done_timeout` / `slimed_to_death` (expiry still
+  silent clear); `ugallop`; delayed killers; surface() Underwater
+  `"bottom"` (levi uses `hliquid('water'|'lava')`). Not `make_blinded`.
+- **Next:** Open `weapon.c` `dmgval` blessed/axe/silver/`artifact_light`
+  bonus `rnd()` + `greatest_erosion`. Not `spec_abon`.
+
 ## D-1791 — newuhs: hunger messages, faint/starve, end_running
 
 - **Status:** fixed (map-driven Open row; suite was 44/44)

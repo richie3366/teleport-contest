@@ -25,7 +25,14 @@ tty WIN_INVEN `#perminv`/assesstty D-1642; create at `allmain.c:726` named);
 **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058; 
 @10966 after_calc theory falsified — D-0412 was travel boulder); 
 **SLT `u_calc_moveamt` +9 cycle clean**; **rottenfood non-faint→occupation** (D-0443 fixed; 
-was false early hero move); **`nh_timeout` before regen_hp — WOUNDED_LEGS → `heal_legs(0)` + 
+was false early hero move); **`nh_timeout` before regen_hp — luck
+baseluck + `stone_luck` / carrying(LUCKSTONE) (D-1792; C `timeout.c:597–621`
+still runs when `uinvulnerable`); Stoned/Slimed/Vomiting/Strangled/Sick/
+HLevitation/HPasses_walls dialogues before uprops `--` (D-1792; callees
+`stoned_dialogue` `:136`, `slime_dialogue` `:388`, `vomiting_dialogue` `:196`,
+`choke_dialogue` `:294`, `sickness_dialogue` `:322`, `levitation_dialogue`
+`:352`, `phaze_dialogue` `:533`, `eat.c` `Popeye` `:3915`); 
+WOUNDED_LEGS → `heal_legs(0)` + 
 CONFUSION → `make_confused(0,TRUE)` + FUMBLING → `slip_or_trip`/`rn2(4)`/`incr_itimeout(rnd(20))` + 
 `run_timers`** (D-0403/D-0405/D-0441/D-0692; **`slip_or_trip` keeps `objects_at` import** (D-0980; 
 D-0978 drop regressed seed0014); **DEAF TIMEOUT → make_deaf(0)** (D-0911; 
@@ -37,8 +44,9 @@ talk if !Unaware deferred); **FAST TIMEOUT → Very_fast clear + slow-down You_f
 dedicated arms skipped)** (D-0928 #1168; expiry switch STONED/HALLUC/INVIS/… still silent); 
 **`u.uinvulnerable` early-return freezes all TIMEOUT** (D-0928 #1171); 
 **`#wizintrinsic` BLINDED → `make_blinded(newtimeout)` + HBlinded↔uprops sync** (D-0928 #1171); 
-STUNNED/HALLUC/… expiry msgs / Glib / run_regions inside_f D-1146 / hero_inside bit D-1169 / expire 
-dissipation D-1155 / `u.uinvulnerable` early return deferred; 
+STUNNED/HALLUC/… expiry msgs / `region_dialogue` / `sleep_dialogue` / STONED·SLIMED
+`done_timeout`/`slimed_to_death` / Glib / run_regions inside_f D-1146 / hero_inside bit D-1169 / expire 
+dissipation D-1155 / surface() Underwater bottom named; 
 ice hurtle/mount dismount / REVIVE/ZOMBIFY/burn deferred); 
 **`exerper` encumbrance + every-5 Wounded_legs/`Fumbling()`≡H\|\|E/`HStun` DEX abuse + 
 Confusion≡`HConfusion` / Hallucination≡`HHallucination&&!res` WIS abuse** 

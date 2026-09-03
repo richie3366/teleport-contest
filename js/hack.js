@@ -2226,7 +2226,7 @@ function Invocation_lev(lev) {
 /**
  * C invent.c carrying — first matching otyp in hero invent[].
  */
-function carrying(otyp) {
+export function carrying(otyp) {
     if (otyp < 0) return null;
     for (const otmp of game.invent || []) {
         if ((otmp.otyp | 0) === otyp) return otmp;
