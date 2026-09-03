@@ -540,7 +540,11 @@ force_decor/draft_message/Invocation_lev named; potion peffect_enlightenment is 
 **dozap cursed `backfire` D-1416**; wrest pline; `check_capacity`/`check_unpaid`; 
 `update_inventory`; shieldeff/monstunseesu; `defended`/`resists_magm` body; acid_damage/erode; 
 **`maybe_destroy_item` AD_ELEC D-1368**; spell_damage_bonus / Knight questart;
-**`body_part`** via existing `polyself.js` import (D-1496).
+**`body_part`** via existing `polyself.js` import (D-1496);
+**`poly_obj` `Has_contents` → `shk.c` `delete_contents` D-1770**
+(`:1827–1829` KAA; C `shk.c` `:1174–1183` extract+`obfree`; zap.js
+unlink clone retired; named: trap.js `delete_contents_chest`,
+mklev.js `create_object_delete_contents`, objnam empty/verysmall statue).
 
 ### `src/read.c` `doread`/`seffects`
 
@@ -972,9 +976,10 @@ C `mkobj.c` `:2744–2811` / `dealloc_obj_real` `:2814–2827` /
 `js/light.js`; `obfree`/`moveloop_core`/`savelev` JSON/`dosave0` +
 mklev ROCK/book/mktrap_victim discards; **`delobj`/`delobj_core` D-1756**
 C `invent.c` `:1429–1462` + `extract_nobj`/`container_weight` +
-revive `delobj_core(,TRUE)`; named: eat.js hybrid still
-useup+useupf, detect/potion/read/spell local clones,
-zap.js `delete_contents` clone, nhl_gamestate leftover,
+revive `delobj_core(,TRUE)`; **zap `delete_contents` D-1770**;
+named: eat.js hybrid still useup+useupf, detect/potion/read/spell
+local clones, trap.js `delete_contents_chest` / mklev.js
+`create_object_delete_contents`, nhl_gamestate leftover,
 wizard `makemap_prepost` dobjsfree, invent Array vs nobj); 
 **`prinv` total_of + `xprname` quan + `(N in total)`** (D-0388); 
 **`count_contents`** nested/quan/everything (D-0395; shoppy `costly_spot` deferred); 

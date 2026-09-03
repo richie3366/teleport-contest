@@ -68,15 +68,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 seed0006/0030/4500). seed0014 still FAIL — do not invent a peel;
 map still picks work. Save-oracle required for tagged
 restore/other-floor Open (`save-oracle.mjs probe --omit`).
-**Next cluster:** Open `zap.c` delete_contents clone (named). Not delobj extract.
-**Do not skip D-1531…D-1769 (index).** Keep mention_map addr.
+**Next cluster:** Open `eat.c` useup+useupf hybrid (named). Not delete_contents.
+**Do not skip D-1531…D-1770 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1769.** Do not FORCE
+**Do not re-break D-0660…D-1770.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1769 (index). Recent: **D-1769**
+**Keep:** D-0845…D-1770 (index). Recent: **D-1770**
+`shk.c` `delete_contents` extract+`obfree` (`shk.c` `:1174–1183`;
+caller `zap.c` `poly_obj` `:1827–1829`; live `js/shk.js` export;
+zap.js unlink clone retired; named: trap.js `delete_contents_chest`,
+mklev.js `create_object_delete_contents`, objnam empty). **D-1769**
 `ball.c` `set_bc` Punished blind snapshot (`ball.c` `:379–424`;
 callers `potion.c` `:309`, `do_wear.c` `:1476`/`:1523`,
 `read.c` `:3059`; live `js/ball.js`+`js/do.js`+`js/do_wear.js`+
@@ -134,33 +138,24 @@ skip Cha `rn2`/`y_n` (hitmsg/You_hear/sedu/ston same local; named:
 `delobj`/`delobj_core` extract then `obfree` (`invent.c`
 `:1429–1462`; `mkobj.c` `extract_nobj` `:2595–2614` /
 `container_weight` `:2731–2738`; `zap.c` revive floor
-`delobj_core(,TRUE)`; live `obj_resists`; named: zap
-`delete_contents` clone, invent Array vs nobj, youmonst
+`delobj_core(,TRUE)`; live `obj_resists`; zap `delete_contents` is
+D-1770; named: invent Array vs nobj, youmonst
 `maybe_unhide_at`, `shrinking_glob_gone`). **D-1755**
 `toggle_blindness` `Sting_effects(-1)` (`potion.c` `:334–364`
 Stinging see_monsters then `-1`; `make_blinded` `:260–331` Hallu
 talk + Eyes vismsg/itch; Blindf_on/off; clones retired;
-Punished `set_bc` is D-1769; Unaware talk=FALSE is D-1768). **D-1754**
-`really_done` companion pet HP (`end.c` `:1293–1295` `keepdogs(TRUE)`;
-`:1453–1476` mydogs `mtame` `mhp` + live-cat `d(adj_lev,8)`; two-line
-putstr; `dog.c` `:799–809` pets_only wakeup; live `js/end.js` +
-`js/dog.js` + exported `adj_lev`; named: DUMPLOG, keepdogs
-migrate/leash/`mon_has_amulet`). **D-1753**
-`sense_trap` Hallu/cursed GOLD/`random_object` quan (`detect.c` `:864–897`;
-`display_trap_map`/`detect_obj_traps`/`trap_detect`/`findone`; live
-`js/detect.js` + `random_object`; named: findone flash/foundone/mimic,
-gold_detect).
+Punished `set_bc` is D-1769; Unaware talk=FALSE is D-1768).
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1769 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1770 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1769 (index). No generic `dknown` on
+Do not re-port D-1660…D-1770 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

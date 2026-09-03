@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `ball.c` Punished set_bc (named). Not Unaware talk. **Addressed:** D-1769
+- [x] `zap.c` delete_contents clone (named). Not delobj extract. **Addressed:** D-1770
+
+
+- [x] `ball.c` Punished set_bc (named). Not Unaware talk. **Addressed:** D-1769 `3baada67`
 
 
 - [x] `potion.c` make_blinded Unaware talk=FALSE (named). Not Sting(-1). **Addressed:** D-1768 `566ab3d4`

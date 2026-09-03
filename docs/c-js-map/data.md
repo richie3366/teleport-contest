@@ -252,7 +252,9 @@ floor `maybe_unhide_at`+`newsym` then `obfree`; CONTAINED/BURIED revive
 `obfree`; live `js/mkobj.js` + `js/zap.js`); 
 omit FIGURINE transform/timeout, `nextoid` shop-price search, unpaid/`splitbill`, 
 timers/light/`copy_oextra`, invent Array vs nobj `extract_nobj`, `oeaten`/`eaten_stat`, statue weight arms,
-zap.c `dealloc_oextra` poly / `delete_contents` clone, wizard `makemap_prepost` dobjsfree,
+zap.c `dealloc_oextra` poly; **zap `delete_contents` D-1770**;
+trap.js `delete_contents_chest` / mklev.js `create_object_delete_contents`,
+wizard `makemap_prepost` dobjsfree,
 `maybe_unhide_at` youmonst, `shrinking_glob_gone` vs delobj
 
 ### `src/mon.c` `undead_to_corpse`/`can_be_hatched`/`mondead`/`corpse_chance`

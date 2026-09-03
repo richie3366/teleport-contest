@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1770 | fixed | shk.c delete_contents extract+obfree (zap clone) | map-driven Open from D-1756; C `delete_contents` `:1174–1183`; caller `zap.c` `poly_obj` `:1827–1829`; JS unlink clone no `obfree`; live `js/shk.js` export + `js/zap.js` import; named: trap.js `delete_contents_chest`, mklev.js `create_object_delete_contents`, objnam empty; delobj extract is D-1756 |
 | D-1769 | fixed | ball.c set_bc Punished blind snapshot | map-driven Open from D-1768; C `set_bc` `:379–424`; callers `potion.c` `:309` / `do_wear.c` `:1476`/`:1523` / `read.c` `:3059`; JS missing helper; live `js/ball.js`+`make_blinded`/`Blindf_on`/`Blindf_off`/`punish`; named: Blind `move_bc` glyph, `unplacebc` restore |
 | D-1768 | fixed | potion.c make_blinded Unaware talk=FALSE | map-driven Open from D-1767; C `make_blinded` `:275–276` `if (Unaware) talk=FALSE`; `youprop.h` `:399` `unconscious\|\|is_fainted`; JS talked on caller `talk`; live `js/do.js`+`js/eat.js` `is_fainted`; Punished `set_bc` is D-1769; Sting(-1) is D-1755 |
 | D-1767 | fixed | display.c show_glyph always overwrite gbuf | Must-fix review **726**; C `show_glyph` `:2039` always `gbuf.glyph = glyph`; JS `show_glyph_cell` left stale `disp_glyph` on tty-only paints so `see_traps` extra `newsym` (`tseen`/`erevealed`); live `js/display.js`+`js/detect.js`; named: usteed / swallow cmap / `map_glyphinfo`; seed0014 still FAIL |

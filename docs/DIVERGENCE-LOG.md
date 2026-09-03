@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1770 — shk.c delete_contents extract+obfree (zap clone retired)
+
+- **Status:** fixed (map-driven Open from D-1756; not a public FAIL)
+- **Symptom:** `js/zap.js` had a local `delete_contents` that unlinked
+  `cobj` without `obj_extract_self`+`obfree`, so `poly_obj` of a
+  `mkbox_cnts`-filled container leaked contents (no unpaid/timer/
+  dealloc). C `shk.c` `:1174–1183` extracts then `obfree`.
+- **C locus:** `shk.c` `delete_contents` `:1174–1183`; caller
+  `zap.c` `poly_obj` `:1827–1829` (`Has_contents(otmp)` KAA).
+  Other C callers stay named (trap chest explode, sp_lev
+  `create_object`, objnam empty/verysmall statue).
+- **JS was:** zap.js clone `cobj=nobj` / `where=0` / recurse
+  `Has_contents` and never `obfree`. `js/shk.js` already exported
+  the C body (D-1727).
+- **Fix:** Import the `shk.js` export; delete the zap clone.
+  `poly_obj` already called `delete_contents(otmp)`.
+- **JS:** `js/zap.js` import; `js/shk.js` export.
+- **Not this iter:** trap.js `delete_contents_chest`; mklev.js
+  `create_object_delete_contents`; objnam empty/verysmall; eat.js
+  useup+useupf; invent Array vs nobj.
+- **Verified:** save-oracle probe skip (untagged
+  `zap.c:delete_contents`); node canary nested+mkbox_cnts
+  `OBJ_DELETED`/`objs_deleted` + `poly_obj` STRANGE_OBJECT empty
+  LARGE_BOX/SACK; green+strict seed8000/0900; CURRENT cohort
+  **9**/9 + strict. Rule #2 clean.
+- **Files:** `js/zap.js`, `js/shk.js`, `js/mkobj.js` (comment).
+
 ## D-1769 — ball.c set_bc Punished blind snapshot
 
 - **Status:** fixed (map-driven Open from D-1768; not a public FAIL)
