@@ -827,6 +827,9 @@ pit TT_PIT / underwater `has_night_vision=0` + pool 3×3 /
 
 JS: `js/trap.js` — partial
 
+**`trapname` Hallu (D-1759;** C `:7098–7155` display rng + 62
+`halu_trapnames` + role/rank `" trap"`; `trap_to_glyph` is not Hallu;
+detect clone retired; pager `trap_description` named); 
 Monster dart path: `t_at`/`t_missile`/`thitm` miss pline/`mintrap`/`seetrap` (D-0018–D-0019); 
 **`maketrap` + `choose_trapnote` + `hole_destination`/`dng_bottom`** (D-0054) + 
 **D-0782 MAGIC_PORTAL mon migrate** + **D-0777 terrain gates** 

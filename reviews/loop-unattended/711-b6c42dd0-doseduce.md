@@ -200,4 +200,4 @@ Named (map, not Must-fix): uhitm hero-as-seducer; mhitm mon-mon AD_SSEX; `c_sa_n
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1758
+**Addressed:** D-1758 `0b5f451a`

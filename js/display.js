@@ -1378,8 +1378,10 @@ function t_at_display(x, y) {
 }
 
 /**
- * C ref: defsym.h trap PCHARs + rm.h trap_to_defsym + display.h trap_to_glyph.
- * Hallucination / random_trap_to_glyph deferred.
+ * C ref: display.h trap_to_glyph `:630–631` —
+ * cmap_to_glyph(trap_to_defsym(trap->ttyp)). Not Hallu: this C dropped
+ * 3.6 what_trap / random_trap_to_glyph. Hallu names are trap.c trapname
+ * (`rn2_on_display_rng`). Invalid ttyp keeps a generic '^' (HI_METAL).
  */
 function trap_glyph(trap) {
     const ttyp = trap?.ttyp | 0;
@@ -1387,6 +1389,11 @@ function trap_glyph(trap) {
         return { ch: '^', color: HI_METAL, dec: false };
     }
     return cmap_idx_to_glyph(trap_to_defsym(ttyp));
+}
+
+/** C display.h trap_to_glyph — export the cmap path (no Hallu). */
+export function trap_to_glyph(trap) {
+    return trap_glyph(trap);
 }
 
 /**
@@ -4034,31 +4041,29 @@ export function see_objects() {
 }
 
 /**
- * C ref: display.c see_traps — newsym only when gbuf glyph_is_trap.
- * Under Hallu, mon/obj already redrawn by see_monsters/see_objects; C skips
- * those cells so we must not re-newsym them (extra mon_to_glyph burns).
+ * C ref: display.c see_traps `:1610–1621` — "Update hallucinated traps."
+ * Walk ftrap; newsym iff glyph_is_trap(_glyph_at). C trap_to_glyph has
+ * no Hallu; newsym still refreshes covering mons/objs (what_mon /
+ * obj_to_glyph display rng). JS gbuf analogue: loc.disp_kind === 'trap'.
+ * level.traps is the array stand-in when ntrap is unset.
  */
 export function see_traps() {
     const seen = new Set();
     function maybe_redraw(trap) {
-        if (!trap?.tseen) return;
+        if (!trap || seen.has(trap)) return;
+        seen.add(trap);
         const x = trap.tx | 0;
         const y = trap.ty | 0;
-        const key = `${x},${y}`;
-        if (seen.has(key)) return;
-        seen.add(key);
         const loc = game.level?.at(x, y);
-        if (!loc) return;
-        const tg = trap_glyph(trap);
-        // C: if (glyph_is_trap(_glyph_at(tx,ty))) newsym(...)
-        if (loc.disp_ch !== tg.ch) return;
+        // C: if (glyph_is_trap(_glyph_at(tx, ty))) newsym(...)
+        if (loc?.disp_kind !== 'trap') return;
         newsym(x, y);
     }
+    for (let trap = game.ftrap; trap; trap = trap.ntrap) maybe_redraw(trap);
     const traps = game.level?.traps;
     if (Array.isArray(traps)) {
         for (const trap of traps) maybe_redraw(trap);
     }
-    for (let trap = game.ftrap; trap; trap = trap.ntrap) maybe_redraw(trap);
 }
 
 /**

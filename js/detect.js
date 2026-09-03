@@ -62,6 +62,7 @@ import { body_part } from './polyself.js';
 import { A_WIS, A_INT, acurr, exercise } from './attrib.js';
 import {
     t_at, activate_statue_trap, b_trapped, openholdingtrap, openfallingtrap,
+    trapname,
 } from './trap.js';
 import { engr_at } from './engrave.js';
 import { cmd_safety_prevention, make_blinded } from './do.js';
@@ -303,42 +304,6 @@ const CIRCLE_DATA = [
 const CIRCLE_START = [0, 1, 3, 6, 10, 15, 21, 28, 36];
 
 const LENSES = objectNames.indexOf('LENSES');
-
-// C ref: defsym.h trap explanations (non-hallucination trapname)
-const TRAP_EXPLANATIONS = [
-    '', // NO_TRAP
-    'arrow trap',
-    'dart trap',
-    'falling rock trap',
-    'squeaky board',
-    'bear trap',
-    'land mine',
-    'rolling boulder trap',
-    'sleeping gas trap',
-    'rust trap',
-    'fire trap',
-    'pit',
-    'spiked pit',
-    'hole',
-    'trap door',
-    'teleportation trap',
-    'level teleporter',
-    'magic portal',
-    'web',
-    'statue trap',
-    'magic trap',
-    'anti-magic field',
-    'polymorph trap',
-    'vibrating square',
-    'trapped door',
-    'trapped chest',
-];
-
-/** C ref: trap.c trapname(ttyp, override) — non-hallucination only */
-function trapname(ttyp, _override) {
-    if (ttyp > NO_TRAP && ttyp < TRAPNUM) return TRAP_EXPLANATIONS[ttyp] || 'trap';
-    return 'trap';
-}
 
 /** C ref: detect.c cvt_sdoor_to_door */
 export function cvt_sdoor_to_door(lev) {

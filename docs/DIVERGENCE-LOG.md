@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1759 — trap.c trapname Hallu / display.h trap_to_glyph (no Hallu)
+
+- **Status:** fixed (map-driven Open from D-1758; not a public FAIL)
+- **Symptom:** map named `display.h` `random_trap_to_glyph`. That macro
+  is not in this C (3.6 `what_trap`). `trap_to_glyph` is
+  `cmap_to_glyph(trap_to_defsym(ttyp))` with no Hallu. Hallu trap
+  *names* are `trapname`: `rn2_on_display_rng(TRAPNUM+SIZE(halu)+1)`
+  then role/rank `" trap"`, `halu_trapnames[]`, or a real ttyp.
+  JS `trapname` ignored Hallu (always defsym) and keep a sticky
+  `u.Hallucination` clone. `see_traps` extra-gated on `tseen` + ch
+  match instead of `glyph_is_trap(_glyph_at)`.
+- **C locus:** `trap.c` `trapname` `:7098–7155`; `display.h`
+  `trap_to_glyph` `:630–631` / `glyph_is_trap` `:972–974`;
+  `display.c` `see_traps` `:1610–1621` (callers `make_hallucinated`
+  `:426` / `allmain.c` `:459`). `defsym.h` trap PCHAR2 desc.
+- **JS was:** `js/trap.js` defsym-only `trapname` + local Hallu clone;
+  `js/display.js` `trap_glyph` comment deferred hallu glyphs;
+  `see_traps` `tseen`+`disp_ch`; `js/detect.js` trapname clone.
+- **Fix:** `trapname` Hallu arm (display rng, 62 names, copynchars 27
+  + `lcase`); import `Hallucination()` youprop (drop sticky clone);
+  export `trap_to_glyph` (no Hallu); `see_traps` `disp_kind==='trap'`.
+  Did not invent 3.6 `random_trap_to_glyph` on the map glyph.
+- **JS:** `js/trap.js` `trapname`; `js/display.js` `trap_to_glyph` /
+  `see_traps`; `js/detect.js` imports `trapname`.
+- **Not this iter:** pager `trap_description`; explode `map_invisible`
+  !canspotmon; integer `GLYPH_*_OFF` / `map_monst`; getpos `S_goodpos`.
+  cmap trap/zap is D-1738.
+- **Verified:** save-oracle probe skip (untagged
+  `display.h:random_trap_to_glyph`); node canary (plain pit/web;
+  override; TRAPNUM 26; nameidx keep/halu/real/role; seed1 peek 52
+  `"booby trap"`); green+strict seed8000/0900; CURRENT cohort **9**/9
+  + strict (incl. seed0383 hallu). Rule #2 clean.
+- **Files:** `js/trap.js`, `js/display.js`, `js/detect.js`.
+
 ## D-1758 — mhitu.c doseduce/mayberem hero_Deaf youprop.h:125
 
 - **Status:** fixed (Must-fix review **711**; not a public FAIL)

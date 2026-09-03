@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `mhitu.c` doseduce/mayberem `hero_Deaf` drops `EDeaf` and `uroleplay.deaf` (C `youprop.h:125`), so Cha `rn2`/`y_n` fire on C’s Deaf arms. Source: reviews/loop-unattended/711-b6c42dd0-doseduce.md. **Addressed:** D-1758
+- [x] `display.h` random_trap_to_glyph (named). Not cmap_to_glyph trap. **Addressed:** D-1759
+
+
+- [x] `mhitu.c` doseduce/mayberem `hero_Deaf` drops `EDeaf` and `uroleplay.deaf` (C `youprop.h:125`), so Cha `rn2`/`y_n` fire on C’s Deaf arms. Source: reviews/loop-unattended/711-b6c42dd0-doseduce.md. **Addressed:** D-1758 `0b5f451a`
 
 
 - [x] `worn.c` setworn oc_oprop (named). Not possibly_unwield. **Addressed:** D-1757 `2d66f69e`
