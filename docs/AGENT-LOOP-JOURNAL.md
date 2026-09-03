@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1760 explode.c map_invisible !canspotmon / You_hear
+
+**Objective:** Open `explode.c` map_invisible !canspotmon. Not
+`explosion_to_glyph`.
+**C locus:** `explode.c` `explode` `:378–452`; `engulfer_explosion_msg`
+`:117–179`; `display.c` `map_invisible` `:377–385`.
+**JS locus:** `js/explode.js` `explode`; `js/sndprocs.js` `se_blast`.
+**Change:** 3x3 I-glyph when `cansee && !canspotmon`; unseen
+You_hear/generic/Boom; engulfer_explosion_msg + seemimic. Did not
+touch explosion_to_glyph.
+**Score:** fortress held (not a full-suite iter).
+**Verified:** probe skip untagged `explode.c:explode`; node 14/14;
+green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+Rule #2 clean.
+**Next:** Open `sounds.c` sound_speak.
+**Blocked:** none.
 ## 2026-09-03 — D-1759 trap.c trapname Hallu / trap_to_glyph no Hallu
 
 **Objective:** Open `display.h` random_trap_to_glyph. Not explode

@@ -7,10 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44** fortress (cadence **#2170** at `2d66f69e`, R² 0.846).
   Save-oracle for tagged restore Open. B0: catchup 26/30 red; shop
-  35/35 no unpaid. **Next:** Open `explode.c` map_invisible !canspotmon.
-  Not `sounds.c` `sound_speak`. Falsify: C explode.c `map_invisible`
-  when !canspotmon. Do not skip D-1531…D-1759. Do not re-port
-  D-1675…D-1759. Do not rewrite `confer_oc_oprop`. Do not invent
+  35/35 no unpaid. **Next:** Open `sounds.c` `sound_speak`.
+  Not explode `map_invisible`. Falsify: C sounds.c `sound_speak`.
+  Do not skip D-1531…D-1760. Do not re-port
+  D-1675…D-1760. Do not rewrite `confer_oc_oprop`. Do not invent
   3.6 `random_trap_to_glyph` on trap cmap.
 - Named still: Palantir `#if 0`; pit/underwater; clone yn;
   keepdogs leash/`mon_has_amulet`; tip-spill; hideunder; Punished
@@ -19,7 +19,7 @@ Objective/score live in `CURRENT.md`.
   vault/priest/sit SetVoice; heaven `u_left_shop`; STRAT_HEAL;
   `swallow_cell` sticky Hallu; eat.js useup+useupf; Unaware
   make_blinded talk=FALSE; Punished `set_bc`; `cancel_doff`;
-  pager `trap_description`; explode `map_invisible`; integer
+  pager `trap_description`; hallu explode `rndmonnam`; integer
   `GLYPH_*_OFF` / `map_monst`; findone flash/`foundone`/mimic;
   `gold_detect`; DUMPLOG; zap `delete_contents` clone; invent
   Array vs nobj; `noit_mhim` Hallu.
@@ -31,7 +31,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1759.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1760.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -42,10 +42,10 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1759 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1760 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not skip
-  D-1520…D-1759. Do not delete emin (**487**). Do not stub
+  D-1520…D-1760. Do not delete emin (**487**). Do not stub
   `make_happy_shk` pacify-only (D-1540). Do not import bones→options
   for fruitadd (D-1541).
 - Do not pull `reset_glyphmap` / `notice_all_mons` /
@@ -63,9 +63,12 @@ Objective/score live in `CURRENT.md`.
   `vision_reset`.   No yn ^P glue / `ing_suffix` clone #3 / InvInUse
   poke (D-1603) / zap sticky Blind (D-1604). No `dat/tribute` indent=2.
   No static `files.js`←`spell.js` (TDZ). REST_LEVELS where getlev
-  catchup reads it. Do not re-port D-1682…D-1759. D-1759 is
-  `trapname` Hallu / `trap_to_glyph` no Hallu (not explode
-  `map_invisible` / pager `trap_description`). D-1758 is
+  catchup reads it.   Do not re-port D-1682…D-1760. D-1760 is explode 3x3
+  `map_invisible` !canspotmon / You_hear vs Boom! /
+  `engulfer_explosion_msg` (not `sound_speak` / hallu `rndmonnam`).
+  D-1759 is
+  `trapname` Hallu / `trap_to_glyph` no Hallu (not pager
+  `trap_description`). D-1758 is
   `hero_Deaf` youprop (not `noit_mhim` Hallu). D-1757 is
   `setworn` oc_oprop/`w_blocks`/weapon gate (`setuwep` calls `setworn`;
   not `cancel_doff`). D-1756 is `delobj`/`delobj_core` extract+`obfree`
@@ -79,10 +82,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1760: `explode` `:378–452` 3x3 `map_invisible` when
+  `cansee && !canspotmon` else `unmap_invisible`; `You_hear` vs
+  Boom! / generic `"explosion"`; `engulfer_explosion_msg` `:117–179`
+  + `seemimic`. Live `explode.js`+`se_blast`. Named: hallu
+  `rndmonnam`; You_hear Underwater/Unaware; TRAP_EXPLODE killer.
 - D-1759: `trapname` `:7098–7155` Hallu display rng + 62 names +
   role/rank `" trap"`; C `trap_to_glyph` no Hallu; `see_traps`
   `glyph_is_trap`. Live `trap.js`+`display.js`. Named: pager
-  `trap_description`; explode `map_invisible`.
+  `trap_description`.
 - D-1758: `hero_Deaf` `:youprop.h:125` `HDeaf||EDeaf||uroleplay.deaf`
   in doseduce/mayberem Cha `rn2`/`y_n`; hitmsg/You_hear/sedu/ston.
   Live `mhitu.js`. Named: `noit_mhim` Hallu. doseduce is D-1750.
@@ -119,6 +127,4 @@ Objective/score live in `CURRENT.md`.
   Live `display.js`. Sting(-1) is D-1755.
 - D-1746: `see_monsters` `:1508–1509` MON_STILL_ARRIVING continue.
   Live `display.js`+`dog.js`. Sting(-1) is D-1755.
-- D-1745: `newsym` `:1046–1054` !cansee DETECTED. Live `display.js`.
-  Pet/detected glyphs are D-1748.
 

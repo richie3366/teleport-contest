@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1760 — explode.c map_invisible !canspotmon / You_hear vs Boom!
+
+- **Status:** fixed (map-driven Open from D-1759; not a public FAIL)
+- **Symptom:** JS `explode` 3x3 only `unmap_invisible` when `!mtmp`.
+  C paints `map_invisible` when `cansee && !canspotmon`, then
+  `You_hear("a blast.")` / generic `"explosion"` when no cell is in
+  view, else `Boom!`. Swallowed victims used the caught-in pline
+  instead of `engulfer_explosion_msg`.
+- **C locus:** `explode.c` `explode` `:378–452` (3x3 I-glyph +
+  visible/`You_hear`/`Boom!`); `engulfer_explosion_msg` `:117–179`
+  (caller `:503–509` with `seemimic` before caught-in). `display.c`
+  `map_invisible` `:377–385`. `pline.c` `You_hear` `:435–452`.
+  `youprop.h:125` Deaf.
+- **JS was:** unmap-only in the `!mtmp` else; always `Boom!`; no
+  generic killer skip; caught-in pline for engulfer.
+- **Fix:** 3x3 `map_invisible`/`unmap_invisible`/`visible`; unseen
+  MON/TRAP `str="explosion"` + `You_hear` (`Soundeffect(se_blast)`;
+  acoustics; didmsg even when You_hear no-ops); Deaf inline
+  H/E/roleplay (no `hero_Deaf` clone); `engulfer_explosion_msg` +
+  `seemimic`; generic skips killer.name overwrite. Did not touch
+  `explosion_to_glyph` / `explode_show_visible`.
+- **JS:** `js/explode.js` `explode` / `engulfer_explosion_msg`;
+  `js/sndprocs.js` re-export `se_blast`.
+- **Not this iter:** hallu `rndmonnam`; You_hear Underwater/Unaware
+  prefixes; TRAP_EXPLODE killer `uhim`/`uhis`; grabbing double-damage;
+  golemeffects/Invulnerable. explosion_to_glyph is D-1738.
+- **Verified:** save-oracle probe skip (untagged `explode.c:explode`);
+  node 14/14 (I-glyph / See_invisible / You_hear / Boom / HDeaf /
+  EDeaf / roleplay / SCROLL unseen / unmap empty / !acoustics);
+  green+strict seed8000/0900; CURRENT cohort **7**/7 + strict.
+  Rule #2 clean.
+- **Files:** `js/explode.js`, `js/sndprocs.js`.
+
 ## D-1759 — trap.c trapname Hallu / display.h trap_to_glyph (no Hallu)
 
 - **Status:** fixed (map-driven Open from D-1758; not a public FAIL)

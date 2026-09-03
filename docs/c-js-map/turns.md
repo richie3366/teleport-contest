@@ -1611,7 +1611,10 @@ next C ~drn2 dim diff; **`newsym` `show_region` + `mon_overrides_region` D-1528*
 **Primary ASCII vs `symset:DECgraphics` walls/floors/ndoor/open-door `horizontal`** (D-0115); 
 **DECgraphics `S_altar` meta-`{` (ASCII `_`); scoring grid keeps raw `{`** (D-0293); 
 **`map_invisible` + `canspotmon`/`canseemon`/`sensemon` + `newsym` keep `I`** (D-0296; 
-tp_sensemon/warn/worm deferred); **`display_monster` M_AP_OBJECT fake obj → `map_object(&obj, !sensed)`**
+tp_sensemon/warn/worm deferred); **`explode` 3x3 `map_invisible` when
+`cansee && !canspotmon` D-1760** (`explode.c` `:378–381`; live
+`js/explode.js`; You_hear vs Boom! same pass; not `explosion_to_glyph`);
+**`display_monster` M_AP_OBJECT fake obj → `map_object(&obj, !sensed)`**
 (D-1739; C `:564–575`; memory+`observe_object` even when sensed;
 D-0297 paint); **M_AP_FURNITURE `cmap_to_glyph` + lastseentyp** (D-1726;
 `js/display.js` `display_monster`; not `update_lastseentyp`);
@@ -2663,9 +2666,14 @@ Cleaver `hitum_cleave` deferred; hmon `gt.twohits` strbonus scaling live);
 **`explode` AD_FIRE mon/hero combat + `explosionmask` Fire_resistance/`resists_fire` + 
 `mon_explodes` AD_FIRE** (D-0968) + **`explode` AD_COLD/ELEC mon/hero + Cold/Shock mask + 
 `mon_explodes` COLD/ELEC** (D-0971) + **`explode` AD_MAGM/DISN/DRST/ACID mon/hero + 
-Antimagic/Disint/Poison/Acid masks + `mon_explodes` MAGM..SPC2** (D-0973; 
-swallowed/engulfer boom msg, hallu/sparkle/golemeffects/ignite_items 
-body/Invulnerable/burn_away_slime/`resists_magm` worn scan deferred); 
+Antimagic/Disint/Poison/Acid masks + `mon_explodes` MAGM..SPC2** (D-0973) + 
+**`explode` 3x3 `map_invisible` `!canspotmon` + You_hear vs Boom! +
+`engulfer_explosion_msg` D-1760** (`explode.c` `:378–452` / `:117–179`;
+`seemimic` before caught-in; generic unseen `"explosion"` killer skip;
+live `js/explode.js` + `se_blast`; named: hallu `rndmonnam`, You_hear
+Underwater/Unaware, TRAP_EXPLODE killer `uhim`, grabbing double-damage,
+golemeffects/Invulnerable/`resists_magm` worn scan; explosion_to_glyph
+is D-1738); 
 **`xkilled` treasure `mkobj(RANDOM_CLASS)` + food/size filters** (D-0229); 
 **`xkilled` final `newsym` after treasure/corpse** (D-0304); 
 **`mhitm_mgc_atk_negated` + hero armor `a_can`** (D-0198); 
