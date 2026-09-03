@@ -7,9 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44.** Map-driven: named omissions / cluster density, not
   FAIL peels. Audit 728–737: ten ACCEPT-WITH-DEBT, Must-fix empty.
-  **Next:** `vision.c` `do_clear_area` off-hero `view_from` +
-  `detect.js` clone (named). Falsify: C off-hero arm vs JS omit. Not
-  couldsee. Do not invent a FAIL.
+  **Next:** `do_name.c` `mon_nam_too` + `monverbself` (named; mhitm.js
+  clone). Falsify: C body vs JS clone. Not pronoun_gender. Do not
+  invent a FAIL.
+- **`do_clear_area` is one async export in `js/vision.js`** (D-1785).
+  `openit`/`findit` must pass `openone`/`findone` **by identity** —
+  `detecting()` is what turns on `override_vision`, which is the only
+  reason detection works on the water and air levels. `dog_goal` is
+  async now; `dog_move` awaits it.
 - **Traps in the recent ports** (full detail in the D-log):
   a ridden steed uses `ridden_mon_to_glyph`, so the hero cell carries a
   GLYPH_RIDDEN_* id with the *same* ch/colour — invisible to the suite —
@@ -67,7 +72,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1784.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1785.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -78,7 +83,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1784 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1785 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -98,7 +103,7 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1784 — read the index row before assuming a function is
+  D-1682…D-1785 — read the index row before assuming a function is
   unported. No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)

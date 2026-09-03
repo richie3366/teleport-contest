@@ -1,5 +1,66 @@
 # Divergence log
 
+## D-1785 — vision.c do_clear_area override_vision + one async export
+
+- **Status:** fixed (map-driven Open row `vision.c` do_clear_area
+  off-hero view_from + detect.js clone; suite was 44/44, Must-fix empty)
+- **Symptom:** two problems, one visible only through the other.
+  `js/detect.js` carried its **own** `do_clear_area` (added async in
+  D-1775 so `findone` could await its flashes) alongside the
+  `js/vision.js` export. The clone had no off-hero `view_from` arm at
+  all — it simply returned — and neither copy had C's
+  `override_vision`. That gate is not cosmetic: vision does not pass
+  through water or clouds, so on the water and air levels `couldsee`
+  is false almost everywhere and a wand of secret door detection or a
+  bell of opening would sweep **nothing**, where C detects normally.
+  Because `openone` is async, `openit` had also been rewritten to
+  collect cells through an anonymous arrow and call `openone`
+  afterwards — which silently destroyed the callback identity
+  `detecting()` depends on, so even a correct `override_vision` could
+  not have fired there.
+- **C locus:** `vision.c` `do_clear_area` `:2106–2148`;
+  `detect.c` `detecting` `:1927–1932` (`func == findone || func ==
+  openone`); callers `detect.c:1815` findit, `:1923` openit,
+  `dogmove.c:630` wantdoor, `fountain.c:124` gush, `read.c:2601`
+  set_lit.
+- **JS was:** `vision.js` had the off-hero arm but no
+  `override_vision`; `detect.js` had a hero-only clone; `detecting`
+  did not exist; `openit` passed an arrow instead of `openone`.
+- **Fix:** one `do_clear_area`, in `js/vision.js`, C's shape end to
+  end — off-hero `view_from`, hero-centred circle walk, and
+  `couldsee(x, y) || override_vision`. `detecting` is exported from
+  `js/detect.js` (C declares it in `extern.h`, so vision.c calling into
+  detect.c is C's own structure, not a port shortcut). The clone is
+  deleted and `openit` passes `openone` directly again, restoring the
+  identity the gate needs. The export is `async` and awaits `func`
+  purely because this port's display helpers are async — C is
+  synchronous throughout — so all five call sites await it, which made
+  `dogmove.c` `dog_goal` async; its single caller `dog_move` was
+  already async and now awaits.
+- **JS:** `js/vision.js`, `js/detect.js`, `js/dogmove.js`,
+  `js/fountain.js`, `js/read.js`. 49 insertions / 61 deletions — the
+  leftover `CIRCLE_*` clone tables went with the helper.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `66+0.50/turn` (R² 0.853).
+  `dog_goal` turning async touches pet movement, so per-session strict
+  lengths were checked on the pet and fountain sessions specifically:
+  seed1800 (the parked D-0006 pet-movement seed), seed0004, seed0015,
+  seed0014, seed0103, plus seed0030, seed4500, seed0360. All PASS.
+  `sym.mjs` now reports a single `do_clear_area`.
+  No public session detects on the water or air level, so
+  `override_vision` was probed directly with `couldsee` false
+  everywhere and a locked chest in range: on an ordinary level `openit`
+  opens **0** and the chest stays locked; on the **water** level it
+  opens **1** and the chest is unlocked; likewise on the **air** level.
+  (A first probe run hung on both special levels. That was my synthetic
+  grid using `typ: 19` as "room" — the real ROOM is 25, and 19 reads as
+  drawbridge terrain, so `find_drawbridge` fired and `open_drawbridge`
+  blocked on display. Probe bug, not a port defect; with the real
+  constant the three cases are clean.)
+- **Not this iter:** `view_from` and `circle_ptr` remain file-local in
+  `js/vision.js` (C has them `staticfn` in vision.c, so one copy each
+  is correct); the FOUND_FLASH_COUNT==0 `tmp_at` path in `findit`.
+
 ## D-1784 — display.h maybe_display_usteed ridden glyph bank
 
 - **Status:** fixed (map-driven Open row `display.c` ridden_mon_to_glyph

@@ -35,8 +35,9 @@
 // **findone** flash_glyph_at / foundone viz-pulse + mimic / hider /
 // invis tail + findit detect/paranoid messages (D-1775).
 // Named omissions: notice_mon_off/on; FOUND_FLASH_COUNT==0 tmp_at path;
-// do_clear_area off-hero view_from (and the vision.js clone);
-// detecting() vision override for openone; open_drawbridge crush/entity;
+// **do_clear_area is one export in `js/vision.js` now (D-1785)**,
+// with `detecting()` exported from here for its override_vision;
+// open_drawbridge crush/entity;
 // reveal_terrain region/gascloud / trap keep restore /
 // M_AP_FURNITURE; wiz_map_levltyp / wiz_levltyp_legend;
 // TER_FULL explore-only map body; arboreal default tree;
@@ -65,6 +66,7 @@ import {
 } from './display.js';
 import {
     vision_recalc, couldsee, recalc_block_point, unblock_point, cansee,
+    do_clear_area,
 } from './vision.js';
 import { visible_region_at } from './region.js';
 import { an, the, xname, The, makeplural, vtense, otense } from './objnam.js';
@@ -314,20 +316,6 @@ function sobj_at(otyp, x, y) {
     return null;
 }
 
-// C ref: vision.c circle_data[] / circle_start[] — radius→row half-width
-const CIRCLE_DATA = [
-    0,
-    1, 1,
-    2, 2, 1,
-    3, 3, 2, 1,
-    4, 4, 4, 3, 2,
-    5, 5, 5, 4, 3, 2,
-    6, 6, 6, 5, 5, 4, 2,
-    7, 7, 7, 6, 6, 5, 4, 2,
-    8, 8, 8, 7, 7, 6, 6, 4, 2,
-];
-const CIRCLE_START = [0, 1, 3, 6, 10, 15, 21, 28, 36];
-
 const LENSES = objectNames.indexOf('LENSES');
 
 /** C ref: detect.c cvt_sdoor_to_door */
@@ -532,37 +520,6 @@ export async function dosearch() {
 }
 
 /**
- * C ref: vision.c do_clear_area — hero-centered path only.
- * Off-hero view_from deferred (findit always centers on u).
- */
-async function do_clear_area(scol, srow, range, func, arg) {
-    const u = game.u || {};
-    if (scol !== u.ux || srow !== u.uy) {
-        // Non-hero center deferred
-        return;
-    }
-    if (range < 1 || range >= CIRCLE_START.length) return;
-    if (game.vision_full_recalc) vision_recalc(0);
-    const limitsStart = CIRCLE_START[range];
-    let max_y = srow + range;
-    if (max_y >= ROWNO) max_y = ROWNO - 1;
-    let y = srow - range;
-    if (y < 0) y = 0;
-    for (; y <= max_y; y++) {
-        const offset = CIRCLE_DATA[limitsStart + Math.abs(y - srow)] | 0;
-        let min_x = scol - offset;
-        if (min_x < 1) min_x = 1;
-        let max_x = scol + offset;
-        if (max_x >= COLNO) max_x = COLNO - 1;
-        for (let x = min_x; x <= max_x; x++) {
-            // C calls func inline; findone flashes (nh_delay_output), so
-            // the JS traversal awaits to keep C's per-cell ordering.
-            if (couldsee(x, y)) await func(x, y, arg);
-        }
-    }
-}
-
-/**
  * C detect.c FOUND_FLASH_COUNT `:19` — flash repeat count (0 would switch
  * findit() to the tmp_at()/--More-- path, which stays a named omission).
  */
@@ -691,6 +648,16 @@ async function findone(zx, zy, found) {
 }
 
 /**
+ * C ref: detect.c detecting `:1927–1932` — "callback hack for
+ * overriding vision in do_clear_area()". Vision stops at water and
+ * clouds; detection should not, so `vision.c` asks whether the
+ * callback it was handed is one of the two detection ones.
+ */
+export function detecting(func) {
+    return func === findone || func === openone;
+}
+
+/**
  * C ref: detect.c findit — reveal secrets in BOLT_LIM clear area.
  * @returns {Promise<number>} count of things found
  */
@@ -775,7 +742,7 @@ export async function findit() {
 /**
  * C ref: detect.c openone — unlock boxes; open SDOOR/closed doors / SCORR;
  * reveal unseen traps; openholdingtrap / openfallingtrap; drawbridge.
- * Named omit: detecting() vision override; trapped-door dummytrap.
+ * Named omit: trapped-door dummytrap.
  */
 async function openone(zx, zy, num) {
     for (let otmp = objects_at(zx, zy); otmp; otmp = otmp.nexthere) {
@@ -848,9 +815,10 @@ export async function openit() {
         return -1;
     }
     const num = { n: 0 };
-    const cells = [];
-    await do_clear_area(u.ux, u.uy, BOLT_LIM, (x, y) => { cells.push([x, y]); }, null);
-    for (const [x, y] of cells) await openone(x, y, num);
+    // C `:1923` passes `openone` itself — that identity is what makes
+    // `detecting()` true, so do_clear_area can override vision on the
+    // water/air levels. Collecting cells first would silently lose it.
+    await do_clear_area(u.ux, u.uy, BOLT_LIM, openone, num);
     return num.n;
 }
 

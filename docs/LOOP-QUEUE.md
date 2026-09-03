@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee.
 - [ ] `do_name.c` mon_nam_too + monverbself (named; mhitm.js clone). Not pronoun_gender.
 - [ ] `apply.c` corpse gender PRONOUN_NO_IT arm `:230–248` (named). Not pronoun_gender.
 - [ ] `mon.c` maybe_unhide_at wiring into hack.c movobj / ball.c (named). Not hideunder.
@@ -46,6 +45,7 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `detect.c` observe_recursively container recursion (named). Not object_detect.
 - [ ] `dog.c` mon_leave no_charge / set_residency / wormno (named). Not keepdogs.
 - [ ] `display.c` map_glyphinfo has_rogue_color colour sets (named). Not ridden bank.
+- [ ] `dungeon.c` on_level 13 clones → one export (named). Not lev_by_name.
 
 ## Parked (do not pop)
 

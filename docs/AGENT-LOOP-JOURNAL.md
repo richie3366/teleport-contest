@@ -8,6 +8,43 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1785 vision.c do_clear_area override_vision / one export
+
+**Objective:** queue Open row `vision.c` do_clear_area off-hero
+view_from + detect.js clone. Must-fix empty.
+**C locus:** `vision.c` `do_clear_area` `:2106-2148`; `detect.c`
+`detecting` `:1927-1932`; five call sites (findit, openit, wantdoor,
+gush, set_lit).
+**JS locus:** `js/vision.js` (the one export), `js/detect.js` (clone
+deleted, `detecting` exported, `openit` fixed), `js/dogmove.js`,
+`js/fountain.js`, `js/read.js`.
+**Change:** detect.js had a second, hero-only do_clear_area with no
+off-hero view_from arm, and neither copy had C's override_vision. That
+gate is load-bearing: vision does not pass through water or clouds, so
+on the water and air levels couldsee is false almost everywhere and
+detection would sweep nothing. openit had also been rewritten to collect
+cells through an anonymous arrow, which silently destroyed the callback
+identity detecting() tests — so even a correct gate could not have
+fired. Now one async export with C's shape end to end, `detecting`
+exported from detect.js (C's own extern.h structure), the clone gone,
+and openit passing `openone` itself again. All five callers await, which
+made dog_goal async; dog_move already was.
+**Verify:** green gate + strict lengths PASS; full `sessions` 44/44
+(66+0.50/turn). dog_goal turning async touches pet movement, so strict
+lengths were checked on the pet/fountain sessions specifically —
+seed1800 (the parked D-0006 seed), 0004, 0015, 0014, 0103, plus 0030,
+4500, 0360 — all PASS. sym.mjs now reports a single do_clear_area.
+No public session detects on water/air, so override_vision was probed:
+with couldsee false everywhere and a locked chest in range, an ordinary
+level opens 0 and the chest stays locked; the water and air levels each
+open 1 and unlock it. A first probe run hung on both special levels —
+my synthetic grid used typ 19 as "room" when the real ROOM is 25, and 19
+reads as drawbridge terrain, so open_drawbridge blocked on display.
+Probe bug, not a port defect. The leftover `CIRCLE_*` clone tables in
+detect.js were deleted with the helper.
+49 ins / 61 del across 5 js files — net delete, one clone gone.
+**Next:** `do_name.c` mon_nam_too + monverbself (mhitm.js clone).
+
 ## 2026-09-03 — D-1784 display.h maybe_display_usteed ridden bank
 
 **Objective:** queue Open row `display.c` ridden_mon_to_glyph usteed.

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `display.c` ridden_mon_to_glyph usteed (named). Not map_monst. **Addressed:** D-1784
+- [x] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee. **Addressed:** D-1785
+
+
+- [x] `display.c` ridden_mon_to_glyph usteed (named). Not map_monst. **Addressed:** D-1784 `7870c5c6`
 
 
 - [x] `dog.c` keepdogs leash (named). Not losedogs. **Addressed:** D-1783 `22730962`

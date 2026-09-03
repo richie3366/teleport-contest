@@ -813,7 +813,7 @@ Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018);
 **`couldsee` wired into `dog_goal`** (D-0030); **`cansee` used by `makemon_rnd_goodpos`** (D-0034); 
 **`recalc_block_point` D-0113 stub retired in D-1574** (C `does_block` then
 `block_point` else `unblock_point`; not a full `vision_reset`); 
-**off-hero `do_clear_area`/`view_from` vis_func for wantdoor** (D-0211); 
+**off-hero `do_clear_area`/`view_from` vis_func for wantdoor** (D-0211; **`override_vision` + single async export D-1785** — `dog_goal` is async now); 
 **`does_block` BOULDER (+ CLOUD/WATERWALL/LAVAWALL)** (D-0242; exported, was `_blocks`) + 
 **`is_lightblocker_mappear` mimic boulder/door/wall/tree** (D-0585) + 
 **`visible_region_at` gas cloud return 2** (D-0674) + 

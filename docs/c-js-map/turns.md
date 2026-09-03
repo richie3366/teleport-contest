@@ -113,9 +113,12 @@ SDOOR `recalc_block_point` vs SCORR `unblock_point`;
 `M_AP_TYPE`→`seemimic`, `is_hider`/`hides_under`/S_EEL→`mundetected=0`;
 `map_invisible` / `num_kept_invis` / `unmap_invisible` use D-1774
 `memory_glyph_is_invisible`; `findit` detect/paranoid message tail;
-`do_clear_area` now async in `detect.js`; FOUND_FLASH_COUNT==0
-`tmp_at`/`--More--` path and off-hero `do_clear_area` still named,
-as is the `detect.js` vs `vision.js` `do_clear_area` clone); 
+**`do_clear_area` is one async export in `js/vision.js` D-1785**
+(C `vision.c:2106–2148`; the `detect.js` clone is gone, `openit` passes
+`openone` itself again so `detect.c` `detecting` `:1927–1932` can set
+`override_vision` on the water/air levels where vision stops but
+detection should not); FOUND_FLASH_COUNT==0 `tmp_at`/`--More--` path
+still named); 
 **`gold_detect` blessed GOLD/`o_in` COIN + `clear_stale_map`/`check_map_spot` +
 mon/floor/`rnd(10)` golem map + strange_feeling poor/worried/steed** (D-1773;
 caller `seffect_gold_detection`; `o_in`/`o_material` exported; steal.c

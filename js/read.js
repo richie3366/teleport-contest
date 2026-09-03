@@ -367,7 +367,7 @@ export async function litroom(on, obj) {
         // passes &is_lit (light on), not `on`.
         set_lit(u.ux | 0, u.uy | 0, 1);
     } else {
-        do_clear_area(
+        await do_clear_area(
             u.ux, u.uy,
             blessed_effect ? 9 : 5,
             set_lit,
