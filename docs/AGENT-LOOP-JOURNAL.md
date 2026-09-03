@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1786 do.c/trap.c ballfall callers gate on u.uball
+
+**Objective:** Must-fix review **747** — `do.c`/`trap.c` ballfall
+callers gate on `u.uball` (C `Punished` ≡ `uball != 0`), not sticky
+`u.Punished`. Not `drop_ball`. Not `hard_helmet`.
+**C locus:** `do.c` `goto_level` `:1805–1808`; `trap.c`
+`trapeffect_pit` `:1955–1958`; `youprop.h:77`.
+**JS locus:** `js/do.js` falling arm; `js/trap.js` `trapeffect_pit`.
+**Change:** D-1778 ported the helper and wrote both C call sites behind
+`u.Punished`, which is never assigned. Same `goto_level` already uses
+`u.uball` for stair-fall. Both sites now read `u.uball` / `game.u?.uball`;
+`!welded` / `!carried` and pit `unplacebc`/`ballfall`/`placebc` kept.
+Did not assign `u.Punished`.
+**Verify:** green+strict PASS; cohort seed1500/0014/0004 PASS; probe
+pit+uball with Punished unset draws `rn2(5)` after set_utrap `rn2(6)`
+and fall `rnd(6)`. save-oracle `do.c:goto_level` tagged
+ledger-seed0015 (pre-existing stairs-vs-pickup fidelity, not this arm);
+`trap.c:trapeffect_pit` / `ball.c:ballfall` untagged skip. Rule #2
+clean. 10 ins / 7 del.
+**Next:** Must-fix `pager.c` lookat trap tnum = `glyph_to_trap(glyph_at)`.
 ## 2026-09-03 — review 738–754 re-audit `3baada67`…HEAD (4 QUALITY-RISK)
 
 **Objective:** manual review overlay of every JS SHA from `3baada67`

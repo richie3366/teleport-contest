@@ -32,7 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `do.c`/`trap.c` ballfall callers: gate on `u.uball` (C `Punished` ≡ `uball != 0`), not sticky `u.Punished` which is never set. Source: reviews/loop-unattended/747-c4a32e7c-ballfall.md
 - [ ] `pager.c` lookat trap tnum = `glyph_to_trap(glyph_at)`, not `t_at&&tseen`. Source: reviews/loop-unattended/748-e8515402-trap-description.md
 - [ ] `spell.c` `SPE_DETECT_FOOD` must call `seffects(pseudo)` (skilled bless FALLTHROUGH). Source: reviews/loop-unattended/750-28f02a82-food-detect.md
 - [ ] `dog.c` keepdogs must not `for-of` live `fmon` while `migrate_to_level` splices it. Source: reviews/loop-unattended/752-22730962-keepdogs.md

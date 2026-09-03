@@ -5,20 +5,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Suite 44/44.** Re-audit **738–754** (`3baada67`…HEAD): four
-  QUALITY-RISK. Must-fix pops first. Falsify next: `rg 'Punished\s*=' js/`
-  stays empty while `js/do.js:1801` / `js/trap.js:1909` still read
-  `u.Punished`. Do not invent a FAIL.
-- **Next cluster:** `do.c`/`trap.c` ballfall callers gate on `u.uball`
-  (C `Punished` ≡ `uball != 0`, `youprop.h:77`), not sticky
-  `u.Punished`. Same `goto_level` already uses `u.uball` at `:1759`.
-  Not `drop_ball`. Not `hard_helmet`.
-- **Three more Must-fix after that:** lookat trap tnum =
-  `glyph_to_trap(glyph_at)` not `t_at&&tseen` (maketrap returns null for
-  chest/door); `spell.c` `SPE_DETECT_FOOD` must `seffects(pseudo)`;
-  `keepdogs` must not `for-of` live `fmon` while `migrate_to_level`
-  splices it. Do not re-enqueue `observe_recursively` (already
-  recurses `cobj`).
+- **Suite 44/44.** **D-1786** closed review **747**: both ballfall
+  callers now gate on `u.uball` (C `Punished`). Must-fix pops first.
+  Falsify next: `lookat` still takes `t_at&&tseen` so a detected
+  trapped chest/door is named with `trapname`, and
+  `glyph_to_trap(glyph_at)` is never consulted (review **748**).
+  Do not invent a FAIL.
+- **Next cluster:** `pager.c` lookat trap tnum =
+  `glyph_to_trap(glyph_at)`, not `t_at&&tseen` (`maketrap` returns
+  null for chest/door). Source: review **748**. Not `trapname` Hallu.
+  Not `look_traps`.
+- **Two more Must-fix after that:** `spell.c` `SPE_DETECT_FOOD` must
+  `seffects(pseudo)`; `keepdogs` must not `for-of` live `fmon` while
+  `migrate_to_level` splices it. Do not re-enqueue
+  `observe_recursively` (already recurses `cobj`).
 - **`do_clear_area` is one async export in `js/vision.js`** (D-1785).
   `openit`/`findit` must pass `openone`/`findone` **by identity** —
   `detecting()` is what turns on `override_vision`. `dog_goal` is
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
   **async**; `do.js`/`end.js` await it (D-1783) — the walk is still
   C-wrong. `object_detect` gate/`rnd(10)` is D-1782. `food_detect`
   scroll is live; `#cast` is not (D-1781). `on_level` is exported;
-  12 clones remain.
+  12 clones remain. Ballfall callers are D-1786.
 - **RNG order traps.** `pronoun_gender` draws `rn2(4)` *before* either
   gate; `ballfall` computes `gets_hit` `rn2(5)` *before* `ballrelease`;
   `trap_description` chest gate then door (one tnum can draw at most
@@ -54,8 +54,10 @@ Objective/score live in `CURRENT.md`.
 ## Don't re-check (≤15)
 
 - Do not treat reviews **728–736** as unpaid Must-fix (those AWD
-  held). Review **737** AWD was **wrong** — both ballfall callers are
-  dead; see **747**. Do not rubber-stamp “fortress held” as Match C.
+  held). Review **737** AWD was **wrong**; **747** QUALITY-RISK is
+  **D-1786** (callers now `u.uball`). Do not rubber-stamp “fortress
+  held” as Match C. Do not re-open the dead `u.Punished` ballfall
+  gate. Do not assign `u.Punished`.
 - Do not re-check 40/44 at D-1765 / D-1766; D-1767 recovered three
   FAILs; seed0014 leftover was I-glyph `newsym` (D-1774), not gbuf
   and not skipped `nonrotting_corpse`. findone's tail is live
@@ -64,7 +66,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1785.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1786.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -75,7 +77,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1785 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1786 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do
@@ -95,12 +97,12 @@ Objective/score live in `CURRENT.md`.
   clone #3 / InvInUse poke (D-1603) / zap sticky Blind (D-1604). No
   `dat/tribute` indent=2. No static `files.js`←`spell.js` (TDZ).
   REST_LEVELS where getlev catchup reads it. Do not re-port
-  D-1682…D-1785 — read the index row before assuming a function is
+  D-1682…D-1786 — read the index row before assuming a function is
   unported. No trailing `confdir` in shared `getdir`.
 
 ## Landmarks (≤15)
 
-- D-1778 callers: `u.Punished` never written; gate on `u.uball`.
+- D-1786: ballfall callers `u.uball` (C `Punished`); helper is D-1778.
 - D-1774: `newsym` `:1032` I-arm `lev->glyph`; fight_empty `glyph_at`.
 - D-1773: `gold_detect`; `o_in`/`o_material`/`clear_stale_map`.
 - D-1772: `peacefuls_respond` `:4162–4257`; `setmangry` `:4317`;

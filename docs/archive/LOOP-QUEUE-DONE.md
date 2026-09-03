@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee. **Addressed:** D-1785
+- [x] `do.c`/`trap.c` ballfall callers: gate on `u.uball` (C `Punished` ≡ `uball != 0`), not sticky `u.Punished` which is never set. Source: reviews/loop-unattended/747-c4a32e7c-ballfall.md **Addressed:** D-1786
+
+
+- [x] `vision.c` do_clear_area off-hero view_from + detect.js clone (named). Not couldsee. **Addressed:** D-1785 `da520eda`
 
 
 - [x] `display.c` ridden_mon_to_glyph usteed (named). Not map_monst. **Addressed:** D-1784 `7870c5c6`

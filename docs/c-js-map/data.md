@@ -917,7 +917,8 @@ omit grease/towel/container/acid boom, full `erode_obj` rust/verbose arms, overw
 / Knox LEVEL_TELEP / Sokoban finish still named (**PIT/HOLE `set_levltyp` D-1280**; 
 **DRAWBRIDGE_UP ice D-1296**; **shop `add_damage` D-1300**), other trap types, **hero 
 SLP_GAS/`fall_asleep`/steedintrap**, **hero arrow/sqky/dart `poisoned()`; steedintrap non-pit; 
-**Punished pit `unplacebc`/`ballfall`/`placebc` D-1778** (C `trap.c:1955–1958`)**, 
+**Punished pit `unplacebc`/`ballfall`/`placebc` D-1778** (C `trap.c:1955–1958`; 
+callers gate on `u.uball` ≡ C `Punished` **D-1786**)**, 
 vault/shop/temple `ceiling` labels, `helm_simple_name` hat polish; **`instapetrify`/`selftouch`/`mselftouch`/`minstapetrify` + 
 `mon_to_stone`/`vamp_stone`/`monstone` + `xkilled` stoned** (D-0995/D-0996), `float_vs_flight`, 
 full `body_part` poly, `stone_missile`/`passes_rocks` harmless arm in `thitm`, **`mons_see_trap`** 

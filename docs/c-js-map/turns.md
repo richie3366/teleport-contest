@@ -260,7 +260,8 @@ shops/sinks/`better_not_try` named; **`#droptype`/`D` `doddrop` D-1635** (C `do.
 `flush_screen(-1)` descend `--More--` + clear `_objects_at`/`head_engr`** (D-0149/D-0160/D-0161); 
 **`goto_level` descend Flying / encumber|Punished|Fumbling fall `rnd(3)` `losehp`** (D-0445; 
 **`Fumbling()` ≡ H\|\|E not sticky `u.Fumbling`** D-0691; **trap-door `do_fall_dmg`** (D-1179; 
-Punished `ballfall` is **D-1778**; W-tower rndspot bit 2 still named); 
+Punished `ballfall` is **D-1778**; callers gate on `u.uball` ≡ C `Punished` **D-1786**; 
+W-tower rndspot bit 2 still named); 
 omit full `selftouch` petrify); 
 **`goto_level` `familiar_level_msg` via `bones_include_name`** (D-0577); 
 **Gehennom Valley arrival + hellish_smoke smell/sense** (D-0801; 
@@ -1363,7 +1364,9 @@ callee `shk.c` 4849–4874 / `repair_damage` catchup;
 C `do.c:1805–1809` falling + `:1988–1994` `d(max(dist,1),6)` after shop repair before pickup; 
 Punished `ballfall` is **D-1778** (C `ball.c:42–67`: `gets_hit` `rn2(5)` is drawn 
 **before** `ballrelease`, and short-circuits when the ball is on the hero's spot or wielded; 
-`rn1(7,25)` capped to 3 by `hard_helmet`); W-tower `u_on_rndspot` bit 2 still named); 
+`rn1(7,25)` capped to 3 by `hard_helmet`); callers were dead behind sticky 
+`u.Punished` until **D-1786** gated on `u.uball` (C `youprop.h:77`); 
+W-tower `u_on_rndspot` bit 2 still named); 
 **`goto_level` climb `great_effort` = Punished&&!Levitation + Flying ladder "along" + 
 `u_locomotion`** (D-0928 #1159; poly `locomotion()` / steed-flyer Flying deferred); 
 **`goto_level` savelev/getlev persist `lastseentyp`** (D-0928 #1160); 
@@ -1387,7 +1390,8 @@ getlev `place_monster`/`set_residency`/`hideunder`/steed-ustuck + one
 (`savelev` writes `svm.moves`) + `run_timers` last D-1699**)**; bones ghostly timeout+=adjust named) + **`goto_level` `run_timers`** (D-1191;
 C `do.c:1818–1823` after delivery; invent/migrating stay on the live queue — do not peel them); 
 **`goto_level` stair-fall `drag_down`/`ballrelease` via `uball` (≡C `Punished`)** (D-0918; 
-litter `hitfloor`/yname/`Soundeffect` still deferred; `ballfall` is **D-1778**); 
+litter `hitfloor`/yname/`Soundeffect` still deferred; `ballfall` is **D-1778**; 
+falling-arm callers gate on `u.uball` **D-1786**); 
 **seed0383 Scr 209/219 RNG FULL after D-0852…D-0855 (#1000 suite); first cell miss past @199; 
 wear/invis plines deferred**; **`goto_level` stash/restore `updest`/`dndest`** (D-0656; 
 C `Sfo`/`Sfi_dest_area`; **`set_uinwater(0)` leave+after-getlev D-1267**; 

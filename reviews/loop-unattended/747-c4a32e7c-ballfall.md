@@ -10,6 +10,8 @@
 - JS / map: `ball.js` `ballfall`; `do_wear.js` `hard_helmet`/`is_helmet`; callers `do.js`/`trap.js`. `c-js-map/turns.md`.
 - Archive **Addressed:** D-1778 `c4a32e7c` — stamp is the helper; the **callers** contradict C.
 
+**Addressed:** D-1786
+
 ## Intent vs deliverable
 
 Git subject promises: Match C `ball.c` `ballfall` so a Punished hero falling to a new level takes the iron ball on the head, instead of two deferred comments where the call belongs.

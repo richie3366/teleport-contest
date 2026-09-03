@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1786 — do.c/trap.c ballfall callers gate on uball (C Punished)
+
+- **Status:** fixed (Must-fix review **747**; suite was 44/44)
+- **Symptom:** D-1778 ported `ballfall` and wrote both C call sites
+  behind `u.Punished`, a sticky flag that is **never assigned** in
+  `js/` (not gstate, not save/restore, not `punish`). C
+  `youprop.h:77` is `#define Punished (uball != 0)`. Same
+  `goto_level` already uses `u.uball` for stair-fall ~40 lines
+  earlier. Both new callers were dead: a Punished hero falling
+  through a trap door or into a pit never invoked `ballfall`, so the
+  helper's `rn2(5)` was unreachable from C's dispatch.
+- **C locus:** `do.c` `goto_level` `:1805–1808`; `trap.c`
+  `trapeffect_pit` `:1955–1958`; `youprop.h:77`.
+- **JS was:** `if (u.Punished && !welded(u.uball)) await ballfall()`;
+  `if (game.u?.Punished && !carried(game.u?.uball))`.
+- **Fix:** gate on `u.uball` / `game.u?.uball`. Keep `!welded(uball)` /
+  `!carried(uball)` and the pit `unplacebc` / `ballfall` / `placebc`
+  order. Do not assign `u.Punished` as a second source of truth.
+- **JS:** `js/do.js`, `js/trap.js`. 10 insertions / 7 deletions.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths); cohort seed1500 / seed0014 / seed0004 PASS + per-session
+  strict; probe: pit + `uball` with `u.Punished` unset draws
+  `rn2(6)` (set_utrap) then `rnd(6)` (fall dmg) then `rn2(5)`
+  (`gets_hit`); `goto_level.toString()` has
+  `u.uball && !welded(u.uball)`. save-oracle `do.c:goto_level` tagged
+  ledger-seed0015 (pre-existing stairs-vs-pickup fidelity, not this
+  arm); `trap.c:trapeffect_pit` / `ball.c:ballfall` untagged skip.
+  Rule #2 clean.
+- **Not this iter:** other sticky `u.Punished` reads (`uhitm.js`
+  `|| !rn2(7)`, `steed.js`, `dothrow.js`); `drop_ball`; `is_helmet`
+  clones in u_init/worn; `ball.js` `carried` clone. Do not draw
+  `rn2(5)` after `ballrelease`. Do not restore dothrow/trap
+  material-range `hard_helmet`.
+
 ## D-1785 — vision.c do_clear_area override_vision + one async export
 
 - **Status:** fixed (map-driven Open row `vision.c` do_clear_area
