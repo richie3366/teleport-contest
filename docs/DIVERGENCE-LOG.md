@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-1772 — mon.c peacefuls_respond / MS_ARREST Halt
+
+- **Status:** fixed (map-driven Open from D-1763; not a public FAIL)
+- **Symptom:** JS had no `peacefuls_respond`. After `setmangry`,
+  nearby peacefuls never Halt (watch `verbalize` + `angry_guards`),
+  gasp/exclaim/flee/anger, or same-mlet growl+flee.
+- **C locus:** `mon.c` `peacefuls_respond` `:4162–4257`; caller
+  `setmangry` `:4317` when `!svc.context.mon_moving`. Helper
+  `mondata.c` `big_little_match` `:1329–1351` (only this caller).
+  `sounds.c` `growl` `:417` `iflags.last_msg = PLNMSG_GROWL`.
+- **JS was:** `setmangry` sync core anger only; named omit after
+  D-1763 / D-1762; `big_little_match` missing; growl skipped
+  `last_msg`.
+- **Fix:** Port `peacefuls_respond` (is_watch Halt; humanoid
+  `maybe_gasp`/`monflee`/anger; same-mlet `big_little_match`);
+  `setmangry` async `couldsee` `pline_mon` then `!mon_moving`
+  wire; await existing callers. mndx vs `urole.ldrnum`/`guardnum`
+  (not `mons()` identity). Named: `qst_guardians_respond`;
+  Elbereth hypocrite; victim growl else-arm; tame tameness.
+- **JS:** `js/mon.js` `peacefuls_respond` + `setmangry`;
+  `js/mondata.js` `big_little_match`; `js/sounds.js` growl
+  `PLNMSG_GROWL`; await in wakeup/uhitm/dokick/mthrowu/explode/
+  read/region.
+- **Not this iter:** `qst_guardians_respond`; Elbereth
+  `sengr_at`/`onscary`; setmangry non-humanoid growl;
+  `dog_hunger` wire; beg is D-1763.
+- **Verified:** save-oracle probe skip (untagged
+  `mon.c:peacefuls_respond`); Halt canary watch+goblin
+  `mpeaceful→0` via `angry_guards`; `big_little_match` dog/cat
+  chains; green+strict seed8000/0900; CURRENT cohort **7**/7 +
+  strict. Rule #2 clean.
+- **Files:** `js/mon.js`, `js/mondata.js`, `js/sounds.js`,
+  `js/uhitm.js`, `js/dokick.js`, `js/mthrowu.js`, `js/explode.js`,
+  `js/read.js`, `js/region.js`.
+
 ## D-1771 — invent.c useupf + eat.c carried hybrid
 
 - **Status:** fixed (map-driven Open from D-1735; not a public FAIL)

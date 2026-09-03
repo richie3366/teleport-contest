@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `eat.c` useup+useupf hybrid (named). Not delete_contents. **Addressed:** D-1771
+- [x] `mon.c` peacefuls_respond / MS_ARREST Halt (named). Not beg. **Addressed:** D-1772
+
+
+- [x] `eat.c` useup+useupf hybrid (named). Not delete_contents. **Addressed:** D-1771 `dd090eaf`
 
 
 - [x] `zap.c` delete_contents clone (named). Not delobj extract. **Addressed:** D-1770 `1fbbe0c0`

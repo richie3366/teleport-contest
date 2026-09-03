@@ -823,7 +823,7 @@ async function maybe_tame(mtmp, sobj) {
     const was_tame = mtmp.mtame | 0;
     const was_peaceful = mtmp.mpeaceful | 0;
     if (sobj.cursed) {
-        setmangry(mtmp, false);
+        await setmangry(mtmp, false);
         if (was_peaceful && !mtmp.mpeaceful) return -1;
     } else {
         const { resist } = await import('./zap.js');

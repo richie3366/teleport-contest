@@ -2235,8 +2235,10 @@ D-0928 #1110; **D-1095** gremlin `split_mon`+fountain `dryup`+pool `water_damage
 steed air/`engulfing_u` flush / `mdrop_obj` worn extract still named); 
 **`seemimic`/`wakeup`/`setmangry` for stumble reveal + missum/hmon anger** (D-0207/D-0234; 
 **`wakeup` was_sleeping → `wake_nearto(mlevel*18)`** D-0922 + **`wake_msg` + 
-growl pline** D-0928 #1161; omit Elbereth 
-hypocrite/`peacefuls_respond`/`hot_pursuit`/`freemcorpsenm`/light-block); 
+growl pline** D-0928 #1161; **`peacefuls_respond` D-1772** (watch Halt
+`verbalize`+`angry_guards`; humanoid `maybe_gasp`/flee/anger; same-mlet
+`big_little_match`+growl `PLNMSG_GROWL`; `setmangry` `!mon_moving`); omit Elbereth 
+hypocrite/`qst_guardians_respond`/victim growl else-arm/`hot_pursuit`/`freemcorpsenm`/light-block); 
 **`postmov` hides_under/`S_EEL` `rn2(5)`→`hideunder` + `can_hide_under_obj`** (D-0496; 
 **You_see hide pline** D-0928 #1139; pet cursed / cockatrice skip deferred) + 
 **`m_move` `maybe_unhide_at` after place before track/postmov** (D-0769; youmonst path deferred); 

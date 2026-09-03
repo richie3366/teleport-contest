@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-03 — D-1772 mon.c peacefuls_respond / MS_ARREST Halt
+
+**Objective:** Open `mon.c` peacefuls_respond / MS_ARREST Halt. Not beg.
+**C locus:** `mon.c` `peacefuls_respond` `:4162–4257`; `setmangry`
+`:4317`; `mondata.c` `big_little_match` `:1329–1351`.
+**JS locus:** `js/mon.js` `peacefuls_respond`+`setmangry`;
+`js/mondata.js` `big_little_match`; growl `PLNMSG_GROWL`.
+**Change:** Port Halt/`angry_guards`, humanoid gasp/flee/anger,
+same-mlet growl+flee; async `setmangry` `!mon_moving` wire; await
+callers. Named: `qst_guardians_respond`; Elbereth; victim growl.
+**Score:** unchanged fortress **43**/44 (no full `sessions` this
+port iter).
+**Verified:** probe skip untagged `mon.c:peacefuls_respond`; Halt
+canary watch `mpeaceful→0`; green+strict; cohort **7**/7 + strict.
+**Next:** Open `detect.c` gold_detect. Not sense_trap.
+**Blocked:** none.
 ## 2026-09-03 — D-1771 invent.c useupf + eat.c carried hybrid
 
 **Objective:** Open `eat.c` useup+useupf hybrid. Not delete_contents.

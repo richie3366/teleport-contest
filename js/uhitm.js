@@ -802,14 +802,14 @@ async function hmon(mon, obj, thrown, _dieroll) {
                 }
                 await pline(`${what} ${vtense(what, 'splash')} over ${whom}!`);
             }
-            setmangry(mon, true);
+            await setmangry(mon, true);
             mon.mcansee = 0;
             const blind_dmg = rn1(25, 21);
             const sum = (mon.mblinded | 0) + blind_dmg;
             mon.mblinded = sum > 127 ? 127 : sum;
         } else {
             await pline(obj.otyp === CREAM_PIE ? 'Splat!' : 'Splash!');
-            setmangry(mon, true);
+            await setmangry(mon, true);
         }
         // C: thrown → obfree (no obj_resists); melee useup deferred
         if (thrown) {
@@ -2663,7 +2663,7 @@ export async function flash_hits_mon(mtmp, otmp) {
             }
             if ((mtmp.mhp | 0) > 0) {
                 if (!game.context?.mon_moving) {
-                    setmangry(mtmp, true);
+                    await setmangry(mtmp, true);
                 }
                 if (tmp < 9 && !mtmp.isshk && rn2(4)) {
                     await monflee(mtmp, rn2(4) ? rnd(100) : 0, false, true);
