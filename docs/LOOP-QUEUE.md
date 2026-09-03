@@ -34,7 +34,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-- [ ] `teleport.c` lev_by_name (named). Not heaven u_left_shop.
 - [ ] `detect.c` food_detect (named). Not object_detect.
 - [ ] `detect.c` object_detect clear_stale_map caller (named). Not food_detect.
 - [ ] `dog.c` keepdogs leash (named). Not losedogs.
@@ -46,6 +45,7 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 - [ ] `ball.c` drop_ball (named). Not ballfall.
 - [ ] `obj.h` is_helmet clones in u_init.js / worn.js (named). Not hard_helmet.
 - [ ] `pager.c` lookat glyph_to_trap(glyph_at) vs live t_at ttyp (named). Not trap_description.
+- [ ] `teleport.c` level_tele Nowhere ynq + deepest clamp (named). Not lev_by_name.
 
 ## Parked (do not pop)
 

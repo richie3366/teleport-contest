@@ -2905,12 +2905,29 @@ seed5006 8473→10953) + **past-main-dungeon `find_hell`→valley** (D-0904; see
 **heaven `u_left_shop(ushops0,TRUE)` + Cloud 9 / fly-or-plummet / `done(DIED)` /
 escape dlevel 0 + `goto_level` `ledger_no<=0` `done(ESCAPED)`** (D-1764;
 `teleport.c` `:1321–1385` / `do.c` `:1517–1519`; buried ball before `next_to_u`;
-live `js/teleport.js` + `js/do.js`; named: `lev_by_name`, Nowhere yn,
-Quest·mines·sanctum clamp, invoked gate, debug_fuzzer); 
+live `js/teleport.js` + `js/do.js`; `lev_by_name` is **D-1780**;
+named: Nowhere yn, Quest·mines·sanctum clamp, invoked gate,
+debug_fuzzer); 
+**`lev_by_name` D-1780** (C `dungeon.c:2096–2170`; caller
+`teleport.c` `:1248` `else if ((newlev = lev_by_name(buf)) == 0)
+newlev = atoi(buf)`; custom `#annotate` label wins first via
+`find_mapseen_by_str` `:2651`, else strip leading "The " / trailing
+" level" then the two aliases — gehennom·hell → `valley` (or
+" to Vlad's tower" `In_V_tower`) because the bare branch name would
+land on the castle, and delphi → oracle — then `find_level`, else
+branch names incl. "<branch> to Xyzzy" via `find_branch`'s
+`pd == NULL` arm `:322–334` (`(ledger_no(end1) << 8) | ledger_no(end2)`,
+matching `dungeons[end2.dnum].dname` case-insensitively with a
+leading "The " ignored). Gates: `dlev_in_current_branch` `:2087–2092`
+(valley/medusa count as one branch) **and** wizard-or-VISITED — both
+ledger ends for a branch. Live `js/dungeon.js` `lev_by_name` export +
+file-local `find_mapseen_by_str`/`dlev_in_current_branch`/
+`wizard_mode`/`ledger_visited` (C `staticfn`), `js/teleport.js`
+imports it); 
 **`goto_level` delivers `dfr_post_msg` via pline before `onquest`** (C `maybe_lvltport_feedback`); 
 **Pri firsttime flushes materialize `--More--`** (D-0662); 
 **D-0615/D-0616:** Home→Dlvl:37 was qt_pager NHW_TEXT stealing keys (fixed); 
-omit `lev_by_name`/Quest·mines·sanctum deepest clamp/invoked 
+`lev_by_name` is **D-1780**; omit Quest·mines·sanctum deepest clamp/invoked 
 gate/bymenu=FALSE; Nowhere yn; water/earth/astral `load_special`; `SURFACE_AT` drawbridge; 
 **`goodpos_onscary` altar S_VAMPIRE / SCR_SCARE_MONSTER / strict Elbereth (D-1102; 
 local `sengr_at` HEADSTONE/time; Inhell/endgame Elbereth off; vampshifter altar is onscary-only)**; 

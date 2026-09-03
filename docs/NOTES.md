@@ -7,45 +7,37 @@ Objective/score live in `CURRENT.md`.
 
 - **Suite 44/44.** Map-driven: named omissions / cluster density, not
   FAIL peels. Audit 728–737: ten ACCEPT-WITH-DEBT, Must-fix empty.
-  **Next:** `teleport.c` lev_by_name (named). Falsify: C `lev_by_name`
-  body vs JS omit. Not heaven u_left_shop. Do not invent a FAIL.
-- `trap_description` is live (D-1779). Its two `detect.c` gates each
-  draw `rn2(20)` under Hallucination and `trapped_door_at` re-enters
-  `trapped_chest_at`, so **chest before door** is RNG order, not just
-  wording. C's asymmetry is deliberate: any floor container satisfies
-  the chest gate, but an invent/`minvent` box must be `otrapped`.
-- `ballfall` is live (D-1778). C draws `gets_hit`'s `rn2(5)` **before**
-  `ballrelease`, and draws nothing when the ball is on the hero's spot
-  or is `uwep` — keep that order. `hard_helmet`/`is_helmet` are exports
-  of `js/do_wear.js`; do not re-clone them.
+  **Next:** `detect.c` food_detect (named). Falsify: C `food_detect`
+  body vs JS omit. Not object_detect. Do not invent a FAIL.
+- **Recent ports — do not re-clone or re-order** (detail in the D-log):
+  `lev_by_name` + `find_branch` `pd == NULL` (D-1780, `js/dungeon.js`);
+  `trap_description` + `trapped_chest_at`/`trapped_door_at` (D-1779);
+  `ballfall` + `hard_helmet`/`is_helmet` exports in `js/do_wear.js`
+  (D-1778); Blind bc glyph arms (D-1777); pronoun helpers in
+  `js/mondata.js` (D-1776).
+- **RNG order traps in those ports.** `pronoun_gender` draws `rn2(4)`
+  *before* either gate; `ballfall` computes `gets_hit`'s `rn2(5)`
+  *before* `ballrelease` and draws nothing when the ball is on the
+  hero's spot or is `uwep`; `trap_description` runs the chest gate
+  before the door gate and each draws `rn2(20)` under Hallucination.
+- `u.bglyph`/`u.cglyph` hold remembered **cells**, not int glyph ids —
+  `levl_glyph_at` / `set_levl_glyph` in `js/ball.js`.
+- The gehennom/hell → `valley` rewrite in `lev_by_name` is
+  load-bearing: the bare branch name lands on the castle.
 - **`strict-output-check.mjs` leaks state across sessions in one
   process** (pre-existing; reproduced on HEAD). seed0012 / seed0014
   report a bogus mid-run RNG mismatch when batched after seed4500 and
   PASS alone. Run it per session, or trust `ps_test_runner sessions`.
-- Blind ball&chain glyph arms are live (D-1777). `u.bglyph`/`u.cglyph`
-  hold remembered **cells**, not int ids — use `levl_glyph_at` /
-  `set_levl_glyph` in `js/ball.js`. No public session is Punished **and**
-  Blind, so the suite cannot regress-test them; probe directly.
+- **No public session** is Punished+Blind (D-1777), Punished-while-
+  falling (D-1778), farlooking a trapped chest/door (D-1779), or
+  level-porting by name (D-1780). The suite cannot regress-test those
+  arms — probe directly.
 - **`end.c` DUMPLOG is retired (D-1776), not deferred — do not
-  re-enqueue.** `nethack-c/macosx-minimal` passes no `-DDUMPLOG`
-  (only `hints/linux.500` does; `hints/macOS.500` has it commented
-  out), so all `end.c` `#ifdef DUMPLOG` blocks are compiled out of the
-  scored build. `DUMPLOG_CORE` is on via macOS `CRASHREPORT`, but its
-  `saved_plines[]` ring is write-only in play — the sole compiled-in
-  reader is `report.c:579`. No screen, no RNG.
-- Pronoun helpers have **one** home now (D-1776): `js/mondata.js`
-  `pronoun_gender(mtmp, pg_flags)` + `mhe`/`mhim`/`mhis`/`noit_*`.
-  Hallu draws `rn2(4)` **before** either gate, so these are RNG calls;
-  `PRONOUN_NO_IT` overrides only `canspotmon`, never neuter/humanoid.
-  Do not re-add a local clone — `fountain.js` re-exports.
-- `flash_glyph_at` (D-1775) takes this port's `{ch,color,dec,glyph}`
-  cell, the same shape `tmp_at` uses — there is no glyph→char decoder
-  (`mapglyph` is not ported); the display buffer stores rendered cells.
-  Build cells with `cmap_idx_to_glyph` / `trap_to_glyph` /
-  `mon_to_glyph` / `invisible_glyph_cell`, not bare int ids.
-- `detect.js` has its **own** `do_clear_area` (hero-centred, now async)
-  separate from the `vision.js` export. Real clone drift, queued as an
-  Open row — do not add a third.
+  re-enqueue.** `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so
+  all `end.c` `#ifdef DUMPLOG` blocks are compiled out of the scored
+  build. `DUMPLOG_CORE` is on via macOS `CRASHREPORT`, but its
+  `saved_plines[]` ring is write-only — the sole compiled-in reader is
+  `report.c:579`. No screen, no RNG.
 - Named still: `mon_nam_too`/`monverbself` (mhitm clone); `apply.c`
   corpse NO_IT arm; `type_is_pname` insight clone;
   FOUND_FLASH_COUNT==0 `tmp_at` path; food_detect;
@@ -66,7 +58,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse is D-1582.
   Do not skip ParanoidTrap portal yn (D-1187) / `domagicportal` /
   `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 (D-1188).
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1779.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1780.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -77,7 +69,7 @@ Objective/score live in `CURRENT.md`.
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053).
 - Do not restore tut-1 hardcoded keys (D-1065) / skip `tutorial()`
-  nhcore (D-1066). Do not skip D-1067…D-1779 (index).
+  nhcore (D-1066). Do not skip D-1067…D-1780 (index).
 - Do not import `monmove.js` `sticks` for sit. Do not rewrite
   `confer_oc_oprop`. Do not re-port `eyecount`. Do not delete emin
   (**487**). Do not stub `make_happy_shk` pacify-only (D-1540). Do

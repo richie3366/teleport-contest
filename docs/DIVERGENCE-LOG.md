@@ -1,5 +1,78 @@
 # Divergence log
 
+## D-1780 — dungeon.c lev_by_name + find_branch pd==NULL arm
+
+- **Status:** fixed (map-driven Open row `teleport.c` lev_by_name; suite
+  was 44/44, Must-fix empty)
+- **Symptom:** the level-teleport prompt only understood numbers. C
+  lets you type a *name* — "oracle", "the oracle level", "delphi",
+  "sokoban", "the gnomish mines", "gehennom", or one of your own
+  `#annotate` labels — and `teleport.c:1248` tries `lev_by_name(buf)`
+  before falling back to `atoi`. JS had a
+  `// lev_by_name deferred → atoi only` arm, so every name answered 0
+  and the prompt re-asked until the 10-try limit sent the hero to a
+  random level. Wizard-mode `^V` by name was likewise dead.
+- **C locus:** `dungeon.c` `lev_by_name` `:2096–2170`;
+  `find_mapseen_by_str` `:2651–2661`; `dlev_in_current_branch`
+  `:2087–2092`; `find_branch` `:310–337` (the `pd == NULL` arm, which
+  exists solely for this path). Caller `teleport.c` `level_tele`
+  `:1248–1249`.
+- **JS was:** none of `lev_by_name`, `find_mapseen_by_str`,
+  `dlev_in_current_branch` existed. `js/dungeon.js` `find_branch` had
+  only the build-time proto-dungeon arm and threw on a miss, so the
+  branch-name half of `lev_by_name` had nothing to call. The pieces the
+  gates need were already live: `game.mapseenchn` with `.custom`,
+  `game.level_info[].flags` with `VISITED`, `ledger_no`,
+  `ledger_to_dnum`/`ledger_to_dlev`, `find_level`, `depth_of`.
+- **Fix:** `find_branch` gained C's `pd == NULL` arm — walk the live
+  branch chain, match `dungeons[br->end2.dnum].dname` case-insensitively
+  (and again with a leading "The " ignored), and pack both ledger
+  numbers as `(end1 << 8) | end2`, or -1. `lev_by_name` ported whole
+  into `js/dungeon.js` with C's normalisation order intact: custom
+  annotation first, then strip a leading "The " and a trailing
+  " level", then the two aliases — gehennom/hell rewrite to `valley`
+  (or `" to Vlad's tower"` when `In_V_tower`) precisely because the
+  bare branch name would otherwise match the Gehennom *branch* and land
+  on the castle, and delphi rewrites to oracle because the Oracle says
+  "welcome to Delphi" — then `find_level`, else the branch names
+  including "<branch> to Xyzzy". Both gates ported:
+  `dlev_in_current_branch` (with C's deliberate valley/medusa pairing)
+  and wizard-or-VISITED, needing *both* ledger ends for a branch.
+  `find_mapseen_by_str`, `dlev_in_current_branch`, `wizard_mode` and
+  the `ledger_visited` helper are file-local because C declares them
+  `staticfn`/macro in dungeon.c. `js/teleport.js` now runs C's
+  `else if ((newlev = lev_by_name(buf)) == 0) newlev = atoi(buf)`, with
+  atoi's leading-digits semantics rather than the old whole-string
+  numeric test.
+- **JS:** `js/dungeon.js`, `js/teleport.js`. 154 insertions /
+  12 deletions.
+- **Verify:** green gate (seed8000 + seed0900 RNG/screen PASS + strict
+  lengths), full `sessions` **44/44**, speed `42+0.33/turn` (R² 0.861).
+  Per-session strict lengths PASS on seed0360 (wizard world tour, which
+  does drive `^V`), seed0108, seed2600, seed0367, seed0361.
+  No public session teleports *by name*, so the suite only proves the
+  numeric path still works; `lev_by_name` was probed directly against a
+  real `init_dungeons()` state (seed 8000, 9 dungeons / 7 branches):
+  * wizard off with nothing VISITED — every name returns **0**.
+  * wizard on — `oracle`, `the oracle level`, `delphi`, `Delphi`,
+    `THE ORACLE LEVEL` all → **8**; `sokoban` → 9;
+    `the gnomish mines` → 3; `mines` → **0** (C matches the full
+    dname, not a fragment); `nosuchplace` and `""` → 0.
+  * `gehennom` and `hell` → **29**, the Valley — i.e. the alias does
+    the job it exists for instead of resolving to the castle.
+  * a custom annotation "My Stash" on Dlvl 7 → **7**, and matches
+    case-insensitively as "my stash".
+  * gates both directions: wizard off, `oracle` returns 0, then **8**
+    once its ledger is flagged VISITED, then 0 again when cleared;
+    standing in the Mines, `oracle` returns 0 (`dlev_in_current_branch`)
+    and 8 again from the Dungeons of Doom.
+- **Not this iter:** `bymenu == FALSE` `print_dungeon`; the
+  Quest/mines/sanctum deepest clamp and the invoked gate; the "Go to
+  Nowhere" suicide `ynq`; `debug_fuzzer`. `ledger_no` still has 7
+  clones and `ledger_to_dnum`/`ledger_to_dlev` one each in
+  `js/teleport.js` — this port used the `dungeon.js` exports, not the
+  clones.
+
 ## D-1779 — pager.c trap_description + detect.c trapped_chest_at / trapped_door_at
 
 - **Status:** fixed (map-driven Open row `pager.c` trap_description;

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `pager.c` trap_description (named). Not trapname Hallu. **Addressed:** D-1779
+- [x] `teleport.c` lev_by_name (named). Not heaven u_left_shop. **Addressed:** D-1780
+
+
+- [x] `pager.c` trap_description (named). Not trapname Hallu. **Addressed:** D-1779 `e8515402`
 
 
 - [x] `ball.c` ballfall (named). Not set_bc. **Addressed:** D-1778 `c4a32e7c`
