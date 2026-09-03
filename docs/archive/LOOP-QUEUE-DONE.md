@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-03
 
-- [x] `mhitu.c` mattacku remaining attack-type arms `:491–952`. Not hitmu. **Addressed:** D-1795
+- [x] `mon.c` xkilled LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool gate + artifact un-create. Not make_corpse. **Addressed:** D-1796
+
+
+- [x] `mhitu.c` mattacku remaining attack-type arms `:491–952`. Not hitmu. **Addressed:** D-1795 `efcb3fd4`
 
 
 - [x] `mon.c` make_corpse special-corpse table (dragon scales / unicorn horn / worm tooth) — 19 C draws. Not mondied. **Addressed:** D-1794 `22bc5c1e`

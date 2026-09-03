@@ -312,9 +312,15 @@ golem drops, `CORPSTAT_BURIED` `bury_an_obj`, bypass/oname/Blind `clear_dknown`;
 `do_name.c` `free_mgivenname`; async for `pline_mon` / pudding merge / bury); 
 **`corpse_chance` AT_BOOM → `mon_explodes`** (D-0273) + 
 **always-TRUE `bigmonst`/lizard/golem/mplayer/rider/isshk** (D-0707; 
-Vlad/lich dust, youmonst stomach boom, `LEVEL_SPECIFIC_NOCORPSE` deferred); 
+Vlad/lich dust, youmonst stomach boom); 
+**`xkilled` LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool + artifact un-create** (D-1796; 
+`mon.c` macro in `mon.js` — rogue / `!deathdrops` / graveyard+undead `rn2(3)` 
+short-circuit; `accessible` export uses `SURFACE_AT`; `artifact_exists` `!mod` 
+clears `artiexist`; `corpse_chance` clones duplicate the macro as C does; 
+`make_corpse` bury via `m_carrying` BOULDER; human-murder luck-2 + unicorn luck-5); 
 omit cham/were restore before monsndx (`mondead`, not `make_corpse`), 
-`accessible`/`is_pool` / `LEVEL_SPECIFIC_NOCORPSE` gates, flooreffects non-floor arms, genus/other 
+flooreffects non-floor arms, floor-boulder `sobj_at` nocorpse, MAIL_DAEMON, 
+wasinside `spoteffects`, Blind_telepat `see_monsters`, quest adjalign arms, genus/other 
 mon.c helpers
 
 ### `src/mondata.c` growth

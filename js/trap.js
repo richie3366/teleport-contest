@@ -38,7 +38,7 @@ import {
     Monnam, mon_nam, x_monnam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam, hliquid, rndcolor,
 } from './do_name.js';
-import { dist2, distmin, m_at, wakeup, seemimic, m_carrying } from './mon.js';
+import { dist2, distmin, m_at, wakeup, seemimic, m_carrying, LEVEL_SPECIFIC_NOCORPSE } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { del_engr_at } from './engrave.js';
 import {
@@ -1062,7 +1062,7 @@ function wake_nearto(x, y, distance) {
 }
 
 // C ref: mon.c corpse_chance — AT_BOOM then always-TRUE arms then !rn2(tmp).
-// Named omissions: Vlad/lich dust; swallowed boom; LEVEL_SPECIFIC_NOCORPSE.
+// Named omissions: Vlad/lich dust; swallowed boom.
 async function corpse_chance(mon) {
     const mdat = mon.data;
     if (!mdat) return false;
@@ -1077,6 +1077,7 @@ async function corpse_chance(mon) {
             return false;
         }
     }
+    if (LEVEL_SPECIFIC_NOCORPSE(mdat)) return false;
     if ((((bigmonst(mdat) || (mdat.mndx ?? -1) === PM_LIZARD) && !mon.mcloned)
         || is_golem(mdat) || is_mplayer(mdat) || is_rider(mdat) || mon.isshk)) {
         return true;

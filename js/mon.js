@@ -571,6 +571,19 @@ export function dead_species(m_idx, egg) {
         || !!((mv[alt_idx]?.mvflags ?? 0) & G_GENOD);
 }
 
+/**
+ * C ref: mon.c LEVEL_SPECIFIC_NOCORPSE — rogue, !deathdrops, or
+ * graveyard+undead+rn2(3). Short-circuit matches C so rn2(3) only
+ * runs on the last arm. xkilled goto-cleanup and corpse_chance both
+ * call this (C duplicates the check).
+ */
+export function LEVEL_SPECIFIC_NOCORPSE(mdat) {
+    if (Is_rogue_level(game.u?.uz)) return true;
+    const lf = game.level?.flags;
+    if (!lf?.deathdrops) return true;
+    return !!(lf.graveyard && is_undead(mdat) && rn2(3));
+}
+
 // C ref: mon.c undead_to_corpse — zombie/mummy/vampire → living species for corpses
 export function undead_to_corpse(mndx) {
     switch (mndx) {

@@ -46,7 +46,7 @@ import {
     M_ATTK_HIT, M_ATTK_DEF_DIED, M_ATTK_AGR_DIED,
     MON_FLOOR, NORMAL_SPEED, G_GENOD, RLOC_MSG,
 } from './const.js';
-import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies, losehp, finish_maybe_wail, dissolve_bars } from './hack.js';
+import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies, losehp, finish_maybe_wail, dissolve_bars, SURFACE_AT } from './hack.js';
 import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
     GEM_CLASS, FOOD_CLASS, AMULET_CLASS, POTION_CLASS, SCROLL_CLASS,
@@ -639,12 +639,10 @@ function closed_door(x, y) {
 
 /**
  * C ref: monmove.c accessible — ACCESSIBLE(SURFACE_AT) && !closed_door.
- * DRAWBRIDGE_UP under-typ deferred (named omission).
+ * SURFACE_AT reports db_under_typ for DRAWBRIDGE_UP (D-1103).
  */
-function accessible(x, y) {
-    const loc = game.level?.at?.(x, y);
-    if (!loc) return false;
-    return ACCESSIBLE(loc.typ) && !closed_door(x, y);
+export function accessible(x, y) {
+    return ACCESSIBLE(SURFACE_AT(x, y)) && !closed_door(x, y);
 }
 
 /**

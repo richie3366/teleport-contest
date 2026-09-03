@@ -5,9 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-1795** shipped `mattacku` remaining body + `getmattk`. Must-fix
-  empty — pop first Open (`xkilled`). Do not invent a seed4500 FAIL
-  peel (D-1792 leftover). Hidden-score Open: `PORT-GAP-TOP30.md`.
+- **D-1796** shipped `xkilled` LEVEL_SPECIFIC_NOCORPSE +
+  accessible||is_pool + artifact un-create. Must-fix empty — pop first
+  Open (`dochug` + `wormhitu`). Do not invent a seed4500 FAIL peel
+  (D-1792 leftover). Hidden-score Open: `PORT-GAP-TOP30.md`.
 - **Luck still runs when invulnerable.** Dialogues do not
   (`timeout.c:623` return). STONED/SLIMED expiry stays silent
   (`done_timeout` omitted).
@@ -15,10 +16,15 @@ Objective/score live in `CURRENT.md`.
   still rebuilds `migrating_mons`. `strict-output-check.mjs` leaks
   across sessions — run per file. DUMPLOG retired (D-1776).
 - Clone drift: `zap.js` useupf; detect/potion/read/spell `useup`;
-  `qst_guardians_respond`; Elbereth.
+  `qst_guardians_respond`; Elbereth; teleport.js `accessible`.
 
 ## Don't re-check (≤15)
 
+- Do not re-port `xkilled` LEVEL_SPECIFIC / pool gate / artifact
+  un-create / bury `m_carrying` / murder luck-2 / unicorn luck-5
+  (D-1796). No second `accessible` export (teleport clone stays).
+  Floor-boulder `sobj_at` nocorpse / MAIL / wasinside `spoteffects`
+  / Blind_telepat `see_monsters` / quest adjalign still named.
 - Do not re-port `mattacku` Underwater/undetected/mimic/Invis/eel/
   invulnerable/DISE/DREN/cancelled-WEAP/home-elem/Snickersnee/`bot()`/
   sleep `rn2(10)` (D-1795). No second `m_monnam` / `simple_typename`
@@ -39,7 +45,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse D-1582.
   ParanoidTrap portal yn / `domagicportal` / `undestroyable_trap`
   / `mktrap` dst / `goto_level` uz0 are D-1187/1188.
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1795.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1796.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -49,7 +55,7 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask`
   (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) /
   omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()`
-  (D-1066). Do not skip D-1067…D-1795.
+  (D-1066). Do not skip D-1067…D-1796.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / re-port `eyecount` / delete emin / stub
   `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541).
@@ -57,10 +63,12 @@ Objective/score live in `CURRENT.md`.
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static
   `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. No trailing
-  `confdir` in shared `getdir`. Do not re-port D-1682…D-1795.
+  `confdir` in shared `getdir`. Do not re-port D-1682…D-1796.
 
 ## Landmarks (≤15)
 
+- D-1796: `xkilled` LEVEL_SPECIFIC + pool gate + artifact un-create.
+  Named: flooreffects; `sobj_at` boulder; MAIL; wasinside; quest align.
 - D-1795: `mattacku` remaining + `getmattk` DISE/DREN/WEAP/home-elem.
   Named: `hitmu`; SEDUCE=0; uhitm `prev_result`; lock.js clone.
 - D-1794: `make_corpse` special table + bury/bypass/oname/Blind tail.
@@ -76,4 +84,3 @@ Objective/score live in `CURRENT.md`.
 - D-1773: `gold_detect`; `o_in`/`o_material`/`clear_stale_map`.
 - D-1772: `peacefuls_respond`; named `qst_guardians_respond`.
 - D-1771: invent.c `useupf`; eat.c `carried()?useup:useupf`.
-- D-1770: `delete_contents`; zap `poly_obj`. Named trap.js chest.

@@ -6,7 +6,7 @@ import { rn2, rnd, rn1, d, rnl } from './rng.js';
 import {
     distmin, m_at, record_mvitals_died, undead_to_corpse, monnear, seemimic,
     zombie_maker, zombie_form, minliquid, healmon, wake_nearto, mon_givit,
-    mtrapped_in_pit,
+    mtrapped_in_pit, LEVEL_SPECIFIC_NOCORPSE,
 } from './mon.js';
 import { game } from './gstate.js';
 import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You_feel, flush_screen, verbalize, sensemon, shieldeff } from './display.js';
@@ -1801,8 +1801,7 @@ function m_useup_mm(mon, obj) {
 /**
  * C ref: mon.c corpse_chance() — AT_BOOM then always-TRUE arms then !rn2(tmp).
  * magr + was_swallowed: contained boom inside an engulfer (D-1244).
- * Named omissions: Vlad/lich dust; youmonst stomach boom (gulpmu);
- * LEVEL_SPECIFIC_NOCORPSE.
+ * Named omissions: Vlad/lich dust; youmonst stomach boom (gulpmu).
  */
 async function corpse_chance(mon, magr = null, was_swallowed = false) {
     const mdat = mon.data;
@@ -1843,6 +1842,8 @@ async function corpse_chance(mon, magr = null, was_swallowed = false) {
             return false;
         }
     }
+    // C: duplicate of xkilled's LEVEL_SPECIFIC_NOCORPSE check
+    if (LEVEL_SPECIFIC_NOCORPSE(mdat)) return false;
     if ((((bigmonst(mdat) || (mdat.mndx ?? -1) === PM_LIZARD) && !mon.mcloned)
         || is_golem(mdat) || is_mplayer(mdat) || is_rider(mdat) || mon.isshk)) {
         return true;

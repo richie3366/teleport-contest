@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1796 — xkilled LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool + artifact un-create
+
+- **Status:** fixed (map-driven Open row; green + combat cohort hold)
+- **Symptom:** JS `xkilled` ignored C's `LEVEL_SPECIFIC_NOCORPSE` (rogue /
+  `!deathdrops` / graveyard+undead `rn2(3)`), always ran treasure `!rn2(6)`
+  and `corpse_chance` on every tile, and `delobj`'d oversized random drops
+  without `artifact_exists(..., FALSE)` so a generated artifact stayed
+  marked existent. Every hero kill on a wall/pool/rogue/morgue tile, or a
+  small-mon oversized drop, desynchronises RNG or artifact uniqueness.
+- **C locus:** `mon.c` `xkilled` `:3476–3740`; macro `:44–47`;
+  `corpse_chance` `:3242` duplicate; `monmove.c` `accessible` `:2187`;
+  `artifact.c` `artifact_exists` `:369–405` un-create. Callers: 37
+  `xkilled(` sites. Not `make_corpse`.
+- **JS was:** `!nocorpse` then always `!rn2(6)` + `corpse_chance`;
+  `artifact_exists` `!mod` only zeroed `oartifact`; `accessible` two
+  local clones without `SURFACE_AT`.
+- **Fix:** `LEVEL_SPECIFIC_NOCORPSE` in `js/mon.js`; `xkilled` goto-cleanup
+  + `accessible||is_pool` gate; `accessible` export (`SURFACE_AT`);
+  `artifact_exists` clears `artiexist[m]`; `corpse_chance` clones call the
+  macro; bury via `m_carrying` BOULDER; human-murder luck-2 / unicorn
+  luck-5; tut-1 `deathdrops=false` as C `nodeathdrops`. Probe 19/19.
+- **Named omissions:** flooreffects non-floor arms; floor-boulder
+  `sobj_at` nocorpse (12 clones, no export); MAIL_DAEMON; wasinside
+  `spoteffects`; Blind_telepat `see_monsters`; quest
+  leader/nemesis/guardian/priest adjalign; be_sad / vamp_rise_msg /
+  thrownobj-into-engulfer. teleport.js `accessible` clone stays.
+- **Next:** Open `monmove.c` `dochug` remaining arms + `wormhitu`. Not
+  `m_move`.
+
 ## D-1795 — mattacku remaining body + getmattk substitutions
 
 - **Status:** fixed (map-driven Open row; green + combat cohort hold)

@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-03** — full `sessions` at **D-1790**
-(`monverbself`; fortress held through **D-1791**). **44**/44 at that
+(`monverbself`; fortress held through **D-1796**). **44**/44 at that
 audit. **seed4500** has been Screen **1801**/1814 (RNG full) since
 **D-1792** (`#wizintrinsic` DEAF timeout `[2]`) — not this peel.
 Scr **11,405**/11,405, RNG **792,838**/792,838 = **100%** at D-1790.
@@ -68,33 +68,36 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** last full-measured at D-1790. **D-1795** shipped the
-first Open (`mhitu.c` `mattacku` remaining body + `getmattk`
-substitutions). Must-fix is **empty** — pop the first **Open**
-row. Save-oracle required for tagged restore/other-floor Open
-(`save-oracle.mjs probe --omit`).
+**Suite 44/44** last full-measured at D-1790. **D-1796** shipped the
+first Open (`mon.c` `xkilled` LEVEL_SPECIFIC_NOCORPSE +
+accessible||is_pool + artifact un-create). Must-fix is **empty** —
+pop the first **Open** row. Save-oracle required for tagged
+restore/other-floor Open (`save-oracle.mjs probe --omit`).
 **Open is now hidden-score ordered** — `docs/PORT-GAP-TOP30.md` ranks
 the 30 C functions a session we cannot see is most likely to hit
 (reach from the turn loop x call breadth x RNG/message loudness x
 coverage gap; `node scripts/port-coverage.mjs`). Queue Open = rows
 1–12 of that file, in order.
-**Next cluster:** `mon.c` `xkilled` LEVEL_SPECIFIC_NOCORPSE +
-accessible||is_pool gate + artifact un-create. Not make_corpse.
+**Next cluster:** `monmove.c` `dochug` remaining arms + wormhitu
+callee. Not m_move.
 **`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
 `nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
 `#ifdef DUMPLOG` block is compiled out of the scored build, and the
 surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only
 reader is `report.c` crash path).
-**Do not skip D-1531…D-1795 (index).** Keep mention_map addr.
+**Do not skip D-1531…D-1796 (index).** Keep mention_map addr.
 Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
 Do not rewrite `confer_oc_oprop`. Do not add trailing
 `confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1795.** Do not FORCE
+**Do not re-break D-0660…D-1796.** Do not FORCE
 CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
 **Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1795 (index). Recent: **D-1795**
-`mhitu.c` `mattacku` `:490` remaining body + `getmattk` `:309`
-DISE/DREN/cancelled-WEAP/home-elem; `m_monnam`; named: `hitmu`,
+**Keep:** D-0845…D-1796 (index). Recent: **D-1796**
+`mon.c` `xkilled` `:3476` LEVEL_SPECIFIC_NOCORPSE +
+accessible||is_pool + artifact un-create; `accessible` export;
+named: flooreffects / MAIL / wasinside `spoteffects` / quest adjalign.
+**D-1795** `mhitu.c` `mattacku` `:490` remaining body + `getmattk`
+`:309` DISE/DREN/cancelled-WEAP/home-elem; `m_monnam`; named: `hitmu`,
 SEDUCE=0. **D-1794** `mon.c` `make_corpse` `:563` special table +
 epilogue; `free_mgivenname`; named: cham/were `mondead`. **D-1793**
 `weapon.c` `dmgval` `:215` vs-mon bonus `rnd()` + erosion;
@@ -116,14 +119,14 @@ no `stay` rebuild. **D-1788** `#cast` DETECT_FOOD `seffects`.
 **Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
 judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
 spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1795 (index). No `reset_glyphmap` /
+Do not skip D-1229…D-1796 (index). No `reset_glyphmap` /
 `notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
 No trailing `confdir` in shared `getdir`. Latebound `body_part`.
 No fourth town gnome. No makemon→hack/`artifact`/`minion`.
 Do not delete emin. `#altdip` stays INTERNALCMD. No
 bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1795 (index). No generic `dknown` on
+Do not re-port D-1660…D-1796 (index). No generic `dknown` on
 `otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem. DUMPLOG retired (D-1776).
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.

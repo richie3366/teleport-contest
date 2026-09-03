@@ -176,6 +176,7 @@ const AD_STON = 18;
 const AD_DISE = 33;
 const AD_HALU = 36;
 
+const RIN_INCREASE_DAMAGE = objectNames.indexOf('RIN_INCREASE_DAMAGE');
 const GRAY_DRAGON_SCALES = objectNames.indexOf('GRAY_DRAGON_SCALES');
 const GOLD_DRAGON_SCALES = objectNames.indexOf('GOLD_DRAGON_SCALES');
 const RED_DRAGON_SCALES = objectNames.indexOf('RED_DRAGON_SCALES');
@@ -893,8 +894,8 @@ export function artifact_origin(arti, aflags) {
 }
 
 /**
- * C ref: artifact.c artifact_exists
- * mod true → create; false → un-create (deferred body).
+ * C ref: artifact.c artifact_exists — create (mod) or un-create (!mod).
+ * Un-create clears artiexist[m] so the artifact can be created again.
  */
 export function artifact_exists(otmp, name, mod, flgs) {
     if (!otmp || !name) return;
@@ -904,12 +905,19 @@ export function artifact_exists(otmp, name, mod, flgs) {
         if (a.otyp === otmp.otyp && a.name === name) {
             otmp.oartifact = mod ? i : 0;
             otmp.age = 0;
+            if (otmp.otyp === RIN_INCREASE_DAMAGE) otmp.spe = 0;
             if (mod) {
                 let f = flgs | 0;
                 const originBits = ONAME_VIA_NAMING | ONAME_WISH | ONAME_GIFT
                     | ONAME_VIA_DIP | ONAME_LEVEL_DEF | ONAME_BONES | ONAME_RANDOM;
                 if ((f & originBits) === 0) f |= ONAME_RANDOM;
                 artifact_origin(otmp, f);
+            } else {
+                if (!game.artiexist) artifacts_globals_init();
+                game.artiexist[i] = {
+                    exists: 0, found: 0, wish: 0, gift: 0,
+                    viadip: 0, named: 0, lvldef: 0, bones: 0, rnd: 0,
+                };
             }
             return;
         }
