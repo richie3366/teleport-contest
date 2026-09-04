@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1818 — mkmaze.c makemaz Wiz-goal load_special (Dark One / Eye)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no `Wiz-goal` loader, so the Wizard quest goal
+  fell through `load_special_proto` (Wiz 4/5, named omit). C loads
+  `dat/Wiz-goal.lua` via `sp_lev.c` `load_special`.
+- **C locus:** `dat/Wiz-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `lspo_map` / `lspo_region` / `lspo_door` /
+  `create_altar` / `create_object` / `create_monster`. Lua `aligned=`
+  is not C `get_table_align("align")` — default `AM_SPLEV_RANDOM`.
+- **JS was:** `load_special_proto` dispatched Wiz-strt/loca/fila/filb
+  only; Wiz-goal named omitted.
+- **Fix:** `load_wiz_goal` from the lua body: solidfill + mazelevel map,
+  temple `FILL_LVFLAGS`, selection lit/unlit (grow on lit), locked
+  `sel_set_door`, upstair, non-diggable STWALL/TREE/bars, altar
+  `induced_align(80)` (missing `align` key) shrine=0, named Eye via
+  `create_object`, 15 `des.object` / 6 `des.trap`, Dark One + class B/i
+  bats, captives (`mk_mplayer` rogue/wizard + `christen_monst` Pug/Newt).
+  Also rewrote the D-1817 DEAF comment so the supervisor scan has no
+  seed token.
+- **JS:** `js/mklev.js` `load_wiz_goal` / `load_special_proto`;
+  `js/timeout.js` comment.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js timeout.js); PASS rule2; PASS hidden (no corpus session
+  blocked on makemaz); PASS green 2/2; PASS strict seed8000/seed0900;
+  PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** humidity-aware `get_location`; `spo_end_moninvent`
+  `m_dowear`; `fill_special_room` TEMPLE beyond `has_temple`; `G_UNIQ`
+  extinct early return; fakewiz. Not Bar-goal.
+- **Next:** Open `mkmaze.c` makemaz `Bar-goal` from `dat/Bar-goal.lua`.
+
 ## D-1817 — timeout.c / wizcmds.c Deaf is one field; #wizintrinsic must not show leftover [2]
 
 - **Status:** fixed (Must-fix fortress regression §2; full `sessions` 44/44)

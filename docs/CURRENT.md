@@ -20,7 +20,7 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-04** — full `sessions` at **D-1817**
+Score last measured: **2026-09-04** — full `sessions` at **D-1818**
 (**44**/44). Fortress recovered: seed0030 **D-1816**, seed4500
 `#wizintrinsic` deafness `[2]` **D-1817**. Scr **11,405**/11,405,
 RNG **792,838**/792,838. Speed `43+0.33/turn` (R² 0.86).
@@ -70,21 +70,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1817** (fortress recovered). Map-driven Open.
-**Next cluster:** `trap.c` lava_effects remaining: Fire_resistance /
-Wwalking / inventory burn / sink-and-die. Not drown.
+**Suite 44/44** at **D-1818**. Map-driven Open.
+**Next cluster:** `mkmaze.c` makemaz `Bar-goal` — completes Bar 4/5→5/5.
+From `dat/Bar-goal.lua` (95 ln).
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1817 (index).** Recent **D-1817:** `HDeaf` ≡
-`u.uprops[DEAF].intrinsic`; dedicated DEAF `--` writes both; skip
-DEAF in `sync_timeout_flats`; `make_deaf` + `wiz_intrinsic` DEAF arm
-(C `wizcmds.c:1029`). Named: count-prefix; sick/slimed/stoned/glib
-arms.
+**Keep D-0845…D-1818 (index).** Recent **D-1818:** `makemaz` `Wiz-goal`
+from `dat/Wiz-goal.lua` (Dark One / Eye; lua `aligned=` is not C
+`align`). Named: humidity `get_location`; `m_dowear`; fakewiz.
 <!-- recent:begin -->
+**D-1818** `dat/Wiz-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_wiz_goal` from the lua body: solidfill + mazelevel map,
 **D-1817** `timeout.c` / `wizcmds.c` — Deaf is one field; `#wizintrinsic` DEAF arm via `make_deaf`.
 <!-- recent:end -->
-**Do not:** FORCE/RNG; skip D-1229…D-1817; wrap `wildmiss` /
+**Do not:** FORCE/RNG; skip D-1229…D-1818; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

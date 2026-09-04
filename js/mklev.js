@@ -180,6 +180,7 @@ const CRAM_RATION = objectNames.indexOf('CRAM_RATION');
 const LEMBAS_WAFER = objectNames.indexOf('LEMBAS_WAFER');
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const HELM_OF_BRILLIANCE = objectNames.indexOf('HELM_OF_BRILLIANCE');
+const AMULET_OF_ESP = objectNames.indexOf('AMULET_OF_ESP');
 const MIRROR = objectNames.indexOf('MIRROR');
 const ARROW = objectNames.indexOf('ARROW');
 const DART = objectNames.indexOf('DART');
@@ -1377,10 +1378,10 @@ function reset_xystart_size() {
  * tower3, fire, air, minend-1, minend-2, minetn-1, minetn-2, minetn-3,
  * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-3, oracle, castle, valley,
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
- * Wiz-fila, Wiz-filb,
+ * Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
  * Named omissions: other bigrm-N / soko2-2 / quest
- * protos (Bar-goal; Wiz-goal; Kni-strt/loca/fila/filb);
+ * protos (Bar-goal; Kni-strt/loca/fila/filb);
  * minend-3; medusa-2/4; water/astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1502,6 +1503,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Wiz-filb') {
         load_wiz_filb();
+        return true;
+    }
+    if (protofile === 'Wiz-goal') {
+        load_wiz_goal();
         return true;
     }
     if (protofile === 'Pri-strt') {
@@ -3199,8 +3204,7 @@ function load_bar_strt() {
  * Named omissions: spo_end_moninvent m_dowear; count_level_features /
  * level_finalize_topology / fill_special_room;
  * sp_lev.c lspo_reset_level / lspo_finalize_level still named
- * (cmd.c makemap_prepost post rndspot is D-1288);
- * Wiz-goal/fila/filb deferred.
+ * (cmd.c makemap_prepost post rndspot is D-1288).
  * Branch levregion stored pre-flip (D-0782) so FlipY remaps MAGIC_PORTAL.
  */
 function load_wiz_strt() {
@@ -3432,7 +3436,7 @@ function load_wiz_strt() {
  * (Guarded Tower / moat). solidfill + cloud/moat replace_terrain +
  * irregular rooms with secret doors + locked doors + traps/monsters.
  * Named omissions: humidity-aware get_location; spo_end_moninvent
- * m_dowear; Wiz-goal.
+ * m_dowear.
  */
 function load_wiz_loca() {
     const g = game;
@@ -3613,7 +3617,7 @@ function load_wiz_loca() {
 /**
  * C ref: dat/Wiz-fila.lua via load_special — quest filler above locate.
  * Ordinary des.room + imp/vampire-bat stock + des.random_corridors.
- * Named omissions: Wiz-goal; failed-room / ensure_way_out.
+ * Named omissions: failed-room / ensure_way_out.
  */
 function load_wiz_fila() {
     const g = game;
@@ -3666,7 +3670,7 @@ function load_wiz_fila() {
 /**
  * C ref: dat/Wiz-filb.lua via load_special — quest filler below locate.
  * Ordinary des.room + xorn/imp/vampire-bat stock + des.random_corridors.
- * Named omissions: Wiz-goal; failed-room / ensure_way_out.
+ * Named omissions: failed-room / ensure_way_out.
  */
 function load_wiz_filb() {
     const g = game;
@@ -3710,6 +3714,184 @@ function load_wiz_filb() {
     makecorridors();
 
     if (!g.level.flags?.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Wiz-goal.lua via load_special — Wizard quest goal (Dark One /
+ * Eye of the Aethiopica). solidfill + mazelevel map + temple FILL_LVFLAGS
+ * + locked doors/bars + captives. Completes Wiz 5/5.
+ * Named omissions: humidity-aware get_location; spo_end_moninvent
+ * m_dowear; fill_special_room TEMPLE beyond has_temple; G_UNIQ extinct
+ * early return; fakewiz.
+ */
+function load_wiz_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const WIZ_GOAL_MAP = `
+                                                                            
+                                                                            
+                                                                            
+                   -------------                 -------------              
+                   |...........|                 |...........|              
+            -------|...........-------------------...........|              
+            |......S...........|..|..|..|..|..|..|...........|              
+            |......|...........|..|..|..|..|..|..|...........|              
+            |......|...........-F+-F+-F+-F+-F+-F+-...........|              
+            --S----|...........S.................+...........|              
+            |......|...........-F+-F+-F+-F+-F+-F+-...........|              
+            |......|...........|..|..|..|..|..|..|...........|              
+            |......|...........|..|..|..|..|..|..|...........|              
+            -------|...........-------------------...........|              
+                   |...........|                 |...........|              
+                   -------------                 -------------              
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+`.replace(/^\n/, '');
+    splev_apply_centered_map(WIZ_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region({ region={13,10,18,12}, lit=0, type="temple", filled=2 })
+    // C lspo_region: add_room + needfill FILL_LVFLAGS; not a shrine.
+    {
+        const dx1 = mx + 13, dy1 = my + 10, dx2 = mx + 18, dy2 = my + 12;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, false, TEMPLE, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.needfill = FILL_LVFLAGS;
+                troom.needjoining = true;
+                topologize(troom);
+                add_doors_to_room(troom);
+            }
+        }
+    }
+
+    // des.region(selection.area, "lit"/"unlit") — C lspo_region argc=2:
+    // lit grows W_ANY then sel_set_lit; unlit does not grow.
+    const wizGoalLit = (x1, y1, x2, y2, lit) => {
+        light_region(mx + x1, my + y1, mx + x2, my + y2, lit);
+    };
+    wizGoalLit(13, 6, 18, 8, true);
+    wizGoalLit(20, 4, 30, 14, false);
+    wizGoalLit(32, 6, 33, 7, false);
+    wizGoalLit(35, 6, 36, 7, false);
+    wizGoalLit(38, 6, 39, 7, false);
+    wizGoalLit(41, 6, 42, 7, false);
+    wizGoalLit(44, 6, 45, 7, false);
+    wizGoalLit(47, 6, 48, 7, false);
+    wizGoalLit(32, 9, 48, 9, false);
+    wizGoalLit(32, 11, 33, 12, false);
+    wizGoalLit(35, 11, 36, 12, false);
+    wizGoalLit(38, 11, 39, 12, false);
+    wizGoalLit(41, 11, 42, 12, false);
+    wizGoalLit(44, 11, 45, 12, false);
+    wizGoalLit(47, 11, 48, 12, false);
+    wizGoalLit(50, 4, 60, 14, true);
+
+    // des.door("locked", x, y) — C lspo_door → sel_set_door; SDOOR stays
+    const wizDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    for (const [rx, ry] of [
+        [19, 6], [14, 9], [31, 9],
+        [33, 8], [36, 8], [39, 8], [42, 8], [45, 8], [48, 8],
+        [33, 10], [36, 10], [39, 10], [42, 10], [45, 10], [48, 10],
+        [49, 9],
+    ]) wizDoor(rx, ry, D_LOCKED);
+
+    // des.stair("up", 55,05)
+    mkstairs(mx + 55, my + 5, 1, null);
+
+    // des.non_diggable(selection.area(00,00,75,19))
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.altar({ coord={16,11}, aligned="noncoaligned", type="altar" })
+    // C get_table_align looks up "align" (default "random"), not "aligned".
+    // type="altar" → shrine=0 so no priestini even inside the TEMPLE room.
+    {
+        const loc = g.level.at(mx + 16, my + 11);
+        if (loc && loc.typ !== LADDER && loc.typ !== STAIRS) {
+            loc.typ = ALTAR;
+            const amask = induced_align(80);
+            loc.altarmask = amask;
+            loc.flags = amask;
+        }
+    }
+
+    // des.object amulet of ESP → The Eye of the Aethiopica (create_object named)
+    create_object({
+        id: AMULET_OF_ESP,
+        class: AMULET_CLASS,
+        rx: 16,
+        ry: 11,
+        name: 'The Eye of the Aethiopica',
+        spe: 0,
+        curse_state: 1,
+    }, null);
+
+    // des.object() × 15
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+
+    // des.trap() × 6
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // des.monster("Dark One", 16, 11)
+    splev_create_monster('Dark One', undefined, { rx: 16, ry: 11 });
+    for (let i = 0; i < 11; i++) splev_create_monster('B', 0);
+    for (let i = 0; i < 7; i++) splev_create_monster('i', 0);
+    for (let i = 0; i < 8; i++) splev_create_monster('vampire bat');
+    splev_create_monster('i', 0);
+
+    // Captives — table form: peaceful/asleep/name; rogue+wizard → mk_mplayer
+    for (const cap of [
+        { id: 'rogue', rx: 35, ry: 6, peaceful: 1, name: 'Pug' },
+        { id: 'owlbear', rx: 47, ry: 6, peaceful: 1, asleep: 1 },
+        { id: 'wizard', rx: 32, ry: 11, peaceful: 1, asleep: 1, name: 'Newt' },
+        { id: 'Grey-elf', rx: 44, ry: 11, peaceful: 1 },
+        { id: 'hill giant', rx: 47, ry: 11, peaceful: 1, asleep: 1 },
+        { id: 'gnomish wizard', rx: 38, ry: 6, peaceful: 1 },
+        { id: 'prisoner', rx: 35, ry: 11, peaceful: 1 },
+        { id: 'prisoner', rx: 41, ry: 11, peaceful: 1, asleep: 1 },
+    ]) {
+        const opts = { rx: cap.rx, ry: cap.ry };
+        if (cap.asleep) opts.asleep = cap.asleep;
+        const mtmp = splev_create_monster(cap.id, cap.peaceful, opts);
+        if (mtmp && cap.name) christen_monst(mtmp, cap.name);
+    }
+
+    // C load_special: link_doors_rooms → remove_boundary_syms →
+    // map_cleanup → wallification → flip_level_rnd → fixup
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
+    if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
     fixup_special();

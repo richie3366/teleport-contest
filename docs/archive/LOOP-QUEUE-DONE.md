@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] Match C `timeout.c` / `wizcmds.c:1029` so `#wizintrinsic` does not paint `deafness [2]` when C’s `u.uprops[DEAF].intrinsic & TIMEOUT` is 0 (seed4500 13 screens; D-1792 leftover `HDeaf` dual-storage). Read `docs/2026-09-04-fortress-regression-42-44.md` §2 before coding. Not drown. Not count-prefix. Not Open `lava_effects`. **Addressed:** D-1817
+- [x] `mkmaze.c` makemaz `Wiz-goal` — Wizard quest goal, completes Wiz 4/5→5/5. Wizard is 11/44 public sessions. Port from `dat/Wiz-goal.lua` (132 ln). **Addressed:** D-1818
+
+
+- [x] Match C `timeout.c` / `wizcmds.c:1029` so `#wizintrinsic` does not paint `deafness [2]` when C’s `u.uprops[DEAF].intrinsic & TIMEOUT` is 0 (seed4500 13 screens; D-1792 leftover `HDeaf` dual-storage). Read `docs/2026-09-04-fortress-regression-42-44.md` §2 before coding. Not drown. Not count-prefix. Not Open `lava_effects`. **Addressed:** D-1817 `bac0ae69`
 
 
 - [x] Match C `mhitu.c` `mattacku` `:938–950` so the NATTK loop aborts when `done()` has ended the game (C `done` longjmp never returns to `i=1`), instead of a second attack `rnd(20+i)` / `d(damn,damd)` / knockback after `can_make_bones` (seed0030 Maganasipi “hits again”). Read `docs/2026-09-04-fortress-regression-42-44.md` §1 before coding. Not gem colors. Not `usleep`. Not Open `lava_effects`. **Addressed:** D-1816 `f144982f`

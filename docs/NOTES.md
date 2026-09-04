@@ -9,11 +9,10 @@ Objective/score live in `CURRENT.md`.
   D-1817; owners `process_menu_window` 21, `itemactions` 14, `getobj` 7,
   level cliff `build_room`/`selection_filter_percent` vs `rnd_rect`.
   Orient `brief.mjs`, verify `verify.mjs --fn`, hand off `finish-iteration.mjs --commit`.
-- **Suite 44/44** (D-1817). Map-driven Open: `trap.c` `lava_effects`
-  remaining (Fire_resistance / Wwalking / inventory burn / sink-and-die).
-  Not drown. Falsify: C `lava_effects` arm still stubbed / missing
-  `Fire_resistance`/`Wwalking` inventory burn. Do **not** reopen
-  seed4500 `HDeaf [2]` (D-1817) or `mattacku` gameover abort (D-1816).
+- **Suite 44/44** (D-1818). Map-driven Open: `mkmaze.c` `makemaz`
+  `Bar-goal` from `dat/Bar-goal.lua`. Falsify: `load_special_proto`
+  still has no `Bar-goal` arm. Do **not** reopen Wiz-goal (D-1818),
+  `HDeaf [2]` (D-1817) or `mattacku` gameover abort (D-1816).
   Do **not** add trailing `confdir` to shared `getdir` (D-1815).
 - **Luck still runs when invulnerable.** Dialogues do not
   (`timeout.c:623`). STONED/SLIMED expiry silent (`done_timeout`).
@@ -69,7 +68,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1816.
+  (D-1189). Do not skip D-1190…D-1818.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -79,51 +78,31 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1816.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1818.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1816.
+  Do not re-port D-1682…D-1818.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1818: `load_wiz_goal` from the lua body: solidfill + mazelevel map, Named: humidity-aware `get_location`; `spo_end_moninvent`
 - D-1817: `HDeaf` ≡ `uprops[DEAF].intrinsic`; skip DEAF in
-  `sync_timeout_flats`; dedicated `--` writes both; `make_deaf` +
-  `wiz_intrinsic` DEAF arm (`wizcmds.c:1029`). Named: count-prefix;
-  sick/slimed/stoned/glib arms.
 - D-1816: `mattacku` NATTK abort on `program_state.gameover`
-  (C `done` longjmp). Named: `hitmu` ads, SEDUCE=0 `c_sa_no`.
 - D-1815: `getdir` `:4098` `iflags.cmdassist` (Options/`O` writes
-  `game.iflags`); `!cmdassist` skips `help_dir` for the strange
-  pline; `?` still forces help. Named: mouse `_`, fuzzer,
-  `cmd_from_func`, rhack `dxdy_moveok`, trailing `confdir`.
 - D-1814: `drown` crawl-out `emergency_disrobe` /
-  `rnd_nextto_goodpos` / `teleds(TELEDS_ALLOW_DRAG)` +
-  `unmul`/`reset_faint`/`mmove`. Named: Amphibious wade;
-  teleport/steed; drowning `done()` loop.
 - D-1813: `untrap` remaining holding / landmine / shooting / box /
-  help_monster_out + try_disarm / untrap_prob / cnv_trap_obj /
-  try_lift. Named: squeaky; `move_into_trap`; `stumble_on_door_mimic`.
 - D-1812: `really_done` remaining fixup_death / launch /
-  clearlocks / pickinv / timet_delta / clearpriests / paygd.
-  Named: POSIX signals; `grddead`; display_pickinv cache setter.
 - D-1811: `use_misc` poly trap/wand/potion + bag / `you_aggravate`.
-  Named: cursed mbag FIXME; CLIPPING cliparound.
 - D-1810: `use_offensive` ray wands / horns / tele+undead / SCR_EARTH.
-  Named: linedup_callback floor-corpse; fhito_loc; SCR_FIRE #if 0.
 - D-1809: `use_defensive` mreadmsg / reveal_trap / `mon_escape` /
-  `mon_consume_unstone`. Named: horn, bugle, wand dig/tele/create/undead.
 - D-1808: `domonnoise` remaps + `doconsult` / `priest_talk` / `shk_chat`.
-  Named: other MS_*; `verbl_msg_mcan`; `night()` howl; save/rest `oracle_loc`.
 - D-1807: `vpline` msgtype_type / execplinehandler / maybe_play_sound.
-  Named: SOUND= soundmap; UNIX msghandler fork; doset MSGTYPE menu.
 - D-1806: `getdir` help_dir / strange-dir / `dxdy_moveok` shipped;
-  predicate object is D-1815.
 - D-1805: `yn_function` fuzzer `rn2(20)`/`rn2(ln)`/ESC retry + otherInp.
 - D-1804: `getobj` in_doagain `readchar` + GETOBJ ranks + sortloot INVLET.
-- D-1803: `x_monnam` remaining + `nextmbuf` / `lcase` / `just_an`.
 <!-- landmarks:end -->

@@ -591,7 +591,8 @@ hell_tweaks lava; seed0360 Scr **638→670**); **D-0767 orcus** (prefix **76622�
 **D-0775 minliquid**; **D-0776 `Wiz-strt`** + **D-0777 `maketrap` AIR/CLOUD** + 
 **D-0782 branch LR_BRANCH pre-flip** (prefix **101022→101930**; 
 Scr **389**) + **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL 120639**; 
-Scr **561**/833); Wiz-goal + fakewiz deferred; **D-0906 hellfill** via mklev; 
+Scr **561**/833); **D-1818 `Wiz-goal`** (Dark One / Eye; lua `aligned=` ≠
+C `align` → `induced_align`); fakewiz deferred; **D-0906 hellfill** via mklev; 
 omit `LVLINIT_ROGUE` / `ROGUEOPTS` / `impossible()` wall checks
 
 ### `src/mklev.c` / `sp_lev.c` `lspo_map`
@@ -805,8 +806,8 @@ zoo FILL_NORMAL + east mazewalk + ladders + hell_tweaks;
 prefix **86170→98492**) + **D-0776 `Wiz-strt`** (cloud replace + Neferet invent + siege; 
 prefix **98505→100104**; Scr **292**) + **D-0777 `maketrap` AIR/CLOUD + 
 `splev_create_trap` stairs/`get_location_coord`** (prefix **100104→100397**) + 
-**D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL**; Scr **561**; 
-Wiz-goal + fakewiz deferred)
+**D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL**; Scr **561**;
+**D-1818 `Wiz-goal`**; fakewiz deferred)
 
 ### `src/track.c`
 
