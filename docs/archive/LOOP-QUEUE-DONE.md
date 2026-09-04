@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `mkmaze.c` makemaz `Rog-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Rogue quest, 0/5. Rogue is 6/44 public sessions, the largest uncovered role (503 ln total). **Addressed:** D-1830
+- [x] `wintty.c` process_menu_window — 21 corpus blocks; tty menu clears only from its own left column. **Addressed:** D-1831
+
+
+- [x] `mkmaze.c` makemaz `Rog-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Rogue quest, 0/5. Rogue is 6/44 public sessions, the largest uncovered role (503 ln total). **Addressed:** D-1830 `ab55b818`
 
 
 - [x] `mkmaze.c` makemaz `Kni-strt`/`-loca`/`-fila`/`-filb` — Knight quest; only `Kni-goal` exists. Knight is 5/44 public sessions (321 ln total). **Addressed:** D-1829 `a9ebaa40`

@@ -9,14 +9,14 @@
 // IA_UNWIELD / IA_NAME_OBJ / IA_NAME_OTYP / IA_EAT_OBJ /
 // IA_ENGRAVE_OBJ (D-1675) + IA_BUY_OBJ shop pay (D-1676) +
 // IA_TWOWEAPON (D-1677) + IA_RUB_OBJ / IA_SWAPWEAPON / IA_WHATIS_OBJ
-// (D-1686).
+// (D-1686). Corner process_menu_window cl_end from offx (D-1831).
 // Named omissions: full apply catalogue; doengrave non-hands stylus
 // body; Traditional itemize yn. `'i'` getobj is D-1681.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, docrt, clear_committed_status } from './display.js';
-import { paint_corner_nhw_menu, inuse_headers_accessories, inuse_headers_set_accessories, check_invent_gold } from './invent.js';
+import { flush_screen, docrt, set_bot_disabled } from './display.js';
+import { paint_corner_nhw_menu, inuse_headers_accessories, inuse_headers_set_accessories, check_invent_gold, process_menu_search } from './invent.js';
 import { cxname, the, xname, makeplural, singular, is_plural, the_unique_obj } from './objnam.js';
 import { ia_checkfile } from './pager.js';
 import { call_ok, name_ok } from './do_name.js';
@@ -32,6 +32,7 @@ import {
     CMDQ_EXTCMD,
     W_ARMOR, W_ACCESSORY, W_AMUL, W_RING, W_TOOL, Is_container,
     Has_contents, has_oname, ONAME, HANDS_SYM, IS_ALTAR, SHOPBASE,
+    MENU_SEARCH, PICK_ONE,
 } from './const.js';
 import { ATR_INVERSE } from './terminal.js';
 
@@ -411,10 +412,6 @@ export async function itemactions(otmp) {
     const light = otmp.lamplit ? 'Extinguish' : 'Light';
     const items = []; // { act, let, text }
 
-    // C: after fullscreen invent destroy, WIN_STATUS stays blank until
-    // bot() when this menu closes (D-0467).
-    clear_committed_status();
-
     const add = (act, letch, txt) => {
         items.push({ act, let: letch, text: `${letch} - ${txt}` });
     };
@@ -724,8 +721,11 @@ export async function itemactions(otmp) {
     for (const it of items) byLet.set(it.let, it);
 
     // C tty_end_menu: prompt ATR_INVERSE, blank, then items.
-    // After fullscreen invent, WIN_STATUS stays blank until bot() after
-    // this menu closes (clear_committed_status from display_pickinv_reply).
+    // C windows.c select_menu `:1858–1863` gb.bot_disabled; wintty.c
+    // process_menu_window corner `cl_end` from offx only — leftover
+    // WIN_STATUS left of offx stays (D-0467 blanked the whole row).
+    const _botPrev = set_bot_disabled(true);
+    try {
     for (;;) {
         const entries = [
             { text: prompt, attr: ATR_INVERSE },
@@ -735,21 +735,40 @@ export async function itemactions(otmp) {
         await paint_corner_nhw_menu(entries, '(end) ');
         await flush_screen(1);
         const key = await nhgetch();
+        const ch = String.fromCharCode(key);
+        // C process_menu_window MENU_SEARCH `:1698–1731` before dismiss.
+        if (ch === MENU_SEARCH) {
+            const searchItems = items.map((it) => ({
+                selectable: true,
+                selector: it.let,
+                menuStr: it.text,
+                act: it.act,
+            }));
+            const res = await process_menu_search(searchItems, PICK_ONE);
+            if (res.kind === 'finish' && res.item) {
+                game._menu_overlay = false;
+                await docrt();
+                await flush_screen(1);
+                await itemactions_pushkeys(res.item.act, otmp);
+                return ECMD_OK;
+            }
+            continue;
+        }
         game._menu_overlay = false;
         await docrt();
         await flush_screen(1);
 
         if (key === 27 || key === 13 || key === 10 || key === 32) {
-            // cancel — docrt/flush above restored status via bot()
             return ECMD_OK;
         }
-        const ch = String.fromCharCode(key);
         if (byLet.has(ch)) {
             await itemactions_pushkeys(byLet.get(ch).act, otmp);
             return ECMD_OK;
         }
-        // invalid → re-prompt; keep status blank like C select_menu
-        clear_committed_status();
+        // C invalid: xwaitforspace again; do not blank WIN_STATUS
+    }
+    } finally {
+        set_bot_disabled(_botPrev);
     }
 }
 

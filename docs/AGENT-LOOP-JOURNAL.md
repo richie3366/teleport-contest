@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1831 wintty.c process_menu_window leftover WIN_STATUS + MENU_SEARCH overlay wrap
+
+**C locus:** `wintty.c` `process_menu_window` `:1329–1768` (`:1501–1505`
+**JS:** `js/display.js` `set_bot_disabled` / `_paintToplineOnlyOverOverlay` /
+**Change:** `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv /
+**Verify:** `node scripts/verify.mjs --fn process_menu_window` → PASS syntax
+**Named:** `process_menu_window` paging `docorner` repair
+**Next:** Open `iactions.c` `itemactions`. Not getobj.
 ## 2026-09-04 — D-1830 mkmaze.c makemaz Rog-strt/loca/goal/fila/filb load_special (Rogue quest 5/5)
 
 **C locus:** `dat/Rog-strt.lua` / `Rog-loca.lua` / `Rog-goal.lua` /

@@ -4956,6 +4956,8 @@ let _lastStatus1 = '';
 let _lastStatus2 = '';
 /** When true, paint blank status (fullscreen menu cleared WIN_STATUS). */
 let _statusSuppressed = false;
+/** C decl.h `gb.bot_disabled` — windows.c `select_menu` / `getlin` wrap. */
+let _bot_disabled = false;
 
 // C ref: botl.c enc_stat[] — also used in insight.c
 const ENC_STAT = [
@@ -5088,6 +5090,57 @@ function _statusLine2() {
 /** C ref: botl.c bot — no-op when u.uhp == -1 (dosave / exact overkill). */
 function _botSuppressed() {
     return (game.u?.uhp | 0) === -1;
+}
+
+/**
+ * C windows.c `select_menu` `:1858–1863` / `getlin` `:1870–1900`.
+ * @param {boolean} v
+ * @returns {boolean} previous value
+ */
+export function set_bot_disabled(v) {
+    const prev = _bot_disabled;
+    _bot_disabled = !!v;
+    return prev;
+}
+
+/**
+ * C botl.c `gb.bot_disabled`: bot() does not putstr WIN_STATUS, so the
+ * tty cells stay as the previous window left them. JS `_buildScreenOutput`
+ * clearScreen would otherwise rewrite them from the botl cache.
+ * @param {object} display
+ * @returns {{ ch: string, color: number, attr: number }[][] | null}
+ */
+function _snapshotStatusGrid(display) {
+    const grid = display?.grid;
+    if (!grid?.[22] || !grid[23]) return null;
+    const cols = display.cols || 80;
+    const rows = [];
+    for (let r = 22; r <= 23; r++) {
+        const cells = [];
+        for (let c = 0; c < cols; c++) {
+            const cell = grid[r][c];
+            cells.push({
+                ch: cell?.ch ?? ' ',
+                color: cell?.color ?? NO_COLOR,
+                attr: cell?.attr ?? 0,
+            });
+        }
+        rows.push(cells);
+    }
+    return rows;
+}
+
+/** @param {object} display @param {{ ch: string, color: number, attr: number }[][] | null} snap */
+function _restoreStatusGrid(display, snap) {
+    if (!snap || !display?.setCell) return;
+    for (let i = 0; i < snap.length; i++) {
+        const cells = snap[i];
+        const r = 22 + i;
+        for (let c = 0; c < cells.length; c++) {
+            const cell = cells[c];
+            display.setCell(c, r, cell.ch, cell.color, cell.attr);
+        }
+    }
 }
 
 /**
@@ -5312,6 +5365,9 @@ function _buildScreenOutput() {
 
     // Also write to grid for serialize_terminal_grid
     if (display.grid) {
+        // C gb.bot_disabled: do not putstr WIN_STATUS. Snapshot before
+        // clearScreen so leftover / post-fullscreen-blank cells stay.
+        const statusSnap = _bot_disabled ? _snapshotStatusGrid(display) : null;
         display.clearScreen();
         // Message line(s) — --More-- may sit on row 1 when msg is long
         const msg = game._pending_message || '';
@@ -5357,8 +5413,11 @@ function _buildScreenOutput() {
                 loc.gnew = 0;
             }
         }
-        // Status lines from last bot() (uhp==-1 skip keeps prior)
-        if (!_statusSuppressed) {
+        // Status lines from last bot() (uhp==-1 skip keeps prior).
+        // bot_disabled: restore tty leftover, do not paint the cache.
+        if (_bot_disabled) {
+            _restoreStatusGrid(display, statusSnap);
+        } else if (!_statusSuppressed) {
             const s1 = _lastStatus1 || s1raw.replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
                 m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10) || 0) : '');
             for (let c = 0; c < Math.min(s1.length, display.cols); c++)
@@ -5417,13 +5476,31 @@ function _paintToplineOnly() {
 }
 
 /**
+ * C getline.c show_topl / topl_putsym wrap at CO-1: cl_end the wrapped
+ * message row so a corner menu's first item does not stay beside the
+ * continuation. Ordinary `_paintToplineOnly` must not blank map row 1.
+ */
+function _paintToplineOnlyOverOverlay() {
+    _paintToplineOnly();
+    const display = game?.nhDisplay;
+    if (!display?.grid || !display.setCell) return;
+    const msg = game._pending_message || '';
+    if (!msg.includes('\n')) return;
+    const cols = display.cols || 80;
+    const line1 = msg.split('\n')[1] || '';
+    for (let c = line1.length; c < cols; c++)
+        display.setCell(c, 1, ' ', NO_COLOR, 0);
+}
+
+/**
  * C mid-goto_level: gbuf still holds prior map while level is detached;
  * refresh message + status only (do not clearScreen blank the map).
  */
 function _paintToplineAndStatus() {
     _paintToplineOnly();
     const display = game?.nhDisplay;
-    if (!display?.grid || !display.setCell || _statusSuppressed) return;
+    // C bot() returns before putstr when gb.bot_disabled.
+    if (!display?.grid || !display.setCell || _statusSuppressed || _bot_disabled) return;
     const cols = display.cols || 80;
     const s1 = _lastStatus1 || '';
     const s2 = _lastStatus2 || '';
@@ -5478,7 +5555,16 @@ export function paint_gbuf_level_to_terminal(level) {
 export async function flush_screen(mode) {
     // Menu/text overlays paint the Terminal grid directly; don't clobber them.
     // C ref: invent display / NHW_MENU / NHW_TEXT stay until dismissed.
-    if (game._menu_overlay) return;
+    // C process_menu_window MENU_SEARCH → tty_getlin: custompline writes
+    // WIN_MESSAGE (home+cl_end the full message row) while the corner
+    // menu stays. Overlay skip would leave the menu header on row 0.
+    if (game._menu_overlay) {
+        // C process_menu_window MENU_SEARCH → tty_getlin: show_topl
+        // home+cl_end row 0; wrap at CO-1 cl_end the next message row
+        // (first corner-menu item). Overlay skip would leave the header.
+        if (_toplin === TOPLINE_SPECIAL_PROMPT) _paintToplineOnlyOverOverlay();
+        return;
+    }
     if (mode === -1) {
         _delay_flushing = !_delay_flushing;
         if (_delay_flushing) return;
@@ -5576,8 +5662,11 @@ export async function cls() {
 }
 
 // ── bot ──
-// C ref: botl.c bot — no-op body when u.uhp == -1; always clear botl flags.
+// C ref: botl.c bot — no-op body when u.uhp == -1; always clear botl flags
+// after the disabled check (disabled returns without clearing).
 export async function bot() {
+    // C botl.c `:255–256` — gb.bot_disabled returns before uhp / putstr.
+    if (_bot_disabled) return;
     _statusSuppressed = false;
     if (!_botSuppressed()) _commitStatusLines();
     if (game.flags) {
@@ -5590,9 +5679,11 @@ export async function bot() {
 /**
  * C ref: botl.c timebot — status update when only svm.moves changed.
  * VIA_WINDOWPORT → stat_update_time deferred; tty path → full bot().
- * Named omissions: gb.bot_disabled; hangup done_hup in suppress_map_output.
+ * Named omissions: hangup done_hup in suppress_map_output.
  */
 export async function timebot() {
+    // C botl.c `:277–278` — gb.bot_disabled returns before time update.
+    if (_bot_disabled) return;
     const flags = game.flags || {};
     const iflags = game.iflags || {};
     // C: status_updates defaults TRUE; treat undefined as enabled

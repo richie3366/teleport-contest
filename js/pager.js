@@ -20,11 +20,13 @@ import {
     flush_screen, flush_topl_more, pline, docrt, more,
     mon_glyph, obj_glyph, look_shown_at, terrain_glyph, Hallucination,
     glyph_to_obj_at, glyph_at, glyph_is_trap, glyph_to_trap,
+    set_bot_disabled,
 } from './display.js';
 import { howmonseen } from './vision.js';
 import { getlin, yn_function } from './getline.js';
 import {
-    paint_corner_nhw_menu, dfeature_at, display_inventory, observe_object,
+    paint_corner_nhw_menu, dismiss_nhw_menu, dfeature_at, display_inventory,
+    observe_object, process_menu_search,
 } from './invent.js';
 import { stairway_at, known_branch_stairs } from './mklev.js';
 import {
@@ -64,7 +66,7 @@ import {
     MHID_PREFIX, MHID_ARTICLE, MHID_ALTMON, MHID_REGION,
     MONSEEN_NORMAL, MONSEEN_SEEINVIS, MONSEEN_INFRAVIS, MONSEEN_TELEPAT,
     MONSEEN_XRAYVIS, MONSEEN_DETECT, MONSEEN_WARNMON,
-    CMDQ_KEY,
+    CMDQ_KEY, MENU_SEARCH, PICK_ONE,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR, DEC_TO_UNICODE } from './terminal.js';
 import { DAT_TEXT } from './generated/dat_text.js';
@@ -1374,19 +1376,43 @@ async function whatis_menu_choice() {
         { text: 'e - nearby engravings', attr: 0 },
         { text: 'E - all seen or remembered engravings', attr: 0 },
     ];
+    const searchItems = entries
+        .filter((e) => e.text && e.text[1] === ' ' && e.text[0] !== '')
+        .filter((e) => '/i?mMoOtTeE'.includes(e.text[0]))
+        .map((e) => ({
+            selectable: true,
+            selector: e.text[0],
+            menuStr: e.text,
+        }));
+    // C windows.c select_menu gb.bot_disabled wrap.
+    const _botPrev = set_bot_disabled(true);
+    try {
     for (;;) {
         await paint_corner_nhw_menu(entries, '(end) ');
-        const key = await nhgetch();
-        game._menu_overlay = false;
-        await docrt();
         await flush_screen(1);
+        const key = await nhgetch();
         const ch = String.fromCharCode(key);
+        // C process_menu_window MENU_SEARCH `:1698–1731` before dismiss.
+        if (ch === MENU_SEARCH) {
+            const res = await process_menu_search(searchItems, PICK_ONE);
+            if (res.kind === 'finish' && res.item) {
+                // C erase_menu_or_text: corner docorner, not docrt/cls.
+                await dismiss_nhw_menu();
+                return res.item.selector;
+            }
+            continue;
+        }
+        // C destroy_nhwindow after select_menu: corner skips cls (WIN_STATUS stays).
+        await dismiss_nhw_menu();
         if (key === 27 || ch === 'q') return 'q';
         if (ch === '\r' || ch === '\n' || ch === ' ') continue;
         // lootabc false: y ≡ /, n ≡ ?
         if (ch === 'y') return '/';
         if (ch === 'n') return '?';
         if ('/i?mMoOtTeE'.includes(ch)) return ch;
+    }
+    } finally {
+        set_bot_disabled(_botPrev);
     }
 }
 

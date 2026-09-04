@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-1831 — wintty.c process_menu_window leftover WIN_STATUS + MENU_SEARCH overlay wrap
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** tty corner menus `cl_end` only from `offx`, so WIN_STATUS left of
+  `offx` stays; JS `clear_committed_status` blanked the whole row (D-0467).
+  MENU_SEARCH `:` → `tty_getlin("Search for:")` must paint WIN_MESSAGE over
+  the overlay; wrap at CO-1 `cl_end`s the first menu item. Look-at `:` was
+  treated as invalid. Inheriting `maxrow` from a prior window wiped map
+  under the tutorial prompt.
+- **C locus:** `wintty.c` `process_menu_window` `:1329–1768` (`:1501–1505`
+  extra-page `cl_end`; `:1698–1731` MENU_SEARCH); `windows.c` `select_menu`
+  `:1856–1864` / `getlin` `:1867–1901` `gb.bot_disabled`; `botl.c` `bot`
+  `:255–256` / `timebot` `:277–278`; `getline.c` `topl_putsym` wrap at CO-1;
+  `pager.c` `whatis_menu_choice` uses `select_menu` so `:` is MENU_SEARCH.
+- **JS was:** overlay `flush_screen` skipped WIN_MESSAGE; `itemactions`
+  blanked status; `whatis_menu_choice` rejected `:`; `paint_corner_nhw_menu`
+  reused leftover `_tty_menu_geom.maxrow`.
+- **Fix:** `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv /
+  itemactions / look-at. Overlay `flush_screen` paints SPECIAL_PROMPT and
+  `cl_end`s wrapped row 1. `_buildScreenOutput` snapshots WIN_STATUS across
+  `clearScreen` while disabled (C `bot()` skips putstr; fullscreen invent
+  leftover is blank, corner leftover stays). Corner dismiss uses
+  `dismiss_nhw_menu` (docorner, not `docrt`/`cls`). `maxrow` is per overlay
+  window. MENU_SEARCH is live in look-at and itemactions.
+- **JS:** `js/display.js` `set_bot_disabled` / `_paintToplineOnlyOverOverlay` /
+  `_snapshotStatusGrid`; `js/invent.js` `paint_corner_nhw_menu`; `js/getline.js`;
+  `js/iactions.js`; `js/options.js`; `js/pager.js` `whatis_menu_choice`.
+- **Verify:** `node scripts/verify.mjs --fn process_menu_window` → PASS syntax
+  (6 js files); PASS rule2; PASS hidden (no corpus session blocked on
+  process_menu_window); PASS green 2/2; PASS strict seed8000/seed0900;
+  PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). Three
+  MENU_SEARCH corpus sessions PASS. VERIFY: PASS
+- **Named omissions:** `process_menu_window` paging `docorner` repair
+  (`previous_page_lines`); PICK_ANY invert-all; itemactions apply catalogue;
+  Traditional itemize yn. Not leftover WIN_STATUS, MENU_SEARCH overlay wrap,
+  or per-window extra-page `cl_end`.
+- **Next:** Open `iactions.c` `itemactions`. Not getobj.
+
 ## D-1830 — mkmaze.c makemaz Rog-strt/loca/goal/fila/filb load_special (Rogue quest 5/5)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
