@@ -100,6 +100,23 @@ export function highc(c) {
 }
 
 /**
+ * C ref: hacklib.c lcase `:89–98` — ASCII A-Z `|= 040` in place.
+ * JS strings are immutable; return a new string. Caller do_name.c
+ * x_monnam is_mplayer rank_of.
+ */
+export function lcase(s) {
+    const str = String(s ?? '');
+    let out = '';
+    for (let i = 0; i < str.length; i++) {
+        const code = str.charCodeAt(i);
+        out += (code >= 65 && code <= 90)
+            ? String.fromCharCode(code | 0x20)
+            : str.charAt(i);
+    }
+    return out;
+}
+
+/**
  * C ref: hacklib.c ucase `:101–110` — walk the string, highc a-z.
  * C mutates in place; JS returns a new string. Caller sounds.c
  * Death `pline1(ucase(...))` (D-1653).

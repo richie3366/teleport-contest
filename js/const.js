@@ -489,8 +489,10 @@ export const SUPPRESS_SADDLE = 0x08;
 export const SUPPRESS_MAPPEARANCE = 0x10;
 export const SUPPRESS_NAME = 0x20;
 export const AUGMENT_IT = 0x40;
+/* C hack.h EXACT_NAME 0x1F — IT|INVISIBLE|HALLUCINATION|SADDLE|MAPPEARANCE.
+   Not SUPPRESS_NAME (0x20): m_monnam keeps the given name. */
 export const EXACT_NAME = (SUPPRESS_IT | SUPPRESS_INVISIBLE
-    | SUPPRESS_HALLUCINATION | SUPPRESS_NAME);
+    | SUPPRESS_HALLUCINATION | SUPPRESS_SADDLE | SUPPRESS_MAPPEARANCE);
 
 // Game end type constants (include/hack.h enum game_end_types; src/end.c)
 // Runtime fields:

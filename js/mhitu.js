@@ -33,7 +33,7 @@ import {
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import {
     Monnam, mon_nam, pmname, hliquid, x_monnam, Hallucination,
-    noit_mon_nam, noit_Monnam, s_suffix, Ugender, m_monnam,
+    noit_mon_nam, noit_Monnam, s_suffix, Ugender, m_monnam, Some_Monnam,
 } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval, hitval, drain_weapon_skill } from './weapon.js';
 import { arti_reflects, is_art } from './artifact.js';
@@ -1893,16 +1893,6 @@ export async function mhitm_ad_drin_u(mtmp, mattk, mhm) {
         await drain_weapon_skill(rnd(2));
         game.skipdrin = true;
     }
-}
-
-/**
- * C ref: do_name.c Some_Monnam — highc(some_mon_nam).
- * Visible → Monnam; else Someone/Something. AUGMENT_IT in x_monnam
- * is still named (same stand-in as steal.js / dothrow.js).
- */
-function Some_Monnam(mtmp) {
-    if (canspotmon(mtmp)) return Monnam(mtmp);
-    return is_animal(mtmp?.data) ? 'Something' : 'Someone';
 }
 
 /** C youprop.h H/E via flat + uprops[idx] (confer may not mirror E*). */

@@ -73,7 +73,7 @@ import {
     makeplural, otense,
 } from './objnam.js';
 import { m_at, wakeup, seemimic, wake_nearto, distmin, monnear, m_respond } from './mon.js';
-import { mon_nam, Monnam, hliquid, Hallucination } from './do_name.js';
+import { mon_nam, Monnam, hliquid, Hallucination, Some_Monnam } from './do_name.js';
 import {
     is_domestic, nohands, M1_NOTAKE, MZ_HUGE, MZ_MEDIUM,
     is_unicorn, is_orc, is_elf, your_race, is_animal, is_whirly,
@@ -538,15 +538,6 @@ function Deaf_youprop() {
     const prop = u.uprops?.[DEAF];
     return !!((prop?.intrinsic | 0) || (prop?.extrinsic | 0)
         || u.uroleplay?.deaf);
-}
-
-/**
- * C do_name.c Some_Monnam — highc(some_mon_nam). AUGMENT_IT in x_monnam
- * is still named; visible → Monnam, else Someone/Something.
- */
-function Some_Monnam(mtmp) {
-    if (canspotmon(mtmp)) return Monnam(mtmp);
-    return is_animal(mtmp?.data) ? 'Something' : 'Someone';
 }
 
 /**

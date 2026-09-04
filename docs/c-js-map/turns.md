@@ -1160,8 +1160,16 @@ always `rn2(CLR_MAX)` even when Hallu; Hallu → `hcolor(NULL)` display-rng;
 else `k==NO_COLOR` → `"colorless"` not table `"transparent"`; else `c_obj_colors[k]`; 
 chest_trap `Blind ? ROLL_FROM(blindgas) : rndcolor()`; 
 sit/apply/pray/detect/do/wield/read identity stubs still named); 
-**exported `x_monnam` adjective/ARTICLE + `mon_nam`→`x_monnam`** (D-0850; 
-priest/minion/`mappear`/invis adj/`is_mplayer` rank/`AUGMENT_IT` deferred); 
+**exported `x_monnam` adjective/ARTICLE + `mon_nam`→`x_monnam`** (D-0850); 
+**`x_monnam` remaining body D-1803** (C `do_name.c` `:826–1032` `nextmbuf`
+ring / youmonst `"you"` / AUGMENT_IT someone/something hallu `rn2(2)` /
+M_AP_MONSTER mappear / invis+saddle adjectives / is_mplayer `rank_of`+
+`lcase` and `" the "` split / ARTICLE_A `just_an` not `an()` / M2_PNAME
++ Wizard `ARTICLE_THE`; `hack.h` EXACT_NAME 0x1F not SUPPRESS_NAME;
+wrappers `l_monnam`/`some_mon_nam`/`Some_Monnam`/`YMonnam`/`noit_*`
+through `x_monnam`; `hacklib.c` `lcase`; `objnam.c` `just_an` one/eu/uke/
+unicorn/x-consonant; apply `l_monnam` + dothrow/mhitu/steal `Some_Monnam`
+clones rebound. Named: priest/minion `priestname`); 
 **`uhitm` live `a_monnam` D-1544**; **`namefloorobj` getpos + vobj_at / object_from_map + Hallu unames + call_ok D-1555**; 
 **`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889; 
 **seemimic/pit/NODIAG/boulder D-1299**; `goodpos` / mintrap aftermath named); 

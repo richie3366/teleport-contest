@@ -5,9 +5,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Open `do_name.c` `x_monnam` next** (Must-fix empty after D-1802).
-  saddle / ARTICLE_* / M2_PNAME / Wizard article + nextmbuf. Not
-  `mon_nam_too`. Not a seed0030 peel.
+- **Open `invent.c` `getobj` next** (Must-fix empty after D-1803).
+  in_doagain / prompt+filter machinery. Not `display_pickinv`.
+  Not a seed0030 peel.
 - **seed0030** still 39912/105529 after D-1797. First all-segments
   miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
   (seg0 RNG OK 14300). Falsify that with `rng-diff --all-segments`
@@ -25,25 +25,24 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not re-port `xname_flags` `xcalled` / gameover T_SHIRT /
-  `apron_text` / `hawaiian_motif` / CANDY_BAR (D-1802) or
-  `moveloop_core` `do_storms` / `glibr` / `mkot_trap_warn` /
-  `end_of_input` (D-1801) or `test_move`/`domove_core` water_friction /
-  avoid-trap-or-liquid / fight bars+web / mention_walls (D-1800) or
-  `spoteffects` recursion / lev `rn2(2)` / Warning ice / piercer
-  surprise (D-1799) or `dochug` remaining / `wormhitu` (D-1798)
-  or `nomul`/`unmul` `usleep=0` / nomul `uinvulnerable` (D-1797) or
-  `xkilled` LEVEL_SPECIFIC / pool / artifact un-create (D-1796).
-  Named: article arms, `armor_simple_name`, `find_artifact`,
-  `hawaiian_design`/doread; `buzz`/`dobuzz`, `amulet()`, `intervene`;
-  lookaround, air_turbulence, slippery_ice, escape_from_sticky,
-  Known_wwalking, autodig/`worm_cross`, `exercise_steed`;
-  pooleffects leave-water / `failing_untrap` writer;
-  `demon_talk`, `cuss`. Do not treat usleep as seed0030’s
-  first token. No second `accessible` export. Floor-boulder
-  `sobj_at` / MAIL / wasinside / Blind_telepat / quest adjalign
-  named. Upolyd survived-that still named. Do not statically
-  import read/engrave from objnam (`_body_part` TDZ).
+- Do not re-port `x_monnam` remaining / `nextmbuf` / `lcase` /
+  `just_an` / EXACT_NAME 0x1F (D-1803) or `xname_flags` `xcalled` /
+  gameover T_SHIRT / `apron_text` / `hawaiian_motif` / CANDY_BAR
+  (D-1802) or `moveloop_core` `do_storms` / `glibr` /
+  `mkot_trap_warn` / `end_of_input` (D-1801) or `test_move`/
+  `domove_core` water_friction / avoid-trap-or-liquid / fight
+  bars+web / mention_walls (D-1800) or `spoteffects` recursion /
+  lev `rn2(2)` / Warning ice / piercer surprise (D-1799) or
+  `dochug` remaining / `wormhitu` (D-1798) or `nomul`/`unmul`
+  `usleep=0` / nomul `uinvulnerable` (D-1797) or `xkilled`
+  LEVEL_SPECIFIC / pool / artifact un-create (D-1796). Named:
+  priestname; article arms, `armor_simple_name`, `find_artifact`,
+  `hawaiian_design`/doread; `buzz`/`dobuzz`, `amulet()`,
+  `intervene`; lookaround, air_turbulence, slippery_ice,
+  escape_from_sticky, Known_wwalking, autodig/`worm_cross`,
+  `exercise_steed`; pooleffects leave-water / `failing_untrap`
+  writer; `demon_talk`, `cuss`. Do not treat usleep as
+  seed0030’s first token. No second `accessible` export.
 - Do not re-port `mattacku` Underwater/undetected/mimic/Invis/eel/
   invulnerable/DISE/DREN/cancelled-WEAP/home-elem/Snickersnee/`bot()`/
   sleep `rn2(10)` (D-1795). Do not delete that sleep arm. No second
@@ -65,7 +64,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse D-1582.
   ParanoidTrap portal yn / `domagicportal` / `undestroyable_trap`
   / `mktrap` dst / `goto_level` uz0 are D-1187/1188.
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1802.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1803.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -75,7 +74,7 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask`
   (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) /
   omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()`
-  (D-1066). Do not skip D-1067…D-1802.
+  (D-1066). Do not skip D-1067…D-1803.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / re-port `eyecount` / delete emin / stub
   `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541).
@@ -83,10 +82,12 @@ Objective/score live in `CURRENT.md`.
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static
   `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. No trailing
-  `confdir` in shared `getdir`. Do not re-port D-1682…D-1802.
+  `confdir` in shared `getdir`. Do not re-port D-1682…D-1803.
 
 ## Landmarks (≤15)
 
+- D-1803: `x_monnam` remaining + `nextmbuf` / `lcase` / `just_an` /
+  EXACT_NAME 0x1F. Named: priestname.
 - D-1802: `xname_flags` `xcalled` + gameover T_SHIRT/`apron_text`/
   `hawaiian_motif`/CANDY_BAR. Named: article arms, `armor_simple_name`,
   `find_artifact`, `hawaiian_design`/doread.
@@ -111,4 +112,3 @@ Objective/score live in `CURRENT.md`.
 - D-1791: `newuhs` / faint / `end_running`; sit.js egg still unawaited.
 - D-1790: `mon_nam_too`/`monverbself`; hallu steed “Them” as C writes.
 - D-1789: `keepdogs` `[...fmon]`; named `relmon` / async `unstuck`.
-- D-1788: `#cast` SPE_DETECT_FOOD `seffects`; remaining otyps named.

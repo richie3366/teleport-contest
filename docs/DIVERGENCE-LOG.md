@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-1803 — do_name.c x_monnam remaining + nextmbuf / lcase / just_an
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** JS `x_monnam` was a half-port: no `nextmbuf` ring, no
+  youmonst `"you"`, no AUGMENT_IT someone/something (hallu `rn2(2)`),
+  no M_AP_MONSTER mappear, no `"invisible "` adjective, no is_mplayer
+  `rank_of`+`lcase` / `" the "` split, ARTICLE_A used `an()` (C
+  `"avoid an() here"`), and `hack.h` EXACT_NAME was
+  IT|INVISIBLE|HALLU|NAME instead of C's 0x1F
+  (IT|INVISIBLE|HALLU|SADDLE|MAPPEARANCE). `Some_Monnam` clones in
+  dothrow/mhitu/steal used `is_animal` and skipped hallu RNG.
+- **C locus:** `do_name.c` `x_monnam` `:826–1032`; `nextmbuf` `:19–27`
+  NUMMBUF=5; wrappers `l_monnam` `:1034`, `some_mon_nam` `:1063`,
+  `noit_mon_nam` `:1051`, `Some_Monnam` `:1091`, `YMonnam` `:1132`;
+  `hacklib.c` `lcase` `:89–98`; `objnam.c` `just_an` `:2108–2142`;
+  `hack.h` EXACT_NAME 0x1F. Not `mon_nam_too` (D-1790).
+- **JS was:** those arms named-omit or C-wrong; `just_an` vowel
+  exceptions named-omit; `lcase`/`nextmbuf` NOT FOUND.
+- **Fix:** remaining `x_monnam` body in `js/do_name.js` with `nextmbuf`;
+  `lcase` in `js/hacklib.js`; `just_an` exported + one/eu/uke/unicorn/
+  uranium/useful/x-consonant; EXACT_NAME 0x1F; wrappers through
+  `x_monnam`; apply `l_monnam` + three `Some_Monnam` clones rebound.
+- **Named omissions:** priest/minion `priestname` (fall through).
+- **Next:** Open `invent.c` `getobj` in_doagain / prompt+filter.
+  Not `display_pickinv`.
+
 ## D-1802 — objnam.c xname_flags tshirt/apron/hawaiian/xcalled + gameover disclosure
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

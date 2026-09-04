@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1803 do_name.c x_monnam remaining + nextmbuf
+
+**Objective:** Open `do_name.c` `x_monnam` saddle / ARTICLE_* /
+M2_PNAME / Wizard article + nextmbuf. Not `mon_nam_too`.
+**C:** `x_monnam` `:826–1032`; `nextmbuf` `:19`; wrappers
+`l_monnam`/`some_mon_nam`/`noit_*`/`Some_Monnam`/`YMonnam`;
+`hacklib.c` `lcase` `:89`; `objnam.c` `just_an` `:2108`;
+`hack.h` EXACT_NAME 0x1F.
+**JS was:** those arms named-omit; EXACT_NAME included
+SUPPRESS_NAME; `Some_Monnam` clones skipped hallu `rn2(2)`.
+**Fix:** remaining body + ring + `lcase` + `just_an` exceptions;
+wrappers through `x_monnam`; clones rebound. Named: priestname.
+**Verify:** save-oracle skip (untagged); probes (youmonst, saddle,
+invis, Wizard/Medusa, unicorn `a`, mplayer rank/` the ` split,
+mappear, AUGMENT_IT something); green + strict; cohort 9/9 +
+ride 0103/0104 + hallu 0383.
+**Next:** Open `invent.c` `getobj` in_doagain / prompt+filter.
 ## 2026-09-04 — D-1802 objnam.c xname_flags tshirt/apron/hawaiian/xcalled
 
 **Objective:** Open `objnam.c` `xname_flags` `tshirt_text` /

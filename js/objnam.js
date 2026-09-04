@@ -1817,25 +1817,41 @@ export function makeplural(s) {
     return s + 's';
 }
 
-function just_an(str) {
-    if (!str) return 'a ';
-    // skip leading spaces
-    let i = 0;
-    while (str[i] === ' ') i++;
-    const s = str.slice(i);
+/**
+ * C ref: objnam.c just_an `:2108–2142` — article prefix only ("a "/"an "/"").
+ * x_monnam ARTICLE_A uses this, not an() (C "avoid an() here").
+ * @param {string|null|undefined} str
+ * @returns {string}
+ */
+export function just_an(str) {
+    const s = str == null ? '' : String(str);
     if (!s) return 'a ';
-    const c0 = s[0].toLowerCase();
-    // C: single letter OR letter+' ' (fruit / musical note) → aefhilmnosx
+    const c0 = s.charAt(0).toLowerCase();
+    /* single letter; might be used for named fruit or a musical note */
     if (!s[1] || s[1] === ' ') {
         return 'aefhilmnosx'.includes(c0) ? 'an ' : 'a ';
     }
-    // C: "the "/lava/bars/ice → no article (doname paths deferred for most)
-    if (/^the /i.test(s) || /^molten lava$/i.test(s)
-        || /^iron bars$/i.test(s) || /^ice$/i.test(s)) {
+    const sl = s.toLowerCase();
+    if (sl.startsWith('the ')
+        || sl === 'molten lava'
+        || sl === 'iron bars'
+        || sl === 'ice') {
         return '';
     }
-    // normal vowel/consonant; named omissions: one-/eu-/uke-/unicorn exceptions
-    return 'aeiou'.includes(c0) ? 'an ' : 'a ';
+    const vowels = 'aeiou';
+    /* C strncmpi != 0 → keep "an" path; 0 (match) can block it. */
+    const ncmp = (t, n) => sl.slice(0, n) !== String(t).slice(0, n);
+    const one_ok = ncmp('one', 3) || (s[3] && !'-_ '.includes(s[3]));
+    const use_an = (
+        (vowels.includes(c0)
+            && one_ok
+            && ncmp('eu', 2)
+            && ncmp('uke', 3) && ncmp('ukulele', 7)
+            && ncmp('unicorn', 7) && ncmp('uranium', 7)
+            && ncmp('useful', 6))
+        || (c0 === 'x' && !vowels.includes(s.charAt(1).toLowerCase()))
+    );
+    return use_an ? 'an ' : 'a ';
 }
 
 /** C ref: objnam.c an() — article + string */
