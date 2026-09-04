@@ -666,8 +666,8 @@ Sokoban `set_mimic_sym`/`m_initinv` gold+spider**;
 `m->x = mtmp->mx` is unreachable); **D-0607 `minend-1` load_special** (niche shuffle + 
 mimic `appear_as` + mines_prize luckstone) + 
 **D-0755 `minend-2` load_special** (Wine Cellar solidfill map + percent terrain + 
-region_islev tele + prize; seed0360 prefix **43248→52601**; Scr **207→238**; 
-`minend-3` deferred) + **D-0756 `soko4-1` load_special** (Sokoban entry map + PIT/SCR_EARTH + 
+region_islev tele + prize; seed0360 prefix **43248→52601**; Scr **207→238**;
+**D-1823 `minend-3` load_special**) + **D-0756 `soko4-1` load_special** (Sokoban entry map + PIT/SCR_EARTH +
 branch lregion pre-flip; seed0360 prefix **52601→53361**; 
 Scr **238→242**) + **D-0757 `tower2` load_special** (Vlad middle: niche shuffle + ladders + 
 demons/hounds + chest amulets + spbook shuffle; seed0360 prefix **53361→53591**; 
@@ -773,8 +773,11 @@ trees/fountains; maze corrwid `3+rn2(3)` wall→boulder + rolling-boulder traps;
 `splev_create_trap` named type; `lspo_replace_terrain` selection arm) +
 **D-1822 `bigrm-1`/`-10`/`-13` load_special** (percent(80) line/plus/snake
 `selection_do_line`; fog maze `mazewalk`+levregion stair-up; 8-filter pillars
-via nested `lspo_map` coord); Big Room 13/13; 
-**D-0651 `medusa-1` load_special** + `Is_medusa_level` fixup statues; 
+via nested `lspo_map` coord); Big Room 13/13;
+**D-1823 `minend-3` load_special** (Catacombs: HWALL solidfill so mazewalk
+carves map STONE only; valign bottom; west `stocked=false`; lua wallify;
+luckstone prize + flint + level-teleports); Mine's End 3/3;
+**D-0651 `medusa-1` load_special** + `Is_medusa_level` fixup statues;
 **D-0759 `medusa-3` load_special** (place `selection_rndcoord` + Perseus/ravens; 
 `mk_artifact` A_NONE) + **D-0928 open** #1092 C recorder: medusa-3 flip **sum81** stair**(32,16)** 
 place≡JS land**(43,6)** (screen `>`@31/`@`(42,6) misleading); last=77/sum80 dead; 

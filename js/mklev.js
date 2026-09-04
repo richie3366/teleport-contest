@@ -1375,14 +1375,14 @@ function reset_xystart_size() {
  * bigrm-4, bigrm-5, bigrm-6, bigrm-7, bigrm-8, bigrm-9, bigrm-11, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
  * Bar-filb, Bar-goal, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
  * soko1-2, soko2-1, soko2-2, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
- * tower3, fire, air, minend-1, minend-2, minetn-1, minetn-2, minetn-3,
+ * tower3, fire, air, minend-1, minend-2, minend-3, minetn-1, minetn-2, minetn-3,
  * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-3, oracle, castle, valley,
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
  * Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
  * Named omissions: quest
  * protos (Kni-strt/loca/fila/filb);
- * minend-3; medusa-2/4; water/astral; fakewiz;
+ * medusa-2/4; water/astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
 async function makemaz(s) {
@@ -1655,6 +1655,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'minend-2') {
         load_minend_2();
+        return true;
+    }
+    if (protofile === 'minend-3') {
+        load_minend_3();
         return true;
     }
     if (protofile === 'minetn-1') {
@@ -7922,8 +7926,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 /**
  * C ref: dat/minend-1.lua via load_special — Mimic of the Mines.
- * Named omissions: minend-3; ensure_way_out; link_doors_rooms full scan;
+ * Named omissions: ensure_way_out; link_doors_rooms full scan;
  * map_cleanup; is_mines_prize consumption beyond achieveo oid/otyp stamp.
+ * minend-3 is D-1823.
  */
 function load_minend_1() {
     const g = game;
@@ -8121,8 +8126,9 @@ function load_minend_1() {
 /**
  * C ref: dat/minend-2.lua via load_special — Gnome King's Wine Cellar.
  * Solidfill + centered map + percent terrain + region_islev tele + prize.
- * Named omissions: minend-3; ensure_way_out; link_doors_rooms full scan;
+ * Named omissions: ensure_way_out; link_doors_rooms full scan;
  * map_cleanup; is_mines_prize consumption beyond achieveo oid/otyp stamp.
+ * minend-3 is D-1823.
  */
 function load_minend_2() {
     const g = game;
@@ -8358,6 +8364,227 @@ function load_minend_2() {
             }
         }
     }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/minend-3.lua via load_special — Catacombs (Kelly Bailey).
+ * solidfill fg="-" (HWALL) so mazewalk only carves map ' ' STONE; valign
+ * bottom + nommap; mazewalk west stocked=false; lua wallify; mines prize.
+ * Named omissions: ensure_way_out; link_doors_rooms; map_cleanup;
+ * count_level_features; humidity-aware get_location; is_ok_location_dry
+ * boulder reject (D-0547).
+ */
+function load_minend_3() {
+    const g = game;
+    nhlib_shuffle_align();
+    // C lspo_level_init solidfill fg="-" → filling HWALL; lit BOOL_RANDOM
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: HWALL,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "nommap") — allow_flips stays 3
+    g.level.flags.nommap = true;
+
+    // Exact dat/minend-3.lua des.map (17×76); trailing spaces are STONE
+    const MINEND3_MAP = [
+        ' - - - - - - - - - - -- -- - - . - - - - - - - - - -- - - -- - - - - . - - |',
+        '------...---------.-----------...-----.-------.-------     ----------------|',
+        ' - - - - - - - - - - - . - - - . - - - - - - - - - - -- - -- - . - - - - - |',
+        '------------.---------...-------------------------.---   ------------------|',
+        ' - - - - - - - - - - . . - - --- - . - - - - - - - - -- -- - - - - |.....| |',
+        '--.---------------.......------------------------------- ----------|.....S-|',
+        ' - - - - |.. ..| - ....... . - - - - |.........| - - - --- - - - - |.....| |',
+        '----.----|.....|------.......--------|.........|--------------.------------|',
+        ' - - - - |..{..| - - -.... . --- - -.S.........S - - - - - - - - - - - - - |',
+        '---------|.....|--.---...------------|.........|---------------------------|',
+        ' - - - - |.. ..| - - - . - - - - - - |.........| - --- . - - - - - - - - - |',
+        '----------------------...-------.---------------------...------------------|',
+        '---..| - - - - - - - - . --- - - - - - - - - - - - - - . - - --- - - --- - |',
+        '-.S..|----.-------.------- ---------.-----------------...----- -----.-------',
+        '---..| - - - - - - - -- - - -- . - - - - - . - - - . - . - - -- -- - - - -- ',
+        '-.S..|--------.---.---       -...---------------...{.---------   ---------  ',
+        '--|. - - - - - - - -- - - - -- . - - - --- - - - . . - - - - -- - - - - - - ',
+    ].join('\n');
+    const mf = mapfrag_fromstr(MINEND3_MAP);
+    const { xstart: mx, ystart: my } = splev_map_aligned_start(
+        mf.wid, mf.hei, 'center', 'bottom',
+    );
+    g.splev_xstart = mx;
+    g.splev_ystart = my;
+    g.splev_xsize = mf.wid;
+    g.splev_ysize = mf.hei;
+    if (!g.SpLev_Map) g.SpLev_Map = new Set();
+    for (let yy = my; yy < Math.min(ROWNO, my + mf.hei); yy++) {
+        for (let xx = mx; xx < Math.min(COLNO, mx + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - mx, yy - my);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+            g.SpLev_Map.add(`${xx},${yy}`);
+        }
+    }
+    // C lspo_map table form lit=FALSE → set_levltyp_lit on written cells
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const x = Number(key.slice(0, comma));
+                const y = Number(key.slice(comma + 1));
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                loc.lit = IS_LAVA(loc.typ) ? true : false;
+            }
+        }
+    }
+
+    // local place = { {1,15},{68,6},{1,13} }; shuffle(place) — Lua 1-based
+    const place = [[1, 15], [68, 6], [1, 13]];
+    nhlib_shuffle(place);
+
+    const markNondig = (x1, y1, x2, y2) => {
+        for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
+            for (let x = mx + x1; x <= mx + x2 && x < COLNO; x++) {
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                    loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+                }
+            }
+        }
+    };
+    // des.non_diggable(selection.area(...)) — map-relative get_location_coord
+    markNondig(67, 3, 73, 7);
+    markNondig(0, 12, 2, 16);
+
+    // des.feature("fountain", {12,08}) / {51,15} — skip if already furniture
+    for (const [rx, ry] of [[12, 8], [51, 15]]) {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (loc && !IS_FURNITURE(loc.typ)) loc.typ = FOUNTAIN;
+    }
+
+    // des.region(selection.area(...), "unlit"|"lit") — C lspo_region 2-arg:
+    // lit grows W_ANY then sel_set_lit; unlit does not (D-0802).
+    light_region(mx + 0, my + 0, mx + 75, my + 16, false);
+    light_region(mx + 38, my + 6, mx + 46, my + 10, true);
+
+    const meDoor = (rx, ry) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        // C sel_set_door: keep SDOOR; closed is not D_SECRET
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = D_CLOSED;
+        loc.flags = D_CLOSED;
+    };
+    meDoor(37, 8);
+    meDoor(47, 8);
+    meDoor(73, 5);
+    meDoor(2, 15);
+
+    // des.mazewalk({ x=36, y=8, dir="west", stocked=false })
+    splev_mazewalk(36, 8, W_WEST, false);
+
+    // des.stair("up", 42,8) — packed → mkstairs force=TRUE
+    l_create_stairway(1, 42, 8, null, false);
+
+    // des.wallify() — C lspo_wallify no-arg: xstart-1 .. xstart+xsize+1
+    wallify_map(
+        (g.splev_xstart | 0) - 1,
+        (g.splev_ystart | 0) - 1,
+        (g.splev_xstart | 0) + (g.splev_xsize | 0) + 1,
+        (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
+    );
+
+    const placeObjAt = (otyp, rx, ry, buc) => {
+        if (otyp < 0) return null;
+        const otmp = mksobj_at(otyp, mx + rx, my + ry, true, true);
+        if (!otmp) return null;
+        if (buc === 'not-cursed') uncurse(otmp);
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+        return otmp;
+    };
+    const placeObjRnd = (otyp) => {
+        if (otyp < 0) return null;
+        // C create_object: get_location_coord(DRY) — packed-random double retry
+        const pos = get_location_coord_random(DRY);
+        const otmp = mksobj_at(otyp, pos.x, pos.y, true, true);
+        if (!otmp) return null;
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+        return otmp;
+    };
+
+    // Objects — named gems then class letters then luckstone/flint coords
+    placeObjRnd(DIAMOND);
+    splev_create_object(GEM_CLASS);
+    placeObjRnd(DIAMOND);
+    splev_create_object(GEM_CLASS);
+    placeObjRnd(EMERALD);
+    splev_create_object(GEM_CLASS);
+    placeObjRnd(EMERALD);
+    splev_create_object(GEM_CLASS);
+    placeObjRnd(EMERALD);
+    splev_create_object(GEM_CLASS);
+    placeObjRnd(RUBY);
+    splev_create_object(GEM_CLASS);
+    placeObjRnd(RUBY);
+    placeObjRnd(AMETHYST);
+    splev_create_object(GEM_CLASS);
+    placeObjRnd(AMETHYST);
+    {
+        const p2 = place[1];
+        const otmp = placeObjAt(LUCKSTONE, p2[0], p2[1], 'not-cursed');
+        // C create_object achievement on mine end → achieveo mines_prize
+        if (otmp) {
+            if (!g.context) g.context = {};
+            if (!g.context.achieveo) g.context.achieveo = {};
+            const ao = g.context.achieveo;
+            if (!ao.mines_prize_oid) {
+                ao.mines_prize_oid = otmp.o_id;
+                ao.mines_prize_otyp = otmp.otyp;
+                otmp.nomerge = 1;
+            }
+        }
+    }
+    {
+        const p1 = place[0];
+        placeObjAt(FLINT, p1[0], p1[1]);
+    }
+    for (let i = 0; i < 5; i++) splev_create_object(SCROLL_CLASS);
+    for (let i = 0; i < 4; i++) splev_create_object(SPBOOK_CLASS);
+    for (let i = 0; i < 3; i++) splev_create_object(null);
+    for (let i = 0; i < 7; i++) splev_create_trap();
+
+    // des.trap("level teleport", place[2]) / place[1] — packed coord
+    {
+        const p2 = place[1];
+        const pos = get_location_coord(DRY, null, p2[0], p2[1]);
+        maketrap(pos.x, pos.y, LEVEL_TELEP);
+    }
+    {
+        const p1 = place[0];
+        const pos = get_location_coord(DRY, null, p1[0], p1[1]);
+        maketrap(pos.x, pos.y, LEVEL_TELEP);
+    }
+
+    for (let i = 0; i < 5; i++) splev_create_monster('M');
+    splev_create_monster('ettin mummy');
+    splev_create_monster('V');
+    for (let i = 0; i < 5; i++) splev_create_monster('Z');
+    splev_create_monster('V');
+    for (let i = 0; i < 4; i++) splev_create_monster('e');
+
+    // C load_special: wallification → flip (no noflip) → fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 

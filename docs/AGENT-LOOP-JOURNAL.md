@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1823 mkmaze.c makemaz minend-3 load_special (Catacombs / Mine's End 3/3)
+
+**C locus:** `dat/minend-3.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+**JS:** `js/mklev.js` `load_minend_3` / `load_special_proto`.
+**Change:** `load_minend_3` from the lua body: solidfill HWALL (so
+**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+**Named:** ensure_way_out; link_doors_rooms; map_cleanup;
+**Next:** Open `mcastu.c` `castmu` remaining spell arms (`mcast_*` /
 ## 2026-09-04 — D-1822 mkmaze.c makemaz bigrm-1/10/13 load_special (completes Big Room 13/13)
 
 **C locus:** `dat/bigrm-{1,10,13}.lua`; `mkmaze.c` `makemaz` `:1127–1223`

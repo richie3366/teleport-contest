@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `mkmaze.c` makemaz `bigrm-1`/`-10`/`-13` — completes Big Room 13/13; 46% blank → 0%. From `dat/bigrm-{1,10,13}.lua` (81/61/82 ln). **Addressed:** D-1822
+- [x] `mkmaze.c` makemaz `minend-3` — third Mine's End variant; 33% blank → 0%. From `dat/minend-3.lua` (107 ln). **Addressed:** D-1823
+
+
+- [x] `mkmaze.c` makemaz `bigrm-1`/`-10`/`-13` — completes Big Room 13/13; 46% blank → 0%. From `dat/bigrm-{1,10,13}.lua` (81/61/82 ln). **Addressed:** D-1822 `7c76fdb5`
 
 
 - [x] `mkmaze.c` makemaz `bigrm-5`/`-6`/`-11` — three smallest Big Room variants. From `dat/bigrm-{5,6,11}.lua` (54/48/39 ln). **Addressed:** D-1821 `0c3e8ca5`

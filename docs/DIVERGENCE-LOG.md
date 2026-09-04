@@ -1,5 +1,36 @@
 # Divergence log
 
+## D-1823 — mkmaze.c makemaz minend-3 load_special (Catacombs / Mine's End 3/3)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no `minend-3` loader, so Mine's End was a 33%
+  blank-level coin flip (`rnd(3)` on `minend` rndlevs). C loads
+  `dat/minend-3.lua` via `sp_lev.c` `load_special`.
+- **C locus:** `dat/minend-3.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `lspo_level_init` solidfill fg=`-` /
+  `lspo_map` valign bottom lit=FALSE / `lspo_mazewalk` west
+  `stocked=false` / `lspo_wallify` / `lspo_door` closed keep-SDOOR /
+  `create_object` achievement luckstone / `create_trap` LEVEL_TELEP.
+- **JS was:** `load_special_proto` dispatched `minend-1`/`minend-2`;
+  `minend-3` named omitted.
+- **Fix:** `load_minend_3` from the lua body: solidfill HWALL (so
+  `walkfrom` only carves map `' '` STONE), mazelevel+nommap, 17×76
+  center/bottom map, shuffle `{1,15}/{68,6}/{1,13}`, nondiggable
+  vaults, fountain skip-if-furniture, unlit then lit regions, closed
+  doors, mazewalk west unstocked, packed upstair, lua `wallify`, gems/
+  `*`/`?`/`+`/random, luckstone prize + flint, seven random traps then
+  two level-teleports, mummy/vampire/zombie/eye classes.
+- **JS:** `js/mklev.js` `load_minend_3` / `load_special_proto`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; PASS hidden (no corpus session blocked on
+  makemaz); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort
+  7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** ensure_way_out; link_doors_rooms; map_cleanup;
+  count_level_features; humidity-aware `get_location`;
+  `is_ok_location_dry` boulder reject (D-0547).
+- **Next:** Open `mcastu.c` `castmu` remaining spell arms (`mcast_*` /
+  `touch_of_death` past `default:`).
+
 ## D-1822 — mkmaze.c makemaz bigrm-1/10/13 load_special (completes Big Room 13/13)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

@@ -45,7 +45,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmaze.c` makemaz `minend-3` — third Mine's End variant; 33% blank → 0%. From `dat/minend-3.lua` (107 ln).
 - [ ] `mcastu.c` castmu remaining spell arms: the 14 `mcast_*` / `touch_of_death` cases past the `default:` fallthrough. Not buzzmu.
 - [ ] `mkmaze.c` makemaz `medusa-2`/`-4` — completes Medusa 4/4; 50% blank → 0%. From `dat/medusa-{2,4}.lua` (129/152 ln).
 - [ ] `mkmaze.c` makemaz `water` + `mkmaze.c` save_waterlevel/restore_waterlevel/unsetup_waterlevel/set_wportal — endgame plane 4 of 5. From `dat/water.lua` (102 ln).
