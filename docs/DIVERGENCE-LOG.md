@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1802 — objnam.c xname_flags tshirt/apron/hawaiian/xcalled + gameover disclosure
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** JS `xname`/`doname` had no `xcalled` helper (inline
+  `" called "` strings), and C's gameover `xname_flags` disclosure
+  (`tshirt_text` / `apron_text` / `hawaiian_motif` / `candy_wrapper_text`)
+  was NOT FOUND. Tourist Hawaiian shirts never got a motif at
+  `program_state.gameover`; called-names skipped C's `%.*s` truncation.
+- **C locus:** `objnam.c` `xcalled` `:557–572`; `xname_flags` `:681`/`:704`/
+  `:741`/`:847`/`:862`/`:877`/`:888`/`:900`/`:910`/`:921` + gameover
+  `:971–996`; `read.c` `tshirt_text` `:99–187`, `hawaiian_motif`
+  `:189–221`, `apron_text` `:253–281`, `erode_obj_text` `:88–97`,
+  `candy_wrapper_text` `:295–300`. Contest patch 001: `ubirthday = getnow()`
+  (already JS `u_init_misc`). Not xname article arms.
+- **JS was:** `pretty_base` concatenated `" called "` by hand; no shirt
+  slogan / motif tables; gameover inventory skipped the C switch.
+- **Fix:** `xcalled` + those four text helpers (+ candy in the same
+  switch) in `js/objnam.js`; gameover suffix after pluralize in `xname`
+  and `doname`; `wipeout_text` late-bound from `engrave.js` (static
+  objnam→read/engrave TDZ on `_body_part`). attrib.js `from_what` now
+  imports `ysimple_name` (C `simpleonames`, dummy-o_id skip) instead of
+  a `cxname` clone.
+- **Named omissions:** xname article arms; `armor_simple_name` for
+  called (still `dn`); `find_artifact`; `releaseobuf`/PREFIX overflow
+  paniclog; `hawaiian_design` / doread shirt-apron-hawaiian;
+  `obj_is_pname` goto nameit; pickup.js `ysimple_name` clone.
+- **Next:** Open `do_name.c` `x_monnam` saddle / ARTICLE_* / M2_PNAME /
+  Wizard article + nextmbuf. Not `mon_nam_too`.
+
 ## D-1801 — allmain.c moveloop_core per-turn callees do_storms / glibr / mkot_trap_warn / end_of_input
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `allmain.c` moveloop_core per-turn callees: do_storms, glibr, mkot_trap_warn, end_of_input. Not nh_timeout. **Addressed:** D-1801
+- [x] `objnam.c` xname_flags tshirt_text / apron_text / hawaiian_motif / xcalled. Not xname article arms. **Addressed:** D-1802
+
+
+- [x] `allmain.c` moveloop_core per-turn callees: do_storms, glibr, mkot_trap_warn, end_of_input. Not nh_timeout. **Addressed:** D-1801 `e532a792`
 
 
 - [x] `hack.c` test_move + domove_core: water_friction, avoid_running_into_trap_or_liquid, domove_fight_ironbars/web, mention_walls. Not lookaround. **Addressed:** D-1800 `b9a72263`

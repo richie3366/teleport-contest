@@ -37,7 +37,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
 order; rows 13–30 of that file refill this list.
 
-- [ ] `objnam.c` xname_flags tshirt_text / apron_text / hawaiian_motif / xcalled. Not xname article arms.
 - [ ] `do_name.c` x_monnam saddle / ARTICLE_* / M2_PNAME / Wizard article + nextmbuf. Not mon_nam_too.
 - [ ] `invent.c` getobj in_doagain / prompt+filter machinery. Not display_pickinv.
 - [ ] `cmd.c` yn_function remaining body including RNG arms. Not getlin.

@@ -1041,7 +1041,16 @@ container paydoname rewrite D-1702 / `contained_cost` via unpaid_cost COST_CONTE
 apply/do_name/eat/invent/lock/mhitu/shk/trap callers named; 
 pre-existing yname clones stay) + **`otense` export D-1544** (C `objnam.c:2531–2546`; 
 Eyes `is_plural` named; pre-existing local clones stay) + **`yname`/`shk_your`/`the_unique_pm` (D-1045; 
-`mon_owns` via `y_monnam`; `shk_owns` shop unpaid/floor costly deferred)**
+`mon_owns` via `y_monnam`; `shk_owns` shop unpaid/floor costly deferred)** +
+**`xname_flags` `xcalled` + gameover T_SHIRT/`apron_text`/`hawaiian_motif`/CANDY_BAR
+(D-1802)** (`objnam.c:557` / `:971–996`; `read.c` `tshirt_text` `:99` /
+`hawaiian_motif` `:189` / `apron_text` `:253` / `candy_wrapper_text` `:295` /
+`erode_obj_text` `:88`; live in `js/objnam.js` — objnam→read/engrave is TDZ
+on `_body_part`; `wipeout_text` late-bound from `engrave.js`; attrib
+`ysimple_name` clone deleted so `from_what` uses exported `simpleonames`
+not `cxname`). Named: xname article arms; `armor_simple_name` for called
+(still `dn`); `find_artifact`; `releaseobuf`/PREFIX overflow paniclog;
+`hawaiian_design` / doread shirt-apron-hawaiian; `obj_is_pname` goto nameit
 
 ### `src/invent.c` `hold_another_object` / `prinv` / `count_contents` / `assigninvlet`
 

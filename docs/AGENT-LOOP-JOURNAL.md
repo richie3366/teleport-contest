@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1802 objnam.c xname_flags tshirt/apron/hawaiian/xcalled
+
+**Objective:** Open `objnam.c` `xname_flags` `tshirt_text` /
+`apron_text` / `hawaiian_motif` / `xcalled`. Not xname article arms.
+**C:** `xcalled` `:557–572`; gameover `:971–996`; `read.c`
+`tshirt_text` `:99` / `hawaiian_motif` `:189` / `apron_text` `:253` /
+`erode_obj_text` `:88` / `candy_wrapper_text` `:295`.
+**JS was:** inline `" called "` strings; those four NOT FOUND.
+**Fix:** those in `js/objnam.js`; gameover suffix after pluralize in
+`xname`/`doname`; `wipeout_text` late-bound (objnam→read/engrave TDZ).
+attrib `ysimple_name` clone deleted. Named: article arms,
+`armor_simple_name`, `find_artifact`, `hawaiian_design`/doread.
+**Verify:** save-oracle skip (untagged); probes (slogan[0], gameover
+Hawaiian motif, live no motif, o_id 0 skip); green + strict; cohort
+7/7 + strict.
+**Next:** Open `do_name.c` `x_monnam` saddle / ARTICLE_* / M2_PNAME /
+Wizard article + nextmbuf.
 ## 2026-09-04 — D-1801 allmain.c moveloop_core per-turn callees
 
 **Objective:** Open `allmain.c` `moveloop_core` per-turn callees
