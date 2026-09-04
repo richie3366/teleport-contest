@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1821 | fixed | dat/bigrm-{5,6,11}.lua — mkmaze.c makemaz bigrm-5/6/11 load_special (three smallest Big Rooms) | `makemaz` had no `bigrm-5`/`-6`/`-11` loaders, so those; fix: `load_bigrm_5` (solidfill + 19×74 diamond; `percent(25)`; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: ensure_way_out; humidity-aware `get_location`; |
 | D-1820 | fixed | dat/soko2-2.lua — mkmaze.c makemaz soko2-2 load_special (Sokoban 2 second variant) | `makemaz` had no `soko2-2` loader, so Sokoban 2 was a 50%; fix: `load_soko2_2` from the lua body: solidfill + mazelevel 22×13; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: ensure_way_out; humidity-aware `get_location`; |
 | D-1819 | fixed | dat/Bar-goal.lua — mkmaze.c makemaz Bar-goal load_special (Thoth Amon / Heart of Ahriman) | `makemaz` had no `Bar-goal` loader, so the Barbarian quest; fix: `load_bar_goal` from the lua body: solidfill + mazelevel map,; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: humidity-aware `get_location`; `spo_end_moninvent` |
 | D-1818 | fixed | dat/Wiz-goal.lua — mkmaze.c makemaz Wiz-goal load_special (Dark One / Eye) | `makemaz` had no `Wiz-goal` loader, so the Wizard quest goal; fix: `load_wiz_goal` from the lua body: solidfill + mazelevel map,; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: humidity-aware `get_location`; `spo_end_moninvent` |

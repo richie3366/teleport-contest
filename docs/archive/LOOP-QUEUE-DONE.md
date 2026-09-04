@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `mkmaze.c` makemaz `soko2-2` — second `soko2` variant; removes a 50% blank-level coin flip on Sokoban 2. From `dat/soko2-2.lua` (72 ln). **Addressed:** D-1820
+- [x] `mkmaze.c` makemaz `bigrm-5`/`-6`/`-11` — three smallest Big Room variants. From `dat/bigrm-{5,6,11}.lua` (54/48/39 ln). **Addressed:** D-1821
+
+
+- [x] `mkmaze.c` makemaz `soko2-2` — second `soko2` variant; removes a 50% blank-level coin flip on Sokoban 2. From `dat/soko2-2.lua` (72 ln). **Addressed:** D-1820 `42afdca4`
 
 
 - [x] `mkmaze.c` makemaz `Bar-goal` — completes Bar 4/5→5/5. From `dat/Bar-goal.lua` (95 ln). **Addressed:** D-1819 `fc103c7f`

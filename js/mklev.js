@@ -1372,7 +1372,7 @@ function reset_xystart_size() {
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
- * bigrm-4, bigrm-7, bigrm-8, bigrm-9, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
+ * bigrm-4, bigrm-5, bigrm-6, bigrm-7, bigrm-8, bigrm-9, bigrm-11, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
  * Bar-filb, Bar-goal, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
  * soko1-2, soko2-1, soko2-2, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
  * tower3, fire, air, minend-1, minend-2, minetn-1, minetn-2, minetn-3,
@@ -1380,7 +1380,7 @@ function reset_xystart_size() {
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
  * Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
- * Named omissions: other bigrm-N / quest
+ * Named omissions: bigrm-1/10/13 / quest
  * protos (Kni-strt/loca/fila/filb);
  * minend-3; medusa-2/4; water/astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
@@ -1459,6 +1459,18 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'bigrm-4') {
         load_bigrm_4();
+        return true;
+    }
+    if (protofile === 'bigrm-5') {
+        load_bigrm_5();
+        return true;
+    }
+    if (protofile === 'bigrm-6') {
+        load_bigrm_6();
+        return true;
+    }
+    if (protofile === 'bigrm-11') {
+        load_bigrm_11();
         return true;
     }
     if (protofile === 'medusa-1') {
@@ -2031,6 +2043,222 @@ function load_bigrm_4() {
 
     for (let i = 0; i < 15; i++) splev_create_object(null);
     for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // C load_special: wallification when !corrmaze; noflip → skip flip
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/** C ref: sp_lev.c sel_set_wall_property via lspo_non_diggable() no-arg. */
+function splev_non_diggable() {
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = game.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+                loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+}
+
+/**
+ * C ref: dat/bigrm-5.lua via load_special — diamond room, 25% ice/cloud grow.
+ * Named omissions: ensure_way_out / solidify / premap; bigrm-1/10/13;
+ * icedpool on replace_terrain ICE.
+ */
+function load_bigrm_5() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflip") — allow_flips=0
+
+    // Exact dat/bigrm-5.lua des.map (19×74)
+    const BIGRM5_MAP = [
+        '                            ------------------                            ',
+        '                    ---------................---------                    ',
+        '              -------................................-------              ',
+        '         ------............................................------         ',
+        '      ----......................................................----      ',
+        '    ---............................................................---    ',
+        '  ---................................................................---  ',
+        '---....................................................................---',
+        '|........................................................................|',
+        '|........................................................................|',
+        '|........................................................................|',
+        '---....................................................................---',
+        '  ---................................................................---  ',
+        '    ---............................................................---    ',
+        '      ----......................................................----      ',
+        '         ------............................................------         ',
+        '              -------................................-------              ',
+        '                    ---------................---------                    ',
+        '                            ------------------                            ',
+    ].join('\n');
+    splev_apply_centered_map(BIGRM5_MAP);
+
+    // if percent(25) then selection.match("."):percentage(2):grow()
+    // replace_terrain from "." to percent(50) "I" else "C"
+    if (percent(25)) {
+        const sel = selection_grow(
+            selection_filter_percent(selection_match_mapfrag('.'), 2),
+        );
+        const totyp = percent(50) ? ICE : CLOUD;
+        lspo_replace_terrain_sel(sel, ROOM, totyp, 100);
+    }
+
+    // des.region(selection.area(00,00,72,18), "lit")
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        light_region(mx + 0, my + 0, mx + 72, my + 18, true);
+    }
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    splev_non_diggable();
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // C load_special: wallification when !corrmaze; noflip → skip flip
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/bigrm-6.lua via load_special — four lobes, trees and fountains.
+ * Named omissions: ensure_way_out / solidify / premap; bigrm-1/10/13.
+ */
+function load_bigrm_6() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflip") — allow_flips=0
+
+    // Exact dat/bigrm-6.lua des.map (19×73)
+    const BIGRM6_MAP = [
+        '     ---------         ---------         ---------         ---------     ',
+        '   ---.......---     ---.......---     ---.......---     ---.......---   ',
+        '  --...........--   --...........--   --...........--   --...........--  ',
+        ' --.............-- --.............-- --.............-- --.............-- ',
+        ' -...............- -...............- -...............- -...............- ',
+        '--...............---...............---...............---...............--',
+        '|.................-.................-.................-.................|',
+        '|........T.................T.................T.................T........|',
+        '|.......................................................................|',
+        '|......T.{.....................................................{.T......|',
+        '|.......................................................................|',
+        '|........T.................T.................T.................T........|',
+        '|.................-.................-.................-.................|',
+        '--...............---...............---...............---...............--',
+        ' -...............- -...............- -...............- -...............- ',
+        ' --.............-- --.............-- --.............-- --.............-- ',
+        '  --...........--   --...........--   --...........--   --...........--  ',
+        '   ---.......---     ---.......---     ---.......---     ---.......---   ',
+        '     ---------         ---------         ---------         ---------     ',
+    ].join('\n');
+    splev_apply_centered_map(BIGRM6_MAP);
+
+    // des.region(selection.area(01,01,72,17), "lit")
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        light_region(mx + 1, my + 1, mx + 72, my + 17, true);
+    }
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    splev_non_diggable();
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // C load_special: wallification when !corrmaze; noflip → skip flip
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: nhlsel.c l_selection_iterate — y-outer, x from max(1,lx).
+ * Lua iterate converts to map-relative then des.* adds xstart back.
+ */
+function selection_iterate_lua(sel, fn) {
+    if (!sel?.pts?.size) return;
+    for (let y = sel.ly; y <= sel.hy; y++) {
+        for (let x = Math.max(1, sel.lx); x <= sel.hx; x++) {
+            if (sel.pts.has(`${x},${y}`)) fn(x, y);
+        }
+    }
+}
+
+/**
+ * C ref: dat/bigrm-11.lua via load_special — maze corrwid 3+rn2(3),
+ * wallthick 1, deadends=percent(50); walls → floor+boulder; rolling boulders.
+ * Named omissions: ensure_way_out / solidify / premap; bigrm-1/10/13.
+ */
+function load_bigrm_11() {
+    const g = game;
+    nhlib_shuffle_align();
+    if (!g.level.flags) g.level.flags = {};
+    // des.level_flags("mazelevel", "noflip") before level_init
+    g.level.flags.is_maze_lev = true;
+    // C lspo_level_init: rm_deadends = !deadends; deadends=t_or_f → percent(50)
+    // Lua table: corrwid = 3+nh.rn2(3) then deadends=t_or_f()
+    const corrwid = 3 + rn2(3);
+    const rm_deadends = !percent(50);
+    splev_initlev({
+        init_style: LVLINIT_MAZE,
+        corrwid,
+        wallthick: 1,
+        rm_deadends,
+    });
+
+    // des.region(selection.area(00,00,75,18), "lit") — no map; xstart=1,ystart=0
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        light_region(mx + 0, my + 0, mx + 75, my + 18, true);
+    }
+    splev_non_diggable();
+
+    // C: sel = match(".w.") | match(".\nw\n."); iterate replace_wall_boulder
+    // then leftover corners: match(".w.") iterate again
+    const replace_wall_boulder = (x, y) => {
+        sel_set_ter(x, y, ROOM, SET_LIT_NOCHANGE);
+        mksobj_at(BOULDER, x, y, true, true);
+    };
+    {
+        const horiz = selection_match_mapfrag('.w.');
+        const vert = selection_match_mapfrag('.\nw\n.');
+        selection_iterate_lua(selection_or(horiz, vert), replace_wall_boulder);
+    }
+    selection_iterate_lua(selection_match_mapfrag('.w.'), replace_wall_boulder);
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap(ROLLING_BOULDER_TRAP);
     for (let i = 0; i < 28; i++) splev_create_monster(null);
 
     // C load_special: wallification when !corrmaze; noflip → skip flip
@@ -12319,14 +12547,20 @@ function splev_create_trap(type) {
         if (typ != null && (IS_POOL(typ) || IS_LAVA(typ))) return;
     }
     let kind;
-    // C mktrap: Inhell && !rn2(5) → FIRE_TRAP bias before traptype_rnd
-    const inhell = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
-    if (inhell && !rn2(5)) {
-        kind = FIRE_TRAP;
+    const specified = (type | 0) > NO_TRAP && (type | 0) < TRAPNUM;
+    if (specified) {
+        // C mklev.c mktrap: num > NO_TRAP && num < TRAPNUM → kind = num
+        kind = type | 0;
     } else {
-        do {
-            kind = traptype_rnd();
-        } while (kind === NO_TRAP);
+        // C mktrap: Inhell && !rn2(5) → FIRE_TRAP bias before traptype_rnd
+        const inhell = !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
+        if (inhell && !rn2(5)) {
+            kind = FIRE_TRAP;
+        } else {
+            do {
+                kind = traptype_rnd();
+            } while (kind === NO_TRAP);
+        }
     }
     // C mktrap: is_hole && !Can_fall_thru → ROCKTRAP (hardfloor matters)
     if (is_hole(kind) && !Can_fall_thru(game.u?.uz)) kind = ROCKTRAP;
@@ -18740,6 +18974,27 @@ function lspo_replace_terrain_region(rx1, ry1, rx2, ry2, fromtyp, totyp, chance)
                 // C replace_terrain default lit=SET_LIT_NOCHANGE
                 sel_set_ter(x, y, totyp, SET_LIT_NOCHANGE);
             }
+        }
+    }
+}
+
+/**
+ * C ref: sp_lev.c lspo_replace_terrain selection arm — x-outer y-inner,
+ * fromtyp / MATCH_WALL then rn2(100)<chance, lit SET_LIT_NOCHANGE.
+ */
+function lspo_replace_terrain_sel(sel, fromtyp, totyp, chance) {
+    if (!sel?.pts?.size) return;
+    const ch = chance == null ? 100 : chance;
+    for (let x = Math.max(1, sel.lx); x <= sel.hx; x++) {
+        for (let y = sel.ly; y <= sel.hy; y++) {
+            if (!selection_getpoint(x, y, sel)) continue;
+            if (!isok(x, y)) continue;
+            const loc = game.level.at(x, y);
+            if (!loc) continue;
+            const match = (fromtyp === MATCH_WALL && IS_STWALL(loc.typ))
+                || loc.typ === fromtyp;
+            if (match && rn2(100) < ch)
+                sel_set_ter(x, y, totyp, SET_LIT_NOCHANGE);
         }
     }
 }

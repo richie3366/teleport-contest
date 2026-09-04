@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-1821 — mkmaze.c makemaz bigrm-5/6/11 load_special (three smallest Big Rooms)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no `bigrm-5`/`-6`/`-11` loaders, so those
+  `rnd(13)` Big Room variants fell through `load_special_proto` (blank
+  maze). C loads `dat/bigrm-{5,6,11}.lua` via `sp_lev.c` `load_special`.
+- **C locus:** `dat/bigrm-{5,6,11}.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `lspo_map` / `lspo_replace_terrain` selection
+  arm / `lspo_level_init` maze / `create_trap`; `nhlsel.c`
+  `l_selection_iterate` y-outer; `mklev.c` `mktrap` named type.
+- **JS was:** `load_special_proto` dispatched bigrm-2/3/4/7/8/9/12;
+  bigrm-5/6/11 named omitted. `splev_create_trap` ignored named types.
+- **Fix:** `load_bigrm_5` (solidfill + 19×74 diamond; `percent(25)`
+  `match(".")` `:percentage(2)` `:grow()` then ICE/CLOUD
+  `replace_terrain`); `load_bigrm_6` (19×73 four lobes, trees/fountains);
+  `load_bigrm_11` (flags then maze `corrwid=3+rn2(3)` `wallthick=1`
+  `rm_deadends=!percent(50)`; walls matching `.w.` / vertical `w` →
+  ROOM+boulder in Lua iterate order; 6 rolling-boulder traps). Named
+  `splev_create_trap` uses C `mktrap` specified-kind arm; selection
+  `replace_terrain` is the C selection arm.
+- **JS:** `js/mklev.js` `load_bigrm_5` / `load_bigrm_6` / `load_bigrm_11` /
+  `load_special_proto` / `splev_create_trap` / `lspo_replace_terrain_sel`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; PASS hidden (no corpus session blocked on
+  makemaz); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort
+  7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** ensure_way_out; humidity-aware `get_location`;
+  `is_ok_location_dry` boulder reject (D-0547); icedpool on
+  `replace_terrain` ICE. Not bigrm-1/10/13.
+- **Next:** Open `mkmaze.c` makemaz `bigrm-1`/`-10`/`-13` from
+  `dat/bigrm-{1,10,13}.lua`.
+
 ## D-1820 — mkmaze.c makemaz soko2-2 load_special (Sokoban 2 second variant)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

@@ -45,7 +45,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmaze.c` makemaz `bigrm-5`/`-6`/`-11` — three smallest Big Room variants. From `dat/bigrm-{5,6,11}.lua` (54/48/39 ln).
 - [ ] `mkmaze.c` makemaz `bigrm-1`/`-10`/`-13` — completes Big Room 13/13; 46% blank → 0%. From `dat/bigrm-{1,10,13}.lua` (81/61/82 ln).
 - [ ] `mkmaze.c` makemaz `minend-3` — third Mine's End variant; 33% blank → 0%. From `dat/minend-3.lua` (107 ln).
 - [ ] `mcastu.c` castmu remaining spell arms: the 14 `mcast_*` / `touch_of_death` cases past the `default:` fallthrough. Not buzzmu.

@@ -9,12 +9,12 @@ Objective/score live in `CURRENT.md`.
   D-1817; owners `process_menu_window` 21, `itemactions` 14, `getobj` 7,
   level cliff `build_room`/`selection_filter_percent` vs `rnd_rect`.
   Orient `brief.mjs`, verify `verify.mjs --fn`, hand off `finish-iteration.mjs --commit`.
-- **Suite 44/44** (D-1820). Map-driven Open: `mkmaze.c` `makemaz`
-  `bigrm-5`/`-6`/`-11` from `dat/bigrm-{5,6,11}.lua`. Falsify:
-  `load_special_proto` still has no `bigrm-5` arm. Do **not** reopen
-  soko2-2 (D-1820), Bar-goal (D-1819), Wiz-goal (D-1818), `HDeaf [2]`
-  (D-1817) or `mattacku` gameover abort (D-1816). Do **not** add
-  trailing `confdir` to shared `getdir` (D-1815).
+- **Suite 44/44** (D-1821). Map-driven Open: `mkmaze.c` `makemaz`
+  `bigrm-1`/`-10`/`-13` from `dat/bigrm-{1,10,13}.lua`. Falsify:
+  `load_special_proto` still has no `bigrm-1` arm. Do **not** reopen
+  bigrm-5/6/11 (D-1821), soko2-2 (D-1820), Bar-goal (D-1819), Wiz-goal
+  (D-1818), `HDeaf [2]` (D-1817) or `mattacku` gameover abort (D-1816).
+  Do **not** add trailing `confdir` to shared `getdir` (D-1815).
 - **Luck still runs when invulnerable.** Dialogues do not
   (`timeout.c:623`). STONED/SLIMED expiry silent (`done_timeout`).
 - **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs`
@@ -69,7 +69,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1820.
+  (D-1189). Do not skip D-1190…D-1821.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -79,18 +79,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1820.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1821.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1820.
+  Do not re-port D-1682…D-1821.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1821: `load_bigrm_5` (solidfill + 19×74 diamond; `percent(25)` Named: ensure_way_out; humidity-aware `get_location`;
 - D-1820: `load_soko2_2` from the lua body: solidfill + mazelevel 22×13 Named: ensure_way_out; humidity-aware `get_location`;
 - D-1819: `load_bar_goal` from the lua body: solidfill + mazelevel map, Named: humidity-aware `get_location`; `spo_end_moninvent`
 - D-1818: `load_wiz_goal` from the lua body: solidfill + mazelevel map, Named: humidity-aware `get_location`; `spo_end_moninvent`
@@ -105,5 +106,4 @@ Objective/score live in `CURRENT.md`.
 - D-1809: `use_defensive` mreadmsg / reveal_trap / `mon_escape` /
 - D-1808: `domonnoise` remaps + `doconsult` / `priest_talk` / `shk_chat`.
 - D-1807: `vpline` msgtype_type / execplinehandler / maybe_play_sound.
-- D-1806: `getdir` help_dir / strange-dir / `dxdy_moveok` shipped;
 <!-- landmarks:end -->
