@@ -5,9 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Open `sounds.c` `domonnoise` remaining next** (Must-fix empty).
-  genus / mon_is_gecko / doconsult / shk_chat / priest_talk. Not
-  beg. Map-driven / cluster density — do not invent a FAIL peel.
+- **Open `muse.c` `use_defensive` remaining next** (Must-fix empty).
+  mreadmsg / reveal_trap / mon_escape / mon_consume_unstone. Not
+  use_offensive. Map-driven / cluster density — do not invent a FAIL
+  peel.
 - **seed0030** still 39912/105529 after D-1797. First all-segments
   miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
   (seg0 RNG OK 14300). Falsify with `rng-diff --all-segments`.
@@ -22,7 +23,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not re-port `vpline` `msgtype_type` / `execplinehandler` /
+- Do not re-port `domonnoise` remaps / `doconsult` / `priest_talk` /
+  `shk_chat` (D-1808) or `vpline` `msgtype_type` / `execplinehandler` /
   `maybe_play_sound` (D-1807) or `getdir` help_dir / cmdassist /
   strange-dir NEED_MORE / `dxdy_moveok` (D-1806) or `yn_function`
   fuzzer `rn2(20)`/`rn2(ln)`/ESC retry (D-1805) or `getobj`
@@ -37,8 +39,9 @@ Objective/score live in `CURRENT.md`.
   `usleep=0` (D-1797) or `xkilled` LEVEL_SPECIFIC / pool (D-1796).
   Named: SOUND= soundmap; UNIX msghandler fork; doset MSGTYPE menu;
   mouse getpos; getdir fuzzer; `cmd_from_func` keys; rhack
-  `dxdy_moveok`. No second `str_start_is` / `accessible` / trailing
-  `confdir`. Usleep is not seed0030’s first token.
+  `dxdy_moveok`. No second `genus` / `doconsult` / `priest_talk` /
+  `shk_chat` / `str_start_is` / `accessible` / trailing `confdir`.
+  Usleep is not seed0030’s first token.
 - Do not re-port `mattacku` remaining / `getmattk` DISE/DREN/WEAP
   (D-1795). Keep sleep `rn2(10)`. No second `m_monnam` /
   `simple_typename` (`lock.js` clone stays). seed4500 DEAF `[2]` is
@@ -55,7 +58,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1807.
+  (D-1189). Do not skip D-1190…D-1808.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -65,17 +68,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1807.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1808.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1807.
+  Do not re-port D-1682…D-1808.
 
 ## Landmarks (≤15)
 
+- D-1808: `domonnoise` remaps + `doconsult` / `priest_talk` / `shk_chat`.
+  Named: other MS_*; `verbl_msg_mcan`; `night()` howl; save/rest `oracle_loc`.
 - D-1807: `vpline` msgtype_type / execplinehandler / maybe_play_sound.
   Named: SOUND= soundmap; UNIX msghandler fork; doset MSGTYPE menu.
 - D-1806: `getdir` help_dir / cmdassist / strange-dir / `dxdy_moveok`.
@@ -91,4 +96,3 @@ Objective/score live in `CURRENT.md`.
 - D-1796: `xkilled` LEVEL_SPECIFIC + pool gate + artifact un-create.
 - D-1795: `mattacku` remaining + `getmattk` DISE/DREN/WEAP/home-elem.
 - D-1794: `make_corpse` special table + bury/bypass/oname/Blind tail.
-- D-1793: `dmgval` vs-mon bonus `rnd()` + erosion; `is_axe` export.

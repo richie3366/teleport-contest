@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-1808 — sounds.c domonnoise remaps + MS_ORACLE/PRIEST/SELL talk
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** `#chat` skipped C remaps (guardian `genus`, `isshk`→SELL,
+  untamed MOO→BELLOW, hallu gecko→SELL) and left MS_ORACLE /
+  MS_PRIEST / MS_SELL empty, so temple priests, the Oracle, and
+  shopkeepers never ran `doconsult` / `priest_talk` / `shk_chat`.
+  Silent check ran *after* remaps; unknown msound returned `ECMD_OK`
+  instead of C's post-switch `ECMD_TIME`.
+- **C locus:** `sounds.c` `domonnoise` `:678–1242` remaps `:697–715`
+  + `mon_is_gecko` `:658–674`; `mon.c` `genus` `:469–531`;
+  `rumors.c` `doconsult` `:695–767` / `outoracle` `:638–693` /
+  `init_oracles` `:576–595`; `shk.c` `shk_chat` `:5520–5601`;
+  `priest.c` `priest_talk` `:557–721` / `inhistemple` `:160–171`;
+  `minion.c` `bribe` `:360–388`; `potion.c` `incr_itimeout` `:82`.
+- **JS was:** leader+orc remaps only; MS_LEADER `quest_chat`; no
+  SELL/PRIEST/ORACLE; epilogue `ECMD_OK` when no pline.
+- **Fix:** silent (`ptr.msound == MS_SILENT && !isshk`) before remaps;
+  guardian `genus` (mndx, not `mons()` pointer); isshk / MOO / gecko;
+  `map_invisible` after remaps; `doconsult` / `priest_talk` /
+  `shk_chat`; NEMESIS+GUARDIAN `quest_chat`; Hallu GEICO slogan;
+  MOO/BELLOW pline; epilogue `ECMD_TIME`. Rule #2
+  `js/generated/oracles_data.js` (makedefs special + `oracles.txt`).
+  `outrumor` BY_ORACLE nested `rn2` + `verbalize`. `money_cnt` first
+  COIN quan (hack.c `:4513`).
+- **Named omissions:** remaining `domonnoise` MS_* (vampire / were
+  `night()` / bribe / …); `verbl_msg_mcan`; `night()` FULL_MOON howl;
+  `dog_hunger` beg caller; save/rest `oracle_loc`; USER_SOUNDS;
+  `mapseen_temple`; invent-full `money2u` dropy.
+- **Next:** Open `muse.c` `use_defensive` remaining: mreadmsg /
+  reveal_trap / mon_escape / mon_consume_unstone. Not use_offensive.
+
 ## D-1807 — pline.c vpline msgtype_type / execplinehandler / maybe_play_sound
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

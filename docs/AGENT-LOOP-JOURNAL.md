@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1808 sounds.c domonnoise remaps + oracle/priest/shk talk
+
+**Objective:** Open `sounds.c` `domonnoise` remaining: genus /
+mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg.
+**C:** `domonnoise` `:678–1242` remaps `:697–715` + switch
+ORACLE/PRIEST/LEADER|NEMESIS|GUARDIAN/SELL; `genus` `:469`;
+`mon_is_gecko` `:658`; `doconsult` `:695`; `outoracle` `:638`;
+`shk_chat` `:5520`; `priest_talk` `:557`; `bribe` `:360`.
+**JS was:** silent check after remaps; no guardian/isshk/MOO/gecko;
+MS_SELL/PRIEST/ORACLE empty; epilogue `ECMD_OK`.
+**Fix:** silent before remaps; genus/isshk/MOO/gecko; `map_invisible`;
+`doconsult`/`priest_talk`/`shk_chat`; NEMESIS/GUARDIAN `quest_chat`;
+GEICO hallu; epilogue `ECMD_TIME`. Rule #2 `ORACLE_RECORDS` embed.
+Named: other MS_*; `verbl_msg_mcan`; `night()` howl; save/rest
+`oracle_loc`; `dog_hunger` beg caller.
+**Verify:** save-oracle skip (untagged); green + strict; cohort 7/7
++ strict.
+**Next:** Open `muse.c` `use_defensive` remaining: mreadmsg /
+reveal_trap / mon_escape / mon_consume_unstone. Not use_offensive.
 ## 2026-09-04 — D-1807 pline.c vpline msgtype_type / execplinehandler / maybe_play_sound
 
 **Objective:** Open `pline.c` `vpline` msgtype_type /

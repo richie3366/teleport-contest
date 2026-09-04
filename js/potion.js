@@ -605,6 +605,15 @@ function itimeout_incr(old, incr) {
     return itimeout((old & TIMEOUT) + (incr | 0));
 }
 
+/** C potion.c set_itimeout / incr_itimeout — TIMEOUT bits; slot `{ intrinsic }`. */
+export function set_itimeout(which, val) {
+    if (!which) return;
+    which.intrinsic = ((which.intrinsic | 0) & ~TIMEOUT) | itimeout(val);
+}
+export function incr_itimeout(which, incr) {
+    set_itimeout(which, itimeout_incr(which?.intrinsic | 0, incr));
+}
+
 /** Sync flat HFast with uprops[FAST].intrinsic (HFast ≡ that slot). */
 function set_HFast(val) {
     const u = game.u || (game.u = {});

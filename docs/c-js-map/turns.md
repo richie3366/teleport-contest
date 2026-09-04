@@ -208,7 +208,7 @@ uses `level.traps[]`)
 
 JS: `js/cmd.js`, `js/do.js`, `js/wizard.js`, `js/getline.js`, `js/wizcmds.js`, `js/timeout.js`, `js/polyself.js`, 
 `js/artifact.js`, `js/zap.js`, `js/read.js`, `js/engrave.js`, `js/pager.js`, `js/getpos.js`, 
-`js/pray.js`, `js/sounds.js`, `js/sit.js`, `js/weapon.js`, `js/dungeon.js`, `js/insight.js`, 
+`js/pray.js`, `js/sounds.js`, `js/rumors.js`, `js/sit.js`, `js/weapon.js`, `js/dungeon.js`, `js/insight.js`, 
 `js/invent.js`, `js/pline.js` — partial
 
 Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); 
@@ -353,7 +353,7 @@ live `js/objnam.js` + `js/artifact.js` late-bind; clones retired;
 other INTERNALCMD `clicklook`/`mouseaction`/`altadjust`/`alttakeoff`/
 `altunwield` / pray gift `discover_artifact` / `learn_egg_type` / 
 save/rest artidisco named)/`#wizidentify`→`wiz_identify`/`override_ID`+`
-display_inventory` wizid (D-0928 #1143; **unid_cnt>0 PICK_ANY D-1590**)/`#name`/`#pray`/`#chat`/`#chronicle`/`#conduct`/`#vanquished`/`#genocided`(empty)/`
+display_inventory` wizid (D-0928 #1143; **unid_cnt>0 PICK_ANY D-1590**)/`#name`/`#pray`/`#chat` (**D-1808** `domonnoise` remaps genus/isshk/MOO/gecko + MS_ORACLE `doconsult` / MS_PRIEST `priest_talk` / MS_SELL `shk_chat` / NEMESIS+GUARDIAN `quest_chat`; remaining MS_* / `verbl_msg_mcan` / `night()` howl / save-rest `oracle_loc` named)/`#chronicle`/`#conduct`/`#vanquished`/`#genocided`(empty)/`
 #adjust`/`#terrain`/`#sit`/`#dip`/`#offer` **`dosacrifice` ECMD_TIME after floorfood CORPSE/Yendor/fake D-1667** + **`offer_corpse` D-1678** (C `pray.c` `:1958–2120` + `eval_offering` `:1898–1956` / `consume_offering` `:1445–1475` / `sacrifice_your_race` `:1697–1778` / `sacrifice_value` `:1838–1850`; empty pick stays `ECMD_OK`; `offer_different_alignment_altar` / `bestow_artifact` / `angry_priest` / `offer_too_soon` / `offer_real_amulet` / `offer_fake_amulet` named; floorfood getobj is D-1665)/`#turn`(D-0912; 
 known_spell SPE_TURN_UNDEAD fallback deferred)/`#enhance`/`#twoweapon`/`#annotate`/`#overview`/`
 #version`/`#travel`** (D-0061/D-0069/D-0101/D-0103/D-0109/D-0110/D-0124/D-0125/D-0126/D-0127/D-0128/

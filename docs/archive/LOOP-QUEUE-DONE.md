@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `pline.c` vpline msgtype_type / execplinehandler / maybe_play_sound. Not pline wrapper. **Addressed:** D-1807
+- [x] `sounds.c` domonnoise remaining: genus / mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg. **Addressed:** D-1808
+
+
+- [x] `pline.c` vpline msgtype_type / execplinehandler / maybe_play_sound. Not pline wrapper. **Addressed:** D-1807 `3d82312d`
 
 
 - [x] `cmd.c` getdir help_dir / cmdassist / strange-direction NEED_MORE / dxdy_moveok. Not confdir. **Addressed:** D-1806 `2ac1a112`
