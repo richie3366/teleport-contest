@@ -35,8 +35,9 @@ HLevitation/HPasses_walls dialogues before uprops `--` (D-1792; callees
 WOUNDED_LEGS → `heal_legs(0)` + 
 CONFUSION → `make_confused(0,TRUE)` + FUMBLING → `slip_or_trip`/`rn2(4)`/`incr_itimeout(rnd(20))` + 
 `run_timers`** (D-0403/D-0405/D-0441/D-0692; **`slip_or_trip` keeps `objects_at` import** (D-0980; 
-D-0978 drop regressed seed0014); **DEAF TIMEOUT → make_deaf(0)** (D-0911; 
-talk if !Unaware deferred); **FAST TIMEOUT → Very_fast clear + slow-down You_feel** (D-0919); 
+D-0978 drop regressed seed0014); **DEAF TIMEOUT → make_deaf(0)** (D-0911; **single-field `HDeaf` ≡
+`uprops[DEAF].intrinsic` + skip DEAF in `sync_timeout_flats` + Unaware
+talk D-1817**; C `timeout.c:752` / `wizcmds.c:1029`); **FAST TIMEOUT → Very_fast clear + slow-down You_feel** (D-0919); 
 **DETECT_MONSTERS TIMEOUT → `see_monsters` (D-1418)**; 
 **LEVITATION TIMEOUT → `float_down(I_SPECIAL|TIMEOUT)` (D-1419)**; 
 **BLINDED TIMEOUT → make_blinded(0)+learn_unseen_invent** (D-0928 #1098); 
@@ -103,10 +104,14 @@ JS: `js/wizcmds.js` — partial
 **`sanity_check` + `you_sanity_check` gold/invlet D-1664** (`:1459–1481` / `:1401–1441`; 
 `check_invent_gold("invent")` live D-1641; `sanity_no_check` ^P CMD_INSANE; 
 `in_sanity_check` for `impossible`; swallow/overlay/HP-Pw clamps); 
-**`#wizintrinsic` BLINDED `make_blinded`** (D-0928 #1171); **`#levelchange`** (D-1203/D-0061); 
+**`#wizintrinsic` BLINDED `make_blinded`** (D-0928 #1171); **`#wizintrinsic`
+DEAF `make_deaf(newtimeout, TRUE)`** (D-1817; C `wizcmds.c:1029`; not
+generic Timeout pline); **`#levelchange`** (D-1203/D-0061); 
 wiz_wish / wiz_genesis / wiz_level_tele / wiz_map / wiz_identify / wiz_makemap live. 
 Named: `check_wornmask_slots`; obj/timer/mon/light/bc/trap/engraving/`levl_sanity_check`; 
-optfn_boolean `sanity_check` OPTIONS=; `doredraw` body; wizweight.
+optfn_boolean `sanity_check` OPTIONS=; `doredraw` body; wizweight;
+count-prefix `#wizintrinsic`; sick/slimed/stoned/stunned/vomiting/glib
+special arms.
 
 ### `src/detect.c` `dosearch0`/`findit`/`do_mapping`/`reveal_terrain` + `cmd.c` `doterrain`
 

@@ -561,7 +561,11 @@ export async function newuhs(incr) {
                 await pline('You faint from lack of food.');
                 // C: incr_itimeout(&HDeaf, duration)
                 incr_itimeout_prop(u, 'HDeaf', duration);
-                if (u.uprops?.[DEAF]) u.uprops[DEAF].intrinsic = u.HDeaf | 0;
+                if (!u.uprops) u.uprops = {};
+                if (!u.uprops[DEAF]) {
+                    u.uprops[DEAF] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+                }
+                u.uprops[DEAF].intrinsic = u.HDeaf | 0;
                 if (game.disp) game.disp.botl = true;
                 if (game.flags) game.flags.botl = true;
                 nomul(-duration);
@@ -1945,6 +1949,9 @@ export function Hear_again() {
     if (!rn2(2)) {
         const u = game.u || (game.u = {});
         u.HDeaf = (u.HDeaf | 0) & ~TIMEOUT;
+        if (u.uprops?.[DEAF]) {
+            u.uprops[DEAF].intrinsic = (u.uprops[DEAF].intrinsic | 0) & ~TIMEOUT;
+        }
         if (game.disp) game.disp.botl = true;
         if (game.flags) game.flags.botl = true;
     }
@@ -1977,6 +1984,11 @@ async function rottenfood(obj) {
         // C: incr_itimeout(&HDeaf, duration); nomul(-duration); afternmv=Hear_again
         const u = game.u || (game.u = {});
         u.HDeaf = ((u.HDeaf | 0) & ~TIMEOUT) | (((u.HDeaf | 0) & TIMEOUT) + duration);
+        if (!u.uprops) u.uprops = {};
+        if (!u.uprops[DEAF]) {
+            u.uprops[DEAF] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+        }
+        u.uprops[DEAF].intrinsic = u.HDeaf | 0;
         nomul(-duration);
         game.multi_reason = 'unconscious from rotten food';
         game.nomovemsg = 'You are conscious again.';

@@ -5,14 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Must-fix first** (`docs/2026-09-04-fortress-regression-42-44.md` §2):
-  seed4500 `#wizintrinsic` paints `deafness [2]` while C’s
-  `u.uprops[DEAF].intrinsic & TIMEOUT` is 0 (D-1792 leftover
-  `HDeaf` dual-storage). Falsify: first `#wizintrinsic` menu
-  still shows `[2]`, or dump `u.HDeaf` at T:97. Do **not** pop
-  `lava_effects` until that PASS. No gem-color peel. Do **not**
-  add trailing `confdir` to shared `getdir` (D-1815). Do **not**
-  reopen `mattacku` gameover abort (D-1816).
+- **Suite 44/44** (D-1817). Map-driven Open: `trap.c` `lava_effects`
+  remaining (Fire_resistance / Wwalking / inventory burn / sink-and-die).
+  Not drown. Falsify: C `lava_effects` arm still stubbed / missing
+  `Fire_resistance`/`Wwalking` inventory burn. Do **not** reopen
+  seed4500 `HDeaf [2]` (D-1817) or `mattacku` gameover abort (D-1816).
+  Do **not** add trailing `confdir` to shared `getdir` (D-1815).
 - **Luck still runs when invulnerable.** Dialogues do not
   (`timeout.c:623`). STONED/SLIMED expiry silent (`done_timeout`).
 - **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs`
@@ -57,11 +55,12 @@ Objective/score live in `CURRENT.md`.
   / `wearing_iron_shoes` / `unconscious` / `start_corpse_timeout`.
   Usleep is not seed0030’s first token; concat gem-colors is not
   either. `mattacku` `gameover` abort after `done()` is D-1816 —
-  do not reopen. Must-fix is seed4500 `HDeaf [2]`.
+  do not reopen. seed4500 `HDeaf [2]` / dual-storage is D-1817 —
+  do not hide `[2]` in the menu painter or skip `flush_screen(1)`.
 - Do not re-port `mattacku` remaining / `getmattk` DISE/DREN/WEAP
   (D-1795 body) or the post-`done()` NATTK abort (D-1816). Keep
   sleep `rn2(10)`. No second `m_monnam` / `simple_typename`.
-  seed4500 `[2]` is the Must-fix menu row — do not omit
+  seed4500 `[2]` is D-1817 — do not omit
   `flush_screen(1)` and do not hide `[2]`.
 - Do not re-port `make_corpse` (D-1794) / `dmgval` `rnd()` (D-1793) /
   `nh_timeout` luck (D-1792) / `newuhs` (D-1791) / `monverbself`
@@ -96,6 +95,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+- D-1817: `HDeaf` ≡ `uprops[DEAF].intrinsic`; skip DEAF in
+  `sync_timeout_flats`; dedicated `--` writes both; `make_deaf` +
+  `wiz_intrinsic` DEAF arm (`wizcmds.c:1029`). Named: count-prefix;
+  sick/slimed/stoned/glib arms.
 - D-1816: `mattacku` NATTK abort on `program_state.gameover`
   (C `done` longjmp). Named: `hitmu` ads, SEDUCE=0 `c_sa_no`.
 - D-1815: `getdir` `:4098` `iflags.cmdassist` (Options/`O` writes
@@ -127,4 +130,3 @@ Objective/score live in `CURRENT.md`.
 - D-1805: `yn_function` fuzzer `rn2(20)`/`rn2(ln)`/ESC retry + otherInp.
 - D-1804: `getobj` in_doagain `readchar` + GETOBJ ranks + sortloot INVLET.
 - D-1803: `x_monnam` remaining + `nextmbuf` / `lcase` / `just_an`.
-- D-1802: `xname_flags` `xcalled` + T_SHIRT/`apron_text`/`hawaiian_motif`.

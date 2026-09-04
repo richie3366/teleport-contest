@@ -20,39 +20,33 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-04** — full `sessions` at **D-1814**
-(`b596f337`; audit **775–783**). **42**/44. **D-1816** recovered
-**seed0030** on focused (RNG **105529**/105529, Screen **1953**/1953,
-`rng-diff --all-segments` OK); do not invent 43/44 until cadence.
-Remaining FAIL **seed4500** since **D-1792**: RNG full, 13
-`#wizintrinsic` `deafness [2]` screens. Report:
-`docs/2026-09-04-fortress-regression-42-44.md`.
-Scr **10,428**/11,405, RNG **727,221**/792,838 = **91.7%** (pre-D-1816
-full suite). Speed `46+0.33/turn` (R² 0.84).
+Score last measured: **2026-09-04** — full `sessions` at **D-1817**
+(**44**/44). Fortress recovered: seed0030 **D-1816**, seed4500
+`#wizintrinsic` deafness `[2]` **D-1817**. Scr **11,405**/11,405,
+RNG **792,838**/792,838. Speed `43+0.33/turn` (R² 0.86).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **42 / 44** |
-| Screens matched | **10,428 / 11,405** |
-| Positional RNG calls matched | **727,221 / 792,838** (91.7%) |
-| Speed label | `46+0.33/turn` (R² 0.84) |
+| Sessions passing | **44 / 44** |
+| Screens matched | **11,405 / 11,405** |
+| Positional RNG calls matched | **792,838 / 792,838** |
+| Speed label | `43+0.33/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
 
-**PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0013-rogue, seed0013-friday13-restore, seed0107,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
 seed0360, seed0399, seed2600, seed2200, seed0383,
-seed0014-dequa-fountain-explore.
+seed0014-dequa-fountain-explore, seed0030-ten-diverse-deaths,
+seed4500-knight-coverage.
 
-**Notable non-PASS:** seed4500 since D-1792 — Screen 1801/1814, RNG
-full, 13 menus `deafness [2]`. seed0030 focused PASS at D-1816
-(full-suite row still 42/44 until cadence). Report
-`docs/2026-09-04-fortress-regression-42-44.md`.
+**Notable non-PASS:** none. Fortress report
+`docs/2026-09-04-fortress-regression-42-44.md` (both Must-fix shipped).
 
 ## Green gate
 
@@ -69,23 +63,21 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite last full-run 42/44; seed0030 focused recovered (D-1816).**
-Read `docs/2026-09-04-fortress-regression-42-44.md` **§2**.
-**Next cluster:** Must-fix Match C `timeout.c` / `wizcmds.c:1029`
-so `#wizintrinsic` does not paint `deafness [2]` when C’s
-`u.uprops[DEAF].intrinsic & TIMEOUT` is 0 (seed4500 13 screens;
-D-1792 leftover `HDeaf` dual-storage). Not drown. Not count-prefix.
-Not Open `lava_effects`.
+**Suite 44/44** at **D-1817** (fortress recovered). Map-driven Open.
+**Next cluster:** `trap.c` lava_effects remaining: Fire_resistance /
+Wwalking / inventory burn / sink-and-die. Not drown.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
-**Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`) once
-Must-fix is empty.
+**Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1816 (index).** Recent **D-1816:** `mattacku` NATTK
-aborts on `program_state.gameover` (C `done` longjmp). Named:
-`hitmu` ads, SEDUCE=0 `c_sa_no`.
-**Do not:** FORCE/RNG; skip D-1229…D-1816; wrap `wildmiss` /
+**Keep D-0845…D-1817 (index).** Recent **D-1817:** `HDeaf` ≡
+`u.uprops[DEAF].intrinsic`; dedicated DEAF `--` writes both; skip
+DEAF in `sync_timeout_flats`; `make_deaf` + `wiz_intrinsic` DEAF arm
+(C `wizcmds.c:1029`). Named: count-prefix; sick/slimed/stoned/glib
+arms.
+**Do not:** FORCE/RNG; skip D-1229…D-1817; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
-trailing `confdir` in shared `getdir`; D-0480 glyph serialize
+trailing `confdir` in shared `getdir`; hide `[2]` in the menu
+painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 (D-0483); reset_glyphmap / notice_all_mons / savelev-freeing /
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.

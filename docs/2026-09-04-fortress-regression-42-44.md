@@ -24,7 +24,7 @@ Two Must-fix items, **one per iteration**, in this order.
 
 ## 1. seed0030 — `mattacku` continues after `done()` (pop first)
 
-**Addressed:** D-1816
+**Addressed:** D-1816 `f144982f`
 
 ### Measured (HEAD)
 
@@ -140,6 +140,8 @@ live, which made the missing longjmp analogue load-bearing.
 ---
 
 ## 2. seed4500 — `#wizintrinsic` shows `deafness [2]` (pop second)
+
+**Addressed:** D-1817
 
 ### Measured (HEAD)
 

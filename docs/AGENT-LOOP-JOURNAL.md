@@ -8,7 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1817 timeout.c Deaf single-field / wiz_intrinsic make_deaf
+
+**Objective:** Must-fix fortress §2 — Match C `timeout.c` /
+`wizcmds.c:1029` so `#wizintrinsic` does not paint `deafness [2]`.
+**Dump:** T:97 `HDeaf=0` `uprops[DEAF]=2`; rottenfood T:94 duration 3;
+D-1792 `sync_timeout_flats` froze TIMEOUT=2.
+**C:** `HDeaf` ≡ `uprops[DEAF].intrinsic`; expiry `make_deaf(0,TRUE)`;
+`wiz_intrinsic` DEAF → `make_deaf`.
+**Fix:** `set_HDeaf` both fields; skip DEAF in sync; Unaware talk;
+`#wizintrinsic` DEAF arm.
+**Verify:** save-oracle skip (untagged); seed4500 RNG 108275 Screen
+1814; green; wizard 2200/0383/0108 + strict; seed0030 hold; full
+`sessions` **44/44**.
+**Next:** Open `trap.c` `lava_effects`. Not drown.
 ## 2026-09-04 — D-1816 mhitu.c mattacku abort after done()
+
 
 **Objective:** Must-fix fortress §1 — Match C `mhitu.c` `mattacku`
 `:938–950` so NATTK stops when `done()` ended the game.

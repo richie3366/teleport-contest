@@ -1,6 +1,32 @@
 # Divergence log
 
+## D-1817 — timeout.c / wizcmds.c Deaf is one field; #wizintrinsic must not show leftover [2]
+
+- **Status:** fixed (Must-fix fortress regression §2; full `sessions` 44/44)
+- **Symptom:** seed4500 `#wizintrinsic` painted `deafness [2]` (13 screens)
+  while C `u.uprops[DEAF].intrinsic & TIMEOUT` was 0. RNG already full.
+  Status line did not show `Deaf`. First miss was the first menu (T:97).
+- **Dump (T:97):** rottenfood at T:94 `incr_itimeout(&HDeaf, 3)`; dedicated
+  DEAF `--` only `u.HDeaf`; D-1792 `sync_timeout_flats` copied TIMEOUT=2
+  into `uprops[DEAF]` once then refused to overwrite; menu read the
+  stuck uprops after `HDeaf` expired.
+- **C locus:** `youprop.h` `HDeaf` ≡ `u.uprops[DEAF].intrinsic`;
+  `timeout.c` `nh_timeout` `:752–757` `set_itimeout(&HDeaf, 1L);
+  make_deaf(0L, TRUE)`; `wizcmds.c` `wiz_intrinsic` `:1029`
+  `make_deaf(newtimeout, TRUE)`; `potion.c` `make_deaf` `:442`;
+  `eat.c` `rottenfood` `incr_itimeout(&HDeaf, duration)`.
+- **JS was:** dual storage; dedicated arm `--` flat only; sync copied
+  DEAF; `wiz_intrinsic` used generic `incr_prop_timeout` + Timeout pline.
+- **Fix:** `set_HDeaf` writes both; skip DEAF in `sync_timeout_flats`;
+  expiry `make_deaf(0, TRUE)` with `Unaware()` talk suppress; `#wizintrinsic`
+  DEAF arm; rottenfood / faint / `Hear_again` keep uprops in lockstep.
+- **Named omissions:** count-prefix `DEFAULT_TIMEOUT_INCR`; sick / slimed
+  / stoned / stunned / vomiting / glib special arms; `float_vs_flight` /
+  `rescham` / `pooleffects`. Not drown. Not menu hide-`[2]`.
+- **Next:** map-driven Open `trap.c` `lava_effects` remaining.
+
 ## D-1816 — mhitu.c mattacku abort NATTK when done() ended the game
+
 
 - **Status:** fixed (Must-fix fortress regression §1; green + named cohort hold)
 - **Symptom:** after Maganasipi’s killing `i=0` hit, JS `done()` /

@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] Match C `timeout.c` / `wizcmds.c:1029` so `#wizintrinsic` does not paint `deafness [2]` when C’s `u.uprops[DEAF].intrinsic & TIMEOUT` is 0 (seed4500 13 screens; D-1792 leftover `HDeaf` dual-storage). Read `docs/2026-09-04-fortress-regression-42-44.md` §2 before coding. Not drown. Not count-prefix. Not Open `lava_effects`.
-
 ## Open (map-driven, after Must-fix is empty)
 
 Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
