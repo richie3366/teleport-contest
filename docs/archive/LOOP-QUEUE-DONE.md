@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `cmd.c` yn_function remaining body including RNG arms. Not getlin. **Addressed:** D-1805
+- [x] `cmd.c` yn_function remaining body including RNG arms. Not getlin. **Addressed:** D-1805 `3ff0752d`
 
 
 - [x] `invent.c` getobj in_doagain / prompt+filter machinery. Not display_pickinv. **Addressed:** D-1804 `fa5f3acc`

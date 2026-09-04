@@ -20,13 +20,13 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1796**
-(`b14236d6`; audit overlay reviews **755–765**). **42**/44.
+Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1805**
+(`3ff0752d`; audit overlay reviews **766–774**). **42**/44.
 **seed0030** RNG **39912**/105529 / Screen **989**/1953 since **D-1795**
 (D-1797 `nomul`/`usleep` did not move the first miss).
 **seed4500** Screen **1801**/1814 (RNG full) since **D-1792**
 (`#wizintrinsic` DEAF `[2]`). Scr **10,428**/11,405, RNG
-**727,221**/792,838 = **91.7%**. Speed `41+0.32/turn` (R² 0.861).
+**727,221**/792,838 = **91.7%**. Speed `42+0.33/turn` (R² 0.859).
 Must-fix is empty — next port pops Open `cmd.c` `getdir`
 help_dir / cmdassist / strange-direction NEED_MORE /
 `dxdy_moveok`. Not `confdir`.
@@ -38,7 +38,7 @@ help_dir / cmdassist / strange-direction NEED_MORE /
 | Sessions passing | **42 / 44** |
 | Screens matched | **10,428 / 11,405** |
 | Positional RNG calls matched | **727,221 / 792,838** (91.7%) |
-| Speed label | `41+0.32/turn` (R² 0.861) |
+| Speed label | `42+0.33/turn` (R² 0.859) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -69,8 +69,9 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 42/44** at D-1805. Open `cmd.c` `yn_function` remaining
-body including fuzzer RNG arms shipped.
+**Suite 42/44** at D-1805. Audit **766–774** all
+ACCEPT-WITH-DEBT (no Must-fix). Open `cmd.c` `yn_function`
+remaining body including fuzzer RNG arms shipped.
 seed0030 still
 **39912**/105529 — first all-segments miss is C seg4
 `randomize_gem_colors` vs JS still in seg3 combat, **not** sleep

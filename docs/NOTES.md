@@ -5,9 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Open `cmd.c` `getdir` next** (Must-fix empty after D-1805).
-  help_dir / cmdassist / strange-direction NEED_MORE /
-  `dxdy_moveok`. Not `confdir`. Not a seed0030 peel.
+- **Open `cmd.c` `getdir` next** (Must-fix empty after audit
+  766–774, all AWD). help_dir / cmdassist / strange-direction
+  NEED_MORE / `dxdy_moveok`. Not `confdir`. Not a seed0030 peel.
+  Map-driven / cluster density — do not invent a FAIL peel.
 - **seed0030** still 39912/105529 after D-1797. First all-segments
   miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
   (seg0 RNG OK 14300). Falsify that with `rng-diff --all-segments`

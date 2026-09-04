@@ -8,6 +8,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — audit overlay 766–774 + cadence 42/44
+
+**Objective:** review JS SHAs since `b14236d6` against pinned C;
+cadence full `sessions` (no `js/` port).
+**SHAs:** 766–774 all AWD (D-1797…D-1805). Review 764 Must-fix
+closed by 766. No new Must-fix. Named omits stay in the map
+(`buzz`, `priestname`, `display_pickinv`, getdir fuzzer).
+**Cadence:** 42/44; scr 10428/11405; RNG 727221/792838 (91.7%);
+`42+0.33/turn`. seed0030 39912/105529 unchanged. seed4500
+1801/1814 is D-1792 leftover.
+**Next:** Open `cmd.c` `getdir` help_dir / cmdassist / strange-dir
+NEED_MORE / `dxdy_moveok`. Not `confdir`.
 ## 2026-09-04 — D-1805 cmd.c yn_function remaining + fuzzer RNG
 
 **Objective:** Open `cmd.c` `yn_function` remaining body including

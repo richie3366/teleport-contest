@@ -776,3 +776,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [763-22bc5c1e-make-corpse.md](./763-22bc5c1e-make-corpse.md) | `22bc5c1e` | D-1794 mon.c make_corpse special-corpse table | **ACCEPT-WITH-DEBT** |
 | [764-efcb3fd4-mattacku.md](./764-efcb3fd4-mattacku.md) | `efcb3fd4` | D-1795 mhitu.c mattacku remaining + getmattk | **QUALITY-RISK** |
 | [765-b14236d6-xkilled.md](./765-b14236d6-xkilled.md) | `b14236d6` | D-1796 mon.c xkilled LEVEL_SPECIFIC + pool gate | **ACCEPT-WITH-DEBT** |
+| [766-819bccab-nomul-unmul.md](./766-819bccab-nomul-unmul.md) | `819bccab` | D-1797 hack.c nomul/unmul usleep=0 + uinvulnerable | **ACCEPT-WITH-DEBT** |
+| [767-8767a241-dochug-wormhitu.md](./767-8767a241-dochug-wormhitu.md) | `8767a241` | D-1798 monmove.c dochug remaining + wormhitu | **ACCEPT-WITH-DEBT** |
+| [768-638c92dd-spoteffects.md](./768-638c92dd-spoteffects.md) | `638c92dd` | D-1799 hack.c spoteffects recursion / lev timeout / ice | **ACCEPT-WITH-DEBT** |
+| [769-b9a72263-test-move-domove.md](./769-b9a72263-test-move-domove.md) | `b9a72263` | D-1800 hack.c test_move/domove water / avoid / F-bars | **ACCEPT-WITH-DEBT** |
+| [770-e532a792-moveloop-core.md](./770-e532a792-moveloop-core.md) | `e532a792` | D-1801 allmain.c moveloop_core storms/glibr/mkot/hup | **ACCEPT-WITH-DEBT** |
+| [771-5c960c16-xname-flags.md](./771-5c960c16-xname-flags.md) | `5c960c16` | D-1802 objnam.c xname_flags tshirt/apron/xcalled | **ACCEPT-WITH-DEBT** |
+| [772-248e8d60-x-monnam.md](./772-248e8d60-x-monnam.md) | `248e8d60` | D-1803 do_name.c x_monnam remaining + just_an | **ACCEPT-WITH-DEBT** |
+| [773-fa5f3acc-getobj.md](./773-fa5f3acc-getobj.md) | `fa5f3acc` | D-1804 invent.c getobj in_doagain / GETOBJ ranks | **ACCEPT-WITH-DEBT** |
+| [774-3ff0752d-yn-function.md](./774-3ff0752d-yn-function.md) | `3ff0752d` | D-1805 cmd.c yn_function fuzzer RNG / otherInp | **ACCEPT-WITH-DEBT** |
