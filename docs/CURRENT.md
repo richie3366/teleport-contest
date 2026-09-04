@@ -72,19 +72,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1833**. Open `iactions.c` `itemactions` shipped:
-Engrave vs Write (`is_blade`/`oc_tough`), stack `simpleonames`
-`makeplural`, apply otyp catalogue. 12/14 corpus PASS; 2 re-attributed
-to `do_statusline1` leftover WIN_STATUS (same step).
-**Next cluster:** Open `invent.c` `getobj` — 7 corpus blocks;
-"You don't have anything else to wear." vs re-prompt.
+**Suite 44/44** at **D-1834**. Open `invent.c` `getobj` shipped: wear/puton/
+throw/drink/remove call live `getobj`; `equip_ok`/`throw_ok` GETOBJ ranks;
+`'R'` `doremring`. 5/7 corpus PASS; 2 moved (`menu_remarm`, `js-throw`).
+**Next cluster:** Open `pickup.c` `describe_decor` — 5 corpus blocks;
+"There is a pit here." before the object list.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1833 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1834 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1834** `invent.c` `getobj` `:1751–2089` (`:1912–1914` empty `!forceprompt`; `:2058–2062` missing  — `dowear`/`doputon`/`dothrow`/`dodrink`/`doremring` call live `getobj`.
 **D-1833** `iactions.c` `itemactions` `:429–445` (E: Engrave vs Write + `surface`); `:309–400` apply  — E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`.
 **D-1832** `wintty.c` `process_menu_window` `:1329–1768` (default: `tty_nhbell(); break;` — Unhandled keys `tty_nhbell` only (no `docrt`/`cls`).
 **D-1831** `wintty.c` `process_menu_window` `:1329–1768` (`:1501–1505` — `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv /
@@ -92,10 +92,9 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1829** `dat/Kni-strt.lua` / `Kni-loca.lua` / `Kni-fila.lua` / — `load_kni_strt` from the lua body: solidfill ROOM + mines fg=bg="."
 **D-1828** `dat/astral.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_astral` from the lua body: solidfill + mazelevel+noteleport
 **D-1827** `dat/water.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_water` from the lua body: solidfill + mazelevel+noteleport
-**D-1826** `dat/medusa-2.lua`; `dat/medusa-4.lua`; `mkmaze.c` `makemaz` — `load_medusa_2` from the lua body: solidfill + mazelevel+noteleport,
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1833; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1834; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

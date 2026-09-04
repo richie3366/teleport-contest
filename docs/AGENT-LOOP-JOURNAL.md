@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1834 invent.c getobj wear/puton/throw/drink/remove live getobj + equip_ok/throw_ok
+
+**C locus:** `invent.c` `getobj` `:1751–2089` (`:1912–1914` empty `!forceprompt`; `:2058–2062` missing letter); `do_wear.c` `equip_ok` `:3403–3447` / `wear_ok` / `puton_ok` / `remove_ok` / `doremring` `:1873–1889`; `dothrow.c` `throw_ok` `:316–348`; `potion.c` `dodrink` `:535–571` `drink_ok_extra`.
+**JS:** `js/invent.js` `getobj`; `js/do_wear.js` `equip_ok` / `wear_ok` / `puton_ok` / `remove_ok` / `doremring`; `js/dothrow.js` `throw_ok`; `js/potion.js` `dodrink`; `js/cmd.js` `'R'`.
+**Change:** `dowear`/`doputon`/`dothrow`/`dodrink`/`doremring` call live `getobj`. `equip_ok` GETOBJ ranks (worn XOR removing → `EXCLUDE_INACCESS`; accessory vs armor → `DOWNPLAY`; covering cloak/suit/gloves). `throw_ok` matches C (`!uslinging` weapons, sling gems, `throws_rocks` boulder, hands `EXCLUDE`).
+**Verify:** `node scripts/verify.mjs --fn getobj` → PASS syntax (5 js files); PASS rule2; PASS hidden verify getobj: 5 PASS, 2 moved past (`random-seed0015` → `menu_remarm` step 42; `random-seed0200` → `js-throw` step 29), 0 unchanged, 0 worse → PROGRESS; PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+**Named:** getobj_* clones still in drop/wield/apply/write/takeoff/dip; `canwearobj` polyform (cantweararm/horns/slithy/centaur, welded bimanual, shield+twoweap, utrap boots, Glib gloves); underwater `drink_ok_extra`; Strangled `dodrink`; `item_action_in_progress` unset. Not leftover WIN_STATUS (`do_statusline1`).
+**Next:** Open `pickup.c` `describe_decor` (5 corpus blocks). Not `do_statusline1` leftover WIN_STATUS.
 ## 2026-09-04 — D-1833 iactions.c itemactions Engrave vs Write, stack simpleonames, apply catalogue
 
 **C locus:** `iactions.c` `itemactions` `:429–445` (E: Engrave vs Write + `surface`); `:309–400` apply otyp chain; `item_naming_classification` `:45–82` via `objnam.c` `simpleonames` `:2427–2442`; `item_reading_classification` `:91–124` cookie/shirt/apron/hawaiian before scroll.

@@ -45,7 +45,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `invent.c` getobj — 7 corpus blocks; "You don't have anything else to wear." vs re-prompt.
 - [ ] `pickup.c` describe_decor — 5 corpus blocks; "There is a pit here." before the object list.
 - [ ] `sp_lev.c` build_room — 4 corpus blocks; C themed-room script vs JS `rnd_rect` (level-content cliff).
 - [ ] `pickup.c` doloot_core — 4 corpus blocks; "You don't find anything here to loot." vs "You see no door there."
@@ -53,6 +52,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `insight.c` attributes_enlightenment — 3 corpus blocks; quest-leader telepathy name vs colon.
 - [ ] `selvar.c` selection_filter_percent — 2 corpus blocks; C themed-room `rn2(100)` vs JS `rnd_rect` (level-content cliff).
 - [ ] `mkmaze.c` makemaz `fakewiz1`/`fakewiz2` — Wizard-of-Yendor path; 44+44 ln. From `dat/fakewiz{1,2}.lua`.
+- [ ] `botl.c` do_statusline1 — 4 corpus blocks; leftover WIN_STATUS under item-action menu (same step as D-1833 re-attr).
+- [ ] `pager.c` lookat — 3 corpus blocks; "unexplored area" vs "unexplored".
+- [ ] `mhitu.c` summonmu — 2 corpus blocks; C were-summon `rn2(5)` vs JS `rnd(20)` in `mattacku`.
+- [ ] `getpos.c` getpos — 2 corpus blocks; "Can't find dungeon feature '/'." vs unknown direction.
+- [ ] `teleport.c` level_tele — 2 corpus blocks; named-level `^V` materialize (screen match, later RNG).
 
 ## Parked (do not pop)
 

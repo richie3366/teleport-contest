@@ -6921,7 +6921,8 @@ async function getobj_typed_hands(word, allownone, hands) {
  * fake) after CQ_REPEAT, before split_otmp. mime_action is D-1579.
  * gacc / `'0'` ball is D-1580. putmsghistory is D-1588.
  * Named omit: display_pickinv body (not this cluster); readchar_core
- * fuzzer / readchar_queue / ALTMETA; getobj_* clones in other files.
+ * fuzzer / readchar_queue / ALTMETA; getobj_* clones in drop/wield/
+ * apply/write/takeoff/dip (wear/puton/throw/drink use this getobj).
  * @param {string} word
  * @param {(obj: object|null) => number} obj_ok
  * @param {number} ctrlflags

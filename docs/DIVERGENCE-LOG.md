@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1834 — invent.c getobj wear/puton/throw/drink/remove live getobj + equip_ok/throw_ok
+
+- **Status:** fixed (7 corpus blocks; green + cohort; full `sessions` skipped — cmd.js/do_wear/dothrow/potion/invent not treated as shared)
+- **Symptom:** 7 hidden-corpus first-diffs on `getobj`: C `"You don't have anything else to wear."` / `"…put on."` vs JS re-prompt `[*]`; C `"You don't have that object.--More--"` vs JS drink prompt; C throw `[cd or ?*]` vs JS `[a or ?*]`; C `"What do you want to remove? [*]"` vs JS `Unknown command 'R'`.
+- **C locus:** `invent.c` `getobj` `:1751–2089` (`:1912–1914` empty `!forceprompt`; `:2058–2062` missing letter); `do_wear.c` `equip_ok` `:3403–3447` / `wear_ok` / `puton_ok` / `remove_ok` / `doremring` `:1873–1889`; `dothrow.c` `throw_ok` `:316–348`; `potion.c` `dodrink` `:535–571` `drink_ok_extra`.
+- **JS was:** `getobj_wear`/`getobj_puton`/`getobj_throw`/`getobj_drink` local `nhgetch` loops (always prompt when empty; throw ranks `1`/`2` swapped vs `hack.h`; weapons SUGGEST even when slinging). `'R'` unbound. `drink_ok_extra` not incremented after declining a fountain/sink.
+- **Fix:** `dowear`/`doputon`/`dothrow`/`dodrink`/`doremring` call live `getobj`. `equip_ok` GETOBJ ranks (worn XOR removing → `EXCLUDE_INACCESS`; accessory vs armor → `DOWNPLAY`; covering cloak/suit/gloves). `throw_ok` matches C (`!uslinging` weapons, sling gems, `throws_rocks` boulder, hands `EXCLUDE`). Fountain/sink `n` increments `drink_ok_extra`. rhack `'R'` → `doremring`.
+- **JS:** `js/invent.js` `getobj`; `js/do_wear.js` `equip_ok` / `wear_ok` / `puton_ok` / `remove_ok` / `doremring`; `js/dothrow.js` `throw_ok`; `js/potion.js` `dodrink`; `js/cmd.js` `'R'`.
+- **Verify:** `node scripts/verify.mjs --fn getobj` → PASS syntax (5 js files); PASS rule2; PASS hidden verify getobj: 5 PASS, 2 moved past (`random-seed0015` → `menu_remarm` step 42; `random-seed0200` → `js-throw` step 29), 0 unchanged, 0 worse → PROGRESS; PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+- **Named omissions:** getobj_* clones still in drop/wield/apply/write/takeoff/dip; `canwearobj` polyform (cantweararm/horns/slithy/centaur, welded bimanual, shield+twoweap, utrap boots, Glib gloves); underwater `drink_ok_extra`; Strangled `dodrink`; `item_action_in_progress` unset. Not leftover WIN_STATUS (`do_statusline1`).
+- **Next:** Open `pickup.c` `describe_decor` (5 corpus blocks). Not `do_statusline1` leftover WIN_STATUS.
+
 ## D-1833 — iactions.c itemactions Engrave vs Write, stack simpleonames, apply catalogue
 
 - **Status:** fixed (14 corpus blocks; green + cohort; full `sessions` skipped — iactions.js not a shared file)
