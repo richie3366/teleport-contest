@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1804 — invent.c getobj in_doagain readchar + GETOBJ ranks + sortloot filter
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** JS `getobj` painted yn prompts during `in_doagain`
+  (C `:1921–1922` uses `readchar()`), collected lets by walking
+  `invent[]` then `charCodeAt` (C `sortloot(SORTLOOT_INVLET)` /
+  `invletter_value`), used C-wrong `GETOBJ_*` ranks (EXCLUDE=0
+  instead of -3, SELECTABLE=4 instead of 0), ran `silly_thing`
+  before CQ_REPEAT, and `#adjust` had a second nhgetch prompt
+  clone instead of live `getobj`.
+- **C locus:** `invent.c` `getobj` `:1751–2089`; `hack.h`
+  `getobj_callback_returns` `:510–538`; `sortloot` INVLET;
+  `compactify` `:1626` when suggested>5. Not `display_pickinv`.
+- **JS was:** those arms named-omit or C-wrong; `getobj_adjust`
+  painted `_pending_message` + `nhgetch`.
+- **Fix:** `hack.h` signed ranks in `js/const.js`; `getobj_filter_prompt`
+  sortloot + obj_ok switch; `in_doagain` `getobj_readchar`; REPEAT
+  then silly_thing then split; `#adjust` calls live `getobj`.
+  apply.js local `GETOBJ_EXCLUDE_INACCESS` -1 (grease live getobj).
+- **Named omissions:** `display_pickinv` body (not this cluster);
+  getobj_* clones in do/wield/potion/apply/write; `readchar_core`
+  fuzzer / `readchar_queue` / ALTMETA / click.
+- **Next:** Open `cmd.c` `yn_function` remaining body including RNG
+  arms. Not `getlin`.
+
 ## D-1803 — do_name.c x_monnam remaining + nextmbuf / lcase / just_an
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

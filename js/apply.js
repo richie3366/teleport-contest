@@ -261,12 +261,12 @@ const MS_SILENT = 0;
 /** C apply.c use_mirror SEENMON — NORMAL|SEEINVIS|INFRAVIS. */
 const SEENMON = MONSEEN_NORMAL | MONSEEN_SEEINVIS | MONSEEN_INFRAVIS;
 
-/** C invent getobj callback ranks (hack.h). */
+/** C invent getobj callback ranks (hack.h getobj_callback_returns). */
 const GETOBJ_EXCLUDE = -3;
 const GETOBJ_EXCLUDE_SELECTABLE = 0;
 const GETOBJ_DOWNPLAY = 1;
 const GETOBJ_SUGGEST = 2;
-const GETOBJ_EXCLUDE_INACCESS = 3;
+const GETOBJ_EXCLUDE_INACCESS = -1;
 
 /** C ref: obj.h is_pick — WEAPON/TOOL with P_PICK_AXE skill. */
 function is_pick(obj) {
@@ -2194,7 +2194,7 @@ export async function inaccessible_equipment(obj, verb, only_if_known_cursed) {
 
 /**
  * C ref: apply.c grease_ok — null (hands '-') SUGGEST; COIN_CLASS EXCLUDE
- * (const.js 0, not apply's getobj-clone -3); inaccessible_equipment
+ * (const.js GETOBJ_EXCLUDE = -3); inaccessible_equipment
  * EXCLUDE_INACCESS; else SUGGEST. sit.c special_throne_effect grease
  * spray uses the same COIN_CLASS skip (D-1033/D-1683).
  */

@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1804 invent.c getobj in_doagain / prompt+filter
+
+**Objective:** Open `invent.c` `getobj` in_doagain / prompt+filter
+machinery. Not `display_pickinv`.
+**C:** `getobj` `:1751–2089`; `hack.h` GETOBJ_EXCLUDE=-3…SUGGEST=2;
+`sortloot` INVLET; `compactify` when suggested>5.
+**JS was:** yn prompt during `in_doagain`; lets by `charCodeAt`;
+GETOBJ ranks 0/1/2/3/4/5; silly_thing before REPEAT; `#adjust` clone.
+**Fix:** signed ranks; `getobj_filter_prompt`; `getobj_readchar`;
+REPEAT then silly then split; live `getobj` for `#adjust`.
+Named: display_pickinv; getobj_* clones; readchar_core fuzzer/queue.
+**Verify:** save-oracle skip (untagged); green + strict; cohort 7/7
+(incl. eat-throw 1800, quaff-zap-read 2200) + strict lengths.
+**Next:** Open `cmd.c` `yn_function` remaining including RNG arms.
+Not `getlin`.
 ## 2026-09-04 — D-1803 do_name.c x_monnam remaining + nextmbuf
 
 **Objective:** Open `do_name.c` `x_monnam` saddle / ARTICLE_* /

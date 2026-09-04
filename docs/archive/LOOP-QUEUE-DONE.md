@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `do_name.c` x_monnam saddle / ARTICLE_* / M2_PNAME / Wizard article + nextmbuf. Not mon_nam_too. **Addressed:** D-1803
+- [x] `invent.c` getobj in_doagain / prompt+filter machinery. Not display_pickinv. **Addressed:** D-1804
+
+
+- [x] `do_name.c` x_monnam saddle / ARTICLE_* / M2_PNAME / Wizard article + nextmbuf. Not mon_nam_too. **Addressed:** D-1803 `248e8d60`
 
 
 - [x] `objnam.c` xname_flags tshirt_text / apron_text / hawaiian_motif / xcalled. Not xname article arms. **Addressed:** D-1802 `5c960c16`
