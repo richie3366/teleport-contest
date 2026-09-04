@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `mkmaze.c` makemaz `medusa-2`/`-4` — completes Medusa 4/4; 50% blank → 0%. From `dat/medusa-{2,4}.lua` (129/152 ln). **Addressed:** D-1826
+- [x] `mkmaze.c` makemaz `water` + `mkmaze.c` save_waterlevel/restore_waterlevel/unsetup_waterlevel/set_wportal — endgame plane 4 of 5. From `dat/water.lua` (102 ln). **Addressed:** D-1827
+
+
+- [x] `mkmaze.c` makemaz `medusa-2`/`-4` — completes Medusa 4/4; 50% blank → 0%. From `dat/medusa-{2,4}.lua` (129/152 ln). **Addressed:** D-1826 `159fda3d`
 
 
 - [x] `mcastu.c` castmu remaining spell arms: the 14 `mcast_*` / `touch_of_death` cases past the `default:` fallthrough. Not buzzmu. **Addressed:** D-1825 `637890a4`

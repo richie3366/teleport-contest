@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1827 | fixed | dat/water.lua — mkmaze.c makemaz water load_special + save_waterlevel | `makemaz` had no `water` loader, so endgame plane 4 of 5; fix: `load_water` from the lua body: solidfill + mazelevel+noteleport; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: water cons pickup / `maybe_adjust_hero_bubble`; |
 | D-1826 | fixed | dat/medusa-2.lua — mkmaze.c makemaz medusa-2/4 load_special (Medusa 4/4) | `makemaz` had no `medusa-2`/`medusa-4` loaders, so Medusa was a; fix: `load_medusa_2` from the lua body: solidfill + mazelevel+noteleport,; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: humidity-aware `get_location`; `ensure_way_out` / |
 | D-1825 | fixed | mcastu.c mcast_spell — mcastu.c mcast_spell remaining 14 arms + touch_of_death | `castmu` `mcast_spell` `default:` zeroed dmg for the 14; fix: port the remaining 14 arms from the C bodies; `mcast_spell`; verify: `node scripts/verify.mjs --fn castmu` → PASS syntax; named: `mon_spell_hits_spot` (fire-pillar/lightning |
 | D-1824 | fixed | dat/Bar-goal.lua :44–57 — dat/Bar-goal.lua fourteen empty des.object after Heart | `load_bar_goal` looped 15 extra `splev_create_object` /; fix: loop bound 14 matching lua `:44–57`. Heart, six traps, and; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: humidity-aware `get_location`; `spo_end_moninvent` |

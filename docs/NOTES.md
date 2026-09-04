@@ -11,8 +11,9 @@ Objective/score live in `CURRENT.md`.
   Orient `brief.mjs`, verify `verify.mjs --fn`, hand off `finish-iteration.mjs --commit`.
 - **Suite 44/44** cadence re-measured at D-1823 (`171f6b02`). Must-fix
   Bar-goal extra objects is D-1824 (loop 14). `castmu` remaining 14
-  arms are D-1825. Medusa 4/4 is D-1826. Next is Open `makemaz` `water`
-  + `save_waterlevel`. Do **not**
+  arms are D-1825. Medusa 4/4 is D-1826. Water plane +
+  `save_waterlevel` is D-1827. Next is Open `makemaz` `astral`.
+  Do **not**
   reopen Bar-goal object count, castmu spell arms,
   medusa-2/4 / minend-3 / bigrm / soko2-2 / Wiz-goal loaders, `HDeaf [2]`, or
   `mattacku` gameover abort.
@@ -71,7 +72,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1826.
+  (D-1189). Do not skip D-1190…D-1827.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -81,18 +82,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1826.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1827.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1826.
+  Do not re-port D-1682…D-1827.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1827: `load_water` from the lua body: solidfill + mazelevel+noteleport Named: water cons pickup / `maybe_adjust_hero_bubble`;
 - D-1826: `load_medusa_2` from the lua body: solidfill + mazelevel+noteleport, Named: humidity-aware `get_location`; `ensure_way_out` /
 - D-1825: port the remaining 14 arms from the C bodies; `mcast_spell` Named: `mon_spell_hits_spot` (fire-pillar/lightning
 - D-1824: loop bound 14 matching lua `:44–57`. Named: humidity-aware `get_location`; `spo_end_moninvent`
@@ -107,5 +109,4 @@ Objective/score live in `CURRENT.md`.
 - D-1815: `getdir` `:4098` `iflags.cmdassist` (Options/`O` writes
 - D-1814: `drown` crawl-out `emergency_disrobe` /
 - D-1813: `untrap` remaining holding / landmine / shooting / box /
-- D-1812: `really_done` remaining fixup_death / launch /
 <!-- landmarks:end -->

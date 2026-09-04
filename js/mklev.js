@@ -773,6 +773,46 @@ export function l_teleport_region(opts) {
 }
 
 /**
+ * C ref: sp_lev.c lspo_levregion / l_get_lregion.
+ * type default "stair-down". Missing exclude → delarea -1 and del_islev.
+ */
+const LREGION_TYPES = {
+    'stair-down': LR_DOWNSTAIR,
+    'stair-up': LR_UPSTAIR,
+    portal: LR_PORTAL,
+    branch: LR_BRANCH,
+    teleport: LR_TELE,
+    'teleport-up': LR_UPTELE,
+    'teleport-down': LR_DOWNTELE,
+};
+
+export function l_levregion(opts) {
+    const region = opts.region;
+    const exclude = opts.exclude;
+    const rtype = LREGION_TYPES[opts.type || 'stair-down'] ?? LR_DOWNSTAIR;
+    const lregion = {
+        inarea: {
+            x1: region[0] | 0, y1: region[1] | 0,
+            x2: region[2] | 0, y2: region[3] | 0,
+        },
+        delarea: exclude
+            ? {
+                x1: exclude[0] | 0, y1: exclude[1] | 0,
+                x2: exclude[2] | 0, y2: exclude[3] | 0,
+            }
+            : { x1: -1, y1: -1, x2: -1, y2: -1 },
+        in_islev: !!opts.region_islev,
+        del_islev: !!opts.exclude_islev,
+        rtype,
+        padding: opts.padding | 0,
+        rname: { str: opts.name ?? null },
+    };
+    if (!exclude || (exclude[0] | 0) < 0)
+        lregion.del_islev = true;
+    levregion_add(lregion);
+}
+
+/**
  * C ref: sp_lev.c lspo_exclusion.
  * des.exclusion({ type = "teleport"|"teleport-up"|"teleport-down"|
  *                 "monster-generation", region = { x1,y1,x2,y2 } }).
@@ -1375,14 +1415,14 @@ function reset_xystart_size() {
  * bigrm-4, bigrm-5, bigrm-6, bigrm-7, bigrm-8, bigrm-9, bigrm-11, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
  * Bar-filb, Bar-goal, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
  * soko1-2, soko2-1, soko2-2, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
- * tower3, fire, air, minend-1, minend-2, minend-3, minetn-1, minetn-2, minetn-3,
+ * tower3, fire, air, water, minend-1, minend-2, minend-3, minetn-1, minetn-2, minetn-3,
  * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-2, medusa-3, medusa-4, oracle, castle, valley,
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
  * Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
  * Named omissions: quest
  * protos (Kni-strt/loca/fila/filb);
- * water/astral; fakewiz;
+ * astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
 async function makemaz(s) {
@@ -1655,6 +1695,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'air') {
         load_air();
+        return true;
+    }
+    if (protofile === 'water') {
+        load_water();
         return true;
     }
     if (protofile === 'minend-1') {
@@ -8011,7 +8055,7 @@ function load_earth() {
 
 /**
  * C ref: dat/fire.lua via load_special — Plane of Fire.
- * Named omissions: solidify/premap; water/astral planes.
+ * Named omissions: solidify/premap; astral plane.
  * Map load uses SpLev_Map lit epilogue (D-0569).
  * fumaroles whoosh / clear_heros_fault D-1156; moveloop EOT D-1168.
  */
@@ -8181,7 +8225,7 @@ L.....LLL......................LLLLL.........L.........LLLLLLLL..............LL
 
 /**
  * C ref: dat/air.lua via load_special — Plane of Air.
- * Named omissions: solidify/premap; water/earth/astral; movebubbles.
+ * Named omissions: solidify/premap; astral; water cons pickup.
  */
 function load_air() {
     const g = game;
@@ -8308,6 +8352,110 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                 let lev = null;
                 if (r.rname) {
                     const sp = find_level(r.rname);
+                    if (sp?.dlevel)
+                        lev = { dnum: sp.dlevel.dnum | 0, dlevel: sp.dlevel.dlevel | 0 };
+                }
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    LR_PORTAL, lev,
+                );
+            }
+        }
+    }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/water.lua via load_special — Plane of Water (endgame 4 of 5).
+ * Bubbles: mkmaze.c setup_waterlevel after flip, before lregions.
+ * Named omissions: water cons pickup / maybe_adjust_hero_bubble;
+ * humidity-aware get_location; ensure_way_out / solidify; astral.
+ */
+function load_water() {
+    const g = game;
+    nhlib_shuffle_align();
+    // des.level_init({ style = "solidfill", fg = " " }) — ' ' → STONE
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+    g.level.flags.shortsighted = true;
+
+    // C: des.message → lev_message for deliver_splev_message
+    g.lev_message =
+        'You find yourself suspended in an air bubble surrounded by water.';
+
+    // C ref: dat/water.lua des.map — 76×20 WATER
+    const WATER_MAP = `${'W'.repeat(76)}\n`.repeat(20);
+    splev_apply_centered_map(WATER_MAP);
+
+    // des.teleport_region({ region = {0,0,25,19} }) — dir both, map-relative
+    l_teleport_region({ region: [0, 0, 25, 19] });
+    // des.levregion({ type="portal", region={51,0,75,19}, name="astral" })
+    l_levregion({
+        type: 'portal',
+        region: [51, 0, 75, 19],
+        name: 'astral',
+    });
+
+    // des.monster list — peaceful:0 overrides; bare id / class letter
+    const waterMons = [
+        ['giant eel'], ['giant eel'], ['giant eel'], ['giant eel'],
+        ['giant eel'], ['giant eel'], ['giant eel'], ['giant eel'],
+        ['electric eel'], ['electric eel'], ['electric eel'], ['electric eel'],
+        ['electric eel'], ['electric eel'], ['electric eel'], ['electric eel'],
+        ['kraken'], ['kraken'], ['kraken'], ['kraken'], ['kraken'],
+        ['kraken'], ['kraken'], ['kraken'], ['kraken'],
+        ['shark'], ['shark'], ['shark'], ['shark'],
+        ['piranha'], ['piranha'], ['piranha'], ['piranha'],
+        ['jellyfish'], ['jellyfish'], ['jellyfish'], ['jellyfish'],
+        [';'], [';'], [';'], [';'],
+        ['water elemental', 0], ['water elemental', 0], ['water elemental', 0],
+        ['water elemental', 0], ['water elemental', 0], ['water elemental', 0],
+        ['water elemental', 0], ['water elemental', 0], ['water elemental', 0],
+        ['water elemental', 0], ['water elemental', 0], ['water elemental', 0],
+        ['water elemental', 0], ['water elemental', 0], ['water elemental', 0],
+        ['water elemental', 0], ['water elemental', 0], ['water elemental', 0],
+        ['water elemental', 0],
+    ];
+    for (const spec of waterMons) {
+        if (spec.length > 1) splev_create_monster(spec[0], spec[1]);
+        else splev_create_monster(spec[0]);
+    }
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // C: fixup_special — setup_waterlevel before applying tele/portal lregions
+    setup_waterlevel();
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else if (r.rtype === LR_PORTAL) {
+                let lev = null;
+                const name = (r.rname && typeof r.rname === 'object')
+                    ? r.rname.str : r.rname;
+                if (name) {
+                    const sp = find_level(name);
                     if (sp?.dlevel)
                         lev = { dnum: sp.dlevel.dnum | 0, dlevel: sp.dlevel.dlevel | 0 };
                 }
@@ -10300,6 +10448,8 @@ function setup_waterlevel() {
     }
 
     g.bbubbles = null;
+    g.ebubbles = null;
+    g.wportal = null;
     for (let x = gbxmin; x <= gbxmax; x += xskip) {
         for (let y = gbymin; y <= gbymax; y += yskip) {
             mk_bubble(x, y, rn2(7), gbxmin, gbymin, gbxmax, gbymax);
@@ -10346,13 +10496,19 @@ function mk_bubble(x, y, n, gbxmin, gbymin, gbxmax, gbymax) {
             }
         }
     }
-    const b = { x: bx, y: by, dx, dy, bm, next: null };
-    if (!game.bbubbles) game.bbubbles = b;
-    else {
-        let e = game.bbubbles;
-        while (e.next) e = e.next;
-        e.next = b;
+    const b = {
+        x: bx, y: by, dx, dy, bm: bm.slice(), cons: null, next: null, prev: null,
+    };
+    if (!game.bbubbles)
+        game.bbubbles = b;
+    if (game.ebubbles) {
+        game.ebubbles.next = b;
+        b.prev = game.ebubbles;
+    } else {
+        b.prev = null;
     }
+    b.next = null;
+    game.ebubbles = b;
 }
 
 /**
@@ -10364,14 +10520,8 @@ export function movebubbles() {
     const uz = g.u?.uz;
     if (!Is_waterlevel(uz) && !Is_airlevel(uz)) return;
 
-    if (!g.wportal) {
-        for (let t = g.ftrap; t; t = t.ntrap) {
-            if ((t.ttyp | 0) === MAGIC_PORTAL) {
-                g.wportal = t;
-                break;
-            }
-        }
-    }
+    if (!g.wportal)
+        set_wportal();
 
     const bounds = g.waterlevel_bounds || {
         gbxmin: 4, gbymin: 2, gbxmax: 77, gbymax: 19,
@@ -10403,22 +10553,19 @@ export function movebubbles() {
 
     g.movebubbles_up = !g.movebubbles_up;
     const up = !!g.movebubbles_up;
-    // Traverse bbubbles forward or reverse; reverse needs ebubbles chain.
-    let bubbles = [];
-    for (let b = g.bbubbles; b; b = b.next) bubbles.push(b);
-    if (!up) bubbles = bubbles.reverse();
-    for (const b of bubbles) {
+    // C: traverse bbubbles forward or ebubbles reverse on alternate turns
+    for (let b = up ? g.bbubbles : g.ebubbles; b; b = up ? b.next : b.prev) {
         const rx = rn2(3);
         const ry = rn2(3);
         const mdx = b.dx + 1 - (!b.dx ? rx : (rx ? 1 : 0));
         const mdy = b.dy + 1 - (!b.dy ? ry : (ry ? 1 : 0));
-        mv_bubble_move(b, mdx, mdy, gbxmin, gbymin, gbxmax, gbymax);
+        mv_bubble_move(b, mdx, mdy, gbxmin, gbymin, gbxmax, gbymax, false);
     }
     g.vision_full_recalc = 1;
 }
 
-/** C ref: mkmaze.c mv_bubble — air rn2(6) skip + CLOUD paint + boing. */
-function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax) {
+/** C ref: mkmaze.c mv_bubble — air rn2(6) skip + CLOUD/AIR paint + boing. */
+function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax, ini) {
     let colli = 0;
     if (!Is_airlevel(game.u?.uz) || !rn2(6)) {
         let mdx = dx;
@@ -10462,12 +10609,122 @@ function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax) {
         b.dx = -b.dx;
         break;
     default:
-        if ((b.dx || b.dy) ? !rn2(20) : !rn2(5)) {
+        if (!ini && ((b.dx || b.dy) ? !rn2(20) : !rn2(5))) {
             b.dx = 1 - rn2(3);
             b.dy = 1 - rn2(3);
         }
         break;
     }
+}
+
+/**
+ * C ref: mkmaze.c set_wportal — first MAGIC_PORTAL on the trap chain.
+ * Named omit: impossible("set_wportal(): no portal!") pline.
+ */
+export function set_wportal() {
+    const g = game;
+    const traps = g.level?.traps;
+    if (Array.isArray(traps)) {
+        for (const t of traps) {
+            if (t && (t.ttyp | 0) === MAGIC_PORTAL) {
+                g.wportal = t;
+                return;
+            }
+        }
+    }
+    for (let t = g.ftrap; t; t = t.ntrap) {
+        if ((t.ttyp | 0) === MAGIC_PORTAL) {
+            g.wportal = t;
+            return;
+        }
+    }
+}
+
+/**
+ * C ref: mkmaze.c save_waterlevel update_file arm — JSON analogue of
+ * Sfo_int n/xmin/ymin/xmax/ymax + Sfo_bubble. Does not unsetup
+ * (C release_data arm is unsetup_waterlevel, called from goto_level).
+ * Named omit: cons pointers (always 0 at save).
+ */
+export function save_waterlevel() {
+    const g = game;
+    if (!g.bbubbles) return null;
+    const bounds = g.waterlevel_bounds || { xmin: 3, ymin: 1, xmax: 78, ymax: 20 };
+    const bubbles = [];
+    for (let b = g.bbubbles; b; b = b.next) {
+        bubbles.push({
+            x: b.x | 0,
+            y: b.y | 0,
+            dx: b.dx | 0,
+            dy: b.dy | 0,
+            bm: Array.from(b.bm || []),
+        });
+    }
+    return {
+        xmin: bounds.xmin | 0,
+        ymin: bounds.ymin | 0,
+        xmax: bounds.xmax | 0,
+        ymax: bounds.ymax | 0,
+        bubbles,
+    };
+}
+
+/**
+ * C ref: mkmaze.c unsetup_waterlevel — free the bubble chain.
+ * Also drop wportal so the next plane re-runs set_wportal.
+ */
+export function unsetup_waterlevel() {
+    const g = game;
+    g.bbubbles = null;
+    g.ebubbles = null;
+    g.wportal = null;
+}
+
+/**
+ * C ref: mkmaze.c restore_waterlevel — rebuild bbubbles/ebubbles from
+ * the save blob, then mv_bubble(b, 0, 0, TRUE) per bubble.
+ * Named omit: something_worth_saving / impossible on n==0.
+ */
+export function restore_waterlevel(blob) {
+    const g = game;
+    if (!blob || !Array.isArray(blob.bubbles)) return;
+    const xmin = blob.xmin | 0;
+    const ymin = blob.ymin | 0;
+    const xmax = blob.xmax | 0;
+    const ymax = blob.ymax | 0;
+    g.waterlevel_bounds = {
+        xmin, ymin, xmax, ymax,
+        gbxmin: xmin + 1, gbymin: ymin + 1,
+        gbxmax: xmax - 1, gbymax: ymax - 1,
+    };
+    const { gbxmin, gbymin, gbxmax, gbymax } = g.waterlevel_bounds;
+    g.bbubbles = null;
+    g.ebubbles = null;
+    let b = null;
+    for (let i = 0; i < blob.bubbles.length; i++) {
+        const raw = blob.bubbles[i];
+        const btmp = b;
+        b = {
+            x: raw.x | 0,
+            y: raw.y | 0,
+            dx: raw.dx | 0,
+            dy: raw.dy | 0,
+            bm: Array.from(raw.bm || []),
+            cons: null,
+            prev: null,
+            next: null,
+        };
+        if (btmp) {
+            btmp.next = b;
+            b.prev = btmp;
+        } else {
+            g.bbubbles = b;
+            b.prev = null;
+        }
+        mv_bubble_move(b, 0, 0, gbxmin, gbymin, gbxmax, gbymax, true);
+    }
+    g.ebubbles = b;
+    if (b) b.next = null;
 }
 
 /**

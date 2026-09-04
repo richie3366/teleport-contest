@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-1827 — mkmaze.c makemaz water load_special + save_waterlevel
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no `water` loader, so endgame plane 4 of 5
+  was a blank `create_maze` fallback. C loads `dat/water.lua` via
+  `sp_lev.c` `load_special`, then `fixup_special` `setup_waterlevel`
+  paints AIR bubbles. Leaving/restoring the plane lost the bubble chain
+  (`save_waterlevel` / `restore_waterlevel` were absent).
+- **C locus:** `dat/water.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `mkmaze.c` `save_waterlevel` `:1723–1745` /
+  `restore_waterlevel` `:1749–1798` / `unsetup_waterlevel` `:1859–1870`
+  / `set_wportal` `:1800–1809`; `setup_waterlevel` `:1811–1857`;
+  `save.c` `savelev` bbubbly; `restore.c` `rest_bubbles`.
+- **JS was:** `load_special_proto` dispatched `earth`/`fire`/`air`;
+  `water` named omitted. `setup_waterlevel`/`mk_bubble`/`movebubbles`
+  lived for Air only. No persist of `bbubbles` on savelev/getlev.
+- **Fix:** `load_water` from the lua body: solidfill + mazelevel+noteleport
+  +hardfloor+shortsighted, 76×20 WATER map, left-third `LR_TELE`,
+  astral `LR_PORTAL`, 8+8 eels, 9 kraken, 4 shark/piranha/jellyfish,
+  4 `;` eels, 19 hostile water elementals; wallify+flip then
+  `setup_waterlevel` before lregions. `l_levregion` for `lspo_levregion`.
+  `save_waterlevel` JSON analogue + `restore_waterlevel` `mv_bubble(ini)`
+  + `unsetup_waterlevel` on leave + `set_wportal` from `movebubbles`.
+- **JS:** `js/mklev.js` `load_water` / `load_special_proto` /
+  `save_waterlevel` / `restore_waterlevel` / `unsetup_waterlevel` /
+  `set_wportal` / `l_levregion`; `js/do.js` `goto_level`; `js/save.js`;
+  `js/lev_json.js` `serLevel`/`deserLevel`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (do.js lev_json.js mklev.js save.js); PASS rule2; PASS hidden (no
+  corpus session blocked on makemaz); PASS green 2/2; PASS strict
+  seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared
+  file changed). VERIFY: PASS
+- **Named omissions:** water cons pickup / `maybe_adjust_hero_bubble`;
+  humidity-aware `get_location`; `ensure_way_out` / solidify; astral;
+  `impossible` on empty restore / missing portal. Not the lua map,
+  monster list, or bubble save/restore.
+- **Next:** Open `mkmaze.c` `makemaz` `astral`. Not Knight/Rogue quest.
+
 ## D-1826 — mkmaze.c makemaz medusa-2/4 load_special (Medusa 4/4)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

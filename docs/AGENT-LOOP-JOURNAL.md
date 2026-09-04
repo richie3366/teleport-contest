@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1827 mkmaze.c makemaz water load_special + save_waterlevel
+
+**C locus:** `dat/water.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+**JS:** `js/mklev.js` `load_water` / `load_special_proto` /
+**Change:** `load_water` from the lua body: solidfill + mazelevel+noteleport
+**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+**Named:** water cons pickup / `maybe_adjust_hero_bubble`;
+**Next:** Open `mkmaze.c` `makemaz` `astral`. Not Knight/Rogue quest.
 ## 2026-09-04 — D-1826 mkmaze.c makemaz medusa-2/4 load_special (Medusa 4/4)
 
 **C locus:** `dat/medusa-2.lua`; `dat/medusa-4.lua`; `mkmaze.c` `makemaz`

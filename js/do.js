@@ -73,6 +73,9 @@ import {
     mklev,
     fumaroles,
     movebubbles,
+    save_waterlevel,
+    restore_waterlevel,
+    unsetup_waterlevel,
 } from './mklev.js';
 import {
     In_tutorial, at_dgn_entrance, print_level_annotation,
@@ -1548,6 +1551,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                 billobjs: game.billobjs,
                 // C savedamage; live GameMap also holds the list.
                 damagelist: game.level?.damagelist || null,
+                // C save.c savelev → save_waterlevel when bbubbly
+                waterlevel: save_waterlevel(),
             };
         } else {
             // FREEING only (savelev skip_lots): peel RANGE_LEVEL timers
@@ -1557,6 +1562,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         }
         game.billobjs = null;
     }
+    // C save_waterlevel release_data → unsetup_waterlevel after savelev
+    unsetup_waterlevel();
 
     // C do.c:1653–1664 — after savelev, discard unreachable levels.
     if (cant_go_back) {
@@ -1661,6 +1668,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         restore_timers(info.timers);
         restore_light_sources(info.lights);
         game.billobjs = info.billobjs || null;
+        // C restore.c rest_bubbles before rest_track
+        if (info.waterlevel) restore_waterlevel(info.waterlevel);
         rest_track(info.track);
         // C: Sokoban ≡ level.flags.sokoban_rules — sync JS alias after getlev
         // (clear_level_structures only runs on mklev, not stash restore).
