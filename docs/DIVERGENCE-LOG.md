@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1801 — allmain.c moveloop_core per-turn callees do_storms / glibr / mkot_trap_warn / end_of_input
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** JS `moveloop_core` never called C's once-per-turn `glibr`
+  (Glib rings/weapons slip), `mkot_trap_warn` (Master Key heat),
+  `do_storms` (stormy-level lightning/thunder), or SAFERHANGUP
+  `end_of_input` (`done_hup` hangup save). Those four were NOT FOUND.
+- **C locus:** `allmain.c` `moveloop_core` `:271–272` `Glib`/`glibr`,
+  `:347–353` `were_changes`/`set_uasmon`/`mkot_trap_warn`/`dosounds`/
+  `do_storms`, `:181–184` SAFERHANGUP `end_of_input`; callees
+  `timeout.c` `do_storms` `:1846–1892`, `do_wear.c` `glibr`
+  `:2527–2627` + `fingers_or_gloves` `:59–65`, `artifact.c`
+  `count_surround_traps` `:2707–2749` / `mkot_trap_warn` `:2752–2770`,
+  `cmd.c` `end_of_input` `:5182–5209` + `rhack` `:3638–3641`.
+  `unixconf.h` defines SAFERHANGUP. Not `nh_timeout`.
+- **JS was:** EOT jumped `nh_timeout` → `dosounds` with those four
+  callees omitted; `were_changes` was zeroed but never consumed.
+- **Fix:** those functions in `js/timeout.js` / `js/do_wear.js` /
+  `js/artifact.js` / `js/cmd.js`; `moveloop_core` and `rhack` call
+  them in C order. `You_hear` exported from `js/hack.js` (no 15th
+  clone). `u_wield_art` exported from `js/artifact.js`.
+- **Named omissions:** `buzz`/`dobuzz` lightning from `do_storms`
+  (strike position/dir RNG still runs when `stormy && !rn2(8)`);
+  `amulet()`; udemigod `intervene`; `sound_exit_nhsound` /
+  `exit_nhwindows` / `clearlocks` (Rule #2); `do_positionbar` /
+  `runmode_delay_output`; bypasses / resume_wish.
+- **Next:** Open `objnam.c` `xname_flags` tshirt/apron/hawaiian/`xcalled`.
+  Not xname article arms.
+
 ## D-1800 — hack.c test_move/domove_core water_friction, avoid-trap-or-liquid, fight bars+web, mention_walls
 
 - **Status:** fixed (map-driven Open row; green + movement cohort hold)

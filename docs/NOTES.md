@@ -5,9 +5,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Open `allmain.c` `moveloop_core` next** (Must-fix empty after D-1800).
-  Per-turn callees `do_storms` / `glibr` / `mkot_trap_warn` /
-  `end_of_input`. Not `nh_timeout`. Not a seed0030 peel.
+- **Open `objnam.c` `xname_flags` next** (Must-fix empty after D-1801).
+  `tshirt_text` / `apron_text` / `hawaiian_motif` / `xcalled`. Not
+  xname article arms. Not a seed0030 peel.
 - **seed0030** still 39912/105529 after D-1797. First all-segments
   miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
   (seg0 RNG OK 14300). Falsify that with `rng-diff --all-segments`
@@ -24,13 +24,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not re-port `test_move`/`domove_core` water_friction /
+- Do not re-port `moveloop_core` `do_storms` / `glibr` / `mkot_trap_warn` /
+  `end_of_input` (D-1801) or `test_move`/`domove_core` water_friction /
   avoid-trap-or-liquid / fight bars+web / mention_walls (D-1800) or
   `spoteffects` recursion / lev `rn2(2)` / Warning ice / piercer
   surprise (D-1799) or `dochug` remaining / `wormhitu` (D-1798)
   or `nomul`/`unmul` `usleep=0` / nomul `uinvulnerable` (D-1797) or
   `xkilled` LEVEL_SPECIFIC / pool / artifact un-create (D-1796).
-  Named: lookaround, air_turbulence, slippery_ice, escape_from_sticky,
+  Named: `buzz`/`dobuzz`, `amulet()`, `intervene`;
+  lookaround, air_turbulence, slippery_ice, escape_from_sticky,
   Known_wwalking, autodig/`worm_cross`, `exercise_steed`;
   pooleffects leave-water / `failing_untrap` writer;
   `demon_talk`, `cuss`. Do not treat usleep as seed0030’s
@@ -58,7 +60,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse D-1582.
   ParanoidTrap portal yn / `domagicportal` / `undestroyable_trap`
   / `mktrap` dst / `goto_level` uz0 are D-1187/1188.
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1800.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1801.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -68,7 +70,7 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask`
   (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) /
   omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()`
-  (D-1066). Do not skip D-1067…D-1800.
+  (D-1066). Do not skip D-1067…D-1801.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / re-port `eyecount` / delete emin / stub
   `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541).
@@ -76,10 +78,12 @@ Objective/score live in `CURRENT.md`.
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static
   `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. No trailing
-  `confdir` in shared `getdir`. Do not re-port D-1682…D-1800.
+  `confdir` in shared `getdir`. Do not re-port D-1682…D-1801.
 
 ## Landmarks (≤15)
 
+- D-1801: `moveloop_core` `do_storms` / `glibr` / `mkot_trap_warn` /
+  `end_of_input`. Named: `buzz`/`dobuzz`, `amulet()`, `intervene`.
 - D-1800: `test_move`/`domove_core` water_friction / avoid-run /
   fight bars+web / mention_walls. Named: lookaround, air_turbulence,
   Known_wwalking, autodig/`worm_cross`, `exercise_steed`.
@@ -101,4 +105,3 @@ Objective/score live in `CURRENT.md`.
 - D-1789: `keepdogs` `[...fmon]`; named `relmon` / async `unstuck`.
 - D-1788: `#cast` SPE_DETECT_FOOD `seffects`; remaining otyps named.
 - D-1787: lookat tnum `glyph_to_trap(glyph_at)`; helpers D-1779.
-- D-1786: ballfall callers `u.uball`; helper is D-1778.

@@ -14,6 +14,7 @@ import {
     VOMITING, ACID_RES, STONE_RES, DISPLACED, PASSES_WALLS,
     MAGICAL_BREATHING, WWALKING, FIRE_RES, COLD_RES, SLEEP_RES,
     ACCESSIBLE, Is_waterlevel, SICK_NONVOMITABLE, M_AP_MONSTER,
+    COLNO, ROWNO, CLOUD,
     KILLED_BY_AN,
     DISINT_RES, SHOCK_RES, POISON_RES, DRAIN_RES, SICK_RES, ANTIMAGIC,
     BLND_RES, HUNGER, TELEPAT, WARNING, WARN_OF_MON, WARN_UNDEAD,
@@ -33,7 +34,7 @@ import {
     has_omid, has_omonst,
 } from './const.js';
 import { heal_legs, float_down } from './trap.js';
-import { stop_occupation, nomul, is_pool, is_lava, carrying } from './hack.js';
+import { stop_occupation, nomul, is_pool, is_lava, carrying, You_hear } from './hack.js';
 import { run_timers, start_timer, stop_timer, weight,
     obj_extract_self, delobj, objects_at, attach_egg_hatch_timeout,
     obj_has_timer, rider_revival_time, rot_corpse, set_corpsenm,
@@ -45,7 +46,7 @@ import { Fumbling, Fast, Very_fast, exercise, stone_luck, A_STR, A_DEX, A_CON } 
 import { pline, You_feel, newsym, canseemon, verbalize, Norep, see_monsters, impossible, urgent_pline, Hallucination } from './display.js';
 import { inv_weight, update_inventory, useupall } from './invent.js';
 import { doname, makeplural, xname, an, The, vtense } from './objnam.js';
-import { rn2, rnd, d } from './rng.js';
+import { rn2, rnd, rn1, d } from './rng.js';
 import { objectNames } from './objects.js';
 import {
     G_UNIQ, is_were, mons, is_floater, is_flyer, amorphous, nolimbs,
@@ -58,6 +59,8 @@ import { Popeye, morehungry, vomit } from './eat.js';
 import { phase_of_the_moon, friday_13th } from './calendar.js';
 import { zombie_form } from './mon.js';
 import { cry_sound } from './sounds.js';
+import { Soundeffect } from './sndprocs.js';
+import { se_kaboom_boom_boom } from './generated/seffects_data.js';
 import { rehumanize, body_part } from './polyself.js';
 import { you_unwere } from './were.js';
 import { new_light_source, del_light_source } from './light.js';
@@ -270,6 +273,16 @@ function set_itimeout_HDeaf(val) {
         u.uprops[DEAF].intrinsic =
             ((u.uprops[DEAF].intrinsic | 0) & ~TIMEOUT) | (val & TIMEOUT);
     }
+}
+
+/** C potion.c incr_itimeout(&HDeaf, incr) — TIMEOUT bits only. */
+function incr_itimeout_HDeaf(incr) {
+    const u = game.u || (game.u = {});
+    const cur = (u.HDeaf | 0) | (u.uprops?.[DEAF]?.intrinsic | 0);
+    let val = (cur & TIMEOUT) + (incr | 0);
+    if (val > TIMEOUT) val = TIMEOUT;
+    if (val < 1) val = 0;
+    set_itimeout_HDeaf((cur & ~TIMEOUT) | (val & TIMEOUT));
 }
 
 /**
@@ -941,6 +954,56 @@ export async function nh_timeout() {
 
     // C: run_timers() at end of nh_timeout — corpse rot / object timers
     await run_timers();
+}
+
+/**
+ * C ref: timeout.c do_storms `:1846–1892` — once-per-turn from
+ * moveloop_core after dosounds. Non-stormy levels return before
+ * any RNG (`!stormy || rn2(8)` short-circuit).
+ * Named omit: `buzz(BZ_M_SPELL(BZ_OFS_AD(AD_ELEC)), 8, …)` /
+ * `dobuzz` (zap.c; lightning bolt). Strike position/dir RNG still
+ * runs when a storm fires.
+ */
+export async function do_storms() {
+    const flags = game.level?.flags;
+    if (!flags?.stormy || rn2(8)) return;
+
+    for (let nstrike = rnd(64); nstrike <= 64; nstrike *= 2) {
+        let count = 0;
+        let x = 0;
+        let y = 0;
+        do {
+            x = rnd(COLNO - 1);
+            y = rn2(ROWNO);
+        } while (++count < 100
+            && game.level?.at?.(x, y)?.typ !== CLOUD);
+
+        if (count < 100) {
+            const dirx = rn2(3) - 1;
+            const diry = rn2(3) - 1;
+            if (dirx !== 0 || diry !== 0) {
+                /* C: gb.buzzer = 0; buzz(BZ_M_SPELL(BZ_OFS_AD(AD_ELEC)), …) */
+                game.buzzer = null;
+            }
+        }
+    }
+
+    const u = game.u || {};
+    if (game.level?.at?.(u.ux | 0, u.uy | 0)?.typ === CLOUD) {
+        Soundeffect(se_kaboom_boom_boom, 80);
+        await pline('Kaboom!!!  Boom!!  Boom!!');
+        incr_itimeout_HDeaf(rn1(20, 30));
+        if (game.disp) game.disp.botl = true;
+        if (game.flags) game.flags.botl = true;
+        if (!u.uinvulnerable) {
+            await stop_occupation();
+            nomul(-3);
+            game.multi_reason = 'hiding from thunderstorm';
+            game.nomovemsg = null;
+        }
+    } else {
+        await You_hear('a rumbling noise.');
+    }
 }
 
 /* ---- light / burn (timeout.c) — D-0978 ---- */

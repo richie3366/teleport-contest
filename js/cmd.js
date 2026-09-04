@@ -56,7 +56,7 @@ import { dothrow, dofire } from './dothrow.js';
 import { doapply, check_leash } from './apply.js';
 import { dokick } from './dokick.js';
 import { donull, dodown, doup, dodrop, doddrop } from './do.js';
-import { dosave } from './save.js';
+import { dosave, dosave0 } from './save.js';
 import { doset_simple, dotogglepickup, select_menu_pick_one } from './options.js';
 import {
     do_attack, mon_at, is_safemon, explum, attacktype_fordmg,
@@ -76,6 +76,7 @@ import { an, doname } from './objnam.js';
 import { spoteffects, dopickup, doloot, dotip } from './pickup.js';
 import { objects_at } from './mkobj.js';
 import { stairway_at, u_on_newpos } from './mklev.js';
+import { In_tutorial } from './dungeon.js';
 import { ATR_INVERSE } from './terminal.js';
 import { dopay } from './shk.js';
 import { getpos, gather_locs_interesting, auto_describe_text } from './getpos.js';
@@ -104,6 +105,28 @@ function cmdq_qname(q) {
 /** C ref: cmd.c cmdq_clear(q). Callers without q still clear CQ_CANNED. */
 export function cmdq_clear(q = CQ_CANNED) {
     game[cmdq_qname(q)] = [];
+}
+
+/**
+ * C ref: cmd.c end_of_input `:5182–5209` (HANGUPHANDLING).
+ * unixconf.h defines SAFERHANGUP; NOSAVEONHANGUP is off, so hangup
+ * still writes via dosave0 when something_worth_saving (tutorial
+ * zeros that first). Named omit: sound_exit_nhsound, exit_nhwindows,
+ * clearlocks (no filesystem locks — Contest Rule #2). nh_terminate
+ * becomes program_state.gameover so moveloop stops.
+ */
+export function end_of_input() {
+    if (!game.program_state) game.program_state = {};
+    const ps = game.program_state;
+    if (In_tutorial(game.u?.uz)) {
+        ps.something_worth_saving = 0;
+    }
+    if (ps.something_worth_saving) {
+        dosave0();
+    }
+    ps.in_moveloop = 0;
+    ps.exiting = 1;
+    ps.gameover = true;
 }
 
 /**
@@ -2212,6 +2235,11 @@ export async function rhack(key) {
     if (game.context) game.context.nopick = 0;
 
     for (;;) { // C got_prefix_input
+    // C cmd.c:3638–3641 — SAFERHANGUP done_hup → end_of_input.
+    if (game.program_state?.done_hup) {
+        end_of_input();
+        return;
+    }
     // C: cmdq_pop before parse — fireassist swap/retry lives here
     if (key === 0) {
         const canned = cmdq_pop();

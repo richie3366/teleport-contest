@@ -73,16 +73,20 @@ import {
     In_endgame,
     MIGR_RANDOM,
     isok,
+    IS_DOOR,
+    D_TRAPPED,
+    Is_container,
 } from './const.js';
 import { rn2, rnd, d, rnz } from './rng.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, You_feel, newsym, see_monsters,
-    set_sting_effects,
+    set_sting_effects, glyph_at, glyph_is_trap,
 } from './display.js';
 import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv, getobj } from './invent.js';
 import { xname, the, vtense, cxname, otense, set_undiscovered_artifact } from './objnam.js';
 import { recalc_telepat_range } from './do_wear.js';
+import { t_at } from './trap.js';
 
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
@@ -543,7 +547,7 @@ export function glow_verb(count, ingsfx) {
 }
 
 /** C obj.h u_wield_art — is_art(uwep, art). */
-function u_wield_art(art) {
+export function u_wield_art(art) {
     return is_art(game.u?.uwep, art);
 }
 
@@ -1746,6 +1750,65 @@ export function is_art(otmp, art) {
  */
 export function permapoisoned(obj) {
     return !!(obj && is_art(obj, ART_GRIMTOOTH));
+}
+
+/**
+ * C ref: artifact.c count_surround_traps `:2707–2749` — 3×3 including
+ * hero square. Shown trap glyphs skip; hidden t_at / D_TRAPPED door /
+ * first otrapped container on the pile count.
+ */
+function count_surround_traps(x, y) {
+    let ret = 0;
+    for (let dx = (x | 0) - 1; dx < (x | 0) + 2; ++dx) {
+        for (let dy = (y | 0) - 1; dy < (y | 0) + 2; ++dy) {
+            if (!isok(dx, dy)) continue;
+            const glyph = glyph_at(dx, dy);
+            if (glyph_is_trap(glyph)) continue;
+            if (t_at(dx, dy)) {
+                ++ret;
+                continue;
+            }
+            const levp = game.level?.at?.(dx, dy);
+            if (levp && IS_DOOR(levp.typ)
+                && ((levp.doormask | 0) & D_TRAPPED) !== 0) {
+                ++ret;
+                continue;
+            }
+            let o = game._objects_at?.get(`${dx},${dy}`) || null;
+            for (; o; o = o.nexthere) {
+                if (Is_container(o) && o.otrapped) {
+                    ++ret;
+                    break;
+                }
+            }
+        }
+    }
+    return ret;
+}
+
+/**
+ * C ref: artifact.c mkot_trap_warn `:2752–2770` — once-per-turn from
+ * moveloop_core after were_changes / before dosounds. Ungloved Master
+ * Key of Thievery reports a heat word when surround-trap count changes.
+ */
+export async function mkot_trap_warn() {
+    const heat = [
+        'cool', 'slightly warm', 'warm', 'very warm',
+        'hot', 'very hot', 'like fire',
+    ];
+    const u = game.u || {};
+    if (!u.uarmg && u_wield_art(ART_MASTER_KEY_OF_THIEVERY)) {
+        const ntraps = count_surround_traps(u.ux | 0, u.uy | 0);
+        if (ntraps !== (game.mkot_trap_warn_count | 0)) {
+            const idx = Math.min(ntraps, heat.length - 1);
+            await pline(
+                `The Key feels ${heat[idx]}${ntraps > 3 ? '!' : '.'}`,
+            );
+        }
+        game.mkot_trap_warn_count = ntraps;
+    } else {
+        game.mkot_trap_warn_count = 0;
+    }
 }
 
 /**

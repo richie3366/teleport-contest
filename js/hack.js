@@ -128,7 +128,7 @@ function t_at_local(x, y) {
 }
 
 /** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
-async function You_hear(line) {
+export async function You_hear(line) {
     const u = game.u || {};
     if (u.Deaf || game.flags?.acoustics === false) return;
     await pline(`You hear ${line}`);
