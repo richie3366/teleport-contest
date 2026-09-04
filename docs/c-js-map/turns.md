@@ -1690,7 +1690,10 @@ calls shared `getdir` then local `confdir`; dig `use_pick_axe` calls `getdir`) +
 `dowhatdoes_core`; `dxdy_moveok` `:3901–3907` NODIAG grid-bug; live shared
 `js/lock.js` `getdir`; `getdir_cmdassist` wraps; `doclose` / `get_adjacent_loc`
 call `getdir`; no trailing `confdir`; named: mouse `_` getpos, fuzzer,
-`cmd_from_func` keys, rhack `dxdy_moveok`; `yn_function_menu` is D-1728); 
+`cmd_from_func` keys, rhack `dxdy_moveok`; `yn_function_menu` is D-1728) +
+**D-1815 `getdir` `:4098` `iflags.cmdassist`** (optlist default On;
+Options/`O` writes `game.iflags`; `!cmdassist` skips `help_dir` for the
+strange-direction pline; `?` still forces help; not `game.flags`); 
 getobj missing-letter `continue`+`flush_topl_more` (D-0025); 
 **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); 
 **`doclose`/`c` getdir cmdassist + close envelope** (D-0740; 

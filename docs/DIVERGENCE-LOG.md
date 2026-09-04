@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-1815 — cmd.c getdir iflags.cmdassist (not flags)
+
+- **Status:** fixed (Must-fix review **775**; green + named cohort hold)
+- **Symptom:** shared `getdir` gated `help_dir` on
+  `game.flags?.cmdassist !== false`. Options/`O` writes
+  `game.iflags.cmdassist` (optlist default On), so `!cmdassist` never
+  skipped the NHW_TEXT window for the strange-direction pline.
+- **C locus:** `cmd.c` `getdir` `:4098`
+  `if (help_requested || iflags.cmdassist)`; `optlist.h` `cmdassist` →
+  `&iflags.cmdassist` default On; `flag.h` `iflags.cmdassist`.
+- **JS was:** `game.flags?.cmdassist !== false` (D-1806 predicate object).
+  `flags.cmdassist` is never written; undefined `!== false` is always
+  On. Same class as D-0928 `cmd_safety_prevention`.
+- **Fix:** `game.iflags?.cmdassist !== false` in `js/lock.js` `getdir`.
+  `?` (`help_requested`) still forces `help_dir`. Default unset stays
+  On. No trailing `confdir`; no fuzzer.
+- **Named omissions:** mouse `_` getpos; getdir fuzzer `rn2(20)`;
+  `cmd_from_func` keys; rhack `dxdy_moveok`; trailing `confdir(FALSE)`.
+- **Next:** Open `trap.c` `lava_effects` remaining: Fire_resistance /
+  Wwalking / inventory burn / sink-and-die. Not drown.
+
 ## D-1814 — trap.c drown remaining emergency_disrobe / rnd_nextto_goodpos / crawl-out
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

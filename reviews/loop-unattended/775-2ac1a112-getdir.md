@@ -83,3 +83,5 @@ D-log: save-oracle skip; dxdy_moveok probe; focused 5002/0002/0108/0102; green +
 Named (not Must-fix): mouse `_`; fuzzer; `cmd_from_func` keys; rhack `dxdy_moveok`; trailing `confdir`; `tty_nhbell` in `text_page_wait`; interned `yn_function_menu`.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1815

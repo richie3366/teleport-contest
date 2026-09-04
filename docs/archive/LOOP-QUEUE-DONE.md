@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
+- [x] Match C `cmd.c` `getdir` `:4098` `iflags.cmdassist` (Options/`O` writes `game.iflags`) so `!cmdassist` skips `help_dir` and takes the strange-direction pline, instead of `game.flags?.cmdassist !== false`. Source: reviews/loop-unattended/775-2ac1a112-getdir.md **Addressed:** D-1815
+
+
 - [x] `trap.c` drown remaining: rnd_nextto_goodpos / emergency_disrobe / crawl-out. Not lava_effects. **Addressed:** D-1814 `b596f337`
 
 

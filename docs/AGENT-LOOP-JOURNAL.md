@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1815 cmd.c getdir iflags.cmdassist
+
+**Objective:** Must-fix review **775** — Match C `cmd.c` `getdir`
+`:4098` `iflags.cmdassist`. Not confdir.
+**C:** `getdir` `:4098` `if (help_requested || iflags.cmdassist)`;
+optlist `&iflags.cmdassist` default On; Options/`O` writes iflags.
+**JS was:** `game.flags?.cmdassist !== false` (Options never writes
+`flags`; `!cmdassist` never skipped `help_dir`).
+**Fix:** `game.iflags?.cmdassist !== false`. `?` still forces help.
+**Verify:** save-oracle skip (untagged `cmd.c:getdir`); probe (`!cmdassist`
+skips help with `flags=true` red herring; default On / `?` still help;
+valid `h`); green + focused 5002/0002/0108/0102 + cohort 13/13 + strict.
+**Next:** Open `trap.c` `lava_effects` remaining. Not drown.
 ## 2026-09-04 — audit overlay 775–783 + cadence 42/44
 
 **Objective:** review JS SHAs since `3ff0752d` against pinned C;
