@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-1819 — mkmaze.c makemaz Bar-goal load_special (Thoth Amon / Heart of Ahriman)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no `Bar-goal` loader, so the Barbarian quest
+  goal fell through `load_special_proto` (Bar 4/5, named omit). C loads
+  `dat/Bar-goal.lua` via `sp_lev.c` `load_special`.
+- **C locus:** `dat/Bar-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `lspo_map` / `lspo_region` / `lspo_door` /
+  `create_altar` / `create_object` / `create_monster` / `lspo_wallify`.
+  Lua `align="noncoaligned"` is C `get_table_align` → `AM_SPLEV_NONCO`
+  (`noncoalignment` `rn2(2)`); `type="altar"` shrine=0.
+- **JS was:** `load_special_proto` dispatched Bar-strt/loca/fila/filb
+  only; Bar-goal named omitted.
+- **Fix:** `load_bar_goal` from the lua body: solidfill + mazelevel map,
+  unlit `light_region` (no grow), locked `SDOOR`s at 22,09 / 26,09,
+  upstair 36,05, non-diggable STWALL/TREE/bars, altar
+  `sp_amask_to_amask(AM_SPLEV_NONCO)`, named Heart via `create_object`
+  (blessed luckstone), 15 `des.object` / 6 `des.trap`, Thoth Amon +
+  16 ogre / 2 class O / 8 rock troll / class T (`peaceful=0`),
+  `des.wallify` then load_special epilogue (link/cleanup/wallification/
+  flip/fixup).
+- **JS:** `js/mklev.js` `load_bar_goal` / `load_special_proto`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; PASS hidden (no corpus session blocked on
+  makemaz); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort
+  7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** humidity-aware `get_location`; `spo_end_moninvent`
+  `m_dowear`; `G_UNIQ` extinct early return; fakewiz. Not soko2-2.
+- **Next:** Open `mkmaze.c` makemaz `soko2-2` from `dat/soko2-2.lua`.
+
 ## D-1818 — mkmaze.c makemaz Wiz-goal load_special (Dark One / Eye)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

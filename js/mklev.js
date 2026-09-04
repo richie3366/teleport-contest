@@ -1373,7 +1373,7 @@ function reset_xystart_size() {
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
  * bigrm-4, bigrm-7, bigrm-8, bigrm-9, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
- * Bar-filb, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
+ * Bar-filb, Bar-goal, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
  * soko1-2, soko2-1, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
  * tower3, fire, air, minend-1, minend-2, minetn-1, minetn-2, minetn-3,
  * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-3, oracle, castle, valley,
@@ -1381,7 +1381,7 @@ function reset_xystart_size() {
  * Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
  * Named omissions: other bigrm-N / soko2-2 / quest
- * protos (Bar-goal; Kni-strt/loca/fila/filb);
+ * protos (Kni-strt/loca/fila/filb);
  * minend-3; medusa-2/4; water/astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1547,6 +1547,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Bar-filb') {
         load_bar_filb();
+        return true;
+    }
+    if (protofile === 'Bar-goal') {
+        load_bar_goal();
         return true;
     }
     if (protofile === 'Arc-fila') {
@@ -5137,8 +5141,7 @@ function load_kni_goal() {
 /**
  * C ref: dat/Bar-loca.lua via load_special — locate level (ogre fort).
  * Named omissions: humidity-aware get_location for water-likers;
- * set_malign after peaceful override (matches Bar-strt partial);
- * Bar-goal.
+ * set_malign after peaceful override (matches Bar-strt partial).
  */
 function load_bar_loca() {
     const g = game;
@@ -5298,6 +5301,135 @@ function load_bar_loca() {
     placeMon({ cls: 'T', peaceful: 0 });
 
     // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Bar-goal.lua via load_special — Barbarian quest goal
+ * (Thoth Amon / Heart of Ahriman). Named omissions: humidity-aware
+ * get_location; spo_end_moninvent m_dowear; G_UNIQ extinct early return.
+ */
+function load_bar_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const BAR_GOAL_MAP = `
+                                                                            
+                               .............                                
+                             ..................                             
+        ....              .........................          ....           
+      .......          ..........................           .......         
+      ......             ........................          .......          
+      ..  ......................................             ..             
+       ..                 .....................             ..              
+        ..                 ..................              ..               
+         ..         ..S...S..............   ................                
+          ..                   ........                ...                  
+       .........                                         ..                 
+       ......  ..                                         ...  ....         
+      .. ...    ..                             ......       ........        
+   ....          .. ..................        ........       ......         
+  ......          ......................       ......         ..            
+   ....             ..................              ...........             
+                      ..............                                        
+                        ...........                                         
+                                                                            
+`.replace(/^\n/, '');
+    splev_apply_centered_map(BAR_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,75,19), "unlit") — C lspo_region
+    // argc=2: unlit does not grow (light_region litstate=0).
+    light_region(mx + 0, my + 0, mx + 75, my + 19, false);
+
+    // des.door("locked", 22,09) / (26,09) — C lspo_door → sel_set_door;
+    // map 'S' stays SDOOR.
+    const barGoalDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    barGoalDoor(22, 9, D_LOCKED);
+    barGoalDoor(26, 9, D_LOCKED);
+
+    // des.stair("up", 36,05)
+    mkstairs(mx + 36, my + 5, 1, null);
+
+    // des.altar({ x=63,y=04, align="noncoaligned", type="altar" })
+    // C get_table_align("align") → AM_SPLEV_NONCO; type="altar" shrine=0.
+    {
+        const loc = g.level.at(mx + 63, my + 4);
+        if (loc && loc.typ !== LADDER && loc.typ !== STAIRS) {
+            loc.typ = ALTAR;
+            const amask = sp_amask_to_amask(AM_SPLEV_NONCO);
+            loc.altarmask = amask;
+            loc.flags = amask;
+        }
+    }
+
+    // des.non_diggable(selection.area(00,00,75,19))
+    // C sel_set_wall_property: STWALL/TREE/IRONBARS only.
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object luckstone → The Heart of Ahriman (create_object named)
+    create_object({
+        id: LUCKSTONE,
+        class: GEM_CLASS,
+        rx: 63,
+        ry: 4,
+        name: 'The Heart of Ahriman',
+        spe: 0,
+        curse_state: 1,
+    }, null);
+
+    // des.object() × 15
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+
+    // des.trap() × 6
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // des.monster({ id="Thoth Amon", x=63, y=04, peaceful=0 })
+    splev_create_monster('Thoth Amon', 0, { rx: 63, ry: 4 });
+    for (let i = 0; i < 16; i++) splev_create_monster('ogre', 0);
+    for (let i = 0; i < 2; i++) splev_create_monster('O', 0);
+    for (let i = 0; i < 8; i++) splev_create_monster('rock troll', 0);
+    splev_create_monster('T', 0);
+
+    // des.wallify() — C lspo_wallify no-arg: xstart-1 .. xstart+xsize+1
+    wallify_map(
+        (g.splev_xstart | 0) - 1,
+        (g.splev_ystart | 0) - 1,
+        (g.splev_xstart | 0) + (g.splev_xsize | 0) + 1,
+        (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
+    );
+
+    // C load_special: link_doors_rooms → remove_boundary_syms →
+    // map_cleanup → wallification → flip_level_rnd → fixup
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);

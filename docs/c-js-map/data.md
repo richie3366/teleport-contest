@@ -729,7 +729,8 @@ tower2 D-0757; tower3 D-0758; **D-0529 `Bar-loca` + `traptype_rnd`→`level_diff
 `reset_xystart_size`**; **D-0618 `Arc-fila`/`Arc-filb` ordinary `des.room` + 
 croom `get_location_coord` double-retry**; 
 **D-0619 `Arc-goal` load_special** (map/temple/Orb/`Minion` + 
-`fill_special_room` TEMPLE `has_temple`); omit medusa-2/4; Bar-goal; 
+`fill_special_room` TEMPLE `has_temple`); **D-1819 `Bar-goal`** (Thoth Amon /
+Heart; `align="noncoaligned"` → `AM_SPLEV_NONCO`); omit medusa-2/4; 
 **D-0647 `minetn-2` load_special** (`create_subroom`/`create_door`/`splev_des_room` + 
 `flip_level` sbrooms) + **D-0875 `minetn-3` Alley Town** (wand shop + nested chance rooms) + 
 **D-0921 `minetn-4` College Town** (book shop + nested chance rooms; 
@@ -807,7 +808,7 @@ prefix **86170→98492**) + **D-0776 `Wiz-strt`** (cloud replace + Neferet inven
 prefix **98505→100104**; Scr **292**) + **D-0777 `maketrap` AIR/CLOUD + 
 `splev_create_trap` stairs/`get_location_coord`** (prefix **100104→100397**) + 
 **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL**; Scr **561**;
-**D-1818 `Wiz-goal`**; fakewiz deferred)
+**D-1818 `Wiz-goal`**; **D-1819 `Bar-goal`**; fakewiz deferred)
 
 ### `src/track.c`
 

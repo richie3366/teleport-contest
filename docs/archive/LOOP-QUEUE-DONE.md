@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `mkmaze.c` makemaz `Wiz-goal` — Wizard quest goal, completes Wiz 4/5→5/5. Wizard is 11/44 public sessions. Port from `dat/Wiz-goal.lua` (132 ln). **Addressed:** D-1818
+- [x] `mkmaze.c` makemaz `Bar-goal` — completes Bar 4/5→5/5. From `dat/Bar-goal.lua` (95 ln). **Addressed:** D-1819
+
+
+- [x] `mkmaze.c` makemaz `Wiz-goal` — Wizard quest goal, completes Wiz 4/5→5/5. Wizard is 11/44 public sessions. Port from `dat/Wiz-goal.lua` (132 ln). **Addressed:** D-1818 `2c339c26`
 
 
 - [x] Match C `timeout.c` / `wizcmds.c:1029` so `#wizintrinsic` does not paint `deafness [2]` when C’s `u.uprops[DEAF].intrinsic & TIMEOUT` is 0 (seed4500 13 screens; D-1792 leftover `HDeaf` dual-storage). Read `docs/2026-09-04-fortress-regression-42-44.md` §2 before coding. Not drown. Not count-prefix. Not Open `lava_effects`. **Addressed:** D-1817 `bac0ae69`

@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1819 mkmaze.c makemaz Bar-goal load_special (Thoth Amon / Heart of Ahriman)
+
+**C locus:** `dat/Bar-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+**JS:** `js/mklev.js` `load_bar_goal` / `load_special_proto`.
+**Change:** `load_bar_goal` from the lua body: solidfill + mazelevel map,
+**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+**Named:** humidity-aware `get_location`; `spo_end_moninvent`
+**Next:** Open `mkmaze.c` makemaz `soko2-2` from `dat/soko2-2.lua`.
 ## 2026-09-04 — D-1818 mkmaze.c makemaz Wiz-goal load_special (Dark One / Eye)
 
 **C locus:** `dat/Wiz-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223`
