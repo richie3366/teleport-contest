@@ -1529,9 +1529,19 @@ LOGFILE/XLOGFILE/toptenwin NHW_TEXT; builds_up `level_difficulty`; ParanoidQuit 
 tutorial abandon; binary savelev; arise/statue arms; ebones; give_to_nearby_mon body; 
 resetobjs known-strip / set_ghostly (SLIME_MOLD fruit mark is D-1523); `save_dlevel` assign in `no_bones_level`; Is_special boneid letter variants; 
 inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace; 
-`hide_monst` after ghostly; `paygd`/`clearpriests`; `unleash_all` in finish_paybill; 
+`hide_monst` after ghostly; `unleash_all` in finish_paybill; 
 `done_in_by` G_UNIQ/ghost/mimicker/vampshifter/priest|minion/minvis/hallu/monhealthdescr/
 multi_reason; enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
+**`paygd`/`clearpriests`/`fixup_death`/`force_launch_placement`/`clearlocks`/
+`free_pickinv_cache`/`timet_delta` D-1812** (C `end.c` `really_done`
+`:1165` / `:1203` / `:1232` / `:1239–1244` / `:1378`; `vault.c` `paygd`
+`:1204`; `priest.c` `clearpriests` `:918`; `trap.c` `launch_drop_spot`
+`:3221` / `launch_in_progress` `:3235` / `force_launch_placement`
+`:3243`; `files.c` `clearlocks` `:732`; `invent.c` `free_pickinv_cache`
+`:3043`; `allmain.c` `timet_delta` `:995`; live `js/end.js` + those
+modules; named: POSIX signals in clearlocks, `grddead` inside mongone,
+display_pickinv cache setter, insight/save/`#suspend`/`#shell`
+`timet_delta` callers, DUMPLOG); 
 **`observe_quantum_cat` disclose D-1535** (live-cat contents line; 
 **companion HP D-1754**); 
 **`artifact_score` D-1730** (C `end.c:906–940`; ESCAPED/ASCENDED `really_done`

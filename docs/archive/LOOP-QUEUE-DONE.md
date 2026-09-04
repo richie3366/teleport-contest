@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `muse.c` use_misc remaining: muse_newcham_mon / mloot_container / poly / bag / you_aggravate. Not use_defensive. **Addressed:** D-1811
+- [x] `end.c` really_done remaining: fixup_death / force_launch_placement / clearlocks / free_pickinv_cache / timet_delta / clearpriests / paygd. Not DUMPLOG. **Addressed:** D-1812
+
+
+- [x] `muse.c` use_misc remaining: muse_newcham_mon / mloot_container / poly / bag / you_aggravate. Not use_defensive. **Addressed:** D-1811 `9b42dedf`
 
 
 - [x] `muse.c` use_offensive remaining wand / horn / scroll cases. Not use_defensive. **Addressed:** D-1810 `5009dae1`

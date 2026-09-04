@@ -2029,6 +2029,45 @@ function sobj_at(otyp, x, y) {
 }
 
 /**
+ * C ref: trap.c launch_drop_spot `:3221–3233` — mark in-flight launch
+ * ammo so bones / really_done can place it if the hero dies mid-roll.
+ */
+function launchplace_state() {
+    if (!game.launchplace) game.launchplace = { obj: null, x: 0, y: 0 };
+    return game.launchplace;
+}
+
+function launch_drop_spot(obj, x, y) {
+    const lp = launchplace_state();
+    if (!obj) {
+        lp.obj = null;
+        lp.x = 0;
+        lp.y = 0;
+    } else {
+        lp.obj = obj;
+        lp.x = x | 0;
+        lp.y = y | 0;
+    }
+}
+
+/** C ref: trap.c launch_in_progress `:3235–3241`. */
+export function launch_in_progress() {
+    return !!launchplace_state().obj;
+}
+
+/**
+ * C ref: trap.c force_launch_placement `:3243–3250`. Place in-flight
+ * ammo at the saved spot (otrapped cleared). Does not clear launchplace.
+ */
+export function force_launch_placement() {
+    const lp = launchplace_state();
+    if (lp.obj) {
+        lp.obj.otrapped = 0;
+        place_object(lp.obj, lp.x | 0, lp.y | 0);
+    }
+}
+
+/**
  * C ref: trap.c launch_obj — roll/fly ammo from (x1,y1) toward (x2,y2).
  * Envelope: find otyp (BOULDER also tries otherside); extract/split;
  * DISP_FLASH tmp_at + nh_delay_output while cansee (D-0890); ROLL path
@@ -2038,7 +2077,7 @@ function sobj_at(otyp, x, y) {
  * then rloco or add_to_migration (D-1237). Mid-roll LANDMINE rn2(10)>2
  * KAABLAMM / fracture_rock / scatter + PIT/SPIKED_PIT/HOLE/TRAPDOOR
  * flooreffects + dist=-1 (D-1256). Named omissions: LAUNCH_UNSEEN
- * bowling msgs; dig context clear; launch_drop_spot bones; down_gate /
+ * bowling msgs; dig context clear; down_gate /
  * ship_object; post-switch flooreffects; boulder-on-boulder chain;
  * scatter MAY_FRACTURE/MAY_DESTROY/VIS_EFFECTS (explode.js); curs_on_u.
  * @returns {Promise<number>} 0 none, 1 placed, 2 used up
@@ -2096,6 +2135,9 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
     // with delay when cansee — flash still visible if ohitmon pline → more().
     tmp_at(DISP_FLASH, obj_glyph(singleobj));
     tmp_at(x, y);
+    // C trap.c `:3361` — starting cell so bones still have the boulder
+    // if the hero dies mid-roll.
+    launch_drop_spot(singleobj, x, y);
 
     try {
         while (dist-- > 0 && !used_up) {
@@ -2123,12 +2165,14 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                     singleobj.otrapped = 0;
                     mpickobj(mtmp, singleobj);
                     used_up = true;
+                    launch_drop_spot(null, 0, 0);
                     break;
                 }
                 if (await ohitmon(
                     mtmp, singleobj, (style & ROLL) !== 0 ? -1 : dist, false,
                 )) {
                     used_up = true;
+                    launch_drop_spot(null, 0, 0);
                     break;
                 }
             } else if (u_at(x, y)) {
@@ -2143,6 +2187,7 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                 if (box.obj) singleobj = box.obj;
                 else {
                     used_up = true;
+                    launch_drop_spot(null, 0, 0);
                     break;
                 }
             }
@@ -2152,7 +2197,7 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
              * (D-1237). LANDMINE rn2(10)>2 KAABLAMM/fracture_rock/scatter
              * + PIT/SPIKED_PIT/HOLE/TRAPDOOR flooreffects+dist=-1 (D-1256).
              * down_gate / ship_object / post-switch flooreffects /
-             * boulder-on-boulder / launch_drop_spot still named. */
+             * boulder-on-boulder still named. launch_drop_spot is live. */
             if (style === ROLL) {
                 const t = t_at(x, y);
                 if (t && otyp === BOULDER) {
@@ -2180,6 +2225,7 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                             );
                             if (cansee(x, y)) newsym(x, y);
                             used_up = true;
+                            launch_drop_spot(null, 0, 0);
                         }
                     } else {
                         let telep = ttyp === TELEP_TRAP;
@@ -2211,6 +2257,7 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                             }
                             seetrap(t);
                             used_up = true;
+                            launch_drop_spot(null, 0, 0);
                         } else if (ttyp === PIT || ttyp === SPIKED_PIT
                             || ttyp === HOLE || ttyp === TRAPDOOR) {
                             /* boulder may survive a trapped monster
@@ -2222,6 +2269,7 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                                 singleobj, xRest, yRest, 'fall',
                             )) {
                                 used_up = true;
+                                launch_drop_spot(null, 0, 0);
                             }
                             dist = -1;
                         }
@@ -2240,6 +2288,7 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                     if (await hits_bars(box, x, y, x + dx, y + dy, !rn2(20), 0)) {
                         if (!box.obj) {
                             used_up = true;
+                            launch_drop_spot(null, 0, 0);
                         } else {
                             singleobj = box.obj;
                         }
@@ -2262,6 +2311,7 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
         }
     } finally {
         tmp_at(DISP_END, 0);
+        launch_drop_spot(null, 0, 0);
     }
 
     if (!used_up) {

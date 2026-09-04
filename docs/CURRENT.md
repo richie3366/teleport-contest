@@ -22,15 +22,13 @@ notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1805**
 (`3ff0752d`; audit overlay reviews **766–774**). **42**/44.
-**seed0030** RNG **39912**/105529 / Screen **989**/1953 since **D-1795**
-(D-1797 `nomul`/`usleep` did not move the first miss).
-**seed4500** Screen **1801**/1814 (RNG full) since **D-1792**
-(`#wizintrinsic` DEAF `[2]`). Scr **10,428**/11,405, RNG
-**727,221**/792,838 = **91.7%**. Speed `42+0.33/turn` (R² 0.859).
-Must-fix is empty — next port pops Open `end.c`
-`really_done` remaining: fixup_death / force_launch_placement /
-clearlocks / free_pickinv_cache / timet_delta / clearpriests /
-paygd. Not DUMPLOG.
+**seed0030** RNG **39912**/105529 / Screen **989**/1953 since **D-1795**.
+**seed4500** Screen **1801**/1814 (RNG full) since **D-1792**.
+Scr **10,428**/11,405, RNG **727,221**/792,838 = **91.7%**.
+Speed `42+0.33/turn` (R² 0.859).
+Must-fix is empty — next port pops Open `trap.c` `untrap` remaining:
+disarm_holdingtrap / disarm_landmine / disarm_shooting_trap /
+disarm_box / help_monster_out. Not dotrap.
 
 ## Score
 
@@ -52,8 +50,8 @@ seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore.
 
 **Notable non-PASS:** seed0030 RNG 39912/105529 Screen 989/1953 since
-D-1795 (D-1797 `nomul`/`usleep` did not move first token). seed4500 Screen 1801/1814
-since D-1792 (`#wizintrinsic` `j - deafness [2]`; RNG 108275/108275).
+D-1795. seed4500 Screen 1801/1814 since D-1792 (`#wizintrinsic` DEAF
+`[2]`; RNG 108275/108275).
 
 ## Green gate
 
@@ -70,110 +68,27 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 42/44** at D-1805. Audit **766–774** all
-ACCEPT-WITH-DEBT (no Must-fix). Open `muse.c` `use_misc`
-remaining poly/bag/`you_aggravate` shipped (D-1811).
-seed0030 still
-**39912**/105529 — first all-segments miss is C seg4
-`randomize_gem_colors` vs JS still in seg3 combat, **not** sleep
-`rn2(10)` (seg0 RNG OK 14300). Save-oracle required for tagged
-restore/other-floor Open (`save-oracle.mjs probe --omit`).
+**Suite 42/44** at D-1805. Audit **766–774** ACCEPT-WITH-DEBT.
+Open `end.c` `really_done` remaining callees shipped (**D-1812**).
+seed0030 first miss is C seg4 `randomize_gem_colors` vs JS still in
+seg3 combat (seg0 RNG OK 14300). Save-oracle for tagged restore
+Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
-**Next cluster:** `end.c` `really_done` remaining: fixup_death /
-force_launch_placement / clearlocks / free_pickinv_cache /
-timet_delta / clearpriests / paygd. Not DUMPLOG.
-**`end.c` DUMPLOG is retired, do not re-enqueue** (D-1776):
-`nethack-c/macosx-minimal` passes no `-DDUMPLOG`, so every `end.c`
-`#ifdef DUMPLOG` block is compiled out of the scored build, and the
-surviving `DUMPLOG_CORE` `saved_plines[]` ring is write-only (only
-reader is `report.c` crash path).
-**Do not skip D-1531…D-1811 (index).** Keep mention_map addr.
-Do not wrap `wildmiss` or `msg_mon_movement` as `pline_mon`.
-Do not rewrite `confer_oc_oprop`. Do not add trailing
-`confdir` inside shared `getdir`.
-**Do not re-break D-0660…D-1811.** Do not FORCE
-CLOSE/movement/umov / shk satdoor/`onlineu` (D-0376).
-**Do not re-apply D-0480 glyph `tty_map_color` in serialize (D-0483).**
-**Keep:** D-0845…D-1811 (index). Recent: **D-1811**
-`muse.c` `use_misc` poly trap/wand/potion + bag `mloot_container` /
-`muse_newcham_mon` / `you_aggravate`; named: cursed mbag FIXME,
-CLIPPING `cliparound`. **D-1810**
-`muse.c` `use_offensive` ray wands / horns / tele+undead `mbhitm` /
-SCR_EARTH drop_boulder; named: linedup_callback floor-corpse,
-`fhito_loc`/`bhito`, destroy_drawbridge, SCR_FIRE #if 0.
-**D-1809**
-`muse.c` `use_defensive` mreadmsg / reveal_trap / mon_escape /
-`mon_consume_unstone` + lizard/stairs/traps/tele+create scrolls;
-named: unicorn horn, bugle, wand dig/tele/create/undead,
-`munstone`. **D-1808**
-`sounds.c` `domonnoise` remaps + MS_ORACLE `doconsult` /
-MS_PRIEST `priest_talk` / MS_SELL `shk_chat`; named: other MS_*,
-`verbl_msg_mcan`, `night()` howl, save/rest `oracle_loc`. **D-1807**
-`pline.c` `vpline` `msgtype_type` / `execplinehandler` /
-`maybe_play_sound`; named: USER_SOUNDS `SOUND=` / soundmap,
-UNIX msghandler fork/exec, doset MSGTYPE menu. **D-1806**
-`cmd.c` `getdir` help_dir / cmdassist / strange-direction
-NEED_MORE / `dxdy_moveok`; named: mouse `_` getpos, fuzzer,
-`cmd_from_func` keys, rhack `dxdy_moveok`. **D-1805**
-`cmd.c` `yn_function` remaining: debug_fuzzer `rn2(20)`/`rn2(ln)`/ESC
-retry, mismatch `impossible`, `input_state=otherInp`; named:
-SND_SPEECH, DUMPLOG_CORE, paniclog file, interned `'yn'` callers,
-getdir fuzzer. **D-1804**
-`invent.c` `getobj` in_doagain `readchar` + GETOBJ ranks + sortloot
-INVLET; `#adjust` live getobj. **D-1803**
-`do_name.c` `x_monnam` remaining + `nextmbuf` / `lcase` / `just_an`;
-named: priestname. **D-1802**
-`objnam.c` `xname_flags` `xcalled` + gameover T_SHIRT/`apron_text`/
-`hawaiian_motif`/CANDY_BAR; named: article arms, `armor_simple_name`,
-`find_artifact`, `hawaiian_design`/doread. **D-1801**
-`allmain.c` `moveloop_core` `do_storms` / `glibr` / `mkot_trap_warn` /
-`end_of_input`; named: `buzz`/`dobuzz`, `amulet()`, `intervene`. **D-1800**
-`hack.c` `test_move`/`domove_core` water_friction / avoid-trap-or-liquid /
-fight ironbars+web / mention_walls; named: lookaround, air_turbulence,
-slippery_ice, escape_from_sticky, Known_wwalking, autodig/`worm_cross`,
-`exercise_steed`. **D-1799**
-`hack.c` `spoteffects` `:3311` recursion/`in_lava_effects`/lev
-`rn2(2)`/Warning ice/piercer surprise; named: pooleffects leave-water,
-`failing_untrap` writer. **D-1798**
-`monmove.c` `dochug` remaining + `worm.c` `wormhitu` `:343`; named:
-`demon_talk`, `cuss`. **D-1797**
-`hack.c` `nomul` `:4166` `uinvulnerable=FALSE`+`usleep=0` /
-`unmul` `:4197` `usleep=0`; named: Upolyd survived-that form.
-**D-1796** `mon.c` `xkilled` `:3476` LEVEL_SPECIFIC_NOCORPSE +
-accessible||is_pool + artifact un-create; `accessible` export;
-named: flooreffects / MAIL / wasinside `spoteffects` / quest adjalign.
-**D-1795** `mhitu.c` `mattacku` `:490` remaining body + `getmattk`
-`:309` DISE/DREN/cancelled-WEAP/home-elem; `m_monnam`; named: `hitmu`,
-SEDUCE=0. `nomul`/`usleep` is D-1797. **D-1794** `mon.c` `make_corpse` `:563` special table +
-epilogue; `free_mgivenname`; named: cham/were `mondead`. **D-1793**
-`weapon.c` `dmgval` `:215` vs-mon bonus `rnd()` + erosion;
-`is_axe` one export; named: `hitval` blessed/spear. **D-1792**
-`timeout.c` `nh_timeout` `:588` dialogues + `attrib.c` `stone_luck`
-`:421` + `eat.c` `Popeye` `:3915` — luck still runs when invulnerable;
-stoned/slime/vomiting/choke/sickness/levitation/phaze before uprops `--`.
-Named: `region_dialogue` / `sleep_dialogue`; STONED/SLIMED `done_timeout`
-/ `slimed_to_death`; surface() Underwater bottom. **D-1791**
-`eat.c` `newuhs` `:3362` — messages / faint / starve / ATEMP /
-`end_running`; `unfaint` afternmv; `gethungry` async. Named: sit.js
-lay-egg `morehungry` still not awaited; `polyself.c` / `cant_finish_meal`
-callers; `findtravelpath` `end_running(FALSE)`. **D-1790**
-`mon_nam_too`/`monverbself` one home; makeplural as C writes it
-(hallu steed “Them”/“Theys”). **D-1789** `keepdogs` snapshot walk,
-no `stay` rebuild. **D-1788** `#cast` DETECT_FOOD `seffects`.
-**D-1787** lookat `glyph_to_trap(glyph_at)`. **D-1786** ballfall
-`u.uball`. D-1785…D-1755 (index).
-**Do not / rejects:** FORCE/RNG; HEAVY_IRON_BALL `owt!=0`;
-judge-elides-RC (D-0933); extend §1.2; LB peels; skip painting
-spaces; wrap `wildmiss` / `msg_mon_movement` as `pline_mon`;
-Do not skip D-1229…D-1811 (index). No `reset_glyphmap` /
-`notice_all_mons` / `makemap_remove_mons` / savelev-freeing /
-lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE.
-No trailing `confdir` in shared `getdir`. Latebound `body_part`.
-No fourth town gnome. No makemon→hack/`artifact`/`minion`.
-Do not delete emin. `#altdip` stays INTERNALCMD. No
-bones→options fruitadd. Do not rewrite `confer_oc_oprop`.
-Do not re-port D-1660…D-1811 (index). No generic `dknown` on
-`otyp < FIRST_OBJECT`. No dump_fmtstr / paniclog filesystem. DUMPLOG retired (D-1776).
+**Next cluster:** `trap.c` `untrap` remaining: disarm_holdingtrap /
+disarm_landmine / disarm_shooting_trap / disarm_box /
+help_monster_out. Not dotrap.
+**DUMPLOG retired (D-1776)** — do not re-enqueue.
+**Keep D-0845…D-1812 (index).** Recent **D-1812:** `fixup_death` /
+`launch_drop_spot` / `force_launch_placement` / `clearlocks` /
+`free_pickinv_cache` / `timet_delta` / `clearpriests` / `paygd`.
+Named: POSIX signals, `grddead`, display_pickinv cache setter,
+insight/save/`#suspend`/`#shell` `timet_delta` callers.
+**Do not:** FORCE/RNG; skip D-1229…D-1812; wrap `wildmiss` /
+`msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
+trailing `confdir` in shared `getdir`; D-0480 glyph serialize
+(D-0483); reset_glyphmap / notice_all_mons / savelev-freeing /
+lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
+paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007
 + seed2200 + seed0383 + strict lengths.
 

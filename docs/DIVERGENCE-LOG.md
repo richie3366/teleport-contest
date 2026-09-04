@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1812 — end.c really_done remaining fixup_death / launch / clearlocks / pickinv / timet_delta / clearpriests / paygd
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** `really_done` skipped C callees so death-time gold/priest
+  cleanup, in-flight rolling-boulder placement, JSON level-lock
+  delete, pickinv window cache free, and wall-clock `timet_delta`
+  never ran. DUMPLOG stays retired (D-1776).
+- **C locus:** `end.c` `really_done` `:1165` / `:1203` / `:1232` /
+  `:1239–1244` / `:1378`; `end.c` `fixup_death` `:365`; `vault.c`
+  `paygd` `:1204`; `priest.c` `clearpriests` `:918`; `trap.c`
+  `launch_drop_spot` `:3221` / `launch_in_progress` `:3235` /
+  `force_launch_placement` `:3243`; `files.c` `clearlocks` `:732`;
+  `invent.c` `free_pickinv_cache` `:3043`; `allmain.c` `timet_delta`
+  `:995` / `newgame` `:835`.
+- **JS was:** paybill then flush; `// paygd / clearpriests deferred`;
+  no `urealtime`; no launchplace; `delete_levelfile` existed but
+  `clearlocks` did not call it at gameover.
+- **Fix:** wire those callees in C order. `launch_drop_spot` marks
+  in-flight ammo in `launch_obj`. `newgame` zeros `urealtime` and
+  stamps `start_timing = getnow()` so contest datetime deltas are 0.
+  JSON `clearlocks` (Rule #2 — no unlink).
+- **Named omissions:** POSIX signal/hangup in `clearlocks`; `grddead`
+  inside `mongone`; `display_pickinv` cache setter; insight
+  `fmt_elapsed_time` / `savegamestate` / `#suspend` / `#shell`
+  `timet_delta` callers; DUMPLOG.
+- **Next:** Open `trap.c` `untrap` remaining: disarm_holdingtrap /
+  disarm_landmine / disarm_shooting_trap / disarm_box /
+  help_monster_out. Not dotrap.
+
 ## D-1811 — muse.c use_misc remaining poly / bag / you_aggravate
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

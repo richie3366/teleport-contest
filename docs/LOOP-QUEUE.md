@@ -37,7 +37,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
 order; rows 13–30 of that file refill this list.
 
-- [ ] `end.c` really_done remaining: fixup_death / force_launch_placement / clearlocks / free_pickinv_cache / timet_delta / clearpriests / paygd. Not DUMPLOG.
 - [ ] `trap.c` untrap remaining: disarm_holdingtrap / disarm_landmine / disarm_shooting_trap / disarm_box / help_monster_out. Not dotrap.
 - [ ] `trap.c` drown remaining: rnd_nextto_goodpos / emergency_disrobe / crawl-out. Not lava_effects.
 - [ ] `trap.c` lava_effects remaining: Fire_resistance / Wwalking / inventory burn / sink-and-die. Not drown.
