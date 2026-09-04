@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1832 — wintty.c process_menu_window no redraw on unhandled key (D-1831 snapshot regression)
+
+- **Status:** fixed (Must-fix D-1831 corpus regression; green + cohort + full `sessions` 44/44)
+- **Symptom:** `_snapshotStatusGrid` restore in `_buildScreenOutput` copied rows 22–23 that `itemactions`' per-key `docrt()`→`cls()` already blanked, so WIN_STATUS went blank on the frame after a corner-menu re-prompt. 12 corpus sessions (e.g. `ind-Healer-264813587-946e8e73` step 22, `explore-seed0200-monk-north-search-70435b72` step 47). C `process_menu_window` loops on `tty_nhgetch` without redraw on an unhandled key.
+- **C locus:** `wintty.c` `process_menu_window` `:1329–1768` (default: `tty_nhbell(); break;` — `page_start` stays); `iactions.c` `itemactions` `select_menu` PICK_ONE; `display.c` `docrt_flags` `:1765–1770` sets `disp.botlx` and does **not** call `bot()`; `pager.c` `dohelp` / `whatis_menu_choice`.
+- **JS was:** `itemactions` / `dohelp` / look-at dismissed with `docrt` before testing the key. Snapshot restore then copied the cls blanks. Painting the botl cache without `_statusSuppressed` after fullscreen invent failed D-0467 (seed0002 @530 / seed5002 @277).
+- **Fix:** Unhandled keys `tty_nhbell` only (no `docrt`/`cls`). Valid pick/cancel uses `dismiss_nhw_menu` (corner docorner). Fullscreen dismiss sets `_statusSuppressed` so the itemed leftover stays blank until `bot()`. Deleted `_snapshotStatusGrid` / `_restoreStatusGrid`; `_buildScreenOutput` paints the botl cache unless suppressed.
+- **JS:** `js/iactions.js` `itemactions`; `js/pager.js` `whatis_menu_choice` / `dohelp`; `js/invent.js` `dismiss_nhw_menu`; `js/display.js` `_buildScreenOutput`.
+- **Verify:** `node scripts/verify.mjs --fn process_menu_window --base ab55b818` → PASS syntax (4 js files); PASS rule2; PASS hidden verify process_menu_window: 19 PASS, 2 moved past (2 re-attributed at the same step to `do_statusline1`: `explore-seed0116` ×2), 0 unchanged, 0 worse → PROGRESS; PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** `process_menu_window` paging `docorner` repair (`previous_page_lines`); PICK_ANY invert-all; itemactions apply catalogue; Traditional itemize yn. Not leftover WIN_STATUS on unhandled keys, MENU_SEARCH overlay wrap, per-window extra-page `cl_end`, or D-0467 fullscreen-invent blank.
+- **Next:** Open `iactions.c` `itemactions` (Engrave vs Write, cookie vs cookies). Not getobj.
+
 ## D-1831 — wintty.c process_menu_window leftover WIN_STATUS + MENU_SEARCH overlay wrap
 
 - **Status:** **partial** — corpus regression found by a human re-score

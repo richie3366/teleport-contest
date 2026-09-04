@@ -15,8 +15,8 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, docrt, set_bot_disabled } from './display.js';
-import { paint_corner_nhw_menu, inuse_headers_accessories, inuse_headers_set_accessories, check_invent_gold, process_menu_search } from './invent.js';
+import { flush_screen, set_bot_disabled, tty_nhbell } from './display.js';
+import { paint_corner_nhw_menu, dismiss_nhw_menu, inuse_headers_accessories, inuse_headers_set_accessories, check_invent_gold, process_menu_search } from './invent.js';
 import { cxname, the, xname, makeplural, singular, is_plural, the_unique_obj } from './objnam.js';
 import { ia_checkfile } from './pager.js';
 import { call_ok, name_ok } from './do_name.js';
@@ -722,51 +722,50 @@ export async function itemactions(otmp) {
 
     // C tty_end_menu: prompt ATR_INVERSE, blank, then items.
     // C windows.c select_menu `:1858–1863` gb.bot_disabled; wintty.c
-    // process_menu_window corner `cl_end` from offx only — leftover
-    // WIN_STATUS left of offx stays (D-0467 blanked the whole row).
+    // process_menu_window `:1329–1768` loops on tty_nhgetch without
+    // redraw on an unhandled key (default: tty_nhbell). Corner cl_end
+    // from offx; leftover WIN_STATUS stays. D-0467 fullscreen blank
+    // is `_statusSuppressed`, not a per-key docrt/cls.
+    const entries = [
+        { text: prompt, attr: ATR_INVERSE },
+        { text: '', attr: 0 },
+        ...items.map((it) => ({ text: it.text, attr: 0 })),
+    ];
     const _botPrev = set_bot_disabled(true);
     try {
-    for (;;) {
-        const entries = [
-            { text: prompt, attr: ATR_INVERSE },
-            { text: '', attr: 0 },
-            ...items.map((it) => ({ text: it.text, attr: 0 })),
-        ];
         await paint_corner_nhw_menu(entries, '(end) ');
         await flush_screen(1);
-        const key = await nhgetch();
-        const ch = String.fromCharCode(key);
-        // C process_menu_window MENU_SEARCH `:1698–1731` before dismiss.
-        if (ch === MENU_SEARCH) {
-            const searchItems = items.map((it) => ({
-                selectable: true,
-                selector: it.let,
-                menuStr: it.text,
-                act: it.act,
-            }));
-            const res = await process_menu_search(searchItems, PICK_ONE);
-            if (res.kind === 'finish' && res.item) {
-                game._menu_overlay = false;
-                await docrt();
-                await flush_screen(1);
-                await itemactions_pushkeys(res.item.act, otmp);
+        for (;;) {
+            const key = await nhgetch();
+            const ch = String.fromCharCode(key);
+            // C process_menu_window MENU_SEARCH `:1698–1731` before dismiss.
+            if (ch === MENU_SEARCH) {
+                const searchItems = items.map((it) => ({
+                    selectable: true,
+                    selector: it.let,
+                    menuStr: it.text,
+                    act: it.act,
+                }));
+                const res = await process_menu_search(searchItems, PICK_ONE);
+                if (res.kind === 'finish' && res.item) {
+                    await dismiss_nhw_menu();
+                    await itemactions_pushkeys(res.item.act, otmp);
+                    return ECMD_OK;
+                }
+                continue;
+            }
+            if (key === 27 || key === 13 || key === 10 || key === 32) {
+                await dismiss_nhw_menu();
                 return ECMD_OK;
             }
-            continue;
+            if (byLet.has(ch)) {
+                await dismiss_nhw_menu();
+                await itemactions_pushkeys(byLet.get(ch).act, otmp);
+                return ECMD_OK;
+            }
+            // C process_menu_window default: tty_nhbell(); page_start stays.
+            tty_nhbell();
         }
-        game._menu_overlay = false;
-        await docrt();
-        await flush_screen(1);
-
-        if (key === 27 || key === 13 || key === 10 || key === 32) {
-            return ECMD_OK;
-        }
-        if (byLet.has(ch)) {
-            await itemactions_pushkeys(byLet.get(ch).act, otmp);
-            return ECMD_OK;
-        }
-        // C invalid: xwaitforspace again; do not blank WIN_STATUS
-    }
     } finally {
         set_bot_disabled(_botPrev);
     }

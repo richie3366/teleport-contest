@@ -5104,46 +5104,6 @@ export function set_bot_disabled(v) {
 }
 
 /**
- * C botl.c `gb.bot_disabled`: bot() does not putstr WIN_STATUS, so the
- * tty cells stay as the previous window left them. JS `_buildScreenOutput`
- * clearScreen would otherwise rewrite them from the botl cache.
- * @param {object} display
- * @returns {{ ch: string, color: number, attr: number }[][] | null}
- */
-function _snapshotStatusGrid(display) {
-    const grid = display?.grid;
-    if (!grid?.[22] || !grid[23]) return null;
-    const cols = display.cols || 80;
-    const rows = [];
-    for (let r = 22; r <= 23; r++) {
-        const cells = [];
-        for (let c = 0; c < cols; c++) {
-            const cell = grid[r][c];
-            cells.push({
-                ch: cell?.ch ?? ' ',
-                color: cell?.color ?? NO_COLOR,
-                attr: cell?.attr ?? 0,
-            });
-        }
-        rows.push(cells);
-    }
-    return rows;
-}
-
-/** @param {object} display @param {{ ch: string, color: number, attr: number }[][] | null} snap */
-function _restoreStatusGrid(display, snap) {
-    if (!snap || !display?.setCell) return;
-    for (let i = 0; i < snap.length; i++) {
-        const cells = snap[i];
-        const r = 22 + i;
-        for (let c = 0; c < cells.length; c++) {
-            const cell = cells[c];
-            display.setCell(c, r, cell.ch, cell.color, cell.attr);
-        }
-    }
-}
-
-/**
  * Suppress status paint after fullscreen NHW_MENU clear. C leaves status
  * blank until the next bot(); used for Options → choose_classes.
  */
@@ -5365,9 +5325,6 @@ function _buildScreenOutput() {
 
     // Also write to grid for serialize_terminal_grid
     if (display.grid) {
-        // C gb.bot_disabled: do not putstr WIN_STATUS. Snapshot before
-        // clearScreen so leftover / post-fullscreen-blank cells stay.
-        const statusSnap = _bot_disabled ? _snapshotStatusGrid(display) : null;
         display.clearScreen();
         // Message line(s) — --More-- may sit on row 1 when msg is long
         const msg = game._pending_message || '';
@@ -5413,11 +5370,12 @@ function _buildScreenOutput() {
                 loc.gnew = 0;
             }
         }
-        // Status lines from last bot() (uhp==-1 skip keeps prior).
-        // bot_disabled: restore tty leftover, do not paint the cache.
-        if (_bot_disabled) {
-            _restoreStatusGrid(display, statusSnap);
-        } else if (!_statusSuppressed) {
+        // Status from last bot() cache. C gb.bot_disabled skips putstr so
+        // leftover tty cells stay; JS clearScreen wipes them, so repaint
+        // the cache unless D-0467 `_statusSuppressed` (fullscreen NHW_MENU
+        // left WIN_STATUS blank). Do not snapshot/restore grid rows — that
+        // copies blanks after a per-key docrt/cls (D-1831 regression).
+        if (!_statusSuppressed) {
             const s1 = _lastStatus1 || s1raw.replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
                 m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10) || 0) : '');
             for (let c = 0; c < Math.min(s1.length, display.cols); c++)

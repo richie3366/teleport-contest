@@ -1,5 +1,7 @@
 # Continuation postmortem — #2238 → #2240, D-1831 (2026-09-05)
 
+**Addressed:** D-1832
+
 Human investigation (loop stopped). **Read this before relaunching.**
 It explains why one D-entry cost 533 tool calls and 62 minutes, why the
 commit's corpus claim is wrong, what was changed so it does not repeat,

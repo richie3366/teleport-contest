@@ -20,7 +20,7 @@ import {
     flush_screen, flush_topl_more, pline, docrt, more,
     mon_glyph, obj_glyph, look_shown_at, terrain_glyph, Hallucination,
     glyph_to_obj_at, glyph_at, glyph_is_trap, glyph_to_trap,
-    set_bot_disabled,
+    set_bot_disabled, tty_nhbell,
 } from './display.js';
 import { howmonseen } from './vision.js';
 import { getlin, yn_function } from './getline.js';
@@ -1387,30 +1387,45 @@ async function whatis_menu_choice() {
     // C windows.c select_menu gb.bot_disabled wrap.
     const _botPrev = set_bot_disabled(true);
     try {
-    for (;;) {
         await paint_corner_nhw_menu(entries, '(end) ');
         await flush_screen(1);
-        const key = await nhgetch();
-        const ch = String.fromCharCode(key);
-        // C process_menu_window MENU_SEARCH `:1698–1731` before dismiss.
-        if (ch === MENU_SEARCH) {
-            const res = await process_menu_search(searchItems, PICK_ONE);
-            if (res.kind === 'finish' && res.item) {
-                // C erase_menu_or_text: corner docorner, not docrt/cls.
-                await dismiss_nhw_menu();
-                return res.item.selector;
+        for (;;) {
+            const key = await nhgetch();
+            const ch = String.fromCharCode(key);
+            // C process_menu_window MENU_SEARCH `:1698–1731` before dismiss.
+            if (ch === MENU_SEARCH) {
+                const res = await process_menu_search(searchItems, PICK_ONE);
+                if (res.kind === 'finish' && res.item) {
+                    await dismiss_nhw_menu();
+                    return res.item.selector;
+                }
+                continue;
             }
-            continue;
+            if (key === 27 || ch === 'q') {
+                await dismiss_nhw_menu();
+                return 'q';
+            }
+            if (ch === '\r' || ch === '\n' || ch === ' ') {
+                // C PICK_ONE space on last page finishes with n==0; look-at
+                // treats that as re-prompt. Do not docrt/cls.
+                continue;
+            }
+            // lootabc false: y ≡ /, n ≡ ?
+            if (ch === 'y') {
+                await dismiss_nhw_menu();
+                return '/';
+            }
+            if (ch === 'n') {
+                await dismiss_nhw_menu();
+                return '?';
+            }
+            if ('/i?mMoOtTeE'.includes(ch)) {
+                await dismiss_nhw_menu();
+                return ch;
+            }
+            // C process_menu_window default: tty_nhbell(); no redraw.
+            tty_nhbell();
         }
-        // C destroy_nhwindow after select_menu: corner skips cls (WIN_STATUS stays).
-        await dismiss_nhw_menu();
-        if (key === 27 || ch === 'q') return 'q';
-        if (ch === '\r' || ch === '\n' || ch === ' ') continue;
-        // lootabc false: y ≡ /, n ≡ ?
-        if (ch === 'y') return '/';
-        if (ch === 'n') return '?';
-        if ('/i?mMoOtTeE'.includes(ch)) return ch;
-    }
     } finally {
         set_bot_disabled(_botPrev);
     }
@@ -1821,19 +1836,23 @@ export async function dohelp() {
         ...items.map(it => ({ text: `${it.key} - ${it.text}`, attr: 0 })),
     ];
 
+    await paint_corner_nhw_menu(entries, '(end) ');
+    await flush_screen(1);
     for (;;) {
-        await paint_corner_nhw_menu(entries, '(end) ');
         const key = await nhgetch();
-        game._menu_overlay = false;
-        await docrt();
-        await flush_screen(1);
         const ch = String.fromCharCode(key);
-        if (key === 27 || ch === 'q') return 0;
+        if (key === 27 || ch === 'q') {
+            await dismiss_nhw_menu();
+            return 0;
+        }
         if (ch === '\r' || ch === '\n' || ch === ' ') continue;
         const it = items.find(x => x.key === ch);
         if (it) {
+            await dismiss_nhw_menu();
             await it.fn();
             return 0;
         }
+        // C process_menu_window default: tty_nhbell(); no docrt/cls.
+        tty_nhbell();
     }
 }

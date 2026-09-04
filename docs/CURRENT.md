@@ -72,20 +72,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1831**. **Must-fix first** (`LOOP-QUEUE.md`):
-**Next cluster:** `wintty.c` `process_menu_window` — D-1831 regression:
-`_snapshotStatusGrid` restore blanks WIN_STATUS on the frame after a
-corner-menu re-prompt (12 corpus blocks). Port the C loop (no `docrt`
-per key), keep D-0467 post-fullscreen blank, delete the snapshot.
-Falsifier: `node scripts/verify.mjs --fn process_menu_window --base ab55b818`.
-Then Open `iactions.c` `itemactions` — 14 corpus blocks.
+**Suite 44/44** at **D-1832**. Must-fix D-1831 snapshot regression
+shipped: unhandled corner-menu keys `tty_nhbell` only; fullscreen
+dismiss keeps D-0467 `_statusSuppressed`; snapshot pair deleted.
+**Next cluster:** Open `iactions.c` `itemactions` — 14 corpus blocks
+(Engrave vs Write, cookie vs cookies).
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1831 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1832 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1832** `wintty.c` `process_menu_window` `:1329–1768` (default: `tty_nhbell(); break;` — Unhandled keys `tty_nhbell` only (no `docrt`/`cls`).
 **D-1831** `wintty.c` `process_menu_window` `:1329–1768` (`:1501–1505` — `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv /
 **D-1830** `dat/Rog-strt.lua` / `Rog-loca.lua` / `Rog-goal.lua` / — `load_rog_strt` from the lua body: solidfill STONE +
 **D-1829** `dat/Kni-strt.lua` / `Kni-loca.lua` / `Kni-fila.lua` / — `load_kni_strt` from the lua body: solidfill ROOM + mines fg=bg="."
@@ -93,10 +92,9 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1827** `dat/water.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_water` from the lua body: solidfill + mazelevel+noteleport
 **D-1826** `dat/medusa-2.lua`; `dat/medusa-4.lua`; `mkmaze.c` `makemaz` — `load_medusa_2` from the lua body: solidfill + mazelevel+noteleport,
 **D-1825** `mcastu.c` `mcast_spell` `:800–897` (all 20 `MCAST_*` — port the remaining 14 arms from the C bodies; `mcast_spell`
-**D-1824** `dat/Bar-goal.lua` `:44–57`; `sp_lev.c` `create_object` / — loop bound 14 matching lua `:44–57`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1831; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1832; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

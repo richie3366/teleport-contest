@@ -50,6 +50,7 @@ import {
     endgamelevelname, obj_glyph, suppress_map_output,
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
     clear_nhwindow_message, Hallucination, set_bot_disabled,
+    clear_committed_status,
 } from './display.js';
 import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin, mungspaces } from './getline.js';
@@ -2491,6 +2492,9 @@ export async function dismiss_nhw_menu() {
     // offx==0 (C fullscreen erase_menu_or_text → docrt).
     if (!g || g.offx === 0) {
         await docrt();
+        // C docrt_flags: botlx=TRUE, caller bot() later. JS cache would
+        // otherwise repaint WIN_STATUS; D-0467 itemed leftover is blank.
+        clear_committed_status();
     }
     // Corner: skip docrt; flush_screen rebuilds the terminal from gbuf.
     await flush_screen(1);
