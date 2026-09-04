@@ -37,7 +37,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
 order; rows 13–30 of that file refill this list.
 
-- [ ] `cmd.c` yn_function remaining body including RNG arms. Not getlin.
 - [ ] `cmd.c` getdir help_dir / cmdassist / strange-direction NEED_MORE / dxdy_moveok. Not confdir.
 - [ ] `pline.c` vpline msgtype_type / execplinehandler / maybe_play_sound. Not pline wrapper.
 - [ ] `sounds.c` domonnoise remaining: genus / mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg.

@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1805 cmd.c yn_function remaining + fuzzer RNG
+
+**Objective:** Open `cmd.c` `yn_function` remaining body including
+RNG arms. Not `getlin`.
+**C:** `yn_function` `:5470–5583`; `flag.h` debug_fuzzer_states;
+`hack.h` InputState `otherInp`. SND_SPEECH compiled out.
+**JS was:** cmdq/menu/tty only; fuzzer `rn2` omitted; silent remap;
+no `input_state`.
+**Fix:** fuzzer USER_INPUT `rn2(20)`/`rn2(ln)`/ESC retry; mismatch
+`impossible` unless `in_doagain && !wizard`; `input_state=otherInp`.
+Named: SND_SPEECH; DUMPLOG_CORE; paniclog file; interned yn callers;
+getdir fuzzer.
+**Verify:** save-oracle skip (untagged); probes (canned no-rng, fuzzer
+picks, ESC retry, doagain remap); green + strict; cohort 9/9 + strict.
+**Next:** Open `cmd.c` `getdir` help_dir / cmdassist / strange-dir
+NEED_MORE / `dxdy_moveok`. Not `confdir`.
 ## 2026-09-04 — D-1804 invent.c getobj in_doagain / prompt+filter
 
 **Objective:** Open `invent.c` `getobj` in_doagain / prompt+filter

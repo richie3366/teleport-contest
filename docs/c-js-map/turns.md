@@ -2115,6 +2115,12 @@ fall through `:102–211` `intr`/`doprev`/else `tty_nhbell`; JS had
 then `cmdq_add_key(CQ_REPEAT)` when TRUE; `iflags.last_msg` PLNMSG_UNKNOWN;
 query `QBUFSZ` `...` truncate; resp-mismatch remap after record;
 `tty_yn_function` windowport; getobj / paranoid_ynq / askchain FALSE).
+**yn remaining + fuzzer RNG D-1805** (`cmd.c` `:5513–5581`
+`debug_fuzzer && resp && *resp && rn2(20)` then `rn2(ln)` / ESC
+`rn2(ln-1)`-or-`rn2(ridx)`; mismatch `impossible` unless
+`in_doagain && !wizard` with TEMP `fuzzer_impossible_continue`;
+`program_state.input_state = otherInp`; live `js/getline.js` +
+`js/const.js` InputState / fuzzer states).
 **getdir yn_function D-1721** (`cmd.c` `:3987–4011`; lock.js + throw/zap/dig clones).
 **getdir CQ_REPEAT D-1729** (`cmd.c` `:3962–4019`; `getdir_read_dirsym`;
 throw `getdir_cmdassist`; zap local confdir; dig `use_pick_axe` `getdir`).
@@ -2124,8 +2130,9 @@ throw `getdir_cmdassist`; zap local confdir; dig `use_pick_axe` `getdir`).
 paranoid_ynq + `choose_ring_hand` identity; live `js/getline.js` +
 `js/const.js` + `js/options.js` + `js/jsmain.js` + `js/do_wear.js`).
 Named: remaining interned `'yn'`/`'ynq'` callers; hide+web
-`hidespinchars` in `domonability`; fuzzer; SND_SPEECH; DUMPLOG;
-paniclog/impossible; `input_state`; mouse `_` getpos.
+`hidespinchars` in `domonability`; SND_SPEECH (no soundlib);
+DUMPLOG_CORE (D-1776); paniclog file (Rule #2); getdir fuzzer /
+help_dir / cmdassist / `dxdy_moveok` (next Open).
 `gettty` termios named.
 Do not enable EDIT_GETLIN (would drop the replace prompt).
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `invent.c` getobj in_doagain / prompt+filter machinery. Not display_pickinv. **Addressed:** D-1804
+- [x] `cmd.c` yn_function remaining body including RNG arms. Not getlin. **Addressed:** D-1805
+
+
+- [x] `invent.c` getobj in_doagain / prompt+filter machinery. Not display_pickinv. **Addressed:** D-1804 `fa5f3acc`
 
 
 - [x] `do_name.c` x_monnam saddle / ARTICLE_* / M2_PNAME / Wizard article + nextmbuf. Not mon_nam_too. **Addressed:** D-1803 `248e8d60`

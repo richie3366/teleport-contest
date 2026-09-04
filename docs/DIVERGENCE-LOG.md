@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-1805 — cmd.c yn_function remaining body including fuzzer RNG arms
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** JS `yn_function` stopped after cmdq/menu/tty: no
+  `debug_fuzzer` `rn2(20)`/`rn2(ln)`/ESC-retry, silent resp-mismatch
+  remap (no `impossible`), and no `program_state.input_state =
+  otherInp`. Fuzzer/held-out yn paths desync the core stream.
+- **C locus:** `cmd.c` `yn_function` `:5470–5583`; `flag.h`
+  `debug_fuzzer_states`; `hack.h` `enum InputState` `otherInp`.
+  Not `getlin`. SND_SPEECH compiled out (no soundlib). DUMPLOG_CORE
+  retired (D-1776). paniclog file Rule #2.
+- **JS was:** those arms named-omit after D-1728 menu + D-1706 addcmdq.
+- **Fix:** remaining USER_INPUT fuzzer arm, mismatch `impossible` unless
+  `in_doagain && !wizard` (TEMP `fuzzer_impossible_continue`),
+  `input_state = otherInp`. `js/const.js` InputState + fuzzer states.
+- **Named omissions:** SND_SPEECH; DUMPLOG_CORE; paniclog file;
+  interned `'yn'`/`'ynq'` callers; hide+web `hidespinchars` in
+  `domonability`; getdir fuzzer (next Open).
+- **Next:** Open `cmd.c` `getdir` help_dir / cmdassist /
+  strange-direction NEED_MORE / `dxdy_moveok`. Not `confdir`.
+
 ## D-1804 — invent.c getobj in_doagain readchar + GETOBJ ranks + sortloot filter
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

@@ -542,6 +542,13 @@ export const CMDQ_INT = 4;
 export const CQ_CANNED = 0;
 export const CQ_REPEAT = 1;
 
+// C hack.h enum InputState — program_state.input_state (yn_function
+// resets to otherInp; getdir/readchar/getpos write the others).
+export const otherInp = 0;
+export const commandInp = 1;
+export const getposInp = 2;
+export const getdirInp = 3;
+
 // Transient animation style/opcode constants (include/display.h DISP_*; src/display.c tmp_at)
 // Runtime fields:
 // - animation tmp_at(x, y): x opcode selector, y style/flush mode
@@ -1130,6 +1137,10 @@ export const PLNMSG_HIDE_UNDER = (PLNMSG_GROWL + 1);
 export const PLNMSG_MON_TAKES_OFF_ITEM = (PLNMSG_HIDE_UNDER + 1);
 /** C flag.h PLNMSG_enum — sentinel ('none of the above'). */
 export const PLNMSG_enum = (PLNMSG_MON_TAKES_OFF_ITEM + 1);
+/** C flag.h enum debug_fuzzer_states — iflags.debug_fuzzer. */
+export const fuzzer_off = 0;
+export const fuzzer_impossible_panic = 1;
+export const fuzzer_impossible_continue = 2;
 export const RUN_TPORT = 0;
 export const RUN_LEAP = (RUN_TPORT + 1);
 export const RUN_STEP = (RUN_LEAP + 1);
