@@ -1244,7 +1244,19 @@ C `hack.c:2515–2581` / `:2825–2828` after rooted before `u.utrap`;
 gas-region yn; Hallu `rnd(TRAPNUM-1)`; **full `test_move` Passes_walls·squeeze / FIRE invent-burn / 
 POLY `resists_magm` still named**); **`domove` swallowed → `u_on_newpos(ustuck)` + 
 attack engulfer** (D-0833; skip impaired/`m_at` walk; 
-air_turbulence/slippery_ice/water_turbulence/escape_from_sticky still deferred); 
+air_turbulence/slippery_ice/escape_from_sticky still deferred; 
+**`water_friction`/`water_turbulence` D-1800**); 
+**`domove_core` `water_friction` via `water_turbulence` +
+`avoid_running_into_trap_or_liquid` + `domove_fight_ironbars`/`domove_fight_web`
++ remaining `mention_walls`** (D-1800; C `mkmaze.c:1688` /
+`hack.c:2364` / `:2443` / `:2493` / `:1995` / `:2020` / `:2585` /
+testdiag doorway; JS `js/hack.js` + `js/cmd.js` `domove`;
+Swimming inlined not clone #3; `uwep_skill_type`/`u_wield_art` inlined;
+`weapon_descr` exported from invent.js; named: lookaround,
+air_turbulence, slippery_ice_fumbling, escape_from_sticky_mon,
+`Known_wwalking`/`Known_lwalking`, autodig/tunnels chew rock/ooze/`worm_cross`,
+`exercise_steed`, Blind `feel_location` on obstacles,
+full `back_to_glyph`/`wall_angle` bump text); 
 **`domove_core` `carrying_too_much` before attack** (OVERLOADED collapse / low-HP>SLT stamina; 
 air-level exempt) (D-0928 #1117); **`domove` `u_maybe_impaired`/`impaired_movement`/`confdir`** 
 (D-0437; Confusion `!rn2(5)` + Stunned; tunnels/`passes_walls` in bad_rock deferred); 
@@ -1300,7 +1312,8 @@ run-into-visible stop D-0440; displacer / bump_mon / mundetected Wait! deferred)
 **`test_move` IRONBARS `passes_bars` D-1270** (C `hack.c:1024–1036` Passes_walls \|\| 
 `passes_bars(youmonst.data)`; DO_MOVE rust/corr/metallivore `still_chewing`; 
 Underwater / generic rock Passes_walls / tunnels / autodig still named); 
-**`mention_walls` obstructed bump pline** (D-0354; wall/tree/solid stone/bars); 
+**`mention_walls` obstructed bump pline** (D-0354; wall/tree/solid stone/bars;
+**OOB `move_out_of_bounds` + testdiag doorway + run-into-trap/liquid D-1800**); 
 **`test_move` run>=2 boulder `pline_dir`** (D-1226; 
 C `hack.c:1216–1221` / `could_move_onto_boulder` 145–163; DO_MOVE+mention_walls; TEST_MOVE silent; 
 Passes_walls skip; cannot_push squeeze D-1239; **cannot_push giant pickup/maneuver D-1253**; 

@@ -88,6 +88,8 @@ import {
     test_move_run_blocked_by_boulder, test_move_boulder_is_blocking,
     test_move_hero_passes_bars, test_move_hero_chews_bars, still_chewing,
     end_running,
+    water_turbulence, move_out_of_bounds, avoid_running_into_trap_or_liquid,
+    domove_fight_ironbars, domove_fight_web,
 } from './hack.js';
 import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
 import { drag_ball, move_bc } from './ball.js';
@@ -1028,6 +1030,7 @@ function block_door(_x, _y) {
  * resist, full back_to_glyph/wall_angle→S_stone edge cases.
  * IRONBARS pass/chew is D-1270 (blocksMove / still_chewing, not here).
  * run>=2 boulder pline_dir is D-1226 (test_move, not this bump).
+ * OOB / testdiag doorway / run-into-trap-or-liquid mention_walls is D-1800.
  */
 async function mention_walls_obstructed(x, y) {
     if (!game.flags?.mention_walls) return;
@@ -2909,8 +2912,7 @@ async function domove(dx, dy) {
     // C ref: hack.c domove_core — swallowed: zero dx/dy, u_on_newpos onto
     // ustuck, attack engulfer; skip impaired_movement / m_at walk path.
     // Named omissions still ahead of the non-swallow arm:
-    // air_turbulence, slippery_ice_fumbling, water_turbulence,
-    // escape_from_sticky_mon.
+    // air_turbulence, slippery_ice_fumbling, escape_from_sticky_mon.
     if ((u.uswallow | 0) && u.ustuck) {
         u.dx = 0;
         u.dy = 0;
@@ -2925,8 +2927,17 @@ async function domove(dx, dy) {
             if (game.context?.run) end_running(true);
             return;
         }
+        // C hack.c:2371 / :2750–2758 — water_friction via water_turbulence,
+        // then move_out_of_bounds, then avoid_running_into_trap_or_liquid.
+        // Named: air_turbulence, slippery_ice_fumbling, escape_from_sticky_mon.
+        if (await water_turbulence()) {
+            if (game.context?.run) end_running(true);
+            return;
+        }
         newx = (u.ux | 0) + (u.dx | 0);
         newy = (u.uy | 0) + (u.dy | 0);
+        if (await move_out_of_bounds(newx, newy)) return;
+        if (await avoid_running_into_trap_or_liquid(newx, newy)) return;
 
         // C ref: hack.c domove_core — m_at / run-stop / attackmon BEFORE test_move
         // (closed_door / testdiag / rock). Diagonal intact-doorway bans must not
@@ -2941,6 +2952,19 @@ async function domove(dx, dy) {
         if ((forcefight && !mtmp)
             || (glyph_is_invisible_id(destLoc?.disp_glyph)
                 && !mtmp && !game.context?.nopick)) {
+            // C hack.c:2804–2811 — ironbars then web then empty.
+            if (await domove_fight_ironbars(newx, newy)) {
+                if (game.context?.run) end_running(true);
+                game.context.move = 1;
+                game.kickedloc = { x: 0, y: 0 };
+                return;
+            }
+            if (await domove_fight_web(newx, newy)) {
+                if (game.context?.run) end_running(true);
+                game.context.move = 1;
+                game.kickedloc = { x: 0, y: 0 };
+                return;
+            }
             await domove_fight_empty(newx, newy);
             if (game.context?.run) end_running(true);
             game.context.move = 1;
@@ -3065,6 +3089,10 @@ async function domove(dx, dy) {
         const dest = game.level?.at(newx, newy);
         if (dest && IS_DOOR(dest.typ)
             && (!doorless_door(newx, newy) || block_door(newx, newy))) {
+            // C test_move testdiag: Underwater || flags.mention_walls
+            if ((u.uinwater | 0) || game.flags?.mention_walls) {
+                await pline("You can't move diagonally into an intact doorway.");
+            }
             if (game.context?.run) end_running(true);
             game.context.move = 0;
             return;
@@ -3073,6 +3101,9 @@ async function domove(dx, dy) {
         const here = game.level?.at(u.ux, u.uy);
         if (here && IS_DOOR(here.typ)
             && (!doorless_door(u.ux, u.uy) || false /* block_entry deferred */)) {
+            if (game.flags?.mention_walls) {
+                await pline("You can't move diagonally out of an intact doorway.");
+            }
             if (game.context?.run) end_running(true);
             game.context.move = 0;
             return;
@@ -3088,7 +3119,7 @@ async function domove(dx, dy) {
         if (bloc && (IS_OBSTRUCTED(bloc.typ) || bloc.typ === IRONBARS)) {
             await mention_walls_obstructed(newx, newy);
         }
-        // out-of-bounds move_out_of_bounds mention_walls deferred
+        // out-of-bounds is move_out_of_bounds (D-1800), not this bump
         game.context.move = 0;
         return;
     }

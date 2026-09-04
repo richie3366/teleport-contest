@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-1800 — hack.c test_move/domove_core water_friction, avoid-trap-or-liquid, fight bars+web, mention_walls
+
+- **Status:** fixed (map-driven Open row; green + movement cohort hold)
+- **Symptom:** JS `domove` had no `water_friction`/`water_turbulence`,
+  no `avoid_running_into_trap_or_liquid`, no `domove_fight_ironbars`/
+  `domove_fight_web`, and remaining `mention_walls` texts (OOB
+  "already gone as far", testdiag doorway You_cant, run-into seen
+  trap/liquid) never ran. F into bars went to fight_empty; a rush
+  onto a seen trap did not abort the step.
+- **C locus:** `mkmaze.c` `water_friction` `:1688–1720` (caller
+  `hack.c` `water_turbulence` `:2364–2393`); `hack.c`
+  `avoid_moving_on_trap` `:2443`, `avoid_moving_on_liquid` `:2462`,
+  `avoid_running_into_trap_or_liquid` `:2493–2509`,
+  `move_out_of_bounds` `:2585–2611`, `domove_fight_ironbars`
+  `:1995–2017`, `domove_fight_web` `:2020–2094`; testdiag
+  `mention_walls` in `test_move` `:1146` / `:1211`. Not lookaround.
+- **JS was:** those helpers NOT FOUND; `domove` jumped from
+  `impaired_movement` to `m_at`/`fight_empty`; testdiag doorway
+  silent; OOB bump had no "already gone as far".
+- **Fix:** those functions in `js/hack.js`; `js/cmd.js` `domove`
+  calls them in C order (turbulence → OOB → avoid-run → F bars →
+  F web → empty). `weapon_descr` exported from `js/invent.js`.
+  Swimming / `uwep_skill_type` / `u_wield_art` inlined (no new clones).
+- **Named omissions:** lookaround; air_turbulence; slippery_ice_fumbling;
+  escape_from_sticky_mon; `Known_wwalking`/`Known_lwalking`; autodig /
+  tunnels chew rock / ooze / `worm_cross`; `exercise_steed`; Blind
+  `feel_location` on obstacles; full `back_to_glyph`/`wall_angle` bump
+  (D-0354 simplified rock text remains).
+- **Next:** Open `allmain.c` `moveloop_core` per-turn callees
+  (`do_storms` / `glibr` / `mkot_trap_warn` / `end_of_input`).
+  Not `nh_timeout`.
+
 ## D-1799 — hack.c spoteffects recursion / lev timeout / Warning ice / hidden-mon
 
 - **Status:** fixed (map-driven Open row; green + movement/riding cohort hold)

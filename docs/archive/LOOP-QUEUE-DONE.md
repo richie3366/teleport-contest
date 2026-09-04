@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `hack.c` spoteffects recursion guards / levitation timeout / Warning ice `:3312–3462`. Not dotrap. **Addressed:** D-1799
+- [x] `hack.c` test_move + domove_core: water_friction, avoid_running_into_trap_or_liquid, domove_fight_ironbars/web, mention_walls. Not lookaround. **Addressed:** D-1800
+
+
+- [x] `hack.c` spoteffects recursion guards / levitation timeout / Warning ice `:3312–3462`. Not dotrap. **Addressed:** D-1799 `638c92dd`
 
 
 - [x] `monmove.c` dochug remaining arms + wormhitu callee. Not m_move. **Addressed:** D-1798 `8767a241`

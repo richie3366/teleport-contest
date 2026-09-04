@@ -4272,7 +4272,7 @@ function insight_skill_level_name(skill) {
  * (def_oc_syms[].name). Named omissions: ammo/sling/bow/crossbow/flail
  * hook/mattock specials; wet towel; shield of reflection.
  */
-function weapon_descr(obj) {
+export function weapon_descr(obj) {
     const skill = weapon_type(obj);
     if (skill === P_NONE && obj) {
         // C: corpses/tin/egg/statue/boulder/towel/opener → OBJ_NAME;

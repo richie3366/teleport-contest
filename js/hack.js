@@ -18,17 +18,19 @@ import {
     W_NONDIGGABLE, SHOP_DOOR_COST,
     IS_WATERWALL, PARANOID_SWIM, PARANOID_TRAP, PARANOID_CONFIRM, TIP_SWIM,
     TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
-    TRAP_CLEARLY_IMMUNE, TRAPNUM,
-    xdir, ydir, N_DIRS,
+    TRAP_CLEARLY_IMMUNE, TRAPNUM, WEB,
+    xdir, ydir, N_DIRS, xytodir, directionname,
     DIR_W, DIR_N, DIR_E, DIR_S, DIR_NW, DIR_NE, DIR_SE, DIR_SW,
-    OVERLOADED, SLT_ENCUMBER, HVY_ENCUMBER, Is_airlevel, Is_waterlevel,
+    OVERLOADED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, Is_airlevel, Is_waterlevel,
     Is_earthlevel, Is_medusa_level, Is_juiblex_level,
     TELEPORT, SEE_INVIS, POISON_RES, COLD_RES, SHOCK_RES, FIRE_RES,
     SLEEP_RES, DISINT_RES, TELEPORT_CONTROL, STEALTH, FAST, INVIS,
     INTRINSIC, UNCHANGING, PASSES_WALLS, WT_SQUEEZABLE_INV,
     In_mines, ACH_TOWN, NO_PART, WT_ELF, TIMER_OBJECT, ZOMBIFY_MON,
     NO_KILLER_PREFIX, IS_SINK, W_ARTI, I_SPECIAL, TIMEOUT, FROMOUTSIDE,
-    FROMFORM, P_NONE, P_RIDING, P_BASIC, LEVITATION, FLYING, BLINDED, FOOT,
+    FROMFORM, P_NONE, P_RIDING, P_BASIC, P_UNSKILLED, P_TWO_WEAPON_COMBAT,
+    LEVITATION, FLYING, BLINDED, FOOT, SWIMMING, VIBRATING_SQUARE,
+    BRK_BY_HERO, BRK_FROM_INV, BRK_MELEE, BRK_KNOWN2BREAK, BRK_KNOWN2NOTBREAK,
     ARTICLE_NONE, ARTICLE_A, ARTICLE_THE, ARTICLE_YOUR, SUPPRESS_SADDLE,
     has_mgivenname,
 } from './const.js';
@@ -39,16 +41,16 @@ import {
 import { gethungry, morehungry } from './eat.js';
 import { m_at, hideunder, seemimic, bad_rock } from './mon.js';
 import { recalc_block_point } from './vision.js';
-import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, verysmall, bigmonst, passes_bars, dmgtype } from './monsters.js';
+import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, is_swimmer, verysmall, bigmonst, passes_bars, dmgtype } from './monsters.js';
 import {
     objects_at, obj_extract_self, place_object, delobj,
-    peek_timer, stop_timer, start_timer,
+    peek_timer, stop_timer, start_timer, splitobj,
 } from './mkobj.js';
 import { objectNames } from './generated/objects_data.js';
-import { WEAPON_CLASS, TOOL_CLASS, COIN_CLASS } from './objects.js';
-import { xname, the, The, makeplural } from './objnam.js';
+import { WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, is_blade } from './objects.js';
+import { xname, the, The, makeplural, an } from './objnam.js';
 import { oclass_to_sym } from './options.js';
-import { A_STR, A_CON, A_DEX, acurr, exercise } from './attrib.js';
+import { A_STR, A_CON, A_DEX, acurr, acurrstr, exercise } from './attrib.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { ing_suffix } from './hacklib.js';
 import { midnight } from './calendar.js';
@@ -56,14 +58,20 @@ import {
     PM_GRID_BUG, PM_WIZARD, PM_ELF, PM_VALKYRIE, PM_SAMURAI,
     monsterNames,
 } from './generated/monsters_data.js';
+import { ART_STING } from './generated/artifacts_data.js';
 import { hliquid, Hallucination, y_monnam, x_monnam, type_is_pname } from './do_name.js';
-import { near_capacity, inv_weight } from './invent.js';
+import { near_capacity, inv_weight, freeinv, weapon_descr } from './invent.js';
 import { record_achievement } from './insight.js';
 import {
     b_trapped, selftouch, t_at, into_vs_onto, immune_to_trap, trapname,
-    sokoban_guilt, feeltrap,
+    sokoban_guilt, feeltrap, deltrap,
 } from './trap.js';
 import { paranoid_query } from './getline.js';
+import { is_art, attacks, bare_artifactname } from './artifact.js';
+import { breaktest } from './dothrow.js';
+import { hit_bars } from './mthrowu.js';
+import { setuwep } from './wield.js';
+import { P_SKILL, weapon_type, use_skill } from './weapon.js';
 
 export { set_msg_xy };
 
@@ -166,9 +174,11 @@ function Sokoban_here() {
     return !!(game.Sokoban || game.level?.flags?.sokoban_rules);
 }
 
-/* C monattk.h — rust monster / gray ooze·pudding (test_move bars chew). */
+/* C monattk.h — rust monster / gray ooze·pudding (test_move bars chew);
+ * AD_FIRE for F-fight web artifact burn (D-1800). */
 const AD_RUST = 24;
 const AD_CORR = 42;
+const AD_FIRE = 2;
 
 /**
  * C hack.c test_move :1032 — Passes_walls || passes_bars(youmonst.data).
@@ -1810,6 +1820,249 @@ export function impaired_movement() {
         y = (u.uy | 0) + (u.dy | 0);
     } while (!isok(x, y) || bad_rock_hero(x, y));
     return false;
+}
+
+/**
+ * C mkmaze.c water_friction `:1688–1720` — underwater turbulence may
+ * cancel one of u.dx/u.dy and pick an orthogonal/stay pool cell.
+ * Caller is hack.c water_turbulence `:2371`. Swimming inlined (youprop.h
+ * H||E||steed is_swimmer) so this is not Swimming() clone #3.
+ */
+async function water_friction() {
+    const u = game.u;
+    if (!u) return;
+    const swimming = !!(_uprop_he_st(u, 'HSwimming', 'ESwimming', SWIMMING)
+        || (u.usteed && is_swimmer(u.usteed.data)));
+    if (swimming && rn2(4)) return;
+
+    let eff = false;
+    if (u.dx && !rn2(!u.dy ? 3 : 6)) {
+        const x = u.ux | 0;
+        let dy;
+        let y;
+        do {
+            dy = rn2(3) - 1;
+            y = (u.uy | 0) + dy;
+        } while (dy && (!isok(x, y) || !is_pool(x, y)));
+        u.dx = 0;
+        u.dy = dy;
+        eff = true;
+    } else if (u.dy && !rn2(!u.dx ? 3 : 5)) {
+        const y = u.uy | 0;
+        let dx;
+        let x;
+        do {
+            dx = rn2(3) - 1;
+            x = (u.ux | 0) + dx;
+        } while (dx && (!isok(x, y) || !is_pool(x, y)));
+        u.dy = 0;
+        u.dx = dx;
+        eff = true;
+    }
+    if (eff) await pline('Water turbulence affects your movements.');
+}
+
+/**
+ * C hack.c water_turbulence `:2364–2393` — u.uinwater then water_friction;
+ * abort if both deltas cancelled or encumbered climb-out of a pool.
+ * @returns {Promise<boolean>} true → lose the move
+ */
+export async function water_turbulence() {
+    const u = game.u;
+    if (!u || !(u.uinwater | 0)) return false;
+    const wtmod = (_uprop_he_st(u, 'HSwimming', 'ESwimming', SWIMMING)
+        || (u.usteed && is_swimmer(u.usteed.data)))
+        ? MOD_ENCUMBER : SLT_ENCUMBER;
+    await water_friction();
+    if (!u.dx && !u.dy) {
+        nomul(0);
+        return true;
+    }
+    const x = (u.ux | 0) + (u.dx | 0);
+    const y = (u.uy | 0) + (u.dy | 0);
+    if (isok(x, y) && !is_pool(x, y) && !Is_waterlevel(u.uz)
+        && near_capacity() > wtmod) {
+        await pline('You are carrying too much to climb out of the water.');
+        nomul(0);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C hack.c avoid_moving_on_trap `:2443–2460` — seen non-VS trap.
+ * mention_walls pline only when msg (run>=2).
+ */
+async function avoid_moving_on_trap(x, y, msg) {
+    const trap = t_at(x, y);
+    if (trap && trap.tseen && (trap.ttyp | 0) !== VIBRATING_SQUARE) {
+        if (msg && game.flags?.mention_walls) {
+            set_msg_xy(x, y);
+            await pline(`You stop in front of ${an(trapname(trap.ttyp, false))}.`);
+        }
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C hack.c avoid_moving_on_liquid `:2462–2490`. Known_wwalking /
+ * Known_lwalking stay omitted (treat as unknown), matching swim_move_danger.
+ */
+async function avoid_moving_on_liquid(x, y, msg) {
+    const u = game.u || {};
+    const in_air = !!(Levitation_st() || Flying_st());
+    const dest = game.level?.at(x, y);
+    const here = game.level?.at(u.ux, u.uy);
+    const run = game.context?.run | 0;
+    const sameTyp = (dest?.typ | 0) === (here?.typ | 0);
+    const liquidWall = !!(dest && (IS_WATERWALL(dest.typ) || dest.typ === LAVAWALL));
+    if ((sameTyp
+            || (run < 2 && (!is_lava(x, y) || in_air))
+            || game.context?.travel)
+        && (in_air /* || Known_lwalking || (is_pool && Known_wwalking) */)
+        && !liquidWall) {
+        return false;
+    }
+    if ((is_pool(x, y) || is_lava(x, y)) && dest?.seenv) {
+        if (msg && game.flags?.mention_walls) {
+            set_msg_xy(x, y);
+            await pline(`You stop at the edge of the ${
+                hliquid(is_pool(x, y) ? 'water' : 'lava')}.`);
+        }
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C hack.c avoid_running_into_trap_or_liquid `:2493–2509`.
+ * Liquid arm is Blind-only. Returns true when the step is cancelled.
+ */
+export async function avoid_running_into_trap_or_liquid(x, y) {
+    const run = game.context?.run | 0;
+    if (!run) return false;
+    const would_stop = run >= 2;
+    if (await avoid_moving_on_trap(x, y, would_stop)
+        || (Blind_im() && await avoid_moving_on_liquid(x, y, would_stop))) {
+        nomul(0);
+        if (would_stop && game.context) game.context.move = 0;
+        return would_stop;
+    }
+    return false;
+}
+
+/**
+ * C hack.c move_out_of_bounds `:2585–2611`. Forcefight → fight_empty;
+ * else mention_walls "already gone as far DIR".
+ * @returns {Promise<boolean>} true → stop moving
+ */
+export async function move_out_of_bounds(x, y) {
+    if (isok(x, y)) return false;
+    if (game.context?.forcefight) {
+        const { domove_fight_empty } = await import('./cmd.js');
+        await domove_fight_empty(x, y);
+        return true;
+    }
+    if (game.flags?.mention_walls) {
+        const u = game.u || {};
+        let dx = u.dx | 0;
+        let dy = u.dy | 0;
+        if (dx && dy) {
+            if (isok(x, u.uy)) dx = 0;
+            else if (isok(u.ux, y)) dy = 0;
+        }
+        await pline(`You have already gone as far ${
+            directionname(xytodir(dx, dy))} as possible.`);
+    }
+    nomul(0);
+    if (game.context) game.context.move = 0;
+    return true;
+}
+
+/**
+ * C hack.c domove_fight_ironbars `:1995–2017` — F into bars with a
+ * wielded item → hit_bars. No uwep → fall through to fight_empty.
+ */
+export async function domove_fight_ironbars(x, y) {
+    const u = game.u || {};
+    const loc = game.level?.at(x, y);
+    if (!(game.context?.forcefight && loc?.typ === IRONBARS && u.uwep)) {
+        return false;
+    }
+    let obj = u.uwep;
+    let breakflags = BRK_BY_HERO | BRK_FROM_INV | BRK_MELEE;
+    if (breaktest(obj)) {
+        if ((obj.quan | 0) > 1) {
+            const piece = splitobj(obj, 1);
+            if (piece) obj = piece;
+        } else {
+            setuwep(null);
+        }
+        freeinv(obj);
+        breakflags |= BRK_KNOWN2BREAK;
+    } else {
+        breakflags |= BRK_KNOWN2NOTBREAK;
+    }
+    const objp = { obj };
+    await hit_bars(objp, u.ux | 0, u.uy | 0, x, y, breakflags);
+    return true;
+}
+
+/**
+ * C hack.c domove_fight_web `:2020–2094` — F a seen WEB. Sting / fire
+ * artifact guaranteed; non-blade "can't cut"; else rn2 vs acurrstr.
+ * uwep_skill_type / u_wield_art inlined (do not add clone #2 / #6).
+ */
+export async function domove_fight_web(x, y) {
+    const trap = t_at(x, y);
+    if (!(game.context?.forcefight && trap && (trap.ttyp | 0) === WEB
+        && trap.tseen)) {
+        return false;
+    }
+    const u = game.u || {};
+    const uwep = u.uwep;
+    const wtype = u.twoweap ? P_TWO_WEAPON_COMBAT : weapon_type(uwep);
+    const wskill_minus_2 = Math.max(P_SKILL(wtype), P_UNSKILLED) - 2;
+    const roll = rn2(uwep ? 20 : (45 - 5 * wskill_minus_2));
+
+    if (uwep && (is_art(uwep, ART_STING)
+        || (uwep.oartifact && attacks(AD_FIRE, uwep)))) {
+        const verb = is_art(uwep, ART_STING) ? 'cuts' : 'burns';
+        await pline(`${bare_artifactname(uwep)} ${verb} through the web!`);
+    } else if (uwep && !is_blade(uwep)
+        && (!u.twoweap || !is_blade(u.uswapwep))) {
+        const uwepbuf = weapon_descr(uwep);
+        const scndbuf = u.twoweap ? weapon_descr(u.uswapwep) : '';
+        const onewep = !scndbuf || uwepbuf === scndbuf;
+        const low = uwepbuf.toLowerCase();
+        let uwepstr;
+        if (low === 'armor' || low === 'food' || low === 'venom') {
+            uwepstr = uwepbuf;
+        } else if ((uwep.quan | 0) === 1 && !(u.twoweap && onewep)) {
+            uwepstr = an(uwepbuf);
+        } else {
+            uwepstr = makeplural(uwepbuf);
+        }
+        let scndstr = '';
+        if (!onewep && u.uswapwep) {
+            scndstr = ((u.uswapwep.quan | 0) === 1)
+                ? an(scndbuf) : makeplural(scndbuf);
+        }
+        await pline(`You can't cut a web with ${uwepstr}${
+            !onewep ? ' or ' : ''}${!onewep ? scndstr : ''}!`);
+        return true;
+    } else if (roll > (acurrstr() - 2
+        + (uwep ? (uwep.spe | 0) + wskill_minus_2 : 0))) {
+        await pline(`You ${uwep ? 'hack' : 'thrash'} ineffectually at some of the strands.`);
+        return true;
+    } else {
+        await pline(`You ${uwep ? 'cut' : 'punch'} through the web.`);
+        use_skill(wtype, 1);
+    }
+    deltrap(trap);
+    newsym(x, y);
+    return true;
 }
 
 /**

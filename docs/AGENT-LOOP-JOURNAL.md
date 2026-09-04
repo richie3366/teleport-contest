@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1800 hack.c test_move/domove_core remaining callees
+
+**Objective:** Open `hack.c` `test_move` + `domove_core`:
+`water_friction`, `avoid_running_into_trap_or_liquid`,
+`domove_fight_ironbars`/`web`, `mention_walls`. Not lookaround.
+**C:** `mkmaze.c:1688` / `hack.c:2364` / `:2443` / `:2493` / `:1995`
+/ `:2020` / `:2585` / testdiag doorway.
+**JS was:** those helpers NOT FOUND; F-bars fell through to
+`fight_empty`; rush onto a seen trap kept walking; doorway/OOB
+mention_walls silent.
+**Fix:** those arms in `js/hack.js` + `js/cmd.js` `domove` C order.
+`weapon_descr` export. Named: lookaround, air_turbulence, Known_wwalking,
+autodig/`worm_cross`, `exercise_steed`.
+**Verify:** save-oracle skip (untagged `hack.c:test_move`); probes
+(avoid-run / dry turbulence / fight gates); green + strict; cohort 7/7.
+**Next:** Open `allmain.c` `moveloop_core` per-turn callees. Not
+`nh_timeout`.
 ## 2026-09-04 — D-1799 hack.c spoteffects remaining body
 
 **Objective:** Open `hack.c` `spoteffects` recursion / lev timeout /
