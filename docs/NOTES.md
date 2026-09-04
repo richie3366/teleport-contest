@@ -10,8 +10,9 @@ Objective/score live in `CURRENT.md`.
   level cliff `build_room`/`selection_filter_percent` vs `rnd_rect`.
   Orient `brief.mjs`, verify `verify.mjs --fn`, hand off `finish-iteration.mjs --commit`.
 - **Suite 44/44** cadence re-measured at D-1823 (`171f6b02`). Must-fix
-  Bar-goal extra objects is D-1824 (loop 14). Next is Open `castmu`
-  remaining spell arms. Do **not** reopen Bar-goal object count,
+  Bar-goal extra objects is D-1824 (loop 14). `castmu` remaining 14
+  arms are D-1825. Next is Open `makemaz` `medusa-2`/`-4`. Do **not**
+  reopen Bar-goal object count, castmu spell arms,
   minend-3 / bigrm / soko2-2 / Wiz-goal loaders, `HDeaf [2]`, or
   `mattacku` gameover abort.
   Do **not** add trailing `confdir` to shared `getdir` (D-1815).
@@ -69,7 +70,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1824.
+  (D-1189). Do not skip D-1190…D-1825.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -79,18 +80,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1824.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1825.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1824.
+  Do not re-port D-1682…D-1825.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1825: port the remaining 14 arms from the C bodies; `mcast_spell` Named: `mon_spell_hits_spot` (fire-pillar/lightning
 - D-1824: loop bound 14 matching lua `:44–57`. Named: humidity-aware `get_location`; `spo_end_moninvent`
 - D-1823: `load_minend_3` from the lua body: solidfill HWALL (so Named: ensure_way_out; link_doors_rooms; map_cleanup;
 - D-1822: `load_bigrm_1` (solidfill + 18×75 room; `percent(80)` then Named: ensure_way_out; humidity-aware `get_location`;
@@ -105,5 +107,4 @@ Objective/score live in `CURRENT.md`.
 - D-1813: `untrap` remaining holding / landmine / shooting / box /
 - D-1812: `really_done` remaining fixup_death / launch /
 - D-1811: `use_misc` poly trap/wand/potion + bag / `you_aggravate`.
-- D-1810: `use_offensive` ray wands / horns / tele+undead / SCR_EARTH.
 <!-- landmarks:end -->

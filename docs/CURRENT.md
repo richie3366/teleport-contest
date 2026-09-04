@@ -71,17 +71,17 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1824**. Map-driven Open (Must-fix empty).
-**Next cluster:** `mcastu.c` `castmu` remaining spell arms: the 14
-`mcast_*` / `touch_of_death` cases past the `default:` fallthrough.
-Not buzzmu.
+**Suite 44/44** at **D-1825**. Map-driven Open (Must-fix empty).
+**Next cluster:** `mkmaze.c` `makemaz` `medusa-2`/`-4` — completes
+Medusa 4/4; 50% blank → 0%. From `dat/medusa-{2,4}.lua`.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1824 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1825 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1825** `mcastu.c` `mcast_spell` `:800–897` (all 20 `MCAST_*` — port the remaining 14 arms from the C bodies; `mcast_spell`
 **D-1824** `dat/Bar-goal.lua` `:44–57`; `sp_lev.c` `create_object` / — loop bound 14 matching lua `:44–57`.
 **D-1823** `dat/minend-3.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_minend_3` from the lua body: solidfill HWALL (so
 **D-1822** `dat/bigrm-{1,10,13}.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_bigrm_1` (solidfill + 18×75 room; `percent(80)` then
@@ -89,9 +89,8 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1820** `dat/soko2-2.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_soko2_2` from the lua body: solidfill + mazelevel 22×13
 **D-1819** `dat/Bar-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_bar_goal` from the lua body: solidfill + mazelevel map,
 **D-1818** `dat/Wiz-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_wiz_goal` from the lua body: solidfill + mazelevel map,
-**D-1817** `timeout.c` / `wizcmds.c` — Deaf is one field; `#wizintrinsic` DEAF arm via `make_deaf`.
 <!-- recent:end -->
-**Do not:** FORCE/RNG; skip D-1229…D-1824; wrap `wildmiss` /
+**Do not:** FORCE/RNG; skip D-1229…D-1825; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

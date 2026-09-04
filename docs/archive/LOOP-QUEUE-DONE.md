@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] Match C `dat/Bar-goal.lua` `:44–57` fourteen `des.object()` after the Heart, instead of `load_bar_goal` looping 15 extra `splev_create_object` / `mkobj_at` RNG. Source: reviews/loop-unattended/789-fc103c7f-bar-goal.md **Addressed:** D-1824
+- [x] `mcastu.c` castmu remaining spell arms: the 14 `mcast_*` / `touch_of_death` cases past the `default:` fallthrough. Not buzzmu. **Addressed:** D-1825
+
+
+- [x] Match C `dat/Bar-goal.lua` `:44–57` fourteen `des.object()` after the Heart, instead of `load_bar_goal` looping 15 extra `splev_create_object` / `mkobj_at` RNG. Source: reviews/loop-unattended/789-fc103c7f-bar-goal.md **Addressed:** D-1824 `f2b2b513`
 
 
 - [x] `mkmaze.c` makemaz `minend-3` — third Mine's End variant; 33% blank → 0%. From `dat/minend-3.lua` (107 ln). **Addressed:** D-1823 `171f6b02`

@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1825 — mcastu.c mcast_spell remaining 14 arms + touch_of_death
+
+- **Status:** fixed (map-driven queue row; green + cohort)
+- **Symptom:** `castmu` `mcast_spell` `default:` zeroed dmg for the 14
+  remaining `mcast_*` / `touch_of_death` cases (CONFUSE/STUN/DISAPPEAR/
+  PARALYZE/WEAKEN/DESTRY_ARMR/INSECTS/CURSE_ITEMS/LIGHTNING/FIRE_PILLAR/
+  GEYSER/AGGRAVATION/CLONE_WIZ/DEATH_TOUCH). Casters spent `mspec_used`
+  and burned fumble RNG with no spell body.
+- **C locus:** `mcastu.c` `mcast_spell` `:800–897` (all 20 `MCAST_*`
+  cases); `touch_of_death` `:322–354`; `death_inflicted_by` `:357–382`;
+  callees `mcast_death_touch`…`mcast_confuse_you` `:388–790`;
+  `attrib.c` `losestr` `:219–270`; `wizard.c` `clonewiz` `:516–534`.
+- **JS was:** six live arms (HASTE/CURE/SUMMON/PSI_BOLT/OPEN_WOUNDS/
+  BLIND_YOU); `default:` dmg=0. `losestr` / `clonewiz` absent.
+  `ureflects("", …)` skipped the bounce pline (`""` is falsy).
+- **Fix:** port the remaining 14 arms from the C bodies; `mcast_spell`
+  dispatches and `mdamageu`s leftover dmg. `losestr` in attrib.js;
+  `clonewiz` in wizard.js; `ureflects` treats `str` as a C non-NULL
+  pointer so empty `""` still prints. `Half_spell_damage` in `castmu`
+  before the dispatch.
+- **JS:** `js/mcastu.js` `mcast_spell` / `touch_of_death`; `js/attrib.js`
+  `losestr`; `js/wizard.js` `clonewiz`; `js/mhitu.js` `ureflects`.
+- **Verify:** `node scripts/verify.mjs --fn castmu` → PASS syntax
+  (attrib.js mcastu.js mhitu.js wizard.js); PASS rule2; PASS hidden
+  (no corpus session blocked on castmu); PASS green 2/2; PASS strict
+  seed8000/seed0900; PASS cohort 7/7; skip full (no shared file
+  changed). VERIFY: PASS
+- **Named omissions:** `mon_spell_hits_spot` (fire-pillar/lightning
+  floor); `has_aggravatables` (AGGRAVATION still almost always useless
+  via `rn2(100)`); AD_FIRE/COLD/MAGM in `castmu`; `cursetxt`; fumble
+  air-crackles; waterwall mis-aim; `buzzmu` zap. Not the 14 arms.
+- **Next:** Open `mkmaze.c` `makemaz` `medusa-2`/`-4`. Not buzzmu.
+
 ## D-1824 — dat/Bar-goal.lua fourteen empty des.object after Heart
 
 - **Status:** fixed (Must-fix review **789**; green + cohort + full `sessions` 44/44)

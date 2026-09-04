@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1825 mcastu.c mcast_spell remaining 14 arms + touch_of_death
+
+**C locus:** `mcastu.c` `mcast_spell` `:800–897` (all 20 `MCAST_*`
+**JS:** `js/mcastu.js` `mcast_spell` / `touch_of_death`; `js/attrib.js`
+**Change:** port the remaining 14 arms from the C bodies; `mcast_spell`
+**Verify:** `node scripts/verify.mjs --fn castmu` → PASS syntax
+**Named:** `mon_spell_hits_spot` (fire-pillar/lightning
+**Next:** Open `mkmaze.c` `makemaz` `medusa-2`/`-4`. Not buzzmu.
 ## 2026-09-04 — D-1824 dat/Bar-goal.lua fourteen empty des.object after Heart
 
 **C locus:** `dat/Bar-goal.lua` `:44–57`; `sp_lev.c` `create_object` /

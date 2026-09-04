@@ -2616,7 +2616,7 @@ JS: `js/mhitu.js`, `js/minion.js`, `js/mthrowu.js`, `js/weapon.js`, `js/muse.js`
 **`castmu` cast pline + PSI_BOLT/OPEN_WOUNDS severity plines before `mdamageu`; 
 `urgent_pline`/WIN_NOSTOP; `polyman` was_blind `make_blinded`** (D-0928 #1191; 
 seed4500 Scr **1799→1803** prefix **@1761→@1770**; 
-Half_spell_damage in castmu + other mcast_spell bodies deferred; **PSI_BOLT `body_part(HEAD)` D-1508**; **`mcast_blind_you` EYE D-1534**); 
+Half_spell_damage in castmu + **mcast_spell remaining 14 arms + `touch_of_death` D-1825** (`losestr` / `clonewiz` / `ureflects` empty-str); **PSI_BOLT `body_part(HEAD)` D-1508**; **`mcast_blind_you` EYE D-1534**; named: `mon_spell_hits_spot` / `has_aggravatables` / AD_FIRE/COLD/MAGM / `cursetxt` / `buzzmu`); 
 **`enhance_weapon_skill` wizard y_n + speedy PICK_ONE / `skill_advance` / wizard practice columns** 
 (D-0928 #1146; seed4500 Scr **1001→1120** prefix **@630→@707**; 
 `add_weapon_skill`/`lose_weapon_skill` / `use_skill` may-advance msg deferred); 
@@ -2627,7 +2627,7 @@ nuzzle `pline_mon` D-1240; uhitm/mhitm arms + poly `body_part` deferred);
 shieldeff/ANTIMAGIC gear scan deferred); **`castmu` SUMMON_MONS → `nasty`** (D-0928 #1129; 
 seed4500 **106852→107304** RNG **107335** Scr **941**; 
 `wizard.c` nasty Inhell/`pick_nasty`/`enexto`/`makemon`; unmakemon full defer → mhp=0; 
-other mcast_spell bodies still deferred); 
+other mcast_spell bodies are D-1825 (`mon_spell_hits_spot` / `has_aggravatables` still named); 
 **`castmu` PSI_BOLT/OPEN_WOUNDS → `mdamageu` + `rehumanize`; 
 Unchanging `mh<1` → `done(DIED)`** (D-0928 #1123; 
 seed4500 still @**106540** — JS wears wished amulet of unchanging so savelife keeps Upolyd; 
