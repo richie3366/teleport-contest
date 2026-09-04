@@ -1,5 +1,40 @@
 # Divergence log
 
+## D-1828 — mkmaze.c makemaz astral load_special (endgame plane 5 of 5)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no `astral` loader, so endgame plane 5 of 5
+  was a blank `create_maze` fallback. C loads `dat/astral.lua` via
+  `sp_lev.c` `load_special`. Arrival messages kept raw `%d` because
+  `deliver_splev_message` skipped `convert_line`.
+- **C locus:** `dat/astral.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `lspo_map` string-form lit=FALSE /
+  `lspo_wallify` / `lspo_region` irregular OROOM + TEMPLE `filled=2` /
+  `create_altar` shrine=2 / `create_monster` `mk_roamer`; `questpgr.c`
+  `deliver_splev_message` → `deliver_by_pline` `convert_line`.
+- **JS was:** `load_special_proto` dispatched `earth`/`fire`/`air`/`water`;
+  `astral` named omitted. `deliver_splev_message` plined lev_message
+  without `convert_line`.
+- **Fix:** `load_astral` from the lua body: solidfill + mazelevel+noteleport
+  +hardfloor+nommap+shortsighted+solidify, 75×20 temple map, 60% wing
+  rooms (`percent` + `math.random(4,9)` Angels), shuffled sanctum
+  altars + `priestini`, Moloch/aligned hordes, Riders, L/V/D; C
+  load_special epilogue (link_doors / wallify / flip / solidify /
+  fixup). `deliver_splev_message` runs `convert_line` per line.
+- **JS:** `js/mklev.js` `load_astral` / `load_special_proto`;
+  `js/do.js` `deliver_splev_message`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (do.js mklev.js); PASS rule2; PASS hidden (no corpus session
+  blocked on makemaz); PASS green 2/2; PASS strict seed8000/seed0900;
+  PASS cohort 7/7; PASS full 44/44 (auto: shared file changed).
+  VERIFY: PASS
+- **Named omissions:** humidity-aware `get_location`; `ensure_way_out`;
+  `spo_end_moninvent` `m_dowear`; fill_special_room TEMPLE beyond
+  FILL_LVFLAGS `has_temple`; G_UNIQ extinct return. Not the lua map,
+  wing percent, three sanctums, Riders, or `%d` convert_line.
+- **Next:** Open `mkmaze.c` `makemaz` `Kni-strt`/`-loca`/`-fila`/`-filb`.
+  Not Rogue quest.
+
 ## D-1827 — mkmaze.c makemaz water load_special + save_waterlevel
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

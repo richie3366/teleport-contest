@@ -798,11 +798,14 @@ extract `mresists`** (worn/artifact STONE_RES deferred; **D-1826 `medusa-2`/`-4`
 **Cloud room / `lspo_gas_cloud` / `create_gas_cloud_selection` D-1158** (not BFS; ttl stays −1); 
 **D-0561 `air` load_special + monclass letters + `setup_waterlevel`/`movebubbles`** + 
 **D-0571 `movebubbles` air_pos `S_cloud` glyph + 
-`setup` S_air memory** (astral deferred; water cons pickup) + 
+`setup` S_air memory** (water cons pickup) + 
 **D-1827 `water` load_special + `save_waterlevel`/`restore_waterlevel`/
 `unsetup_waterlevel`/`set_wportal`** (76×20 WATER map, left-third tele,
 astral portal, eels/kraken/sharks + 19 hostile water elementals; bubble
 chain persist on savelev/getlev); 
+**D-1828 `astral` load_special** (endgame 5 of 5: 75×20 temples, 60% wing
+rooms, shuffled sanctums + `priestini`, Moloch/aligned hordes, Riders;
+`deliver_splev_message` `convert_line` `%d`); 
 **D-0551 adult-dragon endgame HP**; **D-0552 `pm_to_humidity` + 
 `is_ok_location` HOT/WET/SOLID in `splev_create_monster`** (Is_waterlevel short-circuit deferred); 
 **D-0553 `m_initinv` S_GIANT**; **D-0554 `golemhp`**; 

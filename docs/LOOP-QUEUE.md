@@ -45,7 +45,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmaze.c` makemaz `astral` — endgame plane 5 of 5. From `dat/astral.lua` (187 ln).
 - [ ] `mkmaze.c` makemaz `Kni-strt`/`-loca`/`-fila`/`-filb` — Knight quest; only `Kni-goal` exists. Knight is 5/44 public sessions (321 ln total).
 - [ ] `mkmaze.c` makemaz `Rog-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Rogue quest, 0/5. Rogue is 6/44 public sessions, the largest uncovered role (503 ln total).
 - [ ] `wintty.c` process_menu_window — 21 corpus blocks; tty menu clears only from its own left column.
@@ -53,6 +52,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `invent.c` getobj — 7 corpus blocks; "You don't have anything else to wear." vs re-prompt.
 - [ ] `pickup.c` describe_decor — 5 corpus blocks; "There is a pit here." before the object list.
 - [ ] `sp_lev.c` build_room — 4 corpus blocks; C themed-room script vs JS `rnd_rect` (level-content cliff).
+- [ ] `pickup.c` doloot_core — 4 corpus blocks; "You don't find anything here to loot." vs "You see no door there."
+- [ ] `hack.c` pickup_checks — 3 corpus blocks; "The stairs are solidly affixed." vs "There is nothing here to pick up."
+- [ ] `insight.c` attributes_enlightenment — 3 corpus blocks; quest-leader telepathy name vs colon.
+- [ ] `selvar.c` selection_filter_percent — 2 corpus blocks; C themed-room `rn2(100)` vs JS `rnd_rect` (level-content cliff).
+- [ ] `mkmaze.c` makemaz `fakewiz1`/`fakewiz2` — Wizard-of-Yendor path; 44+44 ln. From `dat/fakewiz{1,2}.lua`.
 
 ## Parked (do not pop)
 

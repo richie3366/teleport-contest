@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1828 mkmaze.c makemaz astral load_special (endgame plane 5 of 5)
+
+**C locus:** `dat/astral.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+**JS:** `js/mklev.js` `load_astral` / `load_special_proto`;
+**Change:** `load_astral` from the lua body: solidfill + mazelevel+noteleport
+**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+**Named:** humidity-aware `get_location`; `ensure_way_out`;
+**Next:** Open `mkmaze.c` `makemaz` `Kni-strt`/`-loca`/`-fila`/`-filb`.
 ## 2026-09-04 — D-1827 mkmaze.c makemaz water load_special + save_waterlevel
 
 **C locus:** `dat/water.lua`; `mkmaze.c` `makemaz` `:1127–1223`

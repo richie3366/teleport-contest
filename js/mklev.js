@@ -1415,14 +1415,14 @@ function reset_xystart_size() {
  * bigrm-4, bigrm-5, bigrm-6, bigrm-7, bigrm-8, bigrm-9, bigrm-11, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
  * Bar-filb, Bar-goal, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
  * soko1-2, soko2-1, soko2-2, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
- * tower3, fire, air, water, minend-1, minend-2, minend-3, minetn-1, minetn-2, minetn-3,
+ * tower3, fire, air, water, astral, minend-1, minend-2, minend-3, minetn-1, minetn-2, minetn-3,
  * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-2, medusa-3, medusa-4, oracle, castle, valley,
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
  * Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
  * Named omissions: quest
  * protos (Kni-strt/loca/fila/filb);
- * astral; fakewiz;
+ * fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
 async function makemaz(s) {
@@ -1699,6 +1699,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'water') {
         load_water();
+        return true;
+    }
+    if (protofile === 'astral') {
+        load_astral();
         return true;
     }
     if (protofile === 'minend-1') {
@@ -8467,6 +8471,319 @@ function load_water() {
             }
         }
     }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/astral.lua via load_special — Astral Plane (endgame 5 of 5).
+ * Named omissions: ensure_way_out; humidity-aware get_location;
+ * spo_end_moninvent m_dowear; fill_special_room TEMPLE beyond FILL_LVFLAGS
+ * has_temple; G_UNIQ extinct return; fakewiz.
+ */
+function load_astral() {
+    const g = game;
+    nhlib_shuffle_align();
+    // des.level_init({ style = "solidfill", fg = " " }) — ' ' → STONE
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+    g.level.flags.nommap = true;
+    g.level.flags.shortsighted = true;
+    // "solidify" → coder.solidify (epilogue solidify_map)
+
+    // C: des.message ×3 → lev_message newline-joined; convert_line at deliver
+    g.lev_message =
+        'You arrive on the Astral Plane!\n'
+        + 'Here the High Temple of %d is located.\n'
+        + 'You sense alarm, hostility, and excitement in the air!';
+
+    // C ref: dat/astral.lua des.map — 75×20 temples (string form lit=FALSE)
+    const ASTRAL_MAP = `
+                              ---------------
+                              |.............|
+                              |..---------..|
+                              |..|.......|..|
+---------------               |..|.......|..|               ---------------
+|.............|               |..|.......|..|               |.............|
+|..---------..-|   |-------|  |..|.......|..|  |-------|   |-..---------..|
+|..|.......|...-| |-.......-| |..|.......|..| |-.......-| |-...|.......|..|
+|..|.......|....-|-.........-||..----+----..||-.........-|-....|.......|..|
+|..|.......+.....+...........||.............||...........+.....+.......|..|
+|..|.......|....-|-.........-|--|.........|--|-.........-|-....|.......|..|
+|..|.......|...-| |-.......-|   -|---+---|-   |-.......-| |-...|.......|..|
+|..---------..-|   |---+---|    |-.......-|    |---+---|   |-..---------..|
+|.............|      |...|-----|-.........-|-----|...|      |.............|
+---------------      |.........|...........|.........|      ---------------
+                     -------...|-.........-|...-------
+                           |....|-.......-|....|
+                           ---...|---+---|...---
+                             |...............|
+                             -----------------
+`.replace(/^\n/, '');
+    splev_apply_centered_map(ASTRAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const x = Number(key.slice(0, comma));
+                const y = Number(key.slice(comma + 1));
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                loc.lit = IS_LAVA(loc.typ) ? true : false;
+            }
+        }
+    }
+
+    const wallifyLua = () => {
+        // C lspo_wallify no-arg: xstart-1 .. xstart+xsize+1
+        wallify_map(
+            (g.splev_xstart | 0) - 1,
+            (g.splev_ystart | 0) - 1,
+            (g.splev_xstart | 0) + (g.splev_xsize | 0) + 1,
+            (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
+        );
+    };
+    const terCell = (rx, ry, ter) => {
+        sel_set_ter(mx + rx, my + ry, ter, SET_LIT_NOCHANGE);
+    };
+    const hallMon = (hall, id, align) => {
+        const pos = selection_rndcoord(hall, true);
+        const opts = {};
+        if (align) opts.sp_amask = AM_NONE;
+        if (pos) {
+            opts.rx = pos.x - mx;
+            opts.ry = pos.y - my;
+        }
+        splev_create_monster(id, 0, opts);
+    };
+    // chance to open the bottom-center wings into 5×15 rooms
+    for (let i = 1; i <= 2; i++) {
+        if (!percent(60)) continue;
+        let hall;
+        if (i === 1) {
+            lspo_terrain_sel(selection_fillrect_rel(17, 14, 30, 18), ROOM);
+            wallifyLua();
+            terCell(33, 18, VWALL);
+            hall = selection_new();
+            {
+                const fx = mx + 30, fy = my + 16;
+                const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
+                selection_floodfill(hall, fx, fy, false, matchTyp);
+            }
+            terCell(33, 18, ROOM);
+        } else {
+            lspo_terrain_sel(selection_fillrect_rel(44, 14, 57, 18), ROOM);
+            wallifyLua();
+            terCell(41, 18, VWALL);
+            hall = selection_new();
+            {
+                const fx = mx + 44, fy = my + 16;
+                const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
+                selection_floodfill(hall, fx, fy, false, matchTyp);
+            }
+            terCell(41, 18, ROOM);
+        }
+        const n = lua_random2(4, 9);
+        for (let j = 0; j < n; j++) {
+            hallMon(hall, 'Angel', 'noalign');
+            if (percent(50)) hallMon(hall, null, null);
+        }
+    }
+
+    // Rider locations — C selection:set → get_location_coord then setpoint
+    const place = selection_new();
+    selection_setpoint(mx + 23, my + 9, place, 1);
+    selection_setpoint(mx + 37, my + 14, place, 1);
+    selection_setpoint(mx + 51, my + 9, place, 1);
+
+    // des.teleport_region({ region={29,15,45,15}, exclude={30,15,44,15} })
+    l_teleport_region({
+        region: [29, 15, 45, 15],
+        exclude: [30, 15, 44, 15],
+    });
+
+    // Lit courts — irregular ordinary (flood_fill_rm from region x1,y1)
+    splev_irregular_oroom(mx + 1, my + 5, true);
+    splev_irregular_oroom(mx + 31, my + 1, true);
+    splev_irregular_oroom(mx + 61, my + 5, true);
+
+    const addTemple = (x1, y1, x2, y2) => {
+        const dx1 = mx + x1, dy1 = my + y1, dx2 = mx + x2, dy2 = my + y2;
+        if ((g.level.nroom | 0) >= MAXNROFROOMS) return null;
+        add_room(dx1, dy1, dx2, dy2, true, TEMPLE, true);
+        const troom = g.level.rooms[g.level.nroom - 1];
+        if (!troom) return null;
+        troom.rlit = 1;
+        troom.needfill = FILL_LVFLAGS;
+        troom.needjoining = true;
+        topologize(troom);
+        add_doors_to_room(troom);
+        return troom;
+    };
+    addTemple(4, 7, 10, 11);
+    addTemple(34, 3, 40, 7);
+    addTemple(64, 7, 70, 11);
+
+    const alignStrToAmask = (s) => {
+        if (s === 'law') return AM_LAWFUL;
+        if (s === 'neutral') return AM_NEUTRAL;
+        if (s === 'chaos') return AM_CHAOTIC;
+        if (s === 'noalign') return AM_NONE;
+        return AM_SPLEV_RANDOM;
+    };
+    const shuffled = g.splev_align || ['law', 'neutral', 'chaos'];
+    const placeSanctum = (rx, ry, alignStr) => {
+        const x = mx + rx, y = my + ry;
+        const loc = g.level.at(x, y);
+        if (!loc || loc.typ === LADDER || loc.typ === STAIRS) return;
+        loc.typ = ALTAR;
+        const amask = alignStrToAmask(alignStr);
+        loc.altarmask = amask;
+        loc.flags = amask;
+        const rno = loc.roomno | 0;
+        const croom = rno >= ROOMOFFSET ? g.level.rooms[rno - ROOMOFFSET] : null;
+        if (croom && (croom.rtype | 0) === TEMPLE) {
+            // C create_altar shrine==2 → priestini then OR AM_SHRINE|AM_SANCTUM
+            priestini(g.u?.uz, croom, x, y, true);
+            loc.altarmask = (loc.altarmask | 0) | AM_SHRINE | AM_SANCTUM;
+            loc.flags = (loc.flags | 0) | AM_SHRINE | AM_SANCTUM;
+            if (g.level.flags) g.level.flags.has_temple = true;
+        }
+    };
+    // Lua align[1..3] → JS splev_align[0..2]
+    placeSanctum(7, 9, shuffled[0]);
+    placeSanctum(37, 5, shuffled[1]);
+    placeSanctum(67, 9, shuffled[2]);
+
+    const astralDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    astralDoor(11, 9, D_CLOSED);
+    astralDoor(17, 9, D_CLOSED);
+    astralDoor(23, 12, D_LOCKED);
+    astralDoor(37, 8, D_LOCKED);
+    astralDoor(37, 11, D_CLOSED);
+    astralDoor(37, 17, D_CLOSED);
+    astralDoor(51, 12, D_LOCKED);
+    astralDoor(57, 9, D_LOCKED);
+    astralDoor(63, 9, D_CLOSED);
+
+    const markWallProp = (prop) => {
+        for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+            for (let x = mx; x <= mx + 74 && x < COLNO; x++) {
+                const loc = g.level.at(x, y);
+                if (!loc) continue;
+                if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+                    loc.wall_info = (loc.wall_info || 0) | prop;
+            }
+        }
+    };
+    markWallProp(W_NONDIGGABLE);
+    markWallProp(W_NONPASSWALL);
+
+    const placeMon = (id, rx, ry, align, peaceful) => {
+        const opts = { rx, ry };
+        if (align) opts.sp_amask = alignStrToAmask(align);
+        splev_create_monster(id, peaceful, opts);
+    };
+    const placeRider = (id) => {
+        const pos = selection_rndcoord(place, true);
+        const opts = {};
+        if (pos) {
+            opts.rx = pos.x - mx;
+            opts.ry = pos.y - my;
+        }
+        splev_create_monster(id, 0, opts);
+    };
+
+    // Moloch's horde — west / south-central / east round rooms
+    placeMon('aligned cleric', 18, 9, 'noalign', 0);
+    placeMon('aligned cleric', 19, 8, 'noalign', 0);
+    placeMon('aligned cleric', 19, 9, 'noalign', 0);
+    placeMon('aligned cleric', 19, 10, 'noalign', 0);
+    placeMon('Angel', 20, 9, 'noalign', 0);
+    placeMon('Angel', 20, 10, 'noalign', 0);
+    placeRider('Pestilence');
+    placeMon('aligned cleric', 36, 12, 'noalign', 0);
+    placeMon('aligned cleric', 37, 12, 'noalign', 0);
+    placeMon('aligned cleric', 38, 12, 'noalign', 0);
+    placeMon('aligned cleric', 36, 13, 'noalign', 0);
+    placeMon('Angel', 38, 13, 'noalign', 0);
+    placeMon('Angel', 37, 13, 'noalign', 0);
+    placeRider('Death');
+    placeMon('aligned cleric', 56, 9, 'noalign', 0);
+    placeMon('aligned cleric', 55, 8, 'noalign', 0);
+    placeMon('aligned cleric', 55, 9, 'noalign', 0);
+    placeMon('aligned cleric', 55, 10, 'noalign', 0);
+    placeMon('Angel', 54, 9, 'noalign', 0);
+    placeMon('Angel', 54, 10, 'noalign', 0);
+    placeRider('Famine');
+
+    // Aligned horde — west / central / east courts (peaceful bit is a placeholder)
+    placeMon('aligned cleric', 12, 7, 'chaos', 0);
+    placeMon('aligned cleric', 13, 7, 'chaos', 1);
+    placeMon('aligned cleric', 14, 7, 'law', 0);
+    placeMon('aligned cleric', 12, 11, 'law', 1);
+    placeMon('aligned cleric', 13, 11, 'neutral', 0);
+    placeMon('aligned cleric', 14, 11, 'neutral', 1);
+    placeMon('Angel', 11, 5, 'chaos', 0);
+    placeMon('Angel', 12, 5, 'chaos', 1);
+    placeMon('Angel', 13, 5, 'law', 0);
+    placeMon('Angel', 11, 13, 'law', 1);
+    placeMon('Angel', 12, 13, 'neutral', 0);
+    placeMon('Angel', 13, 13, 'neutral', 1);
+    placeMon('aligned cleric', 32, 9, 'chaos', 0);
+    placeMon('aligned cleric', 33, 9, 'chaos', 1);
+    placeMon('aligned cleric', 34, 9, 'law', 0);
+    placeMon('aligned cleric', 40, 9, 'law', 1);
+    placeMon('aligned cleric', 41, 9, 'neutral', 0);
+    placeMon('aligned cleric', 42, 9, 'neutral', 1);
+    placeMon('Angel', 31, 8, 'chaos', 0);
+    placeMon('Angel', 32, 8, 'chaos', 1);
+    placeMon('Angel', 31, 9, 'law', 0);
+    placeMon('Angel', 42, 8, 'law', 1);
+    placeMon('Angel', 43, 8, 'neutral', 0);
+    placeMon('Angel', 43, 9, 'neutral', 1);
+    placeMon('aligned cleric', 60, 7, 'chaos', 0);
+    placeMon('aligned cleric', 61, 7, 'chaos', 1);
+    placeMon('aligned cleric', 62, 7, 'law', 0);
+    placeMon('aligned cleric', 60, 11, 'law', 1);
+    placeMon('aligned cleric', 61, 11, 'neutral', 0);
+    placeMon('aligned cleric', 62, 11, 'neutral', 1);
+    placeMon('Angel', 61, 5, 'chaos', 0);
+    placeMon('Angel', 62, 5, 'chaos', 1);
+    placeMon('Angel', 63, 5, 'law', 0);
+    placeMon('Angel', 61, 13, 'law', 1);
+    placeMon('Angel', 62, 13, 'neutral', 0);
+    placeMon('Angel', 63, 13, 'neutral', 1);
+
+    for (let i = 0; i < 3; i++) splev_create_monster('L', 0);
+    for (let i = 0; i < 3; i++) splev_create_monster('V', 0);
+    for (let i = 0; i < 3; i++) splev_create_monster('D', 0);
+
+    // C load_special: link_doors → remove_boundary → map_cleanup →
+    // wallification → flip → solidify → fixup (lregions remapped by flip)
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    solidify_map();
     fixup_special();
 }
 
