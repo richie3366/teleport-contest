@@ -1211,8 +1211,8 @@ three `create_altar`/`get_free_room_loc`);
 1×1 bitmap, ttl −1, not BFS; asleep fog `numpoints/4`); 
 **Light source fill** + `l_create_object` oil lamp `lit=true` (D-1542; 
 needs_unlit `rm.lit==false`; callee D-1533 `o->lit` `begin_burn`; not 
-`create_object_themed`/`mksobj_at`); **Kni-goal** (D-0928 #1134; 
-Kni-strt/loca/fila/filb deferred); full Lua VM + remaining `des.*` still production requirement; 
+`create_object_themed`/`mksobj_at`); **Kni-goal** (D-0928 #1134) + **Kni-strt/loca/fila/filb** (D-1829; Camelot
+mines-kludge + Isle of Glass swamp mines + fillers); full Lua VM + remaining `des.*` still production requirement; 
 Room-in-room nested create_subroom + Pillars terrain + 
 Mausoleum/Twin/Fake Delphi/Huge nested bodies + 
 other fill bodies (Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/Statuary/…) 

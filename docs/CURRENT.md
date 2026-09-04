@@ -71,15 +71,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1828**. Map-driven Open (Must-fix empty).
-**Next cluster:** `mkmaze.c` `makemaz` `Kni-strt`/`-loca`/`-fila`/`-filb` — Knight quest; only `Kni-goal` exists. From `dat/Kni-*.lua`.
+**Suite 44/44** at **D-1829**. Map-driven Open (Must-fix empty).
+**Next cluster:** `mkmaze.c` `makemaz` `Rog-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Rogue quest, 0/5. Rogue is 6/44 public sessions, the largest uncovered role (503 ln total). From `dat/Rog-*.lua`.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1828 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1829 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1829** `dat/Kni-strt.lua` / `Kni-loca.lua` / `Kni-fila.lua` / — `load_kni_strt` from the lua body: solidfill ROOM + mines fg=bg="."
 **D-1828** `dat/astral.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_astral` from the lua body: solidfill + mazelevel+noteleport
 **D-1827** `dat/water.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_water` from the lua body: solidfill + mazelevel+noteleport
 **D-1826** `dat/medusa-2.lua`; `dat/medusa-4.lua`; `mkmaze.c` `makemaz` — `load_medusa_2` from the lua body: solidfill + mazelevel+noteleport,
@@ -87,9 +88,8 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1824** `dat/Bar-goal.lua` `:44–57`; `sp_lev.c` `create_object` / — loop bound 14 matching lua `:44–57`.
 **D-1823** `dat/minend-3.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_minend_3` from the lua body: solidfill HWALL (so
 **D-1822** `dat/bigrm-{1,10,13}.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_bigrm_1` (solidfill + 18×75 room; `percent(80)` then
-**D-1821** `dat/bigrm-{5,6,11}.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_bigrm_5` (solidfill + 19×74 diamond; `percent(25)`
 <!-- recent:end -->
-**Do not:** FORCE/RNG; skip D-1229…D-1828; wrap `wildmiss` /
+**Do not:** FORCE/RNG; skip D-1229…D-1829; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

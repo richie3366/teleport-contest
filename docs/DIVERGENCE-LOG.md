@@ -1,5 +1,42 @@
 # Divergence log
 
+## D-1829 — mkmaze.c makemaz Kni-strt/loca/fila/filb load_special (Knight quest 5/5)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had only `Kni-goal`, so Knight quest start/locate/fillers
+  were a blank `create_maze` fallback. C loads `dat/Kni-strt.lua` /
+  `Kni-loca.lua` / `Kni-fila.lua` / `Kni-filb.lua` via `sp_lev.c`
+  `load_special`. Knight is 5/44 public sessions.
+- **C locus:** `dat/Kni-strt.lua` / `Kni-loca.lua` / `Kni-fila.lua` /
+  `Kni-filb.lua`; `mkmaze.c` `makemaz` `:1127–1223` `load_special`;
+  `sp_lev.c` `splev_initlev` mines + `lspo_map` `'x'` skip / `create_altar`
+  shrine `priestini` / CUSTOM_INVENT `put_saddle_on_mon`.
+- **JS was:** `load_special_proto` dispatched `Kni-goal` only; the other four
+  Knight protos named omitted.
+- **Fix:** `load_kni_strt` from the lua body: solidfill ROOM + mines fg=bg="."
+  lit-field kludge, 50×16 Camelot map, COURT FILL_LVFLAGS, locked/closed
+  doors, King Arthur CUSTOM_INVENT Excalibur+plate, chest, knights/pages,
+  sleep-gas + 4 random traps, 12 siege quasits, `2+rn2(3)` warhorses with
+  `percent(50)` saddle via `put_saddle_on_mon`, branch levregion after flip.
+  `load_kni_loca`: mines fg="." bg=POOL joined swamp, 40×12 `'x'`-keep map,
+  temple FILL_LVFLAGS + neutral shrine `priestini`, 15 objects, 45 magic
+  avenue traps + 7 anti-magic, 17 quasits / `i` / `j` / ochre jellies.
+  `load_kni_fila`/`load_kni_filb`: same swamp mines, noflip, stairs +
+  8/11 objects + quasit/`i`/jelly counts from lua + 4 traps.
+- **JS:** `js/mklev.js` `load_kni_strt` / `load_kni_loca` / `load_kni_fila` /
+  `load_kni_filb` / `load_special_proto`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; PASS hidden (no corpus session blocked on
+  makemaz); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort
+  7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** humidity-aware `get_location`; `spo_end_moninvent`
+  `m_dowear`; flip_level lregion coord update; `ensure_way_out`;
+  `create_object` generic `invent_carrying_monster` (saddle only in this
+  loader). Not the lua maps, mines inits, Arthur/Excalibur, or filler
+  object/monster counts.
+- **Next:** Open `mkmaze.c` `makemaz` `Rog-strt`/`-loca`/`-goal`/`-fila`/`-filb`.
+  Not fakewiz.
+
 ## D-1828 — mkmaze.c makemaz astral load_special (endgame plane 5 of 5)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

@@ -100,6 +100,7 @@ import {
     mongets, set_malign, rndmonnum,
 } from './makemon.js';
 import { mk_mplayer } from './mplayer.js';
+import { can_saddle, put_saddle_on_mon } from './steed.js';
 import { m_at } from './mon.js';
 import { enexto, rloc, goodpos, migrate_to_level } from './teleport.js';
 import { clear_wormdata } from './worm.js';
@@ -254,6 +255,8 @@ const SPE_CHARM_MONSTER = objectNames.indexOf('SPE_CHARM_MONSTER');
 const SPE_STONE_TO_FLESH = objectNames.indexOf('SPE_STONE_TO_FLESH');
 const SPE_POLYMORPH = objectNames.indexOf('SPE_POLYMORPH');
 const LONG_SWORD = objectNames.indexOf('LONG_SWORD');
+const PLATE_MAIL = objectNames.indexOf('PLATE_MAIL');
+const SADDLE = objectNames.indexOf('SADDLE');
 const SILVER_SABER = objectNames.indexOf('SILVER_SABER');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
 const LEATHER_GLOVES = objectNames.indexOf('LEATHER_GLOVES');
@@ -1419,9 +1422,10 @@ function reset_xystart_size() {
  * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-2, medusa-3, medusa-4, oracle, castle, valley,
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
  * Wiz-fila, Wiz-filb, Wiz-goal,
- * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
+ * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7,
+ * Kni-strt, Kni-loca, Kni-fila, Kni-filb, Kni-goal.
  * Named omissions: quest
- * protos (Kni-strt/loca/fila/filb);
+ * protos (Rog-strt/loca/goal/fila/filb);
  * fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1635,6 +1639,22 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Arc-goal') {
         load_arc_goal();
+        return true;
+    }
+    if (protofile === 'Kni-strt') {
+        load_kni_strt();
+        return true;
+    }
+    if (protofile === 'Kni-loca') {
+        load_kni_loca();
+        return true;
+    }
+    if (protofile === 'Kni-fila') {
+        load_kni_fila();
+        return true;
+    }
+    if (protofile === 'Kni-filb') {
+        load_kni_filb();
         return true;
     }
     if (protofile === 'Kni-goal') {
@@ -6025,8 +6045,438 @@ function load_arc_goal() {
 }
 
 /**
+ * C ref: dat/Kni-strt.lua via load_special — Knight quest start (Arthur).
+ * solidfill ROOM then mines fg=bg="." lit-field kludge; Camelot map;
+ * COURT FILL_LVFLAGS; CUSTOM_INVENT Excalibur + plate; warhorse saddles.
+ * Named omissions: spo_end_moninvent m_dowear; humidity get_location;
+ * flip_level lregion coord update (branch at pre-flip map offsets);
+ * light_region wall expansion; ensure_way_out / map_cleanup.
+ */
+function load_kni_strt() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "." })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: ROOM,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    // des.level_init mines: fg=".", bg=".", smoothed=false, joined=false,
+    // lit=1, walled=false — kludge for a lit open field (fg==bg)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: ROOM, filling: ROOM,
+        lit: 1, smoothed: false, joined: false, walled: false,
+        icedpools: false,
+    });
+
+    const KNI_STRT_MAP = `
+..................................................
+.-----......................................-----.
+.|...|......................................|...|.
+.--|+-------------------++-------------------+|--.
+...|...................+..+...................|...
+...|.|-----------------|++|-----------------|.|...
+...|.|.................|..|.........|.......|.|...
+...|.|...\\.............+..+.........|.......|.|...
+...|.|.................+..+.........+.......|.|...
+...|.|.................|..|.........|.......|.|...
+...|.|--------------------------------------|.|...
+...|..........................................|...
+.--|+----------------------------------------+|--.
+.|...|......................................|...|.
+.-----......................................-----.
+..................................................
+`.replace(/^\n/, '');
+    splev_apply_centered_map(KNI_STRT_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    const kniLit = (x1, y1, x2, y2, lit) => {
+        for (let y = y1; y <= y2; y++) {
+            for (let x = x1; x <= x2; x++) {
+                const loc = g.level.at(mx + x, my + y);
+                if (loc) loc.lit = lit;
+            }
+        }
+    };
+    // des.region lit / unlit (map-relative)
+    kniLit(0, 0, 49, 15, true);
+    kniLit(4, 4, 45, 11, false);
+
+    // des.region({ region={06,06,22,09}, lit=1, type="throne", filled=2 })
+    {
+        const dx1 = mx + 6, dy1 = my + 6, dx2 = mx + 22, dy2 = my + 9;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, true, COURT, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.needfill = FILL_LVFLAGS;
+                troom.needjoining = true;
+                topologize(troom);
+            }
+        }
+        kniLit(6, 6, 22, 9, true);
+    }
+    kniLit(27, 6, 43, 9, true);
+
+    // des.stair("down", 40,7)
+    mkstairs(mx + 40, my + 7, 0, null);
+
+    const kniDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    kniDoor(24, 3, D_LOCKED);
+    kniDoor(25, 3, D_LOCKED);
+    kniDoor(23, 4, D_CLOSED);
+    kniDoor(26, 4, D_CLOSED);
+    kniDoor(24, 5, D_LOCKED);
+    kniDoor(25, 5, D_LOCKED);
+    kniDoor(23, 7, D_CLOSED);
+    kniDoor(26, 7, D_CLOSED);
+    kniDoor(23, 8, D_CLOSED);
+    kniDoor(26, 8, D_CLOSED);
+    kniDoor(36, 8, D_CLOSED);
+    kniDoor(4, 3, D_CLOSED);
+    kniDoor(45, 3, D_CLOSED);
+    kniDoor(4, 12, D_CLOSED);
+    kniDoor(45, 12, D_CLOSED);
+
+    // des.monster({ id = "King Arthur", coord = {09, 07}, inventory = ... })
+    // C: create_monster then CUSTOM_INVENT → invent_carrying_monster
+    {
+        find_montype_gender('King Arthur');
+        induced_align(80);
+        const pmIdx = name_to_mon('King Arthur');
+        const mtmp = pmIdx >= 0
+            ? makemon(mons(pmIdx), mx + 9, my + 7, 0)
+            : null;
+        if (mtmp) {
+            splev_discard_default_minvent(mtmp);
+            // des.object long sword spe=4 blessed name=Excalibur
+            {
+                const pos = get_location_random(null);
+                const otmp = mksobj_at(LONG_SWORD, pos.x, pos.y, true, false);
+                if (otmp) {
+                    otmp.spe = 4;
+                    bless(otmp);
+                    otmp.oeroded = 0;
+                    otmp.oeroded2 = 0;
+                    otmp.oerodeproof = 0;
+                    oname(otmp, 'Excalibur', ONAME_LEVEL_DEF);
+                    obj_extract_self(otmp);
+                    mpickobj(mtmp, otmp);
+                }
+            }
+            // des.object plate mail spe=4
+            {
+                const pos = get_location_random(null);
+                const otmp = mksobj_at(PLATE_MAIL, pos.x, pos.y, true, true);
+                if (otmp) {
+                    otmp.spe = 4;
+                    otmp.oeroded = 0;
+                    otmp.oeroded2 = 0;
+                    otmp.oerodeproof = 0;
+                    obj_extract_self(otmp);
+                    mpickobj(mtmp, otmp);
+                }
+            }
+            // spo_end_moninvent → m_dowear deferred
+        }
+    }
+
+    // des.object("chest", 09, 07)
+    mksobj_at(CHEST, mx + 9, my + 7, true, true);
+
+    // des.monster knight watchrooms peaceful=1
+    for (const [rx, ry] of [[4, 2], [4, 13], [45, 2], [45, 13]]) {
+        splev_create_monster('knight', 1, { rx, ry });
+    }
+    // des.monster("page", ...) audience chamber
+    for (const [rx, ry] of [[16, 6], [18, 6], [20, 6], [16, 9], [18, 9], [20, 9]]) {
+        splev_create_monster('page', undefined, { rx, ry });
+    }
+
+    // des.non_diggable — C sel_set_wall_property: STWALL/TREE/IRONBARS
+    for (let y = my; y <= my + 15 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 49 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.trap("sleep gas", 24,04)/(25,04) then four random
+    for (const [rx, ry] of [[24, 4], [25, 4]]) {
+        const ttmp = maketrap(mx + rx, my + ry, SLP_GAS_TRAP);
+        mktrap_seen_victim(ttmp, {});
+    }
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    // des.monster quasit siege along the north wall
+    for (const rx of [14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36]) {
+        splev_create_monster('quasit', 0, { rx, ry: 0 });
+    }
+
+    // for i = 1, 2 + nh.rn2(3) do warhorse peaceful=1; percent(50) saddle
+    // C create_object invent_carrying_monster: SADDLE → put_saddle_on_mon
+    for (let i = 0, n = 2 + rn2(3); i < n; i++) {
+        const mtmp = splev_create_monster('warhorse', 1);
+        if (!mtmp) continue;
+        splev_discard_default_minvent(mtmp);
+        if (!percent(50)) continue;
+        const pos = get_location_random(null);
+        const otmp = mksobj_at(SADDLE, pos.x, pos.y, true, true);
+        if (!otmp) continue;
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+        obj_extract_self(otmp);
+        if (otmp.otyp === SADDLE && can_saddle(mtmp))
+            put_saddle_on_mon(otmp, mtmp);
+        else
+            mpickobj(mtmp, otmp);
+    }
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // des.levregion({ region={20,14,20,14}, type="branch" }) after flip
+    // at pre-flip map offsets (Bar-strt / Pri-strt shortcut).
+    place_lregion(
+        mx + 20, my + 14, mx + 20, my + 14,
+        0, 0, 0, 0, LR_BRANCH, null,
+    );
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Kni-loca.lua via load_special — Knight quest locate
+ * (Isle of Glass). Mines fg="." bg="P" joined swamp, map 'x' keeps pool;
+ * temple FILL_LVFLAGS + shrine priestini.
+ * Named omissions: humidity get_location; spo_end_moninvent m_dowear;
+ * ensure_way_out / map_cleanup; light_region wall expansion.
+ */
+function load_kni_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    // des.level_init mines: fg=".", bg="P", smoothed=false, joined=true,
+    // lit=1, walled=false — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: POOL, filling: ROOM,
+        lit: 1, smoothed: false, joined: true, walled: false,
+        icedpools: false,
+    });
+
+    const KNI_LOCA_MAP = `
+xxxxxxxxx......xxxx...........xxxxxxxxxx
+xxxxxxx.........xxx.............xxxxxxxx
+xxxx..............................xxxxxx
+xx.................................xxxxx
+....................................xxxx
+.......................................x
+........................................
+xx...................................xxx
+xxxx..............................xxxxxx
+xxxxxx..........................xxxxxxxx
+xxxxxxxx.........xx..........xxxxxxxxxxx
+xxxxxxxxx.......xxxxxx.....xxxxxxxxxxxxx
+`.replace(/^\n/, '');
+    splev_apply_centered_map(KNI_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,39,11), "lit")
+    for (let y = my; y <= my + 11 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 39 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.lit = true;
+        }
+    }
+
+    // des.region({ region={09,02, 27,09}, lit=1, type="temple", filled=2 })
+    let templeRoom = null;
+    {
+        const dx1 = mx + 9, dy1 = my + 2, dx2 = mx + 27, dy2 = my + 9;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, true, TEMPLE, true);
+            templeRoom = g.level.rooms[g.level.nroom - 1];
+            if (templeRoom) {
+                templeRoom.needfill = FILL_LVFLAGS;
+                templeRoom.needjoining = true;
+                topologize(templeRoom);
+            }
+        }
+    }
+
+    // des.stair
+    mkstairs(mx + 38, my + 0, 1, null);
+    mkstairs(mx + 18, my + 5, 0, null);
+
+    // des.altar({ x=17, y=05, align="neutral", type="shrine" })
+    // C create_altar: amask then priestini then |= AM_SHRINE
+    {
+        const ax = mx + 17, ay = my + 5;
+        const loc = g.level.at(ax, ay);
+        if (loc) {
+            loc.typ = ALTAR;
+            loc.flags = AM_NEUTRAL;
+            loc.altarmask = AM_NEUTRAL;
+        }
+        if (templeRoom) priestini(g.u?.uz, templeRoom, ax, ay, false);
+        if (loc) {
+            loc.altarmask = (loc.altarmask | 0) | AM_SHRINE;
+            loc.flags = (loc.flags | 0) | AM_SHRINE;
+        }
+        if (g.level.flags) g.level.flags.has_temple = true;
+    }
+
+    // des.object() × 15
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+
+    // des.trap("magic", ...) avenues except the East
+    const magicCells = [
+        [8, 11], [9, 11], [10, 11], [11, 11], [12, 11], [13, 11],
+        [14, 11], [15, 11], [16, 11],
+        [20, 11], [21, 11], [22, 11], [23, 11], [24, 11], [25, 11],
+        [26, 11], [27, 11], [28, 11],
+        [0, 3], [0, 4], [0, 5], [0, 6],
+        [6, 0], [7, 0], [8, 0], [9, 0], [10, 0], [11, 0], [12, 0],
+        [13, 0], [14, 0],
+        [19, 0], [20, 0], [21, 0], [22, 0], [23, 0], [24, 0], [25, 0],
+        [26, 0], [27, 0], [28, 0], [29, 0], [30, 0], [31, 0], [32, 0],
+    ];
+    for (const [rx, ry] of magicCells) {
+        const ttmp = maketrap(mx + rx, my + ry, MAGIC_TRAP);
+        mktrap_seen_victim(ttmp, {});
+    }
+    // des.trap("anti magic") × 7
+    for (let i = 0; i < 7; i++) splev_create_trap(ANTI_MAGIC);
+
+    for (let i = 0; i < 17; i++) splev_create_monster('quasit', 0);
+    splev_create_monster('i', 0);
+    splev_create_monster('j', 0);
+    for (let i = 0; i < 7; i++) splev_create_monster('ochre jelly', 0);
+    splev_create_monster('j', 0);
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Kni-fila.lua via load_special — quest filler above locate.
+ * Mines swamp (fg="." bg="P" joined lit=1); noflip.
+ * Named omissions: humidity get_location; ensure_way_out.
+ */
+function load_kni_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "." })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: ROOM,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg="P", smoothed=false, joined=true,
+    // lit=1, walled=false
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: POOL, filling: ROOM,
+        lit: 1, smoothed: false, joined: true, walled: false,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 8; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_monster('quasit', 0);
+    splev_create_monster('i', 0);
+    splev_create_monster('ochre jelly', 0);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Kni-filb.lua via load_special — quest filler below locate.
+ * Same mines swamp as Kni-fila; more objects and ochre jellies; noflip.
+ * Named omissions: humidity get_location; ensure_way_out.
+ */
+function load_kni_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: ROOM,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: POOL, filling: ROOM,
+        lit: 1, smoothed: false, joined: true, walled: false,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 11; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_monster('quasit', 0);
+    splev_create_monster('i', 0);
+    for (let i = 0; i < 3; i++) splev_create_monster('ochre jelly', 0);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
  * C ref: dat/Kni-goal.lua via load_special — Knight quest goal (Ixoth).
- * Named omissions: Kni-strt/loca/fila/filb; humidity get_location for
+ * Named omissions: humidity get_location for
  * water-likers; set_malign after peaceful override.
  */
 function load_kni_goal() {

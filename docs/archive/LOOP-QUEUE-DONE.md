@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `mkmaze.c` makemaz `astral` — endgame plane 5 of 5. From `dat/astral.lua` (187 ln). **Addressed:** D-1828
+- [x] `mkmaze.c` makemaz `Kni-strt`/`-loca`/`-fila`/`-filb` — Knight quest; only `Kni-goal` exists. Knight is 5/44 public sessions (321 ln total). **Addressed:** D-1829
+
+
+- [x] `mkmaze.c` makemaz `astral` — endgame plane 5 of 5. From `dat/astral.lua` (187 ln). **Addressed:** D-1828 `c306d211`
 
 
 - [x] `mkmaze.c` makemaz `water` + `mkmaze.c` save_waterlevel/restore_waterlevel/unsetup_waterlevel/set_wportal — endgame plane 4 of 5. From `dat/water.lua` (102 ln). **Addressed:** D-1827 `e782f134`
