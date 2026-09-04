@@ -5,13 +5,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Next Open:** `trap.c` `lava_effects` remaining: Fire_resistance /
-  Wwalking / inventory burn / sink-and-die. Not drown. Map-driven /
-  cluster density — do not invent a FAIL peel. Do **not** add trailing
-  `confdir` to shared `getdir` (D-1815 closed the cmdassist predicate).
-- **seed0030** still 39912/105529 after D-1797. First all-segments
-  miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
-  (seg0 RNG OK 14300). Falsify with `rng-diff --all-segments`.
+- **Must-fix first** (`docs/2026-09-04-fortress-regression-42-44.md`):
+  seed0030 `mattacku` still runs NATTK `i=1` after `done()` returns
+  (C longjmp). Falsify: seed0030 seg3 JS RNG still 9896 or topline
+  “Maganasipi hits again”. Then seed4500 `HDeaf [2]` on the first
+  `#wizintrinsic` menu (D-1792 write; dump `u.HDeaf` at T:97).
+  Do **not** pop `lava_effects` until both PASS. No gem-color peel.
+  Do **not** add trailing `confdir` to shared `getdir` (D-1815).
 - **Luck still runs when invulnerable.** Dialogues do not
   (`timeout.c:623`). STONED/SLIMED expiry silent (`done_timeout`).
 - **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs`
@@ -54,11 +54,13 @@ Objective/score live in `CURRENT.md`.
   / `priest_talk` / `shk_chat` / `str_start_is` / `accessible` /
   trailing `confdir` / `locomotion` / `resists_acid` / `can_carry`
   / `wearing_iron_shoes` / `unconscious` / `start_corpse_timeout`.
-  Usleep is not seed0030’s first token.
+  Usleep is not seed0030’s first token; concat gem-colors is not
+  either. Must-fix is `mattacku` `gameover` abort after `done()`.
 - Do not re-port `mattacku` remaining / `getmattk` DISE/DREN/WEAP
-  (D-1795). Keep sleep `rn2(10)`. No second `m_monnam` /
-  `simple_typename` (`lock.js` clone stays). seed4500 DEAF `[2]` is
-  D-1792 (RNG full) — do not omit `flush_screen(1)`.
+  (D-1795 body). Keep sleep `rn2(10)`. The post-`done()` `i=1` slot
+  is Must-fix, not a second remaining-body port. No second
+  `m_monnam` / `simple_typename`. seed4500 `[2]` is the Must-fix
+  menu row — do not omit `flush_screen(1)` and do not hide `[2]`.
 - Do not re-port `make_corpse` (D-1794) / `dmgval` `rnd()` (D-1793) /
   `nh_timeout` luck (D-1792) / `newuhs` (D-1791) / `monverbself`
   genders[3] (D-1790). No second `free_mgivenname` / `is_axe` /

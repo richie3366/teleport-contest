@@ -20,13 +20,15 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1814**
-(`b596f337`; audit overlay reviews **775–783**). **42**/44.
-**seed0030** RNG **39912**/105529 / Screen **989**/1953 since **D-1795**.
-**seed4500** Screen **1801**/1814 (RNG full) since **D-1792**.
+Score last measured: **2026-09-04** — full `sessions` at **D-1814**
+(`b596f337`; audit **775–783**). **42**/44. Both FAILs reproduced at
+HEAD **D-1815** `462e1338`. **Not** map-driven until fortress
+returns. Report: `docs/2026-09-04-fortress-regression-42-44.md`.
+**seed0030** since **D-1795**: 9/10 segs RNG-perfect; seg3 JS +4
+after `can_make_bones` (Maganasipi `i=1`). **seed4500** since
+**D-1792**: RNG full, 13 `#wizintrinsic` `deafness [2]` screens.
 Scr **10,428**/11,405, RNG **727,221**/792,838 = **91.7%**.
 Speed `46+0.33/turn` (R² 0.84).
-Must-fix empty (D-1815 shipped). Next Open: `trap.c` `lava_effects`.
 
 ## Score
 
@@ -47,9 +49,10 @@ seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
 seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore.
 
-**Notable non-PASS:** seed0030 RNG 39912/105529 Screen 989/1953 since
-D-1795. seed4500 Screen 1801/1814 since D-1792 (`#wizintrinsic` DEAF
-`[2]`; RNG 108275/108275).
+**Notable non-PASS:** seed0030 since D-1795 — concat RNG 39912/105529
+is positional; real miss is seg3 +4 after death (`rnd(21)` i=1).
+seed4500 since D-1792 — Screen 1801/1814, RNG full, 13 menus
+`deafness [2]`. Report `docs/2026-09-04-fortress-regression-42-44.md`.
 
 ## Green gate
 
@@ -66,14 +69,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 42/44** at D-1814. **D-1815** shipped review **775**
-(`getdir` `:4098` `iflags.cmdassist`). **776–783 AWD**.
-seed0030 first miss is C seg4 `randomize_gem_colors` vs JS still in
-seg3 combat (seg0 RNG OK 14300). Save-oracle for tagged restore
-Open (`save-oracle.mjs probe --omit`).
-**Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
-**Next cluster:** `trap.c` lava_effects remaining: Fire_resistance /
-Wwalking / inventory burn / sink-and-die. Not drown.
+**Suite 42/44 is a fortress regression**, not an Open peel.
+Read `docs/2026-09-04-fortress-regression-42-44.md`. **D-1815**
+already shipped. **Next cluster:** Must-fix `mattacku` abort after
+`done()` (seed0030 Maganasipi `i=1`). Then Must-fix seed4500
+`deafness [2]`. Not `lava_effects` until both PASS.
+Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
+**Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`) once
+Must-fix is empty.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1815 (index).** Recent **D-1815:** `getdir` reads
 `iflags.cmdassist` (Options/`O` writes `game.iflags`), not

@@ -8,6 +8,16 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — human: 42/44 is a fortress regression, not Open
+
+**Objective:** diagnose 42/44 (loop stopped) and queue Must-fix.
+**Report:** `docs/2026-09-04-fortress-regression-42-44.md`.
+**seed0030** D-1795: 9/10 segs RNG-perfect; Beatrix/Maganasipi
+seg3 JS +4 after `can_make_bones` = `mattacku` `i=1` because
+`done()` returns (C longjmp). Concat gem-colors is an artifact.
+**seed4500** D-1792 (D-1791 still PASS): 13 menus `deafness [2]`,
+RNG full. **Next:** Must-fix `mattacku` gameover abort, then
+HDeaf `[2]`. Not `lava_effects`.
 ## 2026-09-04 — D-1815 cmd.c getdir iflags.cmdassist
 
 **Objective:** Must-fix review **775** — Match C `cmd.c` `getdir`

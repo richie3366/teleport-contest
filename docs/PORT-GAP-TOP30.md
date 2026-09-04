@@ -3,8 +3,11 @@
 **What this is.** The 30 pinned-C functions most likely to cost points on
 sessions we cannot see: functions an ordinary game reaches often, that
 draw RNG or print, and whose `js/` port is missing or thin. The local
-public suite is 44/44, so nothing here is a FAIL peel — these are the
-paths a *different* seed, role or play style would walk into.
+public suite is **42/44** until
+`docs/2026-09-04-fortress-regression-42-44.md` Must-fix ships (then
+44/44 again). Nothing here is a FAIL peel — Open waits until
+Must-fix is empty. These are the paths a *different* seed, role or
+play style would walk into.
 
 **Reproduce:** `node scripts/port-coverage.mjs --limit 40` (add `--md`
 for a table, `--name <fn>` to explain one function). The script indexes
