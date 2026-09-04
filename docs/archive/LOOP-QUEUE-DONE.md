@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `mkmaze.c` makemaz `bigrm-5`/`-6`/`-11` — three smallest Big Room variants. From `dat/bigrm-{5,6,11}.lua` (54/48/39 ln). **Addressed:** D-1821
+- [x] `mkmaze.c` makemaz `bigrm-1`/`-10`/`-13` — completes Big Room 13/13; 46% blank → 0%. From `dat/bigrm-{1,10,13}.lua` (81/61/82 ln). **Addressed:** D-1822
+
+
+- [x] `mkmaze.c` makemaz `bigrm-5`/`-6`/`-11` — three smallest Big Room variants. From `dat/bigrm-{5,6,11}.lua` (54/48/39 ln). **Addressed:** D-1821 `0c3e8ca5`
 
 
 - [x] `mkmaze.c` makemaz `soko2-2` — second `soko2` variant; removes a 50% blank-level coin flip on Sokoban 2. From `dat/soko2-2.lua` (72 ln). **Addressed:** D-1820 `42afdca4`

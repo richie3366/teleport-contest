@@ -1,5 +1,37 @@
 # Divergence log
 
+## D-1822 — mkmaze.c makemaz bigrm-1/10/13 load_special (completes Big Room 13/13)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no `bigrm-1`/`-10`/`-13` loaders, so those
+  `rnd(13)` Big Room variants fell through `load_special_proto` (blank
+  maze). C loads `dat/bigrm-{1,10,13}.lua` via `sp_lev.c` `load_special`.
+- **C locus:** `dat/bigrm-{1,10,13}.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `lspo_terrain` / `lspo_replace_terrain` /
+  `lspo_mazewalk` / `lspo_levregion` / `lspo_wallify` / `lspo_map` coord;
+  `nhlsel.c` `l_selection_line` / `l_selection_rect` / `l_selection_fillrect`;
+  `selvar.c` `selection_do_line`.
+- **JS was:** `load_special_proto` dispatched bigrm-2..9/11/12; bigrm-1/10/13
+  named omitted.
+- **Fix:** `load_bigrm_1` (solidfill + 18×75 room; `percent(80)` then
+  `math.random` terrain −/F/L/T/C and choice 0–5: line / twin lines /
+  plus / brackets / snake / none via `selection_do_line`); `load_bigrm_10`
+  (19×71 fog maze; `percent(40)` chance-5 C→. then remaining C→L/}/T/-/F;
+  down-tele exclude; `mazewalk` south `stocked=0`; `levregion` stair-up);
+  `load_bigrm_13` (19×75; 8 Lua pillar filters; nested `des.map` coord as
+  absolute `xstart`; `wallify` after `reset_xystart_size`).
+- **JS:** `js/mklev.js` `load_bigrm_1` / `load_bigrm_10` / `load_bigrm_13` /
+  `load_special_proto` / `selection_do_line` / `selection_line_rel` /
+  `selection_rect_rel` / `selection_fillrect_rel` / `lspo_terrain_sel` /
+  `splev_apply_map_at`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; PASS hidden (no corpus session blocked on
+  makemaz); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort
+  7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** ensure_way_out; humidity-aware `get_location`;
+  `is_ok_location_dry` boulder reject (D-0547). Not minend-3.
+- **Next:** Open `mkmaze.c` makemaz `minend-3` from `dat/minend-3.lua`.
+
 ## D-1821 — mkmaze.c makemaz bigrm-5/6/11 load_special (three smallest Big Rooms)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

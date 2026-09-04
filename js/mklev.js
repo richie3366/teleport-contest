@@ -1380,7 +1380,7 @@ function reset_xystart_size() {
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
  * Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
- * Named omissions: bigrm-1/10/13 / quest
+ * Named omissions: quest
  * protos (Kni-strt/loca/fila/filb);
  * minend-3; medusa-2/4; water/astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
@@ -1449,6 +1449,10 @@ function load_special_proto(protofile) {
         load_tut1();
         return true;
     }
+    if (protofile === 'bigrm-1') {
+        load_bigrm_1();
+        return true;
+    }
     if (protofile === 'bigrm-2') {
         load_bigrm_2();
         return true;
@@ -1467,6 +1471,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'bigrm-6') {
         load_bigrm_6();
+        return true;
+    }
+    if (protofile === 'bigrm-10') {
+        load_bigrm_10();
         return true;
     }
     if (protofile === 'bigrm-11') {
@@ -1495,6 +1503,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'bigrm-12') {
         load_bigrm_12();
+        return true;
+    }
+    if (protofile === 'bigrm-13') {
+        load_bigrm_13();
         return true;
     }
     if (protofile === 'Bar-strt') {
@@ -1760,6 +1772,40 @@ function splev_apply_centered_map(mapstr) {
         }
     }
     return { xstart, ystart, mf };
+}
+
+/**
+ * C ref: sp_lev.c lspo_map table form with coord, no croom — x,y is
+ * absolute xstart/ystart (not get_location). Nested maps after a
+ * centered des.map use Lua coord as level cells.
+ */
+function splev_apply_map_at(mapstr, x, y) {
+    const mf = mapfrag_fromstr(mapstr);
+    game.splev_xstart = x;
+    game.splev_ystart = y;
+    game.splev_xsize = mf.wid;
+    game.splev_ysize = mf.hei;
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
+    for (let yy = y; yy < Math.min(ROWNO, y + mf.hei); yy++) {
+        for (let xx = x; xx < Math.min(COLNO, x + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - x, yy - y);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+            game.SpLev_Map.add(`${xx},${yy}`);
+        }
+    }
+    return { xstart: x, ystart: y, mf };
+}
+
+/**
+ * C ref: sp_lev.c reset_xystart_size — after lspo_map contents().
+ * Does not memset SpLev_Map (that is create_des_coder only).
+ */
+function splev_reset_xystart_size_keep_spmap() {
+    game.splev_xstart = 1;
+    game.splev_ystart = 0;
+    game.splev_xsize = COLNO - 1;
+    game.splev_ysize = ROWNO;
 }
 
 /**
@@ -2065,7 +2111,7 @@ function splev_non_diggable() {
 
 /**
  * C ref: dat/bigrm-5.lua via load_special — diamond room, 25% ice/cloud grow.
- * Named omissions: ensure_way_out / solidify / premap; bigrm-1/10/13;
+ * Named omissions: ensure_way_out / solidify / premap;
  * icedpool on replace_terrain ICE.
  */
 function load_bigrm_5() {
@@ -2138,7 +2184,7 @@ function load_bigrm_5() {
 
 /**
  * C ref: dat/bigrm-6.lua via load_special — four lobes, trees and fountains.
- * Named omissions: ensure_way_out / solidify / premap; bigrm-1/10/13.
+ * Named omissions: ensure_way_out / solidify / premap.
  */
 function load_bigrm_6() {
     const g = game;
@@ -2214,7 +2260,7 @@ function selection_iterate_lua(sel, fn) {
 /**
  * C ref: dat/bigrm-11.lua via load_special — maze corrwid 3+rn2(3),
  * wallthick 1, deadends=percent(50); walls → floor+boulder; rolling boulders.
- * Named omissions: ensure_way_out / solidify / premap; bigrm-1/10/13.
+ * Named omissions: ensure_way_out / solidify / premap.
  */
 function load_bigrm_11() {
     const g = game;
@@ -2259,6 +2305,295 @@ function load_bigrm_11() {
 
     for (let i = 0; i < 15; i++) splev_create_object(null);
     for (let i = 0; i < 6; i++) splev_create_trap(ROLLING_BOULDER_TRAP);
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // C load_special: wallification when !corrmaze; noflip → skip flip
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/bigrm-1.lua via load_special — rectangular room, percent(80)
+ * decoration (line / twin lines / plus / brackets / snake / none).
+ * Named omissions: ensure_way_out / solidify / premap.
+ */
+function load_bigrm_1() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflip") — allow_flips=0
+
+    // Exact dat/bigrm-1.lua des.map (18×75)
+    const BIGRM1_MAP = [
+        '---------------------------------------------------------------------------',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '---------------------------------------------------------------------------',
+    ].join('\n');
+    splev_apply_centered_map(BIGRM1_MAP);
+
+    // if percent(80) then terrains + math.random(0,5) decoration
+    if (percent(80)) {
+        const terrains = [HWALL, IRONBARS, LAVAPOOL, TREE, CLOUD];
+        const tidx = lua_random2(1, terrains.length) - 1;
+        const ter = terrains[tidx];
+        const choice = lua_random2(0, 5);
+        if (choice === 0) {
+            lspo_terrain_sel(selection_line_rel(10, 8, 65, 8), ter);
+        } else if (choice === 1) {
+            lspo_terrain_sel(
+                selection_or(
+                    selection_line_rel(15, 4, 15, 13),
+                    selection_line_rel(59, 4, 59, 13),
+                ),
+                ter,
+            );
+        } else if (choice === 2) {
+            lspo_terrain_sel(
+                selection_or(
+                    selection_line_rel(10, 8, 64, 8),
+                    selection_line_rel(37, 3, 37, 14),
+                ),
+                ter,
+            );
+        } else if (choice === 3) {
+            lspo_terrain_sel(selection_rect_rel(4, 4, 70, 13), ter);
+            lspo_terrain_sel(
+                selection_or(
+                    selection_line_rel(25, 4, 50, 4),
+                    selection_line_rel(25, 13, 50, 13),
+                ),
+                ROOM,
+            );
+        } else if (choice === 4) {
+            lspo_terrain_sel(selection_fillrect_rel(5, 5, 69, 12), ter);
+            for (let i = 0; i <= 7; i++) {
+                const x = 6 + i * 8;
+                const y = 5 + (i % 2);
+                lspo_terrain_sel(selection_fillrect_rel(x, y, x + 6, y + 6), ROOM);
+            }
+        }
+        // choice === 5: nothing
+    }
+
+    // des.region(selection.area(01,01,73,16),"lit")
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        light_region(mx + 1, my + 1, mx + 73, my + 16, true);
+    }
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    splev_non_diggable();
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // C load_special: wallification when !corrmaze; noflip → skip flip
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/bigrm-10.lua via load_special — cloud/fog maze, optional
+ * replace C, down-tele exclude, mazewalk, levregion stair-up.
+ * Named omissions: ensure_way_out / solidify / premap.
+ */
+function load_bigrm_10() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflip") — allow_flips=0
+
+    // Exact dat/bigrm-10.lua des.map (19×71)
+    const BIGRM10_MAP = [
+        '.......................................................................',
+        '.......................................................................',
+        '.......................................................................',
+        '.......................................................................',
+        '...C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C...',
+        '...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...',
+        '...C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C...',
+        '...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...',
+        '...C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C...',
+        '...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...',
+        '...C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C...',
+        '...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...',
+        '...C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C...',
+        '...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...',
+        '...C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C...',
+        '.......................................................................',
+        '.......................................................................',
+        '.......................................................................',
+        '.......................................................................',
+    ].join('\n');
+    const { xstart: mx, ystart: my } = splev_apply_centered_map(BIGRM10_MAP);
+
+    // if percent(40) then chance=5 C→. then remaining C → random terrain
+    if (percent(40)) {
+        const terrain = [LAVAPOOL, MOAT, TREE, HWALL, IRONBARS];
+        const tidx = lua_random2(1, terrain.length) - 1;
+        lspo_replace_terrain_region(0, 0, 70, 18, CLOUD, ROOM, 5);
+        lspo_replace_terrain_region(0, 0, 70, 18, CLOUD, terrain[tidx], 100);
+    }
+
+    // des.region(selection.area(00,00,70,18),"lit")
+    light_region(mx + 0, my + 0, mx + 70, my + 18, true);
+
+    // des.teleport_region dir=down, exclude fog maze (map-relative)
+    l_teleport_region({
+        region: [0, 0, 70, 18],
+        exclude: [2, 3, 68, 15],
+        dir: 'down',
+    });
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // des.mazewalk({ x=4, y=2, dir="south", stocked=0 })
+    splev_mazewalk(4, 2, W_SOUTH, false);
+
+    // des.levregion stair-up, exclude fog; then des.stair("down")
+    levregion_add({
+        inarea: { x1: 0, y1: 0, x2: 70, y2: 18 },
+        delarea: { x1: 2, y1: 3, x2: 68, y2: 15 },
+        in_islev: false,
+        del_islev: false,
+        rtype: LR_UPSTAIR,
+        padding: 0,
+        rname: { str: null },
+    });
+    splev_create_stair(false);
+
+    // C load_special: wallification when !corrmaze; noflip → skip flip;
+    // fixup_special places LR_UPSTAIR / copies LR_DOWNTELE
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/bigrm-13.lua via load_special — 7×3 pillar grid, 8 Lua
+ * filters (math.random pick; filter 6 draws rn2(2) per cell).
+ * Nested des.map coord is absolute xstart (lspo_map no croom).
+ * Named omissions: ensure_way_out / solidify / premap.
+ */
+function load_bigrm_13() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel", "noflip") — allow_flips=0
+
+    // Exact dat/bigrm-13.lua des.map (19×75)
+    const BIGRM13_MAP = [
+        '---------------------------------------------------------------------------',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '|.........................................................................|',
+        '---------------------------------------------------------------------------',
+    ].join('\n');
+    splev_apply_centered_map(BIGRM13_MAP);
+
+    const PILLAR = '---\n| |\n---';
+    // C: idx = math.random(1, #filters); Lua 1-based
+    const idx = lua_random2(1, 8);
+    const filters = [
+        () => true,
+        (x) => (x % 2) === 1,
+        (x, y) => ((x + y) % 2) === 0,
+        (_x, y) => (y % 2) === 1,
+        (_x, y) => (y % 2) === 0,
+        () => lua_random2(0, 1) === 0,
+        // Lua (x/3)%2 == y%2 — float / then %; equals only when x%3==0
+        (x, y) => ((x / 3) % 2) === (y % 2),
+        // Lua (x+1)//3 == y
+        (x, y) => Math.floor((x + 1) / 3) === y,
+    ];
+    const filt = filters[idx - 1];
+    for (let y = 0; y <= 2; y++) {
+        for (let x = 0; x <= 6; x++) {
+            if (filt(x, y)) {
+                splev_apply_map_at(PILLAR, 12 + x * 9, 4 + y * 5);
+                // contents=function() end → reset_xystart_size (keep SpLev_Map)
+                splev_reset_xystart_size_keep_spmap();
+            }
+        }
+    }
+
+    // des.region(selection.area(00,00,75,18),"lit") after last contents reset
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        light_region(mx + 0, my + 0, mx + 75, my + 18, true);
+    }
+    // des.wallify() — C lspo_wallify no-arg: xstart-1 .. xstart+xsize+1
+    wallify_map(
+        (g.splev_xstart | 0) - 1,
+        (g.splev_ystart | 0) - 1,
+        (g.splev_xstart | 0) + (g.splev_xsize | 0) + 1,
+        (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
+    );
+    splev_non_diggable();
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
     for (let i = 0; i < 28; i++) splev_create_monster(null);
 
     // C load_special: wallification when !corrmaze; noflip → skip flip
@@ -18254,6 +18589,109 @@ function selection_fillrect(x1, y1, x2, y2) {
         }
     }
     return sel;
+}
+
+/**
+ * C ref: selvar.c selection_do_line — Bresenham; setpoint start then
+ * walk x-major or y-major until the opposite endpoint.
+ */
+function selection_do_line(x1, y1, x2, y2, ov) {
+    let xi, yi, dx, dy;
+    if (x1 < x2) {
+        xi = 1;
+        dx = x2 - x1;
+    } else {
+        xi = -1;
+        dx = x1 - x2;
+    }
+    if (y1 < y2) {
+        yi = 1;
+        dy = y2 - y1;
+    } else {
+        yi = -1;
+        dy = y1 - y2;
+    }
+    selection_setpoint(x1, y1, ov, 1);
+    if (!dx && !dy) {
+        /* single point */
+    } else if (dx > dy) {
+        let ai = (dy - dx) * 2;
+        let bi = dy * 2;
+        let d0 = bi - dx;
+        do {
+            if (d0 >= 0) {
+                y1 += yi;
+                d0 += ai;
+            } else {
+                d0 += bi;
+            }
+            x1 += xi;
+            selection_setpoint(x1, y1, ov, 1);
+        } while (x1 !== x2);
+    } else {
+        let ai = (dx - dy) * 2;
+        let bi = dx * 2;
+        let d0 = bi - dy;
+        do {
+            if (d0 >= 0) {
+                x1 += xi;
+                d0 += ai;
+            } else {
+                d0 += bi;
+            }
+            y1 += yi;
+            selection_setpoint(x1, y1, ov, 1);
+        } while (y1 !== y2);
+    }
+}
+
+/**
+ * C ref: nhlsel.c l_selection_line 4-arg — get_location_coord ANY_LOC
+ * then selection_do_line on a fresh selection.
+ */
+function selection_line_rel(x1, y1, x2, y2) {
+    const a = get_location_coord(ANY_LOC, null, x1, y1);
+    const b = get_location_coord(ANY_LOC, null, x2, y2);
+    const sel = selection_new();
+    selection_do_line(a.x, a.y, b.x, b.y, sel);
+    return sel;
+}
+
+/**
+ * C ref: nhlsel.c l_selection_rect — four selection_do_line edges.
+ */
+function selection_rect_rel(x1, y1, x2, y2) {
+    const a = get_location_coord(ANY_LOC, null, x1, y1);
+    const b = get_location_coord(ANY_LOC, null, x2, y2);
+    const sel = selection_new();
+    selection_do_line(a.x, a.y, b.x, a.y, sel);
+    selection_do_line(a.x, a.y, a.x, b.y, sel);
+    selection_do_line(b.x, a.y, b.x, b.y, sel);
+    selection_do_line(a.x, b.y, b.x, b.y, sel);
+    return sel;
+}
+
+/**
+ * C ref: nhlsel.c l_selection_fillrect 4-arg after get_location_coord.
+ * x1==x2: vertical setpoints; else one selection_do_line per y.
+ */
+function selection_fillrect_rel(x1, y1, x2, y2) {
+    const a = get_location_coord(ANY_LOC, null, x1, y1);
+    const b = get_location_coord(ANY_LOC, null, x2, y2);
+    const sel = selection_new();
+    if (a.x === b.x) {
+        for (let y = a.y; y <= b.y; y++)
+            selection_setpoint(a.x, y, sel, 1);
+    } else {
+        for (let y = a.y; y <= b.y; y++)
+            selection_do_line(a.x, y, b.x, y, sel);
+    }
+    return sel;
+}
+
+/** C ref: sp_lev.c lspo_terrain selection arm — iterate sel_set_ter. */
+function lspo_terrain_sel(sel, ter) {
+    selection_iterate(sel, (x, y) => sel_set_ter(x, y, ter, SET_LIT_NOCHANGE));
 }
 
 /** C ref: nhlsel.c l_selection_and — intersection. */

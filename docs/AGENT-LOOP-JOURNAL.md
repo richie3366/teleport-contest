@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1822 mkmaze.c makemaz bigrm-1/10/13 load_special (completes Big Room 13/13)
+
+**C locus:** `dat/bigrm-{1,10,13}.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+**JS:** `js/mklev.js` `load_bigrm_1` / `load_bigrm_10` / `load_bigrm_13` /
+**Change:** `load_bigrm_1` (solidfill + 18×75 room; `percent(80)` then
+**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+**Named:** ensure_way_out; humidity-aware `get_location`;
+**Next:** Open `mkmaze.c` makemaz `minend-3` from `dat/minend-3.lua`.
 ## 2026-09-04 — D-1821 mkmaze.c makemaz bigrm-5/6/11 load_special (three smallest Big Rooms)
 
 **C locus:** `dat/bigrm-{5,6,11}.lua`; `mkmaze.c` `makemaz` `:1127–1223`
