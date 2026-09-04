@@ -1,50 +1,79 @@
 // muse.js — Monster item use.
 // C ref: muse.c find_offensive / use_offensive (MUSE_POT_* throw +
 // MUSE_WAN_STRIKING mbhit + doorlock D-1484 + MUSE_CAMERA lightdamage
-// D-1376); find_defensive / find_misc / use_misc.
+// D-1376); find_defensive / use_defensive D-1809; find_misc / use_misc.
 
 import { game } from './gstate.js';
 import { rn2, rn1, rnd, d } from './rng.js';
-import { cansee, couldsee } from './vision.js';
-import { pline, mon_visible, see_with_infrared, pline_mon, verbalize } from './display.js';
-import { worm_known } from './worm.js';
-import { Monnam, mon_nam, monverbself, Hallucination } from './do_name.js';
-import { doname, singular, an, xname, the, makeplural } from './objnam.js';
-import { dist2, distmin, m_at, m_carrying } from './mon.js';
+import { cansee, couldsee, unblock_point } from './vision.js';
+import {
+    pline, mon_visible, see_with_infrared, pline_mon, verbalize,
+    map_invisible, newsym, sensemon, flash_glyph_at, mon_to_glyph,
+} from './display.js';
+import { worm_known, worm_move } from './worm.js';
+import {
+    Monnam, mon_nam, monverbself, Hallucination, x_monnam, trycall,
+} from './do_name.js';
+import {
+    doname, singular, an, xname, the, makeplural, ansimpleoname,
+    distant_name, vtense,
+} from './objnam.js';
+import { dist2, distmin, m_at, m_carrying, mongone, onscary } from './mon.js';
 import { lined_up, m_throw } from './mthrowu.js';
 import {
     is_animal, mindless, nohands, is_floater, needspick, nonliving,
     is_vampshifter, monsterNames, mons, haseyes, mon_hates_silver,
+    verysmall, throws_rocks, passes_walls, is_bat, acidic, resists_acid,
+    G_UNIQ, mon_learns_traps, mon_knows_traps,
 } from './monsters.js';
 import {
     objectNames, objectDescrs, POTION_CLASS, WAND_CLASS, SPEED_BOOTS,
-    SCROLL_CLASS, AMULET_CLASS, TOOL_CLASS, FOOD_CLASS,
+    SCROLL_CLASS, AMULET_CLASS, TOOL_CLASS, FOOD_CLASS, WEAPON_CLASS,
 } from './objects.js';
 import { observe_object, makeknown } from './invent.js';
-import { losehp, nomul, in_rooms } from './hack.js';
+import { losehp, nomul, in_rooms, You_hear, is_pool } from './hack.js';
 import { doorlock } from './lock.js';
 import { find_drawbridge } from './dbridge.js';
 import { finish_losehp_done } from './end.js';
-import { m_seenres, monstseesu, monstunseesu } from './mondata.js';
+import { m_seenres, monstseesu, monstunseesu, same_race, mhe, mhim } from './mondata.js';
 import { bcsign } from './rumors.js';
-import { enexto, migrate_to_level } from './teleport.js';
+import { enexto, migrate_to_level, tele_restrict, rloc,
+    random_teleport_level, noteleport_level } from './teleport.js';
 import { makemon, mpickobj } from './makemon.js';
-import { place_object } from './mkobj.js';
+import { place_object, splitobj, unbless, objects_at } from './mkobj.js';
 import { dropy, make_blinded } from './do.js';
 import { learnwand, lightdamage } from './zap.js';
 import {
     BOLT_LIM, MSLOW, MFAST, isok, u_at, ZAP_POS, IS_DOOR,
     SDOOR, DRAWBRIDGE_UP, D_LOCKED, D_CLOSED, D_BROKEN, SHOPBASE,
     KILLED_BY_AN, ANTIMAGIC, M_SEEN_MAGR, TIMEOUT,
-    OBJ_FLOOR, G_GONE, MM_NOMSG,
+    OBJ_FLOOR, G_GONE, MM_NOMSG, NO_MM_FLAGS,
     W_ARMOR, W_ACCESSORY, W_SADDLE,
-    MIGR_RANDOM, In_endgame, In_sokoban,
-    Is_container,
+    MIGR_RANDOM, MIGR_STAIRS_DOWN, MIGR_STAIRS_UP,
+    MIGR_LADDER_DOWN, MIGR_LADDER_UP, MIGR_SSTAIRS,
+    In_endgame, In_sokoban, Is_container,
+    ARTICLE_A, SUPPRESS_IT, SUPPRESS_INVISIBLE, SUPPRESS_SADDLE, AUGMENT_IT,
+    PLNMSG_enum, NORMAL_SPEED, EDOG, STAIRS, LADDER, CORR, SCORR,
+    is_hole, Can_fall_thru, Is_botlevel, TELEP_TRAP, FORCETRAP,
+    RLOC_MSG, XKILL_NOMSG, XKILL_NOCONDUCT, COULD_SEE, IN_SIGHT,
+    P_DAGGER, P_KNIFE,
 } from './const.js';
 import { MON_WEP } from './weapon.js';
-import { welded, setuwep, setuswapwep } from './wield.js';
-import { depth } from './hacklib.js';
-import { get_level } from './dungeon.js';
+import { welded, setuwep, setuswapwep, mwelded } from './wield.js';
+import { depth, strsubst } from './hacklib.js';
+import { get_level, dunlevs_in_dungeon, On_W_tower_level } from './dungeon.js';
+import { seetrap, t_at, trapname, mintrap } from './trap.js';
+import { stairway_at } from './mklev.js';
+import { place_monster, remove_monster } from './steed.js';
+import { monflee, maybe_unhide_at, locomotion } from './monmove.js';
+import { Inhell } from './minion.js';
+import { mon_has_amulet } from './apply.js';
+import { extract_from_minvent } from './worn.js';
+import { obfree, inhishop } from './shk.js';
+import { xkilled } from './uhitm.js';
+import { mondead } from './mhitm.js';
+import { dog_nutrition } from './dogmove.js';
+import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 
 const POT_PARALYSIS = objectNames.indexOf('POT_PARALYSIS');
 const POT_BLINDNESS = objectNames.indexOf('POT_BLINDNESS');
@@ -89,13 +118,33 @@ const PM_DJINNI = monsterNames.indexOf('PM_DJINNI');
 const PM_KI_RIN = monsterNames.indexOf('PM_KI_RIN');
 const PM_PESTILENCE = monsterNames.indexOf('PM_PESTILENCE');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
+const PM_LIZARD = monsterNames.indexOf('PM_LIZARD');
+const PM_STALKER = monsterNames.indexOf('PM_STALKER');
+const PM_GIANT_EEL = monsterNames.indexOf('PM_GIANT_EEL');
+const PM_CROCODILE = monsterNames.indexOf('PM_CROCODILE');
+const PM_ACID_BLOB = monsterNames.indexOf('PM_ACID_BLOB');
+const PM_GRID_BUG = monsterNames.indexOf('PM_GRID_BUG');
+const CORPSE = objectNames.indexOf('CORPSE');
+const TIN = objectNames.indexOf('TIN');
+const TIN_OPENER = objectNames.indexOf('TIN_OPENER');
+const BOULDER = objectNames.indexOf('BOULDER');
+const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
+const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
+const CANDELABRUM_OF_INVOCATION =
+    objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
+const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 const AT_GAZE = 15;
 const RAY = 3; // objclass.h oc_dir
 
-/** C muse.c defense codes (healing subset). */
-const MUSE_POT_HEALING = 3;
-const MUSE_POT_EXTRA_HEALING = 4;
-const MUSE_POT_FULL_HEALING = 18;
+/** C muse.c defense codes. */
+const MUSE_SCR_TELEPORTATION = 1, MUSE_WAN_TELEPORTATION_SELF = 2,
+    MUSE_POT_HEALING = 3, MUSE_POT_EXTRA_HEALING = 4, MUSE_WAN_DIGGING = 5,
+    MUSE_TRAPDOOR = 6, MUSE_TELEPORT_TRAP = 7, MUSE_UPSTAIRS = 8,
+    MUSE_DOWNSTAIRS = 9, MUSE_WAN_CREATE_MONSTER = 10,
+    MUSE_SCR_CREATE_MONSTER = 11, MUSE_UP_LADDER = 12, MUSE_DN_LADDER = 13,
+    MUSE_SSTAIRS = 14, MUSE_WAN_TELEPORTATION = 15, MUSE_BUGLE = 16,
+    MUSE_UNICORN_HORN = 17, MUSE_POT_FULL_HEALING = 18,
+    MUSE_LIZARD_CORPSE = 19, MUSE_WAN_UNDEAD_TURNING = 20;
 
 /** C muse.c offense codes (subset). */
 const MUSE_WAN_STRIKING = 7;
@@ -368,6 +417,7 @@ function museState() {
             offensive: null, has_offense: 0,
             defensive: null, has_defense: 0,
             misc: null, has_misc: 0,
+            trapx: 0, trapy: 0,
         };
     }
     return game._muse;
@@ -718,6 +768,211 @@ async function mquaffmsg(mtmp, otmp) {
     }
 }
 
+/** C ref: mon.c flash_mon `:6066` — viz pulse + flash_glyph_at. */
+async function flash_mon(mtmp) {
+    const mx = mtmp.mx | 0, my = mtmp.my | 0;
+    let count = couldsee(mx, my) ? 8 : 4;
+    if (!game.flags?.sparkle) count = (count / 2) | 0;
+    const row = game.viz_array?.[my];
+    const saveviz = row ? row[mx] : 0;
+    if (row) row[mx] = (saveviz | 0) | IN_SIGHT | COULD_SEE;
+    await flash_glyph_at(mx, my, mon_to_glyph(mtmp), count);
+    if (row) row[mx] = saveviz;
+    newsym(mx, my);
+}
+
+/** C ref: muse.c mreadmsg `:238`. Unseen+Deaf returns before observe_object. */
+async function mreadmsg(mtmp, otmp) {
+    const vismon = canseemon(mtmp);
+    let tpindicator = !vismon && sensemon(mtmp);
+    const u = game.u || {};
+    const deaf = (u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf;
+    if (!vismon && deaf) return;
+
+    observe_object(otmp);
+    const onambuf = singular(otmp, vismon ? doname : ansimpleoname);
+    if (vismon) {
+        await pline_mon(mtmp, `${Monnam(mtmp)} reads ${onambuf}!`);
+    } else {
+        const similar = same_race(game.youmonst?.data, mtmp.data);
+        const uniqmon = !!(((mtmp.data?.geno | 0) & G_UNIQ) || mtmp.isshk);
+        const recognize = !Hallucination()
+            && (mtmp.meverseen || (similar && !uniqmon));
+        const mflags = SUPPRESS_INVISIBLE | SUPPRESS_SADDLE
+            | (recognize ? SUPPRESS_IT : AUGMENT_IT);
+        if (sensemon(mtmp)) tpindicator = true;
+        else if (couldsee(mtmp.mx, mtmp.my) && mdistu(mtmp) <= 10 * 10) {
+            map_invisible(mtmp.mx, mtmp.my);
+        }
+        let blindbuf = `reading ${onambuf}`;
+        blindbuf = strsubst(blindbuf, 'reading a scroll labeled',
+            mtmp.mconf ? 'attempting to incant' : 'incant');
+        await You_hear(
+            `${x_monnam(mtmp, ARTICLE_A, null, mflags, false)} ${blindbuf}.`,
+        );
+        if (tpindicator) await flash_mon(mtmp);
+    }
+    if (mtmp.mconf) {
+        await pline(
+            `Being confused, ${vismon ? mon_nam(mtmp) : mhe(mtmp)} mispronounces the magic words...`,
+        );
+    }
+}
+
+/** C ref: muse.c reveal_trap `:753` — SCORR niche becomes CORR. */
+function reveal_trap(t, seeit) {
+    if (!t) return;
+    const lev = game.level?.at?.(t.tx, t.ty);
+    if (lev && (lev.typ | 0) === SCORR) {
+        lev.typ = CORR;
+        lev.flags = 0;
+        unblock_point(t.tx, t.ty);
+    }
+    if (seeit) seetrap(t);
+}
+
+/** C ref: wizard.c mon_has_special `:116` — oartifact >= ART_ORB_OF_DETECTION. */
+function mon_has_special(mtmp) {
+    for (let otmp = mtmp?.minvent; otmp; otmp = otmp.nobj) {
+        const otyp = otmp.otyp | 0;
+        if (otyp === AMULET_OF_YENDOR
+            || (otmp.oartifact | 0) >= ART_ORB_OF_DETECTION
+            || otyp === BELL_OF_OPENING
+            || otyp === CANDELABRUM_OF_INVOCATION
+            || otyp === SPE_BOOK_OF_THE_DEAD) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+/** C ref: muse.c mon_escape `:779` — dungeon exit; specials stay. */
+async function mon_escape(mtmp, vismon) {
+    if (mon_has_special(mtmp)
+        || (mtmp.iswiz && ((game.context?.no_of_wizards | 0) < 2))) {
+        return 0;
+    }
+    if (vismon) {
+        await pline_mon(mtmp, `${Monnam(mtmp)} escapes the dungeon!`);
+    }
+    await mongone(mtmp);
+    return 2;
+}
+
+/** C ref: muse.c m_tele `:383` — tele_restrict / amulet rn2(3) / rloc or trap. */
+async function m_tele(mtmp, vismon, oseen, how) {
+    if (await tele_restrict(mtmp)) {
+        if (vismon && how) makeknown(how);
+        if (noteleport_level(mtmp)) mon_learns_traps(mtmp, TELEP_TRAP);
+    } else if ((mon_has_amulet(mtmp) || On_W_tower_level(game.u?.uz))
+        && !rn2(3)) {
+        if (vismon) {
+            await pline_mon(
+                mtmp, `${Monnam(mtmp)} seems disoriented for a moment.`,
+            );
+        }
+    } else if (how) {
+        if (oseen) makeknown(how);
+        await rloc(mtmp, RLOC_MSG);
+    } else {
+        const m = museState();
+        mtmp.mx = m.trapx | 0;
+        mtmp.my = m.trapy | 0;
+        await mintrap(mtmp, FORCETRAP);
+    }
+}
+
+/** C ref: muse.c mcould_eat_tin `:3000` — opener / dagger / knife; welded mwep. */
+function mcould_eat_tin(mon) {
+    if (is_animal(mon?.data)) return false;
+    const mwep = MON_WEP(mon);
+    const welded_wep = !!(mwep && mwelded(mwep));
+    for (let obj = mon.minvent; obj; obj = obj.nobj) {
+        if (welded_wep && obj !== mwep) continue;
+        if ((obj.otyp | 0) === TIN_OPENER) return true;
+        if ((obj.oclass | 0) === WEAPON_CLASS) {
+            const sk = game.objects?.[obj.otyp]?.oc_skill | 0;
+            if (sk === P_DAGGER || sk === P_KNIFE) return true;
+        }
+    }
+    return false;
+}
+
+/** C ref: muse.c mon_consume_unstone `:2905`. Lizard from use_defensive is stoning=FALSE. */
+async function mon_consume_unstone(mon, obj, by_you, stoning) {
+    const vis = canseemon(mon);
+    const tinned = (obj.otyp | 0) === TIN;
+    const food = (obj.otyp | 0) === CORPSE || tinned;
+    const acid = (obj.otyp | 0) === POT_ACID
+        || (food && acidic(mons(obj.corpsenm)));
+    const lizard = food && (obj.corpsenm | 0) === PM_LIZARD;
+    const nutrit = food ? dog_nutrition(mon, obj) : 0;
+
+    if (stoning) await mon_adjust_speed(mon, -3, null);
+
+    if (vis) {
+        const save_quan = obj.quan;
+        obj.quan = 1;
+        const verb = (obj.oclass === POTION_CLASS) ? 'quaffs'
+            : ((obj.otyp | 0) === TIN) ? 'opens and eats the contents of'
+            : 'eats';
+        await pline_mon(mon, `${Monnam(mon)} ${verb} ${distant_name(obj, doname)}.`);
+        obj.quan = save_quan;
+    } else {
+        const u = game.u || {};
+        const deaf = (u.HDeaf | 0) || (u.EDeaf | 0)
+            || u.uroleplay?.deaf || u.Deaf;
+        if (!deaf) {
+            await You_hear(
+                `${obj.oclass === POTION_CLASS ? 'drinking' : 'chewing'}.`);
+        }
+    }
+    m_useup(mon, obj);
+    if (acid && !tinned && !resists_acid(mon)) {
+        mon.mhp = (mon.mhp | 0) - rnd(15);
+        if (vis) {
+            await pline_mon(mon,
+                `${Monnam(mon)} has a very bad case of stomach acid.`);
+        }
+        if ((mon.mhp | 0) < 1) {
+            await pline_mon(mon, `${Monnam(mon)} dies!`);
+            if (by_you) await xkilled(mon, XKILL_NOMSG | XKILL_NOCONDUCT);
+            else mondead(mon);
+            return;
+        }
+    }
+    if (stoning && vis) {
+        if (Hallucination()) {
+            await pline(`What a pity - ${mon_nam(mon)} just ruined a future piece of art!`);
+        } else {
+            await pline_mon(mon, `${Monnam(mon)} seems limber!`);
+        }
+    }
+    if (lizard && (mon.mconf || mon.mstun)) {
+        mon.mconf = 0;
+        mon.mstun = 0;
+        if (vis && !is_bat(mon.data) && (mon.data?.mndx | 0) !== PM_STALKER) {
+            await pline_mon(mon, `${Monnam(mon)} seems steadier now.`);
+        }
+    }
+    if (mon.mtame && !mon.isminion && nutrit > 0) {
+        const edog = EDOG(mon);
+        if (edog) {
+            const moves = game.moves | 0;
+            if ((edog.hungrytime | 0) < moves) edog.hungrytime = moves;
+            edog.hungrytime = (edog.hungrytime | 0) + nutrit;
+        }
+        mon.mconf = 0;
+    }
+    mon.movement = (mon.movement | 0) - NORMAL_SPEED;
+    mon.mlstmv = game.moves | 0;
+}
+
+/** C muse.c m_flee macro — fleetim && !iswiz then monflee. */
+async function m_flee(m, fleetim) {
+    if (fleetim && !m.iswiz) await monflee(m, fleetim, false, false);
+}
+
 /**
  * C ref: muse.c mcureblindness.
  * Caller: zap.c bhitm SPE_HEALING/SPE_EXTRA_HEALING (D-1469).
@@ -759,9 +1014,9 @@ function m_use_healing(mtmp) {
 }
 
 /**
- * C ref: muse.c find_defensive — wound gate + healing invent subset.
- * Named omission: mconf/mstun horn/lizard; blindness healing;
- * undead-turning; flee stairs/traps/bugle; dig/tele/create invent arms.
+ * C ref: muse.c find_defensive `:439`.
+ * Named omit: unicorn horn; tryescape Is_knox m_next2m; undead-turning;
+ * bugle; wand dig/tele/create/undead (later scroll may win vs C wand).
  */
 export function find_defensive(mtmp, tryescape) {
     const m = museState();
@@ -770,13 +1025,40 @@ export function find_defensive(mtmp, tryescape) {
 
     if (!mtmp?.data) return false;
     if (is_animal(mtmp.data) || mindless(mtmp.data)) return false;
-    if (!tryescape
-        && dist2(mtmp.mx, mtmp.my, mtmp.mux, mtmp.muy) > 25) {
+    const x = mtmp.mx | 0;
+    const y = mtmp.my | 0;
+    if (!tryescape && dist2(x, y, mtmp.mux, mtmp.muy) > 25) {
         return false;
     }
+    // C tryescape && Is_knox && !m_next2u && m_next2m — m_next2m named omit
     if (game.u?.uswallow && mtmp === game.u?.ustuck) return false;
 
-    // Blindness-only healing (before wound gate) deferred
+    // Unicorn horn (mconf/mstun/blind) named omit
+    if (mtmp.mconf || mtmp.mstun) {
+        let liztin = null;
+        for (let obj = mtmp.minvent; obj; obj = obj.nobj) {
+            if ((obj.otyp | 0) === CORPSE && (obj.corpsenm | 0) === PM_LIZARD) {
+                m.defensive = obj;
+                m.has_defense = MUSE_LIZARD_CORPSE;
+                return true;
+            }
+            if ((obj.otyp | 0) === TIN && (obj.corpsenm | 0) === PM_LIZARD) {
+                liztin = obj;
+            }
+        }
+        if (liztin && mcould_eat_tin(mtmp) && rn2(3)) {
+            m.defensive = liztin;
+            m.has_defense = MUSE_LIZARD_CORPSE;
+            return true;
+        }
+    }
+
+    if (!mtmp.mcansee && !nohands(mtmp.data)
+        && (mtmp.data?.mndx ?? mtmp.mnum) !== PM_PESTILENCE) {
+        if (m_use_healing(mtmp)) return true;
+    }
+    // WAN_UNDEAD_TURNING named omit
+
     if (!tryescape) {
         const ulevel = game.u?.ulevel | 0;
         const fraction = ulevel < 10 ? 5 : ulevel < 14 ? 4 : 3;
@@ -792,12 +1074,102 @@ export function find_defensive(mtmp, tryescape) {
         }
     }
 
-    // stairs / traps / bugle deferred — fall through to invent
-    if (nohands(mtmp.data)) return false;
+    const stuck = mtmp === game.u?.ustuck;
+    const immobile = (mtmp.data?.mmove | 0) === 0;
+    if (!(stuck || immobile || mtmp.mtrapped)) {
+        const loc = game.level?.at?.(x, y);
+        const typ = loc?.typ | 0;
+        const stway = (typ === STAIRS || typ === LADDER)
+            ? stairway_at(x, y) : null;
+        const uz = game.u?.uz;
+        if (typ === STAIRS) {
+            if (stway && !stway.up && (stway.tolev?.dnum | 0) === (uz?.dnum | 0)) {
+                if (!is_floater(mtmp.data)) m.has_defense = MUSE_DOWNSTAIRS;
+            } else if (stway && stway.up
+                && (stway.tolev?.dnum | 0) === (uz?.dnum | 0)) {
+                m.has_defense = MUSE_UPSTAIRS;
+            } else if (stway && (stway.tolev?.dnum | 0) !== (uz?.dnum | 0)) {
+                if (stway.up || !is_floater(mtmp.data)) {
+                    m.has_defense = MUSE_SSTAIRS;
+                }
+            }
+        } else if (typ === LADDER) {
+            if (stway && stway.up && (stway.tolev?.dnum | 0) === (uz?.dnum | 0)) {
+                m.has_defense = MUSE_UP_LADDER;
+            } else if (stway && !stway.up
+                && (stway.tolev?.dnum | 0) === (uz?.dnum | 0)) {
+                if (!is_floater(mtmp.data)) m.has_defense = MUSE_DN_LADDER;
+            } else if (stway && (stway.tolev?.dnum | 0) !== (uz?.dnum | 0)) {
+                if (stway.up || !is_floater(mtmp.data)) {
+                    m.has_defense = MUSE_SSTAIRS;
+                }
+            }
+        } else {
+            const ignore_boulders = verysmall(mtmp.data)
+                || throws_rocks(mtmp.data)
+                || passes_walls(mtmp.data);
+            const diag_ok = (mtmp.data?.mndx | 0) !== PM_GRID_BUG;
+            const locs = [[x, y]];
+            for (let xx = x - 1; xx <= x + 1; xx++) {
+                for (let yy = y - 1; yy <= y + 1; yy++) {
+                    if (isok(xx, yy) && (xx !== x || yy !== y)) {
+                        locs.push([xx, yy]);
+                    }
+                }
+            }
+            for (let i = 0; i < locs.length; i++) {
+                const xx = locs[i][0], yy = locs[i][1];
+                if (u_at(xx, yy)
+                    || (xx !== x && yy !== y && !diag_ok)
+                    || (m_at(xx, yy) && !(xx === x && yy === y))) {
+                    continue;
+                }
+                const t = t_at(xx, yy);
+                if (!t) continue;
+                let boulder = null;
+                for (let o = objects_at(xx, yy); o; o = o.nexthere) {
+                    if ((o.otyp | 0) === BOULDER) { boulder = o; break; }
+                }
+                if ((!ignore_boulders && boulder) || onscary(xx, yy, mtmp)) {
+                    continue;
+                }
+                if (is_hole(t.ttyp)
+                    && !is_floater(mtmp.data)
+                    && !mtmp.isshk && !mtmp.isgd && !mtmp.ispriest
+                    && Can_fall_thru(game.u?.uz)) {
+                    m.trapx = xx;
+                    m.trapy = yy;
+                    m.has_defense = MUSE_TRAPDOOR;
+                    break;
+                } else if ((t.ttyp | 0) === TELEP_TRAP) {
+                    m.trapx = xx;
+                    m.trapy = yy;
+                    m.has_defense = MUSE_TELEPORT_TRAP;
+                }
+            }
+        }
+    }
+
+    if (nohands(mtmp.data)) return m.has_defense !== 0;
+    // bugle named omit
+    if (m.has_defense) return true;
 
     const isPest = (mtmp.mnum ?? mtmp.data?.mndx) === PM_PESTILENCE;
     for (let obj = mtmp.minvent; obj; obj = obj.nobj) {
         if (m.has_defense && !rn2(3)) break;
+        // WAN_DIGGING / WAN_TELEPORTATION named omit
+        if (m.has_defense === MUSE_SCR_TELEPORTATION) continue;
+        if ((obj.otyp | 0) === SCR_TELEPORTATION && mtmp.mcansee
+            && haseyes(mtmp.data)
+            && (!obj.cursed
+                || (!(mtmp.isshk && inhishop(mtmp))
+                    && !mtmp.isgd && !mtmp.ispriest))) {
+            if (!noteleport_level(mtmp)
+                || !mon_knows_traps(mtmp, TELEP_TRAP)) {
+                m.defensive = obj;
+                m.has_defense = MUSE_SCR_TELEPORTATION;
+            }
+        }
         if (!isPest) {
             if (m.has_defense === MUSE_POT_FULL_HEALING) continue;
             if (obj.otyp === POT_FULL_HEALING) {
@@ -809,6 +1181,7 @@ export function find_defensive(mtmp, tryescape) {
                 m.defensive = obj;
                 m.has_defense = MUSE_POT_EXTRA_HEALING;
             }
+            // WAN_CREATE_MONSTER named omit
             if (m.has_defense === MUSE_POT_HEALING) continue;
             if (obj.otyp === POT_HEALING) {
                 m.defensive = obj;
@@ -818,6 +1191,11 @@ export function find_defensive(mtmp, tryescape) {
             if (m.has_defense === MUSE_POT_FULL_HEALING) continue;
             m.defensive = obj;
             m.has_defense = MUSE_POT_FULL_HEALING;
+        }
+        if (m.has_defense === MUSE_SCR_CREATE_MONSTER) continue;
+        if ((obj.otyp | 0) === SCR_CREATE_MONSTER) {
+            m.defensive = obj;
+            m.has_defense = MUSE_SCR_CREATE_MONSTER;
         }
     }
     return m.has_defense !== 0;
@@ -1013,18 +1391,190 @@ async function precheck(mon, obj) {
 }
 
 /**
- * C ref: muse.c use_defensive — healing potions (D-0610).
- * Teleport/stairs/traps/bugle/horn/create arms deferred.
+ * C ref: muse.c use_defensive `:795`.
+ * Named omit: unicorn horn, bugle, wand dig/tele/create/undead.
  */
 export async function use_defensive(mtmp) {
     const m = museState();
-    const otmp = m.defensive;
+    let otmp = m.defensive;
     const i = await precheck(mtmp, otmp);
     if (i !== 0) return i;
+    const vis = cansee(mtmp.mx, mtmp.my);
     const vismon = canseemon(mtmp);
     const oseen = !!(otmp && vismon);
+    const mhpmax = mtmp.mhpmax | 0;
+    const fleetim = !mtmp.mflee
+        ? (33 - Math.trunc((30 * (mtmp.mhp | 0)) / (mhpmax || 1)))
+        : 0;
 
     switch (m.has_defense) {
+    case MUSE_SCR_TELEPORTATION: {
+        if (!otmp) return 0;
+        const obj_is_cursed = !!otmp.cursed;
+        if (mtmp.isshk || mtmp.isgd || mtmp.ispriest) return 2;
+        await m_flee(mtmp, fleetim);
+        if ((otmp.quan | 0) > 1) {
+            const split = splitobj(otmp, 1);
+            if (split) otmp = split;
+        }
+        extract_from_minvent(mtmp, otmp, false, false);
+        if (!game.iflags) game.iflags = {};
+        game.iflags.last_msg = PLNMSG_enum;
+        await mreadmsg(mtmp, otmp);
+        if (obj_is_cursed || mtmp.mconf) {
+            const nlev = random_teleport_level();
+            if (mon_has_amulet(mtmp) || In_endgame(game.u?.uz)) {
+                if (vismon) {
+                    await pline_mon(mtmp,
+                        `${Monnam(mtmp)} seems very disoriented for a moment.`);
+                }
+            } else if (nlev === depth(game.u?.uz)) {
+                if (vismon) {
+                    await pline_mon(mtmp,
+                        `${Monnam(mtmp)} shudders for a moment.`);
+                }
+            } else {
+                const flev = { dnum: 0, dlevel: 0 };
+                get_level(flev, nlev);
+                migrate_to_level(mtmp, ledger_no(flev), MIGR_RANDOM, null);
+            }
+        } else {
+            await m_tele(mtmp, vismon, oseen, SCR_TELEPORTATION);
+        }
+        if (otmp.dknown && (game.iflags.last_msg | 0) !== PLNMSG_enum) {
+            await trycall(otmp);
+        }
+        obfree(otmp, null);
+        return 2;
+    }
+    case MUSE_SCR_CREATE_MONSTER: {
+        if (!otmp) return 0;
+        let pm = null, fish = null, cnt = 1, known = false;
+        if (!rn2(73)) cnt += rnd(4);
+        if (mtmp.mconf || otmp.cursed) cnt += 12;
+        if (mtmp.mconf) pm = fish = mons(PM_ACID_BLOB);
+        else if (is_pool(mtmp.mx, mtmp.my)) {
+            fish = mons(game.u?.uinwater ? PM_GIANT_EEL : PM_CROCODILE);
+        }
+        await mreadmsg(mtmp, otmp);
+        while (cnt--) {
+            const cc = { x: 0, y: 0 };
+            if (!enexto(cc, mtmp.mx, mtmp.my, fish)) break;
+            const mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
+            if (mon && (canseemon(mon) || sensemon(mon))) known = true;
+        }
+        if (known) makeknown(SCR_CREATE_MONSTER);
+        else await trycall(otmp);
+        m_useup(mtmp, otmp);
+        return 2;
+    }
+    case MUSE_TRAPDOOR: {
+        if (Is_botlevel(game.u?.uz)) return 0;
+        await m_flee(mtmp, fleetim);
+        const t = t_at(m.trapx, m.trapy);
+        if (vis && t) {
+            const jump = vtense(null, locomotion(mtmp.data, 'jump'));
+            await pline_mon(mtmp,
+                `${Monnam(mtmp)} ${jump} into a ${trapname(t.ttyp, false)}!`);
+        }
+        reveal_trap(t, vis);
+        const ox = mtmp.mx | 0, oy = mtmp.my | 0;
+        remove_monster(ox, oy);
+        newsym(ox, oy);
+        place_monster(mtmp, m.trapx, m.trapy);
+        if (mtmp.wormno) worm_move(mtmp);
+        newsym(m.trapx, m.trapy);
+        migrate_to_level(mtmp, ledger_no(game.u?.uz) + 1, MIGR_RANDOM, null);
+        return 2;
+    }
+    case MUSE_UPSTAIRS: {
+        await m_flee(mtmp, fleetim);
+        const stway = stairway_at(mtmp.mx, mtmp.my);
+        if (!stway) return 0;
+        if (ledger_no(game.u?.uz) === 1) {
+            return await mon_escape(mtmp, vismon);
+        }
+        if (Inhell() && mon_has_amulet(mtmp) && !rn2(4)
+            && ((game.u?.uz?.dlevel | 0)
+                < dunlevs_in_dungeon(game.u?.uz) - 3)) {
+            if (vismon) {
+                await pline(
+                    `As ${mon_nam(mtmp)} climbs the stairs, a mysterious force momentarily surrounds ${mhim(mtmp)}...`,
+                );
+            }
+            migrate_to_level(mtmp, ledger_no(game.u?.uz) + 1, MIGR_RANDOM, null);
+        } else {
+            if (vismon) {
+                await pline_mon(mtmp, `${Monnam(mtmp)} escapes upstairs!`);
+            }
+            migrate_to_level(
+                mtmp, ledger_no(stway.tolev), MIGR_STAIRS_DOWN, null);
+        }
+        return 2;
+    }
+    case MUSE_DOWNSTAIRS: {
+        await m_flee(mtmp, fleetim);
+        const stway = stairway_at(mtmp.mx, mtmp.my);
+        if (!stway) return 0;
+        if (vismon) {
+            await pline_mon(mtmp, `${Monnam(mtmp)} escapes downstairs!`);
+        }
+        migrate_to_level(mtmp, ledger_no(stway.tolev), MIGR_STAIRS_UP, null);
+        return 2;
+    }
+    case MUSE_UP_LADDER: {
+        await m_flee(mtmp, fleetim);
+        const stway = stairway_at(mtmp.mx, mtmp.my);
+        if (!stway) return 0;
+        if (vismon) {
+            await pline_mon(mtmp, `${Monnam(mtmp)} escapes up the ladder!`);
+        }
+        migrate_to_level(mtmp, ledger_no(stway.tolev), MIGR_LADDER_DOWN, null);
+        return 2;
+    }
+    case MUSE_DN_LADDER: {
+        await m_flee(mtmp, fleetim);
+        const stway = stairway_at(mtmp.mx, mtmp.my);
+        if (!stway) return 0;
+        if (vismon) {
+            await pline_mon(mtmp, `${Monnam(mtmp)} escapes down the ladder!`);
+        }
+        migrate_to_level(mtmp, ledger_no(stway.tolev), MIGR_LADDER_UP, null);
+        return 2;
+    }
+    case MUSE_SSTAIRS: {
+        await m_flee(mtmp, fleetim);
+        const stway = stairway_at(mtmp.mx, mtmp.my);
+        if (!stway) return 0;
+        if (ledger_no(game.u?.uz) === 1) {
+            return await mon_escape(mtmp, vismon);
+        }
+        if (vismon) {
+            await pline_mon(mtmp,
+                `${Monnam(mtmp)} escapes ${stway.up ? 'up' : 'down'}stairs!`);
+        }
+        migrate_to_level(mtmp, ledger_no(stway.tolev), MIGR_SSTAIRS, null);
+        return 2;
+    }
+    case MUSE_TELEPORT_TRAP: {
+        await m_flee(mtmp, fleetim);
+        const t = t_at(m.trapx, m.trapy);
+        if (vis && t) {
+            const jump = vtense(null, locomotion(mtmp.data, 'jump'));
+            await pline_mon(mtmp,
+                `${Monnam(mtmp)} ${jump} onto a ${trapname(t.ttyp, false)}!`);
+        }
+        reveal_trap(t, vis);
+        const ox = mtmp.mx | 0, oy = mtmp.my | 0;
+        remove_monster(ox, oy);
+        newsym(ox, oy);
+        place_monster(mtmp, m.trapx, m.trapy);
+        if (mtmp.wormno) worm_move(mtmp);
+        await maybe_unhide_at(mtmp.mx, mtmp.my);
+        newsym(m.trapx, m.trapy);
+        await m_tele(mtmp, vismon, false, 0);
+        return 2;
+    }
     case MUSE_POT_HEALING: {
         if (!otmp) return 0;
         await mquaffmsg(mtmp, otmp);
@@ -1050,7 +1600,7 @@ export async function use_defensive(mtmp) {
     case MUSE_POT_FULL_HEALING: {
         if (!otmp) return 0;
         await mquaffmsg(mtmp, otmp);
-        // Pestilence sickness unbless deferred
+        if ((otmp.otyp | 0) === POT_SICKNESS) unbless(otmp);
         healmon(mtmp, mtmp.mhpmax | 0, otmp.blessed ? 8 : 4);
         if (!mtmp.mcansee && otmp.otyp !== POT_SICKNESS) {
             await mcureblindness(mtmp, vismon);
@@ -1060,10 +1610,15 @@ export async function use_defensive(mtmp) {
         m_useup(mtmp, otmp);
         return 2;
     }
+    case MUSE_LIZARD_CORPSE: {
+        if (!otmp) return 0;
+        await mon_consume_unstone(mtmp, otmp, false, false);
+        return 2;
+    }
     case 0:
         return 0;
     default:
-        // Selected but body deferred — spend the turn like a successful use
+        // horn / bugle / remaining wands — named omit
         return 2;
     }
 }

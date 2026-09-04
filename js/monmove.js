@@ -1015,7 +1015,7 @@ function can_hide_under_obj(obj) {
  * C ref: mondata.c locomotion — verb for how a monster moves.
  * Used by hideunder You_see ("slither" for snakes).
  */
-function locomotion(ptr, def) {
+export function locomotion(ptr, def) {
     const cap = !!(def && def[0] === def[0].toUpperCase()
         && def[0] !== def[0].toLowerCase());
     const pick = (lo, hi) => (cap ? hi : lo);

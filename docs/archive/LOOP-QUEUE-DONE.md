@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `sounds.c` domonnoise remaining: genus / mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg. **Addressed:** D-1808
+- [x] `muse.c` use_defensive remaining: mreadmsg / reveal_trap / mon_escape / mon_consume_unstone. Not use_offensive. **Addressed:** D-1809
+
+
+- [x] `sounds.c` domonnoise remaining: genus / mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg. **Addressed:** D-1808 `f18f1523`
 
 
 - [x] `pline.c` vpline msgtype_type / execplinehandler / maybe_play_sound. Not pline wrapper. **Addressed:** D-1807 `3d82312d`

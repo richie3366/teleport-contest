@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1809 muse.c use_defensive mreadmsg / reveal_trap / mon_escape / consume
+
+**Objective:** Open `muse.c` `use_defensive` remaining: mreadmsg /
+reveal_trap / mon_escape / mon_consume_unstone. Not use_offensive.
+**C:** `use_defensive` `:795`; `mreadmsg` `:238`; `reveal_trap`
+`:753`; `mon_escape` `:779`; `mon_consume_unstone` `:2905`;
+`m_tele` `:383`; `find_defensive` `:439`.
+**JS was:** healing invent only; other codes `default: return 2`.
+**Fix:** helpers + lizard/stairs/traps/tele+create arms. Export
+`locomotion` / `resists_acid`. Named: horn, bugle, wand
+dig/tele/create/undead, `munstone`, `use_offensive` mreadmsg.
+**Verify:** save-oracle skip (untagged); helper probe; green +
+strict; cohort 7/7 + strict.
+**Next:** Open `muse.c` `use_offensive` remaining wand / horn /
+scroll cases. Not use_defensive.
 ## 2026-09-04 — D-1808 sounds.c domonnoise remaps + oracle/priest/shk talk
 
 **Objective:** Open `sounds.c` `domonnoise` remaining: genus /

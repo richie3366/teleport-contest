@@ -2660,8 +2660,9 @@ canseemon wield pline** (D-0180/D-0264/D-0318; mwelded refuse-wield/weld/artifac
 **`possibly_unwield` / `setmnotwielded` / `mwepgone` D-1744** (`weapon.c` `:746–795` / `:1813–1828` / `:937–946`; `worn.c` `bypass_obj`; `wield.c` `mwelded`; newcham/new_were/`mattackm`/`use_whip`; named: steal_it / mhitm_ad_sitm, m_throw setmnotwielded, mon_break_armor, extract mwepgone inline, zap bypass_obj clone); 
 **`select_rwep`/`monmulti`/`m_throw`/`thitu`/`should_mulch`**; 
 **`canseemon`=`cansee`/`infrared`+`mon_visible`; `thitu` `an`/`exclam`/miss; 
-`monshoot` `an(singular)`** (D-0119); **`find_defensive`/`use_defensive` healing+milky precheck** 
-(D-0610; flee/dig/tele/create deferred); **`find_offensive`/`use_offensive` MUSE_POT_* throw + 
+`monshoot` `an(singular)`** (D-0119); **`find_defensive`/`use_defensive` healing+milky precheck**
+(D-0610) **+ mreadmsg / reveal_trap / mon_escape / `mon_consume_unstone` + lizard / stairs / traps / tele+create scrolls**
+(D-1809; named: unicorn horn, bugle, wand dig/tele/create/undead, `munstone`, `use_offensive` mreadmsg); **`find_offensive`/`use_offensive` MUSE_POT_* throw + 
 `m_throw` POTION→`potionhit`/`bottlename`/`potionbreathe` + 
 flight `observe_object`→`makeknown`/`exercise(A_WIS)`** (D-0184); 
 **`m_throw` `tmp_at(DISP_FLASH)` + await `potionhit` plines** (D-0284); 

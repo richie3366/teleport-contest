@@ -1,6 +1,33 @@
 # Divergence log
 
+## D-1809 — muse.c use_defensive mreadmsg / reveal_trap / mon_escape / mon_consume_unstone
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** `use_defensive` only ran healing potions. Confused
+  monsters never ate lizard, unseen+Deaf still observed scroll
+  labels, SCORR niches stayed secret, and upstairs-on-1 never
+  called `mon_escape`.
+- **C locus:** `muse.c` `use_defensive` `:795–1219`; `mreadmsg`
+  `:238`; `reveal_trap` `:753`; `mon_escape` `:779`;
+  `mon_consume_unstone` `:2905`; `m_tele` `:383`;
+  `mcould_eat_tin` `:3000`; `find_defensive` `:439`;
+  `wizard.c` `mon_has_special` `:116`; `mon.c` `flash_mon` `:6066`.
+- **JS was:** healing invent + milky precheck (D-0610);
+  `default: return 2` for every other defense code.
+- **Fix:** file-local helpers in `js/muse.js`; `find_defensive`
+  lizard / stairs / traps / tele+create scrolls; `use_defensive`
+  those arms. Export `locomotion` (`monmove.js`) and
+  `resists_acid` (`monsters.js`) instead of cloning.
+- **Named omissions:** unicorn horn; tryescape `Is_knox`/`m_next2m`;
+  undead-turning; bugle; wand digging / teleport / create / undead
+  (invent may pick a later scroll when C would keep the wand);
+  `munstone` other caller of `mon_consume_unstone`;
+  `use_offensive` `mreadmsg` sites.
+- **Next:** Open `muse.c` `use_offensive` remaining wand / horn /
+  scroll cases. Not use_defensive.
+
 ## D-1808 — sounds.c domonnoise remaps + MS_ORACLE/PRIEST/SELL talk
+
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)
 - **Symptom:** `#chat` skipped C remaps (guardian `genus`, `isshk`→SELL,

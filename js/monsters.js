@@ -677,6 +677,14 @@ export function resists_ston(mon) {
     return !!(bits & MR_STONE);
 }
 
+/** C monst.h resists_acid; worn/artifact ACID_RES omit. */
+export function resists_acid(mon) {
+    if (!mon) return false;
+    const bits = (mon.data?.mresists | 0)
+        | (mon.mextrinsics | 0) | (mon.mintrinsics | 0);
+    return !!(bits & MR_ACID);
+}
+
 /**
  * C ref: mondata.c olfaction — false for golem / eye / jelly / pudding /
  * blob / vortex / elemental / fungus / light.
