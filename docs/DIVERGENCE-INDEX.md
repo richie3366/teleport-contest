@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1824 | fixed | dat/Bar-goal.lua :44–57 — dat/Bar-goal.lua fourteen empty des.object after Heart | `load_bar_goal` looped 15 extra `splev_create_object` /; fix: loop bound 14 matching lua `:44–57`. Heart, six traps, and; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: humidity-aware `get_location`; `spo_end_moninvent` |
 | D-1823 | fixed | dat/minend-3.lua — mkmaze.c makemaz minend-3 load_special (Catacombs / Mine's End 3/3) | `makemaz` had no `minend-3` loader, so Mine's End was a 33%; fix: `load_minend_3` from the lua body: solidfill HWALL (so; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: ensure_way_out; link_doors_rooms; map_cleanup; |
 | D-1822 | fixed | dat/bigrm-{1,10,13}.lua — mkmaze.c makemaz bigrm-1/10/13 load_special (completes Big Room 13/13) | `makemaz` had no `bigrm-1`/`-10`/`-13` loaders, so those; fix: `load_bigrm_1` (solidfill + 18×75 room; `percent(80)` then; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: ensure_way_out; humidity-aware `get_location`; |
 | D-1821 | fixed | dat/bigrm-{5,6,11}.lua — mkmaze.c makemaz bigrm-5/6/11 load_special (three smallest Big Rooms) | `makemaz` had no `bigrm-5`/`-6`/`-11` loaders, so those; fix: `load_bigrm_5` (solidfill + 19×74 diamond; `percent(25)`; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: ensure_way_out; humidity-aware `get_location`; |

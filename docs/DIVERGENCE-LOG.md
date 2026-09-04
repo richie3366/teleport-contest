@@ -1,5 +1,29 @@
 # Divergence log
 
+## D-1824 — dat/Bar-goal.lua fourteen empty des.object after Heart
+
+- **Status:** fixed (Must-fix review **789**; green + cohort + full `sessions` 44/44)
+- **Symptom:** `load_bar_goal` looped 15 extra `splev_create_object` /
+  `mkobj_at` after the Heart (Wiz-goal's count). C `dat/Bar-goal.lua`
+  `:44–57` is fourteen empty `des.object()`.
+- **C locus:** `dat/Bar-goal.lua` `:44–57`; `sp_lev.c` `create_object` /
+  `lspo_object` empty `des.object()`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`.
+- **JS was:** `for (let i = 0; i < 15; i++) splev_create_object(null)`
+  after the named Heart.
+- **Fix:** loop bound 14 matching lua `:44–57`. Heart, six traps, and
+  monster counts unchanged.
+- **JS:** `js/mklev.js` `load_bar_goal`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; PASS hidden (no corpus session blocked on
+  makemaz); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort
+  7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** humidity-aware `get_location`; `spo_end_moninvent`
+  `m_dowear`; `G_UNIQ` extinct early return; fakewiz. Not traps /
+  monsters / Heart.
+- **Next:** Open `mcastu.c` `castmu` remaining spell arms (`mcast_*` /
+  `touch_of_death` past `default:`). Not buzzmu.
+
 ## D-1823 — mkmaze.c makemaz minend-3 load_special (Catacombs / Mine's End 3/3)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

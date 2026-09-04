@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `mkmaze.c` makemaz `minend-3` — third Mine's End variant; 33% blank → 0%. From `dat/minend-3.lua` (107 ln). **Addressed:** D-1823
+- [x] Match C `dat/Bar-goal.lua` `:44–57` fourteen `des.object()` after the Heart, instead of `load_bar_goal` looping 15 extra `splev_create_object` / `mkobj_at` RNG. Source: reviews/loop-unattended/789-fc103c7f-bar-goal.md **Addressed:** D-1824
+
+
+- [x] `mkmaze.c` makemaz `minend-3` — third Mine's End variant; 33% blank → 0%. From `dat/minend-3.lua` (107 ln). **Addressed:** D-1823 `171f6b02`
 
 
 - [x] `mkmaze.c` makemaz `bigrm-1`/`-10`/`-13` — completes Big Room 13/13; 46% blank → 0%. From `dat/bigrm-{1,10,13}.lua` (81/61/82 ln). **Addressed:** D-1822 `7c76fdb5`

@@ -730,7 +730,9 @@ tower2 D-0757; tower3 D-0758; **D-0529 `Bar-loca` + `traptype_rnd`→`level_diff
 croom `get_location_coord` double-retry**; 
 **D-0619 `Arc-goal` load_special** (map/temple/Orb/`Minion` + 
 `fill_special_room` TEMPLE `has_temple`); **D-1819 `Bar-goal`** (Thoth Amon /
-Heart; `align="noncoaligned"` → `AM_SPLEV_NONCO`); omit medusa-2/4; 
+Heart; `align="noncoaligned"` → `AM_SPLEV_NONCO`) + **D-1824** fourteen
+empty `des.object()` after Heart (`dat/Bar-goal.lua` `:44–57`; not
+Wiz-goal's 15); omit medusa-2/4; 
 **D-0647 `minetn-2` load_special** (`create_subroom`/`create_door`/`splev_des_room` + 
 `flip_level` sbrooms) + **D-0875 `minetn-3` Alley Town** (wand shop + nested chance rooms) + 
 **D-0921 `minetn-4` College Town** (book shop + nested chance rooms; 

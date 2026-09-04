@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1824 dat/Bar-goal.lua fourteen empty des.object after Heart
+
+**C locus:** `dat/Bar-goal.lua` `:44–57`; `sp_lev.c` `create_object` /
+**JS:** `js/mklev.js` `load_bar_goal`.
+**Change:** loop bound 14 matching lua `:44–57`. Heart, six traps, and
+**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+**Named:** humidity-aware `get_location`; `spo_end_moninvent`
+**Next:** Open `mcastu.c` `castmu` remaining spell arms (`mcast_*` /
 ## 2026-09-04 — audit overlay 784–793 + cadence 44/44
 
 **Objective:** review JS SHAs since `5c68c8c3` against pinned C;
