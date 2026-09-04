@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `muse.c` use_offensive remaining wand / horn / scroll cases. Not use_defensive. **Addressed:** D-1810
+- [x] `muse.c` use_misc remaining: muse_newcham_mon / mloot_container / poly / bag / you_aggravate. Not use_defensive. **Addressed:** D-1811
+
+
+- [x] `muse.c` use_offensive remaining wand / horn / scroll cases. Not use_defensive. **Addressed:** D-1810 `5009dae1`
 
 
 - [x] `muse.c` use_defensive remaining: mreadmsg / reveal_trap / mon_escape / mon_consume_unstone. Not use_offensive. **Addressed:** D-1809 `0f18f2db`

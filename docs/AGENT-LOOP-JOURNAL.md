@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1811 muse.c use_misc poly / bag / you_aggravate
+
+**Objective:** Open `muse.c` `use_misc` remaining: muse_newcham_mon /
+mloot_container / poly / bag / you_aggravate. Not use_defensive.
+**C:** `use_misc` `:2382`; `find_misc` `:2094`; `muse_newcham_mon`
+`:2248`; `mloot_container` `:2263`; `you_aggravate` `:2630`.
+**JS was:** gain-level / invis / whip / speed; other codes
+`default: return 0`; `!m.misc` skipped POLY_TRAP.
+**Fix:** find+use remaining arms; export `can_carry` /
+`wearing_iron_shoes` / `unconscious` / `start_corpse_timeout`.
+Named: cursed mbag FIXME, CLIPPING cliparound.
+**Verify:** save-oracle skip (untagged); find_misc probe; bag
+`use_misc` 33/80 took; green + strict; cohort 7/7 + strict.
+**Next:** Open `end.c` `really_done` remaining: fixup_death /
+force_launch_placement / clearlocks / free_pickinv_cache /
+timet_delta / clearpriests / paygd. Not DUMPLOG.
 ## 2026-09-04 — D-1810 muse.c use_offensive ray wands / horns / tele+undead / earth
 
 **Objective:** Open `muse.c` `use_offensive` remaining wand / horn /

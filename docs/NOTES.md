@@ -5,10 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Open `muse.c` `use_misc` remaining next** (Must-fix empty).
-  muse_newcham_mon / mloot_container / poly / bag / you_aggravate.
-  Not use_defensive. Map-driven / cluster density — do not invent a
-  FAIL peel.
+- **Open `end.c` `really_done` remaining next** (Must-fix empty).
+  fixup_death / force_launch_placement / clearlocks /
+  free_pickinv_cache / timet_delta / clearpriests / paygd.
+  Not DUMPLOG (D-1776). Map-driven / cluster density — do not invent
+  a FAIL peel.
 - **seed0030** still 39912/105529 after D-1797. First all-segments
   miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
   (seg0 RNG OK 14300). Falsify with `rng-diff --all-segments`.
@@ -23,8 +24,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not re-port `use_offensive` ray wands / horns / tele+undead /
-  SCR_EARTH (D-1810) or `use_defensive` mreadmsg / reveal_trap /
+- Do not re-port `use_misc` poly/bag/`you_aggravate` (D-1811) or
+  `use_offensive` ray wands / horns / tele+undead / SCR_EARTH
+  (D-1810) or `use_defensive` mreadmsg / reveal_trap /
   `mon_escape` / `mon_consume_unstone` (D-1809) or `domonnoise`
   remaps / `doconsult` / `priest_talk` / `shk_chat` (D-1808) or
   `vpline` `msgtype_type` / `execplinehandler` /
@@ -40,12 +42,14 @@ Objective/score live in `CURRENT.md`.
   mention_walls (D-1800) or `spoteffects` recursion / lev `rn2(2)`
   (D-1799) or `dochug` / `wormhitu` (D-1798) or `nomul`/`unmul`
   `usleep=0` (D-1797) or `xkilled` LEVEL_SPECIFIC / pool (D-1796).
-  Named: `linedup_callback` floor-corpse; fhito_loc/bhito;
-  destroy_drawbridge; SOUND= soundmap; UNIX msghandler fork;
-  doset MSGTYPE menu; mouse getpos; getdir fuzzer. `m_seenres` is
-  already boolean — never `!== 0`. No second `genus` / `doconsult` /
-  `priest_talk` / `shk_chat` / `str_start_is` / `accessible` /
-  trailing `confdir` / `locomotion` / `resists_acid`. Usleep is not
+  Named: cursed mbag FIXME; CLIPPING cliparound; linedup_callback
+  floor-corpse; fhito_loc/bhito; destroy_drawbridge; SOUND=
+  soundmap; UNIX msghandler fork; doset MSGTYPE menu; mouse getpos;
+  getdir fuzzer. `m_seenres` is already boolean — never `!== 0`.
+  No second `genus` / `doconsult` / `priest_talk` / `shk_chat` /
+  `str_start_is` / `accessible` / trailing `confdir` /
+  `locomotion` / `resists_acid` / `can_carry` / `wearing_iron_shoes`
+  / `unconscious` / `start_corpse_timeout`. Usleep is not
   seed0030’s first token.
 - Do not re-port `mattacku` remaining / `getmattk` DISE/DREN/WEAP
   (D-1795). Keep sleep `rn2(10)`. No second `m_monnam` /
@@ -63,7 +67,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1810.
+  (D-1189). Do not skip D-1190…D-1811.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -73,17 +77,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1810.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1811.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1810.
+  Do not re-port D-1682…D-1811.
 
 ## Landmarks (≤15)
 
+- D-1811: `use_misc` poly trap/wand/potion + bag / `you_aggravate`.
+  Named: cursed mbag FIXME; CLIPPING cliparound.
 - D-1810: `use_offensive` ray wands / horns / tele+undead / SCR_EARTH.
   Named: linedup_callback floor-corpse; fhito_loc; SCR_FIRE #if 0.
 - D-1809: `use_defensive` mreadmsg / reveal_trap / `mon_escape` /
@@ -102,4 +108,3 @@ Objective/score live in `CURRENT.md`.
 - D-1799: `spoteffects` recursion / lev timeout / Warning ice.
 - D-1798: `dochug` remaining + `wormhitu`. Named: `demon_talk` / `cuss`.
 - D-1797: `nomul`/`unmul` `usleep=0` + nomul `uinvulnerable=FALSE`.
-- D-1796: `xkilled` LEVEL_SPECIFIC + pool gate + artifact un-create.

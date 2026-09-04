@@ -1166,7 +1166,7 @@ const MAT_IRON = 11;
  * C ref: trap.c wearing_iron_shoes — which_armor(W_ARMF) + oc_material==IRON.
  * Hero uses u.uarmf (C worn.c which_armor(&youmonst)).
  */
-function wearing_iron_shoes(mtmp) {
+export function wearing_iron_shoes(mtmp) {
     const armf = is_youmonst(mtmp)
         ? game.u?.uarmf
         : which_armor(mtmp, W_ARMF);

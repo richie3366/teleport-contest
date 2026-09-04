@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-1811 — muse.c use_misc remaining poly / bag / you_aggravate
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** `use_misc` only ran gain-level, invis, speed, and
+  bullwhip. Poly trap/wand/potion, bag loot, `muse_newcham_mon`,
+  `mloot_container`, and cursed-invis `you_aggravate` never ran.
+  `if (!m.misc) return 0` also skipped object-less `MUSE_POLY_TRAP`.
+- **C locus:** `muse.c` `use_misc` `:2382–2626`; `find_misc`
+  `:2094–2245`; `muse_newcham_mon` `:2248`; `mloot_container`
+  `:2263`; `you_aggravate` `:2630`.
+- **JS was:** gain-level / invis / whip / speed; `default: return 0`;
+  `you_aggravate` commented out; `find_misc` returned on `nohands`
+  before the poly-trap walk and never selected poly/bag.
+- **Fix:** `find_misc` poly-trap (before `nohands`) + wand/potion/bag
+  `nomore`; `use_misc` those arms via file-local `muse_newcham_mon` /
+  `mloot_container` / `you_aggravate` / `removed_from_icebox`. Export
+  `can_carry` (`monmove.js`), `wearing_iron_shoes` (`trap.js`),
+  `unconscious` (`teleport.js`), `start_corpse_timeout` (`mkobj.js`).
+  Invis Hallu/`s_suffix`/`map_invisible`/`you_aggravate` wired.
+- **Named omissions:** cursed bag-of-holding FIXME (C returns 0);
+  CLIPPING `cliparound` (macosx-minimal has no CLIPPING).
+- **Next:** Open `end.c` `really_done` remaining: fixup_death /
+  force_launch_placement / clearlocks / free_pickinv_cache /
+  timet_delta / clearpriests / paygd. Not DUMPLOG.
+
 ## D-1810 — muse.c use_offensive remaining wand / horn / scroll cases
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

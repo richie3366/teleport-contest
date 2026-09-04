@@ -2687,7 +2687,11 @@ pair were C-wrong: no `is_helmet` gate and an inlined IRON..MITHRIL/GLASS range 
 gain-level/invis/bullwhip `rn2(5)`/`rn2(4)` yank + 
 `mon_adjust_speed`/`mcalcmove` MFAST** (D-0232/D-0704; 
 **`MUSE_POT_SPEED` `mquaffmsg` + async `mon_adjust_speed` give_msg/`learnwand`** D-0871; 
-poly trap/wand/potion/bag/`you_aggravate` deferred); 
+**poly trap/wand/potion + bag `mloot_container` / `muse_newcham_mon` / `you_aggravate`** D-1811
+(C `use_misc` `:2382` / `find_misc` `:2094` / `muse_newcham_mon` `:2248` /
+`mloot_container` `:2263` / `you_aggravate` `:2630`; JS default-0 plus
+`!m.misc` early-out skipped POLY_TRAP; now those arms; named: cursed
+mbag FIXME, CLIPPING `cliparound`)); 
 **await `mzapwand`/`mbhit`/`mbhitm`/hurl plines + await `use_misc`** (D-0261; 
 unawaited wand `--More--` raced input); **`dmgval` via extracted `oc_wsdam`/`oc_wldam` + 
 small-monster otyp switch** (D-0189); **`dmgval` shade/`shade_glare` D-1354**; 
