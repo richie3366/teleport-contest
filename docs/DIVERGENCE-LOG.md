@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1826 — mkmaze.c makemaz medusa-2/4 load_special (Medusa 4/4)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no `medusa-2`/`medusa-4` loaders, so Medusa was a
+  50% blank-level coin flip (`rnd(4)` on `medusa` rndlevs; 1 and 3 live).
+  C loads `dat/medusa-2.lua` / `dat/medusa-4.lua` via `sp_lev.c` `load_special`.
+- **C locus:** `dat/medusa-2.lua`; `dat/medusa-4.lua`; `mkmaze.c` `makemaz`
+  `:1127–1223` `load_special`; `sp_lev.c` `lspo_level_init` solidfill /
+  `lspo_map` / `lspo_region` irregular `flood_fill_rm` / `l_create_object`
+  Perseus contents / `create_monster`.
+- **JS was:** `load_special_proto` dispatched `medusa-1`/`medusa-3`;
+  `medusa-2`/`-4` named omitted.
+- **Fix:** `load_medusa_2` from the lua body: solidfill + mazelevel+noteleport,
+  20×75 map, palace irregular rooms[0], arrival downstairs, locked door,
+  Perseus with swapped 25/75 shield/boots, eight packed empty statues,
+  boulder+wand class, magic trap, Medusa/eels/golems/cobras. `load_medusa_4`:
+  21×76 map, four-room `selection_rndcoord` medloc/altloc, crystal ball,
+  yellow-dragon nest + percent babies/eggs, 14 `S` + black nagas. Shared
+  `medusa_perseus_statue` / `splev_irregular_oroom`. C `load_special`
+  epilogue leaves lregions for post-flip `fixup_special`.
+- **JS:** `js/mklev.js` `load_medusa_2` / `load_medusa_4` /
+  `load_special_proto`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; PASS hidden (no corpus session blocked on
+  makemaz); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort
+  7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** humidity-aware `get_location`; `ensure_way_out` /
+  solidify; generic `create_object` Medusa fill (loaders use
+  `medusa_empty_statue_at`); worn/artifact STONE_RES; water/astral;
+  fakewiz. Not Perseus loot / Medusa / downstairs.
+- **Next:** Open `mkmaze.c` `makemaz` `water` + `save_waterlevel` /
+  `restore_waterlevel`. Not astral.
+
 ## D-1825 — mcastu.c mcast_spell remaining 14 arms + touch_of_death
 
 - **Status:** fixed (map-driven queue row; green + cohort)

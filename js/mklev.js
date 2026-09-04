@@ -1376,13 +1376,13 @@ function reset_xystart_size() {
  * Bar-filb, Bar-goal, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
  * soko1-2, soko2-1, soko2-2, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
  * tower3, fire, air, minend-1, minend-2, minend-3, minetn-1, minetn-2, minetn-3,
- * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-3, oracle, castle, valley,
+ * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-2, medusa-3, medusa-4, oracle, castle, valley,
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
  * Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
  * Named omissions: quest
  * protos (Kni-strt/loca/fila/filb);
- * medusa-2/4; water/astral; fakewiz;
+ * water/astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
 async function makemaz(s) {
@@ -1485,8 +1485,16 @@ function load_special_proto(protofile) {
         load_medusa_1();
         return true;
     }
+    if (protofile === 'medusa-2') {
+        load_medusa_2();
+        return true;
+    }
     if (protofile === 'medusa-3') {
         load_medusa_3();
+        return true;
+    }
+    if (protofile === 'medusa-4') {
+        load_medusa_4();
         return true;
     }
     if (protofile === 'bigrm-7') {
@@ -2689,8 +2697,75 @@ function medusa_empty_statue_at(x, y) {
 }
 
 /**
+ * C ref: dat/medusa-*.lua Perseus statue + percent contents via
+ * l_create_object SP_OBJ_CONTAINER. medusa-2 swaps shield/boots odds.
+ */
+function medusa_perseus_statue(rx, ry, shieldPct, bootsPct) {
+    l_create_object({
+        id: 'statue',
+        x: rx,
+        y: ry,
+        buc: 'uncursed',
+        montype: 'knight',
+        historic: 1,
+        male: 1,
+        name: 'Perseus',
+    }, () => {
+        if (percent(shieldPct)) {
+            l_create_object({
+                id: 'shield of reflection', buc: 'cursed', spe: 0,
+            });
+        }
+        if (percent(bootsPct)) {
+            l_create_object({ id: 'levitation boots', spe: 0 });
+        }
+        if (percent(50)) {
+            l_create_object({ id: 'scimitar', buc: 'blessed', spe: 2 });
+        }
+        if (percent(50)) l_create_object('sack');
+    });
+}
+
+/**
+ * C ref: sp_lev.c lspo_region irregular OROOM — flood_fill_rm then add_room.
+ */
+function splev_irregular_oroom(dx1, dy1, rlit) {
+    const g = game;
+    if ((g.level.nroom | 0) >= MAXNROFROOMS) return null;
+    const bounds = {
+        min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1,
+    };
+    const rmno = g.level.nroom + ROOMOFFSET;
+    if (g.smeq) g.smeq[g.level.nroom] = g.level.nroom;
+    flood_fill_rm(dx1, dy1, rmno, !!rlit, true, bounds);
+    add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+        false, OROOM, true);
+    const troom = g.level.rooms[g.level.nroom - 1];
+    if (!troom) return null;
+    troom.rlit = rlit ? 1 : 0;
+    troom.irregular = true;
+    troom.needjoining = true;
+    troom.needfill = 0;
+    add_doors_to_room(troom);
+    return troom;
+}
+
+/** C ref: sp_lev.c sel_set_wall_property via lspo_non_diggable(selection). */
+function medusa_mark_nondig(mx, my, x1, y1, x2, y2) {
+    for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
+        for (let x = mx + x1; x <= mx + x2 && x < COLNO; x++) {
+            const loc = game.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+}
+
+/**
  * C ref: dat/medusa-1.lua via load_special.
- * Named omissions: worn/artifact STONE_RES in resists_ston; medusa-2/4;
+ * Named omissions: worn/artifact STONE_RES in resists_ston;
  * flip_level lregion coord update (same shortcut as Bar-strt/fire);
  * full mongone invent teardown beyond fmon unlink.
  */
@@ -2982,7 +3057,7 @@ function load_medusa_1() {
 
 /**
  * C ref: dat/medusa-3.lua via load_special — raven-tree Medusa variant.
- * Named omissions: worn/artifact STONE_RES in resists_ston; medusa-2/4;
+ * Named omissions: worn/artifact STONE_RES in resists_ston;
  * ensure_way_out / solidify; full mongone invent teardown beyond fmon unlink.
  * D-0928: flip updates lregions; land still JS@(43,6) vs C@(42,7).
  */
@@ -3237,6 +3312,329 @@ function load_medusa_3() {
             }
         }
     }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/medusa-2.lua via load_special — twin-island palace variant.
+ * Named omissions: worn/artifact STONE_RES in resists_ston;
+ * ensure_way_out / solidify; create_object Medusa fill (uses
+ * medusa_empty_statue_at); count_level_features / premap.
+ */
+function load_medusa_2() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    // des.level_flags("mazelevel", "noteleport") — allow_flips default 3
+
+    // Exact dat/medusa-2.lua des.map (20×75)
+    const MEDUSA2_MAP = [
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+        '}------}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}-------}}}}}}}}--------------}',
+        '}|....|}}}}}}}}}..}.}}..}}}}}}}}}}}}}..}}}}}}-.....--}}}}}}}|............|}',
+        '}|....|.}}}}}}}}}}}.}...}}..}}}}}}}}}}}}}}}}}---......}}}}}.|............|}',
+        '}S....|.}}}}}}---}}}}}}}}}}}}}}}}}}}}}}}}}}---...|..-}}}}}}.S..----------|}',
+        '}|....|.}}}}}}-...}}}}}}}}}.}}...}.}}}}.}}}......----}}}}}}.|............|}',
+        '}|....|.}}}}}}-....--}}}}}}}}}}}}}}}}}}}}}}----...--}}}}}}}.|..--------+-|}',
+        '}|....|.}}}}}}}......}}}}...}}}}}}.}}}}}}}}}}}---..---}}}}}.|..|..S...|..|}',
+        '}|....|.}}}}}}-....-}}}}}}}------}}}}}}}}}}}}}}-...|.-}}}}}.|..|..|...|..|}',
+        '}|....|.}}}}}}}}}---}}}}}}}........}}}}}}}}}}---.|....}}}}}.|..|..|...|..|}',
+        '}|....|.}}}}}}}}}}}}}}}}}}-....|...-}}}}}}}}--...----.}}}}}.|..|..|...|..|}',
+        '}|....|.}}}}}}..}}}}}}}}}}---..--------}}}}}-..---}}}}}}}}}.|..|..-------|}',
+        '}|...}|...}}}.}}}}}}...}}}}}--..........}}}}..--}}}}}}}}}}}.|..|.........|}',
+        '}|...}S...}}.}}}}}}}}}}}}}}}-..--------}}}}}}}}}}}}}}...}}}.|..--------..S}',
+        '}|...}|...}}}}}}}..}}}}}}----..|....-}}}}}}}}}}}}}}}}}..}}}.|............|}',
+        '}|....|}}}}}....}}}}..}}.-.......----}}......}}}}}}.......}}|............|}',
+        '}------}}}}}}}}}}}}}}}}}}---------}}}}}}}}}}}}}}}}}}}}}}}}}}--------------}',
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+    ].join('\n');
+    splev_apply_centered_map(MEDUSA2_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,74,19),"lit") — 2-arg grow
+    light_region(mx + 0, my + 0, mx + 74, my + 19, true);
+    // des.region(selection.area(02,03,05,16),"unlit") — no grow
+    for (let y = my + 3; y <= my + 16 && y < ROWNO; y++) {
+        for (let x = mx + 2; x <= mx + 5 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.lit = false;
+        }
+    }
+    // des.region({ region={61,03, 72,16}, lit=0, irregular=1 }) — rooms[0]
+    splev_irregular_oroom(mx + 61, my + 3, false);
+    // des.region(selection.area(71,08,72,11),"unlit")
+    for (let y = my + 8; y <= my + 11 && y < ROWNO; y++) {
+        for (let x = mx + 71; x <= mx + 72 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.lit = false;
+        }
+    }
+    // des.region({ region={67,08,69,11}, lit=1, arrival_room=true })
+    {
+        const dx1 = mx + 67, dy1 = my + 8, dx2 = mx + 69, dy2 = my + 11;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, true, OROOM, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.rlit = 1;
+                troom.needjoining = true;
+                troom.needfill = 0;
+                topologize(troom);
+                add_doors_to_room(troom);
+            }
+        }
+    }
+
+    l_teleport_region({ region: [2, 3, 5, 16], dir: 'down' });
+    l_teleport_region({ region: [61, 3, 72, 16], dir: 'up' });
+    l_create_stairway(1, 4, 9, null, false);
+    l_create_stairway(0, 68, 10, null, false);
+
+    {
+        const loc = g.level.at(mx + 71, my + 7);
+        if (loc) {
+            if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            loc.doormask = D_LOCKED;
+            loc.flags = D_LOCKED;
+        }
+    }
+
+    levregion_add({
+        inarea: { x1: 1, y1: 0, x2: 79, y2: 20 },
+        delarea: { x1: 59, y1: 1, x2: 73, y2: 17 },
+        in_islev: false,
+        del_islev: false,
+        rtype: LR_BRANCH,
+        rname: { str: null },
+    });
+    medusa_mark_nondig(mx, my, 1, 2, 6, 17);
+    medusa_mark_nondig(mx, my, 60, 2, 73, 17);
+
+    // Perseus: medusa-2 lua swaps shield 25 / boots 75 vs 1/3/4
+    medusa_perseus_statue(68, 10, 25, 75);
+    for (const [rx, ry] of [
+        [64, 8], [65, 8], [64, 9], [65, 9],
+        [64, 10], [65, 10], [64, 11], [65, 11],
+    ]) {
+        medusa_empty_statue_at(mx + rx, my + ry);
+    }
+    l_create_object('boulder', 4, 4);
+    l_create_object('/', 52, 9);
+    l_create_object('boulder', 52, 9);
+    for (let i = 0; i < 6; i++) splev_create_object(null);
+
+    {
+        const pos = get_location_coord(DRY, null, 3, 12);
+        const ttmp = maketrap(pos.x, pos.y, MAGIC_TRAP);
+        mktrap_seen_victim(ttmp, {});
+    }
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    splev_create_monster('Medusa', undefined, { rx: 68, ry: 10, asleep: 1 });
+    splev_create_monster('gremlin', undefined, { rx: 2, ry: 14 });
+    splev_create_monster('titan', undefined, { rx: 2, ry: 5 });
+    for (const [rx, ry] of [
+        [10, 13], [11, 13], [10, 14], [11, 14], [10, 15], [11, 15],
+    ]) {
+        splev_create_monster('electric eel', undefined, { rx, ry });
+    }
+    for (const [rx, ry] of [[1, 1], [0, 8], [4, 19]]) {
+        splev_create_monster('jellyfish', undefined, { rx, ry });
+    }
+    for (const [rx, ry] of [[64, 8], [65, 8], [64, 9], [65, 9]]) {
+        splev_create_monster('stone golem', undefined, { rx, ry, asleep: 1 });
+    }
+    for (const [rx, ry] of [[64, 10], [65, 10]]) {
+        splev_create_monster('cobra', undefined, { rx, ry, asleep: 1 });
+    }
+    splev_create_monster('A', undefined, { rx: 72, ry: 8 });
+    splev_create_monster('yellow light', undefined, { rx: 72, ry: 11, asleep: 1 });
+    for (const [rx, ry] of [
+        [17, 7], [28, 11], [32, 13], [49, 9], [48, 7],
+        [65, 3], [70, 4], [70, 15], [65, 16],
+    ]) {
+        splev_create_monster(null, undefined, { rx, ry });
+    }
+    for (let i = 0; i < 4; i++) splev_create_monster(null);
+
+    // C load_special: link_doors → remove_boundary_syms → map_cleanup
+    // → wallification → flip → fixup (lregions after flip)
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/medusa-4.lua via load_special — palace + yellow-dragon nest.
+ * Named omissions: worn/artifact STONE_RES in resists_ston;
+ * ensure_way_out / solidify; create_object Medusa fill (uses
+ * medusa_empty_statue_at); count_level_features / premap.
+ */
+function load_medusa_4() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    // des.level_flags("noteleport", "mazelevel") — allow_flips default 3
+
+    // Exact dat/medusa-4.lua des.map (21×76)
+    const MEDUSA4_MAP = [
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+        '}}}}}}}}}}}}}}........}}}}}}}}}}}}}}}}}}}}}}}..}}}.....}}}}}}}}}}}----|}}}}}',
+        '}}}}}}..----------F-.....}}}}}}}}}}}}}}}}..---...}}}}....T.}}}}}}}....|}}}}}',
+        '}}}.....|...F......S}}}}....}}}}}}}...}}.....|}}.}}}}}}}......}}}}|......}}}',
+        '}}}.....+...|..{...|}}}}}}}}}}}}.....}}}}|...|}}}}}}}}}}}.}}}}}}}}----.}}}}}',
+        '}}......|...|......|}}}}}}}}}......}}}}}}|.......}}}}}}}}}}}}}..}}}}}...}}}}',
+        '}}|-+--F|-+--....|F|-|}}}}}....}}}....}}}-----}}.....}}}}}}}......}}}}.}}}}}',
+        '}}|...}}|...|....|}}}|}}}}}}}..}}}}}}}}}}}}}}}}}}}}....}}}}}}}}....T.}}}}}}}',
+        '}}|...}}F...+....F}}}}}}}..}}}}}}}}}}}}}}...}}}}}}}}}}}}}}}}}}}}}}....}}..}}',
+        '}}|...}}|...|....|}}}|}....}}}}}}....}}}...}}}}}...}}}}}}}}}}}}}}}}}.....}}}',
+        '}}--+--F|-+--....-F|-|....}}}}}}}}}}.T...}}}}....---}}}}}}}}}}}}}}}}}}}}}}}}',
+        '}}......|...|......|}}}}}.}}}}}}}}}....}}}}}}}.....|}}}}}}}}}.}}}}}}}}}}}}}}',
+        '}}}}....+...|..{...|.}}}}}}}}}}}}}}}}}}}}}}}}}}.|..|}}}}}}}......}}}}...}}}}',
+        '}}}}}}..|...F......|...}}}}}}}}}}..---}}}}}}}}}}--.-}}}}}....}}}}}}....}}}}}',
+        '}}}}}}}}-----S----F|....}}}}}}}}}|...|}}}}}}}}}}}}...}}}}}}...}}}}}}..}}}}}}',
+        '}}}}}}}}}..............T...}}}}}.|.......}}}}}}}}}}}}}}..}...}.}}}}....}}}}}',
+        '}}}}}}}}}}....}}}}...}...}}}}}.......|.}}}}}}}}}}}}}}.......}}}}}}}}}...}}}}',
+        '}}}}}}}}}}..}}}}}}}}}}.}}}}}}}}}}-..--.}}}}}}}}..}}}}}}..T...}}}..}}}}}}}}}}',
+        '}}}}}}}}}...}}}}}}}}}}}}}}}}}}}}}}}...}}}}}}}....}}}}}}}.}}}..}}}...}}}}}}}}',
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}.}}}}}}....}}}}}}}}}}}}}}}}}}}...}}}}}}',
+        '}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}',
+    ].join('\n');
+    splev_apply_centered_map(MEDUSA4_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // local place = selection; four downstairs-eligible rooms, two used
+    const place = selection_new();
+    selection_setpoint(mx + 4, my + 8, place, 1);
+    selection_setpoint(mx + 10, my + 4, place, 1);
+    selection_setpoint(mx + 10, my + 8, place, 1);
+    selection_setpoint(mx + 10, my + 12, place, 1);
+    const medloc = selection_rndcoord(place, true);
+    const altloc = selection_rndcoord(place, true);
+
+    // lua still lights area(00,00,74,19) on the 21×76 map
+    light_region(mx + 0, my + 0, mx + 74, my + 19, true);
+    // des.region({ region={13,03, 18,13}, lit=1, irregular=1 }) — rooms[0]
+    splev_irregular_oroom(mx + 13, my + 3, true);
+
+    l_teleport_region({ region: [64, 1, 74, 17], dir: 'down' });
+    l_teleport_region({ region: [2, 2, 18, 13], dir: 'up' });
+    levregion_add({
+        inarea: { x1: 67, y1: 1, x2: 74, y2: 20 },
+        delarea: { x1: -1, y1: -1, x2: -1, y2: -1 },
+        in_islev: false,
+        del_islev: true,
+        rtype: LR_UPSTAIR,
+        rname: { str: null },
+    });
+
+    if (medloc) {
+        l_create_stairway(0, medloc.x - mx, medloc.y - my, null, false);
+    }
+
+    const medDoor = (rx, ry) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = D_LOCKED;
+        loc.flags = D_LOCKED;
+    };
+    medDoor(4, 6);
+    medDoor(4, 10);
+    medDoor(8, 4);
+    medDoor(8, 12);
+    medDoor(10, 6);
+    medDoor(10, 10);
+    medDoor(12, 8);
+
+    levregion_add({
+        inarea: { x1: 27, y1: 0, x2: 79, y2: 20 },
+        delarea: { x1: -1, y1: -1, x2: -1, y2: -1 },
+        in_islev: false,
+        del_islev: true,
+        rtype: LR_BRANCH,
+        rname: { str: null },
+    });
+    medusa_mark_nondig(mx, my, 1, 1, 22, 14);
+
+    l_create_object('crystal ball', 7, 8);
+    if (medloc) {
+        medusa_perseus_statue(medloc.x - mx, medloc.y - my, 75, 25);
+    }
+    if (altloc) medusa_empty_statue_at(altloc.x, altloc.y);
+    for (let i = 0; i < 6; i++) {
+        const pos = get_location_random(null);
+        medusa_empty_statue_at(pos.x, pos.y);
+    }
+    for (let i = 0; i < 8; i++) splev_create_object(null);
+    for (let i = 0; i < 7; i++) splev_create_trap();
+
+    if (medloc) {
+        splev_create_monster('Medusa', undefined, {
+            rx: medloc.x - mx, ry: medloc.y - my, asleep: 1,
+        });
+    }
+    splev_create_monster('kraken', undefined, { rx: 7, ry: 7 });
+    splev_create_monster('yellow dragon', undefined, {
+        rx: 5, ry: 4, asleep: 1,
+    });
+    if (percent(50)) {
+        splev_create_monster('baby yellow dragon', undefined, {
+            rx: 4, ry: 4, asleep: 1,
+        });
+    }
+    if (percent(25)) {
+        splev_create_monster('baby yellow dragon', undefined, {
+            rx: 4, ry: 5, asleep: 1,
+        });
+    }
+    l_create_object({ id: 'egg', x: 5, y: 4, montype: 'yellow dragon' });
+    if (percent(50)) {
+        l_create_object({ id: 'egg', x: 5, y: 4, montype: 'yellow dragon' });
+    }
+    if (percent(25)) {
+        l_create_object({ id: 'egg', x: 5, y: 4, montype: 'yellow dragon' });
+    }
+    splev_create_monster('giant eel');
+    splev_create_monster('giant eel');
+    splev_create_monster('jellyfish');
+    splev_create_monster('jellyfish');
+    for (let i = 0; i < 14; i++) splev_create_monster('S');
+    for (let i = 0; i < 4; i++) {
+        splev_create_monster('black naga hatchling');
+        splev_create_monster('black naga');
+    }
+
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 

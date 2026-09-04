@@ -673,7 +673,7 @@ Scr **238→242**) + **D-0757 `tower2` load_special** (Vlad middle: niche shuffl
 demons/hounds + chest amulets + spbook shuffle; seed0360 prefix **53361→53591**; 
 Scr **242→246**) + **D-0758 `tower3` load_special** (Vlad entry: unshuffled niches + 
 branch levregion + `D`/fixed+random mons + niche loot/traps; seed0360 prefix **53591→55374**; 
-Scr **246→261**; **D-1820 `soko2-2`**; `medusa-2/4` deferred); 
+Scr **246→261**; **D-1820 `soko2-2`**; **D-1826 `medusa-2`/`-4`**); 
 **D-0745 `oracle` load_special** (`des.room` + historic `montype="C"` statues + nested DELPHI + 
 Oracle + `noflip`); **D-0746 `castle` load_special** (mazegrid + map + mazewalk/`fill_empty_maze` + 
 drawbridge + `squadmon` barracks); **D-0747 `valley` load_special** (solidfill + map + 
@@ -732,7 +732,8 @@ croom `get_location_coord` double-retry**;
 `fill_special_room` TEMPLE `has_temple`); **D-1819 `Bar-goal`** (Thoth Amon /
 Heart; `align="noncoaligned"` → `AM_SPLEV_NONCO`) + **D-1824** fourteen
 empty `des.object()` after Heart (`dat/Bar-goal.lua` `:44–57`; not
-Wiz-goal's 15); omit medusa-2/4; 
+Wiz-goal's 15); **D-1826 `medusa-2`/`-4`** (twin-island palace /
+yellow-dragon nest; Medusa 4/4); 
 **D-0647 `minetn-2` load_special** (`create_subroom`/`create_door`/`splev_des_room` + 
 `flip_level` sbrooms) + **D-0875 `minetn-3` Alley Town** (wand shop + nested chance rooms) + 
 **D-0921 `minetn-4` College Town** (book shop + nested chance rooms; 
@@ -783,9 +784,9 @@ luckstone prize + flint + level-teleports); Mine's End 3/3;
 **D-0759 `medusa-3` load_special** (place `selection_rndcoord` + Perseus/ravens; 
 `mk_artifact` A_NONE) + **D-0928 open** #1092 C recorder: medusa-3 flip **sum81** stair**(32,16)** 
 place≡JS land**(43,6)** (screen `>`@31/`@`(42,6) misleading); last=77/sum80 dead; 
-`Flip_coord` inFlipArea+x restored; SpLev_Map flip omit (C); @88377 linedup still; omit medusa-2/4; 
+`Flip_coord` inFlipArea+x restored; SpLev_Map flip omit (C); @88377 linedup still; **D-1826 `medusa-2`/`-4`**; 
 **D-0654 empty-statue `resists_ston`/`poly_when_stoned`/`propagate` + 
-extract `mresists`** (worn/artifact STONE_RES deferred; medusa-2/4 deferred); 
+extract `mresists`** (worn/artifact STONE_RES deferred; **D-1826 `medusa-2`/`-4`**); 
 **D-0566 `light_region` wall-expand for bigrm-2/8 `des.region(...,"lit")`** + 
 **D-0802 minetn-5/minend-2** (castle/other interior-only lit loops still deferred); 
 **D-0540…D-0542** soldier polearm / is_elf / QUANTMECH; **D-0543 `soko1-2`**; 
