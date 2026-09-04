@@ -70,22 +70,22 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1819**. Map-driven Open.
-**Next cluster:** `mkmaze.c` makemaz `soko2-2` — second `soko2` variant;
-removes a 50% blank-level coin flip on Sokoban 2. From `dat/soko2-2.lua`
-(72 ln).
+**Suite 44/44** at **D-1820**. Map-driven Open.
+**Next cluster:** `mkmaze.c` makemaz `bigrm-5`/`-6`/`-11` — three
+smallest Big Room variants. From `dat/bigrm-{5,6,11}.lua` (54/48/39 ln).
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1819 (index).** Recent **D-1819:** `makemaz` `Bar-goal`
-from `dat/Bar-goal.lua` (Thoth Amon / Heart; `align="noncoaligned"`).
-Named: humidity `get_location`; `m_dowear`; fakewiz.
+**Keep D-0845…D-1820 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
+Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1820** `dat/soko2-2.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_soko2_2` from the lua body: solidfill + mazelevel 22×13
 **D-1819** `dat/Bar-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_bar_goal` from the lua body: solidfill + mazelevel map,
 **D-1818** `dat/Wiz-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_wiz_goal` from the lua body: solidfill + mazelevel map,
 **D-1817** `timeout.c` / `wizcmds.c` — Deaf is one field; `#wizintrinsic` DEAF arm via `make_deaf`.
 <!-- recent:end -->
-**Do not:** FORCE/RNG; skip D-1229…D-1819; wrap `wildmiss` /
+**Do not:** FORCE/RNG; skip D-1229…D-1820; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

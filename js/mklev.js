@@ -779,7 +779,7 @@ export function l_teleport_region(opts) {
  * Default type "teleport". get_location(ANY_LOC|NO_LOC_WARN) so packed
  * coords become absolute (map origin, or croom lx/ly). Prepend onto
  * sve.exclusion_zones. Named omit: hellfill rnd_hell_prefab maps;
- * soko2-2 (load deferred); save_exclusions / load_exclusions.
+ * save_exclusions / load_exclusions.
  */
 const EZ_TYPES = {
     teleport: LR_TELE,
@@ -1374,13 +1374,13 @@ function reset_xystart_size() {
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
  * bigrm-4, bigrm-7, bigrm-8, bigrm-9, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
  * Bar-filb, Bar-goal, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
- * soko1-2, soko2-1, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
+ * soko1-2, soko2-1, soko2-2, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
  * tower3, fire, air, minend-1, minend-2, minetn-1, minetn-2, minetn-3,
  * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-3, oracle, castle, valley,
  * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
  * Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7, Kni-goal.
- * Named omissions: other bigrm-N / soko2-2 / quest
+ * Named omissions: other bigrm-N / quest
  * protos (Kni-strt/loca/fila/filb);
  * minend-3; medusa-2/4; water/astral; fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
@@ -1591,6 +1591,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'soko2-1') {
         load_soko2_1();
+        return true;
+    }
+    if (protofile === 'soko2-2') {
+        load_soko2_2();
         return true;
     }
     if (protofile === 'soko3-1') {
@@ -5877,7 +5881,7 @@ function load_tower2() {
 /**
  * C ref: dat/tower3.lua via load_special — Vlad's Tower entry (bottom).
  * Named omissions: SpLev_Map fidelity beyond solidify set;
- * map_cleanup; ensure_way_out; exclusion_zones; soko2-2.
+ * map_cleanup; ensure_way_out; exclusion_zones.
  * D-0673 pattern: map lit=FALSE clear after solidfill (≡ C lspo_map).
  * Niches are NOT shuffled (unlike tower1/tower2).
  */
@@ -6069,7 +6073,7 @@ function load_tower3() {
 /**
  * C ref: dat/soko1-1.lua via load_special.
  * Named omissions: ensure_way_out;
- * link_doors_rooms full scan; soko2-2 des.exclusion (load deferred);
+ * link_doors_rooms full scan;
  * COURT/BEEHIVE/… fill_zoo arms beyond ZOO. Room fill is deferred to
  * makelevel (not here).
  */
@@ -6242,7 +6246,7 @@ function load_soko1_1() {
 /**
  * C ref: dat/soko1-2.lua via load_special.
  * Named omissions: ensure_way_out;
- * soko2-2 des.exclusion (load deferred); other soko*-*;
+ * other soko*-*;
  * COURT/BEEHIVE/… fill_zoo arms beyond ZOO. Room fill deferred to makelevel.
  */
 function load_soko1_2() {
@@ -6405,8 +6409,7 @@ function load_soko1_2() {
 
 /**
  * C ref: dat/soko3-1.lua via load_special.
- * Named omissions: ensure_way_out;
- * soko2-2 des.exclusion (load deferred).
+ * Named omissions: ensure_way_out.
  */
 function load_soko3_1() {
     const g = game;
@@ -6506,8 +6509,7 @@ function load_soko3_1() {
 
 /**
  * C ref: dat/soko3-2.lua via load_special.
- * Named omissions: ensure_way_out;
- * soko2-2 des.exclusion (load deferred).
+ * Named omissions: ensure_way_out.
  */
 function load_soko3_2() {
     const g = game;
@@ -6609,8 +6611,7 @@ function load_soko3_2() {
 
 /**
  * C ref: dat/soko4-1.lua via load_special — Sokoban entry (bottom).
- * Named omissions: ensure_way_out;
- * soko2-2 des.exclusion (load deferred).
+ * Named omissions: ensure_way_out.
  */
 function load_soko4_1() {
     const g = game;
@@ -6737,7 +6738,6 @@ function load_soko4_1() {
 /**
  * C ref: dat/soko4-2.lua via load_special — Sokoban entry (bottom).
  * Named omissions: ensure_way_out;
- * soko2-2 des.exclusion (load deferred);
  * levregion coords after flip (same Bar-strt pattern).
  */
 function load_soko4_2() {
@@ -9328,8 +9328,7 @@ function Deaf_fumaroles() {
 
 /**
  * C ref: dat/soko2-1.lua via load_special.
- * Named omissions: ensure_way_out;
- * soko2-2 des.exclusion (load deferred).
+ * Named omissions: ensure_way_out.
  */
 function load_soko2_1() {
     const g = game;
@@ -9413,6 +9412,112 @@ function load_soko2_1() {
         [HOLE, 8, 9], [HOLE, 9, 9], [HOLE, 10, 9], [HOLE, 11, 9],
         [HOLE, 12, 9], [HOLE, 13, 9], [HOLE, 14, 9], [HOLE, 15, 9],
         [HOLE, 16, 9], [HOLE, 17, 9],
+    ];
+    for (const [ttyp, mx, my] of trapSpecs) {
+        const ttmp = maketrap(xstart + mx, ystart + my, ttyp);
+        mktrap_seen_victim(ttmp, {});
+    }
+
+    for (let i = 0; i < 4; i++) splev_create_object(FOOD_CLASS);
+    splev_create_object(RING_CLASS);
+    splev_create_object(WAND_CLASS);
+
+    // C ref: sp_lev.c load_special — wallify, flip, solidify, fixup, premap
+    soko_load_epilogue();
+}
+
+/**
+ * C ref: dat/soko2-2.lua via load_special.
+ * Named omissions: ensure_way_out; humidity-aware get_location;
+ * is_ok_location_dry boulder reject (D-0547).
+ */
+function load_soko2_2() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.sokoban = true;
+    g.level.flags.sokoban_rules = true;
+    g.Sokoban = true;
+
+    // C ref: dat/soko2-2.lua des.map — 22×13
+    const SOKO2_2_MAP = `
+  --------            
+--|.|....|            
+|........|----------  
+|.-...-..|.|.......|  
+|...-......|.......|  
+|.-....|...|.......|  
+|....-.--.-|.......|  
+|..........|.......|  
+|.--...|...|.......---
+|....-.|---|.......+.|
+--|....|------------.|
+  |................+.|
+  --------------------
+`.replace(/^\n/, '');
+    const { xstart, ystart } = splev_apply_centered_map(SOKO2_2_MAP);
+
+    mkstairs(xstart + 6, ystart + 11, 0, null); // des.stair("down", 06, 11)
+    mkstairs(xstart + 15, ystart + 6, 1, null); // des.stair("up", 15, 06)
+
+    // des.door("locked", 19, 09) and des.door("locked", 19, 11)
+    for (const [dx, dy] of [[19, 9], [19, 11]]) {
+        const loc = g.level.at(xstart + dx, ystart + dy);
+        if (loc) {
+            if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            loc.doormask = D_LOCKED;
+            loc.flags = D_LOCKED;
+        }
+    }
+
+    // des.region(selection.area(00,00,21,12), "lit")
+    for (let y = ystart; y <= ystart + 12 && y < ROWNO; y++) {
+        for (let x = xstart; x <= xstart + 21 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.lit = true;
+        }
+    }
+
+    for (let y = ystart; y <= ystart + 12 && y < ROWNO; y++) {
+        for (let x = Math.max(1, xstart); x <= xstart + 21 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE | W_NONPASSWALL;
+            }
+        }
+    }
+
+    const boulderCoords = [
+        [4, 2], [4, 3], [5, 3], [7, 3], [8, 3],
+        [2, 4], [3, 4],
+        [5, 5],
+        [6, 6], [9, 6],
+        [3, 7], [4, 7], [7, 7],
+        [6, 9],
+        [5, 10],
+        [5, 11],
+    ];
+    for (const [mx, my] of boulderCoords) {
+        mksobj_at(BOULDER, xstart + mx, ystart + my, true, true);
+    }
+
+    // des.exclusion({ type = "monster-generation", region = { 06,11, 18,11 } })
+    lspo_exclusion({ type: 'monster-generation', region: [6, 11, 18, 11] });
+
+    const trapSpecs = [
+        [ROLLING_BOULDER_TRAP, 7, 11],
+        [HOLE, 8, 11], [HOLE, 9, 11], [HOLE, 10, 11], [HOLE, 11, 11],
+        [HOLE, 12, 11], [HOLE, 13, 11], [HOLE, 14, 11], [HOLE, 15, 11],
+        [HOLE, 16, 11], [HOLE, 17, 11], [HOLE, 18, 11],
     ];
     for (const [ttyp, mx, my] of trapSpecs) {
         const ttmp = maketrap(xstart + mx, ystart + my, ttyp);

@@ -636,8 +636,8 @@ rnd_hell_prefab/`makemaz("")`/fakewiz deferred); empty `makemaz("")`; Is_special
 **minefill `fixup_special`/`place_lregion(LR_BRANCH)` + Mines mineralize gold×2/gem×3** (D-0177); 
 **`mkstairs` no-op on dunlev ends** (up on dlevel 1 / down on `Is_botlevel`; 
 D-0928 #1152 — minefill `des.stair("up")` no longer plants dlevel-0 upstairs); 
-omit lev_region[] compiler/`mkportal`; **D-1109 `lspo_exclusion`** (soko2-2 / hellfill prefab / 
-save/rest still named); seed0060 @ 2997 was **not** corridor typ (D-0032); 
+omit lev_region[] compiler/`mkportal`; **D-1109 `lspo_exclusion`** (hellfill prefab / 
+save/rest still named; **D-1820 `soko2-2`** uses it); seed0060 @ 2997 was **not** corridor typ (D-0032); 
 seed0017 @3132 was **not** missing (30,4) terrain (D-0099); 
 seed0077 @1465 was **not** themerms rect-count (D-0112); 
 seed0200 @1672 was **not** irregular-only (D-0147); 
@@ -673,7 +673,7 @@ Scr **238→242**) + **D-0757 `tower2` load_special** (Vlad middle: niche shuffl
 demons/hounds + chest amulets + spbook shuffle; seed0360 prefix **53361→53591**; 
 Scr **242→246**) + **D-0758 `tower3` load_special** (Vlad entry: unshuffled niches + 
 branch levregion + `D`/fixed+random mons + niche loot/traps; seed0360 prefix **53591→55374**; 
-Scr **246→261**; `soko2-2`/`medusa-2/4` deferred); 
+Scr **246→261**; **D-1820 `soko2-2`**; `medusa-2/4` deferred); 
 **D-0745 `oracle` load_special** (`des.room` + historic `montype="C"` statues + nested DELPHI + 
 Oracle + `noflip`); **D-0746 `castle` load_special** (mazegrid + map + mazewalk/`fill_empty_maze` + 
 drawbridge + `squadmon` barracks); **D-0747 `valley` load_special** (solidfill + map + 
@@ -695,10 +695,10 @@ temperate → hot; valley still overrides temperate);
 flip_level lregion coord update deferred; 
 **D-0608 `minend-1` `des.object("(")`→TOOL not WEAPON** (defsym `'('`=TOOL_CLASS); 
 **D-0543 `soko1-2` load_special** (map/reward percent(25); other `soko*-*` deferred); 
-**D-0547 `soko2-1` + `is_ok_location_dry` boulder reject**; 
+**D-0547 `soko2-1` + `is_ok_location_dry` boulder reject**; **D-1820 `soko2-2`**; 
 **D-0548 `soko3-1`/`soko3-2`/`soko4-2` load_special**; 
 **D-0567 Sokoban `premap_detect`/`solidify_map`/`SpLev_Map` + 
-flip `fix_wall_spines`** (`soko2-2` deferred; `soko4-1` D-0756); 
+flip `fix_wall_spines`** (**D-1820 `soko2-2`**; `soko4-1` D-0756); 
 **D-0521 `load_special` must not call `fill_special_room` (makelevel fills once)**; 
 **D-0522 `put_lregion_here` TELE `m_at` reject when `!oneshot` + 
 `is_exclusion_zone`** (omit `m_into_limbo`; **D-1109 `lspo_exclusion`**; `undestroyable_trap`; 

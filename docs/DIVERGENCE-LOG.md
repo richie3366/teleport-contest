@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-1820 — mkmaze.c makemaz soko2-2 load_special (Sokoban 2 second variant)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no `soko2-2` loader, so Sokoban 2 was a 50%
+  blank-level coin flip (`rnd(2)` on `soko2` rndlevs). C loads
+  `dat/soko2-2.lua` via `sp_lev.c` `load_special`.
+- **C locus:** `dat/soko2-2.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `lspo_map` / `lspo_door` / `create_object` /
+  `create_trap` / `lspo_exclusion`.
+- **JS was:** `load_special_proto` dispatched `soko2-1` only; `soko2-2`
+  named omitted.
+- **Fix:** `load_soko2_2` from the lua body: solidfill + mazelevel 22×13
+  map, locked doors at 19,09 / 19,11, downstair 06,11, upstair 15,06,
+  lit/non-diggable/non-passwall region, 16 boulders, mongen exclusion
+  06,11–18,11, rolling-boulder + 11 holes, 4 food / 1 ring / 1 wand,
+  then soko load_special epilogue.
+- **JS:** `js/mklev.js` `load_soko2_2` / `load_special_proto`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; PASS hidden (no corpus session blocked on
+  makemaz); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort
+  7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** ensure_way_out; humidity-aware `get_location`;
+  `is_ok_location_dry` boulder reject (D-0547). Not bigrm-5/6/11.
+- **Next:** Open `mkmaze.c` makemaz `bigrm-5`/`-6`/`-11` from
+  `dat/bigrm-{5,6,11}.lua`.
+
 ## D-1819 — mkmaze.c makemaz Bar-goal load_special (Thoth Amon / Heart of Ahriman)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
