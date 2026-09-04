@@ -20,7 +20,10 @@ import {
     splittable, will_feel_cockatrice, is_worn, not_fully_identified,
     taking_off, count_unpaid, getobj, Blind,
 } from './invent.js';
-import { nomul, check_special_room, is_pool, is_lava, in_rooms, dosinkfall, SURFACE_AT, switch_terrain, maybe_half_phys } from './hack.js';
+import {
+    nomul, check_special_room, is_pool, is_lava, in_rooms, dosinkfall,
+    SURFACE_AT, switch_terrain, maybe_half_phys, waterbody_name,
+} from './hack.js';
 import {
     flush_screen, pline, newsym, docrt, bot, flush_topl_more, canseemon,
     canspotmon, Hallucination, clear_nhwindow_message, Norep, impossible,
@@ -62,9 +65,12 @@ import {
     nothing_seems_to_happen, nothing_happens, something, engulfing_u,
     HAND, FOOT, NO_MINVENT, MM_ADJACENTOK, MM_NOMSG, ONAME_NO_FLAGS,
     ARTICLE_A, RLOC_NOMSG, TIMEOUT, I_SPECIAL, FAILEDUNTRAP, NO_TRAP,
-    MELT_ICE_AWAY, LEVITATION, WARNING, u_at,
+    MELT_ICE_AWAY, LEVITATION, WARNING, u_at, FUMBLING, PLNMSG_BACK_ON_GROUND,
 } from './const.js';
-import { t_at, dotrap, drown, lava_effects, instapetrify, float_down, ceiling } from './trap.js';
+import {
+    t_at, dotrap, drown, lava_effects, instapetrify, float_down, ceiling,
+    back_on_ground, uteetering_at_seen_pit, uescaped_shaft,
+} from './trap.js';
 import { nhgetch } from './input.js';
 import { m_at, mnexto } from './mon.js';
 import { oclass_to_sym, select_menu_pick_any, select_menu_pick_one } from './options.js';
@@ -790,11 +796,51 @@ function tally_BUCX_list(objs, here) {
 }
 
 /**
- * C ref: pickup.c describe_decor — mention_decor feedback for features.
- * Branch envelope: dfeature_at + skip open door/doorway; furniture/typ
- * change gate; verbose "There is %s here." Named omissions: Fumbling
- * deferred_decor, waterbody_name swamp/pool rename, ice Norep,
- * back_on_ground after pool/lava/ice, decor_fumble/levitate overrides.
+ * C ref: pickup.c force_decor — wand-of-probing / Blind-ice look_here.
+ * Sets decor_fumble_override + optional levitate override, pretends the
+ * previous terrain was STONE, then describe_decor. Named: ice_descr thaw
+ * details behind gd.decor_levitate_override.
+ */
+export async function force_decor(via_probing) {
+    const u = game.u;
+    game.decor_fumble_override = true;
+    game.decor_levitate_override = !!via_probing;
+    if (!game.iflags) game.iflags = {};
+    game.iflags.prev_decor = STONE;
+    await describe_decor();
+    game.decor_fumble_override = false;
+    game.decor_levitate_override = false;
+    const loc = u && game.level?.at(u.ux, u.uy);
+    if (loc && game.lastseentyp?.[u.ux]) {
+        game.lastseentyp[u.ux][u.uy] = loc.typ;
+    }
+}
+
+/**
+ * C ref: pickup.c deferred_decor — mention_decor ice/fumble sequencing.
+ * setup True: remember to catch up; False: describe_decor then clear.
+ */
+export async function deferred_decor(setup) {
+    if (!game.iflags) game.iflags = {};
+    if (!game.flags?.mention_decor) {
+        game.iflags.defer_decor = false;
+    } else if (setup) {
+        game.iflags.defer_decor = true;
+    } else {
+        await describe_decor();
+        game.iflags.defer_decor = false;
+    }
+}
+
+/**
+ * C ref: pickup.c describe_decor `:350–426`.
+ * Branch envelope: Fumbling TIMEOUT==1 defer; dfeature_at skip open
+ * door/doorway; pool/ice from previous; furniture/typ change gate;
+ * waterbody_name when "pool of water"; verbose "There is %s here.";
+ * ICE+mention_decor Norep; back_on_ground after pool/lava/ice.
+ * Named: ice_descr thicker/thinner ice; dfeature_at ice/pool/lava/
+ * throne/drawbridge still partial (so waterhere is rare until those
+ * arms land).
  */
 export async function describe_decor() {
     const u = game.u;
@@ -803,6 +849,14 @@ export async function describe_decor() {
     if (!game.iflags) game.iflags = {};
     const iflags = game.iflags;
     if (iflags.prev_decor == null) iflags.prev_decor = STONE;
+
+    // C: (HFumbling & TIMEOUT) == 1L && !defer_decor && !fumble_override
+    const hf = (u.HFumbling | 0) | (u.uprops?.[FUMBLING]?.intrinsic | 0);
+    if ((hf & TIMEOUT) === 1 && !iflags.defer_decor
+        && !game.decor_fumble_override) {
+        await deferred_decor(true);
+        return false;
+    }
 
     // C: SURFACE_AT (rm.h) via db_under_typ for DRAWBRIDGE_UP (D-1103)
     const ltyp = SURFACE_AT(u.ux, u.uy);
@@ -821,8 +875,7 @@ export async function describe_decor() {
     if (ltyp === iflags.prev_decor && !IS_FURNITURE(ltyp)) {
         res = false;
     } else if (dfeature) {
-        // waterbody_name deferred — keep "pool of water"
-        void waterhere;
+        if (waterhere) dfeature = waterbody_name(u.ux, u.uy);
         if (dfeature !== 'swamp' && ltyp !== ICE) {
             dfeature = an(dfeature);
         }
@@ -832,10 +885,19 @@ export async function describe_decor() {
         } else {
             outbuf = `${upstart(dfeature)}.`;
         }
-        // C: ICE + mention_decor → Norep; use pline for all (Norep deferred)
-        await pline(outbuf);
+        if (ltyp === ICE && game.flags?.mention_decor) {
+            await Norep(outbuf);
+        } else {
+            await pline(outbuf);
+        }
     } else if (!u.Underwater) {
-        // C: back_on_ground when leaving pool/lava/ice — deferred
+        if (IS_POOL(iflags.prev_decor)
+            || IS_LAVA(iflags.prev_decor)
+            || iflags.prev_decor === ICE) {
+            if (iflags.last_msg !== PLNMSG_BACK_ON_GROUND) {
+                await back_on_ground(false);
+            }
+        }
     }
 
     // C: only persist prev_decor when mention_decor is On
@@ -1381,7 +1443,9 @@ function autopick_testobj(otmp) {
 /**
  * C ref: pickup.c pickup(what).
  * Ported envelope: autopickup && (nopick / !OBJ_AT / pool / lava) →
- * describe_decor + read_engr_at; **multi/!pickup/notake** share one
+ * describe_decor + read_engr_at; **can_reach_floor(pit)** describe_decor
+ * even when !mention_decor + read_engr on multi/!pickup/teetering;
+ * **multi/!pickup/notake** share one
  * gate (C pickup.c) so notake still plines under autopickup when
  * `flags.pickup` is off (D-0928 #1127); autopick filter (D-0368) then
  * **always** check_here(n_picked>0) (D-0387); manual `,`
@@ -1400,25 +1464,36 @@ export async function pickup(what) {
     // C: gp.pickup_encumbrance = 0 — used by pickup_object for load feedback
     game.pickup_encumbrance = 0;
 
-    // C: autopickup && (nopick || !OBJ_AT || pool || lava)
-    if (autopickup) {
-        const loc = game.level?.at(u.ux, u.uy);
-        const typ = loc?.typ;
-        const poolish = IS_POOL(typ) && !u.Underwater;
-        const lavaish = IS_LAVA(typ);
-        if (game.context?.nopick || !objects_at(u.ux, u.uy)
-            || poolish || lavaish) {
-            if (game.flags?.mention_decor) await describe_decor();
-            const { read_engr_at } = await import('./engrave.js');
-            await read_engr_at(u.ux, u.uy);
+    // C pickup.c:698–719 — floor arms only when !uswallow
+    if (!u.uswallow) {
+        // C: autopickup && (nopick || !OBJ_AT || pool || lava)
+        if (autopickup) {
+            const loc = game.level?.at(u.ux, u.uy);
+            const typ = loc?.typ;
+            const poolish = IS_POOL(typ) && !u.Underwater;
+            const lavaish = IS_LAVA(typ);
+            if (game.context?.nopick || !objects_at(u.ux, u.uy)
+                || poolish || lavaish) {
+                if (game.flags?.mention_decor) await describe_decor();
+                const { read_engr_at } = await import('./engrave.js');
+                await read_engr_at(u.ux, u.uy);
+                return 0;
+            }
+        }
+
+        // C: can_reach_floor(t && is_pit(t->ttyp)); describe_decor even
+        // when !mention_decor; read_engr if multi/!pickup/teetering/shaft
+        const t = t_at(u.ux, u.uy);
+        if (!can_reach_floor(!!(t && is_pit(t.ttyp)))) {
+            await describe_decor();
+            if (((game.multi | 0) && !game.context?.run)
+                || (autopickup && !game.flags?.pickup)
+                || (t && (uteetering_at_seen_pit(t) || uescaped_shaft(t)))) {
+                const { read_engr_at } = await import('./engrave.js');
+                await read_engr_at(u.ux, u.uy);
+            }
             return 0;
         }
-    }
-
-    if (!can_reach_floor(true)) {
-        // C: describe_decor even when !mention_decor; read_engr arms partial
-        await describe_decor();
-        return 0;
     }
 
     // C ref: pickup.c pickup — multi/!pickup/notake share one gate so

@@ -246,6 +246,8 @@ import {
 } from './const.js';
 import { stairway_at, stairs_description } from './mklev.js';
 import { objects_at } from './mkobj.js';
+import { t_at, trapname } from './trap.js';
+import { visible_region_at, reg_damg } from './region.js';
 import { PM_SAMURAI, PM_MONK, PM_CLERIC } from './generated/monsters_data.js';
 import { humanoid, strongmonst, mons, touch_petrifies, poly_when_stoned, hides_under } from './monsters.js';
 import { hideunder } from './mon.js';
@@ -5933,8 +5935,8 @@ export function dfeature_at(x, y) {
  * (D-0220); **observe_object before doname** (D-0399; C xname_flags).
  * **doname_with_price** (D-0460). **feel_cockatrice** D-1599 (skip_objects
  * / single / multi `doname...` then feel). Named omissions: altar/ice
- * Blind variants beyond floor, trap+region, engulfer stomach minvent
- * feel; blanket xname observe / distant_name. Furniture with ct==0 uses
+ * Blind variants beyond floor, engulfer stomach minvent feel; blanket
+ * xname observe / distant_name. Furniture with ct==0 uses
  * pickup.describe_decor (D-0356), not this path.
  */
 export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
@@ -5951,6 +5953,23 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
     // pile_limit is unset or obj_cnt is below it.
     const pile_limit = game.flags?.pile_limit ?? 5;
     const skip_objects = pile_limit > 0 && obj_cnt >= pile_limit;
+
+    // C invent.c look_here `:4162–4177` — seen trap / visible region
+    // before dfeature ("There is a pit here." then the object list).
+    if (!skip_objects) {
+        const reg = visible_region_at(u?.ux, u?.uy);
+        let trap = t_at(u?.ux, u?.uy);
+        if (trap && !trap.tseen) trap = null;
+        if (reg || trap) {
+            const regbuf = reg
+                ? `a ${reg_damg(reg) ? 'poison gas' : 'vapor'} cloud`
+                : '';
+            const trapstr = trap ? an(trapname(trap.ttyp, false)) : '';
+            await pline(
+                `There is ${regbuf}${reg && trap ? ' and ' : ''}${trapstr} here.`,
+            );
+        }
+    }
 
     const otmp = objects_at(u?.ux, u?.uy);
     let dfeature = dfeature_at(u?.ux, u?.uy);

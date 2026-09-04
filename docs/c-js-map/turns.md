@@ -1400,9 +1400,9 @@ Wizard/Elf/Valkyrie power-count + Soundeffect deferred at other losehp call site
 `finish_maybe_wail`); omit `showdamage`/`done(DIED)` bodies (monster kills use `done_in_by` 
 D-0190); fulll `end_running`/`cmdq_clear`; 
 **`overexert_hp` + melee `overexertion` HVY_ENCUMBER** (D-1003); pool/trap/sink; 
-**`describe_decor` mention_decor** (D-0356; Fumbling defer / ice Norep / back_on_ground deferred; 
+**`describe_decor` mention_decor** (D-0356; D-1835 Fumbling defer / waterhere `waterbody_name` / ice `Norep` / `back_on_ground` / `force_decor` / `deferred_decor` timeout catch-up; 
 **`waterbody_name` Medusa/juiblex/samurai/ICE/waterlevel** D-0928 #1163; 
-**SURFACE_AT/`db_under_typ` D-1103**; describe_decor waterhere rename still named); 
+**SURFACE_AT/`db_under_typ` D-1103**; ice_descr / `dfeature_at` ice/pool/lava/throne/drawbridge still named); 
 Passes_walls/autodig/chew; Blind `feel_location`/`autopick` arms; 
 full `back_to_glyph`/`wall_angle`→S_stone / OOB mention_walls; floor TRADITIONAL query_classes is D-1620 (hideunder/newsym_force/engulfer minvent traditional; `safe_qbuf` is D-1654); 
 **`pickup_object` telekinesis / `lift_object` / `carry_count` / scare raise-vs-pick / corpse 
@@ -2040,7 +2040,8 @@ upstairs/dnstairs wrappers; `goto_level` newdungeon awaits;
 **`check_here` skips `uchain` in count** (D-0928 #1141); 
 **`read_engr_at` from look_here / check_here ct==0** (D-0133); 
 **multi NHW_MENU "Things that are/you feel here:"** + pile_limit skip arm (D-0220); 
-**Blind feel floor pline + feel/see verb** (D-0928 #1096; altar/ice/pit-trap variants deferred); 
+**Blind feel floor pline + feel/see verb** (D-0928 #1096; altar/ice/pit-reach variants deferred); 
+**`look_here` seen trap / visible region `There()`** (D-1835; C `invent.c:4162–4177`); 
 **NHW_MENU `--More--` quitchars** via `show_nhw_menu_text` (D-0240) + 
 **#1151/#1156 overlay:** `look_here` passes `keep_message_leftover` so getpos WIN_MESSAGE leftovers 
 stay left of offx (C `display_nhwindow(WIN_MESSAGE,FALSE)` then no-op clear); 

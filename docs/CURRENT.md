@@ -72,18 +72,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1834**. Open `invent.c` `getobj` shipped: wear/puton/
-throw/drink/remove call live `getobj`; `equip_ok`/`throw_ok` GETOBJ ranks;
-`'R'` `doremring`. 5/7 corpus PASS; 2 moved (`menu_remarm`, `js-throw`).
-**Next cluster:** Open `pickup.c` `describe_decor` — 5 corpus blocks;
-"There is a pit here." before the object list.
+**Suite 44/44** at **D-1835**. Open `pickup.c` `describe_decor` shipped: `look_here` seen-trap/region `There()` before the object list (5/5 corpus PASS); `describe_decor` Fumbling defer / waterhere / ice `Norep` / `back_on_ground`; `pickup` `can_reach_floor(pit)`.
+**Next cluster:** Open `sp_lev.c` `build_room` — 4 corpus blocks; C themed-room script vs JS `rnd_rect` (level-content cliff).
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1834 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1835 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1835** `invent.c` `look_here` `:4162–4177` (`!skip_objects` seen `t_at` / `visible_region_at` → ` — `look_here` plines the seen trap / visible region before the object list.
 **D-1834** `invent.c` `getobj` `:1751–2089` (`:1912–1914` empty `!forceprompt`; `:2058–2062` missing  — `dowear`/`doputon`/`dothrow`/`dodrink`/`doremring` call live `getobj`.
 **D-1833** `iactions.c` `itemactions` `:429–445` (E: Engrave vs Write + `surface`); `:309–400` apply  — E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`.
 **D-1832** `wintty.c` `process_menu_window` `:1329–1768` (default: `tty_nhbell(); break;` — Unhandled keys `tty_nhbell` only (no `docrt`/`cls`).
@@ -91,10 +89,9 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1830** `dat/Rog-strt.lua` / `Rog-loca.lua` / `Rog-goal.lua` / — `load_rog_strt` from the lua body: solidfill STONE +
 **D-1829** `dat/Kni-strt.lua` / `Kni-loca.lua` / `Kni-fila.lua` / — `load_kni_strt` from the lua body: solidfill ROOM + mines fg=bg="."
 **D-1828** `dat/astral.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_astral` from the lua body: solidfill + mazelevel+noteleport
-**D-1827** `dat/water.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_water` from the lua body: solidfill + mazelevel+noteleport
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1834; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1835; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

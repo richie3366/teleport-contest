@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1835 — pickup.c describe_decor + invent.c look_here seen-trap There()
+
+- **Status:** fixed (5 corpus blocks; green + cohort; full `sessions` skipped — invent/pickup/trap/timeout/zap/region not in verify shared list)
+- **Symptom:** 5 hidden-corpus first-diffs attributed to `describe_decor`: C `"You fall into a pit! There is a pit here.--More--"` vs JS `"You fall into a pit! You see here a little dog corpse."`; C `"There is a dart trap here.--More--"` vs JS leftover confirm + `"Things that are here:"`. Proxy matched the `"There is %s here."` literal in `describe_decor`; C actually prints that string from `look_here`'s seen-trap/region `There()`.
+- **C locus:** `invent.c` `look_here` `:4162–4177` (`!skip_objects` seen `t_at` / `visible_region_at` → `There("is %s%s%s here.")`); `pickup.c` `describe_decor` `:350–426` (Fumbling TIMEOUT==1 `deferred_decor`; waterhere `waterbody_name`; ICE `Norep`; `back_on_ground`); `pickup.c` `pickup` `:710–718` `can_reach_floor(t && is_pit)`; `pickup.c` `force_decor` / `deferred_decor`; `timeout.c` `:926–930` catch-up; `zap.c` `:3761–3764` probing `force_decor(TRUE)`.
+- **JS was:** `look_here` omitted trap+region (named). `describe_decor` skipped Fumbling defer, waterhere rename, ice `Norep`, and `back_on_ground`. `pickup` called `can_reach_floor(true)` even when swallowed (C only in `!uswallow`) and skipped `read_engr_at` on the unreachable-floor arm.
+- **Fix:** `look_here` plines the seen trap / visible region before the object list. `describe_decor` matches the C body. `pickup` floor arms (nopick / `can_reach_floor(pit)` / `read_engr`) live under `!uswallow`. `force_decor` + `deferred_decor`; timeout Fumbling catch-up; probing ice/furniture calls `force_decor`.
+- **JS:** `js/invent.js` `look_here`; `js/pickup.js` `describe_decor` / `force_decor` / `deferred_decor` / `pickup`; `js/trap.js` `back_on_ground` export; `js/region.js` `reg_damg`; `js/timeout.js` `nh_timeout`; `js/zap.js` `zap_map`.
+- **Verify:** `node scripts/verify.mjs --fn describe_decor` → PASS syntax (6 js files); PASS rule2; PASS hidden verify describe_decor: 5 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0015-valk-level2-pit-dog-wait ×4 + explore-seed1500-rogue-explore-move-780fb483); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+- **Named omissions:** `ice_descr` thicker/thinner ice; `dfeature_at` ice/pool/lava/throne/drawbridge (so waterhere is rare); `look_here` Blind ice `force_decor` / engulfer stomach minvent; `pickup` unconscious skip. Not leftover WIN_STATUS (`do_statusline1`).
+- **Next:** Open `sp_lev.c` `build_room` (4 corpus blocks). Not `do_statusline1` leftover WIN_STATUS.
+
 ## D-1834 — invent.c getobj wear/puton/throw/drink/remove live getobj + equip_ok/throw_ok
 
 - **Status:** fixed (7 corpus blocks; green + cohort; full `sessions` skipped — cmd.js/do_wear/dothrow/potion/invent not treated as shared)

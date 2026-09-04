@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `invent.c` getobj — 7 corpus blocks; "You don't have anything else to wear." vs re-prompt. **Addressed:** D-1834
+- [x] `pickup.c` describe_decor — 5 corpus blocks; "There is a pit here." before the object list. **Addressed:** D-1835
+
+
+- [x] `invent.c` getobj — 7 corpus blocks; "You don't have anything else to wear." vs re-prompt. **Addressed:** D-1834 `68aa6457`
 
 
 - [x] `iactions.c` itemactions — 14 corpus blocks; Engrave vs Write, cookie vs cookies. **Addressed:** D-1833 `6a441166`
