@@ -41,7 +41,36 @@ function write(rel, text) {
   if (DRY) { console.log(`[dry-run] would write ${rel}`); return; }
   writeFileSync(P(rel), text);
 }
-function git(a) { return (spawnSync('git', a, { cwd: root, encoding: 'utf8' }).stdout || '').trim(); }
+function gitOut(a) {
+  /* A failed or truncated read must not read as "nothing changed": that would
+     commit a subset, or exit 0 having committed nothing at all. */
+  const r = spawnSync('git', a, { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  if (r.error || r.status) {
+    console.error(`git ${a.join(' ')} failed: ${r.error?.message || (r.stderr || '').trim()}`);
+    process.exit(r.status || 1);
+  }
+  return r.stdout || '';
+}
+function git(a) { return gitOut(a).trim(); }
+/* Paths to stage. `--porcelain -z` gives NUL-terminated records with no
+   quoting, and a rename/copy adds its origin path as the next field. Never
+   trim the whole blob first: an unstaged record opens with a space
+   (` M docs/x.md`), so trimming slid every path on the first line one byte
+   left (`ocs/x.md`) and the `git add` died on the pathspec. */
+function statusPaths() {
+  const f = gitOut(['status', '--porcelain', '-z']).split('\0');
+  const out = [];
+  for (let i = 0; i < f.length; i++) {
+    const rec = f[i];
+    if (rec.length < 4) continue; // '' tail, or too short to hold `XY p`
+    out.push(rec.slice(3));
+    /* A rename/copy is already staged on both sides; its origin path is in
+       neither the index nor the worktree, so consume the field and drop it —
+       `git add` would fail the pathspec on it. */
+    if (/[RC]/.test(rec.slice(0, 2))) i++;
+  }
+  return out.filter((p) => p && p !== 'STOP_AGENT_LOOP.md');
+}
 function run(rel, a = []) {
   const r = spawnSync(process.execPath, [P(rel), ...a], { cwd: root, stdio: 'inherit' });
   if (r.status) process.exit(r.status ?? 1);
@@ -213,10 +242,10 @@ if (flag('commit') && !DRY) {
   const msgFile = val('message', null);
   const msg = msgFile ? readFileSync(msgFile, 'utf8')
     : `${title} (${id}).\n\n${S.symptom}\n\n${S.fix}\n\n${S.verify ? `Verify: ${S.verify}\n\n` : ''}${S.named ? `Named: ${S.named}\n\n` : ''}Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n`;
-  const status = git(['status', '--porcelain']);
-  if (!status) { console.log('nothing to commit'); process.exit(0); }
-  const paths = status.split('\n').map((l) => l.slice(3).trim()).filter((p) => !/^STOP_AGENT_LOOP\.md$/.test(p));
-  spawnSync('git', ['add', '--', ...paths], { cwd: root, stdio: 'inherit' });
+  const paths = statusPaths();
+  if (!paths.length) { console.log('nothing to commit'); process.exit(0); }
+  const added = spawnSync('git', ['add', '--', ...paths], { cwd: root, stdio: 'inherit' });
+  if (added.status) { console.error(`git add failed on ${paths.length} path(s); nothing committed`); process.exit(added.status); }
   const r = spawnSync('git', ['commit', '-q', '-F', '-'], { cwd: root, input: msg, stdio: ['pipe', 'inherit', 'inherit'] });
   if (r.status) process.exit(r.status);
   console.log(git(['log', '--oneline', '-1']));
