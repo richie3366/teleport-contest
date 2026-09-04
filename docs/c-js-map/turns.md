@@ -2637,7 +2637,10 @@ AD_DREN / cancelled AT_WEAP→PHYS / home-elem `damn*2` / Snickersnee
 `hitval(youmonst)` / AT_ENGL `flush_screen(1)`+`pline_mon` / `bot()` /
 sleep `rn2(10)`; `m_monnam`; `simple_typename`/`mimic_obj_name`; named:
 `hitmu`, SEDUCE=0 `c_sa_no`, ceiling `in_rooms`, uhitm `prev_result`,
-lock.js `simple_typename` clone; **`nomul`/`unmul` `usleep` is D-1797**);
+lock.js `simple_typename` clone; **`nomul`/`unmul` `usleep` is D-1797**;
+**NATTK abort on `program_state.gameover` D-1816** — C `done` longjmp
+never returns to `i+1`; JS `really_done` returns; wizard/explore
+`savelife` does not set `gameover`);
 **`getmattk` lich cold-resist touch→PHYS + damn=(damn+1)/2** (D-0928 #1121; 
 seed4500 **106531→106536** RNG **106546** Scr **937**; needs poly `COLD_RES` FROMFORM; 
 AD_DREN energy / cancelled AT_WEAP→PHYS / home-elemental damn*2 / DISE→STUN live D-1795); 

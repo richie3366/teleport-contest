@@ -32,7 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] Match C `mhitu.c` `mattacku` `:938–950` so the NATTK loop aborts when `done()` has ended the game (C `done` longjmp never returns to `i=1`), instead of a second attack `rnd(20+i)` / `d(damn,damd)` / knockback after `can_make_bones` (seed0030 Maganasipi “hits again”). Read `docs/2026-09-04-fortress-regression-42-44.md` §1 before coding. Not gem colors. Not `usleep`. Not Open `lava_effects`.
 - [ ] Match C `timeout.c` / `wizcmds.c:1029` so `#wizintrinsic` does not paint `deafness [2]` when C’s `u.uprops[DEAF].intrinsic & TIMEOUT` is 0 (seed4500 13 screens; D-1792 leftover `HDeaf` dual-storage). Read `docs/2026-09-04-fortress-regression-42-44.md` §2 before coding. Not drown. Not count-prefix. Not Open `lava_effects`.
 
 ## Open (map-driven, after Must-fix is empty)

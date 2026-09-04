@@ -84,4 +84,4 @@ Named (not Must-fix): mouse `_`; fuzzer; `cmd_from_func` keys; rhack `dxdy_moveo
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1815
+**Addressed:** D-1815 `462e1338`

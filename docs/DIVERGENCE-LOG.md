@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-1816 — mhitu.c mattacku abort NATTK when done() ended the game
+
+- **Status:** fixed (Must-fix fortress regression §1; green + named cohort hold)
+- **Symptom:** after Maganasipi’s killing `i=0` hit, JS `done()` /
+  `really_done` returned and `mattacku` started `i=1` (`rnd(21)` /
+  `d(4,4)` / knockback `rn2(3)`/`rn2(6)` + “hits again”). C `done`
+  longjmps; that slot never runs. seed0030 seg3 JS RNG 9896 vs C 9892.
+- **C locus:** `mhitu.c` `mattacku` `:938–950` (loop tail after each
+  slot); `end.c` `done` `:1125` `really_done` then `/*NOTREACHED*/`.
+  No `M_ATTK_DEF_DIED` on this path.
+- **JS was:** loop copied AGR_DIED / AGR_DONE / `mtmp.mhp < 1` and
+  kept going after `program_state.gameover`.
+- **Fix:** after the NATTK `switch`, `if (game.program_state?.gameover)
+  return 1` before `bot()` / sleep `rn2(10)` / `i+1`. Wizard/explore
+  `savelife` still returns without `gameover`.
+- **Named omissions:** `hitmu` remaining ads; SEDUCE=0 `c_sa_no`;
+  ceiling `in_rooms`; uhitm `prev_result`. Not `M_ATTK_DEF_DIED` on
+  `hitmu` (C longjmps). Not gem colors / `usleep`.
+- **Next:** Must-fix seed4500 `#wizintrinsic` `deafness [2]` (D-1792
+  leftover `HDeaf`). Not Open `lava_effects`.
+
 ## D-1815 — cmd.c getdir iflags.cmdassist (not flags)
 
 - **Status:** fixed (Must-fix review **775**; green + named cohort hold)

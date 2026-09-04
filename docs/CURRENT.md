@@ -21,14 +21,14 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-04** — full `sessions` at **D-1814**
-(`b596f337`; audit **775–783**). **42**/44. Both FAILs reproduced at
-HEAD **D-1815** `462e1338`. **Not** map-driven until fortress
-returns. Report: `docs/2026-09-04-fortress-regression-42-44.md`.
-**seed0030** since **D-1795**: 9/10 segs RNG-perfect; seg3 JS +4
-after `can_make_bones` (Maganasipi `i=1`). **seed4500** since
-**D-1792**: RNG full, 13 `#wizintrinsic` `deafness [2]` screens.
-Scr **10,428**/11,405, RNG **727,221**/792,838 = **91.7%**.
-Speed `46+0.33/turn` (R² 0.84).
+(`b596f337`; audit **775–783**). **42**/44. **D-1816** recovered
+**seed0030** on focused (RNG **105529**/105529, Screen **1953**/1953,
+`rng-diff --all-segments` OK); do not invent 43/44 until cadence.
+Remaining FAIL **seed4500** since **D-1792**: RNG full, 13
+`#wizintrinsic` `deafness [2]` screens. Report:
+`docs/2026-09-04-fortress-regression-42-44.md`.
+Scr **10,428**/11,405, RNG **727,221**/792,838 = **91.7%** (pre-D-1816
+full suite). Speed `46+0.33/turn` (R² 0.84).
 
 ## Score
 
@@ -49,10 +49,10 @@ seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
 seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore.
 
-**Notable non-PASS:** seed0030 since D-1795 — concat RNG 39912/105529
-is positional; real miss is seg3 +4 after death (`rnd(21)` i=1).
-seed4500 since D-1792 — Screen 1801/1814, RNG full, 13 menus
-`deafness [2]`. Report `docs/2026-09-04-fortress-regression-42-44.md`.
+**Notable non-PASS:** seed4500 since D-1792 — Screen 1801/1814, RNG
+full, 13 menus `deafness [2]`. seed0030 focused PASS at D-1816
+(full-suite row still 42/44 until cadence). Report
+`docs/2026-09-04-fortress-regression-42-44.md`.
 
 ## Green gate
 
@@ -69,20 +69,21 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 42/44 is a fortress regression**, not an Open peel.
-Read `docs/2026-09-04-fortress-regression-42-44.md`. **D-1815**
-already shipped. **Next cluster:** Must-fix `mattacku` abort after
-`done()` (seed0030 Maganasipi `i=1`). Then Must-fix seed4500
-`deafness [2]`. Not `lava_effects` until both PASS.
+**Suite last full-run 42/44; seed0030 focused recovered (D-1816).**
+Read `docs/2026-09-04-fortress-regression-42-44.md` **§2**.
+**Next cluster:** Must-fix Match C `timeout.c` / `wizcmds.c:1029`
+so `#wizintrinsic` does not paint `deafness [2]` when C’s
+`u.uprops[DEAF].intrinsic & TIMEOUT` is 0 (seed4500 13 screens;
+D-1792 leftover `HDeaf` dual-storage). Not drown. Not count-prefix.
+Not Open `lava_effects`.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`) once
 Must-fix is empty.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1815 (index).** Recent **D-1815:** `getdir` reads
-`iflags.cmdassist` (Options/`O` writes `game.iflags`), not
-`game.flags`. Named: mouse `_`, fuzzer, `cmd_from_func`, rhack
-`dxdy_moveok`, trailing `confdir`.
-**Do not:** FORCE/RNG; skip D-1229…D-1815; wrap `wildmiss` /
+**Keep D-0845…D-1816 (index).** Recent **D-1816:** `mattacku` NATTK
+aborts on `program_state.gameover` (C `done` longjmp). Named:
+`hitmu` ads, SEDUCE=0 `c_sa_no`.
+**Do not:** FORCE/RNG; skip D-1229…D-1816; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; D-0480 glyph serialize
 (D-0483); reset_glyphmap / notice_all_mons / savelev-freeing /

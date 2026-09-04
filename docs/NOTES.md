@@ -5,13 +5,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Must-fix first** (`docs/2026-09-04-fortress-regression-42-44.md`):
-  seed0030 `mattacku` still runs NATTK `i=1` after `done()` returns
-  (C longjmp). Falsify: seed0030 seg3 JS RNG still 9896 or topline
-  “Maganasipi hits again”. Then seed4500 `HDeaf [2]` on the first
-  `#wizintrinsic` menu (D-1792 write; dump `u.HDeaf` at T:97).
-  Do **not** pop `lava_effects` until both PASS. No gem-color peel.
-  Do **not** add trailing `confdir` to shared `getdir` (D-1815).
+- **Must-fix first** (`docs/2026-09-04-fortress-regression-42-44.md` §2):
+  seed4500 `#wizintrinsic` paints `deafness [2]` while C’s
+  `u.uprops[DEAF].intrinsic & TIMEOUT` is 0 (D-1792 leftover
+  `HDeaf` dual-storage). Falsify: first `#wizintrinsic` menu
+  still shows `[2]`, or dump `u.HDeaf` at T:97. Do **not** pop
+  `lava_effects` until that PASS. No gem-color peel. Do **not**
+  add trailing `confdir` to shared `getdir` (D-1815). Do **not**
+  reopen `mattacku` gameover abort (D-1816).
 - **Luck still runs when invulnerable.** Dialogues do not
   (`timeout.c:623`). STONED/SLIMED expiry silent (`done_timeout`).
 - **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs`
@@ -55,12 +56,13 @@ Objective/score live in `CURRENT.md`.
   trailing `confdir` / `locomotion` / `resists_acid` / `can_carry`
   / `wearing_iron_shoes` / `unconscious` / `start_corpse_timeout`.
   Usleep is not seed0030’s first token; concat gem-colors is not
-  either. Must-fix is `mattacku` `gameover` abort after `done()`.
+  either. `mattacku` `gameover` abort after `done()` is D-1816 —
+  do not reopen. Must-fix is seed4500 `HDeaf [2]`.
 - Do not re-port `mattacku` remaining / `getmattk` DISE/DREN/WEAP
-  (D-1795 body). Keep sleep `rn2(10)`. The post-`done()` `i=1` slot
-  is Must-fix, not a second remaining-body port. No second
-  `m_monnam` / `simple_typename`. seed4500 `[2]` is the Must-fix
-  menu row — do not omit `flush_screen(1)` and do not hide `[2]`.
+  (D-1795 body) or the post-`done()` NATTK abort (D-1816). Keep
+  sleep `rn2(10)`. No second `m_monnam` / `simple_typename`.
+  seed4500 `[2]` is the Must-fix menu row — do not omit
+  `flush_screen(1)` and do not hide `[2]`.
 - Do not re-port `make_corpse` (D-1794) / `dmgval` `rnd()` (D-1793) /
   `nh_timeout` luck (D-1792) / `newuhs` (D-1791) / `monverbself`
   genders[3] (D-1790). No second `free_mgivenname` / `is_axe` /
@@ -73,7 +75,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1815.
+  (D-1189). Do not skip D-1190…D-1816.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -83,17 +85,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1815.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1816.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1815.
+  Do not re-port D-1682…D-1816.
 
 ## Landmarks (≤15)
 
+- D-1816: `mattacku` NATTK abort on `program_state.gameover`
+  (C `done` longjmp). Named: `hitmu` ads, SEDUCE=0 `c_sa_no`.
 - D-1815: `getdir` `:4098` `iflags.cmdassist` (Options/`O` writes
   `game.iflags`); `!cmdassist` skips `help_dir` for the strange
   pline; `?` still forces help. Named: mouse `_`, fuzzer,
@@ -124,4 +128,3 @@ Objective/score live in `CURRENT.md`.
 - D-1804: `getobj` in_doagain `readchar` + GETOBJ ranks + sortloot INVLET.
 - D-1803: `x_monnam` remaining + `nextmbuf` / `lcase` / `just_an`.
 - D-1802: `xname_flags` `xcalled` + T_SHIRT/`apron_text`/`hawaiian_motif`.
-- D-1801: `moveloop_core` `do_storms` / `glibr` / `mkot_trap_warn`.

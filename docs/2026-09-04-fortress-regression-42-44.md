@@ -24,6 +24,8 @@ Two Must-fix items, **one per iteration**, in this order.
 
 ## 1. seed0030 — `mattacku` continues after `done()` (pop first)
 
+**Addressed:** D-1816
+
 ### Measured (HEAD)
 
 `seed0030` is **10 independent new games** (seeds 31–40, different
