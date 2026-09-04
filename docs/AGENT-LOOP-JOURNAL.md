@@ -8,6 +8,31 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — strategy: hidden-score proxy + one-call iteration tools
+
+**Objective:** human request — make the next iterations cheaper in
+output tokens and more reliable, aimed at the held-out score (6/44,
+43 % screens) rather than the saturated public 44.
+**Built:** `scripts/hidden-proxy.mjs` (+ `lib/hidden-worker.mjs`,
+`lib/c-index.mjs`): 278 C-recorded sessions (tail-mutants, fresh roles,
+debug `^V` descents), replayed one process each, first divergence
+attributed to a C function on both sides (recorder `@ fn(file:line)`
+tags; JS draws tagged under `globalThis.__NH_RNG_TRACE`, stripped
+before comparison). `brief.mjs <cfn>` = one-call orientation;
+`verify.mjs --fn <cfn>` = one-call verification incl. corpus verify;
+`finish-iteration.mjs --commit` = every generated doc from the one
+D-log entry. No hooks or automatic blockers (removed at the human's
+request).
+**Measured at D-1817:** 157/265 PASS (59.2 %) excl. env-only rows;
+RNG 98.28 %; owners: `process_menu_window` 21, `itemactions` 14,
+`getobj` 7, `describe_decor` 5, level-content cliff `build_room` /
+`selection_filter_percent` (53k RNG lost). Tours 3/26.
+**Docs:** `HIDDEN-PROXY.md` (new), playbook §1/§2a/§4/§5/§11, runbook
+§5B/E/G + §6, port/cadence/review prompts, `PORT-GAP-TOP30.md`
+addendum, queue header. Human's `PORT-GAP-HELDOUT.md` + content-first
+Open rows kept as primary.
+**Next:** pop Open row 1 (`Wiz-goal`) with `brief.mjs`; audit iters
+run `hidden-proxy score`.
 ## 2026-09-04 — D-1817 timeout.c Deaf single-field / wiz_intrinsic make_deaf
 
 **Objective:** Must-fix fortress §2 — Match C `timeout.c` /

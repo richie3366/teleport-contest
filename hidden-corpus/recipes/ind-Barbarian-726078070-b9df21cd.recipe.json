@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "independent",
+    "role": "Barbarian",
+    "name": "Conan",
+    "prefixMoves": "",
+    "suffix": "n.ylnknkbYlsUH.Lnlsuubljy:nk/hbjkylshynu.hykKlK.ylhyHy/j;lBn.lnosnUhbujhlbsubKyjhjjjNbsnu>"
+  },
+  "segments": [
+    {
+      "seed": 726078070,
+      "datetime": "20000110090000",
+      "timezone": "America/New_York",
+      "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "n.ylnknkbYlsUH.Lnlsuubljy:nk/hbjkylshynu.hykKlK.ylhyHy/j;lBn.lnosnUhbujhlbsubKyjhjjjNbsnu>"
+    }
+  ]
+}

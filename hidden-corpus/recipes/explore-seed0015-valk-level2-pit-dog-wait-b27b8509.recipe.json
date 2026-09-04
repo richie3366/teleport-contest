@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "explore",
+    "base": "sessions/seed0015-valk-level2-pit-dog-wait.session.json",
+    "trimTail": 12,
+    "prefixMoves": "  nllllllllkkkllkk> hhhhhk...ss",
+    "suffix": "Jlj.:JylJkhHyukHHiY,kBubkkJjkKhnkuhkuYboyKylbbkJkLjnunlhHilK"
+  },
+  "segments": [
+    {
+      "seed": 15,
+      "datetime": "20000110090000",
+      "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!autopickup\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "  nllllllllkkkllkk> hhhhhk...ssJlj.:JylJkhHyukHHiY,kBubkkJjkKhnkuhkuYboyKylbbkJkLjnunlhHilK",
+      "timezone": "America/New_York"
+    }
+  ]
+}

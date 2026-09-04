@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "independent",
+    "role": "Healer",
+    "name": "Hippocrates",
+    "prefixMoves": "",
+    "suffix": "kjhLKlk,YsLHnhhLni.shbobbyHb;ulkusyYlNkhnJn,:YsUknhy;uLyklhnyhBjoY/kobinkshLkii:/>kuhKs.bj"
+  },
+  "segments": [
+    {
+      "seed": 264813587,
+      "datetime": "20000110090000",
+      "timezone": "America/New_York",
+      "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "kjhLKlk,YsLHnhhLni.shbobbyHb;ulkusyYlNkhnJn,:YsUknhy;uLyklhnyhBjoY/kobinkshLkii:/>kuhKs.bj"
+    }
+  ]
+}

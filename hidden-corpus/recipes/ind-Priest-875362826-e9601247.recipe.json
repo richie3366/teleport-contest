@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "independent",
+    "role": "Priest",
+    "name": "Caspar",
+    "prefixMoves": "",
+    "suffix": ".HuNLujblNk:.K,KLNjJlbUjyhU;lKk>bkjKknyNilsn.ibnbH,HJjyykhhlkyyhyYhNn:hllsokjh.lJyjok,l.kh"
+  },
+  "segments": [
+    {
+      "seed": 875362826,
+      "datetime": "20000110090000",
+      "timezone": "America/New_York",
+      "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": ".HuNLujblNk:.K,KLNjJlbUjyhU;lKk>bkjKknyNilsn.ibnbH,HJjyykhhlkyyhyYhNn:hllsokjh.lJyjok,l.kh"
+    }
+  ]
+}

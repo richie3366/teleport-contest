@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "independent",
+    "role": "Monk",
+    "name": "Kira",
+    "prefixMoves": "",
+    "suffix": "./Hk:NKyUjnKhu:ylhKjbys;hhnl.N,uUhu:Nhn;kjHbLybYy,ooyYLuBbkyKjjnjubNhHukJHuLKll:hjkby:jnkj"
+  },
+  "segments": [
+    {
+      "seed": 356838357,
+      "datetime": "20000110090000",
+      "timezone": "America/New_York",
+      "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "./Hk:NKyUjnKhu:ylhKjbys;hhnl.N,uUhu:Nhn;kjHbLybYy,ooyYLuBbkyKjjnjubNhHukJHuLKll:hjkby:jnkj"
+    }
+  ]
+}

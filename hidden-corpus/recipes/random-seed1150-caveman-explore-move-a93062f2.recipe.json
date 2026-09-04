@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "random",
+    "base": "sessions/seed1150-caveman-explore-move.session.json",
+    "trimTail": 12,
+    "prefixMoves": "\u001b   nllllljjjjjhhhhhkkkkklljjhhssf   l",
+    "suffix": "#ZV:cvZeApR[$ea-PqP&`?r&r :twArVTW[W#azi"
+  },
+  "segments": [
+    {
+      "seed": 1150,
+      "datetime": "20000110090000",
+      "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!autopickup,pushweapon,showexp,time,color,lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=msg_window:reversed\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:explore\n",
+      "moves": "\u001b   nllllljjjjjhhhhhkkkkklljjhhssf   l#ZV:cvZeApR[$ea-PqP&`?r&r :twArVTW[W#azi",
+      "timezone": "America/New_York"
+    }
+  ]
+}

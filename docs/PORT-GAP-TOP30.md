@@ -119,3 +119,26 @@ were single-arm cleanups, not hidden-score risk:
 - The ranking is static. It cannot see that a hidden session never
   descends, never fights, or dies on turn 12. It is a prior, not a
   measurement.
+
+## Measured, one day later (2026-09-04, D-1817)
+
+This table was a static prior. Two things happened next:
+
+- **The loop shipped 12 of its rows in 27 iterations** (D-1806–D-1817:
+  `domonnoise`, `use_defensive`, `use_offensive`, `use_misc`,
+  `really_done`, `untrap`, `drown`, `getdir`, `mattacku`, `nh_timeout`,
+  `lava_effects`…). The public fortress dipped to 42/44 once
+  (`mattacku` after `done()`, `#wizintrinsic` deafness) and recovered.
+- **`docs/HIDDEN-PROXY.md` measured instead of estimated.** On 278
+  C-recorded sessions the first divergences are owned by functions this
+  table did not rank at all: `wintty.c` `process_menu_window` (21
+  sessions), `iactions.c` `itemactions` (14), `invent.c` `getobj` (7),
+  `pickup.c` `describe_decor` (5), and — with by far the most RNG lost —
+  the level-content cliff `sp_lev.c` `build_room` /
+  `selvar.c` `selection_filter_percent` that `PORT-GAP-HELDOUT.md`
+  predicted. Rows here that *are* reached (`x_monnam`, `getpos`,
+  `lookat`, `xkilled`) show up in the corpus with small counts.
+
+Use this file for **depth in a function the corpus reaches**; use the
+corpus queue (`node scripts/hidden-proxy.mjs queue`) and
+`PORT-GAP-HELDOUT.md` for **what a hidden session hits first**.

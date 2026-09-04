@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "independent",
+    "role": "Rogue",
+    "name": "robin",
+    "prefixMoves": "",
+    "suffix": "o/lYjbkblbN.kkjoh.ylKKjBbljhBk/Nsnn.lssUyjoklouhYjj/slky:;lnylosY.,bbhonyyy/lY:ihyjkoskklb"
+  },
+  "segments": [
+    {
+      "seed": 20334536,
+      "datetime": "20000110090000",
+      "timezone": "America/New_York",
+      "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "o/lYjbkblbN.kkjoh.ylKKjBbljhBk/Nsnn.lssUyjoklouhYjj/slky:;lnylosY.,bbhonyyy/lY:ihyjkoskklb"
+    }
+  ]
+}

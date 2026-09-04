@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "explore",
+    "base": "sessions/seed0900-tourist-explore-actions.session.json",
+    "trimTail": 12,
+    "prefixMoves": "  ni ea HK20sLJ20sgHgK20sgLgJHHKK20sHHJ20sHK20sHKHJ>HK>JH>......LJHK10s",
+    "suffix": "uyk;HKJllbo.U/ubuhyYJhk:/;yljyHji;BNjHJnhUs,sYlH:Yj.uunolkhy"
+  },
+  "segments": [
+    {
+      "seed": 900,
+      "datetime": "20000110090000",
+      "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=playmode:explore\nOPTIONS=!autopickup,!tutorial,pushweapon,showexp,time,color,lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=msg_window:reversed\nOPTIONS=symset:DECgraphics\n",
+      "moves": "  ni ea HK20sLJ20sgHgK20sgLgJHHKK20sHHJ20sHK20sHKHJ>HK>JH>......LJHK10suyk;HKJllbo.U/ubuhyYJhk:/;yljyHji;BNjHJnhUs,sYlH:Yj.uunolkhy",
+      "timezone": "America/New_York"
+    }
+  ]
+}

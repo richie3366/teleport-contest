@@ -5,6 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
+- **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 157/265 PASS at
+  D-1817; owners `process_menu_window` 21, `itemactions` 14, `getobj` 7,
+  level cliff `build_room`/`selection_filter_percent` vs `rnd_rect`.
+  Orient `brief.mjs`, verify `verify.mjs --fn`, hand off `finish-iteration.mjs --commit`.
 - **Suite 44/44** (D-1817). Map-driven Open: `trap.c` `lava_effects`
   remaining (Fire_resistance / Wwalking / inventory burn / sink-and-die).
   Not drown. Falsify: C `lava_effects` arm still stubbed / missing
@@ -44,19 +48,10 @@ Objective/score live in `CURRENT.md`.
   mention_walls (D-1800) or `spoteffects` recursion / lev `rn2(2)`
   (D-1799) or `dochug` / `wormhitu` (D-1798) or `nomul`/`unmul`
   `usleep=0` (D-1797) or `xkilled` LEVEL_SPECIFIC / pool (D-1796).
-  Named: POSIX signals in clearlocks; `grddead`; display_pickinv
-  cache setter; cursed mbag FIXME; CLIPPING cliparound;
-  linedup_callback floor-corpse; fhito_loc/bhito;
-  destroy_drawbridge; SOUND= soundmap; UNIX msghandler fork;
-  doset MSGTYPE menu; mouse getpos; getdir fuzzer. `m_seenres` is
-  already boolean — never `!== 0`. No second `genus` / `doconsult`
-  / `priest_talk` / `shk_chat` / `str_start_is` / `accessible` /
-  trailing `confdir` / `locomotion` / `resists_acid` / `can_carry`
-  / `wearing_iron_shoes` / `unconscious` / `start_corpse_timeout`.
-  Usleep is not seed0030’s first token; concat gem-colors is not
-  either. `mattacku` `gameover` abort after `done()` is D-1816 —
-  do not reopen. seed4500 `HDeaf [2]` / dual-storage is D-1817 —
-  do not hide `[2]` in the menu painter or skip `flush_screen(1)`.
+  Named omits for those live in the landmarks / index rows. `m_seenres`
+  is already boolean — never `!== 0`. No second `genus` / `doconsult`
+  / `priest_talk` / `shk_chat` / `accessible` / trailing `confdir` /
+  `locomotion` / `resists_acid` / `can_carry` / `unconscious`.
 - Do not re-port `mattacku` remaining / `getmattk` DISE/DREN/WEAP
   (D-1795 body) or the post-`done()` NATTK abort (D-1816). Keep
   sleep `rn2(10)`. No second `m_monnam` / `simple_typename`.
@@ -95,6 +90,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Landmarks (≤15)
 
+<!-- landmarks:begin -->
 - D-1817: `HDeaf` ≡ `uprops[DEAF].intrinsic`; skip DEAF in
   `sync_timeout_flats`; dedicated `--` writes both; `make_deaf` +
   `wiz_intrinsic` DEAF arm (`wizcmds.c:1029`). Named: count-prefix;
@@ -130,3 +126,4 @@ Objective/score live in `CURRENT.md`.
 - D-1805: `yn_function` fuzzer `rn2(20)`/`rn2(ln)`/ESC retry + otherInp.
 - D-1804: `getobj` in_doagain `readchar` + GETOBJ ranks + sortloot INVLET.
 - D-1803: `x_monnam` remaining + `nextmbuf` / `lcase` / `just_an`.
+<!-- landmarks:end -->

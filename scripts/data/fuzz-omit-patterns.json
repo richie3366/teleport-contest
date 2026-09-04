@@ -1,11 +1,5 @@
 [
   {
-    "id": "D-0911-deaf-talk",
-    "hitRe": "You can hear again",
-    "citeFile": "js/timeout.js",
-    "citePattern": "talk if !Unaware deferred"
-  },
-  {
     "id": "temple-priest-sound",
     "hitRe": "someone (praising|beseeching)",
     "citeFile": "js/sounds.js",

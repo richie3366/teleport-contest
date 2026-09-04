@@ -165,6 +165,13 @@ touched to `ported` or `parity`.
 
 ### B. Build a work packet before editing
 
+One call assembles most of it: `node scripts/brief.mjs <C function>` prints
+the queue row, the pinned-C body and call sites, which C callees exist in
+`js/` (with clone counts), the same-named JS body, the map lines and D-index
+rows naming it, the corpus sessions blocked on it (C vs JS topline, C draw
+vs JS draw with both owners, replay command) and reviews naming it. Read
+the C there; open more only for the neighbours you will edit.
+
 Write down:
 
 - C function(s), file paths, and relevant callers;
@@ -207,6 +214,15 @@ reading entire 5,000-line C files unless control flow truly requires it.
 
 ### E. Verify in increasing scope
 
+`node scripts/verify.mjs --fn <C function>` runs steps 1–6 below in one call
+and prints one PASS/FAIL line each; paste its tail into the D-log Verify
+bullet. The individual commands remain for narrowing a failure.
+
+0. **Corpus verify:** every `hidden-corpus` / `private-sessions` session
+   blocked on the ported C function must PASS or move to a **later** owner
+   (`node scripts/hidden-proxy.mjs verify <fn>`). NO MOVEMENT means the
+   port did not change what C does at that point; REGRESSION means it
+   broke something earlier. Both are failed ports, not evidence to tune.
 1. **Syntax/static:** check edited modules and inspect lints.
 2. **Focused differential:** first RNG divergence plus the session runner.
 3. **Strict lengths:** reject trailing RNG/screens/cursors that the frozen
@@ -291,13 +307,18 @@ and explain or generalize any pre-existing narrow comments in the function.
 
 ### G. Durable handoff
 
-Update only the owners of changed facts:
+Update only the owners of changed facts, and write each fact **once**:
 
-- unresolved current theory/dead end → `NOTES.md`;
-- fixed divergence with evidence → `DIVERGENCE-LOG.md` + index row;
+- fixed divergence with evidence → one `## D-NNNN — title` entry at the top
+  of `DIVERGENCE-LOG.md` (Status · Symptom · C locus · JS was · Fix · JS ·
+  Verify · Named omissions · Next). This entry is the single source:
+  `node scripts/finish-iteration.mjs` derives the index row, the journal
+  crumb, the `CURRENT.md` recent block and D-ranges, the `NOTES.md`
+  landmark, the review stamp and the queue archive from it, and
+  `--commit` builds the commit message from it. Do not hand-write those.
 - structural status/omissions → one `c-js-map/*.md` section;
-- score, green gate, objective → `CURRENT.md` (never re-paste D-chains);
-- iteration summary → prepend a short `AGENT-LOOP-JOURNAL.md` entry.
+- unresolved current theory/dead end → `NOTES.md` Active;
+- score, green gate, objective → `CURRENT.md` (never re-paste D-chains).
 
 Leave the tree coherent. If the change cannot pass its declared gate, either
 finish the diagnosis in the same iteration or remove only your experimental
@@ -310,6 +331,11 @@ Unattended loop agents must then **commit and push** to `origin` (see
 
 ### RNG differs
 
+- The recorder tags every C draw `@ fn(file.c:line)`; the corpus worker
+  tags every JS draw the same way (`globalThis.__NH_RNG_TRACE`, diagnostic
+  only, stripped before comparison). `node scripts/hidden-proxy.mjs show
+  <id>` therefore names **both** functions at the first mismatch — start
+  from that pair, not from the raw index.
 - Find the first differing call, then inspect the C caller and the branch
   conditions that precede it.
 - Matching later numeric values do not repair an earlier ordering divergence.

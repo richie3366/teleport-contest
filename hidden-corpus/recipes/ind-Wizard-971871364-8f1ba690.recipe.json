@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "independent",
+    "role": "Wizard",
+    "name": "merlin",
+    "prefixMoves": "",
+    "suffix": "inn.LkhHlbyskLh,byy.H/lhh;ujl/N/KKKjnYj;hUkjnohhJkH.bn;HHiny/./buynnkkU.lUubnn.h;U;BsJjbJn"
+  },
+  "segments": [
+    {
+      "seed": 971871364,
+      "datetime": "20000110090000",
+      "timezone": "America/New_York",
+      "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "inn.LkhHlbyskLh,byy.H/lhh;ujl/N/KKKjnYj;hUkjnohhJkH.bn;HHiny/./buynnkkU.lUubnn.h;U;BsJjbJn"
+    }
+  ]
+}

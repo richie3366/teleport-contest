@@ -23,8 +23,7 @@ Session Viewer cannot load the module is a **failed handoff**.
 
 ## 1. Read order (time-boxed)
 
-Spend context on C and verification, not essays. Target **≤10–15k tokens** of
-docs before touching C.
+Target **≤12k tokens** of docs before touching C.
 
 | Order | Doc | What to extract | Skip |
 |------:|-----|-----------------|------|
@@ -32,16 +31,16 @@ docs before touching C.
 | 2 | Cursor rules / `CONSTITUTION.md` §1–2 (esp. §1.5 Rule #2), §5, §10 | hard bans only | full essays |
 | 3 | **`CURRENT.md`** | score, green gate, **primary objective**, focused cmd | — |
 | 4 | `NOTES.md` | live hypothesis + don’t-recheck | — |
-| 5 | One `c-js-map/*.md` via `node scripts/map.mjs` | the section for the subsystem you edit | paging other map files |
-| 6 | `PORTING-RUNBOOK.md` §3–7 | only if procedure unclear | strategy rationale |
+| 5 | `node scripts/brief.mjs <cfn>` | C body + callers, JS body, map lines, D-rows, corpus rows — one call | paging map files, grepping for definitions |
+| 6 | `HIDDEN-PROXY.md` §1–3 | what a corpus row is; verify semantics | the method essay |
+| 7 | `PORTING-RUNBOOK.md` §3–7 | only if procedure unclear | strategy rationale |
 
 **Do not read by default:** `PORTING-STRATEGY.md`, `archive/**`, full
 `DIVERGENCE-LOG.md`, full journal archive. Use `DIVERGENCE-INDEX.md` + **one**
 `## D-NNNN` entry. Read only `AGENT-LOOP-JOURNAL.md` (tail), not archives.
 
 **Always re-read the relevant C function** (body + callers + guarding `if`)
-before patching — `node scripts/csym.mjs fn` / `--callers fn` fetches both in
-one call. Smaller docs are not a substitute for C.
+before patching — `brief.mjs` / `csym.mjs fn --callers` fetch both in one call.
 
 ---
 
@@ -63,16 +62,17 @@ treat that score as a **regression fortress**, not a work picker.
 
 | Do | Do not |
 |----|--------|
-| Retire named omissions / debt from one `c-js-map/*.md` section | Invent FAIL peels, ALIGN/FORCE, or seed-shaped gates |
-| Prefer `debt.md` scenario-shaped code, then `absent.md` thin systems | Chase public leaderboard / cron / hub CDN drift in-loop |
-| Save-oracle probe when omit is tagged restore/other-floor | Shop the fork dashboard for a peel |
+| Pop the queue row: level content (`PORT-GAP-HELDOUT.md`), a corpus first-diff owner (`hidden-proxy queue`), or a map omission | Invent FAIL peels, ALIGN/FORCE, or seed-shaped gates |
+| A `hidden-corpus` / `private-sessions` first diff is a **C-vs-JS fact** with a recorded expectation; port the **owning C function** | Make a corpus session pass by reading a seed, step, coordinate or RNG index |
+| Verify with `hidden-proxy verify <fn>`: blocked sessions PASS or move to a **later** owner | Call NO MOVEMENT a named omission, or chase public leaderboard / CDN drift in-loop |
 | Keep green + cohort + cadence full `sessions` PASS | “Improve” already-matching public paths without a C citation |
 | Pop `LOOP-QUEUE.md` **Must-fix** (written-review C-wrongs) before Open | Leave QUALITY-RISK reviews unread and keep map-dumping |
-| Keep 8–12 open queue rows; refill Open from the map when below 8 | Halt and wait for a human because the queue ran dry |
+| Keep 8–12 open rows; refill from `hidden-proxy queue` / HELDOUT / map | Halt and wait for a human because the queue ran dry |
 
-Sessions still measure progress; they are **not** the specification.
-Held-out / summer escalation can exercise branches the public set never
-hits — map debt is the signal. Tagged restore: save-oracle probe.
+Sessions measure progress; they are **not** the specification. Local
+signals for what the held-out 44 hit, in order: blank level content
+(`PORT-GAP-HELDOUT.md`), corpus first-diff owners (`HIDDEN-PROXY.md`),
+then map debt. Tagged restore: save-oracle probe.
 
 ### 2b. Iteration density (token vs quality)
 
@@ -149,8 +149,11 @@ Green gate:       from CURRENT.md
 Cohort:           <distinct session sharing this code>
 ```
 
-When the suite is already PASS, prefer `Symptom channel: map-omission`
-and a named `c-js-map` row over inventing a public FAIL (§2a–2b).
+`node scripts/brief.mjs <cfn>` fills C locus, JS locus, callers, corpus
+falsifier and replay command in one call. When the suite is already PASS,
+the falsifier is a corpus session blocked on the function (channel RNG or
+screen, both sides named) or a named `c-js-map` row — never an invented
+public FAIL (§2a–2b).
 
 **Minimum C read:** function body + immediate callers + the `if` that guards the
 diverging RNG. Do not patch from `rng-diff` output alone.
@@ -166,6 +169,9 @@ diverging RNG. Do not patch from `rng-diff` output alone.
 | roles / u_init / mkobj / mon | cohort + full `sessions` before claiming milestone |
 | Display/cursor/menus | green + viewer smoke if available |
 
+**One call:** `node scripts/verify.mjs --fn <cfn>` runs corpus verify, syntax,
+Rule #2 scan, green + strict, cohort, and the full suite when a shared file
+changed; paste its tail into the D-log Verify bullet.
 **`rng-diff`:** default segment 0; `--all-segments` for save recipes.
 **`PASS`:** inspect `__RESULTS_JSON__` / per-session lines — runner exit code
 can be 0 when sessions fail. Always `strict-output-check` on green sessions.
@@ -193,10 +199,9 @@ over another FORCE / topline patch peel when:
 
 | Stuck on | Dump | Why |
 |----------|------|-----|
-| Geometry / flip / land / extends | `flip_level`, `place_lregion`, stairs, `dndest` | Screens/tty cursor misread as map (#1087 Y+1; #1092 FlipX sum80 — C already matched JS) |
-| Keystream / `more` / `--More--` / wizard keys | `NEED_MORE`, topline, `WIN_STOP`, prompt, pending more at `hitmsg`/`unmul`/`yn` | JS may queue More that C already dismissed (#1127 More-behind; #1132 unmul more ate `^V`) |
+| Geometry / flip / land | `flip_level`, `place_lregion`, stairs, `dndest` | tty cursor misread as map (#1087, #1092) |
+| Keystream / `--More--` | `NEED_MORE`, topline, `WIN_STOP`, pending more at `hitmsg`/`unmul`/`yn` | JS may queue a More C already dismissed (#1127, #1132) |
 
-Do not stack JS FORCE or WIN_STOP shims until C state at those loci is known.
 
 ---
 
@@ -212,23 +217,20 @@ Do not stack JS FORCE or WIN_STOP shims until C state at those loci is known.
 
 Loop agents may **not** edit Constitution, runbook, **this playbook**, strategy,
 loop scripts, `sessions/**`, `frozen/**`, or upstream C. Propose process fixes
-in the journal for human/auditor review.
+in the journal.
 
 ---
 
-## 9. Grok-specific pitfalls
+## 9. Pitfalls
 
-- Chase late-seed metrics over shared blockers — read §2 / `CURRENT.md`.
 - Ship confident partials — name every deferral in the map section.
-- Over-edit — one iteration ≈ one semantic **cluster** (§2b), not an
-  unrelated multi-subsystem rewrite; also avoid one-bullet peels that
-  waste fixed agent cost when the suite is already PASS.
-- Confuse observation with rule — trace coords are evidence, not JS control flow.
-- Infer C geometry from screens/`FORCE` success — dump C at the locus (§7).
-- Patch topline/`WIN_STOP`/`NEED_MORE` without dumping C more-state (§7).
+- Over-edit or under-edit — one iteration ≈ one semantic **cluster** (§2b).
+- Confuse observation with rule — trace coords are evidence, not control flow.
+- Infer C geometry or more-state from screens — dump C at the locus (§7).
 - Skip cohort — Tourist green ≠ Rogue/orc/combat proof.
-- Prefer **delete wrong JS + re-port from C** over stacking shims.
-- Reach for Node `fs` because “the judge is Node” — **Rule #2**; Chrome must load it too.
+- Stack shims — prefer **delete wrong JS + re-port from C**.
+- Reach for Node `fs` — **Rule #2**; Chrome must load it too.
+- Spend calls on lookup — `brief.mjs` / `sym.mjs` / `csym.mjs` are one call each.
 
 ---
 
@@ -264,24 +266,12 @@ runs `rotate-journal.mjs` if you skip it.
 ## 11. Quick commands
 
 ```bash
-# Caps (you run this; read statuses). Pass this iter’s review ids when you wrote reviews.
-node scripts/check-hot-docs.mjs --fix
-node scripts/check-hot-docs.mjs --fix --review 183-187
-
-# Green gate — exact commands also in CURRENT.md
-node frozen/ps_test_runner.mjs \
-  sessions/seed8000-tourist-starter.session.json \
-  sessions/seed0900-tourist-explore-actions.session.json
-node scripts/strict-output-check.mjs \
-  sessions/seed8000-tourist-starter.session.json \
-  sessions/seed0900-tourist-explore-actions.session.json
-
-# Full public score (mandatory every 10 global loop iterations)
-node frozen/ps_test_runner.mjs sessions
-# Then update CURRENT.md Score from __RESULTS_JSON__ aggregates — not guesses.
-
-# Shared-blocker survey
-node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
+node scripts/brief.mjs <cfn>              # orient: C + JS + map + D-rows + corpus (1 call)
+node scripts/verify.mjs --fn <cfn>        # corpus verify + green/strict + cohort (+full)
+node scripts/finish-iteration.mjs --commit   # index/journal/CURRENT/NOTES/stamps from the D-log entry, push
+node scripts/hidden-proxy.mjs status|queue|show <id>   # hidden-score proxy
+node frozen/ps_test_runner.mjs sessions   # full public score (audit iters); CURRENT from __RESULTS_JSON__
+node scripts/check-hot-docs.mjs --fix     # caps — read statuses, act on FAIL/ROTATE/REFILL only
 ```
 
 ---

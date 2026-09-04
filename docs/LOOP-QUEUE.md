@@ -34,18 +34,29 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
 ## Open (map-driven, after Must-fix is empty)
 
-Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
-order; rows 13–30 of that file refill this list.
+Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached
+first). Pop in order; that file's Tier B then Tier C refill this list.
+`docs/PORT-GAP-TOP30.md` stays valid for *depth in a reached function*;
+alternate between the two as this list drains. **Port content rows from
+`nethack-c/upstream/dat/*.lua` only — never from another fork.**
+Falsifier for content rows: the `tour-*` corpus sessions blocked at level
+generation (`node scripts/hidden-proxy.mjs verify build_room` /
+`selection_filter_percent`; `docs/HIDDEN-PROXY.md`). Refill order when
+this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
+`PORT-GAP-TOP30.md`.
 
-- [ ] `trap.c` lava_effects remaining: Fire_resistance / Wwalking / inventory burn / sink-and-die. Not drown.
-- [ ] `mon.c` newcham remaining: monst_to_any / NC_VIA_WAND_OR_SPELL mon_break_armor / boulder. Not make_corpse.
-- [ ] `steed.c` dismount_steed remaining: poly / engulfed / water and lava steed death. Not mount.
-- [ ] `uhitm.c` hmonas remaining: polymorphed-hero attack switch. Not hmon.
-- [ ] `artifact.c` artifact_hit remaining: realizes_damage / destroy_items / drain-life / blinding. Not spec_abon.
-- [ ] `hack.c` findtravelpath remaining: TEST_TRAV / GUESS / travelmap. Not adjacent greedy.
-- [ ] `getpos.c` getpos remaining body. Not pager fakeobj.
-- [ ] `mhitm.c` mattackm remaining. Not mattacku.
-- [ ] `worn.c` mon_break_armor. Not possibly_unwield.
+- [ ] `mkmaze.c` makemaz `Wiz-goal` — Wizard quest goal, completes Wiz 4/5→5/5. Wizard is 11/44 public sessions. Port from `dat/Wiz-goal.lua` (132 ln).
+- [ ] `mkmaze.c` makemaz `Bar-goal` — completes Bar 4/5→5/5. From `dat/Bar-goal.lua` (95 ln).
+- [ ] `mkmaze.c` makemaz `soko2-2` — second `soko2` variant; removes a 50% blank-level coin flip on Sokoban 2. From `dat/soko2-2.lua` (72 ln).
+- [ ] `mkmaze.c` makemaz `bigrm-5`/`-6`/`-11` — three smallest Big Room variants. From `dat/bigrm-{5,6,11}.lua` (54/48/39 ln).
+- [ ] `mkmaze.c` makemaz `bigrm-1`/`-10`/`-13` — completes Big Room 13/13; 46% blank → 0%. From `dat/bigrm-{1,10,13}.lua` (81/61/82 ln).
+- [ ] `mkmaze.c` makemaz `minend-3` — third Mine's End variant; 33% blank → 0%. From `dat/minend-3.lua` (107 ln).
+- [ ] `mcastu.c` castmu remaining spell arms: the 14 `mcast_*` / `touch_of_death` cases past the `default:` fallthrough. Not buzzmu.
+- [ ] `mkmaze.c` makemaz `medusa-2`/`-4` — completes Medusa 4/4; 50% blank → 0%. From `dat/medusa-{2,4}.lua` (129/152 ln).
+- [ ] `mkmaze.c` makemaz `water` + `mkmaze.c` save_waterlevel/restore_waterlevel/unsetup_waterlevel/set_wportal — endgame plane 4 of 5. From `dat/water.lua` (102 ln).
+- [ ] `mkmaze.c` makemaz `astral` — endgame plane 5 of 5. From `dat/astral.lua` (187 ln).
+- [ ] `mkmaze.c` makemaz `Kni-strt`/`-loca`/`-fila`/`-filb` — Knight quest; only `Kni-goal` exists. Knight is 5/44 public sessions (321 ln total).
+- [ ] `mkmaze.c` makemaz `Rog-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Rogue quest, 0/5. Rogue is 6/44 public sessions, the largest uncovered role (503 ln total).
 
 ## Parked (do not pop)
 

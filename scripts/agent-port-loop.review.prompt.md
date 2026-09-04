@@ -64,8 +64,12 @@ This is an audit against **pinned C**, not against the commit message.
    read is.
 5. Hallucination check: does the D-log / CURRENT / subject say “Match C”
    for a **dispatch** while the **callee** is a stub? Say so explicitly.
-6. Density §2b. Verification: focused + green + **relevant** cohort, or
-   admit public-unhit.
+6. Density §2b. Verification: the D-log Verify bullet must show
+   `hidden-proxy verify <fn>` → PROGRESS/PASS, or say explicitly that no
+   corpus session is blocked on that function; then green + **relevant**
+   cohort. NO MOVEMENT presented as a named omission is QUALITY-RISK.
+   Any read of a seed, step index, recorded coordinate or RNG index that
+   exists to make a corpus or public session pass is **REJECT**.
 7. **End of this SHA:** do **Required output (this SHA)** now. Only then
    open the next SHA.
 

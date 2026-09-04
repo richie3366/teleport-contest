@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "independent",
+    "role": "Valkyrie",
+    "name": "Astrid",
+    "prefixMoves": "",
+    "suffix": "nysUhhuubkJJlshkuolush:,jHhkuolnylYLh.kJLK:HhunuykynkHkJbBBlBKhjojhHB.jby.j,bKHUjLuHh,.bn,"
+  },
+  "segments": [
+    {
+      "seed": 682969895,
+      "datetime": "20000110090000",
+      "timezone": "America/New_York",
+      "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "nysUhhuubkJJlshkuolush:,jHhkuolnylYLh.kJLK:HhunuykynkHkJbBBlBKhjojhHB.jby.j,bKHUjLuHh,.bn,"
+    }
+  ]
+}

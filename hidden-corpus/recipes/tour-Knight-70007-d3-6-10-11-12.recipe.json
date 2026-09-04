@@ -1,0 +1,26 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "tour",
+  "role": "Knight",
+  "dlvls": [
+   3,
+   6,
+   10,
+   11,
+   12
+  ],
+  "prefixMoves": "",
+  "suffix": "\u00163\nhu.yln\u00166\nln:lh.\u001610\nnjjjjb\u001611\nk.y.us\u001612\nhjlbhj:"
+ },
+ "segments": [
+  {
+   "seed": 70007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00163\nhu.yln\u00166\nln:lh.\u001610\nnjjjjb\u001611\nk.y.us\u001612\nhjlbhj:"
+  }
+ ]
+}

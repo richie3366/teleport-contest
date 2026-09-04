@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "random",
+    "base": "sessions/seed2200-wizard-quaff-zap-read.session.json",
+    "trimTail": 12,
+    "prefixMoves": "  nqhzc.rjhlll.rjqg \u001bE- Elbereth\r//   . n\u001b// h. nkljj. nbnyul. nH. n\u001b/?fountain\r /ia /m /o /M /O /t/T/e /E ?a  ?b          ?c       ?d               ?e\u001b?f i?g ?h                 ?i  ?j   ?k      ?l ?m       ?n     ?o ",
+    "suffix": "rz'ZzA@v,zo$^d*dDv%d[-E+'ZcA.T!p/[f&tPza"
+  },
+  "segments": [
+    {
+      "seed": 2200,
+      "datetime": "20000110090000",
+      "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!autopickup\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+      "moves": "  nqhzc.rjhlll.rjqg \u001bE- Elbereth\r//   . n\u001b// h. nkljj. nbnyul. nH. n\u001b/?fountain\r /ia /m /o /M /O /t/T/e /E ?a  ?b          ?c       ?d               ?e\u001b?f i?g ?h                 ?i  ?j   ?k      ?l ?m       ?n     ?o rz'ZzA@v,zo$^d*dDv%d[-E+'ZcA.T!p/[f&tPza",
+      "timezone": "America/New_York"
+    }
+  ]
+}

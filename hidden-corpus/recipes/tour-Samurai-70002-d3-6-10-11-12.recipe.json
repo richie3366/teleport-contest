@@ -1,0 +1,26 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "tour",
+  "role": "Samurai",
+  "dlvls": [
+   3,
+   6,
+   10,
+   11,
+   12
+  ],
+  "prefixMoves": "",
+  "suffix": "\u00163\n.klbbj\u00166\nbjyl.j\u001610\nsnblsu\u001611\nhj:nyy\u001612\n.n.llj:"
+ },
+ "segments": [
+  {
+   "seed": 70002,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00163\n.klbbj\u00166\nbjyl.j\u001610\nsnblsu\u001611\nhj:nyy\u001612\n.n.llj:"
+  }
+ ]
+}

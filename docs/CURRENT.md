@@ -35,6 +35,13 @@ RNG **792,838**/792,838. Speed `43+0.33/turn` (R² 0.86).
 | Speed label | `43+0.33/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
 
+**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, 2026-09-04 at D-1817):
+**157 / 265 PASS (59.2 %)** excl. 13 env-only rows; RNG 98.28 %; screens
+96.5 %. Top owners: `process_menu_window` 21 · `itemactions` 14 ·
+`getobj` 7 · `describe_decor` 5 · level cliff `build_room` /
+`selection_filter_percent` (53k RNG lost). Refresh on audit iters with
+`node scripts/hidden-proxy.mjs score`.
+
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
@@ -74,6 +81,9 @@ Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 DEAF in `sync_timeout_flats`; `make_deaf` + `wiz_intrinsic` DEAF arm
 (C `wizcmds.c:1029`). Named: count-prefix; sick/slimed/stoned/glib
 arms.
+<!-- recent:begin -->
+**D-1817** `timeout.c` / `wizcmds.c` — Deaf is one field; `#wizintrinsic` DEAF arm via `make_deaf`.
+<!-- recent:end -->
 **Do not:** FORCE/RNG; skip D-1229…D-1817; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
@@ -92,7 +102,7 @@ paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 
 ## Pointers
 
-`NOTES.md` · `LOOP-QUEUE.md` · `PORT-GAP-TOP30.md` ·
+`NOTES.md` · `LOOP-QUEUE.md` · `HIDDEN-PROXY.md` · `PORT-GAP-HELDOUT.md` · `PORT-GAP-TOP30.md` ·
 `DIVERGENCE-INDEX.md` · `C-JS-MAP.md` ·
 journal tail · `archive/PROGRESS-HISTORY.md`.
 

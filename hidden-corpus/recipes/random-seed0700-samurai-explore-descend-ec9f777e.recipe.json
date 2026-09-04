@@ -1,0 +1,20 @@
+{
+  "version": 5,
+  "timezone": "America/New_York",
+  "fuzz": {
+    "mode": "random",
+    "base": "sessions/seed0700-samurai-explore-descend.session.json",
+    "trimTail": 12,
+    "prefixMoves": "  nhhhjjjllllkkkhjljhklhjjjjllllkkkki ",
+    "suffix": "aPDV/+#Rv=:=V%-*^[iq&$Wi./rZ^RDQ'T/s.Z:`"
+  },
+  "segments": [
+    {
+      "seed": 700,
+      "datetime": "20000110090000",
+      "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!autopickup,pushweapon,showexp,time,color,lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=msg_window:reversed\nOPTIONS=symset:DECgraphics\n",
+      "moves": "  nhhhjjjllllkkkhjljhklhjjjjllllkkkki aPDV/+#Rv=:=V%-*^[iq&$Wi./rZ^RDQ'T/s.Z:`",
+      "timezone": "America/New_York"
+    }
+  ]
+}

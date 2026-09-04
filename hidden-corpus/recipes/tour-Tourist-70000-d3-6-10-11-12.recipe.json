@@ -1,0 +1,26 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "tour",
+  "role": "Tourist",
+  "dlvls": [
+   3,
+   6,
+   10,
+   11,
+   12
+  ],
+  "prefixMoves": "",
+  "suffix": "\u00163\ny:h.lj\u00166\n:ybslh\u001610\nn.bskb\u001611\n:s.ujk\u001612\nnhyyyb:"
+ },
+ "segments": [
+  {
+   "seed": 70000,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00163\ny:h.lj\u00166\n:ybslh\u001610\nn.bskb\u001611\n:s.ujk\u001612\nnhyyyb:"
+  }
+ ]
+}
