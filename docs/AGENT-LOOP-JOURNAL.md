@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — audit overlay 775–783 + cadence 42/44
+
+**Objective:** review JS SHAs since `3ff0752d` against pinned C;
+cadence full `sessions` (no `js/` port).
+**SHAs:** **775 QUALITY-RISK** D-1806 `getdir` `game.flags.cmdassist`
+vs C `iflags.cmdassist` `:4098` — Must-fix prepended. **776–783 AWD**
+(D-1807…D-1814). Named omits stay in the map (`bhito`, CLIPPING,
+POSIX clearlocks, `move_into_trap`, drowning `done()` loop).
+**Cadence:** 42/44 at `b596f337`; scr 10428/11405; RNG 727221/792838
+(91.7%); `46+0.33/turn` (R² 0.84). seed0030 39912/105529 unchanged.
+seed4500 1801/1814 is D-1792 leftover.
+**Next:** Must-fix `cmd.c` `getdir` `:4098` `iflags.cmdassist`. Not
+`confdir`. Not Open `lava_effects`.
 ## 2026-09-04 — D-1814 trap.c drown remaining crawl-out
 
 **Objective:** Open `trap.c` `drown` remaining: rnd_nextto_goodpos /

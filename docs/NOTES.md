@@ -5,9 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Open `trap.c` `lava_effects` remaining next** (Must-fix empty).
-  Fire_resistance / Wwalking / inventory burn / sink-and-die. Not
-  drown. Map-driven / cluster density — do not invent a FAIL peel.
+- **Must-fix first:** Match C `cmd.c` `getdir` `:4098`
+  `iflags.cmdassist` (Options/`O` writes `game.iflags`), instead of
+  `game.flags?.cmdassist !== false`. Source: review **775**. Do **not**
+  add trailing `confdir`. Do **not** pop Open `lava_effects` until
+  Must-fix is empty. Map-driven / cluster density — do not invent a
+  FAIL peel.
 - **seed0030** still 39912/105529 after D-1797. First all-segments
   miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
   (seg0 RNG OK 14300). Falsify with `rng-diff --all-segments`.
@@ -110,7 +113,8 @@ Objective/score live in `CURRENT.md`.
   Named: other MS_*; `verbl_msg_mcan`; `night()` howl; save/rest `oracle_loc`.
 - D-1807: `vpline` msgtype_type / execplinehandler / maybe_play_sound.
   Named: SOUND= soundmap; UNIX msghandler fork; doset MSGTYPE menu.
-- D-1806: `getdir` help_dir / cmdassist / strange-dir / `dxdy_moveok`.
+- D-1806: `getdir` help_dir / strange-dir / `dxdy_moveok` shipped;
+  **Must-fix** the `iflags.cmdassist` predicate (review **775**).
 - D-1805: `yn_function` fuzzer `rn2(20)`/`rn2(ln)`/ESC retry + otherInp.
 - D-1804: `getobj` in_doagain `readchar` + GETOBJ ranks + sortloot INVLET.
 - D-1803: `x_monnam` remaining + `nextmbuf` / `lcase` / `just_an`.

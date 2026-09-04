@@ -785,3 +785,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [772-248e8d60-x-monnam.md](./772-248e8d60-x-monnam.md) | `248e8d60` | D-1803 do_name.c x_monnam remaining + just_an | **ACCEPT-WITH-DEBT** |
 | [773-fa5f3acc-getobj.md](./773-fa5f3acc-getobj.md) | `fa5f3acc` | D-1804 invent.c getobj in_doagain / GETOBJ ranks | **ACCEPT-WITH-DEBT** |
 | [774-3ff0752d-yn-function.md](./774-3ff0752d-yn-function.md) | `3ff0752d` | D-1805 cmd.c yn_function fuzzer RNG / otherInp | **ACCEPT-WITH-DEBT** |
+| [775-2ac1a112-getdir.md](./775-2ac1a112-getdir.md) | `2ac1a112` | D-1806 cmd.c getdir help_dir / cmdassist / dxdy_moveok | **QUALITY-RISK** |
+| [776-3d82312d-vpline.md](./776-3d82312d-vpline.md) | `3d82312d` | D-1807 pline.c vpline msgtype_type / execplinehandler | **ACCEPT-WITH-DEBT** |
+| [777-f18f1523-domonnoise.md](./777-f18f1523-domonnoise.md) | `f18f1523` | D-1808 sounds.c domonnoise remaps + ORACLE/PRIEST/SELL | **ACCEPT-WITH-DEBT** |
+| [778-0f18f2db-use-defensive.md](./778-0f18f2db-use-defensive.md) | `0f18f2db` | D-1809 muse.c use_defensive mreadmsg / reveal_trap / escape | **ACCEPT-WITH-DEBT** |
+| [779-5009dae1-use-offensive.md](./779-5009dae1-use-offensive.md) | `5009dae1` | D-1810 muse.c use_offensive ray wands / horns / SCR_EARTH | **ACCEPT-WITH-DEBT** |
+| [780-9b42dedf-use-misc.md](./780-9b42dedf-use-misc.md) | `9b42dedf` | D-1811 muse.c use_misc poly / bag / you_aggravate | **ACCEPT-WITH-DEBT** |
+| [781-12298526-really-done.md](./781-12298526-really-done.md) | `12298526` | D-1812 end.c really_done remaining callees | **ACCEPT-WITH-DEBT** |
+| [782-373d8905-untrap.md](./782-373d8905-untrap.md) | `373d8905` | D-1813 trap.c untrap remaining disarm helpers | **ACCEPT-WITH-DEBT** |
+| [783-b596f337-drown.md](./783-b596f337-drown.md) | `b596f337` | D-1814 trap.c drown crawl-out | **ACCEPT-WITH-DEBT** |

@@ -20,14 +20,13 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1805**
-(`3ff0752d`; audit overlay reviews **766–774**). **42**/44.
+Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1814**
+(`b596f337`; audit overlay reviews **775–783**). **42**/44.
 **seed0030** RNG **39912**/105529 / Screen **989**/1953 since **D-1795**.
 **seed4500** Screen **1801**/1814 (RNG full) since **D-1792**.
 Scr **10,428**/11,405, RNG **727,221**/792,838 = **91.7%**.
-Speed `42+0.33/turn` (R² 0.859).
-Must-fix is empty — next port pops Open `trap.c` `lava_effects` remaining:
-Fire_resistance / Wwalking / inventory burn / sink-and-die. Not drown.
+Speed `46+0.33/turn` (R² 0.84).
+Must-fix: Match C `cmd.c` `getdir` `:4098` `iflags.cmdassist` (review **775**).
 
 ## Score
 
@@ -36,7 +35,7 @@ Fire_resistance / Wwalking / inventory burn / sink-and-die. Not drown.
 | Sessions passing | **42 / 44** |
 | Screens matched | **10,428 / 11,405** |
 | Positional RNG calls matched | **727,221 / 792,838** (91.7%) |
-| Speed label | `42+0.33/turn` (R² 0.859) |
+| Speed label | `46+0.33/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **PASS (42):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -67,14 +66,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 42/44** at D-1805. Audit **766–774** ACCEPT-WITH-DEBT.
-Open `trap.c` `drown` crawl-out shipped (**D-1814**).
+**Suite 42/44** at D-1814. Audit **775–783**: **775 QUALITY-RISK**
+(`iflags.cmdassist`); **776–783 ACCEPT-WITH-DEBT**.
 seed0030 first miss is C seg4 `randomize_gem_colors` vs JS still in
 seg3 combat (seg0 RNG OK 14300). Save-oracle for tagged restore
 Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
-**Next cluster:** `trap.c` `lava_effects` remaining: Fire_resistance /
-Wwalking / inventory burn / sink-and-die. Not drown.
+**Next cluster:** Match C `cmd.c` `getdir` `:4098` `iflags.cmdassist`
+(not `game.flags.cmdassist`). Source: review **775**.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1814 (index).** Recent **D-1814:** `emergency_disrobe`
 / `rnd_nextto_goodpos` / crawl `teleds(TELEDS_ALLOW_DRAG)` +

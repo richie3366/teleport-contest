@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `trap.c` drown remaining: rnd_nextto_goodpos / emergency_disrobe / crawl-out. Not lava_effects. **Addressed:** D-1814
+- [x] `trap.c` drown remaining: rnd_nextto_goodpos / emergency_disrobe / crawl-out. Not lava_effects. **Addressed:** D-1814 `b596f337`
 
 
 - [x] `trap.c` untrap remaining: disarm_holdingtrap / disarm_landmine / disarm_shooting_trap / disarm_box / help_monster_out. Not dotrap. **Addressed:** D-1813 `373d8905`

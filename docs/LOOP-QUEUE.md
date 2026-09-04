@@ -32,6 +32,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] Match C `cmd.c` `getdir` `:4098` `iflags.cmdassist` (Options/`O` writes `game.iflags`) so `!cmdassist` skips `help_dir` and takes the strange-direction pline, instead of `game.flags?.cmdassist !== false`. Source: reviews/loop-unattended/775-2ac1a112-getdir.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
