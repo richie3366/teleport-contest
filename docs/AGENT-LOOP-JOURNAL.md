@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1810 muse.c use_offensive ray wands / horns / tele+undead / earth
+
+**Objective:** Open `muse.c` `use_offensive` remaining wand / horn /
+scroll cases. Not use_defensive.
+**C:** `use_offensive` `:1823`; `find_offensive` `:1420`;
+`mplayhorn` `:194`; `buzz_force_miss` `:1814`; `mbhitm` tele/undead
+`:1596`; `read.c` drop_boulder `:2293`/`:2340`; `zap.c` `buzz`.
+**JS was:** striking + potion throw + camera; other codes
+`default: return 0`.
+**Fix:** find+use remaining arms; export `buzz` / `unturn_*`;
+`m_seenres` is boolean (do not `!== 0`). Named: linedup_callback
+floor-corpse, fhito_loc/bhito, destroy_drawbridge, SCR_FIRE #if 0.
+**Verify:** save-oracle skip (untagged); find_offensive probe;
+green + strict; cohort 7/7 + strict.
+**Next:** Open `muse.c` `use_misc` remaining: muse_newcham_mon /
+mloot_container / poly / bag / you_aggravate. Not use_defensive.
 ## 2026-09-04 — D-1809 muse.c use_defensive mreadmsg / reveal_trap / mon_escape / consume
 
 **Objective:** Open `muse.c` `use_defensive` remaining: mreadmsg /

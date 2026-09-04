@@ -1,5 +1,38 @@
 # Divergence log
 
+## D-1810 — muse.c use_offensive remaining wand / horn / scroll cases
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** `find_offensive` / `use_offensive` only ran potion
+  hurls, WAN_STRIKING `mbhit`, and MUSE_CAMERA. Monsters never
+  zapped death/sleep/fire/cold/lightning/missile wands, never blew
+  fire/frost horns, never zapped teleport/undead-turning at the
+  hero, and never read a scroll of earth.
+- **C locus:** `muse.c` `use_offensive` `:1823–2032`;
+  `find_offensive` `:1420–1594`; `mplayhorn` `:194`;
+  `buzz_force_miss` `:1814`; `mbhitm` `:1596` tele/undead;
+  `m_use_undead_turning` `:1299`; `hero_behind_chokepoint` `:1343`;
+  `mon_has_friends` `:1370`; `mon_likes_objpile_at` `:1394`;
+  `read.c` `drop_boulder_on_player` `:2293` /
+  `drop_boulder_on_monster` `:2340`; `zap.c` `buzz` `:4764`.
+- **JS was:** striking + potion throw + camera; `default: return 0`
+  for every other offense code; ray `nomore`s omitted so a later
+  potion could beat a wand C would keep.
+- **Fix:** `find_offensive` remaining selection (reflection_skip,
+  ray wands/horns, undead-if-carrying-corpse, teleport gates,
+  SCR_EARTH); `use_offensive` those arms via exported `buzz` /
+  `unturn_you`/`unturn_dead` and file-local `mplayhorn` /
+  drop_boulder_*. `m_seenres` is already boolean — do not write
+  `!== 0` (that made `reflection_skip` always true).
+- **Named omissions:** `linedup_callback` floor-corpse undead;
+  `fhito_loc`/`bhito`; `destroy_drawbridge`; WAN_CANCELLATION
+  `mbhitm`; seemimic / shieldeff / mon-target `resists_magm`;
+  MUSE_SCR_FIRE (`#if 0`); steed in SCR_EARTH; SetVoice camera;
+  `in_your_sanctuary` / AD_HEAL naked-heal; engulf You_hear
+  `mbodypart`; Soundeffect.
+- **Next:** Open `muse.c` `use_misc` remaining: muse_newcham_mon /
+  mloot_container / poly / bag / you_aggravate. Not use_defensive.
+
 ## D-1809 — muse.c use_defensive mreadmsg / reveal_trap / mon_escape / mon_consume_unstone
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

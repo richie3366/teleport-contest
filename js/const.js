@@ -234,6 +234,10 @@ export function DIR_180(dir) { return (dir + 4) % N_DIRS; }
 /** C hack.h DIR_LEFT / DIR_RIGHT — 8-dir wrap. */
 export function DIR_LEFT(dir) { return ((dir) + 7) % N_DIRS; }
 export function DIR_RIGHT(dir) { return ((dir) + 1) % N_DIRS; }
+/** C ref: hack.h DIR_LEFT2 / DIR_RIGHT2 / DIR_CLAMP */
+export function DIR_LEFT2(dir) { return ((dir) + 6) % N_DIRS; }
+export function DIR_RIGHT2(dir) { return ((dir) + 2) % N_DIRS; }
+export function DIR_CLAMP(dir) { return ((dir) + N_DIRS) % N_DIRS; }
 // DIR_ERR lives with other error sentinels below; xytodir uses -1.
 
 /** C ref: cmd.c xytodir — map (dx,dy) to DIR_* or DIR_ERR (-1). */
@@ -417,6 +421,8 @@ export function BZ_VALID_ADTYP(adtyp) {
 }
 /** C ref: hack.h BZ_M_BREATH — monster breath buzz type (-29..-20) */
 export function BZ_M_BREATH(bztyp) { return -20 - (bztyp | 0); }
+/** C ref: hack.h BZ_M_WAND — monster wand buzz type (-39..-30); not -0 */
+export function BZ_M_WAND(bztyp) { return -30 - (bztyp | 0); }
 
 // Room types (mkroom.h)
 export const OROOM = 0;

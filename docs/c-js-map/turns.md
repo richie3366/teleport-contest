@@ -2662,9 +2662,9 @@ canseemon wield pline** (D-0180/D-0264/D-0318; mwelded refuse-wield/weld/artifac
 **`canseemon`=`cansee`/`infrared`+`mon_visible`; `thitu` `an`/`exclam`/miss; 
 `monshoot` `an(singular)`** (D-0119); **`find_defensive`/`use_defensive` healing+milky precheck**
 (D-0610) **+ mreadmsg / reveal_trap / mon_escape / `mon_consume_unstone` + lizard / stairs / traps / tele+create scrolls**
-(D-1809; named: unicorn horn, bugle, wand dig/tele/create/undead, `munstone`, `use_offensive` mreadmsg); **`find_offensive`/`use_offensive` MUSE_POT_* throw + 
+(D-1809; named: unicorn horn, bugle, wand dig/tele/create/undead, `munstone`); **`find_offensive`/`use_offensive` MUSE_POT_* throw + 
 `m_throw` POTION→`potionhit`/`bottlename`/`potionbreathe` + 
-flight `observe_object`→`makeknown`/`exercise(A_WIS)`** (D-0184); 
+flight `observe_object`→`makeknown`/`exercise(A_WIS)`** (D-0184) **+ ray wands / fire·frost horns / WAN_TELE·UNDEAD `mbhitm` / SCR_EARTH drop_boulder** (D-1810; named: `linedup_callback` floor-corpse, `fhito_loc`/`bhito`, destroy_drawbridge, SCR_FIRE `#if 0`, sanctuary/AD_HEAL); 
 **`m_throw` `tmp_at(DISP_FLASH)` + await `potionhit` plines** (D-0284); 
 **`m_throw` `return_from_mtoss` snuff_candle D-1334** (C `:942` notcaught before 
 ship/`flooreffects("drop")`; tethered AKLYS `return_flightpath`; 
@@ -2677,7 +2677,7 @@ candles/candelabrum only, not `snuff_lit`; `thrwmu` always_toss/polearm named);
 **`linedup`/`lined_up` boulderhandling + vision BOULDER does_block** (D-0242); 
 **mbhit doorlock** WAN_OPENING/LOCKING/STRIKING + zap_oseen makeknown + 
 shop D_BROKEN add_damage(0) D-1484 (hero bhit is D-1482); 
-omit other offense wands/horns/`fhito_loc`/drawbridge; `find_misc`/`find_defensive` nomore; 
+omit `fhito_loc`/drawbridge; `find_misc`/`find_defensive` nomore; 
 `rnd_offensive_item` case0 hard_helmet FALLTHROUGH; **`do_wear.c` `hard_helmet` `:567–573` 
 is one export D-1778** — `js/do_wear.js` with `is_helmet` (C `obj.h:283`) exported beside it; 
 the six local copies in dothrow/mhitu/potion/trap/uhitm/zap are gone, and the dothrow/trap 
@@ -2741,7 +2741,7 @@ hitmm tentacles suck); `defended` / `resists_blnd_by_arti` named;
 **`ohitmon` `!mon_moving`→`setmangry`** (D-0928 #1099; **m_throw shade_miss D-1382**; 
 **zap `bhit` shade_miss D-1383**; poison/silver/acid/egg petrify/can_blnd/vampshifter verb 
 deferred); **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:1938–1955` `!rn2(6)` + 
-flash/`make_blinded`/`spe--`/return 1; callee D-1366); omit muse ray-wand/horn/scroll/SCR_EARTH; 
+flash/`make_blinded`/`spe--`/return 1; callee D-1366); ray-wand/horn/SCR_EARTH D-1810; 
 mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named); 
 `hitval` blessed/spear/trident/pick/silver (artifact `spec_abon` D-0611);
 polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot, HTH `select_hwep`,

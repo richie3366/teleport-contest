@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `muse.c` use_defensive remaining: mreadmsg / reveal_trap / mon_escape / mon_consume_unstone. Not use_offensive. **Addressed:** D-1809
+- [x] `muse.c` use_offensive remaining wand / horn / scroll cases. Not use_defensive. **Addressed:** D-1810
+
+
+- [x] `muse.c` use_defensive remaining: mreadmsg / reveal_trap / mon_escape / mon_consume_unstone. Not use_offensive. **Addressed:** D-1809 `0f18f2db`
 
 
 - [x] `sounds.c` domonnoise remaining: genus / mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg. **Addressed:** D-1808 `f18f1523`

@@ -284,7 +284,7 @@ function can_carry(mtmp, otmp) {
  * Named omissions: uball/uchain; unicorn GEMSTONE material gate partial
  * (mlet check only); FOOD searches_for_item corpse/tin/egg arms.
  */
-function mon_would_take_item(mtmp, otmp) {
+export function mon_would_take_item(mtmp, otmp) {
     const ptr = mtmp.data;
     const pctload = Math.trunc((curr_mon_load(mtmp) * 100) / max_mon_load(mtmp));
     if (mtmp.mtame && otmp.cursed) return false;
