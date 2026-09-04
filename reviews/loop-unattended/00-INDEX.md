@@ -794,3 +794,13 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [781-12298526-really-done.md](./781-12298526-really-done.md) | `12298526` | D-1812 end.c really_done remaining callees | **ACCEPT-WITH-DEBT** |
 | [782-373d8905-untrap.md](./782-373d8905-untrap.md) | `373d8905` | D-1813 trap.c untrap remaining disarm helpers | **ACCEPT-WITH-DEBT** |
 | [783-b596f337-drown.md](./783-b596f337-drown.md) | `b596f337` | D-1814 trap.c drown crawl-out | **ACCEPT-WITH-DEBT** |
+| [784-462e1338-getdir-iflags-cmdassist.md](./784-462e1338-getdir-iflags-cmdassist.md) | `462e1338` | D-1815 cmd.c getdir iflags.cmdassist | **ACCEPT** |
+| [785-f144982f-mattacku-gameover.md](./785-f144982f-mattacku-gameover.md) | `f144982f` | D-1816 mhitu.c mattacku NATTK abort after done() | **ACCEPT** |
+| [786-bac0ae69-deaf-single-field.md](./786-bac0ae69-deaf-single-field.md) | `bac0ae69` | D-1817 timeout.c / wizcmds.c Deaf single field | **ACCEPT** |
+| [787-0ac444d3-hidden-proxy-rng-trace.md](./787-0ac444d3-hidden-proxy-rng-trace.md) | `0ac444d3` | hidden-score proxy; rng.js optional caller tag | **ACCEPT** |
+| [788-2c339c26-wiz-goal.md](./788-2c339c26-wiz-goal.md) | `2c339c26` | D-1818 mkmaze.c makemaz Wiz-goal load_special | **ACCEPT-WITH-DEBT** |
+| [789-fc103c7f-bar-goal.md](./789-fc103c7f-bar-goal.md) | `fc103c7f` | D-1819 mkmaze.c makemaz Bar-goal load_special | **QUALITY-RISK** |
+| [790-42afdca4-soko2-2.md](./790-42afdca4-soko2-2.md) | `42afdca4` | D-1820 mkmaze.c makemaz soko2-2 load_special | **ACCEPT-WITH-DEBT** |
+| [791-0c3e8ca5-bigrm-5-6-11.md](./791-0c3e8ca5-bigrm-5-6-11.md) | `0c3e8ca5` | D-1821 mkmaze.c makemaz bigrm-5/6/11 load_special | **ACCEPT-WITH-DEBT** |
+| [792-7c76fdb5-bigrm-1-10-13.md](./792-7c76fdb5-bigrm-1-10-13.md) | `7c76fdb5` | D-1822 mkmaze.c makemaz bigrm-1/10/13 load_special | **ACCEPT-WITH-DEBT** |
+| [793-171f6b02-minend-3.md](./793-171f6b02-minend-3.md) | `171f6b02` | D-1823 mkmaze.c makemaz minend-3 load_special | **ACCEPT-WITH-DEBT** |

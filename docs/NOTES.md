@@ -6,16 +6,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 157/265 PASS at
-  D-1817; owners `process_menu_window` 21, `itemactions` 14, `getobj` 7,
+  D-1823 audit; owners `process_menu_window` 21, `itemactions` 14, `getobj` 7,
   level cliff `build_room`/`selection_filter_percent` vs `rnd_rect`.
   Orient `brief.mjs`, verify `verify.mjs --fn`, hand off `finish-iteration.mjs --commit`.
-- **Suite 44/44** (D-1823). Map-driven Open: `mcastu.c` `castmu`
-  remaining spell arms past `default:`. Falsify:
-  `castmu` still falls through those 14 `mcast_*` / `touch_of_death`
-  cases. Do **not** reopen minend-3 (D-1823),
-  bigrm-1/10/13 (D-1822), bigrm-5/6/11 (D-1821), soko2-2 (D-1820),
-  Bar-goal (D-1819), Wiz-goal (D-1818), `HDeaf [2]` (D-1817) or
-  `mattacku` gameover abort (D-1816).
+- **Suite 44/44** cadence re-measured at D-1823 (`171f6b02`). Next is
+  Must-fix Bar-goal: lua `:44–57` fourteen `des.object()`, JS loops 15
+  (review 789). Falsify: `load_bar_goal` extra-object loop bound is 14.
+  Park Open `castmu`. Do **not** reopen minend-3 / bigrm / soko2-2 /
+  Wiz-goal loaders, `HDeaf [2]`, or `mattacku` gameover abort.
   Do **not** add trailing `confdir` to shared `getdir` (D-1815).
 - **Luck still runs when invulnerable.** Dialogues do not
   (`timeout.c:623`). STONED/SLIMED expiry silent (`done_timeout`).

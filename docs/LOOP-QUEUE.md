@@ -32,6 +32,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] Match C `dat/Bar-goal.lua` `:44–57` fourteen `des.object()` after the Heart, instead of `load_bar_goal` looping 15 extra `splev_create_object` / `mkobj_at` RNG. Source: reviews/loop-unattended/789-fc103c7f-bar-goal.md
+
 ## Open (map-driven, after Must-fix is empty)
 
 Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached

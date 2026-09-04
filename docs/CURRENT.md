@@ -20,10 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-04** — full `sessions` at **D-1818**
-(**44**/44). Fortress recovered: seed0030 **D-1816**, seed4500
-`#wizintrinsic` deafness `[2]` **D-1817**. Scr **11,405**/11,405,
-RNG **792,838**/792,838. Speed `43+0.33/turn` (R² 0.86).
+Score last measured: **2026-09-04** — full `sessions` at **D-1823**
+(audit **784–793**, `171f6b02`). Fortress held: seed0030 **D-1816**,
+seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
+**11,405**/11,405, RNG **792,838**/792,838. Speed `43+0.33/turn`
+(R² 0.862).
 
 ## Score
 
@@ -32,10 +33,10 @@ RNG **792,838**/792,838. Speed `43+0.33/turn` (R² 0.86).
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `43+0.33/turn` (R² 0.86) |
+| Speed label | `43+0.33/turn` (R² 0.862) |
 | Role-init throws | **0 / 44** |
 
-**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, 2026-09-04 at D-1817):
+**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, 2026-09-04 at D-1823):
 **157 / 265 PASS (59.2 %)** excl. 13 env-only rows; RNG 98.28 %; screens
 96.5 %. Top owners: `process_menu_window` 21 · `itemactions` 14 ·
 `getobj` 7 · `describe_decor` 5 · level cliff `build_room` /
@@ -71,9 +72,10 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** at **D-1823**. Map-driven Open.
-**Next cluster:** `mcastu.c` castmu remaining spell arms: the 14
-`mcast_*` / `touch_of_death` cases past the `default:` fallthrough.
-Not buzzmu.
+**Next cluster:** Match C `dat/Bar-goal.lua` `:44–57` fourteen
+`des.object()` after the Heart, instead of `load_bar_goal` looping 15.
+Source: reviews/loop-unattended/789-fc103c7f-bar-goal.md
+Park Open `mcastu.c` `castmu` remaining spell arms until Must-fix is empty.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.

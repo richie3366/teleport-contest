@@ -8,6 +8,17 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — audit overlay 784–793 + cadence 44/44
+
+**Objective:** review JS SHAs since `5c68c8c3` against pinned C;
+cadence full `sessions` (no `js/` port).
+**SHAs:** 784–788 ACCEPT/AWD (D-1815…D-1818, hidden-proxy). **789
+QUALITY-RISK** D-1819 Bar-goal 15 extra `des.object()` vs lua 14 —
+Must-fix stays first. 790–793 AWD (soko2-2, bigrm 13/13, minend-3).
+**Cadence:** 44/44 at `171f6b02`; scr 11405/11405; RNG 792838/792838;
+`43+0.33/turn` (R² 0.862). Hidden 157/265 (59.2%). Rule #2 clean.
+**Next:** Must-fix Bar-goal lua `:44–57` fourteen objects. Not Open
+`castmu`.
 ## 2026-09-04 — D-1823 mkmaze.c makemaz minend-3 load_special (Catacombs / Mine's End 3/3)
 
 **C locus:** `dat/minend-3.lua`; `mkmaze.c` `makemaz` `:1127–1223`
