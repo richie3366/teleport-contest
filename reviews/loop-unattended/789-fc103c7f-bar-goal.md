@@ -9,6 +9,8 @@
 - Claims to close: Open `makemaz` `Bar-goal` from `dat/Bar-goal.lua` (Bar 4/5 → 5/5). Not soko2-2.
 - JS / map: `js/mklev.js` `load_bar_goal` + `load_special_proto`. `c-js-map/data.md`. Archive **Addressed:** D-1819 `fc103c7f`.
 
+**Addressed:** D-1824
+
 ## Intent vs deliverable
 
 Git subject promises: `makemaz` had no `Bar-goal` loader; C loads `dat/Bar-goal.lua` via `sp_lev.c` `load_special`.
