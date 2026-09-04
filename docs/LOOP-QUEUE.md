@@ -32,6 +32,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `wintty.c` process_menu_window — D-1831 regression (12 corpus blocks, e.g. `ind-Healer-264813587-946e8e73` step 22, `explore-seed0200-monk-north-search-70435b72` step 47): the `_snapshotStatusGrid` restore in `js/display.js` `_buildScreenOutput` copies rows 22–23 that `js/iactions.js` `itemactions`' per-key `docrt()`→`cls()`→`clearScreen()` already blanked, so WIN_STATUS goes blank on the frame after a corner-menu re-prompt. C `process_menu_window` loops on `tty_nhgetch` **without redraw** on an unhandled key. Port that: no `docrt` on invalid/unhandled keys in `itemactions` (and the other corner-menu loops), keep the D-0467 post-fullscreen blank via `_statusSuppressed` (seed0002 @530 / seed5002 @277 are that case), then delete `_snapshotStatusGrid` / `_restoreStatusGrid`. Falsifier: `node scripts/verify.mjs --fn process_menu_window --base ab55b818` → the 21 baseline sessions PASS (the 2 `seed0116` rows may stay `do_statusline1`), green, full 44/44. Source: `docs/2026-09-05-continuation-postmortem-2238-2240.md`.
+
 ## Open (map-driven, after Must-fix is empty)
 
 Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached

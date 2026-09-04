@@ -21,9 +21,13 @@
  *       write hidden-corpus/scoreboard.json (+ .cache/hidden/scores.json).
  *   node scripts/hidden-proxy.mjs queue [--limit 12]
  *       LOOP-QUEUE rows: C-function owners ranked by sessions blocked.
- *   node scripts/hidden-proxy.mjs verify <fn>
- *       rescore only the sessions currently blocked on <fn>; report which
- *       PASS, which moved to a later owner, which did not move.
+ *   node scripts/hidden-proxy.mjs verify <fn> [--base <git-rev>|working]
+ *       rescore the sessions blocked on <fn> in the COMMITTED scoreboard at
+ *       --base (default HEAD; the rows the queue row was built from), plus
+ *       any blocked in the working scoreboard; report which PASS, which
+ *       moved to a later owner, which did not move. Re-running verify in
+ *       the same iteration re-runs the same sessions (the baseline is not
+ *       the file verify itself rewrites). Reviews: --base <sha>~1.
  *   node scripts/hidden-proxy.mjs show <sessionId>
  *   node scripts/hidden-proxy.mjs status
  *
@@ -334,20 +338,56 @@ function cmdQueue() {
     }
 }
 
+/* The committed scoreboard at a git rev: the rows the queue row and the
+   brief were built from. `verify` measures movement against THIS, not
+   against the working scoreboard, so a second verify in the same iteration
+   re-runs the same sessions. (A verify rewrites the working rows: a PASS row
+   is no longer "blocked on fn", and a later edit that breaks it again went
+   unnoticed — D-1831 shipped 12 such regressions behind a vacuous
+   "no corpus session is blocked" line.) */
+function baselineRows(rev) {
+    const r = spawnSync('git', ['show', `${rev}:hidden-corpus/scoreboard.json`], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 });
+    if (r.status !== 0 || !r.stdout) return null;
+    try {
+        const j = JSON.parse(r.stdout);
+        const rows = {};
+        for (const [id, row] of Object.entries(j.sessions || {})) rows[id] = { id, ...row };
+        return { rev, commit: j.commit, at: j.at, rows };
+    } catch { return null; }
+}
+
 async function cmdVerify(fn) {
-    if (!fn) { console.error('usage: verify <C function>'); process.exit(2); }
+    if (!fn) { console.error('usage: verify <C function> [--base <git-rev>|working] [--jobs N]'); process.exit(2); }
+    const baseRev = val('base', 'HEAD');
+    const base = baseRev === 'working' ? null : baselineRows(baseRev);
+    if (baseRev !== 'working' && !base) console.log(`verify ${fn}: no committed scoreboard at ${baseRev}; using the working scores as baseline`);
     const prev = loadScores();
-    const ids = Object.values(prev.rows).filter((r) => r.owner === fn).map((r) => r.id);
-    if (!ids.length) { console.log(`verify ${fn}: no corpus session is blocked on it (nothing to verify; ship with the public gates)`); return; }
+    const blockedIn = (rows) => Object.values(rows).filter((r) => r.owner === fn).map((r) => r.id);
+    const baseIds = base ? blockedIn(base.rows) : [];
+    const workIds = blockedIn(prev.rows);
+    const ids = [...new Set([...baseIds, ...workIds])];
+    console.log(`verify ${fn}: baseline ${base ? `${baseRev} (scoreboard at ${base.commit}, ${base.at})` : 'working scores'} — ${ids.length} session(s) blocked on it (${baseIds.length} at baseline, ${workIds.length} in the working scoreboard)`);
+    if (!ids.length) {
+        console.log(`verify ${fn}: no corpus session is blocked on it at ${base ? baseRev : 'working'} — a vacuous verify is NOT a corpus PASS. If the queue row cited N corpus blocks, re-run with --base <the commit that row was queued at>; otherwise ship with the public gates and say so in the D-log.`);
+        return;
+    }
     const entries = corpusEntries().filter((e) => ids.includes(e.id) && existsSync(e.session));
+    const missing = ids.filter((id) => !entries.some((e) => e.id === id));
+    if (missing.length) console.log(`  (${missing.length} blocked session(s) have no cached recording — \`node scripts/hidden-proxy.mjs record\`: ${missing.slice(0, 5).join(', ')}${missing.length > 5 ? ', …' : ''})`);
     const res = await pool(entries, Number(val('jobs', 6)), async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
-    let passed = 0, moved = 0, stuck = 0, worse = 0;
+    let passed = 0, moved = 0, sameStep = 0, stillFn = 0, stuck = 0, worse = 0;
     for (const r of res) {
-        const before = prev.rows[r.id];
+        const before = (base && base.rows[r.id]) || prev.rows[r.id] || {};
         prev.rows[r.id] = r;
         let verdict;
         if (r.passed) { verdict = 'PASS'; passed++; }
-        else if ((r.step ?? -1) > (before.step ?? -1) || (r.owner !== fn && (r.step ?? 0) >= (before.step ?? 0))) { verdict = `moved → ${r.owner || 'js-throw'} at step ${r.step} (was ${before.step})`; moved++; }
+        else if (before.passed) { verdict = `WORSE: was PASS at baseline, now ${r.owner || 'js-throw'} at step ${r.step}`; worse++; }
+        else if ((r.step ?? -1) > (before.step ?? -1) || (r.owner !== fn && (r.step ?? 0) >= (before.step ?? 0))) {
+            const same = (r.step ?? -1) === (before.step ?? -2);
+            const later = r.owner === fn;
+            verdict = `moved → ${r.owner || 'js-throw'} at step ${r.step} (was ${before.step}${same ? '; same step: re-attributed, read the row diff' : later ? `; still ${fn}, ${r.step - before.step} step(s) later` : ''})`;
+            moved++; if (same) sameStep++; if (later) stillFn++;
+        }
         else if ((r.step ?? 0) < (before.step ?? 0) || (r.rngM || 0) < (before.rngM || 0)) { verdict = `WORSE: now ${r.owner} at step ${r.step} (was ${before.step})`; worse++; }
         else { verdict = `still ${fn} at step ${r.step}: C«${r.cTopline}» J«${r.jsTopline}»`; stuck++; }
         console.log(`  ${r.id}: ${verdict}`);
@@ -355,7 +395,8 @@ async function cmdVerify(fn) {
     writeJson(SCORES, { commit: gitHead(), at: new Date().toISOString(), rows: prev.rows });
     writeScoreboard(prev.rows);
     const verdict = worse ? 'REGRESSION' : stuck && !passed && !moved ? 'NO MOVEMENT' : 'PROGRESS';
-    console.log(`verify ${fn}: ${passed} PASS, ${moved} moved past, ${stuck} unchanged, ${worse} worse → ${verdict}`);
+    const notes = [sameStep ? `${sameStep} re-attributed at the same step` : '', stillFn ? `${stillFn} still ${fn} at a later step` : ''].filter(Boolean);
+    console.log(`verify ${fn}: ${passed} PASS, ${moved} moved past${notes.length ? ` (${notes.join('; ')})` : ''}, ${stuck} unchanged, ${worse} worse → ${verdict}`);
     if (worse) process.exit(1);
 }
 

@@ -153,16 +153,32 @@ A crash / timeout / `resource_exhausted` **before commit** still keeps
 the dirty tree and rewinds the counter. The supervisor **does not
 exit**: it arms a **one-shot continue latch**
 (`.agent-port-loop-logs/continue-unfinished`: `port` or `audit`, plus a
-git-status snapshot and paths to that attempt’s `iter-NNNN-*.log` /
-`.raw`) and **retries the same global `#` in this run**. The next
-agent gets `scripts/agent-port-loop.continue.prompt.md` (finish that
-leftover; read the cited extract/raw; do **not** pop a new
-`LOOP-QUEUE` item) and **forces that mode even when the `#` is
-divisible by 10**. Uncommitted `js/` or `reviews/` after an agent
-returns without a commit is the same retry, not a halt.
+git-status snapshot, paths to that attempt’s `iter-NNNN-*.log` /
+`.raw`, and a **resume brief** generated from the `.raw` by
+`scripts/loop-resume-brief.mjs` — narrative, every range read, every
+edit hunk, the output tails of the verify / runner / worker commands,
+and how it died) and **retries the same global `#` in this run**. The
+next agent gets `scripts/agent-port-loop.continue.prompt.md` (first
+three calls fixed: the brief → `git diff HEAD -- js/` →
+`verify.mjs --fn`; triage every FAIL from that one run; ship the
+verified core and queue the rest if the extension keeps regressing;
+do **not** pop a new `LOOP-QUEUE` item) and **forces that mode even
+when the `#` is divisible by 10**. Uncommitted `js/` or `reviews/`
+after an agent returns without a commit is the same retry, not a halt.
 
-3× consecutive **short** (<30s) runs still halt (quota / out of
-tokens). Token budget and `STOP_AGENT_LOOP.md=1` still stop the
+Why the brief exists: the `.log` extract only carries `[tool]
+started/completed` markers. #2238 died on a provider quota error one
+call after a complete `verify` run (16 corpus PASS, 11 public FAILs
+listed); #2240 could not see that output, spent ~150 calls and 14
+minutes re-deriving the attempt, then fixed the same 11 failures in
+four serial rounds — 359 calls, 17.2 M tokens, 43 minutes.
+
+3× consecutive **short** (<30s) runs still halt, now **without**
+`git reset`, so a crashed iteration’s leftover survives for a relaunch.
+A provider **quota** error (`ActionRequiredError` / "You're out of
+usage") halts immediately with the latch armed instead of retrying
+into the exhausted plan; relaunch with `--continue-unfinished` once
+usage resets. Token budget and `STOP_AGENT_LOOP.md=1` still stop the
 supervisor between attempts. A human relaunch also picks up a leftover
 latch if the process was killed.
 
@@ -279,7 +295,9 @@ Under `.agent-port-loop-logs/` (gitignored):
   crash-before-commit (in-process retry, or leftover for a relaunch).
   Consumed at the start of the next attempt. Paired
   `next-iter.prompt.md` / `next-iter.context.md` hold extra operator
-  text, git-status, and paths to the prior `iter-NNNN-*.log` / `.raw`.
+  text, git-status, paths to the prior `iter-NNNN-*.log` / `.raw`, and
+  the resume brief (`node scripts/loop-resume-brief.mjs <raw>
+  [--max-lines N]` regenerates it, at any length, for a human too).
 
 ### Environment knobs
 
@@ -343,9 +361,13 @@ Halt reason is still `last-halt-reason.txt`.
    above). Halt reason: `last-halt-reason.txt`.
 5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
 6. After a crash-before-commit the supervisor **retries in-process**
-   (continue latch + cited `.log`/`.raw`). Write `STOP_AGENT_LOOP.md=1`
-   to stop between attempts. After a clean stop, inspect `git log`,
-   Notes, `CURRENT.md`, queue, and journal.
+   (continue latch + cited `.log`/`.raw` + resume brief). A provider
+   quota error (`ActionRequiredError` / "out of usage") halts instead,
+   leftover kept: relaunch with `--continue-unfinished` once usage
+   resets. Write `STOP_AGENT_LOOP.md=1` to stop between attempts. After
+   a clean stop, inspect `git log`, Notes, `CURRENT.md`, queue, and
+   journal. To read what a dead iteration did:
+   `node scripts/loop-resume-brief.mjs .agent-port-loop-logs/iter-NNNN-*.raw --max-lines 600`.
 
 ## Failure modes
 
@@ -356,7 +378,8 @@ Halt reason is still `last-halt-reason.txt`.
 | `Workspace Trust Required` | Loop defaults to `--trust`; upgrade CLI or set `AGENT_TRUST=1` |
 | banned-pattern (DIAG/FORCE/seed gate) | **Continue** (unpushed → revert this iter; already pushed → heal prompt, next iter strips hits). Does **not** write STOP |
 | density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
-| `N consecutive agent runs <30s` | Out of tokens / quota — halt+revert |
+| `N consecutive agent runs <30s` | Out of tokens / auth — halt (no reset; a leftover and its latch survive) |
+| `ActionRequiredError` / "You're out of usage" | Provider plan quota — halt at once, leftover + latch kept; relaunch with `--continue-unfinished` after the reset (#2238) |
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
 | `3× consecutive missing usage` | stream-json had no `result.usage` — halt |
 | Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start (except continue-unfinished, which warns and starts) |
@@ -365,7 +388,7 @@ Halt reason is still `last-halt-reason.txt`.
 | Agent `git push` then density/authority fail | Halt without reset; human reverts origin |
 | Agent `git push` then banned-pattern hit | Continue; next iter gets a heal prompt and strips the hits |
 | Agent `git push` then green/suite FAIL | Continue; next iter recovers |
-| Port / audit `resource_exhausted` before commit | Supervisor **retries** the same `#` as continue-unfinished (cites that iter `.log`/`.raw`); does **not** exit. 3× short runs still halt |
+| Port / audit `resource_exhausted` before commit | Supervisor **retries** the same `#` as continue-unfinished (cites that iter `.log`/`.raw` + resume brief); does **not** exit. 3× short runs still halt (tree kept) |
 | Uncommitted `js/` or `reviews/` after the agent returns | Same in-process retry, keep tree |
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |

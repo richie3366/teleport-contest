@@ -52,8 +52,20 @@ ban as for the public sessions and is a REJECT in review.
 **move to a later owner** (step strictly later, or a different owner at
 the same step or later). **NO MOVEMENT** means the port did not change
 what C does at that point — the arm is still wrong, not "named".
-**REGRESSION** (an earlier step, or fewer RNG matched) fails the
-iteration.
+**REGRESSION** (an earlier step, fewer RNG matched, or a session that was
+PASS at the baseline) fails the iteration.
+
+The blocked set comes from the **committed** scoreboard (`HEAD`, or
+`--base <rev>` — the rows the queue row was built from), unioned with
+the working scoreboard, so a second verify in the same iteration re-runs
+the same sessions. A vacuous verify (nothing blocked) is reported as
+`note`, never PASS: if the row cited N blocks, `--base <sha the row was
+queued at>`. Movement by one step under the same owner, or
+re-attribution at the same step, is printed as such — read the row diff
+before calling it progress. Reviews re-measure with `--base HASH~1`.
+(D-1831: a verify rewrote the working rows — 16 PASS — then the code was
+edited four more times without those sessions ever being re-run, and 12
+of them shipped regressed behind "no corpus session is blocked".)
 
 ## 4. The corpus (2026-09-04, at D-1817)
 

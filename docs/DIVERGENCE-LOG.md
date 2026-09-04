@@ -2,7 +2,20 @@
 
 ## D-1831 — wintty.c process_menu_window leftover WIN_STATUS + MENU_SEARCH overlay wrap
 
-- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Status:** **partial** — corpus regression found by a human re-score
+  on 2026-09-05 at `55c6736d`: of the 21 sessions blocked at `ab55b818`,
+  7 PASS, 12 diverge one step **later** on the same blank WIN_STATUS, 2
+  re-attributed to `do_statusline1`. Cause: the `_snapshotStatusGrid`
+  restore added in the last edit round copies grid rows 22–23 that
+  `itemactions`' per-key `docrt()`→`cls()`→`clearScreen()` already
+  blanked; C `process_menu_window` loops on `tty_nhgetch` without redraw.
+  The pre-snapshot leftover passed all 21 but failed seed0002/seed5002
+  (post-fullscreen blank, D-0467). The "PASS hidden" below was vacuous:
+  an earlier verify had rewritten the baseline, so the last four edit
+  rounds were never re-run on those sessions, and the scoreboard rows this
+  commit carried were measured on code that no longer existed. Public
+  44/44 holds. Must-fix queued (`LOOP-QUEUE.md`); postmortem
+  `docs/2026-09-05-continuation-postmortem-2238-2240.md`.
 - **Symptom:** tty corner menus `cl_end` only from `offx`, so WIN_STATUS left of
   `offx` stays; JS `clear_committed_status` blanked the whole row (D-0467).
   MENU_SEARCH `:` → `tty_getlin("Search for:")` must paint WIN_MESSAGE over

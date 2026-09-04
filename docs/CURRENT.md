@@ -36,10 +36,11 @@ seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
 | Speed label | `43+0.33/turn` (R² 0.862) |
 | Role-init throws | **0 / 44** |
 
-**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, 2026-09-04 at D-1823):
-**157 / 265 PASS (59.2 %)** excl. 13 env-only rows; RNG 98.28 %; screens
-96.5 %. Top owners: `process_menu_window` 21 · `itemactions` 14 ·
-`getobj` 7 · `describe_decor` 5 · level cliff `build_room` /
+**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-05 at
+D-1831 `55c6736d`): **164 / 265 PASS (61.9 %)** excl. 13 env-only rows;
+RNG 98.28 %; screens 96.9 %. Top owners: `itemactions` 14 ·
+`process_menu_window` **12 (D-1831 regression — Must-fix)** · `getobj` 7 ·
+`describe_decor` 5 · level cliff `build_room` /
 `selection_filter_percent` (53k RNG lost). Refresh on audit iters with
 `node scripts/hidden-proxy.mjs score`.
 
@@ -71,8 +72,13 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1831**. Map-driven Open (Must-fix empty).
-**Next cluster:** `iactions.c` `itemactions` — 14 corpus blocks; Engrave vs Write, cookie vs cookies.
+**Suite 44/44** at **D-1831**. **Must-fix first** (`LOOP-QUEUE.md`):
+**Next cluster:** `wintty.c` `process_menu_window` — D-1831 regression:
+`_snapshotStatusGrid` restore blanks WIN_STATUS on the frame after a
+corner-menu re-prompt (12 corpus blocks). Port the C loop (no `docrt`
+per key), keep D-0467 post-fullscreen blank, delete the snapshot.
+Falsifier: `node scripts/verify.mjs --fn process_menu_window --base ab55b818`.
+Then Open `iactions.c` `itemactions` — 14 corpus blocks.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
@@ -89,7 +95,8 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1825** `mcastu.c` `mcast_spell` `:800–897` (all 20 `MCAST_*` — port the remaining 14 arms from the C bodies; `mcast_spell`
 **D-1824** `dat/Bar-goal.lua` `:44–57`; `sp_lev.c` `create_object` / — loop bound 14 matching lua `:44–57`.
 <!-- recent:end -->
-**Do not:** FORCE/RNG; skip D-1229…D-1831; wrap `wildmiss` /
+**Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1831; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -10,10 +10,15 @@ Objective/score live in `CURRENT.md`.
   `build_room`/`selection_filter_percent` vs `rnd_rect`. Orient
   `brief.mjs`, verify `verify.mjs --fn`, hand off
   `finish-iteration.mjs --commit`.
-- **Suite 44/44** at D-1831. Next is Open `iactions.c` `itemactions`
-  (14 corpus blocks). Do **not** reopen `process_menu_window` leftover
-  WIN_STATUS / MENU_SEARCH overlay wrap / per-window `maxrow` / `cls`
-  WIN_STATUS. Do **not**
+- **Suite 44/44** at D-1831, but D-1831 is **partial**: its late
+  `_snapshotStatusGrid` restore (`_buildScreenOutput`) copies grid rows
+  22–23 that `itemactions`' per-key `docrt()`→`cls()` already cleared, so
+  12 corpus sessions blank WIN_STATUS one frame after the menu re-prompt
+  (e.g. `ind-Healer-264813587-946e8e73` step 22). C loops on `tty_nhgetch`
+  without redraw. The pre-snapshot leftover passed all 21 but failed
+  seed0002/seed5002 (post-fullscreen-invent blank, D-0467). **Must-fix
+  first**, then Open `itemactions`. MENU_SEARCH overlay wrap and
+  per-window `maxrow` are fine — do not reopen those. Do **not**
   reopen Bar-goal object count, castmu spell arms,
   medusa-2/4 / minend-3 / bigrm / soko2-2 / Wiz-goal / water / astral
   loaders, Knight `Kni-strt`/`-loca`/`-fila`/`-filb`/`-goal`,

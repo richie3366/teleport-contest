@@ -68,6 +68,15 @@ This is an audit against **pinned C**, not against the commit message.
    `hidden-proxy verify <fn>` → PROGRESS/PASS, or say explicitly that no
    corpus session is blocked on that function; then green + **relevant**
    cohort. NO MOVEMENT presented as a named omission is QUALITY-RISK.
+   **Re-measure the corpus claim yourself:** run
+   `node scripts/hidden-proxy.mjs verify <fn> --base HASH~1` (the
+   sessions blocked at the parent commit, re-run on this SHA's code) and
+   cite its summary line. A bullet that says "PASS hidden" or "no corpus
+   session is blocked" while the queue row cited N blocks is a vacuous
+   check (a verify earlier in that iteration rewrote the baseline); if
+   your re-run shows WORSE or "still <fn> at a later step" for sessions
+   the D-log calls PASS, the verification claim is false → QUALITY-RISK
+   with a Must-fix row (D-1831: 12 of 21 shipped regressed this way).
    Any read of a seed, step index, recorded coordinate or RNG index that
    exists to make a corpus or public session pass is **REJECT**.
 7. **End of this SHA:** do **Required output (this SHA)** now. Only then

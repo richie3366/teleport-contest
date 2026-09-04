@@ -64,6 +64,10 @@ commit (no stub in a live arm). Must-fix stays one item, alone. The
 supervisor reverts if `js/` insertions exceed 600 or `js/` files exceed 10.
 Remove DIAG/FORCE, seed names, recorded coords, raw RNG-index gates; never
 edit frozen `isaac64`/`terminal`/`storage` or add to `fastforward.js`.
+If an extension of the cluster keeps regressing the fortress after two
+fixes, revert it, name it in the map, queue it as its own Open row, and
+ship the verified core. Port C control flow, never a screen side effect
+(no grid snapshot/restore to keep a tty leftover — D-1831).
 
 ## Verify (1 call)
 
@@ -76,6 +80,14 @@ failed port) · green gate + strict per session · cohort · full `sessions`
 automatically when a shared file changed. Paste its last lines into the
 D-log **Verify** bullet. Hand probes are for arms no corpus session reaches;
 keep them under 30 lines and delete them before finishing.
+
+On a cohort/full FAIL it also prints every failing session's first
+divergence (step, row, owner, C vs JS row): **triage them all** — group by
+(row/region, owner), fix each cause once, re-run once — never one session
+per round. `note hidden … no corpus session is blocked` is **not** a corpus
+PASS: if the queue row cited N corpus blocks, re-run with
+`--base <sha the row was queued at>` and paste **that** tail. A D-log that
+says "PASS hidden" for a vacuous check is a false claim (D-1831).
 
 ## Durable handoff (1 hand-written entry, then 1 call)
 

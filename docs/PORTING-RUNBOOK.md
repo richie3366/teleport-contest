@@ -223,6 +223,15 @@ bullet. The individual commands remain for narrowing a failure.
    (`node scripts/hidden-proxy.mjs verify <fn>`). NO MOVEMENT means the
    port did not change what C does at that point; REGRESSION means it
    broke something earlier. Both are failed ports, not evidence to tune.
+   The blocked set is read from the **committed** scoreboard (HEAD, or
+   `--base <rev>`), so re-running verify in one iteration re-runs the same
+   sessions; a session that was PASS at the baseline and fails now is
+   REGRESSION. A vacuous verify (nothing blocked) prints `note`, never
+   PASS — if the queue row cited N blocks, pass `--base <sha the row was
+   queued at>` and cite that tail. On a cohort / full FAIL `verify.mjs`
+   prints every failing session's first divergence in the same call:
+   triage them together (group by row/owner), fix each cause once, re-run
+   once.
 1. **Syntax/static:** check edited modules and inspect lints.
 2. **Focused differential:** first RNG divergence plus the session runner.
 3. **Strict lengths:** reject trailing RNG/screens/cursors that the frozen
@@ -326,6 +335,22 @@ edit and leave evidence for the next agent.
 
 Unattended loop agents must then **commit and push** to `origin` (see
 `scripts/agent-port-loop.prompt.md` “End-of-iteration git”). No force-push.
+
+### H. Resuming a crashed iteration (continue-unfinished)
+
+The supervisor hands the continuing agent a **resume brief**
+(`scripts/loop-resume-brief.mjs` over the previous attempt's `.raw`):
+narrative, ranges read, edit hunks, the output tails of its verify /
+runner / worker commands, and how it died. The first three calls are the
+brief, `git diff HEAD -- js/`, and `verify.mjs --fn`. The leftover diff is
+the work packet; C is re-read only at the loci it cites; every FAIL from
+that one verify is triaged before the first edit; and a leftover whose
+core is green but whose extension keeps regressing the fortress ships as
+core + queued extension. #2238/#2240 measured the alternative: 150 calls
+before the first verify, four serial regression rounds, 359 calls and
+17 M tokens for one D-entry — which then shipped a corpus regression
+because its late edits were never re-verified against the sessions the
+first verify had already marked PASS.
 
 ## 6. Differential diagnosis rules
 

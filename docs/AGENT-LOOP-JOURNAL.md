@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — human postmortem #2238–#2240 (D-1831 continuation)
+
+**Found:** #2238 died on a provider quota error one call after a complete
+verify (174 calls, 19 min); #2240 spent ~150 calls re-deriving it, then
+four serial regression rounds — 359 calls, 17.2 M tokens, 43 min. Its
+last edit (`_snapshotStatusGrid`) regressed 12 of the 21 corpus sessions;
+verify's baseline had been consumed, so "PASS hidden" was vacuous.
+Re-scored at HEAD: 164/265 (was claimed 176).
+**Changed:** `hidden-proxy verify --base` (committed baseline, PASS→fail
+= WORSE), `verify.mjs` FAIL triage + `note` for vacuous corpus checks,
+`loop-resume-brief.mjs` embedded in the continue overlay, quota halt
+without reset, continue prompt rewritten (verify by call ≤5).
+**Next:** Must-fix `process_menu_window` regression. Not `itemactions` yet.
 ## 2026-09-04 — D-1831 wintty.c process_menu_window leftover WIN_STATUS + MENU_SEARCH overlay wrap
 
 **C locus:** `wintty.c` `process_menu_window` `:1329–1768` (`:1501–1505`
@@ -83,51 +96,3 @@ Must-fix stays first. 790–793 AWD (soko2-2, bigrm 13/13, minend-3).
 `43+0.33/turn` (R² 0.862). Hidden 157/265 (59.2%). Rule #2 clean.
 **Next:** Must-fix Bar-goal lua `:44–57` fourteen objects. Not Open
 `castmu`.
-## 2026-09-04 — D-1823 mkmaze.c makemaz minend-3 load_special (Catacombs / Mine's End 3/3)
-
-**C locus:** `dat/minend-3.lua`; `mkmaze.c` `makemaz` `:1127–1223`
-**JS:** `js/mklev.js` `load_minend_3` / `load_special_proto`.
-**Change:** `load_minend_3` from the lua body: solidfill HWALL (so
-**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
-**Named:** ensure_way_out; link_doors_rooms; map_cleanup;
-**Next:** Open `mcastu.c` `castmu` remaining spell arms (`mcast_*` /
-## 2026-09-04 — D-1822 mkmaze.c makemaz bigrm-1/10/13 load_special (completes Big Room 13/13)
-
-**C locus:** `dat/bigrm-{1,10,13}.lua`; `mkmaze.c` `makemaz` `:1127–1223`
-**JS:** `js/mklev.js` `load_bigrm_1` / `load_bigrm_10` / `load_bigrm_13` /
-**Change:** `load_bigrm_1` (solidfill + 18×75 room; `percent(80)` then
-**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
-**Named:** ensure_way_out; humidity-aware `get_location`;
-**Next:** Open `mkmaze.c` makemaz `minend-3` from `dat/minend-3.lua`.
-## 2026-09-04 — D-1821 mkmaze.c makemaz bigrm-5/6/11 load_special (three smallest Big Rooms)
-
-**C locus:** `dat/bigrm-{5,6,11}.lua`; `mkmaze.c` `makemaz` `:1127–1223`
-**JS:** `js/mklev.js` `load_bigrm_5` / `load_bigrm_6` / `load_bigrm_11` /
-**Change:** `load_bigrm_5` (solidfill + 19×74 diamond; `percent(25)`
-**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
-**Named:** ensure_way_out; humidity-aware `get_location`;
-**Next:** Open `mkmaze.c` makemaz `bigrm-1`/`-10`/`-13` from
-## 2026-09-04 — D-1820 mkmaze.c makemaz soko2-2 load_special (Sokoban 2 second variant)
-
-**C locus:** `dat/soko2-2.lua`; `mkmaze.c` `makemaz` `:1127–1223`
-**JS:** `js/mklev.js` `load_soko2_2` / `load_special_proto`.
-**Change:** `load_soko2_2` from the lua body: solidfill + mazelevel 22×13
-**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
-**Named:** ensure_way_out; humidity-aware `get_location`;
-**Next:** Open `mkmaze.c` makemaz `bigrm-5`/`-6`/`-11` from
-## 2026-09-04 — D-1819 mkmaze.c makemaz Bar-goal load_special (Thoth Amon / Heart of Ahriman)
-
-**C locus:** `dat/Bar-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223`
-**JS:** `js/mklev.js` `load_bar_goal` / `load_special_proto`.
-**Change:** `load_bar_goal` from the lua body: solidfill + mazelevel map,
-**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
-**Named:** humidity-aware `get_location`; `spo_end_moninvent`
-**Next:** Open `mkmaze.c` makemaz `soko2-2` from `dat/soko2-2.lua`.
-## 2026-09-04 — D-1818 mkmaze.c makemaz Wiz-goal load_special (Dark One / Eye)
-
-**C locus:** `dat/Wiz-goal.lua`; `mkmaze.c` `makemaz` `:1127–1223`
-**JS:** `js/mklev.js` `load_wiz_goal` / `load_special_proto`;
-**Change:** `load_wiz_goal` from the lua body: solidfill + mazelevel map,
-**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
-**Named:** humidity-aware `get_location`; `spo_end_moninvent`
-**Next:** Open `mkmaze.c` makemaz `Bar-goal` from `dat/Bar-goal.lua`.

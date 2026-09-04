@@ -127,6 +127,7 @@ cadence or shared/startup/display/RNG changes. Stop the loop on empty
 | PASS without `strict-output-check` | Trailing RNG/screens can hide bugs |
 | `import` from `fs` / `path` / `url` / `node:*` | Contest Rule #2 — Chrome + judge both must load `js/` |
 | Runtime `readFileSync` of `dat/*` | Embed via `js/generated/` (D-0477); VFS is storage only |
+| Grid snapshot/restore to emulate a tty side effect the C loop never draws | D-1831 `_snapshotStatusGrid` broke 12 corpus sessions; port the C control flow (no `docrt` on an unhandled menu key) |
 
 **Rule of thumb:** if you cannot explain the change by pointing at a C `if`,
 call order, struct field, or macro expansion, it is probably trace tailoring.
@@ -171,7 +172,12 @@ diverging RNG. Do not patch from `rng-diff` output alone.
 
 **One call:** `node scripts/verify.mjs --fn <cfn>` runs corpus verify, syntax,
 Rule #2 scan, green + strict, cohort, and the full suite when a shared file
-changed; paste its tail into the D-log Verify bullet.
+changed; paste its tail into the D-log Verify bullet. On a cohort/full FAIL
+it lists every failing session's first divergence: **triage them all**
+(group by row/owner), fix each cause once, re-run once. `note hidden … no
+corpus session is blocked` is **not** a corpus PASS — if the queue row
+cited N blocks, `--base <sha the row was queued at>`. **Resuming a
+leftover:** verify is call ≤5, not call 150 (#2240).
 **`rng-diff`:** default segment 0; `--all-segments` for save recipes.
 **`PASS`:** inspect `__RESULTS_JSON__` / per-session lines — runner exit code
 can be 0 when sessions fail. Always `strict-output-check` on green sessions.
@@ -231,35 +237,22 @@ in the journal.
 - Stack shims — prefer **delete wrong JS + re-port from C**.
 - Reach for Node `fs` — **Rule #2**; Chrome must load it too.
 - Spend calls on lookup — `brief.mjs` / `sym.mjs` / `csym.mjs` are one call each.
+- Serial regression rounds — one verify lists every FAIL; fix causes, not sessions.
 
 ---
 
 ## 10. End each loop iteration with git
 
-Stage intentional changes; commit with why (C locus / D-ID / verification).
-**`git push origin HEAD`.** The supervisor fail-closes (density /
-authority / empty port) and pushes if you forgot (`docs/AGENT-PORT-LOOP.md`).
-Green / full-suite regression is logged; the loop continues so the next
-iteration can recover. A banned-pattern hit (bare `FORCE`/`DIAG`, seed
-gate, `console.log`) does **not** write STOP: rewrite those lines in
-the next iter (full C names such as `SPE_FORCE_BOLT`) and continue.
-No `--force`, no amend of pushed commits, no `git reset --hard` (that
-restored a tracked `STOP_AGENT_LOOP.md` `0` and continued a stopped
-loop). `STOP_AGENT_LOOP.md` is gitignored; do not add or commit it.
-Only the supervisor writes `0` at launch. If a density/authority gate
-fails **after** a push, the supervisor halts **without** `git reset` —
-a human reverts origin.
-
-**Addressed hashes:** stamp `**Addressed:** D-NNNN` in the fix commit.
-Fill the short hash in the **next** real commit (whatever already has
-a reason to exist). Never a stamp-only SHA, never hash prediction.
-
-**Queue archive:** live `LOOP-QUEUE.md` is unchecked-only. After
-shipping, mark `- [x]` and run `node scripts/archive-loop-queue-done.mjs`
-in the same commit (`docs/archive/LOOP-QUEUE-DONE.md`). The supervisor
-archives leftover `[x]` if you forget. Journal rotate is the same:
-`node scripts/check-hot-docs.mjs --fix` in the iter; the supervisor
-runs `rotate-journal.mjs` if you skip it.
+Commit with why (C locus / D-ID / verification); **`git push origin
+HEAD`**. The supervisor fail-closes on density / authority / empty port
+and pushes if you forgot (`docs/AGENT-PORT-LOOP.md`); green / full-suite
+regression and banned-pattern hits (bare `FORCE`/`DIAG`, seed gate,
+`console.log`) are logged and the loop continues — rewrite those lines
+next iter. No `--force`, no amend of pushed commits, no `git reset
+--hard`. `STOP_AGENT_LOOP.md` is gitignored; only the supervisor writes
+`0`. `finish-iteration.mjs --commit` stamps `**Addressed:** D-NNNN`,
+archives the `- [x]` queue row and rotates the journal; the short hash
+goes in the **next** real commit (never a stamp-only SHA).
 
 ---
 

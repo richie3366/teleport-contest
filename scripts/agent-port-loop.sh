@@ -3,8 +3,9 @@
 # token-budget exhaustion, short-run streak, or missing-usage streak.
 #
 # Crash / resource_exhausted before commit: keep the tree, arm
-# continue-unfinished (cite that iter's .raw/.log), rewind n, retry in
-# this run. Density, protected files, empty committed ports, and
+# continue-unfinished (cite that iter's .raw/.log + a resume brief),
+# rewind n, retry in this run; a provider quota error halts instead
+# (latch kept). Density, protected files, empty committed ports, and
 # QUALITY-RISK without Must-fix still halt. Banned-pattern hits do not
 # write STOP: revert if unpushed, else arm a next-iter heal prompt.
 # Stop: write "1" into STOP_AGENT_LOOP.md.
@@ -60,7 +61,11 @@ Every LOOP_CADENCE_EVERY (10) is review + full-suite score (no port).
 Crash-before-commit keeps the tree, arms continue-unfinished (with
 that iter's .raw/.log), rewinds n, and **retries in this supervisor
 run** even if that global # is n%LOOP_CADENCE_EVERY==0. Does not write STOP. 3× short
-runs still halt (out of tokens). Queue below LOOP_QUEUE_MIN (8) must
+runs still halt (out of tokens; tree kept). A provider quota error
+(ActionRequiredError / "out of usage") halts at once with the latch
+armed — relaunch with --continue-unfinished. The continue overlay
+carries a resume brief (scripts/loop-resume-brief.mjs over the prior
+.raw). Queue below LOOP_QUEUE_MIN (8) must
 be refilled from the map
 (target LOOP_QUEUE_TARGET 12); halt after a port that still has no
 open items. Agents commit and push; the script fail-closes and pushes
@@ -206,6 +211,17 @@ write_continue_context() {
       fi
       if [[ -n "$raw" ]]; then
         echo "- raw: \`$raw\`"
+      fi
+      if [[ -n "$raw" && -f "$raw" && -f "$ROOT/scripts/loop-resume-brief.mjs" ]]; then
+        # The extract only carries [tool] started/completed markers; the
+        # brief carries what the previous agent read, edited, ran and saw.
+        echo
+        echo "### Resume brief (generated from the raw stream — start here, not from the extract)"
+        echo
+        echo '```'
+        node "$ROOT/scripts/loop-resume-brief.mjs" "$raw" --max-lines 200 2>/dev/null \
+          || echo "(brief unavailable — run: node scripts/loop-resume-brief.mjs $raw)"
+        echo '```'
       fi
     fi
     echo
@@ -803,6 +819,10 @@ agent_exit_hint() {
   local raw="$1" log="$2" st="$3"
   if [[ "$st" -eq 124 ]]; then
     echo " timeout"
+  elif rg -q "out of usage|ActionRequiredError|usage limit" "$raw" "$log" 2>/dev/null; then
+    # Provider plan quota (Cursor "You're out of usage"): retrying now just
+    # dies again; keep the leftover + latch and stop for the operator (#2238).
+    echo " quota"
   elif rg -q 'resource_exhausted|RetriableError' "$raw" "$log" 2>/dev/null; then
     echo " resource_exhausted"
   else
@@ -1238,8 +1258,21 @@ NODE
     rm -rf "$snapshot"
     echo "$(date -Iseconds) warning: agent iteration exit ${status}${hint} before commit; not reverting; counter rewound to $((crashed_iter - 1)); retrying #${crashed_iter} as continue-unfinished (supervisor staying up; extract=$iter_log raw=$iter_raw)" \
       | tee -a "$MASTER_LOG"
+    if [[ "$hint" == " quota" ]]; then
+      # Do not retry into an exhausted plan (each retry would be another
+      # short run) and do not halt_loop (that resets --hard and would wipe
+      # the leftover). Tree + latch stay; the operator relaunches.
+      echo "$(date -Iseconds) HALT: provider usage quota exhausted during iteration ${crashed_iter}; leftover kept, continue latch armed — relaunch once usage resets: AGENT_FORCE=1 ./scripts/agent-port-loop.sh --continue-unfinished" \
+        | tee -a "$MASTER_LOG"
+      printf '%s\n' "provider usage quota exhausted (ActionRequiredError) during iteration ${crashed_iter}; leftover kept; relaunch: AGENT_FORCE=1 ./scripts/agent-port-loop.sh --continue-unfinished" \
+        >"$LOG_DIR/last-halt-reason.txt"
+      printf '1\n' >"$STOP_FILE"
+      exit 1
+    fi
     if (( short_streak >= SHORT_STREAK_LIMIT )); then
-      halt_loop "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens" 1
+      # No reset here: the tree may hold a crashed iteration's leftover
+      # (this branch printed "not reverting" above); the latch survives.
+      halt_loop "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens; leftover kept, relaunch with --continue-unfinished" 0
     fi
     if should_stop; then
       echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting after failed iteration $crashed_iter" \
