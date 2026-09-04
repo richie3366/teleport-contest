@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1833 iactions.c itemactions Engrave vs Write, stack simpleonames, apply catalogue
+
+**C locus:** `iactions.c` `itemactions` `:429–445` (E: Engrave vs Write + `surface`); `:309–400` apply otyp chain; `item_naming_classification` `:45–82` via `objnam.c` `simpleonames` `:2427–2442`; `item_reading_classification` `:91–124` cookie/shirt/apron/hawaiian before scroll.
+**JS:** `js/iactions.js` `itemactions` / `item_naming_classification` / `item_reading_classification` / local `simpleonames`.
+**Change:** E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`. Local `simpleonames` `makeplural`s when `quan != 1`. Apply if-else matches C otyp order (candles `carrying(CANDELABRUM)`).
+**Verify:** `node scripts/verify.mjs --fn itemactions` → PASS syntax (1 js file); PASS rule2; PASS hidden verify itemactions: 12 PASS, 2 moved past (2 re-attributed at the same step to `do_statusline1`: `ind-Tourist-662206027-62b71e69` step 19 food-rations leftover WIN_STATUS row 22; `ind-Wizard-971871364-8f1ba690` step 2 bell leftover WIN_STATUS row 22), 0 unchanged, 0 worse → PROGRESS; PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+**Named:** W already-wearing `armor_simple_name` / `armcat_to_wornmask`; dungeon.c `surface` terrain nouns (ROOM → "floor", matching the four existing stubs); `cantwield` skip of `'w'`; objnam.js export `simpleonames` still omits `makeplural` (iactions/pickup local clones). Traditional itemize yn. doengrave non-hands stylus body.
+**Next:** Open `invent.c` `getobj` (7 corpus blocks). Not `do_statusline1` leftover WIN_STATUS (D-1831/D-1832).
 ## 2026-09-04 — D-1832 wintty.c process_menu_window no redraw on unhandled key (D-1831 snapshot regression)
 
 **C locus:** `wintty.c` `process_menu_window` `:1329–1768` (default: `tty_nhbell(); break;` — `page_start` stays); `iactions.c` `itemactions` `select_menu` PICK_ONE; `display.c` `docrt_flags` `:1765–1770` sets `disp.botlx` and does **not** call `bot()`; `pager.c` `dohelp` / `whatis_menu_choice`.

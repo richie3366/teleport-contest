@@ -45,7 +45,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `iactions.c` itemactions — 14 corpus blocks; Engrave vs Write, cookie vs cookies.
 - [ ] `invent.c` getobj — 7 corpus blocks; "You don't have anything else to wear." vs re-prompt.
 - [ ] `pickup.c` describe_decor — 5 corpus blocks; "There is a pit here." before the object list.
 - [ ] `sp_lev.c` build_room — 4 corpus blocks; C themed-room script vs JS `rnd_rect` (level-content cliff).

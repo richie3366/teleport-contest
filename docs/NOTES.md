@@ -6,12 +6,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 164/265 PASS at
-  D-1831; D-1832 cleared the 12 `process_menu_window` blocks (2
-  `seed0116` stay `do_statusline1`). Next Open `itemactions` 14,
-  `getobj` 7, level cliff `build_room`/`selection_filter_percent` vs
-  `rnd_rect`. Orient `brief.mjs`, verify `verify.mjs --fn`, hand off
+  D-1831; D-1833 cleared 12/14 `itemactions` blocks (2 stay
+  `do_statusline1` leftover WIN_STATUS). Next Open `getobj` 7,
+  `describe_decor` 5, level cliff `build_room`/`selection_filter_percent`
+  vs `rnd_rect`. Orient `brief.mjs`, verify `verify.mjs --fn`, hand off
   `finish-iteration.mjs --commit`.
-- **Suite 44/44** at D-1832. Unhandled corner-menu keys do not
+- **Suite 44/44** at D-1833. Itemactions Engrave/Write, stack
+  `simpleonames`, and apply catalogue are live — do not reopen those.
+  Unhandled corner-menu keys do not
   `docrt`; `_statusSuppressed` covers D-0467 fullscreen-invent blank;
   do not restore `_snapshotStatusGrid`. MENU_SEARCH overlay wrap and
   per-window `maxrow` are fine — do not reopen those. Do **not**
@@ -75,7 +77,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1832.
+  (D-1189). Do not skip D-1190…D-1833.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -85,18 +87,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1832.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1833.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1832.
+  Do not re-port D-1682…D-1833.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1833: E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`. Named: W already-wearing `armor_simple_name` / `armcat_to_wornmask`; dungeon.c `surface` terrain 
 - D-1832: Unhandled keys `tty_nhbell` only (no `docrt`/`cls`). Named: `process_menu_window` paging `docorner` repair (`previous_page_lines`); PICK_ANY invert-al
 - D-1831: `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv / Named: `process_menu_window` paging `docorner` repair
 - D-1830: `load_rog_strt` from the lua body: solidfill STONE + Named: humidity-aware `get_location`; `spo_end_moninvent`
@@ -111,5 +114,4 @@ Objective/score live in `CURRENT.md`.
 - D-1821: `load_bigrm_5` (solidfill + 19×74 diamond; `percent(25)` Named: ensure_way_out; humidity-aware `get_location`;
 - D-1820: `load_soko2_2` from the lua body: solidfill + mazelevel 22×13 Named: ensure_way_out; humidity-aware `get_location`;
 - D-1819: `load_bar_goal` from the lua body: solidfill + mazelevel map, Named: humidity-aware `get_location`; `spo_end_moninvent`
-- D-1818: `load_wiz_goal` from the lua body: solidfill + mazelevel map, Named: humidity-aware `get_location`; `spo_end_moninvent`
 <!-- landmarks:end -->

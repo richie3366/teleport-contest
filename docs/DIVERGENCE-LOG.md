@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1833 — iactions.c itemactions Engrave vs Write, stack simpleonames, apply catalogue
+
+- **Status:** fixed (14 corpus blocks; green + cohort; full `sessions` skipped — iactions.js not a shared file)
+- **Symptom:** 14 hidden-corpus sessions first-diffed on the item-action menu: blades always said "Write on the floor" (C "Engrave" for `is_blade` / wand / `oc_tough` gem or ring); stacks said "Name this stack of fortune cookie" / "dagger" (C `simpleonames` `makeplural` when `quan != 1`).
+- **C locus:** `iactions.c` `itemactions` `:429–445` (E: Engrave vs Write + `surface`); `:309–400` apply otyp chain; `item_naming_classification` `:45–82` via `objnam.c` `simpleonames` `:2427–2442`; `item_reading_classification` `:91–124` cookie/shirt/apron/hawaiian before scroll.
+- **JS was:** E always "Write on the floor with this item". Local `simpleonames` was `singular(xname)` with no `makeplural`. Apply only coin / container / wand / potion / lamps. Cookie/shirt read arms deferred.
+- **Fix:** E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`. Local `simpleonames` `makeplural`s when `quan != 1`. Apply if-else matches C otyp order (candles `carrying(CANDELABRUM)`). Reading cookie/shirt/apron/hawaiian + `SCR_MAIL` magic skip. `is_wet_towel` in the wield-as-weapon arm; `body_part(HAND|FINGER)` on wield/ring text.
+- **JS:** `js/iactions.js` `itemactions` / `item_naming_classification` / `item_reading_classification` / local `simpleonames`.
+- **Verify:** `node scripts/verify.mjs --fn itemactions` → PASS syntax (1 js file); PASS rule2; PASS hidden verify itemactions: 12 PASS, 2 moved past (2 re-attributed at the same step to `do_statusline1`: `ind-Tourist-662206027-62b71e69` step 19 food-rations leftover WIN_STATUS row 22; `ind-Wizard-971871364-8f1ba690` step 2 bell leftover WIN_STATUS row 22), 0 unchanged, 0 worse → PROGRESS; PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+- **Named omissions:** W already-wearing `armor_simple_name` / `armcat_to_wornmask`; dungeon.c `surface` terrain nouns (ROOM → "floor", matching the four existing stubs); `cantwield` skip of `'w'`; objnam.js export `simpleonames` still omits `makeplural` (iactions/pickup local clones). Traditional itemize yn. doengrave non-hands stylus body.
+- **Next:** Open `invent.c` `getobj` (7 corpus blocks). Not `do_statusline1` leftover WIN_STATUS (D-1831/D-1832).
+
 ## D-1832 — wintty.c process_menu_window no redraw on unhandled key (D-1831 snapshot regression)
 
 - **Status:** fixed (Must-fix D-1831 corpus regression; green + cohort + full `sessions` 44/44)
