@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-1813 — trap.c untrap remaining disarm_holdingtrap / landmine / shooting / box / help_monster_out
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** `untrap` returned 0 on a seen reachable floor trap and
+  skipped `untrap_box` on the autounlock-container path, so bear/web,
+  landmine, dart/arrow, known-box, and pit-rescue never ran.
+- **C locus:** `trap.c` `untrap` `:5847–6096`; `disarm_holdingtrap`
+  `:5551`; `disarm_landmine` `:5593`; `disarm_shooting_trap` `:5663`;
+  `disarm_box` `:5793`; `untrap_box` `:5820`; `help_monster_out`
+  `:5699`; `try_disarm` `:5440`; `untrap_prob` `:5287`; `cnv_trap_obj`
+  `:5340`; `try_lift` `:5676`.
+- **JS was:** `if (can_reach_floor(false)) return 0` on `tseen`;
+  container arm `return 1` without `untrap_box`.
+- **Fix:** floor `ttyp` switch calls those helpers. `untrap_box` /
+  `disarm_box` on container and `boxcnt` `ynq`. `cnv_trap_obj`
+  exported (`dig.c` caller). Door force luck-skip unchanged (D-1495).
+- **Named omissions:** `disarm_squeaky_board` (SQKY_BOARD still
+  "cannot disable"); adjacent-Whoops `move_into_trap` (no `test_move`
+  export); `stumble_on_door_mimic`.
+- **Next:** Open `trap.c` `drown` remaining: rnd_nextto_goodpos /
+  emergency_disrobe / crawl-out. Not lava_effects.
+
 ## D-1812 — end.c really_done remaining fixup_death / launch / clearlocks / pickinv / timet_delta / clearpriests / paygd
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

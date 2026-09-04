@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `end.c` really_done remaining: fixup_death / force_launch_placement / clearlocks / free_pickinv_cache / timet_delta / clearpriests / paygd. Not DUMPLOG. **Addressed:** D-1812
+- [x] `trap.c` untrap remaining: disarm_holdingtrap / disarm_landmine / disarm_shooting_trap / disarm_box / help_monster_out. Not dotrap. **Addressed:** D-1813
+
+
+- [x] `end.c` really_done remaining: fixup_death / force_launch_placement / clearlocks / free_pickinv_cache / timet_delta / clearpriests / paygd. Not DUMPLOG. **Addressed:** D-1812 `12298526`
 
 
 - [x] `muse.c` use_misc remaining: muse_newcham_mon / mloot_container / poly / bag / you_aggravate. Not use_defensive. **Addressed:** D-1811 `9b42dedf`

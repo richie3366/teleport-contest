@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1813 trap.c untrap remaining disarm helpers
+
+**Objective:** Open `trap.c` `untrap` remaining: disarm_holdingtrap /
+disarm_landmine / disarm_shooting_trap / disarm_box /
+help_monster_out. Not dotrap.
+**C:** `untrap` `:5847` switch; `disarm_holdingtrap` `:5551`;
+`disarm_landmine` `:5593`; `disarm_shooting_trap` `:5663`;
+`disarm_box` `:5793`; `untrap_box` `:5820`; `help_monster_out`
+`:5699`; `try_disarm` `:5440`; `untrap_prob` `:5287`;
+`cnv_trap_obj` `:5340`; `try_lift` `:5676`.
+**JS was:** seen floor trap + `can_reach_floor` returned 0; container
+path skipped `untrap_box`.
+**Fix:** wire those callees; export `cnv_trap_obj`. Named:
+`disarm_squeaky_board`; adjacent-Whoops `move_into_trap`;
+`stumble_on_door_mimic`.
+**Verify:** save-oracle skip (untagged `trap.c:untrap`); helper probe
+(bear/landmine/dart/arrow convert, empty pit 0, web deltrap, pit
+rescue clears `mtrapped`); green + cohort 9/9 + strict.
+**Next:** Open `trap.c` `drown` remaining: rnd_nextto_goodpos /
+emergency_disrobe / crawl-out. Not lava_effects.
 ## 2026-09-04 — D-1812 end.c really_done remaining callees
 
 **Objective:** Open `end.c` `really_done` remaining: fixup_death /

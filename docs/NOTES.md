@@ -5,10 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Open `trap.c` `untrap` remaining next** (Must-fix empty).
-  disarm_holdingtrap / disarm_landmine / disarm_shooting_trap /
-  disarm_box / help_monster_out. Not dotrap. Map-driven / cluster
-  density — do not invent a FAIL peel.
+- **Open `trap.c` `drown` remaining next** (Must-fix empty).
+  rnd_nextto_goodpos / emergency_disrobe / crawl-out. Not
+  lava_effects. Map-driven / cluster density — do not invent a FAIL
+  peel.
 - **seed0030** still 39912/105529 after D-1797. First all-segments
   miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
   (seg0 RNG OK 14300). Falsify with `rng-diff --all-segments`.
@@ -23,7 +23,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not re-port `really_done` remaining callees (D-1812) or
+- Do not re-port `untrap` remaining floor disarm helpers (D-1813) or
+  `really_done` remaining callees (D-1812) or
   `use_misc` poly/bag/`you_aggravate` (D-1811) or
   `use_offensive` ray wands / horns / tele+undead / SCR_EARTH
   (D-1810) or `use_defensive` mreadmsg / reveal_trap /
@@ -68,7 +69,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1812.
+  (D-1189). Do not skip D-1190…D-1813.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -78,17 +79,20 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1812.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1813.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1812.
+  Do not re-port D-1682…D-1813.
 
 ## Landmarks (≤15)
 
+- D-1813: `untrap` remaining holding / landmine / shooting / box /
+  help_monster_out + try_disarm / untrap_prob / cnv_trap_obj /
+  try_lift. Named: squeaky; `move_into_trap`; `stumble_on_door_mimic`.
 - D-1812: `really_done` remaining fixup_death / launch /
   clearlocks / pickinv / timet_delta / clearpriests / paygd.
   Named: POSIX signals; `grddead`; display_pickinv cache setter.
@@ -110,4 +114,3 @@ Objective/score live in `CURRENT.md`.
 - D-1801: `moveloop_core` `do_storms` / `glibr` / `mkot_trap_warn`.
 - D-1800: `test_move`/`domove_core` water_friction / bars+web / mention_walls.
 - D-1799: `spoteffects` recursion / lev timeout / Warning ice.
-- D-1798: `dochug` remaining + `wormhitu`. Named: `demon_talk` / `cuss`.

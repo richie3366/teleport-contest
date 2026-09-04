@@ -2494,7 +2494,13 @@ boulder-chain / post-switch flooreffects deferred;
 **hits_bars** D-0990); **`untrap` door D_TRAPPED find/disarm + 
 `has_magic_key`→force D-1495** (C `trap.c:5865–5868` / `:6051–6095`; 
 force skips find `rn2`/fail `rnd`; usual `getdir` D-0928 #1175); 
-floor disarm_*/box/`untrap_box`/squeaky/pit named; 
+**floor `disarm_holdingtrap` / `disarm_landmine` / `disarm_shooting_trap` /
+`disarm_box` / `untrap_box` / `help_monster_out` + `try_disarm` /
+`untrap_prob` / `cnv_trap_obj` / `try_lift` D-1813** (C `:5551` /
+`:5593` / `:5663` / `:5793` / `:5820` / `:5699` / `:5440` / `:5287` /
+`:5340` / `:5676`; JS `untrap` had returned 0 on a seen floor trap);
+`disarm_squeaky_board` / adjacent-Whoops `move_into_trap` (no
+`test_move` export) / `stumble_on_door_mimic` named; 
 **`chest_trap` luck-save + explode/gas/needle/fire/elec/freeze/hallu** (D-0989; 
 **gas `Blind`/`rndcolor` D-1147**; Soundeffect / bot polish / Halluc_resistance stagger still 
 named); omit steed `mon_learns`; `madeby_u` `rnl` setmangry

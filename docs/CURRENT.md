@@ -26,9 +26,8 @@ Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1805**
 **seed4500** Screen **1801**/1814 (RNG full) since **D-1792**.
 Scr **10,428**/11,405, RNG **727,221**/792,838 = **91.7%**.
 Speed `42+0.33/turn` (R² 0.859).
-Must-fix is empty — next port pops Open `trap.c` `untrap` remaining:
-disarm_holdingtrap / disarm_landmine / disarm_shooting_trap /
-disarm_box / help_monster_out. Not dotrap.
+Must-fix is empty — next port pops Open `trap.c` `drown` remaining:
+rnd_nextto_goodpos / emergency_disrobe / crawl-out. Not lava_effects.
 
 ## Score
 
@@ -69,21 +68,20 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 42/44** at D-1805. Audit **766–774** ACCEPT-WITH-DEBT.
-Open `end.c` `really_done` remaining callees shipped (**D-1812**).
+Open `trap.c` `untrap` remaining floor disarm helpers shipped (**D-1813**).
 seed0030 first miss is C seg4 `randomize_gem_colors` vs JS still in
 seg3 combat (seg0 RNG OK 14300). Save-oracle for tagged restore
 Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
-**Next cluster:** `trap.c` `untrap` remaining: disarm_holdingtrap /
-disarm_landmine / disarm_shooting_trap / disarm_box /
-help_monster_out. Not dotrap.
+**Next cluster:** `trap.c` `drown` remaining: rnd_nextto_goodpos /
+emergency_disrobe / crawl-out. Not lava_effects.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1812 (index).** Recent **D-1812:** `fixup_death` /
-`launch_drop_spot` / `force_launch_placement` / `clearlocks` /
-`free_pickinv_cache` / `timet_delta` / `clearpriests` / `paygd`.
-Named: POSIX signals, `grddead`, display_pickinv cache setter,
-insight/save/`#suspend`/`#shell` `timet_delta` callers.
-**Do not:** FORCE/RNG; skip D-1229…D-1812; wrap `wildmiss` /
+**Keep D-0845…D-1813 (index).** Recent **D-1813:** `disarm_holdingtrap`
+/ `disarm_landmine` / `disarm_shooting_trap` / `disarm_box` /
+`untrap_box` / `help_monster_out` + `try_disarm` / `untrap_prob` /
+`cnv_trap_obj` / `try_lift`. Named: `disarm_squeaky_board`,
+adjacent-Whoops `move_into_trap`, `stumble_on_door_mimic`.
+**Do not:** FORCE/RNG; skip D-1229…D-1813; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; D-0480 glyph serialize
 (D-0483); reset_glyphmap / notice_all_mons / savelev-freeing /
