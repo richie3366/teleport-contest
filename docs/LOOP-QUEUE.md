@@ -45,7 +45,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmaze.c` makemaz `Rog-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Rogue quest, 0/5. Rogue is 6/44 public sessions, the largest uncovered role (503 ln total).
 - [ ] `wintty.c` process_menu_window — 21 corpus blocks; tty menu clears only from its own left column.
 - [ ] `iactions.c` itemactions — 14 corpus blocks; Engrave vs Write, cookie vs cookies.
 - [ ] `invent.c` getobj — 7 corpus blocks; "You don't have anything else to wear." vs re-prompt.

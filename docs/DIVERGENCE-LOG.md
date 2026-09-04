@@ -1,5 +1,44 @@
 # Divergence log
 
+## D-1830 — mkmaze.c makemaz Rog-strt/loca/goal/fila/filb load_special (Rogue quest 5/5)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no Rogue quest loaders, so `Rog-strt` / `-loca` /
+  `-goal` / `-fila` / `-filb` were a blank `create_maze` fallback. C loads
+  `dat/Rog-*.lua` via `sp_lev.c` `load_special`. Rogue is 6/44 public
+  sessions (largest uncovered role; 503 ln total).
+- **C locus:** `dat/Rog-strt.lua` / `Rog-loca.lua` / `Rog-goal.lua` /
+  `Rog-fila.lua` / `Rog-filb.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `create_monster` appear_as `ter:` /
+  CUSTOM_INVENT; `nhlib.lua` `shuffle` / `math.random(lo,hi)` / `d(dice,faces)`.
+- **JS was:** `load_special_proto` named-omitted all five Rogue protos.
+- **Fix:** `load_rog_strt` from the lua body: solidfill STONE +
+  mazelevel/noteleport/hardfloor/nommap, 76×21 map, `lspo_map` lit=FALSE,
+  `nhlib_shuffle` of four exits (downstairs vs giant/large/small mimic
+  `S_dnstair`), floodfill streets at (0,12) + `rndcoord(1)` wanderers
+  (`lua_random2(4,7)` nymph+leprechaun pairs, `lua_random2(7,10)`
+  chameleons), locked/closed doors, Master of Thieves CUSTOM_INVENT
+  leather+silver dagger+`d(2,4)` not-cursed daggers, chest, thugs, 16
+  traps, branch levregion after flip. `load_rog_loca`: same solidfill map,
+  `light_region` grow, random stairs, cursed teleport scroll, 14 objects /
+  6 traps / leprechaun-naga-chameleon stock. `load_rog_goal`: noteleport
+  map, levregion stair-up `region_islev`, Master Key of Thievery,
+  chameleon tin, spiked pit, Master Assassin, sharks in moat.
+  `load_rog_fila`/`load_rog_filb`: ordinary `des.room` + corridors
+  (leprechaun/naga/nymph counts from lua).
+- **JS:** `js/mklev.js` `load_rog_strt` / `load_rog_loca` / `load_rog_fila` /
+  `load_rog_filb` / `load_rog_goal` / `load_special_proto`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; PASS hidden (no corpus session blocked on
+  makemaz); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort
+  7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** humidity-aware `get_location`; `spo_end_moninvent`
+  `m_dowear`; flip_level lregion coord update; `ensure_way_out`; generic
+  `invent_carrying_monster` / shared `splev_create_monster` `appear_as`
+  (local staircase override only). Not the lua maps, shuffle exits,
+  floodfill streets, Master of Thieves/Key, or filler room stock.
+- **Next:** Open `wintty.c` `process_menu_window`. Not fakewiz.
+
 ## D-1829 — mkmaze.c makemaz Kni-strt/loca/fila/filb load_special (Knight quest 5/5)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
