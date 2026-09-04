@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-1814 — trap.c drown remaining emergency_disrobe / rnd_nextto_goodpos / crawl-out
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** `emergency_disrobe` always returned TRUE without walking
+  invent, so crawl-out never dumped gear, never failed on undroppables,
+  and used a thin `teleds_drown` instead of C `teleds`.
+- **C locus:** `trap.c` `drown` `:5058–5199`; `emergency_disrobe`
+  `:4896–4941`; `rnd_nextto_goodpos` `:4944–4972`; crawl
+  `teleds(x,y,TELEDS_ALLOW_DRAG)` `:5154–5166`; `eat.c` `reset_faint`
+  `:3353–3358`.
+- **JS was:** stub disrobe `{lost:false; return true}`; `is_u` treated
+  missing `mtmp` as the hero; crawl skipped `usleep` `unmul`,
+  `reset_faint`, `mmove`, `Is_waterlevel`, `hliquid`, live `teleds`.
+- **Fix:** C undroppable walk + `remove_worn_item`/`dropx`; Punished ≡
+  `uball`; shuffle `is_u` is `youmonst` only; crawl-out those gates +
+  `teleds`. `reset_faint` exported from `eat.js`.
+- **Named omissions:** Amphibious/Breathless/Swimming wade
+  `set_uinwater`; Teleportation escape; steed dismount; drowning
+  `done()` loop; `feel_newsym` waterwall; lava_effects.
+- **Next:** Open `trap.c` `lava_effects` remaining: Fire_resistance /
+  Wwalking / inventory burn / sink-and-die. Not drown.
+
 ## D-1813 — trap.c untrap remaining disarm_holdingtrap / landmine / shooting / box / help_monster_out
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

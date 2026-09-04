@@ -948,6 +948,12 @@ turn-loop / exercise STR·CON / pickup/drop); Lev/air/steed `weight_cap` MAX; `s
 `heal_legs`; **`body_part`** / **`mbodypart`** import `polyself.js` (D-1496;
 steed FOOT uses `mbodypart(usteed)`, not the hero). **mcastu HEAD /
 pickup HAND D-1508**. **`mcast_blind_you` EYE D-1534**. **`observe_quantum_cat` FOOT D-1535**.
+**`drown` crawl-out D-1814** (C `emergency_disrobe` `:4896` /
+`rnd_nextto_goodpos` `:4944` / crawl `teleds(TELEDS_ALLOW_DRAG)`
+`:5154–5166`; JS stub always-TRUE disrobe + `teleds_drown`; now those
+plus `unmul`/`reset_faint`/`mmove`; named: Amphibious wade,
+Teleportation escape, steed, drowning `done()` loop, `feel_newsym`
+waterwall, lava_effects).
 
 ### `src/dog.c` `tamedog` / `initedog`
 

@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1814 trap.c drown remaining crawl-out
+
+**Objective:** Open `trap.c` `drown` remaining: rnd_nextto_goodpos /
+emergency_disrobe / crawl-out. Not lava_effects.
+**C:** `drown` `:5058`; `emergency_disrobe` `:4896`;
+`rnd_nextto_goodpos` `:4944`; crawl `teleds` `:5154`; `reset_faint`
+`:3353`.
+**JS was:** stub disrobe always TRUE; thin `teleds_drown`; skipped
+`unmul`/`reset_faint`/`mmove`/`Is_waterlevel`/`hliquid`.
+**Fix:** C undroppable walk + live `teleds`; `reset_faint` in eat.js.
+Named: Amphibious wade; teleport/steed; drowning `done()` loop.
+**Verify:** save-oracle skip (untagged `trap.c:drown`); helper probe
+(shuffle 8 draws, mmove 0 skip, usleep clear, undroppable/stealoid
+vain crawl); green + cohort 7/7 + strict.
+**Next:** Open `trap.c` `lava_effects` remaining: Fire_resistance /
+Wwalking / inventory burn / sink-and-die. Not drown.
 ## 2026-09-04 — D-1813 trap.c untrap remaining disarm helpers
 
 **Objective:** Open `trap.c` `untrap` remaining: disarm_holdingtrap /

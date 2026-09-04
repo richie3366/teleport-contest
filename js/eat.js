@@ -101,7 +101,7 @@ import {
     A_STR, A_DEX, A_CHA, A_WIS, A_INT, A_CON,
 } from './attrib.js';
 import {
-    nomul, losehp, still_chewing, is_pool, is_lava, stop_occupation,
+    nomul, unmul, losehp, still_chewing, is_pool, is_lava, stop_occupation,
     end_running,
 } from './hack.js';
 import { near_capacity, observe_object, makeknown, getobj,
@@ -458,6 +458,16 @@ async function unfaint() {
     if (game.disp) game.disp.botl = true;
     if (game.flags) game.flags.botl = true;
     return 0;
+}
+
+/**
+ * C eat.c reset_faint `:3353–3358` — drown crawl-out / combat wake.
+ * Pointer compare: only the faint afternmv, not other occupations.
+ */
+export async function reset_faint() {
+    if (game.afternmv === unfaint) {
+        await unmul('You revive.');
+    }
 }
 
 /**

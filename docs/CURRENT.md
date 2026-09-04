@@ -26,8 +26,8 @@ Score last measured: **2026-09-04** — full `sessions` at HEAD **D-1805**
 **seed4500** Screen **1801**/1814 (RNG full) since **D-1792**.
 Scr **10,428**/11,405, RNG **727,221**/792,838 = **91.7%**.
 Speed `42+0.33/turn` (R² 0.859).
-Must-fix is empty — next port pops Open `trap.c` `drown` remaining:
-rnd_nextto_goodpos / emergency_disrobe / crawl-out. Not lava_effects.
+Must-fix is empty — next port pops Open `trap.c` `lava_effects` remaining:
+Fire_resistance / Wwalking / inventory burn / sink-and-die. Not drown.
 
 ## Score
 
@@ -68,20 +68,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 42/44** at D-1805. Audit **766–774** ACCEPT-WITH-DEBT.
-Open `trap.c` `untrap` remaining floor disarm helpers shipped (**D-1813**).
+Open `trap.c` `drown` crawl-out shipped (**D-1814**).
 seed0030 first miss is C seg4 `randomize_gem_colors` vs JS still in
 seg3 combat (seg0 RNG OK 14300). Save-oracle for tagged restore
 Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
-**Next cluster:** `trap.c` `drown` remaining: rnd_nextto_goodpos /
-emergency_disrobe / crawl-out. Not lava_effects.
+**Next cluster:** `trap.c` `lava_effects` remaining: Fire_resistance /
+Wwalking / inventory burn / sink-and-die. Not drown.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1813 (index).** Recent **D-1813:** `disarm_holdingtrap`
-/ `disarm_landmine` / `disarm_shooting_trap` / `disarm_box` /
-`untrap_box` / `help_monster_out` + `try_disarm` / `untrap_prob` /
-`cnv_trap_obj` / `try_lift`. Named: `disarm_squeaky_board`,
-adjacent-Whoops `move_into_trap`, `stumble_on_door_mimic`.
-**Do not:** FORCE/RNG; skip D-1229…D-1813; wrap `wildmiss` /
+**Keep D-0845…D-1814 (index).** Recent **D-1814:** `emergency_disrobe`
+/ `rnd_nextto_goodpos` / crawl `teleds(TELEDS_ALLOW_DRAG)` +
+`unmul`/`reset_faint`/`mmove`. Named: Amphibious wade, Teleportation
+escape, steed, drowning `done()` loop, `feel_newsym` waterwall.
+**Do not:** FORCE/RNG; skip D-1229…D-1814; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; D-0480 glyph serialize
 (D-0483); reset_glyphmap / notice_all_mons / savelev-freeing /

@@ -97,7 +97,8 @@ import {
     DISP_FLASH, DISP_END,
     MAY_DESTROY, MAY_HIT, MAY_FRACTURE, VIS_EFFECTS,
     IS_OBSTRUCTED, IS_STWALL, IS_TREE, IRONBARS,
-    HVY_ENCUMBER, EXT_ENCUMBER, WT_TOOMUCH_DIAGONAL,
+    HVY_ENCUMBER, EXT_ENCUMBER, UNENCUMBERED, SLT_ENCUMBER, WT_TOOMUCH_DIAGONAL,
+    TELEDS_ALLOW_DRAG,
     ECMD_OK, ECMD_TIME, MON_DETACH,
     Is_container, Waterproof_container, Is_box,
     xytodir, DIR_180, DIR_ERR,
@@ -107,10 +108,10 @@ import {
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
-    maybe_half_phys, nomul, losehp, finish_maybe_wail, stop_occupation,
+    maybe_half_phys, nomul, unmul, losehp, finish_maybe_wail, stop_occupation,
     in_rooms, set_uinwater,
 } from './hack.js';
-import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level } from './teleport.js';
+import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level, teleds } from './teleport.js';
 import { get_level } from './dungeon.js';
 import {
     objectNames, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS, ARMOR_CLASS,
@@ -137,13 +138,14 @@ import { unpunish } from './read.js';
 import { create_gas_cloud } from './region.js';
 import { polymon, body_part, mbodypart } from './polyself.js';
 import { done } from './end.js';
-import { make_blinded } from './do.js';
+import { make_blinded, dropx } from './do.js';
 import { mon_adjust_speed } from './muse.js';
 import { m_dowear } from './worn.js';
 import { m_unleash } from './apply.js';
 import { hard_helmet } from './do_wear.js';
 import { unplacebc, placebc, ballfall } from './ball.js';
-import { carried } from './eat.js';
+import { carried, is_fainted, reset_faint } from './eat.js';
+import { inv_cnt, remove_worn_item } from './steal.js';
 import { ynq } from './getline.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { killed, stumble_onto_mimic } from './uhitm.js';
@@ -493,6 +495,7 @@ const BEARTRAP = objectNames.indexOf('BEARTRAP');
 const LAND_MINE = objectNames.indexOf('LAND_MINE');
 const ROCK = objectNames.indexOf('ROCK');
 const BOULDER = objectNames.indexOf('BOULDER');
+const LOADSTONE = objectNames.indexOf('LOADSTONE');
 const the_your = ['the', 'your'];
 const AD_PHYS = 0;
 const AD_FIRE = 2; /* monattk.h */
@@ -4760,18 +4763,60 @@ export async function water_damage_chain(objOrList, here) {
 }
 
 /**
- * C ref: trap.c emergency_disrobe — drop until near_capacity ok.
- * Named omissions: full undroppable set / remove_worn_item / dropx body;
- * when already light enough, returns TRUE with no RNG (session path).
+ * C ref: trap.c emergency_disrobe `:4896–4941` (staticfn).
+ * Drop until near_capacity() <= (Punished ? UNENCUMBERED : SLT_ENCUMBER).
+ * Punished ≡ uball != 0 (D-1786). JS invent is an array (D-1691); walk
+ * that so inv_cnt(TRUE) and rn2(invc) share one sequence.
+ * @param {{lost: boolean}} lostsome  C boolean *
+ * @returns {Promise<boolean>}
  */
-function emergency_disrobe(lostRef) {
-    lostRef.lost = false;
+async function emergency_disrobe(lostsome) {
+    let invc = inv_cnt(true);
+    const u = game.u || {};
+    /* C youprop.h Punished ≡ (u.uball != 0) */
+    const cap = u.uball ? UNENCUMBERED : SLT_ENCUMBER;
+
+    while (near_capacity() > cap) {
+        let otmp = null;
+        if (invc > 0) {
+            let i = rn2(invc);
+            for (const obj of game.invent || []) {
+                /*
+                 * Undroppables are: body armor, boots, gloves,
+                 * amulets, and rings because of the time and effort
+                 * in removing them + loadstone and other cursed stuff
+                 * for obvious reasons.  Also, any item in the midst
+                 * of being taken off or stolen.
+                 */
+                if (!((obj.otyp === LOADSTONE && obj.cursed)
+                      || obj === u.uamul
+                      || obj === u.uleft || obj === u.uright || obj === u.ublindf
+                      || obj === u.uarm || obj === u.uarmc || obj === u.uarmg
+                      || obj === u.uarmf || obj === u.uarmu
+                      || (obj.cursed && (obj === u.uarmh || obj === u.uarms))
+                      || welded(obj)
+                      || ((game.stealoid | 0) !== 0
+                          && obj.o_id === (game.stealoid | 0))
+                      || obj.in_use)) {
+                    otmp = obj;
+                }
+                if (--i < 0 && otmp) break;
+            }
+        }
+        if (!otmp) return false; /* nothing to drop! */
+        if (otmp.owornmask) await remove_worn_item(otmp, false);
+        lostsome.lost = true;
+        await dropx(otmp);
+        invc--;
+    }
     return true;
 }
 
 /**
- * C ref: trap.c rnd_nextto_goodpos — shuffle N_DIRS, first crawl_destination
- * / goodpos wins. Hero path uses crawl_destination.
+ * C ref: trap.c rnd_nextto_goodpos `:4944–4972`.
+ * Shuffle N_DIRS, first crawl_destination / goodpos wins.
+ * is_u is mtmp === youmonst (C `&gy.youmonst`); worm.c keeps a mon-only
+ * clone (cycle).
  */
 export function rnd_nextto_goodpos(pos, mtmp) {
     const dirs = [];
@@ -4782,16 +4827,11 @@ export function rnd_nextto_goodpos(pos, mtmp) {
         dirs[j] = dirs[i - 1];
         dirs[i - 1] = k;
     }
-    const isU = !mtmp || mtmp === game.youmonst || mtmp?.isYou;
+    const isU = mtmp === game.youmonst;
     for (let i = 0; i < N_DIRS; i++) {
         const nx = (pos.x | 0) + xdir[dirs[i]];
         const ny = (pos.y | 0) + ydir[dirs[i]];
-        let ok = false;
-        if (isU) {
-            ok = crawl_destination(nx, ny);
-        } else {
-            ok = goodpos(nx, ny, mtmp, 0);
-        }
+        const ok = isU ? crawl_destination(nx, ny) : goodpos(nx, ny, mtmp, 0);
         if (ok) {
             pos.x = nx;
             pos.y = ny;
@@ -4802,35 +4842,16 @@ export function rnd_nextto_goodpos(pos, mtmp) {
 }
 
 /**
- * Minimal teleds for drown crawl-out — u_on_newpos + vision/newsym.
- * Ball/chain, swallow, drag_ball, spoteffects re-entry deferred.
- */
-async function teleds_drown(nux, nuy) {
-    const u = game.u;
-    if (!u) return;
-    const ox = u.ux, oy = u.uy;
-    u.ux0 = ox;
-    u.uy0 = oy;
-    u.ux = nux;
-    u.uy = nuy;
-    if (u.usteed) {
-        u.usteed.mx = nux;
-        u.usteed.my = nuy;
-    }
-    newsym(ox, oy);
-    const { vision_recalc } = await import('./vision.js');
-    vision_recalc(1);
-    newsym(nux, nuy);
-}
-
-/**
- * C ref: trap.c drown — fall/plunge into pool/waterwall; crawl out.
- * Branch envelope: first-entry fall/plunge + sink; empty water_damage_chain;
- * rnd_nextto_goodpos + emergency_disrobe stub + crawl/Pheew + teleds.
- * Fail-crawl set_uinwater(1) is D-1267. Named omissions: Amphibious/
- * Breathless/Swimming wade set_uinwater; post-rescue set_uinwater(0);
- * gremlin/iron golem; leash; Teleportation escape; steed; sleep/faint;
- * waterlevel disrobe; drowning done() loop; Hallucination Titanic.
+ * C ref: trap.c drown `:5058–5199` — fall/plunge into pool/waterwall;
+ * crawl out via rnd_nextto_goodpos + emergency_disrobe + teleds.
+ * Branch envelope: first-entry fall/plunge + sink; water_damage_chain;
+ * usleep unmul / reset_faint; mmove + rnd_nextto_goodpos; waterlevel
+ * skip disrobe else emergency_disrobe; crawl/Pheew/teleds(ALLOW_DRAG)
+ * or But-in-vain. Fail-crawl set_uinwater(1) is D-1267.
+ * Named omissions: Amphibious/Breathless/Swimming wade set_uinwater;
+ * post-rescue set_uinwater(0); gremlin/iron golem; leash;
+ * Teleportation escape; steed dismount; drowning done() loop;
+ * Hallucination Titanic; feel_newsym waterwall.
  * @returns {Promise<boolean>} true if hero relocated
  */
 export async function drown() {
@@ -4849,19 +4870,29 @@ export async function drown() {
 
     await water_damage_chain(game.invent, false);
 
+    /* if sleeping, wake up now so that we don't crawl out of water
+       while still asleep; unmul() clears u.usleep */
+    if (u.usleep) await unmul('Suddenly you wake up!');
+    /* being doused will revive from fainting */
+    if (is_fainted()) await reset_faint();
+
     const pos = { x: u.ux, y: u.uy };
-    if ((game.multi | 0) >= 0 && rnd_nextto_goodpos(pos, game.youmonst)) {
+    /* have to be able to move in order to crawl */
+    if ((game.multi | 0) >= 0 && (game.youmonst?.data?.mmove | 0)
+        && rnd_nextto_goodpos(pos, game.youmonst)) {
         const lostRef = { lost: false };
-        const succ = emergency_disrobe(lostRef);
-        await pline('You try to crawl out of the water.');
+        const succ = Is_waterlevel(u.uz) ? true : await emergency_disrobe(lostRef);
+
+        await pline(`You try to crawl out of the ${hliquid('water')}.`);
         if (lostRef.lost) {
             await pline('You dump some of your gear to lose weight...');
         }
         if (succ) {
             await pline('Pheew!  That was close.');
-            await teleds_drown(pos.x, pos.y);
+            await teleds(pos.x, pos.y, TELEDS_ALLOW_DRAG);
             return true;
         }
+        /* still too much weight */
         await pline('But in vain.');
     }
 
