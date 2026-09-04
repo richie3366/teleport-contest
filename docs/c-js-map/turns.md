@@ -1348,6 +1348,11 @@ dothrow `hurtle_step` D-1165; do.c `goto_level` D-1166;
 C `hack.c:2877` / `monmove.c` 672–683; Hezrou/Steam trail at `u.ux0`; helper `is_u`; 
 **`allmain.c` once-per-input `m_everyturn_effect(&youmonst)` fog at `u.ux` (D-1175)**; 
 **`spoteffects`→`dotrap` (non-pit pickup then trap)** (D-0239) + 
+**`spoteffects` recursion / `in_lava_effects` / lev timeout `rn2(2)` /
+Warning ice / hidden-mon+piercer surprise** (D-1799; C `hack.c:3311–3462`;
+`incr_itimeout_HLevitation` / invent `Blind` exports; named: pooleffects
+leave-water / Wwalking / steed / ceiling_hider; `failing_untrap` writer
+`trap.c` `move_into_trap`; helm_simple_name clones) + 
 **`dotrap` `!undestroyable_trap` skips seen-escape `rn2(5)`** (D-1188; 
 MAGIC_PORTAL/VIBRATING_SQUARE never escape; plunge/conj_pit/adj_pit still named); 
 `maybe_half_phys` identity until Half_physical prop; **`losehp`→`maybe_wail`** (D-0928 #1153; 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
-- [x] `monmove.c` dochug remaining arms + wormhitu callee. Not m_move. **Addressed:** D-1798
+- [x] `hack.c` spoteffects recursion guards / levitation timeout / Warning ice `:3312–3462`. Not dotrap. **Addressed:** D-1799
+
+
+- [x] `monmove.c` dochug remaining arms + wormhitu callee. Not m_move. **Addressed:** D-1798 `8767a241`
 
 ## 2026-09-03
 

@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1799 hack.c spoteffects remaining body
+
+**Objective:** Open `hack.c` `spoteffects` recursion / lev timeout /
+Warning ice `:3312–3462`. Not `dotrap`.
+**C:** `hack.c:3311–3462`. 42 callers. Static `inspoteffects` /
+spotloc / spotterrain / spottrap; `in_lava_effects`; lev `TIMEOUT==1`
+`rn2(2)` incr vs `float_down`; Warning ice; `m_at` piercer/default
+then `mnexto`.
+**JS was:** dest-typ / pooleffects / sink / pickup+dotrap; **return**
+on `in_steed_dismounting` so later arms never ran.
+**Fix:** those arms in `js/pickup.js`; `incr_itimeout_HLevitation` +
+invent `Blind` exports. Named: pooleffects leave-water, `failing_untrap`
+writer, helm_simple_name clones.
+**Verify:** save-oracle skip (untagged `hack.c:spoteffects`); green +
+strict; cohort 7/7 + ride 0103/0104.
+**Next:** Open `hack.c` `test_move` + `domove_core`. Not lookaround.
 ## 2026-09-04 — D-1798 monmove.c dochug remaining + wormhitu
 
 **Objective:** Open `monmove.c` `dochug` remaining arms + `wormhitu`.

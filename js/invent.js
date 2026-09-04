@@ -256,7 +256,7 @@ import {
 const MZ_HUMAN = 2;
 
 /** C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (+ roleplay). */
-function Blind() {
+export function Blind() {
     const u = game.u || {};
     if (u.uroleplay?.blind) return true;
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));

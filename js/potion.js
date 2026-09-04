@@ -689,8 +689,9 @@ function set_itimeout_HLevitation(val) {
 
 /**
  * C potion.c incr_itimeout(&HLevitation, incr) — TIMEOUT bits only.
+ * Caller hack.c spoteffects levitation-timeout defer (D-1799).
  */
-function incr_itimeout_HLevitation(incr) {
+export function incr_itimeout_HLevitation(incr) {
     const cur = hlev_bits();
     set_HLevitation((cur & ~TIMEOUT) | itimeout_incr(cur, incr));
 }

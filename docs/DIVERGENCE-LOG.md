@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-1799 — hack.c spoteffects recursion / lev timeout / Warning ice / hidden-mon
+
+- **Status:** fixed (map-driven Open row; green + movement/riding cohort hold)
+- **Symptom:** JS `spoteffects` was dest-typ / pooleffects / sink /
+  pickup-then-dotrap only. It had no C static recursion or
+  `in_lava_effects` guards, no levitation-timeout `rn2(2)` adjust, no
+  Warning-on-ice, no hidden-monster / piercer surprise, and **returned**
+  on `in_steed_dismounting` so ice and surprise never ran after a
+  dismount. Fire-trap `melt_ice` could re-enter the same trap; a
+  timeout-1 Levitation on a trap never drew `rn2(2)`.
+- **C locus:** `hack.c` `spoteffects` `:3311–3462`. Callers: 42 sites
+  (`domove`, `teleds`, `do_wear`, lava land, …). Not `dotrap`.
+- **JS was:** switch_terrain / pooleffects / `dosinkfall` / pickup+dotrap
+  with an early `return` on `in_steed_dismounting`. Recursion statics,
+  lev timeout, Warning ice, and `m_at` surprise deferred.
+- **Fix:** those arms in `js/pickup.js`; `incr_itimeout_HLevitation`
+  exported from `js/potion.js`; invent `Blind` exported (no 30th clone).
+  `helm_simple_name` inlined as C `hard_helmet ? "helm" : "hat"` at the
+  one piercer site.
+- **Named omissions:** `pooleffects` leave-water / Wwalking / steed /
+  ceiling_hider; `dotrap` plunge/conj_pit/adj_pit (D-1188);
+  `iflags.failing_untrap` writer (`trap.c` `move_into_trap`);
+  `helm_simple_name` clones in dothrow/mhitu/trap/uhitm; ceiling
+  `in_rooms` vault/temple/shop. `set_uinwater` is D-1267.
+- **Next:** Open `hack.c` `test_move` + `domove_core` water_friction /
+  avoid-trap-or-liquid / fight bars+web / mention_walls. Not lookaround.
+
 ## D-1798 — monmove.c dochug remaining arms + worm.c wormhitu
 
 - **Status:** fixed (map-driven Open row; green + combat cohort hold)
