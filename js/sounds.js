@@ -5,7 +5,8 @@
 //         growl (pet abuse; D-0836);
 //         set_voice (D-1752; !SND_SPEECH no-op). SetVoice is sndprocs.h.
 //         sound_speak (D-1761; !SND_SPEECH no-op). SoundSpeak is sndprocs.h.
-//         maybe_gasp (D-1762); beg (D-1763).
+//         maybe_gasp (D-1762); beg (D-1763);
+//         maybe_play_sound (D-1807; USER_SOUNDS compiled out).
 
 import { game } from './gstate.js';
 import {
@@ -56,6 +57,18 @@ export function set_voice(mtmp, tone, volume, moreinfo) {
     void tone;
     void volume;
     void moreinfo;
+}
+
+/**
+ * C ref: sounds.c maybe_play_sound `:1658–1673` (`#ifdef USER_SOUNDS`).
+ * macosx-minimal has no `-DUSER_SOUNDS`, so C `vpline` does not call
+ * this. When USER_SOUNDS is on, the first check is
+ * `soundprocs.sound_play_usersound`; contest has no SND_LIB so that
+ * pointer is null and the soundmap regex walk never runs.
+ * Named: SOUND= / `add_sound_mapping` / `sound_matches_message`.
+ */
+export function maybe_play_sound(msg) {
+    void msg;
 }
 
 /**

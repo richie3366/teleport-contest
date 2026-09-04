@@ -90,6 +90,33 @@ export function str_end_is(str, chkstr) {
     return s.length >= c.length && s.slice(s.length - c.length) === c;
 }
 
+/**
+ * C ref: hacklib.c str_start_is `:212–237` — true when `str` starts with
+ * `chkstr` (chkstr may be shorter). `caseblind` uses ASCII A-Z `lowc`.
+ */
+export function str_start_is(str, chkstr, caseblind) {
+    const s = String(str ?? '');
+    const c = String(chkstr ?? '');
+    let n = 2147483647;
+    let i = 0;
+    let j = 0;
+    while (--n) {
+        if (i >= s.length) return j >= c.length;
+        if (j >= c.length) return true;
+        const t1 = caseblind ? ascii_lowc_ch(s.charCodeAt(i)) : s.charCodeAt(i);
+        const t2 = caseblind ? ascii_lowc_ch(c.charCodeAt(j)) : c.charCodeAt(j);
+        i++;
+        j++;
+        if (t1 !== t2) return false;
+    }
+    return true;
+}
+
+/** C hacklib.c lowc — ASCII A-Z |= 040. */
+function ascii_lowc_ch(code) {
+    return (code >= 65 && code <= 90) ? (code | 0x20) : code;
+}
+
 /** C hacklib.c highc — ASCII a-z → A-Z. */
 export function highc(c) {
     if (c == null || c === '') return c;

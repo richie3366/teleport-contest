@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1807 pline.c vpline msgtype_type / execplinehandler / maybe_play_sound
+
+**Objective:** Open `pline.c` `vpline` msgtype_type /
+execplinehandler / maybe_play_sound. Not pline wrapper.
+**C:** `vpline` `:247–278`; `msgtype_type` `:7796`;
+`execplinehandler` `:640`; `maybe_play_sound` `:1658`.
+**JS was:** Norep local `_prevmsg` check; no MSGTYPE table;
+dead callees.
+**Fix:** `options.js` msgtype list + `MSGTYPE=` parse;
+`display.js` vpline gate + execplinehandler; Norep
+`PLINE_NOREPEAT`; `dolook` hide_unhide; `maybe_play_sound`
+export (USER_SOUNDS compiled out). Named: SOUND= soundmap;
+UNIX msghandler fork; doset MSGTYPE menu.
+**Verify:** save-oracle skip (untagged); msgtype probe;
+green + strict; cohort 7/7 + strict.
+**Next:** Open `sounds.c` `domonnoise` remaining: genus /
+mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg.
 ## 2026-09-04 — D-1806 cmd.c getdir help_dir / cmdassist / dxdy_moveok
 
 **Objective:** Open `cmd.c` `getdir` help_dir / cmdassist /

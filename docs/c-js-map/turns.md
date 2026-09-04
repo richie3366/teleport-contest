@@ -2067,7 +2067,15 @@ wrap)** (D-0880); **post-answer `gt.toplines=prompt+key2txt`/`#N` D-1623** (`top
 **`tty_nhbell` / `cw->cury` / `intr` D-1631** (`termcap.c` `:750–757` + `topl.c` `:475–478`/`:518`/`:544–548`; optlist silent default On; unwrapped `cury==0` keeps leftover; wrapped clear does not wipe `gt.toplines`; `more`/`help_dir` call sites; **kill_char D-1632**); 
 **MENU_SEARCH / `tty_wait_synch` D-1646** (`wintty.c` `process_menu_window` `:1698–1731` `:` `tty_getlin`+`pmatchi`+`toggle_menu_curr`; PICK_NONE bell; PICK_ONE first match finishes; explicit page/gacc `:` not search; `tty_wait_synch` `:3623–3647` rawprint `getret` / inmore `addtopl("--More--")` / inread `intr++` two `tty_doprev_message`; live `js/invent.js` `process_menu_search` + pickinv/used-invlets/PICK_NONE + `js/options.js` pick_one/any + `js/display.js`; `more` inmore guard; too_small `void tty_wait_synch`; map_menu_cmd remaps / display_inventory loop `wait_synch` / `tty_raw_print` setter named); 
 **`message_menu` PICK_ONE + `more` dismiss_more** (D-0422); 
-**`Norep` vs `gp.prevmsg` (last shown pline)** (D-0402; msgtype regex table deferred); 
+**`Norep` vs `gp.prevmsg` (last shown pline)** (D-0402); 
+**`vpline` `msgtype_type` / `execplinehandler` / `maybe_play_sound` D-1807**
+(`options.c` `:7796` first regex_match on `gp.plinemsg_types`;
+`MSGTYPE=` `cnf_line_MSGTYPE` `:632` + `msgtype_parse_add`;
+NOSHOW / NOREP+prevmsg suppress before vision_recalc; STOP `more`;
+`execplinehandler` returns without `sysopt.msghandler`; USER_SOUNDS
+compiled out of macosx-minimal so C `vpline` does not call
+`maybe_play_sound`; `dolook` `hide_unhide_msgtypes`; named: SOUND=
+soundmap, UNIX msghandler fork, doset MSGTYPE menu, full POSIX ERE); 
 **botl `_statusLine1` `rank_of(ulevel)` via `xlev_to_rank` + full `roles[].title[9]`** (D-0562; 
 was sticky title[0]); **botl `_statusLine2` `enc_stat` when `near_capacity()>UNENCUMBERED`** 
 (D-0401) + **`hu_stat` when `uhs!=NOT_HUNGRY` before enc_stat** (D-0500) + 

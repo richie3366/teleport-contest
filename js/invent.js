@@ -193,7 +193,7 @@ import {
 } from './attrib.js';
 import { depth, ing_suffix, strstri } from './hacklib.js';
 import { visctrl } from './dokeylist.js';
-import { select_menu_pick_any } from './options.js';
+import { select_menu_pick_any, hide_unhide_msgtypes } from './options.js';
 import { rn2 } from './rng.js';
 import { newuexp } from './exper.js';
 import {
@@ -233,6 +233,8 @@ import {
     HALLUC_RES, SEARCHING, REFLECTING, LIFESAVED,
     FIRE_RES, SHOCK_RES, TELEPAT, WARNING,
     DISPLACED, ANTIMAGIC,
+    LOOKHERE_NOFLAGS,
+    MSGTYP_MASK_REP_SHOW,
 } from './const.js';
 import { align_str, align_gname, u_gname, rank_of } from './roles.js';
 import {
@@ -6050,9 +6052,12 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
     }
 }
 
-/** C ref: invent.c dolook() */
+/** C ref: invent.c dolook() — hide MSGTYPE norep/noshow around look_here. */
 export async function dolook() {
-    await look_here(0, 0);
+    hide_unhide_msgtypes(true, MSGTYP_MASK_REP_SHOW);
+    const res = await look_here(0, LOOKHERE_NOFLAGS);
+    hide_unhide_msgtypes(false, MSGTYP_MASK_REP_SHOW);
+    return res;
 }
 
 /**

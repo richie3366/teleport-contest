@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1807 — pline.c vpline msgtype_type / execplinehandler / maybe_play_sound
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** JS `Norep` suppressed duplicates itself and never called
+  `msgtype_type`, so MSGTYPE= hide/noshow/stop/norep from `.nethackrc`
+  could not change `pline`. `execplinehandler` and `maybe_play_sound`
+  were dead callees.
+- **C locus:** `pline.c` `vpline` `:247–278` / `execplinehandler`
+  `:640–686`; `options.c` `msgtype_type` `:7796–7810` /
+  `msgtype_add` `:7730` / `msgtype_parse_add` `:7843` /
+  `hide_unhide_msgtypes` `:7814`; `cfgfiles.c` `cnf_line_MSGTYPE`
+  `:632`; `sounds.c` `maybe_play_sound` `:1658` (`USER_SOUNDS`).
+  Not the `pline()` wrapper.
+- **JS was:** empty `gp.plinemsg_types`; Norep compared `_prevmsg`
+  locally; no MSGTYPE= parse; no execplinehandler.
+- **Fix:** `js/options.js` nhregex-ish compile/match + msgtype list
+  (prepend, first match wins); `parseNethackrc` `MSGTYPE=`;
+  `js/display.js` `vpline` gate (NOSHOW / NOREP vs prevmsg / STOP
+  `more`) + `execplinehandler` early-return; `Norep` sets
+  `PLINE_NOREPEAT`; `urgent_pline` sets `URGENT_MESSAGE`;
+  `last_msg = PLNMSG_UNKNOWN` after putmesg; `dolook` hide_unhide;
+  `str_start_is` one export (readobjnam clone deleted).
+- **Named omissions:** USER_SOUNDS `SOUND=` / soundmap (macosx-minimal
+  has no `-DUSER_SOUNDS`); UNIX `sysopt.msghandler` fork/execv
+  (Rule #2); doset MSGTYPE add/list/remove menu; full POSIX ERE
+  engine vs JS RegExp.
+- **Next:** Open `sounds.c` `domonnoise` remaining: genus /
+  mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg.
+
 ## D-1806 — cmd.c getdir help_dir / cmdassist / strange-direction NEED_MORE / dxdy_moveok
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)
