@@ -88,4 +88,4 @@ Named (not Must-fix): `hitmu` remaining ads; SEDUCE=0; ceiling `in_rooms`; `uhit
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1797
+**Addressed:** D-1797 `819bccab`

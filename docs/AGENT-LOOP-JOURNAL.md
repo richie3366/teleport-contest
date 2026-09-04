@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-04 — D-1798 monmove.c dochug remaining + wormhitu
+
+**Objective:** Open `monmove.c` `dochug` remaining arms + `wormhitu`.
+Not `m_move`.
+**C:** `dochug` `:689–989` / `m_arrival` `:572` / `release_hero` `:361`
+/ `leppie_stash` `:1153` / `worm.c` `wormhitu` `:343–362`.
+**JS was:** those arms deferred; `wormhitu` NOT FOUND; `findgold`
+nobj-only so invent[] always empty.
+**Fix:** STRAT_ARRIVE, leppie_stash, release_hero, MS_BRIBE mux,
+S_LEPRECHAUN findgold, isgd vanish, MOVED unstuck+helpless,
+PHASE FOUR `quest_talk`, `wormhitu`. Named: `demon_talk`, `cuss`.
+**Verify:** arrival/release/lep-rn2/wormhitu-skip probes; green +
+strict; cohort 7/7. save-oracle skip (untagged `monmove.c:dochug` /
+`worm.c:wormhitu`).
+**Next:** Open `hack.c` `spoteffects` recursion / levitation timeout /
+Warning ice. Not `dotrap`.
 ## 2026-09-04 — D-1797 hack.c nomul/unmul usleep + uinvulnerable
 
 **Objective:** Must-fix **764** — Match C `hack.c` `nomul` `:4166–4167` /

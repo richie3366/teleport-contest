@@ -566,6 +566,8 @@ oldhp `*mhit`, `dothrow.c` `thitmonst` `:2206–2207` chopper=`is_axe`;
 **D-1577 `redraw_worm`** (`worm.c:989–998`; callers `dog.c` `tamedog` `:1275–1276`
 after head `newsym`, `abuse_dog` `:1386–1390` when the pet goes wild; unlike
 `see_wsegs` includes the dummy at `wheads`; live `js/worm.js` + `js/dog.js`);
+**D-1798 `wormhitu`** (`worm.c:343–362`; caller `monmove.c` `dochug` PHASE FOUR;
+skip dummy at `wheads`; `distu(wx,wy)<3` then `mattacku`; live `js/worm.js`);
 omit save/rest wsegs, `flip_worm_segs_vertical`/`flip_worm_segs_horizontal`, muse/mhitu 
 `worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 

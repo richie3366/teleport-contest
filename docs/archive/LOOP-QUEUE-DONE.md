@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-04
+
+- [x] `monmove.c` dochug remaining arms + wormhitu callee. Not m_move. **Addressed:** D-1798
+
 ## 2026-09-03
 
-- [x] Match C `hack.c` `nomul` `:4160–4173` / `unmul` `:4177–4198` so `u.usleep = 0` and `nomul`’s `u.uinvulnerable = FALSE` actually run, instead of leaving those fields sticky so D-1795 `mattacku` sleep-wakeup `rn2(10)` (`mhitu.c:939–943`) fires on every hit after the first sleep. Source: reviews/loop-unattended/764-efcb3fd4-mattacku.md. **Addressed:** D-1797
+- [x] Match C `hack.c` `nomul` `:4160–4173` / `unmul` `:4177–4198` so `u.usleep = 0` and `nomul`’s `u.uinvulnerable = FALSE` actually run, instead of leaving those fields sticky so D-1795 `mattacku` sleep-wakeup `rn2(10)` (`mhitu.c:939–943`) fires on every hit after the first sleep. Source: reviews/loop-unattended/764-efcb3fd4-mattacku.md. **Addressed:** D-1797 `819bccab`
 
 
 - [x] `mon.c` xkilled LEVEL_SPECIFIC_NOCORPSE + accessible||is_pool gate + artifact un-create. Not make_corpse. **Addressed:** D-1796 `b14236d6`

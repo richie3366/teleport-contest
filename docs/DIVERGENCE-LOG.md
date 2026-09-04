@@ -1,5 +1,34 @@
 # Divergence log
 
+## D-1798 — monmove.c dochug remaining arms + worm.c wormhitu
+
+- **Status:** fixed (map-driven Open row; green + combat cohort hold)
+- **Symptom:** JS `dochug` stopped after muse/watch/wield/bee/cube/
+  undirected `castmu`/`m_move`, so STRAT_ARRIVE never cleared,
+  flee-teleport never buried leprechaun gold (`rn2(4)`), a peaceful
+  grabber never spent the turn releasing the hero, MS_BRIBE mux-mismatch
+  never whispered/angered, S_LEPRECHAUN `findgold` never drew `rn2(2)`,
+  vanished vault guards (`isgd && mx==0`) kept acting, a confused
+  grabber that walked off stayed stuck, helpless-after-trap still
+  attacked, long-worm tail segs never `mattacku`'d, and PHASE FOUR
+  nearby `quest_talk` never ran. `wormhitu` was NOT FOUND.
+- **C locus:** `monmove.c` `dochug` `:689–989`; static `m_arrival`
+  `:572`, `release_hero` `:361`, `leppie_stash` `:1153`; `worm.c`
+  `wormhitu` `:343–362`. Sole live caller `dochug` `:975`.
+- **JS was:** STRAT_ARRIVE / leppie_stash / release_hero / MS_BRIBE /
+  S_LEPRECHAUN findgold / isgd vanish / MOVED unstuck+helpless /
+  wormhitu / PHASE FOUR `quest_talk` deferred. Local `findgold` walked
+  nobj only, so `game.invent` (array, D-1691) always looked empty.
+- **Fix:** those arms in `js/monmove.js`; `wormhitu` in `js/worm.js`
+  (skip dummy at `wheads`; `distu<3` then `mattacku`). `findgold`
+  accepts invent[].
+- **Named omissions:** `minion.c` `demon_talk` (mux==hero paid-off);
+  `wizard.c` `cuss` (`MS_CUSS && !rn2(5)`); full `steal.c` `mdrop_obj`
+  saddle/shop/flooreffects (this `leppie_stash` site is unworn gold on
+  ROOM `!t_at`).
+- **Next:** Open `hack.c` `spoteffects` recursion guards / levitation
+  timeout / Warning ice. Not `dotrap`.
+
 ## D-1797 — hack.c nomul/unmul usleep=0 + nomul uinvulnerable=FALSE
 
 - **Status:** fixed (Must-fix review **764**; green + combat cohort hold)

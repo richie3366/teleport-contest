@@ -2254,14 +2254,14 @@ JS has those three at wrong coords (silent appr drift); not mfndpos ROOM omit;
 **peaceful shop/temple dig avoid** D-0865; full `passes_bars` ALLOW_BARS D-1258; 
 hero `hack.c` `test_move` `passes_bars` D-1270; Underwater / rock Passes_walls named); 
 **`monnear` NODIAG diagonal** (D-0199); **exported `monflee`** (D-0635; 
-**`mon_track_clear` always** D-0860; `release_hero`/flees_light/Vrock deferred); 
+**`mon_track_clear` always** D-0860; **`release_hero` D-1798** / flees_light/Vrock deferred); 
 **`dochug` frozen/sleep Hallu `newsym`** (WAITMASK/msleeping); 
 **`dochug` NOTHING/DONE/NOMOVES Hallu `newsym` after 2nd distfleeck** (D-0853; 
-vault-guard isgd vanish deferred; #977/@172 Scr−2 was different window); 
+**isgd vanish D-1798**; #977/@172 Scr−2 was different window); 
 **`dochug` mconf/mstun recover + mflee `rn2(40)` teleport (`can_teleport`/`await rloc(RLOC_MSG)` 
 D-0886) + **`m_respond` D-1314** + courage `rn2(25)`** (D-0442; gazemu D-1328; 
-leppie_stash deferred); **`dochug` STRAT_CLOSE + `monnear` → `quest_talk`** (D-0590; 
-PHASE FOUR nearby `quest_talk` / nemesis msound still deferred); 
+**leppie_stash D-1798** — named: `mdrop_obj` flooreffects/saddle); **`dochug` STRAT_CLOSE + `monnear` → `quest_talk`** (D-0590; 
+**PHASE FOUR nearby `quest_talk` D-1798**; nemesis msound still deferred); 
 `distfleeck` scared/onscary/flees_light/`monflee` still stub (D-0854: LCP 555 Monnam×7 is **not** 
 fleeck→monflee — no core `rnd` between fleecks); 
 **`dochug` covetous `tactics` before fleeck** (D-0928 #1120; STRAT_NONE harass rn2/mnexto; 
@@ -2286,12 +2286,13 @@ other `mcast_spell` / `mattacku` AT_MAGC deferred);
 **`mon_yells` D-1248**); **`dochug` uses `hero_conflict` + 
 PHASE FOUR `resist_conflict` for peaceful under Conflict** (D-0413); 
 **`dochug` MMOVE_MOVED fall-through includes `ranged_attk_available`** (D-0609; 
-`m_seenres` gate in ranged_attk still deferred; engulfing_u after MOVED deferred); 
+`m_seenres` gate in ranged_attk still deferred; **MOVED unstuck/`helpless` + `wormhitu` D-1798**); 
 **`m_move` cnt==0 `find_defensive(TRUE)`+healing `use_defensive`/`precheck`** (D-0610; 
 flee/dig/tele/create invent + blindness healing deferred); 
 **`dochug`→`disturb` sleeping wake (`rn2(7)` / Stealth/ettin/nymph|jabber|lep)** (D-0278; 
 `wake_msg` still deferred); **`dochug` `wipe_engr_at(mx,my,1)` before apparxy/fleeck** (D-0369; 
-mconf/mstun/flee-teleport/**m_respond D-1314**/courage between wipe and apparxy (gazemu named)); 
+mconf/mstun/flee-teleport/**m_respond D-1314**/courage between wipe and apparxy (gazemu named); 
+**`dochug` STRAT_ARRIVE `m_arrival` + MS_BRIBE mux-mismatch D-1798** (`demon_talk` paid-off / `cuss` `!rn2(5)` named)); 
 **`dochugw` occupation threat → `stop_occupation`** (D-0392; `onscary` stub); 
 **hostile `m_move`→`postmov` + `mfndpos` known-trap skip** (D-0151); 
 **`set_apparxy` Displacement/Invis/Underwater** (D-0154; cloak otyp for EDisplaced; 
@@ -2321,7 +2322,7 @@ bars/poison-gas `visible_region_at` (**D-0597:** `mfndpos` pool/lava/waterwall +
 `can_fog` vampshifter in squeeze still deferred); 
 **D-0708 open:** seed0014 @49039 peaceful gnome `mfndpos` cnt 6 vs C 5 (symptom looked like 
 `distfleeck` `rn2(6)`); **D-0710 fixed:** seed0108 missing `#rub`→SE `n` desynced pet nearby (not 
-dochug geometry); S_LEPRECHAUN findgold arm still omitted in want_move OR; 
+dochug geometry); **S_LEPRECHAUN findgold arm D-1798** in want_move OR; 
 **`m_balks_at_approaching`** launcher/pole/aklys/`ranged_attk_available` + `appr==-2` (D-0253; 
 `m_seenres` in ranged_attk deferred); shortsighted / wired `m_avoid_kicked_loc` / **`m_move` 
 post-select `chi` + `itsstuck` + `ALLOW_U`→mux + 

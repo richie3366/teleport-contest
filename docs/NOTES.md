@@ -5,7 +5,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Open `dochug` next** (Must-fix empty after D-1797). Not a
+- **Open `spoteffects` next** (Must-fix empty after D-1798). Not a
   seed0030 peel. Do not invent a seed4500 FAIL peel (D-1792 leftover).
 - **seed0030** still 39912/105529 after D-1797. First all-segments
   miss is C seg4 `randomize_gem_colors` vs JS still in seg3 combat
@@ -22,9 +22,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not re-port `nomul`/`unmul` `usleep=0` / nomul
-  `uinvulnerable` (D-1797) or `xkilled` LEVEL_SPECIFIC / pool /
-  artifact un-create (D-1796). Do not treat usleep as seed0030’s
+- Do not re-port `dochug` remaining / `wormhitu` (D-1798) or
+  `nomul`/`unmul` `usleep=0` / nomul `uinvulnerable` (D-1797) or
+  `xkilled` LEVEL_SPECIFIC / pool / artifact un-create (D-1796).
+  Named: `demon_talk`, `cuss`. Do not treat usleep as seed0030’s
   first token. No second `accessible` export. Floor-boulder
   `sobj_at` / MAIL / wasinside / Blind_telepat / quest adjalign
   named. Upolyd survived-that still named.
@@ -49,7 +50,7 @@ Objective/score live in `CURRENT.md`.
 - Do not treat `g` as Unknown (D-1186). PREFIXCMD inner parse D-1582.
   ParanoidTrap portal yn / `domagicportal` / `undestroyable_trap`
   / `mktrap` dst / `goto_level` uz0 are D-1187/1188.
-- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1797.
+- Do not restore rhack raw-ETX (D-1189). Do not skip D-1190…D-1798.
 - Don't re-apply D-0480 **glyph** `tty_map_color` (D-0483).
 - Don't skip painting spaces or emit mid-row space runs >4 (D-0931).
 - Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -59,7 +60,7 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask`
   (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) /
   omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()`
-  (D-1066). Do not skip D-1067…D-1797.
+  (D-1066). Do not skip D-1067…D-1798.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / re-port `eyecount` / delete emin / stub
   `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541).
@@ -67,10 +68,12 @@ Objective/score live in `CURRENT.md`.
   `makemap_remove_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static
   `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. No trailing
-  `confdir` in shared `getdir`. Do not re-port D-1682…D-1797.
+  `confdir` in shared `getdir`. Do not re-port D-1682…D-1798.
 
 ## Landmarks (≤15)
 
+- D-1798: `dochug` remaining + `wormhitu`. Named: `demon_talk` /
+  `cuss`. findgold invent[] (D-1691).
 - D-1797: `nomul`/`unmul` `usleep=0` + nomul `uinvulnerable=FALSE`.
   Named: Upolyd survived-that form. seed0030 first miss is not this.
 - D-1796: `xkilled` LEVEL_SPECIFIC + pool gate + artifact un-create.
@@ -88,4 +91,3 @@ Objective/score live in `CURRENT.md`.
 - D-1786: ballfall callers `u.uball`; helper is D-1778.
 - D-1774: `newsym` I-arm `lev->glyph`; fight_empty `glyph_at`.
 - D-1773: `gold_detect`; `o_in`/`o_material`/`clear_stale_map`.
-- D-1772: `peacefuls_respond`; named `qst_guardians_respond`.
