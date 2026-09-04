@@ -37,7 +37,6 @@ Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 Rows 1–12 of `docs/PORT-GAP-TOP30.md` (hidden-score risk order). Pop in
 order; rows 13–30 of that file refill this list.
 
-- [ ] `cmd.c` getdir help_dir / cmdassist / strange-direction NEED_MORE / dxdy_moveok. Not confdir.
 - [ ] `pline.c` vpline msgtype_type / execplinehandler / maybe_play_sound. Not pline wrapper.
 - [ ] `sounds.c` domonnoise remaining: genus / mon_is_gecko / doconsult / shk_chat / priest_talk. Not beg.
 - [ ] `muse.c` use_defensive remaining: mreadmsg / reveal_trap / mon_escape / mon_consume_unstone. Not use_offensive.
@@ -45,6 +44,11 @@ order; rows 13–30 of that file refill this list.
 - [ ] `muse.c` use_misc remaining: muse_newcham_mon / mloot_container / poly / bag / you_aggravate. Not use_defensive.
 - [ ] `end.c` really_done remaining: fixup_death / force_launch_placement / clearlocks / free_pickinv_cache / timet_delta / clearpriests / paygd. Not DUMPLOG.
 - [ ] `trap.c` untrap remaining: disarm_holdingtrap / disarm_landmine / disarm_shooting_trap / disarm_box / help_monster_out. Not dotrap.
+- [ ] `trap.c` drown remaining: rnd_nextto_goodpos / emergency_disrobe / crawl-out. Not lava_effects.
+- [ ] `trap.c` lava_effects remaining: Fire_resistance / Wwalking / inventory burn / sink-and-die. Not drown.
+- [ ] `mon.c` newcham remaining: monst_to_any / NC_VIA_WAND_OR_SPELL mon_break_armor / boulder. Not make_corpse.
+- [ ] `steed.c` dismount_steed remaining: poly / engulfed / water and lava steed death. Not mount.
+- [ ] `uhitm.c` hmonas remaining: polymorphed-hero attack switch. Not hmon.
 
 ## Parked (do not pop)
 

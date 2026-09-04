@@ -1548,7 +1548,7 @@ export function YN(query) {
  * Named: SND_SPEECH (no soundlib — compiled out); DUMPLOG_CORE
  * (D-1776); paniclog file (Rule #2); remaining interned `'yn'`/`'ynq'`
  * callers (not the decl.c tables); hide+web hidespinchars in
- * domonability; getdir fuzzer (next Open).
+ * domonability; getdir fuzzer (named omit after D-1806 help_dir).
  *
  * @param {string} query
  * @param {string|String|null} [resp]

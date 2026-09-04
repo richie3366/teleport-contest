@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-1806 — cmd.c getdir help_dir / cmdassist / strange-direction NEED_MORE / dxdy_moveok
+
+- **Status:** fixed (map-driven Open row; green + named cohort hold)
+- **Symptom:** Shared `getdir` returned false on invalid keys without
+  `help_dir` NHW_TEXT (quitchar/`--More--` wait) or
+  `pline("What a strange direction!")`, and never ran `dxdy_moveok`
+  (grid-bug diagonal). Throw/open/close only got that via a
+  `getdir_cmdassist` clone.
+- **C locus:** `cmd.c` `getdir` `:3956–4119` / `help_dir` `:4168–4296` /
+  `dxdy_moveok` `:3901–3907` / `hack.h` `NODIAG`. Not `confdir`.
+- **JS was:** those arms named-omit after D-1729 CQ_REPEAT; help lived
+  only in `dothrow.js` `getdir_cmdassist`.
+- **Fix:** shared `js/lock.js` `getdir` invalid/`?` → `help_dir` via
+  `show_text_pages` (xwaitforspace quitchars) + cmdassist / strange
+  pline; `dxdy_moveok` NODIAG; `getdirInp` at retry; `getdir_cmdassist`
+  wraps; `doclose` / `get_adjacent_loc` call `getdir`. No trailing
+  `confdir`.
+- **Named omissions:** mouse `_` getpos; fuzzer; `cmd_from_func` keys;
+  rhack `dxdy_moveok`; interned `yn_function_menu`.
+- **Next:** Open `pline.c` `vpline` msgtype_type / execplinehandler /
+  maybe_play_sound. Not pline wrapper.
+
 ## D-1805 — cmd.c yn_function remaining body including fuzzer RNG arms
 
 - **Status:** fixed (map-driven Open row; green + named cohort hold)

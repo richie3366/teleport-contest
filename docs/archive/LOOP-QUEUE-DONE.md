@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-04
 
+- [x] `cmd.c` getdir help_dir / cmdassist / strange-direction NEED_MORE / dxdy_moveok. Not confdir. **Addressed:** D-1806
+
+
 - [x] `cmd.c` yn_function remaining body including RNG arms. Not getlin. **Addressed:** D-1805 `3ff0752d`
 
 

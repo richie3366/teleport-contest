@@ -226,7 +226,7 @@ legacy `_repeat_search` path unused when occupation set);
 `goto got_prefix_input` (g/G/F/m `do_rush`/`do_run`/`do_fight`/`do_reqmenu`); 
 `cmdq_shift` `:354–370`; doextcmd `:3753–3760` ext_tlist add+shift; 
 `set_move_cmd` `:1386–1400` + `do_move_*` REPEAT; keyboard hjkl still DIR_DX; 
-nested F+g/G / full CMD_gGF table / `dxdy_moveok` / `cmd_from_func` / capital 
+nested F+g/G / full CMD_gGF table / rhack `dxdy_moveok` / `cmd_from_func` / capital 
 `do_run_*` REPEAT / travelmap `reset_cmd_vars` named)**; 
 **rhack Unknown command `visctrl(key)` (D-1189; Ctrl-C is `^C`; 
 **`do_repeat` CQ_REPEAT D-1563** (C `cmd.c` `:1637–1660` copy/`in_doagain`/`rhack(0)` restore; 
@@ -1668,20 +1668,24 @@ Blind_telepat/Infravision/Sting `see_monsters` D-1755 / Eyes / **Punished `set_b
 costly_alteration COST_SPLAT / quan>1 invent-split deferred); exported `getdir` for kick/apply; 
 **`getdir` `'.'` = SELF** (D-0780; was cancel) + 
 **D-1038 `lock.js` `getdir` cmdq DIR/KEY, `s` self, `<>`, movecmd HJKL/Ctrl, optional numpad, `^R` 
-retry** (no trailing `confdir`; help_dir/cmdassist still `getdir_cmdassist` for throw) + 
+retry** (no trailing `confdir`) + 
 **D-1721 `getdir` yn_function** (C `cmd.c` `:3987–4011` `yn_function(query, NULL, '\0', FALSE)` then 
 `clear_nhwindow(WIN_MESSAGE)`; `(s && *s != '^')` query; live `js/lock.js` + 
 `getdir_cmdassist` / `getdir_zap`; unused dothrow clone deleted) + 
 **D-1729 `getdir` CQ_REPEAT** (C `:3962–4019` `cmdq_pop` DIR/KEY + `cmdq_add_key(CQ_REPEAT)` 
 when `!in_doagain`; `in_doagain` `nhgetch`; live `getdir_read_dirsym`; `getdir_zap` 
-calls shared `getdir` then local `confdir`; dig `use_pick_axe` calls `getdir`; 
-mouse `_` getpos / help_dir in shared getdir / dxdy_moveok / fuzzer named;
-`yn_function_menu` is D-1728); 
+calls shared `getdir` then local `confdir`; dig `use_pick_axe` calls `getdir`) + 
+**D-1806 `getdir` help_dir / cmdassist / strange-direction NEED_MORE / `dxdy_moveok`**
+(C `help_dir` `:4168–4296` NHW_TEXT `show_text_pages` quitchar wait + Guidebook
+`dowhatdoes_core`; `dxdy_moveok` `:3901–3907` NODIAG grid-bug; live shared
+`js/lock.js` `getdir`; `getdir_cmdassist` wraps; `doclose` / `get_adjacent_loc`
+call `getdir`; no trailing `confdir`; named: mouse `_` getpos, fuzzer,
+`cmd_from_func` keys, rhack `dxdy_moveok`; `yn_function_menu` is D-1728); 
 getobj missing-letter `continue`+`flush_topl_more` (D-0025); 
 **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); 
 **`doclose`/`c` getdir cmdassist + close envelope** (D-0740; 
 stumble_on_door_mimic / Blind feel / portcullis deferred); 
-**`get_adjacent_loc` → `getdir_cmdassist`; `MAGIC_MARKER` → `dowrite`** (D-0742); 
+**`get_adjacent_loc` → shared `getdir` (D-1806); `MAGIC_MARKER` → `dowrite`** (D-0742); 
 **`doopen_indir`/`kick_door` `recalc_block_point`; `pick_lock` NODOOR/ISOPEN/BROKEN** (D-0113); 
 **`doopen_indir` locked → autounlock APPLY_KEY + `autokey`/`pick_lock` ynq + 
 `picklock` occupation `rn2(100)`** (D-0487); 
