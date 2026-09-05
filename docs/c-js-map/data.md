@@ -1269,6 +1269,14 @@ map + random stairs + negate-filter rndcoord(0) blessed spinach tin + burn
 Elbereth; goal mines-only init (solidfill commented out) + Pri-goal map +
 Eyes of the Overworld lenses with no oerodeproof + Master Kaen/altar pick;
 all-ordinary hostile-E/X fillers);
+**Cav-strt/loca/goal/fila/filb** (D-1891; Caveman quest 5/5: 76x20 maps,
+strt whole-map unlit + temple filled=1 FILL_NORMAL flood (sp_lev.c :5600)
++ 6 ordinary irregulars needfill 0 + coaligned shrine via
+sp_amask_to_amask(AM_SPLEV_CO) + Shaman Karnov armor/club +5 + chest +
+neanderthals + 2 fixed pits + 12 hostile bugbears; loca mazelevel/
+hardfloor no-noteleport + fixed stairs + hostile h/H stock; goal
+solidfill-only + whole-map lit + Sceptre of Might mace + asleep
+Chromatic Dragon + shriekers; Ran-fila mines+noflip fillers);
 **knox** (D-1853; Fort Ludios
 76x20 solidfill vault: branch + up/down tele, throne COURT, vault gold/trap
 iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);

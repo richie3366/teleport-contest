@@ -1453,7 +1453,8 @@ function reset_xystart_size() {
  * Hea-strt, Hea-loca, Hea-fila, Hea-filb, Hea-goal,
  * Tou-strt, Tou-loca, Tou-fila, Tou-filb, Tou-goal,
  * Ran-strt, Ran-loca, Ran-goal, Ran-fila, Ran-filb,
- * Mon-strt, Mon-loca, Mon-goal, Mon-fila, Mon-filb, knox.
+ * Mon-strt, Mon-loca, Mon-goal, Mon-fila, Mon-filb,
+ * Cav-strt, Cav-loca, Cav-goal, Cav-fila, Cav-filb, knox.
  * Named omissions:
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1827,6 +1828,26 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Mon-filb') {
         load_mon_filb();
+        return true;
+    }
+    if (protofile === 'Cav-strt') {
+        load_cav_strt();
+        return true;
+    }
+    if (protofile === 'Cav-loca') {
+        load_cav_loca();
+        return true;
+    }
+    if (protofile === 'Cav-goal') {
+        load_cav_goal();
+        return true;
+    }
+    if (protofile === 'Cav-fila') {
+        load_cav_fila();
+        return true;
+    }
+    if (protofile === 'Cav-filb') {
+        load_cav_filb();
         return true;
     }
     if (protofile === 'knox') {
@@ -10530,6 +10551,519 @@ function load_mon_filb() {
     if (!g.level.flags?.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Cav-strt.lua via load_special — Caveman quest start
+ * (Shaman Karnov, besieged). Solidfill " " + mazelevel/noteleport/
+ * hardfloor; 76x20 map; whole-map unlit; temple {13,01,40,05} lit
+ * irregular filled=1 (Pri-strt flood idiom, needfill FILL_NORMAL) +
+ * 6 lit irregular ordinary regions (no `filled` key → needfill 0);
+ * down stair (02,03); single-cell branch levregion (71,09); locked
+ * door (19,06); coaligned shrine (36,02) + priestini; Shaman Karnov +
+ * leather armor/club +5 CUSTOM_INVENT + chest + 8 neanderthal guards;
+ * whole-map non_diggable; 2 fixed pits + 4 random traps; 12 hostile
+ * bugbears on siege duty.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out; spo_end_moninvent m_dowear; flip_level lregion
+ * coord update (pre-flip shortcut, same as Bar/Mon-strt).
+ */
+function load_cav_strt() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    const CAV_STRT_MAP = `
+                                                                            
+  ......     ..........................       ...        ....  ......       
+ ......       ..........................     ........       ....    .....   
+  ..BB      .............................    .........            ....  ..  
+     ..    ......................              .......      ..     ....  .. 
+     ..     ....................                     ..  .......    ..  ... 
+   ..              S   BB                .....     .......   ....      .... 
+    ..        ...  .   ..               ........  ..     ..   ..       ...  
+     ..      ......     ..             ............       ..          ...   
+       .      ....       ..             ........           ..  ...........  
+  ...   ..     ..        .............                  ................... 
+ .....   .....            ...............................      ...........  
+  .....B................            ...                               ...   
+  .....     .  ..........        .... .      ...  ..........           ...  
+   ...     ..          .............  ..    ...................        .... 
+          BB       ..   .........      BB    ...  ..........  ..   ...  ... 
+       ......    .....  B          ........         ..         .. ....  ... 
+     ..........  ..........         ..... ...      .....        ........    
+       ..  ...    .  .....         ....    ..       ...            ..       
+                                                                            
+`.replace(/^\n/, '');
+    splev_apply_centered_map(CAV_STRT_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,75,19), "unlit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, false);
+
+    // des.region temple {13,01,40,05} lit=1 irregular filled=1 — flood from
+    // region x1,y1 (Pri-strt idiom; filled=1 → needfill FILL_NORMAL per
+    // C sp_lev.c lspo_region :5600, not FILL_LVFLAGS)
+    let cavTemple = null;
+    {
+        const dx1 = mx + 13, dy1 = my + 1;
+        const rlit = litstate_rnd(1);
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            const bounds = {
+                min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1,
+            };
+            const rmno = (g.level.nroom | 0) + ROOMOFFSET;
+            if (g.smeq) g.smeq[g.level.nroom | 0] = g.level.nroom | 0;
+            flood_fill_rm(dx1, dy1, rmno, rlit, true, bounds);
+            add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+                false, TEMPLE, true);
+            cavTemple = g.level.rooms[(g.level.nroom | 0) - 1];
+            if (cavTemple) {
+                cavTemple.rlit = rlit ? 1 : 0;
+                cavTemple.irregular = true;
+                cavTemple.needjoining = true;
+                cavTemple.needfill = FILL_NORMAL;
+            }
+        }
+    }
+
+    // des.region ordinary irregular lit=1 (no `filled` key → needfill 0)
+    const cavStrtOrd = (x1, y1) => {
+        const dx1 = mx + x1, dy1 = my + y1;
+        const rlit = litstate_rnd(1);
+        if ((g.level.nroom | 0) >= MAXNROFROOMS) return;
+        const bounds = {
+            min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1,
+        };
+        const rmno = (g.level.nroom | 0) + ROOMOFFSET;
+        if (g.smeq) g.smeq[g.level.nroom | 0] = g.level.nroom | 0;
+        flood_fill_rm(dx1, dy1, rmno, rlit, true, bounds);
+        add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+            false, OROOM, true);
+        const troom = g.level.rooms[(g.level.nroom | 0) - 1];
+        if (troom) {
+            troom.rlit = rlit ? 1 : 0;
+            troom.irregular = true;
+            troom.needjoining = true;
+            troom.needfill = 0;
+        }
+    };
+    cavStrtOrd(2, 1);
+    cavStrtOrd(1, 11);
+    cavStrtOrd(13, 8);
+    cavStrtOrd(5, 17);
+    cavStrtOrd(17, 16);
+    cavStrtOrd(35, 16);
+
+    // des.stair("down", 02,03)
+    mkstairs(mx + 2, my + 3, 0, null);
+    // des.levregion({ region={71,09,71,09}, type="branch" }) — placed
+    // post-flip in the epilogue below.
+
+    // des.door("locked", 19,06) — C lspo_door → sel_set_door
+    {
+        const loc = g.level.at(mx + 19, my + 6);
+        if (loc) {
+            if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            loc.doormask = D_LOCKED;
+            loc.flags = D_LOCKED;
+        }
+    }
+
+    // des.altar({ x=36,y=02, align="coaligned", type="shrine" })
+    // C create_altar: coaligned → sp_amask_to_amask(AM_SPLEV_CO), then
+    // priestini, then |= AM_SHRINE
+    {
+        const ax = mx + 36, ay = my + 2;
+        const loc = g.level.at(ax, ay);
+        const amask = sp_amask_to_amask(AM_SPLEV_CO);
+        if (loc) {
+            loc.typ = ALTAR;
+            loc.flags = amask;
+            loc.altarmask = amask;
+        }
+        if (cavTemple) priestini(g.u?.uz, cavTemple, ax, ay, false);
+        if (loc) {
+            loc.altarmask = (loc.altarmask | 0) | AM_SHRINE;
+            loc.flags = (loc.flags | 0) | AM_SHRINE;
+        }
+        if (g.level.flags) g.level.flags.has_temple = true;
+    }
+
+    // des.monster Shaman Karnov + CUSTOM_INVENT (Ran-strt Orion idiom)
+    {
+        const mtmp = splev_create_monster('Shaman Karnov', undefined, { rx: 35, ry: 2 });
+        splev_discard_default_minvent(mtmp);
+        const give = (spec) => {
+            const otmp = l_create_object(spec);
+            if (!otmp || !mtmp) return;
+            obj_extract_self(otmp);
+            mpickobj(mtmp, otmp);
+        };
+        give({ id: 'leather armor', spe: 5 });
+        give({ id: 'club', spe: 5 });
+    }
+    // des.object("chest", 34,02)
+    mksobj_at(CHEST, mx + 34, my + 2, true, true);
+
+    // neanderthal guards for the audience chamber (default peaceful)
+    for (const [rx, ry] of [
+        [20, 3], [20, 2], [20, 1], [21, 3],
+        [21, 2], [21, 1], [22, 1], [26, 9],
+    ]) splev_create_monster('neanderthal', undefined, { rx, ry });
+
+    // des.non_diggable(selection.area(00,00,75,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.trap pit at fixed coords + 4 random traps
+    const cavStrtTrap = (ttyp, rx, ry) => {
+        const ttmp = maketrap(mx + rx, my + ry, ttyp);
+        mktrap_seen_victim(ttmp, {});
+    };
+    cavStrtTrap(PIT, 47, 11);
+    cavStrtTrap(PIT, 57, 10);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    // Monsters on siege duty: 12 hostile bugbears at fixed coords
+    for (const [rx, ry] of [
+        [47, 2], [48, 3], [49, 4], [67, 3], [69, 4], [51, 13],
+        [53, 14], [55, 15], [63, 10], [65, 9], [67, 10], [69, 11],
+    ]) splev_create_monster('bugbear', 0, { rx, ry });
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // des.levregion branch cell after flip at pre-flip map offsets (same
+    // Bar/Mon-strt shortcut; flip_level lregion coord update named omission)
+    place_lregion(
+        mx + 71, my + 9, mx + 71, my + 9,
+        0, 0, 0, 0, LR_BRANCH, null,
+    );
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Cav-loca.lua via load_special — Caveman quest locate.
+ * Solidfill " " + mazelevel/hardfloor (no noteleport); 76x20 map;
+ * whole-map unlit; lit irregular ordinary {52,06,73,15}; locked door
+ * (28,11); up stair (04,03) + down stair (73,10); whole-map
+ * non_diggable; 15 objects; 6 traps; bugbears/hill giants + h/H
+ * class stock, all hostile.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_cav_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    const CAV_LOCA_MAP = `
+                                                                            
+    .............                     ...........                           
+   ...............                   .............                          
+    .............                  ...............        ..........        
+     ...........                    .............      ...............      
+        ...                                    ...   ..................     
+         ...                ..........          ... ..................      
+          ...              ............          BBB...................     
+           ...              ..........          ......................      
+            .....                 ..      .....B........................    
+  ....       ...............      .    ........B..........................  
+ ......     .. .............S..............         ..................      
+  ....     ..                ...........             ...............        
+     ..  ...                                    ....................        
+      ....                                      BB...................       
+         ..                 ..                 ..  ...............          
+          ..   .......     ....  .....  ....  ..     .......   S            
+           ............     ....... ..  .......       .....    ...  ....    
+               .......       .....   ......                      .......    
+                                                                            
+`.replace(/^\n/, '');
+    splev_apply_centered_map(CAV_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,75,19), "unlit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, false);
+
+    // des.region({ region={52,06,73,15}, lit=1, type="ordinary",
+    // irregular=1 }) — flood from region x1,y1, no `filled` key
+    {
+        const dx1 = mx + 52, dy1 = my + 6;
+        const rlit = litstate_rnd(1);
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            const bounds = {
+                min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1,
+            };
+            const rmno = (g.level.nroom | 0) + ROOMOFFSET;
+            if (g.smeq) g.smeq[g.level.nroom | 0] = g.level.nroom | 0;
+            flood_fill_rm(dx1, dy1, rmno, rlit, true, bounds);
+            add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+                false, OROOM, true);
+            const troom = g.level.rooms[(g.level.nroom | 0) - 1];
+            if (troom) {
+                troom.rlit = rlit ? 1 : 0;
+                troom.irregular = true;
+                troom.needjoining = true;
+                troom.needfill = 0;
+            }
+        }
+    }
+
+    // des.door("locked", 28,11)
+    {
+        const loc = g.level.at(mx + 28, my + 11);
+        if (loc) {
+            if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            loc.doormask = D_LOCKED;
+            loc.flags = D_LOCKED;
+        }
+    }
+
+    // des.stair up (04,03) + down (73,10)
+    mkstairs(mx + 4, my + 3, 1, null);
+    mkstairs(mx + 73, my + 10, 0, null);
+
+    // des.non_diggable(selection.area(00,00,75,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object() × 15
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+
+    // des.trap() × 6
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // Random monsters in lua order (all peaceful=0 hostile)
+    for (const [rx, ry] of [
+        [2, 10], [3, 11], [4, 12], [2, 11], [16, 16], [17, 17],
+        [18, 18], [19, 16], [30, 6], [31, 7], [32, 8], [33, 6], [34, 7],
+    ]) splev_create_monster('bugbear', 0, { rx, ry });
+    for (let i = 0; i < 4; i++) splev_create_monster('bugbear', 0);
+    splev_create_monster('h', 0);
+    splev_create_monster('H', 0);
+    for (const [rx, ry] of [[3, 12], [20, 17], [35, 8]])
+        splev_create_monster('hill giant', 0, { rx, ry });
+    for (let i = 0; i < 4; i++) splev_create_monster('hill giant', 0);
+    splev_create_monster('H', 0);
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Cav-goal.lua via load_special — Caveman quest goal
+ * (Chromatic Dragon / The Sceptre of Might). Solidfill " " only (no
+ * mines init) + mazelevel; 76x20 oval-cave map; whole-map lit; random
+ * up stair; whole-map non_diggable; blessed +0 Sceptre of Might mace
+ * (Mon-goal lenses idiom) + 14 objects; asleep Chromatic Dragon on
+ * the prize cell + 3 placed shriekers.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_cav_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const CAV_GOAL_MAP = `
+                                                                            
+                          .....................                             
+                         .......................                            
+                        .........................                           
+                       ...........................                          
+                      .............................                         
+                     ...............................                        
+                    .................................                       
+                   ...................................                      
+                  .....................................                     
+                 .......................................                    
+                  .....................................                     
+                   ...................................                      
+                    .................................                       
+                     ...............................                        
+                      .............................                         
+                       ...........................                          
+                        .........................                           
+                         .......................                            
+                                                                            
+`.replace(/^\n/, '');
+    splev_apply_centered_map(CAV_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,75,19), "lit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, true);
+
+    // des.stair("up") — random placement
+    splev_create_stair(true);
+
+    // des.non_diggable(selection.area(00,00,75,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object({ id="mace", x=23,y=10, buc="blessed", spe=0,
+    // name="The Sceptre of Might" }) — Mon-goal lenses idiom
+    l_create_object({
+        id: 'mace', x: 23, y: 10, buc: 'blessed', spe: 0,
+        name: 'The Sceptre of Might',
+    });
+
+    // des.object() × 14
+    for (let i = 0; i < 14; i++) splev_create_object(null);
+
+    // des.monster Chromatic Dragon asleep on the prize cell + shriekers
+    splev_create_monster('Chromatic Dragon', undefined, { rx: 23, ry: 10, asleep: 1 });
+    splev_create_monster('shrieker', undefined, { rx: 26, ry: 13 });
+    splev_create_monster('shrieker', undefined, { rx: 25, ry: 8 });
+    splev_create_monster('shrieker', undefined, { rx: 45, ry: 11 });
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Cav-fila.lua via load_special — Caveman quest upper filler.
+ * Solidfill " " + mazelevel/noflip; mines fg="." bg=" " (no lit key,
+ * smoothed/joined/walled); random up/down stairs; 7 objects; 4 random
+ * traps; 5 bugbears + h + hill giant, all hostile (Ran-fila idiom).
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_cav_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg=" ", smoothed=true, joined=true,
+    // walled=true (no lit key in lua) — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: STONE, filling: ROOM,
+        smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 7; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+    for (let i = 0; i < 5; i++) splev_create_monster('bugbear', 0);
+    splev_create_monster('h', 0);
+    splev_create_monster('hill giant', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Cav-filb.lua via load_special — Caveman quest lower filler.
+ * Solidfill " " + mazelevel/noflip; mines fg="." bg=" " (no lit key,
+ * smoothed/joined/walled); random up/down stairs; 12 objects; 4 random
+ * traps; 4 bugbears + 2× h + 2× hill giant, all hostile.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_cav_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg=" ", smoothed=true, joined=true,
+    // walled=true (no lit key in lua) — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: STONE, filling: ROOM,
+        smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 12; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+    for (let i = 0; i < 4; i++) splev_create_monster('bugbear', 0);
+    for (let i = 0; i < 2; i++) splev_create_monster('h', 0);
+    for (let i = 0; i < 2; i++) splev_create_monster('hill giant', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
     fixup_special();
 }
 

@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmaze.c` makemaz `cav-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Caveman quest 0/5 (330 ln; Caveman 1/44 sessions). From `dat/cav-*.lua` (HELDOUT Tier B).
 - [ ] `botl.c` do_statusline1 — blocks 1/278 corpus sessions (first at step 821): C «Logged events:» vs JS «Logged events:». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (random-seed0360-wizard-world-tour-4ac145da). Fresh block after archived D-1842.
 - [ ] `mhitu.c` hitmsg — blocks 1/278 corpus sessions (first at step 43): C «The wraith touches you! Farvel level 1.--More--» vs JS «The wraith touches you! Farvel level 1.». Probe: `node scripts/hidden-proxy.mjs verify hitmsg` (tour-Valkyrie-70014-d5-8-15-17-22). Fresh block after archived D-1261.
 - [ ] `mkmaze.c` makemaz `tut-2` — tutorial second variant (27 ln, trivial; completes the tutorial pair). From `dat/tut-2.lua` (HELDOUT Tier B).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `read.c` missing seffect_* arms — scroll effects (seffect_amnesia, seffect_charging, seffect_confuse_monster, seffect_earth, seffect_enchant_armor, seffect_mail, seffect_scare_monster, seffect_stinking_cloud, do_stinking_cloud, can_center_cloud, p_glow3) (HELDOUT Tier C).
 - [ ] `hack.c` findtravelpath — absent; travel is adjacent/greedy only (TOP30 #29).
 - [ ] `polyself.c` missing domonability arms — dopoly, dohide, dogaze, dospit, dospinweb, dosummon, domindblast, doremove, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C).
+- [ ] `muse.c` slime/stone cures — cures_sliming, cures_stoning, munslime, muse_unslime, green_mon, m_sees_sleepy_soldier (HELDOUT Tier C).
+- [ ] `wizard.c` clonewiz family — clonewiz, mon_has_arti, other_mon_has_arti, which_arti, on_ground, wizdeadorgone, plus quest.c leaddead, nemdead, nemesis_stinks (HELDOUT Tier C).
+- [ ] `mkmap.c` cavern generator — get_map, pass_one, pass_two, pass_three, remove_room, remove_rooms (HELDOUT Tier C; called from sp_lev.c:3010 level_init styles).
+- [ ] `pager.c` history/descr arms — dohistory, add_cmap_descr, add_quoted_engraving, look_region_nearby, hmenu_dowhatis, dispfile_* (HELDOUT Tier C).
+- [ ] `role.c` role-select parsers — str2role, str2race, str2gend, str2align, setup_rolemenu/racemenu/gendmenu/algnmenu, root_plselection_prompt (HELDOUT Tier C).
 
 ## Parked (do not pop)
 
