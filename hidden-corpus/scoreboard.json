@@ -1,6 +1,6 @@
 {
- "commit": "22bdf120",
- "at": "2026-09-05T20:27:58.058Z",
+ "commit": "db5d8f30",
+ "at": "2026-09-05T20:37:41.543Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4203,18 +4203,18 @@
   },
   "tour-Healer-70025-d5-8-15-17-22": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 18587,
+   "passed": true,
+   "rngM": 18648,
    "rngT": 18648,
-   "scrM": 47,
+   "scrM": 50,
    "scrT": 50,
-   "kind": "rng",
-   "step": 47,
+   "kind": null,
+   "step": null,
    "steps": 50,
-   "owner": "erode_armor",
-   "loc": "uhitm.c:137",
-   "jsOwner": "mhitm_knockback(mhitm.js:1834)",
-   "cTopline": "The rust monster touches you! The rust monster touches you again!",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },

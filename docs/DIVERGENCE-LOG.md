@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-1883 — uhitm.c erode_armor export + mhitm_ad_rust mhitu arm (erode_armor corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)
+- **Symptom:** `tour-Healer-70025-d5-8-15-17-22` step 47/50 RNG-first at `uhitm.c:137`: C `The rust monster touches you! The rust monster touches you again!` + `rn2(5)` @ `erode_armor(uhitm.c:137)` vs JS empty topline + `rn2(3)` @ `mhitm_knockback(mhitm.js:1834)`.
+- **C locus:** `uhitm.c` `erode_armor` `:126–185` (`rn2(5)` slot loop; case 1 body-armor always breaks) + `mhitm_ad_rust` `:2281–2336`, mhitu arm `:2299–2316` (`hitmsg`; `mcan` return; `completelyrusts` (`mondata.h:227`, iron golem) → `You("rust!")` + `rehumanize()`; else `erode_armor(&youmonst, ERODE_RUST)`; base `hitmu` `d()` kept) + `worn.c` `which_armor` `:1006–1036` (youmonst → `u.uarm*` slot table) + `mhitu.c` `hitmu` (`mhitm_adtyping` then `mhitm_knockback`, so erosion draws precede knockback draws). Queue owner `erode_armor` is the called function; the missing writer arm is `mhitm_ad_rust` mhitu.
+- **JS was:** `js/mhitm.js` carried `erode_armor` as file-local `erode_armor_mm` (review 203: "clone, faithful") with no hero-side caller; `js/worn.js` `which_armor` scanned `minvent` only (hero path named-deferred); `js/mhitu.js` `mhitm_adtyping_u` had no `AD_RUST` case → default zeroed damage, printed no `hitmsg`, and fell through to `mhitm_knockback` whose `rn2(3)` was the first draw where C draws `rn2(5)`.
+- **Fix:** exported `erode_armor` from `js/mhitm.js` (same body, C cite `:126–185`; `passivemm` caller updated); ported the `which_armor` youmonst slot table in `js/worn.js` (`u.uarm`/`uarmc`/`uarmh`/`uarms`/`uarmg`/`uarmf`/`uarmu`, `impossible` on bad flag; same worn→display edge); added `js/mhitu.js` `mhitm_ad_rust_u` (`hitmsg`, `mcan`, iron-golem `You rust!` + `rehumanize`, else `erode_armor(game.youmonst, ERODE_RUST)`) + `case AD_RUST` (local const 24, monattk.h) in `mhitm_adtyping_u`. No new module edges (`imports.mjs --can`: mhitu→mhitm already static).
+- **JS:** `js/mhitm.js` (export + caller); `js/worn.js` (hero arm); `js/mhitu.js` (arm + case + consts); `docs/c-js-map/turns.md` uhitm/mhitm section.
+- **Verify:**
+  - Preflight `node scripts/verify.mjs --no-cohort` before any edit → VERIFY: PASS (green + strict clean).
+  - `node scripts/verify.mjs --fn erode_armor` → VERIFY: PASS — `PASS syntax 3 changed js file(s): js/mhitm.js js/mhitu.js js/worn.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `PASS hidden verify erode_armor: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Healer-70025-d5-8-15-17-22: PASS)`; `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; skip full (shared-file heuristic).
+- **Named omissions:** `mhitm_ad_corr` / `mhitm_ad_dcay` mhitu arms (`hitmsg` + `erode_armor` CORRODE/ROT + `completelyrots` rehumanize; no corpus block); `mhitm_ad_rust` uhitm/mhitm arms (hero-as-attacker, mon-vs-mon); `passive_obj` AD_RUST/CORR `erode_obj` on the hitting weapon (deferred, untouched); `passive()` AD_ACID `!rn2(30)` `erode_armor(youmonst)` wiring (deferred, untouched); `passiveum` AD_ACID `erode_armor(mtmp)` (deferred, untouched).
+- **Next:** next Open queue row in order (`iactions.c` itemactions).
+
 ## D-1882 — objnam.c xname ROCK_CLASS STATUE historic + unique/pname article (dolook corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)

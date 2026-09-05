@@ -2468,7 +2468,7 @@ gnome unworn LEVITATION_BOOTS — closed by **D-0832** `m_dowear`/`check_gear`/`
 **D-0832 fixed:** `js/worn.js` `m_dowear`/`which_armor`/`update_mon_extrinsics` + 
 `makemon` `m_dowear(TRUE)` + `mpickstuff` `check_gear_next_turn` + 
 `movemon_singlemon` I_SPECIAL arm (seed0383 **10374→10608**; 
-artifact_light / dogmove check_gear / youmonst which_armor deferred); 
+artifact_light / dogmove check_gear deferred — youmonst which_armor table ported D-1883); 
 **D-0855:** `m_dowear_type` entry `See_invisible?Monnam:mon_nam` nambuf (Hallu rndmonnam; 
 wear/invis plines still deferred; Scr **201→209**); 
 **D-0829 rejected:** makemon 165/108 creation order not @10374 — C skips gnome `dochug` with no 
@@ -2985,7 +2985,8 @@ hitmm skips default hits); **mhitm_ad_phys rustm D-1442** (mhitm arm `:4182–41
 artifact_hit iff leftover; callee `mhitm.c` rustm `:1260–1280`); 
 **mhitm_ad_phys poison leftover D-1447** (mhitm arm `:4184–4189` after rustm `!rn2(4)` 
 `opoisoned\|\|permapoisoned`; callee `mhitm_really_poison` `:3104–3118`; 
-`mhitm_ad_drst` 1/8 / worm-shrieker still named);
+`mhitm_ad_drst` 1/8 / worm-shrieker still named); 
+**`erode_armor` export + `mhitm_ad_rust` mhitu arm D-1883** (`uhitm.c` `:126–185` `rn2(5)` slot loop, case 1 always breaks, now exported from `js/mhitm.js`; mhitu arm `:2299–2316` `hitmsg` + `mcan` + iron-golem `completelyrusts` rust/`rehumanize` + `erode_armor(youmonst, RUST)` as `mhitm_ad_rust_u` in `mhitm_adtyping_u`; callee `worn.c` `which_armor` `:1006–1036` youmonst uarm* table live in `js/worn.js`; tour-Healer-70025 step-47 `rn2(5)` vs knockback `rn2(3)` → PASS; CORR/DCAY mhitu arms + passive `!rn2(30)` wiring still named);
 **mhitm_ad_phys mhitu weapon arm D-1864** (mhitu arm `:4041–4126` corpse
 `do_stone_u`/done + `dmgval` + GOP `rn1(4,3)` + `artifact_hit`-or-`hitmsg` +
 silver sear + `rnd(-uac)` soak + Half + pudding `cloneu` split + `rustm` +

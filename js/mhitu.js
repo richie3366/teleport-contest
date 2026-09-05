@@ -18,7 +18,7 @@ import {
     M_SEEN_SLEEP,
     REFLECTING, A_CHAOTIC, LARGEST_INT,
     M_AP_NOTHING, M_AP_OBJECT, WORN_HELMET, TELEDS_ALLOW_DRAG,
-    something, Something, u_at,
+    something, Something, u_at, ERODE_RUST,
 } from './const.js';
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
@@ -86,7 +86,7 @@ import {
 import { burn_away_slime } from './timeout.js';
 import {
     get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mattackm, rustm,
-    could_seduce, SYSOPT_SEDUCE, mon_poly, mondead,
+    could_seduce, SYSOPT_SEDUCE, mon_poly, mondead, erode_armor,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
     AT_ENGL, AT_GAZE, AT_SPIT, AT_BREA, AT_EXPL, AT_BOOM, AT_TENT, AT_MAGC,
     AT_HUGS,
@@ -110,6 +110,7 @@ const AD_PLYS = 14;
 const AD_LEGS = 17; /* damages legs (xan) — monattk.h */
 const AD_STON = 18;
 const AD_ENCH = 41;
+const AD_RUST = 24; /* rusts armour (Rust Monster) — monattk.h */
 
 const LOW_BOOTS = objectNames.indexOf('LOW_BOOTS');
 const IRON_SHOES = objectNames.indexOf('IRON_SHOES');
@@ -2119,9 +2120,33 @@ async function mhitm_ad_drli_u(mtmp, mattk, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_rust `:2281–2336` — mhitu (monster→you) arm
+ * `:2299–2316`. hitmsg always; cancelled → return; iron-golem hero
+ * (completelyrusts, mondata.h:227) "rust!" + rehumanize; else
+ * erode_armor(youmonst, ERODE_RUST). Base hitmu d() is kept (unlike
+ * default zero). CORR/DCAY mhitu arms still deferred.
+ */
+async function mhitm_ad_rust_u(mtmp, mattk, mhm) {
+    void mhm;
+    await hitmsg(mtmp, mattk);
+    if (mtmp.mcan) {
+        return;
+    }
+    /* C mondata.h:227 completelyrusts(ptr) — ptr == &mons[PM_IRON_GOLEM] */
+    if ((game.youmonst?.data ?? null) === mons[PM_IRON_GOLEM]) {
+        await pline('You rust!');
+        /* C: KMH -- this is okay with unchanging */
+        await rehumanize();
+        return;
+    }
+    await erode_armor(game.youmonst, ERODE_RUST);
+}
+
+/**
  * C ref: uhitm.c mhitm_adtyping — mhitu (monster→you) subset.
  * PHYS + ELEC + COLD + DRST/DRDX/DRCO + SITM/SEDU + SSEX (D-1750) + BLND + STON + LEGS
- * + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE + DRLI; other adtyps zero damage.
+ * + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE + DRLI + RUST;
+ * other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     switch (mattk.adtyp | 0) {
@@ -2169,6 +2194,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_DRLI:
         await mhitm_ad_drli_u(mtmp, mattk, mhm);
+        break;
+    case AD_RUST:
+        await mhitm_ad_rust_u(mtmp, mattk, mhm);
         break;
     default:
         mhm.damage = 0;

@@ -1519,10 +1519,11 @@ async function mon_reflects_mm(mon, fmt) {
 }
 
 /**
- * C ref: uhitm.c erode_armor — rn2(5) until a slot resolves (case 1 always
- * breaks). Dynamic erode_obj: trap.js already imports this module.
+ * C ref: uhitm.c erode_armor `:126–185` — rn2(5) until a slot resolves
+ * (case 1 always breaks). which_armor resolves youmonst via u.uarm*.
+ * Dynamic erode_obj: trap.js already imports this module.
  */
-async function erode_armor_mm(mdef, hurt) {
+export async function erode_armor(mdef, hurt) {
     const { erode_obj } = await import('./trap.js');
     for (;;) {
         switch (rn2(5)) {
@@ -1640,7 +1641,7 @@ async function passivemm(magr, mdef, mhitb, mdead, mwep) {
         } else {
             tmp = 0;
         }
-        if (!rn2(30)) await erode_armor_mm(magr, ERODE_CORRODE);
+        if (!rn2(30)) await erode_armor(magr, ERODE_CORRODE);
         if (!rn2(6)) await acid_damage_mm(MON_WEP(magr));
         skip_live = true;
         break;

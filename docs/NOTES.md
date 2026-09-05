@@ -21,9 +21,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1882 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1883 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1882 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1883 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -41,18 +41,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1882.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1883.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1882.
+  Do not re-port D-1682…D-1883.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1883: exported `erode_armor` from `js/mhitm.js` (same body, C cite `:126–185`; `passivemm` caller updated); ported the `which_armor` youmonst slot table in  Named: `mhitm_ad_corr` / `mhitm_ad_dcay` mhitu arms (`hitmsg` + `erode_armor` CORRODE/ROT + `comp
 - D-1882: ported the C Snprintf envelope in `pretty_base` with C citations — `obj_pmname_corpse` for the pm name, `type_is_pname_objnam ? "" : the_unique_pm ? " Named: `BOULDER next_boulder` arm already live (D-1294, untouched); STATUE `iflags.wizmgender` ` 
 - D-1881: `js/version.js` ports `mdlib_version_string`, `version_id_string`, `version_string`, `getversionstring` (pure, no imports; existing VERSION exports ke Named: `bannerc_string` (title-banner path, no corpus block); `status_version` / VI flags; `early
 - D-1880: ported the tail in C order with C citations — live `getpos_getvalid`/`getpos_hilitefunc` arms (module state installed via `getpos_sethilite`), `skip_n Named: `cmd_from_func` custom move/run/rush binds (JS still hardcodes h/j/k/l, H/J/K/L, G/g defau
@@ -67,5 +68,4 @@ Objective/score live in `CURRENT.md`.
 - D-1871: async `zoo_mon_sound` in C order (gate; `hallu = Hallucination() ? 1 : 0` via the faithful youprop helper; `zoo_msg[rn2(2)+hallu]`; `await You_hear`,  Named: throne/beehive/morgue/barracks/court You_hear plines still deferred (RNG-only stubs unchan
 - D-1870: new `mhitm_ad_drli_u` in `js/mhitu.js` in C order (hitmsg; short-circuit `!rn2(3) && !Drain_resistance() && !mgc_negated(TRUE)` → `losexp('life draina Named: uhitm + mhitm arms of `mhitm_ad_drli` (Stormbringer `d(2,6)`, mhpmax/level-drain body, Dea
 - D-1869: port `mkswamp` into `js/mklev.js` in C order (short-circuit, RNG, mutation). Named: none new (map `mkshop` wizard/SHOPTYPE arm and shk bodies unchanged).
-- D-1868: door block restructured to C order with the `amorphous(mdat) && !engulfing_u(mon)` exemption (`can_fog` stays a commented named-omit); ALLOW_DIG curse Named: `can_fog` (vampshifter) still deferred in the door arm (comment + map); corrupt-ttyp `impo
 <!-- landmarks:end -->
