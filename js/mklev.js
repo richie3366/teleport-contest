@@ -57,7 +57,7 @@ import {
     In_mines,
     In_quest,
     In_endgame,
-    ZOMBIFY_MON, TIMER_OBJECT,
+    ZOMBIFY_MON, TIMER_OBJECT, TIMER_LEVEL, MELT_ICE_AWAY,
     Is_rogue_level,
     Is_knox_level,
     Is_botlevel,
@@ -94,7 +94,8 @@ import {
     mkobj, mksobj, mksobj_at, mksobj_migr_to_species, mkobj_at, mkgold,
     mkcorpstat, next_ident,
     curse, bless, uncurse, blessorcurse, place_object, add_to_buried, weight, OBJ,
-    set_corpsenm, obj_stop_timers, start_timer, obj_extract_self,
+    set_corpsenm, obj_stop_timers, start_timer, spot_stop_timers,
+    obj_extract_self,
     add_to_container, objects_at, stackobj, oc_merge_of, dealloc_obj,
 } from './mkobj.js';
 import {
@@ -15048,6 +15049,36 @@ function splev_create_trap(type) {
 }
 
 /**
+ * C ref: mklev.c mktrap with tm set — pool/lava abort, specified kind,
+ * hole→ROCKTRAP, maketrap, then spider/SEEN/victim (mktrap_seen_victim).
+ */
+function splev_mktrap_at(kind, x, y, opts = {}) {
+    if (!isok(x, y)) return null;
+    const typ = game.level.at(x, y)?.typ;
+    if (typ != null && (IS_POOL(typ) || IS_LAVA(typ))) return null;
+    let k = kind | 0;
+    if (!(k > NO_TRAP && k < TRAPNUM)) return null;
+    if (is_hole(k) && !Can_fall_thru(game.u?.uz)) k = ROCKTRAP;
+    const trap = maketrap(x, y, k);
+    mktrap_seen_victim(trap, opts);
+    return trap;
+}
+
+/**
+ * C ref: sp_lev.c create_trap with croom — get_free_room_loc then mktrap(tm).
+ * abs cells from selection.room() are converted to room-relative like
+ * l_selection_iterate + cvt_to_relcoord, then origin is added back.
+ */
+function splev_create_trap_coord(croom, kind, absX, absY, opts = {}) {
+    const rx = (absX | 0) - (croom?.lx | 0);
+    const ry = (absY | 0) - (croom?.ly | 0);
+    const pos = croom
+        ? get_free_room_loc_coord(croom, rx, ry)
+        : get_location_coord(DRY, null, rx, ry);
+    return splev_mktrap_at(kind, pos.x, pos.y, opts);
+}
+
+/**
  * C ref: sp_lev.c get_location with croom — somexy until humidity ok.
  * Optional ok_fn mirrors set_ok_location_func (stairs).
  */
@@ -15080,6 +15111,24 @@ function get_free_room_loc(croom) {
     do {
         const c = { x: -1, y: -1 };
         // C get_room_loc random → somexy
+        if (!somexy(croom, c)) break;
+        pos = { x: c.x, y: c.y };
+        if (game.level.at(pos.x, pos.y)?.typ === ROOM) return pos;
+    } while (++trycnt <= 100);
+    return pos;
+}
+
+/**
+ * C ref: sp_lev.c get_free_room_loc with packed coord.
+ * Specified cell if ROOM; else get_room_loc (somexy) until ROOM.
+ * create_trap starts x=y=-1 so the retry arm always somexy-random.
+ */
+function get_free_room_loc_coord(croom, rx, ry) {
+    let pos = get_location_coord(DRY, croom, rx, ry);
+    if (game.level.at(pos.x, pos.y)?.typ === ROOM) return pos;
+    let trycnt = 0;
+    do {
+        const c = { x: -1, y: -1 };
         if (!somexy(croom, c)) break;
         pos = { x: c.x, y: c.y };
         if (game.level.at(pos.x, pos.y)?.typ === ROOM) return pos;
@@ -21235,6 +21284,88 @@ function themeroom_pillars_contents(croom) {
 }
 
 /**
+ * C ref: nhlua.c nhl_timer_start_at — cvt_to_abscoord then
+ * spot_stop_timers + start_timer(TIMER_LEVEL, MELT_ICE_AWAY).
+ * Iterate already yields absolute cells (JS analogue of rel+cvt).
+ */
+function nhl_start_timer_at(x, y, when) {
+    if (!isok(x, y)) return;
+    const where = (((x | 0) & 0xffff) << 16) | ((y | 0) & 0xffff);
+    spot_stop_timers(x, y, MELT_ICE_AWAY);
+    start_timer(when | 0, TIMER_LEVEL, MELT_ICE_AWAY, where);
+}
+
+/**
+ * C ref: themerms.lua "Ice room" — selection.room then des.terrain(ice, "I");
+ * percent(25) then iterate nh.start_timer_at melt-ice (mintime+rn2(1000)).
+ * C set_levltyp keeps roomno; do not use JS sel_set_ter (clears it).
+ */
+function themeroom_fill_ice(croom) {
+    const ice = selection_from_mkroom(croom);
+    selection_iterate(ice, (x, y) => {
+        const loc = game.level.at(x, y);
+        if (loc) loc.typ = ICE;
+    });
+    if (percent(25)) {
+        const mintime = 1000 - (level_difficulty() * 100);
+        selection_iterate_lua(ice, (x, y) => {
+            nhl_start_timer_at(x, y, mintime + rn2(1000));
+        });
+    }
+}
+
+/**
+ * C ref: themerms.lua "Boulder room" — selection.room():percentage(30)
+ * then iterate: percent(50) ? des.object("boulder",x,y)
+ * : des.trap("rolling boulder",x,y). Lua iterate is y-outer.
+ */
+function themeroom_fill_boulder(croom) {
+    const locs = selection_filter_percent(selection_from_mkroom(croom), 30);
+    selection_iterate_lua(locs, (x, y) => {
+        if (percent(50)) {
+            create_object({
+                id: BOULDER,
+                class: ROCK_CLASS,
+                rx: x - croom.lx,
+                ry: y - croom.ly,
+            }, croom);
+        } else {
+            splev_create_trap_coord(croom, ROLLING_BOULDER_TRAP, x, y);
+        }
+    });
+}
+
+/**
+ * C ref: themerms.lua "Spider nest" — percentage(30) then des.trap web
+ * with spider_on_web = (difficulty>8) and percent(80) (Lua and-short-circuit).
+ */
+function themeroom_fill_spider(croom) {
+    const spooders = level_difficulty() > 8;
+    const locs = selection_filter_percent(selection_from_mkroom(croom), 30);
+    selection_iterate_lua(locs, (x, y) => {
+        const spider_on_web = spooders && percent(80);
+        splev_create_trap_coord(croom, WEB, x, y, { nospider: !spider_on_web });
+    });
+}
+
+/**
+ * C ref: themerms.lua "Trap room" — shuffle eight trap names, percentage(30),
+ * iterate des.trap(traps[1], x, y). nhlib shuffle then Lua 1-based first slot.
+ */
+function themeroom_fill_trap(croom) {
+    const traps = [
+        ARROW_TRAP, DART_TRAP, ROCKTRAP, BEAR_TRAP,
+        LANDMINE, SLP_GAS_TRAP, RUST_TRAP, ANTI_MAGIC,
+    ];
+    nhlib_shuffle(traps);
+    const kind = traps[0];
+    const locs = selection_filter_percent(selection_from_mkroom(croom), 30);
+    selection_iterate_lua(locs, (x, y) => {
+        splev_create_trap_coord(croom, kind, x, y);
+    });
+}
+
+/**
  * C ref: themerms.lua "Temple of the gods" + sp_lev.c create_altar /
  * get_free_room_loc — three unattended altars (type="altar", shrine=0)
  * with shuffled nhlib align[1..3]. Room is THEMEROOM not TEMPLE → no priest.
@@ -21502,6 +21633,10 @@ const THEMEROOM_FILL_BODIES = {
     'Temple of the gods': themeroom_fill_temple_of_the_gods,
     'Cloud room': themeroom_fill_cloud,
     'Light source': themeroom_fill_light_source,
+    'Ice room': themeroom_fill_ice,
+    'Boulder room': themeroom_fill_boulder,
+    'Spider nest': themeroom_fill_spider,
+    'Trap room': themeroom_fill_trap,
 };
 
 // C ref: themerms.lua themeroom_fill() — reservoir + dispatched fill bodies
@@ -21520,8 +21655,7 @@ function themeroom_fill(croom) {
     croom._themeroom_fill = pick.name;
     const body = THEMEROOM_FILL_BODIES[pick.name];
     if (body) body(croom);
-    // Named omission: other fill contents (Ice/Boulder/Spider/Trap/
-    // Garden/Buried treasure/Massacre/Statuary/…)
+    // Named omission: Garden / Buried treasure / Massacre / Statuary / …
 }
 
 // C ref: themerms.lua filler_region + sp_lev.c lspo_region irregular path

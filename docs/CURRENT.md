@@ -72,15 +72,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1839**. Open `role.c` `roles[]` ldrnum/homebase/intermed/guardnum/questarti for remaining roles shipped (4/4 corpus PASS; proxy owner was `attributes_enlightenment`).
-**Next cluster:** Open `selvar.c` `selection_filter_percent` — 2 corpus blocks; C themed-room `rn2(100)` vs JS `rnd_rect` (level-content cliff).
+**Suite 44/44** at **D-1840**. Open `selvar.c` `selection_filter_percent` Ice/Boulder/Spider/Trap themed fills shipped (2/2 corpus moved past; proxy owner was `rnd_rect`).
+**Next cluster:** Open `mkmaze.c` `makemaz` `fakewiz1`/`fakewiz2` — Wizard-of-Yendor path; 44+44 ln. From `dat/fakewiz{1,2}.lua`.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1839 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1840 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1840** `selvar.c` `selection_filter_percent` `:223–245` (`rn2(100) < percent` per set cell, x-out — port Ice (`des.terrain` ICE + `percent(25)` melt-ice timers), Boulder / Spider / Trap (`percentage(30)` then y-outer iterate).
 **D-1839** `role.c` `roles[]` `:30–573` (`homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti`); `que — copy C `roles[]` `homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti` for the remaining nine roles; Arc `PM_STUDENT` and Bar `PM_CHIEFTAIN` `guardnum`.
 **D-1838** `hack.c` `pickup_checks` `:3788–3872` (uswallow tongue/`loot_mon`; pool/lava dive; `!OBJ_A — port the C body: furniture-specific nothing-msgs (stairs affixed), pool/lava reach, swallow tongue/`-2`, pit-aware `can_reach_floor`.
 **D-1837** `pickup.c` `doloot` `:2166–2174` (`gl.loot_reset_justpicked`); `doloot_core` `:2178–2346`  — `doopen_indir` returns `doloot()` on self/down unless a closed door is here.
@@ -88,10 +89,9 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1835** `invent.c` `look_here` `:4162–4177` (`!skip_objects` seen `t_at` / `visible_region_at` → ` — `look_here` plines the seen trap / visible region before the object list.
 **D-1834** `invent.c` `getobj` `:1751–2089` (`:1912–1914` empty `!forceprompt`; `:2058–2062` missing  — `dowear`/`doputon`/`dothrow`/`dodrink`/`doremring` call live `getobj`.
 **D-1833** `iactions.c` `itemactions` `:429–445` (E: Engrave vs Write + `surface`); `:309–400` apply  — E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`.
-**D-1832** `wintty.c` `process_menu_window` `:1329–1768` (default: `tty_nhbell(); break;` — Unhandled keys `tty_nhbell` only (no `docrt`/`cls`).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1839; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1840; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1840 selvar.c selection_filter_percent themed-room fills
+
+**C locus:** `selvar.c` `selection_filter_percent` `:223–245` (`rn2(100) < percent` per set cell, x-outer); `nhlsel.c` `l_selection_filter_percent` `:388–401`; `l_selection_iterate` `:924–957` (y-outer, `cvt_to_relcoord`); `dat/themerms.lua` Ice / Boulder / Spider nest / Trap room fills; `sp_lev.c` `create_trap` `:1812–1846` (`get_free_room_loc` then `mktrap` with `tm`).
+**JS:** `js/mklev.js` `themeroom_fill_ice` / `_boulder` / `_spider` / `_trap` / `splev_mktrap_at` / `splev_create_trap_coord` / `get_free_room_loc_coord` / `nhl_start_timer_at`.
+**Change:** port Ice (`des.terrain` ICE + `percent(25)` melt-ice timers), Boulder / Spider / Trap (`percentage(30)` then y-outer iterate). `splev_create_trap_coord` matches `create_trap` with croom; spider `and percent(80)` short-circuits; trap names shuffled then `traps[1]`.
+**Verify:** `node scripts/verify.mjs --fn selection_filter_percent` → PASS syntax (1 js file); PASS rule2; PASS hidden verify selection_filter_percent: 0 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Barbarian-70024-d5-8-15-17-22 → level_tele step 32 was 0; tour-Monk-70022-d5-8-15-17-22 → js-throw step 45 was 12); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+**Named:** Garden / Buried treasure / Massacre / Statuary fills; garden/dig postprocess; icedpool on ICE (`splev_init_present`); humidity-aware `get_location`. Not leftover WIN_STATUS (`do_statusline1`).
+**Next:** Open `mkmaze.c` `makemaz` `fakewiz1`/`fakewiz2`. Not leftover WIN_STATUS (`do_statusline1`).
 ## 2026-09-05 — D-1839 role.c roles[] ldrnum / homebase / intermed / guardnum / questarti
 
 **C locus:** `role.c` `roles[]` `:30–573` (`homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti`); `questpgr.c` `ldrname` `:50–57` (`type_is_pname` ? `""` : `"the "` + `mons[i].pmnames[NEUTRAL]`); `convert_arg` `%l` `:260–262`.

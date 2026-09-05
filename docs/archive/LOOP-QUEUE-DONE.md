@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `insight.c` attributes_enlightenment — 3 corpus blocks; quest-leader telepathy name vs colon. **Addressed:** D-1839
+- [x] `selvar.c` selection_filter_percent — 2 corpus blocks; C themed-room `rn2(100)` vs JS `rnd_rect` (level-content cliff). **Addressed:** D-1840
+
+
+- [x] `insight.c` attributes_enlightenment — 3 corpus blocks; quest-leader telepathy name vs colon. **Addressed:** D-1839 `65036888`
 
 
 - [x] `hack.c` pickup_checks — 3 corpus blocks; "The stairs are solidly affixed." vs "There is nothing here to pick up." **Addressed:** D-1838 `27758e2a`

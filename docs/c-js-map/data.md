@@ -1213,12 +1213,17 @@ three `create_altar`/`get_free_room_loc`);
 1×1 bitmap, ttl −1, not BFS; asleep fog `numpoints/4`); 
 **Light source fill** + `l_create_object` oil lamp `lit=true` (D-1542; 
 needs_unlit `rm.lit==false`; callee D-1533 `o->lit` `begin_burn`; not 
-`create_object_themed`/`mksobj_at`); **Kni-goal** (D-0928 #1134) + **Kni-strt/loca/fila/filb** (D-1829; Camelot
+`create_object_themed`/`mksobj_at`); **Ice / Boulder / Spider nest / Trap room fills**
+(D-1840; `selection_filter_percent` `rn2(100)<pct` x-outer then Lua iterate
+y-outer; Ice `set_levltyp` ICE + `percent(25)` `nhl_start_timer_at` melt-ice;
+Boulder `percent(50)` boulder vs rolling-boulder trap; Spider `difficulty>8`
+`and percent(80)` spider_on_web; Trap shuffle eight kinds then `traps[1]`;
+`splev_create_trap_coord` `get_free_room_loc` + `mktrap` tm); **Kni-goal** (D-0928 #1134) + **Kni-strt/loca/fila/filb** (D-1829; Camelot
 mines-kludge + Isle of Glass swamp mines + fillers); **Rog-strt/loca/goal/fila/filb** (D-1830; Rogue quest 5/5:
 shuffle-exit mimics `S_dnstair` + floodfill streets + Master Key); full Lua VM + remaining `des.*` still production requirement; 
 Random-feature center terrain + 
-other fill bodies (Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/Statuary/…) 
-+ garden/dig postprocess absent; exclusion_zones save/rest deferred
+other fill bodies (Garden/Buried treasure/Massacre/Statuary/…) 
++ garden/dig postprocess absent; icedpool on ICE (`splev_init_present`); exclusion_zones save/rest deferred
 
 ### `src/mkroom.c` `mkshop` / `src/shknam.c` `stock_room` / `src/shk.c`
 
