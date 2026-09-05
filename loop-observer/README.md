@@ -3,8 +3,14 @@
 Local browser view of the unattended port loop: Cursor `stream-json`
 **or** Muse `exec --json` from `.agent-port-loop-logs/iter-NNNN-STAMP.raw`,
 rendered as a conversation (prompt, thoughts, tools, Edit/Write diffs,
-result). Muse records are normalized in `parse.mjs` via
-`scripts/loop-raw.mjs`; the UI is the same.
+result).
+
+Muse stdout JSONL is a thin task-lifecycle view (tool names, not
+thoughts or args). When the observer sees a Muse session id it **also
+tails** `~/.local/share/muse/sessions/YYYY/MM/DD/<id>/session.jsonl`
+(reasoning summaries, tool args, assistant text). `scripts/loop-raw.mjs`
+normalizes both shapes; the UI is the same. With `MUSE_NO_SESSION_LOG=1`
+it stays on `.raw` and infers Read paths from tool output when it can.
 
 Zero npm dependencies. Binds **`127.0.0.1`** on an ephemeral port
 (OS-assigned first free). Not scored; not imported from `js/`.

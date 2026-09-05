@@ -354,7 +354,10 @@ Under `.agent-port-loop-logs/` (gitignored):
 ## Loop observer
 
 Browser conversation view of the current (or a recent) iter `.raw`
-stream. Zero-dep; localhost only. Full usage: `loop-observer/README.md`.
+stream. For `--muse`, the observer follows the on-disk Muse
+`session.jsonl` (thoughts + tool args) once the session id is known;
+stdout `.raw` is the fallback. Zero-dep; localhost only. Full usage:
+`loop-observer/README.md`.
 
 ```bash
 npm run observe-loop          # prints URL, opens a window

@@ -3,7 +3,17 @@
  * iteration. This module detects Muse records and folds them into the
  * Cursor-shaped events the observer, usage meter, resume brief, and
  * nav report already understand. Cursor lines pass through unchanged.
+ *
+ * Muse `exec --json` stdout is a thin task-lifecycle view: tool names,
+ * not thoughts or args. The on-disk session log
+ * (`~/.local/share/muse/sessions/YYYY/MM/DD/<id>/session.jsonl`) holds
+ * `reasoning_summary_*`, `assistant_tool_calls_committed`, and
+ * `assistant_message_committed`. The observer tails that file when it
+ * can; stdout `.raw` remains the fallback (and the supervisor log).
  */
+import { existsSync, readdirSync } from "node:fs";
+import { homedir } from "node:os";
+import { join } from "node:path";
 const TOOL_KIND = {
   read_file: "read",
   read: "read",
@@ -52,11 +62,78 @@ export function museTimestampMs(ev) {
   return n > 1e15 ? Math.floor(n / 1000) : n;
 }
 
+const sessionLogCache = new Map();
+
+export function museSessionsRoot() {
+  const base = process.env.XDG_DATA_HOME || join(homedir(), ".local/share");
+  return join(base, "muse", "sessions");
+}
+
+export function peekMuseSessionId(text) {
+  for (const line of String(text).split(/\r?\n/)) {
+    const s = line.trim();
+    if (!s.startsWith("{")) continue;
+    let ev;
+    try {
+      ev = JSON.parse(s);
+    } catch {
+      continue;
+    }
+    if (!isMuseRecord(ev)) continue;
+    const id = ev.stream?.id || ev.payload?.run_stream?.id || ev.payload?.session_id;
+    if (typeof id === "string" && id) return id;
+  }
+  return null;
+}
+
+export function findMuseSessionLog(sessionId) {
+  if (typeof sessionId !== "string" || !/^[A-Za-z0-9._-]{8,80}$/.test(sessionId)) return null;
+  const cached = sessionLogCache.get(sessionId);
+  if (cached && existsSync(cached)) return cached;
+  const root = museSessionsRoot();
+  const tryAt = (yyyy, mm, dd) => join(root, String(yyyy), mm, dd, sessionId, "session.jsonl");
+  const now = new Date();
+  for (const delta of [0, -1, 1]) {
+    const t = new Date(now.getTime() + delta * 86_400_000);
+    const p = tryAt(
+      t.getFullYear(),
+      String(t.getMonth() + 1).padStart(2, "0"),
+      String(t.getDate()).padStart(2, "0"),
+    );
+    if (existsSync(p)) {
+      sessionLogCache.set(sessionId, p);
+      return p;
+    }
+  }
+  try {
+    for (const year of readdirSync(root, { withFileTypes: true })) {
+      if (!year.isDirectory() || !/^\d{4}$/.test(year.name)) continue;
+      const ydir = join(root, year.name);
+      for (const month of readdirSync(ydir, { withFileTypes: true })) {
+        if (!month.isDirectory() || !/^\d{2}$/.test(month.name)) continue;
+        const mdir = join(ydir, month.name);
+        for (const day of readdirSync(mdir, { withFileTypes: true })) {
+          if (!day.isDirectory() || !/^\d{2}$/.test(day.name)) continue;
+          const p = join(mdir, day.name, sessionId, "session.jsonl");
+          if (existsSync(p)) {
+            sessionLogCache.set(sessionId, p);
+            return p;
+          }
+        }
+      }
+    }
+  } catch {
+    /* no Muse session store */
+  }
+  return null;
+}
+
 export function createNormalizer() {
   const assistantByRun = new Map();
   const tools = new Map();
   const userByRun = new Set();
   const thinkingByRun = new Map();
+  const taskKind = new Map();
   let sessionId = null;
   let model = null;
   let emittedInit = false;
@@ -152,13 +229,15 @@ export function createNormalizer() {
   function emitThinkingDelta(ev, piece, runId, out) {
     if (!piece) return;
     const rec = thinkingByRun.get(runId) || { text: "" };
-    rec.text += piece;
+    const add =
+      rec.text && !rec.text.endsWith("\n") && !String(piece).startsWith("\n") ? `\n${piece}` : piece;
+    rec.text += add;
     thinkingByRun.set(runId, rec);
     ensureInit(ev, out);
     out.push({
       type: "thinking",
       subtype: "delta",
-      text: piece,
+      text: add,
       timestamp_ms: museTimestampMs(ev),
     });
   }
@@ -171,27 +250,40 @@ export function createNormalizer() {
     });
   }
 
+  function aliasTool(a, b) {
+    if (!a || !b || a === b) return;
+    const rec = tools.get(a) || tools.get(b);
+    if (rec) {
+      tools.set(String(a), rec);
+      tools.set(String(b), rec);
+    }
+  }
+
   function rememberTool(id, kind, args, name) {
-    const prev = tools.get(id) || { kind, args: {}, name, stdout: "" };
+    if (!id) return { kind, args: {}, name, stdout: "", cardId: "" };
+    const prev = tools.get(id) || { kind, args: {}, name, stdout: "", cardId: String(id) };
     prev.kind = kind || prev.kind;
     prev.name = name || prev.name;
     if (args && typeof args === "object") prev.args = { ...prev.args, ...args };
+    prev.cardId = prev.cardId || String(id);
     tools.set(id, prev);
     return prev;
   }
 
   function emitTool(ev, id, kind, args, result, subtype, out) {
     if (!id) return;
+    const rec = rememberTool(id, kind, args || {}, "");
+    const callId = rec.cardId || String(id);
     const key = `${kind}ToolCall`;
     ensureInit(ev, out);
     out.push({
       type: "tool_call",
       subtype,
-      call_id: String(id),
+      call_id: String(callId),
       timestamp_ms: museTimestampMs(ev),
       tool_call: {
         [key]: {
-          args: mapArgs(kind, args || {}),
+          args: mapArgs(kind, args || rec.args || {}),
           ...(result != null ? { result } : {}),
         },
       },
@@ -201,7 +293,7 @@ export function createNormalizer() {
   function emitToolStarted(ev, id, rawName, args, out) {
     if (!id || isModelTask(rawName)) return;
     const kind = canonicalToolKind(rawName);
-    const mapped = mapArgs(kind, parseArgs(args));
+    const mapped = mapArgs(kind, { ...parseArgs(args), ...inferArgsFromText(kind, typeof args === "string" ? args : "") });
     rememberTool(id, kind, mapped, rawName);
     emitTool(ev, id, kind, mapped, null, "started", out);
   }
@@ -209,14 +301,18 @@ export function createNormalizer() {
   function emitToolCompleted(ev, id, resultObj, out) {
     if (!id) return;
     const rec = tools.get(id) || { kind: "shell", args: {}, stdout: "" };
+    const inferred = inferArgsFromText(rec.kind, resultObj?.text || resultObj?.output || resultObj?.chunk || rec.stdout);
+    if (inferred.path && !rec.args?.path) rec.args = { ...rec.args, ...inferred };
     const result = mapResult(rec.kind, resultObj, rec);
     emitTool(ev, id, rec.kind, rec.args, result, "completed", out);
   }
 
   function emitToolDelta(ev, id, piece, out) {
     if (!id || !piece) return;
-    const rec = rememberTool(id, "shell", {}, "");
+    const rec = tools.get(id) || rememberTool(id, "shell", {}, "");
     rec.stdout = (rec.stdout || "") + piece;
+    const inferred = inferArgsFromText(rec.kind, rec.stdout);
+    if (inferred.path && !rec.args?.path) rec.args = { ...rec.args, ...inferred };
     const result = mapResult(rec.kind, { stdout: rec.stdout, exitCode: rec.exitCode }, rec);
     emitTool(ev, id, rec.kind, rec.args, result, "started", out);
   }
@@ -237,9 +333,21 @@ export function createNormalizer() {
   }
 
   function handleToolResults(ev, event, payload, out) {
+    if (payload?.kind === "tool_result" || (!event?.results && payload?.call_id && payload?.text != null)) {
+      const id = payload.call_id || event?.call_id;
+      if (id) {
+        const name = payload.correlation_facts?.tool_name;
+        if (name && !isModelTask(name)) {
+          const kind = canonicalToolKind(name);
+          if (!tools.has(id)) rememberTool(id, kind, inferArgsFromText(kindOfStored(id, kind), payload.text), name);
+        }
+        emitToolCompleted(ev, id, payload, out);
+        return true;
+      }
+    }
     let results = event?.results ?? payload?.results;
     if (!Array.isArray(results)) {
-      const one = event?.result ?? payload?.result ?? event;
+      const one = event?.result ?? payload?.result;
       if (one && typeof one === "object") results = [one];
       else results = [];
     }
@@ -254,6 +362,10 @@ export function createNormalizer() {
     return any;
   }
 
+  function kindOfStored(id, fallback) {
+    return tools.get(id)?.kind || fallback;
+  }
+
   function handleTaskLifecycle(ev, payload, event, ptype, out) {
     const taskId = payload?.task_id || event?.task_id || payload?.task_stream?.id;
     const rawName =
@@ -262,15 +374,27 @@ export function createNormalizer() {
       event?.operation ||
       event?.tool ||
       event?.name ||
+      taskKind.get(taskId) ||
       "";
+    if (rawName) taskKind.set(taskId, rawName);
     const ek = String(event?.kind || ptype.split(".").pop() || "");
     const args = event?.args ?? payload?.args ?? event?.raw_args;
-    if (ek === "proposed" || ek === "started" || ek === "scheduled" || ek === "side_effect_intent") {
-      if (taskId && !isModelTask(rawName)) emitToolStarted(ev, taskId, rawName, args, out);
+    const key = event?.idempotency_key || payload?.idempotency_key;
+    if (typeof key === "string" && key.startsWith("tool:")) aliasTool(taskId, key.slice(5));
+
+    if (ek === "accepted" || ek === "scheduled" || ek === "status") return true;
+    if (ek === "side_effect_intent") return true;
+    if (ek === "proposed" || ek === "started") {
+      if (taskId && !isModelTask(rawName) && !tools.has(taskId)) {
+        emitToolStarted(ev, taskId, rawName, args, out);
+      }
       return true;
     }
-    if (ek === "tool_delta" || ek === "delta") {
-      const piece = event?.delta || event?.text || event?.output || payload?.text || "";
+    if (ek === "output" || ek === "tool_delta" || ek === "delta") {
+      const piece = event?.chunk || event?.delta || event?.text || event?.output || payload?.text || "";
+      if (taskId && !tools.has(taskId) && !isModelTask(rawName) && rawName) {
+        emitToolStarted(ev, taskId, rawName, args, out);
+      }
       emitToolDelta(ev, taskId, typeof piece === "string" ? piece : "", out);
       return true;
     }
@@ -279,7 +403,8 @@ export function createNormalizer() {
       if (taskId && !isModelTask(rawName) && !tools.has(taskId) && rawName) {
         emitToolStarted(ev, taskId, rawName, args, out);
       }
-      if (taskId && tools.has(taskId)) emitToolCompleted(ev, taskId, event, out);
+      const result = ek === "failed" ? { error: event?.reason || payload?.reason || "failed", text: event?.reason } : event;
+      if (taskId && tools.has(taskId)) emitToolCompleted(ev, taskId, result, out);
       return true;
     }
     return false;
@@ -330,10 +455,34 @@ export function createNormalizer() {
       }
       return out;
     }
-    if (/reasoning/i.test(ptype) || /reasoning/i.test(String(event.kind || ""))) {
-      const piece = payload.text ?? event.text ?? payload.delta ?? event.summary ?? "";
-      if (String(event.kind || "").includes("completed")) emitThinkingDone(ev, out);
-      else emitThinkingDelta(ev, String(piece || ""), runId, out);
+    const ekind = String(event.kind || "");
+    if (ekind === "reasoning_summary_delta" || ekind === "reasoning_delta") {
+      emitThinkingDelta(ev, String(event.text ?? payload.text ?? event.delta ?? ""), runId, out);
+      return out;
+    }
+    if (ekind === "reasoning_summary_committed") {
+      const rec = thinkingByRun.get(runId);
+      const body = event.text ?? payload.text;
+      if (body && !rec?.text) emitThinkingDelta(ev, String(body), runId, out);
+      emitThinkingDone(ev, out);
+      return out;
+    }
+    if (ekind === "reasoning_committed") {
+      const piece = event.text ?? payload.text ?? "";
+      if (String(piece).trim()) emitThinkingDelta(ev, String(piece), runId, out);
+      return out;
+    }
+    if (ekind === "model_completed") {
+      maybeModel(payload, event);
+      ensureInit(ev, out);
+      const u = camelUsage(event.usage || payload.usage);
+      if (u) out.push({ type: "usage", usage: u, timestamp_ms: museTimestampMs(ev) });
+      return out;
+    }
+    if (ekind === "goal_usage_attribution") {
+      const q = event.record?.quantity || payload.record?.quantity;
+      const u = camelUsage(q);
+      if (u) out.push({ type: "usage", usage: u, timestamp_ms: museTimestampMs(ev) });
       return out;
     }
     if (ptype.startsWith("task.lifecycle.") || payload.kind === "task_lifecycle") {
@@ -346,6 +495,7 @@ export function createNormalizer() {
       return out;
     }
     if (event.kind === "assistant_tool_calls_committed") {
+      emitThinkingDone(ev, out);
       handleCommittedTools(ev, event, payload, out);
       return out;
     }
@@ -354,31 +504,30 @@ export function createNormalizer() {
       event.kind === "tool_result_batch_committed" ||
       event.kind === "tool_results_committed" ||
       event.kind === "tool_result_committed" ||
-      ptype === "tool.result"
+      ptype === "tool.result" ||
+      payload.kind === "tool_result"
     ) {
       handleToolResults(ev, event, payload, out);
       return out;
     }
-    if (
-      ptype === "run.terminal.completed" ||
-      ptype === "run.terminal.failed" ||
-      ptype === "run.terminal.cancelled" ||
-      event.kind === "terminal" ||
-      payload.kind === "run_terminal"
-    ) {
+    const isRunTerminal =
+      ptype.startsWith("run.terminal.") ||
+      payload.kind === "run_terminal" ||
+      (payload.kind === "run" && event.kind === "terminal");
+    if (isRunTerminal) {
       emitThinkingDone(ev, out);
       const terminal = payload.terminal || event.terminal || ptype.split(".").pop();
       const failed = terminal === "failed" || terminal === "cancelled" || ptype.endsWith("failed") || ptype.endsWith("cancelled");
       const text = payload.text ?? event.text;
       if (text) emitAssistantFinal(ev, text, runId, out);
-      const usage = payload.usage || event.usage;
+      const usage = camelUsage(payload.usage || event.usage) || payload.usage || event.usage;
       out.push({
         type: "result",
         subtype: failed ? "error" : "success",
         is_error: failed,
         result: payload.reason || event.reason || "",
         error: failed ? payload.reason || event.reason || "" : undefined,
-        duration_ms: payload.duration_ms ?? payload.durationMs ?? event.duration_ms,
+        duration_ms: payload.duration_ms ?? payload.durationMs ?? event.duration_ms ?? event.turn_duration_ms,
         usage: usage && typeof usage === "object" ? usage : undefined,
         timestamp_ms: museTimestampMs(ev),
       });
@@ -406,6 +555,39 @@ export function canonicalToolKind(name) {
   n = n.replace(/ToolCall$/i, "");
   const snake = n.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase().replace(/-/g, "_");
   return TOOL_KIND[n] || TOOL_KIND[n.toLowerCase()] || TOOL_KIND[snake] || (n || "tool");
+}
+
+function inferArgsFromText(kind, text) {
+  const t = String(text || "");
+  if (!t) return {};
+  const first = t.split(/\r?\n/, 1)[0];
+  const tick = first.match(/`([^`]+)`/);
+  if (tick && (kind === "read" || kind === "write" || kind === "edit" || kind === "delete")) {
+    return { path: tick[1] };
+  }
+  const read = first.match(/^Read(?: text)? file [`']([^`']+)[`']/i);
+  if (read) return { path: read[1] };
+  return {};
+}
+
+function camelUsage(u) {
+  if (!u || typeof u !== "object" || Array.isArray(u)) return null;
+  const map = {
+    input_tokens: "inputTokens",
+    output_tokens: "outputTokens",
+    cached_tokens: "cachedTokens",
+    cache_read_tokens: "cacheReadTokens",
+    cache_write_tokens: "cacheWriteTokens",
+    reasoning_tokens: "reasoningTokens",
+    prompt_tokens: "promptTokens",
+    total_tokens: "totalTokens",
+  };
+  const out = {};
+  for (const [k, v] of Object.entries(u)) {
+    if (typeof v !== "number" || !Number.isFinite(v)) continue;
+    out[map[k] || k] = v;
+  }
+  return Object.keys(out).length ? out : null;
 }
 
 function parseArgs(value) {
@@ -504,7 +686,13 @@ function mapResult(kind, result, rec) {
 
 function isUsageShape(o) {
   if (!o || typeof o !== "object" || Array.isArray(o)) return false;
-  return USAGE_KEYS.some((k) => typeof o[k] === "number");
+  if (USAGE_KEYS.some((k) => typeof o[k] === "number")) return true;
+  return (
+    typeof o.input_tokens === "number" ||
+    typeof o.output_tokens === "number" ||
+    typeof o.total_tokens === "number" ||
+    typeof o.prompt_tokens === "number"
+  );
 }
 
 function harvestUsageFrom(ev, acc) {
@@ -518,13 +706,16 @@ function visitForUsage(obj, acc, depth) {
     return;
   }
   if (obj.cumulative && typeof obj.cumulative === "object" && typeof obj.cumulative.totalTokens === "number") {
-    acc.cumulative = obj.cumulative;
+    acc.cumulative = camelUsage(obj.cumulative) || obj.cumulative;
   }
-  if (obj.usage && isUsageShape(obj.usage)) acc.usage = obj.usage;
+  if (obj.usage && isUsageShape(obj.usage)) acc.usage = camelUsage(obj.usage) || obj.usage;
   if (isUsageShape(obj) && obj.payload == null && obj.payload_type == null && obj.type !== "result") {
     const tokenFields = USAGE_KEYS.filter((k) => typeof obj[k] === "number").length;
+    const snakeFields = ["input_tokens", "output_tokens", "total_tokens", "prompt_tokens"].filter(
+      (k) => typeof obj[k] === "number",
+    ).length;
     const keys = Object.keys(obj);
-    if (tokenFields >= 1 && keys.length <= 12) acc.usage = obj;
+    if (tokenFields + snakeFields >= 1 && keys.length <= 12) acc.usage = camelUsage(obj) || obj;
   }
   for (const [k, v] of Object.entries(obj)) {
     if (k === "usage" || k === "cumulative") continue;
@@ -573,14 +764,15 @@ export function extractUsageFromRaw(text) {
   }
   if (museAcc.cumulative && typeof museAcc.cumulative.totalTokens === "number") {
     const breakdown = {
-      ...filterNumeric(museAcc.cumulative),
-      ...filterNumeric(museAcc.usage),
+      ...filterNumeric(camelUsage(museAcc.cumulative) || museAcc.cumulative),
+      ...filterNumeric(camelUsage(museAcc.usage) || museAcc.usage),
     };
     return { found: true, total: museAcc.cumulative.totalTokens, breakdown };
   }
   if (museAcc.usage) {
-    const breakdown = filterNumeric(museAcc.usage);
-    return { found: true, total: museTotal(museAcc.usage), breakdown };
+    const camel = camelUsage(museAcc.usage) || museAcc.usage;
+    const breakdown = filterNumeric(camel);
+    return { found: true, total: museTotal(camel), breakdown };
   }
   return { found: false, total: 0, breakdown: {} };
 }

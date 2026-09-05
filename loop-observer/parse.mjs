@@ -102,6 +102,10 @@ function applyEvent(state, ev) {
     state.meta.sessionId = ev.session_id || state.meta.sessionId;
     return null;
   }
+  if (t === "usage" && ev.usage && typeof ev.usage === "object") {
+    state.meta.usage = summarizeUsage(ev.usage);
+    return null;
+  }
   if (t === "system" && st === "task_notification") {
     return upsert(state, {
       id: `sys-${ev.task_id || state.seq}`,

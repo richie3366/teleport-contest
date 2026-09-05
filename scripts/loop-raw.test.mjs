@@ -66,6 +66,74 @@ describe("loop-raw Muse fixture", () => {
   });
 });
 
+const sessionFixture = readFileSync(join(here, "../loop-observer/fixtures/muse-session.jsonl"), "utf8");
+const thinFixture = readFileSync(join(here, "../loop-observer/fixtures/muse-stdout-thin.jsonl"), "utf8");
+
+describe("loop-raw Muse session.jsonl (runtime.session)", () => {
+  it("surfaces thinking, tool path, assistant text, and snake_case usage", () => {
+    const { events } = parseRawText(sessionFixture);
+    assert.ok(events.some((e) => e.type === "user"));
+    const think = events.find((e) => e.type === "thinking" && e.subtype === "delta");
+    assert.ok(think);
+    assert.match(think.text, /CURRENT\.md/);
+    const started = events.find((e) => e.type === "tool_call" && e.subtype === "started");
+    assert.equal(started.tool_call.readToolCall.args.path, "docs/CURRENT.md");
+    const done = events.find((e) => e.type === "tool_call" && e.subtype === "completed");
+    assert.match(String(done.tool_call.readToolCall.result.success.content), /# Current/);
+    const asst = events.find((e) => e.type === "assistant" && e.subtype !== "delta");
+    assert.match(asst.message.content[0].text, /fill_zoo/);
+    const usage = events.find((e) => e.type === "usage");
+    assert.equal(usage.usage.inputTokens, 1000);
+  });
+
+  it("observer cards include thinking title path and assistant", () => {
+    const t = createTranscript();
+    applyNdjsonChunk(t, sessionFixture);
+    assert.ok(t.messages.some((m) => m.kind === "thinking"));
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.equal(tool.name, "Read");
+    assert.match(tool.title, /CURRENT\.md/);
+    assert.ok(t.messages.some((m) => m.kind === "assistant"));
+    assert.equal(t.meta.usage.breakdown.inputTokens, 1000);
+  });
+});
+
+describe("loop-raw Muse exec --json stdout (no thoughts)", () => {
+  it("infers Read path from output/result and keeps one tool card", () => {
+    const { events } = parseRawText(thinFixture);
+    const tools = events.filter((e) => e.type === "tool_call");
+    const ids = new Set(tools.map((e) => e.call_id));
+    assert.equal(ids.size, 1);
+    const started = tools.find((e) => e.subtype === "started" && e.tool_call.readToolCall?.args?.path);
+    assert.ok(started);
+    assert.equal(started.tool_call.readToolCall.args.path, "docs/CURRENT.md");
+  });
+
+  it("observer still shows a Read card when session.jsonl is absent", () => {
+    const t = createTranscript();
+    applyNdjsonChunk(t, thinFixture);
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.equal(tool.name, "Read");
+    assert.match(tool.title, /CURRENT.md/);
+    assert.ok(tool.result?.preview);
+  });
+
+  it("does not treat tool_batch.effect.terminal as the run result", () => {
+    const line = JSON.stringify({
+      schema_version: 1,
+      stream: { kind: "session", id: "s" },
+      recorded_at: 1788599595000000,
+      payload_type: "tool_batch.effect.terminal",
+      payload: {
+        kind: "tool_batch_effect",
+        record: { kind: "terminal", call_id: "call_1", tool_name: "bash" },
+      },
+    });
+    const { events } = parseRawText(line);
+    assert.equal(events.some((e) => e.type === "result"), false);
+  });
+});
+
 describe("loop-raw Cursor stream-json", () => {
   const cursor = [
     '{"type":"system","subtype":"init","model":"cursor-grok-4.6-xhigh","session_id":"s1"}',

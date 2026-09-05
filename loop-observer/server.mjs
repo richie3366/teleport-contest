@@ -13,6 +13,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
 import { createTranscript, resetTranscript, applyNdjsonChunk, publicSnapshot } from "./parse.mjs";
+import { findMuseSessionLog, peekMuseSessionId } from "../scripts/loop-raw.mjs";
 import { upgradeWebSocket } from "./ws.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -33,8 +34,6 @@ const MIME = {
 
 const clients = new Set();
 const transcript = createTranscript();
-let leftover = "";
-let fileOffset = 0;
 let currentRel = null;
 let currentAbs = null;
 let followLive = true;
@@ -43,6 +42,8 @@ let recent = [];
 let viewEpoch = 0;
 let pollTimer = null;
 let dirWatcher = null;
+let rawSource = null;
+let eventSource = null;
 
 function send(conn, obj) {
   conn.send(JSON.stringify(obj));
@@ -180,12 +181,49 @@ async function pickCurrentRaw(raws) {
   return best;
 }
 
+function newSource(abs) {
+  return { abs, offset: 0, leftover: "" };
+}
+
+async function peekRawSessionId(abs) {
+  if (!abs) return null;
+  try {
+    const st = await fsp.stat(abs);
+    const take = Math.min(st.size, 256_000);
+    if (!take) return null;
+    const fh = await fsp.open(abs, "r");
+    const buf = Buffer.alloc(take);
+    await fh.read(buf, 0, take, 0);
+    await fh.close();
+    return peekMuseSessionId(buf.toString("utf8"));
+  } catch {
+    return null;
+  }
+}
+
+async function attachMuseSession(sid, { resetIfSwitched } = {}) {
+  if (!sid) return false;
+  const sess = findMuseSessionLog(sid);
+  if (!sess) return false;
+  if (eventSource?.abs === sess) return false;
+  eventSource = newSource(sess);
+  transcript.meta.sessionId = sid;
+  transcript.meta.sessionLog = sess;
+  if (resetIfSwitched) {
+    const keep = { ...transcript.meta, eventCount: 0, parseErrors: 0, running: true };
+    resetTranscript(transcript, keep);
+    viewEpoch += 1;
+    broadcast({ op: "clear", meta: transcript.meta, ...viewState() });
+  }
+  return true;
+}
+
 async function switchTo(file) {
-  leftover = "";
-  fileOffset = 0;
   viewEpoch += 1;
   currentRel = file?.name ?? null;
   currentAbs = file?.abs ?? null;
+  rawSource = file ? newSource(file.abs) : null;
+  eventSource = rawSource;
   resetTranscript(transcript, {
     iter: file?.iter ?? null,
     stamp: file?.stamp ?? null,
@@ -198,10 +236,53 @@ async function switchTo(file) {
   broadcast({ op: "clear", meta: transcript.meta, ...viewState() });
   if (file) {
     transcript.meta.mode = await latestMasterMode(file.iter);
+    const sid = await peekRawSessionId(file.abs);
+    if (sid) await attachMuseSession(sid);
     await ingestFromOffset(true);
   } else {
     broadcast(snapshotPayload());
   }
+}
+
+async function ingestFile(source, isReset) {
+  if (!source?.abs) return { changed: [], isReset };
+  let st;
+  try {
+    st = await fs.promises.stat(source.abs);
+  } catch {
+    return { changed: [], isReset };
+  }
+  if (st.size < source.offset) {
+    source.leftover = "";
+    source.offset = 0;
+    resetTranscript(transcript, {
+      ...transcript.meta,
+      eventCount: 0,
+      parseErrors: 0,
+      running: true,
+    });
+    isReset = true;
+  }
+  if (st.size === source.offset) {
+    maybeFinishIdle(st);
+    return { changed: [], isReset };
+  }
+  const fh = await fsp.open(source.abs, "r");
+  const need = st.size - source.offset;
+  const buf = Buffer.alloc(need);
+  await fh.read(buf, 0, need, source.offset);
+  await fh.close();
+  source.offset = st.size;
+  const text = source.leftover + buf.toString("utf8");
+  const lastNl = text.lastIndexOf("\n");
+  if (lastNl < 0) {
+    source.leftover = text;
+    maybeFinishIdle(st);
+    return { changed: [], isReset };
+  }
+  source.leftover = text.slice(lastNl + 1);
+  const chunk = text.slice(0, lastNl + 1);
+  return { changed: applyNdjsonChunk(transcript, chunk), isReset };
 }
 
 async function ingestFromOffset(isReset) {
@@ -213,39 +294,20 @@ async function ingestFromOffset(isReset) {
     return;
   }
   transcript.meta.bytes = st.size;
-  if (st.size < fileOffset) {
-    leftover = "";
-    fileOffset = 0;
-    resetTranscript(transcript, {
-      ...transcript.meta,
-      eventCount: 0,
-      parseErrors: 0,
-      running: true,
-    });
-    isReset = true;
+  if (!eventSource || eventSource === rawSource) {
+    const sid = transcript.meta.sessionId || (await peekRawSessionId(currentAbs));
+    if (sid) {
+      const switched = await attachMuseSession(sid, { resetIfSwitched: !isReset && transcript.messages.length > 0 });
+      if (switched && !isReset) isReset = true;
+    }
   }
-  if (st.size === fileOffset) {
-    maybeFinishIdle(st);
-    return;
+  const { changed, isReset: resetAfter } = await ingestFile(eventSource || rawSource, isReset);
+  isReset = resetAfter;
+  try {
+    transcript.meta.bytes = (await fs.promises.stat(currentAbs)).size;
+  } catch {
+    /* ignore */
   }
-  const fh = await fsp.open(currentAbs, "r");
-  const need = st.size - fileOffset;
-  const buf = Buffer.alloc(need);
-  await fh.read(buf, 0, need, fileOffset);
-  await fh.close();
-  fileOffset = st.size;
-  const text = leftover + buf.toString("utf8");
-  const lastNl = text.lastIndexOf("\n");
-  if (lastNl < 0) {
-    leftover = text;
-    maybeFinishIdle(st);
-    if (isReset) broadcast(snapshotPayload());
-    return;
-  }
-  leftover = text.slice(lastNl + 1);
-  const chunk = text.slice(0, lastNl + 1);
-  const changed = applyNdjsonChunk(transcript, chunk);
-  transcript.meta.bytes = st.size;
   if (transcript.meta.resultOk == null && !transcript.messages.some((m) => m.kind === "result")) {
     transcript.meta.running = true;
   }
