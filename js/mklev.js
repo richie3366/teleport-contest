@@ -1435,7 +1435,7 @@ function reset_xystart_size() {
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7,
  * Kni-strt, Kni-loca, Kni-fila, Kni-filb, Kni-goal,
  * Rog-strt, Rog-loca, Rog-fila, Rog-filb, Rog-goal,
- * Val-strt, Val-loca, Val-fila, Val-filb, Val-goal.
+ * Val-strt, Val-loca, Val-fila, Val-filb, Val-goal, knox.
  * Named omissions:
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1709,6 +1709,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Val-goal') {
         load_val_goal();
+        return true;
+    }
+    if (protofile === 'knox') {
+        load_knox();
         return true;
     }
     if (protofile === 'tower1') {
@@ -7588,6 +7592,262 @@ function load_val_filb() {
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     // des.level_flags noflip — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/knox.lua via load_special — Fort Ludios magic-portal vault.
+ * Solidfill " " + mazelevel/noteleport; 76x20 fort map; whole-map
+ * non_diggable (walls/bars wall_info); branch levregion (08,16) +
+ * up/down teleport regions (06,15,09,16); throne COURT (37,08,46,11)
+ * with percent-50 Croesus row + throne/floor swap and percent-50
+ * SDOOR/VWALL swap at 47,09/10; ordinary vault light (21,08,35,11) +
+ * treasury iterate (gold 600+rn2(301), 1/3 trap then 1/2 spiked pit
+ * else land mine, y-outer via selection_iterate_lua); percent-50 vault
+ * door swap at 36,09/10; lit corner towers; irregular ZOO treasure zoo
+ * (03,10,07,13); arrival OROOM (06,15,09,16) + unlit entry walls;
+ * irregular BARRACKS (62,03,71,04); 11 fixed doors; soldiers/lieutenant/
+ * stone giant/D dragons/eels in lua order; corner gem stock.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out; count_level_features/solidify/premap.
+ */
+function load_knox() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+
+    const KNOX_MAP = `
+----------------------------------------------------------------------------
+| |........|...............................................................|
+| |........|.................................................------------..|
+| --S----S--.................................................|..........|..|
+|   #   |........}}}}}}}....................}}}}}}}..........|..........|..|
+|   #   |........}-----}....................}-----}..........--+--+--...|..|
+|   # ---........}|...|}}}}}}}}}}}}}}}}}}}}}}|...|}.................|...|..|
+|   # |..........}---S------------------------S---}.................|...|..|
+|   # |..........}}}|...............|..........|}}}.................+...|..|
+| --S----..........}|...............S..........|}...................|...|..|
+| |.....|..........}|...............|......\\...S}...................|...|..|
+| |.....+........}}}|...............|..........|}}}.................+...|..|
+| |.....|........}---S------------------------S---}.................|...|..|
+| |.....|........}|...|}}}}}}}}}}}}}}}}}}}}}}|...|}.................|...|..|
+| |..-S----......}-----}....................}-----}..........--+--+--...|..|
+| |..|....|......}}}}}}}....................}}}}}}}..........|..........|..|
+| |..|....|..................................................|..........|..|
+| -----------................................................------------..|
+|           |..............................................................|
+----------------------------------------------------------------------------
+`.replace(/^\n/, '');
+    splev_apply_centered_map(KNOX_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.non_diggable(selection.area(00,00,75,19)) — walls/bars wall_info
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // des.levregion branch + teleport regions (raw lua coords; levregion_add
+    // applies get_location ANY_LOC origin while map origin is set)
+    l_levregion({ region: [8, 16, 8, 16], type: 'branch' });
+    l_teleport_region({ region: [6, 15, 9, 16], dir: 'up' });
+    l_teleport_region({ region: [6, 15, 9, 16], dir: 'down' });
+
+    // des.region throne (37,08,46,11) lit filled=1 — rectangular COURT
+    {
+        const dx1 = mx + 37, dy1 = my + 8, dx2 = mx + 46, dy2 = my + 11;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, true, COURT, true);
+            const troom = g.level.rooms[(g.level.nroom | 0) - 1];
+            if (troom) {
+                troom.needfill = FILL_NORMAL;
+                troom.needjoining = true;
+                topologize(troom);
+                add_doors_to_room(troom);
+            }
+        }
+    }
+
+    // 50% move throne and/or fort entry secret door up one row (lua order)
+    if (percent(50)) {
+        splev_create_monster('Croesus', 0, { rx: 43, ry: 10 });
+    } else {
+        splev_create_monster('Croesus', 0, { rx: 43, ry: 9 });
+        sel_set_ter(mx + 43, my + 9, THRONE, SET_LIT_NOCHANGE);
+        sel_set_ter(mx + 43, my + 10, ROOM, SET_LIT_NOCHANGE);
+    }
+    if (percent(50)) {
+        sel_set_ter(mx + 47, my + 9, SDOOR, SET_LIT_NOCHANGE);
+        sel_set_ter(mx + 47, my + 10, VWALL, SET_LIT_NOCHANGE);
+    }
+
+    // des.region ordinary vault light (21,08,35,11) — room_not_needed
+    light_region(mx + 21, my + 8, mx + 35, my + 11, true);
+
+    // The Vault: treasury iterate y-outer (C l_selection_iterate) —
+    // gold 600+math.random(0,300) then 1/3 trap (1/2 spiked pit else mine)
+    {
+        const treasury = selection_fillrect(mx + 21, my + 8, mx + 35, my + 11);
+        selection_iterate_lua(treasury, (x, y) => {
+            const amt = 600 + lua_random2(0, 300);
+            mkgold(amt, x, y);
+            if (rn2(3) === 0) {
+                const kind = (rn2(3) === 0) ? SPIKED_PIT : LANDMINE;
+                const ttmp = maketrap(x, y, kind);
+                mktrap_seen_victim(ttmp, {});
+            }
+        });
+    }
+
+    // Vault entrance varies (lua order, after iterate)
+    if (percent(50)) {
+        sel_set_ter(mx + 36, my + 9, VWALL, SET_LIT_NOCHANGE);
+        sel_set_ter(mx + 36, my + 10, SDOOR, SET_LIT_NOCHANGE);
+    }
+
+    // Corner towers lit (2-arg lit form grows by 1 in C)
+    light_region(mx + 19, my + 6, mx + 21, my + 6, true);
+    light_region(mx + 46, my + 6, mx + 48, my + 6, true);
+    light_region(mx + 19, my + 13, mx + 21, my + 13, true);
+    light_region(mx + 46, my + 13, mx + 48, my + 13, true);
+
+    // Welcoming committee: irregular ZOO (03,10,07,13) lit filled
+    {
+        const dx1 = mx + 3, dy1 = my + 10;
+        const rlit = litstate_rnd(1);
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            const bounds = { min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1 };
+            const rmno = (g.level.nroom | 0) + ROOMOFFSET;
+            if (g.smeq) g.smeq[g.level.nroom | 0] = g.level.nroom | 0;
+            flood_fill_rm(dx1, dy1, rmno, rlit, true, bounds);
+            add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+                false, ZOO, true);
+            const troom = g.level.rooms[(g.level.nroom | 0) - 1];
+            if (troom) {
+                troom.rlit = rlit ? 1 : 0;
+                troom.irregular = true;
+                troom.needjoining = true;
+                troom.needfill = FILL_NORMAL;
+                add_doors_to_room(troom);
+            }
+        }
+    }
+
+    // Arrival chamber: ordinary + arrival_room (rect OROOM, needfill 0)
+    {
+        const dx1 = mx + 6, dy1 = my + 15, dx2 = mx + 9, dy2 = my + 16;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, false, OROOM, true);
+            const troom = g.level.rooms[(g.level.nroom | 0) - 1];
+            if (troom) {
+                troom.rlit = 0;
+                troom.needjoining = true;
+                troom.needfill = 0;
+                topologize(troom);
+                add_doors_to_room(troom);
+            }
+        }
+    }
+
+    // Force entry-chamber left/top walls unlit (candle quirk)
+    light_region(mx + 5, my + 14, mx + 5, my + 17, false);
+    light_region(mx + 5, my + 14, mx + 9, my + 14, false);
+
+    // Barracks: irregular BARRACKS (62,03,71,04) lit filled
+    {
+        const dx1 = mx + 62, dy1 = my + 3;
+        const rlit = litstate_rnd(1);
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            const bounds = { min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1 };
+            const rmno = (g.level.nroom | 0) + ROOMOFFSET;
+            if (g.smeq) g.smeq[g.level.nroom | 0] = g.level.nroom | 0;
+            flood_fill_rm(dx1, dy1, rmno, rlit, true, bounds);
+            add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+                false, BARRACKS, true);
+            const troom = g.level.rooms[(g.level.nroom | 0) - 1];
+            if (troom) {
+                troom.rlit = rlit ? 1 : 0;
+                troom.irregular = true;
+                troom.needjoining = true;
+                troom.needfill = FILL_NORMAL;
+                add_doors_to_room(troom);
+            }
+        }
+    }
+
+    // Doors in lua order (explicit coords; fixed state skips rnddoor RNG)
+    const knoxDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    knoxDoor(6, 14, D_CLOSED);
+    knoxDoor(9, 3, D_CLOSED);
+    knoxDoor(63, 5, D_ISOPEN);
+    knoxDoor(66, 5, D_ISOPEN);
+    knoxDoor(68, 8, D_ISOPEN);
+    knoxDoor(8, 11, D_LOCKED);
+    knoxDoor(68, 11, D_ISOPEN);
+    knoxDoor(63, 14, D_CLOSED);
+    knoxDoor(66, 14, D_CLOSED);
+    knoxDoor(4, 3, D_CLOSED);
+    knoxDoor(4, 9, D_CLOSED);
+
+    // Soldiers guarding the fort (lua order; default peaceful)
+    for (const [rx, ry] of [
+        [12, 14], [12, 13], [11, 10], [13, 2], [14, 3], [20, 2],
+        [30, 2], [40, 2], [30, 16], [32, 16], [40, 16], [54, 16],
+        [54, 14], [54, 13], [57, 10], [57, 9],
+    ]) splev_create_monster('soldier', undefined, { rx, ry });
+    splev_create_monster('lieutenant', undefined, { rx: 15, ry: 8 });
+    // Possible source of a boulder
+    splev_create_monster('stone giant', undefined, { rx: 3, ry: 1 });
+    // Four dragons guarding each side (class letter)
+    splev_create_monster('D', undefined, { rx: 18, ry: 9 });
+    splev_create_monster('D', undefined, { rx: 49, ry: 10 });
+    splev_create_monster('D', undefined, { rx: 33, ry: 5 });
+    splev_create_monster('D', undefined, { rx: 33, ry: 14 });
+    // Eels in the moat
+    splev_create_monster('giant eel', undefined, { rx: 17, ry: 8 });
+    splev_create_monster('giant eel', undefined, { rx: 17, ry: 11 });
+    splev_create_monster('giant eel', undefined, { rx: 48, ry: 8 });
+    splev_create_monster('giant eel', undefined, { rx: 48, ry: 11 });
+
+    // Corner-room treasures (explicit gem ids)
+    for (const [id, rx, ry] of [
+        [DIAMOND, 19, 6], [DIAMOND, 20, 6], [DIAMOND, 21, 6],
+        [EMERALD, 19, 13], [EMERALD, 20, 13], [EMERALD, 21, 13],
+        [RUBY, 46, 6], [RUBY, 47, 6], [RUBY, 48, 6],
+        [AMETHYST, 46, 13], [AMETHYST, 47, 13], [AMETHYST, 48, 13],
+    ]) {
+        if (id < 0) continue;
+        mksobj_at(id, mx + rx, my + ry, true, true);
+    }
+
+    // C load_special epilogue: link/remove/cleanup/wallify/flip/fixup
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 

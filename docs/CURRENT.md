@@ -77,10 +77,11 @@ before fire getobj (D-0484 skip reverted).
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1852 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1853 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1853** `dat/knox.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_knox` from the lua body in order: solidfill STONE +
 **D-1852** `dat/Val-strt.lua` / `Val-loca.lua` / `Val-goal.lua` / — `load_val_strt` from the lua body: solidfill ICE +
 **D-1851** `dothrow.c` `dofire` `:510–554` (`You("have no ammunition readied.")` then `doquiver_core( — drop the pre-doquiver `mark_topline_seen` so `You()` leaves NEED_MORE and `doquiver_core` waits like C.
 **D-1850** `invent.c` `display_inventory` `:3427–3452` (`cmdq_pop` then `display_pickinv(lets, 0, 0,  — `display_inventory` calls `display_pickinv_reply` with `want_reply`.
@@ -88,11 +89,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1848** `pager.c` `lookat` `:779–795` (cmap switch: altar / ndoor / cloud / waterbody / engraving  — delete the extra lookat arms so floor strings come from `defsyms[]`.
 **D-1847** `mklev.c` `mineralize` `:1448–1541` / `mkmaze.c` `bound_digging` / `sp_lev.c` `create_room` — gold/gem loop + `on_level` Is_special + `join` arboreal ROOM + xstart resets. Named: 1-cell `ly=15` TRC (Knight d5 409 vs 410).
 **D-1846** `teleport.c` `level_tele` `:1254–1276` / `:1388–1422`; `priest.c` `priestname` `:302–367`; `dat/bigrm-2.lua` `:34–48` — Nowhere ynq + Quest/mines/sanctum clamp + invoked `"Sorry..."`; `priestname`; Rogue `S_ndoor`/`dosdoor` D_NODOOR; `bigrm-2` darkness unlit (Healer `rn2(4)=2` sides). Ice `selection:grow` still named.
-**D-1845** `getpos.c` `getpos` `:960–972` (`NHKF_GETPOS_AUTODESC` toggle + pline); `:1008–1114` (LIMI — port matching[] from `defsyms[].sym` (walls/room/corr/door/ndoor skipped) so `/` is k>0 then Can't find; AUTODESC / LIMITVIEW / MENU / MOVESKIP before matching; `aAzZ` cycle; `getloc_moveskip` glyph-skip; pick_chars LOOK
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1852; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1853; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

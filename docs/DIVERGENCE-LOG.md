@@ -1,5 +1,52 @@
 # Divergence log
 
+## D-1853 — mkmaze.c makemaz knox load_special (Fort Ludios magic-portal vault)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no Fort Ludios loader, so `knox` was a blank
+  `create_maze` fallback. C loads `dat/knox.lua` (167 ln) via `sp_lev.c`
+  `load_special`.
+- **C locus:** `dat/knox.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `get_location` `:1202–1262` (explicit coords are
+  map-relative + origin), `lspo_region` `:5584–5717` (OROOM + no irregular +
+  no arrival → light only; `add_doors_to_room`), `lspo_levregion` /
+  `lspo_teleport_region` (`levregion_add` ANY_LOC origin), `sel_set_wall_property`
+  `:986–996` (walls/bars only), `l_selection_iterate` (`nhlsel.c:925–950`
+  y-outer + `cvt_to_relcoord`), `nhlib.lua` `math.random` → `nh.rn2` /
+  `nh.random` (`nhlua.c:925–950`: 2-arg → `lo+rn2(hi-lo+1)`), `percent` →
+  `rn2(100)`; `SPLEV_CHAR2TYP` (` `→STONE, `S`→SDOOR, `|`→VWALL,
+  `\\`→THRONE, `}`→MOAT).
+- **JS was:** `load_special_proto` named-omitted `knox`.
+- **Fix:** `load_knox` from the lua body in order: solidfill STONE +
+  mazelevel/noteleport, 76×20 centered map, walls-only `non_diggable`
+  (`wall_info`), branch `(08,16)` + up/down tele `(06,15,09,16)` via
+  `l_levregion` / `l_teleport_region` while origin is set, throne COURT
+  `(37,08,46,11)` rect, percent-50 Croesus row (`43,10` else `43,09` +
+  THRONE/ROOM swap) and percent-50 `47,09/10` SDOOR/VWALL swap, ordinary
+  vault light `(21,08,35,11)`, treasury `selection_fillrect` +
+  `selection_iterate_lua` y-outer (gold `600+lua_random2(0,300)` → `rn2(301)`,
+  `rn2(3)==0` trap then `rn2(3)==0` SPIKED_PIT else LANDMINE via
+  `mkgold` / `maketrap` + `mktrap_seen_victim`), percent-50 vault door
+  `36,09/10` VWALL/SDOOR swap, 4 lit corner towers (`light_region` grows),
+  irregular ZOO `(03,10,07,13)`, arrival OROOM `(06,15,09,16)` needfill 0,
+  unlit entry walls `(05,14,05,17)` + `(05,14,09,14)`, irregular BARRACKS
+  `(62,03,71,04)`, 11 fixed doors (explicit state skips `rnddoor`), 16
+  soldiers + lieutenant + stone giant + 4 `D` + 4 eels via
+  `splev_create_monster` in lua order (default peaceful; Croesus
+  peaceful 0), 12 corner gems via `mksobj_at`, epilogue
+  `link_doors_rooms` → `remove_boundary_syms` → `map_cleanup` →
+  `wallification` → `flip_level_rnd(3)` → `fixup_special`.
+- **JS:** `js/mklev.js` `load_knox` / `load_special_proto` (+ `knox` in
+  `makemaz` doc).
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; note hidden (no corpus session blocked on
+  makemaz — map-driven row, same as D-1852); PASS green 2/2; PASS
+  strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared
+  file changed). VERIFY: PASS
+- **Named omissions:** humidity-aware `get_location` for water-likers;
+  `ensure_way_out`; `count_level_features` / solidify / premap.
+- **Next:** Open `pager.c` `do_screen_description` (4 corpus blocks).
+
 ## D-1852 — mkmaze.c makemaz Val-strt/loca/goal/fila/filb load_special (Valkyrie quest 5/5)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

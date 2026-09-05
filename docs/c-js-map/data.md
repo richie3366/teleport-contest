@@ -1230,7 +1230,10 @@ mines-kludge + Isle of Glass swamp mines + fillers); **Rog-strt/loca/goal/fila/f
 shuffle-exit mimics `S_dnstair` + floodfill streets + Master Key);
 **Val-strt/loca/goal/fila/filb** (D-1852; Valkyrie quest 5/5: lava-ringed ice
 pools + Norn CUSTOM_INVENT + lava drawbridges + Orb of Fate; mines
-`icedpools: true` live via `finish_map`); full Lua VM + remaining `des.*` still production requirement; 
+`icedpools: true` live via `finish_map`); **knox** (D-1853; Fort Ludios
+76x20 solidfill vault: branch + up/down tele, throne COURT, vault gold/trap
+iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);
+full Lua VM + remaining `des.*` still production requirement; 
 Random-feature center terrain + 
 other fill bodies (Garden/Buried treasure/Massacre/Statuary/…) 
 + garden/dig postprocess absent; icedpool on ICE (`splev_init_present`); exclusion_zones save/rest deferred
