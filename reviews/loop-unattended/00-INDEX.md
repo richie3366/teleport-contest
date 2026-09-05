@@ -864,3 +864,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [851-b5fbc93d-version-id-string.md](./851-b5fbc93d-version-id-string.md) | `b5fbc93d` | D-1881 mdlib.c version_id_string + doversion | **ACCEPT** |
 | [852-db5d8f30-xname-statue.md](./852-db5d8f30-xname-statue.md) | `db5d8f30` | D-1882 objnam.c xname STATUE article | **ACCEPT** |
 | [853-c9e049a8-erode-armor-rust.md](./853-c9e049a8-erode-armor-rust.md) | `c9e049a8` | D-1883 uhitm.c erode_armor + mhitm_ad_rust | **ACCEPT** |
+| [854-3dadc461-itemactions-w.md](./854-3dadc461-itemactions-w.md) | `3dadc461` | D-1884 iactions.c itemactions W already-wearing row | **ACCEPT** |
+| [855-b344cc6f-hea-quest-loaders.md](./855-b344cc6f-hea-quest-loaders.md) | `b344cc6f` | D-1885 mkmaze.c makemaz Hea quest 5/5 | **ACCEPT** |
+| [856-43cb30b8-object-glyph-arm.md](./856-43cb30b8-object-glyph-arm.md) | `43cb30b8` | D-1886 pager.c do_screen_description object-glyph arm | **ACCEPT** |
+| [857-803a82c3-tou-loca-goal-fila-filb.md](./857-803a82c3-tou-loca-goal-fila-filb.md) | `803a82c3` | D-1887 mkmaze.c makemaz Tou-loca/goal/fila/filb | **ACCEPT** |
+| [858-eed83e3c-tou-strt.md](./858-eed83e3c-tou-strt.md) | `eed83e3c` | D-1888 mkmaze.c makemaz Tou-strt | **ACCEPT** |
+| [859-c55669a4-ran-quest-loaders.md](./859-c55669a4-ran-quest-loaders.md) | `c55669a4` | D-1889 mkmaze.c makemaz Ran quest 5/5 | **ACCEPT** |
+| [860-fcdb286b-mon-quest-loaders.md](./860-fcdb286b-mon-quest-loaders.md) | `fcdb286b` | D-1890 mkmaze.c makemaz Mon quest 5/5 | **ACCEPT** |
+| [861-b405a225-cav-quest-loaders.md](./861-b405a225-cav-quest-loaders.md) | `b405a225` | D-1891 mkmaze.c makemaz Cav quest 5/5 | **QUALITY-RISK** |
+| [862-60215712-makewish-livelog-wrap.md](./862-60215712-makewish-livelog-wrap.md) | `60215712` | D-1892 zap.c makewish livelog + tty_putstr wrap | **ACCEPT** |

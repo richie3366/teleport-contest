@@ -35,6 +35,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `mkmaze.c` Cav quest missing `des.wallify()` — `load_cav_strt`/`loca`/`goal` omit the lua-final `des.wallify()` (Cav-strt.lua:94, Cav-loca.lua:93, Cav-goal.lua:59 → `lspo_wallify` `sp_lev.c:5965` → `wallify_map` over map extents, STONE→HWALL/VWALL per `sp_lev.c:2865`); cave perimeters stay STONE. Fix: Tou-goal/Ran-goal epilogue line (`wallify_map` on splev extents before wallification→flip→fixup) in all three loaders; no RNG impact. Source: reviews/loop-unattended/861-b405a225-cav-quest-loaders.md.
+
 ## Open (map-driven, after Must-fix is empty)
 
 Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached
