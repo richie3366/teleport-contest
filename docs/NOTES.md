@@ -6,17 +6,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 209/265 PASS at
-  D-1840 (audit 794–810). Next Open `getpos.c` `getpos` (2 corpus
+  D-1840 (audit 794–810). Next Open `teleport.c` `level_tele` (2 corpus
   blocks). Orient `brief.mjs`, verify `verify.mjs --fn`. Must-fix empty.
-- **Suite 44/44** at D-1844. Do not reopen `summonmu` were/`were_summon`,
-  `lookat` unexplored-area /
-  `do_statusline1` leftover /
-  `docorner` `--x` / `_snapshotStatusGrid`, fakewiz1/fakewiz2,
-  Ice/Boulder/Spider/Trap fills, `roles[]` quest identity, `,`
-  `pickup_checks`, `doloot_core`, nested themerms `des.room`,
-  `look_here` trap/region, Bar-goal, castmu, medusa/minend/soko/Wiz
-  loaders, Knight/Rogue lua, `HDeaf [2]`, `mattacku` abort, trailing
-  `confdir` on shared `getdir` (D-1815).
+- **Suite 44/44** at D-1845. Do not reopen `getpos` matching/`#` AUTODESC,
+  `summonmu` were, `lookat` unexplored, `do_statusline1` leftover,
+  `_snapshotStatusGrid`, fakewiz, Ice/Boulder/Spider/Trap, `roles[]`,
+  `pickup_checks`, `doloot_core`, nested themerms, `look_here`, Bar-goal,
+  castmu, medusa/minend/soko/Wiz, Knight/Rogue lua, `HDeaf [2]`,
+  `mattacku` abort, trailing `confdir` (D-1815).
 - **Luck still runs when invulnerable.** Dialogues do not (`timeout.c:623`).
   STONED/SLIMED expiry silent (`done_timeout`).
 - **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs` still
@@ -26,32 +23,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not re-port `drown` crawl-out (D-1814) or
-  `untrap` remaining floor disarm helpers (D-1813) or
-  `really_done` remaining callees (D-1812) or
-  `use_misc` poly/bag/`you_aggravate` (D-1811) or
-  `use_offensive` ray wands / horns / tele+undead / SCR_EARTH
-  (D-1810) or `use_defensive` mreadmsg / reveal_trap /
-  `mon_escape` / `mon_consume_unstone` (D-1809) or `domonnoise`
-  remaps / `doconsult` / `priest_talk` / `shk_chat` (D-1808) or
-  `vpline` `msgtype_type` / `execplinehandler` /
-  `maybe_play_sound` (D-1807)   or `getdir` help_dir / cmdassist /
-  strange-dir NEED_MORE / `dxdy_moveok` (D-1806) or `getdir`
-  `iflags.cmdassist` (D-1815) or `yn_function`
-  fuzzer `rn2(20)`/`rn2(ln)`/ESC retry (D-1805) or `getobj`
-  in_doagain `readchar` / GETOBJ ranks / sortloot INVLET (D-1804)
-  or `x_monnam` remaining / `nextmbuf` / `lcase` / `just_an`
-  (D-1803) or `xname_flags` `xcalled` / T_SHIRT / `apron_text` /
-  `hawaiian_motif` (D-1802) or `moveloop_core` `do_storms` /
-  `glibr` / `mkot_trap_warn` / `end_of_input` (D-1801) or
-  `test_move`/`domove_core` water_friction / bars+web /
-  mention_walls (D-1800) or `spoteffects` recursion / lev `rn2(2)`
-  (D-1799) or `dochug` / `wormhitu` (D-1798) or `nomul`/`unmul`
-  `usleep=0` (D-1797) or `xkilled` LEVEL_SPECIFIC / pool (D-1796).
-  Named omits for those live in the landmarks / index rows. `m_seenres`
-  is already boolean — never `!== 0`. No second `genus` / `doconsult`
-  / `priest_talk` / `shk_chat` / `accessible` / trailing `confdir` /
-  `locomotion` / `resists_acid` / `can_carry` / `unconscious`.
+- Do not re-port `drown` (D-1814) / `untrap` helpers (D-1813) /
+  `really_done` callees (D-1812) / `use_misc` (D-1811) /
+  `use_offensive` (D-1810) / `use_defensive` (D-1809) /
+  `domonnoise` remaps (D-1808) / `vpline` (D-1807) / `getdir`
+  help_dir (D-1806) / `iflags.cmdassist` (D-1815) / `yn_function`
+  fuzzer (D-1805) / `getobj` (D-1804) / `x_monnam` (D-1803) /
+  `xname_flags` (D-1802) / `moveloop_core` (D-1801) /
+  `test_move`/`domove_core` (D-1800) / `spoteffects` (D-1799) /
+  `dochug` (D-1798) / `nomul` (D-1797) / `xkilled` (D-1796).
+  `m_seenres` is boolean — never `!== 0`. No second `genus` /
+  `accessible` / trailing `confdir` / `locomotion` / `unconscious`.
 - Do not re-port `mattacku` remaining / `getmattk` DISE/DREN/WEAP
   (D-1795 body) or the post-`done()` NATTK abort (D-1816). Keep
   sleep `rn2(10)`. No second `m_monnam` / `simple_typename`.
@@ -69,7 +51,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1844.
+  (D-1189). Do not skip D-1190…D-1845.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -79,18 +61,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1844.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1845.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1844.
+  Do not re-port D-1682…D-1845.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1845: port matching[] from `defsyms[].sym` (walls/room/corr/door/ndoor skipped) so `/` is k>0 then Can't find; AUTODESC / LIMITVIEW / MENU / MOVESKIP before Named: `getpos_menu` (usemenu still cycles); GFILTER_AREA flood; full `gs.showsyms`; cmdq_pop at 
 - D-1844: port the C were arm (form change, then maybe summon helpers / plines). Named: `msummon` is_lminion/angel (demon arm otherwise live); howl `You_hear`/`wake_nearto`; `mon
 - D-1843: port `lookat` glyph-first (self / swallow / mon / obj / trap / warning / invisible / nothing / unexplored / cmap switch / else). Named: `do_screen_description` cmap/symbol table (now the later owner of those four sessions); `i
 - D-1842: named `do_statusline1` (BOTL_NSIZ, windowport title pad so `St:` starts at col 31). Named: `wintty.c` paging `docorner` `ystart_between_menu_pages` repair; TTY_PERM_INVENT refresh; 
@@ -105,5 +88,4 @@ Objective/score live in `CURRENT.md`.
 - D-1833: E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`. Named: W already-wearing `armor_simple_name` / `armcat_to_wornmask`; dungeon.c `surface` terrain 
 - D-1832: Unhandled keys `tty_nhbell` only (no `docrt`/`cls`). Named: `process_menu_window` paging `docorner` repair (`previous_page_lines`); PICK_ANY invert-al
 - D-1831: `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv / Named: `process_menu_window` paging `docorner` repair
-- D-1830: `load_rog_strt` from the lua body: solidfill STONE + Named: humidity-aware `get_location`; `spo_end_moninvent`
 <!-- landmarks:end -->

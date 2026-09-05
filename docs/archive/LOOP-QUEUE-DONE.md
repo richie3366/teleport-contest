@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `mhitu.c` summonmu — 2 corpus blocks; C were-summon `rn2(5)` vs JS `rnd(20)` in `mattacku`. **Addressed:** D-1844
+- [x] `getpos.c` getpos — 2 corpus blocks; "Can't find dungeon feature '/'." vs unknown direction. **Addressed:** D-1845
+
+
+- [x] `mhitu.c` summonmu — 2 corpus blocks; C were-summon `rn2(5)` vs JS `rnd(20)` in `mattacku`. **Addressed:** D-1844 `e3ccc72b`
 
 
 - [x] `pager.c` lookat — 3 corpus blocks; "unexplored area" vs "unexplored". **Addressed:** D-1843 `70d84800`

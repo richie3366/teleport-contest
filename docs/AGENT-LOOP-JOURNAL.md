@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1845 getpos.c getpos matching[] '/' + AUTODESC '#'
+
+**C locus:** `getpos.c` `getpos` `:960–972` (`NHKF_GETPOS_AUTODESC` toggle + pline); `:1008–1114` (LIMITVIEW / MENU / SELF / MOVESKIP / mMoOdDxXaAzZ then matching[] defsyms; k>0 scan or `"Can't find dungeon feature '%c'."`).
+**JS:** `js/getpos.js` `getpos` / `build_feature_matching` / `find_dungeon_feature`.
+**Change:** port matching[] from `defsyms[].sym` (walls/room/corr/door/ndoor skipped) so `/` is k>0 then Can't find; AUTODESC / LIMITVIEW / MENU / MOVESKIP before matching; `aAzZ` cycle; `getloc_moveskip` glyph-skip; pick_chars LOOK_*; restore `u.dx`.
+**Verify:** `node scripts/verify.mjs --fn getpos` → PASS syntax (1 js file); PASS rule2; PASS hidden verify getpos: 0 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-db38e7fa → moverock_core step 856 was 850; random-seed0367-priest-quest-tour-01388a3a → getpos_help step 342 was 316); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+**Named:** `getpos_menu` (usemenu still cycles); GFILTER_AREA flood; full `gs.showsyms`; cmdq_pop at getpos start; mouse `c==0`; do_run/do_rush prefix + second `readchar_poskey`; `cmd_from_func` force-note visctrl. Priest later owner is `getpos_help`.
+**Next:** Open `teleport.c` `level_tele` (2 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
 ## 2026-09-05 — D-1844 mhitu.c summonmu were new_were / were_summon
 
 **C locus:** `mhitu.c` `summonmu` `:956–1030` (`is_were` human `!Protection && !rn2(5-(night()*2))` / beast `Protection || !rn2(30)` then `!rn2(10)` helpers); `were.c` `were_summon` `:142–189` (`rnd(5)` then species `rn2` + `makemon`/`tamedog`); `were.c` `new_were` already live.

@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1845 — getpos.c getpos matching[] '/' + AUTODESC '#'
+
+- **Status:** fixed (2 corpus moved past; green + cohort)
+- **Symptom:** 2 hidden-corpus first-diffs at `getpos`: wizard C `"Can't find dungeon feature '/'."` vs JS `"Unknown direction: '/' (use 'h', 'j', 'k', 'l' or '.')"`; priest C `"Automatic description is off.--More--"` vs JS `"Unknown direction: '#' …"`. JS `feature_match_tags` omitted zap/swallow/expl defsyms (`S_rslant` `/`) so k==0, and never handled `NHKF_GETPOS_AUTODESC`.
+- **C locus:** `getpos.c` `getpos` `:960–972` (`NHKF_GETPOS_AUTODESC` toggle + pline); `:1008–1114` (LIMITVIEW / MENU / SELF / MOVESKIP / mMoOdDxXaAzZ then matching[] defsyms; k>0 scan or `"Can't find dungeon feature '%c'."`).
+- **JS was:** SHOWVALID + SELF + hardcoded `mMoOdDxX` then a furniture-tag subset (no `/`); `'#'` fell through to unknown-direction. `','` returned LOOK_ONCE (C LOOK_QUICK).
+- **Fix:** port matching[] from `defsyms[].sym` (walls/room/corr/door/ndoor skipped) so `/` is k>0 then Can't find; AUTODESC / LIMITVIEW / MENU / MOVESKIP before matching; `aAzZ` cycle; `getloc_moveskip` glyph-skip; pick_chars LOOK_*; restore `u.dx`.
+- **JS:** `js/getpos.js` `getpos` / `build_feature_matching` / `find_dungeon_feature`.
+- **Verify:** `node scripts/verify.mjs --fn getpos` → PASS syntax (1 js file); PASS rule2; PASS hidden verify getpos: 0 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-db38e7fa → moverock_core step 856 was 850; random-seed0367-priest-quest-tour-01388a3a → getpos_help step 342 was 316); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+- **Named omissions:** `getpos_menu` (usemenu still cycles); GFILTER_AREA flood; full `gs.showsyms`; cmdq_pop at getpos start; mouse `c==0`; do_run/do_rush prefix + second `readchar_poskey`; `cmd_from_func` force-note visctrl. Priest later owner is `getpos_help`.
+- **Next:** Open `teleport.c` `level_tele` (2 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
+
 ## D-1844 — mhitu.c summonmu were new_were / were_summon
 
 - **Status:** fixed (1 corpus PASS, 1 moved past; green + cohort)

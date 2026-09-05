@@ -798,14 +798,13 @@ two-pass from cursor; **`S_ss1` defsym `'0'` → Can't find…** D-0928 #1135;
 **`redraw_cmd(^R)`/`getpos_refresh` → `flush_screen` + `show_goal_msg`** D-0928 #1187; 
 **blank S_stone before typ CORR** (`auto_describe_text`) D-0928 #1188 (full glyph_is_unexplored IDs 
 deferred; full `docrt` Blind deferred; `redraw_map` body deferred); 
-**`NHKF_GETPOS_SHOWVALID` `'$'` before matching** D-0928 #1176 — default bind never reaches 
-`S_goodpos` feature scan; `#` tree/bars deferred — GETPOS_AUTODESC spkey; 
-other ss/beam/expl + engraving/drawbridge/air deferred); 
+**`NHKF_GETPOS_SHOWVALID` `'$'` / `AUTODESC` `'#'` / `LIMITVIEW` / `MENU` / `MOVESKIP` before matching** D-1845 — default `#` never reaches tree/bars feature scan; matching[] defsyms (incl. `S_rslant` `'/'` → Can't find…; `S_ss1` `'0'` D-0928 #1135); `getloc_moveskip` glyph-skip; pick_chars LOOK_QUICK/ONCE/VERBOSE; `aAzZ` cycle; restore `u.dx`; 
+`getpos_menu` / GFILTER_AREA flood / cmdq_pop start / `cmd_from_func` custom binds / mouse / do_run prefix still named); 
 **`?` → `getpos_help` NHW_MENU + `show_goal_msg`** (D-0819; 
 `cmd_from_func` custom binds / **getpos_getvalid `(invalid target)` D-0899**; 
-S_goodpos hilite glyphs / whatis multi-pick / **mMoOdDxX `gather_locs` cycle** D-0928 #1189 
+S_goodpos hilite glyphs / whatis multi-pick / **mMoOdDxXaAzZ `gather_locs` cycle** D-0928 #1189 / D-1845 
 (`getpos_menu` / GFILTER_AREA still named; 
-**GLOC_INTERESTING / GLOC_VALID FALLTHROUGH D-1217** — `aA` cycle keys still named); 
+**GLOC_INTERESTING / GLOC_VALID FALLTHROUGH D-1217**); 
 **stairs terrain match requires `seenv`** (D-0779; blank `disp_ch` is not known); 
 **`iflags.autodescribe` default On + stairs/ladder firstmatch** (D-0423); 
 **lookat trap tnum `glyph_to_trap(glyph_at)` in `auto_describe_text`** (D-1787; was tseen `trapname` D-0424); 
@@ -833,8 +832,8 @@ force-note `cmd_from_func` visctrl deferred);
 **`self_lookat_brief` gender via `pmname`/`Ugender`** (D-0664) + 
 **Punished chained suffix** (D-0928 #1149); **`cmap_defsym_explanation` TREE → `"tree"`** (D-0665; 
 iron bars/fountain/altar still deferred); 
-omit hilite, valids, `getloc_moveskip` glyph-skip, full `do_screen_description` / furniture mimic 
-names, quick modes beyond stub
+omit hilite, `getpos_menu`, GFILTER_AREA flood, full `gs.showsyms` / `do_screen_description` / furniture mimic 
+names, cmdq_pop at getpos start
 
 ### `src/version.c` `doextversion` / `nhlua.c` `get_lua_version`
 
