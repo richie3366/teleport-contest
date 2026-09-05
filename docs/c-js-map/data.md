@@ -632,7 +632,7 @@ Nesting/Fake Delphi/Huge/… outer sizes, `join` arboreal→ROOM, Lua `post_leve
 queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; **D-1542** themerms Light source fill); **D-1723 `lspo_object` non-merge quan do-while** (`sp_lev.c:3725–3740` `!objects[id].oc_merge`; find_objtype + argc string/coord; class-letter `def_char_to_objclass`/`mkgold`; other load_* `des.object` still hand-rolled); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
 **D-0906 `hellfill`+`create_maze`/`LVLINIT_MAZE`** (seed4500 **32538→49776** Scr **459**; 
 **hellfill Invocation_lev VS** (D-1154 `pick_vibrasquare_location`+`maketrap`); 
-rnd_hell_prefab/`makemaz("")`/fakewiz deferred); empty `makemaz("")`; Is_special/quest fill; 
+rnd_hell_prefab/`makemaz("")` deferred; **D-1841 `fakewiz1`/`fakewiz2`**); empty `makemaz("")`; Is_special/quest fill; 
 **minefill `fixup_special`/`place_lregion(LR_BRANCH)` + Mines mineralize gold×2/gem×3** (D-0177); 
 **`mkstairs` no-op on dunlev ends** (up on dlevel 1 / down on `Is_botlevel`; 
 D-0928 #1152 — minefill `des.stair("up")` no longer plants dlevel-0 upstairs); 
@@ -691,7 +691,7 @@ temperate → hot; valley still overrides temperate);
 `get_location`; was mx+ → span 23 vs 26; prefix **41671→41768**) + 
 **D-0753 `maybe_generate_rnd_mon` stronghold-depth rate** + **D-0754 `minetn-5`** + 
 **D-1490 `minetn-1`** + **D-1503 `minetn-6`** + **D-1504 `minetn-7`** +
-**D-1513 minetn-7 town-floor three gnomes**; fakewiz deferred (hellfill D-0906); 
+**D-1513 minetn-7 town-floor three gnomes**; **D-1841 `fakewiz1`/`fakewiz2`** (hellfill D-0906); 
 flip_level lregion coord update deferred; 
 **D-0608 `minend-1` `des.object("(")`→TOOL not WEAPON** (defsym `'('`=TOOL_CLASS); 
 **D-0543 `soko1-2` load_special** (map/reward percent(25); other `soko*-*` deferred); 
@@ -827,7 +827,7 @@ prefix **86170→98492**) + **D-0776 `Wiz-strt`** (cloud replace + Neferet inven
 prefix **98505→100104**; Scr **292**) + **D-0777 `maketrap` AIR/CLOUD + 
 `splev_create_trap` stairs/`get_location_coord`** (prefix **100104→100397**) + 
 **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL**; Scr **561**;
-**D-1818 `Wiz-goal`**; **D-1819 `Bar-goal`**; fakewiz deferred)
+**D-1818 `Wiz-goal`**; **D-1819 `Bar-goal`**; **D-1841 `fakewiz1`/`fakewiz2`)
 
 ### `src/track.c`
 

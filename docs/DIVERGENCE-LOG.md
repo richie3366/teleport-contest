@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1841 — mkmaze.c makemaz fakewiz1/fakewiz2 load_special
+
+- **Status:** fixed (green + cohort; full `sessions` 44/44; no corpus session blocked on `makemaz` — PORT-GAP-HELDOUT content row, not a proxy owner)
+- **Symptom:** `makemaz` had no `fakewiz1`/`fakewiz2` loaders, so the Wizard-of-Yendor fake-tower path (every ascension run) fell through `load_special_proto` and left an empty maze instead of `dat/fakewiz{1,2}.lua`.
+- **C locus:** `mkmaze.c` `makemaz` `:1126–1223` (`load_special(protofile)`); `sp_lev.c` `load_special` `:6453–6502`; `dat/fakewiz1.lua` (portal→`wizard3`, irregular arrival_room); `dat/fakewiz2.lua` (`des.object("\"",04,04)`); both mazegrid + center 9×9 island + east mazewalk + Lich / vampire lord / kraken / four board traps + `hell_tweaks`.
+- **JS was:** `load_special_proto` omitted `fakewiz1`/`fakewiz2` (named); `wizard1–3` already live.
+- **Fix:** port both lua bodies: mazegrid + center map + `l_levregion`/`l_teleport_region` while map origin is set, `splev_mazewalk(8,5,east)`, fakewiz1 irregular OROOM + portal→wizard3, shared monsters/traps, fakewiz2 amulet, `hell_tweaks`, then C `load_special` epilogue (link_doors / remove_boundary / map_cleanup / wallify / flip / `fixup_special`).
+- **JS:** `js/mklev.js` `load_fakewiz1` / `load_fakewiz2` / `load_fakewiz_tower`.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax (1 js file); PASS rule2; note hidden verify makemaz: no corpus session is blocked on it at HEAD (vacuous — queue row was PORT-GAP-HELDOUT content, 0 proxy blocks); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** `ensure_way_out`; arrival_room migrate flag beyond ordinary OROOM; humidity-aware `get_location`; `count_level_features`; `create_maze` `makemaz("")` fallback; hellfill `rnd_hell_prefab`.
+- **Next:** Open `botl.c` `do_statusline1` (4 corpus blocks). Not leftover WIN_STATUS under item-action menu.
+
 ## D-1840 — selvar.c selection_filter_percent themed-room fills
 
 - **Status:** fixed (2 corpus blocks moved past; green + cohort; full `sessions` 44/44)

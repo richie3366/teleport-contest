@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1841 mkmaze.c makemaz fakewiz1/fakewiz2 load_special
+
+**C locus:** `mkmaze.c` `makemaz` `:1126–1223` (`load_special(protofile)`); `sp_lev.c` `load_special` `:6453–6502`; `dat/fakewiz1.lua` (portal→`wizard3`, irregular arrival_room); `dat/fakewiz2.lua` (`des.object("\"",04,04)`); both mazegrid + center 9×9 island + east mazewalk + Lich / vampire lord / kraken / four board traps + `hell_tweaks`.
+**JS:** `js/mklev.js` `load_fakewiz1` / `load_fakewiz2` / `load_fakewiz_tower`.
+**Change:** port both lua bodies: mazegrid + center map + `l_levregion`/`l_teleport_region` while map origin is set, `splev_mazewalk(8,5,east)`, fakewiz1 irregular OROOM + portal→wizard3, shared monsters/traps, fakewiz2 amulet, `hell_tweaks`, then C `load_special` epilogue (link_doors / remove_boundary / map_cleanup / wallify / flip / `fixup_special`).
+**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax (1 js file); PASS rule2; note hidden verify makemaz: no corpus session is blocked on it at HEAD (vacuous — queue row was PORT-GAP-HELDOUT content, 0 proxy blocks); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+**Named:** `ensure_way_out`; arrival_room migrate flag beyond ordinary OROOM; humidity-aware `get_location`; `count_level_features`; `create_maze` `makemaz("")` fallback; hellfill `rnd_hell_prefab`.
+**Next:** Open `botl.c` `do_statusline1` (4 corpus blocks). Not leftover WIN_STATUS under item-action menu.
 ## 2026-09-05 — audit overlay 794–810 + cadence 44/44
 
 **Objective:** review JS SHAs since `171f6b02` against pinned C;

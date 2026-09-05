@@ -1425,13 +1425,12 @@ function reset_xystart_size() {
  * soko1-2, soko2-1, soko2-2, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
  * tower3, fire, air, water, astral, minend-1, minend-2, minend-3, minetn-1, minetn-2, minetn-3,
  * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-2, medusa-3, medusa-4, oracle, castle, valley,
- * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, Wiz-strt, Wiz-loca,
- * Wiz-fila, Wiz-filb, Wiz-goal,
+ * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, fakewiz1, fakewiz2,
+ * Wiz-strt, Wiz-loca, Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7,
  * Kni-strt, Kni-loca, Kni-fila, Kni-filb, Kni-goal,
  * Rog-strt, Rog-loca, Rog-fila, Rog-filb, Rog-goal.
  * Named omissions:
- * fakewiz;
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
 async function makemaz(s) {
@@ -1832,6 +1831,14 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'wizard3') {
         load_wizard3();
+        return true;
+    }
+    if (protofile === 'fakewiz1') {
+        load_fakewiz1();
+        return true;
+    }
+    if (protofile === 'fakewiz2') {
+        load_fakewiz2();
         return true;
     }
     if (protofile === 'hellfill') {
@@ -17361,7 +17368,7 @@ function load_orcus() {
 /**
  * C ref: dat/wizard1.lua via load_special — top (real) Wizard's Tower.
  * mazegrid + center map + east mazewalk + morgue secret door + hell_tweaks.
- * Named omissions: hellfill/fakewiz; ensure_way_out;
+ * Named omissions: hellfill rnd_hell_prefab; ensure_way_out;
  * arrival_room special migrate flag beyond ordinary OROOM.
  */
 function load_wizard1() {
@@ -17667,7 +17674,7 @@ function load_wizard1() {
 /**
  * C ref: dat/wizard2.lua via load_special — middle Wizard's Tower stage.
  * mazegrid + center map + east mazewalk + zoo FILL_NORMAL + ladders +
- * hell_tweaks. Named omissions: hellfill/fakewiz; ensure_way_out;
+ * hell_tweaks. Named omissions: hellfill rnd_hell_prefab; ensure_way_out;
  * arrival_room migrate flag beyond ordinary OROOM.
  */
 function load_wizard2() {
@@ -17937,8 +17944,8 @@ function load_wizard2() {
  * C ref: dat/wizard3.lua via load_special — bottom Wizard's Tower stage.
  * mazegrid + center map + portal→fakewiz1 + east mazewalk + morgue
  * FILL_LVFLAGS + beehive FILL_NORMAL + arrival secret door + hell_tweaks.
- * Named omissions: hellfill/fakewiz; ensure_way_out; arrival_room migrate
- * flag beyond ordinary OROOM; flip_level lregion coord remap.
+ * Named omissions: hellfill rnd_hell_prefab; ensure_way_out; arrival_room
+ * migrate flag beyond ordinary OROOM.
  */
 function load_wizard3() {
     const g = game;
@@ -18266,6 +18273,150 @@ function load_wizard3() {
             }
         }
     }
+    fixup_special();
+}
+
+/**
+ * C ref: dat/fakewiz1.lua via load_special — fake Wizard's Tower (portal
+ * to wizard3). mazegrid + center 9×9 island + east mazewalk + hell_tweaks.
+ */
+function load_fakewiz1() {
+    load_fakewiz_tower(true);
+}
+
+/**
+ * C ref: dat/fakewiz2.lua via load_special — second fake Wizard's Tower
+ * (amulet, no portal). Same island as fakewiz1.
+ */
+function load_fakewiz2() {
+    load_fakewiz_tower(false);
+}
+
+/**
+ * C ref: dat/fakewiz{1,2}.lua via load_special.
+ * mazegrid + center map + east mazewalk + Lich / vampire lord / kraken /
+ * four board traps + hell_tweaks. fakewiz1 also portal→wizard3 and
+ * irregular arrival_room; fakewiz2 places des.object("\"", 04,04).
+ * Named omissions: ensure_way_out; arrival_room migrate flag beyond
+ * ordinary OROOM; humidity-aware get_location; count_level_features.
+ */
+function load_fakewiz_tower(isFake1) {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style="mazegrid", bg ="-" })
+    splev_initlev({
+        init_style: LVLINIT_MAZEGRID,
+        bg: HWALL,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // C fakewiz*.lua: selection.match("-") → fillrect bounds2 (before map).
+    const tmpbounds = selection_match_mapfrag('-');
+    const bx = g.splev_xstart | 0;
+    const by = g.splev_ystart | 0;
+    const bounds2 = selection_fillrect(
+        tmpbounds.lx + bx,
+        (tmpbounds.ly + 1) + by,
+        (tmpbounds.hx - 2) + bx,
+        (tmpbounds.hy - 1) + by,
+    );
+
+    const FAKEWIZ_MAP = `
+.........
+.}}}}}}}.
+.}}---}}.
+.}--.--}.
+.}|...|}.
+.}--.--}.
+.}}---}}.
+.}}}}}}}.
+.........
+`.replace(/^\n/, '');
+    const mf = mapfrag_fromstr(FAKEWIZ_MAP);
+    const { xstart, ystart } = splev_map_aligned_start(
+        mf.wid, mf.hei, 'center', 'center',
+    );
+    g.splev_xstart = xstart;
+    g.splev_ystart = ystart;
+    g.splev_xsize = mf.wid;
+    g.splev_ysize = mf.hei;
+    if (!g.SpLev_Map) g.SpLev_Map = new Set();
+    const island = selection_new();
+    for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+        for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+            g.SpLev_Map.add(`${xx},${yy}`);
+            selection_setpoint(xx, yy, island, 1);
+        }
+    }
+
+    // levregions while map origin is set (C lspo_levregion / levregion_add)
+    l_levregion({
+        region: [1, 0, 79, 20], region_islev: 1,
+        exclude: [0, 0, 8, 8], type: 'stair-up',
+    });
+    l_levregion({
+        region: [1, 0, 79, 20], region_islev: 1,
+        exclude: [0, 0, 8, 8], type: 'stair-down',
+    });
+    l_levregion({
+        region: [1, 0, 79, 20], region_islev: 1,
+        exclude: [0, 0, 8, 8], type: 'branch',
+    });
+    l_teleport_region({
+        region: [1, 0, 79, 20], region_islev: 1,
+        exclude: [2, 2, 6, 6],
+    });
+    if (isFake1) {
+        // des.levregion({ region={4,4,4,4}, type="portal", name="wizard3" })
+        l_levregion({
+            region: [4, 4, 4, 4], type: 'portal', name: 'wizard3',
+        });
+    }
+
+    // des.mazewalk(08,05,"east") — stocked default true
+    splev_mazewalk(8, 5, W_EAST, true);
+
+    if (isFake1) {
+        // des.region({ region={04,03,06,06},lit=0,type="ordinary",irregular=1,arrival_room=true })
+        splev_irregular_oroom(xstart + 4, ystart + 3, false);
+    }
+
+    // des.monster("L",04,04) / vampire lord / kraken
+    splev_create_monster('L', undefined, { rx: 4, ry: 4 });
+    splev_create_monster('vampire lord', undefined, { rx: 3, ry: 4 });
+    splev_create_monster('kraken', undefined, { rx: 6, ry: 6 });
+
+    // des.trap("board", …)
+    splev_mktrap_at(SQKY_BOARD, xstart + 4, ystart + 3);
+    splev_mktrap_at(SQKY_BOARD, xstart + 4, ystart + 5);
+    splev_mktrap_at(SQKY_BOARD, xstart + 3, ystart + 4);
+    splev_mktrap_at(SQKY_BOARD, xstart + 5, ystart + 4);
+
+    if (!isFake1) {
+        // des.object("\"",04,04)
+        mkobj_at(AMULET_CLASS, xstart + 4, ystart + 4, true);
+    }
+
+    // C lspo_map contents end → reset_xystart_size (keep SpLev_Map)
+    splev_reset_xystart_size_keep_spmap();
+
+    // protected = bounds2:negate() | fakewiz*; hell_tweaks(protected)
+    const protectedSel = selection_or(selection_not(bounds2), island);
+    hell_tweaks(protectedSel);
+
+    // C load_special: link_doors → remove_boundary → map_cleanup →
+    // wallify → flip → fixup (lregions remapped by flip)
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 
