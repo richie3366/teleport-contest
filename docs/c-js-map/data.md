@@ -1261,6 +1261,14 @@ solidfill-"." + pre-map whole-level "."→T chance-5 replace + left/center
 map + absolute islev branch rect, Orion CUSTOM_INVENT (leather armor/yumi/
 ya×50) + asleep minotaur siege, wumpus loca, Longbow of Diana + Scorpius +
 des.wallify() goal, TREE/STONE-bg noflip fillers);
+**Mon-strt/loca/goal/fila/filb** (D-1890; Monk quest 5/5: Pri-strt-identical
+20x76 map but temple needfill 0 — no `filled` key (sp_lev.c lspo_region
+:5600 default) — lua-order floodfill-then-terrain, Grand Master robe +6
+invent, tin×2/food-ration×4 l_create_object, abbots, 8+4 siege; loca 76x21
+map + random stairs + negate-filter rndcoord(0) blessed spinach tin + burn
+Elbereth; goal mines-only init (solidfill commented out) + Pri-goal map +
+Eyes of the Overworld lenses with no oerodeproof + Master Kaen/altar pick;
+all-ordinary hostile-E/X fillers);
 **knox** (D-1853; Fort Ludios
 76x20 solidfill vault: branch + up/down tele, throne COURT, vault gold/trap
 iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);
