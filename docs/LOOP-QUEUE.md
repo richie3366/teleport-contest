@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmaze.c` makemaz `ran-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Ranger quest 0/5 (360 ln; Ranger 3/44 sessions). From `dat/ran-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `mon-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Monk quest 0/5 (402 ln; Monk 2/44 sessions). From `dat/mon-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `cav-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Caveman quest 0/5 (330 ln; Caveman 1/44 sessions). From `dat/cav-*.lua` (HELDOUT Tier B).
 - [ ] `botl.c` do_statusline1 — blocks 1/278 corpus sessions (first at step 821): C «Logged events:» vs JS «Logged events:». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (random-seed0360-wizard-world-tour-4ac145da). Fresh block after archived D-1842.

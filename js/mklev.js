@@ -1451,7 +1451,8 @@ function reset_xystart_size() {
  * Val-strt, Val-loca, Val-fila, Val-filb, Val-goal,
  * Sam-strt, Sam-loca, Sam-fila, Sam-filb, Sam-goal,
  * Hea-strt, Hea-loca, Hea-fila, Hea-filb, Hea-goal,
- * Tou-strt, Tou-loca, Tou-fila, Tou-filb, Tou-goal, knox.
+ * Tou-strt, Tou-loca, Tou-fila, Tou-filb, Tou-goal,
+ * Ran-strt, Ran-loca, Ran-goal, Ran-fila, Ran-filb, knox.
  * Named omissions:
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1785,6 +1786,26 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Tou-goal') {
         load_tou_goal();
+        return true;
+    }
+    if (protofile === 'Ran-strt') {
+        load_ran_strt();
+        return true;
+    }
+    if (protofile === 'Ran-loca') {
+        load_ran_loca();
+        return true;
+    }
+    if (protofile === 'Ran-goal') {
+        load_ran_goal();
+        return true;
+    }
+    if (protofile === 'Ran-fila') {
+        load_ran_fila();
+        return true;
+    }
+    if (protofile === 'Ran-filb') {
+        load_ran_filb();
         return true;
     }
     if (protofile === 'knox') {
@@ -9405,6 +9426,524 @@ function load_tou_filb() {
     splev_create_monster('H', 0);
     splev_create_monster('C', 0);
     splev_create_monster('s', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Ran-strt.lua via load_special — Ranger quest start (Orion).
+ * Solidfill "." + mazelevel/noteleport/hardfloor/arboreal; mines fg=bg="."
+ * (smoothed/joined/lit, unwalled); replace_terrain "."→T chance 5 over the
+ * whole level BEFORE the map per lua order (mx/my are 1,0 both before and
+ * after the left/center map, but only the pre-map field is all-ROOM so only
+ * it draws the full rn2(100) grid like C); 41×21 left/center map; lit rect
+ * (00,00,40,20); down stair (10,10); absolute branch levregion
+ * {51,2,77,18} (region_islev) placed post-flip per the Val-strt shortcut;
+ * Orion + leather armor/yumi/ya×50 CUSTOM_INVENT + chest + 8 hunter guards;
+ * rect non_diggable; 2 fixed arrow + pit traps + spiked-pit/bear/bear;
+ * asleep minotaur + 18 placed + 6 random plains centaurs + 2 scorpions.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_ran_strt() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "." })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: ROOM,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+    g.level.flags.arboreal = true;
+
+    // des.level_init mines: fg=".", bg=".", smoothed=true, joined=true,
+    // lit=1, walled=false — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: ROOM, filling: ROOM,
+        lit: 1, smoothed: true, joined: true, walled: false,
+        icedpools: false,
+    });
+
+    // des.replace_terrain({ region={00,00,76,19}, fromterrain=".",
+    // toterrain="T", chance=5 }) — lua order is BEFORE des.map
+    lspo_replace_terrain_region(0, 0, 76, 19, ROOM, TREE, 5);
+
+    // des.map halign=left valign=center — C lspo_map aligned (not centered)
+    const RAN_STRT_MAP = `
+                                       xx
+   ...................................  x
+  ..                                 ..
+ ..  ...............F...............  ..
+ .  ..             .F.             ..  .
+ . ..  .............F.............  .. .
+ . .  ..                         ..  . .
+ . . ..  .......................  .. ...
+ . . .  ..                     ..  .
+ ... . ..  .|..................... ......
+ FFF . .  ..S..................
+ ... . ..  .|.................  .... ...
+ . . .  ..                     ..  . . .
+ . . ..  .......................  .. . .
+ . .  ..                         ..  . .
+ . ..  .............F.............  .. .
+ .  ..             .F.             ..  .
+ ..  ...............F...............  ..
+  ..                                 ..
+   ...................................  x
+                                       xx
+`.replace(/^\n/, '');
+    {
+        const mf = mapfrag_fromstr(RAN_STRT_MAP);
+        const { xstart, ystart } = splev_map_aligned_start(mf.wid, mf.hei, 'left', 'center');
+        g.splev_xstart = xstart;
+        g.splev_ystart = ystart;
+        g.splev_xsize = mf.wid;
+        g.splev_ysize = mf.hei;
+        if (!g.SpLev_Map) g.SpLev_Map = new Set();
+        for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+            for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+                const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+                if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+                sel_set_ter(xx, yy, mptyp, false);
+                const loc = g.level.at(xx, yy);
+                if (loc && !IS_LAVA(mptyp)) loc.lit = false;
+                g.SpLev_Map.add(`${xx},${yy}`);
+            }
+        }
+    }
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,40,20), "lit")
+    light_region(mx + 0, my + 0, mx + 40, my + 20, true);
+
+    // des.stair("down", 10,10)
+    mkstairs(mx + 10, my + 10, 0, null);
+    // des.levregion branch {51,02,77,18} region_islev=1 — absolute level
+    // cells; placed after wallify/flip in the epilogue below.
+
+    // des.monster Orion + CUSTOM_INVENT (no keep_default)
+    {
+        const mtmp = splev_create_monster('Orion', undefined, { rx: 20, ry: 10 });
+        splev_discard_default_minvent(mtmp);
+        const give = (spec) => {
+            const otmp = l_create_object(spec);
+            if (!otmp || !mtmp) return;
+            obj_extract_self(otmp);
+            mpickobj(mtmp, otmp);
+        };
+        give({ id: 'leather armor', spe: 4 });
+        give({ id: 'yumi', spe: 4 });
+        give({ id: 'ya', spe: 4, quan: 50 });
+    }
+    // des.object("chest", 20, 10)
+    mksobj_at(CHEST, mx + 20, my + 10, true, true);
+
+    // guards for the audience chamber (default peaceful)
+    for (const [rx, ry] of [
+        [19, 9], [20, 9], [21, 9], [19, 10],
+        [21, 10], [19, 11], [20, 11], [21, 11],
+    ]) splev_create_monster('hunter', undefined, { rx, ry });
+
+    // des.non_diggable(selection.area(00,00,40,20)) — walls/bars only
+    for (let y = my; y <= my + 20 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 40 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.trap arrow/pit at fixed coords + random spiked-pit/bear/bear
+    const ranStrtTrap = (ttyp, rx, ry) => {
+        const ttmp = maketrap(mx + rx, my + ry, ttyp);
+        mktrap_seen_victim(ttmp, {});
+    };
+    ranStrtTrap(ARROW_TRAP, 30, 9);
+    ranStrtTrap(ARROW_TRAP, 30, 10);
+    ranStrtTrap(PIT, 40, 9);
+    splev_create_trap(SPIKED_PIT);
+    splev_create_trap(BEAR_TRAP);
+    splev_create_trap(BEAR_TRAP);
+
+    // monsters on siege duty, in lua order
+    splev_create_monster('minotaur', 0, { rx: 33, ry: 9, asleep: 1 });
+    for (const [rx, ry] of [
+        [19, 3], [19, 4], [19, 5], [21, 3], [21, 4], [21, 5],
+        [1, 9], [2, 9], [3, 9], [1, 11], [2, 11], [3, 11],
+        [19, 15], [19, 16], [19, 17], [21, 15], [21, 16], [21, 17],
+    ]) splev_create_monster('forest centaur', 0, { rx, ry });
+    for (let i = 0; i < 6; i++) splev_create_monster('plains centaur', 0);
+    for (let i = 0; i < 2; i++) splev_create_monster('scorpion', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // des.levregion branch rect after flip (absolute islev cells)
+    place_lregion(51, 2, 77, 18, 0, 0, 0, 0, LR_BRANCH, null);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Ran-loca.lua via load_special — Ranger quest locate.
+ * Solidfill " " + mazelevel/hardfloor; 55×20 centered map; lit rect
+ * (00,00,54,19); up stair (25,05) + down stair (27,18); rect non_diggable;
+ * 8 objects; 2 spiked-pit + 2 teleport + 2 arrow random traps; asleep wumpus
+ * at (27,18) + bats/forest/mountain centaurs/scorpions/s-class in lua order.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_ran_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    const RAN_LOCA_MAP = `
+              .......  .........  .......
+     ...................       ...................
+  ....        .......             .......        ....
+...    .....     .       .....       .     .....    ...
+.   .......... .....  ...........  ..... ..........   .
+.  ..  ..... ..........  .....  .......... .....  ..  .
+.  .     .     .....       .       .....     .     .  .
+.  .   .....         .............         .....   .  .
+.  .  ................  .......  ................  .  .
+.  .   .....            .......            .....   .  .
+.  .     .    ......               ......    .     .  .
+.  .     ...........   .........   ...........     .  .
+.  .          ..........       ..........          .  .
+.  ..  .....     .       .....       .     .....  ..  .
+.   .......... .....  ...........  ..... ..........   .
+.      ..... ..........  .....  .......... .....      .
+.        .     .....       .       .....     .        .
+...   .......           .......           .......   ...
+  ..............     .............     ..............
+      .......  .......  .......  .......  .......
+`.replace(/^\n/, '');
+    splev_apply_centered_map(RAN_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+    // C lspo_map string form lit=FALSE
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const loc = g.level.at(Number(key.slice(0, comma)),
+                    Number(key.slice(comma + 1)));
+                if (loc) loc.lit = !!IS_LAVA(loc.typ);
+            }
+        }
+    }
+
+    // des.region(selection.area(00,00,54,19), "lit")
+    light_region(mx + 0, my + 0, mx + 54, my + 19, true);
+
+    // des.stair up (25,05) + down (27,18)
+    mkstairs(mx + 25, my + 5, 1, null);
+    mkstairs(mx + 27, my + 18, 0, null);
+
+    // des.non_diggable(selection.area(00,00,54,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 54 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object() × 8
+    for (let i = 0; i < 8; i++) splev_create_object(null);
+
+    // des.trap × 6 in lua order (spiked-pit/teleport/arrow pairs)
+    splev_create_trap(SPIKED_PIT);
+    splev_create_trap(SPIKED_PIT);
+    splev_create_trap(TELEP_TRAP);
+    splev_create_trap(TELEP_TRAP);
+    splev_create_trap(ARROW_TRAP);
+    splev_create_trap(ARROW_TRAP);
+
+    // random monsters, in lua order
+    splev_create_monster('wumpus', 0, { rx: 27, ry: 18, asleep: 1 });
+    for (let i = 0; i < 4; i++) splev_create_monster('giant bat', 0);
+    for (let i = 0; i < 4; i++) splev_create_monster('forest centaur', 0);
+    for (let i = 0; i < 8; i++) splev_create_monster('mountain centaur', 0);
+    for (let i = 0; i < 4; i++) splev_create_monster('scorpion', 0);
+    for (let i = 0; i < 2; i++) splev_create_monster('s', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Ran-goal.lua via load_special — Ranger quest goal (Scorpius).
+ * Solidfill " " + mazelevel; 76×20 centered map (single-`\` throne cell);
+ * whole-map lit; up stair (19,10); whole-map non_diggable; the Longbow of
+ * Diana (blessed +0 bow) + chest + 8 fixed RANDOM_CLASS objects + 5 random;
+ * 6 random traps; 3 locked + 11 closed doors; Scorpius + placed
+ * forest/mountain centaurs + corner scorpions + randoms; trailing
+ * des.wallify().
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_ran_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const RAN_GOAL_MAP = `
+                                                                            
+  ...                                                                  ...
+ ..........................................................................
+  ...                                +                                 ...
+   .     ............     .......    .                   .......        .
+   .  .............................  .       ........   .........S..    .
+   .   ............    .  ......     .       .      .    .......   ..   .
+   .     .........     .   ....      +       . ...  .               ..  .
+   .        S          .         .........   .S.    .S...............   .
+   .  ...   .     ...  .         .........          .                   .
+   . ........    .....S.+.......+....\\....+........+.                   .
+   .  ...         ...    S       .........           ..      .....      .
+   .                    ..       .........            ..      ......    .
+   .      .......     ...            +       ....    ....    .......... .
+   . ..............  ..              .      ......  ..  .............   .
+   .     .............               .     ..........          ......   .
+  ...                                +                                 ...
+ ..........................................................................
+  ...                                                                  ...
+                                                                            
+`.replace(/^\n/, '');
+    splev_apply_centered_map(RAN_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+    // C lspo_map string form lit=FALSE
+    {
+        const sp = g.SpLev_Map;
+        if (sp) {
+            for (const key of sp) {
+                const comma = key.indexOf(',');
+                const loc = g.level.at(Number(key.slice(0, comma)),
+                    Number(key.slice(comma + 1)));
+                if (loc) loc.lit = !!IS_LAVA(loc.typ);
+            }
+        }
+    }
+
+    // des.region(selection.area(00,00,75,19), "lit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, true);
+
+    // des.stair("up", 19,10)
+    mkstairs(mx + 19, my + 10, 1, null);
+
+    // des.non_diggable(selection.area(00,00,75,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object bow at (37,10): blessed +0 "The Longbow of Diana"
+    l_create_object({
+        id: 'bow', x: 37, y: 10, buc: 'blessed', spe: 0,
+        name: 'The Longbow of Diana',
+    });
+    // des.object("chest", 37, 10)
+    mksobj_at(CHEST, mx + 37, my + 10, true, true);
+
+    // des.object({ coord }) × 8 — RANDOM_CLASS at fixed cells
+    for (const [rx, ry] of [
+        [36, 9], [36, 10], [36, 11], [37, 9],
+        [37, 11], [38, 9], [38, 10], [38, 11],
+    ]) {
+        const otmp = mkobj_at(RANDOM_CLASS, mx + rx, my + ry, true);
+        if (!otmp) continue;
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+    }
+    // des.object() × 5
+    for (let i = 0; i < 5; i++) splev_create_object(null);
+
+    // des.trap() × 6
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // des.door × 14 in lua order (3 locked + 11 closed)
+    const ranGoalDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    ranGoalDoor(12, 8, D_LOCKED);
+    ranGoalDoor(22, 10, D_CLOSED);
+    ranGoalDoor(24, 10, D_LOCKED);
+    ranGoalDoor(25, 11, D_CLOSED);
+    ranGoalDoor(32, 10, D_CLOSED);
+    ranGoalDoor(37, 3, D_CLOSED);
+    ranGoalDoor(37, 7, D_CLOSED);
+    ranGoalDoor(37, 13, D_CLOSED);
+    ranGoalDoor(37, 16, D_CLOSED);
+    ranGoalDoor(42, 10, D_CLOSED);
+    ranGoalDoor(46, 8, D_LOCKED);
+    ranGoalDoor(51, 10, D_CLOSED);
+    ranGoalDoor(53, 8, D_LOCKED);
+    ranGoalDoor(65, 5, D_CLOSED);
+
+    // random monsters, in lua order
+    splev_create_monster('Scorpius', 0, { rx: 37, ry: 10 });
+    for (const [rx, ry] of [
+        [36, 9], [36, 10], [36, 11], [37, 9], [37, 11], [38, 9],
+    ]) splev_create_monster('forest centaur', 0, { rx, ry });
+    for (const [rx, ry] of [
+        [38, 10], [38, 11], [2, 2], [71, 2], [2, 16], [71, 16],
+    ]) splev_create_monster('mountain centaur', 0, { rx, ry });
+    for (let i = 0; i < 2; i++) splev_create_monster('forest centaur', 0);
+    for (let i = 0; i < 2; i++) splev_create_monster('mountain centaur', 0);
+    for (let i = 0; i < 2; i++) splev_create_monster('C', 0);
+    for (const [rx, ry] of [
+        [3, 2], [72, 2], [3, 17], [72, 17], [41, 10], [33, 9],
+    ]) splev_create_monster('scorpion', 0, { rx, ry });
+    for (let i = 0; i < 2; i++) splev_create_monster('scorpion', 0);
+    splev_create_monster('s', 0);
+
+    // des.wallify() — C lspo_wallify no-arg: xstart-1 .. xstart+xsize+1
+    wallify_map(
+        (g.splev_xstart | 0) - 1,
+        (g.splev_ystart | 0) - 1,
+        (g.splev_xstart | 0) + (g.splev_xsize | 0) + 1,
+        (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
+    );
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Ran-fila.lua via load_special — Ranger quest upper filler.
+ * Solidfill " " + mazelevel/noflip; mines fg="." bg="T" (no lit key,
+ * smoothed/joined/walled); random up/down stairs; 7 objects; 4 random
+ * traps; 2 mountain + 3 forest centaurs + C + scorpion, all hostile.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_ran_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg="T", smoothed=true, joined=true,
+    // walled=true (no lit key in lua) — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: TREE, filling: ROOM,
+        smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 7; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+    for (let i = 0; i < 2; i++) splev_create_monster('mountain centaur', 0);
+    for (let i = 0; i < 3; i++) splev_create_monster('forest centaur', 0);
+    splev_create_monster('C', 0);
+    splev_create_monster('scorpion', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Ran-filb.lua via load_special — Ranger quest lower filler.
+ * Solidfill " " + mazelevel/noflip; mines fg="." bg=" " (no lit key,
+ * smoothed/joined/walled); random up/down stairs; 11 objects; 4 random
+ * traps; 4 mountain centaurs + C + 2 scorpions, all hostile.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_ran_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg=" ", smoothed=true, joined=true,
+    // walled=true (no lit key in lua) — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: STONE, filling: ROOM,
+        smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 11; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+    for (let i = 0; i < 4; i++) splev_create_monster('mountain centaur', 0);
+    splev_create_monster('C', 0);
+    for (let i = 0; i < 2; i++) splev_create_monster('scorpion', 0);
 
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);

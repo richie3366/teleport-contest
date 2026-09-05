@@ -1256,6 +1256,11 @@ lighting-only (litstate_rnd(-1)) + blank-paper pair + '.'-minus-shops
 rndcoord traps + Platinum Yendorian Express Card + Kops + des.wallify();
 fila/filb mines no-lit-key; strt has Twoflower CUSTOM_INVENT
 (walking shoes +3, hawaiian shirt +3) + chest + branch levregion cell);
+**Ran-strt/loca/goal/fila/filb** (D-1889; Ranger quest 5/5: arboreal
+solidfill-"." + pre-map whole-level "."→T chance-5 replace + left/center
+map + absolute islev branch rect, Orion CUSTOM_INVENT (leather armor/yumi/
+ya×50) + asleep minotaur siege, wumpus loca, Longbow of Diana + Scorpius +
+des.wallify() goal, TREE/STONE-bg noflip fillers);
 **knox** (D-1853; Fort Ludios
 76x20 solidfill vault: branch + up/down tele, throne COURT, vault gold/trap
 iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);
