@@ -952,6 +952,15 @@ export function parseNethackrc(rc) {
                         result.iflags.prevmsg_window = tmp;
                     }
                 }
+                else if (key === 'menuinvertmode') {
+                    // C options.c optfn_menuinvertmode do_set: atoi(op),
+                    // 0-2 else config error (prior value kept).
+                    if (negated) continue;
+                    const mode = Number.parseInt(val, 10);
+                    if (mode === 0 || mode === 1 || mode === 2) {
+                        result.iflags.menuinvertmode = mode;
+                    }
+                }
                 else if (key === 'disclose') {
                     result.flags.end_disclose = parseDiscloseOption(val, negated);
                 }

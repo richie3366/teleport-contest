@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] mhitu `mhitm_ad_phys_u` weapon arm passes `null` defender to `dmgval` (`js/mhitu.js:717`) — C `weapon.c:215` derefs `mon->data` unconditionally and this call site passes `mdef` (`&youmonst`); polymorphed-big hero takes small-dice `wsdam` instead of `wldam` (+ bonus-draw counts diverge). Fix: `dmgval(otmp, game.youmonst)`. Falsifier: polymorph hero big, take a monster battle-axe hit. Source: reviews/loop-unattended/834-8ab2608f-mhitm-ad-phys.md **Addressed:** D-1865
+- [x] `do_wear.c` menu_remarm — 2 corpus blocks screen-first at step 42 (take_off path was D-1630). **Addressed:** D-1866
+
+
+- [x] mhitu `mhitm_ad_phys_u` weapon arm passes `null` defender to `dmgval` (`js/mhitu.js:717`) — C `weapon.c:215` derefs `mon->data` unconditionally and this call site passes `mdef` (`&youmonst`); polymorphed-big hero takes small-dice `wsdam` instead of `wldam` (+ bonus-draw counts diverge). Fix: `dmgval(otmp, game.youmonst)`. Falsifier: polymorph hero big, take a monster battle-axe hit. Source: reviews/loop-unattended/834-8ab2608f-mhitm-ad-phys.md **Addressed:** D-1865 `11f88a30`
 
 
 - [x] `uhitm.c` mhitm_ad_phys knockback — 2 corpus blocks; C `rnd(2)` vs JS `mhitm_knockback` `rn2(3)`. **Addressed:** D-1864 `8ab2608f`

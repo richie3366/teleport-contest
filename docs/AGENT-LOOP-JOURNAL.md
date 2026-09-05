@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1866 options.c menuinvertmode default 1 (menu_remarm corpus owner)
+
+**C locus:** `options.c` `initoptions_init` `:7279` (`iflags.menuinvertmode = 1` — bulk select/invert skip SKIPINVERT rows unless already set) + `windows.c` `menuitem_invert_test` `:1561–1589` (mode 1 + SKIPINVERT + unselected → FALSE) + `wintty.c` `set_all_on_page` (MENU_SELECT_PAGE skips rows failing the invert test); symptom owner `do_wear.c` `menu_remarm` `:3098–3112` (the `a` row is added with `MENU_ITEMFLAGS_SKIPINVERT`).
+**JS:** `js/jsmain.js` iflags default + comment; `js/options.js` rc arm; `docs/c-js-map/startup.md` options.c section.
+**Change:** default `menuinvertmode: 1` in `g.iflags` init (rc `...opts.iflags` spread still overrides) + parse `OPTIONS=menuinvertmode:N` colon-compound per `optfn_menuinvertmode` do_set (atoi, keep prior unless 0–2).
+**Verify:** `node scripts/verify.mjs --fn menu_remarm` → PASS syntax (2 changed js files: js/jsmain.js js/options.js) · PASS rule2 · PASS hidden verify menu_remarm: 1 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (random-seed0015-valk-level2-pit-dog-wait-288b93d0: PASS; random-seed0360-wizard-world-tour-b1a64b99: moved → process_menu_window at step 838 (was 828)) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed).
+**Named:** `doset` Comp `menuinvertmode` row still shows hardcoded `val: '1'` (now true by default; no live get_val/set handler); `=`-form `OPTIONS=menuinvertmode=1` still lands in `result.flags` (colon form is the live one, matching neighboring iflags compounds); count-prefix digits + MENU_SEARCH still deferred in `select_menu_pick_any` (D-0928).
+**Next:** seed0360 now blocks on `wintty.c` `process_menu_window` `:1709` at step 838/861 (object menu `What do you want to take off?`, botl region: C paints the status line under the menu, JS leaves row 22 empty) — known top owner, separate painter cause.
 ## 2026-09-05 — D-1865 mhitu mhitm_ad_phys_u dmgval defender null → youmonst (review 834 Must-fix)
 
 **C locus:** `weapon.c` `dmgval` `:215` (`struct permonst *ptr = mon->data` — unconditional deref; `bigmonst(ptr)` selects `oc_wldam` + large-switch vs `oc_wsdam` + small-switch) + `uhitm.c` `mhitm_ad_phys` mhitu arm `:4061–4066` (`dmgval(otmp, mdef)` with `mdef == &youmonst`).

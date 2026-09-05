@@ -78,4 +78,4 @@ why item 1 survived verification.)
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1865
+**Addressed:** D-1865 `11f88a30`

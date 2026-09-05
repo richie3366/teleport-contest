@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1866 — options.c menuinvertmode default 1 (menu_remarm corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS + 1 moved past to a later owner; green + cohort + full `sessions` 44/44)
+- **Symptom:** 2 corpus blocks screen-first at `do_wear.c:3100` (`menu_remarm` category menu): C `a - All worn and wielded types` vs JS `a + All worn and wielded types`. Recorded C screens show `,` (MENU_SELECT_PAGE) selecting only `b`/`c` (Weapons/Armor) while `a` (SKIPINVERT) stays `-`; JS selected `a` too. Same-step continuation in the tour session reaches the `What do you want to take off?` object menu identically afterward.
+- **C locus:** `options.c` `initoptions_init` `:7279` (`iflags.menuinvertmode = 1` — bulk select/invert skip SKIPINVERT rows unless already set) + `windows.c` `menuitem_invert_test` `:1561–1589` (mode 1 + SKIPINVERT + unselected → FALSE) + `wintty.c` `set_all_on_page` (MENU_SELECT_PAGE skips rows failing the invert test); symptom owner `do_wear.c` `menu_remarm` `:3098–3112` (the `a` row is added with `MENU_ITEMFLAGS_SKIPINVERT`).
+- **JS was:** `js/jsmain.js` built `g.iflags` without `menuinvertmode`, so `js/options.js` `menuitem_invert_test` computed `undefined | 0 = 0` ("ignore skip-invert") and `select_menu_pick_any` MENU_SELECT_PAGE selected the `a` row. The invert-test body itself already matched C modes 1/2; only the default was wrong. `OPTIONS=menuinvertmode:N` also fell through to dead `result.flags`.
+- **Fix:** default `menuinvertmode: 1` in `g.iflags` init (rc `...opts.iflags` spread still overrides) + parse `OPTIONS=menuinvertmode:N` colon-compound per `optfn_menuinvertmode` do_set (atoi, keep prior unless 0–2).
+- **JS:** `js/jsmain.js` iflags default + comment; `js/options.js` rc arm; `docs/c-js-map/startup.md` options.c section.
+- **Verify:** `node scripts/verify.mjs --fn menu_remarm` → PASS syntax (2 changed js files: js/jsmain.js js/options.js) · PASS rule2 · PASS hidden verify menu_remarm: 1 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (random-seed0015-valk-level2-pit-dog-wait-288b93d0: PASS; random-seed0360-wizard-world-tour-b1a64b99: moved → process_menu_window at step 838 (was 828)) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed).
+- **Named omissions:** `doset` Comp `menuinvertmode` row still shows hardcoded `val: '1'` (now true by default; no live get_val/set handler); `=`-form `OPTIONS=menuinvertmode=1` still lands in `result.flags` (colon form is the live one, matching neighboring iflags compounds); count-prefix digits + MENU_SEARCH still deferred in `select_menu_pick_any` (D-0928).
+- **Next:** seed0360 now blocks on `wintty.c` `process_menu_window` `:1709` at step 838/861 (object menu `What do you want to take off?`, botl region: C paints the status line under the menu, JS leaves row 22 empty) — known top owner, separate painter cause.
+
 ## D-1865 — mhitu mhitm_ad_phys_u dmgval defender null → youmonst (review 834 Must-fix)
 
 - **Status:** fixed (Must-fix review 834 item 1; no corpus session blocked on `mhitm_ad_phys_u` at HEAD — corpus pair does not cover polymorphed-big defenders; green + cohort PASS)
