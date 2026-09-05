@@ -5,9 +5,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
+- **Park `mdrop_obj`:** capture-point divergence (C mid-turn --More-- frame vs JS post-turn; draws identical 2706/2706); full port = verify no-op. Detail + falsifier in LOOP-QUEUE Parked.
 - **Park `dopush` (mimic-viz, not the push):** explore-seed0116-wizard-wear-shop-cfabc006 step 127/175, single cell r13c32 = map (33,12): C `` ` `` vs JS `·`. RNG 12853/12853; only 127 differs. Push faithful (hero (32,10)→(33,10), boulder #223→(34,10)). Mimic id229 (M_AP_OBJECT BOULDER 475); JS blind 126/127, sees 128. 114→127: boulder-memory on entry; 116 search→floor; 117 restrap re-disguise; 118–126 OOS floor. At 127 C paints boulder: C sees IN_SIGHT, JS paints memory floor (no C memory writer runs at 127). Falsified: removing JS `movobj`'s uncited `recalc_block_point`×2 (C `:824–833` has none; no C caller recals) gives NO MOVEMENT. Exonerated: dig/fill/block/unblock/recalc/does_block, `vision_reset`, `set_mimic_sym` tail, `seemimic`, `display_monster` mimic arms, `map_object`/`newsym`. Falsifier: queue row. Re-apply reverted `movobj` cleanup with the fix.
-- **Park `dog_invent`:** both hits are `mon.c mpickstuff`. Evidence: Barbarian step 34 + Priest step 45 (0 dogmove draws, RNG match).
-- **Hidden-score proxy:** see CURRENT.md Score. Geometry owners: probe first (D-1849).
+- **Geometry owners:** probe first (D-1849).
 - **Fortress guards.** Do not reopen display_inventory dismiss /
   gameover heading / keep_status, stock_room engraving, inside_shop clone,
   level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu,
