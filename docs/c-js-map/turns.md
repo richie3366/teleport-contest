@@ -782,7 +782,12 @@ prints `trap at (x,y)`** (C `:2093–2094` uses `glyph_to_trap` +
 `trap_description`); `doidtrap` unported; C TODO recursive/buried
 containers named; **`do_screen_description` full cmap/symbol table**
 (later owner after D-1843; ROOM parenthetical still uses
-`room_cmap_explanation`)
+`room_cmap_explanation`) then **blank-sym collapse D-1854**
+(`pager.c:1246–1627` looked `' '`: ghost + dark-room + unexplored + stone
++ air found=5 → prefix + "can be many things" + didlook lookat
+"(unexplored area)"/"(unexplored)"/"(dark part of a room)", found=1;
+full showsyms scan, terrainmode gating, moat double-add, warnsym/boulder
+co-locate, override gotos, unreconnoitered/mon_interior still deferred)
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 

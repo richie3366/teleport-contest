@@ -1245,7 +1245,21 @@ function describe_looked(x, y) {
     // → lookat "stone" (even when typ was updated to CORR).
     if (loc && (!loc.disp_ch || loc.disp_ch === ' ')) {
         if (!loc.seenv) {
-            return { out: '        unexplored area', first: 'unexplored area', found: 1 };
+            // C ref: pager.c do_screen_description — looked sym ' '
+            // (DEF_NOTHING, hack.h) matches S_GHOST monsym ' ' ("space
+            // symbol", defsym.h) → "a ghost" + need_to_look; SYM_NOTHING
+            // showsym ' ' → "the dark part of a room"; glyph_is_unexplored
+            // (or sym == showsyms[SYM_UNEXPLORED]) → "unexplored"; cmap
+            // S_stone ' ' → "stone" and S_air ' ' → "air" (S_expl_mc ' '
+            // has no explanation, skipped). found=5 > 4 → prefix + "can be
+            // many things"; didlook lookat appends "(look)" — "unexplored
+            // area" for an unexplored glyph, "unexplored" for remembered
+            // stone, "dark part of a room" for a nothing glyph — and forces
+            // found=1 for checkfile.
+            const look = maybe_blocked_staircase_down(lookat(x, y).buf)
+                || 'unexplored';
+            const out = `         can be many things (${look})`;
+            return { out, first: look, found: 1 };
         }
         const last = game.lastseentyp?.[x]?.[y] | 0;
         if (

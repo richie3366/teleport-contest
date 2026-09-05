@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1854 pager.c do_screen_description blank-sym collapse ("can be many things (unexplored area)")
+
+**C locus:** `pager.c` `do_screen_description` `:1246–1627` — looked sym
+**JS:** `js/pager.js` `describe_looked` (~+15/−1).
+**Change:** that branch now prints 9-space `can be many things (${look})`
+**Verify:** `node scripts/verify.mjs --fn do_screen_description` → PASS
+**Named:** full `do_screen_description` cmap/symbol table
+**Next:** Open `pager.c` `dowhatdoes` (2 corpus blocks).
 ## 2026-09-05 — D-1853 mkmaze.c makemaz knox load_special (Fort Ludios magic-portal vault)
 
 **C locus:** `dat/knox.lua`; `mkmaze.c` `makemaz` `:1127–1223`

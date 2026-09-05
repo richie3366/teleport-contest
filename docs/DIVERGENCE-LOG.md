@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-1854 — pager.c do_screen_description blank-sym collapse ("can be many things (unexplored area)")
+
+- **Status:** fixed (Open queue row; corpus + green + cohort + full `sessions` 44/44)
+- **Symptom:** 4 corpus blocks at `do_screen_description`: C
+  `«can be many things (unexplored area)»` vs JS `«unexplored area»`
+  (explore-seed0360-wizard-world-tour 19199bfa step 836 / 77350e1f step 835;
+  explore-seed0367-priest-quest-tour 1cbaa856 step 314 / b0096089 step 326).
+- **C locus:** `pager.c` `do_screen_description` `:1246–1627` — looked sym
+  `' '` (`DEF_NOTHING`, `hack.h:51`, default for NOTHING and UNEXPLORED):
+  `S_GHOST` monsym `' '` ("space symbol", `defsym.h:358`) → "a ghost" +
+  `need_to_look`; `SYM_NOTHING` showsym `' '` → "the dark part of a room";
+  `glyph_is_unexplored` (or sym == `showsyms[SYM_UNEXPLORED]`) →
+  "unexplored"; cmap `S_stone` `' '` → "stone", `S_air` `' '` → "air"
+  (`S_expl_mc` `' '` has empty explanation, skipped). found=5 > 4 →
+  prefix + "can be many things" (`:1590–1595`); didlook (`:1597–1625`)
+  `lookat` appends "(unexplored area)" and forces found=1 for checkfile.
+- **JS was:** `describe_looked` (`js/pager.js`) blank + `!seenv` branch
+  returned 8-space `'unexplored area'` with no collapse and no lookat
+  parenthetical (missing glyph-char prefix too).
+- **Fix:** that branch now prints 9-space `can be many things (${look})`
+  with `look` from same-module `lookat` + `maybe_blocked_staircase_down`
+  (C didlook order) — "unexplored area" for an unexplored glyph,
+  "unexplored" for remembered stone, "dark part of a room" for a nothing
+  glyph — returning `found: 1` / `first: look` for checkfile like C.
+- **JS:** `js/pager.js` `describe_looked` (~+15/−1).
+- **Verify:** `node scripts/verify.mjs --fn do_screen_description` → PASS
+  syntax (1 js file); PASS rule2; PASS hidden verify do_screen_description:
+  2 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS (77350e1f PASS;
+  1cbaa856 PASS; 19199bfa → hitum step 848 was 836; b0096089 →
+  trapeffect_rolling_boulder_trap step 347 was 326); PASS green 2/2; PASS
+  strict seed8000/seed0900; PASS cohort 7/7; full `sessions` 44/44 forced
+  (speed `48+0.37/turn`, R² 0.85).
+- **Named omissions:** full `do_screen_description` cmap/symbol table
+  (showsyms-driven scan; terrainmode TER_MON/TER_OBJ gating; S_pool moat
+  double-add; warnsym/boulder co-locate; override goto check_monsters;
+  unreconnoitered/mon_interior arms) — still deferred in map.
+- **Next:** Open `pager.c` `dowhatdoes` (2 corpus blocks).
+
 ## D-1853 — mkmaze.c makemaz knox load_special (Fort Ludios magic-portal vault)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
