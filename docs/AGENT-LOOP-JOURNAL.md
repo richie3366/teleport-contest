@@ -8,6 +8,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — Audit reviews 843–845 (D-1873…D-1875) + cadence score
+
+Review iter over the 3 `js/` SHAs since audit 835–842. Verdicts: 3 ACCEPT,
+0 Must-fix (prepend none); Next cluster unchanged. Re-measured every
+corpus claim with `hidden-proxy verify <fn> --base HASH~1`: D-1873
+artifact_hit 1 PASS + 1 moved past, D-1874 trapeffect_rolling_boulder_trap
+1 PASS, D-1875 glibr 1 PASS — all match the D-logs, no D-1831-style
+regression. Notes: 843's `Blind()` is the pre-existing verified clone
+(D-0716), all new edges ALREADY-imported; 844's vibrating-square arm is
+named in commit + map; 845's `verify dog_eat` vacuity is stated and the
+real owner `glibr` verified instead, plus full 44/44 in-commit. Debt
+sighting (pre-existing, unnamed): `dog_eat` tunnels "digs in" arm has no
+JS counterpart — next port iter should name it in the turns.md row.
+Cadence: full `sessions` 44/44 at `061abc6d`, Scr 11,405/11,405, RNG
+792,838/792,838, `46+0.37/turn` (R² 0.86); proxy 246/265 excl env
+(92.8%), RNG 99.60 %, screens 99.6 %.
 ## 2026-09-05 — D-1874 pager.c do_screen_description trap-glyph `a trap (lookat)` (trapeffect_rolling_boulder_trap corpus owner)
 
 **C locus:** `pager.c` `do_screen_description` — looked prefix `:1271` (`encglyph` `^` + 8 spaces); `add_cmap_descr` `:1220` first-matches a trap cmap glyph as literally `a trap` (`hit_trap`, `need_to_look` via the `is_cmap_trap` arm); didlook `:1611–1614` appends ` (firstmatch)` where firstmatch is `lookat` `:718–721` → `trap_description` `:164–181` → `trapname(ttyp, FALSE)` = `rolling boulder trap`. `add_quoted_engraving` appends nothing for a non-engraving buf, so no engraving arm is needed here.

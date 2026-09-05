@@ -853,3 +853,6 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [840-605a8e85-mhitm-ad-drli.md](./840-605a8e85-mhitm-ad-drli.md) | `605a8e85` | D-1870 uhitm.c mhitm_ad_drli mhitu arm | **ACCEPT** |
 | [841-a631bae4-zoo-mon-sound.md](./841-a631bae4-zoo-mon-sound.md) | `a631bae4` | D-1871 sounds.c zoo_mon_sound print | **ACCEPT** |
 | [842-8e602b91-menu-page-keys.md](./842-8e602b91-menu-page-keys.md) | `8e602b91` | D-1872 wintty.c process_menu_window page keys | **ACCEPT** |
+| [843-d6db25d5-artifact-hit-plines.md](./843-d6db25d5-artifact-hit-plines.md) | `d6db25d5` | D-1873 artifact.c artifact_hit elemental plines | **ACCEPT** |
+| [844-b26671b1-trap-glyph-lookat.md](./844-b26671b1-trap-glyph-lookat.md) | `b26671b1` | D-1874 pager.c do_screen_description trap-glyph | **ACCEPT** |
+| [845-ef2bf265-dog-eat-gate.md](./845-ef2bf265-dog-eat-gate.md) | `ef2bf265` | D-1875 dogmove.c dog_eat message gate | **ACCEPT** |
