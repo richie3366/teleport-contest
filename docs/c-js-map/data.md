@@ -791,8 +791,8 @@ extract `mresists`** (worn/artifact STONE_RES deferred; **D-1826 `medusa-2`/`-4`
 **D-0566 `light_region` wall-expand for bigrm-2/8 `des.region(...,"lit")`** + 
 **D-1846 `bigrm-2` darkness choice 0–2 `des.region(...,"unlit")`**
 (`dat/bigrm-2.lua` `:34–48`; argc=2 does not grow; Healer `^V` Dlvl:10
-`rn2(4)=2` side strips; ice `selection:grow` after percent(25) still
-named) + **`splev_apply_centered_map`/`splev_apply_map_at` force
+`rn2(4)=2` side strips; ice `selection:grow` after percent(25) live
+**D-1856** `lspo_replace_terrain_sel` ROOM→ICE 100) + **`splev_apply_centered_map`/`splev_apply_map_at` force
 `loc.lit=false`** (C `lspo_map` lit defaults FALSE; JS `sel_set_ter(false)`
 is still nochange) + 
 **D-0802 minetn-5/minend-2** (castle/other interior-only lit loops still deferred); 

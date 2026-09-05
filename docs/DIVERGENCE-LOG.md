@@ -1,5 +1,50 @@
 # Divergence log
 
+## D-1856 — sp_lev.c lspo_replace_terrain bigrm-2 ice replace on darkness:grow()
+
+- **Status:** fixed (Open queue row; corpus + green + strict + cohort + full `sessions` 44/44)
+- **Symptom:** 1 corpus block at `lspo_replace_terrain`: C
+  `rn2(100)=13 @ lspo_replace_terrain(sp_lev.c:5132)` vs JS
+  `rn2(75)=13 @ get_location_random(mklev.js:14234)`
+  (tour-Barbarian-70011-d3-6-10-11-12 step 32/50; toplines match
+  «You materialize on a different level!»).
+- **C locus:** `dat/bigrm-2.lua` (`des.replace_terrain({ selection =
+  darkness:grow(), fromterrain = ".", toterrain = "I" })`, chance
+  default 100, lit default SET_LIT_NOCHANGE) + `sp_lev.c:5105–5143`
+  `lspo_replace_terrain` selection arm (x-outer y-inner over
+  `selection_getbounds`, fromtyp/MATCH_WALL match then
+  `rn2(100) < chance`); `nhlsel.c` `l_selection_fillrect` (packed
+  coords add xstart/ystart) + `l_selection_grow` default "all".
+- **JS was:** `load_bigrm_2` (`js/mklev.js:1995`) burned `percent(25)`
+  then left `/* ice replace deferred with selection:grow */` empty
+  (named omit in `c-js-map/data.md`); the next JS draw was stair
+  placement `get_location_random` `rn2(75)` — same raw value 13,
+  wrong call. `geom-probe` showed 50 differing map cells downstream
+  (stairs/objects/traps/monsters all misaligned; C rng 17500 vs JS
+  16584 over 34 steps), so the scan owner was the symptom and the
+  deferred replace arm the writer.
+- **Fix:** build the darkness selection per choice arm (absolute
+  `selection_fillrect` + `selection_or`, mirroring the unlit rects),
+  `selection_grow` (default all, like lua `:grow()`), then the
+  existing D-1821 `lspo_replace_terrain_sel(sel, ROOM, ICE, 100)`
+  (x-outer y-inner, `rn2(100) < 100` per ROOM cell, lit NOCHANGE).
+  No new imports (same-module locals); selection construction burns
+  no RNG. Small handoff (+22/−2): the callee helper already existed,
+  the missing piece was the bigrm-2 call site; it restores ~900
+  downstream RNG calls.
+- **JS:** `js/mklev.js` `load_bigrm_2` (+22/−2).
+- **Verify:** `node scripts/verify.mjs --fn lspo_replace_terrain` → PASS
+  syntax (1 js file: js/mklev.js); PASS rule2; PASS hidden
+  verify lspo_replace_terrain: 0 PASS, 1 moved past, 0 unchanged,
+  0 worse → PROGRESS (tour-Barbarian-70011-d3-6-10-11-12: moved →
+  dog_invent at step 34, was 32); PASS green 2/2; PASS strict
+  seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared
+  file changed).
+- **Named omissions:** none new. bigrm-2 `flip_level_rnd` (noflip),
+  `ensure_way_out` / solidify / premap stay named in the map.
+- **Next:** Open `uhitm.c` mhitm_ad_slee (1 corpus block); new owner
+  `dog_invent` (tour-Barbarian-70011 + tour-Priest-70006) queued Open.
+
 ## D-1855 — cmd.c '&' dispatches dowhatdoes (was Unknown command)
 
 - **Status:** fixed (Open queue row; corpus + green + strict + cohort)

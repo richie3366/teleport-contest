@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1856 | open | dat/bigrm-2.lua — sp_lev.c lspo_replace_terrain bigrm-2 ice replace on darkness:grow() | 1 corpus block at `lspo_replace_terrain`: C; fix: build the darkness selection per choice arm (absolute; verify: `node scripts/verify.mjs --fn lspo_replace_terrain` → PASS; named: none new. bigrm-2 `flip_level_rnd` (noflip), |
 | D-1855 | open | cmd.c:1934–1935 — cmd.c '&' dispatches dowhatdoes (was Unknown command) | 2 corpus blocks at `dowhatdoes`: C; fix: export `dowhatdoes` from `js/pager.js`, import it in; verify: `node scripts/verify.mjs --fn dowhatdoes` → PASS; named: `dowhatdoes` ALTMETA ESC-double path |
 | D-1854 | open | pager.c do_screen_description — pager.c do_screen_description blank-sym collapse ("can be many things (unexplo | 4 corpus blocks at `do_screen_description`: C; fix: that branch now prints 9-space `can be many things (${look})`; verify: `node scripts/verify.mjs --fn do_screen_description` → PASS; named: full `do_screen_description` cmap/symbol table |
 | D-1853 | fixed | dat/knox.lua — mkmaze.c makemaz knox load_special (Fort Ludios magic-portal vault) | `makemaz` had no Fort Ludios loader, so `knox` was a blank; fix: `load_knox` from the lua body in order: solidfill STONE +; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: humidity-aware `get_location` for water-likers; |

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `pager.c` dowhatdoes — 2 corpus blocks; C «Ask about '&' or '?' to get more info.» vs JS «Unknown command '&'.». **Addressed:** D-1855
+- [x] `sp_lev.c` lspo_replace_terrain — 1 corpus block; C `rn2(100)` vs JS `get_location_random` `rn2(75)`. **Addressed:** D-1856
+
+
+- [x] `pager.c` dowhatdoes — 2 corpus blocks; C «Ask about '&' or '?' to get more info.» vs JS «Unknown command '&'.». **Addressed:** D-1855 `5983e72d`
 
 
 - [x] `pager.c` do_screen_description — 4 corpus blocks; C «can be many things (unexplored area)» vs JS «unexplored area». **Addressed:** D-1854 `532d3c44`

@@ -2051,7 +2051,27 @@ function load_bigrm_2() {
             unlit(52, 1, 73, 16);
         }
         if (percent(25)) {
-            /* ice replace deferred with selection:grow */
+            // C bigrm-2.lua: des.replace_terrain({ selection = darkness:grow(),
+            //   fromterrain = ".", toterrain = "I" }) — C sp_lev.c
+            //   lspo_replace_terrain selection arm: x-outer y-inner, ROOM
+            //   match then rn2(100) < 100 per cell (lit SET_LIT_NOCHANGE).
+            let darkness;
+            if (choice === 0) {
+                darkness = selection_or(
+                    selection_or(
+                        selection_fillrect(xstart + 1, ystart + 7, xstart + 22, ystart + 9),
+                        selection_fillrect(xstart + 24, ystart + 1, xstart + 50, ystart + 5)),
+                    selection_or(
+                        selection_fillrect(xstart + 24, ystart + 11, xstart + 50, ystart + 16),
+                        selection_fillrect(xstart + 52, ystart + 7, xstart + 73, ystart + 9)));
+            } else if (choice === 1) {
+                darkness = selection_fillrect(xstart + 24, ystart + 1, xstart + 50, ystart + 16);
+            } else {
+                darkness = selection_or(
+                    selection_fillrect(xstart + 1, ystart + 1, xstart + 22, ystart + 16),
+                    selection_fillrect(xstart + 52, ystart + 1, xstart + 73, ystart + 16));
+            }
+            lspo_replace_terrain_sel(selection_grow(darkness), ROOM, ICE, 100);
         }
     }
 

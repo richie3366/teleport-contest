@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1856 sp_lev.c lspo_replace_terrain bigrm-2 ice replace on darkness:grow()
+
+**C locus:** `dat/bigrm-2.lua` (`des.replace_terrain({ selection =
+**JS:** `js/mklev.js` `load_bigrm_2` (+22/−2).
+**Change:** build the darkness selection per choice arm (absolute
+**Verify:** `node scripts/verify.mjs --fn lspo_replace_terrain` → PASS
+**Named:** none new. bigrm-2 `flip_level_rnd` (noflip),
+**Next:** Open `uhitm.c` mhitm_ad_slee (1 corpus block); new owner
 ## 2026-09-05 — D-1855 cmd.c '&' dispatches dowhatdoes (was Unknown command)
 
 **C locus:** `cmd.c:1934–1935` — `{ '&', "whatdoes", …, dowhatdoes,

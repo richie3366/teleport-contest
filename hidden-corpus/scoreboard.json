@@ -1,6 +1,6 @@
 {
- "commit": "532d3c44",
- "at": "2026-09-05T09:39:50.044Z",
+ "commit": "5983e72d",
+ "at": "2026-09-05T09:44:47.490Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4119,18 +4119,18 @@
   "tour-Barbarian-70011-d3-6-10-11-12": {
    "src": "corpus",
    "passed": false,
-   "rngM": 12737,
+   "rngM": 21010,
    "rngT": 21010,
-   "scrM": 32,
+   "scrM": 42,
    "scrT": 50,
-   "kind": "rng",
-   "step": 32,
+   "kind": "screen",
+   "step": 34,
    "steps": 50,
-   "owner": "lspo_replace_terrain",
-   "loc": "sp_lev.c:5132",
-   "jsOwner": "get_location_random(mklev.js:14234)",
-   "cTopline": "You materialize on a different level!",
-   "jsTopline": "You materialize on a different level!",
+   "owner": "dog_invent",
+   "loc": "dogmove.c:460",
+   "jsOwner": null,
+   "cTopline": "The dwarf mummy picks up a gem.",
+   "jsTopline": "The dwarf mummy picks up a gem.",
    "error": null
   },
   "tour-Barbarian-70024-d5-8-15-17-22": {

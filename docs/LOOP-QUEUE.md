@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `sp_lev.c` lspo_replace_terrain — 1 corpus block; C `rn2(100)` vs JS `get_location_random` `rn2(75)`.
 - [ ] `uhitm.c` mhitm_ad_slee — 1 corpus block; C `rn2(5)` vs JS `mhitm_knockback` `rn2(3)`.
 - [ ] `mkmaze.c` makemaz `Sam-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Samurai quest, 0/5. From `dat/Sam-*.lua`.
 - [ ] `hack.c` moverock_core — 2 corpus blocks; C «The boulder won't roll diagonally on this floor.» vs JS «With great effort you move the boulder.».
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `dungeon.c` induced_align — 1 corpus block; C `rn2(3)` vs JS `rnd_rect` `rn2(4)`.
 - [ ] `uhitm.c` hitum — 1 corpus block; C `rnd(20)` vs JS `spec_abon` `rnd(5)`.
 - [ ] `mthrowu.c` linedup — 1 corpus block; C `rn2(2)` vs JS `m_move` `rn2(16)`.
+- [ ] `dogmove.c` dog_invent — 2 corpus blocks; C «The dwarf mummy picks up a gem.» vs JS same topline (tour-Barbarian-70011 step 34, tour-Priest-70006).
+- [ ] `uhitm.c` mhitm_ad_phys knockback — 2 corpus blocks; C `rnd(2)` vs JS `mhitm_knockback` `rn2(3)`.
+- [ ] `do_wear.c` menu_remarm — 2 corpus blocks screen-first at step 42 (take_off path was D-1630).
+- [ ] `allmain.c` maybe_generate_rnd_mon — 1 corpus block; C `rn2(70)` vs JS `rn2(50)`.
+- [ ] `monmove.c` m_move — 1 corpus block; C `rn2(4)` vs JS `distfleeck` `rn2(5)`.
 
 ## Parked (do not pop)
 
