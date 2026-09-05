@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1850 invent.c display_inventory → display_pickinv PICK_ONE; farlook `i` "Weapons" stays
+
+**C locus:** `invent.c` `display_inventory` `:3427–3452` (`cmdq_pop` then `display_pickinv(lets, 0, 0, FALSE, want_reply, 0)`); `display_pickinv` `:3380–3382` `select_menu(want_reply ? PICK_ONE : PICK_NONE)`; `wintty.c` `process_menu_window` `:1738–1740` (`PICK_NONE || !strchr(resp, morc)` → `tty_nhbell`, stay); `windows.c` `add_menu_heading` `:1815–1828` (`program_state.gameover` → `ATR_NONE`); `pager.c` `do_look` `:1822–1840` (`display_inventory(NULL, TRUE)`); callers `pickup.c:223` / `end.c:592` pass TRUE.
+**JS:** `js/invent.js` `display_inventory` / `display_pickinv_reply` / `add_menu_heading_attr` / `dismiss_nhw_menu({ keep_status })`; `js/pickup.js` / `js/end.js` `display_inventory(null, true)`.
+**Change:** `display_inventory` calls `display_pickinv_reply` with `want_reply`. PICK_NONE bells letters. Headings use `add_menu_heading` gameover `ATR_NONE`.
+**Verify:** `node scripts/verify.mjs --fn inuse_classify --full` → PASS syntax (3 js files); PASS rule2; PASS hidden verify inuse_classify: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0015-valk-level2-pit-dog-wait-49ecd01f PASS; explore-seed0700-samurai-explore-descend-b922c948 PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (--full). VERIFY: PASS
+**Named:** `inuse_classify` body was already D-1589 (not this C-wrong). perm_invent `InvInUse` still D-1600. `invent_lines` remains exported. n==0 pickinv `"Not carrying anything appropriate."` vs C `"Not carrying anything."` for full invent.
+**Next:** Open `dothrow.c` `dofire` (2 corpus blocks). Do not reopen the one-shot `display_inventory` dismiss or gameover heading inverse.
 ## 2026-09-05 — D-1849 shknam.c stock_room closed-shop engraving cell via shk.c inside_shop edge; mineralize 2 corpus PASS
 
 **C locus:** `shknam.c` `stock_room` `:750–766` (locked shop door: `inside_shop(sx+1,sy)`→`m--` / `(sx-1,sy)`→`m++` / `(sx,sy+1)`→`n--` / `(sx,sy-1)`→`n++`, engrave `"Closed for inventory"` at `(m,n)`, then `typ != CORR && typ != ROOM` → `(Is_special(&u.uz) || *in_rooms(m,n,0)) ? ROOM : CORR`); `shk.c` `inside_shop` `:567–576` (`rno < ROOMOFFSET || levl[x][y].edge || !IS_SHOP` → `NO_ROOM`); `mklev.c` `topologize` `:1633`/`:1642` (wall cells get `edge`, so the door's wall neighbours are outside the shop).

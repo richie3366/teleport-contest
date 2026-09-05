@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `invent.c` inuse_classify — 2 corpus blocks; C `"Weapons"` vs JS empty worn-class header.
 - [ ] `dothrow.c` dofire — 2 corpus blocks; C `"You have no ammunition readied."` vs fire `getobj` prompt.
 - [ ] `mkmaze.c` makemaz `Val-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Valkyrie quest, 0/5. From `dat/Val-*.lua`.
 - [ ] `mkmaze.c` makemaz `knox` — Fort Ludios magic-portal vault. From `dat/knox.lua` (167 ln).

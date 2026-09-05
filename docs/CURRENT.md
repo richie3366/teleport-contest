@@ -71,17 +71,18 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1849**. `mineralize` 2 corpus PASS: the C-wrong was
-`shknam.c` `stock_room`'s closed-shop engraving cell (found with a C `^F` map
-probe, not a JS FORCE — D-1849).
-**Next cluster:** Open `invent.c` `inuse_classify` — 2 corpus blocks; C `"Weapons"` vs JS empty worn-class header.
+**Suite 44/44** at **D-1850**. `inuse_classify` 2 corpus PASS: the C-wrong was
+`invent.c` `display_inventory` one-shot dismiss (proxy matched `/* "Weapons" */`,
+not `inuse_headers`).
+**Next cluster:** Open `dothrow.c` `dofire` — 2 corpus blocks; C `"You have no ammunition readied."` vs fire `getobj` prompt.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1849 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1850 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1850** `invent.c` `display_inventory` `:3427–3452` (`cmdq_pop` then `display_pickinv(lets, 0, 0,  — `display_inventory` calls `display_pickinv_reply` with `want_reply`.
 **D-1849** `shknam.c` `stock_room` `:750–766` (locked shop door: `inside_shop(sx+1,sy)`→`m--` / `(sx- — delete the clone and import `shk.js` `inside_shop`; port the ROOM/CORR choice with `Is_special` (now exported from `dungeon.js`) and `hack.js` `in_rooms`.
 **D-1848** `pager.c` `lookat` `:779–795` (cmap switch: altar / ndoor / cloud / waterbody / engraving  — delete the extra lookat arms so floor strings come from `defsyms[]`.
 **D-1847** `mklev.c` `mineralize` `:1448–1541` / `mkmaze.c` `bound_digging` / `sp_lev.c` `create_room` — gold/gem loop + `on_level` Is_special + `join` arboreal ROOM + xstart resets. Named: 1-cell `ly=15` TRC (Knight d5 409 vs 410).
@@ -89,11 +90,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1845** `getpos.c` `getpos` `:960–972` (`NHKF_GETPOS_AUTODESC` toggle + pline); `:1008–1114` (LIMI — port matching[] from `defsyms[].sym` (walls/room/corr/door/ndoor skipped) so `/` is k>0 then Can't find; AUTODESC / LIMITVIEW / MENU / MOVESKIP before matching; `aAzZ` cycle; `getloc_moveskip` glyph-skip; pick_chars LOOK
 **D-1844** `mhitu.c` `summonmu` `:956–1030` (`is_were` human `!Protection && !rn2(5-(night()*2))` / b — port the C were arm (form change, then maybe summon helpers / plines).
 **D-1843** `pager.c` `lookat` `:656–802` (`glyph_is_unexplored` → `"unexplored area"`; cmap `S_stone` — port `lookat` glyph-first (self / swallow / mon / obj / trap / warning / invisible / nothing / unexplored / cmap switch / else).
-**D-1842** `botl.c` `do_statusline1` `:47–98`; `botl.c` `bot` `:255–256` (`gb.bot_disabled` returns b — named `do_statusline1` (BOTL_NSIZ, windowport title pad so `St:` starts at col 31).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1849; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1850; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

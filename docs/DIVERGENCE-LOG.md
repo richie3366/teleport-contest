@@ -1,6 +1,19 @@
 # Divergence log
 
+## D-1850 — invent.c display_inventory → display_pickinv PICK_ONE; farlook `i` "Weapons" stays
+
+- **Status:** fixed (2 corpus PASS; green + cohort + full `sessions` 44/44).
+- **Symptom:** 2 hidden-corpus first-diffs owned as `inuse_classify` (`invent.c:116` `/* "Weapons" */`): C pack-order heading `"Weapons"` vs JS empty topline. Both sessions are `/` look-at → `i` something-you're-carrying. Screens match through the first inventory `nhgetch`; the next non-selector (`i`, `N`) dismissed JS and left C's menu up. Proxy matched the comment, not `inuse_headers[]` (`"Wielded/Readied Weapons"`).
+- **C locus:** `invent.c` `display_inventory` `:3427–3452` (`cmdq_pop` then `display_pickinv(lets, 0, 0, FALSE, want_reply, 0)`); `display_pickinv` `:3380–3382` `select_menu(want_reply ? PICK_ONE : PICK_NONE)`; `wintty.c` `process_menu_window` `:1738–1740` (`PICK_NONE || !strchr(resp, morc)` → `tty_nhbell`, stay); `windows.c` `add_menu_heading` `:1815–1828` (`program_state.gameover` → `ATR_NONE`); `pager.c` `do_look` `:1822–1840` (`display_inventory(NULL, TRUE)`); callers `pickup.c:223` / `end.c:592` pass TRUE.
+- **JS was:** `display_inventory` painted `invent_lines` then one `nhgetch` and always `dismiss_nhw_menu` — a non-selector closed the menu. `do_look` `'i'` already called it. `display_pickinv_reply` (used by `ddoinv`) already had the PICK_ONE loop.
+- **Fix:** `display_inventory` calls `display_pickinv_reply` with `want_reply`. PICK_NONE bells letters. Headings use `add_menu_heading` gameover `ATR_NONE`. Fullscreen pickinv dismiss keeps status (`keep_status`; D-0467 `clear_committed_status` stays itemed-only). Pickup/end pass TRUE.
+- **JS:** `js/invent.js` `display_inventory` / `display_pickinv_reply` / `add_menu_heading_attr` / `dismiss_nhw_menu({ keep_status })`; `js/pickup.js` / `js/end.js` `display_inventory(null, true)`.
+- **Verify:** `node scripts/verify.mjs --fn inuse_classify --full` → PASS syntax (3 js files); PASS rule2; PASS hidden verify inuse_classify: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0015-valk-level2-pit-dog-wait-49ecd01f PASS; explore-seed0700-samurai-explore-descend-b922c948 PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (--full). VERIFY: PASS
+- **Named omissions:** `inuse_classify` body was already D-1589 (not this C-wrong). perm_invent `InvInUse` still D-1600. `invent_lines` remains exported. n==0 pickinv `"Not carrying anything appropriate."` vs C `"Not carrying anything."` for full invent.
+- **Next:** Open `dothrow.c` `dofire` (2 corpus blocks). Do not reopen the one-shot `display_inventory` dismiss or gameover heading inverse.
+
 ## D-1849 — shknam.c stock_room closed-shop engraving cell via shk.c inside_shop edge; mineralize 2 corpus PASS
+
 
 - **Status:** fixed (2 corpus PASS; green + cohort + full `sessions` 44/44). Human-directed fix after the killed iter #2262 (`docs/2026-09-05-iter-2262-mineralize-postmortem.md`).
 - **Symptom:** 2 hidden-corpus first-diffs at `mineralize` (`mklev.c:1515`): Knight d5 / Monk d6 C drew one more gold+gem `rn2(1000)` pair than JS, then the streams re-aligned (13015/13017, 18322/18324) — a count difference that does not localize the cell. D-1847 named a "1-cell TRC" at (76,14)/(77,14) from a JS FORCE; a wizard `^F` map recorded on the C recorder (fork the recipe at the `^V` step, append `^F`) shows C has the full east wall there. The only C-vs-JS map cell is Knight (6,9) / Monk (5,7): STONE in C, ROOM in JS carrying a `"Closed for inventory"` DUST engraving. That non-STONE cell blocks the diagonal gold cell (5,10) / (4,8): C 410 vs JS 409, C 472 vs JS 471 eligible cells.
