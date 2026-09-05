@@ -720,7 +720,8 @@ Flying/MZ_HUGE still skip); invent/pickup caller `trap&&is_pit` / `cant_reach_fl
 JS: `js/pager.js`, `js/getpos.js`, `js/dokeylist.js`, `js/generated/dat_text.js` — partial
 
 **`/` whatis menu + getpos tip + invent/name/list branches
-(itemed `/` cmdq_pop KEY skip-menu + `display_inventory` canned KEY D-1686);
+(itemed `/` cmdq_pop KEY skip-menu + `display_inventory` canned KEY D-1686;
+`q` bells with menu kept per `process_menu_window` default arm D-1877);
 `?` help + About `get_lua_version` nhlib shuffle; data.base/`dat/*` paging** (D-0077); 
 **Rule #2: `readDat` from in-process `DAT_TEXT` (no Node fs)** (D-0477); 
 **farlook `lookat` cmap stairs + DECgraphics floor/corridor describe** (D-0083); 

@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1877 pager.c do_look whatis-menu `q` bells, menu stays (do_look corpus owner)
+
+**C locus:** `win/tty/wintty.c` `process_menu_window` default arm — the whatis menu is `select_menu(PICK_ONE)` whose `resp` is selectors (`/i?mMoOtTeE`) + gacc (`y`/`n` group accelerators, one match each) + ` 0123456789\033\n\r` + mapped + `default_menu_cmds` (page keys `^|><.,-@,\~:`). `q` is in none of them, so `!strchr(resp, 'q')` → screen-silent `tty_nhbell()`, menu stays. ESC (`\033`) cancels → returns −1 → `do_look` `> 0` false → `ECMD_OK`.
+**JS:** `js/pager.js` (+8/−1); `docs/c-js-map/turns.md` do_look section.
+**Change:** split the arm — ESC still dismisses (returns `'q'` → `ECMD_OK`, same outcome as C cancel); `q` now `tty_nhbell()` + `continue`, with C citation. No new imports.
+**Verify:** `node scripts/verify.mjs --fn do_look` →
+**Named:** space/CR on the single-page whatis menu (C finishes with n=0 → dismiss + `ECMD_OK`; JS still re-prompts); digit-count arms; full selectable `process_menu_window` path (map-deferred).
+**Next:** next Open row (`insight.c` show_gamelog).
 ## 2026-09-05 — D-1876 trap.c climb_pit shared pit-escape port (climb_pit corpus owner)
 
 **C locus:** `trap.c` `climb_pit` `:4183–4230` — guard `!u.utrap || utraptype != TT_PIT`; `trapname(PIT, FALSE)`; Passes_walls ascend (`reset_utrap` + `fill_pit` + `vision_full_recalc`); `!rn2(2) && sobj_at(BOULDER)` crevice (`Your` stuck / display+clear / `You` free); `(Flying || is_clinger(youmonst.data)) && !Sokoban` climb-out via `u_locomotion("climb")`; `--utrap`-or-`m_easy_escape_pit` (pit fiend or `msize >= MZ_HUGE`, `:3726–3731`) crawl-out with the Sokoban+Levitation float variant; `u.dz || verbose` Norep still-in-pit (Hallu short-circuit `!rn2(5)` fallen message). Callers `do.c:1309` (`doup`) and `hack.c:1585` (`trapmove` TT_PIT arm, returns FALSE after).

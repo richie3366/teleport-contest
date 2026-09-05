@@ -1,6 +1,6 @@
 {
- "commit": "022ef986",
- "at": "2026-09-05T19:34:28.501Z",
+ "commit": "36656ef6",
+ "at": "2026-09-05T19:39:57.465Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -3336,18 +3336,18 @@
   },
   "random-seed0116-wizard-wear-shop-1021c3a5": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 12392,
    "rngT": 12392,
-   "scrM": 116,
+   "scrM": 155,
    "scrT": 155,
-   "kind": "screen",
-   "step": 116,
+   "kind": null,
+   "step": null,
    "steps": 155,
-   "owner": "do_look",
-   "loc": "pager.c:1803",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "What do you want to look at:",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },

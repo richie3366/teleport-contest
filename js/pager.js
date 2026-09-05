@@ -1532,9 +1532,16 @@ async function whatis_menu_choice() {
                 }
                 continue;
             }
-            if (key === 27 || ch === 'q') {
+            if (key === 27) {
                 await dismiss_nhw_menu();
                 return 'q';
+            }
+            // C wintty.c process_menu_window default arm: 'q' is no
+            // selector, gacc, or page-key in this PICK_ONE menu, so C
+            // tty_nhbell()s and keeps the menu (no reselect, screen-silent).
+            if (ch === 'q') {
+                tty_nhbell();
+                continue;
             }
             if (ch === '\r' || ch === '\n' || ch === ' ') {
                 // C PICK_ONE space on last page finishes with n==0; look-at

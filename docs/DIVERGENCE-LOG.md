@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-1877 — pager.c do_look whatis-menu `q` bells, menu stays (do_look corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort + full 44/44 PASS)
+- **Symptom:** `random-seed0116-wizard-wear-shop-1021c3a5` step 117/155 screen-first: C keeps the `What do you want to look at:` menu (row 0 prompt, cursor [46,14]) vs JS empty row 0 (menu dismissed, cursor [31,11]). Step 116 `/` menu paint matched both sides; the `q` keypress diverged.
+- **C locus:** `win/tty/wintty.c` `process_menu_window` default arm — the whatis menu is `select_menu(PICK_ONE)` whose `resp` is selectors (`/i?mMoOtTeE`) + gacc (`y`/`n` group accelerators, one match each) + ` 0123456789\033\n\r` + mapped + `default_menu_cmds` (page keys `^|><.,-@,\~:`). `q` is in none of them, so `!strchr(resp, 'q')` → screen-silent `tty_nhbell()`, menu stays. ESC (`\033`) cancels → returns −1 → `do_look` `> 0` false → `ECMD_OK`.
+- **JS was:** `js/pager.js` `whatis_menu_choice()` treated `q` like ESC — `dismiss_nhw_menu()` + return `'q'` → `do_look` case `'q'` → return. Menu wrongly dismissed.
+- **Fix:** split the arm — ESC still dismisses (returns `'q'` → `ECMD_OK`, same outcome as C cancel); `q` now `tty_nhbell()` + `continue`, with C citation. No new imports.
+- **JS:** `js/pager.js` (+8/−1); `docs/c-js-map/turns.md` do_look section.
+- **Verify:** `node scripts/verify.mjs --fn do_look` →
+  - `PASS  syntax   1 changed js file(s): js/pager.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `PASS  hidden   verify do_look: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (`random-seed0116-wizard-wear-shop-1021c3a5: PASS`)
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`; skip full (heuristic)
+  - then `node frozen/ps_test_runner.mjs sessions` → 44/44 PASS
+  - `VERIFY: PASS`
+- **Named omissions:** space/CR on the single-page whatis menu (C finishes with n=0 → dismiss + `ECMD_OK`; JS still re-prompts); digit-count arms; full selectable `process_menu_window` path (map-deferred).
+- **Next:** next Open row (`insight.c` show_gamelog).
+
 ## D-1876 — trap.c climb_pit shared pit-escape port (climb_pit corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus moved past to a later owner; green + strict + cohort + full 44/44 PASS)
