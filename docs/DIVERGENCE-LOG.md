@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-1875 — dogmove.c dog_eat message gate sawpet/canspotmon (glibr corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort + full 44/44 PASS)
+- **Symptom:** `ind-Tourist-666025142-d17728db` step 29/91 screen-first: C `Your kitten eats a goblin corpse.` vs JS empty topline. RNG fully matched (3614/3614). Step 28 matched (`The kitten bites the goblin. The goblin is killed!`); the fresh goblin corpse at (32,14) is eaten next turn when the kitten steps onto it from (32,15). Hero at (33,17) sees the start square but not the food square.
+- **Attribution note (measured, not inferred):** the proxy owner `glibr` (`do_wear.c:2617`) is a literal-substring match on `corpse` (`!strncmp(thiswep, "corpse", 6)`), same shape as D-1872/D-1874 — `js/do_wear.js` `glibr()` is already a faithful port and needed no change. The C writer of the differing message is `dog_eat` (`dogmove.c:282–294`).
+- **C locus:** `dogmove.c` `dog_eat` `:274–294` — `seeobj = cansee(mx,my)`, `sawpet = cansee(x,y) && mon_visible(mtmp)`; prints when `sawpet || (seeobj && canspotmon(mtmp))`, with `canspotmon = canseemon || sensemon` (`display.h:129`).
+- **JS was:** `sawpet = cansee(x,y) && canseemon(mtmp)` and second arm `seeobj && canseemon(mtmp)` — `canseemon` adds a `cansee(food-sq)` requirement C's `sawpet` lacks and drops the `sensemon` arm. Reproduced in JS: kitten 32,15→32,14 eats obj 265/70 (`CADAVER`) with `cansee(32,15)=true`, `mon_visible=true`, `cansee(32,14)=false` — C prints via `sawpet`, JS stayed silent.
+- **Fix:** C-order gate (`mon_visible` for `sawpet`, `canspotmon` for the second arm); both imported from `display.js` (`canspotmon` there already C-faithful), plus a C-citation comment. No other `dog_eat` change.
+- **JS:** `js/dogmove.js` (+6/−3).
+- **Verify:** `node scripts/verify.mjs --fn dog_eat` →
+  - `PASS  syntax   1 changed js file(s): js/dogmove.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `note hidden   vacuous at HEAD (block is filed under glibr, not dog_eat — not a corpus PASS on its own)`
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`; skip full (heuristic)
+  - then `node frozen/ps_test_runner.mjs sessions` → 44/44 PASS, speed `45+0.34/turn` (R² 0.85)
+  - `node scripts/hidden-proxy.mjs verify glibr` → `1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (`ind-Tourist-666025142-d17728db: PASS`)
+  - `node scripts/hidden-proxy.mjs score --jobs 8` → 246/265 excl env (was 245; zero regressed)
+  - `VERIFY: PASS`
+- **Named omissions:** none new (bee-jelly bypass, unpaid-shop, rust-spit arms in `dog_eat` still deferred per the existing envelope comment).
+- **Next:** next Open row (`mkmaze.c` makemaz `kni-strt` set).
+
 ## D-1874 — pager.c do_screen_description trap-glyph `a trap (lookat)` (trapeffect_rolling_boulder_trap corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)

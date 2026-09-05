@@ -1,6 +1,6 @@
 {
- "commit": "d6db25d5",
- "at": "2026-09-05T17:32:18.685Z",
+ "commit": "efd9bd01",
+ "at": "2026-09-05T19:01:18.031Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -2877,18 +2877,18 @@
   },
   "ind-Tourist-666025142-d17728db": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3614,
    "rngT": 3614,
-   "scrM": 90,
+   "scrM": 91,
    "scrT": 91,
-   "kind": "screen",
-   "step": 29,
+   "kind": null,
+   "step": null,
    "steps": 91,
-   "owner": "glibr",
-   "loc": "do_wear.c:2617",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Your kitten eats a goblin corpse.",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },
@@ -4087,7 +4087,7 @@
    "passed": false,
    "rngM": 16460,
    "rngT": 16460,
-   "scrM": 48,
+   "scrM": 49,
    "scrT": 50,
    "kind": "screen",
    "step": 18,

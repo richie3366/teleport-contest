@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `do_wear.c` glibr — 1 corpus block screen-first at step 29 («Your kitten eats a goblin corpse.» vs empty; ind-Tourist-666025142-d17728db).
 - [ ] `mkmaze.c` makemaz `kni-strt`/`-loca`/`-fila`/`-filb` — Knight quest 1/5 → 5/5 (only `kni-goal` exists; Knight is 5/44 sessions). From `dat/kni-*.lua` (HELDOUT Tier A #10).
 - [ ] `mkmaze.c` makemaz `rog-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Rogue quest 0/5 → 5/5 (largest 0/5 role, 6/44 sessions). From `dat/rog-*.lua` (HELDOUT Tier A #11).
 - [ ] `trap.c` climb_pit — 1 corpus block RNG-first at step 46 (C `rn2(2)` in climb_pit vs JS `rn2(5)` distfleeck; tour-Healer-70025-d5-8-15-17-22).
@@ -56,6 +55,9 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `insight.c` show_gamelog — 1 corpus block screen-first at step 821 («Logged events:» vs same-plus; random-seed0360-wizard-world-tour-4ac145da).
 - [ ] `wintty.c` process_menu_window — 1 corpus block screen-first at step 838 («What do you want to take off?» vs same-plus; random-seed0360-wizard-world-tour-b1a64b99).
 - [ ] `insight.c` show_conduct — 1 corpus block screen-first at step 859 (conduct text vs yn prompt; random-seed0360-wizard-world-tour-e115a25b).
+- [ ] `getpos.c` getpos_help — 1 corpus block screen-first at step 342 («Use 'h', 'j', 'k', 'l' to move the cursor to a m» vs same-plus; random-seed0367-priest-quest-tour-01388a3a).
+- [ ] `mdlib.c` version_id_string — 1 corpus block screen-first at step 83 («MacOS NetHack Version 5.0.0 - last build May 2 2026 12:00:00» vs «Unknown command 'V'.»; random-seed0900-tourist-explore-actions-614da9aa).
+- [ ] `invent.c` dolook — 1 corpus block screen-first at step 18 («You see here a historic statue of a forest centaur.» vs «You see here a statue of a forest centaur.»; tour-Archeologist-70010-d3-6-10-11-12).
 
 ## Parked (do not pop)
 

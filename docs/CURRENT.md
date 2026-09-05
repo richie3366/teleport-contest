@@ -75,13 +75,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `trap.c` trapeffect_rolling_boulder_trap — 1 corpus block screen-first at step 347 («^a trap (rolling boulder trap)» vs «^a rolling boulder trap»; explore-seed0367-priest-quest-tour-b0096089).
+**Next cluster:** Open `mkmaze.c` makemaz `kni-strt`/`-loca`/`-fila`/`-filb` — Knight quest 1/5 → 5/5 (only `kni-goal` exists; Knight is 5/44 sessions). From `dat/kni-*.lua` (HELDOUT Tier A #10).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1874 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1875** `dogmove.c` `dog_eat` `:274–294` message gate in C order — `sawpet` is `cansee+mon_visible` (not `canseemon`), second arm `canspotmon` (proxy owner `glibr` was a `corpse`-substring misattribution; `js/do_wear.js` `glibr()` untouched). `ind-Tourist-666025142-d17728db` step 29 PASS.
 **D-1874** `pager.c` `do_screen_description` — return `` `^        a trap (${nm})` `` with `first: nm` (C `firstmatch`, feeds `checkfile`) and `found: 1` (C resets `found = 1` after the supplement), plus a C-citation comment.
 **D-1873** `artifact.c` `artifact_hit` `:1447–1530` preamble + four basic attacks — async `artifact_hit` in C order — `isHero` (game.youmonst + sentinel + `_youmonst`), hero-pos `cansee` via `u.ux/uy`, `engulfing_u` + local `Blind()`, `hittee`, `spec_dbon`, awaited `impossible`, `realizes_damage` incl `
 **D-1872** `win/tty/wintty.c` `process_menu_window` `:1621–1649` — ported the four page-key arms into all three loops ahead of gacc/letter match (C switch order; `>` never finishes on the last page); PICK_NONE `:`/other keys now `tty_nhbell()` per C `:1701–1703`/`:1738` (screen-silent).

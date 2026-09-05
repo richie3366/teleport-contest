@@ -39,18 +39,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1874.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1875.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1874.
+  Do not re-port D-1682…D-1875.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1875: `dog_eat` gate C order — `sawpet` is `cansee+mon_visible`, second arm `canspotmon` (queue owner `glibr` was a `corpse`-substring misattribution; `glibr()` untouched). Named: none new (bee-jelly/unpaid-shop/rust-spit still deferred).
 - D-1874: return `` `^        a trap (${nm})` `` with `first: nm` (C `firstmatch`, feeds `checkfile`) and `found: 1` (C resets `found = 1` after the supplement) Named: vibrating-square first-match arm (`add_cmap_descr` writes `an(x_str)`, not `a trap`, for `
 - D-1873: async `artifact_hit` in C order — `isHero` (game.youmonst + sentinel + `_youmonst`), hero-pos `cansee` via `u.ux/uy`, `engulfing_u` + local `Blind()`, Named: `destroy_items`/`ignite_items` bodies on FIRE/COLD/ELEC (gates still burned; C may add `it
 - D-1872: ported the four page-key arms into all three loops ahead of gacc/letter match (C switch order; `>` never finishes on the last page); PICK_NONE `:`/oth Named: `minimal_xname` itself still unported (`simpleonames` stand-in, D-0881; names already matc
@@ -65,5 +66,4 @@ Objective/score live in `CURRENT.md`.
 - D-1863: port the TT_PIT 3×3 arm in C order (row `continue`/`break`, direct `next_rmin/rmax` assign, xray/nv/lights/update flow untouched) + add the post-`rhac Named: underwater `has_night_vision=0` + pool 3×3 (`vision.c` pit-adjacent arm, still named in co
 - D-1862: port the six ATTK resists arms in C order — hero side `Fire/Cold/Shock/Drain_resistance()` (newly exported from `js/zap.js`) + Poison/Stone H/E/sticky Named: `defended()` artifact/dragon-armor guard before the switch; DFLAG1 mflags1 arm; DFLAG2 you
 - D-1861: port `themeroom_fill_garden` (nymph count `(numpoints/6)|0`, `splev_room_monster(croom,'wood nymph')` + `msleeping=1`, `percent(30)` fountain, queue ` Named: Buried treasure / Massacre / Statuary fills still omitted (same dispatch comment); `induce
-- D-1860: port `antholemon()` (ubirthday%3 + difficulty, `G_GONE` retry, null if all gone, no RNG) + `PM_SOLDIER_ANT`/`PM_FIRE_ANT`/`PM_GIANT_ANT` consts; add t Named: SWAMP `mkswamp` still deferred; `tt_oname` RECORD entries (plgend/classmon/christen) still
 <!-- landmarks:end -->

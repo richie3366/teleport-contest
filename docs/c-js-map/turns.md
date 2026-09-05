@@ -2896,6 +2896,7 @@ hero_memory glyph/`distant_name` what-name deferred);
 **DISMOUNT_THROWN steed throw D-1627**; setworn oc_oprop named); 
 **`dog_move` newdogpos `ALLOW_U`→`mattacku`/`MMOVE_DONE`** (D-0414; 
 **ALLOW_U `m_unleash` FALSE D-1609**; `pet_ranged_attk` youmonst→`mattacku` deferred); 
+**`dog_eat` message gate C order — `sawpet` is `cansee`+`mon_visible`, second arm `canspotmon`** (D-1875; queue owner `glibr` was a `corpse`-substring misattribution, `glibr()` untouched);
 **`tamedog` already-tame thrown food → `dogfood`/`dog_eat`** (D-0415; 
 **blessed scroll/spell +2 clamp 10 D-1532**; new-tame food devour polish /
 Tobjnam stop / big_corpse catch named); 

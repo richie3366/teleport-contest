@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
+- [x] `do_wear.c` glibr — 1 corpus block screen-first at step 29 («Your kitten eats a goblin corpse.» vs empty; ind-Tourist-666025142-d17728db). True owner `dogmove.c` `dog_eat` message gate (D-1875); `glibr` body needed no change. **Addressed:** D-1875
+
+
 - [x] `trap.c` trapeffect_rolling_boulder_trap — 1 corpus block screen-first at step 347 («^a trap (rolling boulder trap)» vs «^a rolling boulder trap»; explore-seed0367-priest-quest-tour-b0096089). **Addressed:** D-1874
 
 
