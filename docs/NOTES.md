@@ -5,11 +5,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 164/265 PASS at
-  D-1831; D-1840 Ice/Boulder/Spider/Trap fills so C `selection_filter_percent`
-  `rn2(100)` runs (2/2 moved past). Next Open `makemaz` `fakewiz1`/`fakewiz2`.
-  Orient `brief.mjs`, verify `verify.mjs --fn`.
-- **Suite 44/44** at D-1840. Do not reopen Ice/Boulder/Spider/Trap fills,
+- **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 209/265 PASS at
+  D-1840 (audit 794–810). Next Open `makemaz` `fakewiz1`/`fakewiz2`.
+  Orient `brief.mjs`, verify `verify.mjs --fn`. Review 801 QUALITY-RISK
+  (D-1831 snapshot leftover WIN_STATUS) shipped in D-1832 — Must-fix empty.
+- **Suite 44/44** at D-1840 (R² 0.853). Do not reopen Ice/Boulder/Spider/Trap fills,
   `roles[]` quest identity,
   `,` empty-floor `pickup_checks`, `doloot_core` loot-at-feet, or
   nested themerms `des.room`. `look_here` trap/region before objects;

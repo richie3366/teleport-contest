@@ -804,3 +804,20 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [791-0c3e8ca5-bigrm-5-6-11.md](./791-0c3e8ca5-bigrm-5-6-11.md) | `0c3e8ca5` | D-1821 mkmaze.c makemaz bigrm-5/6/11 load_special | **ACCEPT-WITH-DEBT** |
 | [792-7c76fdb5-bigrm-1-10-13.md](./792-7c76fdb5-bigrm-1-10-13.md) | `7c76fdb5` | D-1822 mkmaze.c makemaz bigrm-1/10/13 load_special | **ACCEPT-WITH-DEBT** |
 | [793-171f6b02-minend-3.md](./793-171f6b02-minend-3.md) | `171f6b02` | D-1823 mkmaze.c makemaz minend-3 load_special | **ACCEPT-WITH-DEBT** |
+| [794-f2b2b513-bar-goal-fourteen.md](./794-f2b2b513-bar-goal-fourteen.md) | `f2b2b513` | D-1824 Bar-goal.lua fourteen empty des.object | **ACCEPT** |
+| [795-637890a4-mcast-spell.md](./795-637890a4-mcast-spell.md) | `637890a4` | D-1825 mcastu.c mcast_spell remaining 14 arms | **ACCEPT-WITH-DEBT** |
+| [796-159fda3d-medusa-2-4.md](./796-159fda3d-medusa-2-4.md) | `159fda3d` | D-1826 mkmaze.c makemaz medusa-2/4 load_special | **ACCEPT-WITH-DEBT** |
+| [797-e782f134-water.md](./797-e782f134-water.md) | `e782f134` | D-1827 mkmaze.c makemaz water + save_waterlevel | **ACCEPT-WITH-DEBT** |
+| [798-c306d211-astral.md](./798-c306d211-astral.md) | `c306d211` | D-1828 mkmaze.c makemaz astral load_special | **ACCEPT-WITH-DEBT** |
+| [799-a9ebaa40-kni-quest.md](./799-a9ebaa40-kni-quest.md) | `a9ebaa40` | D-1829 mkmaze.c makemaz Kni-strt/loca/fila/filb | **ACCEPT-WITH-DEBT** |
+| [800-ab55b818-rog-quest.md](./800-ab55b818-rog-quest.md) | `ab55b818` | D-1830 mkmaze.c makemaz Rog-strt/loca/goal/fila/filb | **ACCEPT-WITH-DEBT** |
+| [801-55c6736d-process-menu-window.md](./801-55c6736d-process-menu-window.md) | `55c6736d` | D-1831 wintty.c process_menu_window leftover WIN_STATUS | **QUALITY-RISK** |
+| [802-690100e3-process-menu-no-redraw.md](./802-690100e3-process-menu-no-redraw.md) | `690100e3` | D-1832 wintty.c process_menu_window no redraw on unhandled key | **ACCEPT-WITH-DEBT** |
+| [803-6a441166-itemactions.md](./803-6a441166-itemactions.md) | `6a441166` | D-1833 iactions.c itemactions Engrave / simpleonames / apply | **ACCEPT-WITH-DEBT** |
+| [804-68aa6457-getobj.md](./804-68aa6457-getobj.md) | `68aa6457` | D-1834 invent.c getobj wear/puton/throw/drink/remove | **ACCEPT-WITH-DEBT** |
+| [805-16668da3-look-here-describe-decor.md](./805-16668da3-look-here-describe-decor.md) | `16668da3` | D-1835 pickup.c describe_decor + invent.c look_here There() | **ACCEPT-WITH-DEBT** |
+| [806-c9b87e23-build-room.md](./806-c9b87e23-build-room.md) | `c9b87e23` | D-1836 sp_lev.c build_room nested themerms des.room | **ACCEPT-WITH-DEBT** |
+| [807-13150e4c-doloot-core.md](./807-13150e4c-doloot-core.md) | `13150e4c` | D-1837 pickup.c doloot_core loot-at-feet + lootmon | **ACCEPT-WITH-DEBT** |
+| [808-27758e2a-pickup-checks.md](./808-27758e2a-pickup-checks.md) | `27758e2a` | D-1838 hack.c pickup_checks furniture / pool / lava / swallow | **ACCEPT-WITH-DEBT** |
+| [809-65036888-roles-quest.md](./809-65036888-roles-quest.md) | `65036888` | D-1839 role.c roles[] ldrnum / homebase / questarti | **ACCEPT-WITH-DEBT** |
+| [810-bf310d98-selection-filter-percent.md](./810-bf310d98-selection-filter-percent.md) | `bf310d98` | D-1840 selvar.c selection_filter_percent themed fills | **ACCEPT-WITH-DEBT** |

@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-04** — full `sessions` at **D-1823**
-(audit **784–793**, `171f6b02`). Fortress held: seed0030 **D-1816**,
+Score last measured: **2026-09-05** — full `sessions` at **D-1840**
+(audit **794–810**, `bf310d98`). Fortress held: seed0030 **D-1816**,
 seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
 **11,405**/11,405, RNG **792,838**/792,838. Speed `43+0.33/turn`
-(R² 0.862).
+(R² 0.853).
 
 ## Score
 
@@ -33,15 +33,15 @@ seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `43+0.33/turn` (R² 0.862) |
+| Speed label | `43+0.33/turn` (R² 0.853) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-05 at
-D-1831 `55c6736d`): **164 / 265 PASS (61.9 %)** excl. 13 env-only rows;
-RNG 98.28 %; screens 96.9 %. Top owners: `itemactions` 14 ·
-`process_menu_window` **12 (D-1831 regression — Must-fix)** · `getobj` 7 ·
-`describe_decor` 5 · level cliff `build_room` /
-`selection_filter_percent` (53k RNG lost). Refresh on audit iters with
+D-1840 `bf310d98`): **209 / 265 PASS (78.9 %)** excl. 13 env-only rows;
+RNG 99.27 %; screens 98.6 %. Top owners: `lookat` 4 · `do_statusline1` 4 ·
+`level_tele` 3 · `mineralize`/`summonmu`/`getpos`/`inuse_classify`/`dofire` 2.
+D-1831’s `process_menu_window` 12 cleared by D-1832 (review 801 QUALITY-RISK,
+not live Must-fix). Refresh on audit iters with
 `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,

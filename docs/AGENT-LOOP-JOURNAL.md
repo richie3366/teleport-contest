@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — audit overlay 794–810 + cadence 44/44
+
+**Objective:** review JS SHAs since `171f6b02` against pinned C;
+cadence full `sessions` (no `js/` port).
+**SHAs:** 794 ACCEPT D-1824. 795–800 AWD (mcast 14, medusa-2/4, water,
+astral, Kni/Rog quest). **801 QUALITY-RISK** D-1831 snapshot/`docrt`
+leftover WIN_STATUS — Must-fix shipped in **802** D-1832 (not live at
+HEAD). 803–810 AWD (itemactions, getobj, describe_decor, build_room,
+doloot, pickup_checks, roles[], selection_filter_percent).
+**Cadence:** 44/44 at `bf310d98`; scr 11405/11405; RNG 792838/792838;
+`43+0.33/turn` (R² 0.853). Hidden 209/265 (78.9%). Rule #2 clean.
+**Next:** Open `makemaz` `fakewiz1`/`fakewiz2`. Must-fix empty.
+
 ## 2026-09-05 — D-1840 selvar.c selection_filter_percent themed-room fills
 
 **C locus:** `selvar.c` `selection_filter_percent` `:223–245` (`rn2(100) < percent` per set cell, x-outer); `nhlsel.c` `l_selection_filter_percent` `:388–401`; `l_selection_iterate` `:924–957` (y-outer, `cvt_to_relcoord`); `dat/themerms.lua` Ice / Boulder / Spider nest / Trap room fills; `sp_lev.c` `create_trap` `:1812–1846` (`get_free_room_loc` then `mktrap` with `tm`).
