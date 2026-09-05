@@ -1185,7 +1185,7 @@ async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
                hit then M_ATTK_HIT. destroy_items may already have
                killed mdef. */
             const dmgBox = { dmg: mhm.damage | 0 };
-            if (!artifact_hit(magr, mdef, mwep, dmgBox, mhm.dieroll | 0)) {
+            if (!(await artifact_hit(magr, mdef, mwep, dmgBox, mhm.dieroll | 0))) {
                 if (_mm_vis) {
                     await pline_mon(
                         magr,

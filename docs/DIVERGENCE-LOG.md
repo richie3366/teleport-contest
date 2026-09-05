@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-1873 — artifact.c artifact_hit elemental plines (artifact_hit corpus owner)
+
+- **Status:** fixed (Open queue row; 1 PASS + 1 moved past to a later owner; green + strict + cohort PASS)
+- **Symptom:** 2 corpus blocks screen-first at artifact.c:1515 — C «The massive hammer hits the Aleax.» vs JS empty; explore-seed0360-wizard-world-tour-19199bfa step 848/881, 5dfef5c4 step 842/881. Same-step continuation after the hitum `spec_abon` phantom roll was removed (D-1862; Mjollnir AD_ELEC vs shock-resistant Aleax, `spec_dbon_applies` false both sides, RNG aligned through the `rnd(20)` dieroll).
+- **C locus:** `artifact.c` `artifact_hit` `:1447–1530` preamble + four basic attacks — `youattack`/`youdefend` (`magr/mdef == &youmonst`), `vis` (`cansee(magr)`/`cansee(mdef)`/`engulfing_u+!Blind`), `hittee` (`you`/`mon_nam`), `spec_dbon` add, `impossible` self-attack, `realizes_damage` (`youdefend||vis||stuck`); AD_FIRE `:1480–1494` (`pline_The` hits/vaporizes/burns + `rn2(4)` + Slimed `burn_away_slime`), AD_COLD `:1495–1505` (hits/freezes + `rn2(4)`), AD_ELEC `:1506–1520` (hits/Lightning + `wake_nearto(16)` when applies + `rn2(5)`), AD_MAGM `:1521–1529` (hits/missiles, no RNG). Caller `uhitm.c` `hmon` via `hitum` (hero Mjollnir melee vs the Aleax).
+- **JS was:** `js/artifact.js` `artifact_hit` sync with `void magr` — no preamble, no `vis`/`realizes_damage`/`hittee`; elemental arms burned the `rn2(4)`/`rn2(5)` gates but printed nothing and always `return true` (C returns `realizes_damage`); `wake_nearto`/Slimed deferred. All five callers called it sync.
+- **Fix:** async `artifact_hit` in C order — `isHero` (game.youmonst + sentinel + `_youmonst`), hero-pos `cansee` via `u.ux/uy`, `engulfing_u` + local `Blind()`, `hittee`, `spec_dbon`, awaited `impossible`, `realizes_damage` incl `u.ustuck`; four `pline` arms (`The fiery/ice-cold/massive/imaginary` with the C verb/punct split, water-elemental vaporize via file-local `PM_WATER_ELEMENTAL`); ELEC `await wake_nearto(pd,16)` when applies before the `rn2(5)` burn; FIRE Slimed `await burn_away_slime()`; `realizes_damage` returns. Static imports per `imports.mjs --can` SAFE (hoisted fns, same 87-module SCC): `cansee`, `mon_nam`, `wake_nearto`, `burn_away_slime`, `impossible`, `engulfing_u`. Five callers awaited (`uhitm.js` hmon, `mhitu.js` mhitu arm, `mhitm.js` mhitm arm, `dothrow.js` ×2, `mthrowu.js` dynamic).
+- **JS:** `js/artifact.js` `artifact_hit` (+80/−17) + 1-line awaits in `js/uhitm.js`, `js/mhitu.js`, `js/mhitm.js`, `js/dothrow.js` (×2), `js/mthrowu.js`; `docs/c-js-map/data.md` artilist section.
+- **Verify:** `node scripts/verify.mjs --fn artifact_hit` →
+  - `PASS  syntax   6 changed js file(s): js/artifact.js js/dothrow.js js/mhitm.js js/mhitu.js js/mthrowu.js js/uhitm.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `PASS  hidden   verify artifact_hit: 1 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (`explore-seed0360-wizard-world-tour-19199bfa: PASS`; `5dfef5c4: moved → itemactions at step 853 (was 842)`)
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`; skip full (no shared file changed)
+  - `VERIFY: PASS`
+- **Named omissions:** `destroy_items`/`ignite_items` bodies on FIRE/COLD/ELEC (gates still burned; C may add `itemdmg` when the gate fires); `Mb_hit` (AD_STUN still returns false); `SPFX_BEHEAD`/`SPFX_DRLI` arms.
+- **Next:** next Open row (`trap.c` trapeffect_rolling_boulder_trap).
+
 ## D-1872 — wintty.c process_menu_window page keys `>`/`<`/`^`/`|` (minimal_xname corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)

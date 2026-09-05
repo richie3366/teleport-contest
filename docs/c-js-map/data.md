@@ -104,8 +104,11 @@ JS: extractor + `js/generated/artifacts_data.js` + `js/artifact.js` — partial
 PHYS early + DMONS/DCLAS/DFLAG2/DALIGN + ATTK Magm/Stun `rn2` + per-adtyp 
 Fire/Cold/Elec/Drst/Drli/Ston resists (D-1862; hero props + mon `resists_*`; 
 `defended()`/DFLAG1 still deferred)); 
-**`spec_dbon`/`artifact_hit`/`attacks`/`is_art`** (D-0613; 
-Grayswandir `max(tmp,1)` double + FIRE/COLD/ELEC `rn2` gates); 
+**`spec_dbon`/`artifact_hit`/`attacks`/`is_art`** (D-0613;
+Grayswandir `max(tmp,1)` double + FIRE/COLD/ELEC `rn2` gates;
+D-1873 preamble + FIRE/COLD/ELEC/MAGM realizes_damage plines + ELEC
+wake_nearto + Slimed burn_away, async callers; destroy/ignite bodies,
+Mb_hit, SPFX_BEHEAD/DRLI still deferred); 
 **`artiname` / `discover_artifact` / `artidisco[]`** (D-1107; save/rest artidisco named); 
 **`init_artifacts`/`hack_artifacts`** (D-1201; C `artifact.c:109–116`/`85–106`; 
 `allmain.c:792` after `init_dungeons` before `u_init_misc`; 

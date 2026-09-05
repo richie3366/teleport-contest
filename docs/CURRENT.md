@@ -41,8 +41,8 @@ D-1864): **236 / 265 PASS (89.1 %)** excl. 13 env-only rows;
 RNG 99.58 %; screens 99.5 %. Top owners: `mkswamp`/
 `maybe_generate_rnd_mon`/`climb_pit`/`m_move`/`mhitm_mgc_atk_negated`/
 `dopush`/`zoo_mon_sound`/`minimal_xname` (+ parked `dog_invent`, `!`).
-Reviews **827–834** (D-1857…D-1864): 5 ACCEPT, 2 ACCEPT-WITH-DEBT,
-1 QUALITY-RISK, 1 Must-fix. Reviews **835–842** (D-1865…D-1872): 7 ACCEPT,
+Reviews **827–834** (D-1857…D-1873): 5 ACCEPT, 2 ACCEPT-WITH-DEBT,
+1 QUALITY-RISK, 1 Must-fix. Reviews **835–842** (D-1865…D-1873): 7 ACCEPT,
 1 ACCEPT-WITH-DEBT, 0 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -75,14 +75,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `objnam.c` minimal_xname — 1 corpus block screen-first at step 827 («d - an uncursed +1 ring of gain constitution» vs «Amulets»).
-Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
+**Next cluster:** Open `artifact.c` artifact_hit — 2 corpus blocks; screen-first at artifact.c:1515 («The massive hammer hits the Aleax.» vs empty; explore-seed0360-wizard-world-tour-19199bfa step 848, 5dfef5c4 step 842). Same-step continuation after the hitum `spec_abon` phantom roll was removed (see DIVERGENCE-LOG D-1862 Next; restored to live queue — never addressed).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1872 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1873 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1873** `artifact.c` `artifact_hit` `:1447–1530` preamble + four basic attacks — async `artifact_hit` in C order — `isHero` (game.youmonst + sentinel + `_youmonst`), hero-pos `cansee` via `u.ux/uy`, `engulfing_u` + local `Blind()`, `hittee`, `spec_dbon`, awaited `impossible`, `realizes_damage` incl `
 **D-1872** `win/tty/wintty.c` `process_menu_window` `:1621–1649` — ported the four page-key arms into all three loops ahead of gacc/letter match (C switch order; `>` never finishes on the last page); PICK_NONE `:`/other keys now `tty_nhbell()` per C `:1701–1703`/`:1738` (screen-silent).
 **D-1871** `sounds.c` `zoo_mon_sound` `:115–128` ((msleeping||is_animal)+ZOO gate; `selection = rn2(2 — async `zoo_mon_sound` in C order (gate; `hallu = Hallucination() ? 1 : 0` via the faithful youprop helper; `zoo_msg[rn2(2)+hallu]`; `await You_hear`, i.e.
 **D-1870** `uhitm.c` `mhitm_ad_drli` `:2479–2488` mhitu arm (`hitmsg`, then `!rn2(3) && !Drain_resist — new `mhitm_ad_drli_u` in `js/mhitu.js` in C order (hitmsg; short-circuit `!rn2(3) && !Drain_resistance() && !mgc_negated(TRUE)` → `losexp('life drainage')`; damage untouched) wired as `case AD_DRLI` in `mhitm_adtyping_u`
@@ -90,11 +90,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1868** `mon.c` `mfndpos` door arm `:2231–2238` (`IS_DOOR && !((amorphous(mdat) || can_fog(mon)) & — door block restructured to C order with the `amorphous(mdat) && !engulfing_u(mon)` exemption (`can_fog` stays a commented named-omit); ALLOW_DIG cursed-wield branch (`MON_WEP` + `cursed` + `(weapon_check|0) === NO_WEAPON
 **D-1867** `allmain.c` `maybe_generate_rnd_mon` `:162–168` (`!rn2(udemigod ? 25 : (depth(&u.uz) > dep — `js/dungeon.js` `save_dungeon_topology()` / `restore_dungeon_topology()` over `LEVEL_MAP` + quest/sokoban/mines/tower/tutorial dnums (mirrors `struct dgn_topology`); `dosave0` writes `payload.topology_levels`; `try_resto
 **D-1866** `options.c` `initoptions_init` `:7279` (`iflags.menuinvertmode = 1` — default `menuinvertmode: 1` in `g.iflags` init (rc `...opts.iflags` spread still overrides) + parse `OPTIONS=menuinvertmode:N` colon-compound per `optfn_menuinvertmode` do_set (atoi, keep prior unless 0–2).
-**D-1865** `weapon.c` `dmgval` `:215` (`struct permonst *ptr = mon->data` — `dmgval(otmp, game.youmonst)` + C-citation comment (`dmgval(otmp, mdef)`, `weapon.c:215`).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1872; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1873; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

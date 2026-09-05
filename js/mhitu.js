@@ -725,8 +725,8 @@ async function mhitm_ad_phys_u(mtmp, mattk, mhm) {
         // C `:4067–4072` — artifact_hit may speak instead of hitmsg.
         const dmgBox = { dmg: mhm.damage | 0 };
         if (!otmp.oartifact
-            || !artifact_hit(mtmp, game.youmonst, otmp, dmgBox,
-                game._mhitu_dieroll | 0)) {
+            || !(await artifact_hit(mtmp, game.youmonst, otmp, dmgBox,
+                game._mhitu_dieroll | 0))) {
             await hitmsg(mtmp, mattk);
             mhm.hitflags |= M_ATTK_HIT;
         }
