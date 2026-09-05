@@ -1,6 +1,6 @@
 {
- "commit": "5983e72d",
- "at": "2026-09-05T09:44:47.490Z",
+ "commit": "b8b347b8",
+ "at": "2026-09-05T10:16:25.342Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -3254,7 +3254,7 @@
    "passed": false,
    "rngM": 8547,
    "rngT": 8547,
-   "scrM": 33,
+   "scrM": 70,
    "scrT": 72,
    "kind": "screen",
    "step": 33,
@@ -3985,7 +3985,7 @@
    "passed": false,
    "rngM": 2981,
    "rngT": 2981,
-   "scrM": 217,
+   "scrM": 256,
    "scrT": 258,
    "kind": "screen",
    "step": 158,
@@ -4170,18 +4170,18 @@
   "tour-Caveman-70016-d5-8-15-17-22": {
    "src": "corpus",
    "passed": false,
-   "rngM": 8067,
+   "rngM": 12149,
    "rngT": 13567,
-   "scrM": 16,
+   "scrM": 42,
    "scrT": 50,
    "kind": "rng",
-   "step": 16,
+   "step": 42,
    "steps": 50,
-   "owner": "mhitm_ad_slee",
-   "loc": "uhitm.c:3495",
-   "jsOwner": "mhitm_knockback(mhitm.js:1743)",
-   "cTopline": "You miss the homunculus. The homunculus bites!--More--",
-   "jsTopline": "You miss the homunculus.",
+   "owner": "mkswamp",
+   "loc": "mkroom.c:559",
+   "jsOwner": "fill_ordinary_room(mklev.js:24298)",
+   "cTopline": "You materialize on a different level!--More--",
+   "jsTopline": "You materialize on a different level!",
    "error": null
   },
   "tour-Healer-70012-d3-6-10-11-12": {

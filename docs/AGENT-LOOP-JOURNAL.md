@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1857 uhitm.c mhitm_ad_slee sleep attack (mhitu rn2(5) vs knockback rn2(3))
+
+**C locus:** `uhitm.c:3479–3522` `mhitm_ad_slee` (homunculus
+**JS:** `js/mhitm.js` `mhitm_ad_slee` + `mdamagem` AD_SLEE case
+**Change:** port the three arms with C branch/RNG order. `js/mhitm.js`
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_slee` → PASS
+**Named:** `defended(mon, AD_SLEE)` orange-scales/artifact
+**Next:** Open `mkmaze.c` makemaz `Sam-strt`/`-loca`/`-goal`/`-fila`/`-filb`
 ## 2026-09-05 — Audit reviews 818–826 (D-1848…D-1856, no port)
 
 **Scope:** every `js/` commit since review 817, oldest first, one file

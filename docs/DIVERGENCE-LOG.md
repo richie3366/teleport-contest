@@ -1,5 +1,60 @@
 # Divergence log
 
+## D-1857 — uhitm.c mhitm_ad_slee sleep attack (mhitu rn2(5) vs knockback rn2(3))
+
+- **Status:** fixed (Open queue row; corpus + green + strict + cohort)
+- **Symptom:** 1 corpus block at `mhitm_ad_slee`: C
+  `rn2(5)=0 @ mhitm_ad_slee(uhitm.c:3495)` vs JS
+  `rn2(3)=2 @ mhitm_knockback(mhitm.js:1743)`
+  (tour-Caveman-70016-d5-8-15-17-22 step 16/50; C
+  «You miss the homunculus. The homunculus bites!--More--» vs JS
+  «You miss the homunculus.»).
+- **C locus:** `uhitm.c:3479–3522` `mhitm_ad_slee` (homunculus
+  `AT_BITE AD_SLEE 1d3`). uhitm `:3484–3491`: `!msleeping` &&
+  `!mhitm_mgc_atk_negated(FALSE)` (burns `rn2(10)`) &&
+  `sleep_monst(rnd(10),-1)`, then `!Blind` pline + `slept_monst`.
+  mhitu `:3492–3507`: `hitmsg` always, then `multi>=0 && !rn2(5)` &&
+  `!mhitm_mgc_atk_negated(TRUE)` (burns `rn2(10)`), then
+  `Sleep_resistance ? monstseesu : monstunseesu + fall_asleep(-rnd(10))`
+  + `Blind ? You(are put to sleep) : You(by mon_nam)`. mhitm
+  `:3508–3520`: `!msleeping && sleep(rnd(10),-1) && sleep(rnd(10),-1)`
+  (C as written; second fails once frozen but first still sleeps),
+  then `vis&&canspotmon` pline + clear `STRAT_WAITFORU` + `slept`.
+  All three arms keep leftover `d()` dice.
+- **JS was:** `mhitm_ad_slee` missing everywhere. `mhitm_adtyping_u`
+  (`js/mhitu.js`) defaulted AD_SLEE to `mhm.damage = 0` with no
+  `hitmsg` (hence the missing «bites!» topline) and no `rn2(5)`;
+  `hitmu` then burned knockback `rn2(3)`+`rn2(6)` at the position
+  where C burns `rn2(5)`. `mdamagem` (`js/mhitm.js`) and
+  `damageum_adtyping` (`js/uhitm.js`) likewise fell through to
+  knockback + HP with no sleep side effect.
+- **Fix:** port the three arms with C branch/RNG order. `js/mhitm.js`
+  exports `mhitm_ad_slee` (uhitm + mhitm arms; mhitu returns early)
+  with `sleep_slee_mm`/`slept_slee_mm` inlined for `how=-1`
+  (no `sleep_monst` clone #2) and `AD_SLEE=4`; `mdamagem` gains an
+  AD_SLEE case (slee before knockback, leftover kept).
+  `js/mhitu.js` gains `mhitm_ad_slee_u` (hitmsg + multi + `rn2(5)` +
+  mgc(null,TRUE) + Sleep_res seesu/unseesu + `fall_asleep(-rnd(10))`
+  + Blind You pline; damage kept) wired into `mhitm_adtyping_u`.
+  `js/uhitm.js` wires AD_SLEE into `damageum_adtyping` via the
+  shared import (same mhitm edge, no new module).
+- **JS:** `js/mhitm.js` `mhitm_ad_slee` + `mdamagem` AD_SLEE case
+  (+122); `js/mhitu.js` `mhitm_ad_slee_u` + case (+38);
+  `js/uhitm.js` import + `damageum_adtyping` arm (+8/−2).
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_slee` → PASS
+  syntax (3 js files: js/mhitm.js js/mhitu.js js/uhitm.js); PASS
+  rule2; PASS hidden verify mhitm_ad_slee: 0 PASS, 1 moved past,
+  0 unchanged, 0 worse → PROGRESS
+  (tour-Caveman-70016-d5-8-15-17-22: moved → mkswamp at step 42,
+  was 16); PASS green 2/2; PASS strict seed8000/seed0900; PASS
+  cohort 7/7; skip full (no shared file changed).
+- **Named omissions:** `defended(mon, AD_SLEE)` orange-scales/artifact
+  + `shieldeff` on resist (matches trap/music `sleep_monst` clones);
+  `sticks(youmonst.data)` engulfer keeps hold in `slept` (treated as
+  release); gaze `AD_SLEE`/`AD_SLOW` stays `#ifdef PM_BEHOLDER` out.
+- **Next:** Open `mkmaze.c` makemaz `Sam-strt`/`-loca`/`-goal`/`-fila`/`-filb`
+  (Samurai quest, 0/5); new owner `mkswamp` (tour-Caveman step 42).
+
 ## D-1856 — sp_lev.c lspo_replace_terrain bigrm-2 ice replace on darkness:grow()
 
 - **Status:** fixed (Open queue row; corpus + green + strict + cohort + full `sessions` 44/44)

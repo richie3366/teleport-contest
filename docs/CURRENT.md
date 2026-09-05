@@ -40,7 +40,7 @@ Score last measured: **2026-09-05** — full `sessions` at **D-1856**
 D-1856): **230 / 265 PASS (86.8 %)** excl. 13 env-only rows;
 RNG 99.44 %; screens 99.2 %. Top owners: `hitum`/`moverock_core`/
 `mhitm_ad_phys`/`menu_remarm`/`!`/`dog_invent` 2.
-Reviews **818–826** (D-1848…D-1856): 7 ACCEPT, 2 ACCEPT-WITH-DEBT, no
+Reviews **818–826** (D-1848…D-1857): 7 ACCEPT, 2 ACCEPT-WITH-DEBT, no
 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -73,14 +73,15 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `uhitm.c` mhitm_ad_slee — 1 corpus block; C `rn2(5)` vs JS `mhitm_knockback` `rn2(3)`.
+**Next cluster:** Open `mkmaze.c` makemaz `Sam-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Samurai quest, 0/5.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1856 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1857 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1857** `uhitm.c:3479–3522` `mhitm_ad_slee` (homunculus — port the three arms with C branch/RNG order.
 **D-1856** `dat/bigrm-2.lua` (`des.replace_terrain({ selection = — build the darkness selection per choice arm (absolute
 **D-1855** `cmd.c:1934–1935` — export `dowhatdoes` from `js/pager.js`, import it in
 **D-1854** `pager.c` `do_screen_description` `:1246–1627` — that branch now prints 9-space `can be many things (${look})`
@@ -88,11 +89,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1852** `dat/Val-strt.lua` / `Val-loca.lua` / `Val-goal.lua` / — `load_val_strt` from the lua body: solidfill ICE +
 **D-1851** `dothrow.c` `dofire` `:510–554` (`You("have no ammunition readied.")` then `doquiver_core( — drop the pre-doquiver `mark_topline_seen` so `You()` leaves NEED_MORE and `doquiver_core` waits like C.
 **D-1850** `invent.c` `display_inventory` `:3427–3452` (`cmdq_pop` then `display_pickinv(lets, 0, 0,  — `display_inventory` calls `display_pickinv_reply` with `want_reply`.
-**D-1849** `shknam.c` `stock_room` `:750–766` (locked shop door: `inside_shop(sx+1,sy)`→`m--` / `(sx- — delete the clone and import `shk.js` `inside_shop`; port the ROOM/CORR choice with `Is_special` (now exported from `dungeon.js`) and `hack.js` `in_rooms`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1856; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1857; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

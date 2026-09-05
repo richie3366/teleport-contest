@@ -2966,6 +2966,7 @@ dothrow is D-1374 / dig is D-1375); **`do_attack` leprechaun evade D-1381** (`S_
 **dmgval shade/`shade_glare` D-1354**; **hitmm silver sear D-1351**; 
 **mdamagem AD_STON leftover D-1352**; **mdamagem AD_CONF leftover D-1385**; 
 **mdamagem AD_STUN leftover D-1396**; **mdamagem AD_FIRE leftover D-1405**; 
+**mdamagem AD_SLEE leftover D-1857** (`uhitm.c:3479–3522` uhitm/mhitm keep dice; mhitu `mhitm_ad_slee_u` hitmsg + `rn2(5)`; damageum AD_SLEE live); 
 **mhitm AD_WRAP brush D-1406**; artifact wep; **mthrowu m_throw shade_miss D-1382**; 
 **zap `bhit` shade_miss D-1383**; **hmon shade_miss D-1384**; **mhitm_ad_phys shade_miss D-1394**; 
 **mhitm_ad_phys mwep dmgval D-1402** (mhitm arm `:4142–4157` corpse `do_stone_mon` then `dmgval` + 
