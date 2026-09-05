@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1895 mkmaze.c makemaz tut-2 load_special (tutorial second variant)
+
+**C locus:** `dat/tut-2.lua` (whole file, 27 ln) via `mkmaze.c` `makemaz` `:1127–1223` → `load_special`.
+**JS:** `js/mklev.js` (+89/−1: dispatch arm, `load_tut2`, ported-loaders doc); `docs/c-js-map/data.md` tut row.
+**Change:** `load_tut2` in lua order through end of file — `nhlib_shuffle_align`, STONE solidfill + `is_maze_lev`/`nomongen`/`deathdrops=false`/`noautosearch` (tut-1 idiom), byte-identical 14x8 map via `splev_map_center_start` + `sel_set_ter`, lit region `area(01,01,73,16)` clamped (same lua rect as tut-1), packed up stair at (2,2) via `l_create_stairway(1, …)`, burn engraving at (1,1) with `cmd_from_ecname('up')` + `nowipeout` (degrade=false), seen MAGIC_PORTAL at (11,5) via `maketrap` + `mktrap_seen_victim({seen:true})`, whole-map non_diggable, `fixup_special` (noflip → skip flip). No new imports — same-module helpers only. Dispatch arm + doc-list line.
+**Verify:** `node scripts/verify.mjs --fn makemaz` → `PASS syntax 1 changed js file(s): js/mklev.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `note hidden verify makemaz: no corpus session is blocked on it at HEAD` (queue row cited no blocks — content row from HELDOUT Tier B — so public gates carry it) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `PASS full 44/44 passing (auto: shared file changed)`.
+**Named:** none new — tut-2.lua has no objects/monsters/doors/regions beyond the lit rect; `wallify`/`map_cleanup`/`count_level_features` stay deferred per the tut-1 cluster boundary.
+**Next:** next Open row (`mcastu.c` missing mcast_* arms, HELDOUT Tier C).
 ## 2026-09-05 — D-1894 exper.c losexp level-1 done(DIED) (hitmsg corpus owner)
 
 **C locus:** `exper.c` `losexp` `:232–237` (ulevel==1 + drainer → killer.format=KILLED_BY, killer.name=drainer, `done(DIED)`), `:239–244` (lifesaved/declined → uexp=0 + `lost all experience`, then the shared uhpmax/uhp/uen tail).

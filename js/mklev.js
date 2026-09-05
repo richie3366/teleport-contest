@@ -1437,7 +1437,7 @@ function reset_xystart_size() {
 
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
- * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-3,
+ * else maze fallback. Ported loaders: minefill, tut-1, tut-2, bigrm-2, bigrm-3,
  * bigrm-4, bigrm-5, bigrm-6, bigrm-7, bigrm-8, bigrm-9, bigrm-11, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
  * Bar-filb, Bar-goal, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
  * soko1-2, soko2-1, soko2-2, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
@@ -1520,6 +1520,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'tut-1') {
         load_tut1();
+        return true;
+    }
+    if (protofile === 'tut-2') {
+        load_tut2();
         return true;
     }
     if (protofile === 'bigrm-1') {
@@ -17327,6 +17331,89 @@ function load_tut1() {
 
     // C load_special: noflip → skip flip; fixup_special copies TELE dests.
     // wallify / map_cleanup / count_level_features deferred (not this cluster).
+    fixup_special();
+}
+
+/**
+ * C ref: dat/tut-2.lua via load_special — map + des.* (whole file, 27 ln).
+ * Second tutorial variant: 14x8 room, up stair, one burn engraving with
+ * nh.eckey("up"), one seen magic portal, non_diggable. Same flags as
+ * tut-1 (mazelevel/noflip/nomongen/nodeathdrops/noautosearch).
+ */
+function load_tut2() {
+    // C: load_special loads nhlib.lua → shuffle(align) then runs tut-2.lua
+    nhlib_shuffle_align();
+    // des.level_init({ style = "solidfill", fg = " " }) — ' ' → STONE
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!game.level.flags) game.level.flags = {};
+    game.level.flags.is_maze_lev = true;
+    game.level.flags.nomongen = true;
+    // C sp_lev.c "nodeathdrops" → svl.level.flags.deathdrops = 0
+    game.level.flags.deathdrops = false;
+    game.level.flags.noautosearch = true;
+
+    // des.map([[...]]) — C lspo_map string form → SPLEV_CENTER (not 1,0)
+    const TUT2_MAP = `
+--------------
+|............|
+|............|
+|............|
+|............|
+|............|
+|............|
+--------------
+`.replace(/^\n/, '');
+    const mf = mapfrag_fromstr(TUT2_MAP);
+    const { xstart, ystart } = splev_map_center_start(mf.wid, mf.hei);
+    game.splev_xstart = xstart;
+    game.splev_ystart = ystart;
+    game.splev_xsize = mf.wid;
+    game.splev_ysize = mf.hei;
+    for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+        for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+        }
+    }
+    // des.region lit area(01,01,73,16) — map-relative + xstart/ystart
+    // (same lua rect as tut-1; clamped, so it lights the 14x8 map)
+    for (let y = ystart + 1; y <= ystart + 16 && y < ROWNO; y++) {
+        for (let x = xstart + 1; x <= xstart + 73 && x < COLNO; x++) {
+            const loc = game.level.at(x, y);
+            if (loc) loc.lit = true;
+        }
+    }
+    // des.stair({ dir = "up", coord = { 2,2 } }) → l_create_stairway packed
+    l_create_stairway(1, 2, 2, null, false);
+    // des.engraving burn at (1,1), degrade=false → nowipeout, lua order
+    {
+        const up = cmd_from_ecname('up');
+        const ep = make_engr_at(
+            xstart + 1, ystart + 1,
+            `Use '${up}' to go up the stairs`, null, 0, BURN,
+        );
+        if (ep) ep.nowipeout = 1;
+    }
+    // des.trap magic portal at (11,5), seen=true
+    {
+        const ttmp = maketrap(xstart + 11, ystart + 5, MAGIC_PORTAL);
+        mktrap_seen_victim(ttmp, { seen: true });
+    }
+    // des.non_diggable — mark all as nondiggable
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = game.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // C load_special: noflip → skip flip; fixup_special copies TELE dests.
     fixup_special();
 }
 

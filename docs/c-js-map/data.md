@@ -629,7 +629,7 @@ C `sokoban_rules=0`); **`fill_lvl`→`makemaz(minefill)` +
 **tut-1 `des.map` SPLEV_CENTER + updest/`u_on_rndspot` + Tutorial botl + invent stash** (D-0350); 
 **tut-1 door-area engravings/`D_CLOSED`/`MAGIC_PORTAL` seen + newbie opts** (D-0351); 
 **tut-1 `mktrap` victim `rnd(4)` + `induced_align` Is_special + kick→sling des.*** (D-0352); 
-**tut-1 loot→end + `mineralize` special skip after kelp** (D-0353) + 
+**tut-1 loot→end + `mineralize` special skip after kelp** (D-0353) + **tut-2 second variant 14x8 + up stair + burn `eckey(up)` + seen portal** (D-1895) + 
 **D-1847 `mineralize` gold/gem loop** (`mklev.c:1501–1540` skip `y+=2`/`y+=1` then for `y++`; `Is_special` `on_level`; `dunlev` 0; `bound_digging` earth/`W_NONPASSWALL`; `join` arboreal ROOM; `reset_xystart_size` at clear/makerooms/themerooms_post). Named: 1-cluster `ly=15` east HWALL+TRC (Knight d5 409 vs 410; C STONE vs JS walls; `wall_cleanup` blocked by interior ROOM); 
 **`water_has_kelp` `!Is_waterlevel` + `In_endgame` return before kelp** (D-1059; 
 tut_key/eckey/Knight jump/leave-invent/`map_location` tseen/`add_to_container` merge deferred); 
