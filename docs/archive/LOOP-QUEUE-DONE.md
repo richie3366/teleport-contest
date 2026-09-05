@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `dungeon.c` induced_align — 1 corpus block; C `rn2(3)` vs JS `rnd_rect` `rn2(4)`. **Addressed:** D-1861
+- [x] `uhitm.c` hitum — 1 corpus block; C `rnd(20)` vs JS `spec_abon` `rnd(5)`. **Addressed:** D-1862
+- [x] `artifact.c` artifact_hit — 2 corpus blocks (from D-1862); screen-first at artifact.c:1515 («The massive hammer hits the Aleax.» vs empty; explore-seed0360-wizard-world-tour-19199bfa step 848, 5dfef5c4 step 842). **Addressed:** D-1862
+
+
+- [x] `dungeon.c` induced_align — 1 corpus block; C `rn2(3)` vs JS `rnd_rect` `rn2(4)`. **Addressed:** D-1861 `5e4b0423`
 
 
 - [x] `mkroom.c` fill_zoo — 1 corpus block; C `rn2(3)` vs JS `next_ident` `rnd(2)`. **Addressed:** D-1860 `bea18bd9`.

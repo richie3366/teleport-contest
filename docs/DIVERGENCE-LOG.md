@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1862 — artifact.c spec_applies ATTK resists (uhitm.c hitum owner)
+
+- **Status:** fixed (Open queue row; hitum block cleared — 0 PASS, 2 moved past to `artifact_hit` at the same step, allowed same-step re-attribution; green + cohort PASS)
+- **Symptom:** explore-seed0360-wizard-world-tour-19199bfa step 848/881 + 5dfef5c4 step 842/881 kind=rng at uhitm.c:780 — C `rnd(20)=5/10 @ hitum` (Mjollnir to-hit dieroll vs the Aleax) vs JS `rnd(5)=5 @ spec_abon(artifact.js:1733)`.
+- **C locus:** `artifact.c` `spec_applies` `:1008–1060` SPFX_ATTK switch (via `weapon.c` `hitval` `:184` `if (otmp->oartifact) tmp += spec_abon(otmp, mon)` ← `uhitm.c` `find_roll_to_hit` ← `hitum` `:778`); `spec_abon` `:1076–1087` draws `rnd(damn)` only when `spec_applies`; Aleax `monsters.h:1215` has `MR_COLD|MR_ELEC|MR_SLEEP|MR_POISON`; Mjollnir artilist `AD_ELEC damn 5`.
+- **JS was:** `js/artifact.js` `spec_applies` returned 1 for every ATTK adtyp except Magm/Stun ("resists deferred → bonus applies"), so Mjollnir (`attkAdtyp 6`, `attkDamn 5`) vs shock-resistant Aleax (JS `mresists` 54 includes `MR_ELEC`) drew a phantom `rnd(5)` ahead of `hitum`'s `rnd(20)` dieroll.
+- **Fix:** port the six ATTK resists arms in C order — hero side `Fire/Cold/Shock/Drain_resistance()` (newly exported from `js/zap.js`) + Poison/Stone H/E/sticky flats; monster side `resists_fire/cold/elec/poison` (newly exported from `js/zap.js`) + `resists_drli` (already exported) + `resists_ston` (already exported from `js/monsters.js`); Magm/Stun arm byte-identical; `imports.mjs --can` SAFE shape (hoisted functions, lazy use; monsters.js edge already existed).
+- **JS:** `js/artifact.js` `spec_applies` ATTK switch + doc comment + `zap.js`/`monsters.js` imports; `js/zap.js` 7× `export` (`Fire/Cold/Shock/Drain_resistance`, `resists_fire/cold/poison`); `docs/c-js-map/data.md` artilist section.
+- **Verify:** `node scripts/verify.mjs --fn hitum` → PASS syntax (2 changed js files: js/artifact.js js/zap.js) · PASS rule2 · PASS hidden verify hitum: 0 PASS, 2 moved past (2 re-attributed at the same step), 0 unchanged, 0 worse → PROGRESS (19199bfa: moved → artifact_hit at step 848; 5dfef5c4: moved → artifact_hit at step 842) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). Row diff read: new first-diff is kind=screen at artifact.c:1515 (C «The massive hammer hits the Aleax.» vs JS empty) — RNG aligns through the dieroll, JS tmp now equals C tmp (`spec_abon` 0 both sides) so hit/miss matches; the missing message is `artifact_hit`'s own arm, a different C function.
+- **Named omissions:** `defended()` artifact/dragon-armor guard before the switch; DFLAG1 mflags1 arm; DFLAG2 yours/Upolyd/ulycn arms (hero as target); `resists_*` artifact/worn grants (inherited from the zap.js/monsters.js bit subsets); hero Poison/Stone read H/E/sticky flats only (no uprops fallback, matching this function's Antimagic arm).
+- **Next:** Open `artifact.c` `artifact_hit` (same-step continuation, appended to queue) + queue head `mthrowu.c` `linedup`.
+
 ## D-1861 — themerms.lua Garden fill (dungeon.c induced_align owner)
 
 - **Status:** fixed (Open queue row; 1 corpus block PASS; green + cohort + full `sessions` 44/44)
