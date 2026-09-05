@@ -72,15 +72,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1837**. Open `pickup.c` `doloot_core` loot-at-feet `doopen_indir` → `doloot` shipped (3/4 corpus PASS, 1 moved to `lookat`).
-**Next cluster:** Open `hack.c` `pickup_checks` — 3 corpus blocks; "The stairs are solidly affixed." vs "There is nothing here to pick up."
+**Suite 44/44** at **D-1838**. Open `hack.c` `pickup_checks` furniture/pool/lava/swallow shipped (2/3 corpus PASS, 1 moved to `glibr`).
+**Next cluster:** Open `insight.c` `attributes_enlightenment` — 3 corpus blocks; quest-leader telepathy name vs colon.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1837 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1838 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1838** `hack.c` `pickup_checks` `:3788–3872` (uswallow tongue/`loot_mon`; pool/lava dive; `!OBJ_A — port the C body: furniture-specific nothing-msgs (stairs affixed), pool/lava reach, swallow tongue/`-2`, pit-aware `can_reach_floor`.
 **D-1837** `pickup.c` `doloot` `:2166–2174` (`gl.loot_reset_justpicked`); `doloot_core` `:2178–2346`  — `doopen_indir` returns `doloot()` on self/down unless a closed door is here.
 **D-1836** `sp_lev.c` `build_room` `:2807–2833` (`(!r->chance || rn2(100) < r->chance) ? r->rtype : O — nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms.
 **D-1835** `invent.c` `look_here` `:4162–4177` (`!skip_objects` seen `t_at` / `visible_region_at` → ` — `look_here` plines the seen trap / visible region before the object list.
@@ -88,10 +89,9 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1833** `iactions.c` `itemactions` `:429–445` (E: Engrave vs Write + `surface`); `:309–400` apply  — E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`.
 **D-1832** `wintty.c` `process_menu_window` `:1329–1768` (default: `tty_nhbell(); break;` — Unhandled keys `tty_nhbell` only (no `docrt`/`cls`).
 **D-1831** `wintty.c` `process_menu_window` `:1329–1768` (`:1501–1505` — `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv /
-**D-1830** `dat/Rog-strt.lua` / `Rog-loca.lua` / `Rog-goal.lua` / — `load_rog_strt` from the lua body: solidfill STONE +
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1837; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1838; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

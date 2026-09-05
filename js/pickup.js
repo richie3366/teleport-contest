@@ -44,8 +44,9 @@ import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
     OBJ_FREE, OBJ_CONTAINED,
     is_pit, LOST_DROPPED,
-    STONE, ICE, MAX_TYPE,
+    STONE, ICE, MAX_TYPE, STAIRS, HOLE, TRAPDOOR,
     IS_POOL, IS_LAVA, IS_FURNITURE, IS_WATERWALL, IS_SINK,
+    IS_THRONE, IS_FOUNTAIN, IS_DOOR, IS_ALTAR, D_ISOPEN,
     LOOKHERE_PICKED_SOME, LOOKHERE_SKIP_DFEATURE, LOOKHERE_NOFLAGS,
     Has_contents, Is_container, Is_box,
     Never_mind,
@@ -69,6 +70,7 @@ import {
     NO_TRAP,
     MELT_ICE_AWAY, LEVITATION, WARNING, u_at, FUMBLING, PLNMSG_BACK_ON_GROUND,
     IS_GRAVE, W_SADDLE, SUPPRESS_SADDLE, ynqchars,
+    P_RIDING, P_BASIC, Is_waterlevel, WWALKING, FLYING, MAGICAL_BREATHING,
 } from './const.js';
 import {
     t_at, dotrap, drown, lava_effects, instapetrify, float_down, ceiling,
@@ -90,6 +92,7 @@ import {
     nohands, nolimbs, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider,
     mons,
     monsterNames,
+    is_floater, is_clinger, likes_lava, is_flyer, breathless,
 } from './monsters.js';
 import { welded, weldmsg, setuwep, setuswapwep, setuqwep } from './wield.js';
 import { yn_function, getlin } from './getline.js';
@@ -99,11 +102,13 @@ import { cansee } from './vision.js';
 import { touch_artifact, youmonst } from './artifact.js';
 import { exercise, A_WIS } from './attrib.js';
 import { inv_cnt } from './steal.js';
-import { trycall, Monnam, christen_monst, oname, rndmonnam, Amonnam, a_monnam, x_monnam, mon_nam } from './do_name.js';
+import { trycall, Monnam, christen_monst, oname, rndmonnam, Amonnam, a_monnam, x_monnam, mon_nam, s_suffix, hliquid } from './do_name.js';
 import { makemon, set_malign } from './makemon.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { hard_helmet } from './do_wear.js';
-import { mdamageu } from './mhitu.js';
+import { mdamageu, digests } from './mhitu.js';
+import { P_SKILL } from './weapon.js';
+import { rider_cant_reach } from './steed.js';
 import { is_ice } from './zap.js';
 import { incr_itimeout_HLevitation } from './potion.js';
 import { which_armor, extract_from_minvent } from './worn.js';
@@ -1609,42 +1614,135 @@ export async function pickup(what) {
 }
 
 /**
- * C ref: hack.c pickup_checks — preflight for #pickup / `,`.
- * Returns >=0 → dopickup done (1=TIME, 0=OK); -1 → normal pickup;
- * -2 engulfer loot deferred as 0.
- * Named omissions: pool/lava dive plines; furniture-specific nothing msgs
- * (generic "nothing here" used); engulfer tongue/loot_mon.
+ * C ref: hack.c pickup_checks `:3788–3872` — preflight for #pickup / `,`.
+ * 1 = cannot pickup, time taken; 0 = cannot, no time; -1 = normal pickup;
+ * -2 = loot the engulfer.
+ * Named: dungeon.c `surface` (reach-fail default "floor"; HOLE/TRAPDOOR
+ * override live).
  */
-function pickup_checks() {
+async function pickup_checks() {
     const u = game.u;
     if (!u) return 0;
 
+    /* C `:3792–3813` uswallow: empty minvent tongue/feel, else loot_mon. */
     if (u.uswallow) {
-        // loot_mon / tongue paths deferred
+        const stuck = u.ustuck;
+        if (!stuck?.minvent) {
+            if (digests(stuck?.data)) {
+                await pline(
+                    `You pick up ${s_suffix(mon_nam(stuck))} tongue.`,
+                );
+                await pline("But it's kind of slimy, so you drop it.");
+            } else {
+                await pline(
+                    `You don't ${Blind() ? 'feel' : 'see'} anything in here to pick up.`,
+                );
+            }
+            return 1;
+        }
+        return -2;
+    }
+
+    const youdata = game.youmonst?.data;
+    const propW = u.uprops?.[WWALKING];
+    const wwalking = !!(((propW?.intrinsic | 0) || (propW?.extrinsic | 0)
+        || (u.HWwalking | 0) || (u.EWwalking | 0)) && !Is_waterlevel(u.uz));
+    const propF = u.uprops?.[FLYING];
+    const blockedF = (u.BFlying | 0) || (propF?.blocked | 0);
+    const flying = !!(((u.HFlying | 0) || (u.EFlying | 0)
+        || (propF?.intrinsic | 0) || (propF?.extrinsic | 0)
+        || (u.usteed && is_flyer(u.usteed.data))) && !blockedF);
+    const propB = u.uprops?.[MAGICAL_BREATHING];
+    const heroBreathless = !!((propB?.intrinsic | 0) || (propB?.extrinsic | 0)
+        || (u.HMagical_breathing | 0) || (u.EMagical_breathing | 0)
+        || breathless(youdata));
+    /* C: Wwalking || is_floater || is_clinger || (Flying && !Breathless) */
+    const reachAbove = wwalking || is_floater(youdata)
+        || is_clinger(youdata) || (flying && !heroBreathless);
+    const underwater = !!(u.uinwater);
+
+    if (is_pool(u.ux, u.uy)) {
+        if (reachAbove) {
+            await pline(
+                `You cannot dive into the ${hliquid('water')} to pick things up.`,
+            );
+            return 0;
+        } else if (!underwater) {
+            await pline(
+                `You can't even see the bottom, let alone pick up ${something}.`,
+            );
+            return 0;
+        }
+    }
+    if (is_lava(u.ux, u.uy)) {
+        if (reachAbove) {
+            await pline("You can't reach the bottom to pick things up.");
+            return 0;
+        } else if (!likes_lava(youdata)) {
+            await pline('You would burn to a crisp trying to pick things up.');
+            return 0;
+        }
+    }
+    if (!objects_at(u.ux, u.uy)) {
+        const lev = game.level?.at(u.ux, u.uy);
+        const typ = lev?.typ | 0;
+        if (IS_THRONE(typ)) {
+            await pline(`It must weigh${lev?.looted ? ' almost' : ''} a ton!`);
+        } else if (IS_SINK(typ)) {
+            await pline('The plumbing connects it to the floor.');
+        } else if (IS_GRAVE(typ)) {
+            await pline("You don't need a gravestone.  Yet.");
+        } else if (IS_FOUNTAIN(typ)) {
+            await pline(`You could drink the ${hliquid('water')}...`);
+        } else if (IS_DOOR(typ) && ((lev?.doormask | 0) & D_ISOPEN)) {
+            await pline("It won't come off the hinges.");
+        } else if (IS_ALTAR(typ)) {
+            await pline('Moving the altar would be a very bad idea.');
+        } else if (typ === STAIRS) {
+            await pline('The stairs are solidly affixed.');
+        } else {
+            await pline('There is nothing here to pick up.');
+        }
         return 0;
     }
-    if (!objects_at(u.ux, u.uy)) return 0; // nothing / furniture → ECMD_OK
-    if (!can_reach_floor(true)) return 0;
+    const traphere = t_at(u.ux, u.uy);
+    if (!can_reach_floor(!!(traphere && is_pit(traphere.ttyp)))) {
+        if (traphere && uteetering_at_seen_pit(traphere)) {
+            await pline('You cannot reach the bottom of the pit.');
+        } else if (u.usteed && P_SKILL(P_RIDING) < P_BASIC) {
+            await rider_cant_reach();
+        } else if (Blind()) {
+            await pline('You cannot reach anything here.');
+        } else {
+            let surf = 'floor';
+            if (traphere) {
+                if ((traphere.ttyp | 0) === HOLE) surf = 'edge of the hole';
+                else if ((traphere.ttyp | 0) === TRAPDOOR) surf = 'trap door';
+            }
+            await pline(`You cannot reach the ${surf}.`);
+        }
+        return 0;
+    }
     return -1;
 }
 
 /**
- * C ref: hack.c dopickup — `#pickup` / `,` command.
- * Clears multi + command_count; pickup_checks then pickup(-count).
+ * C ref: hack.c dopickup `:3876–3892` — `#pickup` / `,`.
+ * Clears multi; pickup_checks then loot_mon (-2) or pickup(-count).
  */
 export async function dopickup() {
     const count = (game.context?.command_count | 0);
     if (game.context) game.context.command_count = 0;
     game.multi = 0;
 
-    const ret = pickup_checks();
+    const ret = await pickup_checks();
     if (ret >= 0) {
-        if (ret === 0 && !objects_at(game.u?.ux, game.u?.uy)) {
-            await pline('There is nothing here to pick up.');
-        }
         return ret ? ECMD_TIME : ECMD_OK;
+    } else if (ret === -2) {
+        const tmpcount = { value: -count };
+        const timepassed = await loot_mon(game.u?.ustuck, tmpcount, null);
+        return timepassed ? ECMD_TIME : ECMD_OK;
     }
-    // ret == -1: normal floor pickup
     const tried = await pickup(-count);
     return tried ? ECMD_TIME : ECMD_OK;
 }

@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1838 hack.c pickup_checks furniture / pool / lava / swallow
+
+**C locus:** `hack.c` `pickup_checks` `:3788–3872` (uswallow tongue/`loot_mon`; pool/lava dive; `!OBJ_AT` throne/sink/grave/fountain/open-door/altar/`STAIRS`/`There`; `can_reach_floor(traphere && is_pit)`); `dopickup` `:3876–3892` (`ret==-2` → `loot_mon(u.ustuck, &tmpcount, 0)`).
+**JS:** `js/pickup.js` `pickup_checks` / `dopickup`.
+**Change:** port the C body: furniture-specific nothing-msgs (stairs affixed), pool/lava reach, swallow tongue/`-2`, pit-aware `can_reach_floor`. `dopickup` awaits that result; `-2` calls live `loot_mon`.
+**Verify:** `node scripts/verify.mjs --fn pickup_checks` → PASS syntax (1 js file); PASS rule2; PASS hidden verify pickup_checks: 2 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (ind-Archeologist-62907089-effc88a8 PASS; ind-Priest-554730944-a8c6389b PASS; ind-Tourist-666025142-d17728db → glibr step 29 was 1); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+**Named:** dungeon.c `surface` (reach-fail default `"floor"`; HOLE/TRAPDOOR override live). Not leftover WIN_STATUS (`do_statusline1`).
+**Next:** Open `insight.c` `attributes_enlightenment` (3 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
 ## 2026-09-05 — D-1837 pickup.c doloot_core loot-at-feet + lootmon get_adjacent_loc
 
 **C locus:** `pickup.c` `doloot` `:2166–2174` (`gl.loot_reset_justpicked`); `doloot_core` `:2178–2346` (lootcont `container_at` / Blind `feel_cockatrice` / grave; lootmon `get_adjacent_loc("Loot in what direction?")` / `u.dz<0` ceiling / `loot_mon`); `loot_mon` `:2430–2481`; `lock.c` `doopen_indir` `:808–811` (`u_at && (u.dz > 0 || !closed_door)` → `doloot()`).

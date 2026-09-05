@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1838 — hack.c pickup_checks furniture / pool / lava / swallow
+
+- **Status:** fixed (2 corpus PASS, 1 moved past; green + cohort)
+- **Symptom:** 3 hidden-corpus first-diffs attributed to `pickup_checks`: C `"The stairs are solidly affixed."` vs JS `"There is nothing here to pick up."` on `,` with no objects on STAIRS.
+- **C locus:** `hack.c` `pickup_checks` `:3788–3872` (uswallow tongue/`loot_mon`; pool/lava dive; `!OBJ_AT` throne/sink/grave/fountain/open-door/altar/`STAIRS`/`There`; `can_reach_floor(traphere && is_pit)`); `dopickup` `:3876–3892` (`ret==-2` → `loot_mon(u.ustuck, &tmpcount, 0)`).
+- **JS was:** `pickup_checks` returned 0 on swallow and on empty floor with no pline; `dopickup` then always printed `"There is nothing here to pick up."`. No `-2` `loot_mon` arm. `can_reach_floor(true)` even without a pit.
+- **Fix:** port the C body: furniture-specific nothing-msgs (stairs affixed), pool/lava reach, swallow tongue/`-2`, pit-aware `can_reach_floor`. `dopickup` awaits that result; `-2` calls live `loot_mon`.
+- **JS:** `js/pickup.js` `pickup_checks` / `dopickup`.
+- **Verify:** `node scripts/verify.mjs --fn pickup_checks` → PASS syntax (1 js file); PASS rule2; PASS hidden verify pickup_checks: 2 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (ind-Archeologist-62907089-effc88a8 PASS; ind-Priest-554730944-a8c6389b PASS; ind-Tourist-666025142-d17728db → glibr step 29 was 1); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+- **Named omissions:** dungeon.c `surface` (reach-fail default `"floor"`; HOLE/TRAPDOOR override live). Not leftover WIN_STATUS (`do_statusline1`).
+- **Next:** Open `insight.c` `attributes_enlightenment` (3 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
+
 ## D-1837 — pickup.c doloot_core loot-at-feet + lootmon get_adjacent_loc
 
 - **Status:** fixed (3 corpus PASS, 1 moved past; green + cohort)

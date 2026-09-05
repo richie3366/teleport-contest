@@ -6,33 +6,23 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 164/265 PASS at
-  D-1831; D-1837 moved 3/4 `doloot_core` blocks to PASS (1 later
-  `lookat`). Next Open `pickup_checks` 3, `attributes_enlightenment` 3,
-  level cliff `selection_filter_percent` vs `rnd_rect`. Orient
-  `brief.mjs`, verify `verify.mjs --fn`, hand off `finish-iteration.mjs --commit`.
-- **Suite 44/44** at D-1837. `o`/`.` loot-at-feet goes through
-  `doloot_core`; do not reopen that or nested themerms `des.room`.
-  `look_here` announces a seen trap/region
-  before the object list; `describe_decor` Fumbling defer / waterhere /
-  ice `Norep` / `back_on_ground` are live — do not reopen those.
-  Unhandled corner-menu keys do not
-  `docrt`; `_statusSuppressed` covers D-0467 fullscreen-invent blank;
-  do not restore `_snapshotStatusGrid`. MENU_SEARCH overlay wrap and
-  per-window `maxrow` are fine — do not reopen those. Do **not**
-  reopen Bar-goal object count, castmu spell arms,
-  medusa-2/4 / minend-3 / bigrm / soko2-2 / Wiz-goal / water / astral
-  loaders, Knight `Kni-strt`/`-loca`/`-fila`/`-filb`/`-goal`,
-  Rogue `Rog-strt`/`-loca`/`-goal`/`-fila`/`-filb`,
-  `HDeaf [2]`, or `mattacku` gameover abort.
-  Do **not** add trailing `confdir` to shared `getdir` (D-1815).
-- **Luck still runs when invulnerable.** Dialogues do not
-  (`timeout.c:623`). STONED/SLIMED expiry silent (`done_timeout`).
-- **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs`
-  still rebuilds `migrating_mons`. Strict-check leaks — run per file.
-  DUMPLOG retired (D-1776). Clone drift: zap useupf; detect/potion/
-  read/spell `useup`; Elbereth; teleport `accessible`;   helm_simple_name
-  4 clones; pickup `ysimple_name`; getobj_* clones in do/wield/
-  apply/write/takeoff/dip.
+  D-1831; D-1838 moved 2/3 `pickup_checks` to PASS (1 later `glibr`).
+  Next Open `attributes_enlightenment` 3, level cliff
+  `selection_filter_percent`. Orient `brief.mjs`, verify `verify.mjs --fn`.
+- **Suite 44/44** at D-1838. `,` empty-floor furniture msgs go through
+  `pickup_checks`; do not reopen that, `doloot_core` loot-at-feet, or
+  nested themerms `des.room`. `look_here` trap/region before objects;
+  `describe_decor` Fumbling/waterhere/ice/`back_on_ground` live.
+  Unhandled menu keys do not `docrt`; do not restore `_snapshotStatusGrid`.
+  Do not reopen Bar-goal, castmu, medusa/minend/soko/Wiz/water/astral
+  loaders, Knight/Rogue lua, `HDeaf [2]`, or `mattacku` abort.
+  No trailing `confdir` on shared `getdir` (D-1815).
+- **Luck still runs when invulnerable.** Dialogues do not (`timeout.c:623`).
+  STONED/SLIMED expiry silent (`done_timeout`).
+- **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs` still
+  rebuilds `migrating_mons`. DUMPLOG retired (D-1776). Clone drift: zap
+  useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`;
+  helm_simple_name; pickup `ysimple_name`; getobj_* clones.
 
 ## Don't re-check (≤15)
 
@@ -79,7 +69,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1837.
+  (D-1189). Do not skip D-1190…D-1838.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -89,18 +79,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1837.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1838.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1837.
+  Do not re-port D-1682…D-1838.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1838: port the C body: furniture-specific nothing-msgs (stairs affixed), pool/lava reach, swallow tongue/`-2`, pit-aware `can_reach_floor`. Named: dungeon.c `surface` (reach-fail default `"floor"`; HOLE/TRAPDOOR override live).
 - D-1837: `doopen_indir` returns `doloot()` on self/down unless a closed door is here. Named: Confusion `reverse_loot`; pit `"Open where? [.>]"`; door-mimic stumble; AUTOUNLOCK_KICK / 
 - D-1836: nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms. Named: Random-feature center terrain; remaining themeroom_fill bodies (Ice/Boulder/Spider/Trap/Ga
 - D-1835: `look_here` plines the seen trap / visible region before the object list. Named: `ice_descr` thicker/thinner ice; `dfeature_at` ice/pool/lava/throne/drawbridge (so waterhe
@@ -115,5 +106,4 @@ Objective/score live in `CURRENT.md`.
 - D-1826: `load_medusa_2` from the lua body: solidfill + mazelevel+noteleport, Named: humidity-aware `get_location`; `ensure_way_out` /
 - D-1825: port the remaining 14 arms from the C bodies; `mcast_spell` Named: `mon_spell_hits_spot` (fire-pillar/lightning
 - D-1824: loop bound 14 matching lua `:44–57`. Named: humidity-aware `get_location`; `spo_end_moninvent`
-- D-1823: `load_minend_3` from the lua body: solidfill HWALL (so Named: ensure_way_out; link_doors_rooms; map_cleanup;
 <!-- landmarks:end -->

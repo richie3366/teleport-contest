@@ -1309,7 +1309,7 @@ onscary deferred); **`domove`→`spoteffects`→`pickup`/`check_here` when `!fla
 **special-room enter plines ZOO/SWAMP/COURT/MORGUE/… + rtype→OROOM wake `rn2(3)`** (D-0660; 
 furniture_present throne / BARRACKS monstinroom / DELPHI / room_discovered / wake_msg text 
 deferred); **`,` → `dopickup`/`pickup_checks`/`pickup_object`/`pick_obj` one-object AUTOSELECT** 
-(D-0192) + **multi `query_objlist` PICK_ANY** (D-0365) + **`INVORDER_SORT` class headings + 
+(D-0192) + **`pickup_checks` furniture/pool/lava/swallow D-1838** (C `hack.c` `:3788–3872` throne/sink/grave/fountain/open-door/altar/`STAIRS`/`There`; `dopickup` `:3876–3892` `-2` `loot_mon`; named: dungeon.c `surface`) + **multi `query_objlist` PICK_ANY** (D-0365) + **`INVORDER_SORT` class headings + 
 prompt ATR_INVERSE** (D-0384) + **floor `query_objlist` `sortloot(SORTLOOT_LOOT|PACK)`** (D-0405) + 
 **PICK_ANY `@`/`./`-` MENU_INVERT/SELECT/UNSELECT_ALL** (D-0406; 
 SKIPINVERT/page invert/search deferred; FEEL_COCKATRICE look_here abort is D-1599;
