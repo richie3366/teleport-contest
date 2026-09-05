@@ -828,3 +828,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [815-6d5ca30d-getpos.md](./815-6d5ca30d-getpos.md) | `6d5ca30d` | D-1845 getpos.c matching[] '/' + AUTODESC | **ACCEPT-WITH-DEBT** |
 | [816-5d89cc96-level-tele.md](./816-5d89cc96-level-tele.md) | `5d89cc96` | D-1846 teleport.c level_tele Nowhere / clamp + priestname + bigrm-2 | **ACCEPT-WITH-DEBT** |
 | [817-2c9f2ad0-mineralize.md](./817-2c9f2ad0-mineralize.md) | `2c9f2ad0` | D-1847 mklev.c mineralize gold/gem loop + bound_digging | **ACCEPT-WITH-DEBT** |
+| [818-d1d76d7e-lookat-newsym-darkroom.md](./818-d1d76d7e-lookat-newsym-darkroom.md) | `d1d76d7e` | D-1848 pager.c lookat cmap default defsyms; newsym DARKROOMSYM | **ACCEPT** |
+| [819-fc3c7c8b-stock-room-inside-shop.md](./819-fc3c7c8b-stock-room-inside-shop.md) | `fc3c7c8b` | D-1849 shknam.c stock_room engraving via inside_shop edge | **ACCEPT** |
+| [820-46021314-display-inventory-pickinv.md](./820-46021314-display-inventory-pickinv.md) | `46021314` | D-1850 invent.c display_inventory → display_pickinv PICK_ONE | **ACCEPT** |
+| [821-8759553e-dofire-envelope.md](./821-8759553e-dofire-envelope.md) | `8759553e` | D-1851 dothrow.c dofire empty-quiver NEED_MORE + full envelope | **ACCEPT** |
+| [822-e84fa9d3-val-quest-loaders.md](./822-e84fa9d3-val-quest-loaders.md) | `e84fa9d3` | D-1852 mkmaze.c makemaz Val-strt/loca/goal/fila/filb | **ACCEPT-WITH-DEBT** |
+| [823-64050628-knox-loader.md](./823-64050628-knox-loader.md) | `64050628` | D-1853 mkmaze.c makemaz knox load_special | **ACCEPT** |
+| [824-532d3c44-do-screen-description-collapse.md](./824-532d3c44-do-screen-description-collapse.md) | `532d3c44` | D-1854 pager.c do_screen_description blank-sym collapse | **ACCEPT** |
+| [825-5983e72d-dowhatdoes-dispatch.md](./825-5983e72d-dowhatdoes-dispatch.md) | `5983e72d` | D-1855 cmd.c '&' dispatches dowhatdoes | **ACCEPT** |
+| [826-3ca95421-bigrm2-ice-replace.md](./826-3ca95421-bigrm2-ice-replace.md) | `3ca95421` | D-1856 sp_lev.c lspo_replace_terrain bigrm-2 ice on darkness:grow() | **ACCEPT** |

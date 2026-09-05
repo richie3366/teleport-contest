@@ -8,6 +8,30 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — Audit reviews 818–826 (D-1848…D-1856, no port)
+
+**Scope:** every `js/` commit since review 817, oldest first, one file
+per SHA written as that SHA finished. 818 ACCEPT (813 Must-fix held:
+2 PASS + 2 moved past on re-run). 819 ACCEPT (mineralize 2 PASS
+reproduced). 820 ACCEPT (PICK_ONE/PICK_NONE = `wintty.c:1353/:1738`).
+821 ACCEPT (full `dofire` envelope, 2 PASS reproduced). 822
+ACCEPT-WITH-DEBT (Val 5/5 maps byte-equal; flip-lregion stays standing
+`data.md:696` debt). 823 ACCEPT (knox uses storing `l_levregion`,
+flipped correctly). 824 ACCEPT (collapse = prefix+found=5 chain, 2
+PASS + 2 moved reproduced). 825 ACCEPT (callee live, not stubbed).
+826 ACCEPT (bigrm-2 arms mirror unlit rects, 1 moved reproduced).
+**No Must-fix, no STOP.** Rule #2 clean.
+**Score:** full `sessions` 44/44, Scr 11,405/11,405, RNG
+792,838/792,838, speed `47+0.36/turn`. Hidden proxy 230/265 (86.8%)
+excl. 13 env; RNG 99.44%, screens 99.2%. Top: hitum/moverock/`mhitm_ad_phys`/remarm/`!`/dog_invent 2.
+**Next:** Open `uhitm.c` mhitm_ad_slee (1 corpus block) per queue.
+**Scoreboard note:** full `hidden-proxy score` reproduced 230/278 twice
+(deterministic); two still-failing rows match more screens on current
+code (seed0015-eb7e90ad 33→70/72, seed2200-d38fcac6 217→256/258) —
+downstream realignment, unattributed to one SHA. Not staged: this
+commit stays docs-only; the next port iter refreshes those rows with
+its own verify. PASS/RNG/screen aggregates cited above are identical
+with or without that file.
 ## 2026-09-05 — D-1856 sp_lev.c lspo_replace_terrain bigrm-2 ice replace on darkness:grow()
 
 **C locus:** `dat/bigrm-2.lua` (`des.replace_terrain({ selection =

@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-05** — full `sessions` at **D-1847**
-(audit **811–817**, `2c9f2ad0`). Fortress held: seed0030 **D-1816**,
-seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
-**11,405**/11,405, RNG **792,838**/792,838. Speed `44+0.37/turn`
-(R² 0.864).
+Score last measured: **2026-09-05** — full `sessions` at **D-1856**
+(audit **818–826**, `3ca95421`). Fortress held 44/44: seed0030
+**D-1816**, seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
+**11,405**/11,405, RNG **792,838**/792,838. Speed `47+0.36/turn`
+(R² 0.85).
 
 ## Score
 
@@ -37,11 +37,11 @@ seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-05 at
-D-1849): **222 / 265 PASS (83.8 %)** excl. 13 env-only rows;
-RNG 99.32 %; screens 99.0 %. Top owners: `do_screen_description` 4 ·
-`moverock_core`/`mhitm_ad_phys`/`inuse_classify`/`menu_remarm`/`dofire`/`dowhatdoes` 2.
-Review **813** lookat `S_room`/`S_darkroom` extra arms shipped **D-1848**.
-Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
+D-1856): **230 / 265 PASS (86.8 %)** excl. 13 env-only rows;
+RNG 99.44 %; screens 99.2 %. Top owners: `hitum`/`moverock_core`/
+`mhitm_ad_phys`/`menu_remarm`/`!`/`dog_invent` 2.
+Reviews **818–826** (D-1848…D-1856): 7 ACCEPT, 2 ACCEPT-WITH-DEBT, no
+Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
