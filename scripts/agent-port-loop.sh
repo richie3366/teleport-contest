@@ -54,7 +54,7 @@ Options:
   --muse                Use Muse (`muse exec --json`) instead of
                         cursor-agent. Model defaults to
                         muse-spark-1.3-contributor at --reasoning-effort
-                        max. AGENT_FORCE=1 maps to --yolo. Observer, token
+                        xhigh. AGENT_FORCE=1 maps to --yolo. Observer, token
                         budget, and resume-brief read the same iter-*.raw.
   -h, --help            Show this help.
 
@@ -328,7 +328,7 @@ fi
 
 # Default: Cursor Grok 4.6 Extra High, non-fast
 # (list: agent --list-models | rg grok)
-# --muse: Muse spark contributor at reasoning-effort max.
+# --muse: Muse spark contributor at reasoning-effort xhigh.
 if [[ "$USE_MUSE" == "1" ]]; then
   MODEL="${MODEL:-muse-spark-1.3-contributor}"
 else
@@ -337,7 +337,7 @@ fi
 # Advisory navigation overlay (see arm_nav_discipline_prompt). 1 disables.
 LOOP_NAV_GATE_OFF="${LOOP_NAV_GATE_OFF:-0}"
 AGENT_BIN="${AGENT_BIN:-}"
-MUSE_REASONING_EFFORT="${MUSE_REASONING_EFFORT:-max}"
+MUSE_REASONING_EFFORT="${MUSE_REASONING_EFFORT:-xhigh}"
 MUSE_EXTRA=()
 if [[ "$USE_MUSE" == "1" ]]; then
   if [[ ! "$MUSE_REASONING_EFFORT" =~ ^(none|minimal|low|medium|high|xhigh|max|ultra)$ ]]; then
