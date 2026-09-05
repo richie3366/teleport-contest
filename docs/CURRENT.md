@@ -77,7 +77,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `objnam.c` readobjnam_postparse1 — 1 corpus block screen-first (topline) at step 345 («%a piece of food (a food ration)--More--» vs «·a doorway or the floor of a room or the dark part of a room or ice»; random-seed0367-priest-quest-tour-01388a3a; follow-up owner after the getpos_help port).
+**Next cluster:** Open `mkmaze.c` makemaz `tou-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Tourist quest 0/5 (520 ln; Tourist 3/44 sessions; from `dat/tou-*.lua`, HELDOUT Tier B). Shipped D-1886 (pager.c object-glyph arm; queued readobjnam_postparse1 was a literal-match misattribution, 1 corpus PASS, 44/44 held).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1886 (index).** Recent **D-1820:** `makemaz` `soko2-2`
