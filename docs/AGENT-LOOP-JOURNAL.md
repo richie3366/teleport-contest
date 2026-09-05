@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1865 mhitu mhitm_ad_phys_u dmgval defender null → youmonst (review 834 Must-fix)
+
+**C locus:** `weapon.c` `dmgval` `:215` (`struct permonst *ptr = mon->data` — unconditional deref; `bigmonst(ptr)` selects `oc_wldam` + large-switch vs `oc_wsdam` + small-switch) + `uhitm.c` `mhitm_ad_phys` mhitu arm `:4061–4066` (`dmgval(otmp, mdef)` with `mdef == &youmonst`).
+**JS:** `js/mhitu.js` `mhitm_ad_phys_u` one-line defender + comment; `docs/c-js-map/turns.md` uhitm section.
+**Change:** `dmgval(otmp, game.youmonst)` + C-citation comment (`dmgval(otmp, mdef)`, `weapon.c:215`). No new import — `game.youmonst` already used in the same arm (`artifact_hit`, `rustm`).
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_phys` → PASS syntax (1 changed js file: js/mhitu.js) · PASS rule2 · note hidden vacuous at HEAD (no corpus session blocked on it — not a corpus PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). `node scripts/verify.mjs --fn mhitm_ad_phys --base 8ab2608f~1` → PASS syntax · PASS rule2 · PASS hidden 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-5f79bc6a: PASS; c87ff7c9: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full.
+**Named:** file-local `do_stone_u` clone killer attribution (`make_stoned(5,0,kformat,kname)`, `uhitm.c:3923–3942`) — review 834 debt, map only; knockback stub-burns still named (D-1864).
+**Next:** Open `do_wear.c` `menu_remarm` (queue head after this ships).
 ## 2026-09-05 — audit reviews 827–834 (D-1857…D-1864) + cadence score
 
 **Scope:** 8 JS-touching SHAs since audit 818–826 (`b8b347b8..8ab2608f`), one SHA

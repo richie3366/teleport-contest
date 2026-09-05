@@ -35,8 +35,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] mhitu `mhitm_ad_phys_u` weapon arm passes `null` defender to `dmgval` (`js/mhitu.js:717`) — C `weapon.c:215` derefs `mon->data` unconditionally and this call site passes `mdef` (`&youmonst`); polymorphed-big hero takes small-dice `wsdam` instead of `wldam` (+ bonus-draw counts diverge). Fix: `dmgval(otmp, game.youmonst)`. Falsifier: polymorph hero big, take a monster battle-axe hit. Source: reviews/loop-unattended/834-8ab2608f-mhitm-ad-phys.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached

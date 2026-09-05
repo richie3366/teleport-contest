@@ -2981,7 +2981,10 @@ artifact_hit iff leftover; callee `mhitm.c` rustm `:1260–1280`);
 **mhitm_ad_phys mhitu weapon arm D-1864** (mhitu arm `:4041–4126` corpse
 `do_stone_u`/done + `dmgval` + GOP `rn1(4,3)` + `artifact_hit`-or-`hitmsg` +
 silver sear + `rnd(-uac)` soak + Half + pudding `cloneu` split + `rustm` +
-dieroll `poisoned()`; non-weapon keeps `magr != u.ustuck`); 
+dieroll `poisoned()`; non-weapon keeps `magr != u.ustuck`);
+**mhitm_ad_phys_u dmgval defender D-1865** (`dmgval(otmp, null)` →
+`dmgval(otmp, game.youmonst)` per `weapon.c:215` + mhitu `:4061–4066`
+`mdef == &youmonst`; big-hero `wldam` vs small `wsdam`); 
 **mattackm AT_HUGS D-1340**); **`hmon_hitmon_pet` → `abuse_dog` + 
 survive `monflee(10*rnd(dmg))`** (D-0836); 
 **`xkilled` `(peaceful&&!rn2(2))\|\|mtame` `change_luck(-1)` + 

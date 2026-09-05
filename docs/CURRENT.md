@@ -41,7 +41,7 @@ D-1864): **236 / 265 PASS (89.1 %)** excl. 13 env-only rows;
 RNG 99.58 %; screens 99.5 %. Top owners: `mkswamp`/
 `maybe_generate_rnd_mon`/`climb_pit`/`m_move`/`mhitm_mgc_atk_negated`/
 `dopush`/`zoo_mon_sound`/`minimal_xname` (+ parked `dog_invent`, `!`).
-Reviews **827–834** (D-1857…D-1864): 5 ACCEPT, 2 ACCEPT-WITH-DEBT,
+Reviews **827–834** (D-1857…D-1865): 5 ACCEPT, 2 ACCEPT-WITH-DEBT,
 1 QUALITY-RISK, 1 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -78,10 +78,11 @@ before fire getobj (D-0484 skip reverted).
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1864 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1865 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1865** `weapon.c` `dmgval` `:215` (`struct permonst *ptr = mon->data` — `dmgval(otmp, game.youmonst)` + C-citation comment (`dmgval(otmp, mdef)`, `weapon.c:215`).
 **D-1864** `uhitm.c` `mhitm_ad_phys` mhitu arm `:4038–4126` (AT_WEAP+otmp: corpse `do_stone_u`/done ` — port the mhitu AT_WEAP arm in C order (corpse `do_stone_u` via the file-local clone with the `u.Stoned || u.HStoned` guard; GOP arm; `artifact_hit` dmgBox pattern from `mhitm.js:1187` with `game.youmonst` defender + `gam
 **D-1863** `vision.c` `vision_recalc` `:609–622` (`u.utrap && u.utraptype == TT_PIT` → only the immed — port the TT_PIT 3×3 arm in C order (row `continue`/`break`, direct `next_rmin/rmax` assign, xray/nv/lights/update flow untouched) + add the post-`rhack`/`deferred_goto` `vision_full_recalc` consume in `moveloop_core` (mi
 **D-1862** `artifact.c` `spec_applies` `:1008–1060` SPFX_ATTK switch (via `weapon.c` `hitval` `:184`  — port the six ATTK resists arms in C order — hero side `Fire/Cold/Shock/Drain_resistance()` (newly exported from `js/zap.js`) + Poison/Stone H/E/sticky flats; monster side `resists_fire/cold/elec/poison` (newly exported f
@@ -89,11 +90,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1860** `mkroom.c` `fill_zoo` `:276–452` (COCKNEST `:402–412` `if (!rn2(3)) mk_tt_object(STATUE)`  — port `antholemon()` (ubirthday%3 + difficulty, `G_GONE` retry, null if all gone, no RNG) + `PM_SOLDIER_ANT`/`PM_FIRE_ANT`/`PM_GIANT_ANT` consts; add the ANTHOLE pm arm; add the COCKNEST statue arm and ANTHOLE food arm in
 **D-1859** `hack.c` `moverock_core` `:441–448` (`Sokoban && u.dx && u.dy` → Blind `feel_location(sx,s — port the arm in C order (inside clear-dest branch, after ttmp/mtmp fetch, before revive_nasty/monster): `Sokoban_here() && u.dx && u.dy` → Blind `feel_location`, awaited pline with `The(xname(otmp))` + shared `surface(sx
 **D-1858** `dat/Sam-strt.lua` / `Sam-loca.lua` / `Sam-goal.lua` / — `load_sam_strt` from the lua body: solidfill STONE +
-**D-1857** `uhitm.c:3479–3522` `mhitm_ad_slee` (homunculus — port the three arms with C branch/RNG order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1864; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1865; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

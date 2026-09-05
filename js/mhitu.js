@@ -713,8 +713,9 @@ async function mhitm_ad_phys_u(mtmp, mattk, mhm) {
                 return;
             }
         }
-        // C `:4061–4066` — dmgval then Gauntlets of Power rn1(4,3), min 1.
-        mhm.damage += dmgval(otmp, null);
+        // C `:4061–4066` — dmgval(otmp, mdef) with mdef == &youmonst
+        // (weapon.c:215 derefs mon->data); then Gauntlets of Power rn1(4,3), min 1.
+        mhm.damage += dmgval(otmp, game.youmonst);
         const marmg = which_armor(mtmp, W_ARMG);
         if (marmg && (marmg.otyp | 0) === GAUNTLETS_OF_POWER) {
             mhm.damage += rn1(4, 3); /* 3..6 */

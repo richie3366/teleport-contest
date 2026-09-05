@@ -77,3 +77,5 @@ why item 1 survived verification.)
    `make_stoned` args.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1865

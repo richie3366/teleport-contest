@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1865 — mhitu mhitm_ad_phys_u dmgval defender null → youmonst (review 834 Must-fix)
+
+- **Status:** fixed (Must-fix review 834 item 1; no corpus session blocked on `mhitm_ad_phys_u` at HEAD — corpus pair does not cover polymorphed-big defenders; green + cohort PASS)
+- **Symptom:** polymorphed-big hero (dragon/giant) hit by a monster weapon takes small-dice `wsdam` instead of `wldam`, and bonus-draw counts diverge (e.g. battle-axe `d(2,4)` vs `rnd(4)`). Falsifier: polymorph hero big, take a monster battle-axe hit.
+- **C locus:** `weapon.c` `dmgval` `:215` (`struct permonst *ptr = mon->data` — unconditional deref; `bigmonst(ptr)` selects `oc_wldam` + large-switch vs `oc_wsdam` + small-switch) + `uhitm.c` `mhitm_ad_phys` mhitu arm `:4061–4066` (`dmgval(otmp, mdef)` with `mdef == &youmonst`).
+- **JS was:** `js/mhitu.js:717` `mhm.damage += dmgval(otmp, null)` — `js/weapon.js:218` `mon?.data` is `undefined`, `bigmonst(undefined)` is `false` (measured in review 834), so the hero always took the small-dice arm. Every sibling passes a real defender (`mhitm.js:1176` `dmgval(mwep, mdef)`; `uhitm.js:874`).
+- **Fix:** `dmgval(otmp, game.youmonst)` + C-citation comment (`dmgval(otmp, mdef)`, `weapon.c:215`). No new import — `game.youmonst` already used in the same arm (`artifact_hit`, `rustm`).
+- **JS:** `js/mhitu.js` `mhitm_ad_phys_u` one-line defender + comment; `docs/c-js-map/turns.md` uhitm section.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_phys` → PASS syntax (1 changed js file: js/mhitu.js) · PASS rule2 · note hidden vacuous at HEAD (no corpus session blocked on it — not a corpus PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). `node scripts/verify.mjs --fn mhitm_ad_phys --base 8ab2608f~1` → PASS syntax · PASS rule2 · PASS hidden 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-5f79bc6a: PASS; c87ff7c9: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full.
+- **Named omissions:** file-local `do_stone_u` clone killer attribution (`make_stoned(5,0,kformat,kname)`, `uhitm.c:3923–3942`) — review 834 debt, map only; knockback stub-burns still named (D-1864).
+- **Next:** Open `do_wear.c` `menu_remarm` (queue head after this ships).
+
 ## D-1864 — uhitm.c mhitm_ad_phys mhitu weapon arm (knockback RNG order)
 
 - **Status:** fixed (Open queue row; 2 corpus blocks PASS; green + cohort + full `sessions` 44/44)
