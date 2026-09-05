@@ -23,7 +23,9 @@
  *   from git log; then check-hot-docs.mjs --fix.
  *
  * With --commit the message is the entry title + Symptom + Fix + Verify
- * (or the file passed with --message <path>), and it pushes origin HEAD.
+ * (or the file passed with --message <path>), plus a Cursor trailer
+ * (this script commits via spawnSync, so the IDE helper never attaches
+ * one), and it pushes origin HEAD.
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
@@ -241,7 +243,7 @@ if (!DRY) {
 if (flag('commit') && !DRY) {
   const msgFile = val('message', null);
   const msg = msgFile ? readFileSync(msgFile, 'utf8')
-    : `${title} (${id}).\n\n${S.symptom}\n\n${S.fix}\n\n${S.verify ? `Verify: ${S.verify}\n\n` : ''}${S.named ? `Named: ${S.named}\n\n` : ''}Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\n`;
+    : `${title} (${id}).\n\n${S.symptom}\n\n${S.fix}\n\n${S.verify ? `Verify: ${S.verify}\n\n` : ''}${S.named ? `Named: ${S.named}\n\n` : ''}Co-authored-by: Cursor <cursoragent@cursor.com>\n`;
   const paths = statusPaths();
   if (!paths.length) { console.log('nothing to commit'); process.exit(0); }
   const added = spawnSync('git', ['add', '--', ...paths], { cwd: root, stdio: 'inherit' });
