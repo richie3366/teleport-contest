@@ -771,14 +771,18 @@ trap glyph; `glyph_at_gbuf` clone deleted) then **`lookat` body D-1843**
 (`pager.c:656–802` / `glyphs.c:199–231`; `glyph_is_unexplored` →
 `"unexplored area"` vs cmap `S_stone` `!seenv` → `"unexplored"`;
 `glyph_to_cmap` live; `brief_at` / `auto_describe_text` are lookat buf
-+ blocked-stair rewrite; `S_room`/`S_darkroom` via `room_cmap_explanation`
-because JS gbuf often stores `S_room` for both); Hallu
++ blocked-stair rewrite) then **lookat cmap default `defsyms[]` D-1848**
+(`pager.c:779–795` has no `S_room`/`S_darkroom` cases; DARKROOMSYM is
+`newsym` `:1079–1096` so gbuf already holds `S_darkroom` / Rogue
+`S_stone`; `room_cmap_explanation` is no longer a lookat arm);
+Hallu
 random_obj otyp / glyph_is_body|statue
 corpsenm / buried-embedded suffixes named; **`look_traps` still
 prints `trap at (x,y)`** (C `:2093–2094` uses `glyph_to_trap` +
 `trap_description`); `doidtrap` unported; C TODO recursive/buried
 containers named; **`do_screen_description` full cmap/symbol table**
-(later owner after D-1843)
+(later owner after D-1843; ROOM parenthetical still uses
+`room_cmap_explanation`)
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 

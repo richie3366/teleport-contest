@@ -32,8 +32,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `pager.c` lookat — S_room/S_darkroom extra arms contradict C default `defsyms[]`; DARKROOMSYM belongs in `newsym` (D-0812), not lookat. Source: reviews/loop-unattended/813-70d84800-lookat.md.
-
 ## Open (map-driven, after Must-fix is empty)
 
 Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached

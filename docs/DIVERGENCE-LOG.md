@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1848 — pager.c lookat cmap default defsyms; newsym DARKROOMSYM
+
+- **Status:** fixed (Must-fix review **813**; 4 corpus still moved past lookat; green + cohort + full `sessions` 44/44).
+- **Symptom:** JS `lookat` cmap switch had `S_room`/`S_darkroom` arms C does not have. Those called `room_cmap_explanation` (reconstruct `newsym` DARKROOMSYM from `cansee`/`waslit`) because gbuf often stored `S_room` for both. C `:779–795` is `S_stone` then `default: defsyms[symidx].explanation`.
+- **C locus:** `pager.c` `lookat` `:779–795` (cmap switch: altar / ndoor / cloud / waterbody / engraving / `S_stone` / `default` `defsyms[]`); `display.c` `newsym` `:1079–1096` (Rogue unlit ROOM → `S_stone`; else `!waslit || (flags.dark_room && iflags.use_color)`: `S_litcorr`→`S_corr`, `S_room`→`DARKROOMSYM`).
+- **JS was:** extra `case S_room`/`S_darkroom` → `room_cmap_explanation`. `newsym` !cansee converted only lit-corr `#`/white, not ROOM `S_room` memory.
+- **Fix:** delete the extra lookat arms so floor strings come from `defsyms[]`. Port `newsym` out-of-sight DARKROOMSYM (keep floor tty; Rogue unlit → `S_stone`) so `glyph_at` already holds `S_darkroom`.
+- **JS:** `js/pager.js` `lookat`; `js/display.js` `newsym` / `memory_is_cmap`.
+- **Verify:** `node scripts/verify.mjs --fn lookat --base 70d84800~1` → PASS syntax (2 js files); PASS rule2; PASS hidden verify lookat: 0 PASS, 4 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-19199bfa → do_screen_description step 836 was 826; 77350e1f → do_screen_description step 835 was 832; explore-seed0367-priest-quest-tour-1cbaa856 → do_screen_description step 314 was 313; b0096089 → do_screen_description step 326 was 323); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** `do_screen_description` ROOM parenthetical still uses `room_cmap_explanation` (Open, later owner of those four); `look_at_monster` health/stuck/leash/trap/hallu/tail; doname_with_price / buried-embedded suffixes.
+- **Next:** Open `mklev.c` `mineralize` (2 corpus). Not leftover lookat floor arms.
+
 ## D-1847 — mklev.c mineralize gold/gem loop + bound_digging; 1-cell TRC named
 
 - **Status:** partial (gold/gem loop C-faithful; 2 corpus still mineralize; green + cohort + full `sessions` 44/44). Continue-unfinished of iter-2258 leftover (`js/mklev.js` uncommitted).

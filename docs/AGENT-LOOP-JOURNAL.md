@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1848 pager.c lookat cmap default defsyms; newsym DARKROOMSYM
+
+**C locus:** `pager.c` `lookat` `:779–795` (cmap switch: altar / ndoor / cloud / waterbody / engraving / `S_stone` / `default` `defsyms[]`); `display.c` `newsym` `:1079–1096` (Rogue unlit ROOM → `S_stone`; else `!waslit || (flags.dark_room && iflags.use_color)`: `S_litcorr`→`S_corr`, `S_room`→`DARKROOMSYM`).
+**JS:** `js/pager.js` `lookat`; `js/display.js` `newsym` / `memory_is_cmap`.
+**Change:** delete the extra lookat arms so floor strings come from `defsyms[]`. Port `newsym` out-of-sight DARKROOMSYM (keep floor tty; Rogue unlit → `S_stone`) so `glyph_at` already holds `S_darkroom`.
+**Verify:** `node scripts/verify.mjs --fn lookat --base 70d84800~1` → PASS syntax (2 js files); PASS rule2; PASS hidden verify lookat: 0 PASS, 4 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-19199bfa → do_screen_description step 836 was 826; 77350e1f → do_screen_description step 835 was 832; explore-seed0367-priest-quest-tour-1cbaa856 → do_screen_description step 314 was 313; b0096089 → do_screen_description step 326 was 323); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+**Named:** `do_screen_description` ROOM parenthetical still uses `room_cmap_explanation` (Open, later owner of those four); `look_at_monster` health/stuck/leash/trap/hallu/tail; doname_with_price / buried-embedded suffixes.
+**Next:** Open `mklev.c` `mineralize` (2 corpus). Not leftover lookat floor arms.
 ## 2026-09-05 — audit overlay 811–817 + cadence 44/44
 
 **Objective:** review JS SHAs since `35920b53` (D-1841–D-1847) against
