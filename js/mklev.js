@@ -73,6 +73,7 @@ import {
     Is_firelevel,
     Is_airlevel,
     Is_waterlevel,
+    Is_earthlevel,
     DRY, WET, HOT, SOLID, ANY_LOC, NO_LOC_WARN, SPACELOC,
     SP_OBJ_CONTENT, SP_OBJ_CONTAINER,
     Can_fall_thru, Can_dig_down, G_GONE,
@@ -128,6 +129,7 @@ import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engr
 import { cmd_from_ecname } from './dokeylist.js';
 import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch, get_level,
+    on_level,
 } from './dungeon.js';
 import { premap_detect } from './detect.js';
 import {
@@ -1390,6 +1392,8 @@ function clear_level_structures() {
     // C mklev.c clear_level_structures — free_exclusions after clear_regions
     free_exclusions();
     init_rect();
+    // C mklev.c:921 — gx.xstart=1 / gy.ystart=0 / full xsize,ysize
+    reset_xystart_size();
 }
 
 // C ref: mkmap.c litstate_rnd()
@@ -20345,6 +20349,9 @@ async function makerooms() {
             }
         }
     }
+    // C mklev.c:428–434 — reset_xystart_size then post_themerooms_generate
+    // (lua body is empty). xstart must not leak from the last des.map.
+    reset_xystart_size();
 }
 
 // Themed room metadata — must match C's themerms.lua frequency table exactly.
@@ -21792,6 +21799,9 @@ function make_a_trap_postprocess(data) {
 
 // C ref: themerms.lua post_level_generate + mklev.c themerooms_post_level_generate
 function run_themerms_post_level_generate() {
+    // C mklev.c themerooms_post_level_generate — reset before lua
+    // post_level_generate, then wallification in the caller.
+    reset_xystart_size();
     for (const v of themerms_postprocess) {
         if (v.handler === 'make_a_trap') make_a_trap_postprocess(v.data);
     }
@@ -22841,7 +22851,8 @@ function join(a, b, nxcor) {
     const org = { x: xx + dx, y: yy + dy };
     const dest = { x: tx, y: ty };
     const npoints = { v: 0 };
-    const ftyp = CORR;
+    // C mklev.c join: arboreal corridors are ROOM, else CORR
+    const ftyp = game.level?.flags?.arboreal ? ROOM : CORR;
     const dig_result = dig_corridor(org, dest, npoints, nxcor, ftyp, STONE);
     if ((npoints.v > 0) && (okdoor(xx, yy) || !nxcor))
         dodoor(xx, yy, croom);
@@ -23726,12 +23737,16 @@ export function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_che
         return;
     mineralize_kelp(kelp_pool, kelp_moat);
     // C ref: mklev.c mineralize — hell / V_tower / rogue / arboreal / most
-    // specials skip rock deposits after kelp.
+    // specials skip rock deposits after kelp. Is_special is on_level walk
+    // of sp_levchn (dungeon.c); dlevel 0 must still match.
     const uz = game.u?.uz;
-    const slev = (game.sp_levchn || []).find(s =>
-        s?.dlevel
-        && (s.dlevel.dnum | 0) === (uz?.dnum | 0)
-        && (s.dlevel.dlevel | 0) === (uz?.dlevel | 0));
+    let slev = null;
+    for (const s of game.sp_levchn || []) {
+        if (on_level(uz, s.dlevel)) {
+            slev = s;
+            break;
+        }
+    }
     const inHell = !!(game.dungeons?.[uz?.dnum]?.flags?.hellish);
     if (!skip_lvl_checks
         && (inHell || In_V_tower(uz) || Is_rogue_level(uz)
@@ -23741,7 +23756,7 @@ export function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_che
         return;
     }
     const absDepth = depth_of_level(uz);
-    const dunLevel = uz?.dlevel ?? 1;
+    const dunLevel = uz?.dlevel ?? 0;
     if (goldprob < 0) goldprob = 20 + Math.trunc(absDepth / 3);
     if (gemprob < 0) gemprob = Math.trunc(goldprob / 4);
     // C ref: mklev.c mineralize — mines boost; quest sparsifies
@@ -23754,18 +23769,29 @@ export function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_che
             gemprob = Math.trunc(gemprob / 6);
         }
     }
+    /*
+     * C mklev.c:1501–1540 — seed rock areas. `y += 2` / `y += 1` then the
+     * for-loop `y++` (net +3 / +2). Neighbor list has no south-center;
+     * that cell was already required STONE by the first arm. C wall_info
+     * is rm.flags; JS may split the field, so OR both.
+     */
+    const stoneAt = (x, y) => (map.at(x, y)?.typ ?? STONE) === STONE;
     for (let x = 2; x < COLNO - 2; x++) {
         for (let y = 1; y < ROWNO - 1; y++) {
             const loc = map.at(x, y);
-            const locBelow = map.at(x, y + 1);
-            if (!loc || !locBelow) continue;
-            if (locBelow.typ !== STONE) { y += 2; continue; }
-            if (loc.typ !== STONE) { y += 1; continue; }
-            const n = (d) => { const l = map.at(x + d[0], y + d[1]); return l && l.typ === STONE; };
-            if (!(loc.wall_info & W_NONDIGGABLE)
-                && n([0,-1]) && n([1,-1]) && n([-1,-1])
-                && n([1,0]) && n([-1,0])
-                && n([1,1]) && n([-1,1])) {
+            const wall_info = (loc?.wall_info || 0) | (loc?.flags || 0);
+            if (!stoneAt(x, y + 1)) {
+                y += 2;
+            } else if (!stoneAt(x, y)) {
+                y += 1;
+            } else if (!(wall_info & W_NONDIGGABLE)
+                && stoneAt(x, y - 1)
+                && stoneAt(x + 1, y - 1)
+                && stoneAt(x - 1, y - 1)
+                && stoneAt(x + 1, y)
+                && stoneAt(x - 1, y)
+                && stoneAt(x + 1, y + 1)
+                && stoneAt(x - 1, y + 1)) {
                 if (rn2(1000) < goldprob) {
                     const otmp = mksobj(GOLD_PIECE, false, false);
                     if (otmp) {
@@ -23773,14 +23799,12 @@ export function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_che
                         otmp.oy = y;
                         otmp.quan = 1 + rnd(goldprob * 3);
                         otmp.owt = weight(otmp);
-                        // C: !rn2(3) → add_to_buried; else place_object
                         if (!rn2(3)) add_to_buried(otmp);
                         else place_object(otmp, x, y);
                     }
                 }
                 if (rn2(1000) < gemprob) {
-                    const cnt = rnd(2 + Math.trunc(dunLevel / 3));
-                    for (let i = 0; i < cnt; i++) {
+                    for (let cnt = rnd(2 + Math.trunc(dunLevel / 3)); cnt > 0; cnt--) {
                         const otmp = mkobj(GEM_CLASS, false);
                         if (otmp && otmp.otyp === ROCK) {
                             dealloc_obj(otmp); /* discard it */
@@ -23845,14 +23869,24 @@ function get_level_extends() {
 }
 
 function bound_digging() {
+    // C ref: mkmaze.c bound_digging — earth plane is fully diggable
+    if (Is_earthlevel(game.u?.uz))
+        return;
     const map = game.level;
     const { xmin, xmax, ymin, ymax } = get_level_extends();
     for (let x = 0; x < COLNO; x++)
         for (let y = 0; y < ROWNO; y++) {
             const loc = map.at(x, y);
             if (!loc) continue;
-            if (IS_STWALL(loc.typ) && (y <= ymin || y >= ymax || x <= xmin || x >= xmax)) {
+            if (!IS_STWALL(loc.typ)) continue;
+            if (y <= ymin || y >= ymax || x <= xmin || x >= xmax) {
                 loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+                loc.flags = (loc.flags || 0) | W_NONDIGGABLE;
+            }
+            // one tile past the edge is also unphaseable
+            if (y < ymin || y > ymax || x < xmin || x > xmax) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONPASSWALL;
+                loc.flags = (loc.flags || 0) | W_NONPASSWALL;
             }
         }
 }
@@ -23981,6 +24015,11 @@ function level_finalize_topology() {
     // C ref: mklev.c:1550
     mineralize(-1, -1, -1, -1, false);
     game.in_mklev = false;
+    // C mklev.c:1556 — xstart/ystart are not saved with the level
+    game.splev_xstart = 0;
+    game.splev_ystart = 0;
+    if (game.level?.flags?.has_morgue)
+        game.level.flags.graveyard = 1;
     if (!game.level?.flags?.is_maze_lev) {
         const nroom = game.level?.nroom ?? 0;
         for (let i = 0; i < nroom; i++)

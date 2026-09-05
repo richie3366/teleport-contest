@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1847 — mklev.c mineralize gold/gem loop + bound_digging; 1-cell TRC named
+
+- **Status:** partial (gold/gem loop C-faithful; 2 corpus still mineralize; green + cohort + full `sessions` 44/44). Continue-unfinished of iter-2258 leftover (`js/mklev.js` uncommitted).
+- **Symptom:** 2 hidden-corpus first-diffs at `mineralize` (`mklev.c:1515`): Knight/Monk `"You materialize on a different level!"`. C still in the gold `rn2(1000)` loop; JS already at `place_lregion` `rn2(79)`. Knight d5 C 410 gold checks vs JS 409; first 409 values match; C's extra is `rn2(1000)=52` at (77,13).
+- **C locus:** `mklev.c` `mineralize` `:1448–1541` (kelp; `Is_special` `on_level` walk of `sp_levchn`; gold/gem `rn2(1000)`; `y += 2` / `y += 1` then for-loop `y++`; gem `for (cnt = rnd(2+dunlev/3); cnt > 0; cnt--)`); `mkmaze.c` `bound_digging` (earth-plane return; `W_NONDIGGABLE` at extends; `W_NONPASSWALL` one tile past); `mklev.c` `join` arboreal `ROOM` else `CORR`; `sp_lev.c` `reset_xystart_size`; `mklev.c` `level_finalize_topology` xstart=0 / `has_morgue`→`graveyard`.
+- **JS was:** gold loop `continue` after `y += 2` (net +2 not +3); `Is_special` required truthy `s.dlevel`; `dunLevel` default 1; `bound_digging` omitted earth/`W_NONPASSWALL`; `join` always `CORR`; xstart leaked from last `des.map`.
+- **Fix:** port skip arithmetic without `continue`; `on_level` walk; `dunlev` 0; OR `wall_info|flags` for `W_NONDIGGABLE`; `bound_digging` earth early-return + passwall ring; `join` arboreal `ROOM`; `reset_xystart_size` in `clear_level_structures` / after `makerooms` / before themerms post; `splev_xstart=0` and morgue→graveyard after mineralize.
+- **JS:** `js/mklev.js` `mineralize` / `bound_digging` / `join` / `reset_xystart_size` / `level_finalize_topology`.
+- **Verify:** `node scripts/verify.mjs --fn mineralize` → PASS syntax (1 js file); PASS rule2; FAIL hidden verify mineralize: 0 PASS, 0 moved past, 2 unchanged, 0 worse → NO MOVEMENT (tour-Knight-70020-d5-8-15-17-22 still mineralize step 3; tour-Monk-70009-d3-6-10-11-12 still mineralize step 12); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: FAIL (hidden NO MOVEMENT).
+- **Named omissions:** 1-cell `ly=15` east HWALL+TRCORNER (Knight d5 (76,14) HWALL / (77,14) TRC vs C STONE; `wall_cleanup` blocked by interior ROOM at (75,15)/(76,15); same-size 6×4 `create_room` lockstep). Forcing those two tiles to STONE yields 410th gold at (77,13)=52 and Knight 13017/13017 — not shipped (seed/coord FORCE). Do not re-port the gold loop. Monk d6 is the same 1-cluster gap.
+- **Next:** Open `mklev.c` `mineralize` still (2 corpus). Next peel is `wall_cleanup` / room-paint at the `ly=15` east corner, not another gold-loop pass.
+
 ## D-1846 — teleport.c level_tele Nowhere ynq / branch clamp + priestname + bigrm-2 unlit
 
 - **Status:** fixed (2 corpus PASS, 1 moved past; green + cohort + full `sessions` 44/44). Continue-unfinished of iter-2256 leftover (`js/` uncommitted).

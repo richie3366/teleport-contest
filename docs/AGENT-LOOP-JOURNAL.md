@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1847 mklev.c mineralize gold/gem loop; 1-cell TRC named
+
+**C locus:** `mklev.c` `mineralize` `:1448–1541`; `mkmaze.c` `bound_digging`; `mklev.c` `join`; `sp_lev.c` `reset_xystart_size`.
+**JS:** `js/mklev.js` `mineralize` / `bound_digging` / `join` / `reset_xystart_size` / `level_finalize_topology`.
+**Change:** port gold/gem skip arithmetic (`y+=2`/`y+=1` then for `y++`), `on_level` Is_special, `dunlev` 0, `bound_digging` earth/`W_NONPASSWALL`, `join` arboreal ROOM, xstart resets. Continue-unfinished of iter-2258 leftover. Did not pop `LOOP-QUEUE.md`.
+**Verify:** `node scripts/verify.mjs --fn mineralize` → PASS syntax (1 js file); PASS rule2; FAIL hidden NO MOVEMENT (2 unchanged); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44. VERIFY: FAIL (hidden).
+**Named:** 1-cell `ly=15` east HWALL+TRC (Knight d5 409 vs 410; C STONE at (76,14)/(77,14); `wall_cleanup` blocked by interior ROOM). Do not re-port the gold loop.
+**Next:** Open `mklev.c` `mineralize` still (2 corpus). Next peel is `wall_cleanup` / room-paint, not another gold-loop pass.
 ## 2026-09-05 — D-1846 teleport.c level_tele Nowhere ynq / clamp + priestname + bigrm-2 unlit
 
 **C locus:** `teleport.c` `level_tele` `:1254–1276` / `:1388–1422`; `priest.c` `priestname` `:302–367`; `dat/bigrm-2.lua` `:34–48`; `symbols.c` `init_rogue_symbols`; `mklev.c` `dosdoor` `:647–648`.

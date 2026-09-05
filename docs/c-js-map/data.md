@@ -625,10 +625,11 @@ C `sokoban_rules=0`); **`fill_lvl`→`makemaz(minefill)` +
 **tut-1 door-area engravings/`D_CLOSED`/`MAGIC_PORTAL` seen + newbie opts** (D-0351); 
 **tut-1 `mktrap` victim `rnd(4)` + `induced_align` Is_special + kick→sling des.*** (D-0352); 
 **tut-1 loot→end + `mineralize` special skip after kelp** (D-0353) + 
+**D-1847 `mineralize` gold/gem loop** (`mklev.c:1501–1540` skip `y+=2`/`y+=1` then for `y++`; `Is_special` `on_level`; `dunlev` 0; `bound_digging` earth/`W_NONPASSWALL`; `join` arboreal ROOM; `reset_xystart_size` at clear/makerooms/themerooms_post). Named: 1-cluster `ly=15` east HWALL+TRC (Knight d5 409 vs 410; C STONE vs JS walls; `wall_cleanup` blocked by interior ROOM); 
 **`water_has_kelp` `!Is_waterlevel` + `In_endgame` return before kelp** (D-1059; 
 tut_key/eckey/Knight jump/leave-invent/`map_location` tseen/`add_to_container` merge deferred); 
 **occupied invocation_pos** (D-1154); omit other fill *bodies*, nested `des.room` bodies beyond 
-Nesting/Fake Delphi/Huge/… outer sizes, `join` arboreal→ROOM, Lua `post_level_generate` postprocess 
+Nesting/Fake Delphi/Huge/… outer sizes, Lua `post_level_generate` postprocess 
 queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; **D-1542** themerms Light source fill); **D-1723 `lspo_object` non-merge quan do-while** (`sp_lev.c:3725–3740` `!objects[id].oc_merge`; find_objtype + argc string/coord; class-letter `def_char_to_objclass`/`mkgold`; other load_* `des.object` still hand-rolled); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
 **D-0906 `hellfill`+`create_maze`/`LVLINIT_MAZE`** (seed4500 **32538→49776** Scr **459**; 
 **hellfill Invocation_lev VS** (D-1154 `pick_vibrasquare_location`+`maketrap`); 

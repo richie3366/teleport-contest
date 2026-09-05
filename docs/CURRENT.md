@@ -72,16 +72,19 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1846**. Open `teleport.c` `level_tele` leftover cluster shipped
-(Ranger/Barbarian PASS; Healer moved past).
-**Next cluster:** Open `mklev.c` `mineralize` — 2 corpus blocks; C `rn2(1000)` vs JS `place_lregion` `rn2(79)`.
+**Suite 44/44** at **D-1847**. Open `mklev.c` `mineralize` leftover: gold/gem loop
+C-faithful; 2 corpus still first-diff at mineralize (1-cell TRC named).
+**Next cluster:** same Open `mklev.c` `mineralize` — 2 corpus blocks; C extra
+`rn2(1000)` after JS last eligible cell (Knight d5 410 vs 409). Do not
+re-port the gold loop; next is `wall_cleanup` / `ly=15` east HWALL+TRC.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1846 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1847 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1847** `mklev.c` `mineralize` `:1448–1541` / `mkmaze.c` `bound_digging` / `sp_lev.c` `create_room` — gold/gem loop + `on_level` Is_special + `join` arboreal ROOM + xstart resets. Named: 1-cell `ly=15` TRC (Knight d5 409 vs 410).
 **D-1846** `teleport.c` `level_tele` `:1254–1276` / `:1388–1422`; `priest.c` `priestname` `:302–367`; `dat/bigrm-2.lua` `:34–48` — Nowhere ynq + Quest/mines/sanctum clamp + invoked `"Sorry..."`; `priestname`; Rogue `S_ndoor`/`dosdoor` D_NODOOR; `bigrm-2` darkness unlit (Healer `rn2(4)=2` sides). Ice `selection:grow` still named.
 **D-1845** `getpos.c` `getpos` `:960–972` (`NHKF_GETPOS_AUTODESC` toggle + pline); `:1008–1114` (LIMI — port matching[] from `defsyms[].sym` (walls/room/corr/door/ndoor skipped) so `/` is k>0 then Can't find; AUTODESC / LIMITVIEW / MENU / MOVESKIP before matching; `aAzZ` cycle; `getloc_moveskip` glyph-skip; pick_chars LOOK
 **D-1844** `mhitu.c` `summonmu` `:956–1030` (`is_were` human `!Protection && !rn2(5-(night()*2))` / b — port the C were arm (form change, then maybe summon helpers / plines).
@@ -90,10 +93,9 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1841** `mkmaze.c` `makemaz` `:1126–1223` (`load_special(protofile)`); `sp_lev.c` `load_special` ` — port both lua bodies: mazegrid + center map + `l_levregion`/`l_teleport_region` while map origin is set, `splev_mazewalk(8,5,east)`, fakewiz1 irregular OROOM + portal→wizard3, shared monsters/traps, fakewiz2 amulet, `hel
 **D-1840** `selvar.c` `selection_filter_percent` `:223–245` (`rn2(100) < percent` per set cell, x-out — port Ice (`des.terrain` ICE + `percent(25)` melt-ice timers), Boulder / Spider / Trap (`percentage(30)` then y-outer iterate).
 **D-1839** `role.c` `roles[]` `:30–573` (`homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti`); `que — copy C `roles[]` `homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti` for the remaining nine roles; Arc `PM_STUDENT` and Bar `PM_CHIEFTAIN` `guardnum`.
-**D-1838** `hack.c` `pickup_checks` `:3788–3872` (uswallow tongue/`loot_mon`; pool/lava dive; `!OBJ_A — port the C body: furniture-specific nothing-msgs (stairs affixed), pool/lava reach, swallow tongue/`-2`, pit-aware `can_reach_floor`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1846; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1847; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
