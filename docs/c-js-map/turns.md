@@ -2428,7 +2428,8 @@ post-select `chi` + `itsstuck` + `ALLOW_U`→mux +
 `nix==mux`→`m_move_aggress` (empty image → DONE)** (D-0790; 
 **`mdisplacem` swap + `update_monster_region` both after defender tail (D-1174)** / 
 `should_displace` prefer / `m_can_break_boulder` / region can_enter / `mfndpos` still omits setting 
-`ALLOW_MDISP`); **D-0794/D-0796 fixed:** seed0360 leftover apprentice was missing `HASTE_SELF` 
+`ALLOW_MDISP`); **`mfndpos` door amorphous-engulfing arm + fixed-tele-track `ALLOW_TRAPS` (D-1868;
+can_fog / corrupt-ttyp impossible still named)**; **D-0794/D-0796 fixed:** seed0360 leftover apprentice was missing `HASTE_SELF` 
 MFAST (EOT `+=24`); prefix **112243→112279**; **`movemon_singlemon` early exits** (D-0795; 
 full `gd_move` / `dmonsfree` deferred); **`m_move` Invis `should_see&&rn2(11)` + 
 stalker/bat/light rn2(3) + leppie_avoidance** (D-0268; shortsighted after track still deferred); 
@@ -2501,7 +2502,7 @@ hero `test_move` `passes_bars` D-1270; **`dissolve_bars` `switch_terrain` D-1259
 **`meatmetal` D-1271**; **`meatobj` D-1284**; **`meatcorpse` D-1285**; 
 `mon_would_consume_item` named; engulfing_u; shop `add_damage`; `has_magic_key` disarm; 
 `is_rider` unlock; full mondied from `mb_trapped`; `finish_meating` mimic AP; 
-cursed-mwep dig-tool gate; huge-quan `rn2` clamp; dogmove `can_carry` still simplified |
+cursed-mwep dig-tool gate **ported D-1868**; huge-quan `rn2` clamp; dogmove `can_carry` still simplified |
 
 ### `src/mondata.c` trap memory / `src/trap.c` web / `maketrap` / `dountrap`
 

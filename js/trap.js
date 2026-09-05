@@ -858,6 +858,15 @@ function maketrap_unearth_objs(x, y) {
     newsym(x, y);
 }
 
+/**
+ * C trap.h fixed_tele_trap — teleport trap with a fixed recorded
+ * destination (a TELEP_TRAP the hero used, not a random one).
+ */
+export function fixed_tele_trap(ttmp) {
+    return !!ttmp && ttmp.ttyp === TELEP_TRAP
+        && isok(ttmp.teledest?.x, ttmp.teledest?.y);
+}
+
 // C ref: trap.c maketrap — creation + SQKY_BOARD / HOLE|TRAPDOOR /
 // ROLLING_BOULDER_TRAP mkroll_launch / STATUE_TRAP mk_trap_statue +
 // PIT/HOLE set_levltyp (D-1280) + DRAWBRIDGE_UP ice→floor (D-1296) +

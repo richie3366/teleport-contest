@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `monmove.c` m_move — 1 corpus block; C `rn2(4)` vs JS `distfleeck` `rn2(5)`.
 - [ ] `mkroom.c` mkswamp — 1 corpus block; C `rn2(5)` vs JS `fill_ordinary_room` `rn2(3)`.
 - [ ] `uhitm.c` mhitm_mgc_atk_negated — 1 corpus block; C `rn2(10)` vs JS `mhitm_knockback` `rn2(6)`.
 - [ ] `hack.c` dopush — 1 corpus block screen-first at step 127 («With great effort you move the boulder.»).

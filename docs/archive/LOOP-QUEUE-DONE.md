@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `allmain.c` maybe_generate_rnd_mon — 1 corpus block; C `rn2(70)` vs JS `rn2(50)`. **Addressed:** D-1867
+- [x] `monmove.c` m_move — 1 corpus block; C `rn2(4)` vs JS `distfleeck` `rn2(5)`. **Addressed:** D-1868
+
+
+- [x] `allmain.c` maybe_generate_rnd_mon — 1 corpus block; C `rn2(70)` vs JS `rn2(50)`. **Addressed:** D-1867 `5c2cb3be`
 
 
 - [x] `do_wear.c` menu_remarm — 2 corpus blocks screen-first at step 42 (take_off path was D-1630). **Addressed:** D-1866 `26386bd7`
