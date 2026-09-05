@@ -1448,7 +1448,8 @@ function reset_xystart_size() {
  * Rog-strt, Rog-loca, Rog-fila, Rog-filb, Rog-goal,
  * Val-strt, Val-loca, Val-fila, Val-filb, Val-goal,
  * Sam-strt, Sam-loca, Sam-fila, Sam-filb, Sam-goal,
- * Hea-strt, Hea-loca, Hea-fila, Hea-filb, Hea-goal, knox.
+ * Hea-strt, Hea-loca, Hea-fila, Hea-filb, Hea-goal,
+ * Tou-loca, Tou-fila, Tou-filb, Tou-goal, knox.
  * Named omissions:
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1762,6 +1763,22 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Hea-goal') {
         load_hea_goal();
+        return true;
+    }
+    if (protofile === 'Tou-loca') {
+        load_tou_loca();
+        return true;
+    }
+    if (protofile === 'Tou-fila') {
+        load_tou_fila();
+        return true;
+    }
+    if (protofile === 'Tou-filb') {
+        load_tou_filb();
+        return true;
+    }
+    if (protofile === 'Tou-goal') {
+        load_tou_goal();
         return true;
     }
     if (protofile === 'knox') {
@@ -8682,6 +8699,523 @@ function load_hea_filb() {
     for (let i = 0; i < 4; i++) splev_create_monster('D', 0);
     for (let i = 0; i < 3; i++) splev_create_monster('S', 0);
     for (let i = 0; i < 4; i++) splev_create_trap();
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Tou-loca.lua via load_special — Tourist quest locate.
+ * Solidfill " " + mazelevel/hardfloor; 76x20 map; whole-map lit region;
+ * morgue (01,01,04,05) + 2 shops + 3 barracks + zoo + temple (all
+ * filled=1 → FILL_NORMAL); 19 ordinary rects are lighting-only
+ * (C lspo_region room_not_needed → litstate_rnd(-1)) + 1 unlit + 1 lit
+ * area; up stair (10,04) + down stair (73,05); whole-map non_diggable;
+ * 31 closed + 4 locked doors; 14 objects + 2 blank paper at (71,12);
+ * 9 traps on '.' minus the 2 shops via rndcoord; 16 spiders + s/s.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_tou_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    const TOU_LOCA_MAP = `
+----------------------------------------------------------------------------
+|....|......|..........|......|......|...|....|.....|......|...............|
+|....|......|.|------|.|......|......|.|.|....|..}..|......|.|----------|..|
+|....|--+----.|......|.|-S---+|+-----|.|.S....|.....|---+--|.|..........+..|
+|....|........|......|.|...|.........|.|------|..............|..........|-+|
+|....+...}}...+......|.|...|.|-----|.|..............|--+----------------|..|
+|----|........|------|.|---|.|.....|......|-----+-|.|.......|...........|--|
+|............................|.....|.|--+-|.......|.|.......|...........|..|
+|----|.....|-------------|...|--+--|.|....|.......|.|-----------+-------|..|
+|....+.....+.........S...|...........|....|-------|........................|
+|....|.....|.........|...|.|---------|....|.........|-------|.|----------|.|
+|....|.....|---------|---|.|......|..+....|-------|.|.......|.+......S.\\.|.|
+|....|.....+.........S...|.|......|..|....|.......|.|.......|.|......|...|.|
+|-------|..|.........|---|.|+-------------------+-|.|.......+.|----------|.|
+|.......+..|---------|.........|.........|..........|.......|.|..........|.|
+|.......|..............|--+--|.|.........|.|----+-----------|.|..........|.|
+|---------+-|--+-----|-|.....|.|.........|.|........|.|.....+.|..........+.|
+|...........|........|.S.....|.|----+----|.|--------|.|.....|.|----------|.|
+|...........|........|.|.....|........................|.....|..............|
+----------------------------------------------------------------------------
+`.replace(/^\n/, '');
+    splev_apply_centered_map(TOU_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,75,19), "lit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, true);
+
+    // C lspo_region rect special rooms: add_room + FILL_NORMAL + topologize
+    // + add_doors_to_room, in lua order
+    const touLocaRoom = (x1, y1, x2, y2, lit, rtype) => {
+        const dx1 = mx + x1, dy1 = my + y1, dx2 = mx + x2, dy2 = my + y2;
+        if ((g.level.nroom | 0) >= MAXNROFROOMS) return;
+        add_room(dx1, dy1, dx2, dy2, lit, rtype, true);
+        const troom = g.level.rooms[(g.level.nroom | 0) - 1];
+        if (!troom) return;
+        troom.rlit = lit ? 1 : 0;
+        troom.needfill = FILL_NORMAL;
+        troom.needjoining = true;
+        topologize(troom);
+        add_doors_to_room(troom);
+    };
+    touLocaRoom(1, 1, 4, 5, false, MORGUE);
+    touLocaRoom(15, 3, 20, 5, true, SHOPBASE);
+    touLocaRoom(62, 3, 71, 4, true, SHOPBASE);
+    touLocaRoom(1, 17, 11, 18, true, BARRACKS);
+    touLocaRoom(12, 9, 20, 10, true, BARRACKS);
+    touLocaRoom(53, 11, 59, 14, true, ZOO);
+    touLocaRoom(63, 14, 72, 16, true, BARRACKS);
+    touLocaRoom(32, 14, 40, 16, true, TEMPLE);
+
+    // ordinary rects: room_not_needed → lighting only (litstate_rnd(-1));
+    // selection areas → light_region; all in lua order
+    const touOrd = (x1, y1, x2, y2) => {
+        light_region(mx + x1, my + y1, mx + x2, my + y2, litstate_rnd(-1));
+    };
+    touOrd(6, 1, 11, 2);
+    touOrd(24, 1, 29, 2);
+    touOrd(31, 1, 36, 2);
+    touOrd(42, 1, 45, 3);
+    touOrd(53, 1, 58, 2);
+    touOrd(24, 4, 26, 5);
+    touOrd(30, 6, 34, 7);
+    light_region(mx + 73, my + 5, mx + 74, my + 5, false);
+    touOrd(1, 9, 4, 12);
+    touOrd(1, 14, 7, 15);
+    touOrd(12, 12, 20, 13);
+    touOrd(13, 17, 20, 18);
+    touOrd(22, 9, 24, 10);
+    touOrd(22, 12, 24, 12);
+    touOrd(24, 16, 28, 18);
+    touOrd(28, 11, 33, 12);
+    light_region(mx + 35, my + 11, mx + 36, my + 12, true);
+    touOrd(38, 8, 41, 12);
+    touOrd(43, 7, 49, 8);
+    touOrd(43, 12, 49, 12);
+    touOrd(44, 16, 51, 16);
+    touOrd(53, 6, 59, 7);
+    touOrd(61, 6, 71, 7);
+    touOrd(55, 16, 59, 18);
+    touOrd(63, 11, 68, 12);
+    touOrd(70, 11, 72, 12);
+
+    // des.stair("up", 10,04) + des.stair("down", 73,05)
+    mkstairs(mx + 10, my + 4, 1, null);
+    mkstairs(mx + 73, my + 5, 0, null);
+
+    // des.non_diggable(selection.area(00,00,75,19)) × 2 (lua :33 + :74,
+    // idempotent) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.door × 35 in lua order (31 closed + 4 locked)
+    const touLocaDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    touLocaDoor(5, 5, D_CLOSED);
+    touLocaDoor(5, 9, D_CLOSED);
+    touLocaDoor(8, 14, D_CLOSED);
+    touLocaDoor(8, 3, D_CLOSED);
+    touLocaDoor(11, 9, D_CLOSED);
+    touLocaDoor(11, 12, D_CLOSED);
+    touLocaDoor(10, 16, D_CLOSED);
+    touLocaDoor(14, 5, D_CLOSED);
+    touLocaDoor(15, 16, D_CLOSED);
+    touLocaDoor(21, 9, D_LOCKED);
+    touLocaDoor(21, 12, D_LOCKED);
+    touLocaDoor(23, 17, D_CLOSED);
+    touLocaDoor(25, 3, D_CLOSED);
+    touLocaDoor(26, 15, D_CLOSED);
+    touLocaDoor(29, 3, D_CLOSED);
+    touLocaDoor(28, 13, D_CLOSED);
+    touLocaDoor(31, 3, D_CLOSED);
+    touLocaDoor(32, 8, D_CLOSED);
+    touLocaDoor(37, 11, D_CLOSED);
+    touLocaDoor(36, 17, D_CLOSED);
+    touLocaDoor(41, 3, D_LOCKED);
+    touLocaDoor(40, 7, D_CLOSED);
+    touLocaDoor(48, 6, D_CLOSED);
+    touLocaDoor(48, 13, D_CLOSED);
+    touLocaDoor(48, 15, D_CLOSED);
+    touLocaDoor(56, 3, D_CLOSED);
+    touLocaDoor(55, 5, D_CLOSED);
+    touLocaDoor(72, 3, D_CLOSED);
+    touLocaDoor(74, 4, D_LOCKED);
+    touLocaDoor(64, 8, D_CLOSED);
+    touLocaDoor(62, 11, D_CLOSED);
+    touLocaDoor(69, 11, D_CLOSED);
+    touLocaDoor(60, 13, D_CLOSED);
+    touLocaDoor(60, 16, D_CLOSED);
+    touLocaDoor(73, 16, D_CLOSED);
+
+    // des.object() × 14
+    for (let i = 0; i < 14; i++) splev_create_object(null);
+    // toilet paper: 2× blank paper at (71,12)
+    mksobj_at(SCR_BLANK_PAPER, mx + 71, my + 12, true, true);
+    mksobj_at(SCR_BLANK_PAPER, mx + 71, my + 12, true, true);
+
+    // 9 traps on '.' minus the 2 shops (C filter_mapchar + rndcoord(1))
+    {
+        let validtraps = selection_and(
+            selection_fillrect(mx + 0, my + 0, mx + 75, my + 19),
+            selection_match_mapfrag('.'),
+        );
+        validtraps = selection_and(validtraps,
+            selection_not(selection_fillrect(mx + 15, my + 3, mx + 20, my + 5)));
+        validtraps = selection_and(validtraps,
+            selection_not(selection_fillrect(mx + 62, my + 3, mx + 71, my + 4)));
+        for (let i = 0; i < 9; i++) {
+            const pos = selection_rndcoord(validtraps, true);
+            if (!pos) continue;
+            let kind;
+            do { kind = traptype_rnd(); } while (kind === NO_TRAP);
+            if (is_hole(kind) && !Can_fall_thru(g.u?.uz)) kind = ROCKTRAP;
+            const ttmp = maketrap(pos.x, pos.y, kind);
+            mktrap_seen_victim(ttmp, {});
+        }
+    }
+
+    // random monsters, in lua order
+    for (let i = 0; i < 16; i++) splev_create_monster('giant spider', undefined);
+    splev_create_monster('s', undefined);
+    splev_create_monster('s', undefined);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Tou-goal.lua via load_special — Tourist quest goal (Master of
+ * Thieves). Solidfill " " + mazelevel; 76x20 town map; whole-map lit region;
+ * Inn/barracks/police/town/morgue/shop light rects + 3 barracks + morgue +
+ * 2 shops (filled=1 → FILL_NORMAL); whole-map non_diggable; up stair
+ * (70,08); 9 locked + 8 closed + 7 random + 3 open doors; the Platinum
+ * Yendorian Express Card + 14 objects; 6 traps on '.' minus the shops via
+ * rndcoord; hostile Master of Thieves + spiders + s/s + succubi/incubi +
+ * Kops + prisoners + watchman; des.wallify() before the epilogue.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_tou_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const TOU_GOAL_MAP = `
+----------------------------------------------------------------------------
+|.........|.........|..........|..| |.................|........|........|..|
+|.........|.........|..........|..| |....--------.....|........|........|..|
+|------S--|--+-----------+------..| |....|......|.....|........|........|..|
+|.........|.......................| |....|......+.....--+-------------+--..|
+|.........|.......................| |....|......|..........................|
+|-S-----S-|......----------.......| |....|......|..........................|
+|..|..|...|......|........|.......| |....-----------.........----..........|
+|..+..+...|......|........|.......| |....|.........|.........|}}|..........|
+|..|..|...|......+........|.......| |....|.........+.........|}}|..........|
+|..|..|...|......|........|.......S.S....|.........|.........----..........|
+|---..----|......|........|.......| |....|.........|.......................|
+|.........+......|+F-+F-+F|.......| |....-----------.......................|
+|---..----|......|..|..|..|.......| |......................--------------..|
+|..|..|...|......--F-F--F--.......| |......................+............|..|
+|..+..+...|.......................| |--.---...-----+-----..|............|..|
+|--|..----|--+-----------+------..| |.....|...|.........|..|------------|..|
+|..+..+...|.........|..........|..| |.....|...|.........|..+............|..|
+|..|..|...|.........|..........|..| |.....|...|.........|..|............|..|
+----------------------------------------------------------------------------
+`.replace(/^\n/, '');
+    splev_apply_centered_map(TOU_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,75,19), "lit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, true);
+
+    // C lspo_region rect special rooms: add_room + FILL_NORMAL + topologize
+    // + add_doors_to_room, in lua order
+    const touGoalRoom = (x1, y1, x2, y2, lit, rtype) => {
+        const dx1 = mx + x1, dy1 = my + y1, dx2 = mx + x2, dy2 = my + y2;
+        if ((g.level.nroom | 0) >= MAXNROFROOMS) return;
+        add_room(dx1, dy1, dx2, dy2, lit, rtype, true);
+        const troom = g.level.rooms[(g.level.nroom | 0) - 1];
+        if (!troom) return;
+        troom.rlit = lit ? 1 : 0;
+        troom.needfill = FILL_NORMAL;
+        troom.needjoining = true;
+        topologize(troom);
+        add_doors_to_room(troom);
+    };
+    // The Inn + Police Station + town lighting, in lua order
+    light_region(mx + 1, my + 1, mx + 9, my + 2, true);
+    touGoalRoom(1, 4, 9, 5, true, BARRACKS);
+    light_region(mx + 1, my + 7, mx + 2, my + 10, false);
+    light_region(mx + 7, my + 7, mx + 9, my + 10, false);
+    light_region(mx + 1, my + 14, mx + 2, my + 15, false);
+    light_region(mx + 7, my + 14, mx + 9, my + 15, false);
+    light_region(mx + 1, my + 17, mx + 2, my + 18, false);
+    light_region(mx + 7, my + 17, mx + 9, my + 18, false);
+    touGoalRoom(11, 1, 19, 2, false, BARRACKS);
+    light_region(mx + 21, my + 1, mx + 30, my + 2, false);
+    touGoalRoom(11, 17, 19, 18, false, BARRACKS);
+    light_region(mx + 21, my + 17, mx + 30, my + 18, false);
+    light_region(mx + 18, my + 7, mx + 25, my + 11, true);
+    light_region(mx + 18, my + 13, mx + 19, my + 13, false);
+    light_region(mx + 21, my + 13, mx + 22, my + 13, false);
+    light_region(mx + 24, my + 13, mx + 25, my + 13, false);
+    light_region(mx + 42, my + 3, mx + 47, my + 6, false);
+    light_region(mx + 42, my + 8, mx + 50, my + 11, false);
+    touGoalRoom(37, 16, 41, 18, false, MORGUE);
+    light_region(mx + 47, my + 16, mx + 55, my + 18, false);
+    light_region(mx + 55, my + 1, mx + 62, my + 3, false);
+    light_region(mx + 64, my + 1, mx + 71, my + 3, false);
+    touGoalRoom(60, 14, 71, 15, true, SHOPBASE);
+    touGoalRoom(60, 17, 71, 18, true, SHOPBASE);
+
+    // des.non_diggable(selection.area(00,00,75,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.stair("up", 70,08)
+    mkstairs(mx + 70, my + 8, 1, null);
+
+    // des.door × 27 in lua order (9 locked + 8 closed + 7 random + 3 open)
+    const touGoalDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    touGoalDoor(7, 3, D_LOCKED);
+    touGoalDoor(2, 6, D_LOCKED);
+    touGoalDoor(8, 6, D_LOCKED);
+    touGoalDoor(3, 8, D_CLOSED);
+    touGoalDoor(6, 8, D_CLOSED);
+    touGoalDoor(10, 12, D_ISOPEN);
+    touGoalDoor(3, 15, D_CLOSED);
+    touGoalDoor(6, 15, D_CLOSED);
+    touGoalDoor(3, 17, D_CLOSED);
+    touGoalDoor(6, 17, D_CLOSED);
+    touGoalDoor(13, 3, D_CLOSED);
+    touGoalDoor(25, 3, rnddoor());
+    touGoalDoor(13, 16, D_CLOSED);
+    touGoalDoor(25, 16, rnddoor());
+    touGoalDoor(17, 9, D_LOCKED);
+    touGoalDoor(18, 12, D_LOCKED);
+    touGoalDoor(21, 12, D_LOCKED);
+    touGoalDoor(24, 12, D_LOCKED);
+    touGoalDoor(34, 10, D_LOCKED);
+    touGoalDoor(36, 10, D_LOCKED);
+    touGoalDoor(48, 4, rnddoor());
+    touGoalDoor(56, 4, rnddoor());
+    touGoalDoor(70, 4, rnddoor());
+    touGoalDoor(51, 9, rnddoor());
+    touGoalDoor(51, 15, rnddoor());
+    touGoalDoor(59, 14, D_ISOPEN);
+    touGoalDoor(59, 17, D_ISOPEN);
+
+    // The Platinum Yendorian Express Card + 14 random objects
+    l_create_object({
+        id: 'credit card', x: 4, y: 1, buc: 'blessed', spe: 0,
+        name: 'The Platinum Yendorian Express Card',
+    });
+    for (let i = 0; i < 14; i++) splev_create_object(null);
+
+    // 6 traps on '.' minus the 2 shops (C filter_mapchar + rndcoord(1))
+    {
+        let validtraps = selection_and(
+            selection_fillrect(mx + 0, my + 0, mx + 75, my + 19),
+            selection_match_mapfrag('.'),
+        );
+        validtraps = selection_and(validtraps,
+            selection_not(selection_fillrect(mx + 60, my + 14, mx + 71, my + 18)));
+        for (let i = 0; i < 6; i++) {
+            const pos = selection_rndcoord(validtraps, true);
+            if (!pos) continue;
+            let kind;
+            do { kind = traptype_rnd(); } while (kind === NO_TRAP);
+            if (is_hole(kind) && !Can_fall_thru(g.u?.uz)) kind = ROCKTRAP;
+            const ttmp = maketrap(pos.x, pos.y, kind);
+            mktrap_seen_victim(ttmp, {});
+        }
+    }
+
+    // Master of Thieves + siege monsters, in lua order
+    splev_create_monster('Master of Thieves', 0, { rx: 4, ry: 1 });
+    for (let i = 0; i < 16; i++) splev_create_monster('giant spider', undefined);
+    splev_create_monster('s', undefined);
+    splev_create_monster('s', undefined);
+    // ladies of the evening (default peaceful)
+    splev_create_monster('succubus', undefined, { rx: 2, ry: 8 });
+    splev_create_monster('succubus', undefined, { rx: 8, ry: 8 });
+    splev_create_monster('incubus', undefined, { rx: 2, ry: 14 });
+    splev_create_monster('incubus', undefined, { rx: 8, ry: 14 });
+    splev_create_monster('incubus', undefined, { rx: 2, ry: 17 });
+    splev_create_monster('incubus', undefined, { rx: 8, ry: 17 });
+    // police station hostiles
+    splev_create_monster('Kop Kaptain', 0, { rx: 24, ry: 9 });
+    splev_create_monster('Kop Lieutenant', 0, { rx: 20, ry: 9 });
+    splev_create_monster('Kop Lieutenant', 0, { rx: 22, ry: 11 });
+    splev_create_monster('Kop Lieutenant', 0, { rx: 22, ry: 7 });
+    splev_create_monster('Keystone Kop', 0, { rx: 19, ry: 7 });
+    splev_create_monster('Keystone Kop', 0, { rx: 19, ry: 8 });
+    splev_create_monster('Keystone Kop', 0, { rx: 22, ry: 9 });
+    splev_create_monster('Keystone Kop', 0, { rx: 24, ry: 11 });
+    splev_create_monster('Keystone Kop', 0, { rx: 19, ry: 11 });
+    // drunken prisoners (default peaceful)
+    splev_create_monster('prisoner', undefined, { rx: 19, ry: 13 });
+    splev_create_monster('prisoner', undefined, { rx: 21, ry: 13 });
+    splev_create_monster('prisoner', undefined, { rx: 24, ry: 13 });
+    // town watchman hostile
+    splev_create_monster('watchman', 0, { rx: 33, ry: 10 });
+
+    // des.wallify() — C lspo_wallify no-arg: xstart-1 .. xstart+xsize+1
+    wallify_map(
+        (g.splev_xstart | 0) - 1,
+        (g.splev_ystart | 0) - 1,
+        (g.splev_xstart | 0) + (g.splev_xsize | 0) + 1,
+        (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
+    );
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Tou-fila.lua via load_special — Tourist quest upper filler.
+ * Solidfill " " + mazelevel/noflip; mines fg="." bg=" " (no lit key,
+ * smoothed/joined/walled); random up/down stairs; 7 objects; 4 random
+ * traps; 5 hostile soldiers + hostile class H + hostile class C.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_tou_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg=" " (no lit key in lua),
+    // smoothed/joined/walled — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: STONE, filling: ROOM,
+        smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 7; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+    for (let i = 0; i < 5; i++) splev_create_monster('soldier', 0);
+    splev_create_monster('H', 0);
+    splev_create_monster('C', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Tou-filb.lua via load_special — Tourist quest lower filler.
+ * Solidfill " " + mazelevel/noflip; mines fg="." bg=" " (no lit key,
+ * smoothed/joined/walled); random up/down stairs; 11 objects; 4 random
+ * traps; hostile soldier + 2 captains + 2 class H + class C + s.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_tou_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg=" " (no lit key in lua),
+    // smoothed/joined/walled — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: STONE, filling: ROOM,
+        smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 11; i++) splev_create_object(null);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+    splev_create_monster('soldier', 0);
+    splev_create_monster('captain', 0);
+    splev_create_monster('captain', 0);
+    splev_create_monster('H', 0);
+    splev_create_monster('H', 0);
+    splev_create_monster('C', 0);
+    splev_create_monster('s', 0);
 
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);

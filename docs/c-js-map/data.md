@@ -1250,6 +1250,11 @@ coords + Tsurugi + rn2 ring holes; fila mines no-lit-key);
 **Hea-strt/loca/goal/fila/filb** (D-1885; Healer quest 5/5:
 Hippocrates silver-dagger invent + P→room chance-10 replace + chaos-shrine
 priestini + Staff of Aesculapius + Cyclops; ';'→S_EEL class fix);
+**Tou-loca/goal/fila/filb** (D-1887; Tourist quest 4/5:
+morgue/shop/barracks/zoo/temple FILL_NORMAL rects + ordinary-rect
+lighting-only (litstate_rnd(-1)) + blank-paper pair + '.'-minus-shops
+rndcoord traps + Platinum Yendorian Express Card + Kops + des.wallify();
+fila/filb mines no-lit-key; Tou-strt ships next);
 **knox** (D-1853; Fort Ludios
 76x20 solidfill vault: branch + up/down tele, throne COURT, vault gold/trap
 iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `objnam.c` readobjnam_postparse1 — 1 corpus block screen-first (topline) at step 345 («%a piece of food (a food ration)--More--» vs «·a doorway or the floor of a room or the dark part of a room or ice»; random-seed0367-priest-quest-tour-01388a3a; follow-up owner after the getpos_help port above). **Addressed:** D-1886
+- [x] `mkmaze.c` makemaz `tou-strt` — Tourist quest start 4/5 (134 ln; Twoflower + branch levregion; loca/goal/fila/filb ship D-1887). From `dat/Tou-strt.lua` (HELDOUT Tier B). **Addressed:** D-1887
+
+
+- [x] `objnam.c` readobjnam_postparse1 — 1 corpus block screen-first (topline) at step 345 («%a piece of food (a food ration)--More--» vs «·a doorway or the floor of a room or the dark part of a room or ice»; random-seed0367-priest-quest-tour-01388a3a; follow-up owner after the getpos_help port above). **Addressed:** D-1886 `43cb30b8`
 
 
 - [x] `mkmaze.c` makemaz `hea-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Healer quest 0/5 (388 ln; Healer 2/44 sessions, incl. active tour-Healer corpus session). From `dat/hea-*.lua` (HELDOUT Tier B). **Addressed:** D-1885 `b344cc6f`
