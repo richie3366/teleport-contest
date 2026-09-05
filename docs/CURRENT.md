@@ -76,7 +76,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `mdlib.c` version_id_string — 1 corpus block screen-first at step 83 («MacOS NetHack Version 5.0.0 - last build May 2 2026 12:00:00» vs «Unknown command 'V'.»; random-seed0900-tourist-explore-actions-614da9aa).
+**Next cluster:** Open `invent.c` dolook — 1 corpus block screen-first at step 18 («You see here a historic statue of a forest centaur.» vs «You see here a statue of a forest centaur.»; tour-Archeologist-70010-d3-6-10-11-12).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1881 (index).** Recent **D-1820:** `makemaz` `soko2-2`
