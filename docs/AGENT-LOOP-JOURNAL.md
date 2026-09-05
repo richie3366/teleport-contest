@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1863 vision.c pit 3×3 + post-rhack recalc (mthrowu.c linedup owner)
+
+**C locus:** `vision.c` `vision_recalc` `:609–622` (`u.utrap && u.utraptype == TT_PIT` → only the immediate 3×3 is IN_SIGHT|COULD_SEE; xray/night-vision still apply) + `allmain.c` `:541–542` (post-`rhack()` `if (vision_full_recalc) vision_recalc(0)`); symptom `mthrowu.c` `linedup` `:1335–1373` (`u_at ? couldsee : clear_path`, then `rn2(2+boulderspots)` walk).
+**JS:** `js/vision.js` `vision_recalc` pit arm + `TT_PIT` import + header/doc touch; `js/allmain.js` `moveloop_core` post-`rhack` recalc; `docs/c-js-map/data.md` vision section (pit retired, underwater still named).
+**Change:** port the TT_PIT 3×3 arm in C order (row `continue`/`break`, direct `next_rmin/rmax` assign, xray/nv/lights/update flow untouched) + add the post-`rhack`/`deferred_goto` `vision_full_recalc` consume in `moveloop_core` (mirrors the pre-display site; early-`return` occupation path still skips it, as in C). No new module edges (`TT_PIT` from `const.js`).
+**Verify:** `node scripts/verify.mjs --fn linedup` → PASS syntax (2 changed js files: js/allmain.js js/vision.js) · PASS rule2 · PASS hidden verify linedup: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Healer-70025-d5-8-15-17-22: moved → climb_pit at step 46 (was 45)) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). Row diff read: JS `linedup` now draws `rn2(2)` on the boulder walk like C; the next first-diff is C `rn2(2)=0 @ climb_pit(trap.c:4197)` vs JS `distfleeck` — the `trapmove` TT_PIT `climb_pit` stub draws nothing (split to its own row, callee audit: `m_easy_escape_pit` missing, `Passes_walls` triple-cloned).
+**Named:** underwater `has_night_vision=0` + pool 3×3 (`vision.c` pit-adjacent arm, still named in code + map); `climb_pit` full body (own Open row).
+**Next:** Open `trap.c` `climb_pit` (appended this commit; falsifier `node scripts/hidden-proxy.mjs verify climb_pit`).
 ## 2026-09-05 — D-1862 artifact.c spec_applies ATTK resists (uhitm.c hitum owner)
 
 **C locus:** `artifact.c` `spec_applies` `:1008–1060` SPFX_ATTK switch (via `weapon.c` `hitval` `:184` `if (otmp->oartifact) tmp += spec_abon(otmp, mon)` ← `uhitm.c` `find_roll_to_hit` ← `hitum` `:778`); `spec_abon` `:1076–1087` draws `rnd(damn)` only when `spec_applies`; Aleax `monsters.h:1215` has `MR_COLD|MR_ELEC|MR_SLEEP|MR_POISON`; Mjollnir artilist `AD_ELEC damn 5`.

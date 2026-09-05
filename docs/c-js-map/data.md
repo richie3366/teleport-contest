@@ -890,8 +890,11 @@ circle** (`:670–700`; `has_night_vision && xray_range < nv_range`;
 lighting-loop 3×3 stand-in retired; `u_init_misc` nv_range=1);
 **D-1574 `unblock_point`/`dig_point`**;
 **D-1576 region per-cell block/unblock**;
-pit TT_PIT / underwater `has_night_vision=0` + pool 3×3 /
-`notice_all_mons` named
+**D-1863 `vision_recalc` pit TT_PIT 3×3** (`vision.c:609–622`; `u.utrap &&
+u.utraptype == TT_PIT` → immediate 3×3 IN_SIGHT|COULD_SEE, xray/nv still
+apply) + **post-`rhack` `vision_full_recalc` consume** (`allmain.c:541–542`;
+monsters next iteration see post-hero-action vision);
+underwater `has_night_vision=0` + pool 3×3 / `notice_all_mons` still named
 
 ### `src/trap.c`
 

@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1863 — vision.c pit 3×3 + post-rhack recalc (mthrowu.c linedup owner)
+
+- **Status:** fixed (Open queue row; 1 corpus block moved past to a later owner — 0 PASS, 1 moved past to `climb_pit` at step 46 (was 45); green + cohort + full `sessions` 44/44)
+- **Symptom:** tour-Healer-70025-d5-8-15-17-22 step 45/50 kind=rng at mthrowu.c:1389 — C `rn2(2)=1 @ linedup` vs JS `rn2(16)=1 @ m_move(monmove.js:1795)` (mtrack `rn2(4*(cnt-j))`). Same topline «You fall into a pit!». C draw order this step: `trapeffect_pit` `rn2(6)`/`rnd(6)` (fall) → `exercise` ×2 → `distfleeck` `rn2(5)=0` → `linedup` `rn2(2)=1` → `m_move` `rn2(16)`.
+- **C locus:** `vision.c` `vision_recalc` `:609–622` (`u.utrap && u.utraptype == TT_PIT` → only the immediate 3×3 is IN_SIGHT|COULD_SEE; xray/night-vision still apply) + `allmain.c` `:541–542` (post-`rhack()` `if (vision_full_recalc) vision_recalc(0)`); symptom `mthrowu.c` `linedup` `:1335–1373` (`u_at ? couldsee : clear_path`, then `rn2(2+boulderspots)` walk).
+- **JS was:** two gaps composed. (1) `js/vision.js` `vision_recalc` omitted the TT_PIT arm (named) so a trapped hero kept full `view_from`. (2) `js/allmain.js` `moveloop_core` omitted the post-`rhack` consume, so next iteration's monsters moved on stale full viz. Measured (temp decision trace, reverted): JS `m_lined_up` utarget hero `(43,5)` vs rust monster `(43,11)` bh=2, `u_at`/`couldsee`/`clear_path` all TRUE → early TRUE, no draw; C's `rn2(2)` proves straight + in-range + LOS-false + bh≠0 + clean walk with 0 boulders. `geom-probe` 0 terrain diffs; VIS log showed `utrap=0` at the last pre-divergence recalc and `utrap=7/TT_PIT` only after — the post-fall recalc never ran before the monsters.
+- **Fix:** port the TT_PIT 3×3 arm in C order (row `continue`/`break`, direct `next_rmin/rmax` assign, xray/nv/lights/update flow untouched) + add the post-`rhack`/`deferred_goto` `vision_full_recalc` consume in `moveloop_core` (mirrors the pre-display site; early-`return` occupation path still skips it, as in C). No new module edges (`TT_PIT` from `const.js`).
+- **JS:** `js/vision.js` `vision_recalc` pit arm + `TT_PIT` import + header/doc touch; `js/allmain.js` `moveloop_core` post-`rhack` recalc; `docs/c-js-map/data.md` vision section (pit retired, underwater still named).
+- **Verify:** `node scripts/verify.mjs --fn linedup` → PASS syntax (2 changed js files: js/allmain.js js/vision.js) · PASS rule2 · PASS hidden verify linedup: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Healer-70025-d5-8-15-17-22: moved → climb_pit at step 46 (was 45)) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). Row diff read: JS `linedup` now draws `rn2(2)` on the boulder walk like C; the next first-diff is C `rn2(2)=0 @ climb_pit(trap.c:4197)` vs JS `distfleeck` — the `trapmove` TT_PIT `climb_pit` stub draws nothing (split to its own row, callee audit: `m_easy_escape_pit` missing, `Passes_walls` triple-cloned).
+- **Named omissions:** underwater `has_night_vision=0` + pool 3×3 (`vision.c` pit-adjacent arm, still named in code + map); `climb_pit` full body (own Open row).
+- **Next:** Open `trap.c` `climb_pit` (appended this commit; falsifier `node scripts/hidden-proxy.mjs verify climb_pit`).
+
 ## D-1862 — artifact.c spec_applies ATTK resists (uhitm.c hitum owner)
 
 - **Status:** fixed (Open queue row; hitum block cleared — 0 PASS, 2 moved past to `artifact_hit` at the same step, allowed same-step re-attribution; green + cohort PASS)

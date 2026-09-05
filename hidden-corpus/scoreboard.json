@@ -1,6 +1,6 @@
 {
- "commit": "5e4b0423",
- "at": "2026-09-05T10:56:43.787Z",
+ "commit": "fe799525",
+ "at": "2026-09-05T11:17:03.956Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4204,18 +4204,18 @@
   "tour-Healer-70025-d5-8-15-17-22": {
    "src": "corpus",
    "passed": false,
-   "rngM": 18497,
+   "rngM": 18533,
    "rngT": 18648,
    "scrM": 46,
    "scrT": 50,
    "kind": "rng",
-   "step": 45,
+   "step": 46,
    "steps": 50,
-   "owner": "linedup",
-   "loc": "mthrowu.c:1389",
-   "jsOwner": "m_move(monmove.js:1795)",
-   "cTopline": "You fall into a pit!",
-   "jsTopline": "You fall into a pit!",
+   "owner": "climb_pit",
+   "loc": "trap.c:4197",
+   "jsOwner": "distfleeck(monmove.js:805)",
+   "cTopline": "You are still in a pit.",
+   "jsTopline": "",
    "error": null
   },
   "tour-Knight-70007-d3-6-10-11-12": {
