@@ -1203,8 +1203,10 @@ positioned `create_room`** (D-0226) + **nested mid/inner create_subroom/door** (
 **Water-surrounded vault map + region/chests/escape/`readobjnam`/undead/`lspo_exclusion`** 
 (D-0690/D-1109); **Buried zombies fill** (D-0247; 
 shuffle + buried CORPSE/`set_corpsenm`/`bury`/`zombify` timer); 
-**sized rectangular outer rooms** Fake Delphi/Huge/Mausoleum/Random feature/Twin (D-0248; 
-nested bodies deferred); **Pillars terr shuffle + 2×2 terrain** (D-0901); 
+**sized rectangular outer rooms** Fake Delphi/Huge/Mausoleum/Random feature/Twin (D-0248) +
+**nested `des.room` via `splev_des_room`/`build_room` chance** Fake Delphi / Room-in-a-room /
+Huge / Mausoleum / Twin (D-1836; `filled` default 0 in `in_mk_themerooms`; weapon+armor
+`splev_roomtype`); **Pillars terr shuffle + 2×2 terrain** (D-0901); 
 **Temple of the gods fill** + themes `splev_align` store (D-0895; 
 three `create_altar`/`get_free_room_loc`); 
 **Cloud room fill** + `lspo_gas_cloud`/`create_gas_cloud_selection` (D-1158; 
@@ -1214,8 +1216,7 @@ needs_unlit `rm.lit==false`; callee D-1533 `o->lit` `begin_burn`; not
 `create_object_themed`/`mksobj_at`); **Kni-goal** (D-0928 #1134) + **Kni-strt/loca/fila/filb** (D-1829; Camelot
 mines-kludge + Isle of Glass swamp mines + fillers); **Rog-strt/loca/goal/fila/filb** (D-1830; Rogue quest 5/5:
 shuffle-exit mimics `S_dnstair` + floodfill streets + Master Key); full Lua VM + remaining `des.*` still production requirement; 
-Room-in-room nested create_subroom + Pillars terrain + 
-Mausoleum/Twin/Fake Delphi/Huge nested bodies + 
+Random-feature center terrain + 
 other fill bodies (Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/Statuary/…) 
 + garden/dig postprocess absent; exclusion_zones save/rest deferred
 

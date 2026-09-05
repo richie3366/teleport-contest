@@ -24,6 +24,7 @@ import {
     SHOPBASE, COURT, ZOO, BEEHIVE, MORGUE, BARRACKS, SWAMP, TEMPLE,
     LEPREHALL, COCKNEST, ANTHOLE,
     FOODSHOP, TOOLSHOP, CANDLESHOP, FODDERSHOP, WANDSHOP, BOOKSHOP,
+    WEAPONSHOP, ARMORSHOP,
     W_NORTH, W_SOUTH, W_EAST, W_WEST, W_ANY, W_RANDOM, D_SECRET,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
     IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
@@ -15164,6 +15165,7 @@ function splev_roomtype(name, defval = OROOM) {
     if (!name) return defval;
     const map = {
         ordinary: OROOM,
+        themed: THEMEROOM,
         temple: TEMPLE,
         morgue: MORGUE,
         delphi: DELPHI,
@@ -15176,6 +15178,8 @@ function splev_roomtype(name, defval = OROOM) {
         'food shop': FOODSHOP,
         'health food shop': FODDERSHOP,
         'candle shop': CANDLESHOP,
+        'weapon shop': WEAPONSHOP,
+        'armor shop': ARMORSHOP,
     };
     return map[String(name).toLowerCase()] ?? defval;
 }
@@ -15364,7 +15368,8 @@ function splev_build_room(opts, parent) {
     const h = opts.h ?? -1;
     const xalign = opts.xalign ?? -1;
     const yalign = opts.yalign ?? -1;
-    const needfill = opts.filled ?? 1;
+    // C lspo_room: filled default 0 in themed rooms, else 1
+    const needfill = opts.filled ?? (g.in_mk_themerooms ? 0 : 1);
     const joined = opts.joined ?? true;
 
     let ok = false;
@@ -21065,6 +21070,140 @@ function themeroom_nesting_contents(croom) {
     if (!mid && game.in_mk_themerooms) game.themeroom_failed = true;
 }
 
+/** C lspo_room: nested des.room fail sets gt.themeroom_failed. */
+function themeroom_nested_room(opts, parent, contentsFn) {
+    const inner = splev_des_room(opts, parent, contentsFn);
+    if (!inner && game.in_mk_themerooms) game.themeroom_failed = true;
+    return inner;
+}
+
+/**
+ * C ref: themerms.lua "Fake Delphi" contents after outer des.room —
+ * inner ordinary 3×3 at (4,3) + random door.
+ */
+function themeroom_fake_delphi_contents(croom) {
+    themeroom_nested_room(
+        { type: 'ordinary', x: 4, y: 3, w: 3, h: 3, filled: 1 },
+        croom,
+        (inner) => {
+            splev_room_door(inner, 'random', 'all');
+        },
+    );
+}
+
+/**
+ * C ref: themerms.lua "Room in a room" contents — nested ordinary +
+ * random door (outer is fully-random create_room).
+ */
+function themeroom_room_in_room_contents(croom) {
+    themeroom_nested_room(
+        { type: 'ordinary' },
+        croom,
+        (inner) => {
+            splev_room_door(inner, 'random', 'all');
+        },
+    );
+}
+
+/**
+ * C ref: themerms.lua "Huge room with another room inside" contents —
+ * percent(90) nested ordinary + random door, optional second door.
+ */
+function themeroom_huge_contents(croom) {
+    if (!percent(90)) return;
+    themeroom_nested_room(
+        { type: 'ordinary', filled: 1 },
+        croom,
+        (inner) => {
+            splev_room_door(inner, 'random', 'all');
+            if (percent(50)) splev_room_door(inner, 'random', 'all');
+        },
+    );
+}
+
+/**
+ * C ref: themerms.lua "Mausoleum" contents — 1×1 themed cell at center,
+ * mummy/vampire/lich/zombie or human corpse, optional secret door.
+ */
+function themeroom_mausoleum_contents(croom) {
+    const rmWidth = 1 + (croom.hx - croom.lx);
+    const rmHeight = 1 + (croom.hy - croom.ly);
+    // Lua (rm.width-1)/2 is an integral float for odd outer sizes.
+    const cx = Math.trunc((rmWidth - 1) / 2);
+    const cy = Math.trunc((rmHeight - 1) / 2);
+    themeroom_nested_room(
+        { type: 'themed', x: cx, y: cy, w: 1, h: 1, joined: false },
+        croom,
+        (inner) => {
+            if (percent(50)) {
+                const mons = ['M', 'V', 'L', 'Z'];
+                nhlib_shuffle(mons);
+                splev_create_monster(mons[0], undefined, {
+                    croom: inner, rx: 0, ry: 0, waiting: 1,
+                });
+            } else {
+                l_create_object(
+                    { id: 'corpse', montype: '@', coord: [0, 0] },
+                    null,
+                    inner,
+                );
+            }
+            if (percent(20)) splev_room_door(inner, 'secret', 'all');
+        },
+    );
+}
+
+/**
+ * C ref: themerms.lua "Twin businesses" contents — eight aisle placements
+ * (percent walls at table-build), swapped shops, two 3×3 joined=false
+ * nested rooms with shopdoorstate doors.
+ */
+function themeroom_twin_businesses_contents(croom) {
+    const southeast = () => (percent(50) ? 'south' : 'east');
+    const northeast = () => (percent(50) ? 'north' : 'east');
+    const northwest = () => (percent(50) ? 'north' : 'west');
+    const southwest = () => (percent(50) ? 'south' : 'west');
+    // Lua table constructor order: each southeast()/… call as written.
+    const placements = [
+        { lx: 1, ly: 1, rx: 4, ry: 1, lwall: 'south', rwall: southeast() },
+        { lx: 1, ly: 2, rx: 4, ry: 2, lwall: 'north', rwall: northeast() },
+        { lx: 1, ly: 1, rx: 5, ry: 1, lwall: southeast(), rwall: southwest() },
+        { lx: 1, ly: 1, rx: 5, ry: 2, lwall: southeast(), rwall: northwest() },
+        { lx: 1, ly: 2, rx: 5, ry: 1, lwall: northeast(), rwall: southwest() },
+        { lx: 1, ly: 2, rx: 5, ry: 2, lwall: northeast(), rwall: northwest() },
+        { lx: 2, ly: 1, rx: 5, ry: 1, lwall: southwest(), rwall: 'south' },
+        { lx: 2, ly: 2, rx: 5, ry: 2, lwall: northwest(), rwall: 'north' },
+    ];
+    let ltype = 'weapon shop';
+    let rtype = 'armor shop';
+    if (percent(50)) {
+        const tmp = ltype;
+        ltype = rtype;
+        rtype = tmp;
+    }
+    const shopdoorstate = () => {
+        if (percent(1)) return 'locked';
+        if (percent(50)) return 'closed';
+        return 'open';
+    };
+    // C: p = placements[d(#placements)] — Lua 1-based d(n)=1+rn2(n)
+    const p = placements[rn2(placements.length)];
+    themeroom_nested_room(
+        { type: ltype, x: p.lx, y: p.ly, w: 3, h: 3, filled: 1, joined: false },
+        croom,
+        (left) => {
+            splev_room_door(left, shopdoorstate(), p.lwall);
+        },
+    );
+    themeroom_nested_room(
+        { type: rtype, x: p.rx, y: p.ry, w: 3, h: 3, filled: 1, joined: false },
+        croom,
+        (right) => {
+            splev_room_door(right, shopdoorstate(), p.rwall);
+        },
+    );
+}
+
 /**
  * C ref: themerms.lua "Pillars" contents + sp_lev.c lspo_terrain /
  * nhlib.lua shuffle — 7-char terr Fisher–Yates then 2×2 pillar blocks
@@ -21756,11 +21895,9 @@ async function themerooms_generate(difficulty) {
             needfill = FILL_NORMAL;
             do_themed_fill = true;
         }
-        // Named omission: Room-in-room nested create_subroom/door; Fake Delphi /
-        // Huge / Mausoleum / Twin nested bodies; Random-feature center
-        // terrain. Nesting nested body done (D-0916). Pillars terrain
-        // done (D-0901). Water vault map+contents done (D-0690). Blocked
-        // center map+replace_terrain done (D-0243).
+        // Named omission: Random-feature center terrain. Nesting nested
+        // body is D-0916. Pillars terrain D-0901. Water vault D-0690.
+        // Blocked center map+replace_terrain D-0243.
 
         // C build_room: chance defaults to 100 → always burns rn2(100)
         // (after contents arg RNG such as Nesting rn2(4) size rolls)
@@ -21773,16 +21910,20 @@ async function themerooms_generate(difficulty) {
             if (aroom) {
                 topologize(aroom);
                 aroom.needfill = needfill;
-                // C lspo_room: contents(themeroom_fill) after build_room
+                // C lspo_room: contents after build_room, then add_doors_to_room
                 if (do_themed_fill) themeroom_fill(aroom);
-                // C themerms.lua Pillars contents after des.room/build_room
-                if (pick.name === 'Pillars') themeroom_pillars_contents(aroom);
-                // C themerms.lua Nesting rooms nested create_subroom/door
-                if (pick.name === 'Nesting rooms') {
-                    themeroom_nesting_contents(aroom);
-                    // C lspo_room: add_doors_to_room after contents
-                    add_doors_to_room(aroom);
+                else if (pick.name === 'Pillars') themeroom_pillars_contents(aroom);
+                else if (pick.name === 'Nesting rooms') themeroom_nesting_contents(aroom);
+                else if (pick.name === 'Fake Delphi') themeroom_fake_delphi_contents(aroom);
+                else if (pick.name === 'Room in a room') themeroom_room_in_room_contents(aroom);
+                else if (pick.name === 'Huge room with another room inside') {
+                    themeroom_huge_contents(aroom);
+                } else if (pick.name === 'Mausoleum') {
+                    themeroom_mausoleum_contents(aroom);
+                } else if (pick.name === 'Twin businesses') {
+                    themeroom_twin_businesses_contents(aroom);
                 }
+                add_doors_to_room(aroom);
             }
         } else if (g.in_mk_themerooms) {
             g.themeroom_failed = true;

@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1836 — sp_lev.c build_room nested themerms des.room chance
+
+- **Status:** fixed (4 corpus blocks moved past; green + cohort; full `sessions` 44/44)
+- **Symptom:** 4 tour sessions first-diffed at C `rn2(100)` `@ build_room(sp_lev.c:2811)` vs JS `rnd_rect`. Previous matching call was `rnd(3)` `@ create_room(sp_lev.c:1596)` (outer sized-room yalign). C then ran nested `des.room` → `build_room` chance; JS had deferred those nested bodies and returned to `makerooms`' `rnd_rect`.
+- **C locus:** `sp_lev.c` `build_room` `:2807–2833` (`(!r->chance || rn2(100) < r->chance) ? r->rtype : OROOM`); `lspo_room` `:4081` `build_room(&tmproom, gc.coder->croom)`; `dat/themerms.lua` Fake Delphi / Room-in-a-room / Huge / Mausoleum / Twin nested `des.room`.
+- **JS was:** outer `rn2(100)`+`create_room` for sized themerms; nested `create_subroom` only for Nesting (D-0916). Fake Delphi / Room-in-a-room / Huge / Mausoleum / Twin contents omitted.
+- **Fix:** nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms. `splev_roomtype` maps `themed` / weapon+armor shop. `filled` defaults to 0 in `in_mk_themerooms`. Outer `add_doors_to_room` after contents like `lspo_room`.
+- **JS:** `js/mklev.js` `splev_build_room` / `splev_roomtype` / `themeroom_fake_delphi_contents` / `themeroom_room_in_room_contents` / `themeroom_huge_contents` / `themeroom_mausoleum_contents` / `themeroom_twin_businesses_contents` / `themerooms_generate`.
+- **Verify:** `node scripts/verify.mjs --fn build_room` → PASS syntax (1 js file); PASS rule2; PASS hidden verify build_room: 0 PASS, 4 moved past (1 re-attributed at the same step), 0 unchanged, 0 worse → PROGRESS (Caveman-70003 → js-throw step 3; Knight-70020 → mineralize step 3; Ranger-70021 → fill_zoo step 42; Tourist-70013 → attributes_enlightenment step 32); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44. VERIFY: PASS
+- **Named omissions:** Random-feature center terrain; remaining themeroom_fill bodies (Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/Statuary/…); garden/dig postprocess; exclusion_zones save/rest.
+- **Next:** Open `pickup.c` `doloot_core` (4 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
+
 ## D-1835 — pickup.c describe_decor + invent.c look_here seen-trap There()
 
 - **Status:** fixed (5 corpus blocks; green + cohort; full `sessions` skipped — invent/pickup/trap/timeout/zap/region not in verify shared list)

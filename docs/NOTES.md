@@ -6,11 +6,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 164/265 PASS at
-  D-1831; D-1835 cleared 5/5 `describe_decor` / `look_here` trap blocks.
-  Next Open `build_room` 4, `doloot_core` 4, level cliff
+  D-1831; D-1836 moved 4/4 `build_room` themerms nested-room blocks.
+  Next Open `doloot_core` 4, `pickup_checks` 3, level cliff
   `selection_filter_percent` vs `rnd_rect`. Orient `brief.mjs`, verify
   `verify.mjs --fn`, hand off `finish-iteration.mjs --commit`.
-- **Suite 44/44** at D-1835. `look_here` announces a seen trap/region
+- **Suite 44/44** at D-1836. Nested themerms `des.room` (Fake Delphi /
+  Room-in-a-room / Huge / Mausoleum / Twin) go through `splev_build_room`
+  chance; do not reopen those. `look_here` announces a seen trap/region
   before the object list; `describe_decor` Fumbling defer / waterhere /
   ice `Norep` / `back_on_ground` are live — do not reopen those.
   Unhandled corner-menu keys do not
@@ -77,7 +79,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1835.
+  (D-1189). Do not skip D-1190…D-1836.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -87,18 +89,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1835.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1836.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1835.
+  Do not re-port D-1682…D-1836.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1836: nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms. Named: Random-feature center terrain; remaining themeroom_fill bodies (Ice/Boulder/Spider/Trap/Ga
 - D-1835: `look_here` plines the seen trap / visible region before the object list. Named: `ice_descr` thicker/thinner ice; `dfeature_at` ice/pool/lava/throne/drawbridge (so waterhe
 - D-1834: `dowear`/`doputon`/`dothrow`/`dodrink`/`doremring` call live `getobj`. Named: getobj_* clones still in drop/wield/apply/write/takeoff/dip; `canwearobj` polyform (cantwe
 - D-1833: E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`. Named: W already-wearing `armor_simple_name` / `armcat_to_wornmask`; dungeon.c `surface` terrain 
@@ -113,5 +116,4 @@ Objective/score live in `CURRENT.md`.
 - D-1824: loop bound 14 matching lua `:44–57`. Named: humidity-aware `get_location`; `spo_end_moninvent`
 - D-1823: `load_minend_3` from the lua body: solidfill HWALL (so Named: ensure_way_out; link_doors_rooms; map_cleanup;
 - D-1822: `load_bigrm_1` (solidfill + 18×75 room; `percent(80)` then Named: ensure_way_out; humidity-aware `get_location`;
-- D-1821: `load_bigrm_5` (solidfill + 19×74 diamond; `percent(25)` Named: ensure_way_out; humidity-aware `get_location`;
 <!-- landmarks:end -->

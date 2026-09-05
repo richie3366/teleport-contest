@@ -45,7 +45,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `sp_lev.c` build_room — 4 corpus blocks; C themed-room script vs JS `rnd_rect` (level-content cliff).
 - [ ] `pickup.c` doloot_core — 4 corpus blocks; "You don't find anything here to loot." vs "You see no door there."
 - [ ] `hack.c` pickup_checks — 3 corpus blocks; "The stairs are solidly affixed." vs "There is nothing here to pick up."
 - [ ] `insight.c` attributes_enlightenment — 3 corpus blocks; quest-leader telepathy name vs colon.

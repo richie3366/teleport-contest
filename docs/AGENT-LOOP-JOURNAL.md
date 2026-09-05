@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1836 sp_lev.c build_room nested themerms des.room chance
+
+**C locus:** `sp_lev.c` `build_room` `:2807–2833` (`(!r->chance || rn2(100) < r->chance) ? r->rtype : OROOM`); `lspo_room` `:4081` `build_room(&tmproom, gc.coder->croom)`; `dat/themerms.lua` Fake Delphi / Room-in-a-room / Huge / Mausoleum / Twin nested `des.room`.
+**JS:** `js/mklev.js` `splev_build_room` / `splev_roomtype` / `themeroom_fake_delphi_contents` / `themeroom_room_in_room_contents` / `themeroom_huge_contents` / `themeroom_mausoleum_contents` / `themeroom_twin_businesses_contents` / `themerooms_generate`.
+**Change:** nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms. `splev_roomtype` maps `themed` / weapon+armor shop. `filled` defaults to 0 in `in_mk_themerooms`.
+**Verify:** `node scripts/verify.mjs --fn build_room` → PASS syntax (1 js file); PASS rule2; PASS hidden verify build_room: 0 PASS, 4 moved past (1 re-attributed at the same step), 0 unchanged, 0 worse → PROGRESS (Caveman-70003 → js-throw step 3; Knight-70020 → mineralize step 3; Ranger-70021 → fill_zoo step 42; Tourist-70013 → attributes_enlightenment step 32); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44. VERIFY: PASS
+**Named:** Random-feature center terrain; remaining themeroom_fill bodies (Ice/Boulder/Spider/Trap/Garden/Buried treasure/Massacre/Statuary/…); garden/dig postprocess; exclusion_zones save/rest.
+**Next:** Open `pickup.c` `doloot_core` (4 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
 ## 2026-09-04 — D-1835 pickup.c describe_decor + invent.c look_here seen-trap There()
 
 **C locus:** `invent.c` `look_here` `:4162–4177` (`!skip_objects` seen `t_at` / `visible_region_at` → `There("is %s%s%s here.")`); `pickup.c` `describe_decor` `:350–426` (Fumbling TIMEOUT==1 `deferred_decor`; waterhere `waterbody_name`; ICE `Norep`; `back_on_ground`); `pickup.c` `pickup` `:710–718` `can_reach_floor(t && is_pit)`; `pickup.c` `force_decor` / `deferred_decor`; `timeout.c` `:926–930` catch-up; `zap.c` `:3761–3764` probing `force_decor(TRUE)`.

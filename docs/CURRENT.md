@@ -72,15 +72,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1835**. Open `pickup.c` `describe_decor` shipped: `look_here` seen-trap/region `There()` before the object list (5/5 corpus PASS); `describe_decor` Fumbling defer / waterhere / ice `Norep` / `back_on_ground`; `pickup` `can_reach_floor(pit)`.
-**Next cluster:** Open `sp_lev.c` `build_room` — 4 corpus blocks; C themed-room script vs JS `rnd_rect` (level-content cliff).
+**Suite 44/44** at **D-1836**. Open `sp_lev.c` `build_room` nested themerms `des.room` shipped: Fake Delphi / Room-in-a-room / Huge / Mausoleum / Twin via `splev_des_room` (4/4 corpus moved past).
+**Next cluster:** Open `pickup.c` `doloot_core` — 4 corpus blocks; "You don't find anything here to loot." vs "You see no door there."
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1835 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1836 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1836** `sp_lev.c` `build_room` `:2807–2833` (`(!r->chance || rn2(100) < r->chance) ? r->rtype : O — nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms.
 **D-1835** `invent.c` `look_here` `:4162–4177` (`!skip_objects` seen `t_at` / `visible_region_at` → ` — `look_here` plines the seen trap / visible region before the object list.
 **D-1834** `invent.c` `getobj` `:1751–2089` (`:1912–1914` empty `!forceprompt`; `:2058–2062` missing  — `dowear`/`doputon`/`dothrow`/`dodrink`/`doremring` call live `getobj`.
 **D-1833** `iactions.c` `itemactions` `:429–445` (E: Engrave vs Write + `surface`); `:309–400` apply  — E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`.
@@ -88,10 +89,9 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1831** `wintty.c` `process_menu_window` `:1329–1768` (`:1501–1505` — `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv /
 **D-1830** `dat/Rog-strt.lua` / `Rog-loca.lua` / `Rog-goal.lua` / — `load_rog_strt` from the lua body: solidfill STONE +
 **D-1829** `dat/Kni-strt.lua` / `Kni-loca.lua` / `Kni-fila.lua` / — `load_kni_strt` from the lua body: solidfill ROOM + mines fg=bg="."
-**D-1828** `dat/astral.lua`; `mkmaze.c` `makemaz` `:1127–1223` — `load_astral` from the lua body: solidfill + mazelevel+noteleport
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1835; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1836; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

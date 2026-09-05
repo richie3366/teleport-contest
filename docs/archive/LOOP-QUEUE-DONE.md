@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-05
+
+- [x] `sp_lev.c` build_room — 4 corpus blocks; C themed-room script vs JS `rnd_rect` (level-content cliff). **Addressed:** D-1836
+
 ## 2026-09-04
 
-- [x] `pickup.c` describe_decor — 5 corpus blocks; "There is a pit here." before the object list. **Addressed:** D-1835
+- [x] `pickup.c` describe_decor — 5 corpus blocks; "There is a pit here." before the object list. **Addressed:** D-1835 `16668da3`
 
 
 - [x] `invent.c` getobj — 7 corpus blocks; "You don't have anything else to wear." vs re-prompt. **Addressed:** D-1834 `68aa6457`
