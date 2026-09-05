@@ -8,6 +8,19 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — Audit reviews 835–842 (D-1865…D-1872) + cadence score
+
+Review iter over the 8 `js/` SHAs since audit 827–834. Verdicts: 7 ACCEPT,
+1 ACCEPT-WITH-DEBT (838: D-1868 `is_pick` note misnames gated clones —
+`apply.js`/`dig.js` have the `obj.h:220` gate; truly gateless are
+`monmove.js:474` + unnamed `lock.js:1346` — map-only debt, pre-existing).
+Re-measured every corpus claim with `hidden-proxy verify <fn> --base
+HASH~1`: all PROGRESS/PASS confirmed, no D-1831-style regression. Notable:
+842's commit message pastes syntax-only but the D-log holds the full
+matrix (re-verified hidden + green 2/2 + strict ×2 myself). No Must-fix
+(prepend none); Next cluster unchanged. Cadence: full `sessions` 44/44 at
+`8e602b91`, Scr 11,405/11,405, RNG 792,838/792,838, `48+0.36/turn` —
+fortress held exactly. Filled archive stamp D-1872 `8e602b91`.
 ## 2026-09-05 — D-1872 wintty.c process_menu_window page keys `>`/`<`/`^`/`|` (minimal_xname corpus owner)
 
 **C locus:** `win/tty/wintty.c` `process_menu_window` `:1621–1649` — `MENU_NEXT_PAGE` (`>`, `wintype.h:153`), `MENU_PREVIOUS_PAGE` (`<`), `MENU_FIRST_PAGE` (`^`), `MENU_LAST_PAGE` (`|`) turn pages in *every* menu including PICK_NONE; only ` ` finishes on the last page (`else if (morc == ' ')`, `:1627–1630`). Default letter match scans the current page only (`:1753`), so `n`/`J` at steps 825–826 are correctly ignored on page 1.

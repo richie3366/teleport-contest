@@ -845,3 +845,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [832-c0ed9964-spec-applies-resists.md](./832-c0ed9964-spec-applies-resists.md) | `c0ed9964` | D-1862 artifact.c spec_applies ATTK resists | **ACCEPT** |
 | [833-cde16427-vision-pit-recalc.md](./833-cde16427-vision-pit-recalc.md) | `cde16427` | D-1863 vision.c pit 3x3 + post-rhack recalc | **ACCEPT** |
 | [834-8ab2608f-mhitm-ad-phys.md](./834-8ab2608f-mhitm-ad-phys.md) | `8ab2608f` | D-1864 uhitm.c mhitm_ad_phys mhitu weapon arm | **QUALITY-RISK** |
+| [835-11f88a30-dmgval-youmonst.md](./835-11f88a30-dmgval-youmonst.md) | `11f88a30` | D-1865 mhitu dmgval defender null → youmonst | **ACCEPT** |
+| [836-26386bd7-menuinvertmode.md](./836-26386bd7-menuinvertmode.md) | `26386bd7` | D-1866 options.c menuinvertmode default 1 | **ACCEPT** |
+| [837-5c2cb3be-topology-save-restore.md](./837-5c2cb3be-topology-save-restore.md) | `5c2cb3be` | D-1867 save_dungeon_topology persist/restore | **ACCEPT** |
+| [838-30f0e9b7-mfndpos-arms.md](./838-30f0e9b7-mfndpos-arms.md) | `30f0e9b7` | D-1868 mon.c mfndpos door/dig/tele arms | **ACCEPT-WITH-DEBT** |
+| [839-b0f702a1-mkswamp.md](./839-b0f702a1-mkswamp.md) | `b0f702a1` | D-1869 mkroom.c mkswamp swamp-room port | **ACCEPT** |
+| [840-605a8e85-mhitm-ad-drli.md](./840-605a8e85-mhitm-ad-drli.md) | `605a8e85` | D-1870 uhitm.c mhitm_ad_drli mhitu arm | **ACCEPT** |
+| [841-a631bae4-zoo-mon-sound.md](./841-a631bae4-zoo-mon-sound.md) | `a631bae4` | D-1871 sounds.c zoo_mon_sound print | **ACCEPT** |
+| [842-8e602b91-menu-page-keys.md](./842-8e602b91-menu-page-keys.md) | `8e602b91` | D-1872 wintty.c process_menu_window page keys | **ACCEPT** |
