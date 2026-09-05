@@ -40,7 +40,7 @@ Score last measured: **2026-09-05** — full `sessions` at **D-1856**
 D-1856): **230 / 265 PASS (86.8 %)** excl. 13 env-only rows;
 RNG 99.44 %; screens 99.2 %. Top owners: `hitum`/`moverock_core`/
 `mhitm_ad_phys`/`menu_remarm`/`!`/`dog_invent` 2 (parked; `mpickstuff`).
-Reviews **818–826** (D-1848…D-1863): 7 ACCEPT, 2 ACCEPT-WITH-DEBT, no
+Reviews **818–826** (D-1848…D-1864): 7 ACCEPT, 2 ACCEPT-WITH-DEBT, no
 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -77,10 +77,11 @@ before fire getobj (D-0484 skip reverted).
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1863 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1864 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1864** `uhitm.c` `mhitm_ad_phys` mhitu arm `:4038–4126` (AT_WEAP+otmp: corpse `do_stone_u`/done ` — port the mhitu AT_WEAP arm in C order (corpse `do_stone_u` via the file-local clone with the `u.Stoned || u.HStoned` guard; GOP arm; `artifact_hit` dmgBox pattern from `mhitm.js:1187` with `game.youmonst` defender + `gam
 **D-1863** `vision.c` `vision_recalc` `:609–622` (`u.utrap && u.utraptype == TT_PIT` → only the immed — port the TT_PIT 3×3 arm in C order (row `continue`/`break`, direct `next_rmin/rmax` assign, xray/nv/lights/update flow untouched) + add the post-`rhack`/`deferred_goto` `vision_full_recalc` consume in `moveloop_core` (mi
 **D-1862** `artifact.c` `spec_applies` `:1008–1060` SPFX_ATTK switch (via `weapon.c` `hitval` `:184`  — port the six ATTK resists arms in C order — hero side `Fire/Cold/Shock/Drain_resistance()` (newly exported from `js/zap.js`) + Poison/Stone H/E/sticky flats; monster side `resists_fire/cold/elec/poison` (newly exported f
 **D-1861** `dat/themerms.lua` Garden fill contents (`numpoints/6` wood-nymph loop, `percent(30)` foun — port `themeroom_fill_garden` (nymph count `(numpoints/6)|0`, `splev_room_monster(croom,'wood nymph')` + `msleeping=1`, `percent(30)` fountain, queue `{handler:'make_garden_walls'}` with a fresh `selection_from_mkroom`); 
@@ -88,11 +89,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1859** `hack.c` `moverock_core` `:441–448` (`Sokoban && u.dx && u.dy` → Blind `feel_location(sx,s — port the arm in C order (inside clear-dest branch, after ttmp/mtmp fetch, before revive_nasty/monster): `Sokoban_here() && u.dx && u.dy` → Blind `feel_location`, awaited pline with `The(xname(otmp))` + shared `surface(sx
 **D-1858** `dat/Sam-strt.lua` / `Sam-loca.lua` / `Sam-goal.lua` / — `load_sam_strt` from the lua body: solidfill STONE +
 **D-1857** `uhitm.c:3479–3522` `mhitm_ad_slee` (homunculus — port the three arms with C branch/RNG order.
-**D-1856** `dat/bigrm-2.lua` (`des.replace_terrain({ selection = — build the darkness selection per choice arm (absolute
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1863; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1864; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

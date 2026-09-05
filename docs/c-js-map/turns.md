@@ -2977,7 +2977,11 @@ hitmm skips default hits); **mhitm_ad_phys rustm D-1442** (mhitm arm `:4182–41
 artifact_hit iff leftover; callee `mhitm.c` rustm `:1260–1280`); 
 **mhitm_ad_phys poison leftover D-1447** (mhitm arm `:4184–4189` after rustm `!rn2(4)` 
 `opoisoned\|\|permapoisoned`; callee `mhitm_really_poison` `:3104–3118`; 
-mhitu `poisoned()` / `mhitm_ad_drst` 1/8 / worm-shrieker still named); 
+`mhitm_ad_drst` 1/8 / worm-shrieker still named);
+**mhitm_ad_phys mhitu weapon arm D-1864** (mhitu arm `:4041–4126` corpse
+`do_stone_u`/done + `dmgval` + GOP `rn1(4,3)` + `artifact_hit`-or-`hitmsg` +
+silver sear + `rnd(-uac)` soak + Half + pudding `cloneu` split + `rustm` +
+dieroll `poisoned()`; non-weapon keeps `magr != u.ustuck`); 
 **mattackm AT_HUGS D-1340**); **`hmon_hitmon_pet` → `abuse_dog` + 
 survive `monflee(10*rnd(dmg))`** (D-0836); 
 **`xkilled` `(peaceful&&!rn2(2))\|\|mtame` `change_luck(-1)` + 

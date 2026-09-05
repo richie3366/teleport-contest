@@ -55,7 +55,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1863. Never FORCE the falsified
+  (D-1189). Do not skip D-1190…D-1864. Never FORCE the falsified
   mineralize TRC (76,14)/(77,14) (D-1849).
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
@@ -66,18 +66,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1863.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1864.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1863.
+  Do not re-port D-1682…D-1864.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1864: port the mhitu AT_WEAP arm in C order (corpse `do_stone_u` via the file-local clone with the `u.Stoned || u.HStoned` guard; GOP arm; `artifact_hit` dm Named: uhitm arm is `damageum_ad_phys` (unchanged); `mhitm_ad_drst` 1/8; purple-worm-vs-shrieker 
 - D-1863: port the TT_PIT 3×3 arm in C order (row `continue`/`break`, direct `next_rmin/rmax` assign, xray/nv/lights/update flow untouched) + add the post-`rhac Named: underwater `has_night_vision=0` + pool 3×3 (`vision.c` pit-adjacent arm, still named in co
 - D-1862: port the six ATTK resists arms in C order — hero side `Fire/Cold/Shock/Drain_resistance()` (newly exported from `js/zap.js`) + Poison/Stone H/E/sticky Named: `defended()` artifact/dragon-armor guard before the switch; DFLAG1 mflags1 arm; DFLAG2 you
 - D-1861: port `themeroom_fill_garden` (nymph count `(numpoints/6)|0`, `splev_room_monster(croom,'wood nymph')` + `msleeping=1`, `percent(30)` fountain, queue ` Named: Buried treasure / Massacre / Statuary fills still omitted (same dispatch comment); `induce
@@ -92,5 +93,4 @@ Objective/score live in `CURRENT.md`.
 - D-1852: `load_val_strt` from the lua body: solidfill ICE + Named: humidity-aware `get_location`; `ensure_way_out`;
 - D-1851: drop the pre-doquiver `mark_topline_seen` so `You()` leaves NEED_MORE and `doquiver_core` waits like C. Named: `ok_to_throw` `check_capacity((char *)0)` still. getdir remains in the JS caller (`throw_o
 - D-1850: `display_inventory` calls `display_pickinv_reply` with `want_reply`. Named: `inuse_classify` body was already D-1589 (not this C-wrong). perm_invent `InvInUse` still 
-- D-1849: delete the clone and import `shk.js` `inside_shop`; port the ROOM/CORR choice with `Is_special` (now exported from `dungeon.js`) and `hack.js` `in_roo Named: `Is_special` clones in `end.js` / `quest.js` and the `mineralize` inline `on_level` walk s
 <!-- landmarks:end -->

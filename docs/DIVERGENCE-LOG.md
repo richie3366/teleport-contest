@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1864 — uhitm.c mhitm_ad_phys mhitu weapon arm (knockback RNG order)
+
+- **Status:** fixed (Open queue row; 2 corpus blocks PASS; green + cohort + full `sessions` 44/44)
+- **Symptom:** explore-seed0360-wizard-world-tour-5f79bc6a step 838/881 + c87ff7c9 step 836/881 kind=rng at uhitm.c:4085 — C `rnd(2)=1/2 @ mhitm_ad_phys` (negative-AC soak `tmp -= rnd(-u.uac)`, uac −2, Aleax silver mace) vs JS `rn2(3)=1/0 @ mhitm_knockback(mhitm.js:1743)` (knockdistance burn). Same topline «The Aleax swings his silver mace. The Aleax hits!--More--».
+- **C locus:** `uhitm.c` `mhitm_ad_phys` mhitu arm `:4038–4126` (AT_WEAP+otmp: corpse `do_stone_u`/done `:4047–4060`, `dmgval` + GOP `rn1(4,3)` `:4061–4066`, `artifact_hit`-or-`hitmsg` `:4067–4072`, silver sear `:4075–4079`, `tmp -= rnd(-u.uac)` + Half `:4083–4089`, pudding split `:4091–4105`, `rustm` `:4106`, dieroll poison `:4107–4121`; non-weapon `magr != u.ustuck` `:4122–4123`); caller order `mhitu.c` `hitmu` `:1190–1193` (adtyping before `mhitm_knockback`).
+- **JS was:** `js/mhitu.js` `mhitm_ad_phys_u` ported only hug (D-1327) + `dmgval`/min-1/`hitmsg`, with corpse/silver/poison/pudding named deferred — so zero draws preceded the knockback burn and the first positional mismatch was C `rnd(2)` vs JS `rn2(3)`. JS `hitmu` order (adtyping → knockback → `damage -= rnd(-uac)`) already matched C.
+- **Fix:** port the mhitu AT_WEAP arm in C order (corpse `do_stone_u` via the file-local clone with the `u.Stoned || u.HStoned` guard; GOP arm; `artifact_hit` dmgBox pattern from `mhitm.js:1187` with `game.youmonst` defender + `game._mhitu_dieroll`; silver sear via `Hate_silver` newly exported from `js/uhitm.js`; soak `rnd(-uac)` + `maybe_half_phys`; pudding split via `cloneu` newly exported from `js/sit.js`; `rustm` from `js/mhitm.js`; `poisoned()` on `dieroll <= 5`) + the `mtmp !== u.ustuck` disjunct. `imports.mjs --can mhitu.js sit.js cloneu`: same 87-module SCC, lazy in-function use, no top-level read — safe; `mhitu.js` loads clean in Node.
+- **JS:** `js/mhitu.js` `mhitm_ad_phys_u` + imports/consts (`W_ARMG`/`NEUTRAL`, `Mgender`, `mons`, `artifact_hit`/`permapoisoned`, `Hate_silver`, `rustm`, `SILVER`, `cloneu`, local `CORPSE`/`GAUNTLETS_OF_POWER`/`IRON=11`/`METAL=12`/`PM_*_PUDDING`); `js/uhitm.js` `export Hate_silver`; `js/sit.js` `export cloneu`; `js/mhitm.js` one-line omit refresh; `docs/c-js-map/turns.md` uhitm section.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_phys` → PASS syntax (4 changed js files: js/mhitm.js js/mhitu.js js/sit.js js/uhitm.js) · PASS rule2 · PASS hidden verify mhitm_ad_phys: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (5f79bc6a: PASS; c87ff7c9: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · then `node scripts/verify.mjs --full` → PASS full 44/44 (forced; shared-file heuristic had skipped it).
+- **Named omissions:** uhitm arm is `damageum_ad_phys` (unchanged); `mhitm_ad_drst` 1/8; purple-worm-vs-shrieker cap; knockback hurtle/steadfast/size/weapon gates + ART_OGRESMASHER still stub-burned (`mhitm_knockback` returns FALSE after C-order `rn2(3)` + `rn2(6)`).
+- **Next:** Open `do_wear.c` `menu_remarm` (queue head after this ships).
+
 ## D-1863 — vision.c pit 3×3 + post-rhack recalc (mthrowu.c linedup owner)
 
 - **Status:** fixed (Open queue row; 1 corpus block moved past to a later owner — 0 PASS, 1 moved past to `climb_pit` at step 46 (was 45); green + cohort + full `sessions` 44/44)

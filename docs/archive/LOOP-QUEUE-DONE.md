@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `mthrowu.c` linedup — 1 corpus block; C `rn2(2)` vs JS `m_move` `rn2(16)`. **Addressed:** D-1863
-- [x] `trap.c` climb_pit — follows D-1863 (tour-Healer-70025 step 45, C `rn2(2)=0 @ climb_pit(trap.c:4197)` vs JS `distfleeck` `rn2(5)`); port `climb_pit` `:4183–4232` into `trapmove` TT_PIT arm (Passes_walls/fill_pit/crevice `rn2(2)`+`sobj_at`/Flying-clinger/Sokoban/`--utrap`+`m_easy_escape_pit`(missing)/`u.dz||verbose` Norep); falsifier `node scripts/hidden-proxy.mjs verify climb_pit`. **Addressed:** D-1863
+- [x] `uhitm.c` mhitm_ad_phys knockback — 2 corpus blocks; C `rnd(2)` vs JS `mhitm_knockback` `rn2(3)`. **Addressed:** D-1864
+
+
+- [x] `mthrowu.c` linedup — 1 corpus block; C `rn2(2)` vs JS `m_move` `rn2(16)`. **Addressed:** D-1863 `cde16427`
+- [x] `trap.c` climb_pit — follows D-1863 (tour-Healer-70025 step 45, C `rn2(2)=0 @ climb_pit(trap.c:4197)` vs JS `distfleeck` `rn2(5)`); port `climb_pit` `:4183–4232` into `trapmove` TT_PIT arm (Passes_walls/fill_pit/crevice `rn2(2)`+`sobj_at`/Flying-clinger/Sokoban/`--utrap`+`m_easy_escape_pit`(missing)/`u.dz||verbose` Norep); falsifier `node scripts/hidden-proxy.mjs verify climb_pit`. **Addressed:** D-1863 `cde16427`
 
 
 - [x] `uhitm.c` hitum — 1 corpus block; C `rnd(20)` vs JS `spec_abon` `rnd(5)`. **Addressed:** D-1862 `c0ed9964`
