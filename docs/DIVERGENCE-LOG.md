@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-1874 — pager.c do_screen_description trap-glyph `a trap (lookat)` (trapeffect_rolling_boulder_trap corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)
+- **Symptom:** `explore-seed0367-priest-quest-tour-b0096089` step 347/372 screen-first: C `^        a trap (rolling boulder trap)` vs JS `^        a rolling boulder trap`. Getpos pick (`.`) then `do_look` plines `describe_looked`; RNG fully matched both sides (50366/50366, 25 screens blocked).
+- **Attribution note (measured, not inferred):** the proxy owner `trapeffect_rolling_boulder_trap` (`trap.c:2694`) is a literal-substring match, not the cause — no trigger message prints on this path (getpos farlook `/`, cursor walk, `.` pick). C steps 344–346 toplines are `brief_at` firstmatch only (`hole`, `wall`, `rolling boulder trap` — matched both sides); step 347 is the full `out_str`. Porting the trigger arm would be NO MOVEMENT; the C writer of the differing cell is `do_screen_description` (same misattribution shape as D-1872).
+- **C locus:** `pager.c` `do_screen_description` — looked prefix `:1271` (`encglyph` `^` + 8 spaces); `add_cmap_descr` `:1220` first-matches a trap cmap glyph as literally `a trap` (`hit_trap`, `need_to_look` via the `is_cmap_trap` arm); didlook `:1611–1614` appends ` (firstmatch)` where firstmatch is `lookat` `:718–721` → `trap_description` `:164–181` → `trapname(ttyp, FALSE)` = `rolling boulder trap`. `add_quoted_engraving` appends nothing for a non-engraving buf, so no engraving arm is needed here.
+- **JS was:** `js/pager.js` `describe_looked` trap branch returned `^        ${an(nm)}` (`^        a rolling boulder trap`), dropping the `a trap` first-match + parenthetical composition every sibling branch (stairs, walls, room, corr) already implements.
+- **Fix:** return `` `^        a trap (${nm})` `` with `first: nm` (C `firstmatch`, feeds `checkfile`) and `found: 1` (C resets `found = 1` after the supplement), plus a C-citation comment. No new imports; `an()` still used by the other branches.
+- **JS:** `js/pager.js` (+7/−1); `docs/c-js-map/turns.md` farlook section.
+- **Verify:** `node scripts/verify.mjs --fn trapeffect_rolling_boulder_trap` →
+  - `PASS  syntax   1 changed js file(s): js/pager.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `PASS  hidden   verify trapeffect_rolling_boulder_trap: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (`explore-seed0367-priest-quest-tour-b0096089: PASS`)
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`; skip full (no shared file changed)
+  - `VERIFY: PASS`
+- **Named omissions:** vibrating-square first-match arm (`add_cmap_descr` writes `an(x_str)`, not `a trap`, for `S_vibrating_square`) still deferred in this branch's envelope; full `do_screen_description` cmap/symbol table still deferred (map).
+- **Next:** next Open row (`steal.c` mdrop_obj).
+
 ## D-1873 — artifact.c artifact_hit elemental plines (artifact_hit corpus owner)
 
 - **Status:** fixed (Open queue row; 1 PASS + 1 moved past to a later owner; green + strict + cohort PASS)

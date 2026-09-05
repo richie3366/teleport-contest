@@ -1219,8 +1219,13 @@ function describe_looked(x, y) {
     // Detected chest: trap glyph, pile still on fobj; C names the trap.
     const glyph = glyph_at(x, y);
     if (glyph_is_trap(glyph)) {
+        // C ref: pager.c do_screen_description — add_cmap_descr `:1220`
+        // first-matches a trap glyph as literally "a trap" (prefix `:1271`
+        // is the `^` glyph + 8 spaces; hit_trap + need_to_look), then the
+        // didlook block `:1611-1614` appends " (lookat)" with
+        // firstmatch = lookat `:718-721` trap_description `:164-181`.
         const nm = trap_description(glyph_to_trap(glyph), x, y);
-        return { out: `^        ${an(nm)}`, first: nm, found: 1 };
+        return { out: `^        a trap (${nm})`, first: nm, found: 1 };
     }
     const mtmp = mon_at(x, y);
     if (mtmp) {

@@ -1,6 +1,6 @@
 {
- "commit": "c65e53cd",
- "at": "2026-09-05T17:25:43.654Z",
+ "commit": "d6db25d5",
+ "at": "2026-09-05T17:32:18.685Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -1126,19 +1126,19 @@
   },
   "explore-seed0367-priest-quest-tour-b0096089": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 50366,
    "rngT": 50366,
-   "scrM": 371,
+   "scrM": 372,
    "scrT": 372,
-   "kind": "screen",
-   "step": 347,
+   "kind": null,
+   "step": null,
    "steps": 372,
-   "owner": "trapeffect_rolling_boulder_trap",
-   "loc": "trap.c:2694",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "^a trap (rolling boulder trap)",
-   "jsTopline": "^a rolling boulder trap",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "explore-seed0367-priest-quest-tour-bdf01ba8": {

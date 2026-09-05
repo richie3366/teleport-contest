@@ -741,7 +741,7 @@ default !num_pad binds** (D-0131); **`display_file` keeps intentional trailing b
 **`;` → `doquickwhatis`/`do_look(1)` + `look_at_monster` distant_monnam/asleep + 
 putmixed no forced more** (D-0330); **`checkfile` ask via `yn_function` (NEED_MORE→more) + 
 lookat parenthetical forces `found=1`** (D-0334); 
-**`brief_at`/`describe_looked` tseen trap → `trapname`** (D-0424); 
+**`brief_at`/`describe_looked` tseen trap → `trapname`** (D-0424) + **trap-glyph `a trap (lookat)`** (D-1874; `do_screen_description` `:1220` first-match + didlook `:1611–1614` parenthetical; vibrating-square `an(x_str)` arm still deferred); 
 **`describe_looked` DECgraphics wall ↔ swallow mid + Unicode │** (D-0425; 
 trapped_chest/door + Hallucination + full showsyms cmap scan + SDOOR deferred); 
 omit full `key2extcmddesc` misc/numpad; PORT_HELP; getpos menu-jump/hilite; lootabc true; 

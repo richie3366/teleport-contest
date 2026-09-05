@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1874 pager.c do_screen_description trap-glyph `a trap (lookat)` (trapeffect_rolling_boulder_trap corpus owner)
+
+**C locus:** `pager.c` `do_screen_description` — looked prefix `:1271` (`encglyph` `^` + 8 spaces); `add_cmap_descr` `:1220` first-matches a trap cmap glyph as literally `a trap` (`hit_trap`, `need_to_look` via the `is_cmap_trap` arm); didlook `:1611–1614` appends ` (firstmatch)` where firstmatch is `lookat` `:718–721` → `trap_description` `:164–181` → `trapname(ttyp, FALSE)` = `rolling boulder trap`. `add_quoted_engraving` appends nothing for a non-engraving buf, so no engraving arm is needed here.
+**JS:** `js/pager.js` (+7/−1); `docs/c-js-map/turns.md` farlook section.
+**Change:** return `` `^        a trap (${nm})` `` with `first: nm` (C `firstmatch`, feeds `checkfile`) and `found: 1` (C resets `found = 1` after the supplement), plus a C-citation comment. No new imports; `an()` still used by the other branches.
+**Verify:** `node scripts/verify.mjs --fn trapeffect_rolling_boulder_trap` →
+**Named:** vibrating-square first-match arm (`add_cmap_descr` writes `an(x_str)`, not `a trap`, for `S_vibrating_square`) still deferred in this branch's envelope; full `do_screen_description` cmap/symbol table still deferred (map).
+**Next:** next Open row (`steal.c` mdrop_obj).
 ## 2026-09-05 — D-1873 artifact.c artifact_hit elemental plines (artifact_hit corpus owner)
 
 **C locus:** `artifact.c` `artifact_hit` `:1447–1530` preamble + four basic attacks — `youattack`/`youdefend` (`magr/mdef == &youmonst`), `vis` (`cansee(magr)`/`cansee(mdef)`/`engulfing_u+!Blind`), `hittee` (`you`/`mon_nam`), `spec_dbon` add, `impossible` self-attack, `realizes_damage` (`youdefend||vis||stuck`); AD_FIRE `:1480–1494` (`pline_The` hits/vaporizes/burns + `rn2(4)` + Slimed `burn_away_slime`), AD_COLD `:1495–1505` (hits/freezes + `rn2(4)`), AD_ELEC `:1506–1520` (hits/Lightning + `wake_nearto(16)` when applies + `rn2(5)`), AD_MAGM `:1521–1529` (hits/missiles, no RNG). Caller `uhitm.c` `hmon` via `hitum` (hero Mjollnir melee vs the Aleax).
