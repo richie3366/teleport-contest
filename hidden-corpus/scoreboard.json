@@ -1,6 +1,6 @@
 {
- "commit": "cc99daee",
- "at": "2026-09-05T10:27:43.817Z",
+ "commit": "b22e00db",
+ "at": "2026-09-05T10:34:06.270Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4339,19 +4339,19 @@
   },
   "tour-Ranger-70021-d5-8-15-17-22": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 19015,
+   "passed": true,
+   "rngM": 21932,
    "rngT": 21932,
-   "scrM": 42,
+   "scrM": 50,
    "scrT": 50,
-   "kind": "rng",
-   "step": 42,
+   "kind": null,
+   "step": null,
    "steps": 50,
-   "owner": "fill_zoo",
-   "loc": "mkroom.c:403",
-   "jsOwner": "next_ident(makemon.js:423)",
-   "cTopline": "You materialize on a different level! You see here a splint mail.",
-   "jsTopline": "You materialize on a different level!",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "tour-Rogue-70005-d3-6-10-11-12": {

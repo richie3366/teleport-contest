@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1860 — mkroom.c fill_zoo COCKNEST statue loot + ANTHOLE antholemon/food
+
+- **Status:** fixed (Open queue row; 1 corpus block PASS; green + cohort + full `sessions` 44/44)
+- **Symptom:** tour-Ranger-70021-d5-8-15-17-22 step 42/50 kind=rng at mkroom.c:403 — C `rn2(3)=1 @ fill_zoo(mkroom.c:403)` vs JS `rnd(2)=1 @ next_ident(makemon.js:423)`. C topline «You materialize on a different level! You see here a splint mail.» vs JS «You materialize on a different level!». Geom probe: terrain identical (eligible C 436 / JS 436, no C-only/JS-only), 2 cells differing only in `@` placement ((8,14) vs (12,14)) — monster/object RNG shift, not a terrain writer.
+- **C locus:** `mkroom.c` `fill_zoo` `:276–452` (COCKNEST `:402–412` `if (!rn2(3)) mk_tt_object(STATUE)` + `rn2(5)` `mkobj(RANDOM_CLASS)` loop + `weight`; ANTHOLE `:414–416` `if (!rn2(3)) mkobj_at(FOOD_CLASS)`; mon pick `:330–341` `ANTHOLE ? antholemon()`; flags `:436–450` `has_barracks`/`has_swamp`); `antholemon` `:501–527` (`ubirthday%3 + level_difficulty()`, `G_GONE` retry, no RNG); `mk_tt_object` `mkobj.c:2225–2248` (`tt_oname` → `rn1` role; empty RECORD burns `rnd(10)` via `sysopt.tt_oname_maxrank=10`).
+- **JS was:** `js/mklev.js` `fill_zoo` had COCKNEST typed mon but no statue/loot arm (never drew `rn2(3)`), ANTHOLE fell through to `makemon(NULL)` instead of `antholemon()` with no food arm, and `has_barracks`/`has_swamp` were never set. Map doc named all three omitted.
+- **Fix:** port `antholemon()` (ubirthday%3 + difficulty, `G_GONE` retry, null if all gone, no RNG) + `PM_SOLDIER_ANT`/`PM_FIRE_ANT`/`PM_GIANT_ANT` consts; add the ANTHOLE pm arm; add the COCKNEST statue arm and ANTHOLE food arm in C RNG order reusing the same-file `mk_tt_object` (empty-record `rnd(10)` footprint, shared with the MORGUE arm — no clone #3, no new cross-module edge); add `has_barracks`/`has_swamp`.
+- **JS:** `js/mklev.js` `antholemon` + `fill_zoo` (+3 ant consts, doc list); `docs/c-js-map/data.md` mkroom section.
+- **Verify:** `node scripts/verify.mjs --fn fill_zoo` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · PASS hidden verify fill_zoo: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Ranger-70021-d5-8-15-17-22: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed).
+- **Named omissions:** SWAMP `mkswamp` still deferred; `tt_oname` RECORD entries (plgend/classmon/christen) still the empty-record stub (shared with MORGUE); `antholemon()` `do_mkroom` gate unchanged.
+- **Next:** Open `dungeon.c` `induced_align` (queue head after this ships).
+
 ## D-1859 — hack.c moverock_core Sokoban diagonal won't-roll
 
 - **Status:** fixed (Open queue row; 2 corpus blocks PASS; green + cohort + full `sessions` 44/44)

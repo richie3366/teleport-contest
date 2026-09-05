@@ -210,6 +210,9 @@ const PM_SERGEANT = monsterNames.indexOf('PM_SERGEANT');
 const PM_LIEUTENANT = monsterNames.indexOf('PM_LIEUTENANT');
 const PM_CAPTAIN = monsterNames.indexOf('PM_CAPTAIN');
 const PM_COCKATRICE = monsterNames.indexOf('PM_COCKATRICE');
+const PM_SOLDIER_ANT = monsterNames.indexOf('PM_SOLDIER_ANT');
+const PM_FIRE_ANT = monsterNames.indexOf('PM_FIRE_ANT');
+const PM_GIANT_ANT = monsterNames.indexOf('PM_GIANT_ANT');
 const PM_SMALL_MIMIC = monsterNames.indexOf('PM_SMALL_MIMIC');
 const PM_LARGE_MIMIC = monsterNames.indexOf('PM_LARGE_MIMIC');
 const PM_GIANT_MIMIC = monsterNames.indexOf('PM_GIANT_MIMIC');
@@ -21309,6 +21312,34 @@ function fill_special_room(croom) {
 }
 
 /**
+ * C ref: mkroom.c antholemon :501–527 — ubirthday%3 + difficulty picks the
+ * ant trio for the level; retry genocided picks; null if all gone. No RNG.
+ */
+function antholemon() {
+    let indx = Math.trunc(Number(game.ubirthday) || 0) % 3;
+    indx += level_difficulty();
+    let mtyp = PM_GIANT_ANT;
+    let trycnt = 0;
+    do {
+        switch ((indx + trycnt) % 3) {
+        case 0:
+            mtyp = PM_SOLDIER_ANT;
+            break;
+        case 1:
+            mtyp = PM_FIRE_ANT;
+            break;
+        default:
+            mtyp = PM_GIANT_ANT;
+            break;
+        }
+        // try again if chosen type has been genocided or used up
+    } while (++trycnt < 3 && (((game.mvitals?.[mtyp]?.mvflags ?? 0) & G_GONE) !== 0));
+    if (mtyp < 0) return null;
+    if ((((game.mvitals?.[mtyp]?.mvflags ?? 0) & G_GONE) !== 0)) return null;
+    return mons(mtyp);
+}
+
+/**
  * C ref: mkroom.c squadmon — soldier/sergeant/lieutenant/captain by difficulty.
  */
 function squadmon() {
@@ -21411,8 +21442,8 @@ function mk_zoo_thronemon(x, y) {
  * BARRACKS squadmon + chest loot (D-0746); rectangular fill matches C
  * (no roomno gate; D-0643 gate removed once link_doors_rooms door-edge
  * skips cover Pri-loca overlaps — D-0658); COCKNEST typed mon;
- * BEEHIVE queen/killer + royal jelly (D-0903).
- * Named omissions: ANTHOLE antholemon + food arm; COCKNEST statue loot.
+ * BEEHIVE queen/killer + royal jelly (D-0903); COCKNEST statue + loot;
+ * ANTHOLE antholemon + food; BARRACKS/SWAMP level flags.
  */
 function fill_zoo(sroom) {
     if (!sroom) return;
@@ -21506,6 +21537,9 @@ function fill_zoo(sroom) {
             } else if (type === COCKNEST) {
                 const idx = name_to_mon('cockatrice');
                 pm = idx >= 0 ? mons(idx) : null;
+            } else if (type === ANTHOLE) {
+                // C: mkroom.c:340 antholemon() (ubirthday+difficulty, no RNG)
+                pm = antholemon();
             } else if (type === MORGUE) {
                 pm = morguemon();
             } else if (type === BEEHIVE) {
@@ -21548,6 +21582,20 @@ function fill_zoo(sroom) {
             } else if (type === BEEHIVE) {
                 if (!rn2(3))
                     mksobj_at(LUMP_OF_ROYAL_JELLY, sx, sy, true, false);
+            } else if (type === COCKNEST) {
+                // C: mkroom.c:402-412 — statue + rn2(5) container loot
+                if (!rn2(3)) {
+                    const sobj = mk_tt_object(STATUE, sx, sy);
+                    if (sobj) {
+                        for (let i = rn2(5); i; i--)
+                            add_to_container(sobj, mkobj(RANDOM_CLASS, false));
+                        sobj.owt = weight(sobj);
+                    }
+                }
+            } else if (type === ANTHOLE) {
+                // C: mkroom.c:414-416 — food
+                if (!rn2(3))
+                    mkobj_at(FOOD_CLASS, sx, sy, false);
             }
         }
     }
@@ -21568,10 +21616,16 @@ function fill_zoo(sroom) {
             }
         }
         if (game.level?.flags) game.level.flags.has_court = true;
+    } else if (type === BARRACKS && game.level?.flags) {
+        // C: mkroom.c:436-437 has_barracks
+        game.level.flags.has_barracks = true;
     } else if (type === ZOO && game.level?.flags) {
         game.level.flags.has_zoo = true;
     } else if (type === MORGUE && game.level?.flags) {
         game.level.flags.has_morgue = true;
+    } else if (type === SWAMP && game.level?.flags) {
+        // C: mkroom.c:445-446 has_swamp
+        game.level.flags.has_swamp = true;
     } else if (type === BEEHIVE && game.level?.flags) {
         game.level.flags.has_beehive = true;
     }
