@@ -39,7 +39,7 @@ Score last measured: **2026-09-05** — full `sessions` at **D-1856**
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-05 at
 D-1856): **230 / 265 PASS (86.8 %)** excl. 13 env-only rows;
 RNG 99.44 %; screens 99.2 %. Top owners: `hitum`/`moverock_core`/
-`mhitm_ad_phys`/`menu_remarm`/`!`/`dog_invent` 2.
+`mhitm_ad_phys`/`menu_remarm`/`!`/`dog_invent` 2 (parked; `mpickstuff`).
 Reviews **818–826** (D-1848…D-1863): 7 ACCEPT, 2 ACCEPT-WITH-DEBT, no
 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
@@ -73,7 +73,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `mthrowu.c` linedup — 1 corpus block; C `rn2(2)` vs JS `m_move` `rn2(16)`.
+**Next cluster:** Open `uhitm.c` mhitm_ad_phys knockback — 2 corpus blocks; C `rnd(2)` vs JS `mhitm_knockback` `rn2(3)`.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
@@ -107,6 +107,7 @@ paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 | ID | Why parked |
 |----|------------|
 | **D-0006** | seed1800 pet movement — needs C state/candidate capture |
+| **dog_invent** | misattributed `"%s picks up %s."`; both hits are `mpickstuff`. Needs C `movement[]`. Do not pop |
 
 ## Pointers
 

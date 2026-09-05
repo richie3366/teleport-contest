@@ -5,9 +5,10 @@
 # Crash / resource_exhausted before commit: keep the tree, arm
 # continue-unfinished (cite that iter's .raw/.log + a resume brief),
 # rewind n, retry in this run; a provider quota error halts instead
-# (latch kept). Density, protected files, empty committed ports, and
-# QUALITY-RISK without Must-fix still halt. Banned-pattern hits do not
-# write STOP: revert if unpushed, else arm a next-iter heal prompt.
+# (latch kept). Density, protected files, empty ports (a Parked-row
+# move is not empty), and QUALITY-RISK without Must-fix still halt.
+# Banned-pattern hits do not write STOP: revert if unpushed, else arm
+# a next-iter heal prompt.
 # Stop: write "1" into STOP_AGENT_LOOP.md.
 # Design + usage: docs/AGENT-PORT-LOOP.md
 #
@@ -413,6 +414,7 @@ CADENCE_PROMPT_FILE="${CADENCE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.cadenc
 QUEUE_FILE="${QUEUE_FILE:-$ROOT/docs/LOOP-QUEUE.md}"
 REQUIRE_PASS="$ROOT/scripts/loop-require-results-pass.mjs"
 ARCHIVE_QUEUE="$ROOT/scripts/archive-loop-queue-done.mjs"
+PORT_DID_PARK="$ROOT/scripts/port-did-park.mjs"
 ROTATE_JOURNAL="$ROOT/scripts/rotate-journal.mjs"
 CHECK_HOT_DOCS="$ROOT/scripts/check-hot-docs.mjs"
 
@@ -439,6 +441,10 @@ if [[ ! -f "$REQUIRE_PASS" ]]; then
 fi
 if [[ ! -f "$ARCHIVE_QUEUE" ]]; then
   echo "error: missing $ARCHIVE_QUEUE" >&2
+  exit 1
+fi
+if [[ ! -f "$PORT_DID_PARK" ]]; then
+  echo "error: missing $PORT_DID_PARK" >&2
   exit 1
 fi
 if [[ ! -f "$ROTATE_JOURNAL" ]]; then
@@ -575,6 +581,7 @@ const protectedPaths = [
   'scripts/agent-port-loop.continue.prompt.md',
   'scripts/loop-require-results-pass.mjs',
   'scripts/archive-loop-queue-done.mjs',
+  'scripts/port-did-park.mjs',
   'scripts/check-hot-docs.mjs',
   'scripts/rotate-journal.mjs',
   'frozen',
@@ -830,6 +837,40 @@ queue_first_cluster() {
     }
     END { if (!found && open!="") print open }
   ' "$QUEUE_FILE"
+}
+
+# True when an Open/Must-fix `- [ ]` row left the live list and ## Parked
+# gained a matching line. Docs-only park is not an empty port (#2278).
+port_did_park() {
+  node "$PORT_DID_PARK" "$1" "$QUEUE_FILE"
+}
+
+# If the agent parked a queue row but forgot to commit, keep the docs.
+maybe_commit_park() {
+  local base="$1"
+  if ! port_did_park "$base"; then
+    return 0
+  fi
+  local files=(
+    docs/LOOP-QUEUE.md
+    docs/NOTES.md
+    docs/CURRENT.md
+    docs/AGENT-LOOP-JOURNAL.md
+  )
+  if git diff --quiet -- "${files[@]}"; then
+    echo "$(date -Iseconds) park already committed; not an empty port" \
+      | tee -a "$MASTER_LOG"
+    return 0
+  fi
+  echo "$(date -Iseconds) === commit uncommitted LOOP-QUEUE park ===" \
+    | tee -a "$MASTER_LOG"
+  git add "${files[@]}"
+  if git diff --cached --quiet; then
+    return 0
+  fi
+  if ! git commit -m "Park LOOP-QUEUE row (docs-only; not a shipped D-id)."; then
+    halt_loop "failed to commit LOOP-QUEUE park (local tree kept)" 0
+  fi
 }
 
 # Commit range $1..$2 (empty when the agent did not commit).
@@ -1358,13 +1399,22 @@ while true; do
   fi
 
   if [[ "$mode" == "port" ]]; then
-    if (( js_ins == 0 && js_files == 0 && js_c_ins == 0 && js_c_files == 0 )); then
-      if (( agent_pushed )); then
-        halt_loop "empty port iteration (no js/ diff) already pushed" 0
-      fi
-      halt_loop "empty port iteration (no js/ changes) — queue item not shipped" 1
+    parked=0
+    if port_did_park "$before_head"; then
+      parked=1
+      echo "$(date -Iseconds) port parked a LOOP-QUEUE row; not an empty port" \
+        | tee -a "$MASTER_LOG"
     fi
-    if (( js_c_ins == 0 && js_c_files == 0 )); then
+    if (( js_ins == 0 && js_files == 0 && js_c_ins == 0 && js_c_files == 0 )); then
+      if (( parked )); then
+        :
+      elif (( agent_pushed )); then
+        halt_loop "empty port iteration (no js/ diff) already pushed" 0
+      else
+        halt_loop "empty port iteration (no js/ changes) — queue item not shipped" 1
+      fi
+    fi
+    if (( js_c_ins == 0 && js_c_files == 0 && (js_ins > 0 || js_files > 0) )); then
       write_iter_count $((iter - 1))
       arm_continue_retry "port iteration left uncommitted js/ changes (agent did not commit)" \
         "$mode" "$iter_raw" "$iter_log"
@@ -1448,6 +1498,7 @@ while true; do
   rm -rf "$snapshot"
 
   maybe_archive_checked_queue
+  maybe_commit_park "$before_head"
   maybe_rotate_journal
   log_hot_docs
 

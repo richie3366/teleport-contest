@@ -5,6 +5,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
+- **Park `dog_invent` (iter 2278):** both `"%s picks up %s."` corpus hits are `mon.c mpickstuff` (shared literal; scorer first-match). tour-Barbarian-70011 step 34: 123 draws, 0 from dogmove.c; `geom-probe` 0 diffs (vision/memory). tour-Priest-70006 step 45: 47 draws, 0 from dog_invent; RNG 16489/50 match, 7 JS mons stepped +1 at movement=12 — needs C `movement[]`/`mtrack`. Do not pop.
 - **Hidden-score proxy** (`HIDDEN-PROXY.md`): 222/265 at D-1849;
   `dofire` 2 PASS at D-1851 (empty-quiver You() NEED_MORE before getobj).
   Geometry owners: `geom-probe.mjs` first (D-1849). Do not

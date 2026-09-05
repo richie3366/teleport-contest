@@ -58,8 +58,8 @@ function (`mineralize`, `bound_digging`, `wallification`, `place_lregion`,
 call) before opening a second C function, port the C writer of the
 differing cell, and cite that function. RNG counts are location-blind; a
 JS FORCE/DIAG that restores a count proves nothing (D-1849). By call ~40
-without a C-side measurement, take one or park with the command in
-`NOTES.md`.
+without a C-side measurement, take one or park: move the queue row to
+**Parked**, put the probe in `NOTES.md`, **commit** (no `finish-iteration`).
 
 ## One bounded unit
 
@@ -122,6 +122,11 @@ Tier A/B, then `PORT-GAP-TOP30.md`, one C family per line, to ~12.
 **Public score every 10 iterations** (`n % 10 == 0`) is the audit iter:
 review + `node frozen/ps_test_runner.mjs sessions` + `hidden-proxy score`,
 not a port iter.
+
+## Park (no js/)
+
+Move the `- [ ]` row to **Parked**, probe in NOTES, **commit and push**.
+Do not `finish-iteration`. Empty-port revert wipes an uncommitted park.
 
 ## Absolute prohibitions
 

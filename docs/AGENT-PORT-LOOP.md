@@ -3,7 +3,8 @@
 Repeatedly asks Cursor Agent CLI (or Muse, with `--muse`) to continue the
 NetHack JS port. The
 shell is the **gate**: agents **commit and `git push`** inside the
-iteration. Density overflow, protected-file edits, empty ports, and
+iteration. Density overflow, protected-file edits, empty ports (unless an
+Open/Must-fix row moved to **Parked**), and
 QUALITY-RISK without a Must-fix still fail-close (revert+halt if the
 push has not landed, else halt without reset). Green / full-suite
 regression **and** banned-pattern hits are logged; the loop
@@ -219,8 +220,9 @@ written (including review files and queue Must-fix rows). Agents
 **exits 0 even when sessions fail**, so the supervisor parses
 `__RESULTS_JSON__` after the agent returns. Green / full-suite FAIL
 does **not** halt: log a warning and continue (the next port is
-trusted to recover). If a density/authority/empty-port gate fails
-and the agent already pushed, **do not `git reset`** (that would
+trusted to recover). If a density/authority/empty-port gate fails (a
+Parked-row move is not an empty port) and the agent already pushed,
+**do not `git reset`** (that would
 require a force-push) — halt and ask a human to revert origin. If
 the agent committed but forgot to push, the supervisor pushes after
 gates (including after a suite warning).
@@ -273,7 +275,7 @@ porting guide). The prompt emphasizes:
 4. Port one complete C semantic unit; no trace-derived implementation
 5. Verify focused + green + cohort behavior
 6. Remove diagnostics and update durable memory before exit
-7. **Commit and `git push origin HEAD`** (supervisor fail-closes on density/authority; suite FAIL continues; pushes if forgotten)
+7. **Commit and `git push origin HEAD`** (supervisor fail-closes on density/authority/empty port except a Parked-row move; suite FAIL continues; pushes if forgotten; commits leftover park docs if the agent forgot)
 
 `docs/NOTES.md` is deliberately tiny and unresolved-only. Score/objective live
 in `docs/CURRENT.md`. **Every 10 global loop iterations** (`n % 10 == 0`) is
@@ -414,6 +416,8 @@ Halt reason is still `last-halt-reason.txt`.
 | Agent `git push` then green/suite FAIL | Continue; next iter recovers |
 | Port / audit `resource_exhausted` before commit | Supervisor **retries** the same `#` as continue-unfinished (cites that iter `.log`/`.raw` + resume brief); does **not** exit. 3× short runs still halt (tree kept) |
 | Uncommitted `js/` or `reviews/` after the agent returns | Same in-process retry, keep tree |
+| Docs-only park of a queue row (Open `- [ ]` moved to **Parked**, no `js/`) | **Continue** — not an empty-port halt. Supervisor commits leftover park docs if the agent forgot. Do not `finish-iteration` |
+| Empty port (no `js/` and no Parked-row move) | **HALT + revert** (unless already pushed — then halt, no reset). This is the “spun, shipped nothing” case (#2278 wiped an uncommitted park) |
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
 | Queue empty after port | Agent failed to refill from the map — halt |

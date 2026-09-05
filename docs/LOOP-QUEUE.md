@@ -20,7 +20,7 @@ Live file is **unchecked-only**. Done rows live in
 C *noticed* the difference: its falsifier is `node scripts/geom-probe.mjs
 <session>`, and the shipped D-log cites the C writer actually changed.
 Do not duplicate live or archived rows. Do not invent FAIL peels. Do
-not enqueue parked D-0006.
+not enqueue parked D-0006 or parked `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `dogmove.c` dog_invent — 2 corpus blocks; C «The dwarf mummy picks up a gem.» vs JS same topline (tour-Barbarian-70011 step 34, tour-Priest-70006).
 - [ ] `uhitm.c` mhitm_ad_phys knockback — 2 corpus blocks; C `rnd(2)` vs JS `mhitm_knockback` `rn2(3)`.
 - [ ] `do_wear.c` menu_remarm — 2 corpus blocks screen-first at step 42 (take_off path was D-1630).
 - [ ] `allmain.c` maybe_generate_rnd_mon — 1 corpus block; C `rn2(70)` vs JS `rn2(50)`.
@@ -62,4 +61,5 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 
 ## Parked (do not pop)
 
+- `dogmove.c` dog_invent — misattributed corpus owner (shared `"%s picks up %s."`; both hits are `mon.c mpickstuff`). Iter 2278. Do not pop. Falsifier: `node scripts/hidden-proxy.mjs verify dog_invent` (NO MOVEMENT until proxy rescore). Needs C `movement[]`/`mtrack` on tour-Priest-70006 step 44–45.
 - D-0006 seed1800 pet movement — needs C state/candidate capture.
