@@ -1028,7 +1028,7 @@ rustproof** (D-0079); doname `named`; **`xname` `has_oname&&dknown` → ` named 
 armor_simple_name for called deferred; **xname WAND dknown+!nn → `<descr> wand` + 
 mzapwand `dknown`** (D-0309); **xname SCROLL dknown+!nn → labeled/`<dn> scroll` (unlabeled blank 
 paper)** (D-0312); **xname SPBOOK dknown+!nn → `<descr> spellbook`** (D-0321); 
-**STATUE `of a <pm>`** (D-0087); **GEM `GemStone`/`xname`/`singular` + 
+**STATUE `historic + of <pm article>`** (D-0087; D-1882 ports `objnam.c:802–814`: Archeologist + `spe & CORPSTAT_HISTORIC` → `historic `, `obj_pmname` gender-aware, pname → no article / unique → `the ` / else `just_an`; named: `wizmgender` suffix, FIGURINE arm, `readobjnam` wish `ishistoric`); **GEM `GemStone`/`xname`/`singular` + 
 `obj_typename` stone** (D-0097); **armor gloves/boots `pair of` + dragon scales `set of` + LENSES; 
 makeplural keeps singular pair** (D-0158); 
 **`makeplural` C `one_off[]` irregulars (`foot`→`feet`) + fox→foxes / muskox→oxen** (D-0694; 

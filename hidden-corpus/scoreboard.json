@@ -1,6 +1,6 @@
 {
- "commit": "5ba0bdf9",
- "at": "2026-09-05T20:22:16.757Z",
+ "commit": "22bdf120",
+ "at": "2026-09-05T20:27:58.058Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4084,19 +4084,19 @@
   },
   "tour-Archeologist-70010-d3-6-10-11-12": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 16460,
    "rngT": 16460,
-   "scrM": 49,
+   "scrM": 50,
    "scrT": 50,
-   "kind": "screen",
-   "step": 18,
+   "kind": null,
+   "step": null,
    "steps": 50,
-   "owner": "dolook",
-   "loc": "invent.c:4324",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You see here a historic statue of a forest centaur.",
-   "jsTopline": "You see here a statue of a forest centaur.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "tour-Archeologist-70023-d5-8-15-17-22": {

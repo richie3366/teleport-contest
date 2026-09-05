@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-1882 — objnam.c xname ROCK_CLASS STATUE historic + unique/pname article (dolook corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)
+- **Symptom:** `tour-Archeologist-70010-d3-6-10-11-12` step 18/50 screen-first at `invent.c:4324`: C `You see here a historic statue of a forest centaur.` vs JS `You see here a statue of a forest centaur.` Row 0 matched except the `historic ` prefix.
+- **C locus:** `objnam.c` `xname_flags` ROCK_CLASS STATUE `:802–814` — `Snprintf(buf, "%s%s of %s%s", (Role_if(PM_ARCHEOLOGIST) && (obj->spe & CORPSTAT_HISTORIC)) ? "historic " : "", actualn, type_is_pname(&mons[omndx]) ? "" : the_unique_pm(&mons[omndx]) ? "the " : just_an(anbuf, statue_pmname), statue_pmname)` over `obj_pmname(obj)` (`do_name.c:1321`, gender-aware via `spe & CORPSTAT_GENDER`, aligned-cleric remap). Queue owner `invent.c` `dolook :4319–4331` is the symptom frame (`look_here(0, LOOKHERE_NOFLAGS)` → `doname_with_price` → `xname`); the writer is this arm. Level source `dat/oracle.lua:9–16` (`montype "C" historic=true`) via `sp_lev.c:3706–3713` `lflags`, already ported in `js/mklev.js` `splev_room_statue_montype`/`lspo_object_apply_montype`, so `spe` was correct and only the display dropped it.
+- **JS was:** `js/objnam.js` `pretty_base` STATUE arm returned `` `statue of ${an(mon_name(corpsenm))}` `` — no `historic ` gate, `mon_name` (enum token, no gender) instead of `obj_pmname_corpse`, and unconditional `an()` instead of the pname/unique/`just_an` article switch.
+- **Fix:** ported the C Snprintf envelope in `pretty_base` with C citations — `obj_pmname_corpse` for the pm name, `type_is_pname_objnam ? "" : the_unique_pm ? "the " : just_an(pmname)` for the inner article, `Role_if(PM_ARCHEOLOGIST) && (spe & CORPSTAT_HISTORIC)` for the `historic ` prefix; `NON_PM`/non-`ismnum` falls back to bare `statue` (C `Strcpy(buf, actualn)`). Same-module imports only (`PM_ARCHEOLOGIST` alongside existing `monsters_data.js` names; `CORPSTAT_HISTORIC` alongside existing `const.js` names — no new module edge). Outer `doname` `a `/`an ` redo is untouched and now yields `a historic statue …` via the existing `just_an(rest||base)` path (matches C `:1686–1692`).
+- **JS:** `js/objnam.js` (+13/−3); `docs/c-js-map/turns.md` STATUE row.
+- **Verify:**
+  - `node scripts/verify.mjs --fn dolook` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/objnam.js`; `PASS rule2`; `PASS hidden verify dolook: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Archeologist-70010-d3-6-10-11-12: PASS)`; `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; skip full (heuristic: objnam.js not in shared set).
+  - Preflight `node scripts/verify.mjs --no-cohort` before any edit → VERIFY: PASS (green + strict clean).
+- **Named omissions:** `BOULDER next_boulder` arm already live (D-1294, untouched); STATUE `iflags.wizmgender` ` (%s)` suffix (`objnam.c:1550–1558`, wizard-only, no corpus block); FIGURINE ` of <pm>` xname arm (named in the same WEAPON/TOOL comment, no corpus block); `readobjnam` `historic ` wish-parse → `spe |= CORPSTAT_HISTORIC` (`:5164`, wish path, no corpus block).
+- **Next:** next Open queue row in order (`uhitm.c` erode_armor).
+
 ## D-1881 — mdlib.c version_id_string + version.c doversion ('V' versionshort)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)

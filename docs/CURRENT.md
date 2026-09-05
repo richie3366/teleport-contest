@@ -42,8 +42,8 @@ RNG 99.60 %; screens 99.6 %. Top owners: `dog_invent` ×2 (parked) +
 `climb_pit`/`dopush` (parked)/`itemactions`/`mdrop_obj` (parked)/
 `do_look`/`show_gamelog`/`process_menu_window`/`show_conduct`/
 `getpos_help` ×1 (+ unattributed `!`, motd, level-change).
-Reviews **835–842** (D-1865…D-1881): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1881):
+Reviews **835–842** (D-1865…D-1882): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1882):
 3 ACCEPT, 0 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -79,10 +79,11 @@ before fire getobj (D-0484 skip reverted).
 **Next cluster:** Open `invent.c` dolook — 1 corpus block screen-first at step 18 («You see here a historic statue of a forest centaur.» vs «You see here a statue of a forest centaur.»; tour-Archeologist-70010-d3-6-10-11-12).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1881 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1882 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1882** `objnam.c` `xname_flags` ROCK_CLASS STATUE `:802–814` — ported the C Snprintf envelope in `pretty_base` with C citations — `obj_pmname_corpse` for the pm name, `type_is_pname_objnam ? "" : the_unique_pm ? "the " : just_an(pmname)` for the inner article, `Role_if(PM_ARCHEOLOGI
 **D-1881** `mdlib.c` `version_id_string` `:316–344` (`%s NetHack%s Version %s%s - last %s %s.` over P — `js/version.js` ports `mdlib_version_string`, `version_id_string`, `version_string`, `getversionstring` (pure, no imports; existing VERSION exports kept for `const.js`); `js/pager.js` adds `doversion` (menu_requested → `
 **D-1880** `getpos.c` `getpos_help` `:167–307`, tail `:244–299` — ported the tail in C order with C citations — live `getpos_getvalid`/`getpos_hilitefunc` arms (module state installed via `getpos_sethilite`), `skip_non_mons` as a `skipNonMons` boolean with the tail running under `!terr
 **D-1879** `win/tty/wintty.c` `erase_menu_or_text` `:966–985` — the three dismiss sites now `await dismiss_nhw_menu({ keep_status: true })` — corner takes the `docorner` path (status kept, C-cited comment), fullscreen stays byte-identical to before (`docrt()` + flush, no `clear_commi
@@ -90,11 +91,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1877** `win/tty/wintty.c` `process_menu_window` default arm — split the arm — ESC still dismisses (returns `'q'` → `ECMD_OK`, same outcome as C cancel); `q` now `tty_nhbell()` + `continue`, with C citation.
 **D-1876** `trap.c` `climb_pit` `:4183–4230` — `m_easy_escape_pit` as a file-local staticfn port (`data === mons[PM_PIT_FIEND] || msize >= MZ_HUGE`); hero `Passes_walls()` (`u.Passes_walls || H || E`, same idiom as `js/do.js`); exported async `climb_pit()` in C branc
 **D-1875** `dogmove.c` `dog_eat` `:274–294` message gate in C order — `sawpet` is `cansee+mon_visible` (not `canseemon`), second arm `canspotmon` (proxy owner `glibr` was a `corpse`-substring misattribution; `js/do_wear.js` `glibr()` untouched). `ind-Tourist-666025142-d17728db` step 29 PASS.
-**D-1874** `pager.c` `do_screen_description` — return `` `^        a trap (${nm})` `` with `first: nm` (C `firstmatch`, feeds `checkfile`) and `found: 1` (C resets `found = 1` after the supplement), plus a C-citation comment.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1881; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1882; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
