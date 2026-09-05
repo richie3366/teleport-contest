@@ -1,5 +1,56 @@
 # Divergence log
 
+## D-1858 — mkmaze.c makemaz Sam-strt/loca/goal/fila/filb load_special (Samurai quest 5/5)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no Samurai quest loaders, so `Sam-strt` / `-loca` /
+  `-goal` / `-fila` / `-filb` were a blank `create_maze` fallback. C loads
+  `dat/Sam-*.lua` via `sp_lev.c` `load_special`.
+- **C locus:** `dat/Sam-strt.lua` / `Sam-loca.lua` / `Sam-goal.lua` /
+  `Sam-fila.lua` / `Sam-filb.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `create_object` `:2266–2271` (eroded<0 ⇒
+  `oerodeproof`, `not-cursed` ⇒ uncurse), `def_char_to_objclass`
+  (`*`=GEM `[`=ARMOR `)`=WEAPON `(`=TOOL), `sel_set_wall_property`
+  (walls/bars only); `nhlib.lua` `math.random(1,#place)` ⇒ `rn2`.
+- **JS was:** `load_special_proto` named-omitted all five Samurai protos.
+- **Fix:** `load_sam_strt` from the lua body: solidfill STONE +
+  mazelevel/noteleport/hardfloor, 76×20 besieged-castle map (byte-verified),
+  whole-map lit region, throne COURT (18,03,26,07) with FILL_LVFLAGS, branch
+  levregion rect (62,12,70,17) after flip, down stair (29,04), 2 locked + 8
+  closed doors, Lord Sato CUSTOM_INVENT (splint mail +5, katana +4,
+  eroded=-1 ⇒ oerodeproof via `create_object`, not-cursed) + chest + 8 roshi,
+  whole-map non_diggable, 6 random traps, 9 hostile ninja + 3 wolves + random
+  stalker in lua order. `load_sam_loca`: solidfill + mazelevel/hardfloor,
+  76×20 twin-courtyard map, whole-map lit, 16 locked + 8 closed doors, up
+  (10,10) + down (25,14) stairs, whole-map non_diggable, 8 gem + 8 armor + 8
+  weapon + 8 tool class objects at fixed coords (`mkobj_at`), 6 random traps,
+  18 fixed ninja/wolf/d + 9 stalkers + 6 hostile samurai guards in lua order.
+  `load_sam_goal`: solidfill + mazelevel/noteleport, 45×20 concentric-ring map
+  (leading/trailing spaces byte-verified), whole-map unlit, 4 closed doors, up
+  stair at `rn2(2)` of {{02,11},{42,09}}, three `des.terrain` ring holes
+  (`rn2(4)`, `rn2(4)`, `rn2(2)` → `sel_set_ter` ROOM), whole-map non_diggable,
+  The Tsurugi of Muramasa (blessed spe-0 tsurugi via `l_create_object`) + 14
+  objects, 3 fixed board + 6 random traps, Ashikaga Takauji + 5 hostile samurai
+  + 5 hostile ninja + 4 wolves + 2 d + 9 stalkers. `load_sam_fila`:
+  solidfill + mines fg="." bg="P" (smoothed, joined, walled; no lit key in
+  lua, none passed) noflip, random stairs, 9 objects, class d + 5 wolves +
+  stalker, 4 traps. `load_sam_filb`: solidfill + mazelevel, 60×16 twin-hall map
+  (byte-verified), whole-map unlit, 4 closed doors, random stairs, 9 objects,
+  class d + 4 wolves + 3 stalkers, 4 traps, flip.
+- **JS:** `js/mklev.js` `load_sam_strt` / `load_sam_loca` / `load_sam_fila` /
+  `load_sam_filb` / `load_sam_goal` / `load_special_proto` (+ `SPLINT_MAIL`,
+  `KATANA`, `TSURUGI` otyp consts; makemaz doc list).
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js, 568 insertions); PASS rule2; note hidden (no corpus session
+  blocked on makemaz — map-driven content row 0/5, same as D-1852/D-1853);
+  PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full
+  44/44 (auto: shared file changed). VERIFY: PASS. Maps byte-compared
+  against `dat/Sam-*.lua` des.map blocks (20/20/20/16 lines MATCH).
+- **Named omissions:** humidity-aware `get_location` for water-likers;
+  `ensure_way_out`. Not the lua maps, stair/hole `rn2` order, Sato invent,
+  Tsurugi, class-object coords, or filler stock.
+- **Next:** Open `hack.c` `moverock_core` (2 corpus blocks). Not Sam.
+
 ## D-1857 — uhitm.c mhitm_ad_slee sleep attack (mhitu rn2(5) vs knockback rn2(3))
 
 - **Status:** fixed (Open queue row; corpus + green + strict + cohort)

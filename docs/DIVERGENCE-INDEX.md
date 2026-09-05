@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-1858 | fixed | dat/Sam-strt.lua — mkmaze.c makemaz Sam-strt/loca/goal/fila/filb load_special (Samurai quest 5/5) | `makemaz` had no Samurai quest loaders, so `Sam-strt` / `-loca` /; fix: `load_sam_strt` from the lua body: solidfill STONE +; verify: `node scripts/verify.mjs --fn makemaz` → PASS syntax; named: humidity-aware `get_location` for water-likers; |
 | D-1857 | open | uhitm.c:3479–3522 mhitm_ad_slee — uhitm.c mhitm_ad_slee sleep attack (mhitu rn2(5) vs knockback rn2(3)) | 1 corpus block at `mhitm_ad_slee`: C; fix: port the three arms with C branch/RNG order. `js/mhitm.js`; verify: `node scripts/verify.mjs --fn mhitm_ad_slee` → PASS; named: `defended(mon, AD_SLEE)` orange-scales/artifact |
 | D-1856 | open | dat/bigrm-2.lua — sp_lev.c lspo_replace_terrain bigrm-2 ice replace on darkness:grow() | 1 corpus block at `lspo_replace_terrain`: C; fix: build the darkness selection per choice arm (absolute; verify: `node scripts/verify.mjs --fn lspo_replace_terrain` → PASS; named: none new. bigrm-2 `flip_level_rnd` (noflip), |
 | D-1855 | open | cmd.c:1934–1935 — cmd.c '&' dispatches dowhatdoes (was Unknown command) | 2 corpus blocks at `dowhatdoes`: C; fix: export `dowhatdoes` from `js/pager.js`, import it in; verify: `node scripts/verify.mjs --fn dowhatdoes` → PASS; named: `dowhatdoes` ALTMETA ESC-double path |

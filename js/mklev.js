@@ -262,6 +262,9 @@ const SPE_POLYMORPH = objectNames.indexOf('SPE_POLYMORPH');
 const LONG_SWORD = objectNames.indexOf('LONG_SWORD');
 const PLATE_MAIL = objectNames.indexOf('PLATE_MAIL');
 const BANDED_MAIL = objectNames.indexOf('BANDED_MAIL');
+const SPLINT_MAIL = objectNames.indexOf('SPLINT_MAIL');
+const KATANA = objectNames.indexOf('KATANA');
+const TSURUGI = objectNames.indexOf('TSURUGI');
 const SADDLE = objectNames.indexOf('SADDLE');
 const SILVER_SABER = objectNames.indexOf('SILVER_SABER');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -1435,7 +1438,8 @@ function reset_xystart_size() {
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7,
  * Kni-strt, Kni-loca, Kni-fila, Kni-filb, Kni-goal,
  * Rog-strt, Rog-loca, Rog-fila, Rog-filb, Rog-goal,
- * Val-strt, Val-loca, Val-fila, Val-filb, Val-goal, knox.
+ * Val-strt, Val-loca, Val-fila, Val-filb, Val-goal,
+ * Sam-strt, Sam-loca, Sam-fila, Sam-filb, Sam-goal, knox.
  * Named omissions:
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1709,6 +1713,26 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Val-goal') {
         load_val_goal();
+        return true;
+    }
+    if (protofile === 'Sam-strt') {
+        load_sam_strt();
+        return true;
+    }
+    if (protofile === 'Sam-loca') {
+        load_sam_loca();
+        return true;
+    }
+    if (protofile === 'Sam-fila') {
+        load_sam_fila();
+        return true;
+    }
+    if (protofile === 'Sam-filb') {
+        load_sam_filb();
+        return true;
+    }
+    if (protofile === 'Sam-goal') {
+        load_sam_goal();
         return true;
     }
     if (protofile === 'knox') {
@@ -7612,6 +7636,549 @@ function load_val_filb() {
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     // des.level_flags noflip — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Sam-strt.lua via load_special — Samurai quest start (Lord Sato).
+ * Solidfill " " + mazelevel/noteleport/hardfloor; 76x20 besieged-castle map;
+ * whole-map lit region; throne COURT (18,03,26,07); branch levregion rect
+ * (62,12,70,17); down stair (29,04); 2 locked + 8 closed doors; Lord Sato
+ * CUSTOM_INVENT (splint mail +5 / katana +4, eroded=-1 erodeproof,
+ * not-cursed) + chest; 8 roshi chamber guards; whole-map non_diggable;
+ * 6 random traps; 9 hostile ninja + 3 wolves + random stalker siege.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_sam_strt() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    const SAM_STRT_MAP = `
+..............................................................PP............
+...............................................................PP...........
+..........---------------------------------------------------...PPP.........
+..........|......|.........|...|..............|...|.........|....PPPPP......
+......... |......|.........S...|..............|...S.........|.....PPPP......
+..........|......|.........|---|..............|---|.........|.....PPP.......
+..........+......|.........+...-------++-------...+.........|......PP.......
+..........+......|.........|......................|.........|......PP.......
+......... |......---------------------++--------------------|........PP.....
+..........|.................................................|.........PP....
+..........|.................................................|...........PP..
+..........----------------------------------------...-------|............PP.
+..........................................|.................|.............PP
+.............. ................. .........|.................|..............P
+............. } ............... } ........|.................|...............
+.............. ........PP....... .........|.................|...............
+.....................PPP..................|.................|...............
+......................PP..................-------------------...............
+............................................................................
+............................................................................
+`.replace(/^\n/, '');
+    splev_apply_centered_map(SAM_STRT_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,75,19), "lit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, true);
+
+    // des.region({ region={18,03,26,07}, lit=1, type="throne", filled=2 })
+    {
+        const dx1 = mx + 18, dy1 = my + 3, dx2 = mx + 26, dy2 = my + 7;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, true, COURT, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.needfill = FILL_LVFLAGS;
+                troom.needjoining = true;
+                topologize(troom);
+            }
+        }
+        for (let y = my + 3; y <= my + 7; y++) {
+            for (let x = mx + 18; x <= mx + 26; x++) {
+                const loc = g.level.at(x, y);
+                if (loc) loc.lit = true;
+            }
+        }
+    }
+
+    // des.stair("down", 29,04)
+    mkstairs(mx + 29, my + 4, 0, null);
+
+    const samDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    samDoor(10, 6, D_LOCKED);
+    samDoor(10, 7, D_LOCKED);
+    samDoor(27, 4, D_CLOSED);
+    samDoor(27, 6, D_CLOSED);
+    samDoor(38, 6, D_CLOSED);
+    samDoor(38, 8, D_LOCKED);
+    samDoor(39, 6, D_CLOSED);
+    samDoor(39, 8, D_LOCKED);
+    samDoor(50, 4, D_CLOSED);
+    samDoor(50, 6, D_CLOSED);
+
+    // des.monster Lord Sato + CUSTOM_INVENT (splint mail +5, katana +4;
+    // eroded=-1 ⇒ oerodeproof via create_object, buc not-cursed)
+    {
+        const mtmp = splev_create_monster('Lord Sato', undefined, { rx: 20, ry: 4 });
+        splev_discard_default_minvent(mtmp);
+        const give = (spec) => {
+            const otmp = l_create_object(spec);
+            if (!otmp || !mtmp) return;
+            obj_extract_self(otmp);
+            mpickobj(mtmp, otmp);
+        };
+        give({ id: SPLINT_MAIL, spe: 5, eroded: -1, buc: 'not-cursed' });
+        give({ id: KATANA, spe: 4, eroded: -1, buc: 'not-cursed' });
+    }
+    // des.object("chest", 20, 04)
+    mksobj_at(CHEST, mx + 20, my + 4, true, true);
+
+    // roshi guards for the audience chamber (default peaceful)
+    for (const [rx, ry] of [
+        [18, 4], [18, 5], [18, 6], [18, 7],
+        [26, 4], [26, 5], [26, 6], [26, 7],
+    ]) splev_create_monster('roshi', undefined, { rx, ry });
+
+    // des.non_diggable(selection.area(00,00,75,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.trap() × 6
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // monsters on siege duty, in lua order (ninja hostile, wolves default)
+    splev_create_monster('ninja', 0, { rx: 64, ry: 0 });
+    splev_create_monster('wolf', undefined, { rx: 65, ry: 1 });
+    splev_create_monster('ninja', 0, { rx: 67, ry: 2 });
+    splev_create_monster('ninja', 0, { rx: 69, ry: 5 });
+    splev_create_monster('ninja', 0, { rx: 69, ry: 6 });
+    splev_create_monster('wolf', undefined, { rx: 69, ry: 7 });
+    splev_create_monster('ninja', 0, { rx: 70, ry: 6 });
+    splev_create_monster('ninja', 0, { rx: 70, ry: 7 });
+    splev_create_monster('ninja', 0, { rx: 72, ry: 1 });
+    splev_create_monster('wolf', undefined, { rx: 75, ry: 9 });
+    splev_create_monster('ninja', 0, { rx: 73, ry: 5 });
+    splev_create_monster('ninja', 0, { rx: 68, ry: 2 });
+    splev_create_monster('stalker', undefined);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // des.levregion branch rect after flip (pre-flip map offsets, Bar-strt shortcut)
+    place_lregion(
+        mx + 62, my + 12, mx + 70, my + 17,
+        0, 0, 0, 0, LR_BRANCH, null,
+    );
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Sam-loca.lua via load_special — Samurai quest locate.
+ * Solidfill " " + mazelevel/hardfloor; 76x20 twin-courtyard map; whole-map
+ * lit region; 16 locked + 8 closed doors; up stair (10,10) + down stair
+ * (25,14); whole-map non_diggable; 8 gem + 8 armor + 8 weapon + 8 tool
+ * class objects at fixed coords; 6 random traps; ninja/wolf/d monsters in
+ * lua order + 9 random stalkers + 6 hostile samurai courtyard guards.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_sam_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    const SAM_LOCA_MAP = `
+............................................................................
+............................................................................
+........-----..................................................-----........
+........|...|..................................................|...|........
+........|...---..}..--+------------------------------+--..}..---...|........
+........|-|...|.....|...|....|....|....|....|....|.|...|.....|...|-|........
+..........|...-------...|....|....|....|....|....S.|...-------...|..........
+..........|-|.........------+----+-+-------+-+--------.........|-|..........
+............|..--------.|}........................}|.--------..|............
+............|..+........+..........................+........+..|............
+............|..+........+..........................+........+..|............
+............|..--------.|}........................}|.--------..|............
+..........|-|.........--------+-+-------+-+----+------.........|-|..........
+..........|...-------...|.S....|....|....|....|....|...-------...|..........
+........|-|...|.....|...|.|....|....|....|....|....|...|.....|...|-|........
+........|...---..}..--+------------------------------+--..}..---...|........
+........|...|..................................................|...|........
+........-----..................................................-----........
+............................................................................
+............................................................................
+`.replace(/^\n/, '');
+    splev_apply_centered_map(SAM_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,75,19), "lit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, true);
+
+    const samDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    for (const [rx, ry] of [
+        [22, 4], [22, 15], [53, 4], [53, 15], [49, 6], [26, 13],
+        [28, 7], [30, 12], [33, 7], [32, 12], [35, 7], [40, 12],
+        [43, 7], [42, 12], [45, 7], [47, 12],
+    ]) samDoor(rx, ry, D_LOCKED);
+    for (const [rx, ry] of [
+        [15, 9], [15, 10], [24, 9], [24, 10],
+        [51, 9], [51, 10], [60, 9], [60, 10],
+    ]) samDoor(rx, ry, D_CLOSED);
+
+    // des.stair("up", 10,10) + des.stair("down", 25,14)
+    mkstairs(mx + 10, my + 10, 1, null);
+    mkstairs(mx + 25, my + 14, 0, null);
+
+    // des.non_diggable(selection.area(00,00,75,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object class letters at fixed coords (C def_char_to_objclass:
+    // '*'=GEM, '['=ARMOR, ')'=WEAPON, '('=TOOL)
+    const placeClass = (oclass, rx, ry) => {
+        mkobj_at(oclass, mx + rx, my + ry, true);
+    };
+    for (const [rx, ry] of [
+        [25, 5], [26, 5], [27, 5], [28, 5],
+        [25, 6], [26, 6], [27, 6], [28, 6],
+    ]) placeClass(GEM_CLASS, rx, ry);
+    for (const [rx, ry] of [
+        [40, 5], [41, 5], [42, 5], [43, 5],
+        [40, 6], [41, 6], [42, 6], [43, 6],
+    ]) placeClass(ARMOR_CLASS, rx, ry);
+    for (const [rx, ry] of [
+        [27, 13], [28, 13], [29, 13], [30, 13],
+        [27, 14], [28, 14], [29, 14], [30, 14],
+    ]) placeClass(WEAPON_CLASS, rx, ry);
+    for (const [rx, ry] of [
+        [37, 13], [38, 13], [39, 13], [40, 13],
+        [37, 14], [38, 14], [39, 14], [40, 14],
+    ]) placeClass(TOOL_CLASS, rx, ry);
+
+    // des.trap() × 6
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // random monsters in lua order (ninja/samurai hostile, rest default)
+    splev_create_monster('ninja', 0, { rx: 15, ry: 5 });
+    splev_create_monster('ninja', 0, { rx: 16, ry: 5 });
+    splev_create_monster('wolf', undefined, { rx: 17, ry: 5 });
+    splev_create_monster('wolf', undefined, { rx: 18, ry: 5 });
+    splev_create_monster('ninja', 0, { rx: 19, ry: 5 });
+    splev_create_monster('wolf', undefined, { rx: 15, ry: 14 });
+    splev_create_monster('wolf', undefined, { rx: 16, ry: 14 });
+    splev_create_monster('ninja', 0, { rx: 17, ry: 14 });
+    splev_create_monster('ninja', 0, { rx: 18, ry: 14 });
+    splev_create_monster('wolf', undefined, { rx: 56, ry: 5 });
+    splev_create_monster('ninja', 0, { rx: 57, ry: 5 });
+    splev_create_monster('wolf', undefined, { rx: 58, ry: 5 });
+    splev_create_monster('wolf', undefined, { rx: 59, ry: 5 });
+    splev_create_monster('ninja', 0, { rx: 56, ry: 14 });
+    splev_create_monster('wolf', undefined, { rx: 57, ry: 14 });
+    splev_create_monster('ninja', 0, { rx: 58, ry: 14 });
+    splev_create_monster('d', undefined, { rx: 59, ry: 14 });
+    splev_create_monster('wolf', undefined, { rx: 60, ry: 14 });
+    for (let i = 0; i < 9; i++) splev_create_monster('stalker', undefined);
+    // "guards" for the central courtyard
+    splev_create_monster('samurai', 0, { rx: 30, ry: 5 });
+    splev_create_monster('samurai', 0, { rx: 31, ry: 5 });
+    splev_create_monster('samurai', 0, { rx: 32, ry: 5 });
+    splev_create_monster('samurai', 0, { rx: 32, ry: 14 });
+    splev_create_monster('samurai', 0, { rx: 33, ry: 14 });
+    splev_create_monster('samurai', 0, { rx: 34, ry: 14 });
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Sam-goal.lua via load_special — Samurai quest goal (Ashikaga
+ * Takauji). Solidfill " " + mazelevel/noteleport; 45x20 concentric-ring map;
+ * whole-map unlit region; 4 closed doors; up stair at a random one of two
+ * ring gaps (math.random → rn2); three ring-wall holes via des.terrain "."
+ * (4-choice, 4-choice, 2-choice); whole-map non_diggable; The Tsurugi of
+ * Muramasa (blessed tsurugi) + 14 objects; 3 fixed board + 6 random traps;
+ * Ashikaga Takauji + 5 hostile samurai + 5 hostile ninja + wolves/d/stalkers.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_sam_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+
+    const SAM_GOAL_MAP = `
+${' '.repeat(45)}
+           .......................           
+       ......-------------------......       
+    ......----.................----......    
+   ....----.....-------------.....----....   
+  ....--.....----...........----.....--....  
+  ...||....---....---------....---....||...  
+  ...|....--....---.......---....--....|...  
+ ....|...||...---...--+--...---...||...|.... 
+ ....|...|....|....|-...-|....|....|...|.... 
+ ....|...|....|....+.....+....|....|...|.... 
+ ....|...|....|....|-...-|....|....|...|.... 
+ ....|...||...---...--+--...---...||...|.... 
+  ...|....--....---.......---....--....|...  
+  ...||....---....---------....---....||...  
+  ....--.....----...........----.....--....  
+   ....----.....-------------.....----....   
+    ......----.................----......    
+       ......-------------------......       
+           .......................           
+`.replace(/^\n/, '');
+    splev_apply_centered_map(SAM_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // local place = { {02,11},{42,09} }; placeidx = math.random(1, #place)
+    // nh.random(1,2) → 1+rn2(2); JS 0-based index
+    const place = [[2, 11], [42, 9]];
+    const placeidx = rn2(2);
+    const [px, py] = place[placeidx];
+
+    // des.region(selection.area(00,00,44,19), "unlit")
+    light_region(mx + 0, my + 0, mx + 44, my + 19, false);
+
+    // des.door("closed", ...) × 4
+    for (const [rx, ry] of [[19, 10], [22, 8], [22, 12], [25, 10]]) {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) continue;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = D_CLOSED;
+        loc.flags = D_CLOSED;
+    }
+
+    // des.stair({ dir = "up", coord = place[placeidx] })
+    mkstairs(mx + px, my + py, 1, null);
+
+    // holes in the concentric ring walls (des.terrain "..." → ROOM)
+    let ring = [[22, 14], [30, 10], [22, 6], [14, 10]];
+    let ridx = rn2(4);
+    sel_set_ter(mx + ring[ridx][0], my + ring[ridx][1], ROOM, SET_LIT_NOCHANGE);
+    ring = [[22, 4], [35, 10], [22, 16], [9, 10]];
+    ridx = rn2(4);
+    sel_set_ter(mx + ring[ridx][0], my + ring[ridx][1], ROOM, SET_LIT_NOCHANGE);
+    ring = [[22, 2], [22, 18]];
+    ridx = rn2(2);
+    sel_set_ter(mx + ring[ridx][0], my + ring[ridx][1], ROOM, SET_LIT_NOCHANGE);
+
+    // des.non_diggable(selection.area(00,00,44,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 44 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object Tsurugi of Muramasa (blessed tsurugi spe 0) + 14 random
+    l_create_object({
+        id: TSURUGI, rx: 22, ry: 10, buc: 'blessed', spe: 0,
+        name: 'The Tsurugi of Muramasa',
+    });
+    for (let i = 0; i < 14; i++) splev_create_object(null);
+
+    // fixed board traps, then 6 random
+    for (const [rx, ry] of [[22, 9], [24, 10], [22, 11]]) {
+        const ttmp = maketrap(mx + rx, my + ry, SQKY_BOARD);
+        mktrap_seen_victim(ttmp, {});
+    }
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // random monsters in lua order (samurai/ninja hostile, rest default)
+    splev_create_monster('Ashikaga Takauji', undefined, { rx: 22, ry: 10 });
+    for (let i = 0; i < 5; i++) splev_create_monster('samurai', 0);
+    for (let i = 0; i < 5; i++) splev_create_monster('ninja', 0);
+    for (let i = 0; i < 4; i++) splev_create_monster('wolf', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster('d', undefined);
+    for (let i = 0; i < 9; i++) splev_create_monster('stalker', undefined);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Sam-fila.lua via load_special — Samurai quest upper filler.
+ * Solidfill " " + mazelevel/noflip; mines fg="." bg="P" (smoothed, joined,
+ * walled; no lit key in lua); random up/down stairs; 9 objects; class d +
+ * 5 wolves + stalker; 4 random traps.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_sam_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg="P", smoothed, joined=true,
+    // walled=true (no lit key in lua) — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: POOL, filling: ROOM,
+        smoothed: true, joined: true, walled: true,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 9; i++) splev_create_object(null);
+    splev_create_monster('d', undefined);
+    for (let i = 0; i < 5; i++) splev_create_monster('wolf', undefined);
+    splev_create_monster('stalker', undefined);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Sam-filb.lua via load_special — Samurai quest lower filler.
+ * Solidfill " " + mazelevel; 60x16 twin-hall map; whole-map unlit region;
+ * 4 closed doors; random up/down stairs; 9 objects; class d + 4 wolves +
+ * 3 stalkers; 4 random traps.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_sam_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    const SAM_FILB_MAP = `
+-------------                                  -------------
+|...........|                                  |...........|
+|...-----...|----------------------------------|...-----...|
+|...|   |...|..................................|...|   |...|
+|...-----..........................................-----...|
+|...........|--S----------------------------S--|...........|
+----...--------.|..........................|.--------...----
+   |...|........+..........................+........|...|   
+   |...|........+..........................+........|...|   
+----...--------.|..........................|.--------...----
+|...........|--S----------------------------S--|...........|
+|...-----..........................................-----...|
+|...|   |...|..................................|...|   |...|
+|...-----...|----------------------------------|...-----...|
+|...........|                                  |...........|
+-------------                                  -------------
+`.replace(/^\n/, '');
+    splev_apply_centered_map(SAM_FILB_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,59,15), "unlit")
+    light_region(mx + 0, my + 0, mx + 59, my + 15, false);
+
+    // des.door("closed", ...) × 4
+    for (const [rx, ry] of [[16, 7], [16, 8], [43, 7], [43, 8]]) {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) continue;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = D_CLOSED;
+        loc.flags = D_CLOSED;
+    }
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 9; i++) splev_create_object(null);
+    splev_create_monster('d', undefined);
+    for (let i = 0; i < 4; i++) splev_create_monster('wolf', undefined);
+    for (let i = 0; i < 3; i++) splev_create_monster('stalker', undefined);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 
