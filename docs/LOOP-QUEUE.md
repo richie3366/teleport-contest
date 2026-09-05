@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `dungeon.c` induced_align — 1 corpus block; C `rn2(3)` vs JS `rnd_rect` `rn2(4)`.
 - [ ] `uhitm.c` hitum — 1 corpus block; C `rnd(20)` vs JS `spec_abon` `rnd(5)`.
 - [ ] `mthrowu.c` linedup — 1 corpus block; C `rn2(2)` vs JS `m_move` `rn2(16)`.
 - [ ] `dogmove.c` dog_invent — 2 corpus blocks; C «The dwarf mummy picks up a gem.» vs JS same topline (tour-Barbarian-70011 step 34, tour-Priest-70006).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `do_wear.c` menu_remarm — 2 corpus blocks screen-first at step 42 (take_off path was D-1630).
 - [ ] `allmain.c` maybe_generate_rnd_mon — 1 corpus block; C `rn2(70)` vs JS `rn2(50)`.
 - [ ] `monmove.c` m_move — 1 corpus block; C `rn2(4)` vs JS `distfleeck` `rn2(5)`.
+- [ ] `mkroom.c` mkswamp — 1 corpus block; C `rn2(5)` vs JS `fill_ordinary_room` `rn2(3)`.
+- [ ] `uhitm.c` mhitm_mgc_atk_negated — 1 corpus block; C `rn2(10)` vs JS `mhitm_knockback` `rn2(6)`.
+- [ ] `hack.c` dopush — 1 corpus block screen-first at step 127 («With great effort you move the boulder.»).
+- [ ] `sounds.c` zoo_mon_sound — 1 corpus block screen-first at step 134 («You hear a sound reminiscent of a seal barking.» vs empty).
+- [ ] `objnam.c` minimal_xname — 1 corpus block screen-first at step 827 («d - an uncursed +1 ring of gain constitution» vs «Amulets»).
 
 ## Parked (do not pop)
 

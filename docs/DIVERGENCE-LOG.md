@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1861 — themerms.lua Garden fill (dungeon.c induced_align owner)
+
+- **Status:** fixed (Open queue row; 1 corpus block PASS; green + cohort + full `sessions` 44/44)
+- **Symptom:** ind-Monk-146641968-c5e5ab94 step 0/91 kind=rng at dungeon.c:2021 — C `rn2(3)=1 @ induced_align` vs JS `rn2(4)=3 @ rnd_rect(rect.js:64)`. After matched `themerms.lua:1039` reservoir draws rn2(11..13), C ran `induced_align → somex → somey → next_ident → newmonhp d(2,8) → m_initinv S_NYMPH`; JS drew nothing and looped to the next room's `rnd_rect`.
+- **C locus:** `dat/themerms.lua` Garden fill contents (`numpoints/6` wood-nymph loop, `percent(30)` fountain, `make_garden_walls` postprocess) + `make_garden_walls` (`:grow()`, `w→T`, `S→A`); first draw is `dungeon.c` `induced_align` via `sp_lev.c` `create_monster` default-random `sp_amask_to_amask` (`:1907–1922`); `lspo_feature` string form (`:4844–4930`) + `sel_set_feature` (`:4633–4644`); `lspo_replace_terrain` selection arm (`:5051–5150`, match-then-`rn2(100)` per cell); `mkmaze.c` `set_levltyp` garden hack (`:82–87` SDOOR→AIR keeps SDOOR, sets `arboreal_sdoor`); `detect.c` `cvt_sdoor_to_door` clears it (`:1603`).
+- **JS was:** `js/mklev.js` `themeroom_fill` had Garden as a named omission (`// Named omission: Garden / …`), so a Garden pick drew zero RNG; `run_themerms_post_level_generate` handled only `make_a_trap`; nothing ever set `arboreal_sdoor` (display read it, `cvt_sdoor_to_door` never cleared it).
+- **Fix:** port `themeroom_fill_garden` (nymph count `(numpoints/6)|0`, `splev_room_monster(croom,'wood nymph')` + `msleeping=1`, `percent(30)` fountain, queue `{handler:'make_garden_walls'}` with a fresh `selection_from_mkroom`); `themeroom_garden_fountain` (DRY double-try placement, isok + `IS_FURNITURE` guard, typ only — no `nfountains` bump per C); `make_garden_walls_postprocess` (`selection_grow` all-directions, `lspo_replace_terrain_sel` MATCH_WALL→TREE, then per-SDOOR `rn2(100)` burn setting `arboreal_sdoor` + `candig` per `rm.h:224`); register `'Garden'` in `THEMEROOM_FILL_BODIES`; clear both fields in `cvt_sdoor_to_door`.
+- **JS:** `js/mklev.js` `themeroom_fill_garden` + `themeroom_garden_fountain` + `make_garden_walls_postprocess` + dispatch/runner; `js/detect.js` `cvt_sdoor_to_door`; `docs/c-js-map/data.md` themerms section.
+- **Verify:** `node scripts/verify.mjs --fn induced_align` → PASS syntax (2 changed js files: js/detect.js js/mklev.js) · PASS rule2 · PASS hidden verify induced_align: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (ind-Monk-146641968-c5e5ab94: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed).
+- **Named omissions:** Buried treasure / Massacre / Statuary fills still omitted (same dispatch comment); `induced_align` local clone in `mklev.js` vs `Is_special` clones in `end.js`/`quest.js` untouched (brief-flagged drift, no behavior gap found).
+- **Next:** Open `uhitm.c` `hitum` (queue head after this ships).
+
 ## D-1860 — mkroom.c fill_zoo COCKNEST statue loot + ANTHOLE antholemon/food
 
 - **Status:** fixed (Open queue row; 1 corpus block PASS; green + cohort + full `sessions` 44/44)

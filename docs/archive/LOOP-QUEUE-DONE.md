@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `mkroom.c` fill_zoo — 1 corpus block; C `rn2(3)` vs JS `next_ident` `rnd(2)`. **Addressed:** D-1860
+- [x] `dungeon.c` induced_align — 1 corpus block; C `rn2(3)` vs JS `rnd_rect` `rn2(4)`. **Addressed:** D-1861
+
+
+- [x] `mkroom.c` fill_zoo — 1 corpus block; C `rn2(3)` vs JS `next_ident` `rnd(2)`. **Addressed:** D-1860 `bea18bd9`.
 
 
 - [x] `hack.c` moverock_core — 2 corpus blocks; C «The boulder won't roll diagonally on this floor.» vs JS «With great effort you move the boulder.». **Addressed:** D-1859 `b22e00db`

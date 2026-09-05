@@ -1237,8 +1237,12 @@ coords + Tsurugi + rn2 ring holes; fila mines no-lit-key); **knox** (D-1853; For
 iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);
 full Lua VM + remaining `des.*` still production requirement; 
 Random-feature center terrain + 
-other fill bodies (Garden/Buried treasure/Massacre/Statuary/…) 
-+ garden/dig postprocess absent; icedpool on ICE (`splev_init_present`); exclusion_zones save/rest deferred
+other fill bodies (Buried treasure/Massacre/Statuary/…) 
++ dig postprocess absent; icedpool on ICE (`splev_init_present`); exclusion_zones save/rest deferred;
+**Garden fill + `make_garden_walls` postprocess** (D-1861; numpoints/6
+asleep wood nymphs via `splev_room_monster` default-random `induced_align`,
+`percent(30)` DRY `des.feature` fountain, grown-sel walls→TREE +
+SDOOR-kept `arboreal_sdoor` per-cell `rn2(100)`; `cvt_sdoor_to_door` clears it)
 
 ### `src/mkroom.c` `mkshop` / `src/shknam.c` `stock_room` / `src/shk.c`
 

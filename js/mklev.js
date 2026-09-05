@@ -23114,6 +23114,40 @@ function themeroom_fill_teleport_hub(croom) {
     }
 }
 
+// C ref: themerms.lua "Garden" contents — numpoints/6 wood nymphs (asleep,
+// default-random align → induced_align) with percent(30) fountain each;
+// the room selection is queued for the make_garden_walls postprocess.
+function themeroom_fill_garden(croom) {
+    const s = selection_from_mkroom(croom);
+    const n = (selection_numpoints(s) / 6) | 0;
+    for (let i = 0; i < n; i++) {
+        // C create_monster: sp_amask RANDOM burns induced_align(80) first,
+        // then somexy placement, makemon next_ident, m_initinv (S_NYMPH).
+        const mtmp = splev_room_monster(croom, 'wood nymph');
+        // C lspo_monster: asleep=true(1) > BOOL_RANDOM(-1) → msleeping
+        if (mtmp) mtmp.msleeping = 1;
+        if (percent(30)) themeroom_garden_fountain(croom);
+    }
+    // C: table.insert(postprocess, { handler = make_garden_walls,
+    //      data = { sel = selection.room() } })
+    themerms_postprocess.push({
+        handler: 'make_garden_walls',
+        data: { sel: selection_from_mkroom(croom) },
+    });
+}
+
+// C ref: sp_lev.c lspo_feature string form — des.feature("fountain") with
+// x=y=-1 → SP_COORD_PACK_RANDOM(0) DRY via the get_location_coord double-try,
+// then sel_set_feature: isok + IS_FURNITURE guard, typ only (no lit change,
+// no nfountains bump — that recount lives in set_levltyp, not here).
+function themeroom_garden_fountain(croom) {
+    const pos = get_location_coord_in_room(croom, DRY);
+    if (pos.x < 0 || !isok(pos.x, pos.y)) return;
+    const loc = game.level.at(pos.x, pos.y);
+    if (!loc || IS_FURNITURE(loc.typ)) return;
+    loc.typ = FOUNTAIN;
+}
+
 // C ref: themerms.lua make_a_trap — teledest pick then des.trap
 function make_a_trap_postprocess(data) {
     if (!data || data.type !== 'teleport') return;
@@ -23157,6 +23191,28 @@ function make_a_trap_postprocess(data) {
     }
 }
 
+// C ref: themerms.lua make_garden_walls + mkmaze.c set_levltyp garden hack —
+// grown room selection: walls→TREE (rn2(100) burn per wall cell), then
+// SDOOR→AIR keeps SDOOR typ and sets arboreal_sdoor (rm.h:224 aliases it to
+// the candig bit, so both fields are written and both cleared on uncover).
+function make_garden_walls_postprocess(data) {
+    if (!data?.sel?.pts?.size) return;
+    const grown = selection_grow(data.sel);
+    lspo_replace_terrain_sel(grown, MATCH_WALL, TREE, 100);
+    for (let x = Math.max(1, grown.lx); x <= grown.hx; x++) {
+        for (let y = grown.ly; y <= grown.hy; y++) {
+            if (!selection_getpoint(x, y, grown)) continue;
+            if (!isok(x, y)) continue;
+            const loc = game.level.at(x, y);
+            if (!loc || loc.typ !== SDOOR) continue;
+            if (rn2(100) < 100) {
+                loc.arboreal_sdoor = 1;
+                loc.candig = 1;
+            }
+        }
+    }
+}
+
 // C ref: themerms.lua post_level_generate + mklev.c themerooms_post_level_generate
 function run_themerms_post_level_generate() {
     // C mklev.c themerooms_post_level_generate — reset before lua
@@ -23164,11 +23220,13 @@ function run_themerms_post_level_generate() {
     reset_xystart_size();
     for (const v of themerms_postprocess) {
         if (v.handler === 'make_a_trap') make_a_trap_postprocess(v.data);
+        else if (v.handler === 'make_garden_walls') make_garden_walls_postprocess(v.data);
     }
     themerms_postprocess.length = 0;
 }
 
 const THEMEROOM_FILL_BODIES = {
+    'Garden': themeroom_fill_garden,
     'Ghost of an Adventurer': themeroom_fill_ghost,
     'Teleportation hub': themeroom_fill_teleport_hub,
     'Storeroom': themeroom_fill_storeroom,
@@ -23198,7 +23256,7 @@ function themeroom_fill(croom) {
     croom._themeroom_fill = pick.name;
     const body = THEMEROOM_FILL_BODIES[pick.name];
     if (body) body(croom);
-    // Named omission: Garden / Buried treasure / Massacre / Statuary / …
+    // Named omission: Buried treasure / Massacre / Statuary / …
 }
 
 // C ref: themerms.lua filler_region + sp_lev.c lspo_region irregular path

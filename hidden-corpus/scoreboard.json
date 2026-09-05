@@ -1,6 +1,6 @@
 {
- "commit": "b22e00db",
- "at": "2026-09-05T10:34:06.270Z",
+ "commit": "bea18bd9",
+ "at": "2026-09-05T10:51:03.765Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -2469,19 +2469,19 @@
   },
   "ind-Monk-146641968-c5e5ab94": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 565,
+   "passed": true,
+   "rngM": 3020,
    "rngT": 3020,
-   "scrM": 0,
+   "scrM": 91,
    "scrT": 91,
-   "kind": "rng",
-   "step": 0,
+   "kind": null,
+   "step": null,
    "steps": 91,
-   "owner": "induced_align",
-   "loc": "dungeon.c:2021",
-   "jsOwner": "rnd_rect(rect.js:64)",
-   "cTopline": "Hello Kira, welcome to NetHack! You are a neutral female human Monk.",
-   "jsTopline": "Hello Kira, welcome to NetHack! You are a neutral female human Monk.",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "ind-Monk-189066244-ac9e1bd4": {
