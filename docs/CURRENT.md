@@ -41,7 +41,7 @@ D-1864): **236 / 265 PASS (89.1 %)** excl. 13 env-only rows;
 RNG 99.58 %; screens 99.5 %. Top owners: `mkswamp`/
 `maybe_generate_rnd_mon`/`climb_pit`/`m_move`/`mhitm_mgc_atk_negated`/
 `dopush`/`zoo_mon_sound`/`minimal_xname` (+ parked `dog_invent`, `!`).
-Reviews **827–834** (D-1857…D-1870): 5 ACCEPT, 2 ACCEPT-WITH-DEBT,
+Reviews **827–834** (D-1857…D-1871): 5 ACCEPT, 2 ACCEPT-WITH-DEBT,
 1 QUALITY-RISK, 1 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -78,10 +78,11 @@ before fire getobj (D-0484 skip reverted).
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1870 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1871 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1871** `sounds.c` `zoo_mon_sound` `:115–128` ((msleeping||is_animal)+ZOO gate; `selection = rn2(2 — async `zoo_mon_sound` in C order (gate; `hallu = Hallucination() ? 1 : 0` via the faithful youprop helper; `zoo_msg[rn2(2)+hallu]`; `await You_hear`, i.e.
 **D-1870** `uhitm.c` `mhitm_ad_drli` `:2479–2488` mhitu arm (`hitmsg`, then `!rn2(3) && !Drain_resist — new `mhitm_ad_drli_u` in `js/mhitu.js` in C order (hitmsg; short-circuit `!rn2(3) && !Drain_resistance() && !mgc_negated(TRUE)` → `losexp('life drainage')`; damage untouched) wired as `case AD_DRLI` in `mhitm_adtyping_u`
 **D-1869** `mkroom.c` `mkswamp` `:530–574`, via `do_mkroom` `:74` SWAMP arm. Own `rn2(nroom)` pick pe — port `mkswamp` into `js/mklev.js` in C order (short-circuit, RNG, mutation).
 **D-1868** `mon.c` `mfndpos` door arm `:2231–2238` (`IS_DOOR && !((amorphous(mdat) || can_fog(mon)) & — door block restructured to C order with the `amorphous(mdat) && !engulfing_u(mon)` exemption (`can_fog` stays a commented named-omit); ALLOW_DIG cursed-wield branch (`MON_WEP` + `cursed` + `(weapon_check|0) === NO_WEAPON
@@ -89,11 +90,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1866** `options.c` `initoptions_init` `:7279` (`iflags.menuinvertmode = 1` — default `menuinvertmode: 1` in `g.iflags` init (rc `...opts.iflags` spread still overrides) + parse `OPTIONS=menuinvertmode:N` colon-compound per `optfn_menuinvertmode` do_set (atoi, keep prior unless 0–2).
 **D-1865** `weapon.c` `dmgval` `:215` (`struct permonst *ptr = mon->data` — `dmgval(otmp, game.youmonst)` + C-citation comment (`dmgval(otmp, mdef)`, `weapon.c:215`).
 **D-1864** `uhitm.c` `mhitm_ad_phys` mhitu arm `:4038–4126` (AT_WEAP+otmp: corpse `do_stone_u`/done ` — port the mhitu AT_WEAP arm in C order (corpse `do_stone_u` via the file-local clone with the `u.Stoned || u.HStoned` guard; GOP arm; `artifact_hit` dmgBox pattern from `mhitm.js:1187` with `game.youmonst` defender + `gam
-**D-1863** `vision.c` `vision_recalc` `:609–622` (`u.utrap && u.utraptype == TT_PIT` → only the immed — port the TT_PIT 3×3 arm in C order (row `continue`/`break`, direct `next_rmin/rmax` assign, xray/nv/lights/update flow untouched) + add the post-`rhack`/`deferred_goto` `vision_full_recalc` consume in `moveloop_core` (mi
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1870; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1871; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

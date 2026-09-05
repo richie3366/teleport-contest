@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1871 sounds.c zoo_mon_sound zoo_msg print (zoo_mon_sound corpus owner)
+
+**C locus:** `sounds.c` `zoo_mon_sound` `:115–128` ((msleeping||is_animal)+ZOO gate; `selection = rn2(2)+hallu` over zoo_msg[3]; `You_hear1`; TRUE). Caller `dosounds` `:309–312` (`has_zoo && !rn2(200)` → `get_iter_mons(zoo_mon_sound)` → return).
+**JS:** `js/sounds.js` `zoo_mon_sound` + `get_iter_mons` + six awaited call sites; `docs/CURRENT.md` Next cluster (already named this row).
+**Change:** async `zoo_mon_sound` in C order (gate; `hallu = Hallucination() ? 1 : 0` via the faithful youprop helper; `zoo_msg[rn2(2)+hallu]`; `await You_hear`, i.e. C `You_hear1`; no Soundeffect on this arm); file-local `get_iter_mons` async (fountain.js/dokick.js precedent) with `await bfunc`, all six dosounds sites awaited; envelope comment updated (zoo live, rest RNG-only).
+**Verify:** `node scripts/verify.mjs --fn zoo_mon_sound` → PASS syntax (1 changed js file: js/sounds.js) · PASS rule2 · PASS hidden 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0116-wizard-wear-shop-d07e6ea5: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed).
+**Named:** throne/beehive/morgue/barracks/court You_hear plines still deferred (RNG-only stubs unchanged); dosounds sticky-`hallu` for the other arms untouched; `mon_offmap` edge cases in `get_iter_mons` skips unchanged.
+**Next:** next Open row (`objnam.c` minimal_xname).
 ## 2026-09-05 — D-1870 uhitm.c mhitm_ad_drli mhitu arm (mhitm_mgc_atk_negated corpus owner)
 
 **C locus:** `uhitm.c` `mhitm_ad_drli` `:2479–2488` mhitu arm (`hitmsg`, then `!rn2(3) && !Drain_resistance && !mhitm_mgc_atk_negated(magr, mdef, TRUE)` → `losexp("life drainage")`; base-damage dice kept). `mhitm_mgc_atk_negated` itself (`:75–99`) was already C-faithful in JS (D-0198/D-1405); the missing piece was its mhitu-DRLI caller.

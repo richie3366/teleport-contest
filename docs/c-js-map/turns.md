@@ -385,7 +385,10 @@ to its existing polyself import. **`mcastu` `body_part(HEAD)` +
 `pickup` `body_part(HAND)` D-1508** (mcastu imports `polyself.js`;
 pickup via latebound — polyself→do→pickup cycle). **`mcast_blind_you`
 `body_part(EYE)` D-1534** (`eyecount` live `monsters.js`). **`observe_quantum_cat`
-`body_part(FOOT)` D-1535** (pickup latebound).
+`body_part(FOOT)` D-1535** (pickup latebound); **`zoo_mon_sound` zoo_msg+You_hear D-1871**
+(C `sounds.c` `:115–128` (msleeping||animal)+ZOO gate, `rn2(2)+hallu`; live
+`js/sounds.js` async print; file-local `get_iter_mons` async for printing bfunc;
+throne/beehive/morgue/barracks/court You_hear plines still named).
 
 ### `src/potion.c`
 

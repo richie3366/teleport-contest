@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1871 — sounds.c zoo_mon_sound zoo_msg print (zoo_mon_sound corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + cohort PASS)
+- **Symptom:** explore-seed0116-wizard-wear-shop-d07e6ea5 step 134/175 kind=screen at sounds.c:122 — C «You hear a sound reminiscent of a seal barking.» vs JS empty topline.
+- **C locus:** `sounds.c` `zoo_mon_sound` `:115–128` ((msleeping||is_animal)+ZOO gate; `selection = rn2(2)+hallu` over zoo_msg[3]; `You_hear1`; TRUE). Caller `dosounds` `:309–312` (`has_zoo && !rn2(200)` → `get_iter_mons(zoo_mon_sound)` → return).
+- **JS was:** `zoo_mon_sound` was an RNG-only stub (`rn2(2)`, no hallu, no print) returning true — it burned the draw and swallowed the dosounds return, so the screen diverged with RNG still matched.
+- **Fix:** async `zoo_mon_sound` in C order (gate; `hallu = Hallucination() ? 1 : 0` via the faithful youprop helper; `zoo_msg[rn2(2)+hallu]`; `await You_hear`, i.e. C `You_hear1`; no Soundeffect on this arm); file-local `get_iter_mons` async (fountain.js/dokick.js precedent) with `await bfunc`, all six dosounds sites awaited; envelope comment updated (zoo live, rest RNG-only).
+- **JS:** `js/sounds.js` `zoo_mon_sound` + `get_iter_mons` + six awaited call sites; `docs/CURRENT.md` Next cluster (already named this row).
+- **Verify:** `node scripts/verify.mjs --fn zoo_mon_sound` → PASS syntax (1 changed js file: js/sounds.js) · PASS rule2 · PASS hidden 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0116-wizard-wear-shop-d07e6ea5: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed).
+- **Named omissions:** throne/beehive/morgue/barracks/court You_hear plines still deferred (RNG-only stubs unchanged); dosounds sticky-`hallu` for the other arms untouched; `mon_offmap` edge cases in `get_iter_mons` skips unchanged.
+- **Next:** next Open row (`objnam.c` minimal_xname).
+
 ## D-1870 — uhitm.c mhitm_ad_drli mhitu arm (mhitm_mgc_atk_negated corpus owner)
 
 - **Status:** fixed (Open queue row; 0 PASS + 1 moved past to a later owner with all RNG matched; green + cohort PASS)

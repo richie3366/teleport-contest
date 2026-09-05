@@ -1,6 +1,6 @@
 {
- "commit": "b0f702a1",
- "at": "2026-09-05T16:33:15.489Z",
+ "commit": "34bbfe94",
+ "at": "2026-09-05T16:59:29.703Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -684,18 +684,18 @@
   },
   "explore-seed0116-wizard-wear-shop-d07e6ea5": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 14060,
    "rngT": 14060,
-   "scrM": 174,
+   "scrM": 175,
    "scrT": 175,
-   "kind": "screen",
-   "step": 134,
+   "kind": null,
+   "step": null,
    "steps": 175,
-   "owner": "zoo_mon_sound",
-   "loc": "sounds.c:122",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You hear a sound reminiscent of a seal barking.",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },

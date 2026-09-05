@@ -5,20 +5,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Park `dopush` (mimic-viz, not the push):** explore-seed0116-wizard-wear-shop-cfabc006 step 127/175 is a single-cell screen diff at terminal r13c32 = map (33,12): C `` ` `` vs JS `·`. RNG 12853/12853 fully matched; steps 126 and 128 match; only 127 differs. Owner `dopush(hack.c:194)` is the topline literal ("With great effort..."), but the push itself is faithful (hero (32,10)→(33,10), boulder #223 →(34,10), row 11 identical). The cell holds giant mimic id229 (mnum 66, M_AP_OBJECT appear=BOULDER 475), out of sight in JS at 126/127 (`cansee=false`), in sight at 128. Timeline (C screens + JS prefix replays agree): 114 level entry (Sokoban, `B`), mimic seen-as-boulder, memory=boulder both; 116 search reveals it (`You find a giant mimic.`, ap→0 both, JS memory→floor via seemimic newsym); 117 hero steps north, `restrap` rn2(3) re-disguises via `set_mimic_sym` (ap=2 appear=475 both, no display, memory stays floor both); 118–126 out of sight, floor both. At 127 C paints boulder: C `vision_recalc` update loop must see IN_SIGHT (live mimic paint + boulder memory), JS update loop hits the could-see-flip arm and paints memory floor — a viz-computation split, not a memory-write split (no C memory writer runs at 127: see_monsters only reads memory for unsensed mons). Falsified: removing JS `movobj`'s uncited `recalc_block_point`×2 (C movobj `:824–833` has none; no C caller recals) gives NO MOVEMENT — correct: no push displaces a boulder on this level 114–126, so blockage inputs already agree. Exonerated by line-diff: dig/fill/block/unblock/recalc/does_block, `vision_reset`, `set_mimic_sym` tail, `seemimic`, `display_monster` mimic arms, `map_object`, `newsym` arms. Remaining suspects: JS `view_from` boundary around wall gap (32,11) with hero at (33,10), or live `lit`/TEMP_LIT divergence. Falsifier: C-side viz at step 127 or a JS `view_from` audit that flips (33,12) IN_SIGHT. Reverted uncommitted `movobj` cleanup with this park (re-apply alongside the real fix; still C-faithful). Probes were /tmp-only, deleted.
-- **Park `dog_invent` (iter 2278):** both `"%s picks up %s."` corpus hits are `mon.c mpickstuff` (shared literal; scorer first-match). tour-Barbarian-70011 step 34: 123 draws, 0 from dogmove.c; `geom-probe` 0 diffs (vision/memory). tour-Priest-70006 step 45: 47 draws, 0 from dog_invent; RNG 16489/50 match, 7 JS mons stepped +1 at movement=12 — needs C `movement[]`/`mtrack`. Do not pop.
-- **Hidden-score proxy** (`HIDDEN-PROXY.md`): 222/265 at D-1849;
-  `dofire` 2 PASS at D-1851 (empty-quiver You() NEED_MORE before getobj).
-  Geometry owners: `geom-probe.mjs` first (D-1849). Do not
-  reopen D-1841–D-1851.
-- **Suite 44/44** at D-1851. Do not reopen dofire empty-quiver More skip
-  (D-0484), display_inventory dismiss /
+- **Park `dopush` (mimic-viz, not the push):** explore-seed0116-wizard-wear-shop-cfabc006 step 127/175 is a single-cell screen diff at terminal r13c32 = map (33,12): C `` ` `` vs JS `·`. RNG 12853/12853 (queue row); only 127 differs. Push itself faithful (hero (32,10)→(33,10), boulder #223→(34,10)). Mimic id229 (M_AP_OBJECT BOULDER 475); JS blind 126/127, sees 128. Timeline 114→127: entry boulder-memory; 116 search reveals (floor); 117 restrap re-disguise; 118–126 OOS floor. At 127 C paints boulder — viz split: C sees IN_SIGHT, JS paints memory floor (no C memory writer runs at 127). Falsified: removing JS `movobj`'s uncited `recalc_block_point`×2 (C movobj `:824–833` has none; no C caller recals) gives NO MOVEMENT (no boulder displaced 114–126). Exonerated: dig/fill/block/unblock/recalc/does_block, `vision_reset`, `set_mimic_sym` tail, `seemimic`, `display_monster` mimic arms, `map_object`, `newsym`. Falsifier: see queue row. Re-apply reverted `movobj` cleanup with the fix.
+- **Park `dog_invent`:** both hits are `mon.c mpickstuff` (sessions/falsifier in queue row). Evidence: Barbarian step 34 (0 dogmove draws, `geom-probe` 0 diffs), Priest step 45 (RNG match).
+- **Hidden-score proxy:** see CURRENT.md Score (236/265 at D-1864). Geometry owners: `geom-probe.mjs` first (D-1849).
+- **Fortress guards.** Do not reopen display_inventory dismiss /
   gameover heading / keep_status, stock_room engraving, inside_shop clone,
   level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu,
   lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`,
   pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu,
-  medusa/soko/Wiz, Knight/Rogue lua, `HDeaf [2]`, `mattacku` abort,
-  trailing `confdir` (D-1815).
+  medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck still runs when invulnerable.** Dialogues do not (`timeout.c:623`).
   STONED/SLIMED expiry silent (`done_timeout`).
 - **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs` still
@@ -28,35 +23,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- Do not re-port `drown` (D-1814) / `untrap` helpers (D-1813) /
-  `really_done` callees (D-1812) / `use_misc` (D-1811) /
-  `use_offensive` (D-1810) / `use_defensive` (D-1809) /
-  `domonnoise` remaps (D-1808) / `vpline` (D-1807) / `getdir`
-  help_dir (D-1806) / `iflags.cmdassist` (D-1815) / `yn_function`
-  fuzzer (D-1805) / `getobj` (D-1804) / `x_monnam` (D-1803) /
-  `xname_flags` (D-1802) / `moveloop_core` (D-1801) /
-  `test_move`/`domove_core` (D-1800) / `spoteffects` (D-1799) /
-  `dochug` (D-1798) / `nomul` (D-1797) / `xkilled` (D-1796).
-  `m_seenres` is boolean — never `!== 0`. No second `genus` /
-  `accessible` / trailing `confdir` / `locomotion` / `unconscious`.
-- Do not re-port `mattacku` remaining / `getmattk` DISE/DREN/WEAP
-  (D-1795 body) or the post-`done()` NATTK abort (D-1816). Keep
-  sleep `rn2(10)`. No second `m_monnam` / `simple_typename`.
-  seed4500 `[2]` is D-1817 — do not omit
-  `flush_screen(1)` and do not hide `[2]`.
-- Do not re-port `make_corpse` (D-1794) / `dmgval` `rnd()` (D-1793) /
-  `nh_timeout` luck (D-1792) / `newuhs` (D-1791) / `monverbself`
-  genders[3] (D-1790). No second `free_mgivenname` / `is_axe` /
-  `carrying` / `end_running`.
-- Reviews **728–736** AWD; **747**=D-1786; **748**=D-1787;
-  **750**=D-1788; **752**=D-1789 — no `stay` rebuild. No `u.Punished`.
-  No `rn2(20)` on ordinary pit farlook.
-- Do not re-check 40/44 at D-1765/66; seed0014 I-glyph is D-1774;
+- D-1796…D-1871 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
+- D-1790…D-1871 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
+- seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1870. Never FORCE the falsified
+  (D-1189). Never FORCE the falsified
   mineralize TRC (76,14)/(77,14) (D-1849).
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
@@ -67,18 +43,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1870.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1871.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1870.
+  Do not re-port D-1682…D-1871.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1871: async `zoo_mon_sound` in C order (gate; `hallu = Hallucination() ? 1 : 0` via the faithful youprop helper; `zoo_msg[rn2(2)+hallu]`; `await You_hear`,  Named: throne/beehive/morgue/barracks/court You_hear plines still deferred (RNG-only stubs unchan
 - D-1870: new `mhitm_ad_drli_u` in `js/mhitu.js` in C order (hitmsg; short-circuit `!rn2(3) && !Drain_resistance() && !mgc_negated(TRUE)` → `losexp('life draina Named: uhitm + mhitm arms of `mhitm_ad_drli` (Stormbringer `d(2,6)`, mhpmax/level-drain body, Dea
 - D-1869: port `mkswamp` into `js/mklev.js` in C order (short-circuit, RNG, mutation). Named: none new (map `mkshop` wizard/SHOPTYPE arm and shk bodies unchanged).
 - D-1868: door block restructured to C order with the `amorphous(mdat) && !engulfing_u(mon)` exemption (`can_fog` stays a commented named-omit); ALLOW_DIG curse Named: `can_fog` (vampshifter) still deferred in the door arm (comment + map); corrupt-ttyp `impo
@@ -93,5 +70,4 @@ Objective/score live in `CURRENT.md`.
 - D-1859: port the arm in C order (inside clear-dest branch, after ttmp/mtmp fetch, before revive_nasty/monster): `Sokoban_here() && u.dx && u.dy` → Blind `feel Named: shop `costly` computation, `revive_nasty`, trap/teleport/pool arms, Levitation/verysmall B
 - D-1858: `load_sam_strt` from the lua body: solidfill STONE + Named: humidity-aware `get_location` for water-likers;
 - D-1857: port the three arms with C branch/RNG order. Named: `defended(mon, AD_SLEE)` orange-scales/artifact
-- D-1856: build the darkness selection per choice arm (absolute Named: none new. bigrm-2 `flip_level_rnd` (noflip),
 <!-- landmarks:end -->
