@@ -1,6 +1,6 @@
 {
- "commit": "5c2cb3be",
- "at": "2026-09-05T16:22:37.653Z",
+ "commit": "30f0e9b7",
+ "at": "2026-09-05T16:28:38.025Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4169,19 +4169,19 @@
   },
   "tour-Caveman-70016-d5-8-15-17-22": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 12149,
+   "passed": true,
+   "rngM": 13567,
    "rngT": 13567,
-   "scrM": 42,
+   "scrM": 50,
    "scrT": 50,
-   "kind": "rng",
-   "step": 42,
+   "kind": null,
+   "step": null,
    "steps": 50,
-   "owner": "mkswamp",
-   "loc": "mkroom.c:559",
-   "jsOwner": "fill_ordinary_room(mklev.js:24977)",
-   "cTopline": "You materialize on a different level!--More--",
-   "jsTopline": "You materialize on a different level!",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "tour-Healer-70012-d3-6-10-11-12": {

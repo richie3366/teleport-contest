@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1869 mkroom.c mkswamp swamp-room port (mkswamp corpus owner)
+
+**C locus:** `mkroom.c` `mkswamp` `:530–574`, via `do_mkroom` `:74` SWAMP arm. Own `rn2(nroom)` pick per try (no `pick_room`), OROOM + no-stairs gate, `idx + ROOMOFFSET` rmno, checkerboard POOL with eel on odd cells (`!eelct || !rn2(4)`; `rn2(5)` giant eel else `rn2(2)` piranha else electric eel) and `!rn2(4)` moldy `mkclass(S_FUNGUS)` on even cells, `has_swamp` per swamp. `eelct` is function-local across all 5 tries, not reset per room.
+**JS:** `js/mklev.js` `mkswamp` (new) + `do_mkroom` SWAMP arm wired; `js/fountain.js` `nexttodoor` exported.
+**Change:** port `mkswamp` into `js/mklev.js` in C order (short-circuit, RNG, mutation). Guard reuses same-file `has_upstairs`/`has_dnstairs`; occupancy is `objects_at`/`m_at`/`t_at` + `nexttodoor`, the last imported via a new `export` on the C-matched file-local clone in `js/fountain.js` (no second clone). `NO_MM_FLAGS`/`del_engr_at` added to existing import braces; file-local `PM_GIANT_EEL`/`PM_PIRANHA`/`PM_ELECTRIC_EEL` consts per file convention; fungus via `mkclass('S_FUNGUS', 0)` per `minion.js` convention.
+**Verify:** `node scripts/verify.mjs --fn mkswamp` → PASS syntax (2 files) · rule2 · hidden 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Caveman PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed). Caveat: `geom-probe` showed 516 differing cells with a tiny C extent, but the C topline carried a pending `--More--`, so the C `^F` capture likely misfired; positional-RNG attribution plus the verify PASS are the trustworthy signals.
+**Named:** none new (map `mkshop` wizard/SHOPTYPE arm and shk bodies unchanged).
+**Next:** next Open row (`uhitm.c` mhitm_mgc_atk_negated).
 ## 2026-09-05 — D-1868 mon.c mfndpos amorphous-door + tele-track + cursed-dig arms (m_move corpus owner)
 
 **C locus:** `mon.c` `mfndpos` door arm `:2231–2238` (`IS_DOOR && !((amorphous(mdat) || can_fog(mon)) && !engulfing_u(mon)) && ((CLOSED && !OPENDOOR) || (LOCKED && !UNLOCKDOOR)) && !thrudoor`); symptom `m_move` chcnt loop (recorder `monmove.c:2011` = `!rn2(++chcnt)`). Same-function mates: ALLOW_DIG cursed-wield `:2176–2195`, fixed-tele-track `:2360–2362` (`fixed_tele_trap`, `trap.h:125` + `hastrack`).

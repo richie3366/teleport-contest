@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1869 — mkroom.c mkswamp swamp-room port (mkswamp corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + cohort 7/7 + full `sessions` 44/44)
+- **Symptom:** tour-Caveman-70016-d5-8-15-17-22 step 42/50 kind=rng — C `rn2(5)=3 @ mkswamp(mkroom.c:559)` (eel pick) vs JS `rn2(3)=2 @ fill_ordinary_room(mklev.js:24977)` (sleeping-monster roll). C made a swamp on the new level; JS left the room ordinary and drew ordinary-fill RNG instead.
+- **C locus:** `mkroom.c` `mkswamp` `:530–574`, via `do_mkroom` `:74` SWAMP arm. Own `rn2(nroom)` pick per try (no `pick_room`), OROOM + no-stairs gate, `idx + ROOMOFFSET` rmno, checkerboard POOL with eel on odd cells (`!eelct || !rn2(4)`; `rn2(5)` giant eel else `rn2(2)` piranha else electric eel) and `!rn2(4)` moldy `mkclass(S_FUNGUS)` on even cells, `has_swamp` per swamp. `eelct` is function-local across all 5 tries, not reset per room.
+- **JS was:** `do_mkroom` SWAMP arm was a no-op (`// mkswamp deferred — no RNG burned (C would pick_room)`) — wrong twice over: C `mkswamp` never calls `pick_room`, it burns its own `rn2(nroom)` loop plus pool/eel/fungus draws.
+- **Fix:** port `mkswamp` into `js/mklev.js` in C order (short-circuit, RNG, mutation). Guard reuses same-file `has_upstairs`/`has_dnstairs`; occupancy is `objects_at`/`m_at`/`t_at` + `nexttodoor`, the last imported via a new `export` on the C-matched file-local clone in `js/fountain.js` (no second clone). `NO_MM_FLAGS`/`del_engr_at` added to existing import braces; file-local `PM_GIANT_EEL`/`PM_PIRANHA`/`PM_ELECTRIC_EEL` consts per file convention; fungus via `mkclass('S_FUNGUS', 0)` per `minion.js` convention.
+- **JS:** `js/mklev.js` `mkswamp` (new) + `do_mkroom` SWAMP arm wired; `js/fountain.js` `nexttodoor` exported.
+- **Verify:** `node scripts/verify.mjs --fn mkswamp` → PASS syntax (2 files) · rule2 · hidden 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Caveman PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed). Caveat: `geom-probe` showed 516 differing cells with a tiny C extent, but the C topline carried a pending `--More--`, so the C `^F` capture likely misfired; positional-RNG attribution plus the verify PASS are the trustworthy signals.
+- **Named omissions:** none new (map `mkshop` wizard/SHOPTYPE arm and shk bodies unchanged).
+- **Next:** next Open row (`uhitm.c` mhitm_mgc_atk_negated).
+
 ## D-1868 — mon.c mfndpos amorphous-door + tele-track + cursed-dig arms (m_move corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + cohort + full `sessions` 44/44)
