@@ -168,3 +168,35 @@ describe("loop-raw Cursor stream-json", () => {
     assert.equal(t.meta.usage.total, 17);
   });
 });
+
+describe("loop-raw Muse token budget metering", () => {
+  it("finds no usage in thin exec --json stdout", () => {
+    const u = extractUsageFromRaw(thinFixture);
+    assert.equal(u.found, false);
+  });
+
+  it("sums model_completed input+output+reasoning across steps", () => {
+    const rec = (seq, usage) =>
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-usage" },
+        sequence: seq,
+        recorded_at: 1788599595000000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: { kind: "model_completed", usage },
+        },
+      });
+    const text = [
+      rec(1, { input_tokens: 100, output_tokens: 10, reasoning_tokens: 5, cached_tokens: 80, cache_read_tokens: 80 }),
+      rec(2, { input_tokens: 200, output_tokens: 20, reasoning_tokens: 1, cached_tokens: 150, cache_read_tokens: 150 }),
+    ].join("\n");
+    const u = extractUsageFromRaw(text);
+    assert.equal(u.found, true);
+    assert.equal(u.total, 336);
+    assert.equal(u.breakdown.inputTokens, 300);
+    assert.equal(u.breakdown.cachedTokens, 230);
+  });
+});

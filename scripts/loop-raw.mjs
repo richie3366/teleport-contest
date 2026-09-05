@@ -11,7 +11,7 @@
  * `assistant_message_committed`. The observer tails that file when it
  * can; stdout `.raw` remains the fallback (and the supervisor log).
  */
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 const TOOL_KIND = {
@@ -737,12 +737,29 @@ function museTotal(usage) {
   if (typeof usage.totalTokens === "number") return usage.totalTokens;
   const prompt = usage.promptTokens ?? usage.inputTokens ?? 0;
   const output = usage.outputTokens ?? 0;
-  return prompt + output;
+  const reason = usage.reasoningTokens ?? 0;
+  return prompt + output + reason;
+}
+
+function sumMuseSteps(steps) {
+  const breakdown = {};
+  for (const s of steps) {
+    for (const [k, v] of Object.entries(s)) {
+      if (typeof v === "number" && Number.isFinite(v)) breakdown[k] = (breakdown[k] || 0) + v;
+    }
+  }
+  // input already includes cached tokens; do not add cacheRead/cached again.
+  const total =
+    (breakdown.inputTokens || 0) +
+    (breakdown.promptTokens || 0) +
+    (breakdown.outputTokens || 0) +
+    (breakdown.reasoningTokens || 0);
+  return { found: true, total, breakdown };
 }
 
 export function extractUsageFromRaw(text) {
   let cursorUsage = null;
-  const museAcc = { cumulative: null, usage: null };
+  const museAcc = { cumulative: null, usage: null, completed: [], attributions: [] };
   for (const line of String(text).split(/\r?\n/)) {
     const s = line.trim();
     if (!s.startsWith("{")) continue;
@@ -755,7 +772,19 @@ export function extractUsageFromRaw(text) {
     if (ev?.type === "result" && ev.usage && typeof ev.usage === "object") {
       cursorUsage = ev.usage;
     }
-    if (isMuseRecord(ev)) harvestUsageFrom(ev, museAcc);
+    if (!isMuseRecord(ev)) continue;
+    harvestUsageFrom(ev, museAcc);
+    const payload = ev.payload && typeof ev.payload === "object" ? ev.payload : {};
+    const event = payload.event && typeof payload.event === "object" ? payload.event : {};
+    if (event.kind === "model_completed") {
+      const u = camelUsage(event.usage || payload.usage);
+      if (u) museAcc.completed.push(u);
+    } else if (event.kind === "goal_usage_attribution") {
+      const rec = event.record || {};
+      if (rec.usage_family === "tool") continue;
+      const u = camelUsage(rec.quantity);
+      if (u) museAcc.attributions.push(u);
+    }
   }
   if (cursorUsage) {
     const breakdown = filterNumeric(cursorUsage);
@@ -769,12 +798,27 @@ export function extractUsageFromRaw(text) {
     };
     return { found: true, total: museAcc.cumulative.totalTokens, breakdown };
   }
+  const steps = museAcc.completed.length ? museAcc.completed : museAcc.attributions;
+  if (steps.length) return sumMuseSteps(steps);
   if (museAcc.usage) {
     const camel = camelUsage(museAcc.usage) || museAcc.usage;
     const breakdown = filterNumeric(camel);
     return { found: true, total: museTotal(camel), breakdown };
   }
   return { found: false, total: 0, breakdown: {} };
+}
+
+/** Supervisor entry: Muse stdout `.raw` has no usage; follow session.jsonl. */
+export function extractUsageFromPath(filePath) {
+  if (!filePath || !existsSync(filePath)) return { found: false, total: 0, breakdown: {} };
+  const text = readFileSync(filePath, "utf8");
+  const sid = peekMuseSessionId(text);
+  const sess = sid && findMuseSessionLog(sid);
+  if (sess) {
+    const fromSess = extractUsageFromRaw(readFileSync(sess, "utf8"));
+    if (fromSess.found) return fromSess;
+  }
+  return extractUsageFromRaw(text);
 }
 
 export function parseRawText(text) {

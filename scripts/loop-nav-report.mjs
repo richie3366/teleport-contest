@@ -21,7 +21,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, dirname, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseRawText, extractUsageFromRaw } from './loop-raw.mjs';
+import { parseRawText, extractUsageFromPath } from './loop-raw.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const logDir = join(root, '.agent-port-loop-logs');
@@ -70,7 +70,7 @@ for (const { f, n } of files) {
   let cmapReads = 0, cReads = 0;
   const rawText = readFileSync(join(dirFor(f), f), 'utf8');
   const { events } = parseRawText(rawText);
-  const { total: tokens } = extractUsageFromRaw(rawText);
+  const { total: tokens } = extractUsageFromPath(join(dirFor(f), f));
   for (const ev of events) {
     if (ev.type === 'result') { dur = ev.duration_ms || 0; }
     if (ev.type !== 'tool_call' || ev.subtype !== 'started') continue;

@@ -235,8 +235,11 @@ Optional **per supervisor run** (not saved across launches):
 ```
 
 - Sums every numeric field on the Cursor agent `result.usage` object
-  (input, output, cache read/write — no distinction). Muse `--json` uses
-  last `cumulative.totalTokens` when present, else the last TokenUsage object.
+  (input, output, cache read/write — no distinction). Muse `--json` stdout
+  has **no** usage events; the supervisor reads the on-disk
+  `session.jsonl` and **sums** every `model_completed` step
+  (input + output + reasoning; cache fields are already inside input).
+  `MUSE_NO_SESSION_LOG=1` cannot meter a budget.
 - The current iteration always finishes; if the cumulative total is then over
   budget, the loop exits before starting another.
 - Requires Cursor `stream-json` (or `json`), or Muse `--json` (always on
@@ -400,7 +403,7 @@ Halt reason is still `last-halt-reason.txt`.
 | `N consecutive agent runs <30s` | Out of tokens / auth — halt (no reset; a leftover and its latch survive) |
 | `ActionRequiredError` / "You're out of usage" | Provider plan quota — halt at once, leftover + latch kept; relaunch with `--continue-unfinished` after the reset (#2238) |
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
-| `3× consecutive missing usage` | stream-json / Muse JSONL had no usage — halt |
+| `3× consecutive missing usage` | stream-json / Muse JSONL had no usage — halt. Muse needs the on-disk `session.jsonl` (do not set `MUSE_NO_SESSION_LOG=1` with a budget) |
 | Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start (except continue-unfinished, which warns and starts) |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
