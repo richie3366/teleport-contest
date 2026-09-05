@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1844 — mhitu.c summonmu were new_were / were_summon
+
+- **Status:** fixed (1 corpus PASS, 1 moved past; green + cohort)
+- **Symptom:** 2 hidden-corpus first-diffs at were-creature `mattacku`→`summonmu`: Knight C `rn2(5)=2 @ summonmu(mhitu.c:979)` vs JS `rnd(20)=13 @ mattacku`; Priest C `rn2(30)=11 @ summonmu(mhitu.c:982)` vs JS `rnd(20)`. JS `summonmu` returned after the demon arm, so were form-change RNG never ran and melee `rnd(20)` stole the slot.
+- **C locus:** `mhitu.c` `summonmu` `:956–1030` (`is_were` human `!Protection && !rn2(5-(night()*2))` / beast `Protection || !rn2(30)` then `!rn2(10)` helpers); `were.c` `were_summon` `:142–189` (`rnd(5)` then species `rn2` + `makemon`/`tamedog`); `were.c` `new_were` already live.
+- **JS was:** demon-only `summonmu` (D-0473); were `new_were` / `were_summon` / `night()` / Deaf growl named omitted.
+- **Fix:** port the C were arm (form change, then maybe summon helpers / plines). Port `were_summon` in `were.js` (Protection early-out, `rnd(5)` loop, rat/jackal/wolf typ `rn2`, `tamedog` when `yours`). Export `growl_sound` for the unseen `Something growls!` arm.
+- **JS:** `js/mhitu.js` `summonmu`; `js/were.js` `were_summon`; `js/sounds.js` `growl_sound` export.
+- **Verify:** `node scripts/verify.mjs --fn summonmu` → PASS syntax (3 js files); PASS rule2; PASS hidden verify summonmu: 1 PASS, 1 moved past (1 re-attributed at the same step), 0 unchanged, 0 worse → PROGRESS (tour-Knight-70007-d3-6-10-11-12 PASS; tour-Priest-70006-d3-6-10-11-12 → dog_invent step 45 was 45; RNG 16489/16489); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+- **Named omissions:** `msummon` is_lminion/angel (demon arm otherwise live); howl `You_hear`/`wake_nearto`; `mon_break_armor`. Priest same-step later owner is `dog_invent` (`dogmove.c:460`) chain-mail pickup.
+- **Next:** Open `getpos.c` `getpos` (2 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
+
 ## D-1843 — pager.c lookat glyph_is_unexplored "unexplored area"
 
 - **Status:** fixed (4 corpus moved past; green + cohort + full `sessions` 44/44)

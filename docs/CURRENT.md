@@ -72,15 +72,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1843**. Open `pager.c` `lookat` glyph_is_unexplored `"unexplored area"` shipped.
-**Next cluster:** Open `mhitu.c` `summonmu` — 2 corpus blocks; C were-summon `rn2(5)` vs JS `rnd(20)` in `mattacku`.
+**Suite 44/44** at **D-1844**. Open `mhitu.c` `summonmu` were `new_were`/`were_summon` shipped.
+**Next cluster:** Open `getpos.c` `getpos` — 2 corpus blocks; "Can't find dungeon feature '/'." vs unknown direction.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1843 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1844 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1844** `mhitu.c` `summonmu` `:956–1030` (`is_were` human `!Protection && !rn2(5-(night()*2))` / b — port the C were arm (form change, then maybe summon helpers / plines).
 **D-1843** `pager.c` `lookat` `:656–802` (`glyph_is_unexplored` → `"unexplored area"`; cmap `S_stone` — port `lookat` glyph-first (self / swallow / mon / obj / trap / warning / invisible / nothing / unexplored / cmap switch / else).
 **D-1842** `botl.c` `do_statusline1` `:47–98`; `botl.c` `bot` `:255–256` (`gb.bot_disabled` returns b — named `do_statusline1` (BOTL_NSIZ, windowport title pad so `St:` starts at col 31).
 **D-1841** `mkmaze.c` `makemaz` `:1126–1223` (`load_special(protofile)`); `sp_lev.c` `load_special` ` — port both lua bodies: mazegrid + center map + `l_levregion`/`l_teleport_region` while map origin is set, `splev_mazewalk(8,5,east)`, fakewiz1 irregular OROOM + portal→wizard3, shared monsters/traps, fakewiz2 amulet, `hel
@@ -88,10 +89,9 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1839** `role.c` `roles[]` `:30–573` (`homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti`); `que — copy C `roles[]` `homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti` for the remaining nine roles; Arc `PM_STUDENT` and Bar `PM_CHIEFTAIN` `guardnum`.
 **D-1838** `hack.c` `pickup_checks` `:3788–3872` (uswallow tongue/`loot_mon`; pool/lava dive; `!OBJ_A — port the C body: furniture-specific nothing-msgs (stairs affixed), pool/lava reach, swallow tongue/`-2`, pit-aware `can_reach_floor`.
 **D-1837** `pickup.c` `doloot` `:2166–2174` (`gl.loot_reset_justpicked`); `doloot_core` `:2178–2346`  — `doopen_indir` returns `doloot()` on self/down unless a closed door is here.
-**D-1836** `sp_lev.c` `build_room` `:2807–2833` (`(!r->chance || rn2(100) < r->chance) ? r->rtype : O — nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1843; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1844; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

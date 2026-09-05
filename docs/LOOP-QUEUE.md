@@ -45,7 +45,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mhitu.c` summonmu — 2 corpus blocks; C were-summon `rn2(5)` vs JS `rnd(20)` in `mattacku`.
 - [ ] `getpos.c` getpos — 2 corpus blocks; "Can't find dungeon feature '/'." vs unknown direction.
 - [ ] `teleport.c` level_tele — 2 corpus blocks; named-level `^V` materialize (screen match, later RNG).
 - [ ] `mklev.c` mineralize — 2 corpus blocks; C `rn2(1000)` vs JS `place_lregion` `rn2(79)`.
@@ -53,6 +52,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `dothrow.c` dofire — 2 corpus blocks; C `"You have no ammunition readied."` vs fire `getobj` prompt.
 - [ ] `mkmaze.c` makemaz `Val-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Valkyrie quest, 0/5. From `dat/Val-*.lua`.
 - [ ] `mkmaze.c` makemaz `knox` — Fort Ludios magic-portal vault. From `dat/knox.lua` (167 ln).
+- [ ] `pager.c` do_screen_description — 4 corpus blocks; C «can be many things (unexplored area)» vs JS «unexplored area».
+- [ ] `pager.c` dowhatdoes — 2 corpus blocks; C «Ask about '&' or '?' to get more info.» vs JS «Unknown command '&'.».
+- [ ] `sp_lev.c` lspo_replace_terrain — 1 corpus block; C `rn2(100)` vs JS `get_location_random` `rn2(75)`.
+- [ ] `uhitm.c` mhitm_ad_slee — 1 corpus block; C `rn2(5)` vs JS `mhitm_knockback` `rn2(3)`.
+- [ ] `mkmaze.c` makemaz `Sam-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Samurai quest, 0/5. From `dat/Sam-*.lua`.
 
 ## Parked (do not pop)
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `pager.c` lookat — 3 corpus blocks; "unexplored area" vs "unexplored". **Addressed:** D-1843
+- [x] `mhitu.c` summonmu — 2 corpus blocks; C were-summon `rn2(5)` vs JS `rnd(20)` in `mattacku`. **Addressed:** D-1844
+
+
+- [x] `pager.c` lookat — 3 corpus blocks; "unexplored area" vs "unexplored". **Addressed:** D-1843 `70d84800`
 
 
 - [x] `botl.c` do_statusline1 — 4 corpus blocks; leftover WIN_STATUS under item-action menu (same step as D-1833 re-attr). **Addressed:** D-1842 `9dc829a9`

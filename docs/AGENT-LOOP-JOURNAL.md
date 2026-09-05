@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1844 mhitu.c summonmu were new_were / were_summon
+
+**C locus:** `mhitu.c` `summonmu` `:956–1030` (`is_were` human `!Protection && !rn2(5-(night()*2))` / beast `Protection || !rn2(30)` then `!rn2(10)` helpers); `were.c` `were_summon` `:142–189` (`rnd(5)` then species `rn2` + `makemon`/`tamedog`); `were.c` `new_were` already live.
+**JS:** `js/mhitu.js` `summonmu`; `js/were.js` `were_summon`; `js/sounds.js` `growl_sound` export.
+**Change:** port the C were arm (form change, then maybe summon helpers / plines). Port `were_summon` in `were.js` (Protection early-out, `rnd(5)` loop, rat/jackal/wolf typ `rn2`, `tamedog` when `yours`). Export `growl_sound` for the unseen `Something growls!` arm.
+**Verify:** `node scripts/verify.mjs --fn summonmu` → PASS syntax (3 js files); PASS rule2; PASS hidden verify summonmu: 1 PASS, 1 moved past (1 re-attributed at the same step), 0 unchanged, 0 worse → PROGRESS (tour-Knight-70007-d3-6-10-11-12 PASS; tour-Priest-70006-d3-6-10-11-12 → dog_invent step 45 was 45; RNG 16489/16489); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+**Named:** `msummon` is_lminion/angel (demon arm otherwise live); howl `You_hear`/`wake_nearto`; `mon_break_armor`. Priest same-step later owner is `dog_invent` (`dogmove.c:460`) chain-mail pickup.
+**Next:** Open `getpos.c` `getpos` (2 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
 ## 2026-09-05 — D-1843 pager.c lookat glyph_is_unexplored "unexplored area"
 
 **C locus:** `pager.c` `lookat` `:656–802` (`glyph_is_unexplored` → `"unexplored area"`; cmap `S_stone` + `!seenv` → `"unexplored"`; else `"unexplored area"`); `glyphs.c` `glyph_to_cmap` `:199–231`; `getpos.c` `auto_describe` `:639–662` (prints `do_screen_description` firstmatch after lookat overwrite).
