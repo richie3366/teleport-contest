@@ -55,7 +55,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1869. Never FORCE the falsified
+  (D-1189). Do not skip D-1190…D-1870. Never FORCE the falsified
   mineralize TRC (76,14)/(77,14) (D-1849).
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
@@ -66,18 +66,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1869.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1870.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1869.
+  Do not re-port D-1682…D-1870.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1870: new `mhitm_ad_drli_u` in `js/mhitu.js` in C order (hitmsg; short-circuit `!rn2(3) && !Drain_resistance() && !mgc_negated(TRUE)` → `losexp('life draina Named: uhitm + mhitm arms of `mhitm_ad_drli` (Stormbringer `d(2,6)`, mhpmax/level-drain body, Dea
 - D-1869: port `mkswamp` into `js/mklev.js` in C order (short-circuit, RNG, mutation). Named: none new (map `mkshop` wizard/SHOPTYPE arm and shk bodies unchanged).
 - D-1868: door block restructured to C order with the `amorphous(mdat) && !engulfing_u(mon)` exemption (`can_fog` stays a commented named-omit); ALLOW_DIG curse Named: `can_fog` (vampshifter) still deferred in the door arm (comment + map); corrupt-ttyp `impo
 - D-1867: `js/dungeon.js` `save_dungeon_topology()` / `restore_dungeon_topology()` over `LEVEL_MAP` + quest/sokoban/mines/tower/tutorial dnums (mirrors `struct  Named: `game.dungeon_topology` vestigial round-trip kept as-is (only `Is_airlevel` read in `hack.
@@ -92,5 +93,4 @@ Objective/score live in `CURRENT.md`.
 - D-1858: `load_sam_strt` from the lua body: solidfill STONE + Named: humidity-aware `get_location` for water-likers;
 - D-1857: port the three arms with C branch/RNG order. Named: `defended(mon, AD_SLEE)` orange-scales/artifact
 - D-1856: build the darkness selection per choice arm (absolute Named: none new. bigrm-2 `flip_level_rnd` (noflip),
-- D-1855: export `dowhatdoes` from `js/pager.js`, import it in Named: `dowhatdoes` ALTMETA ESC-double path
 <!-- landmarks:end -->

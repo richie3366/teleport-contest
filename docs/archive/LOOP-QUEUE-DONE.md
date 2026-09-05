@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `mkroom.c` mkswamp — 1 corpus block; C `rn2(5)` vs JS `fill_ordinary_room` `rn2(3)`. **Addressed:** D-1869
+- [x] `uhitm.c` mhitm_mgc_atk_negated — 1 corpus block; C `rn2(10)` vs JS `mhitm_knockback` `rn2(6)`. **Addressed:** D-1870
+
+
+- [x] `mkroom.c` mkswamp — 1 corpus block; C `rn2(5)` vs JS `fill_ordinary_room` `rn2(3)`. **Addressed:** D-1869 `b0f702a1`
 
 
 - [x] `monmove.c` m_move — 1 corpus block; C `rn2(4)` vs JS `distfleeck` `rn2(5)`. **Addressed:** D-1868 `30f0e9b7`

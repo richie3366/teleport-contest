@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1870 — uhitm.c mhitm_ad_drli mhitu arm (mhitm_mgc_atk_negated corpus owner)
+
+- **Status:** fixed (Open queue row; 0 PASS + 1 moved past to a later owner with all RNG matched; green + cohort PASS)
+- **Symptom:** tour-Valkyrie-70014-d5-8-15-17-22 step 43/50 kind=rng — C `rn2(10)=9 @ mhitm_mgc_atk_negated(uhitm.c:87)` vs JS `rn2(6)=3 @ mhitm_knockback(mhitm.js:1835)`. Wraith AD_DRLI touch on the hero; C drew the negation roll, JS drew knockback's second burn. Same-step continuation now screen-blocks on `hitmsg`.
+- **C locus:** `uhitm.c` `mhitm_ad_drli` `:2479–2488` mhitu arm (`hitmsg`, then `!rn2(3) && !Drain_resistance && !mhitm_mgc_atk_negated(magr, mdef, TRUE)` → `losexp("life drainage")`; base-damage dice kept). `mhitm_mgc_atk_negated` itself (`:75–99`) was already C-faithful in JS (D-0198/D-1405); the missing piece was its mhitu-DRLI caller.
+- **JS was:** `mhitm_adtyping_u` had no AD_DRLI case, so wraith touches fell into `default: mhm.damage = 0` — no hitmsg, no `rn2(3)`, no negation `rn2(10)`. `hitmu` then burned knockback's `rn2(3)` (positionally matching C's DRLI `rn2(3)`) + `rn2(6)` where C drew `rn2(10)`.
+- **Fix:** new `mhitm_ad_drli_u` in `js/mhitu.js` in C order (hitmsg; short-circuit `!rn2(3) && !Drain_resistance() && !mgc_negated(TRUE)` → `losexp('life drainage')`; damage untouched) wired as `case AD_DRLI` in `mhitm_adtyping_u`; `AD_DRLI = 15` file const; `Drain_resistance` added to the existing `zap.js` import (no new module edge per `imports.mjs --can`).
+- **JS:** `js/mhitu.js` `mhitm_ad_drli_u` (new) + dispatch case + const + import; `docs/CURRENT.md` Next cluster.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_mgc_atk_negated` → PASS syntax (1 changed js file: js/mhitu.js) · PASS rule2 · PASS hidden 0 PASS, 1 moved past (re-attributed same step), 0 unchanged, 0 worse → PROGRESS: tour-Valkyrie step 43 now RNG 11951/11951 fully matched, screen-blocked on `hitmsg` (`mhitu.c:59`): C topline `The wraith touches you! Farvel level 1.--More--` vs JS `The wraith touches you! Farvel level 1.` (content matches incl. hallucination `Farvel`; only `--More--` paging differs) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed).
+- **Named omissions:** uhitm + mhitm arms of `mhitm_ad_drli` (Stormbringer `d(2,6)`, mhpmax/level-drain body, Death redirect) still deferred; `mhitm_ad_dren` mhitu arm (`drain_en` has no JS port yet) still deferred.
+- **Next:** next Open row (`hack.c` dopush).
+
 ## D-1869 — mkroom.c mkswamp swamp-room port (mkswamp corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + cohort 7/7 + full `sessions` 44/44)

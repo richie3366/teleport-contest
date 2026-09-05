@@ -1,6 +1,6 @@
 {
- "commit": "30f0e9b7",
- "at": "2026-09-05T16:28:38.025Z",
+ "commit": "b0f702a1",
+ "at": "2026-09-05T16:33:15.489Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4476,18 +4476,18 @@
   "tour-Valkyrie-70014-d5-8-15-17-22": {
    "src": "corpus",
    "passed": false,
-   "rngM": 11950,
+   "rngM": 11951,
    "rngT": 11951,
    "scrM": 43,
    "scrT": 50,
-   "kind": "rng",
+   "kind": "screen",
    "step": 43,
    "steps": 50,
-   "owner": "mhitm_mgc_atk_negated",
-   "loc": "uhitm.c:87",
-   "jsOwner": "mhitm_knockback(mhitm.js:1835)",
+   "owner": "hitmsg",
+   "loc": "mhitu.c:59",
+   "jsOwner": null,
    "cTopline": "The wraith touches you! Farvel level 1.--More--",
-   "jsTopline": "",
+   "jsTopline": "The wraith touches you! Farvel level 1.",
    "error": null
   },
   "tour-Wizard-70004-d3-6-10-11-12": {

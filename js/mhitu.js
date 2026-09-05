@@ -22,7 +22,7 @@ import {
 } from './const.js';
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
-import { destroy_items, resists_drli } from './zap.js';
+import { destroy_items, resists_drli, Drain_resistance } from './zap.js';
 import { nomul, stop_occupation, maybe_half_phys, is_pool, losehp, unmul, fall_asleep } from './hack.js';
 import { upstart } from './hacklib.js';
 import { rnd, d, rn2, rn1 } from './rng.js';
@@ -169,6 +169,7 @@ const CLOAK_OF_DISPLACEMENT = objectNames.indexOf('CLOAK_OF_DISPLACEMENT');
 
 /** C ref: monattk.h — engulf damage types used by gulpmu. */
 const AD_BLND = 11;
+const AD_DRLI = 15; /* drains life levels — monattk.h */
 const AD_CONF = 25; /* umber hulk gaze — monattk.h */
 const AD_HALU = 36; /* monattk.h — black-light AT_EXPL */
 const AD_DREN = 16;
@@ -2104,9 +2105,23 @@ async function mhitm_ad_slee_u(mtmp, mattk, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_drli `:2479–2488` — mhitu (monster→you) arm.
+ * hitmsg always, then !rn2(3) && !Drain_resistance && !mgc_negated(TRUE)
+ * → losexp("life drainage"). Leftover hitmu d() is kept (unlike default zero).
+ */
+async function mhitm_ad_drli_u(mtmp, mattk, mhm) {
+    void mhm;
+    await hitmsg(mtmp, mattk);
+    if (!rn2(3) && !Drain_resistance()
+        && !(await mhitm_mgc_atk_negated(mtmp, null, true))) {
+        await losexp('life drainage');
+    }
+}
+
+/**
  * C ref: uhitm.c mhitm_adtyping — mhitu (monster→you) subset.
  * PHYS + ELEC + COLD + DRST/DRDX/DRCO + SITM/SEDU + SSEX (D-1750) + BLND + STON + LEGS
- * + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE; other adtyps zero damage.
+ * + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE + DRLI; other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     switch (mattk.adtyp | 0) {
@@ -2151,6 +2166,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_SLEE:
         await mhitm_ad_slee_u(mtmp, mattk, mhm);
+        break;
+    case AD_DRLI:
+        await mhitm_ad_drli_u(mtmp, mattk, mhm);
         break;
     default:
         mhm.damage = 0;

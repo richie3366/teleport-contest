@@ -3074,7 +3074,7 @@ uhitm/mhitm `mhitm_ad_elec` branches; Protection/amulet MC;
 explode/rehumanize; AD_BLND/HALU + COLD/FIRE/ELEC `(adtyp-1)+20` you-caused `explode`; 
 **hmonas AT_ENGL gulpum D-1264**; **fight_empty explum(null) D-1265**; 
 **hmonas altwep / uswapwep D-1266**; **hmonas skipdrin / pit kick D-1298**; **eat_brains D-1306**; 
-**helmet / m_slips_free D-1307**; **mhitu AD_DRIN D-1329**; **mhitm AD_DRIN D-1330**; 
+**helmet / m_slips_free D-1307**; **mhitu AD_DRIN D-1329**; **mhitu AD_DRLI D-1870** (`mhitm_ad_drli` `:2479–2488` mhitu arm: hitmsg + `!rn2(3)` + Drain_resistance + mgc_negated(TRUE) → losexp; uhitm/mhitm arms + `mhitm_ad_dren` still named); **mhitm AD_DRIN D-1330**; 
 **mhitm gazemm D-1338**; **mhitm explmm D-1339** (AT_EXPL distmin>1 skip; mcan miss; 
 cansee explodes else noises; FIRE/COLD/ELEC `mon_explodes`; else mdamagem then mondead; 
 tame melancholy; leashed slack; mdamagem AD_HALU mhitm arm; 

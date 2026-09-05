@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1870 uhitm.c mhitm_ad_drli mhitu arm (mhitm_mgc_atk_negated corpus owner)
+
+**C locus:** `uhitm.c` `mhitm_ad_drli` `:2479–2488` mhitu arm (`hitmsg`, then `!rn2(3) && !Drain_resistance && !mhitm_mgc_atk_negated(magr, mdef, TRUE)` → `losexp("life drainage")`; base-damage dice kept). `mhitm_mgc_atk_negated` itself (`:75–99`) was already C-faithful in JS (D-0198/D-1405); the missing piece was its mhitu-DRLI caller.
+**JS:** `js/mhitu.js` `mhitm_ad_drli_u` (new) + dispatch case + const + import; `docs/CURRENT.md` Next cluster.
+**Change:** new `mhitm_ad_drli_u` in `js/mhitu.js` in C order (hitmsg; short-circuit `!rn2(3) && !Drain_resistance() && !mgc_negated(TRUE)` → `losexp('life drainage')`; damage untouched) wired as `case AD_DRLI` in `mhitm_adtyping_u`; `AD_DRLI = 15` file const; `Drain_resistance` added to the existing `zap.js` import (no new module edge per `imports.mjs --can`).
+**Verify:** `node scripts/verify.mjs --fn mhitm_mgc_atk_negated` → PASS syntax (1 changed js file: js/mhitu.js) · PASS rule2 · PASS hidden 0 PASS, 1 moved past (re-attributed same step), 0 unchanged, 0 worse → PROGRESS: tour-Valkyrie step 43 now RNG 11951/11951 fully matched, screen-blocked on `hitmsg` (`mhitu.c:59`): C topline `The wraith touches you! Farvel level 1.--More--` vs JS `The wraith touches you! Farvel level 1.` (content matches incl. hallucination `Farvel`; only `--More--` paging differs) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed).
+**Named:** uhitm + mhitm arms of `mhitm_ad_drli` (Stormbringer `d(2,6)`, mhpmax/level-drain body, Death redirect) still deferred; `mhitm_ad_dren` mhitu arm (`drain_en` has no JS port yet) still deferred.
+**Next:** next Open row (`hack.c` dopush).
 ## 2026-09-05 — D-1869 mkroom.c mkswamp swamp-room port (mkswamp corpus owner)
 
 **C locus:** `mkroom.c` `mkswamp` `:530–574`, via `do_mkroom` `:74` SWAMP arm. Own `rn2(nroom)` pick per try (no `pick_room`), OROOM + no-stairs gate, `idx + ROOMOFFSET` rmno, checkerboard POOL with eel on odd cells (`!eelct || !rn2(4)`; `rn2(5)` giant eel else `rn2(2)` piranha else electric eel) and `!rn2(4)` moldy `mkclass(S_FUNGUS)` on even cells, `has_swamp` per swamp. `eelct` is function-local across all 5 tries, not reset per room.

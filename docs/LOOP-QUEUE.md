@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `uhitm.c` mhitm_mgc_atk_negated — 1 corpus block; C `rn2(10)` vs JS `mhitm_knockback` `rn2(6)`.
 - [ ] `hack.c` dopush — 1 corpus block screen-first at step 127 («With great effort you move the boulder.»).
 - [ ] `sounds.c` zoo_mon_sound — 1 corpus block screen-first at step 134 («You hear a sound reminiscent of a seal barking.» vs empty).
 - [ ] `objnam.c` minimal_xname — 1 corpus block screen-first at step 827 («d - an uncursed +1 ring of gain constitution» vs «Amulets»).
