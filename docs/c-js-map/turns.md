@@ -555,7 +555,12 @@ mcastu `ureflects` named; **`zapyourself` WAN/SPE_POLYMORPH → `polyself(POLY_N
 **`zapyourself` WAN/SPE_MAGIC_MISSILE D-1364 / Antimagic uprops D-1367**; 
 **`zapyourself` SPE_FIREBALL D-1365**; **`lightdamage` + zapnodir WAN/SPE_LIGHT + 
 zapyourself WAN_LIGHT/CAMERA D-1366**; **`zapnodir` WAN_CREATE_MONSTER `create_critters` D-1379**; 
-**`zapnodir` WAN_WISHING `Luck+rn2(5)`/`makewish` D-1380**; 
+**`zapnodir` WAN_WISHING `Luck+rn2(5)`/`makewish` D-1380**;
+**`makewish` wish livelog arms** (D-1892; `oldwisharti` pre-readobjnam snapshot,
+`declined to make a wish` nothing-arm, hands_obj terrain no-log,
+`artifact_origin(ONAME_WISH|ONAME_KNOW_ARTI)` bookkeeping,
+`"%s", got "%s"` + post-increment first/first-artifact/`wished for` trio;
+`wish_history_add/menu`/`wishcmdassist`/MAXWISHTRY retry still deferred); 
 **`zapnodir` WAN_ENLIGHTENMENT `do_enlightenment_effect` D-1395**; 
 **`zapnodir` WAN_STASIS `stasis_until` max `moves+rn1(21,10)` D-1404**; 
 **`zapnodir` SPE_DETECT_UNSEEN shares SECRET_DOOR `findit` D-1412**; 
@@ -733,6 +738,9 @@ statue/engr** (D-0087); **`doextversion` OPTIONS_AT_RUNTIME options/windowing/so
 license** (D-0088); **NHW_TEXT `dmore` quitchars** (D-0089); 
 **`show_text_pages` / fullscreen `show_nhw_menu_text` paint ≤cols−1** ≡ C `process_text_window` 
 `++curx < cols` (D-0933; recording `get_configfile` path string still deferred — Constitution); 
+**NHW_TEXT putstr `compress_str` + word-wrap** (D-1892; exported helpers, exact C 
+`strlen ≥ CO` gate/BUFSZ cap, fragment keeps break space, remainder recurses, 
+expansion before 23-line paging; NHW_MENU putstr parity still deferred); 
 **NHW_MENU putstr `show_nhw_menu_text` `dmore` quitchars** (D-0240; space/CR/ESC only); 
 **`dowhatdoes` tip+`What command?`+`key2extcmddesc`** (D-0090);
 **cmd.c `&` → `dowhatdoes` dispatch + export** (D-1855; IFBURIED|GENERALCMD,

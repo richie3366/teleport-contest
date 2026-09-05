@@ -167,6 +167,58 @@ async function text_page_wait() {
  * @returns {Promise<boolean>} true if ESC cancelled remaining pages
  */
 /**
+ * C ref: win/tty/wintty.c compress_str — tty_putstr runs every non-message
+ * window line with strlen >= CO (or containing '\n') through this: leading
+ * spaces are discarded, runs collapse to one, '\n' becomes ' ', trailing
+ * space removed (BUFSZ-capped). A 94-col gamelog wish line thus shows as
+ * `1: made his first wish ...` in C. Display-only; no RNG.
+ * @param {string} str
+ * @param {number} [co=80] terminal columns (C global CO)
+ * @returns {string}
+ */
+export function compress_str(str, co = 80) {
+    const s = String(str ?? '');
+    if (s.length < co && !s.includes('\n')) return s;
+    let out = '';
+    let capped = false;
+    let was_space = true; // C: TRUE discards all leading spaces
+    for (const c0 of s) {
+        if (out.length >= 255) { capped = true; break; } // C cbuf[BUFSZ-1]
+        const c = c0 === '\n' ? ' ' : c0;
+        if (was_space && c === ' ') continue;
+        out += c;
+        was_space = (c === ' ');
+    }
+    if ((was_space && out.length > 0) || capped) out = out.slice(0, -1);
+    return out;
+}
+
+/**
+ * C ref: win/tty/wintty.c tty_putstr NHW_TEXT arm — after compress_str, a
+ * stored line with n0 = strlen+1 > CO is word-wrapped: scan back from
+ * str[CO-1] for ' ' (or '\n'); the stored fragment keeps the break space
+ * (`data[++i] = 0`) and the remainder re-enters tty_putstr (compress +
+ * wrap again, so a short tail keeps its leading space). No break point →
+ * stored whole (paint truncates). Returns the display lines in order.
+ * @param {string} str raw putstr line
+ * @param {number} [co=80] terminal columns (C global CO)
+ * @returns {string[]}
+ */
+export function wrap_text_window_line(str, co = 80) {
+    const out = [];
+    let s = compress_str(str, co);
+    for (;;) {
+        if (s.length < co) { out.push(s); break; } // C: n0 = len+1 <= CO
+        let i = co - 1;
+        while (i && s[i] !== ' ' && s[i] !== '\n') i--;
+        if (!i) { out.push(s); break; } // no break point: stored whole
+        out.push(s.slice(0, i + 1)); // keeps the break space (C data[++i]=0)
+        s = compress_str(s.slice(i), co); // C: tty_putstr recursion
+    }
+    return out;
+}
+
+/**
  * @param {Array<string|{text:string,attr?:number}>} lines
  * @param {{ moreAtEnd?: boolean }} [opts]
  */
@@ -180,16 +232,25 @@ export async function show_text_pages(lines, { moreAtEnd = true } = {}) {
     const textCols = cols - 1; // C: ++curx < cols from curx==0
     const rows = 24;
     const pageRows = rows - 1; // leave bottom for --More-- / (end)
+    // C: wrap fragments are data lines before paging (putstr-time wrap).
+    const expanded = [];
+    for (const entry of lines) {
+        const raw = typeof entry === 'string' ? (entry || '') : (entry?.text || '');
+        const attr = typeof entry === 'string' ? 0 : (entry?.attr || 0);
+        // C wintty.c tty_putstr NHW_TEXT: compress_str + word-wrap (D-1892).
+        for (const text of wrap_text_window_line(raw, cols))
+            expanded.push(typeof entry === 'string' ? text : { text, attr });
+    }
     let offset = 0;
     let cancelled = false;
-    while (offset < lines.length || (offset === 0 && lines.length === 0)) {
+    while (offset < expanded.length || (offset === 0 && expanded.length === 0)) {
         game._menu_overlay = true;
         game._pending_message = '';
         disp.clearScreen();
-        const chunk = lines.slice(offset, offset + pageRows);
+        const chunk = expanded.slice(offset, offset + pageRows);
         for (let r = 0; r < chunk.length; r++) {
             const entry = chunk[r];
-            const text = typeof entry === 'string' ? (entry || '') : (entry?.text || '');
+            const text = typeof entry === 'string' ? entry : (entry?.text || '');
             const attr = typeof entry === 'string' ? 0 : (entry?.attr || 0);
             for (let i = 0; i < text.length && i < textCols; i++)
                 disp.setCell(i, r, text[i], NO_COLOR, attr);
@@ -199,7 +260,7 @@ export async function show_text_pages(lines, { moreAtEnd = true } = {}) {
             for (let c = 0; c < cols; c++)
                 disp.setCell(c, r, ' ', NO_COLOR, 0);
         }
-        const last = offset + pageRows >= lines.length;
+        const last = offset + pageRows >= expanded.length;
         const footer = last && !moreAtEnd ? '(end) ' : '--More--';
         const moreRow = rows - 1;
         for (let c = 0; c < cols; c++)

@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-1892 — zap.c makewish wish livelog + wintty.c tty_putstr compress/wrap (do_statusline1 corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus moved past to a later step; green + strict + cohort 7/7 + full 44/44 PASS)
+- **Symptom:** `random-seed0360-wizard-world-tour-4ac145da` step 821/861 screen-first, topline `Logged events:` both sides. Row 22 before: C `1: made his first wish - "blessed +3 gray dragon scale mail", got "a gray` vs JS `    5: entered level 9, the Dungeons of Doom` — the wish events were missing from the JS gamelog entirely.
+- **Attribution note (measured, not inferred):** the proxy owner `do_statusline1(botl.c:85)` is a literal-match misfire — that line is the `St:%s Dx:...` Sprintf, which matches no wish text (same shape as D-1875 `glibr`→`dog_eat`). The C writers of the differing bytes are `makewish` (`zap.c:6371–6397`, the missing events) and `tty_putstr`/`compress_str` (`win/tty/wintty.c:2248–2278` + NHW_TEXT wrap `:2462–2480`, the indent/width). D-1878/Rev848 ante-mortem already named the zap.c wish writer as the honest follow-up.
+- **C locus:** `zap.c` `makewish` — `oldwisharti` snapshot before `readobjnam`; `otmp == &nothing` → `livelog_printf(LL_WISH, "declined to make a wish")`; `otmp == &hands_obj` → history add, no livelog; artifact `artifact_origin(otmp, ONAME_WISH | ONAME_KNOW_ARTI)` (no event); `maybe_LL_arti`, `Snprintf(wish, "\"%s\", got \"%s\"", bufcpy, doname(otmp))`, then the post-increment trio (`made %s first wish` / `made %s first artifact wish` / `wished for %s`). Plus `wintty.c` `compress_str` (lines ≥ CO=80 or with `\n`: drop leading spaces, collapse runs, `\n`→space, strip trailing space) and the NHW_TEXT store arm (`n0 > CO` → scan back from `str[CO-1]` for space, fragment keeps the break space via `data[++i] = 0`, remainder recurses through `tty_putstr`).
+- **JS was:** `js/zap.js` `makewish()` incremented `uconduct.wishes` but never logged any wish event (header: "Help / history / livelog still named"); `js/pager.js` `show_text_pages()` painted over-long text lines whole (truncated at cols−1) with no compress/wrap, so the 96-col wish line kept its `%5d` indent and full width.
+- **Fix:** `makewish` ports the three livelog arms in C order on same-edge imports only (`livelog_printf` from `pline.js`, `uhis` next to `uhim`, `artifact_origin` next to the artifact imports, `LL_WISH`/`LL_CONDUCT`/`LL_ARTIFACT`/`ONAME_WISH`/`ONAME_KNOW_ARTI` in the const block; `imports.mjs --can` SAFE/ALREADY). `pager.js` gains exported `compress_str(str, co)` (exact C gate + BUFSZ cap) and `wrap_text_window_line(str, co)` (fragment keeps break space, remainder recurses), applied per line in `show_text_pages` with wrap expansion before 23-line paging (C wraps at putstr time, so fragments count as data lines). Row-diff proof per fix: livelog alone moved row 22 to `    1: made his first wish...` (event present, indent only); compress alone moved the diff to col 74; wrap closed it.
+- **JS:** `js/zap.js` (+38/−6); `js/pager.js` (+65/−4); `docs/c-js-map/turns.md` makewish + show_text_pages sections.
+- **Verify:** `node scripts/verify.mjs --fn do_statusline1` →
+  - `PASS  syntax   2 changed js file(s): js/pager.js js/zap.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `PASS  hidden   verify do_statusline1: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (`random-seed0360-wizard-world-tour-4ac145da: moved → suit_simple_name at step 838 (was 821)` — 17 steps deeper, later owner)
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`
+  - then `node frozen/ps_test_runner.mjs sessions` → **44/44 PASS** (fortress holds; speed `44+0.35/turn`)
+  - `VERIFY: PASS`
+- **Named omissions:** `wish_history_add`/`wish_history_menu`/`wishcmdassist`/MAXWISHTRY retry loop (still deferred, header-kept); C `uhis()` Upolyd-monster-gender arm (JS `uhis()` is flags.female-only — identical unpoly'd, the session's case); NHW_MENU putstr compress/wrap parity (C `tty_putstr` also compresses menu lines; JS menus unwrapped — follow-up row, not this screen); file-`livelog_add` (deferred, unscored).
+- **Next:** next Open row (`mhitu.c` hitmsg); the session's new blocker `suit_simple_name` at step 838 is its own owner.
+
 ## D-1891 — mkmaze.c makemaz cav-strt/-loca/-goal/-fila/-filb load_special (Caveman quest 5/5)
 
 - **Status:** fixed (Open queue row; green + strict + cohort 7/7 + full 44/44 PASS; hidden vacuous — no corpus session blocked on makemaz)

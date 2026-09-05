@@ -1,6 +1,6 @@
 {
- "commit": "b344cc6f",
- "at": "2026-09-05T21:28:18.968Z",
+ "commit": "b405a225",
+ "at": "2026-09-05T23:01:58.076Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -3509,16 +3509,16 @@
    "passed": false,
    "rngM": 120587,
    "rngT": 120587,
-   "scrM": 821,
+   "scrM": 838,
    "scrT": 861,
    "kind": "screen",
-   "step": 821,
+   "step": 838,
    "steps": 861,
-   "owner": "do_statusline1",
-   "loc": "botl.c:85",
+   "owner": "suit_simple_name",
+   "loc": "objnam.c:5477",
    "jsOwner": null,
-   "cTopline": "Logged events:",
-   "jsTopline": "Logged events:",
+   "cTopline": "dragon scale mail\"",
+   "jsTopline": "dragon scale mail\"",
    "error": null
   },
   "random-seed0360-wizard-world-tour-b1a64b99": {
