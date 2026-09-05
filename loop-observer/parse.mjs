@@ -1,7 +1,9 @@
 /**
  * Incremental Cursor stream-json → conversation messages.
+ * Muse `exec --json` records are normalized first (scripts/loop-raw.mjs).
  * Thinking deltas are coalesced; tool started/completed share one card.
  */
+import { isMuseRecord, createNormalizer } from "../scripts/loop-raw.mjs";
 
 const PREVIEW = 1200;
 const MATCH_CAP = 24;
@@ -14,6 +16,7 @@ export function createTranscript() {
     byId: new Map(),
     openThinkingId: null,
     seq: 0,
+    muse: createNormalizer(),
   };
 }
 
@@ -46,6 +49,7 @@ export function resetTranscript(state, metaPatch = {}) {
   state.byId = new Map();
   state.openThinkingId = null;
   state.seq = 0;
+  state.muse = createNormalizer();
 }
 
 export function applyNdjsonChunk(state, text) {
@@ -63,10 +67,15 @@ export function applyNdjsonChunk(state, text) {
     }
     if (!ev || typeof ev !== "object") continue;
     state.meta.eventCount += 1;
-    const touched = applyEvent(state, ev);
-    if (touched) {
-      if (Array.isArray(touched)) changed.push(...touched);
-      else changed.push(touched);
+    const batch = isMuseRecord(ev)
+      ? (state.muse || (state.muse = createNormalizer())).normalize(ev)
+      : [ev];
+    for (const one of batch) {
+      const touched = applyEvent(state, one);
+      if (touched) {
+        if (Array.isArray(touched)) changed.push(...touched);
+        else changed.push(touched);
+      }
     }
   }
   return dedupeMessages(changed);
@@ -153,8 +162,23 @@ function applyEvent(state, ev) {
     }
     const text = messageText(ev.message);
     if (!text) return null;
+    const id = `asst-${ev.model_call_id || ++state.seq}`;
+    if (st === "delta") {
+      const cur = state.byId.get(id);
+      if (cur) {
+        cur.text = (cur.text || "") + text;
+        cur.ts = num(ev.timestamp_ms) ?? cur.ts;
+        return cur;
+      }
+      return upsert(state, {
+        id,
+        kind: "assistant",
+        text,
+        ts: num(ev.timestamp_ms),
+      });
+    }
     return upsert(state, {
-      id: `asst-${ev.model_call_id || ++state.seq}`,
+      id,
       kind: "assistant",
       text,
       ts: num(ev.timestamp_ms),

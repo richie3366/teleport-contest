@@ -23,6 +23,7 @@
  */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { parseRawText } from './loop-raw.mjs';
 
 const args = process.argv.slice(2);
 const file = args.find((a) => !a.startsWith('--'));
@@ -37,12 +38,7 @@ const TAIL = val('tail', 25);
 const EVIDENCE = /verify\.mjs|ps_test_runner|hidden-worker|hidden-proxy|rng-diff|strict-output-check|save-oracle|node --check|git (status|diff|log|show)|finish-iteration|check-hot-docs/;
 
 const text = readFileSync(file, 'utf8');
-const events = [];
-const stray = [];
-for (const line of text.split(/\r?\n/)) {
-    if (!line.trim()) continue;
-    try { events.push(JSON.parse(line)); } catch { stray.push(line.trim()); }
-}
+const { events, stray } = parseRawText(text);
 const t0 = events.find((e) => e.timestamp_ms)?.timestamp_ms ?? 0;
 let tLast = t0;
 for (const e of events) if (e.timestamp_ms > tLast) tLast = e.timestamp_ms;
@@ -67,9 +63,23 @@ for (const e of events) {
         rec.tEnd = e.timestamp_ms;
     }
 }
-const init = events.find((e) => e.type === 'system' && e.subtype === 'init') || {};
+const init = events.find((e) => e.type === 'system' && e.subtype === 'init' && e.model) || events.find((e) => e.type === 'system' && e.subtype === 'init') || {};
 const resultEv = events.find((e) => e.type === 'result');
-const assistant = events.filter((e) => e.type === 'assistant').map((e) => ({ t: e.timestamp_ms, text: (e.message?.content || []).map((c) => c.text || '').join(' ') }));
+const asstById = new Map();
+for (const e of events) {
+    if (e.type !== 'assistant') continue;
+    const id = e.model_call_id || 'asst';
+    const text = (e.message?.content || []).map((c) => c.text || '').join(' ');
+    if (e.subtype === 'delta') {
+        const prev = asstById.get(id) || { t: e.timestamp_ms, text: '' };
+        prev.text += text;
+        if (prev.t == null) prev.t = e.timestamp_ms;
+        asstById.set(id, prev);
+    } else {
+        asstById.set(id, { t: e.timestamp_ms, text });
+    }
+}
+const assistant = [...asstById.values()];
 const wallMs = tLast - t0;
 
 /* ---- how it ended ---- */

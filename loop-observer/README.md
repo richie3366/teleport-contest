@@ -1,8 +1,10 @@
 # Loop observer
 
 Local browser view of the unattended port loop: Cursor `stream-json`
-from `.agent-port-loop-logs/iter-NNNN-STAMP.raw`, rendered as a
-conversation (prompt, thoughts, tools, Edit/Write diffs, result).
+**or** Muse `exec --json` from `.agent-port-loop-logs/iter-NNNN-STAMP.raw`,
+rendered as a conversation (prompt, thoughts, tools, Edit/Write diffs,
+result). Muse records are normalized in `parse.mjs` via
+`scripts/loop-raw.mjs`; the UI is the same.
 
 Zero npm dependencies. Binds **`127.0.0.1`** on an ephemeral port
 (OS-assigned first free). Not scored; not imported from `js/`.

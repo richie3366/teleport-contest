@@ -21,6 +21,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, dirname, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parseRawText, extractUsageFromRaw } from './loop-raw.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const logDir = join(root, '.agent-port-loop-logs');
@@ -62,17 +63,16 @@ const dirFor = (f) => (rawArg ? dirname(resolve(rawArg)) : logDir);
 
 const rows = [];
 for (const { f, n } of files) {
-  let usage = null, dur = 0, calls = 0;
+  let dur = 0, calls = 0;
   const kind = Object.create(null);
   const cls = Object.create(null);
   const scripts = Object.create(null);
   let cmapReads = 0, cReads = 0;
-  for (const line of readFileSync(join(dirFor(f), f), 'utf8').split('\n')) {
-    const s = line.trim();
-    if (!s.startsWith('{')) continue;
-    let ev;
-    try { ev = JSON.parse(s); } catch { continue; }
-    if (ev.type === 'result') { usage = ev.usage; dur = ev.duration_ms || 0; }
+  const rawText = readFileSync(join(dirFor(f), f), 'utf8');
+  const { events } = parseRawText(rawText);
+  const { total: tokens } = extractUsageFromRaw(rawText);
+  for (const ev of events) {
+    if (ev.type === 'result') { dur = ev.duration_ms || 0; }
     if (ev.type !== 'tool_call' || ev.subtype !== 'started') continue;
     for (const [k, v] of Object.entries(ev.tool_call || {})) {
       if (!k.endsWith('ToolCall')) continue;
@@ -92,7 +92,6 @@ for (const { f, n } of files) {
       }
     }
   }
-  const tokens = Object.values(usage || {}).filter((v) => typeof v === 'number').reduce((a, b) => a + b, 0);
   const nav = (kind.read || 0) + (kind.grep || 0) + (kind.glob || 0);
   rows.push({
     n, calls, tokens, min: +(dur / 60000).toFixed(1),

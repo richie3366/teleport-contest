@@ -1,6 +1,7 @@
 # Agent port loop (fail-closed unattended)
 
-Repeatedly asks Cursor Agent CLI to continue the NetHack JS port. The
+Repeatedly asks Cursor Agent CLI (or Muse, with `--muse`) to continue the
+NetHack JS port. The
 shell is the **gate**: agents **commit and `git push`** inside the
 iteration. Density overflow, protected-file edits, empty ports, and
 QUALITY-RISK without a Must-fix still fail-close (revert+halt if the
@@ -34,6 +35,9 @@ AGENT_FORCE=1 ./scripts/agent-port-loop.sh
 # Cap this supervisor run at ~50M tokens (all usage kinds; not persisted)
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50
 
+# Same loop, Muse instead of cursor-agent (model muse-spark-1.3-contributor, max)
+AGENT_FORCE=1 ./scripts/agent-port-loop.sh --muse --token-budget-m 50
+
 # Retry a cadence slot that crashed before commit (next iter = n+1).
 # Example: failed audit #1465 → treat last completed as 1464.
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50 --last-completed 1464
@@ -63,8 +67,9 @@ supervisor writes `0`, at **startup**.
 ## Before an unattended run
 
 `--force` (`AGENT_FORCE=1`) is **required** for a useful headless loop:
-without it, `--print` mode **auto-denies** Shell/tool approvals and the
-fail-closed script will halt. `--trust` only skips the workspace-trust
+without it, Cursor `--print` mode **auto-denies** Shell/tool approvals
+and Muse stays on `--on-request` (no `--yolo`). The fail-closed script
+will halt. `--trust` / `--trust-workspace` only skips the workspace-trust
 question.
 
 1. Commit everything you care about (`git status` clean; STOP and
@@ -92,7 +97,11 @@ Default: **Cursor Grok 4.6 Extra High**, non-fast.
 | Medium, non-fast | `cursor-grok-4.6-medium` | Cursor Grok 4.6 Medium |
 | Extra High, fast | `cursor-grok-4.6-xhigh-fast` | Cursor Grok 4.6 Extra High Fast |
 
-Override:
+Muse (`--muse`): default slug `muse-spark-1.3-contributor` at
+`--reasoning-effort max` (`MUSE_REASONING_EFFORT` override). `MODEL=` still
+overrides the slug.
+
+Override (Cursor):
 
 ```bash
 MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
@@ -225,12 +234,13 @@ Optional **per supervisor run** (not saved across launches):
 ./scripts/agent-port-loop.sh --token-budget-m 2.5   # fractions OK
 ```
 
-- Sums every numeric field on the agent `result.usage` object (input, output,
-  cache read/write — no distinction).
+- Sums every numeric field on the Cursor agent `result.usage` object
+  (input, output, cache read/write — no distinction). Muse `--json` uses
+  last `cumulative.totalTokens` when present, else the last TokenUsage object.
 - The current iteration always finishes; if the cumulative total is then over
   budget, the loop exits before starting another.
-- Requires `stream-json` (or `json`); the script overrides other formats when
-  a budget is set.
+- Requires Cursor `stream-json` (or `json`), or Muse `--json` (always on
+  with `--muse`); the script overrides other Cursor formats when a budget is set.
 - Three consecutive iterations with **no** usage in the stream → halt (exit 1).
 
 ### Why a stop file (not Ctrl-C only)
@@ -282,7 +292,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 - `loop-<stamp>.log` — full concatenated stream for one process run
 - `iter-NNNN-<stamp>.log` — human-readable extract per iteration (`NNNN` is
   global and monotonic across restarts)
-- `iter-NNNN-<stamp>.raw` — full CLI output (`stream-json` tool events when enabled)
+- `iter-NNNN-<stamp>.raw` — full CLI output (`stream-json` or Muse `exec --json`)
 - `last-halt-reason.txt` — why the supervisor stopped itself
 - `iteration-count` — total claimed global iterations (survives restarts).
   Bootstraps from the **count** of `iter-*.log` files if higher than the
@@ -303,11 +313,16 @@ Under `.agent-port-loop-logs/` (gitignored):
 
 | Variable | Default | Meaning |
 |----------|---------|---------|
-| `MODEL` | `cursor-grok-4.6-xhigh` | Agent model slug |
-| `AGENT_BIN` | `cursor-agent` or `agent` | CLI binary |
-| `AGENT_TRUST` | `1` | Pass `--trust` (required for headless `-p`; set `0` only for interactive trust prompt) |
-| `AGENT_FORCE` | `0` | Set `1` to pass `--force` so Shell/scorers are not auto-denied under `-p` |
-| `AGENT_OUTPUT_FORMAT` | `stream-json` | `stream-json` keeps tool events in `iter-*.raw`; `text` is narrative-only |
+| `MODEL` | `cursor-grok-4.6-xhigh` (Cursor) / `muse-spark-1.3-contributor` (`--muse`) | Agent model slug |
+| `AGENT_BIN` | `cursor-agent` or `agent` | Cursor CLI binary (ignored with `--muse`) |
+| `--muse` (CLI) | unset | Use `muse exec --json` instead of cursor-agent |
+| `LOOP_MUSE` | `0` | Same as `--muse` |
+| `MUSE_BIN` | `muse` | Muse CLI binary |
+| `MUSE_REASONING_EFFORT` | `max` | Muse `--reasoning-effort` (none…ultra) |
+| `MUSE_NO_SESSION_LOG` | `0` | Set `1` to pass `--no-session-log` (`.raw` remains the loop log) |
+| `AGENT_TRUST` | `1` | Cursor: `--trust`. Muse without `--yolo`: `--trust-workspace` |
+| `AGENT_FORCE` | `0` | Cursor: `--force`. Muse: `--yolo` so Shell/scorers are not auto-denied |
+| `AGENT_OUTPUT_FORMAT` | `stream-json` | Cursor only; `--muse` always uses `--json` |
 | `ITERATION_TIMEOUT_SEC` | `3600` | Kill an overlong agent run (then **retry** as continue-unfinished, same as crash-before-commit) |
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
@@ -354,9 +369,9 @@ Halt reason is still `last-halt-reason.txt`.
 
 ## Operator checklist
 
-1. `agent login` (once) so `--list-models` / runs work.
+1. `agent login` (once) so `--list-models` / runs work. For `--muse`: `muse login`.
 2. Clean committed tree (or continue-unfinished leftover). Queue below 8 open items is refilled in-loop.
-3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh`
+3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh` — or add `--muse` for Muse.
 4. Watch the live tee, or `npm run observe-loop` (see **Loop observer**
    above). Halt reason: `last-halt-reason.txt`.
 5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
@@ -374,14 +389,15 @@ Halt reason is still `last-halt-reason.txt`.
 | Symptom | Likely cause |
 |---------|----------------|
 | `neither cursor-agent nor agent found` | Install CLI / fix PATH |
-| Auth errors | `agent login` |
+| `muse binary not found` | Install Muse / fix PATH, or set `MUSE_BIN` |
+| Auth errors | `agent login` (Cursor) or `muse login` (Muse) |
 | `Workspace Trust Required` | Loop defaults to `--trust`; upgrade CLI or set `AGENT_TRUST=1` |
 | banned-pattern (DIAG/FORCE/seed gate) | **Continue** (unpushed → revert this iter; already pushed → heal prompt, next iter strips hits). Does **not** write STOP |
 | density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
 | `N consecutive agent runs <30s` | Out of tokens / auth — halt (no reset; a leftover and its latch survive) |
 | `ActionRequiredError` / "You're out of usage" | Provider plan quota — halt at once, leftover + latch kept; relaunch with `--continue-unfinished` after the reset (#2238) |
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
-| `3× consecutive missing usage` | stream-json had no `result.usage` — halt |
+| `3× consecutive missing usage` | stream-json / Muse JSONL had no usage — halt |
 | Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start (except continue-unfinished, which warns and starts) |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |

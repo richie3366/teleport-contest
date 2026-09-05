@@ -13,6 +13,7 @@
 #
 # Token budget (optional, this run only — not persisted):
 #   ./scripts/agent-port-loop.sh --token-budget-m 50
+#   AGENT_FORCE=1 ./scripts/agent-port-loop.sh --muse --token-budget-m 50
 # Crash leftover: supervisor retries in-process (continue prompt + prior
 # .raw/.log). Or --continue-unfinished / NEXT_AGENT_PROMPT.md on relaunch.
 
@@ -49,9 +50,15 @@ Options:
                         prompt. Same as gitignored NEXT_AGENT_PROMPT.md.
   --next-mode <mode>    port|audit — mode for a continue-unfinished iter
                         (default: infer from dirty js/ vs reviews/).
+  --muse                Use Muse (`muse exec --json`) instead of
+                        cursor-agent. Model defaults to
+                        muse-spark-1.3-contributor at --reasoning-effort
+                        max. AGENT_FORCE=1 maps to --yolo. Observer, token
+                        budget, and resume-brief read the same iter-*.raw.
   -h, --help            Show this help.
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
+Muse knobs: MUSE_BIN, MUSE_REASONING_EFFORT, MUSE_NO_SESSION_LOG, LOOP_MUSE.
 Fail-closed (default): density / protected / empty-port /
 QUALITY-RISK-without-Must-fix halt and revert the iteration (or halt
 without reset if already pushed). Green / full-suite regression and
@@ -81,6 +88,7 @@ LAST_COMPLETED=""
 CONTINUE_CLI="${LOOP_CONTINUE_UNFINISHED:-0}"
 NEXT_PROMPT_SRC="${LOOP_NEXT_PROMPT:-}"
 NEXT_MODE_CLI="${LOOP_NEXT_MODE:-}"
+USE_MUSE="${LOOP_MUSE:-0}"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --token-budget-m)
@@ -111,6 +119,10 @@ while [[ $# -gt 0 ]]; do
       fi
       shift 2
       ;;
+    --muse)
+      USE_MUSE=1
+      shift
+      ;;
     -h|--help)
       usage
       exit 0
@@ -136,6 +148,7 @@ TOKENS_USED=0
 MISSING_USAGE_STREAK=0
 MISSING_USAGE_LIMIT=3
 EXTRACT_USAGE="$ROOT/scripts/extract-agent-usage.mjs"
+EXTRACT_LOG="$ROOT/scripts/extract-agent-log.mjs"
 
 if [[ -n "$TOKEN_BUDGET_M" ]]; then
   TOKEN_BUDGET="$(node --input-type=module -e '
@@ -314,11 +327,37 @@ fi
 
 # Default: Cursor Grok 4.6 Extra High, non-fast
 # (list: agent --list-models | rg grok)
-MODEL="${MODEL:-cursor-grok-4.6-xhigh}"
+# --muse: Muse spark contributor at reasoning-effort max.
+if [[ "$USE_MUSE" == "1" ]]; then
+  MODEL="${MODEL:-muse-spark-1.3-contributor}"
+else
+  MODEL="${MODEL:-cursor-grok-4.6-xhigh}"
+fi
 # Advisory navigation overlay (see arm_nav_discipline_prompt). 1 disables.
 LOOP_NAV_GATE_OFF="${LOOP_NAV_GATE_OFF:-0}"
 AGENT_BIN="${AGENT_BIN:-}"
-if [[ -z "$AGENT_BIN" ]]; then
+MUSE_REASONING_EFFORT="${MUSE_REASONING_EFFORT:-max}"
+MUSE_EXTRA=()
+if [[ "$USE_MUSE" == "1" ]]; then
+  if [[ ! "$MUSE_REASONING_EFFORT" =~ ^(none|minimal|low|medium|high|xhigh|max|ultra)$ ]]; then
+    echo "error: MUSE_REASONING_EFFORT must be none|minimal|low|medium|high|xhigh|max|ultra (got ${MUSE_REASONING_EFFORT})" >&2
+    exit 2
+  fi
+  AGENT_BIN="${MUSE_BIN:-muse}"
+  if ! command -v "$AGENT_BIN" >/dev/null 2>&1; then
+    echo "error: muse binary not found on PATH (${AGENT_BIN})" >&2
+    echo "       install Muse, or set MUSE_BIN=/path/to/muse" >&2
+    exit 1
+  fi
+  if [[ "${AGENT_FORCE:-0}" == "1" ]]; then
+    MUSE_EXTRA+=(--yolo)
+  elif [[ "${AGENT_TRUST:-1}" == "1" ]]; then
+    MUSE_EXTRA+=(--trust-workspace)
+  fi
+  if [[ "${MUSE_NO_SESSION_LOG:-0}" == "1" ]]; then
+    MUSE_EXTRA+=(--no-session-log)
+  fi
+elif [[ -z "$AGENT_BIN" ]]; then
   if command -v cursor-agent >/dev/null 2>&1; then
     AGENT_BIN="cursor-agent"
   elif command -v agent >/dev/null 2>&1; then
@@ -342,12 +381,21 @@ if [[ "${AGENT_FORCE:-0}" == "1" ]]; then
   FORCE_ARGS+=(--force)
 fi
 # text = final narrative only (hides tool denials). stream-json keeps tool events.
+# Muse always emits JSONL (--json); observer + token budget require it.
 OUTPUT_FORMAT="${AGENT_OUTPUT_FORMAT:-stream-json}"
+JSONL_LOGS=0
+if [[ "$USE_MUSE" == "1" ]]; then
+  OUTPUT_FORMAT="muse-jsonl"
+  JSONL_LOGS=1
+elif [[ "$OUTPUT_FORMAT" == "stream-json" || "$OUTPUT_FORMAT" == "json" ]]; then
+  JSONL_LOGS=1
+fi
 # Token budget metering needs usage on stream-json result events.
-if (( TOKEN_BUDGET > 0 )) && [[ "$OUTPUT_FORMAT" != "stream-json" && "$OUTPUT_FORMAT" != "json" ]]; then
+if (( TOKEN_BUDGET > 0 )) && [[ "$USE_MUSE" != "1" ]] && [[ "$OUTPUT_FORMAT" != "stream-json" && "$OUTPUT_FORMAT" != "json" ]]; then
   echo "warning: --token-budget-m requires stream-json/json; overriding AGENT_OUTPUT_FORMAT=$OUTPUT_FORMAT → stream-json" \
     | tee -a "$MASTER_LOG"
   OUTPUT_FORMAT="stream-json"
+  JSONL_LOGS=1
 fi
 ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-3600}"
 # Token-exhaustion detector: N consecutive agent runs shorter than this → halt.
@@ -407,6 +455,10 @@ if [[ ! -f "$QUEUE_FILE" ]]; then
 fi
 if (( TOKEN_BUDGET > 0 )) && [[ ! -f "$EXTRACT_USAGE" ]]; then
   echo "error: missing usage extractor: $EXTRACT_USAGE" >&2
+  exit 1
+fi
+if [[ ! -f "$EXTRACT_LOG" ]]; then
+  echo "error: missing log extractor: $EXTRACT_LOG" >&2
   exit 1
 fi
 
@@ -819,7 +871,7 @@ agent_exit_hint() {
   local raw="$1" log="$2" st="$3"
   if [[ "$st" -eq 124 ]]; then
     echo " timeout"
-  elif rg -q "out of usage|ActionRequiredError|usage limit" "$raw" "$log" 2>/dev/null; then
+  elif rg -q "out of usage|ActionRequiredError|usage limit|payment_gate|token_budget_exceeded" "$raw" "$log" 2>/dev/null; then
     # Provider plan quota (Cursor "You're out of usage"): retrying now just
     # dies again; keep the leftover + latch and stop for the operator (#2238).
     echo " quota"
@@ -908,13 +960,21 @@ warn_regression() {
 echo "=== agent-port-loop ==="
 echo "root:   $ROOT"
 echo "agent:  $AGENT_BIN"
+if [[ "$USE_MUSE" == "1" ]]; then
+  echo "muse:   1  (exec --json, reasoning-effort=${MUSE_REASONING_EFFORT})"
+fi
 echo "model:  $MODEL"
 echo "trust:  ${AGENT_TRUST:-1}"
 echo "force:  ${AGENT_FORCE:-0}"
 echo "format: $OUTPUT_FORMAT"
 if [[ "${AGENT_FORCE:-0}" != "1" ]]; then
-  echo "note:   AGENT_FORCE=0 — headless Shell/tool approvals are auto-denied (no interactive prompt)."
-  echo "        Use AGENT_FORCE=1 after checkpointing if the agent must run scorers."
+  if [[ "$USE_MUSE" == "1" ]]; then
+    echo "note:   AGENT_FORCE=0 — Muse approvals stay on (no --yolo). Headless tools may stall."
+    echo "        Use AGENT_FORCE=1 after checkpointing if the agent must run scorers."
+  else
+    echo "note:   AGENT_FORCE=0 — headless Shell/tool approvals are auto-denied (no interactive prompt)."
+    echo "        Use AGENT_FORCE=1 after checkpointing if the agent must run scorers."
+  fi
 fi
 echo "timeout: ${ITERATION_TIMEOUT_SEC}s per iteration"
 echo "halt:   ${SHORT_STREAK_LIMIT}× agent runs <${SHORT_ITER_SEC}s (likely out of tokens)"
@@ -1003,6 +1063,7 @@ while true; do
   iter_stamp="$(date +%Y%m%d-%H%M%S)"
   iter_log="$LOG_DIR/iter-$(printf '%04d' "$iter")-$iter_stamp.log"
   iter_raw="$LOG_DIR/iter-$(printf '%04d' "$iter")-$iter_stamp.raw"
+  iter_prompt="$LOG_DIR/iter-$(printf '%04d' "$iter")-$iter_stamp.prompt.md"
   snapshot="$(mktemp -d "$LOG_DIR/.snapshot-$iter_stamp-$iter.XXXXXX")"
   cp -R "$ROOT/js" "$snapshot/js"
   before_head="$(git rev-parse HEAD)"
@@ -1019,8 +1080,13 @@ while true; do
       | tee -a "$MASTER_LOG"
   fi
   echo "log: $iter_log" | tee -a "$MASTER_LOG"
-  echo "cli: $AGENT_BIN -p --model $MODEL --output-format $OUTPUT_FORMAT ${TRUST_ARGS[*]+${TRUST_ARGS[*]}} ${FORCE_ARGS[*]+${FORCE_ARGS[*]}}" \
-    | tee -a "$MASTER_LOG"
+  if [[ "$USE_MUSE" == "1" ]]; then
+    echo "cli: $AGENT_BIN exec --json --model $MODEL --reasoning-effort $MUSE_REASONING_EFFORT --workspace $ROOT --prompt-file $iter_prompt --user-input-auto-resolve ${MUSE_EXTRA[*]+${MUSE_EXTRA[*]}}" \
+      | tee -a "$MASTER_LOG"
+  else
+    echo "cli: $AGENT_BIN -p --model $MODEL --output-format $OUTPUT_FORMAT ${TRUST_ARGS[*]+${TRUST_ARGS[*]}} ${FORCE_ARGS[*]+${FORCE_ARGS[*]}}" \
+      | tee -a "$MASTER_LOG"
+  fi
 
   # Each iteration is a fresh agent session (new context).
   # Bash 3.2 (macOS) + set -u: empty "${arr[@]}" is "unbound"; use + guard.
@@ -1121,50 +1187,32 @@ while true; do
 
   iter_start="$(now_epoch)"
   set +e
-  run_with_timeout "$AGENT_BIN" -p \
-    --model "$MODEL" \
-    --output-format "$OUTPUT_FORMAT" \
-    ${TRUST_ARGS[@]+"${TRUST_ARGS[@]}"} \
-    ${FORCE_ARGS[@]+"${FORCE_ARGS[@]}"} \
-    "$prompt_body" \
-    >"$iter_raw" 2>&1
+  if [[ "$USE_MUSE" == "1" ]]; then
+    printf '%s' "$prompt_body" >"$iter_prompt"
+    run_with_timeout "$AGENT_BIN" exec --json \
+      --model "$MODEL" \
+      --reasoning-effort "$MUSE_REASONING_EFFORT" \
+      --workspace "$ROOT" \
+      --prompt-file "$iter_prompt" \
+      --user-input-auto-resolve \
+      ${MUSE_EXTRA[@]+"${MUSE_EXTRA[@]}"} \
+      >"$iter_raw" 2>&1
+  else
+    run_with_timeout "$AGENT_BIN" -p \
+      --model "$MODEL" \
+      --output-format "$OUTPUT_FORMAT" \
+      ${TRUST_ARGS[@]+"${TRUST_ARGS[@]}"} \
+      ${FORCE_ARGS[@]+"${FORCE_ARGS[@]}"} \
+      "$prompt_body" \
+      >"$iter_raw" 2>&1
+  fi
   status=$?
   set -e
   iter_elapsed=$(( $(now_epoch) - iter_start ))
 
   # Human-readable extract + keep raw stream for tool denial forensics.
-  if [[ "$OUTPUT_FORMAT" == "stream-json" ]] || [[ "$OUTPUT_FORMAT" == "json" ]]; then
-    node --input-type=module - "$iter_raw" "$iter_log" <<'NODE' || cp "$iter_raw" "$iter_log"
-import { readFileSync, writeFileSync } from 'node:fs';
-const [rawPath, outPath] = process.argv.slice(2);
-const raw = readFileSync(rawPath, 'utf8');
-const chunks = [];
-for (const line of raw.split(/\r?\n/)) {
-  if (!line.trim()) continue;
-  let ev;
-  try { ev = JSON.parse(line); } catch { chunks.push(line); continue; }
-  const t = ev.type || ev.event || '';
-  if (t === 'assistant' || t === 'message' || t === 'text' || t === 'agent_message') {
-    const text = ev.text ?? ev.message?.content ?? ev.content ?? ev.delta ?? '';
-    if (typeof text === 'string' && text) chunks.push(text);
-    else if (Array.isArray(text)) {
-      for (const part of text) {
-        if (typeof part === 'string') chunks.push(part);
-        else if (part?.text) chunks.push(part.text);
-      }
-    }
-  } else if (typeof ev.result === 'string') {
-    chunks.push(ev.result);
-  } else if (ev.subtype === 'tool_call' || t.includes('tool')) {
-    const name = ev.toolName || ev.name || ev.tool || 'tool';
-    const status = ev.status || ev.subtype || t;
-    const err = ev.error || ev.rejection || ev.reason || '';
-    chunks.push(`[tool] ${name} ${status}${err ? `: ${err}` : ''}`);
-  }
-}
-const body = chunks.length ? chunks.join('\n') : raw;
-writeFileSync(outPath, body.endsWith('\n') ? body : body + '\n');
-NODE
+  if (( JSONL_LOGS )); then
+    node "$EXTRACT_LOG" "$iter_raw" "$iter_log" || cp "$iter_raw" "$iter_log"
   else
     cp "$iter_raw" "$iter_log"
   fi
@@ -1172,47 +1220,9 @@ NODE
 
   # Tool-approval denials only. Ordinary shell failures often contain
   # "permission denied" (OS) and must not abort the loop under set -e.
-  if [[ "$OUTPUT_FORMAT" == "stream-json" ]] || [[ "$OUTPUT_FORMAT" == "json" ]]; then
+  if (( JSONL_LOGS )); then
     set +e
-    deny_report="$(node --input-type=module - "$iter_raw" <<'NODE'
-import { readFileSync } from 'node:fs';
-const raw = readFileSync(process.argv[2], 'utf8');
-const denials = [];
-const stats = { started: 0, completed: 0, ok: 0, err: 0 };
-// Approval/UI denials only — not OS "permission denied" in shell stderr.
-const approvalRe =
-  /rejected by user|requires approval|not approved|tool call was rejected|Shell call was rejected|approval required|tools? were rejected/i;
-for (const line of raw.split(/\r?\n/)) {
-  if (!line.trim()) continue;
-  let ev;
-  try { ev = JSON.parse(line); } catch { continue; }
-  if (ev.type !== 'tool_call') continue;
-  if (ev.subtype === 'started') { stats.started++; continue; }
-  if (ev.subtype !== 'completed') continue;
-  stats.completed++;
-  const tc = ev.tool_call || {};
-  const key = Object.keys(tc)[0] || 'unknown';
-  const result = tc[key]?.result;
-  if (!result) continue;
-  if (result.success) { stats.ok++; continue; }
-  stats.err++;
-  const errObj = result.error ?? result.failure ?? result;
-  // Shell/OS failures include exitCode; those are not approval denials.
-  if (errObj && typeof errObj === 'object' && ('exitCode' in errObj || 'signal' in errObj)) {
-    continue;
-  }
-  const errBlob = JSON.stringify(errObj);
-  if (approvalRe.test(errBlob)) {
-    denials.push(`${key}: ${errBlob.slice(0, 180)}`);
-  }
-}
-console.error(`tools ok=${stats.ok} err=${stats.err} completed=${stats.completed}/${stats.started}`);
-if (denials.length) {
-  console.log(denials.join('\n'));
-  process.exit(2);
-}
-NODE
-)"
+    deny_report="$(node "$EXTRACT_LOG" --denials "$iter_raw")"
     deny_status=$?
     set -e
     if [[ "$deny_status" -eq 2 ]]; then
