@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-05** — full `sessions` at **D-1840**
-(audit **794–810**, `bf310d98`). Fortress held: seed0030 **D-1816**,
+Score last measured: **2026-09-05** — full `sessions` at **D-1847**
+(audit **811–817**, `2c9f2ad0`). Fortress held: seed0030 **D-1816**,
 seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
-**11,405**/11,405, RNG **792,838**/792,838. Speed `43+0.33/turn`
-(R² 0.853).
+**11,405**/11,405, RNG **792,838**/792,838. Speed `44+0.37/turn`
+(R² 0.864).
 
 ## Score
 
@@ -33,16 +33,15 @@ seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `43+0.33/turn` (R² 0.853) |
+| Speed label | `44+0.37/turn` (R² 0.864) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-05 at
-D-1840 `bf310d98`): **209 / 265 PASS (78.9 %)** excl. 13 env-only rows;
-RNG 99.27 %; screens 98.6 %. Top owners: `lookat` 4 · `do_statusline1` 4 ·
-`level_tele` 3 · `mineralize`/`summonmu`/`getpos`/`inuse_classify`/`dofire` 2.
-D-1831’s `process_menu_window` 12 cleared by D-1832 (review 801 QUALITY-RISK,
-not live Must-fix). Refresh on audit iters with
-`node scripts/hidden-proxy.mjs score`.
+D-1847 `2c9f2ad0`): **217 / 265 PASS (81.9 %)** excl. 13 env-only rows;
+RNG 99.32 %; screens 98.9 %. Top owners: `do_screen_description` 4 ·
+`mineralize`/`moverock_core`/`mhitm_ad_phys`/`inuse_classify`/`menu_remarm`/`dofire`/`dowhatdoes` 2.
+Review **813 QUALITY-RISK** lookat `S_room`/`S_darkroom` is live Must-fix.
+Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
@@ -74,9 +73,8 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1847**. Open `mklev.c` `mineralize` leftover: gold/gem loop
 C-faithful; 2 corpus still first-diff at mineralize (1-cell TRC named).
-**Next cluster:** same Open `mklev.c` `mineralize` — 2 corpus blocks; C extra
-`rn2(1000)` after JS last eligible cell (Knight d5 410 vs 409). Do not
-re-port the gold loop; next is `wall_cleanup` / `ly=15` east HWALL+TRC.
+**Next cluster:** Must-fix `pager.c` `lookat` — drop JS-only `S_room`/`S_darkroom`
+arms (`813-70d84800`); DARKROOMSYM is `newsym` (D-0812), not lookat.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.

@@ -7,7 +7,7 @@
 - D-id: **D-1840**
 - Stats: `js/mklev.js` +138/−4. `js/` insertions **138** ≤250. Band **80–350**.
 - Claims to close: Ice / Boulder / Spider / Trap `themeroom_fill` so C’s `rn2(100)` runs. Not Garden/Massacre/Statuary.
-- JS / map: four fill bodies + `selection_filter_percent`. `c-js-map/data.md`. Archive **Addressed:** D-1840 (hash fill this audit).
+- JS / map: four fill bodies + `selection_filter_percent`. `c-js-map/data.md`. Archive **Addressed:** D-1840 `bf310d98`.
 
 ## Intent vs deliverable
 

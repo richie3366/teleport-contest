@@ -5,9 +5,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 209/265 PASS at
-  D-1840 (audit 794–810). Open `mklev.c` `mineralize` leftover shipped
-  the gold/gem loop (D-1847); 2 corpus still blocked. Must-fix empty.
+- **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 217/265 PASS at
+  D-1847 (audit 811–817). Open `mklev.c` `mineralize` leftover gold loop
+  C-faithful; 2 corpus still blocked (1-cell TRC). Must-fix: lookat
+  `S_room`/`S_darkroom` (review 813). Do not reopen D-1841–D-1847.
 - **1-cell TRC:** Knight d5 C 410 vs JS 409 gold checks; 409 values match
   then C `rn2(1000)=52` at (77,13). C STONE at (76,14)/(77,14); JS HWALL/
   TRC. `wall_cleanup` sees ROOM at (75,15)/(76,15). Falsify: those two

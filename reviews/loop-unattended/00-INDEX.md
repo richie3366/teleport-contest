@@ -821,3 +821,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [808-27758e2a-pickup-checks.md](./808-27758e2a-pickup-checks.md) | `27758e2a` | D-1838 hack.c pickup_checks furniture / pool / lava / swallow | **ACCEPT-WITH-DEBT** |
 | [809-65036888-roles-quest.md](./809-65036888-roles-quest.md) | `65036888` | D-1839 role.c roles[] ldrnum / homebase / questarti | **ACCEPT-WITH-DEBT** |
 | [810-bf310d98-selection-filter-percent.md](./810-bf310d98-selection-filter-percent.md) | `bf310d98` | D-1840 selvar.c selection_filter_percent themed fills | **ACCEPT-WITH-DEBT** |
+| [811-4f6a3bcc-fakewiz.md](./811-4f6a3bcc-fakewiz.md) | `4f6a3bcc` | D-1841 mkmaze.c makemaz fakewiz1/fakewiz2 | **ACCEPT-WITH-DEBT** |
+| [812-9dc829a9-do-statusline1.md](./812-9dc829a9-do-statusline1.md) | `9dc829a9` | D-1842 botl.c do_statusline1 leftover WIN_STATUS | **ACCEPT-WITH-DEBT** |
+| [813-70d84800-lookat.md](./813-70d84800-lookat.md) | `70d84800` | D-1843 pager.c lookat glyph_is_unexplored | **QUALITY-RISK** |
+| [814-e3ccc72b-summonmu.md](./814-e3ccc72b-summonmu.md) | `e3ccc72b` | D-1844 mhitu.c summonmu were / were_summon | **ACCEPT-WITH-DEBT** |
+| [815-6d5ca30d-getpos.md](./815-6d5ca30d-getpos.md) | `6d5ca30d` | D-1845 getpos.c matching[] '/' + AUTODESC | **ACCEPT-WITH-DEBT** |
+| [816-5d89cc96-level-tele.md](./816-5d89cc96-level-tele.md) | `5d89cc96` | D-1846 teleport.c level_tele Nowhere / clamp + priestname + bigrm-2 | **ACCEPT-WITH-DEBT** |
+| [817-2c9f2ad0-mineralize.md](./817-2c9f2ad0-mineralize.md) | `2c9f2ad0` | D-1847 mklev.c mineralize gold/gem loop + bound_digging | **ACCEPT-WITH-DEBT** |
