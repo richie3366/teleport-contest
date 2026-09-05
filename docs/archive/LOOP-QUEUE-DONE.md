@@ -5,9 +5,6 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `uhitm.c` erode_armor — 1 corpus block RNG-first at step 47 (C `rn2(5)` in erode_armor vs JS `rn2(3)` mhitm_knockback; tour-Healer-70025-d5-8-15-17-22; unblocked by D-1876 climb_pit). **Addressed:** D-1876
-
-
 - [x] `trap.c` climb_pit — 1 corpus block RNG-first at step 46 (C `rn2(2)` in climb_pit vs JS `rn2(5)` distfleeck; tour-Healer-70025-d5-8-15-17-22). **Addressed:** D-1876
 
 

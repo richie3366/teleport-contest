@@ -55,6 +55,7 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `getpos.c` getpos_help — 1 corpus block screen-first at step 342 («Use 'h', 'j', 'k', 'l' to move the cursor to a m» vs same-plus; random-seed0367-priest-quest-tour-01388a3a).
 - [ ] `mdlib.c` version_id_string — 1 corpus block screen-first at step 83 («MacOS NetHack Version 5.0.0 - last build May 2 2026 12:00:00» vs «Unknown command 'V'.»; random-seed0900-tourist-explore-actions-614da9aa).
 - [ ] `invent.c` dolook — 1 corpus block screen-first at step 18 («You see here a historic statue of a forest centaur.» vs «You see here a statue of a forest centaur.»; tour-Archeologist-70010-d3-6-10-11-12).
+- [ ] `uhitm.c` erode_armor — 1 corpus block RNG-first at step 47 (C `rn2(5)` in erode_armor vs JS `rn2(3)` mhitm_knockback; tour-Healer-70025-d5-8-15-17-22; unblocked by the climb_pit port above).
 - [ ] `iactions.c` itemactions — 1 corpus block screen-first at step 853 («Do what with the cloak of magic resistance?» vs same-plus; explore-seed0360-wizard-world-tour-5dfef5c4; new symptom, distinct from archived D-1833 Engrave/Write).
 - [ ] `mkmaze.c` makemaz `wiz-goal` — Wizard quest 4/5 → 5/5 (132 ln, best cost ratio). From `dat/wiz-goal.lua` (HELDOUT Tier A #1).
 - [ ] `mkmaze.c` makemaz `val-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Valkyrie quest 0/5 (371 ln; Valkyrie 3/44 sessions). From `dat/val-*.lua` (HELDOUT Tier B).
