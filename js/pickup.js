@@ -9,7 +9,7 @@ import { rn2, rnd, d } from './rng.js';
 import {
     objects_at, obj_extract_self, splitobj, weight, add_to_container,
     place_object, hornoplenty, unbless, mergable, delobj, set_corpsenm,
-    unsplitobj, spot_time_left,
+    unsplitobj, spot_time_left, nxtobj,
 } from './mkobj.js';
 import {
     look_here, observe_object, dfeature_at, paint_corner_nhw_menu,
@@ -17,8 +17,9 @@ import {
     let_to_name, DEF_INV_ORDER, prinv, near_capacity, calc_capacity,
     max_capacity, compactify_invlets, getobj_take_count, getobj_apply_count,
     getobj_from_cmdq, getobj_display_pickinv, freeinv, display_inventory,
-    splittable, will_feel_cockatrice, is_worn, not_fully_identified,
-    taking_off, count_unpaid, getobj, Blind,
+    splittable, will_feel_cockatrice, feel_cockatrice, is_worn,
+    not_fully_identified,
+    taking_off, count_unpaid, getobj, Blind, hold_another_object,
 } from './invent.js';
 import {
     nomul, check_special_room, is_pool, is_lava, in_rooms, dosinkfall,
@@ -64,8 +65,10 @@ import {
     AUTOUNLOCK_APPLY_KEY,
     nothing_seems_to_happen, nothing_happens, something, engulfing_u,
     HAND, FOOT, NO_MINVENT, MM_ADJACENTOK, MM_NOMSG, ONAME_NO_FLAGS,
-    ARTICLE_A, RLOC_NOMSG, TIMEOUT, I_SPECIAL, FAILEDUNTRAP, NO_TRAP,
+    ARTICLE_A, ARTICLE_THE, RLOC_NOMSG, TIMEOUT, I_SPECIAL, FAILEDUNTRAP,
+    NO_TRAP,
     MELT_ICE_AWAY, LEVITATION, WARNING, u_at, FUMBLING, PLNMSG_BACK_ON_GROUND,
+    IS_GRAVE, W_SADDLE, SUPPRESS_SADDLE, ynqchars,
 } from './const.js';
 import {
     t_at, dotrap, drown, lava_effects, instapetrify, float_down, ceiling,
@@ -84,7 +87,8 @@ import {
     remote_burglary,
 } from './shk.js';
 import {
-    nohands, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider, mons,
+    nohands, nolimbs, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider,
+    mons,
     monsterNames,
 } from './monsters.js';
 import { welded, weldmsg, setuwep, setuswapwep, setuqwep } from './wield.js';
@@ -95,13 +99,15 @@ import { cansee } from './vision.js';
 import { touch_artifact, youmonst } from './artifact.js';
 import { exercise, A_WIS } from './attrib.js';
 import { inv_cnt } from './steal.js';
-import { trycall, Monnam, christen_monst, oname, rndmonnam, Amonnam, a_monnam, x_monnam } from './do_name.js';
+import { trycall, Monnam, christen_monst, oname, rndmonnam, Amonnam, a_monnam, x_monnam, mon_nam } from './do_name.js';
 import { makemon, set_malign } from './makemon.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { hard_helmet } from './do_wear.js';
 import { mdamageu } from './mhitu.js';
 import { is_ice } from './zap.js';
 import { incr_itimeout_HLevitation } from './potion.js';
+import { which_armor, extract_from_minvent } from './worn.js';
+import { get_adjacent_loc } from './lock.js';
 
 /** C ref: mondata.h notake — M1_NOTAKE. */
 function notake(ptr) {
@@ -3588,6 +3594,18 @@ async function loot_floor_containers(x, y) {
     if (!(await able_to_loot(x, y, true))) {
         return { timepassed: 0, c: -1, blocked: true };
     }
+    // C doloot_core `:2228–2240` Blind && !uarmg feel_cockatrice before
+    // asking about containers
+    if (Blind() && !game.u?.uarmg) {
+        let nobj = objects_at(x, y);
+        while (nobj && (nobj.otyp | 0) !== CORPSE) nobj = nobj.nexthere;
+        for (; nobj; nobj = nxtobj(nobj, CORPSE, true)) {
+            if (will_feel_cockatrice(nobj, false)) {
+                await feel_cockatrice(nobj, false);
+                return { timepassed: 1, c: -1, felt: true };
+            }
+        }
+    }
     let timepassed = 0;
     if (num_conts > 1) {
         const pick = await loot_which_containers_menu(x, y);
@@ -3613,19 +3631,100 @@ async function loot_floor_containers(x, y) {
     return { timepassed, c: anyfound ? 'y' : -1 };
 }
 
+/** C youprop.h Confusion / Stunned for doloot_core lootmon. */
+function doloot_Confusion() {
+    const u = game.u || {};
+    return !!((u.HConfusion | 0) || u.Confusion);
+}
+function doloot_Stunned() {
+    const u = game.u || {};
+    return !!((u.HStun | 0) || u.Stunned);
+}
+
 /**
- * C ref: pickup.c doloot / doloot_core — loot container underfoot.
- * Branch envelope: capacity; nohands; lootcont (able_to_loot +
- * num_conts>1 PICK_ANY + do_loot_cont cindex/ccount more_containers);
- * directional lootmon underfoot → lootcont.
- * Named omissions: capacity pline path; Confusion reverse_loot;
- * iflags.menu_requested skip-to-lootmon; grave; saddle; cockatrice;
- * AUTOUNLOCK_FORCE; lootcont→lootmon fallthrough after empty multi-pick;
- * PICK_ANY @ invert / pages / >26 containers.
+ * C ref: pickup.c loot_mon `:2430–2481` — saddle off adjacent mon, then
+ * swallowed `pickup(count)`.
+ * @param {object|null} mtmp
+ * @param {{value:number}|null} [passed_info]
+ * @param {{value:boolean}|null} [prev_loot]
+ * @returns {Promise<number>} timepassed
+ */
+export async function loot_mon(mtmp, passed_info, prev_loot) {
+    let c = -1;
+    let timepassed = 0;
+    const u = game.u || {};
+
+    if (mtmp && mtmp !== u.usteed) {
+        const otmp = which_armor(mtmp, W_SADDLE);
+        if (otmp) {
+            if (passed_info) passed_info.value = 1;
+            const qbuf = `Do you want to remove the saddle from ${
+                x_monnam(mtmp, ARTICLE_THE, null, SUPPRESS_SADDLE, false)
+            }?`;
+            c = await yn_function(qbuf, ynqchars, 'n', true);
+            if (c === 'y') {
+                if (nolimbs(game.youmonst?.data)) {
+                    await pline("You can't do that without limbs.");
+                    return 0;
+                }
+                if (otmp.cursed) {
+                    await pline(
+                        `You can't.  The saddle seems to be stuck to ${
+                            x_monnam(mtmp, ARTICLE_THE, null, SUPPRESS_SADDLE, false)
+                        }.`,
+                    );
+                    return 1;
+                }
+                extract_from_minvent(mtmp, otmp, true, false);
+                if (game.flags?.verbose !== false) {
+                    await pline(
+                        `You take ${thesimpleoname(otmp)} off of ${mon_nam(mtmp)}.`,
+                    );
+                }
+                await hold_another_object(
+                    otmp, 'You drop %s!', doname(otmp), null,
+                );
+                timepassed = rnd(3);
+                if (prev_loot) prev_loot.value = true;
+            } else if (c === 'q') {
+                return 0;
+            }
+        }
+    }
+    if (u.uswallow) {
+        const count = passed_info ? (passed_info.value | 0) : 0;
+        timepassed = await pickup(count);
+    }
+    return timepassed;
+}
+
+/**
+ * C ref: pickup.c doloot `:2166–2174` — set loot_reset_justpicked around
+ * doloot_core (addinv_core0 resets pickup_prev once).
  */
 export async function doloot() {
+    game.loot_reset_justpicked = true;
+    const res = await doloot_core();
+    game.loot_reset_justpicked = false;
+    return res;
+}
+
+/**
+ * C ref: pickup.c doloot_core `:2178–2346` — lootcont then lootmon.
+ * Named omissions: Confusion reverse_loot; AUTOUNLOCK_FORCE;
+ * PICK_ANY @ invert / pages / >26 containers.
+ */
+async function doloot_core() {
     const u = game.u;
     if (!u) return ECMD_OK;
+
+    let c = -1;
+    let timepassed = 0;
+    let cc = { x: u.ux, y: u.uy };
+    let underfoot = true;
+    const dont_find_anything = "don't find anything";
+    const prev_inquiry = { value: 0 };
+    const prev_loot = { value: false };
 
     // C: ga.abort_looting = FALSE;
     game.abort_looting = false;
@@ -3643,44 +3742,83 @@ export async function doloot() {
         await pline('You have no hands!');
         return ECMD_OK;
     }
+    // C: Confusion rn2(6)&&reverse_loot / rn2(2) "Being confused…" — named omit
 
-    const floor = await loot_floor_containers(u.ux, u.uy);
-    if (floor.blocked) return ECMD_OK;
-    if (floor.aborted) return floor.timepassed ? ECMD_TIME : ECMD_OK;
-    let timepassed = floor.timepassed | 0;
-    const c = floor.c;
+    cc = { x: u.ux, y: u.uy };
+    // C: if (iflags.menu_requested) goto lootmon
+    let at_lootmon = !!(game.iflags?.menu_requested);
 
-    // C: doloot_core lootmon — get_adjacent_loc when mon_beside
-    if (c !== 'y' && (mon_beside(u.ux, u.uy) || game.flags?.menu_requested)) {
-        const { getdir_cmdassist } = await import('./dothrow.js');
-        const dir = await getdir_cmdassist('Loot in what direction?');
-        if (!dir) {
-            await pline('Never mind.');
-            return timepassed ? ECMD_TIME : ECMD_OK;
-        }
-        const cc = { x: u.ux + dir.dx, y: u.uy + dir.dy };
-        const underfoot = cc.x === u.ux && cc.y === u.uy;
-        if (underfoot && container_at(cc.x, cc.y, false)) {
-            // C: goto lootcont
-            const again = await loot_floor_containers(cc.x, cc.y);
-            if (again.blocked) return ECMD_OK;
-            timepassed |= again.timepassed;
-            return timepassed ? ECMD_TIME : ECMD_OK;
-        }
-        for (let o = objects_at(cc.x, cc.y); o; o = o.nexthere) {
-            if (Is_container(o)) {
-                await pline('You have to be at a container to loot it.');
-                return timepassed ? ECMD_TIME : ECMD_OK;
+    for (;;) {
+        if (!at_lootmon) {
+            const floor = await loot_floor_containers(cc.x, cc.y);
+            if (floor.felt) return ECMD_TIME;
+            if (floor.blocked) return ECMD_OK;
+            if (floor.aborted) return floor.timepassed ? ECMD_TIME : ECMD_OK;
+            timepassed |= floor.timepassed | 0;
+            c = floor.c;
+            if (c === -1 && !container_at(cc.x, cc.y, false)) {
+                const loc = game.level?.at(cc.x, cc.y);
+                if (IS_GRAVE(loc?.typ)) {
+                    await pline(
+                        'You need to dig up the grave to effectively loot it...',
+                    );
+                }
             }
         }
-        await pline(
-            `You don't find anything ${underfoot ? 'here' : 'there'} to loot.`,
-        );
-        return timepassed ? ECMD_TIME : ECMD_OK;
-    }
+        at_lootmon = false;
 
-    if (c !== 'y' && c !== 'n') {
-        await pline("You don't find anything here to loot.");
+        // C lootmon `:2296–2344`
+        if (c !== 'y' && (mon_beside(u.ux, u.uy) || game.iflags?.menu_requested)) {
+            let looted_mon = false;
+            const adj = await get_adjacent_loc(
+                'Loot in what direction?',
+                'Invalid loot location',
+            );
+            if (!adj) return ECMD_OK;
+            cc = adj;
+            underfoot = u_at(cc.x, cc.y);
+            if (underfoot && container_at(cc.x, cc.y, false)) {
+                continue; // C: goto lootcont
+            }
+            if ((u.dz | 0) < 0) {
+                await pline(
+                    `You ${dont_find_anything} to loot on the ${ceiling(cc.x, cc.y)}.`,
+                );
+                return ECMD_TIME;
+            }
+            const mtmp = m_at(cc.x, cc.y);
+            if (mtmp) {
+                timepassed = await loot_mon(mtmp, prev_inquiry, prev_loot);
+                if (timepassed) looted_mon = true;
+            }
+            if (doloot_Confusion() || doloot_Stunned()) timepassed = 1;
+
+            if (!looted_mon) {
+                if (!underfoot && container_at(cc.x, cc.y, false)) {
+                    if (mtmp) {
+                        await pline(
+                            `You can't loot anything ${
+                                prev_inquiry.value ? 'else ' : ''
+                            }there with ${mon_nam(mtmp)} in the way.`,
+                        );
+                        return timepassed ? ECMD_TIME : ECMD_OK;
+                    }
+                    await pline('You have to be at a container to loot it.');
+                } else {
+                    await pline(
+                        `You ${dont_find_anything} ${
+                            prev_inquiry.value || prev_loot.value ? 'else ' : ''
+                        }${!underfoot ? 't' : ''}here to loot.`,
+                    );
+                    return timepassed ? ECMD_TIME : ECMD_OK;
+                }
+            }
+        } else if (c !== 'y' && c !== 'n') {
+            await pline(
+                `You ${dont_find_anything} ${underfoot ? 'here' : 'there'} to loot.`,
+            );
+        }
+        break;
     }
     return timepassed ? ECMD_TIME : ECMD_OK;
 }

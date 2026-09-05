@@ -1322,14 +1322,14 @@ full allopt / exceptions / costly_spot / thrown·stolen filters deferred) +
 **`pickup` multi/`!pickup`/`notake` one gate + incapable pline** (D-0928 #1127; 
 unconscious skip deferred); **`pickup_object` gold `disp.botl` before pick/prinv** (D-0393); 
 **`pickup_prinv`→`prinv` count/total_of** (D-0388); 
-**`#loot`/`doloot`/`do_loot_cont` locked autounlock + `use_container` `:` look + 
+**`#loot`/`doloot`/`doloot_core` D-1837** (C `pickup.c` `doloot` `:2166–2174` `loot_reset_justpicked`; `doloot_core` `:2178–2346` lootcont + lootmon `get_adjacent_loc("Loot in what direction?")`; `loot_mon` `:2430–2481` saddle + swallowed pickup; `lock.c` `doopen_indir` `:808–811` `u_at`/`dz>0` → `doloot`) + **`do_loot_cont` locked autounlock + `use_container` `:` look + 
 MENU_FULL take-out** (D-0362/D-0489/D-0490) + **`doloot` capacity+nohands + 
-`use_container` `u_handsy`** (D-0726; **`able_to_loot` freehand `body_part(HAND)` D-1508**; Confusion reverse_loot deferred) + 
+`use_container` `u_handsy`** (D-0726; **`able_to_loot` freehand `body_part(HAND)` D-1508**; Confusion reverse_loot named) + 
 **`use_container` `'r'` reversed put-in then take-out D-1567** (C `pickup.c` `:3132–3210` `loot_in_first`; TRADITIONAL yn_function + `explain_container_prompt`) + **MENU_TRADITIONAL `traditional_loot` + `askchain` D-1581** (C `pickup.c` `:3229–3261` `query_classes`/`askchain`/`in_container`/`out_container`/`ck_bag`; `invent.c` `askchain` `:2376–2541`; callees `collect_obj_classes`/`add_valid_menu_class`/`allow_category`/`sortloot` INVLET; `drawing.c` `def_char_to_objclass`; `hacklib.c` `highc`; `topl.c` yn `#`; ggetobj takeoff/identify is D-1602; floor pickup `query_classes` is D-1620; mbag explosion body named) + 
 **floor TRADITIONAL `query_classes` D-1620** (C `pickup.c` `pickup` `:793–891` `There` + `query_classes` `:140–262` then yn/pickup_object; `'m'` `query_objlist` allow_all/-3 `allow_category`; ynaq/ynNaq default `'y'`; `count_unpaid` nobj; hideunder/`newsym_force`/engulfer minvent traditional; **`safe_qbuf` D-1654**) + 
 **`safe_qbuf` D-1654** (C `objnam.c` `:5623–5698` QBUFSZ-1 + `short_oname` then lastR; pickup `:852` Pick up / `:1774` Continue? / `:3077–3082` Do what with + empty Yname2 / `:3607` tip; `decl.h` `something`; lift container `"removing"` named; apply/do_name/eat/invent/lock/mhitu/shk/trap named) + 
 **`in_or_out_menu` more_containers `n` D-1592** (C `pickup.c` `in_or_out_menu` `:3397–3477` `'n'` loot-next `MENU_ITEMFLAGS_SELECTED` + Space/Return default; `use_container` `:3091` pass-through; `do_loot_cont` `:2161` `cindex<ccount`; `doloot_core` `:2217–2273` `container_at` + num_conts>1 PICK_ANY `"Loot which containers?"`; `'q'` `abort_looting` vs `'n'` continue; ggetobj takeoff/identify is D-1602; floor `query_classes` is D-1620; mbag explosion / PICK_ANY @ invert / >26 / lootcont→lootmon empty-pick named) + 
-**`doloot` mon_beside → `getdir_cmdassist` lootmon** (D-0451; loot_mon/saddle deferred; multi-cont is D-1592); 
+**`doloot_core` lootmon `get_adjacent_loc` + `loot_mon` saddle D-1837** (C `pickup.c` `:2296–2344`; Confusion reverse_loot named; multi-cont is D-1592); 
 + **`#untrap`/`could_untrap` nohands gate** (D-0726; door force D-1495; floor `untrap()` named); 
 **`domove` diagonal `test_move` intact-doorway ban + `doorless_door`** (D-0219) + 
 **`m_at`/`do_attack` before closed_door/testdiag/blocksMove** (D-0372; 
@@ -1721,8 +1721,8 @@ obstructed / trap-in-doorway / lock-shut) +
 muse.c mbhit named; bhito boxlock is D-1467) + **`chest_shatter_msg` Blind+`singular` + 
 `objclass.h` PAPER/GLASS/WOOD mats** (D-0878; 
 potionbreathe / Blind hear-vs-see deferred) + **doforce ynq def `'q'`** (D-0727); 
-**`o`/`doopen` → `doopen_indir(0,0)` getdir** (D-0727; 
-loot-at-feet open / pit "Open where?" / mimic / AUTOUNLOCK_KICK deferred); 
+**`o`/`doopen` → `doopen_indir(0,0)` getdir** (D-0727; **loot-at-feet `u_at` → `doloot` D-1837**;
+pit "Open where?" / mimic / AUTOUNLOCK_KICK deferred); 
 **`#herecmdmenu`/`doherecmdmenu` self menu** (D-0728; 
 `#therecmdmenu` / next2u/far / K==0 travel / CMDQ_KEY·DIR follow-ups / glyph≠hero Look deferred); 
 **`#tip`/`dotip` floor ynq (def q) + basic floor `tipcontainer`** (D-0719; 

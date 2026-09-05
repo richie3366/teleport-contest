@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1837 — pickup.c doloot_core loot-at-feet + lootmon get_adjacent_loc
+
+- **Status:** fixed (3 corpus PASS, 1 moved past; green + cohort)
+- **Symptom:** 4 hidden-corpus first-diffs attributed to `doloot_core`: C `"You don't find anything here to loot."` / `"Loot in what direction?"` vs JS `"You see no door there."` Player `o` then `.`/`>`: C `doopen_indir` switches to `#loot`; JS kept walking the door arm.
+- **C locus:** `pickup.c` `doloot` `:2166–2174` (`gl.loot_reset_justpicked`); `doloot_core` `:2178–2346` (lootcont `container_at` / Blind `feel_cockatrice` / grave; lootmon `get_adjacent_loc("Loot in what direction?")` / `u.dz<0` ceiling / `loot_mon`); `loot_mon` `:2430–2481`; `lock.c` `doopen_indir` `:808–811` (`u_at && (u.dz > 0 || !closed_door)` → `doloot()`).
+- **JS was:** `doopen_indir` named-omit of loot-at-feet (pline `"You see no door there."`). `doloot` inlined a partial core via `getdir_cmdassist`; no `loot_mon`, grave, cockatrice, `iflags.menu_requested` skip, or ceiling arm. `addinv` ignored `loot_reset_justpicked`.
+- **Fix:** `doopen_indir` returns `doloot()` on self/down unless a closed door is here. `doloot` wraps `doloot_core` with `loot_reset_justpicked`; `addinv` clears `pickup_prev` once. lootmon uses `get_adjacent_loc`; `loot_mon` saddle + swallowed `pickup`.
+- **JS:** `js/lock.js` `doopen_indir` / `get_adjacent_loc`; `js/pickup.js` `doloot` / `doloot_core` / `loot_mon`; `js/u_init.js` `addinv`.
+- **Verify:** `node scripts/verify.mjs --fn doloot_core` → PASS syntax (3 js files); PASS rule2; PASS hidden verify doloot_core: 3 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-77350e1f → lookat step 832 was 822; explore-seed1150-caveman-explore-move-d93ea4ff PASS; explore-seed1500-rogue-explore-move-8ddad3bd PASS; ind-Priest-304886778-a693574f PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+- **Named omissions:** Confusion `reverse_loot`; pit `"Open where? [.>]"`; door-mimic stumble; AUTOUNLOCK_KICK / AUTOUNLOCK_FORCE; PICK_ANY `@` invert / pages / >26 containers. Not leftover WIN_STATUS (`do_statusline1`).
+- **Next:** Open `hack.c` `pickup_checks` (3 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
+
 ## D-1836 — sp_lev.c build_room nested themerms des.room chance
 
 - **Status:** fixed (4 corpus blocks moved past; green + cohort; full `sessions` 44/44)

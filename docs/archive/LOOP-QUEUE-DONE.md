@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `sp_lev.c` build_room — 4 corpus blocks; C themed-room script vs JS `rnd_rect` (level-content cliff). **Addressed:** D-1836
+- [x] `pickup.c` doloot_core — 4 corpus blocks; "You don't find anything here to loot." vs "You see no door there." **Addressed:** D-1837
+
+
+- [x] `sp_lev.c` build_room — 4 corpus blocks; C themed-room script vs JS `rnd_rect` (level-content cliff). **Addressed:** D-1836 `c9b87e23`
 
 ## 2026-09-04
 
