@@ -6,26 +6,24 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Park `dopush` (mimic-viz, not the push):** explore-seed0116-wizard-wear-shop-cfabc006 step 127/175 is a single-cell screen diff at terminal r13c32 = map (33,12): C `` ` `` vs JS `·`. RNG 12853/12853 (queue row); only 127 differs. Push itself faithful (hero (32,10)→(33,10), boulder #223→(34,10)). Mimic id229 (M_AP_OBJECT BOULDER 475); JS blind 126/127, sees 128. Timeline 114→127: entry boulder-memory; 116 search reveals (floor); 117 restrap re-disguise; 118–126 OOS floor. At 127 C paints boulder — viz split: C sees IN_SIGHT, JS paints memory floor (no C memory writer runs at 127). Falsified: removing JS `movobj`'s uncited `recalc_block_point`×2 (C movobj `:824–833` has none; no C caller recals) gives NO MOVEMENT (no boulder displaced 114–126). Exonerated: dig/fill/block/unblock/recalc/does_block, `vision_reset`, `set_mimic_sym` tail, `seemimic`, `display_monster` mimic arms, `map_object`, `newsym`. Falsifier: see queue row. Re-apply reverted `movobj` cleanup with the fix.
-- **Park `dog_invent`:** both hits are `mon.c mpickstuff` (sessions/falsifier in queue row). Evidence: Barbarian step 34 (0 dogmove draws, `geom-probe` 0 diffs), Priest step 45 (RNG match).
-- **Hidden-score proxy:** see CURRENT.md Score (236/265 at D-1864). Geometry owners: `geom-probe.mjs` first (D-1849).
+- **Park `dog_invent`:** both hits are `mon.c mpickstuff` (queue row). Evidence: Barbarian step 34 + Priest step 45 (0 dogmove draws, RNG match).
+- **Hidden-score proxy:** see CURRENT.md Score. Geometry owners: probe first (D-1849).
 - **Fortress guards.** Do not reopen display_inventory dismiss /
   gameover heading / keep_status, stock_room engraving, inside_shop clone,
   level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu,
   lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`,
   pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu,
   medusa/soko/Wiz, Knight/Rogue lua.
-- **Luck still runs when invulnerable.** Dialogues do not (`timeout.c:623`).
-  STONED/SLIMED expiry silent (`done_timeout`).
-- **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs` still
-  rebuilds `migrating_mons`. DUMPLOG retired (D-1776). Clone drift: zap
+- **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
+- **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** DUMPLOG retired (D-1776). Clone drift: zap
   useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`;
   helm_simple_name; pickup `ysimple_name`; getobj_* clones.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1871 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1872 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1871 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1872 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -43,18 +41,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1871.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1872.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1871.
+  Do not re-port D-1682…D-1872.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1872: ported the four page-key arms into all three loops ahead of gacc/letter match (C switch order; `>` never finishes on the last page); PICK_NONE `:`/oth Named: `minimal_xname` itself still unported (`simpleonames` stand-in, D-0881; names already matc
 - D-1871: async `zoo_mon_sound` in C order (gate; `hallu = Hallucination() ? 1 : 0` via the faithful youprop helper; `zoo_msg[rn2(2)+hallu]`; `await You_hear`,  Named: throne/beehive/morgue/barracks/court You_hear plines still deferred (RNG-only stubs unchan
 - D-1870: new `mhitm_ad_drli_u` in `js/mhitu.js` in C order (hitmsg; short-circuit `!rn2(3) && !Drain_resistance() && !mgc_negated(TRUE)` → `losexp('life draina Named: uhitm + mhitm arms of `mhitm_ad_drli` (Stormbringer `d(2,6)`, mhpmax/level-drain body, Dea
 - D-1869: port `mkswamp` into `js/mklev.js` in C order (short-circuit, RNG, mutation). Named: none new (map `mkshop` wizard/SHOPTYPE arm and shk bodies unchanged).
@@ -69,5 +68,4 @@ Objective/score live in `CURRENT.md`.
 - D-1860: port `antholemon()` (ubirthday%3 + difficulty, `G_GONE` retry, null if all gone, no RNG) + `PM_SOLDIER_ANT`/`PM_FIRE_ANT`/`PM_GIANT_ANT` consts; add t Named: SWAMP `mkswamp` still deferred; `tt_oname` RECORD entries (plgend/classmon/christen) still
 - D-1859: port the arm in C order (inside clear-dest branch, after ttmp/mtmp fetch, before revive_nasty/monster): `Sokoban_here() && u.dx && u.dy` → Blind `feel Named: shop `costly` computation, `revive_nasty`, trap/teleport/pool arms, Levitation/verysmall B
 - D-1858: `load_sam_strt` from the lua body: solidfill STONE + Named: humidity-aware `get_location` for water-likers;
-- D-1857: port the three arms with C branch/RNG order. Named: `defended(mon, AD_SLEE)` orange-scales/artifact
 <!-- landmarks:end -->

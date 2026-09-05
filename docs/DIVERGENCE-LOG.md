@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-1872 — wintty.c process_menu_window page keys `>`/`<`/`^`/`|` (minimal_xname corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)
+- **Symptom:** `explore-seed0360-wizard-world-tour-d03fe605` step 827/881 screen-first: C topline `d - an uncursed +1 ring of gain constitution` (inventory `i` menu, page 2 of 2) vs JS `Amulets` (stuck on page 1 of 2); 54 screens blocked, RNG in sync.
+- **C locus:** `win/tty/wintty.c` `process_menu_window` `:1621–1649` — `MENU_NEXT_PAGE` (`>`, `wintype.h:153`), `MENU_PREVIOUS_PAGE` (`<`), `MENU_FIRST_PAGE` (`^`), `MENU_LAST_PAGE` (`|`) turn pages in *every* menu including PICK_NONE; only ` ` finishes on the last page (`else if (morc == ' ')`, `:1627–1630`). Default letter match scans the current page only (`:1753`), so `n`/`J` at steps 825–826 are correctly ignored on page 1.
+- **Attribution note (measured, not inferred):** the proxy owner `minimal_xname` (`objnam.c:1080`) is a literal match of `uncursed ` in the C row, not the cause. C and JS screens 824–826 match cell-for-cell including every item name (`xprname`/`doname` path, never `minimal_xname`), and the step keys are `i` (open), `J`/`n` (ignored), `>` (page turn). Porting `minimal_xname` would be NO MOVEMENT; the C writer of the differing behavior is the menu page arm.
+- **JS was:** `js/invent.js` has three `process_menu_window` subsets — `select_menu_pick_none` (PICK_NONE `i` inventory), the `display_pickinv_reply` PICK_ONE loop, `display_used_invlets` — all handling Space only for paging; `>`/`<`/`^`/`|` fell through to re-prompt the same page. `select_menu_pick_none` additionally opened menu search on `:` where C bells on PICK_NONE (`:1701–1703`).
+- **Fix:** ported the four page-key arms into all three loops ahead of gacc/letter match (C switch order; `>` never finishes on the last page); PICK_NONE `:`/other keys now `tty_nhbell()` per C `:1701–1703`/`:1738` (screen-silent). Retired the `MENU_PREV/FIRST/LAST` named omits on the pickinv/used-invlets map rows.
+- **JS:** `js/invent.js` (+68/−8): `MENU_FIRST/LAST/NEXT/PREVIOUS_PAGE` import from `const.js`; page arms in the three loops; doc updates.
+- **Verify:**
+  - `PASS  syntax   1 changed js file(s): js/invent.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `PASS  hidden   verify minimal_xname: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (`explore-seed0360-wizard-world-tour-d03fe605: PASS`)
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`; full skipped (no shared file changed)
+  - `VERIFY: PASS`
+- **Named omissions:** `minimal_xname` itself still unported (`simpleonames` stand-in, D-0881; names already match on both sides here). MENU_SELECT/UNSELECT/INVERT_PAGE + SELECT/UNSELECT/INVERT_ALL, digit counting in PICK_NONE menus, and `map_menu_cmd` keypad remaps still deferred in these loops.
+- **Next:** none from this row — the cited session now PASSES, so the proxy re-attributes `minimal_xname`; no new queue row (faithfulness stays map debt under D-0881).
+
 ## D-1871 — sounds.c zoo_mon_sound zoo_msg print (zoo_mon_sound corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + cohort PASS)

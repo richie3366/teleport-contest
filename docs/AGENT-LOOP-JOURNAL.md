@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1872 wintty.c process_menu_window page keys `>`/`<`/`^`/`|` (minimal_xname corpus owner)
+
+**C locus:** `win/tty/wintty.c` `process_menu_window` `:1621–1649` — `MENU_NEXT_PAGE` (`>`, `wintype.h:153`), `MENU_PREVIOUS_PAGE` (`<`), `MENU_FIRST_PAGE` (`^`), `MENU_LAST_PAGE` (`|`) turn pages in *every* menu including PICK_NONE; only ` ` finishes on the last page (`else if (morc == ' ')`, `:1627–1630`). Default letter match scans the current page only (`:1753`), so `n`/`J` at steps 825–826 are correctly ignored on page 1.
+**JS:** `js/invent.js` (+68/−8): `MENU_FIRST/LAST/NEXT/PREVIOUS_PAGE` import from `const.js`; page arms in the three loops; doc updates.
+**Change:** ported the four page-key arms into all three loops ahead of gacc/letter match (C switch order; `>` never finishes on the last page); PICK_NONE `:`/other keys now `tty_nhbell()` per C `:1701–1703`/`:1738` (screen-silent). Retired the `MENU_PREV/FIRST/LAST` named omits on the pickinv/used-invlets map rows.
+**Verify:** - `PASS  syntax   1 changed js file(s): js/invent.js`
+**Named:** `minimal_xname` itself still unported (`simpleonames` stand-in, D-0881; names already match on both sides here). MENU_SELECT/UNSELECT/INVERT_PAGE + SELECT/UNSELECT/INVERT_ALL, digit counting in PICK_NONE menus, and `map_menu_cmd` keypad remaps still deferred in these loops.
+**Next:** none from this row — the cited session now PASSES, so the proxy re-attributes `minimal_xname`; no new queue row (faithfulness stays map debt under D-0881).
 ## 2026-09-05 — D-1871 sounds.c zoo_mon_sound zoo_msg print (zoo_mon_sound corpus owner)
 
 **C locus:** `sounds.c` `zoo_mon_sound` `:115–128` ((msleeping||is_animal)+ZOO gate; `selection = rn2(2)+hallu` over zoo_msg[3]; `You_hear1`; TRUE). Caller `dosounds` `:309–312` (`has_zoo && !rn2(200)` → `get_iter_mons(zoo_mon_sound)` → return).
