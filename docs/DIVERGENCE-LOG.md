@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1867 — save_dungeon_topology persist/restore (maybe_generate_rnd_mon corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + cohort + full `sessions` 44/44)
+- **Symptom:** catchup-after-restore-seed0015-valk step 24/30 kind=rng at `allmain.c:166` — C `rn2(70)=28 @ maybe_generate_rnd_mon` vs JS `rn2(50)=18 @ maybe_generate_rnd_mon(allmain.js:240)`, same empty topline. Recipe: segment 0 seed15 `nllllllllkkkllkk> Sy` (descend + save), segment 1 restore + `....< `.
+- **C locus:** `allmain.c` `maybe_generate_rnd_mon` `:162–168` (`!rn2(udemigod ? 25 : (depth(&u.uz) > depth(&stronghold_level)) ? 50 : 70)`) — the JS rate ternary itself is already C-faithful (D-0753). The writer of the differing cell is the dungeon topology: `dungeon.c` `save_dungeon` `Sfo_dgn_topology` / `restore_dungeon` `Sfi_dgn_topology` (`hack.h` `struct dgn_topology`) persist every special-level `d_level` across save/restore, so C's restored `stronghold_level` reads deep (rate 70).
+- **JS was:** `game.stronghold_level` (and every `game.*_level` + branch dnum) was set only by `fixup_level_locations` via `init_dungeons` (newgame). `dosave0` persisted `dungeons`/`branches`/vestigial `dungeon_topology` but not the `*_level` fields; `try_restore_save` never restored them. Each runner segment boots from `resetGame()` (`jsmain.js:99`), so the restore segment ran with `stronghold_level` undefined → `depth(undefined)` falls back to dungeon 0 level 1 (depth 1) while the restored hero stands deeper → 50-rate arm where C takes 70. No seed/step/coordinate read; the fix is the C save/restore contract.
+- **Fix:** `js/dungeon.js` `save_dungeon_topology()` / `restore_dungeon_topology()` over `LEVEL_MAP` + quest/sokoban/mines/tower/tutorial dnums (mirrors `struct dgn_topology`); `dosave0` writes `payload.topology_levels`; `try_restore_save` restores it (absent key = old save → keep current values). No `allmain.js` change — the rate ternary was already right.
+- **JS:** `js/dungeon.js` topology serialize/restore + comments; `js/save.js` import + payload write + restore (with C citations); `docs/c-js-map/harness.md` persistence row.
+- **Verify:** `node scripts/verify.mjs --fn maybe_generate_rnd_mon` → PASS syntax (2 changed js files: js/dungeon.js js/save.js) · PASS rule2 · PASS hidden verify maybe_generate_rnd_mon: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (catchup-after-restore-seed0015-valk: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (heuristic) → then `node frozen/ps_test_runner.mjs sessions` → 44/44 PASS incl. seed0013-friday13-save-then-fullmoon-restore, speed `45+0.36/turn` (R² 0.86).
+- **Named omissions:** `game.dungeon_topology` vestigial round-trip kept as-is (only `Is_airlevel` read in `hack.js`); knox-branch-insert / quest-proto fixup side effects are NOT re-run on restore (branches/dungeons already restored verbatim); `depth()` `|| 1` fallback untouched (matches C for valid dungeons).
+- **Next:** Open `monmove.c` `m_move` (queue head after this ships; C `rn2(4)` vs JS distfleeck `rn2(5)`).
+
 ## D-1866 — options.c menuinvertmode default 1 (menu_remarm corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS + 1 moved past to a later owner; green + cohort + full `sessions` 44/44)

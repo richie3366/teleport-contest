@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1867 save_dungeon_topology persist/restore (maybe_generate_rnd_mon corpus owner)
+
+**C locus:** `allmain.c` `maybe_generate_rnd_mon` `:162–168` (`!rn2(udemigod ? 25 : (depth(&u.uz) > depth(&stronghold_level)) ? 50 : 70)`) — the JS rate ternary itself is already C-faithful (D-0753). The writer of the differing cell is the dungeon topology: `dungeon.c` `save_dungeon` `Sfo_dgn_topology` / `restore_dungeon` `Sfi_dgn_topology` (`hack.h` `struct dgn_topology`) persist every special-level `d_level` across save/restore, so C's restored `stronghold_level` reads deep (rate 70).
+**JS:** `js/dungeon.js` topology serialize/restore + comments; `js/save.js` import + payload write + restore (with C citations); `docs/c-js-map/harness.md` persistence row.
+**Change:** `js/dungeon.js` `save_dungeon_topology()` / `restore_dungeon_topology()` over `LEVEL_MAP` + quest/sokoban/mines/tower/tutorial dnums (mirrors `struct dgn_topology`); `dosave0` writes `payload.topology_levels`; `try_restore_save` restores it (absent key = old save → keep current values). No `allmain.js` change — the rate ternary was already right.
+**Verify:** `node scripts/verify.mjs --fn maybe_generate_rnd_mon` → PASS syntax (2 changed js files: js/dungeon.js js/save.js) · PASS rule2 · PASS hidden verify maybe_generate_rnd_mon: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (catchup-after-restore-seed0015-valk: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (heuristic) → then `node frozen/ps_test_runner.mjs sessions` → 44/44 PASS incl. seed0013-friday13-save-then-fullmoon-restore, speed `45+0.36/turn` (R² 0.86).
+**Named:** `game.dungeon_topology` vestigial round-trip kept as-is (only `Is_airlevel` read in `hack.js`); knox-branch-insert / quest-proto fixup side effects are NOT re-run on restore (branches/dungeons already restored verbatim); `depth()` `|| 1` fallback untouched (matches C for valid dungeons).
+**Next:** Open `monmove.c` `m_move` (queue head after this ships; C `rn2(4)` vs JS distfleeck `rn2(5)`).
 ## 2026-09-05 — D-1866 options.c menuinvertmode default 1 (menu_remarm corpus owner)
 
 **C locus:** `options.c` `initoptions_init` `:7279` (`iflags.menuinvertmode = 1` — bulk select/invert skip SKIPINVERT rows unless already set) + `windows.c` `menuitem_invert_test` `:1561–1589` (mode 1 + SKIPINVERT + unselected → FALSE) + `wintty.c` `set_all_on_page` (MENU_SELECT_PAGE skips rows failing the invert test); symptom owner `do_wear.c` `menu_remarm` `:3098–3112` (the `a` row is added with `MENU_ITEMFLAGS_SKIPINVERT`).

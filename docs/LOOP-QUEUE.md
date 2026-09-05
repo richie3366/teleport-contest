@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `allmain.c` maybe_generate_rnd_mon — 1 corpus block; C `rn2(70)` vs JS `rn2(50)`.
 - [ ] `monmove.c` m_move — 1 corpus block; C `rn2(4)` vs JS `distfleeck` `rn2(5)`.
 - [ ] `mkroom.c` mkswamp — 1 corpus block; C `rn2(5)` vs JS `fill_ordinary_room` `rn2(3)`.
 - [ ] `uhitm.c` mhitm_mgc_atk_negated — 1 corpus block; C `rn2(10)` vs JS `mhitm_knockback` `rn2(6)`.
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `sounds.c` zoo_mon_sound — 1 corpus block screen-first at step 134 («You hear a sound reminiscent of a seal barking.» vs empty).
 - [ ] `objnam.c` minimal_xname — 1 corpus block screen-first at step 827 («d - an uncursed +1 ring of gain constitution» vs «Amulets»).
 - [ ] `artifact.c` artifact_hit — 2 corpus blocks; screen-first at artifact.c:1515 («The massive hammer hits the Aleax.» vs empty; explore-seed0360-wizard-world-tour-19199bfa step 848, 5dfef5c4 step 842). Same-step continuation after the hitum `spec_abon` phantom roll was removed (see DIVERGENCE-LOG D-1862 Next; restored to live queue — never addressed).
+- [ ] `trap.c` trapeffect_rolling_boulder_trap — 1 corpus block screen-first at step 347 («^a trap (rolling boulder trap)» vs «^a rolling boulder trap»; explore-seed0367-priest-quest-tour-b0096089).
+- [ ] `steal.c` mdrop_obj — 1 corpus block screen-first at step 29 («The kitten drops a dart.--More--» vs same-plus; explore-seed1500-rogue-explore-move-d7877f7d).
+- [ ] `do_wear.c` glibr — 1 corpus block screen-first at step 29 («Your kitten eats a goblin corpse.» vs empty; ind-Tourist-666025142-d17728db).
+- [ ] `mkmaze.c` makemaz `kni-strt`/`-loca`/`-fila`/`-filb` — Knight quest 1/5 → 5/5 (only `kni-goal` exists; Knight is 5/44 sessions). From `dat/kni-*.lua` (HELDOUT Tier A #10).
+- [ ] `mkmaze.c` makemaz `rog-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Rogue quest 0/5 → 5/5 (largest 0/5 role, 6/44 sessions). From `dat/rog-*.lua` (HELDOUT Tier A #11).
 
 ## Parked (do not pop)
 

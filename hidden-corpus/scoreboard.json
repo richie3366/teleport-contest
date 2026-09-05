@@ -1,6 +1,6 @@
 {
- "commit": "11f88a30",
- "at": "2026-09-05T16:03:24.887Z",
+ "commit": "26386bd7",
+ "at": "2026-09-05T16:09:33.209Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4526,17 +4526,17 @@
   },
   "catchup-after-restore-seed0015-valk": {
    "src": "private",
-   "passed": false,
-   "rngM": 8448,
+   "passed": true,
+   "rngM": 8599,
    "rngT": 8599,
-   "scrM": 26,
+   "scrM": 30,
    "scrT": 30,
-   "kind": "rng",
-   "step": 24,
+   "kind": null,
+   "step": null,
    "steps": 30,
-   "owner": "maybe_generate_rnd_mon",
-   "loc": "allmain.c:166",
-   "jsOwner": "maybe_generate_rnd_mon(allmain.js:240)",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
    "error": null
