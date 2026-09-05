@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1852 mkmaze.c makemaz Val-strt/loca/goal/fila/filb load_special (Valkyrie quest 5/5)
+
+**C locus:** `dat/Val-strt.lua` / `Val-loca.lua` / `Val-goal.lua` /
+**JS:** `js/mklev.js` `load_val_strt` / `load_val_loca` / `load_val_fila` /
+**Change:** `load_val_strt` from the lua body: solidfill ICE +
+**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+**Named:** humidity-aware `get_location`; `ensure_way_out`;
+**Next:** Open `mkmaze.c` `makemaz` `knox` (Fort Ludios). Not Sam.
 ## 2026-09-05 — D-1851 dothrow.c dofire empty-quiver You() NEED_MORE before getobj
 
 **C locus:** `dothrow.c` `dofire` `:510–554` (`You("have no ammunition readied.")` then `doquiver_core("fire")`); `wield.c` `doquiver_core`; `invent.c` `getobj` / `win/tty/getline.c` `hooked_tty_getlin` `:53–54` / `topl.c` `tty_yn_function` (`toplin == NEED_MORE` → `more()` before the prompt). Also `:381–441` `autoquiver`; `:447–465` `find_launcher`; `:506–508` throw-and-return; `:512–525` pole/whip/uswap pole; `:557–579` fireassist; `:297–300` `ok_to_throw` shotlimit.

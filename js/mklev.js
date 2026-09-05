@@ -261,6 +261,7 @@ const SPE_STONE_TO_FLESH = objectNames.indexOf('SPE_STONE_TO_FLESH');
 const SPE_POLYMORPH = objectNames.indexOf('SPE_POLYMORPH');
 const LONG_SWORD = objectNames.indexOf('LONG_SWORD');
 const PLATE_MAIL = objectNames.indexOf('PLATE_MAIL');
+const BANDED_MAIL = objectNames.indexOf('BANDED_MAIL');
 const SADDLE = objectNames.indexOf('SADDLE');
 const SILVER_SABER = objectNames.indexOf('SILVER_SABER');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -1433,7 +1434,8 @@ function reset_xystart_size() {
  * Wiz-strt, Wiz-loca, Wiz-fila, Wiz-filb, Wiz-goal,
  * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7,
  * Kni-strt, Kni-loca, Kni-fila, Kni-filb, Kni-goal,
- * Rog-strt, Rog-loca, Rog-fila, Rog-filb, Rog-goal.
+ * Rog-strt, Rog-loca, Rog-fila, Rog-filb, Rog-goal,
+ * Val-strt, Val-loca, Val-fila, Val-filb, Val-goal.
  * Named omissions:
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1687,6 +1689,26 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Rog-goal') {
         load_rog_goal();
+        return true;
+    }
+    if (protofile === 'Val-strt') {
+        load_val_strt();
+        return true;
+    }
+    if (protofile === 'Val-loca') {
+        load_val_loca();
+        return true;
+    }
+    if (protofile === 'Val-fila') {
+        load_val_fila();
+        return true;
+    }
+    if (protofile === 'Val-filb') {
+        load_val_filb();
+        return true;
+    }
+    if (protofile === 'Val-goal') {
+        load_val_goal();
         return true;
     }
     if (protofile === 'tower1') {
@@ -7129,6 +7151,443 @@ function load_rog_goal() {
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Val-strt.lua via load_special — Valkyrie quest start (besieged Norn).
+ * Solidfill ICE + mazelevel/noteleport/hardfloor; 76×20 map; lava-ringed ice
+ * pools (13 random points + west/north/random grow, water ring then lava);
+ * whole-map lit region; branch levregion; down stair; fountain; locked doors;
+ * Norn CUSTOM_INVENT (banded mail +5, long sword +4) + chest + warriors;
+ * non_diggable audience chamber; 6 fire traps; fixed fire-ant siege + 2
+ * hostile fire giants.
+ * Named omissions: map-drawn ICE icedpool (splev_init_present); ensure_way_out.
+ */
+function load_val_strt() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "I" })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: ICE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    // random pools: 13× set() then west/north/random grow (C nhlsel order)
+    let pools = selection_new();
+    for (let i = 0; i < 13; i++) selection_set_random(pools);
+    pools = selection_or(pools, selection_grow(selection_set_random(selection_new()), 'west'));
+    pools = selection_or(pools, selection_grow(selection_set_random(selection_new()), 'north'));
+    pools = selection_or(pools, selection_grow(selection_set_random(selection_new()), 'random'));
+    // des.terrain(grow("all"), "P") water ring, then des.terrain(pools, "L")
+    selection_iterate(selection_grow(selection_clone(pools), 'all'),
+        (x, y) => sel_set_ter(x, y, POOL, SET_LIT_NOCHANGE));
+    selection_iterate(pools,
+        (x, y) => sel_set_ter(x, y, LAVAPOOL, SET_LIT_NOCHANGE));
+
+    const VAL_STRT_MAP = `
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxx..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...xxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxx..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..{..xxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxx..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.....xxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxx..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxx..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxx..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..xxxxxxxxxxxxxxxxxxx
+xxxxxxxx.....xxxxxxxxxxxxx|----------------|xxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxx
+xxxxxxx..xxx...xxxxxxxxxxx|................|xxxxxxxxxx..xxxxxxxxxxxxxxxxxxxx
+xxxxxx..xxxxxx......xxxxx.|................|.xxxxxxxxx.xxxxxxxxxxxxxxxxxxxxx
+xxxxx..xxxxxxxxxxxx.......+................+...xxxxxxx.xxxxxxxxxxxxxxxxxxxxx
+xxxx..xxxxxxxxx.....xxxxx.|................|.x...xxxxx.xxxxxxxxxxxxxxxxxxxxx
+xxx..xxxxxxxxx..xxxxxxxxxx|................|xxxx.......xxxxxxxxxxxxxxxxxxxxx
+xxxx..xxxxxxx..xxxxxxxxxxx|----------------|xxxxxxxxxx...xxxxxxxxxxxxxxxxxxx
+xxxxxx..xxxx..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...xxxxxxxxxxxxxxxxx
+xxxxxxx......xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...xxxxxxxxxxxxxxx
+xxxxxxxxx...xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...x......xxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.........xxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.......xxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+`.replace(/^\n/, '');
+    splev_apply_centered_map(VAL_STRT_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,75,19), "lit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, true);
+
+    // des.stair("down", 18, 01)
+    mkstairs(mx + 18, my + 1, 0, null);
+    // des.feature("fountain", 53, 02) — map-relative
+    {
+        const loc = g.level.at(mx + 53, my + 2);
+        if (loc) loc.typ = FOUNTAIN;
+    }
+    // des.door("locked", ...) ×2
+    for (const [rx, ry] of [[26, 10], [43, 10]]) {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) continue;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = D_LOCKED;
+        loc.flags = D_LOCKED;
+    }
+
+    // des.monster Norn + CUSTOM_INVENT (banded mail +5, long sword +4)
+    {
+        const mtmp = splev_create_monster('Norn', undefined, { rx: 35, ry: 10 });
+        splev_discard_default_minvent(mtmp);
+        const give = (spec) => {
+            const otmp = l_create_object(spec);
+            if (!otmp || !mtmp) return;
+            obj_extract_self(otmp);
+            mpickobj(mtmp, otmp);
+        };
+        give({ id: BANDED_MAIL, spe: 5 });
+        give({ id: LONG_SWORD, spe: 4 });
+    }
+    // des.object("chest", 36, 10)
+    mksobj_at(CHEST, mx + 36, my + 10, true, true);
+
+    // valkyrie guards for the audience chamber (default peaceful)
+    for (const [rx, ry] of [
+        [27, 8], [27, 9], [27, 11], [27, 12],
+        [42, 8], [42, 9], [42, 11], [42, 12],
+    ]) splev_create_monster('warrior', undefined, { rx, ry });
+
+    // des.non_diggable(selection.area(26,07,43,13)) — walls/bars only
+    for (let y = my + 7; y <= my + 13 && y < ROWNO; y++) {
+        for (let x = mx + 26; x <= mx + 43 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.trap("fire") × 6
+    for (let i = 0; i < 6; i++) splev_create_trap(FIRE_TRAP);
+
+    // monsters on siege duty (default peaceful) + 2 hostile fire giants
+    for (const [rx, ry] of [
+        [4, 12], [8, 8], [14, 4], [17, 11], [24, 10],
+        [45, 10], [54, 2], [55, 7], [58, 14], [63, 17],
+    ]) splev_create_monster('fire ant', undefined, { rx, ry });
+    splev_create_monster('fire giant', 0, { rx: 18, ry: 1 });
+    splev_create_monster('fire giant', 0, { rx: 10, ry: 16 });
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // des.levregion branch {66,17} after flip (absolute; C leaves unflipped)
+    place_lregion(
+        mx + 66, my + 17, mx + 66, my + 17,
+        0, 0, 0, 0, LR_BRANCH, null,
+    );
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Val-loca.lua via load_special — Valkyrie quest locate.
+ * Solidfill + mines fg="." bg="I" (smoothed, unjoined, lit, noflip);
+ * 40×13 map with pool/lava edges; whole-map lit region; off-map up stair;
+ * whole-map non_diggable; 15 objects; 4 fire + 2 random traps; 17 fire ants
+ * + class a + 2 hostile H + 7 hostile fire giants.
+ * Named omissions: humidity get_location; ensure_way_out.
+ */
+function load_val_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    // des.level_init mines: fg=".", bg="I", smoothed, joined=false,
+    // lit=1, walled=false — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: ICE, filling: ROOM,
+        lit: 1, smoothed: true, joined: false, walled: false,
+        icedpools: true,
+    });
+
+    const VAL_LOCA_MAP = `
+PPPPxxxx                      xxxxPPPPPx
+PLPxxx                          xPPLLLPP
+PPP    .......................    PPPLLP
+xx   ............................   PPPP
+x  ...............................  xxxx
+  .................................   xx
+....................................   x
+  ...................................
+x  ..................................  x
+xx   ..............................   PP
+xPPP  ..........................     PLP
+xPLLP                             xxPLLP
+xPPPPxx                         xxxxPPPP
+`.replace(/^\n/, '');
+    splev_apply_centered_map(VAL_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,39,12), "lit")
+    light_region(mx + 0, my + 0, mx + 39, my + 12, true);
+
+    // des.stair up (off-map) + down
+    mkstairs(mx + 48, my + 14, 1, null);
+    mkstairs(mx + 20, my + 6, 0, null);
+
+    // des.non_diggable(selection.area(00,00,39,12)) — walls/bars only
+    for (let y = my; y <= my + 12 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 39 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object() × 15
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+
+    // des.trap("fire") × 4 then des.trap() × 2
+    for (let i = 0; i < 4; i++) splev_create_trap(FIRE_TRAP);
+    for (let i = 0; i < 2; i++) splev_create_trap();
+
+    // random monsters: 17 fire ants + class a, then hostiles
+    for (let i = 0; i < 17; i++) splev_create_monster('fire ant', undefined);
+    splev_create_monster('a', undefined);
+    splev_create_monster('H', 0);
+    for (let i = 0; i < 7; i++) splev_create_monster('fire giant', 0);
+    splev_create_monster('H', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags noflip — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Val-goal.lua via load_special — Valkyrie quest goal (Lord Surtur).
+ * Solidfill lava + mines fg="." bg="L" (smoothed, joined, lit); 35×17 lava
+ * sanctum map; whole-map lit; replace_terrain chance-50 room around the
+ * off-map up stair; whole-map non_diggable; two lava drawbridges (random,
+ * then percent-75 open else random); the Orb of Fate (blessed +5 crystal
+ * ball) + 14 objects; fixed + random board/fire traps; Lord Surtur, fire
+ * ants, class a, 10 fixed + 2 random hostile fire giants, hostile H.
+ * Named omissions: humidity get_location; ensure_way_out.
+ */
+function load_val_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "L" })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: LAVAPOOL,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg="L", smoothed, joined=true,
+    // lit=1, walled=false — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: LAVAPOOL, filling: ROOM,
+        lit: 1, smoothed: true, joined: true, walled: false,
+        icedpools: true,
+    });
+
+    const VAL_GOAL_MAP = `
+xxxxxx.....................xxxxxxxx
+xxxxx.......LLLLL.LLLLL......xxxxxx
+xxxx......LLLLLLLLLLLLLLL......xxxx
+xxxx.....LLL|---------|LLL.....xxxx
+xxxx....LL|--.........--|LL.....xxx
+x......LL|-...LLLLLLL...-|LL.....xx
+.......LL|...LL.....LL...|LL......x
+......LL|-..LL.......LL..-|LL......
+......LL|.................|LL......
+......LL|-..LL.......LL..-|LL......
+.......LL|...LL.....LL...|LL.......
+xx.....LL|-...LLLLLLL...-|LL......x
+xxx.....LL|--.........--|LL.....xxx
+xxxx.....LLL|---------|LLL...xxxxxx
+xxxxx.....LLLLLLLLLLLLLLL...xxxxxxx
+xxxxxx......LLLLL.LLLLL.....xxxxxxx
+xxxxxxxxx..................xxxxxxxx
+`.replace(/^\n/, '');
+    splev_apply_centered_map(VAL_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,34,16), "lit")
+    light_region(mx + 0, my + 0, mx + 34, my + 16, true);
+
+    // des.replace_terrain L→'.' chance 50 around the (off-map) up stair
+    lspo_replace_terrain_region(44, 9, 46, 11, LAVAPOOL, ROOM, 50);
+    // des.stair("up", 45, 10) — intentionally off of the map
+    mkstairs(mx + 45, my + 10, 1, null);
+
+    // des.non_diggable(selection.area(00,00,34,16)) — walls/bars only
+    for (let y = my; y <= my + 16 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 34 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.drawbridge south random, then percent(75) open else random north
+    // C lspo_drawbridge state random → db_open = !rn2(2)
+    create_drawbridge(mx + 17, my + 2, DB_SOUTH, !rn2(2));
+    if (g.SpLev_Map) g.SpLev_Map.add(`${mx + 17},${my + 2}`);
+    if (percent(75)) {
+        create_drawbridge(mx + 17, my + 14, DB_NORTH, true);
+    } else {
+        create_drawbridge(mx + 17, my + 14, DB_NORTH, !rn2(2));
+    }
+    if (g.SpLev_Map) g.SpLev_Map.add(`${mx + 17},${my + 14}`);
+
+    // the Orb of Fate + des.object() × 14
+    l_create_object({
+        id: CRYSTAL_BALL, rx: 17, ry: 8, buc: 'blessed', spe: 5,
+        name: 'The Orb of Fate',
+    });
+    for (let i = 0; i < 14; i++) splev_create_object(null);
+
+    // fixed board traps, then 4 fire + 1 board + 2 random
+    for (const [rx, ry] of [[13, 8], [21, 8]]) {
+        const ttmp = maketrap(mx + rx, my + ry, SQKY_BOARD);
+        mktrap_seen_victim(ttmp, {});
+    }
+    for (let i = 0; i < 4; i++) splev_create_trap(FIRE_TRAP);
+    splev_create_trap(SQKY_BOARD);
+    for (let i = 0; i < 2; i++) splev_create_trap();
+
+    // Lord Surtur + stock (default peaceful) + hostile giants
+    splev_create_monster('Lord Surtur', undefined, { rx: 17, ry: 8 });
+    for (let i = 0; i < 4; i++) splev_create_monster('fire ant', undefined);
+    splev_create_monster('a', undefined);
+    splev_create_monster('a', undefined);
+    for (const [rx, ry] of [
+        [10, 6], [10, 7], [10, 8], [10, 9], [10, 10],
+        [24, 6], [24, 7], [24, 8], [24, 9], [24, 10],
+    ]) splev_create_monster('fire giant', 0, { rx, ry });
+    splev_create_monster('fire giant', 0);
+    splev_create_monster('fire giant', 0);
+    splev_create_monster('H', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Val-fila.lua via load_special — Valkyrie quest upper filler.
+ * Solidfill ice + mines fg="." bg="I" (smoothed, joined, lit, noflip);
+ * random up/down stairs; 9 objects; 5 fire ants + class a + hostile fire
+ * giant; 7 random traps.
+ * Named omissions: humidity get_location; ensure_way_out.
+ */
+function load_val_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "I" })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: ICE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg="I", smoothed, joined=true,
+    // lit=1, walled=false
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: ICE, filling: ROOM,
+        lit: 1, smoothed: true, joined: true, walled: false,
+        icedpools: true,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 9; i++) splev_create_object(null);
+    for (let i = 0; i < 5; i++) splev_create_monster('fire ant', undefined);
+    splev_create_monster('a', undefined);
+    splev_create_monster('fire giant', 0);
+    for (let i = 0; i < 7; i++) splev_create_trap();
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags noflip — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Val-filb.lua via load_special — Valkyrie quest lower filler.
+ * Solidfill lava + mines fg="." bg="L" (smoothed, joined, lit, noflip);
+ * random up/down stairs; 11 objects; 3 fire ants + class a + 3 hostile fire
+ * giants; 5 fire + 2 random traps.
+ * Named omissions: humidity get_location; ensure_way_out.
+ */
+function load_val_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "L" })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: LAVAPOOL,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg="L", smoothed, joined=true,
+    // lit=1, walled=false
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: LAVAPOOL, filling: ROOM,
+        lit: 1, smoothed: true, joined: true, walled: false,
+        icedpools: true,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 11; i++) splev_create_object(null);
+    for (let i = 0; i < 3; i++) splev_create_monster('fire ant', undefined);
+    splev_create_monster('a', undefined);
+    for (let i = 0; i < 3; i++) splev_create_monster('fire giant', 0);
+    for (let i = 0; i < 5; i++) splev_create_trap(FIRE_TRAP);
+    for (let i = 0; i < 2; i++) splev_create_trap();
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags noflip — skip flip_level_rnd
     fixup_special();
 }
 

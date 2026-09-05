@@ -1,5 +1,52 @@
 # Divergence log
 
+## D-1852 — mkmaze.c makemaz Val-strt/loca/goal/fila/filb load_special (Valkyrie quest 5/5)
+
+- **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)
+- **Symptom:** `makemaz` had no Valkyrie quest loaders, so `Val-strt` / `-loca` /
+  `-goal` / `-fila` / `-filb` were a blank `create_maze` fallback. C loads
+  `dat/Val-*.lua` via `sp_lev.c` `load_special`.
+- **C locus:** `dat/Val-strt.lua` / `Val-loca.lua` / `Val-goal.lua` /
+  `Val-fila.lua` / `Val-filb.lua`; `mkmaze.c` `makemaz` `:1127–1223`
+  `load_special`; `sp_lev.c` `get_location` `:1202–1262` (explicit coords are
+  map-relative + origin, no clamp), `lspo_drawbridge` `:5720–5752`
+  (state random → `db_open = !rn2(2)`), `lspo_replace_terrain` region arm
+  (map-relative via `get_location`), `sel_set_wall_property` (walls/bars
+  only), `splev_initlev` MINES `:3009` (`linit->icedpools = icedpools` from
+  level_flags); `nhlsel.c` `set`/`grow` RNG order.
+- **JS was:** `load_special_proto` named-omitted all five Valkyrie protos.
+- **Fix:** `load_val_strt` from the lua body: solidfill ICE +
+  mazelevel/noteleport/hardfloor, 76×20 map, 13 random pool points +
+  west/north/random grow with water ring then lava (`selection_set_random` /
+  `selection_grow` / `sel_set_ter` order), whole-map lit region, down stair,
+  fountain, 2 locked doors, Norn CUSTOM_INVENT (banded mail +5, long sword
+  +4) + chest + 8 warriors, audience-chamber non_diggable, 6 fire traps, 10
+  fixed fire ants + 2 hostile fire giants, branch levregion after flip.
+  `load_val_loca`: solidfill + mines fg="." bg="I" unjoined noflip, 40×13
+  pool/lava-edge map, off-map up stair (48,14), 15 objects, 4 fire + 2 random
+  traps, 17 fire ants + class a + hostile H ×2 + 7 hostile fire giants.
+  `load_val_goal`: solidfill lava + mines bg="L" joined, 35×17 sanctum map,
+  chance-50 room around off-map up stair (45,10), 2 lava drawbridges (random,
+  then percent-75 open else random; DB_LAVA via lava tile), the Orb of Fate
+  (blessed +5 crystal ball) + 14 objects, 2 fixed + 1 random board + 4 fire +
+  2 random traps, Lord Surtur + 4 ants + 2 a + 10 fixed / 2 random hostile
+  giants + hostile H. `load_val_fila`/`load_val_filb`: mines ice/lava fillers,
+  random stairs, 9/11 objects, ant/a/giant stock, 7 / 5+2 traps, noflip.
+  Mines loaders pass `icedpools: true` (live via `finish_map` ICED_POOL,
+  matching C `:3009`); solidfill-only strt keeps `false`.
+- **JS:** `js/mklev.js` `load_val_strt` / `load_val_loca` / `load_val_fila` /
+  `load_val_filb` / `load_val_goal` / `load_special_proto` (+ `BANDED_MAIL`).
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
+  (mklev.js); PASS rule2; note hidden (no corpus session blocked on
+  makemaz — map-driven row, same as D-1829/D-1830); PASS green 2/2; PASS
+  strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared
+  file changed). VERIFY: PASS
+- **Named omissions:** humidity-aware `get_location`; `ensure_way_out`;
+  map-drawn ICE icedpool (`splev_init_present`, same as all loaders).
+  Not the lua maps, pool grow/drawbridge RNG order, Norn invent, Orb of Fate,
+  or filler stock.
+- **Next:** Open `mkmaze.c` `makemaz` `knox` (Fort Ludios). Not Sam.
+
 ## D-1851 — dothrow.c dofire empty-quiver You() NEED_MORE before getobj
 
 - **Status:** fixed (2 corpus PASS; green + cohort).

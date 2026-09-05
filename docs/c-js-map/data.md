@@ -1227,7 +1227,10 @@ Boulder `percent(50)` boulder vs rolling-boulder trap; Spider `difficulty>8`
 `and percent(80)` spider_on_web; Trap shuffle eight kinds then `traps[1]`;
 `splev_create_trap_coord` `get_free_room_loc` + `mktrap` tm); **Kni-goal** (D-0928 #1134) + **Kni-strt/loca/fila/filb** (D-1829; Camelot
 mines-kludge + Isle of Glass swamp mines + fillers); **Rog-strt/loca/goal/fila/filb** (D-1830; Rogue quest 5/5:
-shuffle-exit mimics `S_dnstair` + floodfill streets + Master Key); full Lua VM + remaining `des.*` still production requirement; 
+shuffle-exit mimics `S_dnstair` + floodfill streets + Master Key);
+**Val-strt/loca/goal/fila/filb** (D-1852; Valkyrie quest 5/5: lava-ringed ice
+pools + Norn CUSTOM_INVENT + lava drawbridges + Orb of Fate; mines
+`icedpools: true` live via `finish_map`); full Lua VM + remaining `des.*` still production requirement; 
 Random-feature center terrain + 
 other fill bodies (Garden/Buried treasure/Massacre/Statuary/…) 
 + garden/dig postprocess absent; icedpool on ICE (`splev_init_present`); exclusion_zones save/rest deferred
