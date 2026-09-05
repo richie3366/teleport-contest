@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `iactions.c` itemactions — 1 corpus block screen-first at step 853 («Do what with the cloak of magic resistance?» vs same-plus; explore-seed0360-wizard-world-tour-5dfef5c4; new symptom, distinct from archived D-1833 Engrave/Write).
 - [ ] `mkmaze.c` makemaz `wiz-goal` — Wizard quest 4/5 → 5/5 (132 ln, best cost ratio). From `dat/wiz-goal.lua` (HELDOUT Tier A #1).
 - [ ] `mkmaze.c` makemaz `val-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Valkyrie quest 0/5 (371 ln; Valkyrie 3/44 sessions). From `dat/val-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `hea-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Healer quest 0/5 (388 ln; Healer 2/44 sessions, incl. active tour-Healer corpus session). From `dat/hea-*.lua` (HELDOUT Tier B).

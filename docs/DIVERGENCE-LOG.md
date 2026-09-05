@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-1884 — iactions.c itemactions W already-wearing row (armor_simple_name + armcat_to_wornmask)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)
+- **Symptom:** `explore-seed0360-wizard-world-tour-5dfef5c4` step 853/881 screen-first at `iactions.c:698`: topline `Do what with the cloak of magic resistance?` matched both sides; row 7 C `W - [already wearing a cloak]` vs JS `W - Wear this armor`.
+- **C locus:** `iactions.c` `itemactions` W arm `:631–647` (`armcat_to_wornmask(objects[otyp].oc_armcat)` → `wearmask_to_obj(Wmask)`; empty slot → `Wear this armor`, else `[already wearing %s]` over `an(armor_simple_name(o))`) + `objnam.c` `armor_simple_name` `:5434–5468` (7-way `oc_armcat` switch; default `simpleonames` + `impossible`) + `worn.c` `armcat_to_wornmask` `:249–278`. Per-category: suit `:5470–5489`, cloak `:5491–5509`, helm `:5512–5528` (`hard_helmet`), gloves `:5531–5547`, boots `:5550–5566`, shield `:5569–5596` (`#if 0` heavy/light cut), shirt `:5599–5603`.
+- **JS was:** `js/iactions.js` W arm was a stub (`if (!already_worn && ARMOR_CLASS) add(IA_WEAR_OBJ, 'W', 'Wear this armor')`, "deferred slot-occupied polish"); `armcat_to_wornmask` / `armor_simple_name` existed nowhere in `js/` (named omissions on the D-1833 map row). `wearmask_to_obj` was live (`js/worn.js`, D-1510) but never called here.
+- **Fix:** exported `armcat_to_wornmask` from `js/worn.js` (C `worn.c` home, same 7-arm switch over the module-local `ARM_*`); added file-local `cloak_simple_name` / `boots_simple_name` / `shield_simple_name` plus exported `armor_simple_name` in `js/do_wear.js` next to `suit_simple_name` — suit reuses `suit_simple_name`, gloves reuse the canonical `objnam.js` `gloves_simple_name` (no clone #2), helm keys off module-local `hard_helmet`, shirt inline; rewrote the `js/iactions.js` W arm in C order via `await import` of `worn.js` / `do_wear.js` (edges already exist dynamically; `an` joins the existing static `objnam.js` import; `objectDescrs`/`simpleonames` join existing `do_wear.js` edges). Boots descr uses `objectDescrs[ocl?.oc_descr_idx ?? otyp]`, the `objnam.js:712` idiom.
+- **JS:** `js/worn.js` (+32/−0); `js/do_wear.js` (+86/−2); `js/iactions.js` (+20/−9, W arm + header/doc named-omission cleanup); `docs/c-js-map/turns.md` iactions section.
+- **Verify:**
+  - Preflight `node scripts/verify.mjs --no-cohort` before any edit → VERIFY: PASS (green + strict clean).
+  - `node scripts/verify.mjs --fn itemactions` → VERIFY: PASS — `PASS syntax 3 changed js file(s): js/do_wear.js js/iactions.js js/worn.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `PASS hidden verify itemactions: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-5dfef5c4: PASS)`; `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; skip full (shared-file heuristic).
+- **Named omissions:** `suit_simple_name` dragon mail/scales arms (pre-existing deferral, untouched); dungeon.c `surface` terrain nouns and `cantwield` `'w'` skip (carried on the map row, untouched).
+- **Next:** next Open queue row in order (`mkmaze.c` makemaz `wiz-goal`).
+
 ## D-1883 — uhitm.c erode_armor export + mhitm_ad_rust mhitu arm (erode_armor corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)
