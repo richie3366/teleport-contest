@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1859 hack.c moverock_core Sokoban diagonal won't-roll
+
+**C locus:** `hack.c` `moverock_core` `:441–448` (`Sokoban && u.dx && u.dy` → Blind `feel_location(sx,sy)`, `pline("%s won't roll diagonally on this %s.", The(xname(otmp)), surface(sx,sy))`, `cannot_push`); `surface` `dungeon.c:1750`; `Sokoban` ≡ `level.flags.sokoban_rules` (`rm.h:538`).
+**JS:** `js/hack.js` `moverock_core` + `surface` import; `js/sit.js` `surface` export.
+**Change:** port the arm in C order (inside clear-dest branch, after ttmp/mtmp fetch, before revive_nasty/monster): `Sokoban_here() && u.dx && u.dy` → Blind `feel_location`, awaited pline with `The(xname(otmp))` + shared `surface(sx,sy)`, `return cannot_push(...)`. Promote `sit.js` `surface` (fullest `dungeon.c` clone: air/cloud/fountain/altar/headstone/wall/doorway/floor/ground) to the shared export instead of writing clone #5; import in `hack.js` (same 87-module SCC, runtime-only call, no top-level read).
+**Verify:** `node scripts/verify.mjs --fn moverock_core` → PASS syntax (2 files) · rule2 · hidden 2 PASS / 0 moved / 0 unchanged / 0 worse → PROGRESS (both sessions PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed).
+**Named:** shop `costly` computation, `revive_nasty`, trap/teleport/pool arms, Levitation/verysmall Blind feels, tunneling chew, `y_monnam` steed wording (all still deferred in the `moverock_core` envelope).
+**Next:** Open `mkroom.c` `fill_zoo` (queue head after this ships).
 ## 2026-09-05 — D-1858 mkmaze.c makemaz Sam-strt/loca/goal/fila/filb load_special (Samurai quest 5/5)
 
 **C locus:** `dat/Sam-strt.lua` / `Sam-loca.lua` / `Sam-goal.lua` /

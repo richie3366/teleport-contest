@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-1859 — hack.c moverock_core Sokoban diagonal won't-roll
+
+- **Status:** fixed (Open queue row; 2 corpus blocks PASS; green + cohort + full `sessions` 44/44)
+- **Symptom:** on Sokoban levels a diagonal boulder push printed «With great effort you move the boulder.» and pushed; C prints «The boulder won't roll diagonally on this floor.» and refuses.
+  - explore-seed0360-wizard-world-tour-db38e7fa step 856/881, kind=screen at hack.c:445
+  - explore-seed0116-wizard-wear-shop-f96960a6 step 124/125, kind=screen at hack.c:445
+- **C locus:** `hack.c` `moverock_core` `:441–448` (`Sokoban && u.dx && u.dy` → Blind `feel_location(sx,sy)`, `pline("%s won't roll diagonally on this %s.", The(xname(otmp)), surface(sx,sy))`, `cannot_push`); `surface` `dungeon.c:1750`; `Sokoban` ≡ `level.flags.sokoban_rules` (`rm.h:538`).
+- **JS was:** `moverock_core` (`js/hack.js:412`) deferred the arm (`// C: Sokoban diagonal / revive_nasty deferred`) and fell through to `dopush`.
+- **Fix:** port the arm in C order (inside clear-dest branch, after ttmp/mtmp fetch, before revive_nasty/monster): `Sokoban_here() && u.dx && u.dy` → Blind `feel_location`, awaited pline with `The(xname(otmp))` + shared `surface(sx,sy)`, `return cannot_push(...)`. Promote `sit.js` `surface` (fullest `dungeon.c` clone: air/cloud/fountain/altar/headstone/wall/doorway/floor/ground) to the shared export instead of writing clone #5; import in `hack.js` (same 87-module SCC, runtime-only call, no top-level read).
+- **JS:** `js/hack.js` `moverock_core` + `surface` import; `js/sit.js` `surface` export.
+- **Verify:** `node scripts/verify.mjs --fn moverock_core` → PASS syntax (2 files) · rule2 · hidden 2 PASS / 0 moved / 0 unchanged / 0 worse → PROGRESS (both sessions PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed).
+- **Named omissions:** shop `costly` computation, `revive_nasty`, trap/teleport/pool arms, Levitation/verysmall Blind feels, tunneling chew, `y_monnam` steed wording (all still deferred in the `moverock_core` envelope).
+- **Next:** Open `mkroom.c` `fill_zoo` (queue head after this ships).
+
 ## D-1858 — mkmaze.c makemaz Sam-strt/loca/goal/fila/filb load_special (Samurai quest 5/5)
 
 - **Status:** fixed (map-driven queue row; green + cohort + full `sessions` 44/44)

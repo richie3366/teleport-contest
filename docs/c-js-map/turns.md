@@ -1362,9 +1362,9 @@ C `hack.c:1216–1221` / `could_move_onto_boulder` 145–163; DO_MOVE+mention_wa
 Passes_walls skip; cannot_push squeeze D-1239; **cannot_push giant pickup/maneuver D-1253**; 
 **nopick m-dir over/against D-1262**); **`moverock`/`dopush` clear-dest boulder push + 
 STR exercise** (D-0238) + **monster-behind `You_hear`/`canspotmon` + `closed_door` vain + 
-dopush `unmap` I** (D-0317; Sokoban/shop/trap/`unmap_object` trap·engr deferred; 
+dopush `unmap` I** (D-0317; shop/trap/`unmap_object` trap·engr deferred; 
 **cannot_push squeeze + `sokoban_guilt` D-1239**; **cannot_push giant pickup/maneuver D-1253**; 
-**nopick m-dir over/against D-1262**; **Blind unseen feel D-1281**; **next_boulder D-1294**; 
+**nopick m-dir over/against D-1262**; **Blind unseen feel D-1281**; **next_boulder D-1294**; **Sokoban diagonal won't-roll D-1859**; 
 verysmall vain / dopush·cannot_push_msg / Levitation Blind feel_location still named) + 
 **`disturb_buried_zombies`** (D-1214; C `hack.c:1798–1813` peek+stop+`max(1,t*2/3)` on buried 
 CORPSE ZOMBIFY_MON 3×3; rumble `moverock`; 
