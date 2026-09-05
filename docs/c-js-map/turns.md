@@ -2305,8 +2305,9 @@ throwit inline still skips WEB); **`bhit` `show_transient_light` `!Blind` youpro
 not snuff_lit; mthrowu `:942` D-1334); litter named); **volley pline `xname`/`singular`** (D-0097); 
 **`throw_ok` DOWNPLAY lone' uwep + hand-throw pline/half range; 
 `dofire` empty→`doquiver_core("fire")`** (D-0152); 
-**`dofire` continue after doquiver + mark_topline_seen so invent letter owns getobj** (D-0484; 
-autoquiver/polearm/bullwhip/find_launcher deferred); 
+**`dofire` continue after doquiver** (D-0484); 
+**`dofire` empty-quiver `You()` leaves NEED_MORE; `getobj_ready` `flush_topl_more` waits like C getobj** (D-1851; D-0484 skip reverted); 
+**`dofire` autoquiver / find_launcher / throw-and-return / pole / whip / fireassist canned wield** (D-1851); 
 **`dofire` mark_topline_seen after ready + `dir_from_key` MV_ANY capitals/Ctrl-rush** (D-0485); 
 **`getobj` `*`/`?`→`display_pickinv_reply` + ALLOWCNT count prefix D-1530** (throw-one / gold count / split_otmp; pickinv `&ctmp` named) + **`throwit` mon-hit food/`befriend_with_obj`→`tamedog`** (D-0415); 
 **`thitmonst` EGG/CREAM_PIE/VENOM `ACURR(A_DEX)>rnd(25)` → `hmon` cream-pie/`rn1(25,21)` blind** 
@@ -2317,7 +2318,7 @@ APPLIED wakeup (D-1041)**; **`find_mac` minvent ARM_BONUS/guarding (D-1042)**;
 **`should_mulch_missile` hero blessed `!rnl(4)` (D-1043)**; 
 **`special_obj_hits_leader` `is_quest_artifact` via `urole.questarti` not `u.questarti` (D-1044)**; 
 ball/boulder/`potionhit`/`gem_accept` body; **swallow vanish pline D-1324**; 
-`cutworm` + shop `obfree` + full `is_plural` otense deferred); find_launcher/polearm incomplete; 
+`cutworm` + shop `obfree` + full `is_plural` otense deferred); 
 throw_obj ACURRSTR crossbow volley gate / quest-artifact launcher / full `weapon_skills` / full 
 `movecmd` bind table
 

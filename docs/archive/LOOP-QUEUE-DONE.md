@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `invent.c` inuse_classify — 2 corpus blocks; C `"Weapons"` vs JS empty worn-class header. **Addressed:** D-1850
+- [x] `dothrow.c` dofire — 2 corpus blocks; C `"You have no ammunition readied."` vs fire `getobj` prompt. **Addressed:** D-1851
+
+
+- [x] `invent.c` inuse_classify — 2 corpus blocks; C `"Weapons"` vs JS empty worn-class header. **Addressed:** D-1850 `46021314`
 
 
 - [x] `mklev.c` mineralize — 2 corpus blocks; C `rn2(1000)` vs JS `place_lregion` `rn2(79)`. **Addressed:** D-1849 `fc3c7c8b`

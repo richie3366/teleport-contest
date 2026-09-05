@@ -6,10 +6,11 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Hidden-score proxy** (`HIDDEN-PROXY.md`): 222/265 at D-1849;
-  `inuse_classify` 2 PASS at D-1850 (`display_inventory` one-shot dismiss,
-  not classify). Geometry owners: `geom-probe.mjs` first (D-1849). Do not
-  reopen D-1841–D-1850.
-- **Suite 44/44** at D-1850. Do not reopen display_inventory dismiss /
+  `dofire` 2 PASS at D-1851 (empty-quiver You() NEED_MORE before getobj).
+  Geometry owners: `geom-probe.mjs` first (D-1849). Do not
+  reopen D-1841–D-1851.
+- **Suite 44/44** at D-1851. Do not reopen dofire empty-quiver More skip
+  (D-0484), display_inventory dismiss /
   gameover heading / keep_status, stock_room engraving, inside_shop clone,
   level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu,
   lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`,
@@ -53,7 +54,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1850. Never FORCE the falsified
+  (D-1189). Do not skip D-1190…D-1851. Never FORCE the falsified
   mineralize TRC (76,14)/(77,14) (D-1849).
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
@@ -64,18 +65,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1850.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1851.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1850.
+  Do not re-port D-1682…D-1851.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1851: drop the pre-doquiver `mark_topline_seen` so `You()` leaves NEED_MORE and `doquiver_core` waits like C. Named: `ok_to_throw` `check_capacity((char *)0)` still. getdir remains in the JS caller (`throw_o
 - D-1850: `display_inventory` calls `display_pickinv_reply` with `want_reply`. Named: `inuse_classify` body was already D-1589 (not this C-wrong). perm_invent `InvInUse` still 
 - D-1849: delete the clone and import `shk.js` `inside_shop`; port the ROOM/CORR choice with `Is_special` (now exported from `dungeon.js`) and `hack.js` `in_roo Named: `Is_special` clones in `end.js` / `quest.js` and the `mineralize` inline `on_level` walk s
 - D-1848: delete the extra lookat arms so floor strings come from `defsyms[]`. Named: `do_screen_description` ROOM parenthetical still uses `room_cmap_explanation` (Open, later
@@ -90,5 +92,4 @@ Objective/score live in `CURRENT.md`.
 - D-1839: copy C `roles[]` `homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti` for the remaining nine roles; Arc `PM_STUDENT` and Bar `PM_CHIEFTAIN` `guardnum Named: `attributes_enlightenment` body still unported (heuristic owner).
 - D-1838: port the C body: furniture-specific nothing-msgs (stairs affixed), pool/lava reach, swallow tongue/`-2`, pit-aware `can_reach_floor`. Named: dungeon.c `surface` (reach-fail default `"floor"`; HOLE/TRAPDOOR override live).
 - D-1837: `doopen_indir` returns `doloot()` on self/down unless a closed door is here. Named: Confusion `reverse_loot`; pit `"Open where? [.>]"`; door-mimic stumble; AUTOUNLOCK_KICK / 
-- D-1836: nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms. Named: Random-feature center terrain; remaining themeroom_fill bodies (Ice/Boulder/Spider/Trap/Ga
 <!-- landmarks:end -->

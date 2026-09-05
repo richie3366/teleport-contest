@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1851 — dothrow.c dofire empty-quiver You() NEED_MORE before getobj
+
+- **Status:** fixed (2 corpus PASS; green + cohort).
+- **Symptom:** 2 hidden-corpus first-diffs at `dofire` (`dothrow.c:527`): C `"You have no ammunition readied.--More--"` vs JS fire getobj `"What do you want to fire? [*]"` / `"[b or ?*]"`. Monk/Rogue empty quiver, autoquiver off.
+- **C locus:** `dothrow.c` `dofire` `:510–554` (`You("have no ammunition readied.")` then `doquiver_core("fire")`); `wield.c` `doquiver_core`; `invent.c` `getobj` / `win/tty/getline.c` `hooked_tty_getlin` `:53–54` / `topl.c` `tty_yn_function` (`toplin == NEED_MORE` → `more()` before the prompt). Also `:381–441` `autoquiver`; `:447–465` `find_launcher`; `:506–508` throw-and-return; `:512–525` pole/whip/uswap pole; `:557–579` fireassist; `:297–300` `ok_to_throw` shotlimit.
+- **JS was:** `dofire` called `mark_topline_seen()` after the ammo pline (D-0484), so `getobj_ready`'s `flush_topl_more` was a no-op and the getobj prompt painted immediately. autoquiver / find_launcher / throw-and-return / pole / whip omitted; fireassist uswap swap ran before the empty-quiver arm.
+- **Fix:** drop the pre-doquiver `mark_topline_seen` so `You()` leaves NEED_MORE and `doquiver_core` waits like C. Port C order: throw-and-return, empty-quiver pole/whip/swap/`You()`, autoquiver, `in_doagain=0`, doquiver, fireassist `could_pole_mon` / launcher swap / `find_launcher` canned wield, `throw_obj(shotlimit)`. Keep D-0485 mark after a successful ready so getdir does not More-eat direction keys. `use_pole`/`use_whip` exported from `apply.js` (dynamic import; no new top-level apply edge).
+- **JS:** `js/dothrow.js` `dofire` / `autoquiver` / `find_launcher` / `ok_to_throw`; `js/apply.js` `use_pole` / `use_whip` export.
+- **Verify:** `node scripts/verify.mjs --fn dofire` → PASS syntax (2 js files: js/apply.js js/dothrow.js); PASS rule2; PASS hidden verify dofire: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (random-seed0200-monk-north-search-d169ccc2 PASS; random-seed1500-rogue-explore-move-2a788f95 PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file changed). VERIFY: PASS
+- **Named omissions:** `ok_to_throw` `check_capacity((char *)0)` still. getdir remains in the JS caller (`throw_obj` assumes dx/dy). D-0485 `mark_topline_seen` after ready still. `cmd.js` `f` still uses truthy as time so dofire returns 0/1 not `ECMD_CANCEL`.
+- **Next:** Open `mkmaze.c` `makemaz` `Val-strt`/`-loca`/`-goal`/`-fila`/`-filb`. Do not reopen the empty-quiver More skip (D-0484).
+
 ## D-1850 — invent.c display_inventory → display_pickinv PICK_ONE; farlook `i` "Weapons" stays
 
 - **Status:** fixed (2 corpus PASS; green + cohort + full `sessions` 44/44).
