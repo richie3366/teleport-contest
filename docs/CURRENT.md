@@ -76,7 +76,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `insight.c` show_conduct — 1 corpus block screen-first at step 859 (conduct text vs yn prompt; random-seed0360-wizard-world-tour-e115a25b).
+**Next cluster:** Open `insight.c` show_conduct row PARKED this iter (stale premise: at HEAD c209ccc7 the session diverges at 824 x_monnam, owner insight.c:2122 is a C comment; DontAsk-flags arm regresses 859→824 — see LOOP-QUEUE Parked + NOTES Active). Next pop: first unchecked Open row (`getpos_help`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1879 (index).** Recent **D-1820:** `makemaz` `soko2-2`
