@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-1879 — wintty.c erase_menu_or_text corner dismiss keeps WIN_STATUS (process_menu_window corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort + full 44/44 PASS)
+- **Symptom:** `random-seed0360-wizard-world-tour-b1a64b99` step 838/861 screen-first (region botl): C row 22 `Wizard the Sorcerer            St:25 Dx:13 Co:16 In:18 Wi:10 Ch:9 Neutral` vs JS row 22 empty. Topline `What do you want to take off?` matched both sides, as did every menu/map row 0–21 and row 23-adjacent content; step 837 (`What type of things do you want to take off?` category menu) matched fully. Proxy owner `process_menu_window(wintty.c:1709)` is heuristic (no `Search for:` text on either screen); the writer is the C dismiss path behind it.
+- **C locus:** `win/tty/wintty.c` `erase_menu_or_text` `:966–985` — corner (`offx != 0`) dismiss is `docorner(offx, maxrow + 1, 0)`: rows below the menu window (incl. WIN_STATUS 22–23) stay painted; only fullscreen (`offx == 0`, non-clear) does `docrt(); flush_screen(1)`. `src/windows.c` `select_menu` `:1858–1863` holds `gb.bot_disabled` across the whole menu, so the corner `docorner` → `bot()` is a no-op and status simply persists. C `query_category` (space finish) → `query_objlist` therefore never blanks rows 22–23.
+- **JS was:** `js/options.js` `select_menu_pick_any()` dismissed all three ways (ESC/Enter/space-finish) with a hand-rolled `game._menu_overlay = false; await docrt(); await flush_screen(1)`. `docrt()` → `cls()` → `clearScreen()` wipes grid rows 22–23, and the following flush runs with `_bot_disabled` still true so `bot()` no-ops and `_buildScreenOutput` deliberately does not repaint status rows. The next menu's `paint_corner_nhw_menu` pre-paint flush then preserves the blanks (corner paint only covers rows 0–endRow). Sibling `select_menu_pick_one()` already used `dismiss_nhw_menu()`; `select_menu_pick_any` was the odd one out.
+- **Fix:** the three dismiss sites now `await dismiss_nhw_menu({ keep_status: true })` — corner takes the `docorner` path (status kept, C-cited comment), fullscreen stays byte-identical to before (`docrt()` + flush, no `clear_committed_status`). No new imports (`dismiss_nhw_menu` already imported in `options.js`).
+- **JS:** `js/options.js` (+9/−9); `docs/c-js-map/startup.md` options.c row.
+- **Verify:** `node scripts/verify.mjs --fn process_menu_window` →
+  - `PASS  syntax   1 changed js file(s): js/options.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `PASS  hidden   verify process_menu_window: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (`random-seed0360-wizard-world-tour-b1a64b99: PASS`)
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`; `PASS  full     44/44 passing (auto: shared file changed)`
+  - `VERIFY: PASS`
+  - Mechanism double-check (throwaway `/tmp/dump838.mjs`, deleted): JS step-838 grid rows 22–23 were blank before the fix, status-identical-to-C after; steps 837/838 rows 0–21 unchanged by the fix.
+- **Named omissions:** identical hand-rolled `docrt()` corner dismisses in `js/pickup.js` loot/pickup loops (same C-wrong, no corpus block yet — own row if one appears, not glued here); fullscreen-dismiss `clear_committed_status` semantics (D-0467 area, untouched); `process_menu_search`/`getlin` overlay repaint (D-1646/D-1872 stand).
+- **Next:** next Open row (`insight.c` show_conduct).
+
 ## D-1878 — exper.c pluslvl/losexp level-change livelog (show_gamelog corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus moved past within the same gamelog screen; green + strict + cohort PASS)

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `insight.c` show_gamelog — 1 corpus block screen-first at step 821 («Logged events:» vs same-plus; random-seed0360-wizard-world-tour-4ac145da). **Addressed:** D-1878
+- [x] `wintty.c` process_menu_window — 1 corpus block screen-first at step 838 («What do you want to take off?» vs same-plus; random-seed0360-wizard-world-tour-b1a64b99). **Addressed:** D-1879
+
+
+- [x] `insight.c` show_gamelog — 1 corpus block screen-first at step 821 («Logged events:» vs same-plus; random-seed0360-wizard-world-tour-4ac145da). **Addressed:** D-1878 `baf24c95`
 
 
 - [x] `pager.c` do_look — 1 corpus block screen-first at step 116 («What do you want to look at:» vs empty; random-seed0116-wizard-wear-shop-1021c3a5). **Addressed:** D-1877 `2183ee64`

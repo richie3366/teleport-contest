@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `wintty.c` process_menu_window — 1 corpus block screen-first at step 838 («What do you want to take off?» vs same-plus; random-seed0360-wizard-world-tour-b1a64b99).
 - [ ] `insight.c` show_conduct — 1 corpus block screen-first at step 859 (conduct text vs yn prompt; random-seed0360-wizard-world-tour-e115a25b).
 - [ ] `getpos.c` getpos_help — 1 corpus block screen-first at step 342 («Use 'h', 'j', 'k', 'l' to move the cursor to a m» vs same-plus; random-seed0367-priest-quest-tour-01388a3a).
 - [ ] `mdlib.c` version_id_string — 1 corpus block screen-first at step 83 («MacOS NetHack Version 5.0.0 - last build May 2 2026 12:00:00» vs «Unknown command 'V'.»; random-seed0900-tourist-explore-actions-614da9aa).

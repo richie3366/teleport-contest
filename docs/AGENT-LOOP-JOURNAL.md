@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1879 wintty.c erase_menu_or_text corner dismiss keeps WIN_STATUS (process_menu_window corpus owner)
+
+**C locus:** `win/tty/wintty.c` `erase_menu_or_text` `:966–985` — corner (`offx != 0`) dismiss is `docorner(offx, maxrow + 1, 0)`: rows below the menu window (incl. WIN_STATUS 22–23) stay painted; only fullscreen (`offx == 0`, non-clear) does `docrt(); flush_screen(1)`. `src/windows.c` `select_menu` `:1858–1863` holds `gb.bot_disabled` across the whole menu, so the corner `docorner` → `bot()` is a no-op and status simply persists. C `query_category` (space finish) → `query_objlist` therefore never blanks rows 22–23.
+**JS:** `js/options.js` (+9/−9); `docs/c-js-map/startup.md` options.c row.
+**Change:** the three dismiss sites now `await dismiss_nhw_menu({ keep_status: true })` — corner takes the `docorner` path (status kept, C-cited comment), fullscreen stays byte-identical to before (`docrt()` + flush, no `clear_committed_status`). No new imports (`dismiss_nhw_menu` already imported in `options.js`).
+**Verify:** `node scripts/verify.mjs --fn process_menu_window` →
+**Named:** identical hand-rolled `docrt()` corner dismisses in `js/pickup.js` loot/pickup loops (same C-wrong, no corpus block yet — own row if one appears, not glued here); fullscreen-dismiss `clear_committed_status` semantics (D-0467 area, untouched); `process_menu_search`/`getlin` overlay repaint (D-1646/D-1872 stand).
+**Next:** next Open row (`insight.c` show_conduct).
 ## 2026-09-05 — D-1878 exper.c pluslvl/losexp level-change livelog (show_gamelog corpus owner)
 
 **C locus:** `exper.c` `pluslvl` `:340–368` — `old_ach_cnt = count_achievements()` before the rank check, `record_achievement(achieve_rank(newrank))` when `newrank > oldrank`, then `if (count_achievements() == old_ach_cnt) livelog_printf(LL_MINORAC, "%sgained experience level %d", (u.ulevel <= u.ulevelpeak) ? "re" : "", u.ulevel)` before the `ulevelpeak` update; plus `losexp` `:230` (`lost experience level %d`, `u.ulevel + 1`) and `:245` (`lost all experience`). Same-file `xlev_to_rank` (`botl.c:298`, JS `roles.js` already exact) explains the shift: 1→2 keeps rank 0 so C logs minorac, 2→3 raises rank 0→1 so both log the rank achievement.
