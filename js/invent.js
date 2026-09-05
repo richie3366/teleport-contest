@@ -51,6 +51,7 @@ import {
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
     clear_nhwindow_message, Hallucination, set_bot_disabled,
     clear_committed_status,
+    docorner,
 } from './display.js';
 import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin, mungspaces } from './getline.js';
@@ -2497,9 +2498,13 @@ export async function dismiss_nhw_menu() {
         // C docrt_flags: botlx=TRUE, caller bot() later. JS cache would
         // otherwise repaint WIN_STATUS; D-0467 itemed leftover is blank.
         clear_committed_status();
+        await flush_screen(1);
+        return;
     }
-    // Corner: skip docrt; flush_screen rebuilds the terminal from gbuf.
-    await flush_screen(1);
+    // C erase_menu_or_text: docorner(offx, maxrow+1, 0). bot() inside
+    // docorner no-ops while gb.bot_disabled, so leftover WIN_STATUS stays.
+    const maxrow = (g.maxrow > 0 ? g.maxrow : (g.endRow | 0) + 1);
+    await docorner(g.offx | 0, maxrow + 1, 0);
 }
 
 /**

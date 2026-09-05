@@ -84,6 +84,7 @@ import {
     Upolyd,
     MALE,
     FEMALE,
+    BOTL_NSIZ,
     CORPSTAT_GENDER,
     CORPSTAT_FEMALE,
     DEVTEAM_EMAIL,
@@ -4915,15 +4916,22 @@ function _polyd_rank_title(mndx, gender) {
     return out;
 }
 
-// ── Status lines ──
-function _statusLine1() {
+/**
+ * C botl.c do_statusline1 `:47–98` (dump / !VIA_WINDOWPORT putstr).
+ * Tty `bot()` uses `bot_via_windowport` `:1007` BL_TITLE `"%-30s"` then
+ * INIT_BLSTAT strength `" St:%s"` so "St:" starts at column 31.
+ * @returns {string}
+ */
+export function do_statusline1() {
     const u = game.u;
     if (!u) return '';
+    if (suppress_map_output()) return '';
     let name = game.plname || 'Hero';
     // C ref: botl.c — capitalize first letter of plname for status only
     if (name.length && name.charCodeAt(0) >= 97 && name.charCodeAt(0) <= 122) {
         name = String.fromCharCode(name.charCodeAt(0) - 32) + name.slice(1);
     }
+    if (name.length > BOTL_NSIZ) name = name.slice(0, BOTL_NSIZ);
     // C: Upolyd → pmname(umonnum, Ugender); else rank()
     // Ugender ≡ (Upolyd ? u.mfemale : flags.female)
     let roleTitle;
@@ -4942,12 +4950,17 @@ function _statusLine1() {
     const stats = u.acurr?.a
         ? `St:${get_strength_str()} Dx:${acurr(A_DEX)} Co:${acurr(A_CON)} In:${acurr(A_INT)} Wi:${acurr(A_WIS)} Ch:${acurr(A_CHA)}`
         : 'St:? Dx:? Co:? In:? Wi:? Ch:?';
-    const align = u.ualign?.type === 0 ? 'Neutral' : u.ualign?.type > 0 ? 'Lawful' : 'Chaotic';
-    // C uses cursor-forward for gap between title and stats
-    // C pads to align stats starting at a fixed column
+    const align = u.ualign?.type === 0 ? 'Neutral'
+        : u.ualign?.type > 0 ? 'Lawful' : 'Chaotic';
+    // C bot_via_windowport BL_TITLE "%-30s" + " St:%s" → St: at col 31.
+    // Contest capture compresses the pad to CSI CUF when gap > 4.
     const gap = Math.max(1, 31 - title.length);
     if (gap > 4) return `${title}\x1b[${gap}C${stats} ${align}`;
     return `${title}${' '.repeat(gap)}${stats} ${align}`;
+}
+
+function _statusLine1() {
+    return do_statusline1();
 }
 
 // Last bot()-committed status. C paints WIN_STATUS only in bot();
@@ -5325,7 +5338,18 @@ function _buildScreenOutput() {
 
     // Also write to grid for serialize_terminal_grid
     if (display.grid) {
-        display.clearScreen();
+        const cols = display.cols || 80;
+        // C bot() returns before putstr when gb.bot_disabled; leftover
+        // WIN_STATUS (docorner cl_end from offx) stays. Do not clear or
+        // repaint rows 22–23. Snapshot/restore of those rows is D-1831.
+        if (_bot_disabled) {
+            for (let r = 0; r < 22; r++) {
+                for (let c = 0; c < cols; c++)
+                    display.setCell(c, r, ' ', NO_COLOR, 0);
+            }
+        } else {
+            display.clearScreen();
+        }
         // Message line(s) — --More-- may sit on row 1 when msg is long
         const msg = game._pending_message || '';
         const msgLines = msg.split('\n');
@@ -5373,9 +5397,10 @@ function _buildScreenOutput() {
         // Status from last bot() cache. C gb.bot_disabled skips putstr so
         // leftover tty cells stay; JS clearScreen wipes them, so repaint
         // the cache unless D-0467 `_statusSuppressed` (fullscreen NHW_MENU
-        // left WIN_STATUS blank). Do not snapshot/restore grid rows — that
-        // copies blanks after a per-key docrt/cls (D-1831 regression).
-        if (!_statusSuppressed) {
+        // left WIN_STATUS blank) or bot_disabled (docorner leftover).
+        // Do not snapshot/restore grid rows — that copies blanks after a
+        // per-key docrt/cls (D-1831 regression).
+        if (!_statusSuppressed && !_bot_disabled) {
             const s1 = _lastStatus1 || s1raw.replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
                 m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10) || 0) : '');
             for (let c = 0; c < Math.min(s1.length, display.cols); c++)
@@ -5504,6 +5529,67 @@ export function paint_gbuf_level_to_terminal(level) {
         }
     }
     return last;
+}
+
+/**
+ * One gbuf cell onto the Terminal (C print_glyph / row_refresh).
+ * @param {number} mx map x (1..COLNO-1)
+ * @param {number} my map y (0..ROWNO-1)
+ * @param {number} sc screen column
+ * @param {number} sr screen row
+ */
+function _paint_gbuf_cell(mx, my, sc, sr) {
+    const display = game?.nhDisplay;
+    const loc = game.level?.at(mx, my);
+    if (!display?.setCell || !loc) return;
+    if (loc.disp_ch == null || loc.disp_ch === '') return;
+    let ch = loc.disp_ch;
+    if (loc.disp_decgfx) {
+        const uni = DEC_TO_UNICODE[ch];
+        if (uni && ch !== '{' && ch !== '`' && ch !== 'g'
+            && ch !== '|' && ch !== 'o' && ch !== 's')
+            ch = uni;
+    }
+    display.setCell(sc, sr, ch, loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+}
+
+/**
+ * C wintty.c docorner `:3650–3720` — cl_end from xmin, row_refresh the
+ * map, then bot() when ymax reaches WIN_STATUS. bot() returns immediately
+ * when gb.bot_disabled, so leftover WIN_STATUS left of xmin stays.
+ * Named: TTY_PERM_INVENT; ystart_between_menu_pages paging repair (D-1832).
+ * @param {number} xmin
+ * @param {number} ymax exclusive, C `cw->maxrow + 1`
+ * @param {number} [ystart]
+ */
+export async function docorner(xmin, ymax, ystart = 0) {
+    const display = game?.nhDisplay;
+    if (!display?.grid || !display.setCell) return;
+    const cols = display.cols || 80;
+    // C tty_curs(BASE_WINDOW, xmin, y): cw->curx = --x (1-based), so
+    // cl_end starts at xmin-1. Menu paint uses tty_curs(MENU, 1)+offx
+    // (screen = offx). That one-column shift turns invent "St (end)"
+    // into leftover "S" on the item-action frame.
+    const x0 = Math.max(0, (xmin | 0) - 1);
+    const y0 = Math.max(0, ystart | 0);
+    const y1 = Math.max(y0, ymax | 0);
+    for (let y = y0; y < y1; y++) {
+        for (let c = x0; c < cols; c++)
+            display.setCell(c, y, ' ', NO_COLOR, 0);
+        // C: y < WIN_MAP.offy || y > ROWNO → skip board
+        if (y < 1 || y > ROWNO) continue;
+        const my = y - 1;
+        for (let c = x0; c < cols; c++) {
+            const mx = c + 1;
+            if (mx < 1 || mx >= COLNO) continue;
+            _paint_gbuf_cell(mx, my, c, y);
+        }
+    }
+    // C: ymax >= wins[WIN_STATUS]->offy → disp.botlx = TRUE; bot();
+    if (y1 >= 22) {
+        if (game.flags) game.flags.botlx = true;
+        await bot();
+    }
 }
 
 // ── flush_screen ──

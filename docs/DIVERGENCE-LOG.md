@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1842 — botl.c do_statusline1 leftover WIN_STATUS under item-action menu
+
+- **Status:** fixed (3 corpus PASS, 1 moved past; green + cohort + full `sessions` 44/44)
+- **Symptom:** 4 hidden-corpus first-diffs on row 22 under an item-action menu: C leftover `"Wizard the Evoker              S"` / `"Touristo the Rambler"` / `"Merlin the Evoker"` vs JS the full `St:… Neutral` line. Same step as D-1833 re-attr. Invent morestr already overlayed row 22 (`St (end)`); C `docorner` then `cl_end`s from `tty_curs(BASE, offx)` (`--x`) and `bot()` no-ops while `gb.bot_disabled`. JS `dismiss_nhw_menu` `flush_screen` rebuilt the botl cache.
+- **C locus:** `botl.c` `do_statusline1` `:47–98`; `botl.c` `bot` `:255–256` (`gb.bot_disabled` returns before putstr); `botl.c` `bot_via_windowport` `:1007` BL_TITLE `"%-30s"` (tty `VIA_WINDOWPORT`); `wintty.c` `docorner` `:3650–3720` (`cl_end` from xmin, `bot()` when `ymax >= WIN_STATUS.offy`); `windows.c` `select_menu` `:1858–1863`.
+- **JS was:** `_statusLine1` unnamed; corner dismiss `flush_screen` always painted the cache onto rows 22–23. Snapshot/restore of those rows is D-1831 (banned).
+- **Fix:** named `do_statusline1` (BOTL_NSIZ, windowport title pad so `St:` starts at col 31). Corner dismiss is `docorner(offx, maxrow+1, 0)` (`--x` cl_end). `_buildScreenOutput` does not clear or repaint rows 22–23 while `bot_disabled`.
+- **JS:** `js/display.js` `do_statusline1` / `docorner` / `_buildScreenOutput`; `js/invent.js` `dismiss_nhw_menu`.
+- **Verify:** `node scripts/verify.mjs --fn do_statusline1` → PASS syntax (2 js files); PASS rule2; PASS hidden verify do_statusline1: 3 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0116-wizard-wear-shop-71e90577 PASS; explore-seed0116-wizard-wear-shop-cfabc006 → dopush step 127 was 120; ind-Tourist-662206027-62b71e69 PASS; ind-Wizard-971871364-8f1ba690 PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** `wintty.c` paging `docorner` `ystart_between_menu_pages` repair; TTY_PERM_INVENT refresh; `bot_via_windowport` remaining BL_ fields / hitpointbar; `do_statusline1` `mrank_sz+15` !VIA_WINDOWPORT putstr and SCORE_ON_BOTL.
+- **Next:** Open `pager.c` `lookat` (3 corpus blocks). Not leftover WIN_STATUS under item-action menu.
+
 ## D-1841 — mkmaze.c makemaz fakewiz1/fakewiz2 load_special
 
 - **Status:** fixed (green + cohort; full `sessions` 44/44; no corpus session blocked on `makemaz` — PORT-GAP-HELDOUT content row, not a proxy owner)

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `mkmaze.c` makemaz `fakewiz1`/`fakewiz2` — Wizard-of-Yendor path; 44+44 ln. From `dat/fakewiz{1,2}.lua`. **Addressed:** D-1841
+- [x] `botl.c` do_statusline1 — 4 corpus blocks; leftover WIN_STATUS under item-action menu (same step as D-1833 re-attr). **Addressed:** D-1842
+
+
+- [x] `mkmaze.c` makemaz `fakewiz1`/`fakewiz2` — Wizard-of-Yendor path; 44+44 ln. From `dat/fakewiz{1,2}.lua`. **Addressed:** D-1841 `4f6a3bcc`
 
 
 - [x] `selvar.c` selection_filter_percent — 2 corpus blocks; C themed-room `rn2(100)` vs JS `rnd_rect` (level-content cliff). **Addressed:** D-1840 `bf310d98`

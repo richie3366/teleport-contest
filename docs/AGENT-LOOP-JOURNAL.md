@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1842 botl.c do_statusline1 leftover WIN_STATUS under item-action menu
+
+**C locus:** `botl.c` `do_statusline1` `:47–98`; `botl.c` `bot` `:255–256` (`gb.bot_disabled` returns before putstr); `botl.c` `bot_via_windowport` `:1007` BL_TITLE `"%-30s"` (tty `VIA_WINDOWPORT`); `wintty.c` `docorner` `:3650–3720` (`cl_end` from xmin, `bot()` when `ymax >= WIN_STATUS.offy`); `windows.c` `select_menu` `:1858–1863`.
+**JS:** `js/display.js` `do_statusline1` / `docorner` / `_buildScreenOutput`; `js/invent.js` `dismiss_nhw_menu`.
+**Change:** named `do_statusline1` (BOTL_NSIZ, windowport title pad so `St:` starts at col 31). Corner dismiss is `docorner(offx, maxrow+1, 0)` (`--x` cl_end). `_buildScreenOutput` does not clear or repaint rows 22–23 while `bot_disabled`.
+**Verify:** `node scripts/verify.mjs --fn do_statusline1` → PASS syntax (2 js files); PASS rule2; PASS hidden verify do_statusline1: 3 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0116-wizard-wear-shop-71e90577 PASS; explore-seed0116-wizard-wear-shop-cfabc006 → dopush step 127 was 120; ind-Tourist-662206027-62b71e69 PASS; ind-Wizard-971871364-8f1ba690 PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+**Named:** `wintty.c` paging `docorner` `ystart_between_menu_pages` repair; TTY_PERM_INVENT refresh; `bot_via_windowport` remaining BL_ fields / hitpointbar; `do_statusline1` `mrank_sz+15` !VIA_WINDOWPORT putstr and SCORE_ON_BOTL.
+**Next:** Open `pager.c` `lookat` (3 corpus blocks). Not leftover WIN_STATUS under item-action menu.
 ## 2026-09-05 — D-1841 mkmaze.c makemaz fakewiz1/fakewiz2 load_special
 
 **C locus:** `mkmaze.c` `makemaz` `:1126–1223` (`load_special(protofile)`); `sp_lev.c` `load_special` `:6453–6502`; `dat/fakewiz1.lua` (portal→`wizard3`, irregular arrival_room); `dat/fakewiz2.lua` (`des.object("\"",04,04)`); both mazegrid + center 9×9 island + east mazewalk + Lich / vampire lord / kraken / four board traps + `hell_tweaks`.
@@ -28,7 +36,6 @@ doloot, pickup_checks, roles[], selection_filter_percent).
 **Cadence:** 44/44 at `bf310d98`; scr 11405/11405; RNG 792838/792838;
 `43+0.33/turn` (R² 0.853). Hidden 209/265 (78.9%). Rule #2 clean.
 **Next:** Open `makemaz` `fakewiz1`/`fakewiz2`. Must-fix empty.
-
 ## 2026-09-05 — D-1840 selvar.c selection_filter_percent themed-room fills
 
 **C locus:** `selvar.c` `selection_filter_percent` `:223–245` (`rn2(100) < percent` per set cell, x-outer); `nhlsel.c` `l_selection_filter_percent` `:388–401`; `l_selection_iterate` `:924–957` (y-outer, `cvt_to_relcoord`); `dat/themerms.lua` Ice / Boulder / Spider nest / Trap room fills; `sp_lev.c` `create_trap` `:1812–1846` (`get_free_room_loc` then `mktrap` with `tm`).
@@ -85,56 +92,3 @@ doloot, pickup_checks, roles[], selection_filter_percent).
 **Verify:** `node scripts/verify.mjs --fn getobj` → PASS syntax (5 js files); PASS rule2; PASS hidden verify getobj: 5 PASS, 2 moved past (`random-seed0015` → `menu_remarm` step 42; `random-seed0200` → `js-throw` step 29), 0 unchanged, 0 worse → PROGRESS; PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
 **Named:** getobj_* clones still in drop/wield/apply/write/takeoff/dip; `canwearobj` polyform (cantweararm/horns/slithy/centaur, welded bimanual, shield+twoweap, utrap boots, Glib gloves); underwater `drink_ok_extra`; Strangled `dodrink`; `item_action_in_progress` unset. Not leftover WIN_STATUS (`do_statusline1`).
 **Next:** Open `pickup.c` `describe_decor` (5 corpus blocks). Not `do_statusline1` leftover WIN_STATUS.
-## 2026-09-04 — D-1833 iactions.c itemactions Engrave vs Write, stack simpleonames, apply catalogue
-
-**C locus:** `iactions.c` `itemactions` `:429–445` (E: Engrave vs Write + `surface`); `:309–400` apply otyp chain; `item_naming_classification` `:45–82` via `objnam.c` `simpleonames` `:2427–2442`; `item_reading_classification` `:91–124` cookie/shirt/apron/hawaiian before scroll.
-**JS:** `js/iactions.js` `itemactions` / `item_naming_classification` / `item_reading_classification` / local `simpleonames`.
-**Change:** E uses C `is_blade` (P_DAGGER..P_SABER) / wand / `oc_tough`. Local `simpleonames` `makeplural`s when `quan != 1`. Apply if-else matches C otyp order (candles `carrying(CANDELABRUM)`).
-**Verify:** `node scripts/verify.mjs --fn itemactions` → PASS syntax (1 js file); PASS rule2; PASS hidden verify itemactions: 12 PASS, 2 moved past (2 re-attributed at the same step to `do_statusline1`: `ind-Tourist-662206027-62b71e69` step 19 food-rations leftover WIN_STATUS row 22; `ind-Wizard-971871364-8f1ba690` step 2 bell leftover WIN_STATUS row 22), 0 unchanged, 0 worse → PROGRESS; PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
-**Named:** W already-wearing `armor_simple_name` / `armcat_to_wornmask`; dungeon.c `surface` terrain nouns (ROOM → "floor", matching the four existing stubs); `cantwield` skip of `'w'`; objnam.js export `simpleonames` still omits `makeplural` (iactions/pickup local clones). Traditional itemize yn. doengrave non-hands stylus body.
-**Next:** Open `invent.c` `getobj` (7 corpus blocks). Not `do_statusline1` leftover WIN_STATUS (D-1831/D-1832).
-## 2026-09-04 — D-1832 wintty.c process_menu_window no redraw on unhandled key (D-1831 snapshot regression)
-
-**C locus:** `wintty.c` `process_menu_window` `:1329–1768` (default: `tty_nhbell(); break;` — `page_start` stays); `iactions.c` `itemactions` `select_menu` PICK_ONE; `display.c` `docrt_flags` `:1765–1770` sets `disp.botlx` and does **not** call `bot()`; `pager.c` `dohelp` / `whatis_menu_choice`.
-**JS:** `js/iactions.js` `itemactions`; `js/pager.js` `whatis_menu_choice` / `dohelp`; `js/invent.js` `dismiss_nhw_menu`; `js/display.js` `_buildScreenOutput`.
-**Change:** Unhandled keys `tty_nhbell` only (no `docrt`/`cls`). Valid pick/cancel uses `dismiss_nhw_menu` (corner docorner). Fullscreen dismiss sets `_statusSuppressed` so the itemed leftover stays blank until `bot()`.
-**Verify:** `node scripts/verify.mjs --fn process_menu_window --base ab55b818` → PASS syntax (4 js files); PASS rule2; PASS hidden verify process_menu_window: 19 PASS, 2 moved past (2 re-attributed at the same step to `do_statusline1`: `explore-seed0116` ×2), 0 unchanged, 0 worse → PROGRESS; PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
-**Named:** `process_menu_window` paging `docorner` repair (`previous_page_lines`); PICK_ANY invert-all; itemactions apply catalogue; Traditional itemize yn. Not leftover WIN_STATUS on unhandled keys, MENU_SEARCH overlay wrap, per-window extra-page `cl_end`, or D-0467 fullscreen-invent blank.
-**Next:** Open `iactions.c` `itemactions` (Engrave vs Write, cookie vs cookies). Not getobj.
-## 2026-09-05 — human postmortem #2238–#2240 (D-1831 continuation)
-
-**Found:** #2238 died on a provider quota error one call after a complete
-verify (174 calls, 19 min); #2240 spent ~150 calls re-deriving it, then
-four serial regression rounds — 359 calls, 17.2 M tokens, 43 min. Its
-last edit (`_snapshotStatusGrid`) regressed 12 of the 21 corpus sessions;
-verify's baseline had been consumed, so "PASS hidden" was vacuous.
-Re-scored at HEAD: 164/265 (was claimed 176).
-**Changed:** `hidden-proxy verify --base` (committed baseline, PASS→fail
-= WORSE), `verify.mjs` FAIL triage + `note` for vacuous corpus checks,
-`loop-resume-brief.mjs` embedded in the continue overlay, quota halt
-without reset, continue prompt rewritten (verify by call ≤5).
-**Next:** Must-fix `process_menu_window` regression. Not `itemactions` yet.
-## 2026-09-04 — D-1831 wintty.c process_menu_window leftover WIN_STATUS + MENU_SEARCH overlay wrap
-
-**C locus:** `wintty.c` `process_menu_window` `:1329–1768` (`:1501–1505`
-**JS:** `js/display.js` `set_bot_disabled` / `_paintToplineOnlyOverOverlay` /
-**Change:** `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv /
-**Verify:** `node scripts/verify.mjs --fn process_menu_window` → PASS syntax
-**Named:** `process_menu_window` paging `docorner` repair
-**Next:** Open `iactions.c` `itemactions`. Not getobj.
-## 2026-09-04 — D-1830 mkmaze.c makemaz Rog-strt/loca/goal/fila/filb load_special (Rogue quest 5/5)
-
-**C locus:** `dat/Rog-strt.lua` / `Rog-loca.lua` / `Rog-goal.lua` /
-**JS:** `js/mklev.js` `load_rog_strt` / `load_rog_loca` / `load_rog_fila` /
-**Change:** `load_rog_strt` from the lua body: solidfill STONE +
-**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
-**Named:** humidity-aware `get_location`; `spo_end_moninvent`
-**Next:** Open `wintty.c` `process_menu_window`. Not fakewiz.
-## 2026-09-04 — D-1829 mkmaze.c makemaz Kni-strt/loca/fila/filb load_special (Knight quest 5/5)
-
-**C locus:** `dat/Kni-strt.lua` / `Kni-loca.lua` / `Kni-fila.lua` /
-**JS:** `js/mklev.js` `load_kni_strt` / `load_kni_loca` / `load_kni_fila` /
-**Change:** `load_kni_strt` from the lua body: solidfill ROOM + mines fg=bg="."
-**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax
-**Named:** humidity-aware `get_location`; `spo_end_moninvent`
-**Next:** Open `mkmaze.c` `makemaz` `Rog-strt`/`-loca`/`-goal`/`-fila`/`-filb`.

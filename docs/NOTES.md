@@ -6,20 +6,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 209/265 PASS at
-  D-1840 (audit 794–810). Next Open `botl.c` `do_statusline1` (4 corpus
-  blocks). Orient `brief.mjs`, verify `verify.mjs --fn`. Review 801
-  QUALITY-RISK (D-1831 snapshot leftover WIN_STATUS) shipped in D-1832 —
-  Must-fix empty.
-- **Suite 44/44** at D-1841 (R² 0.853). Do not reopen fakewiz1/fakewiz2,
-  Ice/Boulder/Spider/Trap fills,
-  `roles[]` quest identity,
-  `,` empty-floor `pickup_checks`, `doloot_core` loot-at-feet, or
-  nested themerms `des.room`. `look_here` trap/region before objects;
-  `describe_decor` Fumbling/waterhere/ice/`back_on_ground` live.
-  Unhandled menu keys do not `docrt`; do not restore `_snapshotStatusGrid`.
-  Do not reopen Bar-goal, castmu, medusa/minend/soko/Wiz/water/astral
-  loaders, Knight/Rogue lua, `HDeaf [2]`, or `mattacku` abort.
-  No trailing `confdir` on shared `getdir` (D-1815).
+  D-1840 (audit 794–810). Next Open `pager.c` `lookat` (3 corpus
+  blocks). Orient `brief.mjs`, verify `verify.mjs --fn`. Must-fix empty.
+- **Suite 44/44** at D-1842. Do not reopen `do_statusline1` leftover /
+  `docorner` `--x` / `_snapshotStatusGrid`, fakewiz1/fakewiz2,
+  Ice/Boulder/Spider/Trap fills, `roles[]` quest identity, `,`
+  `pickup_checks`, `doloot_core`, nested themerms `des.room`,
+  `look_here` trap/region, Bar-goal, castmu, medusa/minend/soko/Wiz
+  loaders, Knight/Rogue lua, `HDeaf [2]`, `mattacku` abort, trailing
+  `confdir` on shared `getdir` (D-1815).
 - **Luck still runs when invulnerable.** Dialogues do not (`timeout.c:623`).
   STONED/SLIMED expiry silent (`done_timeout`).
 - **`sit.js` lay-egg `morehungry` still not awaited.** `losedogs` still
@@ -72,7 +67,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1841.
+  (D-1189). Do not skip D-1190…D-1842.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -82,18 +77,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1841.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1842.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1841.
+  Do not re-port D-1682…D-1842.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1842: named `do_statusline1` (BOTL_NSIZ, windowport title pad so `St:` starts at col 31). Named: `wintty.c` paging `docorner` `ystart_between_menu_pages` repair; TTY_PERM_INVENT refresh; 
 - D-1841: port both lua bodies: mazegrid + center map + `l_levregion`/`l_teleport_region` while map origin is set, `splev_mazewalk(8,5,east)`, fakewiz1 irregula Named: `ensure_way_out`; arrival_room migrate flag beyond ordinary OROOM; humidity-aware `get_loc
 - D-1840: port Ice (`des.terrain` ICE + `percent(25)` melt-ice timers), Boulder / Spider / Trap (`percentage(30)` then y-outer iterate). Named: Garden / Buried treasure / Massacre / Statuary fills; garden/dig postprocess; icedpool on 
 - D-1839: copy C `roles[]` `homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti` for the remaining nine roles; Arc `PM_STUDENT` and Bar `PM_CHIEFTAIN` `guardnum Named: `attributes_enlightenment` body still unported (heuristic owner).
@@ -108,5 +104,4 @@ Objective/score live in `CURRENT.md`.
 - D-1830: `load_rog_strt` from the lua body: solidfill STONE + Named: humidity-aware `get_location`; `spo_end_moninvent`
 - D-1829: `load_kni_strt` from the lua body: solidfill ROOM + mines fg=bg="." Named: humidity-aware `get_location`; `spo_end_moninvent`
 - D-1828: `load_astral` from the lua body: solidfill + mazelevel+noteleport Named: humidity-aware `get_location`; `ensure_way_out`;
-- D-1827: `load_water` from the lua body: solidfill + mazelevel+noteleport Named: water cons pickup / `maybe_adjust_hero_bubble`;
 <!-- landmarks:end -->

@@ -72,15 +72,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1841**. Open `mkmaze.c` `makemaz` `fakewiz1`/`fakewiz2` from `dat/fakewiz{1,2}.lua` shipped (Wizard-of-Yendor fake-tower path).
-**Next cluster:** Open `botl.c` `do_statusline1` — 4 corpus blocks; leftover WIN_STATUS under item-action menu (same step as D-1833 re-attr).
+**Suite 44/44** at **D-1842**. Open `botl.c` `do_statusline1` leftover WIN_STATUS under item-action menu shipped (`docorner` + `bot_disabled` skip).
+**Next cluster:** Open `pager.c` `lookat` — 3 corpus blocks; "unexplored area" vs "unexplored".
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1841 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1842 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1842** `botl.c` `do_statusline1` `:47–98`; `botl.c` `bot` `:255–256` (`gb.bot_disabled` returns b — named `do_statusline1` (BOTL_NSIZ, windowport title pad so `St:` starts at col 31).
 **D-1841** `mkmaze.c` `makemaz` `:1126–1223` (`load_special(protofile)`); `sp_lev.c` `load_special` ` — port both lua bodies: mazegrid + center map + `l_levregion`/`l_teleport_region` while map origin is set, `splev_mazewalk(8,5,east)`, fakewiz1 irregular OROOM + portal→wizard3, shared monsters/traps, fakewiz2 amulet, `hel
 **D-1840** `selvar.c` `selection_filter_percent` `:223–245` (`rn2(100) < percent` per set cell, x-out — port Ice (`des.terrain` ICE + `percent(25)` melt-ice timers), Boulder / Spider / Trap (`percentage(30)` then y-outer iterate).
 **D-1839** `role.c` `roles[]` `:30–573` (`homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti`); `que — copy C `roles[]` `homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti` for the remaining nine roles; Arc `PM_STUDENT` and Bar `PM_CHIEFTAIN` `guardnum`.
@@ -88,10 +89,9 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1837** `pickup.c` `doloot` `:2166–2174` (`gl.loot_reset_justpicked`); `doloot_core` `:2178–2346`  — `doopen_indir` returns `doloot()` on self/down unless a closed door is here.
 **D-1836** `sp_lev.c` `build_room` `:2807–2833` (`(!r->chance || rn2(100) < r->chance) ? r->rtype : O — nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms.
 **D-1835** `invent.c` `look_here` `:4162–4177` (`!skip_objects` seen `t_at` / `visible_region_at` → ` — `look_here` plines the seen trap / visible region before the object list.
-**D-1834** `invent.c` `getobj` `:1751–2089` (`:1912–1914` empty `!forceprompt`; `:2058–2062` missing  — `dowear`/`doputon`/`dothrow`/`dodrink`/`doremring` call live `getobj`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1841; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1842; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

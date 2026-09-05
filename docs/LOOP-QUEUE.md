@@ -45,7 +45,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `botl.c` do_statusline1 — 4 corpus blocks; leftover WIN_STATUS under item-action menu (same step as D-1833 re-attr).
 - [ ] `pager.c` lookat — 3 corpus blocks; "unexplored area" vs "unexplored".
 - [ ] `mhitu.c` summonmu — 2 corpus blocks; C were-summon `rn2(5)` vs JS `rnd(20)` in `mattacku`.
 - [ ] `getpos.c` getpos — 2 corpus blocks; "Can't find dungeon feature '/'." vs unknown direction.
