@@ -19,9 +19,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1874 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1876 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1874 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1876 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -39,18 +39,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1875.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1876.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1875.
+  Do not re-port D-1682…D-1876.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1876: `m_easy_escape_pit` as a file-local staticfn port (`data === mons[PM_PIT_FIEND] || msize >= MZ_HUGE`); hero `Passes_walls()` (`u.Passes_walls || H ||  Named: poly-form `locomotion()` verbs (Lev/Fly only, same deferral as the three existing `u_locom
 - D-1875: `dog_eat` gate C order — `sawpet` is `cansee+mon_visible`, second arm `canspotmon` (queue owner `glibr` was a `corpse`-substring misattribution; `glibr()` untouched). Named: none new (bee-jelly/unpaid-shop/rust-spit still deferred).
 - D-1874: return `` `^        a trap (${nm})` `` with `first: nm` (C `firstmatch`, feeds `checkfile`) and `found: 1` (C resets `found = 1` after the supplement) Named: vibrating-square first-match arm (`add_cmap_descr` writes `an(x_str)`, not `a trap`, for `
 - D-1873: async `artifact_hit` in C order — `isHero` (game.youmonst + sentinel + `_youmonst`), hero-pos `cansee` via `u.ux/uy`, `engulfing_u` + local `Blind()`, Named: `destroy_items`/`ignite_items` bodies on FIRE/COLD/ELEC (gates still burned; C may add `it
@@ -65,5 +66,4 @@ Objective/score live in `CURRENT.md`.
 - D-1864: port the mhitu AT_WEAP arm in C order (corpse `do_stone_u` via the file-local clone with the `u.Stoned || u.HStoned` guard; GOP arm; `artifact_hit` dm Named: uhitm arm is `damageum_ad_phys` (unchanged); `mhitm_ad_drst` 1/8; purple-worm-vs-shrieker 
 - D-1863: port the TT_PIT 3×3 arm in C order (row `continue`/`break`, direct `next_rmin/rmax` assign, xray/nv/lights/update flow untouched) + add the post-`rhac Named: underwater `has_night_vision=0` + pool 3×3 (`vision.c` pit-adjacent arm, still named in co
 - D-1862: port the six ATTK resists arms in C order — hero side `Fire/Cold/Shock/Drain_resistance()` (newly exported from `js/zap.js`) + Poison/Stone H/E/sticky Named: `defended()` artifact/dragon-armor guard before the switch; DFLAG1 mflags1 arm; DFLAG2 you
-- D-1861: port `themeroom_fill_garden` (nymph count `(numpoints/6)|0`, `splev_room_monster(croom,'wood nymph')` + `msleeping=1`, `percent(30)` fountain, queue ` Named: Buried treasure / Massacre / Statuary fills still omitted (same dispatch comment); `induce
 <!-- landmarks:end -->

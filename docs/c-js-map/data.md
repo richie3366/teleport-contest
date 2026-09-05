@@ -989,7 +989,13 @@ pickup HAND D-1508**. **`mcast_blind_you` EYE D-1534**. **`observe_quantum_cat` 
 `:5154–5166`; JS stub always-TRUE disrobe + `teleds_drown`; now those
 plus `unmul`/`reset_faint`/`mmove`; named: Amphibious wade,
 Teleportation escape, steed, drowning `done()` loop, `feel_newsym`
-waterwall, lava_effects).
+waterwall, lava_effects). **`climb_pit` + file-local `m_easy_escape_pit`**
+(D-1876; C `trap.c:4183–4230` Passes_walls ascend / `!rn2(2)` boulder
+crevice with `display_nhwindow` flush / Flying-clinger climb-out /
+`--utrap`-or-easy-escape (pit fiend, `msize >= MZ_HUGE`) crawl-out with
+Sokoban+Levitation float variant / Norep still-in-pit with Hallu `!rn2(5)`;
+wired into `trapmove` TT_PIT (`js/hack.js`) + `doup` pit gate (`js/do.js`);
+named: poly `locomotion()` verbs, `clear_nhwindow` past the flush).
 
 ### `src/dog.c` `tamedog` / `initedog`
 

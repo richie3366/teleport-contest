@@ -5,14 +5,20 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
+- [x] `uhitm.c` erode_armor — 1 corpus block RNG-first at step 47 (C `rn2(5)` in erode_armor vs JS `rn2(3)` mhitm_knockback; tour-Healer-70025-d5-8-15-17-22; unblocked by D-1876 climb_pit). **Addressed:** D-1876
+
+
+- [x] `trap.c` climb_pit — 1 corpus block RNG-first at step 46 (C `rn2(2)` in climb_pit vs JS `rn2(5)` distfleeck; tour-Healer-70025-d5-8-15-17-22). **Addressed:** D-1876
+
+
 - [x] `mkmaze.c` makemaz `kni-strt`/`-loca`/`-fila`/`-filb` — Knight quest 1/5 → 5/5 (only `kni-goal` exists; Knight is 5/44 sessions). From `dat/kni-*.lua` (HELDOUT Tier A #10). **Addressed:** D-1829 `a9ebaa40`
 - [x] `mkmaze.c` makemaz `rog-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Rogue quest 0/5 → 5/5 (largest 0/5 role, 6/44 sessions). From `dat/rog-*.lua` (HELDOUT Tier A #11). **Addressed:** D-1830 `ab55b818`
 
 
-- [x] `do_wear.c` glibr — 1 corpus block screen-first at step 29 («Your kitten eats a goblin corpse.» vs empty; ind-Tourist-666025142-d17728db). True owner `dogmove.c` `dog_eat` message gate (D-1875); `glibr` body needed no change. **Addressed:** D-1875
+- [x] `do_wear.c` glibr — 1 corpus block screen-first at step 29 («Your kitten eats a goblin corpse.» vs empty; ind-Tourist-666025142-d17728db). True owner `dogmove.c` `dog_eat` message gate (D-1875); `glibr` body needed no change. **Addressed:** D-1875 `ef2bf265`
 
 
-- [x] `trap.c` trapeffect_rolling_boulder_trap — 1 corpus block screen-first at step 347 («^a trap (rolling boulder trap)» vs «^a rolling boulder trap»; explore-seed0367-priest-quest-tour-b0096089). **Addressed:** D-1874
+- [x] `trap.c` trapeffect_rolling_boulder_trap — 1 corpus block screen-first at step 347 («^a trap (rolling boulder trap)» vs «^a rolling boulder trap»; explore-seed0367-priest-quest-tour-b0096089). **Addressed:** D-1874 `b26671b1`
 
 
 - [x] `artifact.c` artifact_hit — 2 corpus blocks; screen-first at artifact.c:1515 («The massive hammer hits the Aleax.» vs empty; explore-seed0360-wizard-world-tour-19199bfa step 848, 5dfef5c4 step 842). Same-step continuation after the hitum `spec_abon` phantom roll was removed (see DIVERGENCE-LOG D-1862 Next; restored to live queue — never addressed). **Addressed:** D-1873 `d6db25d5`.

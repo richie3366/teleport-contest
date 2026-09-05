@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-1876 — trap.c climb_pit shared pit-escape port (climb_pit corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus moved past to a later owner; green + strict + cohort + full 44/44 PASS)
+- **Symptom:** `tour-Healer-70025-d5-8-15-17-22` step 46/50 RNG-first at `trap.c:4197`: C `rn2(2)=0 @ climb_pit` with topline `You are still in a pit.` vs JS `rn2(5)=3 @ distfleeck(monmove.js:805)` with empty topline. Step 45 was unblocked by D-1863 (`linedup` → `climb_pit`, review 833 honestly reported this next owner).
+- **C locus:** `trap.c` `climb_pit` `:4183–4230` — guard `!u.utrap || utraptype != TT_PIT`; `trapname(PIT, FALSE)`; Passes_walls ascend (`reset_utrap` + `fill_pit` + `vision_full_recalc`); `!rn2(2) && sobj_at(BOULDER)` crevice (`Your` stuck / display+clear / `You` free); `(Flying || is_clinger(youmonst.data)) && !Sokoban` climb-out via `u_locomotion("climb")`; `--utrap`-or-`m_easy_escape_pit` (pit fiend or `msize >= MZ_HUGE`, `:3726–3731`) crawl-out with the Sokoban+Levitation float variant; `u.dz || verbose` Norep still-in-pit (Hallu short-circuit `!rn2(5)` fallen message). Callers `do.c:1309` (`doup`) and `hack.c:1585` (`trapmove` TT_PIT arm, returns FALSE after).
+- **JS was:** no `climb_pit` in `js/` (map-named omit per review 833). `trapmove` TT_PIT arm was a stub (`break` — attempt consumed, no RNG, no message) and `doup` had no pit gate (fell straight to the stairway check). A trapped hero's turn drew no pit RNG and printed nothing, so the turn fell through to monster movement (`distfleeck rn2(5)` first).
+- **Fix:** `m_easy_escape_pit` as a file-local staticfn port (`data === mons[PM_PIT_FIEND] || msize >= MZ_HUGE`); hero `Passes_walls()` (`u.Passes_walls || H || E`, same idiom as `js/do.js`); exported async `climb_pit()` in C branch/RNG order (guard; `trapname(PIT, false)`; Sokoban ≡ `level.flags.sokoban_rules`; `hero_Flying()` incl. steed-flyer; file-local `u_locomotion_pit('climb')`; `sobj_at(BOULDER)` file-local; `flush_topl_more()` for C `display_nhwindow(WIN_MESSAGE)`; `reset_utrap(false)` + `fill_pit` + `game.vision_full_recalc = 1`; Norep still-in-pit with the Hallu `rn2(5)` short-circuit). Wired into both C call sites: `trapmove` TT_PIT arm awaits it (still `break` → `false`), `doup` checks the pit gate right after `u.dz/dx/dy` set and returns `ECMD_TIME`. Same-edge import additions only (`hack.js`/`do.js` already import `trap.js`; `Norep`/`YMonnam` join existing `display.js`/`do_name.js` edges — `imports.mjs --can` ALREADY on both).
+- **JS:** `js/trap.js` (+72/−1); `js/hack.js` (+4/−3, import + arm + envelope); `js/do.js` (+8/−2, import + `doup` gate + omits); `docs/c-js-map/data.md` trap.c section.
+- **Verify:** `node scripts/verify.mjs --fn climb_pit` →
+  - `PASS  syntax   3 changed js file(s): js/do.js js/hack.js js/trap.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `PASS  hidden   verify climb_pit: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (`tour-Healer-70025-d5-8-15-17-22: moved → erode_armor at step 47 (was 46)` — step 46 now RNG+screen matches; next owner is a later step)
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`; `PASS  full     44/44 passing (auto: shared file changed)`
+  - `VERIFY: PASS`
+- **Named omissions:** poly-form `locomotion()` verbs (Lev/Fly only, same deferral as the three existing `u_locomotion` clones); `clear_nhwindow(WIN_MESSAGE)` past the flush; `doup` `u_rooted`/`stucksteed`/`u_stuck_cannot_go`/encumbrance/ledger-1 gates (pre-existing omits, kept).
+- **Next:** next Open row (`pager.c` do_look).
+
 ## D-1875 — dogmove.c dog_eat message gate sawpet/canspotmon (glibr corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort + full 44/44 PASS)
