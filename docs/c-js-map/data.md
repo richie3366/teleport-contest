@@ -1239,6 +1239,7 @@ JS: `js/mklev.js`, `js/shknam.js`, `js/makemon.js`, `js/shk.js` — partial
 **`mkshop` eligibility + shtypes** (D-0201); 
 **`stock_room`/`shkinit`/`mkshobj_at`/`get_shop_item`/iprobs/shknms + 
 shopkeeper `m_initinv`/`rnd_misc_item`/`MM_ESHK` + tribute novel** (D-0203); 
+**`stock_room` locked-door `"Closed for inventory"` cell via `shk.c` `inside_shop` (`edge` = outside) + `Is_special`/`in_rooms` ROOM-or-CORR rewrite** (D-1849; shknam `inside_shop` clone removed — it ignored `edge`, put the engraving in rock and made that rock ROOM, costing `mineralize` one gold cell); 
 **`make_happy_shk` adjalign / `home_shk` / migrate / `make_happy_shoppers` D-1540**
 (C `:1395–1435`; `kops_gone`; `pacify_guards` mon.c clone; live
 `mdrop_special_objs`/`migrate_to_level`; named: full `mnearto` yank;

@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1849 — shknam.c stock_room closed-shop engraving cell via shk.c inside_shop edge; mineralize 2 corpus PASS
+
+- **Status:** fixed (2 corpus PASS; green + cohort + full `sessions` 44/44). Human-directed fix after the killed iter #2262 (`docs/2026-09-05-iter-2262-mineralize-postmortem.md`).
+- **Symptom:** 2 hidden-corpus first-diffs at `mineralize` (`mklev.c:1515`): Knight d5 / Monk d6 C drew one more gold+gem `rn2(1000)` pair than JS, then the streams re-aligned (13015/13017, 18322/18324) — a count difference that does not localize the cell. D-1847 named a "1-cell TRC" at (76,14)/(77,14) from a JS FORCE; a wizard `^F` map recorded on the C recorder (fork the recipe at the `^V` step, append `^F`) shows C has the full east wall there. The only C-vs-JS map cell is Knight (6,9) / Monk (5,7): STONE in C, ROOM in JS carrying a `"Closed for inventory"` DUST engraving. That non-STONE cell blocks the diagonal gold cell (5,10) / (4,8): C 410 vs JS 409, C 472 vs JS 471 eligible cells.
+- **C locus:** `shknam.c` `stock_room` `:750–766` (locked shop door: `inside_shop(sx+1,sy)`→`m--` / `(sx-1,sy)`→`m++` / `(sx,sy+1)`→`n--` / `(sx,sy-1)`→`n++`, engrave `"Closed for inventory"` at `(m,n)`, then `typ != CORR && typ != ROOM` → `(Is_special(&u.uz) || *in_rooms(m,n,0)) ? ROOM : CORR`); `shk.c` `inside_shop` `:567–576` (`rno < ROOMOFFSET || levl[x][y].edge || !IS_SHOP` → `NO_ROOM`); `mklev.c` `topologize` `:1633`/`:1642` (wall cells get `edge`, so the door's wall neighbours are outside the shop).
+- **JS was:** `shknam.js` kept a local `inside_shop` clone without the `edge` test (the export in `shk.js` has it), so the shop's wall cell east of the door counted as inside → `m--` moved the engraving one cell west of the door's outside corridor cell, into solid rock; the typ rewrite was "always ROOM" (`Is_special`/`in_rooms` deferred) and turned that rock into ROOM.
+- **Fix:** delete the clone and import `shk.js` `inside_shop`; port the ROOM/CORR choice with `Is_special` (now exported from `dungeon.js`) and `hack.js` `in_rooms`.
+- **JS:** `js/shknam.js` `stock_room`; `js/dungeon.js` `Is_special` export.
+- **Verify:** `node scripts/verify.mjs --fn mineralize --full` → PASS syntax (2 js files); PASS rule2; PASS hidden verify mineralize: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Knight-70020-d5-8-15-17-22 PASS; tour-Monk-70009-d3-6-10-11-12 PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (--full). VERIFY: PASS. Geometry probe after the fix: C `^F` map vs JS `^F` map, 0 differing cells, eligible 410/410 (Knight) and 472/472 (Monk). `hidden-proxy score`: 222/265 (was 217).
+- **Named omissions:** `Is_special` clones in `end.js` / `quest.js` and the `mineralize` inline `on_level` walk still not deduped onto the export; rest of `stock_room` (`stock_room_goodpos`, tribute spot, Orcus arm) unchanged. `mklev.c` `mineralize` was the symptom owner, never the C-wrong.
+- **Next:** Open `invent.c` `inuse_classify` (2 corpus blocks). Do not reopen the 1-cell TRC: the C map falsified it.
+
 ## D-1848 — pager.c lookat cmap default defsyms; newsym DARKROOMSYM
 
 - **Status:** fixed (Must-fix review **813**; 4 corpus still moved past lookat; green + cohort + full `sessions` 44/44).

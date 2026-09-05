@@ -6,15 +6,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 217/265 PASS at
-  D-1847 (audit 811–817). Open `mklev.c` `mineralize` leftover gold loop
-  C-faithful; 2 corpus still blocked (1-cell TRC). lookat `S_room`/
+  D-1847 (audit 811–817); `mineralize` 2 corpus PASS at D-1849 (the
+  C-wrong was `shknam.c` `stock_room`'s engraving cell). lookat `S_room`/
   `S_darkroom` extra arms are D-1848 (`newsym` DARKROOMSYM). Do not
-  reopen D-1841–D-1848.
-- **1-cell TRC:** Knight d5 C 410 vs JS 409 gold checks; 409 values match
-  then C `rn2(1000)=52` at (77,13). C STONE at (76,14)/(77,14); JS HWALL/
-  TRC. `wall_cleanup` sees ROOM at (75,15)/(76,15). Falsify: those two
-  tiles STONE → Knight 13017/13017. Do not re-port the gold loop.
-- **Suite 44/44** at D-1847. Do not reopen `level_tele` Nowhere/clamp,
+  reopen D-1841–D-1849.
+- **Level-gen geometry (D-1849):** when a level-wide scan (`mineralize`,
+  `bound_digging`, `wallification`) owns a first diff, measure C first:
+  fork the recipe at that step + wizard `^F`, record C, replay JS, diff
+  map cells. RNG counts are location-blind (D-1847's TRC was a JS FORCE).
+- **Suite 44/44** at D-1849. Do not reopen `stock_room` engraving cell /
+  shknam `inside_shop` clone, `level_tele` Nowhere/clamp,
   `priestname`, Rogue `S_ndoor`, `bigrm-2` darkness as `lspo_map` lit,
   `getpos` matching/`#` AUTODESC,
   `summonmu` were, `lookat` unexplored, `do_statusline1` leftover,
@@ -59,7 +60,8 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1848.
+  (D-1189). Do not skip D-1190…D-1849. Never FORCE the falsified
+  mineralize TRC (76,14)/(77,14) (D-1849).
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -69,18 +71,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1848.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1849.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1848.
+  Do not re-port D-1682…D-1849.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1849: delete the clone and import `shk.js` `inside_shop`; port the ROOM/CORR choice with `Is_special` (now exported from `dungeon.js`) and `hack.js` `in_roo Named: `Is_special` clones in `end.js` / `quest.js` and the `mineralize` inline `on_level` walk s
 - D-1848: delete the extra lookat arms so floor strings come from `defsyms[]`. Named: `do_screen_description` ROOM parenthetical still uses `room_cmap_explanation` (Open, later
 - D-1847: gold/gem loop + `on_level` Is_special + `join` arboreal ROOM + xstart resets. Named: 1-cell `ly=15` TRC (Knight d5 409 vs 410; C STONE at HWALL+TRC, JS walls; `wall_cleanup` blocked by interior ROOM).
 - D-1846: Nowhere ynq + Quest/mines/sanctum clamp + invoked `"Sorry..."`; `priestname`; Rogue `S_ndoor`/`dosdoor` D_NODOOR; `bigrm-2` darkness unlit. Named: bymenu=FALSE `print_dungeon`; debug_fuzzer; ice `selection:grow`; hallu `halu_gname` pantheon RNG.
@@ -95,5 +98,4 @@ Objective/score live in `CURRENT.md`.
 - D-1837: `doopen_indir` returns `doloot()` on self/down unless a closed door is here. Named: Confusion `reverse_loot`; pit `"Open where? [.>]"`; door-mimic stumble; AUTOUNLOCK_KICK / 
 - D-1836: nested `des.room` via `splev_des_room`/`splev_build_room` (chance then `create_subroom`) for those five rooms. Named: Random-feature center terrain; remaining themeroom_fill bodies (Ice/Boulder/Spider/Trap/Ga
 - D-1835: `look_here` plines the seen trap / visible region before the object list. Named: `ice_descr` thicker/thinner ice; `dfeature_at` ice/pool/lava/throne/drawbridge (so waterhe
-- D-1834: `dowear`/`doputon`/`dothrow`/`dodrink`/`doremring` call live `getobj`. Named: getobj_* clones still in drop/wield/apply/write/takeoff/dip; `canwearobj` polyform (cantwe
 <!-- landmarks:end -->

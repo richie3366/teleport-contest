@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `pager.c` lookat — S_room/S_darkroom extra arms contradict C default `defsyms[]`; DARKROOMSYM belongs in `newsym` (D-0812), not lookat. Source: reviews/loop-unattended/813-70d84800-lookat.md. **Addressed:** D-1848
+- [x] `mklev.c` mineralize — 2 corpus blocks; C `rn2(1000)` vs JS `place_lregion` `rn2(79)`. **Addressed:** D-1849
+
+
+- [x] `pager.c` lookat — S_room/S_darkroom extra arms contradict C default `defsyms[]`; DARKROOMSYM belongs in `newsym` (D-0812), not lookat. Source: reviews/loop-unattended/813-70d84800-lookat.md. **Addressed:** D-1848 `d1d76d7e`
 
 
 - [x] `teleport.c` level_tele — 2 corpus blocks; named-level `^V` materialize (screen match, later RNG). **Addressed:** D-1846 `5d89cc96`

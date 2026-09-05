@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1849 shknam.c stock_room closed-shop engraving cell via shk.c inside_shop edge; mineralize 2 corpus PASS
+
+**C locus:** `shknam.c` `stock_room` `:750–766` (locked shop door: `inside_shop(sx+1,sy)`→`m--` / `(sx-1,sy)`→`m++` / `(sx,sy+1)`→`n--` / `(sx,sy-1)`→`n++`, engrave `"Closed for inventory"` at `(m,n)`, then `typ != CORR && typ != ROOM` → `(Is_special(&u.uz) || *in_rooms(m,n,0)) ? ROOM : CORR`); `shk.c` `inside_shop` `:567–576` (`rno < ROOMOFFSET || levl[x][y].edge || !IS_SHOP` → `NO_ROOM`); `mklev.c` `topologize` `:1633`/`:1642` (wall cells get `edge`, so the door's wall neighbours are outside the shop).
+**JS:** `js/shknam.js` `stock_room`; `js/dungeon.js` `Is_special` export.
+**Change:** delete the clone and import `shk.js` `inside_shop`; port the ROOM/CORR choice with `Is_special` (now exported from `dungeon.js`) and `hack.js` `in_rooms`.
+**Verify:** `node scripts/verify.mjs --fn mineralize --full` → PASS syntax (2 js files); PASS rule2; PASS hidden verify mineralize: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Knight-70020-d5-8-15-17-22 PASS; tour-Monk-70009-d3-6-10-11-12 PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (--full). VERIFY: PASS. Geometry probe after the fix: C `^F` map vs JS `^F` map, 0 differing cells, eligible 410/410 (Knight) and 472/472 (Monk).
+**Named:** `Is_special` clones in `end.js` / `quest.js` and the `mineralize` inline `on_level` walk still not deduped onto the export; rest of `stock_room` (`stock_room_goodpos`, tribute spot, Orcus arm) unchanged. `mklev.c` `mineralize` was the symptom owner, never the C-wrong.
+**Next:** Open `invent.c` `inuse_classify` (2 corpus blocks). Do not reopen the 1-cell TRC: the C map falsified it.
 ## 2026-09-05 — D-1848 pager.c lookat cmap default defsyms; newsym DARKROOMSYM
 
 **C locus:** `pager.c` `lookat` `:779–795` (cmap switch: altar / ndoor / cloud / waterbody / engraving / `S_stone` / `default` `defsyms[]`); `display.c` `newsym` `:1079–1096` (Rogue unlit ROOM → `S_stone`; else `!waslit || (flags.dark_room && iflags.use_color)`: `S_litcorr`→`S_corr`, `S_room`→`DARKROOMSYM`).
