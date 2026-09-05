@@ -232,6 +232,16 @@ clearly marked temporary and scheduled for deletion.
     No force-push, reset, or history rewrite. If a density/authority
     gate fails after a push, halt without `git reset` (human reverts
     origin).
+12. **Measure C before theorizing.** Every claim about C state (terrain,
+    flags, list order, a pending `--More--`) written to `NOTES.md` or the
+    divergence log carries its evidence grade: *measured* (recorded C
+    screen, wizard-mode probe, temp C dump) or *inferred* (from JS, from
+    an RNG count, from a FORCE). A JS FORCE / DIAG that restores an RNG
+    count is not a falsifier and never localizes a cause. The recorder is
+    a 0.3 s oracle: when a recording can show the state, take it before
+    reading more code. An unattended iteration with no C-side measurement
+    after ~40 tool calls parks with the exact probe command rather than
+    continuing (D-1849).
 
 ---
 

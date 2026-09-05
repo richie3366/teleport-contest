@@ -385,6 +385,8 @@ Halt reason is still `last-halt-reason.txt`.
 | Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start (except continue-unfinished, which warns and starts) |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
+| Agent spends >20 min on a level-gen owner with no C measurement (#2262) | Symptom owner ≠ writer; playbook §7 / prompt now require `geom-probe.mjs` by call ~40. Kill it, run the probe yourself, paste its output into `NEXT_AGENT_PROMPT.md` |
+| `connection: reconnecting` mid-iteration, retry with `checkpoint_turn_count: 1` | The retry may drop visible context and the agent re-derives (#2262 lost ~5 min). Not handled yet — proposal: on reconnect, write a resume brief (`loop-resume-brief.mjs`) into `NEXT_AGENT_PROMPT.md` |
 | Agent `git push` then density/authority fail | Halt without reset; human reverts origin |
 | Agent `git push` then banned-pattern hit | Continue; next iter gets a heal prompt and strips the hits |
 | Agent `git push` then green/suite FAIL | Continue; next iter recovers |

@@ -106,6 +106,15 @@ for (const r of mine.slice(0, 6)) {
     if (r.rowDiff) console.log(`    row ${r.rowDiff.row}: C ${JSON.stringify(r.rowDiff.c)} | J ${JSON.stringify(r.rowDiff.js)}`);
 }
 if (mine.length) console.log(`replay one: node frozen/ps_test_runner.mjs .cache/hidden/sessions/${mine[0].id}.session.json\nafter the port: node scripts/hidden-proxy.mjs verify ${fn}`);
+const LEVEL_SCANS = new Set(['mineralize', 'bound_digging', 'wallification', 'wall_cleanup', 'fix_wall_spines',
+    'place_lregion', 'put_lregion_here', 'makecorridors', 'dig_corridor', 'join', 'make_niches', 'makeniche',
+    'wallify_map', 'set_wall_state', 'level_finalize_topology', 'mkinvokearea', 'fixup_special']);
+if (mine.length && (LEVEL_SCANS.has(fn) || /^(mklev|mkmaze|mkmap|mkroom|rect|sp_lev)\.c$/.test(cfn?.file || ''))) {
+    console.log(`GEOMETRY OWNER: ${fn} is where C *noticed* a level difference, not necessarily the writer.`);
+    console.log(`measure C first (one call, ~1 s): node scripts/geom-probe.mjs ${mine[0].id}`);
+    console.log('  (forks the recipe at the blocked step, records a wizard ^F map on the C recorder, replays JS, prints every differing map cell');
+    console.log('   and the mineralize-eligible diff; RNG counts are location-blind — a JS FORCE that restores a count proves nothing; D-1849)');
+}
 
 h(`REVIEWS naming ${fn}`);
 console.log(run('grep', ['-rl', `\\b${fn}\\b`, 'reviews/']).trim().split('\n').filter(Boolean).slice(-5).join('\n') || '(none)');

@@ -12,8 +12,8 @@ Objective/score live in `CURRENT.md`.
   reopen D-1841–D-1849.
 - **Level-gen geometry (D-1849):** when a level-wide scan (`mineralize`,
   `bound_digging`, `wallification`) owns a first diff, measure C first:
-  fork the recipe at that step + wizard `^F`, record C, replay JS, diff
-  map cells. RNG counts are location-blind (D-1847's TRC was a JS FORCE).
+  `node scripts/geom-probe.mjs <session> [--step N]` (C `^F` map vs JS,
+  cell diff). RNG counts are location-blind (D-1847's TRC was a JS FORCE).
 - **Suite 44/44** at D-1849. Do not reopen `stock_room` engraving cell /
   shknam `inside_shop` clone, `level_tele` Nowhere/clamp,
   `priestname`, Rogue `S_ndoor`, `bigrm-2` darkness as `lspo_map` lit,

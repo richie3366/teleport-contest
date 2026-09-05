@@ -200,7 +200,17 @@ reading entire 5,000-line C files unless control flow truly requires it.
    searching for a distinctive marker. Prefer a **temp C dump at the cited
    locus** over JS `FORCE` / screen decode / another topline shim when stuck
    on geometry **or** keystream/`more`/`NEED_MORE` (see `GROK-PLAYBOOK.md`
-   §7; D-0928 #1092, #1127, #1132).
+   §7; D-0928 #1092, #1127, #1132). For level geometry the first
+   measurement is `node scripts/geom-probe.mjs <session-id> [--step N]`
+   (a wizard `^F` map recorded on the C recorder vs the JS one, every
+   differing cell); an RNG count difference alone never localizes a
+   terrain cause (D-1849).
+6. A JS diagnostic that cannot see C state (a `DIAG` dump of JS `levl[]`, a
+   coordinate `FORCE` that restores an RNG count) is not a falsifier. Write
+   every claim about C state with its evidence grade — *measured* (recorded
+   C screen, probe, temp C dump) or *inferred* — and stop theorizing after
+   ~40 tool calls without a measurement: take one or park with the exact
+   probe command.
 
 ### D. Implement
 
@@ -320,7 +330,8 @@ Update only the owners of changed facts, and write each fact **once**:
 
 - fixed divergence with evidence → one `## D-NNNN — title` entry at the top
   of `DIVERGENCE-LOG.md` (Status · Symptom · C locus · JS was · Fix · JS ·
-  Verify · Named omissions · Next). This entry is the single source:
+  Verify · Named omissions · Next). Claims about C state in Symptom / Named
+  omissions carry their evidence grade (*measured* vs *inferred*). This entry is the single source:
   `node scripts/finish-iteration.mjs` derives the index row, the journal
   crumb, the `CURRENT.md` recent block and D-ranges, the `NOTES.md`
   landmark, the review stamp and the queue archive from it, and
@@ -380,11 +391,26 @@ first verify had already marked PASS.
   movement work.
 - Explicit throws and hardcoded role fallbacks are foundation blockers.
 
-### Stuck after two falsified theories
+### A level-wide scan owns the first diff
 
-Stop patching the symptom. Reconstruct the complete C call path, inspect
-missing data fields/list order, or select a prerequisite unit. Record the dead
-ends before another iteration repeats them.
+`mineralize`, `bound_digging`, `wallification`, `place_lregion` and the
+other `mklev.c` / `mkmaze.c` / `sp_lev.c` scans read the whole map. An RNG
+count difference there means C *noticed* a terrain difference; positional
+scoring re-aligns after a one-cell gap, so the count cannot say where, and
+any single-cell JS change would "fix" it. The writer is upstream. Measure
+first: `node scripts/geom-probe.mjs <session-id> [--step N]` (C wizard
+`^F` map vs JS, cell diff + mineralize-eligible diff); then find the JS
+writer of the differing cell — often by the string literal the C feature
+carries (an engraving text, a trap name) — and cite **that** C function in
+the D-log; the scan stays the symptom owner. A JS FORCE that restores the
+count proves nothing (D-1847 → D-1849).
+
+### Stuck after two falsified theories, or ~40 calls without a C measurement
+
+Stop patching the symptom. Take the C measurement (probe, recorded screen,
+temp C dump), reconstruct the complete C call path, inspect missing data
+fields/list order, or select a prerequisite unit. Record the dead ends
+before another iteration repeats them.
 
 ## 7. C-to-JS semantic checklist
 

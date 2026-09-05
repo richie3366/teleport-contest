@@ -51,6 +51,16 @@ is a real C-vs-JS divergence with a machine-recorded expectation: the
 deliverable is still the **C function’s** port. A fix that reads a seed, a
 step index, a coordinate or an RNG index is reverted.
 
+**Geometry owners.** If the row's owner is a level-wide scan or level-gen
+function (`mineralize`, `bound_digging`, `wallification`, `place_lregion`,
+`makecorridors`, `dig_corridor`, …) it is the *symptom* owner: run
+`node scripts/geom-probe.mjs <session-id>` (C wizard `^F` map vs JS, one
+call) before opening a second C function, port the C writer of the
+differing cell, and cite that function. RNG counts are location-blind; a
+JS FORCE/DIAG that restores a count proves nothing (D-1849). By call ~40
+without a C-side measurement, take one or park with the command in
+`NOTES.md`.
+
 ## One bounded unit
 
 One C function / tight helper cluster, ported from the C body in the brief:
@@ -122,4 +132,5 @@ scripts/prompt), `frozen/**`, `sessions/**`, upstream C/patches, or frozen JS
 contracts. Do not write `1` to `STOP_AGENT_LOOP.md` (review/audit iterations
 may, on REJECT). Do not write `0` to it, do not `git add` it, no
 `git reset --hard` / `git clean`, no force-push, no amend of pushed commits.
-After two falsifications, reconstruct the C path or pivot — do not spin.
+After two falsifications, or ~40 calls with no C-side measurement, measure C
+(`geom-probe.mjs`, a recorded screen, a temp C dump) or park — do not spin.

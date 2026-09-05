@@ -15,7 +15,10 @@ Live file is **unchecked-only**. Done rows live in
 (including after you archive this iter’s item), **refill Open** in the
 **same commit** up to **12**. Sources: named omits in the subsystem
 `docs/c-js-map/*.md` row you are in (prefer `data.md` / `debt.md`, then
-`absent.md`). One C function/family per line; cite C file + function.
+`absent.md`). One C function/family per line; cite C file + function. A level-gen owner
+(`mineralize`, `bound_digging`, `wallification`, `place_lregion`…) is where
+C *noticed* the difference: its falsifier is `node scripts/geom-probe.mjs
+<session>`, and the shipped D-log cites the C writer actually changed.
 Do not duplicate live or archived rows. Do not invent FAIL peels. Do
 not enqueue parked D-0006.
 

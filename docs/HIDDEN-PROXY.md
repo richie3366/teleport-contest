@@ -38,11 +38,20 @@ deliverable is the owning C function's port. Reading a seed, a step, a
 coordinate or an RNG index to make a corpus session pass is the same
 ban as for the public sessions and is a REJECT in review.
 
+An RNG-first row owned by a level-wide scan (`mineralize`,
+`bound_digging`, `wallification`, `place_lregion`) names where C
+*noticed* a terrain difference, not the writer; positional scoring
+re-aligns after a one-cell gap, so the count cannot localize it. Probe
+first: `node scripts/geom-probe.mjs <id> [--step N]` records a wizard
+`^F` map on the C recorder, replays JS and prints every differing map
+cell plus the mineralize-eligible diff (D-1849).
+
 ## 3. The loop's use of it
 
 | when | command | what it replaces |
 |---|---|---|
 | orient | `node scripts/brief.mjs <cfn>` | 8–15 grep/sed/csym/sym/map calls; the corpus rows for that function come with C vs JS draw and replay |
+| diagnose | `node scripts/geom-probe.mjs <id> [--step N]` | JS DIAG dumps and coordinate FORCEs that cannot see C `levl[]` (#2262: 54 min, 362 calls, no C measurement) |
 | verify | `node scripts/verify.mjs --fn <cfn>` (runs `hidden-proxy verify <cfn>`) | hand probes with expectations the agent derived by *reading* C — the expectation is now recorded from C |
 | handoff | `node scripts/finish-iteration.mjs --commit` | index row, journal crumb, CURRENT recent block and ranges, NOTES landmark, review stamp, hash backfill, archive, caps, commit message, push — all from the one hand-written D-log entry |
 | audit | `node scripts/hidden-proxy.mjs score` | nothing existed; CURRENT now carries the proxy pass rate next to the public score |

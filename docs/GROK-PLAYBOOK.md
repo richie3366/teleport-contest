@@ -1,9 +1,8 @@
 # Grok playbook — faithful porting in fresh context
 
 For **autonomous loop agents** (`scripts/agent-port-loop.sh`) and any
-fresh-context model continuing this repo. Read this **first**, every iteration.
-It is operational guidance, not architecture law — `CONSTITUTION.md` and
-`PORTING-RUNBOOK.md` still win on conflicts.
+fresh-context model. Read this **first**, every iteration. Operational
+guidance — `CONSTITUTION.md` and `PORTING-RUNBOOK.md` win on conflicts.
 
 **Goal:** port pinned C + contest patches into readable JS. Sessions measure
 progress; they are **not** the specification. A longer RNG prefix from a
@@ -36,8 +35,8 @@ Target **≤12k tokens** of docs before touching C.
 | 7 | `PORTING-RUNBOOK.md` §3–7 | only if procedure unclear | strategy rationale |
 
 **Do not read by default:** `PORTING-STRATEGY.md`, `archive/**`, full
-`DIVERGENCE-LOG.md`, full journal archive. Use `DIVERGENCE-INDEX.md` + **one**
-`## D-NNNN` entry. Read only `AGENT-LOOP-JOURNAL.md` (tail), not archives.
+`DIVERGENCE-LOG.md`, full journal. Use `DIVERGENCE-INDEX.md` + **one**
+`## D-NNNN` entry; journal tail only.
 
 **Always re-read the relevant C function** (body + callers + guarding `if`)
 before patching — `brief.mjs` / `csym.mjs fn --callers` fetch both in one call.
@@ -51,9 +50,6 @@ before patching — `brief.mjs` / `csym.mjs fn --callers` fetch both in one call
    or a human moved it to primary.
 3. **Parked** items in `CURRENT.md` / `DIVERGENCE-INDEX.md` — diagnose only;
    **do not implement** until the listed falsifier exists.
-
-**Parked (do not code):** **D-0006** (seed1800 pet movement) until C
-state/candidate capture exists.
 
 ### 2a. After local public suite PASS (map-driven mode)
 
@@ -95,9 +91,7 @@ together iff every C callee is live, a C-matched clone, or a named
 omit in this commit (no stub in a live arm). Must-fix stays one item,
 alone. If success/failure needs two unrelated theories, split.
 
-Amortize verification: focused → green → cohort; full `sessions` on
-cadence or shared/startup/display/RNG changes. Stop the loop on empty
-“hold green / refresh docs only” iterations.
+Stop the loop on empty “hold green / refresh docs only” iterations.
 
 ---
 
@@ -112,7 +106,6 @@ cadence or shared/startup/display/RNG changes. Stop the loop on empty
 | Remove invented fallback | `apport` from real `ACURR(A_CHA)` clamp, not `\|\| 10` (D-0004) |
 | Input-boundary fix | `--More--` owns keys before combat RNG (D-0001) |
 | Name omissions | `c-js-map/*.md`: `partial` + deferred branches |
-| Small diff, one cluster | `dogmove.js` `can_reach_location` + squared `udist` |
 
 ### Bad (delete on sight)
 
@@ -128,6 +121,7 @@ cadence or shared/startup/display/RNG changes. Stop the loop on empty
 | `import` from `fs` / `path` / `url` / `node:*` | Contest Rule #2 — Chrome + judge both must load `js/` |
 | Runtime `readFileSync` of `dat/*` | Embed via `js/generated/` (D-0477); VFS is storage only |
 | Grid snapshot/restore to emulate a tty side effect the C loop never draws | D-1831 `_snapshotStatusGrid` broke 12 corpus sessions; port the C control flow (no `docrt` on an unhandled menu key) |
+| Helper clone dropping a C predicate (`inside_shop` sans `edge`) | D-1849; `sym.mjs`: IMPORT the export |
 
 **Rule of thumb:** if you cannot explain the change by pointing at a C `if`,
 call order, struct field, or macro expansion, it is probably trace tailoring.
@@ -194,19 +188,31 @@ can be 0 when sessions fail. Always `strict-output-check` on green sessions.
 
 ---
 
-## 7. When stuck (after two falsifications)
+## 7. When stuck — measure C, do not theorize
 
-Stop patching the symptom. Reconstruct the C call path; inspect state/input
-boundaries; port a tighter prerequisite; or park in the divergence log and
-return to `CURRENT.md` primary. Do not spin on the same theory.
+**Geometry owner → probe first.** If the blocked owner is a
+level-wide scan or any level-gen function (`mineralize`, `bound_digging`,
+`wallification`, `place_lregion`, `makecorridors`…), C only *noticed* a
+terrain difference there; the writer is upstream and an RNG count cannot
+say which cell. `node scripts/geom-probe.mjs <session-id> [--step N]`
+records a wizard `^F` map on the C recorder, replays JS and prints every
+differing cell plus the mineralize-eligible diff. Run it before opening a
+second C function (D-1849).
 
-**Prefer a temp C dump at the cited locus** (compare to JS; revert after)
-over another FORCE / topline patch peel when:
+**Evidence grades.** Every NOTES / D-log claim about C state says
+*measured* (probe, recorded screen, temp C dump) or *inferred* (JS-only).
+A JS FORCE/DIAG that restores an RNG count is not a falsifier and never
+localizes (D-1847 → D-1849).
 
-| Stuck on | Dump | Why |
-|----------|------|-----|
-| Geometry / flip / land | `flip_level`, `place_lregion`, stairs, `dndest` | tty cursor misread as map (#1087, #1092) |
-| Keystream / `--More--` | `NEED_MORE`, topline, `WIN_STOP`, pending more at `hitmsg`/`unmul`/`yn` | JS may queue a More C already dismissed (#1127, #1132) |
+**After two falsifications, or ~40 calls without a C measurement:** stop
+patching the symptom. Take the measurement, reconstruct the C call path,
+port a tighter prerequisite, or park with the exact probe command in
+`NOTES.md`. Do not open another callee.
+
+**Temp C dump at the cited locus** (revert after) for keystream /
+`--More--` state (`NEED_MORE`, `WIN_STOP`, pending more at
+`hitmsg`/`unmul`/`yn`; #1127) or state the map cannot show
+(`dndest`, flags; #1092).
 
 
 ---
@@ -232,7 +238,7 @@ in the journal.
 - Ship confident partials — name every deferral in the map section.
 - Over-edit or under-edit — one iteration ≈ one semantic **cluster** (§2b).
 - Confuse observation with rule — trace coords are evidence, not control flow.
-- Infer C geometry or more-state from screens — dump C at the locus (§7).
+- Infer C state from JS, a FORCE, or an RNG count — measure C (§7).
 - Skip cohort — Tourist green ≠ Rogue/orc/combat proof.
 - Stack shims — prefer **delete wrong JS + re-port from C**.
 - Reach for Node `fs` — **Rule #2**; Chrome must load it too.
@@ -246,9 +252,9 @@ in the journal.
 Commit with why (C locus / D-ID / verification); **`git push origin
 HEAD`**. The supervisor fail-closes on density / authority / empty port
 and pushes if you forgot (`docs/AGENT-PORT-LOOP.md`); green / full-suite
-regression and banned-pattern hits (bare `FORCE`/`DIAG`, seed gate,
-`console.log`) are logged and the loop continues — rewrite those lines
-next iter. No `--force`, no amend of pushed commits, no `git reset
+regression and banned-pattern hits (`FORCE`/`DIAG`/seed gate/`console.log`)
+are logged and the loop continues — rewrite those lines next iter.
+No `--force`, no amend of pushed commits, no `git reset
 --hard`. `STOP_AGENT_LOOP.md` is gitignored; only the supervisor writes
 `0`. `finish-iteration.mjs --commit` stamps `**Addressed:** D-NNNN`,
 archives the `- [x]` queue row and rotates the journal; the short hash
@@ -262,12 +268,10 @@ goes in the **next** real commit (never a stamp-only SHA).
 node scripts/brief.mjs <cfn>              # orient: C + JS + map + D-rows + corpus (1 call)
 node scripts/verify.mjs --fn <cfn>        # corpus verify + green/strict + cohort (+full)
 node scripts/finish-iteration.mjs --commit   # index/journal/CURRENT/NOTES/stamps from the D-log entry, push
-node scripts/hidden-proxy.mjs status|queue|show <id>   # hidden-score proxy
+node scripts/geom-probe.mjs <session-id> [--step N]   # C ^F map vs JS: cell diff (geometry owners)
 node frozen/ps_test_runner.mjs sessions   # full public score (audit iters); CURRENT from __RESULTS_JSON__
-node scripts/check-hot-docs.mjs --fix     # caps — read statuses, act on FAIL/ROTATE/REFILL only
 ```
 
 ---
 
-*When in doubt: read the C, port the C, verify broadly, write small notes for the
-next amnesiac agent.*
+*When in doubt: read the C, port the C, verify broadly, leave small notes.*
