@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
+- [x] `mcastu.c` missing mcast_* arms — clerical-caster switch (mcast_clone_wiz, mcast_confuse_you, mcast_death_touch, mcast_destroy_armor, mcast_disappear, mcast_fire_pillar, mcast_geyser, mcast_insects, mcast_lightning, mcast_paralyze, mcast_stun_you, mcast_weaken_you, touch_of_death, death_inflicted_by). Every clerical caster desyncs the RNG on cast (HELDOUT Tier C). **Addressed:** D-1825
+
+
 - [x] `mkmaze.c` makemaz `tut-2` — tutorial second variant (27 ln, trivial; completes the tutorial pair). From `dat/tut-2.lua` (HELDOUT Tier B). **Addressed:** D-1895
 
 

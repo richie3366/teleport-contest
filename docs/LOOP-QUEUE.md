@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mcastu.c` missing mcast_* arms — clerical-caster switch (mcast_clone_wiz, mcast_confuse_you, mcast_death_touch, mcast_destroy_armor, mcast_disappear, mcast_fire_pillar, mcast_geyser, mcast_insects, mcast_lightning, mcast_paralyze, mcast_stun_you, mcast_weaken_you, touch_of_death, death_inflicted_by). Every clerical caster desyncs the RNG on cast (HELDOUT Tier C).
 - [ ] `read.c` missing seffect_* arms — scroll effects (seffect_amnesia, seffect_charging, seffect_confuse_monster, seffect_earth, seffect_enchant_armor, seffect_mail, seffect_scare_monster, seffect_stinking_cloud, do_stinking_cloud, can_center_cloud, p_glow3) (HELDOUT Tier C).
 - [ ] `hack.c` findtravelpath — absent; travel is adjacent/greedy only (TOP30 #29).
 - [ ] `polyself.c` missing domonability arms — dopoly, dohide, dogaze, dospit, dospinweb, dosummon, domindblast, doremove, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C).

@@ -77,7 +77,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `mkmaze.c` makemaz `tut-2` — tutorial second variant (27 ln, trivial; completes the tutorial pair). From `dat/tut-2.lua` (HELDOUT Tier B).
+**Next cluster:** Open `mcastu.c` missing mcast_* arms — popped; CLOSED as stale (no code): all 14 arms live in `js/mcastu.js` since D-1825 (review 795 ACCEPT-WITH-DEBT, zero C-wrongs); `hidden-proxy verify` vacuous (0 blocked), proxy queue shows no mcast owner; named omits unchanged (`mon_spell_hits_spot`, `has_aggravatables`, `buzzmu`, `cursetxt`). Next pop: `read.c` seffect_* arms.
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1895 (index).** Recent **D-1820:** `makemaz` `soko2-2`
