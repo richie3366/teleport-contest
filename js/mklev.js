@@ -10749,6 +10749,15 @@ function load_cav_strt() {
         [53, 14], [55, 15], [63, 10], [65, 9], [67, 10], [69, 11],
     ]) splev_create_monster('bugbear', 0, { rx, ry });
 
+    // des.wallify() (Cav-strt.lua:94) — C lspo_wallify no-arg:
+    // xstart-1 .. xstart+xsize+1 (sp_lev.c:5965 → wallify_map :2865)
+    wallify_map(
+        (g.splev_xstart | 0) - 1,
+        (g.splev_ystart | 0) - 1,
+        (g.splev_xstart | 0) + (g.splev_xsize | 0) + 1,
+        (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
+    );
+
     // C load_special: wallification → flip_level_rnd → fixup_special
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
@@ -10882,6 +10891,15 @@ function load_cav_loca() {
     for (let i = 0; i < 4; i++) splev_create_monster('hill giant', 0);
     splev_create_monster('H', 0);
 
+    // des.wallify() (Cav-loca.lua:93) — C lspo_wallify no-arg:
+    // xstart-1 .. xstart+xsize+1 (sp_lev.c:5965 → wallify_map :2865)
+    wallify_map(
+        (g.splev_xstart | 0) - 1,
+        (g.splev_ystart | 0) - 1,
+        (g.splev_xstart | 0) + (g.splev_xsize | 0) + 1,
+        (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
+    );
+
     // C load_special: wallification → flip_level_rnd → fixup_special
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
@@ -10969,6 +10987,15 @@ function load_cav_goal() {
     splev_create_monster('shrieker', undefined, { rx: 26, ry: 13 });
     splev_create_monster('shrieker', undefined, { rx: 25, ry: 8 });
     splev_create_monster('shrieker', undefined, { rx: 45, ry: 11 });
+
+    // des.wallify() (Cav-goal.lua:59) — C lspo_wallify no-arg:
+    // xstart-1 .. xstart+xsize+1 (sp_lev.c:5965 → wallify_map :2865)
+    wallify_map(
+        (g.splev_xstart | 0) - 1,
+        (g.splev_ystart | 0) - 1,
+        (g.splev_xstart | 0) + (g.splev_xsize | 0) + 1,
+        (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
+    );
 
     // C load_special: wallification → flip_level_rnd → fixup_special
     if (!g.level.flags.corrmaze)

@@ -1276,7 +1276,10 @@ sp_amask_to_amask(AM_SPLEV_CO) + Shaman Karnov armor/club +5 + chest +
 neanderthals + 2 fixed pits + 12 hostile bugbears; loca mazelevel/
 hardfloor no-noteleport + fixed stairs + hostile h/H stock; goal
 solidfill-only + whole-map lit + Sceptre of Might mace + asleep
-Chromatic Dragon + shriekers; Ran-fila mines+noflip fillers);
+Chromatic Dragon + shriekers; Ran-fila mines+noflip fillers;
+D-1893 des.wallify() epilogue in strt/loca/goal via existing
+wallify_map on splev extents (sp_lev.c lspo_wallify :5965 → wallify_map
+:2865), lua-final before wallification → flip → fixup);
 **knox** (D-1853; Fort Ludios
 76x20 solidfill vault: branch + up/down tele, throne COURT, vault gold/trap
 iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);

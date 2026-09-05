@@ -72,3 +72,5 @@ rests solely on C-wrong 1 above, which no gate covers (no corpus
 session reaches quest levels).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1893

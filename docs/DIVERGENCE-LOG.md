@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-1893 — mkmaze.c Cav quest des.wallify() in load_cav_strt/loca/goal
+
+- **Status:** fixed (Must-fix review 861; green + strict + cohort 7/7 + full 44/44 PASS; hidden vacuous — no corpus session blocked on makemaz/wallify_map, no quest level reached)
+- **Symptom:** `load_cav_strt`/`loca`/`goal` (D-1891) built byte-identical cave maps but left perimeters STONE: all three lua files end with `des.wallify()` (Cav-strt.lua:94, Cav-loca.lua:93, Cav-goal.lua:59) and the commit contained zero `wallify_map` calls in those loaders.
+- **C locus:** `dat/Cav-strt.lua:94` / `dat/Cav-loca.lua:93` / `dat/Cav-goal.lua:59` → `sp_lev.c` `lspo_wallify` `:5965` (no-arg → `wallify_map(xstart-1, ystart-1, xstart+xsize+1, ystart+ysize+1)`) → `wallify_map` `:2865` (STONE cell with an IS_ROOM/CROSSWALL neighbour in the 3x3 becomes HWALL iff the neighbour row differs else VWALL; clamped to 1..COLNO-1, 0..ROWNO-1). `wallification()` (`mkmaze.c:290`) only cleans existing walls and never converts STONE, so it is not a substitute.
+- **JS was:** `js/mklev.js` `load_cav_strt`/`load_cav_loca`/`load_cav_goal` went from last content (bugbears / H / shriekers) straight to `wallification → flip_level_rnd → fixup_special` with no `wallify_map` call.
+- **Fix:** Tou-goal/Ran-goal epilogue line in lua order (after last monster, before wallification → flip → fixup) in all three loaders: `wallify_map((g.splev_xstart|0)-1, (g.splev_ystart|0)-1, (g.splev_xstart|0)+(g.splev_xsize|0)+1, (g.splev_ystart|0)+(g.splev_ysize|0)+1)` — reuses the existing local `wallify_map` clone (`sp_lev.c:2865` mirror), no new import, no RNG impact (pure terrain pass), flip-invariant slot matching Tou-goal.
+- **JS:** `js/mklev.js` (+27); `docs/c-js-map/data.md` Cav row; `reviews/loop-unattended/861-b405a225-cav-quest-loaders.md` stamp; `docs/LOOP-QUEUE.md` Must-fix row.
+- **Verify:** `node scripts/verify.mjs --fn makemaz` →
+  - `PASS  syntax   1 changed js file(s): js/mklev.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `note  hidden   verify makemaz: no corpus session is blocked on it at HEAD — a vacuous verify is NOT a corpus PASS. If the queue row cited N corpus blocks, re-run with --base <the commit that row was queued at>` (expected: review 861 states no corpus session reaches quest levels; row cites zero blocks, shipped on public gates like D-1891)
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`
+  - `PASS  full     44/44 passing (auto: shared file changed)`
+  - `VERIFY: PASS`
+- **Named omissions:** unchanged from D-1891 (humidity-aware `get_location` for water-likers; `ensure_way_out`; `spo_end_moninvent` m_dowear; flip_level lregion coord update) — all carried on the map row.
+- **Next:** next Open row (`mhitu.c` hitmsg, 1 corpus block).
+
 ## D-1892 — zap.c makewish wish livelog + wintty.c tty_putstr compress/wrap (do_statusline1 corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus moved past to a later step; green + strict + cohort 7/7 + full 44/44 PASS)

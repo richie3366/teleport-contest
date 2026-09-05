@@ -41,10 +41,10 @@ D-1892): **253 / 265 PASS (95.5 %)** excl. 13 env-only rows;
 RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`suit_simple_name`/
 `hitmsg`/`show_conduct` (parked) ×1 (+ unattributed `!` ×2, `-` ×1, motd, level-change).
-Reviews **835–842** (D-1865…D-1892): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1892):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1892):
-8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1892):
+Reviews **835–842** (D-1865…D-1893): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1893):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1893):
+8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1893):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -80,10 +80,11 @@ before fire getobj (D-0484 skip reverted).
 **Next cluster:** Must-fix `mkmaze.c` Cav quest missing `des.wallify()` (review 861: `load_cav_strt`/`loca`/`goal` omit the lua-final wallify; cave perimeters stay STONE). Then Open `mhitu.c` hitmsg — blocks 1/278 corpus sessions (first at step 43): C «The wraith touches you! Farvel level 1.--More--» vs JS «The wraith touches you! Farvel level 1.». Probe: `node scripts/hidden-proxy.mjs verify hitmsg` (tour-Valkyrie-70014-d5-8-15-17-22). Fresh block after archived D-1261.
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1892 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1893 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1893** `dat/Cav-strt.lua:94` / `dat/Cav-loca.lua:93` / `dat/Cav-goal.lua:59` → `sp_lev.c` `lspo_w — Tou-goal/Ran-goal epilogue line in lua order (after last monster, before wallification → flip → fixup) in all three loaders: `wallify_map((g.splev_xstart|0)-1, (g.splev_ystart|0)-1, (g.splev_xstart|0)+(g.splev_xsize|0)+1
 **D-1892** `zap.c` `makewish` — `makewish` ports the three livelog arms in C order on same-edge imports only (`livelog_printf` from `pline.js`, `uhis` next to `uhim`, `artifact_origin` next to the artifact imports, `LL_WISH`/`LL_CONDUCT`/`LL_ARTIFACT`/
 **D-1891** `dat/Cav-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76x20 map, whole-map un — `load_cav_strt` (STONE solidfill + triple flags, byte-identical map, whole-map unlit, temple via Pri-strt flood idiom with needfill FILL_NORMAL — filled=1 per C `sp_lev.c` lspo_region `:5600`, not FILL_LVFLAGS — 6 ordina
 **D-1890** `dat/Mon-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, Pri-strt-identical 20×7 — `load_mon_strt` (Pri-strt skeleton: STONE solidfill + triple flags, byte-identical map, whole-map lit, temple with `needfill = 0` per C `sp_lev.c` lspo_region `:5600` default — Pri filled=2 takes FILL_LVFLAGS — same add_
@@ -91,11 +92,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1888** `dat/Tou-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76×20 map with a litera — `load_tou_strt` in lua order (centered map, whole-map lit, morgue as FILL_NORMAL rect room with topologize + add_doors_to_room per the Tou-loca helper, explicit-lit rects as `light_region`, down stair, walls/bars non_dig
 **D-1887** `dat/Tou-loca.lua` (solidfill " ", mazelevel/hardfloor, 76×20 map with `\\`-escaped `S.\.S — `load_tou_loca` (whole-map lit, 8 FILL_NORMAL rect rooms with topologize + add_doors_to_room in lua order, 19 ordinary rects as `light_region(..., litstate_rnd(-1))` + 1 unlit + 1 lit area in lua order, stairs, whole-map
 **D-1886** `pager.c` `do_screen_description` object loop `:1355–1400` (shown `%` matches FOOD_CLASS s — glyph-driven object arm in `describe_looked` (oclass via `glyph_to_obj` + `game.objects` oc_class + `def_oc_syms` explain; all classes 1–17 except VENOM; ROCK → "boulder"; out `<ch> an(explain) (lookat)`, `first` = look_
-**D-1885** `dat/Hea-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76×20 map, `replace_ter — `load_hea_strt` (Sam-strt shape: STONE solidfill, triple flags, centered 76×20 map with `\\`-escaped `S.\.S`, map-relative `lspo_replace_terrain_region(1,1,74,18,POOL,ROOM,10)` immediately after the map per lua order, wh
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1892; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1893; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

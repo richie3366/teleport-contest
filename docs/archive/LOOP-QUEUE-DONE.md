@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `botl.c` do_statusline1 — blocks 1/278 corpus sessions (first at step 821): C «Logged events:» vs JS «Logged events:». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (random-seed0360-wizard-world-tour-4ac145da). Fresh block after archived D-1842. **Addressed:** D-1892
+- [x] `mkmaze.c` Cav quest missing `des.wallify()` — `load_cav_strt`/`loca`/`goal` omit the lua-final `des.wallify()` (Cav-strt.lua:94, Cav-loca.lua:93, Cav-goal.lua:59 → `lspo_wallify` `sp_lev.c:5965` → `wallify_map` over map extents, STONE→HWALL/VWALL per `sp_lev.c:2865`); cave perimeters stay STONE. Fix: Tou-goal/Ran-goal epilogue line (`wallify_map` on splev extents before wallification→flip→fixup) in all three loaders; no RNG impact. Source: reviews/loop-unattended/861-b405a225-cav-quest-loaders.md. **Addressed:** D-1893
+
+
+- [x] `botl.c` do_statusline1 — blocks 1/278 corpus sessions (first at step 821): C «Logged events:» vs JS «Logged events:». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (random-seed0360-wizard-world-tour-4ac145da). Fresh block after archived D-1842. **Addressed:** D-1892 `60215712`
 
 
 - [x] `mkmaze.c` makemaz `cav-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Caveman quest 0/5 (330 ln; Caveman 1/44 sessions). From `dat/cav-*.lua` (HELDOUT Tier B). **Addressed:** D-1891 `b405a225`

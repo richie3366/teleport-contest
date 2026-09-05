@@ -8,7 +8,7 @@ Intent vs deliverable: subject promises Hea-strt/-loca/-goal/-fila/-filb
 (Healer 0/5 → 5/5; 388 lua lines) plus deletion of the wiz-goal and
 val-strt live rows as stale duplicates of archived D-1818/D-1852. The
 diff delivers exactly that; no new module edges. Queue surgery
-verified against the archive: `Wiz-goal` **Addressed:** D-1818
+verified against the archive: `Wiz-goal` **Addressed:** D-1818 `2c339c26`
 `2c339c26` and `Val-strt…` **Addressed:** D-1852 `e84fa9d3` — the
 deleted live rows were genuine stale duplicates, correctly removed.
 
