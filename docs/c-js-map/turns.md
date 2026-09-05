@@ -855,7 +855,8 @@ names, cmdq_pop at getpos start
 JS: `js/pager.js` — partial
 
 **first About/`#version` → nhlib `shuffle(align)`** (D-0077/D-0110); 
-version/options text approximate; full OPTIONS_USED dlb parse deferred
+version/options text approximate; full OPTIONS_USED dlb parse deferred; 
+**`doversion` / `'V'` versionshort live (D-1881)** — `mdlib.c` `mdlib_version_string` / `version_id_string` + `version.c` `version_string` / `getversionstring` in `js/version.js`, `doversion` in `js/pager.js`, `versionshort` EXT_CMDS runner in `js/getline.js`, `'V'` arm in `js/cmd.js`. Named: `bannerc_string`, `status_version`, `early_version_info`/`dump_version_info`, git-suffix data arms.
 
 ### `src/wield.c`
 

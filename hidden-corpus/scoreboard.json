@@ -1,6 +1,6 @@
 {
- "commit": "83ef35b2",
- "at": "2026-09-05T20:16:22.912Z",
+ "commit": "5ba0bdf9",
+ "at": "2026-09-05T20:22:16.757Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -3761,19 +3761,19 @@
   },
   "random-seed0900-tourist-explore-actions-614da9aa": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 2936,
    "rngT": 2936,
-   "scrM": 111,
+   "scrM": 112,
    "scrT": 112,
-   "kind": "screen",
-   "step": 83,
+   "kind": null,
+   "step": null,
    "steps": 112,
-   "owner": "version_id_string",
-   "loc": "mdlib.c:340",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "MacOS NetHack Version 5.0.0 - last build May 2 2026 12:00:00.",
-   "jsTopline": "Unknown command 'V'.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "random-seed1150-caveman-explore-move-7645b33e": {

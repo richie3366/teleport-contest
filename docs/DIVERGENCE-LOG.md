@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-1881 — mdlib.c version_id_string + version.c doversion ('V' versionshort)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)
+- **Symptom:** `random-seed0900-tourist-explore-actions-614da9aa` step 83/112 screen-first at `mdlib.c:340`: C row 0 `MacOS NetHack Version 5.0.0 - last build May  2 2026 12:00:00.` vs JS `Unknown command 'V'.`
+- **C locus:** `mdlib.c` `version_id_string` `:316–344` (`%s NetHack%s Version %s%s - last %s %s.` over PORT_ID, subbuf, `mdlib_version_string` `:300–308`, statusbuf, build/revision, build_date) + `version.c` `doversion` `:156–165` (`iflags.menu_requested → doextversion`, else `pline(getversionstring)`) + `cmd.c:1926` `'V' → doversion` (IFBURIED|GENERALCMD|CMD_M_PREFIX). Contest build: PORT_ID `MacOS` (__APPLE__, `global.h`), no PORT_SUB_ID, NH_STATUS_RELEASED (`patchlevel.h`) so empty subbuf/statusbuf, `001-deterministic-runtime.patch` pins build_date to `May  2 2026 12:00:00`; no RUNTIME_PORT_ID / NETHACK_GIT_* strings, so `getversionstring` (`version.c:35–80`) returns the version_id unchanged.
+- **JS was:** no `version_id_string` / `mdlib_version_string` / `getversionstring` / `doversion` anywhere in `js/`; `js/cmd.js` rhack had no `'V'` arm (fell through to `Unknown command`), and `js/getline.js` EXT_CMDS had `version` but no `versionshort` runner, so the `cmdbind_get(86)` tlist fallback also returned no runner.
+- **Fix:** `js/version.js` ports `mdlib_version_string`, `version_id_string`, `version_string`, `getversionstring` (pure, no imports; existing VERSION exports kept for `const.js`); `js/pager.js` adds `doversion` (menu_requested → `doextversion`, else `pline(getversionstring())`, ECMD_OK) and `doextversion` now takes its first line from `getversionstring()` (byte-identical); `js/getline.js` adds the non-autocomplete `versionshort` EXT_CMDS runner → `doversion`; `js/cmd.js` binds `'V'` (repeat_command/txt + direct rhack arm, move 0). The `m`-prefix gate needs no edit: `cmdbind_get('V')` already returns the CMD_M_PREFIX `versionshort` row.
+- **JS:** `js/version.js` (`mdlib_version_string`, `version_id_string`, `version_string`, `getversionstring`), `js/pager.js` (`doversion`, `doextversion` first line), `js/getline.js` (`versionshort` runner), `js/cmd.js` (`'V'` arm + repeat entries).
+- **Verify:**
+  - `node scripts/verify.mjs --fn version_id_string` → VERIFY: PASS — syntax 4 files; rule2; hidden `1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (`random-seed0900-tourist-explore-actions-614da9aa: PASS`); green 2/2; strict both sessions; cohort 7/7.
+  - `node -e` smoke: `["5.0.0","MacOS NetHack Version 5.0.0 - last build May  2 2026 12:00:00.",…]` — matches the C row byte-for-byte (double space after May).
+- **Named omissions:** `bannerc_string` (title-banner path, no corpus block); `status_version` / VI flags; `early_version_info` / `dump_version_info` pastebuf/raw paths; `get_feature_notice_ver` save-compat checks; RUNTIME_PORT_ID / git-sha/branch/prefix suffix arms (data-unset, structure ported).
+- **Next:** next Open queue row in order.
+
 ## D-1880 — getpos.c getpos_help whatis multi-pick + valid/hilite tail (getpos_help corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus moved past to a later owner; green + strict + cohort PASS)

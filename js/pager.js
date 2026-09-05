@@ -14,6 +14,7 @@
 // PORT_HELP deferred.
 
 import { game } from './gstate.js';
+import { getversionstring } from './version.js';
 import { rn2, rn2_on_display_rng } from './rng.js';
 import { nhgetch } from './input.js';
 import {
@@ -1787,10 +1788,23 @@ export async function doextversion() {
     get_lua_version_shuffle();
     // C getversionstring → nomakedefs.version_id (runner normalizes date).
     const lines = [
-        'MacOS NetHack Version 5.0.0 - last build May  2 2026 12:00:00.',
+        getversionstring(),
         ...doextversion_runtime_lines(),
     ];
     await show_text_pages(lines);
+    return 0;
+}
+
+/**
+ * C ref: version.c doversion `:156–165` — the #versionshort command
+ * (cmd.c key 'V'). menu_requested (m prefix, CMD_M_PREFIX) takes the
+ * doextversion arm; otherwise pline the getversionstring text.
+ * ECMD_OK, no turn, no RNG.
+ * @returns {Promise<number>}
+ */
+export async function doversion() {
+    if (game.iflags?.menu_requested) return doextversion();
+    await pline(getversionstring());
     return 0;
 }
 
