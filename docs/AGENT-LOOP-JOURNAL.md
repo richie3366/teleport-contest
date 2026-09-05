@@ -8,6 +8,24 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — audit reviews 827–834 (D-1857…D-1864) + cadence score
+
+**Scope:** 8 JS-touching SHAs since audit 818–826 (`b8b347b8..8ab2608f`), one SHA
+at a time, each verify claim re-measured with `hidden-proxy.mjs verify <fn> --base
+HASH~1`. All 8 D-log verify claims confirmed true (no vacuous checks, no regressions).
+**Verdicts:** 5 ACCEPT (828 Sam loaders — lua maps 20/20/20/16 re-verified; 830
+fill_zoo; 831 Garden — replace_terrain RNG order read in `sp_lev.c:5127–5133`; 832
+spec_applies — imported, not cloned; 833 vision pit — byte-faithful arm), 2
+ACCEPT-WITH-DEBT (827 `sleep_slee_mm` drops `finish_meating` mimic-appearance reset,
+map debt; 829 shared `surface` covers 9/15 C legs, map debt), 1 QUALITY-RISK (834).
+**Must-fix (1, prepended):** `mhitm_ad_phys_u` `dmgval(otmp, null)` → `dmgval(otmp,
+game.youmonst)` — C `weapon.c:215` derefs `mon->data`, caller passes `&youmonst`;
+`bigmonst(undefined)` measured `false`, so polymorphed-big hero takes small dice
+(+ draw-count shifts). Siblings pass real defenders (`mhitm.js:1176`). Debt alongside:
+`do_stone_u` clone lacks killer attribution (shared with ston arm).
+**Score:** full `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed
+`48+0.38/turn` (R² 0.85). Hidden proxy 236/265 (89.1%), RNG 99.58%, screens 99.5%.
+**Next:** pop the Must-fix first, alone (review 834 §Actionable-1).
 ## 2026-09-05 — D-1864 uhitm.c mhitm_ad_phys mhitu weapon arm (knockback RNG order)
 
 **C locus:** `uhitm.c` `mhitm_ad_phys` mhitu arm `:4038–4126` (AT_WEAP+otmp: corpse `do_stone_u`/done `:4047–4060`, `dmgval` + GOP `rn1(4,3)` `:4061–4066`, `artifact_hit`-or-`hitmsg` `:4067–4072`, silver sear `:4075–4079`, `tmp -= rnd(-u.uac)` + Half `:4083–4089`, pudding split `:4091–4105`, `rustm` `:4106`, dieroll poison `:4107–4121`; non-weapon `magr != u.ustuck` `:4122–4123`); caller order `mhitu.c` `hitmu` `:1190–1193` (adtyping before `mhitm_knockback`).

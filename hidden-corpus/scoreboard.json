@@ -1,6 +1,6 @@
 {
- "commit": "5886a6fb",
- "at": "2026-09-05T12:13:44.528Z",
+ "commit": "a599d103",
+ "at": "2026-09-05T15:55:57.517Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -872,7 +872,7 @@
   "explore-seed0360-wizard-world-tour-19199bfa": {
    "src": "corpus",
    "passed": false,
-   "rngM": 121046,
+   "rngM": 121050,
    "rngT": 121050,
    "scrM": 880,
    "scrT": 881,
@@ -4153,7 +4153,7 @@
   "tour-Caveman-70003-d3-6-10-11-12": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3315,
+   "rngM": 3303,
    "rngT": 15165,
    "scrM": 3,
    "scrT": 50,
@@ -4179,7 +4179,7 @@
    "steps": 50,
    "owner": "mkswamp",
    "loc": "mkroom.c:559",
-   "jsOwner": "fill_ordinary_room(mklev.js:24298)",
+   "jsOwner": "fill_ordinary_room(mklev.js:24977)",
    "cTopline": "You materialize on a different level!--More--",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -4408,7 +4408,7 @@
   "tour-Samurai-70015-d5-8-15-17-22": {
    "src": "corpus",
    "passed": false,
-   "rngM": 602,
+   "rngM": 611,
    "rngT": 16196,
    "scrM": 0,
    "scrT": 50,
@@ -4485,7 +4485,7 @@
    "steps": 50,
    "owner": "mhitm_mgc_atk_negated",
    "loc": "uhitm.c:87",
-   "jsOwner": "mhitm_knockback(mhitm.js:1744)",
+   "jsOwner": "mhitm_knockback(mhitm.js:1835)",
    "cTopline": "The wraith touches you! Farvel level 1.--More--",
    "jsTopline": "",
    "error": null

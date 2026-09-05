@@ -837,3 +837,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [824-532d3c44-do-screen-description-collapse.md](./824-532d3c44-do-screen-description-collapse.md) | `532d3c44` | D-1854 pager.c do_screen_description blank-sym collapse | **ACCEPT** |
 | [825-5983e72d-dowhatdoes-dispatch.md](./825-5983e72d-dowhatdoes-dispatch.md) | `5983e72d` | D-1855 cmd.c '&' dispatches dowhatdoes | **ACCEPT** |
 | [826-3ca95421-bigrm2-ice-replace.md](./826-3ca95421-bigrm2-ice-replace.md) | `3ca95421` | D-1856 sp_lev.c lspo_replace_terrain bigrm-2 ice on darkness:grow() | **ACCEPT** |
+| [827-e1e7dce0-mhitm-ad-slee.md](./827-e1e7dce0-mhitm-ad-slee.md) | `e1e7dce0` | D-1857 uhitm.c mhitm_ad_slee sleep attack | **ACCEPT-WITH-DEBT** |
+| [828-cc99daee-sam-quest-loaders.md](./828-cc99daee-sam-quest-loaders.md) | `cc99daee` | D-1858 mkmaze.c makemaz Sam-strt/loca/goal/fila/filb | **ACCEPT** |
+| [829-b22e00db-moverock-sokoban-diagonal.md](./829-b22e00db-moverock-sokoban-diagonal.md) | `b22e00db` | D-1859 hack.c moverock_core Sokoban diagonal | **ACCEPT-WITH-DEBT** |
+| [830-bea18bd9-fill-zoo-anthole.md](./830-bea18bd9-fill-zoo-anthole.md) | `bea18bd9` | D-1860 mkroom.c fill_zoo COCKNEST/ANTHOLE | **ACCEPT** |
+| [831-5e4b0423-garden-fill.md](./831-5e4b0423-garden-fill.md) | `5e4b0423` | D-1861 themerms.lua Garden fill | **ACCEPT** |
+| [832-c0ed9964-spec-applies-resists.md](./832-c0ed9964-spec-applies-resists.md) | `c0ed9964` | D-1862 artifact.c spec_applies ATTK resists | **ACCEPT** |
+| [833-cde16427-vision-pit-recalc.md](./833-cde16427-vision-pit-recalc.md) | `cde16427` | D-1863 vision.c pit 3x3 + post-rhack recalc | **ACCEPT** |
+| [834-8ab2608f-mhitm-ad-phys.md](./834-8ab2608f-mhitm-ad-phys.md) | `8ab2608f` | D-1864 uhitm.c mhitm_ad_phys mhitu weapon arm | **QUALITY-RISK** |

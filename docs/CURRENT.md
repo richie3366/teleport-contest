@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-05** — full `sessions` at **D-1856**
-(audit **818–826**, `3ca95421`). Fortress held 44/44: seed0030
+Score last measured: **2026-09-05** — full `sessions` at **D-1864**
+(audit **827–834**, `8ab2608f`). Fortress held 44/44: seed0030
 **D-1816**, seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
-**11,405**/11,405, RNG **792,838**/792,838. Speed `47+0.36/turn`
+**11,405**/11,405, RNG **792,838**/792,838. Speed `48+0.38/turn`
 (R² 0.85).
 
 ## Score
@@ -33,15 +33,16 @@ Score last measured: **2026-09-05** — full `sessions` at **D-1856**
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `44+0.37/turn` (R² 0.864) |
+| Speed label | `48+0.38/turn` (R² 0.85) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-05 at
-D-1856): **230 / 265 PASS (86.8 %)** excl. 13 env-only rows;
-RNG 99.44 %; screens 99.2 %. Top owners: `hitum`/`moverock_core`/
-`mhitm_ad_phys`/`menu_remarm`/`!`/`dog_invent` 2 (parked; `mpickstuff`).
-Reviews **818–826** (D-1848…D-1864): 7 ACCEPT, 2 ACCEPT-WITH-DEBT, no
-Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
+D-1864): **236 / 265 PASS (89.1 %)** excl. 13 env-only rows;
+RNG 99.58 %; screens 99.5 %. Top owners: `mkswamp`/
+`maybe_generate_rnd_mon`/`climb_pit`/`m_move`/`mhitm_mgc_atk_negated`/
+`dopush`/`zoo_mon_sound`/`minimal_xname` (+ parked `dog_invent`, `!`).
+Reviews **827–834** (D-1857…D-1864): 5 ACCEPT, 2 ACCEPT-WITH-DEBT,
+1 QUALITY-RISK, 1 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
@@ -73,7 +74,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `uhitm.c` mhitm_ad_phys knockback — 2 corpus blocks; C `rnd(2)` vs JS `mhitm_knockback` `rn2(3)`.
+**Next cluster:** Must-fix `mhitm_ad_phys_u` `dmgval(otmp, null)` → `dmgval(otmp, game.youmonst)` (review 834; C `weapon.c:215` passes `mdef`). Then Open knockback row.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
