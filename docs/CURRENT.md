@@ -42,9 +42,9 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`itemactions`/`mdrop_obj` (parked)/
 `readobjnam_postparse1`/`do_statusline1`/`hitmsg`/`show_conduct`
 (parked) ×1 (+ unattributed `!` ×2, `-` ×1, motd, level-change).
-Reviews **835–842** (D-1865…D-1887): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1887):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1887):
+Reviews **835–842** (D-1865…D-1888): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1888):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1888):
 8 ACCEPT, 0 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -77,13 +77,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `mkmaze.c` makemaz `tou-strt` — Tourist quest start 4/5 (134 ln; loca/goal/fila/filb ship D-1887). Shipped D-1886 (pager.c object-glyph arm; queued readobjnam_postparse1 was a literal-match misattribution, 1 corpus PASS, 44/44 held).
+**Next cluster:** Open `mkmaze.c` makemaz `tou-strt` — Tourist quest start 4/5 (134 ln; Twoflower + branch levregion; loca/goal/fila/filb shipped Tourist 4/5). From `dat/Tou-strt.lua` (HELDOUT Tier B).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1887 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1888 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1888** `dat/Tou-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76×20 map with a litera — `load_tou_strt` in lua order (centered map, whole-map lit, morgue as FILL_NORMAL rect room with topologize + add_doors_to_room per the Tou-loca helper, explicit-lit rects as `light_region`, down stair, walls/bars non_dig
 **D-1887** `dat/Tou-loca.lua` (solidfill " ", mazelevel/hardfloor, 76×20 map with `\\`-escaped `S.\.S — `load_tou_loca` (whole-map lit, 8 FILL_NORMAL rect rooms with topologize + add_doors_to_room in lua order, 19 ordinary rects as `light_region(..., litstate_rnd(-1))` + 1 unlit + 1 lit area in lua order, stairs, whole-map
 **D-1886** `pager.c` `do_screen_description` object loop `:1355–1400` (shown `%` matches FOOD_CLASS s — glyph-driven object arm in `describe_looked` (oclass via `glyph_to_obj` + `game.objects` oc_class + `def_oc_syms` explain; all classes 1–17 except VENOM; ROCK → "boulder"; out `<ch> an(explain) (lookat)`, `first` = look_
 **D-1885** `dat/Hea-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76×20 map, `replace_ter — `load_hea_strt` (Sam-strt shape: STONE solidfill, triple flags, centered 76×20 map with `\\`-escaped `S.\.S`, map-relative `lspo_replace_terrain_region(1,1,74,18,POOL,ROOM,10)` immediately after the map per lua order, wh
@@ -91,11 +92,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1883** `uhitm.c` `erode_armor` `:126–185` (`rn2(5)` slot loop; case 1 body-armor always breaks) + — exported `erode_armor` from `js/mhitm.js` (same body, C cite `:126–185`; `passivemm` caller updated); ported the `which_armor` youmonst slot table in `js/worn.js` (`u.uarm`/`uarmc`/`uarmh`/`uarms`/`uarmg`/`uarmf`/`uarmu`
 **D-1882** `objnam.c` `xname_flags` ROCK_CLASS STATUE `:802–814` — ported the C Snprintf envelope in `pretty_base` with C citations — `obj_pmname_corpse` for the pm name, `type_is_pname_objnam ? "" : the_unique_pm ? "the " : just_an(pmname)` for the inner article, `Role_if(PM_ARCHEOLOGI
 **D-1881** `mdlib.c` `version_id_string` `:316–344` (`%s NetHack%s Version %s%s - last %s %s.` over P — `js/version.js` ports `mdlib_version_string`, `version_id_string`, `version_string`, `getversionstring` (pure, no imports; existing VERSION exports kept for `const.js`); `js/pager.js` adds `doversion` (menu_requested → `
-**D-1880** `getpos.c` `getpos_help` `:167–307`, tail `:244–299` — ported the tail in C order with C citations — live `getpos_getvalid`/`getpos_hilitefunc` arms (module state installed via `getpos_sethilite`), `skip_non_mons` as a `skipNonMons` boolean with the tail running under `!terr
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1887; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1888; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

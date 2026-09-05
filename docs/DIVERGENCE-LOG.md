@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-1888 — mkmaze.c makemaz Tou-strt load_special (Tourist quest 5/5)
+
+- **Status:** fixed (Open queue row; green + strict + cohort 7/7 + full 44/44 PASS; hidden vacuous — no corpus session blocked on makemaz)
+- **Symptom:** Tourist quest 4/5 — `Tou-strt` had no loader in `load_special_proto`, so the Tourist quest start (Twoflower's besieged level) fell through to a blank. Split out of the D-1887 row (520 ln exceeded the 600 cap at ~718).
+- **C locus:** `dat/Tou-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76×20 map with a literal-backslash door row, whole-map lit + morgue (14,01,20,03) lit=0 filled=1 + 7 unlit + 1 lit rects, down stair (66,03), branch levregion cell (68,14), whole-map non_diggable, 11 locked + 4 closed + 3 open doors, 12 giant spiders + s/s + 8 forest centaurs + C, Twoflower at (64,03) with walking shoes +3 / hawaiian shirt +3 invent + chest, 11 guides + 2 watchmen placed, giant eel + 2 piranhas + 2 krakens placed, 9 random traps) via `mkmaze.c` `makemaz` → `load_special` (wallification → flip_level_rnd → fixup_special epilogue, same flags shape as Sam-strt).
+- **JS was:** no `load_tou_strt` in `js/mklev.js` (dispatch fell through to blank).
+- **Fix:** `load_tou_strt` in lua order (centered map, whole-map lit, morgue as FILL_NORMAL rect room with topologize + add_doors_to_room per the Tou-loca helper, explicit-lit rects as `light_region`, down stair, walls/bars non_diggable, 18 doors with D_ISOPEN for the 3 opens, lua-order siege monsters with single-letter class ids, Twoflower + CUSTOM_INVENT via `splev_discard_default_minvent` + `l_create_object`/`mpickobj` per the Sato/MoT idiom, chest, placed guides/watchmen/river monsters, 9 `splev_create_trap`, wallification → `flip_level_rnd(3, false)` → single-cell LR_BRANCH `place_lregion` at pre-flip offsets → `fixup_special` per the Kni/Sam-strt shortcut); dispatch arm + `LOW_BOOTS`/`HAWAIIAN_SHIRT` otyp consts + makemaz docstring row. No new module edges.
+- **JS:** `js/mklev.js` (+191/−1: loader + dispatch + 2 consts + docstring); `docs/c-js-map/data.md` quest-loader row (Tourist 5/5); `docs/LOOP-QUEUE.md` head row; `docs/CURRENT.md` Next cluster.
+- **Verify:**
+  - Preflight `node scripts/verify.mjs --no-cohort` before any edit → VERIFY: PASS (green + strict clean).
+  - Embedded-map probe: TOU_STRT_MAP runtime-evaluated byte-identical to the lua `des.map` rows (20×76, `\\`→`\` unescaped; CRLF stripped).
+  - `node scripts/verify.mjs --fn makemaz` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/mklev.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `note hidden verify makemaz: no corpus session is blocked on it at HEAD` (vacuous — content row with no cited blocks, shipped on the public gates like D-1887); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `PASS full 44/44` (auto: shared file changed).
+- **Named omissions:** humidity-aware `get_location` for water-likers (carried on the map row); `ensure_way_out` (carried on the map row).
+- **Next:** next Open queue row in order (`mkmaze.c` makemaz `ran-strt`/`-loca`/`-goal`/`-fila`/`-filb` Ranger quest 0/5).
+
 ## D-1887 — mkmaze.c makemaz Tou-loca/goal/fila/filb load_special (Tourist quest 4/5)
 
 - **Status:** fixed (Open queue row, partial: loca/goal/fila/filb ship; Tou-strt stays open; green + strict + cohort + full 44/44 PASS; hidden vacuous — no corpus session blocked on makemaz)

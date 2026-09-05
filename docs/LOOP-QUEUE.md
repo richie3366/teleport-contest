@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmaze.c` makemaz `tou-strt` — Tourist quest start 4/5 (134 ln; Twoflower + branch levregion; loca/goal/fila/filb shipped Tourist 4/5). From `dat/Tou-strt.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `ran-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Ranger quest 0/5 (360 ln; Ranger 3/44 sessions). From `dat/ran-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `mon-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Monk quest 0/5 (402 ln; Monk 2/44 sessions). From `dat/mon-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `cav-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Caveman quest 0/5 (330 ln; Caveman 1/44 sessions). From `dat/cav-*.lua` (HELDOUT Tier B).
