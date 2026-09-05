@@ -788,6 +788,12 @@ place≡JS land**(43,6)** (screen `>`@31/`@`(42,6) misleading); last=77/sum80 de
 **D-0654 empty-statue `resists_ston`/`poly_when_stoned`/`propagate` + 
 extract `mresists`** (worn/artifact STONE_RES deferred; **D-1826 `medusa-2`/`-4`**); 
 **D-0566 `light_region` wall-expand for bigrm-2/8 `des.region(...,"lit")`** + 
+**D-1846 `bigrm-2` darkness choice 0–2 `des.region(...,"unlit")`**
+(`dat/bigrm-2.lua` `:34–48`; argc=2 does not grow; Healer `^V` Dlvl:10
+`rn2(4)=2` side strips; ice `selection:grow` after percent(25) still
+named) + **`splev_apply_centered_map`/`splev_apply_map_at` force
+`loc.lit=false`** (C `lspo_map` lit defaults FALSE; JS `sel_set_ter(false)`
+is still nochange) + 
 **D-0802 minetn-5/minend-2** (castle/other interior-only lit loops still deferred); 
 **D-0540…D-0542** soldier polearm / is_elf / QUANTMECH; **D-0543 `soko1-2`**; 
 **D-0544 LONG_WORM initworm**; **D-0545 makemon worm-seg MON_AT**; **D-0546 S_MUMMY wrapping**; 

@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1846 — teleport.c level_tele Nowhere ynq / branch clamp + priestname + bigrm-2 unlit
+
+- **Status:** fixed (2 corpus PASS, 1 moved past; green + cohort + full `sessions` 44/44). Continue-unfinished of iter-2256 leftover (`js/` uncommitted).
+- **Symptom:** 3 hidden-corpus first-diffs at `^V` materialize (`teleport.c:1427`): Ranger/Barbarian/Healer all `"You materialize on a different level!"` with map/topline misses. Ranger needed `"The priestess of Mars intones:"`; Barbarian Rogue `S_ndoor` as `+`; Healer Dlvl:10 `bigrm-2` fully lit in JS vs C choice-2 dark side strips (`rn2(4)=2 @ bigrm-2.lua:34`). Same dest depth/RNG through the lua; JS burned darkness RNG then left the room lit.
+- **C locus:** `teleport.c` `level_tele` `:1254–1276` (Nowhere `ynq` suicide) / `:1388–1422` (Quest/mines/sanctum deepest + invoked `"Sorry..."` + `You_cant` `"anywhere"`/`"here"`); `priest.c` `priestname` `:302–367` / `do_name.c` `x_monnam` `:886–904`; `symbols.c` `init_rogue_symbols` `:196–198`; `mklev.c` `dosdoor` `:647–648`; `dat/bigrm-2.lua` `:34–48` (`des.region(darkness,"unlit")`; argc=2 does not grow); `sp_lev.c` `lspo_map` lit defaults FALSE.
+- **JS was:** Nowhere deferred-cancel; deepest clamp omitted; `x_monnam` fell through for priests; Rogue doors used ASCII `S_ndoor` `.`; `load_bigrm_2` comment said leave lit (wrong for choice 0–2); `sel_set_ter(false)` is nochange.
+- **Fix:** port Nowhere `ynq` + Quest/mines/sanctum clamp + invoked `"Sorry..."`; `priestname` from `x_monnam`; Rogue `S_ndoor`/`S_*stair` `+`/`%` and `dosdoor` D_NODOOR first; `splev_apply_*` force map `lit=false`; `load_bigrm_2` unlit rectangles for choice 0/1/2 (`light_region(..., false)`). Ice `selection:grow` still named (percent burned).
+- **JS:** `js/teleport.js` `level_tele`; `js/do_name.js` `priestname` / `x_monnam`; `js/display.js` `terrain_glyph`; `js/mklev.js` `dosdoor` / `splev_apply_centered_map` / `load_bigrm_2`.
+- **Verify:** `node scripts/verify.mjs --fn level_tele` → PASS syntax (4 js files); PASS rule2; PASS hidden verify level_tele: 2 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Barbarian-70024-d5-8-15-17-22 PASS; tour-Healer-70012-d3-6-10-11-12 → m_move step 48 was 22; tour-Ranger-70008-d3-6-10-11-12 PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** bymenu=FALSE `print_dungeon`; debug_fuzzer; `bigrm-2` ice replace `selection:grow`; hallu `halu_gname` pantheon RNG. Healer later owner is `m_move`.
+- **Next:** Open `mklev.c` `mineralize` (2 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
+
 ## D-1845 — getpos.c getpos matching[] '/' + AUTODESC '#'
 
 - **Status:** fixed (2 corpus moved past; green + cohort)

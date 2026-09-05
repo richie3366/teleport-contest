@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1846 teleport.c level_tele Nowhere ynq / clamp + priestname + bigrm-2 unlit
+
+**C locus:** `teleport.c` `level_tele` `:1254–1276` / `:1388–1422`; `priest.c` `priestname` `:302–367`; `dat/bigrm-2.lua` `:34–48`; `symbols.c` `init_rogue_symbols`; `mklev.c` `dosdoor` `:647–648`.
+**JS:** `js/teleport.js` `level_tele`; `js/do_name.js` `priestname`; `js/display.js` `terrain_glyph`; `js/mklev.js` `load_bigrm_2` / `dosdoor`.
+**Change:** Nowhere `ynq` + Quest/mines/sanctum clamp + invoked `"Sorry..."`; `priestname`; Rogue `S_ndoor`/`dosdoor` D_NODOOR; `bigrm-2` darkness unlit (Healer was not `lspo_map` lit=FALSE). Continue-unfinished of iter-2256 leftover.
+**Verify:** `node scripts/verify.mjs --fn level_tele` → PASS syntax (4 js files); PASS rule2; PASS hidden verify level_tele: 2 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Barbarian-70024 PASS; tour-Healer-70012 → m_move step 48 was 22; tour-Ranger-70008 PASS); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+**Named:** bymenu=FALSE `print_dungeon`; debug_fuzzer; ice `selection:grow`; hallu `halu_gname` pantheon RNG. Healer later owner is `m_move`.
+**Next:** Open `mklev.c` `mineralize` (2 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
 ## 2026-09-05 — D-1845 getpos.c getpos matching[] '/' + AUTODESC '#'
 
 **C locus:** `getpos.c` `getpos` `:960–972` (`NHKF_GETPOS_AUTODESC` toggle + pline); `:1008–1114` (LIMITVIEW / MENU / SELF / MOVESKIP / mMoOdDxXaAzZ then matching[] defsyms; k>0 scan or `"Can't find dungeon feature '%c'."`).

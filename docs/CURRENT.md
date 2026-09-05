@@ -72,15 +72,17 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1845**. Open `getpos.c` `getpos` matching[] `'/'` + AUTODESC `'#'` shipped.
-**Next cluster:** Open `teleport.c` `level_tele` — 2 corpus blocks; named-level `^V` materialize (screen match, later RNG).
+**Suite 44/44** at **D-1846**. Open `teleport.c` `level_tele` leftover cluster shipped
+(Ranger/Barbarian PASS; Healer moved past).
+**Next cluster:** Open `mklev.c` `mineralize` — 2 corpus blocks; C `rn2(1000)` vs JS `place_lregion` `rn2(79)`.
 Save-oracle for tagged restore Open (`save-oracle.mjs probe --omit`).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1845 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1846 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1846** `teleport.c` `level_tele` `:1254–1276` / `:1388–1422`; `priest.c` `priestname` `:302–367`; `dat/bigrm-2.lua` `:34–48` — Nowhere ynq + Quest/mines/sanctum clamp + invoked `"Sorry..."`; `priestname`; Rogue `S_ndoor`/`dosdoor` D_NODOOR; `bigrm-2` darkness unlit (Healer `rn2(4)=2` sides). Ice `selection:grow` still named.
 **D-1845** `getpos.c` `getpos` `:960–972` (`NHKF_GETPOS_AUTODESC` toggle + pline); `:1008–1114` (LIMI — port matching[] from `defsyms[].sym` (walls/room/corr/door/ndoor skipped) so `/` is k>0 then Can't find; AUTODESC / LIMITVIEW / MENU / MOVESKIP before matching; `aAzZ` cycle; `getloc_moveskip` glyph-skip; pick_chars LOOK
 **D-1844** `mhitu.c` `summonmu` `:956–1030` (`is_were` human `!Protection && !rn2(5-(night()*2))` / b — port the C were arm (form change, then maybe summon helpers / plines).
 **D-1843** `pager.c` `lookat` `:656–802` (`glyph_is_unexplored` → `"unexplored area"`; cmap `S_stone` — port `lookat` glyph-first (self / swallow / mon / obj / trap / warning / invisible / nothing / unexplored / cmap switch / else).
@@ -91,7 +93,7 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1838** `hack.c` `pickup_checks` `:3788–3872` (uswallow tongue/`loot_mon`; pool/lava dive; `!OBJ_A — port the C body: furniture-specific nothing-msgs (stairs affixed), pool/lava reach, swallow tongue/`-2`, pit-aware `can_reach_floor`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1845; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1846; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

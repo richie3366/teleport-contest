@@ -1879,6 +1879,9 @@ function splev_apply_centered_map(mapstr) {
             const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
             if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
             sel_set_ter(xx, yy, mptyp, false);
+            // C lspo_map string form: lit defaults FALSE → set_levltyp_lit
+            const loc = game.level.at(xx, yy);
+            if (loc && !IS_LAVA(mptyp)) loc.lit = false;
             // C lspo_map: SpLev_Map[x][y] = 1 for each map cell written
             game.SpLev_Map.add(`${xx},${yy}`);
         }
@@ -1903,6 +1906,9 @@ function splev_apply_map_at(mapstr, x, y) {
             const mptyp = mapfrag_get(mf, xx - x, yy - y);
             if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
             sel_set_ter(xx, yy, mptyp, false);
+            // C lspo_map table form: lit defaults FALSE unless lua sets it
+            const loc = game.level.at(xx, yy);
+            if (loc && !IS_LAVA(mptyp)) loc.lit = false;
             game.SpLev_Map.add(`${xx},${yy}`);
         }
     }
@@ -1952,7 +1958,8 @@ function soko_load_epilogue(allowFlips = 3) {
 
 /**
  * C ref: dat/bigrm-2.lua via load_special.
- * Named omissions: darkness choice 0–2 ice replace (selection:grow);
+ * Darkness choice 0–2 `des.region(...,"unlit")` live (D-1846). Named
+ * omissions: ice replace `selection:grow` after percent(25);
  * flip_level_rnd (noflip); ensure_way_out / solidify / premap.
  */
 function load_bigrm_2() {
@@ -1993,11 +2000,26 @@ function load_bigrm_2() {
     // des.region(selection.area(01,01,73,16),"lit") → light_region expands walls
     light_region(xstart + 1, ystart + 1, xstart + 73, ystart + 16, true);
 
-    // math.random(0,3) → nh.random(0,4) → 0+rn2(4); choice==3 → no darkness
+    // math.random(0,3) → nh.random(0,4) → 0+rn2(4); choice==3 → no darkness.
+    // C bigrm-2.lua :34–48 — argc=2 unlit does not grow (lspo_region).
     const choice = lua_random2(0, 3);
     if (choice === 0 || choice === 1 || choice === 2) {
-        // darkness regions + percent(25) ice replace — named omission envelope:
-        // still burn choice RNG; leave lit (wrong for 0–2, rare for this seed).
+        const unlit = (x1, y1, x2, y2) => {
+            light_region(
+                xstart + x1, ystart + y1, xstart + x2, ystart + y2, false,
+            );
+        };
+        if (choice === 0) {
+            unlit(1, 7, 22, 9);
+            unlit(24, 1, 50, 5);
+            unlit(24, 11, 50, 16);
+            unlit(52, 7, 73, 9);
+        } else if (choice === 1) {
+            unlit(24, 1, 50, 16);
+        } else {
+            unlit(1, 1, 22, 16);
+            unlit(52, 1, 73, 16);
+        }
         if (percent(25)) {
             /* ice replace deferred with selection:grow */
         }
@@ -22700,7 +22722,7 @@ function dosdoor(x, y, aroom, type) {
     const shdoor = in_rooms(x, y, 0).length > 0;
     if (!IS_WALL(loc.typ)) type = DOOR;
     loc.typ = type;
-        if (type === DOOR) {
+    if (type === DOOR) {
             if (!rn2(3)) {
                 if (!rn2(5)) loc.flags = D_ISOPEN;
                 else if (!rn2(6)) loc.flags = D_LOCKED;
@@ -22711,6 +22733,8 @@ function dosdoor(x, y, aroom, type) {
             } else {
                 loc.flags = shdoor ? D_ISOPEN : D_NODOOR;
             }
+            // C mklev.c :647–648 — Rogue first so trapped-door mimics skip
+            if (Is_rogue_level(game.u?.uz)) loc.flags = D_NODOOR;
             if (loc.flags & D_TRAPPED) {
                 // C ref: mklev.c dosdoor — trapped door may become mimic
                 if (level_difficulty() >= 9 && !rn2(5)

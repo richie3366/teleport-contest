@@ -1179,7 +1179,8 @@ M_AP_MONSTER mappear / invis+saddle adjectives / is_mplayer `rank_of`+
 wrappers `l_monnam`/`some_mon_nam`/`Some_Monnam`/`YMonnam`/`noit_*`
 through `x_monnam`; `hacklib.c` `lcase`; `objnam.c` `just_an` one/eu/uke/
 unicorn/x-consonant; apply `l_monnam` + dothrow/mhitu/steal `Some_Monnam`
-clones rebound. Named: priest/minion `priestname`); 
+clones rebound. Priest/minion `priestname` D-1846 (`priest.c`
+`:302–367` via `js/do_name.js`; hallu `halu_gname` pantheon RNG still named)); 
 **`uhitm` live `a_monnam` D-1544**; **`namefloorobj` getpos + vobj_at / object_from_map + Hallu unames + call_ok D-1555**; 
 **`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889; 
 **seemimic/pit/NODIAG/boulder D-1299**; `goodpos` / mintrap aftermath named); 
@@ -3156,8 +3157,11 @@ seed5006 8473→10953) + **past-main-dungeon `find_hell`→valley** (D-0904; see
 escape dlevel 0 + `goto_level` `ledger_no<=0` `done(ESCAPED)`** (D-1764;
 `teleport.c` `:1321–1385` / `do.c` `:1517–1519`; buried ball before `next_to_u`;
 live `js/teleport.js` + `js/do.js`; `lev_by_name` is **D-1780**;
-named: Nowhere yn, Quest·mines·sanctum clamp, invoked gate,
-debug_fuzzer); 
+**Nowhere `ynq` + Quest/mines/sanctum deepest clamp + invoked
+`"Sorry..."` + `"anywhere"`/`"here"` You_cant D-1846** (`teleport.c`
+`:1254–1276` / `:1388–1422`; dest-level `bigrm-2` darkness + Rogue
+`S_ndoor`/`dosdoor` D_NODOOR + `priestname` in the same cluster);
+named: bymenu=FALSE `print_dungeon`; debug_fuzzer); 
 **`lev_by_name` D-1780** (C `dungeon.c:2096–2170`; caller
 `teleport.c` `:1248` `else if ((newlev = lev_by_name(buf)) == 0)
 newlev = atoi(buf)`; custom `#annotate` label wins first via
@@ -3177,8 +3181,9 @@ imports it);
 **`goto_level` delivers `dfr_post_msg` via pline before `onquest`** (C `maybe_lvltport_feedback`); 
 **Pri firsttime flushes materialize `--More--`** (D-0662); 
 **D-0615/D-0616:** Home→Dlvl:37 was qt_pager NHW_TEXT stealing keys (fixed); 
-`lev_by_name` is **D-1780**; omit Quest·mines·sanctum deepest clamp/invoked 
-gate/bymenu=FALSE; Nowhere yn; water/earth/astral `load_special`; `SURFACE_AT` drawbridge; 
+`lev_by_name` is **D-1780**; D-1846 Nowhere ynq + Quest/mines/sanctum
+clamp + invoked gate; omit bymenu=FALSE `print_dungeon`; debug_fuzzer;
+water/earth/astral `load_special`; `SURFACE_AT` drawbridge; 
 **`goodpos_onscary` altar S_VAMPIRE / SCR_SCARE_MONSTER / strict Elbereth (D-1102; 
 local `sengr_at` HEADSTONE/time; Inhell/endgame Elbereth off; vampshifter altar is onscary-only)**; 
 **`goodpos` pool/lava `is_swimmer`/`m_in_air`/`likes_lava` + eel `rn2(13)` (D-0653)** + 

@@ -3332,6 +3332,10 @@ export function terrain_glyph(loc, x, y) {
         };
     }
     case DOOR:
+        // C init_rogue_symbols: S_ndoor = S_hodoor = S_vodoor = '+'
+        if ((game.currentgraphics | 0) === ROGUESET) {
+            return { ch: '+', color: NO_COLOR, dec: false };
+        }
         // C ref: display.c back_to_glyph DOOR — S_hodoor/S_vodoor when open.
         // DEC: both open-door cmaps are meta-a (checkerboard).
         // ASCII: horizontal → S_hodoor '|'; else S_vodoor '-'.
@@ -3349,6 +3353,10 @@ export function terrain_glyph(loc, x, y) {
             ? { ch: '~', color: NO_COLOR, dec: true }
             : { ch: '.', color: NO_COLOR, dec: false };
     case STAIRS: {
+        // C init_rogue_symbols: S_upstair = S_dnstair = '%'
+        if ((game.currentgraphics | 0) === ROGUESET) {
+            return { ch: '%', color: NO_COLOR, dec: false };
+        }
         // C ref: display.c back_to_glyph STAIRS + defsym.h PCHAR
         // known_branch_stairs → S_br*stair CLR_YELLOW; else S_*stair
         // CLR_GRAY (tty_map_color → NO_COLOR). Direction from ladder flag.
