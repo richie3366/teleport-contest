@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `getpos.c` getpos_help — 1 corpus block screen-first at step 342 («Use 'h', 'j', 'k', 'l' to move the cursor to a m» vs same-plus; random-seed0367-priest-quest-tour-01388a3a).
 - [ ] `mdlib.c` version_id_string — 1 corpus block screen-first at step 83 («MacOS NetHack Version 5.0.0 - last build May 2 2026 12:00:00» vs «Unknown command 'V'.»; random-seed0900-tourist-explore-actions-614da9aa).
 - [ ] `invent.c` dolook — 1 corpus block screen-first at step 18 («You see here a historic statue of a forest centaur.» vs «You see here a statue of a forest centaur.»; tour-Archeologist-70010-d3-6-10-11-12).
 - [ ] `uhitm.c` erode_armor — 1 corpus block RNG-first at step 47 (C `rn2(5)` in erode_armor vs JS `rn2(3)` mhitm_knockback; tour-Healer-70025-d5-8-15-17-22; unblocked by the climb_pit port above).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `mkmaze.c` makemaz `wiz-goal` — Wizard quest 4/5 → 5/5 (132 ln, best cost ratio). From `dat/wiz-goal.lua` (HELDOUT Tier A #1).
 - [ ] `mkmaze.c` makemaz `val-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Valkyrie quest 0/5 (371 ln; Valkyrie 3/44 sessions). From `dat/val-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `hea-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Healer quest 0/5 (388 ln; Healer 2/44 sessions, incl. active tour-Healer corpus session). From `dat/hea-*.lua` (HELDOUT Tier B).
+- [ ] `objnam.c` readobjnam_postparse1 — 1 corpus block screen-first (topline) at step 345 («%a piece of food (a food ration)--More--» vs «·a doorway or the floor of a room or the dark part of a room or ice»; random-seed0367-priest-quest-tour-01388a3a; follow-up owner after the getpos_help port above).
+- [ ] `mkmaze.c` makemaz `tou-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Tourist quest 0/5 (520 ln; Tourist 3/44 sessions). From `dat/tou-*.lua` (HELDOUT Tier B).
+- [ ] `mkmaze.c` makemaz `ran-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Ranger quest 0/5 (360 ln; Ranger 3/44 sessions). From `dat/ran-*.lua` (HELDOUT Tier B).
+- [ ] `mkmaze.c` makemaz `mon-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Monk quest 0/5 (402 ln; Monk 2/44 sessions). From `dat/mon-*.lua` (HELDOUT Tier B).
+- [ ] `mkmaze.c` makemaz `cav-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Caveman quest 0/5 (330 ln; Caveman 1/44 sessions). From `dat/cav-*.lua` (HELDOUT Tier B).
 
 ## Parked (do not pop)
 

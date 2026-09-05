@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-1880 — getpos.c getpos_help whatis multi-pick + valid/hilite tail (getpos_help corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus moved past to a later owner; green + strict + cohort PASS)
+- **Symptom:** `random-seed0367-priest-quest-tour-01388a3a` step 342/352 screen-first at `getpos.c:176`: topline `Use 'h', 'j', 'k', 'l' to move the cursor to a monster, object or location.` matched both sides; row 14 C `    Type a '.' or ',' or ';' or ':' when you are at the right place.` vs JS `    Type a '.' when you are at the right place.`, with the four whatis detail rows below it missing on the JS side.
+- **C locus:** `getpos.c` `getpos_help` `:167–307`, tail `:244–299` — `getpos_getvalid` / `getpos_hilitefunc` putstr arms (`:244–255`), autodsec (`:256–257`), dead cmdassist Sprintf (`:258–266`, no putstr — sbuf is overwritten by the `Type a` Snprintf, so no line), `skip_non_mons:` label (`:267`, inside `if (!terrainmode)` but reached via the `:205` goto even when terrainmode is set), `doing_what_is = (goal == what_is_a_location)` (`:269`, `what_is_a_location = "a monster, object or location"`, `pager.c:1670`, passed only by `pager.c:1910`), four-pick kbuf (`:270–284`), and the four `describe current spot` detail lines incl. the `flags.help && !force` `prompt if 'more info',` infix (`:285–299`).
+- **JS was:** `js/getpos.js` `getpos_help()` always emitted the single-pick `Type a '.' ...` line (doing_what_is branch named-omitted), carried `getpos_getvalid`/`getpos_hilitefunc` as named-deferred, and wrapped the whole `if (!terrainmode)` tail in the `goal === 'a monster'` skip-if — so C's goto target (the `Type a` line for the wizard `a monster` goal) was wrongly skipped too.
+- **Fix:** ported the tail in C order with C citations — live `getpos_getvalid`/`getpos_hilitefunc` arms (module state installed via `getpos_sethilite`), `skip_non_mons` as a `skipNonMons` boolean with the tail running under `!terrainmode || skipNonMons` (goto-into-block semantics), `doing_what_is` as a value compare against `'a monster, object or location'` (exact: only `pager.js` passes that string, matching the only C caller of the global), four-pick kbuf plus the four detail lines with the `(game.flags?.help !== false) && !force` infix (same default-On idiom as `pager.js:1706`), and an explicit no-line comment for the dead cmdassist Sprintf. No new imports.
+- **JS:** `js/getpos.js` (+51/−9); `docs/c-js-map/turns.md` getpos section.
+- **Verify:** `node scripts/verify.mjs --fn getpos_help` →
+  - `PASS  syntax   1 changed js file(s): js/getpos.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `PASS  hidden   verify getpos_help: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`
+  - `random-seed0367-priest-quest-tour-01388a3a: moved → readobjnam_postparse1 at step 345 (was 342)` — the getpos_help screen now matches; the new blocker is a later step under a different writer.
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`; skip full (heuristic: getpos.js not in shared set)
+  - `VERIFY: PASS`
+- **Named omissions:** `cmd_from_func` custom move/run/rush binds (JS still hardcodes h/j/k/l, H/J/K/L, G/g defaults; no corpus block); full `getpos_menu`/GFILTER_AREA flood/cmdq_pop/mouse/do_run-prefix (unchanged map debt in the same section).
+- **Next:** next Open row (`mdlib.c` version_id_string).
+
 ## D-1879 — wintty.c erase_menu_or_text corner dismiss keeps WIN_STATUS (process_menu_window corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort + full 44/44 PASS)

@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1880 getpos.c getpos_help whatis multi-pick + valid/hilite tail (getpos_help corpus owner)
+
+**C locus:** `getpos.c` `getpos_help` `:167–307`, tail `:244–299` — `getpos_getvalid` / `getpos_hilitefunc` putstr arms (`:244–255`), autodsec (`:256–257`), dead cmdassist Sprintf (`:258–266`, no putstr — sbuf is overwritten by the `Type a` Snprintf, so no line), `skip_non_mons:` label (`:267`, inside `if (!terrainmode)` but reached via the `:205` goto even when terrainmode is set), `doing_what_is = (goal == what_is_a_location)` (`:269`, `what_is_a_location = "a monster, object or location"`, `pager.c:1670`, passed only by `pager.c:1910`), four-pick kbuf (`:270–284`), and the four `describe current spot` detail lines incl. the `flags.help && !force` `prompt if 'more info',` infix (`:285–299`).
+**JS:** `js/getpos.js` (+51/−9); `docs/c-js-map/turns.md` getpos section.
+**Change:** ported the tail in C order with C citations — live `getpos_getvalid`/`getpos_hilitefunc` arms (module state installed via `getpos_sethilite`), `skip_non_mons` as a `skipNonMons` boolean with the tail running under `!terrainmode || skipNonMons` (goto-into-block semantics), `doing_what_is` as a value compare against `'a monster, object or location'` (exact: only `pager.js` passes that string, matching the only C caller of the global), four-pick kbuf plus the four detail lines with the `(game.flags?.help !== false) && !force` infix (same default-On idiom as `pager.js:1706`), and an explicit no-line comment for the dead cmdassist Sprintf. No new imports.
+**Verify:** `node scripts/verify.mjs --fn getpos_help` →
+**Named:** `cmd_from_func` custom move/run/rush binds (JS still hardcodes h/j/k/l, H/J/K/L, G/g defaults; no corpus block); full `getpos_menu`/GFILTER_AREA flood/cmdq_pop/mouse/do_run-prefix (unchanged map debt in the same section).
+**Next:** next Open row (`mdlib.c` version_id_string).
 ## 2026-09-05 — D-1879 wintty.c erase_menu_or_text corner dismiss keeps WIN_STATUS (process_menu_window corpus owner)
 
 **C locus:** `win/tty/wintty.c` `erase_menu_or_text` `:966–985` — corner (`offx != 0`) dismiss is `docorner(offx, maxrow + 1, 0)`: rows below the menu window (incl. WIN_STATUS 22–23) stay painted; only fullscreen (`offx == 0`, non-clear) does `docrt(); flush_screen(1)`. `src/windows.c` `select_menu` `:1858–1863` holds `gb.bot_disabled` across the whole menu, so the corner `docorner` → `bot()` is a no-op and status simply persists. C `query_category` (space finish) → `query_objlist` therefore never blanks rows 22–23.

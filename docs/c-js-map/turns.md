@@ -816,8 +816,8 @@ deferred; full `docrt` Blind deferred; `redraw_map` body deferred);
 **`NHKF_GETPOS_SHOWVALID` `'$'` / `AUTODESC` `'#'` / `LIMITVIEW` / `MENU` / `MOVESKIP` before matching** D-1845 — default `#` never reaches tree/bars feature scan; matching[] defsyms (incl. `S_rslant` `'/'` → Can't find…; `S_ss1` `'0'` D-0928 #1135); `getloc_moveskip` glyph-skip; pick_chars LOOK_QUICK/ONCE/VERBOSE; `aAzZ` cycle; restore `u.dx`; 
 `getpos_menu` / GFILTER_AREA flood / cmdq_pop start / `cmd_from_func` custom binds / mouse / do_run prefix still named); 
 **`?` → `getpos_help` NHW_MENU + `show_goal_msg`** (D-0819; 
-`cmd_from_func` custom binds / **getpos_getvalid `(invalid target)` D-0899**; 
-S_goodpos hilite glyphs / whatis multi-pick / **mMoOdDxXaAzZ `gather_locs` cycle** D-0928 #1189 / D-1845 
+`cmd_from_func` custom binds named / **getpos_getvalid/hilite help lines + whatis multi-pick tail** D-1880; 
+S_goodpos hilite glyphs / **mMoOdDxXaAzZ `gather_locs` cycle** D-0928 #1189 / D-1845 
 (`getpos_menu` / GFILTER_AREA still named; 
 **GLOC_INTERESTING / GLOC_VALID FALLTHROUGH D-1217**); 
 **stairs terrain match requires `seenv`** (D-0779; blank `disp_ch` is not known); 
