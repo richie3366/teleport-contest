@@ -1,6 +1,6 @@
 {
- "commit": "db5d8f30",
- "at": "2026-09-05T20:37:41.543Z",
+ "commit": "c9e049a8",
+ "at": "2026-09-05T20:53:21.170Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -3543,16 +3543,16 @@
    "passed": false,
    "rngM": 120587,
    "rngT": 120587,
-   "scrM": 824,
+   "scrM": 859,
    "scrT": 861,
    "kind": "screen",
-   "step": 824,
+   "step": 859,
    "steps": 861,
-   "owner": "x_monnam",
-   "loc": "do_name.c:967",
+   "owner": "show_conduct",
+   "loc": "insight.c:2122",
    "jsOwner": null,
-   "cTopline": "@a human or elf (human wizard called wizard)--More--",
-   "jsTopline": "Ebenezum walked before me along the closest thing we could",
+   "cTopline": "Ebenezum walked before me along the closest thing we could",
+   "jsTopline": "More info about \"human wizard\"? [yn] (n)",
    "error": null
   },
   "random-seed0367-priest-quest-tour-01388a3a": {

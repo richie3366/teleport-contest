@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `uhitm.c` erode_armor — 1 corpus block RNG-first at step 47 (C `rn2(5)` in erode_armor vs JS `rn2(3)` mhitm_knockback; tour-Healer-70025-d5-8-15-17-22; unblocked by the climb_pit port above). **Addressed:** D-1883
+- [x] `uhitm.c` erode_armor — 1 corpus block RNG-first at step 47 (C `rn2(5)` in erode_armor vs JS `rn2(3)` mhitm_knockback; tour-Healer-70025-d5-8-15-17-22; unblocked by the climb_pit port above). **Addressed:** D-1883 `c9e049a8`
 
 
 - [x] `invent.c` dolook — 1 corpus block screen-first at step 18 («You see here a historic statue of a forest centaur.» vs «You see here a statue of a forest centaur.»; tour-Archeologist-70010-d3-6-10-11-12). **Addressed:** D-1882 `db5d8f30`

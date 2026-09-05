@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-05** — full `sessions` at **D-1875**
-(audit **843–845**, `061abc6d`). Fortress held 44/44: seed0030
+Score last measured: **2026-09-05** — full `sessions` at **D-1883**
+(audit **846–853**, `c9e049a8`). Fortress held 44/44: seed0030
 **D-1816**, seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
-**11,405**/11,405, RNG **792,838**/792,838. Speed `46+0.37/turn`
+**11,405**/11,405, RNG **792,838**/792,838. Speed `45+0.36/turn`
 (R² 0.86).
 
 ## Score
@@ -33,18 +33,19 @@ Score last measured: **2026-09-05** — full `sessions` at **D-1875**
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `46+0.37/turn` (R² 0.86) |
+| Speed label | `45+0.36/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-05 at
-D-1875): **246 / 265 PASS (92.8 %)** excl. 13 env-only rows;
-RNG 99.60 %; screens 99.6 %. Top owners: `dog_invent` ×2 (parked) +
-`climb_pit`/`dopush` (parked)/`itemactions`/`mdrop_obj` (parked)/
-`do_look`/`show_gamelog`/`process_menu_window`/`show_conduct`/
-`getpos_help` ×1 (+ unattributed `!`, motd, level-change).
+D-1883): **251 / 265 PASS (94.7 %)** excl. 13 env-only rows;
+RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
+`dopush` (parked)/`itemactions`/`mdrop_obj` (parked)/
+`readobjnam_postparse1`/`do_statusline1`/`hitmsg`/`show_conduct`
+(parked) ×1 (+ unattributed `!` ×2, `-` ×1, motd, level-change).
 Reviews **835–842** (D-1865…D-1883): 7 ACCEPT,
 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1883):
-3 ACCEPT, 0 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1883):
+8 ACCEPT, 0 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,

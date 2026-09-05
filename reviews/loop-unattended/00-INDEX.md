@@ -856,3 +856,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [843-d6db25d5-artifact-hit-plines.md](./843-d6db25d5-artifact-hit-plines.md) | `d6db25d5` | D-1873 artifact.c artifact_hit elemental plines | **ACCEPT** |
 | [844-b26671b1-trap-glyph-lookat.md](./844-b26671b1-trap-glyph-lookat.md) | `b26671b1` | D-1874 pager.c do_screen_description trap-glyph | **ACCEPT** |
 | [845-ef2bf265-dog-eat-gate.md](./845-ef2bf265-dog-eat-gate.md) | `ef2bf265` | D-1875 dogmove.c dog_eat message gate | **ACCEPT** |
+| [846-305998a7-climb-pit.md](./846-305998a7-climb-pit.md) | `305998a7` | D-1876 trap.c climb_pit shared pit-escape port | **ACCEPT** |
+| [847-2183ee64-do-look-q-bell.md](./847-2183ee64-do-look-q-bell.md) | `2183ee64` | D-1877 pager.c do_look whatis-menu `q` bells | **ACCEPT** |
+| [848-baf24c95-pluslvl-livelog.md](./848-baf24c95-pluslvl-livelog.md) | `baf24c95` | D-1878 exper.c pluslvl/losexp livelog | **ACCEPT** |
+| [849-c209ccc7-erase-menu-dismiss.md](./849-c209ccc7-erase-menu-dismiss.md) | `c209ccc7` | D-1879 wintty.c erase_menu_or_text corner dismiss | **ACCEPT** |
+| [850-5ba0bdf9-getpos-help-tail.md](./850-5ba0bdf9-getpos-help-tail.md) | `5ba0bdf9` | D-1880 getpos.c getpos_help tail | **ACCEPT** |
+| [851-b5fbc93d-version-id-string.md](./851-b5fbc93d-version-id-string.md) | `b5fbc93d` | D-1881 mdlib.c version_id_string + doversion | **ACCEPT** |
+| [852-db5d8f30-xname-statue.md](./852-db5d8f30-xname-statue.md) | `db5d8f30` | D-1882 objnam.c xname STATUE article | **ACCEPT** |
+| [853-c9e049a8-erode-armor-rust.md](./853-c9e049a8-erode-armor-rust.md) | `c9e049a8` | D-1883 uhitm.c erode_armor + mhitm_ad_rust | **ACCEPT** |
