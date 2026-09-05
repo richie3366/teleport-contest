@@ -42,8 +42,8 @@ RNG 99.60 %; screens 99.6 %. Top owners: `dog_invent` ×2 (parked) +
 `climb_pit`/`dopush` (parked)/`itemactions`/`mdrop_obj` (parked)/
 `do_look`/`show_gamelog`/`process_menu_window`/`show_conduct`/
 `getpos_help` ×1 (+ unattributed `!`, motd, level-change).
-Reviews **835–842** (D-1865…D-1877): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1877):
+Reviews **835–842** (D-1865…D-1878): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1878):
 3 ACCEPT, 0 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -76,13 +76,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `pager.c` do_look — 1 corpus block screen-first at step 116 («What do you want to look at:» vs empty; random-seed0116-wizard-wear-shop-1021c3a5).
+**Next cluster:** Open `insight.c` show_gamelog — 1 corpus block screen-first at step 821 («Logged events:» vs same-plus; random-seed0360-wizard-world-tour-4ac145da).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1877 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1878 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1878** `exper.c` `pluslvl` `:340–368` — ported the three C livelog arms in C order with C comments: `pluslvl` snapshots `count_achievements()`, records the rank achievement, logs `%sgained experience level %d` with the pre-update `ulevelpeak` `re` prefix only 
 **D-1877** `win/tty/wintty.c` `process_menu_window` default arm — split the arm — ESC still dismisses (returns `'q'` → `ECMD_OK`, same outcome as C cancel); `q` now `tty_nhbell()` + `continue`, with C citation.
 **D-1876** `trap.c` `climb_pit` `:4183–4230` — `m_easy_escape_pit` as a file-local staticfn port (`data === mons[PM_PIT_FIEND] || msize >= MZ_HUGE`); hero `Passes_walls()` (`u.Passes_walls || H || E`, same idiom as `js/do.js`); exported async `climb_pit()` in C branc
 **D-1875** `dogmove.c` `dog_eat` `:274–294` message gate in C order — `sawpet` is `cansee+mon_visible` (not `canseemon`), second arm `canspotmon` (proxy owner `glibr` was a `corpse`-substring misattribution; `js/do_wear.js` `glibr()` untouched). `ind-Tourist-666025142-d17728db` step 29 PASS.
@@ -90,11 +91,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1873** `artifact.c` `artifact_hit` `:1447–1530` preamble + four basic attacks — async `artifact_hit` in C order — `isHero` (game.youmonst + sentinel + `_youmonst`), hero-pos `cansee` via `u.ux/uy`, `engulfing_u` + local `Blind()`, `hittee`, `spec_dbon`, awaited `impossible`, `realizes_damage` incl `
 **D-1872** `win/tty/wintty.c` `process_menu_window` `:1621–1649` — ported the four page-key arms into all three loops ahead of gacc/letter match (C switch order; `>` never finishes on the last page); PICK_NONE `:`/other keys now `tty_nhbell()` per C `:1701–1703`/`:1738` (screen-silent).
 **D-1871** `sounds.c` `zoo_mon_sound` `:115–128` ((msleeping||is_animal)+ZOO gate; `selection = rn2(2 — async `zoo_mon_sound` in C order (gate; `hallu = Hallucination() ? 1 : 0` via the faithful youprop helper; `zoo_msg[rn2(2)+hallu]`; `await You_hear`, i.e.
-**D-1870** `uhitm.c` `mhitm_ad_drli` `:2479–2488` mhitu arm (`hitmsg`, then `!rn2(3) && !Drain_resist — new `mhitm_ad_drli_u` in `js/mhitu.js` in C order (hitmsg; short-circuit `!rn2(3) && !Drain_resistance() && !mgc_negated(TRUE)` → `losexp('life drainage')`; damage untouched) wired as `case AD_DRLI` in `mhitm_adtyping_u`
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1877; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1878; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

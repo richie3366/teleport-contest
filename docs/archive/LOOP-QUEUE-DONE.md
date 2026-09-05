@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `pager.c` do_look — 1 corpus block screen-first at step 116 («What do you want to look at:» vs empty; random-seed0116-wizard-wear-shop-1021c3a5). **Addressed:** D-1877
+- [x] `insight.c` show_gamelog — 1 corpus block screen-first at step 821 («Logged events:» vs same-plus; random-seed0360-wizard-world-tour-4ac145da). **Addressed:** D-1878
+
+
+- [x] `pager.c` do_look — 1 corpus block screen-first at step 116 («What do you want to look at:» vs empty; random-seed0116-wizard-wear-shop-1021c3a5). **Addressed:** D-1877 `2183ee64`
 
 
 - [x] `trap.c` climb_pit — 1 corpus block RNG-first at step 46 (C `rn2(2)` in climb_pit vs JS `rn2(5)` distfleeck; tour-Healer-70025-d5-8-15-17-22). **Addressed:** D-1876 `305998a7`

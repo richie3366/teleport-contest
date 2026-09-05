@@ -1,6 +1,6 @@
 {
- "commit": "36656ef6",
- "at": "2026-09-05T19:39:57.465Z",
+ "commit": "2183ee64",
+ "at": "2026-09-05T19:44:21.377Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -3514,8 +3514,8 @@
    "kind": "screen",
    "step": 821,
    "steps": 861,
-   "owner": "show_gamelog",
-   "loc": "insight.c:2570",
+   "owner": "do_statusline1",
+   "loc": "botl.c:85",
    "jsOwner": null,
    "cTopline": "Logged events:",
    "jsTopline": "Logged events:",

@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-1878 — exper.c pluslvl/losexp level-change livelog (show_gamelog corpus owner)
+
+- **Status:** fixed (Open queue row; 1 corpus moved past within the same gamelog screen; green + strict + cohort PASS)
+- **Symptom:** `random-seed0360-wizard-world-tour-4ac145da` step 821/861 screen-first at `insight.c:2570`: C row 3 `    1: gained experience level 2` vs JS row 3 `    1: attained the rank of Conjurer (level 3)`. Topline `Logged events:` matched both sides; the gamelog list was shifted by one missing entry.
+- **C locus:** `exper.c` `pluslvl` `:340–368` — `old_ach_cnt = count_achievements()` before the rank check, `record_achievement(achieve_rank(newrank))` when `newrank > oldrank`, then `if (count_achievements() == old_ach_cnt) livelog_printf(LL_MINORAC, "%sgained experience level %d", (u.ulevel <= u.ulevelpeak) ? "re" : "", u.ulevel)` before the `ulevelpeak` update; plus `losexp` `:230` (`lost experience level %d`, `u.ulevel + 1`) and `:245` (`lost all experience`). Same-file `xlev_to_rank` (`botl.c:298`, JS `roles.js` already exact) explains the shift: 1→2 keeps rank 0 so C logs minorac, 2→3 raises rank 0→1 so both log the rank achievement.
+- **JS was:** `js/exper.js` `pluslvl()` recorded the rank achievement but carried `// livelog when no new rank achievement deferred` — the minorac fallback was never logged, so the level-2 entry was missing and every later gamelog row (first the level-3 rank line) sat one index early. `losexp()` likewise never logged either minorac arm (header named `livelog/SoundAchievement` omitted).
+- **Fix:** ported the three C livelog arms in C order with C comments: `pluslvl` snapshots `count_achievements()`, records the rank achievement, logs `%sgained experience level %d` with the pre-update `ulevelpeak` `re` prefix only when the count is unchanged, then updates `ulevelpeak`; `losexp` logs `lost experience level %d` (`ulevel + 1` post-decrement) and `lost all experience` on the divine-anger reset path. New imports only on existing edges: `LL_MINORAC` (const, matches C `global.h:506` `0x1000`), `count_achievements` (already-imported `insight.js`), `livelog_printf` (`pline.js`, `imports.mjs --can` SAFE, no new cycle).
+- **JS:** `js/exper.js` (+20/−6); `docs/c-js-map/startup.md` exper row.
+- **Verify:** `node scripts/verify.mjs --fn show_gamelog` →
+  - `PASS  syntax   1 changed js file(s): js/exper.js`
+  - `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  - `PASS  hidden   verify show_gamelog: 0 PASS, 1 moved past (1 re-attributed at the same step), 0 unchanged, 0 worse → PROGRESS`
+  - `random-seed0360-wizard-world-tour-4ac145da: moved → do_statusline1 at step 821 (was 821; same step: re-attributed, read the row diff)`
+  - `PASS  green    2/2 passing` + strict on both gate sessions; `PASS  cohort   7/7 passing`; skip full (heuristic: exper.js not in shared set)
+  - `VERIFY: PASS`
+  - Row-diff read (not a vacuous re-attribution): `hidden-proxy show` before = row 3 (`gained experience level 2` vs rank line); after = row 22 (`1: made his first wish - "blessed +3 gray dragon scale mail", got "a gray` vs `    5: entered level 9, the Dungeons of Doom`). The level-2 entry now matches and the screen holds 19 rows deeper into the same `#chronicle` page; the new blocker is the later wish livelog (`zap.c`), a different writer.
+- **Named omissions:** `SoundAchievement` `sa2_xplevelup`/`sa2_xpleveldown` (no SND_LIB); `losexp` level-1 `done(DIED)` (noreturn, still named); Upolyd `monhp_per_lvl`/`rehumanize`; `pluslvl` polyd `setuhpmax` form; `more_experienced` LONG_MAX wrap / `exp_percent_changing` / SCORE_ON_BOTL (unchanged).
+- **Next:** next Open row (`wintty.c` process_menu_window); the same gamelog's row-22 wish entries (`zap.c` wish livelog) are the honest follow-up writer and belong on their own Open row, not glued here.
+
 ## D-1877 — pager.c do_look whatis-menu `q` bells, menu stays (do_look corpus owner)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort + full 44/44 PASS)
