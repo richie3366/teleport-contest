@@ -40,7 +40,7 @@ seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
 D-1847 `2c9f2ad0`): **217 / 265 PASS (81.9 %)** excl. 13 env-only rows;
 RNG 99.32 %; screens 98.9 %. Top owners: `do_screen_description` 4 ·
 `mineralize`/`moverock_core`/`mhitm_ad_phys`/`inuse_classify`/`menu_remarm`/`dofire`/`dowhatdoes` 2.
-Review **813 QUALITY-RISK** lookat `S_room`/`S_darkroom` is live Must-fix.
+Review **813** lookat `S_room`/`S_darkroom` extra arms shipped **D-1848**.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
