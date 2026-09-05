@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1839 role.c roles[] ldrnum / homebase / intermed / guardnum / questarti
+
+**C locus:** `role.c` `roles[]` `:30–573` (`homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti`); `questpgr.c` `ldrname` `:50–57` (`type_is_pname` ? `""` : `"the "` + `mons[i].pmnames[NEUTRAL]`); `convert_arg` `%l` `:260–262`.
+**JS:** `js/roles.js` `roles[]`.
+**Change:** copy C `roles[]` `homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti` for the remaining nine roles; Arc `PM_STUDENT` and Bar `PM_CHIEFTAIN` `guardnum`. `u_init` already copies them onto `game.urole`.
+**Verify:** `node scripts/verify.mjs --fn attributes_enlightenment` → PASS syntax (1 js file); PASS rule2; PASS hidden verify attributes_enlightenment: 4 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Rogue-70018, tour-Samurai-70002, tour-Tourist-70013, tour-Valkyrie-70001); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+**Named:** `attributes_enlightenment` body still unported (heuristic owner). `roles[].filecode` still via `ROLE_FILECODE`.
+**Next:** Open `selvar.c` `selection_filter_percent` (2 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
 ## 2026-09-05 — D-1838 hack.c pickup_checks furniture / pool / lava / swallow
 
 **C locus:** `hack.c` `pickup_checks` `:3788–3872` (uswallow tongue/`loot_mon`; pool/lava dive; `!OBJ_AT` throne/sink/grave/fountain/open-door/altar/`STAIRS`/`There`; `can_reach_floor(traphere && is_pit)`); `dopickup` `:3876–3892` (`ret==-2` → `loot_mon(u.ustuck, &tmpcount, 0)`).

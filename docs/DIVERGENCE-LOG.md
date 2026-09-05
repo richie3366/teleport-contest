@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1839 — role.c roles[] ldrnum / homebase / intermed / guardnum / questarti
+
+- **Status:** fixed (4 corpus PASS; green + cohort)
+- **Symptom:** 4 hidden-corpus first-diffs attributed to `attributes_enlightenment` (`insight.c:1582` `"telepathic"` literal): C `"You receive a faint telepathic message from the Master of Thieves:"` / `"Lord Sato:"` / `"Twoflower:"` / `"the Norn:"` vs JS `"from :"`. Real printer is `quest.lua` `common.quest_portal` `%l` via `convert_arg`/`ldrname`.
+- **C locus:** `role.c` `roles[]` `:30–573` (`homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti`); `questpgr.c` `ldrname` `:50–57` (`type_is_pname` ? `""` : `"the "` + `mons[i].pmnames[NEUTRAL]`); `convert_arg` `%l` `:260–262`.
+- **JS was:** `ldrname`/`convert_arg` `%l` live (D-1649) but `roles[]` only copied those five fields for Arc/Bar/Pri/Wiz. Cav/Hea/Kni/Mon/Rog/Ran/Sam/Tou/Val `ldrnum` stayed `NON_PM`, so `ldrname()` returned `""`.
+- **Fix:** copy C `roles[]` `homebase`/`intermed`/`ldrnum`/`guardnum`/`questarti` for the remaining nine roles; Arc `PM_STUDENT` and Bar `PM_CHIEFTAIN` `guardnum`. `u_init` already copies them onto `game.urole`.
+- **JS:** `js/roles.js` `roles[]`.
+- **Verify:** `node scripts/verify.mjs --fn attributes_enlightenment` → PASS syntax (1 js file); PASS rule2; PASS hidden verify attributes_enlightenment: 4 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Rogue-70018, tour-Samurai-70002, tour-Tourist-70013, tour-Valkyrie-70001); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; skip full (no shared file). VERIFY: PASS
+- **Named omissions:** `attributes_enlightenment` body still unported (heuristic owner). `roles[].filecode` still via `ROLE_FILECODE`. Full `role_init` beyond pantheon/SPE_LIGHT/quest-pm-fixup/nemgend deferred.
+- **Next:** Open `selvar.c` `selection_filter_percent` (2 corpus blocks). Not leftover WIN_STATUS (`do_statusline1`).
+
 ## D-1838 — hack.c pickup_checks furniture / pool / lava / swallow
 
 - **Status:** fixed (2 corpus PASS, 1 moved past; green + cohort)

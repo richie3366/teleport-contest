@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `hack.c` pickup_checks — 3 corpus blocks; "The stairs are solidly affixed." vs "There is nothing here to pick up." **Addressed:** D-1838
+- [x] `insight.c` attributes_enlightenment — 3 corpus blocks; quest-leader telepathy name vs colon. **Addressed:** D-1839
+
+
+- [x] `hack.c` pickup_checks — 3 corpus blocks; "The stairs are solidly affixed." vs "There is nothing here to pick up." **Addressed:** D-1838 `27758e2a`
 
 
 - [x] `pickup.c` doloot_core — 4 corpus blocks; "You don't find anything here to loot." vs "You see no door there." **Addressed:** D-1837 `13150e4c`
