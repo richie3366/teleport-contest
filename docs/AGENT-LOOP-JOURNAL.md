@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1843 pager.c lookat glyph_is_unexplored "unexplored area"
+
+**C locus:** `pager.c` `lookat` `:656–802` (`glyph_is_unexplored` → `"unexplored area"`; cmap `S_stone` + `!seenv` → `"unexplored"`; else `"unexplored area"`); `glyphs.c` `glyph_to_cmap` `:199–231`; `getpos.c` `auto_describe` `:639–662` (prints `do_screen_description` firstmatch after lookat overwrite).
+**JS:** `js/pager.js` `lookat` / `brief_at`; `js/display.js` `glyph_to_cmap`; `js/getpos.js` `auto_describe_text`.
+**Change:** port `lookat` glyph-first (self / swallow / mon / obj / trap / warning / invisible / nothing / unexplored / cmap switch / else). `glyph_to_cmap` peels the cmap banks. `brief_at` and `auto_describe_text` take lookat's buf plus the didlook blocked-staircase rewrite.
+**Verify:** `node scripts/verify.mjs --fn lookat` → PASS syntax (3 js files); PASS rule2; PASS hidden verify lookat: 0 PASS, 4 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-19199bfa → do_screen_description step 836 was 826; explore-seed0360-wizard-world-tour-77350e1f → do_screen_description step 835 was 832; explore-seed0367-priest-quest-tour-1cbaa856 → do_screen_description step 314 was 313; explore-seed0367-priest-quest-tour-b0096089 → do_screen_description step 326 was 323); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+**Named:** `do_screen_description` cmap/symbol table (now the later owner of those four sessions); `ice_descr` didlook rewrite; `look_at_monster` health/stuck/leashed/trapped/hallu/worm-tail look coords; doname_with_price / buried-embedded suffixes; underwater `unreconnoitered` didlook skip.
+**Next:** Open `mhitu.c` `summonmu` (2 corpus blocks). Not leftover WIN_STATUS under item-action menu.
 ## 2026-09-05 — D-1842 botl.c do_statusline1 leftover WIN_STATUS under item-action menu
 
 **C locus:** `botl.c` `do_statusline1` `:47–98`; `botl.c` `bot` `:255–256` (`gb.bot_disabled` returns before putstr); `botl.c` `bot_via_windowport` `:1007` BL_TITLE `"%-30s"` (tty `VIA_WINDOWPORT`); `wintty.c` `docorner` `:3650–3720` (`cl_end` from xmin, `bot()` when `ymax >= WIN_STATUS.offy`); `windows.c` `select_menu` `:1858–1863`.

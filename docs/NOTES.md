@@ -6,9 +6,10 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Hidden-score proxy is live** (`HIDDEN-PROXY.md`): 209/265 PASS at
-  D-1840 (audit 794–810). Next Open `pager.c` `lookat` (3 corpus
+  D-1840 (audit 794–810). Next Open `mhitu.c` `summonmu` (2 corpus
   blocks). Orient `brief.mjs`, verify `verify.mjs --fn`. Must-fix empty.
-- **Suite 44/44** at D-1842. Do not reopen `do_statusline1` leftover /
+- **Suite 44/44** at D-1843. Do not reopen `lookat` unexplored-area /
+  `do_statusline1` leftover /
   `docorner` `--x` / `_snapshotStatusGrid`, fakewiz1/fakewiz2,
   Ice/Boulder/Spider/Trap fills, `roles[]` quest identity, `,`
   `pickup_checks`, `doloot_core`, nested themerms `des.room`,
@@ -67,7 +68,7 @@ Objective/score live in `CURRENT.md`.
   (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap`
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
-  (D-1189). Do not skip D-1190…D-1842.
+  (D-1189). Do not skip D-1190…D-1843.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -77,18 +78,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1842.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1843.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1842.
+  Do not re-port D-1682…D-1843.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1843: port `lookat` glyph-first (self / swallow / mon / obj / trap / warning / invisible / nothing / unexplored / cmap switch / else). Named: `do_screen_description` cmap/symbol table (now the later owner of those four sessions); `i
 - D-1842: named `do_statusline1` (BOTL_NSIZ, windowport title pad so `St:` starts at col 31). Named: `wintty.c` paging `docorner` `ystart_between_menu_pages` repair; TTY_PERM_INVENT refresh; 
 - D-1841: port both lua bodies: mazegrid + center map + `l_levregion`/`l_teleport_region` while map origin is set, `splev_mazewalk(8,5,east)`, fakewiz1 irregula Named: `ensure_way_out`; arrival_room migrate flag beyond ordinary OROOM; humidity-aware `get_loc
 - D-1840: port Ice (`des.terrain` ICE + `percent(25)` melt-ice timers), Boulder / Spider / Trap (`percentage(30)` then y-outer iterate). Named: Garden / Buried treasure / Massacre / Statuary fills; garden/dig postprocess; icedpool on 
@@ -103,5 +105,4 @@ Objective/score live in `CURRENT.md`.
 - D-1831: `set_bot_disabled` around `select_menu_*` / `getlin` / pickinv / Named: `process_menu_window` paging `docorner` repair
 - D-1830: `load_rog_strt` from the lua body: solidfill STONE + Named: humidity-aware `get_location`; `spo_end_moninvent`
 - D-1829: `load_kni_strt` from the lua body: solidfill ROOM + mines fg=bg="." Named: humidity-aware `get_location`; `spo_end_moninvent`
-- D-1828: `load_astral` from the lua body: solidfill + mazelevel+noteleport Named: humidity-aware `get_location`; `ensure_way_out`;
 <!-- landmarks:end -->

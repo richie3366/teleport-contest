@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `botl.c` do_statusline1 — 4 corpus blocks; leftover WIN_STATUS under item-action menu (same step as D-1833 re-attr). **Addressed:** D-1842
+- [x] `pager.c` lookat — 3 corpus blocks; "unexplored area" vs "unexplored". **Addressed:** D-1843
+
+
+- [x] `botl.c` do_statusline1 — 4 corpus blocks; leftover WIN_STATUS under item-action menu (same step as D-1833 re-attr). **Addressed:** D-1842 `9dc829a9`
 
 
 - [x] `mkmaze.c` makemaz `fakewiz1`/`fakewiz2` — Wizard-of-Yendor path; 44+44 ln. From `dat/fakewiz{1,2}.lua`. **Addressed:** D-1841 `4f6a3bcc`

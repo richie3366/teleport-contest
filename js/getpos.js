@@ -19,12 +19,10 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_screen_getpos_dirty, pline, docrt, terrain_glyph,
-    look_shown_at, newsym_force, glyph_is_invisible, glyph_to_obj_at,
-    glyph_at, glyph_is_trap, glyph_to_trap,
+    look_shown_at, newsym_force, glyph_is_invisible,
 } from './display.js';
 import { cansee } from './vision.js';
-import { ansimpleoname } from './objnam.js';
-import { look_at_object, trap_description } from './pager.js';
+import { lookat } from './pager.js';
 import {
     COLNO, ROWNO, isok, TER_MON, TER_OBJ, TER_MAP, TER_DETECT,
     GLOC_MONS, GLOC_OBJS, GLOC_DOOR, GLOC_EXPLORE, GLOC_INTERESTING, GLOC_VALID,
@@ -37,18 +35,15 @@ import {
     NHKF_GETPOS_UNEX_NEXT, NHKF_GETPOS_UNEX_PREV,
     NHKF_GETPOS_INTERESTING_NEXT, NHKF_GETPOS_INTERESTING_PREV,
     NHKF_GETPOS_MOVESKIP, NHKF_GETPOS_MENU, NHKF_GETPOS_LIMITVIEW,
-    M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, STRAT_WAITMASK,
     STAIRS, LADDER, LA_DOWN, ROOM, CORR, STONE, SCORR, TREE, CLOUD, IS_WALL,
-    DOOR, IS_DOOR, IS_DRAWBRIDGE, D_NODOOR, D_ISOPEN, D_BROKEN,
+    DOOR, IS_DOOR, IS_DRAWBRIDGE,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, IRONBARS, AIR,
     FOUNTAIN, SINK, THRONE, GRAVE, ALTAR, VIBRATING_SQUARE,
-    ROGUESET, Upolyd, Is_airlevel, Is_rogue_level,
+    ROGUESET, Is_rogue_level,
 } from './const.js';
 import { paint_corner_nhw_menu } from './invent.js';
-import { distant_monnam_none, pmname, Ugender } from './do_name.js';
-import { stairway_at, known_branch_stairs } from './mklev.js';
 import { t_at } from './trap.js';
-import { waterbody_name, invocation_pos } from './hack.js';
+import { invocation_pos } from './hack.js';
 import { is_valid_travelpt } from './cmd.js';
 import { ok_to_quest } from './quest.js';
 import { visctrl } from './dokeylist.js';
@@ -379,88 +374,6 @@ function truncate_to_map(cx, cy, dx, dy) {
     return { x: x + dx, y: y + dy };
 }
 
-function mon_at_xy(x, y) {
-    for (const m of game.fmon || []) {
-        if ((m.mhp | 0) < 1) continue;
-        if ((m.mx | 0) === x && (m.my | 0) === y) return m;
-    }
-    return null;
-}
-
-/**
- * C ref: pager.c self_lookat — race + pmname + called plname + Punished
- * chained suffix. Steed / mhidden / utrap deferred (same as pager.js).
- */
-function self_lookat_brief() {
-    const u = game.u || {};
-    let race = '';
-    if (!Upolyd(u)) {
-        const adj = game.urace?.adj || game.urace?.noun || 'human';
-        race = `${String(adj)} `;
-    }
-    const mndx = u.umonnum ?? game.urole?.mnum;
-    const form = pmname(mndx, Ugender());
-    const plname = game.plname || 'hero';
-    const invis =
-        u.Invis && (u.senseself || !u.Blind) ? 'invisible ' : '';
-    let buf = `${invis}${race}${form} called ${plname}`;
-    // C: if (Punished) … uball ? ansimpleoname(uball) : "nothing?"
-    // C: Punished ≡ (uball != 0)
-    if (u.uball) {
-        buf += `, chained to ${ansimpleoname(u.uball)}`;
-    }
-    return buf;
-}
-
-/**
- * C ref: pager.c look_at_monster + mhidden_description subset.
- * Detect browse shows mon glyphs; M_AP_OBJECT without object glyph →
- * ", mimicking something".
- */
-function look_at_monster_brief(mtmp) {
-    if (!mtmp) return 'monster';
-    const name = distant_monnam_none(mtmp);
-    let buf = '';
-    if (mtmp.mtame) buf = 'tame ';
-    else if (mtmp.mpeaceful) buf = 'peaceful ';
-    buf += name;
-    if (mtmp.mfrozen) {
-        buf += ", can't move (paralyzed or sleeping or busy)";
-    } else if (mtmp.msleeping) {
-        buf += ', asleep';
-    } else if ((mtmp.mstrategy || 0) & STRAT_WAITMASK) {
-        buf += ', meditating';
-    }
-    const ap = M_AP_TYPE(mtmp);
-    if (ap === M_AP_OBJECT || ap === M_AP_FURNITURE) {
-        // Full object_from_map / defsyms furniture names deferred
-        buf += ', mimicking something';
-    } else if (mtmp.mundetected) {
-        buf += ', hiding';
-    }
-    return buf;
-}
-
-/**
- * C ref: pager.c lookat cmap → defsyms[].explanation for stairs/ladder
- * (S_*stair / S_*ladder / S_br*). Same strings as display back_to_glyph.
- */
-function stair_ladder_explanation(x, y) {
-    const sway = stairway_at(x, y);
-    const loc = game.level?.at?.(x, y);
-    if (!sway && !(loc && (loc.typ === STAIRS || loc.typ === LADDER))) {
-        return '';
-    }
-    const up = sway ? !!sway.up : !!(loc && !(loc.ladder & LA_DOWN));
-    const isLadder = !!(sway?.isladder) || (loc?.typ === LADDER);
-    if (known_branch_stairs(sway)) {
-        if (isLadder) return up ? 'branch ladder up' : 'branch ladder down';
-        return up ? 'branch staircase up' : 'branch staircase down';
-    }
-    if (isLadder) return up ? 'ladder up' : 'ladder down';
-    return up ? 'staircase up' : 'staircase down';
-}
-
 /** C dungeon.h on_level — dnum+dlevel equality. */
 function on_level(a, b) {
     return (a?.dnum | 0) === (b?.dnum | 0) && (a?.dlevel | 0) === (b?.dlevel | 0);
@@ -508,174 +421,23 @@ export function room_cmap_explanation(x, y, loc) {
 }
 
 /**
- * C ref: pager.c lookat glyph_is_cmap doors — S_ndoor special +
- * defsyms S_vodoor/S_hodoor/S_vcdoor/S_hcdoor explanations; invent.c
- * dfeature_at doormask switch (same strings). Named: drawbridge
- * portcullis override (`is_drawbridge_wall`); D_TRAPPED exact-mask
- * quirks beyond invent/default closed.
- */
-function door_cmap_explanation(loc) {
-    // C invent.c dfeature_at / lookat S_ndoor + defsyms door explanations
-    switch (loc.doormask ?? D_NODOOR) {
-    case D_NODOOR:
-        return 'doorway';
-    case D_ISOPEN:
-        return 'open door';
-    case D_BROKEN:
-        return 'broken door';
-    default:
-        // D_CLOSED / D_LOCKED (+ optional D_TRAPPED) → "closed door"
-        return 'closed door';
-    }
-}
-
-/**
- * C ref: pager.c lookat glyph_is_cmap → defsyms[].explanation (default
- * arm) + S_pool/S_water/S_lava/S_ice → waterbody_name. Used by getpos
- * auto_describe firstmatch after stairs/traps.
- * Named omissions: S_altar special (`align_str` / AM_SANCTUM "high ");
- * engraving; drawbridge portcullis; underwater unreconnoitered; object
- * glyphs; Hallucination waterbody; arboreal STONE→S_tree; gas-cloud
- * region glyph overlay on non-CLOUD typ (lookat uses glyph_at); AIR /
- * drawbridge lowered/raised defsyms.
- */
-function cmap_defsym_explanation(x, y, loc) {
-    if (!loc) return '';
-    const typ = loc.typ;
-    // C lookat case S_pool/S_water/S_lava/S_lavawall/S_ice → waterbody_name
-    if (typ === POOL || typ === MOAT || typ === WATER
-        || typ === LAVAPOOL || typ === LAVAWALL || typ === ICE) {
-        return waterbody_name(x, y);
-    }
-    // C lookat case S_cloud (pager.c) — air plane vs ordinary fog/vapor
-    if (typ === CLOUD) {
-        return Is_airlevel(game.u?.uz) ? 'cloudy area' : 'fog/vapor cloud';
-    }
-    // C lookat cmap doors (S_ndoor / S_*odoor / S_*cdoor) via defsyms
-    if (IS_DOOR(typ) || typ === DOOR) return door_cmap_explanation(loc);
-    // C lookat cmap default → defsyms[symidx].explanation
-    if (IS_WALL(typ)) return 'wall';
-    if (typ === ROOM) return room_cmap_explanation(x, y, loc);
-    if (typ === CORR) {
-        return loc.lit || game.flags?.lit_corridor ? 'lit corridor' : 'corridor';
-    }
-    // C defsym.h PCHAR — furniture default arm (S_fountain..S_bars / tree)
-    if (typ === FOUNTAIN) return 'fountain';
-    if (typ === SINK) return 'sink';
-    if (typ === THRONE) return 'opulent throne'; // PCHAR2 explanation
-    if (typ === GRAVE) return 'grave';
-    if (typ === IRONBARS) return 'iron bars';
-    // C defsym.h PCHAR S_tree → "tree" (lookat default arm)
-    if (typ === TREE) return 'tree';
-    // C lookat case S_stone: !seenv → "unexplored"; else if STONE|SCORR → "stone"
-    if (typ === STONE || typ === SCORR) {
-        if (!loc.seenv) return 'unexplored';
-        return 'stone';
-    }
-    return '';
-}
-
-/**
  * C ref: getpos.c auto_describe → do_screen_description firstmatch /
- * pager.c lookat. Uses displayed glyph (loc.disp_*), not map memory —
- * required for TER_DETECT after clear_glyph_buffer.
+ * pager.c lookat. firstmatch is lookat's buf after the didlook
+ * blocked-staircase rewrite (ice_descr sibling named).
  *
  * Named omissions: full do_screen_description symbol table, coord_desc,
- * underwater unreconnoitered, special cmap arms (altar; doors D-0815;
- * cloud typ D-0811). Object: lookat glyph_is_object → look_at_object
- * (D-1547; fakeobj via object_from_map D-1524). doname_with_price /
- * doname_vague_quan, buried/embedded suffixes deferred. Trap: lookat
- * glyph_is_trap(glyph_at) → trap_description(glyph_to_trap) (D-1787;
- * no tseen / ftrap). Travel:
+ * underwater unreconnoitered (didlook skip), doname_with_price /
+ * doname_vague_quan, buried/embedded suffixes. Travel:
  * " (no travel path)" via is_valid_travelpt when getloc_travelmode
  * (D-0809). getpos_getvalid "(invalid target)" live (D-0899); S_goodpos
  * hilite glyphs deferred.
  */
 export function auto_describe_text(cx, cy) {
-    const u = game.u || {};
-    const terrainmode = game.iflags?.terrainmode | 0;
-    if (
-        (u.ux | 0) === cx && (u.uy | 0) === cy
-        && (!terrainmode || (terrainmode & TER_MON) !== 0)
-    ) {
-        return self_lookat_brief();
-    }
-
-    // C lookat `:718–721` — trap tnum is glyph_to_trap(glyph_at), not t_at.
-    // Dummytrap chest/door: trap glyph, floor pile still present.
-    const glyph = glyph_at(cx, cy);
-    if (glyph_is_trap(glyph)) {
-        return trap_description(glyph_to_trap(glyph), cx, cy);
-    }
-
-    // C lookat: glyph_is_monster then glyph_is_object (gbuf, not occupancy).
-    const objTyp = glyph_to_obj_at(cx, cy);
-
-    const mtmp = mon_at_xy(cx, cy);
-    if (
-        mtmp
-        && objTyp < 0
-        && (!terrainmode || (terrainmode & TER_MON) !== 0)
-    ) {
-        const loc = game.level?.at?.(cx, cy);
-        const ch = loc?.disp_ch;
-        // Detect/map may blank a cell while mon still exists in fmon —
-        // only describe when the mon glyph is actually shown (or no TER_DETECT).
-        if (!(terrainmode & TER_DETECT) || (ch && ch !== ' ')) {
-            return look_at_monster_brief(mtmp);
-        }
-    }
-
-    // C lookat glyph_is_object → look_at_object (before trap/cmap)
-    if (objTyp >= 0 && (!terrainmode || (terrainmode & TER_OBJ) !== 0)) {
-        // Named: with_price / vague_quan / buried-embedded suffixes
-        return look_at_object(cx, cy, objTyp);
-    }
-
-    const loc = game.level?.at?.(cx, cy);
-    const ch = loc?.disp_ch;
-    // Blank showsyms may be unexplored or S_stone (space). C lookat uses
-    // glyph_at: glyph_is_unexplored → "unexplored area"; cmap S_stone +
-    // seenv + typ STONE|SCORR → "stone" (pager.c). TER_DETECT after
-    // clear_glyph_buffer forces gbuf unexplored even when memory is
-    // stone (D-0390 / seed0012) — do not promote those blanks.
-    // lastseentyp gates overmarked JS seenv (D-0813); travelmode not
-    // required (^T getpos / farlook share the same lookat arm).
-    if (!ch || ch === ' ') {
-        if (terrainmode & TER_DETECT) {
-            // C: gbuf unexplored after clear_glyph_buffer
-            return 'unexplored area';
-        }
-        const last = game.lastseentyp?.[cx]?.[cy] | 0;
-        // C lookat case S_stone: seenv → "stone" for STONE|SCORR, else
-        // fallthrough defsyms[S_stone] ("stone") even when typ is CORR but
-        // glyph memory is stone (lastseentyp STONE|SCORR). Bare blank→stone
-        // without last/typ gate breaks seed0012 (D-0813/D-0817).
-        if (
-            loc
-            && loc.seenv
-            && (
-                last === STONE || last === SCORR
-                || loc.typ === STONE || loc.typ === SCORR
-            )
-        ) {
-            return 'stone';
-        }
-        // C lookat glyph_is_unexplored → "unexplored area"
-        return 'unexplored area';
-    }
-
-    // C lookat glyph_is_cmap stairs/ladder → defsyms explanation (firstmatch)
-    // then do_screen_description blocked-stair rewrite (D-0814)
-    const stair = stair_ladder_explanation(cx, cy);
-    if (stair) return maybe_blocked_staircase_down(stair);
-
-    // C lookat glyph_is_cmap → defsyms / waterbody_name (ROOM/moat/wall…)
-    const cmap = cmap_defsym_explanation(cx, cy, loc);
-    if (cmap) return cmap;
-
-    // Remaining special cmap under TER_* browse still deferred
-    return 'unexplored area';
+    // C auto_describe → do_screen_description firstmatch after lookat
+    // overwrite (`pager.c` didlook). Blocked-stair rewrite is didlook,
+    // not lookat itself.
+    const { buf } = lookat(cx, cy);
+    return maybe_blocked_staircase_down(buf);
 }
 
 /**

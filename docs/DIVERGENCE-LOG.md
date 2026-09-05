@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1843 — pager.c lookat glyph_is_unexplored "unexplored area"
+
+- **Status:** fixed (4 corpus moved past; green + cohort + full `sessions` 44/44)
+- **Symptom:** 4 hidden-corpus first-diffs (brief attributed 3; scoreboard 4) at getpos autodescribe: C `"unexplored area"` vs JS `"unexplored"`. Owner `pager.c:736` (`glyph_is_unexplored`).
+- **C locus:** `pager.c` `lookat` `:656–802` (`glyph_is_unexplored` → `"unexplored area"`; cmap `S_stone` + `!seenv` → `"unexplored"`; else `"unexplored area"`); `glyphs.c` `glyph_to_cmap` `:199–231`; `getpos.c` `auto_describe` `:639–662` (prints `do_screen_description` firstmatch after lookat overwrite).
+- **JS was:** no named `lookat`. `brief_at` / `auto_describe_text` clones used blank `!seenv` / `typ STONE` → `"unexplored"` (the `S_stone` string) and never tested `glyph_is_unexplored(glyph_at)`.
+- **Fix:** port `lookat` glyph-first (self / swallow / mon / obj / trap / warning / invisible / nothing / unexplored / cmap switch / else). `glyph_to_cmap` peels the cmap banks. `brief_at` and `auto_describe_text` take lookat's buf plus the didlook blocked-staircase rewrite. `S_room`/`S_darkroom` use `room_cmap_explanation` because JS gbuf often stores `S_room` for both (DARKROOMSYM / D-0812).
+- **JS:** `js/pager.js` `lookat` / `brief_at`; `js/display.js` `glyph_to_cmap`; `js/getpos.js` `auto_describe_text`.
+- **Verify:** `node scripts/verify.mjs --fn lookat` → PASS syntax (3 js files); PASS rule2; PASS hidden verify lookat: 0 PASS, 4 moved past, 0 unchanged, 0 worse → PROGRESS (explore-seed0360-wizard-world-tour-19199bfa → do_screen_description step 836 was 826; explore-seed0360-wizard-world-tour-77350e1f → do_screen_description step 835 was 832; explore-seed0367-priest-quest-tour-1cbaa856 → do_screen_description step 314 was 313; explore-seed0367-priest-quest-tour-b0096089 → do_screen_description step 326 was 323); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). VERIFY: PASS
+- **Named omissions:** `do_screen_description` cmap/symbol table (now the later owner of those four sessions); `ice_descr` didlook rewrite; `look_at_monster` health/stuck/leashed/trapped/hallu/worm-tail look coords; doname_with_price / buried-embedded suffixes; underwater `unreconnoitered` didlook skip.
+- **Next:** Open `mhitu.c` `summonmu` (2 corpus blocks). Not leftover WIN_STATUS under item-action menu.
+
 ## D-1842 — botl.c do_statusline1 leftover WIN_STATUS under item-action menu
 
 - **Status:** fixed (3 corpus PASS, 1 moved past; green + cohort + full `sessions` 44/44)

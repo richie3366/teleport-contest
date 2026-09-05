@@ -583,6 +583,98 @@ export function cmap_to_glyph(cmap_idx) {
     return NO_GLYPH;
 }
 
+/* C defsym.h PCHAR S_sw_tl is the first swallow cmap after S_goodpos. */
+const S_sw_tl = S_goodpos + 1;
+/* C sym.h enum cmap_symbols fencepost after S_expl_br. */
+const MAXPCHARS = S_expl_br + 1;
+
+/** C display.h glyph_is_cmap_main — wall bank at GLYPH_CMAP_MAIN_OFF. */
+function glyph_is_cmap_main(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_CMAP_MAIN_OFF && g < (_GLYPH_WALL_SPAN + GLYPH_CMAP_MAIN_OFF);
+}
+function glyph_is_cmap_mines(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_CMAP_MINES_OFF && g < (_GLYPH_WALL_SPAN + GLYPH_CMAP_MINES_OFF);
+}
+function glyph_is_cmap_gehennom(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_CMAP_GEH_OFF && g < (_GLYPH_WALL_SPAN + GLYPH_CMAP_GEH_OFF);
+}
+function glyph_is_cmap_knox(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_CMAP_KNOX_OFF && g < (_GLYPH_WALL_SPAN + GLYPH_CMAP_KNOX_OFF);
+}
+function glyph_is_cmap_sokoban(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_CMAP_SOKO_OFF && g < (_GLYPH_WALL_SPAN + GLYPH_CMAP_SOKO_OFF);
+}
+function glyph_is_cmap_a(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_CMAP_A_OFF
+        && g < (((S_brdnladder - S_ndoor) + 1) + GLYPH_CMAP_A_OFF);
+}
+function glyph_is_cmap_altar(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_ALTAR_OFF && g < (5 + GLYPH_ALTAR_OFF);
+}
+function glyph_is_cmap_b(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_CMAP_B_OFF
+        && g < ((S_arrow_trap + MAXTCHARS - S_grave) + GLYPH_CMAP_B_OFF);
+}
+function glyph_is_cmap_zap(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_ZAP_OFF && g < ((NUM_ZAP << 2) + GLYPH_ZAP_OFF);
+}
+function glyph_is_cmap_c(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_CMAP_C_OFF
+        && g < (((S_goodpos - S_digbeam) + 1) + GLYPH_CMAP_C_OFF);
+}
+function glyph_is_swallow(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_SWALLOW_OFF && g < ((NUMMONS << 3) + GLYPH_SWALLOW_OFF);
+}
+function glyph_is_explosion(glyph) {
+    const g = glyph | 0;
+    return g >= GLYPH_EXPLODE_OFF && g < (MAXEXPCHARS + GLYPH_EXPLODE_FROSTY_OFF);
+}
+
+/**
+ * C glyphs.c glyph_to_cmap `:199–231` — peel the cmap / zap / swallow /
+ * explosion banks back to a PCHAR index. lookat `:741` uses this after
+ * glyph_is_cmap. Fencepost MAXPCHARS is a legal defsyms[] index.
+ */
+export function glyph_to_cmap(glyph) {
+    const g = glyph | 0;
+    if (g === GLYPH_CMAP_STONE_OFF) return S_stone;
+    else if (glyph_is_cmap_main(g)) return (g - GLYPH_CMAP_MAIN_OFF) + S_vwall;
+    else if (glyph_is_cmap_mines(g)) return (g - GLYPH_CMAP_MINES_OFF) + S_vwall;
+    else if (glyph_is_cmap_gehennom(g)) return (g - GLYPH_CMAP_GEH_OFF) + S_vwall;
+    else if (glyph_is_cmap_knox(g)) return (g - GLYPH_CMAP_KNOX_OFF) + S_vwall;
+    else if (glyph_is_cmap_sokoban(g)) return (g - GLYPH_CMAP_SOKO_OFF) + S_vwall;
+    else if (glyph_is_cmap_a(g)) return (g - GLYPH_CMAP_A_OFF) + S_ndoor;
+    else if (glyph_is_cmap_altar(g)) return S_altar;
+    else if (glyph_is_cmap_b(g)) return (g - GLYPH_CMAP_B_OFF) + S_grave;
+    else if (glyph_is_cmap_c(g)) return (g - GLYPH_CMAP_C_OFF) + S_digbeam;
+    else if (glyph_is_cmap_zap(g)) return ((g - GLYPH_ZAP_OFF) % 4) + S_vbeam;
+    else if (glyph_is_swallow(g)) return ((g - GLYPH_SWALLOW_OFF) & 0x7) + S_sw_tl;
+    else if (glyph_is_explosion(g)) {
+        const nexpl = (S_expl_br - S_expl_tl) + 1;
+        return ((g - GLYPH_EXPLODE_OFF) % nexpl) + S_expl_tl;
+    }
+    return MAXPCHARS;
+}
+
+/**
+ * C display.h glyph_to_warning — peel GLYPH_WARNING_OFF.
+ * lookat only calls this after glyph_is_warning.
+ */
+export function glyph_to_warning(glyph) {
+    return (glyph | 0) - GLYPH_WARNING_OFF;
+}
+
 /** C display.h warning_to_glyph. */
 export function warning_to_glyph(mwarnlev) {
     return (mwarnlev | 0) + GLYPH_WARNING_OFF;
@@ -4178,7 +4270,7 @@ function hero_See_invisible() {
     const u = game.u || {};
     return !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0) || u.See_invisible);
 }
-function hero_Invisible() {
+export function hero_Invisible() {
     // C: Invisible (Invis && !See_invisible)
     return hero_Invis() && !hero_See_invisible();
 }
@@ -4192,7 +4284,7 @@ function senseself() {
     // Unblind_telepat = ETelepat; Detect_monsters = H|E
     return !!(u.ETelepat || u.Unblind_telepat || Detect_monsters());
 }
-function canspotself() {
+export function canspotself() {
     return canseeself() || senseself();
 }
 
