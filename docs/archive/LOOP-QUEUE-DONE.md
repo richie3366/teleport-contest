@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `iactions.c` itemactions — 1 corpus block screen-first at step 853 («Do what with the cloak of magic resistance?» vs same-plus; explore-seed0360-wizard-world-tour-5dfef5c4; new symptom, distinct from archived D-1833 Engrave/Write). **Addressed:** D-1884
+- [x] `mkmaze.c` makemaz `hea-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Healer quest 0/5 (388 ln; Healer 2/44 sessions, incl. active tour-Healer corpus session). From `dat/hea-*.lua` (HELDOUT Tier B). **Addressed:** D-1885
+
+
+- [x] `iactions.c` itemactions — 1 corpus block screen-first at step 853 («Do what with the cloak of magic resistance?» vs same-plus; explore-seed0360-wizard-world-tour-5dfef5c4; new symptom, distinct from archived D-1833 Engrave/Write). **Addressed:** D-1884 `3dadc461`
 
 
 - [x] `uhitm.c` erode_armor — 1 corpus block RNG-first at step 47 (C `rn2(5)` in erode_armor vs JS `rn2(3)` mhitm_knockback; tour-Healer-70025-d5-8-15-17-22; unblocked by the climb_pit port above). **Addressed:** D-1883 `c9e049a8`

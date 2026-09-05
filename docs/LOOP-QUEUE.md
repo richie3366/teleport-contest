@@ -48,14 +48,18 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmaze.c` makemaz `wiz-goal` — Wizard quest 4/5 → 5/5 (132 ln, best cost ratio). From `dat/wiz-goal.lua` (HELDOUT Tier A #1).
-- [ ] `mkmaze.c` makemaz `val-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Valkyrie quest 0/5 (371 ln; Valkyrie 3/44 sessions). From `dat/val-*.lua` (HELDOUT Tier B).
-- [ ] `mkmaze.c` makemaz `hea-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Healer quest 0/5 (388 ln; Healer 2/44 sessions, incl. active tour-Healer corpus session). From `dat/hea-*.lua` (HELDOUT Tier B).
 - [ ] `objnam.c` readobjnam_postparse1 — 1 corpus block screen-first (topline) at step 345 («%a piece of food (a food ration)--More--» vs «·a doorway or the floor of a room or the dark part of a room or ice»; random-seed0367-priest-quest-tour-01388a3a; follow-up owner after the getpos_help port above).
 - [ ] `mkmaze.c` makemaz `tou-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Tourist quest 0/5 (520 ln; Tourist 3/44 sessions). From `dat/tou-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `ran-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Ranger quest 0/5 (360 ln; Ranger 3/44 sessions). From `dat/ran-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `mon-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Monk quest 0/5 (402 ln; Monk 2/44 sessions). From `dat/mon-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `cav-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Caveman quest 0/5 (330 ln; Caveman 1/44 sessions). From `dat/cav-*.lua` (HELDOUT Tier B).
+- [ ] `botl.c` do_statusline1 — blocks 1/278 corpus sessions (first at step 821): C «Logged events:» vs JS «Logged events:». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (random-seed0360-wizard-world-tour-4ac145da). Fresh block after archived D-1842.
+- [ ] `mhitu.c` hitmsg — blocks 1/278 corpus sessions (first at step 43): C «The wraith touches you! Farvel level 1.--More--» vs JS «The wraith touches you! Farvel level 1.». Probe: `node scripts/hidden-proxy.mjs verify hitmsg` (tour-Valkyrie-70014-d5-8-15-17-22). Fresh block after archived D-1261.
+- [ ] `mkmaze.c` makemaz `tut-2` — tutorial second variant (27 ln, trivial; completes the tutorial pair). From `dat/tut-2.lua` (HELDOUT Tier B).
+- [ ] `mcastu.c` missing mcast_* arms — clerical-caster switch (mcast_clone_wiz, mcast_confuse_you, mcast_death_touch, mcast_destroy_armor, mcast_disappear, mcast_fire_pillar, mcast_geyser, mcast_insects, mcast_lightning, mcast_paralyze, mcast_stun_you, mcast_weaken_you, touch_of_death, death_inflicted_by). Every clerical caster desyncs the RNG on cast (HELDOUT Tier C).
+- [ ] `read.c` missing seffect_* arms — scroll effects (seffect_amnesia, seffect_charging, seffect_confuse_monster, seffect_earth, seffect_enchant_armor, seffect_mail, seffect_scare_monster, seffect_stinking_cloud, do_stinking_cloud, can_center_cloud, p_glow3) (HELDOUT Tier C).
+- [ ] `hack.c` findtravelpath — absent; travel is adjacent/greedy only (TOP30 #29).
+- [ ] `polyself.c` missing domonability arms — dopoly, dohide, dogaze, dospit, dospinweb, dosummon, domindblast, doremove, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C).
 
 ## Parked (do not pop)
 

@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-1885 — mkmaze.c makemaz Hea-strt/loca/goal/fila/filb load_special (Healer quest 5/5)
+
+- **Status:** fixed (Open queue row; green + strict + cohort + full 44/44 PASS; hidden vacuous — no corpus session blocked on makemaz)
+- **Symptom:** Healer quest 0/5 — `Hea-strt`/`-loca`/`-goal`/`-fila`/`-filb` had no loader in `load_special_proto`, so a Healer-quest descent fell through to a blank (live corpus session `tour-Healer-70025-d5-8-15-17-22` walks this dungeon). Queue-head note: the live `wiz-goal` and `val-strt/...` Open rows duplicate archived D-1818 (`2c339c26`) / D-1852 (`e84fa9d3`) and were deleted as stale in this commit; Hea (the first genuine Open row, 388 lua ln) is the shipped cluster.
+- **C locus:** `dat/Hea-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76×20 map, `replace_terrain` P→'.' chance 10, branch levregion point {04,12}, Hippocrates + silver dagger spe 5, 8 attendants) + `dat/Hea-loca.lua` (mines fg="." bg="P" smoothed/joined/lit, temple filled=1 + chaos shrine, stairs (04,04)/(20,06)) + `dat/Hea-goal.lua` (Staff of Aesculapius + wand of lightning + hostile Cyclops at (20,06)) + `dat/Hea-fila.lua`/`-filb.lua` (noflip fillers) via `mkmaze.c` `makemaz` → `load_special`; monster class `';'` resolves through `def_char_to_monclass` (`sp_lev.c:1936,3686`) over the display-symbol table (`defsym.h:362` MONSYM `';'` EEL `S_EEL`).
+- **JS was:** no `load_hea_*` in `js/mklev.js` (dispatch fell through to blank); `monclass_letter_to_mlet` had no `';'` entry so the 4 eel-class siege monsters resolved `pm=null` and were dropped; no `WAN_LIGHTNING` const.
+- **Fix:** `load_hea_strt` (Sam-strt shape: STONE solidfill, triple flags, centered 76×20 map with `\\`-escaped `S.\.S`, map-relative `lspo_replace_terrain_region(1,1,74,18,POOL,ROOM,10)` immediately after the map per lua order, whole-map lit, down stair, neutral non-shrine altar, 12 doors, Hippocrates Norn-style invent + chest + attendants, whole-map non_diggable, 6 traps, lua-order siege, wallification → flip → branch-point `place_lregion` → fixup); `load_hea_loca` (Kni-loca temple/shrine/priestini shape with chaos amask, Val-loca lit/rect-nondiggable shape, 15 objects, 6 traps, lua-order monsters); `load_hea_goal` (Val-goal shape: POOL solidfill, Orb-of-Fate-style `l_create_object` Staff + wand at (20,06), hostile Cyclops); `load_hea_fila`/`-filb` (Kni-fila/Sam-fila noflip shape, POOL solidfill, lua counts); 5 dispatch arms; `';': 'S_EEL'` in the class map; `WAN_LIGHTNING` const. No new module edges.
+- **JS:** `js/mklev.js` (+504/−1: 5 loaders + dispatch + class-map line + const + docstring); `docs/c-js-map/data.md` quest-loader row.
+- **Verify:**
+  - Preflight `node scripts/verify.mjs --no-cohort` before any edit → VERIFY: PASS (green + strict clean).
+  - `node scripts/verify.mjs --fn makemaz` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/mklev.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `note hidden verify makemaz: no corpus session is blocked on it at HEAD` (vacuous — content row, shipped on the public gates like D-1818/D-1852/D-1858); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `PASS full 44/44` (auto: shared file changed).
+- **Named omissions:** humidity-aware `get_location` for water-likers; `spo_end_moninvent` m_dowear (loca priest); `ensure_way_out` (all five; carried on the map row).
+- **Next:** next Open queue row in order (`objnam.c` readobjnam_postparse1).
+
 ## D-1884 — iactions.c itemactions W already-wearing row (armor_simple_name + armcat_to_wornmask)
 
 - **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort PASS)

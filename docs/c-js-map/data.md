@@ -1246,7 +1246,11 @@ shuffle-exit mimics `S_dnstair` + floodfill streets + Master Key);
 pools + Norn CUSTOM_INVENT + lava drawbridges + Orb of Fate; mines
 `icedpools: true` live via `finish_map`); **Sam-strt/loca/goal/fila/filb**
 (D-1858; Samurai quest 5/5: Sato CUSTOM_INVENT erodeproof + class-object
-coords + Tsurugi + rn2 ring holes; fila mines no-lit-key); **knox** (D-1853; Fort Ludios
+coords + Tsurugi + rn2 ring holes; fila mines no-lit-key);
+**Hea-strt/loca/goal/fila/filb** (D-1885; Healer quest 5/5:
+Hippocrates silver-dagger invent + P→room chance-10 replace + chaos-shrine
+priestini + Staff of Aesculapius + Cyclops; ';'→S_EEL class fix);
+**knox** (D-1853; Fort Ludios
 76x20 solidfill vault: branch + up/down tele, throne COURT, vault gold/trap
 iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);
 full Lua VM + remaining `des.*` still production requirement; 

@@ -277,6 +277,7 @@ const SILVER_SABER = objectNames.indexOf('SILVER_SABER');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
 const LEATHER_ARMOR = objectNames.indexOf('LEATHER_ARMOR');
 const SILVER_DAGGER = objectNames.indexOf('SILVER_DAGGER');
+const WAN_LIGHTNING = objectNames.indexOf('WAN_LIGHTNING');
 const LEATHER_GLOVES = objectNames.indexOf('LEATHER_GLOVES');
 const GAUNTLETS_OF_DEXTERITY = objectNames.indexOf('GAUNTLETS_OF_DEXTERITY');
 const TRIPE_RATION = objectNames.indexOf('TRIPE_RATION');
@@ -1446,7 +1447,8 @@ function reset_xystart_size() {
  * Kni-strt, Kni-loca, Kni-fila, Kni-filb, Kni-goal,
  * Rog-strt, Rog-loca, Rog-fila, Rog-filb, Rog-goal,
  * Val-strt, Val-loca, Val-fila, Val-filb, Val-goal,
- * Sam-strt, Sam-loca, Sam-fila, Sam-filb, Sam-goal, knox.
+ * Sam-strt, Sam-loca, Sam-fila, Sam-filb, Sam-goal,
+ * Hea-strt, Hea-loca, Hea-fila, Hea-filb, Hea-goal, knox.
  * Named omissions:
  * create_maze makemaz("") fallback; hellfill rnd_hell_prefab; dmonsfree.
  */
@@ -1740,6 +1742,26 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Sam-goal') {
         load_sam_goal();
+        return true;
+    }
+    if (protofile === 'Hea-strt') {
+        load_hea_strt();
+        return true;
+    }
+    if (protofile === 'Hea-loca') {
+        load_hea_loca();
+        return true;
+    }
+    if (protofile === 'Hea-fila') {
+        load_hea_fila();
+        return true;
+    }
+    if (protofile === 'Hea-filb') {
+        load_hea_filb();
+        return true;
+    }
+    if (protofile === 'Hea-goal') {
+        load_hea_goal();
         return true;
     }
     if (protofile === 'knox') {
@@ -8186,6 +8208,484 @@ function load_sam_filb() {
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Hea-strt.lua via load_special — Healer quest start (Hippocrates).
+ * Solidfill " " + mazelevel/noteleport/hardfloor; 76x20 besieged-sanctum map;
+ * replace_terrain P→'.' chance 10; whole-map lit region; down stair (37,09);
+ * neutral altar (not a shrine); 6 locked + 6 closed doors; Hippocrates
+ * (silver dagger +5) + chest + 8 attendant chamber guards; whole-map
+ * non_diggable; 6 random traps; rats/eels/shark/semicolon siege + hostile
+ * dragons/snakes in lua order; branch levregion point (04,12) after flip.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_hea_strt() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    const HEA_STRT_MAP = `
+PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+PPPP........PPPP.....PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP.P..PPPPP......PPPPPPPP
+PPP..........PPPP...PPPPP.........................PPPP..PPPPP........PPPPPPP
+PP............PPPPPPPP..............................PPP...PPPP......PPPPPPPP
+P.....PPPPPPPPPPPPPPP................................PPPPPPPPPPPPPPPPPPPPPPP
+PPPP....PPPPPPPPPPPP...................................PPPPP.PPPPPPPPPPPPPPP
+PPPP........PPPPP.........-----------------------........PP...PPPPPPP.....PP
+PPP............PPPPP....--|.|......S..........S.|--.....PPPP.PPPPPPP.......P
+PPPP..........PPPPP.....|.S.|......-----------|S|.|......PPPPPP.PPP.......PP
+PPPPPP......PPPPPP......|.|.|......|...|......|.|.|.....PPPPPP...PP.......PP
+PPPPPPPPPPPPPPPPPPP.....+.|.|......S.\\.S......|.|.+......PPPPPP.PPPP.......P
+PPP...PPPPP...PPPP......|.|.|......|...|......|.|.|.......PPPPPPPPPPP.....PP
+PP.....PPP.....PPP......|.|S|-----------......|.S.|......PPPPPPPPPPPPPPPPPPP
+PPP..PPPPP...PPPP.......--|.S..........S......|.|--.....PPPPPPPPP....PPPPPPP
+PPPPPPPPPPPPPPPP..........-----------------------..........PPPPP..........PP
+PPPPPPPPPPPPPPPPP........................................PPPPPP............P
+PPP.............PPPP...................................PPP..PPPP..........PP
+PP...............PPPPP................................PPPP...PPPP........PPP
+PPP.............PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP....PPPPPP
+PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+`.replace(/^\n/, '');
+    splev_apply_centered_map(HEA_STRT_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.replace_terrain({ region={01,01,74,18}, fromterrain="P",
+    // toterrain=".", chance=10 }) — map-relative region arm
+    lspo_replace_terrain_region(1, 1, 74, 18, POOL, ROOM, 10);
+
+    // des.region(selection.area(00,00,75,19), "lit")
+    light_region(mx + 0, my + 0, mx + 75, my + 19, true);
+
+    // des.stair("down", 37,9)
+    mkstairs(mx + 37, my + 9, 0, null);
+
+    // des.altar({ x=32, y=09, align="neutral", type="altar" }) — not a shrine:
+    // plain altar, no priestini, no has_temple
+    {
+        const loc = g.level.at(mx + 32, my + 9);
+        if (loc) {
+            loc.typ = ALTAR;
+            loc.flags = AM_NEUTRAL;
+            loc.altarmask = AM_NEUTRAL;
+        }
+    }
+
+    // des.door × 12 (6 locked + 6 closed)
+    const heaDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    heaDoor(24, 10, D_LOCKED);
+    heaDoor(26, 8, D_CLOSED);
+    heaDoor(27, 12, D_CLOSED);
+    heaDoor(28, 13, D_LOCKED);
+    heaDoor(35, 7, D_CLOSED);
+    heaDoor(35, 10, D_LOCKED);
+    heaDoor(39, 10, D_LOCKED);
+    heaDoor(39, 13, D_CLOSED);
+    heaDoor(46, 7, D_LOCKED);
+    heaDoor(47, 8, D_CLOSED);
+    heaDoor(48, 12, D_CLOSED);
+    heaDoor(50, 10, D_LOCKED);
+
+    // des.monster Hippocrates + silver dagger spe 5 (lua inventory fn)
+    {
+        const mtmp = splev_create_monster('Hippocrates', undefined, { rx: 37, ry: 10 });
+        splev_discard_default_minvent(mtmp);
+        const give = (spec) => {
+            const otmp = l_create_object(spec);
+            if (!otmp || !mtmp) return;
+            obj_extract_self(otmp);
+            mpickobj(mtmp, otmp);
+        };
+        give({ id: SILVER_DAGGER, spe: 5 });
+    }
+    // des.object("chest", 37, 10)
+    mksobj_at(CHEST, mx + 37, my + 10, true, true);
+
+    // intern guards for the audience chamber (default peaceful)
+    for (const [rx, ry] of [
+        [29, 8], [29, 9], [29, 10], [29, 11],
+        [40, 9], [40, 10], [40, 11], [40, 13],
+    ]) splev_create_monster('attendant', undefined, { rx, ry });
+
+    // des.non_diggable(selection.area(00,00,75,19)) — walls/bars only
+    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.trap() × 6
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // monsters on siege duty, in lua order (rats/eels/shark/semicolon default)
+    for (let i = 0; i < 10; i++) splev_create_monster('rabid rat', undefined);
+    splev_create_monster('giant eel', undefined);
+    splev_create_monster('shark', undefined);
+    splev_create_monster(';', undefined);
+    for (let i = 0; i < 5; i++) splev_create_monster('D', 0);
+    for (let i = 0; i < 5; i++) splev_create_monster('S', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // des.levregion branch point after flip (pre-flip map offsets, Sam-strt shortcut)
+    place_lregion(
+        mx + 4, my + 12, mx + 4, my + 12,
+        0, 0, 0, 0, LR_BRANCH, null,
+    );
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Hea-loca.lua via load_special — Healer quest locate.
+ * Solidfill " " + mazelevel/hardfloor; mines fg="." bg="P" (smoothed, joined,
+ * lit=1, walled=false); 31x10 pool-edged map; whole-map lit region; temple
+ * FILL_LVFLAGS + chaos shrine priestini; up stair (04,04) + down stair
+ * (20,06); rect non_diggable (11,02,21,07); 15 objects; 6 random traps;
+ * rats/class-r/eels/kraken/sharks/semicolons/dragons/snakes in lua order.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * spo_end_moninvent m_dowear; ensure_way_out.
+ */
+function load_hea_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = " " })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    // des.level_init mines: fg=".", bg="P", smoothed=true, joined=true,
+    // lit=1, walled=false — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: POOL, filling: ROOM,
+        lit: 1, smoothed: true, joined: true, walled: false,
+        icedpools: false,
+    });
+
+    const HEA_LOCA_MAP = `
+PPPPPPPPPPPPP.......PPPPPPPPPPP
+PPPPPPPP...............PPPPPPPP
+PPPP.....-------------...PPPPPP
+PPPPP....|.S.........|....PPPPP
+PPP......+.|.........|...PPPPPP
+PPP......+.|.........|..PPPPPPP
+PPPP.....|.S.........|..PPPPPPP
+PPPPP....-------------....PPPPP
+PPPPPPPP...............PPPPPPPP
+PPPPPPPPPPP........PPPPPPPPPPPP
+`.replace(/^\n/, '');
+    splev_apply_centered_map(HEA_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,30,09), "lit")
+    light_region(mx + 0, my + 0, mx + 30, my + 9, true);
+
+    // des.region({ region={12,03,20,06}, lit=1, type="temple", filled=1 })
+    let templeRoom = null;
+    {
+        const dx1 = mx + 12, dy1 = my + 3, dx2 = mx + 20, dy2 = my + 6;
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            add_room(dx1, dy1, dx2, dy2, true, TEMPLE, true);
+            templeRoom = g.level.rooms[g.level.nroom - 1];
+            if (templeRoom) {
+                templeRoom.needfill = FILL_LVFLAGS;
+                templeRoom.needjoining = true;
+                topologize(templeRoom);
+            }
+        }
+    }
+
+    // des.door × 4 (2 closed + 2 locked)
+    const heaLocaDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    heaLocaDoor(9, 4, D_CLOSED);
+    heaLocaDoor(9, 5, D_CLOSED);
+    heaLocaDoor(11, 3, D_LOCKED);
+    heaLocaDoor(11, 6, D_LOCKED);
+
+    // des.stair up (04,04) + down (20,06)
+    mkstairs(mx + 4, my + 4, 1, null);
+    mkstairs(mx + 20, my + 6, 0, null);
+
+    // des.non_diggable(selection.area(11,02,21,07)) — walls/bars only
+    for (let y = my + 2; y <= my + 7 && y < ROWNO; y++) {
+        for (let x = mx + 11; x <= mx + 21 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.altar({ x=13, y=05, align="chaos", type="shrine" })
+    // C create_altar: amask then priestini then |= AM_SHRINE
+    {
+        const ax = mx + 13, ay = my + 5;
+        const loc = g.level.at(ax, ay);
+        if (loc) {
+            loc.typ = ALTAR;
+            loc.flags = AM_CHAOTIC;
+            loc.altarmask = AM_CHAOTIC;
+        }
+        if (templeRoom) priestini(g.u?.uz, templeRoom, ax, ay, false);
+        if (loc) {
+            loc.altarmask = (loc.altarmask | 0) | AM_SHRINE;
+            loc.flags = (loc.flags | 0) | AM_SHRINE;
+        }
+        if (g.level.flags) g.level.flags.has_temple = true;
+    }
+
+    // des.object() × 15
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+
+    // des.trap() × 6
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // random monsters, in lua order
+    for (let i = 0; i < 8; i++) splev_create_monster('rabid rat', undefined);
+    splev_create_monster('r', 0);
+    for (let i = 0; i < 5; i++) splev_create_monster('giant eel', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster('electric eel', undefined);
+    splev_create_monster('kraken', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster('shark', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster(';', 0);
+    for (let i = 0; i < 5; i++) splev_create_monster('D', 0);
+    for (let i = 0; i < 9; i++) splev_create_monster('S', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Hea-goal.lua via load_special — Healer quest goal (Cyclops).
+ * Solidfill "P" + mazelevel; mines fg="." bg="P" (lit=1, walled=false);
+ * 41x12 map; whole-map lit region; up stair (39,10); whole-map non_diggable;
+ * the Staff of Aesculapius (blessed +0 quarterstaff) + wand of lightning +
+ * 14 objects; 6 random traps; hostile Cyclops + rats/class-r/eels/sharks/
+ * semicolon/dragons/snakes in lua order.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_hea_goal() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "P" })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: POOL,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg="P", smoothed=false, joined=true,
+    // lit=1, walled=false — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: POOL, filling: ROOM,
+        lit: 1, smoothed: false, joined: true, walled: false,
+        icedpools: false,
+    });
+
+    const HEA_GOAL_MAP = `
+.P....................................PP.
+PP.......PPPPPPP....PPPPPPP....PPPP...PP.
+...PPPPPPP....PPPPPPP.....PPPPPP..PPP...P
+...PP..............................PPP...
+..PP..............................PP.....
+..PP..............................PPP....
+..PPP..............................PP....
+.PPP..............................PPPP...
+...PP............................PPP...PP
+..PPPP...PPPPP..PPPP...PPPPP.....PP...PP.
+P....PPPPP...PPPP..PPPPP...PPPPPPP...PP..
+PPP..................................PPP.
+`.replace(/^\n/, '');
+    splev_apply_centered_map(HEA_GOAL_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region(selection.area(00,00,40,11), "lit")
+    light_region(mx + 0, my + 0, mx + 40, my + 11, true);
+
+    // des.stair("up", 39,10)
+    mkstairs(mx + 39, my + 10, 1, null);
+
+    // des.non_diggable(selection.area(00,00,40,11)) — walls/bars only
+    for (let y = my; y <= my + 11 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 40 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE;
+            }
+        }
+    }
+
+    // des.object Staff of Aesculapius + wand of lightning + 14 random
+    l_create_object({
+        id: QUARTERSTAFF, rx: 20, ry: 6, buc: 'blessed', spe: 0,
+        name: 'The Staff of Aesculapius',
+    });
+    l_create_object({ id: WAN_LIGHTNING, rx: 20, ry: 6 });
+    for (let i = 0; i < 14; i++) splev_create_object(null);
+
+    // des.trap() × 6
+    for (let i = 0; i < 6; i++) splev_create_trap();
+
+    // Cyclops on guard + random monsters, in lua order
+    splev_create_monster('Cyclops', 0, { rx: 20, ry: 6 });
+    for (let i = 0; i < 3; i++) splev_create_monster('rabid rat', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster('r', 0);
+    for (let i = 0; i < 6; i++) splev_create_monster('giant eel', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster('electric eel', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster('shark', undefined);
+    splev_create_monster(';', 0);
+    for (let i = 0; i < 5; i++) splev_create_monster('D', 0);
+    for (let i = 0; i < 10; i++) splev_create_monster('S', 0);
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Hea-fila.lua via load_special — Healer quest upper filler.
+ * Solidfill "P" + mazelevel/noflip; mines fg="." bg="P" (lit=1,
+ * walled=false); random up/down stairs; 8 objects; rat + 2 class-r + eels +
+ * dragons + snakes in lua order; 4 random traps.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_hea_fila() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "P" })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: POOL,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg="P", smoothed=false, joined=true,
+    // lit=1, walled=false — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: POOL, filling: ROOM,
+        lit: 1, smoothed: false, joined: true, walled: false,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 8; i++) splev_create_object(null);
+    splev_create_monster('rabid rat', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster('r', 0);
+    for (let i = 0; i < 2; i++) splev_create_monster('giant eel', undefined);
+    splev_create_monster('electric eel', undefined);
+    for (let i = 0; i < 4; i++) splev_create_monster('D', 0);
+    for (let i = 0; i < 3; i++) splev_create_monster('S', 0);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Hea-filb.lua via load_special — Healer quest lower filler.
+ * Solidfill "P" + mazelevel/noflip; mines fg="." bg="P" (lit=1,
+ * walled=false); random up/down stairs; 11 objects; 2 rats + 2 class-r +
+ * eels + dragons + snakes in lua order; 4 random traps.
+ * Named omissions: humidity-aware get_location for water-likers;
+ * ensure_way_out.
+ */
+function load_hea_filb() {
+    const g = game;
+    nhlib_shuffle_align();
+
+    // des.level_init({ style = "solidfill", fg = "P" })
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: POOL,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+
+    // des.level_init mines: fg=".", bg="P", smoothed=false, joined=true,
+    // lit=1, walled=false — filling defaults to fg (ROOM)
+    splev_initlev({
+        init_style: LVLINIT_MINES,
+        fg: ROOM, bg: POOL, filling: ROOM,
+        lit: 1, smoothed: false, joined: true, walled: false,
+        icedpools: false,
+    });
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+    for (let i = 0; i < 11; i++) splev_create_object(null);
+    for (let i = 0; i < 2; i++) splev_create_monster('rabid rat', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster('r', 0);
+    for (let i = 0; i < 5; i++) splev_create_monster('giant eel', undefined);
+    for (let i = 0; i < 2; i++) splev_create_monster('electric eel', undefined);
+    for (let i = 0; i < 4; i++) splev_create_monster('D', 0);
+    for (let i = 0; i < 3; i++) splev_create_monster('S', 0);
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // des.level_flags("mazelevel", "noflip") — skip flip_level_rnd
     fixup_special();
 }
 
@@ -15607,6 +16107,9 @@ function monclass_letter_to_mlet(ch) {
         S: 'S_SNAKE', T: 'S_TROLL', U: 'S_UMBER', V: 'S_VAMPIRE', W: 'S_WRAITH',
         X: 'S_XORN', Y: 'S_YETI', Z: 'S_ZOMBIE',
         "'": 'S_GOLEM', '&': 'S_DEMON', ' ': 'S_HUMAN', '@': 'S_HUMAN',
+        // C defsym.h:362 MONSYM(57, ';', EEL, S_EEL, "sea monster") —
+        // des.monster class ';' resolves via def_char_to_monclass (sp_lev.c:1936)
+        ';': 'S_EEL',
     };
     return map[ch] || null;
 }
