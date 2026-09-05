@@ -1,5 +1,39 @@
 # Divergence log
 
+## D-1855 — cmd.c '&' dispatches dowhatdoes (was Unknown command)
+
+- **Status:** fixed (Open queue row; corpus + green + strict + cohort)
+- **Symptom:** 2 corpus blocks at `dowhatdoes`: C
+  `«Ask about '&' or '?' to get more info.--More--»` vs JS
+  `«Unknown command '&'.»`
+  (random-seed0367-priest-quest-tour-c32340b1 step 312/352;
+  random-seed0900-tourist-explore-actions-26ba12bb step 90/112).
+- **C locus:** `cmd.c:1934–1935` — `{ '&', "whatdoes", …, dowhatdoes,
+  IFBURIED | GENERALCMD, NULL }`; `pager.c:2659–2715` `dowhatdoes`
+  (once-tip pline, `yn_function("What command?")`, `dowhatdoes_core`,
+  `whatdoes_help` on `&`/`?`, ECMD_OK).
+- **JS was:** `dowhatdoes` (`js/pager.js:1875`) existed as a local
+  non-exported helper used only by the `dohelp` menu `f` entry;
+  `js/cmd.js` dispatch had `:`, `/`, `;`, `?`, `#` arms but no `&`,
+  so `&` fell to the final else → `rhack_dispatch_bound` miss →
+  `Unknown command '&'.`.
+- **Fix:** export `dowhatdoes` from `js/pager.js`, import it in
+  `js/cmd.js` (existing pager edge, no new module), and add
+  `else if (ch === '&')` awaiting `dowhatdoes()` with
+  `game.context.move = 0` (ECMD_OK, no turn) like the `/`/`?` arms.
+- **JS:** `js/pager.js` (export one word), `js/cmd.js` (import + 5-line arm).
+- **Verify:** `node scripts/verify.mjs --fn dowhatdoes` → PASS
+  syntax (2 js files: js/cmd.js js/pager.js); PASS rule2; PASS hidden
+  verify dowhatdoes: 2 PASS, 0 moved past, 0 unchanged, 0 worse →
+  PROGRESS (random-seed0367-priest-quest-tour-c32340b1: PASS;
+  random-seed0900-tourist-explore-actions-26ba12bb: PASS); PASS green
+  2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; full skipped
+  (no shared file changed).
+- **Named omissions:** `dowhatdoes` ALTMETA ESC-double path
+  (`pager.c` `#ifdef ALTMETA`) and UNIX/VMS `introff`/`intron`
+  signal masking — platform/terminal-specific, not ported.
+- **Next:** Open `sp_lev.c` `lspo_replace_terrain` (1 corpus block).
+
 ## D-1854 — pager.c do_screen_description blank-sym collapse ("can be many things (unexplored area)")
 
 - **Status:** fixed (Open queue row; corpus + green + cohort + full `sessions` 44/44)

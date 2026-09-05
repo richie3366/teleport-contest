@@ -730,7 +730,9 @@ license** (D-0088); **NHW_TEXT `dmore` quitchars** (D-0089);
 **`show_text_pages` / fullscreen `show_nhw_menu_text` paint ≤cols−1** ≡ C `process_text_window` 
 `++curx < cols` (D-0933; recording `get_configfile` path string still deferred — Constitution); 
 **NHW_MENU putstr `show_nhw_menu_text` `dmore` quitchars** (D-0240; space/CR/ESC only); 
-**`dowhatdoes` tip+`What command?`+`key2extcmddesc`** (D-0090); 
+**`dowhatdoes` tip+`What command?`+`key2extcmddesc`** (D-0090);
+**cmd.c `&` → `dowhatdoes` dispatch + export** (D-1855; IFBURIED|GENERALCMD,
+ECMD_OK no turn; ALTMETA ESC-double + introff/intron named); 
 **help `g` → `option_help`** (D-0091); **`dokeylist`/`domenucontrols`/`docontact` + 
 default !num_pad binds** (D-0131); **`display_file` keeps intentional trailing blank** (D-0131); 
 **`;` → `doquickwhatis`/`do_look(1)` + `look_at_monster` distant_monnam/asleep + 

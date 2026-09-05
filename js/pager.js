@@ -1872,7 +1872,7 @@ export function dowhatdoes_core(q) {
 /**
  * C ref: pager.c dowhatdoes — tip once, yn_function "What command?", describe.
  */
-async function dowhatdoes() {
+export async function dowhatdoes() {
     if (!game._whatdoes_once) {
         await pline("Ask about '&' or '?' to get more info.");
         // C: previous topline / yn_function path surfaces --More-- before prompt

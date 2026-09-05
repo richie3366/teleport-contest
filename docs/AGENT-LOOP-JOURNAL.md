@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-05 — D-1855 cmd.c '&' dispatches dowhatdoes (was Unknown command)
+
+**C locus:** `cmd.c:1934–1935` — `{ '&', "whatdoes", …, dowhatdoes,
+**JS:** `js/pager.js` (export one word), `js/cmd.js` (import + 5-line arm).
+**Change:** export `dowhatdoes` from `js/pager.js`, import it in
+**Verify:** `node scripts/verify.mjs --fn dowhatdoes` → PASS
+**Named:** `dowhatdoes` ALTMETA ESC-double path
+**Next:** Open `sp_lev.c` `lspo_replace_terrain` (1 corpus block).
 ## 2026-09-05 — D-1854 pager.c do_screen_description blank-sym collapse ("can be many things (unexplored area)")
 
 **C locus:** `pager.c` `do_screen_description` `:1246–1627` — looked sym
