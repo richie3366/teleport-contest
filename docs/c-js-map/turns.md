@@ -793,7 +793,12 @@ containers named; **`do_screen_description` full cmap/symbol table**
 + air found=5 → prefix + "can be many things" + didlook lookat
 "(unexplored area)"/"(unexplored)"/"(dark part of a room)", found=1;
 full showsyms scan, terrainmode gating, moat double-add, warnsym/boulder
-co-locate, override gotos, unreconnoitered/mon_interior still deferred)
+co-locate, override gotos, unreconnoitered/mon_interior still deferred) then
+**object-glyph `an(explain) (lookat)` D-1886** (`pager.c:1355–1400`
+object loop + didlook `:1607–1640` supplement, driven off the shown glyph
+via `glyph_to_obj` + `game.objects` oc_class + `def_oc_syms` explain;
+boulder split; `look_at_object` buried/stone/wall/door/pool/lava suffixes
+`:388–399`; statue monster-prefix, venom `'.'`-row, tree dangling named)
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 

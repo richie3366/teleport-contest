@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `objnam.c` readobjnam_postparse1 — 1 corpus block screen-first (topline) at step 345 («%a piece of food (a food ration)--More--» vs «·a doorway or the floor of a room or the dark part of a room or ice»; random-seed0367-priest-quest-tour-01388a3a; follow-up owner after the getpos_help port above).
 - [ ] `mkmaze.c` makemaz `tou-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Tourist quest 0/5 (520 ln; Tourist 3/44 sessions). From `dat/tou-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `ran-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Ranger quest 0/5 (360 ln; Ranger 3/44 sessions). From `dat/ran-*.lua` (HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `mon-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Monk quest 0/5 (402 ln; Monk 2/44 sessions). From `dat/mon-*.lua` (HELDOUT Tier B).

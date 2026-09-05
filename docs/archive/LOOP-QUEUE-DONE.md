@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `mkmaze.c` makemaz `hea-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Healer quest 0/5 (388 ln; Healer 2/44 sessions, incl. active tour-Healer corpus session). From `dat/hea-*.lua` (HELDOUT Tier B). **Addressed:** D-1885
+- [x] `objnam.c` readobjnam_postparse1 — 1 corpus block screen-first (topline) at step 345 («%a piece of food (a food ration)--More--» vs «·a doorway or the floor of a room or the dark part of a room or ice»; random-seed0367-priest-quest-tour-01388a3a; follow-up owner after the getpos_help port above). **Addressed:** D-1886
+
+
+- [x] `mkmaze.c` makemaz `hea-strt`/`-loca`/`-goal`/`-fila`/`-filb` — Healer quest 0/5 (388 ln; Healer 2/44 sessions, incl. active tour-Healer corpus session). From `dat/hea-*.lua` (HELDOUT Tier B). **Addressed:** D-1885 `b344cc6f`
 
 
 - [x] `iactions.c` itemactions — 1 corpus block screen-first at step 853 («Do what with the cloak of magic resistance?» vs same-plus; explore-seed0360-wizard-world-tour-5dfef5c4; new symptom, distinct from archived D-1833 Engrave/Write). **Addressed:** D-1884 `3dadc461`

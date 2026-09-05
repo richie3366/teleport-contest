@@ -1,6 +1,6 @@
 {
- "commit": "ac00a2c5",
- "at": "2026-09-05T21:04:26.790Z",
+ "commit": "b344cc6f",
+ "at": "2026-09-05T21:28:18.968Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -3557,19 +3557,19 @@
   },
   "random-seed0367-priest-quest-tour-01388a3a": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 50086,
    "rngT": 50086,
-   "scrM": 345,
+   "scrM": 352,
    "scrT": 352,
-   "kind": "screen",
-   "step": 345,
+   "kind": null,
+   "step": null,
    "steps": 352,
-   "owner": "readobjnam_postparse1",
-   "loc": "objnam.c:4565",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "%a piece of food (a food ration)--More--",
-   "jsTopline": "·a doorway or the floor of a room or the dark part of a room or ice",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "random-seed0367-priest-quest-tour-50ca6a8f": {

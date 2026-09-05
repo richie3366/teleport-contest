@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-1886 — pager.c do_screen_description object-glyph arm (queued readobjnam_postparse1 was a literal-match misattribution)
+
+- **Status:** fixed (Open queue row; 1 corpus PASS; green + strict + cohort 7/7 + full 44/44 PASS)
+- **Symptom:** `random-seed0367-priest-quest-tour-01388a3a` step 345/352 screen-first at `objnam.c:4565`: C `%a piece of food (a food ration)--More--` vs JS `·a doorway or the floor of a room or the dark part of a room or ice`. After the fix the session fully PASSes (RNG 50086/50086, screens/cursors 352/352).
+- **C locus:** `pager.c` `do_screen_description` object loop `:1355–1400` (shown `%` matches FOOD_CLASS showsym → `an("piece of food")`, `defsym.h:474`; `need_to_look`) + didlook `:1607–1640` (`lookat` → `look_at_object` `:380–399` → `distant_name` → "a food ration"; `firstmatch = look_buf`, found back to 1) + `do_look` `:1923–1950` (`putmixed`, then `checkfile("a food ration")` → `*food*` data key → `--More--`) + `look_at_object` buried/embedded suffixes `:388–399`. The queued owner is falsified: `':'` is the getpos pick char, the picked cell is map (46,18) (screen 45,19, `%` food glyph, FOOD_RATION live in `objects_at`), and `readobjnam` callers are wish-only (`zap.c`/`files.c`/`nhlobj.c`) with no wish on this path and RNG fully matched — the proxy matched the `"food ration"` wish-parse guard literal, not the printer (same misattribution shape as D-1875 `glibr`). Review 850 (ACCEPT, no actionables) needs no stamp.
+- **JS was:** `describe_looked`'s pile arm read `loc.objects`, which is never populated (floor piles live in `objects_at`), so it was dead code and object-glyph cells fell through to the ROOM or-list arm; `look_at_object` lacked the buried/embedded suffixes (named).
+- **Fix:** glyph-driven object arm in `describe_looked` (oclass via `glyph_to_obj` + `game.objects` oc_class + `def_oc_syms` explain; all classes 1–17 except VENOM; ROCK → "boulder"; out `<ch> an(explain) (lookat)`, `first` = look_buf, found 1 — verified chain at (46,18): glyph object, otyp 293 FOOD_RATION, oclass 7, `look_at_object` → "a food ration"); buried/stone/wall/door/pool/lava suffix chain in `look_at_object`, gated on real objects (C deallocs the fake so fakes take no suffix). Same-module import-name additions only (`objects.js`/`display.js`/`hack.js`/`const.js` edges already exist).
+- **JS:** `js/pager.js` (+43/−10: object arm + suffixes + docstring updates); `hidden-corpus/scoreboard.json` (working row → PASS).
+- **Verify:**
+  - Preflight `node scripts/verify.mjs --no-cohort` before any edit → VERIFY: PASS (green + strict clean).
+  - `node scripts/verify.mjs --fn readobjnam_postparse1` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/pager.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `PASS hidden verify readobjnam_postparse1: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (random-seed0367-priest-quest-tour-01388a3a: PASS)`; `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; skip full (shared-file heuristic).
+  - Full `node frozen/ps_test_runner.mjs sessions` (run manually: `pager.js` is widely shared) → **44/44 passing**, speed `49+0.37/turn`.
+- **Named omissions:** statue glyphs keep the old fallthrough (their C line needs the monster-class prefix from the unexported mlet explain table, plus the monster-letter prefix char); venom glyphs likewise (C lists the shared `'.'`-sym cmap row, not "a splash of venom"); tree `dangling/stuck` suffix (needs `is_treefruit`); `doname_with_price`/`doname_vague_quan` stand-in (pre-existing); full cmap/symbol table scan (pre-existing); `readobjnam_postparse1` itself still unported (wish-only; no live corpus block — the queued premise was the misattribution above).
+- **Next:** next Open queue row in order (`mkmaze.c` makemaz `tou-strt` Tourist quest).
+
 ## D-1885 — mkmaze.c makemaz Hea-strt/loca/goal/fila/filb load_special (Healer quest 5/5)
 
 - **Status:** fixed (Open queue row; green + strict + cohort + full 44/44 PASS; hidden vacuous — no corpus session blocked on makemaz)

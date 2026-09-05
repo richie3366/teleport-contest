@@ -21,7 +21,7 @@ import {
     flush_screen, flush_topl_more, pline, docrt, more,
     mon_glyph, obj_glyph, look_shown_at, terrain_glyph, Hallucination,
     glyph_to_obj_at, glyph_at, glyph_is_trap, glyph_to_trap,
-    glyph_is_monster, glyph_is_object, glyph_is_warning,
+    glyph_is_monster, glyph_is_object, glyph_is_statue, glyph_is_warning,
     glyph_is_invisible_id, glyph_is_nothing, glyph_is_unexplored,
     glyph_is_cmap, glyph_to_cmap, glyph_to_obj, glyph_to_warning,
     canspotself, mon_to_glyph, hero_Invisible,
@@ -48,7 +48,7 @@ import { distant_monnam_none, pmname, Ugender, mon_nam, rndmonnam } from './do_n
 import { hides_under, is_hider, is_clinger, is_flyer, mons,
     M2_HUMAN, M2_ELF, M2_ORC, M2_DEMON,
 } from './monsters.js';
-import { is_pool, waterbody_name } from './hack.js';
+import { is_pool, is_lava, closed_door, waterbody_name } from './hack.js';
 import { altarmask_at } from './pray.js';
 import { align_str } from './roles.js';
 import { is_drawbridge_wall } from './dbridge.js';
@@ -62,16 +62,17 @@ import { trapped_chest_at, trapped_door_at } from './detect.js';
 import { costly_spot } from './shk.js';
 import { cmdq_pop, cmdq_clear } from './cmd.js';
 import {
-    objectNames, objectNameStrs, COIN_CLASS,
+    objectNames, objectNameStrs, COIN_CLASS, def_oc_syms,
+    ROCK_CLASS, VENOM_CLASS,
 } from './objects.js';
 import {
-    BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE, SCORR,
+    BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE, SCORR, SDOOR,
     GPCOORDS_NONE, GPCOORDS_MAP, GPCOORDS_COMPASS, GPCOORDS_SCREEN,
     STRAT_WAITMASK, IS_WALL, Upolyd, Is_airlevel, Is_waterlevel, Is_astralevel,
     u_at, TER_MON, Amask2align, AM_SANCTUM, AM_MASK, D_BROKEN, D_TRAPPED,
     S_altar, S_ndoor, S_cloud, S_pool, S_water, S_lava, S_lavawall, S_ice,
     S_engroom, S_engrcorr, S_stone, def_warnsyms,
-    OBJ_FREE, OBJ_FLOOR, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
+    OBJ_FREE, OBJ_FLOOR, OBJ_BURIED, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
     M_AP_TYPMASK, M_AP_F_DKNOWN,
     MCORPSENM, has_mcorpsenm, MALE, FEMALE,
     MHID_PREFIX, MHID_ARTICLE, MHID_ALTMON, MHID_REGION,
@@ -826,7 +827,7 @@ export function object_from_map(glyphotyp, x, y) {
  * C ref: pager.c look_at_object `:380–399`.
  * Callers: lookat / look_all / getpos auto_describe + brief_at (D-1547).
  * doname_with_price / doname_vague_quan named — doname stand-in.
- * Buried/tree/stone/wall/door/pool suffixes named.
+ * Tree suffix named (needs is_treefruit for dangling vs stuck).
  */
 export function look_at_object(x, y, glyphotyp) {
     const { fakeobj, otmp } = object_from_map(glyphotyp, x, y);
@@ -839,6 +840,19 @@ export function look_at_object(x, y, glyphotyp) {
             // C: object_from_map set OBJ_FLOOR; never placed on fobj
             otmp.where = OBJ_FREE;
         }
+    }
+    if (otmp && !fakeobj) {
+        // C ref: pager.c look_at_object `:388–399` — buried/embedded
+        // suffixes read the looked cell. The tree arm stays named
+        // (needs is_treefruit for dangling vs stuck); fakes take no
+        // suffix (C deallocs the fake, so otmp is NULL below).
+        const typ = game.level?.at?.(x, y)?.typ | 0;
+        if ((otmp.where | 0) === OBJ_BURIED) buf += ' (buried)';
+        else if (typ === STONE || typ === SCORR) buf += ' embedded in stone';
+        else if (IS_WALL(typ) || typ === SDOOR) buf += ' embedded in a wall';
+        else if (closed_door(x, y)) buf += ' embedded in a door';
+        else if (is_pool(x, y)) buf += ' in water';
+        else if (is_lava(x, y)) buf += ' in molten lava';
     }
     return buf;
 }
@@ -1238,10 +1252,29 @@ function describe_looked(x, y) {
         return { out, first, found: 1 };
     }
     const loc = game.level?.at?.(x, y);
-    const pile = loc?.objects || [];
-    if (pile.length) {
-        const nm = doname(pile[0]);
-        return { out: `?        ${nm}`, first: simplify_for_db(nm), found: 1 };
+    // C ref: pager.c do_screen_description object loop `:1355–1400` —
+    // looked sym matches the oclass showsym → out is `an(explain)` with
+    // need_to_look; the didlook block `:1607–1640` appends the lookat buf
+    // in parens and firstmatch becomes look_buf (found back to 1 for
+    // checkfile). Floor piles live in objects_at, never loc.objects, so
+    // drive off the shown glyph exactly as C matches sym; lookat names
+    // the pile top through object_from_map. Statues keep the old
+    // fallthrough (their C line needs the monster-class prefix from the
+    // unexported mlet table); venom likewise (C lists the shared '.'-sym
+    // cmap row there, not "a splash of venom").
+    const otyp = glyph_to_obj(glyph);
+    const oclass = game.objects?.[otyp]?.oc_class | 0;
+    if (glyph_is_object(glyph) && !glyph_is_statue(glyph)
+        && oclass >= 1 && oclass <= 17 && oclass !== VENOM_CLASS) {
+        // C `:1370–1378` — boulder/statue split; only shown '`' reaches
+        // here (statues excluded above), so "boulder".
+        const ocPtr = oclass === ROCK_CLASS
+            ? 'boulder'
+            : ((def_oc_syms[oclass] || {}).explain || 'strange object');
+        const ocCh = (def_oc_syms[oclass] || {}).sym || '?';
+        const look = look_at_object(x, y, otyp);
+        const out = `${ocCh}        ${an(ocPtr)} (${look})`;
+        return { out, first: look, found: 1 };
     }
     if (is_stair_spot(x, y)) return describe_stairs_looked(x, y);
     // C ref: pager.c do_screen_description — walls before room/corr
