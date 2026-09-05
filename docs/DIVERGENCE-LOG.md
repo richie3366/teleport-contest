@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-1894 — exper.c losexp level-1 done(DIED) (hitmsg corpus owner)
+
+- **Status:** fixed (Open queue row `mhitu.c` hitmsg; hidden 1 PASS; green + strict + cohort 7/7 + full 44/44 PASS)
+- **Symptom:** `tour-Valkyrie-70014-d5-8-15-17-22` step 43/50 screen-first at `mhitu.c:59`: C «The wraith touches you! Farvel level 1.--More--» vs JS «The wraith touches you! Farvel level 1.». Both sides print identical text (`hitmsg` "The wraith touches you!" + `losexp` "Farvel level 1."); only the pending `--More--` differs. Follow-up to open D-1870 (same session; D-1870's AD_DRLI arm made RNG 11951/11951 match, leaving this screen block).
+- **Attribution note (measured, not inferred):** the proxy owner `hitmsg(mhitu.c:59)` is the last message literal on the row, but `hitmsg` needed no change (D-1261 faithful; verb/punct/`again` identical both sides). The proxy's own alternatives list the true writer: `losexp(exper.c:224)`. The `--More--` is C entering `done(DIED)`: wraith AD_DRLI drained a level-1 hero with drainer "life drainage", which is fatal in C.
+- **C locus:** `exper.c` `losexp` `:232–237` (ulevel==1 + drainer → killer.format=KILLED_BY, killer.name=drainer, `done(DIED)`), `:239–244` (lifesaved/declined → uexp=0 + `lost all experience`, then the shared uhpmax/uhp/uen tail).
+- **JS was:** `js/exper.js` `losexp` had `if (drainer) return;` ("Named omit: level-1 done(DIED)") — the hero survived a fatal drain and kept playing, so 7 death-sequence screens diverged.
+- **Fix:** set `game.killer` (format KILLED_BY, name=drainer unless already it — C `:234–236` pointer-guard as a value compare) and `await done(DIED)`; keep the C `:239–243` ulevel>1 fuzz guard, then fall through to the existing uexp/uhp/uen tail like C's lifesaved path. `done` static-imported from `end.js` (`imports.mjs --can`: hoisted function, cycle-safe; `mhitu.js` already statically imports it). `KILLED_BY`/`DIED` added to the existing `const.js` import.
+- **JS:** `js/exper.js` (+12/−2); `js/sit.js` comment-only (throne omit line now says Upolyd mh-strip; level-1 done live); `docs/c-js-map/turns.md` AD_DRLI row; `docs/LOOP-QUEUE.md` hitmsg row.
+- **Verify:** `node scripts/verify.mjs --fn hitmsg` → `PASS syntax 2 changed js file(s): js/exper.js js/sit.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS hidden verify hitmsg: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (tour-Valkyrie-70014-d5-8-15-17-22: PASS)` · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7`. Then `node frozen/ps_test_runner.mjs sessions` → **44/44 PASS** (fortress holds; speed `44+0.33/turn`).
+- **Named omissions:** SoundAchievement; Upolyd monhp_per_lvl/rehumanize; uhpmax-up clamp via setuhpmax (all pre-existing, header-kept).
+- **Next:** open D-1870's session now PASSes — D-1870 can re-verify/close; next Open row (`mkmaze.c` makemaz tut-2).
+
 ## D-1893 — mkmaze.c Cav quest des.wallify() in load_cav_strt/loca/goal
 
 - **Status:** fixed (Must-fix review 861; green + strict + cohort 7/7 + full 44/44 PASS; hidden vacuous — no corpus session blocked on makemaz/wallify_map, no quest level reached)

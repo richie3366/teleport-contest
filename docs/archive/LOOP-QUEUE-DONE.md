@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-05
 
-- [x] `mkmaze.c` Cav quest missing `des.wallify()` — `load_cav_strt`/`loca`/`goal` omit the lua-final `des.wallify()` (Cav-strt.lua:94, Cav-loca.lua:93, Cav-goal.lua:59 → `lspo_wallify` `sp_lev.c:5965` → `wallify_map` over map extents, STONE→HWALL/VWALL per `sp_lev.c:2865`); cave perimeters stay STONE. Fix: Tou-goal/Ran-goal epilogue line (`wallify_map` on splev extents before wallification→flip→fixup) in all three loaders; no RNG impact. Source: reviews/loop-unattended/861-b405a225-cav-quest-loaders.md. **Addressed:** D-1893
+- [x] `mhitu.c` hitmsg — blocks 1/278 corpus sessions (first at step 43): C «The wraith touches you! Farvel level 1.--More--» vs JS «The wraith touches you! Farvel level 1.». Probe: `node scripts/hidden-proxy.mjs verify hitmsg` (tour-Valkyrie-70014-d5-8-15-17-22). Fresh block after archived D-1261. **Addressed:** D-1894
+
+
+- [x] `mkmaze.c` Cav quest missing `des.wallify()` — `load_cav_strt`/`loca`/`goal` omit the lua-final `des.wallify()` (Cav-strt.lua:94, Cav-loca.lua:93, Cav-goal.lua:59 → `lspo_wallify` `sp_lev.c:5965` → `wallify_map` over map extents, STONE→HWALL/VWALL per `sp_lev.c:2865`); cave perimeters stay STONE. Fix: Tou-goal/Ran-goal epilogue line (`wallify_map` on splev extents before wallification→flip→fixup) in all three loaders; no RNG impact. Source: reviews/loop-unattended/861-b405a225-cav-quest-loaders.md. **Addressed:** D-1893 `04dd88ea`
 
 
 - [x] `botl.c` do_statusline1 — blocks 1/278 corpus sessions (first at step 821): C «Logged events:» vs JS «Logged events:». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (random-seed0360-wizard-world-tour-4ac145da). Fresh block after archived D-1842. **Addressed:** D-1892 `60215712`

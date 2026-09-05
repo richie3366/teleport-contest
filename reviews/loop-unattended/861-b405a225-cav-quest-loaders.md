@@ -73,4 +73,4 @@ session reaches quest levels).
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-1893
+**Addressed:** D-1893 `04dd88ea`
