@@ -136,6 +136,17 @@ export async function You_hear(line) {
 }
 
 /**
+ * C ref: hack.c monst_to_any `:88–94` — `&tmp_anything` with
+ * `a_monst = mtmp`. C light.c stores the union (`ls->id = *id`) and
+ * compares union bytes — monst pointer identity. JS light_base keys
+ * LS_MONSTER entries by the stable monst object itself (same identity),
+ * so the collapsed handle is mtmp. Caller: makemon.c newcham light arms.
+ */
+export function monst_to_any(mtmp) {
+    return mtmp;
+}
+
+/**
  * C ref: do_name.c a_monnam — ARTICLE_A subtype name (uhitm local twin).
  * Hallu / invisible / named-pet arms deferred.
  */

@@ -2759,7 +2759,7 @@ on first engulf via D-0838); **`dochug` MMOVE_MOVED `engulfing_u`→`mattacku`**
 **AD_SPEL/CLRC/RBRE/SAMU/CURS codes** (D-0641); 
 **`mon_wield_item` NEED_PICK_AXE/AXE/PICK_OR_AXE + NEED_HTH/`select_hwep` + 
 canseemon wield pline** (D-0180/D-0264/D-0318; mwelded refuse-wield/weld/artifact_light/tether deferred); 
-**`possibly_unwield` / `setmnotwielded` / `mwepgone` D-1744** (`weapon.c` `:746–795` / `:1813–1828` / `:937–946`; `worn.c` `bypass_obj`; `wield.c` `mwelded`; newcham/new_were/`mattackm`/`use_whip`; named: steal_it / mhitm_ad_sitm, m_throw setmnotwielded, mon_break_armor, extract mwepgone inline, zap bypass_obj clone); 
+**`possibly_unwield` / `setmnotwielded` / `mwepgone` D-1744** (`weapon.c` `:746–795` / `:1813–1828` / `:937–946`; `worn.c` `bypass_obj`; `wield.c` `mwelded`; newcham/new_were/`mattackm`/`use_whip`; **`worn.c` `mon_break_armor` `:1177–1335` + `m_lose_armor` `:1039–1051` D-1914** (canonical `js/worn.js` export wired into newcham after_armor/after_boulder chain; `mthrowu.c` `m_useup` export, `monst_to_any`, do_wear `cloak_simple_name` export); named: steal_it / mhitm_ad_sitm, m_throw setmnotwielded, extract mwepgone inline, zap bypass_obj clone); 
 **`select_rwep`/`monmulti`/`m_throw`/`thitu`/`should_mulch`**; 
 **`canseemon`=`cansee`/`infrared`+`mon_visible`; `thitu` `an`/`exclam`/miss; 
 `monshoot` `an(singular)`** (D-0119); **`find_defensive`/`use_defensive` healing+milky precheck**

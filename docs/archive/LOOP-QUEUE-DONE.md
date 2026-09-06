@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `trap.c` lava_effects remaining arms — Fire_resistance/Wwalking survival, inventory burn flags, sink-and-die sequence (TOP30 #24, 11% ported; drown shipped D-1814, lava never queued). **Addressed:** D-1913
+- [x] `mon.c` newcham remaining body arms — NC_VIA_WAND_OR_SPELL mon_break_armor, boulder arms, monst_to_any dead callee (TOP30 #25; archived rows are await-wiring/named bits only). **Addressed:** D-1914
+
+
+- [x] `trap.c` lava_effects remaining arms — Fire_resistance/Wwalking survival, inventory burn flags, sink-and-die sequence (TOP30 #24, 11% ported; drown shipped D-1814, lava never queued). **Addressed:** D-1913 `05c03076`
 
 
 - [x] `role.c` setup_rolemenu/racemenu/gendmenu/algnmenu extraction — C add_menu/winid builders; both filtering and reset-preselect arms already inline in pick_*_menu/reset_role_filtering, extraction must keep byte-identical menus (role.c follow-up). **Addressed:** D-1912 `9b416bde`

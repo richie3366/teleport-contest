@@ -21,9 +21,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1913 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1914 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1913 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1914 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -42,18 +42,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1913.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1914.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1913.
+  Do not re-port D-1682…D-1914.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1914: canonical `export function mon_break_armor` + local `m_lose_armor` in `js/worn.js` in C order (breakarm destroy incl. dragon-merge silent arm, artifac Named: W_ARMG `mselftouch` (newcham arm; trap.js live); ustuck expels/unstuck; poly_steed; muse/z
 - D-1913: full C-order port in `js/trap.js`: `d(6,6)` first; `feel_newsym` + `burn_away_slime` + `likes_lava(youmonst.data)` early FALSE; `usurvive = Fire||(Wwa Named: none new — all arms live (no stub in a live arm); `sink_into_lava` needs no port here (C `
 - D-1912: four canonical `export function setup_*menu` in `js/player_selection.js` in C order and C param order (minus `win`): `filtering && !*_ok` skip; `lowc` Named: `plsel_startmenu` (own named follow-up per D-1904; untouched); none new.
 - D-1911: canonical `export function finish_map` in `js/mkmap.js` in C order (whole-map `wallify_map(1, 0, COLNO-1, ROWNO-1)` under `walled`; `!IS_OBSTRUCTED` f Named: `litstate_rnd` `mklev.js` local retained (still used by the non-MINES `rlit` call site; ca
@@ -68,5 +69,4 @@ Objective/score live in `CURRENT.md`.
 - D-1902: new `js/mkmap.js` (+~170, 6 exports, C names/signatures): bounds-exact `get_map` (OOB→bg); in-place `pass_one` (writes hit levl mid-sweep — later cell Named: `mkmap` + `init_map`/`init_fill` RNG envelope (own queue row); `join_map` + `join_map_clea
 - D-1901: deleted both blocks including the `mhp<1 continue` guard line that only served them; `passive()` already owns gaze retaliation on its real melee trigg Named: none new — `dogaze`/`dohide`/`dospinweb` + steed `pet_ranged_attk` stay deferred on the `d
 - D-1900: C-order ports. Named: `target_on`/`you_have`/covetous-pursuit `strategy` (the live caller envelope — own row whe
-- D-1899: C-branch-order ports in `js/muse.js`: `cures_stoning` (POT_ACID/glob+CORPSE+openable-TIN, NON_PM gate, LIZARD/acidic); `cures_sliming` (fire scroll ey Named: `munstone` + `mon_consume_unstone` stoning-TRUE envelope (uhitm corpse/egg-throw + `mhitm_
 <!-- landmarks:end -->
