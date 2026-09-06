@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `sounds.c` domonnoise — speaking-monster/chat depth (TOP30 #17; dead callees genus/doconsult/shk_chat, FULL_MOON howl).
 - [ ] `muse.c` use_defensive — hurt-monster defensive-item depth (TOP30 #18; 12% ported; dead callees mreadmsg/reveal_trap/mon_escape).
 - [ ] `hack.c` findtravelpath — travel pathfinder absent (TOP30 #29; TEST_TRAV/GUESS/travelmap deferred).
 - [ ] `display.c` map_glyphinfo — glyphinfo render singleton (HELDOUT Tier C; no JS symbol, named omit in js/display.js row_refresh force source).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `display.c` redraw_map — cliparound pan-resend singleton (HELDOUT Tier C; no JS symbol anywhere in js/).
 - [ ] `display.c` reglyph_darkroom — darkroom reglyph singleton (HELDOUT Tier C; no JS symbol anywhere in js/).
 - [ ] `display.c` curs_on_u/doredraw — cursor-on-hero + redraw pair (HELDOUT Tier C; no JS symbol anywhere in js/).
+- [ ] `sounds.c` domonnoise MS_VAMPIRE — vampire seduction depth (TOP30 #17 depth; night/midnight/kindred/nightchild + rn2 + body_part/pmname/an; c-js-map turns.md #chat omit).
+- [ ] `sounds.c` domonnoise MS_DJINNI/ARREST/SOLDIER — speaking-table depth (TOP30 #17 depth; WATER_DEMON/PRISONER gates + rn2(3) soldier tables; c-js-map turns.md #chat omit).
+- [ ] `sounds.c` domonnoise MS_BRIBE/CUSS/SPELL — demon/caster depth (TOP30 #17 depth; demon_talk/cuss absent per brief; c-js-map turns.md #chat omit).
+- [ ] `sounds.c` domonnoise MS_NURSE/GUARD — nurse/guard depth (TOP30 #17 depth; uwep/armor gates + money_cnt; c-js-map turns.md #chat omit).
+- [ ] `sounds.c` domonnoise verbl_msg_mcan + oracle_loc — cancelled-speech epilogue + save-rest depth (TOP30 #17 depth; mcan arm + oracle_loc; c-js-map turns.md #chat omit).
 
 ## Parked (do not pop)
 

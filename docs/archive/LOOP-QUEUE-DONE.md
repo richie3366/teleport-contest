@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `mkmaze.c` maybe_adjust_hero_bubble — water-level hero-bubble adjust (HELDOUT Tier C mkmaze row; named omit in js/mklev.js). **Addressed:** D-1968
+- [x] `sounds.c` domonnoise — speaking-monster/chat depth (TOP30 #17; dead callees genus/doconsult/shk_chat, FULL_MOON howl). **Addressed:** D-1969
+
+
+- [x] `mkmaze.c` maybe_adjust_hero_bubble — water-level hero-bubble adjust (HELDOUT Tier C mkmaze row; named omit in js/mklev.js). **Addressed:** D-1968 `88050324`
 
 
 - [x] `dbridge.c` do_entity — drawbridge crush/jump/relocate driver (HELDOUT Tier C; named omit in js/dbridge.js, set_entity live). **Addressed:** D-1967 `fb655752`
