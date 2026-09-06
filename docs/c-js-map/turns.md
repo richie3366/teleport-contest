@@ -2084,9 +2084,18 @@ C order with `| 0` int idiom + `force || glyph !== GLYPH_UNEXPLORED ||
 framecolor !== NO_COLOR` gate; `force` false since JS nul and UNEXPLORED
 both render `' '`/`NO_COLOR`; `framecolor` always `NO_COLOR`; paint via
 `_paint_gbuf_cell` at `(x - 1, y + 1)`; `docorner` board loop rewired to it;
-named: `map_glyphinfo` tile/rogue/hero/accessibility arms,
+named: `map_glyphinfo` glyphmap[]-base/symidx/tileidx/ov_* arms (hero color
++ pet-NOOVERRIDE arms live since D-1972),
 `get_bkglyph_and_framecolor` background + `map_frame_color` arms, CLIPPING
 `clipx`/`clipy`);
+|**`map_glyphinfo` live** (D-1972; C `display.c:2594–2656`;
+`js/display.js` exported in C order with `| 0` int idiom —
+`u_at && glyph_is_monster` is_you, `!use_color || Upolyd || glyph !=
+hero_glyph` skip, RogueIBM currentgraphics/handling/nocolor live-read
+(shut: JS ROGUESET nocolor = 1), showrace → HI_DOMESTIC, accessibility
+hero-override gate (ov_* tables deferred, shut) + MG_HERO, pet-NOOVERRIDE
+→ mlet letter; caller passes the resolved base (glyphmap[] deferred);
+wired into show_glyph_cell at the C show_glyph `:2006` mgflags-0 shape);
 
 ### `src/questpgr.c` / tty menu
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `hack.c` findtravelpath — travel pathfinder absent (TOP30 #29; TEST_TRAV/GUESS/travelmap deferred). **Addressed:** D-1971
+- [x] `display.c` map_glyphinfo — glyphinfo render singleton (HELDOUT Tier C; no JS symbol, named omit in js/display.js row_refresh force source). **Addressed:** D-1972
+
+
+- [x] `hack.c` findtravelpath — travel pathfinder absent (TOP30 #29; TEST_TRAV/GUESS/travelmap deferred). **Addressed:** D-1971 `b05d6229`
 
 
 - [x] `muse.c` use_defensive — hurt-monster defensive-item depth (TOP30 #18; 12% ported; dead callees mreadmsg/reveal_trap/mon_escape). **Addressed:** D-1970 `de4686d7`

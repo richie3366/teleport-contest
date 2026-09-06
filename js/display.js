@@ -82,6 +82,8 @@ import {
     DETECT_MONSTERS,
     BOLT_LIM,
     Upolyd,
+    H_IBM,
+    HI_DOMESTIC,
     MALE,
     FEMALE,
     BOTL_NSIZ,
@@ -1839,7 +1841,7 @@ function monnum_to_display_glyph(mnum, gnd = MALE) {
  * C ref: display.h hero_glyph — (Upolyd || !showrace) ? umonnum : urace.mnum.
  * Named: Hallucination random; gender glyph variants.
  */
-function hero_glyph() {
+export function hero_glyph() {
     const u = game.u;
     const flags = game.flags || {};
     const mnum = (Upolyd(u) || !flags.showrace)
@@ -3618,6 +3620,98 @@ async function emit_show_glyph_change(x, y) {
     }
 }
 
+// ── map_glyphinfo ──
+/**
+ * C ref: display.h `:990–996` mgflags + mapped glyphflags.
+ * MG_FLAG_NORMAL/NOOVERRIDE alter map_glyphinfo's internal behavior;
+ * MG_HERO is the only flag map_glyphinfo itself sets (write-only in C —
+ * no reader in src/, win/ or include/). The remaining MG_* bits
+ * (CORPSE/INVIS/DETECT/PET/RIDDEN/…) are encoded by reset_glyphmap
+ * (deferred) into glyphmap[], never here.
+ */
+export const MG_FLAG_NORMAL = 0x00;
+export const MG_FLAG_NOOVERRIDE = 0x01;
+export const MG_HERO = 0x00001;
+
+/**
+ * C ref: display.c map_glyphinfo `:2594–2656` — resolve one map cell's tty
+ * render record (color + flags) from its integer glyph id. C copies the
+ * whole base from glyphmap[glyph] (`:2612`, built by the deferred
+ * reset_glyphmap), then applies the ONLY on-the-fly tinkering C permits —
+ * the hero (is_you) color ladder and the two accessibility arms — and
+ * stamps ttychar/glyph (`:2653–2655`).
+ * JS has no glyphmap[]/showsyms[]/tileidx machinery, so the caller passes
+ * the already-resolved base record (the live paint {ch, color, dec} the
+ * glyph constructors produced — the same values the deferred table would
+ * carry for the tty); the integer id rides along as base.glyph for the
+ * is_you / pet predicates. Returns the adjusted record
+ * {ch, color, dec, glyphflags, glyph}; unmapped base fields pass through.
+ * Wired caller: show_glyph_cell (C show_glyph `:2006` calls with mgflags
+ * 0, so every paint — hero included — takes these arms; the `:2489`
+ * glyphinfo_at call is the UNBUFFERED build, JS gbuf is buffered).
+ * Named omissions: glyphmap[] base copy + sym.symidx/tileidx (no
+ * showsyms/tile machinery); go.ov_primary_syms/ov_rogue_syms override
+ * tables + numeric SYM_OFF_X (hero-override gate stays shut);
+ * HAS_ROGUE_IBM_GRAPHICS MSDOS/TILES variant (compiled out upstream).
+ * @param {number} x map x, C coordxy
+ * @param {number} y map y, C coordxy
+ * @param {object} base live paint record {ch, color, dec, glyph}
+ * @param {number} mgflags C unsigned (MG_FLAG_*)
+ */
+export function map_glyphinfo(x, y, base, mgflags) {
+    const mg = mgflags | 0;
+    const gid = (base && typeof base.glyph === 'number') ? base.glyph | 0 : NO_GLYPH;
+    // C `:2601–2610` is_you = u_at(x, y) && glyph_is_monster(glyph):
+    // hero or steed square, not something underneath while invisible
+    // without see invisible, nor a transient effect (explosion); only
+    // approximate under mimic/furniture poly (kept as the C comment).
+    const isYou = !!u_at(x, y) && glyph_is_monster(gid);
+    // C `:2612` glyphinfo->gm = *gmap — the base record stands in (named).
+    const out = { ...base, glyphflags: 0, glyph: gid };
+    const u = game.u || {};
+    if (isYou) {
+        // C `:2619–2636` hero color ladder: monochrome, poly'd, or a
+        // glyph that is not the hero's own (riding uses the steed's
+        // ridden-bank id, never hero_glyph) keep the base color.
+        if (game.iflags?.use_color === false || Upolyd(u) || gid !== hero_glyph().glyph) {
+            ; // color tweak not needed (!use_color) or not wanted
+        } else if ((game.currentgraphics | 0) === ROGUESET
+                && (game.gs?.symset?.[ROGUESET]?.handling | 0) === H_IBM
+                && (game.gs?.symset?.[ROGUESET]?.nocolor | 0) === 0) {
+            // C `:2630–2634` HAS_ROGUE_IBM_GRAPHICS with color: hero
+            // yellow-on-gray in corridors (JS ROGUESET always sets
+            // nocolor = 1, so this arm reads live but stays shut).
+            out.color = CLR_YELLOW;
+        } else if (game.flags?.showrace) {
+            // C `:2635–2636` showrace: non-human hero takes the human
+            // hero color (newsym() already picked the monster symbol).
+            out.color = HI_DOMESTIC;
+        }
+        // C `:2637–2644` accessibility hero override: offset =
+        // SYM_HERO_OVERRIDE + SYM_OFF_X, applied only when the per-level
+        // (GMAP_ROGUELEVEL-gated) ov_rogue/ov_primary table defines it.
+        // No ov_* tables in JS (named), so the gate reads shut and the
+        // char is kept — the live accessibility/mgflags reads stay.
+        const heroOverride = null; // go.ov_*_syms[offset] — deferred
+        if ((game.sysopt?.accessibility | 0) === 1 && !(mg & MG_FLAG_NOOVERRIDE)
+                && heroOverride) {
+            out.ch = heroOverride;
+        }
+        // C `:2645`, inside is_you but outside the accessibility gate.
+        out.glyphflags |= MG_HERO;
+    }
+    // C `:2647–2652` pet NOOVERRIDE kludge: drop the override symbol and
+    // show the pet by its monster letter (showsyms[mlet + SYM_OFF_M]).
+    if ((game.sysopt?.accessibility | 0) === 1
+            && (mg & MG_FLAG_NOOVERRIDE) && glyph_is_pet(gid)) {
+        out.ch = MLET_CH[mons(glyph_to_mon(gid))?.mlet] || '?';
+    }
+    // C `:2653–2655` ttychar = showsyms[symidx] (the base ch carries it —
+    // only the two accessibility arms above re-point it) + glyph echo.
+    out.glyph = gid;
+    return out;
+}
+
 // ── show_glyph_cell ──
 /**
  * C ref: display.c show_glyph — store gbuf then optional glyph_updates pline.
@@ -3632,6 +3726,17 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
         color = NO_COLOR;
         decgfx = false;
     }
+    // C show_glyph `:2006` map_glyphinfo(x, y, glyph, 0): hero color
+    // ladder + accessibility arms over the caller-resolved base (C reads
+    // it from glyphmap[glyph]; table deferred, named). An unmapped glyph
+    // (no int id) takes no arm — the predicates need the id, as in C.
+    const gi = map_glyphinfo(x, y, {
+        ch, color, dec: !!decgfx,
+        glyph: typeof glyph === 'number' ? glyph | 0 : NO_GLYPH,
+    }, MG_FLAG_NORMAL);
+    ch = gi.ch;
+    color = gi.color;
+    decgfx = gi.dec;
     const announce = show_glyph_change_wanted(loc, x, y, ch, color, decgfx, attr);
     // C classifies the already-chosen glyph id; stamp JS kind the same way
     // (no mon_glyph / obj_glyph). Always store so later On sees real old kind.
@@ -5716,7 +5821,10 @@ function _paint_gbuf_cell(mx, my, sc, sr) {
  * SCORR/STONE/ROOM/CORR seenv + `map_frame_color` arms). `print_glyph` /
  * `Glyphinfo_at` is `_paint_gbuf_cell` at screen `(x - 1, y + 1)`
  * (WIN_MAP offx 0 / offy 1, as `docorner` maps `mx = c + 1`).
- * Named omissions: `map_glyphinfo` tile/rogue/hero/accessibility arms;
+ * Named omissions: `map_glyphinfo` glyphmap[]-base/symidx/tileidx/ov_*
+ * arms (hero color + pet-NOOVERRIDE arms live in map_glyphinfo, wired
+ * into show_glyph_cell; they cannot flip UNEXPLORED at (0,0): is_you is
+ * false there and accessibility defaults off, so `force` stays false);
  * `get_bkglyph_and_framecolor` background + frame arms; CLIPPING
  * `clipx`/`clipy` start adjustment (caller passes map coords).
  * @param {number} start map x, C `coordxy start`
