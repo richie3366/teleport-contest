@@ -16,20 +16,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1982 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1983 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1982 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1983 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-1982.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-1982.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-1983.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-1983.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1983: `js/display.js` — new exported `SYM_OFF_X = 190`/`SYM_MAX = 196` (`105 + 18 + 61 + 6 + 6`: MAXPCHARS 105 from `S_expl_br` 104, MAXOCLASSES 18 from `ob Named: `get_othersym` base + `assign_graphics` showsyms copy (ov tables live here; hero arm reads
 - D-1982: `js/display.js` — module-local `clipping`/`clipx`/`clipxmax`/`clipy`/`clipymax` (C file-statics) + `clip_screen_size()` (`CO`/`LI` ≡ `game.nhDisplay.c Named: core `cliparound` call sites (`allmain.c:546` moveloop, `dungeon.c:1580` u_on_newpos, `get
 - D-1981: `js/display.js` — new exported async `under_water(mode)` in exact C order with `:line` citations (guard via imported `Is_waterlevel` + `u.uswallow`; ` Named: non-docrt caller wiring — functions live, unwired (`allmain.c:432,434` moveloop limited up
 - D-1980: `js/sounds.js` — mcan arm between `pline_msg` and `verbl_msg` in exact C order (`mtmp.mcan && verbl_msg_mcan` short-circuit; `SetVoice` + `await verba Named: `outoracle` open-failure `oracle_flg = -1` arm (`rumors.c:690–693` — embed cannot fail, fl
@@ -44,5 +45,4 @@ Objective/score live in `CURRENT.md`.
 - D-1971: `js/cmd.js` — new `travel_test_move(ux, uy, dx, dy)` in exact C arm order (obstructed/ironbars with `test_move_hero_passes_bars` + tunnels/needspick r Named: Passes_walls+may_passwall rock (`:1014`, no JS export — brief clone rule); Underwater rock
 - D-1970: `js/muse.js` — 7 use arms in C order (horn before SCR_TELE; digging/undead/create-monster between SCR_TELE and SCR_CREATE) with `:line` citations: hor Named: tryescape Knox `m_next2m` gate (`find_defensive`, pre-existing); `munstone` other-consume 
 - D-1969: `js/sounds.js` — added `night` (`./calendar.js`: NEW-CYCLE, SAFE), `aggravate` (`./wizard.js`: same 89-module SCC, hoisted, SAFE), `FULL_MOON` (existi Named: `MS_VAMPIRE` (`:744–803` night/midnight/kindred + `rn2` + `body_part`/`pmname`/`an`); `MS_
-- D-1968: `js/mklev.js` — exported `maybe_adjust_hero_bubble()` in C short-circuit order (Is_waterlevel → u.dx/u.dy → hero_bubble-gated `rn2(2)` → steer dx/dy)  Named: water obj/mon/trap cons pickup+deposit in `movebubbles` (objects/monsters/traps still not 
 <!-- landmarks:end -->

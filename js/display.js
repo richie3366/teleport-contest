@@ -86,6 +86,7 @@ import {
     Upolyd,
     H_IBM,
     HI_DOMESTIC,
+    SYM_HERO_OVERRIDE,
     MALE,
     FEMALE,
     BOTL_NSIZ,
@@ -3637,6 +3638,62 @@ export const MG_FLAG_NORMAL = 0x00;
 export const MG_FLAG_NOOVERRIDE = 0x01;
 export const MG_HERO = 0x00001;
 
+// C hack.h `:1080–1085` symbol offsets: SYM_OFF_P 0 + MAXPCHARS 105
+// (S_expl_br 104 fencepost, const.js) + MAXOCLASSES 18 (objects.js) +
+// MAXMCLASSES 61 (defsym.h MONSYM 1..60, so fencepost 61) + WARNCOUNT 6
+// gives SYM_OFF_O 105, SYM_OFF_M 123, SYM_OFF_W 184, SYM_OFF_X 190;
+// C sym.h `:111–119` MAXOTHER 6 gives SYM_MAX 196.
+export const SYM_OFF_X = 190;
+export const SYM_MAX = 196;
+
+// C decl.h `:716–717` go.ov_*_syms[SYM_MAX]; C global.h `:108` nhsym is
+// uchar — 0 means no override, else the single tty char. JS stores 0 or
+// the single-char string (the same values assign_graphics copies into
+// showsyms[]); game.go owns them like C's go struct. Tables are lazily
+// zero-filled so the hero arm reads shut until an override is set.
+function ov_primary_table() {
+    if (!game.go) game.go = {};
+    if (!Array.isArray(game.go.ov_primary_syms)
+            || game.go.ov_primary_syms.length !== SYM_MAX)
+        game.go.ov_primary_syms = new Array(SYM_MAX).fill(0);
+    return game.go.ov_primary_syms;
+}
+function ov_rogue_table() {
+    if (!game.go) game.go = {};
+    if (!Array.isArray(game.go.ov_rogue_syms)
+            || game.go.ov_rogue_syms.length !== SYM_MAX)
+        game.go.ov_rogue_syms = new Array(SYM_MAX).fill(0);
+    return game.go.ov_rogue_syms;
+}
+// C symbols.c `:122–128` init_ov_primary_symbols — zero the table.
+export function init_ov_primary_symbols() {
+    ov_primary_table().fill(0);
+}
+// C symbols.c `:112–119` init_ov_rogue_symbols — zero the table.
+export function init_ov_rogue_symbols() {
+    ov_rogue_table().fill(0);
+}
+// C symbols.c `:295–298` update_ov_primary_symset — C takes
+// (symp, val) with symp->idx; JS takes idx directly (no symparse
+// struct) and normalizes val (nhsym uchar) to 0 or a single char.
+export function update_ov_primary_symset(idx, val) {
+    const i = idx | 0;
+    if (i < 0 || i >= SYM_MAX) return;
+    const t = ov_primary_table();
+    if (typeof val === 'string') t[i] = val.length ? val[0] : 0;
+    else if (typeof val === 'number') t[i] = val ? String.fromCharCode(val & 0xFF) : 0;
+    else t[i] = val ? String(val)[0] : 0;
+}
+// C symbols.c `:301–304` update_ov_rogue_symset — same shape as primary.
+export function update_ov_rogue_symset(idx, val) {
+    const i = idx | 0;
+    if (i < 0 || i >= SYM_MAX) return;
+    const t = ov_rogue_table();
+    if (typeof val === 'string') t[i] = val.length ? val[0] : 0;
+    else if (typeof val === 'number') t[i] = val ? String.fromCharCode(val & 0xFF) : 0;
+    else t[i] = val ? String(val)[0] : 0;
+}
+
 /**
  * C ref: display.c map_glyphinfo `:2594–2656` — resolve one map cell's tty
  * render record (color + flags) from its integer glyph id. C copies the
@@ -3654,8 +3711,8 @@ export const MG_HERO = 0x00001;
  * 0, so every paint — hero included — takes these arms; the `:2489`
  * glyphinfo_at call is the UNBUFFERED build, JS gbuf is buffered).
  * Named omissions: glyphmap[] base copy + sym.symidx/tileidx (no
- * showsyms/tile machinery); go.ov_primary_syms/ov_rogue_syms override
- * tables + numeric SYM_OFF_X (hero-override gate stays shut);
+ * showsyms/tile machinery); get_othersym base + assign_graphics showsyms
+ * copy (ov tables live here; hero arm reads them directly);
  * HAS_ROGUE_IBM_GRAPHICS MSDOS/TILES variant (compiled out upstream).
  * @param {number} x map x, C coordxy
  * @param {number} y map y, C coordxy
@@ -3693,10 +3750,13 @@ export function map_glyphinfo(x, y, base, mgflags) {
         }
         // C `:2637–2644` accessibility hero override: offset =
         // SYM_HERO_OVERRIDE + SYM_OFF_X, applied only when the per-level
-        // (GMAP_ROGUELEVEL-gated) ov_rogue/ov_primary table defines it.
-        // No ov_* tables in JS (named), so the gate reads shut and the
-        // char is kept — the live accessibility/mgflags reads stay.
-        const heroOverride = null; // go.ov_*_syms[offset] — deferred
+        // (GMAP_ROGUELEVEL-gated, `:2759–2761` set from Is_rogue_level;
+        // JS has no per-level cache — named — so read Is_rogue_level live)
+        // ov_rogue/ov_primary table defines it.
+        const heroOff = (SYM_HERO_OVERRIDE | 0) + SYM_OFF_X;
+        const heroOvTable = Is_rogue_level(game.u?.uz)
+            ? ov_rogue_table() : ov_primary_table();
+        const heroOverride = heroOvTable[heroOff] || 0;
         if ((game.sysopt?.accessibility | 0) === 1 && !(mg & MG_FLAG_NOOVERRIDE)
                 && heroOverride) {
             out.ch = heroOverride;

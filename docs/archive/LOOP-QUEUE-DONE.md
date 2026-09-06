@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `display.c` cliparound + CLIPPING clipx/clipy — tty pan offsets (named in row_refresh/get_bkglyph_and_framecolor/redraw_map; no JS symbol anywhere in js/). **Addressed:** D-1982
+- [x] `display.c` map_glyphinfo ov_* override tables — accessibility overseer sym tables (named in D-1972; no JS symbol anywhere in js/). **Addressed:** D-1983
+
+
+- [x] `display.c` cliparound + CLIPPING clipx/clipy — tty pan offsets (named in row_refresh/get_bkglyph_and_framecolor/redraw_map; no JS symbol anywhere in js/). **Addressed:** D-1982 `ff608bf9`
 
 
 - [x] `display.c` under_water/under_ground — docrt engulfed-water/buried map arms (docrt named omit in js/display.js; no JS symbol anywhere in js/). **Addressed:** D-1981 `7456f908`

@@ -2097,12 +2097,14 @@ DARKROOMSYM darken, S_room→no-bg, bgcolors + stored-frame +
 `mapxy_valid` frame arm (`js/getpos.js` export of `getpos.c:93–99`);
 wired into `row_refresh` at the C `:2178–2179` shape; named: frame store +
 `getpos_sethilite` maintenance (tty pan live since D-1982 — callers pass map coords, as in C));
-|**`map_glyphinfo` live** (D-1972; C `display.c:2594–2656`;
+|**`map_glyphinfo` live** (D-1972 + D-1983; C `display.c:2594–2656`;
 `js/display.js` exported in C order with `| 0` int idiom —
 `u_at && glyph_is_monster` is_you, `!use_color || Upolyd || glyph !=
 hero_glyph` skip, RogueIBM currentgraphics/handling/nocolor live-read
 (shut: JS ROGUESET nocolor = 1), showrace → HI_DOMESTIC, accessibility
-hero-override gate (ov_* tables deferred, shut) + MG_HERO, pet-NOOVERRIDE
+hero-override gate live (D-1983: `SYM_OFF_X`/`SYM_MAX` + `go.ov_*` tables
+on `game.go` with `init_ov_*`/`update_ov_*`, `Is_rogue_level` for the
+`GMAP_ROGUELEVEL` gate) + MG_HERO, pet-NOOVERRIDE
 → mlet letter; caller passes the resolved base (glyphmap[] deferred);
 wired into show_glyph_cell at the C show_glyph `:2006` mgflags-0 shape);
 |**`redraw_map` live** (D-1974; C `display.c:1778–1812`;
