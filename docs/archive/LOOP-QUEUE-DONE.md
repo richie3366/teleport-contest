@@ -5,7 +5,14 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `dbridge.c` e_at/m_to_e/u_to_e/e_nam/E_phrase entity family (HELDOUT Tier C dbridge row; no JS symbol). **Addressed:** D-1943
+- [x] `nhlsel.c` l_selection_xor — selection `~` operator (D-1944 named omit; no dat use yet). **Addressed:** D-1944
+- [x] `selvar.c` selection_do_ellipse + selection_do_gradient — ellipse/circle/gradient fill primitives (D-1944 named omit; no dat use yet). **Addressed:** D-1944
+
+
+- [x] `sp_lev.c` lspo_* + selvar selection primitives (HELDOUT Tier C misc row remainder; no JS symbol). **Addressed:** D-1944
+
+
+- [x] `dbridge.c` e_at/m_to_e/u_to_e/e_nam/E_phrase entity family (HELDOUT Tier C dbridge row; no JS symbol). **Addressed:** D-1943 `82cffe79`
 
 
 - [x] `do_wear.c` Armor_gone/count_worn_armor/any_worn_armor_ok — remaining do_wear armor-count family (HELDOUT Tier C do_wear row remainder; no JS symbol). **Addressed:** D-1942 `48c80d04`

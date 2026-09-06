@@ -1295,7 +1295,9 @@ priestini + Staff of Aesculapius + Cyclops; ';'→S_EEL class fix);
 **Tou-strt/loca/goal/fila/filb** (D-1887 + D-1888; Tourist quest 5/5:
 morgue/shop/barracks/zoo/temple FILL_NORMAL rects + ordinary-rect
 lighting-only (litstate_rnd(-1)) + blank-paper pair + '.'-minus-shops
-rndcoord traps + Platinum Yendorian Express Card + Kops + des.wallify();
+`selection_sub` rndcoord traps (D-1944; Tou-loca.lua:131 sub-of-or +
+Tou-goal.lua:112; named deferred: `l_selection_xor`, mutating
+`selection_clear`, ellipse/gradient/circle) + Platinum Yendorian Express Card + Kops + des.wallify();
 fila/filb mines no-lit-key; strt has Twoflower CUSTOM_INVENT
 (walking shoes +3, hawaiian shirt +3) + chest + branch levregion cell);
 **Ran-strt/loca/goal/fila/filb** (D-1889; Ranger quest 5/5: arboreal

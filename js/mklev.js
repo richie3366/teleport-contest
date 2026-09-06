@@ -9148,10 +9148,11 @@ function load_tou_loca() {
             selection_fillrect(mx + 0, my + 0, mx + 75, my + 19),
             selection_match_mapfrag('.'),
         );
-        validtraps = selection_and(validtraps,
-            selection_not(selection_fillrect(mx + 15, my + 3, mx + 20, my + 5)));
-        validtraps = selection_and(validtraps,
-            selection_not(selection_fillrect(mx + 62, my + 3, mx + 71, my + 4)));
+        // C Tou-loca.lua:131 `validtraps - (area + area)` (`__sub` of the
+        // `__add` union): points in validtraps but not in either shop rect.
+        validtraps = selection_sub(validtraps, selection_or(
+            selection_fillrect(mx + 15, my + 3, mx + 20, my + 5),
+            selection_fillrect(mx + 62, my + 3, mx + 71, my + 4)));
         for (let i = 0; i < 9; i++) {
             const pos = selection_rndcoord(validtraps, true);
             if (!pos) continue;
@@ -9332,8 +9333,9 @@ function load_tou_goal() {
             selection_fillrect(mx + 0, my + 0, mx + 75, my + 19),
             selection_match_mapfrag('.'),
         );
-        validtraps = selection_and(validtraps,
-            selection_not(selection_fillrect(mx + 60, my + 14, mx + 71, my + 18)));
+        // C Tou-goal.lua:112 `validtraps - selection.area(60,14,71,18)`.
+        validtraps = selection_sub(validtraps,
+            selection_fillrect(mx + 60, my + 14, mx + 71, my + 18));
         for (let i = 0; i < 6; i++) {
             const pos = selection_rndcoord(validtraps, true);
             if (!pos) continue;
@@ -25294,6 +25296,59 @@ function selection_not(sel) {
         }
     }
     return out;
+}
+
+/**
+ * C ref: selvar.c selection_recalc_bounds — recompute the tight boundary
+ * rect from membership (C scans left/right/top/bottom columns and rows).
+ * C returns early when bounds_dirty is false; the JS Set model has no
+ * dirty flag (set expands bounds, delete never shrinks), so recompute
+ * unconditionally — the endpoints are identical either way. Empty keeps
+ * the C reset shape (lx=COLNO, ly=ROWNO, hx=hy=0).
+ */
+function selection_recalc_bounds(sel) {
+    if (!sel) return;
+    let lx = COLNO, ly = ROWNO, hx = 0, hy = 0;
+    if (sel.pts?.size) {
+        for (const key of sel.pts) {
+            const comma = key.indexOf(',');
+            const x = Number(key.slice(0, comma));
+            const y = Number(key.slice(comma + 1));
+            if (x < lx) lx = x;
+            if (y < ly) ly = y;
+            if (x > hx) hx = x;
+            if (y > hy) hy = y;
+        }
+    }
+    sel.lx = lx;
+    sel.ly = ly;
+    sel.hx = hx;
+    sel.hy = hy;
+}
+
+/**
+ * C ref: nhlsel.c l_selection_sub (`-`, `__sub`) — points in sela but
+ * not in selb. C loops the rect.c rect_bounds union setting
+ * `(a ^ b) & a` per cell, then selection_recalc_bounds (the 0-writes
+ * dirty the fresh result's bounds, so the recalc is load-bearing
+ * there). The Set model iterates sela membership directly — the same
+ * set as the C cell loop — and recalcs so bounds stay tight like C
+ * (a clone-then-delete would keep sela's wider bounds). No RNG.
+ * Live Lua callers: Tou-goal.lua:112 `validtraps - selection.area()`,
+ * Tou-loca.lua:131 `validtraps - (area + area)`.
+ */
+function selection_sub(sela, selb) {
+    const selr = selection_new();
+    if (!sela?.pts?.size) return selr;
+    for (const key of sela.pts) {
+        if (!selb?.pts?.has(key)) {
+            const comma = key.indexOf(',');
+            selection_setpoint(Number(key.slice(0, comma)),
+                Number(key.slice(comma + 1)), selr, 1);
+        }
+    }
+    selection_recalc_bounds(selr);
+    return selr;
 }
 
 /** C ref: nhlsel.c l_selection_numpoints. */

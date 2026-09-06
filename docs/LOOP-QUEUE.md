@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `sp_lev.c` lspo_* + selvar selection primitives (HELDOUT Tier C misc row remainder; no JS symbol).
 - [ ] `steal.c` stealamulet — amulet-steal singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `vault.c` move_gold — vault gold-move singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `mthrowu.c` ucatchgem — thrown-gem catch singleton (HELDOUT Tier C singletons; no JS symbol).
@@ -56,6 +55,7 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `steed.c` exercise_steed — steed exercise singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `stairs.c` On_ladder — ladder predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `o_init.c` doclassdisco — class discovery singleton (HELDOUT Tier C singletons; no JS symbol).
+- [ ] `mkmaze.c` mazexy + is_solid — maze solidity predicates (HELDOUT Tier C mkmaze row remainder; no JS symbol).
 
 ## Parked (do not pop)
 
