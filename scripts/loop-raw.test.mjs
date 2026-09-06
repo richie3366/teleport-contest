@@ -240,6 +240,255 @@ describe("loop-raw Muse bash JSON envelope", () => {
   });
 });
 
+describe("loop-raw Muse search pattern title", () => {
+  it("shows the regex pattern in slashes instead of a bare Search title", () => {
+    const text = JSON.stringify({
+      schema_version: 1,
+      stream: { kind: "session", id: "sess-search" },
+      recorded_at: 1788599595000000,
+      payload_type: "runtime.session",
+      payload: {
+        kind: "run",
+        run_id: "run-1",
+        event: {
+          kind: "assistant_tool_calls_committed",
+          tool_calls: [
+            {
+              call_id: "call_search1",
+              name: "search",
+              args: JSON.stringify({
+                mode: "regex",
+                output_mode: "text",
+                paths: ["js"],
+                pattern: "Strngl|do_statusline",
+              }),
+            },
+          ],
+        },
+      },
+    });
+    const t = createTranscript();
+    applyNdjsonChunk(t, text);
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.equal(tool.name, "Grep");
+    assert.equal(tool.title, "/Strngl|do_statusline/");
+    assert.match(tool.detail, /js/);
+  });
+
+  it("parses Muse path:line hits instead of reporting 0 matches", () => {
+    const hits = [
+      "note: requested path \"js/objclass.js\" does not exist; searched the other requested paths",
+      "js/wield.js:912: * C ref: mondata.h could_twoweap",
+      "js/iactions.js:25:import { could_twoweap } from './wield.js';",
+      "[search traversal bounded: reason=max_matches, visited_entries=92, searched_files=91, skipped_dirs=0, skipped_files=0, matches=30]",
+    ].join("\n");
+    const text = [
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-search-hits" },
+        recorded_at: 1788599595000000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "assistant_tool_calls_committed",
+            tool_calls: [
+              {
+                call_id: "call_search_hits",
+                name: "search",
+                args: JSON.stringify({ output_mode: "text", paths: ["js"], pattern: "could_twoweap" }),
+              },
+            ],
+          },
+        },
+      }),
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-search-hits" },
+        recorded_at: 1788599595100000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "tool_result_batch_committed",
+            results: [{ tool_call_id: "call_search_hits", text: hits }],
+          },
+        },
+      }),
+    ].join("\n");
+    const t = createTranscript();
+    applyNdjsonChunk(t, text);
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.equal(tool.result.matches, 30);
+    assert.equal(tool.result.rows.length, 2);
+    assert.equal(tool.result.rows[0].file, "js/wield.js");
+    assert.equal(tool.result.rows[0].line, 912);
+    assert.match(tool.result.rows[0].text, /could_twoweap/);
+    assert.match(tool.result.preview, /^note:/);
+  });
+
+  it("counts path:line rows when Muse omits the matches= footer", () => {
+    const hits = [
+      "js/polyself.js:762:async function drop_weapon(alone) {",
+      "js/polyself.js:1065:    await drop_weapon(1);",
+    ].join("\n");
+    const text = [
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-search-count" },
+        recorded_at: 1788599595000000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "assistant_tool_calls_committed",
+            tool_calls: [
+              {
+                call_id: "call_search_count",
+                name: "search",
+                args: JSON.stringify({ output_mode: "text", paths: ["js"], pattern: "drop_weapon" }),
+              },
+            ],
+          },
+        },
+      }),
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-search-count" },
+        recorded_at: 1788599595100000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "tool_result_batch_committed",
+            results: [{ tool_call_id: "call_search_count", text: hits }],
+          },
+        },
+      }),
+    ].join("\n");
+    const t = createTranscript();
+    applyNdjsonChunk(t, text);
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.equal(tool.result.matches, 2);
+    assert.equal(tool.result.rows[1].file, "js/polyself.js");
+    assert.equal(tool.result.rows[1].line, 1065);
+  });
+
+  it("does not invent 0 matches when Muse leaves search text empty", () => {
+    const text = [
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-search-empty" },
+        recorded_at: 1788599595000000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "assistant_tool_calls_committed",
+            tool_calls: [
+              {
+                call_id: "call_search_empty",
+                name: "search",
+                args: JSON.stringify({ output_mode: "text", pattern: "drop_weapon" }),
+              },
+            ],
+          },
+        },
+      }),
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-search-empty" },
+        recorded_at: 1788599595100000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "tool_result_batch_committed",
+            results: [{ tool_call_id: "call_search_empty", text: "" }],
+          },
+        },
+      }),
+    ].join("\n");
+    const t = createTranscript();
+    applyNdjsonChunk(t, text);
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.equal(tool.result?.matches, undefined);
+    assert.equal(tool.result?.rows, undefined);
+  });
+});
+
+describe("loop-raw Muse edit_file pretty diff", () => {
+  it("parses Muse --- original / +++ updated text into Edit cards", () => {
+    const args = {
+      path: "js/display.js",
+      find: "    UNENCUMBERED,\n    NOT_HUNGRY,\n    WARNCOUNT,",
+      replace: "    UNENCUMBERED,\n    NOT_HUNGRY,\n    MAXCO,\n    WARNCOUNT,",
+    };
+    const resultText = [
+      "edited",
+      "changed lines: lines 75-77",
+      "--- original",
+      "+++ updated",
+      "@@",
+      "-    UNENCUMBERED,",
+      "-    NOT_HUNGRY,",
+      "-    WARNCOUNT,",
+      "+    UNENCUMBERED,",
+      "+    NOT_HUNGRY,",
+      "+    MAXCO,",
+      "+    WARNCOUNT,",
+      "",
+    ].join("\n");
+    const text = [
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-edit" },
+        recorded_at: 1788599595000000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "assistant_tool_calls_committed",
+            tool_calls: [{ call_id: "call_edit1", name: "edit_file", args: JSON.stringify(args) }],
+          },
+        },
+      }),
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-edit" },
+        recorded_at: 1788599595100000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "tool_result_batch_committed",
+            results: [{ tool_call_id: "call_edit1", text: resultText }],
+          },
+        },
+      }),
+    ].join("\n");
+    const t = createTranscript();
+    applyNdjsonChunk(t, text);
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.equal(tool.name, "Edit");
+    assert.equal(tool.file, "display.js");
+    assert.ok(tool.result.lines.length > 0);
+    assert.ok(tool.result.lines.some((l) => l.kind === "add" && l.text.includes("MAXCO")));
+    assert.ok(tool.result.lines.some((l) => l.kind === "del" && l.text.includes("WARNCOUNT")));
+    assert.equal(tool.result.added, 4);
+    assert.equal(tool.result.removed, 3);
+    assert.equal(tool.result.lines[0].no, 75);
+  });
+});
+
 describe("loop-raw Muse token budget metering", () => {
   it("finds no usage in thin exec --json stdout", () => {
     const u = extractUsageFromRaw(thinFixture);

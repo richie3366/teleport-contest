@@ -18,6 +18,7 @@ const TOOL_KIND = {
   read_file: "read",
   read: "read",
   grep: "grep",
+  search: "grep",
   glob: "glob",
   bash: "shell",
   shell: "shell",
@@ -618,8 +619,25 @@ function mapArgs(kind, args) {
     else if (typeof a.commandText === "string") a.command = a.commandText;
   }
   if (a.pattern == null && typeof a.query === "string") a.pattern = a.query;
+  if (kind === "grep") {
+    if (!a.path && Array.isArray(a.paths) && a.paths.length) {
+      a.path = a.paths.length === 1 ? a.paths[0] : a.paths.join(", ");
+    }
+  }
   if (kind === "shell" && !a.command && typeof a.raw === "string") a.command = a.raw;
+  if (kind === "edit" || kind === "write") {
+    if (!a.old_string && typeof a.find === "string") a.old_string = a.find;
+    if (!a.new_string && typeof a.replace === "string") a.new_string = a.replace;
+    if (!a.contents && typeof a.content === "string") a.contents = a.content;
+  }
   return a;
+}
+
+function firstNonempty(...vals) {
+  for (const v of vals) {
+    if (typeof v === "string" && v) return v;
+  }
+  return "";
 }
 
 function museExecEnvelope(value) {
@@ -643,6 +661,22 @@ function museExecEnvelope(value) {
   if (!hasOutput && !hasExec) return null;
   if (!hasOutput && obj.command == null && obj.description == null) return null;
   return obj;
+}
+
+function normalizeEditDiff(text) {
+  const t = String(text || "");
+  if (!t.trim()) return "";
+  const lineMatch = t.match(/changed lines:\s+lines?\s+(\d+)/i);
+  const start = lineMatch ? Number(lineMatch[1]) : 0;
+  let body = t;
+  const cutDash = t.search(/^--- /m);
+  const cutAt = t.search(/^@@/m);
+  const cut =
+    cutDash >= 0 && (cutAt < 0 || cutDash < cutAt) ? cutDash : cutAt;
+  if (cut >= 0) body = t.slice(cut);
+  if (!/(?:^|\n)[+\-]/.test(body)) return "";
+  if (start > 0) body = body.replace(/^@@\s*$/m, `@@ -${start} +${start}`);
+  return body;
 }
 
 function mapResult(kind, result, rec) {
@@ -681,13 +715,13 @@ function mapResult(kind, result, rec) {
     result.failure_reason ||
     result.failureReason;
   const exit = result.exitCode ?? result.exit_code;
-  const stdout =
-    result.stdout ??
-    result.text ??
-    result.output ??
-    result.preview ??
-    rec?.stdout ??
-    "";
+  const stdout = firstNonempty(
+    result.stdout,
+    result.text,
+    result.output,
+    result.preview,
+    rec?.stdout,
+  );
   const stderr = result.stderr || "";
   if (err && kind !== "shell") {
     return { failure: { message: String(err) } };
@@ -702,10 +736,18 @@ function mapResult(kind, result, rec) {
     };
   }
   if (kind === "edit" || kind === "write") {
+    const raw =
+      result.diffString ??
+      result.diff ??
+      result.diff_string ??
+      result.text ??
+      "";
+    const diffString =
+      typeof raw === "string" ? normalizeEditDiff(raw) || (/^diff |^@@/m.test(raw) ? raw : "") : "";
     return {
       success: {
-        diffString: result.diffString ?? result.diff ?? result.diff_string,
-        path: result.path,
+        diffString: diffString || undefined,
+        path: result.path ?? rec?.args?.path,
         afterFullFileContent: result.content ?? result.afterFullFileContent,
         linesAdded: result.linesAdded ?? result.lines_added,
         linesRemoved: result.linesRemoved ?? result.lines_removed,
@@ -722,7 +764,7 @@ function mapResult(kind, result, rec) {
     return { success };
   }
   if (kind === "grep" || kind === "glob") {
-    return { success: { preview: stdout || JSON.stringify(result).slice(0, 400) } };
+    return { success: { preview: stdout } };
   }
   return { success: result };
 }
