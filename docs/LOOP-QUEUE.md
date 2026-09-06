@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `sounds.c` domonnoise MS_NURSE/GUARD — nurse/guard depth (TOP30 #17 depth; uwep/armor gates + money_cnt; c-js-map turns.md #chat omit).
 - [ ] `sounds.c` domonnoise verbl_msg_mcan + oracle_loc — cancelled-speech epilogue + save-rest depth (TOP30 #17 depth; mcan arm + oracle_loc; c-js-map turns.md #chat omit).
 - [ ] `display.c` under_water/under_ground — docrt engulfed-water/buried map arms (docrt named omit in js/display.js; no JS symbol anywhere in js/).
 - [ ] `display.c` cliparound + CLIPPING clipx/clipy — tty pan offsets (named in row_refresh/get_bkglyph_and_framecolor/redraw_map; no JS symbol anywhere in js/).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `display.c` flush_screen dirty-span loop — gbuf_start/gbuf_stop + reset_glyph_bbox (JS rebuilds all; no JS symbol anywhere in js/).
 - [ ] `display.c`/`getpos.c` map_frame_color store — gw.wsettings.map_frame_color + getpos HiliteBackground wiring (named in D-1973; no JS symbol anywhere in js/).
 - [ ] `monmove.c` dochug demon/caster retaliation — MS_BRIBE mux skipped by D-1798; live `demon_talk`/`cuss` unwired at monmove.c:823/985 (sounds.c:1143/1150 wired).
+- [ ] `artifact.c` artiname/discover_artifact/artidisco[] save-rest — discovery announce + artidisco bit (D-1107 live; save/rest artidisco named; c-js-map data.md).
+- [ ] `artifact.c` restore_artifacts save-rest — artilist restore on load (named in init_artifacts D-1201 row; c-js-map data.md).
+- [ ] `artifact.c` arti_invoke on drop / questart artitouch / zap-poly addinv_core1 — invoke-touch family (named in cspfx W_ART D-1539 row; c-js-map data.md).
+- [ ] `vision.c` howmonsseen — artifact-warn see-monsters helper (named in SPFX_WARN D-1514 row; c-js-map data.md).
+- [ ] `dogmove.c` dog_move beg/dog_hunger caller wiring — dogmove.c:383 `beg(mtmp)` unwired in live `js/dogmove.js` dog_move (named in `beg` D-1763 + js/sounds.js:518; c-js-map turns.md).
 
 ## Parked (do not pop)
 

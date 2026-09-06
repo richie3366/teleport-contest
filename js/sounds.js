@@ -10,7 +10,8 @@
 //         domonnoise remaps + MS_ORACLE/PRIEST/SELL (D-1808) +
 //         MS_WERE/BARK FULL_MOON + animal MS_MEW..MS_ORC (D-1969) +
 //         MS_VAMPIRE / MS_DJINNI / MS_ARREST / MS_SOLDIER (D-1977) +
-//         MS_BRIBE / MS_CUSS / MS_SPELL (this D).
+//         MS_BRIBE / MS_CUSS / MS_SPELL (D-1978) +
+//         MS_NURSE / MS_GUARD (this D).
 
 import { game } from './gstate.js';
 import {
@@ -24,7 +25,7 @@ import { objects_at, noveltitle } from './mkobj.js';
 import { Death_quote } from './files.js';
 import { u_have_novel, currency } from './invent.js';
 import { objectNames } from './generated/objects_data.js';
-import { COIN_CLASS } from './objects.js';
+import { COIN_CLASS, WEAPON_CLASS } from './objects.js';
 import { rn2 } from './rng.js';
 import { dist2, ucase } from './hacklib.js';
 import { vtense, an } from './objnam.js';
@@ -57,7 +58,9 @@ import { SetVoice, voice_death } from './sndprocs.js';
 import { p_coaligned, priest_talk } from './priest.js';
 import { genus } from './mon.js';
 import { doconsult } from './rumors.js';
-import { shk_chat } from './shk.js';
+import { shk_chat, money_cnt } from './shk.js';
+import { is_weptool } from './wield.js';
+import { PM_HEALER } from './generated/monsters_data.js';
 
 /**
  * C ref: sounds.c set_voice `:2160–2182`. Body is `#ifdef SND_SPEECH`;
@@ -845,9 +848,10 @@ function mon_is_gecko(mon) {
  * fix + animal MS_MEW..MS_ORC `:861–1003` in C order; this D MS_VAMPIRE
  * `:744–821` + MS_DJINNI `:991–1004` + MS_ARREST `:1129–1141` + MS_SOLDIER
  * `:1179–1191` + MS_BRIBE/MS_CUSS `:1142–1156` + MS_SPELL `:1157–1160`
- * in C order (this D; demon_talk via minion.js, cuss via wizard.js).
- * Remaining named: MS_NURSE / MS_GUARD / verbl_msg_mcan /
- * save-rest oracle_loc. Unknown still ECMD_TIME.
+ * in C order (D-1978; demon_talk via minion.js, cuss via wizard.js);
+ * this D MS_NURSE `:1160–1172` + MS_GUARD `:1173–1178` in C order.
+ * Remaining named: verbl_msg_mcan epilogue (`:1224–1226`) + oracle_loc
+ * save-rest. Unknown still ECMD_TIME.
  */
 export async function domonnoise(mtmp) {
     if (!mtmp) return ECMD_OK;
@@ -887,6 +891,10 @@ export async function domonnoise(mtmp) {
 
     let pline_msg = null;
     let verbl_msg = null;
+    // C :684 verbl_msg_mcan (cancelled speech). Set by MS_NURSE below;
+    // the `:1224–1226` mcan epilogue is the next Open row (verbl_msg_mcan
+    // + oracle_loc), so consumption stays named there.
+    let verbl_msg_mcan = null;
     const moves = game.moves | 0;
     const hungrytime = mtmp.edog?.hungrytime | 0;
 
@@ -1186,6 +1194,36 @@ export async function domonnoise(mtmp) {
         // C sounds.c MS_SPELL `:1157–1160` — deliberately vague, since
         // no spell is actually cast.
         pline_msg = 'seems to mutter a cantrip.';
+    } else if (msound === MS_NURSE) {
+        // C sounds.c MS_NURSE `:1160–1172` — cancelled line plus the
+        // wielded-weapon / worn-armor / shirt / relax ladder. uwep is
+        // u.uwep; uarm* are u.uarm* (do_wear.js); Role_if(PM_HEALER) is
+        // urole.mnum (potion.js Role_if_healer precedent, local inline
+        // to avoid a new static edge); is_weptool is wield.js (hoisted,
+        // cycle-safe); verbl_msg_mcan consumption is the next row.
+        verbl_msg_mcan = 'I hate this job!';
+        const uwep = game.u?.uwep;
+        const u = game.u || {};
+        if (uwep && (uwep.oclass === WEAPON_CLASS || is_weptool(uwep))) {
+            verbl_msg = 'Put that weapon away before you hurt someone!';
+        } else if (u.uarmc || u.uarm || u.uarmh || u.uarms || u.uarmg || u.uarmf) {
+            verbl_msg = ((game.urole?.mnum | 0) === PM_HEALER)
+                ? "Doc, I can't help you unless you cooperate."
+                : 'Please undress so I can examine you.';
+        } else if (u.uarmu) {
+            verbl_msg = 'Take off your shirt, please.';
+        } else {
+            verbl_msg = "Relax, this won't hurt a bit.";
+        }
+    } else if (msound === MS_GUARD) {
+        // C sounds.c MS_GUARD `:1173–1178` — gold-carrying heroes are
+        // told to drop it first. money_cnt(game.invent) is shk.js
+        // (already imported for shk_chat; first COIN_CLASS quan).
+        if (money_cnt(game.invent)) {
+            verbl_msg = 'Please drop that gold and follow me.';
+        } else {
+            verbl_msg = 'Please follow me.';
+        }
     } else if (msound === MS_SOLDIER) {
         // C sounds.c MS_SOLDIER `:1179–1191` — foe/pax tables by
         // mpeaceful, each picked with rn2(3).
@@ -1322,10 +1360,9 @@ export async function domonnoise(mtmp) {
             verbl_msg = 'Who do you think you are, War?';
         }
     }
-    // Other msound cases deferred (nurse / guard).
-
     // C :1222–1241 pline_msg then mcan verbl_msg_mcan then verbl_msg.
-    // verbl_msg_mcan still named (no cancelled-speech arm).
+    // verbl_msg_mcan consumption (`:1224–1226` mtmp->mcan arm) is the
+    // next Open row; MS_NURSE sets it above per C `:1161`.
     if (pline_msg) {
         await pline(`${Monnam(mtmp)} ${pline_msg}`);
         return ECMD_TIME;
