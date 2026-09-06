@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1984 — display.c flush_screen glyph-bounding-box core (tracked, span-gated paint deferred)
+
+- **Status:** fixed (Open queue row: `display.c` flush_screen dirty-span loop — gbuf_start/gbuf_stop + reset_glyph_bbox; ships the tracked-bbox core, defers the span-gated grid paint as its own Open row)
+- **Symptom:** none on any suite at HEAD (map-driven Open row, no corpus session blocked on flush_screen — vacuous verify, no `--base` re-run owed). Resume of dead iter #2425: its leftover made `_buildScreenOutput` incremental (persistent map rows + span-gated paint) and regressed 8/44 full sessions — getpos tip stale on row 2 (`seed0012`/`seed0013`: C blank vs JS farlook text) and blank row 1 where C has map (`seed0014`/`seed0360`/`seed0361`/`seed0367`/`seed0373`/`seed4500`: level_tele/menu map rows). Cause, grouped: persistent grid keeps corner-menu/tip overlays that C erases via clear + full resend, and spans miss paints outside writer marks — one cause per group, both from the same incremental hunk. Fix once: revert the paint to clear+repaint-all, keep the bbox core.
+- **C locus:** `nethack-c/upstream/src/display.c` — `newsym_force` `:1863–1871` (span `:1867–1870`), `show_glyph` store+span `:2053–2056`, `reset_glyph_bbox` macro `:2078–2086`, `clear_glyph_buffer` full-dirty `:2139–2140`, `flush_screen` span loop `:2241–2257` + reset after `:2259`.
+- **JS was:** no `gbuf_start`/`gbuf_stop`/`reset_glyph_bbox` symbol anywhere in `js/`; `_buildScreenOutput` rebuilt all map rows from `loc.disp_*` after `clearScreen` (or rows 0–21 when `bot_disabled`).
+- **Fix:** `js/display.js` — module-local `gbuf_start`/`gbuf_stop` (empty = start COLNO-1 > stop 0, as in C) + private `mark_gbuf_dirty(x, y)` (C `:1867–1870` / `:2053–2056` shape, range-guarded) + exported `reset_glyph_bbox()` (C `:2078–2086` shape); writers expand the span (`show_glyph_cell`, `newsym_force`, `swallowed` blanks, `clear_glyph_buffer` full `1..COLNO-1` with `gnew = 1`); `reset_display_messages()` empties the bbox for a fresh run; `_buildScreenOutput` still rebuilds all (clear+repaint-all, `--More--` row-1 skip kept) and calls `reset_glyph_bbox()` after (C `:2259` shape) so the tracked bbox stays honest. No DIAG/FORCE/seed gates; Rule #2 clean (added lines carry no seed/coord).
+- **JS:** `js/display.js` (+70/−2); 1 js file, under 600 cap.
+- **Verify:** `node scripts/verify.mjs --fn flush_screen` → VERIFY: PASS — `PASS syntax 1 changed js file(s)`; `PASS rule2`; `note hidden verify flush_screen: no corpus session is blocked on it at HEAD` (vacuous — row cited 0 blocks, so no `--base` re-run owed and no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `PASS full 44/44 passing (auto: shared file changed)`.
+- **Named omissions:** span-gated grid paint (`:2241–2257` `gnew || framecolor` gate + no blanket clear) — queued as its own Open row (needs overlay full-resync: corner-menu/tip dismiss currently relies on clear+repaint-all); `map_glyphinfo` re-derive at `:2250` (tty glyph already stored by `show_glyph_cell`, background arm shut on tty); `gw.wsettings.map_frame_color` store wiring (frame gate reads shut).
+- **Next:** pop the next Open row (`display.c`/`getpos.c` map_frame_color store).
+
 ## D-1983 — display.c map_glyphinfo ov_* accessibility override tables
 
 - **Status:** fixed (Open queue row: `display.c` map_glyphinfo ov_* override tables — accessibility overseer sym tables, named in D-1972)

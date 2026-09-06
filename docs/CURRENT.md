@@ -93,13 +93,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `display.c` map_glyphinfo ov_* override tables — accessibility overseer sym tables (named in D-1972; no JS symbol anywhere in js/).
+**Next cluster:** `display.c`/`getpos.c` map_frame_color store (named D-1973; span paint queued D-1984).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1983 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1984 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1984** `display.c` — `js/display.js` — gbuf bbox tracked (writers+clear span, post-rebuild reset); span paint deferred.
 **D-1983** `nethack-c/upstream/src/display.c` — `js/display.js` — new exported `SYM_OFF_X = 190`/`SYM_MAX = 196` (`105 + 18 + 61 + 6 + 6`: MAXPCHARS 105 from `S_expl_br` 104, MAXOCLASSES 18 from `objects.js`, MAXMCLASSES 61 from `defsym.h` MONSYM 1..60, WARNCOUNT/MAXO
 **D-1982** `nethack-c/upstream/win/tty/wintty.c` — `js/display.js` — module-local `clipping`/`clipx`/`clipxmax`/`clipy`/`clipymax` (C file-statics) + `clip_screen_size()` (`CO`/`LI` ≡ `game.nhDisplay.cols/rows`, 80x24 fallback = the layout JS always renders) + exported `
 **D-1981** `nethack-c/upstream/src/display.c` — `js/display.js` — new exported async `under_water(mode)` in exact C order with `:line` citations (guard via imported `Is_waterlevel` + `u.uswallow`; `await cls()`; mode `| 0` arms; limited blank via `show_glyph_cell(x, y
@@ -111,7 +112,7 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1983; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1984; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

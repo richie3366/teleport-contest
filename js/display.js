@@ -2657,6 +2657,7 @@ export function reset_display_messages() {
     _win_stop = false;
     _win_nostop = false;
     _delay_flushing = false;
+    reset_glyph_bbox();
     _lastStatus1 = '';
     _lastStatus2 = '';
     _prevmsg = '';
@@ -3816,6 +3817,8 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     else if (ch === 'I' && !decgfx) loc.disp_glyph = GLYPH_INVISIBLE;
     else loc.disp_glyph = NO_GLYPH;
     loc.gnew = 1;
+    // C show_glyph `:2053–2056` — expand the row's dirty span with the store.
+    mark_gbuf_dirty(x, y);
     if (announce) await emit_show_glyph_change(x, y);
 }
 
@@ -4722,6 +4725,9 @@ export function newsym_force(x, y) {
     newsym(x, y);
     const loc = game.level?.at(x, y);
     if (loc) loc.gnew = 1;
+    // C newsym_force `:1863–1871` — newsym, then keep the cell dirty and
+    // expand the row span (`:1867–1870`) even though newsym just stored.
+    mark_gbuf_dirty(x, y);
 }
 
 // ── newsym ──
@@ -4967,6 +4973,11 @@ export function swallowed(first = 0) {
                     loc.disp_ch = ' ';
                     loc.disp_color = NO_COLOR;
                     loc.disp_decgfx = false;
+                    // C swallowed blank must repaint: keep the cell dirty
+                    // and in the span (cls just cleared the buffer, so
+                    // not all these cells are dirty from newsyms).
+                    loc.gnew = 1;
+                    mark_gbuf_dirty(x, y);
                 }
             }
         }
@@ -5754,6 +5765,50 @@ export function serialize_for_scoring(term) {
     return out;
 }
 
+// ── Glyph-bounding-box dirty spans ──
+// C ref: display.c `gg.gbuf_start[]`/`gg.gbuf_stop[]` + `reset_glyph_bbox()`
+// `:2078–2086` — one dirty x-span per map row. Writers expand the span
+// (`newsym_force` `:1867–1870`, `show_glyph` `:2053–2056`);
+// `clear_glyph_buffer` marks every row fully dirty (`:2139–2140`);
+// `flush_screen` paints only `gbuf_start[y]..gbuf_stop[y]` per row
+// (`:2241–2257`) and calls `reset_glyph_bbox()` after (`:2259`).
+// JS gbuf is `loc.disp_*` (D-1767); the spans live here beside the other
+// flush machinery (`_delay_flushing`) since every writer and consumer is
+// in this module. Empty is `start > stop` (start COLNO-1, stop 0), as in C.
+// Shipped core tracks the bbox (writers + clear + reset after the rebuild);
+// the incremental span-gated grid paint stays queued (menu overlays need a
+// full resync that the persistent grid does not yet do).
+let gbuf_start = new Array(ROWNO).fill(COLNO - 1);
+let gbuf_stop = new Array(ROWNO).fill(0);
+
+/**
+ * C ref: display.c `reset_glyph_bbox()` `:2078–2086` — empty every row
+ * span (`start = COLNO-1`, `stop = 0`) after `flush_screen` painted them
+ * (`:2259`). C is a macro; a function here so the arms stay testable,
+ * like `row_refresh`.
+ */
+export function reset_glyph_bbox() {
+    for (let i = 0; i < ROWNO; i++) {
+        gbuf_start[i] = COLNO - 1;
+        gbuf_stop[i] = 0;
+    }
+}
+
+/**
+ * Expand row y's dirty span to cover x (C `:1867–1870` / `:2053–2056`).
+ * Out-of-range coords never occur from C-valid callers; guarded so a
+ * bad caller cannot corrupt a neighboring row's span.
+ * @param {number} x map x, C `coordxy x`
+ * @param {number} y map y, C `coordxy y`
+ */
+function mark_gbuf_dirty(x, y) {
+    const xi = x | 0;
+    const yy = y | 0;
+    if (yy < 0 || yy >= ROWNO || xi < 0 || xi >= COLNO) return;
+    if (gbuf_start[yy] > xi) gbuf_start[yy] = xi;
+    if (gbuf_stop[yy] < xi) gbuf_stop[yy] = xi;
+}
+
 // ── Build screen output ──
 function _buildScreenOutput() {
     const display = game?.nhDisplay;
@@ -5818,7 +5873,7 @@ function _buildScreenOutput() {
                 const loc = game.level?.at(x, y);
                 // C flush_screen / print_glyph paints every gbuf cell, including
                 // S_air (' '+CLR_CYAN). Skipping disp_ch===' ' left clearScreen
-                // CLR_GRAY blanks → serialize NO_COLOR (D-0931 / seed0373).
+                // CLR_GRAY blanks → serialize NO_COLOR (D-0931).
                 // Unexplored cells never get show_glyph_cell → disp_ch stays
                 // unset; leave those as clearScreen blanks.
                 if (loc?.disp_ch == null || loc.disp_ch === '') {
@@ -5844,6 +5899,10 @@ function _buildScreenOutput() {
                 loc.gnew = 0;
             }
         }
+        // C flush_screen `:2259` — spans consumed; empty them even though
+        // this rebuild paints all (keeps the tracked bbox honest for the
+        // incremental follow-up, which stays queued — see map section).
+        reset_glyph_bbox();
         // Status from last bot() cache. C gb.bot_disabled skips putstr so
         // leftover tty cells stay; JS clearScreen wipes them, so repaint
         // the cache unless D-0467 `_statusSuppressed` (fullscreen NHW_MENU
@@ -6570,8 +6629,17 @@ export function clear_glyph_buffer() {
             loc.disp_attr = 0;
             loc.disp_kind = 'unexplored';
             loc.disp_glyph = GLYPH_UNEXPLORED;
-            loc.gnew = 0;
+            // C clear_glyph_buffer blanks must repaint: C's tty window was
+            // pre-cleared by clear_nhwindow in cls — keep gnew dirty and
+            // the span fully dirty below so the bbox stays honest.
+            loc.gnew = 1;
         }
+    }
+    // C clear_glyph_buffer `:2139–2140` — every row fully dirty
+    // (start 1, stop COLNO-1), so the next flush repaints the blanks.
+    for (let y = 0; y < ROWNO; y++) {
+        gbuf_start[y] = 1;
+        gbuf_stop[y] = COLNO - 1;
     }
 }
 
