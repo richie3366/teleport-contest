@@ -6161,10 +6161,10 @@ function _paint_gbuf_cell(mx, my, sc, sr) {
  * ported live, so it reads shut the same way. The `bkglyph` id has no tty
  * paint consumer (`_paint_gbuf_cell` carries ch/color only); the
  * `framecolor` feeds the row_refresh repaint gate exactly as in C.
- * Named omissions: `gw.wsettings.map_frame_color` store + its
- * getpos_sethilite HI_ZAP/NO_COLOR maintenance (`getpos.c:57–58`,
- * HiliteBackground deferred per `js/getpos.js`), so the frame arm reads
- * shut until that wiring lands; CLIPPING pan (callers pass map coords
+ * The `gw.wsettings.map_frame_color` store is live (D-1987:
+ * `getpos_sethilite` maintains HI_ZAP/NO_COLOR per `getpos.c:57–58`),
+ * so the frame arm reads shut outside getpos exactly as C does;
+ * named omissions: CLIPPING pan (callers pass map coords
  * as in C; the tty offsets live in `_paint_gbuf_cell` + `docorner`);
  * the `#if 0` null-framecolor guard is compiled out upstream.
  * @param {number} x map x, C `coordxy x`
@@ -6240,8 +6240,9 @@ export function get_bkglyph_and_framecolor(x, y) {
     // C `:2566` *bkglyph = tmp_bkglyph (`:2567–2573` guard is `#if 0`).
     const bkglyph = tmp_bkglyph;
     // C `:2574–2578` frame color only for getpos-valid cells while the
-    // HiliteBackground color is stored; JS has no gw store yet (named),
-    // so this reads shut outside getpos exactly as C does with NO_COLOR.
+    // HiliteBackground color is stored; the store is maintained by
+    // getpos_sethilite (D-1987), so this reads shut outside getpos
+    // exactly as C does with NO_COLOR.
     const storedFrame = game.gw?.wsettings?.map_frame_color ?? NO_COLOR;
     const framecolor = (game.iflags?.bgcolors && storedFrame !== NO_COLOR
             && mapxy_valid(xi, yy))
@@ -6272,9 +6273,9 @@ export function get_bkglyph_and_framecolor(x, y) {
  * into show_glyph_cell; they cannot flip UNEXPLORED at (0,0): is_you is
  * false there and accessibility defaults off, so `force` stays false);
  * `gw.wsettings.map_frame_color` store + getpos HiliteBackground wiring
- * (see `get_bkglyph_and_framecolor`); tty pan offsets live in the
- * `docorner` caller + `_paint_gbuf_cell` gate (this function takes map
- * coords, as in C).
+ * live since D-1987 (see `get_bkglyph_and_framecolor`); tty pan offsets
+ * live in the `docorner` caller + `_paint_gbuf_cell` gate (this function
+ * takes map coords, as in C).
  * @param {number} start map x, C `coordxy start`
  * @param {number} stop map x inclusive, C `coordxy stop`
  * @param {number} y map y, C `coordxy y`

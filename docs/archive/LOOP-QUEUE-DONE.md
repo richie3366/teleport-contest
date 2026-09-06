@@ -5,11 +5,14 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `display.c` clear_glyph_buffer nul_gbuf.gnew dynamic computation — C derives 0-or-1 from the unexplored rendering vs nul_gbuf (named D-1985/D-1986; JS keeps gnew = 1; c-js-map turns.md). **Addressed:** D-1986
-- [x] `display.c` flush_screen map_glyphinfo glyphmap-base re-derive `:2250` (named D-1984/D-1986; tty transform already applied at show_glyph_cell store; c-js-map turns.md). **Addressed:** D-1986
+- [x] `display.c`/`getpos.c` map_frame_color store — gw.wsettings.map_frame_color + getpos HiliteBackground wiring (named in D-1973; no JS symbol anywhere in js/). **Addressed:** D-1987
 
 
-- [x] `display.c` flush_screen span-gated grid paint — `:2241–2257` gate + no blanket clear (deferred D-1984; needs overlay full-resync). **Addressed:** D-1986
+- [x] `display.c` clear_glyph_buffer nul_gbuf.gnew dynamic computation — C derives 0-or-1 from the unexplored rendering vs nul_gbuf (named D-1985/D-1986; JS keeps gnew = 1; c-js-map turns.md). **Addressed:** D-1986 `97752af4`
+- [x] `display.c` flush_screen map_glyphinfo glyphmap-base re-derive `:2250` (named D-1984/D-1986; tty transform already applied at show_glyph_cell store; c-js-map turns.md). **Addressed:** D-1986 `97752af4`
+
+
+- [x] `display.c` flush_screen span-gated grid paint — `:2241–2257` gate + no blanket clear (deferred D-1984; needs overlay full-resync). **Addressed:** D-1986 `97752af4`
 
 
 - [x] `display.c` flush_screen dirty-span loop — gbuf_start/gbuf_stop + reset_glyph_bbox (bbox tracked since D-1984; span-gated paint deferred below). **Addressed:** D-1985 `d1e71302`

@@ -2086,7 +2086,10 @@ both render `' '`/`NO_COLOR`; `framecolor` live via `get_bkglyph_and_framecolor`
 `_paint_gbuf_cell` at `(x - 1, y + 1)`; `docorner` board loop rewired to it;
 named: `map_glyphinfo` glyphmap[]-base/symidx/tileidx/ov_* arms (hero color
 + pet-NOOVERRIDE arms live since D-1972),
-`gw.wsettings.map_frame_color` store + getpos HiliteBackground wiring;
+`gw.wsettings.map_frame_color` store + getpos HiliteBackground wiring
+live since D-1987 (`getpos_sethilite` maintains HI_ZAP/NO_COLOR per
+`getpos.c:57–58`, `defaultHiliteState` per `:49`, refresh re-sethilite
+per `:762–765`; `wdmode` unset — tiled mode unsupported);
 tty pan offsets live since D-1982 (`docorner` caller + `_paint_gbuf_cell` gate);
 **`gbuf_start`/`gbuf_stop` + `reset_glyph_bbox` bbox tracked since D-1984, span-gated grid paint live since D-1986**
 (writers + clear expand spans, post-rebuild reset; span-gated grid paint
@@ -2100,8 +2103,9 @@ as in C), SCORR/STONE-arboreal + ROOM/CORR/ICE/AIR/CLOUD/POOL/MOAT/WATER/
 LAVAPOOL/LAVAWALL switch with S_room default, out-of-sight litcorr→corr +
 DARKROOMSYM darken, S_room→no-bg, bgcolors + stored-frame +
 `mapxy_valid` frame arm (`js/getpos.js` export of `getpos.c:93–99`);
-wired into `row_refresh` at the C `:2178–2179` shape; named: frame store +
-`getpos_sethilite` maintenance (tty pan live since D-1982 — callers pass map coords, as in C));
+wired into `row_refresh` at the C `:2178–2179` shape; frame store +
+`getpos_sethilite` maintenance live since D-1987 (tty pan live since D-1982 —
+callers pass map coords, as in C));
 |**`map_glyphinfo` live** (D-1972 + D-1983; C `display.c:2594–2656`;
 `js/display.js` exported in C order with `| 0` int idiom —
 `u_at && glyph_is_monster` is_you, `!use_color || Upolyd || glyph !=
