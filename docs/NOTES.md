@@ -21,9 +21,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1920 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1921 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1920 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1921 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -32,7 +32,7 @@ Objective/score live in `CURRENT.md`.
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
   (D-1189). Never FORCE the falsified
   mineralize TRC (76,14)/(77,14) (D-1849).
-- `Val-*`/`Sam-*` loaders shipped D-1852/D-1858; 0/5 rows are stale refill dupes (closed D-1885 + this iter) — check `load_val_*`/`load_sam_*` before re-refilling.
+- `Val-*`/`Sam-*` loaders shipped D-1852/D-1858; 0/5 rows are stale refill dupes (closed D-1885) — check `load_val_*`/`load_sam_*` before re-refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).
@@ -42,18 +42,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1920.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1921.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1920.
+  Do not re-port D-1682…D-1921.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1921: `js/mhitu.js` — C-order midnight arm (`is_undead(mdat) || is_vampshifter(mtmp)` from live `js/monsters.js`, `midnight()` from live `js/calendar.js`);  Named: full `mhitm_adtyping` arms beyond `mhitm_adtyping_u` (AD_FIRE hero, ACID/WERE/HEAL/SGLD/TL
 - D-1920: `js/mhitm.js` — full C-order port: `newtype = little_to_big(oldtype)` (canonical `js/mondata.js` export, same-SCC import already present); victim arm  Named: none new — `monsndx` has no JS export (existing `data?.mndx ?? mnum ??
 - D-1919: `js/mhitm.js` — local `mswingsm` (C `:1282–1297` order; `game.flags?.verbose !== false` repo idiom + local `Blind_slee()` + `mon_visible`; `is_pole`/` Named: `thrwmm` ranged AT_WEAP arm (mthrowu `monshoot` is a local clone, not an export — distant 
 - D-1918: `liveWwalking()` closure (same slot+flats+`Is_waterlevel` idiom as the snapshot) read at the three post-boots points (`if (Wwalking)` burns-you gate,  Named: none new.
@@ -68,5 +69,4 @@ Objective/score live in `CURRENT.md`.
 - D-1909: body now reads `!!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish)` — the same flag expression as the `do.js`/`trap.js` siblings (same `| 0` un Named: none new — `do_screen_description` showsyms scan + `describe_looked` rewiring still deferr
 - D-1908: canonical exports in `js/mkmap.js`: `N_P1_ITER`/`N_P2_ITER`/`N_P3_ITER`, `init_map` (C field order NO_ROOM/typ/unlit), `init_fill` (limit `(WIDTH*HEIG Named: `join_map` + `join_map_cleanup` (own queued row; `somexy`-failure `impossible()` arm dropp
 - D-1907: four exported C-order arms in `js/mhitm.js` (mhitm branches only, `is_youmonst` guards): sgld zeroes dice, `findgold`/`obj_extract_self`/`add_to_minv` Named: uhitm you-as-agr arms (sgld hero-inventory merge_choice/inv_cnt/addinv/dropy+exercise; tlp
-- D-1906: bound 15→14 with comment citing :74–87; Bar-goal comment corrected to the shared 1+14 shape. Named: unchanged from D-1818 (humidity-aware `get_location`; `spo_end_moninvent` `m_dowear`; `fil
 <!-- landmarks:end -->

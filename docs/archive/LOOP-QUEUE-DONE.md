@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `makemon.c` grow_up remaining arms — monster growth HP/dice escalation (TOP30 honourable mention, 127/67; never queued). **Addressed:** D-1920
+- [x] `uhitm.c` mhitm_knockback — hurtle/steadfast/size/weapon body (named deferred in js/mhitm.js stub + turns.md; hitmu D-1921 wires the youmonst defender). **Addressed:** D-1921
+
+
+- [x] `mhitu.c` hitmu — hero hit-by-thrown-object envelope (TOP30 honourable mention, 123/72; archived D-1795 mattacku row is explicitly Not hitmu). **Addressed:** D-1921
+
+
+- [x] `makemon.c` grow_up remaining arms — monster growth HP/dice escalation (TOP30 honourable mention, 127/67; never queued). **Addressed:** D-1920 `240139ea`
 
 
 - [x] `mhitm.c` mattackm remaining arms — monster-vs-monster attack dispatch (TOP30 honourable mention, 297/175; never queued). **Addressed:** D-1919 `55ee2d4d`

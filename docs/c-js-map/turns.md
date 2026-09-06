@@ -2752,7 +2752,8 @@ snuff_lit / steed dismount deferred; **`postmov` engulfer `u_on_newpos` (D-0826)
 on first engulf via D-0838); **`dochug` MMOVE_MOVED `engulfing_u`→`mattacku`** (D-0825); 
 **`mattacku` AT_WEAP ranged `thrwmu` + melee HTH/`hitmu`/`hitmsg`/`mdamageu`** (D-0105/D-0106); 
 **`hitmu` `!canspotmon`→`map_invisible`** (D-0579) + 
-**`hitmu` always `stop_occupation`** (D-0928 #1097; Blind Count:N `.` wait); 
+**`hitmu` always `stop_occupation`** (D-0928 #1097; Blind Count:N `.` wait) + 
+**`hitmu` midnight undead extra + Half/Mitre halve + permdmg hpmax cut + youmonst knockback defender** (D-1921; `mhitu.c` `:1144–1267`; `midnight`/`is_undead`/`is_vampshifter`/`mon_hates_blessings`/`minuhpmax`/`PM_CLERIC` live; full `mhitm_adtyping` arms + knockback hurtle still named); 
 **`mattacku` mounted steed `rn2(is_orc?2:4)`→`mattackm` + retaliation** (D-0217); 
 **`mattacku`→`summonmu`/`msummon` demon+were arms** (D-0473 demon; **D-1844** were `new_were`/`were_summon` `rn2(5-(night*2))`/`rn2(30)`/`rn2(10)` + `were.c` `were_summon` `rnd(5)` typ `rn2`; is_lminion/angel deferred); 
 **`mdamageu`→`done_in_by` (not `losehp`)** (D-0190); 

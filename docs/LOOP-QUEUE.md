@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mhitu.c` hitmu — hero hit-by-thrown-object envelope (TOP30 honourable mention, 123/72; archived D-1795 mattacku row is explicitly Not hitmu).
 - [ ] `trap.c` mintrap — monster-trapped dispatch body (TOP30 honourable mention, 107/54; archived rows are rloc_to callers, not the body).
 - [ ] `objnam.c` makeplural — plural-name envelope, ch_ksound dead callee (TOP30 honourable mention, 186/59; never queued).
 - [ ] `trap.c` dotrap — hero/monster trap dispatch body (TOP30 honourable mention; archived untrap/pit-hole/spoteffects rows explicitly Not dotrap).
@@ -56,6 +55,10 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `pickup.c` pickup — pickup body remaining arms (TOP30 honourable mention, 238/135; archived rows are sub-arms only).
 - [ ] `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner).
 - [ ] `zap.c` bhit — beam-hit body remaining arms (TOP30 honourable mention, 306/223; archived rows are named bits only).
+- [ ] `weapon.c` hitval — blessed/spear/trident/pick/silver remaining arms (named still-deferred in D-1793; spec_abon is D-0611).
+- [ ] `weapon.c` select_hwep — HTH weapon-select arms (turns.md named omit).
+- [ ] `objnam.c` mshot_xname — Nth/xname arms (turns.md named omit).
+- [ ] `uhitm.c` mhitm_knockback — hurtle/steadfast/size/weapon body (named deferred in js/mhitm.js stub + turns.md).
 
 ## Parked (do not pop)
 
