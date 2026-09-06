@@ -112,65 +112,49 @@ async function reset_role_filtering() {
     const pushHdr = (text) => { items.push({ kind: 'hdr', text }); };
     const pushBlank = () => { items.push({ kind: 'blank', text: '' }); };
 
+    // C ref: role.c reset_role_filtering — each setup_*menu(win, FALSE, ...)
+    // arm keeps every entry with a_string values, preselecting !*_ok.
     pushHdr('Unacceptable roles');
-    for (let i = 0; i < roles.length; i++) {
-        const role_ok = (ok_role(i, ROLE_NONE, ROLE_NONE, ROLE_NONE)
-            && ok_race(i, ROLE_NONE, ROLE_NONE, ROLE_NONE)
-            && ok_gend(i, ROLE_NONE, ROLE_NONE, ROLE_NONE)
-            && ok_align(i, ROLE_NONE, ROLE_NONE, ROLE_NONE));
-        let thisch = roles[i].name.m[0].toLowerCase();
-        if (items.some(it => it.key === thisch)) thisch = thisch.toUpperCase();
-        let rolename = roles[i].name.m;
-        if (roles[i].name.f) rolename = `${roles[i].name.m}/${roles[i].name.f}`;
+    for (const e of setup_rolemenu(false, ROLE_NONE, ROLE_NONE, ROLE_NONE)) {
         items.push({
             kind: 'item',
-            key: thisch,
-            filterStr: roles[i].name.m,
-            textBase: an(rolename),
-            selected: !role_ok,
+            key: e.key,
+            filterStr: e.value,
+            textBase: e.text,
+            selected: e.preselected,
         });
     }
     pushBlank();
     pushHdr('Unacceptable races');
-    for (let i = 0; i < races.length; i++) {
-        const race_ok = (ok_race(ROLE_NONE, i, ROLE_NONE, ROLE_NONE)
-            && ok_role(ROLE_NONE, i, ROLE_NONE, ROLE_NONE)
-            && ok_align(ROLE_NONE, i, ROLE_NONE, ROLE_NONE));
-        const thisch = races[i].noun[0].toUpperCase();
+    for (const e of setup_racemenu(false, ROLE_NONE, ROLE_NONE, ROLE_NONE)) {
         items.push({
             kind: 'item',
-            key: thisch,
-            filterStr: races[i].noun,
-            textBase: races[i].noun,
-            selected: !race_ok,
+            key: e.key,
+            filterStr: e.value,
+            textBase: e.text,
+            selected: e.preselected,
         });
     }
     pushBlank();
     pushHdr('Unacceptable genders');
-    for (let i = 0; i < ROLE_GENDERS; i++) {
-        const gend_ok = (ok_gend(ROLE_NONE, ROLE_NONE, i, ROLE_NONE)
-            && ok_role(ROLE_NONE, ROLE_NONE, i, ROLE_NONE)
-            && ok_race(ROLE_NONE, ROLE_NONE, i, ROLE_NONE));
+    for (const e of setup_gendmenu(false, ROLE_NONE, ROLE_NONE, ROLE_NONE)) {
         items.push({
             kind: 'item',
-            key: genders[i].adj[0].toUpperCase(),
-            filterStr: genders[i].adj,
-            textBase: genders[i].adj,
-            selected: !gend_ok,
+            key: e.key,
+            filterStr: e.value,
+            textBase: e.text,
+            selected: e.preselected,
         });
     }
     pushBlank();
     pushHdr('Unacceptable alignments');
-    for (let i = 0; i < ROLE_ALIGNS; i++) {
-        const algn_ok = (ok_align(ROLE_NONE, ROLE_NONE, ROLE_NONE, i)
-            && ok_role(ROLE_NONE, ROLE_NONE, ROLE_NONE, i)
-            && ok_race(ROLE_NONE, ROLE_NONE, ROLE_NONE, i));
+    for (const e of setup_algnmenu(false, ROLE_NONE, ROLE_NONE, ROLE_NONE)) {
         items.push({
             kind: 'item',
-            key: aligns[i].adj[0].toUpperCase(),
-            filterStr: aligns[i].adj,
-            textBase: aligns[i].adj,
-            selected: !algn_ok,
+            key: e.key,
+            filterStr: e.value,
+            textBase: e.text,
+            selected: e.preselected,
         });
     }
 
@@ -367,6 +351,135 @@ export function validalign(rolenum, racenum, alignnum) {
     return alignnum >= 0 && alignnum < ROLE_ALIGNS
         && !!(roles[rolenum].allow & races[racenum].allow
             & aligns[alignnum].allow & ROLE_ALIGNMASK);
+}
+
+/**
+ * C ref: role.c setup_rolemenu `:2854–2902` — role-menu entry builder shared
+ * by the filtering arm (pick_role_menu: skip `!role_ok`, `a_int` value) and
+ * the reset arm (reset_role_filtering: keep every role, `a_string` value,
+ * preselect `!role_ok`). Branch order, `lowc`/`highc` accelerators and the
+ * female-name arms (`gend == 1` replace, `gend < 0` slash-append) are C's.
+ * `lastch` keeps C's case-sensitive update (no lowercasing): identical menus
+ * on the current roles[] (single consecutive r-pair) and C-true past it.
+ * JS shape: neutral entries; callers map to body/choices or filter items
+ * (`win`/`add_menu` stay with the callers — corner-menu infra has no winid).
+ */
+export function setup_rolemenu(filtering, race, gend, algn) {
+    const entries = [];
+    let lastch = '\0'; // C: char lastch = '\0'
+    for (let i = 0; i < roles.length; i++) { // C: roles[i].name.m
+        /* role can be constrained by any of race, gender, or alignment */
+        const role_ok = (ok_role(i, race, gend, algn)
+            && ok_race(i, race, gend, algn)
+            && ok_gend(i, race, gend, algn)
+            && ok_align(i, race, gend, algn));
+        if (filtering && !role_ok)
+            continue;
+        let thisch = roles[i].name.m[0].toLowerCase(); // C: lowc()
+        if (thisch === lastch)
+            thisch = thisch.toUpperCase(); // C: highc()
+        let rolename = roles[i].name.m;
+        if (roles[i].name.f) {
+            /* role has distinct name for female (C,P) */
+            if (gend === 1) {
+                /* female already chosen; replace male name */
+                rolename = roles[i].name.f;
+            } else if (gend < 0) {
+                /* not chosen yet; append slash+female name */
+                rolename = `${roles[i].name.m}/${roles[i].name.f}`;
+            }
+        }
+        /* !filtering implies reset_role_filtering() where we want to
+           mark this role as preselected if current filter excludes it */
+        entries.push({
+            key: thisch,
+            altkey: null, // C passes 0 as the role menu's 2nd accelerator
+            text: an(rolename), // C: an(rolenamebuf)
+            value: filtering ? i + 1 : roles[i].name.m, // C: a_int/a_string
+            preselected: !filtering && !role_ok, // C: MENU_ITEMFLAGS_SELECTED
+        });
+        lastch = thisch;
+    }
+    return entries;
+}
+
+/**
+ * C ref: role.c setup_racemenu `:2905–2940` — race-menu entry builder for
+ * both arms. No ok_gend(): race isn't constrained by gender. Filtering arm
+ * picks by first letter with the capital as unseen accelerator; reset arm
+ * picks by capital letter (lowercase role letters will be present there).
+ */
+export function setup_racemenu(filtering, role, gend, algn) {
+    const entries = [];
+    for (let i = 0; i < races.length; i++) { // C: races[i].noun
+        /* no ok_gend(); race isn't constrained by gender */
+        const race_ok = (ok_race(role, i, gend, algn)
+            && ok_role(role, i, gend, algn)
+            && ok_align(role, i, gend, algn));
+        if (filtering && !race_ok)
+            continue;
+        const this_ch = races[i].noun[0];
+        entries.push({
+            key: filtering ? this_ch : this_ch.toUpperCase(), // C: highc()
+            altkey: filtering ? this_ch.toUpperCase() : null, // C: ... : 0
+            text: races[i].noun,
+            value: filtering ? i + 1 : races[i].noun, // C: a_int/a_string
+            preselected: !filtering && !race_ok, // C: MENU_ITEMFLAGS_SELECTED
+        });
+    }
+    return entries;
+}
+
+/**
+ * C ref: role.c setup_gendmenu `:2943–2976` — gender-menu entry builder for
+ * both arms. No ok_align(): gender isn't constrained by alignment. Selector
+ * letters and preselection follow setup_racemenu / setup_rolemenu.
+ */
+export function setup_gendmenu(filtering, role, race, algn) {
+    const entries = [];
+    for (let i = 0; i < ROLE_GENDERS; i++) {
+        /* no ok_align(); gender isn't constrained by alignment */
+        const gend_ok = (ok_gend(role, race, i, algn)
+            && ok_role(role, race, i, algn)
+            && ok_race(role, race, i, algn));
+        if (filtering && !gend_ok)
+            continue;
+        const this_ch = genders[i].adj[0];
+        entries.push({
+            key: filtering ? this_ch : this_ch.toUpperCase(),
+            altkey: filtering ? this_ch.toUpperCase() : null,
+            text: genders[i].adj,
+            value: filtering ? i + 1 : genders[i].adj,
+            preselected: !filtering && !gend_ok,
+        });
+    }
+    return entries;
+}
+
+/**
+ * C ref: role.c setup_algnmenu `:2979–3012` — alignment-menu entry builder
+ * for both arms. No ok_gend(): alignment isn't constrained by gender.
+ * Selector letters and preselection follow setup_racemenu / setup_rolemenu.
+ */
+export function setup_algnmenu(filtering, role, race, gend) {
+    const entries = [];
+    for (let i = 0; i < ROLE_ALIGNS; i++) {
+        /* no ok_gend(); alignment isn't constrained by gender */
+        const algn_ok = (ok_align(role, race, gend, i)
+            && ok_role(role, race, gend, i)
+            && ok_race(role, race, gend, i));
+        if (filtering && !algn_ok)
+            continue;
+        const this_ch = aligns[i].adj[0];
+        entries.push({
+            key: filtering ? this_ch : this_ch.toUpperCase(),
+            altkey: filtering ? this_ch.toUpperCase() : null,
+            text: aligns[i].adj,
+            value: filtering ? i + 1 : aligns[i].adj,
+            preselected: !filtering && !algn_ok,
+        });
+    }
+    return entries;
 }
 
 export function pick_role(racenum, gendnum, alignnum, pickhow) {
@@ -896,24 +1009,12 @@ async function pick_role_menu() {
     // C plsel_startmenu: omit blank after aspect header when excess == 2
     const body = [{ text: aspect_header(), attr: 0 }];
     if (excess !== 2) body.push({ text: '', attr: 0 });
-    let lastch = '';
+    // C ref: role.c genl_player_setup — setup_rolemenu(win, TRUE, RACE, GEND,
+    // ALGN) populates the role choices (a_int values; C: choice-1 later).
     const choices = [];
-    for (let i = 0; i < roles.length; i++) {
-        if (!(ok_role(i, RACE, GEND, ALGN)
-            && ok_race(i, RACE, GEND, ALGN)
-            && ok_gend(i, RACE, GEND, ALGN)
-            && ok_align(i, RACE, GEND, ALGN)))
-            continue;
-        let thisch = roles[i].name.m[0].toLowerCase();
-        if (thisch === lastch) thisch = thisch.toUpperCase();
-        let rolename = roles[i].name.m;
-        if (roles[i].name.f) {
-            if (GEND === 1) rolename = roles[i].name.f;
-            else if (GEND < 0) rolename = `${roles[i].name.m}/${roles[i].name.f}`;
-        }
-        body.push({ text: `${thisch} - ${an(rolename)}`, attr: 0 });
-        choices.push({ key: thisch, value: i + 1 }); // C: choice-1 later
-        lastch = thisch.toLowerCase();
+    for (const e of setup_rolemenu(true, RACE, GEND, ALGN)) {
+        body.push({ text: `${e.key} - ${e.text}`, attr: 0 });
+        choices.push({ key: e.key, value: e.value });
     }
     for (const line of menu_extra_lines(ROLE_RANDOM, true)) {
         body.push(line);
@@ -992,17 +1093,14 @@ async function pick_race_menu() {
     ALGN = flags.initalign;
     const choices = [];
     const body = [{ text: aspect_header(), attr: 0 }, { text: '', attr: 0 }];
-    for (let i = 0; i < races.length; i++) {
-        if (!(ok_race(ROLE, i, GEND, ALGN)
-            && ok_role(ROLE, i, GEND, ALGN)
-            && ok_align(ROLE, i, GEND, ALGN)))
-            continue;
-        const this_ch = races[i].noun[0];
-        body.push({ text: `${this_ch} - ${races[i].noun}`, attr: 0 });
+    // C ref: role.c genl_player_setup — setup_racemenu(win, TRUE, ROLE, GEND,
+    // ALGN) populates the race choices.
+    for (const e of setup_racemenu(true, ROLE, GEND, ALGN)) {
+        body.push({ text: `${e.key} - ${e.text}`, attr: 0 });
         choices.push({
-            key: this_ch,
-            altkey: this_ch.toUpperCase(),
-            value: i + 1,
+            key: e.key,
+            altkey: e.altkey,
+            value: e.value,
         });
     }
     for (const line of menu_extra_lines(ROLE_RANDOM, true)) {
@@ -1075,17 +1173,14 @@ async function pick_gend_menu() {
     ALGN = flags.initalign;
     const choices = [];
     const body = [{ text: aspect_header(), attr: 0 }, { text: '', attr: 0 }];
-    for (let i = 0; i < ROLE_GENDERS; i++) {
-        if (!(ok_gend(ROLE, RACE, i, ALGN)
-            && ok_role(ROLE, RACE, i, ALGN)
-            && ok_race(ROLE, RACE, i, ALGN)))
-            continue;
-        const this_ch = genders[i].adj[0];
-        body.push({ text: `${this_ch} - ${genders[i].adj}`, attr: 0 });
+    // C ref: role.c genl_player_setup — setup_gendmenu(win, TRUE, ROLE, RACE,
+    // ALGN) populates the gender choices.
+    for (const e of setup_gendmenu(true, ROLE, RACE, ALGN)) {
+        body.push({ text: `${e.key} - ${e.text}`, attr: 0 });
         choices.push({
-            key: this_ch,
-            altkey: this_ch.toUpperCase(),
-            value: i + 1,
+            key: e.key,
+            altkey: e.altkey,
+            value: e.value,
         });
     }
     for (const line of menu_extra_lines(ROLE_RANDOM, true)) {
@@ -1158,17 +1253,14 @@ async function pick_align_menu() {
     rigid_role_checks();
     const choices = [];
     const body = [{ text: aspect_header(), attr: 0 }, { text: '', attr: 0 }];
-    for (let i = 0; i < ROLE_ALIGNS; i++) {
-        if (!(ok_align(ROLE, RACE, GEND, i)
-            && ok_role(ROLE, RACE, GEND, i)
-            && ok_race(ROLE, RACE, GEND, i)))
-            continue;
-        const this_ch = aligns[i].adj[0];
-        body.push({ text: `${this_ch} - ${aligns[i].adj}`, attr: 0 });
+    // C ref: role.c genl_player_setup — setup_algnmenu(win, TRUE, ROLE, RACE,
+    // GEND) populates the alignment choices.
+    for (const e of setup_algnmenu(true, ROLE, RACE, GEND)) {
+        body.push({ text: `${e.key} - ${e.text}`, attr: 0 });
         choices.push({
-            key: this_ch,
-            altkey: this_ch.toUpperCase(),
-            value: i + 1,
+            key: e.key,
+            altkey: e.altkey,
+            value: e.value,
         });
     }
     for (const line of menu_extra_lines(ROLE_RANDOM, true)) {

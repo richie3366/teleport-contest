@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1912 — role.c setup_rolemenu/racemenu/gendmenu/algnmenu extraction into js/player_selection.js
+
+- **Status:** fixed (Open queue row `role.c` setup_*menu extraction; canonical exports in `js/player_selection.js`, live in both arms).
+- **Symptom:** none on any suite (no corpus session blocked on any of the four at HEAD; map-driven follow-up row) — latent clone-drift gap: the reset arm's role-key dedup (`items.some` over all prior keys) and the pick arm's lowercased `lastch` both deviated from C's case-sensitive `lastch = thisch`, diverging on any future 3-consecutive-same-initial roles[] (a third same-initial entry keeps the lowercase key in C but uppercases in JS).
+- **C locus:** `role.c` `setup_rolemenu` `:2854–2902`, `setup_racemenu` `:2905–2940`, `setup_gendmenu` `:2943–2976`, `setup_algnmenu` `:2979–3012`; callers `genl_player_setup` pick arms (`:2312`, `:2407`, `:2495`, `:2582`) and `reset_role_filtering` (`:2740–2752`); callees `ok_role`/`ok_race`/`ok_gend`/`ok_align`/`an` (all live, imported not cloned).
+- **JS was:** both arms inline in `js/player_selection.js` (`pick_*_menu` filtering loops, `reset_role_filtering` preselect loops) — all four `setup_*menu` NOT FOUND in `js/` (brief/sym.mjs); no stub, pure map debt.
+- **Fix:** four canonical `export function setup_*menu` in `js/player_selection.js` in C order and C param order (minus `win`): `filtering && !*_ok` skip; `lowc`/`highc` accelerators (role: single key + `lastch`; race/gend/align: first-letter key + capital second accelerator when filtering, capital key when resetting); female-name arms (`gend == 1` replace, `gend < 0` slash-append); `filtering ? i + 1 : <name-string>` values (C `a_int`/`a_string`); `!filtering && !*_ok` preselect (C `MENU_ITEMFLAGS_SELECTED`); the C predicate asymmetries kept verbatim (race: no `ok_gend`; gender: no `ok_align`; align: no `ok_gend` — the inline loops already matched these). Neutral `{key, altkey, text, value, preselected}` entries; all five call sites (four pick menus + reset's four sections) map them onto body/choices and filter items. `lastch` is now C's case-sensitive update.
+- **JS:** `js/player_selection.js` (+177/−85: four exports + five call-site rewirings, no new imports); `docs/c-js-map/startup.md` one section. js/ insertions 177 (< 600 cap), 1 js file.
+- **Verify:** `node scripts/verify.mjs --fn setup_rolemenu` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/player_selection.js`; `PASS rule2`; `note hidden verify setup_rolemenu: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — brief confirmed none for all four — so no `--base` re-run owed); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`. Hand probe (`/tmp/probe-setup.mjs`, deleted): old-vs-new key strings identical on current data (`abchkmprRstvw` both arms), values 1..13, race/gend/align key+alt pairs (`hH eE dD gG oO`, `mM fF`, `lL nN cC`), reset preselect all false unfiltered, `an()` texts unchanged (same `an` call, e.g. `a Caveman/Cavewoman`).
+- **Named omissions:** `plsel_startmenu` (own named follow-up per D-1904; untouched); none new.
+- **Next:** next Open queue row in order (`trap.c` lava_effects remaining arms).
+
 ## D-1911 — mkmap.c finish_map wallify/lit/lava-ice + live MINES cutover to js/mkmap.js
 
 - **Status:** fixed (Open queue row `mkmap.c` finish_map; canonical export in `js/mkmap.js`, now live — the `splev_initlev` LVLINIT_MINES path awaits the canonical `mkmap()` and the `js/mklev.js` envelope clones are deleted; lands the review-878 condition).
