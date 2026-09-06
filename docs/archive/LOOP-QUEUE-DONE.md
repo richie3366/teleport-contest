@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `vault.c` move_gold — vault gold-move singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1946
+- [x] `mthrowu.c` ucatchgem — thrown-gem catch singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1947
+
+
+- [x] `vault.c` move_gold — vault gold-move singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1946 `d5311a1e`
 
 
 - [x] `steal.c` stealamulet — amulet-steal singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1945 `31f18e8a`

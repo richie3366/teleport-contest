@@ -2791,6 +2791,7 @@ flight `observe_object`→`makeknown`/`exercise(A_WIS)`** (D-0184) **+ ray wands
 **`m_throw` `return_from_mtoss` snuff_candle D-1334** (C `:942` notcaught before 
 ship/`flooreffects("drop")`; tethered AKLYS `return_flightpath`; 
 candles/candelabrum only, not `snuff_lit`; `thrwmu` always_toss/polearm named); 
+|**`m_throw` `ucatchgem` gem catch D-1947** (C `:505–529` + `:692` GEM break before `:695` catch/potionhit; unicorn-poly `otyp<=LAST` guard, glass FIRST..LAST pline×2+`makeknown`+`dropy` else `hold_another_object`, rock/gray-stone never; canonical `s_suffix`, `is_unicorn`, `makeknown`/`hold_another_object` live, `dropy` dynamic); 
 **await `thitu`/`monshoot` plines before `losehp`/flight** (D-0319); 
 **`mbhitm` fatal striking → `finish_losehp_done` noreturn** (D-0323); 
 **`find_offensive` C `nomore` continue** — later invent cannot override selected type (D-0258); 
