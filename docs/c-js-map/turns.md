@@ -3140,7 +3140,7 @@ tame melancholy; leashed slack; mdamagem AD_HALU mhitm arm;
 hitmm squeezes unless `u.ustuck`); **mdamagem AD_STON leftover D-1352**; 
 **mdamagem AD_CONF leftover D-1385**; artifact_hit D-1415; rustm D-1442; poison leftover D-1447; 
 worm-shrieker still named); **mhitu AD_WRAP D-1331**; **uhitm AD_WRAP m_slips_free D-1348**; 
-**mhitm AD_WRAP brush D-1406**); unported `mhitm_ad_*` still named; **mhitu `hitmsg` D-1261**; 
+**mhitm AD_WRAP brush D-1406**); **mdamagem AD_SGLD/AD_TLPT/AD_WERE/AD_SLIM mhitm arms D-1907** (`uhitm.c` `:2790–2857`/`:2859–2955`/`:4265–4293`/`:3526–3599` mon→mon branches + `mdamagem` dispatch; `RLOC_NOMSG` import; uhitm/mhitu arms named in callee docs); remaining unported `mhitm_ad_*` still named; **mhitu `hitmsg` D-1261**; 
 **mhitu missmu D-1286**; **mhitu wildmiss set_msg_xy D-1291**); 
 **`passivemm` assess_dmg `monkilled(magr)` D-1241** (raw AT_NONE dice; AD_ACID goto; 
 live `rn2(3)` COLD/FIRE/ELEC/PLYS/STUN; no zombify; 

@@ -24,6 +24,7 @@ import {
     M_ATTK_HIT,
     M_ATTK_DEF_DIED,
     M_ATTK_AGR_DIED,
+    M_ATTK_AGR_DONE,
     CORPSTAT_INIT,
     CORPSTAT_FEMALE,
     CORPSTAT_MALE,
@@ -63,6 +64,7 @@ import {
     SUPPRESS_INVISIBLE,
     TELL,
     RLOC_MSG,
+    RLOC_NOMSG,
     XKILL_GIVEMSG,
     XKILL_NOCORPSE,
     nothing_happens,
@@ -104,7 +106,10 @@ import {
     relobj_on_death, mkcorpstat, stackobj, mksobj_at, obj_nexto,
     obj_meld, pudding_merge_message, place_object, add_to_container,
     weight, mksobj, set_corpsenm, obj_stop_timers, mkgold, clear_dknown,
+    obj_extract_self, add_to_minv,
 } from './mkobj.js';
+import { findgold } from './steal.js';
+import { munslime } from './muse.js';
 import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam, s_suffix, free_mgivenname } from './do_name.js';
 import { an, xname, makeplural, cxname, vtense, The, simpleonames } from './objnam.js';
 import { mon_explodes } from './explode.js';
@@ -244,6 +249,10 @@ const AD_DREN = 16; /* drains magic energy — monattk.h */
 const AD_DISE = 33; /* confers diseases — monattk.h */
 const AD_PEST = 38; /* Pestilence only — monattk.h */
 const AD_FAMN = 39; /* Famine only — monattk.h */
+const AD_SGLD = 20; /* steals gold (leprechaun) — monattk.h */
+const AD_TLPT = 23; /* teleports victim (quantum mechanic) — monattk.h */
+const AD_WERE = 29; /* confers lycanthropy — monattk.h */
+const AD_SLIM = 40; /* turns victim into green slime — monattk.h */
 const MR_FIRE = 0x01;
 const MR_COLD = 0x02;
 const MR_SLEEP = 0x04;
@@ -656,6 +665,7 @@ export {
     AT_WEAP, AT_MAGC, AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_ACID,
     AD_BLND, AD_DRDX, AD_DRCO, AD_DRIN, AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
     AD_STON, AD_CONF, AD_STUN, AD_WRAP, AD_SLEE,
+    AD_SGLD, AD_TLPT, AD_WERE, AD_SLIM,
     could_seduce,
 };
 
@@ -1007,6 +1017,127 @@ export async function mhitm_ad_slee(magr, mattk, mdef, mhm) {
         mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
         await slept_slee_mm(mdef);
     }
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_sgld `:2790–2857` — mhitm (mon→mon) arm.
+ * Zeroes leftover dice; cancelled attacker keeps dice and returns.
+ * Gold moves via findgold/obj_extract_self/add_to_minv; defender drops
+ * WAITFORU; vis&&canseemon pline, then !tele_restrict teleports the
+ * attacker away (hitflags AGR_DONE) with a disappears pline when seen.
+ * Named omissions: uhitm you-as-agr (hero inventory merge_choice/inv_cnt/
+ * addinv/dropy + exercise envelope); mhitu you-as-def (hitmsg + stealgold).
+ */
+export async function mhitm_ad_sgld(magr, mattk, mdef, mhm) {
+    void mattk;
+    if (is_youmonst(magr)) return;
+    if (is_youmonst(mdef)) return;
+    mhm.damage = 0;
+    if (magr.mcan) return;
+    {
+        const gold = findgold(mdef.minvent);
+        if (!gold) return;
+        obj_extract_self(gold);
+        add_to_minv(magr, gold);
+    }
+    mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
+    const buf = Monnam(magr);
+    if (_mm_vis && canseemon(mdef)) {
+        await pline(`${buf} steals some gold from ${mon_nam(mdef)}.`);
+    }
+    if (!(await tele_restrict(magr))) {
+        const couldspot = !!canspotmon(magr);
+        mhm.hitflags = M_ATTK_AGR_DONE;
+        await rloc(magr, RLOC_NOMSG);
+        if (_mm_vis && couldspot && !canspotmon(magr)) {
+            await pline(`${buf} suddenly disappears!`);
+        }
+    }
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_tlpt `:2859–2955` — mhitm (mon→mon) arm.
+ * Short-circuit first (mcan || damage>=mhp || tele_restrict: no message,
+ * no RNG), then mhitm_mgc_atk_negated(TRUE) with a vis-gated
+ * "not affected" pline_mon, else rloc the defender (WAITFORU cleared,
+ * name saved first) with a disappears pline when seen, then clamp
+ * leftover damage below mhp (bumping 1-HP defenders to 2 first,
+ * as in mhitu hitmu).
+ * Named omissions: uhitm you-as-agr (u_teleport_mon + disappears pline);
+ * mhitu you-as-def (hitmsg + tele() + half-physical-damage fatal clamp).
+ */
+export async function mhitm_ad_tlpt(magr, mattk, mdef, mhm) {
+    void mattk;
+    if (is_youmonst(magr)) return;
+    if (is_youmonst(mdef)) return;
+    if (magr.mcan || (mhm.damage | 0) >= (mdef.mhp | 0)
+        || (await tele_restrict(mdef))) {
+        return;
+    }
+    if (await mhitm_mgc_atk_negated(magr, mdef, true)) {
+        if (_mm_vis) {
+            await pline_mon(mdef, `${Monnam(mdef)} is not affected.`);
+        }
+        return;
+    }
+    const wasseen = !!canspotmon(mdef);
+    let saved = null;
+    if (_mm_vis && wasseen) saved = Monnam(mdef);
+    mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
+    await rloc(mdef, RLOC_NOMSG);
+    if (_mm_vis && wasseen && !canspotmon(mdef)
+        && mdef !== game.u?.usteed) {
+        await pline(`${saved} suddenly disappears!`);
+    }
+    if ((mhm.damage | 0) >= (mdef.mhp | 0)) {
+        if ((mdef.mhp | 0) === 1) mdef.mhp = 2;
+        mhm.damage = (mdef.mhp | 0) - 1;
+    }
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_slim `:3526–3599` — mhitm (mon→mon) arm.
+ * Negation (FALSE: physical damage only) burns before the rn2(4) gate,
+ * in C order. Slimeproof defenders skip. Else munslime(FALSE) cure
+ * attempt, then newcham to green slime (NC_SHOW_MSG when vis&&canseemon),
+ * WAITFORU cleared, hitflags HIT; attacker/defender deaths OR into
+ * hitflags; leftover dice zeroed.
+ * Named omissions: uhitm you-as-agr (You() turn-to-slime + newcham);
+ * mhitu you-as-def (hitmsg + flaming/Unchanging/Slimed/make_slimed envelope).
+ */
+export async function mhitm_ad_slim(magr, mattk, mdef, mhm) {
+    void mattk;
+    if (is_youmonst(magr)) return;
+    if (is_youmonst(mdef)) return;
+    const negated = await mhitm_mgc_atk_negated(magr, mdef, false);
+    let pd = mdef?.data;
+    if (negated) return;
+    if (!rn2(4) && !slimeproof(pd)) {
+        if (!(await munslime(mdef, false)) && !deadmonster(mdef)) {
+            let ncflags = NO_NC_FLAGS;
+            if (_mm_vis && canseemon(mdef)) ncflags |= NC_SHOW_MSG;
+            if (await newcham(mdef, mons[PM_GREEN_SLIME], ncflags)) {
+                pd = mdef?.data;
+            }
+            mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
+            mhm.hitflags = M_ATTK_HIT;
+        }
+        if (deadmonster(magr)) mhm.hitflags |= M_ATTK_AGR_DIED;
+        if (deadmonster(mdef)) mhm.hitflags |= M_ATTK_DEF_DIED;
+        mhm.damage = 0;
+    }
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_were `:4265–4293` — mhitm (mon→mon) arm.
+ * Delegates to mhitm_ad_phys; done propagates via mhm (caller checks).
+ * uhitm you-as-agr shares this shape. Named omission: mhitu you-as-def
+ * (hitmsg + rn2(4) lycanthropy: Protection_from_shape_changers /
+ * defends(AD_WERE) / mgc-negated / set_ulycn / retouch_equipment).
+ */
+export async function mhitm_ad_were(magr, mattk, mdef, mhm) {
+    if (is_youmonst(mdef)) return;
+    await mhitm_ad_phys(magr, mattk, mdef, mhm);
 }
 
 /**
@@ -2916,6 +3047,123 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
             done: false,
         };
         await mhitm_ad_slee(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
+    // C: mhitm_adtyping → mhitm_ad_sgld for AD_SGLD (uhitm.c:2790–2857
+    // mhitm arm). Leftover dice zeroed; gold stolen then attacker
+    // teleports away (AGR_DONE). uhitm/mhitu arms named in the callee.
+    if ((mattk.adtyp | 0) === AD_SGLD) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_sgld(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
+    // C: mhitm_adtyping → mhitm_ad_tlpt for AD_TLPT (uhitm.c:2859–2955
+    // mhitm arm). Defender rloc'd; leftover clamped below mhp.
+    // uhitm/mhitu arms named in the callee.
+    if ((mattk.adtyp | 0) === AD_TLPT) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_tlpt(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
+    // C: mhitm_adtyping → mhitm_ad_were for AD_WERE (uhitm.c:4265–4293
+    // mhitm arm). Delegates to mhitm_ad_phys; done propagates via mhm.
+    // mhitu lycanthropy arm named in the callee.
+    if ((mattk.adtyp | 0) === AD_WERE) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+            dieroll: dieroll | 0,
+        };
+        await mhitm_ad_were(magr, mattk, mdef, mhm);
+        mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
+    // C: mhitm_adtyping → mhitm_ad_slim for AD_SLIM (uhitm.c:3526–3599
+    // mhitm arm). Negation then rn2(4) gate; sliming zeroes leftover.
+    // uhitm/mhitu arms named in the callee.
+    if ((mattk.adtyp | 0) === AD_SLIM) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_slim(magr, mattk, mdef, mhm);
         mhitm_knockback(magr, mdef, mattk, mhm.hitflags, !!mwep);
         if (mhm.done) return mhm.hitflags;
         damage = mhm.damage | 0;
