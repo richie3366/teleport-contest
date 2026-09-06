@@ -78,6 +78,11 @@ import {
     IS_DOOR,
     D_TRAPPED,
     Is_container,
+    OBJ_FLOOR,
+    OBJ_CONTAINED,
+    OBJ_MINVENT,
+    NO_ROOM,
+    LL_ARTIFACT,
 } from './const.js';
 import { rn2, rnd, d, rnz } from './rng.js';
 import { nhgetch } from './input.js';
@@ -90,9 +95,11 @@ import { mon_nam } from './do_name.js';
 import { wake_nearto } from './mon.js';
 import { burn_away_slime } from './timeout.js';
 import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv, getobj } from './invent.js';
-import { xname, the, vtense, cxname, otense, set_undiscovered_artifact } from './objnam.js';
+import { xname, the, vtense, cxname, otense, set_undiscovered_artifact, set_find_artifact } from './objnam.js';
 import { recalc_telepat_range } from './do_wear.js';
 import { t_at } from './trap.js';
+import { livelog_printf } from './pline.js';
+import { inside_shop } from './shk.js';
 
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
 const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
@@ -394,6 +401,47 @@ export function undiscovered_artifact(m) {
     return true;
 }
 set_undiscovered_artifact(undiscovered_artifact);
+
+/**
+ * C ref: artifact.c found_artifact `:409–417` — mark artiexist[a].found.
+ * Sync: the two C impossible() error arms are a named omit (async pline
+ * in JS; C continues without setting found, which the early returns keep).
+ * Callers are sync (notably objnam.c xname_flags `:661`).
+ * @param {number} a artifact index (1-based)
+ */
+export function found_artifact(a) {
+    const i = a | 0;
+    if (i < 1 || i > NROFARTIFACTS) return;
+    if (!game.artiexist) artifacts_globals_init();
+    if (!(game.artiexist[i]?.exists | 0)) return;
+    game.artiexist[i].found = 1;
+}
+
+/**
+ * C ref: artifact.c find_artifact `:422–459` — first-sighting livelog.
+ * `if (a && !found)`: found_artifact(a), then where by obj->where in C
+ * ternary order (OBJ_FLOOR → inside_shop shop/floor; OBJ_CONTAINED;
+ * OBJ_MINVENT; catchall invent/hero ""), then livelog LL_ARTIFACT
+ * `found %s%s` with bare_artifactname. inside_shop (not costly_spot)
+ * covers the shop "free spot" before the door, per the C comment.
+ * @param {object} otmp artifact object
+ */
+export function find_artifact(otmp) {
+    const a = otmp?.oartifact | 0;
+    if (!a) return;
+    if (!game.artiexist) artifacts_globals_init();
+    if (game.artiexist[a]?.found | 0) return;
+    found_artifact(a); /* artiexist[a].found = 1 */
+    const where = ((otmp?.where | 0) === OBJ_FLOOR)
+        ? ((inside_shop(otmp?.ox | 0, otmp?.oy | 0) !== NO_ROOM)
+            ? ' in a shop'
+            : ' on the floor')
+        : ((otmp?.where | 0) === OBJ_CONTAINED) ? ' in a container'
+            : ((otmp?.where | 0) === OBJ_MINVENT) ? ' carried by a monster'
+                : '';
+    livelog_printf(LL_ARTIFACT, 'found %s%s', bare_artifactname(otmp), where);
+}
+set_find_artifact(find_artifact);
 
 /**
  * C ref: artifact.c arti_cost `:2308–2317` — zorkmid value.

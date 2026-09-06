@@ -43,14 +43,14 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1934):
+Reviews **854–862** (D-1884…D-1935):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1934): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1935): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1934): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1935): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1934): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1934):
+(D-1909…D-1935): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1935):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Reviews 896–904:
 8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
@@ -87,13 +87,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `do_wear.c` ia_dotakeoff — takeoff one-at-a-time arm (HELDOUT Tier C).
+**Next cluster:** `artifact.c` find_artifact/found_artifact — artifact discovery tracking (HELDOUT Tier C misc row; no JS symbol).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1934 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1935 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1935** `artifact.c` `found_artifact` `:409–417` (range check → `impossible` / exists check → `imp — `js/artifact.js` — exported sync `found_artifact(a)` (`| 0` index, early returns on range/exists miss, `game.artiexist[i].found = 1`, lazy `artifacts_globals_init`) and `find_artifact(otmp)` in C ternary order (`a && !fo
 **D-1934** `do_wear.c` `ia_dotakeoff` `:1862–1870` (`gi.item_action_in_progress = TRUE; res = dotakeo — `js/do_wear.js` — exported `async ia_dotakeoff()` in C order (flag true → `await dotakeoff()` → flag false in `finally`, return res; `finally` is the async-faithful form of C's always-reset sequence); `js/iactions.js` — 
 **D-1933** `trap.c` `m_easy_escape_pit` `:3726–3730` (`mtmp->data == &mons[PM_PIT_FIEND] || mtmp->dat — `js/trap.js` — identity arm is now `(data?.mndx | 0) === PM_PIT_FIEND`, the monsndx-equivalent idiom used by the js/do.js chew-swallower arm and the js/do_name.js astral-high-cleric arm; C short-circuit order kept; no ne
 **D-1932** `uhitm.c` `mhitm_knockback` `:5247–5420`; callers `mhitm.c:1061` (`kb && (HIT|DEF_DIED|off — `js/mhitm.js` — full async C-order port (`rn2(3)` distance → Ogresmasher `chance` → `rn2(chance)` → `AD_PHYS`+aatyp → grabber/`sticks` via local `attacktype_mm`/`dmgtype` → sgn direction → `test_move_ok` (hero) / `isok`+
@@ -101,11 +102,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1930** `weapon.c` `select_hwep` `:704–741`; staticfn `oselect` `:475–496`; `Oselect` macro `:469– — `js/weapon.js` — C-order ports in C branch order: artifact loop `oclass && oartifact && touch_artifact(otmp, mtmp) && ((strong && !shield) || !oc_big)`; giant `Oselect(CLUB)` / `else if` Balrog (`mndx === PM_BALROG && ga
 **D-1929** `weapon.c` `hitval` `:149–187`; `kebabable[]` `:71–75` (S_XORN, S_DRAGON, S_JABBERWOCK, S_ — `js/weapon.js` — C-order ports of all four arms in C branch order (blessed `Is_weapon && blessed && mon_hates_blessings` +2; spear `is_spear && kebabable` +2; TRIDENT + `is_swimmer` → `is_pool(mx,my)` +4 else eel/snake +
 **D-1928** `zap.c` `bhit` `:3832–4139` (setup `:3842–3868`, skip `:3944–3970`, dispatch `:3994–4039`, — `js/zap.js` — file-local `bhit_skiprange` (C staticfn shape, `Math.trunc` int division, `rnd` 1..n, `skipend >= tmp` clamp); rock setup (`THROWN_WEAPON` + ROCK → window + `!rn2(3)`, before tether remap like C); DISP_BEAM
-**D-1927** `invent.c` `getobj` `:1751–2089` (prompt/filter arms `:1832–2089`); `do_wear.c` `takeoff_o — `js/do_wear.js` — added `takeoff_ok(obj) { return equip_ok(obj, true, false); }`; deleted `takeoff_lets` + `getobj_takeoff` (57 lines); `dotakeoff` calls live `getobj('take off', takeoff_ok, GETOBJ_NOFLAGS)` with the C g
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1934; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1935; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -954,6 +954,11 @@ export function xname(obj) {
     if (!Blind() && !(game.distantname | 0) && _xname_observe) {
         _xname_observe(obj);
     }
+    // C xname_flags `:661` (`:652–672`): maybe find a previously unseen
+    // artifact. Real obj->dknown, not the override_ID variant, so wizard
+    // ^I on a blind-picked artifact does not mark it found. After
+    // observe_object (which can set dknown), before obj_is_pname.
+    if (obj?.oartifact && obj?.dknown && _find_artifact) _find_artifact(obj);
     const n = objectNames[obj.otyp];
     if (n === 'CORPSE') {
         let base = 'corpse';
@@ -2167,6 +2172,16 @@ export function vtense(subj, verb) {
 let _undiscovered_artifact = (_m) => true;
 export function set_undiscovered_artifact(fn) {
     _undiscovered_artifact = fn;
+}
+
+/**
+ * Late-bound from artifact.js — C artifact.c find_artifact `:422–459`.
+ * Default null (no livelog) until artifact.js registers.
+ * Avoids static objnam→artifact (artifact already imports objnam; D-1521).
+ */
+let _find_artifact = null;
+export function set_find_artifact(fn) {
+    _find_artifact = fn;
 }
 
 /**

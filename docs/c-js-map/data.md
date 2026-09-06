@@ -159,7 +159,15 @@ callees `read.c` `seffect_taming`/`charge_ok`/`recharge`, `mon.c` `migrate_mon`,
 **canned CMDQ_INT D-1551** (C `invent.c` `getobj` need_more_cq `:1778–1830` + `cmd.c` `cmdq_add_int`; live `js/invent.js` `getobj_from_cmdq`/`cmdq_add_int`; ALLOWCNT clones + apply/grease/jelly/rub KEY; INT then KEY splits, !ALLOWCNT/second INT clears canned; eat/read/zap/tin NOFLAGS clones + pickinv `&ctmp` named);
 UNTRAP callee door force D-1495 (floor disarm_*/box named); 
 `bane_applies`/blast `d()`/`losehp`/other wield intrinsics; `defended`; DFLAG1; 
-hero/mon elemental resists; destroy_items/ignite; Mb_hit; SPFX_BEHEAD/DRLI; wake_nearto
+hero/mon elemental resists; destroy_items/ignite; Mb_hit; SPFX_BEHEAD/DRLI; wake_nearto; 
+**`found_artifact`/`find_artifact` D-1935** (C `artifact.c:409–417` / `:422–459`; 
+`if (a && !found)` → `found_artifact` + where ternary (FLOOR→`inside_shop` shop/floor, 
+CONTAINED, MINVENT, catchall "") + `livelog_printf(LL_ARTIFACT, "found %s%s")`; live 
+`js/artifact.js` + `xname_flags :661` arm via `set_find_artifact` late binding 
+(objnam keeps no static artifact edge, D-1521); impossible() error arms named — 
+async pline in sync callers, C-continues-without-found kept as early returns; 
+`uhitm.c:2237` steal arm unwired — no live JS steal site; dogmove/mpickstuff/mdrop_obj 
+caller where-timing rides those clone rows)
 
 ### `src/mondata.c` `name_to_monplus` / `monstseesu`
 
