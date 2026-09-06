@@ -158,6 +158,20 @@ export function getpos_validate(x, y) {
     return !!getpos_getvalid(x, y);
 }
 
+/**
+ * C ref: getpos.c mapxy_valid `:93–99` — the installed getpos validity
+ * callback, or FALSE when no getpos prompt is active (normal map paint).
+ * display.c get_bkglyph_and_framecolor `:2575` reads this for the frame
+ * color arm. Unlike getpos_validate (which defaults true), C returns
+ * FALSE here when no callback is installed — kept exactly.
+ * @param {number} x map x, C coordxy
+ * @param {number} y map y, C coordxy
+ */
+export function mapxy_valid(x, y) {
+    if (typeof getpos_getvalid === 'function') return !!getpos_getvalid(x, y);
+    return false;
+}
+
 const DIR_DX = { h: -1, l: 1, j: 0, k: 0, y: -1, u: 1, b: -1, n: 1 };
 const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
 

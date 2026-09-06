@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `display.c` map_glyphinfo — glyphinfo render singleton (HELDOUT Tier C; no JS symbol, named omit in js/display.js row_refresh force source). **Addressed:** D-1972
+- [x] `display.c` get_bkglyph_and_framecolor — background/frame singleton (HELDOUT Tier C; no JS symbol, named omit in js/display.js). **Addressed:** D-1973
+
+
+- [x] `display.c` map_glyphinfo — glyphinfo render singleton (HELDOUT Tier C; no JS symbol, named omit in js/display.js row_refresh force source). **Addressed:** D-1972 `22f18ded`
 
 
 - [x] `hack.c` findtravelpath — travel pathfinder absent (TOP30 #29; TEST_TRAV/GUESS/travelmap deferred). **Addressed:** D-1971 `b05d6229`

@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `display.c` get_bkglyph_and_framecolor — background/frame singleton (HELDOUT Tier C; no JS symbol, named omit in js/display.js).
 - [ ] `display.c` redraw_map — cliparound pan-resend singleton (HELDOUT Tier C; no JS symbol anywhere in js/).
 - [ ] `display.c` reglyph_darkroom — darkroom reglyph singleton (HELDOUT Tier C; no JS symbol anywhere in js/).
 - [ ] `display.c` curs_on_u/doredraw — cursor-on-hero + redraw pair (HELDOUT Tier C; no JS symbol anywhere in js/).

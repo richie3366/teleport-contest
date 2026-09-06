@@ -2082,12 +2082,21 @@ timeout.c / polyself.c callers + `iter_mons` `mon_offmap` named))**
 **`row_refresh` live** (C `display.c:2147–2186`; `js/display.js` exported in
 C order with `| 0` int idiom + `force || glyph !== GLYPH_UNEXPLORED ||
 framecolor !== NO_COLOR` gate; `force` false since JS nul and UNEXPLORED
-both render `' '`/`NO_COLOR`; `framecolor` always `NO_COLOR`; paint via
+both render `' '`/`NO_COLOR`; `framecolor` live via `get_bkglyph_and_framecolor` (D-1973); paint via
 `_paint_gbuf_cell` at `(x - 1, y + 1)`; `docorner` board loop rewired to it;
 named: `map_glyphinfo` glyphmap[]-base/symidx/tileidx/ov_* arms (hero color
 + pet-NOOVERRIDE arms live since D-1972),
-`get_bkglyph_and_framecolor` background + `map_frame_color` arms, CLIPPING
-`clipx`/`clipy`);
+`gw.wsettings.map_frame_color` store + getpos HiliteBackground wiring,
+CLIPPING `clipx`/`clipy`);
+|**`get_bkglyph_and_framecolor` live** (D-1973; C `display.c:2507–2579`;
+`js/display.js` exported in C arm order with `| 0` int idiom —
+use_background_glyph/seenv/gbuf gate (shut on tty per `windmain.c:332`,
+as in C), SCORR/STONE-arboreal + ROOM/CORR/ICE/AIR/CLOUD/POOL/MOAT/WATER/
+LAVAPOOL/LAVAWALL switch with S_room default, out-of-sight litcorr→corr +
+DARKROOMSYM darken, S_room→no-bg, bgcolors + stored-frame +
+`mapxy_valid` frame arm (`js/getpos.js` export of `getpos.c:93–99`);
+wired into `row_refresh` at the C `:2178–2179` shape; named: frame store +
+`getpos_sethilite` maintenance, CLIPPING);
 |**`map_glyphinfo` live** (D-1972; C `display.c:2594–2656`;
 `js/display.js` exported in C order with `| 0` int idiom —
 `u_at && glyph_is_monster` is_you, `!use_color || Upolyd || glyph !=

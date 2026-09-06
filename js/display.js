@@ -40,6 +40,8 @@ import {
     WEB, TRAPNUM, BEAR_TRAP, NO_TRAP, is_pit,
     trap_to_defsym, defsym_to_trap, MAXTCHARS, explodecolors, NUM_ZAP, MAXEXPCHARS,
     S_stone, S_vwall, S_trwall, S_ndoor, S_brdnladder, S_grave, S_altar, S_room,
+    S_tree, S_darkroom, S_corr, S_litcorr, S_pool, S_ice, S_lava, S_lavawall,
+    S_air, S_cloud, S_water,
     S_arrow_trap, S_web, S_vibrating_square,
     S_vbeam, S_hbeam, S_lslant, S_rslant,
     S_digbeam, S_flashbeam, S_boomleft, S_boomright,
@@ -127,6 +129,7 @@ import { visible_region_at, show_region } from './region.js';
 import { see_wsegs, worm_known, level_mon_at } from './worm.js';
 import { SoundSpeak } from './sndprocs.js';
 import { msgtype_type } from './options.js';
+import { mapxy_valid } from './getpos.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -5804,6 +5807,108 @@ function _paint_gbuf_cell(mx, my, sc, sr) {
 }
 
 /**
+ * C ref: display.c get_bkglyph_and_framecolor `:2507–2579` — background
+ * glyph + frame color for one map cell. Callers: redraw_map `:1803`,
+ * row_refresh `:2178`, flush_screen `:2245` (all pass `&bkglyphinfo` into
+ * `print_glyph`). C is `staticfn`; exported here so row_refresh keeps the
+ * C call shape and the arms stay testable.
+ * JS gbuf is `loc.disp_glyph` (D-1767); `svl.level.flags.arboreal` is
+ * `game.level.flags.arboreal`; DARKROOMSYM (`sym.h:96`, Rogue S_stone
+ * else S_darkroom) is the local `darkroom_sym()`. C out-params return as
+ * a `{ bkglyph, framecolor }` record.
+ * On tty C never takes the background arm either: `windmain.c:332` sets
+ * `iflags.use_background_glyph = FALSE` except for mswin — the gate is
+ * ported live, so it reads shut the same way. The `bkglyph` id has no tty
+ * paint consumer (`_paint_gbuf_cell` carries ch/color only); the
+ * `framecolor` feeds the row_refresh repaint gate exactly as in C.
+ * Named omissions: `gw.wsettings.map_frame_color` store + its
+ * getpos_sethilite HI_ZAP/NO_COLOR maintenance (`getpos.c:57–58`,
+ * HiliteBackground deferred per `js/getpos.js`), so the frame arm reads
+ * shut until that wiring lands; CLIPPING `clipx`/`clipy` (callers pass
+ * map coords); the `#if 0` null-framecolor guard is compiled out upstream.
+ * @param {number} x map x, C `coordxy x`
+ * @param {number} y map y, C `coordxy y`
+ * @returns {{bkglyph:number, framecolor:number}} C `*bkglyph`/`*framecolor`
+ */
+export function get_bkglyph_and_framecolor(x, y) {
+    const xi = x | 0;
+    const yy = y | 0;
+    // C `:2512` tmp_bkglyph = GLYPH_UNEXPLORED; `:2513` lev = &levl[x][y].
+    let tmp_bkglyph = GLYPH_UNEXPLORED;
+    const lev = game.level?.at(xi, yy);
+    // C `:2515–2516` use_background_glyph && seenv && gbuf glyph explored.
+    const gbufGlyph = lev?.disp_glyph ?? GLYPH_UNEXPLORED;
+    if (game.iflags?.use_background_glyph && ((lev?.seenv | 0) !== 0)
+            && gbufGlyph !== GLYPH_UNEXPLORED) {
+        // C `:2517–2553` typ switch; default is S_room.
+        let idx;
+        switch ((lev.typ | 0)) {
+        case SCORR:
+        case STONE:
+            // C `:2520` arboreal STONE shows as tree.
+            idx = game.level?.flags?.arboreal ? S_tree : S_stone;
+            break;
+        case ROOM:
+            idx = S_room;
+            break;
+        case CORR:
+            // C `:2526` lit corridor keeps its lamp when lit or opted lit.
+            idx = (lev.waslit || game.flags?.lit_corridor) ? S_litcorr : S_corr;
+            break;
+        case ICE:
+            idx = S_ice;
+            break;
+        case AIR:
+            idx = S_air;
+            break;
+        case CLOUD:
+            idx = S_cloud;
+            break;
+        case POOL:
+        case MOAT:
+            idx = S_pool;
+            break;
+        case WATER:
+            idx = S_water;
+            break;
+        case LAVAPOOL:
+            idx = S_lava;
+            break;
+        case LAVAWALL:
+            idx = S_lavawall;
+            break;
+        default:
+            idx = S_room;
+            break;
+        }
+        // C `:2555–2562` out-of-sight darken; dark_room defaults On.
+        if (!cansee(xi, yy) && (!lev.waslit || game.flags?.dark_room !== false)) {
+            /* Floor spaces and corridors are dark if unlit. */
+            if (((lev.typ | 0) === CORR) && idx === S_litcorr) {
+                idx = S_corr;
+            } else if (idx === S_room) {
+                // C `:2560–2561` (dark_room && use_color) ? DARKROOMSYM.
+                idx = (game.flags?.dark_room !== false
+                        && game.iflags?.use_color !== false)
+                    ? darkroom_sym() : S_stone;
+            }
+        }
+        // C `:2563–2564` S_room means "no background"; else convert.
+        if (idx !== S_room) tmp_bkglyph = cmap_to_glyph(idx);
+    }
+    // C `:2566` *bkglyph = tmp_bkglyph (`:2567–2573` guard is `#if 0`).
+    const bkglyph = tmp_bkglyph;
+    // C `:2574–2578` frame color only for getpos-valid cells while the
+    // HiliteBackground color is stored; JS has no gw store yet (named),
+    // so this reads shut outside getpos exactly as C does with NO_COLOR.
+    const storedFrame = game.gw?.wsettings?.map_frame_color ?? NO_COLOR;
+    const framecolor = (game.iflags?.bgcolors && storedFrame !== NO_COLOR
+            && mapxy_valid(xi, yy))
+        ? storedFrame : NO_COLOR;
+    return { bkglyph, framecolor };
+}
+
+/**
  * C ref: display.c row_refresh `:2147–2186` — repaint one gbuf row segment
  * after the tty row was erased (spaces, not necessarily S_unexplored).
  * C computes `force` from `map_glyphinfo(0, 0, GLYPH_UNEXPLORED, 0)` vs
@@ -5816,17 +5921,18 @@ function _paint_gbuf_cell(mx, my, sc, sr) {
  * JS: gbuf is `loc.disp_glyph`/`disp_ch` (D-1767); nul rendering is
  * `' '`/`NO_COLOR` (`clear_glyph_buffer`), identical to the UNEXPLORED
  * rendering, so `force` is false (tile/symset `map_glyphinfo` arms that
- * could flip it stay named). JS has no background glyph / frame color,
- * so `framecolor` is always `NO_COLOR` (named: `get_bkglyph_and_framecolor`
- * SCORR/STONE/ROOM/CORR seenv + `map_frame_color` arms). `print_glyph` /
- * `Glyphinfo_at` is `_paint_gbuf_cell` at screen `(x - 1, y + 1)`
- * (WIN_MAP offx 0 / offy 1, as `docorner` maps `mx = c + 1`).
+ * could flip it stay named). `print_glyph` / `Glyphinfo_at` is
+ * `_paint_gbuf_cell` at screen `(x - 1, y + 1)` (WIN_MAP offx 0 / offy 1,
+ * as `docorner` maps `mx = c + 1`). The background glyph id has no tty
+ * paint consumer (use_background_glyph is FALSE on tty — `windmain.c:332`);
+ * the frame color feeds the gate live via `get_bkglyph_and_framecolor`.
  * Named omissions: `map_glyphinfo` glyphmap[]-base/symidx/tileidx/ov_*
  * arms (hero color + pet-NOOVERRIDE arms live in map_glyphinfo, wired
  * into show_glyph_cell; they cannot flip UNEXPLORED at (0,0): is_you is
  * false there and accessibility defaults off, so `force` stays false);
- * `get_bkglyph_and_framecolor` background + frame arms; CLIPPING
- * `clipx`/`clipy` start adjustment (caller passes map coords).
+ * `gw.wsettings.map_frame_color` store + getpos HiliteBackground wiring
+ * (see `get_bkglyph_and_framecolor`); CLIPPING `clipx`/`clipy` start
+ * adjustment (caller passes map coords).
  * @param {number} start map x, C `coordxy start`
  * @param {number} stop map x inclusive, C `coordxy stop`
  * @param {number} y map y, C `coordxy y`
@@ -5842,8 +5948,9 @@ export function row_refresh(start, stop, y) {
         const xi = x | 0;
         const loc = game.level?.at(xi, yy);
         const glyph = loc?.disp_glyph ?? GLYPH_UNEXPLORED;
-        // C `:2178–2179` get_bkglyph_and_framecolor; JS: always NO_COLOR.
-        const framecolor = NO_COLOR;
+        // C `:2178–2179` get_bkglyph_and_framecolor; bkglyph has no tty
+        // consumer, framecolor feeds the gate below exactly as in C.
+        const { framecolor } = get_bkglyph_and_framecolor(xi, yy);
         if (force || glyph !== GLYPH_UNEXPLORED || framecolor !== NO_COLOR) {
             // C `:2182–2184` print_glyph(WIN_MAP, x, y,
             // Glyphinfo_at(x, y, glyph), &bkglyphinfo).
