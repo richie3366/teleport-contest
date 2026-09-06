@@ -1746,7 +1746,13 @@ throw_obj `:147` remaining); **`lesshungry`/`bite` choke+fullwarn D-1356** (C
 `eat.c:3289–3333`/`3133–3158`; `doeat` canchoke SATIATED snapshot; 
 adj_victual_nutrition lembas/cram / `do_reset_eat` touchfood named); 
 **`eat_brains` D-1306** (C `eat.c:601–754`; uhitm headed `mhitm_ad_drin` call; 
-**helmet / `m_slips_free` D-1307**; **mhitu caller D-1329**; **mhitm caller D-1330**)
+**helmet / `m_slips_free` D-1307**; **mhitu caller D-1329**; **mhitm caller D-1330**);
+**`tin_variety_txt` D-1953** (C `eat.c:1405–1421`; `js/eat.js` export in C order,
+`!strncmpi` via C-home `str_start_is` ASCII caseblind — no 4th clone;
+`{tinvariety}` out-idiom; caller wiring live-unwired: `objnam.c:4386`
+readobjnam "tin of " arm — spinach contents / tvariety / `name_to_mon`
+offset parse / typ=TIN / downstream spe-corpsenm+`set_tin_variety` —
+has no JS counterpart, own-row material)
 
 ### `src/apply.c` / `src/lock.c` / `src/music.c`
 
