@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `do_wear.c` Armor_gone/count_worn_armor/any_worn_armor_ok — remaining do_wear armor-count family (HELDOUT Tier C do_wear row remainder; no JS symbol). **Addressed:** D-1942
+- [x] `dbridge.c` e_at/m_to_e/u_to_e/e_nam/E_phrase entity family (HELDOUT Tier C dbridge row; no JS symbol). **Addressed:** D-1943
+
+
+- [x] `do_wear.c` Armor_gone/count_worn_armor/any_worn_armor_ok — remaining do_wear armor-count family (HELDOUT Tier C do_wear row remainder; no JS symbol). **Addressed:** D-1942 `48c80d04`
 
 
 - [x] `getpos.c` gloc_filter_init/_done/_floodfill/_floodfill_matcharea/_classify_glyph — getpos filter family (HELDOUT Tier C getpos row; no JS symbol). **Addressed:** D-1941 `78298ee6`

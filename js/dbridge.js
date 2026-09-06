@@ -5,22 +5,29 @@
 // Envelope (D-0959/D-0977): terrain + messages + wake + trap/engr
 // clear + vision/stronghold flags; dig furniture_handled / dighole;
 // music passtune open/close.
-// Named omit: set_entity/do_entity crush death; revive_nasty; scatter
-// iron-chain debris rn2 loop; flooreffects body (boulder → delobj in
-// liquid); nokiller; Blind/Unaware You_see polish.
+// Entity family: e_at / m_to_e / u_to_e / set_entity / is_u /
+// e_canseemon / e_nam / E_phrase live (C order; callers in do_entity
+// unwired until that port).
+// Named omit: do_entity crush/jump/relocate (e_jumps/e_survives_at/e_died);
+// revive_nasty; scatter iron-chain debris rn2 loop; flooreffects body
+// (boulder → delobj in liquid); nokiller; Blind/Unaware You_see polish.
 
 import { game } from './gstate.js';
-import { pline, newsym } from './display.js';
+import { pline, newsym, canseemon } from './display.js';
 import { cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { obj_extract_self, delobj, objects_at } from './mkobj.js';
+import { m_at } from './mon.js';
+import { mons } from './monsters.js';
 import { t_at, deltrap } from './trap.js';
 import { del_engr_at } from './engrave.js';
-import { hliquid } from './do_name.js';
+import { hliquid, mon_nam, Monnam } from './do_name.js';
+import { vtense } from './objnam.js';
 import { objectNames } from './generated/objects_data.js';
+import { PM_LONG_WORM_TAIL } from './generated/monsters_data.js';
 import { dist2 } from './hacklib.js';
 import { unpunish } from './read.js';
 import {
-    isok, u_at, IS_DRAWBRIDGE, DRAWBRIDGE_UP, DRAWBRIDGE_DOWN,
+    isok, u_at, ENTITIES, IS_DRAWBRIDGE, DRAWBRIDGE_UP, DRAWBRIDGE_DOWN,
     DB_NORTH, DB_SOUTH, DB_EAST, DB_WEST, DB_DIR, DB_MOAT, DB_LAVA, DB_ICE,
     DB_UNDER, W_NONDIGGABLE,
     DOOR, D_NODOOR, DBWALL, MOAT, LAVAPOOL, ROOM, ICE, ICED_MOAT,
@@ -169,6 +176,123 @@ export function get_wall_for_db(xy) {
     case DB_EAST: xy.x++; break;
     case DB_WEST: xy.x--; break;
     }
+}
+
+/**
+ * C ref: decl.c occupants zero-init — C `go.occupants` (instance_globals_o
+ * `struct entity occupants[ENTITIES]`, `{ { 0 } }`) lives on `game` here,
+ * lazily zeroed to ENTITIES records.
+ */
+function occupants() {
+    let occ = game.occupants;
+    if (!Array.isArray(occ) || occ.length !== ENTITIES) {
+        occ = [];
+        for (let i = 0; i < ENTITIES; i++) {
+            occ.push({ emon: null, edata: null, ex: 0, ey: 0 });
+        }
+        game.occupants = occ;
+    }
+    return occ;
+}
+
+/**
+ * C ref: dbridge.c e_at `:286–301` — first valid occupant record at
+ * (x,y), else null. C `debugpline1` is D_DEBUG-only, omitted.
+ */
+export function e_at(x, y) {
+    const occ = occupants();
+    for (let entitycnt = 0; entitycnt < ENTITIES; entitycnt++) {
+        if (occ[entitycnt].edata
+            && (occ[entitycnt].ex | 0) === (x | 0)
+            && (occ[entitycnt].ey | 0) === (y | 0)) {
+            return occ[entitycnt];
+        }
+    }
+    return null;
+}
+
+/**
+ * C ref: dbridge.c m_to_e `:304–319` — fill etmp from the monster at
+ * (x,y), or clear it when mtmp is null. Worm-tail edata when the
+ * recorded square differs from the worm head (C `&mons[PM_LONG_WORM_TAIL]`).
+ */
+export function m_to_e(mtmp, x, y, etmp) {
+    etmp.emon = mtmp;
+    if (mtmp) {
+        etmp.ex = x | 0;
+        etmp.ey = y | 0;
+        if (mtmp.wormno && ((x | 0) !== (mtmp.mx | 0) || (y | 0) !== (mtmp.my | 0))) {
+            etmp.edata = mons(PM_LONG_WORM_TAIL);
+        } else {
+            etmp.edata = mtmp.data;
+        }
+    } else {
+        etmp.edata = null;
+        etmp.ex = etmp.ey = 0;
+    }
+}
+
+/**
+ * C ref: dbridge.c u_to_e `:321–328` — fill etmp from the hero
+ * (C `&gy.youmonst`, `u.ux/u.uy`, `gy.youmonst.data`).
+ */
+export function u_to_e(etmp) {
+    const u = game.u || {};
+    etmp.emon = game.youmonst;
+    etmp.ex = u.ux | 0;
+    etmp.ey = u.uy | 0;
+    etmp.edata = game.youmonst ? game.youmonst.data : null;
+}
+
+/**
+ * C ref: dbridge.c set_entity `:330–339` — record whoever is at the
+ * span/portcullis square into etmp. C notes `m_at()` may yield null
+ * and that is fine (m_to_e clears the record then).
+ */
+export function set_entity(x, y, etmp) {
+    if (u_at(x, y)) {
+        u_to_e(etmp);
+    } else {
+        m_to_e(m_at(x, y), x, y, etmp);
+    }
+}
+
+/**
+ * C ref: dbridge.c is_u macro `:341` — the occupant is the hero
+ * (C `etmp->emon == &gy.youmonst`, pointer identity).
+ */
+export function is_u(etmp) {
+    return etmp.emon === game.youmonst;
+}
+
+/**
+ * C ref: dbridge.c e_canseemon macro `:342` — hero always, else
+ * C `canseemon(etmp->emon)`.
+ */
+export function e_canseemon(etmp) {
+    return is_u(etmp) || canseemon(etmp.emon);
+}
+
+/**
+ * C ref: dbridge.c e_nam `:351–355` — "you" for the hero, else
+ * C `mon_nam(etmp->emon)`.
+ */
+export function e_nam(etmp) {
+    return is_u(etmp) ? 'you' : mon_nam(etmp.emon);
+}
+
+/**
+ * C ref: dbridge.c E_phrase `:361–377` — capitalized entity name plus an
+ * optional verb, 2nd→3rd person converted for monsters (C `vtense` with a
+ * null subject). C writes a static 80-char buffer; JS returns the string
+ * (callers consume it immediately in pline args).
+ */
+export function E_phrase(etmp, verb) {
+    let s = is_u(etmp) ? 'You' : Monnam(etmp.emon);
+    if (!verb || !verb[0]) return s;
+    s += ' ';
+    s += is_u(etmp) ? verb : vtense(null, verb);
+    return s;
 }
 
 /**

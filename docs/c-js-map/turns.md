@@ -1655,7 +1655,7 @@ fill_pit`/`maybe_dunk`** for break-wand dig (D-0950);
 thin/`fracture_rock`** (D-0951); **`furniture_handled` fountain/sink + HOLE `goto_level` + 
 mon `teleport_pet` migrate** (D-0954); **`dig_up_grave` + `dighole` IS_GRAVE** (D-0957); 
 **`shopdig` warn/snatch from dig hole fall + start-downward** (D-0958); 
-**`destroy_drawbridge` + `find_drawbridge`/`is_drawbridge_wall` dig wires** (D-0959); 
+**`destroy_drawbridge` + `find_drawbridge`/`is_drawbridge_wall` dig wires** (D-0959); **`dbridge` entity family `e_at`/`m_to_e`/`u_to_e`/`set_entity`/`is_u`/`e_canseemon`/`e_nam`/`E_phrase` live in `js/dbridge.js`** (D-1943; callers in `do_entity` crush/jump/relocate unwired); 
 **`open_drawbridge`/`close_drawbridge` + music passtune** (D-0977); 
 **`mkcavearea`/`mkcavepos`/`rm_waslit` earth dig** (D-0960); 
 **`impact_drop`/`down_gate`/`drop_to`/`add_to_migration` HOLE floor fall** (D-0961); 

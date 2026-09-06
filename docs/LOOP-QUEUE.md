@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `dbridge.c` e_at/m_to_e/u_to_e/e_nam/E_phrase entity family (HELDOUT Tier C dbridge row; no JS symbol).
 - [ ] `sp_lev.c` lspo_* + selvar selection primitives (HELDOUT Tier C misc row remainder; no JS symbol).
 - [ ] `steal.c` stealamulet — amulet-steal singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `vault.c` move_gold — vault gold-move singleton (HELDOUT Tier C singletons; no JS symbol).
