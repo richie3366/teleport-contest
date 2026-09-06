@@ -915,3 +915,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [902-35c8eba4-mhitm-knockback-body.md](./902-35c8eba4-mhitm-knockback-body.md) | `35c8eba4` | D-1932 uhitm.c mhitm_knockback body | **ACCEPT** |
 | [903-cc217718-pit-fiend-identity-arm.md](./903-cc217718-pit-fiend-identity-arm.md) | `cc217718` | D-1933 trap.c m_easy_escape_pit identity | **ACCEPT** |
 | [904-82034fab-ia-dotakeoff-arm.md](./904-82034fab-ia-dotakeoff-arm.md) | `82034fab` | D-1934 do_wear.c ia_dotakeoff arm | **ACCEPT** |
+| [905-45c4bb85-found-artifact-tracking.md](./905-45c4bb85-found-artifact-tracking.md) | `45c4bb85` | D-1935 artifact.c found_artifact/find_artifact | **ACCEPT** |
+| [906-efc7a95b-spec-ability-predicate.md](./906-efc7a95b-spec-ability-predicate.md) | `efc7a95b` | D-1936 artifact.c spec_ability predicate | **ACCEPT** |
+| [907-23674982-backstab-disguise-family.md](./907-23674982-backstab-disguise-family.md) | `23674982` | D-1937 uhitm.c backstabbable/disguise + zap wiring | **ACCEPT** |
+| [908-9cafb38d-boh-loss-family.md](./908-9cafb38d-boh-loss-family.md) | `9cafb38d` | D-1938 pickup.c boh loss family + Doname2 | **ACCEPT** |
+| [909-53deed83-polyuse-zap-misc.md](./909-53deed83-polyuse-zap-misc.md) | `53deed83` | D-1939 zap.c polyuse/spell-spot/wish menu | **ACCEPT** |
+| [910-628d0ae3-gcrownu-crowning-family.md](./910-628d0ae3-gcrownu-crowning-family.md) | `628d0ae3` | D-1940 pray.c gcrownu/at_your_feet + add_weapon_skill | **ACCEPT** |
+| [911-78298ee6-gloc-filter-area.md](./911-78298ee6-gloc-filter-area.md) | `78298ee6` | D-1941 getpos.c gloc_filter AREA family | **ACCEPT** |
+| [912-48c80d04-armor-gone-family.md](./912-48c80d04-armor-gone-family.md) | `48c80d04` | D-1942 do_wear.c Armor_gone armor-count family | **ACCEPT** |
+| [913-82cffe79-dbridge-entity-family.md](./913-82cffe79-dbridge-entity-family.md) | `82cffe79` | D-1943 dbridge.c entity family | **ACCEPT** |
