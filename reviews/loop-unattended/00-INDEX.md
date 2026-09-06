@@ -924,3 +924,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [911-78298ee6-gloc-filter-area.md](./911-78298ee6-gloc-filter-area.md) | `78298ee6` | D-1941 getpos.c gloc_filter AREA family | **ACCEPT** |
 | [912-48c80d04-armor-gone-family.md](./912-48c80d04-armor-gone-family.md) | `48c80d04` | D-1942 do_wear.c Armor_gone armor-count family | **ACCEPT** |
 | [913-82cffe79-dbridge-entity-family.md](./913-82cffe79-dbridge-entity-family.md) | `82cffe79` | D-1943 dbridge.c entity family | **ACCEPT** |
+| [914-bbd62daf-selection-sub-recalc.md](./914-bbd62daf-selection-sub-recalc.md) | `bbd62daf` | D-1944 nhlsel/selvar selection_sub + recalc | **ACCEPT** |
+| [915-31f18e8a-stealamulet-singleton.md](./915-31f18e8a-stealamulet-singleton.md) | `31f18e8a` | D-1945 steal.c stealamulet | **ACCEPT** |
+| [916-d5311a1e-move-gold-singleton.md](./916-d5311a1e-move-gold-singleton.md) | `d5311a1e` | D-1946 vault.c move_gold | **ACCEPT** |
+| [917-b92c4714-ucatchgem-singleton.md](./917-b92c4714-ucatchgem-singleton.md) | `b92c4714` | D-1947 mthrowu.c ucatchgem | **ACCEPT** |
+| [918-73408064-mon-hates-light-predicate.md](./918-73408064-mon-hates-light-predicate.md) | `73408064` | D-1948 mondata.c mon_hates_light | **ACCEPT** |
+| [919-80d833fb-exercise-steed-training.md](./919-80d833fb-exercise-steed-training.md) | `80d833fb` | D-1949 steed.c exercise_steed | **ACCEPT** |
+| [920-c5b4a1f4-on-ladder-predicate.md](./920-c5b4a1f4-on-ladder-predicate.md) | `c5b4a1f4` | D-1950 stairs.c On_ladder | **ACCEPT** |
+| [921-4f597828-doclassdisco-singleton.md](./921-4f597828-doclassdisco-singleton.md) | `4f597828` | D-1951 o_init.c doclassdisco | **ACCEPT-WITH-DEBT** |
+| [922-615d3ea7-mazexy-is-solid.md](./922-615d3ea7-mazexy-is-solid.md) | `615d3ea7` | D-1952 mkmaze.c mazexy + is_solid | **ACCEPT** |
