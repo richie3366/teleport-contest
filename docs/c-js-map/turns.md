@@ -1012,7 +1012,7 @@ cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fl
 PICK_ANY `is_worn`/`is_worn_by_type`; COMBINATION `ggetobj` combo; TRADITIONAL `'m'` retry -2/-3; 
 callees `js/pickup.js`; `obj_to_glyph` display RNG / INCLUDE_HERO / ParanoidAutoAll named); 
 full cloak/helm simple-name variants; **other `*_on` still call `find_ac` (C often does not — 
-named)**
+named)** + **`Armor_gone` takeoff.mask clear + `setnotworn` + cancelled_don reset + gold-DSM arti_light `end_burn`/`"stop shining"` + `dragon_armor_handling(otmp,FALSE,FALSE)`** (D-1942; `Tobjnam`/`setnotworn` on existing edges, `artifact_light`/`end_burn` from `timeout.js` imports-SAFE) + **`any_worn_armor_ok`/`count_worn_armor` blessed-destroy-armor getobj pair** (D-1942; polyself `break_armor` suit arms + read.c gets_choice arm stay named-unwired)
 
 ### `src/objnam.c` `readobjnam`
 

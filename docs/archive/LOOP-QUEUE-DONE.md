@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `getpos.c` gloc_filter_init/_done/_floodfill/_floodfill_matcharea/_classify_glyph — getpos filter family (HELDOUT Tier C getpos row; no JS symbol). **Addressed:** D-1941
+- [x] `do_wear.c` Armor_gone/count_worn_armor/any_worn_armor_ok — remaining do_wear armor-count family (HELDOUT Tier C do_wear row remainder; no JS symbol). **Addressed:** D-1942
+
+
+- [x] `getpos.c` gloc_filter_init/_done/_floodfill/_floodfill_matcharea/_classify_glyph — getpos filter family (HELDOUT Tier C getpos row; no JS symbol). **Addressed:** D-1941 `78298ee6`
 
 
 - [x] `pray.c` gcrownu/at_your_feet — crowning/vicinity family (HELDOUT Tier C misc row; no JS symbol). **Addressed:** D-1940 `628d0ae3`
