@@ -5,10 +5,6 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `nhlsel.c` l_selection_xor — selection `~` operator (D-1944 named omit; no dat use yet). **Addressed:** D-1944
-- [x] `selvar.c` selection_do_ellipse + selection_do_gradient — ellipse/circle/gradient fill primitives (D-1944 named omit; no dat use yet). **Addressed:** D-1944
-
-
 - [x] `sp_lev.c` lspo_* + selvar selection primitives (HELDOUT Tier C misc row remainder; no JS symbol). **Addressed:** D-1944
 
 
