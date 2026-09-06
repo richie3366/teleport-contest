@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `region.c` inside_rect — rect-containment predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1962
+- [x] `weapon.c` give_may_advance_msg — skill-advance message singleton (HELDOUT Tier C singletons; no JS symbol, named omit in js/weapon.js). **Addressed:** D-1963
+
+
+- [x] `region.c` inside_rect — rect-containment predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1962 `5e47ff6a`
 
 
 - [x] `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1961 `100914d5`

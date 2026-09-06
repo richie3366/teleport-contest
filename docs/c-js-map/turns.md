@@ -375,7 +375,7 @@ m-prefix keep + PICK_ONE D-1209) + **wizard `#pray` Force-the-gods → p_type 3/
 `pleased` You_feel/action `rn1`/`ublesscnt` `rnz(350)`** (D-0517) + 
 **`in_trouble` TROUBLE_HIT / `critically_low_hp` + `fix_worst_trouble` HIT `rnd(5)` + 
 pleased action switch** (D-0920; **`TROUBLE_LYCANTHROPE` → `you_unwere(TRUE)`** D-1004; 
-other TROUBLE_* deferred); **crowning `gcrownu`/`at_your_feet` + `add_weapon_skill`** (D-1940; C `pray.c` `:788–996` + `weapon.c` `:1437–1452`; live `js/pray.js` + `js/weapon.js`; pleased pat_on_head case-7/8 caller wiring / `give_spell` still deferred); 
+other TROUBLE_* deferred); **crowning `gcrownu`/`at_your_feet` + `add_weapon_skill`** (D-1940; C `pray.c` `:788–996` + `weapon.c` `:1437–1452`; live `js/pray.js` + `js/weapon.js`; pleased pat_on_head case-7/8 caller wiring / `give_spell` still deferred) + **`give_may_advance_msg` + `handle_tip` TIP_ENHANCE** (D-1963; C `weapon.c` `:76–84` + `hack.c` `:1858–1862`; live async export in `js/weapon.js`, wired in `add_weapon_skill`/`gcrownu`; `use_skill` may-advance arm still deferred — sync hot paths; TIP_GETPOS still deferred); 
 **`angrygods` 4–8 + `rndcurse`/`gods_angry`** (D-0969); 
 **`<'` → `doup`/`prev_level` + in-memory `savelev`/`getlev` catchup `rnd(10)`/`hide_monst`** 
 (D-0366) + **`hide_monst` viz override → `restrap` `rn2(3)` (+ mimic retry) + 

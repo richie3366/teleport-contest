@@ -1631,7 +1631,7 @@ export async function gcrownu() {
 
     // lastly, confer an extra skill slot/credit beyond the
     // up-to-29 you can get from gaining experience levels
-    add_weapon_skill(1);
+    await add_weapon_skill(1);
 }
 
 /**

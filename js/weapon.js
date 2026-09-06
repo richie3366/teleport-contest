@@ -20,7 +20,7 @@ import {
     WEAPON_CLASS, GEM_CLASS, TOOL_CLASS, BALL_CLASS, CHAIN_CLASS,
     objectNames, objectNameStrs, is_axe, is_pick, is_spear, LEATHER, SILVER,
 } from './objects.js';
-import { is_pool } from './hack.js';
+import { is_pool, handle_tip } from './hack.js';
 import {
     is_ammo, ammo_and_launcher, is_missile, mwelded, is_weptool,
 } from './wield.js';
@@ -49,7 +49,7 @@ import {
     NO_WEAPON_WANTED, W_WEP, W_ARMS, W_ARMG,
     W_ARM, W_ARMC, W_ARMH, W_ARMF, W_ARMU, W_RINGL, W_RINGR,
     ECMD_OK, STR18, Upolyd, MAXULEV, HAND, WT_IRON_BALL_INCR,
-    NON_PM,
+    NON_PM, TIP_ENHANCE,
 } from './const.js';
 import { obj_extract_self, place_object, stackobj } from './mkobj.js';
 import { flooreffects } from './do.js';
@@ -827,14 +827,35 @@ async function skill_advance(skill) {
 }
 
 /**
+ * C ref: weapon.c give_may_advance_msg `:76–84` — "more confident in your
+ * <kind>skills." You_feel (kind: P_NONE → "", else weapon / spell casting /
+ * fighting by P_LAST_WEAPON / P_LAST_SPELL) then handle_tip(TIP_ENHANCE).
+ * Both callees are async (pline can reach nhgetch), so this is async; C's
+ * `(void)` cast just discards handle_tip's boolean.
+ * @param {number} skill
+ */
+export async function give_may_advance_msg(skill) {
+    skill = skill | 0;
+    const kind = skill === P_NONE
+        ? ''
+        : skill <= P_LAST_WEAPON
+            ? 'weapon '
+            : skill <= P_LAST_SPELL
+                ? 'spell casting '
+                : 'fighting ';
+    await You_feel(`more confident in your ${kind}skills.`);
+    await handle_tip(TIP_ENHANCE);
+}
+
+/**
  * C ref: weapon.c add_weapon_skill `:1437–1452` — count `can_advance`
  * slots before and after `weapon_slots += n`; `before < after` →
  * `give_may_advance_msg(P_NONE)`.
- * Named omission: `give_may_advance_msg` You_feel/handle_tip (no live
- * TIP_ENHANCE plumbing on the crowning path).
+ * Async: the may-advance arm awaits the new export (sole caller gcrownu
+ * is async). C `FALSE` ≡ JS false.
  * @param {number} n
  */
-export function add_weapon_skill(n) {
+export async function add_weapon_skill(n) {
     const u = game.u || (game.u = {});
     n = n | 0;
     let before = 0;
@@ -847,7 +868,7 @@ export function add_weapon_skill(n) {
         if (can_advance(i, false)) after++;
     }
     if (before < after) {
-        // C give_may_advance_msg(P_NONE) — You_feel/handle_tip deferred.
+        await give_may_advance_msg(P_NONE);
     }
 }
 
@@ -894,8 +915,9 @@ export async function drain_weapon_skill(n) {
 /**
  * C ref: weapon.c enhance_weapon_skill (#enhance) + add_skills_to_menu.
  * Branch envelope: wizard y_n + speedy PICK_ONE loop + skill_advance;
- * non-wizard / no-advance PICK_NONE; * / # legend. add_weapon_skill /
- * lose_weapon_skill / use_skill may-advance msg still deferred.
+ * non-wizard / no-advance PICK_NONE; * / # legend. add_weapon_skill now
+ * awaits give_may_advance_msg; lose_weapon_skill / use_skill may-advance
+ * arms still deferred (sync hot paths — see use_skill).
  */
 export async function enhance_weapon_skill() {
     await flush_topl_more();
@@ -1184,7 +1206,12 @@ export function weapon_dam_bonus(weapon) {
 }
 
 /**
- * C ref: weapon.c use_skill — advance practice; may-advance msg deferred.
+ * C ref: weapon.c use_skill `:1424–1434` — advance practice; before/after
+ * `can_advance` → `give_may_advance_msg(skill)`.
+ * Named omission: the may-advance arm stays unwired — this is sync and its
+ * callers include sync hot paths (`hmon_hitmon_dmg_recalc`, `exercise_steed`
+ * via cmd move), so awaiting the async export needs an async cascade of its
+ * own. The export is live above for the wired `add_weapon_skill` arm.
  */
 export function use_skill(skill, degree) {
     if (skill === P_NONE) return;
