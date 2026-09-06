@@ -2991,7 +2991,7 @@ Tobjnam stop / big_corpse catch named);
 **drop/pickup plines gated on `cansee`** (D-0038); **`mdrop_obj`→`stackobj`** (D-0094); 
 **`mtrack` skip → C `goto nxti`** (D-0098); 
 **edible `newdogpos`→`dog_eat` (re-`dogfood` + `delobj`)** (D-0168); 
-**`finish_meating` stub** (D-0169); **`dog_nutrition` uses extracted `cwt`/`cnutrit`** (D-0193); 
+**`finish_meating` stub** (D-0169); **`mnum_leashable` PM-index leashable predicate** (D-1959; C `dogmove.c:1460–1469` in C order after `finish_meating`, `NUMMONS-1` for HIGH_PM, `quickmimic` wiring named); **`dog_nutrition` uses extracted `cwt`/`cnutrit`** (D-0193); 
 **`dog_nutrition` FOOD `objects[].oc_delay` + nutrition map + msize× + non-food `owt/20`** (D-0364; 
 `oeaten`/extractor `oc_nutrition` deferred); 
 omit bee jelly/rust spit/unpaid shop, `dog_invent` eat-return path (DOGFOOD/CADAVER/starving 

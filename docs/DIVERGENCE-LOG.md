@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1959 — dogmove.c mnum_leashable leashable-predicate singleton
+
+- **Status:** fixed (Open queue row: `dogmove.c` mnum_leashable — leashable-monster predicate singleton, HELDOUT Tier C singletons; no JS symbol)
+- **Symptom:** none on any suite (no corpus session blocked on mnum_leashable at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-omission: no JS symbol for the PM-index leashable check; the sole C caller `quickmimic` (`dogmove.c:1527` leash-slack arm) has no JS counterpart either.
+- **C locus:** `nethack-c/upstream/src/dogmove.c` — `mnum_leashable` `:1460–1469` ("variation of leashable() that takes a PM_ index"; range `LOW_PM..HIGH_PM` with `HIGH_PM = NUMMONS-1` per `permonst.h:22`, `!= PM_LONG_WORM`, `!unsolid`, `!nolimbs || has_head`, `? TRUE : FALSE`). Sole C caller: `quickmimic` `:1527` (`was_leashed && (non-monster mimic || !mnum_leashable(mappearance))` → "leash goes slack" + `m_unleash`).
+- **JS was:** `mnum_leashable` NOT FOUND in `js/**` (brief, incl. generated). `js/apply.js` `leashable(mtmp)` (mon-instance variant) live; `quickmimic` comment-only refs in `js/dogmove.js`/`js/mon.js`.
+- **Fix:** `js/dogmove.js` — exported `mnum_leashable(mnum)` in C order (`| 0` int idiom; `NUMMONS - 1` for HIGH_PM; `&&`/`||` short-circuit so `mons()` never reads out of range; `? true : false` keeps the C ternary shape per the `do_wear.js` precedent), placed after `finish_meating` in C declaration order with the `:1460–1469` citation; extended the existing `./monsters.js` import (`unsolid, nolimbs, has_head, LOW_PM, NUMMONS` — same edge, no new TDZ) + `PM_LONG_WORM` via the file's `monsterNames.indexOf` pattern. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/dogmove.js` (+18/−0; 1 js file, under 600 cap). Density note: C is 7 lines; the JS is the one predicate plus C-shape JSDoc (small-C exception).
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn mnum_leashable` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/dogmove.js`; `PASS rule2`; `note hidden verify mnum_leashable: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — HELDOUT Tier C singleton, brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full` (tool: no shared file changed). Probe (/tmp, deleted): HUMAN/DOG→true, LONG_WORM/GHOST/JELLYFISH→false, -1/999→false, all equal to direct permonst semantics — PROBE PASS.
+- **Named omissions:** caller wiring (function live, unwired): `quickmimic` body (`dogmove.c:1472+`, incl. the `:1527` leash-slack arm) has no JS symbol — port it with the arm together.
+- **Next:** pop the next Open row (`do.c` better_not_try_to_drop_that).
+
 ## D-1958 — mail.c readmail mail-read singleton
 
 - **Status:** fixed (Open queue row: `mail.c` readmail — mail-read singleton, HELDOUT Tier C singletons; no JS symbol)

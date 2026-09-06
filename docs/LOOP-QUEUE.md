@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `dogmove.c` mnum_leashable — leashable-monster predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `do.c` better_not_try_to_drop_that — corpse-drop guard singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `region.c` inside_rect — rect-containment predicate singleton (HELDOUT Tier C singletons; no JS symbol).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `display.c` row_refresh — glyph-row repaint singleton (HELDOUT Tier C singletons; no JS symbol, comment-only refs in js/display.js).
 - [ ] `allmain.c` init_sound_disp_gamewindows — window-system init singleton (HELDOUT Tier C singletons; no JS symbol anywhere in js/).
 - [ ] `nhlsel.c` l_selection_iterate — selection-iterate Lua-C singleton (HELDOUT Tier C singletons; no JS symbol, comment-only refs in js/mklev.js).
+- [ ] `dbridge.c` do_entity — drawbridge crush/jump/relocate driver (HELDOUT Tier C; named omit in js/dbridge.js, set_entity live).
+- [ ] `mkmaze.c` maybe_adjust_hero_bubble — water-level hero-bubble adjust (HELDOUT Tier C mkmaze row; named omit in js/mklev.js).
+- [ ] `sounds.c` domonnoise — speaking-monster/chat depth (TOP30 #17; dead callees genus/doconsult/shk_chat, FULL_MOON howl).
+- [ ] `muse.c` use_defensive — hurt-monster defensive-item depth (TOP30 #18; 12% ported; dead callees mreadmsg/reveal_trap/mon_escape).
+- [ ] `hack.c` findtravelpath — travel pathfinder absent (TOP30 #29; TEST_TRAV/GUESS/travelmap deferred).
 
 ## Parked (do not pop)
 
