@@ -850,8 +850,9 @@ function mon_is_gecko(mon) {
  * `:1179–1191` + MS_BRIBE/MS_CUSS `:1142–1156` + MS_SPELL `:1157–1160`
  * in C order (D-1978; demon_talk via minion.js, cuss via wizard.js);
  * this D MS_NURSE `:1160–1172` + MS_GUARD `:1173–1178` in C order.
- * Remaining named: verbl_msg_mcan epilogue (`:1224–1226`) + oracle_loc
- * save-rest. Unknown still ECMD_TIME.
+ * this D epilogue `:1222–1241` incl. the mcan verbl_msg_mcan arm
+ * (`:1224–1226`); save-rest oracle_loc lives in rumors.js/save.js.
+ * Unknown still ECMD_TIME.
  */
 export async function domonnoise(mtmp) {
     if (!mtmp) return ECMD_OK;
@@ -892,8 +893,7 @@ export async function domonnoise(mtmp) {
     let pline_msg = null;
     let verbl_msg = null;
     // C :684 verbl_msg_mcan (cancelled speech). Set by MS_NURSE below;
-    // the `:1224–1226` mcan epilogue is the next Open row (verbl_msg_mcan
-    // + oracle_loc), so consumption stays named there.
+    // consumed by the `:1224–1226` mcan epilogue arm.
     let verbl_msg_mcan = null;
     const moves = game.moves | 0;
     const hungrytime = mtmp.edog?.hungrytime | 0;
@@ -1200,7 +1200,7 @@ export async function domonnoise(mtmp) {
         // u.uwep; uarm* are u.uarm* (do_wear.js); Role_if(PM_HEALER) is
         // urole.mnum (potion.js Role_if_healer precedent, local inline
         // to avoid a new static edge); is_weptool is wield.js (hoisted,
-        // cycle-safe); verbl_msg_mcan consumption is the next row.
+        // cycle-safe); verbl_msg_mcan is consumed by the epilogue arm.
         verbl_msg_mcan = 'I hate this job!';
         const uwep = game.u?.uwep;
         const u = game.u || {};
@@ -1360,11 +1360,16 @@ export async function domonnoise(mtmp) {
             verbl_msg = 'Who do you think you are, War?';
         }
     }
-    // C :1222–1241 pline_msg then mcan verbl_msg_mcan then verbl_msg.
-    // verbl_msg_mcan consumption (`:1224–1226` mtmp->mcan arm) is the
-    // next Open row; MS_NURSE sets it above per C `:1161`.
+    // C sounds.c `:1222–1241` epilogue — pline_msg, then the cancelled
+    // (`:1224–1226` mtmp->mcan) verbl_msg_mcan arm set only by MS_NURSE
+    // (`:1161`), then verbl_msg (Death caps + voice_death below).
     if (pline_msg) {
         await pline(`${Monnam(mtmp)} ${pline_msg}`);
+        return ECMD_TIME;
+    }
+    if (mtmp.mcan && verbl_msg_mcan) {
+        SetVoice(mtmp, 0, 80, 0);
+        await verbalize(verbl_msg_mcan);
         return ECMD_TIME;
     }
     if (verbl_msg) {
