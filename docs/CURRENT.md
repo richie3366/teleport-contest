@@ -43,18 +43,18 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1945):
+Reviews **854–862** (D-1884…D-1946):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1945): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1946): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1945): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1946): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1945): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1945):
+(D-1909…D-1946): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1946):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Reviews 896–904:
 8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews
-**905–913** (D-1935…D-1945): 9 ACCEPT, 0 Must-fix.
+**905–913** (D-1935…D-1946): 9 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -88,13 +88,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `steal.c` stealamulet — amulet-steal singleton (HELDOUT Tier C singletons; no JS symbol).
+**Next cluster:** `vault.c` move_gold — vault gold-move singleton (HELDOUT Tier C singletons; no JS symbol).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1945 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1946 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1946** `nethack-c/upstream/src/vault.c` — `js/vault.js` — exported `move_gold(gold, vroom)` in C order (ox/oy saved before extract since C reads them post-extract; `obj_extract_self` → `newsym(old)` → `(rm.lx | 0) + rn2(2)` / `(rm.ly | 0) + rn2(2)` via `game.lev
 **D-1945** `nethack-c/upstream/src/steal.c` — `js/steal.js` — exported async `stealamulet(mtmp)` in C order (`!--n` pre-decrement pick; `++n` + trailing-target sweep shape, last match wins before the `rnd` reselect, exactly as in C; `real`/`fake` init 0 so the book/
 **D-1944** `nethack-c/upstream/src/nhlsel.c` — `js/mklev.js` — file-local `selection_recalc_bounds(sel)` (C endpoint semantics; unconditional recompute — the Set model has no dirty flag since set expands bounds and delete never shrinks, so C's dirty=FALSE early-retur
 **D-1943** `nethack-c/upstream/src/dbridge.c` — `js/dbridge.js` — file-local `occupants()` (C decl.c zero-init shape, lazily ENTITIES `{emon:null,edata:null,ex:0,ey:0}` records on `game`); exported `e_at` (C scan order, early return ≡ break+index, `| 0` int idiom), `m
@@ -102,11 +103,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1941** `nethack-c/upstream/src/getpos.c` — ported the family in C branch order (`| 0` int idiom; `sym.h` `is_cmap_*` macro shape for the three missing predicates; `IS_DOOR` ≡ C `(typ == DOOR)`; `selection_getpoint` null-map → 0; seed joins unconditionally with `i
 **D-1940** `pray.c` `at_your_feet` `:788–802` (Blind→Something; uswallow→into-ustuck-stomach; else be — `js/pray.js` — exported async `at_your_feet(str)` and `gcrownu()` in C order (`| 0` int idiom; `ok_wep` arrow from the C macro; otyp via `objectNames.indexOf` per the file idiom; ART_* from `./generated/artifacts_data.js
 **D-1939** `zap.c` `polyuse` `:1505–1539` (bypasses → uball/uchain → `obj_resists(0,0)` → SCR_MAIL →  — `js/zap.js` — exported async `polyuse(objhdr, mat, minwt)` in C order (`| 0` int idiom, `nexthere` prefetch, `*u.ushops` as `(game.u?.ushops || '')[0]`, SCR_MAIL via `objectNames.indexOf` `>= 0` guard per the eat.js idio
-**D-1938** `pickup.c` `is_boh_item_gone` `:2510–2514` (`!rn2(13)`); `do_boh_explosion` `:2518–2534` ( — `js/objnam.js` — canonical export `Doname2(obj)` (`upstart(doname(obj))`, the C highc shape; pre-existing clones stay).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1945; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1946; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

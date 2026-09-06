@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `vault.c` move_gold — vault gold-move singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `mthrowu.c` ucatchgem — thrown-gem catch singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `mondata.c` mon_hates_light — light-hatred predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `steed.c` exercise_steed — steed exercise singleton (HELDOUT Tier C singletons; no JS symbol).

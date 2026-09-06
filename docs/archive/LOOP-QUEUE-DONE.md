@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `steal.c` stealamulet — amulet-steal singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1945
+- [x] `vault.c` move_gold — vault gold-move singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1946
+
+
+- [x] `steal.c` stealamulet — amulet-steal singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1945 `31f18e8a`
 
 
 - [x] `sp_lev.c` lspo_* + selvar selection primitives (HELDOUT Tier C misc row remainder; no JS symbol). **Addressed:** D-1944 `bbd62daf`

@@ -3386,7 +3386,10 @@ gold+`um_dist` irate/`mpeaceful=0`; dest VAULT fake then restore)**;
 omit hostile/witness/goldincorridor gd_move / migrating findgd / `wallify_vault` body / 
 `vault_summon_gd` / Croesus angry wield / `fracture_rock` / `xy_set_wall_state` / Punished-uball / 
 yelp-rloc-limbo / corridor-disappears pline / confused-disappears / Well begone verbalize / 
-gd_mv_monaway / mpickgold / dig `del_engr_at`
+gd_mv_monaway / mpickgold / dig `del_engr_at`; **`move_gold`**
+(D-1946; `vault.c:632–643`; live `js/vault.js` export in C order via
+`obj_extract_self` floor arm + `rooms[vroom].lx/ly + rn2(2)` paygd idiom;
+caller `wallify_vault` body stays named omitted)
 
 ### `src/shk.c` `shk_move` / `src/priest.c` `move_special` / `pri_move` / `intemple`
 
