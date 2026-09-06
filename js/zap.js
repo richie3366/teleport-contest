@@ -269,6 +269,7 @@ import { obj_resists } from './dogmove.js';
 import { zap_dig, fracture_rock, break_statue, bury_objs, unearth_objs } from './dig.js';
 import {
     killed, xkilled, flash_hits_mon, m_is_steadfast, that_is_a_mimic,
+    disguised_as_mon, disguised_as_non_mon,
 } from './uhitm.js';
 import { mon_nam, Monnam, noit_Monnam, christen_monst, hliquid, Hallucination, rndmonnam } from './do_name.js';
 import { finish_losehp_done } from './end.js';
@@ -2033,7 +2034,7 @@ export async function ubreatheu(mattk) {
  * redirect; AD_MAGM..ACID explode combat → explode.js (D-0973).
  */
 export async function dobuzz(
-    type, nd, sx0, sy0, dx0, dy0, sayhit, _saymiss, forcemiss,
+    type, nd, sx0, sy0, dx0, dy0, sayhit, saymiss, forcemiss,
 ) {
     const fltyp = zaptype(type);
     const damgtype = fltyp % 10;
@@ -2145,6 +2146,13 @@ export async function dobuzz(
                             }
                         }
                         range -= 2;
+                    } else if (
+                        saymiss
+                        || (canseemon(mon) && !disguised_as_non_mon(mon))
+                    ) {
+                        // C zap.c:4952–4955 — report the miss when asked
+                        // or the target is visibly not a disguised non-mon.
+                        await miss_msg(flash_str(fltyp), mon);
                     }
                     }
                 } else if (u_at(sx, sy) && range >= 0) {
@@ -3620,7 +3628,9 @@ export async function bhitm(mtmp, otmp) {
         reveal_invis = true;
         learn_it = cansee(bhitpos.x | 0, bhitpos.y | 0);
         if (resists_magm(mtmp)) {
-            if (disguised_mimic) seemimic(mtmp);
+            // C zap.c:197 — no reveal when the mimicry already
+            // appears as a monster.
+            if (disguised_mimic && !disguised_as_mon(mtmp)) seemimic(mtmp);
             await pline('Boing!');
         } else if (game.u?.uswallow || rnd(20) < 10 + find_mac(mtmp)) {
             if (disguised_mimic) seemimic(mtmp);

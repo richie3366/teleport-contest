@@ -3108,6 +3108,7 @@ elemental destroy_items/Mb_hit/behead/DRLI deferred);
 blessed/spear/trident/pick/silver vs-mon deferred); 
 **`find_roll_to_hit` Luck `sgn*((abs+2)/3)`** (D-0272; encumbrance/`utrap`/monk/orc-elf deferred); 
 **`find_roll_to_hit`→`check_caitiff` knight/samurai** (D-0928 #1100; apply.c callers deferred); 
+**`backstabbable`/`disguised_as_mon`/`disguised_as_non_mon`** (D-1937; `uhitm.c:921–931` amorphous→whirly→noncorporeal→mlet blob/eye/fungus→canseemon→mflee-or-helpless in C short-circuit order + `:6300–6312` M_AP_TYPE/sensemon pair, exported from `js/uhitm.js` on existing monsters/display edges; wired `zap.js` bhitm STRIKING resists_magm `!disguised_as_mon` gate `:197` + dobuzz miss arm `:4952–4955` `saymiss || (canseemon && !disguised_as_non_mon)` via live `miss_msg` (`_saymiss` renamed); named: rogue `hmon_hitmon_weapon_melee` arm `:960` (JS hmon restructure), STRIKING `shieldeff`); 
 **`hitum`→`passive`/`passive_obj` live `rn2(3)`** (D-0188); 
 **`hitum` twoweapon/`double_punch` second swing + `mon_maybe_unparalyze`** (D-0345; 
 Cleaver `hitum_cleave` deferred; hmon `gt.twohits` strbonus scaling live); 

@@ -32,7 +32,7 @@ import {
 import { exercise, A_STR, A_DEX, A_WIS, A_CON, acurr, adjalign, change_luck } from './attrib.js';
 import { overexertion, nomul, losehp, is_pool, maybe_half_phys } from './hack.js';
 import { ing_suffix } from './hacklib.js';
-import { pline, pline_mon, newsym, canseemon, canspotmon, map_invisible, unmap_object, memory_glyph_is_invisible, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph } from './display.js';
+import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, map_invisible, unmap_object, memory_glyph_is_invisible, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph } from './display.js';
 import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
@@ -58,7 +58,7 @@ import {
     is_demon, NON_PM, NUMMONS, has_head, mindless, unsolid, breathless, mons,
     flaming, touch_petrifies, is_vampshifter, is_animal, amphibious,
     is_swimmer, slithy,
-    is_whirly, passes_walls, hates_silver, humanoid,
+    amorphous, noncorporeal, is_whirly, passes_walls, hates_silver, humanoid,
     is_human, always_hostile, is_unicorn,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
 } from './monsters.js';
@@ -358,6 +358,44 @@ function Luck() {
 /** C ref: you.h helpless — msleeping || !mcanmove */
 function helpless(mtmp) {
     return !!(mtmp?.msleeping || mtmp?.mcanmove === 0);
+}
+
+/**
+ * C ref: uhitm.c backstabbable :921–931 — rogue backstab victim check.
+ * Short-circuit order kept: amorphous → whirly → noncorporeal →
+ * mlet blob/eye/fungus → canseemon → fleeing or helpless.
+ * Caller hmon_hitmon_weapon_melee rogue arm (uhitm.c:960) deferred.
+ */
+export function backstabbable(mon) {
+    const data = mon?.data;
+    return !amorphous(data)
+        && !is_whirly(data)
+        && !noncorporeal(data)
+        && data?.mlet !== 'S_BLOB'
+        && data?.mlet !== 'S_EYE'
+        && data?.mlet !== 'S_FUNGUS'
+        && canseemon(mon)
+        && !!(mon?.mflee || helpless(mon));
+}
+
+/**
+ * C ref: uhitm.c disguised_as_mon :6308–6312 — mimicry appearing
+ * as a monster (M_AP_MONSTER). Caller zap.c:197 bhitm STRIKING
+ * resists_magm arm (wired in js/zap.js).
+ */
+export function disguised_as_mon(mtmp) {
+    const ap = M_AP_TYPE(mtmp) | 0;
+    return ap !== 0 && ap === M_AP_MONSTER;
+}
+
+/**
+ * C ref: uhitm.c disguised_as_non_mon :6300–6305 — unsensed mimicry
+ * appearing as furniture/object. Caller zap.c:4953–4955 dobuzz
+ * miss arm (wired in js/zap.js).
+ */
+export function disguised_as_non_mon(mtmp) {
+    const ap = M_AP_TYPE(mtmp) | 0;
+    return !sensemon(mtmp) && ap !== 0 && ap !== M_AP_MONSTER;
 }
 
 /**

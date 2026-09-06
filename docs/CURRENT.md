@@ -43,14 +43,14 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1936):
+Reviews **854–862** (D-1884…D-1937):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1936): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1937): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1936): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1937): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1936): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1936):
+(D-1909…D-1937): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1937):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Reviews 896–904:
 8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
@@ -87,13 +87,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `artifact.c` spec_ability — special-ability checks (HELDOUT Tier C misc row; no JS symbol).
+**Next cluster:** `uhitm.c` backstabbable/disguised_as_mon/disguised_as_non_mon — backstab/disguise family (HELDOUT Tier C uhitm row; no JS symbol).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1936 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1937 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1937** `uhitm.c` `backstabbable` `:920–931` (`!amorphous && !is_whirly && !noncorporeal && mlet ! — `js/uhitm.js` — exported `backstabbable(mon)` (file-local `helpless` + already-imported `canseemon`, new names `amorphous`/`noncorporeal` on the existing monsters edge, `sensemon` on the existing display edge; mlet compa
 **D-1936** `artifact.c` `spec_ability` `:515–522` (`get_artifact`; `arti != &artilist[ART_NONARTIFACT — `js/artifact.js` — exported sync `spec_ability(otmp, abil)` in C order (`get_artifact` → `!== list[ART_NONARTIFACT]` short-circuit → `((spfx | 0) & (abil | 0)) !== 0`, `| 0` int idiom per D-1935); completed the SPFX_* he
 **D-1935** `artifact.c` `found_artifact` `:409–417` (range check → `impossible` / exists check → `imp — `js/artifact.js` — exported sync `found_artifact(a)` (`| 0` index, early returns on range/exists miss, `game.artiexist[i].found = 1`, lazy `artifacts_globals_init`) and `find_artifact(otmp)` in C ternary order (`a && !fo
 **D-1934** `do_wear.c` `ia_dotakeoff` `:1862–1870` (`gi.item_action_in_progress = TRUE; res = dotakeo — `js/do_wear.js` — exported `async ia_dotakeoff()` in C order (flag true → `await dotakeoff()` → flag false in `finally`, return res; `finally` is the async-faithful form of C's always-reset sequence); `js/iactions.js` — 
@@ -101,11 +102,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1932** `uhitm.c` `mhitm_knockback` `:5247–5420`; callers `mhitm.c:1061` (`kb && (HIT|DEF_DIED|off — `js/mhitm.js` — full async C-order port (`rn2(3)` distance → Ogresmasher `chance` → `rn2(chance)` → `AD_PHYS`+aatyp → grabber/`sticks` via local `attacktype_mm`/`dmgtype` → sgn direction → `test_move_ok` (hero) / `isok`+
 **D-1931** `objnam.c` `mshot_xname` `:1090–1102` (`xname(obj)`, then `gm.m_shot.n > 1 && gm.m_shot.o  — exported `mshot_xname(obj)` from `js/objnam.js` in C order (xname, then `m_shot.n > 1 && m_shot.o === otyp` guard with `| 0` int semantics, `` `the ${i}${ordin(i)} ` `` prefix — C `strprepend` is concat in JS); added can
 **D-1930** `weapon.c` `select_hwep` `:704–741`; staticfn `oselect` `:475–496`; `Oselect` macro `:469– — `js/weapon.js` — C-order ports in C branch order: artifact loop `oclass && oartifact && touch_artifact(otmp, mtmp) && ((strong && !shield) || !oc_big)`; giant `Oselect(CLUB)` / `else if` Balrog (`mndx === PM_BALROG && ga
-**D-1929** `weapon.c` `hitval` `:149–187`; `kebabable[]` `:71–75` (S_XORN, S_DRAGON, S_JABBERWOCK, S_ — `js/weapon.js` — C-order ports of all four arms in C branch order (blessed `Is_weapon && blessed && mon_hates_blessings` +2; spear `is_spear && kebabable` +2; TRIDENT + `is_swimmer` → `is_pool(mx,my)` +4 else eel/snake +
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1936; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1937; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

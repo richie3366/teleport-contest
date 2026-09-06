@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `artifact.c` spec_ability — special-ability checks (HELDOUT Tier C misc row; no JS symbol). **Addressed:** D-1936
+- [x] `uhitm.c` backstabbable/disguised_as_mon/disguised_as_non_mon — backstab/disguise family (HELDOUT Tier C uhitm row; no JS symbol). **Addressed:** D-1937
+
+
+- [x] `artifact.c` spec_ability — special-ability checks (HELDOUT Tier C misc row; no JS symbol). **Addressed:** D-1936 `efc7a95b`
 
 
 - [x] `artifact.c` find_artifact/found_artifact — artifact discovery tracking (HELDOUT Tier C misc row; no JS symbol).
