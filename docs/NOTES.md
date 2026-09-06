@@ -21,9 +21,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1899 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1900 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1899 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1900 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -41,18 +41,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1899.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1900.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1899.
+  Do not re-port D-1682…D-1900.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1900: C-order ports. Named: `target_on`/`you_have`/covetous-pursuit `strategy` (the live caller envelope — own row whe
 - D-1899: C-branch-order ports in `js/muse.js`: `cures_stoning` (POT_ACID/glob+CORPSE+openable-TIN, NON_PM gate, LIZARD/acidic); `cures_sliming` (fire scroll ey Named: `munstone` + `mon_consume_unstone` stoning-TRUE envelope (uhitm corpse/egg-throw + `mhitm_
 - D-1898: C-order dispatch incl. the hide/web `yn_function` prompt (`hidespinchars`, q/ESC → ECMD_OK) ahead of every arm; `dospit` (`getdir`→ECMD_CANCEL, `attac Named: `dogaze`/`dohide`/`dospinweb` (131/97/124 ln C; `y_n`/`setmangry`/`destroy_items`/`expels`
 - D-1897: New `travel_delay_current(x,y)` (`!Passes_walls_prop() && !can_ooze(youmonst) && closed_door` || `boulder && !could_move_onto_boulder`, C `:1403–1407` Named: travelmap visited stop (`You stop, unsure which way to go` — needs shared selection infra;
@@ -67,5 +68,4 @@ Objective/score live in `CURRENT.md`.
 - D-1888: `load_tou_strt` in lua order (centered map, whole-map lit, morgue as FILL_NORMAL rect room with topologize + add_doors_to_room per the Tou-loca helper Named: humidity-aware `get_location` for water-likers (carried on the map row); `ensure_way_out` 
 - D-1887: `load_tou_loca` (whole-map lit, 8 FILL_NORMAL rect rooms with topologize + add_doors_to_room in lua order, 19 ordinary rects as `light_region(..., lit Named: humidity-aware `get_location` for water-likers (all four; carried on the map row); `ensure
 - D-1886: glyph-driven object arm in `describe_looked` (oclass via `glyph_to_obj` + `game.objects` oc_class + `def_oc_syms` explain; all classes 1–17 except VEN Named: statue glyphs keep the old fallthrough (their C line needs the monster-class prefix from t
-- D-1885: `load_hea_strt` (Sam-strt shape: STONE solidfill, triple flags, centered 76×20 map with `\\`-escaped `S.\.S`, map-relative `lspo_replace_terrain_regio Named: humidity-aware `get_location` for water-likers; `spo_end_moninvent` m_dowear (loca priest)
 <!-- landmarks:end -->

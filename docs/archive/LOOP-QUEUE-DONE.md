@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `muse.c` slime/stone cures — cures_sliming, cures_stoning, munslime, muse_unslime, green_mon, m_sees_sleepy_soldier (HELDOUT Tier C). **Addressed:** D-1899
+- [x] `wizard.c` clonewiz family — clonewiz, mon_has_arti, other_mon_has_arti, which_arti, on_ground, wizdeadorgone, plus quest.c leaddead, nemdead, nemesis_stinks (HELDOUT Tier C). **Addressed:** D-1900
+
+
+- [x] `muse.c` slime/stone cures — cures_sliming, cures_stoning, munslime, muse_unslime, green_mon, m_sees_sleepy_soldier (HELDOUT Tier C). **Addressed:** D-1899 `54ccff4c`
 
 
 - [x] `polyself.c` remaining arms (D-1898 follow-up) — dogaze, dohide, dospinweb, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C; steed `pet_ranged_attk`). **Addressed:** D-1898 `3ef6abec`
