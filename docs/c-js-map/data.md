@@ -1002,6 +1002,19 @@ crevice with `display_nhwindow` flush / Flying-clinger climb-out /
 Sokoban+Levitation float variant / Norep still-in-pit with Hallu `!rn2(5)`;
 wired into `trapmove` TT_PIT (`js/hack.js`) + `doup` pit gate (`js/do.js`);
 named: poly `locomotion()` verbs, `clear_nhwindow` past the flush).
+**`lava_effects` full C-order port** (D-1913; C `trap.c:6794–6987`):
+`d(6,6)` before `in_lava_effects` guard; `feel_newsym` + `burn_away_slime` +
+`likes_lava` early FALSE; `usurvive = Fire||(Wwalking&&dmg<uhp)` (uprops slots +
+flats, `Is_waterlevel`); `!usurvive` invent `in_use` flags with one
+`protect_oid` + `impossible`; boots burst first (`Boots_off` + `useup`);
+`!Fire` Wwalking-burn→burn_stuff else fall, Lifesaved/discover/wizard survive,
+guarded invent burn (Book glow, worn burst + `remove_worn_item(TRUE)` +
+`useupall`, summary), boil-away poly, 2x `done(BURNING)` + `safe_teleds` loop,
+double-fail `HFire_resistance`/`HWwalking` TIMEOUT 5 →burn_stuff,
+`rescued_from_terrain` + `spoteffects(FALSE)` TRUE; `Fire+!Wwalking+!trapped`
+sink (`rn1` short-circuit, `set_utrap`, `monstseesu`, `losehp`); burn_stuff
+`destroy_items(AD_FIRE)` + `ignite_items`. Named: none new (`sink_into_lava`
+not called by C here).
 
 ### `src/dog.c` `tamedog` / `initedog`
 

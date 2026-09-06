@@ -4985,33 +4985,249 @@ export async function drown() {
 }
 
 /**
- * C ref: trap.c lava_effects — enter lava/lavawall.
- * Branch envelope: d(6,6) always; non-resistant fall + burn-to-crisp done(BURNING).
- * Named omissions: Fire_resistance/Wwalking survive; invent burn flags;
- * boots burst; life-save/teleds loop; boil-away poly; sink_into_lava.
+ * C ref: trap.c lava_effects `:6794–6987` — fall/sink into lava, burn gear,
+ * life-save teleds loop, Wwalking/Fire sink-or-burn envelope.
+ * Branch envelope: d(6,6) always (before in_lava early-out); feel_newsym +
+ * burn_away_slime + likes_lava early FALSE; !usurvive invent in_use flags;
+ * boots burst first (Boots_off + useup); !Fire: Wwalking burn + losehp→burn_stuff
+ * else fall + Lifesaved/discover/wizard survive, invent burn (Book glow spared,
+ * worn burst + remove + useupall), burn summary, boil-away poly, 2x done(BURNING)
+ * + safe_teleds loop, double-fail timeout countermeasures→burn_stuff,
+ * rescued_from_terrain + spoteffects(FALSE) TRUE; Fire+!Wwalking+!trapped sink
+ * (rn1 set_utrap, monstseesu, losehp); burn_stuff destroy_items(AD_FIRE,dmg) +
+ * ignite_items FALSE.
+ * C macros: Fire_resistance ≡ uprops[FIRE_RES].intrinsic||extrinsic (youprop.h:28);
+ * Wwalking ≡ (HWwalking||EWwalking) && !Is_waterlevel (youprop.h:260);
+ * Lifesaved ≡ uprops[LIFESAVED].extrinsic (:387); wizard ≡ flags.debug,
+ * discover ≡ flags.explore (flag.h:30,33). JS flats (u.HFire_resistance etc)
+ * cover dual storage alongside uprops slots.
+ * Dynamics for zap/pickup/timeout match file pattern (trap↔zap cycle);
+ * same-edge helpers via dynamic to keep this port to one locus edit
+ * (imports.mjs: hoisted functions cycle-safe).
  * @returns {Promise<boolean>} true if relocated (life-save); noreturn on death
  */
 export async function lava_effects() {
+    /* C: const int dmg = d(6, 6); — drawn before every early-out. */
+    const dmg = d(6, 6);
     const u = game.u;
     if (!u) return false;
-    if (game.iflags?.in_lava_effects) return false;
+    if (game.iflags?.in_lava_effects) return false; /* C debugpline0 debug-only */
+    /* Monattk AD_FIRE=2; otyp/poly indices via already-imported tables. */
+    const AD_FIRE = 2;
+    const SCR_FIRE = objectNames.indexOf('SCR_FIRE');
+    const SPE_FIREBALL = objectNames.indexOf('SPE_FIREBALL');
+    const SPE_BOOK = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
+    const PM_WATER_ELEMENTAL = monsterNames.indexOf('PM_WATER_ELEMENTAL');
+    const PM_STEAM_VORTEX = monsterNames.indexOf('PM_STEAM_VORTEX');
+    const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
+    const { WWALKING, LIFESAVED, TELEDS_TELEPORT, M_SEEN_FIRE } = await import('./const.js');
+    const { burn_away_slime } = await import('./timeout.js');
+    const { likes_lava } = await import('./monsters.js');
+    const { is_organic } = await import('./mkobj.js');
+    const { obj_resists } = await import('./dogmove.js');
+    const { Yobjnam2, simpleonames } = await import('./objnam.js');
+    const { hcolor } = await import('./do_name.js');
+    const { Boots_off } = await import('./do_wear.js');
+    const { useup, useupall } = await import('./invent.js');
+    const { impossible } = await import('./display.js');
+    const { safe_teleds } = await import('./teleport.js');
+    const { destroy_items } = await import('./zap.js');
+    const { spoteffects } = await import('./pickup.js');
 
-    // C: const int dmg = d(6, 6); /* only applicable for water walking */
-    const dmg = d(6, 6);
-    void dmg;
+    feel_newsym(u.ux, u.uy); /* in case Blind, map the lava here */
+    await burn_away_slime();
+    if (likes_lava(game.youmonst?.data)) return false;
 
-    // likes_lava / Fire_resistance / Wwalking survive arms deferred
-    await pline(`You fall into the ${waterbody_name(u.ux, u.uy)}!`);
+    /* C: usurvive = Fire_resistance || (Wwalking && dmg < u.uhp); */
+    const fireSlot = u.uprops?.[FIRE_RES];
+    const heroFireRes = !!((u.HFire_resistance | 0) || (u.EFire_resistance | 0)
+        || u.Fire_resistance
+        || (fireSlot?.intrinsic | 0) || (fireSlot?.extrinsic | 0));
+    const wwalkSlot = u.uprops?.[WWALKING];
+    const heroWwalking = !!(((u.HWwalking | 0) || (u.EWwalking | 0) || u.Wwalking
+        || (wwalkSlot?.intrinsic | 0) || (wwalkSlot?.extrinsic | 0))
+        && !Is_waterlevel(u.uz));
+    let usurvive = heroFireRes || (heroWwalking && (dmg < (u.uhp | 0)));
 
-    // invent burn / Boots_off deferred (empty invent on this path)
-    u.uhp = -1;
-    if (!game.killer) game.killer = { name: '', format: 0 };
-    game.killer.format = KILLED_BY;
-    game.killer.name = 'molten lava';
-    await pline('You burn to a crisp...');
-    const { done } = await import('./end.js');
-    await done(BURNING);
-    return false;
+    /*
+     * Flag items before any message so a hangup at --More-- cannot save
+     * before destruction. One in_use item is protected (steal mid-flight).
+     */
+    let protect_oid = 0;
+    if (!usurvive) {
+        const snapshot = [...(game.invent || [])];
+        for (const obj of snapshot) {
+            const nextobj = obj.nobj;
+            void nextobj;
+            if (obj.in_use) {
+                if (!protect_oid) {
+                    protect_oid = obj.o_id | 0;
+                    obj.in_use = 0;
+                } else {
+                    await impossible(
+                        "lava_effects: '%s' (#%d) is already in use; so is #%d.",
+                        simpleonames(obj), obj.o_id | 0, protect_oid | 0,
+                    );
+                }
+                continue;
+            }
+            /* set in_use for items which will be destroyed below */
+            if ((is_organic(obj) || (obj.oclass | 0) === POTION_CLASS)
+                && !obj.oerodeproof
+                && ((game.objects?.[obj.otyp | 0]?.oc_oprop | 0) !== FIRE_RES)
+                && (obj.otyp | 0) !== SCR_FIRE && (obj.otyp | 0) !== SPE_FIREBALL
+                && !obj_resists(obj, 0, 0)) obj.in_use = 1;
+        }
+    }
+
+    /* Burn boots first so sinking knows whether water walking survives. */
+    let burncount = 0;
+    let burnmesgcount = 0;
+    const uarmf = u.uarmf;
+    if (uarmf && (uarmf.in_use || (is_organic(uarmf) && !uarmf.oerodeproof))) {
+        const boots = uarmf;
+        await pline(`${Yobjnam2(boots, 'burst')} into flame!`);
+        ++burnmesgcount;
+        if (!game.iflags) game.iflags = {};
+        game.iflags.in_lava_effects = (game.iflags.in_lava_effects | 0) + 1;
+        await Boots_off();
+        if ((boots.o_id | 0) !== (protect_oid | 0)) useup(boots);
+        game.iflags.in_lava_effects = (game.iflags.in_lava_effects | 0) - 1;
+        ++burncount;
+    }
+
+    const lava_killer = 'molten lava';
+    const gotoBurnStuff = async () => {
+        await destroy_items(game.youmonst || { _youmonst: true }, AD_FIRE, dmg);
+        if (game._losehp_needs_done || game.program_state?.gameover) {
+            const { finish_losehp_done } = await import('./end.js');
+            await finish_losehp_done();
+            if (game.program_state?.gameover) return false;
+        }
+        await ignite_items(game.invent);
+        return false;
+    };
+
+    if (!heroFireRes) {
+        if (heroWwalking) {
+            await pline(`The ${hliquid('lava')} here burns you!`);
+            if (usurvive) {
+                losehp(dmg, lava_killer, KILLED_BY); /* lava damage */
+                if (await finish_hero_losehp()) return false;
+                return gotoBurnStuff();
+            }
+        } else {
+            await pline(`You fall into the ${waterbody_name(u.ux, u.uy)}!`);
+        }
+
+        const lifesaved = !!((u.uprops?.[LIFESAVED]?.extrinsic | 0));
+        const discover = !!((game.flags?.explore) || (game.flags?.discover));
+        const wizard = !!((game.flags?.debug) || (game.flags?.wizard));
+        usurvive = lifesaved || discover;
+        if (wizard) usurvive = true;
+
+        /* Block Boots_off→spoteffects→lava_effects recursion deletes. */
+        if (!game.iflags) game.iflags = {};
+        game.iflags.in_lava_effects = (game.iflags.in_lava_effects | 0) + 1;
+
+        for (const obj of [...(game.invent || [])]) {
+            const obj2 = obj.nobj;
+            void obj2;
+            if ((obj.o_id | 0) === (protect_oid | 0) && (protect_oid | 0) !== 0) {
+                obj.in_use = 1; /* was cleared when setting protect_oid */
+            } else if ((obj.otyp | 0) === SPE_BOOK) {
+                if (usurvive && !Blind()) {
+                    await pline(`${The(xname(obj))} glows a strange ${hcolor('dark red')}, but remains intact.`);
+                }
+            } else if (obj.in_use) {
+                if (obj.owornmask) {
+                    if (usurvive) {
+                        await pline(`${Yobjnam2(obj, 'burst')} into flame!`);
+                        ++burnmesgcount;
+                    }
+                    await remove_worn_item(obj, true);
+                }
+                useupall(obj);
+                ++burncount;
+            }
+        }
+        if (usurvive && burncount > burnmesgcount) {
+            const silent = burncount - burnmesgcount;
+            const head = burnmesgcount > 0
+                ? (silent === 1 ? 'Another' : 'Other')
+                : (burncount === 1 ? 'An' : 'Some');
+            await pline(`${head} item${silent === 1 ? '' : 's'} in your inventory ${silent === 1 ? 'has' : 'have'} been destroyed.`);
+        }
+
+        /* s/he died... */
+        let boil_away = (u.umonnum | 0) === PM_WATER_ELEMENTAL
+            || (u.umonnum | 0) === PM_STEAM_VORTEX
+            || (u.umonnum | 0) === PM_FOG_CLOUD;
+        void boil_away;
+        for (burncount = 0; burncount < 2; ++burncount) {
+            u.uhp = -1;
+            if (!game.killer) game.killer = { name: '', format: 0 };
+            game.killer.format = KILLED_BY;
+            game.killer.name = lava_killer;
+            const isBoil = (u.umonnum | 0) === PM_WATER_ELEMENTAL
+                || (u.umonnum | 0) === PM_STEAM_VORTEX
+                || (u.umonnum | 0) === PM_FOG_CLOUD;
+            await urgent_pline(`You ${isBoil ? 'boil away' : 'burn to a crisp'}...`);
+            await done(BURNING);
+            if (game.program_state?.gameover) return false;
+            if (await safe_teleds(TELEDS_ALLOW_DRAG | TELEDS_TELEPORT)) break;
+            await pline("You're still burning.");
+        }
+
+        game.iflags.in_lava_effects = (game.iflags.in_lava_effects | 0) - 1;
+
+        if (burncount === 2) {
+            if (!heroFireRes) {
+                if (!u.uprops) u.uprops = {};
+                const slot = u.uprops[FIRE_RES]
+                    || (u.uprops[FIRE_RES] = { intrinsic: 0, extrinsic: 0, blocked: 0 });
+                slot.intrinsic = ((slot.intrinsic | 0) & ~TIMEOUT) | 5;
+                set_itimeout_prop('HFire_resistance', 5);
+            }
+            if (!heroWwalking) {
+                if (!u.uprops) u.uprops = {};
+                const slot = u.uprops[WWALKING]
+                    || (u.uprops[WWALKING] = { intrinsic: 0, extrinsic: 0, blocked: 0 });
+                slot.intrinsic = ((slot.intrinsic | 0) & ~TIMEOUT) | 5;
+                set_itimeout_prop('HWwalking', 5);
+            }
+            return gotoBurnStuff();
+        }
+        await rescued_from_terrain(BURNING);
+
+        /* spoteffects() was no-op under in_lava_effects; land without pickup. */
+        await spoteffects(false);
+        return true;
+    } else if (!heroWwalking && (!(u.utrap | 0) || (u.utraptype | 0) !== TT_LAVA)) {
+        const boil_away = !heroFireRes;
+        /* C rn1 short-circuit: rn1(4,12) only when NOT boiling away. */
+        const base = rn1(4, 4);
+        const hi = boil_away ? 2 : rn1(4, 12);
+        set_utrap(base + ((hi | 0) << 8), TT_LAVA);
+        await pline(`You sink into the ${waterbody_name(u.ux, u.uy)}${!boil_away ? ', but it only burns slightly' : ' and are about to be immolated'}!`);
+        if (heroFireRes) monstseesu(M_SEEN_FIRE);
+        else monstunseesu(M_SEEN_FIRE);
+        if ((u.uhp | 0) > 1) {
+            losehp(!boil_away ? 1 : ((u.uhp | 0) / 2) | 0, lava_killer, KILLED_BY);
+            if (await finish_hero_losehp()) return false;
+        }
+    }
+
+ burn_stuff_tail: {
+        await destroy_items(game.youmonst || { _youmonst: true }, AD_FIRE, dmg);
+        if (game._losehp_needs_done || game.program_state?.gameover) {
+            const { finish_losehp_done } = await import('./end.js');
+            await finish_losehp_done();
+            if (game.program_state?.gameover) return false;
+        }
+        await ignite_items(game.invent);
+        return false;
+    }
 }
 
 /**

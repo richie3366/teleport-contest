@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `role.c` setup_rolemenu/racemenu/gendmenu/algnmenu extraction — C add_menu/winid builders; both filtering and reset-preselect arms already inline in pick_*_menu/reset_role_filtering, extraction must keep byte-identical menus (role.c follow-up). **Addressed:** D-1912
+- [x] `trap.c` lava_effects remaining arms — Fire_resistance/Wwalking survival, inventory burn flags, sink-and-die sequence (TOP30 #24, 11% ported; drown shipped D-1814, lava never queued). **Addressed:** D-1913
+
+
+- [x] `role.c` setup_rolemenu/racemenu/gendmenu/algnmenu extraction — C add_menu/winid builders; both filtering and reset-preselect arms already inline in pick_*_menu/reset_role_filtering, extraction must keep byte-identical menus (role.c follow-up). **Addressed:** D-1912 `9b416bde`
 
 
 - [x] `mkmap.c` finish_map — wallify/lit/lava-ice + is_maze_lev/is_cavernous_lev flags (mkmap.c follow-up; needs wallify_map). **Addressed:** D-1911 `373f2920`

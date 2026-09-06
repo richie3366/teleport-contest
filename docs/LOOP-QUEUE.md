@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `trap.c` lava_effects remaining arms — Fire_resistance/Wwalking survival, inventory burn flags, sink-and-die sequence (TOP30 #24, 11% ported; drown shipped D-1814, lava never queued).
 - [ ] `mon.c` newcham remaining body arms — NC_VIA_WAND_OR_SPELL mon_break_armor, boulder arms, monst_to_any dead callee (TOP30 #25; archived rows are await-wiring/named bits only).
 - [ ] `steed.c` dismount_steed remaining arms — poly/engulfed/water/lava steed death (TOP30 #26; archived DISMOUNT_THROWN named only).
 - [ ] `uhitm.c` hmonas remaining arms — polymorphed-hero attack-type envelope (TOP30 #27, under half ported; archived troll_baned/silver named bits only).
