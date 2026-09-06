@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " ,Z#terrain\n\u001b,>f bnnaeueh\u000f\u001b#chat\nk #terrain\n\u001beg #terrain\n\u001b#untrap\nl#invoke\n\u001b#monster\n#invoke\n\u001b\u0004hi\u001bW20s  s20swb FyFyseg  yssaehqd  af\u001baf\u001b#tip\nf\u001bdbe#tip\nf\u001b#enhance\n\u001b10s#conduct\n "
+ },
+ "segments": [
+  {
+   "seed": 92115,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " ,Z#terrain\n\u001b,>f bnnaeueh\u000f\u001b#chat\nk #terrain\n\u001beg #terrain\n\u001b#untrap\nl#invoke\n\u001b#monster\n#invoke\n\u001b\u0004hi\u001bW20s  s20swb FyFyseg  yssaehqd  af\u001baf\u001b#tip\nf\u001bdbe#tip\nf\u001b#enhance\n\u001b10s#conduct\n "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPfl\u0017Hawaiian shirt\nW\u001bssm. sm.#polyself\nghost\n Nazgul\n cobra\n    20ss\u0007grid bug\nFn   FlFl.20s 20s#polyself\ndjinni\n Archon\n fire vortex\n#monster\ns.\u0007killer bee\nFl.Fy s.20s     #polyself\nlizard\n ss\u0007ki-rin\nFj  Fk      yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 92202,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPfl\u0017Hawaiian shirt\nW\u001bssm. sm.#polyself\nghost\n Nazgul\n cobra\n    20ss\u0007grid bug\nFn   FlFl.20s 20s#polyself\ndjinni\n Archon\n fire vortex\n#monster\ns.\u0007killer bee\nFl.Fy s.20s     #polyself\nlizard\n ss\u0007ki-rin\nFj  Fk      yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

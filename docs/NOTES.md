@@ -5,11 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Park `show_conduct` (HEAD c209ccc7):** premise stale (859 @baf24c95 → 824 x_monnam); owner insight.c:2122 is a C comment; DontAsk-flags arm alone REGRESSES 859→824 (reverted) — display-timing iteration must ride WITH the flags arm. Detail + falsifier in LOOP-QUEUE Parked. UPDATE: replays 859, rng identical; re-baseline first.
+- **Scenario corpus = work picker (2026-09-06, human):** 275 `scen-*` sessions (`scripts/scenario-gen.mjs`) pass 7/275 — the held-out shape (leaderboard 7/44). Mutants 255/278 = saturated. Queue from `hidden-proxy queue`; map singletons Deferred. First: 4 `ReferenceError` imports (Must-fix), then `calendar.c getlt` EDT→EST shift (51 sessions dated `20000206`). Themed-room step-0 rows → `geom-probe`.
+
+- **Park `show_conduct` (HEAD c209ccc7):** premise stale (859 → 824 x_monnam); owner is a C comment; DontAsk-flags arm alone REGRESSES (reverted). Detail + falsifier in LOOP-QUEUE Parked; re-baseline first.
 - **Park `mdrop_obj`:** capture-point divergence; full port = verify no-op. Detail in Parked.
-- **Park `dopush` (mimic-viz, not the push):** step 127/175 single cell r13c32 C `` ` `` vs JS `·`, RNG 12853/12853 tied; push itself faithful. Needs C-side viz at 127 or `view_from` boundary audit. Detail in Parked; re-apply reverted `movobj` cleanup with the fix.
+- **Park `dopush` (mimic-viz, not the push):** single cell r13c32, RNG tied; needs C-side viz at step 127 or `view_from` audit. Detail in Parked.
 - **Geometry owners:** probe first (D-1849). Refills must not cite the current D-ID.
-- **Refill (D-1979):** proxy parked-only; queue at 12 via data.md/turns.md omits.
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.

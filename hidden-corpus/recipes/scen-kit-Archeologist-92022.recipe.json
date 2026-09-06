@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  i\u001bag\u001bae  jaelwe20s.safah\u001bah\u001b#tip\nh\u001bwa Fl20s20si\u001b#name\nd\n#terrain\ne\n,\u0004l\u0004bw-#terrain\ne\n"
+ },
+ "segments": [
+  {
+   "seed": 92022,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  i\u001bag\u001bae  jaelwe20s.safah\u001bah\u001b#tip\nh\u001bwa Fl20s20si\u001b#name\nd\n#terrain\ne\n,\u0004l\u0004bw-#terrain\ne\n"
+  }
+ ]
+}

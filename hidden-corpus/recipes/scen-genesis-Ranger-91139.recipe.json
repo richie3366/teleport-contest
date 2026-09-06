@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017speed boots\nWhsss\u0007titanothere\nFyFyFy\u0007troll\nFh  yy\u001by   y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 91139,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017speed boots\nWhsss\u0007titanothere\nFyFyFy\u0007troll\nFh  yy\u001by   y y\u001by  F"
+  }
+ ]
+}

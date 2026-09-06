@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of polymorph control\nPjl\u0017jumping boots\nWk.m.sk20s#polyself\niron golem\n #monster\nsm.20s\u0007earth elemental\nFkFyFy20s.k.m.#polyself\nmaster mind flayer\n #monster\n.m..m.sn.m.sb#polyself\nvampire\n#monster\nny.m..m..u20ssm.\u0017amulet of unchanging\nPl20s20ssm.skRl"
+ },
+ "segments": [
+  {
+   "seed": 91137,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of polymorph control\nPjl\u0017jumping boots\nWk.m.sk20s#polyself\niron golem\n #monster\nsm.20s\u0007earth elemental\nFkFyFy20s.k.m.#polyself\nmaster mind flayer\n #monster\n.m..m.sn.m.sb#polyself\nvampire\n#monster\nny.m..m..u20ssm.\u0017amulet of unchanging\nPl20s20ssm.skRl"
+  }
+ ]
+}

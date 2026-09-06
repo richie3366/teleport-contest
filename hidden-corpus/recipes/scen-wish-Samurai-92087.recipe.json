@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          \u0017wand of lightning\n\u0007baby long worm\nzgk  \u00173 scroll of stinking cloud\nrh\u0017spellbook of detect treasure\n\u0007air elemental\nri20s20s ZZ\u0017uncursed spellbook of protection\nrjs 20s ZZ\u0017tin whistle\n\u0007cave spider\nak ak  \u0017potion of sleeping\n\u0007Juiblex\nnn ql   #dip\nd.  yy\u001bny y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 92087,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          \u0017wand of lightning\n\u0007baby long worm\nzgk  \u00173 scroll of stinking cloud\nrh\u0017spellbook of detect treasure\n\u0007air elemental\nri20s20s ZZ\u0017uncursed spellbook of protection\nrjs 20s ZZ\u0017tin whistle\n\u0007cave spider\nak ak  \u0017potion of sleeping\n\u0007Juiblex\nnn ql   #dip\nd.  yy\u001bny y y\u001b  s"
+  }
+ ]
+}

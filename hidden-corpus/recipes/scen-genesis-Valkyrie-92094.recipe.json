@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017the Eyes of the Overworld\n \u0007floating eye\nFlFls\u0007Oracle\nyFb Fb FlFb "
+ },
+ "segments": [
+  {
+   "seed": 92094,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017the Eyes of the Overworld\n \u0007floating eye\nFlFls\u0007Oracle\nyFb Fb FlFb "
+  }
+ ]
+}

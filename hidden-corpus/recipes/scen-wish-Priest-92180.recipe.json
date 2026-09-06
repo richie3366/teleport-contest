@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017uncursed +0 elven mithril-coat\nW\u001b20s.sTc.20s  \u00173 scroll of create monster\nrk giant spider\nFk Fl \u0017uncursed potion of oil\nql  n\u0017blessed dwarvish mattock\nwmFkFkFk  yy\u001by  y y y\u001by  X"
+ },
+ "segments": [
+  {
+   "seed": 92180,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017uncursed +0 elven mithril-coat\nW\u001b20s.sTc.20s  \u00173 scroll of create monster\nrk giant spider\nFk Fl \u0017uncursed potion of oil\nql  n\u0017blessed dwarvish mattock\nwmFkFkFk  yy\u001by  y y y\u001by  X"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                              \u0017blessed ring of polymorph control\nPjl#polyself\ndisenchanter\n#monster\nsss..#polyself\njackal\n  #monster\n.s.20ss#polyself\nsoldier ant\n #monster\nss\u0007quasit\nFnFnFls20s20s\u0017potion of polymorph\nqk gnome lord\n#dip\nhd"
+ },
+ "segments": [
+  {
+   "seed": 92021,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                              \u0017blessed ring of polymorph control\nPjl#polyself\ndisenchanter\n#monster\nsss..#polyself\njackal\n  #monster\n.s.20ss#polyself\nsoldier ant\n #monster\nss\u0007quasit\nFnFnFls20s20s\u0017potion of polymorph\nqk gnome lord\n#dip\nhd"
+  }
+ ]
+}

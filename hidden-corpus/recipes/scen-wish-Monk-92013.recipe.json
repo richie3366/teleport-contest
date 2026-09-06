@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed scroll of magic mapping\nrjss\u00173 amulet of unchanging\n\u0007lich\nPksh sm. .m. 20s \u0017uncursed potion of fruit juice\nql \u001b Fh Fh    yy\u001by   y y\u001b y  s"
+ },
+ "segments": [
+  {
+   "seed": 92013,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed scroll of magic mapping\nrjss\u00173 amulet of unchanging\n\u0007lich\nPksh sm. .m. 20s \u0017uncursed potion of fruit juice\nql \u001b Fh Fh    yy\u001by   y y\u001b y  s"
+  }
+ ]
+}

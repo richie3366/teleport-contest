@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017Trollsbane\nwg20sss\u0007soldier\nFbFb\u0007orc shaman\nFu Fb   n\u0007pony\n20s 20s  yny   y y\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 92073,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017Trollsbane\nwg20sss\u0007soldier\nFbFb\u0007orc shaman\nFu Fb   n\u0007pony\n20s 20s  yny   y y\u001bn  s"
+  }
+ ]
+}

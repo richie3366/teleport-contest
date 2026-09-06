@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0007killer bee\nFbFu 20s20s20ss\u0007horned devil\nsm.sssss20s \u0007mind flayer\n;b. \u001b.sysm.    .j"
+ },
+ "segments": [
+  {
+   "seed": 92062,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0007killer bee\nFbFu 20s20s20ss\u0007horned devil\nsm.sssss20s \u0007mind flayer\n;b. \u001b.sysm.    .j"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          \u0017the Heart of Ahriman\n waFbFb .#invoke\nj X\u0007piranha\ns.s\u0007centipede\nFhFhFhFh20s\u0007rabid rat\n;l, \u001b@.sm.sm.  n20s\u0007little dog\nFlFh "
+ },
+ "segments": [
+  {
+   "seed": 91110,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          \u0017the Heart of Ahriman\n waFbFb .#invoke\nj X\u0007piranha\ns.s\u0007centipede\nFhFhFhFh20s\u0007rabid rat\n;l, \u001b@.sm.sm.  n20s\u0007little dog\nFlFh "
+  }
+ ]
+}

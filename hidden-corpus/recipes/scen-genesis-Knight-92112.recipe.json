@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017dunce cap\nW\u001bs.20sTf\u0007baby red dragon\nFbFb\u0007mail daemon\n;b; \u001b:   sm.20s.m."
+ },
+ "segments": [
+  {
+   "seed": 92112,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017dunce cap\nW\u001bs.20sTf\u0007baby red dragon\nFbFb\u0007mail daemon\n;b; \u001b:   sm.20s.m."
+  }
+ ]
+}

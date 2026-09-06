@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0007yeti\nFnFj Fj     yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 92101,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007yeti\nFnFj Fj     yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

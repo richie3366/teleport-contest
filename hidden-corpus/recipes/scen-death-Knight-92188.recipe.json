@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of fire\nzi.  nsm..m. sm."
+ },
+ "segments": [
+  {
+   "seed": 92188,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of fire\nzi.  nsm..m. sm."
+  }
+ ]
+}

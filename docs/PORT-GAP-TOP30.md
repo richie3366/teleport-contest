@@ -1,13 +1,14 @@
 # Top 30 port gaps by hidden-score risk
 
-**What this is.** The 30 pinned-C functions most likely to cost points on
+**What this is.** The pinned-C functions most likely to cost points on
 sessions we cannot see: functions an ordinary game reaches often, that
-draw RNG or print, and whose `js/` port is missing or thin. The local
-public suite is **42/44** until
-`docs/2026-09-04-fortress-regression-42-44.md` Must-fix ships (then
-44/44 again). Nothing here is a FAIL peel — Open waits until
-Must-fix is empty. These are the paths a *different* seed, role or
-play style would walk into.
+draw RNG or print, and whose `js/` port is missing or thin. The public
+suite is 44/44. **Since 2026-09-06 this table is the second source**:
+the scenario corpus (`docs/HIDDEN-PROXY.md` §4–5, `node
+scripts/hidden-proxy.mjs queue`) measures which of these a held-out-style
+session actually hits, and `LOOP-QUEUE.md` Open is built from that. Use
+this file to pick *which arm* of a reached function to port, and to refill
+when the corpus queue is exhausted.
 
 **Reproduce:** `node scripts/port-coverage.mjs --limit 40` (add `--md`
 for a table, `--name <fn>` to explain one function). The script indexes
@@ -120,25 +121,40 @@ were single-arm cleanups, not hidden-score risk:
   descends, never fights, or dies on turn 12. It is a prior, not a
   measurement.
 
-## Measured, one day later (2026-09-04, D-1817)
+## Measured again (2026-09-06, after the scenario cohort)
 
-This table was a static prior. Two things happened next:
+`node scripts/port-coverage.mjs --limit 45 --md` re-run at D-1987 ranks
+(score in parentheses): `polymon` (324, THIN 123/336 L) ·
+`vision_recalc` (214) · `makelevel` (206, THIN 39/177 — split across
+helpers, false positive) · `polyself` (202, THIN 105/262) · `nh_timeout`
+(172, PARTIAL 255/360) · `newcham` (144) · `done` (136) · `getdir` (104) ·
+`drown` (103) · `moveloop_core` (101) · `really_done` (98) · `dogaze`
+(96, MISSING) · `rehumanize` (91) · `init_dungeons` (85) · `mon_arrive`
+(83, MISSING) · `adjattrib` (83) · `test_move` (83, MISSING) · `getobj`
+(81) · `dump_everything` (74) · `getlev` (73) · `dospinweb` (73) ·
+`dohide` (72) · `checkfile` (71) · `artifact_hit` (69) · `bot` (69) ·
+`xkilled` (68) · `look_at_monster` (68) · `mstatusline` (67) ·
+`domove_core` (66) · `do_screen_description` (65).
 
-- **The loop shipped 12 of its rows in 27 iterations** (D-1806–D-1817:
-  `domonnoise`, `use_defensive`, `use_offensive`, `use_misc`,
-  `really_done`, `untrap`, `drown`, `getdir`, `mattacku`, `nh_timeout`,
-  `lava_effects`…). The public fortress dipped to 42/44 once
-  (`mattacku` after `done()`, `#wizintrinsic` deafness) and recovered.
-- **`docs/HIDDEN-PROXY.md` measured instead of estimated.** On 278
-  C-recorded sessions the first divergences are owned by functions this
-  table did not rank at all: `wintty.c` `process_menu_window` (21
-  sessions), `iactions.c` `itemactions` (14), `invent.c` `getobj` (7),
-  `pickup.c` `describe_decor` (5), and — with by far the most RNG lost —
-  the level-content cliff `sp_lev.c` `build_room` /
-  `selvar.c` `selection_filter_percent` that `PORT-GAP-HELDOUT.md`
-  predicted. Rows here that *are* reached (`x_monnam`, `getpos`,
-  `lookat`, `xkilled`) show up in the corpus with small counts.
+What the 275 scenario sessions (`scen-*`) actually hit, ranked by
+sessions blocked — this is the order that matters:
 
-Use this file for **depth in a function the corpus reaches**; use the
-corpus queue (`node scripts/hidden-proxy.mjs queue`) and
-`PORT-GAP-HELDOUT.md` for **what a hidden session hits first**.
+| owner (C) | blocks | in this table? | note |
+|---|--:|---|---|
+| `calendar.c getlt` (via `welcome`) | 51 | no | EDT→EST shift for winter civil stamps; one function |
+| `js/` `ReferenceError` ×4 | 8 | no | `is_pit`, `FORCEBUNGLE`, `otense`, `STARVED` — Must-fix |
+| `botl.c do_statusline2` | 11 | `bot` #25 | condition list (`Strngl`, `Slime`, `Stone`, …) |
+| `polyself.c break_armor` + `drop_weapon` | 13 | `polymon` #1 callees | polyself family confirmed as the top gap |
+| `attrib.c exercise` | 8 | `adjattrib` #16 sibling | `rn2(19)` gate after dressing / fighting |
+| `insight.c enlightenment` family | 15 | `mstatusline` #28 sibling | `^X` page + death disclosure |
+| `wizcmds.c wiz_intrinsic` | 7 | no | message order vs `Timeout … set to` |
+| `monmove.c set_apparxy`, `steed.c doride`, `mkobj.c next_ident`/`makemon`, `lock.c pick_lock`, `read.c create_particular_creation`, `uhitm.c mhitm_mgc_atk_negated` | 5–6 each | partly (`mattackm`, `newcham`) | |
+| `mkroom.c somex` + `themerms.lua` | 9 | no | a themed room the port skips at Dlvl 1 — geometry owner, `geom-probe` first |
+| `polymon` / `polyself` / `dogaze` / `dospinweb` / `dohide` | (behind the rows above) | #1, #4, #12, #21, #22 | the `scen-poly` family (26 sessions, 0 PASS) reaches them once `break_armor` is fixed |
+
+Rows this table ranks that the corpus does **not** reach yet (`getlev`,
+`dump_everything`, `mon_arrive`, `init_dungeons`) stay here until a
+corpus family exercises them (save/restore prefixes, level change with
+followers, bones). Refill order: corpus queue → this table's rows the
+corpus reaches → map omissions only when every family is ≥ 90 % PASS
+(Constitution §10.13).

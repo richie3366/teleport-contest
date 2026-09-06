@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u001620\n#invoke\n\u001bJ#pray\ny y   20s.k \u0016?\ns f bny kzJ ;l. \u001b;.ys\u0016?\n>w dcwby\u0014<.\u0006.s"
+ },
+ "segments": [
+  {
+   "seed": 92030,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u001620\n#invoke\n\u001bJ#pray\ny y   20s.k \u0016?\ns f bny kzJ ;l. \u001b;.ys\u0016?\n>w dcwby\u0014<.\u0006.s"
+  }
+ ]
+}

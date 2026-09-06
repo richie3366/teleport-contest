@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017uncursed spellbook of cure blindness\n\u0007werejackal\nrg .y20s  ZFl.\u0017speed boots\nWhs20ssTh\u0017blessed dagger\nwis20s20sX\u0017cursed Mjollnir\nwj Fl. 20s#invoke\nj \u0017potion of sleeping\n\u0007gnomish wizard\nqk                    sm.s"
+ },
+ "segments": [
+  {
+   "seed": 92184,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017uncursed spellbook of cure blindness\n\u0007werejackal\nrg .y20s  ZFl.\u0017speed boots\nWhs20ssTh\u0017blessed dagger\nwis20s20sX\u0017cursed Mjollnir\nwj Fl. 20s#invoke\nj \u0017potion of sleeping\n\u0007gnomish wizard\nqk                    sm.s"
+  }
+ ]
+}

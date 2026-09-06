@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             #wizintrinsic\nfd\n .m.sy.m..20s 20ssb.m.20s sm. \u0017potion of hallucination\nq\u001b#dip\nid  ,#monster\n:h q\u001b#turn\n .m.20ssm.20s  nsm..m."
+ },
+ "segments": [
+  {
+   "seed": 92096,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             #wizintrinsic\nfd\n .m.sy.m..20s 20ssb.m.20s sm. \u0017potion of hallucination\nq\u001b#dip\nid  ,#monster\n:h q\u001b#turn\n .m.20ssm.20s  nsm..m."
+  }
+ ]
+}

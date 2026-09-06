@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017cursed -1 ring of hunger\nPgrs.20ss.\u0017blessed potion of sickness\n\u0007gas spore\nqh  Fj  s\u0017blessed wand of sleep\nzik ziy  FjFj\u0017blessed egg\n\u0007prisoner\nej.20ssFb  \u001bm.\u0017uncursed wand of teleportation\nzkb\u0017blessed spellbook of cone of cold\nrls20sZFlFlss"
+ },
+ "segments": [
+  {
+   "seed": 92210,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017cursed -1 ring of hunger\nPgrs.20ss.\u0017blessed potion of sickness\n\u0007gas spore\nqh  Fj  s\u0017blessed wand of sleep\nzik ziy  FjFj\u0017blessed egg\n\u0007prisoner\nej.20ssFb  \u001bm.\u0017uncursed wand of teleportation\nzkb\u0017blessed spellbook of cone of cold\nrls20sZFlFlss"
+  }
+ ]
+}

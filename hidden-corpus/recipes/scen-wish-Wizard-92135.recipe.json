@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0017amulet versus poison\nPp.20s 20s20s FlFh\u0017spellbook of turn undead\nrqy s20sZb\nZb\n\u00173 scroll of light\n \u0007yellow light\nri \u0017blessed spellbook of magic mapping\nrr  s20sZb\n n Za\ns."
+ },
+ "segments": [
+  {
+   "seed": 92135,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0017amulet versus poison\nPp.20s 20s20s FlFh\u0017spellbook of turn undead\nrqy s20sZb\nZb\n\u00173 scroll of light\n \u0007yellow light\nri \u0017blessed spellbook of magic mapping\nrr  s20sZb\n n Za\ns."
+  }
+ ]
+}

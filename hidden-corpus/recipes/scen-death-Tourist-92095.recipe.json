@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nc\n sm..ksm.s20ssm.sls20ssks20s    n  sss20s   s.20s   ss.ss20s..ssss..20s20s s..ss20s20s  sm. ss"
+ },
+ "segments": [
+  {
+   "seed": 92095,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n sm..ksm.s20ssm.sls20ssks20s    n  sss20s   s.20s   ss.ss20s..ssss..20s20s s..ss20s20s  sm. ss"
+  }
+ ]
+}

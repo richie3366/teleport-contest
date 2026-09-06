@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of polymorph control\nPfl#polyself\nvampire\n#monster\nns20ss.s#polyself\nlong worm\n #monster\n.s20s      .20s"
+ },
+ "segments": [
+  {
+   "seed": 91133,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of polymorph control\nPfl#polyself\nvampire\n#monster\nns20ss.s#polyself\nlong worm\n #monster\n.s20s      .20s"
+  }
+ ]
+}

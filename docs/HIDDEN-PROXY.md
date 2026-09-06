@@ -1,6 +1,6 @@
 # The hidden-score proxy — how the loop measures what it cannot see
 
-**Status:** adopted 2026-09-04. Companion to `PORT-GAP-HELDOUT.md` (what
+**Status:** adopted 2026-09-04; scenario cohort + saturation rule 2026-09-06. Companion to `PORT-GAP-HELDOUT.md` (what
 content is missing) and `PORT-GAP-TOP30.md` (which functions are thin).
 This file is about **evidence**: where a hidden session's divergence
 comes from, how to find it locally, and how to prove a port moved it.
@@ -55,7 +55,8 @@ cell plus the mineralize-eligible diff (D-1849).
 | verify | `node scripts/verify.mjs --fn <cfn>` (runs `hidden-proxy verify <cfn>`) | hand probes with expectations the agent derived by *reading* C — the expectation is now recorded from C |
 | handoff | `node scripts/finish-iteration.mjs --commit` | index row, journal crumb, CURRENT recent block and ranges, NOTES landmark, review stamp, hash backfill, archive, caps, commit message, push — all from the one hand-written D-log entry |
 | audit | `node scripts/hidden-proxy.mjs score` | nothing existed; CURRENT now carries the proxy pass rate next to the public score |
-| refill | `node scripts/hidden-proxy.mjs queue` → then `PORT-GAP-HELDOUT.md` Tier A/B → then `PORT-GAP-TOP30.md` | map-walk order |
+| refill | `node scripts/hidden-proxy.mjs queue` → then `PORT-GAP-TOP30.md` rows the corpus reaches → map omits only at ≥ 90 % corpus PASS | map-walk order |
+| grow | `node scripts/scenario-gen.mjs --n 120 --seed N` when every family is ≥ 85 % PASS (audit iters) | a saturated proxy that picked display singletons |
 
 `verify <fn>` semantics: every session blocked on `<fn>` must **PASS** or
 **move to a later owner** (step strictly later, or a different owner at
@@ -76,53 +77,81 @@ before calling it progress. Reviews re-measure with `--base HASH~1`.
 edited four more times without those sessions ever being re-run, and 12
 of them shipped regressed behind "no corpus session is blocked".)
 
-## 4. The corpus (2026-09-04, at D-1817)
+## 4. The corpus (2026-09-06, scoreboard after the scenario cohort)
 
-278 sessions: 240 tail-mutants and fresh-role games (`explore-*`,
-`random-*`, `ind-*`), 26 debug-mode `^V` descents (`tour-*`), 12
-hand-curated `private-sessions`. Score at HEAD:
+553 sessions: 278 of the first generation (240 tail-mutants and fresh-role
+games `explore-*` / `random-*` / `ind-*`, 26 debug-mode `^V` descents
+`tour-*`, 12 hand-curated `private-sessions`) plus **275 `scen-*`
+scenario sessions** (§5). Score at HEAD:
 
-| | PASS | RNG matched | screens matched |
-|---|---:|---:|---:|
-| all 278 | 157 (56.5 %) | 98.28 % | 96.5 % |
-| excluding 13 env-only | **157 / 265 (59.2 %)** | | |
+| family | n | PASS | RNG | screens | what it measures |
+|---|--:|--:|--:|--:|---|
+| `explore-*` / `random-*` / `ind-*` / `tour-*` / private | 278 | 255 (91.7 %) | 99.6 % | 99.7 % | ordinary play near the public distribution — **saturated**, no longer picks work |
+| `scen-wish` | 72 | 3 | 84.2 % | 58.4 % | wish for an object, use it by class (zap/quaff/read/wear/wield/apply/eat/throw) |
+| `scen-genesis` | 45 | 0 | 82.0 % | 57.0 % | `^G` a monster, then fight / `#chat` / farlook / wait |
+| `scen-poly` | 26 | 0 | 67.1 % | 54.4 % | ring of polymorph control + `#polyself` into named forms, `#monster` |
+| `scen-intrinsic` | 23 | 1 | 82.8 % | 58.6 % | `#wizintrinsic` timeouts (stoning, sliming, sickness, strangling, …) |
+| `scen-death` | 20 | 1 | 77.3 % | 34.8 % | die (monster, intrinsic, self-zap, quit) and answer disclosure |
+| `scen-tour` | 29 | 0 | 66.9 % | 57.7 % | `^V ?` teleports **by level name** (oracle, bigrm, castle, quest, Vlad, planes) |
+| `scen-kit` / `scen-normal` | 60 | 2 | 91 % | 68 % | normal mode: exercise the role kit, travel, engrave, pray, kick, `#terrain`, … |
+| **all** (excl. 13 env-only) | 540 | **262 (48.5 %)** | 95.3 % | 88.3 % | |
 
-Top blocking owners (sessions blocked / RNG calls lost after the diff):
+The scenario families reproduce the **held-out shape**: the live
+leaderboard (2026-09-06) scores this fork **7/44 held-out, RNG 22.8 %,
+screens 45.4 %** while the old corpus said 96 %. Top blocking owners
+after the cohort landed (sessions blocked / RNG lost):
 
 | owner | blocks | RNG lost | C vs JS at the first diff |
 |---|--:|--:|---|
-| `wintty.c` `process_menu_window` | 21 | 0 | the tty menu window clears only from its own left column, so the left of the status line stays under an item-action menu; the port blanks the row |
-| `iactions.c` `itemactions` | 14 | 0 | menu text: "Engrave on the floor with this item" vs "Write…", "stack of fortune cookies" vs "…cookie" |
-| `invent.c` `getobj` | 7 | 0 | "You don't have anything else to wear." vs re-prompting |
-| `pickup.c` `describe_decor` | 5 | 0 | "There is a pit here." before the object list |
-| `sp_lev.c` `build_room` + `selvar.c` `selection_filter_percent` + `nhlib.lua percent` | 4 + 2 + 2 | **53,345 + 19,383** | **the level-content cliff** — C runs the special-level / themed-room script, the port falls back to `rnd_rect`; two of these are Dlvl 1 at step 0 |
-| `pickup.c` `doloot_core` | 4 | 805 | "You don't find anything here to loot." vs "You see no door there." |
-| `pager.c` `lookat` / `getpos.c` `getpos` | 3 + 2 | 395 | "unexplored area"; `Can't find dungeon feature '/'` |
-| `hack.c` `pickup_checks` | 3 | 0 | "The stairs are solidly affixed." |
-| `insight.c` `attributes_enlightenment` | 3 | 0 | quest telepathic message names the leader; port prints ":" |
-| `mhitu.c` `summonmu` | 2 | 3,558 | were-creature summoning draws |
+| `allmain.c` `welcome` → `calendar.c getlt` | 51 | 37,659 | new-moon date `20000206`: C prints `Be careful!  New moon tonight.`; JS `getlt()` skips the EDT→EST shift the patch's `mktime` applies |
+| 4 `ReferenceError` throws (`is_pit`, `FORCEBUNGLE`, `otense`, `STARVED`) | 8 | 104,018 | the JS process dies at its first step — every screen of the session is lost |
+| `botl.c` `do_statusline2` | 11 | 12,236 | `Strngl` / `Slime` / `Stone` conditions missing from row 23 |
+| `polyself.c` `break_armor` + `drop_weapon` | 13 | 18,896 | armor-break / weapon-drop messages and RNG on polymorph |
+| `attrib.c` `exercise` | 8 | 3,294 | `rn2(19)` exercise gate after dressing / fighting |
+| `insight.c` `enlightenment` family | 15 | 22,000 | `^X` attributes page and death disclosure rows |
+| `wizcmds.c` `wiz_intrinsic` | 7 | 3,551 | effect message before the `Timeout … set to 30` line |
+| `monmove.c` `set_apparxy`, `steed.c` `doride`, `mkobj.c` `next_ident`, `lock.c` `pick_lock`, `read.c` `create_particular_creation`, `uhitm.c` `mhitm_mgc_atk_negated` | 5–6 each | | see `LOOP-QUEUE.md` |
+| `mkroom.c` `somex` + `themerms.lua` fills | 4 + 5 | 88,000 | a themed room C fills at Dlvl 1 that the port skips (step 0) |
 
-The ordinary-play rows are what a held-out session hits *between*
-levels; the `build_room` / `selection_filter_percent` rows are the
-content cliff `PORT-GAP-HELDOUT.md` describes, now with a recorded
-expectation per level. Tours pass 3/26.
-
-## 5. Growing the corpus
+## 5. Growing the corpus — and keeping it unsaturated
 
 ```bash
-node scripts/hidden-proxy.mjs gen --n 240            # more tail-mutants / fresh roles
+node scripts/scenario-gen.mjs --n 120 --seed 93000 [--jobs 6] [--family wish|genesis|poly|intrinsic|death|kit|tour|normal]
+                                                     # scenario sessions authored on the C recorder (≈0.3 s each)
+node scripts/scenario-gen.mjs --probe --family poly --seed 5   # print every screen of one authored session
+node scripts/hidden-proxy.mjs gen --n 240            # more tail-mutants / fresh roles (saturated family)
 node scripts/hidden-proxy.mjs gen --mode tour --n 26 # more ^V descents (new seeds)
 node scripts/hidden-proxy.mjs record                 # rebuild .cache sessions from recipes
-node scripts/hidden-proxy.mjs score --jobs 8
+node scripts/hidden-proxy.mjs score --jobs 8         # ≈200 s for 553 sessions
 ```
 
-Only recipes and `scoreboard.json` are committed; sessions are
-rebuilt from the recipes by the deterministic recorder. Cost is
-compute, not tokens. Next corpus families worth adding, in order of
-held-out value: named-level teleports (`^V` then `?` menu — the idiom
-seed0360/seed0367 use to reach quest and branch levels), Sokoban and
-Mines entries, and long searches (`20s` × n) so hunger and timeouts
-fire.
+`scenario-gen.mjs` is a **policy, not a spec**: it plays the recorder key
+by key (the same marker protocol as `record-session.mjs`), reads the
+screen after each key, and composes acts the way the contest's own
+session author did — wish and use, genesis and fight, polyself,
+`#wizintrinsic`, level teleports chosen from the `^V ?` menu by name,
+role kits in normal mode, deaths with disclosure. C decides what happens;
+only the resulting key string is kept, and the session is re-recorded from
+that recipe so it is byte-identical to a `hidden-proxy record` rebuild.
+Recipes carry `fuzz.mode = "scenario"` and `fuzz.family`. The driver never
+reads `js/`.
+
+**Saturation rule (Constitution §10.13).** A corpus family that passes
+≥ 90 % has stopped discriminating. When `hidden-proxy status` shows every
+family ≥ 85 % PASS, the audit iteration generates a fresh scenario cohort
+(`--n 120 --seed <iteration × 100>`), records, scores and commits the
+recipes **before** refilling the queue from map omissions. The public 44
+were saturated on 2026-09-04 and the mutant corpus on 2026-09-06; each
+time, the loop spent its iterations on display singletons that moved
+nothing the judge can see. Held-out is measured only by the leaderboard;
+the corpus is the local stand-in and must keep failing somewhere.
+
+Only recipes and `scoreboard.json` are committed; sessions are rebuilt
+from the recipes by the deterministic recorder. Cost is compute, not
+tokens. Next families worth adding: shop / temple / vault interactions
+(`^V` to `minetn`, buy/sell/steal), Sokoban pushes, riding, engulfment
+and digging, save/restore prefixes on scenario games
+(`scripts/save-oracle.mjs`), and long searches so hunger and timeouts fire.
 
 ## 6. Why not a state-dump patch or a fntrace build (yet)
 
@@ -139,8 +168,9 @@ that surface after the session ends, which the score does not see.
 ## 7. Caveats
 
 - The corpus is a prior, not the held-out set. Tail-mutants sit near
-  the public distribution; tours reach depth but not branches or quests
-  yet. Both under-sample long games.
+  the public distribution and are saturated; scenario sessions share the
+  held-out genre (wizard-mode wishes, genesis, named-level tours, deaths)
+  but are ≤ 320 keys long, so they under-sample long games and shops.
 - `env:config-path` rows are unmatchable locally by construction and
   are not bugs.
 - Attribution by literal is heuristic: when a row's owner looks wrong,

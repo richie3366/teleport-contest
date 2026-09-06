@@ -36,31 +36,21 @@ Score last measured: **2026-09-06** — full `sessions` at **D-1979**
 | Speed label | `61+0.62/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
-**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06 at
-D-1970 audit 932–940): **255 / 265 PASS (96.2 %)** excl. 13 env-only rows;
-RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
-`dopush` (parked)/`mdrop_obj` (parked)/`show_conduct` (parked) ×1
-(+ unattributed `!` ×2, `-` ×1, motd, level-change;
-`suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
-Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1987):
-8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1987): 7 ACCEPT, 1 QUALITY-RISK
-(`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1987): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
-hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1987): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1987):
-7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
-case debt, review-listed), 0 Must-fix. Reviews 896–904:
-8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews
-**905–913** (D-1935…D-1987): 9 ACCEPT, 0 Must-fix. Reviews
-**914–922** (D-1944…D-1987): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
-(doclassdisco sort-letter selector debt, review-listed), 0 Must-fix. Reviews
-**923–931** (D-1953…D-1987): 9 ACCEPT, 0 Must-fix. Reviews
-**932–940** (D-1962…D-1987): 9 ACCEPT, 0 Must-fix. Reviews
-**941–949** (D-1971…D-1987): 8 ACCEPT, 1 ACCEPT-WITH-DEBT (941 travel-Underwater debt), 0 Must-fix.
-Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
+**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
+after the **scenario cohort** landed): **262 / 540 PASS (48.5 %)** excl.
+13 env-only rows; RNG 95.3 %; screens 88.3 %. The 275 new `scen-*`
+sessions (wish/genesis/poly/intrinsic/death/kit/tour/normal, authored on
+the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
+76.6 %, screens 58.3 % — the same shape as the live held-out score
+(**7 / 44**, RNG 22.8 %, screens 45.4 % on the public leaderboard,
+2026-09-06). The old mutant families sit at 255/278 and are saturated:
+they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
+`do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
+×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
+Reviews 941–949: 8 ACCEPT, 1 ACCEPT-WITH-DEBT.
+Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
+(≈200 s); when every family is ≥ 85 % PASS, grow it first:
+`node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
@@ -90,15 +80,16 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 ## Primary objective
 
-**Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
-before fire getobj (D-0484 skip reverted).
-Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `display.c`/`getpos.c` map_frame_color store — gw.wsettings.map_frame_color + getpos HiliteBackground wiring (named in D-1973; no JS symbol anywhere in js/).
-**Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
+**Suite 44/44** is the regression fortress. **The objective is the
+scenario corpus** (`hidden-proxy status`): 262/540 PASS, scen-* 7/275.
+Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
+sessions) then Open in order; every row is a recorded C-vs-JS first
+divergence with its probe. Do **not** pop map-omission singletons
+(`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
+**Next cluster:** `js/` missing imports Must-fix (`is_pit`, `FORCEBUNGLE`,
+`otense`, `STARVED`), then `calendar.c getlt` DST (51 sessions).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1987 (index).** Recent **D-1820:** `makemaz` `soko2-2`
-from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
-Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
+**Keep D-0845…D-1987 (index).**
 <!-- recent:begin -->
 **D-1987** `nethack-c/upstream/src/getpos.c` — `js/getpos.js` — new `HiliteBackground = 2` + `defaultHiliteState` module state (C `:30–38`); `getpos_sethilite` in exact C order (old store read, default recompute from live `game.iflags?.bgcolors`, conditional reset, c
 **D-1986** `nethack-c/upstream/src/display.c` — `js/display.js` — grid paint is span-gated per C (`gnew ||` live framecolor arm via `get_bkglyph_and_framecolor`; `gnew` cleared only when painted, `:2255`; unexplored-with-gnew paints blank, D-0931 precedent); no blanke

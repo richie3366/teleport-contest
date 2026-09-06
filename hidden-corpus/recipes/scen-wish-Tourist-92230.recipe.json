@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0017scroll of food detection\nrj  \u001b,\u0017blessed scroll of genocide\nrk  gold golem\n rust monster\n\u0017cursed wraith corpse\n\u0007elf-lord\nel sm. sn\u0017cursed tooled horn\namy amy  ss"
+ },
+ "segments": [
+  {
+   "seed": 92230,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017scroll of food detection\nrj  \u001b,\u0017blessed scroll of genocide\nrk  gold golem\n rust monster\n\u0017cursed wraith corpse\n\u0007elf-lord\nel sm. sn\u0017cursed tooled horn\namy amy  ss"
+  }
+ ]
+}

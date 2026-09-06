@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  \u0017lock pick\nafl\u00173 floating eye corpse\n\u0007ogre king\neg .m.   yy\u001bny y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 92102,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017lock pick\nafl\u00173 floating eye corpse\n\u0007ogre king\neg .m.   yy\u001bny y\u001by  2"
+  }
+ ]
+}

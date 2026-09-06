@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0017cloak of protection\nW\u001bs20s20s\u0007mumak\nFuFuFu  yy\u001by   y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 92082,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0017cloak of protection\nW\u001bs20s20s\u0007mumak\nFuFuFu  yy\u001by   y y\u001by  F"
+  }
+ ]
+}

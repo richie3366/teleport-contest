@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017blessed ring of polymorph control\nPjl\u0017oilskin cloak\nW\u001b20s.s#polyself\npit fiend\n. s...#polyself\nincubus\n#monster\nss\u0007watchman\nFn Fl  Flsm.s.m. #polyself\nquasit\n #monster\nslsm.\u0007doppelganger\nFl Fl      Fj   20s   sb    sk#polyself\nki-rin\n balrog\n#monster\n.m.     .u20s    sm.     sl    \u0017wand of polymor"
+ },
+ "segments": [
+  {
+   "seed": 92097,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0017blessed ring of polymorph control\nPjl\u0017oilskin cloak\nW\u001b20s.s#polyself\npit fiend\n. s...#polyself\nincubus\n#monster\nss\u0007watchman\nFn Fl  Flsm.s.m. #polyself\nquasit\n #monster\nslsm.\u0007doppelganger\nFl Fl      Fj   20s   sb    sk#polyself\nki-rin\n balrog\n#monster\n.m.     .u20s    sm.     sl    \u0017wand of polymor"
+  }
+ ]
+}

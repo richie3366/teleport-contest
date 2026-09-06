@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017crossbow\nwjs20s.\u0007giant rat\nFh .s.20ss\u0007kitten\nFlFls\u0007newt\nFk20s20s"
+ },
+ "segments": [
+  {
+   "seed": 91115,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017crossbow\nwjs20s.\u0007giant rat\nFh .s.20ss\u0007kitten\nFlFls\u0007newt\nFk20s20s"
+  }
+ ]
+}

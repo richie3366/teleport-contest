@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017crystal plate mail\n W\u001bsssTc\u0007ghost\nFk 20s.m.20s  .m.20s\u0007djinni\nFuFu\u0007flesh golem\n;u. \u001b>..m.20s sm."
+ },
+ "segments": [
+  {
+   "seed": 92099,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017crystal plate mail\n W\u001bsssTc\u0007ghost\nFk 20s.m.20s  .m.20s\u0007djinni\nFuFu\u0007flesh golem\n;u. \u001b>..m.20s sm."
+  }
+ ]
+}

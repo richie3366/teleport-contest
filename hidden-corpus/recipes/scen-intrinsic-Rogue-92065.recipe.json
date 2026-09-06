@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\narg\n  sss.ss20ss20s s\u0017potion of fruit juice\nqg \u001bcj#conduct\n #wipe\n:P20s20sss20ss."
+ },
+ "segments": [
+  {
+   "seed": 92065,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\narg\n  sss.ss20ss20s s\u0017potion of fruit juice\nqg \u001bcj#conduct\n #wipe\n:P20s20sss20ss."
+  }
+ ]
+}

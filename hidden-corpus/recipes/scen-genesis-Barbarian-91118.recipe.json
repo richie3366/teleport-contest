@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  \u0017the Candelabrum of Invocation\nwaFbFbFh#invoke\ne\u0007dwarf\n#chat\nj FjFh \u0007Pestilence\nnFbFb    n  nFb    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 91118,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017the Candelabrum of Invocation\nwaFbFbFh#invoke\ne\u0007dwarf\n#chat\nj FjFh \u0007Pestilence\nnFbFb    n  nFb    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

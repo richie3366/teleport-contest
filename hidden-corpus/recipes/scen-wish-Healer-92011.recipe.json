@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017wand of undead turning\nzk.zkjFhFh\u0017uncursed spellbook of slow monster\nrl ..Za\nZd\n.20s\u00173 spellbook of stone to flesh\nrm y20ssZa\ns."
+ },
+ "segments": [
+  {
+   "seed": 92011,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of undead turning\nzk.zkjFhFh\u0017uncursed spellbook of slow monster\nrl ..Za\nZd\n.20s\u00173 spellbook of stone to flesh\nrm y20ssZa\ns."
+  }
+ ]
+}

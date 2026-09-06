@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017the Sceptre of Might\n wi FyFk .\u0007giant beetle\n.b.ys20ssksss\u0007chickatrice\n#chat\nbFbFj\u0007large mimic\n;j; \u001bm,.m.sk20s \u0007vampire\nFjFl  Fn Fb Fl  Fl "
+ },
+ "segments": [
+  {
+   "seed": 91135,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017the Sceptre of Might\n wi FyFk .\u0007giant beetle\n.b.ys20ssksss\u0007chickatrice\n#chat\nbFbFj\u0007large mimic\n;j; \u001bm,.m.sk20s \u0007vampire\nFjFl  Fn Fb Fl  Fl "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPkl#polyself\nlich\n#monster\n.sy\u0007baby red dragon\nFj Fb  Fb .m.sm..j#polyself\nsandestin\n cave spider\n  #monster\nh  sm. sn20s.m.  yy\u001bny y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 92164,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPkl#polyself\nlich\n#monster\n.sy\u0007baby red dragon\nFj Fb  Fb .m.sm..j#polyself\nsandestin\n cave spider\n  #monster\nh  sm. sn20s.m.  yy\u001bny y y\u001by  2"
+  }
+ ]
+}

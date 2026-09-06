@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0014 \u001b,ag #sit\nzbqdeeki\u001b#untrap\njs#ride\nny\u0018\u001b\u0018\u001b#turn\nwa,\u0014;hZa\nu#turn\n>.i\u001baiy aiy was.srk ee20s.Ws20ssTcWc20sssTb#pray\ny y #enhance\nyb\nq\n\u001b10s_>.20s#enhance\nyc\nb\n\u001b#ride\nyy"
+ },
+ "segments": [
+  {
+   "seed": 92020,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0014 \u001b,ag #sit\nzbqdeeki\u001b#untrap\njs#ride\nny\u0018\u001b\u0018\u001b#turn\nwa,\u0014;hZa\nu#turn\n>.i\u001baiy aiy was.srk ee20s.Ws20ssTcWc20sssTb#pray\ny y #enhance\nyb\nq\n\u001b10s_>.20s#enhance\nyc\nb\n\u001b#ride\nyy"
+  }
+ ]
+}

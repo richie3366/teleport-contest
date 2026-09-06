@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u001641\n   #monster\n#monster\nr\u001b;m, \u001b:   \u0006ss\u0016?\nh#turn\n#chat\nn#chat\njss\u0016?\nm Pi\u001bed  ..\u0016?\ne#name\nm\nt#conduct\n \u000620s s  "
+ },
+ "segments": [
+  {
+   "seed": 92040,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u001641\n   #monster\n#monster\nr\u001b;m, \u001b:   \u0006ss\u0016?\nh#turn\n#chat\nn#chat\njss\u0016?\nm Pi\u001bed  ..\u0016?\ne#name\nm\nt#conduct\n \u000620s s  "
+  }
+ ]
+}

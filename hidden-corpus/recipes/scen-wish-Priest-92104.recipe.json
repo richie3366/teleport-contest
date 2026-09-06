@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 elven leather helm\nWj20s20ssss\u00173 crystal ball\n\u0007pit viper\nak\u0017blessed ring of increase damage\nPll sjs.l Fh  Fy sm.sm."
+ },
+ "segments": [
+  {
+   "seed": 92104,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 elven leather helm\nWj20s20ssss\u00173 crystal ball\n\u0007pit viper\nak\u0017blessed ring of increase damage\nPll sjs.l Fh  Fy sm.sm."
+  }
+ ]
+}

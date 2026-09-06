@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017potion of polymorph\nqh  n#dip\nfd \u0017blessed spellbook of teleport away\n\u0007lich\nri  s.ZZ\u00173 the Sceptre of Might\n  n \u0017oilskin cloak\nWj s20ssT\u0017spellbook of detect treasure\nrks20s  ZZ\u0017cursed -1 trident\n\u0007sandestin\nwlsFb.Xss"
+ },
+ "segments": [
+  {
+   "seed": 92137,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017potion of polymorph\nqh  n#dip\nfd \u0017blessed spellbook of teleport away\n\u0007lich\nri  s.ZZ\u00173 the Sceptre of Might\n  n \u0017oilskin cloak\nWj s20ssT\u0017spellbook of detect treasure\nrks20s  ZZ\u0017cursed -1 trident\n\u0007sandestin\nwlsFb.Xss"
+  }
+ ]
+}

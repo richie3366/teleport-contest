@@ -123,7 +123,8 @@ After every listed SHA already has its file on disk: journal crumb.
 Cadence score (full `sessions`) if this is the audit overlay.
 `node scripts/check-hot-docs.mjs --fix --review NN …` (this iter’s
 review ids; do not count). `ok` = no cap edit. If REFILL, append Open
-to ~12 from named map omits. **Then** one grouped commit **and**
+to ~12 from `node scripts/hidden-proxy.mjs queue --limit 30` (corpus
+owners; map omits only at ≥ 90 % corpus PASS). **Then** one grouped commit **and**
 `git push origin HEAD`.
 
 ## STOP

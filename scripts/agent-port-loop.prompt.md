@@ -39,16 +39,18 @@ the `c-js-map` lines naming it, the D-index rows naming it, the corpus
 sessions blocked on it (C vs JS topline, the C draw vs the JS draw with both
 owners, the replay command), and reviews naming it. Read the C **in that
 output**; re-read the C again only if you change your mind about the locus.
-Do not `grep` for a definition, page `c-js-map/*.md`, or `cat` a whole
-module: `sym.mjs` / `csym.mjs` / `map.mjs` / `brief.mjs` are each one call.
+Do not `grep` for a definition or `cat` a whole module: `sym.mjs` /
+`csym.mjs` / `map.mjs` / `brief.mjs` are each one call.
 `imports.mjs --can A.js B.js Name` before any new cross-module import — a
 cycle alone is not a blocker (`js/` is one 82-module SCC); a top-level TDZ
 read is. If the row cites `Source: reviews/…`, read that review’s
 Actionable/Disposition before coding.
 
-A row that names a **corpus session** (`hidden-corpus/`, `private-sessions/`)
-is a real C-vs-JS divergence with a machine-recorded expectation: the
-deliverable is still the **C function’s** port. A fix that reads a seed, a
+A row that names a **corpus session** (`hidden-corpus/`, `private-sessions/`;
+`scen-*` rows are the held-out genre) is a real C-vs-JS divergence with a
+machine-recorded expectation: the deliverable is still the **C function’s**
+port. `node scripts/hidden-proxy.mjs show <id>` prints its recipe and the
+replay command; `scripts/scenario-gen.mjs --probe` is not needed in-loop. A fix that reads a seed, a
 step index, a coordinate or an RNG index is reverted.
 
 **Geometry owners.** If the row's owner is a level-wide scan or level-gen
@@ -58,8 +60,8 @@ function (`mineralize`, `bound_digging`, `wallification`, `place_lregion`,
 call) before opening a second C function, port the C writer of the
 differing cell, and cite that function. RNG counts are location-blind; a
 JS FORCE/DIAG that restores a count proves nothing (D-1849). By call ~40
-without a C-side measurement, take one or park: move the queue row to
-**Parked**, put the probe in `NOTES.md`, **commit** (no `finish-iteration`).
+without a C-side measurement, take one or park (row → **Parked**, probe in
+`NOTES.md`, **commit**, no `finish-iteration`).
 
 ## One bounded unit
 
@@ -88,8 +90,7 @@ Syntax on changed files · Rule #2 / DIAG / seed-gate scan of the diff ·
 must PASS or move to a **later** owner; NO MOVEMENT or REGRESSION is a
 failed port) · green gate + strict per session · cohort · full `sessions`
 automatically when a shared file changed. Paste its last lines into the
-D-log **Verify** bullet. Hand probes are for arms no corpus session reaches;
-keep them under 30 lines and delete them before finishing.
+D-log **Verify** bullet. Hand probes only for arms no corpus session reaches; delete them before finishing.
 
 On a cohort/full FAIL it also prints every failing session's first
 divergence (step, row, owner, C vs JS row): **triage them all** — group by
@@ -109,19 +110,19 @@ Then:
 
     node scripts/finish-iteration.mjs --commit
 
-It generates the index row, the journal crumb, the `CURRENT.md` recent
-block and ranges, the `NOTES.md` landmark, stamps the cited review, backfills
-missing short hashes, archives the queue row, refills nothing, runs the cap
-check, commits with a message built from your entry, and pushes. Do not
-hand-edit those generated blocks. Update `CURRENT.md` **primary objective**
+It generates the index row, journal crumb, `CURRENT.md` recent block,
+`NOTES.md` landmark, review stamp, hash backfill, queue archive, cap check,
+commit message and push. Do not hand-edit those generated blocks. Update `CURRENT.md` **primary objective**
 and `NOTES.md` **Active** yourself only when the objective or a live
 hypothesis changed. If `check-hot-docs` reports REFILL, append Open rows
-from `node scripts/hidden-proxy.mjs queue` first, then `PORT-GAP-HELDOUT.md`
-Tier A/B, then `PORT-GAP-TOP30.md`, one C family per line, to ~12.
+from `node scripts/hidden-proxy.mjs queue --limit 30` (skip rows already
+live/archived), then `PORT-GAP-TOP30.md` rows the corpus reaches, one C
+family per line, to ~12. Map singletons (`LOOP-QUEUE.md` Deferred) only
+when every corpus family is ≥ 90 % PASS. A `js-throw` owner is Must-fix.
 
 **Public score every 10 iterations** (`n % 10 == 0`) is the audit iter:
-review + `node frozen/ps_test_runner.mjs sessions` + `hidden-proxy score`,
-not a port iter.
+review + `node frozen/ps_test_runner.mjs sessions` + `hidden-proxy score`
+(+ `scenario-gen.mjs` when the corpus is ≥ 85 % PASS), not a port iter.
 
 ## Park (no js/)
 

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017helm of brilliance\nWj20s  ss\u00173 lock pick\nakk\u0017blessed chest\nsFlFk.."
+ },
+ "segments": [
+  {
+   "seed": 92039,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017helm of brilliance\nWj20s  ss\u00173 lock pick\nakk\u0017blessed chest\nsFlFk.."
+  }
+ ]
+}

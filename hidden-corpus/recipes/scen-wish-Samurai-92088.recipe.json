@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017potion of full healing\nqgFuFl\u0017cursed -1 dagger\n\u0007water demon\nwhFl   Fk Fk \u0017blessed scroll of genocide\nrj  quantum mechanic\n\u0017potion of sleeping\nqk    #dip\nai  Fh  Fh  \u0017blessed +3 helm of telepathy\nWl  syssTl  \u0017scroll of amnesia\n\u0007rabid rat\nrm    yny  y balrog\n y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 92088,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0017potion of full healing\nqgFuFl\u0017cursed -1 dagger\n\u0007water demon\nwhFl   Fk Fk \u0017blessed scroll of genocide\nrj  quantum mechanic\n\u0017potion of sleeping\nqk    #dip\nai  Fh  Fh  \u0017blessed +3 helm of telepathy\nWl  syssTl  \u0017scroll of amnesia\n\u0007rabid rat\nrm    yny  y balrog\n y y\u001by  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #conduct\n #enhance\n\u001bcjz<yy\u001by  y y\u001b #"
+ },
+ "segments": [
+  {
+   "seed": 91122,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "  #conduct\n #enhance\n\u001bcjz<yy\u001by  y y\u001b #"
+  }
+ ]
+}

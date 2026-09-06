@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  i\u001bWs.swas20ssedsl.m.wb  FbFjFjs#pray\ny y W#ride\njy#pray\ny y P#tip\n\u001bk"
+ },
+ "segments": [
+  {
+   "seed": 92131,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  i\u001bWs.swas20ssedsl.m.wb  FbFjFjs#pray\ny y W#ride\njy#pray\ny y P#tip\n\u001bk"
+  }
+ ]
+}

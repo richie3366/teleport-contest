@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed fumble boots\n\u0007ki-rin\nWg 20s..\u0017blessed silver dagger\nFlFl \u0017uncursed spellbook of fireball\n,a\n\u0017blessed lance\n\u0007yellow mold\nss"
+ },
+ "segments": [
+  {
+   "seed": 91102,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed fumble boots\n\u0007ki-rin\nWg 20s..\u0017blessed silver dagger\nFlFl \u0017uncursed spellbook of fireball\n,a\n\u0017blessed lance\n\u0007yellow mold\nss"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #ride\nl\u001420sab   \u001b:#pray\ny #force\ni\u001bf#loot\n#ride\n.j\u000f\u001bE- I am a fish\n#jump\n,h#turn\n>#conduct\n #dip\ncqi\u001b#sit\n\u001b#enhance\n\u001b#name\n\u001bi\u001beh20s20swb.s20sXWsl.m..wa  FlFjFjXW.m.su20sW.js20sTe10sK#rub\ntbleg#force\n"
+ },
+ "segments": [
+  {
+   "seed": 92232,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\n",
+   "moves": " #ride\nl\u001420sab   \u001b:#pray\ny #force\ni\u001bf#loot\n#ride\n.j\u000f\u001bE- I am a fish\n#jump\n,h#turn\n>#conduct\n #dip\ncqi\u001b#sit\n\u001b#enhance\n\u001b#name\n\u001bi\u001beh20s20swb.s20sXWsl.m..wa  FlFjFjXW.m.su20sW.js20sTe10sK#rub\ntbleg#force\n"
+  }
+ ]
+}

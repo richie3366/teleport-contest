@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017cursed scroll of taming\nri \u001b\u0017blessed spellbook of magic mapping\nrj..Za\nZa\n\u0017blessed tripe ration\nekss.s\u0017wand of speed monster\nzl..s\u0017blessed slime mold\nems20s.s\u0017uncursed wand of cold\nzo.  nss"
+ },
+ "segments": [
+  {
+   "seed": 92105,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017cursed scroll of taming\nri \u001b\u0017blessed spellbook of magic mapping\nrj..Za\nZa\n\u0017blessed tripe ration\nekss.s\u0017wand of speed monster\nzl..s\u0017blessed slime mold\nems20s.s\u0017uncursed wand of cold\nzo.  nss"
+  }
+ ]
+}

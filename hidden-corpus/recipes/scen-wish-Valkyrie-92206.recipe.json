@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017silver dragon scale mail\n\u0007rabid rat\nWe  sm.sm.sb.Fl\u0017uncursed amulet of change\nPf  20ssm.s20s\u0017uncursed scroll of create monster\n\u0007water elemental\nrg guardian naga\n\u0017cursed magic lamp\nah   #rub\nh  \u0017Ogresmasher\n\u0007mumak\nwiFu   FlFl  #invoke\ni         n   \u00173 scroll of blank paper\nrj       "
+ },
+ "segments": [
+  {
+   "seed": 92206,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017silver dragon scale mail\n\u0007rabid rat\nWe  sm.sm.sb.Fl\u0017uncursed amulet of change\nPf  20ssm.s20s\u0017uncursed scroll of create monster\n\u0007water elemental\nrg guardian naga\n\u0017cursed magic lamp\nah   #rub\nh  \u0017Ogresmasher\n\u0007mumak\nwiFu   FlFl  #invoke\ni         n   \u00173 scroll of blank paper\nrj       "
+  }
+ ]
+}

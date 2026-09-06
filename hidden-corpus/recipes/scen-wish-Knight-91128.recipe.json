@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017cursed -1 shield of reflection\nW\u001bss20s  \u0017cursed potion of object detection\nqj \u001bm,\u0017scroll of food detection\nrk m..Fl.."
+ },
+ "segments": [
+  {
+   "seed": 91128,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017cursed -1 shield of reflection\nW\u001bss20s  \u0017cursed potion of object detection\nqj \u001bm,\u0017scroll of food detection\nrk m..Fl.."
+  }
+ ]
+}

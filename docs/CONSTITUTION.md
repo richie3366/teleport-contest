@@ -242,6 +242,23 @@ clearly marked temporary and scheduled for deletion.
     reading more code. An unattended iteration with no C-side measurement
     after ~40 tool calls parks with the exact probe command rather than
     continuing (D-1849).
+13. **The work picker is an unsaturated corpus, never a saturated one.**
+    Held-out score is measured only by the judge; locally it is stood in
+    for by C-recorded sessions the port does not yet pass
+    (`docs/HIDDEN-PROXY.md`). A corpus family passing ≥ 90 % has stopped
+    discriminating: when every family is ≥ 85 % the audit iteration grows
+    the corpus (`scripts/scenario-gen.mjs`, the held-out genre — wizard
+    wishes, genesis, named-level teleports, polyself, deaths) **before**
+    any queue refill from map omissions. Map singletons with no corpus
+    session and no C RNG/message surface are Deferred while any family is
+    below 90 %. Twice (2026-09-04 public 44/44, 2026-09-06 mutant corpus
+    96 %) the loop kept shipping display singletons against a saturated
+    signal while held-out sat at 7/44.
+14. **A JS throw in any corpus session is a Must-fix**, ahead of every
+    Open row: a `ReferenceError` at step 0 forfeits every screen of the
+    session, and the fix is usually an import of an existing export. The
+    scoreboard's `error` field / `js-throw` owner is the trigger; the
+    iteration verifies with `hidden-proxy score --ids` on those sessions.
 
 ---
 

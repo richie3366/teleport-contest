@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Ped i\u001bae#rub\ne #jump\n#untrap\nlq\u0018\u001b#ride\nl#ride\nhn#pray\ny   #sit\n10s#jump\nch#ride\nu;h: \u001b,i\u001b#terrain\nc\n:okK"
+ },
+ "segments": [
+  {
+   "seed": 92077,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\n",
+   "moves": "Ped i\u001bae#rub\ne #jump\n#untrap\nlq\u0018\u001b#ride\nl#ride\nhn#pray\ny   #sit\n10s#jump\nch#ride\nu;h: \u001b,i\u001b#terrain\nc\n:okK"
+  }
+ ]
+}

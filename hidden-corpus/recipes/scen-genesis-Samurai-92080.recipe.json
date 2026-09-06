@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0007Demogorgon\ny;n, \u001b..m.sm.   yy\u001bnny\u001bn  2"
+ },
+ "segments": [
+  {
+   "seed": 92080,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007Demogorgon\ny;n, \u001b..m.sm.   yy\u001bnny\u001bn  2"
+  }
+ ]
+}

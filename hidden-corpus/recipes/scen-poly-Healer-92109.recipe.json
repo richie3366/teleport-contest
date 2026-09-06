@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed ring of polymorph control\nPmr#polyself\nred dragon\n #monster\nb s20s\u0007purple worm\nFj Fj  Fj .m..sm.#polyself\nhuman mummy\n#monster\n20s  s \u0007fire vortex\nFk Fk      Fh  sm. s .#polyself\nlichen\n #monster\n20s         su\u0007Archon\nFj Fk Fj20s s\u001b.#polyself\npit fiend\ns       20s "
+ },
+ "segments": [
+  {
+   "seed": 92109,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed ring of polymorph control\nPmr#polyself\nred dragon\n #monster\nb s20s\u0007purple worm\nFj Fj  Fj .m..sm.#polyself\nhuman mummy\n#monster\n20s  s \u0007fire vortex\nFk Fk      Fh  sm. s .#polyself\nlichen\n #monster\n20s         su\u0007Archon\nFj Fk Fj20s s\u001b.#polyself\npit fiend\ns       20s "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       \u001636\n   ;. \u001b:   r\u001b,;.20s .k \u001625\n\u0018\u001b\\  \u000f\u001b;_.20ss\u0016?\n>C_<.20sP#enhance\nye\na\n\u001bssy\u00169\n>\u0018\u001b#turn\n;>..."
+ },
+ "segments": [
+  {
+   "seed": 92024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       \u001636\n   ;. \u001b:   r\u001b,;.20s .k \u001625\n\u0018\u001b\\  \u000f\u001b;_.20ss\u0016?\n>C_<.20sP#enhance\nye\na\n\u001bssy\u00169\n>\u0018\u001b#turn\n;>..."
+  }
+ ]
+}

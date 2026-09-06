@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPgl#polyself\nraven\n    s.\u0007xorn\nFhFuFh  .m. 20ssm. #polyself\nghoul\n#monster\nsm.  20s \u0007killer bee\nFh    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 92049,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPgl#polyself\nraven\n    s.\u0007xorn\nFhFuFh  .m. 20ssm. #polyself\nghoul\n#monster\nsm.  20s \u0007killer bee\nFh    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

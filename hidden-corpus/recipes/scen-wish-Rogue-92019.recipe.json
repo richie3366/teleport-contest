@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed wand of undead turning\n\u0007sergeant\nzjkzjk\u0017uncursed credit card\nakl   \u0017blessed spellbook of teleport away\nrl20s snZZ20s 20s"
+ },
+ "segments": [
+  {
+   "seed": 92019,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed wand of undead turning\n\u0007sergeant\nzjkzjk\u0017uncursed credit card\nakl   \u0017blessed spellbook of teleport away\nrl20s snZZ20s 20s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           #wizintrinsic\ni\n 20s....ss20s20s20ssm.20s\u0017potion of booze\nqf \u001bcj\u0018\u001b#name\nd\nH10sPsm.ss20s20s.m."
+ },
+ "segments": [
+  {
+   "seed": 92150,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           #wizintrinsic\ni\n 20s....ss20s20s20ssm.20s\u0017potion of booze\nqf \u001bcj\u0018\u001b#name\nd\nH10sPsm.ss20s20s.m."
+  }
+ ]
+}

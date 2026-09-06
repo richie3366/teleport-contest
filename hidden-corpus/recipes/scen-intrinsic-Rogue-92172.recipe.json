@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #wizintrinsic\nn\n ss.sss20ss20s..s20s20sssss20sss20s20s.ss20s20s.s20ss\u0017beartrap\nair\u001bHf by y#jump\n#twoweapon\nfh.sssss"
+ },
+ "segments": [
+  {
+   "seed": 92172,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #wizintrinsic\nn\n ss.sss20ss20s..s20s20sssss20sss20s20s.ss20s20s.s20ss\u0017beartrap\nair\u001bHf by y#jump\n#twoweapon\nfh.sssss"
+  }
+ ]
+}

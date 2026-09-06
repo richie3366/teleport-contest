@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nnoq\n  .s.ss20ss.ss.20s s20s.20s  s20s ss.20s20s s20ssj.u.m.sj  .m.ss #untrap\nlqE- ad aerarium\n#monster\n;>. \u001b@.P20s20s s20s20s."
+ },
+ "segments": [
+  {
+   "seed": 92017,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nnoq\n  .s.ss20ss.ss.20s s20s.20s  s20s ss.20s20s s20ssj.u.m.sj  .m.ss #untrap\nlqE- ad aerarium\n#monster\n;>. \u001b@.P20s20s s20s20s."
+  }
+ ]
+}

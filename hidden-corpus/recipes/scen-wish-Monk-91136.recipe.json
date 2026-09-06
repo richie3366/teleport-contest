@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                      \u0017wand of death\nzj.  y y\u001bny nn  z"
+ },
+ "segments": [
+  {
+   "seed": 91136,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                      \u0017wand of death\nzj.  y y\u001bny nn  z"
+  }
+ ]
+}

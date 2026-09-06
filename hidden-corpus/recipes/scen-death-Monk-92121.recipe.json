@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nd\n sus20s20s.m.sm.20s20s ns..s..ss..s.20s.sss.s.s.s20sssss.20s20ss"
+ },
+ "segments": [
+  {
+   "seed": 92121,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nd\n sus20s20s.m.sm.20s20s ns..s..ss..s.20s.sss.s.s.s20sssss.20s20ss"
+  }
+ ]
+}

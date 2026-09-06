@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " ;_. \u001bm,\u000f\u001b#twoweapon\nZr\u001bE- Elbereth Elbereth\nr\u001br\u001bZab ,i\u001b: #ride\nltauab,#rub\n#rub\nt\u001b#offer\n,z#terrain\nc\nm,"
+ },
+ "segments": [
+  {
+   "seed": 91100,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": " ;_. \u001bm,\u000f\u001b#twoweapon\nZr\u001bE- Elbereth Elbereth\nr\u001br\u001bZab ,i\u001b: #ride\nltauab,#rub\n#rub\nt\u001b#offer\n,z#terrain\nc\nm,"
+  }
+ ]
+}

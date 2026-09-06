@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0017uncursed scroll of magic mapping\nrk20s .\u00173 wand of cancellation\nzlkss\u0017cursed grappling hook\nam  \u001b:.20s\u0017mace\nwn.Fh Fh.m.20s"
+ },
+ "segments": [
+  {
+   "seed": 92041,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0017uncursed scroll of magic mapping\nrk20s .\u00173 wand of cancellation\nzlkss\u0017cursed grappling hook\nam  \u001b:.20s\u0017mace\nwn.Fh Fh.m.20s"
+  }
+ ]
+}

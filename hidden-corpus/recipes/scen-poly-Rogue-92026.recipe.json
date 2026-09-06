@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPgr#polyself\nyeti\n#monster\nss\u0007guard\nyFu Fu   ss.n20s #polyself\nwerewolf\n fire elemental\n#monster\n20s.sm.20s20s#polyself\nvampire\nsh20s\u0007master mind flayer\nFl   Fu     nFu     sm.   20s   .m.  yny   y ny  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 92026,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPgr#polyself\nyeti\n#monster\nss\u0007guard\nyFu Fu   ss.n20s #polyself\nwerewolf\n fire elemental\n#monster\n20s.sm.20s20s#polyself\nvampire\nsh20s\u0007master mind flayer\nFl   Fu     nFu     sm.   20s   .m.  yny   y ny  \u0017"
+  }
+ ]
+}

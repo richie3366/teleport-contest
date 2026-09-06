@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "i\u001bW.ssTwb 20s FjFhwa Fj s20swc..sXwdy.s20sWe<nydd#wipe\nKW#sit\n#untrap\nyi\u001bwb 20ss20swcs20sFl waFlFlFlWs20ssTwf ss20s"
+ },
+ "segments": [
+  {
+   "seed": 92145,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "i\u001bW.ssTwb 20s FjFhwa Fj s20swc..sXwdy.s20sWe<nydd#wipe\nKW#sit\n#untrap\nyi\u001bwb 20ss20swcs20sFl waFlFlFlWs20ssTwf ss20s"
+  }
+ ]
+}

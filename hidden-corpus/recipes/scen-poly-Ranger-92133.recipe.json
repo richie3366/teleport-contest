@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPgl\u0017helm of brilliance\nWhs..#polyself\nearth elemental\n  #monster\ns..20ss#polyself\nmind flayer\n #monster\nsm.20s.nsb  .\u0017potion of polymorph\nqi Death\n crocodile\n"
+ },
+ "segments": [
+  {
+   "seed": 92133,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPgl\u0017helm of brilliance\nWhs..#polyself\nearth elemental\n  #monster\ns..20ss#polyself\nmind flayer\n #monster\nsm.20s.nsb  .\u0017potion of polymorph\nqi Death\n crocodile\n"
+  }
+ ]
+}

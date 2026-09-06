@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          #wizintrinsic\nmeg\n  .m.sm..n.m.sksssss20ssm.ss\u0017figurine of a newt\nafh #rub\n#force\n\u000f\u001bjs,sm.sm.20s.k20s.j"
+ },
+ "segments": [
+  {
+   "seed": 92239,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          #wizintrinsic\nmeg\n  .m.sm..n.m.sksssss20ssm.ss\u0017figurine of a newt\nafh #rub\n#force\n\u000f\u001bjs,sm.sm.20s.k20s.j"
+  }
+ ]
+}

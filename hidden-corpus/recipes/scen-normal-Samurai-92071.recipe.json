@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "r\u001b\u0004kz\u0004uny;n. \u001b:  w-W\u001b#pray\ny ok#loot\n#untrap\nb\u0014#ride\nk#enhance\n\u001b#jump\n#conduct\n W\u001b\u000f\u001b#monster\n\u0004y20si\u001bwa#enhance\n\u001bi\u001bwb ..Fl wdys. .wcFlFlFlXW\u001bsm.s.m.Tafwa ..20sP\u001b#turn\n#chat\nlolqE- ad aerarium\n  y\u001by  ny n  "
+ },
+ "segments": [
+  {
+   "seed": 92071,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "r\u001b\u0004kz\u0004uny;n. \u001b:  w-W\u001b#pray\ny ok#loot\n#untrap\nb\u0014#ride\nk#enhance\n\u001b#jump\n#conduct\n W\u001b\u000f\u001b#monster\n\u0004y20si\u001bwa#enhance\n\u001bi\u001bwb ..Fl wdys. .wcFlFlFlXW\u001bsm.s.m.Tafwa ..20sP\u001b#turn\n#chat\nlolqE- ad aerarium\n  y\u001by  ny n  "
+  }
+ ]
+}

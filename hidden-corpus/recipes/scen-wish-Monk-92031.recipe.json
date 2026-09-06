@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017the Bell of Opening\n\u0007owlbear\nw\u001bFkFk    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 92031,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017the Bell of Opening\n\u0007owlbear\nw\u001bFkFk    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPfr\u0017dwarvish mithril-coat\nW\u001b..20s#polyself\nyeti\n#monster\n20ss20s20ss#polyself\ndoppelganger\n yy\u001by   y nn  2"
+ },
+ "segments": [
+  {
+   "seed": 91106,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPfr\u0017dwarvish mithril-coat\nW\u001b..20s#polyself\nyeti\n#monster\n20ss20s20ss#polyself\ndoppelganger\n yy\u001by   y nn  2"
+  }
+ ]
+}

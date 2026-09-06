@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017plate mail\nW\u001b20ssm.sm.\u0007purple worm\n;j; \u001b;.m.sls\u0007jackal\nsm.   yy\u001by   y n  s"
+ },
+ "segments": [
+  {
+   "seed": 92110,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017plate mail\nW\u001b20ssm.sm.\u0007purple worm\n;j; \u001b;.m.sls\u0007jackal\nsm.   yy\u001by   y n  s"
+  }
+ ]
+}

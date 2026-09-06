@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed athame\n\u0007grey-elf\nwmFy   Fh Fy X\u0017cursed potion of object detection\nqn \u001b,Fh Fh \u0017frost horn\naoy h   aoy b \u00173 wand of slow monster\nzph zph\u0017cursed scroll of destroy armor\n\u0007hezrou\nrq FhFbsls"
+ },
+ "segments": [
+  {
+   "seed": 92173,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed athame\n\u0007grey-elf\nwmFy   Fh Fy X\u0017cursed potion of object detection\nqn \u001b,Fh Fh \u0017frost horn\naoy h   aoy b \u00173 wand of slow monster\nzph zph\u0017cursed scroll of destroy armor\n\u0007hezrou\nrq FhFbsls"
+  }
+ ]
+}

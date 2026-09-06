@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #offer\nes#dip\ncE- I am a fish\n#jump\ncluwaE-y Elbereth\nW10stcj#wipe\n#jump\nda#offer\n#tip\n\u001bzJK  i\u001bWs20s sm.T  wdyFh sFhXwb Fh.20sX#dip\ne#ride\nuq#monster\nE-n  Vlad was here\nZ"
+ },
+ "segments": [
+  {
+   "seed": 92078,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " #offer\nes#dip\ncE- I am a fish\n#jump\ncluwaE-y Elbereth\nW10stcj#wipe\n#jump\nda#offer\n#tip\n\u001bzJK  i\u001bWs20s sm.T  wdyFh sFhXwb Fh.20sX#dip\ne#ride\nuq#monster\nE-n  Vlad was here\nZ"
+  }
+ ]
+}

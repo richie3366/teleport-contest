@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                    \u0016?\n>>L      \u001beerg y      :;k; \u001bm. s    s  \u001627\nohJ 20s     .    ynny nn  2"
+ },
+ "segments": [
+  {
+   "seed": 92235,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                    \u0016?\n>>L      \u001beerg y      :;k; \u001bm. s    s  \u001627\nohJ 20s     .    ynny nn  2"
+  }
+ ]
+}

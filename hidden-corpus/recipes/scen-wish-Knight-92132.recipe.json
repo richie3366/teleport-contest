@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u00173 spellbook of healing\nri   20s  sm.Z\u00173 potion of blindness\n qj\u0017cursed cream pie\n\u0007plains centaur\nek20s s \u0017cursed -1 ring of polymorph control\nPll s.20s\u0017diamond\ntbh FhFhs  ynnny ny  2"
+ },
+ "segments": [
+  {
+   "seed": 92132,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u00173 spellbook of healing\nri   20s  sm.Z\u00173 potion of blindness\n qj\u0017cursed cream pie\n\u0007plains centaur\nek20s s \u0017cursed -1 ring of polymorph control\nPll s.20s\u0017diamond\ntbh FhFhs  ynnny ny  2"
+  }
+ ]
+}

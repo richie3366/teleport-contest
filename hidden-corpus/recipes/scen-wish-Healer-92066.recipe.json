@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed spellbook of sleep\n\u0007werewolf\nrl 20s  yy\u001by  ny\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 92066,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed spellbook of sleep\n\u0007werewolf\nrl 20s  yy\u001by  ny\u001by  2"
+  }
+ ]
+}

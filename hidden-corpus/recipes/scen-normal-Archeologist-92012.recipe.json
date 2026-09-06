@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "_m. \u001bm,20sW:w-#untrap\nu;_.#twoweapon\nWwe ,#invoke\n\u001b<ny#force\nk:#force\nl\u0018\u001b;k. #terrain\nb\nW f a li\u001bedsksaekae<afag\u001bWs20s20sTbWbsm.20s.m.E- I am a fish\n<h__.20sE- X marks the spot\n\u0014"
+ },
+ "segments": [
+  {
+   "seed": 92012,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "_m. \u001bm,20sW:w-#untrap\nu;_.#twoweapon\nWwe ,#invoke\n\u001b<ny#force\nk:#force\nl\u0018\u001b;k. #terrain\nb\nW f a li\u001bedsksaekae<afag\u001bWs20s20sTbWbsm.20s.m.E- I am a fish\n<h__.20sE- X marks the spot\n\u0014"
+  }
+ ]
+}

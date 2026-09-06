@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed unicorn horn\nwiFy .sXs20s\u0017uncursed cram ration\n\u0007hobbit\nejs20s\u0017cursed wax candle\nak#rub\n.s\u0017wand of create monster\nzlKop Kaptain\nsm.20s"
+ },
+ "segments": [
+  {
+   "seed": 92204,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed unicorn horn\nwiFy .sXs20s\u0017uncursed cram ration\n\u0007hobbit\nejs20s\u0017cursed wax candle\nak#rub\n.s\u0017wand of create monster\nzlKop Kaptain\nsm.20s"
+  }
+ ]
+}

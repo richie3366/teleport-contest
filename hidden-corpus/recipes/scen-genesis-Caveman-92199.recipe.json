@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017Trollsbane\nwfFhFhFh#invoke\nfX\u0007kobold shaman\n#chat\nlFl Fl \u0007erinys\nFh FlFh\u0007soldier\nFhFj  yy\u001by  y y y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 92199,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017Trollsbane\nwfFhFhFh#invoke\nfX\u0007kobold shaman\n#chat\nlFl Fl \u0007erinys\nFh FlFh\u0007soldier\nFhFj  yy\u001by  y y y\u001by  "
+  }
+ ]
+}

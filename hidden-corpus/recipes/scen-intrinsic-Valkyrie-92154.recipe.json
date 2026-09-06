@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             #wizintrinsic\nr\n 20sss20s20sss20s20s20s\u0017scroll of stinking cloud\nre   \u001b; #wipe\n\u0014<.  #conduct\n ,#conduct\n #wipe\n. .20s  s. s "
+ },
+ "segments": [
+  {
+   "seed": 92154,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             #wizintrinsic\nr\n 20sss20s20sss20s20s20s\u0017scroll of stinking cloud\nre   \u001b; #wipe\n\u0014<.  #conduct\n ,#conduct\n #wipe\n. .20s  s. s "
+  }
+ ]
+}

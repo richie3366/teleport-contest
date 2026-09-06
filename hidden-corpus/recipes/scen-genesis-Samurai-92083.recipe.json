@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0007air elemental\n#chat\nkFk    Fk \u0007Uruk-hai\n.20s .  sm. sns"
+ },
+ "segments": [
+  {
+   "seed": 92083,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0007air elemental\n#chat\nkFk    Fk \u0007Uruk-hai\n.20s .  sm. sns"
+  }
+ ]
+}

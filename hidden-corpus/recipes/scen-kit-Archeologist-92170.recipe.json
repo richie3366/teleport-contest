@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " i\u001bag\u001bW20ss20sW20s..waFl .sXWs20s.Tc#terrain\nc\n\u001b@.#twoweapon\n#chat\nh#force\nsZ\u0004b#loot\n"
+ },
+ "segments": [
+  {
+   "seed": 92170,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " i\u001bag\u001bW20ss20sW20s..waFl .sXWs20s.Tc#terrain\nc\n\u001b@.#twoweapon\n#chat\nh#force\nsZ\u0004b#loot\n"
+  }
+ ]
+}

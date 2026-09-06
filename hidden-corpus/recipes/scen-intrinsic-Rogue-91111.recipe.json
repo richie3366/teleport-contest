@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   #wizintrinsic\ne\n 20ssm.s20s   ns20s...s20sss.\u0017chest\najaj#tip\njf\n\\ #name\no\n#chat\nni\u001b;m, \u001b,j.sss.s"
+ },
+ "segments": [
+  {
+   "seed": 91111,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   #wizintrinsic\ne\n 20ssm.s20s   ns20s...s20sss.\u0017chest\najaj#tip\njf\n\\ #name\no\n#chat\nni\u001b;m, \u001b,j.sss.s"
+  }
+ ]
+}

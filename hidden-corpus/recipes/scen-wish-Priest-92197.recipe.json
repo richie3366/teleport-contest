@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017cursed the Candelabrum of Invocation\nw-Fu FuFlX\u0017blessed scroll of fire\nrl  \u001b>.  \u0017cursed wand of enlightenment\nzm \u001bzm \u001b\u0017scroll of destroy armor\nrn \u0017wand of nothing\nzo.\u0017cursed -1 ring of polymorph control\nPprs20s   sRFj Fn  .s"
+ },
+ "segments": [
+  {
+   "seed": 92197,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017cursed the Candelabrum of Invocation\nw-Fu FuFlX\u0017blessed scroll of fire\nrl  \u001b>.  \u0017cursed wand of enlightenment\nzm \u001bzm \u001b\u0017scroll of destroy armor\nrn \u0017wand of nothing\nzo.\u0017cursed -1 ring of polymorph control\nPprs20s   sRFj Fn  .s"
+  }
+ ]
+}

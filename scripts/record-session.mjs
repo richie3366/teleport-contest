@@ -68,7 +68,7 @@ function compressAnsiLine(line) {
     return out;
 }
 
-function encodeScreenAnsiRle(lines) {
+export function encodeScreenAnsiRle(lines) {
     if (!lines || lines.length === 0) return '';
     const compressed = lines.map((line) => {
         // Trailing spaces are implicit
@@ -94,7 +94,7 @@ function encodeScreenAnsiRle(lines) {
 // The parser is byte-oriented and handles the payload as raw bytes — a
 // BEL inside the payload must not terminate the next header.
 
-class MarkerParser {
+export class MarkerParser {
     constructor(onMarker) {
         this.onMarker = onMarker;
         // Chunks waiting to be parsed, plus a logical offset into the
@@ -260,7 +260,7 @@ class MarkerParser {
     }
 }
 
-function parseMarkerHeader(header) {
+export function parseMarkerHeader(header) {
     const out = { kind: '', seq: 0, anim: 0, cx: 0, cy: 0, len: 0 };
     for (const part of header.split(';')) {
         const eq = part.indexOf('=');
@@ -281,7 +281,7 @@ function parseMarkerHeader(header) {
 // Screen payload → 24-line array
 // ---------------------------------------------------------------------------
 
-function payloadToLines(payload) {
+export function payloadToLines(payload) {
     const lines = payload.split('\n');
     while (lines.length < 24) lines.push('');
     return lines.slice(0, 24);
@@ -291,7 +291,7 @@ function payloadToLines(payload) {
 // PRNG log parsing (mirrors run_session.py parse_rng_lines)
 // ---------------------------------------------------------------------------
 
-function parseRngLines(text) {
+export function parseRngLines(text) {
     const out = [];
     for (const raw of text.split('\n')) {
         const line = raw.trimEnd();
@@ -323,7 +323,7 @@ async function loadSession(p) {
     return data;
 }
 
-function parseNethackrcName(rc) {
+export function parseNethackrcName(rc) {
     if (!rc) return null;
     for (const rawLine of rc.split('\n')) {
         const line = rawLine.trim();
@@ -350,7 +350,7 @@ async function ensureScorefiles(installDir) {
     }
 }
 
-function isRngCall(entry) {
+export function isRngCall(entry) {
     return typeof entry === 'string' && /^(?:rn2|rnd|rn1|rnl|rne|rnz|d)\(/.test(entry);
 }
 
@@ -378,7 +378,7 @@ function isPlaygroundLock(name) {
     return false;
 }
 
-async function clearStaleState(installDir, opts = {}) {
+export async function clearStaleState(installDir, opts = {}) {
     const wipeSave = opts.wipeSave !== false;
     if (wipeSave) {
         const saveDir = path.join(installDir, 'save');
@@ -717,7 +717,11 @@ async function main() {
     }
 }
 
-main().catch((err) => {
-    console.error('[fail]', err.message || err);
-    process.exit(1);
-});
+// Importable as a library (scenario-gen.mjs reuses the marker parser and the
+// playground wipe); the CLI runs only when this file is the entry point.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+    main().catch((err) => {
+        console.error('[fail]', err.message || err);
+        process.exit(1);
+    });
+}

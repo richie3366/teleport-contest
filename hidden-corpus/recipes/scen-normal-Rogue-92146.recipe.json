@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " J\\ ,\u0004h#terrain\nb\n\u001b;\u0014#invoke\n\u001b#invoke\n\u001b,l#pray\ny #loot\nh#ride\nu#loot\nk#pray\ny  z,#enhance\n\u001btbjtbj20s#rub\ny#chat\nui\u001bwb FuFn swa 20s.sX#wipe\n#twoweapon\n>_>,20sz#offer\n"
+ },
+ "segments": [
+  {
+   "seed": 92146,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " J\\ ,\u0004h#terrain\nb\n\u001b;\u0014#invoke\n\u001b#invoke\n\u001b,l#pray\ny #loot\nh#ride\nu#loot\nk#pray\ny  z,#enhance\n\u001btbjtbj20s#rub\ny#chat\nui\u001bwb FuFn swa 20s.sX#wipe\n#twoweapon\n>_>,20sz#offer\n"
+  }
+ ]
+}

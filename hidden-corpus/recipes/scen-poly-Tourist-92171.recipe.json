@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPll\u0017gauntlets of power\nWm.ss#polyself\nArchon\n rothe\n  #monster\nss\u0007dwarf lord\nFl  Fl Fl    20s  yy\u001by  y y ny  s"
+ },
+ "segments": [
+  {
+   "seed": 92171,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPll\u0017gauntlets of power\nWm.ss#polyself\nArchon\n rothe\n  #monster\nss\u0007dwarf lord\nFl  Fl Fl    20s  yy\u001by  y y ny  s"
+  }
+ ]
+}

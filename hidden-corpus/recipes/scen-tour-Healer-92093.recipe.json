@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n      \u0016?\n>Bt$ji\u001b,\u001b\u000620s s\u001626\n\\ \u000f\u001bf \u001b;h; \u001b;\u000620ss\u0016?\nj  dh#dip\nkdZa\n  ;j.\u0006>...\u0016?\ne\u0014@.#jump\nu;>.20s 20s \u00166\nb#terrain\nf\n#loot\nss"
+ },
+ "segments": [
+  {
+   "seed": 92093,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n      \u0016?\n>Bt$ji\u001b,\u001b\u000620s s\u001626\n\\ \u000f\u001bf \u001b;h; \u001b;\u000620ss\u0016?\nj  dh#dip\nkdZa\n  ;j.\u0006>...\u0016?\ne\u0014@.#jump\nu;>.20s 20s \u00166\nb#terrain\nf\n#loot\nss"
+  }
+ ]
+}

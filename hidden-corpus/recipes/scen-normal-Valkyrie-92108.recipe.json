@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #turn\n#turn\na#enhance\n\u001b#force\n#pray\ny  dc20s#dip\ncw-\u0004ls#invoke\n\u001bed 10sJ#force\n#terrain\nb\n\u001b,#tip\ny\u001b#sit\nwb e\u0014i\u001bWwaE- Elbereth Elbereth\nq#name\na\n#jump\n#rub\n"
+ },
+ "segments": [
+  {
+   "seed": 92108,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "  #turn\n#turn\na#enhance\n\u001b#force\n#pray\ny  dc20s#dip\ncw-\u0004ls#invoke\n\u001bed 10sJ#force\n#terrain\nb\n\u001b,#tip\ny\u001b#sit\nwb e\u0014i\u001bWwaE- Elbereth Elbereth\nq#name\na\n#jump\n#rub\n"
+  }
+ ]
+}

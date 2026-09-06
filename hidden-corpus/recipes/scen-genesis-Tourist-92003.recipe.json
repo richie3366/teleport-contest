@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0007quantum mechanic\nFkFy  Fh   \u001b,  ,Fk  m. \u0007purple worm\nsm.20s  yy\u001by  y y nn  2"
+ },
+ "segments": [
+  {
+   "seed": 92003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007quantum mechanic\nFkFy  Fh   \u001b,  ,Fk  m. \u0007purple worm\nsm.20s  yy\u001by  y y nn  2"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00173 potion of paralysis\nqe  sFj\u0017blessed tin of spinach\nef yss\u0017uncursed wand of probing\n\u0007Pestilence\nyzg.su20s   n "
+ },
+ "segments": [
+  {
+   "seed": 92091,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u00173 potion of paralysis\nqe  sFj\u0017blessed tin of spinach\nef yss\u0017uncursed wand of probing\n\u0007Pestilence\nyzg.su20s   n "
+  }
+ ]
+}

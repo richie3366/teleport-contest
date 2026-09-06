@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017blessed ring of polymorph control\nPgr#polyself\ngrid bug\n   #monster\n20s.20s20s.#polyself\nghost\n piranha\nsssss#polyself\njellyfish\n#monster\n20s.ss."
+ },
+ "segments": [
+  {
+   "seed": 92217,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017blessed ring of polymorph control\nPgr#polyself\ngrid bug\n   #monster\n20s.20s20s.#polyself\nghost\n piranha\nsssss#polyself\njellyfish\n#monster\n20s.ss."
+  }
+ ]
+}

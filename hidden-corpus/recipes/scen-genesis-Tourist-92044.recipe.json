@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0007small mimic\nFnFnFjsFuFu\u0007jackal\nFlFuFuFu\u0007grey-elf\n.jssm.sm. 20s \u0007black pudding\nFy Fy    nFu Fu  Fu "
+ },
+ "segments": [
+  {
+   "seed": 92044,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0007small mimic\nFnFnFjsFuFu\u0007jackal\nFlFuFuFu\u0007grey-elf\n.jssm.sm. 20s \u0007black pudding\nFy Fy    nFu Fu  Fu "
+  }
+ ]
+}

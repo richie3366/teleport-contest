@@ -9,13 +9,21 @@ in this commit. A **stub** in a live arm → split that arm back out.
 Must-fix stays **one item, first, not glued** to Open. Do not invent a
 substitute.
 Live file is **unchecked-only**. Done rows live in
-`docs/archive/LOOP-QUEUE-DONE.md`.
+`docs/archive/LOOP-QUEUE-DONE.md`. Rows come from the **scenario corpus**
+(`node scripts/hidden-proxy.mjs queue`; `docs/HIDDEN-PROXY.md` §5) — a
+row names the C function that owns a recorded C-vs-JS first divergence,
+how many corpus sessions it blocks, and the exact probe. Map-omission
+rows (`c-js-map/*.md` singletons with no corpus session and no C
+RNG/message surface) are **deferred** while any corpus family is below
+90 % PASS (Constitution §10.13).
 
 **Keep 8–12 open `- [ ]` rows** (`check-hot-docs.mjs` reports the count). If Must-fix+Open drops below **8**
 (including after you archive this iter’s item), **refill Open** in the
-**same commit** up to **12**. Sources: named omits in the subsystem
-`docs/c-js-map/*.md` row you are in (prefer `data.md` / `debt.md`, then
-`absent.md`). One C function/family per line; cite C file + function. A level-gen owner
+**same commit** up to **12**. Sources, in order: `node scripts/hidden-proxy.mjs queue` (corpus
+owners, most sessions blocked first), then `PORT-GAP-TOP30.md` rows the
+corpus reaches, then named omits in `docs/c-js-map/*.md` only when the
+corpus is ≥ 90 % PASS. One C function/family per line; cite C file +
+function and the probe. A level-gen owner
 (`mineralize`, `bound_digging`, `wallification`, `place_lregion`…) is where
 C *noticed* the difference: its falsifier is `node scripts/geom-probe.mjs
 <session>`, and the shipped D-log cites the C writer actually changed.
@@ -34,29 +42,54 @@ The **next** real commit fills the short hash on the review (and on the
 archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
+A **JS throw** in any corpus session (`hidden-proxy status` owner
+`js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
+`error`) is always a Must-fix row: it forfeits every later screen of that
+session (Constitution §10.14).
 
-## Open (map-driven, after Must-fix is empty)
+- [ ] `muse.c` find_defensive / use_defensive, `read.c` seffect_enchant_armor, `eat.c` newuhs — 4 missing JS imports (ReferenceError) kill 8 corpus sessions at their first step (rng-lost ≈104k): `is_pit` at `js/muse.js` find_defensive (`scen-tour-Barbarian-92129`, `scen-tour-Tourist-92134`, `scen-tour-Wizard-91112`), `FORCEBUNGLE` at `js/muse.js` use_defensive (`scen-tour-Monk-91117`), `otense` at `js/read.js` seffect_enchant_armor (`scen-intrinsic-Healer-92124`, `scen-wish-Archeologist-92238`), `STARVED` at `js/eat.js` newuhs (`scen-poly-Archeologist-92119`, `scen-wish-Knight-92034`; that replay also takes ~128 s — note the slow path in the D-log). Import the existing exports (`js/const.js` is_pit/FORCEBUNGLE/STARVED; `js/objnam.js` otense — `sym.mjs` each), no clones. Probe: `node scripts/hidden-proxy.mjs verify randomize_gem_colors` (the throw rows are attributed to the first C draw) then `node scripts/hidden-proxy.mjs score --ids scen-tour-Barbarian-92129,scen-tour-Monk-91117,scen-intrinsic-Healer-92124,scen-poly-Archeologist-92119 --jobs 4`. Source: human corpus audit 2026-09-06 (`docs/HIDDEN-PROXY.md` §5).
 
-Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached
-first). Pop in order; that file's Tier B then Tier C refill this list.
-`docs/PORT-GAP-TOP30.md` stays valid for *depth in a reached function*;
-alternate between the two as this list drains. **Port content rows from
-`nethack-c/upstream/dat/*.lua` only — never from another fork.**
-Falsifier for content rows: the `tour-*` corpus sessions blocked at level
-generation (`node scripts/hidden-proxy.mjs verify build_room` /
-`selection_filter_percent`; `docs/HIDDEN-PROXY.md`). Refill order when
-this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
-`PORT-GAP-TOP30.md`.
+## Open (corpus-driven, after Must-fix is empty)
 
-- [ ] `monmove.c` dochug demon/caster retaliation — MS_BRIBE mux skipped by D-1798; live `demon_talk`/`cuss` unwired at monmove.c:823/985 (sounds.c:1143/1150 wired).
-- [ ] `artifact.c` artiname/discover_artifact/artidisco[] save-rest — discovery announce + artidisco bit (D-1107 live; save/rest artidisco named; c-js-map data.md).
-- [ ] `artifact.c` restore_artifacts save-rest — artilist restore on load (named in init_artifacts D-1201 row; c-js-map data.md).
-- [ ] `artifact.c` arti_invoke on drop / questart artitouch / zap-poly addinv_core1 — invoke-touch family (named in cspfx W_ART D-1539 row; c-js-map data.md).
-- [ ] `vision.c` howmonsseen — artifact-warn see-monsters helper (named in SPFX_WARN D-1514 row; c-js-map data.md).
-- [ ] `dogmove.c` dog_move beg/dog_hunger caller wiring — dogmove.c:383 `beg(mtmp)` unwired in live `js/dogmove.js` dog_move (named in `beg` D-1763 + js/sounds.js:518; c-js-map turns.md).
-- [ ] `wintty.c` core cliparound call sites — allmain.c:546 moveloop, dungeon.c:1580 u_on_newpos, muse.c:2637, restore.c:629 (named D-1974/D-1982; tty_cliparound live, unwired; c-js-map turns.md).
-- [ ] `display.c` get_othersym base + assign_graphics showsyms copy (named D-1983; SYM_OFF_X/SYM_MAX live; c-js-map turns.md).
-- [ ] `display.c` docrt_flags maponly/redrawonly/nocls + post_map botlx/update_inventory (named D-1974/D-1981; c-js-map turns.md).
+Ranked by corpus sessions blocked (`hidden-proxy queue`, scoreboard at
+`6f87bee1`+scenario cohort, 2026-09-06: **262/540 PASS**). Every row is
+a recorded C-vs-JS fact; the fix is the owning C function's port, never
+a read of a seed, step or coordinate. Verify with
+`node scripts/verify.mjs --fn <fn>` (uses the committed scoreboard; if
+the row was queued at an older SHA pass `--base <sha>`). Refill from
+`node scripts/hidden-proxy.mjs queue --limit 30` — rows 13+ of that
+output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
+reaches come after; map singletons only at ≥ 90 % corpus PASS.
+
+- [ ] `calendar.c` getlt / phase_of_the_moon — blocks **51**/553 corpus sessions at step 0 (every recipe dated `20000206000000`): C prints `Be careful!  New moon tonight.` (so the welcome line ends `--More--`), JS prints nothing. `phase_of_the_moon` bodies match; the gap is `getlt()`: C = `localtime(getnow())` where patch 001 `time_from_yyyymmddhhmmss` fills `struct tm` from the **recording machine's current** `localtime` (tm_isdst = 1, EDT) then `mktime`, so a winter civil stamp lands one hour earlier in EST (`2000-02-06 00:00` → `Feb 5 23:00`, tm_yday −1, moon phase 0). JS `getlt()` returns the civil components unshifted. Port: civil stamp → epoch as EDT (UTC−4, the `lt_for_date` precedent in `js/calendar.js`) → `localtime` under America/New_York DST rules (2000: first Sun Apr → last Sun Oct; 2007+: second Sun Mar → first Sun Nov) — plain arithmetic, no Node APIs (Rule #2). Cohort: seed0013 (Friday 13th 09:00) must stay PASS. Verify with the **owner name**: `node scripts/verify.mjs --fn welcome` (`--fn getlt` is vacuous). Probe: `node scripts/hidden-proxy.mjs verify welcome` (scen-death-Monk-92123, scen-death-Tourist-92222, scen-genesis-Barbarian-92201).
+- [ ] `botl.c` do_statusline2 — blocks 11/553 (first at step 16): row 23 C `… Xp:1 Strngl` vs JS without the condition; `#wizintrinsic` strangling / sliming / stoning / sickness / vomiting etc. Port the full `bot2` condition list in C order (`botl.c:130` onwards, `bl_conditions` order + width truncation), not just Hunger/Conf/Blind. Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-death-Caveman-92141, scen-death-Caveman-92159, scen-death-Monk-92121).
+- [ ] `polyself.c` break_armor — blocks 9/553 (first at step 54): `You turn into a gelatinous cube!  You break out of your armor!` — C `break_armor :1171` message/RNG order per armor slot (cloak vs body armor first, `Your cloak tears apart`, shield/helmet/gloves/boots drop arms, `polyself.c:1189` clasp arm). Probe: `node scripts/hidden-proxy.mjs verify break_armor` (scen-poly-Knight-92220, scen-poly-Monk-92005, scen-poly-Priest-91137).
+- [ ] `polyself.c` drop_weapon — blocks 4/553 (first at step 93, 12.5k RNG): C `You find you must drop your dagger!` names the weapon (`:1331` `yname`/`aobjnam` arm, `alone` flag, twoweapon and `nohands` cases); JS says `your weapon`. Ship after `break_armor` (same file, shared falsifier `scen-poly-*`). Probe: `node scripts/hidden-proxy.mjs verify drop_weapon` (scen-poly-Ranger-91131, scen-poly-Ranger-92090, scen-poly-Valkyrie-92195).
+- [ ] `attrib.c` exercise — blocks 8/553 (first at step 48): C draws `rn2(19)` in `exercise :509` (the `attrib.c` exercise/exerchk gate after dressing / fighting) where JS is already in `mcalcmove`. Read `exercise`, `exerper`, `exerchk` and their callers (`do_wear.c` `Armor_on`, `uhitm.c`, `allmain.c`). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-genesis-Archeologist-92084, scen-genesis-Samurai-92083, scen-genesis-Samurai-92110).
+- [ ] `insight.c` enlightenment family — `enlightenment` blocks 7/553 (^X attributes screen), `one_characteristic` 5 (`Your wisdom was 18 (limit:18).` row set), `status_enlightenment` 3 (`You are turning into slime.`): one falsifier (`^X` / death disclosure), one file. Port the C page order arm by arm (`insight.c:398` `enlightenment` sections, `:926` characteristics, status). Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-death-Valkyrie-92176, scen-intrinsic-Caveman-92150, scen-normal-Knight-92215), then `verify one_characteristic`, `verify status_enlightenment`.
+- [ ] `wizcmds.c` wiz_intrinsic — blocks 7/553 (first at step 16): C `You feel deathly sick.--More--` then `Timeout for fatally sick set to 30.`; JS prints the timeout line first and draws `rn2(12)` from `mcalcmove` where C draws `rn2(2)` in `wiz_intrinsic :1036` (the `make_sick`/`set_itimeout` + `incr` arms). Probe: `node scripts/hidden-proxy.mjs verify wiz_intrinsic` (scen-death-Archeologist-92015, scen-death-Knight-92203, scen-intrinsic-Barbarian-92008).
+- [ ] `monmove.c` set_apparxy — blocks 6/553 (first at step 7): C draws `rn2(4)` in `set_apparxy :2280` (displacement / `mtmp->mux` notseen gate) where JS is in `m_initinv`; a freshly created (`^G`) monster's first move. Probe: `node scripts/hidden-proxy.mjs verify set_apparxy` (scen-genesis-Ranger-92126, scen-genesis-Ranger-92151, scen-wish-Healer-92147).
+- [ ] `steed.c` doride / mount_steed — blocks 6/553 (first at step 51): C `Force the mount to succeed? [yn] (n)` (wizard-mode arm of `mount_steed`, `steed.c:185`) vs JS `I see nobody there.`; saddle / `#ride` toward an adjacent monster. Probe: `node scripts/hidden-proxy.mjs verify doride` (scen-intrinsic-Ranger-92193, scen-kit-Valkyrie-92131, scen-normal-Healer-92231).
+- [ ] `makemon.c` makemon → `mkobj.c` next_ident order + monster gender — blocks 5/553 (first at step 34): C `An elf-lord appears next to you.` / `Elvenking` vs JS `elf-lady` / `Elvenqueen`; C draws `rnd(2)` in `next_ident :521` (object creation inside `m_initweap`/`m_initinv`) where JS draws `rn2(2)` in `m_initweap` first — the gender roll and the object ident draw are in the wrong order. Read `makemon :1494` (`m_initgrp`, `mkobj_at` ident) and `pmnames[]` gendered naming. Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-genesis-Archeologist-92175, scen-tour-Wizard-92103, scen-wish-Knight-92130).
+- [ ] `lock.c` pick_lock / `apply.c` use_pick_axe on an occupied square — blocks 5/553 (first at step 6): C `I don't think the kitten would appreciate that.` (`lock.c:567` `pick_lock` direction arm with a monster there) vs JS `You see no door there.`. Probe: `node scripts/hidden-proxy.mjs verify pick_lock` (scen-kit-Rogue-92225, scen-kit-Tourist-91126, scen-wish-Barbarian-92102).
+- [ ] `read.c` create_particular_creation — blocks 5/553 (first at step 14): `^G` of a unique / genocided / not-yet-eligible monster: C `Creating doppelganger instead; force Demogorgon? [yn] (n)` (`read.c:3267` `create_particular_creation` uniqueness / `mvitals` gate) vs JS creating it directly. Probe: `node scripts/hidden-proxy.mjs verify create_particular_creation` (scen-death-Valkyrie-92229, scen-genesis-Barbarian-91118, scen-genesis-Knight-92149).
+- [ ] `uhitm.c` mhitm_mgc_atk_negated — blocks 5/553 (first at step 26): C draws `rn2(10)` in `mhitm_mgc_atk_negated :87` (the `AD_*` magic-attack negation gate before knockback) where JS is already in `mhitm_knockback`. Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Tourist-92003, scen-poly-Caveman-92050, scen-wish-Caveman-92183).
+- [ ] `mkroom.c` somex / `themerms.lua` themed-room fills at Dlvl 1 — blocks 4/553 at step 0 (15.7k RNG) plus 5 `unattributed` step-0 rows (`rn2(27) @ nhlib.lua random parent=contents(themerms.lua:183)` vs JS `rnd_rect`): a themed room C fills that the port skips. Geometry owner → `node scripts/geom-probe.mjs scen-genesis-Monk-92025` first, then port the missing `themerms.lua` room/fill from `nethack-c/upstream/dat/themerms.lua` (26 rooms; check which `name =` entries `js/mklev.js` lacks). Probe: `node scripts/hidden-proxy.mjs verify somex` (scen-genesis-Monk-92025, scen-genesis-Rogue-92069, scen-poly-Caveman-91133).
+
+## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
+
+Plain bullets on purpose (not popped, not counted). Re-enable as `- [ ]`
+Open rows only when `hidden-proxy status` shows every family ≥ 90 %.
+
+- `monmove.c` dochug demon/caster retaliation — MS_BRIBE mux skipped by D-1798; live `demon_talk`/`cuss` unwired at monmove.c:823/985 (sounds.c:1143/1150 wired).
+- `artifact.c` artiname/discover_artifact/artidisco[] save-rest — discovery announce + artidisco bit (D-1107 live; save/rest artidisco named; c-js-map data.md).
+- `artifact.c` restore_artifacts save-rest — artilist restore on load (named in init_artifacts D-1201 row; c-js-map data.md).
+- `artifact.c` arti_invoke on drop / questart artitouch / zap-poly addinv_core1 — invoke-touch family (named in cspfx W_ART D-1539 row; c-js-map data.md).
+- `vision.c` howmonsseen — artifact-warn see-monsters helper (named in SPFX_WARN D-1514 row; c-js-map data.md).
+- `dogmove.c` dog_move beg/dog_hunger caller wiring — dogmove.c:383 `beg(mtmp)` unwired in live `js/dogmove.js` dog_move (named in `beg` D-1763 + js/sounds.js:518; c-js-map turns.md).
+- `wintty.c` core cliparound call sites — allmain.c:546 moveloop, dungeon.c:1580 u_on_newpos, muse.c:2637, restore.c:629 (named D-1974/D-1982; tty_cliparound live, unwired; c-js-map turns.md).
+- `display.c` get_othersym base + assign_graphics showsyms copy (named D-1983; SYM_OFF_X/SYM_MAX live; c-js-map turns.md).
+- `display.c` docrt_flags maponly/redrawonly/nocls + post_map botlx/update_inventory (named D-1974/D-1981; c-js-map turns.md).
 
 ## Parked (do not pop)
 

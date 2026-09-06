@@ -71,13 +71,20 @@ locked suite:
 1. Treat 44/44 (or the current full public pass) as a **regression
    fortress** — green gate, cohort, and cadence full `sessions` must
    stay PASS.
-2. Choose work from named omissions / constitutional debt in one
-   `c-js-map/*.md` section (`debt.md` scenario-shaped code first, then
-   `absent.md` thin systems). Parked items stay diagnose-only until
-   their falsifier exists.
-3. Optional **private canaries:** record short local C-recorder sessions
-   on thin subsystems for held-out hardening; never memorize public
-   traces or chase public leaderboard / CDN drift in-loop.
+2. Choose work from the **scenario corpus** first
+   (`node scripts/hidden-proxy.mjs queue`; `docs/HIDDEN-PROXY.md` §4–5):
+   every row is a C-recorded session the port fails, attributed to the
+   owning C function. A `js-throw` owner is Must-fix. Named omissions in
+   `c-js-map/*.md` come only when every corpus family is ≥ 90 % PASS
+   (Constitution §10.13); parked items stay diagnose-only until their
+   falsifier exists.
+3. **Keep the corpus unsaturated:** when every family is ≥ 85 % PASS the
+   audit iteration generates a new cohort with `scripts/scenario-gen.mjs`
+   (wizard-mode wishes, `^G`, `#polyself`, `#wizintrinsic`, deaths,
+   `^V ?` named-level tours, normal-mode kits) and re-scores before any
+   refill. Never memorize public traces or chase public leaderboard / CDN
+   drift in-loop; the leaderboard's held-out line is the only external
+   truth and a human reads it.
 4. Prefer delete-wrong-JS + re-port of a shim-thick module over stacking
    micro-fixes (Phase 2 maintainability).
 

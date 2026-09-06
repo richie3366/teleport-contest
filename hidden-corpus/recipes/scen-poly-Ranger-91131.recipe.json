@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPgl#polyself\nkitten\n  #monster\nss.ss#polyself\nhuman\nss\u0007fire giant\nFj FjFj20s20s.m. #polyself\nnurse\n owlbear\n#monster\ns20s \u0007werewolf\nFj   Fj   nFl sm. 20s .m.   yy\u001bny y\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 91131,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPgl#polyself\nkitten\n  #monster\nss.ss#polyself\nhuman\nss\u0007fire giant\nFj FjFj20s20s.m. #polyself\nnurse\n owlbear\n#monster\ns20s \u0007werewolf\nFj   Fj   nFl sm. 20s .m.   yy\u001bny y\u001by  #"
+  }
+ ]
+}

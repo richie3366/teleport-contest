@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007gnomish wizard\nFhFh Fh Fh \u0007human mummy\nFu Fu \u0007nalfeshnee\nFh   yy\u001by  y y y\u001b y  F"
+ },
+ "segments": [
+  {
+   "seed": 92224,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007gnomish wizard\nFhFh Fh Fh \u0007human mummy\nFu Fu \u0007nalfeshnee\nFh   yy\u001by  y y y\u001b y  F"
+  }
+ ]
+}

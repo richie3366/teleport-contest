@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed ring of polymorph control\nPgl\u0017black dragon scale mail\nW\u001bsysm.20s#polyself\ncockatrice\n  #monster\nsbsss20s#polyself\ngelatinous cube\ns20ss.20s#polyself\nghoul\n#monster\nss\u0007rabid rat\nFn Fj Fjsjsm..m.#polyself\nviolet fungus\n s  20s \u0007gelatinous cube\nFh Fh   Fl    n20s sm."
+ },
+ "segments": [
+  {
+   "seed": 92090,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed ring of polymorph control\nPgl\u0017black dragon scale mail\nW\u001bsysm.20s#polyself\ncockatrice\n  #monster\nsbsss20s#polyself\ngelatinous cube\ns20ss.20s#polyself\nghoul\n#monster\nss\u0007rabid rat\nFn Fj Fjsjsm..m.#polyself\nviolet fungus\n s  20s \u0007gelatinous cube\nFh Fh   Fl    n20s sm."
+  }
+ ]
+}

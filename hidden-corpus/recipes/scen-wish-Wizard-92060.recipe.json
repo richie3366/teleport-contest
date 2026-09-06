@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017uncursed bag of holding\n\u0007Demogorgon\nyanr\na\nanr\n#tip\nn\u001b   yy\u001by   nny  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 92060,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017uncursed bag of holding\n\u0007Demogorgon\nyanr\na\nanr\n#tip\nn\u001b   yy\u001by   nny  \u0017"
+  }
+ ]
+}

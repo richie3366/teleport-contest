@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       \u0016?\n>>\u001b\u0016?\n>B#sit\n\u001b#offer\nE- Vlad was here\n;l. \u001bm. s20s\u001619\n  n#loot\nn#offer\n;h:   20ss"
+ },
+ "segments": [
+  {
+   "seed": 92152,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       \u0016?\n>>\u001b\u0016?\n>B#sit\n\u001b#offer\nE- Vlad was here\n;l. \u001bm. s20s\u001619\n  n#loot\nn#offer\n;h:   20ss"
+  }
+ ]
+}

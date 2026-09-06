@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " 10s<nn#dip\nbo ;>. \u000f #force\n10s #jump\nz \u0018 z dr\u001bol\u0004n\u0004y\u000f\u001b\u0014W:,;m, \u001b.oki\u001bwb .sswa ss20sXi\u001bafi\n#turn\ni\u001b>tbb"
+ },
+ "segments": [
+  {
+   "seed": 92160,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": " 10s<nn#dip\nbo ;>. \u000f #force\n10s #jump\nz \u0018 z dr\u001bol\u0004n\u0004y\u000f\u001b\u0014W:,;m, \u001b.oki\u001bwb .sswa ss20sXi\u001bafi\n#turn\ni\u001b>tbb"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nhn\n .bsu20s sm.sm. 20s.m.sb20s..m.sn.jsm.20s20ssssssm...b..sk.20sss..oh>e20s#enhance\nya\no\n\u001b#enhance\nyc\np\n\u001b20s20s..ss"
+ },
+ "segments": [
+  {
+   "seed": 92052,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nhn\n .bsu20s sm.sm. 20s.m.sb20s..m.sn.jsm.20s20ssssssm...b..sk.20sss..oh>e20s#enhance\nya\no\n\u001b#enhance\nyc\np\n\u001b20s20s..ss"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " rk s #pray\ny \u000f\u001b#twoweapon\n#twoweapon\n#dip\nlh#conduct\n \u0018\u001b>e#ride\nnH\u001410s #loot\n\u000f\u001bE- Elbereth Elbereth\nf \u001b>i\u001briaoPer...ReW\u001bs20s    20s    Pdl s.sRdqf#dip\ngg#loot\nl10s udmW\u001b#twoweapon\n"
+ },
+ "segments": [
+  {
+   "seed": 91114,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " rk s #pray\ny \u000f\u001b#twoweapon\n#twoweapon\n#dip\nlh#conduct\n \u0018\u001b>e#ride\nnH\u001410s #loot\n\u000f\u001bE- Elbereth Elbereth\nf \u001b>i\u001briaoPer...ReW\u001bs20s    20s    Pdl s.sRdqf#dip\ngg#loot\nl10s udmW\u001b#twoweapon\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017uncursed +0 ring of searching\nPir.m.20ssb\u0017potion of paralysis\nqj     \u00173 spellbook of drain life\n\u0007Oracle\nnrk 20s20sZZ\u0017uncursed luckstone\ntbl  ynny ny  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 92072,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017uncursed +0 ring of searching\nPir.m.20ssb\u0017potion of paralysis\nqj     \u00173 spellbook of drain life\n\u0007Oracle\nnrk 20s20sZZ\u0017uncursed luckstone\ntbl  ynny ny  \u0017"
+  }
+ ]
+}

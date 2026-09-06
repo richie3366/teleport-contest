@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0007green-elf\nFjFj\u0007barrow wight\n#chat\nj   yy\u001by  ny\u001bn  F"
+ },
+ "segments": [
+  {
+   "seed": 92233,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007green-elf\nFjFj\u0007barrow wight\n#chat\nj   yy\u001by  ny\u001bn  F"
+  }
+ ]
+}

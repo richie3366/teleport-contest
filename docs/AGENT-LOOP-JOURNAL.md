@@ -8,6 +8,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — human: scenario corpus replaces the saturated proxy (no D-id)
+
+**Why:** leaderboard held-out is **7/44** (RNG 22.8 %, screens 45.4 %) while the local proxy said 96 %; the last ~40 iterations shipped display/getpos singletons (`pmatch`, `On_ladder`, `map_frame_color`…) that no session can see. The public 44 and the mutant corpus are scripted-scenario vs random-key genres: the mutants never wish, `^G`, `#polyself`, `#wizintrinsic`, die, or `^V ?` to a named level.
+**Change:** new `scripts/scenario-gen.mjs` (drives the C recorder key by key from the screen; 8 families) → 275 `scen-*` recipes in `hidden-corpus/recipes/`; `record-session.mjs` exports its marker parser. Re-scored: **262/540 PASS**, scen-* **7/275**. `LOOP-QUEUE.md` Must-fix = 4 `ReferenceError` imports (`is_pit`, `FORCEBUNGLE`, `otense`, `STARVED`; 8 sessions dead at step 0); Open = 14 corpus owners (`calendar.c getlt` DST ×51, `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment` family ×15, `wiz_intrinsic` ×7, …); the 9 map singletons moved to **Deferred**. Constitution §10.13 (saturation rule) + §10.14 (throw = Must-fix); playbook §2a, port/cadence/review prompts, runbook §3, `HIDDEN-PROXY.md` §4–5, `PORT-GAP-TOP30.md` refreshed.
+**Verify:** `node scripts/hidden-proxy.mjs score --jobs 8` (553 in 199 s); old families unchanged (255/278); public 44/44 untouched (no `js/` edit).
+**Next:** pop Must-fix; on the audit iter, if every family ≥ 85 %: `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
 ## 2026-09-06 — D-1987 getpos.c map_frame_color store + HiliteBackground wiring
 
 **C locus:** `nethack-c/upstream/src/getpos.c` — `getpos_sethilite` `:41–64` (old frame color `:46`, defaultHiliteState recompute `:49`, getvalid-change reset `:50–51`, HI_ZAP/NO_COLOR store `:57–58`, old∪new newsym force `:60–62`) + `getpos_refresh` `:753–765` (Goodpos→default reset `:757`, Background re-sethilite `:762–765`) + `getpos_toggle_hilite_state` `:72–91`; `decl.c:820` store init NO_COLOR; `wintype.h:258–261` struct; C `bgcolors` default On (`optlist.h:196`).

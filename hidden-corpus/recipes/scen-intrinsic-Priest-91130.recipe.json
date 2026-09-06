@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\ndk\n sm.20s.k..sm..k.snsm.20s20s20ssm. sj20s20s.m.sh sm.sm.sm.\u0017scroll of gold detection\nri  \u001b,  yy\u001bnnnny  c"
+ },
+ "segments": [
+  {
+   "seed": 91130,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ndk\n sm.20s.k..sm..k.snsm.20s20s20ssm. sj20s20s.m.sh sm.sm.sm.\u0017scroll of gold detection\nri  \u001b,  yy\u001bnnnny  c"
+  }
+ ]
+}

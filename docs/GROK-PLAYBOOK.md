@@ -22,7 +22,7 @@ Session Viewer cannot load the module is a **failed handoff**.
 
 ## 1. Read order (time-boxed)
 
-Target **≤12k tokens** of docs before touching C.
+Target **≤12k tokens** of docs before C.
 
 | Order | Doc | What to extract | Skip |
 |------:|-----|-----------------|------|
@@ -35,8 +35,8 @@ Target **≤12k tokens** of docs before touching C.
 | 7 | `PORTING-RUNBOOK.md` §3–7 | only if procedure unclear | strategy rationale |
 
 **Do not read by default:** `PORTING-STRATEGY.md`, `archive/**`, full
-`DIVERGENCE-LOG.md`, full journal. Use `DIVERGENCE-INDEX.md` + **one**
-`## D-NNNN` entry; journal tail only.
+`DIVERGENCE-LOG.md`, full journal, `PORT-GAP-HELDOUT.md` (all ported).
+Use `DIVERGENCE-INDEX.md` + **one** `## D-NNNN` entry; journal tail only.
 
 **Always re-read the relevant C function** (body + callers + guarding `if`)
 before patching — `brief.mjs` / `csym.mjs fn --callers` fetch both in one call.
@@ -58,17 +58,18 @@ treat that score as a **regression fortress**, not a work picker.
 
 | Do | Do not |
 |----|--------|
-| Pop the queue row: level content (`PORT-GAP-HELDOUT.md`), a corpus first-diff owner (`hidden-proxy queue`), or a map omission | Invent FAIL peels, ALIGN/FORCE, or seed-shaped gates |
+| Pop the queue row: a **scenario-corpus** first-diff owner (`hidden-proxy queue`, `scen-*` sessions), then a `PORT-GAP-TOP30.md` row the corpus reaches | Invent FAIL peels, ALIGN/FORCE, seed-shaped gates, or map singletons while a corpus family is < 90 % PASS |
 | A `hidden-corpus` / `private-sessions` first diff is a **C-vs-JS fact** with a recorded expectation; port the **owning C function** | Make a corpus session pass by reading a seed, step, coordinate or RNG index |
 | Verify with `hidden-proxy verify <fn>`: blocked sessions PASS or move to a **later** owner | Call NO MOVEMENT a named omission, or chase public leaderboard / CDN drift in-loop |
 | Keep green + cohort + cadence full `sessions` PASS | “Improve” already-matching public paths without a C citation |
 | Pop `LOOP-QUEUE.md` **Must-fix** (written-review C-wrongs) before Open | Leave QUALITY-RISK reviews unread and keep map-dumping |
-| Keep 8–12 open rows; refill from `hidden-proxy queue` / HELDOUT / map | Halt and wait for a human because the queue ran dry |
+| Keep 8–12 open rows; refill from `hidden-proxy queue`; grow the corpus (`scenario-gen.mjs`) when every family is ≥ 85 % | Halt and wait for a human because the queue ran dry |
+| A JS **throw** in a corpus session is Must-fix: it forfeits every later screen | Leave a `ReferenceError` row behind a map omission |
 
-Sessions measure progress; they are **not** the specification. Local
-signals for what the held-out 44 hit, in order: blank level content
-(`PORT-GAP-HELDOUT.md`), corpus first-diff owners (`HIDDEN-PROXY.md`),
-then map debt. Tagged restore: save-oracle probe.
+Sessions measure progress; they are **not** the specification. The
+held-out 44 are scripted wizard-mode scenarios (wishes, `^G`, named-level
+`^V`, deaths); the `scen-*` corpus is the local stand-in
+(`HIDDEN-PROXY.md` §4–5). Tagged restore: save-oracle probe.
 
 ### 2b. Iteration density (token vs quality)
 
@@ -79,7 +80,7 @@ journal). Prefer **fewer, denser** iterations once the suite is green.
 |-------------------|------------|------------------------|
 | One deferred `if` alone | One C function **or** tight caller/callee cluster | “Finish potions” / half of `mon.c` |
 | Separate iters for sibling `switch` arms | Whole practical `switch` / role kit / item-class envelope | Unrelated subsystems in one commit |
-| Docs-only then code next iter | Code + map update + verify in one handoff | Multiple independent hypotheses |
+| Docs-only then code next iter | Code + map + verify in one handoff | Multiple independent hypotheses |
 
 **Rule:** one falsifier, one C locus family, usually one JS module (or
 two that already call each other). Related map deferrals in that
@@ -91,7 +92,7 @@ together iff every C callee is live, a C-matched clone, or a named
 omit in this commit (no stub in a live arm). Must-fix stays one item,
 alone. If success/failure needs two unrelated theories, split.
 
-Stop the loop on empty “hold green / refresh docs only” iterations.
+Stop on empty “hold green / docs only” iterations.
 
 ---
 
@@ -120,11 +121,11 @@ Stop the loop on empty “hold green / refresh docs only” iterations.
 | PASS without `strict-output-check` | Trailing RNG/screens can hide bugs |
 | `import` from `fs` / `path` / `url` / `node:*` | Contest Rule #2 — Chrome + judge both must load `js/` |
 | Runtime `readFileSync` of `dat/*` | Embed via `js/generated/` (D-0477); VFS is storage only |
-| Grid snapshot/restore to emulate a tty side effect the C loop never draws | D-1831 `_snapshotStatusGrid` broke 12 corpus sessions; port the C control flow (no `docrt` on an unhandled menu key) |
+| Grid snapshot/restore to emulate a tty side effect the C loop never draws | D-1831 broke 12 corpus sessions; port the C control flow instead |
 | Helper clone dropping a C predicate (`inside_shop` sans `edge`) | D-1849; `sym.mjs`: IMPORT the export |
 
-**Rule of thumb:** if you cannot explain the change by pointing at a C `if`,
-call order, struct field, or macro expansion, it is probably trace tailoring.
+**Rule of thumb:** if you cannot explain the change by a C `if`, call
+order, struct field, or macro expansion, it is trace tailoring.
 
 ---
 
@@ -190,29 +191,24 @@ can be 0 when sessions fail. Always `strict-output-check` on green sessions.
 
 ## 7. When stuck — measure C, do not theorize
 
-**Geometry owner → probe first.** If the blocked owner is a
-level-wide scan or any level-gen function (`mineralize`, `bound_digging`,
-`wallification`, `place_lregion`, `makecorridors`…), C only *noticed* a
-terrain difference there; the writer is upstream and an RNG count cannot
-say which cell. `node scripts/geom-probe.mjs <session-id> [--step N]`
+**Geometry owner → probe first.** If the blocked owner is a level-wide
+scan or level-gen function (`mineralize`, `bound_digging`, `wallification`,
+`place_lregion`, `somex`…), C only *noticed* a terrain difference there;
+the writer is upstream and an RNG count cannot say which cell. `node scripts/geom-probe.mjs <session-id> [--step N]`
 records a wizard `^F` map on the C recorder, replays JS and prints every
 differing cell plus the mineralize-eligible diff. Run it before opening a
 second C function (D-1849).
 
 **Evidence grades.** Every NOTES / D-log claim about C state says
 *measured* (probe, recorded screen, temp C dump) or *inferred* (JS-only).
-A JS FORCE/DIAG that restores an RNG count is not a falsifier and never
-localizes (D-1847 → D-1849).
+A JS FORCE/DIAG that restores an RNG count never localizes (D-1849).
 
 **After two falsifications, or ~40 calls without a C measurement:** stop
-patching the symptom. Take the measurement, reconstruct the C call path,
-port a tighter prerequisite, or park with the exact probe command in
-`NOTES.md`. Do not open another callee.
+patching the symptom. Measure, reconstruct the C call path, port a tighter
+prerequisite, or park with the exact probe command in `NOTES.md`.
 
 **Temp C dump at the cited locus** (revert after) for keystream /
-`--More--` state (`NEED_MORE`, `WIN_STOP`, pending more at
-`hitmsg`/`unmul`/`yn`; #1127) or state the map cannot show
-(`dndest`, flags; #1092).
+`--More--` state or state the map cannot show (#1127, #1092).
 
 
 ---
@@ -236,14 +232,14 @@ in the journal.
 ## 9. Pitfalls
 
 - Ship confident partials — name every deferral in the map section.
-- Over-edit or under-edit — one iteration ≈ one semantic **cluster** (§2b).
-- Confuse observation with rule — trace coords are evidence, not control flow.
+- Over/under-edit — one iteration ≈ one semantic **cluster** (§2b).
+- Confuse observation with rule — trace coords are evidence, not code.
 - Infer C state from JS, a FORCE, or an RNG count — measure C (§7).
 - Skip cohort — Tourist green ≠ Rogue/orc/combat proof.
 - Stack shims — prefer **delete wrong JS + re-port from C**.
 - Reach for Node `fs` — **Rule #2**; Chrome must load it too.
 - Spend calls on lookup — `brief.mjs` / `sym.mjs` / `csym.mjs` are one call each.
-- Serial regression rounds — one verify lists every FAIL; fix causes, not sessions.
+- Serial regression rounds — one verify lists every FAIL; fix causes.
 
 ---
 
@@ -265,11 +261,12 @@ goes in the **next** real commit (never a stamp-only SHA).
 ## 11. Quick commands
 
 ```bash
-node scripts/brief.mjs <cfn>              # orient: C + JS + map + D-rows + corpus (1 call)
+node scripts/brief.mjs <cfn>              # orient (C + JS + map + D-rows + corpus)
 node scripts/verify.mjs --fn <cfn>        # corpus verify + green/strict + cohort (+full)
-node scripts/finish-iteration.mjs --commit   # index/journal/CURRENT/NOTES/stamps from the D-log entry, push
-node scripts/geom-probe.mjs <session-id> [--step N]   # C ^F map vs JS: cell diff (geometry owners)
-node frozen/ps_test_runner.mjs sessions   # full public score (audit iters); CURRENT from __RESULTS_JSON__
+node scripts/finish-iteration.mjs --commit   # stamps from the D-log entry, commit, push
+node scripts/geom-probe.mjs <session-id> [--step N]   # C ^F map vs JS (geometry owners)
+node scripts/hidden-proxy.mjs status      # corpus pass rate + owners (the number to move)
+node frozen/ps_test_runner.mjs sessions   # public fortress (audit iters)
 ```
 
 ---

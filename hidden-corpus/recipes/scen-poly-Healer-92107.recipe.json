@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          \u0017blessed ring of polymorph control\nPmr#polyself\nowlbear\n#monster\nss\u0007master lich\nFl   Fu     Fk      20s    20s 20s   #polyself\nki-rin\n giant beetle\n #monster\nsk     20s  .m.sm.s#polyself\nrock piercer\n  #monster\n      20s     sm.   20s     sm.  n  sm.   #polyself\nincubus\n#monster\nsm.  su      "
+ },
+ "segments": [
+  {
+   "seed": 92107,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          \u0017blessed ring of polymorph control\nPmr#polyself\nowlbear\n#monster\nss\u0007master lich\nFl   Fu     Fk      20s    20s 20s   #polyself\nki-rin\n giant beetle\n #monster\nsk     20s  .m.sm.s#polyself\nrock piercer\n  #monster\n      20s     sm.   20s     sm.  n  sm.   #polyself\nincubus\n#monster\nsm.  su      "
+  }
+ ]
+}

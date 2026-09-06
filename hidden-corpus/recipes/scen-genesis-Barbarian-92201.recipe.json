@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017athame\nwfFkFjFk\u0007gecko\n#chat\nbFk Fb\u0007rothe\nFys\u0007bugbear\nFbFbFbFbFb  yy\u001by   y y y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 92201,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017athame\nwfFkFjFk\u0007gecko\n#chat\nbFk Fb\u0007rothe\nFys\u0007bugbear\nFbFbFbFbFb  yy\u001by   y y y\u001by  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u001613\n q#loot\n.#chat\nl.s\u0016?\nm w-y_m, \u001bm..;m.\u0006..\u001635\n#wipe\n#pray\ny y ck;y:  20s sy  \u0016?\nn#ride\nly#terrain\nf\nW.s\u0016?\n>Cq;m,P\u000620s."
+ },
+ "segments": [
+  {
+   "seed": 92162,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u001613\n q#loot\n.#chat\nl.s\u0016?\nm w-y_m, \u001bm..;m.\u0006..\u001635\n#wipe\n#pray\ny y ck;y:  20s sy  \u0016?\nn#ride\nly#terrain\nf\nW.s\u0016?\n>Cq;m,P\u000620s."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u00173 tin whistle\n\u0007yellow mold\najaj Fls\u0017leather drum\n\u0007fire giant\nak akFkFl\u00173 amulet of reflection\nPl.m..20ssm.\u0017blessed scroll of scare monster\nrm \u001bFlFl\u00173 potion of confusion\nqn\u001b#dip\nnn\u0017cursed -1 dwarvish mithril-coat\nW\u001bsysss."
+ },
+ "segments": [
+  {
+   "seed": 92035,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u00173 tin whistle\n\u0007yellow mold\najaj Fls\u0017leather drum\n\u0007fire giant\nak akFkFl\u00173 amulet of reflection\nPl.m..20ssm.\u0017blessed scroll of scare monster\nrm \u001bFlFl\u00173 potion of confusion\nqn\u001b#dip\nnn\u0017cursed -1 dwarvish mithril-coat\nW\u001bsysss."
+  }
+ ]
+}

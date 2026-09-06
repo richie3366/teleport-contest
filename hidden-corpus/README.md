@@ -16,21 +16,23 @@ node scripts/hidden-proxy.mjs status          # pass rate + blocking owners
 node scripts/hidden-proxy.mjs queue           # LOOP-QUEUE rows from owners
 node scripts/hidden-proxy.mjs verify <cfn>    # after a port: did it move?
 node scripts/hidden-proxy.mjs show <id>       # one session's first diff
-node scripts/hidden-proxy.mjs gen --n 240     # more ordinary-play mutants
+node scripts/hidden-proxy.mjs gen --n 240     # more ordinary-play mutants (saturated family)
 node scripts/hidden-proxy.mjs gen --mode tour # debug ^V descents to deep levels
+node scripts/scenario-gen.mjs --n 120 --seed N  # scenario sessions (the held-out genre) — grow this one
 ```
 
 `scoreboard.json` is the committed summary of the last `score` (per session:
 pass, RNG/screen counts, divergence kind and step, owning C function, C and
 JS toplines). `.cache/hidden/scores.json` holds the full worker output.
 
-## Three recipe families
+## Four recipe families
 
 | prefix | how it is made | what it measures |
 |---|---|---|
 | `explore-*`, `random-*` | a public session's tail replaced by random sane keys (`fuzz-oracle` explore / random alphabets) | ordinary play near the public distribution: prompts, menus, item actions, messages |
 | `ind-*` | a fresh seed and role, random keys from turn 1 | chargen + early game for roles the public set under-samples |
 | `tour-*` | `playmode:debug`, `^V<dlvl>` teleports down a schedule (3…27) with a few moves per level | **level content**: bigrm / rogue / medusa / castle depths a held-out tour walks into and the port may render blank |
+| `scen-<family>-<Role>-<seed>` | `scripts/scenario-gen.mjs`: a driver plays the C recorder key by key and composes acts from the screen — wish → use by class, `^G` genesis → fight/#chat/farlook, `#polyself` forms, `#wizintrinsic` timeouts, deaths + disclosure, `^V ?` level teleports **by name**, role kits and ordinary commands in normal mode | **the held-out genre**: the public 44 are exactly such scripted scenarios (`wandpoly-pile`, `water-demon`, `ten-diverse-deaths`, `quaff-zap-read`). The first three families saturated at 96 % while this one passes 7/275 — it is the work picker now (`docs/HIDDEN-PROXY.md` §4–5) |
 
 `private-sessions/*.session.json` (the older hand-curated oracle corpus) is
 scored alongside these.

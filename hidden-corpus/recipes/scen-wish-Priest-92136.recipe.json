@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u00173 wand of enlightenment\nzj \u001bzj \u001b\u0017uncursed the Platinum Yendorian Express Card\n \u0007kraken\nFbFb\u0017magic harp\n\u0007kraken\naky  aky .s"
+ },
+ "segments": [
+  {
+   "seed": 92136,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u00173 wand of enlightenment\nzj \u001bzj \u001b\u0017uncursed the Platinum Yendorian Express Card\n \u0007kraken\nFbFb\u0017magic harp\n\u0007kraken\naky  aky .s"
+  }
+ ]
+}

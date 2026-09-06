@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0017kelp frond\nee.20sFj 20s\u0017cursed heavy iron ball\n.wb \u0017cursed sprig of wolfsbane\neg20ssm.\u0017wand of slow monster\nzhksm..m."
+ },
+ "segments": [
+  {
+   "seed": 92142,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0017kelp frond\nee.20sFj 20s\u0017cursed heavy iron ball\n.wb \u0017cursed sprig of wolfsbane\neg20ssm.\u0017wand of slow monster\nzhksm..m."
+  }
+ ]
+}

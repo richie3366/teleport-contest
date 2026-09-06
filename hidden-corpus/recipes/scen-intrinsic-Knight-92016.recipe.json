@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             #wizintrinsic\nnbj\n  .hsm.sss20s20s .m.20s  nsss20s.20s...ss.sss.s20ss.20s20s.\u0017potion of restore ability\nqi \u001bs#force\ndcz#offer\nr\u001b20sssss20s"
+ },
+ "segments": [
+  {
+   "seed": 92016,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             #wizintrinsic\nnbj\n  .hsm.sss20s20s .m.20s  nsss20s.20s...ss.sss.s20ss.20s20s.\u0017potion of restore ability\nqi \u001bs#force\ndcz#offer\nr\u001b20sssss20s"
+  }
+ ]
+}

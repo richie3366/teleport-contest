@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007Death\nn#chat\nnFnFn\u0007wererat\n;l, \u001b>..m.20s20s"
+ },
+ "segments": [
+  {
+   "seed": 92149,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Death\nn#chat\nnFnFn\u0007wererat\n;l, \u001b>..m.20s20s"
+  }
+ ]
+}

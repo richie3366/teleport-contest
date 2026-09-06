@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017elven mithril-coat\nW\u001bs20ss\u0007winter wolf\nFbFbFbFb\u0007doppelganger\n;l; \u001b,sm.sks\u0007ice devil\nFbFlFh  Fh\u0007guardian naga\nsm.    sm.sm.  20s   "
+ },
+ "segments": [
+  {
+   "seed": 92118,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017elven mithril-coat\nW\u001bs20ss\u0007winter wolf\nFbFbFbFb\u0007doppelganger\n;l; \u001b,sm.sks\u0007ice devil\nFbFlFh  Fh\u0007guardian naga\nsm.    sm.sm.  20s   "
+  }
+ ]
+}

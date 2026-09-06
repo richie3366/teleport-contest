@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017potion of invisibility\nql\u0017potion of gain energy\nqm\u0017uncursed wand of cancellation\nznhznjs20s\u0017silver dragon scale mail\n\u0007pit viper\nWo       .ys.To       Fn Fn \u0017uncursed potion of enlightenment\nqp \u001b 20s  sm."
+ },
+ "segments": [
+  {
+   "seed": 92147,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017potion of invisibility\nql\u0017potion of gain energy\nqm\u0017uncursed wand of cancellation\nznhznjs20s\u0017silver dragon scale mail\n\u0007pit viper\nWo       .ys.To       Fn Fn \u0017uncursed potion of enlightenment\nqp \u001b 20s  sm."
+  }
+ ]
+}

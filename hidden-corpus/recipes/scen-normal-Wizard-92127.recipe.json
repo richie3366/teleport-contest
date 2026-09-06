@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#jump\n#untrap\nkck>clW\u001bf \u001bedm20s\u0004be<nn;_. \u001b:  ;.#conduct\n #jump\n\u0014\u000f\u001bohi\u001bqf,zclzcbao Pel s20s.qhwaFhss: oji\u001bw-kf a y"
+ },
+ "segments": [
+  {
+   "seed": 92127,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "#jump\n#untrap\nkck>clW\u001bf \u001bedm20s\u0004be<nn;_. \u001b:  ;.#conduct\n #jump\n\u0014\u000f\u001bohi\u001bqf,zclzcbao Pel s20s.qhwaFhss: oji\u001bw-kf a y"
+  }
+ ]
+}

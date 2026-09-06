@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017uncursed magic whistle\nai ai Fj .\u0017potion of paralysis\nqj\u0017cursed the Master Key of Thievery\n  yy\u001by  nnny  ."
+ },
+ "segments": [
+  {
+   "seed": 92221,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017uncursed magic whistle\nai ai Fj .\u0017potion of paralysis\nqj\u0017cursed the Master Key of Thievery\n  yy\u001by  nnny  ."
+  }
+ ]
+}

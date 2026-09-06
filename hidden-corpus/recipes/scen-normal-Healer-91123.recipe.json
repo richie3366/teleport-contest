@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " f $ k#turn\n\u0004l#jump\n#ride\nb#jump\n#invoke\n\u001b#twoweapon\n#ride\nb\\ #force\n#turn\nW<nn#offer\ns#sit\n#untrap\njLeji\u001bi\u001bri y s.Zc\nZb\nqeackWs..rh y 20s20sZb\n#offer\nch_>. \u001bm,scl#sit\n\u001bw-"
+ },
+ "segments": [
+  {
+   "seed": 91123,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\n",
+   "moves": " f $ k#turn\n\u0004l#jump\n#ride\nb#jump\n#invoke\n\u001b#twoweapon\n#ride\nb\\ #force\n#turn\nW<nn#offer\ns#sit\n#untrap\njLeji\u001bi\u001bri y s.Zc\nZb\nqeackWs..rh y 20s20sZb\n#offer\nch_>. \u001bm,scl#sit\n\u001bw-"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0016?\n>y  #name\n\u001b,#conduct\n 20ss\u0016?\n>>N       \u001bW\u001bse.m.sm.   \u00162\nE- Vlad was here\n      yy\u001bnny\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 92103,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0016?\n>y  #name\n\u001b,#conduct\n 20ss\u0016?\n>>N       \u001bW\u001bse.m.sm.   \u00162\nE- Vlad was here\n      yy\u001bnny\u001b  u"
+  }
+ ]
+}

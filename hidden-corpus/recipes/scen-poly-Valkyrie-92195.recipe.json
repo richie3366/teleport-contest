@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPfl#polyself\nsoldier ant\n   #monster\nss\u0007iron golem\nFjFjFj .m.20ssm.#polyself\ncouatl\nsm..j sn sm.20s#polyself\nbrown mold\n #monster\n. 20s\u0007tengu\nFhFhFnsj20ssu#polyself\nkitten\n.m.sm..hsm.sk\u0017potion of polymorph\nqg wererat\n giant spider\n "
+ },
+ "segments": [
+  {
+   "seed": 92195,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPfl#polyself\nsoldier ant\n   #monster\nss\u0007iron golem\nFjFjFj .m.20ssm.#polyself\ncouatl\nsm..j sn sm.20s#polyself\nbrown mold\n #monster\n. 20s\u0007tengu\nFhFhFnsj20ssu#polyself\nkitten\n.m.sm..hsm.sk\u0017potion of polymorph\nqg wererat\n giant spider\n "
+  }
+ ]
+}

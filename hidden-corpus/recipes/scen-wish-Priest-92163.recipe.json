@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017cursed potion of enlightenment\nqk \u001bss\u0017uncursed wand of enlightenment\nzl \u001bzl \u001b\u0017blessed spellbook of sleep\nrm .sZb\n gray ooze\n\u0017amulet of guarding\nPnsm..b.skFh  Fu \u0017blessed the Master Key of Thievery\n \u0007green-elf\nw-Fh FuFu#invoke\no uXFuFh\u0017cursed -1 cloak of magic resistance\nW\u001bsm.shsyss"
+ },
+ "segments": [
+  {
+   "seed": 92163,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017cursed potion of enlightenment\nqk \u001bss\u0017uncursed wand of enlightenment\nzl \u001bzl \u001b\u0017blessed spellbook of sleep\nrm .sZb\n gray ooze\n\u0017amulet of guarding\nPnsm..b.skFh  Fu \u0017blessed the Master Key of Thievery\n \u0007green-elf\nw-Fh FuFu#invoke\no uXFuFh\u0017cursed -1 cloak of magic resistance\nW\u001bsm.shsyss"
+  }
+ ]
+}

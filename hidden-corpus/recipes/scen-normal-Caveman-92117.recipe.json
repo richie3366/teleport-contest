@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#dip\nef  bW#ride\n.#conduct\n P_<. \u001b<..w->#jump\nqL#ride\nj#rub\ncb#tip\n\u001b#rub\ncd>i\u001bwa ssstbjW20ssm.20sTw-Fj s20s \u001btauz#name\ni\nfk20sy#untrap\nh"
+ },
+ "segments": [
+  {
+   "seed": 92117,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "#dip\nef  bW#ride\n.#conduct\n P_<. \u001b<..w->#jump\nqL#ride\nj#rub\ncb#tip\n\u001b#rub\ncd>i\u001bwa ssstbjW20ssm.20sTw-Fj s20s \u001btauz#name\ni\nfk20sy#untrap\nh"
+  }
+ ]
+}

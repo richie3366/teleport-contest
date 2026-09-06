@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0007Uruk-hai\n#chat\nyFyFy\u0007djinni\n#chat\nyFb  nFy\u0007xorn\n;b: \u001b,sy  nsm.   yy\u001by  y y ny  s"
+ },
+ "segments": [
+  {
+   "seed": 92157,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Uruk-hai\n#chat\nyFyFy\u0007djinni\n#chat\nyFb  nFy\u0007xorn\n;b: \u001b,sy  nsm.   yy\u001by  y y ny  s"
+  }
+ ]
+}

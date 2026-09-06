@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0007human mummy\n;b, \u001b>..m.sm.20s \u0007air elemental\n#chat\nj Fy  Fk   \u0007yellow light\nFj  Fj    yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 92205,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0007human mummy\n;b, \u001b>..m.sm.20s \u0007air elemental\n#chat\nj Fy  Fk   \u0007yellow light\nFj  Fj    yy\u001by   y y y\u001b  F"
+  }
+ ]
+}
