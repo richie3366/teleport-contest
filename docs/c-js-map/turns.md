@@ -3138,7 +3138,7 @@ uhitm/mhitm `mhitm_ad_elec` branches; Protection/amulet MC;
 **hmonas AT_HUGS D-1250**; **hmonas AT_EXPL `explum` D-1251** (dhit=-1 wakeup/You 
 explode/rehumanize; AD_BLND/HALU + COLD/FIRE/ELEC `(adtyp-1)+20` you-caused `explode`; 
 **hmonas AT_ENGL gulpum D-1264**; **fight_empty explum(null) D-1265**; 
-**hmonas altwep / uswapwep D-1266**; **hmonas skipdrin / pit kick D-1298**; **eat_brains D-1306**; 
+**hmonas altwep / uswapwep D-1266**; **hmonas skipdrin / pit kick D-1298**; **hmonas weaponless silver/shade/verb envelope D-1916** (`uhitm.c:5597–5668` odd_claw/multi_claw ring alternation, per-aatyp verb, shade `attack` + `vtense`, canonical `failed_grab` export from `mhitm.js`, `silver_sears`, specialdmg into `damageum`; WEAP odd toggle + shared-dhit discipline + knockback break + strange-attack `impossible`; named: `gv.vis`, `alt_attk`, `failed_grab_you` for hugs/ENGL, remaining `mhitm_ad_*`); **eat_brains D-1306**; 
 **helmet / m_slips_free D-1307**; **mhitu AD_DRIN D-1329**; **mhitu AD_DRLI D-1870** (`mhitm_ad_drli` `:2479–2488` mhitu arm: hitmsg + `!rn2(3)` + Drain_resistance + mgc_negated(TRUE) → losexp, whose level-1 drainer→done(DIED) arm is live D-1894 — killer KILLED_BY+drainer, wizard `Die?`/Lifesaved return falls through to the uexp/uhp tail; uhitm/mhitm arms + `mhitm_ad_dren` still named); **mhitm AD_DRIN D-1330**; 
 **mhitm gazemm D-1338**; **mhitm explmm D-1339** (AT_EXPL distmin>1 skip; mcan miss; 
 cansee explodes else noises; FIRE/COLD/ELEC `mon_explodes`; else mdamagem then mondead; 

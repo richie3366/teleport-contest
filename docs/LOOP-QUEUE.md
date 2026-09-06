@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `uhitm.c` hmonas remaining arms — polymorphed-hero attack-type envelope (TOP30 #27, under half ported; archived troll_baned/silver named bits only).
 - [ ] `worn.c` mon_break_armor — absent, 23 messages (TOP30 honourable mention; no archive row).
 - [ ] `mhitm.c` mattackm remaining arms — monster-vs-monster attack dispatch (TOP30 honourable mention, 297/175; never queued).
 - [ ] `makemon.c` grow_up remaining arms — monster growth HP/dice escalation (TOP30 honourable mention, 127/67; never queued).

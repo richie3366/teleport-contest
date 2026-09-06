@@ -666,7 +666,7 @@ export {
     AD_BLND, AD_DRDX, AD_DRCO, AD_DRIN, AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
     AD_STON, AD_CONF, AD_STUN, AD_WRAP, AD_SLEE,
     AD_SGLD, AD_TLPT, AD_WERE, AD_SLIM,
-    could_seduce,
+    could_seduce, failed_grab,
 };
 
 function deadmonster(m) {
