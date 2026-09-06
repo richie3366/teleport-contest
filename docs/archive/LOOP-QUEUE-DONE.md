@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `worn.c` mon_break_armor — absent, 23 messages (TOP30 honourable mention; no archive row). **Addressed:** D-1917
+- [x] `trap.c` lava_effects post-boots-burn Wwalking re-read **Addressed:** D-1918 — `heroWwalking` snapshotted at entry (`js/trap.js:5047`); C re-reads the `Wwalking` macro (`youprop.h:260`) after the boots-burst, so WW-via-burnable-boots flips true→false mid-function. C falls+burns (likely death) / sinks (Fire case); JS burns-you+walks-on / skips sink. Fix in lava_effects alone (slot clears synchronously via deconfer; flats never written): live re-read at the three post-boots points. Falsifier: WW boots, no Fire, lava step → fall path. Source: reviews/loop-unattended/883-05c03076-lava-effects-wwalking.md
+
+
+- [x] `worn.c` mon_break_armor — absent, 23 messages (TOP30 honourable mention; no archive row). **Addressed:** D-1917 `29b2c5c5`
 
 
 - [x] `uhitm.c` hmonas remaining arms — polymorphed-hero attack-type envelope (TOP30 #27, under half ported; archived troll_baned/silver named bits only). **Addressed:** D-1916 `9b35a3ff`

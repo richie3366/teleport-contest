@@ -1014,7 +1014,10 @@ double-fail `HFire_resistance`/`HWwalking` TIMEOUT 5 →burn_stuff,
 `rescued_from_terrain` + `spoteffects(FALSE)` TRUE; `Fire+!Wwalking+!trapped`
 sink (`rn1` short-circuit, `set_utrap`, `monstseesu`, `losehp`); burn_stuff
 `destroy_items(AD_FIRE)` + `ignite_items`. Named: none new (`sink_into_lava`
-not called by C here).
+not called by C here). **`Wwalking` live re-read** (D-1918): post-boots
+`if (Wwalking)` / sink `else if (!Wwalking…)` / countermeasure `if (!Wwalking)`
+re-read the macro via `liveWwalking()` (boots burst clears the slot through
+`Boots_off`); entry snapshot kept for entry `usurvive` + the flag loop.
 
 ### `src/dog.c` `tamedog` / `initedog`
 

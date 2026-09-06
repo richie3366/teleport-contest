@@ -95,3 +95,5 @@ HEAD). `sym.mjs`: `lava_effects` sole async export, no clones.
    above. → Must-fix (prepended).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1918

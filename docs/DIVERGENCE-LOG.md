@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1918 — trap.c lava_effects post-boots-burn Wwalking live re-read
+
+- **Status:** fixed (Must-fix queue row from review 883: `trap.c` lava_effects post-boots-burn Wwalking re-read).
+- **Symptom:** none on any suite (no corpus session blocked on lava_effects at HEAD; review-driven Must-fix) — latent C-wrong: WW-via-burnable-boots flips true→false mid-function in C (burst clears `EWwalking`), but the JS entry snapshot stayed TRUE, so a no-Fire lava step printed `The lava here burns you!` + `losehp(dmg)`→burn_stuff (walks on) instead of `You fall` + invent burn + the `done(BURNING)` loop, and a Fire + WW-boots step skipped the sink arm entirely.
+- **C locus:** `trap.c` `lava_effects` `:6794–6987` — entry `usurvive = Fire_resistance || (Wwalking && dmg < u.uhp)` reads pre-burn values; the boots-burst block (`Boots_off()` then `useup`) runs before `if (!Fire_resistance) { if (Wwalking) … } else fall`, the double-fail countermeasure `if (!Wwalking) set_itimeout(&HWwalking, 5L)`, and the `else if (!Wwalking && (!u.utrap || u.utraptype != TT_LAVA))` sink arm. Macro `youprop.h:260` Wwalking ≡ `(HWwalking||EWwalking) && !Is_waterlevel`.
+- **JS was:** `js/trap.js` `heroWwalking` snapshotted at entry and reused at all three post-boots points, so post-burn reads never observed the flip.
+- **Fix:** `liveWwalking()` closure (same slot+flats+`Is_waterlevel` idiom as the snapshot) read at the three post-boots points (`if (Wwalking)` burns-you gate, sink-arm `else if (!Wwalking…)`, countermeasure `if (!Wwalking)`); entry snapshot kept for entry `usurvive` + the flag loop, where C also reads pre-burn values. Fire stays snapshot (no worn burnable Fire source; boots don't grant Fire). Chain confirmed in-tree, all synchronous: `Boots_off` (`js/do_wear.js:669`) → `clear_worn(W_ARMF)` (`:604`) → `setworn(null, …)` (`:519`, deconfer at `:534–544`) → `confer_oc_oprop(off)` clears `uprops[WWALKING].extrinsic` (`:322–331`); WW state lives in the slot, not the flats (`js/teleport.js:250`).
+- **JS:** `js/trap.js` (+13/−3, 1 file, < 600 cap); `docs/c-js-map/data.md` one section.
+- **Verify:** `node scripts/verify.mjs --fn lava_effects` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/trap.js`; `PASS rule2`; `note hidden verify lava_effects: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — brief confirmed none, review 883 re-measured 0 at baseline — so no `--base` re-run owed); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`. Hand probe (`/tmp/ww-probe.mjs`, 24 lines, deleted): WW water-walking boots worn as sole WW source (W_ARMF extrinsic, organic ungreased) + no Fire + uhp 100 (entry survive deterministic, `d(6,6)` ≤ 36) + lava step on the real `lava_effects` → post-fix `uarmf` burned + extrinsic 0 + `uhp` 0 + gameover (fall path); same setup pre-fix → `uhp` 83 + no gameover (stale burns-you path). FAILS pre-fix / PASSES post-fix — a true falsifier.
+- **Named omissions:** none new.
+- **Next:** next Open queue row in order (`mhitm.c` mattackm remaining arms).
+
 ## D-1917 — were.c new_were mon_break_armor caller wiring
 
 - **Status:** fixed (Open queue row `worn.c` mon_break_armor — absent, 23 messages; TOP30 honourable mention, no archive row. Canonical export shipped D-1914 and wired into newcham; D-1914 Named omissions + D-1916 Next both bless closing on pop or wiring the `were.c:129` caller — this iter wires it).

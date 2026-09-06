@@ -35,8 +35,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `trap.c` lava_effects post-boots-burn Wwalking re-read — `heroWwalking` snapshotted at entry (`js/trap.js:5047`); C re-reads the `Wwalking` macro (`youprop.h:260`) after the boots-burst, so WW-via-burnable-boots flips true→false mid-function. C falls+burns (likely death) / sinks (Fire case); JS burns-you+walks-on / skips sink. Fix in lava_effects alone (slot clears synchronously via deconfer; flats never written): live re-read at the three post-boots points. Falsifier: WW boots, no Fire, lava step → fall path. Source: reviews/loop-unattended/883-05c03076-lava-effects-wwalking.md
-
 ## Open (map-driven, after Must-fix is empty)
 
 Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached

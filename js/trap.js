@@ -4998,6 +4998,8 @@ export async function drown() {
  * ignite_items FALSE.
  * C macros: Fire_resistance ≡ uprops[FIRE_RES].intrinsic||extrinsic (youprop.h:28);
  * Wwalking ≡ (HWwalking||EWwalking) && !Is_waterlevel (youprop.h:260);
+ * post-boots Wwalking re-read live (boots burst clears the slot; entry
+ * snapshot kept only for entry usurvive + the flag loop).
  * Lifesaved ≡ uprops[LIFESAVED].extrinsic (:387); wizard ≡ flags.debug,
  * discover ≡ flags.explore (flag.h:30,33). JS flats (u.HFire_resistance etc)
  * cover dual storage alongside uprops slots.
@@ -5048,6 +5050,14 @@ export async function lava_effects() {
         || (wwalkSlot?.intrinsic | 0) || (wwalkSlot?.extrinsic | 0))
         && !Is_waterlevel(u.uz));
     let usurvive = heroFireRes || (heroWwalking && (dmg < (u.uhp | 0)));
+    /* C re-reads the Wwalking macro (youprop.h:260) after the boots-burst:
+     * burnable WW boots clear uprops[WWALKING].extrinsic synchronously via
+     * Boots_off→clear_worn→setworn→confer_oc_oprop (do_wear.js), so the three
+     * post-burn reads below must observe the flip. The entry snapshot stays
+     * for entry usurvive + the flag loop, where C also reads pre-burn values. */
+    const liveWwalking = () => !!(((u.HWwalking | 0) || (u.EWwalking | 0) || u.Wwalking
+        || ((u.uprops?.[WWALKING]?.intrinsic) | 0) || ((u.uprops?.[WWALKING]?.extrinsic) | 0))
+        && !Is_waterlevel(u.uz));
 
     /*
      * Flag items before any message so a hangup at --More-- cannot save
@@ -5109,7 +5119,8 @@ export async function lava_effects() {
     };
 
     if (!heroFireRes) {
-        if (heroWwalking) {
+        /* C: if (Wwalking) — re-read: the boots-burst above may have cleared it. */
+        if (liveWwalking()) {
             await pline(`The ${hliquid('lava')} here burns you!`);
             if (usurvive) {
                 losehp(dmg, lava_killer, KILLED_BY); /* lava damage */
@@ -5189,7 +5200,8 @@ export async function lava_effects() {
                 slot.intrinsic = ((slot.intrinsic | 0) & ~TIMEOUT) | 5;
                 set_itimeout_prop('HFire_resistance', 5);
             }
-            if (!heroWwalking) {
+            /* C: if (!Wwalking) — re-read post-burn value. */
+            if (!liveWwalking()) {
                 if (!u.uprops) u.uprops = {};
                 const slot = u.uprops[WWALKING]
                     || (u.uprops[WWALKING] = { intrinsic: 0, extrinsic: 0, blocked: 0 });
@@ -5203,7 +5215,8 @@ export async function lava_effects() {
         /* spoteffects() was no-op under in_lava_effects; land without pickup. */
         await spoteffects(false);
         return true;
-    } else if (!heroWwalking && (!(u.utrap | 0) || (u.utraptype | 0) !== TT_LAVA)) {
+    /* C: else if (!Wwalking …) — re-read: Fire-case sink needs post-burn value. */
+    } else if (!liveWwalking() && (!(u.utrap | 0) || (u.utraptype | 0) !== TT_LAVA)) {
         const boil_away = !heroFireRes;
         /* C rn1 short-circuit: rn1(4,12) only when NOT boiling away. */
         const base = rn1(4, 4);
