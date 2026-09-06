@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — Audit D-1926…D-1934 (reviews 896–904) + cadence score
+
+8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix. 44/44 held.
 ## 2026-09-06 — D-1934 do_wear.c ia_dotakeoff takeoff one-at-a-time arm (turns.md named fix)
 
 **C locus:** `do_wear.c` `ia_dotakeoff` `:1862–1870` (`gi.item_action_in_progress = TRUE; res = dotakeoff(); = FALSE`); callers `iactions.c:230–232` (`cmdq_add_ec(CQ_CANNED, ia_dotakeoff)`), `cmd.c:2064` (`"alttakeoff"`, `ia_dotakeoff`, `INTERNALCMD`); wrapped `dotakeoff` `:1833–1855` (`Narmorpieces != 1 || ParanoidRemove || gi.item_action_in_progress` → `getobj("take off", takeoff_ok)`); `equip_ok` `:3439–3444` (`removing && !gi.item_action_in_progress` → `EXCLUDE_INACCESS` for covered armor).

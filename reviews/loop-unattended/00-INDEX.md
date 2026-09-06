@@ -906,3 +906,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [893-53b920c5-makeplural-envelope.md](./893-53b920c5-makeplural-envelope.md) | `53b920c5` | D-1923 objnam.c makeplural envelope | **ACCEPT-WITH-DEBT** |
 | [894-b87ddc27-dotrap-dispatch-body.md](./894-b87ddc27-dotrap-dispatch-body.md) | `b87ddc27` | D-1924 trap.c dotrap dispatch body | **ACCEPT** |
 | [895-7571aee9-explode-remaining-arms.md](./895-7571aee9-explode-remaining-arms.md) | `7571aee9` | D-1925 explode.c explode remaining arms | **ACCEPT** |
+| [896-a3aa0f8d-pickup-autopickup-arm.md](./896-a3aa0f8d-pickup-autopickup-arm.md) | `a3aa0f8d` | D-1926 pickup.c pickup autopickup arm | **ACCEPT** |
+| [897-35d8be59-getobj-takeoff-filter.md](./897-35d8be59-getobj-takeoff-filter.md) | `35d8be59` | D-1927 invent.c getobj takeoff live filter | **ACCEPT** |
+| [898-3d1a2e9f-bhit-dispatch-skip.md](./898-3d1a2e9f-bhit-dispatch-skip.md) | `3d1a2e9f` | D-1928 zap.c bhit dispatch + rock skip | **ACCEPT** |
+| [899-aa665cb9-hitval-vsmon-arms.md](./899-aa665cb9-hitval-vsmon-arms.md) | `aa665cb9` | D-1929 weapon.c hitval vs-mon arms | **ACCEPT** |
+| [900-63add93d-select-hwep-arms.md](./900-63add93d-select-hwep-arms.md) | `63add93d` | D-1930 weapon.c select_hwep HTH arms | **ACCEPT-WITH-DEBT** |
+| [901-e9543922-mshot-xname-arms.md](./901-e9543922-mshot-xname-arms.md) | `e9543922` | D-1931 objnam.c mshot_xname Nth arms | **ACCEPT** |
+| [902-35c8eba4-mhitm-knockback-body.md](./902-35c8eba4-mhitm-knockback-body.md) | `35c8eba4` | D-1932 uhitm.c mhitm_knockback body | **ACCEPT** |
+| [903-cc217718-pit-fiend-identity-arm.md](./903-cc217718-pit-fiend-identity-arm.md) | `cc217718` | D-1933 trap.c m_easy_escape_pit identity | **ACCEPT** |
+| [904-82034fab-ia-dotakeoff-arm.md](./904-82034fab-ia-dotakeoff-arm.md) | `82034fab` | D-1934 do_wear.c ia_dotakeoff arm | **ACCEPT** |
