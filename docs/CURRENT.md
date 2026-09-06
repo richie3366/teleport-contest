@@ -41,10 +41,10 @@ D-1892): **253 / 265 PASS (95.5 %)** excl. 13 env-only rows;
 RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`suit_simple_name`/
 `hitmsg`/`show_conduct` (parked) ×1 (+ unattributed `!` ×2, `-` ×1, motd, level-change).
-Reviews **835–842** (D-1865…D-1897): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1897):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1897):
-8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1897):
+Reviews **835–842** (D-1865…D-1898): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1898):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1898):
+8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1898):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -77,13 +77,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `hack.c` findtravelpath — absent; travel is adjacent/greedy only (TOP30 #29).
+**Next cluster:** Open `polyself.c` missing domonability arms — dopoly, dohide, dogaze, dospit, dospinweb, dosummon, domindblast, doremove, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1897 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1898 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1898** `cmd.c` `domonability` (hide/web prompt + 15-arm chain) ; `polyself.c` `dospit :1450–1478` — C-order dispatch incl. the hide/web `yn_function` prompt (`hidespinchars`, q/ESC → ECMD_OK) ahead of every arm; `dospit` (`getdir`→ECMD_CANCEL, `attacktype_fordmg` AT_SPIT/AD_ANY=-1, BLND/DRST→blinding else ACID→acid wit
 **D-1897** `hack.c` `findtravelpath :1266–1523` — New `travel_delay_current(x,y)` (`!Passes_walls_prop() && !can_ooze(youmonst) && closed_door` || `boulder && !could_move_onto_boulder`, C `:1403–1407`) on same-edge imports only — exported `Passes_walls_prop` (`hack.js`)
 **D-1896** `read.c` `seffect_mail :2157–2188` / `seffect_enchant_armor :1115–1290` / `seffect_confuse — Ported all eleven C functions in C branch order with short-circuit, RNG (`rn2/rnd/rn1/d`), and mutation semantics preserved: charging confused uen/discharge+botl else learnscroll/useup-first/getobj+recharge; amnesia forg
 **D-1895** `dat/tut-2.lua` (whole file, 27 ln) via `mkmaze.c` `makemaz` `:1127–1223` → `load_special` — `load_tut2` in lua order through end of file — `nhlib_shuffle_align`, STONE solidfill + `is_maze_lev`/`nomongen`/`deathdrops=false`/`noautosearch` (tut-1 idiom), byte-identical 14x8 map via `splev_map_center_start` + `se
@@ -91,11 +92,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1893** `dat/Cav-strt.lua:94` / `dat/Cav-loca.lua:93` / `dat/Cav-goal.lua:59` → `sp_lev.c` `lspo_w — Tou-goal/Ran-goal epilogue line in lua order (after last monster, before wallification → flip → fixup) in all three loaders: `wallify_map((g.splev_xstart|0)-1, (g.splev_ystart|0)-1, (g.splev_xstart|0)+(g.splev_xsize|0)+1
 **D-1892** `zap.c` `makewish` — `makewish` ports the three livelog arms in C order on same-edge imports only (`livelog_printf` from `pline.js`, `uhis` next to `uhim`, `artifact_origin` next to the artifact imports, `LL_WISH`/`LL_CONDUCT`/`LL_ARTIFACT`/
 **D-1891** `dat/Cav-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76x20 map, whole-map un — `load_cav_strt` (STONE solidfill + triple flags, byte-identical map, whole-map unlit, temple via Pri-strt flood idiom with needfill FILL_NORMAL — filled=1 per C `sp_lev.c` lspo_region `:5600`, not FILL_LVFLAGS — 6 ordina
-**D-1890** `dat/Mon-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, Pri-strt-identical 20×7 — `load_mon_strt` (Pri-strt skeleton: STONE solidfill + triple flags, byte-identical map, whole-map lit, temple with `needfill = 0` per C `sp_lev.c` lspo_region `:5600` default — Pri filled=2 takes FILL_LVFLAGS — same add_
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1897; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1898; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

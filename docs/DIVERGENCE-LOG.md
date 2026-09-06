@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1898 — polyself.c domonability C-order dispatch + five #monster arms
+
+- **Status:** fixed (Open queue row `polyself.c` missing domonability arms, HELDOUT Tier C; hidden vacuous — no corpus session blocked on domonability at HEAD; green + strict + cohort 7/7 PASS)
+- **Symptom:** `#monster` while poly'd only knew breathe/unicorn/reflexive — spit, were-summon, nymph-unpunish, mind-blast, gremlin-split, shriek and vampire re-poly forms all fell through to "purely reflexive".
+- **C locus:** `cmd.c` `domonability` (hide/web prompt + 15-arm chain) ; `polyself.c` `dospit :1450–1478` / `doremove :1481–1494` / `dosummon :1624–1639` / `dopoly :1877–1890` / `domindblast :1894–1938`.
+- **JS was:** `domonability` handled `can_breathe`→`dobreathe` + `is_unicorn`→`use_unicorn_horn`, else reflexive/normal pline (D-0723/D-1030); `dospit`/`doremove`/`dosummon`/`dopoly`/`domindblast` absent from `js/`.
+- **Fix:** C-order dispatch incl. the hide/web `yn_function` prompt (`hidespinchars`, q/ESC → ECMD_OK) ahead of every arm; `dospit` (`getdir`→ECMD_CANCEL, `attacktype_fordmg` AT_SPIT/AD_ANY=-1, BLND/DRST→blinding else ACID→acid with the C `impossible` fallthrough, spe=1, `throwit`); `doremove` (nymph `Punished` — one-word export from `pray.js` — buried-ball `surface` arm, `unpunish`); `dosummon` (uen−10+botl, `exercise` WIS, tame `were_summon`); `dopoly` (vampire/vampshifter → `polyself(POLY_MONSTER)`, transform+newsym on change, `Ugender` `pmname`); `domindblast` (uen−10+botl, BOLT_LIM² range, peaceful/mindless gates, telepathy/rn2 gates with `u_sen` short-circuit, wakeup-before-blast hostility rule, mhp−=dmg→`killed`, floating-eye `nomul` freeze + `multi_reason`, Medusa killer+`done(STONING)`); gremlin `split_mon`/`dryup` fountain arm; shriek/`aggravate` arm. `You`/`You_cant`/`Your`/`There`/`pline_The` rendered as full-text `pline` (dobreathe/file convention — no new `You` clone beside `zap.js`). Same-edge static imports only (82-module SCC per `imports.mjs --can`; all uses inside async fns, no top-level TDZ read). Deferred arms route to the unchanged reflexive/normal tail (no behavior delta where C is not yet ported).
+- **JS:** `js/polyself.js` (+278/−17: `mdistu`/`MS_SHRIEK`/venom+PM consts, five arms, C-order `domonability`); `js/pray.js` (+2/−2: one `export` word on `Punished`); `docs/c-js-map/turns.md` domonability line.
+- **Verify:** `node scripts/verify.mjs --fn domonability` → `PASS syntax 2 changed js file(s): js/polyself.js js/pray.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `note hidden verify domonability: no corpus session is blocked on it at HEAD` (queue row cited no blocks — HELDOUT Tier C map row — so public gates carry it) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)`.
+- **Named omissions:** `dogaze`/`dohide`/`dospinweb` (131/97/124 ln C; `y_n`/`setmangry`/`destroy_items`/`expels`/`deltrap`/`maketrap` gangs — follow-up queue row); `armor_to_dragon`/`check_strangling`/`livelog_newform` (dead code without the `polyself()`/`polymon()` draconian/rehumanize envelopes — same follow-up row); steed breath (`pet_ranged_attk` missing).
+- **Next:** follow-up Open row (remaining `polyself.c` arms); then `muse.c` slime/stone cures (HELDOUT Tier C).
+
 ## D-1897 — hack.c findtravelpath door/boulder delay re-queue + grid-bug NODIAG
 
 - **Status:** fixed (Open queue row `hack.c` findtravelpath, TOP30 #29; hidden vacuous — no corpus session blocked on findtravelpath at HEAD; green + strict + cohort 7/7 + full 44/44 PASS)

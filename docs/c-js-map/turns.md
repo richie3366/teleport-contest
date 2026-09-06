@@ -265,7 +265,12 @@ DRAIN_RES/ANTIMAGIC/SICK_RES/STUNNED/…/BLND_RES/`#monster`/`dobreathe` deferre
 **`urace.individual.m/f` → "new man"** (D-0726; Sick/Stoned/Slimed/livelog/retouch deferred); 
 **`polymon`→`encumber_msg` + `setworn` skip_find_ac** (D-0722); 
 **`#monster`/`domonability` reflexive** (D-0723; 
-spit/gaze/were/hide/web/… deferred) + **`can_breathe`→`dobreathe` uen<15** (D-0725; 
+spit/gaze/were/hide/web/… deferred) + **`domonability` C-order dispatch** (D-1898;
+hide/web `yn_function` prompt; `dospit` venom/`throwit`; `doremove` nymph/`unpunish`;
+`dosummon` were/`were_summon`; `domindblast` mindflayer incl. floating-eye/Medusa;
+gremlin `split_mon`/`dryup`; shriek/`aggravate`; vampire `dopoly`; gaze/hide/web
+`dogaze`/`dohide`/`dospinweb` + steed `pet_ranged_attk` still deferred) + 
+**`can_breathe`→`dobreathe` uen<15** (D-0725; 
 getdir/ubuzz deferred); **`polymon` verbose breath tip** (D-0725; other tips deferred)); 
 **`d` → `dodrop`/`drop`/`dropx` + gold `freeinv_core` botl/`_goldCount` 
 (D-0396)/`dropy`/`canletgo`** (D-0261) + **`flooreffects` via `dropz`** (D-0987) + 

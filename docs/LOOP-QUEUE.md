@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `polyself.c` missing domonability arms — dopoly, dohide, dogaze, dospit, dospinweb, dosummon, domindblast, doremove, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C).
 - [ ] `muse.c` slime/stone cures — cures_sliming, cures_stoning, munslime, muse_unslime, green_mon, m_sees_sleepy_soldier (HELDOUT Tier C).
 - [ ] `wizard.c` clonewiz family — clonewiz, mon_has_arti, other_mon_has_arti, which_arti, on_ground, wizdeadorgone, plus quest.c leaddead, nemdead, nemesis_stinks (HELDOUT Tier C).
 - [ ] `mkmap.c` cavern generator — get_map, pass_one, pass_two, pass_three, remove_room, remove_rooms (HELDOUT Tier C; called from sp_lev.c:3010 level_init styles).

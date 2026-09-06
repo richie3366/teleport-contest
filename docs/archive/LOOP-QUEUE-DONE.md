@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `hack.c` findtravelpath — absent; travel is adjacent/greedy only (TOP30 #29). **Addressed:** D-1897
+- [x] `polyself.c` remaining arms (D-1898 follow-up) — dogaze, dohide, dospinweb, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C; steed `pet_ranged_attk`). **Addressed:** D-1898
+
+
+- [x] `polyself.c` missing domonability arms — dopoly, dohide, dogaze, dospit, dospinweb, dosummon, domindblast, doremove, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C). **Addressed:** D-1898
+
+
+- [x] `hack.c` findtravelpath — absent; travel is adjacent/greedy only (TOP30 #29). **Addressed:** D-1897 `1eda4b05`
 
 
 - [x] `read.c` missing seffect_* arms — scroll effects (seffect_amnesia, seffect_charging, seffect_confuse_monster, seffect_earth, seffect_enchant_armor, seffect_mail, seffect_scare_monster, seffect_stinking_cloud, do_stinking_cloud, can_center_cloud, p_glow3) (HELDOUT Tier C). **Addressed:** D-1896 `eb2fae2f`
