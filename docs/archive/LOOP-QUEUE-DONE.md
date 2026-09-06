@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `o_init.c` doclassdisco — class discovery singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1951
+- [x] `mkmaze.c` mazexy + is_solid — maze solidity predicates (HELDOUT Tier C mkmaze row remainder; no JS symbol). **Addressed:** D-1952
+
+
+- [x] `o_init.c` doclassdisco — class discovery singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1951 `4f597828`
 
 
 - [x] `stairs.c` On_ladder — ladder predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1950 `c5b4a1f4`

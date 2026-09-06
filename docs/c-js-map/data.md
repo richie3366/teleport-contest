@@ -855,7 +855,7 @@ prefix **86170→98492**) + **D-0776 `Wiz-strt`** (cloud replace + Neferet inven
 prefix **98505→100104**; Scr **292**) + **D-0777 `maketrap` AIR/CLOUD + 
 `splev_create_trap` stairs/`get_location_coord`** (prefix **100104→100397**) + 
 **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL**; Scr **561**;
-**D-1818 `Wiz-goal`**; **D-1819 `Bar-goal`**; **D-1841 `fakewiz1`/`fakewiz2`)
+**D-1818 `Wiz-goal`**; **D-1819 `Bar-goal`**; **D-1841 `fakewiz1`/`fakewiz2`); **D-1952 `mkmaze.c` `is_solid`/`mazexy`** (local `isSolidTile` clone retired; `wall_cleanup` calls `is_solid`; `mazexy` live but `populate_maze`/`create_maze`/`maze0xy`/`walkfrom` callers still deferred)
 
 ### `src/mkmap.c` cavern generator
 

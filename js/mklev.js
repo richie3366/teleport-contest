@@ -27554,9 +27554,9 @@ function place_branch(branchp, x = 0, y = 0) {
 // Wallification
 // ============================================================
 
-function isSolidTile(x, y) {
-    if (!isok(x, y)) return true;
-    return IS_STWALL(game.level?.at(x, y)?.typ ?? STONE);
+/* C ref: mkmaze.c is_solid `:70-73` — TRUE if out of bounds, wall or rock. */
+export function is_solid(x, y) {
+    return !isok(x | 0, y | 0) || IS_STWALL(game.level?.at(x | 0, y | 0)?.typ ?? STONE);
 }
 function isWallOrStone(x, y) {
     if (!isok(x, y)) return 1;
@@ -27594,9 +27594,9 @@ function wall_cleanup(x1, y1, x2, y2) {
             const loc = map.at(x, y);
             const typ = loc?.typ ?? STONE;
             if (!(IS_WALL(typ) && typ !== DBWALL)) continue;
-            if (isSolidTile(x-1,y-1) && isSolidTile(x-1,y) && isSolidTile(x-1,y+1)
-                && isSolidTile(x,y-1) && isSolidTile(x,y+1)
-                && isSolidTile(x+1,y-1) && isSolidTile(x+1,y) && isSolidTile(x+1,y+1))
+            if (is_solid(x-1,y-1) && is_solid(x-1,y) && is_solid(x-1,y+1)
+                && is_solid(x,y-1) && is_solid(x,y+1)
+                && is_solid(x+1,y-1) && is_solid(x+1,y) && is_solid(x+1,y+1))
                 loc.typ = STONE;
         }
 }
@@ -27635,6 +27635,34 @@ export function fix_wall_spines(x1, y1, x2, y2) {
 function wallification(x1, y1, x2, y2) {
     wall_cleanup(x1, y1, x2, y2);
     fix_wall_spines(x1, y1, x2, y2);
+}
+
+/* C ref: mkmaze.c mazexy `:1316-1350` — random ROOM point (CORR on corrmaze),
+ * so populate_maze/makemaz don't create items in moats, bunkers, or walls. */
+export function mazexy(cc) {
+    const allowedtyp = game.level?.flags?.corrmaze ? CORR : ROOM;
+    let cpt = 0;
+    let x, y;
+    do {
+        /* C comment: 1+rn2(N) is rnd(N); outer boundary walls waste attempts. */
+        x = rnd(X_MAZE_MAX);
+        y = rnd(Y_MAZE_MAX);
+        if ((game.level?.at(x, y)?.typ ?? STONE) === allowedtyp) {
+            cc.x = x;
+            cc.y = y;
+            return;
+        }
+    } while (++cpt < 100);
+    /* 100 random attempts failed; systematically try every possibility */
+    for (x = 1; x <= X_MAZE_MAX; x++)
+        for (y = 1; y <= Y_MAZE_MAX; y++)
+            if ((game.level?.at(x, y)?.typ ?? STONE) === allowedtyp) {
+                cc.x = x;
+                cc.y = y;
+                return;
+            }
+    /* C: panic("mazexy: can't find a place!"); loud throw ≡ C panic. */
+    throw new Error("mazexy: can't find a place!");
 }
 
 // ============================================================
