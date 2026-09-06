@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1933 — trap.c m_easy_escape_pit pit-fiend identity arm (data.md named fix)
+
+- **Status:** fixed (Open queue row: `trap.c` m_easy_escape_pit — pit-fiend identity arm dead, file-local `js/trap.js` identity arm)
+- **Symptom:** none on any suite (no corpus session blocked on m_easy_escape_pit at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-wrong: a pit fiend (msize 3 < MZ_HUGE 4) never took the identity arm, so mintrap's `!rn2(40) || (is_pit && m_easy_escape_pit)` kept pit fiends trapped 97.5% of turns and the `easily ` adverb never printed for them; a hero poly'd to pit fiend likewise missed the climb_pit easy-escape crawl-out.
+- **C locus:** `trap.c` `m_easy_escape_pit` `:3726–3730` (`mtmp->data == &mons[PM_PIT_FIEND] || mtmp->data->msize >= MZ_HUGE`); callers `trap.c:3751` (mintrap trapped-arm escape gate), `trap.c:3766` (`easily ` adverb), `trap.c:4209` (climb_pit `--utrap`-or-easy-escape crawl-out).
+- **JS was:** file-local `m_easy_escape_pit` (`js/trap.js:1821`, shipped D-1876) compared `data === mons[PM_PIT_FIEND]` — but `mons` is a factory function (`js/monsters.js:201`) returning a fresh snapshot per call, so the subscript is `undefined` and the arm was always false.
+- **Fix:** `js/trap.js` — identity arm is now `(data?.mndx | 0) === PM_PIT_FIEND`, the monsndx-equivalent idiom used by the js/do.js chew-swallower arm and the js/do_name.js astral-high-cleric arm; C short-circuit order kept; no new imports (PM_PIT_FIEND const + MZ_HUGE already live on existing edges); `?.` guards null data. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/trap.js` (+8/−4 incl. C-cite comment); 1 js file, under 600 cap.
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn m_easy_escape_pit` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/trap.js`; `PASS rule2`; `note hidden` (vacuous; row cited 0 blocks — brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full (no shared file changed)`. Probe (inline `node -e`, no file left): PM_PIT_FIEND=300, msize=3 < MZ_HUGE=4; old arm `d === mons(PFI)` false vs fresh snapshot, new arm true, size arm false; null-data both arms false.
+- **Named omissions:** none new.
+- **Next:** next Open queue row in order (`do_wear.c` ia_dotakeoff — takeoff one-at-a-time arm).
+
 ## D-1932 — uhitm.c mhitm_knockback hurtle/steadfast/size/weapon body (turns.md named omit)
 
 - **Status:** fixed (Open queue row: `uhitm.c` mhitm_knockback — hurtle/steadfast/size/weapon body, named deferred in js/mhitm.js stub + turns.md)

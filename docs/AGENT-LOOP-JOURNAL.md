@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1933 trap.c m_easy_escape_pit pit-fiend identity arm (data.md named fix)
+
+**C locus:** `trap.c` `m_easy_escape_pit` `:3726–3730` (`mtmp->data == &mons[PM_PIT_FIEND] || mtmp->data->msize >= MZ_HUGE`); callers `trap.c:3751` (mintrap trapped-arm escape gate), `trap.c:3766` (`easily ` adverb), `trap.c:4209` (climb_pit `--utrap`-or-easy-escape crawl-out).
+**JS:** `js/trap.js` (+8/−4 incl. C-cite comment); 1 js file, under 600 cap.
+**Change:** `js/trap.js` — identity arm is now `(data?.mndx | 0) === PM_PIT_FIEND`, the monsndx-equivalent idiom used by the js/do.js chew-swallower arm and the js/do_name.js astral-high-cleric arm; C short-circuit order kept; no new imports (PM_PIT_FIEND const + MZ_HUGE already live on existing edges); `?.` guards null data. No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn m_easy_escape_pit` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/trap.js`; `PASS rule2`; `note hidden` (vacuous; row cited 0 blocks — brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full (no shared file changed)`. Probe (inline `node -e`, no file left): PM_PIT_FIEND=300, msize=3 < MZ_HUGE=4; old arm `d === mons(PFI)` false vs fresh snapshot, new arm true, size arm false; null-data both arms false.
+**Named:** none new.
+**Next:** next Open queue row in order (`do_wear.c` ia_dotakeoff — takeoff one-at-a-time arm).
 ## 2026-09-06 — D-1932 uhitm.c mhitm_knockback hurtle/steadfast/size/weapon body (turns.md named omit)
 
 **C locus:** `uhitm.c` `mhitm_knockback` `:5247–5420`; callers `mhitm.c:1061` (`kb && (HIT|DEF_DIED|offmap)` preempts damage), `mhitu.c:1193` (`(void)`), `uhitm.c:1928` (`DEF_DIED` → destroyed), `uhitm.c:5833` (`TRUE` breaks multi-attack); helpers `mondata.c` `sticks` `:653–659`, `dothrow.c` `will_hurtle` `:975–989` + `mhurtle` `mstun = 1`, `obj.h` `is_flimsy` `:418–420` + `is_blunt_weapon` `:253–255` (WHACK `objclass.h:81` = 4), `uhitm.c` `m_is_steadfast` `:5217–5243`.

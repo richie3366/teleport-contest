@@ -1003,6 +1003,11 @@ crevice with `display_nhwindow` flush / Flying-clinger climb-out /
 Sokoban+Levitation float variant / Norep still-in-pit with Hallu `!rn2(5)`;
 wired into `trapmove` TT_PIT (`js/hack.js`) + `doup` pit gate (`js/do.js`);
 named: poly `locomotion()` verbs, `clear_nhwindow` past the flush).
+**`m_easy_escape_pit` pit-fiend identity arm** (D-1933; `data === mons[PM_PIT_FIEND]`
+was dead — `mons` is a factory function returning a fresh snapshot per call, so
+the subscript was `undefined`; C `ptr == &mons[PM_PIT_FIEND]` is now
+`(data?.mndx | 0) === PM_PIT_FIEND`, the monsndx-equivalent idiom per
+js/do.js/js/do_name.js; pit fiend msize 3 < MZ_HUGE 4, so the arm is load-bearing).
 **`lava_effects` full C-order port** (D-1913; C `trap.c:6794–6987`):
 `d(6,6)` before `in_lava_effects` guard; `feel_newsym` + `burn_away_slime` +
 `likes_lava` early FALSE; `usurvive = Fire||(Wwalking&&dmg<uhp)` (uprops slots +
