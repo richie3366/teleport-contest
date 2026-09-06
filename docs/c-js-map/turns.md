@@ -2454,7 +2454,7 @@ optlist addr / `worm_move` named; **mind_blast D-1238**; **bee_eat_jelly D-1246*
 **`gelcube_digests` D-1257**); **`m_move` meating countdown before `dog_move`/approach + 
 pet `mtrapped`** (D-0169); **`mcalcdistress`/`mon_regen` mfrozen/mblinded/mfleetim** (D-0257); 
 **`were_change`/`new_were`/`counter_were`** in `js/were.js` from `m_calcdistress` (D-0523; 
-omit howl `You_hear`/`wake_nearto`, `mon_break_armor`/`possibly_unwield`/`monflee` onscary; 
+omit howl `You_hear`/`wake_nearto`, `monflee` onscary (`possibly_unwield` D-1744; **`mon_break_armor` C `:129`-before-unwield wired D-1917**, canonical `js/worn.js` export); 
 cham `decide_to_shapeshift` regular+vamp (D-0623/D-0659; minliquid via D-0775); 
 **`newcham` NC_SHOW_MSG `pline_mon`/`usmellmon`/`noname_monnam` D-1586**; **`normal_shape` await `NC_SHOW_MSG` D-1594** (Protection cancel 
 D-1573; **getlev `restore_cham` D-1637**; **newcham mleashed `m_unleash` TRUE/`update_inventory` + Elbereth `set_apparxy`/`monflee` D-1645**; **await remaining async NO_NC_FLAGS `newcham` D-1648**; `possibly_unwield`/`mon_break_armor`/ustuck/`poly_steed`/boulder named; sync makemon/`load_tower1` named); 

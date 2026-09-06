@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1917 — were.c new_were mon_break_armor caller wiring
+
+- **Status:** fixed (Open queue row `worn.c` mon_break_armor — absent, 23 messages; TOP30 honourable mention, no archive row. Canonical export shipped D-1914 and wired into newcham; D-1914 Named omissions + D-1916 Next both bless closing on pop or wiring the `were.c:129` caller — this iter wires it).
+- **Symptom:** none on any suite (no corpus session blocked on mon_break_armor at HEAD; map-driven row) — latent C-wrong: lycanthrope transformations never shed armor the beast form cannot wear; `new_were` ran only `possibly_unwield`.
+- **C locus:** `were.c` `new_were` `:100–140` (`:129` `mon_break_armor(mon, FALSE)` before `:130` `possibly_unwield(mon, FALSE)` — opposite order to `mon.c` newcham `:5484–5485`); `worn.c` `mon_break_armor` `:1177–1335` re-read and stands as D-1914 ported (breakarm destroy incl. `obj.h:347–356` dragon-merge ranges re-checked against the JS, sliparm lose, gloves+shield, horns non-flimsy helm, slithy/centaur boots, saddle, DISMOUNT_FELL + `rnl(3)` tail).
+- **JS was:** `js/were.js` `new_were` ran `set_mon_data`, wake/unfreeze, heal, `newsym`, then `return possibly_unwield(mon, false)` with `mon_break_armor`/`monflee` named omitted.
+- **Fix:** C-order wiring in `js/were.js`: `const mba = mon_break_armor(mon, false)` (canonical `js/worn.js` export, D-1914) then `possibly_unwield`, chained sync-or-async exactly like newcham `after_armor` (`if (mba) return Promise.resolve(mba).then(after_armor); return after_armor();`) so armor mutations run inline, message thunks flush first, and the `void|Promise` contract both existing callers rely on (`mhitu.js` fire-and-forget, `potion.js` `await`) is preserved. New import is imports.mjs-checked hoisted-SAFE (same 88-module SCC, function binding; `were.js` reads no worn binding at top level).
+- **JS:** `js/were.js` (+14/−4); 1 js file (< 600 cap); `docs/c-js-map/turns.md` one section.
+- **Verify:** `node scripts/verify.mjs --fn mon_break_armor` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/were.js`; `PASS rule2`; `note hidden verify mon_break_armor: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — brief confirmed none — so no `--base` re-run owed); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`. Import smoke (`node --input-type=module -e`): `new_were: function`, `mon_break_armor: function` (no TDZ/cycle break).
+- **Named omissions:** `monflee` onscary (`svc.context.mon_moving` + mux/muy scary-near arm); file-level howl `You_hear`/`wake_nearto`; Soundeffect; `impossible()` unknown-lycanthrope arm (unchanged).
+- **Next:** next Open queue row in order (`mhitm.c` mattackm remaining arms).
+
 ## D-1916 — uhitm.c hmonas polymorphed-hero weaponless attack-type envelope
 
 - **Status:** fixed (Open queue row `uhitm.c` hmonas remaining arms — polymorphed-hero attack-type envelope; TOP30 #27, under half ported; archived troll_baned/silver named bits only).

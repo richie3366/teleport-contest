@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `uhitm.c` hmonas remaining arms — polymorphed-hero attack-type envelope (TOP30 #27, under half ported; archived troll_baned/silver named bits only). **Addressed:** D-1916
+- [x] `worn.c` mon_break_armor — absent, 23 messages (TOP30 honourable mention; no archive row). **Addressed:** D-1917
+
+
+- [x] `uhitm.c` hmonas remaining arms — polymorphed-hero attack-type envelope (TOP30 #27, under half ported; archived troll_baned/silver named bits only). **Addressed:** D-1916 `9b35a3ff`
 
 
 - [x] `steed.c` dismount_steed remaining arms — poly/engulfed/water/lava steed death (TOP30 #26; archived DISMOUNT_THROWN named only). **Addressed:** D-1915 `f1e5da6a`

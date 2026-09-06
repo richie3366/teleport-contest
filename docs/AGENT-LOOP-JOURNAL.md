@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1917 were.c new_were mon_break_armor caller wiring
+
+**C locus:** `were.c` `new_were` `:100–140` (`:129` `mon_break_armor(mon, FALSE)` before `:130` `possibly_unwield(mon, FALSE)` — opposite order to `mon.c` newcham `:5484–5485`); `worn.c` `mon_break_armor` `:1177–1335` re-read and stands as D-1914 ported (breakarm destroy incl. `obj.h:347–356` dragon-merge ranges re-checked against the JS, sliparm lose, gloves+shield, horns non-flimsy helm, slithy/centaur boots, saddle, DISMOUNT_FELL + `rnl(3)` tail).
+**JS:** `js/were.js` (+14/−4); 1 js file (< 600 cap); `docs/c-js-map/turns.md` one section.
+**Change:** C-order wiring in `js/were.js`: `const mba = mon_break_armor(mon, false)` (canonical `js/worn.js` export, D-1914) then `possibly_unwield`, chained sync-or-async exactly like newcham `after_armor` (`if (mba) return Promise.resolve(mba).then(after_armor); return after_armor();`) so armor mutations run inline, message thunks flush first, and the `void|Promise` contract both existing callers rely on (`mhitu.js` fire-and-forget, `potion.js` `await`) is preserved. New import is imports.mjs-checked hoisted-SAFE (same 88-module SCC, function binding; `were.js` reads no worn binding at top level).
+**Verify:** `node scripts/verify.mjs --fn mon_break_armor` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/were.js`; `PASS rule2`; `note hidden verify mon_break_armor: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — brief confirmed none — so no `--base` re-run owed); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`. Import smoke (`node --input-type=module -e`): `new_were: function`, `mon_break_armor: function` (no TDZ/cycle break).
+**Named:** `monflee` onscary (`svc.context.mon_moving` + mux/muy scary-near arm); file-level howl `You_hear`/`wake_nearto`; Soundeffect; `impossible()` unknown-lycanthrope arm (unchanged).
+**Next:** next Open queue row in order (`mhitm.c` mattackm remaining arms).
 ## 2026-09-06 — D-1916 uhitm.c hmonas polymorphed-hero weaponless attack-type envelope
 
 **C locus:** `uhitm.c` `hmonas` `:5424–5860` (multi pre-count `:5436–5450` incl. `odd_claw=TRUE`; `use_weapon:` toggle `:5472`; weaponless hit `:5579–5668` — seduce `:5582–5594`, verb/silver `:5597–5643`, shade `:5645–5650`, grab/hit `:5651–5668`; BREA/SPIT/GAZE `:5812–5816`; default `impossible` `:5818`; knockback `:5831`; `passivedone` `:5835–5850`).

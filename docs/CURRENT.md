@@ -42,14 +42,14 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`show_conduct` (parked) ×1
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
-Reviews **835–842** (D-1865…D-1916): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1916):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1916):
-8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1916):
+Reviews **835–842** (D-1865…D-1917): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1917):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1917):
+8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1917):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1916): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1917): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1916): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1917): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -83,13 +83,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `uhitm.c` hmonas remaining arms — polymorphed-hero attack-type envelope (TOP30 #27, under half ported; archived troll_baned/silver named bits only).
+**Next cluster:** `worn.c` mon_break_armor — absent, 23 messages (TOP30 honourable mention; no archive row). Canonical export shipped D-1914 (newcham wired); this iter wires the `were.c:129` caller (D-1914/D-1916 Next both bless this).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1916 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1917 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1917** `were.c` `new_were` `:100–140` (`:129` `mon_break_armor(mon, FALSE)` before `:130` `possib — C-order wiring in `js/were.js`: `const mba = mon_break_armor(mon, false)` (canonical `js/worn.js` export, D-1914) then `possibly_unwield`, chained sync-or-async exactly like newcham `after_armor` (`if (mba) return Promis
 **D-1916** `uhitm.c` `hmonas` `:5424–5860` (multi pre-count `:5436–5450` incl. `odd_claw=TRUE`; `use_ — C-order weaponless envelope in `js/uhitm.js`: shared-`dhit` discipline (WEAP + weaponless assign the outer; BREA/SPIT/GAZE reset 0); seduce keeps no-wakeup + `damageum(...,0)`; `wakeup` before the verb switch; per-aatyp 
 **D-1915** `steed.c` `dismount_steed` `:575–822` (save_utrap `:583`; POLY `:618`, ENGULFED `:623`, BO — C-order completion in `js/steed.js`: save_utrap before the switch; BYCHOICE nameless Hallu rain (`Hallucination()`); local `stealth_now()` youprop.h-Stealth mirror for the `:665` FALSE→TRUE noisy-now edge (monmove.js own
 **D-1914** `mon.c` `newcham` `:5276–5535` (`:5485` mon_break_armor call, `:5495–5514` boulder loop, l — canonical `export function mon_break_armor` + local `m_lose_armor` in `js/worn.js` in C order (breakarm destroy incl. dragon-merge silent arm, artifact-cloak lose vs rip, shirt rip; sliparm lose incl. whirly/cloak/shirt 
@@ -97,11 +98,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1912** `role.c` `setup_rolemenu` `:2854–2902`, `setup_racemenu` `:2905–2940`, `setup_gendmenu` `: — four canonical `export function setup_*menu` in `js/player_selection.js` in C order and C param order (minus `win`): `filtering && !*_ok` skip; `lowc`/`highc` accelerators (role: single key + `lastch`; race/gend/align: f
 **D-1911** `mkmap.c` `finish_map` `:330–363` (wallify `:340–341`, lit `:343–353`, lava-ice `:356–362` — canonical `export function finish_map` in `js/mkmap.js` in C order (whole-map `wallify_map(1, 0, COLNO-1, ROWNO-1)` under `walled`; `!IS_OBSTRUCTED` fg/bg + `TREE` + `walled && IS_WALL` lit with per-room `rlit`; uncondit
 **D-1910** `mkmap.c` `join_map_cleanup` `:245–255`, `join_map` `:257–328` (fill loop `:262–297`, `joi — canonical `export async function join_map` + `export function join_map_cleanup` in `js/mkmap.js` in C order: fill loop (`WIDTH`/`HEIGHT` bounds, `NO_ROOM` gate, bounds-object `n_filled` via `mkmap_flood_fill_rm`, `>3` → 
-**D-1909** `dungeon.c` `In_hell` `:1941–1945` (`svd.dungeons[lev->dnum].flags.hellish`); `dungeon.h:1 — body now reads `!!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish)` — the same flag expression as the `do.js`/`trap.js` siblings (same `| 0` undefined→0 fallback shape); doc comment cites `dungeon.c:1941–1945`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1916; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1917; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
