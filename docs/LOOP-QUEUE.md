@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `role.c` role-select parsers — str2role, str2race, str2gend, str2align, setup_rolemenu/racemenu/gendmenu/algnmenu, root_plselection_prompt (HELDOUT Tier C).
 - [ ] `objnam.c` suit_simple_name dragon arms — blocks 1/278 corpus sessions (random-seed0360-wizard-world-tour-4ac145da step 838; D-1884 named deferral). Probe: `node scripts/hidden-proxy.mjs verify suit_simple_name`.
 - [ ] `mkmaze.c` makemaz `wiz-goal` — completes Wizard quest 4/5 → 5/5 (Wizard is 11/44 public sessions). From `dat/wiz-goal.lua` (132 ln, HELDOUT Tier A #1).
 - [ ] `mkmaze.c` makemaz `val-*` — Valkyrie quest 0/5 (Valkyrie 3/44 sessions). From `dat/val-*.lua` (371 ln, HELDOUT Tier B).
@@ -57,6 +56,7 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `mkmap.c` mkmap + init_map/init_fill — cavern assembly + RNG fill envelope (mkmap.c follow-up; N_P1_ITER/N_P2_ITER/N_P3_ITER driver + new_locations ownership; caller sp_lev.c:3010 level_init INIT styles).
 - [ ] `mkmap.c` join_map + join_map_cleanup — flood-fill regions + dig_corridor joins (mkmap.c follow-up; flood_fill_rm/add_room live in mklev.js; needs somexy/dig_corridor).
 - [ ] `mkmap.c` finish_map — wallify/lit/lava-ice + is_maze_lev/is_cavernous_lev flags (mkmap.c follow-up; needs wallify_map).
+- [ ] `role.c` setup_rolemenu/racemenu/gendmenu/algnmenu extraction — C add_menu/winid builders; both filtering and reset-preselect arms already inline in pick_*_menu/reset_role_filtering, extraction must keep byte-identical menus (role.c follow-up).
 
 ## Parked (do not pop)
 

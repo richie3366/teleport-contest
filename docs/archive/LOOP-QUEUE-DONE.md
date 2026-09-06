@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `pager.c` history/descr arms — dohistory, add_cmap_descr, add_quoted_engraving, look_region_nearby, hmenu_dowhatis, dispfile_* (HELDOUT Tier C). **Addressed:** D-1903
+- [x] `role.c` role-select parsers — str2role, str2race, str2gend, str2align, setup_rolemenu/racemenu/gendmenu/algnmenu, root_plselection_prompt (HELDOUT Tier C). **Addressed:** D-1904
+
+
+- [x] `pager.c` history/descr arms — dohistory, add_cmap_descr, add_quoted_engraving, look_region_nearby, hmenu_dowhatis, dispfile_* (HELDOUT Tier C). **Addressed:** D-1903 `ed90f87f`
 
 
 - [x] `mkmap.c` cavern generator — get_map, pass_one, pass_two, pass_three, remove_room, remove_rooms (HELDOUT Tier C; called from sp_lev.c:3010 level_init styles).
