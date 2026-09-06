@@ -426,7 +426,8 @@ in-body await still deferred); **D-0530 `m_initweap` S_TROLL polearm kit**;
 `_level_monsters`)**; **D-0545 `makemon` MON_AT + 
 `worm_mon_at` (reject worm-seg cells before rndmonst)**; 
 **D-0532 `rndmonst_adj` quest `rn2(7)`→`qt_montype` + roles[] `enemy1/2`**; 
-**D-1566 `rndmonst_adj` rogue/elem filters** (`:1673–1686` `upper=Is_rogue_level` `isupper(monsym)` + `elemlevel=In_endgame&&!Is_astralevel` `wrong_elem_type`; live `is_home_elemental` C home; mon.js/teleport.js cycle clones; newmonhp ×3 / grow_up named); 
+**D-1566 `rndmonst_adj` rogue/elem filters** (`:1673–1686` `upper=Is_rogue_level` `isupper(monsym)` + `elemlevel=In_endgame&&!Is_astralevel` `wrong_elem_type`; live `is_home_elemental` C home; mon.js/teleport.js cycle clones; newmonhp ×3 / grow_up named — grow_up closed by D-1920); 
+**D-1920 `grow_up` full C-order port** (`:2049–2178` in `js/mhitm.js`: `little_to_big` form change, golem/home-elemental thresholds, `lev_limit` base/raise/mplayer-30/min-5/max-49(50), unconditional `++m_lev`, GENOD + gender-hack plines via canonical `mhe`/`YMonnam`, `mleashed→update_inventory`, sanity undo + 400 cap; `monsndx` idiom retained, no new omits); 
 **D-0535 `rnd_offensive_item` case0 FALLTHROUGH→`WAN_STRIKING`**; 
 **D-0536 `makemon` MON_AT + `MM_ADJACENTOK`→`enexto_core`**; 
 **D-0603/D-1088 `m_initweap`/`m_initinv` MS_PRIEST** (`ptr.msound` + 

@@ -12,7 +12,7 @@ import { game } from './gstate.js';
 import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You_feel, flush_screen, verbalize, sensemon, shieldeff, mon_visible } from './display.js';
 import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
-import { resist_conflict, set_mon_data, on_fire, mhis } from './mondata.js';
+import { resist_conflict, set_mon_data, on_fire, mhis, mhe, little_to_big } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval, possibly_unwield } from './weapon.js';
 import { arti_reflects, artifact_hit, permapoisoned, is_art } from './artifact.js';
 import { find_mac, which_armor, bypass_obj } from './worn.js';
@@ -110,7 +110,7 @@ import {
 } from './mkobj.js';
 import { findgold } from './steal.js';
 import { munslime } from './muse.js';
-import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam, s_suffix, free_mgivenname, a_monnam } from './do_name.js';
+import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, YMonnam, s_suffix, free_mgivenname, a_monnam } from './do_name.js';
 import { an, xname, makeplural, cxname, vtense, The, simpleonames } from './objnam.js';
 import { mon_explodes } from './explode.js';
 import { newcham, pm_to_cham, is_home_elemental, clone_mon } from './makemon.js';
@@ -118,6 +118,7 @@ import { polyself } from './polyself.js';
 import { you_were, you_unwere } from './were.js';
 import { rloc, tele_restrict, tele, goodpos } from './teleport.js';
 import { m_unleash } from './apply.js';
+import { update_inventory } from './invent.js';
 import { bury_an_obj } from './dig.js';
 import { is_pole } from './wield.js';
 import { mswings_verb, Conflict } from './mhitu.js';
@@ -2523,88 +2524,112 @@ export async function monkilled(mdef, fltxt, how) {
     else await mondied(mdef);
 }
 
-// C ref: makemon.c grow_up() — HP gain from kill; null victim = wraith/potion.
-// Killer bee + !victim → queen (D-1246; not in little_to_big). Named omit:
-// little_to_big form change; mplayer/golem/home-elemental caps; mleashed
-// update_inventory.
+// C ref: makemon.c grow_up() `:2049–2178` — monster earned experience: HP gain
+// from a kill (victim), or a level gain from a gain-level potion / wraith
+// corpse (no victim). Killer bee + !victim → queen (D-1246; not in
+// little_to_big). Branch order, RNG order (rnd then rn2), lev_limit caps and
+// the sanity tail all follow C.
 export async function grow_up(mtmp, victim) {
+    let ptr = mtmp.data;
+    // Monster died after killing enemy but before calling this function
+    // (currently possible if killing a gas spore)
     if (deadmonster(mtmp)) return null;
-    const oldtype = mtmp.data?.mndx ?? mtmp.mnum ?? NON_PM;
+
+    const oldtype = ptr?.mndx ?? mtmp.mnum ?? NON_PM;
     const newtype = (oldtype === PM_KILLER_BEE && !victim)
         ? PM_QUEEN_BEE
-        : oldtype;
+        : little_to_big(oldtype);
 
-    if (!victim) {
-        const gain = rnd(8);
-        mtmp.mhpmax += gain;
-        mtmp.mhp += gain;
-        let lev = (mtmp.m_lev | 0) + 1;
-        if (lev > 50) lev = 50;
-        mtmp.m_lev = lev;
-    } else {
-        let hp_threshold = (mtmp.m_lev || 0) * 8;
+    let max_increase, cur_increase, lev_limit, hp_threshold;
+    if (victim) {
+        // Killed a monster. The HP threshold is the maximum HP for the
+        // current level; once exceeded, a level will be gained.
+        hp_threshold = (mtmp.m_lev | 0) * 8; // normal limit
         if (!mtmp.m_lev) hp_threshold = 4;
-        let max_increase = rnd((victim.m_lev || 0) + 1);
+        else if (is_golem(ptr)) hp_threshold = Math.trunc(mtmp.mhpmax / 10) * 10 + 10 - 1; // strange creatures
+        else if (is_home_elemental(ptr)) hp_threshold *= 3;
+        lev_limit = Math.trunc((3 * (ptr?.mlevel | 0)) / 2); // same as adj_lev()
+        // If they can grow up, be sure the level is high enough for that
+        if (oldtype !== newtype && (mons(newtype)?.mlevel | 0) > lev_limit) {
+            lev_limit = mons(newtype).mlevel | 0;
+        }
+        // Number of HP to gain; unlike for the player, the limit sits at the
+        // bottom of the next level rather than the top
+        max_increase = rnd((victim.m_lev | 0) + 1);
         if (mtmp.mhpmax + max_increase > hp_threshold + 1) {
             max_increase = Math.max((hp_threshold + 1) - mtmp.mhpmax, 0);
         }
-        const cur_increase = max_increase > 1 ? rn2(max_increase) : 0;
-        mtmp.mhpmax += max_increase;
-        mtmp.mhp += cur_increase;
-        if (mtmp.mhpmax <= hp_threshold) return mtmp.data;
-        mtmp.m_lev = (mtmp.m_lev || 0) + 1;
+        cur_increase = max_increase > 1 ? rn2(max_increase) : 0;
+    } else {
+        // A gain level potion or wraith corpse; always go up a level unless
+        // already at maximum (49 is hard upper limit except for demon lords,
+        // who start at 50 and can't go any higher)
+        max_increase = rnd(8);
+        cur_increase = max_increase;
+        hp_threshold = 0; // smaller than `mhpmax + max_increase'
+        lev_limit = 50; // recalc below
     }
 
-    // C: ++m_lev >= mons[newtype].mlevel && newtype != oldtype
-    if (newtype !== oldtype
-        && (mtmp.m_lev | 0) >= (mons(newtype)?.mlevel | 0)) {
-        const ptr = mons(newtype);
+    mtmp.mhpmax += max_increase;
+    mtmp.mhp += cur_increase;
+    if (mtmp.mhpmax <= hp_threshold) return ptr; // doesn't gain a level
+
+    if (is_mplayer(ptr)) lev_limit = 30; // same as player
+    else if (lev_limit < 5) lev_limit = 5; // arbitrary
+    else if (lev_limit > 49) lev_limit = ((ptr?.mlevel | 0) > 49 ? 50 : 49);
+
+    // C `(int) ++mtmp->m_lev >= mons[newtype].mlevel && newtype != oldtype`:
+    // the increment always happens; the form change is conditional.
+    mtmp.m_lev = (mtmp.m_lev | 0) + 1;
+    if (mtmp.m_lev >= (mons(newtype)?.mlevel | 0) && newtype !== oldtype) {
+        ptr = mons(newtype);
+        // New form might force gender change
         const fem = is_male(ptr) ? 0 : is_female(ptr) ? 1 : (mtmp.female ? 1 : 0);
-        if (((game.mvitals?.[newtype]?.mvflags ?? 0) & G_GENOD) !== 0) {
+
+        if (((game.mvitals?.[newtype]?.mvflags ?? 0) & G_GENOD) !== 0) { // allow G_EXTINCT
             if (canspotmon(mtmp)) {
-                const who = mon_nam(mtmp);
-                const into = an(pmname(ptr, mtmp.female ? FEMALE : MALE));
-                const dies = nonliving(ptr) ? 'expires' : 'dies';
+                // C monst.h Mgender: female ? FEMALE : MALE; C you.h mhe.
                 await pline(
-                    `As ${who} grows up into ${into}, ${mhe_grow(mtmp)} ${dies}!`,
+                    `As ${mon_nam(mtmp)} grows up into ${an(pmname(ptr, mtmp.female ? FEMALE : MALE))}, ${mhe(mtmp)} ${nonliving(ptr) ? 'expires' : 'dies'}!`,
                 );
             }
-            set_mon_data(mtmp, ptr);
+            set_mon_data(mtmp, ptr); // keep game.mvitals accurate
             await mondied(mtmp);
             return null;
-        }
-        if (canspotmon(mtmp)) {
+        } else if (canspotmon(mtmp)) {
+            // 3.6.1: temporary (?) hack to fix growing into opposite gender.
             const genderAdj = (mtmp.female && !fem) ? 'male '
+                // (male gnome becoming a gnome lady can't happen with 3.6.0
+                // mons[], but prepared for it all the same)
                 : (fem && !mtmp.female) ? 'female ' : '';
             const buf = `${genderAdj}${pmname(ptr, fem ? FEMALE : MALE)}`;
-            const verb = (fem !== (mtmp.female ? 1 : 0))
-                ? 'changes into'
-                : humanoid(ptr) ? 'becomes' : 'grows up into';
-            await pline_mon(mtmp, `${YMonnam_grow(mtmp)} ${verb} ${an(buf)}.`);
+            await pline_mon(
+                mtmp,
+                `${YMonnam(mtmp)} ${(fem !== (mtmp.female ? 1 : 0)) ? 'changes into' : humanoid(ptr) ? 'becomes' : 'grows up into'} ${an(buf)}.`,
+            );
         }
         set_mon_data(mtmp, ptr);
         if ((mtmp.cham | 0) === oldtype && is_shapeshifter(ptr)) {
-            mtmp.cham = newtype;
+            mtmp.cham = newtype; // vampire growing into vampire lord
         }
-        newsym(mtmp.mx, mtmp.my);
-        mtmp.female = fem;
-        // mleashed update_inventory named
-        if ((mtmp.mhpmax | 0) > 50 * 8) mtmp.mhpmax = 50 * 8;
-        if ((mtmp.mhp | 0) > (mtmp.mhpmax | 0)) mtmp.mhp = mtmp.mhpmax;
+        newsym(mtmp.mx, mtmp.my); // color may change
+        lev_limit = mtmp.m_lev | 0; // never undo increment
+
+        mtmp.female = fem; // gender might be changing
+        // If 'mtmp' is leashed, persistent inventory window needs updating
+        if (mtmp.mleashed) update_inventory(); // x - leash (attached to a <mon>)
     }
-    return deadmonster(mtmp) ? null : mtmp.data;
-}
 
-/** C do_name.c YMonnam — highc(y_monnam). */
-function YMonnam_grow(mtmp) {
-    const s = y_monnam(mtmp) || '';
-    if (!s) return s;
-    return s.charAt(0).toUpperCase() + s.slice(1);
-}
+    // Sanity checks
+    if ((mtmp.m_lev | 0) > lev_limit) {
+        mtmp.m_lev = (mtmp.m_lev | 0) - 1; // undo increment
+        // HP might have been allowed to grow when it shouldn't
+        if (mtmp.mhpmax === hp_threshold + 1) mtmp.mhpmax -= 1;
+    }
+    if (mtmp.mhpmax > 50 * 8) mtmp.mhpmax = 50 * 8; // absolute limit
+    if (mtmp.mhp > mtmp.mhpmax) mtmp.mhp = mtmp.mhpmax;
 
-/** C you.h mhe — genders[pronoun_gender].he; Hallu named. */
-function mhe_grow(mtmp) {
-    return ['he', 'she', 'it'][gender(mtmp)] || 'it';
+    return ptr;
 }
 
 // C ref: mhitm.c pre_mm_attack — reveal + map_invisible when gv.vis
