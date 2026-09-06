@@ -212,7 +212,10 @@ JS: `js/mkobj.js` — partial
 
 Creation/merge/weight subsets; `add_to_buried` (D-0014); 
 `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); 
-**`run_timers`/`start_timer` queue + floor `rot_corpse`** (D-0405); 
+**`run_timers`/`start_timer` queue + floor `rot_corpse`** (D-0405);
+**`spot_time_expires` + `spot_time_left` delegation** (D-1957;
+C `timeout.c` `spot_time_expires` `:2444–2456` / `spot_time_left` `:2458–2463`;
+absolute vs remaining; TIMER_LEVEL+func+packed-where triple match); 
 **invent/minvent `rot_corpse` worn plines** (D-1213; 
 C `dig.c` verbose Your + `remove_worn_item`/`setmnotwielded` + invent extract; 
 hideunder expose / contents bury still named); 

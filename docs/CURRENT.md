@@ -43,19 +43,19 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1956):
+Reviews **854–862** (D-1884…D-1957):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1956): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1957): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1956): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1957): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1956): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1956):
+(D-1909…D-1957): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1957):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Reviews 896–904:
 8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews
-**905–913** (D-1935…D-1956): 9 ACCEPT, 0 Must-fix. Reviews
-**914–922** (D-1944…D-1956): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
+**905–913** (D-1935…D-1957): 9 ACCEPT, 0 Must-fix. Reviews
+**914–922** (D-1944…D-1957): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
 (doclassdisco sort-letter selector debt, review-listed), 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
@@ -93,10 +93,11 @@ Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852
 **Next cluster:** `timeout.c` spot_time_expires — spot-timeout predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1956 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1957 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1957** `nethack-c/upstream/src/timeout.c` — `js/mkobj.js` — exported `spot_time_expires(x, y, action)` in C order (same `(((x|0)&0xffff)<<16)|((y|0)&0xffff)` pack + `(kind|0)===TIMER_LEVEL && action=== && (a_long|0)===where` triple match as the `spot_stop_timers` 
 **D-1956** `nethack-c/upstream/src/light.c` — `js/light.js` — exported `async obj_adjust_light_radius(obj, new_radius)` in C order (`nr = new_radius | 0`; `ls.type === LS_OBJECT && ls.id === obj` short-circuit; `game.vision_full_recalc = 1` only on `nr !== (ls.range
 **D-1955** `nethack-c/upstream/src/vision.c` — `js/vision.js` — exported `new_angle(lev, sv, row, col)` (`sv | 0` int idiom; unused params kept for C shape per the C comment), placed after `seenv_matrix` with the `:461`/`:366` citation; all three sites now `| new_ang
 **D-1954** `nethack-c/upstream/src/strutil.c` — `js/cmd.js` — exported `pmatch(patrn, strng)` in C order (thin wrapper, `ci=false`), placed before `pmatchi` in C declaration order with both wrappers' C ranges cited; `pmatch_internal` header now cites `:104–141` plus t
@@ -104,11 +105,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1952** `nethack-c/upstream/src/mkmaze.c` — `js/mklev.js` — exported `is_solid(x, y)` in C order (`!isok(x | 0, y | 0) || IS_STWALL(...)`, `||` short-circuit so `at()` never reads out of bounds; `| 0` int idiom); removed the `isSolidTile` clone and pointed `wall_c
 **D-1951** `nethack-c/upstream/src/o_init.c` — `js/artifact.js` — exported `disp_artifact_discoveries(lines)` (null lines ≡ WIN_ERR count-only; A_NONE prints "non-aligned" since JS `align_str` has no unaligned arm) and `dump_artifact_info(lines)` (live `"  %-36.36s%s
 **D-1950** `nethack-c/upstream/src/stairs.c` — `js/mklev.js` — exported `On_ladder(x, y)` in C order (`stairway_at(x | 0, y | 0)` then `!!(stway && stway.isladder)` for C boolean; `| 0` int idiom per the `hack.js`/`dogmove.js` `On_stairs` clones), placed directly aft
-**D-1949** `nethack-c/upstream/src/steed.c` — `js/steed.js` — exported `exercise_steed()` in C order (`!u.usteed` early return; `| 0` int idiom, which also covers fresh JS saves where `urideturns` was never set vs C decl zero-init; `>= 100` → reset + `use_skill(P_RI
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1956; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1957; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
