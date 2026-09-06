@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `explode.c` explode — explosion body remaining arms (TOP30 honourable mention; archived D-1760 is the named map_invisible bit only).
 - [ ] `pickup.c` pickup — pickup body remaining arms (TOP30 honourable mention, 238/135; archived rows are sub-arms only).
 - [ ] `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner).
 - [ ] `zap.c` bhit — beam-hit body remaining arms (TOP30 honourable mention, 306/223; archived rows are named bits only).

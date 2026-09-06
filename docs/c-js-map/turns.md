@@ -3112,10 +3112,15 @@ Antimagic/Disint/Poison/Acid masks + `mon_explodes` MAGM..SPC2** (D-0973) +
 **`explode` 3x3 `map_invisible` `!canspotmon` + You_hear vs Boom! +
 `engulfer_explosion_msg` D-1760** (`explode.c` `:378–452` / `:117–179`;
 `seemimic` before caught-in; generic unseen `"explosion"` killer skip;
-live `js/explode.js` + `se_blast`; named: hallu `rndmonnam`, You_hear
-Underwater/Unaware, TRAP_EXPLODE killer `uhim`, grabbing double-damage,
-golemeffects/Invulnerable/`resists_magm` worn scan; explosion_to_glyph
-is D-1738); 
+live `js/explode.js` + `se_blast`; **D-1925** expltype<0 `mdef` credit +
+self-kill NOMSG arm, grabbed/grabbing double-damage (`next2u`/`dist2`),
+`do_hallu` `rndmonnam` renames, `Invulnerable` unharmed,
+`monstseesu_ad`/`monstunseesu_ad`, `last_msg` CAUGHT_IN_EXPLOSION +
+It/The fatal, TRAP_EXPLODE `uhim` killer + own-blast `uhim`/`uhis`,
+`impossible()` diagnostics; named: You_hear Underwater/Unaware (no live
+Unaware export), `ugolemeffects`/`golemeffects` (no JS port), Upolyd
+`rehumanize` fatal path, `resists_magm` worn/artifact scan;
+explosion_to_glyph is D-1738); 
 **`xkilled` treasure `mkobj(RANDOM_CLASS)` + food/size filters** (D-0229); 
 **`xkilled` final `newsym` after treasure/corpse** (D-0304); 
 **`mhitm_mgc_atk_negated` + hero armor `a_can`** (D-0198); 
