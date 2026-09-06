@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
+- [x] `artifact.c` spec_ability — special-ability checks (HELDOUT Tier C misc row; no JS symbol). **Addressed:** D-1936
+
+
 - [x] `artifact.c` find_artifact/found_artifact — artifact discovery tracking (HELDOUT Tier C misc row; no JS symbol).
 
 

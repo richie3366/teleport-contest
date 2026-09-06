@@ -167,7 +167,13 @@ CONTAINED, MINVENT, catchall "") + `livelog_printf(LL_ARTIFACT, "found %s%s")`; 
 (objnam keeps no static artifact edge, D-1521); impossible() error arms named — 
 async pline in sync callers, C-continues-without-found kept as early returns; 
 `uhitm.c:2237` steal arm unwired — no live JS steal site; dogmove/mpickstuff/mdrop_obj 
-caller where-timing rides those clone rows)
+caller where-timing rides those clone rows); 
+**`spec_ability` D-1936** (C `artifact.c:516–522` — `get_artifact`, non-artifact
+identity gate + spfx bit in C short-circuit order; live `js/artifact.js`;
+`confers_luck` SPFX_LUCK + `sit.c` `rndcurse` SPFX_INTEL + `detect.c`
+`dosearch0` SPFX_SEARCH fund routed here; SPFX_SPEAK/SEEK/DEFN/DRLI/BEHEAD/
+PROTECT header bits completed from `artifact.h:14–43`; `artifact_hit`
+BEHEAD/DRLI arms still deferred there)
 
 ### `src/mondata.c` `name_to_monplus` / `monstseesu`
 

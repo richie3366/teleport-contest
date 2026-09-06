@@ -128,13 +128,19 @@ import { PM_KNIGHT, PM_ROGUE } from './generated/monsters_data.js';
 import { aligns } from './roles.js';
 export { ART_NONARTIFACT, ART_EXCALIBUR, ART_GRIMTOOTH, ART_ORCRIST, ART_STING, ART_GRAYSWANDIR };
 
-// C ref: include/artifact.h — subset used by touch/wish / spec_applies
+// C ref: include/artifact.h `:14–43` — SPFX_* bits used by touch/wish /
+// spec_applies / spec_ability callers (BEHEAD/DRLI arms still deferred).
 export const SPFX_NOGEN = 0x00000001;
 export const SPFX_RESTR = 0x00000002;
 export const SPFX_INTEL = 0x00000004;
+export const SPFX_SPEAK = 0x00000008;
+export const SPFX_SEEK = 0x00000010;
 export const SPFX_WARN = 0x00000020;
 export const SPFX_ATTK = 0x00000040;
+export const SPFX_DEFN = 0x00000080;
+export const SPFX_DRLI = 0x00000100;
 export const SPFX_SEARCH = 0x00000200;
+export const SPFX_BEHEAD = 0x00000400;
 export const SPFX_HALRES = 0x00000800;
 export const SPFX_ESP = 0x00001000;
 export const SPFX_STLTH = 0x00002000;
@@ -152,6 +158,7 @@ export const SPFX_DALIGN = 0x01000000;
 export const SPFX_DBONUS = 0x01F00000;
 export const SPFX_XRAY = 0x02000000;
 export const SPFX_REFLECT = 0x04000000;
+export const SPFX_PROTECT = 0x08000000;
 const SILVER = 14; /* objclass.h */
 
 // C artifact.h enum invoke_prop_types — TAMING = LAST_PROP+1 … BLINDING_RAY
@@ -483,18 +490,31 @@ export function spec_m2(otmp) {
 const LUCKSTONE_OTYP = objectNames.indexOf('LUCKSTONE');
 
 /**
- * C ref: artifact.c confers_luck — LUCKSTONE or artifact SPFX_LUCK.
+ * C ref: artifact.c spec_ability `:516–522` — non-artifact identity gate
+ * (`arti != &artilist[ART_NONARTIFACT]`, C short-circuit order) plus the
+ * spfx bit test. Live callers routed here: confers_luck SPFX_LUCK;
+ * sit.c rndcurse SPFX_INTEL; detect.c dosearch0 SPFX_SEARCH.
+ * artifact_hit SPFX_BEHEAD/SPFX_DRLI arms stay deferred (named there).
+ * @param {object} otmp
+ * @param {number} abil SPFX_* bit mask
+ * @returns {boolean}
+ */
+export function spec_ability(otmp, abil) {
+    const arti = get_artifact(otmp);
+    const list = artilist();
+    return arti !== list[ART_NONARTIFACT] && ((arti.spfx | 0) & (abil | 0)) !== 0;
+}
+
+/**
+ * C ref: artifact.c confers_luck — LUCKSTONE or artifact SPFX_LUCK
+ * (`obj->oartifact && spec_ability(obj, SPFX_LUCK)`, C short-circuit order).
  * @param {object} obj
  * @returns {boolean}
  */
 export function confers_luck(obj) {
     if (!obj) return false;
     if ((obj.otyp | 0) === LUCKSTONE_OTYP) return true;
-    if (!obj.oartifact) return false;
-    const arti = get_artifact(obj);
-    const list = artilist();
-    if (arti === list[0]) return false;
-    return ((arti.spfx | 0) & SPFX_LUCK) !== 0;
+    return Boolean(obj.oartifact && spec_ability(obj, SPFX_LUCK));
 }
 
 /**

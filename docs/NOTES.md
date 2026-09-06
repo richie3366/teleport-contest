@@ -15,20 +15,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1935 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1936 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1935 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1936 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-1935.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-1935.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-1936.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-1936.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1936: `js/artifact.js` — exported sync `spec_ability(otmp, abil)` in C order (`get_artifact` → `!== list[ART_NONARTIFACT]` short-circuit → `((spfx | 0) & (a Named: `artifact_hit` SPFX_BEHEAD (`:1550`) / SPFX_DRLI (`:1645`) arms (still deferred under `art
 - D-1935: `js/artifact.js` — exported sync `found_artifact(a)` (`| 0` index, early returns on range/exists miss, `game.artiexist[i].found = 1`, lazy `artifacts_ Named: `found_artifact` C `impossible()` error arms (async pline in JS; sync callers incl.
 - D-1934: `js/do_wear.js` — exported `async ia_dotakeoff()` in C order (flag true → `await dotakeoff()` → flag false in `finally`, return res; `finally` is the  Named: none new — `dotakeoff` uskin merged-with-skin stays named (see `doremring`); other INTERNA
 - D-1933: `js/trap.js` — identity arm is now `(data?.mndx | 0) === PM_PIT_FIEND`, the monsndx-equivalent idiom used by the js/do.js chew-swallower arm and the j Named: none new.
@@ -43,5 +44,4 @@ Objective/score live in `CURRENT.md`.
 - D-1924: `js/trap.js` — C-order full body, no new imports (all names live on existing edges: `FAILEDUNTRAP`/`TOOKPLUNGE`/`FORCETRAP` from `js/const.js`, `Fumbl Named: poly-form `locomotion()` verbs beyond Lev/Fly (file-local `u_locomotion_pit` keeps the hel
 - D-1923: `js/objnam.js` — C-order full body on a head/excess split (no recursion): strip, `'s` arm, `singplur_lookup_plural` (file-local, full `as_is[]` 8+25 + Named: impossible("plural of null?") `:2841` log on null/empty (async pline chain through `urgent
 - D-1922: `js/trap.js` — C-order full body: `!rn2(40) || (is_pit && m_easy_escape_pit(mtmp))` (short-circuit kept; the file-local `m_easy_escape_pit` and `sobj_ Named: `trapeffect_selector` arm coverage still partial (arrow/anti-magic/… named at the selector
-- D-1921: `js/mhitu.js` — C-order midnight arm (`is_undead(mdat) || is_vampshifter(mtmp)` from live `js/monsters.js`, `midnight()` from live `js/calendar.js`);  Named: full `mhitm_adtyping` arms beyond `mhitm_adtyping_u` (AD_FIRE hero, ACID/WERE/HEAL/SGLD/TL
 <!-- landmarks:end -->
