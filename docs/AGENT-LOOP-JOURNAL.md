@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1934 do_wear.c ia_dotakeoff takeoff one-at-a-time arm (turns.md named fix)
+
+**C locus:** `do_wear.c` `ia_dotakeoff` `:1862–1870` (`gi.item_action_in_progress = TRUE; res = dotakeoff(); = FALSE`); callers `iactions.c:230–232` (`cmdq_add_ec(CQ_CANNED, ia_dotakeoff)`), `cmd.c:2064` (`"alttakeoff"`, `ia_dotakeoff`, `INTERNALCMD`); wrapped `dotakeoff` `:1833–1855` (`Narmorpieces != 1 || ParanoidRemove || gi.item_action_in_progress` → `getobj("take off", takeoff_ok)`); `equip_ok` `:3439–3444` (`removing && !gi.item_action_in_progress` → `EXCLUDE_INACCESS` for covered armor).
+**JS:** `js/do_wear.js` (+20 incl. C-cite comment), `js/iactions.js` (+5/−2); 2 js files, under 600 cap. Density note: C is 8 lines so <40 insertions is the C-matched size, not a thin handoff.
+**Change:** `js/do_wear.js` — exported `async ia_dotakeoff()` in C order (flag true → `await dotakeoff()` → flag false in `finally`, return res; `finally` is the async-faithful form of C's always-reset sequence); `js/iactions.js` — `IA_TAKEOFF_OBJ` now `cmdq_add_ec_entry('alttakeoff', ia_dotakeoff)` + invlet, mirroring the `IA_DIP_OBJ`/`altdip` arm (C `cmdq_add_ec` fn→`ext_func_tab` lookup becomes the txt entry; `run_cmdq_extcmd` supplies the `can_do_extcmd` gate). Same-module dynamic import, no new cross-module edge; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn ia_dotakeoff` → VERIFY: PASS — `PASS syntax 2 changed js file(s): js/do_wear.js js/iactions.js`; `PASS rule2`; `note hidden verify ia_dotakeoff: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full (no shared file changed)`.
+**Named:** none new — `dotakeoff` uskin merged-with-skin stays named (see `doremring`); other INTERNALCMD bodies stay as D-1537 named them.
+**Next:** next Open queue row in order (`artifact.c` find_artifact/found_artifact — artifact discovery tracking).
 ## 2026-09-06 — D-1933 trap.c m_easy_escape_pit pit-fiend identity arm (data.md named fix)
 
 **C locus:** `trap.c` `m_easy_escape_pit` `:3726–3730` (`mtmp->data == &mons[PM_PIT_FIEND] || mtmp->data->msize >= MZ_HUGE`); callers `trap.c:3751` (mintrap trapped-arm escape gate), `trap.c:3766` (`easily ` adverb), `trap.c:4209` (climb_pit `--utrap`-or-easy-escape crawl-out).

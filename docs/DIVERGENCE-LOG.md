@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1934 — do_wear.c ia_dotakeoff takeoff one-at-a-time arm (turns.md named fix)
+
+- **Status:** fixed (Open queue row: `do_wear.c` ia_dotakeoff — takeoff one-at-a-time arm, HELDOUT Tier C do_wear row; no JS symbol)
+- **Symptom:** none on any suite (no corpus session blocked on ia_dotakeoff at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-wrong: the item-action `T` arm (`'i'`/`I[` + invlet then `T`) called plain `dotakeoff` with no flag, so a suit covered by cloak (or shirt covered by suit/cloak) stayed `GETOBJ_EXCLUDE_INACCESS` and the single-armor fast path (`Narmorpieces == 1`) skipped the prompt entirely instead of taking off the picked item one-at-a-time with feedback.
+- **C locus:** `do_wear.c` `ia_dotakeoff` `:1862–1870` (`gi.item_action_in_progress = TRUE; res = dotakeoff(); = FALSE`); callers `iactions.c:230–232` (`cmdq_add_ec(CQ_CANNED, ia_dotakeoff)`), `cmd.c:2064` (`"alttakeoff"`, `ia_dotakeoff`, `INTERNALCMD`); wrapped `dotakeoff` `:1833–1855` (`Narmorpieces != 1 || ParanoidRemove || gi.item_action_in_progress` → `getobj("take off", takeoff_ok)`); `equip_ok` `:3439–3444` (`removing && !gi.item_action_in_progress` → `EXCLUDE_INACCESS` for covered armor).
+- **JS was:** no `ia_dotakeoff` symbol; `IA_TAKEOFF_OBJ` (`js/iactions.js:168`) did `cmdq_add_ec(dotakeoff)` bare — no `alttakeoff` txt lookup, no `can_do_extcmd` buried/wizard gate, flag never set. `dotakeoff` (`js/do_wear.js:1253`, D-1927) and `equip_ok` (`js/do_wear.js:1863`) already honored `game.item_action_in_progress`, so only the wrapper + wiring were missing. Extractor already ships `alttakeoff` flags 64 (D-1537).
+- **Fix:** `js/do_wear.js` — exported `async ia_dotakeoff()` in C order (flag true → `await dotakeoff()` → flag false in `finally`, return res; `finally` is the async-faithful form of C's always-reset sequence); `js/iactions.js` — `IA_TAKEOFF_OBJ` now `cmdq_add_ec_entry('alttakeoff', ia_dotakeoff)` + invlet, mirroring the `IA_DIP_OBJ`/`altdip` arm (C `cmdq_add_ec` fn→`ext_func_tab` lookup becomes the txt entry; `run_cmdq_extcmd` supplies the `can_do_extcmd` gate). Same-module dynamic import, no new cross-module edge; no DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/do_wear.js` (+20 incl. C-cite comment), `js/iactions.js` (+5/−2); 2 js files, under 600 cap. Density note: C is 8 lines so <40 insertions is the C-matched size, not a thin handoff.
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn ia_dotakeoff` → VERIFY: PASS — `PASS syntax 2 changed js file(s): js/do_wear.js js/iactions.js`; `PASS rule2`; `note hidden verify ia_dotakeoff: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full (no shared file changed)`.
+- **Named omissions:** none new — `dotakeoff` uskin merged-with-skin stays named (see `doremring`); other INTERNALCMD bodies stay as D-1537 named them.
+- **Next:** next Open queue row in order (`artifact.c` find_artifact/found_artifact — artifact discovery tracking).
+
 ## D-1933 — trap.c m_easy_escape_pit pit-fiend identity arm (data.md named fix)
 
 - **Status:** fixed (Open queue row: `trap.c` m_easy_escape_pit — pit-fiend identity arm dead, file-local `js/trap.js` identity arm)

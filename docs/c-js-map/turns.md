@@ -948,7 +948,7 @@ FUMBLING `incr_itimeout`** (D-0783; DEX `adj_abon` deferred) +
 no `find_ac`** (D-0783/D-0810; **`toggle_stealth` RIN_STEALTH/ELVEN_CLOAK/ELVEN_BOOTS on+off + 
 `EStealth` mirror** (D-0970); Cloak_off DISPLACEMENT off; 
 MUMMY/INVIS/OILSKIN/ALCHEMY + Boots_off SPEED/water/levitation deferred; 
-**`nh_timeout` FUMBLING `slip_or_trip` D-0692**) + **`dotakeoff`** (D-0063) + 
+**`nh_timeout` FUMBLING `slip_or_trip` D-0692**) + **`dotakeoff`** (D-0063) + **`ia_dotakeoff` "alttakeoff" canned takeoff (D-1934)** + 
 **`getobj_takeoff` missing-letter `continue`+`--More--`** (D-0634) + 
 **`getobj_takeoff` → `yn_function` leave `gt.toplines`** (D-0928 #1148; 
 delayed `armoroff` has no `off_msg` until afternmv; 

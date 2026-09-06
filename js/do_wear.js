@@ -1266,6 +1266,26 @@ export async function dotakeoff() {
 }
 
 /**
+ * C do_wear.c ia_dotakeoff `:1862–1870` — 'i'/`I[` + invlet then 'T'.
+ * Plain dotakeoff() would not give any feedback when picking suit covered
+ * by cloak, or shirt covered by suit and/or cloak, due to equip_ok()
+ * skipping inaccessible items; the flag forces the getobj prompt (C
+ * `:1849`) and SUGGESTs covered armor (C `:3439` gate). Canned via
+ * INTERNALCMD "alttakeoff" (cmd.c `:2064`; iactions.c `:230–232`).
+ * @returns {Promise<number>} dotakeoff result
+ */
+export async function ia_dotakeoff() {
+    game.item_action_in_progress = true;
+    let res;
+    try {
+        res = await dotakeoff();
+    } finally {
+        game.item_action_in_progress = false;
+    }
+    return res;
+}
+
+/**
  * C do_wear.c doremring `:1873–1889` — 'R' remove accessory.
  * count_worn_stuff(TRUE); getobj when Naccessories!=1 or ParanoidRemove
  * or canned. Named omit: uskin merged-with-skin (dotakeoff).

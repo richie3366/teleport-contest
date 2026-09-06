@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `do_wear.c` ia_dotakeoff — takeoff one-at-a-time arm (HELDOUT Tier C do_wear row; no JS symbol).
 - [ ] `artifact.c` find_artifact/found_artifact — artifact discovery tracking (HELDOUT Tier C misc row; no JS symbol).
 - [ ] `artifact.c` spec_ability — special-ability checks (HELDOUT Tier C misc row; no JS symbol).
 - [ ] `uhitm.c` backstabbable/disguised_as_mon/disguised_as_non_mon — backstab/disguise family (HELDOUT Tier C uhitm row; no JS symbol).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `zap.c` polyuse/mon_spell_hits_spot/wish_history_menu — zap misc family (HELDOUT Tier C misc row; no JS symbol).
 - [ ] `pray.c` gcrownu/at_your_feet — crowning/vicinity family (HELDOUT Tier C misc row; no JS symbol).
 - [ ] `getpos.c` gloc_filter_init/_done/_floodfill/_floodfill_matcharea/_classify_glyph — getpos filter family (HELDOUT Tier C getpos row; no JS symbol).
+- [ ] `do_wear.c` Armor_gone/count_worn_armor/any_worn_armor_ok — remaining do_wear armor-count family (HELDOUT Tier C do_wear row remainder; no JS symbol).
+- [ ] `dbridge.c` e_at/m_to_e/u_to_e/e_nam/E_phrase entity family (HELDOUT Tier C dbridge row; no JS symbol).
+- [ ] `sp_lev.c` lspo_* + selvar selection primitives (HELDOUT Tier C misc row remainder; no JS symbol).
+- [ ] `steal.c` stealamulet — amulet-steal singleton (HELDOUT Tier C singletons; no JS symbol).
+- [ ] `vault.c` move_gold — vault gold-move singleton (HELDOUT Tier C singletons; no JS symbol).
 
 ## Parked (do not pop)
 
