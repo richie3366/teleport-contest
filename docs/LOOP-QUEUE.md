@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `hack.c` findtravelpath — travel pathfinder absent (TOP30 #29; TEST_TRAV/GUESS/travelmap deferred).
 - [ ] `display.c` map_glyphinfo — glyphinfo render singleton (HELDOUT Tier C; no JS symbol, named omit in js/display.js row_refresh force source).
 - [ ] `display.c` get_bkglyph_and_framecolor — background/frame singleton (HELDOUT Tier C; no JS symbol, named omit in js/display.js).
 - [ ] `display.c` redraw_map — cliparound pan-resend singleton (HELDOUT Tier C; no JS symbol anywhere in js/).
