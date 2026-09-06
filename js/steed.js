@@ -120,13 +120,13 @@ function accessible_cell(x, y) {
  * Includes diagonal-into/out-of intact doorway ban (testdiag).
  * NODIAG poly / boulder push / shop block_door deferred.
  */
-function doorless_door(x, y) {
+export function doorless_door(x, y) {
     const loc = game.level?.at?.(x, y);
     if (!loc || !IS_DOOR(loc.typ)) return false;
     return !((loc.doormask || 0) & ~(D_NODOOR | D_BROKEN));
 }
 
-function test_move_ok(x, y, dx, dy) {
+export function test_move_ok(x, y, dx, dy) {
     const nx = x + dx;
     const ny = y + dy;
     if (!isok(nx, ny)) return false;

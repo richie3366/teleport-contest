@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `objnam.c` mshot_xname — Nth/xname arms (turns.md named omit). **Addressed:** D-1931
+- [x] `uhitm.c` mhitm_knockback — hurtle/steadfast/size/weapon body (named deferred in js/mhitm.js stub + turns.md). **Addressed:** D-1932
+
+
+- [x] `objnam.c` mshot_xname — Nth/xname arms (turns.md named omit). **Addressed:** D-1931 `e9543922`
 
 
 - [x] `weapon.c` select_hwep — HTH weapon-select arms (turns.md named omit). **Addressed:** D-1930 `63add93d`

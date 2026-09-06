@@ -3137,7 +3137,7 @@ explosion_to_glyph is D-1738);
 (`uhitm.c:6201–6276`; gold `quan=2`; furniture PCHAR desc; masked `M_AP_TYPE`; 
 export `otense`; getpos fakeobj is D-1547; `namefloorobj` / `mhidden_description` / 
 trapped-chest cmap on `M_AP_OBJECT` / Eyes `is_plural` named); **`mondied` undead `"destroyed"` + shared `Monnam` saddle** (D-0214); 
-**`hmon` weapon `maybe_knockback`→`mhitm_knockback` `rn2(3)`+`rn2(6)`** (D-0227); 
+**`hmon` weapon `maybe_knockback`→`mhitm_knockback` `rn2(3)`+`rn2(6)`** (D-0227; **full `mhitm_knockback` body D-1932** — Ogresmasher chance, AD_PHYS/aatyp, grabber/sticks, sgn dir, test_move_ok/isok+doorless_door, saddle redirect, alive/size/flimsy/blunt/unsolid/hit/steadfast gates, will_hurtle + shared pline/You_feel, unstuck, hurtle/dismount/mhurtle/stun effects; `mhm` hitflags idiom; `mhitm.c:1061` preempt + `uhitm.c:1928/5833` + `mhitu.c:1193` call sites threaded); 
 **`mattackm` `gv.vis` + `hitmm`/`missmm`/`mondied` cansee gates** (D-0241); 
 **`noises`/`You_hear` out-of-sight m-vs-m** (D-0294; `far_noise`/`noisetime`); 
 **`pre_mm_attack` `map_invisible` when `!canspotmon`** (D-0296); 
@@ -3147,8 +3147,7 @@ trapped-chest cmap on `M_AP_OBJECT` / Eyes `is_plural` named); **`mondied` undea
 `is_golem`/`weirdnonliving`/`nonliving` in `monsters.js`); 
 omit `seemimic`/`mundetected` unhide+showit; 
 omit stun pline/`mhurtle_to_doom`, `special_dmgval` gloves/silver, `attack_checks` 
-Blind/hallu/invis-marker/peaceful yn, Cleaver `hitum_cleave`, knockback 
-hurtle/steadfast/size/weapon gates + ART_OGRESMASHER, full AD_PLYS/`erode_obj`/`done_in_by` 
+Blind/hallu/invis-marker/peaceful yn, Cleaver `hitum_cleave`, full AD_PLYS/`erode_obj`/`done_in_by` 
 stone/`dokick` passive callers; **D-1095** `passive` AD_COLD `healmon`+`split_mon`; 
 mhitu/mhitm AD_COLD still named; thrown multishot hit-when-destroyed; `hit()` thrown path; 
 vault-guard gold / flooreffects on death-drop; flooreffects non-floor treasure arms; 

@@ -2764,7 +2764,7 @@ export async function hurtle(dx, dy, range, verbose) {
 /**
  * C ref: dothrow.c will_hurtle — size/stuck/trap + goodpos gate.
  */
-function will_hurtle(mon, x, y) {
+export function will_hurtle(mon, x, y) {
     if (!isok(x, y)) return false;
     if ((mon.data?.msize | 0) >= MZ_HUGE
         || mon === game.u?.ustuck || (mon.mtrapped | 0)) {

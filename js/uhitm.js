@@ -927,7 +927,8 @@ async function hmon(mon, obj, thrown, _dieroll) {
     }
 
     mon.mhp = (mon.mhp | 0) - dmg;
-    const destroyed = (mon.mhp | 0) < 1;
+    // C: hmd.destroyed — knockback below (uhitm.c:1928) may set it via trap kill
+    let destroyed = (mon.mhp | 0) < 1;
     if (destroyed) mon.mhp = 0;
 
     // C: hmon_hitmon_pet — after mhp damage, before msg_hit / killed
@@ -972,8 +973,8 @@ async function hmon(mon, obj, thrown, _dieroll) {
         game.mkcorpstat_norevive = false;
         return false; // died
     }
-    // C: !destroyed → wakeup; maybe_knockback → mhitm_knockback
-    // (rn2(3)+rn2(chance) before gates; hurtle body still stubbed)
+    // C uhitm.c:1926-1932 — !destroyed → wakeup; maybe_knockback →
+    // mhitm_knockback (may kill via trap before known_hitum)
     await wakeup(mon, true);
     if (maybe_knockback) {
         let mattk = get_mattk(game.youmonst, 0, mon);
@@ -981,9 +982,13 @@ async function hmon(mon, obj, thrown, _dieroll) {
         if (mattk.aatyp === AT_NONE) {
             mattk = { aatyp: AT_WEAP, adtyp: AD_PHYS, damn: 0, damd: 0 };
         }
-        mhitm_knockback(game.youmonst, mon, mattk, M_ATTK_HIT, true);
+        const kbm = { hitflags: M_ATTK_HIT };
+        if (await mhitm_knockback(game.youmonst, mon, mattk, kbm, true)
+            && ((kbm.hitflags & M_ATTK_DEF_DIED) !== 0)) {
+            destroyed = true;
+        }
     }
-    return true;
+    return !destroyed;
 }
 
 export { hmon, passive_obj };
@@ -2458,7 +2463,13 @@ export async function hmonas(mon) {
             const died = sum[i] === M_ATTK_DEF_DIED || (mon.mhp | 0) < 1;
             await passive(mon, weapon, sum[i] !== M_ATTK_MISS, !died, aatyp,
                 false);
-            if (mhitm_knockback(ym, mon, mattk, sum[i], weapon_used)) break;
+            {
+                // C uhitm.c:5833 — knockback writes sum[i] via &sum[i], TRUE breaks
+                const kbm = { hitflags: sum[i] };
+                const kb = await mhitm_knockback(ym, mon, mattk, kbm, weapon_used);
+                sum[i] = kbm.hitflags;
+                if (kb) break;
+            }
         }
         // C passivedone: cursed uswapwep drops instead of welding; then
         // DEADMONSTER (deferred until after the drop).
