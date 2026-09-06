@@ -1075,8 +1075,7 @@ paper)** (D-0312); **xname SPBOOK dknown+!nn → `<descr> spellbook`** (D-0321);
 **STATUE `historic + of <pm article>`** (D-0087; D-1882 ports `objnam.c:802–814`: Archeologist + `spe & CORPSTAT_HISTORIC` → `historic `, `obj_pmname` gender-aware, pname → no article / unique → `the ` / else `just_an`; named: `wizmgender` suffix, FIGURINE arm, `readobjnam` wish `ishistoric`); **GEM `GemStone`/`xname`/`singular` + 
 `obj_typename` stone** (D-0097); **armor gloves/boots `pair of` + dragon scales `set of` + LENSES; 
 makeplural keeps singular pair** (D-0158); 
-**`makeplural` C `one_off[]` irregulars (`foot`→`feet`) + fox→foxes / muskox→oxen** (D-0694; 
-pronoun genders / already_plural ae/eaux / man→men / as_is collective / mongoose·slice deferred); 
+**`makeplural` full C envelope `:2836–3022`** (D-1923; `singplur_lookup` plural arm + `badman` + `ch_ksound` live in `js/objnam.js`, Strcasecpy case polish; subsumes D-0694 one_off/fox/muskox; named: impossible() null log); 
 **`just_an` letter+space (`aefhilmnosx`) + the-/lava/bars/ice** (D-0163); 
 **doname `cknown`+`Has_contents` → `containing N item(s)`** via `count_contents` stacks (D-0395); 
 **`vtense` bare singular + ends-in-s plural** (D-0403; 
