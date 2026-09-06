@@ -597,7 +597,7 @@ hell_tweaks lava; seed0360 Scr **638→670**); **D-0767 orcus** (prefix **76622�
 **D-0782 branch LR_BRANCH pre-flip** (prefix **101022→101930**; 
 Scr **389**) + **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL 120639**; 
 Scr **561**/833); **D-1818 `Wiz-goal`** (Dark One / Eye; lua `aligned=` ≠
-C `align` → `induced_align`); fakewiz deferred; **D-0906 hellfill** via mklev; 
+C `align` → `induced_align`; **D-1906** 14 empty `des.object` `:74–87`, not 15 — :73 is the named Eye); fakewiz deferred; **D-0906 hellfill** via mklev; 
 omit `LVLINIT_ROGUE` / `ROGUEOPTS` / `impossible()` wall checks
 
 ### `src/mklev.c` / `sp_lev.c` `lspo_map`

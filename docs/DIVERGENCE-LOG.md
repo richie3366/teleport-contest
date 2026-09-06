@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1906 — mkmaze.c makemaz Wiz-goal random-object count (14 empty, not 15)
+
+- **Status:** fixed (Open queue row `mkmaze.c` makemaz `wiz-goal`; row premise stale — loader shipped D-1818 — but audit found one live C-wrong; density: 1-bound fix, remaining C delta is 1 line — exempt per §2b precedent D-1905).
+- **Symptom:** none on any suite (no public/corpus session descends to the Wizard quest goal); latent RNG + object divergence on a real descent — one extra `mkobj_at(RANDOM_CLASS)` with its draws, one extra floor object.
+- **C locus:** `dat/wiz-goal.lua` :73–87 (1 named Eye + 14 empty `des.object()`); `sp_lev.c` `lspo_object` :3557–3741 (every call falls through to exactly one `create_object`); same 1+14 shape in `dat/Bar-goal.lua` :43–57 (D-1819 loop is ×14).
+- **JS was:** `js/mklev.js` `load_wiz_goal` looped 15 × `splev_create_object(null)` — D-1818 counted all 15 `des.object` occurrences including the named-Eye line; Bar-goal comment repeated the belief ("not Wiz-goal's 15").
+- **Fix:** bound 15→14 with comment citing :74–87; Bar-goal comment corrected to the shared 1+14 shape.
+- **JS:** `js/mklev.js` only (1 bound + 2 comment lines).
+- **Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax (mklev.js); PASS rule2; note hidden (vacuous — no corpus session blocked on makemaz at HEAD; row cited no blocks, HELDOUT content row, so no `--base` re-run owed); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). Counts audited against lua: map 20×76 byte-identical (probe, deleted), doors 16/16, regions 1 temple + 1 lit + 14 unlit + 1 lit, traps 6/6, monsters 28 + 8 captives.
+- **Named omissions:** unchanged from D-1818 (humidity-aware `get_location`; `spo_end_moninvent` `m_dowear`; `fill_special_room` TEMPLE beyond `has_temple`; `G_UNIQ` extinct early return; fakewiz; `create_maze` fallback; `dmonsfree`).
+- **Next:** live `val-*`/`sam-*` rows next.
+
 ## D-1905 — wintty.c tty_putstr NHW_TEXT wrap remainder consumes break space (suit_simple_name corpus misattribution)
 
 - **Status:** fixed (Open queue row `objnam.c` suit_simple_name dragon arms, 1 corpus block; the cited owner was a literal-match misattribution — the true writer is the tty wrap; 1 corpus PASS; green + strict + cohort PASS; density: 1-char behavior change, C locus is 3 lines — exempt per §2b)

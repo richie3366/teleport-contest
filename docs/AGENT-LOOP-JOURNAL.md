@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1906 mkmaze.c makemaz Wiz-goal random-object count (14 empty, not 15)
+
+**C locus:** `dat/wiz-goal.lua` :73–87 (1 named Eye + 14 empty `des.object()`); `sp_lev.c` `lspo_object` :3557–3741 (every call falls through to exactly one `create_object`); same 1+14 shape in `dat/Bar-goal.lua` :43–57 (D-1819 loop is ×14).
+**JS:** `js/mklev.js` only (1 bound + 2 comment lines).
+**Change:** bound 15→14 with comment citing :74–87; Bar-goal comment corrected to the shared 1+14 shape.
+**Verify:** `node scripts/verify.mjs --fn makemaz` → PASS syntax (mklev.js); PASS rule2; note hidden (vacuous — no corpus session blocked on makemaz at HEAD; row cited no blocks, HELDOUT content row, so no `--base` re-run owed); PASS green 2/2; PASS strict seed8000/seed0900; PASS cohort 7/7; PASS full 44/44 (auto: shared file changed). Counts audited against lua: map 20×76 byte-identical (probe, deleted), doors 16/16, regions 1 temple + 1 lit + 14 unlit + 1 lit, traps 6/6, monsters 28 + 8 captives.
+**Named:** unchanged from D-1818 (humidity-aware `get_location`; `spo_end_moninvent` `m_dowear`; `fill_special_room` TEMPLE beyond `has_temple`; `G_UNIQ` extinct early return; fakewiz; `create_maze` fallback; `dmonsfree`).
+**Next:** live `val-*`/`sam-*` rows next.
 ## 2026-09-06 — D-1905 wintty.c tty_putstr NHW_TEXT wrap remainder consumes break space (suit_simple_name corpus misattribution)
 
 **C locus:** `win/tty/wintty.c` `tty_putstr` NHW_TEXT/MENU arm `:2412–2420` — `cw->data[cw->cury-1][++i] = '\0'` keeps the break space in the stored fragment, then `tty_putstr(window, attr, &str[i])` recurses from AFTER the break space (post-`++i`): the space is consumed, not kept. The recursion re-enters through `compress_str`, whose `strlen >= CO || \n` gate leaves a short tail untouched — so C's tail starts without the space. Feeder: `show_gamelog` (`insight.c :2562–2589`) formats `"%5ld: %s"` via `putstr` on an NHW_TEXT window; the 92-char compressed wish line breaks at the space after the second `gray` (index 73; head 74 chars incl. space, rtrimmed to 73 on screen).

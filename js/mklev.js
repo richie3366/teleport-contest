@@ -5144,8 +5144,8 @@ function load_wiz_goal() {
         curse_state: 1,
     }, null);
 
-    // des.object() × 15
-    for (let i = 0; i < 15; i++) splev_create_object(null);
+    // des.object() × 14 — C dat/wiz-goal.lua :74–87 (:73 is the named Eye)
+    for (let i = 0; i < 14; i++) splev_create_object(null);
 
     // des.trap() × 6
     for (let i = 0; i < 6; i++) splev_create_trap();
@@ -11620,7 +11620,7 @@ function load_bar_goal() {
         curse_state: 1,
     }, null);
 
-    // des.object() × 14 — C dat/Bar-goal.lua :44–57 (not Wiz-goal's 15)
+    // des.object() × 14 — C dat/Bar-goal.lua :44–57 (1 named Heart + 14 empty, same shape as Wiz-goal :73–87)
     for (let i = 0; i < 14; i++) splev_create_object(null);
 
     // des.trap() × 6

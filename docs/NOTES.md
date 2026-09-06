@@ -21,9 +21,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1905 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1906 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1905 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1906 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -41,18 +41,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1905.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1906.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1905.
+  Do not re-port D-1682…D-1906.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1906: bound 15→14 with comment citing :74–87; Bar-goal comment corrected to the shared 1+14 shape. Named: unchanged from D-1818 (humidity-aware `get_location`; `spo_end_moninvent` `m_dowear`; `fil
 - D-1905: `s.slice(i)` → `s.slice(i + 1)` + doc correction (`&str[i]` post-`++i`, space consumed). Named: `suit_simple_name` dragon mail/scales arms still deferred (D-1884; `js/do_wear.js` canonic
 - D-1904: `js/roles.js` (+~150): index-aligned `ROLE_FILECODES` attached to `roles[]`; `randomstr`; `str2role`/`str2race`/`str2gend`/`str2align` in C order (mal Named: `setup_rolemenu`/`setup_racemenu`/`setup_gendmenu`/`setup_algnmenu` (+ `plsel_startmenu`) 
 - D-1903: C-order ports in `js/pager.js` (+~277/−24): `look_region_nearby(out, nearby)` holder-mutating export (C lo_y/lo_x/hi_y/hi_x order, `ux|0`/`uy|0` ints) Named: `do_screen_description` full showsyms cmap scan still deferred (later owner after D-1843; 
@@ -67,5 +68,4 @@ Objective/score live in `CURRENT.md`.
 - D-1894: set `game.killer` (format KILLED_BY, name=drainer unless already it — C `:234–236` pointer-guard as a value compare) and `await done(DIED)`; keep the  Named: SoundAchievement; Upolyd monhp_per_lvl/rehumanize; uhpmax-up clamp via setuhpmax (all pre-
 - D-1893: Tou-goal/Ran-goal epilogue line in lua order (after last monster, before wallification → flip → fixup) in all three loaders: `wallify_map((g.splev_xst Named: unchanged from D-1891 (humidity-aware `get_location` for water-likers; `ensure_way_out`; `
 - D-1892: `makewish` ports the three livelog arms in C order on same-edge imports only (`livelog_printf` from `pline.js`, `uhis` next to `uhim`, `artifact_origi Named: `wish_history_add`/`wish_history_menu`/`wishcmdassist`/MAXWISHTRY retry loop (still deferr
-- D-1891: `load_cav_strt` (STONE solidfill + triple flags, byte-identical map, whole-map unlit, temple via Pri-strt flood idiom with needfill FILL_NORMAL — fill Named: humidity-aware `get_location` for water-likers (all five; carried on the map row); `ensure
 <!-- landmarks:end -->
