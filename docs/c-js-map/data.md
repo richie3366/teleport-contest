@@ -843,9 +843,9 @@ prefix **98505→100104**; Scr **292**) + **D-0777 `maketrap` AIR/CLOUD +
 
 ### `src/mkmap.c` cavern generator
 
-JS: `js/mkmap.js` — partial (new D-1902; no live importer — INIT_MAP cavern styles in `sp_lev.c` level_init unported)
+JS: `js/mkmap.js` — partial (D-1902 passes + D-1908 driver; not yet live — the live LVLINIT_MINES path in `js/mklev.js` `splev_initlev` still runs its own clones; cutover queued with the join_map/finish_map rows)
 
-**`get_map`/`pass_one`/`pass_two`/`pass_three`/`remove_room`/`remove_rooms`** (D-1902; C `mkmap.c:54–60` bounds-exact OOB→bg / `:67–96` in-place CA (0–2 kill, 5–8 breed) / `:100–144` double-buffered ==5 / <3 with per-call scratch at the C `new_loc` layout / `:378–436` total-overlap removal + last-over-slot swap with `roomnoidx` restamp; `remove_rooms` async for `await impossible`, `remove_room` spread-copy never aliases the `hx=-1` tombstone); omit `mkmap` + `init_map`/`init_fill` RNG envelope, `join_map` + `join_map_cleanup` (`somexy`/`dig_corridor` missing), `finish_map` (wallify/lit/lava-ice + maze/cavernous flags);
+**`get_map`/`pass_one`/`pass_two`/`pass_three`/`remove_room`/`remove_rooms`** (D-1902; C `mkmap.c:54–60` bounds-exact OOB→bg / `:67–96` in-place CA (0–2 kill, 5–8 breed) / `:100–144` double-buffered ==5 / <3 with per-call scratch at the C `new_loc` layout / `:378–436` total-overlap removal + last-over-slot swap with `roomnoidx` restamp; `remove_rooms` async for `await impossible`, `remove_room` spread-copy never aliases the `hx=-1` tombstone); **`init_map`/`init_fill`/`litstate_rnd`/`mkmap`** (D-1908; C `:23–34` blanket NO_ROOM/bg/unlit `:36–52` rn1/rnd scatter to limit 624 `:438–440` N_P1/P2/P3_ITER=1/1/2 `:442–448` depth-gated lit `:450–486` driver in C order; join/finish delegated to live `mklev.js` clones; C `:460`/`:485` new_locations alloc/free maps to the D-1902 per-call scratch — observationally identical, no shared buffer to own); omit `join_map` + `join_map_cleanup` (`somexy`-failure `impossible()` arm; `somexy`/`dig_corridor` live in `mklev.js`), `finish_map` (wallify/lit/lava-ice + maze/cavernous flags); `mklev.js` `litstate_rnd`/`mkmap`-envelope clones retained as the live path until cutover, then deleted;
 
 ### `src/track.c`
 

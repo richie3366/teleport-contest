@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `uhitm.c` hmon_hitmon hero-attack helpers — hmon_hitmon_do_hit/jousting/poison/potion/weapon/splitmon (split remainder of the D-1907 AD-arms row; mhitm AD_SGLD/TLPT/WERE/SLIM mon→mon arms shipped). **Addressed:** D-1907
+- [x] `mkmap.c` mkmap + init_map/init_fill — cavern assembly + RNG fill envelope (mkmap.c follow-up; N_P1_ITER/N_P2_ITER/N_P3_ITER driver + new_locations ownership; caller sp_lev.c:3010 level_init INIT styles). **Addressed:** D-1908
 
 
-- [x] `uhitm.c` missing mhitm AD arms — AD_SLIM, AD_TLPT, AD_WERE, AD_SGLD plus hmon_hitmon_do_hit/jousting/poison/potion/weapon/splitmon helpers (HELDOUT Tier C). **Addressed:** D-1907
+- [x] `uhitm.c` hmon_hitmon hero-attack helpers — hmon_hitmon_do_hit/jousting/poison/potion/weapon/splitmon (split remainder of the D-1907 AD-arms row; mhitm AD_SGLD/TLPT/WERE/SLIM mon→mon arms shipped). **Addressed:** D-1907 `d0baca4d`
+
+
+- [x] `uhitm.c` missing mhitm AD arms — AD_SLIM, AD_TLPT, AD_WERE, AD_SGLD plus hmon_hitmon_do_hit/jousting/poison/potion/weapon/splitmon helpers (HELDOUT Tier C). **Addressed:** D-1907 `d0baca4d`
 
 
 - [x] `mkmaze.c` makemaz `val-*` — Valkyrie quest 0/5 (Valkyrie 3/44 sessions). From `dat/val-*.lua` (371 ln, HELDOUT Tier B). **Addressed:** D-1852 `e84fa9d3`

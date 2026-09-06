@@ -17802,7 +17802,7 @@ function join_map_dig_pass(bg_typ, fg_typ) {
 }
 
 /** C ref: mkmap.c join_map */
-function join_map_fixed(bg_typ, fg_typ) {
+export function join_map_fixed(bg_typ, fg_typ) {
     const g = game;
     outer:
     for (let x = 2; x <= MKMAP_WIDTH; x++) {
@@ -17868,7 +17868,7 @@ function wallify_map(x1, y1, x2, y2) {
     }
 }
 
-function finish_map(fg_typ, bg_typ, lit, walled, icedpools) {
+export function finish_map(fg_typ, bg_typ, lit, walled, icedpools) {
     const map = game.level;
     if (walled) wallify_map(1, 0, COLNO - 1, ROWNO - 1);
     if (lit) {

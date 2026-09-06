@@ -1,18 +1,28 @@
-// mkmap.js — Cavernous-level cellular-automata passes + joined-map room removal.
+// mkmap.js — Cavernous-level cellular-automata generator.
 // C ref: nethack-c/upstream/src/mkmap.c — get_map, pass_one, pass_two,
-// pass_three, remove_room, remove_rooms.
-// Partial: mkmap(), init_map(), init_fill(), join_map(),
-// join_map_cleanup() and finish_map() are NOT ported yet (named in
-// docs/c-js-map/data.md); the INIT_MAP cavern styles in sp_lev.c level_init
-// (:3010) have no live JS path, so nothing imports this module yet.
-// RNG: none of these six functions draw (init_fill's rn1/rnd live in the
-// deferred mkmap envelope).
+// pass_three, remove_room, remove_rooms, init_map, init_fill, litstate_rnd,
+// mkmap.
+// Partial: join_map(), join_map_cleanup() and finish_map() are NOT ported
+// yet (queued rows after this one, named in docs/c-js-map/data.md); the
+// mkmap() driver below delegates those two calls to the live mklev.js
+// clones until their rows land, so nothing imports this module yet.
+// (The live LVLINIT_MINES path in js/mklev.js splev_initlev still runs its
+// own clones; cutting it over is queued with the join_map/finish_map rows.)
+// RNG: init_fill draws rn1/rnd, litstate_rnd draws rnd/rn2 on the negative
+// arm; the six D-1902 functions draw nothing.
 
 import { game } from './gstate.js';
 import {
-    COLNO, ROWNO, ROOMOFFSET,
+    COLNO, ROWNO, ROOMOFFSET, NO_ROOM,
 } from './const.js';
 import { impossible } from './display.js';
+import { rn2, rnd, rn1 } from './rng.js';
+import { depth as depth_of_level } from './hacklib.js';
+// Temporary delegation: canonical join_map/finish_map are queued rows;
+// until they land, mkmap() drives the live mklev.js clones (same C order,
+// same argument order). join_map-fixed drops C's somexy-failure
+// impossible() arm — adjudicated in the join_map row, not here.
+import { join_map_fixed as mklev_join_map, finish_map as mklev_finish_map } from './mklev.js';
 
 // C mkmap.c:8-9: HEIGHT is (ROWNO-1), WIDTH is (COLNO-2).
 const HEIGHT = ROWNO - 1;
@@ -115,6 +125,105 @@ export function pass_three(bg_typ, fg_typ) {
     for (let x = 2; x <= WIDTH; x++)
         for (let y = 1; y < HEIGHT; y++)
             map.at(x, y).typ = nl[new_loc_index(x, y)];
+}
+
+// C ref: mkmap.c:438-440 — tuning knobs for the cavern CA driver below.
+// Kept as named exports (not inlined literals) so the driver cites C.
+export const N_P1_ITER = 1; /* tune map generation via this value */
+export const N_P2_ITER = 1; /* tune map generation via this value */
+export const N_P3_ITER = 2; /* tune map smoothing via this value */
+
+// C ref: mkmap.c:23-34 init_map().
+// Blanket-fill: every cell x in [1,COLNO), y in [0,ROWNO) gets NO_ROOM,
+// the background type, and lit FALSE — field order preserved.
+export function init_map(bg_typ) {
+    const map = game.level;
+    for (let x = 1; x < COLNO; x++)
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = map.at(x, y);
+            if (!loc) continue;
+            loc.roomno = NO_ROOM;
+            loc.typ = bg_typ;
+            loc.lit = false;
+        }
+}
+
+// C ref: mkmap.c:36-52 init_fill().
+// RNG envelope: scatter exactly limit = (WIDTH*HEIGHT*2)/5 foreground cells
+// at x = rn1(WIDTH-1, 2) in [2,WIDTH], y = rnd(HEIGHT-1) in [1,HEIGHT-1];
+// occupied cells do not count (loop retries without drawing extra RNG).
+export function init_fill(bg_typ, fg_typ) {
+    const map = game.level;
+    const limit = (WIDTH * HEIGHT * 2) / 5;
+    let count = 0;
+    while (count < limit) {
+        const x = rn1(WIDTH - 1, 2);
+        const y = rnd(HEIGHT - 1);
+        const loc = map.at(x, y);
+        if (loc && loc.typ === bg_typ) {
+            loc.typ = fg_typ;
+            count++;
+        }
+    }
+}
+
+// C ref: mkmap.c:442-448 litstate_rnd().
+// Negative input resolves against dungeon depth: rnd(1+|depth|) < 11 gates
+// rn2(77), exactly like C's short-circuit &&. Non-negative passes through
+// as boolean (C returns (boolean) litstate into an xint16).
+export function litstate_rnd(litstate) {
+    if (litstate < 0) {
+        const d = depth_of_level(game.u?.uz);
+        return (rnd(1 + Math.abs(d)) < 11 && rn2(77)) ? true : false;
+    }
+    return !!litstate;
+}
+
+// C ref: mkmap.c:450-486 mkmap().
+// Cavern assembly driver: resolve lit, blanket the map, scatter the RNG
+// fill, run the CA passes N_P1_ITER/N_P2_ITER (and N_P3_ITER smoothing)
+// times, join the regions, finish (wallify/lit/lava-ice), then stamp the
+// walled+joined level cavernous, not mazelike (-dlc).
+// new_locations ownership (C :460 alloc / :485 free): C threads one
+// (WIDTH+1)*HEIGHT scratch buffer through pass_two/pass_three via the
+// new_loc macro. The JS passes above keep per-call scratch at the same
+// new_loc layout instead (see new_loc_index); that is observationally
+// identical — every pass fully rewrites its region before its copy-back
+// loop reads it, and this driver calls the passes strictly sequentially —
+// so there is no shared buffer for mkmap() itself to own or free.
+export function mkmap(init_lev) {
+    const bg_typ = init_lev.bg;
+    const fg_typ = init_lev.fg;
+    const smooth = !!init_lev.smoothed;
+    const join = !!init_lev.joined;
+    let lit = init_lev.lit;
+    const walled = !!init_lev.walled;
+    let i;
+
+    lit = litstate_rnd(lit);
+
+    init_map(bg_typ);
+    init_fill(bg_typ, fg_typ);
+
+    for (i = 0; i < N_P1_ITER; i++)
+        pass_one(bg_typ, fg_typ);
+
+    for (i = 0; i < N_P2_ITER; i++)
+        pass_two(bg_typ, fg_typ);
+
+    if (smooth)
+        for (i = 0; i < N_P3_ITER; i++)
+            pass_three(bg_typ, fg_typ);
+
+    if (join)
+        mklev_join_map(bg_typ, fg_typ);
+
+    mklev_finish_map(fg_typ, bg_typ, !!lit, walled, !!init_lev.icedpools);
+    /* a walled, joined level is cavernous, not mazelike -dlc */
+    if (walled && join) {
+        game.level.flags.is_maze_lev = false;
+        game.level.flags.is_cavernous_lev = true;
+    }
 }
 
 // C ref: mkmap.c:378-401 remove_rooms().
