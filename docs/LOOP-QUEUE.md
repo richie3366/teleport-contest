@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `display.c` reglyph_darkroom — darkroom reglyph singleton (HELDOUT Tier C; no JS symbol anywhere in js/).
 - [ ] `display.c` curs_on_u/doredraw — cursor-on-hero + redraw pair (HELDOUT Tier C; no JS symbol anywhere in js/).
 - [ ] `sounds.c` domonnoise MS_VAMPIRE — vampire seduction depth (TOP30 #17 depth; night/midnight/kindred/nightchild + rn2 + body_part/pmname/an; c-js-map turns.md #chat omit).
 - [ ] `sounds.c` domonnoise MS_DJINNI/ARREST/SOLDIER — speaking-table depth (TOP30 #17 depth; WATER_DEMON/PRISONER gates + rn2(3) soldier tables; c-js-map turns.md #chat omit).

@@ -6000,6 +6000,109 @@ export async function redraw_map(cursor_on_u) {
 }
 
 /**
+ * C ref: display.c reglyph_darkroom `:1818–1854` — re-remember corridor /
+ * darkroom glyphs after a dark_room / use_color / Rogue-level change.
+ * C `lev->glyph` is the remembered integer id; JS memory is
+ * `loc.remembered_glyph` (`memory_is_cmap` prefers the stored id with a
+ * tty fallback, per the newsym `:993–998` precedent). Writes replace the
+ * remembered cell via `cmap_idx_to_glyph` (tty + integer id together,
+ * per the M_AP_FURNITURE `:539–540` precedent); GLYPH_NOTHING writes the
+ * blank `' '`/`NO_COLOR` cell with the NOTHING id (per
+ * `magic_map_background` when `!dark_room`).
+ * `dark_room` / `use_color` default On via `!== false` (per
+ * `get_bkglyph_and_framecolor` `:2555–2562`); `cansee` stays last in each
+ * conjunction so it never runs when an earlier arm already failed.
+ * Named omissions: `gs.showsyms[S_darkroom]` equate (`:1850–1853`, no
+ * showsyms[]/glyphmap[] machinery in JS — D-1972; tty derives from the
+ * remembered ch/color via `darkroom_sym()`); caller wiring
+ * (`do.c:1715` goto_level, `options.c:7347` + `:8999`
+ * reset_needed_visuals, `restore.c:926` — function live, unwired).
+ */
+export function reglyph_darkroom() {
+    // C `:1826` + `:1836–1837` flag reads (Is_rogue_level takes &u.uz).
+    const darkRoom = game.flags?.dark_room !== false;
+    const useColor = game.iflags?.use_color !== false;
+    const isRogue = Is_rogue_level(game.u?.uz);
+    // C `:1822–1823` x 1..COLNO-1, y 0..ROWNO-1.
+    for (let x = 1; x < COLNO; x++) {
+        for (let y = 0; y < ROWNO; y++) {
+            const xi = x | 0;
+            const yy = y | 0;
+            const lev = game.level?.at(xi, yy);
+            if (!lev) continue;
+            // C `:1826–1829` !dark_room: S_corr + waslit -> S_litcorr.
+            if (!darkRoom) {
+                if (memory_is_cmap(lev.remembered_glyph, S_corr) && lev.waslit) {
+                    const g = cmap_idx_to_glyph(S_litcorr);
+                    lev.remembered_glyph = {
+                        ch: g.ch, color: g.color, decgfx: !!g.dec,
+                        glyph: g.glyph,
+                    };
+                }
+            // C `:1830–1833` else (dark_room): S_litcorr + !cansee -> S_corr.
+            } else if (memory_is_cmap(lev.remembered_glyph, S_litcorr)
+                && !cansee(xi, yy)) {
+                const g = cmap_idx_to_glyph(S_corr);
+                lev.remembered_glyph = {
+                    ch: g.ch, color: g.color, decgfx: !!g.dec,
+                    glyph: g.glyph,
+                };
+            }
+            // Re-read: C's second block sees the first block's store.
+            const mem = lev.remembered_glyph;
+            // C `:1836–1840` !dark_room || !use_color || Rogue:
+            // S_darkroom -> waslit ? S_room : GLYPH_NOTHING.
+            if (!darkRoom || !useColor || isRogue) {
+                if (memory_is_cmap(mem, S_darkroom)) {
+                    if (lev.waslit) {
+                        const g = cmap_idx_to_glyph(S_room);
+                        lev.remembered_glyph = {
+                            ch: g.ch, color: g.color, decgfx: !!g.dec,
+                            glyph: g.glyph,
+                        };
+                    } else {
+                        lev.remembered_glyph = {
+                            ch: ' ', color: NO_COLOR, decgfx: false,
+                            glyph: GLYPH_NOTHING,
+                        };
+                    }
+                }
+            // C `:1841–1847` else: S_room + seenv + waslit + !cansee ->
+            // S_darkroom; else NOTHING + ROOM + seenv + !cansee -> S_darkroom.
+            } else if (memory_is_cmap(mem, S_room)
+                && ((lev.seenv | 0) !== 0) && lev.waslit && !cansee(xi, yy)) {
+                const g = cmap_idx_to_glyph(S_darkroom);
+                lev.remembered_glyph = {
+                    ch: g.ch, color: g.color, decgfx: !!g.dec,
+                    glyph: g.glyph,
+                };
+            } else {
+                const isNothing = (() => {
+                    if (!mem) return false;
+                    if (typeof mem.glyph === 'number') {
+                        return (mem.glyph | 0) === GLYPH_NOTHING;
+                    }
+                    return mem.ch === ' ' && (mem.color ?? NO_COLOR) === NO_COLOR
+                        && !mem.dec && !mem.decgfx && !mem.invisible;
+                })();
+                // C `:1845–1847` typ == ROOM, then seenv, then !cansee.
+                if (isNothing && ((lev.typ | 0) === ROOM)
+                    && ((lev.seenv | 0) !== 0) && !cansee(xi, yy)) {
+                    const g = cmap_idx_to_glyph(S_darkroom);
+                    lev.remembered_glyph = {
+                        ch: g.ch, color: g.color, decgfx: !!g.dec,
+                        glyph: g.glyph,
+                    };
+                }
+            }
+        }
+    }
+    // C `:1850–1853` gs.showsyms[S_darkroom] equate: no JS counterpart
+    // (see Named omissions above); remembered cells already carry the
+    // darkroom tty via cmap_idx_to_glyph(S_darkroom).
+}
+
+/**
  * C wintty.c docorner `:3650–3720` — cl_end from xmin, row_refresh the
  * map, then bot() when ymax reaches WIN_STATUS. bot() returns immediately
  * when gb.bot_disabled, so leftover WIN_STATUS left of xmin stays.

@@ -2118,6 +2118,19 @@ ignores `glyph`, hushed via `void` like C's `nhUse`);
 `await flush_screen(cursor_on_u)` (async for bot/more reach);
 `on_level` added to the existing `./dungeon.js` import (same SCC edge);
 named: docrt_flags redrawonly + tty cliparound caller wiring);
+|**`reglyph_darkroom` live** (D-1975; C `display.c:1818–1854`;
+`js/display.js` exported sync in C order with `| 0` int idiom —
+`!dark_room: S_corr+waslit→S_litcorr` (`:1826–1829`), `dark_room:
+S_litcorr+!cansee→S_corr` (`:1830–1833`), `!dark_room||!use_color||Rogue:
+S_darkroom→waslit?S_room:NOTHING` (`:1836–1840`),
+`else: S_room+seenv+waslit+!cansee→S_darkroom` (`:1842–1844`) /
+`NOTHING+ROOM+seenv+!cansee→S_darkroom` (`:1845–1847`); `lev->glyph` is
+`loc.remembered_glyph` via `memory_is_cmap` (id-first + tty fallback) with
+`cansee` last in each conjunction; writes via `cmap_idx_to_glyph`
+(tty+id) and blank+NOTHING; `dark_room`/`use_color` default-On;
+named: `gs.showsyms[S_darkroom]` equate (`:1850–1853`, no showsyms[]/
+glyphmap[] machinery — D-1972) + caller wiring (`do.c:1715`,
+`options.c:7347`+`:8999`, `restore.c:926`));
 
 ### `src/questpgr.c` / tty menu
 
