@@ -43,22 +43,22 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1973):
+Reviews **854–862** (D-1884…D-1974):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1973): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1974): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1973): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1974): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1973): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1973):
+(D-1909…D-1974): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1974):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Reviews 896–904:
 8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews
-**905–913** (D-1935…D-1973): 9 ACCEPT, 0 Must-fix. Reviews
-**914–922** (D-1944…D-1973): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
+**905–913** (D-1935…D-1974): 9 ACCEPT, 0 Must-fix. Reviews
+**914–922** (D-1944…D-1974): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
 (doclassdisco sort-letter selector debt, review-listed), 0 Must-fix. Reviews
-**923–931** (D-1953…D-1973): 9 ACCEPT, 0 Must-fix. Reviews
-**932–940** (D-1962…D-1973): 9 ACCEPT, 0 Must-fix.
+**923–931** (D-1953…D-1974): 9 ACCEPT, 0 Must-fix. Reviews
+**932–940** (D-1962…D-1974): 9 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -92,13 +92,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `display.c` get_bkglyph_and_framecolor — background/frame singleton (HELDOUT Tier C; no JS symbol, named omit in js/display.js).
+**Next cluster:** `display.c` reglyph_darkroom — darkroom reglyph singleton (HELDOUT Tier C; no JS symbol anywhere in js/).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1973 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1974 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1974** `nethack-c/upstream/src/display.c` — `js/display.js` — new exported async `redraw_map(cursor_on_u)` in exact C order with `:line` citations (guard short-circuit; full-cell resend with no UNEXPLORED gate unlike `row_refresh`; `_glyph_at` read as `loc.disp_gl
 **D-1973** `nethack-c/upstream/src/display.c` — `js/display.js` — new exported `get_bkglyph_and_framecolor(x, y)` returning `{ bkglyph, framecolor }` in exact C arm order with `:line` citations (gbuf read is `loc.disp_glyph` per D-1767; arboreal is `game.level.flags.a
 **D-1972** `nethack-c/upstream/src/display.c` — `js/display.js` — new `MG_FLAG_NORMAL`/`MG_FLAG_NOOVERRIDE`/`MG_HERO` consts (`display.h :990–996`; MG_HERO is write-only in C — no reader in src/win/include); new exported `map_glyphinfo(x, y, base, mgflags)` in exact C
 **D-1971** `nethack-c/upstream/src/hack.c` — `js/cmd.js` — new `travel_test_move(ux, uy, dx, dy)` in exact C arm order (obstructed/ironbars with `test_move_hero_passes_bars` + tunnels/needspick rock-eat; closed-door pass with Passes_walls/ooze/underwater/tunnel gat
@@ -106,11 +107,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1969** `nethack-c/upstream/src/sounds.c` — `js/sounds.js` — added `night` (`./calendar.js`: NEW-CYCLE, SAFE), `aggravate` (`./wizard.js`: same 89-module SCC, hoisted, SAFE), `FULL_MOON` (existing `./const.js` edge) imports; added `PM_HUMAN_WERERAT`/`PM_DINGO`/`PM
 **D-1968** `nethack-c/upstream/src/mkmaze.c` — `js/mklev.js` — exported `maybe_adjust_hero_bubble()` in C short-circuit order (Is_waterlevel → u.dx/u.dy → hero_bubble-gated `rn2(2)` → steer dx/dy) with the `:1929–1941` citation; `movebubbles()` now resets `game.hero_
 **D-1967** `nethack-c/upstream/src/dbridge.c` — `js/dbridge.js` — exported `automiss` (`:486–490`), `e_survives_at` (`:380–399` noncorporeal→pool→lava→db_wall→TRUE with hero Wwalking/Amphibious/Breathless/Swimming/Flying/Levitation + is_swimmer/is_flyer/is_floater/lik
-**D-1966** `nethack-c/upstream/src/nhlsel.c` — `js/mklev.js` — exported `selection_iterate_lua` with the full C-contract header (`:924–957` + `:1002` + sp_lev.c `:4793–4803` citations; relcoord round-trip skipped per reviews 791/810 since des.* adds the origin back; 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1973; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1974; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

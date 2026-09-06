@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `display.c` redraw_map — cliparound pan-resend singleton (HELDOUT Tier C; no JS symbol anywhere in js/).
 - [ ] `display.c` reglyph_darkroom — darkroom reglyph singleton (HELDOUT Tier C; no JS symbol anywhere in js/).
 - [ ] `display.c` curs_on_u/doredraw — cursor-on-hero + redraw pair (HELDOUT Tier C; no JS symbol anywhere in js/).
 - [ ] `sounds.c` domonnoise MS_VAMPIRE — vampire seduction depth (TOP30 #17 depth; night/midnight/kindred/nightchild + rn2 + body_part/pmname/an; c-js-map turns.md #chat omit).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `sounds.c` domonnoise MS_BRIBE/CUSS/SPELL — demon/caster depth (TOP30 #17 depth; demon_talk/cuss absent per brief; c-js-map turns.md #chat omit).
 - [ ] `sounds.c` domonnoise MS_NURSE/GUARD — nurse/guard depth (TOP30 #17 depth; uwep/armor gates + money_cnt; c-js-map turns.md #chat omit).
 - [ ] `sounds.c` domonnoise verbl_msg_mcan + oracle_loc — cancelled-speech epilogue + save-rest depth (TOP30 #17 depth; mcan arm + oracle_loc; c-js-map turns.md #chat omit).
+- [ ] `display.c` under_water/under_ground — docrt engulfed-water/buried map arms (docrt named omit in js/display.js; no JS symbol anywhere in js/).
+- [ ] `display.c` cliparound + CLIPPING clipx/clipy — tty pan offsets (named in row_refresh/get_bkglyph_and_framecolor/redraw_map; no JS symbol anywhere in js/).
+- [ ] `display.c` map_glyphinfo ov_* override tables — accessibility overseer sym tables (named in D-1972; no JS symbol anywhere in js/).
+- [ ] `display.c` flush_screen dirty-span loop — gbuf_start/gbuf_stop + reset_glyph_bbox (JS rebuilds all; no JS symbol anywhere in js/).
+- [ ] `display.c`/`getpos.c` map_frame_color store — gw.wsettings.map_frame_color + getpos HiliteBackground wiring (named in D-1973; no JS symbol anywhere in js/).
 
 ## Parked (do not pop)
 

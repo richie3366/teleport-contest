@@ -874,7 +874,7 @@ bars (D-0928 #1174; S_altar align/high deferred);
 two-pass from cursor; **`S_ss1` defsym `'0'` → Can't find…** D-0928 #1135; 
 **`redraw_cmd(^R)`/`getpos_refresh` → `flush_screen` + `show_goal_msg`** D-0928 #1187; 
 **blank S_stone before typ CORR** (`auto_describe_text`) D-0928 #1188 (full glyph_is_unexplored IDs 
-deferred; full `docrt` Blind deferred; `redraw_map` body deferred); 
+deferred; full `docrt` Blind deferred; `redraw_map` body live D-1974); 
 **`NHKF_GETPOS_SHOWVALID` `'$'` / `AUTODESC` `'#'` / `LIMITVIEW` / `MENU` / `MOVESKIP` before matching** D-1845 — default `#` never reaches tree/bars feature scan; matching[] defsyms (incl. `S_rslant` `'/'` → Can't find…; `S_ss1` `'0'` D-0928 #1135); `getloc_moveskip` glyph-skip; pick_chars LOOK_QUICK/ONCE/VERBOSE; `aAzZ` cycle; restore `u.dx`; 
 `getpos_menu` / cmdq_pop start / `cmd_from_func` custom binds / mouse / do_run prefix still named; GFILTER_AREA flood live D-1941); 
 **`?` → `getpos_help` NHW_MENU + `show_goal_msg`** (D-0819; 
@@ -2105,6 +2105,19 @@ hero_glyph` skip, RogueIBM currentgraphics/handling/nocolor live-read
 hero-override gate (ov_* tables deferred, shut) + MG_HERO, pet-NOOVERRIDE
 → mlet letter; caller passes the resolved base (glyphmap[] deferred);
 wired into show_glyph_cell at the C show_glyph `:2006` mgflags-0 shape);
+|**`redraw_map` live** (D-1974; C `display.c:1778–1812`;
+`js/display.js` exported async in C order — `!u.ux ||
+suppress_map_output() || !on_level(uz0, uz)` guard short-circuit,
+`y 0..ROWNO-1` / `x 1..COLNO-1` resend with no UNEXPLORED gate,
+`_glyph_at` = `loc.disp_glyph` (D-1767),
+`get_bkglyph_and_framecolor` per cell (D-1973),
+`print_glyph`/`Glyphinfo_at` = `_paint_gbuf_cell` at `(x - 1, y + 1)`
+(WIN_MAP offx 0 / offy 1, as in `row_refresh` D-1964; loop bounds keep
+every cell in range so never `&no_ginfo`; default `!UNBUFFERED_GLYPHINFO`
+ignores `glyph`, hushed via `void` like C's `nhUse`);
+`await flush_screen(cursor_on_u)` (async for bot/more reach);
+`on_level` added to the existing `./dungeon.js` import (same SCC edge);
+named: docrt_flags redrawonly + tty cliparound caller wiring);
 
 ### `src/questpgr.c` / tty menu
 

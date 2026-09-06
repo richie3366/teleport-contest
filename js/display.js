@@ -117,7 +117,7 @@ import {
     CLR_MAGENTA, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_GREEN,
     DEC_TO_UNICODE, ATR_INVERSE,
 } from './terminal.js';
-import { update_lastseentyp, In_tutorial, cmap_to_type, ensure_lastseentyp } from './dungeon.js';
+import { update_lastseentyp, In_tutorial, cmap_to_type, ensure_lastseentyp, on_level } from './dungeon.js';
 import { stairway_at, known_branch_stairs } from './mklev.js';
 import {
     A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
@@ -5957,6 +5957,46 @@ export function row_refresh(start, stop, y) {
             _paint_gbuf_cell(xi, yy, xi - 1, yy + 1);
         }
     }
+}
+
+/**
+ * C ref: display.c redraw_map `:1778–1812` — pan/clip resend: push every
+ * gbuf cell to the map window, then flush_screen(cursor_on_u). Callers:
+ * docrt_flags redrawonly `:1722–1724`, tty cliparound (`wintty.c:3840`).
+ * JS gbuf is `loc.disp_glyph`/`disp_ch` (D-1767); `print_glyph` /
+ * `Glyphinfo_at` is `_paint_gbuf_cell` at screen `(x - 1, y + 1)`
+ * (WIN_MAP offx 0 / offy 1), as in row_refresh. Unlike row_refresh there
+ * is no UNEXPLORED/framecolor gate — C resends every cell. Loop bounds
+ * keep every (x, y) in range, so Glyphinfo_at is always the gbuf cell
+ * (never `&no_ginfo`); the default `!UNBUFFERED_GLYPHINFO` expansion
+ * ignores the `glyph` argument (hence C's `nhUse(glyph)`).
+ * `get_bkglyph_and_framecolor` fills C's `bkglyphinfo` (overwriting the
+ * `nul_glyphinfo` initializer each cell); both fields ride into
+ * print_glyph with no separate tty consumer (see that function).
+ * Async: `flush_screen` awaits bot/more (nhgetch reach).
+ * Named: caller wiring — docrt_flags redrawonly stays named on `docrt`;
+ * tty cliparound resend has no JS window-port caller yet.
+ * @param {number} cursor_on_u C `boolean` — flush puts cursor on hero
+ */
+export async function redraw_map(cursor_on_u) {
+    const u = game.u || {};
+    // C `:1792` — !u.ux (display not ready) || suppress_map_output()
+    // (mklev/save/restore) || !on_level(&u.uz0, &u.uz), short-circuit.
+    if (!u.ux || suppress_map_output() || !on_level(u.uz0, u.uz)) return;
+    // C `:1800–1807` — y 0..ROWNO-1, x 1..COLNO-1.
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            // C `:1802` glyph = _glyph_at(x, y): gbuf glyph, not levl
+            // memory. Read to keep the C order (C hushes it via nhUse).
+            const glyph = game.level?.at(x, y)?.disp_glyph ?? GLYPH_UNEXPLORED;
+            void glyph;
+            // C `:1803–1806` get_bkglyph_and_framecolor + print_glyph.
+            get_bkglyph_and_framecolor(x, y);
+            _paint_gbuf_cell(x, y, x - 1, y + 1);
+        }
+    }
+    // C `:1808` flush_screen(cursor_on_u).
+    await flush_screen(cursor_on_u);
 }
 
 /**
