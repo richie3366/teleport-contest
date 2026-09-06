@@ -2804,7 +2804,9 @@ canseemon wield pline** (D-0180/D-0264/D-0318; mwelded refuse-wield/weld/artifac
 **`canseemon`=`cansee`/`infrared`+`mon_visible`; `thitu` `an`/`exclam`/miss; 
 `monshoot` `an(singular)`** (D-0119); **`find_defensive`/`use_defensive` healing+milky precheck**
 (D-0610) **+ mreadmsg / reveal_trap / mon_escape / `mon_consume_unstone` + lizard / stairs / traps / tele+create scrolls**
-(D-1809; named: unicorn horn, bugle, wand dig/tele/create/undead, `munstone`);
+(D-1809; named: unicorn horn, bugle, wand dig/tele/create/undead, `munstone`)
+**+ horn/undead-turning/bugle/wand dig/tele-self/tele/create-monster select+use**
+(D-1970; `music.js awaken_soldiers` monster-bugler mlevel/dist2 export; named: tryescape Knox `m_next2m`, `munstone`);
 **`muse.c` slime/stone cures — `cures_sliming` `:3246` / `cures_stoning` `:2985` /
 `munslime` `:3031` / `muse_unslime` `:3104` / `green_mon` `:3269` /
 `m_sees_sleepy_soldier` `:361`** (D-1899; `js/muse.js`; helpless macro inlined;

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `sounds.c` domonnoise — speaking-monster/chat depth (TOP30 #17; dead callees genus/doconsult/shk_chat, FULL_MOON howl). **Addressed:** D-1969
+- [x] `muse.c` use_defensive — hurt-monster defensive-item depth (TOP30 #18; 12% ported; dead callees mreadmsg/reveal_trap/mon_escape). **Addressed:** D-1970
+
+
+- [x] `sounds.c` domonnoise — speaking-monster/chat depth (TOP30 #17; dead callees genus/doconsult/shk_chat, FULL_MOON howl). **Addressed:** D-1969 `6eb83672`
 
 
 - [x] `mkmaze.c` maybe_adjust_hero_bubble — water-level hero-bubble adjust (HELDOUT Tier C mkmaze row; named omit in js/mklev.js). **Addressed:** D-1968 `88050324`
