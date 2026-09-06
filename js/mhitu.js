@@ -976,7 +976,7 @@ function cloak_simple_name(cloak) {
 
 /**
 /** C ref: objnam.c helm_simple_name `:5513–5528` — hat vs helm. */
-function helm_simple_name(helmet) {
+export function helm_simple_name(helmet) {
     return !hard_helmet(helmet) ? 'hat' : 'helm';
 }
 

@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `botl.c` do_statusline2 — blocks 11/553 (first at step 16): row 23 C `… Xp:1 Strngl` vs JS without the condition; `#wizintrinsic` strangling / sliming / stoning / sickness etc. Port the full `bot2` condition list in C order (`botl.c:130` onwards, `bl_conditions` order + width truncation), not just Hunger/Conf/Blind. Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-death-Caveman-92141, scen-death-Caveman-92159, scen-death-Monk-92121).
+**Next cluster:** `polyself.c` break_armor — blocks 10/553 (first at step 54): `You turn into a gelatinous cube!  You break out of your armor!` — C `break_armor :1157` message/RNG order per armor slot (cloak vs body armor first, `Your wrapping tears apart` / smock knot / clasp via `cloak_simple_name`, shield/helmet/gloves/boots drop arms, `polyself.c:1189` clasp arm). Probe: `node scripts/hidden-proxy.mjs verify break_armor` (scen-poly-Knight-92220, scen-poly-Monk-92005, scen-poly-Priest-91137).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1990 (index).**
+**Keep D-0845…D-1991 (index).**
 <!-- recent:begin -->
+**D-1991** `polyself.c:1157–1302` `break_armor` — exact-C arm order with `:line` citations — `end_burn` (new `./timeout.js` edge) + `await Armor_gone()` + `useup` (same-module `./invent.js`) for breakarm uarm; cloak 3-way on `(otyp !== MUMMY_WRAPPING || !WrappingAllowed
 **D-1990** `botl.c:100–250` `do_statusline2` — cond built in exact C order with `:line` citations — fatal four first (flat `u.Stoned/Slimed/Sick` from `make_*` OR `uprops[].intrinsic` from `#wizintrinsic incr_prop_timeout`, like `timeout.js intr_bits`; Strangled also
 **D-1989** `calendar.c:40–46` `getlt() = localtime(getnow())`; contest patch 001 `time_from_yyyymmddh — `getlt()` = `nyLocaltime(getnow())`; new module-local America/New_York engine, plain arithmetic per Rule #2 (no Intl / node TZ; only `Date.UTC`/getUTC* decomposition): pre-2007 first-Sun-Apr → last-Sun-Oct, 2007+ second-
 **D-1988** `muse.c:650` find_defensive trap kludge `is_pit(t->ttyp)` (`trap.h:113` macro); `muse.c:95 — three one-line import extensions, no new module edges (`imports.mjs --can` ALREADY on all three; same 82-module SCC, no TDZ): `muse.js` gains `is_pit` + `FORCEBUNGLE` on the existing `./const.js` list; `read.js` gains `o
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-1986** `nethack-c/upstream/src/display.c` — `js/display.js` — grid paint is span-gated per C (`gnew ||` live framecolor arm via `get_bkglyph_and_framecolor`; `gnew` cleared only when painted, `:2255`; unexplored-with-gnew paints blank, D-0931 precedent); no blanke
 **D-1985** `nethack-c/upstream/src/display.c` — `js/display.js` — `show_glyph_cell` resolves the glyph id first (two ids can share one ttychar, e.g. altar/fountain `{`) and gates `gnew = 1` + `mark_gbuf_dirty` on id/ch/color/dec/attr difference; the disp store itself 
 **D-1984** `display.c` — `js/display.js` — gbuf bbox tracked (writers+clear span, post-rebuild reset); span paint deferred.
-**D-1983** `nethack-c/upstream/src/display.c` — `js/display.js` — new exported `SYM_OFF_X = 190`/`SYM_MAX = 196` (`105 + 18 + 61 + 6 + 6`: MAXPCHARS 105 from `S_expl_br` 104, MAXOCLASSES 18 from `objects.js`, MAXMCLASSES 61 from `defsym.h` MONSYM 1..60, WARNCOUNT/MAXO
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1990; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1991; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

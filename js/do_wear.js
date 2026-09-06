@@ -1189,11 +1189,14 @@ export async function Blindf_on(otmp) {
 export async function Blindf_off(otmp) {
     const u = game.u || (game.u = {});
     const was_blind = Blind();
+    // C do_wear.c:1498 `nooffmsg = !otmp` — break_armor's ublindf arm passes
+    // Null to skip the usual off message (polyself.c:1297).
+    const nooffmsg = !otmp;
     if (!otmp) otmp = u.ublindf;
     if (!otmp) return;
 
     setworn(null, W_TOOL);
-    await off_msg(otmp);
+    if (!nooffmsg) await off_msg(otmp);
 
     let changed = false;
     if (Blind()) {

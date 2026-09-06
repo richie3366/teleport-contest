@@ -326,8 +326,13 @@ Passes_walls/ooze/Underwater/tunnels/Blind feel/steed deferred;
 trap/steed/mthrowu sticky Fumbling still); 
 **`#` → `doextcmd`/`#teleport`(D-1230)/`#wizwish`(D-0709)/`#wipe`(D-0712)/`#polyself`(D-0713; 
 **`polymon` `drop_weapon(1)` cantwield→dropx** (D-0714); 
-**`break_armor` nohands/verysmall gloves(+drop_weapon)/helm/shield + boots** (D-0928 #1116; 
-horns/flimsy-helm/`ublindf` deferred); **`polyself(POLY_NOFLAGS)` system-shock `rn2(20)` + 
+**`break_armor` nohands/verysmall gloves(+drop_weapon)/helm/shield + boots** (D-0928 #1116;
+D-1991: breakarm uarm/shirt `useup` destroy + `end_burn` lamplit + `Armor_gone`,
+cloak 3-way (wrapping tears/smock knot/clasp) via `cloak_simple_name` +
+`Cloak_off`, sliparm `racial_exception` gate, horns flimsy-pierce vs
+`helm_simple_name`+`surface()` fall, `helm_simple_name`/`has_horns`/`num_horns`/
+`WrappingAllowed` one-word exports (mhitu/worn) + `Blindf_off` Null `nooffmsg`
+(do_wear.c:1498), `ublindf` eyewear arm; donning/`cancel_don` still deferred); **`polyself(POLY_NOFLAGS)` system-shock `rn2(20)` + 
 random `rn1(SPECIAL_PM)`** (D-0928 #1103; **POLY_LOW_CTRL forcecontrol downgrade D-1428**; 
 were/vamp/dragon-merge/controllable_poly getlin/light-src deferred); 
 **`set_mon_data` hero umov prorate** (D-0717))/`#invoke`/`doinvoke`/`arti_invoke` 
