@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `polyself.c` remaining arms (D-1898 follow-up) — dogaze, dohide, dospinweb, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C; steed `pet_ranged_attk`). **Addressed:** D-1898
+- [x] `muse.c` slime/stone cures — cures_sliming, cures_stoning, munslime, muse_unslime, green_mon, m_sees_sleepy_soldier (HELDOUT Tier C). **Addressed:** D-1899
 
 
-- [x] `polyself.c` missing domonability arms — dopoly, dohide, dogaze, dospit, dospinweb, dosummon, domindblast, doremove, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C). **Addressed:** D-1898
+- [x] `polyself.c` remaining arms (D-1898 follow-up) — dogaze, dohide, dospinweb, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C; steed `pet_ranged_attk`). **Addressed:** D-1898 `3ef6abec`
+
+
+- [x] `polyself.c` missing domonability arms — dopoly, dohide, dogaze, dospit, dospinweb, dosummon, domindblast, doremove, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C). **Addressed:** D-1898 `3ef6abec`
 
 
 - [x] `hack.c` findtravelpath — absent; travel is adjacent/greedy only (TOP30 #29). **Addressed:** D-1897 `1eda4b05`

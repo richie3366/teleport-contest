@@ -2745,7 +2745,14 @@ canseemon wield pline** (D-0180/D-0264/D-0318; mwelded refuse-wield/weld/artifac
 **`canseemon`=`cansee`/`infrared`+`mon_visible`; `thitu` `an`/`exclam`/miss; 
 `monshoot` `an(singular)`** (D-0119); **`find_defensive`/`use_defensive` healing+milky precheck**
 (D-0610) **+ mreadmsg / reveal_trap / mon_escape / `mon_consume_unstone` + lizard / stairs / traps / tele+create scrolls**
-(D-1809; named: unicorn horn, bugle, wand dig/tele/create/undead, `munstone`); **`find_offensive`/`use_offensive` MUSE_POT_* throw + 
+(D-1809; named: unicorn horn, bugle, wand dig/tele/create/undead, `munstone`);
+**`muse.c` slime/stone cures — `cures_sliming` `:3246` / `cures_stoning` `:2985` /
+`munslime` `:3031` / `muse_unslime` `:3104` / `green_mon` `:3269` /
+`m_sees_sleepy_soldier` `:361`** (D-1899; `js/muse.js`; helpless macro inlined;
+`exclam` ternary cited, no 4th clone; `searches_for_item` FOOD corpse/tin/egg
+arms live; named: `munstone`+`mon_consume_unstone` stoning-TRUE envelope,
+`mhitm_ad_slim` callers (uhitm.c row), MUSE_BUGLE select+use (monster-bugler
+`awaken_soldiers`)); **`find_offensive`/`use_offensive` MUSE_POT_* throw + 
 `m_throw` POTION→`potionhit`/`bottlename`/`potionbreathe` + 
 flight `observe_object`→`makeknown`/`exercise(A_WIS)`** (D-0184) **+ ray wands / fire·frost horns / WAN_TELE·UNDEAD `mbhitm` / SCR_EARTH drop_boulder** (D-1810; named: `linedup_callback` floor-corpse, `fhito_loc`/`bhito`, destroy_drawbridge, SCR_FIRE `#if 0`, sanctuary/AD_HEAL); 
 **`m_throw` `tmp_at(DISP_FLASH)` + await `potionhit` plines** (D-0284); 
