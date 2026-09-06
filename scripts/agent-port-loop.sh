@@ -5,8 +5,9 @@
 # Crash / resource_exhausted before commit: keep the tree, arm
 # continue-unfinished (cite that iter's .raw/.log + a resume brief),
 # rewind n, retry in this run; a provider quota error halts instead
-# (latch kept). Density, protected files, empty ports (a Parked-row
-# move is not empty), and QUALITY-RISK without Must-fix still halt.
+# (latch kept). Density, protected files still halt. Empty ports (unless a
+# Parked-row move) and an empty queue after port warn and arm a next-iter
+# overlay instead of halting. QUALITY-RISK without Must-fix still halts.
 # Banned-pattern hits do not write STOP: revert if unpushed, else arm
 # a next-iter heal prompt.
 # Stop: write "1" into STOP_AGENT_LOOP.md.
@@ -742,6 +743,41 @@ arm_banned_heal_prompt() {
   } >"$NEXT_ITER_PROMPT"
 }
 
+# Next iteration recovers a port that shipped no js/ work or left the
+# queue empty. Consumed by apply_iteration_overlays. Yields to a
+# banned-pattern heal or continue latch.
+arm_empty_port_prompt() {
+  local iter="$1"
+  local kind="$2"
+  if [[ -f "$NEXT_ITER_PROMPT" || -f "$CONTINUE_LATCH" ]]; then
+    return 0
+  fi
+  {
+    echo "The supervisor flagged iteration **#${iter}** as a failed port."
+    echo "Do not write STOP and do not wait for a human."
+    echo
+    case "$kind" in
+      pushed)
+        echo "No \`js/\` diff landed (docs-only or empty commit may already be on"
+        echo "origin). Ship the current \`LOOP-QUEUE\` Open head with real \`js/\`"
+        echo "port work in this iteration."
+        ;;
+      unpushed)
+        echo "No \`js/\` changes — the queue item was not shipped (supervisor"
+        echo "reverted local docs). Redo the Open queue head with substantive"
+        echo "\`js/\` port work."
+        ;;
+      queue-empty)
+        echo "The queue is still empty after port. Refill Open rows from"
+        echo "\`docs/c-js-map/\` (minimum ${LOOP_QUEUE_MIN} Open items) before or"
+        echo "alongside the next port cluster."
+        ;;
+    esac
+  } >"$NEXT_ITER_PROMPT"
+  echo "$(date -Iseconds) note: empty-port overlay armed for next iteration (${kind})" \
+    | tee -a "$MASTER_LOG"
+}
+
 # Navigation discipline (advisory; never halts, never reverts). Names only
 # the grep classes this iteration answered BY HAND while calling the script
 # that answers them zero times — so it goes quiet as substitution improves
@@ -1409,9 +1445,16 @@ while true; do
       if (( parked )); then
         :
       elif (( agent_pushed )); then
-        halt_loop "empty port iteration (no js/ diff) already pushed" 0
+        warn_regression "empty port iteration (no js/ diff) already pushed"
+        arm_empty_port_prompt "$iter" "pushed"
       else
-        halt_loop "empty port iteration (no js/ changes) — queue item not shipped" 1
+        warn_regression "empty port iteration (no js/ changes) — queue item not shipped"
+        arm_empty_port_prompt "$iter" "unpushed"
+        if [[ -n "${before_head:-}" ]]; then
+          echo "$(date -Iseconds) revert: git reset --hard $before_head" | tee -a "$MASTER_LOG"
+          git reset --hard "$before_head" >/dev/null
+          git clean -fd -- js reviews >/dev/null 2>&1 || true
+        fi
       fi
     fi
     if (( js_c_ins == 0 && js_c_files == 0 && (js_ins > 0 || js_files > 0) )); then
@@ -1504,9 +1547,11 @@ while true; do
 
   if [[ "$mode" == "port" && "$resume_unfinished" != "1" ]] && ! queue_has_open; then
     if (( agent_pushed )); then
-      halt_loop "queue still empty after port (map refill failed) AND already pushed" 0
+      warn_regression "queue still empty after port (map refill failed) AND already pushed"
+    else
+      warn_regression "queue still empty after port — refill Open from c-js-map (min ${LOOP_QUEUE_MIN})"
     fi
-    halt_loop "queue still empty after port — refill Open from c-js-map (min ${LOOP_QUEUE_MIN})" 1
+    arm_empty_port_prompt "$iter" "queue-empty"
   fi
 
   if [[ "$LOOP_PUSH" == "1" ]]; then
