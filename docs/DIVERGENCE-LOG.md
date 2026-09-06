@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1927 — invent.c getobj takeoff live getobj + takeoff_ok (prompt/filter remaining arms)
+
+- **Status:** fixed (Open queue row: `invent.c` getobj — prompt/filter remaining arms, TOP30 #13)
+- **Symptom:** none on any suite (no corpus session blocked on getobj at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-wrongs in the `js/do_wear.js` `getobj_takeoff` clone: `?`/`*` always `Never mind` instead of `display_pickinv` (DOWNPLAY accessories live in altlets with forceprompt, not dropped); prompt letters charCode-sorted instead of sortloot SORTLOOT_INVLET (`invletter_value`: `$`, a–z, A–Z, `#`) with no compactify past 5; EXCLUDE_INACCESS covering cloak/suit/gloves never fed the `"else"` in `"don't have anything else to take off"`; no in_doagain readchar, force_invmenu `?`/`*`, digit No-count, HANDS mime_action, gold/throw/botl/CQ_REPEAT, silly_thing or split_otmp arms; `dotakeoff` missed the C `gi.item_action_in_progress` prompt gate (`:1848`).
+- **C locus:** `invent.c` `getobj` `:1751–2089` (prompt/filter arms `:1832–2089`); `do_wear.c` `takeoff_ok` `:3471–3475` (`equip_ok(obj, TRUE, FALSE)` `:3403–3447`); `do_wear.c` `dotakeoff` `:1831–1852` (`Narmorpieces != 1 || ParanoidRemove || gi.item_action_in_progress` → `getobj("take off", takeoff_ok, GETOBJ_NOFLAGS)`).
+- **JS was:** `js/do_wear.js` `takeoff_lets()` (W_ARMOR-only, `.sort()`) + `getobj_takeoff()` (yn_function loop, `?`/`*` → `Never mind`, `You are not wearing that` reject, `mark_topline_prompt`/`flush_topl_more` display hacks C never does); no `takeoff_ok` (wear/puton/remove already live via `equip_ok` since D-1834, takeoff the odd one out).
+- **Fix:** `js/do_wear.js` — added `takeoff_ok(obj) { return equip_ok(obj, true, false); }`; deleted `takeoff_lets` + `getobj_takeoff` (57 lines); `dotakeoff` calls live `getobj('take off', takeoff_ok, GETOBJ_NOFLAGS)` with the C gate (`Narmorpieces !== 1 || paranoid || game.item_action_in_progress`). No new import (`getobj` already imported); no new cross-module edge. uskin merged-with-skin stays a named omit.
+- **JS:** `js/do_wear.js` (+16/−57); 1 js file, under 600 cap.
+- **Verify:** `node scripts/verify.mjs --fn getobj` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/do_wear.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `note hidden verify getobj: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks at HEAD — brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full (no shared file changed)`.
+- **Named omissions:** uskin merged-with-skin (`do_wear.c` `:1840–1845`, needs GRAY_DRAGON_SCALES constants); `display_pickinv` body (not this cluster); remaining getobj_* clones drop/wield/apply/write/dip; `canwearobj` polyform; readchar_core fuzzer/queue/ALTMETA.
+- **Next:** next Open queue row in order (`zap.c` bhit — beam-hit body remaining arms).
+
 ## D-1926 — pickup.c pickup autopickup arm (autopick/autopick_testobj/exceptions, unconscious skip, shared tail)
 
 - **Status:** fixed (Open queue row: `pickup.c` pickup — pickup body remaining arms, TOP30 honourable mention, 238/135; archived rows are sub-arms only).

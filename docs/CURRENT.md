@@ -42,17 +42,17 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`show_conduct` (parked) ×1
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
-Reviews **835–842** (D-1865…D-1926): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1926):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1926):
-8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1926):
+Reviews **835–842** (D-1865…D-1927): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1927):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1927):
+8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1927):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1926): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1927): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1926): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1927): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1926): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1926):
+(D-1909…D-1927): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1927):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
@@ -90,10 +90,11 @@ Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852
 **Next cluster:** `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1926 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1927 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1927** `invent.c` `getobj` `:1751–2089` (prompt/filter arms `:1832–2089`); `do_wear.c` `takeoff_o — `js/do_wear.js` — added `takeoff_ok(obj) { return equip_ok(obj, true, false); }`; deleted `takeoff_lets` + `getobj_takeoff` (57 lines); `dotakeoff` calls live `getobj('take off', takeoff_ok, GETOBJ_NOFLAGS)` with the C g
 **D-1926** `pickup.c` `check_autopickup_exceptions` `:912–927`; `autopick_testobj` `:929–965` (costly — `js/pickup.js` — exported `check_autopickup_exceptions` (C-order walk over `game.apelist`, `makesingular(doname(obj))` + `regex_match`, null on empty); module-static `autopick_costly` + exported `autopick_testobj(otmp, c
 **D-1925** `explode.c` `explode` `:199–696` — `js/explode.js` — C-order ports of every arm above: mdef + expltype negation right after the olet preamble; grabbed/grabbing/grabxy from `ustuck`/`uswallow`/`Upolyd` + canonical `sticks` (`js/engrave.js`, the C-shaped ex
 **D-1924** `trap.c` `dotrap` `:2996–3060` — `js/trap.js` — C-order full body, no new imports (all names live on existing edges: `FAILEDUNTRAP`/`TOOKPLUNGE`/`FORCETRAP` from `js/const.js`, `Fumbling` from `js/attrib.js`, `is_clinger`/`mon_learns_traps` from `js/mon
@@ -101,11 +102,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1922** `trap.c` `mintrap` `:3733–3840` — `js/trap.js` — C-order full body: `!rn2(40) || (is_pit && m_easy_escape_pit(mtmp))` (short-circuit kept; the file-local `m_easy_escape_pit` and `sobj_at` reused, no new clones); boulder arm with `!rn2(2)`, `pline_mon` pu
 **D-1921** `mhitu.c` `hitmu` `:1144–1267` — `js/mhitu.js` — C-order midnight arm (`is_undead(mdat) || is_vampshifter(mtmp)` from live `js/monsters.js`, `midnight()` from live `js/calendar.js`); knockback defender `game.youmonst` (flags still by value per the `js/m
 **D-1920** `makemon.c` `grow_up` `:2049–2178` — `js/mhitm.js` — full C-order port: `newtype = little_to_big(oldtype)` (canonical `js/mondata.js` export, same-SCC import already present); victim arm with golem `Math.trunc(mhpmax/10)*10+10-1` (C integer division) and `i
-**D-1919** `mhitm.c` `mattackm` `:292–592` — `js/mhitm.js` — local `mswingsm` (C `:1282–1297` order; `game.flags?.verbose !== false` repo idiom + local `Blind_slee()` + `mon_visible`; `is_pole`/`is_art(,ART_SNICKERSNEE)`/`dist2`/`mswings_verb`/`mhis`/`xname`/`Monna
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1926; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1927; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

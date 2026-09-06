@@ -5,11 +5,14 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `options.c` AUTOPICKUP_EXCEPTION — apelist option parsing feeding `check_autopickup_exceptions` (named omit in D-1926; live-but-dormant arm, no `game.apelist` producer in `js/`). **Addressed:** D-1926
-- [x] `pickup.c` pickup — engulfer minvent chain (`objchain_p`/`traverse_how` stay floor-only) + count-N PICK_ONE/`n_or_more` menu (named omits in D-1926). **Addressed:** D-1926
+- [x] `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner). **Addressed:** D-1927
 
 
-- [x] `pickup.c` pickup — pickup body remaining arms (TOP30 honourable mention, 238/135; archived rows are sub-arms only). **Addressed:** D-1926
+- [x] `options.c` AUTOPICKUP_EXCEPTION — apelist option parsing feeding `check_autopickup_exceptions` (named omit in D-1926; live-but-dormant arm, no `game.apelist` producer in `js/`). **Addressed:** D-1926 `a3aa0f8d`
+- [x] `pickup.c` pickup — engulfer minvent chain (`objchain_p`/`traverse_how` stay floor-only) + count-N PICK_ONE/`n_or_more` menu (named omits in D-1926). **Addressed:** D-1926 `a3aa0f8d`
+
+
+- [x] `pickup.c` pickup — pickup body remaining arms (TOP30 honourable mention, 238/135; archived rows are sub-arms only). **Addressed:** D-1926 `a3aa0f8d`
 
 
 - [x] `explode.c` explode — explosion body remaining arms (TOP30 honourable mention; archived D-1760 is the named map_invisible bit only).

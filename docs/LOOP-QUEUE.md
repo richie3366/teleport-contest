@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner).
 - [ ] `zap.c` bhit — beam-hit body remaining arms (TOP30 honourable mention, 306/223; archived rows are named bits only).
 - [ ] `weapon.c` hitval — blessed/spear/trident/pick/silver remaining arms (named still-deferred in D-1793; spec_abon is D-0611).
 - [ ] `weapon.c` select_hwep — HTH weapon-select arms (turns.md named omit).

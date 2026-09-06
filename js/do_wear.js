@@ -1238,62 +1238,16 @@ async function armor_or_accessory_off(obj) {
     return 0;
 }
 
-function takeoff_lets() {
-    // C takeoff_ok / equip_ok(removing, accessory=FALSE): SUGGEST worn
-    // armor only; accessories are GETOBJ_DOWNPLAY (selectable, not listed).
-    const inv = game.invent || [];
-    const lets = [];
-    for (const o of inv) {
-        if (!o?.invlet) continue;
-        if ((o.owornmask || 0) & W_ARMOR) lets.push(o.invlet);
-    }
-    lets.sort();
-    if (!lets.length) return '';
-    return lets.join('');
-}
-
 /**
- * C ref: invent.c getobj("take off", takeoff_ok, GETOBJ_NOFLAGS)
- * via yn_function(qbuf, NULL, '\0'). Leave gt.toplines on success —
- * delayed armoroff has no off_msg until afternmv; parse clears after
- * next-command nhgetch (same as getobj_drop).
- */
-async function getobj_takeoff() {
-    for (;;) {
-        await flush_topl_more();
-        const lets = takeoff_lets();
-        const query = lets
-            ? `What do you want to take off? [${lets} or ?*]`
-            : 'What do you want to take off? [*]';
-        // C invent.c getobj → yn_function(qbuf, (char *)0, '\0', FALSE)
-        const ch = await yn_function(query, null, '\0', false);
-        if (ch === '\x1b' || ch === ' ' || ch === '\n' || ch === '\r') {
-            if (game.flags?.verbose !== false) await pline('Never mind.');
-            return null;
-        }
-        if (ch === '?' || ch === '*') {
-            // ?/* pickinv deferred — cancel like prior stub
-            await pline('Never mind.');
-            return null;
-        }
-        const otmp = (game.invent || []).find((o) => o.invlet === ch);
-        if (!otmp) {
-            // C invent.c getobj: You("don't have that object."); continue;
-            await pline("You don't have that object.");
-            continue;
-        }
-        if (!((otmp.owornmask || 0) & (W_ARMOR | W_ACCESSORY))) {
-            await pline('You are not wearing that.');
-            return null;
-        }
-        // C: leave gt.toplines for parse clear_nhwindow(WIN_MESSAGE)
-        mark_topline_prompt(game._pending_message);
-        return otmp;
-    }
-}
-
-/**
- * C ref: do_wear.c dotakeoff — 'T' command.
+ * C do_wear.c dotakeoff `:1831–1852` — 'T' command.
+ * Live invent.c getobj("take off", takeoff_ok, GETOBJ_NOFLAGS) covers the
+ * prompt/filter arms the clone missed: sortloot SORTLOOT_INVLET order (not
+ * charCode sort), compactify past 5, DOWNPLAY accessories in altlets with
+ * forceprompt (not dropped), EXCLUDE_INACCESS covering cloak/suit/gloves
+ * feeding the "else" in "don't have anything else to take off", ?/* via
+ * display_pickinv, in_doagain readchar, force_invmenu ?/*, digit
+ * No-count, HANDS mime_action, gold/throw/botl/CQ_REPEAT, silly_thing and
+ * split_otmp. uskin merged-with-skin stays a named omit (see doremring).
  * @returns {number} 0 = no turn, 1 = took time
  */
 export async function dotakeoff() {
@@ -1304,8 +1258,8 @@ export async function dotakeoff() {
     }
     const paranoid = !!(game.flags?.paranoid_confirm?.remove
         || game.flags?.paranoid_remove);
-    if (Narmorpieces !== 1 || paranoid) {
-        otmp = await getobj_takeoff();
+    if (Narmorpieces !== 1 || paranoid || game.item_action_in_progress) {
+        otmp = await getobj('take off', takeoff_ok, GETOBJ_NOFLAGS);
     }
     if (!otmp) return 0;
     return armor_or_accessory_off(otmp);
@@ -1944,6 +1898,11 @@ function puton_ok(obj) {
 /** C do_wear.c remove_ok `:3457–3461`. */
 function remove_ok(obj) {
     return equip_ok(obj, true, true);
+}
+
+/** C do_wear.c takeoff_ok `:3471–3475` — getobj filter for the T command. */
+function takeoff_ok(obj) {
+    return equip_ok(obj, true, false);
 }
 
 /**

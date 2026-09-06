@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1927 invent.c getobj takeoff live getobj + takeoff_ok (prompt/filter remaining arms)
+
+**C locus:** `invent.c` `getobj` `:1751–2089` (prompt/filter arms `:1832–2089`); `do_wear.c` `takeoff_ok` `:3471–3475` (`equip_ok(obj, TRUE, FALSE)` `:3403–3447`); `do_wear.c` `dotakeoff` `:1831–1852` (`Narmorpieces != 1 || ParanoidRemove || gi.item_action_in_progress` → `getobj("take off", takeoff_ok, GETOBJ_NOFLAGS)`).
+**JS:** `js/do_wear.js` (+16/−57); 1 js file, under 600 cap.
+**Change:** `js/do_wear.js` — added `takeoff_ok(obj) { return equip_ok(obj, true, false); }`; deleted `takeoff_lets` + `getobj_takeoff` (57 lines); `dotakeoff` calls live `getobj('take off', takeoff_ok, GETOBJ_NOFLAGS)` with the C gate (`Narmorpieces !== 1 || paranoid || game.item_action_in_progress`). No new import (`getobj` already imported); no new cross-module edge. uskin merged-with-skin stays a named omit.
+**Verify:** `node scripts/verify.mjs --fn getobj` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/do_wear.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `note hidden verify getobj: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks at HEAD — brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full (no shared file changed)`.
+**Named:** uskin merged-with-skin (`do_wear.c` `:1840–1845`, needs GRAY_DRAGON_SCALES constants); `display_pickinv` body (not this cluster); remaining getobj_* clones drop/wield/apply/write/dip; `canwearobj` polyform; readchar_core fuzzer/queue/ALTMETA.
+**Next:** next Open queue row in order (`zap.c` bhit — beam-hit body remaining arms).
 ## 2026-09-06 — D-1926 pickup.c pickup autopickup arm (autopick/autopick_testobj/exceptions, unconscious skip, shared tail)
 
 **C locus:** `pickup.c` `check_autopickup_exceptions` `:912–927`; `autopick_testobj` `:929–965` (costly `:939–946`, thrown/stolen `:950–953`, dropped/exploding `:954–957`, types `:960`, exceptions `:963–965`); `autopick` `:974–1003` (check_costly TRUE once `:987–989`, fill loop `:993–999`); `pickup` `:672–910` (unconscious `:684–688`, `menu_pickup` `:772–784`, traditional `end_query`, tail `:893–903`); `hack.c` `cannot_push` `autopick_testobj(otmp, TRUE)` `:274–276`; `do.c:777` `how_lost = LOST_DROPPED`; `optlist.h` defaults `pickup_thrown`/`pickup_stolen`/`dropped_nopick` all On; `extern.h:2461–2462` (both functions extern, not static).
