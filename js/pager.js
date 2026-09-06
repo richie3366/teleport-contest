@@ -202,8 +202,9 @@ export function compress_str(str, co = 80) {
  * C ref: win/tty/wintty.c tty_putstr NHW_TEXT arm — after compress_str, a
  * stored line with n0 = strlen+1 > CO is word-wrapped: scan back from
  * str[CO-1] for ' ' (or '\n'); the stored fragment keeps the break space
- * (`data[++i] = 0`) and the remainder re-enters tty_putstr (compress +
- * wrap again, so a short tail keeps its leading space). No break point →
+ * (`data[++i] = 0`) and the remainder re-enters tty_putstr from AFTER the
+ * break space (`&str[i]` post-`++i`, so the space is consumed, not kept).
+ * No break point →
  * stored whole (paint truncates). Returns the display lines in order.
  * @param {string} str raw putstr line
  * @param {number} [co=80] terminal columns (C global CO)
@@ -218,7 +219,7 @@ export function wrap_text_window_line(str, co = 80) {
         while (i && s[i] !== ' ' && s[i] !== '\n') i--;
         if (!i) { out.push(s); break; } // no break point: stored whole
         out.push(s.slice(0, i + 1)); // keeps the break space (C data[++i]=0)
-        s = compress_str(s.slice(i), co); // C: tty_putstr recursion
+        s = compress_str(s.slice(i + 1), co); // C: &str[i] after ++i — break space consumed
     }
     return out;
 }

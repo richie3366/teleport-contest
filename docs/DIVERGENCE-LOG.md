@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-1905 — wintty.c tty_putstr NHW_TEXT wrap remainder consumes break space (suit_simple_name corpus misattribution)
+
+- **Status:** fixed (Open queue row `objnam.c` suit_simple_name dragon arms, 1 corpus block; the cited owner was a literal-match misattribution — the true writer is the tty wrap; 1 corpus PASS; green + strict + cohort PASS; density: 1-char behavior change, C locus is 3 lines — exempt per §2b)
+- **Symptom:** `random-seed0360-wizard-world-tour-4ac145da` step 838/861 screen-first, proxy owner `suit_simple_name(objnam.c:5477)`: C `#chronicle` page-2 row 0 `dragon scale mail"` vs JS ` dragon scale mail"` (leading space). Step 837 (page 1) matched fully both sides incl. row 22 `1: made his first wish - "blessed +3 gray dragon scale mail", got "a gray`, so line content matched and only the wrap remainder differed.
+- **C locus:** `win/tty/wintty.c` `tty_putstr` NHW_TEXT/MENU arm `:2412–2420` — `cw->data[cw->cury-1][++i] = '\0'` keeps the break space in the stored fragment, then `tty_putstr(window, attr, &str[i])` recurses from AFTER the break space (post-`++i`): the space is consumed, not kept. The recursion re-enters through `compress_str`, whose `strlen >= CO || \n` gate leaves a short tail untouched — so C's tail starts without the space. Feeder: `show_gamelog` (`insight.c :2562–2589`) formats `"%5ld: %s"` via `putstr` on an NHW_TEXT window; the 92-char compressed wish line breaks at the space after the second `gray` (index 73; head 74 chars incl. space, rtrimmed to 73 on screen).
+- **JS was:** `js/pager.js` `wrap_text_window_line` pushed the fragment with the space (`slice(0, i+1)`, correct) but recursed with `compress_str(s.slice(i))` — from AT the break space. For a short tail the compress length gate returns it unchanged, so the tail kept the leading space. The doc comment recorded the bug as C behavior ("a short tail keeps its leading space"); review 862's "leading space dropped both sides" claim for D-1892 was wrong on exactly this edge (remainder never reaches compress with a droppable space — C drops it before the call).
+- **Fix:** `s.slice(i)` → `s.slice(i + 1)` + doc correction (`&str[i]` post-`++i`, space consumed). Same-file, no new imports. Falsifier before edit: `wrap_text_window_line` on the 92-char compressed wish line returned tail ` dragon scale mail"` — byte-identical to the failing JS screen row; after edit `dragon scale mail"` — byte-identical to C row 0.
+- **JS:** `js/pager.js` (+3/−3); `docs/c-js-map/turns.md` NHW_TEXT putstr row.
+- **Verify:**
+  - Preflight `node scripts/verify.mjs --no-cohort` before any edit → VERIFY: PASS (green + strict clean).
+  - `node scripts/verify.mjs --fn suit_simple_name` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/pager.js`; `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates`; `PASS hidden verify suit_simple_name: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (random-seed0360-wizard-world-tour-4ac145da: PASS)`; `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; skip full (pager.js not in shared set).
+- **Named omissions:** `suit_simple_name` dragon mail/scales arms still deferred (D-1884; `js/do_wear.js` canonical + `js/trap.js`/`js/invent.js` local clones) — no corpus session reaches them through a live diverging path; this row's block premise was the wrap, not the noun. NHW_MENU putstr parity still deferred (D-1892 row, untouched).
+- **Next:** next Open queue row in order (`mkmaze.c` makemaz `wiz-goal`).
+
 ## D-1904 — role.c role-select parsers (str2role/str2race/str2gend/str2align, setrolefilter, root/build_plselection_prompt)
 
 - **Status:** fixed (Open queue row `role.c` role-select parsers, HELDOUT Tier C; hidden vacuous — no corpus session blocked on any of the cluster at HEAD; green + strict + cohort 7/7 PASS)

@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `objnam.c` suit_simple_name dragon arms — blocks 1/278 corpus sessions (random-seed0360-wizard-world-tour-4ac145da step 838; D-1884 named deferral). Probe: `node scripts/hidden-proxy.mjs verify suit_simple_name`.
 - [ ] `mkmaze.c` makemaz `wiz-goal` — completes Wizard quest 4/5 → 5/5 (Wizard is 11/44 public sessions). From `dat/wiz-goal.lua` (132 ln, HELDOUT Tier A #1).
 - [ ] `mkmaze.c` makemaz `val-*` — Valkyrie quest 0/5 (Valkyrie 3/44 sessions). From `dat/val-*.lua` (371 ln, HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `sam-*` — Samurai quest 0/5 (Samurai 3/44 sessions). From `dat/sam-*.lua` (447 ln, HELDOUT Tier B).

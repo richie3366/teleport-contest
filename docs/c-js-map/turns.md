@@ -753,7 +753,7 @@ license** (D-0088); **NHW_TEXT `dmore` quitchars** (D-0089);
 `++curx < cols` (D-0933; recording `get_configfile` path string still deferred — Constitution); 
 **NHW_TEXT putstr `compress_str` + word-wrap** (D-1892; exported helpers, exact C 
 `strlen ≥ CO` gate/BUFSZ cap, fragment keeps break space, remainder recurses, 
-expansion before 23-line paging; NHW_MENU putstr parity still deferred); 
+expansion before 23-line paging; D-1905 remainder starts AFTER the break space (`&str[i]` post-`++i`, consumed); NHW_MENU putstr parity still deferred); 
 **NHW_MENU putstr `show_nhw_menu_text` `dmore` quitchars** (D-0240; space/CR/ESC only); 
 **`dowhatdoes` tip+`What command?`+`key2extcmddesc`** (D-0090);
 **cmd.c `&` → `dowhatdoes` dispatch + export** (D-1855; IFBURIED|GENERALCMD,
