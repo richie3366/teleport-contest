@@ -873,3 +873,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [860-fcdb286b-mon-quest-loaders.md](./860-fcdb286b-mon-quest-loaders.md) | `fcdb286b` | D-1890 mkmaze.c makemaz Mon quest 5/5 | **ACCEPT** |
 | [861-b405a225-cav-quest-loaders.md](./861-b405a225-cav-quest-loaders.md) | `b405a225` | D-1891 mkmaze.c makemaz Cav quest 5/5 | **QUALITY-RISK** |
 | [862-60215712-makewish-livelog-wrap.md](./862-60215712-makewish-livelog-wrap.md) | `60215712` | D-1892 zap.c makewish livelog + tty_putstr wrap | **ACCEPT** |
+| [863-04dd88ea-cav-wallify-epilogue.md](./863-04dd88ea-cav-wallify-epilogue.md) | `04dd88ea` | D-1893 mkmaze.c Cav quest des.wallify() | **ACCEPT** |
+| [864-72786e7d-losexp-level1-died.md](./864-72786e7d-losexp-level1-died.md) | `72786e7d` | D-1894 exper.c losexp level-1 done(DIED) | **ACCEPT** |
+| [865-1cc129db-tut2-loader.md](./865-1cc129db-tut2-loader.md) | `1cc129db` | D-1895 mkmaze.c makemaz tut-2 | **ACCEPT** |
+| [866-eb2fae2f-read-seffects.md](./866-eb2fae2f-read-seffects.md) | `eb2fae2f` | D-1896 read.c seffect_* scroll arms | **ACCEPT** |
+| [867-1eda4b05-findtravelpath-delay.md](./867-1eda4b05-findtravelpath-delay.md) | `1eda4b05` | D-1897 hack.c findtravelpath delay + NODIAG | **ACCEPT** |
+| [868-3ef6abec-domonability-arms.md](./868-3ef6abec-domonability-arms.md) | `3ef6abec` | D-1898 polyself.c domonability arms | **QUALITY-RISK** |
+| [869-54ccff4c-muse-cures.md](./869-54ccff4c-muse-cures.md) | `54ccff4c` | D-1899 muse.c slime/stone cures | **ACCEPT** |
+| [870-29ce55d7-wizard-quest-latches.md](./870-29ce55d7-wizard-quest-latches.md) | `29ce55d7` | D-1900 wizard.c clonewiz family + quest latches | **ACCEPT** |

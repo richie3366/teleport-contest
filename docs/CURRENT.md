@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-06** — full `sessions` at **D-1892**
-(audit **854–862**, `60215712`). Fortress held 44/44: seed0030
+Score last measured: **2026-09-06** — full `sessions` at **D-1900**
+(audit **863–870**, `29ce55d7`). Fortress held 44/44: seed0030
 **D-1816**, seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
-**11,405**/11,405, RNG **792,838**/792,838. Speed `44+0.34/turn`
-(R² 0.85).
+**11,405**/11,405, RNG **792,838**/792,838. Speed `46+0.36/turn`
+(R² 0.84).
 
 ## Score
 
@@ -33,19 +33,22 @@ Score last measured: **2026-09-06** — full `sessions` at **D-1892**
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `45+0.36/turn` (R² 0.86) |
+| Speed label | `46+0.36/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06 at
-D-1892): **253 / 265 PASS (95.5 %)** excl. 13 env-only rows;
+D-1900): **254 / 265 PASS (95.8 %)** excl. 13 env-only rows;
 RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`suit_simple_name`/
-`hitmsg`/`show_conduct` (parked) ×1 (+ unattributed `!` ×2, `-` ×1, motd, level-change).
+`show_conduct` (parked) ×1 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
+`hitmsg` closed by D-1894 losexp fix).
 Reviews **835–842** (D-1865…D-1900): 7 ACCEPT,
 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1900):
 3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1900):
 8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1900):
-8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
+8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
+**863–870** (D-1893…D-1900): 7 ACCEPT, 1 QUALITY-RISK
+(`domindblast` gaze blocks Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
@@ -77,7 +80,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `wizard.c` clonewiz family — clonewiz, mon_has_arti, other_mon_has_arti, which_arti, on_ground, wizdeadorgone, plus quest.c leaddead, nemdead, nemesis_stinks (HELDOUT Tier C).
+**Next cluster:** Must-fix `polyself.c` `domindblast` invented gaze blocks (review 868) — then Open rows.
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1900 (index).** Recent **D-1820:** `makemaz` `soko2-2`

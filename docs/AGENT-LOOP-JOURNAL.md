@@ -8,6 +8,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — Audit D-1893…D-1900 against pinned C (reviews 863–870) + cadence score
+
+**Scope:** 8 JS-touching SHAs since review 862 (`04dd88ea`…`29ce55d7`), one SHA at a time, review file written per SHA before opening the next.
+**Verdicts:** 7 ACCEPT (863 wallify epilogue closes review 861 Must-fix; 864 losexp PROGRESS re-measured 1 blocked→PASS; 865 tut-2 lua-exact; 866 eleven seffects, 21 edges all ALREADY; 867 travel delay, run==8 gate is C `hack.c:1179`; 869 six muse cures; 870 wizard/quest latches), 1 QUALITY-RISK — 868: `domindblast` ships floating-eye-freeze + Medusa-stoning blocks absent from C `polyself.c:1893–1938` (self-admitted "too weird"/passive-consistency invention; Medusa arm has no Blind gate). Must-fix prepended to LOOP-QUEUE; CURRENT Next cluster set to it. Rule #2 `imports.mjs --rulecheck` clean across `js/`.
+**Score:** full `sessions` 44/44 fortress holds (Scr 11,405/11,405, RNG 792,838/792,838, `46+0.36/turn` R² 0.84). Hidden proxy 254/265 (95.8 %) excl. env-only; `hitmsg` owner closed by D-1894.
+**Next:** next port pops the Must-fix first, alone.
 ## 2026-09-06 — D-1900 wizard.c clonewiz family + quest.c death latches (which_arti/mon_has_arti/other_mon_has_arti/on_ground/wizdeadorgone/leaddead/nemdead/nemesis_stinks)
 
 **C locus:** `wizard.c` `which_arti :141–157` / `mon_has_arti :164–177` / `other_mon_has_arti :183–195` / `on_ground :201–213` / `wizdeadorgone :813–822`; `quest.c` `nemdead :106–113` / `leaddead :115–122` / `nemesis_stinks :425–438`; callers `target_on :236–270`, `tactics :438–453`, `mon.c` mongone/mondead `:2760–2778`.
