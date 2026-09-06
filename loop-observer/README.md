@@ -84,8 +84,9 @@ diffs. Other extensions are escaped text only.
 Muse `bash` results arrive as a JSON envelope (`output`, `exit_code`,
 `command`, `truncated`). The observer unwraps that and renders a
 **collapsed** terminal card: `$ command`, stdout/stderr, exit badge.
-Expand the summary to see output. Long output still has Show more
-after 24 lines. Cursor `shellToolCall` stdout uses the same card.
+It stays collapsed while output streams; expand the summary to see it.
+Long output still has Show more after 24 lines. Cursor `shellToolCall`
+stdout uses the same card.
 
 Muse `edit_file` results are a mini unified diff (`--- original` /
 `+++ updated`). Those (and `find`/`replace` args before the result)

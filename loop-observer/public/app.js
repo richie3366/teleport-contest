@@ -517,7 +517,6 @@ function renderShell(msg) {
   const r = msg.result || {};
   const d = document.createElement("details");
   d.className = "tool term" + (msg.status === "running" ? " running" : "") + (msg.status === "error" ? " err" : "");
-  d.open = msg.status === "running";
   const sum = document.createElement("summary");
   const name = document.createElement("span");
   name.className = "tool-name";
@@ -703,7 +702,10 @@ function upsert(msg) {
   const wasOpen = prev?.querySelector("details")?.open;
   const next = build(msg);
   const details = next.querySelector("details");
-  if (details && wasOpen != null) details.open = wasOpen || msg.status === "running";
+  if (details && wasOpen != null) {
+    const keepRunningOpen = msg.status === "running" && msg.name !== "Shell";
+    details.open = wasOpen || keepRunningOpen;
+  }
   if (prev && prev.parentNode) prev.replaceWith(next);
   else col.appendChild(next);
   nodes.set(msg.id, next);
