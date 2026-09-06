@@ -2073,6 +2073,14 @@ UNEXPLORED on `clear_glyph_buffer`; `in_getlev` / await-`newsym` More when On /
 full gbuf-id classifier still named; **D-1587 `mimic_light_blocking` See_invisible `block_point`/`unblock_point`**
 (C `:1531–1540`; not `recalc_block_point`; `js/vision.js`; potion.c /
 timeout.c / polyself.c callers + `iter_mons` `mon_offmap` named))**
+**`row_refresh` live** (C `display.c:2147–2186`; `js/display.js` exported in
+C order with `| 0` int idiom + `force || glyph !== GLYPH_UNEXPLORED ||
+framecolor !== NO_COLOR` gate; `force` false since JS nul and UNEXPLORED
+both render `' '`/`NO_COLOR`; `framecolor` always `NO_COLOR`; paint via
+`_paint_gbuf_cell` at `(x - 1, y + 1)`; `docorner` board loop rewired to it;
+named: `map_glyphinfo` tile/rogue/hero/accessibility arms,
+`get_bkglyph_and_framecolor` background + `map_frame_color` arms, CLIPPING
+`clipx`/`clipy`);
 
 ### `src/questpgr.c` / tty menu
 

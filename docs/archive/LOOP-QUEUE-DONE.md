@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `weapon.c` give_may_advance_msg — skill-advance message singleton (HELDOUT Tier C singletons; no JS symbol, named omit in js/weapon.js). **Addressed:** D-1963
+- [x] `display.c` row_refresh — glyph-row repaint singleton (HELDOUT Tier C singletons; no JS symbol, comment-only refs in js/display.js). **Addressed:** D-1964
+
+
+- [x] `weapon.c` give_may_advance_msg — skill-advance message singleton (HELDOUT Tier C singletons; no JS symbol, named omit in js/weapon.js). **Addressed:** D-1963 `b3282b83`
 
 
 - [x] `region.c` inside_rect — rect-containment predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1962 `5e47ff6a`
