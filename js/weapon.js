@@ -17,14 +17,15 @@ import { Monnam, mon_nam, s_suffix } from './do_name.js';
 import { doname, xname, vtense, The, distant_name, otense } from './objnam.js';
 import {
     WEAPON_CLASS, GEM_CLASS, TOOL_CLASS, BALL_CLASS, CHAIN_CLASS,
-    objectNames, objectNameStrs, is_axe, LEATHER, SILVER,
+    objectNames, objectNameStrs, is_axe, is_pick, is_spear, LEATHER, SILVER,
 } from './objects.js';
+import { is_pool } from './hack.js';
 import {
     is_ammo, ammo_and_launcher, is_missile, mwelded, is_weptool,
 } from './wield.js';
 import {
     is_lord, is_prince, strongmonst, mon_hates_blessings, mon_hates_silver,
-    bigmonst, thick_skinned, is_wooden, hates_light,
+    bigmonst, thick_skinned, is_wooden, hates_light, is_swimmer, passes_walls,
 } from './monsters.js';
 import { which_armor, bypass_obj } from './worn.js';
 import {
@@ -184,18 +185,34 @@ function rounddiv(x, y) {
 }
 
 /**
- * C ref: weapon.c hitval — spe (weapon/weptool) + oc_hitbon + oartifact
- * spec_abon (D-0611). Blessed/spear/trident/pick/silver vs-mon deferred.
+ * C ref: weapon.c hitval `:149–187` — spe (weapon/weptool) + oc_hitbon,
+ * blessed vs undead/demons +2, spear vs kebabable +2, trident vs swimmers
+ * (+4 in pool, +2 vs eels/snakes), pick vs wall-walking thick-skinned +2,
+ * oartifact spec_abon (D-0611).
  * objects[].oc_hitbon is the oc_oc1 union exported as a_ac.
+ * (No silver arm in C hitval — silver is a dmgval rnd() bonus, D-1793.)
  */
+const KEBABABLE_MLETS = ['S_XORN', 'S_DRAGON', 'S_JABBERWOCK', 'S_NAGA', 'S_GIANT'];
 export function hitval(otmp, mon) {
     if (!otmp) return 0;
     const o = game.objects?.[otmp.otyp];
     let tmp = 0;
+    const ptr = mon?.data;
     const Is_weapon = otmp.oclass === WEAPON_CLASS
         || (otmp.oclass === TOOL_CLASS && ((o?.oc_skill | 0) !== P_NONE));
     if (Is_weapon) tmp += otmp.spe | 0;
     tmp += o?.a_ac | 0;
+    /* Blessed weapons used against undead or demons */
+    if (Is_weapon && otmp.blessed && mon_hates_blessings(mon)) tmp += 2;
+    /* C weapon.c kebabable[] — spear targets with a small to-hit bonus */
+    if (is_spear(otmp) && KEBABABLE_MLETS.includes(ptr?.mlet)) tmp += 2;
+    /* trident is highly effective against swimmers */
+    if (objectNames[otmp.otyp | 0] === 'TRIDENT' && is_swimmer(ptr)) {
+        if (is_pool(mon.mx, mon.my)) tmp += 4;
+        else if (ptr?.mlet === 'S_EEL' || ptr?.mlet === 'S_SNAKE') tmp += 2;
+    }
+    /* Picks used against xorns and earth elementals */
+    if (is_pick(otmp) && passes_walls(ptr) && thick_skinned(ptr)) tmp += 2;
     // C: if (otmp->oartifact) tmp += spec_abon(otmp, mon);
     if (otmp.oartifact) tmp += spec_abon(otmp, mon);
     return tmp;

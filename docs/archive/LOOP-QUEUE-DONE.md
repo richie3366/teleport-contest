@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `zap.c` bhit — beam-hit body remaining arms (TOP30 honourable mention, 306/223; archived rows are named bits only). **Addressed:** D-1928
+- [x] `weapon.c` hitval — blessed/spear/trident/pick/silver remaining arms (named still-deferred in D-1793; spec_abon is D-0611). **Addressed:** D-1929
+
+
+- [x] `zap.c` bhit — beam-hit body remaining arms (TOP30 honourable mention, 306/223; archived rows are named bits only). **Addressed:** D-1928 `3d1a2e9f`
 
 
 - [x] `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner). **Addressed:** D-1927 `35d8be59`

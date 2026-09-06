@@ -2813,7 +2813,7 @@ unawaited wand `--More--` raced input); **`dmgval` via extracted `oc_wsdam`/`oc_
 small-monster otyp switch** (D-0189); **`dmgval` shade/`shade_glare` D-1354**; 
 **`dmgval` large switch / thick-skin / iron ball / blessed·axe·silver·`artifact_light` `rnd()` / `spec_dbon` half / `greatest_erosion` D-1793** 
 (`weapon.c` `:215–356`; `obj.h` `is_axe` one export in `objects.js`; `mondata.h` `is_wooden`/`hates_light`; 
-named: `hitval` blessed/spear/trident/pick/silver still deferred, `spec_abon` is D-0611); 
+**`hitval` blessed/spear/trident/pick D-1929** (`obj.h` `is_spear` one export in `objects.js`; `kebabable[]`; `is_pool`; no silver arm in C hitval — silver is the dmgval bonus; `spec_abon` is D-0611); 
 **`skill_init` + `#enhance`/`add_skills_to_menu` PICK_NONE paged** (D-0122); 
 **spelspec `unrestrict_weapon_skill` + `skill_based_spellbook_id`** (D-0132); 
 **`weapon_hit_bonus` (b.h. unskilled +1; martial/twoweapon/riding)** (D-0187); 
@@ -2863,7 +2863,7 @@ hitmm tentacles suck); `defended` / `resists_blnd_by_arti` named;
 deferred); **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:1938–1955` `!rn2(6)` + 
 flash/`make_blinded`/`spe--`/return 1; callee D-1366); ray-wand/horn/SCR_EARTH D-1810; 
 mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named); 
-`hitval` blessed/spear/trident/pick/silver (artifact `spec_abon` D-0611);
+**`hitval` blessed/spear/trident/pick D-1929** (artifact `spec_abon` D-0611; no silver arm in C hitval);
 polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot, HTH `select_hwep`,
 weld/artifact_light wield msgs, knockback hurtle; `mshot_xname` Nth; `obj_is_pname`/`the()`;
 enhance `add_weapon_skill`/`lose_weapon_skill`/`use_skill` may-advance;

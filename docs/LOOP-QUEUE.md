@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `weapon.c` hitval — blessed/spear/trident/pick/silver remaining arms (named still-deferred in D-1793; spec_abon is D-0611).
 - [ ] `weapon.c` select_hwep — HTH weapon-select arms (turns.md named omit).
 - [ ] `objnam.c` mshot_xname — Nth/xname arms (turns.md named omit).
 - [ ] `uhitm.c` mhitm_knockback — hurtle/steadfast/size/weapon body (named deferred in js/mhitm.js stub + turns.md).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `do_wear.c` ia_dotakeoff — takeoff one-at-a-time arm (HELDOUT Tier C do_wear row; no JS symbol).
 - [ ] `artifact.c` find_artifact/found_artifact — artifact discovery tracking (HELDOUT Tier C misc row; no JS symbol).
 - [ ] `artifact.c` spec_ability — special-ability checks (HELDOUT Tier C misc row; no JS symbol).
+- [ ] `uhitm.c` backstabbable/disguised_as_mon/disguised_as_non_mon — backstab/disguise family (HELDOUT Tier C uhitm row; no JS symbol).
+- [ ] `pickup.c` boh_loss/do_boh_explosion/mbag_item_gone — bag-of-holding/forbidden-item loss family (HELDOUT Tier C misc row; no JS symbol).
+- [ ] `zap.c` polyuse/mon_spell_hits_spot/wish_history_menu — zap misc family (HELDOUT Tier C misc row; no JS symbol).
+- [ ] `pray.c` gcrownu/at_your_feet — crowning/vicinity family (HELDOUT Tier C misc row; no JS symbol).
+- [ ] `getpos.c` gloc_filter_init/_done/_floodfill/_floodfill_matcharea/_classify_glyph — getpos filter family (HELDOUT Tier C getpos row; no JS symbol).
 
 ## Parked (do not pop)
 
