@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `strutil.c` pmatch — glob-match predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `vision.c` new_angle — vision-angle singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `light.c` obj_adjust_light_radius — light-radius singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `timeout.c` spot_time_expires — spot-timeout predicate singleton (HELDOUT Tier C singletons; no JS symbol).

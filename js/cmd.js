@@ -359,8 +359,15 @@ export async function can_do_extcmd(extcmd) {
 }
 
 /**
- * C strutil.c pmatch_internal `:103–141` — '*' / '?' (ci via lowc).
- * doextlist search uses pmatchi (ci true, no skip-set).
+ * C strutil.c pmatch_internal `:104–141` — '*' matches 0+ chars, '?'
+ * matches any single char (ci folds via lowc, A–Z only); C `goto
+ * pmatch_top` tail recursion is the `for (;;)` loop; `s`/`p` are read
+ * with pre-advance (`*strng++`, `*patrn++`), so `*` recurses on
+ * `strng - 1` / `patrn - 1` exactly as C does.
+ * `sk` skip-set arm (`:119–127` fuzzy variant) omitted: no C caller
+ * passes non-null sk — both live wrappers pass `(const char *) 0`
+ * (`pmatchz` is declared `extern.h:1265` but never defined in pinned C).
+ * doextlist search uses pmatchi (ci true); checkfile keys use pmatch.
  * @param {string} patrn
  * @param {string} strng
  * @param {boolean} ci
@@ -395,7 +402,17 @@ function pmatch_internal(patrn, strng, ci) {
     return rec(0, 0);
 }
 
-/** C strutil.c pmatchi `:151–155`. */
+/**
+ * C strutil.c pmatch `:144–148` — case-sensitive wildcard match.
+ * Live C callers: pager.c checkfile `:1024–1025` data-base keys
+ * (against `lcase(dbase_str)`, `:866`), files.c debugcore `:3154`
+ * (`#ifdef DEBUG`, no JS counterpart — see map).
+ */
+export function pmatch(patrn, strng) {
+    return pmatch_internal(patrn, strng, false);
+}
+
+/** C strutil.c pmatchi `:150–155`. */
 export function pmatchi(patrn, strng) {
     return pmatch_internal(patrn, strng, true);
 }

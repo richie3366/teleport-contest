@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `eat.c` tin_variety_txt — tin-variety text singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1953
+- [x] `strutil.c` pmatch — glob-match predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1954
+
+
+- [x] `eat.c` tin_variety_txt — tin-variety text singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1953 `22555a16`
 
 
 - [x] `mkmaze.c` mazexy + is_solid — maze solidity predicates (HELDOUT Tier C mkmaze row remainder; no JS symbol). **Addressed:** D-1952 `615d3ea7`

@@ -757,6 +757,7 @@ JS: `js/pager.js`, `js/getpos.js`, `js/dokeylist.js`, `js/generated/dat_text.js`
 **`brief_at`/`describe_looked` blank S_stone before typ CORR** (D-0928 #1188; 
 full do_screen_description cmap scan deferred); 
 **`checkfile` NHW_MENU `process_text_window` + tabexpand/CR** (D-0085); 
+**checkfile data-base key match via C `pmatch` D-1954** (`strutil.c:144–148` case-sensitive over `lcase(dbase_str)` `pager.c:866`; live `js/cmd.js` export + `js/pager.js` `lookup_data_base` positive/`~`-exclusion passes, RegExp clones retired, keys keep file case — measured single uppercase key `A.S*`; `sk` skip-set + pass-1 `alt` + `#ifdef DEBUG` debugcore named omitted); 
 **`look_all`/`look_engrs` NHW_TEXT more@23 + MAP coords/glyph + `look_shown_at` + 
 statue/engr** (D-0087); **`doextversion` OPTIONS_AT_RUNTIME options/windowing/soundlib/Lua 
 license** (D-0088); **NHW_TEXT `dmore` quitchars** (D-0089); 
