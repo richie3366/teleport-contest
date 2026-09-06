@@ -892,7 +892,9 @@ Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018);
 `:4415–4424` after `M_AP_NOTHING`; `recalc_block_point` `:910–917`); 
 **D-1576 `region.c` `add_region` `:326–328` / `remove_region` `:375–376` /
 `expire_gas_cloud` `:1071–1072`** per-cell `block_point`/`unblock_point`
-(not one-corner `recalc`; seed4500 FAIL at D-1574); 
+(not one-corner `recalc`; seed4500 FAIL at D-1574); **D-1962 `inside_rect`
+`:53–57` + `inside_region` `:62–73`** (exported `js/region.js`; stored
+`bounding_box` else recompute; `create_region` box/`nrects` named); 
 **D-1598 `seemimic` `has_mcorpsenm`/`freemcorpsenm`**; **D-1587 `display.c` `mimic_light_blocking`**
 See_invisible `block_point`/`unblock_point` (not `recalc`; potion/timeout/polyself
 callers + `iter_mons` `mon_offmap` named); 

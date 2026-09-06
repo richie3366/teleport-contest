@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1961
+- [x] `region.c` inside_rect — rect-containment predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1962
+
+
+- [x] `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1961 `100914d5`
 
 
 - [x] `do.c` better_not_try_to_drop_that — corpse-drop guard singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1960 `0af4de34`

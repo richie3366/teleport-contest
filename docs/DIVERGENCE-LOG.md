@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1962 — region.c inside_rect/inside_region rect-containment predicates singleton
+
+- **Status:** fixed (Open queue row: `region.c` inside_rect — rect-containment predicate singleton, HELDOUT Tier C singletons; no JS symbol)
+- **Symptom:** none on any suite (no corpus session blocked on inside_rect at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-omission: no JS symbol for `inside_rect`; `inside_region` existed only as a local clone that inlined containment and skipped C's null guard plus bounding-box early-out.
+- **C locus:** `nethack-c/upstream/src/region.c` — `inside_rect` `:53–57` (`x >= lx && x <= hx && y >= ly && y <= hy`, "Should be inlined") + `inside_region` `:62–73` (`reg == 0 || !inside_rect(&bounding_box)` → FALSE, then per-rect `inside_rect` → TRUE, else FALSE). Callees: none (pure predicate). Callers (same file): `inside_region` at `:311`, `:334`, `:373`, `:488`, `:503`, `:517`, `:541`, `:556`, `:568`, `:588`, `:603`, `:725`, `:1069`.
+- **JS was:** `inside_rect` NOT FOUND in `js/**` (brief, incl. generated). `inside_region` NOT EXPORTED — 1 local clone (`js/region.js:169`): looped `reg.rects` with inline `x >= lx && ...`, no null-`reg` guard (threw on null where C returns FALSE), no bounding-box early-out, no `inside_rect` delegation.
+- **Fix:** `js/region.js` — exported `inside_rect(r, x, y)` in C order (inclusive comparisons, `| 0` int idiom) with the `:53–57` citation; promoted `inside_region` to exported and rewired it to C shape (`!reg || !inside_rect(box)` short-circuit so the box is never read on null reg, then indexed per-rect `inside_rect` loop) with the `:62–73` citation. Box source is `reg.bounding_box` when stored, else the existing `region_bounding_box(reg)` recompute (C stores it at `create_region`; hoisted function declaration, no new import edge). Same-module change; no DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/region.js` (+22/−4; 1 js file, under 600 cap). Density note: C is 3 + 11 lines; the JS is the one predicate plus the caller-shape rewire of its sole live use (small-C exception).
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn inside_rect` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/region.js`; `PASS rule2`; `note hidden verify inside_rect: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — HELDOUT Tier C singleton, brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full` (tool: no shared file changed). Probe (inline `-e`, nothing to delete): inclusive edges true/true, outside false/false, null-reg→false (C FALSE; old JS threw), empty-rects→false, two-rect hit→true, outside-box miss→false, stored narrow box respected→false — PROBE PASS.
+- **Named omissions:** `create_region` stored `bounding_box`/`nrects` not yet ported (JS regs carry `rects` only; `region_bounding_box` recompute stays — `inside_region` prefers a stored box when a future port provides one). No caller rewiring owed (all live callers are same-module `inside_region` users).
+- **Next:** pop the next Open row (`weapon.c` give_may_advance_msg).
+
 ## D-1961 — dungeon.c has_ceiling/avoid_ceiling ceiling predicates singleton
 
 - **Status:** fixed (Open queue row: `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton, HELDOUT Tier C singletons; no JS symbol)
