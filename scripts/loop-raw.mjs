@@ -622,14 +622,57 @@ function mapArgs(kind, args) {
   return a;
 }
 
+function museExecEnvelope(value) {
+  let obj = value;
+  if (typeof value === "string") {
+    const t = value.trim();
+    if (!t.startsWith("{")) return null;
+    try {
+      obj = JSON.parse(t);
+    } catch {
+      return null;
+    }
+  }
+  if (!obj || typeof obj !== "object" || Array.isArray(obj)) return null;
+  const hasOutput = typeof obj.output === "string";
+  const hasExec =
+    obj.chunk_id != null ||
+    obj.terminal_status != null ||
+    obj.exit_code != null ||
+    obj.exitCode != null;
+  if (!hasOutput && !hasExec) return null;
+  if (!hasOutput && obj.command == null && obj.description == null) return null;
+  return obj;
+}
+
 function mapResult(kind, result, rec) {
   if (result == null) return rec?.stdout ? { success: { stdout: rec.stdout } } : null;
   if (typeof result !== "object") {
+    const env = museExecEnvelope(result);
+    if (env) return mapResult(kind, env, rec);
     return { success: { preview: String(result), stdout: String(result) } };
   }
   if (result.success || result.failure || result.error) {
     if (typeof result.error === "object" || result.failure) return result;
     if (typeof result.error === "string") return { failure: { message: result.error } };
+  }
+  const env = museExecEnvelope(result) || museExecEnvelope(result.text);
+  if (env && (kind === "shell" || env.chunk_id != null || env.terminal_status != null)) {
+    if (rec) {
+      const next = { ...rec.args };
+      if (env.command && !next.command) next.command = env.command;
+      if (env.description && !next.description) next.description = env.description;
+      rec.args = next;
+    }
+    return {
+      success: {
+        exitCode: env.exit_code ?? env.exitCode ?? 0,
+        stdout: env.output ?? "",
+        stderr: env.stderr ?? "",
+        truncated: !!env.truncated,
+        originalBytes: env.original_output_bytes ?? env.originalOutputBytes,
+      },
+    };
   }
   const err =
     result.failure_kind ||

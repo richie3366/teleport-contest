@@ -471,8 +471,128 @@ function renderDiff(msg) {
   return row;
 }
 
+const SHELL_PREVIEW_LINES = 24;
+
+function shellOutputText(msg) {
+  const r = msg.result || {};
+  return r.stdout || r.preview || "";
+}
+
+function appendTermBlock(parent, text, className) {
+  const pre = document.createElement("pre");
+  pre.className = className;
+  pre.textContent = text;
+  parent.appendChild(pre);
+}
+
+function fillTermBody(body, msg, { full = false } = {}) {
+  body.replaceChildren();
+  const r = msg.result || {};
+  const stdout = shellOutputText(msg);
+  const stderr = r.stderr || "";
+  const combined = [stdout, stderr].filter(Boolean).join("\n");
+  const lines = combined ? combined.split("\n") : [];
+  const collapsed = !full && lines.length > SHELL_PREVIEW_LINES;
+  if (collapsed) body.classList.remove("open");
+  else body.classList.add("open");
+  if (collapsed) {
+    const slice = lines.slice(0, SHELL_PREVIEW_LINES).join("\n");
+    appendTermBlock(body, slice, stdout ? "term-out" : "term-err");
+    return true;
+  }
+  if (stdout) appendTermBlock(body, stdout, "term-out");
+  if (stderr) appendTermBlock(body, stderr, "term-err");
+  if (!stdout && !stderr) {
+    const empty = document.createElement("div");
+    empty.className = "term-empty";
+    empty.textContent = msg.status === "running" ? "" : msg.error || "(no output)";
+    if (empty.textContent) body.appendChild(empty);
+  }
+  return false;
+}
+
+function renderShell(msg) {
+  const { row, bubble } = rowShell(msg.id, "tool", { avatar: false });
+  const r = msg.result || {};
+  const card = document.createElement("div");
+  card.className = "term-card" + (msg.status === "running" ? " running" : "") + (msg.status === "error" ? " err" : "");
+  const head = document.createElement("div");
+  head.className = "term-head";
+  const name = document.createElement("span");
+  name.className = "tool-name";
+  name.textContent = "Shell";
+  const title = document.createElement("span");
+  title.className = "tool-title";
+  title.textContent = msg.title && msg.title !== "Shell" ? msg.title.replace(/^Shell\s+/, "") : "";
+  head.append(name, title);
+  if (msg.status === "running") {
+    const sp = document.createElement("span");
+    sp.className = "spin";
+    head.appendChild(sp);
+  } else if (r.exitCode != null) {
+    const badge = document.createElement("span");
+    badge.className = "term-exit" + (Number(r.exitCode) === 0 ? " ok" : " err");
+    badge.textContent = `exit ${r.exitCode}`;
+    head.appendChild(badge);
+  } else if (msg.status === "error") {
+    const badge = document.createElement("span");
+    badge.className = "term-exit err";
+    badge.textContent = "error";
+    head.appendChild(badge);
+  }
+  if (r.ms != null) {
+    const ms = document.createElement("span");
+    ms.className = "term-ms";
+    ms.textContent = Number(r.ms) >= 1000 ? `${(Number(r.ms) / 1000).toFixed(1)}s` : `${Math.round(Number(r.ms))}ms`;
+    head.appendChild(ms);
+  }
+  card.appendChild(head);
+
+  const cmd = msg.detail || "";
+  if (cmd) {
+    const cmdEl = document.createElement("div");
+    cmdEl.className = "term-cmd";
+    const prompt = document.createElement("span");
+    prompt.className = "term-prompt";
+    prompt.textContent = "$";
+    const code = document.createElement("code");
+    code.textContent = cmd;
+    cmdEl.append(prompt, code);
+    card.appendChild(cmdEl);
+  }
+
+  const body = document.createElement("div");
+  body.className = "term-body";
+  const stdout = shellOutputText(msg);
+  const stderr = r.stderr || "";
+  const lineCount = [stdout, stderr].filter(Boolean).join("\n").split("\n").length;
+  const collapsed = fillTermBody(body, msg, { full: false });
+  card.appendChild(body);
+  if (r.truncated) {
+    const note = document.createElement("div");
+    note.className = "term-trunc";
+    const bytes = r.originalBytes != null ? ` · ${r.originalBytes} bytes originally` : "";
+    note.textContent = `output truncated${bytes}`;
+    card.appendChild(note);
+  }
+  if (collapsed) {
+    const more = document.createElement("button");
+    more.type = "button";
+    more.className = "diff-more";
+    more.textContent = `Show more (${lineCount} lines)`;
+    more.addEventListener("click", () => {
+      fillTermBody(body, msg, { full: true });
+      more.remove();
+    });
+    card.appendChild(more);
+  }
+  bubble.appendChild(card);
+  return row;
+}
+
 function renderTool(msg) {
   if (msg.name === "Edit" || msg.name === "Write") return renderDiff(msg);
+  if (msg.name === "Shell") return renderShell(msg);
   const { row, bubble } = rowShell(msg.id, "tool", { avatar: false });
   const d = document.createElement("details");
   d.className = "tool";
@@ -572,9 +692,18 @@ function upsert(msg) {
     return;
   }
   const wasOpen = prev?.querySelector("details")?.open;
+  const wasTermOpen = prev?.querySelector(".term-body")?.classList.contains("open");
   const next = build(msg);
   const details = next.querySelector("details");
   if (details && wasOpen != null) details.open = wasOpen || msg.status === "running";
+  if (wasTermOpen && msg.name === "Shell") {
+    const body = next.querySelector(".term-body");
+    const more = next.querySelector(".term-card > .diff-more");
+    if (body) {
+      fillTermBody(body, msg, { full: true });
+      more?.remove();
+    }
+  }
   if (prev && prev.parentNode) prev.replaceWith(next);
   else col.appendChild(next);
   nodes.set(msg.id, next);

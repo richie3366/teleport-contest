@@ -169,6 +169,77 @@ describe("loop-raw Cursor stream-json", () => {
   });
 });
 
+describe("loop-raw Muse bash JSON envelope", () => {
+  it("unwraps output/exit_code instead of dumping the JSON blob", () => {
+    const envelope = {
+      chunk_id: "exec-1-1",
+      command: "node scripts/brief.mjs do_statusline2",
+      description: "Queue row for do_statusline2",
+      exit_code: 0,
+      terminal_status: "completed",
+      truncated: false,
+      original_output_bytes: 80,
+      output: "QUEUE ROW for do_statusline2\nlive in js/\n",
+    };
+    const text = [
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-bash" },
+        recorded_at: 1788599595000000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "assistant_tool_calls_committed",
+            tool_calls: [
+              {
+                call_id: "call_bash1",
+                name: "bash",
+                args: JSON.stringify({
+                  command: envelope.command,
+                  description: envelope.description,
+                }),
+              },
+            ],
+          },
+        },
+      }),
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-bash" },
+        recorded_at: 1788599595100000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: {
+            kind: "tool_result_batch_committed",
+            results: [{ tool_call_id: "call_bash1", text: JSON.stringify(envelope) }],
+          },
+        },
+      }),
+    ].join("\n");
+    const { events } = parseRawText(text);
+    const done = events.find((e) => e.type === "tool_call" && e.subtype === "completed");
+    assert.ok(done);
+    const ok = done.tool_call.shellToolCall.result.success;
+    assert.equal(ok.exitCode, 0);
+    assert.equal(ok.stdout, envelope.output);
+    assert.equal(ok.truncated, false);
+    assert.doesNotMatch(ok.stdout, /chunk_id/);
+    const t = createTranscript();
+    applyNdjsonChunk(t, text);
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.equal(tool.name, "Shell");
+    assert.match(tool.title, /do_statusline2/);
+    assert.equal(tool.detail, envelope.command);
+    assert.equal(tool.result.stdout, envelope.output);
+    assert.equal(tool.result.exitCode, 0);
+    assert.equal(tool.status, "done");
+  });
+});
+
 describe("loop-raw Muse token budget metering", () => {
   it("finds no usage in thin exec --json stdout", () => {
     const u = extractUsageFromRaw(thinFixture);

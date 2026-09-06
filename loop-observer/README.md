@@ -79,6 +79,14 @@ Edit/Write cards parse unified diffs. Syntax highlight runs only for
 rewrite the attribute and leak `class="str">` into markdown (or other)
 diffs. Other extensions are escaped text only.
 
+## Shell
+
+Muse `bash` results arrive as a JSON envelope (`output`, `exit_code`,
+`command`, `truncated`). The observer unwraps that and renders a
+terminal card: `$ command`, stdout/stderr, exit badge. Long output
+collapses after 24 lines (Show more). Cursor `shellToolCall` stdout
+uses the same card.
+
 ## How “current” is chosen
 
 1. `iteration-count` in `.agent-port-loop-logs/` if a matching

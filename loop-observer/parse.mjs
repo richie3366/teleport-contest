@@ -6,6 +6,7 @@
 import { isMuseRecord, createNormalizer } from "../scripts/loop-raw.mjs";
 
 const PREVIEW = 1200;
+const SHELL_CAP = 48000;
 const MATCH_CAP = 24;
 const DIFF_LINE_CAP = 180;
 
@@ -238,7 +239,8 @@ function applyTool(state, ev) {
     msg.status = "running";
     if (parsed.result) msg.result = parsed.result;
   } else if (ev.subtype === "completed") {
-    msg.status = parsed.error ? "error" : "done";
+    const badExit = parsed.result?.exitCode != null && Number(parsed.result.exitCode) !== 0;
+    msg.status = parsed.error || badExit ? "error" : "done";
     msg.error = parsed.error || null;
     msg.result = parsed.result;
     msg.tsEnd = num(ev.timestamp_ms);
@@ -312,7 +314,7 @@ function summarizeArgs(camel, args) {
     case "shell":
       return {
         title: args.description || `Shell ${clip(firstLine(args.command), 72)}`,
-        detail: clip(args.command, 400),
+        detail: args.command || "",
       };
     case "glob":
       return {
@@ -395,16 +397,21 @@ function summarizeResult(camel, result) {
       }
       return { result: { matches: n || rows.length, rows }, error: null };
     }
-    case "shell":
+    case "shell": {
+      const stdout = String(ok.stdout || ok.interleavedOutput || "");
+      const stderr = String(ok.stderr || "");
       return {
         result: {
           exitCode: ok.exitCode,
-          preview: clip(ok.stdout || ok.interleavedOutput || "", PREVIEW),
-          stderr: clip(ok.stderr || "", 400),
+          stdout: clip(stdout, SHELL_CAP),
+          stderr: clip(stderr, 8000),
+          truncated: !!ok.truncated || stdout.length > SHELL_CAP,
+          originalBytes: ok.originalBytes,
           ms: ok.executionTime ?? ok.localExecutionTimeMs,
         },
         error: null,
       };
+    }
     case "glob":
       return {
         result: {
