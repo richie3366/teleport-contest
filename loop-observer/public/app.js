@@ -348,9 +348,10 @@ function toolBodyText(msg) {
     if (r.files != null) bits.push(`${r.files} files`);
     if (r.added != null || r.removed != null) bits.push(`+${r.added ?? 0} −${r.removed ?? 0}`);
     if (r.exitCode != null) bits.push(`exit ${r.exitCode}`);
+    if (r.preview) bits.push(r.preview);
     if (r.rows?.length) {
       bits.push(r.rows.map((x) => `${x.file}:${x.line}: ${x.text}`).join("\n"));
-    } else if (r.preview) bits.push(r.preview);
+    }
     if (r.stderr) bits.push(r.stderr);
   }
   return bits.filter(Boolean).join("\n\n");
@@ -514,40 +515,47 @@ function fillTermBody(body, msg, { full = false } = {}) {
 function renderShell(msg) {
   const { row, bubble } = rowShell(msg.id, "tool", { avatar: false });
   const r = msg.result || {};
-  const card = document.createElement("div");
-  card.className = "term-card" + (msg.status === "running" ? " running" : "") + (msg.status === "error" ? " err" : "");
-  const head = document.createElement("div");
-  head.className = "term-head";
+  const d = document.createElement("details");
+  d.className = "tool term" + (msg.status === "running" ? " running" : "") + (msg.status === "error" ? " err" : "");
+  d.open = msg.status === "running";
+  const sum = document.createElement("summary");
   const name = document.createElement("span");
   name.className = "tool-name";
   name.textContent = "Shell";
   const title = document.createElement("span");
   title.className = "tool-title";
   title.textContent = msg.title && msg.title !== "Shell" ? msg.title.replace(/^Shell\s+/, "") : "";
-  head.append(name, title);
+  sum.append(name, title);
   if (msg.status === "running") {
     const sp = document.createElement("span");
     sp.className = "spin";
-    head.appendChild(sp);
+    sum.appendChild(sp);
   } else if (r.exitCode != null) {
     const badge = document.createElement("span");
     badge.className = "term-exit" + (Number(r.exitCode) === 0 ? " ok" : " err");
     badge.textContent = `exit ${r.exitCode}`;
-    head.appendChild(badge);
+    sum.appendChild(badge);
   } else if (msg.status === "error") {
     const badge = document.createElement("span");
     badge.className = "term-exit err";
     badge.textContent = "error";
-    head.appendChild(badge);
+    sum.appendChild(badge);
+  } else {
+    const badge = document.createElement("span");
+    badge.className = "badge ok";
+    badge.textContent = "done";
+    sum.appendChild(badge);
   }
-  if (r.ms != null) {
+  if (r.ms != null && msg.status !== "running") {
     const ms = document.createElement("span");
     ms.className = "term-ms";
     ms.textContent = Number(r.ms) >= 1000 ? `${(Number(r.ms) / 1000).toFixed(1)}s` : `${Math.round(Number(r.ms))}ms`;
-    head.appendChild(ms);
+    sum.appendChild(ms);
   }
-  card.appendChild(head);
+  d.appendChild(sum);
 
+  const inner = document.createElement("div");
+  inner.className = "term-inner";
   const cmd = msg.detail || "";
   if (cmd) {
     const cmdEl = document.createElement("div");
@@ -558,7 +566,7 @@ function renderShell(msg) {
     const code = document.createElement("code");
     code.textContent = cmd;
     cmdEl.append(prompt, code);
-    card.appendChild(cmdEl);
+    inner.appendChild(cmdEl);
   }
 
   const body = document.createElement("div");
@@ -566,16 +574,16 @@ function renderShell(msg) {
   const stdout = shellOutputText(msg);
   const stderr = r.stderr || "";
   const lineCount = [stdout, stderr].filter(Boolean).join("\n").split("\n").length;
-  const collapsed = fillTermBody(body, msg, { full: false });
-  card.appendChild(body);
+  const needMore = fillTermBody(body, msg, { full: false });
+  inner.appendChild(body);
   if (r.truncated) {
     const note = document.createElement("div");
     note.className = "term-trunc";
     const bytes = r.originalBytes != null ? ` · ${r.originalBytes} bytes originally` : "";
     note.textContent = `output truncated${bytes}`;
-    card.appendChild(note);
+    inner.appendChild(note);
   }
-  if (collapsed) {
+  if (needMore) {
     const more = document.createElement("button");
     more.type = "button";
     more.className = "diff-more";
@@ -584,9 +592,10 @@ function renderShell(msg) {
       fillTermBody(body, msg, { full: true });
       more.remove();
     });
-    card.appendChild(more);
+    inner.appendChild(more);
   }
-  bubble.appendChild(card);
+  d.appendChild(inner);
+  bubble.appendChild(d);
   return row;
 }
 
@@ -602,7 +611,7 @@ function renderTool(msg) {
   name.textContent = msg.name || "Tool";
   const title = document.createElement("span");
   title.className = "tool-title";
-  title.textContent = msg.title || "";
+  title.textContent = msg.title && msg.title !== msg.name ? msg.title : "";
   const badge = document.createElement("span");
   badge.className = "badge";
   if (msg.status === "running") {
@@ -692,18 +701,9 @@ function upsert(msg) {
     return;
   }
   const wasOpen = prev?.querySelector("details")?.open;
-  const wasTermOpen = prev?.querySelector(".term-body")?.classList.contains("open");
   const next = build(msg);
   const details = next.querySelector("details");
   if (details && wasOpen != null) details.open = wasOpen || msg.status === "running";
-  if (wasTermOpen && msg.name === "Shell") {
-    const body = next.querySelector(".term-body");
-    const more = next.querySelector(".term-card > .diff-more");
-    if (body) {
-      fillTermBody(body, msg, { full: true });
-      more?.remove();
-    }
-  }
   if (prev && prev.parentNode) prev.replaceWith(next);
   else col.appendChild(next);
   nodes.set(msg.id, next);

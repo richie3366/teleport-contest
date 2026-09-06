@@ -83,9 +83,17 @@ diffs. Other extensions are escaped text only.
 
 Muse `bash` results arrive as a JSON envelope (`output`, `exit_code`,
 `command`, `truncated`). The observer unwraps that and renders a
-terminal card: `$ command`, stdout/stderr, exit badge. Long output
-collapses after 24 lines (Show more). Cursor `shellToolCall` stdout
-uses the same card.
+**collapsed** terminal card: `$ command`, stdout/stderr, exit badge.
+Expand the summary to see output. Long output still has Show more
+after 24 lines. Cursor `shellToolCall` stdout uses the same card.
+
+Muse `edit_file` results are a mini unified diff (`--- original` /
+`+++ updated`). Those (and `find`/`replace` args before the result)
+feed the same Edit/Write pretty-diff cards as Cursor.
+
+Muse `search` is a Grep card. Hits are `path:line:text` (optional
+`matches=N` footer), not Cursor `workspaceResults`. An empty Muse
+payload omits the count rather than claiming **0 matches**.
 
 ## How “current” is chosen
 

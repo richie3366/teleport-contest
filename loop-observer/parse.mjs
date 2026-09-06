@@ -266,8 +266,12 @@ function parseToolBody(toolCall) {
   const args = body.args && typeof body.args === "object" ? body.args : {};
   const { title, detail } = summarizeArgs(camel, args);
   let { result, error } = summarizeResult(camel, body.result);
-  if (!result && (camel === "edit" || camel === "write") && args.streamContent) {
-    result = fileToDiff(args.streamContent, args.path);
+  if ((!result?.lines?.length) && (camel === "edit" || camel === "write")) {
+    if (args.streamContent) result = fileToDiff(args.streamContent, args.path);
+    else {
+      const built = diffFromReplace(args);
+      if (built) result = built;
+    }
   }
   return {
     name,
@@ -299,6 +303,66 @@ const TOOL_LABEL = {
   callMcp: "MCP",
 };
 
+function isRegexSearch(args) {
+  if (!args || typeof args !== "object") return false;
+  if (args.regex === false || args.isRegex === false || args.is_regex === false) return false;
+  if (args.regex === true || args.isRegex === true || args.is_regex === true) return true;
+  const mode = String(args.mode || args.type || "").toLowerCase();
+  return mode === "regex" || mode === "regexp";
+}
+
+function grepPatternTitle(args) {
+  const pat = String(args.pattern || args.query || "");
+  if (!pat) return "";
+  return isRegexSearch(args) ? `/${clip(pat, 78)}/` : clip(pat, 80);
+}
+
+function grepPathDetail(args) {
+  if (Array.isArray(args.paths) && args.paths.length) {
+    return args.paths.map((p) => shortPath(p)).join(", ");
+  }
+  return args.path ? shortPath(args.path) : "";
+}
+
+const GREP_HIT = /^(.+?):(\d+):(.*)$/;
+const GREP_FOOTER = /\[search traversal bounded:[^\]]*matches=(\d+)/i;
+
+/** Muse `search` returns ripgrep-style `path:line:text` (optional footer). */
+function summarizeGrepText(text) {
+  const raw = String(text || "");
+  if (!raw.trim()) return {};
+  const footer = raw.match(GREP_FOOTER);
+  const footerN = footer ? Number(footer[1]) : null;
+  const rows = [];
+  const notes = [];
+  let n = 0;
+  for (const line of raw.split(/\r?\n/)) {
+    if (!line) continue;
+    if (/^note:/i.test(line) || /^\[search /.test(line)) {
+      if (/^note:/i.test(line)) notes.push(clip(line, 240));
+      continue;
+    }
+    const m = line.match(GREP_HIT);
+    if (!m) continue;
+    n += 1;
+    if (rows.length >= MATCH_CAP) continue;
+    rows.push({
+      file: shortPath(m[1]),
+      line: Number(m[2]),
+      text: clip(m[3], 200),
+    });
+  }
+  const out = {};
+  if (footerN != null || n > 0) out.matches = footerN != null ? footerN : n;
+  else if (!notes.length) {
+    out.preview = clip(raw, PREVIEW);
+    return out;
+  } else out.matches = 0;
+  if (notes.length) out.preview = notes.join("\n");
+  if (rows.length) out.rows = rows;
+  return out;
+}
+
 function summarizeArgs(camel, args) {
   switch (camel) {
     case "read":
@@ -308,8 +372,8 @@ function summarizeArgs(camel, args) {
       };
     case "grep":
       return {
-        title: `Grep ${clip(args.pattern, 80)}`,
-        detail: [args.glob, args.path && shortPath(args.path)].filter(Boolean).join(" · "),
+        title: grepPatternTitle(args),
+        detail: [args.glob, grepPathDetail(args)].filter(Boolean).join(" · "),
       };
     case "shell":
       return {
@@ -378,24 +442,27 @@ function summarizeResult(camel, result) {
       };
     }
     case "grep": {
-      const wr = ok.workspaceResults || {};
-      let n = 0;
-      const rows = [];
-      for (const block of Object.values(wr)) {
-        const c = block?.content || {};
-        n += Number(c.totalMatchedLines || 0);
-        for (const file of c.matches || []) {
-          for (const m of file.matches || []) {
-            if (rows.length >= MATCH_CAP) break;
-            rows.push({
-              file: file.file,
-              line: m.lineNumber,
-              text: clip(m.content || "", 200),
-            });
+      const wr = ok.workspaceResults;
+      if (wr && typeof wr === "object" && Object.keys(wr).length) {
+        let n = 0;
+        const rows = [];
+        for (const block of Object.values(wr)) {
+          const c = block?.content || {};
+          n += Number(c.totalMatchedLines || 0);
+          for (const file of c.matches || []) {
+            for (const m of file.matches || []) {
+              if (rows.length >= MATCH_CAP) break;
+              rows.push({
+                file: file.file,
+                line: m.lineNumber,
+                text: clip(m.content || "", 200),
+              });
+            }
           }
         }
+        return { result: { matches: n || rows.length, rows }, error: null };
       }
-      return { result: { matches: n || rows.length, rows }, error: null };
+      return { result: summarizeGrepText(ok.preview || ok.stdout || ok.content || ""), error: null };
     }
     case "shell": {
       const stdout = String(ok.stdout || ok.interleavedOutput || "");
@@ -427,6 +494,26 @@ function summarizeResult(camel, result) {
         : ok.afterFullFileContent
           ? fileToDiff(ok.afterFullFileContent, ok.path)
           : { lines: [], added: 0, removed: 0, truncated: false };
+      if (!diff.lines.length) {
+        const built = diffFromReplace({
+          old_string: ok.old_string,
+          new_string: ok.new_string,
+          find: ok.find,
+          replace: ok.replace,
+        });
+        if (built) {
+          return {
+            result: {
+              added: ok.linesAdded ?? built.added,
+              removed: ok.linesRemoved ?? built.removed,
+              lines: built.lines,
+              truncated: built.truncated,
+              path: ok.path && shortPath(ok.path),
+            },
+            error: null,
+          };
+        }
+      }
       return {
         result: {
           added: ok.linesAdded ?? diff.added,
@@ -538,6 +625,31 @@ function extOf(p) {
   const b = base(p);
   const i = b.lastIndexOf(".");
   return i >= 0 ? b.slice(i + 1).toLowerCase() : "";
+}
+
+function splitHunkLines(s) {
+  const parts = String(s ?? "").split("\n");
+  if (parts.length && parts[parts.length - 1] === "") parts.pop();
+  return parts;
+}
+
+function diffFromReplace(args) {
+  if (!args || typeof args !== "object") return null;
+  const oldText = args.old_string ?? args.find;
+  const newText = args.new_string ?? args.replace ?? args.contents ?? args.content;
+  if (oldText == null || newText == null) {
+    if (newText != null && oldText == null) return fileToDiff(newText, args.path);
+    return null;
+  }
+  const oldLines = splitHunkLines(oldText);
+  const newLines = splitHunkLines(newText);
+  const start = 1;
+  const hunk = [
+    `@@ -${start},${oldLines.length} +${start},${newLines.length} @@`,
+    ...oldLines.map((l) => `-${l}`),
+    ...newLines.map((l) => `+${l}`),
+  ].join("\n");
+  return parseUnifiedDiff(hunk);
 }
 
 function fileToDiff(content, _path) {
