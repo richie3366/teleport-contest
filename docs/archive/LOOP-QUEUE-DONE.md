@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `display.c`/`getpos.c` map_frame_color store — gw.wsettings.map_frame_color + getpos HiliteBackground wiring (named in D-1973; no JS symbol anywhere in js/). **Addressed:** D-1987
+- [x] `muse.c` find_defensive / use_defensive, `read.c` seffect_enchant_armor, `eat.c` newuhs — 4 missing JS imports (ReferenceError) kill 8 corpus sessions at their first step (rng-lost ≈104k): `is_pit` at `js/muse.js` find_defensive (`scen-tour-Barbarian-92129`, `scen-tour-Tourist-92134`, `scen-tour-Wizard-91112`), `FORCEBUNGLE` at `js/muse.js` use_defensive (`scen-tour-Monk-91117`), `otense` at `js/read.js` seffect_enchant_armor (`scen-intrinsic-Healer-92124`, `scen-wish-Archeologist-92238`), `STARVED` at `js/eat.js` newuhs (`scen-poly-Archeologist-92119`, `scen-wish-Knight-92034`; that replay also takes ~128 s — note the slow path in the D-log). Import the existing exports (`js/const.js` is_pit/FORCEBUNGLE/STARVED; `js/objnam.js` otense — `sym.mjs` each), no clones. Probe: `node scripts/hidden-proxy.mjs verify randomize_gem_colors` (the throw rows are attributed to the first C draw) then `node scripts/hidden-proxy.mjs score --ids scen-tour-Barbarian-92129,scen-tour-Monk-91117,scen-intrinsic-Healer-92124,scen-poly-Archeologist-92119 --jobs 4`. Source: human corpus audit 2026-09-06 (`docs/HIDDEN-PROXY.md` §5). **Addressed:** D-1988
+
+
+- [x] `display.c`/`getpos.c` map_frame_color store — gw.wsettings.map_frame_color + getpos HiliteBackground wiring (named in D-1973; no JS symbol anywhere in js/). **Addressed:** D-1987 `03b0ab93`
 
 
 - [x] `display.c` clear_glyph_buffer nul_gbuf.gnew dynamic computation — C derives 0-or-1 from the unexplored rendering vs nul_gbuf (named D-1985/D-1986; JS keeps gnew = 1; c-js-map turns.md). **Addressed:** D-1986 `97752af4`

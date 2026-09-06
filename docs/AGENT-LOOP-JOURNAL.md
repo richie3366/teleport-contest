@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1988 missing JS imports (is_pit/FORCEBUNGLE/otense/STARVED) threw at first step in 8 corpus sessions
+
+**C locus:** `muse.c:650` find_defensive trap kludge `is_pit(t->ttyp)` (`trap.h:113` macro); `muse.c:950` use_defensive `mintrap(mtmp, FORCEBUNGLE)` (`hack.h:1308`); `read.c:1182/1186/1255` seffect_enchant_armor `otense(…)` (`objnam.c:2531`); `eat.c:3438` newuhs `u.uhs = STARVED` (`hack.h:571`).
+**JS:** `js/muse.js`, `js/read.js`, `js/eat.js` (+4 names across 3 import lists); 3 js files, under 600 cap.
+**Change:** three one-line import extensions, no new module edges (`imports.mjs --can` ALREADY on all three; same 82-module SCC, no TDZ): `muse.js` gains `is_pit` + `FORCEBUNGLE` on the existing `./const.js` list; `read.js` gains `otense` on the existing `./objnam.js` list; `eat.js` gains `STARVED` on the existing `./const.js` list. No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn randomize_gem_colors` → VERIFY: PASS — `PASS syntax 3 changed js file(s)`; `PASS rule2`; `PASS hidden verify randomize_gem_colors: 0 PASS, 6 moved past (2 re-attributed at the same step), 0 unchanged, 0 worse → PROGRESS` (Healer-92124 → `exercise`@48, Barbarian-92129 → `level_tele`@51, Monk-91117 → `show_conduct`@67, Wizard-91112 → `burnarmor`@72; Tourist-92134 + wish-Arch-92238 re-attributed at step 0 to the themerms/`rnd_rect` step-0 RNG row — working rows show `err null`, `jsOwner rnd_rect`, so the throw is gone and they now sit on the `somex` Open row); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`. Probe `score --ids Barbarian-92129,Monk-91117,Healer-92124,poly-Arch-92119` (~120 s): movement recorded in the working scoreboard. STARVED arm: poly-Arch-92119 baseline `worker:` timeout → `polyself`@63 screen row (`You can't polymorph into [a] Croesus`), proving `newuhs` now runs; wish-Knight-92034 still `worker:` timeout (the row's noted ~128 s slow path — same one-line fix, verified via poly-Arch + syntax; left for a longer-budget runner).
+**Named:** none (import-only; no map section names these as omitted, so no `c-js-map` edit).
+**Next:** pop the next Open row (`calendar.c getlt` DST, 51 sessions).
 ## 2026-09-06 — human: scenario corpus replaces the saturated proxy (no D-id)
 
 **Why:** leaderboard held-out is **7/44** (RNG 22.8 %, screens 45.4 %) while the local proxy said 96 %; the last ~40 iterations shipped display/getpos singletons (`pmatch`, `On_ladder`, `map_frame_color`…) that no session can see. The public 44 and the mutant corpus are scripted-scenario vs random-key genres: the mutants never wish, `^G`, `#polyself`, `#wizintrinsic`, die, or `^V ?` to a named level.
