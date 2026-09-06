@@ -3806,6 +3806,14 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     // C classifies the already-chosen glyph id; stamp JS kind the same way
     // (no mon_glyph / obj_glyph). Always store so later On sees real old kind.
     const kind = gbuf_show_kind(x, y, ch, color, decgfx, loc);
+    // C show_glyph `:2031–2056` compares the BUFFERED glyphinfo against the
+    // new one before storing: snapshot first, then store unconditionally
+    // (rewriting identical values is a no-op).
+    const oldGlyphId = loc.disp_glyph;
+    const oldCh = loc.disp_ch;
+    const oldColor = loc.disp_color;
+    const oldDec = !!loc.disp_decgfx;
+    const oldAttr = loc.disp_attr | 0;
     loc.disp_ch = ch;
     loc.disp_color = tty_map_color(color);
     loc.disp_decgfx = !!decgfx;
@@ -3815,19 +3823,18 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     // fountain are both '{'), so the id is part of the change test below.
     const newGlyphId = typeof glyph === 'number' ? glyph | 0
         : (ch === 'I' && !decgfx) ? GLYPH_INVISIBLE : NO_GLYPH;
-    // C show_glyph `:2031–2056` — the gbuf store + gnew + span happen
-    // only when the buffered glyphinfo actually differs (glyph id,
-    // ttychar, gm color/flags/tile, or use_background_glyph, which stays
-    // shut on tty — D-1984); an unchanged rewrite stays out of the dirty
-    // span. JS compares the resolved tty fields (the same ch/color/dec
-    // set show_glyph_change_wanted uses, plus attr and the glyph id).
-    // The store itself stays unconditional — rewriting identical values
-    // is a no-op — so only the dirty-marking is gated.
-    const glyphStored = loc.disp_glyph !== newGlyphId
-        || loc.disp_ch !== ch
-        || loc.disp_color !== tty_map_color(color)
-        || !!loc.disp_decgfx !== !!decgfx
-        || (loc.disp_attr | 0) !== (attr | 0);
+    // C `:2031–2056` — gnew + span only when the buffered glyphinfo
+    // actually differs (glyph id, ttychar, gm color/flags/tile, or
+    // use_background_glyph, which stays shut on tty — D-1984); an
+    // unchanged rewrite stays out of the dirty span. JS compares the
+    // resolved tty fields (the same ch/color/dec set
+    // show_glyph_change_wanted uses, plus attr and the glyph id), so
+    // only the dirty-marking is gated.
+    const glyphStored = oldGlyphId !== newGlyphId
+        || oldCh !== ch
+        || oldColor !== tty_map_color(color)
+        || oldDec !== !!decgfx
+        || oldAttr !== (attr | 0);
     loc.disp_glyph = newGlyphId;
     if (glyphStored) {
         loc.gnew = 1;
@@ -5789,9 +5796,9 @@ export function serialize_for_scoring(term) {
 // JS gbuf is `loc.disp_*` (D-1767); the spans live here beside the other
 // flush machinery (`_delay_flushing`) since every writer and consumer is
 // in this module. Empty is `start > stop` (start COLNO-1, stop 0), as in C.
-// Shipped core tracks the bbox (writers + clear + reset after the rebuild);
-// the incremental span-gated grid paint stays queued (menu overlays need a
-// full resync that the persistent grid does not yet do).
+// Shipped: span-gated grid paint (`:2241–2257`, no blanket clear) with a
+// JS-only overlay full-resync (overlays share this grid; C's windows are
+// separate) + row-0 resync on message-wrap ownership change.
 let gbuf_start = new Array(ROWNO).fill(COLNO - 1);
 let gbuf_stop = new Array(ROWNO).fill(0);
 
@@ -5855,75 +5862,116 @@ function _buildScreenOutput() {
 
     game._screen_output = output;
 
-    // Also write to grid for serialize_terminal_grid
+    // Also write to grid for serialize_terminal_grid.
+    // C flush_screen `:2241–2257` paints only dirty spans with no blanket
+    // clearScreen — the tty map window keeps its cells and print_glyph
+    // overwrites dirty ones. Message (screen rows 0–1) and status (rows
+    // 22–23) are separate C windows painted here because the JS Terminal
+    // is one persistent grid.
     if (display.grid) {
         const cols = display.cols || 80;
-        // C bot() returns before putstr when gb.bot_disabled; leftover
-        // WIN_STATUS (docorner cl_end from offx) stays. Do not clear or
-        // repaint rows 22–23. Snapshot/restore of those rows is D-1831.
-        if (_bot_disabled) {
-            for (let r = 0; r < 22; r++) {
-                for (let c = 0; c < cols; c++)
-                    display.setCell(c, r, ' ', NO_COLOR, 0);
-            }
-        } else {
-            display.clearScreen();
-        }
-        // Message line(s) — --More-- may sit on row 1 when msg is long
+        // — WIN_MESSAGE rows. C paints the message window separately
+        // (putmesg/display_nhwindow); row 0 is always the message row,
+        // row 1 only when the message wraps (--More-- may sit on row 1
+        // when msg is long). Trailing blanks erase a shrunk message.
         const msg = game._pending_message || '';
         const msgLines = msg.split('\n');
-        for (let r = 0; r < msgLines.length && r < 2; r++) {
-            const line = msgLines[r];
-            for (let c = 0; c < Math.min(line.length, display.cols); c++)
-                display.setCell(c, r, line[c], NO_COLOR, 0);
+        for (let c = 0; c < cols; c++)
+            display.setCell(c, 0, ' ', NO_COLOR, 0);
+        const line0 = msgLines[0] || '';
+        for (let c = 0; c < Math.min(line0.length, cols); c++)
+            display.setCell(c, 0, line0[c], NO_COLOR, 0);
+        // C flush_screen never touches the message rows; JS arbitration:
+        // a wrapped message owns screen row 1, so map row 0 stays.
+        const msgOwnsRow1 = msgLines.length > 1;
+        if (msgOwnsRow1) {
+            const line1 = msgLines[1] || '';
+            for (let c = 0; c < Math.min(line1.length, cols); c++)
+                display.setCell(c, 1, line1[c], NO_COLOR, 0);
+            for (let c = line1.length; c < cols; c++)
+                display.setCell(c, 1, ' ', NO_COLOR, 0);
         }
-        // Map — write characters to grid (DEC → Unicode for browser display).
-        // Only convert glyphs that frozen screen-decode DEC_MAP equates back
-        // (walls/doors/a/~). Leave SO-form letters that renderCell keeps raw:
-        // S_altar '{', S_pool/lava/water '`', S_tree 'g', S_bars '|',
-        // S_sw_tc 'o', S_sw_bc 's'.
+        // — WIN_MAP rows. C `:2241–2257`: for each row, paint only
+        // `gbuf_start[y]..gbuf_stop[y]` — no blanket clear. The DEC →
+        // Unicode conversion lives in `_paint_gbuf_cell` (print_glyph),
+        // which keeps the same raw chars (D-0842/D-0843).
+        // Menu/text overlays paint this same grid while flushes
+        // early-return, so the first flush after dismissal resyncs the
+        // full map (C has separate windows and needs no resync).
+        const fullResync = _overlay_resync;
+        _overlay_resync = false;
+        // A wrap→single (or single→wrap) change hands screen row 1 back
+        // to (or away from) map row 0: cells outside dirty spans may
+        // still hold message chars, so row 0 resyncs like an overlay.
+        const row0Resync = fullResync || (msgOwnsRow1 !== _prevMsgOwnsRow1);
+        _prevMsgOwnsRow1 = msgOwnsRow1;
         for (let y = 0; y < ROWNO; y++) {
-            for (let x = 1; x < COLNO; x++) {
+            // Don't clobber --More-- on row 1 (message owns it while wrapped)
+            if (y === 0 && msgOwnsRow1) continue;
+            // C `:2242` x starts at gbuf_start[y]; `:2244` ends at
+            // gbuf_stop[y]; empty is start > stop (reset_glyph_bbox).
+            const rowFull = fullResync || (y === 0 && row0Resync);
+            let s = gbuf_start[y];
+            let e = gbuf_stop[y];
+            if (rowFull) {
+                s = 1;
+                e = COLNO - 1;
+            } else if (s > e) {
+                continue;
+            }
+            for (let x = s; x <= e; x++) {
                 const loc = game.level?.at(x, y);
-                // C flush_screen / print_glyph paints every gbuf cell, including
-                // S_air (' '+CLR_CYAN). Skipping disp_ch===' ' left clearScreen
-                // CLR_GRAY blanks → serialize NO_COLOR (D-0931).
-                // Unexplored cells never get show_glyph_cell → disp_ch stays
-                // unset; leave those as clearScreen blanks.
-                if (loc?.disp_ch == null || loc.disp_ch === '') {
-                    if (loc) loc.gnew = 0;
+                if (!loc) continue;
+                if (rowFull) {
+                    // Resync repaints even clean cells (overlay/message
+                    // chars may sit on them). Unexplored paints blank —
+                    // C print_glyph of the UNEXPLORED gbuf cell — instead
+                    // of leaving overlay garbage (D-0931 blank precedent).
+                    if (loc.disp_ch == null || loc.disp_ch === '') {
+                        display.setCell(x - 1, y + 1, ' ', NO_COLOR, 0);
+                        loc.gnew = 0;
+                        continue;
+                    }
+                    _paint_gbuf_cell(x, y, x - 1, y + 1);
+                    loc.gnew = 0;
                     continue;
                 }
-                let ch = loc.disp_ch;
-                if (loc.disp_decgfx) {
-                    const uni = DEC_TO_UNICODE[ch];
-                    // DEC_MAP: walls/doors/a/~ only. Keep raw chars that
-                    // renderCell leaves unchanged so scoring matches C's
-                    // SO+letter form: '{','`','g','|' plus swallow S_sw_tc/bc
-                    // 'o'/'s' (dat/symbols DECgraphics; D-0842/D-0843).
-                    if (uni && ch !== '{' && ch !== '`' && ch !== 'g'
-                        && ch !== '|' && ch !== 'o' && ch !== 's')
-                        ch = uni;
+                // C `:2245–2249` get_bkglyph_and_framecolor + the `:2247`
+                // gate: gnew, or a live map_frame_color frame arm.
+                const { framecolor } = get_bkglyph_and_framecolor(x, y);
+                const storedFrame = game.gw?.wsettings?.map_frame_color ?? NO_COLOR;
+                if (loc.gnew
+                    || (storedFrame !== NO_COLOR && framecolor !== NO_COLOR)) {
+                    // C `:2250–2254` map_glyphinfo (hero/accessibility arms
+                    // already applied at show_glyph_cell store time;
+                    // glyphmap-base arms named) + print_glyph, then
+                    // `:2255` gnew = 0. Unexplored-with-gnew paints blank
+                    // (S_air `' '+color` precedent, D-0931).
+                    if (loc.disp_ch == null || loc.disp_ch === '') {
+                        display.setCell(x - 1, y + 1, ' ', NO_COLOR, 0);
+                    } else {
+                        _paint_gbuf_cell(x, y, x - 1, y + 1);
+                    }
+                    loc.gnew = 0;
                 }
-                const sr = y + 1;
-                // Don't clobber --More-- on row 1
-                if (sr === 1 && msgLines.length > 1) continue;
-                display.setCell(x - 1, sr, ch, loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
-                // C flush_screen clears gnew after print_glyph
-                loc.gnew = 0;
             }
         }
         // (C flush_screen `:2259` reset lands after the grid block below
         // so spans empty even with no grid consumer.)
         // Status from last bot() cache. C gb.bot_disabled skips putstr so
-        // leftover tty cells stay; JS clearScreen wipes them, so repaint
-        // the cache unless D-0467 `_statusSuppressed` (fullscreen NHW_MENU
-        // left WIN_STATUS blank) or bot_disabled (docorner leftover).
+        // leftover tty cells stay; repaint the cache unless D-0467
+        // `_statusSuppressed` (fullscreen NHW_MENU left WIN_STATUS blank)
+        // or bot_disabled (docorner leftover). Rows 22–23 belong to this
+        // window alone, so blank-then-paint erases a shrunk status.
         // Do not snapshot/restore grid rows — that copies blanks after a
         // per-key docrt/cls (D-1831 regression).
         if (!_statusSuppressed && !_bot_disabled) {
             const s1 = _lastStatus1 || s1raw.replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
                 m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10) || 0) : '');
+            for (let c = 0; c < cols; c++) {
+                display.setCell(c, 22, ' ', NO_COLOR, 0);
+                display.setCell(c, 23, ' ', NO_COLOR, 0);
+            }
             for (let c = 0; c < Math.min(s1.length, display.cols); c++)
                 display.setCell(c, 22, s1[c], NO_COLOR, 0);
             for (let c = 0; c < Math.min(s2.length, display.cols); c++)
@@ -5958,6 +6006,16 @@ function _buildScreenOutput() {
 // stay on the physical screen while level-change plines run and cls/more
 // can still paint --More-- on the stale map (Dlvl:N before redraw).
 let _delay_flushing = false;
+
+// C flush_screen `:2241–2257` paints dirty spans with no blanket clear, but
+// menu/text overlays paint this same grid directly while flushes
+// early-return: the first flush after dismissal resyncs the full map (C has
+// separate windows and needs no resync; spans alone cannot erase overlay
+// cells from clean rows).
+let _overlay_resync = false;
+// Screen row 1 is shared: a wrapped message owns it, else map row 0 does.
+// A change of owner leaves chars outside dirty spans, so row 0 resyncs.
+let _prevMsgOwnsRow1 = false;
 
 /** Paint message rows only; leave map/status cells untouched. */
 function _paintToplineOnly() {
@@ -6556,9 +6614,12 @@ export async function docorner(xmin, ymax, ystart = 0) {
 }
 
 // ── flush_screen ──
-// C ref: display.c flush_screen — mode -1 toggles postpone; while postponed,
-// map/botl flushes are no-ops (message paints still allowed for more()).
-// Before painting, bot() when disp.botl|botlx (C display.c).
+// C ref: display.c flush_screen `:2208–2267` — mode -1 toggles postpone;
+// while postponed, map/botl flushes are no-ops (message paints still
+// allowed for more()). Before painting, bot() when disp.botl|botlx else
+// timebot(); the map block paints only `gbuf_start[y]..gbuf_stop[y]` per
+// row gated on gnew/framecolor (`:2241–2257`), then reset_glyph_bbox()
+// (`:2259`), curs() on the hero when asked, display_nhwindow(WIN_MAP).
 export async function flush_screen(mode) {
     // Menu/text overlays paint the Terminal grid directly; don't clobber them.
     // C ref: invent display / NHW_MENU / NHW_TEXT stay until dismissed.
@@ -6570,6 +6631,8 @@ export async function flush_screen(mode) {
         // home+cl_end row 0; wrap at CO-1 cl_end the next message row
         // (first corner-menu item). Overlay skip would leave the header.
         if (_toplin === TOPLINE_SPECIAL_PROMPT) _paintToplineOnlyOverOverlay();
+        // Overlay paints this same grid; the next real flush resyncs it.
+        _overlay_resync = true;
         return;
     }
     if (mode === -1) {
@@ -6600,7 +6663,10 @@ export async function flush_screen(mode) {
  * getpos needs this narrow path so the first targeting frame matches C.
  */
 export function flush_screen_getpos_dirty() {
-    if (game._menu_overlay) return;
+    if (game._menu_overlay) {
+        _overlay_resync = true;
+        return;
+    }
     if (_delay_flushing) {
         _paintToplineOnly();
         return;
