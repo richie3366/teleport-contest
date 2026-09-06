@@ -26,6 +26,7 @@ import {
 import {
     is_lord, is_prince, strongmonst, mon_hates_blessings, mon_hates_silver,
     bigmonst, thick_skinned, is_wooden, hates_light, is_swimmer, passes_walls,
+    is_giant, mons, resists_ston, touch_petrifies,
 } from './monsters.js';
 import { which_armor, bypass_obj } from './worn.js';
 import {
@@ -47,6 +48,7 @@ import {
     NO_WEAPON_WANTED, W_WEP, W_ARMS, W_ARMG,
     W_ARM, W_ARMC, W_ARMH, W_ARMF, W_ARMU, W_RINGL, W_RINGR,
     ECMD_OK, STR18, Upolyd, MAXULEV, HAND, WT_IRON_BALL_INCR,
+    NON_PM,
 } from './const.js';
 import { obj_extract_self, place_object, stackobj } from './mkobj.js';
 import { flooreffects } from './do.js';
@@ -64,10 +66,11 @@ import {
     PM_HEALER, PM_CLERIC, PM_WIZARD,
     monsterNames,
 } from './generated/monsters_data.js';
-import { spec_abon, shade_glare, spec_dbon } from './artifact.js';
+import { spec_abon, shade_glare, spec_dbon, touch_artifact } from './artifact.js';
 
 const PM_PONY = monsterNames.indexOf('PM_PONY');
 const PM_SHADE = monsterNames.indexOf('PM_SHADE');
+const PM_BALROG = monsterNames.indexOf('PM_BALROG');
 
 export { is_missile };
 
@@ -404,11 +407,25 @@ function otyp(name) {
     return objectNames.indexOf(name);
 }
 
-/** C ref: weapon.c oselect */
+/**
+ * C ref: weapon.c oselect `:475–496` — first minvent match on otyp, skipping
+ * non-cockatrice CORPSE/EGG (`corpsenm == NON_PM || !touch_petrifies`) and
+ * anything `can_touch_safely` refuses.
+ * Named omission: `can_touch_safely` (`mon.c:1957–1974` — corpse
+ * petrify/rider + silver + `touch_artifact` deny; `js/monmove.js:230` stub
+ * stays always-safe, so this port keeps the call site named, not wired).
+ */
 function oselect(mtmp, type) {
     if (type < 0) return null;
     for (let otmp = mtmp.minvent; otmp; otmp = otmp.nobj) {
-        if (otmp.otyp === type) return otmp;
+        if (otmp.otyp !== type) continue;
+        // C: never select non-cockatrice corpses (CORPSE or EGG arm)
+        if ((type === CORPSE || type === EGG)
+            && ((otmp.corpsenm ?? NON_PM) === NON_PM
+                || !touch_petrifies(mons(otmp.corpsenm)))) {
+            continue;
+        }
+        return otmp;
     }
     return null;
 }
@@ -495,8 +512,9 @@ const DWARVISH_MATTOCK = objectNames.indexOf('DWARVISH_MATTOCK');
 const AXE = objectNames.indexOf('AXE');
 const BATTLE_AXE = objectNames.indexOf('BATTLE_AXE');
 const CORPSE = objectNames.indexOf('CORPSE');
+const EGG = objectNames.indexOf('EGG');
 const CLUB = objectNames.indexOf('CLUB');
-const M2_GIANT = 0x00002000; // monflag.h
+const BULLWHIP = objectNames.indexOf('BULLWHIP');
 
 /** C hwep[] — weapon.c preference order */
 const HWEP_NAMES = [
@@ -510,11 +528,6 @@ const HWEP_NAMES = [
     'WAR_HAMMER', 'SILVER_DAGGER', 'ELVEN_DAGGER', 'DAGGER', 'ORCISH_DAGGER', 'ATHAME',
     'SCALPEL', 'KNIFE', 'WORM_TOOTH',
 ];
-
-/** C ref: mondata.h is_giant */
-function is_giant(ptr) {
-    return !!((ptr?.mflags2 ?? 0) & M2_GIANT);
-}
 
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 
@@ -623,34 +636,47 @@ export async function silver_sears(_magr, mdef, silverhit) {
 }
 
 /**
- * C ref: weapon.c select_hwep — melee preference walk.
- * Named omissions: cockatrice corpse/egg touch_petrifies gate beyond
- * W_ARMG skip; can_touch_safely inside oselect; touch_artifact deny;
- * Balrog bullwhip when hero wields.
+ * C ref: weapon.c select_hwep `:704–741` — artifact preference, giant club /
+ * Balrog bullwhip specials, then `hwep[]` walk with the strong/shield,
+ * bimanual and silver gates in C short-circuit order.
+ * C `oc_bimanual` is `#define oc_bimanual oc_big` (`objclass.h:65`), so the
+ * JS `oc_big` read is the same field, not a rename.
+ * Named omissions: `can_touch_safely` inside `oselect` (`mon.c:1957–1974`;
+ * `js/monmove.js:230` stub stays always-safe); `touch_artifact` non-yours
+ * bane/covetous arms deferred in `js/artifact.js:944` (hero-path subset,
+ * always 1 for monsters, call wired for C order).
  */
 export function select_hwep(mtmp) {
     const strong = strongmonst(mtmp.data);
     const wearing_shield = ((mtmp.misc_worn_check | 0) & W_ARMS) !== 0;
 
+    // C: prefer artifacts to everything else
     for (let otmp = mtmp.minvent; otmp; otmp = otmp.nobj) {
         if (otmp.oclass === WEAPON_CLASS && otmp.oartifact
+            && touch_artifact(otmp, mtmp)
             && ((strong && !wearing_shield)
                 || !game.objects?.[otmp.otyp]?.oc_big)) {
             return otmp;
         }
     }
 
+    // C: giants just love to use clubs; Balrog takes the bullwhip when the
+    // hero wields something (`uwep` is `game.u.uwep` in JS). Oselect returns
+    // on the first hit, else falls through to the hwep[] walk.
     if (is_giant(mtmp.data)) {
         const club = oselect(mtmp, CLUB);
         if (club) return club;
+    } else if ((mtmp.data?.mndx ?? -1) === PM_BALROG && game.u?.uwep) {
+        const whip = oselect(mtmp, BULLWHIP);
+        if (whip) return whip;
     }
 
     for (const name of HWEP_NAMES) {
         const i = otyp(name);
         if (i < 0) continue;
         if (i === CORPSE
-            && !((mtmp.misc_worn_check | 0) & W_ARMG)) {
-            // resists_ston / touch_petrifies body deferred — skip bare-hand corpse
+            && !((mtmp.misc_worn_check | 0) & W_ARMG)
+            && !resists_ston(mtmp)) {
             continue;
         }
         const ocl = game.objects?.[i];

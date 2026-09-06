@@ -2864,7 +2864,8 @@ deferred); **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:193
 flash/`make_blinded`/`spe--`/return 1; callee D-1366); ray-wand/horn/SCR_EARTH D-1810; 
 mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named); 
 **`hitval` blessed/spear/trident/pick D-1929** (artifact `spec_abon` D-0611; no silver arm in C hitval);
-polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot, HTH `select_hwep`,
+**`select_hwep` HTH arms D-1930** (`oselect` CORPSE/EGG cockatrice skip live; Balrog bullwhip on `game.u.uwep`; CORPSE `resists_ston` gate; artifact `touch_artifact` call in C order; `is_giant` clone deleted for the canonical export; `oc_big` kept per `objclass.h:65` alias; named: `can_touch_safely` inside `oselect`, `touch_artifact` non-yours bane/covetous arms);
+polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot,
 weld/artifact_light wield msgs, knockback hurtle; `mshot_xname` Nth; `obj_is_pname`/`the()`;
 enhance `add_weapon_skill`/`lose_weapon_skill`/`use_skill` may-advance;
 other `mhitm_ad_*` (AD_FIRE hero); potionbreathe/were destroy_items deferrals;

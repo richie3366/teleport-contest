@@ -21,9 +21,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1929 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1930 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1929 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1930 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -42,18 +42,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1929.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1930.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1929.
+  Do not re-port D-1682…D-1930.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1930: `js/weapon.js` — C-order ports in C branch order: artifact loop `oclass && oartifact && touch_artifact(otmp, mtmp) && ((strong && !shield) || !oc_big) Named: `can_touch_safely` inside `oselect` (`mon.c:1957–1974` — corpse petrify/rider + silver + `
 - D-1929: `js/weapon.js` — C-order ports of all four arms in C branch order (blessed `Is_weapon && blessed && mon_hates_blessings` +2; spear `is_spear && kebaba Named: `dothrow.js:354` / `u_init.js:1037` file-local `is_spear` clones kept (not this cluster); 
 - D-1928: `js/zap.js` — file-local `bhit_skiprange` (C staticfn shape, `Math.trunc` int division, `rnd` 1..n, `skipend >= tmp` clamp); rock setup (`THROWN_WEAPO Named: THROWN_WEAPON fly callers (throwit inlines those); `is_pick`/`shkcatch` pick (`:3887–3892`
 - D-1927: `js/do_wear.js` — added `takeoff_ok(obj) { return equip_ok(obj, true, false); }`; deleted `takeoff_lets` + `getobj_takeoff` (57 lines); `dotakeoff` ca Named: uskin merged-with-skin (`do_wear.c` `:1840–1845`, needs GRAY_DRAGON_SCALES constants); `di
@@ -68,5 +69,4 @@ Objective/score live in `CURRENT.md`.
 - D-1918: `liveWwalking()` closure (same slot+flats+`Is_waterlevel` idiom as the snapshot) read at the three post-boots points (`if (Wwalking)` burns-you gate,  Named: none new.
 - D-1917: C-order wiring in `js/were.js`: `const mba = mon_break_armor(mon, false)` (canonical `js/worn.js` export, D-1914) then `possibly_unwield`, chained syn Named: `monflee` onscary (`svc.context.mon_moving` + mux/muy scary-near arm); file-level howl `Yo
 - D-1916: C-order weaponless envelope in `js/uhitm.js`: shared-`dhit` discipline (WEAP + weaponless assign the outer; BREA/SPIT/GAZE reset 0); seduce keeps no-w Named: `gv.vis` set/reset (display global; hmonas messages always pline for youmonst magr); `getm
-- D-1915: C-order completion in `js/steed.js`: save_utrap before the switch; BYCHOICE nameless Hallu rain (`Hallucination()`); local `stealth_now()` youprop.h-S Named: uhitm DISMOUNT_KNOCKED `u.dx`/`u.dy` caller; update_mon_extrinsics; teleds_simple subset (
 <!-- landmarks:end -->
