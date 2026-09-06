@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1956 — light.c obj_adjust_light_radius light-radius singleton
+
+- **Status:** fixed (Open queue row: `light.c` obj_adjust_light_radius — light-radius singleton, HELDOUT Tier C singletons; no JS symbol)
+- **Symptom:** none on any suite (no corpus session blocked on obj_adjust_light_radius at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-omission: no JS symbol for the brighten/dim live light-source updater; bless/curse of a lit artifact had no radius path.
+- **C locus:** `nethack-c/upstream/src/light.c` — `obj_adjust_light_radius` `:825–838` (linear scan of `gl.light_base`; `ls->type == LS_OBJECT && ls->id.a_obj == obj` first match wins — C assumes one source per object; `gv.vision_full_recalc = 1` only when `new_radius != ls->range`, then assign + return; else `impossible("obj_adjust_light_radius: can't find %s", xname(obj))`). Sole wired caller: `mkobj.c` `maybe_adjust_light` `:1704–1713` (`arti_light_radius` delta gate) via bless/curse sites `:1762,1779,1817,1836`.
+- **JS was:** `obj_adjust_light_radius` NOT FOUND in `js/**` (brief, incl. generated). Siblings live split across two modules: `new_light_source`/`del_light_source` in `js/light.js` (array `game.light_base`, `ls.id === obj` pointer identity), `candle_light_range`/`arti_light_radius`/`obj_merge_light_sources` in `js/timeout.js`; `maybe_adjust_light` deferred in `js/read.js` (enchant-armor omit).
+- **Fix:** `js/light.js` — exported `async obj_adjust_light_radius(obj, new_radius)` in C order (`nr = new_radius | 0`; `ls.type === LS_OBJECT && ls.id === obj` short-circuit; `game.vision_full_recalc = 1` only on `nr !== (ls.range | 0)`; `await impossible(... xname(obj))` on miss — async because JS `impossible` is an async pline, per the `show_transient_light` precedent in the same file), placed after `del_light_source` with the `:825–838` citation; extended the existing `./objnam.js` import with `xname` (no new edge). No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/light.js` (+28/−1; 1 js file, under 600 cap). Density note: C is 12 lines; the JS is the one body plus C-shape JSDoc.
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn obj_adjust_light_radius` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/light.js`; `PASS rule2`; `note hidden verify obj_adjust_light_radius: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — HELDOUT Tier C singleton, brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full` (tool: no shared file changed). Probe (inline, deleted): same-range call leaves `vision_full_recalc=0`, changed-range sets it to 1 with `range` updated; miss arm reaches `await impossible` (blocks only on TTY-less `nhgetch` outside a game loop, as expected) — PROBE PASS.
+- **Named omissions:** caller wiring (function live, unwired): `mkobj.c:1704` `maybe_adjust_light` + bless/curse radius sites (`:1762,1779,1817,1836`) and its `!Blind && get_obj_location` pline envelope (`read.js` enchant-armor omit stands); `obj_split_light_source` still named (`apply.js` lit-split omit).
+- **Next:** pop the next Open row (`timeout.c` spot_time_expires).
+
 ## D-1955 — vision.c new_angle vision-angle singleton
 
 - **Status:** fixed (Open queue row: `vision.c` new_angle — vision-angle singleton, HELDOUT Tier C singletons; no JS symbol)

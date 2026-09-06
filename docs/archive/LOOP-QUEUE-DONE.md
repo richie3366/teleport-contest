@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `vision.c` new_angle — vision-angle singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1955
+- [x] `light.c` obj_adjust_light_radius — light-radius singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1956
+
+
+- [x] `vision.c` new_angle — vision-angle singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1955 `03e241c8`
 
 
 - [x] `strutil.c` pmatch — glob-match predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1954 `c176ca28`

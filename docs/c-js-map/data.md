@@ -898,7 +898,7 @@ callers + `iter_mons` `mon_offmap` named);
 **Blind `vision_recalc` COULD_SEE-only + old IN_SIGHT newsym** (D-0579); 
 **`do_light_sources` TEMP_LIT + makemon `emits_light` LS_MONSTER** (D-0569; 
 **D-1597 camera range 0** Null-id `LS_OBJECT` + `show_transient_light`;
-circle_ptr exact ring / hero range trim still named); **D-0675:** stale gas across levels blocked LOS (not 
+circle_ptr exact ring / hero range trim still named); **D-1956 `obj_adjust_light_radius`** (`light.c:825–838`; first LS_OBJECT id-match wins, recalc only on change, else `impossible(xname)`; live `js/light.js` async; caller `mkobj.c` `maybe_adjust_light` bless/curse wiring named); **D-0675:** stale gas across levels blocked LOS (not 
 Algorithm-C TRWALL); **`clear_regions` in `clear_level_structures` + 
 goto_level stash/rest** (binary `save_regions` format / free_region teardown deferred); 
 **D-0773 open:** wizard2 mumak LOS — JS `viz_clear` blocks at ROOM boulder → linedup rn2(3); 
