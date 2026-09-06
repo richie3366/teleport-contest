@@ -52,7 +52,7 @@ describe("loop-raw Muse fixture", () => {
     assert.ok(kinds.includes("tool"));
     assert.ok(kinds.includes("result"));
     assert.equal(t.meta.model, "muse-spark-1.3-contributor");
-    assert.equal(t.meta.usage?.total, 1250);
+    assert.equal(t.meta.usage?.total, 1200);
     const tool = t.messages.find((m) => m.kind === "tool");
     assert.equal(tool.name, "Shell");
     const asst = t.messages.find((m) => m.kind === "assistant");
@@ -95,6 +95,7 @@ describe("loop-raw Muse session.jsonl (runtime.session)", () => {
     assert.match(tool.title, /CURRENT\.md/);
     assert.ok(t.messages.some((m) => m.kind === "assistant"));
     assert.equal(t.meta.usage.breakdown.inputTokens, 1000);
+    assert.equal(t.meta.usage.total, extractUsageFromRaw(sessionFixture).total);
   });
 });
 
@@ -518,5 +519,31 @@ describe("loop-raw Muse token budget metering", () => {
     assert.equal(u.total, 336);
     assert.equal(u.breakdown.inputTokens, 300);
     assert.equal(u.breakdown.cachedTokens, 230);
+  });
+
+  it("observer totals match the loop tokens: meter", () => {
+    const rec = (seq, usage) =>
+      JSON.stringify({
+        schema_version: 1,
+        stream: { kind: "session", id: "sess-usage" },
+        sequence: seq,
+        recorded_at: 1788599595000000,
+        payload_type: "runtime.session",
+        payload: {
+          kind: "run",
+          run_id: "run-1",
+          event: { kind: "model_completed", usage },
+        },
+      });
+    const text = [
+      rec(1, { input_tokens: 100, output_tokens: 10, reasoning_tokens: 5, cached_tokens: 80, cache_read_tokens: 80 }),
+      rec(2, { input_tokens: 200, output_tokens: 20, reasoning_tokens: 1, cached_tokens: 150, cache_read_tokens: 150 }),
+    ].join("\n");
+    const t = createTranscript();
+    applyNdjsonChunk(t, text);
+    const u = extractUsageFromRaw(text);
+    assert.equal(t.meta.usage.total, 336);
+    assert.equal(t.meta.usage.total, u.total);
+    assert.equal(t.meta.usage.breakdown.inputTokens, 300);
   });
 });

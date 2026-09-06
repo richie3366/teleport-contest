@@ -153,6 +153,17 @@ body { display: flex; flex-direction: column; }
   border-bottom: 1px solid var(--border-soft);
   font-variant-numeric: tabular-nums;
 }
+.meta-bar .tok {
+  color: var(--text);
+  font-weight: 600;
+}
+.meta-bar .tok.live { color: var(--run); }
+.meta-bar .tok.bump {
+  animation: tok-bump 0.55s ease;
+}
+@keyframes tok-bump {
+  from { filter: brightness(1.6); }
+}
 
 .thread {
   flex: 1;

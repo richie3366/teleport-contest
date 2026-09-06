@@ -301,6 +301,7 @@ async function ingestFromOffset(isReset) {
       if (switched && !isReset) isReset = true;
     }
   }
+  const usageBefore = transcript.meta.usage?.total;
   const { changed, isReset: resetAfter } = await ingestFile(eventSource || rawSource, isReset);
   isReset = resetAfter;
   try {
@@ -315,6 +316,9 @@ async function ingestFromOffset(isReset) {
     broadcast(snapshotPayload());
   } else if (changed.length) {
     broadcast({ op: "upsert", meta: transcript.meta, messages: changed, ...viewState() });
+    lastViewSent = viewFingerprint();
+  } else if ((transcript.meta.usage?.total ?? null) !== (usageBefore ?? null)) {
+    broadcastMeta();
   }
 }
 
@@ -331,6 +335,7 @@ function viewFingerprint() {
     followLive ? "1" : "0",
     liveHint.name || "",
     transcript.meta.running ? "1" : "0",
+    String(transcript.meta.usage?.total ?? ""),
     recent.map((r) => r.name).join(","),
   ].join("|");
 }

@@ -23,6 +23,7 @@ let meta = {};
 let picking = false;
 let pickerKey = "";
 let viewEpoch = -1;
+let lastTokShown = null;
 let ws;
 
 let jumping = false;
@@ -168,7 +169,8 @@ function fmtDur(ms) {
 
 function fmtTokens(n) {
   if (n == null) return "—";
-  if (n >= 1e6) return `${(n / 1e6).toFixed(2)}M`;
+  if (n >= 1e9) return `${(n / 1e9).toFixed(1)}B`;
+  if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
   if (n >= 1e3) return `${(n / 1e3).toFixed(1)}k`;
   return String(n);
 }
@@ -244,14 +246,42 @@ function renderMeta() {
   const name = meta.relFile || (meta.file ? meta.file.split("/").pop() : "waiting for logs…");
   els.file.textContent = following || name === "waiting for logs…" ? name : `Retrospect · ${name}`;
   document.title = meta.iter != null ? `Loop #${meta.iter}` : "Loop observer";
-  const bits = [];
-  if (meta.model) bits.push(meta.model);
+  const parts = [];
+  const push = (text, className) => {
+    if (parts.length) parts.push(document.createTextNode("  ·  "));
+    if (className) {
+      const s = document.createElement("span");
+      s.className = className;
+      s.textContent = text;
+      parts.push(s);
+    } else {
+      parts.push(document.createTextNode(text));
+    }
+  };
+  if (meta.model) push(meta.model);
   const el = elapsed();
-  if (el != null) bits.push(fmtDur(el));
-  if (meta.bytes) bits.push(`${(meta.bytes / 1024).toFixed(0)} KB`);
-  if (meta.usage?.total) bits.push(`${fmtTokens(meta.usage.total)} tokens`);
-  if (meta.eventCount) bits.push(`${meta.eventCount} events`);
-  els.meta.textContent = bits.join("  ·  ");
+  if (el != null) push(fmtDur(el));
+  if (meta.bytes) push(`${(meta.bytes / 1024).toFixed(0)} KB`);
+  if (meta.usage?.total) {
+    const n = meta.usage.total;
+    const bumped = lastTokShown != null && lastTokShown !== n;
+    lastTokShown = n;
+    push(
+      `${fmtTokens(n)} tokens`,
+      "tok" + (liveRun ? " live" : "") + (bumped ? " bump" : ""),
+    );
+    const b = meta.usage.breakdown || {};
+    const bd = Object.entries(b)
+      .filter(([, v]) => typeof v === "number")
+      .map(([k, v]) => `${k}=${v}`)
+      .join(" ");
+    els.meta.title = bd ? `tokens: +${n} (${bd})` : `tokens: +${n}`;
+  } else {
+    lastTokShown = null;
+    els.meta.title = "";
+  }
+  if (meta.eventCount) push(`${meta.eventCount} events`);
+  els.meta.replaceChildren(...parts);
 }
 
 function ensureEmpty() {

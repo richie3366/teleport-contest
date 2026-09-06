@@ -842,35 +842,36 @@ function sumMuseSteps(steps) {
   return { found: true, total, breakdown };
 }
 
-export function extractUsageFromRaw(text) {
-  let cursorUsage = null;
-  const museAcc = { cumulative: null, usage: null, completed: [], attributions: [] };
-  for (const line of String(text).split(/\r?\n/)) {
-    const s = line.trim();
-    if (!s.startsWith("{")) continue;
-    let ev;
-    try {
-      ev = JSON.parse(s);
-    } catch {
-      continue;
-    }
-    if (ev?.type === "result" && ev.usage && typeof ev.usage === "object") {
-      cursorUsage = ev.usage;
-    }
-    if (!isMuseRecord(ev)) continue;
-    harvestUsageFrom(ev, museAcc);
-    const payload = ev.payload && typeof ev.payload === "object" ? ev.payload : {};
-    const event = payload.event && typeof payload.event === "object" ? payload.event : {};
-    if (event.kind === "model_completed") {
-      const u = camelUsage(event.usage || payload.usage);
-      if (u) museAcc.completed.push(u);
-    } else if (event.kind === "goal_usage_attribution") {
-      const rec = event.record || {};
-      if (rec.usage_family === "tool") continue;
-      const u = camelUsage(rec.quantity);
-      if (u) museAcc.attributions.push(u);
-    }
+export function createUsageFold() {
+  return {
+    cursorUsage: null,
+    museAcc: { cumulative: null, usage: null, completed: [], attributions: [] },
+  };
+}
+
+export function foldUsageEvent(fold, ev) {
+  if (!fold || !ev || typeof ev !== "object") return;
+  if (ev.type === "result" && ev.usage && typeof ev.usage === "object") {
+    fold.cursorUsage = ev.usage;
   }
+  if (!isMuseRecord(ev)) return;
+  harvestUsageFrom(ev, fold.museAcc);
+  const payload = ev.payload && typeof ev.payload === "object" ? ev.payload : {};
+  const event = payload.event && typeof payload.event === "object" ? payload.event : {};
+  if (event.kind === "model_completed") {
+    const u = camelUsage(event.usage || payload.usage);
+    if (u) fold.museAcc.completed.push(u);
+  } else if (event.kind === "goal_usage_attribution") {
+    const rec = event.record || {};
+    if (rec.usage_family === "tool") return;
+    const u = camelUsage(rec.quantity);
+    if (u) fold.museAcc.attributions.push(u);
+  }
+}
+
+export function usageFromFold(fold) {
+  if (!fold) return { found: false, total: 0, breakdown: {} };
+  const { cursorUsage, museAcc } = fold;
   if (cursorUsage) {
     const breakdown = filterNumeric(cursorUsage);
     const total = Object.values(breakdown).reduce((a, b) => a + b, 0);
@@ -891,6 +892,22 @@ export function extractUsageFromRaw(text) {
     return { found: true, total: museTotal(camel), breakdown };
   }
   return { found: false, total: 0, breakdown: {} };
+}
+
+export function extractUsageFromRaw(text) {
+  const fold = createUsageFold();
+  for (const line of String(text).split(/\r?\n/)) {
+    const s = line.trim();
+    if (!s.startsWith("{")) continue;
+    let ev;
+    try {
+      ev = JSON.parse(s);
+    } catch {
+      continue;
+    }
+    foldUsageEvent(fold, ev);
+  }
+  return usageFromFold(fold);
 }
 
 /** Supervisor entry: Muse stdout `.raw` has no usage; follow session.jsonl. */

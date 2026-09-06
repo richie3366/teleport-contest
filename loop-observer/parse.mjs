@@ -3,7 +3,7 @@
  * Muse `exec --json` records are normalized first (scripts/loop-raw.mjs).
  * Thinking deltas are coalesced; tool started/completed share one card.
  */
-import { isMuseRecord, createNormalizer } from "../scripts/loop-raw.mjs";
+import { isMuseRecord, createNormalizer, createUsageFold, foldUsageEvent, usageFromFold } from "../scripts/loop-raw.mjs";
 
 const PREVIEW = 1200;
 const SHELL_CAP = 48000;
@@ -18,6 +18,7 @@ export function createTranscript() {
     openThinkingId: null,
     seq: 0,
     muse: createNormalizer(),
+    usageFold: createUsageFold(),
   };
 }
 
@@ -51,6 +52,7 @@ export function resetTranscript(state, metaPatch = {}) {
   state.openThinkingId = null;
   state.seq = 0;
   state.muse = createNormalizer();
+  state.usageFold = createUsageFold();
 }
 
 export function applyNdjsonChunk(state, text) {
@@ -68,6 +70,9 @@ export function applyNdjsonChunk(state, text) {
     }
     if (!ev || typeof ev !== "object") continue;
     state.meta.eventCount += 1;
+    foldUsageEvent(state.usageFold || (state.usageFold = createUsageFold()), ev);
+    const billed = usageFromFold(state.usageFold);
+    if (billed.found) state.meta.usage = { total: billed.total, breakdown: billed.breakdown };
     const batch = isMuseRecord(ev)
       ? (state.muse || (state.muse = createNormalizer())).normalize(ev)
       : [ev];
@@ -101,10 +106,6 @@ function applyEvent(state, ev) {
   if (t === "system" && st === "init") {
     state.meta.model = ev.model || state.meta.model;
     state.meta.sessionId = ev.session_id || state.meta.sessionId;
-    return null;
-  }
-  if (t === "usage" && ev.usage && typeof ev.usage === "object") {
-    state.meta.usage = summarizeUsage(ev.usage);
     return null;
   }
   if (t === "system" && st === "task_notification") {
@@ -198,9 +199,6 @@ function applyEvent(state, ev) {
     state.meta.durationMs =
       typeof ev.duration_ms === "number" ? ev.duration_ms : state.meta.durationMs;
     state.meta.endedAtMs = num(ev.timestamp_ms) ?? Date.now();
-    if (ev.usage && typeof ev.usage === "object") {
-      state.meta.usage = summarizeUsage(ev.usage);
-    }
     return upsert(state, {
       id: "result",
       kind: "result",
@@ -553,18 +551,6 @@ function messageText(message) {
     else if (part && typeof part.text === "string") parts.push(part.text);
   }
   return parts.join("\n");
-}
-
-function summarizeUsage(usage) {
-  const breakdown = {};
-  let total = 0;
-  for (const [k, v] of Object.entries(usage)) {
-    if (typeof v === "number" && Number.isFinite(v)) {
-      breakdown[k] = v;
-      total += v;
-    }
-  }
-  return { total, breakdown };
 }
 
 function stampTime(state, ev) {

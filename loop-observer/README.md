@@ -42,7 +42,12 @@ The header follows **one** `.raw` at a time.
   same control reads **Live** (file still growing) or **Idle**.
 - Mode pill (`port` / `audit`) when the master `loop-*.log` has a
   matching `=== iteration N starting … mode=… ===` line.
-- Meta bar: model, elapsed time, bytes, tokens, event count.
+- Meta bar: model, elapsed time, bytes, tokens, event count. Muse token
+  totals use the same meter as the supervisor `tokens: +N` line
+  (`extract-agent-usage.mjs`: sum `model_completed` input+output+reasoning,
+  cache listed in the breakdown but not added again). The count **updates
+  live** after each Muse model step (not only when the iter ends). Hover
+  the meta bar for the exact `tokens: +N (…)` string.
 - **↓ Jump to latest** — scroll-follow only. Separate from live-follow:
   you can pin #1373 and still scroll that thread, or follow live and
   pause the scrollbar. Switching iters (picker or **Go live**) always
