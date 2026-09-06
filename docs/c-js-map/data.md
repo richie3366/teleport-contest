@@ -950,7 +950,7 @@ real `canseemon`** (D-0163); **`maketrap` `teledest` field for themerms TELEP** 
 `launch_obj` ROLL path `dmgval`/`thitu`/`ohitmon`** (D-0599; LAUNCH_UNSEEN msgs; 
 mid-roll TELEP D-1237; mid-roll landmine/pit D-1256; `hits_bars` D-0990; 
 boulder-chain/`ship_object`/post-switch flooreffects deferred); 
-**hero `dotrap` + dart `t_missile`/`thitu` miss place** (D-0239); 
+**hero `dotrap` + dart `t_missile`/`thitu` miss place** (D-0239; **full `dotrap` dispatch body D-1924** — C `:2996–3060` order: `FORCETRAP||FAILEDUNTRAP`, `plunged`/`conj_pit`/`adj_pit` before `nomul(0)`, `fixed_tele_trap` FORCETRAP force, Sokoban pit/hole air-currents `trapname(TRUE)` fall-through, `floor_trigger+check_in_air` step-over with `u_locomotion_pit`, `already_seen` escape `!Fumbling && !undestroyable && !=ANTI_MAGIC && !forcebungle && !plunged && !conj/adj && (!rn2(5)||(is_pit&&is_clinger))`, steed `mon_learns_traps`, mutated `trflags` to selector); 
 **monster `trapeffect_hole`/TRAPDOOR → `mlevel_tele_trap`/`migrate_to_level` `Trap_Moved_Mon`** 
 (D-0250); **`thitm` hit → `dmgval` clamp≥1** (D-0252); 
 **monster `trapeffect_magic_trap` `rn2(21)`→`trapeffect_fire_trap` + FIRE_TRAP selector** (D-0254); 

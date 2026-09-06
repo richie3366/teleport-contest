@@ -42,16 +42,16 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`show_conduct` (parked) ×1
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
-Reviews **835–842** (D-1865…D-1923): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1923):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1923):
-8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1923):
+Reviews **835–842** (D-1865…D-1924): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1924):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1924):
+8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1924):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1923): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1924): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1923): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1924): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1923): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+(D-1909…D-1924): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
 Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -85,13 +85,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `objnam.c` makeplural — plural-name envelope, ch_ksound dead callee (TOP30 honourable mention, 186/59; never queued).
+**Next cluster:** `trap.c` dotrap — hero/monster trap dispatch body (TOP30 honourable mention; archived untrap/pit-hole/spoteffects rows explicitly Not dotrap).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1923 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1924 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1924** `trap.c` `dotrap` `:2996–3060` — `js/trap.js` — C-order full body, no new imports (all names live on existing edges: `FAILEDUNTRAP`/`TOOKPLUNGE`/`FORCETRAP` from `js/const.js`, `Fumbling` from `js/attrib.js`, `is_clinger`/`mon_learns_traps` from `js/mon
 **D-1923** `objnam.c` `makeplural` `:2836–3022` — `js/objnam.js` — C-order full body on a head/excess split (no recursion): strip, `'s` arm, `singplur_lookup_plural` (file-local, full `as_is[]` 8+25 + `already_plural` + craft + whole-word slice/mongoose + ox/muskox + ba
 **D-1922** `trap.c` `mintrap` `:3733–3840` — `js/trap.js` — C-order full body: `!rn2(40) || (is_pit && m_easy_escape_pit(mtmp))` (short-circuit kept; the file-local `m_easy_escape_pit` and `sobj_at` reused, no new clones); boulder arm with `!rn2(2)`, `pline_mon` pu
 **D-1921** `mhitu.c` `hitmu` `:1144–1267` — `js/mhitu.js` — C-order midnight arm (`is_undead(mdat) || is_vampshifter(mtmp)` from live `js/monsters.js`, `midnight()` from live `js/calendar.js`); knockback defender `game.youmonst` (flags still by value per the `js/m
@@ -99,11 +100,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1919** `mhitm.c` `mattackm` `:292–592` — `js/mhitm.js` — local `mswingsm` (C `:1282–1297` order; `game.flags?.verbose !== false` repo idiom + local `Blind_slee()` + `mon_visible`; `is_pole`/`is_art(,ART_SNICKERSNEE)`/`dist2`/`mswings_verb`/`mhis`/`xname`/`Monna
 **D-1918** `trap.c` `lava_effects` `:6794–6987` — `liveWwalking()` closure (same slot+flats+`Is_waterlevel` idiom as the snapshot) read at the three post-boots points (`if (Wwalking)` burns-you gate, sink-arm `else if (!Wwalking…)`, countermeasure `if (!Wwalking)`); ent
 **D-1917** `were.c` `new_were` `:100–140` (`:129` `mon_break_armor(mon, FALSE)` before `:130` `possib — C-order wiring in `js/were.js`: `const mba = mon_break_armor(mon, false)` (canonical `js/worn.js` export, D-1914) then `possibly_unwield`, chained sync-or-async exactly like newcham `after_armor` (`if (mba) return Promis
-**D-1916** `uhitm.c` `hmonas` `:5424–5860` (multi pre-count `:5436–5450` incl. `odd_claw=TRUE`; `use_ — C-order weaponless envelope in `js/uhitm.js`: shared-`dhit` discipline (WEAP + weaponless assign the outer; BREA/SPIT/GAZE reset 0); seduce keeps no-wakeup + `damageum(...,0)`; `wakeup` before the verb switch; per-aatyp 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1923; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1924; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

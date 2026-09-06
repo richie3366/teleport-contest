@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `objnam.c` makeplural — plural-name envelope, ch_ksound dead callee (TOP30 honourable mention, 186/59; never queued). **Addressed:** D-1923
+- [x] `trap.c` dotrap — hero/monster trap dispatch body (TOP30 honourable mention; archived untrap/pit-hole/spoteffects rows explicitly Not dotrap). **Addressed:** D-1924
+
+
+- [x] `objnam.c` makeplural — plural-name envelope, ch_ksound dead callee (TOP30 honourable mention, 186/59; never queued). **Addressed:** D-1923 `53b920c5`
 
 
 - [x] `trap.c` mintrap — monster-trapped dispatch body (TOP30 honourable mention, 107/54; archived rows are rloc_to callers, not the body). **Addressed:** D-1922 `7868cc8b`

@@ -1690,12 +1690,17 @@ export function immune_to_trap(mon, ttype) {
 }
 
 /**
- * C ref: trap.c dotrap — hero steps on a trap.
- * Envelope: nomul(0); floor_trigger+in_air skip; already_seen escape rn2(5);
- * mons_see_trap; trapeffect_selector(youmonst). Named omissions: Sokoban
- * air-currents, undestroyable/ANTI_MAGIC/Fumbling force, conj/adj pit
- * escape, steed mon_learns; FORCETRAP morph recursion; hero slp_gas/
- * anti-magic/…  Hero pit/hole via trapeffect_pit / trapeffect_hole.
+ * C ref: trap.c dotrap `:2996–3060` — hero steps on a trap.
+ * C order: forcetrap=FORCETRAP||FAILEDUNTRAP; plunged=TOOKPLUNGE;
+ * conj_pit=conjoined_pits(trap,t_at(ux0,uy0),TRUE); adj_pit;
+ * nomul(0); fixed_tele_trap forces FORCETRAP; Sokoban pit/hole
+ * air-currents pline then fall through; else !forcetrap floor_trigger+
+ * check_in_air step-over and already_seen escape (!Fumbling,
+ * !undestroyable, !=ANTI_MAGIC, !forcebungle, !plunged, !conj/adj,
+ * !rn2(5)||(is_pit&&is_clinger)); steed mon_learns_traps; mons_see_trap;
+ * trapeffect_selector(youmonst) with updated trflags.
+ * Step-over verb via file-local u_locomotion_pit (Lev/Fly only; poly
+ * locomotion() deferred as in that helper).
  */
 export async function dotrap(trap, trflags = NO_TRAP_FLAGS) {
     if (!trap) return;
@@ -1703,27 +1708,40 @@ export async function dotrap(trap, trflags = NO_TRAP_FLAGS) {
     if (!u) return;
     const ttype = trap.ttyp;
     const already_seen = !!trap.tseen;
-    const forcetrap = (trflags & FORCETRAP) !== 0;
+    let forcetrap = ((trflags & FORCETRAP) !== 0
+        || (trflags & FAILEDUNTRAP) !== 0);
     const forcebungle = (trflags & FORCEBUNGLE) !== 0;
+    const plunged = (trflags & TOOKPLUNGE) !== 0;
+    const conj_pit = conjoined_pits(trap, t_at(u.ux0, u.uy0), true);
+    const adj_pit = adj_nonconjoined_pit(trap);
     const a_your = ['a', 'your'];
+    const Sokoban = !!(game.level?.flags?.sokoban_rules || game.Sokoban);
 
     nomul(0);
 
-    if (!forcetrap) {
+    if (fixed_tele_trap(trap)) {
+        trflags |= FORCETRAP;
+        forcetrap = true;
+    }
+
+    /* KMH -- You can't escape the Sokoban level traps */
+    if (Sokoban && (is_pit(ttype) || is_hole(ttype))) {
+        await pline(`Air currents pull you down into ${a_your[trap.madeby_u ? 1 : 0]} ${trapname(ttype, true)}!`);
+        /* then proceed to normal trap effect */
+    } else if (!forcetrap) {
         if (floor_trigger(ttype)
             && check_in_air(game.youmonst || { _youmonst: true }, trflags)) {
             if (already_seen) {
                 const art = (ttype === ARROW_TRAP && !trap.madeby_u)
                     ? 'an' : a_your[trap.madeby_u ? 1 : 0];
-                await pline(`You step over ${art} ${trapname(ttype, false)}.`);
+                await pline(`You ${u_locomotion_pit('step')} over ${art} ${trapname(ttype, false)}.`);
             }
             return;
         }
-        // plunge / conj_pit / adj_pit still named
-        if (already_seen && !u.Fumbling && !undestroyable_trap(ttype)
-            && ttype !== ANTI_MAGIC
-            && !forcebungle
-            && !rn2(5)) {
+        if (already_seen && !Fumbling() && !undestroyable_trap(ttype)
+            && ttype !== ANTI_MAGIC && !forcebungle && !plunged
+            && !conj_pit && !adj_pit
+            && (!rn2(5) || (is_pit(ttype) && is_clinger(game.youmonst?.data)))) {
             const art = (ttype === ARROW_TRAP && !trap.madeby_u)
                 ? 'an' : a_your[trap.madeby_u ? 1 : 0];
             await pline(`You escape ${art} ${trapname(ttype, false)}.`);
@@ -1731,7 +1749,7 @@ export async function dotrap(trap, trflags = NO_TRAP_FLAGS) {
         }
     }
 
-    // C: steed mon_learns_traps deferred; mons_see_trap before effect
+    if (u.usteed) mon_learns_traps(u.usteed, ttype);
     mons_see_trap(trap);
     const you = game.youmonst || { _youmonst: true };
     await trapeffect_selector(you, trap, trflags);
