@@ -48,8 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `sounds.c` domonnoise MS_VAMPIRE — vampire seduction depth (TOP30 #17 depth; night/midnight/kindred/nightchild + rn2 + body_part/pmname/an; c-js-map turns.md #chat omit).
-- [ ] `sounds.c` domonnoise MS_DJINNI/ARREST/SOLDIER — speaking-table depth (TOP30 #17 depth; WATER_DEMON/PRISONER gates + rn2(3) soldier tables; c-js-map turns.md #chat omit).
 - [ ] `sounds.c` domonnoise MS_BRIBE/CUSS/SPELL — demon/caster depth (TOP30 #17 depth; demon_talk/cuss absent per brief; c-js-map turns.md #chat omit).
 - [ ] `sounds.c` domonnoise MS_NURSE/GUARD — nurse/guard depth (TOP30 #17 depth; uwep/armor gates + money_cnt; c-js-map turns.md #chat omit).
 - [ ] `sounds.c` domonnoise verbl_msg_mcan + oracle_loc — cancelled-speech epilogue + save-rest depth (TOP30 #17 depth; mcan arm + oracle_loc; c-js-map turns.md #chat omit).

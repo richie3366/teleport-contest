@@ -8,7 +8,8 @@
 //         maybe_gasp (D-1762); beg (D-1763);
 //         maybe_play_sound (D-1807; USER_SOUNDS compiled out);
 //         domonnoise remaps + MS_ORACLE/PRIEST/SELL (D-1808) +
-//         MS_WERE/BARK FULL_MOON + animal MS_MEW..MS_ORC (this D).
+//         MS_WERE/BARK FULL_MOON + animal MS_MEW..MS_ORC (D-1969) +
+//         MS_VAMPIRE / MS_DJINNI / MS_ARREST / MS_SOLDIER (this D).
 
 import { game } from './gstate.js';
 import {
@@ -17,7 +18,7 @@ import {
 } from './display.js';
 import { getdir } from './lock.js';
 import { mon_at } from './uhitm.js';
-import { Monnam } from './do_name.js';
+import { Monnam, pmname } from './do_name.js';
 import { objects_at, noveltitle } from './mkobj.js';
 import { Death_quote } from './files.js';
 import { u_have_novel, currency } from './invent.js';
@@ -25,7 +26,7 @@ import { objectNames } from './generated/objects_data.js';
 import { COIN_CLASS } from './objects.js';
 import { rn2 } from './rng.js';
 import { dist2, ucase } from './hacklib.js';
-import { vtense } from './objnam.js';
+import { vtense, an } from './objnam.js';
 import { nomul } from './hack.js';
 import {
     is_animal, is_flyer, is_lord, is_prince, is_mercenary, is_undead,
@@ -37,9 +38,11 @@ import {
     ANY_SHOP, ANY_TYPE, OROOM, SHOPBASE, ROOMOFFSET, VAULT,
     COURT, BEEHIVE, MORGUE, BARRACKS, ZOO,
     ESHK, EMIN, has_emin, Is_astralevel, Is_oracle_level, In_endgame,
-    STRAT_WAITMASK, PLNMSG_GROWL, FULL_MOON,
+    STRAT_WAITMASK, PLNMSG_GROWL, FULL_MOON, Upolyd, BLOOD,
+    FEMALE, MALE,
 } from './const.js';
-import { night } from './calendar.js';
+import { body_part } from './polyself.js';
+import { night, midnight } from './calendar.js';
 import { aggravate } from './wizard.js';
 import { mplayer_talk } from './mplayer.js';
 import { vault_occupied, findgd } from './vault.js';
@@ -102,6 +105,15 @@ const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 const PM_HUMAN_WERERAT = monsterNames.indexOf('PM_HUMAN_WERERAT');
 const PM_DINGO = monsterNames.indexOf('PM_DINGO');
 const PM_RAVEN = monsterNames.indexOf('PM_RAVEN');
+const PM_VAMPIRE = monsterNames.indexOf('PM_VAMPIRE');
+const PM_VAMPIRE_LEADER = monsterNames.indexOf('PM_VAMPIRE_LEADER');
+const PM_WOLF = monsterNames.indexOf('PM_WOLF');
+const PM_WINTER_WOLF = monsterNames.indexOf('PM_WINTER_WOLF');
+const PM_WINTER_WOLF_CUB = monsterNames.indexOf('PM_WINTER_WOLF_CUB');
+const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
+const PM_BABY_SILVER_DRAGON = monsterNames.indexOf('PM_BABY_SILVER_DRAGON');
+const PM_WATER_DEMON = monsterNames.indexOf('PM_WATER_DEMON');
+const PM_PRISONER = monsterNames.indexOf('PM_PRISONER');
 
 /** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
 async function You_hear(line) {
@@ -827,11 +839,13 @@ function mon_is_gecko(mon) {
 
 /**
  * C ref: sounds.c domonnoise `:678–1242` (D-1808 remaps + ORACLE/PRIEST/SELL;
- * this D adds MS_WERE `:824–841` FULL_MOON howl + MS_BARK `:842–860` FULL_MOON
- * fix + animal MS_MEW..MS_ORC `:861–1003` in C order).
- * Remaining named: MS_VAMPIRE / MS_DJINNI / MS_ARREST / MS_BRIBE+MS_CUSS
- * (demon_talk/cuss absent) / MS_SPELL / MS_NURSE / MS_GUARD / MS_SOLDIER /
- * verbl_msg_mcan / save-rest oracle_loc. Unknown still ECMD_TIME.
+ * D-1969 MS_WERE `:823–841` FULL_MOON howl + MS_BARK `:842–860` FULL_MOON
+ * fix + animal MS_MEW..MS_ORC `:861–1003` in C order; this D MS_VAMPIRE
+ * `:744–821` + MS_DJINNI `:991–1004` + MS_ARREST `:1129–1141` + MS_SOLDIER
+ * `:1179–1191`).
+ * Remaining named: MS_BRIBE+MS_CUSS (demon_talk/cuss absent) /
+ * MS_SPELL / MS_NURSE / MS_GUARD / verbl_msg_mcan / save-rest oracle_loc.
+ * Unknown still ECMD_TIME.
  */
 export async function domonnoise(mtmp) {
     if (!mtmp) return ECMD_OK;
@@ -895,6 +909,68 @@ export async function domonnoise(mtmp) {
             await shk_chat(mtmp);
         } else {
             verbl_msg = `15 minutes could save you 15 ${currency(15)}.`;
+        }
+    } else if (msound === MS_VAMPIRE) {
+        // C sounds.c MS_VAMPIRE `:744–821` — tame/peaceful/hostile speech
+        // varied by night, kindred (Upolyd vampire) and nightchild
+        // (Upolyd wolf). night()/midnight() are pure time checks;
+        // the only RNG is hostile-stranger rn2(SIZE(vampmsg)) with
+        // exactly 2 entries, so the fallthrough third arm is unreachable.
+        const isnight = night();
+        const umonnum = game.u?.umonnum | 0;
+        const upolyd = Upolyd(game.u);
+        const kindred = upolyd
+            && (umonnum === PM_VAMPIRE || umonnum === PM_VAMPIRE_LEADER);
+        const nightchild = upolyd
+            && (umonnum === PM_WOLF || umonnum === PM_WINTER_WOLF
+                || umonnum === PM_WINTER_WOLF_CUB);
+        const urind = game.urace?.individual || {};
+        const racenoun = (game.flags?.female && urind.f)
+            ? urind.f
+            : urind.m
+              ? urind.m
+              : (game.urace?.noun || 'human');
+        if (mtmp.mtame) {
+            if (kindred) {
+                verbl_msg = `Good ${isnight ? 'evening' : 'day'} to you Master${
+                    isnight ? '!' : '.  Why do we not rest?'}`;
+            } else {
+                verbl_msg = `${nightchild ? 'Child of the night, ' : ''}${
+                    midnight()
+                        ? 'I can stand this craving no longer!'
+                        : isnight
+                          ? 'I beg you, help me satisfy this growing craving!'
+                          : 'I find myself growing a little weary.'}`;
+            }
+        } else if (mtmp.mpeaceful) {
+            if (kindred && isnight) {
+                verbl_msg = `Good feeding ${game.flags?.female ? 'sister' : 'brother'}!`;
+            } else if (nightchild && isnight) {
+                verbl_msg = 'How nice to hear you, child of the night!';
+            } else {
+                verbl_msg = 'I only drink... potions.';
+            }
+        } else {
+            // C compares gy.youmonst.data against &mons[] pointers;
+            // JS mons() is fresh per call so compare mndx instead.
+            const yomndx = game.youmonst?.data?.mndx | 0;
+            if (kindred) {
+                verbl_msg = 'This is my hunting ground'
+                    + ' that you dare to prowl!';
+            } else if (yomndx === PM_SILVER_DRAGON
+                    || yomndx === PM_BABY_SILVER_DRAGON) {
+                // Silver dragons are silver in color, not made of silver.
+                verbl_msg = `${yomndx === PM_SILVER_DRAGON ? 'Fool' : 'Young Fool'}!`
+                    + '  Your silver sheen does not frighten me!';
+            } else if (rn2(2) === 0) {
+                verbl_msg = `I vant to suck your ${body_part(BLOOD)}!`;
+            } else {
+                verbl_msg = `I vill come after ${
+                    upolyd
+                        ? an(pmname(mons(umonnum),
+                            game.flags?.female ? FEMALE : MALE))
+                        : an(racenoun)} without regret!`;
+            }
         }
     } else if (msound === MS_MOO) {
         // C :895–897 Soundeffect compiled out.
@@ -1038,6 +1114,23 @@ export async function domonnoise(mtmp) {
         // C sounds.c MS_ORC `:1000–1003` (distinct from GRUNT since 3.6).
         // Soundeffect compiled out.
         pline_msg = 'grunts.';
+    } else if (msound === MS_DJINNI) {
+        // C sounds.c MS_DJINNI `:991–1004` — tame out of wishes;
+        // peaceful water demon gurgles else freedom; hostile threat
+        // unless the prisoner (already vague about its cell).
+        if (mtmp.mtame) {
+            verbl_msg = "Sorry, I'm all out of wishes.";
+        } else if (mtmp.mpeaceful) {
+            if ((ptr?.mndx | 0) === PM_WATER_DEMON) {
+                pline_msg = 'gurgles.';
+            } else {
+                verbl_msg = "I'm free!";
+            }
+        } else if ((ptr?.mndx | 0) !== PM_PRISONER) {
+            verbl_msg = 'This will teach you not to disturb me!';
+        } else {
+            verbl_msg = 'Get me out of here.';
+        }
     } else if (msound === MS_SEDUCE) {
         // C sounds.c MS_SEDUCE :1106–1128 — SYSOPT default on;
         // non-nymph could_seduce==1 → doseduce then break (ECMD_TIME).
@@ -1055,6 +1148,37 @@ export async function domonnoise(mtmp) {
         if (swval === 2) verbl_msg = 'Hello, sailor.';
         else if (swval === 1) pline_msg = 'comes on to you.';
         else pline_msg = 'cajoles you.';
+    } else if (msound === MS_ARREST) {
+        // C sounds.c MS_ARREST `:1129–1141` — peaceful states the
+        // facts (immediate verbalize in C; the epilogue's
+        // SetVoice+verbalize is identical since SetVoice is a
+        // !SND_LIB no-op), hostile picks arrest_msg[rn2(3)].
+        if (mtmp.mpeaceful) {
+            verbl_msg = `Just the facts, ${game.flags?.female ? "Ma'am" : 'Sir'}.`;
+        } else {
+            const arrest_msg = [
+                'Anything you say can be used against you.',
+                "You're under arrest!",
+                'Stop in the name of the Law!',
+            ];
+            verbl_msg = arrest_msg[rn2(3)];
+        }
+    } else if (msound === MS_SOLDIER) {
+        // C sounds.c MS_SOLDIER `:1179–1191` — foe/pax tables by
+        // mpeaceful, each picked with rn2(3).
+        const soldier_foe_msg = [
+            'Resistance is useless!',
+            "You're dog meat!",
+            'Surrender!',
+        ];
+        const soldier_pax_msg = [
+            "What lousy pay we're getting here!",
+            "The food's not fit for Orcs!",
+            "My feet hurt, I've been on them all day!",
+        ];
+        verbl_msg = mtmp.mpeaceful
+            ? soldier_pax_msg[rn2(3)]
+            : soldier_foe_msg[rn2(3)];
     } else if (msound === MS_BOAST && !mtmp.mpeaceful) {
         // C sounds.c MS_BOAST :1006–1023 (D-1626). Hostile giants
         // rn2(4): 0 immediate pline gem+mhis (epilogue empty,
@@ -1175,8 +1299,7 @@ export async function domonnoise(mtmp) {
             verbl_msg = 'Who do you think you are, War?';
         }
     }
-    // Other msound cases deferred (vampire / djinn / arrest / bribe+cuss /
-    // spell / nurse / guard / soldier).
+    // Other msound cases deferred (bribe+cuss / spell / nurse / guard).
 
     // C :1222–1241 pline_msg then mcan verbl_msg_mcan then verbl_msg.
     // verbl_msg_mcan still named (no cancelled-speech arm).
