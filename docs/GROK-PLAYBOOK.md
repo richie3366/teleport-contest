@@ -235,9 +235,9 @@ in the journal.
 - Over/under-edit — one iteration ≈ one semantic **cluster** (§2b).
 - Confuse observation with rule — trace coords are evidence, not code.
 - Infer C state from JS, a FORCE, or an RNG count — measure C (§7).
-- Skip cohort — Tourist green ≠ Rogue/orc/combat proof.
-- Stack shims — prefer **delete wrong JS + re-port from C**.
-- Reach for Node `fs` — **Rule #2**; Chrome must load it too.
+- Skip cohort — Tourist green ≠ Rogue/combat proof.
+- Stack shims — prefer **delete wrong JS + re-port C**.
+- Reach for Node `fs` — **Rule #2**; Chrome loads it too.
 - Spend calls on lookup — `brief.mjs` / `sym.mjs` / `csym.mjs` are one call each.
 - Serial regression rounds — one verify lists every FAIL; fix causes.
 
@@ -271,4 +271,4 @@ node frozen/ps_test_runner.mjs sessions   # public fortress (audit iters)
 
 ---
 
-*When in doubt: read the C, port the C, verify broadly, leave small notes.*
+*When in doubt: read the C, port the C, verify broadly.*
