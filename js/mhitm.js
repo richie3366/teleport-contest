@@ -9,10 +9,10 @@ import {
     mtrapped_in_pit, LEVEL_SPECIFIC_NOCORPSE,
 } from './mon.js';
 import { game } from './gstate.js';
-import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You_feel, flush_screen, verbalize, sensemon, shieldeff } from './display.js';
+import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You_feel, flush_screen, verbalize, sensemon, shieldeff, mon_visible } from './display.js';
 import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
-import { resist_conflict, set_mon_data, on_fire } from './mondata.js';
+import { resist_conflict, set_mon_data, on_fire, mhis } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval, possibly_unwield } from './weapon.js';
 import { arti_reflects, artifact_hit, permapoisoned, is_art } from './artifact.js';
 import { find_mac, which_armor, bypass_obj } from './worn.js';
@@ -94,14 +94,14 @@ import {
     bigmonst, is_golem, is_mplayer, is_rider, monsterNames, mons, NUMMONS,
     is_animal, M1_SEE_INVIS, is_vampshifter, MZ_TINY, MZ_SMALL, MZ_HUGE, amorphous,
     is_flyer, is_floater, slithy, nolimbs, MR_STONE, MALE, FEMALE, NEUTRAL, can_teleport,
-    touch_petrifies, poly_when_stoned, resists_ston, humanoid,
+    touch_petrifies, poly_when_stoned, resists_ston, humanoid, is_elf, is_orc,
     thick_skinned,
     unsolid, is_whirly, passes_walls, haseyes, flaming, slimeproof,
     is_male, is_female, is_shapeshifter, has_head, mon_hates_silver,
     noncorporeal, MR_POISON,
 } from './monsters.js';
 import { objectNames } from './objects.js';
-import { ART_TROLLSBANE, ART_STORMBRINGER, ART_VORPAL_BLADE } from './generated/artifacts_data.js';
+import { ART_TROLLSBANE, ART_STORMBRINGER, ART_VORPAL_BLADE, ART_SNICKERSNEE } from './generated/artifacts_data.js';
 import {
     relobj_on_death, mkcorpstat, stackobj, mksobj_at, obj_nexto,
     obj_meld, pudding_merge_message, place_object, add_to_container,
@@ -110,15 +110,20 @@ import {
 } from './mkobj.js';
 import { findgold } from './steal.js';
 import { munslime } from './muse.js';
-import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam, s_suffix, free_mgivenname } from './do_name.js';
+import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, y_monnam, s_suffix, free_mgivenname, a_monnam } from './do_name.js';
 import { an, xname, makeplural, cxname, vtense, The, simpleonames } from './objnam.js';
 import { mon_explodes } from './explode.js';
-import { newcham, pm_to_cham, is_home_elemental } from './makemon.js';
+import { newcham, pm_to_cham, is_home_elemental, clone_mon } from './makemon.js';
 import { polyself } from './polyself.js';
 import { you_were, you_unwere } from './were.js';
 import { rloc, tele_restrict, tele, goodpos } from './teleport.js';
 import { m_unleash } from './apply.js';
 import { bury_an_obj } from './dig.js';
+import { is_pole } from './wield.js';
+import { mswings_verb, Conflict } from './mhitu.js';
+import { mon_offmap } from './monmove.js';
+import { mintrap } from './trap.js';
+import { breamm, spitmm } from './mthrowu.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
 const GAUNTLETS_OF_POWER = objectNames.indexOf('GAUNTLETS_OF_POWER');
@@ -130,6 +135,8 @@ const IRON_CHAIN = objectNames.indexOf('IRON_CHAIN');
 const MIRROR = objectNames.indexOf('MIRROR');
 const CLOVE_OF_GARLIC = objectNames.indexOf('CLOVE_OF_GARLIC');
 const SILVER = 14; /* objclass.h SILVER */
+const IRON = 11; /* objclass.h:24 IRON (Fe, incl. steel) */
+const METAL = 12; /* objclass.h:25 METAL (Sn, &c.) */
 const GLOB_OF_BLACK_PUDDING = objectNames.indexOf('GLOB_OF_BLACK_PUDDING');
 const PM_GRAY_OOZE = monsterNames.indexOf('PM_GRAY_OOZE');
 const PM_BROWN_PUDDING = monsterNames.indexOf('PM_BROWN_PUDDING');
@@ -3705,18 +3712,61 @@ export async function explmm(magr, mdef, mattk) {
 }
 
 /**
+ * C ref: mhitm.c mswingsm `:1282–1297` (staticfn) — verbose weapon-swing
+ * pline for mon-vs-mon. `flags.verbose && !Blind && mon_visible(magr)`;
+ * polearm bash (Snickersnee excluded) at dist2<=2; "one of" for quan>1.
+ * Async: pline may await --More--.
+ */
+async function mswingsm(magr, mdef, otemp) {
+    if (game.flags?.verbose === false || Blind_slee() || !mon_visible(magr)) {
+        return;
+    }
+    const bash = !!(is_pole(otemp) && !is_art(otemp, ART_SNICKERSNEE)
+        && dist2(magr.mx, magr.my, mdef.mx, mdef.my) <= 2);
+    await pline(
+        `${Monnam(magr)} ${mswings_verb(otemp, bash)} `
+        + `${((otemp.quan | 0) > 1) ? 'one of ' : ''}${mhis(magr)}${xname(otemp)} `
+        + `at ${mon_nam(mdef)}.`,
+    );
+}
+
+/**
  * C ref: mhitm.c mattackm()
  * Returns M_ATTK_* bitmask. Async: combat pline may await --More--.
  */
 export async function mattackm(magr, mdef) {
     if (!magr || !mdef) return M_ATTK_MISS;
     if (helpless(magr)) return M_ATTK_MISS;
+    const pa = magr.data;
+    const pd = mdef.data;
+
+    // C ref: mhitm.c mattackm `:316–317` — grid bugs cannot attack at an angle.
+    if ((pa?.mndx | 0) === PM_GRID_BUG && magr.mx !== mdef.mx
+        && magr.my !== mdef.my) {
+        return M_ATTK_MISS;
+    }
 
     let tmp = find_mac(mdef) + (magr.m_lev || 0);
     if (mdef.mconf || helpless(mdef)) {
         tmp += 4;
         mdef.msleeping = 0;
     }
+
+    // C ref: mhitm.c mattackm `:327–352` — an attacked mundetected monster
+    // becomes un-hidden (newsym) and is noticed when seen but not sensed.
+    // Named omits: Unaware "dream of %s" arm (Unaware state absent in js/);
+    // HIDE_UNDER / last_hider arms (`iflags.last_msg`, `gl.last_hider`
+    // absent in js/) — the generic notice arm below covers the message.
+    if (mdef.mundetected) {
+        mdef.mundetected = 0;
+        newsym(mdef.mx, mdef.my);
+        if (canseemon(mdef) && !sensemon(mdef)) {
+            await pline(`Suddenly, you notice ${a_monnam(mdef)}.`);
+        }
+    }
+
+    // C ref: mhitm.c mattackm `:354–355` — elves hate orcs.
+    if (is_elf(pa) && is_orc(pd)) tmp++;
 
     // C: gv.vis — see attacker or defender (canspotmon)
     _mm_vis = ((cansee(magr.mx, magr.my) && canspotmon(magr))
@@ -3764,8 +3814,12 @@ export async function mattackm(magr, mdef) {
                     }
                 }
                 await possibly_unwield(magr, false);
-                // mswingsm deferred
                 mwep = MON_WEP(magr);
+                // C ref: mhitm.c mattackm `:413–414` — swing pline when seen.
+                // Named omit: ranged thrwmm arm (mthrowu `monshoot` is a
+                // local clone there, not an export; distant AT_WEAP stays
+                // a miss until it is exported).
+                if (mwep && _mm_vis) await mswingsm(magr, mdef, mwep);
                 if (mwep) tmp += hitval(mwep, mdef);
                 // FALLTHROUGH to melee hit roll
             }
@@ -3783,11 +3837,49 @@ export async function mattackm(magr, mdef) {
                     continue;
                 }
                 if (distmin(magr.mx, magr.my, mdef.mx, mdef.my) > 1) continue;
+                // C ref: mhitm.c mattackm `:434–439` — wielders skip the
+                // physical swing at a petrifier (Cockatrice) rather than
+                // risk it; players get no such instinct. `break` leaves
+                // strike 0 with attk set, so passivemm still runs below.
+                if (!magr.mconf && !Conflict() && mwep
+                    && (mattk.aatyp | 0) !== AT_WEAP
+                    && touch_petrifies(mdef.data)) {
+                    strike = 0;
+                    break;
+                }
                 const dieroll = rnd(20 + i);
                 strike = tmp > dieroll ? 1 : 0;
+                // C: KMH — don't accumulate to-hit bonuses.
                 if (mwep) tmp -= hitval(mwep, mdef);
                 if (strike) {
+                    // C ref: mhitm.c mattackm `:447–453` — an eel AT_TUCH
+                    // can't grab an unsolid target (cheap pre-check before
+                    // failed_grab does the full test).
+                    if (unsolid(mdef.data)
+                        && await failed_grab(magr, mdef, mattk)) {
+                        strike = 0;
+                        break;
+                    }
                     res[i] = await hitmm(magr, mdef, mattk, mwep, dieroll);
+                    // C ref: mhitm.c mattackm `:455–472` — an iron/metal
+                    // weapon splitting a live non-cancelled pudding divides
+                    // it (clone_mon + mintrap for the clone).
+                    if (((mdef.data?.mndx ?? mdef.mnum) === PM_BLACK_PUDDING
+                        || (mdef.data?.mndx ?? mdef.mnum) === PM_BROWN_PUDDING)
+                        && mwep && (((game.objects?.[mwep.otyp]?.oc_material | 0) === IRON)
+                            || ((game.objects?.[mwep.otyp]?.oc_material | 0) === METAL))
+                        && (mdef.mhp | 0) > 1 && !mdef.mcan) {
+                        const mclone = await clone_mon(mdef, 0, 0);
+                        if (mclone) {
+                            if (_mm_vis && canspotmon(mdef)) {
+                                await pline(
+                                    `${Monnam(mdef)} divides as ${mon_nam(magr)} hits it!`,
+                                );
+                            }
+                            await mintrap(mclone, NO_TRAP_FLAGS);
+                            if (deadmonster(magr)) res[i] |= M_ATTK_AGR_DIED;
+                        }
+                    }
                 } else {
                     await missmm(magr, mdef, mattk);
                 }
@@ -3861,9 +3953,27 @@ export async function mattackm(magr, mdef) {
                 }
                 break;
             }
-            // AT_SPIT/AT_BREA: spitmm/breamm live in mthrowu; mon-mon spit
-            // deferred to avoid mhitm↔mthrowu import cycle (hero spitmu wired
-            // in mhitu). Same point-blank skip as C when near.
+            case AT_BREA:
+            case AT_SPIT: {
+                // C ref: mhitm.c mattackm `:538–559` — ranged breath/spit is
+                // barred at point-blank range (monnear: pets and dragon
+                // tactics assume it). Not adjacent, so no distmin>1 skip:
+                // breamm/spitmm (mthrowu.js, same-SCC hoisted imports) pick
+                // the target; a non-MISS return counts as a pretended hit.
+                if (!monnear(magr, mdef.mx, mdef.my)) {
+                    const mmtmp = ((mattk.aatyp | 0) === AT_BREA)
+                        ? await breamm(magr, mattk, mdef)
+                        : await spitmm(magr, mattk, mdef);
+                    strike = (mmtmp === M_ATTK_MISS) ? 0 : 1;
+                    if (strike) res[i] |= M_ATTK_HIT;
+                    if (deadmonster(mdef)) res[i] = M_ATTK_DEF_DIED;
+                    if (deadmonster(magr)) res[i] |= M_ATTK_AGR_DIED;
+                } else {
+                    strike = 0;
+                    attk = 0;
+                }
+                break;
+            }
             default:
                 strike = 0;
                 attk = 0;
@@ -3878,6 +3988,11 @@ export async function mattackm(magr, mdef) {
 
         if (res[i] & M_ATTK_DEF_DIED) return res[i];
         if (res[i] & M_ATTK_AGR_DIED) return res[i];
+        // C ref: mhitm.c mattackm `:581–586` — stop when the aggressor is
+        // done (passivemm AGR_DONE), helpless, or the defender left the map
+        // (e.g. knocked into a level-teleport trap).
+        if ((res[i] & M_ATTK_AGR_DONE) || helpless(magr)) return res[i];
+        if (mon_offmap(mdef)) return res[i];
         if (res[i] & M_ATTK_HIT) struck = 1;
     }
 

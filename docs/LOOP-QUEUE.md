@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mhitm.c` mattackm remaining arms — monster-vs-monster attack dispatch (TOP30 honourable mention, 297/175; never queued).
 - [ ] `makemon.c` grow_up remaining arms — monster growth HP/dice escalation (TOP30 honourable mention, 127/67; never queued).
 - [ ] `mhitu.c` hitmu — hero hit-by-thrown-object envelope (TOP30 honourable mention, 123/72; archived D-1795 mattacku row is explicitly Not hitmu).
 - [ ] `trap.c` mintrap — monster-trapped dispatch body (TOP30 honourable mention, 107/54; archived rows are rloc_to callers, not the body).

@@ -2733,7 +2733,8 @@ seed4500 **101373→101391** RNG **101579** Scr **924**;
 **`spitmm`/`spitmu` + `m_lined_up`; `mattacku` AT_SPIT when range2** (D-0900); 
 **`breamm`/`breamu` + `mattacku` AT_BREA** (D-0925; 
 seed4500 **86672→87218** RNG **87347** Scr **759**; 
-mon-mon `mattackm` AT_SPIT/AT_BREA deferred — import cycle; 
+mon-mon `mattackm` AT_SPIT/AT_BREA live (D-1919; same-SCC hoisted
+mthrowu imports, monnear point-blank skip);
 Hallu breathwep / neg-type `monkilled` deferred); **`mhitm_ad_blnd` mhitu** (D-0926; 
 seed4500 **87218→87803** RNG **88082** Scr **794**; 
 Eyes `vision_clears` / full `can_blnd` ublindf·visor / uhitm·mhitm AD_BLND arms deferred); 
@@ -3061,8 +3062,15 @@ tame `adjalign(-15)` before experience** (D-0836; human-murder/unicorn/quest arm
 **`attack_checks` clears `STRAT_WAITMASK` first** (D-0791; kick/cancel still disturb; 
 peaceful yn deferred); **`is_safemon` requires `canspotmon`** (D-0791); 
 **`mundisplaceable` + `domove` refuse leader/Oracle/priest/shk/gd swap** (D-0792; 
-`goodpos`/trap-on-dest deferred); **`mattackm` AT_WEAP `mon_wield_item`→`M_ATTK_MISS`** (D-0743; 
-thrwmm/`possibly_unwield`/`mswingsm` deferred); **`mattackm` sets `magr.mlstmv = moves`** (D-0739; 
+`goodpos`/trap-on-dest deferred); **`mattackm` AT_WEAP `mon_wield_item`→`M_ATTK_MISS`** (D-0743;
+`possibly_unwield` + `mswingsm` live D-1919; ranged `thrwmm` still deferred —
+mthrowu `monshoot` is a local clone, not an export); **`mattackm` preamble
+D-1919** (grid-bug angle MISS, mundetected clear/newsym/generic notice,
+elf-vs-orc `tmp++`; Unaware-dream + HIDE_UNDER/last_hider arms named omits —
+`Unaware`, `iflags.last_msg`, `gl.last_hider` absent); **`mattackm` melee
+D-1919** (cockatrice `touch_petrifies` no-swing, unsolid `failed_grab`,
+iron/metal pudding division via `clone_mon`+`mintrap`); **`mattackm`
+epilogue D-1919** (`M_ATTK_AGR_DONE`/helpless/`mon_offmap` returns); **`mattackm` sets `magr.mlstmv = moves`** (D-0739; 
 out-of-sequence attack counts as move); **`max_passive_dmg` AD_ACID/FIRE/COLD/ELEC + 
 AD_PHYS** (D-0730; `completelyburns`/`rots`/`rusts` deferred); 
 **`fightm` Conflict mon-vs-mon + always `resist_conflict`** (D-0413; 

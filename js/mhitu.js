@@ -191,7 +191,7 @@ function perceives(ptr) {
  * C ref: youprop.h Conflict — HConflict || EConflict.
  * Worn RIN_CONFLICT EConflict via setworn oc_oprop still named.
  */
-function Conflict() {
+export function Conflict() {
     const u = game.u || {};
     if (u.HConflict || u.EConflict) return true;
     const prop = u.uprops?.[CONFLICT];

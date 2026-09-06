@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
+- [x] `mhitm.c` mattackm remaining arms — monster-vs-monster attack dispatch (TOP30 honourable mention, 297/175; never queued). **Addressed:** D-1919
+
+
 - [x] `trap.c` lava_effects post-boots-burn Wwalking re-read **Addressed:** D-1918 — `heroWwalking` snapshotted at entry (`js/trap.js:5047`); C re-reads the `Wwalking` macro (`youprop.h:260`) after the boots-burst, so WW-via-burnable-boots flips true→false mid-function. C falls+burns (likely death) / sinks (Fire case); JS burns-you+walks-on / skips sink. Fix in lava_effects alone (slot clears synchronously via deconfer; flats never written): live re-read at the three post-boots points. Falsifier: WW boots, no Fire, lava step → fall path. Source: reviews/loop-unattended/883-05c03076-lava-effects-wwalking.md
 
 
