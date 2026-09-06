@@ -978,9 +978,9 @@ vault/shop/temple `ceiling` labels, `helm_simple_name` hat polish; **`instapetri
 `mon_to_stone`/`vamp_stone`/`monstone` + `xkilled` stoned** (D-0995/D-0996), `float_vs_flight`, 
 full `body_part` poly, `stone_missile`/`passes_rocks` harmless arm in `thitm`, **`mons_see_trap`** 
 (D-0701); **`mintrap` already_seen = mon_knows_traps || (HOLE && !mindless)** (D-0703; 
-**floor_trigger+check_in_air skip** D-0770; Sokoban pit/hole inescapable still deferred); 
+**floor_trigger+check_in_air skip** D-0770; **full `mintrap` dispatch body D-1922** — trapped-arm `!rn2(40) || easy-pit` escape, boulder `!rn2(2)` pulls-free + fill_pit, metallivorous bear-trap eat / spiked-pit munch (meating=5), `easily ` adverb + set_msg_xy; fresh-arm fixed_tele_trap FORCETRAP force, usteed + Sokoban pit/hole gate skip, madeby_u rnl setmangry, unhide+appears envelope); 
 full `m_harmless_trap` anti-magic/webmaker/`defended` resists (flyer check_in_air + SLP/FIRE + 
-BEAR/WEB/RUST/VIBRATING/PIT done D-0245/D-0770), mtrapped escape `rn2(40)`, Deaf+mindless silent, 
+BEAR/WEB/RUST/VIBRATING/PIT done D-0245/D-0770), Deaf+mindless silent, 
 `disturb_buried_zombies`, empty-door pline_mon, drawbridge-under pool/lava; 
 **`maketrap` STATUE_TRAP → `mk_trap_statue`** (D-0538; 
 full `mongone`/MM_NOCOUNTBIRTH born tally deferred); fate-20 `seffects(SPE_REMOVE_CURSE)`; 

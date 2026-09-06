@@ -28,17 +28,17 @@ import {
 import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone } from './mhitm.js';
 import { mon_explodes, scatter } from './explode.js';
 import {
-    newsym, pline, pline_xy, urgent_pline, mon_visible, see_with_infrared,
+    newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
     You_feel, unmap_object, glyph_is_invisible, tmp_at, nh_delay_output,
     obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible,
     set_msg_xy, Hallucination, Norep,
 } from './display.js';
 import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, ansimpleoname, safe_qbuf } from './objnam.js';
 import {
-    Monnam, mon_nam, x_monnam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
+    Amonnam, Monnam, mon_nam, x_monnam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
 } from './do_name.js';
-import { dist2, distmin, m_at, wakeup, seemimic, m_carrying, LEVEL_SPECIFIC_NOCORPSE, bad_rock } from './mon.js';
+import { dist2, distmin, m_at, wakeup, seemimic, m_carrying, LEVEL_SPECIFIC_NOCORPSE, bad_rock, setmangry } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { del_engr_at, can_reach_floor } from './engrave.js';
 import {
@@ -51,7 +51,7 @@ import {
     bigmonst, is_golem, is_mplayer, is_rider,
     nohands, extra_nasty, acidic, poly_when_stoned, touch_petrifies,
     resists_ston, MALE, FEMALE, NEUTRAL, nonliving, is_vampshifter,
-    hides_under,
+    hides_under, metallivorous,
 } from './monsters.js';
 import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, NOWEBMSG, FORCEBUNGLE, RECURSIVETRAP,
@@ -153,6 +153,7 @@ import { rider_cant_reach, dismount_steed } from './steed.js';
 import { fill_pit, bury_an_obj } from './dig.js';
 import { u_wield_art, attacks, bare_artifactname, has_magic_key } from './artifact.js';
 import { ART_STING } from './generated/artifacts_data.js';
+import { maybe_unhide_at } from './monmove.js';
 
 const AD_ELEC = 6;
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
@@ -4634,10 +4635,15 @@ async function trapeffect_statue_trap(mtmp, trap, _trflags) {
 }
 
 /**
- * C ref: trap.c mintrap() — monster steps on a trap.
- * Early-session envelope: dart / rock / pit / sqky / hole|trapdoor /
- * magic|fire learn+effect; already_seen rn2(4) skip when mon_knows_traps
- * or HOLE && !mindless (D-0703). Other types and escape paths partial.
+ * C ref: trap.c mintrap `:3733–3840` — monster-trapped dispatch body.
+ * Trapped arm: seetrap reveal; `!rn2(40) || (is_pit && m_easy_escape_pit)`;
+ * boulder-in-pit `!rn2(2)` pulls-free (pline_mon) + fill_pit, else
+ * set_msg_xy + climbs `easily ` / pulls-free pline; metallivorous
+ * bear-trap eat (deltrap, meating=5) / spiked-pit munch (ttyp=PIT).
+ * Fresh arm: fixed_tele_trap forces FORCETRAP; usteed and Sokoban
+ * pit/hole skip the floor_trigger+check_in_air / already_seen rn2(4)
+ * gates; mon_learns_traps + mons_see_trap; madeby_u && rnl(5) setmangry;
+ * trapeffect_selector; unhide+appears envelope.
  */
 export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
     const trap = t_at(mtmp.mx, mtmp.my);
@@ -4646,40 +4652,77 @@ export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
         return Trap_Effect_Finished;
     }
     if (mtmp.mtrapped) {
-        // C trap.c mintrap — already in trap: maybe reveal, then rn2(40)
-        // escape (or easy pit). Boulder-in-pit / metallivorous chew deferred.
+        // C: a monster sitting in an obvious trap reveals it to you
         if (!trap.tseen && cansee(mtmp.mx, mtmp.my) && canseemon(mtmp)
             && (is_pit(trap.ttyp) || trap.ttyp === BEAR_TRAP
                 || trap.ttyp === HOLE || trap.ttyp === WEB)) {
             seetrap(trap);
         }
-        // m_easy_escape_pit arm deferred — only rn2(40) gate for now
-        if (!rn2(40)) {
-            if (canseemon(mtmp)) {
-                if (is_pit(trap.ttyp)) {
-                    await pline(`${Monnam(mtmp)} climbs out of the pit.`);
-                } else if (trap.ttyp === BEAR_TRAP || trap.ttyp === WEB) {
-                    await pline(
-                        `${Monnam(mtmp)} pulls free of the ${trapname(trap.ttyp, false)}.`,
-                    );
+        // C: `!rn2(40) || (is_pit(trap->ttyp) && m_easy_escape_pit(mtmp))`
+        if (!rn2(40) || (is_pit(trap.ttyp) && m_easy_escape_pit(mtmp))) {
+            if (sobj_at(BOULDER, mtmp.mx, mtmp.my) && is_pit(trap.ttyp)) {
+                // C: the boulder fills the pit as the monster pulls free
+                if (!rn2(2)) {
+                    mtmp.mtrapped = 0;
+                    if (canseemon(mtmp))
+                        await pline_mon(mtmp, `${Monnam(mtmp)} pulls free...`);
+                    fill_pit(mtmp.mx, mtmp.my);
                 }
+            } else {
+                if (canseemon(mtmp)) {
+                    set_msg_xy(mtmp.mx, mtmp.my);
+                    if (is_pit(trap.ttyp)) {
+                        await pline(`${Monnam(mtmp)} climbs ${m_easy_escape_pit(mtmp) ? 'easily ' : ''}out of the pit.`);
+                    } else if (trap.ttyp === BEAR_TRAP || trap.ttyp === WEB) {
+                        await pline(
+                            `${Monnam(mtmp)} pulls free of the ${trapname(trap.ttyp, false)}.`,
+                        );
+                    }
+                }
+                mtmp.mtrapped = 0;
             }
-            mtmp.mtrapped = 0;
+        } else if (metallivorous(mtmp.data)) {
+            // C: metal-eaters chew through bear traps / pit spikes
+            if (trap.ttyp === BEAR_TRAP) {
+                if (canseemon(mtmp))
+                    await pline_mon(mtmp, `${Monnam(mtmp)} eats a bear trap!`);
+                deltrap(trap);
+                mtmp.meating = 5;
+                mtmp.mtrapped = 0;
+            } else if (trap.ttyp === SPIKED_PIT) {
+                if (canseemon(mtmp))
+                    await pline_mon(mtmp, `${Monnam(mtmp)} munches on some spikes!`);
+                trap.ttyp = PIT;
+                mtmp.meating = 5;
+            }
         }
         return mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished;
     }
 
-    const forcetrap = (mintrapflags & FORCETRAP) !== 0;
-    const forcebungle = (mintrapflags & FORCEBUNGLE) !== 0;
+    // C: tt / forcetrap+forcebungle from flags / already_seen; a fixed
+    // teleport trap always triggers (mintrapflags |= FORCETRAP)
+    let trflags = mintrapflags;
+    let forcetrap = (trflags & FORCETRAP) !== 0;
+    const forcebungle = (trflags & FORCEBUNGLE) !== 0;
     const tt = trap.ttyp;
     const mptr = mtmp.data;
     // C: mon_knows_traps || (HOLE && !mindless) — holes are obvious
     const already_seen = mon_knows_traps(mtmp, tt)
         || (tt === HOLE && !mindless(mptr));
 
-    if (!forcetrap) {
-        // C: Sokoban pit/hole messaging deferred; floor_trigger+in_air skip
-        if (floor_trigger(tt) && check_in_air(mtmp, mintrapflags)) {
+    if (fixed_tele_trap(trap)) {
+        trflags |= FORCETRAP;
+        forcetrap = true;
+    }
+
+    // C: Sokoban = level.flags.sokoban_rules
+    const Sokoban = !!(game.level?.flags?.sokoban_rules || game.Sokoban);
+    if (mtmp === game.u?.usteed) {
+        ; /* true when called from dotrap, inescapable is not an option */
+    } else if (Sokoban && (is_pit(tt) || is_hole(tt)) && !trap.madeby_u) {
+        ; /* nothing here, the trap effects will handle messaging */
+    } else if (!forcetrap) {
+        if (floor_trigger(tt) && check_in_air(mtmp, trflags)) {
             return Trap_Effect_Finished;
         }
         if (already_seen && rn2(4) && !forcebungle) {
@@ -4687,11 +4730,23 @@ export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
         }
     }
 
-    // C: mon_learns_traps then mons_see_trap then trapeffect_selector
     mon_learns_traps(mtmp, tt);
     mons_see_trap(trap);
-    // madeby_u rnl setmangry deferred (RNG on that arm only)
-    return await trapeffect_selector(mtmp, trap, mintrapflags);
+
+    // C: the monster is aggravated by being trapped by you
+    if (trap.madeby_u && rnl(5))
+        await setmangry(mtmp, false);
+
+    const trap_result = await trapeffect_selector(mtmp, trap, trflags);
+
+    // C: a trapped monster can't stay hiding under an object in non-pit
+    if ((mtmp.mhp | 0) > 0 && mtmp.mtrapped) {
+        const alreadyspotted = canspotmon(mtmp);
+        await maybe_unhide_at(mtmp.mx, mtmp.my);
+        if (!alreadyspotted && canseemon(mtmp))
+            await pline_mon(mtmp, `${Amonnam(mtmp)} appears.`);
+    }
+    return trap_result;
 }
 
 const POT_WATER = objectNames.indexOf('POT_WATER');

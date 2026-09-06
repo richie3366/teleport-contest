@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `trap.c` mintrap — monster-trapped dispatch body (TOP30 honourable mention, 107/54; archived rows are rloc_to callers, not the body).
 - [ ] `objnam.c` makeplural — plural-name envelope, ch_ksound dead callee (TOP30 honourable mention, 186/59; never queued).
 - [ ] `trap.c` dotrap — hero/monster trap dispatch body (TOP30 honourable mention; archived untrap/pit-hole/spoteffects rows explicitly Not dotrap).
 - [ ] `explode.c` explode — explosion body remaining arms (TOP30 honourable mention; archived D-1760 is the named map_invisible bit only).
@@ -59,6 +58,7 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `weapon.c` select_hwep — HTH weapon-select arms (turns.md named omit).
 - [ ] `objnam.c` mshot_xname — Nth/xname arms (turns.md named omit).
 - [ ] `uhitm.c` mhitm_knockback — hurtle/steadfast/size/weapon body (named deferred in js/mhitm.js stub + turns.md).
+- [ ] `trap.c` m_easy_escape_pit — pit-fiend identity arm dead (file-local `js/trap.js:1802` compares `data === mons[PM_PIT_FIEND]` but `mons` is a function, so the lookup is undefined; pit fiend msize 3 < MZ_HUGE 4, C `ptr == &mons[PM_PIT_FIEND]` always escapes; spotted while porting the mintrap body).
 
 ## Parked (do not pop)
 
