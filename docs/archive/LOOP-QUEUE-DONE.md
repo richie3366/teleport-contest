@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `sp_lev.c` lspo_* + selvar selection primitives (HELDOUT Tier C misc row remainder; no JS symbol). **Addressed:** D-1944
+- [x] `steal.c` stealamulet — amulet-steal singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1945
+
+
+- [x] `sp_lev.c` lspo_* + selvar selection primitives (HELDOUT Tier C misc row remainder; no JS symbol). **Addressed:** D-1944 `bbd62daf`
 
 
 - [x] `dbridge.c` e_at/m_to_e/u_to_e/e_nam/E_phrase entity family (HELDOUT Tier C dbridge row; no JS symbol). **Addressed:** D-1943 `82cffe79`

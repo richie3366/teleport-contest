@@ -2831,7 +2831,8 @@ name_to_mon G_UNIQ / Half_gas_damage / trap·throw callers deferred) +
 **AD_SITM/AD_SEDU→`mhitm_ad_sedu`→`steal`** (D-0686; brag `pline_mon` D-1240; 
 **`worn_item_removal` on→from + nymph `She stole` D-0884**; 
 **post-steal `rloc(RLOC_MSG)` vanish D-0885**; 
-monkey cant_take / stealarm afternmv deferred; 
+monkey cant_take / stealarm afternmv deferred;
+**`stealamulet` quest/invocation snatch D-1945** (`steal.c` `:688–767`; quest-artifact `rnd` sweep else uhave amulet/bell/book/menorah otyp sweep with fake `!iswiz` gate; outer-gear strip via file-local `worn_item_removal`; shop `subfrombill`; doname-before-`mpickobj`; steal pline; teleporter `rloc(RLOC_MSG)`; `encumber_msg`; `any_quest_artifact` obj.h macro inlined; named: `mhitm_ad_samu` caller wiring); 
 **`doseduce` / `mayberem` / `ld()` AD_SSEX D-1750** (`mhitu.c` `:1984–2305` / `:2308–2352` / `:25`; 
 `uhitm.c` `mhitm_ad_ssex` mhitu arm; `sounds.c` MS_SEDUCE; extractor `SEDUCTION_ATTACKS_YES`; 
 SYSOPT default on; **SetVoice D-1752**; **`hero_Deaf` D-1758** `youprop.h:125`
