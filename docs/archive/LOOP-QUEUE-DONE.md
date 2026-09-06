@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `display.c` reglyph_darkroom — darkroom reglyph singleton (HELDOUT Tier C; no JS symbol anywhere in js/). **Addressed:** D-1975
+- [x] `display.c` curs_on_u/doredraw — cursor-on-hero + redraw pair (HELDOUT Tier C; no JS symbol anywhere in js/). **Addressed:** D-1976
+
+
+- [x] `display.c` reglyph_darkroom — darkroom reglyph singleton (HELDOUT Tier C; no JS symbol anywhere in js/). **Addressed:** D-1975 `381b7706`
 
 
 - [x] `display.c` redraw_map — cliparound pan-resend singleton (HELDOUT Tier C; no JS symbol anywhere in js/). **Addressed:** D-1974 `eacb0e50`

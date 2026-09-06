@@ -2131,6 +2131,18 @@ S_darkroom→waslit?S_room:NOTHING` (`:1836–1840`),
 named: `gs.showsyms[S_darkroom]` equate (`:1850–1853`, no showsyms[]/
 glyphmap[] machinery — D-1972) + caller wiring (`do.c:1715`,
 `options.c:7347`+`:8999`, `restore.c:926`));
+|**`curs_on_u` + `doredraw` live** (D-1976; C `display.c:1687–1690` /
+`:1694–1698`; `js/display.js` exported async in C order immediately
+before `docrt` (matching C layout) — `await flush_screen(1)` for the
+cursor-on-hero flush (`:1689` contract; async for bot/more nhgetch
+reach, same shape as `redraw_map` D-1974), `await docrt()` +
+`return ECMD_OK` for the #redraw command (`cmd.c:1819` `C('r')`
+IFBURIED|GENERALCMD|CMD_INSANE; `ECMD_OK` on the existing `./const.js`
+edge); named: all C caller wiring (`allmain.c:475,478` moveloop
+bot/timebot parks, `eat.c:1222`, `end.c:79,104,743`,
+`explode.c:401,418`, `hack.c:3007`, `trap.c:3349`, `cmd.c:1819`
+ext-table row, `cmd.c:3917` check — `js/getpos.js:97` keeps its local
+key clone; functions live, unwired));
 
 ### `src/questpgr.c` / tty menu
 

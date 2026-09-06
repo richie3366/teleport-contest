@@ -104,6 +104,7 @@ import {
     URGENT_MESSAGE,
     PLNMSG_UNKNOWN,
     gp,
+    ECMD_OK,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -5037,6 +5038,39 @@ function show_memory_glyph(x, y) {
     } else {
         show_glyph_cell(x, y, ' ', NO_COLOR, false, 0, GLYPH_UNEXPLORED);
     }
+}
+
+/**
+ * C ref: display.c curs_on_u `:1687–1690` — put the cursor on the hero:
+ * flush waiting glyphs, then park the tty cursor on the hero. C body is
+ * one call (`:1689` flush_screen(1)); the `/* Flush waiting glyphs & put
+ * cursor on hero *\/` comment is C's contract for the mode-1 flush.
+ * Async: `flush_screen` awaits bot/more (nhgetch reach), so the void C
+ * body rides one await (same shape as `redraw_map` D-1974).
+ * Named: caller wiring — C callers stay on their current flush/paint
+ * path (`allmain.c:475,478` moveloop bot()/timebot() cursor parks,
+ * `eat.c:1222`, `end.c:79,104,743`, `explode.c:401,418`,
+ * `hack.c:3007`, `trap.c:3349`; functions live, unwired).
+ */
+export async function curs_on_u() {
+    // C `:1689` flush_screen(1) — flush waiting glyphs & put cursor on hero.
+    await flush_screen(1);
+}
+
+/**
+ * C ref: display.c doredraw `:1694–1698` — the #redraw extended command
+ * (`cmd.c:1819` `C('r')` "redraw screen", IFBURIED | GENERALCMD |
+ * CMD_INSANE): docrt() then return ECMD_OK. Async: `docrt` awaits
+ * (nhgetch reach), so the int C body rides one await plus the status.
+ * Named: `cmd.c:1819` ext-table wiring (JS ext lookup has no redraw row)
+ * + `cmd.c:3917` redraw_cmd ef_funct check (`js/getpos.js:97` keeps its
+ * local C('r')/C('l') key clone).
+ */
+export async function doredraw() {
+    // C `:1696` docrt().
+    await docrt();
+    // C `:1697` return ECMD_OK.
+    return ECMD_OK;
 }
 
 export async function docrt() {
