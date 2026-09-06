@@ -820,6 +820,22 @@ object loop + didlook `:1607–1640` supplement, driven off the shown glyph
 via `glyph_to_obj` + `game.objects` oc_class + `def_oc_syms` explain;
 boulder split; `look_at_object` buried/stone/wall/door/pool/lava suffixes
 `:388–399`; statue monster-prefix, venom `'.'`-row, tree dangling named)
+then **history/descr arms D-1903** (`pager.c:82–106` `append_str`
+strstri dup-gate + BUFSZ-1 `" or "` cap; `:1133–1245` `add_cmap_descr`
+NO_GLYPH water arm + levl-typ/`EHalluc_resistance` save-restore around
+live `waterbody_name` + pool/lava shortening + article-suppression list +
+first-match `a trap` + hit_trap/drawbridge/vibrating-square guards,
+holder out-params for C pointers; `:1631–1667` `add_quoted_engraving`
+exact `" (engraving"`/`" (grave"` match + eread remembered-text vs
+unread + BUFSZ cap + force gate; `:1966–1974` `look_region_nearby`
+holder-mutating export with `look_region` delegating; `:2748–2818`
+seven `dispfile_*` + five `hmenu_*` live as the `dohelp` items in C
+`help_menu_items` order on file-macro consts; `:2961–2965` exported
+`dohistory` → `ECMD_OK`; `sym.h:98–99` local `is_cmap_trap`/
+`is_cmap_drawbridge`; `mon_nam` scratch unneeded);
+`do_screen_description` showsyms scan (call sites not yet rewired) +
+`look_engrs` headstone/`strsubst` wiring + `sysopt.hideusage` gate +
+PORT_HELP named
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 

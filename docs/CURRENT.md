@@ -42,12 +42,12 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`suit_simple_name`/
 `show_conduct` (parked) ×1 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `hitmsg` closed by D-1894 losexp fix).
-Reviews **835–842** (D-1865…D-1902): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1902):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1902):
-8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1902):
+Reviews **835–842** (D-1865…D-1903): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1903):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1903):
+8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1903):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1902): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1903): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -83,10 +83,11 @@ before fire getobj (D-0484 skip reverted).
 **Next cluster:** `pager.c` history/descr arms — dohistory, add_cmap_descr, add_quoted_engraving, look_region_nearby, hmenu_dowhatis, dispfile_* (HELDOUT Tier C).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1902 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1903 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1903** `pager.c` `dohistory :2961–2965` / `dispfile_help :2748–2752` / `dispfile_shelp :2754–2758 — C-order ports in `js/pager.js` (+~277/−24): `look_region_nearby(out, nearby)` holder-mutating export (C lo_y/lo_x/hi_y/hi_x order, `ux|0`/`uy|0` ints) with `look_region` kept as a delegating wrapper (clone drift deleted)
 **D-1902** `mkmap.c` `get_map :54–60` / `pass_one :67–96` / `pass_two :100–121` / `pass_three :123–14 — new `js/mkmap.js` (+~170, 6 exports, C names/signatures): bounds-exact `get_map` (OOB→bg); in-place `pass_one` (writes hit levl mid-sweep — later cells see updated neighbours, preserved); double-buffered `pass_two` (==5→
 **D-1901** `polyself.c` `domindblast :1893–1938` (46 lines): uen<10 refuse, uen−=10 + botl, `rnd(15)` — deleted both blocks including the `mhp<1 continue` guard line that only served them; `passive()` already owns gaze retaliation on its real melee trigger path.
 **D-1900** `wizard.c` `which_arti :141–157` / `mon_has_arti :164–177` / `other_mon_has_arti :183–195` — C-order ports.
@@ -94,11 +95,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1898** `cmd.c` `domonability` (hide/web prompt + 15-arm chain) ; `polyself.c` `dospit :1450–1478` — C-order dispatch incl. the hide/web `yn_function` prompt (`hidespinchars`, q/ESC → ECMD_OK) ahead of every arm; `dospit` (`getdir`→ECMD_CANCEL, `attacktype_fordmg` AT_SPIT/AD_ANY=-1, BLND/DRST→blinding else ACID→acid wit
 **D-1897** `hack.c` `findtravelpath :1266–1523` — New `travel_delay_current(x,y)` (`!Passes_walls_prop() && !can_ooze(youmonst) && closed_door` || `boulder && !could_move_onto_boulder`, C `:1403–1407`) on same-edge imports only — exported `Passes_walls_prop` (`hack.js`)
 **D-1896** `read.c` `seffect_mail :2157–2188` / `seffect_enchant_armor :1115–1290` / `seffect_confuse — Ported all eleven C functions in C branch order with short-circuit, RNG (`rn2/rnd/rn1/d`), and mutation semantics preserved: charging confused uen/discharge+botl else learnscroll/useup-first/getobj+recharge; amnesia forg
-**D-1895** `dat/tut-2.lua` (whole file, 27 ln) via `mkmaze.c` `makemaz` `:1127–1223` → `load_special` — `load_tut2` in lua order through end of file — `nhlib_shuffle_align`, STONE solidfill + `is_maze_lev`/`nomongen`/`deathdrops=false`/`noautosearch` (tut-1 idiom), byte-identical 14x8 map via `splev_map_center_start` + `se
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1902; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1903; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
