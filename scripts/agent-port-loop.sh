@@ -6,8 +6,9 @@
 # continue-unfinished (cite that iter's .raw/.log + a resume brief),
 # rewind n, retry in this run; a provider quota error halts instead
 # (latch kept). Density, protected files still halt. Empty ports (unless a
-# Parked-row move) and an empty queue after port warn and arm a next-iter
-# overlay instead of halting. QUALITY-RISK without Must-fix still halts.
+# Parked-row move), an empty queue after port, and QUALITY-RISK/REJECT
+# reviews without a Must-fix row warn and arm a next-iter overlay instead
+# of halting.
 # Banned-pattern hits do not write STOP: revert if unpushed, else arm
 # a next-iter heal prompt.
 # Stop: write "1" into STOP_AGENT_LOOP.md.
@@ -61,11 +62,12 @@ Options:
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
 Muse knobs: MUSE_BIN, MUSE_REASONING_EFFORT, MUSE_NO_SESSION_LOG, LOOP_MUSE.
-Fail-closed (default): density / protected / empty-port /
-QUALITY-RISK-without-Must-fix halt and revert the iteration (or halt
-without reset if already pushed). Green / full-suite regression and
-banned-pattern hits are logged; the loop continues so the next
-iteration can recover (unpushed ban → revert; pushed ban → heal prompt).
+Fail-closed (default): density / protected halt and revert the iteration
+(or halt without reset if already pushed). Green / full-suite regression,
+banned-pattern hits, empty ports, empty queue after port, and
+QUALITY-RISK/REJECT without Must-fix are logged; the loop continues so
+the next iteration can recover (unpushed ban → revert; pushed ban → heal
+prompt; review debt → must-fix overlay).
 Every LOOP_CADENCE_EVERY (10) is review + full-suite score (no port).
 Crash-before-commit keeps the tree, arms continue-unfinished (with
 that iter's .raw/.log), rewinds n, and **retries in this supervisor
@@ -855,6 +857,37 @@ arm_empty_port_prompt() {
     | tee -a "$MASTER_LOG"
 }
 
+# Next iteration prepends the Must-fix row a QUALITY-RISK/REJECT review
+# should have filed, or writes a missing review file. Yields to heal /
+# continue latch.
+arm_review_debt_prompt() {
+  local iter="$1"
+  local kind="$2"
+  if [[ -f "$NEXT_ITER_PROMPT" || -f "$CONTINUE_LATCH" ]]; then
+    return 0
+  fi
+  {
+    echo "The supervisor flagged iteration **#${iter}** as incomplete audit work."
+    echo "Do not write STOP and do not wait for a human."
+    echo
+    case "$kind" in
+      no-review-file)
+        echo "The iteration was review/audit mode but no new file appeared under"
+        echo "\`reviews/loop-unattended/\`. Write the missing review for the"
+        echo "shipped commit, then prepend any required Must-fix row."
+        ;;
+      no-mustfix)
+        echo "A review with verdict **QUALITY-RISK** or **REJECT** landed but"
+        echo "no new **Must-fix** row was prepended to \`docs/LOOP-QUEUE.md\`."
+        echo "Read the latest review in \`reviews/loop-unattended/\`, prepend the"
+        echo "Must-fix item it requires (cite the review + D-id), then continue."
+        ;;
+    esac
+  } >"$NEXT_ITER_PROMPT"
+  echo "$(date -Iseconds) note: review-debt overlay armed for next iteration (${kind})" \
+    | tee -a "$MASTER_LOG"
+}
+
 # Navigation discipline (advisory; never halts, never reverts). Names only
 # the grep classes this iteration answered BY HAND while calling the script
 # that answers them zero times — so it goes quiet as substitution improves
@@ -1566,9 +1599,11 @@ while true; do
   if [[ "$mode" == "review" || "$mode" == "audit" ]]; then
     if ! touched_since "$before_head" "reviews/loop-unattended"; then
       if (( agent_pushed )); then
-        halt_loop "review produced no reviews/loop-unattended/ file AND already pushed" 0
+        warn_regression "review produced no reviews/loop-unattended/ file AND already pushed"
+      else
+        warn_regression "review iteration wrote no reviews/loop-unattended/ file"
       fi
-      halt_loop "review iteration wrote no reviews/loop-unattended/ file" 1
+      arm_review_debt_prompt "$iter" "no-review-file"
     fi
     if [[ "$after_head" == "$before_head" ]]; then
       write_iter_count $((iter - 1))
@@ -1599,9 +1634,11 @@ while true; do
       mustfix_after="$(mustfix_open_count)"
       if (( mustfix_after <= mustfix_before )); then
         if (( agent_pushed )); then
-          halt_loop "QUALITY-RISK/REJECT review added no Must-fix queue item AND already pushed" 0
+          warn_regression "QUALITY-RISK/REJECT review added no Must-fix queue item AND already pushed"
+        else
+          warn_regression "QUALITY-RISK/REJECT review added no Must-fix item in docs/LOOP-QUEUE.md"
         fi
-        halt_loop "QUALITY-RISK/REJECT review added no Must-fix item in docs/LOOP-QUEUE.md" 1
+        arm_review_debt_prompt "$iter" "no-mustfix"
       fi
     fi
   fi
