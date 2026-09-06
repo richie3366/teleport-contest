@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `weapon.c` select_hwep — HTH weapon-select arms (turns.md named omit). **Addressed:** D-1930
+- [x] `objnam.c` mshot_xname — Nth/xname arms (turns.md named omit). **Addressed:** D-1931
+
+
+- [x] `weapon.c` select_hwep — HTH weapon-select arms (turns.md named omit). **Addressed:** D-1930 `63add93d`
 
 
 - [x] `weapon.c` hitval — blessed/spear/trident/pick/silver remaining arms (named still-deferred in D-1793; spec_abon is D-0611). **Addressed:** D-1929 `aa665cb9`

@@ -29,7 +29,7 @@ import {
     pmnames, MALE, FEMALE, NEUTRAL, NON_PM, NUMMONS, LOW_PM, NUM_MGENDERS,
 } from './monsters.js';
 import { BOGUSMON_BUF } from './generated/bogusmon_data.js';
-import { upstart, highc } from './hacklib.js';
+import { upstart, highc, ordin } from './hacklib.js';
 import { genders } from './roles.js';
 import {
     PM_SAMURAI, PM_CLERIC, PM_ARCHEOLOGIST, PM_LICHEN, PM_ACID_BLOB, PM_LONG_WORM_TAIL,
@@ -991,6 +991,23 @@ export function xname(obj) {
         base = base.slice(4);
     }
     return base;
+}
+
+/**
+ * C ref: objnam.c mshot_xname :1090-1102 — "the Nth <xname>" while a
+ * multishot volley of the same otyp is in flight (gm.m_shot.n > 1,
+ * gm.m_shot.o == obj->otyp); bare xname otherwise. The "the " prefix is
+ * for an()/The(), which handle it. C strprepend (objnam.c staticfn :123)
+ * is plain prefix concat in JS.
+ */
+export function mshot_xname(obj) {
+    let onm = xname(obj);
+    const ms = game.m_shot;
+    if (ms && (ms.n | 0) > 1 && (ms.o | 0) === (obj.otyp | 0)) {
+        const i = ms.i | 0;
+        onm = `the ${i}${ordin(i)} ` + onm;
+    }
+    return onm;
 }
 
 /**

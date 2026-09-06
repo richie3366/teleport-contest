@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `objnam.c` mshot_xname — Nth/xname arms (turns.md named omit).
 - [ ] `uhitm.c` mhitm_knockback — hurtle/steadfast/size/weapon body (named deferred in js/mhitm.js stub + turns.md).
 - [ ] `trap.c` m_easy_escape_pit — pit-fiend identity arm dead (file-local `js/trap.js:1802` compares `data === mons[PM_PIT_FIEND]` but `mons` is a function, so the lookup is undefined; pit fiend msize 3 < MZ_HUGE 4, C `ptr == &mons[PM_PIT_FIEND]` always escapes; spotted while porting the mintrap body).
 - [ ] `do_wear.c` ia_dotakeoff — takeoff one-at-a-time arm (HELDOUT Tier C do_wear row; no JS symbol).

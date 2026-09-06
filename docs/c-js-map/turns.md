@@ -1125,7 +1125,8 @@ on `_body_part`; `wipeout_text` late-bound from `engrave.js`; attrib
 `ysimple_name` clone deleted so `from_what` uses exported `simpleonames`
 not `cxname`). Named: xname article arms; `armor_simple_name` for called
 (still `dn`); `find_artifact`; `releaseobuf`/PREFIX overflow paniclog;
-`hawaiian_design` / doread shirt-apron-hawaiian; `obj_is_pname` goto nameit
+`hawaiian_design` / doread shirt-apron-hawaiian; `obj_is_pname` goto nameit +
+**`mshot_xname` (D-1931; `objnam.c:1090–1102`** `xname` + `m_shot.n > 1 && o == otyp` → `"the Nth "` via canonical `hacklib.js ordin` export; wired `dothrow tmiss`, `uhitm` thrown hit, `mthrowu thitu` single path with C quan branch; named: sink/miss end-of-path `mthrowu.c:801–813`, stone-missile no-harm `uhitm.c:1402`, destroyed+multishot gate, monster-side `m_shot`, `thitu` quan>1 `doname`)
 
 ### `src/invent.c` `hold_another_object` / `prinv` / `count_contents` / `assigninvlet`
 

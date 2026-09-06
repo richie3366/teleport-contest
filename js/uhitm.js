@@ -77,7 +77,7 @@ import { explode, mon_explodes, adtyp_to_expltype } from './explode.js';
 import { rehumanize, body_part, mbodypart } from './polyself.js';
 import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination, type_is_pname, pmname, a_monnam, safe_oname } from './do_name.js';
 import { artifact_hit, youmonst, is_art, artifact_exists } from './artifact.js';
-import { xname, vtense, The, An, an, singular, makeplural, cxname, simpleonames, otense } from './objnam.js';
+import { xname, vtense, The, An, an, singular, makeplural, cxname, simpleonames, otense, mshot_xname } from './objnam.js';
 import { abuse_dog, tamedog } from './dog.js';
 import { makemon, makemon_appear_msg, newcham } from './makemon.js';
 import { ndemon } from './minion.js';
@@ -949,8 +949,8 @@ async function hmon(mon, obj, thrown, _dieroll) {
                 await pline('You hit it.');
             }
         } else if (thrown) {
-            // C: thrown/kicked/applied → hit(mshot_xname); mshot deferred
-            const missile = xname(obj);
+            // C uhitm.c:1646-1647: thrown/kicked/applied → hit(mshot_xname)
+            const missile = mshot_xname(obj);
             const bx = game.bhitpos?.x ?? mon.mx;
             const by = game.bhitpos?.y ?? mon.my;
             const whom = ((cansee(bx, by) || canspotmon(mon))

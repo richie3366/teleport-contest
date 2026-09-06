@@ -47,7 +47,7 @@ import { Monnam, mon_nam } from './do_name.js';
 import {
     nohands, mons, throws_rocks, MZ_MEDIUM, MZ_TINY, nonliving,
 } from './monsters.js';
-import { xname, singular, an, vtense, the, makeplural } from './objnam.js';
+import { xname, singular, an, vtense, the, makeplural, mshot_xname } from './objnam.js';
 import { mbodypart, body_part } from './polyself.js';
 import {
     VENOM_CLASS, POTION_CLASS, WEAPON_CLASS, GEM_CLASS, TOOL_CLASS,
@@ -504,7 +504,8 @@ export async function breamu(mtmp, mattk) {
 
 /**
  * C ref: mthrowu.c thitu — hit/miss vs hero AC; onm via an(xname)/mshot.
- * Multishot mshot_xname "the Nth" prefix deferred (single-shot path).
+ * C mthrowu.c:89-90: quan>1 → doname, else mshot_xname (objnam.c:1090-1102).
+ * doname stays deferred (singular keeps the old quan>1 wording).
  */
 export async function thitu(tlev, dam, objp, name) {
     const obj = objp ? objp.obj : null;
@@ -514,8 +515,8 @@ export async function thitu(tlev, dam, objp, name) {
     let onmbuf;
     if (!name) {
         if (!obj) throw new Error('thitu: name & obj both null');
-        // quan>1 → doname deferred; single missile uses xname (mshot_xname)
-        onmbuf = singular(obj, xname) || xname(obj) || 'missile';
+        onmbuf = ((obj.quan | 0) > 1 ? singular(obj, xname) : mshot_xname(obj))
+            || 'missile';
         name = onmbuf;
     } else {
         onmbuf = name;

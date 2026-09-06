@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1931 — objnam.c mshot_xname Nth/xname arms (turns.md named omit)
+
+- **Status:** fixed (Open queue row: `objnam.c` mshot_xname — Nth/xname arms, turns.md named omit)
+- **Symptom:** none on any suite (no corpus session blocked on mshot_xname at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-wrongs: hero-volley `tmiss` and thrown/kicked/applied `hmon` hit lines never printed "the Nth arrow"; `thitu` never took the C quan branch (`doname` vs `mshot_xname`).
+- **C locus:** `objnam.c` `mshot_xname` `:1090–1102` (`xname(obj)`, then `gm.m_shot.n > 1 && gm.m_shot.o == obj->otyp` → `Sprintf "the %d%s "` + `ordin` + `strprepend`); `strprepend` staticfn `:123`; `ordin` `hacklib.c`; callers `dothrow.c:1953` (`tmiss`), `mthrowu.c:91` (`thitu`), `mthrowu.c:806/813` (sink/miss end-of-path), `uhitm.c:1402` (stone-missile no-harm), `uhitm.c:1646–1647` (`hmon_hitmon_msg_hit`); `multishot` `hack.h:664–668` (`n, i, o, s` — matches live `game.m_shot` in `js/dothrow.js:964–1007`).
+- **JS was:** no `mshot_xname` symbol; `tmiss` (`js/dothrow.js:327`) and `hmon` thrown arm (`js/uhitm.js:952`) called bare `xname(obj)`; `thitu` (`js/mthrowu.js:517`) always ran `singular(obj, xname)` so the fallback `xname(obj)` was dead; `ordin` existed only as a file-local clone in `js/dothrow.js:722`.
+- **Fix:** exported `mshot_xname(obj)` from `js/objnam.js` in C order (xname, then `m_shot.n > 1 && m_shot.o === otyp` guard with `| 0` int semantics, `` `the ${i}${ordin(i)} ` `` prefix — C `strprepend` is concat in JS); added canonical `ordin` export to `js/hacklib.js` (C home; dothrow keeps its matching clone for `endmultishot`); wired the three live call sites (`tmiss`, `hmon` thrown arm, `thitu` single path with C quan branch `> 1 ? singular : mshot_xname`, doname still deferred). All four imports ride existing edges (`imports.mjs --can`: no new edge).
+- **JS:** `js/objnam.js` (`mshot_xname`), `js/hacklib.js` (`ordin`), `js/dothrow.js` (`tmiss`), `js/mthrowu.js` (`thitu`), `js/uhitm.js` (thrown hit line).
+- **Verify:** `node scripts/verify.mjs --fn mshot_xname` → PASS (syntax 5 files; rule2 clean; green 2/2 + strict lengths; cohort 7/7; hidden vacuous note — zero sessions blocked at HEAD, row cited none, public gates ship it). Hand probe (`/tmp/mshot-probe.mjs`, deleted): volley `n=3/o-match/i=2` → `"the 2nd stiletto"`, `i=11` → `"the 11th stiletto"`, otyp mismatch and `n=0` → bare xname; `ordin` 13-case sweep incl. 0/11–13/111–112 all C-correct.
+- **Named omissions:** `mthrowu.c:801–813` sink/miss end-of-path (`The(mshot_xname(singleobj))` arms — flight-end still named at `js/mthrowu.js:919`); `uhitm.c:1402` stone-missile "does no harm" arm (no JS site); `uhitm.c:1641–1645` destroyed+multishot message gate (`!destroyed || (thrown && m_shot.n > 1 && o match)` — JS keeps `!destroyed` only); monster-side `m_shot` tracking (`mthrowu.c:288–312` — JS sets `game.m_shot` for hero volleys only, so `thitu` prefix fires on hero-volley state); `doname` quan>1 in `thitu` (kept `singular` wording).
+- **Next:** pop next Open row (`uhitm.c` mhitm_knockback).
+
 ## D-1930 — weapon.c select_hwep HTH weapon-select arms (oselect cockatrice filter, Balrog, resists_ston, touch_artifact order)
 
 - **Status:** fixed (Open queue row: `weapon.c` select_hwep — HTH weapon-select arms, turns.md named omit)
