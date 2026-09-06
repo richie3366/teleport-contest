@@ -5809,7 +5809,12 @@ function _buildScreenOutput() {
         } else if (msg.includes('\n--More--')) {
             display.setCursor(8, 1);
         } else if (game.u?.ux > 0) {
-            display.setCursor(game.u.ux - 1, game.u.uy + 1);
+            // C wintty.c tty_curs `:2119–2124`: curx = --x, then
+            // x += offx / y += offy, and WIN_MAP with CLIPPING shows
+            // x -= clipx / y -= clipy (JS offx 0 / offy 1; clips 0 at
+            // 80x24 — the same cursor as before).
+            display.setCursor(game.u.ux - 1 - (clipping ? clipx : 0),
+                game.u.uy + 1 - (clipping ? clipy : 0));
         }
     }
 }
@@ -5932,6 +5937,11 @@ function _paint_gbuf_cell(mx, my, sc, sr) {
     const display = game?.nhDisplay;
     const loc = game.level?.at(mx, my);
     if (!display?.setCell || !loc) return;
+    // C wintty.c tty_print_glyph `:3869–3873` CLIPPING gate: cells
+    // outside [clipx, clipxmax) x [clipy, clipymax) never reach the tty.
+    // Shut (!clipping) at 80x24 — every cell paints as before.
+    if (clipping && (mx <= clipx || my < clipy
+            || mx >= clipxmax || my >= clipymax)) return;
     if (loc.disp_ch == null || loc.disp_ch === '') return;
     let ch = loc.disp_ch;
     if (loc.disp_decgfx) {
@@ -5961,8 +5971,9 @@ function _paint_gbuf_cell(mx, my, sc, sr) {
  * Named omissions: `gw.wsettings.map_frame_color` store + its
  * getpos_sethilite HI_ZAP/NO_COLOR maintenance (`getpos.c:57–58`,
  * HiliteBackground deferred per `js/getpos.js`), so the frame arm reads
- * shut until that wiring lands; CLIPPING `clipx`/`clipy` (callers pass
- * map coords); the `#if 0` null-framecolor guard is compiled out upstream.
+ * shut until that wiring lands; CLIPPING pan (callers pass map coords
+ * as in C; the tty offsets live in `_paint_gbuf_cell` + `docorner`);
+ * the `#if 0` null-framecolor guard is compiled out upstream.
  * @param {number} x map x, C `coordxy x`
  * @param {number} y map y, C `coordxy y`
  * @returns {{bkglyph:number, framecolor:number}} C `*bkglyph`/`*framecolor`
@@ -6068,8 +6079,9 @@ export function get_bkglyph_and_framecolor(x, y) {
  * into show_glyph_cell; they cannot flip UNEXPLORED at (0,0): is_you is
  * false there and accessibility defaults off, so `force` stays false);
  * `gw.wsettings.map_frame_color` store + getpos HiliteBackground wiring
- * (see `get_bkglyph_and_framecolor`); CLIPPING `clipx`/`clipy` start
- * adjustment (caller passes map coords).
+ * (see `get_bkglyph_and_framecolor`); tty pan offsets live in the
+ * `docorner` caller + `_paint_gbuf_cell` gate (this function takes map
+ * coords, as in C).
  * @param {number} start map x, C `coordxy start`
  * @param {number} stop map x inclusive, C `coordxy stop`
  * @param {number} y map y, C `coordxy y`
@@ -6112,7 +6124,9 @@ export function row_refresh(start, stop, y) {
  * print_glyph with no separate tty consumer (see that function).
  * Async: `flush_screen` awaits bot/more (nhgetch reach).
  * Named: caller wiring — docrt_flags redrawonly stays named on `docrt`;
- * tty cliparound resend has no JS window-port caller yet.
+ * core `cliparound` call sites stay named on `tty_cliparound`
+ * (allmain/dungeon/getpos/muse/restore); the tty resend arm itself
+ * (`wintty.c:3840`) is live via `tty_cliparound`.
  * @param {number} cursor_on_u C `boolean` — flush puts cursor on hero
  */
 export async function redraw_map(cursor_on_u) {
@@ -6134,6 +6148,132 @@ export async function redraw_map(cursor_on_u) {
     }
     // C `:1808` flush_screen(cursor_on_u).
     await flush_screen(cursor_on_u);
+}
+
+// ── CLIPPING pan state ──
+// C ref: win/tty/wintty.c `:186–193` — `#ifdef CLIPPING`
+// (config.h:537–538; compiled in unless NOCLIPPING): file-static pan
+// offsets that slide the COLNO x ROWNO map across a smaller tty screen.
+// CO/LI are the tty dimensions; JS reads game.nhDisplay.cols/rows
+// (Terminal/GameDisplay default 80x24). HUPSKIP is empty without
+// HANGUPHANDLING (`:93–94`), so there is no hangup arm to port.
+// At 80x24 `CO >= COLNO` and `LI >= 1 + ROWNO + statuslines`, so
+// newclipping leaves clipping FALSE and every gate below stays shut.
+let clipping = false;
+let clipx = 0, clipxmax = 0;
+let clipy = 0, clipymax = 0;
+
+/**
+ * C ref: win/tty/wintty.c tty clip extent — screen columns and rows
+ * backing CLIPPING (C `CO`/`LI` globals). Missing display means the
+ * full-size layout JS always renders, never a zero screen.
+ * @returns {{ co: number, li: number }}
+ */
+function clip_screen_size() {
+    const d = game?.nhDisplay;
+    return { co: (d?.cols | 0) || 80, li: (d?.rows | 0) || 24 };
+}
+
+/**
+ * C ref: win/tty/wintty.c setclipped `:3806–3814` — clipping on, pan at
+ * the origin, extents at the screen size (`LI - 1 - wc2_statuslines`;
+ * wc2_statuslines defaults 2 per options.c:7263, as in the JS options
+ * table default).
+ */
+export function setclipped() {
+    const { co, li } = clip_screen_size();
+    const statuslines = ((game.iflags?.wc2_statuslines ?? 2) | 0);
+    clipping = true;
+    clipx = 0;
+    clipy = 0;
+    clipxmax = co | 0;
+    clipymax = ((li | 0) - 1 - statuslines) | 0;
+}
+
+/**
+ * C ref: win/tty/wintty.c newclipping `:471–485` — a small screen
+ * entraps the pan (setclipped, plus tty_cliparound when x is nonzero);
+ * a full-size screen switches clipping off and zeroes the offsets.
+ * C is static; exported so the arms stay testable, like
+ * get_bkglyph_and_framecolor. Async only because tty_cliparound
+ * reaches redraw_map (nhgetch reach), same shape as redraw_map D-1974.
+ * Named: resize/preference_update callers (no JS resize path; the
+ * display is fixed 80x24).
+ * @param {number} x map x, C `coordxy x` (0 = no position, skip the pan)
+ * @param {number} y map y, C `coordxy y`
+ */
+export async function newclipping(x, y) {
+    const xi = x | 0;
+    const yy = y | 0;
+    const { co, li } = clip_screen_size();
+    const statuslines = ((game.iflags?.wc2_statuslines ?? 2) | 0);
+    // C `:475` CO < COLNO || LI < 1 + ROWNO + wc2_statuslines.
+    if (co < COLNO || li < 1 + ROWNO + statuslines) {
+        setclipped();
+        // C `:477–478` if (x) tty_cliparound(x, y).
+        if (xi) await tty_cliparound(xi, yy);
+    } else {
+        clipping = false;
+        clipx = 0;
+        clipy = 0;
+    }
+}
+
+/**
+ * C ref: win/tty/wintty.c tty_cliparound `:3817–3842` — pan the viewport
+ * toward (x, y) with C's hysteresis (5-cell x margin shifting 20,
+ * 2-cell y margin shifting half the viewport height), then ask the core
+ * to resend the map (`redraw_map(TRUE)` `:3840`) when the origin moved.
+ * Async only because redraw_map awaits flush_screen (nhgetch reach),
+ * same shape as redraw_map D-1974.
+ * Named: core call sites (allmain.c:546 moveloop, dungeon.c:1580
+ * u_on_newpos, getpos.c:851/1146, muse.c:2637, restore.c:629) —
+ * function live, unwired.
+ * @param {number} x map x, C `int x`
+ * @param {number} y map y, C `int y`
+ */
+export async function tty_cliparound(x, y) {
+    const xi = x | 0;
+    const yy = y | 0;
+    const oldx = clipx;
+    const oldy = clipy;
+    // C HUPSKIP() is empty without HANGUPHANDLING — no arm.
+    // C `:3823–3824` if (!clipping) return.
+    if (!clipping) return;
+    const { co, li } = clip_screen_size();
+    const statuslines = ((game.iflags?.wc2_statuslines ?? 2) | 0);
+    // C `:3825–3831` x hysteresis: near the left edge re-anchor 20
+    // back, near the right edge slide 20 forward (clamped to the map).
+    if (xi < clipx + 5) {
+        clipx = Math.max(0, xi - 20);
+        clipxmax = clipx + co;
+    } else if (xi > clipxmax - 5) {
+        clipxmax = Math.min(COLNO, clipxmax + 20);
+        clipx = clipxmax - co;
+    }
+    // C `:3832–3838` y hysteresis: half the viewport height each way;
+    // the `/ 2` truncates exactly like C integer division (non-negative).
+    if (yy < clipy + 2) {
+        clipy = Math.max(0, yy - (((clipymax - clipy) / 2) | 0));
+        clipymax = clipy + (li - 1 - statuslines);
+    } else if (yy > clipymax - 2) {
+        clipymax = Math.min(ROWNO, clipymax + (((clipymax - clipy) / 2) | 0));
+        clipy = clipymax - (li - 1 - statuslines);
+    }
+    // C `:3839–3841` origin moved → redraw_map(TRUE).
+    if (clipx !== oldx || clipy !== oldy) await redraw_map(1);
+}
+
+/**
+ * C ref: include/winprocs.h `:141–142` — `#define cliparound
+ * (*windowprocs.win_cliparound)`: the core-facing pan entry the tty
+ * procs dispatch to tty_cliparound. Async for the same redraw_map
+ * reach as tty_cliparound.
+ * @param {number} x map x
+ * @param {number} y map y
+ */
+export async function cliparound(x, y) {
+    await tty_cliparound(x | 0, y | 0);
 }
 
 /**
@@ -6262,14 +6402,16 @@ export async function docorner(xmin, ymax, ystart = 0) {
     for (let y = y0; y < y1; y++) {
         for (let c = x0; c < cols; c++)
             display.setCell(c, y, ' ', NO_COLOR, 0);
-        // C: y < WIN_MAP.offy || y > ROWNO → skip board
-        if (y < 1 || y > ROWNO) continue;
+        // C `:3696` y < offy || y + clipy > ROWNO → skip board (tty
+        // tty_display_nhwindow; JS offy 1; clipy 0 at 80x24, so y > ROWNO).
+        if (y < 1 || y + clipy > ROWNO) continue;
         // C `:3704` row_refresh(xmin + clipx - offx, COLNO - 1,
-        // y + clipy - offy); JS offx 0 / offy 1, no CLIPPING: xmin is
-        // x0 + 1, so the map segment is [x0 + 1, COLNO - 1] at y - 1.
+        // y + clipy - offy); JS offx 0 / offy 1: xmin is x0 + 1, so the
+        // map segment is [x0 + 1 + clipx, COLNO - 1] at y - 1 + clipy
+        // (clips 0 at 80x24 — the same cells as before).
         // row_refresh skips UNEXPLORED cells C would skip, leaving the
         // cl_end blank — visually identical, no redundant setCell.
-        row_refresh(x0 + 1, COLNO - 1, y - 1);
+        row_refresh(x0 + 1 + clipx, COLNO - 1, y - 1 + clipy);
     }
     // C: ymax >= wins[WIN_STATUS]->offy → disp.botlx = TRUE; bot();
     if (y1 >= 22) {

@@ -2086,8 +2086,8 @@ both render `' '`/`NO_COLOR`; `framecolor` live via `get_bkglyph_and_framecolor`
 `_paint_gbuf_cell` at `(x - 1, y + 1)`; `docorner` board loop rewired to it;
 named: `map_glyphinfo` glyphmap[]-base/symidx/tileidx/ov_* arms (hero color
 + pet-NOOVERRIDE arms live since D-1972),
-`gw.wsettings.map_frame_color` store + getpos HiliteBackground wiring,
-CLIPPING `clipx`/`clipy`);
+`gw.wsettings.map_frame_color` store + getpos HiliteBackground wiring;
+tty pan offsets live since D-1982 (`docorner` caller + `_paint_gbuf_cell` gate));
 |**`get_bkglyph_and_framecolor` live** (D-1973; C `display.c:2507–2579`;
 `js/display.js` exported in C arm order with `| 0` int idiom —
 use_background_glyph/seenv/gbuf gate (shut on tty per `windmain.c:332`,
@@ -2096,7 +2096,7 @@ LAVAPOOL/LAVAWALL switch with S_room default, out-of-sight litcorr→corr +
 DARKROOMSYM darken, S_room→no-bg, bgcolors + stored-frame +
 `mapxy_valid` frame arm (`js/getpos.js` export of `getpos.c:93–99`);
 wired into `row_refresh` at the C `:2178–2179` shape; named: frame store +
-`getpos_sethilite` maintenance, CLIPPING);
+`getpos_sethilite` maintenance (tty pan live since D-1982 — callers pass map coords, as in C));
 |**`map_glyphinfo` live** (D-1972; C `display.c:2594–2656`;
 `js/display.js` exported in C order with `| 0` int idiom —
 `u_at && glyph_is_monster` is_you, `!use_color || Upolyd || glyph !=
@@ -2117,7 +2117,7 @@ every cell in range so never `&no_ginfo`; default `!UNBUFFERED_GLYPHINFO`
 ignores `glyph`, hushed via `void` like C's `nhUse`);
 `await flush_screen(cursor_on_u)` (async for bot/more reach);
 `on_level` added to the existing `./dungeon.js` import (same SCC edge);
-named: docrt_flags redrawonly + tty cliparound caller wiring);
+named: docrt_flags redrawonly + core `cliparound` call sites (tty resend live since D-1982 via `tty_cliparound`));
 |**`reglyph_darkroom` live** (D-1975; C `display.c:1818–1854`;
 `js/display.js` exported sync in C order with `| 0` int idiom —
 `!dark_room: S_corr+waslit→S_litcorr` (`:1826–1829`), `dark_room:
