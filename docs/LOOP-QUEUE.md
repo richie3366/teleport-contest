@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `allmain.c` init_sound_disp_gamewindows — window-system init singleton (HELDOUT Tier C singletons; no JS symbol anywhere in js/).
 - [ ] `nhlsel.c` l_selection_iterate — selection-iterate Lua-C singleton (HELDOUT Tier C singletons; no JS symbol, comment-only refs in js/mklev.js).
 - [ ] `dbridge.c` do_entity — drawbridge crush/jump/relocate driver (HELDOUT Tier C; named omit in js/dbridge.js, set_entity live).
 - [ ] `mkmaze.c` maybe_adjust_hero_bubble — water-level hero-bubble adjust (HELDOUT Tier C mkmaze row; named omit in js/mklev.js).

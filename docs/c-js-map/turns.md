@@ -95,7 +95,13 @@ dokick(2) D-1360; uhitm do_attack(3) D-1373; dothrow/dig still named);
 **`moveloop_core` `sanity_check` D-1664** (`allmain.c:197–198` `iflags.sanity_check\|\|debug_fuzzer` 
 before `context.move`; opt_in Off; callee `wizcmds.c`; **`dobjsfree` D-1743**
 `allmain.c:192`; **SAFERHANGUP `end_of_input` D-1801** `allmain.c:181–184`; 
-bypasses / resume_wish named)
+bypasses / resume_wish named); **`init_sound_disp_gamewindows` window-system init
+`allmain.c:699–763`** (D-1965; `js/allmain.js` export, wired in `js/jsmain.js`
+before restore per `unixmain.c:217`; sentinel `WIN_MESSAGE/WIN_STATUS/WIN_MAP/
+WIN_INVEN` ids + `opt_need_promptstyle` clear + live `prepare_perminvent` /
+`clear_glyph_buffer`; soundlib/SoundAchievement/palette/promptstyle-relay/
+empty-menu/Qt + MESSAGE/MAP paints named; STATUS paint compiled out
+(`STATUS_HILITES`); `check_perm_invent_again` pending-false named)
 
 ### `src/wizcmds.c`
 
