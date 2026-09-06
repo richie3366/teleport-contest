@@ -942,3 +942,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [929-57b55f0e-mnum-leashable-predicate.md](./929-57b55f0e-mnum-leashable-predicate.md) | `57b55f0e` | D-1959 dogmove.c mnum_leashable | **ACCEPT** |
 | [930-0af4de34-better-not-try-drop-guard.md](./930-0af4de34-better-not-try-drop-guard.md) | `0af4de34` | D-1960 do.c better_not_try_to_drop_that | **ACCEPT** |
 | [931-100914d5-ceiling-predicates.md](./931-100914d5-ceiling-predicates.md) | `100914d5` | D-1961 dungeon.c has_ceiling/avoid_ceiling | **ACCEPT** |
+| [932-5e47ff6a-inside-rect-region-predicates.md](./932-5e47ff6a-inside-rect-region-predicates.md) | `5e47ff6a` | D-1962 region.c inside_rect/inside_region | **ACCEPT** |
+| [933-b3282b83-give-may-advance-msg-singleton.md](./933-b3282b83-give-may-advance-msg-singleton.md) | `b3282b83` | D-1963 weapon.c give_may_advance_msg | **ACCEPT** |
+| [934-08a778fe-row-refresh-singleton.md](./934-08a778fe-row-refresh-singleton.md) | `08a778fe` | D-1964 display.c row_refresh | **ACCEPT** |
+| [935-e8ba2bb7-init-sound-disp-gamewindows.md](./935-e8ba2bb7-init-sound-disp-gamewindows.md) | `e8ba2bb7` | D-1965 allmain.c init_sound_disp_gamewindows | **ACCEPT** |
+| [936-5b112530-selection-iterate-singleton.md](./936-5b112530-selection-iterate-singleton.md) | `5b112530` | D-1966 nhlsel.c l_selection_iterate | **ACCEPT** |
+| [937-fb655752-do-entity-drawbridge-driver.md](./937-fb655752-do-entity-drawbridge-driver.md) | `fb655752` | D-1967 dbridge.c do_entity family | **ACCEPT** |
+| [938-88050324-maybe-adjust-hero-bubble.md](./938-88050324-maybe-adjust-hero-bubble.md) | `88050324` | D-1968 mkmaze.c maybe_adjust_hero_bubble | **ACCEPT** |
+| [939-6eb83672-domonnoise-fullmoon-animal.md](./939-6eb83672-domonnoise-fullmoon-animal.md) | `6eb83672` | D-1969 sounds.c domonnoise FULL_MOON + animal | **ACCEPT** |
+| [940-de4686d7-use-defensive-hurt-monster.md](./940-de4686d7-use-defensive-hurt-monster.md) | `de4686d7` | D-1970 muse.c use_defensive hurt-monster arms | **ACCEPT** |

@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-06** — full `sessions` at **D-1961**
-(audit **923–931**, `100914d5`). Fortress held 44/44: seed0030
+Score last measured: **2026-09-06** — full `sessions` at **D-1970**
+(audit **932–940**, `de4686d7`). Fortress held 44/44: seed0030
 **D-1816**, seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
-**11,405**/11,405, RNG **792,838**/792,838 (identical to D-1952 audit). Speed `72+0.48/turn`
-(R² 0.80).
+**11,405**/11,405, RNG **792,838**/792,838 (identical to D-1952 audit). Speed `61+0.62/turn`
+(R² 0.87).
 
 ## Score
 
@@ -33,11 +33,11 @@ Score last measured: **2026-09-06** — full `sessions` at **D-1961**
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `72+0.48/turn` (R² 0.80) |
+| Speed label | `61+0.62/turn` (R² 0.87) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06 at
-D-1908): **255 / 265 PASS (96.2 %)** excl. 13 env-only rows;
+D-1970 audit 932–940): **255 / 265 PASS (96.2 %)** excl. 13 env-only rows;
 RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`show_conduct` (parked) ×1
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
@@ -57,7 +57,8 @@ case debt, review-listed), 0 Must-fix. Reviews 896–904:
 **905–913** (D-1935…D-1970): 9 ACCEPT, 0 Must-fix. Reviews
 **914–922** (D-1944…D-1970): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
 (doclassdisco sort-letter selector debt, review-listed), 0 Must-fix. Reviews
-**923–931** (D-1953…D-1970): 9 ACCEPT, 0 Must-fix.
+**923–931** (D-1953…D-1970): 9 ACCEPT, 0 Must-fix. Reviews
+**932–940** (D-1962…D-1970): 9 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
