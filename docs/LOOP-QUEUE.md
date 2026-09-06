@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `pickup.c` pickup — pickup body remaining arms (TOP30 honourable mention, 238/135; archived rows are sub-arms only).
 - [ ] `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner).
 - [ ] `zap.c` bhit — beam-hit body remaining arms (TOP30 honourable mention, 306/223; archived rows are named bits only).
 - [ ] `weapon.c` hitval — blessed/spear/trident/pick/silver remaining arms (named still-deferred in D-1793; spec_abon is D-0611).
@@ -56,6 +55,9 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `objnam.c` mshot_xname — Nth/xname arms (turns.md named omit).
 - [ ] `uhitm.c` mhitm_knockback — hurtle/steadfast/size/weapon body (named deferred in js/mhitm.js stub + turns.md).
 - [ ] `trap.c` m_easy_escape_pit — pit-fiend identity arm dead (file-local `js/trap.js:1802` compares `data === mons[PM_PIT_FIEND]` but `mons` is a function, so the lookup is undefined; pit fiend msize 3 < MZ_HUGE 4, C `ptr == &mons[PM_PIT_FIEND]` always escapes; spotted while porting the mintrap body).
+- [ ] `do_wear.c` ia_dotakeoff — takeoff one-at-a-time arm (HELDOUT Tier C do_wear row; no JS symbol).
+- [ ] `artifact.c` find_artifact/found_artifact — artifact discovery tracking (HELDOUT Tier C misc row; no JS symbol).
+- [ ] `artifact.c` spec_ability — special-ability checks (HELDOUT Tier C misc row; no JS symbol).
 
 ## Parked (do not pop)
 

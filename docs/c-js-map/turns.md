@@ -1382,10 +1382,10 @@ loot_classify subclass / count-N deferred; **floor TRADITIONAL `query_classes` D
 `add_to_container` merge / corpse `spe` gender** (D-0383; 
 nested/identified discover deferred; **`observe_quantum_cat` D-1535**); 
 **`autopick_testobj` + `O`/`@` doset_simple/dotogglepickup** (D-0368; 
-full allopt / exceptions / costly_spot / thrown·stolen filters deferred) + 
-**autopick end `check_here(n_picked>0)` + run nomul** (D-0387; hideunder/newsym_force deferred); 
+**full `autopick` + `autopick_testobj` + `check_autopickup_exceptions` D-1926** (C `pickup.c` `:912–1003` costly once-per-op / thrown·stolen override / dropped·exploding reject / pickup_types / exceptions; extern shared with `hack.c` `cannot_push`, clone removed; full allopt / AUTOPICKUP_EXCEPTION option parsing still deferred)) + 
+**autopick end `check_here(n_picked>0)` + run nomul** (D-0387; **hideunder/`newsym_force` shared tail D-1926**); 
 **`pickup` multi/`!pickup`/`notake` one gate + incapable pline** (D-0928 #1127; 
-unconscious skip deferred); **`pickup_object` gold `disp.botl` before pick/prinv** (D-0393); 
+**unconscious skip D-1926** (C `:684–688` prev_decor + return before encumbrance reset)); **`pickup_object` gold `disp.botl` before pick/prinv** (D-0393); 
 **`pickup_prinv`→`prinv` count/total_of** (D-0388); 
 **`#loot`/`doloot`/`doloot_core` D-1837** (C `pickup.c` `doloot` `:2166–2174` `loot_reset_justpicked`; `doloot_core` `:2178–2346` lootcont + lootmon `get_adjacent_loc("Loot in what direction?")`; `loot_mon` `:2430–2481` saddle + swallowed pickup; `lock.c` `doopen_indir` `:808–811` `u_at`/`dz>0` → `doloot`) + **`do_loot_cont` locked autounlock + `use_container` `:` look + 
 MENU_FULL take-out** (D-0362/D-0489/D-0490) + **`doloot` capacity+nohands + 

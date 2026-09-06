@@ -49,7 +49,6 @@ import {
 import { objectNames } from './generated/objects_data.js';
 import { WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, is_blade } from './objects.js';
 import { xname, the, The, makeplural, an } from './objnam.js';
-import { oclass_to_sym } from './options.js';
 import { A_STR, A_CON, A_DEX, acurr, acurrstr, exercise } from './attrib.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { ing_suffix } from './hacklib.js';
@@ -73,6 +72,7 @@ import { hit_bars } from './mthrowu.js';
 import { setuwep } from './wield.js';
 import { P_SKILL, weapon_type, use_skill } from './weapon.js';
 import { surface } from './sit.js';
+import { autopick_testobj } from './pickup.js';
 
 export { set_msg_xy };
 
@@ -266,17 +266,8 @@ export function test_move_run_blocked_by_boulder(x, y) {
     return true;
 }
 
-/**
- * C pickup.c autopick_testobj — pickup_types symbol filter.
- * calc_costly TRUE unused: costly_spot / thrown/stolen/dropped named omit
- * (same envelope as pickup.js).
- */
-function autopick_testobj(otmp, _calc_costly) {
-    const otypes = String(game.flags?.pickup_types || '');
-    if (!otypes) return true;
-    const sym = oclass_to_sym(otmp.oclass);
-    return !!(sym && otypes.includes(sym));
-}
+/* C pickup.c autopick_testobj is extern (hack.c cannot_push passes TRUE):
+ * use the canonical js/pickup.js export — no local clone (D-1849). */
 
 /**
  * C hack.c inv_cnt — count invent entries; !inclgold skips coins.

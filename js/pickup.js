@@ -26,13 +26,13 @@ import {
     SURFACE_AT, switch_terrain, maybe_half_phys, waterbody_name,
 } from './hack.js';
 import {
-    flush_screen, pline, newsym, docrt, bot, flush_topl_more, canseemon,
+    flush_screen, pline, newsym, newsym_force, docrt, bot, flush_topl_more, canseemon,
     canspotmon, Hallucination, clear_nhwindow_message, Norep, impossible,
     sensemon,
 } from './display.js';
 import { addinv } from './u_init.js';
 import {
-    an, doname, xname, cxname, cxname_singular, xprname,
+    an, doname, makesingular, xname, cxname, cxname_singular, xprname,
     the as theArt, The, body_part_latebound, vtense,
     safe_qbuf, ansimpleoname, otense,
     yname as yname_objnam, Yname2,
@@ -43,7 +43,7 @@ import { can_reach_floor } from './engrave.js';
 import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
     OBJ_FREE, OBJ_CONTAINED,
-    is_pit, LOST_DROPPED,
+    is_pit, LOST_DROPPED, LOST_THROWN, LOST_STOLEN, LOST_EXPLODING,
     STONE, ICE, MAX_TYPE, STAIRS, HOLE, TRAPDOOR,
     IS_POOL, IS_LAVA, IS_FURNITURE, IS_WATERWALL, IS_SINK,
     IS_THRONE, IS_FOUNTAIN, IS_DOOR, IS_ALTAR, D_ISOPEN,
@@ -77,8 +77,8 @@ import {
     back_on_ground, uteetering_at_seen_pit, uescaped_shaft,
 } from './trap.js';
 import { nhgetch } from './input.js';
-import { m_at, mnexto } from './mon.js';
-import { oclass_to_sym, select_menu_pick_any, select_menu_pick_one } from './options.js';
+import { m_at, mnexto, hideunder } from './mon.js';
+import { oclass_to_sym, regex_match, select_menu_pick_any, select_menu_pick_one } from './options.js';
 import {
     objectNames, COIN_CLASS, VENOM_CLASS, POTION_CLASS,
     def_oc_syms, def_char_to_objclass,
@@ -92,7 +92,7 @@ import {
     nohands, nolimbs, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider,
     mons,
     monsterNames,
-    is_floater, is_clinger, likes_lava, is_flyer, breathless,
+    is_floater, is_clinger, likes_lava, is_flyer, breathless, hides_under,
 } from './monsters.js';
 import { welded, weldmsg, setuwep, setuswapwep, setuqwep } from './wield.js';
 import { yn_function, getlin } from './getline.js';
@@ -112,6 +112,7 @@ import { rider_cant_reach } from './steed.js';
 import { is_ice } from './zap.js';
 import { incr_itimeout_HLevitation } from './potion.js';
 import { which_armor, extract_from_minvent } from './worn.js';
+import { unconscious } from './teleport.js';
 import { get_adjacent_loc } from './lock.js';
 
 /** C ref: mondata.h notake — M1_NOTAKE. */
@@ -1439,38 +1440,132 @@ async function query_objlist_pickup(objList, extraAllow = null) {
 }
 
 /**
- * C ref: pickup.c autopick_testobj — pickup_types symbol filter.
- * JS pickup_types is the display-symbol string; empty ⇒ all classes.
- * Deferred: costly_spot shop reject, pickup_thrown/stolen/nopick_dropped,
- * how_lost, autopickup exceptions.
+ * C ref: pickup.c check_autopickup_exceptions `:912–927` — first apelist
+ * entry whose regex matches makesingular(doname(obj)) wins (its grab
+ * overrides the pickup_types verdict); empty list ⇒ null.
+ * JS apelist entries are `{ regex, grab }` with regex compiled for
+ * options.js regex_match. No producer yet: AUTOPICKUP_EXCEPTION option
+ * parsing (options.c) is the named omission, so this returns null.
  */
-function autopick_testobj(otmp) {
-    const otypes = String(game.flags?.pickup_types || '');
-    if (!otypes) return true;
-    const sym = oclass_to_sym(otmp.oclass);
-    return !!(sym && otypes.includes(sym));
+export function check_autopickup_exceptions(obj) {
+    const apelist = game.apelist ?? [];
+    if (!apelist.length) return null;
+    const objdesc = makesingular(doname(obj));
+    for (const ape of apelist) {
+        if (ape && regex_match(objdesc, ape.regex)) return ape;
+    }
+    return null;
+}
+
+/* C ref: pickup.c autopick_testobj — `static boolean costly`, recomputed
+ * once per autopickup operation (first item with calc_costly TRUE;
+ * hack.c cannot_push also passes TRUE for its single test). */
+let autopick_costly = false;
+
+/**
+ * C ref: pickup.c autopick_testobj `:929–965`, extern (hack.c cannot_push
+ * calls it with TRUE). C order: costly shop reject → thrown/stolen
+ * override → dropped/exploding reject → pickup_types → exceptions.
+ * C compares the raw oclass against flags.pickup_types, which options.c
+ * stores as (char) class indices; JS stores the display-symbol string
+ * (options.js/invent.js convention), so the types test maps through
+ * oclass_to_sym — same verdict. C defaults (optlist.h): pickup_thrown,
+ * pickup_stolen, dropped_nopick all On.
+ */
+export function autopick_testobj(otmp, calc_costly) {
+    const flags = game.flags || {};
+    /* calculate 'costly' just once for a given autopickup operation */
+    if (calc_costly) {
+        autopick_costly = ((otmp?.where | 0) === OBJ_FLOOR
+            && costly_spot(otmp.ox | 0, otmp.oy | 0));
+    }
+
+    /* first check: reject if an unpaid item in a shop */
+    if (autopick_costly && !otmp?.no_charge) return false;
+
+    /* pickup_thrown/pickup_stolen override pickup_types and exceptions */
+    const howLost = (otmp?.how_lost | 0);
+    if (((flags.pickup_thrown !== false) && howLost === LOST_THROWN)
+        || ((flags.pickup_stolen !== false) && howLost === LOST_STOLEN)) {
+        return true;
+    }
+    if ((flags.nopick_dropped !== false) && howLost === LOST_DROPPED) {
+        return false;
+    }
+    if (howLost === LOST_EXPLODING) return false;
+
+    /* check for pickup_types */
+    const otypes = String(flags.pickup_types || '');
+    const sym = oclass_to_sym(otmp?.oclass);
+    let pickit = !otypes || !!(sym && otypes.includes(sym));
+
+    /* check for autopickup exceptions */
+    const ape = check_autopickup_exceptions(otmp);
+    if (ape) pickit = !!ape.grab;
+
+    return pickit;
 }
 
 /**
- * C ref: pickup.c pickup(what).
- * Ported envelope: autopickup && (nopick / !OBJ_AT / pool / lava) →
+ * C ref: pickup.c autopick `:974–1003` — count eligible items (first item
+ * tested with check_costly TRUE), then fill pick_list with {item,
+ * count = quan}. followNobj selects the engulfer-minvent linkage (C
+ * traverse_how 0 ⇒ nobj); floor piles pass FALSE (BY_NEXTHERE).
+ */
+function autopick(olist, followNobj) {
+    const next = (o) => (followNobj ? o.nobj : o.nexthere);
+    /* first count the number of eligible items */
+    let n = 0;
+    let check_costly = true;
+    for (let curr = olist; curr; curr = next(curr)) {
+        if (autopick_testobj(curr, check_costly)) ++n;
+        check_costly = false; /* only need to check once per autopickup */
+    }
+
+    const pick_list = [];
+    if (n) {
+        for (let curr = olist; curr; curr = next(curr)) {
+            if (autopick_testobj(curr, false)) {
+                pick_list.push({ item: curr, count: curr.quan || 1 });
+            }
+        }
+    }
+    return { n, pick_list };
+}
+
+/**
+ * C ref: pickup.c pickup(what) `:672–910`.
+ * Ported envelope: fainted/sleeping autopickup arrival skips everything
+ * (prev_decor); autopickup && (nopick / !OBJ_AT / pool / lava) →
  * describe_decor + read_engr_at; **can_reach_floor(pit)** describe_decor
  * even when !mention_decor + read_engr on multi/!pickup/teetering;
  * **multi/!pickup/notake** share one
  * gate (C pickup.c) so notake still plines under autopickup when
- * `flags.pickup` is off (D-0928 #1127); autopick filter (D-0368) then
- * **always** check_here(n_picked>0) (D-0387); manual `,`
- * AUTOSELECT_SINGLE / multi query_objlist PICK_ANY (D-0365).
+ * `flags.pickup` is off (D-0928 #1127); `autopick()` (costly once-per-op,
+ * thrown/stolen override, dropped/exploding reject, pickup_types,
+ * exceptions; D-0368) then the menu_pickup loop with count = quan;
+ * manual `,` AUTOSELECT_SINGLE / multi query_objlist PICK_ANY (D-0365);
+ * shared tail hides_under → hideunder, n_picked → newsym_force,
+ * autopickup → check_here(n_picked>0) (D-0387).
  * MENU_TRADITIONAL && !menu_requested && ct>=2: There + query_classes
  * then yn/pickup_object (D-1620). 'm' → query_objlist_pickup.
- * Deferred: unconscious skip, hideunder, newsym_force, full is_pool,
- * engulfer minvent traditional, safe_qbuf truncation.
+ * Deferred: full is_pool, engulfer minvent chain (objchain_p/traverse_how
+ * stay floor-only), count-N PICK_ONE/n_or_more menu, safe_qbuf truncation.
  */
 export async function pickup(what) {
     const autopickup = what > 0;
     const count = what < 0 ? -what : 0;
     const u = game.u;
     if (!u) return 0;
+
+    /* C pickup.c:684-688 — arrived here while fainted or sleeping (random
+     * teleport or levitation timeout): skip check_here and read_engr_at
+     * in addition to bypassing autopickup itself. */
+    if (autopickup && (game.multi | 0) < 0 && unconscious()) {
+        if (!game.iflags) game.iflags = {};
+        game.iflags.prev_decor = STONE;
+        return 0;
+    }
 
     // C: gp.pickup_encumbrance = 0 — used by pickup_object for load feedback
     game.pickup_encumbrance = 0;
@@ -1541,76 +1636,82 @@ export async function pickup(what) {
 
     // C pickup.c:740 add_valid_menu_class(0) before menu vs traditional.
     add_valid_menu_class(0);
+    /* C: n_tried counts attempts (menu items), n_picked accumulates
+     * pickup_object results; every arm falls through to the shared tail. */
+    let n_tried = 0;
+    let n_picked = 0;
     try {
         const objList = [];
         for (let obj = objects_at(u.ux, u.uy); obj; obj = obj.nexthere) {
             objList.push(obj);
         }
-        // C: autopick → filter by pickup_types before picking
-        const eligible = autopickup
-            ? objList.filter((o) => autopick_testobj(o))
-            : objList;
-        const ct = eligible.length;
+        const ct = objList.length;
 
         if (autopickup) {
-            // C: autopick → menu_pickup loop → check_here(n_picked > 0)
-            // even when n==0 (ineligible / filtered objects still shown).
-            const nTried = eligible.length; // C: n_tried = n before loop
-            let nPicked = 0;
-            // C: if (n > 0) reset_justpicked(invent) before pickup_object loop
-            if (nTried > 0) reset_justpicked(game.invent);
-            for (const otmp of eligible) {
-                const res = await pickup_object(otmp, 0, false);
+            /* C pickup.c:750-752 + menu_pickup :772-784 — autopick fills
+             * pick_list with count = quan; the loop breaks on res < 0. */
+            const ap = autopick(objList[0] || null, false);
+            if (ap.n > 0) reset_justpicked(game.invent);
+            n_tried = ap.n;
+            for (const pi of ap.pick_list) {
+                const res = await pickup_object(pi.item, pi.count, false);
                 if (res < 0) break;
-                nPicked += res;
+                n_picked += res;
             }
-            if (!u.uswallow) {
-                // hideunder / newsym_force deferred
-                await check_here(nPicked > 0);
-            }
-            return nTried > 0 ? 1 : 0;
-        }
-
-        if (ct === 0) return 0;
-
-        // C: menu AUTOSELECT_SINGLE / traditional ct==1 && !count for-loop
-        // both pick the lone object without a prompt.
-        if (ct === 1) {
-            const first = eligible[0];
+        } else if (ct === 1) {
+            /* C menu AUTOSELECT_SINGLE / traditional ct==1 pick the lone
+             * object without a prompt; traditional ct==1 && count takes
+             * min(quan, count). n_tried = 1 even when res == 0 (tried). */
+            const first = objList[0];
             const lcount = count > 0
                 ? Math.min(first.quan || 1, count)
                 : 0;
             reset_justpicked(game.invent);
+            n_tried = 1;
             const res = await pickup_object(first, lcount, false);
-            return res > 0 ? 1 : 0;
+            if (res >= 0) n_picked += res;
+        } else if (ct > 1) {
+            // C: flags.menu_style != MENU_TRADITIONAL || iflags.menu_requested
+            const style = game.flags?.menu_style ?? MENU_FULL;
+            if (style === MENU_TRADITIONAL && !game.iflags?.menu_requested) {
+                const tr = await pickup_traditional_floor(
+                    objList[0] || null, count);
+                n_tried = tr.tried;
+                n_picked = tr.picked;
+            } else {
+                /* C: query_objlist("Pick up what?", …, PICK_ANY) then the
+                 * menu_pickup loop; n_tried = n (selected), not results. */
+                const pickList = await query_objlist_pickup(objList);
+                if (pickList.length) {
+                    reset_justpicked(game.invent);
+                    n_tried = pickList.length;
+                    for (const obj of pickList) {
+                        if (!obj || obj.where !== OBJ_FLOOR) continue;
+                        const lcount = count > 0
+                            ? Math.min(obj.quan || 1, count)
+                            : 0;
+                        const res = await pickup_object(obj, lcount, false);
+                        if (res < 0) break;
+                        n_picked += res;
+                    }
+                }
+            }
         }
-
-        // C: flags.menu_style != MENU_TRADITIONAL || iflags.menu_requested
-        const style = game.flags?.menu_style ?? MENU_FULL;
-        if (style === MENU_TRADITIONAL && !game.iflags?.menu_requested) {
-            return await pickup_traditional_floor(objList[0] || null, count);
-        }
-
-        // C: query_objlist("Pick up what?", …, PICK_ANY) then pickup_object
-        const pickList = await query_objlist_pickup(eligible);
-        if (!pickList.length) return 0;
-        reset_justpicked(game.invent);
-        let nTried = 0;
-        for (const obj of pickList) {
-            if (!obj || obj.where !== OBJ_FLOOR) continue;
-            const lcount = count > 0
-                ? Math.min(obj.quan || 1, count)
-                : 0;
-            const res = await pickup_object(obj, lcount, false);
-            if (res < 0) break;
-            nTried += res;
-        }
-        return nTried > 0 ? 1 : 0;
     } finally {
+        /* C pickup.c:893-903 — hideunder / newsym_force for every path,
+         * check_here only after autopickup; then the pickupdone reset. */
+        if (!u.uswallow) {
+            if (hides_under(game.youmonst?.data)) {
+                hideunder(game.youmonst);
+            }
+            if (n_picked) newsym_force(u.ux, u.uy);
+            if (autopickup) await check_here(n_picked > 0);
+        }
         // C pickupdone: gp.pickup_encumbrance = 0; add_valid_menu_class(0)
         game.pickup_encumbrance = 0;
         add_valid_menu_class(0);
     }
+    return n_tried > 0 ? 1 : 0;
 }
 
 /**
@@ -3107,10 +3208,12 @@ async function query_classes(action, objs, here, menu_on_demand) {
  * query_objlist_pickup (allow_all if via_menu==-2 else allow_category).
  * ynaq/ynNaq default 'y'. Named: safe_qbuf (doname); via_menu
  * FEEL_COCKATRICE from query_objlist_pickup; INVORDER_SORT uses
- * existing sortpack.
+ * existing sortpack. Returns {tried, picked} for the pickup() shared tail
+ * (C n_tried / n_picked: ct==1&&count only counts picked when res > 0).
  */
 async function pickup_traditional_floor(head, count) {
     let n_tried = 0;
+    let n_picked = 0;
     let all_of_a_type = true;
     let selective = false;
     let oclasses = [];
@@ -3123,8 +3226,8 @@ async function pickup_traditional_floor(head, count) {
         const lcount = Math.min(obj.quan || 1, count);
         n_tried++;
         reset_justpicked(game.invent);
-        await pickup_object(obj, lcount, false);
-        return n_tried > 0 ? 1 : 0;
+        if (await pickup_object(obj, lcount, false) > 0) n_picked++;
+        return { tried: n_tried, picked: n_picked };
     }
 
     if (ct >= 2) {
@@ -3134,20 +3237,21 @@ async function pickup_traditional_floor(head, count) {
         const via_menu = { n: 0 };
         const q = await query_classes('pick up', head, true, via_menu);
         if (!q.ok) {
-            if (!via_menu.n) return 0;
+            if (!via_menu.n) return { tried: 0, picked: 0 };
             const pile = [];
             for (let o = head; o; o = o.nexthere) pile.push(o);
             const extraAllow = via_menu.n === -2 ? null : allow_category;
             const pickList = await query_objlist_pickup(pile, extraAllow);
-            if (!pickList.length) return 0;
+            if (!pickList.length) return { tried: 0, picked: 0 };
             reset_justpicked(game.invent);
             n_tried = pickList.length;
             for (const obj of pickList) {
                 if (!obj || obj.where !== OBJ_FLOOR) continue;
                 const res = await pickup_object(obj, 0, false);
                 if (res < 0) break;
+                n_picked += res;
             }
-            return n_tried > 0 ? 1 : 0;
+            return { tried: n_tried, picked: n_picked };
         }
         oclasses = q.oclasses || [];
         selective = q.one_at_a_time;
@@ -3197,9 +3301,10 @@ async function pickup_traditional_floor(head, count) {
         n_tried++;
         const res = await pickup_object(obj, lcount, false);
         if (res < 0) break;
+        n_picked += res;
         obj = obj2;
     }
-    return n_tried > 0 ? 1 : 0;
+    return { tried: n_tried, picked: n_picked };
 }
 
 function obj_still_on_list(obj, listhead) {
