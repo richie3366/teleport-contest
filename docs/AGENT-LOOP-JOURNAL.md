@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1950 stairs.c On_ladder ladder predicate singleton
+
+**C locus:** `nethack-c/upstream/src/stairs.c` — `On_ladder` `:154–159` (`stairway *stway = stairway_at(x, y); return (stway && stway->isladder)`). Sole C caller `dig.c:1812` (`adj_pit_checks` ladder arm, before the `supporting` stairs/drawbridge else-chain; `On_stairs` arm follows in the else).
+**JS:** `js/mklev.js` (+7/−0), `docs/c-js-map/turns.md` stairs section (+2/−1; 2 files, under 600 cap). Density note: C is 5 lines; the JS is the lookup + boolean plus file-idiom JSDoc.
+**Change:** `js/mklev.js` — exported `On_ladder(x, y)` in C order (`stairway_at(x | 0, y | 0)` then `!!(stway && stway.isladder)` for C boolean; `| 0` int idiom per the `hack.js`/`dogmove.js` `On_stairs` clones), placed directly after `stairway_at` beside the stairway lookups with the C line citation. Same-module callee — no new import edge. No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn On_ladder` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/mklev.js`; `PASS rule2`; `note hidden verify On_ladder: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — HELDOUT map row, brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `PASS full 44/44` (auto: shared file changed). Hand probe (inline `node -e`, no file left): no stairs → false; stairs non-ladder → false; ladder → true; off-cell → false.
+**Named:** caller wiring (function live, unwired): `dig.c:1812` `adj_pit_checks` ladder + `supporting` stairs/drawbridge envelope still named omitted in `js/dig.js` (zap_dig header lists `adj_pit_checks` deferred).
+**Next:** pop the next Open row (`o_init.c` doclassdisco).
 ## 2026-09-06 — D-1949 steed.c exercise_steed riding-skill training singleton
 
 **C locus:** `nethack-c/upstream/src/steed.c` — `exercise_steed` `:386–398` (`if (!u.usteed) return; ++u.urideturns >= 100 → urideturns = 0 + use_skill(P_RIDING, 1)`). Sole C caller `hack.c:2883` (domove tentative occupy: `u.ux += u.dx; u.uy += u.dy; m_postmove_effect; usteed->mx/my = u.ux/uy; exercise_steed()` — training counts even when the move later bounces on a safemon swap, per the C comment).

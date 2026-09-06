@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1950 — stairs.c On_ladder ladder predicate singleton
+
+- **Status:** fixed (Open queue row: `stairs.c` On_ladder — ladder predicate singleton, HELDOUT Tier C singletons; no JS symbol)
+- **Symptom:** none on any suite (no corpus session blocked on On_ladder at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-omission: no JS symbol for the ladder predicate; the sole C caller `dig.c:1812` (`adj_pit_checks` `"The ladder is unaffected."` arm) had no named callee.
+- **C locus:** `nethack-c/upstream/src/stairs.c` — `On_ladder` `:154–159` (`stairway *stway = stairway_at(x, y); return (stway && stway->isladder)`). Sole C caller `dig.c:1812` (`adj_pit_checks` ladder arm, before the `supporting` stairs/drawbridge else-chain; `On_stairs` arm follows in the else).
+- **JS was:** `On_ladder` NOT FOUND in `js/**` (brief, incl. generated). Callee live — `stairway_at` (`js/mklev.js:359`, sync, same module). `js/dig.js` `dig_check` inlines its own `stway.isladder ? FAIL_ONLADDER : FAIL_ONSTAIRS` split; the `adj_pit_checks` ladder/`supporting` envelope is still named omitted (`js/dig.js` zap_dig header).
+- **Fix:** `js/mklev.js` — exported `On_ladder(x, y)` in C order (`stairway_at(x | 0, y | 0)` then `!!(stway && stway.isladder)` for C boolean; `| 0` int idiom per the `hack.js`/`dogmove.js` `On_stairs` clones), placed directly after `stairway_at` beside the stairway lookups with the C line citation. Same-module callee — no new import edge. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/mklev.js` (+7/−0), `docs/c-js-map/turns.md` stairs section (+2/−1; 2 files, under 600 cap). Density note: C is 5 lines; the JS is the lookup + boolean plus file-idiom JSDoc.
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn On_ladder` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/mklev.js`; `PASS rule2`; `note hidden verify On_ladder: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — HELDOUT map row, brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `PASS full 44/44` (auto: shared file changed). Hand probe (inline `node -e`, no file left): no stairs → false; stairs non-ladder → false; ladder → true; off-cell → false.
+- **Named omissions:** caller wiring (function live, unwired): `dig.c:1812` `adj_pit_checks` ladder + `supporting` stairs/drawbridge envelope still named omitted in `js/dig.js` (zap_dig header lists `adj_pit_checks` deferred).
+- **Next:** pop the next Open row (`o_init.c` doclassdisco).
+
 ## D-1949 — steed.c exercise_steed riding-skill training singleton
 
 - **Status:** fixed (Open queue row: `steed.c` exercise_steed — steed exercise singleton, HELDOUT Tier C singletons; no JS symbol)

@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `stairs.c` On_ladder — ladder predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `o_init.c` doclassdisco — class discovery singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `mkmaze.c` mazexy + is_solid — maze solidity predicates (HELDOUT Tier C mkmaze row remainder; no JS symbol).
 - [ ] `eat.c` tin_variety_txt — tin-variety text singleton (HELDOUT Tier C singletons; no JS symbol).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `vision.c` new_angle — vision-angle singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `light.c` obj_adjust_light_radius — light-radius singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `timeout.c` spot_time_expires — spot-timeout predicate singleton (HELDOUT Tier C singletons; no JS symbol).
+- [ ] `mail.c` readmail — mail-read singleton (HELDOUT Tier C singletons; no JS symbol).
+- [ ] `dogmove.c` mnum_leashable — leashable-monster predicate singleton (HELDOUT Tier C singletons; no JS symbol).
+- [ ] `do.c` better_not_try_to_drop_that — corpse-drop guard singleton (HELDOUT Tier C singletons; no JS symbol).
+- [ ] `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton (HELDOUT Tier C singletons; no JS symbol).
+- [ ] `region.c` inside_rect — rect-containment predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 
 ## Parked (do not pop)
 

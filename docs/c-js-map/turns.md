@@ -2127,7 +2127,8 @@ ordinary corner menus clear (D-0929 fixed); teleds placebc stays;
 **`observe_object` before `doname`** (D-0399; C xname_flags path — pile gems get color); 
 **`doname_with_price` for-sale via `get_cost_of_shop_item`** (D-0460); 
 **`doname` unpaid via `is_unpaid`/`unpaid_cost`** (D-0461); **feel_cockatrice D-1599** (skip/single/multi floor; pickup FEEL abort); engulfer stomach minvent feel named; 
-**`distant_name`/doname observe** (D-0469)
+**`distant_name`/doname observe** (D-0469); 
+**`On_ladder` D-1950** (C `stairs.c:154–159`; `stairway_at` + `isladder`; sole C caller `dig.c:1812` `adj_pit_checks` ladder arm still named omitted in `js/dig.js` — function live, unwired)
 
 ### `src/pline.c` / tty message behavior
 
