@@ -87,7 +87,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `pickup.c` pickup — pickup body remaining arms (TOP30 honourable mention, 238/135; archived rows are sub-arms only).
+**Next cluster:** `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1926 (index).** Recent **D-1820:** `makemaz` `soko2-2`
