@@ -167,7 +167,7 @@ async function cannot_push_msg(otmp, sx, sy) {
  * C youprop.h Passes_walls — H||E, no B.
  * C Sokoban ≡ level.flags.sokoban_rules (JS also mirrors game.Sokoban).
  */
-function Passes_walls_prop() {
+export function Passes_walls_prop() {
     const u = game.u || {};
     return !!_uprop_he_st(u, 'HPasses_walls', 'EPasses_walls', PASSES_WALLS);
 }

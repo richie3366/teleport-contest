@@ -304,8 +304,9 @@ nested g/G after F / full CMD_gGF table deferred);
 boulder-node skip + `TRAVP_GUESS` fallback + clear `travelcc` when BFS step cell is destination + 
 `goto_level` clears `travelcc`** (D-0153/D-0412/D-0453) + **TEST_TRAV seen-trap/liquid + 
 tight-diag squeeze + couldsee-prefer / seenv-detour quiet-rest** (D-0702; 
-travelmap revisit / door-delay / `could_move_onto_boulder` / Passes_walls / Sokoban / visited 
-"unsure" / accurate seenv|couldsee still deferred); 
+**door/boulder delay re-queue + grid-bug NODIAG + unseeded start matrix** (D-1897); 
+travelmap revisit / visited "unsure" / Passes_walls-tunnel boulder-target route / Sokoban / 
+accurate seenv|couldsee still deferred); 
 **autoopen walk-into → `doopen_indir`** (D-0059); 
 **closed-door rush/impaired → orthogonal bump `Ouch!`+`exercise(A_DEX,FALSE)` / `That door is 
 closed.` — check `!run` before clearing run** (D-0433) + 
