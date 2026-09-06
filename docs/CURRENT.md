@@ -43,19 +43,19 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1954):
+Reviews **854–862** (D-1884…D-1955):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1954): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1955): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1954): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1955): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1954): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1954):
+(D-1909…D-1955): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1955):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Reviews 896–904:
 8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews
-**905–913** (D-1935…D-1954): 9 ACCEPT, 0 Must-fix. Reviews
-**914–922** (D-1944…D-1954): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
+**905–913** (D-1935…D-1955): 9 ACCEPT, 0 Must-fix. Reviews
+**914–922** (D-1944…D-1955): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
 (doclassdisco sort-letter selector debt, review-listed), 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
@@ -90,13 +90,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `vision.c` new_angle — vision-angle singleton (HELDOUT Tier C singletons; no JS symbol).
+**Next cluster:** `light.c` obj_adjust_light_radius — light-radius singleton (HELDOUT Tier C singletons; no JS symbol).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1954 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1955 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1955** `nethack-c/upstream/src/vision.c` — `js/vision.js` — exported `new_angle(lev, sv, row, col)` (`sv | 0` int idiom; unused params kept for C shape per the C comment), placed after `seenv_matrix` with the `:461`/`:366` citation; all three sites now `| new_ang
 **D-1954** `nethack-c/upstream/src/strutil.c` — `js/cmd.js` — exported `pmatch(patrn, strng)` in C order (thin wrapper, `ci=false`), placed before `pmatchi` in C declaration order with both wrappers' C ranges cited; `pmatch_internal` header now cites `:104–141` plus t
 **D-1953** `nethack-c/upstream/src/eat.c` — `js/eat.js` — exported `tin_variety_txt(s, out)` in C order (`s != null && out` guard, no write on null; `-1` default; `TTSZ - 1` sentinel skip; `str_start_is` + explicit `s.length > l && s[l] === ' '` so bare "rotten"/"
 **D-1952** `nethack-c/upstream/src/mkmaze.c` — `js/mklev.js` — exported `is_solid(x, y)` in C order (`!isok(x | 0, y | 0) || IS_STWALL(...)`, `||` short-circuit so `at()` never reads out of bounds; `| 0` int idiom); removed the `isSolidTile` clone and pointed `wall_c
@@ -104,11 +105,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1950** `nethack-c/upstream/src/stairs.c` — `js/mklev.js` — exported `On_ladder(x, y)` in C order (`stairway_at(x | 0, y | 0)` then `!!(stway && stway.isladder)` for C boolean; `| 0` int idiom per the `hack.js`/`dogmove.js` `On_stairs` clones), placed directly aft
 **D-1949** `nethack-c/upstream/src/steed.c` — `js/steed.js` — exported `exercise_steed()` in C order (`!u.usteed` early return; `| 0` int idiom, which also covers fresh JS saves where `urideturns` was never set vs C decl zero-init; `>= 100` → reset + `use_skill(P_RI
 **D-1948** `nethack-c/upstream/src/mondata.c` — `js/monsters.js` — exported `mon_hates_light(mon)` (`return hates_light(mon?.data)`), placed directly after `hates_light` beside the sibling `mon_hates_silver` wrapper (D-1254) with the C line citation; `?.` only guards 
-**D-1947** `nethack-c/upstream/src/mthrowu.c` — `js/mthrowu.js` — exported `async ucatchgem(gem, mon)` in C order (`| 0` int idiom; `game.youmonst?.data` per the allmain/apply idiom; `gem_xname` then `mon_s_name` per C initializer order; glass pline×2 → `makeknown` → 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1954; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1955; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

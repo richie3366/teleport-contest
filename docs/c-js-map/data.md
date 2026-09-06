@@ -919,7 +919,14 @@ lighting-loop 3×3 stand-in retired; `u_init_misc` nv_range=1);
 u.utraptype == TT_PIT` → immediate 3×3 IN_SIGHT|COULD_SEE, xray/nv still
 apply) + **post-`rhack` `vision_full_recalc` consume** (`allmain.c:541–542`;
 monsters next iteration see post-hero-action vision);
-underwater `has_night_vision=0` + pool 3×3 / `notice_all_mons` still named
+underwater `has_night_vision=0` + pool 3×3 / `notice_all_mons` still named;
+**D-1955 `new_angle` live-macro** (`vision.c:461` `#else` `(*sv)`; `lev`/`row`/`col`
+unused per the C comment) — exported `new_angle(lev, sv, row, col)` (`js/vision.js`,
+`sv | 0` int idiom), all 3 main-loop sites (`:749,776,790`) wired.
+Named: `#ifdef EXTEND_SPINE` staticfn body (`:413–451`, CROSSWALL..TRWALL
+spine extension via `viz_clear`) compiled out (`:366` commented) — display
+cosmetic, intentionally not ported; xray/nv/pit `seenv = SVALL` arms never
+called `new_angle` in C (direct assignment, unchanged)
 
 ### `src/trap.c`
 

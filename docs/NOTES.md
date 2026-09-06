@@ -15,20 +15,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1954 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1955 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1954 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1955 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-1954.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-1954.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-1955.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-1955.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1955: `js/vision.js` — exported `new_angle(lev, sv, row, col)` (`sv | 0` int idiom; unused params kept for C shape per the C comment), placed after `seenv_m Named: `#ifdef EXTEND_SPINE` staticfn body (`:413–451`) — compiled out in C, display-cosmetic T-w
 - D-1954: `js/cmd.js` — exported `pmatch(patrn, strng)` in C order (thin wrapper, `ci=false`), placed before `pmatchi` in C declaration order with both wrappers Named: `sk` skip-set arm (`:119–127` fuzzy variant) — no C caller passes non-null sk (`pmatchz` d
 - D-1953: `js/eat.js` — exported `tin_variety_txt(s, out)` in C order (`s != null && out` guard, no write on null; `-1` default; `TTSZ - 1` sentinel skip; `str_ Named: caller wiring (function live, unwired): `objnam.c:4386` readobjnam "tin of " arm (spinach 
 - D-1952: `js/mklev.js` — exported `is_solid(x, y)` in C order (`!isok(x | 0, y | 0) || IS_STWALL(...)`, `||` short-circuit so `at()` never reads out of bounds; Named: caller wiring (functions live, unwired): `populate_maze` / `makemaz` stair arms / `create_
@@ -43,5 +44,4 @@ Objective/score live in `CURRENT.md`.
 - D-1943: `js/dbridge.js` — file-local `occupants()` (C decl.c zero-init shape, lazily ENTITIES `{emon:null,edata:null,ex:0,ey:0}` records on `game`); exported  Named: caller wiring (functions live, unwired): `do_entity` crush/jump/relocate (`e_jumps`/`e_sur
 - D-1942: `js/do_wear.js` — exported async `Armor_gone()` in C order (was_arti_light snapshot before setnotworn since unwearing clears the W_ARM bit artifact_li Named: caller wiring (functions live, unwired): polyself `break_armor` suit arms (`polyself.c:117
 - D-1941: ported the family in C branch order (`| 0` int idiom; `sym.h` `is_cmap_*` macro shape for the three missing predicates; `IS_DOOR` ≡ C `(typ == DOOR)`; Named: `getpos_menu` listing; `S_goodpos` tmp_at hilite; engraving full showsyms; `docrtRefresh` 
-- D-1940: `js/pray.js` — exported async `at_your_feet(str)` and `gcrownu()` in C order (`| 0` int idiom; `ok_wep` arrow from the C macro; otyp via `objectNames. Named: caller wiring (functions live, unwired): pleased pat_on_head case 7/8 `gcrownu()` gate (`:
 <!-- landmarks:end -->

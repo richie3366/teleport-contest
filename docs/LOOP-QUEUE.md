@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `vision.c` new_angle — vision-angle singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `light.c` obj_adjust_light_radius — light-radius singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `timeout.c` spot_time_expires — spot-timeout predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `mail.c` readmail — mail-read singleton (HELDOUT Tier C singletons; no JS symbol).
@@ -56,6 +55,10 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `do.c` better_not_try_to_drop_that — corpse-drop guard singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `region.c` inside_rect — rect-containment predicate singleton (HELDOUT Tier C singletons; no JS symbol).
+- [ ] `weapon.c` give_may_advance_msg — skill-advance message singleton (HELDOUT Tier C singletons; no JS symbol, named omit in js/weapon.js).
+- [ ] `display.c` row_refresh — glyph-row repaint singleton (HELDOUT Tier C singletons; no JS symbol, comment-only refs in js/display.js).
+- [ ] `allmain.c` init_sound_disp_gamewindows — window-system init singleton (HELDOUT Tier C singletons; no JS symbol anywhere in js/).
+- [ ] `nhlsel.c` l_selection_iterate — selection-iterate Lua-C singleton (HELDOUT Tier C singletons; no JS symbol, comment-only refs in js/mklev.js).
 
 ## Parked (do not pop)
 

@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1955 — vision.c new_angle vision-angle singleton
+
+- **Status:** fixed (Open queue row: `vision.c` new_angle — vision-angle singleton, HELDOUT Tier C singletons; no JS symbol)
+- **Symptom:** none on any suite (no corpus session blocked on new_angle at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-omission: no JS symbol for the seen-angle updater; the three main-loop `seenv |=` sites in `js/vision.js` inlined `| sv` instead of naming the C callee.
+- **C locus:** `nethack-c/upstream/src/vision.c` — the live locus is the `#else` macro `:461` (`#define new_angle(lev, sv, row, col) (*sv)`, "The other parameters are not used"). The `#ifdef EXTEND_SPINE` staticfn `:413–451` (CROSSWALL..TRWALL spine extension via `viz_clear`) is compiled out (`:366` keeps `/*#define EXTEND_SPINE*/` commented) — read in full, deliberately not ported. Live callers, all in the main update loop: `:749` (night/xray IN_SIGHT arm), `:776` (door/wall adjacent-lit arm), `:790` (lit else-arm); the xray/nv/pit `seenv = SVALL` arms never call it (direct assignment).
+- **JS was:** `new_angle` NOT FOUND in `js/**` (brief, incl. generated). `js/vision.js` recomputed `sv` from `seenv_matrix` and inlined `loc.seenv = (loc.seenv || 0) | sv` at all three sites — behavior-identical to the live macro, but unnamed (the D-1849 clone rule: import/name the export, don't carry the clone).
+- **Fix:** `js/vision.js` — exported `new_angle(lev, sv, row, col)` (`sv | 0` int idiom; unused params kept for C shape per the C comment), placed after `seenv_matrix` with the `:461`/`:366` citation; all three sites now `| new_angle(loc, sv, row, col)` (`loc` ≡ C `lev` cell). File header + `docs/c-js-map/data.md` vision.c section updated. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/vision.js` (+13/−3; 1 js file, under 600 cap). Density note: C live locus is 1 macro line (the 37-line `#ifdef` body is compiled out); the JS is the export plus the three live caller wirings that retire the inline clones.
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn new_angle` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/vision.js`; `PASS rule2`; `note hidden verify new_angle: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — HELDOUT Tier C singleton, brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `PASS full 44/44` (auto: shared file changed). No hand probe: the arm runs every turn in every session, so the full suite is the probe.
+- **Named omissions:** `#ifdef EXTEND_SPINE` staticfn body (`:413–451`) — compiled out in C, display-cosmetic T-wall spine extension, intentionally not ported (re-enabling it would DIVERGE from compiled C).
+- **Next:** pop the next Open row (`light.c` obj_adjust_light_radius).
+
 ## D-1954 — strutil.c pmatch glob-match predicate singleton
 
 - **Status:** fixed (Open queue row: `strutil.c` pmatch — glob-match predicate singleton, HELDOUT Tier C singletons; no JS symbol)
