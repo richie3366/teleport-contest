@@ -889,3 +889,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [876-84c1dad5-wiz-goal-count.md](./876-84c1dad5-wiz-goal-count.md) | `84c1dad5` | D-1906 makemaz Wiz-goal object count | **ACCEPT** |
 | [877-d0baca4d-mhitm-ad-arms.md](./877-d0baca4d-mhitm-ad-arms.md) | `d0baca4d` | D-1907 uhitm.c mhitm AD arms + dispatch | **ACCEPT** |
 | [878-8d0304fd-mkmap-driver.md](./878-8d0304fd-mkmap-driver.md) | `8d0304fd` | D-1908 mkmap.c mkmap driver + RNG envelope | **ACCEPT** |
+| [879-7924e8a5-inhell-pager-hellish-flag.md](./879-7924e8a5-inhell-pager-hellish-flag.md) | `7924e8a5` | D-1909 pager.c Inhell_pager hellish flag | **ACCEPT** |
+| [880-f7ff03a3-join-map-cleanup.md](./880-f7ff03a3-join-map-cleanup.md) | `f7ff03a3` | D-1910 mkmap.c join_map + cleanup | **ACCEPT** |
+| [881-373f2920-finish-map-cutover.md](./881-373f2920-finish-map-cutover.md) | `373f2920` | D-1911 mkmap.c finish_map + MINES cutover | **ACCEPT** |
+| [882-9b416bde-setup-menus.md](./882-9b416bde-setup-menus.md) | `9b416bde` | D-1912 role.c setup_*menu extraction | **ACCEPT** |
+| [883-05c03076-lava-effects-wwalking.md](./883-05c03076-lava-effects-wwalking.md) | `05c03076` | D-1913 trap.c lava_effects Wwalking staleness | **QUALITY-RISK** |
+| [884-37492b36-newcham-armor-boulders.md](./884-37492b36-newcham-armor-boulders.md) | `37492b36` | D-1914 mon.c newcham armor + boulders | **ACCEPT** |
+| [885-f1e5da6a-dismount-steed-arms.md](./885-f1e5da6a-dismount-steed-arms.md) | `f1e5da6a` | D-1915 steed.c dismount_steed remaining arms | **ACCEPT** |
+| [886-9b35a3ff-hmonas-weaponless-envelope.md](./886-9b35a3ff-hmonas-weaponless-envelope.md) | `9b35a3ff` | D-1916 uhitm.c hmonas weaponless envelope | **ACCEPT** |
+| [887-29b2c5c5-new-were-armor-wiring.md](./887-29b2c5c5-new-were-armor-wiring.md) | `29b2c5c5` | D-1917 were.c new_were armor wiring | **ACCEPT** |
