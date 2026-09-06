@@ -21,9 +21,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1901 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1902 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1901 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1902 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -41,18 +41,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1901.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1902.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1901.
+  Do not re-port D-1682…D-1902.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1902: new `js/mkmap.js` (+~170, 6 exports, C names/signatures): bounds-exact `get_map` (OOB→bg); in-place `pass_one` (writes hit levl mid-sweep — later cell Named: `mkmap` + `init_map`/`init_fill` RNG envelope (own queue row); `join_map` + `join_map_clea
 - D-1901: deleted both blocks including the `mhp<1 continue` guard line that only served them; `passive()` already owns gaze retaliation on its real melee trigg Named: none new — `dogaze`/`dohide`/`dospinweb` + steed `pet_ranged_attk` stay deferred on the `d
 - D-1900: C-order ports. Named: `target_on`/`you_have`/covetous-pursuit `strategy` (the live caller envelope — own row whe
 - D-1899: C-branch-order ports in `js/muse.js`: `cures_stoning` (POT_ACID/glob+CORPSE+openable-TIN, NON_PM gate, LIZARD/acidic); `cures_sliming` (fire scroll ey Named: `munstone` + `mon_consume_unstone` stoning-TRUE envelope (uhitm corpse/egg-throw + `mhitm_
@@ -67,5 +68,4 @@ Objective/score live in `CURRENT.md`.
 - D-1890: `load_mon_strt` (Pri-strt skeleton: STONE solidfill + triple flags, byte-identical map, whole-map lit, temple with `needfill = 0` per C `sp_lev.c` lsp Named: humidity-aware `get_location` for water-likers (all five; carried on the map row); `ensure
 - D-1889: `load_ran_strt` (ROOM solidfill + triple flags + arboreal, ROOM/ROOM mines lit/smoothed/joined/unwalled, `lspo_replace_terrain_region(0,0,76,19,ROOM,T Named: humidity-aware `get_location` for water-likers (all five; carried on the map row); `ensure
 - D-1888: `load_tou_strt` in lua order (centered map, whole-map lit, morgue as FILL_NORMAL rect room with topologize + add_doors_to_room per the Tou-loca helper Named: humidity-aware `get_location` for water-likers (carried on the map row); `ensure_way_out` 
-- D-1887: `load_tou_loca` (whole-map lit, 8 FILL_NORMAL rect rooms with topologize + add_doors_to_room in lua order, 19 ordinary rects as `light_region(..., lit Named: humidity-aware `get_location` for water-likers (all four; carried on the map row); `ensure
 <!-- landmarks:end -->

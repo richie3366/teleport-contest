@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `polyself.c` `domindblast` invented gaze-retaliation blocks — delete the floating-eye freeze (`nomul` + early return) and Medusa stoning (`done(STONING)`) blocks; C `polyself.c:1893–1938` never calls `passive()` from `domindblast` (gaze fires on melee only), and the Medusa block lacks any Blind/stone-resistance gate. Source: reviews/loop-unattended/868-3ef6abec-domonability-arms.md. **Addressed:** D-1901
+- [x] `mkmap.c` cavern generator — get_map, pass_one, pass_two, pass_three, remove_room, remove_rooms (HELDOUT Tier C; called from sp_lev.c:3010 level_init styles).
+
+
+- [x] `polyself.c` `domindblast` invented gaze-retaliation blocks — delete the floating-eye freeze (`nomul` + early return) and Medusa stoning (`done(STONING)`) blocks; C `polyself.c:1893–1938` never calls `passive()` from `domindblast` (gaze fires on melee only), and the Medusa block lacks any Blind/stone-resistance gate. Source: reviews/loop-unattended/868-3ef6abec-domonability-arms.md. **Addressed:** D-1901 `a094dbe0`
 
 
 - [x] `wizard.c` clonewiz family — clonewiz, mon_has_arti, other_mon_has_arti, which_arti, on_ground, wizdeadorgone, plus quest.c leaddead, nemdead, nemesis_stinks (HELDOUT Tier C). **Addressed:** D-1900 `29ce55d7`

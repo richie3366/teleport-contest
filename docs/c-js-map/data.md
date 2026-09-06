@@ -841,6 +841,12 @@ prefix **98505→100104**; Scr **292**) + **D-0777 `maketrap` AIR/CLOUD +
 **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL**; Scr **561**;
 **D-1818 `Wiz-goal`**; **D-1819 `Bar-goal`**; **D-1841 `fakewiz1`/`fakewiz2`)
 
+### `src/mkmap.c` cavern generator
+
+JS: `js/mkmap.js` — partial (new D-1902; no live importer — INIT_MAP cavern styles in `sp_lev.c` level_init unported)
+
+**`get_map`/`pass_one`/`pass_two`/`pass_three`/`remove_room`/`remove_rooms`** (D-1902; C `mkmap.c:54–60` bounds-exact OOB→bg / `:67–96` in-place CA (0–2 kill, 5–8 breed) / `:100–144` double-buffered ==5 / <3 with per-call scratch at the C `new_loc` layout / `:378–436` total-overlap removal + last-over-slot swap with `roomnoidx` restamp; `remove_rooms` async for `await impossible`, `remove_room` spread-copy never aliases the `hx=-1` tombstone); omit `mkmap` + `init_map`/`init_fill` RNG envelope, `join_map` + `join_map_cleanup` (`somexy`/`dig_corridor` missing), `finish_map` (wallify/lit/lava-ice + maze/cavernous flags);
+
 ### `src/track.c`
 
 JS: `js/track.js` — partial

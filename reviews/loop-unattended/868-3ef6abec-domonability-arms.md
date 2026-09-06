@@ -70,4 +70,4 @@ poly'd into a mind flayer near a floating eye/Medusa).
    line goes with them); `passive()` already owns this behavior
    on its real trigger path.
 
-Verdict: **QUALITY-RISK** — **Addressed:** D-1901
+Verdict: **QUALITY-RISK** — **Addressed:** D-1901 `a094dbe0`

@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmap.c` cavern generator — get_map, pass_one, pass_two, pass_three, remove_room, remove_rooms (HELDOUT Tier C; called from sp_lev.c:3010 level_init styles).
 - [ ] `pager.c` history/descr arms — dohistory, add_cmap_descr, add_quoted_engraving, look_region_nearby, hmenu_dowhatis, dispfile_* (HELDOUT Tier C).
 - [ ] `role.c` role-select parsers — str2role, str2race, str2gend, str2align, setup_rolemenu/racemenu/gendmenu/algnmenu, root_plselection_prompt (HELDOUT Tier C).
 - [ ] `objnam.c` suit_simple_name dragon arms — blocks 1/278 corpus sessions (random-seed0360-wizard-world-tour-4ac145da step 838; D-1884 named deferral). Probe: `node scripts/hidden-proxy.mjs verify suit_simple_name`.
@@ -56,6 +55,9 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `mkmaze.c` makemaz `val-*` — Valkyrie quest 0/5 (Valkyrie 3/44 sessions). From `dat/val-*.lua` (371 ln, HELDOUT Tier B).
 - [ ] `mkmaze.c` makemaz `sam-*` — Samurai quest 0/5 (Samurai 3/44 sessions). From `dat/sam-*.lua` (447 ln, HELDOUT Tier B).
 - [ ] `uhitm.c` missing mhitm AD arms — AD_SLIM, AD_TLPT, AD_WERE, AD_SGLD plus hmon_hitmon_do_hit/jousting/poison/potion/weapon/splitmon helpers (HELDOUT Tier C).
+- [ ] `mkmap.c` mkmap + init_map/init_fill — cavern assembly + RNG fill envelope (mkmap.c follow-up; N_P1_ITER/N_P2_ITER/N_P3_ITER driver + new_locations ownership; caller sp_lev.c:3010 level_init INIT styles).
+- [ ] `mkmap.c` join_map + join_map_cleanup — flood-fill regions + dig_corridor joins (mkmap.c follow-up; flood_fill_rm/add_room live in mklev.js; needs somexy/dig_corridor).
+- [ ] `mkmap.c` finish_map — wallify/lit/lava-ice + is_maze_lev/is_cavernous_lev flags (mkmap.c follow-up; needs wallify_map).
 
 ## Parked (do not pop)
 
