@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `polyself.c` break_armor — blocks 9/553 (first at step 54): `You turn into a gelatinous cube!  You break out of your armor!` — C `break_armor :1171` message/RNG order per armor slot (cloak vs body armor first, `Your cloak tears apart`, shield/helmet/gloves/boots drop arms, `polyself.c:1189` clasp arm). Probe: `node scripts/hidden-proxy.mjs verify break_armor` (scen-poly-Knight-92220, scen-poly-Monk-92005, scen-poly-Priest-91137). **Addressed:** D-1991
+- [x] `polyself.c` drop_weapon — blocks 4/553 (first at step 93, 12.5k RNG): C `You find you must drop your dagger!` names the weapon (`:1331` `yname`/`aobjnam` arm, `alone` flag, twoweapon and `nohands` cases); JS says `your weapon`. Ship after `break_armor` (same file, shared falsifier `scen-poly-*`). Probe: `node scripts/hidden-proxy.mjs verify drop_weapon` (scen-poly-Ranger-91131, scen-poly-Ranger-92090, scen-poly-Valkyrie-92195). **Addressed:** D-1992
+
+
+- [x] `polyself.c` break_armor — blocks 9/553 (first at step 54): `You turn into a gelatinous cube!  You break out of your armor!` — C `break_armor :1171` message/RNG order per armor slot (cloak vs body armor first, `Your cloak tears apart`, shield/helmet/gloves/boots drop arms, `polyself.c:1189` clasp arm). Probe: `node scripts/hidden-proxy.mjs verify break_armor` (scen-poly-Knight-92220, scen-poly-Monk-92005, scen-poly-Priest-91137). **Addressed:** D-1991 `ab0522c0`
 
 
 - [x] `botl.c` do_statusline2 — blocks 11/553 (first at step 16): row 23 C `… Xp:1 Strngl` vs JS without the condition; `#wizintrinsic` strangling / sliming / stoning / sickness / vomiting etc. Port the full `bot2` condition list in C order (`botl.c:130` onwards, `bl_conditions` order + width truncation), not just Hunger/Conf/Blind. Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-death-Caveman-92141, scen-death-Caveman-92159, scen-death-Monk-92121). **Addressed:** D-1990 `a5c65a9e`

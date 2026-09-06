@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `polyself.c` break_armor — blocks 10/553 (first at step 54): `You turn into a gelatinous cube!  You break out of your armor!` — C `break_armor :1157` message/RNG order per armor slot (cloak vs body armor first, `Your wrapping tears apart` / smock knot / clasp via `cloak_simple_name`, shield/helmet/gloves/boots drop arms, `polyself.c:1189` clasp arm). Probe: `node scripts/hidden-proxy.mjs verify break_armor` (scen-poly-Knight-92220, scen-poly-Monk-92005, scen-poly-Priest-91137).
+**Next cluster:** `polyself.c` drop_weapon — blocks 4/553 (first at step 93, 12.5k RNG): C `You find you must drop your dagger!` names the weapon (`:1331` `yname`/`aobjnam` arm, `alone` flag, twoweapon and `nohands` cases); JS says `your weapon`. Ship after `break_armor` (same file, shared falsifier `scen-poly-*`). Probe: `node scripts/hidden-proxy.mjs verify drop_weapon` (scen-poly-Ranger-91131, scen-poly-Ranger-92090, scen-poly-Valkyrie-92195).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1991 (index).**
+**Keep D-0845…D-1992 (index).**
 <!-- recent:begin -->
+**D-1992** `polyself.c:1305–1362` `drop_weapon` — deleted the clone; message via live `is_sword` (`./objects.js`) + `weapon_descr` (`./invent.js`) + live `makeplural` (`./objnam.js`) with C `:line` comments; drops via live sync `uswapwepgone()` + async `uwepgone()` with
 **D-1991** `polyself.c:1157–1302` `break_armor` — exact-C arm order with `:line` citations — `end_burn` (new `./timeout.js` edge) + `await Armor_gone()` + `useup` (same-module `./invent.js`) for breakarm uarm; cloak 3-way on `(otyp !== MUMMY_WRAPPING || !WrappingAllowed
 **D-1990** `botl.c:100–250` `do_statusline2` — cond built in exact C order with `:line` citations — fatal four first (flat `u.Stoned/Slimed/Sick` from `make_*` OR `uprops[].intrinsic` from `#wizintrinsic incr_prop_timeout`, like `timeout.js intr_bits`; Strangled also
 **D-1989** `calendar.c:40–46` `getlt() = localtime(getnow())`; contest patch 001 `time_from_yyyymmddh — `getlt()` = `nyLocaltime(getnow())`; new module-local America/New_York engine, plain arithmetic per Rule #2 (no Intl / node TZ; only `Date.UTC`/getUTC* decomposition): pre-2007 first-Sun-Apr → last-Sun-Oct, 2007+ second-
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-1987** `nethack-c/upstream/src/getpos.c` — `js/getpos.js` — new `HiliteBackground = 2` + `defaultHiliteState` module state (C `:30–38`); `getpos_sethilite` in exact C order (old store read, default recompute from live `game.iflags?.bgcolors`, conditional reset, c
 **D-1986** `nethack-c/upstream/src/display.c` — `js/display.js` — grid paint is span-gated per C (`gnew ||` live framecolor arm via `get_bkglyph_and_framecolor`; `gnew` cleared only when painted, `:2255`; unexplored-with-gnew paints blank, D-0931 precedent); no blanke
 **D-1985** `nethack-c/upstream/src/display.c` — `js/display.js` — `show_glyph_cell` resolves the glyph id first (two ids can share one ttychar, e.g. altar/fountain `{`) and gates `gnew = 1` + `mark_gbuf_dirty` on id/ch/color/dec/attr difference; the disp store itself 
-**D-1984** `display.c` — `js/display.js` — gbuf bbox tracked (writers+clear span, post-rebuild reset); span paint deferred.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1991; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1992; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

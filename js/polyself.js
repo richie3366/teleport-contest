@@ -9,7 +9,7 @@ import {
 } from './display.js';
 import { getlin, yn_function } from './getline.js';
 import { getdir } from './lock.js';
-import { an, set_body_part, yname, vtense, simpleonames } from './objnam.js';
+import { an, set_body_part, yname, vtense, simpleonames, makeplural } from './objnam.js';
 import {
     pmname, mon_nam, s_suffix, Ugender,
 } from './do_name.js';
@@ -37,9 +37,9 @@ import {
     Armor_gone, Cloak_off, Blindf_off, cloak_simple_name,
 } from './do_wear.js';
 import { dropx, canletgo, make_blinded } from './do.js';
-import { setuwep, setuswapwep } from './wield.js';
+import { uswapwepgone, uwepgone, could_twoweap, untwoweapon } from './wield.js';
 import { races } from './roles.js';
-import { encumber_msg, useup } from './invent.js';
+import { encumber_msg, useup, weapon_descr, update_inventory } from './invent.js';
 import { end_burn } from './timeout.js';
 import { racial_exception, has_horns, num_horns, WrappingAllowed, is_flimsy } from './worn.js';
 import { helm_simple_name } from './mhitu.js';
@@ -147,7 +147,7 @@ import {
     SPECIAL_PM,
     monsterNames,
 } from './generated/monsters_data.js';
-import { TOOL_CLASS, objects, objectNames } from './objects.js';
+import { objectNames, is_sword } from './objects.js';
 
 const GRAY_DRAGON_SCALES = objectNames.indexOf('GRAY_DRAGON_SCALES');
 const YELLOW_DRAGON_SCALES = objectNames.indexOf('YELLOW_DRAGON_SCALES');
@@ -740,65 +740,58 @@ function cantwield(ptr) {
 }
 
 /**
- * C ref: weapon.c weapon_descr subset for drop_weapon alone-message.
- * TOOL_CLASS → "tool" (magic lamp); else "weapon".
- * @param {object} obj
- */
-function poly_weapon_descr(obj) {
-    if (!obj) return 'weapon';
-    if ((obj.oclass | 0) === TOOL_CLASS) return 'tool';
-    const od = objects()?.[obj.otyp | 0];
-    const nm = String(od?.oc_name || od?.name || '').toLowerCase();
-    if (nm.includes('sword') || nm.includes('saber')) return 'sword';
-    return 'weapon';
-}
-
-/**
- * C ref: polyself.c drop_weapon(alone) — cantwield forms must drop uwep.
- * Named omissions: twoweapon dual-drop detail; in_use defer; could_twoweap
- * untwoweapon arm; update_inventory side effects; Heart-of-Ahriman note.
+ * C ref: polyself.c drop_weapon(alone) `:1305–1362` — cantwield forms must drop uwep.
+ * `:1313` !alone||cantwield gate; `:1316–1317` canletgo pair; `:1318–1332`
+ * alone message via is_sword/weapon_descr + twoweap whichtoo compare +
+ * makeplural + the_your corpse gate; `:1334–1353` uswapwep-then-uwep
+ * gone/dropx with in_use defer + update_inventory; `:1354–1356`
+ * could_twoweap untwoweapon arm. weapon_descr P_NONE specials / ammo
+ * arms stay named in invent.js (live callee, C-matched on skill names).
  * @param {number} alone
  */
 async function drop_weapon(alone) {
     const u = game.u || {};
     if (!u.uwep) return;
-    const uptr = game.youmonst?.data;
-    // C: if (!alone || cantwield(youmonst.data))
-    if (alone && !cantwield(uptr)) {
-        // could_twoweap untwoweapon deferred
-        return;
-    }
-    const candropwep = await canletgo(u.uwep, '');
-    let candropswapwep = true;
-    if (u.twoweap && u.uswapwep) {
-        candropswapwep = await canletgo(u.uswapwep, '');
-    } else if (u.twoweap) {
-        candropswapwep = false;
-    }
-    if (alone) {
-        const what = (candropwep && candropswapwep) ? 'drop' : 'release';
-        let which = poly_weapon_descr(u.uwep);
-        if (u.twoweap && u.uswapwep) {
-            const whichtoo = poly_weapon_descr(u.uswapwep);
-            if (which !== whichtoo) which = 'weapon';
+    // C `:1313` — the !alone check is superfluous per C comment but kept.
+    if (!alone || cantwield(game.youmonst?.data)) {
+        const candropwep = await canletgo(u.uwep, '');
+        // C `:1317` — !twoweap short-circuits; twoweap implies uswapwep set.
+        const candropswapwep = !u.twoweap || (await canletgo(u.uswapwep, ''));
+        if (alone) {
+            const what = (candropwep && candropswapwep) ? 'drop' : 'release';
+            // C `:1320–1321` — is_sword maps to "sword", else weapon_descr.
+            let which = is_sword(u.uwep) ? 'sword' : weapon_descr(u.uwep);
+            if (u.twoweap && u.uswapwep) {
+                const whichtoo = is_sword(u.uswapwep) ? 'sword' : weapon_descr(u.uswapwep);
+                // C `:1325–1326` — strcmp(which, whichtoo).
+                if (which !== whichtoo) which = 'weapon';
+            }
+            // C `:1328–1329` — quan != 1 (long) or twoweap.
+            if ((u.uwep.quan || 1) !== 1 || u.twoweap) which = makeplural(which);
+            // C `:1331` — the_your[!!strncmp(which, "corpse", 6)].
+            const your = which.startsWith('corpse') ? 'the' : 'your';
+            await pline(`You find you must ${what} ${your} ${which}!`);
         }
-        if ((u.uwep.quan || 1) !== 1 || u.twoweap) {
-            // makeplural deferred — quan>1 uncommon for wielded tools
-            if (!which.endsWith('s')) which += 's';
+        // C `:1334–1342` — swap weapon first; in_use defers drop+inventory.
+        let updateinv = true;
+        if (u.twoweap) {
+            const otmp = u.uswapwep;
+            uswapwepgone();
+            if (otmp?.in_use) updateinv = false;
+            else if (otmp && candropswapwep) await dropx(otmp);
         }
-        // C: the_your[!!strncmp(which,"corpse",6)] — "tool" → "your"
-        const your = which.startsWith('corpse') ? 'the' : 'your';
-        await pline(`You find you must ${what} ${your} ${which}!`);
-    }
-    if (u.twoweap && u.uswapwep) {
-        const otmp = u.uswapwep;
-        setuswapwep(null);
-        if (!otmp.in_use && candropswapwep) await dropx(otmp);
-    }
-    {
-        const otmp = u.uwep;
-        setuwep(null);
-        if (!otmp.in_use && candropwep) await dropx(otmp);
+        // C `:1343–1349` — then the main wielded weapon.
+        {
+            const otmp = u.uwep;
+            await uwepgone();
+            if (otmp?.in_use) updateinv = false;
+            else if (otmp && candropwep) await dropx(otmp);
+        }
+        // C `:1351–1353` — dropp-vs-dropx note lives in dropx (do.js).
+        if (updateinv) update_inventory();
+    } else if (!could_twoweap(game.youmonst?.data)) {
+        // C `:1354–1356` — new form can wield but not two-weapon.
+        await untwoweapon();
     }
 }
 
@@ -966,8 +959,7 @@ async function break_armor() {
  * Named omissions: Stoned/Sick/Slimed/strangle/glib; hideunder; utrap;
  * Blind restore; egg learn; swallow expel; light sources;
  * full skinback; livelog first-poly text; break_armor horns /
- * flimsy-helm pierce / ublindf; drop_weapon twoweapon/in_use arms;
- * retouch_equipment; non-breath verbose tips.
+ * flimsy-helm pierce / ublindf; retouch_equipment; non-breath verbose tips.
  * @param {number} mntmp
  * @returns {Promise<number>} 1 on success, 0 on geno abort
  */

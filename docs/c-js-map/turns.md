@@ -325,7 +325,7 @@ closed.` — check `!run` before clearing run** (D-0433) +
 Passes_walls/ooze/Underwater/tunnels/Blind feel/steed deferred; 
 trap/steed/mthrowu sticky Fumbling still); 
 **`#` → `doextcmd`/`#teleport`(D-1230)/`#wizwish`(D-0709)/`#wipe`(D-0712)/`#polyself`(D-0713; 
-**`polymon` `drop_weapon(1)` cantwield→dropx** (D-0714); 
+**`polymon` `drop_weapon(1)` cantwield→dropx** (D-0714); **full `drop_weapon` port** (D-1992; live `is_sword`/`weapon_descr` names + `makeplural`, `uswapwepgone`/`uwepgone` + `updateinv`/`update_inventory`, `could_twoweap→untwoweapon`; `poly_weapon_descr` clone retired; `untwoweapon` gains C `update_inventory`; residual tip/surface rows queued, not this function); 
 **`break_armor` nohands/verysmall gloves(+drop_weapon)/helm/shield + boots** (D-0928 #1116;
 D-1991: breakarm uarm/shirt `useup` destroy + `end_burn` lamplit + `Armor_gone`,
 cloak 3-way (wrapping tears/smock knot/clasp) via `cloak_simple_name` +
