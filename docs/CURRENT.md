@@ -42,14 +42,14 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`show_conduct` (parked) ×1
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
-Reviews **835–842** (D-1865…D-1910): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1910):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1910):
-8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1910):
+Reviews **835–842** (D-1865…D-1911): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1911):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1911):
+8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1911):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1910): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1911): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1910): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1911): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -83,13 +83,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `mkmap.c` `join_map` + `join_map_cleanup` — flood-fill regions + dig_corridor joins (Open row 1; flood_fill_rm/add_room live in mklev.js; lands the review-878 `impossible()` arm).
+**Next cluster:** `mkmap.c` finish_map — wallify/lit/lava-ice + is_maze_lev/is_cavernous_lev flags (mkmap.c follow-up; needs wallify_map).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1910 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1911 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1911** `mkmap.c` `finish_map` `:330–363` (wallify `:340–341`, lit `:343–353`, lava-ice `:356–362` — canonical `export function finish_map` in `js/mkmap.js` in C order (whole-map `wallify_map(1, 0, COLNO-1, ROWNO-1)` under `walled`; `!IS_OBSTRUCTED` fg/bg + `TREE` + `walled && IS_WALL` lit with per-room `rlit`; uncondit
 **D-1910** `mkmap.c` `join_map_cleanup` `:245–255`, `join_map` `:257–328` (fill loop `:262–297`, `joi — canonical `export async function join_map` + `export function join_map_cleanup` in `js/mkmap.js` in C order: fill loop (`WIDTH`/`HEIGHT` bounds, `NO_ROOM` gate, bounds-object `n_filled` via `mkmap_flood_fill_rm`, `>3` → 
 **D-1909** `dungeon.c` `In_hell` `:1941–1945` (`svd.dungeons[lev->dnum].flags.hellish`); `dungeon.h:1 — body now reads `!!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish)` — the same flag expression as the `do.js`/`trap.js` siblings (same `| 0` undefined→0 fallback shape); doc comment cites `dungeon.c:1941–1945`.
 **D-1908** `mkmap.c` `init_map` `:23–34`, `init_fill` `:36–52`, `N_P1_ITER`/`N_P2_ITER`/`N_P3_ITER` ` — canonical exports in `js/mkmap.js`: `N_P1_ITER`/`N_P2_ITER`/`N_P3_ITER`, `init_map` (C field order NO_ROOM/typ/unlit), `init_fill` (limit `(WIDTH*HEIGHT*2)/5`=624, `rn1(WIDTH-1,2)`/`rnd(HEIGHT-1)`, occupied cells retry d
@@ -97,11 +98,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1906** `dat/wiz-goal.lua` :73–87 (1 named Eye + 14 empty `des.object()`); `sp_lev.c` `lspo_object — bound 15→14 with comment citing :74–87; Bar-goal comment corrected to the shared 1+14 shape.
 **D-1905** `win/tty/wintty.c` `tty_putstr` NHW_TEXT/MENU arm `:2412–2420` — `s.slice(i)` → `s.slice(i + 1)` + doc correction (`&str[i]` post-`++i`, space consumed).
 **D-1904** `role.c` `str2role :746–775` / `str2race :812–841` / `str2gend :879–904` / `str2align :942 — `js/roles.js` (+~150): index-aligned `ROLE_FILECODES` attached to `roles[]`; `randomstr`; `str2role`/`str2race`/`str2gend`/`str2align` in C order (male/noun/adj prefix, then female/adj, then exact filecode, then `*`/`@`/
-**D-1903** `pager.c` `dohistory :2961–2965` / `dispfile_help :2748–2752` / `dispfile_shelp :2754–2758 — C-order ports in `js/pager.js` (+~277/−24): `look_region_nearby(out, nearby)` holder-mutating export (C lo_y/lo_x/hi_y/hi_x order, `ux|0`/`uy|0` ints) with `look_region` kept as a delegating wrapper (clone drift deleted)
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1910; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1911; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmap.c` finish_map — wallify/lit/lava-ice + is_maze_lev/is_cavernous_lev flags (mkmap.c follow-up; needs wallify_map).
 - [ ] `role.c` setup_rolemenu/racemenu/gendmenu/algnmenu extraction — C add_menu/winid builders; both filtering and reset-preselect arms already inline in pick_*_menu/reset_role_filtering, extraction must keep byte-identical menus (role.c follow-up).
 - [ ] `trap.c` lava_effects remaining arms — Fire_resistance/Wwalking survival, inventory burn flags, sink-and-die sequence (TOP30 #24, 11% ported; drown shipped D-1814, lava never queued).
 - [ ] `mon.c` newcham remaining body arms — NC_VIA_WAND_OR_SPELL mon_break_armor, boulder arms, monst_to_any dead callee (TOP30 #25; archived rows are await-wiring/named bits only).

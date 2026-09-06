@@ -1,31 +1,29 @@
 // mkmap.js — Cavernous-level cellular-automata generator.
 // C ref: nethack-c/upstream/src/mkmap.c — get_map, pass_one, pass_two,
 // pass_three, remove_room, remove_rooms, init_map, init_fill, litstate_rnd,
-// mkmap, join_map, join_map_cleanup.
-// Partial: finish_map() is NOT ported yet (queued row, named in
-// docs/c-js-map/data.md); the mkmap() driver below delegates that call to
-// the live mklev.js clone until its row lands, so nothing imports this
-// module yet.
-// (The live LVLINIT_MINES path in js/mklev.js splev_initlev still runs its
-// own clones; cutting it over is queued with the finish_map row.)
+// mkmap, join_map, join_map_cleanup, finish_map.
+// Canonical home for the mkmap.c envelope; the live LVLINIT_MINES path in
+// js/mklev.js splev_initlev awaits mkmap() here. wallify_map itself lives
+// in js/mklev.js (C sp_lev.c:2864) and is imported, not cloned.
 // RNG: init_fill draws rn1/rnd, litstate_rnd draws rnd/rn2 on the negative
 // arm, join_map draws via somexy/dig_corridor/rn2(3); the six D-1902
-// functions draw nothing.
+// functions plus finish_map draw nothing.
 
 import { game } from './gstate.js';
 import {
     COLNO, ROWNO, ROOMOFFSET, NO_ROOM, MAXNROFROOMS, OROOM,
+    TREE, LAVAPOOL, ICE, ICED_POOL, ICED_MOAT,
+    IS_OBSTRUCTED, IS_WALL,
 } from './const.js';
 import { impossible } from './display.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { depth as depth_of_level } from './hacklib.js';
-// Flood-fill/join callees: the live mklev.js bodies (same C order, same
-// argument order). join_map/join_map_cleanup below are canonical here
-// (C mkmap.c:245-328) with the somexy-failure impossible() arm the
-// mklev.js join_map_fixed clone drops; finish_map stays delegated until
-// its row lands.
+// Shared callees live in js/mklev.js (same C order, same argument order):
+// wallify_map (C sp_lev.c:2864), add_room/somexy/dig_corridor (C mklev.c),
+// mkmap_flood_fill_rm (C flood_fill_rm). join_map/join_map_cleanup/
+// finish_map below are canonical here (C mkmap.c:245-363).
 import {
-    finish_map as mklev_finish_map,
+    wallify_map,
     add_room, somexy, dig_corridor, mkmap_flood_fill_rm,
 } from './mklev.js';
 
@@ -287,11 +285,50 @@ export async function join_map(bg_typ, fg_typ) {
     join_map_cleanup();
 }
 
+// C ref: mkmap.c:330-363 finish_map().
+// Wallify, light, then lava-ice, in C order. walled runs wallify_map over
+// the whole map first; lit lights every fg/bg cell (plus fresh walls when
+// walled) and stamps every room rlit; lava cells always light even when
+// unlit, and ice records frozen-pool vs frozen-moat from icedpools.
+// C :361 uses the rm.h ICED_POOL/ICED_MOAT codes (8/16), not 1/2.
+// Draws no RNG.
+export function finish_map(fg_typ, bg_typ, lit, walled, icedpools) {
+    const map = game.level;
+    if (walled)
+        wallify_map(1, 0, COLNO - 1, ROWNO - 1);
+
+    if (lit) {
+        for (let x = 1; x < COLNO; x++)
+            for (let y = 0; y < ROWNO; y++) {
+                const loc = map.at(x, y);
+                if (!loc) continue;
+                if ((!IS_OBSTRUCTED(fg_typ) && loc.typ === fg_typ)
+                    || (!IS_OBSTRUCTED(bg_typ) && loc.typ === bg_typ)
+                    || (bg_typ === TREE && loc.typ === bg_typ)
+                    || (walled && IS_WALL(loc.typ)))
+                    loc.lit = true;
+            }
+        for (let x = 0; x < (game.level.nroom | 0); x++)
+            if (game.level.rooms[x]) game.level.rooms[x].rlit = 1;
+    }
+    /* light lava even if everything's otherwise unlit;
+       ice might be frozen pool rather than frozen moat */
+    for (let x = 1; x < COLNO; x++)
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = map.at(x, y);
+            if (!loc) continue;
+            if (loc.typ === LAVAPOOL)
+                loc.lit = true;
+            else if (loc.typ === ICE)
+                loc.icedpool = icedpools ? ICED_POOL : ICED_MOAT;
+        }
+}
+
 // C ref: mkmap.c:450-486 mkmap().
 // Cavern assembly driver: resolve lit, blanket the map, scatter the RNG
 // fill, run the CA passes N_P1_ITER/N_P2_ITER (and N_P3_ITER smoothing)
-// times, join the regions, finish (wallify/lit/lava-ice), then stamp the
-// walled+joined level cavernous, not mazelike (-dlc).
+// times, join the regions, finish_map (wallify/lit/lava-ice :478), then
+// stamp the walled+joined level cavernous, not mazelike (-dlc :480-484).
 // new_locations ownership (C :460 alloc / :485 free): C threads one
 // (WIDTH+1)*HEIGHT scratch buffer through pass_two/pass_three via the
 // new_loc macro. The JS passes above keep per-call scratch at the same
@@ -326,7 +363,7 @@ export async function mkmap(init_lev) {
     if (join)
         await join_map(bg_typ, fg_typ);
 
-    mklev_finish_map(fg_typ, bg_typ, !!lit, walled, !!init_lev.icedpools);
+    finish_map(fg_typ, bg_typ, !!lit, walled, !!init_lev.icedpools);
     /* a walled, joined level is cavernous, not mazelike -dlc */
     if (walled && join) {
         game.level.flags.is_maze_lev = false;

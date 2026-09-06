@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `mkmap.c` join_map + join_map_cleanup — flood-fill regions + dig_corridor joins (mkmap.c follow-up; flood_fill_rm/add_room live in mklev.js; needs somexy/dig_corridor). **Addressed:** D-1910
+- [x] `mkmap.c` finish_map — wallify/lit/lava-ice + is_maze_lev/is_cavernous_lev flags (mkmap.c follow-up; needs wallify_map). **Addressed:** D-1911
+
+
+- [x] `mkmap.c` join_map + join_map_cleanup — flood-fill regions + dig_corridor joins (mkmap.c follow-up; flood_fill_rm/add_room live in mklev.js; needs somexy/dig_corridor). **Addressed:** D-1910 `f7ff03a3`
 
 
 - [x] `pager.c` `Inhell_pager` drops the C `In_hell` predicate — checks `dnum === GEHENNOM` instead of the dungeon `hellish` flag (`dungeon.c:1941–1945`; siblings `do.js:1202`/`trap.js:604` read the flag); guards the vibrating-square arm in `add_cmap_descr`. Fix to the flag read in one iter. Source: reviews/loop-unattended/873-ed90f87f-pager-descr-arms.md. **Addressed:** D-1909 `7924e8a5`
