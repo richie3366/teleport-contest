@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `pickup.c` boh_loss/do_boh_explosion/mbag_item_gone — bag-of-holding/forbidden-item loss family (HELDOUT Tier C misc row; no JS symbol). **Addressed:** D-1938
+- [x] `zap.c` polyuse/mon_spell_hits_spot/wish_history_menu — zap misc family (HELDOUT Tier C misc row; no JS symbol). **Addressed:** D-1939
+
+
+- [x] `pickup.c` boh_loss/do_boh_explosion/mbag_item_gone — bag-of-holding/forbidden-item loss family (HELDOUT Tier C misc row; no JS symbol). **Addressed:** D-1938 `9cafb38d`
 
 
 - [x] `uhitm.c` backstabbable/disguised_as_mon/disguised_as_non_mon — backstab/disguise family (HELDOUT Tier C uhitm row; no JS symbol). **Addressed:** D-1937 `23674982`

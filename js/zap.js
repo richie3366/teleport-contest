@@ -227,7 +227,7 @@ import {
     flush_screen, flush_topl_more, pline, pline_dir, pline_mon, Norep, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon, shieldeff,
     obj_glyph, cmap_to_glyph, glyph_is_invisible, map_invisible, unmap_object,
-    bot, set_msg_xy,
+    bot, set_msg_xy, impossible,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
@@ -291,7 +291,7 @@ import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv,
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac } from './u_init.js';
 import { rehumanize, polymon, body_part } from './polyself.js';
-import { costly_alteration, stolen_value, costly_spot, shop_keeper, hot_pursuit, obfree, delete_contents } from './shk.js';
+import { costly_alteration, stolen_value, costly_spot, shop_keeper, hot_pursuit, obfree, delete_contents, addtobill } from './shk.js';
 import { dryup } from './fountain.js';
 import { explode } from './explode.js';
 import { unpunish, litroom } from './read.js';
@@ -320,7 +320,7 @@ import {
     ROCK_CLASS, NODIR, IMMEDIATE, objectNames, is_poisonable,
 } from './objects.js';
 import {
-    WAND_BACKFIRE_CHANCE, WAND_WREST_CHANCE, nothing_happens,
+    WAND_BACKFIRE_CHANCE, WAND_WREST_CHANCE, nothing_happens, LARGEST_INT,
     NO_KILLER_PREFIX, DIED, KILLED_BY, KILLED_BY_AN, isok, ZAP_POS, STONE,
     IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
     DISP_BEAM, DISP_CHANGE, DISP_END, DISP_FLASH, DISP_TETHER,
@@ -517,9 +517,11 @@ const ZT_ACID = 7;
 const ZT_SPELL_0 = 10; // ZT_SPELL(0)
 const ZT_BREATH_0 = 20; // ZT_BREATH(0)
 const MAGIC_COOKIE = 1000; // zap.c local #define
+const AD_MAGM = 1; // C ref: monattk.h AD_MAGM (magic missiles)
 const AD_COLD = 3;
 const AD_FIRE = 2;
 const AD_ELEC = 6;
+const AD_ACID = 8; // C ref: monattk.h AD_ACID (acid damage)
 const AD_DRLI = 15;
 const DMG_DESTROY_SCALE = 5;
 const MAX_ITEMS_DESTROYED = 20;
@@ -6468,6 +6470,82 @@ export async function dozap() {
     }
     // update_inventory deferred
     return 1;
+}
+
+/**
+ * C ref: zap.c polyuse :1505-1539 (staticfn; only caller create_polymon :1627).
+ * Walk the floor pile from objhdr, consuming objects toward minwt weight.
+ * C order: bypasses → uball/uchain → obj_resists(0,0) → SCR_MAIL
+ * (MAIL_STRUCTURES, global.h:430) → material-match == rn2(minwt+1)!=0 →
+ * costly_spot bill/stolen → quan/LARGEST_INT (global.h:135) → delobj.
+ * Async: shk addtobill/stolen_value are async in JS.
+ */
+export async function polyuse(objhdr, mat, minwt) {
+    mat |= 0;
+    minwt |= 0;
+    const scrMail = objectNames.indexOf('SCR_MAIL');
+    for (let otmp = objhdr, otmp2 = null; minwt > 0 && otmp; otmp = otmp2) {
+        otmp2 = otmp.nexthere;
+        if (game.context?.bypasses && otmp.bypass) continue;
+        if (otmp === game.u?.uball || otmp === game.u?.uchain) continue;
+        if (obj_resists(otmp, 0, 0)) continue; /* preserve unique objects */
+        if (scrMail >= 0 && (otmp.otyp | 0) === scrMail) continue;
+        const matMatches = ((game.objects?.[otmp.otyp]?.oc_material | 0) === mat);
+        const r = rn2(minwt + 1) !== 0;
+        if (matMatches === r) {
+            /* appropriately add damage to bill */
+            if (costly_spot(otmp.ox | 0, otmp.oy | 0)) {
+                if ((game.u?.ushops || '')[0]) await addtobill(otmp, false, false, false);
+                else await stolen_value(otmp, otmp.ox | 0, otmp.oy | 0, false, false);
+            }
+            if ((otmp.quan | 0) < LARGEST_INT) minwt -= (otmp.quan | 0);
+            else minwt = 0;
+            delobj(otmp);
+        }
+    }
+}
+
+/**
+ * C ref: zap.c mon_spell_hits_spot :5501-5533 — monster flames/frost land
+ * on <x,y> (mcastu.c callers). MAGM/ACID first wipe the engraving
+ * (zap_over_floor doesn't), then AD_MAGM..AD_ACID route via
+ * zt_typ = adtyp-1 / zapdmgtyp = -ZT_SPELL(zt_typ) to zap_over_floor
+ * with a dummy shop bill (only used for hero fault); other adtyp
+ * is C impossible(). Async: zap_over_floor + impossible are async in JS.
+ */
+export async function mon_spell_hits_spot(_caster, adtyp, x, y) {
+    adtyp |= 0;
+    x |= 0;
+    y |= 0;
+    /* "shower of missiles" or [hypothetical] "acid rain" attack:
+       thoroughly clobber an engraving (unless its type makes it be
+       scuff-protected); zap_over_floor() doesn't handle this */
+    if (adtyp === AD_MAGM || adtyp === AD_ACID) {
+        const ep = engr_at(x, y);
+        const etext = ep ? (ep.engr_txt?.actual_text ?? null) : null;
+        if (etext != null) wipe_engr_at(x, y, (String(etext).length | 0) + d(6, 6), true);
+        /* hero and player will still remember prior text until the spot
+           is re-examined (lookhere or move off and back on) */
+    }
+    /* hit items and/or terrain; only matters for AD_FIRE and AD_COLD but
+       accept any basic damage type that zap_over_floor() might handle */
+    if (adtyp >= AD_MAGM && adtyp <= AD_ACID) {
+        const zt_typ = (adtyp | 0) - 1; /* convert AD_xxxx to ZT_xxxx */
+        const zapdmgtyp = -(10 + zt_typ); /* -ZT_SPELL(zt_typ); monster spell */
+        const shopdummy = { v: false };
+        await zap_over_floor(x, y, zapdmgtyp, shopdummy, true, 0);
+    } else {
+        await impossible('Unsupported damage type (%d) for mon_spell_hits_spot.', adtyp);
+    }
+}
+
+/**
+ * C ref: zap.c wish_history_menu :6275-6309 (staticfn; caller makewish :6335).
+ * Entire body is #ifdef DEBUG (menu of wish_history[] into buf); in the
+ * production build it is a no-op and buf is never modified. JS keeps the
+ * no-op so the symbol exists; the DEBUG menu is deferred.
+ */
+export function wish_history_menu(_buf) {
 }
 
 /**

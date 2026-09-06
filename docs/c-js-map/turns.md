@@ -647,7 +647,12 @@ force_decor/draft_message/Invocation_lev named; potion peffect_enlightenment is 
 **`poly_obj` `Has_contents` → `shk.c` `delete_contents` D-1770**
 (`:1827–1829` KAA; C `shk.c` `:1174–1183` extract+`obfree`; zap.js
 unlink clone retired; named: trap.js `delete_contents_chest`,
-mklev.js `create_object_delete_contents`, objnam empty/verysmall statue).
+mklev.js `create_object_delete_contents`, objnam empty/verysmall statue);
+**`polyuse` `:1505–1539` + `mon_spell_hits_spot` `:5501–5533` + `wish_history_menu` `:6275–6309` D-1939**
+(`polyuse` bypasses→uball/uchain→`obj_resists(0,0)`→SCR_MAIL→`rn2(minwt+1)`→bill/stolen→`delobj`;
+`mon_spell_hits_spot` MAGM/ACID wipe + `ZT_SPELL` `zap_over_floor` + `impossible` else;
+`wish_history_menu` `#ifdef DEBUG` production no-op;
+named: `create_polymon` body, mcastu call sites, `makewish` history gate).
 
 ### `src/read.c` `doread`/`seffects`
 
