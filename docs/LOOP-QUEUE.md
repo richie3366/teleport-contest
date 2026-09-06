@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `display.c` flush_screen dirty-span loop — gbuf_start/gbuf_stop + reset_glyph_bbox (bbox tracked since D-1984; span-gated paint deferred below).
 - [ ] `display.c` flush_screen span-gated grid paint — `:2241–2257` gate + no blanket clear (deferred D-1984; needs overlay full-resync).
 - [ ] `display.c`/`getpos.c` map_frame_color store — gw.wsettings.map_frame_color + getpos HiliteBackground wiring (named in D-1973; no JS symbol anywhere in js/).
 - [ ] `monmove.c` dochug demon/caster retaliation — MS_BRIBE mux skipped by D-1798; live `demon_talk`/`cuss` unwired at monmove.c:823/985 (sounds.c:1143/1150 wired).

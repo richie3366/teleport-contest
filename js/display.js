@@ -3811,14 +3811,28 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     loc.disp_decgfx = !!decgfx;
     loc.disp_attr = attr | 0;
     loc.disp_kind = kind;
-    // C show_glyph `:2039` — always overwrite gbuf.glyph (never leave
-    // a stale trap/I/monster id after a tty-only paint).
-    if (typeof glyph === 'number') loc.disp_glyph = glyph | 0;
-    else if (ch === 'I' && !decgfx) loc.disp_glyph = GLYPH_INVISIBLE;
-    else loc.disp_glyph = NO_GLYPH;
-    loc.gnew = 1;
-    // C show_glyph `:2053–2056` — expand the row's dirty span with the store.
-    mark_gbuf_dirty(x, y);
+    // Resolved first: two glyph ids can share one ttychar (altar and
+    // fountain are both '{'), so the id is part of the change test below.
+    const newGlyphId = typeof glyph === 'number' ? glyph | 0
+        : (ch === 'I' && !decgfx) ? GLYPH_INVISIBLE : NO_GLYPH;
+    // C show_glyph `:2031–2056` — the gbuf store + gnew + span happen
+    // only when the buffered glyphinfo actually differs (glyph id,
+    // ttychar, gm color/flags/tile, or use_background_glyph, which stays
+    // shut on tty — D-1984); an unchanged rewrite stays out of the dirty
+    // span. JS compares the resolved tty fields (the same ch/color/dec
+    // set show_glyph_change_wanted uses, plus attr and the glyph id).
+    // The store itself stays unconditional — rewriting identical values
+    // is a no-op — so only the dirty-marking is gated.
+    const glyphStored = loc.disp_glyph !== newGlyphId
+        || loc.disp_ch !== ch
+        || loc.disp_color !== tty_map_color(color)
+        || !!loc.disp_decgfx !== !!decgfx
+        || (loc.disp_attr | 0) !== (attr | 0);
+    loc.disp_glyph = newGlyphId;
+    if (glyphStored) {
+        loc.gnew = 1;
+        mark_gbuf_dirty(x, y);
+    }
     if (announce) await emit_show_glyph_change(x, y);
 }
 
@@ -5899,10 +5913,8 @@ function _buildScreenOutput() {
                 loc.gnew = 0;
             }
         }
-        // C flush_screen `:2259` — spans consumed; empty them even though
-        // this rebuild paints all (keeps the tracked bbox honest for the
-        // incremental follow-up, which stays queued — see map section).
-        reset_glyph_bbox();
+        // (C flush_screen `:2259` reset lands after the grid block below
+        // so spans empty even with no grid consumer.)
         // Status from last bot() cache. C gb.bot_disabled skips putstr so
         // leftover tty cells stay; JS clearScreen wipes them, so repaint
         // the cache unless D-0467 `_statusSuppressed` (fullscreen NHW_MENU
@@ -5936,6 +5948,10 @@ function _buildScreenOutput() {
                 game.u.uy + 1 - (clipping ? clipy : 0));
         }
     }
+    // C flush_screen `:2259` — spans empty after every flush, unconditioned
+    // on any consumer: the rebuild above paints all, so the tracked bbox
+    // stays honest for the incremental follow-up (queued — see map section).
+    reset_glyph_bbox();
 }
 
 // C ref: display.c flush_screen(-1) toggles delay_flushing so map/status

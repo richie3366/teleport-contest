@@ -2090,7 +2090,9 @@ named: `map_glyphinfo` glyphmap[]-base/symidx/tileidx/ov_* arms (hero color
 tty pan offsets live since D-1982 (`docorner` caller + `_paint_gbuf_cell` gate);
 **`gbuf_start`/`gbuf_stop` + `reset_glyph_bbox` bbox tracked since D-1984**
 (writers + clear expand spans, post-rebuild reset; span-gated grid paint
-deferred — persistent grid kept menu overlays, rebuild-all stands));
+deferred — persistent grid kept menu overlays, rebuild-all stands;
+D-1985: `show_glyph_cell` marks `gnew` + span only on real change
+(C `:2031–2056`, glyph-id-inclusive), reset unconditional per `:2259`));
 |**`get_bkglyph_and_framecolor` live** (D-1973; C `display.c:2507–2579`;
 `js/display.js` exported in C arm order with `| 0` int idiom —
 use_background_glyph/seenv/gbuf gate (shut on tty per `windmain.c:332`,

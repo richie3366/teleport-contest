@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1985 — display.c flush_screen dirty-span loop: conditional mark + unconditional reset
+
+- **Status:** fixed (Open queue row: `display.c` flush_screen dirty-span loop — closes the row D-1984 split off and left unchecked; span-gated grid paint stays queued as its own Open row)
+- **Symptom:** none on any suite at HEAD (map-driven Open row, no corpus session blocked on flush_screen — vacuous hidden verify, no `--base` re-run owed).
+- **C locus:** `nethack-c/upstream/src/display.c` — `show_glyph` change gate `:2031–2056` (store + `gnew = 1` + span expand only when the buffered glyphinfo differs: glyph id, ttychar, gm color/flags/tile, or `use_background_glyph`); `flush_screen` `:2259` unconditional `reset_glyph_bbox()`.
+- **JS was:** `show_glyph_cell` set `loc.gnew = 1` + `mark_gbuf_dirty` on every call, even identical rewrites (over-wide spans; honest tracking was this row's stated purpose). Also fixed a wrong C citation: the old comment claimed C `:2039` "always overwrite gbuf.glyph", but `:2039` is the ttychar inequality *inside* the change condition — the store lives at `:2046+` under it. `_buildScreenOutput` called `reset_glyph_bbox()` only inside `if (display.grid)`, so grid-less flushes leaked spans.
+- **Fix:** `js/display.js` — `show_glyph_cell` resolves the glyph id first (two ids can share one ttychar, e.g. altar/fountain `{`) and gates `gnew = 1` + `mark_gbuf_dirty` on id/ch/color/dec/attr difference; the disp store itself stays unconditional (rewriting identical values is a no-op, so the D-1767 "always stamp" map rows stand). `reset_glyph_bbox()` moved after the grid block so every rebuild empties spans per C `:2259`. Safe by construction: paint still rebuilds all (no incremental-paint overlay hazard — D-1984 regression mode untouched); the only `gnew`-gated paint paths (`bones.js` leave-level, `flush_screen_getpos_dirty`) keep working because real changes still set `gnew`, and the getpos path's `newsym_force` mark stays unconditional per C `:1867–1870`. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/display.js` (+28/−12); 1 js file, under 600 cap.
+- **Verify:** `node scripts/verify.mjs --fn flush_screen` → VERIFY: PASS — `PASS syntax 1 changed js file(s)`; `PASS rule2`; `note hidden verify flush_screen: no corpus session is blocked on it at HEAD` (vacuous — row cited 0 blocks, so no `--base` re-run owed and no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `PASS full 44/44 passing (auto: shared file changed)`.
+- **Named omissions:** span-loop shape + `:2241–2257` `gnew || framecolor` gate + no blanket clear (next Open row, needs overlay full-resync); `map_glyphinfo` re-derive at `:2250`; `gw.wsettings.map_frame_color` store wiring; `clear_glyph_buffer` `nul_gbuf.gnew` dynamic computation (C derives 0-or-1 from the unexplored rendering; JS keeps `gnew = 1` — revisit with the gate row); `use_background_glyph` arm (shut on tty, D-1984).
+- **Next:** pop the next Open row (`display.c` flush_screen span-gated grid paint — `:2241–2257` gate + no blanket clear).
+
 ## D-1984 — display.c flush_screen glyph-bounding-box core (tracked, span-gated paint deferred)
 
 - **Status:** fixed (Open queue row: `display.c` flush_screen dirty-span loop — gbuf_start/gbuf_stop + reset_glyph_bbox; ships the tracked-bbox core, defers the span-gated grid paint as its own Open row)

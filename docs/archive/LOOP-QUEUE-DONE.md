@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `display.c` map_glyphinfo ov_* override tables — accessibility overseer sym tables (named in D-1972; no JS symbol anywhere in js/). **Addressed:** D-1983
+- [x] `display.c` flush_screen dirty-span loop — gbuf_start/gbuf_stop + reset_glyph_bbox (bbox tracked since D-1984; span-gated paint deferred below). **Addressed:** D-1985
+
+
+- [x] `display.c` map_glyphinfo ov_* override tables — accessibility overseer sym tables (named in D-1972; no JS symbol anywhere in js/). **Addressed:** D-1983 `a18cf0dd`
 
 
 - [x] `display.c` cliparound + CLIPPING clipx/clipy — tty pan offsets (named in row_refresh/get_bkglyph_and_framecolor/redraw_map; no JS symbol anywhere in js/). **Addressed:** D-1982 `ff608bf9`
