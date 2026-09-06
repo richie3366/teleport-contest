@@ -400,6 +400,9 @@ if (( TOKEN_BUDGET > 0 )) && [[ "$USE_MUSE" != "1" ]] && [[ "$OUTPUT_FORMAT" != 
   JSONL_LOGS=1
 fi
 ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-3600}"
+GIT_FETCH_TIMEOUT_SEC="${GIT_FETCH_TIMEOUT_SEC:-30}"
+LOOP_PROGRESS_INTERVAL_SEC="${LOOP_PROGRESS_INTERVAL_SEC:-30}"
+LOOP_PROGRESS="${LOOP_PROGRESS:-1}"
 # Token-exhaustion detector: N consecutive agent runs shorter than this → halt.
 SHORT_ITER_SEC="${SHORT_ITER_SEC:-30}"
 SHORT_STREAK_LIMIT="${SHORT_STREAK_LIMIT:-3}"
@@ -654,7 +657,9 @@ run_full_suite_gate() {
   return 0
 }
 
-run_with_timeout() {
+run_with_timeout_secs() {
+  local timeout="$1"
+  shift
   python3 -c '
 import subprocess, sys
 timeout = float(sys.argv[1])
@@ -668,9 +673,81 @@ except subprocess.TimeoutExpired:
     except subprocess.TimeoutExpired:
         proc.kill()
         proc.wait()
-    print(f"agent iteration timed out after {timeout:g}s", file=sys.stderr)
+    print(f"timed out after {timeout:g}s", file=sys.stderr)
     raise SystemExit(124)
-' "$ITERATION_TIMEOUT_SEC" "$@"
+' "$timeout" "$@"
+}
+
+run_with_timeout() {
+  run_with_timeout_secs "$ITERATION_TIMEOUT_SEC" "$@"
+}
+
+git_fetch_origin() {
+  local timeout="${GIT_FETCH_TIMEOUT_SEC:-30}"
+  if [[ "$timeout" == "0" ]]; then
+    return 0
+  fi
+  echo "$(date -Iseconds) git fetch origin (timeout ${timeout}s)..." | tee -a "$MASTER_LOG"
+  if ! run_with_timeout_secs "$timeout" git fetch origin >/dev/null 2>&1; then
+    echo "$(date -Iseconds) warning: git fetch origin timed out or failed — continuing with local refs" \
+      | tee -a "$MASTER_LOG"
+  fi
+}
+
+# Heartbeat while the agent runs: the supervisor redirects all agent stdout
+# to iter-*.raw, so the terminal would otherwise look frozen for minutes.
+iter_progress_watcher() {
+  local iter="$1"
+  local raw="$2"
+  local agent_pid="$3"
+  local interval="${LOOP_PROGRESS_INTERVAL_SEC:-30}"
+  local last_stats="" last_bytes=-1 tick=0
+  while kill -0 "$agent_pid" 2>/dev/null; do
+    sleep "$interval"
+    tick=$((tick + 1))
+    if [[ ! -f "$raw" ]]; then
+      echo "$(date -Iseconds) [iter $iter] agent running, no raw output yet (${tick}×${interval}s)..." \
+        | tee -a "$MASTER_LOG"
+      continue
+    fi
+    local bytes
+    bytes="$(wc -c <"$raw" | tr -d '[:space:]')"
+    local stats
+    stats="$(node "$EXTRACT_LOG" --denials "$raw" 2>/dev/null | head -1 || true)"
+    if [[ -n "$stats" && "$stats" != "$last_stats" ]]; then
+      echo "$(date -Iseconds) [iter $iter] $stats (${bytes} bytes raw)" | tee -a "$MASTER_LOG"
+      last_stats="$stats"
+      last_bytes=$bytes
+    elif [[ "$bytes" == "$last_bytes" ]]; then
+      echo "$(date -Iseconds) [iter $iter] no new output (${tick}×${interval}s, ${bytes} bytes raw)..." \
+        | tee -a "$MASTER_LOG"
+    else
+      echo "$(date -Iseconds) [iter $iter] streaming (${bytes} bytes raw)..." | tee -a "$MASTER_LOG"
+      last_bytes=$bytes
+    fi
+  done
+}
+
+# Run the agent under the iteration timeout with an optional progress watcher.
+run_agent_iteration() {
+  local iter="$1"
+  local iter_raw="$2"
+  shift 2
+  echo "$(date -Iseconds) === agent exec starting ===" | tee -a "$MASTER_LOG"
+  run_with_timeout "$@" >"$iter_raw" 2>&1 &
+  local agent_pid=$!
+  local prog_pid=""
+  if [[ "${LOOP_PROGRESS:-1}" == "1" ]]; then
+    iter_progress_watcher "$iter" "$iter_raw" "$agent_pid" &
+    prog_pid=$!
+  fi
+  local status=0
+  wait "$agent_pid" || status=$?
+  if [[ -n "$prog_pid" ]]; then
+    kill "$prog_pid" 2>/dev/null || true
+    wait "$prog_pid" 2>/dev/null || true
+  fi
+  return "$status"
 }
 
 # Print banned-pattern hits vs $1 (js/ snapshot). Empty = clean.
@@ -1054,6 +1131,8 @@ if [[ "${AGENT_FORCE:-0}" != "1" ]]; then
   fi
 fi
 echo "timeout: ${ITERATION_TIMEOUT_SEC}s per iteration"
+echo "fetch:  ${GIT_FETCH_TIMEOUT_SEC}s git fetch timeout (0 = skip fetch)"
+echo "progress: every ${LOOP_PROGRESS_INTERVAL_SEC}s while agent runs (LOOP_PROGRESS=0 disables)"
 echo "halt:   ${SHORT_STREAK_LIMIT}× agent runs <${SHORT_ITER_SEC}s (likely out of tokens)"
 if token_budget_active; then
   echo "budget: ${TOKEN_BUDGET_M}M tokens (${TOKEN_BUDGET}) this run only; last iter may overshoot"
@@ -1073,6 +1152,7 @@ echo "gates:  fail-closed=${LOOP_FAIL_CLOSED}  js cap ${LOOP_MAX_JS_INSERTIONS} 
 echo "push:   agents commit+push; supervisor backup (LOOP_PUSH=${LOOP_PUSH})"
 echo
 
+echo "$(date -Iseconds) === authority fingerprint ===" | tee -a "$MASTER_LOG"
 AUTHORITY_HASH="$(protected_fingerprint)"
 echo "$(date -Iseconds) === preflight green gate ===" | tee -a "$MASTER_LOG"
 if ! run_green_gate; then
@@ -1145,10 +1225,6 @@ while true; do
   cp -R "$ROOT/js" "$snapshot/js"
   before_head="$(git rev-parse HEAD)"
   origin_before=""
-  if git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
-    git fetch origin >/dev/null 2>&1 || true
-    origin_before="$(git rev-parse '@{u}' 2>/dev/null || true)"
-  fi
   if [[ "$resume_unfinished" == "1" ]]; then
     echo "$(date -Iseconds) === iteration $iter starting (global #$iter mode=$mode continue-unfinished) ===" \
       | tee -a "$MASTER_LOG"
@@ -1157,6 +1233,10 @@ while true; do
       | tee -a "$MASTER_LOG"
   fi
   echo "log: $iter_log" | tee -a "$MASTER_LOG"
+  if git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
+    git_fetch_origin
+    origin_before="$(git rev-parse '@{u}' 2>/dev/null || true)"
+  fi
   if [[ "$USE_MUSE" == "1" ]]; then
     echo "cli: $AGENT_BIN exec --json --model $MODEL --reasoning-effort $MUSE_REASONING_EFFORT --workspace $ROOT --prompt-file $iter_prompt --user-input-auto-resolve ${MUSE_EXTRA[*]+${MUSE_EXTRA[*]}}" \
       | tee -a "$MASTER_LOG"
@@ -1266,22 +1346,22 @@ while true; do
   set +e
   if [[ "$USE_MUSE" == "1" ]]; then
     printf '%s' "$prompt_body" >"$iter_prompt"
-    run_with_timeout "$AGENT_BIN" exec --json \
+    run_agent_iteration "$iter" "$iter_raw" \
+      "$AGENT_BIN" exec --json \
       --model "$MODEL" \
       --reasoning-effort "$MUSE_REASONING_EFFORT" \
       --workspace "$ROOT" \
       --prompt-file "$iter_prompt" \
       --user-input-auto-resolve \
-      ${MUSE_EXTRA[@]+"${MUSE_EXTRA[@]}"} \
-      >"$iter_raw" 2>&1
+      ${MUSE_EXTRA[@]+"${MUSE_EXTRA[@]}"}
   else
-    run_with_timeout "$AGENT_BIN" -p \
+    run_agent_iteration "$iter" "$iter_raw" \
+      "$AGENT_BIN" -p \
       --model "$MODEL" \
       --output-format "$OUTPUT_FORMAT" \
       ${TRUST_ARGS[@]+"${TRUST_ARGS[@]}"} \
       ${FORCE_ARGS[@]+"${FORCE_ARGS[@]}"} \
-      "$prompt_body" \
-      >"$iter_raw" 2>&1
+      "$prompt_body"
   fi
   status=$?
   set -e
@@ -1385,7 +1465,7 @@ while true; do
   origin_after=""
   agent_pushed=0
   if git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
-    git fetch origin >/dev/null 2>&1 || true
+    git_fetch_origin
     origin_after="$(git rev-parse '@{u}' 2>/dev/null || true)"
     if [[ -n "$origin_before" && -n "$origin_after" && "$origin_after" != "$origin_before" ]]; then
       agent_pushed=1
@@ -1555,7 +1635,7 @@ while true; do
   fi
 
   if [[ "$LOOP_PUSH" == "1" ]]; then
-    git fetch origin >/dev/null 2>&1 || true
+    git_fetch_origin
     local_head="$(git rev-parse HEAD)"
     remote_head="$(git rev-parse '@{u}' 2>/dev/null || true)"
     if [[ -n "$remote_head" && "$local_head" != "$remote_head" ]] ||
