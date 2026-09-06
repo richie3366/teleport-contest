@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `nhlsel.c` l_selection_iterate — selection-iterate Lua-C singleton (HELDOUT Tier C singletons; no JS symbol, comment-only refs in js/mklev.js). **Addressed:** D-1966
+- [x] `dbridge.c` do_entity — drawbridge crush/jump/relocate driver (HELDOUT Tier C; named omit in js/dbridge.js, set_entity live). **Addressed:** D-1967
+
+
+- [x] `nhlsel.c` l_selection_iterate — selection-iterate Lua-C singleton (HELDOUT Tier C singletons; no JS symbol, comment-only refs in js/mklev.js). **Addressed:** D-1966 `5b112530`
 
 
 - [x] `allmain.c` init_sound_disp_gamewindows — window-system init singleton (HELDOUT Tier C singletons; no JS symbol anywhere in js/). **Addressed:** D-1965 `e8ba2bb7`
