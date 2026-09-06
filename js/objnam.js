@@ -2456,6 +2456,15 @@ export function Yname2(obj) {
     return upstart(yname(obj));
 }
 
+/**
+ * C ref: objnam.c Doname2 `:2303–2309` — highc first character of doname.
+ * Canonical export for pickup `mbag_item_gone` (D-1938); pre-existing
+ * local clones (do/dokick/dothrow) stay.
+ */
+export function Doname2(obj) {
+    return upstart(doname(obj));
+}
+
 /** C objnam.c aobjnam — cxname + optional otense (quan prefix via xname). */
 export function aobjnam(otmp, verb) {
     let bp = cxname(otmp);

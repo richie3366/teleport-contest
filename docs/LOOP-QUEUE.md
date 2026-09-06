@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `pickup.c` boh_loss/do_boh_explosion/mbag_item_gone — bag-of-holding/forbidden-item loss family (HELDOUT Tier C misc row; no JS symbol).
 - [ ] `zap.c` polyuse/mon_spell_hits_spot/wish_history_menu — zap misc family (HELDOUT Tier C misc row; no JS symbol).
 - [ ] `pray.c` gcrownu/at_your_feet — crowning/vicinity family (HELDOUT Tier C misc row; no JS symbol).
 - [ ] `getpos.c` gloc_filter_init/_done/_floodfill/_floodfill_matcharea/_classify_glyph — getpos filter family (HELDOUT Tier C getpos row; no JS symbol).

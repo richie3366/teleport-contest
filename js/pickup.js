@@ -19,7 +19,7 @@ import {
     getobj_from_cmdq, getobj_display_pickinv, freeinv, display_inventory,
     splittable, will_feel_cockatrice, feel_cockatrice, is_worn,
     not_fully_identified,
-    taking_off, count_unpaid, getobj, Blind, hold_another_object,
+    taking_off, count_unpaid, getobj, Blind, hold_another_object, currency,
 } from './invent.js';
 import {
     nomul, check_special_room, is_pool, is_lava, in_rooms, dosinkfall,
@@ -32,7 +32,7 @@ import {
 } from './display.js';
 import { addinv } from './u_init.js';
 import {
-    an, doname, makesingular, xname, cxname, cxname_singular, xprname,
+    an, doname, Doname2, makesingular, xname, cxname, cxname_singular, xprname,
     the as theArt, The, body_part_latebound, vtense,
     safe_qbuf, ansimpleoname, otense,
     yname as yname_objnam, Yname2,
@@ -71,6 +71,7 @@ import {
     MELT_ICE_AWAY, LEVITATION, WARNING, u_at, FUMBLING, PLNMSG_BACK_ON_GROUND,
     IS_GRAVE, W_SADDLE, SUPPRESS_SADDLE, ynqchars,
     P_RIDING, P_BASIC, Is_waterlevel, WWALKING, FLYING, MAGICAL_BREATHING,
+    MAY_HIT, MAY_DESTROY,
 } from './const.js';
 import {
     t_at, dotrap, drown, lava_effects, instapetrify, float_down, ceiling,
@@ -86,7 +87,7 @@ import {
 import { ATR_INVERSE } from './terminal.js';
 import {
     addtobill, costly_spot, check_unpaid_usage, is_unpaid, doname_with_price,
-    remote_burglary,
+    remote_burglary, shop_keeper, stolen_value, obfree,
 } from './shk.js';
 import {
     nohands, nolimbs, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider,
@@ -114,6 +115,7 @@ import { incr_itimeout_HLevitation } from './potion.js';
 import { which_armor, extract_from_minvent } from './worn.js';
 import { unconscious } from './teleport.js';
 import { get_adjacent_loc } from './lock.js';
+import { scatter } from './explode.js';
 
 /** C ref: mondata.h notake — M1_NOTAKE. */
 function notake(ptr) {
@@ -136,6 +138,7 @@ function simpleonames(obj) {
     return cxname(obj);
 }
 
+const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
 const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
 const HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
@@ -2646,6 +2649,95 @@ async function getobj_stash() {
         if (got.retry) continue;
         return got;
     }
+}
+
+/**
+ * C ref: pickup.c is_boh_item_gone `:2510–2514` — `!rn2(13)` per-item loss
+ * roll shared by the cursed-bag loot/tip/explosion arms below.
+ * @returns {boolean} true when this item is gone
+ */
+export function is_boh_item_gone() {
+    return !rn2(13);
+}
+
+/**
+ * C ref: pickup.c mbag_item_gone `:2803–2822` — vanish pline (dknown-gated
+ * `Doname2 … vanished!` vs `You notice/see … disappear!`), shop bill via
+ * `stolen_value` when hero stands in (or holds) unpaid goods, then obfree.
+ * C order kept: silent gate → ushops/shop_keeper short-circuit →
+ * held?unpaid:costly_spot → stolen_value → obfree → loss.
+ * @returns {Promise<number>} billed loss, 0 when no shop goods lost
+ */
+export async function mbag_item_gone(held, item, silent) {
+    const u = game.u || {};
+    let loss = 0;
+    if (!silent) {
+        if (item?.dknown) {
+            await pline(`${Doname2(item)} ${otense(item, 'have')} vanished!`);
+        } else {
+            await pline(`You ${Blind() ? 'notice' : 'see'} ${doname(item)} disappear!`);
+        }
+    }
+    const shopch = u.ushops ? u.ushops.charCodeAt(0) : 0;
+    const shkp = shopch ? shop_keeper(shopch) : null;
+    if (shopch && shkp) {
+        if (held ? !!item?.unpaid : costly_spot(u.ux, u.uy)) {
+            loss = await stolen_value(item, u.ux, u.uy, !!shkp.mpeaceful, true);
+        }
+    }
+    obfree(item, null);
+    return loss | 0;
+}
+
+/**
+ * C ref: pickup.c do_boh_explosion `:2518–2534` — scatter most of a bag of
+ * holding's contents around; some items destroyed with the same
+ * `is_boh_item_gone` chance as looting a cursed bag. C order kept:
+ * in_use guard first (scatter may create bones), prefetch nobj before
+ * each arm, `!on_floor` held flag into the silent `mbag_item_gone`,
+ * else stamp hero square and scatter with MAY_HIT|MAY_DESTROY.
+ */
+export async function do_boh_explosion(boh, on_floor) {
+    const u = game.u || {};
+    boh.in_use = 1; /* in case scatter() leads to bones creation */
+    for (let otmp = boh?.cobj; otmp;) {
+        const nobj = otmp.nobj;
+        if (is_boh_item_gone()) {
+            obj_extract_self(otmp);
+            await mbag_item_gone(!on_floor, otmp, true);
+        } else {
+            otmp.ox = u.ux; otmp.oy = u.uy;
+            await scatter(u.ux, u.uy, 4, MAY_HIT | MAY_DESTROY, otmp);
+        }
+        otmp = nobj;
+    }
+    /* boh is about to be deleted so no need to reset its in_use flag here */
+}
+
+/**
+ * C ref: pickup.c boh_loss `:2537–2554` — sometimes toss objects from a
+ * cursed magic bag on loot. C order kept: Is_mbag (obj.h:339 bag-of-holding
+ * or bag-of-tricks) + cursed + Has_contents gate, prefetch nobj before
+ * each loss arm, loss accumulates the billed `mbag_item_gone` returns.
+ * @returns {Promise<number>} billed loss, 0 when gate closed or nothing lost
+ */
+export async function boh_loss(container, held) {
+    /* sometimes toss objects if a cursed magic bag */
+    const t = container?.otyp | 0;
+    if ((t === BAG_OF_HOLDING || t === BAG_OF_TRICKS)
+        && container.cursed && Has_contents(container)) {
+        let loss = 0;
+        for (let curr = container.cobj; curr;) {
+            const otmp = curr.nobj;
+            if (is_boh_item_gone()) {
+                obj_extract_self(curr);
+                loss += await mbag_item_gone(held, curr, false);
+            }
+            curr = otmp;
+        }
+        return loss | 0;
+    }
+    return 0;
 }
 
 /**
