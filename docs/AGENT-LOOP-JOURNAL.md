@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1989 calendar.c getlt skipped the EDT→EST localtime shift, hiding the new-moon welcome pline
+
+**C locus:** `calendar.c:40–46` `getlt() = localtime(getnow())`; contest patch 001 `time_from_yyyymmddhhmmss` fills `struct tm` from the recording machine's current `localtime` (tm_isdst = 1, EDT at September record time) then `mktime`, so a winter civil stamp becomes the stamp-as-EDT epoch; `localtime` under America/New_York re-reads it in EST, one hour earlier (`2000-02-06 00:00` → Feb 5 23:00, tm_yday 36→35). `phase_of_the_moon` (`:190–203`) then yields 0 (new) instead of 1, and `moveloop_preamble` (`allmain.c:57–63`) prints the new-moon pline whose pending `--More--` marks the welcome row.
+**JS:** `js/calendar.js` (+78/−30, one file).
+**Change:** `getlt()` = `nyLocaltime(getnow())`; new module-local America/New_York engine, plain arithmetic per Rule #2 (no Intl / node TZ; only `Date.UTC`/getUTC* decomposition): pre-2007 first-Sun-Apr → last-Sun-Oct, 2007+ second-Sun-Mar → first-Sun-Nov, 02:00 transitions (07:00/06:00 UTC), EST (UTC−5) / EDT (UTC−4) offset, yday/wday/tm_isdst. `lt_for_date(date)` uses the same engine for the `localtime(&date)` arm. `time_from_yyyymmddhhmmss` (stamp-as-EDT epoch) unchanged.
+**Verify:** `node scripts/verify.mjs --fn welcome` → `VERIFY: PASS` — hidden `1 PASS, 50 moved past, 0 unchanged, 0 worse → PROGRESS` (baseline HEAD scoreboard `b438efbd`; sole PASS scen-kit-Barbarian-92028; the 50 move to strictly later owners, e.g. `do_statusline2`, `break_armor`, `doride`, `pick_lock`, `create_particular_creation`); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `node --check js/calendar.js` OK, imports unchanged (`./gstate.js`, `./const.js`, Rule #2 clean). Cohort: `seed0013-friday13-save-then-fullmoon-restore` + `seed0013-rogue-friday13-combat` 2/2 PASS (RNG 4804/4804 + 4838/4838, screens exact) — Oct 13 2000 is EDT on both sides (Friday + full moon preserved).
+**Named:** none — getlt/phase/friday/night/midnight/yyyymmdd/hhmmss/yyyymmddhhmmss/getyear all live. Non-fixed `getnow()` wall-clock dependence intentionally not replicated (contest always pins datetime; fixed-EDT matches the recorded corpus).
+**Next:** `botl.c` do_statusline2 (11 sessions, new queue head).
 ## 2026-09-06 — D-1988 missing JS imports (is_pit/FORCEBUNGLE/otense/STARVED) threw at first step in 8 corpus sessions
 
 **C locus:** `muse.c:650` find_defensive trap kludge `is_pit(t->ttyp)` (`trap.h:113` macro); `muse.c:950` use_defensive `mintrap(mtmp, FORCEBUNGLE)` (`hack.h:1308`); `read.c:1182/1186/1255` seffect_enchant_armor `otense(…)` (`objnam.c:2531`); `eat.c:3438` newuhs `u.uhs = STARVED` (`hack.h:571`).
