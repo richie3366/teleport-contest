@@ -41,10 +41,10 @@ D-1892): **253 / 265 PASS (95.5 %)** excl. 13 env-only rows;
 RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`suit_simple_name`/
 `hitmsg`/`show_conduct` (parked) ×1 (+ unattributed `!` ×2, `-` ×1, motd, level-change).
-Reviews **835–842** (D-1865…D-1895): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1895):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1895):
-8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1895):
+Reviews **835–842** (D-1865…D-1896): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1896):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1896):
+8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1896):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -77,13 +77,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** Open `mcastu.c` missing mcast_* arms — popped; CLOSED as stale (no code): all 14 arms live in `js/mcastu.js` since D-1825 (review 795 ACCEPT-WITH-DEBT, zero C-wrongs); `hidden-proxy verify` vacuous (0 blocked), proxy queue shows no mcast owner; named omits unchanged (`mon_spell_hits_spot`, `has_aggravatables`, `buzzmu`, `cursetxt`). Next pop: `read.c` seffect_* arms.
+**Next cluster:** Open `read.c` missing seffect_* arms — scroll effects (seffect_amnesia, seffect_charging, seffect_confuse_monster, seffect_earth, seffect_enchant_armor, seffect_mail, seffect_scare_monster, seffect_stinking_cloud, do_stinking_cloud, can_center_cloud, p_glow3) (HELDOUT Tier C).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1895 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1896 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1896** `read.c` `seffect_mail :2157–2188` / `seffect_enchant_armor :1115–1290` / `seffect_confuse — Ported all eleven C functions in C branch order with short-circuit, RNG (`rn2/rnd/rn1/d`), and mutation semantics preserved: charging confused uen/discharge+botl else learnscroll/useup-first/getobj+recharge; amnesia forg
 **D-1895** `dat/tut-2.lua` (whole file, 27 ln) via `mkmaze.c` `makemaz` `:1127–1223` → `load_special` — `load_tut2` in lua order through end of file — `nhlib_shuffle_align`, STONE solidfill + `is_maze_lev`/`nomongen`/`deathdrops=false`/`noautosearch` (tut-1 idiom), byte-identical 14x8 map via `splev_map_center_start` + `se
 **D-1894** `exper.c` `losexp` `:232–237` (ulevel==1 + drainer → killer.format=KILLED_BY, killer.name= — set `game.killer` (format KILLED_BY, name=drainer unless already it — C `:234–236` pointer-guard as a value compare) and `await done(DIED)`; keep the C `:239–243` ulevel>1 fuzz guard, then fall through to the existing ue
 **D-1893** `dat/Cav-strt.lua:94` / `dat/Cav-loca.lua:93` / `dat/Cav-goal.lua:59` → `sp_lev.c` `lspo_w — Tou-goal/Ran-goal epilogue line in lua order (after last monster, before wallification → flip → fixup) in all three loaders: `wallify_map((g.splev_xstart|0)-1, (g.splev_ystart|0)-1, (g.splev_xstart|0)+(g.splev_xsize|0)+1
@@ -91,11 +92,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1891** `dat/Cav-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76x20 map, whole-map un — `load_cav_strt` (STONE solidfill + triple flags, byte-identical map, whole-map unlit, temple via Pri-strt flood idiom with needfill FILL_NORMAL — filled=1 per C `sp_lev.c` lspo_region `:5600`, not FILL_LVFLAGS — 6 ordina
 **D-1890** `dat/Mon-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, Pri-strt-identical 20×7 — `load_mon_strt` (Pri-strt skeleton: STONE solidfill + triple flags, byte-identical map, whole-map lit, temple with `needfill = 0` per C `sp_lev.c` lspo_region `:5600` default — Pri filled=2 takes FILL_LVFLAGS — same add_
 **D-1889** `dat/Ran-strt.lua` (solidfill ".", mazelevel/noteleport/hardfloor/arboreal, mines fg=bg=". — `load_ran_strt` (ROOM solidfill + triple flags + arboreal, ROOM/ROOM mines lit/smoothed/joined/unwalled, `lspo_replace_terrain_region(0,0,76,19,ROOM,TREE,5)` BEFORE the map per lua order — mx/my are 1,0 both before and a
-**D-1888** `dat/Tou-strt.lua` (solidfill " ", mazelevel/noteleport/hardfloor, 76×20 map with a litera — `load_tou_strt` in lua order (centered map, whole-map lit, morgue as FILL_NORMAL rect room with topologize + add_doors_to_room per the Tou-loca helper, explicit-lit rects as `light_region`, down stair, walls/bars non_dig
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1895; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1896; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

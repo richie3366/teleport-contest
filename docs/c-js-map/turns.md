@@ -677,8 +677,15 @@ callee `create_critters` D-1379; spell.c `:1528–1531` no skilled bless)**;
 **SCR/SPE_MAGIC_MAPPING `seffect_magic_mapping` (D-1407; C `:2102–2153` / seffects `:2263–2265`; 
 nommap `make_confused(HConfusion+rnd(30))` + `notice_mon_off/on`; 
 spell.c `:1528–1531` no skilled bless; SCR D-0075)**; 
+**SCR_MAIL `seffect_mail` + SCR_ENCHANT_ARMOR `seffect_enchant_armor` + 
+SCR/SPE_CONFUSE_MONSTER `seffect_confuse_monster` + SCR_SCARE_MONSTER/SPE_CAUSE_FEAR 
+`seffect_scare_monster` + SCR_CHARGING `seffect_charging` + SCR_AMNESIA `seffect_amnesia` 
+(`forget`) + SCR_EARTH `seffect_earth` (`drop_boulder_on_player/monster`) + 
+SCR_STINKING_CLOUD `seffect_stinking_cloud` (`do_stinking_cloud`, `can_center_cloud`, 
+`display_stinking_cloud_positions`, `p_glow3`) (D-1896; seffects dispatch + doread gate; 
+enchant-armor `adj_abon`/`maybe_adjust_light` + mail `readmail` named)**; 
 omit other `seffect_*` (punishment done D-0908; create is D-1401; 
-mapping is D-1407), fortune/shirt/credit/marker/coin/orb/candy-read, Blind Braille, Rogue 
+mapping is D-1407; fire/blank-paper still deferred), fortune/shirt/credit/marker/coin/orb/candy-read, Blind Braille, Rogue 
 `unblock_point` on blessed SDOOR, `can_chant` poly silent/headless/buzz/burble; 
 **`doread` `check_capacity` EXT_ENCUMBER→ECMD_OK** (D-0928 #1104)
 

@@ -21,9 +21,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-1895 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-1896 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-1895 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-1896 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774;
   findone tail D-1775. Do not revert D-0078 H2344 / offx 72
@@ -41,18 +41,19 @@ Objective/score live in `CURRENT.md`.
 - Do not memcpy gi worn/ball (D-1035) / `setnotworn` from
   `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers
   (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) /
-  skip `tutorial()` (D-1066). Do not skip D-1067…D-1895.
+  skip `tutorial()` (D-1066). Do not skip D-1067…D-1896.
 - Do not import `monmove.js` `sticks` for sit / rewrite
   `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) /
   bones→options fruitadd (D-1541). No `reset_glyphmap` /
   `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`.
   No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No
   static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`.
-  Do not re-port D-1682…D-1895.
+  Do not re-port D-1682…D-1896.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-1896: Ported all eleven C functions in C branch order with short-circuit, RNG (`rn2/rnd/rn1/d`), and mutation semantics preserved: charging confused uen/dis Named: enchant-armor `adj_abon` (DEX/INT/WIS bonus) + `maybe_adjust_light` (radius) — same deferr
 - D-1895: `load_tut2` in lua order through end of file — `nhlib_shuffle_align`, STONE solidfill + `is_maze_lev`/`nomongen`/`deathdrops=false`/`noautosearch` (tu Named: none new — tut-2.lua has no objects/monsters/doors/regions beyond the lit rect; `wallify`/
 - D-1894: set `game.killer` (format KILLED_BY, name=drainer unless already it — C `:234–236` pointer-guard as a value compare) and `await done(DIED)`; keep the  Named: SoundAchievement; Upolyd monhp_per_lvl/rehumanize; uhpmax-up clamp via setuhpmax (all pre-
 - D-1893: Tou-goal/Ran-goal epilogue line in lua order (after last monster, before wallification → flip → fixup) in all three loaders: `wallify_map((g.splev_xst Named: unchanged from D-1891 (humidity-aware `get_location` for water-likers; `ensure_way_out`; `
@@ -67,5 +68,4 @@ Objective/score live in `CURRENT.md`.
 - D-1884: exported `armcat_to_wornmask` from `js/worn.js` (C `worn.c` home, same 7-arm switch over the module-local `ARM_*`); added file-local `cloak_simple_nam Named: `suit_simple_name` dragon mail/scales arms (pre-existing deferral, untouched); dungeon.c `
 - D-1883: exported `erode_armor` from `js/mhitm.js` (same body, C cite `:126–185`; `passivemm` caller updated); ported the `which_armor` youmonst slot table in  Named: `mhitm_ad_corr` / `mhitm_ad_dcay` mhitu arms (`hitmsg` + `erode_armor` CORRODE/ROT + `comp
 - D-1882: ported the C Snprintf envelope in `pretty_base` with C citations — `obj_pmname_corpse` for the pm name, `type_is_pname_objnam ? "" : the_unique_pm ? " Named: `BOULDER next_boulder` arm already live (D-1294, untouched); STATUE `iflags.wizmgender` ` 
-- D-1881: `js/version.js` ports `mdlib_version_string`, `version_id_string`, `version_string`, `getversionstring` (pure, no imports; existing VERSION exports ke Named: `bannerc_string` (title-banner path, no corpus block); `status_version` / VI flags; `early
 <!-- landmarks:end -->

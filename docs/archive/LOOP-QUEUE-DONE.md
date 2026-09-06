@@ -3,12 +3,16 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-06
+
+- [x] `read.c` missing seffect_* arms — scroll effects (seffect_amnesia, seffect_charging, seffect_confuse_monster, seffect_earth, seffect_enchant_armor, seffect_mail, seffect_scare_monster, seffect_stinking_cloud, do_stinking_cloud, can_center_cloud, p_glow3) (HELDOUT Tier C). **Addressed:** D-1896
+
 ## 2026-09-05
 
-- [x] `mcastu.c` missing mcast_* arms — clerical-caster switch (mcast_clone_wiz, mcast_confuse_you, mcast_death_touch, mcast_destroy_armor, mcast_disappear, mcast_fire_pillar, mcast_geyser, mcast_insects, mcast_lightning, mcast_paralyze, mcast_stun_you, mcast_weaken_you, touch_of_death, death_inflicted_by). Every clerical caster desyncs the RNG on cast (HELDOUT Tier C). **Addressed:** D-1825
+- [x] `mcastu.c` missing mcast_* arms — clerical-caster switch (mcast_clone_wiz, mcast_confuse_you, mcast_death_touch, mcast_destroy_armor, mcast_disappear, mcast_fire_pillar, mcast_geyser, mcast_insects, mcast_lightning, mcast_paralyze, mcast_stun_you, mcast_weaken_you, touch_of_death, death_inflicted_by). Every clerical caster desyncs the RNG on cast (HELDOUT Tier C). **Addressed:** D-1825 `637890a4`
 
 
-- [x] `mkmaze.c` makemaz `tut-2` — tutorial second variant (27 ln, trivial; completes the tutorial pair). From `dat/tut-2.lua` (HELDOUT Tier B). **Addressed:** D-1895
+- [x] `mkmaze.c` makemaz `tut-2` — tutorial second variant (27 ln, trivial; completes the tutorial pair). From `dat/tut-2.lua` (HELDOUT Tier B). **Addressed:** D-1895 `1cc129db`
 
 
 - [x] `mhitu.c` hitmsg — blocks 1/278 corpus sessions (first at step 43): C «The wraith touches you! Farvel level 1.--More--» vs JS «The wraith touches you! Farvel level 1.». Probe: `node scripts/hidden-proxy.mjs verify hitmsg` (tour-Valkyrie-70014-d5-8-15-17-22). Fresh block after archived D-1261. **Addressed:** D-1894 `72786e7d`

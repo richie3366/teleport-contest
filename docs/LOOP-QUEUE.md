@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `read.c` missing seffect_* arms — scroll effects (seffect_amnesia, seffect_charging, seffect_confuse_monster, seffect_earth, seffect_enchant_armor, seffect_mail, seffect_scare_monster, seffect_stinking_cloud, do_stinking_cloud, can_center_cloud, p_glow3) (HELDOUT Tier C).
 - [ ] `hack.c` findtravelpath — absent; travel is adjacent/greedy only (TOP30 #29).
 - [ ] `polyself.c` missing domonability arms — dopoly, dohide, dogaze, dospit, dospinweb, dosummon, domindblast, doremove, armor_to_dragon, check_strangling, livelog_newform (HELDOUT Tier C).
 - [ ] `muse.c` slime/stone cures — cures_sliming, cures_stoning, munslime, muse_unslime, green_mon, m_sees_sleepy_soldier (HELDOUT Tier C).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `mkmap.c` cavern generator — get_map, pass_one, pass_two, pass_three, remove_room, remove_rooms (HELDOUT Tier C; called from sp_lev.c:3010 level_init styles).
 - [ ] `pager.c` history/descr arms — dohistory, add_cmap_descr, add_quoted_engraving, look_region_nearby, hmenu_dowhatis, dispfile_* (HELDOUT Tier C).
 - [ ] `role.c` role-select parsers — str2role, str2race, str2gend, str2align, setup_rolemenu/racemenu/gendmenu/algnmenu, root_plselection_prompt (HELDOUT Tier C).
+- [ ] `objnam.c` suit_simple_name dragon arms — blocks 1/278 corpus sessions (random-seed0360-wizard-world-tour-4ac145da step 838; D-1884 named deferral). Probe: `node scripts/hidden-proxy.mjs verify suit_simple_name`.
+- [ ] `mkmaze.c` makemaz `wiz-goal` — completes Wizard quest 4/5 → 5/5 (Wizard is 11/44 public sessions). From `dat/wiz-goal.lua` (132 ln, HELDOUT Tier A #1).
+- [ ] `mkmaze.c` makemaz `val-*` — Valkyrie quest 0/5 (Valkyrie 3/44 sessions). From `dat/val-*.lua` (371 ln, HELDOUT Tier B).
+- [ ] `mkmaze.c` makemaz `sam-*` — Samurai quest 0/5 (Samurai 3/44 sessions). From `dat/sam-*.lua` (447 ln, HELDOUT Tier B).
+- [ ] `uhitm.c` missing mhitm AD arms — AD_SLIM, AD_TLPT, AD_WERE, AD_SGLD plus hmon_hitmon_do_hit/jousting/poison/potion/weapon/splitmon helpers (HELDOUT Tier C).
 
 ## Parked (do not pop)
 
