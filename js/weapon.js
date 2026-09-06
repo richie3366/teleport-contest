@@ -1,7 +1,8 @@
 // weapon.js — Monster weapon selection + damage (partial).
 // C ref: weapon.c select_rwep / select_hwep / dmgval / special_dmgval /
 //         silver_sears / mon_wield_item / possibly_unwield /
-//         setmnotwielded / mwepgone; enhance_weapon_skill (#enhance);
+//         setmnotwielded / mwepgone; enhance_weapon_skill (#enhance) /
+//         add_weapon_skill (crowning skill slot);
 //         dothrow.c should_mulch_missile / multishot_class_bonus.
 
 import { game } from './gstate.js';
@@ -822,6 +823,31 @@ async function skill_advance(skill) {
     await pline(`You are now ${most} skilled in ${P_NAME(skill)}.`);
     if (skill >= P_FIRST_SPELL && skill <= P_LAST_SPELL) {
         skill_based_spellbook_id();
+    }
+}
+
+/**
+ * C ref: weapon.c add_weapon_skill `:1437–1452` — count `can_advance`
+ * slots before and after `weapon_slots += n`; `before < after` →
+ * `give_may_advance_msg(P_NONE)`.
+ * Named omission: `give_may_advance_msg` You_feel/handle_tip (no live
+ * TIP_ENHANCE plumbing on the crowning path).
+ * @param {number} n
+ */
+export function add_weapon_skill(n) {
+    const u = game.u || (game.u = {});
+    n = n | 0;
+    let before = 0;
+    for (let i = 0; i < P_NUM_SKILLS; i++) {
+        if (can_advance(i, false)) before++;
+    }
+    u.weapon_slots = (u.weapon_slots | 0) + n;
+    let after = 0;
+    for (let i = 0; i < P_NUM_SKILLS; i++) {
+        if (can_advance(i, false)) after++;
+    }
+    if (before < after) {
+        // C give_may_advance_msg(P_NONE) — You_feel/handle_tip deferred.
     }
 }
 
