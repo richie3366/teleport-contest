@@ -43,14 +43,14 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1940):
+Reviews **854–862** (D-1884…D-1941):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1940): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1941): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1940): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1941): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1940): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1940):
+(D-1909…D-1941): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1941):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Reviews 896–904:
 8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
@@ -87,13 +87,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `pray.c` gcrownu/at_your_feet — crowning/vicinity family (HELDOUT Tier C misc row; no JS symbol).
+**Next cluster:** `getpos.c` gloc_filter_init/_done/_floodfill/_floodfill_matcharea/_classify_glyph — getpos filter family (HELDOUT Tier C getpos row; no JS symbol).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1940 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1941 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1941** `nethack-c/upstream/src/getpos.c` — ported the family in C branch order (`| 0` int idiom; `sym.h` `is_cmap_*` macro shape for the three missing predicates; `IS_DOOR` ≡ C `(typ == DOOR)`; `selection_getpoint` null-map → 0; seed joins unconditionally with `i
 **D-1940** `pray.c` `at_your_feet` `:788–802` (Blind→Something; uswallow→into-ustuck-stomach; else be — `js/pray.js` — exported async `at_your_feet(str)` and `gcrownu()` in C order (`| 0` int idiom; `ok_wep` arrow from the C macro; otyp via `objectNames.indexOf` per the file idiom; ART_* from `./generated/artifacts_data.js
 **D-1939** `zap.c` `polyuse` `:1505–1539` (bypasses → uball/uchain → `obj_resists(0,0)` → SCR_MAIL →  — `js/zap.js` — exported async `polyuse(objhdr, mat, minwt)` in C order (`| 0` int idiom, `nexthere` prefetch, `*u.ushops` as `(game.u?.ushops || '')[0]`, SCR_MAIL via `objectNames.indexOf` `>= 0` guard per the eat.js idio
 **D-1938** `pickup.c` `is_boh_item_gone` `:2510–2514` (`!rn2(13)`); `do_boh_explosion` `:2518–2534` ( — `js/objnam.js` — canonical export `Doname2(obj)` (`upstart(doname(obj))`, the C highc shape; pre-existing clones stay).
@@ -101,11 +102,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1936** `artifact.c` `spec_ability` `:515–522` (`get_artifact`; `arti != &artilist[ART_NONARTIFACT — `js/artifact.js` — exported sync `spec_ability(otmp, abil)` in C order (`get_artifact` → `!== list[ART_NONARTIFACT]` short-circuit → `((spfx | 0) & (abil | 0)) !== 0`, `| 0` int idiom per D-1935); completed the SPFX_* he
 **D-1935** `artifact.c` `found_artifact` `:409–417` (range check → `impossible` / exists check → `imp — `js/artifact.js` — exported sync `found_artifact(a)` (`| 0` index, early returns on range/exists miss, `game.artiexist[i].found = 1`, lazy `artifacts_globals_init`) and `find_artifact(otmp)` in C ternary order (`a && !fo
 **D-1934** `do_wear.c` `ia_dotakeoff` `:1862–1870` (`gi.item_action_in_progress = TRUE; res = dotakeo — `js/do_wear.js` — exported `async ia_dotakeoff()` in C order (flag true → `await dotakeoff()` → flag false in `finally`, return res; `finally` is the async-faithful form of C's always-reset sequence); `js/iactions.js` — 
-**D-1933** `trap.c` `m_easy_escape_pit` `:3726–3730` (`mtmp->data == &mons[PM_PIT_FIEND] || mtmp->dat — `js/trap.js` — identity arm is now `(data?.mndx | 0) === PM_PIT_FIEND`, the monsndx-equivalent idiom used by the js/do.js chew-swallower arm and the js/do_name.js astral-high-cleric arm; C short-circuit order kept; no ne
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1940; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1941; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

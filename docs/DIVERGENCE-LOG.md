@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1941 — getpos.c gloc_filter family (classify/matcharea/floodfill/init/done + AREA gate)
+
+- **Status:** fixed (Open queue row: `getpos.c` gloc_filter_init/_done/_floodfill/_floodfill_matcharea/_classify_glyph — getpos filter family, HELDOUT Tier C getpos row; no JS symbol)
+- **Symptom:** `getpos` `"` (LIMITVIEW) cycled to `Limiting targets to those in same area.` but `gather_locs` treated GFILTER_AREA like NONE — every `mMoOdDxXaAzZ` cycle target stayed eligible instead of being restricted to the hero's flooded area.
+- **C locus:** `nethack-c/upstream/src/getpos.c` — `gloc_filter_classify_glyph` `:340-361`, `gloc_filter_floodfill_matcharea` `:363-379`, `gloc_filter_floodfill` `:381-388` (+ `selvar.c` `selection_floodfill` `:395-440` for the walk), `gloc_filter_init` `:390-409`, `gloc_filter_done` `:411-419`, `GLOC_SAME_AREA` `:336-339`, AREA gate in `gather_locs_interesting` `:446-449`, init/done in `gather_locs` `:530/553`.
+- **JS was:** `js/getpos.js` `gather_locs_interesting` had only the GFILTER_VIEW arm; `gather_locs` scanned with no init/done; none of the five filter functions existed in `js/` (map named the flood deferred).
+- **Fix:** ported the family in C branch order (`| 0` int idiom; `sym.h` `is_cmap_*` macro shape for the three missing predicates; `IS_DOOR` ≡ C `(typ == DOOR)`; `selection_getpoint` null-map → 0; seed joins unconditionally with `isok` gating the pop; 4-neighbour walk, `diagonals` FALSE; doorway far-side flood with the C TODO-nothing else-arm). Map state on `game.gloc_filter_map` (Set of `x,y`, null when inactive) + `game.gloc_filter_floodfill_match_glyph`, mirroring `gg.*`. No RNG consumed on the path.
+- **JS:** `js/getpos.js` — file-local `gloc_filter_classify_glyph` / `gloc_filter_floodfill_matcharea` / `gloc_same_area` / `gloc_filter_floodfill` / `gloc_filter_init` / `gloc_filter_done` (C staticfn shape); AREA gate in `gather_locs_interesting`; init/done around the `gather_locs` scan; `GFILTER_AREA`/`S_upstair`/`S_fountain` added to the existing `const.js` import (no new cross-module edge).
+- **Verify:** `node scripts/verify.mjs --fn gloc_filter_init` → PASS syntax (1 file) · PASS rule2 · hidden note (no corpus session blocked — HELDOUT map row, vacuous by construction, not claimed as corpus PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7. Hand probe (<30 lines, deleted): AREA gate with null map returns false, with live map evaluates without throw. Inert under default filter (both new branches filter-gated) — green+cohort prove no regression.
+- **Named omissions:** `getpos_menu` listing; `S_goodpos` tmp_at hilite; engraving full showsyms; `docrtRefresh` redraw_map-only; `cmdq_pop` at getpos start; mouse/do_run prefix (all pre-existing, untouched).
+- **Next:** next Open row (`do_wear.c` armor-count family).
+
 ## D-1940 — pray.c gcrownu/at_your_feet crowning/vicinity family + weapon.c add_weapon_skill
 
 - **Status:** fixed (Open queue row: `pray.c` gcrownu/at_your_feet — crowning/vicinity family, HELDOUT Tier C misc row; no JS symbol)
