@@ -48,8 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmaze.c` makemaz `val-*` — Valkyrie quest 0/5 (Valkyrie 3/44 sessions). From `dat/val-*.lua` (371 ln, HELDOUT Tier B).
-- [ ] `mkmaze.c` makemaz `sam-*` — Samurai quest 0/5 (Samurai 3/44 sessions). From `dat/sam-*.lua` (447 ln, HELDOUT Tier B).
 - [ ] `uhitm.c` missing mhitm AD arms — AD_SLIM, AD_TLPT, AD_WERE, AD_SGLD plus hmon_hitmon_do_hit/jousting/poison/potion/weapon/splitmon helpers (HELDOUT Tier C).
 - [ ] `mkmap.c` mkmap + init_map/init_fill — cavern assembly + RNG fill envelope (mkmap.c follow-up; N_P1_ITER/N_P2_ITER/N_P3_ITER driver + new_locations ownership; caller sp_lev.c:3010 level_init INIT styles).
 - [ ] `mkmap.c` join_map + join_map_cleanup — flood-fill regions + dig_corridor joins (mkmap.c follow-up; flood_fill_rm/add_room live in mklev.js; needs somexy/dig_corridor).

@@ -32,6 +32,7 @@ Objective/score live in `CURRENT.md`.
   dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX
   (D-1189). Never FORCE the falsified
   mineralize TRC (76,14)/(77,14) (D-1849).
+- `Val-*`/`Sam-*` loaders shipped D-1852/D-1858; 0/5 rows are stale refill dupes (closed D-1885 + this iter) — check `load_val_*`/`load_sam_*` before re-refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip
   painting spaces or emit mid-row space runs >4 (D-0931). Do not
   FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092).

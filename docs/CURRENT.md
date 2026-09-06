@@ -80,7 +80,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
-**Next cluster:** `mkmaze.c` makemaz `wiz-goal` — completes Wizard quest 4/5 → 5/5 (Wizard is 11/44 public sessions). From `dat/wiz-goal.lua` (132 ln, HELDOUT Tier A #1).
+**Next cluster:** Open `mkmaze.c` makemaz `val-*`/`sam-*` — popped; CLOSED as stale (no code): all 10 loaders live in `js/mklev.js` since D-1852 `e84fa9d3` (Val, review 822 ACCEPT-WITH-DEBT) / D-1858 `cc99daee` (Sam); D-1906-class named-vs-empty audit this iter — all 10 lua `des.object` totals match JS (Val-strt 2 invent+chest, Val-loca 15, Val-goal Orb+14, Val-fila 9, Val-filb 11, Sam-strt 2 invent+chest, Sam-loca 32 fixed-class, Sam-goal Tsurugi+14, Sam-fila 9, Sam-filb 9; monsters/traps per-file match incl. Sam-fila d+5 wolf+stalker/4 traps); `hidden-proxy verify` vacuous (0 blocked on makemaz); rows were D-1896 refill duplicates of archived rows — do not re-refill (NOTES). Next pop: `uhitm.c` missing mhitm AD arms.
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1906 (index).** Recent **D-1820:** `makemaz` `soko2-2`
