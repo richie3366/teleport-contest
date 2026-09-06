@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `steed.c` dismount_steed remaining arms — poly/engulfed/water/lava steed death (TOP30 #26; archived DISMOUNT_THROWN named only).
 - [ ] `uhitm.c` hmonas remaining arms — polymorphed-hero attack-type envelope (TOP30 #27, under half ported; archived troll_baned/silver named bits only).
 - [ ] `worn.c` mon_break_armor — absent, 23 messages (TOP30 honourable mention; no archive row).
 - [ ] `mhitm.c` mattackm remaining arms — monster-vs-monster attack dispatch (TOP30 honourable mention, 297/175; never queued).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `mhitu.c` hitmu — hero hit-by-thrown-object envelope (TOP30 honourable mention, 123/72; archived D-1795 mattacku row is explicitly Not hitmu).
 - [ ] `trap.c` mintrap — monster-trapped dispatch body (TOP30 honourable mention, 107/54; archived rows are rloc_to callers, not the body).
 - [ ] `objnam.c` makeplural — plural-name envelope, ch_ksound dead callee (TOP30 honourable mention, 186/59; never queued).
+- [ ] `trap.c` dotrap — hero/monster trap dispatch body (TOP30 honourable mention; archived untrap/pit-hole/spoteffects rows explicitly Not dotrap).
+- [ ] `explode.c` explode — explosion body remaining arms (TOP30 honourable mention; archived D-1760 is the named map_invisible bit only).
+- [ ] `pickup.c` pickup — pickup body remaining arms (TOP30 honourable mention, 238/135; archived rows are sub-arms only).
+- [ ] `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner).
+- [ ] `zap.c` bhit — beam-hit body remaining arms (TOP30 honourable mention, 306/223; archived rows are named bits only).
 
 ## Parked (do not pop)
 

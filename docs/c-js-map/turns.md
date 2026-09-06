@@ -3002,12 +3002,17 @@ steed + `wary_dog` callers);
 (`:459–572`; `xytodir(u.dx,u.dy)` then `rn2(2)` DIR_RIGHT/DIR_LEFT
 trio, remaining dirs, early break `j<3`, `throws_rocks` boulder,
 `enexto` when forceit; C NODIAG `(j%1)!=0` never skips);
+**`dismount_steed` remaining arms D-1915**
+(`:575–822`; save_utrap `:583`, Hallu rain `:648`, noisy `:665`,
+trap transfer `:671`, steedcc enexto 3-tier `:693–698` + place_monster,
+BONES rloc `:708–713`, grounded water/lava death `:727–736`,
+teleds+boulder+mintrap, no-room killed/monkilled, float else-arm botl,
+encumber_msg, polearm unweapon `:819–820`);
 omit `update_mon_extrinsics`,
-Punished/ustuck float_down arms, water/lava grounded steed death,
-encumber_msg /
-polearm unweapon, BYCHOICE Hallu rain, map-grid remove_monster,
-artifact saddle `untouchable`, uhitm DISMOUNT_KNOCKED `u.dx`/`u.dy`
-caller; tutorial/disclosure done D-0215/16
+Punished/ustuck float_down arms, teleds_simple subset (ball/chain,
+utrap clear, swallow/hideunder/drag), artifact saddle `untouchable`,
+uhitm DISMOUNT_KNOCKED `u.dx`/`u.dy` caller;
+tutorial/disclosure done D-0215/16
 
 ### `src/uhitm.c`, `src/mhitm.c`, `src/explode.c`
 

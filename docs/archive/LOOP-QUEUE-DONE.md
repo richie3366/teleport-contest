@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `mon.c` newcham remaining body arms — NC_VIA_WAND_OR_SPELL mon_break_armor, boulder arms, monst_to_any dead callee (TOP30 #25; archived rows are await-wiring/named bits only). **Addressed:** D-1914
+- [x] `steed.c` dismount_steed remaining arms — poly/engulfed/water/lava steed death (TOP30 #26; archived DISMOUNT_THROWN named only). **Addressed:** D-1915
+
+
+- [x] `mon.c` newcham remaining body arms — NC_VIA_WAND_OR_SPELL mon_break_armor, boulder arms, monst_to_any dead callee (TOP30 #25; archived rows are await-wiring/named bits only). **Addressed:** D-1914 `37492b36`
 
 
 - [x] `trap.c` lava_effects remaining arms — Fire_resistance/Wwalking survival, inventory burn flags, sink-and-die sequence (TOP30 #24, 11% ported; drown shipped D-1814, lava never queued). **Addressed:** D-1913 `05c03076`
