@@ -1186,7 +1186,12 @@ JS: `js/do_name.js` — partial
 **`'d'`/`'\\'` `o_init.c` `rename_disco`** (D-1647; inv_order pack, no venom
 append; `interesting_to_discover` C-home + `disco_append_typename` BUFSZ
 truncate + `append_price_quote`; dummy `dknown`/`!oc_uses_known` then `docall`;
-`oc_uses_known` extract named); 
+`oc_uses_known` extract named);
+**`` ` `` `o_init.c` `doclassdisco`** (D-1951; #knownclass class menu +
+u/r/a/default arms; `choose_disco_sort(2)` + `disco_fmt_uniq` +
+`disco_output_sorted`/`discovered_cmp` + `oclass_to_name` all C-home;
+`artifact.c` `disp_artifact_discoveries`/`dump_artifact_info`; named: discosort
+'s' sortloot (`loot_classify`), extcmd wiring, choose preselect highlight); 
 **`'o'` getobj `"call"`** (D-1660; live `getobj` + `xname` dknown/`docall`;
 #if 0 EXCLUDE is D-1682; `'i'` live getobj is D-1681);
 **`'i'` getobj `"name"`** (D-1681; C `do_name.c` `docallcmd` `:566–569`

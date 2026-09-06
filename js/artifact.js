@@ -95,7 +95,7 @@ import { mon_nam } from './do_name.js';
 import { wake_nearto } from './mon.js';
 import { burn_away_slime } from './timeout.js';
 import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv, getobj } from './invent.js';
-import { xname, the, vtense, cxname, otense, set_undiscovered_artifact, set_find_artifact } from './objnam.js';
+import { xname, the, vtense, cxname, otense, set_undiscovered_artifact, set_find_artifact, simple_typename } from './objnam.js';
 import { recalc_telepat_range } from './do_wear.js';
 import { t_at } from './trap.js';
 import { livelog_printf } from './pline.js';
@@ -125,7 +125,8 @@ import {
     ART_MASTER_KEY_OF_THIEVERY,
 } from './generated/artifacts_data.js';
 import { PM_KNIGHT, PM_ROGUE } from './generated/monsters_data.js';
-import { aligns } from './roles.js';
+import { aligns, align_str } from './roles.js';
+import { ATR_INVERSE } from './terminal.js';
 export { ART_NONARTIFACT, ART_EXCALIBUR, ART_GRIMTOOTH, ART_ORCRIST, ART_STING, ART_GRAYSWANDIR };
 
 // C ref: include/artifact.h `:14–43` — SPFX_* bits used by touch/wish /
@@ -408,6 +409,62 @@ export function undiscovered_artifact(m) {
     return true;
 }
 set_undiscovered_artifact(undiscovered_artifact);
+
+/**
+ * C ref: artifact.c disp_artifact_discoveries `:1147–1175` — list discovered
+ * artifacts from artidisco[] (empty slot ends the list); return the count.
+ * C takes a text window, or WIN_ERR to count only. JS lines-array model:
+ * pass null to count (WIN_ERR). A_NONE prints "non-aligned": C remaps
+ * align_str's "unaligned"; JS align_str (roles.js) has no unaligned arm.
+ * @param {Array|null} lines text-window lines, or null (WIN_ERR) to count
+ * @returns {number} discovered artifact count
+ */
+export function disp_artifact_discoveries(lines) {
+    const artidisco = game.artidisco || [];
+    const list = artilist();
+    let i = 0;
+    for (; i < NROFARTIFACTS; i++) {
+        if ((artidisco[i] | 0) === 0) break; /* empty slot implies end */
+        if (lines == null) continue; /* WIN_ERR: just count */
+        if (i === 0) lines.push({ text: 'Artifacts', attr: ATR_INVERSE });
+        const m = artidisco[i] | 0;
+        const entry = list[m] || {};
+        const otyp = entry.otyp | 0;
+        const algn = entry.alignment | 0;
+        const algnstr = algn === A_NONE ? 'non-aligned' : align_str(algn);
+        lines.push({
+            text: `  ${artiname(m)} [${algnstr} ${simple_typename(otyp)}]`,
+            attr: 0,
+        });
+    }
+    return i;
+}
+
+/**
+ * C ref: artifact.c dump_artifact_info `:1177–1215` — wizard-mode dump of
+ * all artifacts and their exist/found/gift/wish/named/viadip/lvldef/bones
+ * flags. The `#if 0` tab-sep arm is dead in C; port the live `"  %-36.36s%s"`
+ * shape. game.artiexist uses `rnd` for C `.rndm`.
+ * @param {Array} lines text-window lines
+ */
+export function dump_artifact_info(lines) {
+    lines.push({ text: 'Artifacts', attr: ATR_INVERSE });
+    for (let m = 1; m <= NROFARTIFACTS; m++) {
+        const ae = game.artiexist?.[m] || {};
+        const bits = '['
+            + (ae.exists ? 'exists;' : '')
+            + (ae.found ? ' hero knows;' : '')
+            + (ae.gift ? ' gift' : '')
+            + (ae.wish ? ' wish' : '')
+            + (ae.named ? ' named' : '')
+            + (ae.viadip ? ' viadip' : '')
+            + (ae.lvldef ? ' lvldef' : '')
+            + (ae.bones ? ' bones' : '')
+            + (ae.rnd ? ' random' : '')
+            + ']';
+        lines.push({ text: `  ${artiname(m).slice(0, 36).padEnd(36)}${bits}`, attr: 0 });
+    }
+}
 
 /**
  * C ref: artifact.c found_artifact `:409–417` — mark artiexist[a].found.
