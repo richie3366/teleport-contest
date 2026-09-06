@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-06** — full `sessions` at **D-1917**
-(audit **879–887**, `29b2c5c5`). Fortress held 44/44: seed0030
+Score last measured: **2026-09-06** — full `sessions` at **D-1925**
+(audit **888–895**, `7571aee9`). Fortress held 44/44: seed0030
 **D-1816**, seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
-**11,405**/11,405, RNG **792,838**/792,838. Speed `54+0.43/turn`
-(R² 0.85).
+**11,405**/11,405, RNG **792,838**/792,838. Speed `77+0.61/turn`
+(R² 0.80).
 
 ## Score
 
@@ -33,7 +33,7 @@ Score last measured: **2026-09-06** — full `sessions` at **D-1917**
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `54+0.43/turn` (R² 0.85) |
+| Speed label | `77+0.61/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06 at
@@ -52,7 +52,9 @@ Reviews **835–842** (D-1865…D-1925): 7 ACCEPT,
 (D-1901…D-1925): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
 (D-1909…D-1925): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
+Must-fix, queued). Reviews **888–895** (D-1918…D-1925):
+7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
+case debt, review-listed), 0 Must-fix. Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,

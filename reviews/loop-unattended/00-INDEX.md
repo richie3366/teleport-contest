@@ -898,3 +898,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [885-f1e5da6a-dismount-steed-arms.md](./885-f1e5da6a-dismount-steed-arms.md) | `f1e5da6a` | D-1915 steed.c dismount_steed remaining arms | **ACCEPT** |
 | [886-9b35a3ff-hmonas-weaponless-envelope.md](./886-9b35a3ff-hmonas-weaponless-envelope.md) | `9b35a3ff` | D-1916 uhitm.c hmonas weaponless envelope | **ACCEPT** |
 | [887-29b2c5c5-new-were-armor-wiring.md](./887-29b2c5c5-new-were-armor-wiring.md) | `29b2c5c5` | D-1917 were.c new_were armor wiring | **ACCEPT** |
+| [888-4a49397f-lava-effects-live-wwwalking.md](./888-4a49397f-lava-effects-live-wwwalking.md) | `4a49397f` | D-1918 trap.c lava_effects Wwalking live re-read | **ACCEPT** |
+| [889-55ee2d4d-mattackm-dispatch-arms.md](./889-55ee2d4d-mattackm-dispatch-arms.md) | `55ee2d4d` | D-1919 mhitm.c mattackm dispatch arms | **ACCEPT** |
+| [890-240139ea-grow-up-arms.md](./890-240139ea-grow-up-arms.md) | `240139ea` | D-1920 makemon.c grow_up remaining arms | **ACCEPT** |
+| [891-eb154b73-hitmu-envelope-arms.md](./891-eb154b73-hitmu-envelope-arms.md) | `eb154b73` | D-1921 mhitu.c hitmu envelope arms | **ACCEPT** |
+| [892-7868cc8b-mintrap-dispatch-body.md](./892-7868cc8b-mintrap-dispatch-body.md) | `7868cc8b` | D-1922 trap.c mintrap dispatch body | **ACCEPT** |
+| [893-53b920c5-makeplural-envelope.md](./893-53b920c5-makeplural-envelope.md) | `53b920c5` | D-1923 objnam.c makeplural envelope | **ACCEPT-WITH-DEBT** |
+| [894-b87ddc27-dotrap-dispatch-body.md](./894-b87ddc27-dotrap-dispatch-body.md) | `b87ddc27` | D-1924 trap.c dotrap dispatch body | **ACCEPT** |
+| [895-7571aee9-explode-remaining-arms.md](./895-7571aee9-explode-remaining-arms.md) | `7571aee9` | D-1925 explode.c explode remaining arms | **ACCEPT** |
