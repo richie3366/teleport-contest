@@ -2581,10 +2581,22 @@ function load_bigrm_6() {
 }
 
 /**
- * C ref: nhlsel.c l_selection_iterate — y-outer, x from max(1,lx).
- * Lua iterate converts to map-relative then des.* adds xstart back.
+ * C ref: nhlsel.c l_selection_iterate `:924–957` (`"iterate"` method
+ * table `:1002`) — y-outer, x from max(1,lx), getpoint-guarded callback.
+ * C first requires argc==2 with a LUA_TFUNCTION second arg, else
+ * nhl_error("wrong parameters") (fatal — the JS guard throws likewise,
+ * cf. find_objtype). An empty selection's getbounds is the full map whose
+ * getpoint walk fires nothing, so the early return matches. Each set cell
+ * is cvt_to_relcoord'd (sp_lev.c `:4793–4803` — minus xstart/ystart or the
+ * coder-room origin) before the Lua call, and des.* adds the origin back
+ * (cvt_to_abscoord), so the JS absolute analogue skips the round-trip
+ * (reviews 791/810). A failing pcall aborts both loops (`goto out`);
+ * the per-row lua_gc has no JS counterpart. Callbacks are sync and run
+ * in C order.
  */
-function selection_iterate_lua(sel, fn) {
+export function selection_iterate_lua(sel, fn) {
+    if (typeof fn !== 'function')
+        throw new Error('l_selection_iterate: wrong parameters');
     if (!sel?.pts?.size) return;
     for (let y = sel.ly; y <= sel.hy; y++) {
         for (let x = Math.max(1, sel.lx); x <= sel.hx; x++) {

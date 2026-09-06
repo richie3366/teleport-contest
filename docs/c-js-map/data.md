@@ -798,7 +798,11 @@ seed0383 prefix **2493→9709**; Scr **45→141**) +
 seed2600 RNG **FULL 11647** Scr **23→35**) +
 **D-1821 `bigrm-5`/`-6`/`-11` load_special** (diamond ice/cloud grow; four-lobe
 trees/fountains; maze corrwid `3+rn2(3)` wall→boulder + rolling-boulder traps;
-`splev_create_trap` named type; `lspo_replace_terrain` selection arm) +
+`splev_create_trap` named type; `lspo_replace_terrain` selection arm;
+**D-1966 `nhlsel.c` `l_selection_iterate`** (exported `selection_iterate_lua`:
+y-outer/x-from-max(1,lx) + getpoint guard + argc/TFUNCTION throw like
+nhl_error; relcoord round-trip skipped per 791/810; Lua-VM pcall-abort/
+lua_gc/`l_selection_check` named omissions)) +
 **D-1822 `bigrm-1`/`-10`/`-13` load_special** (percent(80) line/plus/snake
 `selection_do_line`; fog maze `mazewalk`+levregion stair-up; 8-filter pillars
 via nested `lspo_map` coord); Big Room 13/13;
