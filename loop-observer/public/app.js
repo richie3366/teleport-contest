@@ -25,16 +25,27 @@ let pickerKey = "";
 let viewEpoch = -1;
 let ws;
 
+let jumping = false;
 thread.addEventListener("scroll", () => {
+  if (jumping) return;
   const gap = thread.scrollHeight - thread.scrollTop - thread.clientHeight;
   scrollFollow = gap < 80;
   els.jump.hidden = scrollFollow;
 });
-els.jumpBtn.addEventListener("click", () => {
+function jumpToBottom() {
   scrollFollow = true;
+  jumping = true;
   thread.scrollTop = thread.scrollHeight;
   els.jump.hidden = true;
-});
+  requestAnimationFrame(() => {
+    thread.scrollTop = thread.scrollHeight;
+    jumping = false;
+    const gap = thread.scrollHeight - thread.scrollTop - thread.clientHeight;
+    scrollFollow = gap < 80;
+    els.jump.hidden = scrollFollow;
+  });
+}
+els.jumpBtn.addEventListener("click", jumpToBottom);
 
 function sendOp(obj) {
   if (ws && ws.readyState === 1) ws.send(JSON.stringify(obj));
@@ -206,11 +217,7 @@ function applyView(data, { scroll = true } = {}) {
   if (data.following != null) following = data.following;
   if (data.live) liveHint = data.live;
   if (data.recent) recent = data.recent;
-  if (scroll && following && !wasFollowing) {
-    scrollFollow = true;
-    thread.scrollTop = thread.scrollHeight;
-    els.jump.hidden = true;
-  }
+  if (scroll && following && !wasFollowing) jumpToBottom();
 }
 
 function renderMeta() {
@@ -750,16 +757,10 @@ function applySnapshot(data) {
   meta = data.meta || {};
   renderPicker();
   renderMeta();
-  scrollFollow = following;
+  scrollFollow = true;
   replaceAll(data.messages);
   if (Array.isArray(data.messages)) data.messages.length = 0;
-  if (!following) {
-    thread.scrollTop = 0;
-    els.jump.hidden = true;
-  } else {
-    thread.scrollTop = thread.scrollHeight;
-    els.jump.hidden = true;
-  }
+  jumpToBottom();
 }
 
 function applyUpsert(data) {

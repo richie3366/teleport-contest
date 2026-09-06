@@ -45,7 +45,8 @@ The header follows **one** `.raw` at a time.
 - Meta bar: model, elapsed time, bytes, tokens, event count.
 - **↓ Jump to latest** — scroll-follow only. Separate from live-follow:
   you can pin #1373 and still scroll that thread, or follow live and
-  pause the scrollbar.
+  pause the scrollbar. Switching iters (picker or **Go live**) always
+  jumps to the bottom first, live or retrospect.
 
 Selecting the live iter from the dropdown also pins it. That is useful
 when you want to finish reading while the next iter starts; **Go live**
