@@ -1087,7 +1087,7 @@ function mungspaces_objnam(s) {
  * Aligned-cleric + CORPSTAT_RANDOM remaps to PM_CLERIC (avoid "aligned").
  * Named omit: omonst traits (#if 0 in C).
  */
-function obj_pmname_corpse(obj) {
+export function obj_pmname_corpse(obj) {
     const otypName = objectNames[obj?.otyp];
     const omndx = obj?.corpsenm;
     if ((otypName === 'CORPSE' || otypName === 'STATUE' || otypName === 'FIGURINE')

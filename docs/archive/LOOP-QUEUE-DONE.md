@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `dogmove.c` mnum_leashable — leashable-monster predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1959
+- [x] `do.c` better_not_try_to_drop_that — corpse-drop guard singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1960
+
+
+- [x] `dogmove.c` mnum_leashable — leashable-monster predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1959 `57b55f0e`
 
 
 - [x] `mail.c` readmail — mail-read singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1958 `6b3204c6`

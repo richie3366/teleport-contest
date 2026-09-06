@@ -163,7 +163,7 @@ const st_gloves = 0x1;
 const st_corpse = 0x2;
 const st_petrifies = 0x4;
 const st_resists = 0x8;
-const st_all = st_gloves | st_corpse | st_petrifies | st_resists;
+export const st_all = st_gloves | st_corpse | st_petrifies | st_resists;
 
 /** C ref: objnam.c thesimpleoname — "the" + simpleonames. */
 function thesimpleoname(obj) {
@@ -1061,7 +1061,7 @@ function merge_choice_invent(obj) {
 /**
  * C ref: pickup.c u_safe_from_fatal_corpse — any listed test is enough.
  */
-function u_safe_from_fatal_corpse(obj, tests) {
+export function u_safe_from_fatal_corpse(obj, tests) {
     if ((tests & st_gloves) && game.u?.uarmg) return true;
     if ((tests & st_corpse) && (obj?.otyp | 0) !== CORPSE) return true;
     if ((tests & st_petrifies) && !touch_petrifies(mons(obj?.corpsenm))) {

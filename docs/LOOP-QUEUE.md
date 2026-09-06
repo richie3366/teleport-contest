@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `do.c` better_not_try_to_drop_that — corpse-drop guard singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `region.c` inside_rect — rect-containment predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `weapon.c` give_may_advance_msg — skill-advance message singleton (HELDOUT Tier C singletons; no JS symbol, named omit in js/weapon.js).
