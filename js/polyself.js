@@ -11,7 +11,7 @@ import { getlin, yn_function } from './getline.js';
 import { getdir } from './lock.js';
 import { an, set_body_part } from './objnam.js';
 import {
-    pmname, mon_nam, s_suffix, l_monnam, Ugender,
+    pmname, mon_nam, s_suffix, Ugender,
 } from './do_name.js';
 import { attacktype_fordmg, killed } from './uhitm.js';
 import {
@@ -121,8 +121,6 @@ import {
     ACID_RES,
     STONE_RES,
     KILLED_BY_AN,
-    KILLED_BY,
-    STONING,
     BOLT_LIM,
     ECMD_CANCEL,
     IS_FOUNTAIN,
@@ -162,7 +160,6 @@ const PM_JELLYFISH = monsterNames.indexOf('PM_JELLYFISH');
 const PM_KRAKEN = monsterNames.indexOf('PM_KRAKEN');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
-const PM_MEDUSA = monsterNames.indexOf('PM_MEDUSA');
 const BLINDING_VENOM = objectNames.indexOf('BLINDING_VENOM');
 const ACID_VENOM = objectNames.indexOf('ACID_VENOM');
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
@@ -1279,10 +1276,11 @@ export async function dopoly() {
 }
 
 /**
- * C ref: polyself.c domindblast — #monster while poly'd as mind flayer.
+ * C ref: polyself.c domindblast :1893–1938 — #monster while poly'd as mind flayer.
  * Envelope: uen<10 refuse; uen-=10 + botl; BOLT_LIM range, !peaceful,
- * !mindless, telepathy/rn2 gates; wakeup-before-blast hostility rule;
- * floating-eye freeze (nomul + multi_reason); Medusa deliberate gaze.
+ * !mindless, telepathy/rn2 gates; wakeup-before-blast hostility rule.
+ * C never calls passive() here: gaze retaliation (floating eye, Medusa)
+ * fires on melee only (review 868).
  * @returns {Promise<number>} ECMD_OK | ECMD_TIME
  */
 export async function domindblast() {
@@ -1316,37 +1314,6 @@ export async function domindblast() {
                 : telepathic(mtmp.data) ? 'latent telepathy' : 'mind'}.`);
             mtmp.mhp = (mtmp.mhp | 0) - dmg;
             if ((mtmp.mhp | 0) < 1) await killed(mtmp);
-        }
-        /* For consistency with passive() in uhitm.c, this only
-         * affects you if the monster is still alive. */
-        if ((mtmp.mhp | 0) < 1) continue;
-        if (((mtmp.data?.mndx | 0) === PM_FLOATING_EYE) && !mtmp.mcan) {
-            const freeAct = !!((u.Free_action || u.HFree_action
-                || u.EFree_action));
-            if (!freeAct) {
-                await pline(`You are frozen by ${s_suffix(mon_nam(mtmp))} gaze!`);
-                await nomul(((u.ulevel | 0) > 6 || rn2(4))
-                    ? -d((mtmp.m_lev | 0) + 1, mtmp.data.mattk[0].damd)
-                    : -200);
-                game.multi_reason = "frozen by a monster's gaze";
-                game.nomovemsg = 0;
-                return ECMD_TIME;
-            }
-            await pline(`You stiffen momentarily under ${s_suffix(mon_nam(mtmp))} gaze.`);
-        }
-        /* Technically this one shouldn't affect you at all because
-         * the Medusa gaze is an active monster attack that only
-         * works on the monster's turn, but for it to *not* have an
-         * effect would be too weird. */
-        if (((mtmp.data?.mndx | 0) === PM_MEDUSA) && !mtmp.mcan) {
-            await pline(`Gazing at the awake ${l_monnam(mtmp)} is not a very good idea.`);
-            /* as if gazing at a sleeping anything is fruitful... */
-            await urgent_pline('You turn to stone...');
-            game.killer = {
-                format: KILLED_BY,
-                name: "deliberately meeting Medusa's gaze",
-            };
-            await done(STONING);
         }
     }
     return ECMD_TIME;

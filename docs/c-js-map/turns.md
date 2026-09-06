@@ -267,7 +267,7 @@ DRAIN_RES/ANTIMAGIC/SICK_RES/STUNNED/…/BLND_RES/`#monster`/`dobreathe` deferre
 **`#monster`/`domonability` reflexive** (D-0723; 
 spit/gaze/were/hide/web/… deferred) + **`domonability` C-order dispatch** (D-1898;
 hide/web `yn_function` prompt; `dospit` venom/`throwit`; `doremove` nymph/`unpunish`;
-`dosummon` were/`were_summon`; `domindblast` mindflayer incl. floating-eye/Medusa;
+`dosummon` were/`were_summon`; `domindblast` mindflayer (D-1901: invented floating-eye/Medusa gaze retaliation deleted per C `:1893–1938` — `passive()` owns melee gaze only);
 gremlin `split_mon`/`dryup`; shriek/`aggravate`; vampire `dopoly`; gaze/hide/web
 `dogaze`/`dohide`/`dospinweb` + steed `pet_ranged_attk` still deferred) + 
 **`can_breathe`→`dobreathe` uen<15** (D-0725; 

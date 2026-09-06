@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1901 — polyself.c domindblast invented gaze-retaliation blocks deleted
+
+- **Status:** fixed (Must-fix queue row from review 868; hidden vacuous — no corpus session blocked on `domindblast` at HEAD, as the review itself re-measured; green + strict + cohort 7/7 PASS)
+- **Symptom:** `domindblast` (mind-flayer `#monster` blast) froze the hero near a floating eye and stoned the hero near Medusa — neither behavior exists in C.
+- **C locus:** `polyself.c` `domindblast :1893–1938` (46 lines): uen<10 refuse, uen−=10 + botl, `rnd(15)` blast gated on BOLT_LIM² range / `!mpeaceful` / `!mindless` / telepathy-`rn2(2)`-`rn2(10)` with `u_sen` short-circuit, wakeup-before-blast hostility rule, mhp−=dmg → `killed()`. C never calls `passive()` from this function; gaze retaliation fires on melee only.
+- **JS was:** `js/polyself.js` `domindblast` carried the C core loop faithfully, then two invented per-monster blocks: a `PM_FLOATING_EYE` arm (`nomul` freeze + early `return ECMD_TIME`, else a stiffen message) citing "`passive()` in uhitm.c" consistency, and a `PM_MEDUSA` arm (`done(STONING)` with killer "deliberately meeting Medusa's gaze") citing "too weird" — with no Blind/stone-resistance gate, so even a blind hero was stoned.
+- **Fix:** deleted both blocks including the `mhp<1 continue` guard line that only served them; `passive()` already owns gaze retaliation on its real melee trigger path. Updated the doc comment to cite `:1893–1938` and the no-`passive()` fact (review 868). Removed the now-unused `l_monnam` (do_name.js), `KILLED_BY`/`STONING` (const.js), and `PM_MEDUSA` const imports; `nomul`/`urgent_pline`/`done`/`d` stay (used elsewhere in the file).
+- **JS:** `js/polyself.js` (−~35: two gaze blocks + guard; doc comment; 3 import lines, 1 const line); `docs/c-js-map/turns.md` domonability line.
+- **Verify:** `node scripts/verify.mjs --fn domindblast` → `PASS syntax 1 changed js file(s): js/polyself.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `note hidden verify domindblast: no corpus session is blocked on it at HEAD — a vacuous verify is NOT a corpus PASS` (queue row cited no corpus blocks — review Must-fix — so public gates carry it, as the review itself states) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)`.
+- **Named omissions:** none new — `dogaze`/`dohide`/`dospinweb` + steed `pet_ranged_attk` stay deferred on the `domonability` row (D-1898); gaze retaliation itself stays owned by `passive()` on the melee path.
+- **Next:** next Open row (`mkmap.c` cavern generator, HELDOUT Tier C).
+
 ## D-1900 — wizard.c clonewiz family + quest.c death latches (which_arti/mon_has_arti/other_mon_has_arti/on_ground/wizdeadorgone/leaddead/nemdead/nemesis_stinks)
 
 - **Status:** fixed (Open queue row `wizard.c` clonewiz family, HELDOUT Tier C; hidden vacuous — 0 corpus sessions blocked on any of the nine at HEAD; green + strict + cohort 7/7 PASS)

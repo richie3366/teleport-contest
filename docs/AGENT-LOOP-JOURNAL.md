@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1901 polyself.c domindblast invented gaze-retaliation blocks deleted
+
+**C locus:** `polyself.c` `domindblast :1893–1938` (46 lines): uen<10 refuse, uen−=10 + botl, `rnd(15)` blast gated on BOLT_LIM² range / `!mpeaceful` / `!mindless` / telepathy-`rn2(2)`-`rn2(10)` with `u_sen` short-circuit, wakeup-before-blast hostility rule, mhp−=dmg → `killed()`. C never calls `passive()` from this function; gaze retaliation fires on melee only.
+**JS:** `js/polyself.js` (−~35: two gaze blocks + guard; doc comment; 3 import lines, 1 const line); `docs/c-js-map/turns.md` domonability line.
+**Change:** deleted both blocks including the `mhp<1 continue` guard line that only served them; `passive()` already owns gaze retaliation on its real melee trigger path. Updated the doc comment to cite `:1893–1938` and the no-`passive()` fact (review 868). Removed the now-unused `l_monnam` (do_name.js), `KILLED_BY`/`STONING` (const.js), and `PM_MEDUSA` const imports; `nomul`/`urgent_pline`/`done`/`d` stay (used elsewhere in the file).
+**Verify:** `node scripts/verify.mjs --fn domindblast` → `PASS syntax 1 changed js file(s): js/polyself.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `note hidden verify domindblast: no corpus session is blocked on it at HEAD — a vacuous verify is NOT a corpus PASS` (queue row cited no corpus blocks — review Must-fix — so public gates carry it, as the review itself states) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)`.
+**Named:** none new — `dogaze`/`dohide`/`dospinweb` + steed `pet_ranged_attk` stay deferred on the `domonability` row (D-1898); gaze retaliation itself stays owned by `passive()` on the melee path.
+**Next:** next Open row (`mkmap.c` cavern generator, HELDOUT Tier C).
 ## 2026-09-06 — Audit D-1893…D-1900 against pinned C (reviews 863–870) + cadence score
 
 **Scope:** 8 JS-touching SHAs since review 862 (`04dd88ea`…`29ce55d7`), one SHA at a time, review file written per SHA before opening the next.

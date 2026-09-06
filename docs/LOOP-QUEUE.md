@@ -35,8 +35,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `polyself.c` `domindblast` invented gaze-retaliation blocks — delete the floating-eye freeze (`nomul` + early return) and Medusa stoning (`done(STONING)`) blocks; C `polyself.c:1893–1938` never calls `passive()` from `domindblast` (gaze fires on melee only), and the Medusa block lacks any Blind/stone-resistance gate. Source: reviews/loop-unattended/868-3ef6abec-domonability-arms.md.
-
 ## Open (map-driven, after Must-fix is empty)
 
 Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached
