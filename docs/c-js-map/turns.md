@@ -580,8 +580,14 @@ zapyourself WAN_LIGHT/CAMERA D-1366**; **`zapnodir` WAN_CREATE_MONSTER `create_c
 **SPE_WIZARD_LOCK IMMEDIATE wand-duplicate `weffects` bhit D-1452**; 
 **`bhit` thrown/kicked `shade_miss` D-1383**; **`bhit` M_AP_OBJECT skip D-1392**; 
 **`bhit` WEB stick D-1393** (`:3926–3938` empty WEB thrown/kicked `!rn2(3)` + 
-Yname2 pline/tseen/newsym + clear returning; 
-throwit fly / skiprange / FLASHED_LIGHT DISP_BEAM still named); 
+Yname2 pline/tseen/newsym + clear returning); 
+**`bhit` monster-hit dispatch + rock skip D-1928** (`:3855–3860` thrown-rock 
+`skiprange` staticfn `:3579–3588` file-local + `!rn2(3)` + DISP_BEAM open; 
+`:3944–3970` pool-skip / `in_skip` / M_IN_WATER (`S_EEL || cant_drown`) 
+pass-over; `:3994–4039` notonhead-all + FLASHED minvis-flash / visible-stop 
++ INVIS perceives-stop + thrown/kicked map_invisible + ZAPPED fhitm-stop + 
+WAN_PROBING unmap; `:4089–4130` no-obj-gate erase/tmp/END + pay-skipped-on-done; 
+throwit fly / shkcatch pick / HEAVY_IRON_BALL boulder-uball still named); 
 **`bhit` doorlock WAN_OPENING/SPE_KNOCK D-1462** (`:4056–4074` IS_DOOR|SDOOR not STONE; 
 callee `lock.c` `:1103–1272` SDOOR appear + locked unlock + picking_at) + 
 **`bhit` doorlock WAN_LOCKING/SPE_WIZARD_LOCK D-1475** (Rogue hide / obstructed / trap-in-doorway / 

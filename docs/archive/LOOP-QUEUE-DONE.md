@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner). **Addressed:** D-1927
+- [x] `zap.c` bhit — beam-hit body remaining arms (TOP30 honourable mention, 306/223; archived rows are named bits only). **Addressed:** D-1928
+
+
+- [x] `invent.c` getobj — prompt/filter remaining arms (TOP30 #13; corpus screen-first owner). **Addressed:** D-1927 `35d8be59`
 
 
 - [x] `options.c` AUTOPICKUP_EXCEPTION — apelist option parsing feeding `check_autopickup_exceptions` (named omit in D-1926; live-but-dormant arm, no `game.apelist` producer in `js/`). **Addressed:** D-1926 `a3aa0f8d`

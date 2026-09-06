@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1928 zap.c bhit monster-hit dispatch + rock skip (beam-hit remaining arms)
+
+**C locus:** `zap.c` `bhit` `:3832–4139` (setup `:3842–3868`, skip `:3944–3970`, dispatch `:3994–4039`, draw/tail `:4089–4139`); staticfn `skiprange` `:3579–3588` (only caller bhit); `M_IN_WATER` macro `:61` (`S_EEL || cant_drown`); `perceives` `mondata.h:81` (`M1_SEE_INVIS`).
+**JS:** `js/zap.js` (+156/−38); 1 js file, under 600 cap.
+**Change:** `js/zap.js` — file-local `bhit_skiprange` (C staticfn shape, `Math.trunc` int division, `rnd` 1..n, `skipend >= tmp` clamp); rock setup (`THROWN_WEAPON` + ROCK → window + `!rn2(3)`, before tether remap like C); DISP_BEAM open for FLASHED; full `:3994–4039` dispatch (notonhead-all; FLASHED minvis `ox/oy` + `flash_hits_mon` vs visible stop; INVIS perceives-stop; thrown/kicked `map_invisible`; ZAPPED fhitm-stop else `r -= 3`; WAN_PROBING `unmap_object` + `newsym`); C-predicate erase/tmp/END (no obj gate); pay gated on `!bhit_done`. Five added import names, all same-edge (`imports.mjs --can` ALREADY ×5: display `unmap_object`/`cmap_to_glyph`, const `S_flashbeam`, monsters `M1_SEE_INVIS`, mon `cant_drown`); `perceives`/`M_IN_WATER` as inline macro expansions over canonical imports (no clone #8). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn bhit` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/zap.js`; `PASS rule2`; `note hidden verify bhit: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; re-ran `--full` → `PASS full 44/44`.
+**Named:** THROWN_WEAPON fly callers (throwit inlines those); `is_pick`/`shkcatch` pick (`:3887–3892`, no JS export); HEAVY_IRON_BALL boulder/uball stop (`:4102–4121`, needs sobj_at export + test_move); apply.js keeps its own `bhit_invis_beam`/flash-walk clones for mirror/camera paths (not this cluster).
+**Next:** next Open row `weapon.c` hitval (blessed/spear/trident/pick/silver arms).
 ## 2026-09-06 — D-1927 invent.c getobj takeoff live getobj + takeoff_ok (prompt/filter remaining arms)
 
 **C locus:** `invent.c` `getobj` `:1751–2089` (prompt/filter arms `:1832–2089`); `do_wear.c` `takeoff_ok` `:3471–3475` (`equip_ok(obj, TRUE, FALSE)` `:3403–3447`); `do_wear.c` `dotakeoff` `:1831–1852` (`Narmorpieces != 1 || ParanoidRemove || gi.item_action_in_progress` → `getobj("take off", takeoff_ok, GETOBJ_NOFLAGS)`).

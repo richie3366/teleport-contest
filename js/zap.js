@@ -226,7 +226,8 @@ import { livelog_printf } from './pline.js';
 import {
     flush_screen, flush_topl_more, pline, pline_dir, pline_mon, Norep, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon, shieldeff,
-    obj_glyph, glyph_is_invisible, map_invisible, bot, set_msg_xy,
+    obj_glyph, cmap_to_glyph, glyph_is_invisible, map_invisible, unmap_object,
+    bot, set_msg_xy,
 } from './display.js';
 import { cansee, couldsee } from './vision.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
@@ -251,11 +252,11 @@ import {
 } from './hack.js';
 import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
-    MR_POISON, MR_ACID, is_undead, is_were, is_vampshifter, monsterNames, mons,
+    MR_POISON, MR_ACID, M1_SEE_INVIS, is_undead, is_were, is_vampshifter, monsterNames, mons,
     G_UNIQ, G_NOCORPSE, is_rider, is_swimmer, mindless, MZ_MEDIUM, is_whirly,
     hides_under, is_golem, vegetarian, carnivorous, NUMMONS,
 } from './monsters.js';
-import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon, can_be_hatched } from './mon.js';
+import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon, can_be_hatched, cant_drown } from './mon.js';
 import { find_mac, monkilled, shade_miss } from './mhitm.js';
 import { update_mapseen_for } from './dungeon.js';
 import {
@@ -342,7 +343,7 @@ import {
     M_AP_TYPE, M_AP_NOTHING, M_AP_MONSTER, M_AP_OBJECT, M_AP_FURNITURE,
     NON_PM, ismnum,
     MIM_REVEAL, MIM_OMIT_WAIT, ANIMATE_SPELL,
-    def_warnsyms,
+    def_warnsyms, S_flashbeam,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE, W_ART, W_ARTI,
     W_WEP, W_SWAPWEP, W_QUIVER, W_WEAPONS,
     REFLECTING, ANTIMAGIC, SHOCK_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED,
@@ -5343,6 +5344,20 @@ function bhit_xyglyph_known_monster(loc) {
 }
 
 /**
+ * C zap.c skiprange :3579–3588 (staticfn; only caller bhit, so file-local
+ * is the faithful shape, not a clone). Integer division truncates like C
+ * (range, tr, tmp are ints; all non-negative at the call sites).
+ * `rnd` is 1..n both sides (rng.js); C `*skipend >= tmp` clamp kept.
+ */
+function bhit_skiprange(range) {
+    const tr = Math.trunc(range / 4);
+    const tmp = range - (tr > 0 ? rnd(tr) : 0);
+    let end = tmp - Math.trunc(tmp / 4) * rnd(3);
+    if (end >= tmp) end = tmp - 1;
+    return [tmp, end];
+}
+
+/**
  * C ref: zap.c bhit — ZAPPED_WAND + KICKED_WEAPON + THROWN_TETHERED_WEAPON.
  * Branch envelope: kicked start+range--; WATERWALL/LAVAWALL stop;
  * hits_bars; mon stop; coin/ship_object; DISP_FLASH / DISP_TETHER tmp_at
@@ -5358,11 +5373,21 @@ function bhit_xyglyph_known_monster(loc) {
  * !Deaf; D_BROKEN shop add_damage + pay_for_damage destroy).
  * zap_map from lateral ZAPPED_WAND is D-1489 (`:3919–3924`;
  * callee `zap_map` `:3685–3717` OPENING/LOCKING/STRIKING).
+ * FLASHED_LIGHT DISP_BEAM opening (`:3859–3860`) + minvis pass-through
+ * vs visible stop (`:3996–4008`); INVIS_BEAM perceives stop (`:4009–4016`,
+ * mondata.h:81 macro inline — M1_SEE_INVIS canonical import, no new
+ * clone); ZAPPED fhitm-nonzero stop + WAN_PROBING invisible unmap
+ * (`:4027–4039`); thrown/kicked map_invisible (`:4017–4026`);
+ * invisible-erase/tmp/post-END under C `:4089–4124` (no obj gate);
+ * shopdoor pay skipped on goto bhit_done (`:4129–bhit_done`).
+ * skiprange + rock skip/pass-over (`:3855–3858`, `:3944–3970`;
+ * callee staticfn `:3579–3588` file-local `bhit_skiprange`;
+ * M_IN_WATER is zap.c:61 `S_EEL || cant_drown`, canonical import).
  * Named omit: THROWN_WEAPON fly callers (throwit still inlines those
- * and still skips WEB / shade / mimic-object); FLASHED_LIGHT DISP_BEAM /
- * INVIS_BEAM stop; shkcatch pick; map_invisible / unmap_object;
- * skiprange rocks. show_transient_light is D-1597; bhit `!Blind`
- * is youprop.h:103 (D-1604).
+ * and still skips WEB / shade / mimic-object); shkcatch pick
+ * (`:3887–3892`, no JS export); HEAVY_IRON_BALL boulder/uball stop
+ * (`:4102–4121`, needs sobj_at export + test_move).
+ * show_transient_light is D-1597; bhit `!Blind` is youprop.h:103 (D-1604).
  * pobj is `{ obj }` — may set `.obj = null` when destroyed (kicked).
  */
 async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
@@ -5375,6 +5400,10 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
     let tethered_weapon = false;
     let bhit_done = false;
     let shopdoor = false;
+    // C :3842–3844 — rock-skip state; skiprange_start is set only for
+    // a thrown rock (:3855–3858).
+    let in_skip = false, allow_skip = false;
+    let skiprange_start = 0, skiprange_end = 0, skipcount = 0;
     const was_returning = (game.iflags?.returning_missile === obj) ? obj : null;
 
     // C: kicked object starts one square ahead; range--
@@ -5387,16 +5416,24 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
         bhitpos.y = game.u?.uy | 0;
     }
 
-    // C zap.c bhit :3861–3868 — FLASHED_LIGHT DISP_BEAM named; tethered
+    // C zap.c bhit :3855–3858 — thrown-rock skip window before the beam
+    // opens (tethered still reads THROWN_TETHERED here, so no window).
+    if (weapon === THROWN_WEAPON && obj && (obj.otyp | 0) === ROCK) {
+        [skiprange_start, skiprange_end] = bhit_skiprange(r);
+        allow_skip = !rn2(3);
+    }
+
+    // C zap.c bhit :3859–3868 — FLASHED_LIGHT opens DISP_BEAM; tethered
     // opens DISP_TETHER then weapon=THROWN_WEAPON so later ifs match.
-    if (weapon === THROWN_TETHERED_WEAPON && obj) {
+    if (weapon === FLASHED_LIGHT) {
+        tmp_at(DISP_BEAM, cmap_to_glyph(S_flashbeam));
+    } else if (weapon === THROWN_TETHERED_WEAPON && obj) {
         tethered_weapon = true;
         weapon = THROWN_WEAPON;
         tmp_at(DISP_TETHER, obj_glyph(obj));
     } else if (weapon !== ZAPPED_WAND && weapon !== INVIS_BEAM && obj) {
         tmp_at(DISP_FLASH, obj_glyph(obj));
     }
-    const do_flash = weapon !== ZAPPED_WAND && weapon !== INVIS_BEAM && !!obj;
 
     try {
         while (r-- > 0) {
@@ -5467,6 +5504,38 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
                 if (was_returning) game.iflags.returning_missile = null;
                 break;
             }
+            // C zap.c bhit :3944–3970 — skipping rocks. skiprange_start
+            // is set only for a thrown rock. `r` is post-decrement here,
+            // matching C `range` after `range--`. M_IN_WATER is the
+            // zap.c:61 macro `S_EEL || cant_drown` (canonical import).
+            if (skiprange_start && r === skiprange_start && allow_skip) {
+                if (is_pool(x, y) && !mtmp) {
+                    in_skip = true;
+                    if (!Blind()) {
+                        await pline(`${Yname2_destroy(obj)} ${otense_zap(obj, 'skip')}${skipcount ? ' again' : ''}.`);
+                    } else {
+                        await You_hear(`${yname(obj)} skip.`);
+                    }
+                    skipcount++;
+                } else if (skiprange_start > skiprange_end + 1) {
+                    skiprange_start--;
+                }
+            }
+            if (in_skip) {
+                if (r <= skiprange_end) {
+                    in_skip = false;
+                    if (r > 3) {
+                        [skiprange_start, skiprange_end] = bhit_skiprange(r);
+                    }
+                } else if (mtmp
+                    && (mtmp.data?.mlet === 'S_EEL'
+                        || cant_drown(mtmp.data))) {
+                    if (!Blind() && canspotmon(mtmp)) {
+                        await pline(`${Yname2_destroy(obj)} ${otense_zap(obj, 'pass')} over ${mon_nam(mtmp)}.`);
+                    }
+                    mtmp = null;
+                }
+            }
             // C zap.c bhit :3983–3992 — glyph_at then thrown/kicked
             // shade_miss(TRUE,TRUE) (D-1383) OR (M_AP_OBJECT &&
             // !glyph_is_monster && !glyph_is_warning &&
@@ -5482,21 +5551,66 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
                 mtmp = null;
             }
 
+            // C zap.c bhit :3994–4039 — notonhead for every monster hit,
+            // then one arm per weapon.
             if (mtmp) {
-                if (weapon === ZAPPED_WAND) {
-                    if (fhitm) await fhitm(mtmp, obj);
-                    else await bhitm(mtmp, obj);
-                    r -= 3;
-                } else if (weapon !== FLASHED_LIGHT && weapon !== INVIS_BEAM) {
-                    // THROWN_WEAPON / KICKED_WEAPON — stop on monster
-                    // C :4023–4024 — tethered leaves DISP_TETHER open
+                game.notonhead = ((x | 0) !== (mtmp.mx | 0)
+                    || (y | 0) !== (mtmp.my | 0));
+                if (weapon === FLASHED_LIGHT) {
+                    // C :3996–4008 — pass through invisible (flash now;
+                    // the caller flashes the stopped visible one later),
+                    // stop on visible.
+                    if (mtmp.minvis) {
+                        obj.ox = game.u?.ux | 0;
+                        obj.oy = game.u?.uy | 0;
+                        await flash_hits_mon(mtmp, obj);
+                    } else {
+                        tmp_at(DISP_END, 0);
+                        result = mtmp;
+                        bhit_done = true;
+                        break;
+                    }
+                } else if (weapon === INVIS_BEAM) {
+                    // C :4009–4016 — continue through invisible unless it
+                    // perceives (mondata.h:81 M1_SEE_INVIS inline; no
+                    // tmp cleanup here). apply.js keeps its own
+                    // bhit_invis_beam clone for the mirror path.
+                    if (!mtmp.minvis
+                        || ((mtmp.data?.mflags1 | 0) & M1_SEE_INVIS) !== 0) {
+                        result = mtmp;
+                        bhit_done = true;
+                        break;
+                    }
+                } else if (weapon !== ZAPPED_WAND) {
+                    // THROWN_WEAPON / KICKED_WEAPON — stop on monster.
+                    // C :4017–4026 — tethered leaves DISP_TETHER open;
+                    // a seen-but-unspotted monster is mapped invisible.
                     if (!tethered_weapon) tmp_at(DISP_END, 0);
-                    game.notonhead = ((x | 0) !== (mtmp.mx | 0)
-                        || (y | 0) !== (mtmp.my | 0));
+                    if (cansee(x, y) && !canspotmon(mtmp)) {
+                        map_invisible(x, y);
+                    }
                     result = mtmp;
                     bhit_done = true;
                     break;
+                } else {
+                    // ZAPPED_WAND — C :4027–4034: nonzero fhitm stops
+                    // the beam (goto bhit_done, skipping shopdoor pay).
+                    const stopped = fhitm
+                        ? await fhitm(mtmp, obj)
+                        : await bhitm(mtmp, obj);
+                    if (stopped) {
+                        result = mtmp;
+                        bhit_done = true;
+                        break;
+                    }
+                    r -= 3;
                 }
+            } else if (weapon === ZAPPED_WAND && obj
+                && (obj.otyp | 0) === WAN_PROBING
+                && glyph_is_invisible(loc)) {
+                // C :4035–4039 — probing reveals a remembered invisible.
+                unmap_object(x, y);
+                newsym(x, y);
             }
 
             if (fhito) {
@@ -5545,17 +5659,17 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
                 bhitpos.y -= ddy;
                 break;
             }
-            if (do_flash) {
-                // map_invisible / unmap_object deferred
+            // C zap.c bhit :4089–4100 — every non-wand, non-invis beam
+            // draws: erase a remembered invisible first, then tmp + delay.
+            // No obj gate (C tmp_at needs none). Kicked objects fall in
+            // pools/lava; a sink stops physical objects (never light).
+            if (weapon !== ZAPPED_WAND && weapon !== INVIS_BEAM) {
+                if (glyph_is_invisible(loc) && cansee(x, y)) {
+                    unmap_object(x, y);
+                    newsym(x, y);
+                }
                 tmp_at(x, y);
                 await nh_delay_output();
-                // C: kicked objects fall in pools/lava; sink stops physical
-                if (weapon === KICKED_WEAPON
-                    && (is_pool(x, y) || is_lava(x, y))) {
-                    break;
-                }
-                if (IS_SINK(typ) && weapon !== FLASHED_LIGHT) break;
-            } else if (weapon !== ZAPPED_WAND && weapon !== INVIS_BEAM) {
                 if (weapon === KICKED_WEAPON
                     && (is_pool(x, y) || is_lava(x, y))) {
                     break;
@@ -5565,19 +5679,23 @@ async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
             point_blank = false;
         }
     } finally {
-        // C :4125–4127 — skip END when tethered unless returning_missile
-        // was cleared mid-flight (WEB stick D-1393). Monster hit already
-        // ENDed non-tethered via goto bhit_done. Gate on do_flash so a
-        // ZAPPED_WAND / empty FLASHED_LIGHT does not close a leftover tmp.
-        if (!bhit_done && do_flash) {
-            const returning_cleared = !!(was_returning
-                && was_returning !== game.iflags?.returning_missile);
-            if (!tethered_weapon || returning_cleared) tmp_at(DISP_END, 0);
+        // C :4122–4124 — post-loop END unless ZAPPED/INVIS, tethered
+        // (unless returning_missile cleared mid-flight, WEB D-1393),
+        // or goto bhit_done already left (monster hit ENDed non-tethered
+        // inline; ZAPPED/FLASHED/INVIS stops skip this too). No obj gate.
+        if (!bhit_done
+            && ((weapon !== ZAPPED_WAND && weapon !== INVIS_BEAM
+                && !tethered_weapon)
+                || (was_returning
+                    && was_returning !== game.iflags?.returning_missile))) {
+            tmp_at(DISP_END, 0);
         }
     }
     /* C zap.c bhit :4129–4130 — after tmp_at END, skipped on
      * goto bhit_done (thrown/kicked monster). */
-    if (shopdoor) {
+    // C :4129–4130 — after the END above, but goto bhit_done (a stopped
+    // beam) skips the bill.
+    if (shopdoor && !bhit_done) {
         const { pay_for_damage } = await import('./shk.js');
         await pay_for_damage('destroy', false);
     }
