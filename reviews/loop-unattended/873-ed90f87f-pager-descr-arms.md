@@ -74,3 +74,5 @@ coordinate patterns. Rule #2 clean at HEAD.
    like the siblings (or hoist one shared helper).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-1909

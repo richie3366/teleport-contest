@@ -76,7 +76,7 @@ import {
     S_vodbridge, S_hcdbridge, MAXTCHARS, VIBRATING_SQUARE, def_warnsyms,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE,
     HELP, SHELP, HISTORY, LICENSE, OPTIONFILE, OPTMENUHELP, USAGEHELP, DEBUGHELP,
-    ECMD_OK, GEHENNOM, BUFSZ,
+    ECMD_OK, BUFSZ,
     OBJ_FREE, OBJ_FLOOR, OBJ_BURIED, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
     M_AP_TYPMASK, M_AP_F_DKNOWN,
     MCORPSENM, has_mcorpsenm, MALE, FEMALE,
@@ -800,9 +800,9 @@ function is_cmap_drawbridge(idx) {
     return (idx | 0) >= S_vodbridge && (idx | 0) <= S_hcdbridge;
 }
 
-/** C ref: dungeon.h Inhell — In_hell(&u.uz), Gehennom dnum. */
+/** C ref: dungeon.c In_hell `:1941–1945` via dungeon.h Inhell — dungeon hellish flag. */
 function Inhell_pager() {
-    return (game.u?.uz?.dnum | 0) === GEHENNOM;
+    return !!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish);
 }
 
 /**

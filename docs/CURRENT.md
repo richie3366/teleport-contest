@@ -42,14 +42,14 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 `dopush` (parked)/`mdrop_obj` (parked)/`show_conduct` (parked) ×1
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
-Reviews **835–842** (D-1865…D-1908): 7 ACCEPT,
-1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1908):
-3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1908):
-8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1908):
+Reviews **835–842** (D-1865…D-1909): 7 ACCEPT,
+1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1909):
+3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1909):
+8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1909):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1908): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1909): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1908): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1909): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -86,10 +86,11 @@ Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852
 **Next cluster:** `pager.c` `Inhell_pager` hellish-flag Must-fix (review 873) — pop first, alone.
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1908 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1909 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1909** `dungeon.c` `In_hell` `:1941–1945` (`svd.dungeons[lev->dnum].flags.hellish`); `dungeon.h:1 — body now reads `!!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish)` — the same flag expression as the `do.js`/`trap.js` siblings (same `| 0` undefined→0 fallback shape); doc comment cites `dungeon.c:1941–1945`.
 **D-1908** `mkmap.c` `init_map` `:23–34`, `init_fill` `:36–52`, `N_P1_ITER`/`N_P2_ITER`/`N_P3_ITER` ` — canonical exports in `js/mkmap.js`: `N_P1_ITER`/`N_P2_ITER`/`N_P3_ITER`, `init_map` (C field order NO_ROOM/typ/unlit), `init_fill` (limit `(WIDTH*HEIGHT*2)/5`=624, `rn1(WIDTH-1,2)`/`rnd(HEIGHT-1)`, occupied cells retry d
 **D-1907** `uhitm.c` `mhitm_ad_sgld` `:2790–2857`, `mhitm_ad_tlpt` `:2859–2955`, `mhitm_ad_were` `:42 — four exported C-order arms in `js/mhitm.js` (mhitm branches only, `is_youmonst` guards): sgld zeroes dice, `findgold`/`obj_extract_self`/`add_to_minv` gold move, WAITFORU clear, vis-gated steal pline, `!tele_restrict` at
 **D-1906** `dat/wiz-goal.lua` :73–87 (1 named Eye + 14 empty `des.object()`); `sp_lev.c` `lspo_object — bound 15→14 with comment citing :74–87; Bar-goal comment corrected to the shared 1+14 shape.
@@ -97,11 +98,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1904** `role.c` `str2role :746–775` / `str2race :812–841` / `str2gend :879–904` / `str2align :942 — `js/roles.js` (+~150): index-aligned `ROLE_FILECODES` attached to `roles[]`; `randomstr`; `str2role`/`str2race`/`str2gend`/`str2align` in C order (male/noun/adj prefix, then female/adj, then exact filecode, then `*`/`@`/
 **D-1903** `pager.c` `dohistory :2961–2965` / `dispfile_help :2748–2752` / `dispfile_shelp :2754–2758 — C-order ports in `js/pager.js` (+~277/−24): `look_region_nearby(out, nearby)` holder-mutating export (C lo_y/lo_x/hi_y/hi_x order, `ux|0`/`uy|0` ints) with `look_region` kept as a delegating wrapper (clone drift deleted)
 **D-1902** `mkmap.c` `get_map :54–60` / `pass_one :67–96` / `pass_two :100–121` / `pass_three :123–14 — new `js/mkmap.js` (+~170, 6 exports, C names/signatures): bounds-exact `get_map` (OOB→bg); in-place `pass_one` (writes hit levl mid-sweep — later cells see updated neighbours, preserved); double-buffered `pass_two` (==5→
-**D-1901** `polyself.c` `domindblast :1893–1938` (46 lines): uen<10 refuse, uen−=10 + botl, `rnd(15)` — deleted both blocks including the `mhp<1 continue` guard line that only served them; `passive()` already owns gaze retaliation on its real melee trigger path.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1908; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1909; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

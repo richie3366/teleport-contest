@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — D-1909 pager.c Inhell_pager reads the dungeon hellish flag, not the Gehennom dnum
+
+**C locus:** `dungeon.c` `In_hell` `:1941–1945` (`svd.dungeons[lev->dnum].flags.hellish`); `dungeon.h:140` `Inhell` = `In_hell(&u.uz)`; consumed in `pager.c:1232` (`idx != S_vibrating_square || Inhell || ...`).
+**JS:** `js/pager.js` only (helper body + doc line + 1 import word); `docs/c-js-map/turns.md` one section.
+**Change:** body now reads `!!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish)` — the same flag expression as the `do.js`/`trap.js` siblings (same `| 0` undefined→0 fallback shape); doc comment cites `dungeon.c:1941–1945`. No new import (flag read is inline, zero TDZ risk); now-unused `GEHENNOM` dropped from the `const.js` import.
+**Verify:** `node scripts/verify.mjs --fn Inhell_pager` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/pager.js`; `PASS rule2`; `note hidden verify Inhell_pager: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — review states latent/no live caller, brief confirms none — so no `--base` re-run owed); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full (no shared file changed)`. No hand probe: single boolean predicate, byte-identical shape to two session-covered siblings, no live caller yet.
+**Named:** none new — `do_screen_description` showsyms scan + `describe_looked` rewiring still deferred (own rows); hoisting one shared `In_hell` export (e.g. from `js/dungeon.js`) left for a future iter that touches all three clones together.
+**Next:** next queue row in order (`mkmap.c` join_map + join_map_cleanup).
 ## 2026-09-06 — Audit D-1901…D-1908 against pinned C (reviews 871–878) + cadence score
 
 7 ACCEPT (871 domindblast deletion branch-exact; 872 mkmap passes, DIRS/macros byte-identical; 874 role parsers incl. end-anchored priest/priestess check; 875 tty_putstr wrap re-measured blocked→PASS PROGRESS; 876 wiz-goal 14-empty count; 877 mhitm AD arms, all import edges pre-existing; 878 mkmap driver, C-order exact), 1 QUALITY-RISK (873: `Inhell_pager` checks `dnum===GEHENNOM` instead of C `dungeon.c:1941–1945` hellish flag — clone #3 diverging from siblings `do.js:1202`/`trap.js:604`; Must-fix prepended, CURRENT Next cluster set to it). Full sessions 44/44 fortress holds (Scr 11,405/11,405, RNG 792,838/792,838); hidden proxy 255/265 excl. env (suit_simple_name closed by D-1905, +1).

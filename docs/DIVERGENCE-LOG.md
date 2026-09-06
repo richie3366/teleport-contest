@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1909 — pager.c Inhell_pager reads the dungeon hellish flag, not the Gehennom dnum
+
+- **Status:** fixed (Must-fix queue row from review 873; one-item iter, alone).
+- **Symptom:** none on any suite (latent: `add_cmap_descr` has no live caller until `describe_looked` is rewired; no corpus session blocked on `Inhell_pager` at HEAD) — latent screen divergence on the vibrating-square arm: outside Gehennom-shaped dungeons that still carry the `hellish` flag (or vice versa), C would append "vibrating square" where JS would not, or suppress it where C appends.
+- **C locus:** `dungeon.c` `In_hell` `:1941–1945` (`svd.dungeons[lev->dnum].flags.hellish`); `dungeon.h:140` `Inhell` = `In_hell(&u.uz)`; consumed in `pager.c:1232` (`idx != S_vibrating_square || Inhell || ...`).
+- **JS was:** `js/pager.js` `Inhell_pager()` returned `(game.u?.uz?.dnum | 0) === GEHENNOM` — a dnum comparison, clone #3 diverging from C and from both `In_hell` siblings (`js/do.js:1202`, `js/trap.js:604`), i.e. the D-1849 `inside_shop` anti-pattern. Doc comment claimed the dnum read was the C shape.
+- **Fix:** body now reads `!!(game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish)` — the same flag expression as the `do.js`/`trap.js` siblings (same `| 0` undefined→0 fallback shape); doc comment cites `dungeon.c:1941–1945`. No new import (flag read is inline, zero TDZ risk); now-unused `GEHENNOM` dropped from the `const.js` import.
+- **JS:** `js/pager.js` only (helper body + doc line + 1 import word); `docs/c-js-map/turns.md` one section.
+- **Verify:** `node scripts/verify.mjs --fn Inhell_pager` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/pager.js`; `PASS rule2`; `note hidden verify Inhell_pager: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — review states latent/no live caller, brief confirms none — so no `--base` re-run owed); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full (no shared file changed)`. No hand probe: single boolean predicate, byte-identical shape to two session-covered siblings, no live caller yet.
+- **Named omissions:** none new — `do_screen_description` showsyms scan + `describe_looked` rewiring still deferred (own rows); hoisting one shared `In_hell` export (e.g. from `js/dungeon.js`) left for a future iter that touches all three clones together.
+- **Next:** next queue row in order (`mkmap.c` join_map + join_map_cleanup).
+
 ## D-1908 — mkmap.c mkmap + init_map/init_fill cavern assembly + RNG fill envelope
 
 - **Status:** fixed (Open queue row `mkmap.c` mkmap + init_map/init_fill; canonical driver in `js/mkmap.js`, not yet live — the live LVLINIT_MINES path still runs the `js/mklev.js` clones until the join_map/finish_map rows land and cut over).

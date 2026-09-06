@@ -824,7 +824,9 @@ then **history/descr arms D-1903** (`pager.c:82–106` `append_str`
 strstri dup-gate + BUFSZ-1 `" or "` cap; `:1133–1245` `add_cmap_descr`
 NO_GLYPH water arm + levl-typ/`EHalluc_resistance` save-restore around
 live `waterbody_name` + pool/lava shortening + article-suppression list +
-first-match `a trap` + hit_trap/drawbridge/vibrating-square guards,
+first-match `a trap` + hit_trap/drawbridge/vibrating-square guards
+(`Inhell_pager` reads the dungeon `hellish` flag per `dungeon.c:1941–1945`,
+like the `do.js`/`trap.js` `In_hell` siblings),
 holder out-params for C pointers; `:1631–1667` `add_quoted_engraving`
 exact `" (engraving"`/`" (grave"` match + eread remembered-text vs
 unread + BUFSZ cap + force gate; `:1966–1974` `look_region_nearby`
