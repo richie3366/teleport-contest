@@ -9,7 +9,8 @@
 //         maybe_play_sound (D-1807; USER_SOUNDS compiled out);
 //         domonnoise remaps + MS_ORACLE/PRIEST/SELL (D-1808) +
 //         MS_WERE/BARK FULL_MOON + animal MS_MEW..MS_ORC (D-1969) +
-//         MS_VAMPIRE / MS_DJINNI / MS_ARREST / MS_SOLDIER (this D).
+//         MS_VAMPIRE / MS_DJINNI / MS_ARREST / MS_SOLDIER (D-1977) +
+//         MS_BRIBE / MS_CUSS / MS_SPELL (this D).
 
 import { game } from './gstate.js';
 import {
@@ -43,7 +44,8 @@ import {
 } from './const.js';
 import { body_part } from './polyself.js';
 import { night, midnight } from './calendar.js';
-import { aggravate } from './wizard.js';
+import { aggravate, cuss } from './wizard.js';
+import { is_lminion } from './teleport.js';
 import { mplayer_talk } from './mplayer.js';
 import { vault_occupied, findgd } from './vault.js';
 import { t_at } from './trap.js';
@@ -842,10 +844,10 @@ function mon_is_gecko(mon) {
  * D-1969 MS_WERE `:823–841` FULL_MOON howl + MS_BARK `:842–860` FULL_MOON
  * fix + animal MS_MEW..MS_ORC `:861–1003` in C order; this D MS_VAMPIRE
  * `:744–821` + MS_DJINNI `:991–1004` + MS_ARREST `:1129–1141` + MS_SOLDIER
- * `:1179–1191`).
- * Remaining named: MS_BRIBE+MS_CUSS (demon_talk/cuss absent) /
- * MS_SPELL / MS_NURSE / MS_GUARD / verbl_msg_mcan / save-rest oracle_loc.
- * Unknown still ECMD_TIME.
+ * `:1179–1191` + MS_BRIBE/MS_CUSS `:1142–1156` + MS_SPELL `:1157–1160`
+ * in C order (this D; demon_talk via minion.js, cuss via wizard.js).
+ * Remaining named: MS_NURSE / MS_GUARD / verbl_msg_mcan /
+ * save-rest oracle_loc. Unknown still ECMD_TIME.
  */
 export async function domonnoise(mtmp) {
     if (!mtmp) return ECMD_OK;
@@ -1163,6 +1165,27 @@ export async function domonnoise(mtmp) {
             ];
             verbl_msg = arrest_msg[rn2(3)];
         }
+    } else if (msound === MS_BRIBE || msound === MS_CUSS) {
+        // C sounds.c MS_BRIBE `:1142–1145` — peaceful untame demons
+        // haggle via demon_talk, then break; otherwise FALLTHROUGH into
+        // MS_CUSS `:1146–1156` — hostile cuss, minion patience, or doom.
+        // demon_talk rides a dynamic import like quest_chat above (same
+        // 90-module SCC, no new static edge); cuss is the wizard.js
+        // export (module already imported for aggravate).
+        if (msound === MS_BRIBE && mtmp.mpeaceful && !mtmp.mtame) {
+            const { demon_talk } = await import('./minion.js');
+            await demon_talk(mtmp);
+        } else if (!mtmp.mpeaceful) {
+            await cuss(mtmp);
+        } else if (is_lminion(mtmp)) {
+            verbl_msg = "It's not too late.";
+        } else {
+            verbl_msg = "We're all doomed.";
+        }
+    } else if (msound === MS_SPELL) {
+        // C sounds.c MS_SPELL `:1157–1160` — deliberately vague, since
+        // no spell is actually cast.
+        pline_msg = 'seems to mutter a cantrip.';
     } else if (msound === MS_SOLDIER) {
         // C sounds.c MS_SOLDIER `:1179–1191` — foe/pax tables by
         // mpeaceful, each picked with rn2(3).
@@ -1299,7 +1322,7 @@ export async function domonnoise(mtmp) {
             verbl_msg = 'Who do you think you are, War?';
         }
     }
-    // Other msound cases deferred (bribe+cuss / spell / nurse / guard).
+    // Other msound cases deferred (nurse / guard).
 
     // C :1222–1241 pline_msg then mcan verbl_msg_mcan then verbl_msg.
     // verbl_msg_mcan still named (no cancelled-speech arm).

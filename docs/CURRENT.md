@@ -43,22 +43,22 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1977):
+Reviews **854–862** (D-1884…D-1978):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1977): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1978): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1977): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1978): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1977): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1977):
+(D-1909…D-1978): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1978):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Reviews 896–904:
 8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews
-**905–913** (D-1935…D-1977): 9 ACCEPT, 0 Must-fix. Reviews
-**914–922** (D-1944…D-1977): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
+**905–913** (D-1935…D-1978): 9 ACCEPT, 0 Must-fix. Reviews
+**914–922** (D-1944…D-1978): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
 (doclassdisco sort-letter selector debt, review-listed), 0 Must-fix. Reviews
-**923–931** (D-1953…D-1977): 9 ACCEPT, 0 Must-fix. Reviews
-**932–940** (D-1962…D-1977): 9 ACCEPT, 0 Must-fix.
+**923–931** (D-1953…D-1978): 9 ACCEPT, 0 Must-fix. Reviews
+**932–940** (D-1962…D-1978): 9 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -92,13 +92,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `sounds.c` domonnoise MS_VAMPIRE — vampire seduction depth (TOP30 #17 depth; night/midnight/kindred/nightchild + rn2 + body_part/pmname/an; c-js-map turns.md #chat omit).
+**Next cluster:** `sounds.c` domonnoise MS_BRIBE/CUSS/SPELL — demon/caster depth (TOP30 #17 depth; demon_talk/cuss absent per brief; c-js-map turns.md #chat omit).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1977 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1978 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1978** `nethack-c/upstream/src/sounds.c` — `js/minion.js` — new exported async `demon_talk(mtmp)` in exact C order with `:line` citations (local `u_wield_art`/`Amonnam`/`sgn`/`Inhell` reused, not re-cloned; `rnd(80)` burns before the no-gold early return as in C;
 **D-1977** `nethack-c/upstream/src/sounds.c` — `js/sounds.js` — four arms in C switch order (VAMPIRE after SELL, DJINNI after ORC, ARREST+SOLDIER after SEDUCE) with `:line` citations.
 **D-1976** `nethack-c/upstream/src/display.c` — `js/display.js` — new exported async `curs_on_u()` (`await flush_screen(1)`; async for bot/more nhgetch reach, same shape as `redraw_map` D-1974) + new exported async `doredraw()` (`await docrt()`; `return ECMD_OK`) plac
 **D-1975** `nethack-c/upstream/src/display.c` — `js/display.js` — new exported sync `reglyph_darkroom()` in exact C order with `:line` citations (`dark_room`/`use_color` default-On via `!== false` per `get_bkglyph_and_framecolor`; `Is_rogue_level(game.u?.uz)` hoisted;
@@ -106,11 +107,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1973** `nethack-c/upstream/src/display.c` — `js/display.js` — new exported `get_bkglyph_and_framecolor(x, y)` returning `{ bkglyph, framecolor }` in exact C arm order with `:line` citations (gbuf read is `loc.disp_glyph` per D-1767; arboreal is `game.level.flags.a
 **D-1972** `nethack-c/upstream/src/display.c` — `js/display.js` — new `MG_FLAG_NORMAL`/`MG_FLAG_NOOVERRIDE`/`MG_HERO` consts (`display.h :990–996`; MG_HERO is write-only in C — no reader in src/win/include); new exported `map_glyphinfo(x, y, base, mgflags)` in exact C
 **D-1971** `nethack-c/upstream/src/hack.c` — `js/cmd.js` — new `travel_test_move(ux, uy, dx, dy)` in exact C arm order (obstructed/ironbars with `test_move_hero_passes_bars` + tunnels/needspick rock-eat; closed-door pass with Passes_walls/ooze/underwater/tunnel gat
-**D-1970** `nethack-c/upstream/src/muse.c` — `js/muse.js` — 7 use arms in C order (horn before SCR_TELE; digging/undead/create-monster between SCR_TELE and SCR_CREATE) with `:line` citations: horn (`pline` `The tip of mon_nam's horn glows!` for the `pline_The` arm 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1977; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1978; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

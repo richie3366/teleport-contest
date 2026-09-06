@@ -5,8 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `sounds.c` domonnoise MS_VAMPIRE — vampire seduction depth (TOP30 #17 depth; night/midnight/kindred/nightchild + rn2 + body_part/pmname/an; c-js-map turns.md #chat omit). **Addressed:** D-1977
-- [x] `sounds.c` domonnoise MS_DJINNI/ARREST/SOLDIER — speaking-table depth (TOP30 #17 depth; WATER_DEMON/PRISONER gates + rn2(3) soldier tables; c-js-map turns.md #chat omit). **Addressed:** D-1977
+
+
+- [x] `sounds.c` domonnoise MS_BRIBE/CUSS/SPELL — demon/caster depth (TOP30 #17 depth; demon_talk/cuss absent per brief; c-js-map turns.md #chat omit). **Addressed:** D-1978
+
+
+- [x] `sounds.c` domonnoise MS_VAMPIRE — vampire seduction depth (TOP30 #17 depth; night/midnight/kindred/nightchild + rn2 + body_part/pmname/an; c-js-map turns.md #chat omit). **Addressed:** D-1977 `d73b94aa`
+- [x] `sounds.c` domonnoise MS_DJINNI/ARREST/SOLDIER — speaking-table depth (TOP30 #17 depth; WATER_DEMON/PRISONER gates + rn2(3) soldier tables; c-js-map turns.md #chat omit). **Addressed:** D-1977 `d73b94aa`
 
 
 - [x] `display.c` curs_on_u/doredraw — cursor-on-hero + redraw pair (HELDOUT Tier C; no JS symbol anywhere in js/). **Addressed:** D-1976 `a8ddccf9`
