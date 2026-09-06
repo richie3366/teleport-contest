@@ -700,7 +700,7 @@ SCR/SPE_CONFUSE_MONSTER `seffect_confuse_monster` + SCR_SCARE_MONSTER/SPE_CAUSE_
 (`forget`) + SCR_EARTH `seffect_earth` (`drop_boulder_on_player/monster`) + 
 SCR_STINKING_CLOUD `seffect_stinking_cloud` (`do_stinking_cloud`, `can_center_cloud`, 
 `display_stinking_cloud_positions`, `p_glow3`) (D-1896; seffects dispatch + doread gate; 
-enchant-armor `adj_abon`/`maybe_adjust_light` + mail `readmail` named)**; 
+enchant-armor `adj_abon`/`maybe_adjust_light` named; mail `readmail` live `js/mail.js` (D-1958; MAILREADER spawn + `getmailstatus` stat named)**; 
 omit other `seffect_*` (punishment done D-0908; create is D-1401; 
 mapping is D-1407; fire/blank-paper still deferred), fortune/shirt/credit/marker/coin/orb/candy-read, Blind Braille, Rogue 
 `unblock_point` on blessed SDOOR, `can_chant` poly silent/headless/buzz/burble; 

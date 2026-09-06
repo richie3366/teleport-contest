@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `timeout.c` spot_time_expires — spot-timeout predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1957
+- [x] `mail.c` readmail — mail-read singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1958
+
+
+- [x] `timeout.c` spot_time_expires — spot-timeout predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1957 `46ce6177`
 
 
 - [x] `light.c` obj_adjust_light_radius — light-radius singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1956 `423cce10`

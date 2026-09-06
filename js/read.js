@@ -76,7 +76,7 @@
 // Yobjnam2 glow; update_inventory; enchant-weapon confused erodeproof
 // Yobjnam2/hcolor polish; twoweapon secondary; shop costly_alteration on
 // proof strip; enchant-armor adj_abon / maybe_adjust_light;
-// mail readmail delivery; create_particular class-letter / * random /
+// mail readmail (mail.js D-1958); create_particular class-letter / * random /
 // cant_revive yn / tame|peaceful|hostile|saddled|sleeping|invisible|hidden
 // prefixes / create_particular → makemon_appear_msg (makemon in-body still
 // deferred; mimic mhidden_description / set_msg_xy / dochugw omit);
@@ -149,6 +149,7 @@ import { mondied } from './mhitm.js';
 import { losehp } from './hack.js';
 import { done } from './end.js';
 import { ART_SUNSWORD } from './generated/artifacts_data.js';
+import { readmail } from './mail.js';
 
 const SCR_MAGIC_MAPPING = objectNames.indexOf('SCR_MAGIC_MAPPING');
 const SPE_MAGIC_MAPPING = objectNames.indexOf('SPE_MAGIC_MAPPING');
@@ -1622,7 +1623,7 @@ async function seffect_stinking_cloud(sobj) {
     await do_stinking_cloud(sobj, already_known);
 }
 
-/** C read.c seffect_mail `:2157–2188`. Omits: readmail delivery (mail.c). */
+/** C read.c seffect_mail `:2157–2188`. Default arm is mail.c readmail (MAIL defined). */
 async function seffect_mail(sobj) {
     const odd = ((sobj.o_id | 0) % 2) === 1;
     known = true;
@@ -1634,8 +1635,9 @@ async function seffect_mail(sobj) {
         await pline(`This seems to be ${odd ? 'a chain letter threatening your luck' : 'junk mail addressed to the finder of the Eye of Larn'}.`);
         break;
     default:
-        // readmail(mail.c) deferred — C #else when MAIL undefined
-        await pline('That was a scroll of mail?');
+        // C `#ifdef MAIL` arm: readmail(sobj) (mail.c:703–733); the #else
+        // "That was a scroll of mail?" text is for MAIL-undefined builds.
+        await readmail(sobj);
         break;
     }
 }

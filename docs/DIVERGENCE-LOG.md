@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1958 — mail.c readmail mail-read singleton
+
+- **Status:** fixed (Open queue row: `mail.c` readmail — mail-read singleton, HELDOUT Tier C singletons; no JS symbol)
+- **Symptom:** none on any suite (no corpus session blocked on readmail at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-omission: no JS symbol for the scroll-of-mail default reader; `seffect_mail` default printed the C `#else` (MAIL-undefined) "That was a scroll of mail?" text although this build defines MAIL.
+- **C locus:** `nethack-c/upstream/src/mail.c` — `readmail` `:703–733` (UNIX + DEF_MAILREADER; SIMPLE_MAIL undefined per unixconf.h: fuzzer early-return, `display_nhwindow(WIN_MESSAGE, FALSE)`, MAILREADER `child/execl`, `getmailstatus()`). Sole C caller: `read.c:2179` (`seffect_mail` default under `#ifdef MAIL`). The `!UNIX && !VMS` fake-junk-mail arm (`:486–541`) and the VMS arm (`:762–798`) are compiled out in this build (UNIX per config.h:18).
+- **JS was:** `readmail` NOT FOUND in `js/**` (brief, incl. generated). `js/read.js` `seffect_mail` default printed the MAIL-undefined fallback text.
+- **Fix:** new `js/mail.js` — exported `async readmail(otmp)` in C order (`void otmp` ARGSUSED; `game.iflags?.debug_fuzzer` early return; `await flush_topl_more()` ≡ `display_nhwindow(WIN_MESSAGE, FALSE)` per the `fountain.js` precedent). `js/read.js` — `seffect_mail` default now `await readmail(sobj)` with the `#ifdef MAIL` vs `#else` citation; `./mail.js` import added (`imports.mjs --can`: NEW-CYCLE via display.js but safe — no top-level TDZ read, pre-existing 88-module SCC). No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/mail.js` (+27 new), `js/read.js` (+7/−5); 2 js files, under 600 cap. Density note: live C arm is 17 lines; the JS is the one portable remainder plus caller wiring (subprocess/stat arms are Rule #2 omits, not code).
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn readmail` → VERIFY: PASS — `PASS syntax 2 changed js file(s): js/read.js js/mail.js`; `PASS rule2`; `note hidden verify readmail: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — HELDOUT Tier C singleton, brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full` (tool: no shared file changed). Probe (inline `-e`, nothing to delete): fuzzer-on silent-return OK, fuzzer-off flush-path no-throw OK — PROBE PASS.
+- **Named omissions:** MAILREADER `nh_getenv`/`child(1)`/`execl` spawn + `stat`-based `getmailstatus` (Rule #2: no subprocess/filesystem in scored `js/`); SIMPLE_MAIL/AMS/VMS/`!UNIX` fake-mail arms compiled out in this build; `ckmailstatus`/`newmail` daemon delivery (no JS symbols, pre-existing).
+- **Next:** pop the next Open row (`dogmove.c` mnum_leashable).
+
 ## D-1957 — timeout.c spot_time_expires spot-timeout predicate singleton
 
 - **Status:** fixed (Open queue row: `timeout.c` spot_time_expires — spot-timeout predicate singleton, HELDOUT Tier C singletons; no JS symbol)
