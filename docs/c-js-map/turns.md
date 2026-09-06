@@ -3018,6 +3018,9 @@ steed + `wary_dog` callers);
 (`:459–572`; `xytodir(u.dx,u.dy)` then `rn2(2)` DIR_RIGHT/DIR_LEFT
 trio, remaining dirs, early break `j<3`, `throws_rocks` boulder,
 `enexto` when forceit; C NODIAG `(j%1)!=0` never skips);
+**`exercise_steed` D-1949**
+(`:386–398`; `!u.usteed` return, `++urideturns >= 100` reset +
+`use_skill(P_RIDING, 1)`, wired in `cmd.js` domove at `hack.c:2883`);
 **`dismount_steed` remaining arms D-1915**
 (`:575–822`; save_utrap `:583`, Hallu rain `:648`, noisy `:665`,
 trap transfer `:671`, steedcc enexto 3-tier `:693–698` + place_monster,

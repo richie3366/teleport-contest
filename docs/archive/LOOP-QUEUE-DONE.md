@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
+- [x] `steed.c` exercise_steed — steed exercise singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1949
+
+
 - [x] `mondata.c` mon_hates_light — light-hatred predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 
 

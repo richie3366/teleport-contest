@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `steed.c` exercise_steed — steed exercise singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `stairs.c` On_ladder — ladder predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `o_init.c` doclassdisco — class discovery singleton (HELDOUT Tier C singletons; no JS symbol).
 - [ ] `mkmaze.c` mazexy + is_solid — maze solidity predicates (HELDOUT Tier C mkmaze row remainder; no JS symbol).

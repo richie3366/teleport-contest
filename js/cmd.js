@@ -98,6 +98,7 @@ import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
 import { drag_ball, move_bc } from './ball.js';
 import { in_out_region } from './region.js';
 import { m_postmove_effect, can_ooze } from './monmove.js';
+import { exercise_steed } from './steed.js';
 
 /** C cmd.c command_queue[CQ_*] — JS arrays on game. */
 function cmdq_qname(q) {
@@ -3340,6 +3341,9 @@ async function domove(dx, dy) {
     if (u.usteed) {
         u.usteed.mx = newx;
         u.usteed.my = newy;
+        /* C hack.c:2883 [if move attempt ends up being blocked, should
+         * training count?] exercise_steed(); train riding skill */
+        exercise_steed();
     }
 
     if (mtmp && is_safemon(mtmp)
