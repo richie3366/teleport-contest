@@ -48,7 +48,6 @@ generation (`node scripts/hidden-proxy.mjs verify build_room` /
 this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 `PORT-GAP-TOP30.md`.
 
-- [ ] `mkmap.c` join_map + join_map_cleanup — flood-fill regions + dig_corridor joins (mkmap.c follow-up; flood_fill_rm/add_room live in mklev.js; needs somexy/dig_corridor).
 - [ ] `mkmap.c` finish_map — wallify/lit/lava-ice + is_maze_lev/is_cavernous_lev flags (mkmap.c follow-up; needs wallify_map).
 - [ ] `role.c` setup_rolemenu/racemenu/gendmenu/algnmenu extraction — C add_menu/winid builders; both filtering and reset-preselect arms already inline in pick_*_menu/reset_role_filtering, extraction must keep byte-identical menus (role.c follow-up).
 - [ ] `trap.c` lava_effects remaining arms — Fire_resistance/Wwalking survival, inventory burn flags, sink-and-die sequence (TOP30 #24, 11% ported; drown shipped D-1814, lava never queued).
@@ -56,6 +55,11 @@ this drains: `node scripts/hidden-proxy.mjs queue`, then Tier B, then
 - [ ] `steed.c` dismount_steed remaining arms — poly/engulfed/water/lava steed death (TOP30 #26; archived DISMOUNT_THROWN named only).
 - [ ] `uhitm.c` hmonas remaining arms — polymorphed-hero attack-type envelope (TOP30 #27, under half ported; archived troll_baned/silver named bits only).
 - [ ] `worn.c` mon_break_armor — absent, 23 messages (TOP30 honourable mention; no archive row).
+- [ ] `mhitm.c` mattackm remaining arms — monster-vs-monster attack dispatch (TOP30 honourable mention, 297/175; never queued).
+- [ ] `makemon.c` grow_up remaining arms — monster growth HP/dice escalation (TOP30 honourable mention, 127/67; never queued).
+- [ ] `mhitu.c` hitmu — hero hit-by-thrown-object envelope (TOP30 honourable mention, 123/72; archived D-1795 mattacku row is explicitly Not hitmu).
+- [ ] `trap.c` mintrap — monster-trapped dispatch body (TOP30 honourable mention, 107/54; archived rows are rloc_to callers, not the body).
+- [ ] `objnam.c` makeplural — plural-name envelope, ch_ksound dead callee (TOP30 honourable mention, 186/59; never queued).
 
 ## Parked (do not pop)
 

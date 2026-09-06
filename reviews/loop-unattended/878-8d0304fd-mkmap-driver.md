@@ -53,3 +53,5 @@ dropped `impossible()` arm + the live MINES cutover together —
 already the next Open row after the review-873 Must-fix.
 
 Verdict: **ACCEPT**
+
+Condition landed in part — **Addressed:** D-1910 (canonical `join_map`/`join_map_cleanup` + the dropped `impossible()` arm; live MINES cutover rides with the `finish_map` row).

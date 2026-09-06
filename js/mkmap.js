@@ -1,28 +1,33 @@
 // mkmap.js — Cavernous-level cellular-automata generator.
 // C ref: nethack-c/upstream/src/mkmap.c — get_map, pass_one, pass_two,
 // pass_three, remove_room, remove_rooms, init_map, init_fill, litstate_rnd,
-// mkmap.
-// Partial: join_map(), join_map_cleanup() and finish_map() are NOT ported
-// yet (queued rows after this one, named in docs/c-js-map/data.md); the
-// mkmap() driver below delegates those two calls to the live mklev.js
-// clones until their rows land, so nothing imports this module yet.
+// mkmap, join_map, join_map_cleanup.
+// Partial: finish_map() is NOT ported yet (queued row, named in
+// docs/c-js-map/data.md); the mkmap() driver below delegates that call to
+// the live mklev.js clone until its row lands, so nothing imports this
+// module yet.
 // (The live LVLINIT_MINES path in js/mklev.js splev_initlev still runs its
-// own clones; cutting it over is queued with the join_map/finish_map rows.)
+// own clones; cutting it over is queued with the finish_map row.)
 // RNG: init_fill draws rn1/rnd, litstate_rnd draws rnd/rn2 on the negative
-// arm; the six D-1902 functions draw nothing.
+// arm, join_map draws via somexy/dig_corridor/rn2(3); the six D-1902
+// functions draw nothing.
 
 import { game } from './gstate.js';
 import {
-    COLNO, ROWNO, ROOMOFFSET, NO_ROOM,
+    COLNO, ROWNO, ROOMOFFSET, NO_ROOM, MAXNROFROOMS, OROOM,
 } from './const.js';
 import { impossible } from './display.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { depth as depth_of_level } from './hacklib.js';
-// Temporary delegation: canonical join_map/finish_map are queued rows;
-// until they land, mkmap() drives the live mklev.js clones (same C order,
-// same argument order). join_map-fixed drops C's somexy-failure
-// impossible() arm — adjudicated in the join_map row, not here.
-import { join_map_fixed as mklev_join_map, finish_map as mklev_finish_map } from './mklev.js';
+// Flood-fill/join callees: the live mklev.js bodies (same C order, same
+// argument order). join_map/join_map_cleanup below are canonical here
+// (C mkmap.c:245-328) with the somexy-failure impossible() arm the
+// mklev.js join_map_fixed clone drops; finish_map stays delegated until
+// its row lands.
+import {
+    finish_map as mklev_finish_map,
+    add_room, somexy, dig_corridor, mkmap_flood_fill_rm,
+} from './mklev.js';
 
 // C mkmap.c:8-9: HEIGHT is (ROWNO-1), WIDTH is (COLNO-2).
 const HEIGHT = ROWNO - 1;
@@ -179,6 +184,109 @@ export function litstate_rnd(litstate) {
     return !!litstate;
 }
 
+// C ref: mkmap.c:245-255 join_map_cleanup().
+// Strips every roomno (the joined regions were fictitious bookkeeping),
+// then resets the room lists. C :253-254 assigns after the counters reset:
+// svr.rooms[svn.nroom].hx = gs.subrooms[gn.nsubroom].hx = -1, i.e. slot 0
+// of both lists. JS subrooms[0] is rooms[MAXNROFROOMS+1] (mklev.js
+// clear_level_structures/add_subroom layout); both slots get the same
+// hx = -1 tombstone add_room uses, instead of mutating a stale room object.
+export function join_map_cleanup() {
+    const g = game;
+    const map = g.level;
+    for (let x = 1; x < COLNO; x++)
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = map.at(x, y);
+            if (loc) loc.roomno = NO_ROOM;
+        }
+    g.level.nroom = 0;
+    g.level.nsubroom = 0;
+    if (!g.level.rooms) g.level.rooms = [];
+    g.level.rooms[0] = { hx: -1 };
+    g.level.rooms[MAXNROFROOMS + 1] = { hx: -1 };
+}
+
+// C ref: mkmap.c:257-328 join_map().
+// Flood-fill every fg_typ region into a room (tiny holes of 3 or fewer
+// cells are erased to bg instead), then join consecutive rooms with
+// dig_corridor corridors. The rooms arrive pre-sorted from the fill loop,
+// so C deliberately skips sort_rooms() (it would invalidate levl roomnos)
+// — preserved: no sort call here. The fill is mklev's counting
+// mkmap_flood_fill_rm (C flood_fill_rm, with the gn.n_loc_filled counter
+// carried as bounds.n_filled). Async only for the C :304-310 somexy-failure
+// impossible() arm (JS impossible awaits a bug pline).
+export async function join_map(bg_typ, fg_typ) {
+    const g = game;
+    const map = g.level;
+    outer:
+    for (let x = 2; x <= WIDTH; x++)
+        for (let y = 1; y < HEIGHT; y++) {
+            const loc = map.at(x, y);
+            if (!loc || loc.typ !== fg_typ || loc.roomno !== NO_ROOM)
+                continue;
+            // C :268-271 gm.min/max reset + gn.n_loc_filled = 0; the JS
+            // flood fill carries them as a bounds object.
+            const bounds = {
+                min_rx: x, max_rx: x, min_ry: y, max_ry: y, n_filled: 0,
+            };
+            mkmap_flood_fill_rm(x, y, g.level.nroom + ROOMOFFSET,
+                false, false, bounds);
+            if (bounds.n_filled > 3) {
+                // C :274-279 add_room(..., FALSE, OROOM, TRUE) + irregular.
+                add_room(bounds.min_rx, bounds.min_ry,
+                    bounds.max_rx, bounds.max_ry, false, OROOM, true);
+                const croom = g.level.rooms[g.level.nroom - 1];
+                if (croom) croom.irregular = true;
+                // C :280-281 goto joinm past MAXNROFROOMS*2 rooms.
+                if (g.level.nroom >= MAXNROFROOMS * 2)
+                    break outer;
+            } else {
+                // C :282-295 tiny hole: erase cells stamped with the
+                // un-incremented nroom + ROOMOFFSET marker.
+                const rmno = g.level.nroom + ROOMOFFSET;
+                for (let sx = bounds.min_rx; sx <= bounds.max_rx; sx++)
+                    for (let sy = bounds.min_ry; sy <= bounds.max_ry; sy++) {
+                        const cell = map.at(sx, sy);
+                        if (cell && cell.roomno === rmno) {
+                            cell.typ = bg_typ;
+                            cell.roomno = NO_ROOM;
+                        }
+                    }
+            }
+        }
+    // joinm: C :296-326 corridor join pass over consecutive room pairs.
+    let ci = 0;
+    let cj = 1;
+    while (cj < g.level.nroom) {
+        const croom = g.level.rooms[ci];
+        const croom2 = g.level.rooms[cj];
+        if (!croom || !croom2) break;
+        const sm = { x: 0, y: 0 };
+        const em = { x: 0, y: 0 };
+        // C :302 short-circuit: the second somexy runs only if the first
+        // succeeded (somex/somey draw RNG — order preserved).
+        if (!somexy(croom, sm) || !somexy(croom2, em)) {
+            // C :303-310 ack — busted level; room centres + hope.
+            await impossible('No start/end room loc in join_map.');
+            sm.x = croom.lx + (((croom.hx - croom.lx) / 2) | 0);
+            sm.y = croom.ly + (((croom.hy - croom.ly) / 2) | 0);
+            em.x = croom2.lx + (((croom2.hx - croom2.lx) / 2) | 0);
+            em.y = croom2.ly + (((croom2.hy - croom2.ly) / 2) | 0);
+        }
+        // C :312 dig_corridor(&sm, &em, NULL, FALSE, fg_typ, bg_typ).
+        dig_corridor(sm, em, null, false, fg_typ, bg_typ);
+        // C :316-321 advance: step croom forward only on non-overlap
+        // (rn2(3) is drawn only when lx overlaps but ly does not —
+        // the || / && short-circuit is load-bearing for RNG).
+        if (croom2.lx > croom.hx
+            || ((croom2.ly > croom.hy || croom2.hy < croom.ly) && rn2(3))) {
+            ci = cj;
+        }
+        cj++;
+    }
+    join_map_cleanup();
+}
+
 // C ref: mkmap.c:450-486 mkmap().
 // Cavern assembly driver: resolve lit, blanket the map, scatter the RNG
 // fill, run the CA passes N_P1_ITER/N_P2_ITER (and N_P3_ITER smoothing)
@@ -191,7 +299,7 @@ export function litstate_rnd(litstate) {
 // identical — every pass fully rewrites its region before its copy-back
 // loop reads it, and this driver calls the passes strictly sequentially —
 // so there is no shared buffer for mkmap() itself to own or free.
-export function mkmap(init_lev) {
+export async function mkmap(init_lev) {
     const bg_typ = init_lev.bg;
     const fg_typ = init_lev.fg;
     const smooth = !!init_lev.smoothed;
@@ -216,7 +324,7 @@ export function mkmap(init_lev) {
             pass_three(bg_typ, fg_typ);
 
     if (join)
-        mklev_join_map(bg_typ, fg_typ);
+        await join_map(bg_typ, fg_typ);
 
     mklev_finish_map(fg_typ, bg_typ, !!lit, walled, !!init_lev.icedpools);
     /* a walled, joined level is cavernous, not mazelike -dlc */

@@ -17650,7 +17650,7 @@ function mkmap_pass_three(bg_typ, fg_typ) {
     }
 }
 
-function mkmap_flood_fill_rm(sx, sy, rmno, lit, anyroom, bounds) {
+export function mkmap_flood_fill_rm(sx, sy, rmno, lit, anyroom, bounds) {
     const map = game.level;
     const fg_typ = map.at(sx, sy)?.typ;
     if (fg_typ == null) return;
@@ -27126,7 +27126,7 @@ function maybe_sdoor(chance) {
 }
 
 // C ref: sp_lev.c dig_corridor()
-function dig_corridor(org, dest, npoints_out, nxcor, ftyp, btyp) {
+export function dig_corridor(org, dest, npoints_out, nxcor, ftyp, btyp) {
     const map = game.level;
     let dx = 0, dy = 0;
     let xx = org.x, yy = org.y;
@@ -27379,7 +27379,7 @@ function inside_room(croom, x, y) {
 }
 
 // C ref: mkroom.c somexy() — irregular rejects bbox cells with edge/wrong roomno
-function somexy(croom, c) {
+export function somexy(croom, c) {
     let try_cnt = 0;
 
     if (croom.irregular) {
