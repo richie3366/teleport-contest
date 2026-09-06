@@ -184,9 +184,10 @@ grey dragon alt_spl subset (D-0064); **`name_to_monclass` letter/explain/truemat
 `name_to_mon`** (D-1098; `create_particular` class-letter still named); 
 **`monstseesu`/`monstunseesu`/`m_seenres` + makemon `seen_resistance`** (D-0235; 
 omit buried `m_canseeu`/other M_SEEN_* muse gates/`monstunseesu_prop`); 
-**`hates_silver`/`mon_hates_silver` D-1254** (`js/monsters.js`; 
-C `mondata.c:524–528`/`517–519` were / S_VAMPIRE / demon / PM_SHADE / S_IMP except tengu + 
-`is_vampshifter`; `special_dmgval`/`select_hwep`/`muse` whip-yank; 
+**`hates_silver`/`mon_hates_silver` D-1254 + `mon_hates_light` D-1948** (`js/monsters.js`;
+C `mondata.c:524–528`/`517–519` were / S_VAMPIRE / demon / PM_SHADE / S_IMP except tengu +
+`is_vampshifter`; C `mondata.c:547–550` `mon_hates_light` ≡ `hates_light(mon->data)` ≡
+`&mons[PM_GREMLIN]` via the live `hates_light` mndx export; `special_dmgval`/`select_hwep`/`muse` whip-yank; 
 `dmgval` silver/blessed/axe still named); **`eyecount` D-1534/D-1652**
 (`js/monsters.js`; C `mondata.h` noeyes 0 / cyclops|floating eye 1 /
 else 2; `mcastu.c` `mcast_blind_you`; sit Blind case 10 + pray

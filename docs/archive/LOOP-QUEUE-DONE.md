@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `mthrowu.c` ucatchgem — thrown-gem catch singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1947
+- [x] `mondata.c` mon_hates_light — light-hatred predicate singleton (HELDOUT Tier C singletons; no JS symbol).
+
+
+- [x] `mthrowu.c` ucatchgem — thrown-gem catch singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1947 `b92c4714`
 
 
 - [x] `vault.c` move_gold — vault gold-move singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1946 `d5311a1e`

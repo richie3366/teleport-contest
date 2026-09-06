@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1948 — mondata.c mon_hates_light light-hatred predicate singleton
+
+- **Status:** fixed (Open queue row: `mondata.c` mon_hates_light — light-hatred predicate singleton, HELDOUT Tier C singletons; no JS symbol)
+- **Symptom:** none on any suite (no corpus session blocked on mon_hates_light at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-omission: no JS symbol for the gremlin light-hatred predicate; the sole C caller `uhitm.c:1039` (`artifact_light(obj) && obj->lamplit && mon_hates_light(mon)` → `hmd->lightobj`) had no named callee.
+- **C locus:** `nethack-c/upstream/src/mondata.c` — `mon_hates_light` `:547–550` (`return (boolean) hates_light(mon->data)`); `hates_light` is the `mondata.h:215` macro (`(ptr) == &mons[PM_GREMLIN]`), already live in JS as the `hates_light` mndx export (`js/monsters.js:335`). Sole C caller `uhitm.c:1039` (hitmsg `lightobj` arm).
+- **JS was:** `mon_hates_light` NOT FOUND in `js/**` (brief, incl. generated). The `weapon.js:333` spec_dbon arm already covers the same C predicate via `hates_light(ptr)` directly (`artifact_light(otmp) && otmp.lamplit && hates_light(ptr)`); no new import needed — same-module callee.
+- **Fix:** `js/monsters.js` — exported `mon_hates_light(mon)` (`return hates_light(mon?.data)`), placed directly after `hates_light` beside the sibling `mon_hates_silver` wrapper (D-1254) with the C line citation; `?.` only guards foreign callers (C is NONNULLARG1). No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/monsters.js` (+9/−0; 1 js file, under 600 cap). Density note: C is 3 lines; the JS is the one-line wrapper plus file-idiom JSDoc.
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn mon_hates_light` → VERIFY: PASS — `PASS syntax 1 changed js file(s): js/monsters.js`; `PASS rule2`; `note hidden verify mon_hates_light: no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — HELDOUT map row, brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`. Hand probe (/tmp, deleted): PM_GREMLIN mndx 40 — `hates_light`/`mon_hates_light` true on gremlin data, false on orc data, false on null.
+- **Named omissions:** caller wiring (function live, unwired): `uhitm.c:1039` hitmsg `lightobj` arm has no JS symbol in `js/uhitm.js` (grep-verified: no `artifact_light`/`lamplit`/`lightobj` there; only the `weapon.js:333` spec_dbon arm covers the predicate).
+- **Next:** pop the next Open row (`steed.c` exercise_steed).
+
 ## D-1947 — mthrowu.c ucatchgem thrown-gem catch singleton
 
 - **Status:** fixed (Open queue row: `mthrowu.c` ucatchgem — thrown-gem catch singleton, HELDOUT Tier C singletons; no JS symbol)
