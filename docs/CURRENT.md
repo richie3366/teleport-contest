@@ -43,19 +43,19 @@ RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
 `suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews 835–853: 18 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix.
-Reviews **854–862** (D-1884…D-1960):
+Reviews **854–862** (D-1884…D-1961):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
-**863–870** (D-1893…D-1960): 7 ACCEPT, 1 QUALITY-RISK
+**863–870** (D-1893…D-1961): 7 ACCEPT, 1 QUALITY-RISK
 (`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
-(D-1901…D-1960): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+(D-1901…D-1961): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
 hellish-flag Must-fix, queued). Reviews **879–887**
-(D-1909…D-1960): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
-Must-fix, queued). Reviews **888–895** (D-1918…D-1960):
+(D-1909…D-1961): 8 ACCEPT, 1 QUALITY-RISK (lava Wwalking
+Must-fix, queued). Reviews **888–895** (D-1918…D-1961):
 7 ACCEPT, 1 ACCEPT-WITH-DEBT (makeplural `strcasecpy_at` overrun
 case debt, review-listed), 0 Must-fix. Reviews 896–904:
 8 ACCEPT, 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews
-**905–913** (D-1935…D-1960): 9 ACCEPT, 0 Must-fix. Reviews
-**914–922** (D-1944…D-1960): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
+**905–913** (D-1935…D-1961): 9 ACCEPT, 0 Must-fix. Reviews
+**914–922** (D-1944…D-1961): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
 (doclassdisco sort-letter selector debt, review-listed), 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
@@ -90,13 +90,14 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `do.c` better_not_try_to_drop_that — corpse-drop guard singleton (HELDOUT Tier C singletons; no JS symbol).
+**Next cluster:** `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton (HELDOUT Tier C singletons; no JS symbol).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1960 (index).** Recent **D-1820:** `makemaz` `soko2-2`
+**Keep D-0845…D-1961 (index).** Recent **D-1820:** `makemaz` `soko2-2`
 from `dat/soko2-2.lua` (Sokoban 2 second variant; 50% blank → 0%).
 Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 <!-- recent:begin -->
+**D-1961** `nethack-c/upstream/src/dungeon.c` — `js/dungeon.js` — exported `has_ceiling(lev)` + `avoid_ceiling(lev)` in C order (if/return-TRUE/FALSE shape; `Is_earthlevel` added to the existing `./const.js` edge), placed after `In_W_tower` with the C ranges cited; `j
 **D-1960** `nethack-c/upstream/src/do.c` — `js/do.js` — exported `async better_not_try_to_drop_that(otmp)` in C order (`otmp?.otyp` guard, `!u_safe_from_fatal_corpse(otmp, st_all)` short-circuit, template-literal Snprintf, `(await paranoid_ynq(true, buf, false)) 
 **D-1959** `nethack-c/upstream/src/dogmove.c` — `js/dogmove.js` — exported `mnum_leashable(mnum)` in C order (`| 0` int idiom; `NUMMONS - 1` for HIGH_PM; `&&`/`||` short-circuit so `mons()` never reads out of range; `? true : false` keeps the C ternary shape per the `
 **D-1958** `nethack-c/upstream/src/mail.c` — new `js/mail.js` — exported `async readmail(otmp)` in C order (`void otmp` ARGSUSED; `game.iflags?.debug_fuzzer` early return; `await flush_topl_more()` ≡ `display_nhwindow(WIN_MESSAGE, FALSE)` per the `fountain.js` prec
@@ -104,11 +105,10 @@ Named: ensure_way_out; humidity `get_location`; `is_ok_location_dry`.
 **D-1956** `nethack-c/upstream/src/light.c` — `js/light.js` — exported `async obj_adjust_light_radius(obj, new_radius)` in C order (`nr = new_radius | 0`; `ls.type === LS_OBJECT && ls.id === obj` short-circuit; `game.vision_full_recalc = 1` only on `nr !== (ls.range
 **D-1955** `nethack-c/upstream/src/vision.c` — `js/vision.js` — exported `new_angle(lev, sv, row, col)` (`sv | 0` int idiom; unused params kept for C shape per the C comment), placed after `seenv_matrix` with the `:461`/`:366` citation; all three sites now `| new_ang
 **D-1954** `nethack-c/upstream/src/strutil.c` — `js/cmd.js` — exported `pmatch(patrn, strng)` in C order (thin wrapper, `ci=false`), placed before `pmatchi` in C declaration order with both wrappers' C ranges cited; `pmatch_internal` header now cites `:104–141` plus t
-**D-1953** `nethack-c/upstream/src/eat.c` — `js/eat.js` — exported `tin_variety_txt(s, out)` in C order (`s != null && out` guard, no write on null; `-1` default; `TTSZ - 1` sentinel skip; `str_start_is` + explicit `s.length > l && s[l] === ' '` so bare "rotten"/"
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1960; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1961; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -119,7 +119,7 @@ import {
     GETOBJ_EXCLUDE_SELECTABLE, GETOBJ_ALLOWCNT,
     LEFT_RING, RIGHT_RING, COST_UNCHRG, COST_DECHNT, COST_DEGRD, NOTELL,
     ALL_SPELLS, DISP_BEAM, DISP_END, S_goodpos, Never_mind,
-    In_quest, In_endgame, Is_earthlevel, IS_OBSTRUCTED, IS_AIR,
+    In_endgame, Is_earthlevel, IS_OBSTRUCTED, IS_AIR,
 } from './const.js';
 import { vision_recalc, do_clear_area, cansee } from './vision.js';
 import { valid_cloud_pos, create_gas_cloud } from './region.js';
@@ -150,6 +150,7 @@ import { losehp } from './hack.js';
 import { done } from './end.js';
 import { ART_SUNSWORD } from './generated/artifacts_data.js';
 import { readmail } from './mail.js';
+import { has_ceiling, avoid_ceiling } from './dungeon.js';
 
 const SCR_MAGIC_MAPPING = objectNames.indexOf('SCR_MAGIC_MAPPING');
 const SPE_MAGIC_MAPPING = objectNames.indexOf('SPE_MAGIC_MAPPING');
@@ -1556,12 +1557,10 @@ async function seffect_earth(sobj) {
     const u = game.u || (game.u = {});
     const confused = !!((u.HConfusion | 0) || (u.Confusion | 0));
     const uz = u.uz;
-    const hasCeiling = !(In_endgame(uz) && !Is_earthlevel(uz));
-    const avoidCeiling = In_quest(uz) || !hasCeiling;
-    if (!Is_rogue_level(uz) && hasCeiling && (!In_endgame(uz) || Is_earthlevel(uz))) {
+    if (!Is_rogue_level(uz) && has_ceiling(uz) && (!In_endgame(uz) || Is_earthlevel(uz))) {
         if (u.uswallow) {
             await You_hear('rumbling.');
-        } else if (!avoidCeiling) {
+        } else if (!avoid_ceiling(uz)) {
             await pline(`The ${ceiling(u.ux | 0, u.uy | 0)} rumbles ${sblessed ? 'around' : 'above'} you!`);
         } else {
             const word = sblessed ? 'avalanches' : 'avalanche';

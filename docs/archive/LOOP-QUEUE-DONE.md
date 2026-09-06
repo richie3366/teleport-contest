@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `do.c` better_not_try_to_drop_that — corpse-drop guard singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1960
+- [x] `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1961
+
+
+- [x] `do.c` better_not_try_to_drop_that — corpse-drop guard singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1960 `0af4de34`
 
 
 - [x] `dogmove.c` mnum_leashable — leashable-monster predicate singleton (HELDOUT Tier C singletons; no JS symbol). **Addressed:** D-1959 `57b55f0e`

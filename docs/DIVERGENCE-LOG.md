@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1961 — dungeon.c has_ceiling/avoid_ceiling ceiling predicates singleton
+
+- **Status:** fixed (Open queue row: `dungeon.c` avoid_ceiling — ceiling-ambiguity predicate singleton, HELDOUT Tier C singletons; no JS symbol)
+- **Symptom:** none on any suite (no corpus session blocked on avoid_ceiling at HEAD — map-driven Open row, brief confirmed zero blocks, so no `--base` re-run owed) — latent C-omission: no JS symbol for either predicate; the sole C caller arm (`read.c:1936` seffect_earth) existed in JS only as two inlined consts (review 866 verified them exact against `dungeon.c:1689–1711`).
+- **C locus:** `nethack-c/upstream/src/dungeon.c` — `has_ceiling` `:1689–1698` (`In_endgame(lev) && !Is_earthlevel(lev)` → FALSE, else TRUE) + `avoid_ceiling` `:1701–1711` (`In_quest(lev) || !has_ceiling(lev)` → TRUE, else FALSE). Sole C caller of avoid_ceiling: `read.c:1936` (`if (!avoid_ceiling(&u.uz))` ceiling-rumble vs avalanche pline). Callees `In_quest`/`In_endgame`/`Is_earthlevel` live in `js/const.js`.
+- **JS was:** `avoid_ceiling` NOT FOUND in `js/**` (brief, incl. generated). `has_ceiling` NOT EXPORTED — 3 exact local clones (`js/dothrow.js:1036`, `js/mon.js:2883`, `js/potion.js:570`); `js/read.js:1559–1560` inlined both (`hasCeiling`/`avoidCeiling` consts) in `seffect_earth`.
+- **Fix:** `js/dungeon.js` — exported `has_ceiling(lev)` + `avoid_ceiling(lev)` in C order (if/return-TRUE/FALSE shape; `Is_earthlevel` added to the existing `./const.js` edge), placed after `In_W_tower` with the C ranges cited; `js/read.js` `seffect_earth` now calls them (`has_ceiling(uz)` in the `:1927` guard, `avoid_ceiling(uz)` in the `:1936` arm — C evaluates `has_ceiling` twice the same way), dropping the two inline consts and the now-unused `In_quest` const-edge name. No DIAG/FORCE/seed gates; Rule #2 clean. `imports.mjs --can`: same 89-module SCC, new read.js→dungeon.js edge read lazily in function bodies only (dungeon.js takes no read.js binding at top level).
+- **JS:** `js/dungeon.js` (+21/−0), `js/read.js` (+3/−4); 2 js files, under 600 cap. Density note: C is 18 lines for both predicates; the JS is the two predicates plus caller wiring (small-C exception).
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` before the change → VERIFY: PASS (green 2/2 + strict). `node scripts/verify.mjs --fn avoid_ceiling` → VERIFY: PASS — `PASS syntax 2 changed js file(s): js/dungeon.js js/read.js`; `PASS rule2`; `note hidden … no corpus session is blocked on it at HEAD` (vacuous; row cited 0 blocks — HELDOUT Tier C singleton, brief confirmed none — so no `--base` re-run owed, and this log makes no corpus-PASS claim); `PASS green 2/2`; `PASS strict` both gate sessions; `PASS cohort 7/7`; `skip full` (tool: no shared file changed). Probe (/tmp, deleted): doom→ceiling/!avoid, endgame non-earth→no-ceiling/avoid, earth→ceiling, quest→avoid — PROBE PASS.
+- **Named omissions:** pre-existing exact `has_ceiling` clones in `js/dothrow.js`/`js/mon.js`/`js/potion.js` stay (separate C callers `dothrow.c:1265`, `mon.c`, `potion.c:1199` — out of this cluster, not rewired).
+- **Next:** pop the next Open row (`region.c` inside_rect).
+
 ## D-1960 — do.c better_not_try_to_drop_that corpse-drop guard singleton
 
 - **Status:** fixed (Open queue row: `do.c` better_not_try_to_drop_that — corpse-drop guard singleton, HELDOUT Tier C singletons; no JS symbol. Review-596 ACCEPT-WITH-DEBT named debt: "corpse `better_not_try_to_drop_that`" omit in the `drop` arm.)

@@ -697,7 +697,7 @@ spell.c `:1528–1531` no skilled bless; SCR D-0075)**;
 **SCR_MAIL `seffect_mail` + SCR_ENCHANT_ARMOR `seffect_enchant_armor` + 
 SCR/SPE_CONFUSE_MONSTER `seffect_confuse_monster` + SCR_SCARE_MONSTER/SPE_CAUSE_FEAR 
 `seffect_scare_monster` + SCR_CHARGING `seffect_charging` + SCR_AMNESIA `seffect_amnesia` 
-(`forget`) + SCR_EARTH `seffect_earth` (`drop_boulder_on_player/monster`) + 
+(`forget`) + SCR_EARTH `seffect_earth` (`drop_boulder_on_player/monster`; `has_ceiling`/`avoid_ceiling` live `js/dungeon.js` D-1961; dothrow/mon/potion `has_ceiling` clones stay named) + 
 SCR_STINKING_CLOUD `seffect_stinking_cloud` (`do_stinking_cloud`, `can_center_cloud`, 
 `display_stinking_cloud_positions`, `p_glow3`) (D-1896; seffects dispatch + doread gate; 
 enchant-armor `adj_abon`/`maybe_adjust_light` named; mail `readmail` live `js/mail.js` (D-1958; MAILREADER spawn + `getmailstatus` stat named)**; 
