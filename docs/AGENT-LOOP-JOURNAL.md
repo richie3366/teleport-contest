@@ -8,6 +8,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — Audit D-1953…D-1961 against pinned C (reviews 923–931) + cadence score
+
+**Scope:** 9 JS-touching SHAs since audit 914–922 (`b4ae907a`), oldest-first, one file per SHA written as each finished. All verdicts **ACCEPT**, 0 Must-fix — LOOP-QUEUE Must-fix stays empty, Open stays 10 rows (no refill owed).
+**Method per SHA:** `git show` hunks vs subject promise; `csym.mjs` body + `--callers` (ranges cited from tool output); `sym.mjs` on every new/re-pointed symbol; diff-body banned grep (FORCE/DIAG/getRngLog/fastforward/coords); `imports.mjs --rulecheck` clean across scored `js/`; `hidden-proxy verify <fn> --base HASH~1` re-measured all 9 → 0 blocked at baseline and HEAD (all D-log vacuous notes honest, no corpus-PASS claims made).
+**Findings:** 928 verified the live `readmail` arm selection against build config (MAIL+DEF_MAILREADER defined, SIMPLE_MAIL off; fake-mail `:486` and VMS `:762` arms compiled out) — old JS printed the MAIL-undefined `#else` text, real wrong-arm fix. 924 caught a comment-rationale error (D-log says `A.S*` matches "un-lowered pass-1 alt"; read at HEAD, `alt` derives from lowered `dbase_str`, so the key is dead in C too — code outcome identical, noted not queued). 927's D-log discloses a measured adjacent defect NOT fixed (const.js `MELT_ICE_AWAY` string-vs-enum → `start_timer` stores action 0, ice-melt timers never fire) — pre-existing, needs its own Open row; not Must-fix from this audit. 929/930/931 `--can` edges all ALREADY-or-safe (body-use only, no TDZ read); 929 imports the real `has_head` export despite the pre-existing `shk.js:3856` clone.
+**Cadence:** full `sessions` at `100914d5` → **44/44**, Scr 11,405/11,405, RNG 792,838/792,838 (identical to D-1952 audit), speed `72+0.48/turn` (R² 0.80). CURRENT Score refreshed.
+**Next:** pop Open `region.c` inside_rect.
 ## 2026-09-06 — D-1961 dungeon.c has_ceiling/avoid_ceiling ceiling predicates singleton
 
 **C locus:** `nethack-c/upstream/src/dungeon.c` — `has_ceiling` `:1689–1698` (`In_endgame(lev) && !Is_earthlevel(lev)` → FALSE, else TRUE) + `avoid_ceiling` `:1701–1711` (`In_quest(lev) || !has_ceiling(lev)` → TRUE, else FALSE). Sole C caller of avoid_ceiling: `read.c:1936` (`if (!avoid_ceiling(&u.uz))` ceiling-rumble vs avalanche pline). Callees `In_quest`/`In_endgame`/`Is_earthlevel` live in `js/const.js`.

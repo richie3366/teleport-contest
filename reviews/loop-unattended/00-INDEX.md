@@ -933,3 +933,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [920-c5b4a1f4-on-ladder-predicate.md](./920-c5b4a1f4-on-ladder-predicate.md) | `c5b4a1f4` | D-1950 stairs.c On_ladder | **ACCEPT** |
 | [921-4f597828-doclassdisco-singleton.md](./921-4f597828-doclassdisco-singleton.md) | `4f597828` | D-1951 o_init.c doclassdisco | **ACCEPT-WITH-DEBT** |
 | [922-615d3ea7-mazexy-is-solid.md](./922-615d3ea7-mazexy-is-solid.md) | `615d3ea7` | D-1952 mkmaze.c mazexy + is_solid | **ACCEPT** |
+| [923-22555a16-tin-variety-txt-singleton.md](./923-22555a16-tin-variety-txt-singleton.md) | `22555a16` | D-1953 eat.c tin_variety_txt | **ACCEPT** |
+| [924-c176ca28-pmatch-glob-predicate.md](./924-c176ca28-pmatch-glob-predicate.md) | `c176ca28` | D-1954 strutil.c pmatch | **ACCEPT** |
+| [925-03e241c8-new-angle-singleton.md](./925-03e241c8-new-angle-singleton.md) | `03e241c8` | D-1955 vision.c new_angle | **ACCEPT** |
+| [926-423cce10-obj-adjust-light-radius.md](./926-423cce10-obj-adjust-light-radius.md) | `423cce10` | D-1956 light.c obj_adjust_light_radius | **ACCEPT** |
+| [927-46ce6177-spot-time-expires.md](./927-46ce6177-spot-time-expires.md) | `46ce6177` | D-1957 timeout.c spot_time_expires | **ACCEPT** |
+| [928-6b3204c6-readmail-singleton.md](./928-6b3204c6-readmail-singleton.md) | `6b3204c6` | D-1958 mail.c readmail | **ACCEPT** |
+| [929-57b55f0e-mnum-leashable-predicate.md](./929-57b55f0e-mnum-leashable-predicate.md) | `57b55f0e` | D-1959 dogmove.c mnum_leashable | **ACCEPT** |
+| [930-0af4de34-better-not-try-drop-guard.md](./930-0af4de34-better-not-try-drop-guard.md) | `0af4de34` | D-1960 do.c better_not_try_to_drop_that | **ACCEPT** |
+| [931-100914d5-ceiling-predicates.md](./931-100914d5-ceiling-predicates.md) | `100914d5` | D-1961 dungeon.c has_ceiling/avoid_ceiling | **ACCEPT** |
