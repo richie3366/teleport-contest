@@ -1900,7 +1900,7 @@ DRAWBRIDGE_UP under-typ / C FIXME hero-inside-cloud still named);
 **SPFX_WARN conferral + MATCH_WARN see_it D-1514**; 
 **`see_monsters` MON_STILL_ARRIVING skip D-1746**; **feel_location `is_worm_tail` D-1749**; **make_blinded
 `Sting_effects(-1)` D-1755**); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
-**docrt memory=`show_memory_glyph` + gulpmu `swallowed(1)`** (D-0838; underwater/buried deferred); 
+**docrt memory=`show_memory_glyph` + gulpmu `swallowed(1)`** (D-0838; underwater/buried live D-1981); 
 **DECgfx swallow `S_sw_tc/ml/mr/bc` meta-o/x/x/s** (D-0842; Primary corners `/\\`); 
 **swallow DEC `o`/`s` keep SO-form for scoring + `HI_METAL`≡CLR_CYAN in `mcolors`** (D-0843; 
 Hallu statue mem random_obj D-0844; **`see_traps` only if `glyph_is_trap` gbuf** D-0845; 
@@ -2143,6 +2143,21 @@ bot/timebot parks, `eat.c:1222`, `end.c:79,104,743`,
 `explode.c:401,418`, `hack.c:3007`, `trap.c:3349`, `cmd.c:1819`
 ext-table row, `cmd.c:3917` check — `js/getpos.js:97` keeps its local
 key clone; functions live, unwired));
+|**`under_water` + `under_ground` live** (D-1981; C `display.c:1395–1437` /
+`:1445–1467`; `js/display.js` exported async in C order immediately
+before `docrt` (matching C layout) — waterlevel/swallow guards,
+full-cls / dela-latch / limited arms (`| 0` int idiom; blank via
+`show_glyph_cell` + UNEXPLORED id; water repaint pool/lava/ice x-outer /
+y-inner with `hero_Blind` + `u_at` off-hero blank; ground limited =
+`newsym(ux, uy)`), module lastx/lasty/dela statics; the two
+`docrt_flags` arms (`:1730–1732` `u.uinwater` non-waterlevel →
+`under_water(1)`, `:1734–1736` `u.uburied` → `under_ground(1)`) wired
+into `docrt()` after uswallow, each returning before the vision path
+(async for cls/show_glyph_cell reach, same shape as `redraw_map`
+D-1974); no new cross-module edge; named: non-docrt caller wiring
+(`allmain.c:432,434`, `detect.c:99,101`, `dig.c:2225,2234`,
+`trap.c:5123`), docrt_flags maponly/redrawonly/nocls + post_map
+botlx/update_inventory, legacy `u.Underwater` vs live `u.uinwater`);
 
 ### `src/questpgr.c` / tty menu
 

@@ -5073,6 +5073,97 @@ export async function doredraw() {
     return ECMD_OK;
 }
 
+/**
+ * C ref: display.c under_water `:1395–1437` — engulfed-water map paint
+ * (hero underwater, off the water level which has its own routines).
+ * Guard short-circuit (`:1402–1403` waterlevel/swallow outrank), then the
+ * three mode arms in C order: full (`:1406–1408` cls), delayed-full
+ * (`:1411–1414` set dela, return), limited (`:1418–1423` blank the old
+ * 3x3); then the `:1425–1434` pool/lava/ice 3x3 repaint around the hero
+ * (x outer, y inner, as in C; the Xray-radius TODO stays), Blind
+ * (`:1430` youprop.h `(HBlinded||EBlinded)&&!BBlinded` = `hero_Blind`
+ * D-0716; `u_at` from `./const.js`) seeing nothing off-hero.
+ * `show_glyph(x, y, GLYPH_UNEXPLORED)` is the blank cell with the
+ * UNEXPLORED id (show_memory_glyph precedent). Async: `cls` +
+ * `show_glyph_cell` await bot/more + a11y announce (nhgetch reach), so
+ * the void C body rides awaits (same shape as `redraw_map` D-1974).
+ * Named omissions: caller wiring — C call sites stay on their current
+ * path (`allmain.c:432` moveloop limited update, `detect.c:99`
+ * map_redisplay delayed update, `trap.c:5123` drown full update;
+ * functions live, unwired).
+ */
+let _underwater_lastx = 0;
+let _underwater_lasty = 0;
+let _underwater_dela = false;
+
+export async function under_water(mode) {
+    const u = game.u || {};
+    // C `:1402–1403` — swallowing outranks water; water level exempt.
+    if (Is_waterlevel(u.uz) || u.uswallow) return;
+    // C `:1406–1408` — full update.
+    if ((mode | 0) === 1 || _underwater_dela) {
+        await cls();
+        _underwater_dela = false;
+    // C `:1411–1414` — delayed full update.
+    } else if ((mode | 0) === 2) {
+        _underwater_dela = true;
+        return;
+    // C `:1418–1423` — limited update: blank the old 3x3 (y outer, x inner).
+    } else {
+        for (let y = (_underwater_lasty | 0) - 1; y <= (_underwater_lasty | 0) + 1; y++) {
+            for (let x = (_underwater_lastx | 0) - 1; x <= (_underwater_lastx | 0) + 1; x++) {
+                if (isok(x, y)) await show_glyph_cell(x, y, ' ', NO_COLOR, false, 0, GLYPH_UNEXPLORED);
+            }
+        }
+    }
+    // C `:1425–1434` — repaint pool/lava/ice around the hero (x outer, y inner).
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    for (let x = ux - 1; x <= ux + 1; x++) {
+        for (let y = uy - 1; y <= uy + 1; y++) {
+            if (isok(x, y) && (is_pool_or_lava_disp(x, y) || is_ice_disp(x, y))) {
+                // C `:1430–1433` — Blind blanks off-hero cells, else newsym.
+                if (hero_Blind() && !u_at(x, y)) await show_glyph_cell(x, y, ' ', NO_COLOR, false, 0, GLYPH_UNEXPLORED);
+                else newsym(x, y);
+            }
+        }
+    }
+    _underwater_lastx = ux;
+    _underwater_lasty = uy;
+}
+
+/**
+ * C ref: display.c under_ground `:1445–1467` — buried map paint (only the
+ * hero cell stays live). Guard (`:1450–1451` swallow outranks) then the
+ * three mode arms in C order: full (`:1454–1456` cls), delayed-full
+ * (`:1459–1462` set dela, return), limited (`:1464–1466`
+ * `newsym(u.ux, u.uy)`). Async for the `cls` bot/more reach (same shape
+ * as `under_water` above).
+ * Named omissions: caller wiring — C call sites stay on their current
+ * path (`allmain.c:434` moveloop limited update, `detect.c:101`
+ * map_redisplay delayed update, `dig.c:2225` bury full update,
+ * `dig.c:2234` unearth limited update; functions live, unwired).
+ */
+let _underground_dela = false;
+
+export async function under_ground(mode) {
+    const u = game.u || {};
+    // C `:1450–1451` — swallowing outranks ground.
+    if (u.uswallow) return;
+    // C `:1454–1456` — full update.
+    if ((mode | 0) === 1 || _underground_dela) {
+        await cls();
+        _underground_dela = false;
+    // C `:1459–1462` — delayed full update.
+    } else if ((mode | 0) === 2) {
+        _underground_dela = true;
+        return;
+    // C `:1464–1466` — limited update: only the hero cell.
+    } else {
+        newsym(u.ux | 0, u.uy | 0);
+    }
+}
+
 export async function docrt() {
     if (!game.u?.ux || !game.level) return;
     if (!game.program_state) game.program_state = {};
@@ -5085,6 +5176,18 @@ export async function docrt() {
         if (game.u.uswallow) {
             await cls();
             swallowed(1);
+            return;
+        }
+        // C docrt_flags `:1730–1732` — engulfed-water map arm (Underwater
+        // ≡ u.uinwater, youprop.h:279; the water level has its own routines).
+        if ((game.u.uinwater | 0) && !Is_waterlevel(game.u.uz)) {
+            await under_water(1);
+            return;
+        }
+        // C docrt_flags `:1734–1736` — buried map arm (C's own
+        // `/* [not implemented] */` marker notwithstanding, it calls through).
+        if (game.u.uburied) {
+            await under_ground(1);
             return;
         }
         // C vision_recalc(2) update loop newsyms prior sight while !cansee
@@ -5109,7 +5212,7 @@ export async function docrt() {
         vision_recalc(0);
         // C docrt also see_monsters() after vision — floating warns / sensed mons
         see_monsters();
-        // Named omission: underwater/buried;
+        // Named omission:
         // docrt_flags maponly/redrawonly/nocls; disp.botlx + update_inventory.
     } finally {
         game.program_state.in_docrt = false;

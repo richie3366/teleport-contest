@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `sounds.c` domonnoise verbl_msg_mcan + oracle_loc — cancelled-speech epilogue + save-rest depth (TOP30 #17 depth; mcan arm + oracle_loc; c-js-map turns.md #chat omit). **Addressed:** D-1980
+- [x] `display.c` under_water/under_ground — docrt engulfed-water/buried map arms (docrt named omit in js/display.js; no JS symbol anywhere in js/). **Addressed:** D-1981
+
+
+- [x] `sounds.c` domonnoise verbl_msg_mcan + oracle_loc — cancelled-speech epilogue + save-rest depth (TOP30 #17 depth; mcan arm + oracle_loc; c-js-map turns.md #chat omit). **Addressed:** D-1980 `4fda73b4`
 
 
 - [x] `sounds.c` domonnoise MS_NURSE/GUARD — nurse/guard depth (TOP30 #17 depth; uwep/armor gates + money_cnt; c-js-map turns.md #chat omit). **Addressed:** D-1979 `816104a5`
