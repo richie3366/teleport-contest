@@ -833,7 +833,7 @@ is still nochange) +
 **Cloud room / `lspo_gas_cloud` / `create_gas_cloud_selection` D-1158** (not BFS; ttl stays −1); 
 **D-0561 `air` load_special + monclass letters + `setup_waterlevel`/`movebubbles`** + 
 **D-0571 `movebubbles` air_pos `S_cloud` glyph + 
-`setup` S_air memory** (water cons pickup) + 
+`setup` S_air memory** (water obj/mon/trap cons pickup+deposit still named; hero_bubble track + `maybe_adjust_hero_bubble` live) + 
 **D-1827 `water` load_special + `save_waterlevel`/`restore_waterlevel`/
 `unsetup_waterlevel`/`set_wportal`** (76×20 WATER map, left-third tele,
 astral portal, eels/kraken/sharks + 19 hostile water elementals; bubble

@@ -76,7 +76,7 @@ import { visctrl, key2txt, cmdbind_get } from './dokeylist.js';
 import { an, doname } from './objnam.js';
 import { spoteffects, dopickup, doloot, dotip } from './pickup.js';
 import { objects_at } from './mkobj.js';
-import { stairway_at, u_on_newpos } from './mklev.js';
+import { stairway_at, u_on_newpos, maybe_adjust_hero_bubble } from './mklev.js';
 import { In_tutorial } from './dungeon.js';
 import { ATR_INVERSE } from './terminal.js';
 import { dopay } from './shk.js';
@@ -3448,6 +3448,12 @@ async function domove(dx, dy) {
                 smudgeCoords.oldx, smudgeCoords.oldy,
                 smudgeCoords.newx, smudgeCoords.newy,
             );
+        }
+        // C ref: hack.c domove `:2702–2705` — maybe_adjust_hero_bubble on the
+        // same RUSH|WALK gate, independent of smudgeCoords; runs after
+        // spoteffects like C (domove_core `:2979–2980` precedes it).
+        if (((game.domove_succeeded || 0) & (DOMOVE_RUSH | DOMOVE_WALK)) !== 0) {
+            maybe_adjust_hero_bubble();
         }
         game.domove_attempting = 0;
     }

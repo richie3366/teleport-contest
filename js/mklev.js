@@ -13595,7 +13595,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 /**
  * C ref: dat/water.lua via load_special — Plane of Water (endgame 4 of 5).
  * Bubbles: mkmaze.c setup_waterlevel after flip, before lregions.
- * Named omissions: water cons pickup / maybe_adjust_hero_bubble;
+ * Named omissions: water obj/mon/trap cons pickup+deposit;
  * humidity-aware get_location; ensure_way_out / solidify; astral.
  */
 function load_water() {
@@ -16088,7 +16088,24 @@ export function movebubbles() {
             }
         }
     }
-    // water bubble cons pickup deferred
+    // C: movebubbles water arm resets hero_bubble, then the cons-pickup loop
+    // records the bubble containing the hero (last overlapping match wins).
+    // Named omission: obj/mon/trap cons pickup+deposit stays deferred; track
+    // only hero membership so maybe_adjust_hero_bubble gates its rn2(2) like C.
+    // Placed before the up-toggle: C scans with the pre-toggle direction.
+    g.hero_bubble = null;
+    if (Is_waterlevel(uz) && !((g.u || {}).uswallow | 0)) {
+        const u = g.u || {};
+        const upOld = !!g.movebubbles_up;
+        const ux = u.ux | 0, uy = u.uy | 0;
+        for (let b = upOld ? g.bbubbles : g.ebubbles; b; b = upOld ? b.next : b.prev) {
+            const i = ux - (b.x | 0), j = uy - (b.y | 0);
+            if (i >= 0 && j >= 0 && i < (b.bm[0] | 0) && j < (b.bm[1] | 0)
+                && ((b.bm[j + 2] | 0) & (1 << i))) {
+                g.hero_bubble = b;
+            }
+        }
+    }
 
     g.movebubbles_up = !g.movebubbles_up;
     const up = !!g.movebubbles_up;
@@ -16153,6 +16170,24 @@ function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax, ini) {
             b.dy = 1 - rn2(3);
         }
         break;
+    }
+}
+
+/**
+ * C ref: mkmaze.c maybe_adjust_hero_bubble `:1929–1941` — on the Plane of
+ * Water, after a successful move, with 1/2 chance steer the hero's bubble
+ * along the hero's direction. Short-circuit order is C's: Is_waterlevel,
+ * then u.dx/u.dy, then the hero_bubble-gated rn2(2), so the draw fires only
+ * when movebubbles() found the hero inside a bubble (cons-pickup arm).
+ */
+export function maybe_adjust_hero_bubble() {
+    const g = game;
+    const u = g.u;
+    if (!Is_waterlevel(u?.uz)) return;
+    if (!u.dx && !u.dy) return;
+    if (g.hero_bubble && !rn2(2)) {
+        g.hero_bubble.dx = u.dx;
+        g.hero_bubble.dy = u.dy;
     }
 }
 
