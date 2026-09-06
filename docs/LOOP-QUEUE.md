@@ -35,6 +35,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `pager.c` `Inhell_pager` drops the C `In_hell` predicate — checks `dnum === GEHENNOM` instead of the dungeon `hellish` flag (`dungeon.c:1941–1945`; siblings `do.js:1202`/`trap.js:604` read the flag); guards the vibrating-square arm in `add_cmap_descr`. Fix to the flag read in one iter. Source: reviews/loop-unattended/873-ed90f87f-pager-descr-arms.md.
+
 ## Open (map-driven, after Must-fix is empty)
 
 Tier A rows 1–12 of `docs/PORT-GAP-HELDOUT.md` (cheapest × most-reached

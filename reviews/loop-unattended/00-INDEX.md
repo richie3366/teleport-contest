@@ -881,3 +881,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [868-3ef6abec-domonability-arms.md](./868-3ef6abec-domonability-arms.md) | `3ef6abec` | D-1898 polyself.c domonability arms | **QUALITY-RISK** |
 | [869-54ccff4c-muse-cures.md](./869-54ccff4c-muse-cures.md) | `54ccff4c` | D-1899 muse.c slime/stone cures | **ACCEPT** |
 | [870-29ce55d7-wizard-quest-latches.md](./870-29ce55d7-wizard-quest-latches.md) | `29ce55d7` | D-1900 wizard.c clonewiz family + quest latches | **ACCEPT** |
+| [871-a094dbe0-domindblast-deletion.md](./871-a094dbe0-domindblast-deletion.md) | `a094dbe0` | D-1901 polyself.c domindblast gaze-block deletion | **ACCEPT** |
+| [872-3617235d-mkmap-cavern-passes.md](./872-3617235d-mkmap-cavern-passes.md) | `3617235d` | D-1902 mkmap.c cavern passes + room removal | **ACCEPT** |
+| [873-ed90f87f-pager-descr-arms.md](./873-ed90f87f-pager-descr-arms.md) | `ed90f87f` | D-1903 pager.c history/descr arms | **QUALITY-RISK** |
+| [874-ccd53519-role-parsers.md](./874-ccd53519-role-parsers.md) | `ccd53519` | D-1904 role.c role-select parsers | **ACCEPT** |
+| [875-59ec58c9-tty-putstr-wrap.md](./875-59ec58c9-tty-putstr-wrap.md) | `59ec58c9` | D-1905 wintty.c tty_putstr wrap remainder | **ACCEPT** |
+| [876-84c1dad5-wiz-goal-count.md](./876-84c1dad5-wiz-goal-count.md) | `84c1dad5` | D-1906 makemaz Wiz-goal object count | **ACCEPT** |
+| [877-d0baca4d-mhitm-ad-arms.md](./877-d0baca4d-mhitm-ad-arms.md) | `d0baca4d` | D-1907 uhitm.c mhitm AD arms + dispatch | **ACCEPT** |
+| [878-8d0304fd-mkmap-driver.md](./878-8d0304fd-mkmap-driver.md) | `8d0304fd` | D-1908 mkmap.c mkmap driver + RNG envelope | **ACCEPT** |

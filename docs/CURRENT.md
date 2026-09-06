@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-06** — full `sessions` at **D-1900**
-(audit **863–870**, `29ce55d7`). Fortress held 44/44: seed0030
+Score last measured: **2026-09-06** — full `sessions` at **D-1908**
+(audit **871–878**, `6f87bee1`). Fortress held 44/44: seed0030
 **D-1816**, seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
-**11,405**/11,405, RNG **792,838**/792,838. Speed `46+0.36/turn`
-(R² 0.84).
+**11,405**/11,405, RNG **792,838**/792,838. Speed `49+0.39/turn`
+(R² 0.81).
 
 ## Score
 
@@ -33,22 +33,24 @@ Score last measured: **2026-09-06** — full `sessions` at **D-1900**
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `46+0.36/turn` (R² 0.84) |
+| Speed label | `49+0.39/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06 at
-D-1900): **254 / 265 PASS (95.8 %)** excl. 13 env-only rows;
+D-1908): **255 / 265 PASS (96.2 %)** excl. 13 env-only rows;
 RNG 99.61 %; screens 99.7 %. Top owners: `dog_invent` ×2 (parked) +
-`dopush` (parked)/`mdrop_obj` (parked)/`suit_simple_name`/
-`show_conduct` (parked) ×1 (+ unattributed `!` ×2, `-` ×1, motd, level-change;
-`hitmsg` closed by D-1894 losexp fix).
+`dopush` (parked)/`mdrop_obj` (parked)/`show_conduct` (parked) ×1
+(+ unattributed `!` ×2, `-` ×1, motd, level-change;
+`suit_simple_name` closed by D-1905 wrap fix, `hitmsg` by D-1894).
 Reviews **835–842** (D-1865…D-1908): 7 ACCEPT,
 1 ACCEPT-WITH-DEBT, 0 Must-fix. Reviews **843–845** (D-1873…D-1908):
 3 ACCEPT, 0 Must-fix. Reviews **846–853** (D-1876…D-1908):
 8 ACCEPT, 0 Must-fix. Reviews **854–862** (D-1884…D-1908):
 8 ACCEPT, 1 QUALITY-RISK (Cav wallify Must-fix, queued). Reviews
 **863–870** (D-1893…D-1908): 7 ACCEPT, 1 QUALITY-RISK
-(`domindblast` gaze blocks Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
+(`domindblast` gaze blocks Must-fix, queued). Reviews **871–878**
+(D-1901…D-1908): 7 ACCEPT, 1 QUALITY-RISK (`Inhell_pager`
+hellish-flag Must-fix, queued). Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
@@ -81,7 +83,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `mkmap.c` mkmap + init_map/init_fill — SHIPPED D-1908 (canonical driver, not yet live). Next pop: `mkmap.c` join_map + join_map_cleanup.
+**Next cluster:** `pager.c` `Inhell_pager` hellish-flag Must-fix (review 873) — pop first, alone.
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1908 (index).** Recent **D-1820:** `makemaz` `soko2-2`

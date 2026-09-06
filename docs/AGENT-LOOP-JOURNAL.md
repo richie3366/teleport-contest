@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — Audit D-1901…D-1908 against pinned C (reviews 871–878) + cadence score
+
+7 ACCEPT (871 domindblast deletion branch-exact; 872 mkmap passes, DIRS/macros byte-identical; 874 role parsers incl. end-anchored priest/priestess check; 875 tty_putstr wrap re-measured blocked→PASS PROGRESS; 876 wiz-goal 14-empty count; 877 mhitm AD arms, all import edges pre-existing; 878 mkmap driver, C-order exact), 1 QUALITY-RISK (873: `Inhell_pager` checks `dnum===GEHENNOM` instead of C `dungeon.c:1941–1945` hellish flag — clone #3 diverging from siblings `do.js:1202`/`trap.js:604`; Must-fix prepended, CURRENT Next cluster set to it). Full sessions 44/44 fortress holds (Scr 11,405/11,405, RNG 792,838/792,838); hidden proxy 255/265 excl. env (suit_simple_name closed by D-1905, +1).
 ## 2026-09-06 — D-1908 mkmap.c mkmap + init_map/init_fill cavern assembly + RNG fill envelope
 
 **C locus:** `mkmap.c` `init_map` `:23–34`, `init_fill` `:36–52`, `N_P1_ITER`/`N_P2_ITER`/`N_P3_ITER` `:438–440` (=1/1/2), `litstate_rnd` `:442–448`, `mkmap` `:450–486`; caller `sp_lev.c` `splev_initlev` `:3002–3008` LVLINIT_MINES arm.
