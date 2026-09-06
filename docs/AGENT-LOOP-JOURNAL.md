@@ -8,6 +8,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-06 — Audit D-1971…D-1979 against pinned C (reviews 941–949) + cadence score
+
+**Scope:** 9 JS-touching SHAs since the 932–940 audit (`b05d6229`…`816104a5`); one SHA file written per SHA, grouped commit. **Verdicts:** 8 ACCEPT, 1 ACCEPT-WITH-DEBT (941 travel TEST_TRAV: obstructed arm drops C's unconditional Underwater block `:1024–1029` while the header claims "outcome identical" — real only for underwater tunneling/passes-bars polyforms; review-listed debt, no falsifier, not Must-fix), 0 QUALITY-RISK, 0 Must-fix prepended. Notable confirms: `rn2(SIZE(vampmsg))` 2-entry table (947), clang L→R roll order in `cuss` (948), demon_talk `rnd(80)`-before-demand + bribe-Deaf short-circuit (948), ARREST-peaceful via epilogue identical-today with an mcan-consumption landmine flagged for the next row (947), all `--can` probes ALREADY or leaf-safe (949 PM_HEALER zero-import leaf). Every D-log vacuous-verify note re-measured true at parent baselines (0 blocks throughout).
+**Score:** full `sessions` 44/44 at `816104a5`; Scr 11,405/11,405, RNG 792,838/792,838 (identical). CURRENT Score refreshed; Next cluster advanced to the queue head (`verbl_msg_mcan` + `oracle_loc`, D-1979 shipped the old pointer); D-1979 `**Addressed:**` short hash filled (`816104a5`).
+**Next:** pop the first Open row (`sounds.c` domonnoise verbl_msg_mcan + oracle_loc).
 ## 2026-09-06 — D-1979 sounds.c domonnoise MS_NURSE/GUARD nurse/guard chat depth
 
 **C locus:** `nethack-c/upstream/src/sounds.c` — `domonnoise` MS_NURSE `:1160–1172` (`verbl_msg_mcan` + uwep WEAPON_CLASS/`is_weptool` weapon ladder / uarmc-uarmf armor ladder with `Role_if(PM_HEALER)` Doc gate / uarmu shirt / relax) + MS_GUARD `:1173–1178` (`money_cnt(gi.invent)` drop-gold vs follow-me). Callers: `dogmove.c:965`, `sounds.c:527,1302,1408,1456,1526`.

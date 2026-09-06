@@ -20,8 +20,8 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-06** — full `sessions` at **D-1970**
-(audit **932–940**, `de4686d7`). Fortress held 44/44: seed0030
+Score last measured: **2026-09-06** — full `sessions` at **D-1979**
+(audit **941–949**, `816104a5`). Fortress held 44/44: seed0030
 **D-1816**, seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
 **11,405**/11,405, RNG **792,838**/792,838 (identical to D-1952 audit). Speed `61+0.62/turn`
 (R² 0.87).
@@ -58,7 +58,8 @@ case debt, review-listed), 0 Must-fix. Reviews 896–904:
 **914–922** (D-1944…D-1979): 8 ACCEPT, 1 ACCEPT-WITH-DEBT
 (doclassdisco sort-letter selector debt, review-listed), 0 Must-fix. Reviews
 **923–931** (D-1953…D-1979): 9 ACCEPT, 0 Must-fix. Reviews
-**932–940** (D-1962…D-1979): 9 ACCEPT, 0 Must-fix.
+**932–940** (D-1962…D-1979): 9 ACCEPT, 0 Must-fix. Reviews
+**941–949** (D-1971…D-1979): 8 ACCEPT, 1 ACCEPT-WITH-DEBT (941 travel-Underwater debt), 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -92,7 +93,7 @@ Both must remain full RNG + screen PASS with exact lengths.
 **Suite 44/44** at **D-1851**. `dofire` 2 corpus PASS: empty-quiver `You()` NEED_MORE
 before fire getobj (D-0484 skip reverted).
 Prior pops closed: `mkmaze.c` val-*/sam-* stale rows (loaders stand since D-1852/D-1858, D-1906 audit); `uhitm.c` mhitm AD arms shipped D-1907.
-**Next cluster:** `sounds.c` domonnoise MS_NURSE/GUARD — nurse/guard depth (TOP30 #17 depth; uwep/armor gates + money_cnt; c-js-map turns.md #chat omit).
+**Next cluster:** `sounds.c` domonnoise verbl_msg_mcan + oracle_loc — cancelled-speech epilogue + save-rest depth (TOP30 #17 depth; mcan arm + oracle_loc; c-js-map turns.md #chat omit).
 **Open stays hidden-score ordered** (`PORT-GAP-TOP30.md`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1979 (index).** Recent **D-1820:** `makemaz` `soko2-2`

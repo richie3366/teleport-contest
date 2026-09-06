@@ -951,3 +951,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [938-88050324-maybe-adjust-hero-bubble.md](./938-88050324-maybe-adjust-hero-bubble.md) | `88050324` | D-1968 mkmaze.c maybe_adjust_hero_bubble | **ACCEPT** |
 | [939-6eb83672-domonnoise-fullmoon-animal.md](./939-6eb83672-domonnoise-fullmoon-animal.md) | `6eb83672` | D-1969 sounds.c domonnoise FULL_MOON + animal | **ACCEPT** |
 | [940-de4686d7-use-defensive-hurt-monster.md](./940-de4686d7-use-defensive-hurt-monster.md) | `de4686d7` | D-1970 muse.c use_defensive hurt-monster arms | **ACCEPT** |
+| [941-b05d6229-travel-test-move-edge.md](./941-b05d6229-travel-test-move-edge.md) | `b05d6229` | D-1971 hack.c findtravelpath TEST_TRAV edge | **ACCEPT-WITH-DEBT** |
+| [942-22f18ded-map-glyphinfo-singleton.md](./942-22f18ded-map-glyphinfo-singleton.md) | `22f18ded` | D-1972 display.c map_glyphinfo | **ACCEPT** |
+| [943-0a81d48f-bkglyph-framecolor-singleton.md](./943-0a81d48f-bkglyph-framecolor-singleton.md) | `0a81d48f` | D-1973 display.c get_bkglyph_and_framecolor | **ACCEPT** |
+| [944-eacb0e50-redraw-map-singleton.md](./944-eacb0e50-redraw-map-singleton.md) | `eacb0e50` | D-1974 display.c redraw_map | **ACCEPT** |
+| [945-381b7706-reglyph-darkroom-singleton.md](./945-381b7706-reglyph-darkroom-singleton.md) | `381b7706` | D-1975 display.c reglyph_darkroom | **ACCEPT** |
+| [946-a8ddccf9-curs-on-u-doredraw-pair.md](./946-a8ddccf9-curs-on-u-doredraw-pair.md) | `a8ddccf9` | D-1976 display.c curs_on_u/doredraw | **ACCEPT** |
+| [947-d73b94aa-vampire-djinni-arrest-soldier.md](./947-d73b94aa-vampire-djinni-arrest-soldier.md) | `d73b94aa` | D-1977 sounds.c domonnoise VAMPIRE/DJINNI/ARREST/SOLDIER | **ACCEPT** |
+| [948-af9b2323-bribe-cuss-spell-demontalk.md](./948-af9b2323-bribe-cuss-spell-demontalk.md) | `af9b2323` | D-1978 sounds.c domonnoise BRIBE/CUSS/SPELL + demon_talk/cuss | **ACCEPT** |
+| [949-816104a5-nurse-guard-chat-depth.md](./949-816104a5-nurse-guard-chat-depth.md) | `816104a5` | D-1979 sounds.c domonnoise NURSE/GUARD | **ACCEPT** |

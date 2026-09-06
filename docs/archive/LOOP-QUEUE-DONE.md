@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-06
 
-- [x] `sounds.c` domonnoise MS_NURSE/GUARD — nurse/guard depth (TOP30 #17 depth; uwep/armor gates + money_cnt; c-js-map turns.md #chat omit). **Addressed:** D-1979
+- [x] `sounds.c` domonnoise MS_NURSE/GUARD — nurse/guard depth (TOP30 #17 depth; uwep/armor gates + money_cnt; c-js-map turns.md #chat omit). **Addressed:** D-1979 `816104a5`
 
 
 - [x] `sounds.c` domonnoise MS_BRIBE/CUSS/SPELL — demon/caster depth (TOP30 #17 depth; demon_talk/cuss absent per brief; c-js-map turns.md #chat omit). **Addressed:** D-1978 `af9b2323`
