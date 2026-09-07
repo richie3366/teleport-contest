@@ -8,6 +8,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — Audit reviews 966–972 (D-1996…D-2002) + cadence score 44/44
+
+**Scope:** 7 JS-touching SHAs since review 965 (`ea1f4401`…`4a48e698`), one file per SHA written as each finished. Every D-log corpus claim re-measured via `hidden-proxy verify <fn> --base HASH~1` — all 7 reproduce (PROGRESS, 0 worse): from_what N/A (Must-fix row, honestly marked vacuous); one_characteristic 2 PASS + 3 moved; wiz_intrinsic 9 moved; set_apparxy 8 moved; doride 3 PASS + 4 moved; next_ident 3 moved + 3 unchanged; pick_lock 1 PASS + 5 moved.
+**Verdicts:** 6 ACCEPT (966 DEAF import, 967 resistance catalogue, 968 wiz_intrinsic, 969 set_apparxy/Invis, 970 doride force-mount, 972 pick_lock), 1 QUALITY-RISK (971 gendered-name: leading-space pad deviates from C bare `strstri` — `shemale …` misses MALE in JS, hits in C; replica-probed) → 1 Must-fix prepended, Next cluster set to it. Queue 1 Must-fix + 11 Open = 12, no refill. Nits noted, no action: 969 D-log "five Invis clones" (sym shows 4), 972 Blind() is clone #30 of the 29-file idiom (matched to C, consistent), 972 !IS_DOOR LEARNED return pre-exists (map-named; falsifier recorded in review).
+**Score:** full `sessions` 44/44 (D-1996 restored seed0002), Scr 11,405/11,405, RNG 792,838/792,838, speed 57+0.37/turn. No js/ edits.
+**Next:** pop the 971 Must-fix first (bare-substring gender search, one line), then Open head.
 ## 2026-09-07 — D-2002 lock.c pick_lock direction-arm occupied square (kitten/"would appreciate that")
 
 **C locus:** `lock.c:547–550` (pit rim → `You_cant reach over the edge`, DID_NOTHING), `:552–570` (`m_at` + `canseemon` + non-furniture/non-object apparition → credit-card shk/Oracle `verbalize("No checks, no credit, no problem.")`, else `pline("I don't think %s would appreciate that.", mon_nam)`; LEARNED_SOMETHING), `:571–575` (`is_door_mappear`, `monst.h:240` M_AP_FURNITURE S_hcdoor/S_vcdoor → `stumble_onto_mimic` + `maybe_absorb_item` 50%/10%), `:576–590` (!IS_DOOR → `update_mapseen_for` + `feel_location`, Blind feel/see, drawbridge `no lock` message, DID_NOTHING unless glyph/lastseentyp changed).

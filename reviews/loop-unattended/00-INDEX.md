@@ -976,3 +976,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [963-976cbe23-gulpmu-exercise-arms.md](./963-976cbe23-gulpmu-exercise-arms.md) | `976cbe23` | D-1993 mhitu.c gulpmu exercise arms | **ACCEPT** |
 | [964-c36a197c-exercise-residual-exerper.md](./964-c36a197c-exercise-residual-exerper.md) | `c36a197c` | D-1994 attrib.c exerper + makeknown-credit callers | **ACCEPT** |
 | [965-f8079012-enlightenment-family-slimed.md](./965-f8079012-enlightenment-family-slimed.md) | `f8079012` | D-1995 insight.c enlightenment family + SLIMED | **ACCEPT** |
+| [966-ea1f4401-deaf-import.md](./966-ea1f4401-deaf-import.md) | `ea1f4401` | D-1996 invent.js missing DEAF import | **ACCEPT** |
+| [967-47b51e37-resistance-catalogue.md](./967-47b51e37-resistance-catalogue.md) | `47b51e37` | D-1997 attributes_enlightenment catalogue + tail | **ACCEPT** |
+| [968-878f1d22-wiz-intrinsic-arms.md](./968-878f1d22-wiz-intrinsic-arms.md) | `878f1d22` | D-1998 wiz_intrinsic malady arms + tail | **ACCEPT** |
+| [969-d8b4a676-set-apparxy-invis.md](./969-d8b4a676-set-apparxy-invis.md) | `d8b4a676` | D-1999 makemon byyou set_apparxy + live Invis | **ACCEPT** |
+| [970-136921ce-doride-force-mount.md](./970-136921ce-doride-force-mount.md) | `136921ce` | D-2000 doride wizard force-mount arm | **ACCEPT** |
+| [971-d9e7079e-gendered-name-flags.md](./971-d9e7079e-gendered-name-flags.md) | `d9e7079e` | D-2001 create_particular gender flags | **QUALITY-RISK** |
+| [972-4a48e698-pick-lock-occupied.md](./972-4a48e698-pick-lock-occupied.md) | `4a48e698` | D-2002 pick_lock occupied-square arms | **ACCEPT** |

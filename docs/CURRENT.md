@@ -20,19 +20,19 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-07** — full `sessions` at **D-1995**
-(audit **950–965**, `f8079012`). Fortress **43/44**: `seed0002`
-throws `DEAF is not defined` (Must-fix queued).
-Scr **10,810**/11,405, RNG **765,680**/792,838, speed `56+0.35/turn`.
+Score last measured: **2026-09-07** — full `sessions` at **D-2002**
+(audit **966–972**, `4a48e698`). Fortress **44/44** (D-1996 DEAF fix
+restored `seed0002`; no throws). Scr **11,405**/11,405, RNG
+**792,838**/792,838, speed `57+0.37/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **43 / 44** |
-| Screens matched | **10,810 / 11,405** |
-| Positional RNG calls matched | **765,680 / 792,838** |
-| Speed label | `56+0.35/turn` (R² 0.80) |
+| Sessions passing | **44 / 44** |
+| Screens matched | **11,405 / 11,405** |
+| Positional RNG calls matched | **792,838 / 792,838** |
+| Speed label | `57+0.37/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -46,12 +46,12 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 950–965: 14 ACCEPT, 1 debt (961), 1 QUALITY-RISK (965 → Must-fix).
+Reviews 966–972: 6 ACCEPT, 1 QUALITY-RISK (971 → Must-fix).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
 
-**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0013-rogue, seed0013-friday13-restore, seed0107,
@@ -61,7 +61,7 @@ seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore, seed0030-ten-diverse-deaths,
 seed4500-knight-coverage.
 
-**Notable non-PASS:** seed0002 (`DEAF is not defined` throw; Must-fix queued).
+**Notable non-PASS:** none — fortress 44/44.
 Fortress report `docs/2026-09-04-fortress-regression-42-44.md` (both Must-fix shipped).
 
 ## Green gate
@@ -85,7 +85,7 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `lock.c` pick_lock / `apply.c` use_pick_axe on an occupied square — blocks 5/553 (first at step 6): C `I don't think the kitten would appreciate that.` (`lock.c:567` `pick_lock` direction arm with a monster there) vs JS `You see no door there.`. Probe: `node scripts/hidden-proxy.mjs verify pick_lock` (scen-kit-Rogue-92225, scen-kit-Tourist-91126, scen-wish-Barbarian-92102).
+**Next cluster:** Must-fix from review 971 — `read.js` create_particular_parse gender-term search must match C bare `strstri` (`read.c:3186–3195`). Then `lock.c` pick_lock / `apply.c` use_pick_axe on an occupied square — blocks 5/553 (first at step 6): C `I don't think the kitten would appreciate that.` (`lock.c:567` `pick_lock` direction arm with a monster there) vs JS `You see no door there.`. Probe: `node scripts/hidden-proxy.mjs verify pick_lock` (scen-kit-Rogue-92225, scen-kit-Tourist-91126, scen-wish-Barbarian-92102).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2002 (index).**
 <!-- recent:begin -->
