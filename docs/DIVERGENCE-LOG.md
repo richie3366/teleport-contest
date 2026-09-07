@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1996 — invent.js missing DEAF import (D-1995 deaf ^X ReferenceError)
+
+- **Status:** fixed (Must-fix queue row from review 965; review stamped **Addressed:** D-1996)
+- **Symptom:** any deaf hero running `^X`/death disclosure threw `ReferenceError: DEAF is not defined` — fortress 43/44 (`seed0002-healer-reflection-drummer`).
+- **C locus:** `attrib.c:905–1001` `from_what` (DEAF `:931` roleplay-deaf arm); `insight.c:1059–1074` Blind/Deaf `you_are("deaf", from_what(DEAF))`.
+- **JS was:** `js/invent.js:4882` called `from_what(DEAF)` but `DEAF` (`const.js:2561`, `export const DEAF = 16`) was in none of the file's three `./const.js` import lists — the single unresolvable ALL-CAPS token in review 965's added-line cross-check.
+- **Fix:** one-word addition to the existing same-edge `./const.js` import (after `BLINDED`, matching C `BLINDED=15, DEAF=16` order) with a C-citation comment. No new module edge (`const.js` already imported 3× in-file; same 82-module SCC; hoisted const, no TDZ read). No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/invent.js` (+2/−1), 1 file, under the 600 cap.
+- **Verify:** `node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json` → `PASS (RNG 27158/27158, Screen 595/595)` — fortress 44/44 restored · `node scripts/verify.mjs --fn from_what` → `PASS syntax 1 changed js file(s)` · `PASS rule2` · `note hidden verify from_what: no corpus session is blocked on it at HEAD` (vacuous — this is a Must-fix review row, not a corpus-owner row; NOT claimed as a corpus PASS) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)` · `VERIFY: PASS`.
+- **Named omissions:** none (import-only; D-1988 precedent — no `c-js-map` section names this binding as omitted, so no map edit).
+- **Next:** `insight.c` enlightenment family residuals (Open head) then `wizcmds.c` wiz_intrinsic sick/stone/strangle/vomit/stun arms (9/553; SLIMED landed D-1995 unreached).
+
 ## D-1995 — insight.c enlightenment family: status_enlightenment arms, resistance/from_what catalogue, tty corner-vs-fullscreen menu + wiz_intrinsic SLIMED arm
 
 - **Status:** open (Open queue row `insight.c` enlightenment family — row cites enlightenment 7 + one_characteristic 5 + status_enlightenment 3; residuals below stay on it; corpus-queued, no review stamp owed)

@@ -203,6 +203,7 @@ import {
     STUNNED,
     CONFUSION,
     BLINDED,
+    DEAF, // C attrib.c from_what(DEAF) via insight.c:1074 deaf arm (D-1996)
     TIMEOUT,
     I_SPECIAL,
     FROMOUTSIDE,

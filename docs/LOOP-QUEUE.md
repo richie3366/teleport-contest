@@ -47,8 +47,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 `error`) is always a Must-fix row: it forfeits every later screen of that
 session (Constitution §10.14).
 
-- [ ] `invent.js` missing `DEAF` import — D-1995 calls `from_what(DEAF)` (`:4882`) without importing it (`const.js:2561`); deaf `^X` throws `ReferenceError`, fortress 43/44 (seed0002). Fix: add to the existing `./const.js` import. Probe: `ps_test_runner.mjs sessions/seed0002.session.json`. Source: reviews/loop-unattended/965-f8079012-enlightenment-family-slimed.md.
-
 ## Open (corpus-driven, after Must-fix is empty)
 
 Ranked by corpus sessions blocked (`hidden-proxy queue`, scoreboard at
