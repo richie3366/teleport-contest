@@ -1088,6 +1088,7 @@ CHAIN erosion polish / other ball otypes deferred);
 wand `recharged`** (D-0507; named/called/labeled, o_ranges, glass, fruits, drawbridge (furniture 
 D-1279; trap loop D-1289; **door/wall D-1290**; 
 **secret corridor D-1304**), non-wizard spe clamps deferred); 
+**wish Amulet real/fake + `real `/`fake ` preparse + `alt_spellings[]` (generated) + gem-exact/`tin` + srch `!d.typ` guard** (D-2021; `objnam.c:4125–4133,4284–4309,4457–4467,4731–4747` + `:5002–5006` Amulet non-wizard fold; named/called/labeled, `o_ranges`, glass, fruit path, postparse1 remainder, wider typfnd `!wizard` remaps, `oc_uname` srch arm stay deferred); 
 doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); 
 **`the_unique_obj`/`obj_is_pname` → `"the "` + Amulet uncursed skip** (D-0568) + 
 **`xname`/`doname` `!nn && oc_uses_known && oc_unique` → `known=0`** (D-0872; 

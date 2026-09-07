@@ -94,4 +94,4 @@ green 2/2 + strict ×2, cohort 7/7. Rule #2 clean (re-ran).
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2020
+**Addressed:** D-2020 `923fadb9`

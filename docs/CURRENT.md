@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster (Must-fix first):** Must-fix empty (`pager.c` self found-count shipped as D-2020, review 983 stamped) — first Open `mkobj.c` next_ident — then `detect.c` dosearch0 counted-search multi lifecycle — blocks 1/553 corpus sessions: scen-death-Monk-92191 step 30/70 C «Searching doesn't feel like a good idea right now.» vs JS «» (safety gate itself now faithful per D-log latest entry; C's second `20s` multi-search ends within step 29 with no `You stop searching` print while JS burns ~16 STRANGLED turns across steps 24–29, so the step-30 `s` never reaches the gate in JS). Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` then prefix-replay steps 29–30.
+**Next cluster (Must-fix first):** first Open `- [ ] mkobj.c next_ident — blocks 6/553 corpus sessions (first at step 157): C draws rnd(2)=1 in next_ident, JS rn2(5)=2 from distfleeck(monmove.js:808). Probe: node scripts/hidden-proxy.mjs verify next_ident` (scen-poly-Priest-92021, scen-tour-Wizard-92103, scen-wish-Archeologist-92038).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2020 (index).**
+**Keep D-0845…D-2021 (index).**
 <!-- recent:begin -->
+**D-2021** `objnam.c` `readobjnam` zero-draw exact paths that resolve `d.typ` before the random `srch — `js/readobjnam.js` — `real `/`fake ` preparse arms + `d.real`/`d.fake` fields (C `:4125–4133`); Amulet real/fake block before `makesingular` (C `:4284–4309`, incl. the `:5002–5006` typfnd non-wizard→fake fold for this ar
 **D-2020** `pager.c:1346–1353` — `js/pager.js` — self branch now returns `found: orYou ? 2 : 1`; comment cites the `append_str` return and `:1941`.
 **D-2019** `cmd.c:5067–5080` `get_count` echo — `js/display.js` — new exported `async custompline(flags, msg)` (`pline.c:299–309` verbatim shape: consume_msg_loc, empty return, `gp.pline_flags` set/try/finally-reset, vpline core); `pline_after_consume(msg, suppressHis
 **D-2018** `pickup.c:3693–3760` `tipcontainer()` calls `tipcontainer_gettarget(box, &cancelled)` `:37 — `js/pickup.js` — new same-file `async tipcontainer_gettarget(box)` in exact C order (floor dummy + blank + invent scan with BoT/dknown/oc_name_known skip, one `await u_handsy()`, locked-known exclusion with 4-space inden
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2016** `do.c:1298–1344` `doup()` — `js/do.js` — ledger arm now C-verbatim: `game.iflags?.debug_fuzzer` early `ECMD_OK`, else `await y_n('Beware, there will be no return!
 **D-2015** `end.c:664–680` conduct arm — `js/end.js` — `count_achievements` added to the pre-existing `./insight.js` import (`imports.mjs --can`: already statically imported, no new edge, no TDZ); conduct arm now does one `should_query_disclose_option('c')`, bu
 **D-2014** `engrave.c:1267–1493` `engrave()` occupation callback — `js/engrave.js` — full `async engrave()` in exact C order (renamed from `engrave_occupation` so `sym.mjs` finds the C name; `game.occupation` is awaited at `allmain.js:1174`).
-**D-2013** `pager.c` `do_screen_description` check_monsters '@' special case `:1346–1353` (`looked ?  — `js/pager.js` — `describe_looked` self branch appends `' or you'` iff `urace.mnum !== PM_HUMAN && !== PM_ELF && !Upolyd(u)` (C `:1352` gate verbatim; `u_at` is the branch condition, the '@' sym its existing hardcoded pre
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2020; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2021; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
