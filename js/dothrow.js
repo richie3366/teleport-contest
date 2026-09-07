@@ -368,9 +368,10 @@ function uslinging() {
 }
 
 /**
- * C ref: dothrow.c throwing_weapon — missile/spear/pierce-blade/hammer/aklys.
+ * C ref: dothrow.c throwing_weapon `:1430–1438` — missile/spear/pierce-blade/
+ * hammer/aklys. Also the invent.c addinv_core0 thrown-autoquiver predicate.
  */
-function throwing_weapon(obj) {
+export function throwing_weapon(obj) {
     if (!obj) return false;
     if (is_missile(obj) || is_spear(obj)) return true;
     if (is_blade(obj) && !is_sword(obj)

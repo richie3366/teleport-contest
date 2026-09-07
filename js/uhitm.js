@@ -2729,10 +2729,10 @@ export async function that_is_a_mimic(mtmp, mimic_flags) {
                 fakeobj = !!got?.fakeobj;
                 otmp = got?.otmp || null;
             }
+            // C uhitm.c:6234 — simpleonames alone (it pluralizes for
+            // quan != 1 itself); no makeplural wrapper.
             const otmp_name = (otmp && (otmp.otyp | 0) !== STRANGE_OBJECT_THAT)
-                ? (is_plural_that(otmp)
-                    ? makeplural(simpleonames(otmp))
-                    : simpleonames(otmp))
+                ? simpleonames(otmp)
                 : 'strange object';
             const those = (otmp && is_plural_that(otmp)) ? 'Those' : 'That';
             const are = otmp ? otense(otmp, 'are') : 'is';
