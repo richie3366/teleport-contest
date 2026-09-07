@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `engrave.c` engrave — blocks 5/553 corpus sessions (first at step 88): C «You finish writing in the dust.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify engrave` (scen-intrinsic-Samurai-92043, scen-kit-Priest-92085, scen-normal-Caveman-92006).
 - [ ] `end.c` disclose — blocks 5/553 corpus sessions (first at step 73): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Caveman-91109, scen-genesis-Priest-92082, scen-genesis-Valkyrie-92074).
 - [ ] `do.c` doup — blocks 4/553 corpus sessions (first at step 9): C «Beware, there will be no return! Still climb? [yn] (n)» vs JS «You can't go up here.». Probe: `node scripts/hidden-proxy.mjs verify doup` (scen-normal-Barbarian-92208, scen-normal-Healer-92227, scen-normal-Rogue-92160).
 - [ ] `makemon.c` newmonhp — blocks 4/553 corpus sessions (first at step 83): C draws `d(10,8)=52` in newmonhp, JS `d(29,8)=116` from newmonhp(makemon.js:926). Probe: `node scripts/hidden-proxy.mjs verify newmonhp` (scen-genesis-Barbarian-91118, scen-genesis-Caveman-92118, scen-genesis-Knight-92149).

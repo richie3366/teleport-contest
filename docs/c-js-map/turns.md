@@ -751,8 +751,11 @@ wipe / gem-ring `oc_tough` / boots DUST / large-silly; canned KEY D-1675);
 **`u_wipe_engr` body (D-1051 apply pole/grapple)**; **dokick `u_wipe_engr(2)` D-1360**; 
 **allmain DEX timeout `u_wipe_engr(rnd(3))` D-1372**; 
 **uhitm `do_attack` `u_wipe_engr(3)` D-1373**; **dothrow `throw_obj` `u_wipe_engr(2)` D-1374**; 
+**`engrave` occupation `:1267–1493`** (D-2014: teleport/invent stops,
+carving/marker rate, dull split + marker ink, BUFSZ room, truncate,
+`finish %s.` iff multi-action; C `nextc`-into-`text` kept as suffix);
 dig caller still named; altar/jello; yn add-to (same-type defaults append);
-multi-turn dulling / marker ink occupation; Blind feel; 
+Blind feel; 
 full `surface`/`is_ice`; wipeout seeded path; `disturb_grave` from doengrave
 (kick callers live); full `set_levltyp` beyond GRAVE typ; 
 can_reach_floor Levitation is C youprop.h (H||E)&&!B (D-1070); 
