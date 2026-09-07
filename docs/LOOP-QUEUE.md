@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `attrib.c` exercise — blocks 5/553 corpus sessions (first at step 60): C draws `rn2(2)=1` in exercise, JS `rn2(300)=129` from dosounds(sounds.js:344). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-death-Monk-92000, scen-death-Tourist-92095, scen-death-Wizard-92120).
 - [ ] `botl.c` do_statusline2 — blocks 5/553 corpus sessions (first at step 63): C «The jackal bites! The jackal bites!» vs JS «The jackal bites! The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Monk-92164, scen-poly-Priest-91137, scen-poly-Tourist-92047).
 - [ ] `insight.c` one_characteristic — blocks 5/553 corpus sessions (first at step 54): C «Your constitution was 14 (limit:18).» vs JS «Your constitution was 14 (limit:18).». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-genesis-Ranger-91139, scen-genesis-Ranger-92073, scen-genesis-Ranger-92151).
 - [ ] `eat.c` lesshungry — blocks 5/553 corpus sessions (first at step 7): C «You're finally finished.» vs JS «You finish eating the food ration.». Probe: `node scripts/hidden-proxy.mjs verify lesshungry` (scen-kit-Archeologist-92190, scen-kit-Monk-92139, scen-kit-Valkyrie-91116).
@@ -68,6 +67,8 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `hack.c` trapmove — blocks 3/553 corpus sessions (first at step 85): C «You are a statue.--More--» vs JS «You are a statue. You can move again.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-death-Knight-92203, scen-death-Monk-92123, scen-intrinsic-Caveman-92070).
 - [ ] `teleport.c` collect_coords — blocks 3/553 corpus sessions (first at step 114): C draws `rn2(8)=1` in collect_coords, JS `rn2(5)=3` from distfleeck(monmove.js:805). Probe: `node scripts/hidden-proxy.mjs verify collect_coords` (scen-poly-Healer-92107, scen-tour-Priest-92235, scen-tour-Samurai-91113).
 - [ ] `potion.c` dodrink — blocks 3/553 corpus sessions (first at step 118): C «If you can't breathe air, how can you drink liquid?» vs JS «What do you want to drink? [di or ?*]». Probe: `node scripts/hidden-proxy.mjs verify dodrink` (scen-intrinsic-Priest-92096, scen-wish-Knight-91128, scen-wish-Rogue-92137).
+- [ ] `read.c` seffect_fire — blocks 1/553 corpus sessions: scen-wish-Ranger-92212 step 66/152 C `rn2(19)@exercise` (seffects head `:2199–2200`) + `rn2(3)@seffect_fire(:1864)` + `rn2(19)@exercise` vs JS «That scroll is not implemented yet.» (doread allowlist lacks SCR_FIRE; `verify seffect_fire` is vacuous until rescore re-attributes it from `exercise`).
+- [ ] `uhitm.c` mhitm_ad_famn — blocks 1/553 corpus sessions: scen-wish-Tourist-92067 step 140/234 C `d(8,8)@hitmu` + `rn2(2)@exercise` (`:3793` mhitu arm) + `rn2(40)@mhitm_ad_famn(:3795)` «Famine reaches out, and your body shrivels.» vs JS «You hit Famine.» (no AD_FAMN dispatch in `mhitu.js`; `verify mhitm_ad_famn` is vacuous until rescore re-attributes it from `exercise`).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

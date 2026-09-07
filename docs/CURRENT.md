@@ -87,8 +87,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster (Must-fix first):** first Open `- [ ] attrib.c exercise — blocks 5/553 corpus sessions (first at step 60): C draws rn2(2)=1 in exercise, JS rn2(300)=129 from dosounds(sounds.js:344). Probe: node scripts/hidden-proxy.mjs verify exercise` (scen-death-Monk-92000, scen-death-Tourist-92095, scen-death-Wizard-92120).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2022 (index).**
+**Keep D-0845…D-2023 (index).**
 <!-- recent:begin -->
+**D-2023** `timeout.c:456–521` `slimed_to_death` — `js/timeout.js` — new `done_timeout(how, which)` (C `:574–585` verbatim shape) + new `slimed_to_death(kptr)` (killer setup, emits_light/del_light_source, mvitals dance, `await polymon`, done_timeout, gameover guard for C
 **D-2022** (1) `makemon.c:1369–1384` mitem block — (1) makemon.js: `if (no_of_wizards === 1 && Is_earthlevel(game.u?.uz)) mitem = otyp('SPE_DIG')` (C `:1372–1373` gate verbatim; `imports.mjs --can makemon.js const.js Is_earthlevel`: already statically imported, no new ed
 **D-2021** `objnam.c` `readobjnam` zero-draw exact paths that resolve `d.typ` before the random `srch — `js/readobjnam.js` — `real `/`fake ` preparse arms + `d.real`/`d.fake` fields (C `:4125–4133`); Amulet real/fake block before `makesingular` (C `:4284–4309`, incl. the `:5002–5006` typfnd non-wizard→fake fold for this ar
 **D-2020** `pager.c:1346–1353` — `js/pager.js` — self branch now returns `found: orYou ? 2 : 1`; comment cites the `append_str` return and `:1941`.
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2018** `pickup.c:3693–3760` `tipcontainer()` calls `tipcontainer_gettarget(box, &cancelled)` `:37 — `js/pickup.js` — new same-file `async tipcontainer_gettarget(box)` in exact C order (floor dummy + blank + invent scan with BoT/dknown/oc_name_known skip, one `await u_handsy()`, locked-known exclusion with 4-space inden
 **D-2017** `makemon.c:1012–1054` `newmonhp()` — `js/makemon.js` — `else if (is_rider(ptr))` inserted between golem and `mlevel>49` in exact C position (`basehp = 10; d(basehp, 8)`), and `if (is_home_elemental(ptr)) mon.mhpmax = (mon.mhp *= 3)` appended in the else arm
 **D-2016** `do.c:1298–1344` `doup()` — `js/do.js` — ledger arm now C-verbatim: `game.iflags?.debug_fuzzer` early `ECMD_OK`, else `await y_n('Beware, there will be no return!
-**D-2015** `end.c:664–680` conduct arm — `js/end.js` — `count_achievements` added to the pre-existing `./insight.js` import (`imports.mjs --can`: already statically imported, no new edge, no TDZ); conduct arm now does one `should_query_disclose_option('c')`, bu
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2022; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2023; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

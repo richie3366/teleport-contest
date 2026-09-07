@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `objnam.c` readobjnam — "cursed slime mold" prefixed-food zero-draw path (D-2021 Next-(a) + D-2022 leftover) — blocks 1/553 corpus sessions: scen-wish-Knight-92130 step 90/205: C zero draws + «j - 2 slime molds.» vs JS `rn2(76)` @ rnd_otyp_by_namedesc(readobjnam.js:245) + «j - a slime mold.». Probe: `node scripts/hidden-proxy.mjs show scen-wish-Knight-92130` (falsifier: C-recorder wish experiment per D-2021/D-2022 — do not re-read the parse, run the experiment). **Addressed:** D-2022
+- [x] `attrib.c` exercise — blocks 5/553 corpus sessions (first at step 60): C draws `rn2(2)=1` in exercise, JS `rn2(300)=129` from dosounds(sounds.js:344). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-death-Monk-92000, scen-death-Tourist-92095, scen-death-Wizard-92120). **Addressed:** D-2023
 
 
-- [x] `mkobj.c` next_ident — blocks 6/553 corpus sessions (first at step 157): C draws `rnd(2)=1` in next_ident, JS `rn2(5)=2` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-poly-Priest-92021, scen-tour-Wizard-92103, scen-wish-Archeologist-92038). **Addressed:** D-2022
+- [x] `objnam.c` readobjnam — "cursed slime mold" prefixed-food zero-draw path (D-2021 Next-(a) + D-2022 leftover) — blocks 1/553 corpus sessions: scen-wish-Knight-92130 step 90/205: C zero draws + «j - 2 slime molds.» vs JS `rn2(76)` @ rnd_otyp_by_namedesc(readobjnam.js:245) + «j - a slime mold.». Probe: `node scripts/hidden-proxy.mjs show scen-wish-Knight-92130` (falsifier: C-recorder wish experiment per D-2021/D-2022 — do not re-read the parse, run the experiment). **Addressed:** D-2022 `d7b4d542`
+
+
+- [x] `mkobj.c` next_ident — blocks 6/553 corpus sessions (first at step 157): C draws `rnd(2)=1` in next_ident, JS `rn2(5)=2` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-poly-Priest-92021, scen-tour-Wizard-92103, scen-wish-Archeologist-92038). **Addressed:** D-2022 `d7b4d542`
 
 
 - [x] `pager.c` describe_looked self '@' found-count — C `pager.c:1346–1355` `found += append_str(out_str, "you")` takes found 1→2 so `do_look :1941` (`found == 1`) skips checkfile; JS keeps `found: 1` so verbose (`:`) look at own square as dwarf/gnome/orc with help on emits `More info about "dwarven archeologist"?` (data keys `archeolog*`/`* valkyrie`/`* ranger`/`* wizard` pmatch the simplified self-lookat string; measured vs embedded dat_text.js) where C prints nothing. Fix: `found: orYou ? 2 : 1` in the self branch. Probe: verbose-look own square as dwarven hero, watch for the extra yn prompt. Source: reviews/loop-unattended/983-488f18ab-pager-or-you-found.md. **Addressed:** D-2020 `923fadb9`
