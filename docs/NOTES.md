@@ -8,6 +8,7 @@ Objective/score live in `CURRENT.md`.
 - **Scenario corpus = work picker (2026-09-06, human):** 275 `scen-*` sessions pass 7/275 — the held-out shape. Mutants 255/278 saturated. Queue from `hidden-proxy queue`; map singletons Deferred. Themed-room step-0 rows → `geom-probe`.
 
 - **Park `show_conduct` (HEAD c209ccc7):** premise stale (859 → 824 x_monnam); owner is a C comment; DontAsk-flags arm alone REGRESSES (reverted). Detail + falsifier in LOOP-QUEUE Parked; re-baseline first.
+- **Park `ready_weapon` (Knight-92204 spin, 2026-09-07):** bimanual+weld+aklys+unpaid port moves 5/6 (3 PASS, 2 later-owner) but Knight spins 99% CPU past corrected step-25; new arms proven on other sessions → downstream pre-existing loop. Detail + falsifier in LOOP-QUEUE Parked. Do not pop until stack/profile exists.
 - **Park `mdrop_obj`:** capture-point divergence; full port = verify no-op. Detail in Parked.
 - **Park `dopush` (mimic-viz, not the push):** single cell r13c32, RNG tied; needs C-side viz at step 127 or `view_from` audit. Detail in Parked.
 - **Geometry owners:** probe first (D-1849). Refills must not cite the current D-ID.
