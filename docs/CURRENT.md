@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `read.c` create_particular_creation — blocks 5/553 (first at step 14): `^G` of a unique / genocided / not-yet-eligible monster: C `Creating doppelganger instead; force Demogorgon? [yn] (n)` (`read.c:3267` uniqueness / `mvitals` gate) vs JS creating it directly. Probe: `node scripts/hidden-proxy.mjs verify create_particular_creation` (scen-death-Valkyrie-92229, scen-genesis-Barbarian-91118, scen-genesis-Knight-92149).
+**Next cluster:** `mkroom.c` somex / `themerms.lua` themed-room fills at Dlvl 1 — blocks 4/553 at step 0 (15.7k RNG) plus 5 `unattributed` step-0 rows. Geometry owner → `node scripts/geom-probe.mjs scen-genesis-Monk-92025` first. Probe: `node scripts/hidden-proxy.mjs verify somex` (scen-genesis-Monk-92025, scen-genesis-Rogue-92069, scen-poly-Caveman-91133).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2004 (index).**
+**Keep D-0845…D-2005 (index).**
 <!-- recent:begin -->
+**D-2005** `uhitm.c:75–99` gate itself (already ported, D-0198/D-1405); the missing part was four mhi — `js/mhitu.js` — `mhitm_ad_fire_u` / `mhitm_ad_tlpt_u` / `mhitm_ad_stck_u` / `mhitm_ad_plys_u` in exact C branch order (incl. stck gate-first, plys rn2-before-gate, fire `(void)` destroy_items per `zap.c:5962`, tlpt `Math
 **D-2004** `read.c:3260–3274` (`firstchoice = d->which`, then `cant_revive(&d->which, FALSE, NULL)` r — `js/read.js` — `firstchoice = d.which`, `{ mtype }` box through live `cant_revive` (`./zap.js`, same edge as `resist`) with the C `firstchoice !== PM_LONG_WORM_TAIL` prompt exemption (local `monsterNames.indexOf` const, 
 **D-2003** `read.c:3186–3195` — `js/read.js` — drop the pad (`asciiLow` is now plain ASCII lower), search bare `'female '` / `'male '` female-first, and blank exactly the hit width in place (7 / 5 spaces, length-preserving like `memset`); re-`mungspace
 **D-2002** `lock.c:547–550` (pit rim → `You_cant reach over the edge`, DID_NOTHING), `:552–570` (`m_a — `js/lock.js` — pit gate, visible-monster arm (`mon_nam` + credit-card shk/Oracle `SetVoice`/`verbalize`), door-mimic reveal (`stumble_onto_mimic`), !IS_DOOR feel/mapseen + Blind feel/see + drawbridge message, in exact C 
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2000** `steed.c:177–193` `doride` — `js/steed.js` — static `import { y_n } from './getline.js'` (hoisted function, cycle-safe per `imports.mjs --can`; `mhitu.js` precedent) + `let forcemount` set by `(game.flags?.debug || game.flags?.wizard) && (await y_n(
 **D-1999** `makemon.c:1391–1396` (`!in_mklev && byyou` → `newsym` + `set_apparxy` BEFORE `m_initweap` — `js/makemon.js` — `set_apparxy(mtmp)` after `newsym` in the `byyou` branch (C `:1393–1394` cite; import already existed, no new edge).
 **D-1998** `wizcmds.c:948–1096` `wiz_intrinsic` — `js/wizcmds.js` — per-prop switch in exact C order with `:line` citations: SICK `!rn2(2) ?
-**D-1996** `attrib.c:905–1001` `from_what` (DEAF `:931` roleplay-deaf arm); `insight.c:1059–1074` Bli — one-word addition to the existing same-edge `./const.js` import (after `BLINDED`, matching C `BLINDED=15, DEAF=16` order) with a C-citation comment.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2004; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2005; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

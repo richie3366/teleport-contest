@@ -2873,7 +2873,7 @@ seed4500 **87218→87803** RNG **88082** Scr **794**;
 Eyes `vision_clears` / full `can_blnd` ublindf·visor / uhitm·mhitm AD_BLND arms deferred); 
 **`mattacku` AC_VALUE** live (`hack.h` neg→`-rnd(-AC)`); 
 **`getmattk` mspec_used→AT_TUCH/CLAW** + **`mhitm_ad_cold` hero + `destroy_items`** (D-0837; 
-SSEX named (SEDUCE=0 `c_sa_no`); D-1795 shipped DISE/DREN/WEAP/lich/home-elem; AD_FIRE hero deferred); 
+SSEX named (SEDUCE=0 `c_sa_no`); D-1795 shipped DISE/DREN/WEAP/lich/home-elem; AD_FIRE hero D-2005); 
 **`unstuck`→`docrt` on swallow exit** (D-0838; Punished placebc deferred); 
 **`initedog` `set_malign`** (D-0839; seed0383 RNG FULL); 
 **`mpickstuff` `distant_name` + `hitmsg` consecutive `" again"`** (D-0840; Scr 146→148); 
@@ -2950,7 +2950,7 @@ small-monster otyp switch** (D-0189); **`dmgval` shade/`shade_glare` D-1354**;
 **`weapon_hit_bonus` (b.h. unskilled +1; martial/twoweapon/riding)** (D-0187); 
 **`dbon` + `weapon_dam_bonus` in `hmon_hitmon_dmg_recalc`** (D-0363; Basic martial +3; 
 `use_skill` practice; PROJECTILE→launcher skillwep + may-advance msg deferred); 
-**`hitmu`→`mhitm_adtyping` PHYS+ELEC+DRST/DRDX/DRCO + `mhitm_mgc_atk_negated`** (D-0198/D-0497) + 
+**`hitmu`→`mhitm_adtyping` PHYS+ELEC+DRST/DRDX/DRCO+FIRE+TLPT+STCK+PLYS + `mhitm_mgc_atk_negated`** (D-0198/D-0497/D-2005) + 
 **`poisoned`/`poisontell` attrib-loss `d(2,2)` + HP/fatal arms** (D-0869; 
 name_to_mon G_UNIQ / Half_gas_damage / trap·throw callers deferred) + 
 **AD_SITM/AD_SEDU→`mhitm_ad_sedu`→`steal`** (D-0686; brag `pline_mon` D-1240; 
@@ -3000,7 +3000,7 @@ mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named);
 polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot,
 weld/artifact_light wield msgs, knockback hurtle; `mshot_xname` Nth; `obj_is_pname`/`the()`;
 enhance `add_weapon_skill`/`lose_weapon_skill`/`use_skill` may-advance;
-other `mhitm_ad_*` (AD_FIRE hero); potionbreathe/were destroy_items deferrals;
+other `mhitm_ad_*` (uhitm/mhitm arms + ACID/DGST/… mhitu); potionbreathe/were destroy_items deferrals;
 `mswingsm` mon-mon  **`wildmiss` Displaced/Invis/Underwater + `!foundyou` skipnonmagc** (D-0816; 
 could_seduce SEDU smile live; **nolimbs lunge + set_msg_xy D-1291**; Some_Monnam impossible named)
 

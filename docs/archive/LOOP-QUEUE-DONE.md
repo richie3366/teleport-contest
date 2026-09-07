@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `read.c` create_particular_creation — blocks 5/553 (first at step 14): `^G` of a unique / genocided / not-yet-eligible monster: C `Creating doppelganger instead; force Demogorgon? [yn] (n)` (`read.c:3267` `create_particular_creation` uniqueness / `mvitals` gate) vs JS creating it directly. Probe: `node scripts/hidden-proxy.mjs verify create_particular_creation` (scen-death-Valkyrie-92229, scen-genesis-Barbarian-91118, scen-genesis-Knight-92149). **Addressed:** D-2004
+- [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 5/553 (first at step 26): C draws `rn2(10)` in `mhitm_mgc_atk_negated :87` (the `AD_*` magic-attack negation gate before knockback) where JS is already in `mhitm_knockback`. Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Tourist-92003, scen-poly-Caveman-92050, scen-wish-Caveman-92183). **Addressed:** D-2005
+
+
+- [x] `read.c` create_particular_creation — blocks 5/553 (first at step 14): `^G` of a unique / genocided / not-yet-eligible monster: C `Creating doppelganger instead; force Demogorgon? [yn] (n)` (`read.c:3267` `create_particular_creation` uniqueness / `mvitals` gate) vs JS creating it directly. Probe: `node scripts/hidden-proxy.mjs verify create_particular_creation` (scen-death-Valkyrie-92229, scen-genesis-Barbarian-91118, scen-genesis-Knight-92149). **Addressed:** D-2004 `b528f06c`
 
 
 - [x] `read.js` create_particular_parse gender-term search: drop the leading-space pad and match C bare `strstri` (`read.c:3186–3195`; `shemale …` misses MALE in JS, hits in C) + align the blanking splice with the C `memset` width. Probe: replica of the parse blanking on `shemale elf-lord` (expect fem=0/MALE). Source: reviews/loop-unattended/971-d9e7079e-gendered-name-flags.md. **Addressed:** D-2003 `e673cee4`
