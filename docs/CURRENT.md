@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster (Must-fix first):** `- [ ] botl.c do_statusline2 — blocks 5/553 corpus sessions (first at step 63): C «The jackal bites! The jackal bites!» vs JS «The jackal bites! The jackal bites!». Probe: node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Monk-92164, scen-poly-Priest-91137, scen-poly-Tourist-92047). True writer per D-1990: `polyself.c polymon` u.mh block (`:859–872`); JS `polyself.js:1046` carries a named `golemhp deferred` omission in a live arm.
+**Next cluster (Must-fix first):** `- [ ] eat.c lesshungry — blocks 5/553 corpus sessions (first at step 7): C «You're finally finished.» vs JS «You finish eating the food ration.». Probe: node scripts/hidden-proxy.mjs verify lesshungry` (scen-kit-Archeologist-92190, scen-kit-Monk-92139, scen-kit-Valkyrie-91116).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2024 (index).**
+**Keep D-0845…D-2025 (index).**
 <!-- recent:begin -->
+**D-2025** `insight.c:1667–1858` enlightenment Attributes — `js/invent.js` new `hero_Polymorph_control`/`hero_Regeneration` + Displaced/Regen/Polycontrol arms in C order (final + overlay paths); `js/artifact.js` `abil_to_spfx` 12-row table, `what_gives` takes propidx; `js/attrib.js` `from_what` passes it through
 **D-2024** `polyself.c:859–872` `polymon` mhmax block — `export` on `makemon.js golemhp` (no clone #2); `polyself.js` imports `{ golemhp, is_home_elemental }` from `./makemon.js` (new edge, same 90-module SCC; `imports.mjs --can` CHECK verdict — both are hoisted function decl
 **D-2023** `timeout.c:456–521` `slimed_to_death` — `js/timeout.js` — new `done_timeout(how, which)` (C `:574–585` verbatim shape) + new `slimed_to_death(kptr)` (killer setup, emits_light/del_light_source, mvitals dance, `await polymon`, done_timeout, gameover guard for C
 **D-2022** (1) `makemon.c:1369–1384` mitem block — (1) makemon.js: `if (no_of_wizards === 1 && Is_earthlevel(game.u?.uz)) mitem = otyp('SPE_DIG')` (C `:1372–1373` gate verbatim; `imports.mjs --can makemon.js const.js Is_earthlevel`: already statically imported, no new ed
@@ -100,7 +101,7 @@ divergence with its probe. Do **not** pop map-omission singletons
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2024; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2025; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

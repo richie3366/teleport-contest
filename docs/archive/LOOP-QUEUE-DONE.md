@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
+- [x] `insight.c` one_characteristic — blocks 5/553 corpus sessions (first at step 54): C «Your constitution was 14 (limit:18).» vs JS «Your constitution was 14 (limit:18).». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-genesis-Ranger-91139, scen-genesis-Ranger-92073, scen-genesis-Ranger-92151).
+
+
 - [x] `botl.c` do_statusline2 — blocks 5/553 corpus sessions (first at step 63): C «The jackal bites! The jackal bites!» vs JS «The jackal bites! The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Monk-92164, scen-poly-Priest-91137, scen-poly-Tourist-92047). **Addressed:** D-2024
 
 
