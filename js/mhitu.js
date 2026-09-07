@@ -38,7 +38,7 @@ import {
     noit_mon_nam, noit_Monnam, s_suffix, Ugender, m_monnam, Some_Monnam, Mgender,
 } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval, hitval, drain_weapon_skill } from './weapon.js';
-import { arti_reflects, artifact_hit, permapoisoned, is_art } from './artifact.js';
+import { arti_reflects, artifact_hit, permapoisoned, is_art, defends } from './artifact.js';
 import { is_pole, welded } from './wield.js';
 import { xname, doname, an, yname, the, simpleonames, safe_qbuf, mimic_obj_name, makeplural } from './objnam.js';
 import { objectNames, ARMOR_CLASS, COIN_CLASS, SILVER } from './objects.js';
@@ -68,7 +68,7 @@ import {
 import { done_in_by, done, finish_losehp_done } from './end.js';
 import { make_blinded } from './do.js';
 import { msummon, Inhell } from './minion.js';
-import { new_were, were_summon, Protection_from_shape_changers } from './were.js';
+import { new_were, were_summon, Protection_from_shape_changers, set_ulycn } from './were.js';
 import { growl_sound } from './sounds.js';
 import { monsterNames, PM_CLERIC } from './generated/monsters_data.js';
 import {
@@ -111,6 +111,7 @@ const AD_STUN = 12;
 const AD_PLYS = 14;
 const AD_LEGS = 17; /* damages legs (xan) — monattk.h */
 const AD_STON = 18;
+const AD_WERE = 29; /* confers lycanthropy — monattk.h */
 const AD_ENCH = 41;
 const AD_RUST = 24; /* rusts armour (Rust Monster) — monattk.h */
 
@@ -2353,10 +2354,35 @@ async function mhitm_ad_slow_u(mtmp, mattk, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_were `:4276–4286` — mhitu (monster→you) arm.
+ * hitmsg first (unconditional, RNG-free like C mhitu.c:29–81); then the
+ * C short-circuit `!rn2(4) && ulycn==NON_PM && !Protection_from_shape_changers
+ * && !defends(AD_WERE,uwep) && !mgc-negated(TRUE)` → feverish +
+ * exercise(A_CON,FALSE) + set_ulycn(monsndx(pa)) (leftover d() kept —
+ * the were arm never zeroes damage, like FAMN/SLOW).
+ * Named omit: retouch_equipment(2) (same as eat.js cpostfx D-0945 —
+ * untouchable/retouch_object/bypass chain, unported).
+ */
+async function mhitm_ad_were_u(mtmp, mattk, mhm) {
+    void mhm; /* leftover d() stays */
+    await hitmsg(mtmp, mattk);
+    const u = game.u || {};
+    if (!rn2(4) && (u.ulycn | 0) === NON_PM
+        && !Protection_from_shape_changers()
+        && !defends(AD_WERE, u.uwep || null)
+        && !(await mhitm_mgc_atk_negated(mtmp, null, true))) {
+        await urgent_pline('You feel feverish.');
+        exercise(A_CON, false);
+        set_ulycn(mtmp?.data?.mndx ?? mtmp?.mnum);
+        /* retouch_equipment(2) deferred (eat.js cpostfx D-0945 same) */
+    }
+}
+
+/**
  * C ref: uhitm.c mhitm_adtyping — mhitu (monster→you) subset.
  * PHYS + ELEC + COLD + FIRE + TLPT + DRST/DRDX/DRCO + SITM/SEDU + SSEX (D-1750)
  * + BLND + STON + LEGS + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE
- * + DRLI + RUST + STCK + PLYS + FAMN + SLOW; other adtyps zero damage.
+ * + DRLI + RUST + STCK + PLYS + FAMN + SLOW + WERE; other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     switch (mattk.adtyp | 0) {
@@ -2425,6 +2451,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_SLOW:
         await mhitm_ad_slow_u(mtmp, mattk, mhm);
+        break;
+    case AD_WERE:
+        await mhitm_ad_were_u(mtmp, mattk, mhm);
         break;
     default:
         mhm.damage = 0;

@@ -108,7 +108,7 @@ functions but one falsifier family; shippable cluster.
   `simpleonames` change; iteration cadence re-runs
   full `sessions` — see review 1017).
 
-## Actionable C-wrongs (**Addressed:** D-2048)
+## Actionable C-wrongs (**Addressed:** D-2048 `f5587f13`)
 
 1. `addinv_core0` fill on the merge path: delete the
    merge-survivor `setuqwep(otmp)` hunk in `addinv`

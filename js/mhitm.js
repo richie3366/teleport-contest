@@ -1163,9 +1163,8 @@ export async function mhitm_ad_slim(magr, mattk, mdef, mhm) {
 /**
  * C ref: uhitm.c mhitm_ad_were `:4265–4293` — mhitm (mon→mon) arm.
  * Delegates to mhitm_ad_phys; done propagates via mhm (caller checks).
- * uhitm you-as-agr shares this shape. Named omission: mhitu you-as-def
- * (hitmsg + rn2(4) lycanthropy: Protection_from_shape_changers /
- * defends(AD_WERE) / mgc-negated / set_ulycn / retouch_equipment).
+ * uhitm you-as-agr shares this shape. mhitu you-as-def is
+ * mhitm_ad_were_u in mhitu.js (hitmsg + rn2(4) lycanthropy envelope).
  */
 export async function mhitm_ad_were(magr, mattk, mdef, mhm) {
     if (is_youmonst(mdef)) return;
@@ -3388,7 +3387,7 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
 
     // C: mhitm_adtyping → mhitm_ad_were for AD_WERE (uhitm.c:4265–4293
     // mhitm arm). Delegates to mhitm_ad_phys; done propagates via mhm.
-    // mhitu lycanthropy arm named in the callee.
+    // mhitu lycanthropy arm is mhitm_ad_were_u (mhitu.js).
     if ((mattk.adtyp | 0) === AD_WERE) {
         const mhm = {
             damage,

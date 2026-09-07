@@ -15,19 +15,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2048 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2049 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2048.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2048.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2049.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2049.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2049: `js/mhitu.js` — new `mhitm_ad_were_u(mtmp,mattk,mhm)` in the D-2043 `mhitm_ad_slow_u` shape: unconditional `await hitmsg(mtmp,mattk)` first (RNG-free  Named: `retouch_equipment(2)` after `set_ulycn` (same as eat.js cpostfx D-0945 — untouchable/reto
 - D-2048: `js/u_init.js` — deleted the merge-survivor fill hunk; left a two-line C comment (`merge paths goto added, bypassing :1128–1140 — no setuqwep here`). Named: quiver-prefer merge, `addinv_before` reinsert, oname absorb, worn-slot merge, `how_lost` c
 - D-2047: `js/monmove.js` — `const shopSkip = in_rooms(omx, omy, SHOPBASE) && (rn2(25) || mtmp.isshk)` with C short-circuit order (rn2 draws only in shop) gatin Named: `mon_would_consume_item` body (still stub false — own future row); `can_touch_safely` silv
 - D-2046: `js/music.js` — both `yn_function` defaults `'y'`→`'q'` with hack.h:1330 citation; `if/else-if` gate mirroring C `:763–773` (`can_blow(game.youmonst)` Named: `Hero_playnotes` audio + `obj_to_instr` mapping (unobservable while the stub takes `_instr
@@ -42,5 +43,4 @@ Objective/score live in `CURRENT.md`.
 - D-2037: `js/detect.js` — `find_trap` now in C order: `feel_newsym`; `Hallucination() || glyph_at(tx,ty) !== trap_to_glyph(trap)` (tty-cell→id normalization pe Named: none new — every `find_trap` callee is live (`cls`, `map_trap`, `display_self`, `docrt`, `
 - D-2036: `js/uhitm.js` — new `hmon_hitmon_weapon` dispatch verbatim (melee/thrown callers keep exact behavior except the four ranged arms, which now draw `rnd( Named: ranged-arm silver-sear *message* (`hmon_hitmon_msg_silver` — `hmon` has no `msg_silver` pl
 - D-2035: `js/timeout.js` — new `!(next & TIMEOUT) && p === STRANGLED` arm after SLIMED in C order (killer init mirrors the STONED arm; `done_timeout(DIED, STRA Named: none new — `done`/`Die?`/`savelife` (end.js), `useup` (invent.js), `choke_dialogue` all li
-- D-2034: `js/end.js` — new `give_to_nearby_mon` verbatim from C (loop/guard order, `!rn2(nmon)` reservoir, `can_carry`→`add_to_minv` else `place_object`; the e Named: `drop_upon_death` mtmp/cont arms (`add_to_minv(mtmp)` / `add_to_container`) + `artifact_li
 <!-- landmarks:end -->

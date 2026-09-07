@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `invent.c` addinv_core0 quiver fill fires on merge (review-measured): C merges `goto added`, skipping `:1128–1140` (fresh-insert only); JS also fills on merge. Fix: delete that hunk. Source: reviews/loop-unattended/1014-a101cf0e-simpleonames-quiver.md (1014 C-wrong 1). **Addressed:** D-2048
+- [x] `uhitm.c` mhitm_ad_were — blocks 2/553 corpus sessions (first at step 41): C draws `rn2(4)=1` in mhitm_ad_were, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_were` (scen-genesis-Knight-92149, scen-wish-Rogue-92184). **Addressed:** D-2049
+
+
+- [x] `invent.c` addinv_core0 quiver fill fires on merge (review-measured): C merges `goto added`, skipping `:1128–1140` (fresh-insert only); JS also fills on merge. Fix: delete that hunk. Source: reviews/loop-unattended/1014-a101cf0e-simpleonames-quiver.md (1014 C-wrong 1). **Addressed:** D-2048 `f5587f13`
 
 
 - [x] `monmove.c` m_search_items — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(25)=12` in m_search_items, JS `rn2(1)=0` from m_move(monmove.js:1813). Probe: `node scripts/hidden-proxy.mjs verify m_search_items` (scen-tour-Samurai-92032, scen-tour-Tourist-92100). **Addressed:** D-2047 `d0c254aa`
