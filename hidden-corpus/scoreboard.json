@@ -1,6 +1,6 @@
 {
- "commit": "ecb05e6d",
- "at": "2026-09-07T14:50:18.713Z",
+ "commit": "d4d3c77f",
+ "at": "2026-09-07T14:54:27.927Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4646,18 +4646,18 @@
   "scen-genesis-Caveman-92118": {
    "src": "corpus",
    "passed": false,
-   "rngM": 6371,
+   "rngM": 6489,
    "rngT": 6758,
-   "scrM": 105,
+   "scrM": 128,
    "scrT": 167,
    "kind": "rng",
-   "step": 97,
+   "step": 127,
    "steps": 167,
-   "owner": "newmonhp",
-   "loc": "makemon.c:1036",
-   "jsOwner": "newmonhp(makemon.js:929)",
-   "cTopline": "A green dragon appears next to you.",
-   "jsTopline": "A baby green dragon appears next to you.",
+   "owner": "mhitm_mgc_atk_negated",
+   "loc": "uhitm.c:87",
+   "jsOwner": "mhitm_knockback(mhitm.js:1997)",
+   "cTopline": "The ice devil bites! The ice devil stings! You avoid harm.--More--",
+   "jsTopline": "The ice devil bites! The ice devil stings! You avoid harm.--More--",
    "error": null
   },
   "scen-genesis-Caveman-92199": {

@@ -49,6 +49,8 @@ import {
     montoostrong,
     likes_gold,
     monsterNames,
+    pmnames,
+    NEUTRAL,
     pm_resistance,
     MR_FIRE,
     MR_COLD,
@@ -1004,9 +1006,8 @@ const NASTIES = [
 ];
 
 /**
- * C ref: wizard.c pick_nasty — ROLL_FROM(nasties) + geno/difcap/hell alt.
- * Named omissions: rogue monsym uppercase retry; juvenile name-string gate
- * on big_to_little alt (always accept non-geno alt).
+ * C ref: wizard.c pick_nasty `:537–581` — ROLL_FROM(nasties) + geno/difcap/hell alt.
+ * Named omissions: rogue monsym uppercase retry (monsym table not wired here).
  */
 export function pick_nasty(difcap) {
     let res = NASTIES[rn2(NASTIES.length)];
@@ -1019,7 +1020,19 @@ export function pick_nasty(difcap) {
         alt = big_to_little(res);
     }
     if (alt !== res && ((game.mvitals?.[alt]?.mvflags ?? 0) & G_GENOD) === 0) {
-        res = alt;
+        // C `:568–578`: only non-juveniles can become alternate choice —
+        // mons[alt].pmnames[NEUTRAL] starting with "baby " or ending in
+        // " hatchling"/" pup"/" cub" keeps the adult res.
+        const mnam = pmnames[alt]?.[NEUTRAL] ?? '';
+        const li = mnam.lastIndexOf(' ');
+        const lastspace = li >= 0 ? mnam.slice(li) : null;
+        if (!mnam.startsWith('baby ')
+            && (lastspace === null
+                || (lastspace !== ' hatchling'
+                    && lastspace !== ' pup'
+                    && lastspace !== ' cub'))) {
+            res = alt;
+        }
     }
     return res;
 }

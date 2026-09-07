@@ -2848,7 +2848,7 @@ nuzzle `pline_mon` D-1240; uhitm/mhitm arms + poly `body_part` deferred);
 `newcham` null-mdat non-cham + mbirth_limit; uhitm damageum poly'd-hero path deferred; 
 shieldeff/ANTIMAGIC gear scan deferred); **`castmu` SUMMON_MONS → `nasty`** (D-0928 #1129; 
 seed4500 **106852→107304** RNG **107335** Scr **941**; 
-`wizard.c` nasty Inhell/`pick_nasty`/`enexto`/`makemon`; unmakemon full defer → mhp=0; 
+`wizard.c` nasty Inhell/`pick_nasty` juvenile gate live (D-2027; rogue monsym retry still named)/`enexto`/`makemon`; unmakemon full defer → mhp=0; 
 other mcast_spell bodies are D-1825 (`mon_spell_hits_spot` / `has_aggravatables` still named); 
 **`wizard.c` clonewiz family + `quest.c` death latches** (D-1900; `which_arti` M3→otyp switch, default 0 = quest artifact; `mon_has_arti`/`on_ground` otyp-or-any-qarti (`oartifact>=ART_ORB_OF_DETECTION`); `other_mon_has_arti` fmon scan minus self, no DEADMONSTER check per C; `wizdeadorgone` census−1 + udemigod/`rn1(250,50)`; `quest.c` `leaddead` latch / `nemdead` latch+`qt_pager killed_nemesis` / `nemesis_stinks` `create_gas_cloud(5,8)` under saved mon_moving; named: `target_on`/`you_have`/covetous-pursuit `strategy`, `stinky_nemesis` picker, `mon.c` mongone/mondead callers);
 **`castmu` PSI_BOLT/OPEN_WOUNDS → `mdamageu` + `rehumanize`; 

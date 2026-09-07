@@ -87,8 +87,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster (Must-fix first):** `- [ ] wizard.c pick_nasty juvenile alt gate — blocks 1/553 corpus sessions: scen-genesis-Caveman-92118 step 97/167 C «A green dragon appears next to you.» vs JS «A baby green dragon appears next to you.» Probe: node scripts/hidden-proxy.mjs show scen-genesis-Caveman-92118`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2026 (index).**
+**Keep D-0845…D-2027 (index).**
 <!-- recent:begin -->
+**D-2027** `wizard.c:537–581` `pick_nasty` — `js/makemon.js` `pick_nasty` — verbatim port of the `:567–579` gate (`pmnames[alt]?.[NEUTRAL]`, `lastIndexOf(' ')`→slice for `lastspace`, `startsWith('baby ')` + the three suffix comparisons, same short-circuit shape; pu
 **D-2026** `eat.c:543–573` `done_eating` — `js/eat.js` `done_eating` — nomovemsg arm first (print when message, always clear to null, cf.
 **D-2025** `insight.c:1667–1858` enlightenment Attributes — `js/invent.js` new `hero_Polymorph_control`/`hero_Regeneration` + Displaced/Regen/Polycontrol arms in C order (final + overlay paths); `js/artifact.js` `abil_to_spfx` 12-row table, `what_gives` takes propidx; `js/attrib.js` `from_what` passes it through
 **D-2024** `polyself.c:859–872` `polymon` mhmax block — `export` on `makemon.js golemhp` (no clone #2); `polyself.js` imports `{ golemhp, is_home_elemental }` from `./makemon.js` (new edge, same 90-module SCC; `imports.mjs --can` CHECK verdict — both are hoisted function decl
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2022** (1) `makemon.c:1369–1384` mitem block — (1) makemon.js: `if (no_of_wizards === 1 && Is_earthlevel(game.u?.uz)) mitem = otyp('SPE_DIG')` (C `:1372–1373` gate verbatim; `imports.mjs --can makemon.js const.js Is_earthlevel`: already statically imported, no new ed
 **D-2021** `objnam.c` `readobjnam` zero-draw exact paths that resolve `d.typ` before the random `srch — `js/readobjnam.js` — `real `/`fake ` preparse arms + `d.real`/`d.fake` fields (C `:4125–4133`); Amulet real/fake block before `makesingular` (C `:4284–4309`, incl. the `:5002–5006` typfnd non-wizard→fake fold for this ar
 **D-2020** `pager.c:1346–1353` — `js/pager.js` — self branch now returns `found: orYou ? 2 : 1`; comment cites the `append_str` return and `:1941`.
-**D-2019** `cmd.c:5067–5080` `get_count` echo — `js/display.js` — new exported `async custompline(flags, msg)` (`pline.c:299–309` verbatim shape: consume_msg_loc, empty return, `gp.pline_flags` set/try/finally-reset, vpline core); `pline_after_consume(msg, suppressHis
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2026; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2027; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

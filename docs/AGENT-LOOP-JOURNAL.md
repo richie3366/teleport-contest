@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — D-2027 wizard.c pick_nasty: juvenile name-string gate on big_to_little alt (genesis-symptom writer, 1 moved)
+
+**C locus:** `wizard.c:537–581` `pick_nasty` — `:560–566` geno/difcap/hell demotion `alt = big_to_little(res)`; `:567–579` accept arm with the juvenile name-string gate: `mnam = mons[alt].pmnames[NEUTRAL]`, `lastspace = strrchr(mnam, ' ')`, `res = alt` only if `strncmp(mnam, "baby ", 5)` and `lastspace` is null or not ` hatchling`/` pup`/` cub` (`/* only non-juveniles can become alternate choice */`). ROLL_FROM hit adult GREEN_DRAGON (a NASTIES entry), demotion produced the baby alt, C kept the adult.
+**JS:** 1 file (`makemon.js` +16/−4), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes.
+**Change:** `js/makemon.js` `pick_nasty` — verbatim port of the `:567–579` gate (`pmnames[alt]?.[NEUTRAL]`, `lastIndexOf(' ')`→slice for `lastspace`, `startsWith('baby ')` + the three suffix comparisons, same short-circuit shape; pure string ops, no RNG). `pmnames` + `NEUTRAL` extend the pre-existing `./monsters.js` static import (`imports.mjs --can`: ALREADY, no new edge). Doc comment retires the juvenile omission (rogue monsym retry stays named).
+**Verify:** `node scripts/verify.mjs --fn pick_nasty` → `PASS syntax 1 changed js file(s): js/makemon.js` · `PASS rule2` · `note hidden` (vacuous, as row predicts) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `PASS full 44/44` (auto: shared file changed) · `VERIFY: PASS` · corpus: `node scripts/hidden-proxy.mjs verify newmonhp` → `0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Caveman-92118 → `mhitm_mgc_atk_negated`@127 was 97) · direct replay `frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-genesis-Caveman-92118.session.json`: RNG 6371→6489/6758, screens 105→128/167. Final verify ran after the last edit (no D-1831 gap).
+**Named:** rogue-level monsym uppercase re-ROLL (`:545–547`, pre-existing, untouched — monsym table not wired in makemon.js).
+**Next:** moved owner `mhitm_mgc_atk_negated`@127 joins future queue rows for that owner.
 ## 2026-09-07 — D-2026 eat.c done_eating: nomovemsg wins over finish-eating line + fire-elemental consuming (lesshungry-symptom writer, 4 PASS + 3 moved)
 
 **C locus:** `eat.c:543–573` `done_eating` — `:552–556` `if (gn.nomovemsg) { if (message) pline1(gn.nomovemsg); gn.nomovemsg = 0; } else if (message) You("finish %s %s.", fire-elemental ? "consuming" : "eating", food_xname(piece, TRUE))`. The recorded literal lives in `lesshungry` `:3315` (`gn.nomovemsg = "You're finally finished."`), which is why the proxy attributes the row to `lesshungry`.
