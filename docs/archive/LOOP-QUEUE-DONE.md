@@ -5,7 +5,6 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `detect.c` dosearch0 counted-search multi lifecycle — blocks 1/553 corpus sessions: scen-death-Monk-92191 step 30/70 still C «Searching doesn't feel like a good idea right now.» vs JS «» after D-2011 (gate now faithful; C's second `20s` multi-search ends within step 29 with no `You stop searching` print while JS burns ~16 STRANGLED turns across steps 24–29, so the step-30 `s` never reaches the gate in JS). Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` then prefix-replay steps 29–30. Falsifier needed: C moveloop multi/occupation trace at steps 29–30 (silent `nomul(0)`-on-find vs occupation stop). **Addressed:** D-2011
 
 
 - [x] `do.c` cmd_safety_prevention — blocks 7/553 corpus sessions (first at step 19): C «Searching doesn't feel like a good idea right now.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` (scen-death-Caveman-92159, scen-death-Monk-92121, scen-death-Monk-92191). **Addressed:** D-2011
