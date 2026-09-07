@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `hack.c` losehp — blocks 4/553 corpus sessions (first at step 23): C «You die...--More--» vs JS «The bow named the Longbow of Diana evades your grasp!--More-». Probe: `node scripts/hidden-proxy.mjs verify losehp` (scen-genesis-Archeologist-91132, scen-genesis-Ranger-92126, scen-wish-Tourist-92081). **Addressed:** D-2051
+- [x] `uhitm.c` passive — blocks 3/553 corpus sessions (first at step 121): C draws `rn2(3)=1` in passive, JS `d(1,6)=5` from damageum(uhitm.js:1285). Probe: `node scripts/hidden-proxy.mjs verify passive` (scen-poly-Healer-92107, scen-poly-Rogue-92026, scen-wish-Wizard-92153). **Addressed:** D-2052
+
+
+- [x] `hack.c` losehp — blocks 4/553 corpus sessions (first at step 23): C «You die...--More--» vs JS «The bow named the Longbow of Diana evades your grasp!--More-». Probe: `node scripts/hidden-proxy.mjs verify losehp` (scen-genesis-Archeologist-91132, scen-genesis-Ranger-92126, scen-wish-Tourist-92081). **Addressed:** D-2051 `d1f26ab3`
 
 
 - [x] `do_wear.c` Blindf_off — blocks 2/553 corpus sessions (first at step 211): C «You turn into a ghoul! You can see again.» vs JS «You turn into a ghoul!». Probe: `node scripts/hidden-proxy.mjs verify Blindf_off` (scen-poly-Ranger-92090, scen-poly-Ranger-92133). **Addressed:** D-2050 `b11c9f44`
