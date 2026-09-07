@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `attrib.c` exercise — blocks 5/553 corpus sessions (first at step 60): C draws `rn2(2)=1` in exercise, JS `rn2(300)=129` from dosounds(sounds.js:344). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-death-Monk-92000, scen-death-Tourist-92095, scen-death-Wizard-92120). **Addressed:** D-2023
+- [x] `botl.c` do_statusline2 — blocks 5/553 corpus sessions (first at step 63): C «The jackal bites! The jackal bites!» vs JS «The jackal bites! The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Monk-92164, scen-poly-Priest-91137, scen-poly-Tourist-92047). **Addressed:** D-2024
+
+
+- [x] `attrib.c` exercise — blocks 5/553 corpus sessions (first at step 60): C draws `rn2(2)=1` in exercise, JS `rn2(300)=129` from dosounds(sounds.js:344). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-death-Monk-92000, scen-death-Tourist-92095, scen-death-Wizard-92120). **Addressed:** D-2023 `b18a67bd`
 
 
 - [x] `objnam.c` readobjnam — "cursed slime mold" prefixed-food zero-draw path (D-2021 Next-(a) + D-2022 leftover) — blocks 1/553 corpus sessions: scen-wish-Knight-92130 step 90/205: C zero draws + «j - 2 slime molds.» vs JS `rn2(76)` @ rnd_otyp_by_namedesc(readobjnam.js:245) + «j - a slime mold.». Probe: `node scripts/hidden-proxy.mjs show scen-wish-Knight-92130` (falsifier: C-recorder wish experiment per D-2021/D-2022 — do not re-read the parse, run the experiment). **Addressed:** D-2022 `d7b4d542`

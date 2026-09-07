@@ -849,7 +849,7 @@ export function adj_lev(ptr) {
 }
 
 // C ref: makemon.c golemhp() — fixed HP by golem type; no RNG.
-function golemhp(type) {
+export function golemhp(type) {
     switch (type) {
     case pm('STRAW_GOLEM'):
         return 20;

@@ -1,6 +1,6 @@
 {
- "commit": "d7b4d542",
- "at": "2026-09-07T14:08:20.843Z",
+ "commit": "b18a67bd",
+ "at": "2026-09-07T14:31:15.235Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6788,18 +6788,18 @@
   "scen-poly-Priest-91137": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3114,
+   "rngM": 3260,
    "rngT": 3638,
-   "scrM": 86,
+   "scrM": 123,
    "scrT": 266,
-   "kind": "screen",
-   "step": 86,
+   "kind": "rng",
+   "step": 123,
    "steps": 266,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
-   "jsOwner": null,
-   "cTopline": "You turn into an iron golem! The clasp on your robe breaks open!--More--",
-   "jsTopline": "You turn into an iron golem! The clasp on your robe breaks open!--More--",
+   "owner": "dmgval",
+   "loc": "weapon.c:227",
+   "jsOwner": "passive(uhitm.js:1554)",
+   "cTopline": "You hit the earth elemental! The earth elemental hits!",
+   "jsTopline": "You miss the earth elemental. The earth elemental hits!--More--",
    "error": null
   },
   "scen-poly-Priest-92021": {
@@ -6958,18 +6958,18 @@
   "scen-poly-Tourist-92047": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2874,
+   "rngM": 4659,
    "rngT": 5126,
-   "scrM": 88,
+   "scrM": 158,
    "scrT": 189,
    "kind": "screen",
-   "step": 88,
+   "step": 154,
    "steps": 189,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
+   "owner": "do_attack",
+   "loc": "uhitm.c:543",
    "jsOwner": null,
-   "cTopline": "You turn into a stone golem! Your shirt rips to shreds!",
-   "jsTopline": "You turn into a stone golem! Your shirt rips to shreds!",
+   "cTopline": "You begin bashing monsters with your tin opener. You miss the Archon.--More--",
+   "jsTopline": "You miss the Archon. You miss the Archon. You miss the Archon.--More--",
    "error": null
   },
   "scen-poly-Tourist-92171": {
@@ -8500,7 +8500,7 @@
   "scen-wish-Tourist-91125": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2746,
+   "rngM": 2745,
    "rngT": 3232,
    "scrM": 83,
    "scrT": 189,

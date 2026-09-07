@@ -342,7 +342,7 @@ cloak 3-way (wrapping tears/smock knot/clasp) via `cloak_simple_name` +
 `WrappingAllowed` one-word exports (mhitu/worn) + `Blindf_off` Null `nooffmsg`
 (do_wear.c:1498), `ublindf` eyewear arm; donning/`cancel_don` still deferred); **`polyself(POLY_NOFLAGS)` system-shock `rn2(20)` + 
 random `rn1(SPECIAL_PM)`** (D-0928 #1103; **POLY_LOW_CTRL forcecontrol downgrade D-1428**; 
-were/vamp/dragon-merge/controllable_poly getlin/light-src deferred); 
+were/vamp/dragon-merge/controllable_poly getlin/light-src deferred); **polymon mhmax block** (D-2024; C `polyself.c:859–872` dragon/`golemhp(mntmp)`/`d(mlvl,8)`+home-elemental-x3 verbatim — `golemhp` exported from `makemon.js`, no clone #2; golem `d()` + elemental-x3 defers retired); 
 **`set_mon_data` hero umov prorate** (D-0717))/`#invoke`/`doinvoke`/`arti_invoke` 
 !inv_prop→nothing_happens+ECMD_TIME (D-0715) + 
 **BLINDING_RAY `invoke_blinding_ray` D-1377** (crystal-ball/`inv_prop` other specials + 
