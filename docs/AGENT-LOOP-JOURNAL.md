@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — D-2026 eat.c done_eating: nomovemsg wins over finish-eating line + fire-elemental consuming (lesshungry-symptom writer, 4 PASS + 3 moved)
+
+**C locus:** `eat.c:543–573` `done_eating` — `:552–556` `if (gn.nomovemsg) { if (message) pline1(gn.nomovemsg); gn.nomovemsg = 0; } else if (message) You("finish %s %s.", fire-elemental ? "consuming" : "eating", food_xname(piece, TRUE))`. The recorded literal lives in `lesshungry` `:3315` (`gn.nomovemsg = "You're finally finished."`), which is why the proxy attributes the row to `lesshungry`.
+**JS:** 1 file (`eat.js` +13/−3), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes (diagnosis via recorded C screens + `brief`/`csym` C bodies, outside the repo).
+**Change:** `js/eat.js` `done_eating` — nomovemsg arm first (print when message, always clear to null, cf. `unmul` in `hack.js`); else-branch gains the fire-elemental `consuming` variant via the canonical `Upolyd(u) && umonnum === PM_FIRE_ELEMENTAL` idiom (`mons()` builds a fresh record per call; `timeout.js:694` precedent). No new imports (`Upolyd` + `PM_FIRE_ELEMENTAL` already module-local).
+**Verify:** `node scripts/verify.mjs --fn lesshungry` → `PASS syntax 1 changed js file(s): js/eat.js` · `PASS rule2` · `PASS hidden 4 PASS, 3 moved past, 0 unchanged, 0 worse → PROGRESS` (Monk-92139 PASS; normal-Archeologist-92236 PASS; normal-Valkyrie-92077 PASS; normal-Valkyrie-92108 PASS; kit-Archeologist-92190 → `monshoot`@8 was 7; kit-Valkyrie-91116 → `doengrave`@51 was 6; normal-Archeologist-92228 → `use_container`@80 was 54) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · full skipped (no shared file changed) · `VERIFY: PASS`. Final verify ran after the last edit (no D-1831 gap).
+**Named:** `start_eating` `:2048–2062` old/save_nomovemsg dance around the bite-finish `done_eating(FALSE)` (pre-existing, untouched — all 7 checked sessions finish via the `eatfood` `done_eating(TRUE)` path); `done_eating` `!piece` defensive early return (pre-existing; C assumes non-null); `useup`/`useupf` + victual-reset tail unchanged.
+**Next:** moved owners `monshoot`@8, `doengrave`@51, `use_container`@80 join future queue rows for those owners (`use_container` already queued).
 ## 2026-09-07 — D-2024 polyself.c polymon mhmax: golemhp table + home-elemental x3 (do_statusline2-symptom writer, 2/8 sessions)
 
 **C locus:** `polyself.c:859–872` `polymon` mhmax block — dragon arm `:861`, `is_golem → golemhp(mntmp)` `:862–863`, `rnd(4)`/`d(mlvl,8)` `:865–868`, `is_home_elemental → u.mhmax *= 3` `:869–870`, `u.mh = u.mhmax` `:872`; `makemon.c:2233–2259` `golemhp` fixed table (STONE 100, IRON 120, no RNG); `makemon.c` `is_home_elemental` (S_ELEMENTAL on its home plane).

@@ -1772,6 +1772,10 @@ coins `"very rich meal"` / null `"quick snack"`; dozap D-1345; throwit D-1346;
 throw_obj `:147` remaining); **`lesshungry`/`bite` choke+fullwarn D-1356** (C 
 `eat.c:3289–3333`/`3133–3158`; `doeat` canchoke SATIATED snapshot; 
 adj_victual_nutrition lembas/cram / `do_reset_eat` touchfood named); 
+**`done_eating` nomovemsg+`consuming` D-2026** (C `eat.c:543–573`;
+stored nomovemsg wins + always cleared; fire-elemental `consuming` via
+canonical umonnum; named: `start_eating` `:2048–2062` nomovemsg
+save/restore dance); 
 **`eat_brains` D-1306** (C `eat.c:601–754`; uhitm headed `mhitm_ad_drin` call; 
 **helmet / `m_slips_free` D-1307**; **mhitu caller D-1329**; **mhitm caller D-1330**);
 **`tin_variety_txt` D-1953** (C `eat.c:1405–1421`; `js/eat.js` export in C order,
