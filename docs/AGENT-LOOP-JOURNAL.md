@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — Audit D-2012…D-2019 (reviews 982–989) + cadence 44/44
+
+8 js/ SHAs oldest-first, every hidden-verify claim re-measured at `--base HASH~1`: 7 ACCEPT (982 interrupt_multi Norep; 984 engrave full port; 985 disclose suffix; 986 doup ledger yn + docs-only stamp sib 348aed9e; 987 newmonhp rider/elemental; 988 tipcontainer_gettarget; 989 get_count custompline), 1 QUALITY-RISK — 983 (D-2013) ports the 'or you' string but keeps `found: 1` where C `found += append_str` → 2 skips checkfile; constructible extra `More info about "dwarven archeologist"?` on verbose self-look (data keys measured) → Must-fix prepended (first in queue), Next cluster set. Cadence full sessions 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `75+0.47/turn`). Queue: 1 Must-fix + 10 Open, no refill. Filled `**Addressed:** D-2019 2ae51922` (D-2016 already stamped).
 ## 2026-09-07 — D-2019 cmd.c get_count echo bypassed prevmsg: stale gate text made Norep swallow the second "Searching doesn't feel like a good idea right now"
 
 **C locus:** `cmd.c:5067–5080` `get_count` echo — `clear_nhwindow(WIN_MESSAGE)` then `custompline(SUPPRESS_HISTORY, "Count: %ld")`, i.e. full vpline (`putmesg` + `update_topl` + `Strcpy(gp.prevmsg)`) minus `dumplogmsg` only (`pline.c:235–239,299–309`); `msgtype_type` default is `norepeat ? NOREP : NORMAL` (`options.c:7797`) with suppression only on `line === prevmsg` (`pline.c:252–255,282`).

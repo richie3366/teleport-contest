@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-07** — full `sessions` at **D-2011**
-(audit **973–981**, `eeef4216`). Fortress **44/44** (no throws).
+Score last measured: **2026-09-07** — full `sessions` at **D-2019**
+(audit **982–989**, `2ae51922`+review). Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`73+0.49/turn` (R² 0.75).
+`75+0.47/turn` (R² 0.78).
 
 ## Score
 
@@ -32,7 +32,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `57+0.37/turn` (R² 0.81) |
+| Speed label | `75+0.47/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -46,7 +46,7 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 973–981: 9 ACCEPT, 0 Must-fix (971's Must-fix shipped as D-2003, stamped).
+Reviews 982–989: 7 ACCEPT, 1 QUALITY-RISK (983 pager found-count → Must-fix, first in queue).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -85,7 +85,7 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `detect.c` dosearch0 counted-search multi lifecycle — blocks 1/553 corpus sessions: scen-death-Monk-92191 step 30/70 C «Searching doesn't feel like a good idea right now.» vs JS «» (safety gate itself now faithful per D-log latest entry; C's second `20s` multi-search ends within step 29 with no `You stop searching` print while JS burns ~16 STRANGLED turns across steps 24–29, so the step-30 `s` never reaches the gate in JS). Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` then prefix-replay steps 29–30.
+**Next cluster (Must-fix first):** `pager.c` describe_looked self '@' found-count (`found: orYou ? 2 : 1`; review 983) — then `detect.c` dosearch0 counted-search multi lifecycle — blocks 1/553 corpus sessions: scen-death-Monk-92191 step 30/70 C «Searching doesn't feel like a good idea right now.» vs JS «» (safety gate itself now faithful per D-log latest entry; C's second `20s` multi-search ends within step 29 with no `You stop searching` print while JS burns ~16 STRANGLED turns across steps 24–29, so the step-30 `s` never reaches the gate in JS). Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` then prefix-replay steps 29–30.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2019 (index).**
 <!-- recent:begin -->

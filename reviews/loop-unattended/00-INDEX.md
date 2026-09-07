@@ -992,3 +992,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [979-d7411fbf-doclose-impaired-time.md](./979-d7411fbf-doclose-impaired-time.md) | `d7411fbf` | D-2009 doclose impaired-direction TIME | **ACCEPT** |
 | [980-dad22c02-touch-artifact-blast.md](./980-dad22c02-touch-artifact-blast.md) | `dad22c02` | D-2010 touch_artifact hero blast | **ACCEPT** |
 | [981-0e408b9f-danger-uprops.md](./981-0e408b9f-danger-uprops.md) | `0e408b9f` | D-2011 danger_uprops uprops-intrinsic | **ACCEPT** |
+| [982-c2d980de-interrupt-multi-norep.md](./982-c2d980de-interrupt-multi-norep.md) | `c2d980de` | D-2012 interrupt_multi Norep message | **ACCEPT** |
+| [983-488f18ab-pager-or-you-found.md](./983-488f18ab-pager-or-you-found.md) | `488f18ab` | D-2013 pager '@'-as-you 'or you' found-count | **QUALITY-RISK** |
+| [984-a1c71d43-engrave-occupation.md](./984-a1c71d43-engrave-occupation.md) | `a1c71d43` | D-2014 engrave() occupation full port | **ACCEPT** |
+| [985-e495002e-disclose-achievements.md](./985-e495002e-disclose-achievements.md) | `e495002e` | D-2015 disclose conduct achievements suffix | **ACCEPT** |
+| [986-72fbe787-doup-ledger-escape.md](./986-72fbe787-doup-ledger-escape.md) | `72fbe787` | D-2016 doup ledger-1 escape yn | **ACCEPT** |
+| [987-e6c464a4-newmonhp-rider-elemental.md](./987-e6c464a4-newmonhp-rider-elemental.md) | `e6c464a4` | D-2017 newmonhp rider + home-elemental | **ACCEPT** |
+| [988-1453da16-tipcontainer-gettarget.md](./988-1453da16-tipcontainer-gettarget.md) | `1453da16` | D-2018 tipcontainer_gettarget menu-first | **ACCEPT** |
+| [989-2ae51922-get-count-custompline.md](./989-2ae51922-get-count-custompline.md) | `2ae51922` | D-2019 get_count echo custompline | **ACCEPT** |
