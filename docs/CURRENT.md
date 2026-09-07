@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `music.c` do_play_instrument — blocks 3/553 corpus sessions (first at step 63): C «Improvise? [ynq] (q)» vs JS «Improvise? [ynq] (y)». Probe: `node scripts/hidden-proxy.mjs verify do_play_instrument` (scen-intrinsic-Healer-92168, scen-wish-Caveman-92174, scen-wish-Ranger-92156).
+**Next cluster:** `monmove.c` m_search_items — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(25)=12` in m_search_items, JS `rn2(1)=0` from m_move(monmove.js:1813). Probe: `node scripts/hidden-proxy.mjs verify m_search_items` (scen-tour-Samurai-92032, scen-tour-Tourist-92100).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2046 (index).**
+**Keep D-0845…D-2047 (index).**
 <!-- recent:begin -->
+**D-2047** `monmove.c m_search_items :1329–1450` (full body read from the brief) + caller `monmove.c: — `js/monmove.js` — `const shopSkip = in_rooms(omx, omy, SHOPBASE) && (rn2(25) || mtmp.isshk)` with C short-circuit order (rn2 draws only in shop) gating the whole scan as C's `goto finish_search` (falls through to the tai
 **D-2046** `music.c do_play_instrument :759–899` (read whole body + apply.c:4383 caller) + `include/h — `js/music.js` — both `yn_function` defaults `'y'`→`'q'` with hack.h:1330 citation; `if/else-if` gate mirroring C `:763–773` (`can_blow(game.youmonst)` — same call shape as the sibling apply.js whistle arms D-1007; `thesi
 **D-2045** `pager.c do_screen_description` check_monsters (looked: `sym == gs.showsyms[i + SYM_OFF_M] — `js/pager.js` — monster arm now: prefix `mon_glyph(mtmp).ch` (shown char, C encglyph; same source `look_all` uses); body `an(mlet_class_explain(mlet))` + ` (look)` with `first = look` unstripped (C didlook; empty-look gu
 **D-2044** (a) `objnam.c:2428–2442 simpleonames` — `js/objnam.js` — `simpleonames` pluralizes via `makeplural(base)` when `((obj.quan ?? 1) | 0) !== 1` (missing quan reads as 1 — C always sets quan; same guard as the pre-existing iactions clone).
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2042** `nethack-c/upstream/src/dokick.c:68` `check_caitiff(mon);` inside `kickdmg :33–123`, synch — `js/dokick.js` — `await check_caitiff(mon);` with a C citation comment (`dokick.c:68`, sync in C / async in JS for the awaited pline, must await to keep topline order).
 **D-2041** `nethack-c/upstream/src/uhitm.c:896` `if (hmd->material == SILVER && mon_hates_silver(mon) — `js/uhitm.js` — `mon_hates_silver` extends the pre-existing `./monsters.js` import (no new module edge per `imports.mjs --can`: already statically imported; sync callee, same 82-module SCC, no top-level TDZ read) and the
 **D-2040** `nethack-c/upstream/src/uhitm.c` `hmon_hitmon_weapon_ranged :884–917`: shade-glare/`rnd(2) — `js/uhitm.js` ranged branch — C-order boomerang tail after silver: `!thrown && obj===game.u?.uwep && obj.otyp===BOOMERANG && rnl(4)===3` (short-circuit order preserved; `!thrown` = HMON_MELEE per the existing dispatch at
-**D-2039** `dungeon.c` `prev_level :1518–1545`: `if (at_stairs && stway && stway->tolev.dnum != u.uz. — `js/do.js` `prev_level` — C-order branch arm: Dlvl1 (`!(uz.dnum) && uz.dlevel===1`) without the Amulet → dynamic `import('./end.js')` + `await done(ESCAPED)` + return (same noreturn-stop pattern as `goto_level`'s ledger≤
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2046; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2047; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

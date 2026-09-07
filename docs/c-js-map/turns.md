@@ -2643,8 +2643,10 @@ was plain doname → long ID names / early More);
 underfoot `return TRUE`→`postmov`→`mpickstuff` restored; 
 omit `searches_for_item` (D-0598 potion/wand/scroll/amulet/tool subset; 
 **Is_container/Is_mbag/!olocked** D-0861; 
-FOOD corpse/tin/egg + `can_blow` polish deferred)/shop/`hides_under` in 
-`m_search_items`/`onscary`/`costly_spot`/prizes/`can_touch_safely` body/`mon_would_consume`); 
+FOOD corpse/tin/egg + `can_blow` polish deferred)/`mon_would_consume_item` body + 
+`can_touch_safely` silver/artifact/petrify arms in `m_search_items` 
+(shop `in_rooms`+`rn2(25)`+`isshk` gate, `hides_under`+`cansee`, `onscary`, 
+`costly_spot`+merchandise, prizes, outer `can_touch_safely` live D-2047); 
 **`m_move` Tengu nature teleport `!rn2(5)`→rloc/mnexto + uswallow early-out** (D-0778; 
 MAIL_DAEMON deferred); **`dochug`/`postmov` `mon_offmap` after `m_move`/`mintrap`** (D-0781; 
 skips 2nd `distfleeck`; setter paths still partial); 

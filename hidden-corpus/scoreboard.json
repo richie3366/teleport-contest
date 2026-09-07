@@ -1,6 +1,6 @@
 {
- "commit": "29aff746",
- "at": "2026-09-07T22:32:27.114Z",
+ "commit": "376d29e8",
+ "at": "2026-09-07T22:35:59.737Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7332,16 +7332,16 @@
   "scen-tour-Samurai-92032": {
    "src": "corpus",
    "passed": false,
-   "rngM": 10615,
+   "rngM": 10628,
    "rngT": 20913,
    "scrM": 64,
    "scrT": 150,
    "kind": "rng",
    "step": 59,
    "steps": 150,
-   "owner": "m_search_items",
-   "loc": "monmove.c:1366",
-   "jsOwner": "m_move(monmove.js:1813)",
+   "owner": "obj_resists",
+   "loc": "zap.c:1469",
+   "jsOwner": "distfleeck(monmove.js:826)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -7400,16 +7400,16 @@
   "scen-tour-Tourist-92100": {
    "src": "corpus",
    "passed": false,
-   "rngM": 16505,
+   "rngM": 16622,
    "rngT": 27848,
    "scrM": 106,
    "scrT": 167,
    "kind": "rng",
    "step": 100,
    "steps": 167,
-   "owner": "m_search_items",
-   "loc": "monmove.c:1366",
-   "jsOwner": "m_move(monmove.js:1813)",
+   "owner": "mpickstuff",
+   "loc": "mon.c:1857",
+   "jsOwner": "distfleeck(monmove.js:826)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
