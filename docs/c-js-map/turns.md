@@ -50,8 +50,10 @@ STUNNED/HALLUC/… expiry msgs / `region_dialogue` / `sleep_dialogue` / STONED·
 dissipation D-1155 / surface() Underwater bottom named; 
 ice hurtle/mount dismount / REVIVE/ZOMBIFY/burn deferred); 
 **`exerper` encumbrance + every-5 Wounded_legs/`Fumbling()`≡H\|\|E/`HStun` DEX abuse + 
-Confusion≡`HConfusion` / Hallucination≡`HHallucination&&!res` WIS abuse** 
-(D-0401/D-0441/D-0689/D-0835; Clairvoyant/Regen/Monk fasting deferred; 
+Confusion≡`HConfusion` / Hallucination≡`HHallucination&&!res` WIS abuse + 
+every-5 intrinsic-Clairvoyant (H-only, blocked vetoes) WIS + HRegeneration STR + 
+SATIATED/WEAK Monk WIS arms** 
+(D-0401/D-0441/D-0689/D-0835/D-1994; 
 other `u.Fumbling` boolean sites still incomplete); 
 **`exerchk` `next_attrib_check=600` + `rn2(AVAL)` resolve/`rn1(200,800)` reschedule + 
 exercise Upolyd gate** (D-0449; `encumber_msg` after STR/CON exercise + Fixed_abil/Dunce deferred); 

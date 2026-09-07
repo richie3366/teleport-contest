@@ -88,8 +88,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `attrib.c` exercise residual (post-D-1993 gulpmu) — blocks 7/553: exerper-tick/moves-drift class (92084 turn-1 wear tick, 92124 jackal-bite INC, 92158, 92139 Monk-satiated double-dec) + read/wish/inc-arm callers (92216 decipher, 92206 amulet ID, 92007 glow+INC). Probe: `node scripts/hidden-proxy.mjs verify exercise`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1993 (index).**
+**Keep D-0845…D-1994 (index).**
 <!-- recent:begin -->
+**D-1994** `attrib.c:520–584` `exerper` — `js/allmain.js` — SATIATED/WEAK Monk WIS arms (`(game.urole?.mnum|0)===PM_MONK` idiom) + every-5 H-only Clairvoyant WIS arm (flat+intrinsic, blocked vetoes) and H-only Regen STR arm, all with C `:line` comments (`PM_MONK
 **D-1993** `mhitu.c:1421–1469` `gulpmu` switch — three one-line `exercise(A_STR, false)` insertions with C `:line` comments, each directly after its C pline.
 **D-1992** `polyself.c:1305–1362` `drop_weapon` — deleted the clone; message via live `is_sword` (`./objects.js`) + `weapon_descr` (`./invent.js`) + live `makeplural` (`./objnam.js`) with C `:line` comments; drops via live sync `uswapwepgone()` + async `uwepgone()` with
 **D-1991** `polyself.c:1157–1302` `break_armor` — exact-C arm order with `:line` citations — `end_burn` (new `./timeout.js` edge) + `await Armor_gone()` + `useup` (same-module `./invent.js`) for breakarm uarm; cloak 3-way on `(otyp !== MUMMY_WRAPPING || !WrappingAllowed
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-1989** `calendar.c:40–46` `getlt() = localtime(getnow())`; contest patch 001 `time_from_yyyymmddh — `getlt()` = `nyLocaltime(getnow())`; new module-local America/New_York engine, plain arithmetic per Rule #2 (no Intl / node TZ; only `Date.UTC`/getUTC* decomposition): pre-2007 first-Sun-Apr → last-Sun-Oct, 2007+ second-
 **D-1988** `muse.c:650` find_defensive trap kludge `is_pit(t->ttyp)` (`trap.h:113` macro); `muse.c:95 — three one-line import extensions, no new module edges (`imports.mjs --can` ALREADY on all three; same 82-module SCC, no TDZ): `muse.js` gains `is_pit` + `FORCEBUNGLE` on the existing `./const.js` list; `read.js` gains `o
 **D-1987** `nethack-c/upstream/src/getpos.c` — `js/getpos.js` — new `HiliteBackground = 2` + `defaultHiliteState` module state (C `:30–38`); `getpos_sethilite` in exact C order (old store read, default recompute from live `game.iflags?.bgcolors`, conditional reset, c
-**D-1986** `nethack-c/upstream/src/display.c` — `js/display.js` — grid paint is span-gated per C (`gnew ||` live framecolor arm via `get_bkglyph_and_framecolor`; `gnew` cleared only when painted, `:2255`; unexplored-with-gnew paints blank, D-0931 precedent); no blanke
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1993; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1994; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

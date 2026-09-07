@@ -231,8 +231,9 @@ function Polymorph_control(u = game.u || {}) {
         || (e?.intrinsic | 0) || (e?.extrinsic | 0));
 }
 
-/** C ref: youprop.h Unchanging — H || E via flat + uprops. */
-function Unchanging(u = game.u || {}) {
+/** C ref: youprop.h Unchanging — H || E via flat + uprops.
+ * Exported for do_wear.c Amulet_on CHANGE arm. */
+export function Unchanging(u = game.u || {}) {
     const e = u.uprops?.[UNCHANGING];
     return !!((u.Unchanging || u.HUnchanging || u.EUnchanging)
         || (e?.intrinsic | 0) || (e?.extrinsic | 0));
@@ -555,8 +556,8 @@ function rounddiv(x, y) {
 
 /**
  * C ref: polyself.c poly_gender — 0/1 ≡ flags.female, 2=none.
- */
-function poly_gender() {
+ * Exported for do_wear.c Amulet_on CHANGE arm. */
+export function poly_gender() {
     const ptr = game.youmonst?.data;
     if (is_neuter(ptr) || !humanoid(ptr)) return 2;
     return game.flags?.female ? 1 : 0;
