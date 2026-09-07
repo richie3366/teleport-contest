@@ -400,7 +400,7 @@ other TROUBLE_* deferred); **crowning `gcrownu`/`at_your_feet` + `add_weapon_ski
 (D-0366) + **`hide_monst` viz override → `restrap` `rn2(3)` (+ mimic retry) + 
 `hideunder`** (D-0622) + **`movemon_singlemon` pre-dochug `restrap`** (D-0624; 
 eel hideunder/`rn2(4)` / I_SPECIAL equip deferred); 
-omit binary NHFILE, mysterious force, quest gate, portals (ledger-1 escape `y_n` live D-2016); 
+omit binary NHFILE, mysterious force, quest gate, portals; **`prev_level` Dlvl1 branch-up escape `done(ESCAPED)`** (D-2039; ledger-1 escape `y_n` live D-2016); 
 trap-door fall D-1179; Lua `NHCB_LVL_LEAVE`; 
 full `TEST_TRAV`/`TRAVP_GUESS`/`travelmap`/`#retravel`; **`#wizmakemap` D-1288**; 
 **`#seeall` D-1605**; **`#?` D-1625**; **BIND= M('?') D-1643**; remaining `extcmdlist` bodies; …
