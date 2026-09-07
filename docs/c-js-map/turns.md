@@ -114,12 +114,17 @@ JS: `js/wizcmds.js` — partial
 `in_sanity_check` for `impossible`; swallow/overlay/HP-Pw clamps); 
 **`#wizintrinsic` BLINDED `make_blinded`** (D-0928 #1171); **`#wizintrinsic`
 DEAF `make_deaf(newtimeout, TRUE)`** (D-1817; C `wizcmds.c:1029`; not
-generic Timeout pline); **`#levelchange`** (D-1203/D-0061); 
-wiz_wish / wiz_genesis / wiz_level_tele / wiz_map / wiz_identify / wiz_makemap live. 
-Named: `check_wornmask_slots`; obj/timer/mon/light/bc/trap/engraving/`levl_sanity_check`; 
+generic Timeout pline); **`#wizintrinsic` SICK/STONED/STUNNED/VOMITING/
+WARN_OF_MON/GLIB arms + float/rescham/pool tail** (D-1998; C `wizcmds.c:1035–1087`;
+SICK `rn2(2)` vomit-type + `make_sick`; STONED `make_stoned` KILLED_BY;
+STUNNED `make_stunned`; VOMITING silent `make_vomiting` + pline buf;
+WARN_OF_MON grid-bug default then def_feedback; GLIB `make_glib` + Timeout
+pline with no incr; CONFUSION via default — its `make_confused` case is
+`#if 0`'d out); **`#levelchange`** (D-1203/D-0061);
+wiz_wish / wiz_genesis / wiz_level_tele / wiz_map / wiz_identify / wiz_makemap live.
+Named: `check_wornmask_slots`; obj/timer/mon/light/bc/trap/engraving/`levl_sanity_check`;
 optfn_boolean `sanity_check` OPTIONS=; `doredraw` body; wizweight;
-count-prefix `#wizintrinsic`; sick/slimed/stoned/stunned/vomiting/glib
-special arms.
+count-prefix `#wizintrinsic`.
 
 ### `src/detect.c` `dosearch0`/`findit`/`do_mapping`/`reveal_terrain` + `cmd.c` `doterrain`
 

@@ -50,6 +50,6 @@ D-log cites four verifiers with per-session first divergences. Re-measured this 
 
 1. Missing `DEAF` import in `js/invent.js` (D-1995 hunk): `status_core_lines` calls `from_what(DEAF)` (invent.js:4882) but `DEAF` (`const.js:2561`, `export const DEAF = 16`) was not added to the const.js import list. Any deaf hero running `^X`/death disclosure throws `ReferenceError: DEAF is not defined` — fortress 43/44 (`seed0002-healer-reflection-drummer`). Fix: add `DEAF` to the existing `./const.js` import (same edge, no cycle risk); sibling added identifiers all checked (comments, `objectNames.indexOf` strings, or lazy-import bindings — `DEAF` is the only real gap). Source: reviews/loop-unattended/965-f8079012-enlightenment-family-slimed.md.
 
-**Addressed:** D-1996
+**Addressed:** D-1996 `ea1f4401`
 
 Verdict: **QUALITY-RISK**

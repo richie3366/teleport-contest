@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `wizcmds.c` wiz_intrinsic — blocks 7/553 (first at step 16): C `You feel deathly sick.--More--` then `Timeout for fatally sick set to 30.`; JS prints the timeout line first and draws `rn2(12)` from `mcalcmove` where C draws `rn2(2)` in `wiz_intrinsic :1036` (the `make_sick`/`set_itimeout` + `incr` arms). Probe: `node scripts/hidden-proxy.mjs verify wiz_intrinsic` (scen-death-Archeologist-92015, scen-death-Knight-92203, scen-intrinsic-Barbarian-92008). (D-1997 shipped the enlightenment page-order arms; Caveman turn-count residual re-queued as its own moveloop row.)
+**Next cluster:** `monmove.c` set_apparxy — blocks 6/553 (first at step 7): C draws `rn2(4)` in `set_apparxy :2280` (displacement / `mtmp->mux` notseen gate) where JS is in `m_initinv`; a freshly created (`^G`) monster's first move. Probe: `node scripts/hidden-proxy.mjs verify set_apparxy` (scen-genesis-Ranger-92126, scen-genesis-Ranger-92151, scen-wish-Healer-92147). (D-1998 shipped the wiz_intrinsic sick/stone/stun/vomit/warn/glib arms + tail.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1996 (index).**
+**Keep D-0845…D-1998 (index).**
 <!-- recent:begin -->
+**D-1998** `wizcmds.c:948–1096` `wiz_intrinsic` — `js/wizcmds.js` — per-prop switch in exact C order with `:line` citations: SICK `!rn2(2) ?
 **D-1996** `attrib.c:905–1001` `from_what` (DEAF `:931` roleplay-deaf arm); `insight.c:1059–1074` Bli — one-word addition to the existing same-edge `./const.js` import (after `BLINDED`, matching C `BLINDED=15, DEAF=16` order) with a C-citation comment.
 **D-1995** `insight.c` enlightenment family — `js/invent.js` status arms (Stoned/Slimed/Strangled/Sick/Vomit/Stun/Conf/Blind-kinds/held-swallowed/Fumbling+Sleepy+Hunger-magic) + resistance `from_what` catalogue (Sleep/See_invisible/telepathic/warned/Fast/Reflecting/Lifesaved/spell-cast/wizard-record/Luck/Nth-death/bones) + corner `^X` menu; `js/attrib.js` dwa/gno infra + innate H-fields; `js/wizcmds.js` SLIMED arm. Verify: enlightenment 6 moved/1 unchanged, one_characteristic 5 PASS/8 moved, status_enlightenment 4 moved, 0 worse; wiz_intrinsic 9 unchanged (rest remains).
 **D-1994** `attrib.c:520–584` `exerper` — `js/allmain.js` — SATIATED/WEAK Monk WIS arms (`(game.urole?.mnum|0)===PM_MONK` idiom) + every-5 H-only Clairvoyant WIS arm (flat+intrinsic, blocked vetoes) and H-only Regen STR arm, all with C `:line` comments (`PM_MONK
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-1992** `polyself.c:1305–1362` `drop_weapon` — deleted the clone; message via live `is_sword` (`./objects.js`) + `weapon_descr` (`./invent.js`) + live `makeplural` (`./objnam.js`) with C `:line` comments; drops via live sync `uswapwepgone()` + async `uwepgone()` with
 **D-1991** `polyself.c:1157–1302` `break_armor` — exact-C arm order with `:line` citations — `end_burn` (new `./timeout.js` edge) + `await Armor_gone()` + `useup` (same-module `./invent.js`) for breakarm uarm; cloak 3-way on `(otyp !== MUMMY_WRAPPING || !WrappingAllowed
 **D-1990** `botl.c:100–250` `do_statusline2` — cond built in exact C order with `:line` citations — fatal four first (flat `u.Stoned/Slimed/Sick` from `make_*` OR `uprops[].intrinsic` from `#wizintrinsic incr_prop_timeout`, like `timeout.js intr_bits`; Strangled also
-**D-1989** `calendar.c:40–46` `getlt() = localtime(getnow())`; contest patch 001 `time_from_yyyymmddh — `getlt()` = `nyLocaltime(getnow())`; new module-local America/New_York engine, plain arithmetic per Rule #2 (no Intl / node TZ; only `Date.UTC`/getUTC* decomposition): pre-2007 first-Sun-Apr → last-Sun-Oct, 2007+ second-
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1996; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1998; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
