@@ -1019,3 +1019,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1006-4c3db33a-do-attack-cluster.md](./1006-4c3db33a-do-attack-cluster.md) | `4c3db33a` | D-2036 do_attack ranged + caitiff + init | **QUALITY-RISK** |
 | [1007-e650e3d1-find-trap-wait.md](./1007-e650e3d1-find-trap-wait.md) | `e650e3d1` | D-2037 find_trap clutter redraw wait | **ACCEPT** |
 | [1008-2d18057e-seenv-center.md](./1008-2d18057e-seenv-center.md) | `2d18057e` | D-2038 seenv_matrix center 0→SVALL | **ACCEPT** |
+| [1009-55de4d0e-prev-level-escape.md](./1009-55de4d0e-prev-level-escape.md) | `55de4d0e` | D-2039 prev_level Dlvl1 escape arm | **ACCEPT** |
+| [1010-e2c5bc79-boomerang-tail.md](./1010-e2c5bc79-boomerang-tail.md) | `e2c5bc79` | D-2040 hmon boomerang tail :901–917 | **ACCEPT** |
+| [1011-f536bbde-silver-predicate.md](./1011-f536bbde-silver-predicate.md) | `f536bbde` | D-2041 ranged silver mon_hates_silver | **ACCEPT** |
+| [1012-d01aa3bb-caitiff-await.md](./1012-d01aa3bb-caitiff-await.md) | `d01aa3bb` | D-2042 kickdmg caitiff await | **ACCEPT** |
+| [1013-62183c30-ad-slow-drst.md](./1013-62183c30-ad-slow-drst.md) | `62183c30` | D-2043 mhitm_ad_slow mhitu + ad_drst uhitm | **ACCEPT** |
+| [1014-a101cf0e-simpleonames-quiver.md](./1014-a101cf0e-simpleonames-quiver.md) | `a101cf0e` | D-2044 simpleonames plural + thrown quiver | **QUALITY-RISK** |
+| [1015-29aff746-monster-arm.md](./1015-29aff746-monster-arm.md) | `29aff746` | D-2045 do_screen_description monster arm | **ACCEPT** |
+| [1016-376d29e8-play-instrument.md](./1016-376d29e8-play-instrument.md) | `376d29e8` | D-2046 do_play_instrument ynq + gates | **ACCEPT** |
+| [1017-d0c254aa-m-search-items.md](./1017-d0c254aa-m-search-items.md) | `d0c254aa` | D-2047 m_search_items shop gate + scan | **ACCEPT** |

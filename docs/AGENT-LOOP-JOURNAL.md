@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — Audit reviews 1010–1017 (D-2040…D-2047) + cadence 44/44
+
+Review-only, no js/. Each SHA re-measured `verify <fn> --base SHA~1`
+vs pinned C. 7 ACCEPT, 1 QUALITY-RISK: 1014 fills the addinv thrown
+quiver on merge, C skips it (`goto added`) — Must-fix prepended, Next
+cluster set. Notes: caitiff sites are five not ten; Valkyrie `js-throw`
+label phantom (error null); sym.mjs misses export-list consts. Full
+`sessions` 44/44 (Scr 11405, RNG 792838). Queue mf=1 open=10, no refill.
 ## 2026-09-07 — D-2047 monmove.c m_search_items shop gate + scan arms (queue owner m_search_items)
 
 **C locus:** `monmove.c m_search_items :1329–1450` (full body read from the brief) + caller `monmove.c:1906` (`if (getitems && m_search_items(...)) return postmov(...)`) + `monst.h:251` `#define helpless(mon) ((mon)->msleeping || !(mon)->mcanmove)` + `mon.c can_touch_safely :1958–1974` (corpse/silver/artifact checks, no RNG) + `monmove.c onscary :241–300` (no RNG). C order: minr guards → `if (*in_rooms(omx, omy, SHOPBASE) && (rn2(25) || mtmp->isshk)) goto finish_search` → per-cell scan (OBJ_AT, minr tighten, could_reach_item, hides_under+cansee, m_at helpless/mundetected/mappearance/nomove, onscary, trap-known with gg reset, m_cansee, costly_spot) → per-item (ROCK skip, mines/soko prize skip, costly+!no_charge skip, `((take && carry>0) || consume) && touch` with C short-circuit) → finish_search tail (appr −1 → mux/muy or 1).
