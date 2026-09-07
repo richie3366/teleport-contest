@@ -284,7 +284,7 @@ hide/web `yn_function` prompt; `dospit` venom/`throwit`; `doremove` nymph/`unpun
 gremlin `split_mon`/`dryup`; shriek/`aggravate`; vampire `dopoly`; gaze/hide/web
 `dogaze`/`dohide`/`dospinweb` + steed `pet_ranged_attk` still deferred) + 
 **`can_breathe`→`dobreathe` uen<15** (D-0725; 
-getdir/ubuzz deferred); **`polymon` verbose breath tip** (D-0725; other tips deferred)); 
+getdir/ubuzz deferred); **`polymon` verbose ability tips full block** (D-0725 breath; D-2007 spit/nymph/gaze/hide+web/were/gremlin/unicorn/mindflayer/shriek/vampire/sit-egg with eel exclusion)); 
 **`d` → `dodrop`/`drop`/`dropx` + gold `freeinv_core` botl/`_goldCount` 
 (D-0396)/`dropy`/`canletgo`** (D-0261) + **`flooreffects` via `dropz`** (D-0987) + 
 **`dropz` `impact_disturbs_zombies`** (D-1229; 
