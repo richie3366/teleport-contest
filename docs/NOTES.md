@@ -7,10 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 - **Scenario corpus = work picker (2026-09-06, human):** `scen-*` 7/275 is the held-out shape; mutants 255/278 saturated. Queue from `hidden-proxy queue`; singletons Deferred; themed-room step-0 → `geom-probe`.
 
-- **Park `show_conduct` (c209ccc7):** stale (859→824 x_monnam); owner is a C comment; DontAsk arm REGRESSES (reverted). See Parked; re-baseline first.
-- **Park `ready_weapon` (Knight-92204 spin):** moves 5/6; Knight spins 99% CPU past step-25 → downstream loop. See Parked; needs stack/profile.
-- **Parks `mdrop_obj`/`dopush`:** capture-point / one-cell-r13c32 mimic-viz; ports are verify no-ops; needs C viz at step 127 or `view_from` audit.
-- **Geometry owners:** probe first (D-1849). Refills must not cite the current D-ID.
+- **Parks (Parked rows; do not pop):** show_conduct stale-859→824, C-comment owner, DontAsk REGRESSES; ready_weapon Knight-92204 spin; mdrop_obj/dopush capture-point, ports no-op; dosearch grid-bug (2026-09-07, no D-log): x=PM_GRID_BUG-116, both searches RNG-clean, C ~2 cells vs JS ~8, paint/NODIAG/table/kick falsified, falsifier = C per-turn mon pos (geom-probe invalid mid-game: debug-mode divergence).
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.

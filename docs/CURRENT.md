@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (currently empty) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** (D-2035 shipped; pop `LOOP-QUEUE.md` head.)
+**Next cluster:** (dosearch grid-bug row parked 2026-09-07, no D-log; pop `LOOP-QUEUE.md` head.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2035 (index).**
 <!-- recent:begin -->
