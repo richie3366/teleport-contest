@@ -1337,7 +1337,7 @@ JS: `js/dokick.js` — partial
 **`dokick` no_kick poly/steed/lizard/uinwater/utrap/boulder D-1362** (`:1265–1310`; 
 `kick_steed` callee; steed `by_steed` / `monverbself` vtense / swallow+pit-brace+Lev after getdir 
 still named); **`maybe_kick_monster`/`kick_monster`/`kickdmg` + `martial()`** (D-0706; 
-**`kickdmg`→`check_caitiff`** D-0928 #1100; **poly AT_KICK D-1310**; 
+**`kickdmg`→`check_caitiff` awaited** D-0928 #1100, D-2042 (C `dokick.c:68` sync; tenth site, other nine D-2036); **poly AT_KICK D-1310**; 
 **kickdmg `special_dmgval(W_ARMF)` D-1332**; **`maybe_mnexto` evade D-1336**; **`kickstr` D-1343**; 
 **`kickdmg` `abuse_dog`/`monflee` D-1349**; **martial knockback D-1350**; 
 **`dokick` `wake_nearby(FALSE)` D-1358**; **`dokick` `u_wipe_engr(2)` D-1360**; 

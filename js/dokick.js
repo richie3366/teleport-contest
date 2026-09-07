@@ -856,8 +856,9 @@ async function kickdmg(mon, clumsy) {
     }
 
     if (M_AP_TYPE(mon)) seemimic(mon);
-    // C: check_caitiff(mon) before tame abuse
-    check_caitiff(mon);
+    // C dokick.c:68 — check_caitiff(mon) before tame abuse (sync in C;
+    // async in JS for awaited pline — must await to keep topline order)
+    await check_caitiff(mon);
 
     /* C dokick.c `:70–76` — squeeze some guilt feelings… */
     if (mon.mtame) {

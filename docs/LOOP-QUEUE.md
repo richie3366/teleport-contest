@@ -47,8 +47,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 `error`) is always a Must-fix row: it forfeits every later screen of that
 session (Constitution §10.14).
 
-- [ ] `dokick.c` kick_monster caitiff float — `js/dokick.js:860` calls now-async `check_caitiff` without await (C `dokick.c:68` synchronous; the 9 other sites were awaited in D-2036). Probe: add await, Knight/Samurai kick replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 3).
-
 ## Open (corpus-driven, after Must-fix is empty)
 
 Ranked by corpus sessions blocked (`hidden-proxy queue`, scoreboard at

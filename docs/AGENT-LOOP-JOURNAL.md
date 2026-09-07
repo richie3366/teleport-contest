@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — D-2042 dokick.c kickdmg: await tenth check_caitiff site (review 1006 C-wrong 3)
+
+**C locus:** `nethack-c/upstream/src/dokick.c:68` `check_caitiff(mon);` inside `kickdmg :33–123`, synchronous, immediately before the `if (mon->mtame)` abuse block `:70–76`.
+**JS:** 1 file (`dokick.js` +3/−2), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates; no committed probes.
+**Change:** `js/dokick.js` — `await check_caitiff(mon);` with a C citation comment (`dokick.c:68`, sync in C / async in JS for the awaited pline, must await to keep topline order). No new import (`check_caitiff` already imported from `./uhitm.js:42`); enclosing `kickdmg` already async, so no signature or edge change.
+**Verify:** `node scripts/verify.mjs --fn kickdmg` → `PASS syntax 1 changed js file(s): js/dokick.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `note hidden verify kickdmg: no corpus session is blocked on it at HEAD — a vacuous verify is NOT a corpus PASS` (row cites zero corpus blocks — Must-fix from written review, so public gates carry the ship) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)` · `VERIFY: PASS`. Probe `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json` → `PASS (RNG 108275/108275, Screen 1814/1814)`. Final verify ran after the last edit (no D-1831 gap).
+**Named:** none new — every `kickdmg` callee is live; all ten `check_caitiff` sites now awaited.
+**Next:** Must-fix queue is empty — pop the first Open row (`uhitm.c` mhitm_mgc_atk_negated, 4 corpus blocks).
 ## 2026-09-07 — D-2041 uhitm.c ranged silver predicate: mon_hates_silver disjunct (review 1006 C-wrong 2)
 
 **C locus:** `nethack-c/upstream/src/uhitm.c:896` `if (hmd->material == SILVER && mon_hates_silver(mon))` inside `hmon_hitmon_weapon_ranged :884–917`; `mon_hates_silver` = `nethack-c/upstream/src/mondata.c:516–520` `return (boolean) (is_vampshifter(mon) || hates_silver(mon->data))`. The exact callee was already live in JS (`js/monsters.js:832–834`, D-1254) — the D-2036 port reached past it for the narrower predicate (D-1849 class).

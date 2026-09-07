@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2042 — dokick.c kickdmg: await tenth check_caitiff site (review 1006 C-wrong 3)
+
+- **Status:** fixed (Must-fix queue row `dokick.c` kick_monster caitiff float, review 1006 C-wrong 3; review stamped D-2042, row archived. No corpus session is blocked on `kickdmg`/`kick_monster` at HEAD — ship is on the C citation + public gates + Knight kick replay, stated honestly below, not as a corpus PASS.)
+- **Symptom:** review-measured C-wrong, not a corpus first-diff: D-2036 made `check_caitiff` async (awaited pline) and awaited 9 call sites, but `js/dokick.js:860` inside async `kickdmg` called it without await — the Knight-chivalry / Samurai-giri rebuke floated exactly the way D-2036 fixed at the other nine, reordering the topline against the tame-abuse and kick-damage output that follows.
+- **C locus:** `nethack-c/upstream/src/dokick.c:68` `check_caitiff(mon);` inside `kickdmg :33–123`, synchronous, immediately before the `if (mon->mtame)` abuse block `:70–76`.
+- **JS was:** `js/dokick.js:860` `check_caitiff(mon);` — unawaited promise inside async `kickdmg` (same function already awaits `passive`/`abuse_dog`/`monflee` around it); the other nine sites (`uhitm.js:447`, `apply.js:3900/:4063/:4073`, plus D-2036's dokick/u_init/wield/apply sites) all await.
+- **Fix:** `js/dokick.js` — `await check_caitiff(mon);` with a C citation comment (`dokick.c:68`, sync in C / async in JS for the awaited pline, must await to keep topline order). No new import (`check_caitiff` already imported from `./uhitm.js:42`); enclosing `kickdmg` already async, so no signature or edge change.
+- **JS:** 1 file (`dokick.js` +3/−2), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates; no committed probes.
+- **Verify:** `node scripts/verify.mjs --fn kickdmg` → `PASS syntax 1 changed js file(s): js/dokick.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `note hidden verify kickdmg: no corpus session is blocked on it at HEAD — a vacuous verify is NOT a corpus PASS` (row cites zero corpus blocks — Must-fix from written review, so public gates carry the ship) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)` · `VERIFY: PASS`. Probe `node frozen/ps_test_runner.mjs sessions/seed4500-knight-coverage.session.json` → `PASS (RNG 108275/108275, Screen 1814/1814)`. Final verify ran after the last edit (no D-1831 gap).
+- **Named omissions:** none new — every `kickdmg` callee is live; all ten `check_caitiff` sites now awaited.
+- **Next:** Must-fix queue is empty — pop the first Open row (`uhitm.c` mhitm_mgc_atk_negated, 4 corpus blocks).
+- **Cited falsifier grade:** inferred-from-C + gates + replay (pinned C `dokick.c:33–123` read from upstream; all ten JS call sites read from `js/dokick.js`+`js/uhitm.js`+`js/apply.js`; post-port `verify --fn kickdmg` + green + strict + cohort + Knight-coverage replay; no corpus session reaches the arm; no JS FORCE/DIAG/seed reads used).
+
 ## D-2041 — uhitm.c ranged silver predicate: mon_hates_silver disjunct (review 1006 C-wrong 2)
 
 - **Status:** fixed (Must-fix queue row `uhitm.c` ranged silver predicate, review 1006 C-wrong 2; review stamped D-2041, row archived. No corpus session is blocked on this predicate at HEAD — ship is on the C citation + public gates + a /tmp vampshifter probe, stated honestly below, not as a corpus PASS.)
