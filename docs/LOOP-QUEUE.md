@@ -47,8 +47,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 `error`) is always a Must-fix row: it forfeits every later screen of that
 session (Constitution §10.14).
 
-- [ ] `invent.c` addinv_core0 quiver fill fires on merge (review-measured): C merges `goto added`, skipping `:1128–1140` (fresh-insert only); JS also fills on merge. Fix: delete that hunk. Source: reviews/loop-unattended/1014-a101cf0e-simpleonames-quiver.md (1014 C-wrong 1).
-
 ## Open (corpus-driven, after Must-fix is empty)
 
 Ranked by corpus sessions blocked (`hidden-proxy queue`, scoreboard at

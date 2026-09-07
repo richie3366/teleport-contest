@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2048 — invent.c addinv_core0 quiver fill fires on merge (review 1014 C-wrong 1)
+
+- **Status:** fixed (Must-fix queue row `invent.c` addinv_core0 quiver fill fires on merge — review-measured, cites no corpus blocks; `verify --fn addinv_core0` reports the vacuous-hidden note honestly, not a corpus PASS; review 1014 stamped **Addressed:** D-2048)
+- **Symptom:** review-measured, no corpus session blocked: with a thrown stack picked up into an empty quiver while a mergable stack sits in invent, JS filled the quiver (`setuqwep(otmp)` on the merge survivor) where C leaves `uquiver` empty. Observable state (quiver letter, throw prompts) on a live arm.
+- **C locus:** `invent.c addinv_core0 :1055–1148` (full body read from the brief): the `other_obj` reinsert, the quiver-prefer merge, and the general merge loop all end in `goto added` — every one bypasses the `:1128–1140` fill arm (`obj_was_thrown && flags.pickup_thrown && !uquiver && oartifact != ART_MJOLLNIR && otyp != AKLYS && (throwing_weapon || is_ammo)` → `setuqwep`). The fill fires only on the fresh-insert fall-through (assigninvlet + chain link, then fill, then `added:`).
+- **JS was:** `addinv` (`js/u_init.js:990–997`) carried two fill hunks (D-2044 "verbatim on both paths"): the merge-survivor hunk fired `setuqwep(otmp)` on the general-merge path, contradicting C's `goto added` bypass. The fresh-insert hunk (conjunct-for-conjunct per review 1014) was already exact.
+- **Fix:** `js/u_init.js` — deleted the merge-survivor fill hunk; left a two-line C comment (`merge paths goto added, bypassing :1128–1140 — no setuqwep here`). Fresh-insert hunk untouched. No import changes (`throwing_weapon`/`is_ammo`/`setuqwep` still used by the fresh-insert arm and `ini_inv_use_obj`).
+- **JS:** 1 file (`u_init.js`), +2/−8, under the 600/10 caps. No DIAG/FORCE/seed gates (Rule #2 clean); no committed probes (diagnosis via `brief.mjs` C body + review 1014's C-vs-JS control-flow read).
+- **Verify:** `node scripts/verify.mjs --fn addinv_core0` → `PASS syntax 1 changed js file(s): js/u_init.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `note hidden verify addinv_core0: no corpus session is blocked on it at HEAD` (vacuous — the queue row cites a review, not corpus blocks; NOT claimed as a corpus PASS) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)` · `VERIFY: PASS`. Final verify ran after the last edit (no D-1831 gap). Deletion-only on a C-bypassed path; the surviving fresh-insert arm keeps its D-2044 corpus movement (Rogue-92115 → start_tin@118, Rogue-92030 → dofire@63 per review 1014's re-measure).
+- **Named omissions:** quiver-prefer merge, `addinv_before` reinsert, oname absorb, worn-slot merge, `how_lost` clear (pre-existing map omits in the same `addinv` envelope, untouched — the deleted hunk sat in the general-merge arm only).
+- **Next:** pop the next Open row (`uhitm.c` mhitm_ad_were, 2 corpus blocks).
+- **Cited falsifier grade:** measured (pinned C body `:1055–1148` with all three `goto added` bypasses + the `:1128–1140` fill arm read from upstream; review 1014's Actionable C-wrong as the recorded expectation; post-port `verify --fn` + green + strict + cohort; no JS FORCE/DIAG/seed reads used).
+
 ## D-2047 — monmove.c m_search_items shop gate + scan arms (queue owner m_search_items)
 
 - **Status:** fixed (Open queue row `monmove.c` m_search_items — row cited 2/553; `verify --fn m_search_items` re-ran the 2 blocked: 0 PASS, 2 moved past (re-attributed at the same step to later owners), 0 unchanged, 0 worse → PROGRESS; no review stamp owed — row cites no review)

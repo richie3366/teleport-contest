@@ -1200,8 +1200,8 @@ lifting/removing + `pickup_encumbrance`** (D-0456;
 **`addinv` merge → C `merged` age/quan/coin-`bknown=0` then known/bknown/rknown + 
 invent compare-learn pline** (D-0879/D-0882; uses `mkobj.mergable`; 
 quiver-prefer / worn-slot / oname / globby / `#adjust` `invent_merged` compare msg / addinv clear 
-`how_lost` deferred; **`addinv_core0` thrown-autoquiver fill live** (pickup_thrown + empty 
-quiver + throwing_weapon/is_ammo → setuqwep; D-2044))
+`how_lost` deferred; **`addinv_core0` thrown-autoquiver fill live on fresh insert only** (pickup_thrown + empty 
+quiver + throwing_weapon/is_ammo → setuqwep; D-2044; merge paths `goto added` bypass the fill — no setuqwep on merge, D-2048))
 
 ### `src/do_name.c` `oname` / `docallcmd`
 

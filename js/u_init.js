@@ -987,14 +987,8 @@ export async function addinv(obj) {
             const { pline } = await import('./display.js');
             await pline('You learn more about your items by comparing them.');
         }
-        // C invent.c addinv_core0 — fill empty quiver if obj was thrown
-        // (pickup_thrown on, no quiver, not Mjollnir/aklys, throwable).
-        if (objWasThrown && (game.flags?.pickup_thrown !== false)
-            && !game.u?.uquiver && ((otmp.oartifact | 0) !== ART_MJOLLNIR)
-            && ((otmp.otyp | 0) !== objectNames.indexOf('AKLYS'))
-            && (throwing_weapon(otmp) || is_ammo(otmp))) {
-            setuqwep(otmp);
-        }
+        // C invent.c addinv_core0 — merge paths `goto added`, bypassing the
+        // `:1128–1140` thrown-autoquiver fill (fresh-insert only); no setuqwep here.
         // C invent.c `added:` — addinv_core2(obj) then carry_obj_effects(obj)
         await addinv_core2(otmp);
         carry_obj_effects(otmp);

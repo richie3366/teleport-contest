@@ -90,8 +90,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** review-1014 Must-fix: `invent.c` addinv_core0 quiver fill fires on merge (C skips via `goto added`); delete the merge hunk in `addinv`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2047 (index).**
+**Keep D-0845…D-2048 (index).**
 <!-- recent:begin -->
+**D-2048** `invent.c addinv_core0 :1055–1148` (full body read from the brief): the `other_obj` reinse — `js/u_init.js` — deleted the merge-survivor fill hunk; left a two-line C comment (`merge paths goto added, bypassing :1128–1140 — no setuqwep here`).
 **D-2047** `monmove.c m_search_items :1329–1450` (full body read from the brief) + caller `monmove.c: — `js/monmove.js` — `const shopSkip = in_rooms(omx, omy, SHOPBASE) && (rn2(25) || mtmp.isshk)` with C short-circuit order (rn2 draws only in shop) gating the whole scan as C's `goto finish_search` (falls through to the tai
 **D-2046** `music.c do_play_instrument :759–899` (read whole body + apply.c:4383 caller) + `include/h — `js/music.js` — both `yn_function` defaults `'y'`→`'q'` with hack.h:1330 citation; `if/else-if` gate mirroring C `:763–773` (`can_blow(game.youmonst)` — same call shape as the sibling apply.js whistle arms D-1007; `thesi
 **D-2045** `pager.c do_screen_description` check_monsters (looked: `sym == gs.showsyms[i + SYM_OFF_M] — `js/pager.js` — monster arm now: prefix `mon_glyph(mtmp).ch` (shown char, C encglyph; same source `look_all` uses); body `an(mlet_class_explain(mlet))` + ` (look)` with `first = look` unstripped (C didlook; empty-look gu
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2043** `mhitm_ad_slow :3652–3689` (gate FALSE always `:3658`, `defended(mdef, AD_SLOW)` early ret — `js/mhitu.js` — `mhitm_ad_slow_u` in exact C mhitu-branch order (gate first, then hitmsg, then HFast+`rn2(4)` → awaited `u_slow_down`; leftover `d()` kept like FAMN) + `case AD_SLOW` + file-local `AD_SLOW = 13` (`monattk
 **D-2042** `nethack-c/upstream/src/dokick.c:68` `check_caitiff(mon);` inside `kickdmg :33–123`, synch — `js/dokick.js` — `await check_caitiff(mon);` with a C citation comment (`dokick.c:68`, sync in C / async in JS for the awaited pline, must await to keep topline order).
 **D-2041** `nethack-c/upstream/src/uhitm.c:896` `if (hmd->material == SILVER && mon_hates_silver(mon) — `js/uhitm.js` — `mon_hates_silver` extends the pre-existing `./monsters.js` import (no new module edge per `imports.mjs --can`: already statically imported; sync callee, same 82-module SCC, no top-level TDZ read) and the
-**D-2040** `nethack-c/upstream/src/uhitm.c` `hmon_hitmon_weapon_ranged :884–917`: shade-glare/`rnd(2) — `js/uhitm.js` ranged branch — C-order boomerang tail after silver: `!thrown && obj===game.u?.uwep && obj.otyp===BOOMERANG && rnl(4)===3` (short-circuit order preserved; `!thrown` = HMON_MELEE per the existing dispatch at
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2047; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2048; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

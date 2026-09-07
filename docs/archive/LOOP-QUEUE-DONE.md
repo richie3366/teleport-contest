@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `monmove.c` m_search_items — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(25)=12` in m_search_items, JS `rn2(1)=0` from m_move(monmove.js:1813). Probe: `node scripts/hidden-proxy.mjs verify m_search_items` (scen-tour-Samurai-92032, scen-tour-Tourist-92100). **Addressed:** D-2047
+- [x] `invent.c` addinv_core0 quiver fill fires on merge (review-measured): C merges `goto added`, skipping `:1128–1140` (fresh-insert only); JS also fills on merge. Fix: delete that hunk. Source: reviews/loop-unattended/1014-a101cf0e-simpleonames-quiver.md (1014 C-wrong 1). **Addressed:** D-2048
+
+
+- [x] `monmove.c` m_search_items — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(25)=12` in m_search_items, JS `rn2(1)=0` from m_move(monmove.js:1813). Probe: `node scripts/hidden-proxy.mjs verify m_search_items` (scen-tour-Samurai-92032, scen-tour-Tourist-92100). **Addressed:** D-2047 `d0c254aa`
 
 
 - [x] `music.c` do_play_instrument — blocks 3/553 corpus sessions (first at step 63): C «Improvise? [ynq] (q)» vs JS «Improvise? [ynq] (y)». Probe: `node scripts/hidden-proxy.mjs verify do_play_instrument` (scen-intrinsic-Healer-92168, scen-wish-Caveman-92174, scen-wish-Ranger-92156). **Addressed:** D-2046 `376d29e8`
