@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mkobj.c` next_ident — blocks 6/553 corpus sessions (first at step 157): C draws `rnd(2)=1` in next_ident, JS `rn2(5)=2` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-poly-Priest-92021, scen-tour-Wizard-92103, scen-wish-Archeologist-92038).
 - [ ] `attrib.c` exercise — blocks 5/553 corpus sessions (first at step 60): C draws `rn2(2)=1` in exercise, JS `rn2(300)=129` from dosounds(sounds.js:344). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-death-Monk-92000, scen-death-Tourist-92095, scen-death-Wizard-92120).
 - [ ] `botl.c` do_statusline2 — blocks 5/553 corpus sessions (first at step 63): C «The jackal bites! The jackal bites!» vs JS «The jackal bites! The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Monk-92164, scen-poly-Priest-91137, scen-poly-Tourist-92047).
 - [ ] `insight.c` one_characteristic — blocks 5/553 corpus sessions (first at step 54): C «Your constitution was 14 (limit:18).» vs JS «Your constitution was 14 (limit:18).». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-genesis-Ranger-91139, scen-genesis-Ranger-92073, scen-genesis-Ranger-92151).

@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster (Must-fix first):** first Open `- [ ] mkobj.c next_ident — blocks 6/553 corpus sessions (first at step 157): C draws rnd(2)=1 in next_ident, JS rn2(5)=2 from distfleeck(monmove.js:808). Probe: node scripts/hidden-proxy.mjs verify next_ident` (scen-poly-Priest-92021, scen-tour-Wizard-92103, scen-wish-Archeologist-92038).
+**Next cluster (Must-fix first):** first Open `- [ ] attrib.c exercise — blocks 5/553 corpus sessions (first at step 60): C draws rn2(2)=1 in exercise, JS rn2(300)=129 from dosounds(sounds.js:344). Probe: node scripts/hidden-proxy.mjs verify exercise` (scen-death-Monk-92000, scen-death-Tourist-92095, scen-death-Wizard-92120).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2021 (index).**
+**Keep D-0845…D-2022 (index).**
 <!-- recent:begin -->
+**D-2022** (1) `makemon.c:1369–1384` mitem block — (1) makemon.js: `if (no_of_wizards === 1 && Is_earthlevel(game.u?.uz)) mitem = otyp('SPE_DIG')` (C `:1372–1373` gate verbatim; `imports.mjs --can makemon.js const.js Is_earthlevel`: already statically imported, no new ed
 **D-2021** `objnam.c` `readobjnam` zero-draw exact paths that resolve `d.typ` before the random `srch — `js/readobjnam.js` — `real `/`fake ` preparse arms + `d.real`/`d.fake` fields (C `:4125–4133`); Amulet real/fake block before `makesingular` (C `:4284–4309`, incl. the `:5002–5006` typfnd non-wizard→fake fold for this ar
 **D-2020** `pager.c:1346–1353` — `js/pager.js` — self branch now returns `found: orYou ? 2 : 1`; comment cites the `append_str` return and `:1941`.
 **D-2019** `cmd.c:5067–5080` `get_count` echo — `js/display.js` — new exported `async custompline(flags, msg)` (`pline.c:299–309` verbatim shape: consume_msg_loc, empty return, `gp.pline_flags` set/try/finally-reset, vpline core); `pline_after_consume(msg, suppressHis
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2017** `makemon.c:1012–1054` `newmonhp()` — `js/makemon.js` — `else if (is_rider(ptr))` inserted between golem and `mlevel>49` in exact C position (`basehp = 10; d(basehp, 8)`), and `if (is_home_elemental(ptr)) mon.mhpmax = (mon.mhp *= 3)` appended in the else arm
 **D-2016** `do.c:1298–1344` `doup()` — `js/do.js` — ledger arm now C-verbatim: `game.iflags?.debug_fuzzer` early `ECMD_OK`, else `await y_n('Beware, there will be no return!
 **D-2015** `end.c:664–680` conduct arm — `js/end.js` — `count_achievements` added to the pre-existing `./insight.js` import (`imports.mjs --can`: already statically imported, no new edge, no TDZ); conduct arm now does one `should_query_disclose_option('c')`, bu
-**D-2014** `engrave.c:1267–1493` `engrave()` occupation callback — `js/engrave.js` — full `async engrave()` in exact C order (renamed from `engrave_occupation` so `sym.mjs` finds the C name; `game.occupation` is awaited at `allmain.js:1174`).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2021; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2022; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

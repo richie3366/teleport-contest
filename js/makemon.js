@@ -2951,7 +2951,12 @@ export function makemon(mdat, x, y, mmflags = 0) {
         mtmp.iswiz = true;
         if (!game.context) game.context = {};
         game.context.no_of_wizards = (game.context.no_of_wizards | 0) + 1;
-        // SPE_DIG when first Wizard on earth — deferred (fire/air/water first)
+        // C makemon.c:1369-1373 — first Wizard on earth carries SPE_DIG
+        // (mongets below → mksobj o_id + SPBOOK blessorcurse(17), no
+        // other draws; C trace for scen-tour-Wizard-92103 drew exactly
+        // rnd(2)@next_ident then rn2(17)@blessorcurse here).
+        if (game.context.no_of_wizards === 1 && Is_earthlevel(game.u?.uz))
+            mitem = otyp('SPE_DIG');
     } else if (ptr.mndx === PM_CROESUS) {
         mitem = otyp('TWO_HANDED_SWORD');
     } else if ((ptr.msound | 0) === MS_NEMESIS) {

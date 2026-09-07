@@ -1,6 +1,6 @@
 {
- "commit": "923fadb9",
- "at": "2026-09-07T12:50:49.636Z",
+ "commit": "8f9bd758",
+ "at": "2026-09-07T13:27:03.865Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6805,18 +6805,18 @@
   "scen-poly-Priest-92021": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4428,
+   "rngM": 5389,
    "rngT": 5535,
-   "scrM": 157,
+   "scrM": 235,
    "scrT": 256,
-   "kind": "rng",
-   "step": 157,
+   "kind": "screen",
+   "step": 180,
    "steps": 256,
-   "owner": "next_ident",
-   "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:808)",
-   "cTopline": "",
-   "jsTopline": "",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "You turn into a male soldier ant!--More--",
+   "jsTopline": "You turn into a male soldier ant!--More--",
    "error": null
   },
   "scen-poly-Priest-92097": {
@@ -7502,18 +7502,18 @@
   "scen-tour-Wizard-92103": {
    "src": "corpus",
    "passed": false,
-   "rngM": 7663,
+   "rngM": 7819,
    "rngT": 8351,
-   "scrM": 67,
+   "scrM": 74,
    "scrT": 113,
    "kind": "rng",
-   "step": 59,
+   "step": 74,
    "steps": 113,
-   "owner": "next_ident",
-   "loc": "mkobj.c:521",
-   "jsOwner": "m_initinv(makemon.js:2566)",
-   "cTopline": "Prove thyself worthy or perish!--More--",
-   "jsTopline": "Prove thyself worthy or perish!--More--",
+   "owner": "collect_coords",
+   "loc": "teleport.c:700",
+   "jsOwner": "tactics(wizard.js:367)",
+   "cTopline": "The Wizard of Yendor vanishes and reappears next to you.--More--",
+   "jsTopline": "The Wizard of Yendor vanishes and reappears next to you.--More--",
    "error": null
   },
   "scen-tour-Wizard-92219": {

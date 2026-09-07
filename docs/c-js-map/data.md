@@ -375,7 +375,7 @@ Ordinary `is_armed`/`m_initweap`/`mongets`/`m_initthrow`
 **`newmonhp` level-0 `rnd(4)` + `basehp` boost (min HP 2)** (D-0260) + 
 **adult-dragon `In_endgame`→`8*m_lev` else `4*m_lev+d(m_lev,4)`** (D-0551) + 
 **Wizard `adj_lev` = mlevel+died + `iswiz`/`no_of_wizards++`** (D-0558; 
-SPE_DIG on earth deferred) + **`is_golem`→`golemhp(mndx)` fixed HP** (D-0554) + 
+D-2022 lifts the SPE_DIG deferral: first Wizard on earth mongets SPE_DIG via `:1369–1384` mitem) + **`is_golem`→`golemhp(mndx)` fixed HP** (D-0554) + 
 **`adj_erinys` mutates mlevel + `adj_lev` re-reads live table** (D-0928 #1099; 
 `newmonhp` now complete (D-2017: `is_rider`→`d(10,8)` + `is_home_elemental` ×3 closed, `mlevel>49` arm already live)); 
 **`m_initinv` S_GNOME candle + shopkeeper + `rnd_defensive_item` + PM_SOLDIER early-return + 
@@ -974,6 +974,7 @@ SLP/FIRE resist + `mintrap` in-air skip** (D-0770; defended deferred);
 **monster `trapeffect_sqky_board`/`trapnote`/`You_hear`/`wake_nearto` + 
 real `canseemon`** (D-0163); **`maketrap` `teledest` field for themerms TELEP** (D-0166); 
 **monster `trapeffect_rocktrap` `t_missile(ROCK)`+`thitm(d(2,6))`** (D-0181); 
+**hero+monster `trapeffect_arrow_trap` `t_missile(ARROW)`+`thitm(8,…)`/`thitu(8,…)`** (D-2022; Soundeffect/steedintrap/gone-arm pline_mon/in_sight seetrap/obfree mirrored from the dart port; anti-magic still selector-default); 
 **hero `trapeffect_rocktrap` feeltrap+place ROCK+losehp** (D-0360; 
 `thitm` captures mx/my before death place); 
 **`maketrap` ROLLING_BOULDER → `mkroll_launch`/`find_random_launch_coord`/`isclearpath`** (D-0202); 
