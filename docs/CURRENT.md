@@ -87,7 +87,7 @@ Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` mhitm_mgc_atk_negated — blocks 4/553 corpus sessions (first at step 127): C draws `rn2(10)=1` in mhitm_mgc_atk_negated, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:1997). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Caveman-92118, scen-poly-Valkyrie-92195, scen-wish-Archeologist-92038).
+**Next cluster:** `wield.c` doquiver_core — blocks 3/553 corpus sessions (first at step 18): C «Your alternate weapon is 6 orcish daggers. Ready 5 of them? » vs JS «Your alternate weapon is 6 orcish dagger. Ready 5 of them? [». Probe: `node scripts/hidden-proxy.mjs verify doquiver_core` (scen-normal-Rogue-92115, scen-normal-Valkyrie-92200, scen-tour-Rogue-92030).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2043 (index).**
 <!-- recent:begin -->

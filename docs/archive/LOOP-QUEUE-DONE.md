@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 4/553 corpus sessions (first at step 127): C draws `rn2(10)=1` in mhitm_mgc_atk_negated, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:1997). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Caveman-92118, scen-poly-Valkyrie-92195, scen-wish-Archeologist-92038). **Addressed:** D-2043
+- [x] `uhitm.c` mhitm_knockback — blocks 3/553 corpus sessions (first at step 77): C draws `rn2(3)=2` in mhitm_knockback, JS `d(3,4)=10` from hitmu(mhitu.js:2431). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback` (scen-tour-Wizard-92219, scen-wish-Valkyrie-92142, scen-wish-Valkyrie-92206). **Addressed:** D-2035 `0a7a7fc4` (stale: all 3 moved at 0a7a7fc4 per committed scoreboards — 92142 PASS, 92219 → obj_resists@115, 92206 RNG→screen use_lamp@220; `verify --fn mhitm_knockback --base ee5d6d71` PROGRESS, 0 blocked at HEAD; no js/ — body full since D-1932, hitmu order verified C-exact mhitu.c:1187–1194)
+
+
+- [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 4/553 corpus sessions (first at step 127): C draws `rn2(10)=1` in mhitm_mgc_atk_negated, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:1997). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Caveman-92118, scen-poly-Valkyrie-92195, scen-wish-Archeologist-92038). **Addressed:** D-2043 `62183c30`
 
 
 - [x] `dokick.c` kick_monster caitiff float — `js/dokick.js:860` calls now-async `check_caitiff` without await (C `dokick.c:68` synchronous; the 9 other sites were awaited in D-2036). Probe: add await, Knight/Samurai kick replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 3). **Addressed:** D-2042 `d01aa3bb`
