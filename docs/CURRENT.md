@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `do.c` doup — blocks 4/553 corpus sessions (first at step 9): C «Beware, there will be no return! Still climb? [yn] (n)» vs JS «You can't go up here.». Probe: `node scripts/hidden-proxy.mjs verify doup` (scen-normal-Barbarian-92208, scen-normal-Healer-92227, scen-normal-Rogue-92160).
+**Next cluster:** `makemon.c` newmonhp — blocks 4/553 corpus sessions (first at step 83): C draws `d(10,8)=52` in newmonhp, JS `d(29,8)=116` from newmonhp(makemon.js:926). Probe: `node scripts/hidden-proxy.mjs verify newmonhp` (scen-genesis-Barbarian-91118, scen-genesis-Caveman-92118, scen-genesis-Knight-92149).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2016 (index).**
+**Keep D-0845…D-2017 (index).**
 <!-- recent:begin -->
+**D-2017** `makemon.c:1012–1054` `newmonhp()` — `js/makemon.js` — `else if (is_rider(ptr))` inserted between golem and `mlevel>49` in exact C position (`basehp = 10; d(basehp, 8)`), and `if (is_home_elemental(ptr)) mon.mhpmax = (mon.mhp *= 3)` appended in the else arm
 **D-2016** `do.c:1298–1344` `doup()` — `js/do.js` — ledger arm now C-verbatim: `game.iflags?.debug_fuzzer` early `ECMD_OK`, else `await y_n('Beware, there will be no return!
 **D-2015** `end.c:664–680` conduct arm — `js/end.js` — `count_achievements` added to the pre-existing `./insight.js` import (`imports.mjs --can`: already statically imported, no new edge, no TDZ); conduct arm now does one `should_query_disclose_option('c')`, bu
 **D-2014** `engrave.c:1267–1493` `engrave()` occupation callback — `js/engrave.js` — full `async engrave()` in exact C order (renamed from `engrave_occupation` so `sym.mjs` finds the C name; `game.occupation` is awaited at `allmain.js:1174`).
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2012** `allmain.c:975–983` `interrupt_multi(const char *msg)` (`if (gm.multi > 0 && !travel && !r — `js/allmain.js` — `interrupt_multi(msg)` is now `async`: live `nomul(0)` (`./hack.js`, pre-existing import edge extended — hoisted function declaration, no new module, no TDZ) then `if (msg && game.flags?.verbose !== fal
 **D-2011** `do.c:2318–2322` `danger_uprops` (`Stoned || Slimed || Strangled || Sick`, i.e. `u.uprops[ — `js/do.js` — `danger_uprops` checks flat `|0` OR `u.uprops[PROP].intrinsic` for STONED/SLIMED/STRANGLED/SICK (C `:2318–2322` cite; no H/E extrinsic — C checks intrinsic only); `STONED, SLIMED, STRANGLED, SICK` added to t
 **D-2010** `artifact.c:907–974` `touch_artifact` (touch_blasted reset, NONART gate, yours/self_willed — `js/artifact.js` — full hero `touch_artifact` in exact C order (now `async`; `Role_if`/`Race_if` badclass; bane via same-file `spec_applies`; single-`if` blast gate preserving `||`/`&&` short-circuit so `rn2(4)` draws on
-**D-2009** `lock.c` `doclose` (`/* when choosing a direction is impaired, use a turn regardless of wh — `js/lock.js` `doclose` — caller-local `confdir(false)` after successful `getdir` when `!u.dz` (covers self `.` too, as C does; `</>` skip via `dz`), then `if (HConfusion/Confusion/HStun/Stunned) res = true` in exact C po
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2016; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2017; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

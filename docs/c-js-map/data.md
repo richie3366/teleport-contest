@@ -377,7 +377,7 @@ Ordinary `is_armed`/`m_initweap`/`mongets`/`m_initthrow`
 **Wizard `adj_lev` = mlevel+died + `iswiz`/`no_of_wizards++`** (D-0558; 
 SPE_DIG on earth deferred) + **`is_golem`→`golemhp(mndx)` fixed HP** (D-0554) + 
 **`adj_erinys` mutates mlevel + `adj_lev` re-reads live table** (D-0928 #1099; 
-omit rider/`mlevel>49`/`is_home_elemental`); 
+`newmonhp` now complete (D-2017: `is_rider`→`d(10,8)` + `is_home_elemental` ×3 closed, `mlevel>49` arm already live)); 
 **`m_initinv` S_GNOME candle + shopkeeper + `rnd_defensive_item` + PM_SOLDIER early-return + 
 tail** (D-0172/D-0249) + **D-1506 S_GNOME `begin_burn` after `!mpickobj` && `!levl.lit`** 
 (callee `timeout.c` `begin_burn`; live `js/timeout.js`; **D-1519** `mktrap_victim` floor candle); 
