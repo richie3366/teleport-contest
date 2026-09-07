@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `makemon.c` newmonhp — blocks 4/553 corpus sessions (first at step 83): C draws `d(10,8)=52` in newmonhp, JS `d(29,8)=116` from newmonhp(makemon.js:926). Probe: `node scripts/hidden-proxy.mjs verify newmonhp` (scen-genesis-Barbarian-91118, scen-genesis-Caveman-92118, scen-genesis-Knight-92149). **Addressed:** D-2017
+- [x] `pickup.c` tipcontainer_gettarget — blocks 4/553 corpus sessions (first at step 63): C «Where to tip the contents of an empty uncursed sack» vs JS «The bag is empty.». Probe: `node scripts/hidden-proxy.mjs verify tipcontainer_gettarget` (scen-normal-Archeologist-92211, scen-normal-Archeologist-92228, scen-normal-Archeologist-92236). **Addressed:** D-2018
+
+
+- [x] `makemon.c` newmonhp — blocks 4/553 corpus sessions (first at step 83): C draws `d(10,8)=52` in newmonhp, JS `d(29,8)=116` from newmonhp(makemon.js:926). Probe: `node scripts/hidden-proxy.mjs verify newmonhp` (scen-genesis-Barbarian-91118, scen-genesis-Caveman-92118, scen-genesis-Knight-92149). **Addressed:** D-2017 `e6c464a4`
 
 
 - [x] `do.c` doup — blocks 4/553 corpus sessions (first at step 9): C «Beware, there will be no return! Still climb? [yn] (n)» vs JS «You can't go up here.». Probe: `node scripts/hidden-proxy.mjs verify doup` (scen-normal-Barbarian-92208, scen-normal-Healer-92227, scen-normal-Rogue-92160). **Addressed:** D-2016 `72fbe787`

@@ -1847,7 +1847,8 @@ pit "Open where?" / mimic / AUTOUNLOCK_KICK deferred);
 **`choose_tip_container_menu` boxes>1 PICK_ONE D-1679** (C `pickup.c` `:3500–3558` dummy 
 `"tip something being carried"` `MENU_ITEMFLAGS_SELECTED` + `'i'` unless lootabc/`i>'i'-'a'`; 
 n==0/1/2/-1 quirk; Space/Return accept dummy → getobj; ESC `ECMD_CANCEL`); 
-tipcontainer_gettarget menu / altarizing `doaltarobj` / ice-box / cursed mbag / shop / toss_up / 
+**`tipcontainer_gettarget` PICK_ONE D-2018** (C `pickup.c` `:3871–3948` `Where to tip the contents of <doname>` + `-` floor dummy SELECTED + blank + invent containers with real invlets; first other container `u_handsy()`; locked-known/no-hands excluded (a_obj 0, 4-space indent); n>1 dummy-first quirk; ESC cancelled; `tipcontainer` calls it before checks so empty sack shows the menu, horn passes targetbox, container target `add_to_container`); 
+altarizing `doaltarobj` / ice-box / cursed mbag / shop / toss_up / 
 candle·oil spill / tiphat / MENU_SEARCH·map_menu_cmd·multi-page named); **`use_stethoscope` self + `ustatusline`/`piousness` + 
 free first `hero_seq`** (D-0155) + **adjacent isok/`m_at`/empty return `res` TIME** (D-0735) + 
 **`mundetected`/`mappearance` `seemimic` + `mstatusline` align/size/AC** (D-0738; 
