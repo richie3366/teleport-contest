@@ -44,10 +44,11 @@
 // costly_alteration; Punished/unpunish; buried_ball_to_freedom; steed saddle
 // Yobjnam2 glow; update_inventory; enchant-weapon confused erodeproof
 // Yobjnam2/hcolor polish; twoweapon secondary; shop costly_alteration on
-// proof strip; create_particular class-letter / * random / cant_revive yn /
+// proof strip; create_particular class-letter / * random /
 // tame|peaceful|hostile|saddled|sleeping|invisible|hidden prefixes /
 // create_particular → makemon_appear_msg (makemon in-body still deferred;
-// mimic mhidden_description / set_msg_xy / dochugw omit);
+// mimic mhidden_description / set_msg_xy / dochugw omit); cant_revive
+// force prompt + doppelganger newcham fixup live (D-2004);
 // punish Blind set_bc is D-1769; flooreffects on placebc; HEAVY_IRON_BALL reuse
 // from angrygods; do_genocide livelog / Hallucination names /
 // vampshifted POLY_REVERT / chameleon newcham; update_inventory.
@@ -77,9 +78,10 @@
 // Yobjnam2/hcolor polish; twoweapon secondary; shop costly_alteration on
 // proof strip; enchant-armor adj_abon / maybe_adjust_light;
 // mail readmail (mail.js D-1958); create_particular class-letter / * random /
-// cant_revive yn / tame|peaceful|hostile|saddled|sleeping|invisible|hidden
-// prefixes / create_particular → makemon_appear_msg (makemon in-body still
-// deferred; mimic mhidden_description / set_msg_xy / dochugw omit);
+// tame|peaceful|hostile|saddled|sleeping|invisible|hidden prefixes /
+// create_particular → makemon_appear_msg (makemon in-body still deferred;
+// mimic mhidden_description / set_msg_xy / dochugw omit); cant_revive
+// force prompt + doppelganger newcham fixup live (D-2004);
 // punish Blind set_bc is D-1769; flooreffects on placebc; HEAVY_IRON_BALL reuse
 // from angrygods.
 
@@ -113,7 +115,7 @@ import {
     HEAD, HAND, STOMACH, isok, ACCESSIBLE,
     W_BALL, W_CHAIN, W_ART, W_ARTI, W_SADDLE, W_ARM, W_ARMH, P_SLING, SPE_LIM, MM_NOEXCLAM,
     MM_MALE, MM_FEMALE,
-    NO_MM_FLAGS, WT_IRON_BALL_INCR, thats_enough_tries, EXT_ENCUMBER,
+    NO_MM_FLAGS, NO_NC_FLAGS, WT_IRON_BALL_INCR, thats_enough_tries, EXT_ENCUMBER,
     GENOCIDED, KILLED_BY, KILLED_BY_AN, NO_MINVENT, MM_NOMSG, Upolyd,
     nothing_happens, G_GENOD, G_EXTINCT, UNCHANGING,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_PROMPT,
@@ -130,21 +132,21 @@ import { dist2 } from './hacklib.js';
 import { You_hear, closed_door, maybe_half_phys } from './hack.js';
 import { Soundeffect } from './sndprocs.js';
 import { se_maniacal_laughter, se_sad_wailing } from './generated/seffects_data.js';
-import { resist } from './zap.js';
+import { resist, cant_revive } from './zap.js';
 import { monflee } from './monmove.js';
 import { which_armor } from './worn.js';
 import { alter_cost, costly_alteration, obfree } from './shk.js';
 import { sokoban_guilt, ceiling } from './trap.js';
 import { drain_weapon_skill, dmgval } from './weapon.js';
 import { mhim } from './mondata.js';
-import { getlin } from './getline.js';
+import { getlin, y_n } from './getline.js';
 import { name_to_mon, name_to_monclass } from './mondata.js';
 import { mons, NON_PM, LOW_PM, NUMMONS, amorphous, passes_walls, noncorporeal, is_whirly, unsolid,
     G_GENO, G_UNIQ, G_NOCORPSE, is_human, is_demon, pmnames, NEUTRAL,
     MALE, FEMALE, is_male, is_female,
     M2_PNAME, monsterNames, nonliving, weirdnonliving, PM_ACID_BLOB,
 } from './monsters.js';
-import { makemon, makemon_appear_msg, rndmonst, create_critters } from './makemon.js';
+import { makemon, makemon_appear_msg, rndmonst, create_critters, newcham } from './makemon.js';
 import { kill_genocided_monsters, mongone, m_at, setmangry, wake_nearto, wakeup } from './mon.js';
 import { killed } from './uhitm.js';
 import { mondied } from './mhitm.js';
@@ -191,6 +193,7 @@ const ELVEN_LEATHER_HELM = _on('ELVEN_LEATHER_HELM'), ELVEN_MITHRIL_COAT = _on('
 const BLACK_DRAGON_SCALE_MAIL = _on('BLACK_DRAGON_SCALE_MAIL'), BLACK_DRAGON_SCALES = _on('BLACK_DRAGON_SCALES'), SILVER_DRAGON_SCALE_MAIL = _on('SILVER_DRAGON_SCALE_MAIL'), SILVER_DRAGON_SCALES = _on('SILVER_DRAGON_SCALES'), SHIELD_OF_REFLECTION = _on('SHIELD_OF_REFLECTION');
 const GRAY_DRAGON_SCALES = _on('GRAY_DRAGON_SCALES'), YELLOW_DRAGON_SCALES = _on('YELLOW_DRAGON_SCALES'), GRAY_DRAGON_SCALE_MAIL = _on('GRAY_DRAGON_SCALE_MAIL');
 const PM_WIZARD = monsterNames.indexOf('PM_WIZARD');
+const PM_LONG_WORM_TAIL = monsterNames.indexOf('PM_LONG_WORM_TAIL');
 const NH_RED = 'red', NH_GOLDEN = 'golden', NH_SILVER = 'silver', NH_PURPLE = 'purple';
 const WAN_WISHING = _on('WAN_WISHING'), WAN_CANCELLATION = _on('WAN_CANCELLATION');
 const WAN_DEATH = _on('WAN_DEATH'), WAN_POLYMORPH = _on('WAN_POLYMORPH');
@@ -2442,14 +2445,33 @@ function create_particular_parse(str) {
  * gender-fixed, `MM_NOEXCLAM` only when there is no gender conflict).
  * Without the flag `makemon` falls through to its `rn2(2)` gender roll,
  * drawing a spurious RNG and misnaming e.g. ^G "elf-lord" as "elf-lady".
+ * Plus the `:3260–3274` `cant_revive` uniqueness gate (guard/cleric/angel
+ * → zombie, worm tail → worm, unique → doppelganger) with the
+ * `Creating %s instead; force %s?` y_n override, and the `:3350–3354`
+ * doppelganger `newcham` fixup so it starts out looking like the request.
  * C has no caller pline; appear is makemon.c !MM_NOMSG Norep. Sync
- * makemon + await makemon_appear_msg (async pline boundary).
- * Deferred: quan-limit/cant_revive force prompt, randmonst/monclass,
- * invisible/saddled/sleeping/hidden post-flags, tame/peaceful/hostile,
- * doppelganger newcham fixup.
+ * makemon + await makemon_appear_msg (async pline boundary); the force
+ * prompt is the second async boundary (y_n → nhgetch).
+ * Deferred: quan-limit, randmonst/monclass,
+ * invisible/saddled/sleeping/hidden post-flags, tame/peaceful/hostile.
  */
 async function create_particular_creation(d) {
     if (!d || d.randmonst) return false;
+    // C: read.c:3260–3261 firstchoice = d->which (named, non-random path).
+    const firstchoice = d.which;
+    // C: read.c:3262–3272 — cant_revive(&d->which, FALSE, NULL) remaps;
+    // unless the request was long worm tail, wizard mode may force the
+    // original via y_n. d.which is rewritten like C's *mtype out-param.
+    const whichBox = { mtype: d.which };
+    if (cant_revive(whichBox, false, null) && firstchoice !== PM_LONG_WORM_TAIL) {
+        // C: read.c:3267–3269 Sprintf "Creating %s instead; force %s?".
+        const instead = pmnames[whichBox.mtype]?.[NEUTRAL] || 'monster';
+        const asked = pmnames[firstchoice]?.[NEUTRAL] || 'monster';
+        if ((await y_n(`Creating ${instead} instead; force ${asked}?`)) === 'y') {
+            whichBox.mtype = firstchoice;
+        }
+    }
+    d.which = whichBox.mtype;
     const whichpm = mons(d.which);
     if (!whichpm) return false;
     let madeany = false;
@@ -2476,6 +2498,12 @@ async function create_particular_creation(d) {
         if (!mtmp) break;
         await makemon_appear_msg(mtmp, ux, uy, mmflags);
         madeany = true;
+        // C: read.c:3350–3354 — a doppelganger created instead of what was
+        // asked for starts out looking like what was asked for.
+        if (mtmp.cham !== NON_PM && firstchoice !== NON_PM
+            && mtmp.cham !== firstchoice) {
+            await newcham(mtmp, mons(firstchoice), NO_NC_FLAGS);
+        }
     }
     return madeany;
 }

@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Must-fix — `read.js` create_particular_parse gender-term search: drop the leading-space pad and match C bare `strstri` (`read.c:3186–3195`; `shemale …` misses MALE in JS, hits in C) + align the blanking splice with the C `memset` width. Probe: replica of the parse blanking on `shemale elf-lord` (expect fem=0/MALE). Source: reviews/loop-unattended/971-d9e7079e-gendered-name-flags.md.
+**Next cluster:** `read.c` create_particular_creation — blocks 5/553 (first at step 14): `^G` of a unique / genocided / not-yet-eligible monster: C `Creating doppelganger instead; force Demogorgon? [yn] (n)` (`read.c:3267` uniqueness / `mvitals` gate) vs JS creating it directly. Probe: `node scripts/hidden-proxy.mjs verify create_particular_creation` (scen-death-Valkyrie-92229, scen-genesis-Barbarian-91118, scen-genesis-Knight-92149).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2003 (index).**
+**Keep D-0845…D-2004 (index).**
 <!-- recent:begin -->
+**D-2004** `read.c:3260–3274` (`firstchoice = d->which`, then `cant_revive(&d->which, FALSE, NULL)` r — `js/read.js` — `firstchoice = d.which`, `{ mtype }` box through live `cant_revive` (`./zap.js`, same edge as `resist`) with the C `firstchoice !== PM_LONG_WORM_TAIL` prompt exemption (local `monsterNames.indexOf` const, 
 **D-2003** `read.c:3186–3195` — `js/read.js` — drop the pad (`asciiLow` is now plain ASCII lower), search bare `'female '` / `'male '` female-first, and blank exactly the hit width in place (7 / 5 spaces, length-preserving like `memset`); re-`mungspace
 **D-2002** `lock.c:547–550` (pit rim → `You_cant reach over the edge`, DID_NOTHING), `:552–570` (`m_a — `js/lock.js` — pit gate, visible-monster arm (`mon_nam` + credit-card shk/Oracle `SetVoice`/`verbalize`), door-mimic reveal (`stumble_onto_mimic`), !IS_DOOR feel/mapseen + Blind feel/see + drawbridge message, in exact C 
 **D-2001** `read.c:3186–3195` (`create_particular_parse` blanks explicit "female "/"male " terms — `js/read.js` — parse: case-insensitive "female "/"male " blanking (female first; ASCII-only lower so byte indices align; leading-pad-only search so a trailing word does not hit, matching C `strstri` needing a literal tra
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-1999** `makemon.c:1391–1396` (`!in_mklev && byyou` → `newsym` + `set_apparxy` BEFORE `m_initweap` — `js/makemon.js` — `set_apparxy(mtmp)` after `newsym` in the `byyou` branch (C `:1393–1394` cite; import already existed, no new edge).
 **D-1998** `wizcmds.c:948–1096` `wiz_intrinsic` — `js/wizcmds.js` — per-prop switch in exact C order with `:line` citations: SICK `!rn2(2) ?
 **D-1996** `attrib.c:905–1001` `from_what` (DEAF `:931` roleplay-deaf arm); `insight.c:1059–1074` Bli — one-word addition to the existing same-edge `./const.js` import (after `BLINDED`, matching C `BLINDED=15, DEAF=16` order) with a C-citation comment.
-**D-1995** `insight.c` enlightenment family — `js/invent.js` status arms (Stoned/Slimed/Strangled/Sick/Vomit/Stun/Conf/Blind-kinds/held-swallowed/Fumbling+Sleepy+Hunger-magic) + resistance `from_what` catalogue (Sleep/See_invisible/telepathic/warned/Fast/Reflecting/Lifesaved/spell-cast/wizard-record/Luck/Nth-death/bones) + corner `^X` menu; `js/attrib.js` dwa/gno infra + innate H-fields; `js/wizcmds.js` SLIMED arm. Verify: enlightenment 6 moved/1 unchanged, one_characteristic 5 PASS/8 moved, status_enlightenment 4 moved, 0 worse; wiz_intrinsic 9 unchanged (rest remains).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2003; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2004; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

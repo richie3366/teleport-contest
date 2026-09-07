@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `read.js` create_particular_parse gender-term search: drop the leading-space pad and match C bare `strstri` (`read.c:3186–3195`; `shemale …` misses MALE in JS, hits in C) + align the blanking splice with the C `memset` width. Probe: replica of the parse blanking on `shemale elf-lord` (expect fem=0/MALE). Source: reviews/loop-unattended/971-d9e7079e-gendered-name-flags.md. **Addressed:** D-2003
+- [x] `read.c` create_particular_creation — blocks 5/553 (first at step 14): `^G` of a unique / genocided / not-yet-eligible monster: C `Creating doppelganger instead; force Demogorgon? [yn] (n)` (`read.c:3267` `create_particular_creation` uniqueness / `mvitals` gate) vs JS creating it directly. Probe: `node scripts/hidden-proxy.mjs verify create_particular_creation` (scen-death-Valkyrie-92229, scen-genesis-Barbarian-91118, scen-genesis-Knight-92149). **Addressed:** D-2004
+
+
+- [x] `read.js` create_particular_parse gender-term search: drop the leading-space pad and match C bare `strstri` (`read.c:3186–3195`; `shemale …` misses MALE in JS, hits in C) + align the blanking splice with the C `memset` width. Probe: replica of the parse blanking on `shemale elf-lord` (expect fem=0/MALE). Source: reviews/loop-unattended/971-d9e7079e-gendered-name-flags.md. **Addressed:** D-2003 `e673cee4`
 
 
 - [x] `lock.c` pick_lock / `apply.c` use_pick_axe on an occupied square — blocks 5/553 (first at step 6): C `I don't think the kitten would appreciate that.` (`lock.c:567` `pick_lock` direction arm with a monster there) vs JS `You see no door there.`. Probe: `node scripts/hidden-proxy.mjs verify pick_lock` (scen-kit-Rogue-92225, scen-kit-Tourist-91126, scen-wish-Barbarian-92102). **Addressed:** D-2002 `4a48e698`

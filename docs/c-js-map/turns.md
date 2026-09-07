@@ -703,8 +703,9 @@ livelog / Hallu names / vampshifted POLY_REVERT / cham `newcham` / `update_inven
 Blind move_bc felt/glyph is **D-1777**, `ballfall` is **D-1778**; jerked-back hmon/miss, 
 drop_ball/litter/unpunish deferred; **`set_bc` is D-1769**); 
 **`create_particular` named `name_to_mon` + gendered-name `MM_MALE`/`MM_FEMALE`** (D-2001; explicit female/male terms + name-gender merge, conflict explicit-wins; D-2003: bare `strstri` search, no leading pad — `shemale …` hits MALE — + `memset`-width in-place blanking) + `makemon(..., MM_NOEXCLAM)` + 
-`makemon_appear_msg` for `#wizgenesis`/`^G`** (D-0510/D-0928 #1164; 
-quan digit/QUAN_LIMIT, saddled/sleeping/invisible/hidden, tame/peaceful/hostile, class-letter/* random, cant_revive yn deferred; 
+`makemon_appear_msg` for `#wizgenesis`/`^G`** (D-0510/D-0928 #1164;
+D-2004: `cant_revive` uniqueness gate live — guard/shopkeeper-create/clerics/angel → zombie, worm tail → worm, unique → doppelganger — with the `Creating %s instead; force %s?` y_n override (long-worm-tail exempt) + doppelganger `newcham` fixup;
+quan digit/QUAN_LIMIT, saddled/sleeping/invisible/hidden, tame/peaceful/hostile, class-letter/* random still named;
 invent caller appear removed — C has none); **SPBOOK → `study_book`** (D-0136); 
 **`assign_candy_wrapper` in mkobj FOOD init** (D-0196; candy *read* text still deferred); 
 **SCR/SPE_CREATE_MONSTER `seffect_create_monster` (D-1401; C `:1608–1624` / seffects `:2229–2231`; 

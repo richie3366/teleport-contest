@@ -100,4 +100,4 @@ js hunk: no `FORCE`/`DIAG`/`getRngLog`/seed/coordinate/
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2003
+**Addressed:** D-2003 `e673cee4`
