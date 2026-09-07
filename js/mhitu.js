@@ -180,6 +180,7 @@ const AD_CONF = 25; /* umber hulk gaze — monattk.h */
 const AD_HALU = 36; /* monattk.h — black-light AT_EXPL */
 const AD_DREN = 16;
 const AD_STCK = 19; /* stick-to (mimic, lichen) — monattk.h */
+const AD_SLOW = 13; /* slows — monattk.h */
 const AD_DGST = 26;
 const AD_WRAP = 28;
 const AD_DISE = 33;
@@ -2332,10 +2333,30 @@ async function mhitm_ad_famn_u(mtmp, mattk, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_slow `:3652–3689` — mhitu (monster→you) arm.
+ * The gate (FALSE) always burns rn2(10); then hitmsg; then
+ * `!negated && HFast && !rn2(4)` → u_slow_down (leftover d() kept,
+ * like FAMN — the slow arm never zeroes damage).
+ * C `:3660–3661` defended(mdef, AD_SLOW) early return is a named omit:
+ * RNG-free (wielded slow-defending artifact, or blue dragon scales/mail
+ * per artifact.c defends `:651–676`), no corpus reach.
+ */
+async function mhitm_ad_slow_u(mtmp, mattk, mhm) {
+    void mhm; /* leftover d() stays */
+    const negated = await mhitm_mgc_atk_negated(mtmp, null, false);
+    await hitmsg(mtmp, mattk);
+    /* C youprop.h:374 HFast = u.uprops[FAST].intrinsic; u.HFast is the
+       flat mirror (attrib.js Fast idiom); either nonzero means intrinsic */
+    const u = game.u || {};
+    const HFast = ((u.HFast | 0) || (u.uprops?.[FAST]?.intrinsic | 0)) !== 0;
+    if (!negated && HFast && !rn2(4)) await u_slow_down();
+}
+
+/**
  * C ref: uhitm.c mhitm_adtyping — mhitu (monster→you) subset.
  * PHYS + ELEC + COLD + FIRE + TLPT + DRST/DRDX/DRCO + SITM/SEDU + SSEX (D-1750)
  * + BLND + STON + LEGS + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE
- * + DRLI + RUST + STCK + PLYS + FAMN; other adtyps zero damage.
+ * + DRLI + RUST + STCK + PLYS + FAMN + SLOW; other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     switch (mattk.adtyp | 0) {
@@ -2401,6 +2422,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_FAMN:
         await mhitm_ad_famn_u(mtmp, mattk, mhm);
+        break;
+    case AD_SLOW:
+        await mhitm_ad_slow_u(mtmp, mattk, mhm);
         break;
     default:
         mhm.damage = 0;

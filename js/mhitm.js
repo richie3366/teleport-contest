@@ -1267,7 +1267,7 @@ function mpoisons_subj_mm(mtmp, mattk) {
  * data.mresists | mextrinsics | mintrinsics. Artifact/worn grants named.
  * mhitm_really_poison is m-vs-m only (not youmonst).
  */
-function resists_poison_mm(mtmp) {
+export function resists_poison_mm(mtmp) {
     if (!mtmp) return false;
     const bits = (mtmp.data?.mresists | 0)
         | (mtmp.mextrinsics | 0)

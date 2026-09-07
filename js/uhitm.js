@@ -37,7 +37,7 @@ import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
     dbon, weapon_dam_bonus, use_skill, weapon_type,
-    special_dmgval, silver_sears,
+    special_dmgval, silver_sears, MON_WEP,
 } from './weapon.js';
 import {
     ammo_and_launcher, is_weptool, is_launcher, is_ammo, is_missile,
@@ -48,9 +48,11 @@ import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZAR
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled,
     troll_baned, mhitm_ad_poly, mhitm_ad_slee, could_seduce, failed_grab, shade_miss,
+    mhitm_mgc_atk_negated, resists_poison_mm,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
     AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN, AD_SLEE,
+    AD_DRST,
 } from './mhitm.js';
 import {
     verysmall, nohands, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM, MZ_HUGE,
@@ -1287,9 +1289,59 @@ export async function mhitm_ad_wrap(magr, mattk, mdef, mhm) {
 
 /**
  * C ref: uhitm.c mhitm_adtyping youmonst subset for damageum.
- * AD_PHYS + AD_POLY + AD_DRIN skipdrin + AD_WRAP (D-1348) + AD_SLEE live;
+ * AD_PHYS + AD_POLY + AD_DRIN skipdrin + AD_WRAP (D-1348) + AD_SLEE + AD_DRST live;
  * remaining mhitm_ad_* named. mhitm wrap brush is D-1406.
  */
+
+/** C ref: pline.c Your — prefix "Your " (file-local like zap.js/mhitu.js). */
+async function Your_u(rest) {
+    await pline(`Your ${rest}`);
+}
+
+/**
+ * C ref: mhitu.c mpoisons_subj `:145–158` for a hero attacker.
+ * The mhitm.js mm-variant reads MON_WEP(mtmp), but C `:150` uses uwep
+ * when mtmp is youmonst — a poly'd hero's mw is not the wielded weapon —
+ * so this uhitm copy keeps the C youmonst arm. Other aatyps are
+ * contact/gaze/bite else sting, exactly like the mm-variant.
+ */
+function mpoisons_subj_u(magr, mattk) {
+    const aatyp = mattk?.aatyp | 0;
+    if (aatyp === AT_WEAP) {
+        const mwep = (magr === game.youmonst || !!magr?._youmonst)
+            ? game.u?.uwep : MON_WEP(magr);
+        return (!mwep || !mwep.opoisoned) ? 'attack' : 'weapon';
+    }
+    if (aatyp === AT_TUCH) return 'contact';
+    if (aatyp === AT_GAZE) return 'gaze';
+    if (aatyp === AT_BITE) return 'bite';
+    return 'sting';
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_drst `:3122–3142` — uhitm (you→mon) arm.
+ * The gate (FALSE) always burns rn2(10); `!negated && !rn2(8)` poisons:
+ * resists_poison → "doesn't seem to affect"; else `!rn2(10)` deadly
+ * (damage = mhp) or damage += rn1(10, 6).
+ * Named omissions: mhitm (mon→mon) arm (mhitm_really_poison live,
+ * dispatch row named per mhitm_ad_phys D-1447); uhitm AD_SLOW arm.
+ */
+async function damageum_ad_drst(mdef, mattk, mhm) {
+    const magr = game.youmonst;
+    const negated = await mhitm_mgc_atk_negated(magr, mdef, false);
+    if (!negated && !rn2(8)) {
+        await Your_u(`${mpoisons_subj_u(magr, mattk)} was poisoned!`);
+        if (resists_poison_mm(mdef)) {
+            await pline(`The poison doesn't seem to affect ${mon_nam(mdef)}.`);
+        } else if (!rn2(10)) {
+            await Your_u('poison was deadly...');
+            mhm.damage = mdef.mhp | 0;
+        } else {
+            mhm.damage = (mhm.damage | 0) + rn1(10, 6);
+        }
+    }
+}
+
 async function damageum_adtyping(mattk, mdef, mhm) {
     const adtyp = mattk.adtyp | 0;
     if (adtyp === AD_PHYS) damageum_ad_phys(mdef, mattk, mhm);
@@ -1301,6 +1353,8 @@ async function damageum_adtyping(mattk, mdef, mhm) {
         await mhitm_ad_wrap(game.youmonst, mattk, mdef, mhm);
     } else if (adtyp === AD_SLEE) {
         await mhitm_ad_slee(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_DRST) {
+        await damageum_ad_drst(mdef, mattk, mhm);
     }
 }
 

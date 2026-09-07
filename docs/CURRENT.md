@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Must-fix `dokick.c` kick_monster caitiff float — `js/dokick.js:860` calls now-async `check_caitiff` without await (C `dokick.c:68` synchronous; the 9 other sites were awaited in D-2036). Probe: add await, Knight/Samurai kick replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 3).
+**Next cluster:** `uhitm.c` mhitm_mgc_atk_negated — blocks 4/553 corpus sessions (first at step 127): C draws `rn2(10)=1` in mhitm_mgc_atk_negated, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:1997). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Caveman-92118, scen-poly-Valkyrie-92195, scen-wish-Archeologist-92038).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2042 (index).**
+**Keep D-0845…D-2043 (index).**
 <!-- recent:begin -->
+**D-2043** `mhitm_ad_slow :3652–3689` (gate FALSE always `:3658`, `defended(mdef, AD_SLOW)` early ret — `js/mhitu.js` — `mhitm_ad_slow_u` in exact C mhitu-branch order (gate first, then hitmsg, then HFast+`rn2(4)` → awaited `u_slow_down`; leftover `d()` kept like FAMN) + `case AD_SLOW` + file-local `AD_SLOW = 13` (`monattk
 **D-2042** `nethack-c/upstream/src/dokick.c:68` `check_caitiff(mon);` inside `kickdmg :33–123`, synch — `js/dokick.js` — `await check_caitiff(mon);` with a C citation comment (`dokick.c:68`, sync in C / async in JS for the awaited pline, must await to keep topline order).
 **D-2041** `nethack-c/upstream/src/uhitm.c:896` `if (hmd->material == SILVER && mon_hates_silver(mon) — `js/uhitm.js` — `mon_hates_silver` extends the pre-existing `./monsters.js` import (no new module edge per `imports.mjs --can`: already statically imported; sync callee, same 82-module SCC, no top-level TDZ read) and the
 **D-2040** `nethack-c/upstream/src/uhitm.c` `hmon_hitmon_weapon_ranged :884–917`: shade-glare/`rnd(2) — `js/uhitm.js` ranged branch — C-order boomerang tail after silver: `!thrown && obj===game.u?.uwep && obj.otyp===BOOMERANG && rnl(4)===3` (short-circuit order preserved; `!thrown` = HMON_MELEE per the existing dispatch at
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2038** `display.c` `seenv_matrix :3358–3362` (center `[1][1]` is SVALL — `js/vision.js` — center constant `0`→SVALL + comment citing `display.c:3358–3362`.
 **D-2037** `detect.c` `find_trap :1936–1962` (`tseen`, `exercise(A_WIS)`, `feel_newsym`, then `if (Ha — `js/detect.js` — `find_trap` now in C order: `feel_newsym`; `Hallucination() || glyph_at(tx,ty) !== trap_to_glyph(trap)` (tty-cell→id normalization per the `foundone` precedent) → `await cls(); map_trap(trap, 1); display
 **D-2036** `uhitm.c` `hmon_hitmon_weapon :1074–1094` + `hmon_hitmon_weapon_ranged :885–900` (launcher — `js/uhitm.js` — new `hmon_hitmon_weapon` dispatch verbatim (melee/thrown callers keep exact behavior except the four ranged arms, which now draw `rnd(2)` + silver-vs-hater `rnd(dmg?20:10)` with skill flags FALSE); `check
-**D-2035** `timeout.c` `case STRANGLED :890–900` (killer.format=KILLED_BY, name buried?`suffocation`: — `js/timeout.js` — new `!(next & TIMEOUT) && p === STRANGLED` arm after SLIMED in C order (killer init mirrors the STONED arm; `done_timeout(DIED, STRANGLED)` + `gameover` early-return; amulet arm via `u.uamul` + `objectN
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2042; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2043; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

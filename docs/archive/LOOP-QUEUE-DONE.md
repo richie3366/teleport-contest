@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `dokick.c` kick_monster caitiff float — `js/dokick.js:860` calls now-async `check_caitiff` without await (C `dokick.c:68` synchronous; the 9 other sites were awaited in D-2036). Probe: add await, Knight/Samurai kick replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 3). **Addressed:** D-2042
+- [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 4/553 corpus sessions (first at step 127): C draws `rn2(10)=1` in mhitm_mgc_atk_negated, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:1997). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Caveman-92118, scen-poly-Valkyrie-92195, scen-wish-Archeologist-92038). **Addressed:** D-2043
+
+
+- [x] `dokick.c` kick_monster caitiff float — `js/dokick.js:860` calls now-async `check_caitiff` without await (C `dokick.c:68` synchronous; the 9 other sites were awaited in D-2036). Probe: add await, Knight/Samurai kick replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 3). **Addressed:** D-2042 `d01aa3bb`
 
 
 - [x] `uhitm.c` ranged silver predicate — D-2036 tests `hates_silver(mon.data)`, dropping C's `is_vampshifter(mon)` disjunct (`mondata.c:516–520`); exact callee `mon_hates_silver` live in `js/monsters.js:833`. Probe: import + swap, silver-vs-vampshifter replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 2). **Addressed:** D-2041 `f536bbde`
