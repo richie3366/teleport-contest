@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `uhitm.c` mhitm_ad_famn — blocks 1/553 corpus sessions: scen-wish-Tourist-92067 step 140/234 C `d(8,8)@hitmu` + `rn2(2)@exercise` (`:3793` mhitu arm) + `rn2(40)@mhitm_ad_famn(:3795)` «Famine reaches out, and your body shrivels.» vs JS «You hit Famine.» (no AD_FAMN dispatch in `mhitu.js`; `verify mhitm_ad_famn` is vacuous until rescore re-attributes it from `exercise`).
 - [ ] `bones.c` give_to_nearby_mon — blocks 5/553 corpus sessions (first at step 81): C draws `rn2(1)=0` in give_to_nearby_mon, JS `rn2(5)=1` from drop_upon_death(end.js:1162). Probe: `node scripts/hidden-proxy.mjs verify give_to_nearby_mon` (scen-genesis-Barbarian-92201, scen-genesis-Caveman-91109, scen-genesis-Ranger-91139).
 - [ ] `detect.c` dosearch — blocks 5/553 corpus sessions (first at step 40): C «You suffocate. You stop searching.--More--» vs JS «You suffocate. You stop searching.». Probe: `node scripts/hidden-proxy.mjs verify dosearch` (scen-death-Monk-92121, scen-death-Monk-92191, scen-normal-Archeologist-92012).
 - [ ] `dungeon.c` save_dungeon — blocks 4/553 corpus sessions (first at step 35): C «The Dungeons of Doom:» vs JS «The Dungeons of Doom:». Probe: `node scripts/hidden-proxy.mjs verify save_dungeon` (scen-genesis-Samurai-92080, scen-normal-Caveman-92140, scen-poly-Caveman-92050).
