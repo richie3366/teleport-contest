@@ -24,6 +24,9 @@ import {
     TELEPORT_CONTROL,
     SEARCHING,
     FIRE_RES,
+    SLEEP_RES,
+    INFRAVISION,
+    SEE_INVIS,
     WARNING,
     FUMBLING,
     TIMEOUT,
@@ -53,6 +56,8 @@ import {
     PM_WIZARD,
     PM_ELF,
     PM_ORC,
+    PM_DWARF,
+    PM_GNOME,
 } from './generated/monsters_data.js';
 import { adj_erinys } from './monsters.js';
 
@@ -744,6 +749,14 @@ const orc_abil = [
     { ulevel: 1, prop: 'HInfravision', gainstr: '', losestr: '' },
     { ulevel: 1, prop: 'HPoison_resistance', gainstr: '', losestr: '' },
 ];
+// C ref: attrib.c dwa_abil[] / gno_abil[] — infravision@1 (hum_abil empty).
+// Lookup-only (adjabil grants dwarf/gnome infra via set_uasmon, unchanged).
+const dwa_abil = [
+    { ulevel: 1, prop: 'HInfravision', gainstr: '', losestr: '' },
+];
+const gno_abil = [
+    { ulevel: 1, prop: 'HInfravision', gainstr: '', losestr: '' },
+];
 
 // C ref: attrib.c role_abil()
 function role_abil(rolePm) {
@@ -881,6 +894,12 @@ const PROP_HFIELD = {
     [TELEPORT_CONTROL]: 'HTeleport_control',
     [SEARCHING]: 'HSearching',
     [FIRE_RES]: 'HFire_resistance',
+    // C attrib.c is_innate — every prop with a role/race table row needs
+    // its H-field here or from_what stays silent (D-1995: elven Priest
+    // "sleep resistant innately" / "infravision innately", elf_abil).
+    [SLEEP_RES]: 'HSleep_resistance',
+    [INFRAVISION]: 'HInfravision',
+    [SEE_INVIS]: 'HSee_invisible',
     [WARNING]: 'HWarning',
 };
 
@@ -897,7 +916,9 @@ function check_innate_abil(propField, frommask) {
         const racePm = game.urace?.mnum;
         if (racePm === PM_ELF) abil = elf_abil;
         else if (racePm === PM_ORC) abil = orc_abil;
-        // dwa/gno/hum tables empty or unused for current seeds
+        else if (racePm === PM_DWARF) abil = dwa_abil;
+        else if (racePm === PM_GNOME) abil = gno_abil;
+        // hum_abil is empty in C as well
     }
     if (!abil) return null;
     const ulevel = game.u?.ulevel | 0;

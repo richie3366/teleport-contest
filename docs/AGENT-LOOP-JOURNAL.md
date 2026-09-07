@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — D-1995 insight.c enlightenment family (continue iter-2438 leftover, committed)
+
+**C locus:** `insight.c:1006–1194` `status_enlightenment` + `:398–2000` `enlightenment` + `doattributes :647` live `midnight()/night()`; `wintty.c` tty_end_menu + `tty_display_nhwindow(NHW_MENU, H2344)` corner-vs-fullscreen; `wizcmds.c:953,1040–1043` SLIMED; `attrib.c` `dwa_abil[]/gno_abil[]` + `is_innate` H-fields.
+**JS:** `js/invent.js` (+396/−45) + `js/attrib.js` (+22/−1) + `js/wizcmds.js` (+18/−3); 3 js files, under 600 cap. Same-edge imports only; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Change:** status arms in C order with `:line` citations; resistance catalogue rows with `from_what`; `doattributes` live midnight/night + Sleep/Infravision/spell-cast rows; corner-overlay-vs-fullscreen menu via in-file `nhw_menu_geometry` (no snapshot/restore — D-1831); dwa/gno infra + SLEEP/INFRA/SEENVIS H-fields; SLIMED via live `make_slimed`.
+**Verify:** `enlightenment` → 0 PASS/6 moved/1 unchanged/0 worse PROGRESS; `one_characteristic` → 5 PASS/8 moved/0 worse PROGRESS; `status_enlightenment` → 0 PASS/4 moved/0 worse PROGRESS; `wiz_intrinsic` → 9 unchanged/0 worse NO MOVEMENT (SLIMED unreached; sick/stone arms remain). Green 2/2 + strict ×2 + cohort 7/7 each run.
+**Named:** non-swallow held/steed/cause_known; Cold/item-cold/half dmg; Warn_of_mon/Clairvoyant; shape/Hate_silver/Free_action/Fixed_abil; blocked-Stealth; SICK/STONED `wiz_intrinsic` arms.
+**Next:** 92150 post-header enlightenment delta; 92176/92056 one_characteristic later-step deltas; pop `wizcmds.c` wiz_intrinsic row.
 ## 2026-09-07 — D-1994 attrib.c exercise residual: exerper Clairvoyant/Regen/Monk arms + makeknown-credit caller arms (Gloves/Amulet/addinv/spell)
 
 **C locus:** `attrib.c:520–584` `exerper` — SATIATED `:534–536` (+Monk WIS), WEAK `:542–544` (+Monk WIS), status `:572–575` (Clairvoyant WIS / Regen STR); `o_init.c:483` `discover_object` credit arm reached via `hack.h:1530` `makeknown` from `do_wear.c:592–594`+`adj_abon :3322–3331` (DEX gauntlets), `do_wear.c:1000–1035` `Amulet_on` CHANGE, `invent.c:1025–1050` `addinv_core2` decipher; `spell.c:1517–1531` scroll-duplicate arm + `read.c:2194–2200` `seffects` head.
