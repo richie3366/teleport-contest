@@ -47,7 +47,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 `error`) is always a Must-fix row: it forfeits every later screen of that
 session (Constitution §10.14).
 
-- [ ] `uhitm.c` ranged silver predicate — D-2036 tests `hates_silver(mon.data)`, dropping C's `is_vampshifter(mon)` disjunct (`mondata.c:516–520`); exact callee `mon_hates_silver` live in `js/monsters.js:833`. Probe: import + swap, silver-vs-vampshifter replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 2).
 - [ ] `dokick.c` kick_monster caitiff float — `js/dokick.js:860` calls now-async `check_caitiff` without await (C `dokick.c:68` synchronous; the 9 other sites were awaited in D-2036). Probe: add await, Knight/Samurai kick replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 3).
 
 ## Open (corpus-driven, after Must-fix is empty)

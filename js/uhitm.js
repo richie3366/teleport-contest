@@ -59,7 +59,7 @@ import {
     is_demon, NON_PM, NUMMONS, has_head, mindless, unsolid, breathless, mons,
     flaming, touch_petrifies, is_vampshifter, is_animal, amphibious,
     is_swimmer, slithy,
-    amorphous, noncorporeal, is_whirly, passes_walls, hates_silver, humanoid,
+    amorphous, noncorporeal, is_whirly, passes_walls, hates_silver, mon_hates_silver, humanoid,
     is_human, always_hostile, is_unicorn,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
 } from './monsters.js';
@@ -935,8 +935,10 @@ async function hmon(mon, obj, thrown, _dieroll) {
             } else {
                 dmg = rnd(2);
             }
+            // C uhitm.c:896 mon_hates_silver(mon) = is_vampshifter(mon)
+            // || hates_silver(mon->data) (mondata.c:516–520).
             if ((game.objects?.[obj.otyp]?.oc_material | 0) === SILVER
-                && hates_silver(mon.data)) {
+                && mon_hates_silver(mon)) {
                 dmg += rnd(dmg ? 20 : 10);
             }
             // C uhitm.c hmon_hitmon_weapon_ranged :901–917 — wielded

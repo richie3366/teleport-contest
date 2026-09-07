@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `uhitm.c` hmon_hitmon_weapon_ranged boomerang tail `:901–917` — unported, unnamed in D-2036: `!thrown && obj==uwep && BOOMERANG && rnl(4)==3` → splinter pline + `uwepgone`/`useup` + `hittxt` + `dmg++` (RNG + state surface; all callees live: `rnl` sync, `uwepgone` async-await, `useup` sync). Probe: port the arm, `node scripts/verify.mjs --fn do_attack` + wield-boomerang replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 1). **Addressed:** D-2040
+- [x] `uhitm.c` ranged silver predicate — D-2036 tests `hates_silver(mon.data)`, dropping C's `is_vampshifter(mon)` disjunct (`mondata.c:516–520`); exact callee `mon_hates_silver` live in `js/monsters.js:833`. Probe: import + swap, silver-vs-vampshifter replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 2). **Addressed:** D-2041
+
+
+- [x] `uhitm.c` hmon_hitmon_weapon_ranged boomerang tail `:901–917` — unported, unnamed in D-2036: `!thrown && obj==uwep && BOOMERANG && rnl(4)==3` → splinter pline + `uwepgone`/`useup` + `hittxt` + `dmg++` (RNG + state surface; all callees live: `rnl` sync, `uwepgone` async-await, `useup` sync). Probe: port the arm, `node scripts/verify.mjs --fn do_attack` + wield-boomerang replay. Source: reviews/loop-unattended/1006-4c3db33a-do-attack-cluster.md (C-wrong 1). **Addressed:** D-2040 `e2c5bc79`.
 
 
 - [x] `end.c` disclose — blocks 5/553 corpus sessions (first at step 102): C «Do you want your possessions identified? [ynq] (n)» vs JS «Well done, mortal! But now thou must face the final Test...-». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-intrinsic-Rogue-92089, scen-normal-Barbarian-92208, scen-normal-Healer-92227). **Addressed:** D-2039 `55de4d0e`
