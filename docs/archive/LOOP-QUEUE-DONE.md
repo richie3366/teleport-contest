@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `allmain.c` regen_hp — blocks 6/553 corpus sessions (first at step 42): C «You are in full health.--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify regen_hp` (scen-death-Ranger-92234, scen-genesis-Archeologist-92084, scen-intrinsic-Barbarian-92008). **Addressed:** D-2012
+- [x] `objnam.c` wishymatch — blocks 5/553 corpus sessions (first at step 65): C «@a human or elf or you (dwarven archeologist called wizard)» vs JS «@a human or elf (dwarven archeologist called wizard)». Probe: `node scripts/hidden-proxy.mjs verify wishymatch` (scen-genesis-Archeologist-92175, scen-genesis-Archeologist-92205, scen-tour-Archeologist-92023). **Addressed:** D-2013
+
+
+- [x] `allmain.c` regen_hp — blocks 6/553 corpus sessions (first at step 42): C «You are in full health.--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify regen_hp` (scen-death-Ranger-92234, scen-genesis-Archeologist-92084, scen-intrinsic-Barbarian-92008). **Addressed:** D-2012 `c2d980de`
 
 
 - [x] `do.c` cmd_safety_prevention — blocks 7/553 corpus sessions (first at step 19): C «Searching doesn't feel like a good idea right now.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` (scen-death-Caveman-92159, scen-death-Monk-92121, scen-death-Monk-92191). **Addressed:** D-2011 `0e408b9f`

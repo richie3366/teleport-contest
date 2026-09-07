@@ -5,12 +5,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Scenario corpus = work picker (2026-09-06, human):** 275 `scen-*` sessions pass 7/275 — the held-out shape. Mutants 255/278 saturated. Queue from `hidden-proxy queue`; map singletons Deferred. Themed-room step-0 rows → `geom-probe`.
+- **Scenario corpus = work picker (2026-09-06, human):** `scen-*` 7/275 is the held-out shape; mutants 255/278 saturated. Queue from `hidden-proxy queue`; singletons Deferred; themed-room step-0 → `geom-probe`.
 
-- **Park `show_conduct` (HEAD c209ccc7):** premise stale (859 → 824 x_monnam); owner is a C comment; DontAsk arm alone REGRESSES (reverted). See LOOP-QUEUE Parked; re-baseline first.
-- **Park `ready_weapon` (Knight-92204 spin, 2026-09-07):** moves 5/6 but Knight spins 99% CPU past corrected step-25 → downstream pre-existing loop. See LOOP-QUEUE Parked; needs stack/profile.
-- **Park `mdrop_obj`:** capture-point divergence; full port = verify no-op. Detail in Parked.
-- **Park `dopush` (mimic-viz, not the push):** single cell r13c32, RNG tied; needs C-side viz at step 127 or `view_from` audit. Detail in Parked.
+- **Park `show_conduct` (c209ccc7):** stale (859→824 x_monnam); owner is a C comment; DontAsk arm REGRESSES (reverted). See Parked; re-baseline first.
+- **Park `ready_weapon` (Knight-92204 spin):** moves 5/6; Knight spins 99% CPU past step-25 → downstream loop. See Parked; needs stack/profile.
+- **Park `mdrop_obj`:** capture-point divergence; full port = verify no-op.
+- **Park `dopush` (mimic-viz):** one cell r13c32, RNG tied; needs C viz at step 127 or `view_from` audit.
 - **Geometry owners:** probe first (D-1849). Refills must not cite the current D-ID.
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
@@ -18,20 +18,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-2012 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1796…D-2013 ports stand (`drown`→`xkilled`, `yn_function`, `getobj`, `moveloop_core`, …; range-covered below). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-2012 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2013 stand (`make_corpse`, `dmgval`, `nh_timeout`, `newuhs`, `monverbself`; range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2012.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2012.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2013.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2013.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2013: `js/pager.js` — `describe_looked` self branch appends `' or you'` iff `urace.mnum !== PM_HUMAN && !== PM_ELF && !Upolyd(u)` (C `:1352` gate verbatim;  Named: `wishymatch` special-case arms (dwarvish/dwarven, elven/elvish/elfin, helmet→helm, gloves→
 - D-2012: `js/allmain.js` — `interrupt_multi(msg)` is now `async`: live `nomul(0)` (`./hack.js`, pre-existing import edge extended — hoisted function declaratio Named: `rehumanize` on `mh < 1` (pre-existing defer in the `regen_hp` doc, untouched).
 - D-2011: `js/do.js` — `danger_uprops` checks flat `|0` OR `u.uprops[PROP].intrinsic` for STONED/SLIMED/STRANGLED/SICK (C `:2318–2322` cite; no H/E extrinsic —  Named: visctrl/cmd_from_func beyond `'m'` (pre-existing D-0228 defer, untouched).
 - D-2010: `js/artifact.js` — full hero `touch_artifact` in exact C order (now `async`; `Role_if`/`Race_if` badclass; bane via same-file `spec_applies`; single-` Named: monster covetous/mplayer role/align arms (`is_covetous`/`is_mplayer`/`mon_aligntyp` unwire
@@ -46,5 +47,4 @@ Objective/score live in `CURRENT.md`.
 - D-2001: `js/read.js` — parse: case-insensitive "female "/"male " blanking (female first; ASCII-only lower so byte indices align; leading-pad-only search so a  Named: the rest of `create_particular_parse`/`creation` stays deferred (quan digit prefix + QUAN_
 - D-2000: `js/steed.js` — static `import { y_n } from './getline.js'` (hoisted function, cycle-safe per `imports.mjs --can`; `mhitu.js` precedent) + `let forcem Named: none new — `doride` is now complete vs C; `mount_steed`'s remaining deferred arms keep the
 - D-1999: `js/makemon.js` — `set_apparxy(mtmp)` after `newsym` in the `byyou` branch (C `:1393–1394` cite; import already existed, no new edge). Named: other stale `u.Invis`-flat readers unchanged (`mon.js:2403`, `mhitu.js:216/1405/2314`, `uh
-- D-1998: `js/wizcmds.js` — per-prop switch in exact C order with `:line` citations: SICK `!rn2(2) ? Named: count-prefix menu digits (always `DEFAULT_TIMEOUT_INCR`); non-wizard `unavailcmd`/`ecname`
 <!-- landmarks:end -->
