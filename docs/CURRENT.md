@@ -20,20 +20,19 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-06** — full `sessions` at **D-1979**
-(audit **941–949**, `816104a5`). Fortress held 44/44: seed0030
-**D-1816**, seed4500 `#wizintrinsic` deafness `[2]` **D-1817**. Scr
-**11,405**/11,405, RNG **792,838**/792,838 (identical to D-1952 audit). Speed `61+0.62/turn`
-(R² 0.87).
+Score last measured: **2026-09-07** — full `sessions` at **D-1995**
+(audit **950–965**, `f8079012`). Fortress **43/44**: `seed0002`
+throws `DEAF is not defined` (Must-fix queued).
+Scr **10,810**/11,405, RNG **765,680**/792,838, speed `56+0.35/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **44 / 44** |
-| Screens matched | **11,405 / 11,405** |
-| Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `61+0.62/turn` (R² 0.87) |
+| Sessions passing | **43 / 44** |
+| Screens matched | **10,810 / 11,405** |
+| Positional RNG calls matched | **765,680 / 792,838** |
+| Speed label | `56+0.35/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -47,12 +46,12 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 941–949: 8 ACCEPT, 1 ACCEPT-WITH-DEBT.
+Reviews 950–965: 14 ACCEPT, 1 debt (961), 1 QUALITY-RISK (965 → Must-fix).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
 
-**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0013-rogue, seed0013-friday13-restore, seed0107,
@@ -62,8 +61,8 @@ seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore, seed0030-ten-diverse-deaths,
 seed4500-knight-coverage.
 
-**Notable non-PASS:** none. Fortress report
-`docs/2026-09-04-fortress-regression-42-44.md` (both Must-fix shipped).
+**Notable non-PASS:** seed0002 (`DEAF is not defined` throw; Must-fix queued).
+Fortress report `docs/2026-09-04-fortress-regression-42-44.md` (both Must-fix shipped).
 
 ## Green gate
 
@@ -86,7 +85,7 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `wizcmds.c` wiz_intrinsic — blocks 9/553 (SICK/STONED/STRANGLED/VOMITING/STUNNED arms; SLIMED arm landed D-1995 with no movement). Probe: `node scripts/hidden-proxy.mjs verify wiz_intrinsic`.
+**Next cluster:** Must-fix `DEAF` import (fortress 43/44; same-edge one-liner). Probe: `ps_test_runner.mjs sessions/seed0002.session.json`. Then wiz_intrinsic (9/553; SLIMED landed D-1995 unreached). Probe: `hidden-proxy.mjs verify wiz_intrinsic`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1995 (index).**
 <!-- recent:begin -->

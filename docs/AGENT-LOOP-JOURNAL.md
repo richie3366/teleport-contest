@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — Audit D-1980…D-1995 against pinned C (reviews 950–965) + cadence score (resume iter-2440 leftover)
+
+Resumed timed-out iter-2440 (950–963 on disk): reviewed D-1994 (964) + D-1995 (965) with parent-baseline re-measures. 14 ACCEPT, 1 debt (961), 1 QUALITY-RISK (965: `from_what(DEAF)` without import → `ReferenceError`). Cadence: **43/44** (sole fail seed0002). Must-fix prepended; Next cluster set to it. No js/ edits.
 ## 2026-09-07 — D-1995 insight.c enlightenment family (continue iter-2438 leftover, committed)
 
 **C locus:** `insight.c:1006–1194` `status_enlightenment` + `:398–2000` `enlightenment` + `doattributes :647` live `midnight()/night()`; `wintty.c` tty_end_menu + `tty_display_nhwindow(NHW_MENU, H2344)` corner-vs-fullscreen; `wizcmds.c:953,1040–1043` SLIMED; `attrib.c` `dwa_abil[]/gno_abil[]` + `is_innate` H-fields.

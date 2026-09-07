@@ -960,3 +960,19 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [947-d73b94aa-vampire-djinni-arrest-soldier.md](./947-d73b94aa-vampire-djinni-arrest-soldier.md) | `d73b94aa` | D-1977 sounds.c domonnoise VAMPIRE/DJINNI/ARREST/SOLDIER | **ACCEPT** |
 | [948-af9b2323-bribe-cuss-spell-demontalk.md](./948-af9b2323-bribe-cuss-spell-demontalk.md) | `af9b2323` | D-1978 sounds.c domonnoise BRIBE/CUSS/SPELL + demon_talk/cuss | **ACCEPT** |
 | [949-816104a5-nurse-guard-chat-depth.md](./949-816104a5-nurse-guard-chat-depth.md) | `816104a5` | D-1979 sounds.c domonnoise NURSE/GUARD | **ACCEPT** |
+| [950-4fda73b4-mcan-epilogue-oracle-save.md](./950-4fda73b4-mcan-epilogue-oracle-save.md) | `4fda73b4` | D-1980 sounds.c domonnoise mcan epilogue + oracle save-rest | **ACCEPT** |
+| [951-7456f908-under-water-ground-docrt.md](./951-7456f908-under-water-ground-docrt.md) | `7456f908` | D-1981 display.c under_water/under_ground + docrt | **ACCEPT** |
+| [952-ff608bf9-cliparound-pan-gates.md](./952-ff608bf9-cliparound-pan-gates.md) | `ff608bf9` | D-1982 wintty.c cliparound pan + tty gates | **ACCEPT** |
+| [953-a18cf0dd-map-glyphinfo-ov-tables.md](./953-a18cf0dd-map-glyphinfo-ov-tables.md) | `a18cf0dd` | D-1983 display.c map_glyphinfo ov_* tables | **ACCEPT** |
+| [954-1485c83d-flush-bbox-core.md](./954-1485c83d-flush-bbox-core.md) | `1485c83d` | D-1984 display.c flush_screen glyph-bbox core | **ACCEPT** |
+| [955-d1e71302-flush-conditional-mark.md](./955-d1e71302-flush-conditional-mark.md) | `d1e71302` | D-1985 display.c flush_screen conditional mark + reset | **ACCEPT** |
+| [956-97752af4-flush-span-paint.md](./956-97752af4-flush-span-paint.md) | `97752af4` | D-1986 display.c flush_screen span-gated paint | **ACCEPT** |
+| [957-03b0ab93-hilite-background-store.md](./957-03b0ab93-hilite-background-store.md) | `03b0ab93` | D-1987 getpos.c HiliteBackground + frame store | **ACCEPT** |
+| [958-08b77b57-missing-import-throws.md](./958-08b77b57-missing-import-throws.md) | `08b77b57` | D-1988 missing-import ReferenceError throws | **ACCEPT** |
+| [959-7ed1c205-getlt-dst-shift.md](./959-7ed1c205-getlt-dst-shift.md) | `7ed1c205` | D-1989 calendar.c getlt NY DST shift | **ACCEPT** |
+| [960-a5c65a9e-do-statusline2-cond.md](./960-a5c65a9e-do-statusline2-cond.md) | `a5c65a9e` | D-1990 botl.c do_statusline2 cond list | **ACCEPT** |
+| [961-ab0522c0-break-armor-port.md](./961-ab0522c0-break-armor-port.md) | `ab0522c0` | D-1991 polyself.c break_armor full port | **ACCEPT-WITH-DEBT** |
+| [962-c0801fb9-drop-weapon-port.md](./962-c0801fb9-drop-weapon-port.md) | `c0801fb9` | D-1992 polyself.c drop_weapon full port | **ACCEPT** |
+| [963-976cbe23-gulpmu-exercise-arms.md](./963-976cbe23-gulpmu-exercise-arms.md) | `976cbe23` | D-1993 mhitu.c gulpmu exercise arms | **ACCEPT** |
+| [964-c36a197c-exercise-residual-exerper.md](./964-c36a197c-exercise-residual-exerper.md) | `c36a197c` | D-1994 attrib.c exerper + makeknown-credit callers | **ACCEPT** |
+| [965-f8079012-enlightenment-family-slimed.md](./965-f8079012-enlightenment-family-slimed.md) | `f8079012` | D-1995 insight.c enlightenment family + SLIMED | **ACCEPT** |
