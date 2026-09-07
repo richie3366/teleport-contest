@@ -47,8 +47,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 `error`) is always a Must-fix row: it forfeits every later screen of that
 session (Constitution §10.14).
 
-- [ ] `pager.c` describe_looked self '@' found-count — C `pager.c:1346–1355` `found += append_str(out_str, "you")` takes found 1→2 so `do_look :1941` (`found == 1`) skips checkfile; JS keeps `found: 1` so verbose (`:`) look at own square as dwarf/gnome/orc with help on emits `More info about "dwarven archeologist"?` (data keys `archeolog*`/`* valkyrie`/`* ranger`/`* wizard` pmatch the simplified self-lookat string; measured vs embedded dat_text.js) where C prints nothing. Fix: `found: orYou ? 2 : 1` in the self branch. Probe: verbose-look own square as dwarven hero, watch for the extra yn prompt. Source: reviews/loop-unattended/983-488f18ab-pager-or-you-found.md.
-
 ## Open (corpus-driven, after Must-fix is empty)
 
 Ranked by corpus sessions blocked (`hidden-proxy queue`, scoreboard at

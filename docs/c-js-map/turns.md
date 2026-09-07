@@ -806,7 +806,7 @@ look_traps format; invis/warning glyphs; custom BIND=/number_pad;
 selectable `process_menu_window` path; **`self_lookat` → `pmname(umonnum,Ugender)` not male 
 `urole.name.m`** (D-0664) + **Punished `, chained to ` + `ansimpleoname(uball)`** (D-0928 #1149; 
 steed/utrap deferred) + **`brief_at` CLOUD fog/vapor** (D-0811) + 
-**`room_cmap_explanation` S_darkroom** (D-0812) + **blocked staircase down qstart** (D-0814) + **`describe_looked` self "or you"** (D-2013; `pager.c:1346–1353` '@'-as-you tack-on when race ∉ {human, elf} && !Upolyd — `u_at` is the branch, '@' its prefix; the `wishymatch` queue owner was a literal-heuristic misfire on `"dwarven "` at `objnam.c:3280`, wishymatch arms stay named in the wish-subset row); 
+**`room_cmap_explanation` S_darkroom** (D-0812) + **blocked staircase down qstart** (D-0814) + **`describe_looked` self "or you"** (D-2013; `pager.c:1346–1353` '@'-as-you tack-on when race ∉ {human, elf} && !Upolyd — `u_at` is the branch, '@' its prefix; the `wishymatch` queue owner was a literal-heuristic misfire on `"dwarven "` at `objnam.c:3280`, wishymatch arms stay named in the wish-subset row) + **self found-count** (D-2020; `found += append_str(out_str, "you")` returns 1 so C found 1→2 and `do_look :1941` (`found == 1`) skips `checkfile` — `found: orYou ? 2 : 1`); 
 look_at_monster hallu/health/stuck/leashed/trapped; **howmonseen D-1562**; 
 **`object_from_map` / `look_at_object` D-1524** (`pager.c:284–399`; fake SLIME_MOLD 
 `spe = current_fruit` then mimic `MCORPSENM`; glyphotyp not integer glyph; 

@@ -93,3 +93,5 @@ green 2/2 + strict ×2, cohort 7/7. Rule #2 clean (re-ran).
    change (C's firstmatch is equally unused once skipped).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2020
