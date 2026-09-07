@@ -723,7 +723,7 @@ SCR_STINKING_CLOUD `seffect_stinking_cloud` (`do_stinking_cloud`, `can_center_cl
 `display_stinking_cloud_positions`, `p_glow3`) (D-1896; seffects dispatch + doread gate; 
 enchant-armor `adj_abon`/`maybe_adjust_light` named; mail `readmail` live `js/mail.js` (D-1958; MAILREADER spawn + `getmailstatus` stat named)**; 
 omit other `seffect_*` (punishment done D-0908; create is D-1401; 
-mapping is D-1407; fire/blank-paper still deferred), fortune/shirt/credit/marker/coin/orb/candy-read, Blind Braille, Rogue 
+mapping is D-1407; fire is D-2032 (confused/underwater/blessed-getpos + tower/burn_away_slime + explode; doread allowlist + nodisappear); blank-paper still deferred), fortune/shirt/credit/marker/coin/orb/candy-read, Blind Braille, Rogue 
 `unblock_point` on blessed SDOOR, `can_chant` poly silent/headless/buzz/burble; 
 **`doread` `check_capacity` EXT_ENCUMBER→ECMD_OK** (D-0928 #1104)
 

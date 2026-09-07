@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `potion.c` dodrink — blocks 3/553 corpus sessions (first at step 118): C «If you can't breathe air, how can you drink liquid?» vs JS «What do you want to drink? [di or ?*]». Probe: `node scripts/hidden-proxy.mjs verify dodrink` (scen-intrinsic-Priest-92096, scen-wish-Knight-91128, scen-wish-Rogue-92137). **Addressed:** D-2031
+- [x] `read.c` seffect_fire — blocks 1/553 corpus sessions: scen-wish-Ranger-92212 step 66/152 C `rn2(19)@exercise` (seffects head `:2199–2200`) + `rn2(3)@seffect_fire(:1864)` + `rn2(19)@exercise` vs JS «That scroll is not implemented yet.» (doread allowlist lacks SCR_FIRE; `verify seffect_fire` is vacuous until rescore re-attributes it from `exercise`). **Addressed:** D-2032
+
+
+- [x] `potion.c` dodrink — blocks 3/553 corpus sessions (first at step 118): C «If you can't breathe air, how can you drink liquid?» vs JS «What do you want to drink? [di or ?*]». Probe: `node scripts/hidden-proxy.mjs verify dodrink` (scen-intrinsic-Priest-92096, scen-wish-Knight-91128, scen-wish-Rogue-92137). **Addressed:** D-2031 `ee5d6d71`
 
 
 - [x] `wizard.c` tactics/target_on — covetous pursuit + STRAT_HEAL branch deferred **Addressed:** D-2030 (JS `tactics` HEAL arm is a mavenge-only stub; `strategy` bands 2–3 return HEAL/NONE where C `target_on` pursues M3_WANTS*); 4 ex-`collect_coords` sessions diverge here: C first draw of step is `collect_coords` `rn2(8)` with zero tactics draws in stepFns, JS draws `tactics` `rn2(5/33)` / `distfleeck` `rn2(5)` at the same index (C `mnearto`→`enexto` is RNG-free pre-shuffle: `goodpos`/`noteleport_level`/`mnearto` draw nothing on these paths). Probe: `node scripts/hidden-proxy.mjs verify collect_coords` (scen-poly-Healer-92107, scen-tour-Priest-92235, scen-tour-Samurai-91113, scen-tour-Wizard-92103).
