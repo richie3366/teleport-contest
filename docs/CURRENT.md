@@ -87,8 +87,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `monmove.c` set_apparxy — blocks 6/553 (first at step 7): C draws `rn2(4)` in `set_apparxy :2280` (displacement / `mtmp->mux` notseen gate) where JS is in `m_initinv`; a freshly created (`^G`) monster's first move. Probe: `node scripts/hidden-proxy.mjs verify set_apparxy` (scen-genesis-Ranger-92126, scen-genesis-Ranger-92151, scen-wish-Healer-92147). (D-1998 shipped the wiz_intrinsic sick/stone/stun/vomit/warn/glib arms + tail.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-1998 (index).**
+**Keep D-0845…D-1999 (index).**
 <!-- recent:begin -->
+**D-1999** `makemon.c:1391–1396` (`!in_mklev && byyou` → `newsym` + `set_apparxy` BEFORE `m_initweap` — `js/makemon.js` — `set_apparxy(mtmp)` after `newsym` in the `byyou` branch (C `:1393–1394` cite; import already existed, no new edge).
 **D-1998** `wizcmds.c:948–1096` `wiz_intrinsic` — `js/wizcmds.js` — per-prop switch in exact C order with `:line` citations: SICK `!rn2(2) ?
 **D-1996** `attrib.c:905–1001` `from_what` (DEAF `:931` roleplay-deaf arm); `insight.c:1059–1074` Bli — one-word addition to the existing same-edge `./const.js` import (after `BLINDED`, matching C `BLINDED=15, DEAF=16` order) with a C-citation comment.
 **D-1995** `insight.c` enlightenment family — `js/invent.js` status arms (Stoned/Slimed/Strangled/Sick/Vomit/Stun/Conf/Blind-kinds/held-swallowed/Fumbling+Sleepy+Hunger-magic) + resistance `from_what` catalogue (Sleep/See_invisible/telepathic/warned/Fast/Reflecting/Lifesaved/spell-cast/wizard-record/Luck/Nth-death/bones) + corner `^X` menu; `js/attrib.js` dwa/gno infra + innate H-fields; `js/wizcmds.js` SLIMED arm. Verify: enlightenment 6 moved/1 unchanged, one_characteristic 5 PASS/8 moved, status_enlightenment 4 moved, 0 worse; wiz_intrinsic 9 unchanged (rest remains).
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-1993** `mhitu.c:1421–1469` `gulpmu` switch — three one-line `exercise(A_STR, false)` insertions with C `:line` comments, each directly after its C pline.
 **D-1992** `polyself.c:1305–1362` `drop_weapon` — deleted the clone; message via live `is_sword` (`./objects.js`) + `weapon_descr` (`./invent.js`) + live `makeplural` (`./objnam.js`) with C `:line` comments; drops via live sync `uswapwepgone()` + async `uwepgone()` with
 **D-1991** `polyself.c:1157–1302` `break_armor` — exact-C arm order with `:line` citations — `end_burn` (new `./timeout.js` edge) + `await Armor_gone()` + `useup` (same-module `./invent.js`) for breakarm uarm; cloak 3-way on `(otyp !== MUMMY_WRAPPING || !WrappingAllowed
-**D-1990** `botl.c:100–250` `do_statusline2` — cond built in exact C order with `:line` citations — fatal four first (flat `u.Stoned/Slimed/Sick` from `make_*` OR `uprops[].intrinsic` from `#wizintrinsic incr_prop_timeout`, like `timeout.js intr_bits`; Strangled also
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1998; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-1999; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

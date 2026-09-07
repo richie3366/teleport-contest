@@ -2967,7 +2967,10 @@ export function makemon(mdat, x, y, mmflags = 0) {
         }
     } else if (byyou) {
         // C: !in_mklev && byyou → newsym + set_apparxy before invent
+        // (makemon.c:1393-1394; set_apparxy draws gotu rn2(3)/rn2(4) here,
+        // before m_initweap/m_initinv — skipping it misaligns all later RNG)
         newsym(mtmp.mx, mtmp.my);
+        set_apparxy(mtmp);
     }
 
     // C: makemon.c :1397–1404 after in_mklev sleep / byyou newsym,

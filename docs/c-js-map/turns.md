@@ -2578,7 +2578,7 @@ mconf/mstun/flee-teleport/**m_respond D-1314**/courage between wipe and apparxy 
 **hostile `m_move`→`postmov` + `mfndpos` known-trap skip** (D-0151); 
 **`set_apparxy` Displacement/Invis/Underwater** (D-0154; cloak otyp for EDisplaced; 
 **`can_fog` vampshifter** D-0799; omit `oc_oprop`/DRAWBRIDGE 
-`SURFACE_AT`/`stuff_prevents_passage`); **`postmov` door open/unlock/smash + UnblockDoor + 
+`SURFACE_AT`/`stuff_prevents_passage`; **makemon `!in_mklev && byyou` newsym+`set_apparxy` before invent D-1999** (was newsym-only: skipped gotu `rn2(3)/rn2(4)` misaligned all later RNG); **live `Invis()` in `set_apparxy`/`m_move` appr D-1999** (youprop.h macro `(HInvis||EInvis)&&!BInvis` via timeout.js export — the `u.Invis` flat is stale outside the magic-trap toggle; other flat readers `mon.js`/`mhitu.js`/`uhitm.js`/`shk.js`/`do_wear.js` still named); **`postmov` door open/unlock/smash + UnblockDoor + 
 monhaskey/mb_trapped** (D-0159; **pline_mon D-1227**; You_see/You_hear stay pline; 
 **postmov IRONBARS eat/Norep D-1247**; **`mon_yells` D-1248**; 
 **`msg_mon_movement` D-1228** dest `pline_xy` after place not `pline_mon`; 
