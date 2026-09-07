@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-07** — full `sessions` at **D-2002**
-(audit **966–972**, `4a48e698`). Fortress **44/44** (D-1996 DEAF fix
-restored `seed0002`; no throws). Scr **11,405**/11,405, RNG
-**792,838**/792,838, speed `57+0.37/turn`.
+Score last measured: **2026-09-07** — full `sessions` at **D-2011**
+(audit **973–981**, `eeef4216`). Fortress **44/44** (no throws).
+Scr **11,405**/11,405, RNG **792,838**/792,838, speed
+`73+0.49/turn` (R² 0.75).
 
 ## Score
 
@@ -46,7 +46,7 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 966–972: 6 ACCEPT, 1 QUALITY-RISK (971 → Must-fix).
+Reviews 973–981: 9 ACCEPT, 0 Must-fix (971's Must-fix shipped as D-2003, stamped).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

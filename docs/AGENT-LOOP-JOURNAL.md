@@ -8,6 +8,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — Audit D-2003…D-2011 against pinned C (reviews 973–981) + cadence score 44/44
+
+**Scope:** all 9 js/ SHAs since review 972 (`e673cee4`…`0e408b9f`), oldest-first, one file per SHA written as each finished. Every new/changed JS function walked against its C locus (`csym.mjs` body + `sym.mjs` resolutions); every hidden-verify claim re-measured with `--base HASH~1`.
+**Result: 9 ACCEPT, 0 Must-fix.** Notable confirmations: D-2003 bare-`strstri` order/load-bearing female-first blanking (`read.c:3184–3194`); D-2004 `{mtype}` box + worm-tail exemption + triple-condition newcham; D-2005 four `_u` arms incl. plys `rn2(3)`-before-gate short-circuit + byte-identical prop clones; D-2006 lua draw order incl. bury-before-contents (`sp_lev.c:2428` vs `:3743`) + always-draw `obj_resists`; D-2007 twelve tips incl. `MS_SHRIEK = 18` vs `monflag.h:32`; D-2008 full `surface()` + `db_under_typ` internal mask; D-2009 confdir tail + impaired TIME (11-vs-11 slice); D-2010 single-`if` blast gate + complete async sweep (artifact↔hack new edge is hoisted-safe); D-2011 intrinsic-only per `youprop.h:108–113` + `PROP_FLAT` gap mechanism. Two precision notes only (D-2006 trap-retry comment off-frame; D-2010 "no new edge" overstates) — observations, not C-wrongs.
+**Cadence:** full `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `73+0.49/turn`. Queue steady at 9 Open, no Must-fix → no refill, no archiver run.
+**Next:** port iter pops the live dosearch0 counted-search row (92191 residual).
 ## 2026-09-07 — D-2011 do.c danger_uprops: JS checked only the Stoned/Slimed/Strangled/Sick flats, missing uprops[].intrinsic where wiz_intrinsic STRANGLED lands
 
 **C locus:** `do.c:2318–2322` `danger_uprops` (`Stoned || Slimed || Strangled || Sick`, i.e. `u.uprops[PROP].intrinsic` per `youprop.h:108–113`); `do.c:2325–2346` `cmd_safety_prevention` (unchanged, gate order kept); `wizcmds.c:1073–1079` default arm (`incr_itimeout(&u.uprops[p].intrinsic, amt)` — STRANGLED lands in uprops only, unlike SICK/SLIMED/STONED which go through `make_sick/make_slimed/make_stoned`); `timeout.c:32–36` menu order (`d` = STRANGLED).

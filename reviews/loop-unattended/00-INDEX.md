@@ -983,3 +983,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [970-136921ce-doride-force-mount.md](./970-136921ce-doride-force-mount.md) | `136921ce` | D-2000 doride wizard force-mount arm | **ACCEPT** |
 | [971-d9e7079e-gendered-name-flags.md](./971-d9e7079e-gendered-name-flags.md) | `d9e7079e` | D-2001 create_particular gender flags | **QUALITY-RISK** |
 | [972-4a48e698-pick-lock-occupied.md](./972-4a48e698-pick-lock-occupied.md) | `4a48e698` | D-2002 pick_lock occupied-square arms | **ACCEPT** |
+| [973-e673cee4-gender-term-search.md](./973-e673cee4-gender-term-search.md) | `e673cee4` | D-2003 create_particular_parse bare strstri | **ACCEPT** |
+| [974-b528f06c-creation-uniqueness-gate.md](./974-b528f06c-creation-uniqueness-gate.md) | `b528f06c` | D-2004 create_particular_creation cant_revive gate | **ACCEPT** |
+| [975-cb634081-mhitu-fire-tlpt-stck-plys.md](./975-cb634081-mhitu-fire-tlpt-stck-plys.md) | `cb634081` | D-2005 mhitu FIRE/TLPT/STCK/PLYS arms | **ACCEPT** |
+| [976-c9f485f3-themeroom-fills.md](./976-c9f485f3-themeroom-fills.md) | `c9f485f3` | D-2006 themeroom Massacre/Statuary/Buried-treasure | **ACCEPT** |
+| [977-450fd66d-polymon-verbose-tips.md](./977-450fd66d-polymon-verbose-tips.md) | `450fd66d` | D-2007 polymon verbose-tip block | **ACCEPT** |
+| [978-6d8641bf-surface-stairs-arm.md](./978-6d8641bf-surface-stairs-arm.md) | `6d8641bf` | D-2008 surface() stairs arm | **ACCEPT** |
+| [979-d7411fbf-doclose-impaired-time.md](./979-d7411fbf-doclose-impaired-time.md) | `d7411fbf` | D-2009 doclose impaired-direction TIME | **ACCEPT** |
+| [980-dad22c02-touch-artifact-blast.md](./980-dad22c02-touch-artifact-blast.md) | `dad22c02` | D-2010 touch_artifact hero blast | **ACCEPT** |
+| [981-0e408b9f-danger-uprops.md](./981-0e408b9f-danger-uprops.md) | `0e408b9f` | D-2011 danger_uprops uprops-intrinsic | **ACCEPT** |
