@@ -85,7 +85,7 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster (Must-fix first):** `- [ ] hack.c trapmove — blocks 3/553 corpus sessions (first at step 85): C «You are a statue.--More--» vs JS «You are a statue. You can move again.». Probe: node scripts/hidden-proxy.mjs verify trapmove` (scen-death-Knight-92203, scen-death-Monk-92123, scen-intrinsic-Caveman-92070).
+**Next cluster:** `- [ ] wizard.c tactics/target_on — covetous pursuit + STRAT_HEAL branch deferred; 4 ex-collect_coords sessions diverge here (C collect_coords rn2(8) with no tactics draw vs JS tactics rn2(5/33)/distfleeck rn2(5)). Probe: node scripts/hidden-proxy.mjs verify collect_coords` (scen-poly-Healer-92107, scen-tour-Priest-92235, scen-tour-Samurai-91113, scen-tour-Wizard-92103). (`collect_coords` parked 2026-09-07: symptom owner, body C-faithful.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2029 (index).**
 <!-- recent:begin -->

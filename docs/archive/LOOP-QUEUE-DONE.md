@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `hack.c` trapmove — blocks 3/553 corpus sessions (first at step 85): C «You are a statue.--More--» vs JS «You are a statue. You can move again.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-death-Knight-92203, scen-death-Monk-92123, scen-intrinsic-Caveman-92070). **Addressed:** D-2029
+- [x] `hack.c` trapmove — blocks 3/553 corpus sessions (first at step 85): C «You are a statue.--More--» vs JS «You are a statue. You can move again.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-death-Knight-92203, scen-death-Monk-92123, scen-intrinsic-Caveman-92070). **Addressed:** D-2029 `4bda180d`
 
 
 - [x] `pickup.c` use_container — blocks 4/553 corpus sessions (first at step 84): C «Your sack is empty. Do what with it?» vs JS «Your sack is empty. Do what with it?». Probe: `node scripts/hidden-proxy.mjs verify use_container` (scen-intrinsic-Rogue-92089, scen-kit-Rogue-92225, scen-normal-Rogue-92160). **Addressed:** D-2028 `92eedfe1`
