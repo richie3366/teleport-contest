@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `- [ ] wizard.c tactics/target_on — covetous pursuit + STRAT_HEAL branch deferred; 4 ex-collect_coords sessions diverge here (C collect_coords rn2(8) with no tactics draw vs JS tactics rn2(5/33)/distfleeck rn2(5)). Probe: node scripts/hidden-proxy.mjs verify collect_coords` (scen-poly-Healer-92107, scen-tour-Priest-92235, scen-tour-Samurai-91113, scen-tour-Wizard-92103). (`collect_coords` parked 2026-09-07: symptom owner, body C-faithful.)
+**Next cluster:** `- [ ] potion.c dodrink — blocks 3/553 corpus sessions (first at step 118): C «If you can't breathe air, how can you drink liquid?» vs JS «What do you want to drink? [di or ?*]». Probe: node scripts/hidden-proxy.mjs verify dodrink` (scen-intrinsic-Priest-92096, scen-wish-Knight-91128, scen-wish-Rogue-92137).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2030 (index).**
+**Keep D-0845…D-2031 (index).**
 <!-- recent:begin -->
+**D-2031** `potion.c` `dodrink :526–615` (Strangled `:530–533`, fountain/sink/underwater `:535–572`,  — `js/potion.js` — Strangled gate first (uprops intrinsic per the C macro, plus flat `u.Strangled` for the same C value per the `do.js` danger_uprops dual-store note); underwater `u.uinwater && !u.uswallow` yn prompt with 
 **D-2030** `wizard.c` `you_have :216–233` / `target_on :236–267` (M_Wants gate = `:139` macro `mflags — `js/wizard.js` — new `you_have` static (u.uhave amulet/bell/menorah/book/questart switch); new `target_on` static (M_Wants inline, STRAT_PLAYER at hero / STRAT_GROUND at floor obj / STRAT_MONSTR at holder with the Amulet
 **D-2029** `timeout.c:674–685` STONED expiry inside the uprops TIMEOUT loop — `js/timeout.js` — new STONED expiry arm before SLIMED (C switch order): `find_delayed_killer(STONED)` name (default «killed by petrification»/`NO_KILLER_PREFIX`), `dealloc_killer`, `await done_timeout(STONING, STONED)`, 
 **D-2028** `pickup.c:2972–3226` `use_container` — `js/pickup.js` — `Tobjnam` + `thesimpleoname as thesimpleoname_objnam` extend the pre-existing `./objnam.js` import (same SCC edge, runtime-only reads, no TDZ risk); `in_or_out_menu` Look/stash rows via the discovery-awa
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2026** `eat.c:543–573` `done_eating` — `js/eat.js` `done_eating` — nomovemsg arm first (print when message, always clear to null, cf.
 **D-2025** `insight.c:1667–1858` enlightenment Attributes — `js/invent.js` new `hero_Polymorph_control`/`hero_Regeneration` + Displaced/Regen/Polycontrol arms in C order (final + overlay paths); `js/artifact.js` `abil_to_spfx` 12-row table, `what_gives` takes propidx; `js/attrib.js` `from_what` passes it through
 **D-2024** `polyself.c:859–872` `polymon` mhmax block — `export` on `makemon.js golemhp` (no clone #2); `polyself.js` imports `{ golemhp, is_home_elemental }` from `./makemon.js` (new edge, same 90-module SCC; `imports.mjs --can` CHECK verdict — both are hoisted function decl
-**D-2023** `timeout.c:456–521` `slimed_to_death` — `js/timeout.js` — new `done_timeout(how, which)` (C `:574–585` verbatim shape) + new `slimed_to_death(kptr)` (killer setup, emits_light/del_light_source, mvitals dance, `await polymon`, done_timeout, gameover guard for C
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2030; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2031; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

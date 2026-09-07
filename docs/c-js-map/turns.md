@@ -420,7 +420,8 @@ throne/beehive/morgue/barracks/court You_hear plines still named).
 JS: `js/potion.js` — partial
 
 **`dodrink`/`dopotion`/`peffect_oil`** uncursed/cursed unlit (D-0073); 
-**`dodrink` fountain yn→`drinkfountain`** (D-0237); **`dodrink` sink yn→`drinksink`** (D-0434); 
+**`dodrink` fountain yn→`drinkfountain`** (D-0237); **`dodrink` sink yn→`drinksink`** (D-0434);
+**`dodrink` Strangled gate + underwater yn + worn split + milky/smoky occupant + `ghost_from_bottle`** (D-2031; `objdescr_is` imported from apply.js, `remove_worn_item` from steal.js); 
 **`rhack` `q` gates move on `ECMD_TIME` only** (D-0280; `ECMD_CANCEL` must not spend a turn); 
 **`dodip` fountain yn→`dipfountain`** (D-0109); 
 **`getobj_drink` `?`/`*` → `display_pickinv_reply`** (D-0430); 

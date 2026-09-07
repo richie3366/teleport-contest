@@ -1043,7 +1043,7 @@ async function use_cream_pie(obj) {
 }
 
 /** C ref: o_init.c objdescr_is — appearance string match. */
-function objdescr_is(obj, descr) {
+export function objdescr_is(obj, descr) {
     if (!obj) return false;
     const oc = game.objects?.[obj.otyp];
     if (!oc) return false;
