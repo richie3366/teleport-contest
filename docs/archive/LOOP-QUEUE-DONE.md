@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 5/553 (first at step 26): C draws `rn2(10)` in `mhitm_mgc_atk_negated :87` (the `AD_*` magic-attack negation gate before knockback) where JS is already in `mhitm_knockback`. Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Tourist-92003, scen-poly-Caveman-92050, scen-wish-Caveman-92183). **Addressed:** D-2005
+- [x] `mkroom.c` somex / `themerms.lua` themed-room fills at Dlvl 1 — blocks 4/553 at step 0 (15.7k RNG) plus 5 `unattributed` step-0 rows (`rn2(27) @ nhlib.lua random parent=contents(themerms.lua:183)` vs JS `rnd_rect`): a themed room C fills that the port skips. Geometry owner → `node scripts/geom-probe.mjs scen-genesis-Monk-92025` first, then port the missing `themerms.lua` room/fill from `nethack-c/upstream/dat/themerms.lua` (26 rooms; check which `name =` entries `js/mklev.js` lacks). Probe: `node scripts/hidden-proxy.mjs verify somex` (scen-genesis-Monk-92025, scen-genesis-Rogue-92069, scen-poly-Caveman-91133). **Addressed:** D-2006
+
+
+- [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 5/553 (first at step 26): C draws `rn2(10)` in `mhitm_mgc_atk_negated :87` (the `AD_*` magic-attack negation gate before knockback) where JS is already in `mhitm_knockback`. Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Tourist-92003, scen-poly-Caveman-92050, scen-wish-Caveman-92183). **Addressed:** D-2005 `cb634081`
 
 
 - [x] `read.c` create_particular_creation — blocks 5/553 (first at step 14): `^G` of a unique / genocided / not-yet-eligible monster: C `Creating doppelganger instead; force Demogorgon? [yn] (n)` (`read.c:3267` `create_particular_creation` uniqueness / `mvitals` gate) vs JS creating it directly. Probe: `node scripts/hidden-proxy.mjs verify create_particular_creation` (scen-death-Valkyrie-92229, scen-genesis-Barbarian-91118, scen-genesis-Knight-92149). **Addressed:** D-2004 `b528f06c`

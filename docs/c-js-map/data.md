@@ -1344,10 +1344,11 @@ wallify_map on splev extents (sp_lev.c lspo_wallify :5965 → wallify_map
 **knox** (D-1853; Fort Ludios
 76x20 solidfill vault: branch + up/down tele, throne COURT, vault gold/trap
 iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);
-full Lua VM + remaining `des.*` still production requirement; 
-Random-feature center terrain + 
-other fill bodies (Buried treasure/Massacre/Statuary/…) 
-+ dig postprocess absent; icedpool on ICE (`splev_init_present`); exclusion_zones save/rest deferred;
+full Lua VM + remaining `des.*` still production requirement;
+Random-feature center terrain (D-2006: Buried treasure / Massacre /
+Statuary fills + `make_dig_engraving` postprocess — reservoir already
+listed all 15; BODIES was 12); icedpool on ICE (`splev_init_present`);
+exclusion_zones save/rest deferred;
 **Garden fill + `make_garden_walls` postprocess** (D-1861; numpoints/6
 asleep wood nymphs via `splev_room_monster` default-random `induced_align`,
 `percent(30)` DRY `des.feature` fountain, grown-sel walls→TREE +

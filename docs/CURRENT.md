@@ -87,8 +87,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `mkroom.c` somex / `themerms.lua` themed-room fills at Dlvl 1 — blocks 4/553 at step 0 (15.7k RNG) plus 5 `unattributed` step-0 rows. Geometry owner → `node scripts/geom-probe.mjs scen-genesis-Monk-92025` first. Probe: `node scripts/hidden-proxy.mjs verify somex` (scen-genesis-Monk-92025, scen-genesis-Rogue-92069, scen-poly-Caveman-91133).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2005 (index).**
+**Keep D-0845…D-2006 (index).**
 <!-- recent:begin -->
+**D-2006** `dat/themerms.lua` themeroom_fills `Massacre` `:173–190`, `Statuary` `:192–200`, `Buried t — `js/mklev.js` — `themeroom_fill_massacre` (27-name pool in C order, initial `lua_random2(1,27)`, count as five `lua_random2(1,5)` per nhlib `d` not rnd.c `d()`, per-corpse `percent(10)` re-pick, corpses via live `l_creat
 **D-2005** `uhitm.c:75–99` gate itself (already ported, D-0198/D-1405); the missing part was four mhi — `js/mhitu.js` — `mhitm_ad_fire_u` / `mhitm_ad_tlpt_u` / `mhitm_ad_stck_u` / `mhitm_ad_plys_u` in exact C branch order (incl. stck gate-first, plys rn2-before-gate, fire `(void)` destroy_items per `zap.c:5962`, tlpt `Math
 **D-2004** `read.c:3260–3274` (`firstchoice = d->which`, then `cant_revive(&d->which, FALSE, NULL)` r — `js/read.js` — `firstchoice = d.which`, `{ mtype }` box through live `cant_revive` (`./zap.js`, same edge as `resist`) with the C `firstchoice !== PM_LONG_WORM_TAIL` prompt exemption (local `monsterNames.indexOf` const, 
 **D-2003** `read.c:3186–3195` — `js/read.js` — drop the pad (`asciiLow` is now plain ASCII lower), search bare `'female '` / `'male '` female-first, and blank exactly the hit width in place (7 / 5 spaces, length-preserving like `memset`); re-`mungspace
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2001** `read.c:3186–3195` (`create_particular_parse` blanks explicit "female "/"male " terms — `js/read.js` — parse: case-insensitive "female "/"male " blanking (female first; ASCII-only lower so byte indices align; leading-pad-only search so a trailing word does not hit, matching C `strstri` needing a literal tra
 **D-2000** `steed.c:177–193` `doride` — `js/steed.js` — static `import { y_n } from './getline.js'` (hoisted function, cycle-safe per `imports.mjs --can`; `mhitu.js` precedent) + `let forcemount` set by `(game.flags?.debug || game.flags?.wizard) && (await y_n(
 **D-1999** `makemon.c:1391–1396` (`!in_mklev && byyou` → `newsym` + `set_apparxy` BEFORE `m_initweap` — `js/makemon.js` — `set_apparxy(mtmp)` after `newsym` in the `byyou` branch (C `:1393–1394` cite; import already existed, no new edge).
-**D-1998** `wizcmds.c:948–1096` `wiz_intrinsic` — `js/wizcmds.js` — per-prop switch in exact C order with `:line` citations: SICK `!rn2(2) ?
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2005; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2006; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
