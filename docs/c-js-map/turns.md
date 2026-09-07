@@ -337,7 +337,7 @@ trap/steed/mthrowu sticky Fumbling still);
 D-1991: breakarm uarm/shirt `useup` destroy + `end_burn` lamplit + `Armor_gone`,
 cloak 3-way (wrapping tears/smock knot/clasp) via `cloak_simple_name` +
 `Cloak_off`, sliparm `racial_exception` gate, horns flimsy-pierce vs
-`helm_simple_name`+`surface()` fall, `helm_simple_name`/`has_horns`/`num_horns`/
+`helm_simple_name`+`surface()` fall (D-2008: stairs arm live via `sit.js` full-`surface` in C order — SURFACE_AT/`db_under_typ`, air-bubble, pool, ice, lava, bridge, SDOOR, earthlevel gate; swallow maw/husk named; per-context clones in dig/dokick/engrave stay), `helm_simple_name`/`has_horns`/`num_horns`/
 `WrappingAllowed` one-word exports (mhitu/worn) + `Blindf_off` Null `nooffmsg`
 (do_wear.c:1498), `ublindf` eyewear arm; donning/`cancel_don` still deferred); **`polyself(POLY_NOFLAGS)` system-shock `rn2(20)` + 
 random `rn1(SPECIAL_PM)`** (D-0928 #1103; **POLY_LOW_CTRL forcecontrol downgrade D-1428**; 

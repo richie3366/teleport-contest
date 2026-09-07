@@ -1,6 +1,6 @@
 {
- "commit": "c9f485f3",
- "at": "2026-09-07T06:50:08.830Z",
+ "commit": "450fd66d",
+ "at": "2026-09-07T06:55:06.745Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6892,16 +6892,16 @@
    "passed": false,
    "rngM": 2960,
    "rngT": 3051,
-   "scrM": 171,
+   "scrM": 172,
    "scrT": 194,
    "kind": "screen",
-   "step": 91,
+   "step": 129,
    "steps": 194,
-   "owner": "drop_weapon",
-   "loc": "polyself.c:1331",
+   "owner": "Blindf_off",
+   "loc": "do_wear.c:1528",
    "jsOwner": null,
-   "cTopline": "Your helm falls to the stairs! You find you must drop your dagger!",
-   "jsTopline": "Your helm falls to the floor! You find you must drop your dagger!",
+   "cTopline": "You turn into a mind flayer! You can see again.--More--",
+   "jsTopline": "You turn into a mind flayer!--More--",
    "error": null
   },
   "scen-poly-Ranger-92217": {

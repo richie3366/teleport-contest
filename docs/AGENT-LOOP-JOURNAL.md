@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — D-2008 dungeon.c surface stairs arm: STAIRS>=ROOM misread stairs as floor in the break_armor helm fall
+
+**C locus:** `dungeon.c:1750–1788` (`surface` — `On_stairs` arm sits after fountain and before `IS_WALL`/`IS_DOOR`/`IS_ROOM`); `rm.h:146` `SURFACE_AT` (DRAWBRIDGE_UP looks through via `db_under_typ`); `stairs.c:148` `On_stairs` (`stairway_at(x,y) != NULL`).
+**JS:** 2 files (`sit.js` +33/−12, `hack.js` +3/−2), under the 600/10 caps. No DIAG/FORCE/seed gates (Rule #2 clean).
+**Change:** `js/sit.js` — full `surface()` in exact C branch order: `SURFACE_AT` look-through on DRAWBRIDGE_UP via live `db_under_typ`, air-bubble waterlevel arm, pool bottom/`hliquid`, ice via the existing local `is_ice`, lava, `DRAWBRIDGE_DOWN` bridge on the raw `lev->typ`, altar, grave, fountain, `On_stairs` stairs, wall incl. `SDOOR`, doorway, room-not-earthlevel floor, ground catchall. `js/hack.js` — `export` the existing `On_stairs` (body untouched).
+**Verify:** `node scripts/verify.mjs --fn drop_weapon` → `PASS syntax 2 changed js file(s): js/hack.js js/sit.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS hidden verify drop_weapon: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-poly-Ranger-92133: step 91 → `Blindf_off` at step 129, strictly later step, different owner) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `PASS full 44/44 (auto: shared file changed)` · `VERIFY: PASS`. Focused replay before verify: RNG 2960/3051, screens 172/194 (was first-divergence at step 91). Final verify ran after the last edit (no D-1831 gap).
+**Named:** swallow maw/husk arm (fires only while the hero is swallowed by an animal: `digests`/`enfolds` live in `mhitu.js`, which `sit.js` cannot statically import — cycle documented in the `sit.js` header; no corpus session reaches it) · the three pre-existing per-context partial clones (`dig.js:235`, `dokick.js:251`, `engrave.js:121`) stay as-is — unifying them into the shared home would change kick/dig/engrave wording with no falsifier; map `turns.md` `break_armor` row updated.
+**Next:** scen-poly-Ranger-92133's later owner `Blindf_off` at step 129 is its own future row (separate C locus, `do_wear.c` eyewear arm — not this function).
 ## 2026-09-07 — D-2007 polyself.c polymon verbose-tip block: JS had the breath tip only, C prints twelve more
 
 **C locus:** `polyself.c:1030–1070` (`flags.verbose` block: `use_thec`/`monsterc` statics, `might_hide`, breath/spit/nymph/gaze/hide-or-web/were/gremlin/unicorn/mindflayer/shriek/vampire arms, then the sit-egg arm gated on `lays_eggs && flags.female && !(giant/electric eel)` with `eggs_in_water` choosing spawn-vs-lay text).
