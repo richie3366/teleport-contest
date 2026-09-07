@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `steed.c` doride / mount_steed — blocks 6/553 (first at step 51): C `Force the mount to succeed? [yn] (n)` (wizard-mode arm of `mount_steed`, `steed.c:185`) vs JS `I see nobody there.`; saddle / `#ride` toward an adjacent monster. Probe: `node scripts/hidden-proxy.mjs verify doride` (scen-intrinsic-Ranger-92193, scen-kit-Valkyrie-92131, scen-normal-Healer-92231).
+**Next cluster:** `makemon.c` makemon → `mkobj.c` next_ident order + monster gender — blocks 5/553 (first at step 34): C `An elf-lord appears next to you.` / `Elvenking` vs JS `elf-lady` / `Elvenqueen`; C draws `rnd(2)` in `next_ident :521` (object creation inside `m_initweap`/`m_initinv`) where JS draws `rn2(2)` in `m_initweap` first — the gender roll and the object ident draw are in the wrong order. Read `makemon :1494` (`m_initgrp`, `mkobj_at` ident) and `pmnames[]` gendered naming. Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-genesis-Archeologist-92175, scen-tour-Wizard-92103, scen-wish-Knight-92130).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2000 (index).**
+**Keep D-0845…D-2001 (index).**
 <!-- recent:begin -->
+**D-2001** `read.c:3186–3195` (`create_particular_parse` blanks explicit "female "/"male " terms — `js/read.js` — parse: case-insensitive "female "/"male " blanking (female first; ASCII-only lower so byte indices align; leading-pad-only search so a trailing word does not hit, matching C `strstri` needing a literal tra
 **D-2000** `steed.c:177–193` `doride` — `js/steed.js` — static `import { y_n } from './getline.js'` (hoisted function, cycle-safe per `imports.mjs --can`; `mhitu.js` precedent) + `let forcemount` set by `(game.flags?.debug || game.flags?.wizard) && (await y_n(
 **D-1999** `makemon.c:1391–1396` (`!in_mklev && byyou` → `newsym` + `set_apparxy` BEFORE `m_initweap` — `js/makemon.js` — `set_apparxy(mtmp)` after `newsym` in the `byyou` branch (C `:1393–1394` cite; import already existed, no new edge).
 **D-1998** `wizcmds.c:948–1096` `wiz_intrinsic` — `js/wizcmds.js` — per-prop switch in exact C order with `:line` citations: SICK `!rn2(2) ?
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-1995** `insight.c` enlightenment family — `js/invent.js` status arms (Stoned/Slimed/Strangled/Sick/Vomit/Stun/Conf/Blind-kinds/held-swallowed/Fumbling+Sleepy+Hunger-magic) + resistance `from_what` catalogue (Sleep/See_invisible/telepathic/warned/Fast/Reflecting/Lifesaved/spell-cast/wizard-record/Luck/Nth-death/bones) + corner `^X` menu; `js/attrib.js` dwa/gno infra + innate H-fields; `js/wizcmds.js` SLIMED arm. Verify: enlightenment 6 moved/1 unchanged, one_characteristic 5 PASS/8 moved, status_enlightenment 4 moved, 0 worse; wiz_intrinsic 9 unchanged (rest remains).
 **D-1994** `attrib.c:520–584` `exerper` — `js/allmain.js` — SATIATED/WEAK Monk WIS arms (`(game.urole?.mnum|0)===PM_MONK` idiom) + every-5 H-only Clairvoyant WIS arm (flat+intrinsic, blocked vetoes) and H-only Regen STR arm, all with C `:line` comments (`PM_MONK
 **D-1993** `mhitu.c:1421–1469` `gulpmu` switch — three one-line `exercise(A_STR, false)` insertions with C `:line` comments, each directly after its C pline.
-**D-1992** `polyself.c:1305–1362` `drop_weapon` — deleted the clone; message via live `is_sword` (`./objects.js`) + `weapon_descr` (`./invent.js`) + live `makeplural` (`./objnam.js`) with C `:line` comments; drops via live sync `uswapwepgone()` + async `uwepgone()` with
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2000; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2001; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

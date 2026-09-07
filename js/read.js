@@ -112,6 +112,7 @@ import {
     COLNO, ROWNO, SDOOR, CORR, ROOMOFFSET, Is_rogue_level, Is_waterlevel,
     HEAD, HAND, STOMACH, isok, ACCESSIBLE,
     W_BALL, W_CHAIN, W_ART, W_ARTI, W_SADDLE, W_ARM, W_ARMH, P_SLING, SPE_LIM, MM_NOEXCLAM,
+    MM_MALE, MM_FEMALE,
     NO_MM_FLAGS, WT_IRON_BALL_INCR, thats_enough_tries, EXT_ENCUMBER,
     GENOCIDED, KILLED_BY, KILLED_BY_AN, NO_MINVENT, MM_NOMSG, Upolyd,
     nothing_happens, G_GENOD, G_EXTINCT, UNCHANGING,
@@ -140,6 +141,7 @@ import { getlin } from './getline.js';
 import { name_to_mon, name_to_monclass } from './mondata.js';
 import { mons, NON_PM, LOW_PM, NUMMONS, amorphous, passes_walls, noncorporeal, is_whirly, unsolid,
     G_GENO, G_UNIQ, G_NOCORPSE, is_human, is_demon, pmnames, NEUTRAL,
+    MALE, FEMALE, is_male, is_female,
     M2_PNAME, monsterNames, nonliving, weirdnonliving, PM_ACID_BLOB,
 } from './monsters.js';
 import { makemon, makemon_appear_msg, rndmonst, create_critters } from './makemon.js';
@@ -2374,31 +2376,75 @@ function mungspaces(s) {
 }
 
 /**
- * C ref: read.c create_particular_parse — named-monster subset.
- * Envelope: name_to_mon only. Deferred: quan digit prefix, saddled/
- * sleeping/invisible/hidden/female/male/tame/peaceful/hostile,
- * * / random, name_to_monclass class letters.
+ * C ref: read.c create_particular_parse — named-monster subset with the
+ * 5.0 gender half (`:3186–3195` explicit "female "/"male " terms blanked
+ * before `mungspaces`, `:3212` `name_to_mon` gendered-name out-param,
+ * `:3220–3229` explicit-vs-name merge into `fem`/`genderconf`).
+ * Deferred: quan digit prefix, saddled/sleeping/invisible/hidden,
+ * tame/peaceful/hostile, * / random, name_to_monclass class letters.
  * @returns {object|null}
  */
 function create_particular_parse(str) {
-    const bufp = mungspaces(str);
+    let bufp = mungspaces(str);
     if (!bufp) return null;
-    const which = name_to_mon(bufp);
+    // C: read.c:3149 d->fem = -1 (gender not specified),
+    // d->genderconf = -1 (no confusion on which gender to assign).
+    let fem = -1;
+    // C: read.c:3186 — check "female" before "male" to avoid a false
+    // hit mid-word ("female" itself contains "male "). ASCII-only lower:
+    // C strstri is byte-based, so indices stay aligned with bufp. Leading
+    // pad only: C matches "female " with a literal trailing space, so a
+    // trailing word ("dwarf female") does NOT hit in C either.
+    const asciiLow = (s) => ` ${s.replace(/[A-Z]/g, (c) => c.toLowerCase())}`;
+    let hit = asciiLow(bufp).indexOf(' female ');
+    if (hit >= 0) {
+        fem = FEMALE; // C: read.c:3188 d->fem = 1
+        // C: read.c:3189 memset the 7-char hit to ' '; hit is also the
+        // bufp offset of "female " (the padded leading space compensates).
+        bufp = `${bufp.slice(0, hit)} ${bufp.slice(hit + 7)}`;
+    }
+    hit = asciiLow(bufp).indexOf(' male ');
+    if (hit >= 0) {
+        fem = MALE; // C: read.c:3192 d->fem = 0
+        bufp = `${bufp.slice(0, hit)} ${bufp.slice(hit + 5)}`;
+    }
+    bufp = mungspaces(bufp); // C: read.c:3195 after potential memset(' ')
+    if (!bufp) return null;
+    // C: read.c:3141 int gender_name_var = NEUTRAL; :3212 name_to_mon().
+    const gender_name_var = { gender: NEUTRAL };
+    const which = name_to_mon(bufp, gender_name_var);
     if (which === NON_PM || which < 0) return null;
+    // C: read.c:3220–3229 — preserve an explicitly expressed gender term;
+    // a conflicting gendered name goes to genderconf (resolved at creation).
+    let genderconf = -1;
+    if (fem === MALE || fem === FEMALE) {
+        if (gender_name_var.gender !== NEUTRAL && fem !== gender_name_var.gender) {
+            genderconf = gender_name_var.gender;
+        }
+    } else {
+        fem = gender_name_var.gender;
+    }
     return {
         quan: 1 + ((game.multi > 0) ? (game.multi | 0) : 0),
         which,
-        fem: -1,
-        genderconf: -1,
+        fem,
+        genderconf,
         randmonst: false,
         monclass: -1, // C MAXMCLASSES — named path
     };
 }
 
 /**
- * C ref: read.c create_particular_creation — named MM_NOEXCLAM path.
+ * C ref: read.c create_particular_creation — named-monster gender flags
+ * (`:3284–3305`: `MM_FEMALE`/`MM_MALE` from `fem` when the type is not
+ * gender-fixed, `MM_NOEXCLAM` only when there is no gender conflict).
+ * Without the flag `makemon` falls through to its `rn2(2)` gender roll,
+ * drawing a spurious RNG and misnaming e.g. ^G "elf-lord" as "elf-lady".
  * C has no caller pline; appear is makemon.c !MM_NOMSG Norep. Sync
  * makemon + await makemon_appear_msg (async pline boundary).
+ * Deferred: quan-limit/cant_revive force prompt, randmonst/monclass,
+ * invisible/saddled/sleeping/hidden post-flags, tame/peaceful/hostile,
+ * doppelganger newcham fixup.
  */
 async function create_particular_creation(d) {
     if (!d || d.randmonst) return false;
@@ -2408,7 +2454,22 @@ async function create_particular_creation(d) {
     const ux = game.u.ux | 0;
     const uy = game.u.uy | 0;
     for (let i = 0; i < d.quan; i++) {
-        const mmflags = NO_MM_FLAGS | MM_NOEXCLAM;
+        // C: read.c:3282 mmflags_nht mmflags = NO_MM_FLAGS.
+        let mmflags = NO_MM_FLAGS;
+        if (d.genderconf === -1) {
+            // C: read.c:3284–3290 — no conflict between an explicit
+            // gender term and the specified monster name.
+            if (d.fem !== -1 && (!whichpm || (!is_male(whichpm) && !is_female(whichpm)))) {
+                mmflags |= (d.fem === FEMALE) ? MM_FEMALE
+                    : (d.fem === MALE) ? MM_MALE : 0;
+            }
+            mmflags |= MM_NOEXCLAM;
+        } else {
+            // C: read.c:3291–3305 — conundrum: the explicit gender term
+            // wins over the gender-tied naming term (and no NOEXCLAM).
+            mmflags |= (d.fem === FEMALE) ? MM_FEMALE
+                : (d.fem === MALE) ? MM_MALE : 0;
+        }
         const mtmp = makemon(whichpm, ux, uy, mmflags);
         if (!mtmp) break;
         await makemon_appear_msg(mtmp, ux, uy, mmflags);
