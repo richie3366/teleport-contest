@@ -954,7 +954,7 @@ export async function kick_monster(mon, x, y) {
     if (Upolyd(u) && attacktype_fordmg(game.youmonst?.data, AT_KICK, -1)) {
         const attknum = { v: 0 };
         const armorpenalty = { v: 0 };
-        const tmp = find_roll_to_hit(mon, AT_KICK, null, attknum, armorpenalty);
+        const tmp = await find_roll_to_hit(mon, AT_KICK, null, attknum, armorpenalty);
         mon_maybe_unparalyze(mon);
         const slots = game.youmonst?.data?.mattk;
         for (let i = 0; i < NATTK; i++) {

@@ -41,7 +41,7 @@ import {
 } from './weapon.js';
 import {
     ammo_and_launcher, is_weptool, is_launcher, is_ammo, is_missile,
-    drop_uswapwep,
+    is_pole, drop_uswapwep,
 } from './wield.js';
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN } from './generated/monsters_data.js';
 import {
@@ -76,12 +76,12 @@ import { experience, more_experienced, newexplevel } from './exper.js';
 import { explode, mon_explodes, adtyp_to_expltype } from './explode.js';
 import { rehumanize, body_part, mbodypart } from './polyself.js';
 import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination, type_is_pname, pmname, a_monnam, safe_oname } from './do_name.js';
-import { artifact_hit, youmonst, is_art, artifact_exists } from './artifact.js';
+import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare } from './artifact.js';
 import { xname, vtense, The, An, an, singular, makeplural, cxname, simpleonames, otense, mshot_xname } from './objnam.js';
 import { abuse_dog, tamedog } from './dog.js';
 import { makemon, makemon_appear_msg, newcham } from './makemon.js';
 import { ndemon } from './minion.js';
-import { ART_GIANTSLAYER, ART_STORMBRINGER } from './generated/artifacts_data.js';
+import { ART_GIANTSLAYER, ART_STORMBRINGER, ART_SNICKERSNEE } from './generated/artifacts_data.js';
 import { paranoid_query } from './getline.js';
 import { which_armor } from './worn.js';
 import { u_wipe_engr } from './engrave.js';
@@ -405,17 +405,17 @@ export function disguised_as_non_mon(mtmp) {
  * dokick poly AT_KICK uses this via find_roll_to_hit (D-1310);
  * kickdmg still calls check_caitiff itself.
  */
-export function check_caitiff(mtmp) {
+export async function check_caitiff(mtmp) {
     if (!mtmp) return;
     const u = game.u || {};
     if ((u.ualign?.record | 0) <= -10) return;
     if (Role_if(PM_KNIGHT) && (u.ualign?.type | 0) === A_LAWFUL
         && !is_undead(mtmp.data)
         && (helpless(mtmp) || (mtmp.mflee && !mtmp.mavenge))) {
-        pline('You caitiff!');
+        await pline('You caitiff!');
         adjalign(-1);
     } else if (Role_if(PM_SAMURAI) && mtmp.mpeaceful) {
-        pline('You dishonorably attack the innocent!');
+        await pline('You dishonorably attack the innocent!');
         adjalign(-1);
     }
 }
@@ -428,7 +428,7 @@ export function check_caitiff(mtmp) {
  * weapon_hit_bonus from weapon.c (bare-hand unskilled = +1; AT_KICK
  * martial_bonus uses NULL weapon like C).
  */
-export function find_roll_to_hit(mtmp, aatyp, weapon, attk_count, role_roll_penalty) {
+export async function find_roll_to_hit(mtmp, aatyp, weapon, attk_count, role_roll_penalty) {
     role_roll_penalty.v = 0;
     const u = game.u || {};
     const luck = Luck();
@@ -439,8 +439,10 @@ export function find_roll_to_hit(mtmp, aatyp, weapon, attk_count, role_roll_pena
         + luckbon
         + (u.ulevel | 0); // maybe_polyd → ulevel when not poly
     if (!attk_count.v++) {
-        // C: knight's chivalry or samurai's giri — once per multi-attack
-        check_caitiff(mtmp);
+        // C: knight's chivalry or samurai's giri — once per multi-attack.
+        // Awaited: C prints synchronously before the attack roll; a
+        // floating pline reorders the topline (scen-kit-Samurai-91129).
+        await check_caitiff(mtmp);
     }
     if (mtmp.mstun) tmp += 2;
     if (mtmp.mflee) tmp += 2;
@@ -909,17 +911,44 @@ async function hmon(mon, obj, thrown, _dieroll) {
         }
     } else if (obj.oclass === WEAPON_CLASS
         || game.objects?.[obj.otyp]?.oc_skill != null) {
-        dmg = dmgval(obj, mon);
-        use_weapon_skill = true;
-        train_weapon_skill = dmg > 1;
-        // C hmon_hitmon_weapon_melee: artifact_hit after dmgval, before
-        // hmon_hitmon_dmg_recalc (Grayswandir spec_dbon max(tmp,1)).
-        if (obj.oartifact) {
-            const dmgBox = { dmg };
-            if (await artifact_hit(youmonst, mon, obj, dmgBox, _dieroll | 0)) {
-                hittxt = true;
+        // C uhitm.c hmon_hitmon_weapon :1074–1094 — a launcher, a missile
+        // or ammo in hand, a short pole (unmounted, not Snickersnee), or
+        // ammo without its launcher goes ranged: 1–2 dmg, no weapon skill
+        // use or training. Everything else goes melee below.
+        const uW = game.u || {};
+        if (is_launcher(obj)
+            || (!thrown && (is_missile(obj) || is_ammo(obj)))
+            || (!thrown && !uW.usteed && is_pole(obj)
+                && !is_art(obj, ART_SNICKERSNEE))
+            || (is_ammo(obj) && (thrown !== HMON_THROWN
+                || !ammo_and_launcher(obj, uW.uwep)))) {
+            // C uhitm.c hmon_hitmon_weapon_ranged :885–900. Silver sear
+            // message named (hmon has no msg_silver plumbing); shade with
+            // no glare takes 0. use/train_weapon_skill stay false (C init
+            // FALSE; the ranged arm sets neither), so the recalc below
+            // adds udaminc + strength only.
+            if ((mon.data?.mndx | 0) === PM_SHADE && !shade_glare(obj)) {
+                dmg = 0;
+            } else {
+                dmg = rnd(2);
             }
-            dmg = dmgBox.dmg | 0;
+            if ((game.objects?.[obj.otyp]?.oc_material | 0) === SILVER
+                && hates_silver(mon.data)) {
+                dmg += rnd(dmg ? 20 : 10);
+            }
+        } else {
+            dmg = dmgval(obj, mon);
+            use_weapon_skill = true;
+            train_weapon_skill = dmg > 1;
+            // C hmon_hitmon_weapon_melee: artifact_hit after dmgval, before
+            // hmon_hitmon_dmg_recalc (Grayswandir spec_dbon max(tmp,1)).
+            if (obj.oartifact) {
+                const dmgBox = { dmg };
+                if (await artifact_hit(youmonst, mon, obj, dmgBox, _dieroll | 0)) {
+                    hittxt = true;
+                }
+                dmg = dmgBox.dmg | 0;
+            }
         }
     } else {
         dmg = dmgval(obj, mon);
@@ -1681,7 +1710,7 @@ async function hitum(mon, uattk) {
     // 0: single; 1: first of two — hmon copies into hmd.twohits
     gt_twohits = (uwep ? !!u.twoweap : double_punch()) ? 1 : 0;
 
-    let tmp = find_roll_to_hit(mon, uattk.aatyp, uwep, attk_count, role_roll_penalty);
+    let tmp = await find_roll_to_hit(mon, uattk.aatyp, uwep, attk_count, role_roll_penalty);
     mon_maybe_unparalyze(mon);
     let dieroll = rnd(20);
     let mhit = { v: (tmp > dieroll || !!u.uswallow) ? 1 : 0 };
@@ -1702,7 +1731,7 @@ async function hitum(mon, uattk) {
         || !malive
         || m_at(x, y) !== mon)) {
         gt_twohits = 2;
-        tmp = find_roll_to_hit(
+        tmp = await find_roll_to_hit(
             mon, uattk.aatyp, u.uswapwep || null, attk_count, role_roll_penalty,
         );
         mon_maybe_unparalyze(mon);
@@ -2330,7 +2359,7 @@ export async function hmonas(mon) {
             if (hmonas_toggle_altwep(u)) altwep = !altwep;
             weapon = u[origSlot] || null;
             if (!weapon) origSlot = 'uarmg';
-            const tmp = find_roll_to_hit(mon, AT_WEAP, weapon, attk_count,
+            const tmp = await find_roll_to_hit(mon, AT_WEAP, weapon, attk_count,
                 role_roll_penalty);
             mon_maybe_unparalyze(mon);
             const dieroll = rnd(20);
@@ -2361,7 +2390,7 @@ export async function hmonas(mon) {
             if (aatyp === AT_KICK && mtrapped_in_pit(game.youmonst)) {
                 continue;
             }
-            const tmp = find_roll_to_hit(mon, aatyp, null, attk_count,
+            const tmp = await find_roll_to_hit(mon, aatyp, null, attk_count,
                 role_roll_penalty);
             mon_maybe_unparalyze(mon);
             const dieroll = rnd(20);
@@ -2459,7 +2488,7 @@ export async function hmonas(mon) {
             sum[i] = await explum(mon, mattk);
         } else if (aatyp === AT_ENGL) {
             // C uhitm.c hmonas AT_ENGL :5769–5794 — rnd(20+i); gulpum.
-            const tmp = find_roll_to_hit(mon, aatyp, null, attk_count,
+            const tmp = await find_roll_to_hit(mon, aatyp, null, attk_count,
                 role_roll_penalty);
             mon_maybe_unparalyze(mon);
             dhit = (tmp > rnd(20 + i)) ? 1 : 0;

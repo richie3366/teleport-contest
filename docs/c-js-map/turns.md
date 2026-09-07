@@ -3184,6 +3184,20 @@ JS: `js/uhitm.js`, `js/mhitm.js`, `js/explode.js` — partial
 **`find_mac` minvent worn ARM_BONUS/guarding + AC_MAX (D-1042; re-export from `worn.js`)**; 
 **`do_attack` `gu.unweapon` begin-bashing pline** (D-0892; 
 twoweapon/untwoweapon before it deferred; egg-useup re-arm still thin); 
+**`hmon_hitmon_weapon` ranged/melee dispatch + `hmon_hitmon_weapon_ranged` D-2036** 
+(launcher / missile-or-ammo in hand / short unmounted non-Snickersnee pole / 
+ammo without its launcher → `ranged`: shade-without-glare 0 else `rnd(2)`, 
+silver-vs-hater `rnd(dmg?20:10)`, `use/train_weapon_skill` stay FALSE so the 
+recalc adds udaminc + strength only; silver-sear *message* named — hmon has no 
+`msg_silver` plumbing on any weapon path); **`check_caitiff`/`find_roll_to_hit` 
+awaited D-2036** (C prints giri/chivalry synchronously before the attack roll; 
+un-awaited pline reordered the Samurai topline; `hitum`×2 + `hmonas`×3 + 
+`dokick` + `use_pole`/`use_grapple`×2 callers all await); **`u_init` 
+`ini_inv_use_obj` via `setuwep`/`setuqwep`/`setuswapwep` D-2036** (C `:1284–1292`; 
+direct slot assigns left `game.gu` undefined so Tourist tin opener never armed 
+begin-bashing); **`wield_tool` `gu.unweapon` typo + `setuwep` towel/Snickersnee 
+D-2036** (`game.unweapon`→`game.gu.unweapon` per wield.c:756; non-weapon arm 
+gains `!is_wet_towel`, pole arm gains `!is_art(SNICKERSNEE)` per wield.c:128–134); 
 **`do_attack` `u_wipe_engr(3)` D-1373** (after `exercise(A_STR)`; callee D-1051; 
 dothrow is D-1374 / dig is D-1375); **`do_attack` leprechaun evade D-1381** (`S_LEPRECHAUN` 
 `!rn2(7)` `m_move(0)` then stumble/`return FALSE`; check_capacity / twoweapon still named); 

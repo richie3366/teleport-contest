@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (currently empty) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** (save_dungeon row parked 2026-09-07, no D-log — misattributed owner, true owners done_in_by/print_mapseen; pop `LOOP-QUEUE.md` head `uhitm.c do_attack`.)
+**Next cluster:** `mthrowu.c` monshoot (queue head after D-2036 do_attack ship).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2035 (index).**
+**Keep D-0845…D-2036 (index).**
 <!-- recent:begin -->
+**D-2036** `uhitm.c` `hmon_hitmon_weapon :1074–1094` + `hmon_hitmon_weapon_ranged :885–900` (launcher — `js/uhitm.js` — new `hmon_hitmon_weapon` dispatch verbatim (melee/thrown callers keep exact behavior except the four ranged arms, which now draw `rnd(2)` + silver-vs-hater `rnd(dmg?20:10)` with skill flags FALSE); `check
 **D-2035** `timeout.c` `case STRANGLED :890–900` (killer.format=KILLED_BY, name buried?`suffocation`: — `js/timeout.js` — new `!(next & TIMEOUT) && p === STRANGLED` arm after SLIMED in C order (killer init mirrors the STONED arm; `done_timeout(DIED, STRANGLED)` + `gameover` early-return; amulet arm via `u.uamul` + `objectN
 **D-2034** `bones.c` `give_to_nearby_mon :226–255` (static; sole caller `drop_upon_death :297` `!rn2( — `js/end.js` — new `give_to_nearby_mon` verbatim from C (loop/guard order, `!rn2(nmon)` reservoir, `can_carry`→`add_to_minv` else `place_object`; the else arm keeps this file's pre-existing RNG-free `stackobj` floor conve
 **D-2033** `uhitm.c` `mhitm_ad_famn :3777–3805` (dead uhitm arm `:3780–3783`, mhitu `:3784–3796`, mhitm `:3797–3804` — `js/mhitu.js` — new `mhitm_ad_famn_u` (`pline_mon` reach-out, `exercise(A_CON)`, `morehungry(rn1(40,40))` unless fainted, leftover `d()` kept); `js/mhitm.js` — non-eater zero + `mdamagem` dispatch; Tourist-92067 RNG past the arm to `mhitm_ad_stun`, screen `--More--` residual.
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2031** `potion.c` `dodrink :526–615` (Strangled `:530–533`, fountain/sink/underwater `:535–572`,  — `js/potion.js` — Strangled gate first (uprops intrinsic per the C macro, plus flat `u.Strangled` for the same C value per the `do.js` danger_uprops dual-store note); underwater `u.uinwater && !u.uswallow` yn prompt with 
 **D-2030** `wizard.c` `you_have :216–233` / `target_on :236–267` (M_Wants gate = `:139` macro `mflags — `js/wizard.js` — new `you_have` static (u.uhave amulet/bell/menorah/book/questart switch); new `target_on` static (M_Wants inline, STRAT_PLAYER at hero / STRAT_GROUND at floor obj / STRAT_MONSTR at holder with the Amulet
 **D-2029** `timeout.c:674–685` STONED expiry inside the uprops TIMEOUT loop — `js/timeout.js` — new STONED expiry arm before SLIMED (C switch order): `find_delayed_killer(STONED)` name (default «killed by petrification»/`NO_KILLER_PREFIX`), `dealloc_killer`, `await done_timeout(STONING, STONED)`, 
-**D-2028** `pickup.c:2972–3226` `use_container` — `js/pickup.js` — `Tobjnam` + `thesimpleoname as thesimpleoname_objnam` extend the pre-existing `./objnam.js` import (same SCC edge, runtime-only reads, no TDZ risk); `in_or_out_menu` Look/stash rows via the discovery-awa
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2035; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2036; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
