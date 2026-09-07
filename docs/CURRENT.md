@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster (Must-fix first):** `- [ ] pickup.c use_container — blocks 4/553 corpus sessions (first at step 84). Probe: node scripts/hidden-proxy.mjs verify use_container` (stale pick_nasty pointer retired by audit 990–997: D-2027 shipped it, Caveman-92118 → mhitm_mgc_atk_negated@127).
+**Next cluster (Must-fix first):** `- [ ] hack.c trapmove — blocks 3/553 corpus sessions (first at step 85): C «You are a statue.--More--» vs JS «You are a statue. You can move again.». Probe: node scripts/hidden-proxy.mjs verify trapmove` (scen-death-Knight-92203, scen-death-Monk-92123, scen-intrinsic-Caveman-92070).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2028 (index).**
+**Keep D-0845…D-2029 (index).**
 <!-- recent:begin -->
+**D-2029** `timeout.c:674–685` STONED expiry inside the uprops TIMEOUT loop — `js/timeout.js` — new STONED expiry arm before SLIMED (C switch order): `find_delayed_killer(STONED)` name (default «killed by petrification»/`NO_KILLER_PREFIX`), `dealloc_killer`, `await done_timeout(STONING, STONED)`, 
 **D-2028** `pickup.c:2972–3226` `use_container` — `js/pickup.js` — `Tobjnam` + `thesimpleoname as thesimpleoname_objnam` extend the pre-existing `./objnam.js` import (same SCC edge, runtime-only reads, no TDZ risk); `in_or_out_menu` Look/stash rows via the discovery-awa
 **D-2027** `wizard.c:537–581` `pick_nasty` — `js/makemon.js` `pick_nasty` — verbatim port of the `:567–579` gate (`pmnames[alt]?.[NEUTRAL]`, `lastIndexOf(' ')`→slice for `lastspace`, `startsWith('baby ')` + the three suffix comparisons, same short-circuit shape; pu
 **D-2026** `eat.c:543–573` `done_eating` — `js/eat.js` `done_eating` — nomovemsg arm first (print when message, always clear to null, cf.
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2024** `polyself.c:859–872` `polymon` mhmax block — `export` on `makemon.js golemhp` (no clone #2); `polyself.js` imports `{ golemhp, is_home_elemental }` from `./makemon.js` (new edge, same 90-module SCC; `imports.mjs --can` CHECK verdict — both are hoisted function decl
 **D-2023** `timeout.c:456–521` `slimed_to_death` — `js/timeout.js` — new `done_timeout(how, which)` (C `:574–585` verbatim shape) + new `slimed_to_death(kptr)` (killer setup, emits_light/del_light_source, mvitals dance, `await polymon`, done_timeout, gameover guard for C
 **D-2022** (1) `makemon.c:1369–1384` mitem block — (1) makemon.js: `if (no_of_wizards === 1 && Is_earthlevel(game.u?.uz)) mitem = otyp('SPE_DIG')` (C `:1372–1373` gate verbatim; `imports.mjs --can makemon.js const.js Is_earthlevel`: already statically imported, no new ed
-**D-2021** `objnam.c` `readobjnam` zero-draw exact paths that resolve `d.typ` before the random `srch — `js/readobjnam.js` — `real `/`fake ` preparse arms + `d.real`/`d.fake` fields (C `:4125–4133`); Amulet real/fake block before `makesingular` (C `:4284–4309`, incl. the `:5002–5006` typfnd non-wizard→fake fold for this ar
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2028; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2029; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

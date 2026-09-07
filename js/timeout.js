@@ -15,7 +15,7 @@ import {
     MAGICAL_BREATHING, WWALKING, FIRE_RES, COLD_RES, SLEEP_RES,
     ACCESSIBLE, Is_waterlevel, SICK_NONVOMITABLE, M_AP_MONSTER,
     COLNO, ROWNO, CLOUD,
-    KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX, TURNED_SLIME, GENOCIDED,
+    KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX, TURNED_SLIME, GENOCIDED, STONING,
     DISINT_RES, SHOCK_RES, POISON_RES, DRAIN_RES, SICK_RES, ANTIMAGIC,
     BLND_RES, HUNGER, TELEPAT, WARNING, WARN_OF_MON, WARN_UNDEAD,
     SEARCHING, INFRAVISION, ADORNED, STEALTH, AGGRAVATE_MONSTER,
@@ -811,8 +811,8 @@ function nh_timeout_luck(u) {
  * Remaining uprops TIMEOUT (incl. INVULNERABLE from #wizintrinsic) —
  * generic -- like C's for (upp = u.uprops; …) (D-0928 #1168); expiry
  * switch cases for those props still deferred (silent clear).
- * Named omissions: region_dialogue / sleep_dialogue; STONED
- * done_timeout; STUNNED/SEE_INVIS/HALLUC/SLEEPY/…
+ * Named omissions: region_dialogue / sleep_dialogue;
+ * STUNNED/SEE_INVIS/HALLUC/SLEEPY/…
  * expiry messages; FLYING timed-land (wizintrinsic); GLIB `make_glib(0)`
  * inventory on expiry; ublesscnt (in allmain); ugallop; delayed killers;
  * full ice/mount slip_or_trip arms; you_unwere callers
@@ -990,8 +990,9 @@ export async function nh_timeout() {
             if (p === STUNNED) u.Stunned = u.HStun;
             if (p === GLIB) u.HGlib = next;
         }
-        // Expiry switch (STONED/HALLUC/…) deferred — silent clear
-        // except DETECT_MONSTERS → see_monsters (D-1418), LEVITATION
+        // Expiry switch (HALLUC/…) deferred — silent clear
+        // except STONED → stoning death (C `:674–685`),
+        // DETECT_MONSTERS → see_monsters (D-1418), LEVITATION
         // → float_down (D-1419), INVIS → newsym + You (D-1421),
         // and SLIMED → slimed_to_death (C `:686–688`).
         if (!(next & TIMEOUT) && p === DETECT_MONSTERS) {
@@ -1034,6 +1035,25 @@ export async function nh_timeout() {
                 );
                 await stop_occupation();
             }
+        }
+        if (!(next & TIMEOUT) && p === STONED) {
+            // C timeout.c :674–685 — petrification runs out: killer from
+            // the delayed STONED entry (default "killed by petrification",
+            // NO_KILLER_PREFIX); dealloc + done_timeout(STONING, STONED)
+            // (unlike sliming, no form change; noreturn unless life-saved).
+            const kptr = find_delayed_killer(STONED);
+            if (!game.killer) game.killer = { name: '', format: 0, next: null };
+            if (kptr && kptr.name) {
+                game.killer.format = kptr.format | 0;
+                game.killer.name = String(kptr.name);
+            } else {
+                game.killer.format = NO_KILLER_PREFIX;
+                game.killer.name = 'killed by petrification';
+            }
+            dealloc_killer(kptr);
+            await done_timeout(STONING, STONED);
+            // C: done() does not return unless life-saved.
+            if (game.program_state?.gameover) return;
         }
         if (!(next & TIMEOUT) && p === SLIMED) {
             // C timeout.c :686–688 — slimed_to_death(kptr)

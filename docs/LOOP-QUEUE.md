@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `hack.c` trapmove — blocks 3/553 corpus sessions (first at step 85): C «You are a statue.--More--» vs JS «You are a statue. You can move again.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-death-Knight-92203, scen-death-Monk-92123, scen-intrinsic-Caveman-92070).
 - [ ] `teleport.c` collect_coords — blocks 3/553 corpus sessions (first at step 114): C draws `rn2(8)=1` in collect_coords, JS `rn2(5)=3` from distfleeck(monmove.js:805). Probe: `node scripts/hidden-proxy.mjs verify collect_coords` (scen-poly-Healer-92107, scen-tour-Priest-92235, scen-tour-Samurai-91113).
 - [ ] `potion.c` dodrink — blocks 3/553 corpus sessions (first at step 118): C «If you can't breathe air, how can you drink liquid?» vs JS «What do you want to drink? [di or ?*]». Probe: `node scripts/hidden-proxy.mjs verify dodrink` (scen-intrinsic-Priest-92096, scen-wish-Knight-91128, scen-wish-Rogue-92137).
 - [ ] `read.c` seffect_fire — blocks 1/553 corpus sessions: scen-wish-Ranger-92212 step 66/152 C `rn2(19)@exercise` (seffects head `:2199–2200`) + `rn2(3)@seffect_fire(:1864)` + `rn2(19)@exercise` vs JS «That scroll is not implemented yet.» (doread allowlist lacks SCR_FIRE; `verify seffect_fire` is vacuous until rescore re-attributes it from `exercise`).
