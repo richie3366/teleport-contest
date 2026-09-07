@@ -1809,8 +1809,11 @@ Options/`O` writes `game.iflags`; `!cmdassist` skips `help_dir` for the
 strange-direction pline; `?` still forces help; not `game.flags`); 
 getobj missing-letter `continue`+`flush_topl_more` (D-0025); 
 **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); 
-**`doclose`/`c` getdir cmdassist + close envelope** (D-0740; 
-stumble_on_door_mimic / Blind feel / portcullis deferred); 
+**`doclose`/`c` getdir cmdassist + close envelope** (D-0740;
+stumble_on_door_mimic / Blind feel / portcullis deferred) +
+**impaired-direction TIME + getdir-tail confdir(FALSE)** (D-2009; `lock.c`
+`if (Confusion || Stunned) res = ECMD_TIME` + `cmd.c:4116–4117`
+caller-local `confdir`, so a confused no-door close costs the C turn); 
 **`get_adjacent_loc` → shared `getdir` (D-1806); `MAGIC_MARKER` → `dowrite`** (D-0742); 
 **`doopen_indir`/`kick_door` `recalc_block_point`; `pick_lock` NODOOR/ISOPEN/BROKEN** (D-0113); **`pick_lock` direction-arm occupied square: pit rim, visible-monster (`mon_nam` + credit-card shk/Oracle `verbalize`), door-mimic reveal (`is_door_mappear` inline, `stumble_onto_mimic`), !IS_DOOR feel/mapseen + Blind feel/see + drawbridge** (D-2002; `maybe_absorb_item` named; !IS_DOOR return stays LEARNED — no `lev->glyph` in JS cells); 
 **`doopen_indir` locked → autounlock APPLY_KEY + `autokey`/`pick_lock` ynq + 

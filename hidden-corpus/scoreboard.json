@@ -1,6 +1,6 @@
 {
- "commit": "450fd66d",
- "at": "2026-09-07T06:55:06.745Z",
+ "commit": "6d8641bf",
+ "at": "2026-09-07T07:07:59.627Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5291,19 +5291,19 @@
   },
   "scen-intrinsic-Caveman-92150": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3207,
+   "passed": true,
+   "rngM": 3259,
    "rngT": 3259,
-   "scrM": 104,
+   "scrM": 121,
    "scrT": 121,
-   "kind": "screen",
-   "step": 92,
+   "kind": null,
+   "step": null,
    "steps": 121,
-   "owner": "enlightenment",
-   "loc": "insight.c:398",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Wizard the Cavewoman's attributes:",
-   "jsTopline": "Wizard the Cavewoman's attributes:",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-intrinsic-Healer-91105": {

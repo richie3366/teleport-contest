@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `surface()` stairs arm — blocks 1/553 (at step 91): C `Your helm falls to the stairs!` (`break_armor` nohands helm arm via `surface(u.ux,u.uy)`) vs JS `falls to the floor`; hero stands on stairs on both sides (screens match through step 90). Diagnosed residual of the drop_weapon port. Probe: `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-poly-Ranger-92133.session.json` then `node scripts/hidden-proxy.mjs verify drop_weapon`.
+**Next cluster:** `artifact.c` touch_artifact — blocks 7/553 corpus sessions (first at step 22): C draws `d(4,10)=28` in touch_artifact, JS `rn2(100)=7` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Archeologist-91132, scen-genesis-Archeologist-91135, scen-genesis-Priest-91110).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2008 (index).**
+**Keep D-0845…D-2009 (index).**
 <!-- recent:begin -->
+**D-2009** `lock.c` `doclose` (`/* when choosing a direction is impaired, use a turn regardless of wh — `js/lock.js` `doclose` — caller-local `confdir(false)` after successful `getdir` when `!u.dz` (covers self `.` too, as C does; `</>` skip via `dz`), then `if (HConfusion/Confusion/HStun/Stunned) res = true` in exact C po
 **D-2008** `dungeon.c:1750–1788` (`surface` — `js/sit.js` — full `surface()` in exact C branch order: `SURFACE_AT` look-through on DRAWBRIDGE_UP via live `db_under_typ`, air-bubble waterlevel arm, pool bottom/`hliquid`, ice via the existing local `is_ice`, lava, `DR
 **D-2007** `polyself.c:1030–1070` (`flags.verbose` block: `use_thec`/`monsterc` statics, `might_hide` — `js/polyself.js` — full tip block in exact C branch order (incl. hide+web combined arm, `u.umonnum == PM_GREMLIN`, `msound == MS_SHRIEK`, `is_vampshifter(game.youmonst)` on the monst struct per `apply.js` precedent, eel 
 **D-2006** `dat/themerms.lua` themeroom_fills `Massacre` `:173–190`, `Statuary` `:192–200`, `Buried t — `js/mklev.js` — `themeroom_fill_massacre` (27-name pool in C order, initial `lua_random2(1,27)`, count as five `lua_random2(1,5)` per nhlib `d` not rnd.c `d()`, per-corpse `percent(10)` re-pick, corpses via live `l_creat
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2004** `read.c:3260–3274` (`firstchoice = d->which`, then `cant_revive(&d->which, FALSE, NULL)` r — `js/read.js` — `firstchoice = d.which`, `{ mtype }` box through live `cant_revive` (`./zap.js`, same edge as `resist`) with the C `firstchoice !== PM_LONG_WORM_TAIL` prompt exemption (local `monsterNames.indexOf` const, 
 **D-2003** `read.c:3186–3195` — `js/read.js` — drop the pad (`asciiLow` is now plain ASCII lower), search bare `'female '` / `'male '` female-first, and blank exactly the hit width in place (7 / 5 spaces, length-preserving like `memset`); re-`mungspace
 **D-2002** `lock.c:547–550` (pit rim → `You_cant reach over the edge`, DID_NOTHING), `:552–570` (`m_a — `js/lock.js` — pit gate, visible-monster arm (`mon_nam` + credit-card shk/Oracle `SetVoice`/`verbalize`), door-mimic reveal (`stumble_onto_mimic`), !IS_DOOR feel/mapseen + Blind feel/see + drawbridge message, in exact C 
-**D-2001** `read.c:3186–3195` (`create_particular_parse` blanks explicit "female "/"male " terms — `js/read.js` — parse: case-insensitive "female "/"male " blanking (female first; ASCII-only lower so byte indices align; leading-pad-only search so a trailing word does not hit, matching C `strstri` needing a literal tra
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2008; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2009; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

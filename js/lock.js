@@ -7,7 +7,7 @@ import { nhgetch } from './input.js';
 import { pline, newsym, canseemon, pline_mon, clear_nhwindow_message, verbalize, feel_location } from './display.js';
 import { yn_function } from './getline.js';
 import { vision_recalc, recalc_block_point, cansee } from './vision.js';
-import { stop_occupation, in_rooms, closed_door } from './hack.js';
+import { stop_occupation, in_rooms, closed_door, confdir } from './hack.js';
 import {
     COLNO, ROWNO, IS_DOOR, ECMD_OK, ECMD_TIME, OBJ_FLOOR, OBJ_FREE,
     DOOR, SDOOR, Is_rogue_level, SHOPBASE,
@@ -813,9 +813,10 @@ async function obstructed_close(x, y) {
 
 /**
  * C ref: lock.c doclose — #close / `c` command.
- * Envelope: nohands/pit gates, getdir (cmdassist), door mask arms, close roll.
+ * Envelope: nohands/pit gates, getdir (cmdassist) + getdir-tail confdir(FALSE),
+ * impaired-direction TIME, door mask arms, close roll.
  * Named omissions: stumble_on_door_mimic; Blind feel_location/mapseen;
- * Confusion/Stunned always-TIME; portcullis/drawbridge; steed close path;
+ * portcullis/drawbridge; steed close path;
  * feel_newsym mapseen gating; Some_Monnam obstructed polish.
  * @returns {Promise<boolean>} true when C would return ECMD_TIME
  */
@@ -832,6 +833,11 @@ export async function doclose() {
 
     // C: getdir(NULL) — cmdassist NHW_TEXT on invalid key, then cancel
     if (!(await getdir(null))) return false;
+    // C cmd.c getdir `:4116–4117` — if (!u.dz) confdir(FALSE). getdir omits
+    // the tail by design (use_whip/getdir_zap already confdir), so callers
+    // that need it run it here. Draws the Confusion !rn2(5) direction check
+    // even when no door ends up closed.
+    if (!(u.dz | 0)) confdir(false);
 
     const x = (u.ux | 0) + (u.dx | 0);
     const y = (u.uy | 0) + (u.dy | 0);
@@ -842,7 +848,11 @@ export async function doclose() {
         return true;
     }
 
-    let res = false; // C: res starts ECMD_OK; Confusion→TIME deferred
+    let res = false; // C: res starts ECMD_OK
+    // C lock.c doclose — impaired direction choice costs a turn even when no
+    // door is targeted: if (Confusion || Stunned) res = ECMD_TIME.
+    // C Confusion/Stunned ≡ H-fields (youprop.h); flat mirrors per repo idiom.
+    if ((u.HConfusion | 0) || u.Confusion || (u.HStun | 0) || u.Stunned) res = true;
     if (x < 1 || x >= COLNO || y < 0 || y >= ROWNO) {
         await pline('You see no door there.');
         return res;
