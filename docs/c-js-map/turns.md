@@ -232,7 +232,7 @@ JS: `js/cmd.js`, `js/do.js`, `js/wizard.js`, `js/getline.js`, `js/wizcmds.js`, `
 
 Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); 
 **`parse`/`get_count` digit prefix then one `clear_nhwindow(WIN_MESSAGE)`** (D-0391; 
-**`get_count` historicmsg D-1613** — C `cmd.c` `:5009–5090` `GC_SAVEHIST`/`GC_CONDHIST`/`GC_ECHOFIRST` + `putmsghistory`+`key2txt`; parse `GC_NOFLAGS`; getobj `GC_SAVEHIST`; live `js/cmd.js` + `getobj_take_count`; `adjust_split` caller / `custompline(SUPPRESS_HISTORY)` / altmeta `input_state` / num_pad `NHKF_COUNT` named); 
+**`get_count` historicmsg D-1613** — C `cmd.c` `:5009–5090` `GC_SAVEHIST`/`GC_CONDHIST`/`GC_ECHOFIRST` + `putmsghistory`+`key2txt`; parse `GC_NOFLAGS`; getobj `GC_SAVEHIST`; live `js/cmd.js` + `getobj_take_count`; `adjust_split` caller / altmeta `input_state` / num_pad `NHKF_COUNT` named; echo `custompline(SUPPRESS_HISTORY)` live D-2019); 
 **`parse` `multi=command_count-1` + counted `.`/`rest_on_space` → 
 `set_occupation(donull,"waiting",multi)` timed** (D-0928 #1096; 
 multi>0 `rhack(cmd_key)` non-occupation path deferred); 

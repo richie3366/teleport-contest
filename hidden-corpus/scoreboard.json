@@ -1,6 +1,6 @@
 {
- "commit": "e6c464a4",
- "at": "2026-09-07T11:15:04.422Z",
+ "commit": "1453da16",
+ "at": "2026-09-07T12:06:10.014Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4240,16 +4240,16 @@
    "passed": false,
    "rngM": 3263,
    "rngT": 3280,
-   "scrM": 54,
+   "scrM": 55,
    "scrT": 70,
    "kind": "screen",
-   "step": 30,
+   "step": 55,
    "steps": 70,
-   "owner": "cmd_safety_prevention",
-   "loc": "do.c:2340",
+   "owner": "dosearch",
+   "loc": "detect.c:2099",
    "jsOwner": null,
-   "cTopline": "Searching doesn't feel like a good idea right now.",
-   "jsTopline": "",
+   "cTopline": "You suffocate. You stop searching.--More--",
+   "jsTopline": "You suffocate. You stop searching.",
    "error": null
   },
   "scen-death-Monk-92192": {
