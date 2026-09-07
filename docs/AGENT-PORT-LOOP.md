@@ -248,6 +248,28 @@ Optional **per supervisor run** (not saved across launches):
   with `--muse`); the script overrides other Cursor formats when a budget is set.
 - Three consecutive iterations with **no** usage in the stream → halt (exit 1).
 
+### Muse plan usage (`--muse` only)
+
+Same snapshot as interactive TUI `/usage` (current window % and weekly %).
+After a **finished** iteration the supervisor sandboxes `muse` in a PTY,
+types `/usage`, reads the pane, then Ctrl-C. It does **not** POST to
+`api.meta.ai` itself. The sandbox path is written into `~/.config/muse/trust.json`
+before spawn so the TUI never asks “Do you trust this workspace?”; those
+keys are removed on exit.
+
+```bash
+node scripts/muse-plan-usage.mjs   # {"ok":true,"windowUsedPercent":2,"weeklyUsedPercent":45,…}
+```
+
+- Stops (exit 0, commit kept, no revert) when **window ≥ 97%** and/or
+  **weekly ≥ 99%**. Override with `MUSE_PLAN_WINDOW_STOP_PCT` /
+  `MUSE_PLAN_WEEKLY_STOP_PCT`. Set `MUSE_PLAN_USAGE_SKIP=1` to disable.
+- Probe failure (TUI/parse miss) is a warning; the loop continues.
+- Needs a logged-in Muse (`muse login`) and `python3` for the PTY helper.
+- Mid-iter provider quota (`ActionRequiredError` / "out of usage") still
+  halts at once (existing path); this check is the early stop *before*
+  the next iter.
+
 ### Why a stop file (not Ctrl-C only)
 
 - Ctrl-C kills the current agent mid-edit; the stop file waits for a clean
@@ -325,6 +347,10 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `MUSE_BIN` | `muse` | Muse CLI binary |
 | `MUSE_REASONING_EFFORT` | `max` | Muse `--reasoning-effort` (none…ultra) |
 | `MUSE_NO_SESSION_LOG` | `0` | Set `1` to pass `--no-session-log` (`.raw` remains the loop log) |
+| `MUSE_PLAN_WINDOW_STOP_PCT` | `97` | `--muse`: stop after a finished iter when the current usage window is ≥ this % |
+| `MUSE_PLAN_WEEKLY_STOP_PCT` | `99` | `--muse`: stop after a finished iter when weekly usage is ≥ this % |
+| `MUSE_PLAN_USAGE_SKIP` | `0` | Set `1` to disable the post-iter TUI `/usage` probe |
+| `MUSE_PLAN_USAGE_TIMEOUT_SEC` | `50` | Cap for the sandboxed TUI `/usage` helper |
 | `AGENT_TRUST` | `1` | Cursor: `--trust`. Muse without `--yolo`: `--trust-workspace` |
 | `AGENT_FORCE` | `0` | Cursor: `--force`. Muse: `--yolo` so Shell/scorers are not auto-denied |
 | `AGENT_OUTPUT_FORMAT` | `stream-json` | Cursor only; `--muse` always uses `--json` |
@@ -404,6 +430,7 @@ Halt reason is still `last-halt-reason.txt`.
 | density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
 | `N consecutive agent runs <30s` | Out of tokens / auth — halt (no reset; a leftover and its latch survive) |
 | `ActionRequiredError` / "You're out of usage" | Provider plan quota — halt at once, leftover + latch kept; relaunch with `--continue-unfinished` after the reset (#2238) |
+| Muse plan window ≥ 97% or weekly ≥ 99% | Expected clean exit after a finished `--muse` iter (PTY TUI `/usage` via `scripts/muse-plan-usage.mjs`). Commit kept. |
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
 | `3× consecutive missing usage` | stream-json / Muse JSONL had no usage — halt. Muse needs the on-disk `session.jsonl` (do not set `MUSE_NO_SESSION_LOG=1` with a budget) |
 | Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start (except continue-unfinished, which warns and starts) |

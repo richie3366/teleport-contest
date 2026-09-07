@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # agent-port-loop.sh — repeatedly continue the port until human stop,
-# token-budget exhaustion, short-run streak, or missing-usage streak.
+# token-budget exhaustion, Muse plan-usage thresholds (--muse), short-run
+# streak, or missing-usage streak.
 #
 # Crash / resource_exhausted before commit: keep the tree, arm
 # continue-unfinished (cite that iter's .raw/.log + a resume brief),
@@ -58,10 +59,15 @@ Options:
                         muse-spark-1.3-contributor at --reasoning-effort
                         xhigh. AGENT_FORCE=1 maps to --yolo. Observer, token
                         budget, and resume-brief read the same iter-*.raw.
+                        After a finished iter, stop (exit 0, keep the
+                        commit) if Meta plan window >= 97% or weekly >= 99%
+                        (same snapshot as TUI /usage; env overrides below).
   -h, --help            Show this help.
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
-Muse knobs: MUSE_BIN, MUSE_REASONING_EFFORT, MUSE_NO_SESSION_LOG, LOOP_MUSE.
+Muse knobs: MUSE_BIN, MUSE_REASONING_EFFORT, MUSE_NO_SESSION_LOG, LOOP_MUSE,
+MUSE_PLAN_WINDOW_STOP_PCT (97), MUSE_PLAN_WEEKLY_STOP_PCT (99),
+MUSE_PLAN_USAGE_SKIP=1 to disable the post-iter /usage probe.
 Fail-closed (default): density / protected halt and revert the iteration
 (or halt without reset if already pushed). Green / full-suite regression,
 banned-pattern hits, empty ports, empty queue after port, and
@@ -153,6 +159,7 @@ MISSING_USAGE_STREAK=0
 MISSING_USAGE_LIMIT=3
 EXTRACT_USAGE="$ROOT/scripts/extract-agent-usage.mjs"
 EXTRACT_LOG="$ROOT/scripts/extract-agent-log.mjs"
+MUSE_PLAN_USAGE="$ROOT/scripts/muse-plan-usage.mjs"
 
 if [[ -n "$TOKEN_BUDGET_M" ]]; then
   TOKEN_BUDGET="$(node --input-type=module -e '
@@ -490,6 +497,35 @@ token_budget_active() {
 
 token_budget_exceeded() {
   token_budget_active && (( TOKENS_USED >= TOKEN_BUDGET ))
+}
+
+# After at least one agent return this run: PTY-drive Muse TUI `/usage`
+# and exit 0 if the current window or weekly cap is hit. Fail-open on a
+# probe error so a TUI glitch does not kill the supervisor.
+exit_if_muse_plan_quota() {
+  [[ "$USE_MUSE" == "1" ]] || return 0
+  [[ "${MUSE_PLAN_USAGE_SKIP:-0}" == "1" ]] && return 0
+  [[ -f "$MUSE_PLAN_USAGE" ]] || return 0
+  local json rc stop summary
+  set +e
+  json="$(MUSE_BIN="${MUSE_BIN:-${AGENT_BIN:-muse}}" node "$MUSE_PLAN_USAGE")"
+  rc=$?
+  set -e
+  if [[ "$rc" -ne 0 || -z "$json" ]]; then
+    echo "$(date -Iseconds) warning: muse plan-usage probe failed (rc=${rc}); continuing" \
+      | tee -a "$MASTER_LOG"
+    return 0
+  fi
+  echo "$(date -Iseconds) ${json}" | tee -a "$MASTER_LOG"
+  stop="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(j.shouldStop?"1":"0")' "$json" 2>/dev/null || echo 0)"
+  if [[ "$stop" != "1" ]]; then
+    return 0
+  fi
+  summary="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(String(j.stopReason||j.summary||"muse plan usage threshold"))' "$json")"
+  echo "$(date -Iseconds) MUSE PLAN QUOTA: ${summary} — stopping after finished iteration (commit kept)" \
+    | tee -a "$MASTER_LOG"
+  printf '%s\n' "muse plan quota: ${summary}" >"$LOG_DIR/last-halt-reason.txt"
+  exit 0
 }
 
 # Parse one iteration raw stream; update TOKENS_USED / missing-usage streak.
@@ -1173,6 +1209,9 @@ if token_budget_active; then
 else
   echo "budget: (none — pass --token-budget-m <millions> to cap this run)"
 fi
+if [[ "$USE_MUSE" == "1" && "${MUSE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
+  echo "plan:   after a finished iter, stop if window >= ${MUSE_PLAN_WINDOW_STOP_PCT:-97}% or weekly >= ${MUSE_PLAN_WEEKLY_STOP_PCT:-99}% (TUI /usage)"
+fi
 echo "stop:   $STOP_FILE  (write 1 to halt before next iteration)"
 echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
 echo "log:    $MASTER_LOG"
@@ -1232,6 +1271,7 @@ short_streak=0
 resume_unfinished=0
 prompt_extra=""
 prompt_context=""
+RAN_AGENT_THIS_RUN=0
 while true; do
   if should_stop; then
     echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting before iteration $((iter + 1))"
@@ -1242,6 +1282,9 @@ while true; do
     echo "$(date -Iseconds) TOKEN BUDGET: ${TOKENS_USED} >= ${TOKEN_BUDGET} (${TOKEN_BUDGET_M}M) — exiting before next iteration" \
       | tee -a "$MASTER_LOG"
     exit 0
+  fi
+  if (( RAN_AGENT_THIS_RUN )); then
+    exit_if_muse_plan_quota
   fi
 
   iter=$((iter + 1))
@@ -1427,6 +1470,7 @@ while true; do
 
   echo "$(date -Iseconds) === iteration $iter finished (exit $status, ${iter_elapsed}s) ===" \
     | tee -a "$MASTER_LOG"
+  RAN_AGENT_THIS_RUN=1
 
   record_iteration_tokens "$iter_raw"
 
