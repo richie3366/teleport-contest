@@ -1535,6 +1535,8 @@ JS: `js/end.js`, `js/bones.js`, `js/rip.js`, `js/topten.js`, `js/getline.js`, `j
 **`disclose:` → `end_disclose[]` + `should_query_disclose_option('i')`** (D-0288; 
 `-i` skips invent yn); **`disclose` attributes/vanquished/genocided/conduct/overview** (D-0358; 
 gameover `enlightenment` BASIC\|MAGIC + `init_mapseen` + overview `(end)`); 
+**`disclose` conduct `" and achievements"` via live `count_achievements`** (D-2015; 
+C `end.c:664–680`; `addinv_core1` uhave/ACH arms stay named); 
 **`genl_outrip` + Goodbye/death summary NHW_TEXT + score before bones** (D-0289); 
 **Tourist `more_experienced(depth)` on new `goto_level`** (D-0289); 
 **`goto_level` `assign_level(&u.uz0,&u.uz)` reset after Tourist XP** (D-1188; C `do.c:1967`; 

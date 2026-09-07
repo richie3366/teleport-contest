@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `engrave.c` engrave — blocks 5/553 corpus sessions (first at step 88): C «You finish writing in the dust.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify engrave` (scen-intrinsic-Samurai-92043, scen-kit-Priest-92085, scen-normal-Caveman-92006).
+**Next cluster:** `end.c` disclose — blocks 5/553 corpus sessions (first at step 73): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Caveman-91109, scen-genesis-Priest-92082, scen-genesis-Valkyrie-92074).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2014 (index).**
+**Keep D-0845…D-2015 (index).**
 <!-- recent:begin -->
+**D-2015** `end.c:664–680` conduct arm — `js/end.js` — `count_achievements` added to the pre-existing `./insight.js` import (`imports.mjs --can`: already statically imported, no new edge, no TDZ); conduct arm now does one `should_query_disclose_option('c')`, bu
 **D-2014** `engrave.c:1267–1493` `engrave()` occupation callback — `js/engrave.js` — full `async engrave()` in exact C order (renamed from `engrave_occupation` so `sym.mjs` finds the C name; `game.occupation` is awaited at `allmain.js:1174`).
 **D-2013** `pager.c` `do_screen_description` check_monsters '@' special case `:1346–1353` (`looked ?  — `js/pager.js` — `describe_looked` self branch appends `' or you'` iff `urace.mnum !== PM_HUMAN && !== PM_ELF && !Upolyd(u)` (C `:1352` gate verbatim; `u_at` is the branch condition, the '@' sym its existing hardcoded pre
 **D-2012** `allmain.c:975–983` `interrupt_multi(const char *msg)` (`if (gm.multi > 0 && !travel && !r — `js/allmain.js` — `interrupt_multi(msg)` is now `async`: live `nomul(0)` (`./hack.js`, pre-existing import edge extended — hoisted function declaration, no new module, no TDZ) then `if (msg && game.flags?.verbose !== fal
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2010** `artifact.c:907–974` `touch_artifact` (touch_blasted reset, NONART gate, yours/self_willed — `js/artifact.js` — full hero `touch_artifact` in exact C order (now `async`; `Role_if`/`Race_if` badclass; bane via same-file `spec_applies`; single-`if` blast gate preserving `||`/`&&` short-circuit so `rn2(4)` draws on
 **D-2009** `lock.c` `doclose` (`/* when choosing a direction is impaired, use a turn regardless of wh — `js/lock.js` `doclose` — caller-local `confdir(false)` after successful `getdir` when `!u.dz` (covers self `.` too, as C does; `</>` skip via `dz`), then `if (HConfusion/Confusion/HStun/Stunned) res = true` in exact C po
 **D-2008** `dungeon.c:1750–1788` (`surface` — `js/sit.js` — full `surface()` in exact C branch order: `SURFACE_AT` look-through on DRAWBRIDGE_UP via live `db_under_typ`, air-bubble waterlevel arm, pool bottom/`hliquid`, ice via the existing local `is_ice`, lava, `DR
-**D-2007** `polyself.c:1030–1070` (`flags.verbose` block: `use_thec`/`monsterc` statics, `might_hide` — `js/polyself.js` — full tip block in exact C branch order (incl. hide+web combined arm, `u.umonnum == PM_GREMLIN`, `msound == MS_SHRIEK`, `is_vampshifter(game.youmonst)` on the monst struct per `apply.js` precedent, eel 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2014; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2015; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
