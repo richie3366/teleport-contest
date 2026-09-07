@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
+- [x] `wizard.c` tactics/target_on — covetous pursuit + STRAT_HEAL branch deferred **Addressed:** D-2030 (JS `tactics` HEAL arm is a mavenge-only stub; `strategy` bands 2–3 return HEAL/NONE where C `target_on` pursues M3_WANTS*); 4 ex-`collect_coords` sessions diverge here: C first draw of step is `collect_coords` `rn2(8)` with zero tactics draws in stepFns, JS draws `tactics` `rn2(5/33)` / `distfleeck` `rn2(5)` at the same index (C `mnearto`→`enexto` is RNG-free pre-shuffle: `goodpos`/`noteleport_level`/`mnearto` draw nothing on these paths). Probe: `node scripts/hidden-proxy.mjs verify collect_coords` (scen-poly-Healer-92107, scen-tour-Priest-92235, scen-tour-Samurai-91113, scen-tour-Wizard-92103).
+
+
 - [x] `hack.c` trapmove — blocks 3/553 corpus sessions (first at step 85): C «You are a statue.--More--» vs JS «You are a statue. You can move again.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-death-Knight-92203, scen-death-Monk-92123, scen-intrinsic-Caveman-92070). **Addressed:** D-2029 `4bda180d`
 
 

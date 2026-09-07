@@ -9,31 +9,30 @@ Objective/score live in `CURRENT.md`.
 
 - **Park `show_conduct` (c209ccc7):** stale (859→824 x_monnam); owner is a C comment; DontAsk arm REGRESSES (reverted). See Parked; re-baseline first.
 - **Park `ready_weapon` (Knight-92204 spin):** moves 5/6; Knight spins 99% CPU past step-25 → downstream loop. See Parked; needs stack/profile.
-- **Park `mdrop_obj`:** capture-point divergence; full port = verify no-op.
-- **Park `dopush` (mimic-viz):** one cell r13c32, RNG tied; needs C viz at step 127 or `view_from` audit.
+- **Parks `mdrop_obj`/`dopush`:** capture-point / one-cell-r13c32 mimic-viz; ports are verify no-ops; needs C viz at step 127 or `view_from` audit.
 - **Geometry owners:** probe first (D-1849). Refills must not cite the current D-ID.
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.
 - **next_ident = symptom owner (D-2021/D-2022):** fix the WRITER. Wish `cursed slime mold`: C zero-draw vs JS `rn2(76)`, identical tables — falsifier = C-recorder wish experiment.
-- **Park `collect_coords` (2026-09-07):** symptom owner, body proven faithful (see Parked entry for the full equivalence proof). Corpus evidence: Healer-92107 stepFns `[…, damageum, collect_coords]` vs JS `distfleeck rn2(5)`; Priest-92235 `[study_book, dochug, collect_coords]` vs JS `tactics rn2(33)` (mflee NONE); Samurai-91113 `[collect_coords, distfleeck, …]` vs JS `tactics rn2(5)`; Wizard-92103 `[collect_coords, distfleeck]` vs JS `tactics rn2(5)=0` (same topline — both teleport, different branches). C-side: `goodpos` (eel-only `rn2(13)`), `noteleport_level`, `mnearto` draw nothing pre-`enexto`, so only HEAL-sx/`mnearto` and DEFAULT-player `mnearto` reach the shuffle RNG-free — both JS-deferred (`tactics` HEAL stub, `target_on` → HEAL/NONE; `turns.md`, D-1900/D-1733). Next: port `wizard.c` `tactics` HEAL arm (`choose_stairs` live) + `target_on`/`you_have` family + DEFAULT branch (`mnearto`/`mnexto`/`rloc`), then `verify collect_coords` must move all 4. If it does NOT move them, suspect earlier `goodpos`-placement state divergence instead.
+- **Park `collect_coords`: RESOLVED D-2030** — pursuit port moved all 4; later owners own them.
 
 ## Don't re-check (≤15)
 
-- D-1796…D-2029 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`.
+- D-1790…D-2030 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
-- D-1790…D-2029 stand (range-covered). Scar: no second `free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2029.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2029.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2030.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2030.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2030: `js/wizard.js` — new `you_have` static (u.uhave amulet/bell/menorah/book/questart switch); new `target_on` static (M_Wants inline, STRAT_PLAYER at her Named: none — every arm's callee is live; the two judgment calls above (m_at-for-grid, lazy mgoal
 - D-2029: `js/timeout.js` — new STONED expiry arm before SLIMED (C switch order): `find_delayed_killer(STONED)` name (default «killed by petrification»/`NO_KILL Named: HALLUC/STUNNED/SEE_INVIS/SLEEPY/… expiry messages; `region_dialogue`/`sleep_dialogue` (pre
 - D-2028: `js/pickup.js` — `Tobjnam` + `thesimpleoname as thesimpleoname_objnam` extend the pre-existing `./objnam.js` import (same SCC edge, runtime-only reads Named: chest trap; bag-of-tricks/horn; cursed-mbag `boh_loss` + `"now "` (pre-existing envelope, 
 - D-2027: `js/makemon.js` `pick_nasty` — verbatim port of the `:567–579` gate (`pmnames[alt]?.[NEUTRAL]`, `lastIndexOf(' ')`→slice for `lastspace`, `startsWith( Named: rogue-level monsym uppercase re-ROLL (`:545–547`, pre-existing, untouched — monsym table n
@@ -48,5 +47,4 @@ Objective/score live in `CURRENT.md`.
 - D-2018: `js/pickup.js` — new same-file `async tipcontainer_gettarget(box)` in exact C order (floor dummy + blank + invent scan with BoT/dknown/oc_name_known s Named: BoH explode; ice-box thaw; shop billing (both floor and per-item targetbox addtobill/subfr
 - D-2017: `js/makemon.js` — `else if (is_rider(ptr))` inserted between golem and `mlevel>49` in exact C position (`basehp = 10; d(basehp, 8)`), and `if (is_home Named: none new — `newmonhp` is now complete vs C (all six arms + boost).
 - D-2016: `js/do.js` — ledger arm now C-verbatim: `game.iflags?.debug_fuzzer` early `ECMD_OK`, else `await y_n('Beware, there will be no return! Named: rooted, `stucksteed`, `u_stuck_cannot_go`, encumbrance load gate (all pre-existing; `stuck
-- D-2015: `js/end.js` — `count_achievements` added to the pre-existing `./insight.js` import (`imports.mjs --can`: already statically imported, no new edge, no  Named: `invent.c` `addinv_core1` uhave/ACH arms (`u.uhave.amulet/menorah/bell/book` + `record_ach
 <!-- landmarks:end -->
