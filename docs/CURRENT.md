@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `- [ ] bones.c give_to_nearby_mon — blocks 5/553 corpus sessions (first at step 81): C draws rn2(1)=0 in give_to_nearby_mon, JS rn2(5)=1 from drop_upon_death(end.js:1162).
+**Next cluster:** (D-2034 shipped `give_to_nearby_mon`; next iter pops `LOOP-QUEUE.md` head.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2033 (index).**
+**Keep D-0845…D-2034 (index).**
 <!-- recent:begin -->
+**D-2034** `bones.c` `give_to_nearby_mon :226–255` (static; sole caller `drop_upon_death :297` `!rn2( — `js/end.js` — new `give_to_nearby_mon` verbatim from C (loop/guard order, `!rn2(nmon)` reservoir, `can_carry`→`add_to_minv` else `place_object`; the else arm keeps this file's pre-existing RNG-free `stackobj` floor conve
 **D-2033** `uhitm.c` `mhitm_ad_famn :3777–3805` (dead uhitm arm `:3780–3783`, mhitu `:3784–3796`, mhitm `:3797–3804` — `js/mhitu.js` — new `mhitm_ad_famn_u` (`pline_mon` reach-out, `exercise(A_CON)`, `morehungry(rn1(40,40))` unless fainted, leftover `d()` kept); `js/mhitm.js` — non-eater zero + `mdamagem` dispatch; Tourist-92067 RNG past the arm to `mhitm_ad_stun`, screen `--More--` residual.
 **D-2032** `read.c` `seffect_fire :1850–1916` (bcsign dam `:1864`, useup+learnscrolltyp `:1865–1868`, — `js/read.js` — new `seffect_fire` in C order (already_known before useup; dam `Math.trunc((2*(rn1(3,3)+2*cval)+1)/3)`; useup + `learnscrolltyp(SCR_FIRE)` up front, returns null on every arm since C does `*sobjp = 0`; con
 **D-2031** `potion.c` `dodrink :526–615` (Strangled `:530–533`, fountain/sink/underwater `:535–572`,  — `js/potion.js` — Strangled gate first (uprops intrinsic per the C macro, plus flat `u.Strangled` for the same C value per the `do.js` danger_uprops dual-store note); underwater `u.uinwater && !u.uswallow` yn prompt with 
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2029** `timeout.c:674–685` STONED expiry inside the uprops TIMEOUT loop — `js/timeout.js` — new STONED expiry arm before SLIMED (C switch order): `find_delayed_killer(STONED)` name (default «killed by petrification»/`NO_KILLER_PREFIX`), `dealloc_killer`, `await done_timeout(STONING, STONED)`, 
 **D-2028** `pickup.c:2972–3226` `use_container` — `js/pickup.js` — `Tobjnam` + `thesimpleoname as thesimpleoname_objnam` extend the pre-existing `./objnam.js` import (same SCC edge, runtime-only reads, no TDZ risk); `in_or_out_menu` Look/stash rows via the discovery-awa
 **D-2027** `wizard.c:537–581` `pick_nasty` — `js/makemon.js` `pick_nasty` — verbatim port of the `:567–579` gate (`pmnames[alt]?.[NEUTRAL]`, `lastIndexOf(' ')`→slice for `lastspace`, `startsWith('baby ')` + the three suffix comparisons, same short-circuit shape; pu
-**D-2026** `eat.c:543–573` `done_eating` — `js/eat.js` `done_eating` — nomovemsg arm first (print when message, always clear to null, cf.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2033; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2034; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `uhitm.c` mhitm_ad_famn — blocks 1/553 corpus sessions: scen-wish-Tourist-92067 step 140/234 C `d(8,8)@hitmu` + `rn2(2)@exercise` (`:3793` mhitu arm) + `rn2(40)@mhitm_ad_famn(:3795)` «Famine reaches out, and your body shrivels.» vs JS «You hit Famine.» (no AD_FAMN dispatch in `mhitu.js`; `verify mhitm_ad_famn` is vacuous until rescore re-attributes it from `exercise`). **Addressed:** D-2033
+- [x] `bones.c` give_to_nearby_mon — blocks 5/553 corpus sessions (first at step 81): C draws `rn2(1)=0` in give_to_nearby_mon, JS `rn2(5)=1` from drop_upon_death(end.js:1162). Probe: `node scripts/hidden-proxy.mjs verify give_to_nearby_mon` (scen-genesis-Barbarian-92201, scen-genesis-Caveman-91109, scen-genesis-Ranger-91139). **Addressed:** D-2034
+
+
+- [x] `uhitm.c` mhitm_ad_famn — blocks 1/553 corpus sessions: scen-wish-Tourist-92067 step 140/234 C `d(8,8)@hitmu` + `rn2(2)@exercise` (`:3793` mhitu arm) + `rn2(40)@mhitm_ad_famn(:3795)` «Famine reaches out, and your body shrivels.» vs JS «You hit Famine.» (no AD_FAMN dispatch in `mhitu.js`; `verify mhitm_ad_famn` is vacuous until rescore re-attributes it from `exercise`). **Addressed:** D-2033 `7d22c4f3`
 
 
 - [x] `read.c` seffect_fire — blocks 1/553 corpus sessions: scen-wish-Ranger-92212 step 66/152 C `rn2(19)@exercise` (seffects head `:2199–2200`) + `rn2(3)@seffect_fire(:1864)` + `rn2(19)@exercise` vs JS «That scroll is not implemented yet.» (doread allowlist lacks SCR_FIRE; `verify seffect_fire` is vacuous until rescore re-attributes it from `exercise`). **Addressed:** D-2032 `40b275ef`

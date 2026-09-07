@@ -1607,7 +1607,7 @@ debug_fuzzer `place_branch` ucamefrom still named);
 **`topten` record VFS + !toptenwin raw panel + nh_terminate capture** (D-0291) + 
 **wizard/discover early-exit score-list msg** (D-0514; omit LOGFILE/XLOGFILE/toptenwin NHW_TEXT); 
 **`finish_losehp_done` + bones_ok `mk_named_object` CORPSE + `drop_upon_death` + 
-`PM_GHOST` MM_NONAME** (D-0255; `can_make_bones` before message flush); 
+`PM_GHOST` MM_NONAME** (D-0255; `can_make_bones` before message flush); **`give_to_nearby_mon`** (D-2034; C `bones.c:226–255` reservoir `!rn2(nmon)` over the 3×3 minus hero square, `likes_*` on `m_at`, `can_carry`→`add_to_minv` else `place_object`; live `js/end.js` next to its sole caller `drop_upon_death`; `m_at`/`can_carry` new edges `imports.mjs --can` SAFE, `likes_*`/`u_at`/`add_to_minv` extend pre-existing edges); 
 **`write_bonesfile`/`try_load_bones` VFS JSON + ghostly `next_ident` remap** (D-0274; 
 seg9 16582→16630); **`goodfruit` + savebones fid-negate + drop_upon_death /
 resetobjs SLIME_MOLD arm + `savefruitchn` fid>=0 (D-1523)** (C `bones.c:42–47`
@@ -1641,7 +1641,7 @@ Dump-core `y`→NH_abort deferred); **`done2` cancel `n` → `clear_nhwindow(WIN
 **`done` Lifesaved → makeknown→exercise + savelife/useup** (D-0868; 
 livelog/formatkiller/CHOKING vomit deferred); ParanoidDie/Bones getlin "yes"; 
 LOGFILE/XLOGFILE/toptenwin NHW_TEXT; builds_up `level_difficulty`; ParanoidQuit getlin "yes"; 
-tutorial abandon; binary savelev; arise/statue arms; ebones; give_to_nearby_mon body; 
+tutorial abandon; binary savelev; arise/statue arms; ebones; 
 resetobjs known-strip / set_ghostly (SLIME_MOLD fruit mark is D-1523); `save_dlevel` assign in `no_bones_level`; Is_special boneid letter variants; 
 inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace; 
 `hide_monst` after ghostly; `unleash_all` in finish_paybill; 
