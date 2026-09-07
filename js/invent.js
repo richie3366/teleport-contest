@@ -214,6 +214,12 @@ import {
     INFRAVISION,
     HUNGER,
     POISON_RES,
+    COLD_RES,
+    DISINT_RES,
+    ACID_RES,
+    DRAIN_RES,
+    SICK_RES,
+    STONE_RES,
     STEALTH,
     INVULNERABLE,
     FAST,
@@ -224,7 +230,7 @@ import {
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import {
     acurr, acurrstr, get_strength_str, exercise, Fumbling,
-    from_what,
+    from_what, stone_luck,
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
 import { depth, ing_suffix, strstri, ordin } from './hacklib.js';
@@ -4604,6 +4610,59 @@ function hero_Sleep_resistance(u = game.u || {}) {
         || (e?.intrinsic | 0) || (e?.extrinsic | 0));
 }
 
+/** C ref: youprop.h Cold_resistance — H || E via flat + uprops[COLD_RES]. */
+function hero_Cold_resistance(u = game.u || {}) {
+    const e = u.uprops?.[COLD_RES];
+    return !!((u.HCold_resistance | 0) || (u.ECold_resistance | 0)
+        || u.Cold_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/** C ref: youprop.h Disint_resistance — H || E via flat + uprops[DISINT_RES]. */
+function hero_Disint_resistance(u = game.u || {}) {
+    const e = u.uprops?.[DISINT_RES];
+    return !!((u.HDisint_resistance | 0) || (u.EDisint_resistance | 0)
+        || u.Disint_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/** C ref: youprop.h Acid_resistance — H || E via flat + uprops[ACID_RES]. */
+function hero_Acid_resistance(u = game.u || {}) {
+    const e = u.uprops?.[ACID_RES];
+    return !!((u.HAcid_resistance | 0) || (u.EAcid_resistance | 0)
+        || u.Acid_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/** C ref: youprop.h Drain_resistance — H || E via flat + uprops[DRAIN_RES]. */
+function hero_Drain_resistance(u = game.u || {}) {
+    const e = u.uprops?.[DRAIN_RES];
+    return !!((u.HDrain_resistance | 0) || (u.EDrain_resistance | 0)
+        || u.Drain_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/**
+ * C ref: youprop.h Sick_resistance — H || E via flat + uprops[SICK_RES].
+ * Named omission: `|| defended(&gy.youmonst, AD_DISE)` (current-form
+ * disease defense; no `defended` export in js/, no corpus disclosure
+ * reaches it polymorphed into a defending form).
+ */
+function hero_Sick_resistance(u = game.u || {}) {
+    const e = u.uprops?.[SICK_RES];
+    return !!((u.HSick_resistance | 0) || (u.ESick_resistance | 0)
+        || u.Sick_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
+/** C ref: youprop.h Stone_resistance — H || E via flat + uprops[STONE_RES]. */
+function hero_Stone_resistance(u = game.u || {}) {
+    const e = u.uprops?.[STONE_RES];
+    return !!((u.HStone_resistance | 0) || (u.EStone_resistance | 0)
+        || u.Stone_resistance
+        || (e?.intrinsic | 0) || (e?.extrinsic | 0));
+}
+
 /**
  * C ref: youprop.h Blind_telepat — HTelepat || ETelepat
  * (uprops[TELEPAT] mirrors).
@@ -4691,13 +4750,19 @@ function hero_Teleport_control(u = game.u || {}) {
 
 /* C monattk.h — local for item_resistance_message / adtyp_to_prop */
 const AD_FIRE = 2;
+const AD_COLD = 3;
+const AD_DISN = 5;
 const AD_ELEC = 6;
+const AD_ACID = 8;
 const AD_DGST = 26;
 
 /** C ref: zap.c adtyp_to_prop — subset used by item resistance enl. */
 function adtyp_to_prop(dmgtyp) {
     if (dmgtyp === AD_FIRE) return FIRE_RES;
+    if (dmgtyp === AD_COLD) return COLD_RES;
+    if (dmgtyp === AD_DISN) return DISINT_RES;
     if (dmgtyp === AD_ELEC) return SHOCK_RES;
+    if (dmgtyp === AD_ACID) return ACID_RES;
     return 0;
 }
 
@@ -4765,10 +4830,28 @@ function item_what(dmgtyp) {
 }
 
 /**
+ * C ref: eat.c temp_resist `:450–469` — intrinsic timeout with no form,
+ * worn-gear or blocked cover; used by enlightenment for the Acid/Stone
+ * "temporarily " prefix.
+ */
+function enl_temp_resist(prop) {
+    const p = game.u?.uprops?.[prop] || {};
+    const intr = p.intrinsic | 0;
+    const timeout = intr & TIMEOUT;
+    if (timeout
+        && (intr & ~TIMEOUT) === 0
+        && !(p.extrinsic | 0)
+        && !(p.blocked | 0)) {
+        return timeout;
+    }
+    return 0;
+}
+
+/**
  * C ref: insight.c item_resistance_message — "Your items are [somewhat]
  * protected from …" + item_what.
  */
-function item_resistance_message_lines(adtyp, prot_message, final, o) {
+function item_resistance_message_lines(adtyp, prot_message, final, o = (t) => t) {
     const protection = u_adtyp_resistance_obj(adtyp);
     if (!protection) return [];
     const somewhat = protection < 99;
@@ -4965,9 +5048,12 @@ function status_core_lines(final = 0, opts = {}) {
  * C ref: insight.c enlightenment — BASIC|MAGIC; final → putstr NHW_MENU
  * (--More-- pages), not ^X menu "(k of n)".
  * Named omissions: poly/vamp; night/midnight; SCORE_ON_BOTL; most
- * status troubles beyond Deaf/Sleepy; resistances/vision beyond
- * Poison_resistance/Searching/Infravision/Stealth; from_what suffixes;
- * wizard alignment number; blocked-Stealth / other appearance props.
+ * status troubles beyond Deaf/Sleepy; vision beyond
+ * Searching/Infravision/Stealth (See_invisible/telepathic/warned live);
+ * from_what suffixes; blocked-Stealth / other appearance props;
+ * Teleportation/Aggravate/Conflict/Jumping-Teleport arms; Regen/digestion/
+ * combat-inc/defense/half-damage; shape-changers/Hate_silver/Free/Fixed_abil;
+ * Sick `defended(AD_DISE)` form arm.
  * @param {number} mode BASICENLIGHTENMENT | MAGICENLIGHTENMENT
  * @param {number} final ENL_GAMEINPROGRESS / GAMEOVERALIVE / GAMEOVERDEAD
  */
@@ -5199,14 +5285,79 @@ export async function enlightenment(mode, final = 0) {
             || u.uprops?.[ANTIMAGIC]?.extrinsic
             || (u.uarmc && u.uarmc.otyp === CLOAK_MR));
         if (antimagic) lines.push(you_are('magic-protected', from_what(ANTIMAGIC)));
-        // C insight.c:1531-1532 — Sleep (Cold/item-cold deferred before it).
+        // C insight.c:1525-1527 — Fire + item-fire before Cold.
+        if (hero_Fire_resistance(u)) {
+            lines.push(you_are('fire resistant', from_what(FIRE_RES)));
+        }
+        lines.push(...item_resistance_message_lines(
+            AD_FIRE, ' protected from fire', final,
+        ));
+        // C insight.c:1528-1530 — Cold + item-cold before Sleep.
+        if (hero_Cold_resistance(u)) {
+            lines.push(you_are('cold resistant', from_what(COLD_RES)));
+        }
+        lines.push(...item_resistance_message_lines(
+            AD_COLD, ' protected from cold', final,
+        ));
+        // C insight.c:1531-1532 — Sleep.
         if (hero_Sleep_resistance(u)) {
             lines.push(you_are('sleep resistant', from_what(SLEEP_RES)));
         }
-        // C: Poison_resistance after Antimagic / other resists.
-        // Fire/Shock/Cold/Disint/… resistance arms still deferred.
+        // C insight.c:1533-1535 — Disint + item-disn before Shock.
+        if (hero_Disint_resistance(u)) {
+            lines.push(you_are(
+                'disintegration resistant', from_what(DISINT_RES),
+            ));
+        }
+        lines.push(...item_resistance_message_lines(
+            AD_DISN, ' protected from disintegration', final,
+        ));
+        // C insight.c:1536-1538 — Shock + item-elec before Poison.
+        if (hero_Shock_resistance(u)) {
+            lines.push(you_are('shock resistant', from_what(SHOCK_RES)));
+        }
+        lines.push(...item_resistance_message_lines(
+            AD_ELEC, ' protected from electric shocks', final,
+        ));
+        // C insight.c:1540-1541 — Poison.
         if (hero_Poison_resistance(u)) {
             lines.push(you_are('poison resistant', from_what(POISON_RES)));
+        }
+        // C insight.c:1542-1548 — Acid (+ "temporarily ") + item-acid.
+        if (hero_Acid_resistance(u)) {
+            const acidPre = enl_temp_resist(ACID_RES) ? 'temporarily ' : '';
+            lines.push(you_are(`${acidPre}acid resistant`, from_what(ACID_RES)));
+        }
+        lines.push(...item_resistance_message_lines(
+            AD_ACID, ' protected from acid', final,
+        ));
+        // C insight.c:1549-1552 — Drain, Sick.
+        if (hero_Drain_resistance(u)) {
+            lines.push(you_are('level-drain resistant', from_what(DRAIN_RES)));
+        }
+        if (hero_Sick_resistance(u)) {
+            lines.push(you_are('immune to sickness', from_what(SICK_RES)));
+        }
+        // C insight.c:1553-1557 — Stone (+ "temporarily ").
+        if (hero_Stone_resistance(u)) {
+            const stonePre = enl_temp_resist(STONE_RES) ? 'temporarily ' : '';
+            lines.push(you_are(
+                `${stonePre}petrification resistant`, from_what(STONE_RES),
+            ));
+        }
+        // C insight.c:1558-1561 — Halluc ("resist"/"resisted").
+        if (hero_Halluc_resistance(u)) {
+            lines.push(enlght_line_txt(
+                You_, final ? 'resisted' : 'resist', ' hallucinations',
+                from_what(HALLUC_RES),
+            ));
+        }
+        // C insight.c:1562-1563 — uedibility.
+        if (u.uedibility) {
+            lines.push(enlght_line_txt(
+                You_, final ? 'could ' : 'can ',
+                'recognize detrimental food', '',
+            ));
         }
         // C insight.c:1571-1580 — See_invisible (Warn_of_mon deferred after).
         if ((u.HSee_invisible | 0) || (u.ESee_invisible | 0)) {
@@ -5306,6 +5457,44 @@ export async function enlightenment(mode, final = 0) {
             lines.push(enlght_line_txt(
                 'Your luck ', final ? 'was' : 'is', ' zero', '',
             ));
+        }
+        // C insight.c:1919-1922 — moreluck extra/reduced.
+        if ((u.moreluck | 0) > 0) {
+            lines.push(you_have('extra luck'));
+        } else if ((u.moreluck | 0) < 0) {
+            lines.push(you_have('reduced luck'));
+        }
+        // C insight.c:1923-1929 — luckstone carry (Bad/Good luck timeout).
+        {
+            const { carrying } = await import('./hack.js');
+            const luckstone = objectNames.indexOf('LUCKSTONE');
+            if (carrying(luckstone) || stone_luck(true)) {
+                const ltmp = stone_luck(false);
+                if (ltmp <= 0) {
+                    lines.push(enlght_line_txt(
+                        'Bad luck ', final ? 'did' : 'does',
+                        ' not time out for you', '',
+                    ));
+                }
+                if (ltmp >= 0) {
+                    lines.push(enlght_line_txt(
+                        'Good luck ', final ? 'did' : 'does',
+                        ' not time out for you', '',
+                    ));
+                }
+            }
+        }
+        // C insight.c:1931-1936 — god anger ("The Lady was angry with you").
+        {
+            const ugangr = u.ugangr | 0;
+            if (ugangr) {
+                let anger = ` ${ugangr > 6 ? 'extremely ' : ugangr > 3 ? 'very ' : ''}angry with you`;
+                if (wiz) anger += ` (${ugangr})`;
+                lines.push(enlght_line_txt(
+                    u_gname(game.urole, atype), final ? ' was' : ' is',
+                    anger, '',
+                ));
+            }
         }
         // C insight.c:1987-2000 — death disclosure (+ Nth-time suffix;
         // final<2 survived-arms deferred: no corpus session reaches them).
@@ -5705,6 +5894,7 @@ export async function doattributes(enl_mode = null) {
         } = await import('./attrib.js');
         const {
             POISON_RES, STEALTH, FAST, TELEPORT_CONTROL, SLEEP_RES, INFRAVISION,
+            COLD_RES, DISINT_RES, ACID_RES, DRAIN_RES, SICK_RES, STONE_RES,
         } = await import('./const.js');
         const { can_pray } = await import('./pray.js');
         const o = (txt) => ` ${txt}`; // overlay body: enlght_line already has 1 space
@@ -5721,9 +5911,17 @@ export async function doattributes(enl_mode = null) {
                 'Your alignment ', 'is', ` ${record}`, '',
             )));
         }
-        // C attributes_enlightenment Resistances — Antimagic before Fire/
-        // Cold/…/Shock/Poison. Invulnerable + Cold/Disint/Acid/Drain/
-        // Sick/Stone + item_resistance AD_FIRE/AD_COLD/AD_DISN deferred.
+        // C attributes_enlightenment Resistances — Invulnerable, Antimagic,
+        // Fire/item-fire, Cold/item-cold, Sleep, Disint/item-disn,
+        // Shock/item-elec, Poison, Acid(+temp)/item-acid, Drain, Sick,
+        // Stone(+temp), Halluc, uedibility, in order (insight.c:1519-1563).
+        if (!!(u.Invulnerable || u.HInvulnerable || u.EInvulnerable
+            || (u.uprops?.[INVULNERABLE]?.intrinsic | 0)
+            || (u.uprops?.[INVULNERABLE]?.extrinsic | 0))) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'invulnerable', from_what(INVULNERABLE),
+            )));
+        }
         if (hero_Antimagic(u)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'are ', 'magic-protected', from_what(ANTIMAGIC),
@@ -5734,13 +5932,31 @@ export async function doattributes(enl_mode = null) {
                 'You ', 'are ', 'fire resistant', from_what(FIRE_RES),
             )));
         }
-        // C insight.c:1531-1532 — Sleep after Cold/item-cold (deferred).
+        lines.push(...item_resistance_message_lines(
+            AD_FIRE, ' protected from fire', 0, o,
+        ));
+        if (hero_Cold_resistance(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'cold resistant', from_what(COLD_RES),
+            )));
+        }
+        lines.push(...item_resistance_message_lines(
+            AD_COLD, ' protected from cold', 0, o,
+        ));
         if (hero_Sleep_resistance(u)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'are ', 'sleep resistant', from_what(SLEEP_RES),
             )));
         }
-        // item_resistance AD_FIRE deferred (no fire-extrinsic on this peel)
+        if (hero_Disint_resistance(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'disintegration resistant',
+                from_what(DISINT_RES),
+            )));
+        }
+        lines.push(...item_resistance_message_lines(
+            AD_DISN, ' protected from disintegration', 0, o,
+        ));
         if (hero_Shock_resistance(u)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'are ', 'shock resistant', from_what(SHOCK_RES),
@@ -5749,16 +5965,48 @@ export async function doattributes(enl_mode = null) {
         lines.push(...item_resistance_message_lines(
             AD_ELEC, ' protected from electric shocks', 0, o,
         ));
-        // Resistances — poison + Halluc_resistance (other resists deferred)
         if (hero_Poison_resistance(u)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'are ', 'poison resistant', from_what(POISON_RES),
+            )));
+        }
+        if (hero_Acid_resistance(u)) {
+            const acidPre = enl_temp_resist(ACID_RES) ? 'temporarily ' : '';
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', `${acidPre}acid resistant`,
+                from_what(ACID_RES),
+            )));
+        }
+        lines.push(...item_resistance_message_lines(
+            AD_ACID, ' protected from acid', 0, o,
+        ));
+        if (hero_Drain_resistance(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'level-drain resistant',
+                from_what(DRAIN_RES),
+            )));
+        }
+        if (hero_Sick_resistance(u)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'immune to sickness', from_what(SICK_RES),
+            )));
+        }
+        if (hero_Stone_resistance(u)) {
+            const stonePre = enl_temp_resist(STONE_RES) ? 'temporarily ' : '';
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', `${stonePre}petrification resistant`,
+                from_what(STONE_RES),
             )));
         }
         // C: if (Halluc_resistance) enl_msg(You_, "resist", … " hallucinations", …)
         if (hero_Halluc_resistance(u)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'resist', ' hallucinations', from_what(HALLUC_RES),
+            )));
+        }
+        if (u.uedibility) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'can ', 'recognize detrimental food', '',
             )));
         }
         // Vision — Blind_telepat + Warning before Searching (See_invisible /
@@ -5873,6 +6121,40 @@ export async function doattributes(enl_mode = null) {
             lines.push(o(enlght_line_txt('You ', 'are ', luckAttr, '')));
         } else if (wizard) {
             lines.push(o(enlght_line_txt('Your luck ', 'is', ' zero', '')));
+        }
+        // C insight.c:1919-1929 — moreluck + luckstone (in-progress tense).
+        if ((u.moreluck | 0) > 0) {
+            lines.push(o(enlght_line_txt('You ', 'have ', 'extra luck', '')));
+        } else if ((u.moreluck | 0) < 0) {
+            lines.push(o(enlght_line_txt('You ', 'have ', 'reduced luck', '')));
+        }
+        {
+            const { carrying } = await import('./hack.js');
+            const luckstone = objectNames.indexOf('LUCKSTONE');
+            if (carrying(luckstone) || stone_luck(true)) {
+                const ltmp = stone_luck(false);
+                if (ltmp <= 0) {
+                    lines.push(o(enlght_line_txt(
+                        'Bad luck ', 'does', ' not time out for you', '',
+                    )));
+                }
+                if (ltmp >= 0) {
+                    lines.push(o(enlght_line_txt(
+                        'Good luck ', 'does', ' not time out for you', '',
+                    )));
+                }
+            }
+        }
+        // C insight.c:1931-1936 — god anger ("X is angry with you").
+        {
+            const ugangr = u.ugangr | 0;
+            if (ugangr) {
+                let anger = ` ${ugangr > 6 ? 'extremely ' : ugangr > 3 ? 'very ' : ''}angry with you`;
+                if (wizard) anger += ` (${ugangr})`;
+                lines.push(o(enlght_line_txt(
+                    u_gname(game.urole, atype), ' is', anger, '',
+                )));
+            }
         }
         // Pray — in-progress only; wizard appends (ublesscnt)
         let prayAttr = `${(await can_pray(false)) ? '' : 'not '}safely pray`;

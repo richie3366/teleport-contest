@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — D-1997 insight.c attributes_enlightenment resistance catalogue + misc tail (resume iter-2443 leftover, committed)
+
+**C locus:** `insight.c:1525–1563` resistances (Fire/item-fire, Cold/item-cold, Sleep, Disint/item-disn, Shock/item-elec, Poison, Acid+`temp_resist`/item-acid, Drain, Sick, Stone+`temp_resist`, Halluc, uedibility) + `:1919–1936` moreluck/luckstone/ugangr; `eat.c:450–469` `temp_resist`; `youprop.h` H||E macros.
+**JS:** `js/invent.js` (+296/−14) + `js/attrib.js` (+15/−0); 2 js files, under 600 cap. Same-idiom predicates/imports only; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Change:** full resistance block in exact C order in BOTH builders (final + ^X overlay), AD_FIRE/AD_COLD/AD_DISN/AD_ELEC/AD_ACID item messages, local `enl_temp_resist`, six `hero_*_resistance` predicates, moreluck/luckstone (live `carrying` dynamic import + `stone_luck`) / ugangr tail; six `PROP_HFIELD` rows + const imports (D-1995 precedent).
+**Verify:** `node scripts/verify.mjs --fn one_characteristic` → VERIFY: PASS — hidden 2 PASS (scen-death-Valkyrie-92176 Cold arm + `innately`; scen-normal-Priest-92056 ugangr) · green 2/2 + strict ×2 + cohort 7/7 · `verify enlightenment` → 1 unchanged NO MOVEMENT (scen-intrinsic-Caveman-92150 step 92 `^X`: C 62 turns vs JS 61 — turn-counter value, not page order; re-queued as own moveloop-accounting row, do NOT +1) · `verify status_enlightenment` vacuous at HEAD (NOT claimed).
+**Named:** Sick `defended(AD_DISE)` form arm; vision Warn/Clairvoyant/Detect/umconf; appearance/transport/physical/shape leftovers (see D-1997).
+**Next:** `allmain.c` moveloop / `cmd.c` multi-turn count row (Caveman-92150), then `wizcmds.c` wiz_intrinsic sick/stone/strangle/vomit/stun arms.
 ## 2026-09-07 — D-1996 invent.js missing DEAF import (D-1995 deaf ^X ReferenceError)
 
 **C locus:** `attrib.c:905–1001` `from_what` (DEAF `:931` roleplay-deaf arm); `insight.c:1059–1074` Blind/Deaf `you_are("deaf", from_what(DEAF))`.

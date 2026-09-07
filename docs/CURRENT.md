@@ -85,7 +85,7 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open head `insight.c` enlightenment family residuals, then `wizcmds.c` wiz_intrinsic sick/stone/strangle/vomit/stun arms (9/553; SLIMED landed D-1995 unreached). Probe: `hidden-proxy.mjs verify wiz_intrinsic`. (D-1996 shipped the DEAF Must-fix; fortress 44/44.)
+**Next cluster:** `wizcmds.c` wiz_intrinsic — blocks 7/553 (first at step 16): C `You feel deathly sick.--More--` then `Timeout for fatally sick set to 30.`; JS prints the timeout line first and draws `rn2(12)` from `mcalcmove` where C draws `rn2(2)` in `wiz_intrinsic :1036` (the `make_sick`/`set_itimeout` + `incr` arms). Probe: `node scripts/hidden-proxy.mjs verify wiz_intrinsic` (scen-death-Archeologist-92015, scen-death-Knight-92203, scen-intrinsic-Barbarian-92008). (D-1997 shipped the enlightenment page-order arms; Caveman turn-count residual re-queued as its own moveloop row.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-1996 (index).**
 <!-- recent:begin -->

@@ -24,7 +24,13 @@ import {
     TELEPORT_CONTROL,
     SEARCHING,
     FIRE_RES,
+    COLD_RES,
     SLEEP_RES,
+    DISINT_RES,
+    SHOCK_RES,
+    ACID_RES,
+    SICK_RES,
+    STONE_RES,
     INFRAVISION,
     SEE_INVIS,
     WARNING,
@@ -901,6 +907,15 @@ const PROP_HFIELD = {
     [INFRAVISION]: 'HInfravision',
     [SEE_INVIS]: 'HSee_invisible',
     [WARNING]: 'HWarning',
+    // C insight.c attributes_enlightenment resistance catalogue (D-1997):
+    // Cold/Disint/Shock/Acid/Sick/Stone arms need their H-fields here or
+    // from_what stays silent (human Valkyrie "cold resistant innately").
+    [COLD_RES]: 'HCold_resistance',
+    [SHOCK_RES]: 'HShock_resistance',
+    [DISINT_RES]: 'HDisint_resistance',
+    [ACID_RES]: 'HAcid_resistance',
+    [SICK_RES]: 'HSick_resistance',
+    [STONE_RES]: 'HStone_resistance',
 };
 
 /**
