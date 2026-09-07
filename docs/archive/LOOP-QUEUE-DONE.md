@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `end.c` disclose — blocks 5/553 corpus sessions (first at step 102): C «Do you want your possessions identified? [ynq] (n)» vs JS «Well done, mortal! But now thou must face the final Test...-». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-intrinsic-Rogue-92089, scen-normal-Barbarian-92208, scen-normal-Healer-92227). **Addressed:** D-2039
+- [x] `end.c` disclose — blocks 5/553 corpus sessions (first at step 102): C «Do you want your possessions identified? [ynq] (n)» vs JS «Well done, mortal! But now thou must face the final Test...-». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-intrinsic-Rogue-92089, scen-normal-Barbarian-92208, scen-normal-Healer-92227). **Addressed:** D-2039 `55de4d0e`
 
 
 - [x] `do_name.c` x_monnam — blocks 6/553 corpus sessions (first at step 38): C «human ranger called wizard» vs JS «Can't find dungeon feature '<'.». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-genesis-Ranger-92126, scen-normal-Caveman-92006, scen-normal-Caveman-92117). **Addressed:** D-2038 `2d18057e`

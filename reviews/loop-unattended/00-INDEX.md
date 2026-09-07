@@ -1014,3 +1014,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1001-ee5d6d71-dodrink-occupant.md](./1001-ee5d6d71-dodrink-occupant.md) | `ee5d6d71` | D-2031 dodrink Strangled/underwater/occupant | **ACCEPT** |
 | [1002-40b275ef-seffect-fire.md](./1002-40b275ef-seffect-fire.md) | `40b275ef` | D-2032 seffect_fire scroll-of-fire | **ACCEPT** |
 | [1003-7d22c4f3-mhitm-ad-famn.md](./1003-7d22c4f3-mhitm-ad-famn.md) | `7d22c4f3` | D-2033 mhitm_ad_famn mhitu+mhitm arms | **ACCEPT** |
+| [1004-b87c6332-give-to-nearby-mon.md](./1004-b87c6332-give-to-nearby-mon.md) | `b87c6332` | D-2034 give_to_nearby_mon reservoir port | **ACCEPT** |
+| [1005-0a7a7fc4-strangled-expiry.md](./1005-0a7a7fc4-strangled-expiry.md) | `0a7a7fc4` | D-2035 STRANGLED expiry killer + done_timeout | **ACCEPT** |
+| [1006-4c3db33a-do-attack-cluster.md](./1006-4c3db33a-do-attack-cluster.md) | `4c3db33a` | D-2036 do_attack ranged + caitiff + init | **QUALITY-RISK** |
+| [1007-e650e3d1-find-trap-wait.md](./1007-e650e3d1-find-trap-wait.md) | `e650e3d1` | D-2037 find_trap clutter redraw wait | **ACCEPT** |
+| [1008-2d18057e-seenv-center.md](./1008-2d18057e-seenv-center.md) | `2d18057e` | D-2038 seenv_matrix center 0→SVALL | **ACCEPT** |

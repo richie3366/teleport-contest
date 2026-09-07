@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — Audit D-2034…D-2039 against pinned C (reviews 1004–1009) + cadence score 44/44
+
+5 ACCEPT (1004/1005/1007/1008/1009), 1 QUALITY-RISK (1006 do_attack → 3 Must-fix: boomerang `:901–917` tail, silver `is_vampshifter`, dokick.js:860 await). All corpus claims re-measured `--base HASH~1`; match. Fortress 44/44 (Scr 11405, RNG 792838). No js/ edits.
 ## 2026-09-07 — D-2039 dungeon.c prev_level: Dlvl1 branch-upstairs escape via done(ESCAPED) (disclose row: 1 PASS, 4 moved past)
 
 **C locus:** `dungeon.c` `prev_level :1518–1545`: `if (at_stairs && stway && stway->tolev.dnum != u.uz.dnum)` → `if (!u.uz.dnum && u.uz.dlevel == 1 && !u.uhave.amulet) done(ESCAPED); else { tolev; goto_level }`. Branch table (`dat/dungeon.lua:45–50` Doom→Planes base=1 branchtype=no_down direction=up = BR_NO_END2): the Dlvl1 upstairs IS a branch stair to Planes dlevel 5 (earth). Without the Amulet, `<` `y` escapes the dungeon; with it, the hero enters the endgame. `doup`'s ledger-1 `y_n` (D-2016) already matched both sides — the fork is the answer's consequence one step later.

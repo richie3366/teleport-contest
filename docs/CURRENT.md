@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-07** — full `sessions` at **D-2033**
-(audit **998–1003**, `7d22c4f3`+review). Fortress **44/44** (no throws).
+Score last measured: **2026-09-07** — full `sessions` at **D-2039**
+(audit **1004–1009**, `55de4d0e`+review). Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`55+0.44/turn` (R² 0.84).
+`69+0.54/turn` (R² 0.84).
 
 ## Score
 
@@ -32,7 +32,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `71+0.44/turn` (R² 0.78) |
+| Speed label | `69+0.54/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -48,6 +48,7 @@ they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
 Reviews 990–997: 7 ACCEPT, 1 ACCEPT-WITH-DEBT (991 readobjnam grey-spell/armour fixups → map-name debt, no Must-fix).
 Reviews 998–1003: 5 ACCEPT, 1 ACCEPT-WITH-DEBT (998 use_container lknown pre-branch `:2985–2989` state debt, no Must-fix; 1000 notes D-2030 "nothing imports wizard.js" slip, harmless).
+Reviews 1004–1009: 5 ACCEPT, 1 QUALITY-RISK (1006 → 3 Must-fix).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -82,11 +83,11 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** is the regression fortress. **The objective is the
 scenario corpus** (`hidden-proxy status`): 262/540 PASS, scen-* 7/275.
-Pop `LOOP-QUEUE.md` Must-fix (currently empty) then Open in order;
+Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `end.c` disclose — blocks 5/553 corpus sessions (first at step 102): C «Do you want your possessions identified? [ynq] (n)» vs JS «Well done, mortal! But now thou must face the final Test...-».
+**Next cluster:** Must-fix `uhitm.c` hmon_hitmon_weapon_ranged boomerang tail `:901–917` (review 1006 C-wrong 1; then the silver-predicate swap and dokick caitiff await).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2039 (index).**
 <!-- recent:begin -->
