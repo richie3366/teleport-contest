@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `mthrowu.c` monshoot — blocks 3/553 corpus sessions (first at step 8): C «You find an arrow trap.--More--» vs JS «You find an arrow trap.». Probe: `node scripts/hidden-proxy.mjs verify monshoot` (scen-kit-Archeologist-92190, scen-kit-Knight-92106, scen-normal-Wizard-91114). **Addressed:** D-2037
+- [x] `mthrowu.c` monshoot — blocks 3/553 corpus sessions (first at step 8): C «You find an arrow trap.--More--» vs JS «You find an arrow trap.». Probe: `node scripts/hidden-proxy.mjs verify monshoot` (scen-kit-Archeologist-92190, scen-kit-Knight-92106, scen-normal-Wizard-91114). **Addressed:** D-2037 `e650e3d1`
 
 
 - [x] `uhitm.c` do_attack — blocks 3/553 corpus sessions (first at step 30): C «You begin bashing monsters with your crossbow.--More--» vs JS «You begin bashing monsters with your crossbow. You hit the g». Probe: `node scripts/hidden-proxy.mjs verify do_attack` (scen-genesis-Monk-91115, scen-kit-Samurai-91129, scen-poly-Tourist-92047). **Addressed:** D-2036 `4c3db33a`
