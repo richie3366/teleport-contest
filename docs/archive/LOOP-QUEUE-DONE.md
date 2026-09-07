@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `makemon.c` makemon → `mkobj.c` next_ident order + monster gender — blocks 5/553 (first at step 34) **Addressed:** D-2001: C `An elf-lord appears next to you.` / `Elvenking` vs JS `elf-lady` / `Elvenqueen`; C draws `rnd(2)` in `next_ident :521` (object creation inside `m_initweap`/`m_initinv`) where JS draws `rn2(2)` in `m_initweap` first — the gender roll and the object ident draw are in the wrong order. Read `makemon :1494` (`m_initgrp`, `mkobj_at` ident) and `pmnames[]` gendered naming. Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-genesis-Archeologist-92175, scen-tour-Wizard-92103, scen-wish-Knight-92130).
+- [x] `lock.c` pick_lock / `apply.c` use_pick_axe on an occupied square — blocks 5/553 (first at step 6): C `I don't think the kitten would appreciate that.` (`lock.c:567` `pick_lock` direction arm with a monster there) vs JS `You see no door there.`. Probe: `node scripts/hidden-proxy.mjs verify pick_lock` (scen-kit-Rogue-92225, scen-kit-Tourist-91126, scen-wish-Barbarian-92102). **Addressed:** D-2002
+
+
+- [x] `makemon.c` makemon → `mkobj.c` next_ident order + monster gender — blocks 5/553 (first at step 34) **Addressed:** D-2001 `d9e7079e`: C `An elf-lord appears next to you.` / `Elvenking` vs JS `elf-lady` / `Elvenqueen`; C draws `rnd(2)` in `next_ident :521` (object creation inside `m_initweap`/`m_initinv`) where JS draws `rn2(2)` in `m_initweap` first — the gender roll and the object ident draw are in the wrong order. Read `makemon :1494` (`m_initgrp`, `mkobj_at` ident) and `pmnames[]` gendered naming. Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-genesis-Archeologist-92175, scen-tour-Wizard-92103, scen-wish-Knight-92130).
 
 
 - [x] `steed.c` doride / mount_steed — blocks 6/553 (first at step 51): C `Force the mount to succeed? [yn] (n)` (wizard-mode arm of `mount_steed`, `steed.c:185`) vs JS `I see nobody there.`; saddle / `#ride` toward an adjacent monster. Probe: `node scripts/hidden-proxy.mjs verify doride` (scen-intrinsic-Ranger-92193, scen-kit-Valkyrie-92131, scen-normal-Healer-92231). **Addressed:** D-2000 `136921ce`

@@ -1811,7 +1811,7 @@ getobj missing-letter `continue`+`flush_topl_more` (D-0025);
 **`doclose`/`c` getdir cmdassist + close envelope** (D-0740; 
 stumble_on_door_mimic / Blind feel / portcullis deferred); 
 **`get_adjacent_loc` → shared `getdir` (D-1806); `MAGIC_MARKER` → `dowrite`** (D-0742); 
-**`doopen_indir`/`kick_door` `recalc_block_point`; `pick_lock` NODOOR/ISOPEN/BROKEN** (D-0113); 
+**`doopen_indir`/`kick_door` `recalc_block_point`; `pick_lock` NODOOR/ISOPEN/BROKEN** (D-0113); **`pick_lock` direction-arm occupied square: pit rim, visible-monster (`mon_nam` + credit-card shk/Oracle `verbalize`), door-mimic reveal (`is_door_mappear` inline, `stumble_onto_mimic`), !IS_DOOR feel/mapseen + Blind feel/see + drawbridge** (D-2002; `maybe_absorb_item` named; !IS_DOOR return stays LEARNED — no `lev->glyph` in JS cells); 
 **`doopen_indir` locked → autounlock APPLY_KEY + `autokey`/`pick_lock` ynq + 
 `picklock` occupation `rn2(100)`** (D-0487); 
 **`#loot`/`do_loot_cont` locked box → `pick_lock`/`picklock` box arm (4*DEX+25 rogue)** (D-0489) + 
