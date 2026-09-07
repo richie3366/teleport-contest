@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mthrowu.c` monshoot — blocks 3/553 corpus sessions (first at step 8): C «You find an arrow trap.--More--» vs JS «You find an arrow trap.». Probe: `node scripts/hidden-proxy.mjs verify monshoot` (scen-kit-Archeologist-92190, scen-kit-Knight-92106, scen-normal-Wizard-91114).
 - [ ] `botl.c` do_statusline2 — blocks 6/553 corpus sessions (first at step 46): C «Your shirt rips to shreds!--More--» vs JS «Your shirt rips to shreds!--More--». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-death-Tourist-92095, scen-intrinsic-Caveman-92138, scen-poly-Monk-92164).
 - [ ] `do_name.c` x_monnam — blocks 6/553 corpus sessions (first at step 38): C «human ranger called wizard» vs JS «Can't find dungeon feature '<'.». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-genesis-Ranger-92126, scen-normal-Caveman-92006, scen-normal-Caveman-92117).
 - [ ] `end.c` disclose — blocks 5/553 corpus sessions (first at step 102): C «Do you want your possessions identified? [ynq] (n)» vs JS «Well done, mortal! But now thou must face the final Test...-». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-intrinsic-Rogue-92089, scen-normal-Barbarian-92208, scen-normal-Healer-92227).

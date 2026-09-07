@@ -130,7 +130,7 @@ count-prefix `#wizintrinsic`.
 
 JS: `js/detect.js` — partial
 
-**8-neighbour SDOOR/SCORR/trap find + fund (lenses)** + `find_trap` message (D-0062); 
+**8-neighbour SDOOR/SCORR/trap find + fund (lenses)** + `find_trap` message (D-0062) + `find_trap` clutter arm live (D-2037: `feel_newsym`, Hallucination/glyph check → `cls`/`map_trap`/`display_self`, `set_msg_xy`, cleared → `more`/`docrt`); 
 **`findit`/`findone` SDOOR/SCORR/unseen traps + hero `do_clear_area`** (D-0074) +
 **`sense_trap` Hallu/cursed GOLD/`random_object` quan + `display_trap_map` /
 `detect_obj_traps` / `trap_detect` strange_feeling** (D-1753;
