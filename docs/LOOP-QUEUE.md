@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `music.c` do_play_instrument — blocks 3/553 corpus sessions (first at step 63): C «Improvise? [ynq] (q)» vs JS «Improvise? [ynq] (y)». Probe: `node scripts/hidden-proxy.mjs verify do_play_instrument` (scen-intrinsic-Healer-92168, scen-wish-Caveman-92174, scen-wish-Ranger-92156).
 - [ ] `monmove.c` m_search_items — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(25)=12` in m_search_items, JS `rn2(1)=0` from m_move(monmove.js:1813). Probe: `node scripts/hidden-proxy.mjs verify m_search_items` (scen-tour-Samurai-92032, scen-tour-Tourist-92100).
 - [ ] `uhitm.c` mhitm_ad_were — blocks 2/553 corpus sessions (first at step 41): C draws `rn2(4)=1` in mhitm_ad_were, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_were` (scen-genesis-Knight-92149, scen-wish-Rogue-92184).
 - [ ] `do_wear.c` Blindf_off — blocks 2/553 corpus sessions (first at step 211): C «You turn into a ghoul! You can see again.» vs JS «You turn into a ghoul!». Probe: `node scripts/hidden-proxy.mjs verify Blindf_off` (scen-poly-Ranger-92090, scen-poly-Ranger-92133).

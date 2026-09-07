@@ -1882,7 +1882,7 @@ fountain/sink/altar(`desecrate_altar`)/grave/throne/SCORR/ROOM/door collapse +
 PIT IS_ROOM→ROOM morph in shared `maketrap`** (D-0972 / **D-1280**) + 
 **flute/harp sleep·snake·nymph·charm + FIRE/FROST horn `ubuzz`/`zapyourself` + 
 BUGLE `awaken_soldiers`** (D-0974; **passtune getlin + `open_drawbridge`/`close_drawbridge` + 
-Mastermind hints** D-0977; `Hero_playnotes`; flees_light; can_blow poly; selftouch petrify; 
+Mastermind hints** D-0977; **do_play_instrument ynq def `'q'` (hack.h:1330) + wind `can_blow` gate + Mastermind `Soundeffect` + ESC-only tune abort D-2046**; `Hero_playnotes`/`obj_to_instr` audio; flees_light; can_blow is_silent-table poly approx; selftouch petrify; 
 flooreffects full; maketrap shop-hole/DRAWBRIDGE_UP ice named (**set_levltyp D-1280**); 
 sleep defended/shieldeff; set_entity crush still deferred); 
 omit `do_break_wand`/`flip_through_book`/`flip_coin`, adjacent/dz/cursed stethoscope, forcelock 

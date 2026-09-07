@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `mondata.c` name_to_monclass — blocks 3/553 corpus sessions (first at step 59): C «fa cat or other feline (tame kitten)» vs JS «ka kitten». Probe: `node scripts/hidden-proxy.mjs verify name_to_monclass` (scen-genesis-Wizard-92223, scen-kit-Monk-92007, scen-normal-Knight-91100). **Addressed:** D-2045
+- [x] `music.c` do_play_instrument — blocks 3/553 corpus sessions (first at step 63): C «Improvise? [ynq] (q)» vs JS «Improvise? [ynq] (y)». Probe: `node scripts/hidden-proxy.mjs verify do_play_instrument` (scen-intrinsic-Healer-92168, scen-wish-Caveman-92174, scen-wish-Ranger-92156). **Addressed:** D-2046
+
+
+- [x] `mondata.c` name_to_monclass — blocks 3/553 corpus sessions (first at step 59): C «fa cat or other feline (tame kitten)» vs JS «ka kitten». Probe: `node scripts/hidden-proxy.mjs verify name_to_monclass` (scen-genesis-Wizard-92223, scen-kit-Monk-92007, scen-normal-Knight-91100). **Addressed:** D-2045 `29aff746`
 
 
 - [x] `wield.c` doquiver_core — blocks 3/553 corpus sessions (first at step 18): C «Your alternate weapon is 6 orcish daggers. Ready 5 of them? » vs JS «Your alternate weapon is 6 orcish dagger. Ready 5 of them? [». Probe: `node scripts/hidden-proxy.mjs verify doquiver_core` (scen-normal-Rogue-92115, scen-normal-Valkyrie-92200, scen-tour-Rogue-92030). **Addressed:** D-2044 `a101cf0e`
