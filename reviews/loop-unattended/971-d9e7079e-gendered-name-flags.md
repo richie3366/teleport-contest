@@ -99,3 +99,5 @@ js hunk: no `FORCE`/`DIAG`/`getRngLog`/seed/coordinate/
    align blanking splice with C `memset` width. → Must-fix (below).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2003

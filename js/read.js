@@ -2391,22 +2391,24 @@ function create_particular_parse(str) {
     // d->genderconf = -1 (no confusion on which gender to assign).
     let fem = -1;
     // C: read.c:3186 — check "female" before "male" to avoid a false
-    // hit mid-word ("female" itself contains "male "). ASCII-only lower:
-    // C strstri is byte-based, so indices stay aligned with bufp. Leading
-    // pad only: C matches "female " with a literal trailing space, so a
-    // trailing word ("dwarf female") does NOT hit in C either.
-    const asciiLow = (s) => ` ${s.replace(/[A-Z]/g, (c) => c.toLowerCase())}`;
-    let hit = asciiLow(bufp).indexOf(' female ');
+    // hit mid-word ("female" itself contains "male"). Bare strstri: no
+    // leading boundary, so "shemale " hits "male " in C too. ASCII-only
+    // lower: C strstri is byte-based, so indices stay aligned with bufp.
+    // The literal trailing space means a trailing word ("dwarf female")
+    // does NOT hit in C either.
+    const asciiLow = (s) => s.replace(/[A-Z]/g, (c) => c.toLowerCase());
+    let hit = asciiLow(bufp).indexOf('female ');
     if (hit >= 0) {
         fem = FEMALE; // C: read.c:3188 d->fem = 1
-        // C: read.c:3189 memset the 7-char hit to ' '; hit is also the
-        // bufp offset of "female " (the padded leading space compensates).
-        bufp = `${bufp.slice(0, hit)} ${bufp.slice(hit + 7)}`;
+        // C: read.c:3189 memset(tmpp, ' ', sizeof "female " - 1): blank
+        // exactly the 7 hit chars in place (length-preserving, like C).
+        bufp = `${bufp.slice(0, hit)}       ${bufp.slice(hit + 7)}`;
     }
-    hit = asciiLow(bufp).indexOf(' male ');
+    hit = asciiLow(bufp).indexOf('male ');
     if (hit >= 0) {
         fem = MALE; // C: read.c:3192 d->fem = 0
-        bufp = `${bufp.slice(0, hit)} ${bufp.slice(hit + 5)}`;
+        // C: read.c:3193 memset(tmpp, ' ', sizeof "male " - 1): 5 blanks.
+        bufp = `${bufp.slice(0, hit)}     ${bufp.slice(hit + 5)}`;
     }
     bufp = mungspaces(bufp); // C: read.c:3195 after potential memset(' ')
     if (!bufp) return null;

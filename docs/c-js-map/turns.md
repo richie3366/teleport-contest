@@ -702,7 +702,7 @@ livelog / Hallu names / vampshifted POLY_REVERT / cham `newcham` / `update_inven
 **`domove` Punished `drag_ball`/`move_bc`/`cause_delay`→`nomul(-2)`** (D-0909; 
 Blind move_bc felt/glyph is **D-1777**, `ballfall` is **D-1778**; jerked-back hmon/miss, 
 drop_ball/litter/unpunish deferred; **`set_bc` is D-1769**); 
-**`create_particular` named `name_to_mon` + gendered-name `MM_MALE`/`MM_FEMALE`** (D-2001; explicit female/male terms + name-gender merge, conflict explicit-wins) + `makemon(..., MM_NOEXCLAM)` + 
+**`create_particular` named `name_to_mon` + gendered-name `MM_MALE`/`MM_FEMALE`** (D-2001; explicit female/male terms + name-gender merge, conflict explicit-wins; D-2003: bare `strstri` search, no leading pad — `shemale …` hits MALE — + `memset`-width in-place blanking) + `makemon(..., MM_NOEXCLAM)` + 
 `makemon_appear_msg` for `#wizgenesis`/`^G`** (D-0510/D-0928 #1164; 
 quan digit/QUAN_LIMIT, saddled/sleeping/invisible/hidden, tame/peaceful/hostile, class-letter/* random, cant_revive yn deferred; 
 invent caller appear removed — C has none); **SPBOOK → `study_book`** (D-0136); 

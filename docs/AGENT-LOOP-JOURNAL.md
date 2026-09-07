@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — D-2003 read.c create_particular_parse gender-term search: bare strstri, no leading pad
+
+**C locus:** `read.c:3186–3195` — `strstri(bufp, "female ")` then `strstri(bufp, "male ")` (bare case-insensitive substring; female first), each hit blanked with `memset(tmpp, ' ', sizeof "… " - 1)` (7 / 5 chars in place), then `mungspaces`.
+**JS:** 1 file (`read.js` +10/−10), under the 600/10 caps. No new imports.
+**Change:** `js/read.js` — drop the pad (`asciiLow` is now plain ASCII lower), search bare `'female '` / `'male '` female-first, and blank exactly the hit width in place (7 / 5 spaces, length-preserving like `memset`); re-`mungspaces` unchanged. Comment rewritten to state the bare-`strstri` rationale.
+**Verify:** `node scripts/verify.mjs --fn create_particular_parse` → `PASS syntax 1 changed js file(s): js/read.js` · `PASS rule2` · `note hidden verify create_particular_parse: no corpus session is blocked on it at HEAD` (vacuous — NOT claimed as a corpus PASS; the row cites no corpus blocks, review 971: "no corpus session affected") · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `VERIFY: PASS`; differential probe `/tmp/d2003-probe.mjs` (hunk logic vs a C-model `strstri`+`memset` written from the C body): 18/18 match on fem + munged string + pre-munge length, incl. the queue probe `shemale elf-lord` → fem=0/MALE `she elf-lord`, plus the four D-2001 cases (`female elf-lord`→F, `male elf-lady`→M, `malebranche` untouched, trailing `dwarf female` no-hit). Final verify ran after the last edit (no D-1831 gap).
+**Named:** none new — rest of `create_particular_parse`/`creation` stays deferred per D-2001 (quan, saddled/sleeping/invisible/hidden, tame/peaceful/hostile, `*`/random, class letters); the `read.c create_particular_creation` uniqueness Open row stays live for its own cause.
+**Next:** pop the next Open row (`read.c` create_particular_creation uniqueness gate).
 ## 2026-09-07 — Audit reviews 966–972 (D-1996…D-2002) + cadence score 44/44
 
 **Scope:** 7 JS-touching SHAs since review 965 (`ea1f4401`…`4a48e698`), one file per SHA written as each finished. Every D-log corpus claim re-measured via `hidden-proxy verify <fn> --base HASH~1` — all 7 reproduce (PROGRESS, 0 worse): from_what N/A (Must-fix row, honestly marked vacuous); one_characteristic 2 PASS + 3 moved; wiz_intrinsic 9 moved; set_apparxy 8 moved; doride 3 PASS + 4 moved; next_ident 3 moved + 3 unchanged; pick_lock 1 PASS + 5 moved.

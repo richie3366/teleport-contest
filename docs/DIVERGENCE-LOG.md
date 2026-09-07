@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2003 — read.c create_particular_parse gender-term search: bare strstri, no leading pad
+
+- **Status:** fixed (Must-fix queue row from review 971 QUALITY-RISK, C-wrong #1 — row cites no corpus blocks; review 971 stamped)
+- **Symptom:** `shemale elf-lord` → JS `fem=-1` (no gender term found), C `fem=0` (MALE): C `strstri(bufp, "male ")` hits mid-word with no leading-boundary requirement.
+- **C locus:** `read.c:3186–3195` — `strstri(bufp, "female ")` then `strstri(bufp, "male ")` (bare case-insensitive substring; female first), each hit blanked with `memset(tmpp, ' ', sizeof "… " - 1)` (7 / 5 chars in place), then `mungspaces`.
+- **JS was:** `js/read.js` `create_particular_parse` prepended a `' '` pad and searched `' female '` / `' male '`, requiring a leading space C never requires; blanking spliced a single space over `hit..hit+7/5`, relying on pad compensation instead of C's in-place width.
+- **Fix:** `js/read.js` — drop the pad (`asciiLow` is now plain ASCII lower), search bare `'female '` / `'male '` female-first, and blank exactly the hit width in place (7 / 5 spaces, length-preserving like `memset`); re-`mungspaces` unchanged. Comment rewritten to state the bare-`strstri` rationale.
+- **JS:** 1 file (`read.js` +10/−10), under the 600/10 caps. No new imports.
+- **Verify:** `node scripts/verify.mjs --fn create_particular_parse` → `PASS syntax 1 changed js file(s): js/read.js` · `PASS rule2` · `note hidden verify create_particular_parse: no corpus session is blocked on it at HEAD` (vacuous — NOT claimed as a corpus PASS; the row cites no corpus blocks, review 971: "no corpus session affected") · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `VERIFY: PASS`; differential probe `/tmp/d2003-probe.mjs` (hunk logic vs a C-model `strstri`+`memset` written from the C body): 18/18 match on fem + munged string + pre-munge length, incl. the queue probe `shemale elf-lord` → fem=0/MALE `she elf-lord`, plus the four D-2001 cases (`female elf-lord`→F, `male elf-lady`→M, `malebranche` untouched, trailing `dwarf female` no-hit). Final verify ran after the last edit (no D-1831 gap).
+- **Named omissions:** none new — rest of `create_particular_parse`/`creation` stays deferred per D-2001 (quan, saddled/sleeping/invisible/hidden, tame/peaceful/hostile, `*`/random, class letters); the `read.c create_particular_creation` uniqueness Open row stays live for its own cause.
+- **Next:** pop the next Open row (`read.c` create_particular_creation uniqueness gate).
+
 ## D-2002 — lock.c pick_lock direction-arm occupied square (kitten/"would appreciate that")
 
 - **Status:** fixed (Open queue row `lock.c` pick_lock / `apply.c` use_pick_axe on an occupied square — row cited 5/553; verify re-ran the 6 blocked incl. the working-board union: 1 PASS + 5 moved past to later steps/owners, 0 unchanged, 0 worse; no review stamp owed — row cites no review)
