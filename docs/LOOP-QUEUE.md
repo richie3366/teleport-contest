@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `artifact.c` touch_artifact — blocks 7/553 corpus sessions (first at step 22): C draws `d(4,10)=28` in touch_artifact, JS `rn2(100)=7` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Archeologist-91132, scen-genesis-Archeologist-91135, scen-genesis-Priest-91110).
 - [ ] `do.c` cmd_safety_prevention — blocks 7/553 corpus sessions (first at step 19): C «Searching doesn't feel like a good idea right now.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` (scen-death-Caveman-92159, scen-death-Monk-92121, scen-death-Monk-92191).
 - [ ] `wield.c` ready_weapon — blocks 6/553 corpus sessions (first at step 20): C «You cannot wield a two-handed weapon while wearing a shield.» vs JS «e - a dwarvish mattock (weapon in hands).». Probe: `node scripts/hidden-proxy.mjs verify ready_weapon` (scen-genesis-Valkyrie-92166, scen-wish-Knight-92204, scen-wish-Priest-92041).
 - [ ] `allmain.c` regen_hp — blocks 6/553 corpus sessions (first at step 42): C «You are in full health.--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify regen_hp` (scen-death-Ranger-92234, scen-genesis-Archeologist-92084, scen-intrinsic-Barbarian-92008).

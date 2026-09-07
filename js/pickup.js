@@ -1276,7 +1276,7 @@ export async function pickup_object(obj, count, telekinesis) {
         await pline(`You can't pick ${ysimple_name(obj)} up.`);
         return 0;
     }
-    if (obj.oartifact && !touch_artifact(obj, youmonst)) return 0;
+    if (obj.oartifact && !(await touch_artifact(obj, youmonst))) return 0;
 
     if ((obj.otyp | 0) === CORPSE) {
         if (await fatal_corpse_mistake(obj, remotely)

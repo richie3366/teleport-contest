@@ -87,8 +87,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `artifact.c` touch_artifact — blocks 7/553 corpus sessions (first at step 22): C draws `d(4,10)=28` in touch_artifact, JS `rn2(100)=7` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Archeologist-91132, scen-genesis-Archeologist-91135, scen-genesis-Priest-91110).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2009 (index).**
+**Keep D-0845…D-2010 (index).**
 <!-- recent:begin -->
+**D-2010** `artifact.c:907–974` `touch_artifact` (touch_blasted reset, NONART gate, yours/self_willed — `js/artifact.js` — full hero `touch_artifact` in exact C order (now `async`; `Role_if`/`Race_if` badclass; bane via same-file `spec_applies`; single-`if` blast gate preserving `||`/`&&` short-circuit so `rn2(4)` draws on
 **D-2009** `lock.c` `doclose` (`/* when choosing a direction is impaired, use a turn regardless of wh — `js/lock.js` `doclose` — caller-local `confdir(false)` after successful `getdir` when `!u.dz` (covers self `.` too, as C does; `</>` skip via `dz`), then `if (HConfusion/Confusion/HStun/Stunned) res = true` in exact C po
 **D-2008** `dungeon.c:1750–1788` (`surface` — `js/sit.js` — full `surface()` in exact C branch order: `SURFACE_AT` look-through on DRAWBRIDGE_UP via live `db_under_typ`, air-bubble waterlevel arm, pool bottom/`hliquid`, ice via the existing local `is_ice`, lava, `DR
 **D-2007** `polyself.c:1030–1070` (`flags.verbose` block: `use_thec`/`monsterc` statics, `might_hide` — `js/polyself.js` — full tip block in exact C branch order (incl. hide+web combined arm, `u.umonnum == PM_GREMLIN`, `msound == MS_SHRIEK`, `is_vampshifter(game.youmonst)` on the monst struct per `apply.js` precedent, eel 
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2005** `uhitm.c:75–99` gate itself (already ported, D-0198/D-1405); the missing part was four mhi — `js/mhitu.js` — `mhitm_ad_fire_u` / `mhitm_ad_tlpt_u` / `mhitm_ad_stck_u` / `mhitm_ad_plys_u` in exact C branch order (incl. stck gate-first, plys rn2-before-gate, fire `(void)` destroy_items per `zap.c:5962`, tlpt `Math
 **D-2004** `read.c:3260–3274` (`firstchoice = d->which`, then `cant_revive(&d->which, FALSE, NULL)` r — `js/read.js` — `firstchoice = d.which`, `{ mtype }` box through live `cant_revive` (`./zap.js`, same edge as `resist`) with the C `firstchoice !== PM_LONG_WORM_TAIL` prompt exemption (local `monsterNames.indexOf` const, 
 **D-2003** `read.c:3186–3195` — `js/read.js` — drop the pad (`asciiLow` is now plain ASCII lower), search bare `'female '` / `'male '` female-first, and blank exactly the hit width in place (7 / 5 spaces, length-preserving like `memset`); re-`mungspace
-**D-2002** `lock.c:547–550` (pit rim → `You_cant reach over the edge`, DID_NOTHING), `:552–570` (`m_a — `js/lock.js` — pit gate, visible-monster arm (`mon_nam` + credit-card shk/Oracle `SetVoice`/`verbalize`), door-mimic reveal (`stumble_onto_mimic`), !IS_DOOR feel/mapseen + Blind feel/see + drawbridge message, in exact C 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2009; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2010; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
