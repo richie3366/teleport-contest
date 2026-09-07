@@ -932,6 +932,12 @@ underwater `has_night_vision=0` + pool 3×3 / `notice_all_mons` still named;
 **D-1955 `new_angle` live-macro** (`vision.c:461` `#else` `(*sv)`; `lev`/`row`/`col`
 unused per the C comment) — exported `new_angle(lev, sv, row, col)` (`js/vision.js`,
 `sv | 0` int idiom), all 3 main-loop sites (`:749,776,790`) wired.
+**D-2038 `seenv_matrix` center SVALL** (`display.c:3358–3362`, shared by
+`vision.c`; hero's own square is seen from all angles) — `js/vision.js` copy
+had `0` at `[1][1]` (starter-skeleton transcription slip; `js/display.js`
+`set_seenv`/`unset_seenv` already carry SVALL) so a lit hero square kept
+`seenv` 0 and `getpos` `<`/`>` feature scans missed stairs under the hero;
+now SVALL (only reachable when `row==uy && col==ux`).
 Named: `#ifdef EXTEND_SPINE` staticfn body (`:413–451`, CROSSWALL..TRWALL
 spine extension via `viz_clear`) compiled out (`:366` commented) — display
 cosmetic, intentionally not ported; xray/nv/pit `seenv = SVALL` arms never

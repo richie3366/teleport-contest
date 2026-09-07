@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `do_name.c` x_monnam — blocks 6/553 corpus sessions (first at step 38): C «human ranger called wizard» vs JS «Can't find dungeon feature '<'.». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-genesis-Ranger-92126, scen-normal-Caveman-92006, scen-normal-Caveman-92117).
 - [ ] `end.c` disclose — blocks 5/553 corpus sessions (first at step 102): C «Do you want your possessions identified? [ynq] (n)» vs JS «Well done, mortal! But now thou must face the final Test...-». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-intrinsic-Rogue-92089, scen-normal-Barbarian-92208, scen-normal-Healer-92227).
 - [ ] `uhitm.c` mhitm_mgc_atk_negated — blocks 4/553 corpus sessions (first at step 127): C draws `rn2(10)=1` in mhitm_mgc_atk_negated, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:1997). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-genesis-Caveman-92118, scen-poly-Valkyrie-92195, scen-wish-Archeologist-92038).
 - [ ] `uhitm.c` mhitm_knockback — blocks 3/553 corpus sessions (first at step 77): C draws `rn2(3)=2` in mhitm_knockback, JS `d(3,4)=10` from hitmu(mhitu.js:2431). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback` (scen-tour-Wizard-92219, scen-wish-Valkyrie-92142, scen-wish-Valkyrie-92206).

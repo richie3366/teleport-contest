@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 - **Scenario corpus = work picker (2026-09-06, human):** `scen-*` 7/275 is the held-out shape; mutants 255/278 saturated. Queue from `hidden-proxy queue`; singletons Deferred; themed-room step-0 → `geom-probe`.
 
-- **Parks (Parked rows; do not pop):** show_conduct stale-859→824, C-comment owner, DontAsk REGRESSES; ready_weapon Knight-92204 spin; mdrop_obj/dopush capture-point, ports no-op; dosearch grid-bug (2026-09-07, no D-log): x=PM_GRID_BUG-116, both searches RNG-clean, C ~2 cells vs JS ~8, paint/NODIAG/table/kick falsified, falsifier = C per-turn mon pos (geom-probe invalid mid-game: debug-mode divergence); save_dungeon parked: true owners done_in_by/print_mapseen + dunlev_ureached; do_statusline2 lembas pair (2026-09-07, reverted, tree green): botl-gate (allmain.c:473–479) + maybe_finished_meal (allmain.c:684–695/eat.c:3877) both fix their steps byte-exact on 92092/91125, but the gate regresses 7 fortress (menu-blank ×4, stale T/HP/gold ×3 — missing botl sets + menu-close redraw); falsifier = botl-parity iteration keeping 44/44 green with gate on.
+- **Parks (Parked rows; do not pop):** show_conduct stale-859→824, C-comment owner, DontAsk REGRESSES; ready_weapon Knight-92204 spin; mdrop_obj/dopush capture-point, ports no-op; dosearch grid-bug (2026-09-07, no D-log): PM_GRID_BUG search-pos split; falsifier = C per-turn mon pos (full probe in LOOP-QUEUE Parked); save_dungeon parked: true owners done_in_by/print_mapseen + dunlev_ureached; do_statusline2 lembas pair (2026-09-07, reverted, tree green): gate+meal-gate fix steps byte-exact but regress 7 fortress; falsifier = botl-parity iteration (full probe in LOOP-QUEUE Parked).
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.
@@ -15,19 +15,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2037 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2038 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2037.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2037.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2038.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2038.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2038: `js/vision.js` — center constant `0`→SVALL + comment citing `display.c:3358–3362`. Named: none new — `gather_locs`, `auto_describe`/`self_lookat`, `known_branch_stairs`/`stairway_a
 - D-2037: `js/detect.js` — `find_trap` now in C order: `feel_newsym`; `Hallucination() || glyph_at(tx,ty) !== trap_to_glyph(trap)` (tty-cell→id normalization pe Named: none new — every `find_trap` callee is live (`cls`, `map_trap`, `display_self`, `docrt`, `
 - D-2036: `js/uhitm.js` — new `hmon_hitmon_weapon` dispatch verbatim (melee/thrown callers keep exact behavior except the four ranged arms, which now draw `rnd( Named: ranged-arm silver-sear *message* (`hmon_hitmon_msg_silver` — `hmon` has no `msg_silver` pl
 - D-2035: `js/timeout.js` — new `!(next & TIMEOUT) && p === STRANGLED` arm after SLIMED in C order (killer init mirrors the STONED arm; `done_timeout(DIED, STRA Named: none new — `done`/`Die?`/`savelife` (end.js), `useup` (invent.js), `choke_dialogue` all li
@@ -42,5 +43,4 @@ Objective/score live in `CURRENT.md`.
 - D-2026: `js/eat.js` `done_eating` — nomovemsg arm first (print when message, always clear to null, cf. Named: `start_eating` `:2048–2062` old/save_nomovemsg dance around the bite-finish `done_eating(F
 - D-2025: `js/invent.js` enlightenment Attributes Displaced/Regen/Polycontrol arms (final + overlay, C order) + `hero_Polymorph_control`/`hero_Regeneration`; `js/artifact.js` `abil_to_spfx` 12-row table, `what_gives` takes propidx; `js/attrib.js` `from_what` passes it. Named: cspfx/adtyp/Sunsword/EWarn-guard; final-path Jump/Teleport/Aggravate/Conflict/Slowdig/combat-inc/defense/Unchanging/Poly/Upolyd/Adorn/Invis.
 - D-2024: `export` on `makemon.js golemhp` (no clone #2); `polyself.js` imports `{ golemhp, is_home_elemental }` from `./makemon.js` (new edge, same 90-module S Named: dragon-arm `In_endgame` gate (already live, untouched); polymon Stoned/Sick/Slimed/strangl
-- D-2023: `js/timeout.js` — new `done_timeout(how, which)` (C `:574–585` verbatim shape) + new `slimed_to_death(kptr)` (killer setup, emits_light/del_light_sour Named: STONED `done_timeout` (same switch, no corpus coverage — untouched); genocided-lifesave sl
 <!-- landmarks:end -->
