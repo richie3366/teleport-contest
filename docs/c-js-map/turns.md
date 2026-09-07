@@ -1417,9 +1417,8 @@ fumbling `timeout.c`); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156);
 **`monster_nearby`/`noattacks`** (D-0228; **`canspotmon` not `cansee`** D-0928 #1097; 
 onscary deferred); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); 
 **`check_special_room`/`move_update`/`in_rooms` + shop enter** (D-0307) + 
-**special-room enter plines ZOO/SWAMP/COURT/MORGUE/… + rtype→OROOM wake `rn2(3)`** (D-0660; 
-furniture_present throne / BARRACKS monstinroom / DELPHI / room_discovered / wake_msg text 
-deferred); **`,` → `dopickup`/`pickup_checks`/`pickup_object`/`pick_obj` one-object AUTOSELECT** 
+**special-room enter plines ZOO/SWAMP/COURT(+throne)/MORGUE/… + DELPHI oracle + rtype→OROOM wake `rn2(3)`** (D-0660; D-2054 COURT `furniture_present(THRONE)` suffix via mklev `inside_room` export + DELPHI `monstinroom(PM_ORACLE)` verbalize/room_discovered; 
+BARRACKS monstinroom / wake_msg text still deferred); **`,` → `dopickup`/`pickup_checks`/`pickup_object`/`pick_obj` one-object AUTOSELECT** 
 (D-0192) + **`pickup_checks` furniture/pool/lava/swallow D-1838** (C `hack.c` `:3788–3872` throne/sink/grave/fountain/open-door/altar/`STAIRS`/`There`; `dopickup` `:3876–3892` `-2` `loot_mon`; named: dungeon.c `surface`) + **multi `query_objlist` PICK_ANY** (D-0365) + **`INVORDER_SORT` class headings + 
 prompt ATR_INVERSE** (D-0384) + **floor `query_objlist` `sortloot(SORTLOOT_LOOT|PACK)`** (D-0405) + 
 **PICK_ANY `@`/`./`-` MENU_INVERT/SELECT/UNSELECT_ALL** (D-0406; 
@@ -2234,7 +2233,7 @@ default+newline synthesize `[text]`; live Arc/Bar/Pri/Wiz/Kni lua
 synopsis + legacy after NHW_MENU; convert_line pronoun `%Xh` is D-1634; 
 **`qt_pager` common retry** D-1662; array rn2 / pauper_legacy / 
 killed_nemesis `rawtext` named; convert_arg catalogue is D-1649); 
-**`on_goal` goal_first/next/alt + Arc/Bar/Pri/**Kni** texts** (D-0620/D-0670/D-0928 #1193; 
+**`on_goal` goal_first/next/alt + Arc/Bar/Pri/**Kni** texts + Sam goal_first** (D-0620/D-0670/D-0928 #1193; D-2054 Sam goal_first body+meta; 
 other-role goal bodies; invent/migrating chains deferred) + 
 **`setup_role_race_from_rc` installs `questarti` for `%o`/`%O`** (D-0629; 
 Arc/Bar templates only — other-role questarti still omitted on `roles[]`); 

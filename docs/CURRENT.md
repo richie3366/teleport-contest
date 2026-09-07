@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `spell.c` study_book — blocks 2/553 corpus sessions (first at step 83): C draws `rnd(25)=6` in study_book, JS `rn2(70)=50` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify study_book` (scen-wish-Healer-92029, scen-wish-Healer-92066).
+**Next cluster:** `objnam.c` readobjnam — blocks 3/553 corpus sessions (first at step 59): C draws `rn2(2)=1` in readobjnam, JS `rn2(100)=29` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify readobjnam` (scen-wish-Caveman-92148, scen-wish-Priest-92136, scen-wish-Rogue-91119).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2053 (index).**
+**Keep D-0845…D-2054 (index).**
 <!-- recent:begin -->
+**D-2054** queue owner `teleport.c level_tele :1427` is the *symptom* owner (the `schedule_goto` post — `js/hack.js` — file-local `monstinroom(mndx,roomno)` (fmon scan, DEADMONSTER skip, `mnum ?? data.mndx` + local `in_rooms`, mirroring C pointer-equality via the lock.js oracle idiom) and `furniture_present(furniture,roomn
 **D-2053** `spell.c study_book :468–496` (dull arm; `rnd(25)` at :478): `if (!confused && !Sleep_resi — `js/spell.js` — port the dull arm in exact C order (before the interrupted-continue arm, after context creation): `!confused && !sleepRes && objdescr_is(spellbook,'dull')` with `sleepRes = H||E||flat` (C H||E plus the JS
 **D-2052** (a) `uhitm.c find_roll_to_hit :375–380` (`+ maybe_polyd(youmonst.data->mlevel, u.ulevel)`) — `js/uhitm.js` — `find_roll_to_hit` adds `Upolyd(u) ? youmonst.data.mlevel : u.ulevel`; `abon` early-returns `adj_lev(youmonst.data)-3` when poly'd (`adj_lev` joins the existing `makemon.js` import — no new edge); all fiv
 **D-2051** `hack.c losehp :4256–4292` (fatal arm: killer-name copy, `urgent_pline("You die...")`, `do — `js/artifact.js` — after the blast-arm losehp, `await finish_maybe_wail()` (no-op unless the low-HP flag was set; C runs maybe_wail inside losehp before returning) then `if (game._losehp_needs_done) { await finish_losehp
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2049** `uhitm.c mhitm_ad_were :4264–4293` (full body read from the brief): three arms — `js/mhitu.js` — new `mhitm_ad_were_u(mtmp,mattk,mhm)` in the D-2043 `mhitm_ad_slow_u` shape: unconditional `await hitmsg(mtmp,mattk)` first (RNG-free both sides), then the exact C short-circuit (`!rn2(4) && ulycn==NON_PM
 **D-2048** `invent.c addinv_core0 :1055–1148` (full body read from the brief): the `other_obj` reinse — `js/u_init.js` — deleted the merge-survivor fill hunk; left a two-line C comment (`merge paths goto added, bypassing :1128–1140 — no setuqwep here`).
 **D-2047** `monmove.c m_search_items :1329–1450` (full body read from the brief) + caller `monmove.c: — `js/monmove.js` — `const shopSkip = in_rooms(omx, omy, SHOPBASE) && (rn2(25) || mtmp.isshk)` with C short-circuit order (rn2 draws only in shop) gating the whole scan as C's `goto finish_search` (falls through to the tai
-**D-2046** `music.c do_play_instrument :759–899` (read whole body + apply.c:4383 caller) + `include/h — `js/music.js` — both `yn_function` defaults `'y'`→`'q'` with hack.h:1330 citation; `if/else-if` gate mirroring C `:763–773` (`can_blow(game.youmonst)` — same call shape as the sibling apply.js whistle arms D-1007; `thesi
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2053; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2054; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
