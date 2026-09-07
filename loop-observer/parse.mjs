@@ -135,7 +135,7 @@ function applyEvent(state, ev) {
         if (cur) {
           cur.text = (cur.text || "") + piece;
           cur.status = "running";
-          cur.ts = num(ev.timestamp_ms) ?? cur.ts;
+          noteTime(cur, ev);
           return cur;
         }
       }
@@ -149,46 +149,36 @@ function applyEvent(state, ev) {
         ts: num(ev.timestamp_ms),
       });
     }
-    if (st === "completed" && state.openThinkingId) {
-      const cur = state.byId.get(state.openThinkingId);
-      state.openThinkingId = null;
-      if (cur) {
-        cur.status = "done";
-        cur.tsEnd = num(ev.timestamp_ms);
-        return cur;
-      }
-    }
+    if (st === "completed") return closeThinking(state, num(ev.timestamp_ms));
     return null;
   }
   if (t === "assistant") {
-    if (state.openThinkingId) {
-      const th = state.byId.get(state.openThinkingId);
-      if (th) th.status = "done";
-      state.openThinkingId = null;
-    }
+    const closed = closeThinking(state, num(ev.timestamp_ms));
     const text = messageText(ev.message);
-    if (!text) return null;
+    if (!text) return closed;
     const id = `asst-${ev.model_call_id || ++state.seq}`;
     if (st === "delta") {
       const cur = state.byId.get(id);
       if (cur) {
         cur.text = (cur.text || "") + text;
-        cur.ts = num(ev.timestamp_ms) ?? cur.ts;
-        return cur;
+        noteTime(cur, ev);
+        return closed ? [closed, cur] : cur;
       }
-      return upsert(state, {
+      const msg = upsert(state, {
         id,
         kind: "assistant",
         text,
         ts: num(ev.timestamp_ms),
       });
+      return closed ? [closed, msg] : msg;
     }
-    return upsert(state, {
+    const msg = upsert(state, {
       id,
       kind: "assistant",
       text,
       ts: num(ev.timestamp_ms),
     });
+    return closed ? [closed, msg] : msg;
   }
   if (t === "tool_call") {
     return applyTool(state, ev);
@@ -241,9 +231,27 @@ function applyTool(state, ev) {
     msg.status = parsed.error || badExit ? "error" : "done";
     msg.error = parsed.error || null;
     msg.result = parsed.result;
-    msg.tsEnd = num(ev.timestamp_ms);
+    msg.tsEnd = num(ev.timestamp_ms) ?? msg.tsLast ?? msg.tsEnd;
   }
   return upsert(state, msg);
+}
+
+/** First event time is start; later deltas only refresh tsLast. */
+function noteTime(msg, ev) {
+  const ts = num(ev.timestamp_ms);
+  if (ts == null) return;
+  if (msg.ts == null) msg.ts = ts;
+  msg.tsLast = ts;
+}
+
+function closeThinking(state, ts) {
+  if (!state.openThinkingId) return null;
+  const cur = state.byId.get(state.openThinkingId);
+  state.openThinkingId = null;
+  if (!cur) return null;
+  cur.status = "done";
+  cur.tsEnd = ts ?? cur.tsLast ?? cur.tsEnd ?? cur.ts;
+  return cur;
 }
 
 function parseToolBody(toolCall) {

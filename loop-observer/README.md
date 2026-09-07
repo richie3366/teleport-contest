@@ -48,6 +48,14 @@ The header follows **one** `.raw` at a time.
   cache listed in the breakdown but not added again). The count **updates
   live** after each Muse model step (not only when the iter ends). Hover
   the meta bar for the exact `tokens: +N (…)` string.
+- **Show timings** — off by default. When on, thought and tool cards
+  show `MM:SS for 12m34s`: offset from this iteration’s first event,
+  then how long that card ran. The toggle is kept for later iters
+  (`localStorage` plus `.agent-port-loop-logs/observer-prefs.json` so a
+  new observer port still remembers). Cursor `timestamp_ms` and Muse
+  `session.jsonl` `recorded_at` both work; Muse stdout-only `.raw`
+  clocks are synthetic and those labels stay hidden. Already-finished
+  cards update as soon as you turn it on.
 - **↓ Jump to latest** — scroll-follow only. Separate from live-follow:
   you can pin #1373 and still scroll that thread, or follow live and
   pause the scrollbar. Switching iters (picker or **Go live**) always

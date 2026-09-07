@@ -547,3 +547,48 @@ describe("loop-raw Muse token budget metering", () => {
     assert.equal(t.meta.usage.breakdown.inputTokens, 300);
   });
 });
+
+describe("observer thought/tool wall-clock", () => {
+  it("keeps first thinking timestamp and sets tsEnd on completed", () => {
+    const t = createTranscript();
+    applyNdjsonChunk(
+      t,
+      [
+        '{"type":"thinking","subtype":"delta","text":"a","timestamp_ms":1000000}',
+        '{"type":"thinking","subtype":"delta","text":"b","timestamp_ms":1005000}',
+        '{"type":"thinking","subtype":"completed","timestamp_ms":1012000}',
+      ].join("\n"),
+    );
+    const th = t.messages.find((m) => m.kind === "thinking");
+    assert.equal(th.ts, 1_000_000);
+    assert.equal(th.tsEnd, 1_012_000);
+    assert.equal(th.status, "done");
+    assert.equal(t.meta.startedAtMs, 1_000_000);
+  });
+
+  it("keeps tool start timestamp through completion", () => {
+    const t = createTranscript();
+    applyNdjsonChunk(
+      t,
+      [
+        '{"type":"tool_call","subtype":"started","call_id":"c1","timestamp_ms":2000,"tool_call":{"readToolCall":{"args":{"path":"docs/CURRENT.md"}}}}',
+        '{"type":"tool_call","subtype":"completed","call_id":"c1","timestamp_ms":2750,"tool_call":{"readToolCall":{"args":{"path":"docs/CURRENT.md"},"result":{"success":{"content":"x","totalLines":1}}}}}',
+      ].join("\n"),
+    );
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.equal(tool.ts, 2000);
+    assert.equal(tool.tsEnd, 2750);
+  });
+
+  it("Muse session fixture stamps thinking and tools", () => {
+    const t = createTranscript();
+    applyNdjsonChunk(t, sessionFixture);
+    const th = t.messages.find((m) => m.kind === "thinking");
+    const tool = t.messages.find((m) => m.kind === "tool");
+    assert.ok(th.ts);
+    assert.ok(th.tsEnd >= th.ts);
+    assert.ok(tool.ts);
+    assert.ok(tool.tsEnd >= tool.ts);
+    assert.ok(t.meta.startedAtMs <= th.ts);
+  });
+});

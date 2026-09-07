@@ -32,6 +32,7 @@ const MIME = {
   ".json": "application/json; charset=utf-8",
 };
 
+const PREFS_PATH = path.join(LOG_DIR, "observer-prefs.json");
 const clients = new Set();
 const transcript = createTranscript();
 let currentRel = null;
@@ -40,6 +41,8 @@ let followLive = true;
 let liveHint = { iter: null, name: null };
 let recent = [];
 let viewEpoch = 0;
+/** `null` until the user toggles, so a new port can still honor localStorage. */
+let prefs = { showTimings: null };
 let pollTimer = null;
 let dirWatcher = null;
 let rawSource = null;
@@ -57,12 +60,33 @@ function broadcast(obj) {
   }
 }
 
+function loadPrefsFromDisk() {
+  try {
+    const j = JSON.parse(fs.readFileSync(PREFS_PATH, "utf8"));
+    if (typeof j.showTimings === "boolean") prefs.showTimings = j.showTimings;
+  } catch {
+    /* missing or invalid */
+  }
+}
+
+function savePrefsToDisk() {
+  try {
+    if (!fs.existsSync(LOG_DIR)) return;
+    fs.writeFileSync(PREFS_PATH, `${JSON.stringify({ showTimings: !!prefs.showTimings })}\n`);
+  } catch {
+    /* ignore */
+  }
+}
+
+loadPrefsFromDisk();
+
 function viewState() {
   return {
     following: followLive,
     live: liveHint,
     recent,
     epoch: viewEpoch,
+    prefs: { showTimings: prefs.showTimings },
   };
 }
 
@@ -379,6 +403,14 @@ async function handleClientOp(data) {
   while (ticking) await new Promise((r) => setTimeout(r, 15));
   ticking = true;
   try {
+    if (data?.op === "prefs") {
+      if (typeof data.showTimings === "boolean") {
+        prefs.showTimings = data.showTimings;
+        savePrefsToDisk();
+        broadcastMeta();
+      }
+      return;
+    }
     if (data?.op === "live") {
       followLive = true;
       const live = await refreshCatalog();

@@ -141,6 +141,36 @@ body { display: flex; flex-direction: column; }
   background: #1a1608;
 }
 .live-btn.pinned i { background: var(--accent); }
+.timing-btn {
+  font: inherit;
+  font-size: 12px;
+  color: var(--muted);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 3px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.timing-btn:hover { border-color: var(--border); color: var(--text); }
+.timing-btn.on {
+  color: var(--text);
+  border-color: var(--border);
+  background: #1a1a1a;
+}
+.when {
+  display: none;
+  font-size: 11px;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+  flex: none;
+  white-space: nowrap;
+}
+.when:empty { display: none !important; }
+body.show-timings .when { display: inline; }
+body.show-timings .term-ms { display: none; }
+.think .when { margin-left: 2px; }
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.45; }

@@ -9,6 +9,7 @@ const els = {
   mode: document.getElementById("mode-pill"),
   live: document.getElementById("live-btn"),
   liveLabel: document.getElementById("live-label"),
+  timing: document.getElementById("timing-btn"),
   meta: document.getElementById("meta-bar"),
   jump: document.getElementById("jump"),
   jumpBtn: document.getElementById("jump-btn"),
@@ -167,6 +168,142 @@ function fmtDur(ms) {
   return `${Math.floor(m / 60)}h ${m % 60}m`;
 }
 
+const PREFS_KEY = "loop-observer.show-timings";
+/** Muse exec --json stdout uses this frozen recorded_at; session.jsonl is wall-clock. */
+const MUSE_STDOUT_SENTINEL_MS = 1_780_531_400_000;
+
+function readLocalShowTimings() {
+  try {
+    return localStorage.getItem(PREFS_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+let showTimings = readLocalShowTimings();
+
+function pad2(n) {
+  return String(n).padStart(2, "0");
+}
+
+function displayableTs(ms) {
+  const n = typeof ms === "number" ? ms : Number(ms);
+  if (!Number.isFinite(n) || n <= 0) return null;
+  if (Math.abs(n - MUSE_STDOUT_SENTINEL_MS) < 60_000) return null;
+  return n;
+}
+
+function stampToMs(stamp) {
+  const m = String(stamp || "").match(/^(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})$/);
+  if (!m) return null;
+  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]), Number(m[4]), Number(m[5]), Number(m[6])).getTime();
+}
+
+function originMs() {
+  return displayableTs(meta.startedAtMs) ?? stampToMs(meta.stamp);
+}
+
+/** Offset from iteration start: "00:05", "12:34". Minutes are not wrapped at 60. */
+function fmtMmSs(ms) {
+  const n = Math.max(0, Math.round(ms / 1000));
+  return `${pad2(Math.floor(n / 60))}:${pad2(n % 60)}`;
+}
+
+/** How long the card ran: "12s", "12m34s", "1h02m03s". */
+function fmtTook(ms) {
+  if (ms == null || !Number.isFinite(ms) || ms < 0) return "";
+  const s = Math.round(ms / 1000);
+  const sec = s % 60;
+  const mTotal = Math.floor(s / 60);
+  const min = mTotal % 60;
+  const h = Math.floor(mTotal / 60);
+  if (h) return `${h}h${pad2(min)}m${pad2(sec)}s`;
+  if (mTotal) return `${mTotal}m${pad2(sec)}s`;
+  return `${s}s`;
+}
+
+function timingText(msg, now = Date.now()) {
+  const start = displayableTs(msg.ts);
+  const origin = originMs();
+  if (start == null || origin == null) return "";
+  const clock = fmtMmSs(start - origin);
+  let end = displayableTs(msg.tsEnd);
+  if (end == null && msg.status === "running") end = now;
+  if (end == null) return clock;
+  const took = fmtTook(Math.max(0, end - start));
+  return took ? `${clock} for ${took}` : clock;
+}
+
+function timingTitle(msg, now = Date.now()) {
+  const start = displayableTs(msg.ts);
+  const origin = originMs();
+  if (start == null || origin == null) return "";
+  const clock = fmtMmSs(start - origin);
+  let end = displayableTs(msg.tsEnd);
+  if (end == null && msg.status === "running") end = now;
+  if (end == null) return `${clock} after this iteration started`;
+  const took = fmtTook(Math.max(0, end - start));
+  return took ? `${clock} after this iteration started, ran ${took}` : `${clock} after this iteration started`;
+}
+
+function bindWhen(el, msg) {
+  if (!el) return;
+  el.dataset.ts = msg.ts != null ? String(msg.ts) : "";
+  el.dataset.tsEnd = msg.tsEnd != null ? String(msg.tsEnd) : "";
+  el.dataset.status = msg.status || "";
+  el.textContent = timingText(msg);
+  el.title = timingTitle(msg);
+}
+
+function makeWhen(msg) {
+  const el = document.createElement("span");
+  el.className = "when";
+  bindWhen(el, msg);
+  return el;
+}
+
+function refreshTimings() {
+  const now = Date.now();
+  for (const row of nodes.values()) {
+    const el = row.querySelector(".when");
+    if (!el) continue;
+    const msg = {
+      ts: el.dataset.ts ? Number(el.dataset.ts) : null,
+      tsEnd: el.dataset.tsEnd ? Number(el.dataset.tsEnd) : null,
+      status: el.dataset.status,
+    };
+    el.textContent = timingText(msg, now);
+    el.title = timingTitle(msg, now);
+  }
+}
+
+function setShowTimings(on, { notify = true } = {}) {
+  showTimings = !!on;
+  document.body.classList.toggle("show-timings", showTimings);
+  if (els.timing) {
+    els.timing.textContent = showTimings ? "Hide timings" : "Show timings";
+    els.timing.setAttribute("aria-pressed", showTimings ? "true" : "false");
+    els.timing.classList.toggle("on", showTimings);
+  }
+  try {
+    localStorage.setItem(PREFS_KEY, showTimings ? "1" : "0");
+  } catch {
+    /* ignore */
+  }
+  if (notify) sendOp({ op: "prefs", showTimings });
+  refreshTimings();
+}
+
+function adoptPrefs(data) {
+  const v = data?.prefs?.showTimings;
+  if (typeof v === "boolean") setShowTimings(v, { notify: false });
+}
+
+setShowTimings(showTimings, { notify: false });
+els.timing.addEventListener("click", () => {
+  setShowTimings(!showTimings);
+});
+
 function fmtTokens(n) {
   if (n == null) return "—";
   if (n >= 1e9) return `${(n / 1e9).toFixed(1)}B`;
@@ -282,6 +419,7 @@ function renderMeta() {
   }
   if (meta.eventCount) push(`${meta.eventCount} events`);
   els.meta.replaceChildren(...parts);
+  if (showTimings) refreshTimings();
 }
 
 function ensureEmpty() {
@@ -365,7 +503,10 @@ function renderThink(msg) {
   d.className = "think" + (msg.status === "running" ? " running" : "");
   d.open = msg.status === "running";
   const sum = document.createElement("summary");
-  sum.textContent = thinkLabel(msg);
+  const lab = document.createElement("span");
+  lab.className = "think-lab";
+  lab.textContent = thinkLabel(msg);
+  sum.append(lab, makeWhen(msg));
   const body = document.createElement("div");
   body.className = "body";
   body.textContent = msg.text || "";
@@ -475,6 +616,7 @@ function renderDiff(msg) {
     m.textContent = `-${removed}`;
     head.appendChild(m);
   }
+  head.appendChild(makeWhen(msg));
   if (msg.status === "running") {
     const sp = document.createElement("span");
     sp.className = "spin";
@@ -561,7 +703,7 @@ function renderShell(msg) {
   const title = document.createElement("span");
   title.className = "tool-title";
   title.textContent = msg.title && msg.title !== "Shell" ? msg.title.replace(/^Shell\s+/, "") : "";
-  sum.append(name, title);
+  sum.append(name, title, makeWhen(msg));
   if (msg.status === "running") {
     const sp = document.createElement("span");
     sp.className = "spin";
@@ -662,7 +804,7 @@ function renderTool(msg) {
     badge.classList.add("ok");
     badge.textContent = "done";
   }
-  sum.append(name, title, badge);
+  sum.append(name, title, makeWhen(msg), badge);
   const body = document.createElement("div");
   body.className = "body";
   body.textContent = toolBodyText(msg);
@@ -724,7 +866,16 @@ function patchThinking(row, msg) {
   const sum = row.querySelector("summary");
   if (!d || !body || !sum) return false;
   body.textContent = msg.text || "";
-  sum.textContent = thinkLabel(msg);
+  const lab = row.querySelector(".think-lab");
+  if (lab) lab.textContent = thinkLabel(msg);
+  else sum.insertBefore(document.createTextNode(thinkLabel(msg)), sum.firstChild);
+  let when = row.querySelector(".when");
+  if (!when) {
+    when = makeWhen(msg);
+    sum.appendChild(when);
+  } else {
+    bindWhen(when, msg);
+  }
   d.classList.toggle("running", msg.status === "running");
   if (msg.status === "running") d.open = true;
   return true;
@@ -773,6 +924,7 @@ function applyClear(data) {
   if (olderThanView(data)) return;
   applyView(data, { scroll: false });
   adoptEpoch(data);
+  adoptPrefs(data);
   if (data.meta) meta = data.meta;
   resetThread();
   ensureEmpty();
@@ -784,6 +936,7 @@ function applySnapshot(data) {
   if (olderThanView(data)) return;
   applyView(data, { scroll: false });
   adoptEpoch(data);
+  adoptPrefs(data);
   meta = data.meta || {};
   renderPicker();
   renderMeta();
@@ -808,6 +961,7 @@ function applyMeta(data) {
   if (wrongView(data)) return;
   applyView(data);
   adoptEpoch(data);
+  adoptPrefs(data);
   if (data.meta) meta = data.meta;
   renderPicker();
   renderMeta();
@@ -843,5 +997,6 @@ function connect() {
 connect();
 setInterval(() => {
   if (meta.running) renderMeta();
+  else if (showTimings) refreshTimings();
 }, 1000);
 ensureEmpty();
