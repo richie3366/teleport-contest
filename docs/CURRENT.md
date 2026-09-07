@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` mhitm_ad_were — blocks 2/553 corpus sessions (first at step 41): C draws `rn2(4)=1` in mhitm_ad_were, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_were` (scen-genesis-Knight-92149, scen-wish-Rogue-92184).
+**Next cluster:** `do_wear.c` Blindf_off — blocks 2/553 corpus sessions (first at step 211): C «You turn into a ghoul! You can see again.» vs JS «You turn into a ghoul!». Probe: `node scripts/hidden-proxy.mjs verify Blindf_off` (scen-poly-Ranger-92090, scen-poly-Ranger-92133).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2049 (index).**
+**Keep D-0845…D-2050 (index).**
 <!-- recent:begin -->
+**D-2050** `polyself.c polymon :735–902` (entry `was_blind = !!Blind` :739, before `u.umonnum=mntmp;  — `js/polyself.js` — capture `wasBlind` at polymon entry with the C `Blind` predicate (same inline shape as `polyman`, incl.
 **D-2049** `uhitm.c mhitm_ad_were :4264–4293` (full body read from the brief): three arms — `js/mhitu.js` — new `mhitm_ad_were_u(mtmp,mattk,mhm)` in the D-2043 `mhitm_ad_slow_u` shape: unconditional `await hitmsg(mtmp,mattk)` first (RNG-free both sides), then the exact C short-circuit (`!rn2(4) && ulycn==NON_PM
 **D-2048** `invent.c addinv_core0 :1055–1148` (full body read from the brief): the `other_obj` reinse — `js/u_init.js` — deleted the merge-survivor fill hunk; left a two-line C comment (`merge paths goto added, bypassing :1128–1140 — no setuqwep here`).
 **D-2047** `monmove.c m_search_items :1329–1450` (full body read from the brief) + caller `monmove.c: — `js/monmove.js` — `const shopSkip = in_rooms(omx, omy, SHOPBASE) && (rn2(25) || mtmp.isshk)` with C short-circuit order (rn2 draws only in shop) gating the whole scan as C's `goto finish_search` (falls through to the tai
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2045** `pager.c do_screen_description` check_monsters (looked: `sym == gs.showsyms[i + SYM_OFF_M] — `js/pager.js` — monster arm now: prefix `mon_glyph(mtmp).ch` (shown char, C encglyph; same source `look_all` uses); body `an(mlet_class_explain(mlet))` + ` (look)` with `first = look` unstripped (C didlook; empty-look gu
 **D-2044** (a) `objnam.c:2428–2442 simpleonames` — `js/objnam.js` — `simpleonames` pluralizes via `makeplural(base)` when `((obj.quan ?? 1) | 0) !== 1` (missing quan reads as 1 — C always sets quan; same guard as the pre-existing iactions clone).
 **D-2043** `mhitm_ad_slow :3652–3689` (gate FALSE always `:3658`, `defended(mdef, AD_SLOW)` early ret — `js/mhitu.js` — `mhitm_ad_slow_u` in exact C mhitu-branch order (gate first, then hitmsg, then HFast+`rn2(4)` → awaited `u_slow_down`; leftover `d()` kept like FAMN) + `case AD_SLOW` + file-local `AD_SLOW = 13` (`monattk
-**D-2042** `nethack-c/upstream/src/dokick.c:68` `check_caitiff(mon);` inside `kickdmg :33–123`, synch — `js/dokick.js` — `await check_caitiff(mon);` with a C citation comment (`dokick.c:68`, sync in C / async in JS for the awaited pline, must await to keep topline order).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2049; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2050; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

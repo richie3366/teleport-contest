@@ -963,7 +963,7 @@ async function break_armor() {
  * mhmax (dragon / golem / d(mlvl,8)); break_armor; drop_weapon;
  * find_ac; newsym; botl; see_monsters; encumber_msg; verbose ability tips.
  * Named omissions: Stoned/Sick/Slimed/strangle/glib; hideunder; utrap;
- * Blind restore; egg learn; swallow expel; light sources;
+ * egg learn; swallow expel; light sources;
  * full skinback; livelog first-poly text; break_armor horns /
  * flimsy-helm pierce / ublindf; retouch_equipment.
  * @param {number} mntmp
@@ -973,6 +973,10 @@ export async function polymon(mntmp) {
     const u = game.u || (game.u = {});
     const flags = game.flags || (game.flags = {});
     let dochange = false;
+    // C polyself.c:739 — was_blind = !!Blind at entry, before set_uasmon
+    // swaps the FROMFORM eyeless bit (same shape as the polyman arm).
+    const wasBlind = !!(((u.HBlinded | 0) || (u.EBlinded | 0))
+        && !(u.BBlinded | 0)) || !!u.uroleplay?.blind;
 
     const mv = game.mvitals?.[mntmp];
     if (mv && ((mv.mvflags | 0) & G_GENOD)) {
@@ -1062,7 +1066,23 @@ export async function polymon(mntmp) {
     await break_armor();
     // C: drop_weapon(1) — cantwield (dragon/nohands) must drop uwep
     await drop_weapon(1);
-    // hideunder / Blind / egg / swallow / steed arms deferred
+    // hideunder / egg / swallow / steed arms deferred
+    // C polyself.c:899-902 — previous form was eyeless and the new form
+    // sees: set HBlinded timeout then make_blinded(0,TRUE) "can see again"
+    // (same shape as the polyman arm; break_armor's Blindf_off above ran
+    // first, matching C :888 before :899).
+    const nowBlind = !!(((u.HBlinded | 0) || (u.EBlinded | 0))
+        && !(u.BBlinded | 0)) || !!u.uroleplay?.blind;
+    if (wasBlind && !nowBlind) {
+        u.HBlinded = ((u.HBlinded | 0) & ~TIMEOUT) | (1 & TIMEOUT);
+        if (!u.uprops) u.uprops = {};
+        if (!u.uprops[BLINDED]) {
+            u.uprops[BLINDED] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+        }
+        u.uprops[BLINDED].intrinsic =
+            ((u.uprops[BLINDED].intrinsic | 0) & ~TIMEOUT) | (1 & TIMEOUT);
+        await make_blinded(0, true);
+    }
     newsym(u.ux, u.uy); /* Change symbol */
     // spoteffects / Passes_walls / amorphous / webmaker deferred
     // C: find_ac() before encumber_msg; tty more() paints *cached* botl
